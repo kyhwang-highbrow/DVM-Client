@@ -98,7 +98,7 @@ function WaveMgr_AncientTower:applyBossStatus(boss)
         -- 초기 발동 시간 조정
         do
             local skill_indivisual_info = boss:findSkillInfoByID(skill_id)
-            skill_indivisual_info.m_timer = 300
+            skill_indivisual_info.m_curChanceValue = 300
         end
     end
 end

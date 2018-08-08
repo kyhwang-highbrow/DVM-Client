@@ -959,7 +959,7 @@ function IDragonSkillManager:updateBasicSkillTimer(dt, reduced_cool, has_cc)
         for _, skill_id in ipairs(l_skill_id) do
             local skill_info = self.m_mSkillInfoMap[skill_id]
             if (skill_info) then
-                if (not has_cc or v:isIgnoreCC()) then
+                if (not has_cc or skill_info:isIgnoreCC()) then
                     skill_info:update(dt, reduced_cool)
                 end
             end
