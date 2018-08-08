@@ -687,6 +687,7 @@ local t_module = {
     'UIC_ExtendedUI',
     'UIC_ScrollButton',
 	'UIC_LobbyGuide',
+    'UIC_AlarmClockIcon',
 	
     -- UI : CARD
     'UI_Card',

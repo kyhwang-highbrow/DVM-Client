@@ -3694,6 +3694,9 @@
     <None Include="..\src\UI_DragonMasteryBoard.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UIC_AlarmClockIcon.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

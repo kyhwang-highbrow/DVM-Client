@@ -355,6 +355,17 @@ function datetime.makeTimeDesc(sec, showSeconds, firstOnly, timeOnly)
     end
 end
 
+function datetime.dayToSecond(day)
+    -- 일 * 시 * 분 * 초
+    local seconds = day * 24 * 60 * 60
+    return seconds
+end
+
+function datetime.secondToDay(seconds)
+    local day = seconds / (24 * 60 * 60)
+    return day
+end
+
 function datetime.strformat(t)
     return os.date('%Y-%m-%d %H:%M', t)
 end

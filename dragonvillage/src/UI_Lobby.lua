@@ -1400,6 +1400,19 @@ function UI_Lobby:update_rightButtons()
     -- 황금던전 버튼
     if g_hotTimeData:isActiveEvent('event_gold_dungeon') then
         vars['goldDungeonBtn']:setVisible(true)
+        local remain_sec = g_hotTimeData:getEventRemainSec('event_gold_dungeon')
+        if remain_sec and (remain_sec <= datetime.dayToSecond(1)) then
+            if (not vars['goldDungeonAlarm']) then
+                vars['goldDungeonAlarm'] = UIC_AlarmClockIcon:create()
+                vars['goldDungeonBtn']:addChild(vars['goldDungeonAlarm'].m_node)
+                vars['goldDungeonAlarm']:runAction()
+            end
+        else
+            if vars['goldDungeonAlarm'] then
+                vars['goldDungeonAlarm']:removeFromParent()
+                vars['goldDungeonAlarm'] = nil
+            end
+        end
     else
         vars['goldDungeonBtn']:setVisible(false)
     end

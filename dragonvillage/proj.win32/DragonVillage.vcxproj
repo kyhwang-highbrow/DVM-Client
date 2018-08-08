@@ -946,6 +946,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TriggerTime.lua" />
     <None Include="..\src\TutorialHelper.lua" />
     <None Include="..\src\TutorialManager.lua" />
+    <None Include="..\src\UIC_AlarmClockIcon.lua" />
     <None Include="..\src\UIC_BroadcastLabel.lua" />
     <None Include="..\src\UIC_Button.lua" />
     <None Include="..\src\UIC_ChatTableView.lua" />

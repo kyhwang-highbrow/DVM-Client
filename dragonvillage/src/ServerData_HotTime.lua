@@ -294,6 +294,26 @@ function ServerData_HotTime:getEventRemainTimeText(event_name)
 end
 
 -------------------------------------
+-- function getEventRemainSec
+-- @brief event 항목의 남은 초
+-------------------------------------
+function ServerData_HotTime:getEventRemainSec(event_name)
+	self:refreshActiveList()
+
+    for _, t in pairs(self.m_activeEventList) do
+        if (t['event'] == event_name) then
+            local curr_time = Timer:getServerTime()
+            local end_time = t['enddate']/1000
+            local time = (end_time - curr_time)
+
+            return time
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function getActiveHotTimeInfo
 -- @brief content 항목 검사 .. 이것들은 미리 정의되어야 한다
 -------------------------------------
