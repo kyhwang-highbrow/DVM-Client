@@ -21,7 +21,7 @@ IDragonSkillManager = {
         m_charTable = 'table',
 
         m_lSkillInfo = 'list',
-        m_mSkillInfoList = 'map',       -- 스킬 셋별 맵테이블 (key : skill_id, value : DragonSkillIndivisualInfo)
+        m_mSkillInfoList = 'map',       -- 스킬 셋별 맵테이블 (key : SKILL_SET, value : DragonSkillIndivisualInfo or table)
 
 		m_mSkillInfoMap = 'map',        -- 보유한 모든 스킬을 위한 맵테이블 (key : skill_id, value : DragonSkillIndivisualInfo)
         
@@ -948,6 +948,19 @@ function IDragonSkillManager:updateBasicSkillTimer(dt, reduced_cool, has_cc)
             for _, v in pairs(list) do
                 if (not has_cc or v:isIgnoreCC()) then
                     v:update(dt, reduced_cool)
+                end
+            end
+        end
+    end
+
+    -- 변신 스킬의 경우 변신 후에도 쿨타임을 흘러가게 하기 위한 하드코딩...
+    if (self.m_bMetamorphosis) then
+        local l_skill_id = { 208721, 208722, 208724, 208791 }
+        for _, skill_id in ipairs(l_skill_id) do
+            local skill_info = self.m_mSkillInfoMap[skill_id]
+            if (skill_info) then
+                if (not has_cc or v:isIgnoreCC()) then
+                    skill_info:update(dt, reduced_cool)
                 end
             end
         end
