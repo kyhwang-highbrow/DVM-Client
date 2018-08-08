@@ -587,6 +587,15 @@ function UI_ReadySceneNew:refresh()
 
         vars['itemMenu']:setVisible(true)
         vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_item(dt) end, 0.1)
+
+    -- 황금 던전 (골드라고라 던전)
+    elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+        vars['itemMenu']:setVisible(true)
+        vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_item(dt) end, 0.1)
+
+        -- 자동 줍기 버튼만 활성화하고 나머지는 숨김
+        vars['expBoosterBtn']:setVisible(false)
+        vars['goldBoosterBtn']:setVisible(false)
     end
 
     self:refresh_tamer()
