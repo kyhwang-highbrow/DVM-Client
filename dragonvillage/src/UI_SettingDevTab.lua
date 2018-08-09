@@ -500,7 +500,7 @@ function UI_Setting:click_testCodeBtn()
 	local function cb_func()
 		ccdisplay('follow check')
 	end
-	PerpleSocialManager:twitterFollowWebView(cb_func)
+	PerpleSdkManager:twitterFollowWebView(cb_func)
 end
 
 -------------------------------------
@@ -519,7 +519,7 @@ function UI_Setting:click_testCodeBtn2()
 	local function cancel_cb()
 		ccdisplay('cancel cancel cancel ##')
 	end
-	PerpleSocialManager:twitterComposeTweet(success_cb, fail_cb, cancel_cb)
+	PerpleSdkManager:twitterComposeTweet(success_cb, fail_cb, cancel_cb)
 end
 
 -------------------------------------

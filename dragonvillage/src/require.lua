@@ -35,7 +35,7 @@ local t_module = {
 	'LocalPushMgr',
     'Analytics',
     'NaverCafeManager',
-	'PerpleSocialManager',
+	'PerpleSdkManager',
     'ScriptCache',
     'CppFunctions',
     'AdManager',

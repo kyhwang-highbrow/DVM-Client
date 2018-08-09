@@ -581,10 +581,14 @@ function StructProduct:payment(cb_func)
         co:setBlockPopup()
 
         -- 중간에 에러가 발생했을 경우 처리 (코루틴이 종료되는 시점에 무조건 호출되는 함수)
-        local error_msg = nil
+        local error_msg, error_info = nil
         local function coroutine_finidh_cb()
+			-- error msg가 있으면 단순 팝업 출력
             if error_msg then
                 MakeSimplePopup(POPUP_TYPE.OK, error_msg)
+			-- error info가 있으면 공용 오류처리 팝업 출력
+			elseif (error_info) then
+				PerpleSdkManager:makeErrorPopup(error_info)
             end
         end
         co:setCloseCB(coroutine_finidh_cb)
@@ -638,12 +642,7 @@ function StructProduct:payment(cb_func)
                 -- {"orderId":"GPA.3373-5309-9610-83371","payload":"{\"validation_key\":\"22e088cd-53df-435e-a263-0540ae5c3870\",\"price\":55000,\"uid\":\"8ZxuT9Mt9OebL6gQ22gzjVu8d1g2\",\"product_id\":81005}"}
                 cclog('#### info : ')
                 ccdump(info)
-                local info_json = dkjson.decode(info)
-                local msg = nil
 
-                if info_json then
-                    msg = info_json['msg']
-                end
                 if (ret == 'success') then
                     cclog('## 결제 성공')                    
                     orderId = info_json and info_json['orderId']
@@ -651,10 +650,7 @@ function StructProduct:payment(cb_func)
 
                 elseif (ret == 'fail') then
                     cclog('## 결제 실패')
-                    error_msg = Str('결제에 실패하였습니다.')
-                    if msg then
-                        error_msg = error_msg .. '\n' .. msg
-                    end
+                    error_info = info
                     co.ESCAPE()
 
                 elseif (ret == 'cancel') then
@@ -664,10 +660,7 @@ function StructProduct:payment(cb_func)
 
                 else
                     cclog('## 결제 결과 (예외) : ' .. ret)
-                    error_msg = Str('알수없는 이유로 결제에 실패하였습니다.')
-                    if msg then
-                        error_msg = error_msg .. '\n' .. msg
-                    end
+                    error_info = info
                     co.ESCAPE()
                 end
             end

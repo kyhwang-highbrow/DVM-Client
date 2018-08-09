@@ -293,12 +293,7 @@ end
 -- function loginFail
 -------------------------------------
 function UI_LoginPopup:loginFail(info)
-    local t_info = dkjson.decode(info)
-    local code = t_info.code
-    local subcode = t_info.subcode
-    local msg = t_info.msg
-
-    MakeSimplePopup(POPUP_TYPE.OK, msg)
+    PerpleSdkManager:makeErrorPopup(info)
 end
 
 -------------------------------------

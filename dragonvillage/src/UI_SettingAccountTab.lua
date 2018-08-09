@@ -76,10 +76,7 @@ function UI_Setting:click_gamecenterBtn()
 
                         elseif ret == 'fail' then
                             cclog('Firebase GameCenter login failed.')
-
-                            local t_info = dkjson.decode(info)
-                            local msg = t_info.msg
-                            MakeSimplePopup(POPUP_TYPE.OK, msg)
+                            UI_LoginPopup:loginFail(info)
 
                         elseif ret == 'cancel' then
                             cclog('Firebase GameCenter login canceled.')
@@ -117,11 +114,8 @@ function UI_Setting:click_gamecenterBtn()
 
         elseif ret == 'fail' then
             cclog('GameCenter login failed.')
+			UI_LoginPopup:loginFail(info)
             self.m_loadingUI:hideLoading()
-
-            local t_info = dkjson.decode(info)
-            local msg = t_info.msg
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
 
         elseif ret == 'cancel' then
             cclog('GameCenter login canceled.')
@@ -129,96 +123,6 @@ function UI_Setting:click_gamecenterBtn()
             self.m_loadingUI:hideLoading()
         end
     end)
-
-    --[[
-    local old_platform_id = g_localData:get('local', 'platform_id')
-
-    PerpleSDK:linkWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
-
-        if ret == 'success' then
-
-            cclog('Firebase GameCenter link was successful.')
-            self.m_loadingUI:hideLoading()
-
-            self:loginSuccess(info)
-
-            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
-                -- 기존 구글 연결은 끊는다.
-                if old_platform_id == 'google.com' then
-                    PerpleSDK:googleLogout(1)
-                    PerpleSDK:unlinkWithGoogle(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from Google was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from Google failed.')
-                        end
-                    end)
-                -- 기존 페이스북 연결은 끊는다.
-                elseif old_platform_id == 'facebook.com' then
-                    PerpleSDK:unlinkWithFacebook(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from Facebook was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from Facebook failed.')
-                        end
-                    end)
-                end
-            end)
-
-        elseif ret == 'already_in_use' then
-
-            local ok_btn_cb = function()
-                self.m_loadingUI:showLoading(Str('계정 전환 중...'))
-                PerpleSDK:logout()
-                PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
-                    self.m_loadingUI:hideLoading()
-                    if ret == 'success' then
-                        cclog('Firebase GameCenter link was successful.(already_in_use)')
-
-                        self:loginSuccess(info)
-
-                        if (old_platform_id == 'google.com') then
-                            PerpleSDK:googleLogout(1)
-                        end
-
-                        -- 앱 재시작
-                        CppFunctions:restart()
-
-                    elseif ret == 'fail' then
-                        local t_info = dkjson.decode(info)
-                        local msg = t_info.msg
-                        cclog('Firebase unknown error !!!- ' .. msg)
-                    elseif ret == 'cancel' then
-                        cclog('Firebase unknown error !!!')
-                    end
-                end)
-            end
-
-            local cancel_btn_cb = nil
-
-            self.m_loadingUI:hideLoading()
-            local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
-            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
-            MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
-
-        elseif ret == 'fail' then
-
-            local t_info = dkjson.decode(info)
-            local msg = t_info.msg
-            cclog('Firebase GameCenter link failed - ' .. msg)
-
-            self.m_loadingUI:hideLoading()
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-
-        elseif ret == 'cancel' then
-
-            cclog('Firebase GameCenter link canceled.')
-            self.m_loadingUI:hideLoading()
-
-        end
-    end)
-    --]]
-
 end
 
 -------------------------------------
@@ -298,11 +202,8 @@ function UI_Setting:click_facebookBtn()
                         CppFunctions:restart()
 
                     elseif ret == 'fail' then
-                        local t_info = dkjson.decode(info)
-                        local msg = t_info.msg
-                        cclog('Firebase unknown error !!!- ' .. msg)
+						UI_LoginPopup:loginFail(info)
                     elseif ret == 'cancel' then
-                        cclog('Firebase unknown error !!!')
 						UI_LoginPopup:loginCancel()
                     end
                 end)
@@ -316,16 +217,11 @@ function UI_Setting:click_facebookBtn()
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
-
-            local t_info = dkjson.decode(info)
-            local msg = t_info.msg
             cclog('Firebase Facebook link failed - ' .. msg)
-
+			UI_LoginPopup:loginFail(info)
             self.m_loadingUI:hideLoading()
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-
+            
         elseif ret == 'cancel' then
-
             cclog('Firebase Facebook link canceled.')
 			UI_LoginPopup:loginCancel()
             self.m_loadingUI:hideLoading()
@@ -409,11 +305,8 @@ function UI_Setting:click_googleBtn()
                         CppFunctions:restart()
 
                     elseif ret == 'fail' then
-                        local t_info = dkjson.decode(info)
-                        local msg = t_info.msg
-                        cclog('Firebase unknown error !!!- ' .. msg)
+						UI_LoginPopup:loginFail(info)
                     elseif ret == 'cancel' then
-                        cclog('Firebase unknown error !!!')
 						UI_LoginPopup:loginCancel()
                     end
                 end)
@@ -427,16 +320,11 @@ function UI_Setting:click_googleBtn()
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
-
-            local t_info = dkjson.decode(info)
-            local msg = t_info.msg
             cclog('Firebase Google link failed - ' .. msg)
-
+			UI_LoginPopup:loginFail(info)
             self.m_loadingUI:hideLoading()
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
 
         elseif ret == 'cancel' then
-
             cclog('Firebase Google link canceled.')
 			UI_LoginPopup:loginCancel()
             self.m_loadingUI:hideLoading()
@@ -523,12 +411,9 @@ function UI_Setting:click_twitterBtn()
                         CppFunctions:restart()
 
                     elseif ret == 'fail' then
-                        local t_info = dkjson.decode(info)
-                        local msg = t_info.msg
-                        cclog('Firebase unknown error !!!- ' .. msg)
+                        UI_LoginPopup:loginFail(info)
                     elseif ret == 'cancel' then
 						UI_LoginPopup:loginCancel()
-                        cclog('Firebase unknown error !!!')
                     end
                 end)
             end
@@ -541,16 +426,11 @@ function UI_Setting:click_twitterBtn()
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
-
-            local t_info = dkjson.decode(info)
-            local msg = t_info.msg
-            cclog('Firebase Facebook link failed - ' .. msg)
-
+            cclog('Firebase Twitter link failed - ' .. msg)
+			UI_LoginPopup:loginFail(info)
             self.m_loadingUI:hideLoading()
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
 
         elseif ret == 'cancel' then
-
             cclog('Firebase Twitter link canceled.')
 			UI_LoginPopup:loginCancel()
             self.m_loadingUI:hideLoading()

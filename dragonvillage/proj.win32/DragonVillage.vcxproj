@@ -419,7 +419,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\packet\session.proto" />
     <None Include="..\src\PatchChecker.lua" />
     <None Include="..\src\perpleLib\lua_csv.lua" />
-    <None Include="..\src\PerpleSocialManager.lua" />
+    <None Include="..\src\PerpleSdkManager.lua" />
     <None Include="..\src\plSample.lua" />
     <None Include="..\src\plSample_test.lua" />
     <None Include="..\src\pl\app.lua" />
