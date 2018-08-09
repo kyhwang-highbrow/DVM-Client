@@ -42,6 +42,10 @@ end
 -- @brief APK 확장 파일 정보 설정
 -------------------------------------
 function PatchData:setApkExtensionInfo(t_apk_extension_info)
+    if (LIVE_SERVER_CONNECT) then
+        return
+    end
+
     if (not self.m_tApkExtension) then
         self.m_tApkExtension = {}
     end
