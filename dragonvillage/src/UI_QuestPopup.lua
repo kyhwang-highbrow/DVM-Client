@@ -59,9 +59,9 @@ end
 -------------------------------------
 function UI_QuestPopup:initTab()
     local vars = self.vars
-    self:addTabAuto(TableQuest.DAILY, vars, vars['dailyListNode'])
-	self:addTabAuto(TableQuest.SPECIAL, vars, vars['specialListNode'])
-    self:addTabAuto(TableQuest.CHALLENGE, vars, vars['challengeListNode'])
+    self:addTabAuto(TableQuest.DAILY, vars, vars['dailyTabMenu'])
+	self:addTabAuto(TableQuest.SPECIAL, vars, vars['specialTabMenu'])
+    self:addTabAuto(TableQuest.CHALLENGE, vars, vars['challengeTabMenu'])
     self:setTab(TableQuest.DAILY)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
@@ -108,8 +108,6 @@ function UI_QuestPopup:onChangeTab(tab, first)
 	    -- all clear 는 따로 보여준다
 	    self:setAllClearQuest(tab)
 	end
-
-    vars['allClearNode']:setVisible(tab == TableQuest.DAILY)
 end
 
 -------------------------------------
