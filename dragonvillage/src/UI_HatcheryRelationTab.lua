@@ -187,7 +187,7 @@ function UI_HatcheryRelationTab:getDragonList()
             -- 없는 속성도 테이블 뷰에 표시하기 위해 속성 검사후 임의로 데이터 넣어줌
             for _i = 1, 5 do
                 local _did = check_id * 10 + _i
-                if (not table_dragon:exists(_did) and not g_dragonsData:isReleasedDragon(_did)) then
+                if (not table_dragon:exists(_did)) then
                     table.insert(l_dragon_list, {did = _did, birthgrade = 1})
                 end
             end
