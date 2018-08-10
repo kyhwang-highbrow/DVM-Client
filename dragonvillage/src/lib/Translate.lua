@@ -255,6 +255,8 @@ function Translate:getFontName()
         ret = 'common_font_01_cn.ttc'
 	elseif (game_lang == LANG['THAI']) then
         ret = 'common_font_01_th.ttf'
+	elseif (game_lang == LANG['SPANISH']) then
+        ret = 'common_font_01_ja.ttf'
     end
 
     return ret
@@ -281,6 +283,8 @@ function Translate:getFontScaleRate()
         retX = 0.88
         retY = 0.98
 	elseif (game_lang == LANG['THAI']) then
+        retX = 0.88
+	elseif (game_lang == LANG['SPANISH']) then
         retX = 0.88
     end
 

@@ -57,7 +57,7 @@ function UI_SelectLanguagePopup:initButton()
 			radio_button:addButtonAuto(lang, vars)
 
 			-- ui에서 입력하기 때문에 따로 안 찍어준다.
-			--vars[lang .. 'Label']:setString(text)
+			-- vars[lang .. 'Label']:setString(text)
 		end
 
 		-- 현재 언어가 있는 경우에만 선택
@@ -73,8 +73,8 @@ function UI_SelectLanguagePopup:initButton()
 	-- 태국어/스페인어 오픈 전 처리
 	if (not IS_TEST_MODE()) then
 		vars['thMenu']:setVisible(false)
+		vars['esMenu']:setVisible(false)
 	end
-	vars['esMenu']:setVisible(false)
 
 	vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
