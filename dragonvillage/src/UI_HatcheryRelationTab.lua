@@ -188,7 +188,7 @@ function UI_HatcheryRelationTab:getDragonList()
             for _i = 1, 5 do
                 local _did = check_id * 10 + _i
                 if (not table_dragon:exists(_did)) then
-                    table.insert(l_dragon_list, {did = _did, birthgrade = 1})
+                    l_dragon_list[_did] = {did = _did, birthgrade = 1}
                 end
             end
         end
