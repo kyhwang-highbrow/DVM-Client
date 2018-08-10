@@ -257,7 +257,7 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['teamBonusBtn']:setVisible(not is_slime_object)
 
         -- 특성 버튼, 레벨업 버튼 노출 상태 갱신
-        --self:refresh_buttonState_masteryBtn()
+        self:refresh_buttonState_masteryBtn()
     end
 
     -- 룬 버튼
