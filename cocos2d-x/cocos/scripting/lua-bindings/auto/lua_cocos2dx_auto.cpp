@@ -8448,18 +8448,18 @@ int lua_cocos2dx_Node_setOpacity(lua_State* tolua_S)
     cocos2d::Node* cobj = nullptr;
     bool ok  = true;
 
-#if COCOS2D_DEBUG >= 1
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
 #endif
 
 
-#if COCOS2D_DEBUG >= 1
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.Node",0,&tolua_err)) goto tolua_lerror;
 #endif
 
     cobj = (cocos2d::Node*)tolua_tousertype(tolua_S,1,0);
 
-#if COCOS2D_DEBUG >= 1
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj) 
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_Node_setOpacity'", nullptr);
@@ -8480,7 +8480,7 @@ int lua_cocos2dx_Node_setOpacity(lua_State* tolua_S)
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setOpacity",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_Node_setOpacity'.",&tolua_err);
 #endif
