@@ -116,7 +116,7 @@ function UI_DragonMasteryNew:initButton()
     local vars = self.vars
     vars['masteryLvUpBtn']:registerScriptTapHandler(function() self:click_masteryLvUpBtn() end)
     vars['amorBtn']:registerScriptTapHandler(function() self:click_amorBtn() end)
-    --vars['skillEnhanceBtn']:registerScriptTapHandler(function() self:click_skillEnhanceBtn() end)
+    vars['resetBtn']:registerScriptTapHandler(function() self:click_resetBtn() end)
 end
 
 -------------------------------------
@@ -261,6 +261,14 @@ function UI_DragonMasteryNew:refresh_skillInfo(tier, index)
     local vars = self.vars
     vars['masteryLabel']:setString(Str('특성 레벨 {1}', mastery_level))
     vars['spLabel']:setString(Str('스킬 포인트: {1}', mastery_point))
+
+
+    -- 초기화 가능한지 체크
+    if MasteryHelper:possibleMasteryReset(dragon_obj) then
+        vars['resetBtn']:setEnabled(true)
+    else
+        vars['resetBtn']:setEnabled(false)
+    end    
 end
 
 -------------------------------------
@@ -579,6 +587,31 @@ function UI_DragonMasteryNew:request_mastery_skillup(doid, mastery_id, cb_func, 
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     --ui_network:setFailCB(response_fail_cb)
     ui_network:request()
+end
+
+
+
+-------------------------------------
+-- function click_resetBtn
+-- @brief 특성 초기화 버튼 (망각의 서를 사용하여 특성 스킬을 모두 초기화하고 사용한 스킬 포인트를 돌려받는 기능)
+-------------------------------------
+function UI_DragonMasteryNew:click_resetBtn()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    
+    if (not dragon_obj) then
+        return
+    end
+
+    local ui = UI_DragonMasteryResetPopup(dragon_obj)
+
+    local function close_cb()
+        if ui:isChanged() then
+            local doid = dragon_obj['id']
+            self:refresh_dragonIndivisual(doid)
+        end
+    end
+    
+    ui:setCloseCB(close_cb)
 end
 
 

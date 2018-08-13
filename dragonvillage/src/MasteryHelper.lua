@@ -130,3 +130,61 @@ function MasteryHelper:getMaxLevelInTier(tier)
     end
     return max_level_in_tier
 end
+
+-------------------------------------
+-- function possibleMasteryReset
+-- @brief 특성 초기화가 가능한지 여부 리턴
+-- @return boolean 초기화가 가능하면 true
+-------------------------------------
+function MasteryHelper:possibleMasteryReset(dragon_obj)
+    if (not dragon_obj) then
+        return false
+    end
+
+    local t_skill_lv_map = dragon_obj:getMasterySkillsTable()
+    local used_skill_point = 0
+    for _,lv in pairs(t_skill_lv_map) do
+        used_skill_point = (used_skill_point + lv)
+    end
+
+    -- 사용한 스킬 포인트가 있을 경우 초기화 가능
+    if (0 < used_skill_point) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function getMasteryResetPrice
+-- @brief 특성 초기화 가격 (망각의 서 수량)
+-- @return number
+-------------------------------------
+function MasteryHelper:getMasteryResetPrice(dragon_obj)
+
+-- 서버에서 사용하는
+-- table_management_variable.csv에서 정의되어있음
+-- mastery_reset_common, mastery_reset_rare, mastery_reset_hero, mastery_reset_legend
+
+    local rarity = dragon_obj:getRarity()
+
+    local price = 0
+
+    if (rarity == 'common') then
+        price = 1
+
+    elseif (rarity == 'rare') then
+        price = 2
+
+    elseif (rarity == 'hero') then
+        price = 8
+
+    elseif (rarity == 'legend') then
+        price = 10
+
+    else
+        error('rarity: ' .. rarity)
+    end
+
+    return price
+end

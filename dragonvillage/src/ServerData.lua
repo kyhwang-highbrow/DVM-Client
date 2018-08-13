@@ -432,6 +432,16 @@ function ServerData:networkCommonRespone(ret)
         if ret['auto_root'] then
             self:applyServerData(ret['auto_root'], 'user', 'auto_root')
         end
+
+        -- 아모르의 서
+        if ret['amor'] then
+            self:applyServerData(ret['amor'], 'user', 'amor')
+        end
+
+        -- 망각의 서
+        if ret['oblivion'] then
+            self:applyServerData(ret['oblivion'], 'user', 'oblivion')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -551,6 +561,12 @@ function ServerData:networkCommonRespone_addedItems(ret)
 	
 	-- 클랜 코인 동기화 (전체 갱신)
     RefreshGoods(t_added_items, 'capsule_coin')
+
+    -- 아모르의 서
+    RefreshGoods(t_added_items, 'amor')
+
+    -- 망각의 서
+    RefreshGoods(t_added_items, 'oblivion')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
