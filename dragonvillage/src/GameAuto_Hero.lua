@@ -157,6 +157,16 @@ end
 -- @comment 인게임 중 변경 시에만 호출 됨
 -------------------------------------
 function GameAuto_Hero:refreshSkillInfoListSortedByPriority()
-	local state = (self.m_teamState == 0) and 1 or self.m_teamState
+	local state = (self.m_teamState == 0) and TEAM_STATE.NORMAL or self.m_teamState
 	self.m_lSkillInfoListPerPriority = self:makeSkillInfoListSortedByPriority(state)
+
+    local count = 0
+    for i = 1, 4 do
+        count = count + #self.m_lSkillInfoListPerPriority[i]
+    end
+
+    -- 만약 1~4우선순위의 리스트가 하나도 없을 경우 모든 유닛으로 설정(우선 순위에 상관없이 모든 유닛 중 랜덤)
+    if (count == 0) then
+        self.m_lSkillInfoListPerPriority = self:makeSkillInfoListSortedByPriority(TEAM_STATE.NORMAL)
+    end
 end

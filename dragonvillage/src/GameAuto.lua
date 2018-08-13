@@ -2,7 +2,7 @@ local CHECK_INTERVAL_TIME = 1
 local WORK_INTERVAL_TIME = 0.5
 
 -- AI에서 구분하는 현재 상태
-local TEAM_STATE = {
+TEAM_STATE = {
     NORMAL  = 1,
     DANGER  = 2,
 }
