@@ -74,13 +74,15 @@ Upload.prototype.loadSheet = function()
 			loadSheet();
 		} );
 
+		var krSpeakerIdx = 2;
+		var krMsgIdx = 3 + localeList.length;
 		function removeStr( $data, $rows )
 		{
 			var i = $rows.length;			
 			var isExistName = false;
 			var isExistString = false;
-			var speaker = $data[2];
-			var msg = $data[6];				
+			var speaker = $data[krSpeakerIdx];
+			var msg = $data[krMsgIdx];				
 			if(speaker == "" )
 			{
 				isExistName = true;
