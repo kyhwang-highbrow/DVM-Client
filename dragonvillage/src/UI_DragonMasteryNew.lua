@@ -208,32 +208,16 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
 
     local vars = self.vars
 
-    -- 특성 레벨
-    local mastery_lv = tonumber(dragon_obj['mastery_lv']) or 0
-    if (mastery_lv <= 0) then
-        vars['startNormalLvMenu']:setVisible(true)
-        vars['startMasteryLvMenu']:setVisible(false)
+    local mastery_level = dragon_obj:getMasteryLevel()
+    local mastery_point = dragon_obj:getMasteryPoint()
 
-        -- UI에 박혀있어서 설정할 필요가 없음
-        -- vars['normalLvLabel1']:setString('60')
-        -- vars['normalLvLabel2']:setString('1')
-    else
-        vars['startNormalLvMenu']:setVisible(false)
-        vars['startMasteryLvMenu']:setVisible(true)
-
-        vars['masteryLvLabel1']:setString(tostring(mastery_lv))
-        vars['masteryLvLabel2']:setString(tostring(mastery_lv + 1))
-    end
-
-
-    -- 특성 포인트(남은 것)
-    local mastery_point = tonumber(dragon_obj['mastery_point']) or 0
-    vars['skillPointLabel1']:setString(tostring(mastery_point))
-    vars['skillPointLabel2']:setString(tostring(mastery_point + 1))
+    local vars = self.vars
+    vars['mstrLvUp_masteryLabel']:setString(Str('특성 레벨 {1}', mastery_level))
+    vars['mstrLvUp_spLabel']:setString(Str('스킬 포인트: {1}', mastery_point))
 
     -- 아모르의 서
     local rarity_str = dragon_obj:getRarity()
-    local req_count = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_lv + 1)
+    local req_count = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
     local own_count = g_userData:get('amor') or 0
     local str = Str('{1} / {2}', own_count, req_count)
     if (req_count <= own_count) then
@@ -242,6 +226,11 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
         str = '{@impossible}' .. str
     end
     vars['amorNumberLabel']:setString(str)
+
+    -- 최대 레벨 확인
+    local is_max_level = (mastery_level == 10)
+    vars['lockSprite']:setVisible(is_max_level)
+    vars['masteryLvUpBtn']:setEnabled(not is_max_level)
 end
 
 -------------------------------------
@@ -445,15 +434,36 @@ end
 -- @brief 특성 레벨업 버튼
 -------------------------------------
 function UI_DragonMasteryNew:click_masteryLvUpBtn()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    if (not dragon_obj) then
+        return
+    end
+
+    local vars = self.vars
+
+    -- 최대 특성 레벨 달성
+    if (dragon_obj:getMasteryLevel() >= 10) then
+        local msg = Str('이미 최대 특성 레벨을 달성하였습니다.')
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+    
+    -- 재료 드래곤을 선택하지 않았을 때
+    if (not self.m_selectedMtrl) then
+        local msg = Str('재료 드래곤을 선택해주세요!')
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+
+
     local possible = false
     local msg = '(테스트)레벨업 불가로 처리 중'
 
     if (not possible) then
         UIManager:toastNotificationRed(msg)
-        local vars = self.vars
+        
 
         cca.uiImpossibleAction(vars['amorBtn'])
-        cca.uiImpossibleAction(vars['dragonIconNode2'])
         return
     end
 end
