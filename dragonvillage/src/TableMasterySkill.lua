@@ -88,6 +88,19 @@ function TableMasterySkill:makeMasterySkillID(dragon_rarity_str, dragon_role_str
 end
 
 -------------------------------------
+-- function getMasterySkillName
+--
+-------------------------------------
+function TableMasterySkill:getMasterySkillName(mastery_skill_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local name = self:getValue(mastery_skill_id, 't_name')
+    return Str(name)
+end
+
+-------------------------------------
 -- function getMasterySkillOptionDesc
 --
 -------------------------------------
@@ -106,6 +119,41 @@ function TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, mastery_s
     end
 
     return desc
+end
+
+-------------------------------------
+-- function getMasterySkillStepDesc
+--
+-------------------------------------
+function TableMasterySkill:getMasterySkillStepDesc(mastery_skill_id, mastery_skill_lv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local max_lv = self:getValue(mastery_skill_id, 'm_lv')
+    local add_value = self:getValue(mastery_skill_id, 'add_value')
+    local t_step_desc = self:getValue(mastery_skill_id, 't_step_desc') or ''
+    t_step_desc = trim(t_step_desc) -- 좌/우 공백 제거
+    local inner_str = ''
+    local base_color = ''
+
+
+    base_color = '{@GRAY}'
+    for i=1, max_lv do
+        
+        if (i > 1) then
+            inner_str = inner_str .. ' / '
+        end
+
+        local num_str = comma_value(i * add_value)
+        if (mastery_skill_lv == i) then
+            num_str = '{@SKILL_VALUE_MOD}' .. num_str .. base_color
+        end
+
+        inner_str = inner_str .. num_str
+    end
+
+    return base_color .. Str(t_step_desc, inner_str)
 end
 
 -------------------------------------

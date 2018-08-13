@@ -499,7 +499,7 @@ end
 -- @brief 특성 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_masteryBtn()
-    self:openSubManageUI(UI_DragonMastery)
+    self:openSubManageUI(UI_DragonMasteryNew)
 end
 
 -------------------------------------

@@ -439,6 +439,21 @@ function cca.fruitReact(node, idx_factor)
 end
 
 -------------------------------------
+-- function fruitReact_MasterySkillIcon
+-- @brief 이름을 짓기 힘든데... 마스터리 스킬 아이콘
+-------------------------------------
+function cca.fruitReact_MasterySkillIcon(node, idx_factor)
+    node:stopAllActions()
+	node:setScale(0.5)
+
+	local i = idx_factor or math_random(6)
+	local delay = cc.DelayTime:create((i-1) * 0.01)
+	local elastic = cc.EaseElasticOut:create(cc.ScaleTo:create(0.6, 1, 1), 0.8)
+	local action = cc.Sequence:create(delay, elastic)
+	cca.runAction(node, action)
+end
+
+-------------------------------------
 -- function dropping
 -- @brief 떨어져서 바닥에 바운스 하는 액션
 -------------------------------------

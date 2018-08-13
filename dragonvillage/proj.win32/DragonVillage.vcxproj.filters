@@ -3271,9 +3271,6 @@
     <None Include="..\src\StructTeamBonus.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\PerpleSocialManager.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\DragonSkillIndivisualInfo.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3696,6 +3693,16 @@
     </None>
     <None Include="..\src\UIC_AlarmClockIcon.lua">
       <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\PerpleSdkManager.lua" />
+    <None Include="..\src\UI_DragonMasteryNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonMasteryBoardNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\MasteryHelper.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

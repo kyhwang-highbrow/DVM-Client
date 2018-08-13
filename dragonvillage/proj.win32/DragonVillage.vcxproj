@@ -398,6 +398,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\LogRecorderWorld.lua" />
     <None Include="..\src\LuaBridge.lua" />
     <None Include="..\src\MailHelper.lua" />
+    <None Include="..\src\MasteryHelper.lua" />
     <None Include="..\src\MatchCardPlayer.lua" />
     <None Include="..\src\MissileGuide.lua" />
     <None Include="..\src\Monster_AncientRuinDragon.lua" />
@@ -1098,6 +1099,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonGuidePopup.lua" />
     <None Include="..\src\UI_DragonMastery.lua" />
     <None Include="..\src\UI_DragonMasteryBoard.lua" />
+    <None Include="..\src\UI_DragonMasteryBoardNew.lua" />
+    <None Include="..\src\UI_DragonMasteryNew.lua" />
     <None Include="..\src\UI_DragonMasterySkillCard.lua" />
     <None Include="..\src\UI_DragonReinforceItem.lua" />
     <None Include="..\src\UI_DragonReinforcement.lua" />
