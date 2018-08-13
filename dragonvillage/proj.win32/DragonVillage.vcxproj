@@ -1103,6 +1103,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonMasteryNew.lua" />
     <None Include="..\src\UI_DragonMasteryResetPopup.lua" />
     <None Include="..\src\UI_DragonMasterySkillCard.lua" />
+    <None Include="..\src\UI_DragonMasterySkillLevelUpPopup.lua" />
     <None Include="..\src\UI_DragonReinforceItem.lua" />
     <None Include="..\src\UI_DragonReinforcement.lua" />
     <None Include="..\src\UI_DragonReinforceResult.lua" />

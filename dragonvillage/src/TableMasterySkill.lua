@@ -142,7 +142,7 @@ function TableMasterySkill:getMasterySkillStepDesc(mastery_skill_id, mastery_ski
     for i=1, max_lv do
         
         if (i > 1) then
-            inner_str = inner_str .. ' / '
+            inner_str = inner_str .. '/'
         end
 
         local num_str = comma_value(i * add_value)
@@ -154,6 +154,27 @@ function TableMasterySkill:getMasterySkillStepDesc(mastery_skill_id, mastery_ski
     end
 
     return base_color .. Str(t_step_desc, inner_str)
+end
+
+-------------------------------------
+-- function getMasterySkillStepDesc_single
+-- @brief
+-------------------------------------
+function TableMasterySkill:getMasterySkillStepDesc_single(mastery_skill_id, mastery_skill_lv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local max_lv = self:getValue(mastery_skill_id, 'm_lv')
+    local add_value = self:getValue(mastery_skill_id, 'add_value')
+    local t_step_desc = self:getValue(mastery_skill_id, 't_step_desc') or ''
+    t_step_desc = trim(t_step_desc) -- 좌/우 공백 제거
+
+    t_step_desc = string.gsub(t_step_desc, '%(', '')
+    t_step_desc = string.gsub(t_step_desc, '%)', '')
+
+    local num_str = comma_value(mastery_skill_lv * add_value)
+    return Str(t_step_desc, num_str)
 end
 
 -------------------------------------

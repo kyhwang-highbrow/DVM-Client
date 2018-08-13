@@ -477,20 +477,27 @@ function UI_DragonMasteryNew:click_skillEnhanceBtn(tier, num)
         return
     end
 
-    local rarity_str = dragon_obj:getRarity()
-    local role_str = dragon_obj:getRole()
-    local mastery_skill_id = TableMasterySkill:makeMasterySkillID(rarity_str, role_str, tier, num)
+    local vars = self.vars
 
-    local doid = dragon_obj['doid']
-    local mastery_id = mastery_skill_id
-
-    local function cb_func(ret)
-        self:refresh()
-    end
-    local function fail_cb()
+    -- 스킬 포인트가 있는지 확인
+    local mastery_point = dragon_obj:getMasteryPoint()
+    if (mastery_point <= 0) then
+        UIManager:toastNotificationRed(Str('스킬 포인트가 부족합니다.'))
+        cca.uiImpossibleAction(vars['masteryTabBtn'])
+        return
     end
 
-    self:request_mastery_skillup(doid, mastery_id, cb_func, fail_cb)
+    
+    local ui = UI_DragonMasterySkillLevelUpPopup(dragon_obj, tier, num)
+
+    local function close_cb()
+        if ui:isChanged() then
+            local doid = dragon_obj['id']
+            self:refresh_dragonIndivisual(doid)
+        end
+    end
+    
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
@@ -511,85 +518,6 @@ function UI_DragonMasteryNew:getCurrMasterySkillID()
 
     return mastery_skill_id
 end
-
-
-
--------------------------------------
--- function request_mastery_skillup
--- @brief
--------------------------------------
-function UI_DragonMasteryNew:request_mastery_skillup(doid, mastery_id, cb_func, fail_cb)
-    local uid = g_userData:get('uid')
-    local doid = self.m_selectDragonOID
-
-    --[[
-    -- 에러코드 처리
-    local function response_status_cb(ret)
-        self:refresh_fail(rid, rcnt)
-        return true
-    end
-
-    -- 통신실패 처리
-    local function response_fail_cb(ret)
-        self:refresh_fail(rid, rcnt)
-        if (fail_cb) then
-            fail_cb()
-        end
-    end
-    --]]
-
-    local function success_cb(ret)
-		-- @analytics
-        --Analytics:firstTimeExperience('dragon reinforcement')
-
-		-- 드래곤 갱신
-		g_dragonsData:applyDragonData(ret['modified_dragon'])
-
-		-- 골드 갱신
-		g_serverData:networkCommonRespone(ret)
-
-        self:refresh_dragonIndivisual(doid)
-		
-        -- 통신 실패할 경우 원복할 골드
-        --self.m_oriGold = g_userData:get('gold') 
-
-		-- 인연포인트 (전체 갱신)
-		--if (ret['relation']) then
-		--	g_bookData:applyRelationPoints(ret['relation'])
-		--end
-
-		-- 드래곤 관리 UI 갱신
-		--self.m_bChangeDragonList = true
-
-		-- 강화 레벨업 시 결과화면
-        --[[
-		if (ret['is_rlevelup']) then
-			local ui = UI_DragonReinforceResult(ret['dragon'])
-			ui:setCloseCB(function()
-				self:refresh_dragonIndivisual(doid)
-			end)
-		end
-        --]]
-
-		if (cb_func) then
-			cb_func()
-		end
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/mastery_skillup')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('doid', doid)
-    ui_network:setParam('mastery_id', mastery_id)
-	--ui_network:hideLoading()
-    ui_network:setRevocable(true)
-    --ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    --ui_network:setFailCB(response_fail_cb)
-    ui_network:request()
-end
-
-
 
 -------------------------------------
 -- function click_resetBtn
