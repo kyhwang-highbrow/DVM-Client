@@ -54,5 +54,6 @@ function TableMastery:getRequiredAmorQuantity(dragon_rarity, mastery_lv)
 
 
     local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_AMOR)
-    return (count or 0)
+    local gold = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_GOLD)
+    return (count or 0), (gold or 0)
 end

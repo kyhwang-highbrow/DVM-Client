@@ -217,15 +217,18 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
 
     -- 아모르의 서
     local rarity_str = dragon_obj:getRarity()
-    local req_count = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
+    local req_count, req_gold = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
     local own_count = g_userData:get('amor') or 0
-    local str = Str('{1} / {2}', own_count, req_count)
+    local str = Str('{1} / {2}', comma_value(own_count), comma_value(req_count))
     if (req_count <= own_count) then
         str = '{@possible}' .. str
     else
         str = '{@impossible}' .. str
     end
     vars['amorNumberLabel']:setString(str)
+
+    -- 필요 골드
+    vars['masteryLvUp_priceLabel']:setString(comma_value(req_gold))
 
     -- 최대 레벨 확인
     local is_max_level = (mastery_level == 10)
@@ -270,12 +273,35 @@ function UI_DragonMasteryNew:getDragonList()
 
     -- 특성 조건이 되지 않는 드래곤 제거 (6성 60레벨)
     for oid, v in pairs(dragon_dic) do
-        if (v:isMaxGradeAndLv() == false) then
+        if (self:checkSelectedDragonCondition(v) == false) then
             dragon_dic[oid] = nil
         end
     end
 
     return dragon_dic
+end
+
+-------------------------------------
+-- function checkSelectedDragonCondition
+-- @brief 선택된 드래곤이 조건이 가능한지 체크
+-- @return boolean true면 선택이 가능
+-------------------------------------
+function UI_DragonMasteryNew:checkSelectedDragonCondition(dragon_object)
+    if (not dragon_object) then
+        return false
+    end
+
+    -- 드래곤이 아닌 경우
+    if (dragon_object:getObjectType() ~= 'dragon') then
+        return false
+    end
+
+    -- 최대 등급, 최대 레벨이 아닌 경우
+    if (dragon_object:isMaxGradeAndLv() == false) then
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------
@@ -406,13 +432,6 @@ function UI_DragonMasteryNew:createMtrlDragonCardCB(ui, data)
         return
     end
 
-    -- 선택한 드래곤이 레벨업 가능한지 판단
-    local doid = self.m_selectDragonOID
-    if (not g_dragonsData:possibleDragonSkillEnhance(doid)) then
-        ui:setShadowSpriteVisible(true)
-        return
-    end
-
     -- 재료 드래곤이 재료 가능한지 판별
     doid = data['id']
     if (data:getObjectType() == 'dragon') then
@@ -441,6 +460,10 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
 
     local vars = self.vars
 
+    local rarity_str = dragon_obj:getRarity()
+    local mastery_level = dragon_obj:getMasteryLevel()
+    local req_amor, req_gold = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
+
     -- 최대 특성 레벨 달성
     if (dragon_obj:getMasteryLevel() >= 10) then
         local msg = Str('이미 최대 특성 레벨을 달성하였습니다.')
@@ -452,20 +475,37 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
     if (not self.m_selectedMtrl) then
         local msg = Str('재료 드래곤을 선택해주세요!')
         UIManager:toastNotificationRed(msg)
+        cca.uiImpossibleAction(self.vars['masteryLvUpRightMenu'])
         return
     end
 
-
-    local possible = false
-    local msg = '(테스트)레벨업 불가로 처리 중'
-
-    if (not possible) then
+    -- 아모르의 서 수량 확인
+    local amor = g_userData:get('amor') or 0
+    if (amor < req_amor) then
+        local msg = Str('아모르의 서가 부족합니다.')
         UIManager:toastNotificationRed(msg)
-        
-
-        cca.uiImpossibleAction(vars['amorBtn'])
+        cca.uiImpossibleAction(self.vars['amorBtn'])
         return
     end
+    
+
+    -- 골드 충족 여부
+    if (not ConfirmPrice('gold', req_gold)) then
+        cca.uiImpossibleAction(self.vars['masteryLvUpBtn'])
+        return
+	end
+
+    local doid = dragon_obj['id']
+    local src_doid = self.m_selectedMtrl
+
+    local function cb_func(ret)
+        self:refresh_dragonIndivisual(doid)
+    end
+    
+    local function fail_cb()
+    end
+
+    self:request_mastery_lvup(doid, src_doid, cb_func, fail_cb)
 end
 
 -------------------------------------
@@ -550,6 +590,72 @@ function UI_DragonMasteryNew:click_resetBtn()
     end
     
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function request_mastery_lvup
+-- @brief 특성 레벨업
+-------------------------------------
+function UI_DragonMasteryNew:request_mastery_lvup(doid, src_doid, cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+
+    --[[
+    -- 에러코드 처리
+    local function response_status_cb(ret)
+        return true
+    end
+
+    -- 통신실패 처리
+    local function response_fail_cb(ret)
+    end
+    --]]
+
+    local function success_cb(ret)
+
+        -- 재료로 사용된 드래곤 삭제
+        if ret['deleted_dragons_oid'] then
+            for _,doid in pairs(ret['deleted_dragons_oid']) do
+                g_dragonsData:delDragonData(doid)
+
+                -- 드래곤 리스트 갱신
+                self.m_tableViewExt:delItem(doid)
+            end
+        end
+
+		-- 드래곤 갱신
+		g_dragonsData:applyDragonData(ret['modified_dragon'])
+
+		-- 재화 갱신
+		g_serverData:networkCommonRespone(ret)
+
+        if (self.m_selectedMtrl) then
+			self.m_selectedMtrl = nil
+		end
+
+        if (self.m_selectedUI) then
+            self.m_selectedUI:setCheckSpriteVisible(false)
+            self.m_selectedUI = nil
+        end
+
+        -- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+        self.m_bChangeDragonList = true
+
+		if (cb_func) then
+			cb_func()
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/mastery_lvup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('src_doid', src_doid)
+	--ui_network:hideLoading()
+    ui_network:setRevocable(true)
+    --ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    --ui_network:setFailCB(response_fail_cb)
+    ui_network:request()
 end
 
 

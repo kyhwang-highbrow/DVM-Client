@@ -544,13 +544,22 @@ function UI_DragonManage_Base:click_dragonSkillMove(data)
 end
 
 -------------------------------------
+-- function checkSelectedDragonCondition
+-- @brief 선택된 드래곤이 조건이 가능한지 체크
+-- @return boolean true면 선택이 가능
+-------------------------------------
+function UI_DragonManage_Base:checkSelectedDragonCondition(dragon_object)
+    return true
+end
+
+-------------------------------------
 -- function click_listBtn
 -- @brief 드래곤 선택 팝업 (바로가기)
 -------------------------------------
 function UI_DragonManage_Base:click_listBtn()
     local ui = UI_DragonSelectPopup()
     local function close_cb(data)
-        if (data) then
+        if (data) and self:checkSelectedDragonCondition(data) then
             local doid = data['id']
             local b_force = true
             self:setSelectDragonData(doid, b_force)
