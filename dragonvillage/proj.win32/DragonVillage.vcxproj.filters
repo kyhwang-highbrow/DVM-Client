@@ -3710,6 +3710,9 @@
     <None Include="..\src\UI_DragonMasterySkillLevelUpPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonMasteryLevelUp_Result.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

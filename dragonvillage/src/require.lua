@@ -1060,6 +1060,7 @@ local t_module = {
     'UI_DragonMasterySkillCard', -- 드래곤 특성 스킬 카드
     'UI_DragonMasterySkillLevelUpPopup',
     'UI_DragonMasteryResetPopup',
+    'UI_DragonMasteryLevelUp_Result',
     'UI_DragonUpgrade',
 	'UI_DragonSkillEnhance',
     'UI_DragonEvolution',

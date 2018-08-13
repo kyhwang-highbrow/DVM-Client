@@ -500,6 +500,9 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
 
     local function cb_func(ret)
         self:refresh_dragonIndivisual(doid)
+        
+        -- 결과 팝업
+        UI_DragonMasteryLevelUp_Result(self:getSelectDragonObj())
     end
     
     local function fail_cb()
