@@ -758,6 +758,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
 
         else
             local uid = g_userData:get('uid')
+            local tamer_id = self.m_uiReadyScene:getCurrTamerID()
 
             local function success_cb(ret)
                 if ret['deck'] then
@@ -777,6 +778,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             ui_network:setParam('deckname', deckname)
             ui_network:setParam('formation', self.m_currFormation)
 		    ui_network:setParam('leader', self.m_currLeader)
+            ui_network:setParam('tamer', tamer_id)
 
             -- 친구 드래곤 체크 (친구 드래곤일 경우 저장하지 않음)
             local set_param 
