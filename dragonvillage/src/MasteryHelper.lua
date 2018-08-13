@@ -112,12 +112,7 @@ end
 -- @return
 -------------------------------------
 function MasteryHelper:getMaxNum(tier)
-    -- 마지막 티어는 1번 스킬까지만 있음
     local max_num = MasteryHelper.MAX_NUM
-
-    if (tier == MasteryHelper.LAST_TIER) then
-        max_num = 1
-    end
     return max_num
 end
 
