@@ -209,7 +209,10 @@ end
 -------------------------------------
 function UI_CharacterCard:refresh_reinforceIcon()
     local rlv = self.m_dragonData:getRlv()
-	if (rlv == 0) then
+
+    -- 강화 단계가 0이더라도 특성 레벨이 1 이상이면 아이콘 출력
+    local mastery_lv = self.m_dragonData:getMasteryLevel()
+	if (rlv == 0) and (mastery_lv == 0)  then
 		return
 	end
 	local res = string.format('card_cha_reinforce_%d.png', rlv)

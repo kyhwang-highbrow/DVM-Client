@@ -101,9 +101,12 @@ function UI_DragonMasteryBoardNew:refreshMasterySkillUI(tier, num, dragon_obj)
     local icon = IconHelper:getIcon(res_name)
     _vars['skillIconNode']:addChild(icon)
 
-    -- 스킬 설명
+    -- 스킬 이름
     --local desc = TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, math_max(mastery_skill_lv, 1), true)
     local name = TableMasterySkill:getMasterySkillName(mastery_skill_id)
+    if (1 <= mastery_skill_lv) then
+        name = name .. '{@SKILL_VALUE_MOD} +' .. tostring(mastery_skill_lv)
+    end
     _vars['skillLabel1']:setString('{@DESC}' .. (name or ''))
 
     local step_desc = TableMasterySkill:getMasterySkillStepDesc(mastery_skill_id, mastery_skill_lv, true)
@@ -119,6 +122,7 @@ function UI_DragonMasteryBoardNew:refreshMasterySkillUI(tier, num, dragon_obj)
     -- 잠금 표시 (스킬 레벨업 가능 상태가 아니고 0레벨일 경우 표시)
     local tier_state = MasteryHelper:getMasteryTierState(dragon_obj, tier)
     _vars['lockNode']:setVisible((tier_state ~= 0) and (mastery_skill_lv == 0))
+    _vars['lockIconNode']:setVisible(tier_state == -1)
 
     _vars['plusBtn']:setVisible(tier_state == 0)
 end

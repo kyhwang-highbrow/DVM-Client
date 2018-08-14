@@ -81,7 +81,8 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 
 	do -- 드래곤 강화 레벨
 		vars['reinforceNode']:removeAllChildren()
-		if (t_dragon_data:getRlv() > 0) then
+        -- 강화 단계가 0이더라도 특성 레벨이 1 이상이면 아이콘 출력
+		if (t_dragon_data:getRlv() > 0) or (t_dragon_data:getMasteryLevel() > 0) then
 			local rlv = t_dragon_data:getRlv()
 			local icon = IconHelper:getDragonReinforceIcon(rlv)
 			vars['reinforceNode']:addChild(icon)

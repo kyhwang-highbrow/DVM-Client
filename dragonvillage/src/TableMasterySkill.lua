@@ -135,14 +135,21 @@ function TableMasterySkill:getMasterySkillStepDesc(mastery_skill_id, mastery_ski
     local t_step_desc = self:getValue(mastery_skill_id, 't_step_desc') or ''
     t_step_desc = trim(t_step_desc) -- 좌/우 공백 제거
     local inner_str = ''
-    local base_color = ''
+    local base_color = '{@GRAY}'
 
+    if (max_lv == 1) then
+        t_step_desc = string.gsub(t_step_desc, '%(', '')
+        t_step_desc = string.gsub(t_step_desc, '%)', '')
 
-    base_color = '{@GRAY}'
+        if (mastery_skill_lv == 1) then
+            base_color = '{@SKILL_VALUE_MOD}'
+        end
+    end
+
     for i=1, max_lv do
         
         if (i > 1) then
-            inner_str = inner_str .. '/'
+            inner_str = inner_str .. ' / '
         end
 
         local num_str = comma_value(i * add_value)
