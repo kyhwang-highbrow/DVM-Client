@@ -3679,17 +3679,8 @@
     <None Include="..\src\UI_EventGoldDungeonPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonMastery.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\TableMastery.lua">
       <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_DragonMasterySkillCard.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_DragonMasteryBoard.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UIC_AlarmClockIcon.lua">
       <Filter>lua\UIC</Filter>

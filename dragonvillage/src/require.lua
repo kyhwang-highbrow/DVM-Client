@@ -1053,11 +1053,8 @@ local t_module = {
     'UI_DragonManageInfo',
     'UI_DragonLevelUp',
     'UI_DragonLevelUpHelper',
-    'UI_DragonMastery', -- 특성
     'UI_DragonMasteryNew', -- 특성
-    'UI_DragonMasteryBoard', -- 특성 보드
     'UI_DragonMasteryBoardNew', -- 특성 보드
-    'UI_DragonMasterySkillCard', -- 드래곤 특성 스킬 카드
     'UI_DragonMasterySkillLevelUpPopup',
     'UI_DragonMasteryResetPopup',
     'UI_DragonMasteryLevelUp_Result',
