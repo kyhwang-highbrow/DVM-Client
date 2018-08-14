@@ -21,7 +21,6 @@ function UI_GameEventGold:initUI()
     local vars = self.vars
     
     vars['clanRaidNode']:setVisible(true)
-    vars['autoStartVisual']:setVisible(true)
     vars['autoStartButton']:setVisible(true)
     vars['damageLabel']:setString('0')
 end
