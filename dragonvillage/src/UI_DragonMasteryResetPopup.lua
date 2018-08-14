@@ -45,6 +45,9 @@ function UI_DragonMasteryResetPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+
+    -- 특성 안내 (네이버 sdk 링크)
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'mastery_help')
 end
 
 -------------------------------------

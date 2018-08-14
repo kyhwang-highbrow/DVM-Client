@@ -137,6 +137,7 @@ function NaverCafeManager:setPluginInfoBtn(node, article_key)
     -- 파라미터 확인
     if (not article_key) then
         cclog('article_key가 nil입니다.')
+        node:setVisible(false)
         return
     end
 
@@ -144,6 +145,7 @@ function NaverCafeManager:setPluginInfoBtn(node, article_key)
     local table_naver_article = TABLE:get('table_naver_article')
     if (not table_naver_article) then
         cclog('table_naver_article가 nil입니다.')
+        node:setVisible(false)
         return
     end
 
@@ -151,6 +153,7 @@ function NaverCafeManager:setPluginInfoBtn(node, article_key)
     local t_data = table_naver_article[article_key]
     if (not t_data) then
         cclog('table_naver_article에서 ' .. article_key .. '값이 없습니다.')
+        node:setVisible(false)
         return
     end
 
@@ -160,6 +163,7 @@ function NaverCafeManager:setPluginInfoBtn(node, article_key)
     if (not article_id or article_id == '') then
         node:setVisible(false)
     else
+        node:setVisible(true)
         node:registerScriptTapHandler(function() self:naverCafeStartWithArticle(article_id) end)
     end
 end

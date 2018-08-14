@@ -117,6 +117,9 @@ function UI_DragonMasteryNew:initButton()
     vars['masteryLvUpBtn']:registerScriptTapHandler(function() self:click_masteryLvUpBtn() end)
     vars['amorBtn']:registerScriptTapHandler(function() self:click_amorBtn() end)
     vars['resetBtn']:registerScriptTapHandler(function() self:click_resetBtn() end)
+
+    -- 특성 안내 (네이버 sdk 링크)
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'mastery_help')
 end
 
 -------------------------------------
