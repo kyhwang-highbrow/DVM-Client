@@ -289,7 +289,10 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     -- 고대 유적 던전 - 공략 드래곤 노출 X
     if (self.m_dungeonType == NEST_DUNGEON_ANCIENT_RUIN) then
     else
-        cca.reserveFunc(vars['dragonInfoBtn'], 0.5, function() vars['dragonInfoBtn']:setVisible(true) end)
+        -- 2018.09.07 sgkim
+        -- 공략 드래곤 정보 숨김
+        -- 제거 이유 : 효용성에 비해 로그가 많이 쌓임. 공략 성공 드래곤은 다 불번고. 추천 드래곤 파티도 의미 없는 파티 노출 중.
+        --cca.reserveFunc(vars['dragonInfoBtn'], 0.5, function() vars['dragonInfoBtn']:setVisible(true) end)
     end
 	
     do -- 사용 스테미너 얻어오기
