@@ -531,15 +531,6 @@ function UI_DragonMasteryNew:click_skillEnhanceBtn(tier, num)
     end
 
     local vars = self.vars
-
-    -- 스킬 포인트가 있는지 확인
-    local mastery_point = dragon_obj:getMasteryPoint()
-    if (mastery_point <= 0) then
-        UIManager:toastNotificationRed(Str('스킬 포인트가 부족합니다.'))
-        cca.uiImpossibleAction(vars['masteryTabBtn'])
-        return
-    end
-
     
     local ui = UI_DragonMasterySkillLevelUpPopup(dragon_obj, tier, num)
 

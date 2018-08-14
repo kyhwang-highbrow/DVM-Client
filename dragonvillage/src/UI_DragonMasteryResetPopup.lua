@@ -68,7 +68,7 @@ function UI_DragonMasteryResetPopup:refresh()
     else
         str = '{@impossible}' .. str
     end
-    vars['priceLabel']:setString(str)
+    vars['oblivionNumberLabel']:setString(str)
 end
 
 -------------------------------------
@@ -90,7 +90,7 @@ function UI_DragonMasteryResetPopup:click_enhanceBtn()
     if (own_count < req_count) then
         UIManager:toastNotificationRed(Str('망각의 서가 부족합니다.'))
         local vars = self.vars
-        cca.uiImpossibleAction(vars['enhanceBtn'])
+        cca.uiImpossibleAction(vars['oblivionBtn'])
         return
     end
 
