@@ -549,6 +549,9 @@ function UI_DragonMasteryNew:click_skillEnhanceBtn(tier, num)
         if ui:isChanged() then
             local doid = dragon_obj['id']
             self:refresh_dragonIndivisual(doid)
+            
+            -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+            self.m_bChangeDragonList = true
         end
     end
     
@@ -591,6 +594,9 @@ function UI_DragonMasteryNew:click_resetBtn()
         if ui:isChanged() then
             local doid = dragon_obj['id']
             self:refresh_dragonIndivisual(doid)
+            
+            -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+            self.m_bChangeDragonList = true
         end
     end
     
@@ -642,7 +648,7 @@ function UI_DragonMasteryNew:request_mastery_lvup(doid, src_doid, cb_func, fail_
             self.m_selectedUI = nil
         end
 
-        -- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+        -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
         self.m_bChangeDragonList = true
 
 		if (cb_func) then
