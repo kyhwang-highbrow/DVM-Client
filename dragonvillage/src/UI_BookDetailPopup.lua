@@ -950,6 +950,8 @@ function UI_BookDetailPopup.open(did, grade, evolution, is_pick, pick_cb)
 	-- 선택권에서 진입한 경우... 굳이 여기서 뽑아야하나..!
 	if (is_pick) then
 		ui.vars['attrMenu']:setVisible(false)
+		ui.vars['rewardMenu']:setPositionX(-175)
+		ui.vars['evolutionMenu']:setPositionX(-175)
 		ui.vars['summonBtn']:setVisible(true)
 		ui.vars['summonBtn']:registerScriptTapHandler(function()
 			pick_cb()
