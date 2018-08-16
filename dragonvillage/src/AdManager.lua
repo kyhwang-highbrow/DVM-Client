@@ -27,6 +27,7 @@ if (CppFunctions:isAndroid()) then
         [AD_TYPE.FSUMMON] = 'ca-app-pub-9497777061019569/7338450690',
     }
 elseif (CppFunctions:isIos()) then
+	ADMOB_APP_AD_UNIT_ID = 'ca-app-pub-9497777061019569/2042688805'
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/5295237757',
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/4566955961',
@@ -94,10 +95,8 @@ function AdManager:start(result_cb)
 
     -- 광고 단위 ID 등록 리스트
     local l_ad_unit_id = listToString(ADMOB_AD_UNIT_ID_TABLE, ';')
-    if (CppFunctions:isAndroid()) then
-        l_ad_unit_id = ADMOB_APP_AD_UNIT_ID .. ';' .. l_ad_unit_id
-    end
-
+    l_ad_unit_id = ADMOB_APP_AD_UNIT_ID .. ';' .. l_ad_unit_id
+    
     -- @adMob
     PerpleSDK:adMobSetResultCallBack(_result_cb)
     PerpleSDK:adMobStart(l_ad_unit_id)
