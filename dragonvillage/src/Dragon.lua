@@ -103,7 +103,7 @@ function Dragon:initDragonSkillManager(t_dragon_data)
 
         local skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
         skill_indivisual_info:setToIgnoreCC(true)
-        skill_indivisual_info:setToIgnoreCoolActu(true)
+        skill_indivisual_info:setToIgnoreReducedCool(true)
 
         -- 고대룬 2셋트 효과들은 중첩을 별도로 처리
         if (skill_id == 500200) then

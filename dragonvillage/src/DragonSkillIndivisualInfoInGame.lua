@@ -16,7 +16,7 @@ DragonSkillIndivisualInfoInGame = class(PARENT, {
 
         m_bEnabled = 'boolean',
         m_bIgnoreCC = 'boolean',        -- 스킬 사용 불가 상태효과를 무시하고 발동되는지 여부
-        m_bIgnoreCoolActu = 'boolean',  -- 패시브 쿨타임 감소를 무시 여부
+        m_bIgnoreReducedCool = 'boolean',-- 쿨타임 감소 효과 무시 여부
         m_bDirtyBuff = 'boolean',
         m_lBuff = 'table',
 
@@ -43,7 +43,7 @@ function DragonSkillIndivisualInfoInGame:init(char_type, skill_type, skill_id, s
 
     self.m_bEnabled = true
     self.m_bIgnoreCC = false
-    self.m_bIgnoreCoolActu = isExistValue(skill_type, 'active', 'basic', 'leader')
+    self.m_bIgnoreReducedCool = false
     self.m_bDirtyBuff = false
     self.m_lBuff = {}
 
@@ -128,14 +128,14 @@ end
 function DragonSkillIndivisualInfoInGame:update(dt, reduced_cool)
     if (not self.m_bEnabled) then return end
 
-    -- 패시브 쿨감소(cool_actu) 효과를 무시하는 경우
-    if (self.m_bIgnoreCoolActu) then
-        reduced_cool = 0
+    local reduced_cool = reduced_cool or 0
+
+    if (not self:isIgnoreReducedCool()) then
+        -- 쿨타임 감소 % 적용 = 스텟 쿨감(cool_actu or drag_cool) + 특정 스킬 쿨감
+        reduced_cool = reduced_cool + self.m_reducedCoolPercentage
     end
 
-    -- 쿨타임 감소 % 적용(모든 패시브 쿨감 + 특정 스킬 쿨감)
-    local reduced_cool = reduced_cool + self.m_reducedCoolPercentage
-    if (reduced_cool and reduced_cool ~= 0) then
+    if (reduced_cool ~= 0) then
         reduced_cool = math_min(reduced_cool, 80)   -- 최대 80%까지만 적용
 
         local rate = 1 + (reduced_cool / (100 - reduced_cool))
@@ -384,18 +384,19 @@ function DragonSkillIndivisualInfoInGame:isIgnoreCC()
 end
 
 -------------------------------------
--- function setToIgnoreCoolActu
+-- function setToIgnoreReducedCool
 -------------------------------------
-function DragonSkillIndivisualInfoInGame:setToIgnoreCoolActu(b)
-    self.m_bIgnoreCoolActu = b
+function DragonSkillIndivisualInfoInGame:setToIgnoreReducedCool(b)
+    self.m_bIgnoreReducedCool = b
 end
 
 -------------------------------------
--- function isIgnoreCoolActu
+-- function isIgnoreReducedCool
 -------------------------------------
-function DragonSkillIndivisualInfoInGame:isIgnoreCoolActu()
-    return self.m_bIgnoreCoolActu
+function DragonSkillIndivisualInfoInGame:isIgnoreReducedCool()
+    return self.m_bIgnoreReducedCool
 end
+
 -------------------------------------
 -- function getChanceValue
 -------------------------------------
