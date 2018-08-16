@@ -14,7 +14,7 @@ preBuild {
 
 // task android build
 android {
-    compileSdkVersion 27
+    compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
     buildToolsVersion "27.0.3"
 
     defaultConfig {
@@ -259,6 +259,11 @@ android {
         all*.exclude group: 'com.android.support', module: 'support-annotations'
     }
 
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    
     // apk 이름 변경 : "dvm_version_vc00_server_asset_buildtype.apk
     applicationVariants.all { variant ->
         variant.outputs.all {
@@ -306,24 +311,24 @@ allprojects {
 
         // @firebase
         implementation 'com.google.firebase:firebase-core:16.0.1'
-        implementation 'com.google.firebase:firebase-auth:16.0.2'
-        implementation 'com.google.firebase:firebase-messaging:17.1.0'
+        implementation 'com.google.firebase:firebase-auth:16.0.3'
+        implementation 'com.google.firebase:firebase-messaging:17.3.0'
 
         // @google
-        implementation 'com.google.android.gms:play-services-auth:15.0.1'
+        implementation 'com.google.android.gms:play-services-auth:16.0.0'
         implementation 'com.google.android.gms:play-services-games:15.0.1'
 
         // @facebook
         implementation 'com.facebook.android:facebook-android-sdk:4.35.0'
 
         // @twitter
-        implementation 'com.twitter.sdk.android:twitter:3.1.1'
+        implementation 'com.twitter.sdk.android:twitter:3.3.0'
 
         // @igawCommon
         implementation 'com.android.installreferrer:installreferrer:1.0'
         
         // @tapjoy
-        implementation 'com.tapjoy:tapjoy-android-sdk:11.11.1'
+        implementation 'com.tapjoy:tapjoy-android-sdk:12.0.0'
 
         // @adjust
         implementation 'com.adjust.sdk:adjust-android:4.14.0'
@@ -332,12 +337,12 @@ allprojects {
         // @admob
         implementation 'com.google.firebase:firebase-ads:15.0.1'
         implementation 'com.android.support:support-annotations:27.1.1'
-        implementation 'com.google.ads.mediation:adcolony:3.3.4.0'
-        implementation 'com.google.ads.mediation:unity:2.2.0.0'
+        implementation 'com.google.ads.mediation:adcolony:3.3.5.0'
+        implementation 'com.google.ads.mediation:unity:2.3.0.0'
         // @adcolony
-        implementation 'com.adcolony:sdk:3.3.4'
+        implementation 'com.adcolony:sdk:3.3.5'
         // @unity-ads
-        implementation 'com.unity3d.ads:unity-ads:2.2.0'
+        implementation 'com.unity3d.ads:unity-ads:2.3.0'
     }
 }
 // @firebase
