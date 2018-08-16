@@ -142,6 +142,8 @@ function UI_DragonDevApiPopup:initButton()
     vars['masteryUpBtn']:registerScriptTapHandler(function() self:click_masteryBtn('lvup') end)
     vars['masteryResetBtn']:registerScriptTapHandler(function() self:click_masteryBtn('reset') end)
 
+	-- 특수 키
+	vars['maxAllBtn']:registerScriptTapHandler(function() self:click_maxAllBtn() end)
 	vars['copyBtn']:registerScriptTapHandler(function() self:click_copyBtn() end)
 
     vars['applyBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
@@ -149,11 +151,52 @@ function UI_DragonDevApiPopup:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
+
+-------------------------------------
+-- function click_maxAllBtn
+-- @brief 하드코딩이니 추후 드래곤 시스템 변경 시 수정해주세요
+-------------------------------------
+function UI_DragonDevApiPopup:click_maxAllBtn()
+    self.m_level = 60
+	self.m_grade = 6
+	self.m_evolution = 3
+	self.m_rlv = 6
+	self.m_flv = 9
+
+	self.m_skill0 = 5
+    self.m_skill1 = 5
+    self.m_skill2 = 5
+    self.m_skill3 = 1
+
+	local function coroutine_function(dt)
+		local co = CoroutineHelper()
+
+		co:work()
+		self:__networkSkillLevel(0, co.NEXT)
+		if co:waitWork() then return end
+
+		co:work()
+		self:__networkSkillLevel(1, co.NEXT)
+		if co:waitWork() then return end
+
+		co:work()
+		self:__networkSkillLevel(2, co.NEXT)
+
+		co:work()
+		if co:waitWork() then return end
+		self:__networkSkillLevel(3, co.NEXT)
+
+		UIManager:toastNotificationGreen('특성은 별도입니다.')
+		self:refresh()
+	end
+
+	Coroutine(coroutine_function, 'MAX ALL API')
+end
+
 -------------------------------------
 -- function click_copyBtn
 -------------------------------------
 function UI_DragonDevApiPopup:click_copyBtn()
-    if (not isWin32()) then return end
     SDKManager:copyOntoClipBoard(tostring(self.m_dragonObjectID))
     UIManager:toastNotificationGreen('doid를 복사하였습니다.')
 end
@@ -216,7 +259,15 @@ function UI_DragonDevApiPopup:networkSkillLevel(skill_idx)
         end
     end
 
-    local uid = g_userData:get('uid')
+    self:__networkSkillLevel(skill_idx, success_cb)
+end
+
+-------------------------------------
+-- function __networkSkillLevel
+-- @brief skill level up function
+-------------------------------------
+function UI_DragonDevApiPopup:__networkSkillLevel(skill_idx, cb_func)
+	local uid = g_userData:get('uid')
     local ui_network = UI_Network()
     ui_network:setUrl('/dragons/update')
     ui_network:setRevocable(true)
@@ -224,7 +275,7 @@ function UI_DragonDevApiPopup:networkSkillLevel(skill_idx)
     ui_network:setParam('did', self.m_dragonObjectID)
     ui_network:setParam('act', 'update')
     ui_network:setParam('skills', string.format('%d,%d', skill_idx, self['m_skill' .. skill_idx]))
-    ui_network:setSuccessCB(success_cb)
+    ui_network:setSuccessCB(cb_func)
     ui_network:request()
 end
 
