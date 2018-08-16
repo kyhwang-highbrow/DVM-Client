@@ -10,6 +10,7 @@ UI_DragonDevApiPopup = class(PARENT, {
         m_grade = 'number',
         m_level = 'number',
 		m_rlv = 'number',
+		m_flv = 'number',
 
         m_skill0 = 'number',
         m_skill1 = 'number',
@@ -67,6 +68,7 @@ function UI_DragonDevApiPopup:initUI()
     self.m_grade = t_dragon_data['grade']
     self.m_level = t_dragon_data['lv']
 	self.m_rlv = t_dragon_data:getRlv()
+	self.m_flv = t_dragon_data:getFlv()
 
     self.m_skill0 = t_dragon_data['skill_0']
     self.m_skill1 = t_dragon_data['skill_1']
@@ -78,8 +80,6 @@ function UI_DragonDevApiPopup:initUI()
     self.m_skillMaxLv2 = TableDragonSkillModify:getMaxLV(t_dragon['skill_2'])
     self.m_skillMaxLv3 = TableDragonSkillModify:getMaxLV(t_dragon['skill_3'])
 
-    -- 친밀도는 아직 개발이 안되어서 off
-    vars['friendshipMenu']:setVisible(false)
 end
 
 -------------------------------------
@@ -92,6 +92,7 @@ function UI_DragonDevApiPopup:initButton()
     local max_grade = 6
     local max_level = 40
 	local max_rlv = MAX_DRAGON_REINFORCE
+	local max_flv = 9
 
     vars['evolutionUpBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution + 1, 1, max_evolution) self:refresh() end)
     vars['evolutionDownBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution - 1, 1, max_evolution) self:refresh() end)
@@ -108,6 +109,11 @@ function UI_DragonDevApiPopup:initButton()
     vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, TableGradeInfo:getMaxLv(self.m_grade)) self:refresh() end)
     vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, TableGradeInfo:getMaxLv(self.m_grade)) self:refresh() end)
     vars['levelMaxBtn']:registerScriptTapHandler(function() self.m_level = TableGradeInfo:getMaxLv(self.m_grade) self:refresh() end)
+
+	-- 드래곤 친밀도
+	vars['friendshipUpBtn']:registerScriptTapHandler(function() self.m_flv = math_clamp(self.m_flv + 1, 0, max_flv); self:refresh() end)
+    vars['friendshipDownBtn']:registerScriptTapHandler(function() self.m_flv = math_clamp(self.m_flv - 1, 0, max_flv); self:refresh() end)
+    vars['friendshipMaxBtn']:registerScriptTapHandler(function() self.m_flv = max_flv; self:refresh() end)
 
 	-- 드래곤 강화
 	vars['reinforceUpBtn']:registerScriptTapHandler(function() self.m_rlv = math_clamp(self.m_rlv + 1, 0, max_rlv) self:refresh() end)
@@ -136,9 +142,20 @@ function UI_DragonDevApiPopup:initButton()
     vars['masteryUpBtn']:registerScriptTapHandler(function() self:click_masteryBtn('lvup') end)
     vars['masteryResetBtn']:registerScriptTapHandler(function() self:click_masteryBtn('reset') end)
 
+	vars['copyBtn']:registerScriptTapHandler(function() self:click_copyBtn() end)
+
     vars['applyBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+-------------------------------------
+-- function click_copyBtn
+-------------------------------------
+function UI_DragonDevApiPopup:click_copyBtn()
+    if (not isWin32()) then return end
+    SDKManager:copyOntoClipBoard(tostring(self.m_dragonObjectID))
+    UIManager:toastNotificationGreen('doid를 복사하였습니다.')
 end
 
 -------------------------------------
@@ -174,6 +191,7 @@ function UI_DragonDevApiPopup:refresh()
     vars['gradeLabel']:setString('승급 : ' .. self.m_grade)
     vars['levelLabel']:setString('레벨 : ' .. self.m_level)
 	vars['reinforceLabel']:setString('강화 : ' .. self.m_rlv)
+	vars['friendshipLabel']:setString('친밀도 : ' .. self.m_flv)
 
     vars['skillLabel0']:setString('스킬 0 레벨 : ' .. self.m_skill0)
     vars['skillLabel1']:setString('스킬 1 레벨 : ' .. self.m_skill1)
@@ -235,6 +253,10 @@ function UI_DragonDevApiPopup:click_closeBtn()
         is_change = true
     end
 
+	if (t_dragon_data:getFlv() ~= self.m_flv) then
+        is_change = true
+    end
+
     if (t_dragon_data['skill_0'] ~= self.m_skill0) then
         is_change = true
     end
@@ -271,6 +293,7 @@ function UI_DragonDevApiPopup:click_closeBtn()
         ui_network:setParam('grade', self.m_grade)
         ui_network:setParam('lv', self.m_level)
 		ui_network:setParam('reinforce', 'lv,' .. self.m_rlv)
+		ui_network:setParam('friendship', 'lv,' .. self.m_flv)
         ui_network:setParam('skills', '0,' .. self.m_skill0)
         ui_network:setParam('skills', '1,' .. self.m_skill1)
         ui_network:setParam('skills', '2,' .. self.m_skill2)
