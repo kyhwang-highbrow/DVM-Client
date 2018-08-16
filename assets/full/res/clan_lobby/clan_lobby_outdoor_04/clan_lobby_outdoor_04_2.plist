@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>clan_lobby_outdoor_04_night_object.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{1600,960}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{1600,960}}</string>
+                <key>sourceSize</key>
+                <string>{1600,960}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>clan_lobby_outdoor_04_2.png</string>
+            <key>size</key>
+            <string>{1604,964}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:76f5528af3088c7cc7933d28e3bd5ece:0feb7b40408688d35108c2ed31c99a85:700f9cd3ade2edb173f9e67c61588dbe$</string>
+            <key>textureFileName</key>
+            <string>clan_lobby_outdoor_04_2.png</string>
+        </dict>
+    </dict>
+</plist>

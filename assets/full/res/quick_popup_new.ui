@@ -2194,46 +2194,6 @@
 					};
 					[2] =
 					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = -1.000000;
-						y = -18.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 100;
-						height = 50;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = 'clanBetaLabel';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
-						text = '베타';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 255; 215; 0; };
-						opacity = 255;
-						dimension_width = 100;
-						dimension_height = 50;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 1.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = true;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 255;
-						shadow_direction = 0;
-						shadow_distance = 2.000000;
-					};
-					[3] =
-					{
 						[1] =
 						{
 							type = 'Sprite';
@@ -2343,7 +2303,7 @@
 						visible = false;
 						lua_name = 'clanLockSprite';
 					};
-					[4] =
+					[3] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';

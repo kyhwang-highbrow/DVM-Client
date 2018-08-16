@@ -1,0 +1,265 @@
+
+tamer_sleep_h.png
+size: 840,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dede_sleep_body_01
+  rotate: true
+  xy: 59, 10
+  size: 16, 31
+  orig: 16, 31
+  offset: 0, 0
+  index: -1
+dede_sleep_body_02
+  rotate: true
+  xy: 490, 18
+  size: 28, 47
+  orig: 28, 47
+  offset: 0, 0
+  index: -1
+dede_sleep_duvet_01
+  rotate: true
+  xy: 187, 48
+  size: 161, 74
+  orig: 161, 74
+  offset: 0, 0
+  index: -1
+dede_sleep_head_01
+  rotate: false
+  xy: 748, 24
+  size: 58, 62
+  orig: 58, 62
+  offset: 0, 0
+  index: -1
+dede_sleep_pillow
+  rotate: true
+  xy: 752, 274
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1
+durun_sleep_body_01
+  rotate: false
+  xy: 644, 314
+  size: 106, 72
+  orig: 106, 72
+  offset: 0, 0
+  index: -1
+durun_sleep_body_02
+  rotate: true
+  xy: 778, 378
+  size: 82, 58
+  orig: 82, 58
+  offset: 0, 0
+  index: -1
+durun_sleep_body_03
+  rotate: true
+  xy: 572, 84
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+durun_sleep_duvet_01
+  rotate: true
+  xy: 491, 81
+  size: 132, 79
+  orig: 132, 79
+  offset: 0, 0
+  index: -1
+durun_sleep_head_01
+  rotate: false
+  xy: 778, 462
+  size: 60, 59
+  orig: 60, 59
+  offset: 0, 0
+  index: -1
+durun_sleep_pillow
+  rotate: false
+  xy: 644, 6
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1
+goni_sleep_body_01
+  rotate: true
+  xy: 95, 29
+  size: 180, 90
+  orig: 180, 90
+  offset: 0, 0
+  index: -1
+goni_sleep_duvet_01
+  rotate: true
+  xy: 263, 48
+  size: 161, 74
+  orig: 161, 74
+  offset: 0, 0
+  index: -1
+goni_sleep_head_01
+  rotate: false
+  xy: 572, 312
+  size: 70, 74
+  orig: 70, 74
+  offset: 0, 0
+  index: -1
+goni_sleep_pillow
+  rotate: true
+  xy: 749, 170
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1
+kesath_sleep_body_01
+  rotate: false
+  xy: 539, 2
+  size: 103, 77
+  orig: 103, 77
+  offset: 0, 0
+  index: -1
+kesath_sleep_duvet_01
+  rotate: true
+  xy: 339, 48
+  size: 161, 74
+  orig: 161, 74
+  offset: 0, 0
+  index: -1
+kesath_sleep_head_01
+  rotate: false
+  xy: 572, 236
+  size: 70, 74
+  orig: 70, 74
+  offset: 0, 0
+  index: -1
+mokoji_sleep_body_01
+  rotate: true
+  xy: 484, 393
+  size: 128, 50
+  orig: 128, 50
+  offset: 0, 0
+  index: -1
+mokoji_sleep_duvet_01
+  rotate: true
+  xy: 415, 48
+  size: 161, 74
+  orig: 161, 74
+  offset: 0, 0
+  index: -1
+mokoji_sleep_head_01
+  rotate: true
+  xy: 644, 165
+  size: 68, 66
+  orig: 68, 66
+  offset: 0, 0
+  index: -1
+mokoji_sleep_head_02
+  rotate: true
+  xy: 2, 8
+  size: 18, 38
+  orig: 18, 38
+  offset: 0, 0
+  index: -1
+mokoji_sleep_pillow
+  rotate: false
+  xy: 712, 88
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1
+nuri_sleep_body_01
+  rotate: false
+  xy: 644, 235
+  size: 103, 77
+  orig: 103, 77
+  offset: 0, 0
+  index: -1
+nuri_sleep_duvet_01
+  rotate: true
+  xy: 484, 215
+  size: 161, 74
+  orig: 161, 74
+  offset: 0, 0
+  index: -1
+nuri_sleep_head_01
+  rotate: false
+  xy: 572, 160
+  size: 70, 74
+  orig: 70, 74
+  offset: 0, 0
+  index: -1
+nuri_sleep_zbody_01
+  rotate: true
+  xy: 638, 88
+  size: 70, 48
+  orig: 70, 48
+  offset: 0, 0
+  index: -1
+sleep_bed_01
+  rotate: false
+  xy: 2, 28
+  size: 91, 181
+  orig: 91, 181
+  offset: 0, 0
+  index: -1
+sleep_bed_02
+  rotate: false
+  xy: 539, 388
+  size: 237, 133
+  orig: 237, 133
+  offset: 0, 0
+  index: -1
+sleep_bed_03
+  rotate: true
+  xy: 274, 211
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+sleep_bed_04
+  rotate: true
+  xy: 379, 211
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+sleep_bed_05
+  rotate: true
+  xy: 282, 4
+  size: 42, 96
+  orig: 42, 96
+  offset: 0, 0
+  index: -1
+sleep_bed_06
+  rotate: true
+  xy: 187, 3
+  size: 43, 93
+  orig: 43, 93
+  offset: 0, 0
+  index: -1
+sleep_bed_08
+  rotate: true
+  xy: 380, 6
+  size: 40, 108
+  orig: 40, 108
+  offset: 0, 0
+  index: -1
+sleep_bed_09
+  rotate: true
+  xy: 2, 211
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+sleep_bed_10
+  rotate: true
+  xy: 138, 211
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+sleep_eff_01
+  rotate: false
+  xy: 42, 9
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,181 @@
+
+solar_all_01.png
+size: 416,1031
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_solar_all_01_eff_01
+  rotate: false
+  xy: 209, 206
+  size: 117, 116
+  orig: 117, 116
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_02
+  rotate: false
+  xy: 2, 553
+  size: 226, 226
+  orig: 226, 226
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_03
+  rotate: false
+  xy: 230, 596
+  size: 179, 183
+  orig: 179, 183
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_04
+  rotate: false
+  xy: 341, 62
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_05
+  rotate: true
+  xy: 358, 254
+  size: 42, 50
+  orig: 42, 50
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_06
+  rotate: false
+  xy: 341, 91
+  size: 33, 25
+  orig: 33, 25
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_07
+  rotate: false
+  xy: 2, 114
+  size: 205, 215
+  orig: 205, 215
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_08
+  rotate: false
+  xy: 2, 20
+  size: 224, 92
+  orig: 224, 92
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_09
+  rotate: false
+  xy: 328, 207
+  size: 48, 43
+  orig: 48, 43
+  offset: 0, 0
+  index: -1
+effect_solar_all_01_eff_12
+  rotate: true
+  xy: 358, 298
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_solar_all_03_eff_10
+  rotate: false
+  xy: 2, 781
+  size: 400, 248
+  orig: 400, 248
+  offset: 0, 0
+  index: -1
+effect_solar_all_03_eff_11
+  rotate: false
+  xy: 228, 324
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+effect_solar_all_03_eff_12
+  rotate: false
+  xy: 2, 331
+  size: 224, 220
+  orig: 224, 220
+  offset: 0, 0
+  index: -1
+effect_solar_all_03_eff_13
+  rotate: true
+  xy: 230, 425
+  size: 169, 171
+  orig: 169, 171
+  offset: 0, 0
+  index: -1
+solar_all_01_arm_01
+  rotate: false
+  xy: 334, 118
+  size: 49, 23
+  orig: 49, 23
+  offset: 0, 0
+  index: -1
+solar_all_01_arm_02
+  rotate: false
+  xy: 300, 5
+  size: 38, 25
+  orig: 38, 25
+  offset: 0, 0
+  index: -1
+solar_all_01_body_01
+  rotate: false
+  xy: 228, 32
+  size: 111, 83
+  orig: 111, 83
+  offset: 0, 0
+  index: -1
+solar_all_01_eye_01
+  rotate: false
+  xy: 2, 3
+  size: 67, 15
+  orig: 67, 15
+  offset: 0, 0
+  index: -1
+solar_all_01_eye_02
+  rotate: true
+  xy: 328, 252
+  size: 70, 28
+  orig: 70, 28
+  offset: 0, 0
+  index: -1
+solar_all_01_eye_03
+  rotate: false
+  xy: 228, 2
+  size: 70, 28
+  orig: 70, 28
+  offset: 0, 0
+  index: -1
+solar_all_01_head_01
+  rotate: false
+  xy: 209, 117
+  size: 123, 87
+  orig: 123, 87
+  offset: 0, 0
+  index: -1
+solar_all_01_mouth_01
+  rotate: false
+  xy: 378, 219
+  size: 21, 33
+  orig: 21, 33
+  offset: 0, 0
+  index: -1
+solar_all_01_tail_01
+  rotate: true
+  xy: 357, 358
+  size: 65, 49
+  orig: 65, 49
+  offset: 0, 0
+  index: -1
+solar_all_01_wing_01
+  rotate: true
+  xy: 375, 144
+  size: 61, 39
+  orig: 61, 39
+  offset: 0, 0
+  index: -1
+solar_all_01_wing_02
+  rotate: true
+  xy: 334, 143
+  size: 62, 39
+  orig: 62, 39
+  offset: 0, 0
+  index: -1

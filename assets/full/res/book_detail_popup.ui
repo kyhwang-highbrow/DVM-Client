@@ -299,12 +299,12 @@
 					type = 'LabelTTF';
 					ui_name = 'scroll';
 					x = 0.000000;
-					y = -224.000000;
+					y = -198.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 420;
-					height = 140;
+					height = 190;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -320,7 +320,7 @@
 					color = { 213; 172; 96; };
 					opacity = 255;
 					dimension_width = 420;
-					dimension_height = 140;
+					dimension_height = 190;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -339,7 +339,7 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = -110.000000;
+					y = -47.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -365,7 +365,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 169.000000;
-					y = -110.000000;
+					y = -47.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -384,7 +384,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 85.000000;
-					y = -110.000000;
+					y = -47.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -403,7 +403,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = -110.000000;
+					y = -47.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -422,7 +422,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = -85.000000;
-					y = -110.000000;
+					y = -47.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -441,7 +441,7 @@
 					type = 'Node';
 					ui_name = '';
 					x = -169.000000;
-					y = -110.000000;
+					y = -47.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -456,198 +456,6 @@
 					lua_name = 'skillNodeLeader';
 				};
 				[11] =
-				{
-					[1] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 130;
-						height = 46;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'evolutionTabLabel1';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
-						text = '해치';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 240; 215; 159; };
-						opacity = 255;
-						dimension_width = 130;
-						dimension_height = 46;
-						letter_spacing = 0.000000;
-						has_stroke = false;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 85; 44; 25; };
-						has_shadow = false;
-						shadow_color = { 85; 44; 25; };
-						shadow_opacity = 150;
-						shadow_direction = 0;
-						shadow_distance = 2.000000;
-					};
-					type = 'Button';
-					ui_name = '';
-					x = -142.000000;
-					y = -30.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 140;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'evolutionTabBtn1';
-					enable = true;
-					normal = 'ui/buttons/base_btn_0101.png';
-					selected = 'ui/buttons/base_btn_0102.png';
-					disable = 'ui/buttons/base_btn_0103.png';
-					image_type = 1;
-				};
-				[12] =
-				{
-					[1] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 130;
-						height = 46;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'evolutionTabLabel2';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
-						text = '해츨링';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 240; 215; 159; };
-						opacity = 255;
-						dimension_width = 130;
-						dimension_height = 46;
-						letter_spacing = 0.000000;
-						has_stroke = false;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 85; 44; 25; };
-						has_shadow = false;
-						shadow_color = { 85; 44; 25; };
-						shadow_opacity = 150;
-						shadow_direction = 0;
-						shadow_distance = 2.000000;
-					};
-					type = 'Button';
-					ui_name = '';
-					x = 0.000000;
-					y = -30.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 140;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'evolutionTabBtn2';
-					enable = true;
-					normal = 'ui/buttons/base_btn_0101.png';
-					selected = 'ui/buttons/base_btn_0102.png';
-					disable = 'ui/buttons/base_btn_0103.png';
-					image_type = 1;
-				};
-				[13] =
-				{
-					[1] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 130;
-						height = 46;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'evolutionTabLabel3';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
-						text = '성룡';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 240; 215; 159; };
-						opacity = 255;
-						dimension_width = 130;
-						dimension_height = 46;
-						letter_spacing = 0.000000;
-						has_stroke = false;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 85; 44; 25; };
-						has_shadow = false;
-						shadow_color = { 85; 44; 25; };
-						shadow_opacity = 150;
-						shadow_direction = 0;
-						shadow_distance = 2.000000;
-					};
-					type = 'Button';
-					ui_name = '';
-					x = 142.000000;
-					y = -30.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 140;
-					height = 50;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'evolutionTabBtn3';
-					enable = true;
-					normal = 'ui/buttons/base_btn_0101.png';
-					selected = 'ui/buttons/base_btn_0102.png';
-					disable = 'ui/buttons/base_btn_0103.png';
-					image_type = 1;
-				};
-				[14] =
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
@@ -673,7 +481,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[15] =
+				[12] =
 				{
 					[1] =
 					{
@@ -1804,7 +1612,7 @@
 					visible = false;
 					lua_name = 'detailNode';
 				};
-				[16] =
+				[13] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -1828,7 +1636,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[17] =
+				[14] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1868,7 +1676,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[18] =
+				[15] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1908,7 +1716,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[19] =
+				[16] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -1932,7 +1740,7 @@
 					disable = 'ui/buttons/64_plus_btn_0102.png';
 					image_type = 0;
 				};
-				[20] =
+				[17] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -1956,7 +1764,7 @@
 					disable = 'ui/buttons/64_minus_btn_0102.png';
 					image_type = 0;
 				};
-				[21] =
+				[18] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -1996,7 +1804,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[22] =
+				[19] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -2020,7 +1828,7 @@
 					disable = 'ui/buttons/64_plus_btn_0102.png';
 					image_type = 0;
 				};
-				[23] =
+				[20] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -2044,7 +1852,7 @@
 					disable = 'ui/buttons/64_minus_btn_0102.png';
 					image_type = 0;
 				};
-				[24] =
+				[21] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -2070,7 +1878,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[25] =
+				[22] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -2089,7 +1897,7 @@
 					visible = true;
 					lua_name = 'starNode';
 				};
-				[26] =
+				[23] =
 				{
 					[1] =
 					{
@@ -2332,7 +2140,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[27] =
+				[24] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -2356,7 +2164,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[28] =
+				[25] =
 				{
 					type = 'Button';
 					ui_name = '';
@@ -2476,132 +2284,82 @@
 						};
 						type = 'Node';
 						ui_name = '';
-						x = -184.000000;
-						y = 0.000000;
+						x = -130.000000;
+						y = 15.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 150;
 						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'emptyNode_earth';
+						lua_name = 'emptyNode1';
 					};
 					[2] =
 					{
 						type = 'Node';
 						ui_name = '';
-						x = -184.000000;
-						y = 0.000000;
+						x = -130.000000;
+						y = 14.999985;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 150;
 						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'dragonCardNode_earth';
+						lua_name = 'dragonCardNode1';
 					};
 					[3] =
 					{
-						[1] =
-						{
-							[1] =
-							{
-								type = 'Sprite';
-								ui_name = '';
-								x = 0.000000;
-								y = 0.000000;
-								dock_point = { 0.500000; 0.500000; };
-								anchor_point = { 0.500000; 0.500000; };
-								relative_size_type = 0;
-								width = 100;
-								height = 100;
-								scale_x = 1.300000;
-								scale_y = 1.300000;
-								skew_x = 0.000000;
-								skew_y = 0.000000;
-								rotation = 0.000000;
-								visible = true;
-								lua_name = '';
-								file_name = 'ui/icons/skill/skill_empty.png';
-								color = { 255; 255; 255; };
-								opacity = 255;
-								flip_x = false;
-								flip_y = false;
-								src_blend = 770;
-								dest_blend = 771;
-							};
-							type = 'Scale9Sprite';
-							ui_name = '';
-							x = 0.000000;
-							y = 0.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 3;
-							width = 0;
-							height = 0;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = '';
-							file_name = 'ui/buttons/base_btn_0101.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							center_rect_x = 0;
-							center_rect_y = 0;
-							center_rect_width = 0;
-							center_rect_height = 0;
-						};
-						type = 'Node';
+						type = 'LabelTTF';
 						ui_name = '';
-						x = -92.000000;
-						y = 0.000000;
+						x = -130.000000;
+						y = -50.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						width = 135;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'emptyNode_water';
+						lua_name = 'dragonLabel1';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = '해치';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 135;
+						dimension_height = 30;
+						letter_spacing = 0.000000;
+						has_stroke = true;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
 					};
 					[4] =
 					{
-						type = 'Node';
-						ui_name = '';
-						x = -92.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'dragonCardNode_water';
-					};
-					[5] =
-					{
 						[1] =
 						{
 							[1] =
@@ -2657,38 +2415,78 @@
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 0.000000;
+						y = 15.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 150;
 						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'emptyNode_fire';
+						lua_name = 'emptyNode2';
 					};
-					[6] =
+					[5] =
 					{
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 0.000000;
+						y = 15.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 150;
 						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'dragonCardNode_fire';
+						lua_name = 'dragonCardNode2';
+					};
+					[6] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = -50.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 135;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'dragonLabel2';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = '해츨링';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 135;
+						dimension_height = 30;
+						letter_spacing = 0.000000;
+						has_stroke = true;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
 					};
 					[7] =
 					{
@@ -2746,129 +2544,79 @@
 						};
 						type = 'Node';
 						ui_name = '';
-						x = 92.000000;
-						y = 0.000000;
+						x = 130.000000;
+						y = 15.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 150;
 						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'emptyNode_light';
+						lua_name = 'emptyNode3';
 					};
 					[8] =
 					{
 						type = 'Node';
 						ui_name = '';
-						x = 92.000000;
-						y = 0.000000;
+						x = 130.000000;
+						y = 15.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 150;
 						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'dragonCardNode_light';
+						lua_name = 'dragonCardNode3';
 					};
 					[9] =
 					{
-						[1] =
-						{
-							[1] =
-							{
-								type = 'Sprite';
-								ui_name = '';
-								x = 0.000000;
-								y = 0.000000;
-								dock_point = { 0.500000; 0.500000; };
-								anchor_point = { 0.500000; 0.500000; };
-								relative_size_type = 0;
-								width = 100;
-								height = 100;
-								scale_x = 1.300000;
-								scale_y = 1.300000;
-								skew_x = 0.000000;
-								skew_y = 0.000000;
-								rotation = 0.000000;
-								visible = true;
-								lua_name = '';
-								file_name = 'ui/icons/skill/skill_empty.png';
-								color = { 255; 255; 255; };
-								opacity = 255;
-								flip_x = false;
-								flip_y = false;
-								src_blend = 770;
-								dest_blend = 771;
-							};
-							type = 'Scale9Sprite';
-							ui_name = '';
-							x = 0.000000;
-							y = 0.000000;
-							dock_point = { 0.500000; 0.500000; };
-							anchor_point = { 0.500000; 0.500000; };
-							relative_size_type = 3;
-							width = 0;
-							height = 0;
-							scale_x = 1.000000;
-							scale_y = 1.000000;
-							skew_x = 0.000000;
-							skew_y = 0.000000;
-							rotation = 0.000000;
-							visible = true;
-							lua_name = '';
-							file_name = 'ui/buttons/base_btn_0101.png';
-							color = { 255; 255; 255; };
-							opacity = 255;
-							center_rect_x = 0;
-							center_rect_y = 0;
-							center_rect_width = 0;
-							center_rect_height = 0;
-						};
-						type = 'Node';
+						type = 'LabelTTF';
 						ui_name = '';
-						x = 184.000000;
-						y = 0.000000;
+						x = 129.000000;
+						y = -50.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						width = 135;
+						height = 30;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = 'emptyNode_dark';
-					};
-					[10] =
-					{
-						type = 'Node';
-						ui_name = '';
-						x = 184.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = 'dragonCardNode_dark';
+						lua_name = 'dragonLabel3';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = '성룡';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 135;
+						dimension_height = 30;
+						letter_spacing = 0.000000;
+						has_stroke = true;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
 					};
 					type = 'Menu';
 					ui_name = '';
@@ -2877,15 +2625,15 @@
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
-					width = 480;
-					height = 100;
+					width = 400;
+					height = 135;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'attrMenu';
+					lua_name = 'evolutionMenu';
 				};
 				[3] =
 				{
@@ -2971,8 +2719,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 0.000000;
-					y = 50.000000;
+					x = 190.000000;
+					y = 75.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2990,6 +2738,196 @@
 					selected = 'ui/buttons/base_btn_0102.png';
 					disable = 'ui/buttons/base_btn_0102.png';
 					image_type = 1;
+				};
+				[4] =
+				{
+					[1] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 160.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 52;
+						height = 52;
+						scale_x = 1.200000;
+						scale_y = 1.200000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'earthNode';
+					};
+					[2] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 80.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 52;
+						height = 52;
+						scale_x = 1.200000;
+						scale_y = 1.200000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'waterNode';
+					};
+					[3] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 52;
+						height = 52;
+						scale_x = 1.200000;
+						scale_y = 1.200000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'fireNode';
+					};
+					[4] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = -80.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 52;
+						height = 52;
+						scale_x = 1.200000;
+						scale_y = 1.200000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'lightNode';
+					};
+					[5] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = -160.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 52;
+						height = 52;
+						scale_x = 1.200000;
+						scale_y = 1.200000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'darkNode';
+					};
+					type = 'Menu';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
+					relative_size_type = 0;
+					width = 80;
+					height = 400;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'attrMenu';
+				};
+				[5] =
+				{
+					[1] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = -130.000000;
+						y = 220.000000;
+						dock_point = { 0.500000; 0.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 140;
+						height = 85;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode1';
+					};
+					[2] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 0.000000;
+						y = 220.000000;
+						dock_point = { 0.500000; 0.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 140;
+						height = 85;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode2';
+					};
+					[3] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 130.000000;
+						y = 220.000000;
+						dock_point = { 0.500000; 0.000000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 140;
+						height = 85;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode3';
+					};
+					type = 'Menu';
+					ui_name = '최초 획득 시';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'rewardMenu';
 				};
 				type = 'Menu';
 				ui_name = '';

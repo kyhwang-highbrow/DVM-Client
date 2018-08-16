@@ -9,41 +9,98 @@
 			{
 				[1] =
 				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/base_frame_0401.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
 					[1] =
 					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 1.000000;
-						y = 0.000000;
+						type = 'Node';
+						ui_name = '2속성';
+						x = 30.000000;
+						y = -5.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 740;
-						height = 600;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
+						width = 100;
+						height = 100;
+						scale_x = -0.800000;
+						scale_y = 0.800000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = '';
-						file_name = 'ui/event/bg_chanceup_01.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
+						lua_name = 'dragonNode1';
 					};
-					type = 'Node';
+					[2] =
+					{
+						type = 'Node';
+						ui_name = '2속성';
+						x = 229.999878;
+						y = -5.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = -0.800000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'dragonNode2';
+					};
+					[3] =
+					{
+						type = 'Node';
+						ui_name = '1속성';
+						x = 130.000000;
+						y = -5.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = -1.250000;
+						scale_y = 1.250000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'dragonNode3';
+					};
+					type = 'ClippingNode';
 					ui_name = '';
 					x = 0.000000;
 					y = 0.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 0.000000; };
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 740;
-					height = 600;
+					width = 716;
+					height = 376;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -51,46 +108,12 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'chanceUpNode';
-				};
-				[2] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 84.000000;
-					y = -108.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 170;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'summonNode_event11';
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
 				};
 				[3] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 264.000000;
-					y = -108.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 170;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'summonNode_event';
-				};
-				[4] =
 				{
 					[1] =
 					{
@@ -135,7 +158,7 @@
 					[2] =
 					{
 						type = 'LabelTTF';
-						ui_name = '';
+						ui_name = 'rich';
 						x = 0.000000;
 						y = -83.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -152,10 +175,10 @@
 						lua_name = 'dragonNameLabel1';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
-						text = '타로스(불)';
+						text = '';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 255; 105; 105; };
+						color = { 255; 255; 255; };
 						opacity = 255;
 						dimension_width = 300;
 						dimension_height = 40;
@@ -175,7 +198,7 @@
 					[3] =
 					{
 						type = 'LabelTTF';
-						ui_name = '';
+						ui_name = 'rich';
 						x = 0.000000;
 						y = -112.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -192,10 +215,10 @@
 						lua_name = 'dragonNameLabel2';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
-						text = '타로스(물)';
+						text = '';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 76; 215; 255; };
+						color = { 255; 255; 255; };
 						opacity = 255;
 						dimension_width = 300;
 						dimension_height = 40;
@@ -238,7 +261,7 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = -206.000000;
-					y = 14.000000;
+					y = 40.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
@@ -259,6 +282,44 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
+				[4] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 84.000000;
+					y = 60.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'summonNode_event11';
+				};
+				[5] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 264.000000;
+					y = 60.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'summonNode_event';
+				};
 				type = 'Menu';
 				ui_name = '';
 				x = 0.000000;
@@ -267,7 +328,7 @@
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
 				width = 720;
-				height = 340;
+				height = 380;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -482,6 +543,25 @@
 				};
 				[3] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 84.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 170;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'summonNode_fp_ad';
+				};
+				[4] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = -200.000000;
@@ -520,7 +600,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -574,7 +654,7 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
+					y = 38.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;

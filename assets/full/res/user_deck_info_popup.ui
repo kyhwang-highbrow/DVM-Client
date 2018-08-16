@@ -38,7 +38,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
+					y = 105.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -49,12 +49,12 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
+					visible = true;
 					lua_name = '';
-					file_name = 'bg/ui/dragon_bg_earth/dragon_bg_earth.vrp';
+					file_name = 'bg/colosseum_2/colosseum_2.vrp';
 					auto_play = true;
 					is_repeat = true;
-					visual_id = 'group;idle';
+					visual_id = 'group;idle_1';
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};

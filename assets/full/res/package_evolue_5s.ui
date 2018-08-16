@@ -1721,7 +1721,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 60;
-				text = '★5 드래곤 진화 패키지';
+				text = '전설(★5) 드래곤 진화 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 215; 0; };

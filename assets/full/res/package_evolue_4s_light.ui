@@ -26,11 +26,11 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 45;
-					text = '★4 드래곤 진화 패키지';
+					font_size = 40;
+					text = '영웅(★4) 드래곤 진화 패키지';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 255; 255; 224; };
 					opacity = 255;
 					dimension_width = 800;
 					dimension_height = 80;
@@ -88,6 +88,126 @@
 					shadow_distance = 3.000000;
 				};
 				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -236.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 800;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 34;
+					text = '영웅 드래곤 성룡까지 진화 가능!!';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 215; 0; };
+					opacity = 255;
+					dimension_width = 800;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 3.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[4] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -279.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 800;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '영웅 드래곤 4성 40레벨까지 레벨업 가능한 슬라임 제공!!';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 800;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[5] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -309.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 800;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 22;
+					text = '(영웅 드래곤 해츨링->성룡진화 시 5성 승급 필요)';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 800;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[6] =
 				{
 					type = 'Visual';
 					ui_name = '';
@@ -405,8 +525,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -122.000000;
-				y = 55.000000;
+				x = -305.000000;
+				y = -69.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -431,8 +551,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 0.000000;
-				y = 55.000000;
+				x = -183.000000;
+				y = -69.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -457,8 +577,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 122.000000;
-				y = 55.000000;
+				x = -61.000000;
+				y = -69.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -483,8 +603,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -122.000000;
-				y = -64.000000;
+				x = 61.000000;
+				y = -68.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -509,8 +629,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 0.000000;
-				y = -64.000000;
+				x = 183.000000;
+				y = -68.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -535,8 +655,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 122.000000;
-				y = -49.000000;
+				x = 305.000000;
+				y = -53.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -561,8 +681,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 122.000000;
-				y = -90.000000;
+				x = 305.000000;
+				y = -94.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -587,8 +707,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -122.000000;
-				y = 4.000000;
+				x = -305.000000;
+				y = -120.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -627,8 +747,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
-				y = 4.000000;
+				x = -183.000000;
+				y = -120.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -667,8 +787,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 122.000000;
-				y = 4.000000;
+				x = -61.000000;
+				y = -120.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -707,8 +827,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -122.000000;
-				y = -116.000000;
+				x = 61.000000;
+				y = -120.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -747,8 +867,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
-				y = -116.000000;
+				x = 183.000000;
+				y = -120.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -787,8 +907,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 122.000000;
-				y = -116.000000;
+				x = 305.000000;
+				y = -120.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

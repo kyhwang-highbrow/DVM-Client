@@ -375,6 +375,30 @@
 			};
 			[8] =
 			{
+				type = 'Button';
+				ui_name = '';
+				x = -136.000000;
+				y = -36.000000;
+				dock_point = { 1.000000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 64;
+				height = 64;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'macroBtn';
+				enable = true;
+				normal = 'ui/buttons/64_write_btn_0101.png';
+				selected = 'ui/buttons/64_write_btn_0102.png';
+				disable = '';
+				image_type = 0;
+			};
+			[9] =
+			{
 				type = 'Node';
 				ui_name = '';
 				x = -22.000000;
@@ -392,7 +416,7 @@
 				visible = true;
 				lua_name = 'guildChatNode';
 			};
-			[9] =
+			[10] =
 			{
 				[1] =
 				{
@@ -424,7 +448,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 103.000000;
+					x = 96.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -439,7 +463,7 @@
 					visible = true;
 					lua_name = 'connectLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 20;
 					text = 'connectLabel';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -484,7 +508,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[10] =
+			[11] =
 			{
 				[1] =
 				{
@@ -549,7 +573,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 100;
+						width = 80;
 						height = 50;
 						scale_x = 0.980000;
 						scale_y = 1.000000;
@@ -559,13 +583,13 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 26;
+						font_size = 22;
 						text = '입력';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 100;
+						dimension_width = 80;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -734,10 +758,10 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'generalMenu';
 			};
-			[11] =
+			[12] =
 			{
 				[1] =
 				{
@@ -990,7 +1014,7 @@
 				visible = false;
 				lua_name = 'whisperMenu';
 			};
-			[12] =
+			[13] =
 			{
 				[1] =
 				{
@@ -1233,8 +1257,8 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 251.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -35.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 254;
@@ -1273,12 +1297,12 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -27.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
+				y = 8.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 1;
 				width = 254;
-				height = 504;
+				height = -70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1303,6 +1327,110 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'blockNode';
+		};
+		[3] =
+		{
+			[1] =
+			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frames/base_frame_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[2] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -35.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 330;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 24;
+				text = '매크로';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 240; 215; 159; };
+				opacity = 255;
+				dimension_width = 330;
+				dimension_height = 50;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 85; 44; 25; };
+				has_shadow = false;
+				shadow_color = { 85; 44; 25; };
+				shadow_opacity = 150;
+				shadow_direction = 0;
+				shadow_distance = 2.000000;
+			};
+			[3] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = 8.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 1;
+				width = 344;
+				height = -70;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'macroListNode';
+			};
+			type = 'Menu';
+			ui_name = '';
+			x = -656.000000;
+			y = 5.000000;
+			dock_point = { 1.000000; 0.000000; };
+			anchor_point = { 1.000000; 0.000000; };
+			relative_size_type = 1;
+			width = 350;
+			height = -146;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'macroNode';
 		};
 		type = 'Menu';
 		ui_name = '';

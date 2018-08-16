@@ -1,0 +1,615 @@
+
+iris_earth_03.png
+size: 2033,970
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+iris_earth_03_ brow_01
+  rotate: false
+  xy: 1363, 8
+  size: 56, 26
+  orig: 56, 26
+  offset: 0, 0
+  index: -1
+iris_earth_03_acc_01
+  rotate: true
+  xy: 1965, 711
+  size: 50, 62
+  orig: 50, 62
+  offset: 0, 0
+  index: -1
+iris_earth_03_acc_02
+  rotate: false
+  xy: 1889, 220
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+iris_earth_03_acc_03
+  rotate: true
+  xy: 1762, 750
+  size: 38, 51
+  orig: 38, 51
+  offset: 0, 0
+  index: -1
+iris_earth_03_acc_04
+  rotate: true
+  xy: 1487, 108
+  size: 141, 114
+  orig: 141, 114
+  offset: 0, 0
+  index: -1
+iris_earth_03_acc_05
+  rotate: false
+  xy: 1350, 703
+  size: 42, 32
+  orig: 42, 32
+  offset: 0, 0
+  index: -1
+iris_earth_03_arm_01
+  rotate: false
+  xy: 1434, 251
+  size: 65, 62
+  orig: 65, 62
+  offset: 0, 0
+  index: -1
+iris_earth_03_arm_02
+  rotate: false
+  xy: 1263, 250
+  size: 50, 63
+  orig: 50, 63
+  offset: 0, 0
+  index: -1
+iris_earth_03_body_01
+  rotate: false
+  xy: 1694, 3
+  size: 117, 124
+  orig: 117, 124
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_01
+  rotate: false
+  xy: 434, 635
+  size: 314, 333
+  orig: 314, 333
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_02
+  rotate: false
+  xy: 750, 635
+  size: 314, 333
+  orig: 314, 333
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_acc_01
+  rotate: true
+  xy: 1970, 763
+  size: 67, 61
+  orig: 67, 61
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_acc_02
+  rotate: true
+  xy: 1973, 832
+  size: 48, 55
+  orig: 48, 55
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_acc_03
+  rotate: false
+  xy: 1813, 90
+  size: 49, 42
+  orig: 49, 42
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_acc_04
+  rotate: true
+  xy: 1227, 542
+  size: 159, 145
+  orig: 159, 145
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_arm_01
+  rotate: true
+  xy: 1938, 476
+  size: 125, 91
+  orig: 125, 91
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_armor_01
+  rotate: false
+  xy: 1603, 119
+  size: 82, 134
+  orig: 82, 134
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_body_01
+  rotate: true
+  xy: 2, 106
+  size: 420, 333
+  orig: 420, 333
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_hand_01
+  rotate: true
+  xy: 1501, 252
+  size: 90, 69
+  orig: 90, 69
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_hand_02
+  rotate: false
+  xy: 827, 540
+  size: 179, 93
+  orig: 179, 93
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_head_01
+  rotate: false
+  xy: 1489, 344
+  size: 182, 198
+  orig: 182, 198
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_head_02
+  rotate: true
+  xy: 579, 529
+  size: 104, 125
+  orig: 104, 125
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_headacc_01
+  rotate: true
+  xy: 1965, 603
+  size: 51, 61
+  orig: 51, 61
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_jaw_01
+  rotate: false
+  xy: 1813, 7
+  size: 74, 81
+  orig: 74, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_lag_01
+  rotate: true
+  xy: 1816, 772
+  size: 74, 152
+  orig: 74, 152
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_lag_02
+  rotate: true
+  xy: 1816, 848
+  size: 120, 155
+  orig: 120, 155
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_pinger_01
+  rotate: true
+  xy: 1973, 882
+  size: 49, 56
+  orig: 49, 56
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_pinger_02
+  rotate: true
+  xy: 1965, 656
+  size: 53, 61
+  orig: 53, 61
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_shoulder_01
+  rotate: true
+  xy: 1673, 344
+  size: 134, 90
+  orig: 134, 90
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_shoulder_02
+  rotate: false
+  xy: 1765, 355
+  size: 68, 119
+  orig: 68, 119
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_tail_01
+  rotate: false
+  xy: 381, 2
+  size: 163, 133
+  orig: 163, 133
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_tail_02
+  rotate: true
+  xy: 713, 236
+  size: 291, 259
+  orig: 291, 259
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_wing_01
+  rotate: false
+  xy: 337, 137
+  size: 374, 389
+  orig: 374, 389
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_wing_02
+  rotate: false
+  xy: 1066, 703
+  size: 216, 265
+  orig: 216, 265
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_wingacc_01
+  rotate: false
+  xy: 434, 528
+  size: 79, 105
+  orig: 79, 105
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_wingacc_02
+  rotate: true
+  xy: 1572, 255
+  size: 87, 73
+  orig: 87, 73
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_wingeffect_01
+  rotate: false
+  xy: 1284, 737
+  size: 228, 231
+  orig: 228, 231
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_wingeffect_02
+  rotate: true
+  xy: 1686, 790
+  size: 178, 128
+  orig: 178, 128
+  offset: 0, 0
+  index: -1
+iris_earth_03_dragon_wingeffect_03
+  rotate: true
+  xy: 546, 2
+  size: 133, 121
+  orig: 133, 121
+  offset: 0, 0
+  index: -1
+iris_earth_03_ear_01
+  rotate: true
+  xy: 1686, 748
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+iris_earth_03_effect_01
+  rotate: false
+  xy: 1811, 134
+  size: 52, 53
+  orig: 52, 53
+  offset: 0, 0
+  index: -1
+iris_earth_03_effect_02
+  rotate: true
+  xy: 974, 250
+  size: 288, 287
+  orig: 288, 287
+  offset: 0, 0
+  index: -1
+iris_earth_03_effect_03
+  rotate: true
+  xy: 2, 528
+  size: 440, 430
+  orig: 440, 430
+  offset: 0, 0
+  index: -1
+iris_earth_03_effect_04
+  rotate: false
+  xy: 1815, 624
+  size: 148, 146
+  orig: 148, 146
+  offset: 0, 0
+  index: -1
+iris_earth_03_effect_05
+  rotate: false
+  xy: 1394, 544
+  size: 210, 191
+  orig: 210, 191
+  offset: 0, 0
+  index: -1
+iris_earth_03_effect_06
+  rotate: true
+  xy: 1085, 541
+  size: 160, 140
+  orig: 160, 140
+  offset: 0, 0
+  index: -1
+iris_earth_03_effect_07
+  rotate: false
+  xy: 1788, 476
+  size: 148, 146
+  orig: 148, 146
+  offset: 0, 0
+  index: -1
+iris_earth_03_expl
+  rotate: true
+  xy: 1263, 315
+  size: 225, 224
+  orig: 225, 224
+  offset: 0, 0
+  index: -1
+iris_earth_03_eye_01
+  rotate: true
+  xy: 713, 169
+  size: 65, 40
+  orig: 65, 40
+  offset: 0, 0
+  index: -1
+iris_earth_03_eye_02
+  rotate: false
+  xy: 1284, 703
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+iris_earth_03_eye_03
+  rotate: false
+  xy: 1973, 933
+  size: 57, 35
+  orig: 57, 35
+  offset: 0, 0
+  index: -1
+iris_earth_03_eye_04
+  rotate: true
+  xy: 1889, 13
+  size: 70, 37
+  orig: 70, 37
+  offset: 0, 0
+  index: -1
+iris_earth_03_face_01
+  rotate: false
+  xy: 1487, 21
+  size: 79, 85
+  orig: 79, 85
+  offset: 0, 0
+  index: -1
+iris_earth_03_hair_01
+  rotate: true
+  xy: 192, 10
+  size: 94, 67
+  orig: 94, 67
+  offset: 0, 0
+  index: -1
+iris_earth_03_hair_02
+  rotate: true
+  xy: 1881, 274
+  size: 44, 60
+  orig: 44, 60
+  offset: 0, 0
+  index: -1
+iris_earth_03_hair_03
+  rotate: true
+  xy: 1312, 3
+  size: 31, 49
+  orig: 31, 49
+  offset: 0, 0
+  index: -1
+iris_earth_03_hair_04
+  rotate: false
+  xy: 2, 3
+  size: 94, 101
+  orig: 94, 101
+  offset: 0, 0
+  index: -1
+iris_earth_03_hair_05
+  rotate: false
+  xy: 669, 3
+  size: 85, 132
+  orig: 85, 132
+  offset: 0, 0
+  index: -1
+iris_earth_03_hair_06
+  rotate: true
+  xy: 1673, 480
+  size: 68, 106
+  orig: 68, 106
+  offset: 0, 0
+  index: -1
+iris_earth_03_hand_01
+  rotate: true
+  xy: 1724, 748
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+iris_earth_03_hat_01
+  rotate: true
+  xy: 261, 10
+  size: 94, 67
+  orig: 94, 67
+  offset: 0, 0
+  index: -1
+iris_earth_03_horn_01
+  rotate: false
+  xy: 1008, 541
+  size: 75, 92
+  orig: 75, 92
+  offset: 0, 0
+  index: -1
+iris_earth_03_horn_02
+  rotate: false
+  xy: 330, 10
+  size: 49, 94
+  orig: 49, 94
+  offset: 0, 0
+  index: -1
+iris_earth_03_horn_03
+  rotate: false
+  xy: 515, 528
+  size: 62, 105
+  orig: 62, 105
+  offset: 0, 0
+  index: -1
+iris_earth_03_horn_04
+  rotate: false
+  xy: 98, 10
+  size: 92, 94
+  orig: 92, 94
+  offset: 0, 0
+  index: -1
+iris_earth_03_iris_01
+  rotate: true
+  xy: 756, 2
+  size: 232, 276
+  orig: 232, 276
+  offset: 0, 0
+  index: -1
+iris_earth_03_iris_02
+  rotate: true
+  xy: 1034, 16
+  size: 232, 276
+  orig: 232, 276
+  offset: 0, 0
+  index: -1
+iris_earth_03_leg_01
+  rotate: true
+  xy: 706, 529
+  size: 104, 119
+  orig: 104, 119
+  offset: 0, 0
+  index: -1
+iris_earth_03_leg_02
+  rotate: false
+  xy: 1315, 251
+  size: 117, 62
+  orig: 117, 62
+  offset: 0, 0
+  index: -1
+iris_earth_03_light
+  rotate: false
+  xy: 1943, 85
+  size: 79, 77
+  orig: 79, 77
+  offset: 0, 0
+  index: -1
+iris_earth_03_mouse_01
+  rotate: true
+  xy: 337, 115
+  size: 20, 18
+  orig: 20, 18
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_01
+  rotate: false
+  xy: 1647, 261
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_02
+  rotate: false
+  xy: 1616, 36
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_03
+  rotate: false
+  xy: 1725, 261
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_04
+  rotate: false
+  xy: 1803, 272
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_05
+  rotate: false
+  xy: 1835, 393
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_06
+  rotate: true
+  xy: 1913, 398
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_07
+  rotate: true
+  xy: 1913, 320
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_08
+  rotate: false
+  xy: 1811, 189
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_09
+  rotate: true
+  xy: 1943, 242
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_10
+  rotate: true
+  xy: 1943, 164
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_11
+  rotate: false
+  xy: 1865, 106
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_earth_03_rune_12
+  rotate: true
+  xy: 1687, 129
+  size: 130, 122
+  orig: 130, 122
+  offset: 0, 0
+  index: -1
+iris_earth_03_shoulder_01
+  rotate: false
+  xy: 1568, 21
+  size: 46, 85
+  orig: 46, 85
+  offset: 0, 0
+  index: -1
+iris_earth_03_tail_01
+  rotate: true
+  xy: 1312, 36
+  size: 212, 173
+  orig: 212, 173
+  offset: 0, 0
+  index: -1
+iris_earth_03_wing_l
+  rotate: true
+  xy: 1606, 550
+  size: 195, 180
+  orig: 195, 180
+  offset: 0, 0
+  index: -1
+iris_earth_03_wing_r
+  rotate: false
+  xy: 1514, 747
+  size: 170, 221
+  orig: 170, 221
+  offset: 0, 0
+  index: -1
