@@ -773,7 +773,7 @@ end
 function UI_Lobby:update_google()
     local vars = self.vars
 
-    if (g_localData:isGooglePlayConnected()) then
+    if (g_localData:isGoogleLogin()) then
         vars['googleGameBtn']:setVisible(true)
     else
         vars['googleGameBtn']:setVisible(false)
@@ -1046,6 +1046,11 @@ end
 -- function click_googleGameBtn
 -------------------------------------
 function UI_Lobby:click_googleGameBtn()
+	if (not g_localData:isGooglePlayConnected()) then
+		GoogleHelper.loginPlayServices()
+		return
+	end
+
     local vars = self.vars
     local game_pos_x = vars['googleGameBtn']:getPositionX()
     local achv_pos_y = vars['googleAchievementBtn']:getPositionY()

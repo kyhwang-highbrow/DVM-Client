@@ -527,12 +527,11 @@ function UI_TitleScene:workCheckUserID()
         UnlinkBrokenPlatform(t_info, platform_id)
 
         if platform_id == 'google.com' then
-            PerpleSDK:googleLogin(1, function(ret, info)
-                g_localData:applyLocalData('on', 'local', 'googleplay_connected')
+            PerpleSDK:googleSilentLogin(function(ret, info)
                 self:doNextWork()
             end)
         else
-            g_localData:applyLocalData('off', 'local', 'googleplay_connected')
+            g_localData:setGooglePlayConnected(false)
             self:doNextWork()
         end
     end
@@ -560,7 +559,7 @@ function UI_TitleScene:workCheckUserID()
         self.m_loadingUI:hideLoading()
 
         PerpleSDK:logout()
-        PerpleSDK:googleLogout(0)
+        PerpleSDK:googleLogout()
         PerpleSDK:facebookLogout()
 		PerpleSDK:twitterLogout()
 

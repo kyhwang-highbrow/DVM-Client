@@ -23,6 +23,21 @@ function GoogleHelper.isAvailable()
 end
 
 -------------------------------------
+-- function showAchievement
+-------------------------------------
+function GoogleHelper.loginPlayServices()
+	PerpleSDK:googlePlayServiceLogin(function(ret, info)
+		if (ret == 'success') then
+			g_localData:setGooglePlayConnected(true)
+		elseif ret == 'fail' then
+			PerpleSdkManager:makeErrorPopup(info)
+        elseif ret == 'cancel' then
+			UI_LoginPopup:loginCancel()
+		end
+	end)
+end
+
+-------------------------------------
 -- function updateAchievement
 -- @brief public
 -------------------------------------
@@ -94,11 +109,22 @@ function GoogleHelper.showAchievement()
         if ret == 'success' then
         elseif ret == 'fail' then
             -- info : {"code":"@code", "msg":"@msg"}
-            -- @code 가 '-1210' 일 경우 로그아웃한 것임
             local t_info = dkjson.decode(info)
-            if t_info.code == '-1210' then
-                g_localData:applyLocalData('off', 'local', 'googleplay_connected')
+			
+			-- ERROR_GOOGLE_LOGOUT
+            if (t_info['code'] == '-1205') then
+                g_localData:setGooglePlayConnected(false)
                 GoogleHelper.setDirty(true)
+				GoogleHelper.loginPlayServices()
+
+			-- ERROR_GOOGLE_ACHIEVEMENTS
+			elseif (t_info['code'] == '-1203') then
+				g_localData:setGooglePlayConnected(false)
+                GoogleHelper.setDirty(true)
+				GoogleHelper.loginPlayServices()
+
+			else
+				PerpleSdkManager:makeErrorPopup(info)
             end
         end
     end)

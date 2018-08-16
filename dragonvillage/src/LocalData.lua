@@ -228,6 +228,18 @@ function LocalData:isGooglePlayConnected()
 end
 
 -------------------------------------
+-- function setGooglePlayConnected
+-- @breif
+-------------------------------------
+function LocalData:setGooglePlayConnected(b)
+	if (b) then
+		self:applyLocalData('on', 'local', 'googleplay_connected')
+	else
+		self:applyLocalData('off', 'local', 'googleplay_connected')
+	end
+end
+
+-------------------------------------
 -- function isGuestAccount
 -- @breif
 -------------------------------------
@@ -299,6 +311,14 @@ end
 -------------------------------------
 function LocalData:getAuth()
 	return self:get('local', 'platform_id') or 'firebase'
+end
+
+-------------------------------------
+-- function isGoogleLogin
+-- @breif
+-------------------------------------
+function LocalData:isGoogleLogin()
+	return (self:getAuth() == 'google.com')
 end
 
 -------------------------------------

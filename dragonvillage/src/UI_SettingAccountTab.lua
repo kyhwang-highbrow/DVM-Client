@@ -150,7 +150,7 @@ function UI_Setting:click_facebookBtn()
             MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
                 -- 기존 구글 연결은 끊는다.
                 if old_platform_id == 'google.com' then
-                    PerpleSDK:googleLogout(1)
+                    PerpleSDK:googleLogout()
                     PerpleSDK:unlinkWithGoogle(function(ret, info)
                         if ret == 'success' then
                             cclog('Firebase unlink from Google was successful.')
@@ -195,7 +195,7 @@ function UI_Setting:click_facebookBtn()
                         self:loginSuccess(info)
 
                         if (old_platform_id == 'google.com') then
-                            PerpleSDK:googleLogout(1)
+                            PerpleSDK:googleLogout()
                         end
 
                         -- 앱 재시작
@@ -217,7 +217,7 @@ function UI_Setting:click_facebookBtn()
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
-            cclog('Firebase Facebook link failed - ' .. msg)
+            cclog('Firebase Facebook link failed')
 			UI_LoginPopup:loginFail(info)
             self.m_loadingUI:hideLoading()
             
@@ -293,7 +293,7 @@ function UI_Setting:click_googleBtn()
 
             local ok_btn_cb = function()
                 self.m_loadingUI:showLoading(Str('계정 전환 중...'))
-                PerpleSDK:logout()
+				PerpleSDK:logout()
                 PerpleSDK:loginWithGoogle(function(ret, info)
                     self.m_loadingUI:hideLoading()
                     if ret == 'success' then
@@ -320,7 +320,7 @@ function UI_Setting:click_googleBtn()
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
-            cclog('Firebase Google link failed - ' .. msg)
+            cclog('Firebase Google link failed')
 			UI_LoginPopup:loginFail(info)
             self.m_loadingUI:hideLoading()
 
@@ -359,7 +359,7 @@ function UI_Setting:click_twitterBtn()
             MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
                 -- 기존 구글 연결은 끊는다.
                 if old_platform_id == 'google.com' then
-                    PerpleSDK:googleLogout(1)
+                    PerpleSDK:googleLogout()
                     PerpleSDK:unlinkWithGoogle(function(ret, info)
                         if ret == 'success' then
                             cclog('Firebase unlink from Google was successful.')
@@ -404,7 +404,7 @@ function UI_Setting:click_twitterBtn()
                         self:loginSuccess(info)
 
                         if (old_platform_id == 'google.com') then
-                            PerpleSDK:googleLogout(1)
+                            PerpleSDK:googleLogout()
                         end
 
                         -- 앱 재시작
@@ -426,7 +426,7 @@ function UI_Setting:click_twitterBtn()
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
-            cclog('Firebase Twitter link failed - ' .. msg)
+            cclog('Firebase Twitter link failed')
 			UI_LoginPopup:loginFail(info)
             self.m_loadingUI:hideLoading()
 
@@ -499,7 +499,7 @@ function UI_Setting:click_logoutBtn()
                 clear()
             else
                 PerpleSDK:logout()
-                PerpleSDK:googleLogout(0)
+                PerpleSDK:googleLogout()
                 PerpleSDK:facebookLogout()
 				PerpleSDK:twitterLogout()
 
@@ -571,21 +571,23 @@ function UI_Setting:loginSuccess(info)
     local push_token = t_info.pushToken
     local platform_id = t_info.providerId
     local account_info = t_info.name
-
+	
     cclog('fuid: ' .. tostring(fuid))
     cclog('push_token: ' .. tostring(push_token))
     cclog('platform_id:' .. tostring(platform_id))
     cclog('account_info:' .. tostring(account_info))
-
+	
     g_localData:applyLocalData(fuid, 'local', 'uid')
     g_localData:applyLocalData(push_token, 'local', 'push_token')
     g_localData:applyLocalData(platform_id, 'local', 'platform_id')
     g_localData:applyLocalData(account_info, 'local', 'account_info')
 
     if platform_id == 'google.com' then
-        g_localData:applyLocalData('on', 'local', 'googleplay_connected')
+		if (t_info['google'] and t_info['google']['playServicesConnected']) then
+			g_localData:setGooglePlayConnected(true)
+		end
     else
-        g_localData:applyLocalData('off', 'local', 'googleplay_connected')
+        g_localData:setGooglePlayConnected(false)
     end
 
     if platform_id ~= 'gamecenter' then

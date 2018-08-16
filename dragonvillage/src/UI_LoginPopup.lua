@@ -269,9 +269,11 @@ function UI_LoginPopup:loginSuccess(info)
     g_localData:applyLocalData(account_info, 'local', 'account_info')
 
     if platform_id == 'google.com' then
-        g_localData:applyLocalData('on', 'local', 'googleplay_connected')
+		if (t_info['google'] and t_info['google']['playServicesConnected']) then
+			g_localData:setGooglePlayConnected(true)
+		end
     else
-        g_localData:applyLocalData('off', 'local', 'googleplay_connected')
+        g_localData:setGooglePlayConnected(false)
     end
 
     --선택 서버 저장
