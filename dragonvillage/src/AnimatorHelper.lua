@@ -171,6 +171,10 @@ function AnimatorHelper:getTitleAnimator()
 		res = 'res/ui/spine/title_ja/title_ja.spine'
 	elseif (lang == 'zh') then
 		res = 'res/ui/spine/title_zh/title_zh.spine'
+	elseif (lang == 'th') then
+		res = 'res/ui/spine/title_th/title_th.spine'
+	elseif (lang == 'es') then
+		res = 'res/ui/spine/title_es/title_es.spine'
 	else
 		res = 'res/ui/spine/title/title.spine'
 	end
