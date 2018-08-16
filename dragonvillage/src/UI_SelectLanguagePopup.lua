@@ -70,12 +70,6 @@ function UI_SelectLanguagePopup:initButton()
 		self.m_radioButton = radio_button
 	end
 
-	-- 태국어/스페인어 오픈 전 처리
-	if (not IS_TEST_MODE()) then
-		vars['thMenu']:setVisible(false)
-		vars['esMenu']:setVisible(false)
-	end
-
 	vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
