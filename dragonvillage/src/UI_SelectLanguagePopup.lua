@@ -56,8 +56,8 @@ function UI_SelectLanguagePopup:initButton()
 		for lang, text in pairs(t_lang_list) do
 			radio_button:addButtonAuto(lang, vars)
 
-			-- ui에서 입력하기 때문에 따로 안 찍어준다.
-			-- vars[lang .. 'Label']:setString(text)
+			-- 한국어 번역되어서 클라에서 찍음
+			vars[lang .. 'Label']:setString(text)
 		end
 
 		-- 현재 언어가 있는 경우에만 선택
