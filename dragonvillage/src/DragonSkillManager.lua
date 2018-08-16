@@ -212,6 +212,11 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 
         if (metamorphosis_skill_indivisual_info) then
             skill_indivisual_info.m_metamorphosisSkillInfo = metamorphosis_skill_indivisual_info
+
+            -- 변신 후 스킬은 초기에 활성화되지 않도록 함
+            if (self.m_bInGameMode) then
+                metamorphosis_skill_indivisual_info:setEnabled(false)
+            end
         end
 
     elseif (isExistValue(skill_type, 'active', 'basic', 'leader')) then
@@ -723,7 +728,7 @@ function IDragonSkillManager:changeSkillSetByMetamorphosis(b)
                 syncRuntimeInfo(v)
             else
                 for _, skill_info in ipairs(v) do
-                    setEnabled(v, b)
+                    setEnabled(skill_info, b)
                     syncRuntimeInfo(skill_info)
                 end
             end
