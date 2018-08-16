@@ -773,6 +773,11 @@ end
 function UI_Lobby:update_google()
     local vars = self.vars
 
+	if (not CppFunctions:isAndroid()) then
+		vars['googleGameBtn']:setVisible(false)
+		return 
+	end
+
     if (g_localData:isGoogleLogin()) then
         vars['googleGameBtn']:setVisible(true)
     else
