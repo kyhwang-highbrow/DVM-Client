@@ -807,7 +807,10 @@ unzFile ZEXPORT unzOpenBuffer (const  void* buffer, uLong size)
     char path[48] = {0};
     zlib_filefunc64_32_def memory_file;
     sprintf(path, "%llx %lx", (unsigned long long)buffer, (unsigned long)size);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#else
     fill_memory_filefunc64_32(&memory_file);
+#endif
     return unzOpenInternal(path, &memory_file, 0);
 }
 
