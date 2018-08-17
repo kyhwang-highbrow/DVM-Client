@@ -23,6 +23,10 @@ function UI_QuestPopup:init()
 	self:doActionReset()
 	self:doAction(nil, false)
 
+    -- 임시
+    vars['doingLabel']:setString(Str('적용 중') .. '\n' .. Str('{1} / {2} 일', 7, 14))
+    vars['priceLabel']:setString('₩5,500')
+
 	-- 통신 후 UI 출력
 	local cb_func = function()
 		self:initUI()
@@ -132,7 +136,7 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
          
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(1160 + 10, 108)
+        table_view.m_defaultCellSize = cc.size(1160 + 10, 80 + 10)
         table_view:setCellUIClass(UI_QuestListItem, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_quest)
@@ -166,14 +170,6 @@ function UI_QuestPopup:setAllClearQuest(tab)
 	if (tab == TableQuest.CHALLENGE) then
         return
     end
-
-    -- 최초 생성
-	local node = self.vars['allClearNode']
-	local t_quest = g_questData:getAllClearDailyQuestTable()
-	local ui = UI_QuestListItem(t_quest, true)
-    ui.vars['rewardBtn']:registerScriptTapHandler(function() ui:click_rewardBtn(self) end)
-	node:addChild(ui.root)
-    self.m_allClearQuestCell = ui
 end
 
 -------------------------------------
@@ -181,6 +177,10 @@ end
 -- @brief 올클리어 갱신
 -------------------------------------
 function UI_QuestPopup:refreshAllClearQuest()
+    if (not self.m_allClearQuestCell) then
+        return
+    end
+
     local t_quest = g_questData:getAllClearDailyQuestTable()
     self.m_allClearQuestCell:refresh(t_quest)
 end
@@ -218,6 +218,12 @@ function UI_QuestPopup:cellCreateCB(ui, data)
 		ui:click_questLinkBtn(self)
 	end
 	ui.vars['questLinkBtn']:registerScriptTapHandler(click_questLinkBtn)
+
+    -- "일일 퀘스트 10개 클리어하기" 항목은 갱신을 위해 따로 저장
+    local t_quest = data['t_quest']
+    if (t_quest['key'] == 'dq_clear') then
+        self.m_allClearQuestCell = ui
+    end
 end
 
 -------------------------------------

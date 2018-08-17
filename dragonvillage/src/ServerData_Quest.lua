@@ -69,9 +69,9 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
 				-- 데일리 클리어는 따로 빼준다.
 				if (t_quest['key'] == 'dq_clear') then
 					self.m_dailyClearQuest = struct_quest
-				else
-					table.insert(l_quest, struct_quest)
-				end
+                end
+
+                table.insert(l_quest, struct_quest)
 			end
 
 			self.m_tQuestInfo[quest_type] = l_quest
