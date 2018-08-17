@@ -279,7 +279,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = 'buyBtn';
 						enable = true;
 						normal = 'ui/buttons/base_btn_0103.png';
@@ -329,7 +329,7 @@
 							shadow_direction = 0;
 							shadow_distance = 2.000000;
 						};
-						type = 'Button';
+						type = 'Scale9Sprite';
 						ui_name = '';
 						x = -90.000000;
 						y = 0.000000;
@@ -343,19 +343,21 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = false;
-						lua_name = 'doingBtn';
-						enable = true;
-						normal = 'ui/buttons/base_btn_0103.png';
-						selected = 'ui/buttons/base_btn_0102.png';
-						disable = 'ui/buttons/base_btn_0102.png';
-						image_type = 1;
+						visible = true;
+						lua_name = 'doingSprite';
+						file_name = 'ui/buttons/base_btn_0103.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
 					};
 					[4] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 25.000000;
+						x = 50.000000;
 						y = -14.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -368,7 +370,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = '';
+						lua_name = 'dailyQuestLabel2';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 21;
 						text = '14일간 일일 퀘스트의 모든 보상 2배';
@@ -395,7 +397,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 25.000000;
+						x = 50.000000;
 						y = 14.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -408,7 +410,7 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
-						lua_name = '';
+						lua_name = 'dailyQuestLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 21;
 						text = '일일 퀘스트 보상 2배';
@@ -431,12 +433,38 @@
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
 					};
+					[6] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -535.000000;
+						y = -10.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.700000;
+						scale_y = 0.700000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'bonusSprite';
+						file_name = 'ui/frames/temp/icon_bonus_bg.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Menu';
 					ui_name = '';
 					x = 0.000000;
-					y = 222.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					y = -3.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 1.000000; };
 					relative_size_type = 0;
 					width = 1170;
 					height = 80;
