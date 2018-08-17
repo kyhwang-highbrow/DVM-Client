@@ -48,7 +48,9 @@ function UI_GameArena:initUI()
 
         if (self.m_gameScene.m_bDevelopMode) then
             user_info = g_arenaData:getMatchUserInfo()
-            vars['userNameLabel2']:setString(user_info.m_nickname)
+            if (user_info) then
+                vars['userNameLabel2']:setString(user_info.m_nickname)
+            end
         else
             user_info = is_friendMatch and g_friendMatchData.m_matchInfo  or g_arenaData:getMatchUserInfo()
             vars['userNameLabel2']:setString(user_info.m_nickname)

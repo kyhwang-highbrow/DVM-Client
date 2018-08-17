@@ -3704,6 +3704,15 @@
     <None Include="..\src\UI_DragonMasteryLevelUp_Result.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SceneGameEventArena.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameWorldEventArena.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameState_EventArena.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -21,6 +21,7 @@ MultiDeckMgr = class({
 MULTI_DECK_MODE = {
     CLAN_RAID = 'clan_raid',        -- 클랜 던전
     ANCIENT_RUIN = 'ancient_ruin',  -- 고대 유적 던전
+    EVENT_ARENA = 'event_arena',    -- 이벤트 아레나
 }
 
 -------------------------------------

@@ -27,6 +27,10 @@ function GameWorldForDoubleTeam:init()
         local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
         sel_deck = multi_deck_mgr:getMainDeck()
 
+    elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
+        sel_deck = multi_deck_mgr:getMainDeck()
+
     else
         error('invalid game mode : ' .. self.m_gameMode)
     end
@@ -73,8 +77,12 @@ function GameWorldForDoubleTeam:createComponents()
 
     for _, group_key in ipairs(self:getEnemyGroups()) do
         self.m_mUnitGroup[group_key] = GameUnitGroup(self, group_key)
-        --self.m_mUnitGroup[group_key]:createMana()
-        --self.m_mUnitGroup[group_key]:createAuto()
+
+        if (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+            self.m_mUnitGroup[group_key]:createMana()
+            self.m_mUnitGroup[group_key]:createAuto()
+        end
+
         self.m_mUnitGroup[group_key]:setAttackbleGroupKeys({ self.m_mUnitGroup[group_key]:getOpponentGroupKey() })
     end
 
@@ -85,6 +93,10 @@ function GameWorldForDoubleTeam:createComponents()
 
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         self.m_gameState = GameState_AncientRuin(self)
+        self.m_inGameUI:init_timeUI(true, 0)
+
+    elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+        self.m_gameState = GameState_Arena(self)
         self.m_inGameUI:init_timeUI(true, 0)
 
     else

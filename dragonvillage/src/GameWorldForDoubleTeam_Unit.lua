@@ -13,6 +13,10 @@ function GameWorldForDoubleTeam:makeHeroDeck()
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         g_data = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
 
+    elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+        --g_data = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA)
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
+
     else
         error('invalid game mode : ' .. self.m_gameMode)
     end
