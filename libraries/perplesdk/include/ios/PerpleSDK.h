@@ -90,6 +90,7 @@
 #define PERPLESDK_ERROR_ADMOB_START                         "-2101"
 #define PERPLESDK_ERROR_ADMOB_INVALIDADUNITID               "-2102"
 #define PERPLESDK_ERROR_ADMOB_NOTLOADEDAD                   "-2103"
+#define PERPLESDK_ERROR_ADMOB_FAILLOAD                      "-2104"
 
 #pragma mark -
 
@@ -218,14 +219,14 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) naverCafeStartWithArticle:(int)articleId;
 
 // @google
-- (void) googleLogin:(int)connectOnly completion:(PerpleSDKCallback)callback;
-- (void) googleLogout:(int)disconnectOnly;
+- (void) googleLogin:(PerpleSDKCallback)callback;
+- (void) googleSilentLogin:(PerpleSDKCallback)callback;
+- (void) googleLogout;
+- (void) googleRevokeAccess;
 - (void) googleShowAchievementsWithCompletion:(PerpleSDKCallback)callback;
 - (void) googleShowLeaderboardsWithCompletion:(PerpleSDKCallback)callback;
-- (void) googleShowQuestsWithCompletion:(PerpleSDKCallback)callback;
 - (void) googleUpdateAchievements:(NSString *)achievementId numSteps:(NSString *)numSteps completion:(PerpleSDKCallback)callback;
 - (void) googleUpdateLeaderboards:(NSString *)leaderboardId finalScore:(NSString *)finalScore completion:(PerpleSDKCallback)callback;
-- (void) googleUpdateQuestEvents:(NSString *)eventId incrementCount:(NSString *)incrementCount completion:(PerpleSDKCallback)callback;
 
 // @gamecenter
 - (void) gameCenterLoginWithCompletion:(PerpleSDKCallback)callback;
@@ -250,6 +251,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 // @adjust
 - (void) adjustTrackEvent:(NSString *)eventKey;
 - (void) adjustTrackPayment:(NSString *)key price:(NSString *)price currency:(NSString *)currency;
+- (void) adjustGdprForgetMe;
 
 // @adMob
 - (void) adMobStart:(NSString *)adUnitIdList;
