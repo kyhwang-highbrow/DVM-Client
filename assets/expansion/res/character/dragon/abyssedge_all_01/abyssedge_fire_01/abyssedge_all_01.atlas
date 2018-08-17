@@ -1,0 +1,132 @@
+
+abyssedge_all_01.png
+size: 1426,369
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+abyssedge_all_01_arm_01
+  rotate: false
+  xy: 675, 2
+  size: 124, 82
+  orig: 124, 82
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_arm_02
+  rotate: true
+  xy: 1321, 111
+  size: 111, 103
+  orig: 111, 103
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_backstar
+  rotate: false
+  xy: 1123, 22
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_bee
+  rotate: false
+  xy: 955, 211
+  size: 65, 93
+  orig: 65, 93
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_body_01
+  rotate: false
+  xy: 76, 19
+  size: 255, 348
+  orig: 255, 348
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_bred
+  rotate: false
+  xy: 801, 10
+  size: 228, 74
+  orig: 228, 74
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_clow
+  rotate: false
+  xy: 2, 4
+  size: 72, 363
+  orig: 72, 363
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_explo
+  rotate: false
+  xy: 675, 86
+  size: 278, 281
+  orig: 278, 281
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_eye_01
+  rotate: false
+  xy: 1078, 62
+  size: 31, 31
+  orig: 31, 31
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_eyeacc_01
+  rotate: true
+  xy: 1031, 58
+  size: 35, 45
+  orig: 35, 45
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_flare
+  rotate: false
+  xy: 1031, 224
+  size: 380, 143
+  orig: 380, 143
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_leg_01
+  rotate: true
+  xy: 955, 306
+  size: 61, 67
+  orig: 61, 67
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_leg_02
+  rotate: true
+  xy: 955, 108
+  size: 48, 51
+  orig: 48, 51
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_light
+  rotate: false
+  xy: 955, 158
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_lightdust
+  rotate: true
+  xy: 1022, 95
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_mouth_01
+  rotate: false
+  xy: 333, 5
+  size: 27, 20
+  orig: 27, 20
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_mouth_02
+  rotate: false
+  xy: 1078, 36
+  size: 27, 24
+  orig: 27, 24
+  offset: 0, 0
+  index: -1
+abyssedge_all_01_shockwave_01
+  rotate: false
+  xy: 333, 27
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: -1

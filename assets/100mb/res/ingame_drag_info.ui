@@ -536,7 +536,7 @@
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 230;
+				width = 525;
 				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -552,7 +552,7 @@
 				v_alignment = 1;
 				color = { 244; 191; 5; };
 				opacity = 255;
-				dimension_width = 230;
+				dimension_width = 525;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;

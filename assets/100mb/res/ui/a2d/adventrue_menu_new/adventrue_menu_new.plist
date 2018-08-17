@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>adventrue_menu_ancient.png</key>
+            <key>adventrue_menu_new_ancient.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -19,7 +19,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_ancient_ruins.png</key>
+            <key>adventrue_menu_new_ancient_ruins.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -34,7 +34,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_attr_tower.png</key>
+            <key>adventrue_menu_new_attr_tower.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -49,7 +49,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_clan_raid.png</key>
+            <key>adventrue_menu_new_clan_raid.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -64,7 +64,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>adventrue_menu_colosseum.png</key>
+            <key>adventrue_menu_new_colosseum.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -79,7 +79,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_dragon.png</key>
+            <key>adventrue_menu_new_dragon.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -94,7 +94,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>adventrue_menu_exploration.png</key>
+            <key>adventrue_menu_new_exploration.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -109,7 +109,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>adventrue_menu_nightmare.png</key>
+            <key>adventrue_menu_new_nightmare.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -124,7 +124,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_relation.png</key>
+            <key>adventrue_menu_new_relation.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -139,7 +139,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_scenario.png</key>
+            <key>adventrue_menu_new_scenario.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -154,7 +154,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adventrue_menu_tree.png</key>
+            <key>adventrue_menu_new_tree.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -183,7 +183,7 @@
             <key>size</key>
             <string>{948,1996}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:abc4611b88b6b1126016d56808b3ea41:c1cc7dbf122d7e54f7d3dfd472dbb3af:8c0de5d8038bc0ce04fa83346fffb87f$</string>
+            <string>$TexturePacker:SmartUpdate:a61283def7ff15f31a104bc3df227e26:c1cc7dbf122d7e54f7d3dfd472dbb3af:8c0de5d8038bc0ce04fa83346fffb87f$</string>
             <key>textureFileName</key>
             <string>adventrue_menu_new.png</string>
         </dict>

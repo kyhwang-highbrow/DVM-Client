@@ -51,7 +51,7 @@
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '이벤트 종료까지 12시간 12분 남음';
+				text = 'timeLabel';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 192; 255; 255; };
@@ -131,7 +131,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '획득한 벚꽃';
+				text = '획득한 축구공';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 237; 212; 157; };
@@ -259,15 +259,15 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -190.000000;
-				y = -84.000000;
+				x = -196.000000;
+				y = -88.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 150;
 				height = 150;
-				scale_x = 0.800000;
-				scale_y = 0.800000;
+				scale_x = 0.900000;
+				scale_y = 0.900000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -285,15 +285,15 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -190.000000;
-				y = 652.000000;
+				x = -196.000000;
+				y = 650.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 150;
 				height = 150;
-				scale_x = 0.800000;
-				scale_y = 0.800000;
+				scale_x = 0.900000;
+				scale_y = 0.900000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -335,7 +335,7 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -375,7 +375,7 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -415,7 +415,7 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -455,7 +455,7 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -495,7 +495,7 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -535,7 +535,7 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -595,12 +595,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 10.000000;
+						x = 16.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 112;
+						width = 94;
 						height = 50;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -616,7 +616,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 112;
+						dimension_width = 94;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -635,7 +635,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = -73.000000;
+						x = -66.000000;
 						y = 2.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -823,7 +823,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '누적 벚꽃';
+				text = '누적 축구공';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 237; 212; 157; };
@@ -1091,7 +1091,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
-				text = '꽃피는 봄이 오면';
+				text = 'WE ARE ONE';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 252; 230; };
@@ -1131,7 +1131,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 60;
-				text = '벚꽃 이벤트';
+				text = '축구공 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 215; 0; };
@@ -1174,7 +1174,7 @@
 				text = '선물 상자';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 71; 30; 0; };
+				color = { 0; 0; 0; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 80;
@@ -1211,10 +1211,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '획득한 벚꽃을 사용해 선물상자와 교환할 수 있어요.';
+				text = '획득한 축구공을 사용해 선물상자와 교환할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 71; 30; 0; };
+				color = { 0; 0; 0; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1291,7 +1291,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 50;
-				text = '누적 벚꽃 보상';
+				text = '누적 축구공 보상';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 215; 0; };
@@ -1331,7 +1331,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '선물상자 교환에 사용한 벚꽃의 누적 사용량에 따라 보상을 획득할 수 있어요.';
+				text = '선물상자 교환에 사용한 축구공의 누적 사용량에 따라 보상을 획득할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };

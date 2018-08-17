@@ -161,7 +161,7 @@
 				visible = true;
 				lua_name = 'nameLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 20;
 				text = 'user';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -241,7 +241,7 @@
 				visible = true;
 				lua_name = 'damageLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '1,000,000,000점';
 				h_alignment = 2;
 				v_alignment = 1;

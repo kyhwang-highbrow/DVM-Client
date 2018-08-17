@@ -1,17 +1,14 @@
 # App Version
-- LIVE : 1.0.8
-- QA : 1.0.8
-- QA : 0.4.6
-- DEV : 0.4.5
+- LIVE : 1.1.5
+- QA : 0.5.9
+- DEV : 0.5.8
 
 # Version Code
-- ios : ?
-- aos : 27
+- aos : 34
 
 # APK Expansion
-- file : main.27.com.perplelab.dragonvillagem.kr.obb
-- size : 252165058
-- version code : 27
+- file : main.34.com.perplelab.dragonvillagem.kr.obb
+- version code : 34
 
 # APK Build Revision
-- Revision: 92122
+- Revision: 102562

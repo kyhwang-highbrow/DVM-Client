@@ -1,0 +1,601 @@
+
+iris_water_03.png
+size: 1965,1002
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+iris_water_03_ brow_01
+  rotate: false
+  xy: 337, 141
+  size: 56, 26
+  orig: 56, 26
+  offset: 0, 0
+  index: -1
+iris_water_03_acc_01
+  rotate: false
+  xy: 343, 12
+  size: 50, 62
+  orig: 50, 62
+  offset: 0, 0
+  index: -1
+iris_water_03_acc_02
+  rotate: false
+  xy: 1817, 168
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+iris_water_03_acc_03
+  rotate: true
+  xy: 1385, 729
+  size: 38, 51
+  orig: 38, 51
+  offset: 0, 0
+  index: -1
+iris_water_03_acc_04
+  rotate: false
+  xy: 1739, 345
+  size: 141, 114
+  orig: 141, 114
+  offset: 0, 0
+  index: -1
+iris_water_03_acc_05
+  rotate: true
+  xy: 1351, 725
+  size: 42, 32
+  orig: 42, 32
+  offset: 0, 0
+  index: -1
+iris_water_03_arm_01
+  rotate: true
+  xy: 1842, 6
+  size: 65, 62
+  orig: 65, 62
+  offset: 0, 0
+  index: -1
+iris_water_03_arm_02
+  rotate: false
+  xy: 343, 76
+  size: 50, 63
+  orig: 50, 63
+  offset: 0, 0
+  index: -1
+iris_water_03_body_01
+  rotate: true
+  xy: 1557, 4
+  size: 117, 124
+  orig: 117, 124
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_01
+  rotate: false
+  xy: 434, 667
+  size: 314, 333
+  orig: 314, 333
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_02
+  rotate: false
+  xy: 750, 667
+  size: 314, 333
+  orig: 314, 333
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_acc_01
+  rotate: false
+  xy: 1481, 307
+  size: 67, 61
+  orig: 67, 61
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_acc_02
+  rotate: false
+  xy: 1066, 667
+  size: 48, 55
+  orig: 48, 55
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_acc_03
+  rotate: false
+  xy: 1300, 725
+  size: 49, 42
+  orig: 49, 42
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_acc_04
+  rotate: true
+  xy: 707, 8
+  size: 159, 145
+  orig: 159, 145
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_arm_01
+  rotate: false
+  xy: 953, 175
+  size: 125, 91
+  orig: 125, 91
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_armor_01
+  rotate: false
+  xy: 94, 2
+  size: 82, 134
+  orig: 82, 134
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_body_01
+  rotate: true
+  xy: 2, 138
+  size: 420, 333
+  orig: 420, 333
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_hand_01
+  rotate: false
+  xy: 1650, 704
+  size: 90, 69
+  orig: 90, 69
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_hand_02
+  rotate: false
+  xy: 878, 572
+  size: 179, 93
+  orig: 179, 93
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_head_01
+  rotate: true
+  xy: 1756, 818
+  size: 182, 198
+  orig: 182, 198
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_head_02
+  rotate: true
+  xy: 579, 561
+  size: 104, 125
+  orig: 104, 125
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_headacc_01
+  rotate: false
+  xy: 1817, 105
+  size: 51, 61
+  orig: 51, 61
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_jaw_01
+  rotate: true
+  xy: 1870, 73
+  size: 74, 81
+  orig: 74, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_lag_01
+  rotate: true
+  xy: 1481, 500
+  size: 74, 152
+  orig: 74, 152
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_lag_02
+  rotate: false
+  xy: 854, 15
+  size: 120, 155
+  orig: 120, 155
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_pinger_01
+  rotate: false
+  xy: 1761, 81
+  size: 49, 56
+  orig: 49, 56
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_pinger_02
+  rotate: true
+  xy: 1472, 151
+  size: 53, 61
+  orig: 53, 61
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_shoulder_01
+  rotate: true
+  xy: 2, 2
+  size: 134, 90
+  orig: 134, 90
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_shoulder_02
+  rotate: false
+  xy: 1589, 123
+  size: 68, 119
+  orig: 68, 119
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_tail_01
+  rotate: false
+  xy: 178, 3
+  size: 163, 133
+  orig: 163, 133
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_tail_02
+  rotate: true
+  xy: 713, 268
+  size: 291, 259
+  orig: 291, 259
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_wing_01
+  rotate: false
+  xy: 337, 169
+  size: 374, 389
+  orig: 374, 389
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_wing_02
+  rotate: false
+  xy: 1263, 307
+  size: 216, 265
+  orig: 216, 265
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_wingacc_01
+  rotate: false
+  xy: 434, 560
+  size: 79, 105
+  orig: 79, 105
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_wingacc_02
+  rotate: false
+  xy: 1650, 629
+  size: 87, 73
+  orig: 87, 73
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_wingeffect_01
+  rotate: false
+  xy: 1300, 769
+  size: 228, 231
+  orig: 228, 231
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_wingeffect_02
+  rotate: false
+  xy: 1481, 370
+  size: 178, 128
+  orig: 178, 128
+  offset: 0, 0
+  index: -1
+iris_water_03_dragon_wingeffect_03
+  rotate: false
+  xy: 1739, 222
+  size: 133, 121
+  orig: 133, 121
+  offset: 0, 0
+  index: -1
+iris_water_03_ear_01
+  rotate: true
+  xy: 1147, 176
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+iris_water_03_effect_01
+  rotate: false
+  xy: 1535, 151
+  size: 52, 53
+  orig: 52, 53
+  offset: 0, 0
+  index: -1
+iris_water_03_effect_02
+  rotate: true
+  xy: 974, 282
+  size: 288, 287
+  orig: 288, 287
+  offset: 0, 0
+  index: -1
+iris_water_03_effect_03
+  rotate: true
+  xy: 2, 560
+  size: 440, 430
+  orig: 440, 430
+  offset: 0, 0
+  index: -1
+iris_water_03_effect_04
+  rotate: true
+  xy: 1142, 574
+  size: 148, 146
+  orig: 148, 146
+  offset: 0, 0
+  index: -1
+iris_water_03_effect_05
+  rotate: false
+  xy: 1438, 576
+  size: 210, 191
+  orig: 210, 191
+  offset: 0, 0
+  index: -1
+iris_water_03_effect_06
+  rotate: true
+  xy: 565, 7
+  size: 160, 140
+  orig: 160, 140
+  offset: 0, 0
+  index: -1
+iris_water_03_effect_07
+  rotate: true
+  xy: 1290, 574
+  size: 148, 146
+  orig: 148, 146
+  offset: 0, 0
+  index: -1
+iris_water_03_expl
+  rotate: true
+  xy: 1530, 775
+  size: 225, 224
+  orig: 225, 224
+  offset: 0, 0
+  index: -1
+iris_water_03_eye_01
+  rotate: false
+  xy: 1080, 176
+  size: 65, 40
+  orig: 65, 40
+  offset: 0, 0
+  index: -1
+iris_water_03_eye_02
+  rotate: false
+  xy: 1659, 134
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+iris_water_03_eye_03
+  rotate: true
+  xy: 1511, 206
+  size: 57, 35
+  orig: 57, 35
+  offset: 0, 0
+  index: -1
+iris_water_03_eye_04
+  rotate: true
+  xy: 1433, 150
+  size: 70, 37
+  orig: 70, 37
+  offset: 0, 0
+  index: -1
+iris_water_03_face_01
+  rotate: true
+  xy: 1650, 548
+  size: 79, 85
+  orig: 79, 85
+  offset: 0, 0
+  index: -1
+iris_water_03_hair_01
+  rotate: true
+  xy: 807, 172
+  size: 94, 67
+  orig: 94, 67
+  offset: 0, 0
+  index: -1
+iris_water_03_hair_02
+  rotate: true
+  xy: 1683, 5
+  size: 44, 52
+  orig: 44, 52
+  offset: 0, 0
+  index: -1
+iris_water_03_hair_03
+  rotate: true
+  xy: 1550, 244
+  size: 124, 109
+  orig: 124, 109
+  offset: 0, 0
+  index: -1
+iris_water_03_hair_04
+  rotate: true
+  xy: 1059, 575
+  size: 90, 81
+  orig: 90, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_hair_05
+  rotate: true
+  xy: 395, 6
+  size: 161, 168
+  orig: 161, 168
+  offset: 0, 0
+  index: -1
+iris_water_03_hand_01
+  rotate: true
+  xy: 1511, 265
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+iris_water_03_horn_01
+  rotate: false
+  xy: 876, 174
+  size: 75, 92
+  orig: 75, 92
+  offset: 0, 0
+  index: -1
+iris_water_03_horn_02
+  rotate: false
+  xy: 827, 571
+  size: 49, 94
+  orig: 49, 94
+  offset: 0, 0
+  index: -1
+iris_water_03_horn_03
+  rotate: false
+  xy: 515, 560
+  size: 62, 105
+  orig: 62, 105
+  offset: 0, 0
+  index: -1
+iris_water_03_horn_04
+  rotate: false
+  xy: 713, 172
+  size: 92, 94
+  orig: 92, 94
+  offset: 0, 0
+  index: -1
+iris_water_03_iris_01
+  rotate: false
+  xy: 1199, 4
+  size: 232, 276
+  orig: 232, 276
+  offset: 0, 0
+  index: -1
+iris_water_03_iris_02
+  rotate: false
+  xy: 1066, 724
+  size: 232, 276
+  orig: 232, 276
+  offset: 0, 0
+  index: -1
+iris_water_03_leg_01
+  rotate: true
+  xy: 706, 561
+  size: 104, 119
+  orig: 104, 119
+  offset: 0, 0
+  index: -1
+iris_water_03_leg_02
+  rotate: false
+  xy: 1080, 218
+  size: 117, 62
+  orig: 117, 62
+  offset: 0, 0
+  index: -1
+iris_water_03_light
+  rotate: false
+  xy: 1761, 2
+  size: 79, 77
+  orig: 79, 77
+  offset: 0, 0
+  index: -1
+iris_water_03_mouse_01
+  rotate: false
+  xy: 1116, 704
+  size: 20, 18
+  orig: 20, 18
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_01
+  rotate: false
+  xy: 1661, 417
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_02
+  rotate: false
+  xy: 1661, 334
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_03
+  rotate: true
+  xy: 1882, 383
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_04
+  rotate: true
+  xy: 1882, 305
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_05
+  rotate: true
+  xy: 1874, 227
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_06
+  rotate: true
+  xy: 1874, 149
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_07
+  rotate: false
+  xy: 1433, 224
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_08
+  rotate: false
+  xy: 1661, 251
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_09
+  rotate: false
+  xy: 1661, 168
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_10
+  rotate: false
+  xy: 1683, 51
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_11
+  rotate: false
+  xy: 1739, 139
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+iris_water_03_rune_12
+  rotate: true
+  xy: 1433, 17
+  size: 130, 122
+  orig: 130, 122
+  offset: 0, 0
+  index: -1
+iris_water_03_shoulder_01
+  rotate: true
+  xy: 1635, 500
+  size: 46, 85
+  orig: 46, 85
+  offset: 0, 0
+  index: -1
+iris_water_03_tail_01
+  rotate: false
+  xy: 1739, 461
+  size: 212, 173
+  orig: 212, 173
+  offset: 0, 0
+  index: -1
+iris_water_03_wing_l
+  rotate: false
+  xy: 1756, 636
+  size: 195, 180
+  orig: 195, 180
+  offset: 0, 0
+  index: -1
+iris_water_03_wing_r
+  rotate: true
+  xy: 976, 3
+  size: 170, 221
+  orig: 170, 221
+  offset: 0, 0
+  index: -1

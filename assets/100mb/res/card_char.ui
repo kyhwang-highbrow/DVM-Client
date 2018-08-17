@@ -248,8 +248,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 46;
-					height = 41;
+					width = 26;
+					height = 38;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -257,7 +257,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/a2d/card/card_cha_reinforce_5.png';
+					file_name = 'ui/a2d/card/card_cha_reinforce_1.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -267,13 +267,13 @@
 				};
 				type = 'Node';
 				ui_name = '';
-				x = -46.000000;
-				y = 12.000000;
+				x = -60.000000;
+				y = 14.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 46;
-				height = 41;
+				width = 26;
+				height = 38;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -283,6 +283,51 @@
 				lua_name = 'reinforceNode';
 			};
 			[8] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 26;
+					height = 38;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/card/card_cha_mastery_01.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = -35.000000;
+				y = 14.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 26;
+				height = 38;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'masteryNode';
+			};
+			[9] =
 			{
 				[1] =
 				{
@@ -353,7 +398,7 @@
 				visible = true;
 				lua_name = 'numberNode';
 			};
-			[9] =
+			[10] =
 			{
 				type = 'Sprite';
 				ui_name = '잠금 아이콘';
@@ -379,7 +424,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Sprite';
 				ui_name = '대표 아이콘';
@@ -405,7 +450,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[11] =
+			[12] =
 			{
 				type = 'Sprite';
 				ui_name = '친구 아이콘';
@@ -431,7 +476,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[12] =
+			[13] =
 			{
 				type = 'Sprite';
 				ui_name = '경험치 보너스';
@@ -457,7 +502,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[13] =
+			[14] =
 			{
 				type = 'Sprite';
 				ui_name = '다중선택 체크';
@@ -483,7 +528,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[14] =
+			[15] =
 			{
 				type = 'Sprite';
 				ui_name = '비활성';
@@ -509,7 +554,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[15] =
+			[16] =
 			{
 				type = 'Sprite';
 				ui_name = '선택';
@@ -535,7 +580,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[16] =
+			[17] =
 			{
 				[1] =
 				{
@@ -579,7 +624,7 @@
 				visible = false;
 				lua_name = 'arrowVisual';
 			};
-			[17] =
+			[18] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -605,7 +650,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[18] =
+			[19] =
 			{
 				[1] =
 				{
@@ -649,7 +694,7 @@
 				visible = false;
 				lua_name = 'bookRewardVisual';
 			};
-			[19] =
+			[20] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -675,7 +720,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[20] =
+			[21] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -701,7 +746,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[21] =
+			[22] =
 			{
 				type = 'Sprite';
 				ui_name = '';

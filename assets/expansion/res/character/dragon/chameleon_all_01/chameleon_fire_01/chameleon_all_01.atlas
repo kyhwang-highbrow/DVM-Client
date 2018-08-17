@@ -1,0 +1,181 @@
+
+chameleon_all_01.png
+size: 647,270
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chameleon_all_01_body_01
+  rotate: true
+  xy: 175, 139
+  size: 129, 166
+  orig: 129, 166
+  offset: 0, 0
+  index: -1
+chameleon_all_01_bug_04
+  rotate: false
+  xy: 168, 6
+  size: 59, 49
+  orig: 59, 49
+  offset: 0, 0
+  index: -1
+chameleon_all_01_bug_04_s
+  rotate: true
+  xy: 130, 12
+  size: 10, 15
+  orig: 10, 15
+  offset: 0, 0
+  index: -1
+chameleon_all_01_bug_05
+  rotate: false
+  xy: 396, 4
+  size: 24, 22
+  orig: 24, 22
+  offset: 0, 0
+  index: -1
+chameleon_all_01_bug_06
+  rotate: false
+  xy: 368, 3
+  size: 26, 23
+  orig: 26, 23
+  offset: 0, 0
+  index: -1
+chameleon_all_01_bugcase_01
+  rotate: false
+  xy: 2, 22
+  size: 92, 87
+  orig: 92, 87
+  offset: 0, 0
+  index: -1
+chameleon_all_01_bugcase_02
+  rotate: false
+  xy: 175, 57
+  size: 125, 80
+  orig: 125, 80
+  offset: 0, 0
+  index: -1
+chameleon_all_01_bugcase_03
+  rotate: false
+  xy: 475, 64
+  size: 119, 82
+  orig: 119, 82
+  offset: 0, 0
+  index: -1
+chameleon_all_01_dragonfly_01
+  rotate: true
+  xy: 265, 9
+  size: 46, 29
+  orig: 46, 29
+  offset: 0, 0
+  index: -1
+chameleon_all_01_dragonfly_02
+  rotate: true
+  xy: 531, 8
+  size: 54, 87
+  orig: 54, 87
+  offset: 0, 0
+  index: -1
+chameleon_all_01_dragonfly_02_s
+  rotate: false
+  xy: 339, 2
+  size: 27, 24
+  orig: 27, 24
+  offset: 0, 0
+  index: -1
+chameleon_all_01_dragonfly_03
+  rotate: true
+  xy: 620, 31
+  size: 35, 25
+  orig: 35, 25
+  offset: 0, 0
+  index: -1
+chameleon_all_01_dragonfly_stick_01
+  rotate: true
+  xy: 596, 147
+  size: 121, 45
+  orig: 121, 45
+  offset: 0, 0
+  index: -1
+chameleon_all_01_effect_01
+  rotate: true
+  xy: 96, 2
+  size: 20, 32
+  orig: 20, 32
+  offset: 0, 0
+  index: -1
+chameleon_all_01_effect_02
+  rotate: false
+  xy: 458, 130
+  size: 15, 18
+  orig: 15, 18
+  offset: 0, 0
+  index: -1
+chameleon_all_01_effect_03
+  rotate: false
+  xy: 2, 111
+  size: 171, 157
+  orig: 171, 157
+  offset: 0, 0
+  index: -1
+chameleon_all_01_eye_01
+  rotate: true
+  xy: 229, 24
+  size: 31, 34
+  orig: 31, 34
+  offset: 0, 0
+  index: -1
+chameleon_all_01_eye_02
+  rotate: false
+  xy: 458, 4
+  size: 71, 58
+  orig: 71, 58
+  offset: 0, 0
+  index: -1
+chameleon_all_01_eye_03
+  rotate: true
+  xy: 296, 14
+  size: 24, 41
+  orig: 24, 41
+  offset: 0, 0
+  index: -1
+chameleon_all_01_head_01
+  rotate: false
+  xy: 343, 150
+  size: 134, 118
+  orig: 134, 118
+  offset: 0, 0
+  index: -1
+chameleon_all_01_mouth_01
+  rotate: true
+  xy: 596, 68
+  size: 77, 44
+  orig: 77, 44
+  offset: 0, 0
+  index: -1
+chameleon_all_01_tail_01
+  rotate: false
+  xy: 96, 24
+  size: 70, 85
+  orig: 70, 85
+  offset: 0, 0
+  index: -1
+chameleon_all_01_tongue_01
+  rotate: true
+  xy: 302, 40
+  size: 97, 39
+  orig: 97, 39
+  offset: 0, 0
+  index: -1
+chameleon_all_01_wing_01
+  rotate: false
+  xy: 343, 28
+  size: 113, 120
+  orig: 113, 120
+  offset: 0, 0
+  index: -1
+chameleon_all_01_wing_02
+  rotate: true
+  xy: 479, 148
+  size: 120, 115
+  orig: 120, 115
+  offset: 0, 0
+  index: -1

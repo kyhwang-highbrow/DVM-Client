@@ -4,6 +4,21 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>lobby_arrow_left.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{86,98}</string>
+                <key>spriteSourceSize</key>
+                <string>{86,98}</string>
+                <key>textureRect</key>
+                <string>{{144,163},{86,98}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>lobby_dday_0101.png</key>
             <dict>
                 <key>aliases</key>
@@ -15,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{260,70}</string>
                 <key>textureRect</key>
-                <string>{{1,72},{260,70}}</string>
+                <string>{{1,163},{260,70}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>lobby_dday_0102.png</key>
             <dict>
@@ -30,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{258,69}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{258,69}}</string>
+                <string>{{73,163},{258,69}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>lobby_dday_0201.png</key>
             <dict>
@@ -45,7 +60,22 @@
                 <key>spriteSourceSize</key>
                 <string>{170,170}</string>
                 <key>textureRect</key>
-                <string>{{263,1},{164,160}}</string>
+                <string>{{1,1},{164,160}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>loby_arrow_right.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{86,98}</string>
+                <key>spriteSourceSize</key>
+                <string>{86,98}</string>
+                <key>textureRect</key>
+                <string>{{144,263},{86,98}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +91,9 @@
             <key>realTextureFileName</key>
             <string>lobby.png</string>
             <key>size</key>
-            <string>{428,162}</string>
+            <string>{231,424}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d22763be20fa6610c2aad742fc967afe:0443493762ba7c47c359829c4dee95e0:f1bafa2c26deda73cfe01e78b270c574$</string>
+            <string>$TexturePacker:SmartUpdate:3bade43cf611c42c41040bffdac02c9d:cbc68bcd5384c6cac682f1246ac1150d:f1bafa2c26deda73cfe01e78b270c574$</string>
             <key>textureFileName</key>
             <string>lobby.png</string>
         </dict>
