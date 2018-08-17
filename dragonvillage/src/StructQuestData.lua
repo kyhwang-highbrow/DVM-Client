@@ -56,11 +56,19 @@ function StructQuestData:isEnd()
 end
 
 -------------------------------------
--- function isEnd
+-- function isChallenge
 -- @breif 퀘스트의 모든 스탭이 종료되었는지 여부
 -------------------------------------
 function StructQuestData:isChallenge()
     return (self['quest_type'] == TableQuest.CHALLENGE)
+end
+
+-------------------------------------
+-- function isDailyType
+-- @breif 일일 퀘스트 타입인지 확인
+-------------------------------------
+function StructQuestData:isDailyType()
+    return (self['quest_type'] == TableQuest.DAILY)
 end
 
 -------------------------------------

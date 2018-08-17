@@ -5,6 +5,41 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_QuestListItem = class(PARENT, {
         m_questData = 'table',
+        --{
+        --        ['t_quest']={
+        --                ['r_val_1']=30;
+        --                ['clear_value']=1;
+        --                ['t_reward']={
+        --                        {
+        --                                ['item_id']=700001;
+        --                                ['count']='30';
+        --                        };
+        --                        {
+        --                                ['item_id']=700002;
+        --                                ['count']='7000';
+        --                        };
+        --                };
+        --                ['r_title']='';
+        --                ['score']=1;
+        --                ['qid']=30005;
+        --                ['default']='';
+        --                ['r_reward_1']='다이아';
+        --                ['r_val_2']=7000;
+        --                ['r_reward_2']='골드';
+        --                ['title']='';
+        --                ['t_desc']='고대의 탑 또는 시험의 탑 {1}회 플레이';
+        --                ['type']='daily';
+        --                ['r_grade']='';
+        --                ['key']='ply_tower_ext';
+        --                ['reward']='700001;30,700002;7000';
+        --        };
+        --        ['qid']=30005;
+        --        ['is_end']=false;
+        --        ['reward']=false;
+        --        ['rawcnt']=0;
+        --        ['idx']=5;
+        --        ['quest_type']='daily';
+        --}
     })
 
 -------------------------------------
@@ -107,9 +142,26 @@ function UI_QuestListItem:setRewardCard()
 
     local l_reward_info = self.m_questData:getRewardInfoList()
 
+    local last_idx = 0
     for i, v in ipairs(l_reward_info) do
         local reward_card = UI_ItemCard(v['item_id'], v['count'])
+        reward_card.root:setSwallowTouch(false)
         vars['rewardNode' .. i]:addChild(reward_card.root)
+        last_idx = i
+    end
+
+    -- 일일 퀘스트 보상 2배 적용 중일 경우
+    if self.m_questData:isDailyType() and g_questData:isSubscriptionActive() then
+        for i, v in ipairs(l_reward_info) do
+            local reward_card = UI_ItemCard(v['item_id'], v['count'])
+            reward_card.root:setSwallowTouch(false)
+            local reward_node = vars['rewardNode' .. last_idx + i]
+            reward_card.vars['bonusSprite']:setVisible(true)
+            reward_card.vars['bonusLabel']:setString('')
+            if reward_node then
+                reward_node:addChild(reward_card.root)
+            end
+        end
     end
 end
 
