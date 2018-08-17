@@ -259,6 +259,12 @@ function UI_Lobby:entryCoroutine()
         co:work('# 네스트 정보 갱신 중')
         g_nestDungeonData:requestNestDungeonInfo(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
+
+        -- 구독 상품 정보 받는 중
+        co:work('# 구독 상품 정보 받는 중')
+        local ui_network = g_subscriptionData:request_subscriptionInfo(co.NEXT, co.ESCAPE)
+        ui_network:hideBGLayerColor()
+        if co:waitWork() then return end
         
         -- hard refresh
         cclog('# UI 갱신')

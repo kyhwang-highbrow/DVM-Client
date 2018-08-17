@@ -8,6 +8,20 @@ ServerData_Quest = class({
 		m_tQuestInfo = 'table',
 
         m_dailyClearQuest = 'StructQuestData',
+        m_dailyQuestSubscription = 'table',
+        --"daily_quest_subscription":{
+        --    "max_day":14,
+        --    "active":true,
+        --    "cur_day":1,
+        --    "add_reward_stats":{
+        --      "cash":0,
+        --      "fp":0,
+        --      "clan_coin":0,
+        --      "amethyst":0,
+        --      "stamina":0,
+        --      "gold":0
+        --    }
+        --  }
     })
 
 -------------------------------------
@@ -233,6 +247,9 @@ function ServerData_Quest:requestQuestInfo(cb_func)
             self:applyQuestInfo(ret['quest_info'])
         end
 
+        -- 일일 퀘스트 보상 2배
+        self.m_dailyQuestSubscription = ret['daily_quest_subscription']
+
         if cb_func then
             cb_func()
         end
@@ -297,3 +314,34 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
 end
+
+
+-------------------------------------
+-- function isSubscriptionActive
+-- @brief 구독 중인지 여부 리턴
+-- @return boolean
+-------------------------------------
+function ServerData_Quest:isSubscriptionActive()
+    if (not self.m_dailyQuestSubscription) then
+        return false
+    end
+
+    local is_active = self.m_dailyQuestSubscription['active']
+    return is_active -- boolean
+end
+
+-------------------------------------
+-- function subscriptionDayInfo
+-- @brief 구독 중인 날짜 정보 리턴
+-- @return number, number
+-------------------------------------
+function ServerData_Quest:subscriptionDayInfo()
+    if (not self.m_dailyQuestSubscription) then
+        return false
+    end
+
+    local cur_day = self.m_dailyQuestSubscription['cur_day'] or 0
+    local max_day = self.m_dailyQuestSubscription['max_day'] or 0
+    return cur_day, max_day
+end
+

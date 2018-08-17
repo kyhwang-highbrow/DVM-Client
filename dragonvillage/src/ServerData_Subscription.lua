@@ -102,6 +102,8 @@ function ServerData_Subscription:request_subscriptionInfo(cb_func, fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+    return ui_network
 end
 
 -------------------------------------

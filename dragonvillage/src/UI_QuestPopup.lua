@@ -23,13 +23,14 @@ function UI_QuestPopup:init()
 	self:doActionReset()
 	self:doAction(nil, false)
 
-    -- 임시
-    vars['doingLabel']:setString(Str('적용 중') .. '\n' .. Str('{1} / {2} 일', 7, 14))
-    vars['priceLabel']:setString('₩5,500')
+    -- 초기 값 (일일 퀘스트 보상 2배 구독 관련)
+    vars['doingLabel']:setString('')
+    vars['priceLabel']:setString('')
 
 	-- 통신 후 UI 출력
 	local cb_func = function()
 		self:initUI()
+        self:initSubscriptionUI()
 		self:initTab()
 		self:initButton()
 		self:refresh()
@@ -97,6 +98,10 @@ function UI_QuestPopup:refresh(t_quest_data)
     
     -- 정렬
     self.m_tableView:sortTableView('sort', 'force')
+
+
+    -- 일일 퀘스트 보상 2배 구독 정보 갱신
+    self:refreshSubscriptionUI()
 end
 
 -------------------------------------
@@ -231,6 +236,63 @@ end
 -------------------------------------
 function UI_QuestPopup:setBlock(b)
     self.m_blockUI:setVisible(b)
+end
+
+-------------------------------------
+-- function initSubscriptionUI
+-- @brief 일일 퀘스트 보상 2배 상품 관련 UI 초기화
+-------------------------------------
+function UI_QuestPopup:initSubscriptionUI()
+    local vars = self.vars
+
+    -- 상품 가격
+    local struct_product = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
+    vars['priceLabel']:setString(struct_product:getPriceStr())
+
+    -- 상품명
+    local product_name = Str(struct_product['t_name'])
+    vars['dailyQuestLabel']:setString(product_name)
+
+    -- 상품 설명
+    local product_desc = struct_product:getDesc()
+    vars['dailyQuestLabel2']:setString(product_desc)
+
+    -- 상품 구매
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_subscriptionBuyBtn() end)
+end
+
+-------------------------------------
+-- function refreshSubscriptionUI
+-- @brief 일일 퀘스트 보상 2배 상품 관련 UI 갱신
+-------------------------------------
+function UI_QuestPopup:refreshSubscriptionUI()
+    local vars = self.vars
+
+    local is_subscription_active = g_questData:isSubscriptionActive()
+    vars['buyBtn']:setVisible(not is_subscription_active)
+    vars['doingSprite']:setVisible(is_subscription_active)
+    if is_subscription_active then
+        local cur_day, max_day = g_questData:subscriptionDayInfo()
+        local str = Str('적용 중\n{1}/{2} 일', cur_day, max_day)
+        vars['doingLabel']:setString(str)
+    end
+end
+
+-------------------------------------
+-- function click_subscriptionBuyBtn
+-- @brief 일일 퀘스트 보상 2배 상품 구매 버튼 클릭
+-------------------------------------
+function UI_QuestPopup:click_subscriptionBuyBtn()
+    local struct_product = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
+
+    local function cb_func(ret)
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+        self:close()
+        UI_QuestPopup()
+	end
+    local sub_msg = Str('이미 완료한 일일 퀘스트의 추가 보상은 구매 즉시 우편으로 지급됩니다.')
+	struct_product:buy(cb_func, sub_msg)
 end
 
 --@CHECK
