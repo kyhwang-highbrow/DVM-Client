@@ -259,7 +259,7 @@ end
 -- function onEvent
 -------------------------------------
 function GameWorldArena:onEvent(event_name, t_event, ...)
-    GameWorld.onEvent(self, event_name, t_event, ...)
+    PARENT.onEvent(self, event_name, t_event, ...)
 
     if (event_name == 'character_set_hp') then
         local arg = {...}

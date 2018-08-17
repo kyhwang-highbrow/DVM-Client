@@ -326,22 +326,3 @@ function SceneGameColosseum:networkGameFinish_response_drop_reward(ret, t_result
         table.insert(drop_reward_list, t_data)
     end
 end
-
--------------------------------------
--- function networkGameFinish_response_stage_clear_info
--- @breif
--------------------------------------
-function SceneGameColosseum:networkGameFinish_response_stage_clear_info(ret)
-    if (not ret['stage_clear_info']) then
-        return
-    end
-
-    local stage_id = ret['stage']
-
-    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-
-    elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-        local t_stage_clear_info = g_nestDungeonData:getNestDungeonStageClearInfoRef(stage_id)
-        t_stage_clear_info['clear_cnt'] = ret['stage_clear_info']['cnt']
-    end
-end

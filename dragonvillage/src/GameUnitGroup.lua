@@ -96,14 +96,16 @@ function GameUnitGroup:joinUnit(unit)
     self.m_formationMgr:setChangePosCallback(unit)
 
     -- 이벤트
-    if (self.m_mana) then
-        unit:addListener('dragon_active_skill', self.m_mana)
-    end
-    if (self.m_auto) then
-        if (self.m_bLeftFormation) then
-            unit:addListener('hero_active_skill', self.m_auto)
-        else
-            unit:addListener('enemy_active_skill', self.m_auto)
+    if (unit:isDragon()) then
+        if (self.m_mana) then
+            unit:addListener('dragon_active_skill', self.m_mana)
+        end
+        if (self.m_auto) then
+            if (self.m_bLeftFormation) then
+                unit:addListener('hero_active_skill', self.m_auto)
+            else
+                unit:addListener('enemy_active_skill', self.m_auto)
+            end
         end
     end
 end
