@@ -67,20 +67,10 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 
 	-- 시험의 탑
 	elseif (content_type == 'attr_tower') then
-		local struct_quest = g_questData:getQuest(TableQuest.CHALLENGE, 14501)
-		
-		-- 탈출 : 업적 달성 시
-		if (not struct_quest) or (struct_quest:isEnd())then
-			return
-		end
-
-		t_item = struct_quest:getRewardInfoList()[1]
-
-		local item_name = UIHelper:makeItemNamePlain(t_item)
-		text_1 = struct_quest:getQuestDesc()
-
-		local _, text = struct_quest:getProgressInfo()
-		text_2 = Str('달성 : {1}', text)
+        t_item, text_1, text_2 = self:initCompetitionRewardInfo_attrTower()
+        if (not t_item) then
+            return
+        end
 
 	-- 콜로세움
 	elseif (content_type == 'colosseum') then
@@ -138,4 +128,39 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	-- 텍스트
 	vars['rewardLabel1']:setString(text_1)
 	vars['rewardLabel2']:setString(text_2)			
+end
+
+-------------------------------------
+-- function initCompetitionRewardInfo_attrTower
+-- @brief 경쟁 메뉴 보상 안내
+-- @comment 갱신되는 케이스는 없어 initialize 로 만듬
+-------------------------------------
+function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
+	local struct_quest_50 = g_questData:getQuest(TableQuest.CHALLENGE, 14501) -- 시험의 탑 모든 속성 50층 클리어 : 전설의 알
+    local struct_quest_100 = g_questData:getQuest(TableQuest.CHALLENGE, 14502) -- 시험의 탑 모든 속성 100층 클리어 : 절대적인 전설의 알
+
+    local struct_quest = nil
+
+    -- 퀘스트 정보가 없을 경우
+    if (struct_quest_50) and (not struct_quest_50:isEnd()) then
+        struct_quest = struct_quest_50
+
+    elseif (struct_quest_100) and (not struct_quest_100:isEnd()) then
+        struct_quest = struct_quest_100
+    end
+
+    -- 종료 처리
+    if (not struct_quest) then
+        return
+    end
+
+	local t_item = struct_quest:getRewardInfoList()[1]
+
+	local item_name = UIHelper:makeItemNamePlain(t_item)
+	local text_1 = struct_quest:getQuestDesc()
+
+	local _, text = struct_quest:getProgressInfo()
+	local text_2 = Str('달성 : {1}', text)
+
+    return t_item, text_1, text_2
 end
