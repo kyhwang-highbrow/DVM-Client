@@ -13,6 +13,8 @@ AD_TYPE = {
 -------------------------------------
 AdManager = {
     callback,
+	m_isFirstLoad = true,
+	m_adStartTimer = 0,
 }
 
 local ADMOB_AD_UNIT_ID_TABLE
@@ -47,9 +49,22 @@ function AdManager:result(ret, info)
 
     -- 광고 load 완료
     if (ret == 'receive') then
+		-- 최초에는 출력하지 않는다.
+		if (self.m_isFirstLoad == false) then
+			UIManager:toastNotificationGreen(Str('광고 불러오기 완료'))
+		end
+		self.m_isFirstLoad = false
 
     -- 광고 load 실패
     elseif (ret == 'fail') then
+
+	-- 광고 open <-> finish
+	elseif (ret == 'open') then
+		self:releaseAdStateUpdate()
+
+	-- 각각 opne, finish와 큰 차이는 없음
+	elseif (ret == 'start') then	
+	elseif (ret == 'complete') then
 
     -- 광고 show 완료
     elseif (ret == 'finish') then
@@ -60,6 +75,7 @@ function AdManager:result(ret, info)
     elseif (ret == 'cancel') then
         SoundMgr:playPrevBGM()
         PerpleSDK:adMobLoadRequest()
+
         local msg = Str('광고 시청 도중 취소하셨습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
 
@@ -107,6 +123,9 @@ end
 -- function show
 -------------------------------------
 function AdManager:show(ad_unit_id, result_cb)
+	-- 광고가 stuck 됐을 경우 처리 해줌
+	self:startAdStateUpdate(ad_unit_id)
+
     if (CppFunctions:isWin32()) then 
         return
     end
@@ -184,6 +203,41 @@ function AdManager:showErrorPopup(error_info)
     end
 
     MakeSimplePopup(POPUP_TYPE.OK, msg)
+end
+
+-------------------------------------
+-- function startAdStateUpdate
+-- @brief show 호출 후 광고 상태에 대한 업데이트 시작
+-------------------------------------
+function AdManager:startAdStateUpdate(requested_ad_unit_id)
+	cclog('AdManager:startAdStateUpdate()')
+
+	local function update(dt)
+		self.m_adStartTimer = self.m_adStartTimer + dt
+
+		-- 3초 안에 광고를 재생하지 않으면 다시 load한다
+		if (self.m_adStartTimer > 3) then
+			self:releaseAdStateUpdate()
+
+			if (not CppFunctions:isWin32()) then
+				UIManager:toastNotificationGreen(Str('광고를 다시 불러옵니다.'))
+				PerpleSDK:adMobLoadRequestWithId(requested_ad_unit_id)
+			end
+		end
+	end
+
+	g_currScene.m_scene:scheduleUpdateWithPriorityLua(update, 0)
+end
+
+-------------------------------------
+-- function releaseAdStateUpdate
+-- @brief show 호출 후 광고 상태에 대한 업데이트 해제
+-------------------------------------
+function AdManager:releaseAdStateUpdate()
+	cclog('AdManager:releaseAdStateUpdate()')
+
+	g_currScene.m_scene:unscheduleUpdate()
+	self.m_adStartTimer = 0
 end
 
 -------------------------------------
