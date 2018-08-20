@@ -256,6 +256,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 // @adMob
 - (void) adMobStart:(NSString *)adUnitIdList;
 - (void) adMobLoadRequest;
+- (void) adMobLoadRequestWithId:(NSString *)adUnitId;
 - (void) adMobSetResultCallBack:(PerpleSDKCallback) callback;
 - (void) adMobShow:(NSString *)adUnitId;
 
