@@ -15,7 +15,7 @@ preBuild {
 // task android build
 android {
     compileSdkVersion PROP_COMPILE_SDK_VERSION.toInteger()
-    buildToolsVersion "27.0.3"
+    buildToolsVersion PROP_BUILD_TOOLS_VERSION
 
     defaultConfig {
         applicationId PROP_PACKAGE_NAME
