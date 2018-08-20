@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="true">ดราก้อนวิลเลจM</string>
+    <string name="wifi_warning_title" translatable="true">Notice</string>
+    <string name="wifi_warning_message" translatable="true">You are not connected to WiFi.\nDo you want to continue downloading from this connection?\n(Additional charges may be occurred depending on the rate items you currently have.)</string>
+    <string name="wifi_warning_positive_button" translatable="true">Continue</string>
+    <string name="wifi_warning_negative_button" translatable="true">WiFi Setting</string>
+    <string name="link_cafe" translatable="true">Cafe Link</string>
 </resources>
