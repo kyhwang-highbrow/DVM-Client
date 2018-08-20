@@ -49,7 +49,6 @@ UIManager = {
 
     m_topUserInfo = nil,
 
-	m_debugUI = nil, --'UI_GameDebug_RealTime',
     m_cbUIOpen = nil,
 }
 
@@ -124,8 +123,6 @@ function UIManager:cleanUp()
         self.m_uiLayer:removeChild(ui.root, true)
     end
     self.m_uiList = {}
-
-	self:removeDebugUI()
 end
 
 -------------------------------------
@@ -515,28 +512,6 @@ function UIManager:sortToastNoti()
 end
 
 -------------------------------------
--- function updateDebugUI
--- @brief
--------------------------------------
-function UIManager:updateDebugUI(dt)
-	if (not self.m_debugUI) then
-		self.m_debugUI = UI_GameDebug_RealTime(self.m_scene)
-	end
-	self.m_debugUI:update(dt)
-end
-
--------------------------------------
--- function removeDebugUI
--- @brief debug 영역을 cleanUp() 호출 시 같이 내려준다.
--------------------------------------
-function UIManager:removeDebugUI()
-	if (self.m_debugUI) then
-		self.m_debugUI.m_debugLayer:removeFromParent(true)
-		self.m_debugUI = nil
-	end
-end
-
--------------------------------------
 -- function blockBackKey
 -------------------------------------
 function UIManager:blockBackKey(b)
@@ -588,14 +563,8 @@ function UIManager:onKeyReleased(keyCode, event)
 		cclog('----------------network list----------------------')
 		cclog('\n' .. g_errorTracker:getAPIStack())
 
-	-- debug 영역 활성화/비활성화
+	-- memory 출력
 	elseif (keyCode == KEY_G) then
-		local set_data = not g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO')
-	    g_constant:set(set_data, 'DEBUG', 'DISPLAY_DEBUG_INFO')
-
-		if self.m_debugUI then
-			self.m_debugUI.m_debugLayer:setVisible(g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO'))
-		end
 		PrintMemory()
 
     -- 방송 비활성화

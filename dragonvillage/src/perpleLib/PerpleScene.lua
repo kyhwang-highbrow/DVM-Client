@@ -299,14 +299,6 @@ function PerpleScene:onEnter()
         SoundMgr:setSlowMode(false)
     end
 
-	local function update(dt)
-		-- @TEST 실시간 디버깅 정보 출력
-		if (g_constant and g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO')) then
-			UIManager:updateDebugUI(dt)
-		end
-    end
-    self.m_scene:scheduleUpdateWithPriorityLua(update, 0)
-
     -- 플레이 시간 기록
     if (g_accessTimeData) then
         g_accessTimeData:recordTime(self.m_scene)
