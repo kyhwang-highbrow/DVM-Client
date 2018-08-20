@@ -283,9 +283,11 @@ function Translate:getFontScaleRate()
         retX = 0.88
         retY = 0.98
 	elseif (game_lang == LANG['THAI']) then
-        retX = 0.88
+        retX = 0.8
+		retY = 0.8
 	elseif (game_lang == LANG['SPANISH']) then
-        retX = 0.88
+        retX = 0.8
+		retY = 0.8
     end
 
     return retX, retY
