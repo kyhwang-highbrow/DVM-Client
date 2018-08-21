@@ -91,9 +91,11 @@ function UI_QuestPopup:refresh(t_quest_data)
     end
 
     -- 테이블뷰 아이템 데이터 교체
-    if (t_quest_data) then
+    if (t_quest_data and t_quest_data['idx']) then
         local t_item = self.m_tableView:getItem(t_quest_data['idx'])
-        t_item['data'] = t_quest_data
+        if t_item then
+            t_item['data'] = t_quest_data
+        end
     end
     
     -- 정렬
@@ -139,16 +141,19 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
             self:cellCreateCB(ui, data)
 		end
          
-        -- 테이블 뷰 인스턴스 생성
-        local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(1160 + 10, 80 + 10)
-        table_view:setCellUIClass(UI_QuestListItem, create_cb_func)
-        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(l_quest)
-
-        table_view:insertSortInfo('sort', function(a, b)
+    local function sort_func(a, b)
             local a_data = a['data']
             local b_data = b['data']
+
+            -- "일일 퀘스트 10개 클리어하기" 항목은 최상단으로 고정
+            if (a_data:getQuestClearType() ~= b_data:getQuestClearType()) then
+                if (a_data:getQuestClearType() == 'dq_clear') then
+                    return true
+                elseif (b_data:getQuestClearType() == 'dq_clear') then
+                    return false
+                end
+            end
+
             if (a_data:isEnd() and not b_data:isEnd()) then
                 return false
             elseif (not a_data:isEnd() and b_data:isEnd()) then
@@ -160,8 +165,15 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
             else
                 return (a_data:getQid() < b_data:getQid())
             end
-        end)
+        end
 
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(1160 + 10, 80 + 10)
+        table_view:setCellUIClass(UI_QuestListItem, create_cb_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_quest)
+        table_view:insertSortInfo('sort', sort_func)
         self.m_tableView = table_view
     end
 end
