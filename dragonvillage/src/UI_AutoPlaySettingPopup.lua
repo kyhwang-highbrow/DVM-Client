@@ -55,6 +55,10 @@ end
 function UI_AutoPlaySettingPopup:initUI()
     local vars = self.vars
 
+    -- 룬 자동 판매
+    vars['runAutoSellMenu']:setVisible(false)
+    vars['autoMenu6']:setVisible(false)
+
 	-- 고대의탑 분기처리
 	if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
 		vars['autoMenu4']:setVisible(true)
@@ -76,7 +80,54 @@ function UI_AutoPlaySettingPopup:initUI()
 		-- 쫄작(farming) 기능
 		vars['autoMenu3']:setVisible(self.m_gameMode == GAME_MODE_ADVENTURE)
 
+        -- 룬 자동 판매 (모험, 악몽, 고대 유적)
+        if isExistValue(self.m_gameMode, GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON, GAME_MODE_ANCIENT_RUIN) then
+            vars['runAutoSellMenu']:setVisible(true)
+        end
 	end
+
+    do -- 활성화된 버튼 정렬
+        local l_luaname = {}
+        -- 가장 위쪽에 보여질 node
+        table.insert(l_luaname, 'autoMenu1') -- 패배시 연속 전투 종료
+        table.insert(l_luaname, 'autoMenu5') -- 인연 던전 발견 시 연속 전투 종료
+        table.insert(l_luaname, 'autoMenu2') -- 드래곤 최대 레벨 달성 시 연속 전투 종료
+        table.insert(l_luaname, 'autoMenu3') -- 6성 드래곤만 스킬 사용
+        table.insert(l_luaname, 'autoMenu4') -- 승리시 다음 층 도전
+        table.insert(l_luaname, 'autoMenu6') -- 콜로세움 안내 문구
+        table.insert(l_luaname, 'runAutoSellMenu') -- 룬 자동 판매
+        -- 가장 아래쪽에 보여질 node
+        
+    
+        -- 활성화된 버튼들을 담는 리스트와 버튼들의 총 높이 계산
+        local l_active_luaname = {}
+        local total_height = 0
+        for i,v in ipairs(l_luaname) do
+            local node = vars[v]
+            if node and node:isVisible() then
+                table.insert(l_active_luaname, v)
+                local width, height = node:getNormalSize()
+                total_height = (total_height + height)
+            end
+        end
+
+        -- 버튼들의 간격 지정
+        local interval = 10
+        local count = table.count(l_active_luaname)
+        total_height = total_height + (interval * (count-1))
+
+        -- 위쪽부터 순차적으로 y position을 지정
+        local pos_y = (total_height / 2)
+        for i,v in ipairs(l_active_luaname) do
+            local node = vars[v]
+            local width, height = vars[v]:getNormalSize()
+            if (1 < i) then
+                pos_y = pos_y - interval
+            end
+            node:setPositionY(pos_y - (height/2))
+            pos_y = pos_y - height
+        end
+    end
 end
 
 -------------------------------------
