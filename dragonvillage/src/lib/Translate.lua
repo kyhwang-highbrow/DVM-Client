@@ -286,8 +286,8 @@ function Translate:getFontScaleRate()
         retX = 0.8
 		retY = 0.8
 	elseif (game_lang == LANG['SPANISH']) then
-        retX = 0.8
-		retY = 0.8
+        retX = 0.75
+		retY = 0.82
     end
 
     return retX, retY
