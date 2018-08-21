@@ -194,7 +194,8 @@ function StructRuneObject:makeRuneDescRichText(for_enhance)
     end
 
     -- 공백
-    text = text .. '\n'
+    -- [성구] #룬 부옵션과 서브옵션 띄워서 표기하던 부분 수정
+    --text = text .. '\n'
 
     do -- 서브 옵션
         local text_ = self:getRuneOptionDesc(self['sopt_1'])
