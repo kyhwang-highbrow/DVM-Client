@@ -178,7 +178,11 @@ function UI_HatcheryRelationTab:getDragonList()
     end
 
     local l_dragon_list = table_dragon:filterTable_condition(condition_func)
-    local t_ret = {}
+    local l_dragon_list_for_ui = {}
+    for i,v in pairs(l_dragon_list) do
+        l_dragon_list_for_ui[i] = v
+    end
+
     local t_check = {}
     for i,v in pairs(l_dragon_list) do
         local check_id = getDigit(v['did'], 10, 5)
@@ -187,15 +191,15 @@ function UI_HatcheryRelationTab:getDragonList()
             -- 없는 속성도 테이블 뷰에 표시하기 위해 속성 검사후 임의로 데이터 넣어줌
             for _i = 1, 5 do
                 local _did = check_id * 10 + _i
-                --if (not table_dragon:exists(_did)) then
-                if (not l_dragon_list[_did]) then
-                    l_dragon_list[_did] = {did = _did, birthgrade = 1}
+                if (not table_dragon:exists(_did)) then
+                    l_dragon_list_for_ui[_did] = {did = _did, birthgrade = 1}
                 end
             end
         end
     end
     
-    for i,v in pairs(l_dragon_list) do
+    local t_ret = {}
+    for i,v in pairs(l_dragon_list_for_ui) do
         local t_data = {}
         t_data['did'] = v['did']
         t_data['grade'] = v['birthgrade']
