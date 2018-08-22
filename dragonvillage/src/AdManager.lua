@@ -135,7 +135,7 @@ function AdManager:show(ad_unit_id, result_cb)
     end
 
 	-- 광고가 stuck 됐을 경우 처리 해줌
-	self:startAdStateUpdate(ad_unit_id)
+	--self:startAdStateUpdate(ad_unit_id)
 
     SoundMgr:stopBGM()
     self.callback = result_cb
@@ -244,6 +244,11 @@ end
 -------------------------------------
 function AdManager:releaseAdStateUpdate()
 	cclog('AdManager:releaseAdStateUpdate()')
+
+	-- 시간이 부족하여 8/30에 제대로 테스트 후 추가하도록 함
+	if (true) then
+		return
+	end
 
 	g_currScene.m_scene:unscheduleUpdate()
 	self.m_adStartTimer = 0
