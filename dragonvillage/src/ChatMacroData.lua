@@ -79,6 +79,10 @@ function ChatMacroData:makeDefaultData()
 		macro_ = 'マクロ'
 	elseif (lang == 'zh') then
 		macro_ = '巨集'
+
+	-- 태국어, 스페인어 준비 안됨 나중에 추가하자..
+	else
+		macro_ = 'macro'
     end
 	for i = 1, 10 do
         table.insert(root_table['chat_macro'], {['idx'] = i, ['macro'] = macro_ .. i})
