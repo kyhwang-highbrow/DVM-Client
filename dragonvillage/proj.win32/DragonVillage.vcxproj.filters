@@ -3713,6 +3713,9 @@
     <None Include="..\src\GameState_EventArena.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_GuidePopup_Rune.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

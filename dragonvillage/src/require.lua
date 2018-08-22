@@ -763,6 +763,7 @@ local t_module = {
 	'UI_PickDragon',
     'UI_DragonAppear',
     'UI_GuidePopup',
+    'UI_GuidePopup_Rune',
     'UI_NestDungeonScene',
     'UI_NestDungeonListItem',
     'UI_NestDungeonStageListItem',

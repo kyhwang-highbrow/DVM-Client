@@ -939,7 +939,9 @@ end
 -- @brief 룬 도움말
 -------------------------------------
 function UI_DragonRunes:click_runeInfoBtn()
-	UI_Help('rune')
+	--UI_Help('rune')
+    UI_GuidePopup_Rune()
+    -- sgkim 2018.08.22 텍스트로만 되어있는 도움말에서 별도의 룬 관련 도움말 UI로 변경
 end
 
 -------------------------------------
