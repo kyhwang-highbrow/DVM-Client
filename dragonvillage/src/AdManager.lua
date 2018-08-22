@@ -17,6 +17,10 @@ AdManager = {
 	m_adStartTimer = 0,
 }
 
+-- 광고 재생 시도 후 재요청 대기 시간
+local ADMOB_AD_RELOAD_TIME = 5
+
+-- 광고 키
 local ADMOB_AD_UNIT_ID_TABLE
 local ADMOB_APP_AD_UNIT_ID -- app launching 시 사용
 if (CppFunctions:isAndroid()) then
@@ -216,10 +220,11 @@ function AdManager:startAdStateUpdate(requested_ad_unit_id)
 		self.m_adStartTimer = self.m_adStartTimer + dt
 
 		-- 3초 안에 광고를 재생하지 않으면 다시 load한다
-		if (self.m_adStartTimer > 3) then
+		if (self.m_adStartTimer > ADMOB_AD_RELOAD_TIME) then
 			self:releaseAdStateUpdate()
 
 			if (not CppFunctions:isWin32()) then
+				cclog('AdManager - reload ad')
 				UIManager:toastNotificationGreen(Str('광고를 다시 불러옵니다.'))
 				PerpleSDK:adMobLoadRequestWithId(requested_ad_unit_id)
 			end
