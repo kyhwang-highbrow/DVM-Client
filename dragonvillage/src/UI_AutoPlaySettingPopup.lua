@@ -153,15 +153,26 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
 	vars['autoStartBtn3']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 	vars['autoStartBtn3'] = UIC_CheckBox(vars['autoStartBtn3'].m_node, vars['autoStartSprite3'], false)
 
-    -- rune quto sell
-	vars['autoStartBtn6']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-	vars['autoStartBtn6'] = UIC_CheckBox(vars['autoStartBtn6'].m_node, vars['autoStartSprite6'], false)
-    vars['starBtn1'] = UIC_CheckBox(vars['starBtn1'].m_node, vars['starSprite1'], false)
-    vars['starBtn2'] = UIC_CheckBox(vars['starBtn2'].m_node, vars['starSprite2'], false)
-    vars['starBtn3'] = UIC_CheckBox(vars['starBtn3'].m_node, vars['starSprite3'], false)
-    vars['starBtn4'] = UIC_CheckBox(vars['starBtn4'].m_node, vars['starSprite4'], false)
-    vars['starBtn5'] = UIC_CheckBox(vars['starBtn5'].m_node, vars['starSprite5'], false)
-    vars['starBtn6'] = UIC_CheckBox(vars['starBtn6'].m_node, vars['starSprite6'], false)
+    do-- rune quto sell
+        -- 자동 판매 여부 체크박스
+	    vars['autoStartBtn6']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+	    vars['autoStartBtn6'] = UIC_CheckBox(vars['autoStartBtn6'].m_node, vars['autoStartSprite6'], false)
+
+        -- 등급 설정 잠금
+        vars['runeAutoSellLock']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+        local function on_change_cb(checked)
+            vars['runeAutoSellLock']:setVisible(not checked)
+        end
+        vars['autoStartBtn6']:setChangeCB(on_change_cb)
+
+        -- 등급 설정 체크박스
+        vars['starBtn1'] = UIC_CheckBox(vars['starBtn1'].m_node, vars['starSprite1'], false)
+        vars['starBtn2'] = UIC_CheckBox(vars['starBtn2'].m_node, vars['starSprite2'], false)
+        vars['starBtn3'] = UIC_CheckBox(vars['starBtn3'].m_node, vars['starSprite3'], false)
+        vars['starBtn4'] = UIC_CheckBox(vars['starBtn4'].m_node, vars['starSprite4'], false)
+        vars['starBtn5'] = UIC_CheckBox(vars['starBtn5'].m_node, vars['starSprite5'], false)
+        vars['starBtn6'] = UIC_CheckBox(vars['starBtn6'].m_node, vars['starSprite6'], false)
+    end
 
 	-- main
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)

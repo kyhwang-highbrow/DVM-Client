@@ -7,6 +7,7 @@ UIC_CheckBox = class(PARENT, {
         m_bChecked = 'boolean',
         m_spriteNode = '',
         m_manualMode = 'boolean',
+        m_onChangeCB = 'function',
     })
 
 -------------------------------------
@@ -48,6 +49,10 @@ function UIC_CheckBox:setChecked(checked)
     if self.m_spriteNode then
         self.m_spriteNode:setVisible(checked)
     end
+
+    if self.m_onChangeCB then
+        self.m_onChangeCB(checked)
+    end
 end
 
 -------------------------------------
@@ -55,4 +60,12 @@ end
 -------------------------------------
 function UIC_CheckBox:setManualMode(manual_mode)
     self.m_manualMode = manual_mode
+end
+
+-------------------------------------
+-- function setChangeCB
+-- @param function func(bool checked) end
+-------------------------------------
+function UIC_CheckBox:setChangeCB(func)
+    self.m_onChangeCB = func
 end
