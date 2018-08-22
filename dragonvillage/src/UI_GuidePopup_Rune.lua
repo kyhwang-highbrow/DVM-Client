@@ -79,7 +79,77 @@ function UI_GuidePopup_Rune:onChangeTab(tab, first)
     -- 탭할때마다 액션 
     self:doActionReset()
     self:doAction(nil, false)  
+
+    local vars = self.vars
+    if (tab == UI_GuidePopup_Rune.SUMMARY) then
+
+        if first then
+            local ui = UI()
+            ui:load('rune_info_board.ui')
+            vars['runeScNode']:removeAllChildren()
+            vars['runeScNode']:addChild(ui.root)
+
+            self:setRuneData(ui)
+        end
+    end
+    
 end
+
+-------------------------------------
+-- function setRuneData
+-------------------------------------
+function UI_GuidePopup_Rune:setRuneData(ui)
+    local vars = ui.vars
+    
+    local t_rune_data = {}
+    t_rune_data["lv"] = 15
+    t_rune_data["id"] = "59b32f37476c0d2426b52139"
+    t_rune_data["mopt"] = "hp_multi;25"
+    t_rune_data["created_at"] = 1504915255534
+    t_rune_data["sopt_2"] = "resistance_add;2"
+    t_rune_data["sopt_4"] = "cri_chance_add;1"
+    t_rune_data["rid"] = 710124
+    t_rune_data["rarity"] = 1
+    t_rune_data["sopt_1"] = "aspd_add;8"
+    t_rune_data["updated_at"] = 1514044721832
+    t_rune_data["sopt_3"] = "hp_add;13"
+    t_rune_data["uopt"] = ""
+    t_rune_data["lock"] = false
+    local rune_obj = StructRuneObject(t_rune_data)
+
+    -- 룬 아이콘 삭제
+    vars['runeNode']:removeAllChildren()
+    vars['useRuneNameLabel']:setString('')
+    vars['useMainOptionLabel']:setString('')
+    vars['useSubOptionLabel']:setString('')
+    vars['useRuneSetLabel']:setString('')
+
+    -- 룬 명칭
+    vars['useRuneNameLabel']:setString(rune_obj['name'])
+
+    -- 룬 아이콘
+    local rune_icon = UI_RuneCard(rune_obj)
+    vars['runeNode']:addChild(rune_icon.root)
+
+    -- 메인, 유니크 옵션
+    vars['useMainOptionLabel']:setString(rune_obj:makeRuneDescRichText())
+
+    -- 서브 옵션
+    vars['useSubOptionLabel']:setString('')
+
+    -- 세트 옵션
+    vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
+
+    do -- 레어도
+        local color = rune_obj:getRarityColor()
+        vars['useRuneNameLabel']:setColor(color)
+        vars['useRarityNode']:setColor(color)
+
+        local name = rune_obj:getRarityName()
+        vars['useRarityLabel']:setString(name)
+    end
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_GuidePopup_Rune)
