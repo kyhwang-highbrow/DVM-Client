@@ -81,6 +81,7 @@ function UI_NestDungeonStageListItem:refresh(t_data)
         local table_stage_desc = TableStageDesc()
         local stage_id = self.m_stageTable['stage']
         local icon = table_stage_desc:getLastMonsterIcon(stage_id)
+        icon.root:setSwallowTouch(false)
         vars['iconNode']:addChild(icon.root)
     end
 

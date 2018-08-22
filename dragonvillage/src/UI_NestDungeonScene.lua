@@ -27,8 +27,8 @@ function UI_NestDungeonScene:init(stage_id, dungeon_type)
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    --self:doActionReset()
-    --self:doAction(nil, false)
+    self:doActionReset()
+    self:doAction(nil, false)
 
 	self.m_stageID = stage_id
 	self.m_dungeonType = dungeon_type
@@ -213,6 +213,31 @@ end
 function UI_NestDungeonScene:initButton()
     local vars = self.vars
 	vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
+
+    -- 던전 드랍 정보 설명 버튼
+    vars['infoBtn']:setVisible(false)
+    -- 악몽 던전
+    if (self.m_dungeonType == NEST_DUNGEON_NIGHTMARE) then
+		vars['infoBtn']:setVisible(true)
+        vars['infoBtn']:setAutoShake(true)
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(UI_GuidePopup_Rune.NIGHTMARE) end)
+
+    -- 고대 유적 던전
+    elseif (self.m_dungeonType == NEST_DUNGEON_ANCIENT_RUIN) then
+		vars['infoBtn']:setVisible(true)
+        vars['infoBtn']:setAutoShake(true)
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(UI_GuidePopup_Rune.ANCIENT_RUIN) end)
+	end
+    
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @breif 던전 정보 (룬 드랍 정보)
+-------------------------------------
+function UI_NestDungeonScene:click_infoBtn(tab_type)
+    local ui = UI_GuidePopup_Rune()
+    ui:setTab(tab_type)
 end
 
 -------------------------------------
