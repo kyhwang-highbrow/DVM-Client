@@ -80,6 +80,9 @@ function AdManager:result(ret, info)
         SoundMgr:playPrevBGM()
         PerpleSDK:adMobLoadRequest()
 
+		-- open 하지 않고 중단된 케이스
+		self:releaseAdStateUpdate()
+
         local msg = Str('광고 시청 도중 취소하셨습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
 
