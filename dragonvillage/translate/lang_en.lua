@@ -55,7 +55,7 @@ return {['드론을 빠르게 파괴하면 엑스마키나의 수리를 저지�
 ['보조 옵션 추가']='Add Sub Option',
 ['주 옵션 대폭 강화']='Greatly enhance Main Option',
 ['<희귀도에 따른 보너스 효과>']='<Bonus Effect of Rarity>',
-['강화 단계가 높아질 수록 필요한 골드량과 강화에 실패할 확률이 증가합니다. 단, 강화에 실패하더라도 룬은 사라지지 않습니다.']='As your Enhancement Level goes up, the amount of Gold and your chance to fail in enhancing level increase too. However, you don\'t lose Runes even if enhancement fails.',
+['강화 단계가 높아질 수록 필요한 골드량과 강화에 실패할 확률이 증가합니다.\n단, 강화에 실패하더라도 룬은 사라지지 않습니다.']='As your Enhancement Level goes up, the amount of Gold and your chance to fail in enhancing level increase too.\nHowever, you don\'t lose Runes even if enhancement fails.',
 ['악몽 던전 룬 획득 확률표']='Nightmare Dungeon Rune Drop Rate',
 ['<룬 획득 확률표>']='<Rune Drop Rates>',
 ['(단위: %)']='(Unit: %)',
