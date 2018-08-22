@@ -1027,7 +1027,7 @@ function GameState:makeGameFinishParam(is_success)
     -- 룬 자동 판매
     do
         local sell_value = 0
-        if (g_autoPlaySetting:get('rune_auto_sell') == true) then
+        if (g_autoPlaySetting:isRuneAutoSell() == true) then
             local grade_1 = g_autoPlaySetting:get('rune_auto_sell_grade1')
             local grade_2 = g_autoPlaySetting:get('rune_auto_sell_grade2')
             local grade_3 = g_autoPlaySetting:get('rune_auto_sell_grade3')

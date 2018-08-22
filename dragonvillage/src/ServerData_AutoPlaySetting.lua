@@ -181,8 +181,18 @@ end
 
 -------------------------------------
 -- function isFarmingOptionOn
--- @brief 연속 전투 시에만 활성화
+-- @brief 6성 드래곤만 스킬 사용
+--        연속 전투 시에만 활성화
 -------------------------------------
 function ServerData_AutoPlaySetting:isFarmingOptionOn()
     return (self.m_bAutoPlay and self:get('dragon_farming_mode'))
+end
+
+-------------------------------------
+-- function isRuneAutoSell
+-- @brief 룬 자동 판매 기능
+--        연속 전투 시에만 활성화
+-------------------------------------
+function ServerData_AutoPlaySetting:isRuneAutoSell()
+    return (self.m_bAutoPlay and self:get('rune_auto_sell'))
 end
