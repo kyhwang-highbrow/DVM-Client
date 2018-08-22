@@ -758,6 +758,7 @@ local t_module = {
     'UI_TopUserInfo',
     'UI_GoodsInfo',
     'UI_StaminaInfo',
+    'UI_RuneAutoSellAgreePopup',
 
     'UI_GachaResult_Dragon',
 	'UI_PickDragon',

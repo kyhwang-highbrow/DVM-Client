@@ -37,9 +37,45 @@ end
 -------------------------------------
 function UI_AutoPlaySettingPopup:click_autoStartOnBtn()
     local vars = self.vars
-    if (vars['autoStartOnBtn']:isChecked()) then
-        self:close()
+
+    local checked = vars['autoStartOnBtn']:isChecked()
+
+    -- 비활성 상태일 경우 리턴
+    if (checked == false) then
+        return
     end
+
+    -- 룬 자동 판매 UI가 활성화일 경우
+    local rune_auto_sell_menu = vars['runAutoSellMenu']
+    if (rune_auto_sell_menu and rune_auto_sell_menu:isVisible()) then
+        if vars['autoStartBtn6']:isChecked() then
+            
+            local t_setting = {}
+            t_setting[1] = vars['starBtn1']:isChecked()
+            t_setting[2] = vars['starBtn2']:isChecked()
+            t_setting[3] = vars['starBtn3']:isChecked()
+            t_setting[4] = vars['starBtn4']:isChecked()
+            t_setting[5] = vars['starBtn5']:isChecked()
+
+            -- 설정값이 0보다 커야 하나라도 설정된 상태
+            local sell_value = g_autoPlaySetting:getRuneAutoSellValue(t_setting)
+            if (sell_value > 0) then
+                local function ok_btn_cb()
+                    self:close()
+                end
+
+                local function cancel_btn_cb()
+                    vars['autoStartOnBtn']:setChecked(false)
+                end
+
+                UI_RuneAutoSellAgreePopup(ok_btn_cb, cancel_btn_cb, t_setting)
+                return
+            end
+        end
+    end
+
+    -- 활성 상태일 경우 창을 닫음
+    self:close()
 end
 
 -------------------------------------
@@ -171,12 +207,11 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
         vars['starBtn3'] = UIC_CheckBox(vars['starBtn3'].m_node, vars['starSprite3'], false)
         vars['starBtn4'] = UIC_CheckBox(vars['starBtn4'].m_node, vars['starSprite4'], false)
         vars['starBtn5'] = UIC_CheckBox(vars['starBtn5'].m_node, vars['starSprite5'], false)
-        vars['starBtn6'] = UIC_CheckBox(vars['starBtn6'].m_node, vars['starSprite6'], false)
     end
 
 	-- main
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
-    vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
+    vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)    
 end
 
 -------------------------------------
@@ -204,7 +239,6 @@ function UI_AutoPlaySettingPopup:refresh()
     vars['starBtn3']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade3'))
     vars['starBtn4']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade4'))
     vars['starBtn5']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade5'))
-    vars['starBtn6']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade6'))
 
     vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay())
 
@@ -234,7 +268,6 @@ function UI_AutoPlaySettingPopup:close()
     g_autoPlaySetting:set('rune_auto_sell_grade3', vars['starBtn3']:isChecked())
     g_autoPlaySetting:set('rune_auto_sell_grade4', vars['starBtn4']:isChecked())
     g_autoPlaySetting:set('rune_auto_sell_grade5', vars['starBtn5']:isChecked())
-    g_autoPlaySetting:set('rune_auto_sell_grade6', vars['starBtn6']:isChecked())
 
 	g_autoPlaySetting:setAutoPlay(vars['autoStartOnBtn']:isChecked())
 

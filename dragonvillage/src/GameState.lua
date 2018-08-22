@@ -1028,19 +1028,7 @@ function GameState:makeGameFinishParam(is_success)
     do
         local sell_value = 0
         if (g_autoPlaySetting:isRuneAutoSell() == true) then
-            local grade_1 = g_autoPlaySetting:get('rune_auto_sell_grade1')
-            local grade_2 = g_autoPlaySetting:get('rune_auto_sell_grade2')
-            local grade_3 = g_autoPlaySetting:get('rune_auto_sell_grade3')
-            local grade_4 = g_autoPlaySetting:get('rune_auto_sell_grade4')
-            local grade_5 = g_autoPlaySetting:get('rune_auto_sell_grade5')
-            local grade_6 = g_autoPlaySetting:get('rune_auto_sell_grade6')
-            if (grade_6 == true) then sell_value = sell_value + 100000 end
-            if (grade_5 == true) then sell_value = sell_value + 10000 end
-            if (grade_4 == true) then sell_value = sell_value + 1000 end
-            if (grade_3 == true) then sell_value = sell_value + 100 end
-            if (grade_2 == true) then sell_value = sell_value + 10 end
-            if (grade_1 == true) then sell_value = sell_value + 1 end
-            sell_value = tonumber(sell_value, 2) -- 2진법으로 변환 (서버에서 요구하는 형태)
+            sell_value = g_autoPlaySetting:getRuneAutoSellValue()
         end
         t_param['rune_autosell'] = sell_value
     end

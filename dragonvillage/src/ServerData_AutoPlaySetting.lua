@@ -196,3 +196,43 @@ end
 function ServerData_AutoPlaySetting:isRuneAutoSell()
     return (self.m_bAutoPlay and self:get('rune_auto_sell'))
 end
+
+-------------------------------------
+-- function getRuneAutoSellValue
+-- @brief 룬 자동 판매 설정이 담긴 값 리턴
+--        1xxxxx 6등급 룬 판매 여부
+--         1xxxx 5등급 룬 판매 여부
+--          1xxx 4등급 룬 판매 여부
+--           1xx 3등급 룬 판매 여부
+--            1x 2등급 룬 판매 여부
+--             1 1등급 룬 판매 여부
+--        이 값을 2진법으로 변환해서 사용
+-------------------------------------
+function ServerData_AutoPlaySetting:getRuneAutoSellValue(t_setting)
+    local sell_value = 0
+    local grade_1, grade_2, grade_3, grade_4, grade_5, grade_6
+    if t_setting then
+        grade_1 = t_setting[1] or false
+        grade_2 = t_setting[2] or false
+        grade_3 = t_setting[3] or false
+        grade_4 = t_setting[4] or false
+        grade_5 = t_setting[5] or false
+        grade_6 = t_setting[6] or false
+    else
+        grade_1 = self:get('rune_auto_sell_grade1')
+        grade_2 = self:get('rune_auto_sell_grade2')
+        grade_3 = self:get('rune_auto_sell_grade3')
+        grade_4 = self:get('rune_auto_sell_grade4')
+        grade_5 = self:get('rune_auto_sell_grade5')
+        --grade_6 = self:get('rune_auto_sell_grade6')
+        grade_6 = false -- 2018.08.22 6성은 무조건 false로 설정
+    end
+    if (grade_6 == true) then sell_value = sell_value + 100000 end
+    if (grade_5 == true) then sell_value = sell_value + 10000 end
+    if (grade_4 == true) then sell_value = sell_value + 1000 end
+    if (grade_3 == true) then sell_value = sell_value + 100 end
+    if (grade_2 == true) then sell_value = sell_value + 10 end
+    if (grade_1 == true) then sell_value = sell_value + 1 end
+    sell_value = tonumber(sell_value, 2) -- 2진법으로 변환 (서버에서 요구하는 형태)
+    return sell_value
+end
