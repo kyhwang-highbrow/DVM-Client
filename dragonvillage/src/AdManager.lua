@@ -130,12 +130,12 @@ end
 -- function show
 -------------------------------------
 function AdManager:show(ad_unit_id, result_cb)
-	-- 광고가 stuck 됐을 경우 처리 해줌
-	self:startAdStateUpdate(ad_unit_id)
-
     if (CppFunctions:isWin32()) then 
         return
     end
+
+	-- 광고가 stuck 됐을 경우 처리 해줌
+	self:startAdStateUpdate(ad_unit_id)
 
     SoundMgr:stopBGM()
     self.callback = result_cb
@@ -222,10 +222,11 @@ function AdManager:startAdStateUpdate(requested_ad_unit_id)
 	local function update(dt)
 		self.m_adStartTimer = self.m_adStartTimer + dt
 
-		-- 3초 안에 광고를 재생하지 않으면 다시 load한다
+		-- n초 안에 광고를 재생하지 않으면 다시 load한다
 		if (self.m_adStartTimer > ADMOB_AD_RELOAD_TIME) then
 			self:releaseAdStateUpdate()
 
+			-- 광고 해당 id로 다시 요청
 			if (not CppFunctions:isWin32()) then
 				cclog('AdManager - reload ad')
 				UIManager:toastNotificationGreen(Str('광고를 다시 불러옵니다.'))
