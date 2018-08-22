@@ -82,6 +82,7 @@ end
 function UI_Inventory:initButton()
     local vars = self.vars
     vars['sortBtn']:registerScriptTapHandler(function() self:click_sortBtn() end)
+    vars['runeInfoBtn']:registerScriptTapHandler(function() self:click_runeInfoBtn() end)
 end
 
 -------------------------------------
@@ -98,6 +99,14 @@ end
 function UI_Inventory:click_exitBtn()
 	g_highlightData:saveNewDoidMap()
     self:close()
+end
+
+-------------------------------------
+-- function click_runeInfoBtn
+-- @brief 룬 도움말
+-------------------------------------
+function UI_Inventory:click_runeInfoBtn()
+    UI_GuidePopup_Rune()
 end
 
 -------------------------------------
