@@ -698,6 +698,8 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('bonus_items', t_param['bonus_items'])
     ui_network:setParam('clear_time', t_param['clear_time'])
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+    ui_network:setParam('rune_autosell', t_param['rune_autosell'])
+    
 
     if (attr) then
         ui_network:setParam('attr', attr)
