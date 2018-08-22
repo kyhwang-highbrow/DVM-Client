@@ -69,14 +69,25 @@ function Lua( $sheetNames, $locale, $spreadsheet_id, $callback )
 			var i = 0;
 			var len = $rows.length;
 			var row;
+			var tr_str; // translated string
 			for( i ; i < len ; i++ )
 			{
 				row = $rows[ i ];
 
-				data.push( [ row.kr, row[ locale ] ] );
+				// 번역 텍스트 삽입 .. 없으면 영어 또 없으면 한국어를 넣는다.
+				tr_str = row[locale];
+				if (tr_str == "") {
+					tr_str = row["en"];
+				}
+				if (tr_str == "") {
+					tr_str = row["kr"];
+				}
+				data.push([row["kr"], tr_str]);
 
-				if( row.speakerkr )
+				// 시나리오 화자 추가
+				if (row.speakerkr) {
 					data.push( [ row.speakerkr, row[ "speaker" + locale ] ] );
+				}
 			}
 
 			$callback( data );
