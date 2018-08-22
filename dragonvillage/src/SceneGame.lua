@@ -163,6 +163,10 @@ function SceneGame:init_loadingGuideType()
     elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
 		self.m_loadingGuideType = 'all'
 
+    -- 고대 유적 던전
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        self.m_loadingGuideType = 'in_nest_ar'
+
 	else
         self.m_loadingGuideType = 'all'
     end
