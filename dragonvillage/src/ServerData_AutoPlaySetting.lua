@@ -64,6 +64,17 @@ function ServerData_AutoPlaySetting:setDefaultSetting(mode, t_auto_play_setting)
         -- 연출 스킵 모드 사용
         ['skip_mode'] = false
     }
+
+    do -- 룬 자동 판매
+        local t_setting = t_auto_play_setting[mode]
+        t_setting['rune_auto_sell'] = false
+        t_setting['rune_auto_sell_grade1'] = false
+        t_setting['rune_auto_sell_grade2'] = false
+        t_setting['rune_auto_sell_grade3'] = false
+        t_setting['rune_auto_sell_grade4'] = false
+        t_setting['rune_auto_sell_grade5'] = false
+        t_setting['rune_auto_sell_grade6'] = false
+    end
 end
 
 -------------------------------------

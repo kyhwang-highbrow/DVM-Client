@@ -153,6 +153,16 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
 	vars['autoStartBtn3']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 	vars['autoStartBtn3'] = UIC_CheckBox(vars['autoStartBtn3'].m_node, vars['autoStartSprite3'], false)
 
+    -- rune quto sell
+	vars['autoStartBtn6']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+	vars['autoStartBtn6'] = UIC_CheckBox(vars['autoStartBtn6'].m_node, vars['autoStartSprite6'], false)
+    vars['starBtn1'] = UIC_CheckBox(vars['starBtn1'].m_node, vars['starSprite1'], false)
+    vars['starBtn2'] = UIC_CheckBox(vars['starBtn2'].m_node, vars['starSprite2'], false)
+    vars['starBtn3'] = UIC_CheckBox(vars['starBtn3'].m_node, vars['starSprite3'], false)
+    vars['starBtn4'] = UIC_CheckBox(vars['starBtn4'].m_node, vars['starSprite4'], false)
+    vars['starBtn5'] = UIC_CheckBox(vars['starBtn5'].m_node, vars['starSprite5'], false)
+    vars['starBtn6'] = UIC_CheckBox(vars['starBtn6'].m_node, vars['starSprite6'], false)
+
 	-- main
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
     vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
@@ -160,9 +170,9 @@ end
 
 -------------------------------------
 -- function refresh
--- @brief dragon_id로 드래곤의 상세 정보를 출력
+-- @brief
 -------------------------------------
-function UI_AutoPlaySettingPopup:refresh(t_user_info)
+function UI_AutoPlaySettingPopup:refresh()
     local vars = self.vars
 
 	-- common
@@ -176,7 +186,17 @@ function UI_AutoPlaySettingPopup:refresh(t_user_info)
 	-- farming
 	vars['autoStartBtn3']:setChecked(g_autoPlaySetting:get('dragon_farming_mode'))
 	 
+    -- rune quto sell
+    vars['autoStartBtn6']:setChecked(g_autoPlaySetting:get('rune_auto_sell'))
+    vars['starBtn1']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade1'))
+    vars['starBtn2']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade2'))
+    vars['starBtn3']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade3'))
+    vars['starBtn4']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade4'))
+    vars['starBtn5']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade5'))
+    vars['starBtn6']:setChecked(g_autoPlaySetting:get('rune_auto_sell_grade6'))
+
     vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay())
+
 end
 
 -------------------------------------
@@ -196,6 +216,15 @@ function UI_AutoPlaySettingPopup:close()
 	-- farming
 	g_autoPlaySetting:set('dragon_farming_mode', vars['autoStartBtn3']:isChecked())
     
+    -- rune auto sell
+	g_autoPlaySetting:set('rune_auto_sell', vars['autoStartBtn6']:isChecked())
+    g_autoPlaySetting:set('rune_auto_sell_grade1', vars['starBtn1']:isChecked())
+    g_autoPlaySetting:set('rune_auto_sell_grade2', vars['starBtn2']:isChecked())
+    g_autoPlaySetting:set('rune_auto_sell_grade3', vars['starBtn3']:isChecked())
+    g_autoPlaySetting:set('rune_auto_sell_grade4', vars['starBtn4']:isChecked())
+    g_autoPlaySetting:set('rune_auto_sell_grade5', vars['starBtn5']:isChecked())
+    g_autoPlaySetting:set('rune_auto_sell_grade6', vars['starBtn6']:isChecked())
+
 	g_autoPlaySetting:setAutoPlay(vars['autoStartOnBtn']:isChecked())
 
 	if (g_gameScene) then
