@@ -497,10 +497,8 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
-	local function cb_func()
-		ccdisplay('follow check')
-	end
-	PerpleSdkManager:twitterFollowWebView(cb_func)
+	ccdisplay('adMob load request with id test')
+	PerpleSDK:adMobLoadRequestWithId('ca-app-pub-9497777061019569/7721594075')
 end
 
 -------------------------------------
@@ -508,8 +506,6 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn2()
-    --ccdisplay('Channel Code Test : ', NaverCafeManager:naverCafeGetChannelCode())
-
 	local function success_cb()
 		ccdisplay('success success success') 
 	end
