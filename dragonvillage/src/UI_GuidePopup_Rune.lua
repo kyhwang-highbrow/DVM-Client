@@ -104,16 +104,16 @@ function UI_GuidePopup_Rune:setRuneData(ui)
     local t_rune_data = {}
     t_rune_data["lv"] = 15
     t_rune_data["id"] = "59b32f37476c0d2426b52139"
-    t_rune_data["mopt"] = "hp_multi;25"
+    t_rune_data["mopt"] = "atk_multi;46"
     t_rune_data["created_at"] = 1504915255534
-    t_rune_data["sopt_2"] = "resistance_add;2"
-    t_rune_data["sopt_4"] = "cri_chance_add;1"
-    t_rune_data["rid"] = 710124
-    t_rune_data["rarity"] = 1
-    t_rune_data["sopt_1"] = "aspd_add;8"
+    t_rune_data["sopt_2"] = "cri_dmg_add;6"
+    t_rune_data["sopt_4"] = "cri_chance_add;8"
+    t_rune_data["rid"] = 710646
+    t_rune_data["rarity"] = 4
+    t_rune_data["sopt_1"] = "hit_rate_add;6"
     t_rune_data["updated_at"] = 1514044721832
-    t_rune_data["sopt_3"] = "hp_add;13"
-    t_rune_data["uopt"] = ""
+    t_rune_data["sopt_3"] = "hp_multi;7"
+    t_rune_data["uopt"] = "avoid_add;4"
     t_rune_data["lock"] = false
     local rune_obj = StructRuneObject(t_rune_data)
 
