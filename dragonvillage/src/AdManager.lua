@@ -13,7 +13,6 @@ AD_TYPE = {
 -------------------------------------
 AdManager = {
     callback,
-	m_isFirstLoad = true,
 	m_adStartTimer = 0,
 }
 
@@ -53,11 +52,6 @@ function AdManager:result(ret, info)
 
     -- 광고 load 완료
     if (ret == 'receive') then
-		-- 최초에는 출력하지 않는다.
-		if (self.m_isFirstLoad == false) then
-			UIManager:toastNotificationGreen(Str('광고 불러오기 완료'))
-		end
-		self.m_isFirstLoad = false
 
     -- 광고 load 실패
     elseif (ret == 'fail') then
