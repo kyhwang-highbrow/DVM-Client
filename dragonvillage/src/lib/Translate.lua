@@ -35,11 +35,12 @@ function Translate:init()
 	-- 게임 언어 (유저의 선택)
 	self.m_gameLang = g_localData:getLang()
 	
-	-- 신규 유저의 경우 디바이스 언어를 따름
+	-- 신규 유저의 경우 
 	if (not self.m_gameLang) then
-		-- 디바이스 언어가 정의되지 않은 언어일 경우 처리
-		if (isExistValue(self.m_deviceLang, 'ko', 'ja', 'zh', 'en')) then
+		-- 정의된 언어는 디바이스 언어를 따름
+		if (table.find(LANG, self.m_deviceLang) ~= nil) then
 			self.m_gameLang = self.m_deviceLang
+		-- 정의되지 않은 언어는 영어로 처리
 		else
 			self.m_gameLang = 'en'
 		end
