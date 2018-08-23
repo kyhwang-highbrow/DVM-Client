@@ -34,7 +34,6 @@ return {['드론을 빠르게 파괴하면 엑스마키나의 수리를 저지�
 ['룬의 등급을 별의 개수로 표시합니다.\n룬의 등급이 높을 수록 ‘주 옵션’의 기본 능력치가 높습니다.']='The Rune Grade is indicated by the number of stars.\nThe higher the grade, the better its base stat.',
 ['룬의 보조적인 옵션으로 주 옵션과 같은 능력치는 붙지 않습니다.']='This is a sub option and does not have a Main Option stat.',
 ['룬의 희귀 등급을 나타냅니다.\n일반, 희귀, 영웅, 전설 등급 순으로 희소 가치가 있으며 희귀도에 따라 처음에 가지는\n‘보조 옵션’의 개수가 늘어납니다.']='This shows the Rarity of the Rune.\nRarities are  classified as Normal, Rare, Heroic and Legendary. \nThe number of \"Sub Options\" depends on the Rarity.',
-['무작위 적 대상과 그 주번에게 보통의 피해를 줍니다.']='Inflict normal damage to a random enemy and nearby enemies.',
 ['방어력(+)']='DEF (+)',
 ['보조 옵션']='Sub Option',
 ['생명력 +{1}']='HP +{1}',
