@@ -61,14 +61,16 @@ function UI_TitleScene:initUI()
         vars['animator'] = animator
         animator:changeAni('02_scene_replace', true)
 
-        -- 2018.08.24 sgkim 18.5:9 해상도 대응
-        -- 삼성 Galaxy S8 / 9 제품군(18.5:9)
+        -- 2018.08.24 sgkim 추가 해상도 대응
+        -- 18.5:9 (삼성 갤럭시 등), 18:9 (LG, Pexel2XL)
         -- 드빌M의 타이틀 이미지가 1280 * 960으로 제작되어 불가피하게 하드코딩
         local visibleSize = cc.Director:getInstance():getVisibleSize()
-        if (visibleSize.width == 1480 and visibleSize.height == 720) then
-            local scale = 1480 / 1280
-            animator:setScale(scale)
-            animator:setPositionY(-30)
+        if (visibleSize.height == 720) then
+			if (visibleSize.width == 1480 or visibleSize.width == 1440) then
+				local scale = visibleSize.width/1280
+				animator:setScale(scale)
+				animator:setPositionY(-30)
+			end
         end
     end
 
