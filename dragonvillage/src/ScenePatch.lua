@@ -58,6 +58,16 @@ function ScenePatch:onEnter()
         self.m_vars['animatorNode']:addChild(animator.m_node)
         self.m_vars['animator'] = animator
         self.m_vars['animator']:changeAni('01_patch')
+
+        -- 2018.08.24 sgkim 18.5:9 해상도 대응
+        -- 삼성 Galaxy S8 / 9 제품군(18.5:9)
+        -- 드빌M의 타이틀 이미지가 1280 * 960으로 제작되어 불가피하게 하드코딩
+        local visibleSize = cc.Director:getInstance():getVisibleSize()
+        if (visibleSize.width == 1480 and visibleSize.height == 720) then
+            local scale = 1480 / 1280
+            animator:setScale(scale)
+            animator:setPositionY(-30)
+        end
     end
 
 	self:refreshPatchIdxLabel()
