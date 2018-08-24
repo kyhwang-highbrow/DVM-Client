@@ -319,7 +319,8 @@ function UI_TitleScene:setWorkList()
     -- @perpelsdk
     if (isAndroid() or isIos()) then
         table.insert(self.m_lWorkList, 'workBillingSetup')        
-        table.insert(self.m_lWorkList, 'workMarketInfoSetup')
+        table.insert(self.m_lWorkList, 'workGetMarketInfo')
+		table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly')
         table.insert(self.m_lWorkList, 'workNetworkUserInfo')
         table.insert(self.m_lWorkList, 'workPrepareAd')
     end
@@ -1042,10 +1043,10 @@ function UI_TitleScene:workBillingSetup_click()
 end
 
 -------------------------------------
--- function workMarketInfoSetup
+-- function workGetMarketInfo
 -- @brief 마켓 정보 초기화
 -------------------------------------
-function UI_TitleScene:workMarketInfoSetup()
+function UI_TitleScene:workGetMarketInfo()
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
     local function call_back(ret, info)
@@ -1071,7 +1072,40 @@ function UI_TitleScene:workMarketInfoSetup()
 
     PerpleSDK:billingGetItemList(skuList, call_back)
 end
-function UI_TitleScene:workMarketInfoSetup_click()
+function UI_TitleScene:workGetMarketInfo_click()
+end
+
+-------------------------------------
+-- function workGetMarketInfo_Monthly
+-- @brief 마켓 정보 초기화 - 월정액 상품
+-------------------------------------
+function UI_TitleScene:workGetMarketInfo_Monthly()
+    self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
+
+    local function call_back(ret, info)
+        if (ret == 'success') then
+            local tRet = json_decode(info)
+            g_shopDataNew:setMarketPrice(tRet)
+
+        elseif (ret == 'fail') then
+            cclog('#### billingItemInfo failed - info : ')
+            ccdump(info)
+            
+            local msg = Str('결제 아이템 정보를 가져오는데 실패했습니다.')
+        end
+
+        self:doNextWork()
+    end
+
+    local skuList = g_shopDataNew:getSkuList_Monthly()
+    if skuList == nil then
+        self:doNextWork()
+        return
+    end
+
+    PerpleSDK:billingGetItemList(skuList, call_back)
+end
+function UI_TitleScene:workGetMarketInfo_Monthly_click()
 end
 
 -------------------------------------

@@ -739,6 +739,14 @@ function ServerData_Shop:getDailyCapsulePackage()
 end
 
 -------------------------------------
+-- function getSkuList_Monthly
+-- @brief 인앱상품 프러덕트 아이들을 'x;x;x;'형태로 반환 - 월정액 상품
+-------------------------------------
+function ServerData_Shop:getSkuList_Monthly()
+	return 'dvm_2weekpack01_5k;dvm_2weekpack02_3k;dvm_2weekpack03_1k;dvm_2weekpack11_30k;dvm_2weekpack12_10k;dvm_2weekpack13_5k'
+end
+
+-------------------------------------
 -- function getSkuList
 -- @brief 인앱상품 프러덕트 아이들을 'x;x;x;'형태로 반환
 -------------------------------------
@@ -759,17 +767,6 @@ function ServerData_Shop:getSkuList()
         end
     end
 
-    -- 월정액 상품 (매일매일 다이아) - 서버에서 shop 정보 주지 않음
-    -- 하드 코딩 - sku 바뀐다면 수정해야함
-
-    -- 일반 월정액 sku
-    local sku_normal = 'dvm_2weekpack01_5k;dvm_2weekpack02_3k;dvm_2weekpack03_1k;'
-
-    -- 프리미엄 월정액 sku
-    local sku_premium = 'dvm_2weekpack11_30k;dvm_2weekpack12_10k;dvm_2weekpack13_5k;'
-
-    ret = sku_normal .. sku_premium
-
     for sku, _ in pairs( tTemp ) do
         ret = ret .. ';' .. sku
     end
@@ -783,10 +780,6 @@ end
 -------------------------------------
 function ServerData_Shop:setMarketPrice(market_data)
     self.m_dicMarketPrice = {}
-    
-    cclog('## 마켓에서 받은 가격 로그')
-    ccdump(market_data)
-
     -- sku로 구분함 
     for _, v in pairs(market_data) do
         local sku = tostring(v.productId)
