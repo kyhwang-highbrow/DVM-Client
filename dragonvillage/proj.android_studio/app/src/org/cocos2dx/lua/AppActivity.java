@@ -27,6 +27,7 @@ package org.cocos2dx.lua;
 
 import com.google.android.vending.expansion.downloader.Helpers;
 import com.google.android.vending.expansion.downloader.IDownloaderClient;
+import com.perplelab.dragonvillagem.kr.BuildConfig;
 import com.perplelab.dragonvillagem.kr.R;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
@@ -137,7 +138,7 @@ public class AppActivity extends Cocos2dxActivity{
         PerpleSDK.setGLSurfaceView(getGLSurfaceView());
 
         // 디버그 메시지 출력
-        boolean isDebug = false;
+        boolean isDebug = BuildConfig.DEBUG;
 
         // @perplesdk // getString(R.string.gcm_defaultSenderId) GCM is deprecated, use FCM
         if (PerpleSDK.getInstance().initSDK(BASE64_PUBLIC_KEY, isDebug)) {
