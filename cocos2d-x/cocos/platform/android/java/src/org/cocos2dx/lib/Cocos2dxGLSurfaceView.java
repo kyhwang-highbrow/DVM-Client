@@ -314,48 +314,63 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
             this.mRealScreenWidth = pNewSurfaceWidth;
             this.mRealScreenHeight = pNewSurfaceHeight;
 
-            float longLength = 0;
-            float ShortLength = 0;
+            float longLength;
+            float shortLength;
             boolean isLandscape = (this.mRealScreenHeight < this.mRealScreenWidth);
 
-            if (isLandscape == true) {
+            if (isLandscape) {
                 longLength = this.mRealScreenWidth;
-                ShortLength = this.mRealScreenHeight;
+                shortLength = this.mRealScreenHeight;
             }
             else {
                 longLength = this.mRealScreenHeight;
-                ShortLength = this.mRealScreenWidth;
+                shortLength = this.mRealScreenWidth;
             }
 
-            float ratio = longLength / ShortLength;
+            float ratio = longLength / shortLength;
 
+            // 4:3 1.333
             if (ratio <= 1.41) {
-                ShortLength = 960;
                 longLength = 1280;
+                shortLength = 960;
             }
-            else if (ratio <= 1.55){
-                ShortLength = 854;
+            // 3:2 1.5
+            else if (ratio <= 1.55) {
                 longLength = 1280;
+                shortLength = 854;
             }
-            else if (ratio <= 1.63){
-                ShortLength = 800;
+            // 16:10 1.6
+            else if (ratio <= 1.63) {
                 longLength = 1280;
+                shortLength = 800;
             }
-            else if (ratio <= 1.7){
-                ShortLength = 769;
+            // 5:3 1.666
+            else if (ratio <= 1.7) {
                 longLength = 1280;
+                shortLength = 769;
             }
-            else{
-                ShortLength = 720;
+            // 16:9 1.777
+            else if (ratio <= 1.91) {
                 longLength = 1280;
+                shortLength = 720;
+            }
+            // 18:9 2
+            else if (ratio == 2) {
+                longLength = 1440;
+                shortLength = 720;
+            }
+            // 18.5:9 2.055
+            else {
+                longLength = 1480;
+                shortLength = 720;
             }
 
-            if (isLandscape == true) {
+            if (isLandscape) {
                 this.mScreenWidth = longLength;
-                this.mScreenHeight = ShortLength;
+                this.mScreenHeight = shortLength;
             }
             else {
-                this.mScreenWidth = ShortLength;
+                this.mScreenWidth = shortLength;
                 this.mScreenHeight = longLength;
             }
 
