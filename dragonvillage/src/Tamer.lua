@@ -413,7 +413,7 @@ function Tamer.st_success_move(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:stopAllActions()
         local add_speed = math_random(-2, 2) * 100
-        owner:setMove(owner.pos.x + 2000, owner.pos.y, 1500 + add_speed)
+        owner:setMove(owner.pos.x + 2500, owner.pos.y, 1500 + add_speed)
         owner:setAfterImage(true)
     end
 end

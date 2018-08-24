@@ -475,6 +475,9 @@ function SceneGame:sceneDidChangeViewSize()
     do
         -- 뷰를 현재 해상도로 조정
         local scale = scr_size['width'] / CRITERIA_RESOLUTION_X
+        if (scr_size['width'] > CRITERIA_RESOLUTION_X) then
+            scale = scr_size['height'] / CRITERIA_RESOLUTION_Y
+        end
         if is_ui_toggle then
             scale = scale * 0.95
         end
