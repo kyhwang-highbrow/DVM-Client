@@ -344,7 +344,7 @@ function UI_BattleMenu:runBtnAppearAction(l_btn_ui, immediately)
         if immediately then
             ui.root:setPosition(x, y)
         else
-            ui.root:setPositionX(x + 1280)
+            ui.root:setPositionX(x + MAX_RESOLUTION_X) -- 화면 오른쪽에서 등장하는 액션 (최대 넓이 위치를 더해줌)
             local move_to = cc.MoveTo:create(0.5, cc.p(x, y))
             local ease_in_out = cc.EaseInOut:create(move_to, 2)
             local action = cc.Sequence:create(cc.DelayTime:create((i-1) * 0.05), ease_in_out)

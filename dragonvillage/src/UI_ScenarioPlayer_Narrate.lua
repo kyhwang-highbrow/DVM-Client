@@ -71,7 +71,7 @@ function UI_ScenarioPlayer_Narrate:makeRichLabels(l_lines)
         -- label의 속성들
         rich_label:setString(v)
         rich_label:setFontSize(30)
-        rich_label:setDimension(1280, 720)
+        rich_label:setDimension(CRITERIA_RESOLUTION_X, CRITERIA_RESOLUTION_Y)
         rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 		if (self.m_textColor) then
 			rich_label:setDefualtColor(self.m_textColor)

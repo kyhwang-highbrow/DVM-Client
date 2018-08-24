@@ -62,7 +62,7 @@ function UIC_BroadcastLabel:create(bg_scale9sprite, rich_label)
         self.m_richLabel = rich_label
         rich_label:retain()
         rich_label:removeFromParent()
-        rich_label:setDimension(1280, 50)
+        rich_label:setDimension(1000, 50) -- 충분히 넓은 영역 제공
         rich_label:setPosition(0, 0)
         rich_label:setDockPoint(cc.p(0.5, 0.5))
         rich_label:setAnchorPoint(cc.p(0.5, 0.5))
