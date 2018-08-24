@@ -127,6 +127,12 @@ function UI_BattleMenu:initTab()
     vars['dungeonBg']:setOpacity(0)
     vars['competitionBg']:setOpacity(0)
 
+    -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
+    local scr_size = cc.Director:getInstance():getWinSize()
+    vars['adventureBg']:setScale(scr_size.width / 1280)
+    vars['dungeonBg']:setScale(scr_size.width / 1280)
+    vars['competitionBg']:setScale(scr_size.width / 1280)
+
     -- 탭 초기화
     self:addTab('adventure', vars['adventureBtn'], vars['adventureMenu'])
     self:addTab('dungeon', vars['dungeonBtn'], vars['dungeonMenu'])

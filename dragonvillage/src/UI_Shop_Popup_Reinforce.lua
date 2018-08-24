@@ -172,6 +172,10 @@ function UI_Shop_Popup_Reinforce:refresh_dragonInfo()
     local animator = ResHelper:getUIDragonBG(attr, 'idle')
     vars['bgNode']:addChild(animator.m_node)
 
+    -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
+    local scr_size = cc.Director:getInstance():getWinSize()
+    animator:setScale(scr_size.width / 1280)
+
     -- 드래곤 테이블
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[t_dragon_data['did']]
