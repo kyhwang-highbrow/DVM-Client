@@ -75,7 +75,8 @@ function UI_Clan:checkEnterEvent()
 
     -- 튜토리얼 확인
     -- @ TUTORIAL : clan
-    TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
+	-- mskim : UI 변경 후 튜토리얼 수정하기 힘들어 제외함
+    -- TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
 end
 
 -------------------------------------
