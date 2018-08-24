@@ -197,6 +197,12 @@ bool AppDelegate::applicationDidFinishLaunching()
         longLength = 1280;
         shortLength = 720;
     }
+    // 18:9 2
+    else if (ratio == 2) 
+    {
+        longLength = 1440;
+        shortLength = 720;
+    }
     // 18.5:9 2.055
     else
     {
