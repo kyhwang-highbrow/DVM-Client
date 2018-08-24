@@ -1,9 +1,9 @@
 {
     "init_cfg": {
         "appVer": "9.9.9",
-        "width": 1280,
+        "width": 1480,
         "height": 720,
-        "scale": 0.8,
+        "scale": 1,
         "isLandscape": true
     },
     "simulator_screen_size": [
@@ -13,8 +13,8 @@
             "height": 720
         },
         {
-            "title": "18:9 (1440x720)",
-            "width": 1440,
+            "title": "18.5:9 (1480x720)",
+            "width": 1480,
             "height": 720
         },
         {

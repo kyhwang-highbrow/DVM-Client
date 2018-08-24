@@ -183,11 +183,18 @@ bool AppDelegate::applicationDidFinishLaunching()
         shortLength = 769;
     }
     // 16:9 1.777
-    else
+    else if (ratio <= 1.91)
     {
         longLength = 1280;
         shortLength = 720;
     }
+    // 18.5:9 2.055
+    else
+    {
+        longLength = 1480;
+        shortLength = 720;
+    }
+
 
     if (ConfigParser::getInstance()->isLandscape() == true)
         Director::getInstance()->getOpenGLView()->setDesignResolutionSize(longLength, shortLength, ResolutionPolicy::EXACT_FIT);
