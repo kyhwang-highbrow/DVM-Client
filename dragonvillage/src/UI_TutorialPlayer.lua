@@ -31,6 +31,9 @@ function UI_TutorialPlayer:init(scenario_name, tar_ui)
 
     self:setTargetUI(tar_ui)
 	self.m_tutorialKey = scenario_name
+
+    local vars = self.vars
+    vars['letterboxMenu']:setVisible(false)
 end
 
 -------------------------------------
