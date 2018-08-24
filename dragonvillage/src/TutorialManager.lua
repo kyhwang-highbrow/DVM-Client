@@ -78,6 +78,17 @@ end
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
 function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)
+	-- 튜토리얼 테스트
+	if (IS_TEST_MODE()) then
+		if (g_constant:get('DEBUG', 'TEST_TUTORIAL') == tutorial_key) then
+			_startTutorial(self, tutorial_key, tar_ui)
+			if (step) then
+				self:setTutorialStep(step)
+			end
+			return
+		end
+	end
+
 	-- 튜토리얼 가능 상태
 	if (not self:isCanTutorial(tutorial_key)) then
 		return
