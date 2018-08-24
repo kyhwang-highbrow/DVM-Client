@@ -73,8 +73,8 @@ function UI_AttrTower:initUI()
     local bg_path = 'res/bg/tower_bg_' .. attr .. '.png'
     local bg = cc.Sprite:create(bg_path)
     if (bg) then
-        bg:setDockPoint(ZERO_POINT)
-        bg:setAnchorPoint(ZERO_POINT)
+        bg:setDockPoint(CENTER_POINT)
+        bg:setAnchorPoint(CENTER_POINT)
         vars['bgNode']:addChild(bg)
 
         vars['bgSprite'] = bg
@@ -141,6 +141,10 @@ function UI_AttrTower:initUI()
         local floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID)
         self.m_tableView:relocateContainerFromIndex(floor + 1)
     end
+
+    -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
+    local scr_size = cc.Director:getInstance():getWinSize()
+    vars['bgSprite']:setScale(scr_size.width / 1280)
 end
 
 -------------------------------------
