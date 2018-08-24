@@ -755,7 +755,6 @@ function ServerData_Shop:getSkuList()
         return nil
     end
 
-    local ret
     local tTemp = {}
     for _,v in pairs(self.m_dicProduct) do
         for _,struct_product in pairs(v) do
@@ -767,6 +766,7 @@ function ServerData_Shop:getSkuList()
         end
     end
 
+    local ret = ''
     for sku, _ in pairs( tTemp ) do
         ret = ret .. ';' .. sku
     end
