@@ -6,6 +6,7 @@ ServerData_CapsuleBox = class({
 		m_tStrurctCapsuleBox = 'table',
 		m_startTime = 'timestamp',
 		m_endTime = 'timestamp',
+        m_day = 'number', -- 20180827 <- 이런 형태로 스케쥴 상의 날짜를 리턴
 		
 		m_open = 'bool',
     })
@@ -127,6 +128,11 @@ function ServerData_CapsuleBox:response_capsuleBoxInfo(ret)
 
 	self.m_startTime = ret['start_time']/1000
 	self.m_endTime = ret['end_time']/1000
+
+    -- 스케쥴 날짜 갱신
+    if ret['day'] then
+        self.m_day = ret['day']
+    end
 end
 
 -------------------------------------
@@ -139,6 +145,11 @@ function ServerData_CapsuleBox:request_capsuleBoxStatus(finish_cb, fail_cb)
     -- 콜백 함수
     local function success_cb(ret)
 		self:applyCapsuleStatus(ret)
+
+        -- 스케쥴 날짜 갱신
+        if ret['day'] then
+            self.m_day = ret['day']
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -253,4 +264,19 @@ function ServerData_CapsuleBox:getRemainTimeText()
 
 	local text = datetime.makeTimeDesc(remain_time, true)
 	return text
+end
+
+-------------------------------------
+-- function getScheduleDay
+-- @brief table_capsule_box_schedule테이블에서 day값
+-------------------------------------
+function ServerData_CapsuleBox:getScheduleDay()
+    local day = self.m_day
+
+    -- 테스트를 위해 임시값 추가 (서버에서 실제로 값이 오면 동작하지 않을 코드)
+    if (not day) then
+        day = 20180901
+    end
+
+    return day
 end
