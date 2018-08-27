@@ -779,7 +779,6 @@ end
 -- @brief 마켓에서 받은 가격 string (통화까지 표시)
 -------------------------------------
 function ServerData_Shop:setMarketPrice(market_data)
-    self.m_dicMarketPrice = {}
     -- sku로 구분함 
     for _, v in pairs(market_data) do
         local sku = tostring(v.productId)
