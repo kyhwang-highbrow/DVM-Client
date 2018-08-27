@@ -736,6 +736,31 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
 end
 
 -------------------------------------
+-- function removeOverlabUnit
+-------------------------------------
+function StatusEffect:removeOverlabUnit(unit)
+    local unit = unit or self.m_lUnit[1]
+    if (not unit) then return false end
+
+    self:unapplyOverlab(unit)
+
+    local idx = table.find(self.m_lUnit, unit)
+    if (idx) then
+        table.remove(self.m_lUnit, idx)
+    end
+
+    for _, list in pairs(self.m_mUnit) do
+        local idx = table.find(list, unit)
+        if (idx) then
+            table.remove(list, idx)
+            break
+        end
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function calcLatestTime
 -- @brief 해당 상태효과의 종료시간을 얻는다
 -------------------------------------

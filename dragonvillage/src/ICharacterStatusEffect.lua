@@ -238,27 +238,13 @@ function ICharacterStatusEffect:getStatusEffectCount(column, value)
                 count = count + status_effect:getOverlabCount()
             end
         end
-        --[[
-        for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
-            local t_status_effect = TableStatusEffect():get(type)
-            if (t_status_effect and t_status_effect[column] == value) then
-                count = count + status_effect:getOverlabCount()
-            end
-        end
-        ]]--
+
     else
         for type, status_effect in pairs(self:getStatusEffectList()) do
             if (string.find(type, value)) then
                 count = count + status_effect:getOverlabCount()
             end
         end
-        --[[
-        for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
-            if (string.find(type, value)) then
-                count = count + status_effect:getOverlabCount()
-            end
-        end
-        ]]--
     end
 
     return count

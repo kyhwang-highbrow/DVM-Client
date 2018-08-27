@@ -7,6 +7,8 @@ local PARENT = StatusEffect
 StatusEffect_Dispell = class(PARENT, {
         m_resDispellEffect = 'string',
 		m_releaseCnt = 'number', 
+
+        m_bDispellAll = 'boolean',
         m_dispellTarget = 'table',
      })
 
@@ -16,6 +18,7 @@ StatusEffect_Dispell = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect_Dispell:init(file_name, body, ...)
+    self.m_bDispellAll = false
     self.m_dispellTarget = {}
 
     self.m_bStopUntilSkillEnd = false
@@ -41,18 +44,20 @@ function StatusEffect_Dispell:initFromTable(t_status_effect, target_char)
 
     -- val 값은 all이거나 category;good/bad 이거나 name;이름, type;타입 의 형태.
     for i = 1, 4 do
-        local str = t_status_effect['val_' .. i]
         self.m_dispellTarget[i] = {}
+
+        local str = t_status_effect['val_' .. i]
         if (str and str ~= '')then 
             if (str == 'all') then
-                self.m_dispellTarget[i]['all'] = str
+                self.m_bDispellAll = true
                 break
-            end
-            local temp = pl.stringx.split(str, ';')
-            local column = temp[1]
-            local value = temp[2]
+            else
+                local temp = pl.stringx.split(str, ';')
+                local column = temp[1]
+                local value = temp[2]
         
-            self.m_dispellTarget[i][column] = value
+                self.m_dispellTarget[i][column] = value
+            end
         end
     end
 end
@@ -72,32 +77,27 @@ end
 function StatusEffect_Dispell:onApplyOverlab(unit)
     local b = false
 
-    for i, v0 in ipairs(self.m_dispellTarget) do
-        for k, v in pairs(v0) do
-		    -- 디스펠 시전
-            if (k == 'all') then
-                if (self:dispellAll()) then b = true end
+    if (self.m_bDispellAll) then
+        if (self:dispellAll()) then b = true end
 
-            elseif (k == 'category') then
-                if (v == 'good') then
-                    if (self:dispellBuff()) then b = true end
+    else
+        for i, map in ipairs(self.m_dispellTarget) do
+            for column, value in pairs(map) do
+                if (column == 'category') then
+                    if (value == 'good') then
+                        if (self:dispellBuff()) then b = true end
                 
-                elseif(v == 'bad') then
-                    if (self:dispellDebuff()) then b = true end
-                
-                end
-
-            elseif (k == 'name') then
-                local t_status_effect = TABLE:get('status_effect')
-                if (StatusEffectHelper:isHarmful(t_status_effect[v]['category'])) then
-                    if (self:dispellDebuff(v)) then b = true end
+                    elseif(value == 'bad') then
+                        if (self:dispellDebuff()) then b = true end
+                    end
                 else
-                    if (self:dispellBuff(v)) then b = true end
-                
+                    if (self:dispell(column, value)) then b = true end
                 end
-            elseif (k == 'type') then
-                -- 추후 구현예정
+                
+                if (self.m_releaseCnt <= 0) then break end
             end
+
+            if (self.m_releaseCnt <= 0) then break end
         end
     end
 
@@ -110,16 +110,48 @@ function StatusEffect_Dispell:onApplyOverlab(unit)
     unit:finish()
 end
 
+
+-------------------------------------
+-- function dispell
+-------------------------------------
+function StatusEffect_Dispell:dispell(column, value)
+    local b = false
+
+    for name, status_effect in pairs(self.m_owner:getStatusEffectList()) do
+        if (status_effect:isErasable()) then
+            local t_status_effect = status_effect.m_statusEffectTable
+            if (t_status_effect[column] == value) then
+                -- 중첩 수만큼 순회하면서 하나씩 삭제
+                local overlap_cnt = status_effect:getOverlabCount()
+                for i = 1, overlap_cnt do
+                    if (status_effect:removeOverlabUnit()) then
+                        b = true
+                        self.m_releaseCnt = self.m_releaseCnt - 1
+
+                        if (self.m_releaseCnt <= 0) then break end
+                    else
+                        break
+                    end
+                end
+            end
+        end
+
+        if (self.m_releaseCnt <= 0) then break end
+    end
+
+    return b
+end
+
 -------------------------------------
 -- function dispellDebuff
 -- @brief 디버프 해제
 -------------------------------------
 function StatusEffect_Dispell:dispellDebuff(name)
-    if (not name) then
-	    return StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt)
-    else 
-        return StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt, name)
-    end
+    local b, release_cnt = StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt, name)
+
+    self.m_releaseCnt = self.m_releaseCnt - release_cnt
+
+    return b
 end
 
 -------------------------------------
@@ -127,11 +159,11 @@ end
 -- @brief 버프 해제
 -------------------------------------
 function StatusEffect_Dispell:dispellBuff(name)
-	if (not name) then
-	    return StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt)
-    else 
-        return StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt, name)
-    end
+	local b, release_cnt = StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt, name)
+
+    self.m_releaseCnt = self.m_releaseCnt - release_cnt
+
+    return b
 end
 
 -------------------------------------

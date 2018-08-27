@@ -39,7 +39,7 @@ end
 -- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------
 function StatusEffect_ProtectionByTime:onApplyOverlab(unit)
-    if (self.m_bIsKeeppedHp and not self.m_owner:isDead()) then
+    if (self.m_bIsKeeppedHp and not self.m_owner:isDead() and not self.m_owner.m_isZombie) then
         -- value로 설정된 값을 최소 체력 비율값으로 사용
         local min_hp_rate = unit:getValue() / 100
         if (min_hp_rate > self.m_owner:getHpRate()) then

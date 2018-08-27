@@ -3664,9 +3664,6 @@
     <None Include="..\src\StructAiSkillInfo.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\StatusEffect_ProtectionByHp.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StructDeck.lua">
       <Filter>lua\src</Filter>
     </None>

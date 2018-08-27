@@ -524,107 +524,75 @@ end
 -------------------------------------
 -- function releaseStatusEffectDebuff
 -- @brief n개의 debuff 상태효과 해제
--- @return 해제 여부 boolean
+-- @return 해제 여부(boolean), 해제된 수(number)
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, status_effect_name)
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
 
-    if (not status_effect_name) then
-	    -- 해제
-	    for type, status_effect in pairs(char:getStatusEffectList()) do
-            -- 해로운 효과 해제
-            if (status_effect:isErasable() and status_effect:isHarmful()) then
-		        for _ = 1, #status_effect.m_lUnit do
-                    if (status_effect.m_lUnit[1]) then
-                        status_effect:unapplyOverlab(status_effect.m_lUnit[1])
-                        table.remove(status_effect.m_lUnit, 1)
+    for type, status_effect in pairs(char:getStatusEffectList()) do
+        -- 해로운 효과 해제
+        if (status_effect:isErasable() and status_effect:isHarmful()) then
+            if ((not status_effect_name) or (status_effect_name == status_effect.m_statusEffectName)) then
+                -- 중첩 수만큼 순회하면서 하나씩 삭제
+                local overlap_cnt = status_effect:getOverlabCount()
+                for i = 1, overlap_cnt do
+                    if (status_effect:removeOverlabUnit()) then
                         release_cnt = release_cnt + 1
-            		    -- 갯수 체크
+            	        
                         if (release_cnt >= max_release_cnt) then
-			                return (release_cnt > 0)
+			                break
 		                end
-                    end
-                end
-            end
-
-	    end
-    else
-        for type, status_effect in pairs(char:getStatusEffectList()) do
-            -- 해로운 효과 해제
-            if (status_effect:isErasable() and status_effect:isHarmful()) then
-                if(status_effect_name == status_effect.m_statusEffectName) then
-                    for _ = 1, #status_effect.m_lUnit do
-                        if (status_effect.m_lUnit[1]) then
-                            status_effect:unapplyOverlab(status_effect.m_lUnit[1])
-                            table.remove(status_effect.m_lUnit, 1)
-                            release_cnt = release_cnt + 1
-            		        -- 갯수 체크
-                            if (release_cnt >= max_release_cnt) then
-			                    return (release_cnt > 0)
-		                    end
-                        end
+                    else
+                        break
                     end
                 end
             end
         end
-    end
 
-	return (release_cnt > 0)
+        if (release_cnt >= max_release_cnt) then
+			break
+		end
+	end
+    
+	return (release_cnt > 0), release_cnt
 end
 
 -------------------------------------
 -- function releaseStatusEffectBuff
 -- @brief n개의 buff 상태효과 해제
--- @return 해제 여부 boolean
+-- @return 해제 여부(boolean), 해제된 수(number)
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, status_effect_name)
 	local max_release_cnt = max_release_cnt or 32
 	local release_cnt = 0
 
-    if (not status_effect_name) then
-        -- 해제
-        for type, status_effect in pairs(char:getStatusEffectList()) do
-            -- 이로운 효과 해제 
-	        if (status_effect:isErasable() and not status_effect:isHarmful()) then
-		        for _ = 1, #status_effect.m_lUnit do
-                    if (status_effect.m_lUnit[1]) then
-                        status_effect:unapplyOverlab(status_effect.m_lUnit[1])
-                        table.remove(status_effect.m_lUnit, 1)
+    for type, status_effect in pairs(char:getStatusEffectList()) do
+        -- 이로운 효과 해제 
+	    if (status_effect:isErasable() and not status_effect:isHarmful()) then
+            if ((not status_effect_name) or (status_effect_name == status_effect.m_statusEffectName)) then
+                -- 중첩 수만큼 순회하면서 하나씩 삭제
+                local overlap_cnt = status_effect:getOverlabCount()
+                for i = 1, overlap_cnt do
+                    if (status_effect:removeOverlabUnit()) then
                         release_cnt = release_cnt + 1
-            		    -- 갯수 체크
+
                         if (release_cnt >= max_release_cnt) then
-			                return (release_cnt > 0)
+			                break
 		                end
+                    else
+                        break
                     end
                 end
             end
 
-        end
-    else 
-        -- 해제
-        for type, status_effect in pairs(char:getStatusEffectList()) do
-            -- 이로운 효과 해제
-	        if (status_effect:isErasable() and not status_effect:isHarmful()) then
-                if(status_effect_name == status_effect.m_statusEffectName) then
-                    for _ = 1, #status_effect.m_lUnit do
-                        if (status_effect.m_lUnit[1]) then
-                            status_effect:unapplyOverlab(status_effect.m_lUnit[1])
-                            table.remove(status_effect.m_lUnit, 1)
-                            release_cnt = release_cnt + 1
-            		        -- 갯수 체크
-                            if (release_cnt >= max_release_cnt) then
-			                    return (release_cnt > 0)
-		                    end
-                        end
-                    end
-                end
-            end
-	       
+            if (release_cnt >= max_release_cnt) then
+			    break
+		    end
         end
     end
 
-	return (release_cnt > 0)
+	return (release_cnt > 0), release_cnt
 end
 
 -------------------------------------
