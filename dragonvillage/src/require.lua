@@ -1126,6 +1126,7 @@ local t_module = {
     'UI_EventPopupTabButton',
     'UI_EventPopupTab_Attendance',
     'UI_EventPopupTab_EventAttendance',
+    'UI_EventPopupTab_EventAttendance1st',
     'UI_EventPopupTab_AccessTime',
     'UI_EventPopupTab_Banner',
     'UI_EventPopupTab_Shop',

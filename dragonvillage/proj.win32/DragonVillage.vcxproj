@@ -1127,6 +1127,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventMatchCardPlay.lua" />
     <None Include="..\src\UI_EventMatchCardResult.lua" />
     <None Include="..\src\UI_EventMatchCardTimeListItem.lua" />
+    <None Include="..\src\UI_EventPopupTab_EventAttendance1st.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
     <None Include="..\src\UI_EventPopupTab_Package.lua" />

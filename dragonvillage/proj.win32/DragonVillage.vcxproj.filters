@@ -3719,6 +3719,9 @@
     <None Include="..\src\UI_RuneAutoSellAgreePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventPopupTab_EventAttendance1st.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -198,6 +198,9 @@ function UI_EventPopup:makeEventPopupTab(tab)
         -- 이벤트 출석 (오픈, 신규, 복귀)
 		elseif (event_id == 'open_event' or event_id == 'newbie' or event_id == 'comeback') then
 			ui = UI_EventPopupTab_EventAttendance(event_id)
+        -- 1주년 스페셜 7일 출석
+        elseif (event_id == '1st_event') then
+            ui = UI_EventPopupTab_EventAttendance1st(event_id)
 		end
 
     -- 접속시간 이벤트

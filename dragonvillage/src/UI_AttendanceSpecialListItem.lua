@@ -16,6 +16,11 @@ function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
     local ui_name 
     if (event_id == 'comeback') then
         ui_name = 'event_attendance_return.ui'
+
+    -- 1주년 스페셜 7일 출석 이벤트
+    elseif (event_id == '1st_event') then
+        ui_name =  'event_attendance_1st_anniversary.ui'
+
     else
         ui_name = 'event_attendance_special_item.ui'
     end

@@ -72,6 +72,9 @@ function UI_EventFullPopup:initUI()
         -- 이벤트 출석 (오픈, 신규, 복귀)
 		elseif (key == 'open_event' or key == 'newbie' or key == 'comeback') then
 			ui = UI_EventPopupTab_EventAttendance(key)
+        -- 1주년 스페셜 7일 출석
+        elseif (key == '1st_event') then
+            ui = UI_EventPopupTab_EventAttendance1st(key)
         end
 
     -- 패키지 상품 
