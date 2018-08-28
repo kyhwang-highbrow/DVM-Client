@@ -432,10 +432,10 @@ function StructProduct:getPriceStr()
     if (price_type == 'advertising') then
         return Str('광고 보기')
     else
-        local dicMarketPrice = g_shopDataNew.m_dicMarketPrice
-        local sku = self['sku']
-
         if (price_type == 'money') then
+			local sku = self['sku']
+			local dicMarketPrice = g_shopDataNew.m_dicMarketPrice
+
             -- 마켓에서 받은 가격이 있다면 표시
             if (sku) and (dicMarketPrice[sku]) then
                 return dicMarketPrice[sku]
@@ -443,8 +443,10 @@ function StructProduct:getPriceStr()
             else
                 return '￦ ' .. comma_value(self:getPrice())
             end
+
         else
             return comma_value(self:getPrice())
+
         end
     end
 end
