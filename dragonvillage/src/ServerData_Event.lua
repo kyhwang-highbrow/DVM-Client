@@ -6,6 +6,7 @@ ServerData_Event = class({
         m_eventList = 'list',
 
         m_mapChanceUpDragons = 'map',
+		m_isComebackUser_1st = 'bool',
 
         m_bDirty = 'boolean',
     })
@@ -238,6 +239,9 @@ function ServerData_Event:getEventFullPopupList()
                     event_type = event_type .. ':' .. v['banner'] .. ':' .. v['url']
                 end
 
+			elseif (event_type == 'event_1st_comeback') then
+				visible = self:isComebackUser_1st()
+
             -- 한정 이벤트 리스트
 			elseif (event_id == 'limited') then
 				visible = g_hotTimeData:isActiveEvent(event_type)
@@ -340,38 +344,7 @@ function ServerData_Event:getTargetEventFullPopupRes(feature)
 	end
 	return nil
 end
---[[
--------------------------------------
--- function goToEventTarget
--- @brief 로비 스크롤 배너 클릭시 이동
--------------------------------------
-function ServerData_Event:goToEventTarget(event_type)
-    -- 매일매일 다이아
-    if (event_type == 'daily_dia') then
-        g_subscriptionData:openSubscriptionPopup()
-        
-    -- 패키지 UI
-    elseif (string.find(event_type, 'package')) then
-        local pid = event_type
-        PackageManager:goToTargetUI(pid)
-    
-    -- 코스튬 상점
-    elseif (event_type == 'costume_shop') then
-        local tamer_id = g_tamerData:getCurrTamerID()
-        UINavigator:goTo('tamer', tamer_id)
 
-    -- 단일 상품
-    elseif (string.find(event_type, 'shop')) then
-        local l_str = seperate(event_type, ';')
-        local pid = l_str[2]
-        PackageManager:goToTargetUI(pid)
-
-    -- 해당 이벤트 탭 이동
-    else
-        g_eventData:openEventPopup(event_type)
-    end
-end
-]]
 -------------------------------------
 -- function goToEventUrl
 -- @brief 풀팝업, 이벤트탭에서 url 존재 할 경우 처리
@@ -603,4 +576,30 @@ end
 -------------------------------------
 function ServerData_Event:getChanceUpDragons()
     return self.m_mapChanceUpDragons
+end
+
+-------------------------------------
+-- function setComebackUser_1st
+-------------------------------------
+function ServerData_Event:setComebackUser_1st(n)
+	if (n == -1) then
+		self.m_isComebackUser_1st = false
+
+	elseif (n == 0) then
+		self.m_isComebackUser_1st = true
+
+	elseif (n == 1) then
+		self.m_isComebackUser_1st = false
+
+	else
+		self.m_isComebackUser_1st = false
+
+	end
+end
+
+-------------------------------------
+-- function isComebackUser_1st
+-------------------------------------
+function ServerData_Event:isComebackUser_1st()
+    return self.m_isComebackUser_1st
 end

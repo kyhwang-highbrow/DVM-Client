@@ -743,11 +743,16 @@ function UI_TitleScene:workGameLogin()
         g_serverData:applyServerData(ret['tamers'], 'tamers')
         
 		g_tamerData:reMappingTamerInfo(ret['tamers'])
-		--g_questData:refreshQuestData(ret['quest_info'])
 
-        -- 자신의 클랜이 있으면 저장
-        g_clanData:setClanStruct(ret['clan'])
-        g_clanData.m_bAttdRewardNoti = ret['clan_attd_reward']
+		-- 이부분은 users/title로 옮기자
+		do
+			-- 자신의 클랜이 있으면 저장
+			g_clanData:setClanStruct(ret['clan'])
+			g_clanData.m_bAttdRewardNoti = ret['clan_attd_reward']
+		
+			-- 1주년 복귀 유저 이벤트
+			g_eventData:setComebackUser_1st(ret['comback_reward_one_year'])
+		end
 
 		g_serverData:unlockSaveData()
 

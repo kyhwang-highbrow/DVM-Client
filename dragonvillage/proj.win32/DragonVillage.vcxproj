@@ -1114,6 +1114,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonTransformChangeResult.lua" />
     <None Include="..\src\UI_EggPopup.lua" />
     <None Include="..\src\UI_ErrorPopup_Live.lua" />
+    <None Include="..\src\UI_Event1stComeback.lua" />
     <None Include="..\src\UI_EventFullPopup.lua" />
     <None Include="..\src\UI_EventGoldDungeon.lua" />
     <None Include="..\src\UI_EventGoldDungeonListItem.lua" />
@@ -1439,7 +1440,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_UserInfoDetailPopup_SetTitle.lua" />
     <None Include="..\src\UI_UserInfoMini.lua" />
     <None Include="..\src\UI_UserLevelUp.lua" />
-    <None Include="..\src\UI_ValorCostumeInfoPopup.lua" />
     <None Include="..\src\UI_WebView.lua" />
     <None Include="..\src\ValidationAssistant.lua" />
     <None Include="..\src\ValidationDragon.lua" />

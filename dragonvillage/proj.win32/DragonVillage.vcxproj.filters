@@ -3682,7 +3682,6 @@
     <None Include="..\src\UIC_AlarmClockIcon.lua">
       <Filter>lua\UIC</Filter>
     </None>
-    <None Include="..\src\PerpleSdkManager.lua" />
     <None Include="..\src\UI_DragonMasteryNew.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -3719,8 +3718,11 @@
     <None Include="..\src\UI_EventPopupTab_EventAttendance1st.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ValorCostumeInfoPopup.lua">
+    <None Include="..\src\UI_Event1stComeback.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\PerpleSdkManager.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

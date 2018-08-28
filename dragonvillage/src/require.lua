@@ -1153,6 +1153,7 @@ local t_module = {
     'UI_EventMatchCardResult',
     'UI_EventMandragoraQuest',
     'UI_EventMandragoraQuestListItem',
+	'UI_Event1stComeback',
 
 	-- UI : 연출
 	'DirectingCharacter',
