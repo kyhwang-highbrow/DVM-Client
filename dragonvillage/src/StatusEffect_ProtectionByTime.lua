@@ -40,12 +40,16 @@ end
 -------------------------------------
 function StatusEffect_ProtectionByTime:onApplyOverlab(unit)
     if (self.m_bIsKeeppedHp and not self.m_owner:isDead() and not self.m_owner.m_isZombie) then
-        -- value로 설정된 값을 최소 체력 비율값으로 사용
-        local min_hp_rate = unit:getValue() / 100
-        local min_hp = min_hp_rate * self.m_owner:getMaxHp()
+        -- value로 설정된 값을 피격시 유지시킬 체력 비율값으로 사용
+        local keep_hp_rate = unit:getValue() / 100
+        local keep_hp = keep_hp_rate * self.m_owner:getMaxHp()
 
-        if (min_hp > self.m_owner:getHp() and min_hp <= self.m_owner.m_prevHp) then
-            self.m_owner:setHp(min_hp, true)
+        if (keep_hp > self.m_owner:getHp() and keep_hp <= self.m_owner.m_prevHp) then
+            -- 설정된 비율로 체력을 유지시킴
+            self.m_owner:setHp(keep_hp, true)
+        else
+            -- 피격 이전 체력으로 유지시킴(한방에 죽는 경우를 방지하기 위함)
+            self.m_owner:setHp(self.m_owner.m_prevHp, true)
         end
     end
 end

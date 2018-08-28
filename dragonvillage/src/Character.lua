@@ -1622,18 +1622,18 @@ end
 -------------------------------------
 -- function healPercent
 -------------------------------------
-function Character:healPercent(caster, percent, b_make_effect, bFixed)
+function Character:healPercent(caster, percent, b_make_effect, forced)
     local max_hp = self:getStat('hp')
     local heal = max_hp * percent
     heal = math_min(max_hp - self.m_hp, heal)
 
-    self:healAbs(caster, heal, b_make_effect, bFixed)
+    self:healAbs(caster, heal, b_make_effect, forced)
 end
 
 -------------------------------------
 -- function healAbs
 -------------------------------------
-function Character:healAbs(caster, heal, b_make_effect, bFixed, skill_id)
+function Character:healAbs(caster, heal, b_make_effect, forced, skill_id)
     local heal = math_floor(heal)
     local is_critical = false
 
@@ -1689,7 +1689,7 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed, skill_id)
     local heal_for_log = math_min(heal, (self.m_maxHp - self.m_hp))
 
     self:makeHealFont(heal, is_critical)
-    self:setHp(self.m_hp + heal, bFixed)
+    self:setHp(self.m_hp + heal, forced)
 
     if (b_make_effect) then
         local res = 'res/effect/skill_heal_monster/skill_heal_monster.vrp'
@@ -1725,9 +1725,9 @@ end
 -------------------------------------
 -- function setHp
 -------------------------------------
-function Character:setHp(hp, bFixed)
+function Character:setHp(hp, forced)
 	-- 죽었을시 탈출
-    if (not bFixed) then
+    if (not forced) then
 	    if (self:isDead()) then return end
         if (self:isZeroHp()) then return end
     end
@@ -1735,7 +1735,7 @@ function Character:setHp(hp, bFixed)
     self.m_prevHp = self.m_hp
     self.m_hp = math_min(hp, self.m_maxHp)
 
-    if (not bFixed and self.m_isImmortal) then
+    if (not forced and self.m_isImmortal) then
         self.m_hp = math_max(self.m_hp, 1)
     else
         self.m_hp = math_max(self.m_hp, 0)

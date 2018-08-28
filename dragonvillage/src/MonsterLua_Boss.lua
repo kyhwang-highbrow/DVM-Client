@@ -401,8 +401,8 @@ end
 -------------------------------------
 -- function setHp
 -------------------------------------
-function MonsterLua_Boss:setHp(hp, bFixed)
-    PARENT.setHp(self, hp, bFixed)
+function MonsterLua_Boss:setHp(hp, forced)
+    PARENT.setHp(self, hp, forced)
 
     if (self.m_triggerHpPercent) then
         local percent = self:getHpRate() * 100

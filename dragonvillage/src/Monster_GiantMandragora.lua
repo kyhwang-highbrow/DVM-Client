@@ -125,9 +125,9 @@ end
 -- function setHp
 -- @brief 체력은 변경 할 수 없도록 처리
 -------------------------------------
-function Monster_GiantMandragora:setHp(hp, bFixed)
+function Monster_GiantMandragora:setHp(hp, forced)
     -- 죽었을시 탈출
-    if (not bFixed) then
+    if (not forced) then
 	    if (self:isDead()) then return end
         if (self:isZeroHp()) then return end
     end
