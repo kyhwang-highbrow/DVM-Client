@@ -5,6 +5,10 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_AttendanceSpecialListItem = class(PARENT, {
         m_tItemData = 'table',
+        m_lMessage = '',
+        m_messageIdx = '',
+        m_messageTimer = '',
+        m_lMessagePosY = '',
     })
 
 -------------------------------------
@@ -30,6 +34,27 @@ function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    if (event_id == '1st_event') then
+        self.m_lMessage = {}
+        self.m_messageIdx = 0
+        self.m_messageTimer = 0 
+        self.m_lMessagePosY = {}
+        table.insert(self.m_lMessage, {msg='Congrats guys and gals!', nickname='69mort69'})
+        table.insert(self.m_lMessage, {msg='一周年おめでとう~~', nickname='汪太'})
+        table.insert(self.m_lMessage, {msg='Well done guys on the great game', nickname='Isilwyn'})
+        table.insert(self.m_lMessage, {msg='1주년 축하해요 다른 이벤트 잘 준비해서 유저들 많이 늘어나길', nickname='레오플'})
+        table.insert(self.m_lMessage, {msg='Congratz! Enjoying playing this game!', nickname='Agnus'})
+        table.insert(self.m_lMessage, {msg='이제 착한 드린이가 될게요', nickname='남작'})
+        table.insert(self.m_lMessage, {msg='Great design and content. Keep it up devs!', nickname='Sazon'})
+        table.insert(self.m_lMessage, {msg="Congratulations guys. You've earned it by giving such a good game. Keep it up.", nickname='Launna'})
+        table.insert(self.m_lMessage, {msg='Felicidades que todo siga prosperando ', nickname='Soulflayer'})
+        table.insert(self.m_lMessage, {msg='시작한지 얼마안됫지만 굿굿!!재밌어요', nickname='해미메'})
+        
+
+
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    end
 end
 
 -------------------------------------
@@ -79,4 +104,101 @@ end
 -- function refresh
 -------------------------------------
 function UI_AttendanceSpecialListItem:refresh()
+end
+
+-------------------------------------
+-- function update
+-- @brief
+-------------------------------------
+function UI_AttendanceSpecialListItem:update(dt)
+    self.m_messageTimer = (self.m_messageTimer - dt)
+    local cooltime = 0.3
+    if (self.m_messageTimer <= 0) then
+        self.m_messageTimer = (self.m_messageTimer + cooltime)
+        self:rolling()
+    end
+end
+
+-------------------------------------
+-- function rolling
+-- @brief
+-------------------------------------
+function UI_AttendanceSpecialListItem:rolling()
+
+    if (6 <= table.count(self.m_lMessagePosY)) then
+        return
+    end
+
+    self.m_messageIdx = (self.m_messageIdx + 1)
+    local msg_cnt = table.count(self.m_lMessage)
+    if (msg_cnt < self.m_messageIdx) then
+        self.m_messageIdx = 1
+    end
+
+    local parent_width = 836
+    local parent_height = 218
+
+    local t_data = self.m_lMessage[self.m_messageIdx]
+
+    local font_name = Translate:getFontPath()
+    local font_size = math_random(18, 35)
+    local stroke_tickness = 1
+    local dimension = cc.size(2000, 100)
+
+    local text = t_data['msg'] .. ' -' .. t_data['nickname'] .. '-'
+
+    local l_color = {}
+    table.insert(l_color, cc.c4b(255,0,240, 255))
+    table.insert(l_color, cc.c4b(255,138,0, 255))
+    table.insert(l_color, cc.c4b(0,252,255, 255))
+    table.insert(l_color, cc.c4b(216,255,0, 255))
+    table.insert(l_color, cc.c4b(0,108,255, 255))
+    table.insert(l_color, cc.c4b(255,234,0, 255))
+    table.insert(l_color, cc.c4b(255,0,168, 255))
+    table.insert(l_color, cc.c4b(255,0,108, 255))
+    table.insert(l_color, cc.c4b(216,0,255, 255))
+    table.insert(l_color, cc.c4b(0,150,255, 255))
+    table.insert(l_color, cc.c4b(0,255,204, 255))
+    table.insert(l_color, cc.c4b(0,255,138, 255))
+    table.insert(l_color, cc.c4b(0,255,54, 255))
+    table.insert(l_color, cc.c4b(255,252,0, 255))
+    table.insert(l_color, cc.c4b(255,78,0, 255))
+    table.insert(l_color, cc.c4b(255,24,0, 255))
+    local color = l_color[math_random(1, table.count(l_color))]
+
+    local label = cc.Label:createWithTTF(text, font_name, font_size, stroke_tickness, dimension, cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    --label:setTextColor(cc.c4b(240, 215, 159, 255))
+    label:setTextColor(color)
+    label:setDockPoint(cc.p(0.5, 0.5))
+    label:setAnchorPoint(cc.p(0.5, 0.5))
+
+    local string_width = label:getStringWidth()
+
+    local start_x = (parent_width/2) + (string_width/2)
+    if (math_random(1, 2) == 1) then
+        start_x = -start_x
+    end
+    
+    local y_idx = nil
+    for i=1, 6 do
+        if (not self.m_lMessagePosY[i]) then
+            y_idx = i
+            self.m_lMessagePosY[y_idx] = true
+            break
+        end
+    end
+    
+    local l_pos = getSortPosList((parent_height / 6), 6)
+    local pos_y = l_pos[y_idx]
+    label:setPositionY(pos_y)
+    label:setPositionX(start_x)
+
+    local time = math_random(6, 12)    
+    local move_action = cc.MoveTo:create(time, cc.p(-start_x, pos_y))
+    local call_func = cc.CallFunc:create(function() self.m_lMessagePosY[y_idx] = nil end)
+    local sequence = cc.Sequence:create(move_action, call_func, cc.RemoveSelf:create())
+    label:runAction(sequence)
+
+    local vars = self.vars
+    vars['neonClippingNode']:addChild(label)
 end
