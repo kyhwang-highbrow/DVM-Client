@@ -48,6 +48,11 @@ function UI_ExchangeEventListItem:initUI()
     end)
 
     vars['itemMenu']:setSwallowTouch(false)
+
+    -- 1주년 스페셜 (케이크)
+    if (step == 12) then
+        vars['1stAnniversarySprite']:setVisible(true)
+    end
 end
 
 -------------------------------------
