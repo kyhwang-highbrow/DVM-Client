@@ -20,6 +20,7 @@ StructTamerCostume = class({
 
         m_priority = 'number',
         m_bUsed = 'boolean',
+        m_saleType = 'string', -- valor : 용맹훈장 상점에서 구매
     })
 
 -------------------------------------
@@ -54,6 +55,7 @@ function StructTamerCostume:applyTableData(data)
     replacement['scale'] = 'm_scale'
     replacement['stat_bonus'] = 'm_stat_bonus'
     replacement['ui_priority'] = 'm_priority'
+    replacement['sale_type'] = 'm_saleType'
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
         self[key] = v
@@ -266,3 +268,10 @@ function StructTamerCostume:isDefaultCostume()
     return false
 end
 
+-------------------------------------
+-- function isValorCostume
+-- @brief 용맹 코스튬인지 여부
+-------------------------------------
+function StructTamerCostume:isValorCostume()
+    return (self.m_saleType == 'valor')
+end

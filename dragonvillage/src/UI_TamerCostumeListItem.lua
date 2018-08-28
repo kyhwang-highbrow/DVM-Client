@@ -56,6 +56,8 @@ end
 -------------------------------------
 function UI_TamerCostumeListItem:refresh()
     local vars = self.vars
+
+    -- StructTamerCostume
     local costume_data = self.m_costumeData
 
     local is_used = costume_data:isUsed()
@@ -86,10 +88,16 @@ function UI_TamerCostumeListItem:refresh()
 
         -- 판매종료
         elseif (is_end) then
-            badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
+            if costume_data:isValorCostume() then
+                vars['finishLabel']:setString(Str('용맹훈장 상점에서 구매'))
+                vars['finishBtn']:setVisible(true)
+                vars['finishBtn']:setEnabled(false)
+            else
+                badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
 
-            vars['finishBtn']:setVisible(true)
-            vars['finishBtn']:setEnabled(false)
+                vars['finishBtn']:setVisible(true)
+                vars['finishBtn']:setEnabled(false)
+            end
 
         -- 판매중
         else

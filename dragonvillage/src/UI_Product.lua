@@ -150,6 +150,11 @@ end
 function UI_Product:initButton()
 	local vars = self.vars
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+
+    if self:isValorCostume() then
+        vars['valorCostumeBtn']:setVisible(true)
+        vars['valorCostumeBtn']:registerScriptTapHandler(function() self:click_valorCostumeBtn() end)
+    end
 end
 
 -------------------------------------
@@ -255,8 +260,15 @@ function UI_Product:click_buyBtn()
                 UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS)
 
             else
-                -- 아이템 획득 결과창
-                ItemObtainResult_Shop(ret)
+                -- 용맹 훈장 코스튬 상품은 별도 처리 
+                if self:isValorCostume() then
+                    g_tamerCostumeData.m_bDirtyValorCostumeInfo = true
+                    local msg = Str('용맹 코스튬 세트 구매가 완료되었습니다.\n테이머 관리에서 코스튬을 선택할 수 있습니다.')
+                    MakeSimplePopup(POPUP_TYPE.OK, msg)
+                else
+                    -- 아이템 획득 결과창
+                    ItemObtainResult_Shop(ret)
+                end
             end
         end
         
@@ -287,4 +299,33 @@ function UI_Product:adjustLayout()
             vars['itemLabel']:setScale(scale)
         end
     end
+end
+
+
+
+-------------------------------------
+-- function isValorCostume
+-- @brief 용맹 훈장 상품인지
+-------------------------------------
+function UI_Product:isValorCostume()
+    local struct_product = self.m_structProduct
+    local product_id = struct_product:getProductID()
+
+    -- table_shop_basic에서 product_id 값
+    if (product_id == 80006) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function click_valorCostumeBtn
+-- @brief 용맹 훈장 상품 안내
+-------------------------------------
+function UI_Product:click_valorCostumeBtn()
+    local function buy_btn_func()
+        self:click_buyBtn()
+    end
+    local ui = UI_ValorCostumeInfoPopup(buy_btn_func)
 end
