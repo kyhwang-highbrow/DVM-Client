@@ -2,6 +2,7 @@ local PARENT = UI
 
 -------------------------------------
 -- class UI_PickDragon
+-- @desc 드래곤 선택권 UI -> table_pick_dragon 사용
 -------------------------------------
 UI_PickDragon = class(PARENT,{
 		m_mid = 'string',
@@ -9,6 +10,7 @@ UI_PickDragon = class(PARENT,{
 		m_currDragonData = 'table',
 
 		m_orgDragonList = 'list',
+		m_isCustomPick = 'bool',
 
 		m_roleRadioButton = 'UIC_RadioButton',
         m_attrRadioButton = 'UIC_RadioButton',
@@ -27,10 +29,8 @@ function UI_PickDragon:init(mid, item_id, cb_func)
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_PickDragon'
 
-    if (item_id == 700306) then
-        vars['titleLabel']:setString(Str('영웅 드래곤 선택권'))
-    end
-
+    vars['titleLabel']:setString(TableItem:getItemName(item_id))
+    
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_PickDragon')
 
@@ -40,7 +40,9 @@ function UI_PickDragon:init(mid, item_id, cb_func)
 	
 	self.m_mid = mid
 	self.m_finishCB= cb_func
+	
 	self.m_orgDragonList = TablePickDragon:getDragonList(item_id, g_dragonsData.m_mReleasedDragonsByDid)
+	self.m_isCustomPick = TablePickDragon:isCustomPick(item_id)
 
     self:initUI()
     self:initButton()
@@ -58,7 +60,15 @@ function UI_PickDragon:initUI()
 
     self:initTableView()
 	self:initSortManager()
-	self:initRadioButton()
+
+	-- did 지정 타입인 경우 별도로 처리
+	if (self.m_isCustomPick) then
+		self:initCusmtomPick()
+
+	-- 일반 타입 : 보다 드래곤이 많고 속성/직군 구분 탭 사용
+	else
+		self:initRadioButton()
+	end
 end
 
 -------------------------------------
@@ -69,6 +79,25 @@ function UI_PickDragon:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 	vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end)
 	vars['summonBtn']:registerScriptTapHandler(function() self:click_summonBtn() end)
+end
+
+-------------------------------------
+-- function initCusmtomPick
+-- @brief did 지정 선택권에 맞추어 UI 변경
+-------------------------------------
+function UI_PickDragon:initCusmtomPick()
+	local vars = self.vars
+
+	vars['roleMenu']:setVisible(false)
+	vars['attrMenu']:setVisible(false)
+
+	-- initTableView에서 함
+	--vars['listNode']:setContentSize(700, 550)
+
+	-- 전체 드래곤 리스트 출력
+    self.m_tableViewTD:setItemList(self.m_orgDragonList)
+    self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
+	self:refresh(table.getRandom(self.m_orgDragonList))
 end
 
 -------------------------------------
@@ -149,6 +178,11 @@ end
 function UI_PickDragon:initTableView()
     local node = self.vars['listNode']
 
+	-- did 지정 타입 선택권인 경우 길이 늘림 (다른 버튼을 숨기므로 허전)
+	if (self.m_isCustomPick) then
+		node:setContentSize(700, 550)	
+	end
+
     local l_item_list = {}
 
 	-- cell_size 지정
@@ -188,10 +222,8 @@ end
 -------------------------------------
 function UI_PickDragon:initSortManager()
     local sort_manager = SortManager_Dragon()
-	
-	-- did 순, 등급 순, 진화도 순으로 정렬
     sort_manager:pushSortOrder('did')
-
+	sort_manager:pushSortOrder('attr')
     self.m_sortManager = sort_manager
 end
 

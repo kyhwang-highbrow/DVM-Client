@@ -91,3 +91,16 @@ function TablePickDragon:getDragonList(item_id, map_released)
 
 	return l_ret
 end
+
+-------------------------------------
+-- function isCustomPick
+-- @brief did 지정 타입 선택권 여부
+-------------------------------------
+function TablePickDragon:isCustomPick(item_id)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+	local t_pick = self:get(item_id)
+	return t_pick['custom_dids'] and (t_pick['custom_dids'] ~= '')
+end
