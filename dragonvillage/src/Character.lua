@@ -140,6 +140,7 @@ Character = class(PARENT, {
         m_aiParamNum = '',
         m_sortValue = '',				-- 타겟 찾기 등의 정렬에서 임의로 사용
         m_sortRandomIdx = '',			-- 타겟 찾기 등의 정렬에서 임의로 사용
+        m_prevHp = 'number',            -- setHp() 내부에서 갱신전 hp를 임시 저장하기 위해 사용(체력 %이하 무적 효과 처리를 위함)
 
         -- 로밍 임시 처리
         m_bRoam = 'boolean',
@@ -437,6 +438,7 @@ function Character:setStatusCalc(status_calc)
     self.m_maxHp = hp * hp_multi
     self.m_hp = self.m_maxHp
     self.m_hpRatio = 1
+    self.m_prevHp = self.m_hp
 
     -- 공속 설정
     self:calcAttackPeriod(true)
@@ -1730,7 +1732,7 @@ function Character:setHp(hp, bFixed)
         if (self:isZeroHp()) then return end
     end
 
-    local prev_hp = self.m_hp
+    self.m_prevHp = self.m_hp
     self.m_hp = math_min(hp, self.m_maxHp)
 
     if (not bFixed and self.m_isImmortal) then
@@ -1744,12 +1746,14 @@ function Character:setHp(hp, bFixed)
     -- 리스너에 전달
 	local t_event = clone(EVENT_CHANGE_HP_CARRIER)
 	t_event['owner'] = self
-    t_event['prev_hp'] = prev_hp
+    t_event['prev_hp'] = self.m_prevHp
 	t_event['hp'] = self.m_hp
 	t_event['max_hp'] = self.m_maxHp
     t_event['hp_rate'] = self.m_hpRatio
 
     self:dispatch('character_set_hp', t_event, self)
+
+    self.m_prevHp = self.m_hp
 
     -- 체력바 가감 연출
     if (self.m_hpGauge) then

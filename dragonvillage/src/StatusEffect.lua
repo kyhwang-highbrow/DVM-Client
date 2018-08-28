@@ -757,6 +757,8 @@ function StatusEffect:removeOverlabUnit(unit)
         end
     end
 
+    -- 현재는 항상 리스트의 앞에꺼부터 삭제되고 있으므로 종료시간을 다시 계산할 필요없음
+
     return true
 end
 
