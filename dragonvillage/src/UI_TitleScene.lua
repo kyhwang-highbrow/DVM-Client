@@ -1174,6 +1174,10 @@ function UI_TitleScene:workFinish()
 
     -- 절전모드 설정
     SetSleepMode_After(self.root)
+
+
+    -- 언설 설정 확인
+    UI_Setting:checkGameLanguage()
 end
 function UI_TitleScene:workFinish_click()
     -- @analytics

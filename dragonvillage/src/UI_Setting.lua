@@ -125,3 +125,63 @@ function UI_Setting:onChangeTab(tab, first)
         self[func_name](self)
     end
 end
+
+
+-------------------------------------
+-- function checkGameLanguage
+-- @brief 기기 언어와 게임 언어가 다르고
+--        기기 언어가 지원하는 언어일 경우
+--        언어 변경 안내
+-------------------------------------
+function UI_Setting:checkGameLanguage()
+
+    local Language_verification_complete = g_settingData:get('language_verification_complete')
+    if (Language_verification_complete == true) then
+        return
+    end
+
+    local game_lang = Translate:getGameLang()
+    local device_lang = Translate:getDeviceLang()
+
+    cclog('# game_lang : ' .. game_lang)
+    cclog('# device_lang : ' .. device_lang)
+
+    -- 언어가 같은 경우 skip
+    if (game_lang == device_lang) then
+        return
+    end
+
+    -- 기기 언어가 지원하지 않는 언어일 경우 skip
+    local t_lang = Translate:getGameLangTable()
+    local exist = false
+    for i,v in pairs(t_lang) do
+        if (device_lang == v) then
+            exist = true
+            break
+        end
+    end
+    if (not exist) then
+        return
+    end
+    
+
+    local make_info_popup
+    local make_setting_popup
+
+    -- 안내 팝업
+    make_info_popup = function()
+        local msg = Str('설정에서 게임 언어를 변경할 수 있습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg, make_setting_popup)
+    end
+
+    -- [설정]-[게임]-[언어 선택]
+    make_setting_popup = function()
+        local ui = UI_Setting()
+        ui:setTab('game')
+        ui:click_languageBtn()
+        g_settingData:applySettingData(true, 'language_verification_complete')
+    end
+
+    make_info_popup()
+    return
+end

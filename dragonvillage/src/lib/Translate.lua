@@ -293,3 +293,11 @@ function Translate:getFontScaleRate()
 
     return retX, retY
 end
+
+-------------------------------------
+-- function getGameLangTable
+-- @breif
+-------------------------------------
+function Translate:getGameLangTable()
+    return LANG
+end
