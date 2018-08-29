@@ -52,9 +52,11 @@ function Character.st_dying(owner, dt)
 		    end
 	    end
 
-        if (owner.m_animator) then
-            owner.m_animator:runAction(cc.FadeTo:create(0.5, 0))
-            owner.m_animator:runAction(cc.RotateTo:create(0.5, -45))
+        if (owner.m_animator and owner.m_animator.m_node) then
+            local action1 = cc.FadeTo:create(0.5, 0)
+            local action2 = cc.RotateTo:create(0.5, -45)
+            local action = cc.Spawn:create(action1, action2)
+            cca.runAction(owner.m_animator.m_node, action, CHARACTER_ACTION_TAG__DYING)
         end
 
         if (owner.m_hpNode) then

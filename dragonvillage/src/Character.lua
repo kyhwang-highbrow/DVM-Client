@@ -1346,9 +1346,10 @@ function Character:doRevive(heal, caster, is_abs)
     else
         self:healPercent(caster, heal, true, true)
     end
-      
+
     -- 이미지 표시
-    if (self.m_animator) then
+    if (self.m_animator and self.m_animator.m_node) then
+        self.m_animator.m_node:stopActionByTag(CHARACTER_ACTION_TAG__DYING)
         self.m_animator:setRotation(90)
         self.m_animator:runAction(cc.FadeTo:create(0.5, 255))
     end
