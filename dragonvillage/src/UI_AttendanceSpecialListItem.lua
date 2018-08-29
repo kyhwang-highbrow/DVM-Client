@@ -9,6 +9,7 @@ UI_AttendanceSpecialListItem = class(PARENT, {
         m_messageIdx = '',
         m_messageTimer = '',
         m_lMessagePosY = '',
+        m_effectTimer = '',
     })
 
 -------------------------------------
@@ -42,6 +43,7 @@ function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
             self.m_messageIdx = 0
             self.m_messageTimer = 0 
             self.m_lMessagePosY = {}
+            self.m_effectTimer = 0
             --[[
             table.insert(self.m_lMessage, {msg='Congrats guys and gals!', nickname='69mort69'})
             table.insert(self.m_lMessage, {msg='一周年おめでとう~~', nickname='汪太'})
@@ -122,6 +124,22 @@ function UI_AttendanceSpecialListItem:update(dt)
     if (self.m_messageTimer <= 0) then
         self.m_messageTimer = (self.m_messageTimer + cooltime)
         self:rolling()
+    end
+
+
+    self.m_effectTimer = (self.m_effectTimer - dt)
+    if (self.m_effectTimer <= 0) then
+        local cooltime_effect = math_random(8, 12) / 10
+        self.m_effectTimer = (self.m_effectTimer + cooltime_effect)
+
+        -- 이펙트 생성
+        local vars = self.vars
+        local res = 'res/effect/effect_billbord_light/effect_billbord_light.spine'
+        local animator = MakeAnimator(res)
+        animator:changeAni('light_1', true) -- light_2
+        local i = math_random(1, 10)
+        vars['light' .. string.format('%.2d', i)]:addChild(animator.m_node)
+        animator:addAniHandler(function() animator:runAction(cc.RemoveSelf:create()) end)
     end
 end
 
