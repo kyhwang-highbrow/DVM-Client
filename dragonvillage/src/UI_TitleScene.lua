@@ -739,20 +739,15 @@ function UI_TitleScene:workGameLogin()
 
         g_serverData:lockSaveData()
         
+		-- user
 		g_serverData:applyServerData(ret['user'], 'user')
-        g_serverData:applyServerData(ret['tamers'], 'tamers')
         
+		-- tamer
+		g_serverData:applyServerData(ret['tamers'], 'tamers')
 		g_tamerData:reMappingTamerInfo(ret['tamers'])
 
-		-- 이부분은 users/title로 옮기자
-		do
-			-- 자신의 클랜이 있으면 저장
-			g_clanData:setClanStruct(ret['clan'])
-			g_clanData.m_bAttdRewardNoti = ret['clan_attd_reward']
-		
-			-- 1주년 복귀 유저 이벤트
-			g_eventData:setComebackUser_1st(ret['comback_reward_one_year'])
-		end
+		-- clan
+		g_clanData:setClanStruct(ret['clan'])
 
 		g_serverData:unlockSaveData()
 
@@ -948,6 +943,16 @@ function UI_TitleScene:workGetServerInfo()
                     cclog('# 캡슐 뽑기 정보')
                     g_capsuleBoxData:response_capsuleBoxInfo(ret['capsulebox_info'])
                 end
+
+				if (ret['clan_attd_reward']) then
+					cclog('# 클랜 출석 정보')
+					g_clanData.m_bAttdRewardNoti = ret['clan_attd_reward']
+				end
+
+				if (ret['comback_reward_one_year']) then
+					cclog('# 1주년 스페셜 복귀 유저 이벤트 정보')
+					g_eventData:setComebackUser_1st(ret['comback_reward_one_year'])
+				end
 
                 do -- 클랜 정보 (클랜 로비가 들어가면서 추가)
                     cclog('# 클랜 정보')
