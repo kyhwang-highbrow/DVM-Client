@@ -113,6 +113,8 @@ function ServerData_Event:getEventPopupTabList()
         elseif (event_id == 'limited') then
             visible = g_hotTimeData:isActiveEvent(event_type)
             
+        elseif (event_type == 'event_1st_comeback') then
+		    visible = self:isComebackUser_1st()
         end
 
         if (visible) then

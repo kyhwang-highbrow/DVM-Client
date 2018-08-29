@@ -262,6 +262,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab =='event_cafe') then
         ui = UI_EventPopupTab_Banner(self, struct_event_popup_tab)
 
+    -- 1주년 이벤트 : 복귀 유저 환영 이벤트
+	elseif (tab == 'event_1st_comeback') then
+		ui = UI_Event1stComeback()
+
     end
 
     self.m_mTabUI[tab] = ui
