@@ -650,6 +650,7 @@ function StructProduct:payment(cb_func)
 
                 if (ret == 'success') then
                     cclog('## 결제 성공')                    
+					local info_json = dkjson.decode(info)
                     orderId = info_json and info_json['orderId']
                     co.NEXT()
 
