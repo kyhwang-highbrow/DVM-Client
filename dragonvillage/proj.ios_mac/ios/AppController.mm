@@ -124,7 +124,7 @@ static AppDelegate s_sharedApplication;
 
     [[PerpleSDK sharedInstance] setMViewController:viewController];
 
-    BOOL isDebug = NO;
+    BOOL isDebug = (COCOS2D_DEBUG == 1);
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID parentView:viewController];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
