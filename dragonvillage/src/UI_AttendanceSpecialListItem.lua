@@ -36,24 +36,30 @@ function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
     self:refresh()
 
     if (event_id == '1st_event') then
-        self.m_lMessage = {}
-        self.m_messageIdx = 0
-        self.m_messageTimer = 0 
-        self.m_lMessagePosY = {}
-        table.insert(self.m_lMessage, {msg='Congrats guys and gals!', nickname='69mort69'})
-        table.insert(self.m_lMessage, {msg='一周年おめでとう~~', nickname='汪太'})
-        table.insert(self.m_lMessage, {msg='Well done guys on the great game', nickname='Isilwyn'})
-        table.insert(self.m_lMessage, {msg='1주년 축하해요 다른 이벤트 잘 준비해서 유저들 많이 늘어나길', nickname='레오플'})
-        table.insert(self.m_lMessage, {msg='Congratz! Enjoying playing this game!', nickname='Agnus'})
-        table.insert(self.m_lMessage, {msg='이제 착한 드린이가 될게요', nickname='남작'})
-        table.insert(self.m_lMessage, {msg='Great design and content. Keep it up devs!', nickname='Sazon'})
-        table.insert(self.m_lMessage, {msg="Congratulations guys. You've earned it by giving such a good game. Keep it up.", nickname='Launna'})
-        table.insert(self.m_lMessage, {msg='Felicidades que todo siga prosperando ', nickname='Soulflayer'})
-        table.insert(self.m_lMessage, {msg='시작한지 얼마안됫지만 굿굿!!재밌어요', nickname='해미메'})
-        
+        -- 성공 콜백
+        local function success_cb(ret)
+            self.m_lMessage = {}
+            self.m_messageIdx = 0
+            self.m_messageTimer = 0 
+            self.m_lMessagePosY = {}
+            --[[
+            table.insert(self.m_lMessage, {msg='Congrats guys and gals!', nickname='69mort69'})
+            table.insert(self.m_lMessage, {msg='一周年おめでとう~~', nickname='汪太'})
+            table.insert(self.m_lMessage, {msg='Well done guys on the great game', nickname='Isilwyn'})
+            table.insert(self.m_lMessage, {msg='1주년 축하해요 다른 이벤트 잘 준비해서 유저들 많이 늘어나길', nickname='레오플'})
+            table.insert(self.m_lMessage, {msg='Congratz! Enjoying playing this game!', nickname='Agnus'})
+            table.insert(self.m_lMessage, {msg='이제 착한 드린이가 될게요', nickname='남작'})
+            table.insert(self.m_lMessage, {msg='Great design and content. Keep it up devs!', nickname='Sazon'})
+            table.insert(self.m_lMessage, {msg="Congratulations guys. You've earned it by giving such a good game. Keep it up.", nickname='Launna'})
+            table.insert(self.m_lMessage, {msg='Felicidades que todo siga prosperando ', nickname='Soulflayer'})
+            table.insert(self.m_lMessage, {msg='시작한지 얼마안됫지만 굿굿!!재밌어요', nickname='해미메'})
+            --]]
 
+            self.m_lMessage = ret['messages'] or {}
 
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+            self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+        end
+        self:request_getCelebrateMsg(success_cb)
     end
 end
 
@@ -201,4 +207,25 @@ function UI_AttendanceSpecialListItem:rolling()
 
     local vars = self.vars
     vars['neonClippingNode']:addChild(label)
+end
+
+-------------------------------------
+-- function request_getCelebrateMsg
+-------------------------------------
+function UI_AttendanceSpecialListItem:request_getCelebrateMsg(success_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/get_celebrate_msg')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('size', 50)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+	ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
 end
