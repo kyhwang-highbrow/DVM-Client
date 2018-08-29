@@ -167,9 +167,6 @@ function UI_CapsuleBox:refresh()
     else
         vars['1stEventMenu']:setVisible(false)
     end
-
-    -- 개발을 위해 임시로 노출
-    vars['1stEventMenu']:setVisible(true)
 end
 
 -------------------------------------
