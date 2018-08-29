@@ -20,7 +20,7 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 
 	do -- 땅
 		local lobby_ground = self:makeLobbyLayer(1)
-		lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby)
+		lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby, 'lobby')
 		--self:makeLobbyDeco_onLayer(lobby_ground, 'wanted') -- 전단지
 	end
 
@@ -43,6 +43,7 @@ end
 
 -- 로비 낮/밤 전환용 임시 변수
 USE_NIGHT = false
+SKIP_CHECK_DAY_OR_NIGHT = false
 
 -------------------------------------
 -- function makeLobbyLayer
@@ -167,6 +168,10 @@ end
 -- @brief 낮/밤을 체크한다
 -------------------------------------
 function LobbyMapFactory:chcekDayOrNight()
+    if SKIP_CHECK_DAY_OR_NIGHT then
+        return
+    end
+
 	local curr_time = os.time()
 	local date = pl.Date()
 	date:set(curr_time)

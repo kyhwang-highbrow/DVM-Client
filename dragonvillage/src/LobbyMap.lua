@@ -65,8 +65,9 @@ end
 -------------------------------------
 -- function addLayer_lobbyGround
 -- @brief 터치 레이어 생성
+-- @param map_name string 'lobby' or 'clan'
 -------------------------------------
-function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_ratio_y, ui_lobby)
+function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_ratio_y, ui_lobby, map_name)
     self:addLayer(node, perspective_ratio, perspective_ratio_y)
     self.m_groudNode = node
     
@@ -83,6 +84,19 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
 	--self.m_tree = MakeAnimator('res/lobby/lobby_layer_01_center_tree/lobby_layer_01_center_tree.vrp')
 	--self.m_tree.m_node:setPosition(235, 145)
 	--node:addChild(self.m_tree.m_node, 1)
+
+    -- 1주년 케이크
+    if (map_name == 'lobby') then
+        self.m_tree = MakeAnimator('res/lobby/lobby_layer_01_center_cake/lobby_layer_01_center_cake.vrp')
+	    self.m_tree.m_node:setPosition(0, 0)
+        if (USE_NIGHT) then
+            self.m_tree:changeAni('idle_02', true)
+        else
+            self.m_tree:changeAni('idle_01', true)
+        end
+
+        node:addChild(self.m_tree.m_node, 1)
+    end
 end
 
 -------------------------------------

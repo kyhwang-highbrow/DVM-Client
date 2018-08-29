@@ -15,7 +15,7 @@ function LobbyMapFactory:createClanLobbyWorld(parent_node, ui_lobby)
 	lobby_map:addLayer(self:makeClanLobbyLayer(3), 1) -- indoor 뒷침대 덮는 선반 장식
 	
 	-- ground node 생성
-	lobby_map:addLayer_lobbyGround(cc.Node:create(), 1, 1, ui_lobby)
+	lobby_map:addLayer_lobbyGround(cc.Node:create(), 1, 1, ui_lobby, 'clan')
 
 	lobby_map:addLayer(self:makeClanLobbyLayer(2), 1) -- indoor 앞 선반 및 지붕
 	lobby_map:addLayer(self:makeClanLobbyObjectLayer('bed_f'), 1) -- 앞침대

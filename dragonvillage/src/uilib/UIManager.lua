@@ -580,6 +580,7 @@ function UIManager:onKeyReleased(keyCode, event)
 
 	-- 로비 낮/밤 전환
     elseif (keyCode == KEY_D) then
+        SKIP_CHECK_DAY_OR_NIGHT = true
 		USE_NIGHT = not USE_NIGHT
 		SceneLobby(true):runScene()
 
