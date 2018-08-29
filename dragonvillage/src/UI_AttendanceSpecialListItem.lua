@@ -129,7 +129,7 @@ function UI_AttendanceSpecialListItem:update(dt)
 
     self.m_effectTimer = (self.m_effectTimer - dt)
     if (self.m_effectTimer <= 0) then
-        local cooltime_effect = math_random(8, 12) / 10
+        local cooltime_effect = math_random(8, 20) / 10
         self.m_effectTimer = (self.m_effectTimer + cooltime_effect)
 
         -- 이펙트 생성
