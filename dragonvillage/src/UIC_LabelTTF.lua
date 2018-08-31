@@ -9,6 +9,8 @@ UIC_LabelTTF = class(PARENT, {
         m_orgFontSize = 'number',
         m_orgFontScaleX = 'number',
         m_orgFontScaleY = 'number',
+         
+        m_isVerified = 'bool',
     })
 
 -------------------------------------
@@ -24,6 +26,9 @@ function UIC_LabelTTF:init(node)
     self.m_orgFontScaleX = self:getScaleX()
     self.m_orgFontScaleY = self:getScaleY()
 
+    -- 테스트 모드일때 동작하도록 설정
+    self.m_isVerified = not IS_TEST_MODE() 
+
     --ui에 text가 들어있는경우 때문에
     local org = node:getString()
     self:setString( "" )
@@ -34,16 +39,18 @@ end
 -- function setString
 -------------------------------------
 function UIC_LabelTTF:setString(str)
-    --매틱 들어오는것들 안태우기위해 체크
-    local needCheck = false -- str and (string.len(str) > 0) and (str ~= self.m_node:getString())
-    
     self.m_node:setString(str)
-        
-    if needCheck == false then
-        return
-    end
+    --self:applyBoxWithScale(str)
 
-    self:applyBoxWithScale(str)
+    -- 테스트 모드에서만 활성화됩니다.
+    if (not self.m_isVerified) then
+        if (str ~= '') then
+            self.m_isVerified = true
+            if (self:isOutOfBound()) then
+                --ccdisplay(str)
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -340,4 +347,15 @@ end
 function UIC_LabelTTF:setScale(scale)        
     self.m_node:setScaleX( scale * self.m_orgFontScaleX )
     self.m_node:setScaleY( scale * self.m_orgFontScaleY )
+end
+
+-------------------------------------
+-- function isOutOfBound
+-- @brief 텍스트가 영역을 벗어나는지 체크
+-------------------------------------
+function UIC_LabelTTF:isOutOfBound()
+    local dimension_size = self.m_node:getDimensions()
+    local content_size = self.m_node:getContentSize()
+
+    return (content_size['width'] > dimension_size['width']) or (content_size['height'] > dimension_size['height'])
 end

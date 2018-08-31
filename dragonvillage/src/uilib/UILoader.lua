@@ -501,6 +501,10 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         delegator:setScaleX( rateX )
         delegator:setScaleY( rateY )
 
+        if (delegator:isOutOfBound()) then
+            --ccdisplay(Str(data.text))
+        end
+
     elseif type == 'EditBox' then
         UILoader.checkTranslate(data)
         if (data.normal == nil) or (data.normal == '') then

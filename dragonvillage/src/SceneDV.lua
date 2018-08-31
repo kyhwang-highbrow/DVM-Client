@@ -27,7 +27,46 @@ function SceneDV:onEnter()
     PerpleScene.onEnter(self)
     g_currScene:addKeyKeyListener(self)
     
-	--self:scenarioTest()
+    self:labelTest()
+end
+
+-------------------------------------
+-- function labelTest
+-------------------------------------
+function SceneDV:labelTest()
+    local str = '-----11-- ---// ////'
+    local size = cc.size(100, 100)
+
+    local label = cc.Label:createWithTTF(str, 
+        'res/font/common_font_01.ttf', 
+        20, 
+        1, 
+        size, 
+        1, 1)
+
+    local uic_label = UIC_LabelTTF(label)
+
+    uic_label:setPosition(0, 0)
+    uic_label:setDockPoint(cc.p(0.5, 0.5))
+    uic_label:setAnchorPoint(cc.p(0.5, 0.5))
+    uic_label:setColor(cc.c3b(0, 255, 255))
+    self.m_scene:addChild(uic_label.m_node)
+
+    -- 영역 확인 더미
+    local uic_node = UIC_Node:create()
+    uic_node:setContentSize(size)
+    uic_node:setPosition(0, 0)
+    uic_node:setDockPoint(cc.p(0.5, 0.5))
+    uic_node:setAnchorPoint(cc.p(0.5, 0.5))
+    uic_node:initGLNode()
+    self.m_scene:addChild(uic_node.m_node)
+    
+    -- label 의 영역
+    local dimension_size = label:getDimensions()
+    local content_size = label:getContentSize()
+
+    ccdump(dimension_size)
+    ccdump(content_size)
 end
 
 -------------------------------------
