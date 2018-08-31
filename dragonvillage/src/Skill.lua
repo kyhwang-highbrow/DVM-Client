@@ -20,7 +20,7 @@ Skill = class(PARENT, {
         m_addCriPowerRate = 'num',
 		m_powerAbs = 'num',
 		m_powerSource = 'str',
-		m_powerIgnore = 'str',  -- 피격대상 특정 스탯 무시 
+		m_powerIgnore = 'str',  -- 피격대상 특정 스탯 무시(맵형태)
         m_critical = 'num',     -- 크리티컬 판정(1:발동 , 0:미발동, nil:피격시 판정)
 		m_preDelay = 'num',
 
@@ -133,13 +133,24 @@ function Skill:initActvityCarrier()
     EquationHelper:setEquationParamOnMapForSkill(self.m_activityCarrier.m_tParam, self)
 	
 	-- 방어 무시 -> 차후에 좀더 구조화 해서 늘려나감
-	if (self.m_powerIgnore == 'def') then 
+    if (self.m_powerIgnore['def']) then
 		self.m_activityCarrier:setIgnoreDef(true)
-    elseif (self.m_powerIgnore == 'barrier') then 
+    end
+    if (self.m_powerIgnore['avoid']) then
+		self.m_activityCarrier:setIgnoreAvoid(true)
+    end
+    if (self.m_powerIgnore['barrier']) then 
 		self.m_activityCarrier:setIgnoreBarrier(true)
-    elseif (self.m_powerIgnore == 'resurrect') then 
+    end
+    if (self.m_powerIgnore['protect']) then 
+		self.m_activityCarrier:setIgnoreProtect(true)
+    end
+    if (self.m_powerIgnore['resurrect']) then 
 		self.m_activityCarrier:setIgnoreRevive(true)
 	end
+    if (self.m_powerIgnore['calc']) then
+		self.m_activityCarrier:setIgnoreCalc(true)
+    end
 end
 
 -------------------------------------
@@ -293,7 +304,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
     self.m_addCriPowerRate = SkillHelper:getValid(t_skill['critical_damage_add'])
     self.m_powerAbs = SkillHelper:getValid(t_skill['power_add'], 0)
 	self.m_powerSource  = SkillHelper:getValid(t_skill['power_source'], 'atk')
-	self.m_powerIgnore = SkillHelper:getValid(t_skill['ignore'])
+    self.m_powerIgnore = t_data['ignore'] or {}
     self.m_critical = t_data['critical']
 	self.m_lStatusEffect = SkillHelper:makeStructStatusEffectList(t_skill)
 	

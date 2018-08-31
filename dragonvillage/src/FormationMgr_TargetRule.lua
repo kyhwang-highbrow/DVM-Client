@@ -316,6 +316,7 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
 	local self_char = t_data['self']
     local ai_type = t_data['ai_type']
     local input_type = t_data['input_type']
+    local ignore = t_data['ignore'] or {}
     local all_invincibility = true
 
     -- 유효 생명력이 낮은 순으로 3명을 찾음
@@ -347,7 +348,12 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
         v.m_sortValue = 1
         v.m_sortRandomIdx = nil
 
-        local is_invincibility = v:isExistStatusEffectName('barrier_protection_time')
+        local is_invincibility = false
+
+        -- 무적 무시가 있는 경우
+        if (not ignore['protect']) then
+            is_invincibility = v:isExistStatusEffectName('barrier_protection_time')
+        end
                 
         -- 유효 생명력이 가장 낮은 적(+4)
         if (v == low_hp_1) then
@@ -391,7 +397,9 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
 
         if (ai_type ~= 'remove') then
             -- 수면, 반사, 보호막(-2)
-            if (v:getStatusEffect('sleep') or v:getStatusEffect('reflect') or v:getStatusEffect('barrier_protection')) then
+            if (v:getStatusEffect('sleep') or v:getStatusEffect('reflect') 
+                or (v:getStatusEffect('barrier_protection') and not ignore['barrier'])
+                ) then
                 v.m_sortValue = v.m_sortValue - 2
             end
 

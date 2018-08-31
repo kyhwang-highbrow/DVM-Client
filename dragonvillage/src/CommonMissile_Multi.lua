@@ -18,8 +18,8 @@ end
 -------------------------------------
 -- function initCommonMissile
 -------------------------------------
-function CommonMissile_Multi:initCommonMissile(owner, t_skill)
-	PARENT.initCommonMissile(self, owner, t_skill)
+function CommonMissile_Multi:initCommonMissile(owner, t_skill, t_data)
+	PARENT.initCommonMissile(self, owner, t_skill, t_data)
 	
 	-- 멀티 발사 갯수
 	self.m_maxFireCnt = 3
@@ -113,9 +113,9 @@ end
 -------------------------------------
 -- function makeMissileInstance
 -------------------------------------
-function CommonMissile_Multi:makeMissileInstance(owner, t_skill)
+function CommonMissile_Multi:makeMissileInstance(owner, t_skill, t_data)
 	local common_missile = CommonMissile_Multi()
-	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:initCommonMissile(owner, t_skill, t_data)
 	common_missile:setMissile()
 	common_missile:changeState('attack')
 	

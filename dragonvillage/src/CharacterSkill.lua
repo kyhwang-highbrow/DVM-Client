@@ -47,8 +47,12 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
     -- @ E.T.
     g_errorTracker:appendSkillHistory(skill_id, self:getName())
 
+    -- skill_indivisual_info로부터 무시 속성 정보를 가져옴(스크립트 탄에서는 사용되지 않음)
+    if (skill_indivisual_info) then
+        t_data['ignore'] = skill_indivisual_info:getMapToIgnore()
+    end
+
     if (self:doSkillBySkillTable(t_skill, t_data)) then
-        local skill_indivisual_info = self:findSkillInfoByID(skill_id)
         if (skill_indivisual_info) then
             skill_indivisual_info:startCoolTime(true)
 
@@ -88,7 +92,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             -- 텍스트
             if (self.m_charType == 'dragon') then
                 if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader')) then
-                --if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
@@ -153,32 +156,29 @@ function Character:doSkillBySkillTable(t_skill, t_data)
                 end
             end
 			-- 공용탄 영역-------------------------------------------
-			if (skill_type == 'missile_move_ray') then
-				SkillRay:makeSkillInstance(self, t_skill, {})
-				return true
-			elseif (skill_type == 'missile_move_straight') then
-				CommonMissile_Straight:makeMissileInstance(self, t_skill)
+			if (skill_type == 'missile_move_straight') then
+				CommonMissile_Straight:makeMissileInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_guide') then
-				CommonMissile_Guide:makeMissileInstance(self, t_skill)
+				CommonMissile_Guide:makeMissileInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_cruise') then
-				CommonMissile_Cruise:makeMissileInstance(self, t_skill)
+				CommonMissile_Cruise:makeMissileInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_shotgun') then
-				CommonMissile_Shotgun:makeMissileInstance(self, t_skill)
+				CommonMissile_Shotgun:makeMissileInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_release') then
-				CommonMissile_Release:makeMissileInstance(self, t_skill)
+				CommonMissile_Release:makeMissileInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_high_angle') then
-				CommonMissile_High:makeMissileInstance(self, t_skill)
+				CommonMissile_High:makeMissileInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_bounce') then
-				CommonMissile_Bounce:makeMissileInstance(self, t_skill)
+				CommonMissile_Bounce:makeMissileInstance(self, t_skill, t_data)
 				return true
 			elseif (skill_type == 'missile_move_multi') then
-				CommonMissile_Multi:makeMissileInstance(self, t_skill)
+				CommonMissile_Multi:makeMissileInstance(self, t_skill, t_data)
 				return true
 
 			-- 스킬 영역-------------------------------------------

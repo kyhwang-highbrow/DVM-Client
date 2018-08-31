@@ -18,7 +18,9 @@ DragonSkillIndivisualInfoInGame = class(PARENT, {
         m_bIgnoreCC = 'boolean',        -- 스킬 사용 불가 상태효과를 무시하고 발동되는지 여부
         m_bIgnoreReducedCool = 'boolean',-- 쿨타임 감소 효과 무시 여부
         m_bDirtyBuff = 'boolean',
-        m_lBuff = 'table',
+        m_lBuff = 'table',              -- 해당 스킬에 적용중인 버프 리스트
+
+        m_mIgnore = 'table',            -- 스킬 무시 속성(방어력 무시, 부활 금지...)
 
         m_cooldownTimer = 'number',     -- 현재 남은 쿨타임 시간
         m_chanceValueType = 'number',   -- 스킬 발동 조건값 타입(CHANCE_VALUE_TYPE)
@@ -46,6 +48,8 @@ function DragonSkillIndivisualInfoInGame:init(char_type, skill_type, skill_id, s
     self.m_bIgnoreReducedCool = false
     self.m_bDirtyBuff = false
     self.m_lBuff = {}
+
+    self.m_mIgnore = {}
 
     self.m_cooldownTimer = 0
     
@@ -120,6 +124,14 @@ function DragonSkillIndivisualInfoInGame:applySkillLevel(old_skill_info)
 
     -- 원본 테이블 저장
     self.m_tOrgSkill = clone(self.m_tSkill)
+
+    -- 무시 속성 정보 맵형태로 저장
+    if (self.m_tSkill['ignore'] and self.m_tSkill['ignore'] ~= '') then
+        local l_str = plSplit(self.m_tSkill['ignore'], ',')
+        for _, v in pairs(l_str) do
+	        self.m_mIgnore[v] = true
+        end
+    end
 end
 
 -------------------------------------
@@ -435,4 +447,11 @@ end
 function DragonSkillIndivisualInfoInGame:onBeStoppedInCC()
     self.m_triedCount = self.m_triedCount + 1
     cclog('onBeStoppedInCC : ' .. self.m_triedCount)
+end
+
+-------------------------------------
+-- function getMapToIgnore
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:getMapToIgnore()
+    return self.m_mIgnore
 end

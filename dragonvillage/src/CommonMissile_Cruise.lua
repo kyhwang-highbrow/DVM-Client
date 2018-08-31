@@ -83,9 +83,9 @@ end
 -------------------------------------
 -- function makeMissileInstance
 -------------------------------------
-function CommonMissile_Cruise:makeMissileInstance(owner, t_skill)
+function CommonMissile_Cruise:makeMissileInstance(owner, t_skill, t_data)
 	local common_missile = CommonMissile_Cruise()
-	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:initCommonMissile(owner, t_skill, t_data)
 	common_missile:setMissile()
 	common_missile.m_maxFireCnt = 3
 	common_missile:changeState('attack')

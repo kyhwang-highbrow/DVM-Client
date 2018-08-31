@@ -18,6 +18,7 @@ CommonMissile = class(PARENT, {
 		m_powerRate = 'num',
         m_addCriPowerRate = 'num',
         m_powerSource = '',
+        m_powerIgnore = '', -- 피격대상 특정 스탯 무시(맵형태)
 		m_chanceType = 'str',
 		m_lStatusEffect = 'List<StructStatusEffect>',
 
@@ -44,7 +45,7 @@ end
 -------------------------------------
 -- function initCommonMissile
 -------------------------------------
-function CommonMissile:initCommonMissile(owner, t_skill)
+function CommonMissile:initCommonMissile(owner, t_skill, t_data)
     -- 변수 초기화
 	self.m_owner = owner
     self.m_world = owner.m_world
@@ -59,6 +60,8 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self.m_powerRate = t_skill['power_rate']
     self.m_addCriPowerRate = t_skill['critical_damage_add']
     self.m_powerSource = t_skill['power_source']
+    self.m_powerIgnore = t_data['ignore'] or {}
+
 	self.m_chanceType = t_skill['chance_type']
 	self.m_targetType = t_skill['target_type']
 	self.m_maxFireCnt = t_skill['hit']
@@ -116,6 +119,26 @@ function CommonMissile:initActvityCarrier()
 
     -- 수식에서 사용하기 위한 값을 세팅
     EquationHelper:setEquationParamOnMapForSkill(self.m_activityCarrier.m_tParam, self)
+    
+	-- 방어 무시 -> 차후에 좀더 구조화 해서 늘려나감
+	if (self.m_powerIgnore['def']) then
+		self.m_activityCarrier:setIgnoreDef(true)
+    end
+    if (self.m_powerIgnore['avoid']) then
+		self.m_activityCarrier:setIgnoreAvoid(true)
+    end
+    if (self.m_powerIgnore['barrier']) then 
+		self.m_activityCarrier:setIgnoreBarrier(true)
+    end
+    if (self.m_powerIgnore['protect']) then 
+		self.m_activityCarrier:setIgnoreProtect(true)
+    end
+    if (self.m_powerIgnore['resurrect']) then 
+		self.m_activityCarrier:setIgnoreRevive(true)
+	end
+    if (self.m_powerIgnore['calc']) then
+		self.m_activityCarrier:setIgnoreCalc(true)
+    end
 end
 
 -------------------------------------
@@ -295,9 +318,9 @@ end
 -------------------------------------
 -- function makeMissileInstance
 -------------------------------------
-function CommonMissile:makeMissileInstance(owner, t_skill)
+function CommonMissile:makeMissileInstance(owner, t_skill, t_data)
 	local common_missile = CommonMissile()
-	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:initCommonMissile(owner, t_skill, t_data)
 	common_missile:setMissile()
 
 	owner.m_world:addToUnitList(common_missile)

@@ -28,11 +28,15 @@ ActivityCarrier = class({
 
 		m_atkDmgStat = 'str',
 
+        -- 피격시 무시할 요소들(차후 맵형태 테이블로 변경해야할듯...)
         m_bIgnoreAll = 'bool',
+        m_bIgnoreCalc = 'bool',     -- 데미지 계산 무시(순수 공격력만 사용)
 		m_bIgnoreDef = 'bool',
         m_bIgnoreAvoid = 'bool',
-        m_bIgnoreBarrier = 'bool',
+        m_bIgnoreBarrier = 'bool',  -- 보호막(무적 제외)
+        m_bIgnoreProtect = 'bool',  -- 피해면역(무적)
         m_bIgnoreRevive = 'bool',
+
         m_bDefiniteDeath = 'bool',  -- 피격 대상을 무조건 죽임
         
         m_realAttackType = 'str',
@@ -54,9 +58,11 @@ function ActivityCarrier:init()
     self.m_lStatusEffectRate = {}
 	self.m_atkDmgStat = 'atk'
     self.m_bIgnoreAll = false
+    self.m_bIgnoreCalc = false
 	self.m_bIgnoreDef = false
     self.m_bIgnoreAvoid = false
     self.m_bIgnoreBarrier = false
+    self.m_bIgnoreProtect = false
     self.m_bIgnoreRevive = false
     self.m_bDefiniteDeath = false
     self.m_tParam = {}
@@ -402,6 +408,20 @@ function ActivityCarrier:isIgnoreAll()
 end
 
 -------------------------------------
+-- function setIgnoreCalc
+-------------------------------------
+function ActivityCarrier:setIgnoreCalc(bool)
+	self.m_bIgnoreCalc = bool
+end
+
+-------------------------------------
+-- function isIgnoreCalc
+-------------------------------------
+function ActivityCarrier:isIgnoreCalc()
+	return self.m_bIgnoreCalc or self.m_bIgnoreAll
+end
+
+-------------------------------------
 -- function setIgnoreDef
 -------------------------------------
 function ActivityCarrier:setIgnoreDef(bool)
@@ -443,6 +463,19 @@ function ActivityCarrier:isIgnoreBarrier()
 	return self.m_bIgnoreBarrier or self.m_bIgnoreAll
 end
 
+-------------------------------------
+-- function setIgnoreProtect
+-------------------------------------
+function ActivityCarrier:setIgnoreProtect(bool)
+	self.m_bIgnoreProtect = bool
+end
+
+-------------------------------------
+-- function isIgnoreProtect
+-------------------------------------
+function ActivityCarrier:isIgnoreProtect()
+	return self.m_bIgnoreProtect or self.m_bIgnoreAll
+end
 -------------------------------------
 -- function setIgnoreRevive
 -------------------------------------

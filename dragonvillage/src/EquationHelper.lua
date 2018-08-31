@@ -6,6 +6,7 @@ EquationHelper = {}
 EV_HIT_TARGET_COUNT = 'hit_target_count'
 EV_BOSS_RARITY = 'boss_rarity'
 EV_DIED_ALLY_COUNT = 'died_ally_count'
+EV_SKILL_DAMAGE = 'skill_damage'
 
 -------------------------------------
 -- function addFunctionsForEquation
@@ -224,6 +225,8 @@ function EquationHelper:setEquationParamOnMapForSkill(target_map, skill_entity)
         if (skill_entity.m_lTargetChar) then
             target_map[EV_HIT_TARGET_COUNT] = #skill_entity.m_lTargetChar
         end
+
+        target_map[EV_SKILL_DAMAGE] = skill_entity.m_totalDamage
     end
 
     if (world.m_waveMgr.m_currWave == world.m_waveMgr.m_maxWave) then
@@ -245,6 +248,7 @@ function EquationHelper:setEquationParamOnMapForStatusEffect(target_map, status_
     local org_map = status_effect_entity.m_tParam
 
     target_map[EV_HIT_TARGET_COUNT] = org_map[EV_HIT_TARGET_COUNT]
+    target_map[EV_SKILL_DAMAGE] = org_map[EV_SKILL_DAMAGE]
     
     if (world.m_waveMgr.m_currWave == world.m_waveMgr.m_maxWave) then
         target_map[EV_BOSS_RARITY] = world.m_waveMgr.m_highestRarity
@@ -260,12 +264,15 @@ end
 ----------------------------------------------------------------------------------
 -- 수식에서 사용하기 위한 전역 함수
 ----------------------------------------------------------------------------------
-function CON(con_expression)
+function CON(con_expression, ret_true, ret_false)
+    local ret_true = ret_true or 1
+    local ret_false = ret_false or 0
+
     if (con_expression) then
-        return 1
+        return ret_true
     end
 
-    return 0
+    return ret_false
 end
 
 function GET_ALLY_MIN_HP_RATE(unit)

@@ -17,8 +17,8 @@ end
 -------------------------------------
 -- function initCommonMissile
 -------------------------------------
-function CommonMissile_Bounce:initCommonMissile(owner, t_skill)
-	PARENT.initCommonMissile(self, owner, t_skill)
+function CommonMissile_Bounce:initCommonMissile(owner, t_skill, t_data)
+	PARENT.initCommonMissile(self, owner, t_skill, t_data)
 	
 	-- 특수 변수
 	self.m_jumpHeight = SkillHelper:getValid(t_skill['val_1'], 100)
@@ -75,9 +75,9 @@ end
 -------------------------------------
 -- function makeMissileInstance
 -------------------------------------
-function CommonMissile_Bounce:makeMissileInstance(owner, t_skill)
+function CommonMissile_Bounce:makeMissileInstance(owner, t_skill, t_data)
 	local common_missile = CommonMissile_Bounce()
-	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:initCommonMissile(owner, t_skill, t_data)
 	common_missile:setMissile()
 	common_missile:changeState('attack')
 	

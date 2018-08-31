@@ -625,7 +625,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char, t_attr_effect['miss'])
 
     -- 모두 무시하는 경우나 공격자가 테이머인 경우 속성 효과를 적용하지 않음
-    if (attack_activity_carrier:isIgnoreAll() or attacker_char:getCharType() == 'tamer') then
+    if (attack_activity_carrier:isIgnoreCalc() or attacker_char:getCharType() == 'tamer') then
         t_attr_effect = {}
         is_bash = false
         is_miss = false
@@ -647,7 +647,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
     
     -- 무적 상태 체크
-    if (attack_activity_carrier:isIgnoreBarrier()) then
+    if (attack_activity_carrier:isIgnoreProtect()) then
         -- 무적 무시
     elseif (self.m_isProtected) then
         self:makeShieldFont(i_x, i_y)
@@ -655,7 +655,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     -- 수호(guard) 상태 체크
-    if (attack_activity_carrier:isIgnoreBarrier()) then
+    if (attack_activity_carrier:isIgnoreAll()) then
         -- 수호 무시
 
     elseif (not is_guard and self:checkGuard(attacker, defender)) then
@@ -696,19 +696,21 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local basic_dmg = 0
         local drag_dmg = 0
 
-        if (real_attack_type == 'basic') then
-            -- 일반 공격 추가 공격력 적용
-            local basic_dmg_rate = attack_activity_carrier:getStat('basic_dmg') / 100
-            basic_dmg = atk_dmg * basic_dmg_rate
+        if (not attack_activity_carrier:isIgnoreCalc()) then
+            if (real_attack_type == 'basic') then
+                -- 일반 공격 추가 공격력 적용
+                local basic_dmg_rate = attack_activity_carrier:getStat('basic_dmg') / 100
+                basic_dmg = atk_dmg * basic_dmg_rate
 
-            atk_dmg = atk_dmg + basic_dmg
+                atk_dmg = atk_dmg + basic_dmg
 
-        elseif (attack_type == 'active') then
-            -- 드래그 스킬 추가 공격력 적용
-            local drag_dmg_rate = attack_activity_carrier:getStat('drag_dmg') / 100
-            drag_dmg = atk_dmg * drag_dmg_rate
+            elseif (attack_type == 'active') then
+                -- 드래그 스킬 추가 공격력 적용
+                local drag_dmg_rate = attack_activity_carrier:getStat('drag_dmg') / 100
+                drag_dmg = atk_dmg * drag_dmg_rate
 
-            atk_dmg = atk_dmg + drag_dmg
+                atk_dmg = atk_dmg + drag_dmg
+            end
         end
         
         --------------------------------------------------------------
@@ -722,7 +724,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             def_pierce = attacker_char:getStat('pierce') / 100
         end
 
-        if (attack_activity_carrier:isIgnoreDef()) then 
+        if (attack_activity_carrier:isIgnoreDef()) then
             -- 방어 무시
 			def_pwr = 0 
         elseif (def_pierce > 0) then
@@ -735,20 +737,33 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         --------------------------------------------------------------
         -- 데미지 계산(damage)
         --------------------------------------------------------------
-		local org_damage, str_debug = DamageCalc_P(atk_dmg, def_pwr, use_debug_log)
+		local org_damage, str_debug
+
+        if (attack_activity_carrier:isIgnoreCalc()) then
+            -- 데미지 계산 무시
+            org_damage = atk_dmg
+        else
+            org_damage, str_debug = DamageCalc_P(atk_dmg, def_pwr, use_debug_log)
+        end
         damage = org_damage
 
-        -- 게임 모드에 따른 데미지 배율
-        local damage_rate_game_mode = CalcDamageRateDueToGameMode(self)
+        -- 게임 모드 및 진형에 따른 데미지 배율
+        local damage_rate_game_mode
+        local damage_rate_formation
 
-        -- 진형에 따른 데미지 배율
-        local damage_rate_formation = CalcDamageRateDueToFormation(self)
+        if (not attack_activity_carrier:isIgnoreCalc()) then
+            -- 게임 모드에 따른 데미지 배율
+            damage_rate_game_mode = CalcDamageRateDueToGameMode(self)
 
-        -- 게임 모드에 따른 데미지 배율 적용
-        damage = damage * damage_rate_game_mode
+            -- 진형에 따른 데미지 배율
+            damage_rate_formation = CalcDamageRateDueToFormation(self)
 
-        -- 진형에 따른 데미지 배율 적용
-        damage = damage * damage_rate_formation
+            -- 게임 모드에 따른 데미지 배율 적용
+            damage = damage * damage_rate_game_mode
+
+            -- 진형에 따른 데미지 배율 적용
+            damage = damage * damage_rate_formation
+        end
 
         -- @DEBUG
 	    if (use_debug_log) then
@@ -789,14 +804,18 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
             cclog('------------------------------------------------------')
             cclog('--데미지 계산 결과값 : ' .. org_damage)
-            cclog('--게임 모드에 따른 데미지 배율 : ' .. damage_rate_game_mode)
-            cclog('--진형에 따른 데미지 배율 : ' .. damage_rate_formation)
+            if (damage_rate_game_mode and damage_rate_game_mode ~= 1) then
+                cclog('--게임 모드에 따른 데미지 배율 : ' .. damage_rate_game_mode)
+            end
+            if (damage_rate_formation and damage_rate_formation ~= 1) then
+                cclog('--진형에 따른 데미지 배율 : ' .. damage_rate_formation)
+            end
             cclog('--배율 적용한 데미지 : ' .. damage)
         end
     end
 
     -- 크리티컬 계산
-    if (not attack_activity_carrier:isIgnoreAll()) then
+    if (not attack_activity_carrier:isIgnoreCalc()) then
         if (is_miss) then
             -- 빚맞힘일 경우 크리티컬 없도록 처리
             is_critical = false
@@ -851,7 +870,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local final_dmg_rate = 0
 
         -- 방어자 능력치
-        if (not attack_activity_carrier:isIgnoreAll()) then
+        do
             dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
 
             local rate = math_max(dmg_adj_rate, -1)
@@ -912,7 +931,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
 
         -- 피해 반사에 따른 받는 피해 감소
-        if (reflex_rate > 0 and not attack_activity_carrier:isIgnoreAll()) then
+        if (reflex_rate > 0) then
             damage_multifly = damage_multifly * (1 - reflex_rate)
 
             -- 반사 데미지 계산
@@ -929,6 +948,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             damage_multifly = damage_multifly * 0.7
         end
         
+        -- 데미지 계산 무시일 경우
+        if (attack_activity_carrier:isIgnoreCalc()) then
+            damage_multifly = 1
+        end
 
         -- 피해량 배율 적용
         damage = (damage * damage_multifly)
@@ -940,16 +963,23 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 최소 데미지 1로 처리
         damage = math_max(damage, 1)
+
+        -- 데미지 계산 무시이고 대상이 보스일 경우 최대 피해량 제한 처리...
+        if (self:isBoss() and attack_activity_carrier:isIgnoreCalc() and not attack_activity_carrier:isIgnoreAll()) then
+            damage = math_min(damage, 30000)
+        end
         
         -- @DEBUG
 	    if (use_debug_log) then
             cclog('------------------------------------------------------')
-            if (cri_dmg_rate ~= 0) then
-                cclog('--치명타로 인한 피해량 비율 : ' .. cri_dmg_rate)
+            if (not attack_activity_carrier:isIgnoreCalc()) then
+                if (cri_dmg_rate ~= 0) then
+                    cclog('--치명타로 인한 피해량 비율 : ' .. cri_dmg_rate)
+                end
+                cclog('--속성으로 인한 피해량 비율 : ' .. attr_dmg_rate)
+                cclog('--방어자의 피해량 증감 비율 : ' .. dmg_adj_rate)
+                cclog('--특정 상태효과로 인한 피해량 비율 : ' .. se_dmg_adj_rate)
             end
-            cclog('--속성으로 인한 피해량 비율 : ' .. attr_dmg_rate)
-            cclog('--방어자의 피해량 증감 비율 : ' .. dmg_adj_rate)
-            cclog('--특정 상태효과로 인한 피해량 비율 : ' .. se_dmg_adj_rate)
             cclog('--피해량 비율 총합 : ' .. (damage_multifly - 1))
             cclog('--최종 데미지 : ' .. damage)
             cclog('######################################################')

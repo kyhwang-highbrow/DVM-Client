@@ -19,8 +19,8 @@ end
 -------------------------------------
 -- function initCommonMissile
 -------------------------------------
-function CommonMissile_High:initCommonMissile(owner, t_skill)
-	PARENT.initCommonMissile(self, owner, t_skill)
+function CommonMissile_High:initCommonMissile(owner, t_skill, t_data)
+	PARENT.initCommonMissile(self, owner, t_skill, t_data)
 	
 	-- 특수 변수
 	local attr = owner:getAttributeForRes()
@@ -104,9 +104,9 @@ end
 -------------------------------------
 -- function makeMissileInstance
 -------------------------------------
-function CommonMissile_High:makeMissileInstance(owner, t_skill)
+function CommonMissile_High:makeMissileInstance(owner, t_skill, t_data)
 	local common_missile = CommonMissile_High()
-	common_missile:initCommonMissile(owner, t_skill)
+	common_missile:initCommonMissile(owner, t_skill, t_data)
 	common_missile:setMissile()
 	common_missile:changeState('attack')
 	
