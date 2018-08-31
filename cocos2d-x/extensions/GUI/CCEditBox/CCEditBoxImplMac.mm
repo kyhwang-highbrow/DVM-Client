@@ -101,7 +101,7 @@
     [textField setBackgroundColor:[NSColor clearColor]];
     [textField setBordered:NO];
     [textField setHidden:NO];
-    [textField setWantsLayer:YES];
+    [textField setWantsLayer:NO];
     [textField setDelegate:self];
 }
 
