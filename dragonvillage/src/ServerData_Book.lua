@@ -186,9 +186,9 @@ end
 function ServerData_Book:setBookRewardData(t_reward_info)
     self.m_tBookReward = t_reward_info
 
-    -- 전설 스킬 슬라임을 희귀도별로 나누면서 779255로 변경하여 사용
-    -- 도감에 노출되지 않는 779215번 전설 스킬 슬라임은 정보에서 제거
-    self.m_tBookReward['779215'] = nil
+    -- 전설 스킬 슬라임을 희귀도별로 나누면서 129255로 변경하여 사용
+    -- 도감에 노출되지 않는 129215번 전설 스킬 슬라임은 정보에서 제거
+    self.m_tBookReward['129215'] = nil
 end
 
 -------------------------------------
