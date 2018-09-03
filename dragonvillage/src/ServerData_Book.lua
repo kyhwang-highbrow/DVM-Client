@@ -173,11 +173,22 @@ function ServerData_Book:response_bookInfo(ret)
     end
 
 	do -- 드래곤 도감 보상 정보
-		self.m_tBookReward = ret['reward_info']
+		self:setBookRewardData(ret['reward_info'])
 	end
 
     -- 마지막으로 데이터가 변경된 시간 갱신
     self:setLastChangeTimeStamp()
+end
+
+-------------------------------------
+-- function setBookRewardData
+-------------------------------------
+function ServerData_Book:setBookRewardData(t_reward_info)
+    self.m_tBookReward = t_reward_info
+
+    -- 전설 스킬 슬라임을 희귀도별로 나누면서 779255로 변경하여 사용
+    -- 도감에 노출되지 않는 779215번 전설 스킬 슬라임은 정보에서 제거
+    self.m_tBookReward['779215'] = nil
 end
 
 -------------------------------------
@@ -379,7 +390,7 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
 		g_serverData:networkCommonRespone(ret)
 
         -- 보상 수령한 정보 처리
-		self.m_tBookReward = ret['reward_info']
+        self:setBookRewardData(ret['reward_info'])
 
 		-- 시간 갱신        
 		self:setLastChangeTimeStamp()
