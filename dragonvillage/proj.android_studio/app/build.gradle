@@ -288,6 +288,9 @@ allprojects {
         }
     }
     dependencies {
+        // support Kotlin
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.61"
+
         // @multidex below Android api 21 (5.0 lolipop)
         implementation 'com.android.support:multidex:1.0.3'
 
@@ -310,7 +313,7 @@ allprojects {
         implementation 'com.squareup:otto:1.3.8'
 
         // @firebase
-        implementation 'com.google.firebase:firebase-core:16.0.1'
+        implementation 'com.google.firebase:firebase-core:16.0.3'
         implementation 'com.google.firebase:firebase-auth:16.0.3'
         implementation 'com.google.firebase:firebase-messaging:17.3.0'
 
@@ -332,7 +335,7 @@ allprojects {
 
         // @adjust
         implementation 'com.adjust.sdk:adjust-android:4.14.0'
-        implementation 'com.google.android.gms:play-services-analytics:16.0.1'
+        implementation 'com.google.android.gms:play-services-analytics:16.0.3'
 
         // @admob
         implementation 'com.google.firebase:firebase-ads:15.0.1'
