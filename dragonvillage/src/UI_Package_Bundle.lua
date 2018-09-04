@@ -112,7 +112,7 @@ function UI_Package_Bundle:refresh()
 
         -- 다이아 할인 풀팝업 전용 패키지 번들 - 추후 리팩토링 필요함
         -- 패키지가 아니지만 묶음 처리로 체크를 위해 패키지 번들에 등록한 케이스 
-        if (self.m_package_name == 'event_dia_discount') then
+        if (self.m_package_name == 'event_dia_discount') or (self.m_package_name == 'event_gold_bonus') then
             local struct_product = g_shopDataNew:getTargetProduct(pid)
             if (struct_product) then
                 local time_label = vars['timeLabel']
@@ -128,6 +128,12 @@ function UI_Package_Bundle:refresh()
                 local discount_value = 20
                 vars['bonusLabel1']:setString(Str('다이아 {1}% 보너스 상품 판매!', discount_value))
                 vars['bonusLabel2']:setString(Str('{1}%\n보너스', discount_value))
+
+                if (self.m_package_name == 'event_gold_bonus') then
+                    local discount_value = 50
+                    vars['bonusLabel1']:setString(Str('골드 {1}% 보너스 상품 판매!', discount_value))
+                    vars['bonusLabel2']:setString(Str('{1}%\n보너스', discount_value))
+                end
             end
 
             return

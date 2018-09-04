@@ -89,7 +89,7 @@ function UI_EventFullPopup:initUI()
         end
 
     -- 다이아 할인 상품 풀팝업
-    elseif string.find(popup_key, 'event_dia_discount') then
+    elseif string.find(popup_key, 'event_dia_discount') or string.find(popup_key, 'event_gold_bonus') then
         local package_name = popup_key
         local is_popup = false
         ui = PackageManager:getTargetUI(package_name, is_popup)
