@@ -10,6 +10,9 @@
     dc_rune_100 : 룬 해제 무료 이벤트
     dc_runelvup_50 : 룬 강화 50% 할인 이벤트
     dc_skillmove_50 : 스킬 이전 50% 할인 이벤트
+    dc_reinforce_20 -> 강화 20% 할인
+    dc_reinforce_30 -> 강화 30% 할인
+    dc_reinforce_50 -> 강화 50% 할인
 
     exp_1_5x : 경험치 1.5배 이벤트
     exp_2x : 경험치 2배 이벤트
@@ -49,6 +52,7 @@ HOTTIME_SALE_EVENT = {
     RUNE_RELEASE = 'rune', -- 룬 해제 할인
     RUNE_ENHANCE = 'runelvup', -- 룬 강화 할인
     SKILL_MOVE= 'skillmove', -- 스킬 이전 할인
+    DRAGON_REINFORCE = 'reinforce', -- 드래곤 강화
 }
 
 -- 부스터 아이템도 핫타임으로 관리 (사용시 핫타임에 등록됨)
@@ -640,6 +644,10 @@ function ServerData_HotTime:getDiscountEventText_Free(dc_target, only_value)
 
     elseif (dc_target == HOTTIME_SALE_EVENT.SKILL_MOVE) then
         dc_text = Str('스킬 이전 무료')
+
+    elseif (dc_target == HOTTIME_SALE_EVENT.DRAGON_REINFORCE) then
+        dc_text = Str('드래곤 강화 무료')
+
     end
 
     return dc_text
@@ -663,6 +671,9 @@ function ServerData_HotTime:getDiscountEventText_Value(dc_target, only_value)
 
     elseif (dc_target == HOTTIME_SALE_EVENT.SKILL_MOVE) then
         dc_text = Str('스킬 이전 {1}% 할인', dc_value)
+
+    elseif (dc_target == HOTTIME_SALE_EVENT.DRAGON_REINFORCE) then
+        dc_text = Str('드래곤 강화 {1}% 할인', dc_value)
     end
 
     return dc_text

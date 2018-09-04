@@ -297,6 +297,11 @@ function UI_DragonManageInfo:refresh_buttonState()
 
         elseif (dc_target == HOTTIME_SALE_EVENT.SKILL_MOVE) then
             name = 'skillEnhanceEventSprite'
+
+        -- 드래곤 강화 할인 이벤트
+        elseif (dc_target == HOTTIME_SALE_EVENT.DRAGON_REINFORCE) then
+            name = 'reinforceEventSprite'
+
         end
 
         if (name) then

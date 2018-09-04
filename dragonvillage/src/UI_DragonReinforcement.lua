@@ -121,6 +121,8 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonReinforcement:refresh()
+    local vars = self.vars
+
     self:refresh_dragonInfo()
 	self:refresh_reinforceInfo()
 	self:refresh_stats()
@@ -128,8 +130,12 @@ function UI_DragonReinforcement:refresh()
 
 	-- 강화 포인트 상점 버튼 갱신
     local shop_visible = (self.m_selectDragonData:getRarity() == 'legend')
-	self.vars['reinforceShopBtn']:setVisible(shop_visible)
-    self.vars['reinforceShopBtn']:setAutoShake(shop_visible) -- 버튼 흔들기효과 (눈에 더 띄게)
+	vars['reinforceShopBtn']:setVisible(shop_visible)
+    vars['reinforceShopBtn']:setAutoShake(shop_visible) -- 버튼 흔들기효과 (눈에 더 띄게)
+
+    -- 할인 이벤트
+    local only_value = true
+	g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.DRAGON_REINFORCE, vars, 'reinforceEventSprite', only_value)
 end
 
 -------------------------------------
@@ -230,6 +236,11 @@ function UI_DragonReinforcement:refresh_reinforceInfo()
 
 	-- 강화 비용
 	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
+    -- 룬 할인 이벤트
+	local dc_value = g_hotTimeData:getDiscountEventValue(HOTTIME_SALE_EVENT.DRAGON_REINFORCE) -- 'reinforce'
+    if (dc_value) then
+		curr_cost = curr_cost * (1 - (dc_value / 100))
+	end
 	vars['priceLabel']:setString(comma_value(curr_cost))
 end
 
