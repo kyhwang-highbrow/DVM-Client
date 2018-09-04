@@ -17,6 +17,7 @@ UI_BattleMenuItem = class(PARENT, {
         -- nest_nightmare	[네스트] 악몽 던전
         -- secret_relation 인연던전
         -- ancient_ruin 고대 유적 던전
+        -- gold_dungeon 황금 던전
         
         m_notiIcon = 'cc.Sprite',
      })
@@ -176,6 +177,10 @@ function UI_BattleMenuItem:click_enterBtn()
     -- 고대 유적 던전
     elseif (content_type == 'ancient_ruin') then
         UINavigator:goTo('ancient_ruin')
+
+    -- 황금 던전
+    elseif (content_type == 'gold_dungeon') then
+        UINavigator:goTo('gold_dungeon')
 
     end
 end

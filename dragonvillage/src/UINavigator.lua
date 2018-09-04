@@ -76,6 +76,9 @@ if false then
     -- @brief 전투 메뉴로 이동
     -- @param optional tab_name(string) 'adventure', 'dungeon', 'competition'
     UINavigator:goTo('battle_menu', tab_name)
+
+    -- @brief 황금 던전으로 이동
+    UINavigator:goTo('gold_dungeon')
 end
 
 

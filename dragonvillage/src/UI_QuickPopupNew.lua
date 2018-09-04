@@ -91,6 +91,9 @@ end
 function UI_QuickPopupNew:init_competitionBtn()
     local vars = self.vars
     local l_content = {}
+    if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
+        table.insert(l_content, 'gold_dungeon')
+    end
     table.insert(l_content, 'ancient')
     -- 시험의탑 오픈된 경우에만 노출
     if (g_attrTowerData:isContentOpen()) then

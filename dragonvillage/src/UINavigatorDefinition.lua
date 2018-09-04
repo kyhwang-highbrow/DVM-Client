@@ -1500,6 +1500,62 @@ function UINavigatorDefinition:goTo_mail_select(...)
 	g_mailData:request_mailList(finish_cb)
 end
 
+-------------------------------------
+-- function goTo_gold_dungeon
+-- @brief 황금 던전으로 이동
+-- @usage UINavigatorDefinition:goTo('gold_dungeon')
+-------------------------------------
+function UINavigatorDefinition:goTo_gold_dungeon(...)
+    local args = {...}
+    local stage_id = args[1]
+    local dungeon_type = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_GoldDungeonScene')
+    if (is_opend == true) then
+        -- 기존 UI에 등록된 콜백 저장
+        local close_cb = ui.m_closeCB
+        ui:setCloseCB(nil)
+
+        -- 해당 UI까지 포함해서 삭제
+        self:closeUIList(idx, true) -- param : idx, include_idx
+
+        -- 새로 생성 (갱신을 위해)
+        local new_ui = UI_GoldDungeonScene()
+        new_ui:setCloseCB(close_cb)
+        return
+    end
+
+    -- 전투 메뉴가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        ui:setTab('dungeon') -- 전투 메뉴에서 tab의 이름이 'dungeon'이다.
+        ui:resetButtonsPosition()
+        UI_GoldDungeonScene()
+        return
+    end
+
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        local battle_menu_ui = UI_BattleMenu()
+        battle_menu_ui:setTab('dungeon') -- 전투 메뉴에서 tab의 이름이 'dungeon'이다.
+        battle_menu_ui:resetButtonsPosition()
+        UI_GoldDungeonScene()
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        local scene = SceneCommon(UI_GoldDungeonScene, close_cb)
+        scene:runScene()
+    end
+end
 
 
 

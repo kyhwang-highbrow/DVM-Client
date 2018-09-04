@@ -345,6 +345,9 @@ function getContentName(content_type)
     elseif (content_type == 'ancient_ruin') then
         content_name = Str('고대 유적 던전')
 
+    elseif (content_type == 'gold_dungeon') then
+        content_name = Str('황금 던전')
+
     else
         error('content_type : ' .. content_type)
     end

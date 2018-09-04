@@ -835,6 +835,7 @@ local t_module = {
     'UI_TeamBonusListItem',
     'UI_DragonChanceUp',
     'UI_DragonChanceUpListItem',
+    'UI_GoldDungeonScene',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',

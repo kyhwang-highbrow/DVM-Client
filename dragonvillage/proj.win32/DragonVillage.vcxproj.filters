@@ -3724,6 +3724,9 @@
     <None Include="..\src\PerpleSdkManager.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_GoldDungeonScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

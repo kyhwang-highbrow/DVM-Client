@@ -1433,6 +1433,11 @@ function UI_Lobby:update_rightButtons()
         vars['goldDungeonBtn']:setVisible(false)
     end
 
+    -- 황금던전이 항상 열려있는 모드이면 마을에서 노출하지 않음
+    if GOLD_DUNGEON_ALWAYS_OPEN then
+        vars['goldDungeonBtn']:setVisible(false)
+    end
+
     -- 카드 짝 맞추기 버튼
     if g_hotTimeData:isActiveEvent('event_match_card') then
         vars['matchCardBtn']:setVisible(true)

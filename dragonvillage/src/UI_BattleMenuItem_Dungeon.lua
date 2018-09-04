@@ -59,6 +59,10 @@ function UI_BattleMenuItem_Dungeon:getDescStr(content_type)
     -- 클랜 던전
     elseif (content_type == 'clan_raid') then
         desc = Str('클랜 던전')
+
+    -- 황금 던전
+    elseif (content_type == 'gold_dungeon') then
+        desc = Str('골드 획득 가능')
     end
 
     return desc
