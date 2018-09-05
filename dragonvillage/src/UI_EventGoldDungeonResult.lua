@@ -332,6 +332,11 @@ end
 -- @brief 황금던전 버튼
 -------------------------------------
 function UI_EventGoldDungeonResult:click_eventBtn()
+    if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
+        UINavigator:goTo('gold_dungeon')
+        return
+    end
+
 	UINavigator:goTo('event_gold_dungeon')
 end
 
