@@ -84,9 +84,6 @@ public class AppActivity extends Cocos2dxActivity{
     // @tapjoy
     static final String TAPJOY_SDK_KEY = "MZ5hVosGT1eLIW00UXCPvgEC7RNJdi2ZS0Kjtpd7IgoRLXg6N96edKY8h5cA";
 
-    // @unity-ads
-    static final String UNITY_ADS_GAME_ID = "1515686";
-
     // @twitter
     static final String TWITTER_CONSUMER_KEY = "VCJ9gb6EjeIQO74rAbUl9B6aj";
     static final String TWITTER_CONSUMER_SECRET = "D0kt613Jye142Efej1DxtvJguItaK5PtgvYyJfY34Pvqs1HCBH";
@@ -98,15 +95,18 @@ public class AppActivity extends Cocos2dxActivity{
     static final String NAVER_NEO_ID_CONSUMER_KEY = "_hBggTZAp2IPapvAxwQl";
     static final int NAVER_COMMUNITY_ID = 0;
 
-    // @adcolony
-    static final String ADCOLONY_APP_ID = "app36c426430b1a4ffd96";
-
     // @adjust
     static final String ADJUST_TOKKEN_ID = "esjmkti8vim8";
     static final long[] ADJUST_SECRET_KEY = {1, 562501988, 1877997235, 662395286, 1781468312};
 
     // @admob
     static final String ADMOB_APP_ID = "ca-app-pub-9497777061019569~9623723983";
+
+    // @xsolla
+    static final int XSOLLA_MERCHANT_ID = 60608;
+    static final String XSOLLA_API_KEY = "tP3xsMG3ZXasBD52";
+    static final int XSOLLA_PROJECT_ID = 35042;
+    static final String XSOLLA_SECRET_KEY = "dR0p3BnJAunszS5g";
 
     // others
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
@@ -171,6 +171,9 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @admob
         PerpleSDK.getInstance().initAdMob(ADMOB_APP_ID, isDebug);
+
+        // @xsolla
+        PerpleSDK.getInstance().initXsolla(XSOLLA_MERCHANT_ID, XSOLLA_API_KEY, XSOLLA_PROJECT_ID, XSOLLA_SECRET_KEY, isDebug);
     }
 
     @Override
