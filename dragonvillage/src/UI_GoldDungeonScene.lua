@@ -25,7 +25,7 @@ function UI_GoldDungeonScene:init()
     self:initButton()
     self:refresh()
 
-    --self:sceneFadeInAction()
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
@@ -50,6 +50,10 @@ function UI_GoldDungeonScene:initUI()
     local vars = self.vars
     vars['staminaLabel']:setString('1')
     vars['totalTicketLabel']:setString(Str('입장권은 매일 {1}개까지 충전됩니다.', 2))
+
+    -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
+    local scr_size = cc.Director:getInstance():getWinSize()
+    vars['bgVisual']:setScale(scr_size.width / 1280)
 end
 
 -------------------------------------
