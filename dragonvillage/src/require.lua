@@ -812,7 +812,6 @@ local t_module = {
     'UI_WebView',
     'UI_Help',
     'UI_DragonGoodbyeResult',
-    'UI_QuickPopup',
     'UI_QuickPopupNew',
     'UI_CouponPopup',
     'UI_CouponPopup_Confirm',

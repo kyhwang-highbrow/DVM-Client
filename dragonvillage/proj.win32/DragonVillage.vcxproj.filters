@@ -2433,9 +2433,6 @@
     <None Include="..\src\UI_BattleMenuItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_QuickPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ColosseumReadyForDev.lua">
       <Filter>lua\UI</Filter>
     </None>
