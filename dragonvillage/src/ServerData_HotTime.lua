@@ -547,7 +547,9 @@ function ServerData_HotTime:refreshActivatedDiscountEvent()
 			-- 활성 이벤트
 			else
 				if (self.m_activeDcEventTable[dc_target]) then
-					if (self.m_activeDcEventTable[dc_target]['value'] > value) then 
+
+                    -- 할인률이 더 높은 이벤트로 설정
+					if (self.m_activeDcEventTable[dc_target]['value'] < value) then 
 						self.m_activeDcEventTable[dc_target] = {['enddate'] = end_at, ['value'] = value}
 					end
 				else
