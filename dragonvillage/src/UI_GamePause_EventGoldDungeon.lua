@@ -19,7 +19,11 @@ end
 -------------------------------------
 function UI_GamePause_EventGoldDungeon:click_retryButton()
     local function retry_func()
-        UINavigator:goTo('event_gold_dungeon')
+        if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
+            UINavigator:goTo('gold_dungeon')
+        else
+            UINavigator:goTo('event_gold_dungeon')
+        end
     end
     
     self:confirmExit(retry_func)
@@ -30,7 +34,11 @@ end
 -------------------------------------
 function UI_GamePause_EventGoldDungeon:click_homeButton()
     local function retry_func()
-        UINavigator:goTo('event_gold_dungeon')
+        if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
+            UINavigator:goTo('gold_dungeon')
+        else
+            UINavigator:goTo('event_gold_dungeon')
+        end
     end
     
     self:confirmExit(retry_func)

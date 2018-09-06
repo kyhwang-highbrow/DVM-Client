@@ -300,7 +300,11 @@ end
 function UI_EventGoldDungeonResult:click_againBtn()
     local stage_id = self.m_stageID
     local function close_cb()
-        UINavigator:goTo('event_gold_dungeon')
+        if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
+            UINavigator:goTo('gold_dungeon')
+        else
+            UINavigator:goTo('event_gold_dungeon')
+        end
     end
 
     UINavigator:goTo('battle_ready', stage_id, close_cb)
