@@ -2726,6 +2726,40 @@ tolua_lerror:
 #endif
     return 0;
 }
+static int tolua_cocos2dx_Node_isExist(lua_State* tolua_S)
+{
+    int argc = 0;
+    cocos2d::Node* cobj = NULL;
+    bool ok = true;
+
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+    tolua_Error tolua_err;
+    if (!tolua_isusertype(tolua_S, 1, "cc.Node", 0, &tolua_err)) goto tolua_lerror;
+#endif
+
+    cobj = (cocos2d::Node*)tolua_tousertype(tolua_S, 1, 0);
+
+    argc = lua_gettop(tolua_S) - 1;
+    if (argc == 0)
+    {
+        if (!ok)
+            return 0;
+        bool ret = true;
+        if (!cobj)
+            ret = false;
+        tolua_pushboolean(tolua_S, (bool)ret);
+        return 1;
+    }
+    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "isExist", argc, 0);
+    return 0;
+
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
+tolua_lerror:
+    tolua_error(tolua_S, "#ferror in function 'tolua_cocos2dx_Node_isExist'.", &tolua_err);
+#endif
+
+    return 0;
+}
 
 static int tolua_cocos2d_Spawn_create(lua_State* tolua_S)
 {
@@ -3981,6 +4015,9 @@ static void extendNode(lua_State* tolua_S)
         lua_pushstring(tolua_S, "setRelativeSizeType");
         lua_pushcfunction(tolua_S, tolua_cocos2d_Node_setRelativeSizeType);
         lua_rawset(tolua_S, -3);
+
+        // added by mskim
+        tolua_function(tolua_S, "isExist", tolua_cocos2dx_Node_isExist);
     }
     lua_pop(tolua_S, 1);
 }
