@@ -165,11 +165,13 @@ end
 -- function clearSelectedItem
 -- @brief
 -------------------------------------
-function UI_Inventory:clearSelectedItem()
+function UI_Inventory:clearSelectedItem(skip_clear_info)
     self.m_selectedItemUI = nil
     self.m_selectedItemData = nil
 
-    self:clearItemInfo()
+    if (not skip_clear_info) then
+        self:clearItemInfo()
+    end
 end
 
 -------------------------------------

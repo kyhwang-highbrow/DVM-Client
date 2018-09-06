@@ -37,7 +37,9 @@ function UI_InventoryTabRune:onChangeTab(tab, first)
 
     self:init_runeTableView(slot_idx)
 
-    self.m_inventoryUI:setSelectedItem(nil, nil)
+    -- 테이블 뷰에서 선택된 셀의 변수를 초기화
+    local skip_clear_info = true
+    self.m_inventoryUI:clearSelectedItem(skip_clear_info)
 
 	self:refresh_noti()
 end
