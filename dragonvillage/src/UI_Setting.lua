@@ -135,8 +135,8 @@ end
 -------------------------------------
 function UI_Setting:checkGameLanguage()
 
-    local Language_verification_complete = g_settingData:get('language_verification_complete')
-    if (Language_verification_complete == true) then
+    local language_verification_complete = g_settingData:get('language_verification_complete')
+    if (language_verification_complete == true) then
         return
     end
 
