@@ -1647,9 +1647,6 @@
     <None Include="..\src\StructIndividualStatus.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\StructProduct.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\StructQuestData.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3723,6 +3720,12 @@
     </None>
     <None Include="..\src\UI_GoldDungeonScene.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\PaymentHelper.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructProduct.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
