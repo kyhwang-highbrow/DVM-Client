@@ -16,7 +16,7 @@ def testRequestXsolla():
     projectId = 35042
     secretKey = "dR0p3BnJAunszS5g"
 
-    url = "https://api.xsolla.com/merchant/v2/merchants/%d/token" % merchantId
+    url = "https://api.xsolla.com/merchant/v3/merchants/%d/token" % merchantId
     print url
 
     base64Key = base64encode(str(merchantId) + ":" + apiKey)
@@ -29,17 +29,44 @@ def testRequestXsolla():
     data = {
         "user" : {
             "id" : {
-                "value" : "user_id_test",
+                "value" : "test_user.id.value",
+                "hidden" : True
+            },
+            "name" : {
+                "value" : "Kami test name",
                 "hidden" : False
             }
         },
         "settings" : {
             "project_id" : projectId,
-            "mode" : "sandbox"
+            "external_id" : "test_external_id", 
+            "mode" : "sandbox",
+            "ui" : {
+                "size" : "medium",
+                "version" : "mobile",
+                "theme" : "default_dark"
+            }
+        },
+        "purchase" : {
+            "virtual_items" : {
+                "items" : [
+                    {
+                        "sku" : "test_sku_gold",
+                        "amount" : 1
+                    }
+                ]
+            }
+        },
+        "custom_parameters" : {
+            "product_id" : 90091,
+            "price" : 55000
         }
     }
     print data
     r = requests.post(url, headers = headers, data = json.dumps(data))
+    print r.json()
+    print "https://sandbox-secure.xsolla.com/paystation3/?access_token=%s" % r.json()['token']
+
     return r
 
 ###################################
