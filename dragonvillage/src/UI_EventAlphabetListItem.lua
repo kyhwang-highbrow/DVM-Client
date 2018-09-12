@@ -72,7 +72,7 @@ function UI_EventAlphabetListItem:refresh()
     end
 
 
-    for _,data in pairs(self.m_lAlphabetIcon) do
+    for i,data in pairs(self.m_lAlphabetIcon) do
         local item_id = data['item_id']
         local item_id_str = tostring(item_id)
         local item_card = data['ui']
@@ -113,6 +113,9 @@ function UI_EventAlphabetListItem:refresh()
 
         -- 사용된 수량 감소
         alphabet_data[item_id_str] = math_max(alphabet_data[item_id_str] - 1)
+
+        -- 등장 연출
+        cca.fruitReact(item_card.root, i)
     end
 
     local word_id = self.m_tWordData['id']
