@@ -667,3 +667,19 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 
     return ui_network
 end
+
+-------------------------------------
+-- function confirm_reward
+-- @brief 보상 정보
+-------------------------------------
+function ServerData:confirm_reward(ret)
+    if ret['item_info'] then
+        UI_MailRewardPopup(ret['item_info'])
+
+    elseif ret['mail_item_info'] then
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+
+        g_highlightData:setHighlightMail()
+    end
+end

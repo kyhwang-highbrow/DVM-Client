@@ -2,99 +2,14 @@
 -- class ServerData_EventAlphabet
 -------------------------------------
 ServerData_EventAlphabet = class({
-        m_lCellList = 'table',
-        m_lLapList = 'table',
-
-        m_diceInfo = 'StructEventDiceInfo',
-
         m_endTime = 'time',
+        m_exchangeInfo = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_EventAlphabet:init()
-end
-
--------------------------------------
--- function getDiceInfo
--------------------------------------
-function ServerData_EventAlphabet:getDiceInfo()
-    return self.m_diceInfo
-end
-
--------------------------------------
--- function getCellList
--------------------------------------
-function ServerData_EventAlphabet:getCellList()
-    return self.m_lCellList
-end
-
--------------------------------------
--- function getLapList
--------------------------------------
-function ServerData_EventAlphabet:getLapList()
-    return self.m_lLapList
-end
-
--------------------------------------
--- function getDiceInfo
--------------------------------------
-function ServerData_EventAlphabet:makePrettyCellList(t_data)
-    local l_ret = {}
-
-    for cell, reward in pairs(t_data) do
-        local l_reward = plSplit(reward, ';')
-        local cell_num = tonumber(cell)
-
-        table.insert(l_ret, {
-            ['item_id'] = tonumber(l_reward[1]),
-            ['value'] = l_reward[2],
-            ['cell'] = cell_num
-        })
-    end
-    
-    table.sort(l_ret, function(a, b) 
-        return a['cell'] < b['cell']
-    end)
-    
-    return l_ret
-end
-
--------------------------------------
--- function makePrettyLapRewardList
--------------------------------------
-function ServerData_EventAlphabet:makePrettyLapRewardList(t_data, t_reward)
-    local l_ret = {}
-
-    -- reward = '700001;1,700002;1'
-    for lap, reward in pairs(t_data) do
-        
-        local comma_split_list = plSplit(reward, ',')
-        local l_reward = {}
-        for i, each_reward_str in pairs(comma_split_list) do
-            local semi_split_list = plSplit(each_reward_str, ';')
-            table.insert(l_reward, {
-                ['item_id'] = tonumber(semi_split_list[1]),
-                ['value'] = tonumber(semi_split_list[2]),
-            })
-        end
-        
-        local lap_num = tonumber(lap)
-        local is_recieved = (t_reward[lap] == 1)
-
-        table.insert(l_ret, {
-            ['l_reward'] = l_reward,
-            ['lap'] = lap_num,
-            ['is_recieved'] = is_recieved
-        })
-    end
-    
-    table.sort(l_ret, function(a, b) 
-        return a['lap'] < b['lap']
-    end)
-
-    return l_ret
 end
 
 -------------------------------------
@@ -134,18 +49,7 @@ function ServerData_EventAlphabet:request_alphabetEventInfo(finish_cb, fail_cb)
 
     -- 콜백
     local function success_cb(ret)
-        if ret['alphabet_info'] then
-            ret['alphabet'] = ret['alphabet_info']
-        end
-
-        -- server_info 정보를 갱신
-        g_serverData:networkCommonRespone(ret)
-
-        --self.m_lCellList = self:makePrettyCellList(ret['cell_list'])
-        --self.m_lLapList = self:makePrettyLapRewardList(ret['lap_list'], ret['dice_reward'])
-        --self.m_diceInfo = StructEventDiceInfo(ret['dice_info'])
-        --self.m_endTime = ret['end']
-
+        self:response_alphabetEvent(ret)
         if finish_cb then
             finish_cb(ret)
         end
@@ -166,26 +70,16 @@ function ServerData_EventAlphabet:request_alphabetEventInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_diceRoll
--- @brief 이벤트 재화 사용
+-- function request_alphabetEventReward
+-- @brief 단어 조합 보상
 -------------------------------------
-function ServerData_EventAlphabet:request_diceRoll(finish_cb)
+function ServerData_EventAlphabet:request_alphabetEventReward(finish_cb, reward_id)
     -- 유저 ID
     local uid = g_userData:get('uid')
-	
-    -- 추가 주사위 사용 여부 지정 (골드로 일일 5회)
-    local use_add_dice = false
-    local curr_dice = self.m_diceInfo:getCurrDice()
-    if (curr_dice <= 0) then -- 현재 주사위가 없을 경우
-        if (not self.m_diceInfo:useAllAddDice()) then -- 추가 주사위 일일 횟수가 남아있을 경우
-            use_add_dice = true
-        end
-    end
 
     -- 콜백
     local function success_cb(ret)
-        self.m_diceInfo:apply(ret['dice_info'])
-		g_serverData:networkCommonRespone(ret)
+        self:response_alphabetEvent(ret)
         if finish_cb then
             finish_cb(ret)
         end
@@ -193,9 +87,9 @@ function ServerData_EventAlphabet:request_diceRoll(finish_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/dice/roll')
+    ui_network:setUrl('/shop/alphabet_event/reward')
     ui_network:setParam('uid', uid)
-	ui_network:setParam('add_dice', use_add_dice)
+	ui_network:setParam('reward_id', reward_id)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
@@ -205,31 +99,47 @@ function ServerData_EventAlphabet:request_diceRoll(finish_cb)
 end
 
 -------------------------------------
--- function request_diceReward
--- @brief 이벤트 재화 누적 보상
+-- function response_alphabetEvent
+-- @brief
 -------------------------------------
-function ServerData_EventAlphabet:request_diceReward(lap, finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-
-    -- 콜백
-    local function success_cb(ret)                    
-
-        if finish_cb then
-            finish_cb(ret)
-        end
+function ServerData_EventAlphabet:response_alphabetEvent(ret)
+    if ret['alphabet_info'] then
+        ret['alphabet'] = ret['alphabet_info']
     end
 
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/shop/dice/reward')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('lap', lap)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
+    -- server_info 정보를 갱신
+	g_serverData:networkCommonRespone(ret)
 
-    return ui_network
+    -- 보상 획득 정보
+    if ret['exchange_info'] then
+        self.m_exchangeInfo = ret['exchange_info']
+    end
+end
+
+-------------------------------------
+-- function getAlphabetEvent_WordData
+-- @brief
+-------------------------------------
+function ServerData_EventAlphabet:getAlphabetEvent_WordData(word_id)
+    -- 교환 횟수
+    -- 최대 교환 횟수
+
+    -- max                  모두 교환
+    -- not_exchangeable     교환 불가
+    -- exchangeable         교환 가능 (일반 알파벳만 사용)
+    -- exchangeable_wild    (와일드 알파벳 사용)
+
+    local t_word_data = {}
+    t_word_data['exchange_cnt'] = self.m_exchangeInfo['event_alphabet_' .. word_id] or 0
+    t_word_data['exchange_max'] = TableAlphabetEvent():getValue(word_id, 'buy_count') or 0
+
+
+    local status = 'not_exchangeable'
+    if (t_word_data['exchange_max'] <= t_word_data['exchange_cnt']) then
+        status = 'max'
+    end
+    t_word_data['status'] = status
+    
+
+    return t_word_data
 end
