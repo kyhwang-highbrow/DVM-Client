@@ -366,6 +366,7 @@ local t_module = {
     'TableArenaWinReward',
     'TableCollectionReward',
     'TableMastery', -- 특성 테이블
+    'TableAlphabetEvent', -- 알파벳 이벤트
 
     -- Scene
     'SceneCommon',
@@ -1157,6 +1158,7 @@ local t_module = {
     'UI_EventMandragoraQuestListItem',
 	'UI_Event1stComeback',
     'UI_EventAlphabet', -- 알파벳 이벤트
+    'UI_EventAlphabetListItem',
 
 	-- UI : 연출
 	'DirectingCharacter',

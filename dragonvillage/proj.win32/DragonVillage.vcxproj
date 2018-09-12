@@ -868,6 +868,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
+    <None Include="..\src\TableAlphabetEvent.lua" />
     <None Include="..\src\TableArenaWinReward.lua" />
     <None Include="..\src\TableCalendar.lua" />
     <None Include="..\src\TableClanMark.lua" />
@@ -1118,6 +1119,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ErrorPopup_Live.lua" />
     <None Include="..\src\UI_Event1stComeback.lua" />
     <None Include="..\src\UI_EventAlphabet.lua" />
+    <None Include="..\src\UI_EventAlphabetListItem.lua" />
     <None Include="..\src\UI_EventFullPopup.lua" />
     <None Include="..\src\UI_EventGoldDungeon.lua" />
     <None Include="..\src\UI_EventGoldDungeonListItem.lua" />

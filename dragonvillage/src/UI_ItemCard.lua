@@ -68,6 +68,7 @@ function UI_ItemCard:init_commonItem(t_item, t_sub_data)
 
     local icon = IconHelper:getItemIcon(item_id, t_sub_data)
     vars['stoneNode']:addChild(icon)
+    vars['icon'] = icon
 
     if (not count) or (count == 0) then
         vars['numberLabel']:setString('')

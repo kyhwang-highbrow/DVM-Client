@@ -22,6 +22,28 @@ end
 -- function initUI
 -------------------------------------
 function UI_EventAlphabet:initUI()
+    local vars = self.vars
+
+    local l_word = TableAlphabetEvent:getWordList()
+
+    for i,v in ipairs(l_word) do
+        local ui_name
+
+        if (i == 1) then
+            ui_name = 'alphabet_event_list_item_01.ui'
+        else
+            ui_name = 'alphabet_event_list_item_02.ui'
+        end
+
+        local list_item = UI_EventAlphabetListItem(ui_name)
+        vars['itemNode' .. i]:removeAllChildren()
+        vars['itemNode' .. i]:addChild(list_item.root)
+        list_item:refresh(v)
+    end
+
+
+    
+
     if true then
         return
     end

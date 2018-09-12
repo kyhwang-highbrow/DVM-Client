@@ -3733,6 +3733,12 @@
     <None Include="..\src\ServerData_EventAlphabet.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableAlphabetEvent.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_EventAlphabetListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
