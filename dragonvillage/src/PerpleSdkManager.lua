@@ -70,10 +70,14 @@ end
 function PerpleSdkManager:makeErrorPopup(info)
     local t_info = dkjson.decode(info)
 	local error_str
-	if (t_info['msg'] and t_info['msg'] ~= '') then
-		error_str = string.format('%s [Error code = %d:%s]\n%s', Str('오류가 발생했습니다.'), t_info['code'], t_info['subcode'], t_info['msg'])
+	if (t_info) then
+		if (t_info['msg'] and t_info['msg'] ~= '') then
+			error_str = string.format('%s [Error code = %d:%s]\n%s', Str('오류가 발생했습니다.'), t_info['code'], t_info['subcode'], t_info['msg'])
+		else
+			error_str = string.format('%s [Error code = %d:%s]', Str('오류가 발생했습니다.'), t_info['code'], t_info['subcode'])
+		end
 	else
-		error_str = string.format('%s [Error code = %d:%s]', Str('오류가 발생했습니다.'), t_info['code'], t_info['subcode'])
+		error_str = string.format('%s [Error. %s]', Str('오류가 발생했습니다.'), info or '')
 	end
     MakeSimplePopup(POPUP_TYPE.OK, error_str)
 end
