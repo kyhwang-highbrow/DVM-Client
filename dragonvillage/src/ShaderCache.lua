@@ -12,6 +12,9 @@ SHADER_DARK = 'shader_dark'
 
 SHADER_GRAY_PNG  = 'shader_gray_png'
 
+-- sprite의 default shader는 cc.SHADER_POSITION_TEXTURE_COLOR_NO_MVP
+SHADER_DEFAULT_SPRITE = cc.SHADER_POSITION_TEXTURE_COLOR_NO_MVP
+
 POSITION_TEXTURE_COLOR_P_VERTEX = 'shader/position_texture_color_P_vertex.vsh'
 POSITION_TEXTURE_COLOR_NO_MVP_VERTEX = 'shader/position_texture_color_noMvp_vertex.vsh'
 
