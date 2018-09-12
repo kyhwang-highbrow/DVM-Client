@@ -136,7 +136,7 @@ function PaymentHelper.payment(struct_product, cb_func)
             end
 
             local iswin = false
-            g_shopDataNew:request_checkReceiptValidation(self, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
+            g_shopDataNew:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -181,9 +181,9 @@ local function coroutine_function(dt)
         end
         co:setCloseCB(coroutine_finidh_cb)
 
-        local sku = self['sku']
-        local product_id = self['product_id']
-        local price = self['price']
+        local sku = struct_product['sku']
+        local product_id = struct_product['product_id']
+        local price = struct_product['price']
         local validation_key = nil
         local orderId = nil
 
@@ -217,7 +217,8 @@ local function coroutine_function(dt)
 				["nick"] = g_userData:get('nick'),
 				['validation_key'] = validation_key,
 				["product_id"] = product_id,
-				['sku'] = "sku_test", --sku
+				['price'] = price,
+				['sku'] = sku
 			}
 			local payload = dkjson.encode(payload_table)
 			
@@ -225,13 +226,29 @@ local function coroutine_function(dt)
             cclog('## payload : ' .. payload)
 
 			local function cb_func(ret, info)
-				cclog('Xsolla', ret, info)
+				cclog('Xsolla Payment', ret, info)
 
 				if (ret == 'success') then
-					co.NEXT()
-				elseif (ret == 'fail') then
-					co.ESCAPE()
-				end
+                    cclog('## 결제 성공')                    
+					local info_json = dkjson.decode(info)
+                    orderId = info_json and info_json['orderId']
+                    co.NEXT()
+
+                elseif (ret == 'fail') then
+                    cclog('## 결제 실패')
+                    error_info = info
+                    co.ESCAPE()
+
+                elseif (ret == 'cancel') then
+                    cclog('## 결제 취소')
+                    error_msg = Str('결제를 취소하였습니다.')
+                    co.ESCAPE()
+
+                else
+                    cclog('## 결제 결과 (예외) : ' .. ret)
+                    error_info = info
+                    co.ESCAPE()
+                end
 				
 				HideLoading("")
 			end
