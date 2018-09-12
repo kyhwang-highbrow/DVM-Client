@@ -121,6 +121,9 @@ function ServerData:getInstance()
     -- 이벤트
     g_eventDiceData = ServerData_EventDice()
 
+    -- 알파벳 이벤트
+    g_eventAlphabetData = ServerData_EventAlphabet()
+
     -- 이벤트
     g_eventGoldDungeonData = ServerData_EventGoldDungeon()
 
@@ -396,9 +399,6 @@ function ServerData:networkCommonRespone(ret)
         -- 알파벳 갱신
         if ret['alphabet'] then
             self:applyServerData(ret['alphabet'], 'user', 'alphabet')
-        end
-        if ret['alphabet_info'] then
-            self:applyServerData(ret['alphabet_info'], 'user', 'alphabet')
         end
 
         -- 외형 변환 재료 갱신

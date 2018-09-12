@@ -504,6 +504,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_DragonDiary.lua" />
     <None Include="..\src\ServerData_Eggs.lua" />
     <None Include="..\src\ServerData_Event.lua" />
+    <None Include="..\src\ServerData_EventAlphabet.lua" />
     <None Include="..\src\ServerData_EventDice.lua" />
     <None Include="..\src\ServerData_EventGoldDungeon.lua" />
     <None Include="..\src\ServerData_EventMandragoraQuest.lua" />
@@ -1116,6 +1117,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EggPopup.lua" />
     <None Include="..\src\UI_ErrorPopup_Live.lua" />
     <None Include="..\src\UI_Event1stComeback.lua" />
+    <None Include="..\src\UI_EventAlphabet.lua" />
     <None Include="..\src\UI_EventFullPopup.lua" />
     <None Include="..\src\UI_EventGoldDungeon.lua" />
     <None Include="..\src\UI_EventGoldDungeonListItem.lua" />

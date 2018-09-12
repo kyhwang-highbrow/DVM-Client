@@ -240,6 +240,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local inner_ui = UI_EventGoldDungeon()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
+    -- 알파벳 이벤트
+    elseif (tab =='event_alphabet') then
+        local inner_ui = UI_EventAlphabet()
+        ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
+
     -- 카드 짝 맞추기 이벤트
     elseif (tab =='event_match_card') then
         local inner_ui = UI_EventMatchCard()

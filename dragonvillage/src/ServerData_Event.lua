@@ -467,13 +467,19 @@ function ServerData_Event:openEventPopup(tab, close_cb)
 
         if (g_hotTimeData:isActiveEvent('event_match_card')) then
             co:work('# 카드 짝 맞추기 이벤트 정보 받는 중')
-            g_eventMatchCardData:request_eventInfo(co.NEXT, required_fail_cb)
+            g_eventMatchCardData:request_eventInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
         if (g_hotTimeData:isActiveEvent('event_mandraquest')) then
             co:work('# 만드라고라의 모험 이벤트 정보 받는 중')
-            g_mandragoraQuest:request_questInfo(co.NEXT, required_fail_cb)
+            g_mandragoraQuest:request_questInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
+        if (g_hotTimeData:isActiveEvent('event_alphabet')) then
+            co:work('# 알파벳 이벤트 정보 받는 중')
+            g_eventAlphabetData:request_alphabetEventInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 

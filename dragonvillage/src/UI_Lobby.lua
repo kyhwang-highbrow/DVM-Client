@@ -998,8 +998,7 @@ function UI_Lobby:click_alphabetBtn()
     if (not g_hotTimeData:isActiveEvent('event_alphabet')) then
         return
     end
-    --g_eventData:openEventPopup('event_alphabet')
-    UIManager:toastNotificationRed(Str('구현 중입니다.'))
+    g_eventData:openEventPopup('event_alphabet')
 end
 
 -------------------------------------

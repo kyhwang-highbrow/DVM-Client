@@ -174,6 +174,7 @@ local t_module = {
     'ServerData_Arena',
     'ServerData_EventMatchCard',
     'ServerData_EventMandragoraQuest',
+    'ServerData_EventAlphabet', -- 알파벳 이벤트
 
     -- Interface
     'IEventDispatcher',
@@ -1154,6 +1155,7 @@ local t_module = {
     'UI_EventMandragoraQuest',
     'UI_EventMandragoraQuestListItem',
 	'UI_Event1stComeback',
+    'UI_EventAlphabet', -- 알파벳 이벤트
 
 	-- UI : 연출
 	'DirectingCharacter',
