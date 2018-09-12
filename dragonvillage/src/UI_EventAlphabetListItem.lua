@@ -92,15 +92,15 @@ function UI_EventAlphabetListItem:refresh()
         vars['receiveBtn']:setVisible(false)
         vars['completeBtn']:setVisible(false)
 
-        -- ¸ğµÎ ±³È¯ÇÑ »óÅÂ
+        -- ëª¨ë‘ êµí™˜í•œ ìƒíƒœ
         if (status == 'max') then
             vars['completeBtn']:setVisible(true)
 
-        -- ±³È¯ ºÒ°¡ »óÅÂ
+        -- êµí™˜ ë¶ˆê°€ ìƒíƒœ
         elseif (status == 'not_exchangeable') then
             vars['readyBtn']:setVisible(true)
 
-        -- ±³È¯ °¡´É »óÅÂ
+        -- êµí™˜ ê°€ëŠ¥ ìƒíƒœ
         elseif (status == 'exchangeable') or (status == 'exchangeable_wild') then
 
         end
@@ -109,7 +109,7 @@ function UI_EventAlphabetListItem:refresh()
     do
         local exchange_cnt = t_word_data['exchange_cnt']
         local exchange_max = t_word_data['exchange_max']
-        local str = Str('±³È¯ °¡´É {1}/{2}', exchange_cnt, exchange_max)
+        local str = Str('êµí™˜ ê°€ëŠ¥ {1}/{2}', exchange_cnt, exchange_max)
         vars['rewardNumberLabel']:setString(str)
     end
 end
@@ -123,7 +123,7 @@ function UI_EventAlphabetListItem:click_receiveBtn()
             self.m_refreshCB()
         end
 
-        -- º¸»ó È¹µæ ¾Ë¸²
+        -- ë³´ìƒ íšë“ ì•Œë¦¼
         g_serverData:confirm_reward(ret)
     end
 

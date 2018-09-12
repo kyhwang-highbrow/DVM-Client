@@ -133,7 +133,7 @@ function TableMasterySkill:getMasterySkillStepDesc(mastery_skill_id, mastery_ski
     local max_lv = self:getValue(mastery_skill_id, 'm_lv')
     local add_value = self:getValue(mastery_skill_id, 'add_value')
     local t_step_desc = self:getValue(mastery_skill_id, 't_step_desc') or ''
-    t_step_desc = trim(t_step_desc) -- ÁÂ/¿ì °ø¹é Á¦°Å
+    t_step_desc = trim(t_step_desc) -- ì¢Œ/ìš° ê³µë°± ì œê±°
     local inner_str = ''
     local base_color = '{@GRAY}'
 
@@ -175,7 +175,7 @@ function TableMasterySkill:getMasterySkillStepDesc_single(mastery_skill_id, mast
     local max_lv = self:getValue(mastery_skill_id, 'm_lv')
     local add_value = self:getValue(mastery_skill_id, 'add_value')
     local t_step_desc = self:getValue(mastery_skill_id, 't_step_desc') or ''
-    t_step_desc = trim(t_step_desc) -- ÁÂ/¿ì °ø¹é Á¦°Å
+    t_step_desc = trim(t_step_desc) -- ì¢Œ/ìš° ê³µë°± ì œê±°
 
     t_step_desc = string.gsub(t_step_desc, '%(', '')
     t_step_desc = string.gsub(t_step_desc, '%)', '')
