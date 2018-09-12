@@ -393,6 +393,14 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
         end
 
+        -- 알파벳 갱신
+        if ret['alphabet'] then
+            self:applyServerData(ret['alphabet'], 'user', 'alphabet')
+        end
+        if ret['alphabet_info'] then
+            self:applyServerData(ret['alphabet_info'], 'user', 'alphabet')
+        end
+
         -- 외형 변환 재료 갱신
         if ret['transform_materials'] then
             self:applyServerData(ret['transform_materials'], 'user', 'transform_materials')
@@ -543,6 +551,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 진화 재료 갱신 (전체 갱신)
     RefreshGoods(t_added_items, 'evolution_stones')
+
+    -- 알파뱃 갱신 (전체 갱신)
+    RefreshGoods(t_added_items, 'alphabet')
 
     -- 외형 변환 갱신 (전체 갱신)
     RefreshGoods(t_added_items, 'transform_materials')

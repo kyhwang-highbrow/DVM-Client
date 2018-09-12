@@ -491,6 +491,7 @@ function UI_Lobby:initButton()
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
+    vars['alphabetBtn']:registerScriptTapHandler(function() self:click_alphabetBtn() end) -- 알파벳 이벤트
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
     vars['matchCardBtn']:registerScriptTapHandler(function() self:click_matchCardBtn() end) -- 카드 짝 맞추기 이벤트
     vars['mandragoraBtn']:registerScriptTapHandler(function() self:click_mandragoraBtn() end) -- 만드라고라의 모험 이벤트
@@ -990,6 +991,18 @@ function UI_Lobby:click_diceBtn()
 end
 
 -------------------------------------
+-- function click_alphabetBtn
+-- @brief 알파벳 이벤트
+-------------------------------------
+function UI_Lobby:click_alphabetBtn()
+    if (not g_hotTimeData:isActiveEvent('event_alphabet')) then
+        return
+    end
+    --g_eventData:openEventPopup('event_alphabet')
+    UIManager:toastNotificationRed(Str('구현 중입니다.'))
+end
+
+-------------------------------------
 -- function click_goldDungeonBtn
 -- @brief 황금던전 이벤트
 -------------------------------------
@@ -1271,6 +1284,7 @@ function UI_Lobby:update(dt)
         local map_check_event = {}
         map_check_event['event_match_card'] = 'matchCardLabel' -- 카드 짝 맞추기
         map_check_event['event_gold_dungeon'] = 'goldDungeonLabel' -- 황금 던전 (골드라고라 던전)
+        map_check_event['event_alphabet'] = 'alphabetLabel' -- 알파벳 이벤트
 
         for event_name, label_name in pairs(map_check_event) do
             local remain_text = g_hotTimeData:getEventRemainTimeText(event_name)
@@ -1413,6 +1427,10 @@ function UI_Lobby:update_rightButtons()
         vars['diceBtn']:setVisible(false)
     end
 
+    -- 주사위 버튼
+    local visible = g_hotTimeData:isActiveEvent('event_alphabet')
+    vars['alphabetBtn']:setVisible(visible)
+
     -- 황금던전 버튼
     if g_hotTimeData:isActiveEvent('event_gold_dungeon') then
         vars['goldDungeonBtn']:setVisible(true)
@@ -1483,6 +1501,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'giftBoxBtn')
     table.insert(t_btn_name, 'exchangeBtn')
     table.insert(t_btn_name, 'diceBtn')
+    table.insert(t_btn_name, 'alphabetBtn')
     table.insert(t_btn_name, 'levelupBtn')
     table.insert(t_btn_name, 'adventureClearBtn')
     table.insert(t_btn_name, 'capsuleBoxBtn')
