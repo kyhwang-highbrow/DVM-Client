@@ -21,9 +21,9 @@ def testRequestXsolla():
 
     base64Key = base64encode(str(merchantId) + ":" + apiKey)
     headers = {
-            "Authorization" : "Basic %s" % base64Key,
-            "Content-Type" : "application/json",
-            "Accept" : "application/json"
+        "Authorization" : "Basic %s" % base64Key,
+        "Content-Type" : "application/json",
+        "Accept" : "application/json"
     }
     print headers
     data = {
@@ -69,15 +69,28 @@ def testRequestXsolla():
 
     return r
 
+def testRequestPlatformServer():
+    url = "https://d27b1s0fi2x5xo.cloudfront.net/1003/versions/getPatchInfo"
+    headers = {
+        "Content-Type" : "application/json"
+    }
+    data = {
+        "game_id" : 1003,
+        "app_ver" : "0.5.8",
+        "server" : "DEV"
+    }
+    r = requests.post(url, headers = headers, data = json.dumps(data))
+    return r
+
 ###################################
 # def main
 ###################################
 def main():
-    r = testRequestXsolla()
+    r = testRequestPlatformServer()
     
     print '\n###################################\n[response]\n###################################'
-    print r.status_code
-    print r.text
+    print "status_code : %s" % r.status_code
+    print "text : %s" % r.text
 
 ###################################
 # MAIN
