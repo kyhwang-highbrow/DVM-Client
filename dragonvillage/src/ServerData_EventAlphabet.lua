@@ -137,9 +137,48 @@ function ServerData_EventAlphabet:getAlphabetEvent_WordData(word_id)
     local status = 'not_exchangeable'
     if (t_word_data['exchange_max'] <= t_word_data['exchange_cnt']) then
         status = 'max'
+    else
+        local l_alphabet = TableAlphabetEvent:getAlphabetList(word_id)
+
+        -- clone된 알파벳 수량
+        local alphabet_data = g_userData:get('alphabet')
+        if (not alphabet_data['700237']) then
+            alphabet_data['700237'] = 0
+        end
+        
+        local wild_alphabet_cnt = 0
+        local exchangeable = true
+
+        for _,item_id in ipairs(l_alphabet) do
+
+            local item_id_str = tostring(item_id)
+            if (not alphabet_data[item_id_str]) then
+                alphabet_data[item_id_str] = 0
+            end
+
+            if (alphabet_data[item_id_str] <= 0) then
+                if (alphabet_data['700237'] <= 0) then
+                    exchangeable = false
+                    break
+                else
+                    wild_alphabet_cnt = (wild_alphabet_cnt + 1)
+                    alphabet_data['700237'] = math_max(alphabet_data['700237'] - 1)
+                end
+            end
+
+            -- 사용된 수량 감소
+            alphabet_data[item_id_str] = math_max(alphabet_data[item_id_str] - 1)
+        end
+
+        if exchangeable then
+            if (1 <= wild_alphabet_cnt) then
+                status = 'exchangeable_wild'
+            else
+                status = 'exchangeable'
+            end
+        end
     end
     t_word_data['status'] = status
-    
 
     return t_word_data
 end

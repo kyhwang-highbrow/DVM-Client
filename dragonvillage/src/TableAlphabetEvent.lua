@@ -24,7 +24,7 @@ function TableAlphabetEvent:getWordList()
         self = THIS()
     end
 
-    local word_list = table.MapToList(self.m_orgTable)
+    local word_list = table.MapToList(clone(self.m_orgTable))
 
     local function sort_func(a, b)
         return a['id'] < b['id']
@@ -41,9 +41,26 @@ function TableAlphabetEvent:getWordList()
 end
 
 -------------------------------------
+-- function getAlphabetList
+-------------------------------------
+function TableAlphabetEvent:getAlphabetList(word_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local str = self:getValue(word_id, 'alphabet')
+    local l_item = self:parseAlphabetListStr(str)
+    return l_item
+end
+
+-------------------------------------
 -- function parseAlphabetListStr
 -------------------------------------
 function TableAlphabetEvent:parseAlphabetListStr(str)
+    if (self == THIS) then
+        self = THIS()
+    end
+
     -- str 예시
     -- 700214;1,700228;1,700211;1,700217;1,700225;1,700224;1,700232;1,700219;1,700222;1,700222;1,700211;1,700217;1,700215;1,700223;1
     local l_item = ServerData_Item:parsePackageItemStr(str)

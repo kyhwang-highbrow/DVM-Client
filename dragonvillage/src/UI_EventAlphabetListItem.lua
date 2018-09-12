@@ -41,6 +41,12 @@ function UI_EventAlphabetListItem:initUI()
     end
 
     vars['swallowTouchMenu']:setSwallowTouch(false)
+
+    -- 보상
+    local item_id, count = ServerData_Item:parsePackageItemStrIndivisual(t_word_data['reward'])
+    local ui = UI_ItemCard(item_id, count)
+    ui.root:setSwallowTouch(false)
+    vars['rewardIonNode']:addChild(ui.root)
 end
 
 -------------------------------------
@@ -59,9 +65,21 @@ function UI_EventAlphabetListItem:refresh()
     
     local vars = self.vars
 
+    -- clone된 알파벳 수량
+    local alphabet_data = g_userData:get('alphabet')
+    if (not alphabet_data['700237']) then
+        alphabet_data['700237'] = 0
+    end
+
+
     for _,data in pairs(self.m_lAlphabetIcon) do
         local item_id = data['item_id']
+        local item_id_str = tostring(item_id)
         local item_card = data['ui']
+        
+        if (not alphabet_data[item_id_str]) then
+            alphabet_data[item_id_str] = 0
+        end
 
         local count = g_userData:get('alphabet', tostring(item_id)) or 0
         local count_str
@@ -74,12 +92,27 @@ function UI_EventAlphabetListItem:refresh()
         local vars = item_card.vars
         vars['commonSprite']:setVisible(false)
         vars['bgSprite']:setVisible(false)
+        vars['highlightSprite']:setVisible(false)
         vars['numberLabel']:setString(count_str)
 
-        if (count <= 0) then
-            local shader = ShaderCache:getShader(SHADER_GRAY_PNG)
+        if (alphabet_data[item_id_str] <= 0) then
+            if (alphabet_data['700237'] <= 0) then
+                local shader = ShaderCache:getShader(SHADER_GRAY_PNG)
+                vars['icon']:setGLProgram(shader)    
+            else
+                alphabet_data['700237'] = math_max(alphabet_data['700237'] - 1)
+                local shader = ShaderCache:getShader(SHADER_DEFAULT_SPRITE)
+                vars['icon']:setGLProgram(shader)
+                -- 와일트 카드 사용된 상태
+                vars['highlightSprite']:setVisible(true)
+            end
+        else
+            local shader = ShaderCache:getShader(SHADER_DEFAULT_SPRITE)
             vars['icon']:setGLProgram(shader)
         end
+
+        -- 사용된 수량 감소
+        alphabet_data[item_id_str] = math_max(alphabet_data[item_id_str] - 1)
     end
 
     local word_id = self.m_tWordData['id']
@@ -102,7 +135,7 @@ function UI_EventAlphabetListItem:refresh()
 
         -- 교환 가능 상태
         elseif (status == 'exchangeable') or (status == 'exchangeable_wild') then
-
+            vars['receiveBtn']:setVisible(true)
         end
     end
 
