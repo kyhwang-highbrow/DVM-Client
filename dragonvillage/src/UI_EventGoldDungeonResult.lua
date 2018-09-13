@@ -196,8 +196,10 @@ function UI_EventGoldDungeonResult:show_item_reward()
     local target_node = vars['rewardNode']
     target_node:setVisible(true)
 
+    
     -- 드랍한 아이템 만큼 연출
     local reward_list = self.m_data['drop_reward_list']
+    local l_pos = getSortPosList(150 * ITEM_CARD_SCALE, table.count(reward_list))
     for i, v in ipairs(reward_list) do
         local item_id = v[1]
         local count = v[2]  
@@ -205,6 +207,8 @@ function UI_EventGoldDungeonResult:show_item_reward()
         local item_card = UI_ItemCard(item_id, count)
         item_card.root:setScale(ITEM_CARD_SCALE)
         target_node:addChild(item_card.root)
+
+        item_card.root:setPositionX(l_pos[i])
     end
 
     self:doNextWork() 

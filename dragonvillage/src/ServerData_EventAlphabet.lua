@@ -70,6 +70,11 @@ end
 -- @brief 단어 조합 보상
 -------------------------------------
 function ServerData_EventAlphabet:request_alphabetEventReward(finish_cb, reward_id)
+
+    -- 와일드 알파벳이 사용된 숫자 체크
+    local t_word_data = self:getAlphabetEvent_WordData(reward_id)
+    local wild_cnt = t_word_data['wild_alphabet_cnt'] or 0
+
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -86,10 +91,15 @@ function ServerData_EventAlphabet:request_alphabetEventReward(finish_cb, reward_
     ui_network:setUrl('/shop/alphabet_event/reward')
     ui_network:setParam('uid', uid)
 	ui_network:setParam('reward_id', reward_id)
+    ui_network:setParam('wild_cnt', wild_cnt)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+    -- 에러 코드 (통신상의 이슈로 서버와 클라이언트의 데이터가 일치하지 않을 때 발생할 수 있음)
+    -- NOT_ENOUGH ALPHABET -1237
+    -- INVALID ALPHABET -1337
 
     return ui_network
 end
@@ -99,8 +109,9 @@ end
 -- @brief
 -------------------------------------
 function ServerData_EventAlphabet:response_alphabetEvent(ret)
-    if ret['alphabet_info'] then
-        ret['alphabet'] = ret['alphabet_info']
+    -- 알파벳 테이블을 서버에서 받아옴
+    if ret['table_alphabet_event'] then
+        TABLE:setServerTable('table_alphabet_event', ret['table_alphabet_event'])
     end
 
     -- server_info 정보를 갱신
@@ -128,6 +139,8 @@ function ServerData_EventAlphabet:getAlphabetEvent_WordData(word_id)
     local t_word_data = {}
     t_word_data['exchange_cnt'] = self.m_exchangeInfo['event_alphabet_' .. word_id] or 0
     t_word_data['exchange_max'] = TableAlphabetEvent():getValue(word_id, 'buy_count') or 0
+    t_word_data['wild_alphabet_cnt'] = 0
+    t_word_data['status'] = 'not_exchangeable'
 
 
     local status = 'not_exchangeable'
@@ -167,6 +180,7 @@ function ServerData_EventAlphabet:getAlphabetEvent_WordData(word_id)
         end
 
         if exchangeable then
+            t_word_data['wild_alphabet_cnt'] = wild_alphabet_cnt
             if (1 <= wild_alphabet_cnt) then
                 status = 'exchangeable_wild'
             else
