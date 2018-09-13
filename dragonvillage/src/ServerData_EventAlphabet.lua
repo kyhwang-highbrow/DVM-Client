@@ -227,10 +227,15 @@ function ServerData_EventAlphabet:isHighlightYellow_alphabet()
         return false
     end
 
+    local l_word = TableAlphabetEvent:getWordList()
+
+    -- 주요 상품 리스트업
     local l_word_id = {}
-    table.insert(l_word_id, 1001) -- 스킬 슬라임 1회
-    table.insert(l_word_id, 1007) -- 초월의 알 1회
-    table.insert(l_word_id, 1008) -- 다이아 1,000개 1회
+    for i,v in pairs(l_word) do
+        if (v['noti'] == 1) then
+            table.insert(l_word_id, v['id'])
+        end
+    end
 
     for _,word_id in ipairs(l_word_id) do
         local t_word_data = self:getAlphabetEvent_WordData(word_id)
