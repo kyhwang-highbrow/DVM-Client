@@ -38,6 +38,9 @@ end
 -------------------------------------
 function UI_ClassForm:initButton()
     local vars = self.vars
+    if vars['closeBtn'] then
+        vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    end
 end
 
 -------------------------------------
