@@ -42,10 +42,6 @@ function UI_EventAlphabet:initUI()
         list_item:setRefreshCB(function() self:refresh() end)
         self.m_eventDataUI[i] = list_item
     end
-
-    -- 와일드 알파벳 설명 문구
-    local rich_str = Str('{@alphabet_wild}와일드 알파벳{@default}은 만능 아이템입니다. 수집하지 못한 알파벳을 대신할 수 있습니다.')
-    vars['infoLabel1']:setString(rich_str)
 end
 
 -------------------------------------

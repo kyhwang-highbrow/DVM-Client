@@ -1160,6 +1160,7 @@ local t_module = {
     'UI_EventAlphabet', -- 알파벳 이벤트
     'UI_EventAlphabetListItem',
     'UI_EventAlphabetInfoPopup',
+    'UI_EventAlphabetConfirmPopup',
 
 	-- UI : 연출
 	'DirectingCharacter',

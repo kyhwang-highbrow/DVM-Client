@@ -1119,6 +1119,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ErrorPopup_Live.lua" />
     <None Include="..\src\UI_Event1stComeback.lua" />
     <None Include="..\src\UI_EventAlphabet.lua" />
+    <None Include="..\src\UI_EventAlphabetConfirmPopup.lua" />
     <None Include="..\src\UI_EventAlphabetInfoPopup.lua" />
     <None Include="..\src\UI_EventAlphabetListItem.lua" />
     <None Include="..\src\UI_EventFullPopup.lua" />
