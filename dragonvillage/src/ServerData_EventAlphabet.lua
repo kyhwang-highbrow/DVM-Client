@@ -2,7 +2,6 @@
 -- class ServerData_EventAlphabet
 -------------------------------------
 ServerData_EventAlphabet = class({
-        m_endTime = 'time',
         m_exchangeInfo = '',
     })
 
@@ -16,10 +15,7 @@ end
 -- function getStatusText
 -------------------------------------
 function ServerData_EventAlphabet:getStatusText()
-    local curr_time = Timer:getServerTime()
-    local end_time = (self.m_endTime / 1000)
-
-    local time = (end_time - curr_time)
+    local time = g_hotTimeData:getEventRemainTime('event_alphabet') or 0
     return Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
 end
 

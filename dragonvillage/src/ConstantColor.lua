@@ -161,3 +161,6 @@ COLOR['count'] = COLOR['MUSTARD']
 COLOR['emphasis'] = COLOR['ROSE']
 COLOR['available'] = COLOR['light_green']
 
+
+-- 임의로 사용되는 색상
+COLOR['alphabet_wild'] = cc.c3b(240, 255, 0)

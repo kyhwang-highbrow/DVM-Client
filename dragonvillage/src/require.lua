@@ -1159,6 +1159,7 @@ local t_module = {
 	'UI_Event1stComeback',
     'UI_EventAlphabet', -- 알파벳 이벤트
     'UI_EventAlphabetListItem',
+    'UI_EventAlphabetInfoPopup',
 
 	-- UI : 연출
 	'DirectingCharacter',

@@ -22,6 +22,7 @@ ITEM_ID_AUTO_PICK = 700401
 
 ITEM_ID_EXP_BOOSTER = 700402
 ITEM_ID_GOLD_BOOSTER = 700403
+ITEM_ID_ALPHABET_WILD = 700237 -- 와일드 알파벳 (알파벳 이벤트에서 사용되는 만능 알파벳)
 
 -------------------------------------
 -- function init

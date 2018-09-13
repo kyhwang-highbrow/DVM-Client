@@ -43,65 +43,50 @@ function UI_EventAlphabet:initUI()
         self.m_eventDataUI[i] = list_item
     end
 
-    if true then
-        return
-    end
-
-    -- 이벤트 종료 시간
-    vars['timeLabel']:setString(event_data:getStatusText())
+    -- 와일드 알파벳 설명 문구
+    local rich_str = Str('{@alphabet_wild}와일드 알파벳{@default}은 만능 아이템입니다. 수집하지 못한 알파벳을 대신할 수 있습니다.')
+    vars['infoLabel1']:setString(rich_str)
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_EventAlphabet:initButton()
-    if true then
-        return
-    end
-
     local vars = self.vars
-    vars['dungeonBtn']:registerScriptTapHandler(function() self:click_dungeonBtn() end)
-    vars['dungeonInfoBtn']:registerScriptTapHandler(function() self:click_dungeonInfoBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
 -- function refresh
+-- 정보 갱신
 -------------------------------------
 function UI_EventAlphabet:refresh()
     local vars = self.vars
 
+    -- 이벤트 종료 시간 갱신
+    vars['timeLabel']:setString(g_eventAlphabetData:getStatusText())
+
+    -- 와일드 카드 아이콘, 수량 갱신
+    local count = g_userData:get('alphabet', tostring(ITEM_ID_ALPHABET_WILD)) or 0
+    local item_card = UI_ItemCard(ITEM_ID_ALPHABET_WILD, count)
+    item_card.root:setSwallowTouch(false)
+    vars['itemNode']:removeAllChildren()
+    vars['itemNode']:addChild(item_card.root)
+    if (count == 0) then
+        item_card.vars['numberLabel']:setString(tostring(count))
+    end
+    cca.fruitReact(item_card.root, 1) -- 액션
+    
+    -- 단어 리스트 UI 갱신 (UI_EventAlphabetListItem 클래스의 refresh)
     for i,v in pairs(self.m_eventDataUI) do
         v:refresh()
     end
 end
 
 -------------------------------------
--- function click_dungeonBtn
--- @brief 던전 입장
+-- function click_infoBtn
+-- @brief 알파벳 획득처 안내 팝업
 -------------------------------------
-function UI_EventAlphabet:click_dungeonBtn()
-    UI_ReadySceneNew(EVENT_GOLD_STAGE_ID)
-
-
-    -- 전투 준비 화면에서 1일 1회 황금 던전 설명 팝업 띄움
-    local save_key = 'event_gold_dungeon'
-    local is_view = g_settingData:get('event_full_popup', save_key) or false
-    if (is_view == true) then
-        return
-    end
-
-    local function cb_func()
-        g_settingData:applySettingData(true, 'event_full_popup', save_key)
-    end
-
-    local ui = UI_EventAlphabetPopup()
-    ui:setCloseCB(cb_func)
-end
-
--------------------------------------
--- function click_dungeonInfoBtn
--- @brief 황금 던전 설명 팝업
--------------------------------------
-function UI_EventAlphabet:click_dungeonInfoBtn()
-    UI_EventAlphabetPopup()
+function UI_EventAlphabet:click_infoBtn()
+    UI_EventAlphabetInfoPopup()
 end

@@ -65,6 +65,9 @@ function UI_EventAlphabetListItem:refresh()
     
     local vars = self.vars
 
+    -- ITEM_ID_ALPHABET_WILD = 700237 -- 와일드 알파벳 (알파벳 이벤트에서 사용되는 만능 알파벳)
+    -- lua코드의 가독성을 위해 코드상에서는 string을 하드코딩해서 사용
+
     -- clone된 알파벳 수량
     local alphabet_data = g_userData:get('alphabet')
     if (not alphabet_data['700237']) then
