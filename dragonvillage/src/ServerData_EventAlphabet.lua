@@ -192,3 +192,53 @@ function ServerData_EventAlphabet:getAlphabetEvent_WordData(word_id)
 
     return t_word_data
 end
+
+-------------------------------------
+-- function isHighlightRed_alphabet
+-- @brief 빨간 느낌표 아이콘 출력 여부
+--        획득 가능한 보상이 있을 경우
+-------------------------------------
+function ServerData_EventAlphabet:isHighlightRed_alphabet()
+    if (not self.m_exchangeInfo) then
+        return false
+    end
+
+    local l_word = TableAlphabetEvent:getWordList()
+
+    for i,v in ipairs(l_word) do
+        local word_id = v['id']
+        local t_word_data = self:getAlphabetEvent_WordData(word_id)
+        local status = t_word_data['status']
+        if (status == 'exchangeable') or (status == 'exchangeable_wild') then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isHighlightYellow_alphabet
+-- @brief 노란 느낌표 아이콘 출력 여부
+--        주요 상품의 교환 가능 횟수가 남아있을 경우
+-------------------------------------
+function ServerData_EventAlphabet:isHighlightYellow_alphabet()
+    if (not self.m_exchangeInfo) then
+        return false
+    end
+
+    local l_word_id = {}
+    table.insert(l_word_id, 1001) -- 스킬 슬라임 1회
+    table.insert(l_word_id, 1007) -- 초월의 알 1회
+    table.insert(l_word_id, 1008) -- 다이아 1,000개 1회
+
+    for _,word_id in ipairs(l_word_id) do
+        local t_word_data = self:getAlphabetEvent_WordData(word_id)
+        local status = t_word_data['status']
+        if (status ~= 'max') then
+            return true
+        end
+    end
+
+    return false
+end

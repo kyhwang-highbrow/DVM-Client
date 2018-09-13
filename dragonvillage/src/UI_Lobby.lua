@@ -254,6 +254,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('event_alphabet')) then
+            co:work('# 알파벳 이벤트 정보 받는 중')
+            g_eventAlphabetData:request_alphabetEventInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         -- 네스트 던전 정보 갱신이 필요한 경우 (고대 유적 던전 오픈과 같은 케이스)
         -- requestNestDungeonInfo 내부에서 m_bDirtyNestDungeonInfo가 false인 경우는 통신하지 않으므로 추가
         co:work('# 네스트 정보 갱신 중')
@@ -616,18 +622,24 @@ function UI_Lobby:update_highlight()
 		vars['clanNotiSprite']:setVisible(g_clanData:isHighlightClan())
 
         do -- 황금 던전
-            local is_highlight_red = ServerData_EventGoldDungeon:getInstance():isHighlightRed_gd()
-            local is_highlight_yel = ServerData_EventGoldDungeon:getInstance():isHighlightYellow_gd()
+            vars['goldDungeonNotiRed']:setVisible(false)
+            vars['goldDungeonNotiYellow']:setVisible(false)
 
-            if is_highlight_red then
+            if ServerData_EventGoldDungeon:getInstance():isHighlightRed_gd() then
                 vars['goldDungeonNotiRed']:setVisible(true)
-                vars['goldDungeonNotiYellow']:setVisible(false)
-            elseif is_highlight_yel then
-                vars['goldDungeonNotiRed']:setVisible(false)
+            elseif ServerData_EventGoldDungeon:getInstance():isHighlightYellow_gd() then
                 vars['goldDungeonNotiYellow']:setVisible(true)
-            else
-                vars['goldDungeonNotiRed']:setVisible(false)
-                vars['goldDungeonNotiYellow']:setVisible(false)
+            end
+        end
+
+        do -- 알파벳 이벤트
+            vars['alphabetNotiRed']:setVisible(false)
+            vars['alphabetNotiYellow']:setVisible(false)
+
+            if g_eventAlphabetData:isHighlightRed_alphabet() then
+                vars['alphabetNotiRed']:setVisible(true)
+            elseif g_eventAlphabetData:isHighlightYellow_alphabet() then
+                vars['alphabetNotiYellow']:setVisible(true)
             end
         end
     end
