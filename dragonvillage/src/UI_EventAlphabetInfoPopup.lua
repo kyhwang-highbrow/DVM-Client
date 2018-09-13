@@ -32,6 +32,7 @@ end
 -------------------------------------
 function UI_EventAlphabetInfoPopup:initUI()
     local vars = self.vars
+
 end
 
 -------------------------------------
@@ -42,6 +43,22 @@ function UI_EventAlphabetInfoPopup:initButton()
     if vars['closeBtn'] then
         vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     end
+
+    local l_content_list = {}
+    table.insert(l_content_list, 'gold_dungeon')
+    table.insert(l_content_list, 'adventure')
+    table.insert(l_content_list, 'nest_tree')
+    table.insert(l_content_list, 'nest_evo_stone')
+    table.insert(l_content_list, 'ancient_ruin')
+    table.insert(l_content_list, 'nest_nightmare')
+    table.insert(l_content_list, 'secret_relation')
+
+    for i,v in pairs(l_content_list) do
+        if vars[v .. 'Btn'] then
+            vars[v .. 'Btn']:registerScriptTapHandler(function() UINavigator:goTo(v) end)
+        end
+    end
+    
 end
 
 -------------------------------------
