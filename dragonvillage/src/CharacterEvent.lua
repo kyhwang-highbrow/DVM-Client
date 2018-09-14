@@ -221,6 +221,8 @@ function Character:onEvent_updateStat(t_event)
             is_start_buff = true
         elseif (self.m_world.m_gameMode == GAME_MODE_ARENA and game_state:isWaveInterMission()) then
             is_start_buff = true
+        elseif (self.m_world.m_gameMode == GAME_MODE_CHALLENGE_MODE and game_state:isWaveInterMission()) then
+            is_start_buff = true
         elseif (self.m_world.m_waveMgr:isFirstWave() and game_state:isEnemyAppear()) then
             is_start_buff = true
         end

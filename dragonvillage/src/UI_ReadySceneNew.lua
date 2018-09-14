@@ -169,6 +169,12 @@ function UI_ReadySceneNew:checkDeckProper()
         return
     end
 
+    -- 챌린지 모드 별도 처리
+    if (self.m_stageID == CHALLENGE_MODE_STAGE_ID) then
+        g_deckData:setSelectedDeck('pvp_atk')
+        return
+    end
+
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 
     -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)

@@ -23,6 +23,8 @@ end
 function ServerData_Stage:getGameMode(stage_id)
     if (stage_id == ARENA_STAGE_ID) then
         return GAME_MODE_ARENA
+    elseif (stage_id == CHALLENGE_MODE_STAGE_ID) then
+        return GAME_MODE_CHALLENGE_MODE
     end
 
     local game_mode = getDigit(stage_id, 100000, 2)

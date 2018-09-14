@@ -75,7 +75,11 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 	dragon:initState()
 	dragon:initFormation()
 
-    if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and self.m_gameMode ~= GAME_MODE_ARENA and bRightFormation) then
+    if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and
+        self.m_gameMode ~= GAME_MODE_ARENA and
+        self.m_gameMode ~= GAME_MODE_CHALLENGE_MODE and
+        bRightFormation) then
+
         -- 스테이지 버프 적용
         dragon.m_statusCalc:applyStageBonus(self.m_stageID, true)
 

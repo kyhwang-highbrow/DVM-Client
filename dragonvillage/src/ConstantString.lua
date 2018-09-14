@@ -349,7 +349,7 @@ function getContentName(content_type)
         content_name = Str('황금 던전')
 
     elseif (content_type == 'challenge_mode') then
-        content_name = Str('챌린지 모드')
+        content_name = Str('그림자의 신전')
 
     else
         error('content_type : ' .. content_type)

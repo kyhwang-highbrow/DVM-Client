@@ -22,6 +22,7 @@ end
 function TableDrop:get(key, skip_error_msg)
     if (key == COLOSSEUM_STAGE_ID) then return end
     if (key == ARENA_STAGE_ID) then return end
+    if (key == CHALLENGE_MODE_STAGE_ID) then return end
 
     return PARENT.get(self, key, skip_error_msg)
 end
@@ -68,6 +69,9 @@ function TableDrop:getStageStaminaType(stage_id)
 
     elseif (g_clanRaidData:isClanRaidStageID(stage_id)) then
         return 'cldg', 1
+
+    elseif (stage_id == CHALLENGE_MODE_STAGE_ID) then
+        return 'st', 1
     end
 
     local stamina_type = self:getValue(stage_id, 'cost_type')

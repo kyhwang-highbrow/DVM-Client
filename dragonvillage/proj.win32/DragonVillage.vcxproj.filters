@@ -3748,6 +3748,12 @@
     <None Include="..\src\ServerData_ChallengeMode.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ChallengeMode.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ChallengeModeDeckSettings.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -182,5 +182,11 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'gold_dungeon') then
         UINavigator:goTo('gold_dungeon')
 
+    -- 챌린지 모드
+    elseif (content_type == 'challenge_mode') then
+        UINavigator:goTo('challenge_mode')
+
+    else
+        error('content_type : ' .. content_type)
     end
 end

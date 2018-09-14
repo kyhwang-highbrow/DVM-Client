@@ -599,6 +599,79 @@ function UINavigatorDefinition:goTo_attr_tower(...)
 end
 
 -------------------------------------
+-- function goTo_challenge_mode
+-- @brief 챌린지 모드로 이동
+-- @usage UINavigatorDefinition:goTo('challenge_mode')
+-------------------------------------
+function UINavigatorDefinition:goTo_challenge_mode(...)
+    local args = {...}
+    local stage_id = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_ChallengeMode')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    local function finish_cb()
+
+        --[[
+        -- 오픈 상태 여부 체크
+        if (not g_ancientTowerData:isOpenAncientTower()) then
+            local msg = Str('고대의 탑 오픈 전입니다.\n오픈까지 {1}', g_ancientTowerData:getAncientTowerStatusText())
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+		end
+        
+        -- 긴급하게 닫아야 할 경우 
+        if (not g_ancientTowerData:isOpen()) then
+            local msg = Str('오픈시간이 아닙니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+		end
+        --]]
+
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            ui:resetButtonsPosition()
+            UI_ChallengeMode()
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_ChallengeMode()
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_ChallengeMode, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 정보 요청
+    g_challengeMode:request_ancientTowerInfo(stage_id, finish_cb, fail_cb)
+end
+
+-------------------------------------
 -- function goTo_nestdungeon
 -- @brief 네스트던전으로 이동
 -- @usage UINavigatorDefinition:goTo('nestdungeon', stage_id, dungeon_type)

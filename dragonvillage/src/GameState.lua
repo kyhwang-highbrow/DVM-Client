@@ -1399,7 +1399,8 @@ function GameState:applyEnrage(t_info)
         local str_buff_name = TableOption():getValue(type, 't_name')
         
         -- 아군 버프 적용(콜로세움일 경우만)
-        if (world.m_gameMode == GAME_MODE_COLOSSEUM or world.m_gameMode == GAME_MODE_ARENA) then
+        --if (world.m_gameMode == GAME_MODE_COLOSSEUM or world.m_gameMode == GAME_MODE_ARENA) then
+        if isExistValue(world.m_gameMode, GAME_MODE_ARENA, GAME_MODE_COLOSSEUM, GAME_MODE_CHALLENGE_MODE) then
             for i, v in ipairs(world.m_leftParticipants) do
                 if (v.m_statusCalc) then
                     v.m_statusCalc:addOption(action, status, value)

@@ -259,7 +259,8 @@ function UI_GameDebug:makeTableView()
     end
     
     -- 적 마나 및 드래그 쿨타임 표시
-    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM or self.m_world.m_gameMode == GAME_MODE_ARENA) then
+    --if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM or self.m_world.m_gameMode == GAME_MODE_ARENA) then
+    if isExistValue(self.m_world.m_gameMode, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_CHALLENGE_MODE) then
         local item = {}
         item['cb1'] = UI_GameDebug.enemyManaCooldownButton
         if cc.Director:getInstance():isDisplayStats() then

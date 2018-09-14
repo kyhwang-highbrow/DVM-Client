@@ -85,7 +85,7 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     if (pos_x and pos_y) then
         skill_indicator:setIndicatorTouchPos(pos_x, pos_y)
     else
-        local is_arena = isExistValue(self.m_world.m_gameMode, GAME_MODE_ARENA, GAME_MODE_COLOSSEUM)
+        local is_arena = isExistValue(self.m_world.m_gameMode, GAME_MODE_ARENA, GAME_MODE_COLOSSEUM, GAME_MODE_CHALLENGE_MODE)
 
         if (not SkillHelper:setIndicatorDataByAuto(unit, is_arena, input_type)) then
             return false

@@ -79,6 +79,9 @@ if false then
 
     -- @brief 황금 던전으로 이동
     UINavigator:goTo('gold_dungeon')
+
+    -- @brief 챌린지 모드로 이동
+    UINavigator:goTo('challenge_mode')
 end
 
 

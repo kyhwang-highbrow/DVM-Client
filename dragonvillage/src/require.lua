@@ -979,6 +979,10 @@ local t_module = {
     'UI_AttrTowerMenuItem',
     'UI_AttrTowerMenuScene',
     'UI_AttrTowerRank',
+
+    -- UI : 챌린지 모드
+    'UI_ChallengeMode',
+    'UI_ChallengeModeDeckSettings',
     
 	-- UI : 인게임
 	'UI_Game',

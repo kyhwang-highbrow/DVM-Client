@@ -363,6 +363,8 @@ function UI_Game:click_pauseButton()
         self.m_pauseUI = UI_GamePause_Colosseum(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_ARENA) then
         self.m_pauseUI = UI_GamePause_Arena(stage_id, gamekey, start_cb, end_cb)
+    elseif (game_mode == GAME_MODE_CHALLENGE_MODE) then
+        self.m_pauseUI = UI_GamePause_ChallengeMode(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_CLAN_RAID) then
         self.m_pauseUI = UI_GamePause_ClanRaid(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_EVENT_GOLD) then
