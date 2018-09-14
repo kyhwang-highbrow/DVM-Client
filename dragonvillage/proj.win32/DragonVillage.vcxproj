@@ -470,6 +470,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ScenarioViewingHistory.lua" />
     <None Include="..\src\SceneForest.lua" />
     <None Include="..\src\SceneGameArena.lua" />
+    <None Include="..\src\SceneGameChallengeMode.lua" />
     <None Include="..\src\SceneGameEventArena.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneGameIntro.lua" />
@@ -1398,7 +1399,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Popup.lua" />
     <None Include="..\src\UI_QuestListItem.lua" />
     <None Include="..\src\UI_QuestPopup.lua" />
-    <None Include="..\src\UI_ReadyScene.lua" />
     <None Include="..\src\UI_ReadyScene_Deck.lua" />
     <None Include="..\src\UI_RewardCard.lua" />
     <None Include="..\src\UI_RewardListPopup.lua" />

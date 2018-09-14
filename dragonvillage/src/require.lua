@@ -379,6 +379,7 @@ local t_module = {
     'SceneGame',
     'SceneGameColosseum',
     'SceneGameArena',
+    'SceneGameChallengeMode',
     'SceneGameIntro',
     'SceneGameClanRaid',
     'SceneGameEventArena',

@@ -261,9 +261,6 @@
     <None Include="..\src\UI_Popup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ReadyScene.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ReadyScene_Deck.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -3753,6 +3750,9 @@
     </None>
     <None Include="..\src\UI_ChallengeModeDeckSettings.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SceneGameChallengeMode.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

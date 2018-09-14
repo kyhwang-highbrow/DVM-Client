@@ -165,6 +165,10 @@ function GameWorldArena:initTamer()
     -- 적군 테이머 생성
     do
         local user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
+        -- 개발 모드를 위해서
+        if (self.m_bDevelopMode) and (not user_info) then
+            user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
+        end
         local t_tamer_data = clone(user_info:getDeckTamerInfo())
 
         local costume_id = user_info:getDefDeckCostumeID()
@@ -459,6 +463,10 @@ function GameWorldArena:makeEnemyDeck()
 
     if (self.m_bDevelopMode) then
         local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
+        -- 개발 모드를 위해서
+        if (self.m_bDevelopMode) and (not user_info) then
+            user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
+        end
         t_pvp_deck = user_info:getPvpDeck()
         l_deck = user_info:getDeck_dragonList(true)
         getDragonObject = function(doid) return user_info:getDragonObject(doid) end
