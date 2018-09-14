@@ -3745,6 +3745,9 @@
     <None Include="..\src\UI_EventAlphabetConfirmPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_ChallengeMode.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

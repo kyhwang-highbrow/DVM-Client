@@ -309,33 +309,45 @@ end
 function UI_BattleMenu:initCompetitionTab()
     local vars = self.vars
     -- 메뉴 아이템 x축 간격
-    local interval_x = 208
+    local interval_x = 416
+    local pos_y = -80
 
-    local l_btn_ui = {}
-    local attr_open = g_attrTowerData:isContentOpen()
+    local l_content_str = {}
+    do -- 콘텐츠 리스트 생성
+        -- 고대의 탑
+        table.insert(l_content_str, 'ancient')
 
-    local pos_x = attr_open and interval_x*2 or interval_x
-    local pos_y = 80
+        -- 시험의 탑
+        if g_attrTowerData:isContentOpen() then
+            table.insert(l_content_str, 'attr_tower') 
+        end
 
-    -- 고대의 탑
-    local ui = UI_BattleMenuItem_Competition('ancient')
-    ui.root:setPosition(-pos_x, -pos_y)
-    vars['competitionMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=-pos_x, ['y']=-pos_y})
+        -- 콜로세움
+        table.insert(l_content_str, 'colosseum')
 
-    -- 시험의 탑 (오픈되었을때만 메뉴에 추가)
-    if (attr_open) then
-        local ui = UI_BattleMenuItem_Competition('attr_tower')
-        ui.root:setPosition(0, -pos_y)
-        vars['competitionMenu']:addChild(ui.root)
-        table.insert(l_btn_ui, {['ui']=ui, ['x']=0, ['y']=-pos_y})
+        -- 챌린지 모드 (챌린지 모드 이벤트가 진행 중인지 여부 true or false)
+        if g_challengeMode:isActive_challengeMode() then
+            table.insert(l_content_str, 'challenge_mode') 
+        end
     end
 
-    -- 콜로세움
-    local ui = UI_BattleMenuItem_Competition('colosseum')
-    ui.root:setPosition(pos_x, -pos_y)
-    vars['competitionMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=-pos_y})
+    -- 3개 초과이면 얇은 모드
+    local is_thin = (3 < table.count(l_content_str))
+    if is_thin then
+        interval_x = 285
+    end
+
+    local l_btn_ui = {}
+    do -- 콘텐츠 리스트 UI 생성
+        local l_pos = getSortPosList(interval_x, table.count(l_content_str))
+        for i,v in ipairs(l_content_str) do
+            local ui = UI_BattleMenuItem_Competition(v, is_thin)
+            local pos_x = l_pos[i]
+            ui.root:setPosition(pos_x, pos_y)
+            vars['competitionMenu']:addChild(ui.root)
+            table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=pos_y})
+        end
+    end
 
     self.m_lCompetitionBtnUI = l_btn_ui
 end

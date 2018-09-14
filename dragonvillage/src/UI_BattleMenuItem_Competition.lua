@@ -3,15 +3,23 @@ local PARENT = UI_BattleMenuItem
 -------------------------------------
 -- class UI_BattleMenuItem_Competition
 -------------------------------------
-UI_BattleMenuItem_Competition = class(PARENT, {})
+UI_BattleMenuItem_Competition = class(PARENT, {
+        m_isThin = 'boolean', -- 가로 넓이가 얇은 모드인지
+    })
 
 local THIS = UI_BattleMenuItem_Competition
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BattleMenuItem_Competition:init(content_type)
-    local vars = self:load('battle_menu_competition_item.ui')
+function UI_BattleMenuItem_Competition:init(content_type, is_thin)
+    self.m_isThin = is_thin
+    local ui_name = 'battle_menu_competition_item.ui'
+    if (is_thin == true) then
+        ui_name = 'battle_menu_competition_item_02.ui'
+    end
+
+    local vars = self:load(ui_name)
 
     self:initUI()
     self:initButton()
@@ -35,6 +43,11 @@ function UI_BattleMenuItem_Competition:initUI()
 	if (is_open) then
 		self:initCompetitionRewardInfo(content_type)
 	end
+
+    -- 컨텐츠 타입별 지정
+    if (self.m_isThin == true) then
+        vars['itemVisual']:changeAni(content_type .. '_list', true)
+    end
 end
 
 -------------------------------------
@@ -46,6 +59,10 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	local vars = self.vars
 
 	local t_item, text_1, text_2
+
+    -- 텍스트 최기화
+	vars['rewardLabel1']:setString('')
+	vars['rewardLabel2']:setString('')
 
 	-- 고대의 탑
 	if (content_type == 'ancient') then
@@ -116,7 +133,10 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 		    local left_cnt = next_reward_info['win'] - win
 		    text_2 = Str('{1}승 남음', left_cnt)
         end
-	end
+	-- 콜로세움
+	elseif (content_type == 'challenge_mode') then
+        return
+    end
 
 	-- visible on
 	vars['rewardMenu']:setVisible(true)

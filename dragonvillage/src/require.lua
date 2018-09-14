@@ -176,6 +176,7 @@ local t_module = {
     'ServerData_EventMatchCard',
     'ServerData_EventMandragoraQuest',
     'ServerData_EventAlphabet', -- 알파벳 이벤트
+    'ServerData_ChallengeMode', -- 챌린지 모드
 
     -- Interface
     'IEventDispatcher',
