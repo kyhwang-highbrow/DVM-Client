@@ -668,7 +668,7 @@ function UINavigatorDefinition:goTo_challenge_mode(...)
     end
 
     -- 정보 요청
-    g_challengeMode:request_ancientTowerInfo(stage_id, finish_cb, fail_cb)
+    g_challengeMode:request_challengeModeInfo(stage_id, finish_cb, fail_cb)
 end
 
 -------------------------------------

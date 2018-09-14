@@ -130,12 +130,13 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
             UI_BlockPopup()
             --local scene = SceneGameArena()
             --scene:runScene()
+
+            UIManager:toastNotificationRed(Str('전투 구현 중'))
         end
 
         -- 덱 변경 확인후 api 요청
         self:checkChangeDeck(function()
-            --g_arenaData:request_arenaStart(is_cash, nil, cb)
-            UIManager:toastNotificationRed(Str('전투 구현 중'))
+            g_challengeMode:request_challengeModeStart(cb)
         end)
 
     end
