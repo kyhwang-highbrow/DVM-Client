@@ -295,6 +295,26 @@ function Translate:getFontScaleRate()
 end
 
 -------------------------------------
+-- function getFontScaleRate
+-------------------------------------
+function Translate:getFontSizeScale()
+	local scale = 1
+    local game_lang = self:getGameLang()
+
+    if (game_lang == LANG['JAPANESE']) then
+        scale = 0.88
+    elseif (game_lang == LANG['CHINESE']) then
+        scale = 0.88
+	elseif (game_lang == LANG['THAI']) then
+        scale = 0.8
+	elseif (game_lang == LANG['SPANISH']) then
+        scale = 0.70
+	end
+
+    return scale
+end
+
+-------------------------------------
 -- function getGameLangTable
 -- @breif
 -------------------------------------

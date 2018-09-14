@@ -41,14 +41,19 @@ end
 function UIC_LabelTTF:setString(str)
     self.m_node:setString(str)
     --self:applyBoxWithScale(str)
+	self:verifySize()
+end
 
-    -- 테스트 모드에서만 활성화됩니다.
-    if (not self.m_isVerified) then
-        if (str ~= '') then
-            self.m_isVerified = true
-            if (self:isOutOfBound()) then
-                --ccdisplay(str)
-            end
+-------------------------------------
+-- function verifySize
+-------------------------------------
+function UIC_LabelTTF:verifySize()
+	-- 테스트 모드에서만 활성화됩니다.
+	local str = self.m_node:getString()
+    if (not self.m_isVerified) and (str ~= '') then
+        self.m_isVerified = true
+        if (self:isOutOfBound(str)) then
+			self:setTextColor(COLOR['proofreading'])
         end
     end
 end
@@ -321,7 +326,24 @@ function UIC_LabelTTF:setFontSize(fontSize)
     ttfInfo.fontSize = fontSize
     self.m_orgFontSize = fontSize
     self.m_node:setTTFConfig( ttfInfo )
+end
+
+-------------------------------------
+-- function setFontSizeScale
+-- @brief 폰트크기변경은 이걸 통해서 해주세요.
+-------------------------------------
+function UIC_LabelTTF:setFontSizeScale(scale)    
+    if scale == 1 then
+        return;
+    end
+
+    local ttfInfo = self.m_node:getTTFConfig()
+    local old_font_size = ttfInfo.fontSize
     
+	ttfInfo.fontSize = old_font_size * scale
+
+    self.m_orgFontSize = fontSize
+    self.m_node:setTTFConfig( ttfInfo )
 end
 
 -------------------------------------
@@ -353,9 +375,14 @@ end
 -- function isOutOfBound
 -- @brief 텍스트가 영역을 벗어나는지 체크
 -------------------------------------
-function UIC_LabelTTF:isOutOfBound()
+function UIC_LabelTTF:isOutOfBound(str)
     local dimension_size = self.m_node:getDimensions()
     local content_size = self.m_node:getContentSize()
 
-    return (content_size['width'] > dimension_size['width']) or (content_size['height'] > dimension_size['height'])
+	if (content_size['height'] > dimension_size['height']) or (content_size['width'] > dimension_size['width']) then
+		ccdump({['str'] = str, ['cotent'] = content_size, ['dimension'] = dimension_size})
+		return true
+	end
+
+    return false
 end

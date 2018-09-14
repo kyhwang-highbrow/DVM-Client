@@ -500,10 +500,11 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         local rateX, rateY = Translate:getFontScaleRate()
         delegator:setScaleX( rateX )
         delegator:setScaleY( rateY )
+		
+		--local scale = Translate:getFontSizeScale()
+		--delegator:setFontSizeScale(scale)
 
-        if (delegator:isOutOfBound()) then
-            --ccdisplay(Str(data.text))
-        end
+		delegator:verifySize()
 
     elseif type == 'EditBox' then
         UILoader.checkTranslate(data)
