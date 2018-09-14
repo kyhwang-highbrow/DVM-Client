@@ -11,7 +11,7 @@ SceneGameChallengeMode = class(PARENT, {
 -- function init
 -------------------------------------
 function SceneGameChallengeMode:init(game_key, stage_id, stage_name, develop_mode)
-    self.m_stageName = 'stage_colosseum'--'stage_challenge_mode'
+    self.m_stageName = 'stage_challenge_mode'
     self.m_bDevelopMode = develop_mode
     self.m_bFriendMatch = false -- Arena와 같은 형태가 필요해서 사용하지 않지만 추가
 
