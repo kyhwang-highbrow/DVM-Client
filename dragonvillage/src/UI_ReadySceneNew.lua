@@ -47,7 +47,8 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
 
     -- 아레나모드 (콜로세움 진입, 친구대전 진입시)
     self.m_bArena = false
-    if (stage_id == ARENA_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID) then
+    --if (stage_id == ARENA_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID) then
+    if isExistValue(stage_id, ARENA_STAGE_ID, FRIEND_MATCH_STAGE_ID, CHALLENGE_MODE_STAGE_ID) then
         self.m_bArena = true
     end
 
@@ -426,7 +427,8 @@ function UI_ReadySceneNew:initUI()
     end
 
 	-- 콜로세움 예외처리
-	if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID or self.m_stageID == ARENA_STAGE_ID) then		
+	--if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID or self.m_stageID == ARENA_STAGE_ID) then
+    if isExistValue(self.m_stageID, COLOSSEUM_STAGE_ID, FRIEND_MATCH_STAGE_ID, ARENA_STAGE_ID, CHALLENGE_MODE_STAGE_ID) then
         vars['cpNode2']:setVisible(false)
         
 		-- 배경 아무거나 넣어준다
@@ -558,6 +560,9 @@ function UI_ReadySceneNew:refresh()
 
 	    elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
             str = Str('친선전 공격')
+
+        elseif (stage_id == CHALLENGE_MODE_STAGE_ID) then
+            str = Str('그림자의 신전')
         end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)

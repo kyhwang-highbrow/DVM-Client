@@ -4,11 +4,8 @@ local PARENT = UI_ReadySceneNew
 -- class UI_ChallengeModeDeckSettings
 -------------------------------------
 UI_ChallengeModeDeckSettings = class(PARENT,{
-        m_changeMode = 'boolean', -- true : 덱 변경만 가능, false : 덱변경 후 시작
         m_currTamerID = 'number',
     })
-
-local NEED_CASH = 50 -- 유료 입장 다이아 개수
 
 -------------------------------------
 -- function initParentVariable
@@ -20,8 +17,7 @@ function UI_ChallengeModeDeckSettings:initParentVariable()
     self.m_bVisible = true
     --self.m_titleStr = nil -- refresh에서 스테이지명 설정
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'honor'
-    self.m_addSubCurrency = 'valor'
+    self.m_subCurrency = 'valor'
 
     -- 입장권 타입 설정
     self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
@@ -40,56 +36,6 @@ end
 -------------------------------------
 function UI_ChallengeModeDeckSettings:init(stage_id, sub_info)
     local vars = self.vars
-    self.m_changeMode = sub_info or false -- 바로 시작인지 덱만 바꾸는 건지
-
-    -- 덱 변경만 가능
-    if (self.m_changeMode) then
-        vars['actingPowerNode']:setVisible(false)
-        vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-        vars['startBtnLabel']:setPositionX(0)
-        vars['startBtnLabel']:setString(Str('변경 완료'))
-
-    -- itemMenu에 입장권 체크하는 스케쥴러 등록
-    else 
-        -- 유료 입장권
-        local icon = IconHelper:getItemIcon(ITEM_ID_CASH)
-        icon:setScale(0.5)
-        vars['staminaExtNode']:addChild(icon)
-        vars['actingPowerExtLabel']:setString(NEED_CASH)
-
-        vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
-    end
-end
-
--------------------------------------
--- function update_stamina
--- @brief
--------------------------------------
-function UI_ChallengeModeDeckSettings:update_stamina(dt)    
-    local vars = self.vars
-    local is_enough = g_staminasData:checkStageStamina(ARENA_STAGE_ID)
-    local is_enough_ext = g_staminasData:hasStaminaCount('arena_ext', 1)
-
-    -- 기본 입장권 없을 경우엔 유료 입장권 개수 보여줌
-    vars['actingPowerNode']:setVisible(is_enough)
-    vars['actingPowerExtNode']:setVisible(not is_enough)
-    vars['timeLabel']:setVisible(not is_enough)
-    vars['staminaExtLabel']:setVisible(not is_enough)
-
-    if (not is_enough) then
-        local stamina_type = 'arena_ext'
-
-        local time_str = g_staminasData:getChargeRemainText(stamina_type)
-        vars['timeLabel']:setString(time_str)
-
-        local st_ad = g_staminasData:getStaminaCount(stamina_type)
-        local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
-        local str = Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt))
-        vars['staminaExtLabel']:setString(str)
-    end
-
-    -- 기본 입장권 & 유료 입장권 둘다 부족한 경우 - 시작 버튼 비활성화
-    vars['startBtn']:setEnabled(is_enough or is_enough_ext)
 end
 
 -------------------------------------
@@ -179,40 +125,19 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
 
     start_game = function()
         -- 콜로세움 시작 요청
-        local is_cash = false
-        local function request()
-            local function cb(ret)
-                -- 시작이 두번 되지 않도록 하기 위함
-                UI_BlockPopup()
-                -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
-                self.vars['itemMenu']:unscheduleUpdate()
-                local scene = SceneGameArena()
-                scene:runScene()
-            end
-
-            -- 덱 변경 확인후 api 요청
-            self:checkChangeDeck(function()
-                g_arenaData:request_arenaStart(is_cash, nil, cb)
-            end)
+        local function cb(ret)
+            -- 시작이 두번 되지 않도록 하기 위함
+            UI_BlockPopup()
+            --local scene = SceneGameArena()
+            --scene:runScene()
         end
 
-        -- 기본 입장권 부족시
-        if (not g_staminasData:checkStageStamina(ARENA_STAGE_ID)) then
-            -- 유료 입장권 체크
-            local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_ext', 1)
-            if (is_enough) then
-                is_cash = true
-                local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', NEED_CASH)
-                MakeSimplePopup_Confirm('cash', NEED_CASH, msg, request)
+        -- 덱 변경 확인후 api 요청
+        self:checkChangeDeck(function()
+            --g_arenaData:request_arenaStart(is_cash, nil, cb)
+            UIManager:toastNotificationRed(Str('전투 구현 중'))
+        end)
 
-            -- 유료 입장권 부족시 입장 불가 
-            else
-                -- 스케쥴러에서 버튼 비활성화로 막음
-            end
-        else
-            is_cash = false
-            request()
-        end
     end
 
     check_dragon_inven()
