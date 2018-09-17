@@ -5,6 +5,9 @@ local PARENT = SceneGame
 -------------------------------------
 SceneGameChallengeMode = class(PARENT, {
         m_bFriendMatch = 'boolean', -- Arena와 같은 형태가 필요해서 사용하지 않지만 추가
+
+        -- 서버 통신 관련
+        m_bSuccessNetForPlayStart = 'boolean', -- 게임 시작 직전 서버와 통신 성공 여부(활동력 차감을 위함)
     })
 
 -------------------------------------
@@ -23,6 +26,7 @@ function SceneGameChallengeMode:init(game_key, stage_id, stage_name, develop_mod
 
     -- 아레나 로딩은 상대방 덱을 확인하기 위해 5초간 유지
     self.m_minLoadingTime = 5
+    self.m_bSuccessNetForPlayStart = false
 end
 
 -------------------------------------
@@ -128,9 +132,58 @@ end
 -- function prepareAfter
 -------------------------------------
 function SceneGameChallengeMode:prepareAfter()
-    -- 콜로세움은 어뷰징 이슈로 playstart 요청을 하지 않음
-    return true
+    if (not self.m_bSuccessNetForPlayStart) then
+        if (self.m_bDevelopMode) then
+            self.m_bSuccessNetForPlayStart = true
+
+        else
+            -- 활동력 차감을 위한 서버 통신
+            self:networkGamePlayStart(function()
+                self.m_bSuccessNetForPlayStart = true
+            end)
+        end
+    end
+
+    return self.m_bSuccessNetForPlayStart
 end
+
+-------------------------------------
+-- function networkGamePlayStart
+-- @breif 게임 플레이 시작 시 요청
+-------------------------------------
+function SceneGameChallengeMode:networkGamePlayStart(next_func)
+    -- 백그라운드로 한번만 요청하면서 다음 스텝으로 진행시킴
+    local function success_cb(ret)
+        if (ret['status'] ~= 0) then return end
+
+        self:networkGamePlayStart_response(ret)
+    end
+
+    local t_request = {}
+    t_request['url'] = '/game/challenge/play'
+    t_request['method'] = 'POST'
+    t_request['data'] = { uid = g_userData:get('uid'), stage = 1 }
+    t_request['success'] = success_cb
+    
+    Network:HMacRequest(t_request)
+
+    -- @E.T.
+	g_errorTracker:appendAPI(t_request['url'])
+
+    if (next_func) then
+        next_func()
+    end
+end
+
+-------------------------------------
+-- function networkGamePlayStart_response
+-- @breif
+-------------------------------------
+function SceneGameChallengeMode:networkGamePlayStart_response(ret)
+    -- 활동력 갱신
+    g_serverData:networkCommonRespone(ret)
+end
+
 
 -------------------------------------
 -- function prepareDone
