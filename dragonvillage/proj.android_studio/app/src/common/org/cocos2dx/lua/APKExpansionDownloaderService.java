@@ -1,6 +1,7 @@
 package org.cocos2dx.lua;
 
 import com.google.android.vending.expansion.downloader.impl.DownloaderService;
+import com.perplelab.PerpleConfig;
 
 /**
  * This class demonstrates the minimal client implementation of the
@@ -19,7 +20,7 @@ public class APKExpansionDownloaderService extends DownloaderService {
      */
     @Override
     public String getPublicKey() {
-        return AppActivity.BASE64_PUBLIC_KEY;
+        return PerpleConfig.BASE64_PUBLIC_KEY;
     }
 
     /**

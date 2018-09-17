@@ -51,6 +51,9 @@ import android.support.v4.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 
+// @app configuration
+import com.perplelab.PerpleConfig;
+
 //@perplesdk
 import com.perplelab.PerpleSDK;
 
@@ -78,36 +81,6 @@ public class AppActivity extends Cocos2dxActivity{
     // @local push
     static boolean sIsRun;
 
-    // @billing
-    static final String BASE64_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
-
-    // @tapjoy
-    static final String TAPJOY_SDK_KEY = "MZ5hVosGT1eLIW00UXCPvgEC7RNJdi2ZS0Kjtpd7IgoRLXg6N96edKY8h5cA";
-
-    // @twitter
-    static final String TWITTER_CONSUMER_KEY = "VCJ9gb6EjeIQO74rAbUl9B6aj";
-    static final String TWITTER_CONSUMER_SECRET = "D0kt613Jye142Efej1DxtvJguItaK5PtgvYyJfY34Pvqs1HCBH";
-
-    // @naver-cafe
-    static final String NAVER_CAFE_CLIENT_ID = "nQGxfwLZ1Rf4Lwhozq4G";
-    static final String NAVER_CAFE_CLIENT_SECRET = "1yzbWtj_Cu";
-    static final int NAVER_CAFE_ID = 29168475;
-    static final String NAVER_NEO_ID_CONSUMER_KEY = "_hBggTZAp2IPapvAxwQl";
-    static final int NAVER_COMMUNITY_ID = 0;
-
-    // @adjust
-    static final String ADJUST_TOKKEN_ID = "esjmkti8vim8";
-    static final long[] ADJUST_SECRET_KEY = {1, 562501988, 1877997235, 662395286, 1781468312};
-
-    // @admob
-    static final String ADMOB_APP_ID = "ca-app-pub-9497777061019569~9623723983";
-
-    // @xsolla
-    static final int XSOLLA_MERCHANT_ID = 60608;
-    static final String XSOLLA_API_KEY = "tP3xsMG3ZXasBD52";
-    static final int XSOLLA_PROJECT_ID = 35042;
-    static final String XSOLLA_SECRET_KEY = "dR0p3BnJAunszS5g";
-
     // others
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
     static final int RC_APP_PERMISSION              = 101;  // must be 8bit value
@@ -134,16 +107,16 @@ public class AppActivity extends Cocos2dxActivity{
         // @perplesdk
         PerpleSDK.createInstance(this);
 
-        // @perplesdk, Lua 콜백??GL Thread ?�서 ?�행?�고????경우 ?�정?�다.
+        // @perplesdk, Lua 콜백??GL Thread ?�서 ?�행?�고????경우 ?�정?�다.
         PerpleSDK.setGLSurfaceView(getGLSurfaceView());
 
-        // ?�버�?메시지 출력
+        // ?�버�?메시지 출력
         boolean isDebug = BuildConfig.DEBUG;
 
         // @perplesdk // getString(R.string.gcm_defaultSenderId) GCM is deprecated, use FCM
-        if (PerpleSDK.getInstance().initSDK(BASE64_PUBLIC_KEY, isDebug)) {
+        if (PerpleSDK.getInstance().initSDK(PerpleConfig.BASE64_PUBLIC_KEY, isDebug)) {
 
-            // firebase FCM ?�림???�그?�운???�태?�서??받고????경우 true�??�정
+            // firebase FCM ?�림???�그?�운???�태?�서??받고????경우 true�??�정
             PerpleSDK.getInstance().setReceivePushOnForeground(false);
 
             // @google
@@ -154,26 +127,28 @@ public class AppActivity extends Cocos2dxActivity{
             PerpleSDK.getInstance().initFacebook();
 
             // @twitter
-            PerpleSDK.getInstance().initTwitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
+            PerpleSDK.getInstance().initTwitter(PerpleConfig.TWITTER_CONSUMER_KEY, PerpleConfig.TWITTER_CONSUMER_SECRET);
         }
 
         // @adbrix
         PerpleSDK.getInstance().initAdbrix();
 
         // @tapjoy
-        PerpleSDK.getInstance().initTapjoy(TAPJOY_SDK_KEY, "", isDebug);
+        PerpleSDK.getInstance().initTapjoy(PerpleConfig.TAPJOY_SDK_KEY, "", isDebug);
 
         // @naver-cafe
-        PerpleSDK.getInstance().initNaverCafe(NAVER_CAFE_CLIENT_ID, NAVER_CAFE_CLIENT_SECRET, NAVER_CAFE_ID, NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID);
+        PerpleSDK.getInstance().initNaverCafe(PerpleConfig.NAVER_CAFE_CLIENT_ID, PerpleConfig.NAVER_CAFE_CLIENT_SECRET, PerpleConfig.NAVER_CAFE_ID, PerpleConfig.NAVER_NEO_ID_CONSUMER_KEY, PerpleConfig.NAVER_COMMUNITY_ID);
 
         // @adjust
-        PerpleSDK.getInstance().initAdjust(ADJUST_TOKKEN_ID, ADJUST_SECRET_KEY, isDebug);
+        PerpleSDK.getInstance().initAdjust(PerpleConfig.ADJUST_TOKKEN_ID, PerpleConfig.ADJUST_SECRET_KEY, isDebug);
 
         // @admob
-        PerpleSDK.getInstance().initAdMob(ADMOB_APP_ID, isDebug);
+        PerpleSDK.getInstance().initAdMob(PerpleConfig.ADMOB_APP_ID, isDebug);
 
         // @xsolla
-        PerpleSDK.getInstance().initXsolla(XSOLLA_MERCHANT_ID, XSOLLA_API_KEY, XSOLLA_PROJECT_ID, XSOLLA_SECRET_KEY, isDebug);
+        if (PerpleConfig.USE_XSOLLA) {
+            PerpleSDK.getInstance().initXsolla(PerpleConfig.XSOLLA_MERCHANT_ID, PerpleConfig.XSOLLA_API_KEY, PerpleConfig.XSOLLA_PROJECT_ID, PerpleConfig.XSOLLA_SECRET_KEY, isDebug);
+        }
     }
 
     @Override
@@ -288,46 +263,46 @@ public class AppActivity extends Cocos2dxActivity{
             sOBBDownloader.setDownloaderCallback(new APKExpansionDownloaderCallback() {
                 @Override
                 public void onInit() {
-                    // startAPKExpansionDownloader()�?onCreate()?�서 직접 ?�출??경우 ?�래 코드 주석 처리
+                    // startAPKExpansionDownloader()�?onCreate()?�서 직접 ?�출??경우 ?�래 코드 주석 처리
                     sOBBDownloader.connectDownloaderClient(sActivity);
 
-                    // ?�운로드 ?�작
-                    // ?�운로드 진행 ?�시 UI ?�기
+                    // ?�운로드 ?�작
+                    // ?�운로드 진행 ?�시 UI ?�기
                     sdkEventResult("apkexp_start", "start", "");
                 }
                 @Override
                 public void onCompleted() {
                     Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
 
-                    // ?�운로드 ?�료
-                    // ?�운로드 진행 ?�시 UI ?�고 게임 ?�작
+                    // ?�운로드 ?�료
+                    // ?�운로드 진행 ?�시 UI ?�고 게임 ?�작
                     sdkEventResult("apkexp_start", "complete", "end");
                 }
                 @Override
                 public void onUpdateStatus(boolean isPaused, boolean isIndeterminate, boolean isInterruptable, int code, String statusText) {
-                    // ?�운로드 진행 �??�류 ?�황 처리
+                    // ?�운로드 진행 �??�류 ?�황 처리
                     if (!isIndeterminate) {
                         if (isPaused && isInterruptable) {
 
                             // Error Code
                             // -----------------------------------------------
-                            // IDownloaderClient.STATE_PAUSED_NETWORK_UNAVAILABLE (6) : ?�트?�크가 ?�결?�어 ?��? ?��? 경우
-                            // IDownloaderClient.STATE_PAUSED_BY_REQUEST (7) : sOBBDownloader.requestPauseDownload() �?강제�??�운로드 중단?�킨 경우
-                            // IDownloaderClient.STATE_PAUSED_ROAMING (12) : 로밍 �? 로밍 중이므�??�금???�??경고�??�고 계속 진행/중단 처리?�다.
-                            // IDownloaderClient.STATE_FAILED_UNLICENSED (15) : ?�식?�로 ?�을 ?�운로드 받�? ?��? 경우, APK�?별도�??�치?�여 ?�스?�하??개발 버전?�선 ?�패 처리?��? ?�고 그�?�?진행?�킨??
-                            // IDownloaderClient.STATE_FAILED_SDCARD_FULL (17) : ?��? ?�???�치???�량??부족한 경우
-                            // IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED (19) : WRITE_EXTERNAL_STORAGE 권한??거�???경우
-                            // IDownloaderClient.STATE_FAILED_NO_GOOGLE_ACCOUNT (20) : 로그?�된 구�? 계정???�는 경우
-                            // IDownloaderClient.STATE_FAILED (99) : ?????�는 ?�류
+                            // IDownloaderClient.STATE_PAUSED_NETWORK_UNAVAILABLE (6) : ?�트?�크가 ?�결?�어 ?��? ?��? 경우
+                            // IDownloaderClient.STATE_PAUSED_BY_REQUEST (7) : sOBBDownloader.requestPauseDownload() �?강제�??�운로드 중단?�킨 경우
+                            // IDownloaderClient.STATE_PAUSED_ROAMING (12) : 로밍 �? 로밍 중이므�??�금???�??경고�??�고 계속 진행/중단 처리?�다.
+                            // IDownloaderClient.STATE_FAILED_UNLICENSED (15) : ?�식?�로 ?�을 ?�운로드 받�? ?��? 경우, APK�?별도�??�치?�여 ?�스?�하??개발 버전?�선 ?�패 처리?��? ?�고 그�?�?진행?�킨??
+                            // IDownloaderClient.STATE_FAILED_SDCARD_FULL (17) : ?��? ?�???�치???�량??부족한 경우
+                            // IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED (19) : WRITE_EXTERNAL_STORAGE 권한??거�???경우
+                            // IDownloaderClient.STATE_FAILED_NO_GOOGLE_ACCOUNT (20) : 로그?�된 구�? 계정???�는 경우
+                            // IDownloaderClient.STATE_FAILED (99) : ?????�는 ?�류
 
-                            // 계속 진행?�고???�다�? ?�류 ?�황???�소?�고 sOBBDownloader.requestContinueDownload() �??�출?�야 ?�다.
-                            // ?? ?�반?�으로는 STATE_PAUSED_BY_REQUEST 가 ?�닌 모든 경우 그냥 ?�패 처리?�고 ?�을 ?�설치하?�록 ?�도?�는 것이 좋다.
+                            // 계속 진행?�고???�다�? ?�류 ?�황???�소?�고 sOBBDownloader.requestContinueDownload() �??�출?�야 ?�다.
+                            // ?? ?�반?�으로는 STATE_PAUSED_BY_REQUEST 가 ?�닌 모든 경우 그냥 ?�패 처리?�고 ?�을 ?�설치하?�록 ?�도?�는 것이 좋다.
 
-                            // ?�패 처리
-                            // sOBBDownloader.disconnectDownloaderClient(sActivity) �??�출?�여 ?�운로드???�전??중단?�키�?
-                            // ???�에???�을 ?�설치하?�록 ?�도?�는 메시지�?출력?�고 ??종료처리�??�다.
+                            // ?�패 처리
+                            // sOBBDownloader.disconnectDownloaderClient(sActivity) �??�출?�여 ?�운로드???�전??중단?�키�?
+                            // ???�에???�을 ?�설치하?�록 ?�도?�는 메시지�?출력?�고 ??종료처리�??�다.
 
-                            // WiFI 가 ?�결?��? ?��? 경우?�는 ?�이브러�??��??�서 ?�체?�으�?처리가 ?�어 ?�으므�?별도 처리 ?�요 ?�다.
+                            // WiFI 가 ?�결?��? ?��? 경우?�는 ?�이브러�??��??�서 ?�체?�으�?처리가 ?�어 ?�으므�?별도 처리 ?�요 ?�다.
 
                             String info = "";
                             try {
@@ -345,8 +320,8 @@ public class AppActivity extends Cocos2dxActivity{
                 }
                 @Override
                 public void onUpdateProgress(long current, long total, String progress, String percent) {
-                    // ?�운로드 진행 �?
-                    // ?�운로드 진행 ?�황 UI ?�데?�트
+                    // ?�운로드 진행 �?
+                    // ?�운로드 진행 ?�황 UI ?�데?�트
 
                     String info = "";
                     try {
@@ -367,7 +342,7 @@ public class AppActivity extends Cocos2dxActivity{
         } else {
             Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
 
-            // 바로 게임 ?�작
+            // 바로 게임 ?�작
             sdkEventResult("apkexp_start", "complete", "pass");
         }
     }

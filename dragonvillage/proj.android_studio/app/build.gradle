@@ -76,14 +76,23 @@ android {
         live {
             res.srcDirs = ["res/common", "res/live"]
         }
-        market{
+        
+
+        market {
             assets.srcDir "../../../assets/100mb"
         }
-        full{
+        full {
             assets.srcDir "../../../assets/full"
         }
+
+        google {
+            java.srcDirs = ["src/common", "src/google"]
+        }
+        xsolla { 
+            java.srcDirs = ["src/common", "src/xsolla"]
+        }
+
         main {
-            java.srcDir "./src"
             manifest.srcFile "./AndroidManifest.xml"         
         }
     }
@@ -126,7 +135,7 @@ android {
     // when Gradle merges variant sources and configurations. You must assign
     // each product flavor you configure to one of the flavor dimensions.
 
-    flavorDimensions "server", "asset"
+    flavorDimensions "server", "asset", "platform"
 
     /**
     * The productFlavors {} block is where you can configure multiple product
@@ -140,7 +149,7 @@ android {
             dimension "server"
             versionName PROP_APPVER_DEV
             applicationIdSuffix ".dev"
-            //minSdkVersion 21 // native dex 사용하여 빌드 속도 높임
+            minSdkVersion 21 // native dex 사용하여 빌드 속도 높임
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -223,6 +232,14 @@ android {
             }
         }
 
+        // platform
+        google {
+            dimension "platform"
+        }
+        xsolla {
+            dimension "platform"
+        }
+        
     }
 
     buildTypes {
@@ -271,11 +288,12 @@ android {
 
             def server_flavor = flavors[0].name // 여기서 0은 dimension 순서를 의미
             def asset_flavor = flavors[1].name // market or full
+            def platform_flavor = flavors[2].name // google or xsolla
             def version = variant.versionName
             def versionCode = defaultConfig.versionCode
             def buildType = variant.variantData.variantConfiguration.buildType.name
 
-            outputFileName = "dvm_${version}_vc${versionCode}_${server_flavor}_${asset_flavor}_${buildType}.apk"
+            outputFileName = "dvm_${version}_vc${versionCode}_${server_flavor}_${asset_flavor}_${platform_flavor}_${buildType}.apk"
         }
     }
 } // end:android
