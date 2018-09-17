@@ -626,6 +626,14 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
 
     t_dragon = table_dragon:get(did)
 
+	-- 드래곤 추가하는 시기에 빈번한 에러를 방지하자
+	if (IS_TEST_MODE()) then
+		if (t_dragon == nil) then
+			ccdisplay(string.format("존재하지 않는 did : %d", did))
+			t_dragon = table_dragon:get(120011)
+		end
+	end
+
     -- 외형 변환 적용된 경우
     if (evolution >= POSSIBLE_TRANSFORM_CHANGE_EVO) then
         local transform = leader_dragon['transform']
