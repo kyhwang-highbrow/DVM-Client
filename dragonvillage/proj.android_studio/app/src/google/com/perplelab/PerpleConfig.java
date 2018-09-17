@@ -31,6 +31,6 @@ public class PerpleConfig {
     public static final int XSOLLA_MERCHANT_ID = 0;
     public static final String XSOLLA_API_KEY = "";
     public static final int XSOLLA_PROJECT_ID = 0;
-    public static final String XSOLLA_SECRET_KEY = "d";
+    public static final String XSOLLA_SECRET_KEY = "";
 
 }
