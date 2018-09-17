@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_ChallengeMode
 -------------------------------------
 UI_ChallengeMode = class(PARENT, {
+        m_tableView = 'table',
     })
 
 -------------------------------------
@@ -43,11 +44,67 @@ end
 function UI_ChallengeMode:initUI()
     local vars = self.vars
 
+    -- 테이블 뷰 생성
+    self:initUI_tableView()
+
     if vars['bgSprite'] then
         -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
         local scr_size = cc.Director:getInstance():getWinSize()
         vars['bgSprite']:setScale(scr_size.width / 1280)
     end
+end
+
+-------------------------------------
+-- function initUI_tableView
+-- @brief 테이블 뷰 생성
+-------------------------------------
+function UI_ChallengeMode:initUI_tableView()
+    local vars = self.vars
+
+    local node = vars['floorNode']
+    node:removeAllChildren()
+        
+	-- 층 생성
+	local t_floor = g_challengeMode:getChallengeModeStagesInfo()
+
+	-- 셀 아이템 생성 콜백
+	local create_func = function(ui, data)
+        --[[
+        ui.vars['floorBtn']:registerScriptTapHandler(function()
+            self:selectFloor(data)
+        end)
+
+        local stage_id = data['stage']
+        if (stage_id == self.m_selectedStageID) then
+            self:changeFloorVisual(stage_id, ui)
+        end
+        --]]
+
+		return true
+    end
+		
+    -- 테이블 뷰 인스턴스 생성
+    self.m_tableView = UIC_TableView(node)
+    self.m_tableView:setUseVariableSize(true)
+    self.m_tableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_BOTTOMUP)
+    self.m_tableView:setCellUIClass(UI_ChallengeModeListItem, create_func)
+    self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    self.m_tableView:setItemList(t_floor)
+
+    self.m_tableView.m_scrollView:setLimitedOffset(true)
+
+    --[[
+    local function sort_func(a, b)
+        return a['data']['stage'] < b['data']['stage']
+    end
+    table.sort(self.m_tableView.m_itemList, sort_func)
+    --]]
+        
+    --self.m_tableView:makeAllItemUINoAction()
+                
+    -- 현재 도전중인 층이 바로 보이도록 처리
+    --local floor = g_ancientTowerData:getFloorFromStageID(self.m_selectedStageID)
+    --self.m_tableView:relocateContainerFromIndex(floor + 1)
 end
 
 -------------------------------------

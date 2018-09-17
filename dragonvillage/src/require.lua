@@ -1024,6 +1024,7 @@ local t_module = {
     'UI_LoadingChallengeMode',
     'UI_GameChallengeMode',
     'UI_ChallengeModeResult',
+    'UI_ChallengeModeListItem',
 
 	-- UI : 가방
     'UI_Inventory',

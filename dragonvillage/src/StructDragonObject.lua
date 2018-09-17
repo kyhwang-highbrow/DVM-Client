@@ -816,6 +816,67 @@ function StructDragonObject:getStringData()
 end
 
 -------------------------------------
+-- function parseDragonStringData
+-- @brief 드래곤 토큰 문자열로 오브젝트 생성
+-------------------------------------
+function StructDragonObject:parseDragonStringData(str)
+    local l_str = pl.stringx.split(str, ';')
+    local l_key = {}
+
+    local idx = 0
+    local function getIdx()
+        idx = (idx + 1)
+        return idx
+    end
+
+    local function getValue(key, to_number)
+        local value = l_str[l_key[key]]
+        
+        if to_number then
+            return tonumber(value)
+        else
+            return value
+        end
+    end
+
+    l_key['did'] = getIdx()
+    l_key['lv'] = getIdx()
+    l_key['exp'] = getIdx()
+    l_key['eclv'] = getIdx()
+    l_key['rlv'] = getIdx()
+    l_key['rexp'] = getIdx()
+    l_key['evolution'] = getIdx()
+    l_key['grade'] = getIdx()
+    l_key['skill_0'] = getIdx()
+    l_key['skill_1'] = getIdx()
+    l_key['skill_2'] = getIdx()
+    l_key['skill_3'] = getIdx()
+    l_key['transform'] = getIdx()
+
+    l_key['flv'] = getIdx()
+    l_key['fexp'] = getIdx()
+    l_key['fatk'] = getIdx()
+    l_key['fhp'] = getIdx()
+    l_key['fdef'] = getIdx()
+
+    l_key['mastery_lv'] = getIdx()
+
+    local t_data = {}
+    t_data['did'] = getValue('did', true)
+    t_data['lv'] = getValue('lv', true)
+    t_data['exp'] = getValue('exp', true)
+    t_data['eclv'] = getValue('eclv', true)
+    t_data['evolution'] = getValue('evolution', true)
+    t_data['grade'] = getValue('grade', true)
+    t_data['mastery_lv'] = getValue('mastery_lv', true)
+
+    local struct_dragon_object = StructDragonObject(t_data)
+    
+
+    return struct_dragon_object
+end
+
+-------------------------------------
 -- function isMaxGradeAndLv
 -- @brief 최대 등급, 최대 레벨인지 확인 (6성 60레벨)
 --        특성 시스템 활성 조건이기도 함

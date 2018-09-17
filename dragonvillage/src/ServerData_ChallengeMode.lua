@@ -5,6 +5,7 @@ ServerData_ChallengeMode = class({
         m_serverData = 'ServerData',
         m_gameKey = 'number',
         m_matchUserInfo = 'StructUserInfoArena',
+        m_lStagesInfo = 'list',
     })
 
 -------------------------------------
@@ -19,7 +20,14 @@ end
 -- @brief 챌린지 모드 이벤트가 진행 중인지 여부 true or false
 -------------------------------------
 function ServerData_ChallengeMode:isActive_challengeMode()
-    -- 임시로 오픈
+    if (not g_hotTimeData) then
+        return false
+    end
+    
+    if (not g_hotTimeData:isActiveEvent('event_challenge')) then
+        return false
+    end
+
     return true
 end
 
@@ -114,6 +122,57 @@ function ServerData_ChallengeMode:getMatchUserInfo()
     return self.m_matchUserInfo
 end
 
+-------------------------------------
+-- function setChallengeModeStagesInfo
+-- @brief 서버에서 넘어온 데이터 가공
+-------------------------------------
+function ServerData_ChallengeMode:setChallengeModeStagesInfo(t_stages_info)
+    self.m_lStagesInfo = {}
+
+    for i,v in pairs(t_stages_info) do
+        local stage = tonumber(i)
+        v['stage'] = stage
+        self.m_lStagesInfo[stage] = v
+    end
+end
+
+-------------------------------------
+-- function getChallengeModeStagesInfo
+-- @brief
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeStagesInfo()
+
+    --{
+    --  "clan":"소녀",
+    --  "uid":"4hsvml8fjkaY43u6pdQh9M4uhPq1",
+    --  "nick":"1민2강",
+    --  "leader":"120655;60;0;0;4;0;3;6;5;5;1;1;3;9;0;225;13500;225;0;711215:15:2:atk_add|440:atk_multi|8:avoid_add|2:def_add|10:hp_add|580:cri_dmg_add|3;710226:15:1:atk_multi|46:resistance_add|3:avoid_add|4:aspd_add|2:hp_multi|4:def_add|5;710236:12:4:def_add|360:cri_dmg_add|8:hit_rate_add|1:atk_add|8:atk_multi|6:avoid_add|5;710246:15:2:cri_chance_add|46::avoid_add|6:def_multi|5:hp_add|226:accuracy_add|3;710256:15:2:hp_add|34440::cri_chance_add|8:hit_rate_add|3:atk_multi|3:cri_dmg_add|4;711266:15:3:hp_multi|46::atk_multi|10:resistance_add|3:cri_dmg_add|3:hit_rate_add|2",
+    --  "rank":61,
+    --  "deck":{
+    --    "formationlv":41,
+    --    "tamer":110002,
+    --    "tamerInfo":{
+    --      "skill_lv4":47,
+    --      "tid":110002,
+    --      "skill_lv3":50,
+    --      "skill_lv2":50,
+    --      "costume":730200,
+    --      "skill_lv1":50
+    --    },
+    --    "deck":{
+    --      "4":"5a2d574f91bcb66c04a8f9cd",
+    --      "1":"5ac5e9ab91bcb66dbc0c7c7c",
+    --      "5":"5ac9b1b7f6608a5f319ada07",
+    --      "2":"5b640551f6608a691664d956",
+    --      "3":"5b6c248091bcb613c143f3df"
+    --    },
+    --    "formation":"defence",
+    --    "leader":5,
+    --    "deckName":"arena"
+    --  }
+
+    return self.m_lStagesInfo
+end
 
 -------------------------------------
 -- function request_challengeModeInfo
@@ -127,6 +186,11 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage_id, finish_cb,
     local function success_cb(ret)
         -- 동기화
         g_serverData:networkCommonRespone(ret)
+
+        -- 스테이지 정보
+        if ret['stages_info'] then
+            self:setChallengeModeStagesInfo(ret['stages_info'])
+        end
 
         if finish_cb then
             finish_cb(ret)
