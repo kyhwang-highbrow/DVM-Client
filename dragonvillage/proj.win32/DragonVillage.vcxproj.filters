@@ -3754,6 +3754,12 @@
     <None Include="..\src\SceneGameChallengeMode.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_LoadingChallengeMode.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameChallengeMode.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

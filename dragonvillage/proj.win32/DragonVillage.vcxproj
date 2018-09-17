@@ -1164,6 +1164,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_FriendMatchResult.lua" />
     <None Include="..\src\UI_FriendMatchResultArena.lua" />
     <None Include="..\src\UI_GameArena.lua" />
+    <None Include="..\src\UI_GameChallengeMode.lua" />
     <None Include="..\src\UI_GameClanRaid.lua" />
     <None Include="..\src\UI_GameDebug_InfoPopup.lua" />
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
@@ -1183,6 +1184,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_InventoryTabEgg.lua" />
     <None Include="..\src\UI_InventoryTabTransform.lua" />
     <None Include="..\src\UI_LoadingArena.lua" />
+    <None Include="..\src\UI_LoadingChallengeMode.lua" />
     <None Include="..\src\UI_LobbyGuideAdventure.lua" />
     <None Include="..\src\UI_LobbyGuideAncientTower.lua" />
     <None Include="..\src\UI_LobbyGuideArena.lua" />

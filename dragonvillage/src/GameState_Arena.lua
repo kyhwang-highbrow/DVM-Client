@@ -422,6 +422,12 @@ function GameState_Arena:makeResultUI(is_win)
 
         -- 1. 네트워크 통신
         func_network_game_finish = function()
+            -- 챌린지 모드일 경우 통신
+            if (self.m_world.m_gameMode == GAME_MODE_CHALLENGE_MODE) then
+                g_challengeMode:request_challengeModeFinish(is_win, self.m_fightTimer, func_ui_result)
+                return
+            end
+
             g_arenaData:request_arenaFinish(is_win, self.m_fightTimer, func_ui_result)
         end
 

@@ -143,6 +143,21 @@ function ServerData_Deck:getDeck_core(deck_name)
 end
 
 -------------------------------------
+-- function getDeck_lowData
+-- @brief
+-------------------------------------
+function ServerData_Deck:getDeck_lowData(deck_name)
+    local l_deck = self.m_serverData:get('deck')
+    for i, value in ipairs(l_deck) do
+        if (value['deckname'] == deck_name) then
+            return value
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function adjustFormationName
 -- @brief
 -------------------------------------

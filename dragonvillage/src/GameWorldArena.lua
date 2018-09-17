@@ -143,11 +143,10 @@ function GameWorldArena:initTamer()
     local ENEMY_TAMER_POS_X = 960 + 50
     --local TAMER_POS_Y = -600
     local TAMER_POS_Y = -580
-    local is_friendMatch = g_gameScene.m_bFriendMatch
 
     -- 아군 테이머 생성
     do
-        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
+        local user_info = g_gameScene:getStructUserInfo_Player()
         local tamer_id = user_info:getDeckTamerID()
         local t_tamer_data = clone(g_tamerData:getTamerServerInfo(tamer_id))
         local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
@@ -164,11 +163,7 @@ function GameWorldArena:initTamer()
     
     -- 적군 테이머 생성
     do
-        local user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
-        -- 개발 모드를 위해서
-        if (self.m_bDevelopMode) and (not user_info) then
-            user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
-        end
+        local user_info = g_gameScene:getStructUserInfo_Opponent()
         local t_tamer_data = clone(user_info:getDeckTamerInfo())
 
         local costume_id = user_info:getDefDeckCostumeID()
@@ -398,8 +393,7 @@ end
 -------------------------------------
 function GameWorldArena:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
-    local is_friendMatch = g_gameScene.m_bFriendMatch
-    local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
+    local user_info = g_gameScene:getStructUserInfo_Player()
 
     local t_pvp_deck = user_info:getPvpDeck()
     local l_deck = user_info:getDeck_dragonList(true)
@@ -459,24 +453,12 @@ function GameWorldArena:makeEnemyDeck()
     local t_pvp_deck
     local l_deck
     local getDragonObject
-    local is_friendMatch = g_gameScene.m_bFriendMatch
 
-    if (self.m_bDevelopMode) then
-        local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
-        -- 개발 모드를 위해서
-        if (self.m_bDevelopMode) and (not user_info) then
-            user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
-        end
-        t_pvp_deck = user_info:getPvpDeck()
-        l_deck = user_info:getDeck_dragonList(true)
-        getDragonObject = function(doid) return user_info:getDragonObject(doid) end
-    else
-        -- 상대방의 덱 정보를 얻어옴
-        local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
-        t_pvp_deck = user_info:getPvpDeck()
-        l_deck = user_info:getDeck_dragonList(true)
-        getDragonObject = function(doid) return user_info:getDragonObject(doid) end
-    end
+    -- 상대방 정보
+    local user_info = g_gameScene:getStructUserInfo_Opponent()
+    t_pvp_deck = user_info:getPvpDeck()
+    l_deck = user_info:getDeck_dragonList(true)
+    getDragonObject = function(doid) return user_info:getDragonObject(doid) end
 
     local formation = t_pvp_deck['formation']
     local formation_lv = t_pvp_deck['formationlv']

@@ -3,6 +3,8 @@
 -------------------------------------
 ServerData_ChallengeMode = class({
         m_serverData = 'ServerData',
+        m_gameKey = 'number',
+        m_matchUserInfo = 'StructUserInfoArena',
     })
 
 -------------------------------------
@@ -19,6 +21,63 @@ end
 function ServerData_ChallengeMode:isActive_challengeMode()
     -- 임시로 오픈
     return true
+end
+
+-------------------------------------
+-- function getPlayerArenaUserInfo
+-------------------------------------
+function ServerData_ChallengeMode:getPlayerArenaUserInfo()
+    local struct_user_info = StructUserInfoArena()
+    struct_user_info.m_uid = g_userData:get('uid')
+	struct_user_info:setStructClan(g_clanData:getClanStruct())
+
+    local t_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
+    struct_user_info:applyPvpDeckData(t_data)
+
+    return struct_user_info
+    --return self.m_playerUserInfo
+end
+
+-------------------------------------
+-- function getMatchUserInfo
+-------------------------------------
+function ServerData_ChallengeMode:getMatchUserInfo()
+
+    -- 개발 중에 임시 데이터로 사용
+    if (not self.m_matchUserInfo) then
+        local data = require 'challenge_user_temp'
+        local struct_user_info = StructUserInfoArena()
+        for i,v in pairs(data) do
+            struct_user_info[i] = v
+        end
+
+        -- 룬 오프젝트
+        for i,v in pairs(struct_user_info.m_runesObject) do
+            struct_user_info.m_runesObject[i] = StructRuneObject(v)
+        end
+
+        -- 드래곤 오브젝트
+        for i,v in pairs(struct_user_info.m_dragonsObject) do
+            struct_user_info.m_dragonsObject[i] = StructDragonObject(v)
+
+            -- 룬 오프젝트
+            for roid,data in pairs(v.m_mRuneObjects) do
+                v.m_mRuneObjects[roid] = StructRuneObject(data)
+            end
+        end
+
+
+
+
+        self.m_matchUserInfo = struct_user_info
+    end
+
+
+    if (not self.m_matchUserInfo) then
+        return nil
+    end
+
+    return self.m_matchUserInfo
 end
 
 
@@ -132,4 +191,63 @@ function ServerData_ChallengeMode:request_challengeModeStart(finish_cb, fail_cb)
     end
 
     func_request()
+end
+
+-------------------------------------
+-- function request_challengeModeFinish
+-- @brief 챌린지 모드(그림자의 신전) 게임 시작 통신
+-------------------------------------
+function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        --[[
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 전투 UI로 이동
+            local function ok_cb()
+                UINavigator:goTo('battle_menu', 'competition')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+        --]]
+
+        return false
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/challenge/finish')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('is_win', is_win and 1 or 0)
+    ui_network:setParam('gamekey', self.m_gameKey)
+
+    -- 수동/자동
+    --local is_auto = self.m_tempLogData['is_auto'] or false
+    --ui_network:setParam('is_auto', is_auto)
+    ui_network:setParam('is_auto', true)
+
+    ui_network:setParam('stage', 1)
+
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
 end

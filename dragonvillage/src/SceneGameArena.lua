@@ -341,3 +341,34 @@ function SceneGameArena:networkGameFinish_response_drop_reward(ret, t_result_ref
         table.insert(drop_reward_list, t_data)
     end
 end
+
+-------------------------------------
+-- function getStructUserInfo_Player
+-- @brief 플레이어 유저 정보
+-- @return StructUserInfo
+-------------------------------------
+function SceneGameArena:getStructUserInfo_Player()
+    local is_friendMatch = self.m_bFriendMatch
+    local user_info = is_friendMatch and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
+    return user_info
+end
+
+-------------------------------------
+-- function getStructUserInfo_Opponent
+-- @brief 상대방 유저 정보
+-- @return StructUserInfo
+-------------------------------------
+function SceneGameArena:getStructUserInfo_Opponent()
+
+    -- 개발 모드일 경우
+    if (self.m_bDevelopMode == true) then
+        local user_info = g_arenaData:getMatchUserInfo()
+        if user_info then
+            return user_info
+        end
+    end
+
+    local is_friendMatch = self.m_bFriendMatch
+    local user_info = is_friendMatch and g_friendMatchData.m_matchInfo  or g_arenaData:getMatchUserInfo()
+    return user_info
+end

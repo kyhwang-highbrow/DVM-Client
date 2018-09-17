@@ -128,8 +128,8 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
         local function cb(ret)
             -- 시작이 두번 되지 않도록 하기 위함
             UI_BlockPopup()
-            --local scene = SceneGameChallengeMode()
-            local scene = SceneGameChallengeMode(nil, nil, nil, true) -- param : game_key, stage_id, stage_name, develop_mode
+            local scene = SceneGameChallengeMode(g_challengeMode.m_gameKey)
+            --local scene = SceneGameChallengeMode(nil, nil, nil, true) -- param : game_key, stage_id, stage_name, develop_mode
             scene:runScene()
 
             UIManager:toastNotificationRed(Str('전투 구현 중'))

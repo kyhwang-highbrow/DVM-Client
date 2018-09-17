@@ -4,9 +4,10 @@ local PARENT = UI_Game
 -- class UI_GameArena
 -------------------------------------
 UI_GameArena = class(PARENT, {
-    m_orgHeroTamerGaugeScaleX = 'number',
-    m_orgEnemyTamerGaugeScaleX = 'number'
-})
+        m_gameScene = '',
+        m_orgHeroTamerGaugeScaleX = 'number',
+        m_orgEnemyTamerGaugeScaleX = 'number'
+    })
 
 -------------------------------------
 -- function getUIFileName
@@ -19,6 +20,8 @@ end
 -- function init
 -------------------------------------
 function UI_GameArena:init(game_scene)
+    self.m_gameScene = game_scene
+
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_pauseButton() end, 'UI_GameArena')
 end
@@ -42,19 +45,13 @@ function UI_GameArena:initUI()
 
     -- 닉네임
     do
-        local is_friendMatch = self.m_gameScene.m_bFriendMatch
-        local user_info = is_friendMatch and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
+        -- 플레이어 정보
+        local user_info = self.m_gameScene:getStructUserInfo_Player()
         vars['userNameLabel1']:setString(user_info.m_nickname)
 
-        if (self.m_gameScene.m_bDevelopMode) then
-            user_info = g_arenaData:getMatchUserInfo()
-            if (user_info) then
-                vars['userNameLabel2']:setString(user_info.m_nickname)
-            end
-        else
-            user_info = is_friendMatch and g_friendMatchData.m_matchInfo  or g_arenaData:getMatchUserInfo()
-            vars['userNameLabel2']:setString(user_info.m_nickname)
-        end
+        -- 상대방 벙조
+        local user_info = self.m_gameScene:getStructUserInfo_Opponent()
+        vars['userNameLabel2']:setString(user_info.m_nickname)
     end
 
      -- 연속 전투 정보
