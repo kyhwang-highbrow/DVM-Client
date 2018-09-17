@@ -151,8 +151,8 @@ function ServerData_EventAlphabet:getAlphabetEvent_WordData(word_id)
 
         -- clone된 알파벳 수량
         local alphabet_data = g_userData:get('alphabet')
-        if (not alphabet_data['700237']) then
-            alphabet_data['700237'] = 0
+        if (not alphabet_data['700299']) then
+            alphabet_data['700299'] = 0
         end
         
         local wild_alphabet_cnt = 0
@@ -166,12 +166,12 @@ function ServerData_EventAlphabet:getAlphabetEvent_WordData(word_id)
             end
 
             if (alphabet_data[item_id_str] <= 0) then
-                if (alphabet_data['700237'] <= 0) then
+                if (alphabet_data['700299'] <= 0) then
                     exchangeable = false
                     break
                 else
                     wild_alphabet_cnt = (wild_alphabet_cnt + 1)
-                    alphabet_data['700237'] = math_max(alphabet_data['700237'] - 1)
+                    alphabet_data['700299'] = math_max(alphabet_data['700299'] - 1)
                 end
             end
 

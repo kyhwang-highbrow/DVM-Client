@@ -31,6 +31,8 @@ function UI_EventAlphabet:initUI()
         local ui_name
 
         if (i == 1) then
+            ui_name = 'alphabet_event_list_item_03.ui'
+        elseif (i == 2) then
             ui_name = 'alphabet_event_list_item_01.ui'
         else
             ui_name = 'alphabet_event_list_item_02.ui'

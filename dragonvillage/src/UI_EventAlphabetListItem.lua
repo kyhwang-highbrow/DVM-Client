@@ -130,13 +130,13 @@ end
 -------------------------------------
 function UI_EventAlphabetListItem:refresh_alphabetList()
     local vars = self.vars
-    -- ITEM_ID_ALPHABET_WILD = 700237 -- 와일드 알파벳 (알파벳 이벤트에서 사용되는 만능 알파벳)
+    -- ITEM_ID_ALPHABET_WILD = 700299 -- 와일드 알파벳 (알파벳 이벤트에서 사용되는 만능 알파벳)
     -- lua코드의 가독성을 위해 코드상에서는 string을 하드코딩해서 사용
 
     -- clone된 알파벳 수량
     local alphabet_data = g_userData:get('alphabet')
-    if (not alphabet_data['700237']) then
-        alphabet_data['700237'] = 0
+    if (not alphabet_data['700299']) then
+        alphabet_data['700299'] = 0
     end
 
     for i,data in pairs(self.m_lAlphabetIcon) do
@@ -163,11 +163,11 @@ function UI_EventAlphabetListItem:refresh_alphabetList()
         vars['numberLabel']:setString(count_str)
 
         if (alphabet_data[item_id_str] <= 0) then
-            if (alphabet_data['700237'] <= 0) then
+            if (alphabet_data['700299'] <= 0) then
                 local shader = ShaderCache:getShader(SHADER_GRAY_PNG)
                 vars['icon']:setGLProgram(shader)    
             else
-                alphabet_data['700237'] = math_max(alphabet_data['700237'] - 1)
+                alphabet_data['700299'] = math_max(alphabet_data['700299'] - 1)
                 local shader = ShaderCache:getShader(SHADER_DEFAULT_SPRITE)
                 vars['icon']:setGLProgram(shader)
                 -- 와일트 카드 사용된 상태
