@@ -39,6 +39,43 @@ function ServerData_ChallengeMode:getPlayerArenaUserInfo()
 end
 
 -------------------------------------
+-- function makeMatchUserInfo
+-------------------------------------
+function ServerData_ChallengeMode:makeMatchUserInfo(data)
+    local struct_user_info = StructUserInfoArena()
+
+    -- 기본 유저 정보
+    struct_user_info.m_uid = data['uid']
+    struct_user_info.m_nickname = data['nick']
+    struct_user_info.m_lv = data['lv']
+    struct_user_info.m_tamerID = data['tamer']
+    struct_user_info.m_leaderDragonObject = StructDragonObject(data['leader'])
+    struct_user_info.m_tier = data['tier']
+    struct_user_info.m_rank = data['rank']
+    struct_user_info.m_rankPercent = data['rate']
+    
+    -- 콜로세움 유저 정보
+    struct_user_info.m_rp = data['rp']
+    struct_user_info.m_matchResult = data['match']
+
+    struct_user_info:applyRunesDataList(data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
+    struct_user_info:applyDragonsDataList(data['dragons'])
+
+    -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
+    struct_user_info:applyPvpDeckData(data['deck'])
+
+    -- 클랜
+    if (data['clan_info']) then
+        local struct_clan = StructClan({})
+        struct_clan:applySimple(data['clan_info'])
+        struct_user_info:setStructClan(struct_clan)
+    end
+
+    local uid = data['uid']
+    self.m_matchUserInfo = struct_user_info
+end
+
+-------------------------------------
 -- function getMatchUserInfo
 -------------------------------------
 function ServerData_ChallengeMode:getMatchUserInfo()
@@ -65,9 +102,6 @@ function ServerData_ChallengeMode:getMatchUserInfo()
                 v.m_mRuneObjects[roid] = StructRuneObject(data)
             end
         end
-
-
-
 
         self.m_matchUserInfo = struct_user_info
     end
@@ -178,6 +212,11 @@ function ServerData_ChallengeMode:request_challengeModeStart(finish_cb, fail_cb)
     func_success_cb = function(ret)
         -- staminas, cash 동기화
         g_serverData:networkCommonRespone(ret)
+
+        -- 상대방 정보 여기서 설정
+        if (ret['match_user']) then
+            self:makeMatchUserInfo(ret['match_user'])
+        end
 
         self.m_gameKey = ret['gamekey']
 
