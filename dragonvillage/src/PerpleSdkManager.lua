@@ -64,6 +64,22 @@ function PerpleSdkManager:twitterFollowWebView(cb_func)
 end
 
 -------------------------------------
+-- function xsollaIsAvailable
+-- xsolla build와 시점 차이로 인하여 예외처리
+-------------------------------------
+function PerpleSdkManager:xsollaIsAvailable()
+	if (CppFunctions:isAndroid()) then
+		if (PerpleSDK.xsollaIsAvailable) then
+			if (PerpleSDK:xsollaIsAvailable()) then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
+-------------------------------------
 -- function makeErrorPopup
 -- perpleSdk에서 반환한 에러 정보를 팝업으로 출력
 -------------------------------------

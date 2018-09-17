@@ -218,7 +218,8 @@ local function coroutine_function(dt)
 				['validation_key'] = validation_key,
 				["product_id"] = product_id,
 				['price'] = price,
-				['sku'] = sku
+				['sku'] = sku,
+				['amount'] = 1 -- 입력 가능하도록 해둠 나중에 필요하면 사용!
 			}
 			local payload = dkjson.encode(payload_table)
 			

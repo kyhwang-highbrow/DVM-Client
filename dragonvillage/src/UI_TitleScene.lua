@@ -1048,6 +1048,11 @@ function UI_TitleScene:workBillingSetup()
     -- 영수증 검증 API 주소
     local url = GetPlatformApiUrl() .. '/payment/receiptValidation/'
     PerpleSDK:billingSetup(url, call_back)
+
+	-- Xsolla 데이터 검증용 API 주소
+	if (PerpleSdkManager:xsollaIsAvailable()) then
+		PerpleSDK:xsollaSetPaymentInfoUrl(url)
+	end
 end
 function UI_TitleScene:workBillingSetup_click()
 end
