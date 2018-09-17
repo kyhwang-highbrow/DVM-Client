@@ -380,7 +380,7 @@ function UIC_LabelTTF:isOutOfBound(str)
     local content_size = self.m_node:getContentSize()
 
 	if (content_size['height'] > dimension_size['height']) or (content_size['width'] > dimension_size['width']) then
-		ccdump({['str'] = str, ['cotent'] = content_size, ['dimension'] = dimension_size})
+		--ccdump({['str'] = str, ['cotent'] = content_size, ['dimension'] = dimension_size})
 		return true
 	end
 
