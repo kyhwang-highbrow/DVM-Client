@@ -18,7 +18,7 @@ function SceneGameChallengeMode:init(game_key, stage_id, stage_name, develop_mod
     self.m_sceneName = 'SceneGameChallengeMode'
 
     -- UI_ReadySceneNew.lua checkDeckProper() 함수와 통일해야함
-    g_deckData:setSelectedDeck('pvp_atk')
+    g_deckData:setSelectedDeck(DECK_CHALLENGE_MODE)
 
     -- 아레나 로딩은 상대방 덱을 확인하기 위해 5초간 유지
     self.m_minLoadingTime = 5

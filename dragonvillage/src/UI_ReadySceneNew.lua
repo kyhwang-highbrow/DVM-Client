@@ -172,7 +172,7 @@ function UI_ReadySceneNew:checkDeckProper()
 
     -- 챌린지 모드 별도 처리
     if (self.m_stageID == CHALLENGE_MODE_STAGE_ID) then
-        g_deckData:setSelectedDeck('pvp_atk')
+        g_deckData:setSelectedDeck(DECK_CHALLENGE_MODE)
         return
     end
 

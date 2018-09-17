@@ -36,12 +36,12 @@ end
 -- function setDeck
 -- @brief
 -------------------------------------
-function ServerData_Deck:setDeck(type, t_deck)
+function ServerData_Deck:setDeck(deck_name, t_deck)
     local l_deck = self.m_serverData:get('deck')
 
     local idx = nil
     for i,value in pairs(l_deck) do
-        if (value['deckname'] == type) then
+        if (value['deckname'] == deck_name) then
             idx = i
             break
         end
@@ -59,34 +59,48 @@ end
 -- function getDeck
 -- @brief
 -------------------------------------
-function ServerData_Deck:getDeck(type)
-    type = type or self.m_selectedDeck or 'adv'
+function ServerData_Deck:getDeck(deck_name)
+    local l_deck, formation, deckname, leader, tamer_id = self:getDeck_core(deck_name)
+
+    if (not tamer_id) or (0 == tamer_id) then
+        tamer_id = g_tamerData:getCurrTamerID()
+    end
+
+    return l_deck, formation, deckname, leader, tamer_id
+end
+
+-------------------------------------
+-- function getDeck_core
+-- @brief
+-------------------------------------
+function ServerData_Deck:getDeck_core(deck_name)
+    deck_name = deck_name or self.m_selectedDeck or 'adv'
 
     -- 콜로세움 (신규) 덱 예외처리
-    if (type == 'arena') then
+    if (deck_name == 'arena') then
         if (not g_arenaData.m_playerUserInfo) then
-            return {}, self:adjustFormationName('default'), type, 1
+            return {}, self:adjustFormationName('default'), deck_name, 1
         end
 
-        local l_doid, formation, type, leader, tamer_id = g_arenaData.m_playerUserInfo:getDeck(type)
-        return l_doid, self:adjustFormationName(formation), type, leader, tamer_id
+        local l_doid, formation, deck_name, leader, tamer_id = g_arenaData.m_playerUserInfo:getDeck(deck_name)
+        return l_doid, self:adjustFormationName(formation), deck_name, leader, tamer_id
 
     -- 콜로세움 덱 예외처리
-    elseif (type == 'pvp_atk') or (type == 'pvp_def') then
+    elseif (deck_name == 'pvp_atk') or (deck_name == 'pvp_def') then
         if (not g_colosseumData.m_playerUserInfo) then
-            return {}, self:adjustFormationName('default'), type, 1
+            return {}, self:adjustFormationName('default'), deck_name, 1
         end
 
-        local l_doid, formation, type, leader, tamer_id = g_colosseumData.m_playerUserInfo:getDeck(type)
-        return l_doid, self:adjustFormationName(formation), type, leader, tamer_id
+        local l_doid, formation, deck_name, leader, tamer_id = g_colosseumData.m_playerUserInfo:getDeck(deck_name)
+        return l_doid, self:adjustFormationName(formation), deck_name, leader, tamer_id
     
     -- 친선전 덱 예외처리
-    elseif (type == 'fpvp_atk') then
+    elseif (deck_name == 'fpvp_atk') then
         if (not g_friendMatchData.m_playerUserInfo) then
-            return {}, self:adjustFormationName('default'), type, 1
+            return {}, self:adjustFormationName('default'), deck_name, 1
         end
 
-        local l_doid, formation, type, leader, tamer_id = g_friendMatchData.m_playerUserInfo:getDeck(type)
+        local l_doid, formation, deck_name, leader, tamer_id = g_friendMatchData.m_playerUserInfo:getDeck(deck_name)
 
         -- 덱 유효한지 검사 (친선전은 드래곤 삭제 가능)
         local t_ret = {}
@@ -96,7 +110,7 @@ function ServerData_Deck:getDeck(type)
             end
         end
 
-        return t_ret, self:adjustFormationName(formation), type, leader, tamer_id
+        return t_ret, self:adjustFormationName(formation), deck_name, leader, tamer_id
     end
 
     local l_deck = self.m_serverData:get('deck')
@@ -104,11 +118,13 @@ function ServerData_Deck:getDeck(type)
     local t_deck
     local formation
 	local leader
+    local tamer_id
     for i, value in ipairs(l_deck) do
-        if (value['deckname'] == type) then
+        if (value['deckname'] == deck_name) then
             t_deck = value['deck']
             formation = value['formation']
 			leader = value['leader']
+            tamer_id = value['tamer']
         end
     end
 
@@ -120,10 +136,10 @@ function ServerData_Deck:getDeck(type)
             end
         end
         
-        return t_ret, self:adjustFormationName(formation), type, leader
+        return t_ret, self:adjustFormationName(formation), deck_name, leader, tamer_id
     end
 
-    return {}, self:adjustFormationName('default'), type, 1
+    return {}, self:adjustFormationName('default'), deck_name, 1, tamer_id
 end
 
 -------------------------------------
