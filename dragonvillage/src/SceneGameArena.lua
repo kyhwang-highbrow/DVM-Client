@@ -343,6 +343,14 @@ function SceneGameArena:networkGameFinish_response_drop_reward(ret, t_result_ref
 end
 
 -------------------------------------
+-- function makeGameState
+-- @brief
+-------------------------------------
+function SceneGameArena:makeGameState(game_world)
+    return GameState_Arena(game_world)
+end
+
+-------------------------------------
 -- function getStructUserInfo_Player
 -- @brief 플레이어 유저 정보
 -- @return StructUserInfo

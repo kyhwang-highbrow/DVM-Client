@@ -144,6 +144,14 @@ function SceneGameChallengeMode:prepareDone()
 end
 
 -------------------------------------
+-- function makeGameState
+-- @brief
+-------------------------------------
+function SceneGameChallengeMode:makeGameState(game_world)
+    return GameState_ChallengeMode(game_world)
+end
+
+-------------------------------------
 -- function getStructUserInfo_Player
 -- @brief 플레이어 유저 정보
 -- @return StructUserInfo

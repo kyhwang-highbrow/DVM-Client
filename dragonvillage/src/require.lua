@@ -427,6 +427,7 @@ local t_module = {
     'GameState_EventGold',
     'GameState_EventArena',
     'GameState_ClanRaid',
+    'GameState_ChallengeMode',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -1022,6 +1023,7 @@ local t_module = {
     'UI_ChallengeModeDeckSettings',
     'UI_LoadingChallengeMode',
     'UI_GameChallengeMode',
+    'UI_ChallengeModeResult',
 
 	-- UI : 가방
     'UI_Inventory',

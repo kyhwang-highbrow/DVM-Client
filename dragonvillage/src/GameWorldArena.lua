@@ -37,7 +37,7 @@ end
 function GameWorldArena:createComponents()
     PARENT.createComponents(self)
 
-    self.m_gameState = GameState_Arena(self)
+    self.m_gameState = g_gameScene:makeGameState(self)
     self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
 
     -- 타임 스케일 설정

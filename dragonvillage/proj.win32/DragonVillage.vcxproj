@@ -333,6 +333,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameState_AncientRuin.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
     <None Include="..\src\GameState_Arena.lua" />
+    <None Include="..\src\GameState_ChallengeMode.lua" />
     <None Include="..\src\GameState_ClanRaid.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_EventArena.lua" />
@@ -1055,6 +1056,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Card.lua" />
     <None Include="..\src\UI_ChallengeMode.lua" />
     <None Include="..\src\UI_ChallengeModeDeckSettings.lua" />
+    <None Include="..\src\UI_ChallengeModeResult.lua" />
     <None Include="..\src\UI_ChapterSelect.lua" />
     <None Include="..\src\UI_ChapterSelectListItem.lua" />
     <None Include="..\src\UI_ChatMacroListItem.lua" />
