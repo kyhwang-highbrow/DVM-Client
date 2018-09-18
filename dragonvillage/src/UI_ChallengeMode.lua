@@ -18,13 +18,20 @@ function UI_ChallengeMode:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ChallengeMode')
 
-    self.m_selectedStageID = g_challengeMode:getSelectedStage()
-
     self:initUI()
     self:initButton()
-    self:refresh(self.m_selectedStageID)
+    self:refresh()
 
     self:sceneFadeInAction()
+
+    local t_data = {stage=g_challengeMode:getSelectedStage()}
+    self:selectFloor(t_data)
+
+    -- 현재 도전중인 층이 바로 보이도록 처리
+    if self.m_selectedStageID then
+        local floor = self.m_selectedStageID
+        self.m_tableView:relocateContainerFromIndex(floor + 1)
+    end
 end
 
 -------------------------------------
@@ -106,10 +113,6 @@ function UI_ChallengeMode:initUI_tableView()
     --]]
         
     --self.m_tableView:makeAllItemUINoAction()
-                
-    -- 현재 도전중인 층이 바로 보이도록 처리
-    local floor = self.m_selectedStageID
-    self.m_tableView:relocateContainerFromIndex(floor + 1)
 end
 
 -------------------------------------
@@ -233,6 +236,10 @@ function UI_ChallengeMode:changeFloorVisual(stage_id, ui)
     end
     local ui = ui or t_item['ui']
     
+    if (not ui) then
+        return
+    end
+
     local is_selected = (stage_id == self.m_selectedStageID)
 
     if (is_selected) then
