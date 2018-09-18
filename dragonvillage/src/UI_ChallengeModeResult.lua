@@ -88,6 +88,10 @@ function UI_ChallengeModeResult:direction_end()
     resultMenu:setVisible(true)
 
     -- 연출 준비
+	vars['resultVisual']:setPositionY(100)
+	vars['okBtn']:setPositionY(-100)
+	vars['statsBtn']:setPositionY(-100)
+	vars['homeBtn']:setPositionY(-100)
     vars['eventNode1']:setVisible(false)
     vars['eventNode2']:setVisible(false)
 
