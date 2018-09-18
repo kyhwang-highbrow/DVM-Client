@@ -19,7 +19,7 @@ function UI_EventAlphabetConfirmPopup:init(wild_cnt, ok_btn_cb)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    --g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventAlphabetConfirmPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventAlphabetConfirmPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
