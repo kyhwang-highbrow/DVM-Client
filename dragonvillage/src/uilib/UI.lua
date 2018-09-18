@@ -20,7 +20,7 @@ UI = class({
 
 -------------------------------------
 -- function init
--------------------------------------
+------------------------------------- 
 function UI:init()
     self.closed = false
     self.enable = true
@@ -535,7 +535,7 @@ function UI:checkCompileError(classDef)
 	end
  end
 
- -------------------------------------
+-------------------------------------
 -- function checkVarsKey
 -- @breif UI를 갱신해야할 때 값이 변했는지 체크하기 위한 함수
 -------------------------------------
@@ -554,4 +554,25 @@ function UI:checkVarsKey(name, key)
 
     return false
     
+end
+
+-------------------------------------
+-- function verifyLabelSize
+-- @breif Label size 초과 판단
+-------------------------------------
+function UI:verifyLabelSize()
+    cclog('\n\n')
+    cclog('#### Start verifing label size ##')
+    cclog('## UI : ' .. self.m_uiName)
+    cclog('## .ui : ' .. self.m_resName)
+
+    for _, node in pairs(self.vars) do
+        if (isInstanceOf(node, UIC_LabelTTF)) then
+            node.m_isVerified = false
+            node:verifySize()
+            cclog(node:getString())
+        end
+    end
+
+    cclog('#### End verifing\n')
 end

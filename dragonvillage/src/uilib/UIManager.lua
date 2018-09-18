@@ -588,5 +588,9 @@ function UIManager:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_X) then
 		TutorialManager.getInstance():forcedClose()
 
+    -- 텍스트 영역 체크 
+    elseif (keyCode == KEY_T) then
+        local ui = table.getLast(self.m_uiList)
+        ui:verifyLabelSize()
 	end
 end

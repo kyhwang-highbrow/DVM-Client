@@ -70,7 +70,7 @@ local function setPropsForNode(node, data)
     if not data.relative_size_type then
         if data.is_relative_size then
             data.relative_size_type = 3
-            data.width = -data.rel_width or 0
+            data.width = -data.rel_width or 0 
             data.height = -data.rel_height or 0
         else
             data.relative_size_type = 0
@@ -500,11 +500,6 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         local rateX, rateY = Translate:getFontScaleRate()
         delegator:setScaleX( rateX )
         delegator:setScaleY( rateY )
-		
-		--local scale = Translate:getFontSizeScale()
-		--delegator:setFontSizeScale(scale)
-
-		delegator:verifySize()
 
     elseif type == 'EditBox' then
         UILoader.checkTranslate(data)
@@ -664,6 +659,14 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             vars[var] = delegator
         else
             vars[var] = node
+        end
+    
+    -- label 검증을 위해 luaname 지정되지 않은 label도 따로 저장한다
+    elseif (IS_TEST_MODE()) then
+        if (delegator) then
+            if (isInstanceOf(delegator, UIC_LabelTTF)) then
+                vars['label_' .. math_random(50)] = delegator
+            end
         end
     end
 

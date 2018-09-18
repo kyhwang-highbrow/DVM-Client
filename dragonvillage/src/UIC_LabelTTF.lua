@@ -30,9 +30,58 @@ function UIC_LabelTTF:init(node)
     self.m_isVerified = not IS_TEST_MODE() 
 
     --ui에 text가 들어있는경우 때문에
-    local org = node:getString()
-    self:setString( "" )
-    self:setString( org )
+    -- local org = node:getString()
+    -- self:setString( "" )
+    -- self:setString( org )
+end
+
+-------------------------------------
+-- function initGLNode
+-- override
+-------------------------------------
+function UIC_LabelTTF:initGLNode()
+    -- glNode 생성
+    local glNode = cc.GLNode:create()
+    glNode:registerScriptDrawHandler(function(transform, transformUpdated) self:primitivesDraw(transform, transformUpdated) end)
+    
+    local parent = self:getParent()
+    if (parent) then
+        parent:addChild(glNode)
+        
+        local x, y = self:getPosition()
+        local width, height = self.m_node:getNormalSize()
+        local anchor = self:getAnchorPoint()
+        local scale_x = self:getScaleX()
+        local scale_y = self:getScaleY()
+
+        local adj_x = x - (anchor['x'] * width * scale_x)
+        local adj_y = y - (anchor['y'] * height * scale_y)
+
+        glNode:setPosition(adj_x, adj_y)
+        glNode:setDockPoint(self:getDockPoint())
+        glNode:setScale(scale_x, scale_y)
+
+        --[[
+            glNode는 dockPoint 는 동작하지만 anchorPoint 는 동작하지 않아 좌표를 따로 계산해줌
+            왜인지 나중에 알아보자
+        ]]
+    end
+end
+
+-------------------------------------
+-- function primitivesDraw.
+-------------------------------------
+function UIC_LabelTTF:primitivesDraw(transform, transformUpdated)
+    kmGLPushMatrix()
+    kmGLLoadMatrix(transform)
+
+    local width, height = self.m_node:getNormalSize()
+    local origin = cc.p(0, 0)
+    local destination = cc.p(width, height)
+    local color = cc.c4f(0.8, 0.4, 0.4, 0.7)
+    cc.DrawPrimitives.drawSolidRect(origin, destination, color)
+
+    kmGLPopMatrix()
 end
 
 -------------------------------------
@@ -40,8 +89,6 @@ end
 -------------------------------------
 function UIC_LabelTTF:setString(str)
     self.m_node:setString(str)
-    --self:applyBoxWithScale(str)
-	self:verifySize()
 end
 
 -------------------------------------
@@ -49,11 +96,12 @@ end
 -------------------------------------
 function UIC_LabelTTF:verifySize()
 	-- 테스트 모드에서만 활성화됩니다.
-	local str = self.m_node:getString()
+	local str = self:getString()
     if (not self.m_isVerified) and (str ~= '') then
         self.m_isVerified = true
         if (self:isOutOfBound(str)) then
-			self:setTextColor(COLOR['proofreading'])
+            self:setTextColor(COLOR['proofreading'])
+            self:initGLNode()
         end
     end
 end
@@ -379,10 +427,17 @@ function UIC_LabelTTF:isOutOfBound(str)
     local dimension_size = self.m_node:getDimensions()
     local content_size = self.m_node:getContentSize()
 
+    -- 렌더링 후 사이즈 content_size와 label 고유 영역 dimension_size 비교하여 넘치는 곳이 없는지 체크한다.
 	if (content_size['height'] > dimension_size['height']) or (content_size['width'] > dimension_size['width']) then
 		--ccdump({['str'] = str, ['cotent'] = content_size, ['dimension'] = dimension_size})
 		return true
-	end
+    end
+    
+    -- 글자가 아예 넘어가버리면 화면에 렌더링 되지 않아 content_size에 반영이 되지 않는다
+    -- 존재해야할 라인 수를 통해 실제 높이를 계산한 후 content_size와 비교하여 판별함
+    if (self:getTotalHeight() > content_size['height']) then
+        return true
+    end
 
     return false
 end
