@@ -317,3 +317,11 @@ end
 function StructUserInfo:getStructClan()
     return self.m_structClan
 end
+
+-------------------------------------
+-- function getUserData
+-- @breif 스크립트어에서 getter setter에 대해 생각이 바뀌는 중이지만 getter는 있어야 한다.
+-------------------------------------
+function StructUserInfo:getUserData()
+    return self.m_userData
+end

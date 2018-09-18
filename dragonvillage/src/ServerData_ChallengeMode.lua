@@ -4,7 +4,9 @@
 ServerData_ChallengeMode = class({
         m_serverData = 'ServerData',
         m_gameKey = 'number',
+
         m_matchUserInfo = 'StructUserInfoArena',
+		m_playerUserInfo = 'StructUserInfoArena',
         
         m_lStagesDetailInfo = 'list',
         m_lStagesInfo = 'list',
@@ -49,15 +51,21 @@ end
 -- function getPlayerArenaUserInfo
 -------------------------------------
 function ServerData_ChallengeMode:getPlayerArenaUserInfo()
-    local struct_user_info = StructUserInfoArena()
-    struct_user_info.m_uid = g_userData:get('uid')
-	struct_user_info:setStructClan(g_clanData:getClanStruct())
+	if (not self.m_playerUserInfo) then
+		local struct_user_info = StructUserInfoArena()
+    
+		struct_user_info.m_uid = g_userData:get('uid')
+		struct_user_info.m_lv = g_userData:get('lv')
+		struct_user_info.m_nickname = g_userData:get('nick')
+		struct_user_info.m_userData = g_clanData:getClanStruct():getClanName()
 
-    local t_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
-    struct_user_info:applyPvpDeckData(t_data)
+		local t_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
+		struct_user_info:applyPvpDeckData(t_data)
 
-    return struct_user_info
-    --return self.m_playerUserInfo
+		self.m_playerUserInfo = struct_user_info
+	end
+
+    return self.m_playerUserInfo
 end
 
 -------------------------------------
@@ -91,6 +99,11 @@ function ServerData_ChallengeMode:makeChallengeModeStructUserInfo(data)
         local struct_clan = StructClan({})
         struct_clan:applySimple(data['clan_info'])
         struct_user_info:setStructClan(struct_clan)
+
+	-- 클랜명만 사용하는 경우 m_userData에 집어넣음
+	elseif (data['clan']) then
+		struct_user_info.m_userData = data['clan']
+
     end
 
     local uid = data['uid']

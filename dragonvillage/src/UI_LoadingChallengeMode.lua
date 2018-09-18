@@ -51,7 +51,7 @@ function UI_LoadingChallengeMode:initUI()
 
     -- 3회 이상 도전 시 수동/자동 선택 가능
 	local stage = g_challengeMode:getSelectedStage()
-    if (g_challengeMode:getChallengeModeStagePlayCnt(stage) > 3) then
+    if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
         vars['btnNode']:setVisible(true)
         vars['loadingNode']:setVisible(false)
 	-- 3회 이하는 자동만 가능
@@ -75,6 +75,57 @@ end
 -------------------------------------
 function UI_LoadingChallengeMode:refresh()
 	PARENT.refresh(self)
+end
+
+-------------------------------------
+-- function initUserInfo
+-- @override
+-------------------------------------
+function UI_LoadingChallengeMode:initUserInfo(direction, struct_user_info)
+	local vars = self.vars
+    local icon
+
+	local idx
+    if (direction == 'left') then
+        idx = 1
+    elseif (direction == 'right') then
+        idx = 2
+    end
+
+	-- 랭킹 숨김
+	vars['rankLabel' .. idx]:setVisible(false)
+
+    -- 닉네임
+    vars['userLabel' .. idx]:setString(struct_user_info.m_nickname)
+	vars['userLabel' .. idx]:setPositionX(-50 * (math_pow(-1, idx)))
+
+    -- 클랜명 .. 그림자 신전 구조 상 클랜명만 받아오기 때문에 이와 같이 처리
+	local clan_name = struct_user_info:getUserData() or ''
+	vars['clanLabel' .. idx]:setString(clan_name)
+	vars['clanLabel' .. idx]:setPositionX(-50 * (math_pow(-1, idx)))
+
+    -- 전투력
+    local str = struct_user_info:getDeckCombatPower()
+    vars['powerLabel' .. idx]:setString(Str('전투력 : {1}', str))
+
+    -- 아이콘
+    icon = struct_user_info:getDeckTamerIcon()
+    if (icon) then
+        vars['tamerNode' .. idx]:addChild(icon)
+    end
+end
+
+-------------------------------------
+-- function setNextLoadingStr
+-- @override
+-------------------------------------
+function UI_LoadingChallengeMode:setNextLoadingStr()
+	local stage = g_challengeMode:getSelectedStage()
+    if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
+		PARENT.setNextLoadingStr(self)
+	else
+		self.vars['loadingLabel']:setString(Str('1~3회 도전은 자동전투만 가능합니다.'))
+	end
 end
 
 --@CHECK
