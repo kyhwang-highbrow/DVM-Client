@@ -105,6 +105,7 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
 
     local check_dragon_inven
     local check_item_inven
+    local check_stamina
     local start_game
 
     -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
@@ -120,7 +121,21 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
         local function manage_func()
             UI_Inventory()
         end
-        g_inventoryData:checkMaximumItems(start_game, manage_func)
+        g_inventoryData:checkMaximumItems(check_stamina, manage_func)
+    end
+
+    check_stamina = function()
+        -- 스태미너 소모 체크
+        local stage = g_challengeMode:getSelectedStage()
+        local req_count = g_challengeMode:getChallengeMode_staminaCost(stage)
+
+        if g_staminasData:hasStaminaCount('st', req_count) then
+            start_game()
+        else
+            local function finish_cb()
+            end
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
+        end
     end
 
     start_game = function()
@@ -129,10 +144,7 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
             -- 시작이 두번 되지 않도록 하기 위함
             UI_BlockPopup()
             local scene = SceneGameChallengeMode(g_challengeMode.m_gameKey)
-            --local scene = SceneGameChallengeMode(nil, nil, nil, true) -- param : game_key, stage_id, stage_name, develop_mode
             scene:runScene()
-
-            UIManager:toastNotificationRed(Str('전투 구현 중'))
         end
 
         -- 덱 변경 확인후 api 요청
@@ -143,4 +155,15 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
     end
 
     check_dragon_inven()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_ChallengeModeDeckSettings:refresh()
+    PARENT.refresh(self)
+
+    local stage = g_challengeMode:getSelectedStage()
+    local cost = g_challengeMode:getChallengeMode_staminaCost(stage)
+    self.vars['actingPowerLabel']:setString(tostring(cost))
 end

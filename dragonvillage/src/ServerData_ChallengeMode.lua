@@ -6,6 +6,7 @@ ServerData_ChallengeMode = class({
         m_gameKey = 'number',
         m_matchUserInfo = 'StructUserInfoArena',
         
+        m_lStagesDetailInfo = 'list',
         m_lStagesInfo = 'list',
         m_lTotalPoint = 'list',
         m_lPlayInfo = 'list',
@@ -20,6 +21,7 @@ ServerData_ChallengeMode = class({
 -------------------------------------
 function ServerData_ChallengeMode:init(server_data)
     self.m_tempLogData = {}
+    self.m_lStagesDetailInfo = {}
 end
 
 
@@ -55,9 +57,9 @@ function ServerData_ChallengeMode:getPlayerArenaUserInfo()
 end
 
 -------------------------------------
--- function makeMatchUserInfo
+-- function makeChallengeModeStructUserInfo
 -------------------------------------
-function ServerData_ChallengeMode:makeMatchUserInfo(data)
+function ServerData_ChallengeMode:makeChallengeModeStructUserInfo(data)
     local struct_user_info = StructUserInfoArena()
 
     -- 기본 유저 정보
@@ -88,7 +90,14 @@ function ServerData_ChallengeMode:makeMatchUserInfo(data)
     end
 
     local uid = data['uid']
-    self.m_matchUserInfo = struct_user_info
+    return struct_user_info
+end
+
+-------------------------------------
+-- function makeMatchUserInfo
+-------------------------------------
+function ServerData_ChallengeMode:makeMatchUserInfo(data)
+    self.m_matchUserInfo = self:makeChallengeModeStructUserInfo(data)
 end
 
 -------------------------------------
@@ -254,7 +263,7 @@ end
 -- function request_challengeModeInfo
 -- @brief 챌린지 모드(그림자의 신전) info 요청
 -------------------------------------
-function ServerData_ChallengeMode:request_challengeModeInfo(stage_id, finish_cb, fail_cb)
+function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -277,6 +286,10 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage_id, finish_cb,
             self:setChallengeModeOpenInfo(ret['open_info'])
         end
 
+        -- 스테이지 상세 정보 저장
+        local _stage = (stage or ret['highest_floor'])
+        self.m_lStagesDetailInfo[_stage] = ret['stage_info']
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -293,11 +306,60 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage_id, finish_cb,
         return false
     end
 
+    -- 서버에서 stages_info를 매번 호출하면 부하가 있기때문에 데이터가 있으면 중복으로 받지 않게 처리
+    local include_infos = true
+    if self.m_lStagesInfo and (0 < table.count(self.m_lStagesInfo)) then
+        include_infos = false
+    end
+    
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/challenge/info')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('floor', 1)
+    ui_network:setParam('floor', stage)
+    ui_network:setParam('include_infos', include_infos)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_challengeModeStageDetailInfo
+-- @brief 챌린지 모드(그림자의 신전) stage별 상세 정보 요청
+-------------------------------------
+function ServerData_ChallengeMode:request_challengeModeStageDetailInfo(stage, finish_cb, fail_cb)
+    -- 데이터가 존재하면 그대로 리턴
+    if (self.m_lStagesDetailInfo[stage]) then
+        finish_cb()
+        return
+    end
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self.m_lStagesDetailInfo[stage] = ret['stage_info'] 
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        return false
+    end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/challenge/stage')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(response_status_cb)
@@ -453,7 +515,7 @@ end
 function ServerData_ChallengeMode:getSelectedStage()
     if (not self.m_selectedStage) then
         local max = nil
-        for i,v in pairs(self.m_lOpenInfo) do
+        for i,v in pairs(self.m_lStagesDetailInfo) do
             if (not max) or (max < i) then
                 max = i
             end
@@ -470,6 +532,14 @@ end
 -------------------------------------
 function ServerData_ChallengeMode:setSelectedStage(stage)
     self.m_selectedStage = math_clamp(stage, 1, 100)
+end
+
+-------------------------------------
+-- function resetSelectedStage
+-- @brief
+-------------------------------------
+function ServerData_ChallengeMode:resetSelectedStage()
+    self.m_selectedStage = nil
 end
 
 -------------------------------------
@@ -497,6 +567,86 @@ function ServerData_ChallengeMode:isClearStage_challengeMode(stage)
         if (self.m_lTotalPoint[stage] > 0) then
             return true
         end
+    end
+
+    return false
+end
+
+
+-------------------------------------
+-- function getChallengeMode_StageDetailInfo
+-- @breif 스테이지 상세 정보
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeMode_StageDetailInfo(stage)
+    return self.m_lStagesDetailInfo[stage]
+end
+
+
+-------------------------------------
+-- function getChallengeMode_StageInfo
+-- @breif 스테이지 정보
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeMode_StageInfo(stage)
+    return self.m_lStagesInfo[stage]
+end
+
+-------------------------------------
+-- function getChallengeMode_staminaCost
+-- @breif 스테이지 정보
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeMode_staminaCost(stage)
+    local play_cnt = self:getChallengeModeStagePlayCnt(stage)
+
+    local cost_value = 5
+    local cost_delta = 5
+    local cost_maximum = 50
+
+    local stamina = cost_value + (play_cnt * cost_delta)
+    stamina = math_min(stamina, cost_maximum)
+
+    return stamina
+end
+
+-------------------------------------
+-- function getChallengeModeStatusText
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeStatusText()
+    local time = g_hotTimeData:getEventRemainTime('event_challenge') or 0
+
+    local str = ''
+    if (not self:isActive_challengeMode()) then
+        if (time < 0) then
+            str = Str('오픈시간이 아닙니다.')
+        end
+
+    elseif (0 < time) then
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
+
+    else
+        str = Str('종료되었습니다.')
+    end
+
+    return str
+end
+
+-------------------------------------
+-- function isOpenStage_ChallengeMode
+-------------------------------------
+function ServerData_ChallengeMode:isOpenStage_ChallengeMode(stage)
+    if (stage <= 1) then
+        return true
+    end
+
+    local prev_stage = math_max(1, stage - 1)
+
+    local prev_point = self:getChallengeModeStagePoint(prev_stage)
+    if (0 < prev_point) then
+        return true
+    end
+
+    local prev_play_cnt = self:getChallengeModeStagePlayCnt(stage)
+    if (0 < prev_play_cnt) then
+        return true
     end
 
     return false

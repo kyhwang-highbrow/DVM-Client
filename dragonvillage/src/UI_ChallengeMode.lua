@@ -22,7 +22,7 @@ function UI_ChallengeMode:init()
 
     self:initUI()
     self:initButton()
-    self:refresh()
+    self:refresh(self.m_selectedStageID)
 
     self:sceneFadeInAction()
 end
@@ -55,6 +55,10 @@ function UI_ChallengeMode:initUI()
         local scr_size = cc.Director:getInstance():getWinSize()
         vars['bgSprite']:setScale(scr_size.width / 1280)
     end
+
+    -- 남은 시간 표기
+    local str_time = g_challengeMode:getChallengeModeStatusText()
+    vars['timeLabel']:setString(str_time)
 end
 
 -------------------------------------
@@ -109,6 +113,62 @@ function UI_ChallengeMode:initUI_tableView()
 end
 
 -------------------------------------
+-- function refresh
+-- @brief
+-------------------------------------
+function UI_ChallengeMode:refresh(stage)
+    local vars = self.vars
+    vars['formationNode']:removeAllChildren()
+    vars['tamerNode']:removeAllChildren()
+
+    if (not stage) then
+        return
+    end
+
+    local t_data = g_challengeMode:getChallengeMode_StageDetailInfo(stage)
+    local struct_user_info = g_challengeMode:makeChallengeModeStructUserInfo(t_data)
+
+    local l_dragon_obj = struct_user_info:getDeck_dragonList()
+    local leader = struct_user_info.m_pvpDeck['leader']
+    local formation = struct_user_info.m_pvpDeck['formation']
+
+    
+    
+    local player_2d_deck = UI_2DDeck(true, true)
+    player_2d_deck:setDirection('right')
+    vars['formationNode']:addChild(player_2d_deck.root)
+    player_2d_deck:initUI()
+
+    -- 드래곤 생성 (리더도 함께)
+    player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
+        
+    -- 진형 설정
+    player_2d_deck:setFormation(formation)
+
+
+    -- 테이머
+    local animator = struct_user_info:getDeckTamerSDAnimator()
+    vars['tamerNode']:addChild(animator.m_node)
+
+    do-- 테이머 명칭
+        local t_data = g_challengeMode:getChallengeMode_StageInfo(stage)
+        local rank = t_data['rank']
+        local nick = t_data['nick']
+        local clan = t_data['clan']
+        local str = Str('{1}위', rank)
+        str = str .. ' {@}' .. nick
+        if (clan and (clan ~= '')) then
+            str = str .. ' {@clan_name}' .. clan
+        end
+        vars['tamerNameLabel']:setString(str)
+    end
+
+    -- 날개
+    local st = g_challengeMode:getChallengeMode_staminaCost(stage)
+    vars['priceaLabel']:setString(tostring(st))
+end
+
+-------------------------------------
 -- function initButton
 -------------------------------------
 function UI_ChallengeMode:initButton()
@@ -117,13 +177,6 @@ function UI_ChallengeMode:initButton()
     if vars['startBtn'] then
         vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     end
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_ChallengeMode:refresh(floor_info)
-    local vars = self.vars
 end
 
 -------------------------------------
@@ -138,7 +191,12 @@ end
 -- @brief 출전 덱 설정 버튼
 -------------------------------------
 function UI_ChallengeMode:click_startBtn()
-    UI_ChallengeModeDeckSettings(CHALLENGE_MODE_STAGE_ID)
+    local stage = self.m_selectedStageID
+    if g_challengeMode:isOpenStage_ChallengeMode(stage) then
+        UI_ChallengeModeDeckSettings(CHALLENGE_MODE_STAGE_ID)
+    else
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
+    end
 end
 
 
@@ -147,14 +205,22 @@ end
 -------------------------------------
 function UI_ChallengeMode:selectFloor(floor_info)
     local stage = floor_info['stage']
-    local prev = self.m_selectedStageID
-    self.m_selectedStageID = stage
 
-    self:changeFloorVisual(prev)
-    self:changeFloorVisual(self.m_selectedStageID)
+    if (self.m_selectedStageID ~= stage) then
+        local function finish_cb(ret)
+            local prev = self.m_selectedStageID
+            self.m_selectedStageID = stage
+            
+            -- 실제로 진행될 스테이지 정보 저장
+            g_challengeMode:setSelectedStage(self.m_selectedStageID)
 
-    -- 실제로 진행될 스테이지 정보 저장
-    g_challengeMode:setSelectedStage(self.m_selectedStageID)
+            self:changeFloorVisual(prev)
+            self:changeFloorVisual(self.m_selectedStageID)
+            self:refresh(stage)
+        end
+
+        g_challengeMode:request_challengeModeStageDetailInfo(stage, finish_cb)
+    end
 end
 
 -------------------------------------
@@ -171,9 +237,19 @@ function UI_ChallengeMode:changeFloorVisual(stage_id, ui)
 
     if (is_selected) then
         ui.vars['selectedVisual']:setVisible(true)
+        ui.vars['selectedBg']:setVisible(true)
     else
         ui.vars['selectedVisual']:setVisible(false)
+        ui.vars['selectedBg']:setVisible(false)
     end
+end
+
+-------------------------------------
+-- function onClose
+-------------------------------------
+function UI_ChallengeMode:onClose()
+    PARENT.onClose(self)
+    g_challengeMode:resetSelectedStage()
 end
 
 --@CHECK

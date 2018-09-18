@@ -605,7 +605,7 @@ end
 -------------------------------------
 function UINavigatorDefinition:goTo_challenge_mode(...)
     local args = {...}
-    local stage_id = args[1]
+    local stage = args[1]
 
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_ChallengeMode')
@@ -668,7 +668,7 @@ function UINavigatorDefinition:goTo_challenge_mode(...)
     end
 
     -- 정보 요청
-    g_challengeMode:request_challengeModeInfo(stage_id, finish_cb, fail_cb)
+    g_challengeMode:request_challengeModeInfo(stage, finish_cb, fail_cb)
 end
 
 -------------------------------------
