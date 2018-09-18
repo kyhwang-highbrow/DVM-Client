@@ -1,4 +1,4 @@
-﻿return {
+return {
 	['m_tamerPosY']=0;
 	['m_leaderDragonObject']={
 		['eclv']=0;
