@@ -20,7 +20,16 @@ ServerData_ChallengeMode = class({
         -- 랭킹 정보에 사용
         m_nGlobalOffset = 'number', -- 랭킹
         m_lGlobalRank = 'list',
+
+		--STATE = 'enum',
     })
+
+ServerData_ChallengeMode.STATE = {
+	['INACTIVE'] = 1,
+	['LOCK'] = 2,
+	['OPEN'] = 3,
+	['REWARD'] = 4,
+}
 
 -------------------------------------
 -- function init
@@ -36,15 +45,45 @@ end
 -- @brief 챌린지 모드 이벤트가 진행 중인지 여부 true or false
 -------------------------------------
 function ServerData_ChallengeMode:isActive_challengeMode()
-    if (not g_hotTimeData) then
-        return false
-    end
-    
-    if (not g_hotTimeData:isActiveEvent('event_challenge')) then
-        return false
-    end
+    return (self:getChallengeModeState() ~= ServerData_ChallengeMode.STATE['INACTIVE'])
+end
 
-    return true
+-------------------------------------
+-- function getChallengeModeState
+-- @brief 이벤트 그림자 신전의 상태 
+-- @use ServerData_ChallengeMode.STATE
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeState()
+	-- 예외처리
+	if (not g_hotTimeData) then
+		return ServerData_ChallengeMode.STATE['INACTIVE']
+
+	-- 이벤트 기간
+	elseif (g_hotTimeData:isActiveEvent('event_challenge')) then
+		
+		-- 레벨 체크
+		if (g_contentLockData:isContentLock('challenge_mode')) then
+			return ServerData_ChallengeMode.STATE['LOCK']
+
+		else
+			return ServerData_ChallengeMode.STATE['OPEN']
+		end
+
+	-- 보상 수령 기간
+	elseif (g_hotTimeData:isActiveEvent('event_challenge_reward')) then
+		
+		-- 레벨 체크
+		if (g_contentLockData:isContentLock('challenge_mode')) then
+			return ServerData_ChallengeMode.STATE['LOCK']
+
+		else
+			return ServerData_ChallengeMode.STATE['REWARD']
+		end
+
+	end
+
+	-- 해당 없으면 비활성화
+	return ServerData_ChallengeMode.STATE['INACTIVE']
 end
 
 -------------------------------------

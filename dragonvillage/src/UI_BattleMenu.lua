@@ -326,7 +326,7 @@ function UI_BattleMenu:initCompetitionTab()
         table.insert(l_content_str, 'colosseum')
 
         -- 챌린지 모드 (챌린지 모드 이벤트가 진행 중인지 여부 true or false)
-        if g_challengeMode:isActive_challengeMode() then
+        if (g_challengeMode:isActive_challengeMode()) then
             table.insert(l_content_str, 'challenge_mode') 
         end
     end
