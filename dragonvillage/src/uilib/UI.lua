@@ -568,8 +568,10 @@ function UI:verifyLabelSize()
 
     for _, node in pairs(self.vars) do
         if (isInstanceOf(node, UIC_LabelTTF)) then
-            node:verifySize()
-            cclog(node:getString())
+            local ret = node:verifySize()
+			if (ret) then
+				cclog(node:getString())
+			end
         end
     end
 

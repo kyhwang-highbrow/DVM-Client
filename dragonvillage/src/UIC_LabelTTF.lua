@@ -102,8 +102,11 @@ function UIC_LabelTTF:verifySize()
         if (self:isOutOfBound(str)) then
             self:setTextColor(COLOR['proofreading'])
             self:initGLNode()
+
+			return true
         end
     end
+	return false
 end
 
 -------------------------------------

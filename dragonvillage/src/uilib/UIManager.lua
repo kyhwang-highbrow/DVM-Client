@@ -211,7 +211,7 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
     end
 
     -- 라벨 영역 검사
-    if (IS_TEST_MODE()) and (CppFunctions:isWin32()) then
+    if (IS_TEST_MODE()) and (CppFunctions:isWin32()) and (Translate:isNeedTranslate()) then
         ui:autoDelayedVerifier(1.5)
     end
 end
