@@ -3772,6 +3772,9 @@
     <None Include="..\src\UI_ChallengeModeRankingPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ChallengeModeInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

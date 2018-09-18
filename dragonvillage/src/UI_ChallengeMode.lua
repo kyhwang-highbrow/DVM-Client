@@ -201,6 +201,7 @@ function UI_ChallengeMode:initButton()
 
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infonfoBtn() end)
 end
 
 -------------------------------------
@@ -231,6 +232,13 @@ function UI_ChallengeMode:click_rankBtn()
     g_challengeMode:open_challengeModeRankingPopup()
 end
 
+-------------------------------------
+-- function click_infonfoBtn
+-- @brief 랭킹, 보상 정보 버튼
+-------------------------------------
+function UI_ChallengeMode:click_infonfoBtn()
+    UI_ChallengeModeInfoPopup()
+end
 
 -------------------------------------
 -- function selectFloor

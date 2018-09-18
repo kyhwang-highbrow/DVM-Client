@@ -1,0 +1,69 @@
+local PARENT = class(UI, ITabUI:getCloneTable())
+
+-------------------------------------
+-- class UI_ChallengeModeInfoPopup
+-------------------------------------
+UI_ChallengeModeInfoPopup = class(PARENT,{
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ChallengeModeInfoPopup:init(default_tab)
+    local vars = self:load('challenge_mode_info_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChallengeModeInfoPopup')
+
+    -- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+    self:initTab(default_tab)
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ChallengeModeInfoPopup:initUI()
+    local vars = self.vars
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ChallengeModeInfoPopup:initButton()
+    local vars = self.vars
+    if vars['closeBtn'] then
+        vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    end
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_ChallengeModeInfoPopup:refresh()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_ChallengeModeInfoPopup:initTab(default_tab)
+    local default_tab = (default_tab or 'bg')
+
+    local vars = self.vars
+    self:addTabAuto('bg', vars, vars['bgInfoMenu'])
+    self:addTabAuto('lock', vars, vars['lockInfoMenu'])
+    self:addTabAuto('score', vars, vars['scoreInfoMenu'])
+    self:addTabAuto('wing', vars, vars['wingInfoMenu'])
+    self:addTabAuto('reward', vars, vars['rewardInfoMenu'])
+    self:setTab(default_tab)
+end
+
+--@CHECK
+UI:checkCompileError(UI_ChallengeModeInfoPopup)
