@@ -568,11 +568,30 @@ function UI:verifyLabelSize()
 
     for _, node in pairs(self.vars) do
         if (isInstanceOf(node, UIC_LabelTTF)) then
-            node.m_isVerified = false
             node:verifySize()
             cclog(node:getString())
         end
     end
 
     cclog('#### End verifing\n')
+end
+
+-------------------------------------
+-- function autoDelayedVerifier
+-- @breif 자동으로 n초 후 라벨 영역 검사를 한다
+-------------------------------------
+function UI:autoDelayedVerifier(_delay)
+    local node = cc.Node:create()
+    local delay = _delay or 1
+    self.root:addChild(node)
+
+    local timer = 0
+    local function update(dt)
+        timer = timer + dt
+        if (timer > delay) then
+            self:verifyLabelSize()
+            node:unscheduleUpdate()
+        end
+    end
+    node:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end

@@ -209,6 +209,11 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
     if self.m_cbUIOpen then
         self.m_cbUIOpen(ui)
     end
+
+    -- 라벨 영역 검사
+    if (IS_TEST_MODE()) and (CppFunctions:isWin32()) then
+        ui:autoDelayedVerifier(1.5)
+    end
 end
 
 -------------------------------------
@@ -588,9 +593,5 @@ function UIManager:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_X) then
 		TutorialManager.getInstance():forcedClose()
 
-    -- 텍스트 영역 체크 
-    elseif (keyCode == KEY_T) then
-        local ui = table.getLast(self.m_uiList)
-        ui:verifyLabelSize()
 	end
 end
