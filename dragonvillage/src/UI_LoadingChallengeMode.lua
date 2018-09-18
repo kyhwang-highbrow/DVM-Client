@@ -1,13 +1,9 @@
-local PARENT = UI
-local WAITING_TIME = 10
+local PARENT = UI_LoadingArena
 
 -------------------------------------
 -- class UI_LoadingChallengeMode
 -------------------------------------
 UI_LoadingChallengeMode = class(PARENT,{
-        m_lLoadingStrList = 'List<string>',
-        m_remainTimer = 'number',
-        m_bSelected = 'boolean',
     })
 
 -------------------------------------
@@ -15,22 +11,6 @@ UI_LoadingChallengeMode = class(PARENT,{
 -------------------------------------
 function UI_LoadingChallengeMode:init(curr_scene)
 	self.m_uiName = 'UI_LoadingChallengeMode'
-
-    self.m_remainTimer = WAITING_TIME
-    self.m_bSelected = false
-
-	local vars = self:load('arena_loading.ui')
-    
-    local guide_type = curr_scene.m_loadingGuideType
-	if (guide_type) then
-		self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
-	end
-
-	self:initUI()
-    self:initButton()
-
-    -- 자체적으로 업데이트를 돌린다.
-	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -39,102 +19,34 @@ end
 function UI_LoadingChallengeMode:initUI()
     local vars = self.vars
 
+    -- 플레이어
+    do
+		local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
+		if (struct_user_info) then
+			-- 덱
+			local l_dragon_obj = struct_user_info:getDeck_dragonList()
+			local leader = struct_user_info.m_pvpDeck['leader']
+			local formation = struct_user_info.m_pvpDeck['formation']
+			self:initDeckUI('left', l_dragon_obj, leader, formation)
 
-    -- 아군
-    local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
-    local l_dragon_obj = struct_user_info:getDeck_dragonList()
-    local leader = struct_user_info.m_pvpDeck['leader']
-    local formation = struct_user_info.m_pvpDeck['formation']
-    self:initDeckUI('left', l_dragon_obj, leader, formation)
-
-
-    -- 적군
-    local struct_user_info = g_challengeMode:getMatchUserInfo()
-    local l_dragon_obj = struct_user_info:getDeck_dragonList()
-    local leader = struct_user_info.m_pvpDeck['leader']
-    local formation = struct_user_info.m_pvpDeck['formation']
-    self:initDeckUI('right', l_dragon_obj, leader, formation)
-
-    if true then
-        return
-    end
-    
-    do -- 플레이어 유저 정보
-        local user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
-        if (user_info) then
-            local struct_clan = user_info:getStructClan()
-            local icon
-
-            -- 티어
-            icon = user_info:makeTierIcon(nil, 'small')
-            if (icon) then
-                vars['tierNode1']:addChild(icon)
-            end
-
-            -- 랭킹
-            vars['rankLabel1']:setString(user_info:getRankText(true))
-
-            -- 레벨, 닉네임
-            vars['userLabel1']:setString(user_info:getUserText())
-
-            -- 클랜
-            local clan_name = struct_clan and struct_clan:getClanName() or ''
-            vars['clanLabel1']:setString(clan_name)
-
-            icon = struct_clan and struct_clan:makeClanMarkIcon()
-            if (icon) then
-                vars['markNode1']:addChild(icon)
-            end
-
-            -- 전투력
-            local str = user_info:getDeckCombatPower()
-            vars['powerLabel1']:setString(Str('전투력 : {1}', str))
-
-            -- 아이콘
-            icon = user_info:getDeckTamerIcon()
-            if (icon) then
-                vars['tamerNode1']:addChild(icon)
-            end
-        end
+			-- 유저 정보
+			self:initUserInfo('left', struct_user_info)
+		end
     end
 
-    do -- 상대방 유저 정보
-        local user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
-        if (user_info) then
-            local struct_clan = user_info:getStructClan()
-            local icon
+	 -- 상대방
+    do
+		local struct_user_info = g_challengeMode:getMatchUserInfo()
+		if (struct_user_info) then
+			-- 덱
+			local l_dragon_obj = struct_user_info:getDeck_dragonList()
+			local leader = struct_user_info.m_pvpDeck['leader']
+			local formation = struct_user_info.m_pvpDeck['formation']
+			self:initDeckUI('right', l_dragon_obj, leader, formation)
 
-            -- 티어
-            icon = user_info:makeTierIcon(nil, 'small')
-            if (icon) then
-                vars['tierNode2']:addChild(icon)
-            end
-
-            -- 랭킹
-            vars['rankLabel2']:setString(user_info:getRankText(true))
-
-            -- 레벨, 닉네임
-            vars['userLabel2']:setString(user_info:getUserText())
-
-            -- 클랜
-            local clan_name = struct_clan and struct_clan:getClanName() or ''
-            vars['clanLabel2']:setString(clan_name)
-
-            icon = struct_clan and struct_clan:makeClanMarkIcon()
-            if (icon) then
-                vars['markNode2']:addChild(icon)
-            end
-
-            -- 전투력
-            local str = user_info:getDeckCombatPower()
-            vars['powerLabel2']:setString(Str('전투력 : {1}', str))
-
-            -- 아이콘
-            icon = user_info:getDeckTamerIcon()
-            if (icon) then
-                vars['tamerNode2']:addChild(icon)
-            end
-        end
+			-- 유저 정보
+			self:initUserInfo('right', struct_user_info)
+		end
     end
 
     -- 연속 전투 상태 여부에 따라 버튼이나 로딩 게이지 표시
@@ -147,60 +59,20 @@ function UI_LoadingChallengeMode:initUI()
 end
 
 -------------------------------------
--- function initDeckUI
--- @param direction 'left' or 'light'
--------------------------------------
-function UI_LoadingChallengeMode:initDeckUI(direction, l_dragon_obj, leader, formation)
-
-    local vars = self.vars
-    local parent_node
-    if (direction == 'left') then
-        parent_node = vars['formationNode1']
-    elseif (direction == 'right') then
-        parent_node = vars['formationNode2']
-    end
-
-    local player_2d_deck = UI_2DDeck(true, true)
-    player_2d_deck:setDirection(direction)
-    parent_node:addChild(player_2d_deck.root)
-    player_2d_deck:initUI()
-
-    -- 드래곤 생성 (리더도 함께)
-    player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
-        
-    -- 진형 설정
-    player_2d_deck:setFormation(formation)
-end
-
--------------------------------------
 -- function initButton
+-- @override
 -- @brief 버튼 UI 초기화
 -------------------------------------
 function UI_LoadingChallengeMode:initButton()
-    local vars = self.vars
-
-    -- 수동 전투
-    vars['manualBtn']:registerScriptTapHandler(function()
-        self:selectAuto(false)
-    end)
-
-    -- 자동 전투
-    vars['autoBtn']:registerScriptTapHandler(function()
-        self:selectAuto(true)
-    end)
+    PARENT.initButton(self)
 end
 
 -------------------------------------
 -- function refresh
+-- @override
 -------------------------------------
 function UI_LoadingChallengeMode:refresh()
-end
-
--------------------------------------
--- function prepare
--------------------------------------
-function UI_LoadingChallengeMode:prepare()
-    return self.m_bSelected
+	PARENT.refresh(self)
 end
 
 -------------------------------------
@@ -227,22 +99,6 @@ function UI_LoadingChallengeMode:update(dt)
 end
 
 -------------------------------------
--- function setNextLoadingStr
--------------------------------------
-function UI_LoadingChallengeMode:setNextLoadingStr()
-	if (not self.m_lLoadingStrList) then
-		return
-	end
-
-	local random_str = self.m_lLoadingStrList[1]
-	if (random_str) then
-		self.vars['loadingLabel']:setString(random_str)
-		table.remove(self.m_lLoadingStrList, 1)
-	end
-end
-
-
--------------------------------------
 -- function setLoadingGauge
 -------------------------------------
 function UI_LoadingChallengeMode:setLoadingGauge(percent, is_not_use_label)
@@ -252,13 +108,6 @@ function UI_LoadingChallengeMode:setLoadingGauge(percent, is_not_use_label)
 	if (not is_not_use_label) then
 		self:setNextLoadingStr()
 	end
-end
-
--------------------------------------
--- function getLoadingGauge
--------------------------------------
-function UI_LoadingChallengeMode:getLoadingGauge()
-	return self.vars['loadingGauge']:getPercentage()
 end
 
 -------------------------------------

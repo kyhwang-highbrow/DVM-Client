@@ -43,128 +43,34 @@ function UI_LoadingArena:initUI()
     local vars = self.vars
     local is_friend_match = self.m_bFriendMatch
 
-    do -- 플레이어 유저 덱
-        local user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
-        if (user_info) then
-            local t_pvp_deck = user_info.m_pvpDeck
+	-- 플레이어
+    do
+		local struct_user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
+		if (struct_user_info) then
+			-- 덱
+			local l_dragon_obj = struct_user_info:getDeck_dragonList()
+			local leader = struct_user_info.m_pvpDeck['leader']
+			local formation = struct_user_info.m_pvpDeck['formation']
+			self:initDeckUI('left', l_dragon_obj, leader, formation)
 
-            local player_2d_deck = UI_2DDeck(true, true)
-            player_2d_deck:setDirection('left')
-            vars['formationNode1']:addChild(player_2d_deck.root)
-            player_2d_deck:initUI()
-
-            local l_dragon_obj = user_info:getDeck_dragonList()
-            local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
-            player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
-        
-            -- 진형 설정
-            local formation = 'attack'
-            if t_pvp_deck then
-                formation = t_pvp_deck['formation'] or 'attack'
-            end
-            player_2d_deck:setFormation(formation)
-        end
+			-- 유저 정보
+			self:initUserInfo('left', struct_user_info)
+		end
     end
 
-    do -- 상대방 유저 덱
-        local user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
-        if (user_info) then
-            local t_pvp_deck = user_info.m_pvpDeck
+	 -- 상대방
+    do
+		local struct_user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
+		if (struct_user_info) then
+			-- 덱
+			local l_dragon_obj = struct_user_info:getDeck_dragonList()
+			local leader = struct_user_info.m_pvpDeck['leader']
+			local formation = struct_user_info.m_pvpDeck['formation']
+			self:initDeckUI('right', l_dragon_obj, leader, formation)
 
-            local player_2d_deck = UI_2DDeck(true, true)
-            player_2d_deck:setDirection('right')
-            vars['formationNode2']:addChild(player_2d_deck.root)
-            player_2d_deck:initUI()
-
-            local l_dragon_obj = user_info:getDeck_dragonList()
-            local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
-            player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
-
-            -- 진형 설정
-            local formation = 'attack'
-            if t_pvp_deck then
-                formation = t_pvp_deck['formation'] or 'attack'
-            end
-            player_2d_deck:setFormation(formation)
-        end
-    end
-    
-    do -- 플레이어 유저 정보
-        local user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
-        if (user_info) then
-            local struct_clan = user_info:getStructClan()
-            local icon
-
-            -- 티어
-            icon = user_info:makeTierIcon(nil, 'small')
-            if (icon) then
-                vars['tierNode1']:addChild(icon)
-            end
-
-            -- 랭킹
-            vars['rankLabel1']:setString(user_info:getRankText(true))
-
-            -- 레벨, 닉네임
-            vars['userLabel1']:setString(user_info:getUserText())
-
-            -- 클랜
-            local clan_name = struct_clan and struct_clan:getClanName() or ''
-            vars['clanLabel1']:setString(clan_name)
-
-            icon = struct_clan and struct_clan:makeClanMarkIcon()
-            if (icon) then
-                vars['markNode1']:addChild(icon)
-            end
-
-            -- 전투력
-            local str = user_info:getDeckCombatPower()
-            vars['powerLabel1']:setString(Str('전투력 : {1}', str))
-
-            -- 아이콘
-            icon = user_info:getDeckTamerIcon()
-            if (icon) then
-                vars['tamerNode1']:addChild(icon)
-            end
-        end
-    end
-
-    do -- 상대방 유저 정보
-        local user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
-        if (user_info) then
-            local struct_clan = user_info:getStructClan()
-            local icon
-
-            -- 티어
-            icon = user_info:makeTierIcon(nil, 'small')
-            if (icon) then
-                vars['tierNode2']:addChild(icon)
-            end
-
-            -- 랭킹
-            vars['rankLabel2']:setString(user_info:getRankText(true))
-
-            -- 레벨, 닉네임
-            vars['userLabel2']:setString(user_info:getUserText())
-
-            -- 클랜
-            local clan_name = struct_clan and struct_clan:getClanName() or ''
-            vars['clanLabel2']:setString(clan_name)
-
-            icon = struct_clan and struct_clan:makeClanMarkIcon()
-            if (icon) then
-                vars['markNode2']:addChild(icon)
-            end
-
-            -- 전투력
-            local str = user_info:getDeckCombatPower()
-            vars['powerLabel2']:setString(Str('전투력 : {1}', str))
-
-            -- 아이콘
-            icon = user_info:getDeckTamerIcon()
-            if (icon) then
-                vars['tamerNode2']:addChild(icon)
-            end
-        end
+			-- 유저 정보
+			self:initUserInfo('right', struct_user_info)
+		end
     end
 
     -- 연속 전투 상태 여부에 따라 버튼이나 로딩 게이지 표시
@@ -198,6 +104,79 @@ end
 -- function refresh
 -------------------------------------
 function UI_LoadingArena:refresh()
+end
+
+-------------------------------------
+-- function initDeckUI
+-- @param direction 'left' or 'light'
+-------------------------------------
+function UI_LoadingArena:initDeckUI(direction, l_dragon_obj, leader, formation)
+
+    local vars = self.vars
+    local parent_node
+    if (direction == 'left') then
+        parent_node = vars['formationNode1']
+    elseif (direction == 'right') then
+        parent_node = vars['formationNode2']
+    end
+
+    local player_2d_deck = UI_2DDeck(true, true)
+    player_2d_deck:setDirection(direction)
+    parent_node:addChild(player_2d_deck.root)
+    player_2d_deck:initUI()
+
+    -- 드래곤 생성 (리더도 함께)
+    player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
+        
+    -- 진형 설정
+    player_2d_deck:setFormation(formation)
+end
+
+-------------------------------------
+-- function initUserInfo
+-------------------------------------
+function UI_LoadingArena:initUserInfo(direction, user_info)
+	local vars = self.vars
+    local struct_clan = user_info:getStructClan()
+    local icon
+
+	local idx
+    if (direction == 'left') then
+        idx = 1
+    elseif (direction == 'right') then
+        idx = 2
+    end
+
+    -- 티어
+    icon = user_info:makeTierIcon(nil, 'small')
+    if (icon) then
+        vars['tierNode' .. idx]:addChild(icon)
+    end
+
+    -- 랭킹
+    vars['rankLabel' .. idx]:setString(user_info:getRankText(true))
+
+    -- 레벨, 닉네임
+    vars['userLabel' .. idx]:setString(user_info:getUserText())
+
+    -- 클랜
+    local clan_name = struct_clan and struct_clan:getClanName() or ''
+    vars['clanLabel' .. idx]:setString(clan_name)
+
+    icon = struct_clan and struct_clan:makeClanMarkIcon()
+    if (icon) then
+        vars['markNode' .. idx]:addChild(icon)
+    end
+
+    -- 전투력
+    local str = user_info:getDeckCombatPower()
+    vars['powerLabel' .. idx]:setString(Str('전투력 : {1}', str))
+
+    -- 아이콘
+    icon = user_info:getDeckTamerIcon()
+    if (icon) then
+        vars['tamerNode' .. idx]:addChild(icon)
+    end
 end
 
 -------------------------------------
