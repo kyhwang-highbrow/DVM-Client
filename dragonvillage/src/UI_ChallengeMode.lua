@@ -90,7 +90,7 @@ function UI_ChallengeMode:initUI_tableView()
     -- 테이블 뷰 인스턴스 생성
     self.m_tableView = UIC_TableView(node)
     --self.m_tableView:setUseVariableSize(true)
-    self.m_tableView.m_defaultCellSize = cc.size(330, 129)
+    self.m_tableView.m_defaultCellSize = cc.size(500, 129)
     self.m_tableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_BOTTOMUP)
     self.m_tableView:setCellUIClass(UI_ChallengeModeListItem, create_func)
     self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
@@ -139,8 +139,8 @@ function UI_ChallengeMode:refresh_playerRank()
     local card = UI_DragonCard(struct_dragon_obj)
     vars['profileNode']:removeAllChildren()
     vars['profileNode']:addChild(card.root)
-    vars['nameLabel']:setString('leshy ACE')
-    vars['scoreLabel']:setString('30위 43승 125점')
+    --vars['nameLabel']:setString('leshy ACE')
+    --vars['scoreLabel']:setString('30위 43승 125점')
 end
 
 -------------------------------------
