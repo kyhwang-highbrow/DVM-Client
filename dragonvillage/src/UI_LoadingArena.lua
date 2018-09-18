@@ -135,9 +135,9 @@ end
 -------------------------------------
 -- function initUserInfo
 -------------------------------------
-function UI_LoadingArena:initUserInfo(direction, user_info)
+function UI_LoadingArena:initUserInfo(direction, struct_user_info)
 	local vars = self.vars
-    local struct_clan = user_info:getStructClan()
+    local struct_clan = struct_user_info:getStructClan()
     local icon
 
 	local idx
@@ -148,16 +148,18 @@ function UI_LoadingArena:initUserInfo(direction, user_info)
     end
 
     -- 티어
-    icon = user_info:makeTierIcon(nil, 'small')
-    if (icon) then
-        vars['tierNode' .. idx]:addChild(icon)
-    end
+	if (struct_user_info.m_tier ~= nil) then
+		icon = struct_user_info:makeTierIcon(nil, 'small')
+		if (icon) then
+			vars['tierNode' .. idx]:addChild(icon)
+		end
+	end
 
     -- 랭킹
-    vars['rankLabel' .. idx]:setString(user_info:getRankText(true))
+    vars['rankLabel' .. idx]:setString(struct_user_info:getRankText(true))
 
     -- 레벨, 닉네임
-    vars['userLabel' .. idx]:setString(user_info:getUserText())
+    vars['userLabel' .. idx]:setString(struct_user_info:getUserText())
 
     -- 클랜
     local clan_name = struct_clan and struct_clan:getClanName() or ''
@@ -169,11 +171,11 @@ function UI_LoadingArena:initUserInfo(direction, user_info)
     end
 
     -- 전투력
-    local str = user_info:getDeckCombatPower()
+    local str = struct_user_info:getDeckCombatPower()
     vars['powerLabel' .. idx]:setString(Str('전투력 : {1}', str))
 
     -- 아이콘
-    icon = user_info:getDeckTamerIcon()
+    icon = struct_user_info:getDeckTamerIcon()
     if (icon) then
         vars['tamerNode' .. idx]:addChild(icon)
     end
