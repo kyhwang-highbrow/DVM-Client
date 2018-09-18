@@ -49,12 +49,14 @@ function UI_LoadingChallengeMode:initUI()
 		end
     end
 
-    -- 연속 전투 상태 여부에 따라 버튼이나 로딩 게이지 표시
-    do
-        local is_autoplay = g_autoPlaySetting:isAutoPlay()
-    
-        vars['btnNode']:setVisible(not is_autoplay)
-        vars['loadingNode']:setVisible(is_autoplay)
+    -- 3회 이상 도전 시 수동/자동 선택 가능
+	local stage = g_challengeMode:getSelectedStage()
+    if (g_challengeMode:getChallengeModeStagePlayCnt(stage) > 3) then
+        vars['btnNode']:setVisible(true)
+        vars['loadingNode']:setVisible(false)
+	-- 3회 이하는 자동만 가능
+	else
+		self:selectAuto(true)
     end
 end
 
@@ -73,60 +75,6 @@ end
 -------------------------------------
 function UI_LoadingChallengeMode:refresh()
 	PARENT.refresh(self)
-end
-
--------------------------------------
--- function update
--------------------------------------
-function UI_LoadingChallengeMode:update(dt)
-    if (self.m_bSelected) then return end
-
-    local prev = math_floor(self.m_remainTimer)
-    self.m_remainTimer = self.m_remainTimer - dt
-
-    local next = math_floor(self.m_remainTimer)
-
-    if (self.m_remainTimer <= 0) then
-        -- 타임아웃시 자동모드 강제 설정
-        self:selectAuto(true)
-
-    elseif (prev ~= next) then
-        local msg = Str('{1}초 후 전투가 시작됩니다.', next)
-        local label = self.vars['countdownLabel']
-        label:setString(msg)
-        cca.uiReactionSlow(label)
-    end
-end
-
--------------------------------------
--- function setLoadingGauge
--------------------------------------
-function UI_LoadingChallengeMode:setLoadingGauge(percent, is_not_use_label)
-    local vars = self.vars
-
-    vars['loadingGauge']:setPercentage(percent)
-	if (not is_not_use_label) then
-		self:setNextLoadingStr()
-	end
-end
-
--------------------------------------
--- function selectAuto
--------------------------------------
-function UI_LoadingChallengeMode:selectAuto(auto_mode)
-    if (self.m_bSelected) then return end
-
-    local vars = self.vars
-
-    self.m_bSelected = true
-
-    g_autoPlaySetting:set('auto_mode', auto_mode)
-
-    vars['btnNode']:setVisible(false)
-    vars['loadingNode']:setVisible(true)
-
-    -- 서버 Log를 위해 임시저장
-    g_challengeMode.m_tempLogData['is_auto'] = auto_mode
 end
 
 --@CHECK
