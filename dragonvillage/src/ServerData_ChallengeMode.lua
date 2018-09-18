@@ -535,7 +535,7 @@ end
 function ServerData_ChallengeMode:getSelectedStage()
     if (not self.m_selectedStage) then
         local max = nil
-        for i,v in pairs(self.m_lStagesDetailInfo) do
+        for i,v in pairs(self.m_lOpenInfo) do
             if (not max) or (max < i) then
                 max = i
             end
@@ -717,18 +717,4 @@ function ServerData_ChallengeMode:request_challengeModeRanking(offset, finish_cb
     end
 
     func_request()
-end
-
--------------------------------------
--- function open_challengeModeRankingPopup
--- @brief 챌린지 모드(그림자의 신전) 랭킹 팝업 오픈
--------------------------------------
-function ServerData_ChallengeMode:open_challengeModeRankingPopup()
-    local offset = 1
-    local fail_cb = nil
-    local function finish_cb(ret)
-        UI_ChallengeModeRankingPopup()
-    end
-
-    self:request_challengeModeRanking(offset, finish_cb, fail_cb)
 end

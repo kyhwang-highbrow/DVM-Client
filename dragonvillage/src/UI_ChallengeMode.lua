@@ -94,18 +94,14 @@ function UI_ChallengeMode:initUI_tableView()
     self.m_tableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_BOTTOMUP)
     self.m_tableView:setCellUIClass(UI_ChallengeModeListItem, create_func)
     self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    self.m_tableView:setItemList(t_floor, true)
+    self.m_tableView:setItemList(t_floor, false)
 
     self.m_tableView.m_scrollView:setLimitedOffset(true)
 
-    --[[
     local function sort_func(a, b)
         return a['data']['stage'] < b['data']['stage']
     end
     table.sort(self.m_tableView.m_itemList, sort_func)
-    --]]
-        
-    --self.m_tableView:makeAllItemUINoAction()
 end
 
 -------------------------------------
@@ -119,23 +115,11 @@ function UI_ChallengeMode:appearDone()
     -- 현재 도전중인 층이 바로 보이도록 처리
     if self.m_selectedStageID then
         local floor = self.m_selectedStageID
+        self.m_tableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         self.m_tableView:relocateContainerFromIndex(floor + 1)
     end
 
-
-    -- 1순위 : 시즌 보상이 있을 경우
-    -- 2순위 : 1일 1회 접속
-    -- 3순위 : 랭킹
-
-    -- 1일 1
-    --[[
-    local save_key = 'event_challenge'
-    local is_view = g_settingData:get('event_full_popup', save_key) or false
-    if (not is_view) then
-        g_settingData:applySettingData(true, 'event_full_popup', save_key)
-        UI_ChallengeModeInfoPopup('bg')
-    end
-    --]]
+    -- 그림자의 신전 배경 설명
     UI_ChallengeModeInfoPopup:open('bg')
 end
 
@@ -275,7 +259,7 @@ end
 -- @brief 랭킹, 보상 정보 버튼
 -------------------------------------
 function UI_ChallengeMode:click_rankBtn()
-    g_challengeMode:open_challengeModeRankingPopup()
+    UI_ChallengeModeRankingPopup()
 end
 
 -------------------------------------
