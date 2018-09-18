@@ -48,6 +48,8 @@ function UI_ArenaResult:initUI()
     vars['resultMenu']:setVisible(false)
     local ori_y = vars['resultMenu']:getPositionY()
     vars['resultMenu']:setPositionY(ori_y - ACTION_MOVE_Y)
+
+	vars['colosseumNode']:setVisible(true)
 end
 
 -------------------------------------
