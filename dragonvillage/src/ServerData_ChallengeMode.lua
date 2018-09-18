@@ -466,7 +466,7 @@ function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time,
         end
 
         if finish_cb then
-            finish_cb(ret)
+            finish_cb(ret, stage)
         end
     end
 
@@ -547,10 +547,22 @@ function ServerData_ChallengeMode:resetSelectedStage()
 end
 
 -------------------------------------
+-- function getTopStage
+-- @brief 100층을 조정하진 않는걸로 했으니 조정하게 되면 수정!
+-------------------------------------
+function ServerData_ChallengeMode:getTopStage()
+    return 100
+end
+
+-------------------------------------
 -- function isOpenStage_challengeMode
 -- @breif 스테이지 오픈 여부
 -------------------------------------
 function ServerData_ChallengeMode:isOpenStage_challengeMode(stage)
+	if (stage > self:getTopStage()) then
+		return false
+	end
+
     if self.m_lOpenInfo[stage] then
         if (self.m_lOpenInfo[stage] == 1) then
             return true
