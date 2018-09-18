@@ -23,16 +23,7 @@ function UI_ChallengeMode:init()
     self:refresh()
     self:refresh_playerRank()
 
-    self:sceneFadeInAction()
-
-    local t_data = {stage=g_challengeMode:getSelectedStage()}
-    self:selectFloor(t_data)
-
-    -- 현재 도전중인 층이 바로 보이도록 처리
-    if self.m_selectedStageID then
-        local floor = self.m_selectedStageID
-        self.m_tableView:relocateContainerFromIndex(floor + 1)
-    end
+    self:sceneFadeInAction(function() self:appearDone() end)
 end
 
 -------------------------------------
@@ -118,6 +109,37 @@ function UI_ChallengeMode:initUI_tableView()
 end
 
 -------------------------------------
+-- function appearDone
+-- @brief UI전환 종료 시점
+-------------------------------------
+function UI_ChallengeMode:appearDone()
+    local t_data = {stage=g_challengeMode:getSelectedStage()}
+    self:selectFloor(t_data)
+
+    -- 현재 도전중인 층이 바로 보이도록 처리
+    if self.m_selectedStageID then
+        local floor = self.m_selectedStageID
+        self.m_tableView:relocateContainerFromIndex(floor + 1)
+    end
+
+
+    -- 1순위 : 시즌 보상이 있을 경우
+    -- 2순위 : 1일 1회 접속
+    -- 3순위 : 랭킹
+
+    -- 1일 1
+    --[[
+    local save_key = 'event_challenge'
+    local is_view = g_settingData:get('event_full_popup', save_key) or false
+    if (not is_view) then
+        g_settingData:applySettingData(true, 'event_full_popup', save_key)
+        UI_ChallengeModeInfoPopup('bg')
+    end
+    --]]
+    UI_ChallengeModeInfoPopup:open('bg')
+end
+
+-------------------------------------
 -- function refresh_playerRank
 -- @brief 플레이어 랭킹 정보 갱신
 -------------------------------------
@@ -191,6 +213,19 @@ function UI_ChallengeMode:refresh(stage)
     -- 날개
     local st = g_challengeMode:getChallengeMode_staminaCost(stage)
     vars['priceaLabel']:setString(tostring(st))
+
+    -- 버튼 상태 처리
+    if g_challengeMode:isOpenStage_challengeMode(stage) then
+        vars['startBtn']:setVisible(true)
+        vars['lockSprite']:setVisible(false)
+    else
+        vars['startBtn']:setVisible(false)
+        vars['lockSprite']:setVisible(true)
+
+        local t_data = g_challengeMode:getChallengeMode_StageInfo(stage - 1)
+        local str = Str('{1}위에게 승리 혹은 3회 도전 시 잠금 해제', t_data['rank'])
+        vars['lockLabel']:setString(str)
+    end
 end
 
 -------------------------------------
@@ -202,6 +237,7 @@ function UI_ChallengeMode:initButton()
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infonfoBtn() end)
+    vars['lockSprite']:setEnabled(false) -- 버튼으로 되어있음
 end
 
 -------------------------------------
@@ -219,6 +255,16 @@ function UI_ChallengeMode:click_startBtn()
     local stage = self.m_selectedStageID
     if g_challengeMode:isOpenStage_challengeMode(stage) then
         UI_ChallengeModeDeckSettings(CHALLENGE_MODE_STAGE_ID)
+
+        -- 안내 팝업 띄움
+        local play_cnt = g_challengeMode:getChallengeModeStagePlayCnt(stage)
+        if (play_cnt < 3) then
+            -- 점수 산정 방식
+            UI_ChallengeModeInfoPopup:open('score')
+        else
+            -- 소비 날개 안내
+            UI_ChallengeModeInfoPopup:open('wing')
+        end
     else
         MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
     end

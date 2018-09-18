@@ -57,16 +57,20 @@ function UI_ChallengeModeListItem:initUI()
     vars['clearSprite']:setVisible(is_clear)
 
     do -- 골드 보상
+        -- 도전 보상
         local card = UI_ItemCard(ITEM_ID_GOLD, 20000)
         card.root:setSwallowTouch(false)
-        card.vars['commonSprite']:setVisible(false)
-        card.vars['bgSprite']:setVisible(false)
+        --card.vars['commonSprite']:setVisible(false)
+        --card.vars['bgSprite']:setVisible(false)
+        card.vars['clickBtn']:registerScriptTapHandler(function() UI_ChallengeModeInfoPopup('reward') end)
         vars['rewardNode1']:addChild(card.root)
 
+        -- 클리어 보상
         local card = UI_ItemCard(ITEM_ID_GOLD, 80000)
         card.root:setSwallowTouch(false)
-        card.vars['commonSprite']:setVisible(false)
-        card.vars['bgSprite']:setVisible(false)
+        --card.vars['commonSprite']:setVisible(false)
+        --card.vars['bgSprite']:setVisible(false)
+        card.vars['clickBtn']:registerScriptTapHandler(function() UI_ChallengeModeInfoPopup('reward') end)
         vars['rewardNode2']:addChild(card.root)
     end
 
