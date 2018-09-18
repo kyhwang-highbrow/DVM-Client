@@ -57,7 +57,14 @@ function ServerData_ChallengeMode:getPlayerArenaUserInfo()
 		struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info.m_lv = g_userData:get('lv')
 		struct_user_info.m_nickname = g_userData:get('nick')
-		struct_user_info.m_userData = g_clanData:getClanStruct():getClanName()
+		
+		-- 클랜
+		local struct_clan = g_clanData:getClanStruct()
+		if (struct_clan) then
+			struct_user_info.m_userData = struct_clan:getClanName()
+		else
+			struct_user_info.m_userData = ''
+		end
 
 		local t_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
 		struct_user_info:applyPvpDeckData(t_data)
