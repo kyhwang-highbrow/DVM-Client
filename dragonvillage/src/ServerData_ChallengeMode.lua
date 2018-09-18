@@ -290,10 +290,6 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
             self:setChallengeModeOpenInfo(ret['open_info'])
         end
 
-        -- 스테이지 상세 정보 저장
-        local _stage = (stage or ret['highest_floor'])
-        self.m_lStagesDetailInfo[_stage] = ret['stage_info']
-
         if finish_cb then
             finish_cb(ret)
         end
@@ -559,6 +555,12 @@ end
 -- @breif 스테이지 오픈 여부
 -------------------------------------
 function ServerData_ChallengeMode:isOpenStage_challengeMode(stage)
+    -- 1스테이지는 항상 오픈
+    if (stage <= 1) then
+        return true
+    end
+
+    -- 가장 높은 층보다 높을 경우
 	if (stage > self:getTopStage()) then
 		return false
 	end
@@ -643,33 +645,6 @@ function ServerData_ChallengeMode:getChallengeModeStatusText()
     end
 
     return str
-end
-
--------------------------------------
--- function isOpenStage_ChallengeMode
--- @brief 해당 스테이지가 오픈되었는지 여부
--------------------------------------
-function ServerData_ChallengeMode:isOpenStage_ChallengeMode(stage)
-    -- 1스테이지는 항상 오픈
-    if (stage <= 1) then
-        return true
-    end
-
-    local prev_stage = math_max(1, stage - 1)
-
-    -- 이전 스테이지에 point가 있으면 클리어를 했다는 의미
-    local prev_point = self:getChallengeModeStagePoint(prev_stage)
-    if (0 < prev_point) then
-        return true
-    end
-
-    -- 이전 스테이지를 3회 이상 플레이 했으면 오픈
-    local prev_play_cnt = self:getChallengeModeStagePlayCnt(stage)
-    if (3 <= prev_play_cnt) then
-        return true
-    end
-
-    return false
 end
 
 -------------------------------------

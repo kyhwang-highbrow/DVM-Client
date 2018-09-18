@@ -21,6 +21,7 @@ function UI_ChallengeMode:init()
     self:initUI()
     self:initButton()
     self:refresh()
+    self:refresh_playerRank()
 
     self:sceneFadeInAction()
 
@@ -117,6 +118,26 @@ function UI_ChallengeMode:initUI_tableView()
 end
 
 -------------------------------------
+-- function refresh_playerRank
+-- @brief 플레이어 랭킹 정보 갱신
+-------------------------------------
+function UI_ChallengeMode:refresh_playerRank()
+    local vars = self.vars
+    
+    -- 플레이어 리더 드래곤
+    --profileNode
+
+    --nameLabel
+    --scoreLabel
+    local struct_dragon_obj = g_dragonsData:getLeaderDragon()
+    local card = UI_DragonCard(struct_dragon_obj)
+    vars['profileNode']:removeAllChildren()
+    vars['profileNode']:addChild(card.root)
+    vars['nameLabel']:setString('leshy ACE')
+    vars['scoreLabel']:setString('30위 43승 125점')
+end
+
+-------------------------------------
 -- function refresh
 -- @brief
 -------------------------------------
@@ -195,7 +216,7 @@ end
 -------------------------------------
 function UI_ChallengeMode:click_startBtn()
     local stage = self.m_selectedStageID
-    if g_challengeMode:isOpenStage_ChallengeMode(stage) then
+    if g_challengeMode:isOpenStage_challengeMode(stage) then
         UI_ChallengeModeDeckSettings(CHALLENGE_MODE_STAGE_ID)
     else
         MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))

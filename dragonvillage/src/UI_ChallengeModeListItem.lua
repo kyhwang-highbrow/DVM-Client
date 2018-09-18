@@ -41,10 +41,12 @@ function UI_ChallengeModeListItem:initUI()
 
 
     -- 아이콘
-    local struct_dragon_obj = StructDragonObject:parseDragonStringData(t_data['leader'])
-    local card = UI_DragonCard(struct_dragon_obj)
-    card:setButtonEnabled(false)
-    vars['dragonNode']:addChild(card.root)
+    if t_data['leader'] and (t_data['leader'] ~= '') then
+        local struct_dragon_obj = StructDragonObject:parseDragonStringData(t_data['leader'])
+        local card = UI_DragonCard(struct_dragon_obj)
+        card:setButtonEnabled(false)
+        vars['dragonNode']:addChild(card.root)
+    end
 
     -- 잠금 여부
     local is_open = g_challengeMode:isOpenStage_challengeMode(t_data['stage'])

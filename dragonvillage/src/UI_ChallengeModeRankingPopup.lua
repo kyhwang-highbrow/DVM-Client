@@ -14,7 +14,7 @@ function UI_ChallengeModeRankingPopup:init()
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    --g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChallengeModeRankingPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChallengeModeRankingPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
