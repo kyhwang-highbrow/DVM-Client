@@ -5,13 +5,21 @@ ServerData_ChallengeMode = class({
         m_serverData = 'ServerData',
         m_gameKey = 'number',
         m_matchUserInfo = 'StructUserInfoArena',
+        
         m_lStagesInfo = 'list',
+        m_lTotalPoint = 'list',
+        m_lPlayInfo = 'list',
+        m_lOpenInfo = 'list',
+
+        m_selectedStage = 'number',
+        m_tempLogData = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_ChallengeMode:init(server_data)
+    self.m_tempLogData = {}
 end
 
 
@@ -137,6 +145,46 @@ function ServerData_ChallengeMode:setChallengeModeStagesInfo(t_stages_info)
 end
 
 -------------------------------------
+-- function setChallengeModeTotalPoint
+-- @brief 서버에서 넘어온 데이터 가공
+-------------------------------------
+function ServerData_ChallengeMode:setChallengeModeTotalPoint(data_map)
+    self.m_lTotalPoint = {}
+
+    for i,v in pairs(data_map) do
+        local stage = tonumber(i)
+        self.m_lTotalPoint[stage] = v
+    end
+end
+
+-------------------------------------
+-- function setChallengeModePlayInfo
+-- @brief 서버에서 넘어온 데이터 가공
+-------------------------------------
+function ServerData_ChallengeMode:setChallengeModePlayInfo(data_map)
+    self.m_lPlayInfo = {}
+
+    for i,v in pairs(data_map) do
+        local stage = tonumber(i)
+        self.m_lPlayInfo[stage] = v
+    end
+end
+
+-------------------------------------
+-- function setChallengeModeOpenInfo
+-- @brief 서버에서 넘어온 데이터 가공
+-------------------------------------
+function ServerData_ChallengeMode:setChallengeModeOpenInfo(data_map)
+    self.m_lOpenInfo = {}
+
+    for i,v in pairs(data_map) do
+        local stage = tonumber(i)
+        self.m_lOpenInfo[stage] = v
+    end
+end
+
+
+-------------------------------------
 -- function getChallengeModeStagesInfo
 -- @brief
 -------------------------------------
@@ -191,6 +239,15 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage_id, finish_cb,
         if ret['stages_info'] then
             self:setChallengeModeStagesInfo(ret['stages_info'])
         end
+        if ret['total_point'] then
+            self:setChallengeModeTotalPoint(ret['total_point'])
+        end
+        if ret['play_info'] then
+            self:setChallengeModePlayInfo(ret['play_info'])
+        end
+        if ret['open_info'] then
+            self:setChallengeModeOpenInfo(ret['open_info'])
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -231,6 +288,7 @@ function ServerData_ChallengeMode:request_challengeModeStart(finish_cb, fail_cb)
     local func_success_cb
     local func_response_status_cb
 
+    local stage = self.m_selectedStage
 
     func_request = function()
         -- 유저 ID
@@ -243,9 +301,8 @@ function ServerData_ChallengeMode:request_challengeModeStart(finish_cb, fail_cb)
         ui_network:setParam('uid', uid)
         ui_network:setParam('deck_name', DECK_CHALLENGE_MODE)
         ui_network:setParam('token', token)
-        ui_network:setParam('stage', 1)
-        ui_network:setParam('play_cnt', 1)
-        ui_network:setParam('is_auto', true)
+        ui_network:setParam('stage', stage)
+        ui_network:setParam('is_auto', true) -- 3회 미만에서는 자동으로만 해야하는 조건이 있어서 서버에서 체크함(클라는 시점이 안맞아서 그냥 true로 던짐)
         ui_network:setMethod('POST')
         ui_network:setSuccessCB(func_success_cb)
         ui_network:setResponseStatusCB(response_status_cb)
@@ -302,12 +359,17 @@ end
 function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
+    local stage = self.m_selectedStage
 
     -- 성공 콜백
     local function success_cb(ret)
         -- staminas, cash 동기화
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
+
+        if (is_win == true) then
+            self:setSelectedStage(self.m_selectedStage + 1)
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -339,11 +401,13 @@ function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time,
     ui_network:setParam('gamekey', self.m_gameKey)
 
     -- 수동/자동
-    --local is_auto = self.m_tempLogData['is_auto'] or false
-    --ui_network:setParam('is_auto', is_auto)
-    ui_network:setParam('is_auto', true)
+    local is_auto = self.m_tempLogData['is_auto'] or false
+    ui_network:setParam('is_auto', is_auto)
 
-    ui_network:setParam('stage', 1)
+    ui_network:setParam('stage', stage)
+
+    -- 통신 후에는 삭제
+    self.m_tempLogData = {}
 
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
@@ -352,4 +416,60 @@ function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time,
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function getSelectedStage
+-- @brief
+-------------------------------------
+function ServerData_ChallengeMode:getSelectedStage()
+    if (not self.m_selectedStage) then
+        local max = nil
+        for i,v in pairs(self.m_lOpenInfo) do
+            if (not max) or (max < i) then
+                max = i
+            end
+        end
+        self.m_selectedStage = max
+    end
+
+    return self.m_selectedStage or 1
+end
+
+-------------------------------------
+-- function setSelectedStage
+-- @brief
+-------------------------------------
+function ServerData_ChallengeMode:setSelectedStage(stage)
+    self.m_selectedStage = math_clamp(stage, 1, 100)
+end
+
+-------------------------------------
+-- function isOpenStage_challengeMode
+-- @breif 스테이지 오픈 여부
+-------------------------------------
+function ServerData_ChallengeMode:isOpenStage_challengeMode(stage)
+    if self.m_lOpenInfo[stage] then
+        if (self.m_lOpenInfo[stage] == 1) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isClearStage_challengeMode
+-- @breif 스테이지 클리어 여부
+-------------------------------------
+function ServerData_ChallengeMode:isClearStage_challengeMode(stage)
+
+    -- 점수 데이터에 점수가 있으면 클리어로 간주
+    if self.m_lTotalPoint[stage] then
+        if (self.m_lTotalPoint[stage] > 0) then
+            return true
+        end
+    end
+
+    return false
 end

@@ -31,44 +31,27 @@ function UI_ChallengeModeListItem:initUI()
     local t_data = self.m_userData
     local stage = t_data['stage']
     local nick = t_data['nick']
-    vars['stageNumberLabel']:setString(Str('스테이지 {1}', stage))
+
+    -- 스테이지
+    --vars['stageNumberLabel']:setString(Str('스테이지 {1}', stage))
+    vars['stageNumberLabel']:setString(Str('{1}위', t_data['rank']))
+
+    -- 닉네임
     vars['userNameLabel']:setString(nick)
 
     -- 아이콘
     local struct_dragon_obj = StructDragonObject:parseDragonStringData(t_data['leader'])
     local card = UI_DragonCard(struct_dragon_obj)
     card:setButtonEnabled(false)
-    vars['stageNode']:addChild(card.root)
+    vars['dragonNode']:addChild(card.root)
 
-
-    if true then
-        return
-    end
-
-    local stage_id = self.m_stageTable['stage']
-    local floor = g_ancientTowerData:getFloorFromStageID(stage_id)
-    local clear_floor = g_ancientTowerData.m_clearFloor
-
-    -- 층 수 표시
-    vars['floorLabel']:setString(Str('{1}층', floor))
-
-    -- 클리어시 보상 표시
-    local t_info = TABLE:get('anc_floor_reward')[stage_id]
-    if (t_info) then
-        local l_str = (floor > clear_floor) and seperate(t_info['reward_first'], ';') or seperate(t_info['reward_repeat'], ';')
-        local item_type = l_str[1]
-        local item_id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
-        local item_count = tonumber(l_str[2])
-
-        local item_card = UI_ItemCard(item_id, item_count)
-        item_card.vars['clickBtn']:setEnabled(false)
-        vars['rewardNode']:addChild(item_card.root)
-    end
-    vars['towerVisual']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
-    vars['towerVisual']:changeAni('normal', true)
-
-    local is_open = g_ancientTowerData:isOpenStage(stage_id)
+    -- 잠금 여부
+    local is_open = g_challengeMode:isOpenStage_challengeMode(t_data['stage'])
     vars['lockSprite']:setVisible(not is_open)
+
+    -- 클리어 여부
+    local is_clear = g_challengeMode:isClearStage_challengeMode(t_data['stage'])
+    vars['clearSprite']:setVisible(is_clear)
 end
 
 -------------------------------------

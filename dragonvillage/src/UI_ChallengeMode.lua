@@ -5,6 +5,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_ChallengeMode = class(PARENT, {
         m_tableView = 'table',
+        m_selectedStageID = 'number', -- 현재 선택된 스테이지 아이디
     })
 
 -------------------------------------
@@ -16,6 +17,8 @@ function UI_ChallengeMode:init()
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ChallengeMode')
+
+    self.m_selectedStageID = g_challengeMode:getSelectedStage()
 
     self:initUI()
     self:initButton()
@@ -69,8 +72,7 @@ function UI_ChallengeMode:initUI_tableView()
 
 	-- 셀 아이템 생성 콜백
 	local create_func = function(ui, data)
-        --[[
-        ui.vars['floorBtn']:registerScriptTapHandler(function()
+        ui.vars['stageBtn']:registerScriptTapHandler(function()
             self:selectFloor(data)
         end)
 
@@ -78,7 +80,6 @@ function UI_ChallengeMode:initUI_tableView()
         if (stage_id == self.m_selectedStageID) then
             self:changeFloorVisual(stage_id, ui)
         end
-        --]]
 
 		return true
     end
@@ -103,8 +104,8 @@ function UI_ChallengeMode:initUI_tableView()
     --self.m_tableView:makeAllItemUINoAction()
                 
     -- 현재 도전중인 층이 바로 보이도록 처리
-    --local floor = g_ancientTowerData:getFloorFromStageID(self.m_selectedStageID)
-    --self.m_tableView:relocateContainerFromIndex(floor + 1)
+    local floor = self.m_selectedStageID
+    self.m_tableView:relocateContainerFromIndex(floor + 1)
 end
 
 -------------------------------------
@@ -138,6 +139,41 @@ end
 -------------------------------------
 function UI_ChallengeMode:click_startBtn()
     UI_ChallengeModeDeckSettings(CHALLENGE_MODE_STAGE_ID)
+end
+
+
+-------------------------------------
+-- function selectFloor
+-------------------------------------
+function UI_ChallengeMode:selectFloor(floor_info)
+    local stage = floor_info['stage']
+    local prev = self.m_selectedStageID
+    self.m_selectedStageID = stage
+
+    self:changeFloorVisual(prev)
+    self:changeFloorVisual(self.m_selectedStageID)
+
+    -- 실제로 진행될 스테이지 정보 저장
+    g_challengeMode:setSelectedStage(self.m_selectedStageID)
+end
+
+-------------------------------------
+-- function changeFloorVisual
+-------------------------------------
+function UI_ChallengeMode:changeFloorVisual(stage_id, ui)
+    local t_item = self.m_tableView.m_itemMap[stage_id]
+    if (not t_item) and (not ui) then
+        return
+    end
+    local ui = ui or t_item['ui']
+    
+    local is_selected = (stage_id == self.m_selectedStageID)
+
+    if (is_selected) then
+        ui.vars['selectedVisual']:setVisible(true)
+    else
+        ui.vars['selectedVisual']:setVisible(false)
+    end
 end
 
 --@CHECK
