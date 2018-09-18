@@ -18,8 +18,6 @@ function UI_ChallengeModeListItem:init(t_data)
     self:initUI()
     self:initButton()
     self:refresh()
-
-    self.m_cellSize = cc.size(330, 129)
 end
 
 -------------------------------------

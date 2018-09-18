@@ -14,6 +14,10 @@ ServerData_ChallengeMode = class({
 
         m_selectedStage = 'number',
         m_tempLogData = 'table',
+
+        -- 랭킹 정보에 사용
+        m_nGlobalOffset = 'number', -- 랭킹
+        m_lGlobalRank = 'list',
     })
 
 -------------------------------------
@@ -631,23 +635,93 @@ end
 
 -------------------------------------
 -- function isOpenStage_ChallengeMode
+-- @brief 해당 스테이지가 오픈되었는지 여부
 -------------------------------------
 function ServerData_ChallengeMode:isOpenStage_ChallengeMode(stage)
+    -- 1스테이지는 항상 오픈
     if (stage <= 1) then
         return true
     end
 
     local prev_stage = math_max(1, stage - 1)
 
+    -- 이전 스테이지에 point가 있으면 클리어를 했다는 의미
     local prev_point = self:getChallengeModeStagePoint(prev_stage)
     if (0 < prev_point) then
         return true
     end
 
+    -- 이전 스테이지를 3회 이상 플레이 했으면 오픈
     local prev_play_cnt = self:getChallengeModeStagePlayCnt(stage)
-    if (0 < prev_play_cnt) then
+    if (3 <= prev_play_cnt) then
         return true
     end
 
     return false
+end
+
+-------------------------------------
+-- function request_challengeModeRanking
+-- @brief 챌린지 모드(그림자의 신전) 랭킹 통신
+-------------------------------------
+function ServerData_ChallengeMode:request_challengeModeRanking(offset, finish_cb, fail_cb)
+    local func_request
+    local func_success_cb
+    local func_response_status_cb
+
+    func_request = function()
+        -- 유저 ID
+        local uid = g_userData:get('uid')
+
+        -- 네트워크 통신
+        local ui_network = UI_Network()
+        ui_network:setUrl('/game/challenge/ranking')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('offset', offset)
+        ui_network:setParam('limit', 30)
+        ui_network:setMethod('POST')
+        ui_network:setSuccessCB(func_success_cb)
+        ui_network:setResponseStatusCB(response_status_cb)
+        ui_network:setFailCB(fail_cb)
+        ui_network:setRevocable(true)
+        ui_network:setReuse(false)
+        ui_network:request()
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    func_response_status_cb = function(ret)
+        return false
+    end
+
+    -- 성공 콜백
+    func_success_cb = function(ret)
+        self.m_nGlobalOffset = ret['offset']
+
+        -- 유저 리스트 저장
+        self.m_lGlobalRank = {}
+        for i,v in pairs(ret['list']) do
+            local user_info = StructUserInfoArena:create_forRanking(v)
+            table.insert(self.m_lGlobalRank, user_info)
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    func_request()
+end
+
+-------------------------------------
+-- function open_challengeModeRankingPopup
+-- @brief 챌린지 모드(그림자의 신전) 랭킹 팝업 오픈
+-------------------------------------
+function ServerData_ChallengeMode:open_challengeModeRankingPopup()
+    local offset = 1
+    local fail_cb = nil
+    local function finish_cb(ret)
+        UI_ChallengeModeRankingPopup()
+    end
+
+    self:request_challengeModeRanking(offset, finish_cb, fail_cb)
 end

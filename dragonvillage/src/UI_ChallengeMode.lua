@@ -97,11 +97,12 @@ function UI_ChallengeMode:initUI_tableView()
 		
     -- 테이블 뷰 인스턴스 생성
     self.m_tableView = UIC_TableView(node)
-    self.m_tableView:setUseVariableSize(true)
+    --self.m_tableView:setUseVariableSize(true)
+    self.m_tableView.m_defaultCellSize = cc.size(330, 129)
     self.m_tableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_BOTTOMUP)
     self.m_tableView:setCellUIClass(UI_ChallengeModeListItem, create_func)
     self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    self.m_tableView:setItemList(t_floor)
+    self.m_tableView:setItemList(t_floor, true)
 
     self.m_tableView.m_scrollView:setLimitedOffset(true)
 
@@ -177,9 +178,8 @@ end
 function UI_ChallengeMode:initButton()
     local vars = self.vars
 
-    if vars['startBtn'] then
-        vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
-    end
+    vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
 end
 
 -------------------------------------
@@ -200,6 +200,14 @@ function UI_ChallengeMode:click_startBtn()
     else
         MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
     end
+end
+
+-------------------------------------
+-- function click_rankBtn
+-- @brief 랭킹, 보상 정보 버튼
+-------------------------------------
+function UI_ChallengeMode:click_rankBtn()
+    g_challengeMode:open_challengeModeRankingPopup()
 end
 
 
