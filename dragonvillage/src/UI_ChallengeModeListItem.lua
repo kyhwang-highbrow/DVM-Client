@@ -30,14 +30,17 @@ function UI_ChallengeModeListItem:initUI()
 
     local t_data = self.m_userData
     local stage = t_data['stage']
-    local nick = t_data['nick']
+    local nick = t_data['nick'] or ''
+    local clan = t_data['clan'] or ''
 
-    -- 스테이지
-    --vars['stageNumberLabel']:setString(Str('스테이지 {1}', stage))
-    vars['stageNumberLabel']:setString(Str('{1}위', t_data['rank']))
+    -- 랭킨, 클랜, 닉네임
+    local str = Str('{1}위', t_data['rank'])
+    str = str .. ' {@}' .. nick
+    if (clan and (clan ~= '')) then
+        str = str .. ' {@clan_name}' .. clan
+    end
+    vars['stageNumberLabel']:setString(str)
 
-    -- 닉네임
-    vars['userNameLabel']:setString(nick)
 
     -- 아이콘
     local struct_dragon_obj = StructDragonObject:parseDragonStringData(t_data['leader'])
@@ -52,6 +55,35 @@ function UI_ChallengeModeListItem:initUI()
     -- 클리어 여부
     local is_clear = g_challengeMode:isClearStage_challengeMode(t_data['stage'])
     vars['clearSprite']:setVisible(is_clear)
+
+    do -- 골드 보상
+        local card = UI_ItemCard(ITEM_ID_GOLD, 20000)
+        card.root:setSwallowTouch(false)
+        card.vars['commonSprite']:setVisible(false)
+        card.vars['bgSprite']:setVisible(false)
+        vars['rewardNode1']:addChild(card.root)
+
+        local card = UI_ItemCard(ITEM_ID_GOLD, 80000)
+        card.root:setSwallowTouch(false)
+        card.vars['commonSprite']:setVisible(false)
+        card.vars['bgSprite']:setVisible(false)
+        vars['rewardNode2']:addChild(card.root)
+    end
+
+    -- 점수
+    local point = g_challengeMode:getChallengeModeStagePoint(stage)
+    local color_str
+    if (point < 2) then
+        color_str = '{@DESC}'
+    else
+        color_str = '{@gray}'
+    end
+    local str = color_str .. Str('{1}점', point)
+    vars['pointLabel']:setString(str)
+
+    -- 도전 횟수
+    local play_cnt = g_challengeMode:getChallengeModeStagePlayCnt(stage)
+    vars['playLabel']:setString('{@gray}' .. Str('{1}회 도전', play_cnt))
 end
 
 -------------------------------------

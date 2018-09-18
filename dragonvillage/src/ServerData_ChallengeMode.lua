@@ -158,6 +158,20 @@ function ServerData_ChallengeMode:setChallengeModeTotalPoint(data_map)
 end
 
 -------------------------------------
+-- function getChallengeModeStagePoint
+-- @brief 스테이지 점수
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeStagePoint(stage)
+    local point = 0
+
+    if self.m_lTotalPoint[stage] then
+        point = (self.m_lTotalPoint[stage] - 10000)
+    end
+
+    return point
+end
+
+-------------------------------------
 -- function setChallengeModePlayInfo
 -- @brief 서버에서 넘어온 데이터 가공
 -------------------------------------
@@ -168,6 +182,20 @@ function ServerData_ChallengeMode:setChallengeModePlayInfo(data_map)
         local stage = tonumber(i)
         self.m_lPlayInfo[stage] = v
     end
+end
+
+-------------------------------------
+-- function getChallengeModeStagePlayCnt
+-- @brief 스테이지 플레이 횟수
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeStagePlayCnt(stage)
+    local play_cnt = 0
+
+    if self.m_lPlayInfo[stage] then
+        play_cnt = self.m_lPlayInfo[stage]
+    end
+
+    return play_cnt
 end
 
 -------------------------------------
