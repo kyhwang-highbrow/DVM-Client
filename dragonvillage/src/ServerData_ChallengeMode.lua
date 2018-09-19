@@ -14,7 +14,11 @@ ServerData_ChallengeMode = class({
         m_lPlayInfo = 'list',
         m_lOpenInfo = 'list',
 		
-		m_reward = 'boolean',
+        -- 시즌 보상 획득 상태
+        -- 0 -> 이번 시즌 보상 받을게 있음
+        -- 1 -> 이번 시즌 보상 받음
+        -- 2 -> 이번 시즌 보상 받을게 없음
+        m_seasonRewardStatus = 'number',
 
         m_selectedStage = 'number',
         m_tempLogData = 'table',
@@ -81,12 +85,12 @@ function ServerData_ChallengeMode:getChallengeModeState()
 		if (g_contentLockData:isContentLock('challenge_mode')) then
 			return ServerData_ChallengeMode.STATE['LOCK']
 
-		-- 보상 수령 후
-		elseif (self.m_reward == true) then
+		-- 보상 수령 후 (1 -> 이번 시즌 보상 받음, 2 -> 이번 시즌 보상 받을게 없음)
+		elseif (self.m_seasonRewardStatus == 1) or (self.m_seasonRewardStatus == 2) then
 			return ServerData_ChallengeMode.STATE['DONE']
 
-		-- 보상 수령 전
-		else
+		-- 보상 수령 전 (0 -> 이번 시즌 보상 받을게 있음)
+		elseif (self.m_seasonRewardStatus == 0) then
 			return ServerData_ChallengeMode.STATE['REWARD']
 		end
 
@@ -414,7 +418,7 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
 
 		-- 보상 수령 여부 저장
 		if (ret['reward']) then
-			self.m_reward = ret['reward']
+			self.m_seasonRewardStatus = ret['reward']
 		end
 
         -- 챌린지 모드 시즌 보상 정보
@@ -465,7 +469,7 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
     ui_network:setParam('floor', stage)
     ui_network:setParam('include_infos', include_infos)
     ui_network:setParam('include_tables', include_tables)
-    ui_network:setParam('include_reward', include_reward)
+    ui_network:setParam('reward', include_reward) -- true면 시즌 보상을 지금, false면 시즌 보상을 미지급
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(response_status_cb)
