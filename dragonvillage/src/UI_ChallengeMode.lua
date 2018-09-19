@@ -309,23 +309,22 @@ end
 -- function selectFloor
 -------------------------------------
 function UI_ChallengeMode:selectFloor(floor_info)
-    local stage = floor_info['stage']
+    local curr_stage = floor_info['stage']
 
-    if (self.m_selectedStageID ~= stage) then
-		self.m_selectedStageID = stage
+    if (self.m_selectedStageID ~= curr_stage) then
+        local prev_stage = self.m_selectedStageID
+		self.m_selectedStageID = curr_stage
 
         local function finish_cb(ret)
-            local prev = self.m_selectedStageID
-
             -- 실제로 진행될 스테이지 정보 저장
-            g_challengeMode:setSelectedStage(self.m_selectedStageID)
+            g_challengeMode:setSelectedStage(curr_stage)
 
-            self:changeFloorVisual(prev)
-            self:changeFloorVisual(self.m_selectedStageID)
-            self:refresh(stage)
+            self:changeFloorVisual(prev_stage)
+            self:changeFloorVisual(curr_stage)
+            self:refresh(curr_stage)
         end
 
-        g_challengeMode:request_challengeModeStageDetailInfo(stage, finish_cb)
+        g_challengeMode:request_challengeModeStageDetailInfo(curr_stage, finish_cb)
     end
 end
 
