@@ -22,6 +22,10 @@ ServerData_ChallengeMode = class({
         -- 랭킹 정보에 사용
         m_nGlobalOffset = 'number', -- 랭킹
         m_lGlobalRank = 'list',
+
+        -- 테이블 정보 (관리 테이블, 시즌 보상)
+        m_challengeRewardTable = 'table',
+        m_challengeManageTable = 'table',
     })
 
 ServerData_ChallengeMode.STATE = {
@@ -380,7 +384,7 @@ end
 -- function request_challengeModeInfo
 -- @brief 챌린지 모드(그림자의 신전) info 요청
 -------------------------------------
-function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fail_cb)
+function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fail_cb, include_reward)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -413,6 +417,16 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
 			self.m_reward = ret['reward']
 		end
 
+        -- 챌린지 모드 시즌 보상 정보
+        if ret['table_challenge_rank'] then
+            self.m_challengeRewardTable = ret['table_challenge_rank']
+        end
+
+        -- 챌린지 모드 관리 테이블
+        if ret['table_challenge_management'] then
+            self.m_challengeManageTable = ret['table_challenge_management']
+        end
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -434,13 +448,24 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
     if self.m_lStagesInfo and (0 < table.count(self.m_lStagesInfo)) then
         include_infos = false
     end
+
+    -- 서버에서 테이블 정보를 받아옴
+    local include_tables = false
+    if (self.m_challengeRewardTable == nil) or (self.m_challengeManageTable == nil) then
+        include_tables = true
+    end
     
+    -- 시즌 보상을 받을지 여부 (타이틀 화면에서 정보 요청을 위해 호출될때는 제외하기 위함)
+    local include_reward = (include_reward or false)
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/challenge/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('floor', stage)
     ui_network:setParam('include_infos', include_infos)
+    ui_network:setParam('include_tables', include_tables)
+    ui_network:setParam('include_reward', include_reward)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(response_status_cb)

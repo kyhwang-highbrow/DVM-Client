@@ -37,6 +37,8 @@ end
 -------------------------------------
 function UI_ChallengeModeRankingPopup:initUI()
     local vars = self.vars
+
+    self:makeRankRewardTableView()
 end
 
 -------------------------------------
@@ -158,6 +160,27 @@ function UI_ChallengeModeRankingPopup:makeRankTableView()
 
     table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
     self.m_rankTableView = table_view
+end
+
+
+-------------------------------------
+-- function makeRankRewardTableView
+-- @brief 보상 정보 테이블 뷰 생성
+-------------------------------------
+function UI_ChallengeModeRankingPopup:makeRankRewardTableView()
+    local node = self.vars['rankRewardNode']
+
+    local l_item_list = g_challengeMode.m_challengeRewardTable or {}
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(640, 120 + 5)
+    table_view:setCellUIClass(UI_ChallengeModeRewardListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
+    --self.m_rewardTableView = table_view
+
+    table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))  
 end
 
 --@CHECK

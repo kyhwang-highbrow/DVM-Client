@@ -616,21 +616,11 @@ function UINavigatorDefinition:goTo_challenge_mode(...)
 
     local function finish_cb()
 
-        --[[
-        -- 오픈 상태 여부 체크
-        if (not g_ancientTowerData:isOpenAncientTower()) then
-            local msg = Str('고대의 탑 오픈 전입니다.\n오픈까지 {1}', g_ancientTowerData:getAncientTowerStatusText())
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-            return
-		end
-        
-        -- 긴급하게 닫아야 할 경우 
-        if (not g_ancientTowerData:isOpen()) then
+        if (not g_challengeMode:isActive_challengeMode()) then
             local msg = Str('오픈시간이 아닙니다.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
 		end
-        --]]
 
         -- 전투 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
@@ -668,7 +658,7 @@ function UINavigatorDefinition:goTo_challenge_mode(...)
     end
 
     -- 정보 요청
-    g_challengeMode:request_challengeModeInfo(stage, finish_cb, fail_cb)
+    g_challengeMode:request_challengeModeInfo(stage, finish_cb, fail_cb, true) -- param : stage, finish_cb, fail_cb, include_reward
 end
 
 -------------------------------------

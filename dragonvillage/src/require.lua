@@ -1028,6 +1028,7 @@ local t_module = {
     'UI_ChallengeModeRankingPopup',
     'UI_ChallengeModeRankingListItem',
     'UI_ChallengeModeInfoPopup',
+    'UI_ChallengeModeRewardListItem',
 
 	-- UI : 가방
     'UI_Inventory',

@@ -970,7 +970,7 @@ function UI_TitleScene:workGetServerInfo()
 	    -- 그림자의 신전 정보
         co:work()
         self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...') .. '(2)')
-        local ui_network = g_challengeMode:request_challengeModeInfo(nil, co.NEXT, fail_cb)
+        local ui_network = g_challengeMode:request_challengeModeInfo(nil, co.NEXT, fail_cb, false) -- param : stage, finish_cb, fail_cb, include_reward
         if ui_network then
             ui_network:hideLoading()
         end

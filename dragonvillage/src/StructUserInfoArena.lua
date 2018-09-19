@@ -624,7 +624,7 @@ function StructUserInfoArena:getChallengeMode_clearText()
 
     -- 플레이 정보가 없으면 -1rp가 넘어옴. 클리어를 하면 최소 10000점 이상.
     if (10000 <= rp) then
-        num = math_floor(struct_user_info:getRP() / 10000)
+        num = math_floor(rp / 10000)
     end
     local str = Str('승리한 상대 {1}명', comma_value(num))
     return str

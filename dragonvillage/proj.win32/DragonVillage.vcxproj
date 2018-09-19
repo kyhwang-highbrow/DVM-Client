@@ -1061,6 +1061,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ChallengeModeRankingListItem.lua" />
     <None Include="..\src\UI_ChallengeModeRankingPopup.lua" />
     <None Include="..\src\UI_ChallengeModeResult.lua" />
+    <None Include="..\src\UI_ChallengeModeRewardListItem.lua" />
     <None Include="..\src\UI_ChapterSelect.lua" />
     <None Include="..\src\UI_ChapterSelectListItem.lua" />
     <None Include="..\src\UI_ChatMacroListItem.lua" />
