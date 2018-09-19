@@ -55,7 +55,7 @@ function UI_ChallengeModeRankingListItem:initUI()
     vars['userLabel']:setString(t_rank_info:getUserText())
 
     -- 순위 표시
-    vars['rankingLabel']:setString(t_rank_info:getRankText())
+    vars['rankingLabel']:setString(t_rank_info:getChallengeMode_RankText())
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()

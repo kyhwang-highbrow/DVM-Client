@@ -649,3 +649,32 @@ function StructUserInfoArena:getChallengeMode_pointText()
     local str = Str('승점 {1}점', comma_value(num))
     return str
 end
+
+-------------------------------------
+-- function getChallengeMode_RankText
+-- @brief
+-------------------------------------
+function StructUserInfoArena:getChallengeMode_RankText(detail, carriage_return)
+    if (not self.m_rank) then
+        return Str('-')
+    end
+
+    -- 무조건 순위와 퍼센트 노출
+    if (self.m_rank and self.m_rankPercent) then
+        local rank_str = Str('{1}위', comma_value(self.m_rank))
+
+        if (detail) then
+            if carriage_return then
+                rank_str = rank_str .. string.format('\n(%.1f%%)', self.m_rankPercent * 100)
+            else
+                rank_str = rank_str .. string.format(' (%.1f%%)', self.m_rankPercent * 100)
+            end
+        end
+
+        return rank_str
+
+    -- 서버에서 rate 안오는 경우 일딴 하이픈 처리
+    else
+        return '-'
+    end
+end
