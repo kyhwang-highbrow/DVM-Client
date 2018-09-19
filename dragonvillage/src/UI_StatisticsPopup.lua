@@ -4,10 +4,10 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_StatisticsPopup
 -------------------------------------
 UI_StatisticsPopup = class(PARENT, {
-		m_isColosseum = 'mode',
-        m_isArena = 'boolean',
+		m_mode = 'GAME_MODE',
+
+		m_isPvp = 'boolean',
 		m_bFriendMatch = 'boolean',
-        m_isTestMode = 'boolean',
 
 		m_charList_A = 'list',
 		m_charList_B = 'list',
@@ -24,7 +24,7 @@ UI_StatisticsPopup.TAB_HEAL = 3
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_StatisticsPopup:init(world, is_test)
+function UI_StatisticsPopup:init(world)
 	local vars = self:load('ingame_result_stats_popup.ui')
 	UIManager:open(self, UIManager.POPUP)
 
@@ -36,14 +36,12 @@ function UI_StatisticsPopup:init(world, is_test)
 	self:doAction(nil, false)
 
 	-- 멤버 변수 초기화
-	--self.m_isColosseum = (world.m_gameMode == GAME_MODE_COLOSSEUM or world.m_gameMode == GAME_MODE_ARENA)
-    self.m_isColosseum = isExistValue(world.m_gameMode, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_CHALLENGE_MODE)
-    self.m_isArena = (world.m_gameMode == GAME_MODE_ARENA)
-    self.m_bFriendMatch = (self.m_isColosseum) and world.m_bFriendMatch or false
-    self.m_isTestMode = is_test
+	self.m_mode = world.m_gameMode
+    self.m_isPvp = isExistValue(world.m_gameMode, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_CHALLENGE_MODE)
+    self.m_bFriendMatch = (self.m_isPvp) and world.m_bFriendMatch or false
 
 	self.m_charList_A = world.m_myDragons
-	self.m_charList_B = (self.m_isColosseum) and world.m_lEnemyDragons or nil
+	self.m_charList_B = (self.m_isPvp) and world.m_lEnemyDragons or nil
 
 	-- UI 초기화
     self:initUI()
@@ -59,7 +57,7 @@ function UI_StatisticsPopup:initUI()
 	local vars = self.vars
 
 	-- 모드에 따라 테이블 뷰 사이즈 조정
-	if (not self.m_isColosseum) then
+	if (not self.m_isPvp) then
 		vars['listNode1']:setPositionX(0)
 	end
 
@@ -71,74 +69,108 @@ function UI_StatisticsPopup:initUI()
 	self.m_tableView_A = self:makeTableView(self.m_charList_A, vars['listNode1'])
 
 	-- 콜로세움 관련 처리
-	if (self.m_isColosseum) then
+	if (self.m_isPvp) then
 		-- 정렬 후 테이블 뷰 생성
 		BattleStatisticsHelper:sortByValue(self.m_charList_B, log_key)	
 		self.m_tableView_B = self:makeTableView(self.m_charList_B, vars['listNode2'])
 		
-        local is_friendMatch = self.m_bFriendMatch
+		self:initUserInfo() 
+	end
+end
 
-		-- 유저 정보 출력
-		do
-			vars['userNode1']:setVisible(true)
-            local user_info 
-            if (self.m_isArena) then
-                user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_StatisticsPopup:initUserInfo()
+	local vars = self.vars
+
+	local is_friendMatch = self.m_bFriendMatch
+	local is_colosseum = false
+
+	-- 이부분을 외부로 빼서 받아오면 깔끔해질듯
+	local my_struct_user_info
+	local enemy_struct_user_info
+
+	if (self.m_bFriendMatch) then
+		my_struct_user_info = g_friendMatchData.m_playerUserInfo
+		enemy_struct_user_info = g_friendMatchData.m_matchInfo
+
+	elseif (self.m_mode == GAME_MODE_ARENA) then
+		my_struct_user_info = g_arenaData:getPlayerArenaUserInfo()
+		enemy_struct_user_info = g_arenaData:getMatchUserInfo()
+
+	elseif (self.m_mode == GAME_MODE_COLOSSEUM) then
+		my_struct_user_info = g_colosseumData.m_playerUserInfo
+		enemy_struct_user_info = g_colosseumData:getMatchUserInfo()
+		is_colosseum = true
+
+	elseif (self.m_mode == GAME_MODE_CHALLENGE_MODE) then
+		my_struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
+		enemy_struct_user_info = g_challengeMode:getMatchUserInfo()
+
+	end
+
+	-- 유저 정보 출력
+	do
+		vars['userNode1']:setVisible(true)
+        local user_info = my_struct_user_info
+
+        if (user_info) then
+            vars['name1']:setString(user_info.m_nickname)
+
+            local tamer_info, profile_icon
+            
+			if (is_colosseum) then
+				tamer_info = user_info:getPvpAtkDeck()['tamerInfo']
+			else
+				tamer_info = user_info:getPvpDeck()['tamerInfo']
+			end
+
+            if (tamer_info) then
+                profile_icon = user_info:makeTamerReadyIconWithCostume(tamer_info)
             else
-                user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
+                local tamer_type = g_tamerData:getCurrTamerTable('type')
+			    profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
             end
 
-            if (user_info) then
-                vars['name1']:setString(user_info.m_nickname)
+			if (profile_icon) then
+                vars['tamerNode1']:addChild(profile_icon)
+            end			    
+        end
+	end
 
-                local profile_icon
-                local tamer_info = self.m_isArena and user_info:getPvpDeck()['tamerInfo'] or user_info:getPvpAtkDeck()['tamerInfo']
-                if (tamer_info) then
-                    profile_icon = user_info:makeTamerReadyIconWithCostume(tamer_info)
-                else
-                    local tamer_type = g_tamerData:getCurrTamerTable('type')
-			        profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
-                end
+	-- 상대 정보 출력 (테스트모드에서는 출력하지 않음)
+	do
+        local user_info = enemy_struct_user_info
+        if (user_info) then
+			vars['userNode2']:setVisible(true)
+			vars['name2']:setString(user_info.m_nickname)
 
-			    if (profile_icon) then
-                    vars['tamerNode1']:addChild(profile_icon)
-                end			    
-            end
-		end
+            local tamer_info, profile_icon
+            
+			if (is_colosseum) then
+				tamer_info = user_info:getPvpAtkDeck()['tamerInfo']
+			else
+				tamer_info = user_info:getPvpDeck()['tamerInfo']
+			end
 
-		-- 상대 정보 출력 (테스트모드에서는 출력하지 않음)
-		do
-            local user_info 
-            if (self.m_isArena) then
-                user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
+            if (tamer_info) then
+                profile_icon = user_info:makeTamerReadyIconWithCostume(tamer_info)
             else
-                user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
+                local tid = user_info:getTamer()
+			    if (tid == 0) then
+				    tid = g_constant:get('INGAME', 'TAMER_ID')
+			    end
+
+                local t_tamer = TableTamer():get(tid)
+			    local tamer_type = t_tamer['type']
+			    profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
             end
 
-            if (user_info) then
-			    vars['userNode2']:setVisible(true)
-			    vars['name2']:setString(user_info.m_nickname)
-
-                local profile_icon
-                local tamer_info = self.m_isArena and user_info:getPvpDeck()['tamerInfo'] or user_info:getPvpDefDeck()['tamerInfo']
-                if (tamer_info) then
-                    profile_icon = user_info:makeTamerReadyIconWithCostume(tamer_info)
-                else
-                    local tid = user_info:getTamer()
-			        if (tid == 0) then
-				        tid = g_constant:get('INGAME', 'TAMER_ID')
-			        end
-
-                    local t_tamer = TableTamer():get(tid)
-			        local tamer_type = t_tamer['type']
-			        profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
-                end
-
-			    if (profile_icon) then
-                    vars['tamerNode2']:addChild(profile_icon)
-                end
+			if (profile_icon) then
+                vars['tamerNode2']:addChild(profile_icon)
             end
-		end
+        end
 	end
 end
 
@@ -175,7 +207,7 @@ end
 function UI_StatisticsPopup:onChangeTab(tab, first)
 	self:refreshTableView(self.m_tableView_A, tab)
 
-	if (self.m_isColosseum) then
+	if (self.m_isPvp) then
 		self:refreshTableView(self.m_tableView_B, tab)
 	end
 end
