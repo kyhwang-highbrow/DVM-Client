@@ -16,6 +16,8 @@ UI = class({
 	, m_uiName = ''				-- m_uiName을 참조하는 부분에서 ITopUserInfo_EventListener를 다중상속하지 않은 경우 에러발생하므로 에러나지 않도록 추가함
     , m_closeCB = 'function'
     , m_lHideUIList = 'list'
+
+	, m_isLabelVerified = 'boolean'	-- ui label 검증 여부
 })
 
 -------------------------------------
@@ -31,6 +33,8 @@ function UI:init()
 	self.m_uiName = 'untitled'
     self.m_lHideUIList = {}
     self.vars_key = {}
+
+	self.m_isLabelVerified = false
 end
 
 -------------------------------------
@@ -46,6 +50,12 @@ function UI:load(url, is_permanent, keep_z_order, use_sprite_frames)
 	if is_permanent then
 		UILoader.setPermanent(url)
 	end
+
+    -- 라벨 영역 검사
+    if (IS_TEST_MODE()) and (CppFunctions:isWin32()) and (Translate:isNeedTranslate()) then
+        self:autoDelayedVerifier(2)
+    end
+
     return self.vars
 end
 
@@ -583,6 +593,12 @@ end
 -- @breif 자동으로 n초 후 라벨 영역 검사를 한다
 -------------------------------------
 function UI:autoDelayedVerifier(_delay)
+	if (self.m_isLabelVerified) then
+		return
+	end
+
+	self.m_isLabelVerified = true
+
     local node = cc.Node:create()
     local delay = _delay or 1
     self.root:addChild(node)
