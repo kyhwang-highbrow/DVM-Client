@@ -143,14 +143,12 @@ function UI_ChallengeMode:refresh_playerRank()
     vars['rankLabel']:setString(rank_text)
 
     -- 승리한 상대
-    local clear = math_floor(struct_user_info:getRP() / 10000)
-    local clear_str = Str('승리한 상대 {1}명', clear)
-    vars['clearLabel']:setString(clear_str)
+    local str = struct_user_info:getChallengeMode_clearText()
+    vars['clearLabel']:setString(str)
 
     -- 승점
-    local point = struct_user_info:getRP() % 10000
-    local point_str = Str('승점 {1}점', comma_value(point))
-    vars['scoreLabel']:setString(point_str)
+    local str = struct_user_info:getChallengeMode_pointText()
+    vars['scoreLabel']:setString(str)
 end
 
 -------------------------------------

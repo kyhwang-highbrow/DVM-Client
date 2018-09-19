@@ -44,14 +44,12 @@ function UI_ChallengeModeRankingListItem:initUI()
     end
 
     -- 점수 표시
-    local point = t_rank_info:getRP() % 10000
-    local point_str = Str('승점 {1}점', comma_value(point))
-    vars['scoreLabel']:setString(point_str)
+    local str = t_rank_info:getChallengeMode_pointText()
+    vars['scoreLabel']:setString(str)
 
     -- 승리 수 표시
-    local clear = math_floor(t_rank_info:getRP() / 10000)
-    local clear_str = Str('승리한 상대 {1}명', clear)
-    vars['clearLabel']:setString(clear_str)
+    local str = t_rank_info:getChallengeMode_clearText()
+    vars['clearLabel']:setString(str)
 
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['userLabel']:setString(t_rank_info:getUserText())

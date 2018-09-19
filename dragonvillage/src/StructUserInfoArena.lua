@@ -612,3 +612,36 @@ function StructUserInfoArena:makeTamerReadyIconWithCostume(tamer_info)
     local costume_id = tamer_info['costume'] or 110001
     return IconHelper:getTamerProfileIconWithCostumeID(costume_id)
 end
+
+
+-------------------------------------
+-- function getChallengeMode_clearText
+-- @brief 챌린지 모드용 클리어 수 텍스트 출력
+-------------------------------------
+function StructUserInfoArena:getChallengeMode_clearText()
+    local num = 0
+    local rp = self:getRP()
+
+    -- 플레이 정보가 없으면 -1rp가 넘어옴. 클리어를 하면 최소 10000점 이상.
+    if (10000 <= rp) then
+        num = math_floor(struct_user_info:getRP() / 10000)
+    end
+    local str = Str('승리한 상대 {1}명', comma_value(num))
+    return str
+end
+
+-------------------------------------
+-- function getChallengeMode_pointText
+-- @brief 챌린지 모드용 승점 텍스트 출력
+-------------------------------------
+function StructUserInfoArena:getChallengeMode_pointText()
+    local num = 0
+    local rp = self:getRP()
+
+    -- 플레이 정보가 없으면 -1rp가 넘어옴. 클리어를 하면 최소 10000점 이상.
+    if (10000 <= rp) then
+        num = (rp % 10000)
+    end
+    local str = Str('승점 {1}점', comma_value(num))
+    return str
+end
