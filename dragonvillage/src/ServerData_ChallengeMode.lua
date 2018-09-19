@@ -586,6 +586,11 @@ function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time,
             self:setSelectedStage(self.m_selectedStage + 1)
         end
 
+		-- 경쟁 메뉴 UI에서 사용하기 위해서 total point 갱신
+		if (ret['point']) then
+			self.m_lTotalPoint[stage] = ret['point']
+		end
+
         if finish_cb then
             finish_cb(ret, stage)
         end

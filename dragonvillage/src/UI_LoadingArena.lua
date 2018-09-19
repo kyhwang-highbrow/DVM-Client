@@ -43,6 +43,9 @@ function UI_LoadingArena:initUI()
     local vars = self.vars
     local is_friend_match = self.m_bFriendMatch
 
+	vars['arenaVisual']:setVisible(true)
+	vars['challengeModeVisual']:setVisible(false)
+
 	-- 플레이어
     do
 		local struct_user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()

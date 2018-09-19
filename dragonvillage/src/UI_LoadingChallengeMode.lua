@@ -19,6 +19,9 @@ end
 function UI_LoadingChallengeMode:initUI()
     local vars = self.vars
 
+	vars['arenaVisual']:setVisible(false)
+	vars['challengeModeVisual']:setVisible(true)
+
     -- 플레이어
     do
 		local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
@@ -54,9 +57,11 @@ function UI_LoadingChallengeMode:initUI()
     if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
         vars['btnNode']:setVisible(true)
         vars['loadingNode']:setVisible(false)
+
 	-- 3회 이하는 자동만 가능
 	else
 		self:selectAuto(true)
+
     end
 end
 
