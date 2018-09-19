@@ -14,6 +14,7 @@ UI_ChallengeModeRankingPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ChallengeModeRankingPopup:init()
+    self.m_uiName = 'UI_ChallengeModeRankingPopup'
     self.m_rankOffset = 1
     local vars = self:load('challenge_mode_ranking_popup.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -128,7 +129,7 @@ function UI_ChallengeModeRankingPopup:makeRankTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(600, 75 + 5)
+    table_view.m_defaultCellSize = cc.size(550, 75 + 5)
     table_view:setCellUIClass(UI_ChallengeModeRankingListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
@@ -174,7 +175,7 @@ function UI_ChallengeModeRankingPopup:makeRankRewardTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 120 + 5)
+    table_view.m_defaultCellSize = cc.size(550, 75 + 5)
     table_view:setCellUIClass(UI_ChallengeModeRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)

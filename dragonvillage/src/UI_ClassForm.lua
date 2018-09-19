@@ -10,6 +10,7 @@ UI_ClassForm = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ClassForm:init()
+    self.m_uiName = 'UI_ClassForm'
     local vars = self:load('uiName.ui')
     UIManager:open(self, UIManager.POPUP)
 
