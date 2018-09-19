@@ -32,20 +32,34 @@ function UI_ChallengeModeListItem:initUI()
     local clan = t_data['clan'] or ''
 
     -- 랭킨, 클랜, 닉네임
+    --[[
     local str = Str('{1}위', t_data['rank'])
     str = str .. ' {@}' .. nick
     if (clan and (clan ~= '')) then
         str = str .. ' {@clan_name}' .. clan
     end
     vars['stageNumberLabel']:setString(str)
+    --]]
+
+    -- 스테이지 (순위)
+    vars['stageNumberLabel']:setString(tostring(t_data['rank']))
+    
+    -- 닉네임, 클랜명
+    local str = nick
+    if (clan and (clan ~= '')) then
+        str = str .. ' {@clan_name}' .. clan
+    end
+    vars['tamerNameLabel']:setString(str)
 
 
     -- 아이콘
-    if t_data['leader'] and (t_data['leader'] ~= '') then
-        local struct_dragon_obj = StructDragonObject:parseDragonStringData(t_data['leader'])
-        local card = UI_DragonCard(struct_dragon_obj)
-        card:setButtonEnabled(false)
-        vars['dragonNode']:addChild(card.root)
+    if vars['dragonNode'] then
+        if t_data['leader'] and (t_data['leader'] ~= '') then
+            local struct_dragon_obj = StructDragonObject:parseDragonStringData(t_data['leader'])
+            local card = UI_DragonCard(struct_dragon_obj)
+            card:setButtonEnabled(false)
+            vars['dragonNode']:addChild(card.root)
+        end
     end
 
     -- 잠금 여부

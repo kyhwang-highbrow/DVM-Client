@@ -90,7 +90,7 @@ function UI_ChallengeMode:initUI_tableView()
     -- 테이블 뷰 인스턴스 생성
     self.m_tableView = UIC_TableView(node)
     --self.m_tableView:setUseVariableSize(true)
-    self.m_tableView.m_defaultCellSize = cc.size(500, 129)
+    self.m_tableView.m_defaultCellSize = cc.size(500, 170)
     self.m_tableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_BOTTOMUP)
     self.m_tableView:setCellUIClass(UI_ChallengeModeListItem, create_func)
     self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
@@ -349,10 +349,14 @@ function UI_ChallengeMode:changeFloorVisual(stage_id, ui)
     local is_selected = (stage_id == self.m_selectedStageID)
 
     if (is_selected) then
-        ui.vars['selectedVisual']:setVisible(true)
+        if ui.vars['selectedVisual'] then
+            ui.vars['selectedVisual']:setVisible(true)
+        end
         ui.vars['selectedBg']:setVisible(true)
     else
-        ui.vars['selectedVisual']:setVisible(false)
+        if ui.vars['selectedVisual'] then
+            ui.vars['selectedVisual']:setVisible(false)
+        end
         ui.vars['selectedBg']:setVisible(false)
     end
 end
