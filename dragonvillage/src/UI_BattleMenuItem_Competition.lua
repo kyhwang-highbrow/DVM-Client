@@ -229,7 +229,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 	-- 그림자의 신전 보상 수령 상태
 	elseif (state == ServerData_ChallengeMode.STATE['REWARD']) then
 		text_1 = Str('이벤트가 종료되었습니다.')
-		text_2 = Str('보상을 획득하세요.')
+		text_2 = Str('보상을 획득하세요')
 
 		use_timer = true
 		has_reward = true
