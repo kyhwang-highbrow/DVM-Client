@@ -175,6 +175,7 @@ function UI_ChallengeMode:refresh(stage)
         
     -- 진형 설정
     player_2d_deck:setFormation(formation)
+    player_2d_deck:runAction()
 
 
     -- 테이머

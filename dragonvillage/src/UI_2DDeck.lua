@@ -184,3 +184,14 @@ function UI_2DDeck:refreshLeaderSprite(tar_idx)
         vars['leaderSprite']:setScaleX(-1)
     end
 end
+
+-------------------------------------
+-- function runAction
+-- @brief 순차적으로 꿀렁이는 연출
+-------------------------------------
+function UI_2DDeck:runAction()
+    local vars = self.vars
+    for i=1, 5 do
+        cca.fruitReact_MasterySkillIcon(vars['positionNode' .. i], i)
+    end
+end
