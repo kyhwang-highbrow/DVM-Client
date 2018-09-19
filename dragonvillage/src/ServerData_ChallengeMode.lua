@@ -13,6 +13,8 @@ ServerData_ChallengeMode = class({
         m_lTotalPoint = 'list',
         m_lPlayInfo = 'list',
         m_lOpenInfo = 'list',
+		
+		m_reward = 'boolean',
 
         m_selectedStage = 'number',
         m_tempLogData = 'table',
@@ -20,15 +22,14 @@ ServerData_ChallengeMode = class({
         -- 랭킹 정보에 사용
         m_nGlobalOffset = 'number', -- 랭킹
         m_lGlobalRank = 'list',
-
-		--STATE = 'enum',
     })
 
 ServerData_ChallengeMode.STATE = {
-	['INACTIVE'] = 1,
-	['LOCK'] = 2,
-	['OPEN'] = 3,
-	['REWARD'] = 4,
+	['INACTIVE'] = 1,	-- 이벤트 던전 비활성화
+	['LOCK'] = 2,		-- 레벨 제한
+	['OPEN'] = 3,		-- 이벤트 던전 입장 가능
+	['REWARD'] = 4,		-- 보상 수령 가능
+	['DONE'] = 5,		-- 보상 수령 후 
 }
 
 -------------------------------------
@@ -54,6 +55,10 @@ end
 -- @use ServerData_ChallengeMode.STATE
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeState()
+	--if (true) then
+		--return ServerData_ChallengeMode.STATE['OPEN']
+	--end
+
 	-- 예외처리
 	if (not g_hotTimeData) then
 		return ServerData_ChallengeMode.STATE['INACTIVE']
@@ -76,6 +81,11 @@ function ServerData_ChallengeMode:getChallengeModeState()
 		if (g_contentLockData:isContentLock('challenge_mode')) then
 			return ServerData_ChallengeMode.STATE['LOCK']
 
+		-- 보상 수령 후
+		elseif (self.m_reward == true) then
+			return ServerData_ChallengeMode.STATE['DONE']
+
+		-- 보상 수령 전
 		else
 			return ServerData_ChallengeMode.STATE['REWARD']
 		end
@@ -401,6 +411,11 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
         if ret['my_info'] then
             self:refresh_playerUserInfo(ret['my_info'], nil)
         end
+
+		-- 보상 수령 여부 저장
+		if (ret['reward']) then
+			self.m_reward = ret['reward']
+		end
 
         if finish_cb then
             finish_cb(ret)

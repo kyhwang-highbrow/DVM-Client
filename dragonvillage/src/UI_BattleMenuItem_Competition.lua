@@ -200,6 +200,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 	local t_item, text_1, text_2
 	
 	local use_timer = false
+	local has_reward = false
 	local timer_key
 
 	-- 비활성화 상태 .. 정상적이라면 여기로 들어오지 않는다.
@@ -229,7 +230,11 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 		text_2 = Str('보상을 획득하세요.')
 
 		use_timer = true
+		has_reward = true
 		timer_key = 'event_challenge_reward'
+
+	elseif (state == ServerData_ChallengeMode.STATE['DONE']) then
+		text_1 = Str('이벤트가 종료 되었습니다.')
 
 	else
 		return nil, nil, nil
@@ -241,18 +246,18 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 		vars['timeSprite']:setVisible(true)
 		
 		local timer = 1
-		local is_reward = (timer_key == 'event_challenge_reward')
-		local title = (is_reward) and Str('보상 수령 가능') or Str('기간 한정 이벤트')
+		local title = (has_reward) and Str('보상 수령 가능') or Str('기간 한정 이벤트')
 		
 		local function update(dt)
 			timer = timer + dt
 			if (timer > 1) then
 				timer = timer - 1
 				local time_str
-				if (is_reward) then
+				if (has_reward) then
 					time_str = g_hotTimeData:getEventRemainTimeText(timer_key)
 				else
 					local time = g_hotTimeData:getEventRemainTime(timer_key)
+					cclog(time)
 					time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
 				end
 				vars['timeLabel']:setString(title .. '\n' .. time_str)
