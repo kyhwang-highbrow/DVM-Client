@@ -312,10 +312,11 @@ function UI_ChallengeMode:selectFloor(floor_info)
     local stage = floor_info['stage']
 
     if (self.m_selectedStageID ~= stage) then
+		self.m_selectedStageID = stage
+
         local function finish_cb(ret)
             local prev = self.m_selectedStageID
-            self.m_selectedStageID = stage
-            
+
             -- 실제로 진행될 스테이지 정보 저장
             g_challengeMode:setSelectedStage(self.m_selectedStageID)
 
