@@ -33,12 +33,21 @@ function UI_ChallengeModeResult:init(is_win, t_data, stage)
 	end
 
 	-- 다음 스테이지 열림 체크
-	self.m_isOpenNextStage = false
-	if (not g_challengeMode:isOpenStage_challengeMode(stage + 1)) then
-		if (is_win) then
-			self.m_isOpenNextStage = true
-		elseif (g_challengeMode:getChallengeModeStagePlayCnt(stage) >= 2) then
-			self.m_isOpenNextStage = true
+	do
+		self.m_isOpenNextStage = false
+		
+		-- 1위팀 클리어한 경우 항상 false
+		if (stage >= g_challengeMode:getTopStage()) then
+		
+		-- 다음 스테이지 오픈 안되어 있는 상황에서
+		elseif (not g_challengeMode:isOpenStage_challengeMode(stage + 1)) then
+			-- 승리
+			if (is_win) then
+				self.m_isOpenNextStage = true
+			-- 3회 이상 도전
+			elseif (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 >= 3) then
+				self.m_isOpenNextStage = true
+			end
 		end
 	end
 end
