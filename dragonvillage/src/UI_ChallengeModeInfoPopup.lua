@@ -32,6 +32,27 @@ end
 -------------------------------------
 function UI_ChallengeModeInfoPopup:initUI()
     local vars = self.vars
+
+    local curr_stage
+    for i=1, 100 do
+        local open_status = (g_challengeMode.m_lOpenInfo[i] or 0)
+        if (1 <= open_status) then
+            curr_stage = i
+        end
+    end
+    
+    local high_stage = math_min(curr_stage + 1, 100)
+    local low_stage = (high_stage - 1)
+
+    local l_stage = g_challengeMode:getChallengeModeStagesInfo()
+
+    -- 위쪽 순위
+    local ui = UI_ChallengeModeListItem(l_stage[high_stage])
+    vars['stageItem1']:addChild(ui.root)
+
+    -- 아래쪽 순위
+    local ui = UI_ChallengeModeListItem(l_stage[low_stage])
+    vars['stageItem2']:addChild(ui.root)
 end
 
 -------------------------------------
