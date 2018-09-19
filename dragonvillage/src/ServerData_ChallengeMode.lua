@@ -85,13 +85,14 @@ function ServerData_ChallengeMode:getChallengeModeState()
 		if (g_contentLockData:isContentLock('challenge_mode')) then
 			return ServerData_ChallengeMode.STATE['LOCK']
 
+		-- 보상 수령 전 (0 -> 이번 시즌 보상 받을게 있음)
+		elseif (self.m_seasonRewardStatus == 0) then
+			return ServerData_ChallengeMode.STATE['REWARD']
+
 		-- 보상 수령 후 (1 -> 이번 시즌 보상 받음, 2 -> 이번 시즌 보상 받을게 없음)
 		elseif (self.m_seasonRewardStatus == 1) or (self.m_seasonRewardStatus == 2) then
 			return ServerData_ChallengeMode.STATE['DONE']
 
-		-- 보상 수령 전 (0 -> 이번 시즌 보상 받을게 있음)
-		elseif (self.m_seasonRewardStatus == 0) then
-			return ServerData_ChallengeMode.STATE['REWARD']
 		end
 
 	end
