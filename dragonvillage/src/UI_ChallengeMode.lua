@@ -96,7 +96,7 @@ function UI_ChallengeMode:initUI_tableView()
     self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     self.m_tableView:setItemList(t_floor, false)
 
-    self.m_tableView.m_scrollView:setLimitedOffset(true)
+    --self.m_tableView.m_scrollView:setLimitedOffset(true)
 
     local function sort_func(a, b)
         return a['data']['stage'] < b['data']['stage']
@@ -130,17 +130,27 @@ end
 function UI_ChallengeMode:refresh_playerRank()
     local vars = self.vars
     
-    -- 플레이어 리더 드래곤
-    --profileNode
-
-    --nameLabel
-    --scoreLabel
-    local struct_dragon_obj = g_dragonsData:getLeaderDragon()
-    local card = UI_DragonCard(struct_dragon_obj)
+    -- 플레이어 정보 받아옴
+    local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
+    
+    -- 리더 드래곤
+    local card = struct_user_info:getLeaderDragonCard()
     vars['profileNode']:removeAllChildren()
     vars['profileNode']:addChild(card.root)
-    --vars['nameLabel']:setString('leshy ACE')
-    --vars['scoreLabel']:setString('30위 43승 125점')
+
+    -- 랭킹
+    local rank_text = struct_user_info:getRankText(true) -- param : detail
+    vars['rankLabel']:setString(rank_text)
+
+    -- 승리한 상대
+    local clear = math_floor(struct_user_info:getRP() / 10000)
+    local clear_str = Str('승리한 상대 {1}명', clear)
+    vars['clearLabel']:setString(clear_str)
+
+    -- 승점
+    local point = struct_user_info:getRP() % 10000
+    local point_str = Str('승점 {1}점', comma_value(point))
+    vars['scoreLabel']:setString(point_str)
 end
 
 -------------------------------------
@@ -199,17 +209,26 @@ function UI_ChallengeMode:refresh(stage)
     local st = g_challengeMode:getChallengeMode_staminaCost(stage)
     vars['priceaLabel']:setString(tostring(st))
 
-    -- 버튼 상태 처리
-    if g_challengeMode:isOpenStage_challengeMode(stage) then
-        vars['startBtn']:setVisible(true)
-        vars['lockSprite']:setVisible(false)
-    else
-        vars['startBtn']:setVisible(false)
-        vars['lockSprite']:setVisible(true)
+    do-- 버튼 상태 처리
+        -- 시즌 보상 획득만 가능한 상태
+        if (g_challengeMode:getChallengeModeState() == ServerData_ChallengeMode.STATE['REWARD']) then
+            vars['startBtn']:setVisible(false)
+            vars['lockSprite']:setVisible(false)
 
-        local t_data = g_challengeMode:getChallengeMode_StageInfo(stage - 1)
-        local str = Str('{1}위에게 승리 혹은 3회 도전 시 잠금 해제', t_data['rank'])
-        vars['lockLabel']:setString(str)
+        -- 시즌 진행 중인 상태
+        elseif g_challengeMode:isOpenStage_challengeMode(stage) then
+            vars['startBtn']:setVisible(true)
+            vars['lockSprite']:setVisible(false)
+
+        --시즌 진행 중이지만 스테이지가 잠긴 상태
+        else
+            vars['startBtn']:setVisible(false)
+            vars['lockSprite']:setVisible(true)
+
+            local t_data = g_challengeMode:getChallengeMode_StageInfo(stage - 1)
+            local str = Str('{1}위에게 승리 혹은 3회 도전 시 잠금 해제', t_data['rank'])
+            vars['lockLabel']:setString(str)
+        end
     end
 end
 
@@ -260,7 +279,14 @@ end
 -- @brief 랭킹, 보상 정보 버튼
 -------------------------------------
 function UI_ChallengeMode:click_rankBtn()
-    UI_ChallengeModeRankingPopup()
+    local ui = UI_ChallengeModeRankingPopup()
+
+    -- 랭킹 팝업에서 실시간 랭킹을 다시 받아오기 때문에 UI 갱신
+    local function close_cb()
+        self:refresh_playerRank()
+    end
+    
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

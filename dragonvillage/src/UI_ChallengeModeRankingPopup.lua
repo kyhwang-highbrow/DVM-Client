@@ -16,7 +16,7 @@ UI_ChallengeModeRankingPopup = class(PARENT,{
 function UI_ChallengeModeRankingPopup:init()
     self.m_rankOffset = 1
     local vars = self:load('challenge_mode_ranking_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChallengeModeRankingPopup')
@@ -53,6 +53,20 @@ end
 -- function refresh
 -------------------------------------
 function UI_ChallengeModeRankingPopup:refresh()
+    self:refresh_playerUserInfo()
+end
+
+-------------------------------------
+-- function refresh_playerUserInfo
+-------------------------------------
+function UI_ChallengeModeRankingPopup:refresh_playerUserInfo()
+    local vars = self.vars
+
+    -- 플레이어 정보 받아옴
+    local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
+    local ui = UI_ChallengeModeRankingListItem(struct_user_info)
+    vars['rankingMeNode']:removeAllChildren()
+    vars['rankingMeNode']:addChild(ui.root)
 end
 
 -------------------------------------
@@ -62,6 +76,7 @@ function UI_ChallengeModeRankingPopup:request_rank()
     local function finish_cb()
         self.m_rankOffset = g_challengeMode.m_nGlobalOffset
         self:makeRankTableView()
+        self:refresh_playerUserInfo()
     end
     local offset = self.m_rankOffset
     g_challengeMode:request_challengeModeRanking(offset, finish_cb)
@@ -73,15 +88,7 @@ end
 function UI_ChallengeModeRankingPopup:makeRankTableView()
     local vars = self.vars
     local node = vars['rankingListNode']
-    local my_node = vars['rankingMeNode']
-
     node:removeAllChildren()
-    my_node:removeAllChildren()
-    
-	do-- 내 순위
-        --local ui = UI_ArenaRankListItem(g_challengeMode.m_playerUserInfo)
-        --my_node:addChild(ui.root)
-	end
 
     local l_item_list = g_challengeMode.m_lGlobalRank
 

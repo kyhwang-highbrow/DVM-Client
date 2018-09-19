@@ -90,6 +90,19 @@ end
 -- function getPlayerArenaUserInfo
 -------------------------------------
 function ServerData_ChallengeMode:getPlayerArenaUserInfo()
+    -- 기본 정보 생성을 위해 호출
+    if (not self.m_playerUserInfo) then
+        self:refresh_playerUserInfo()
+    end
+
+    return self.m_playerUserInfo
+end
+
+-------------------------------------
+-- function refresh_playerUserInfo
+-- @brief 플레이어 정보 갱신
+-------------------------------------
+function ServerData_ChallengeMode:refresh_playerUserInfo(t_data, l_deck)
 	if (not self.m_playerUserInfo) then
 		local struct_user_info = StructUserInfoArena()
     
@@ -105,13 +118,48 @@ function ServerData_ChallengeMode:getPlayerArenaUserInfo()
 			struct_user_info.m_userData = ''
 		end
 
-		local t_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
-		struct_user_info:applyPvpDeckData(t_data)
+		local t_deck_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
+		struct_user_info:applyPvpDeckData(t_deck_data)
 
 		self.m_playerUserInfo = struct_user_info
 	end
 
-    return self.m_playerUserInfo
+    if t_data then
+        local struct_user_info = self.m_playerUserInfo
+
+        if t_data['lv'] then
+            struct_user_info.m_lv = t_data['lv']
+        end
+
+        if t_data['rate'] then
+            struct_user_info.m_rankPercent = t_data['rate']
+        end
+
+        if t_data['rank'] then
+            struct_user_info.m_rank = t_data['rank']
+        end
+
+        if t_data['tier'] then
+            struct_user_info.m_tier = t_data['tier']
+        end
+
+        if t_data['tamer'] then
+            struct_user_info.m_tamerID = t_data['tamer']
+        end
+
+        if t_data['leader'] then
+            struct_user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
+        end
+
+        if t_data['rp'] then
+            struct_user_info.m_rp = t_data['rp']
+        end
+    end
+
+    -- 덱 설정
+    if l_deck then
+        self.m_playerUserInfo:applyPvpDeckData(l_deck)
+    end
 end
 
 -------------------------------------
@@ -347,6 +395,11 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
         end
         if ret['open_info'] then
             self:setChallengeModeOpenInfo(ret['open_info'])
+        end
+
+        -- 플레이어 랭킹 정보 갱신
+        if ret['my_info'] then
+            self:refresh_playerUserInfo(ret['my_info'], nil)
         end
 
         if finish_cb then
@@ -692,7 +745,7 @@ function ServerData_ChallengeMode:getChallengeModeStatusText()
 
     local str = ''
     if (not self:isActive_challengeMode()) then
-        if (time < 0) then
+        if (time <= 0) then
             str = Str('오픈시간이 아닙니다.')
         end
 
@@ -748,6 +801,11 @@ function ServerData_ChallengeMode:request_challengeModeRanking(offset, finish_cb
         for i,v in pairs(ret['list']) do
             local user_info = StructUserInfoArena:create_forRanking(v)
             table.insert(self.m_lGlobalRank, user_info)
+        end
+
+        -- 플레이어 랭킹 정보 갱신
+        if ret['my_info'] then
+            self:refresh_playerUserInfo(ret['my_info'], nil)
         end
 
         if finish_cb then
