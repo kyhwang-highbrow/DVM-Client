@@ -163,7 +163,7 @@ function UI_Package_Bundle:refresh()
 
             -- 구성품 t_desc 표시
             if (self.m_data['use_desc'] == 1) then
-                local desc_str = struct_product['t_desc']
+                local desc_str = Str(struct_product['t_desc'])
                 setLabelString('itemLabel', idx, desc_str)
 
             -- 구성품 mail_content 표시
