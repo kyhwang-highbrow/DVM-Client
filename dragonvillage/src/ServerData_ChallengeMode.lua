@@ -111,6 +111,10 @@ function ServerData_ChallengeMode:getPlayerArenaUserInfo()
         self:refresh_playerUserInfo()
     end
 
+    -- 덱 정보는 항상 갱신
+    local t_deck_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
+    self.m_playerUserInfo:applyPvpDeckData(t_deck_data)
+
     return self.m_playerUserInfo
 end
 
