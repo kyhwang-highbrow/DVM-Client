@@ -437,6 +437,8 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+	return ui_network
 end
 
 -------------------------------------
@@ -702,6 +704,19 @@ function ServerData_ChallengeMode:isClearStage_challengeMode(stage)
     return false
 end
 
+-------------------------------------
+-- function getLastChallengeStage
+-- @breif 도전해야할 가장 최상위 팀
+-------------------------------------
+function ServerData_ChallengeMode:getLastChallengeStage()
+	local ret = 0
+	for stage, _ in pairs(self.m_lTotalPoint) do
+		if (ret < stage) then
+			ret = stage
+		end
+	end
+	return self:getTopStage() - ret
+end
 
 -------------------------------------
 -- function getChallengeMode_StageDetailInfo

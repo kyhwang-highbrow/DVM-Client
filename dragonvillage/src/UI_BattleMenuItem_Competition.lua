@@ -215,8 +215,8 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 	elseif (state == ServerData_ChallengeMode.STATE['OPEN']) then
 		text_1 = Str('최강의 테이머에게 도전하세요!')
 
-		local stage = 10
-		if (stage <= g_challengeMode:getTopStage()) then
+		local stage = g_challengeMode:getLastChallengeStage()
+		if (stage == 0) then
 			text_2 = Str('다음 도전 상대 : {1}위', stage)
 		end
 
@@ -241,12 +241,20 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 		vars['timeSprite']:setVisible(true)
 		
 		local timer = 1
-		local title = Str('기간 한정 이벤트')
+		local is_reward = (timer_key == 'event_challenge_reward')
+		local title = (is_reward) and Str('보상 수령 가능') or Str('기간 한정 이벤트')
+		
 		local function update(dt)
 			timer = timer + dt
 			if (timer > 1) then
 				timer = timer - 1
-				local time_str = g_hotTimeData:getEventRemainTimeText(timer_key)
+				local time_str
+				if (is_reward) then
+					time_str = g_hotTimeData:getEventRemainTimeText(timer_key)
+				else
+					local time = g_hotTimeData:getEventRemainTime(timer_key)
+					time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
+				end
 				vars['timeLabel']:setString(title .. '\n' .. time_str)
 			end
 		end
