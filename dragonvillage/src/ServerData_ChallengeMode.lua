@@ -55,10 +55,6 @@ end
 -- @use ServerData_ChallengeMode.STATE
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeState()
-	--if (true) then
-		--return ServerData_ChallengeMode.STATE['OPEN']
-	--end
-
 	-- 예외처리
 	if (not g_hotTimeData) then
 		return ServerData_ChallengeMode.STATE['INACTIVE']
@@ -730,7 +726,7 @@ function ServerData_ChallengeMode:getLastChallengeStage()
 			ret = stage
 		end
 	end
-	return self:getTopStage() - ret
+	return (self:getTopStage() - ret)
 end
 
 -------------------------------------

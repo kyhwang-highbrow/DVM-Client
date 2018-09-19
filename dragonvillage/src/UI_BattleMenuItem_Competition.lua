@@ -217,7 +217,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 		text_1 = Str('최강의 테이머에게 도전하세요!')
 
 		local stage = g_challengeMode:getLastChallengeStage()
-		if (stage == 0) then
+		if (stage ~= 0) then
 			text_2 = Str('다음 도전 상대 : {1}위', stage)
 		end
 
@@ -257,7 +257,6 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 					time_str = g_hotTimeData:getEventRemainTimeText(timer_key)
 				else
 					local time = g_hotTimeData:getEventRemainTime(timer_key)
-					cclog(time)
 					time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
 				end
 				vars['timeLabel']:setString(title .. '\n' .. time_str)
