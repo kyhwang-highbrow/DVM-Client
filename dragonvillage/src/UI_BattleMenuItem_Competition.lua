@@ -243,27 +243,46 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 
 	-- 타이머 사용하는 경우 스케쥴러 등록
 	if (use_timer) then
-		vars['timeSprite']:setVisible(true)
-		
-		local timer = 1
-		local title = (has_reward) and Str('보상 수령 가능') or Str('기간 한정 이벤트')
-		
-		local function update(dt)
-			timer = timer + dt
-			if (timer > 1) then
-				timer = timer - 1
-				local time_str
-				if (has_reward) then
-					time_str = g_hotTimeData:getEventRemainTimeText(timer_key)
-				else
-					local time = g_hotTimeData:getEventRemainTime(timer_key)
-					time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
-				end
-				vars['timeLabel']:setString(title .. '\n' .. time_str)
-			end
-		end
-		self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+		self:startUpdateChallengeMode(timer_key, has_reward)
 	end
 
 	return t_item, text_1, text_2
+end
+
+-------------------------------------
+-- function updateChallengeMode
+-- @brief 이벤트 그림자의 신전
+-------------------------------------
+function UI_BattleMenuItem_Competition:startUpdateChallengeMode(timer_key, has_reward)
+	local vars = self.vars
+	local timer = 1
+	local title = (has_reward) and Str('보상 수령 가능') or Str('기간 한정 이벤트')
+		
+	vars['timeSprite']:setVisible(true)
+		
+	local function update(dt)
+		timer = timer + dt
+
+		if (timer > 1) then
+			timer = timer - 1
+			if (has_reward) then
+				local time_str = g_hotTimeData:getEventRemainTimeText(timer_key)
+				vars['timeLabel']:setString(title .. '\n' .. time_str)
+			else
+				local time = g_hotTimeData:getEventRemainTime(timer_key)
+					
+				-- 이벤트가 안걸려있거나 0이하인 경우 탈출 처리
+				if (not time) or (time <= 0) then
+					vars['timeSprite']:setVisible(false)
+					self.root:unscheduleUpdate()
+					return
+				end
+
+				local time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
+				vars['timeLabel']:setString(title .. '\n' .. time_str)
+			end
+		end
+	end
+
+	self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end
