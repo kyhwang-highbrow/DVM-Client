@@ -94,6 +94,8 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	if (t_item) then
 		local icon = IconHelper:getItemIcon(t_item['item_id'])
 		vars['itemNode']:addChild(icon)
+	else
+		vars['itemContainerNode']:setVisible(false)
 	end
 
 	-- 텍스트
