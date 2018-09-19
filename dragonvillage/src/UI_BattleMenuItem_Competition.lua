@@ -214,7 +214,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 
 	-- 그림자의 신전 사용 가능 상태
 	elseif (state == ServerData_ChallengeMode.STATE['OPEN']) then
-		text_1 = Str('최강의 테이머에게 도전하세요!')
+		text_1 = Str('여러분의 한계에 도전해 보세요!')
 
 		local stage = g_challengeMode:getLastChallengeStage()
 		if (stage ~= 0) then
