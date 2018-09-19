@@ -99,9 +99,9 @@ end
 
 
 -------------------------------------
--- function rockButton
+-- function lockButton
 -------------------------------------
-function UI_GameArena:rockButton()
+function UI_GameArena:lockButton()
     local vars = self.vars
 
     -- 자동 버튼

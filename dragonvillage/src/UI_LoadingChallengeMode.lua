@@ -133,5 +133,25 @@ function UI_LoadingChallengeMode:setNextLoadingStr()
 	end
 end
 
+-------------------------------------
+-- function selectAuto
+-- @override
+-------------------------------------
+function UI_LoadingChallengeMode:selectAuto(auto_mode)
+    if (self.m_bSelected) then return end
+
+    local vars = self.vars
+
+    self.m_bSelected = true
+
+	g_autoPlaySetting:set('auto_mode', auto_mode)
+
+    vars['btnNode']:setVisible(false)
+    vars['loadingNode']:setVisible(true)
+
+    -- 서버 Log를 위해 임시저장
+    g_challengeMode.m_tempLogData['is_auto'] = auto_mode
+end
+
 --@CHECK
 UI:checkCompileError(UI_LoadingChallengeMode)

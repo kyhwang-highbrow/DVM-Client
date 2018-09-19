@@ -28,7 +28,7 @@ function GameWorldArena:init(game_mode, stage_id, world_node, game_node1, game_n
         cclog('자동모드 : ' .. luadump(self.m_bStartedAuto))
     end
 
-    ui:rockButton()
+    ui:lockButton()
 end
 
 -------------------------------------

@@ -31,7 +31,7 @@ function GameWorldEventArena:init(game_mode, stage_id, world_node, game_node1, g
         cclog('자동모드 : ' .. luadump(self.m_bStartedAuto))
     end
 
-    ui:rockButton()
+    ui:lockButton()
 end
 
 -------------------------------------
