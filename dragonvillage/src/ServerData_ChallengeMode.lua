@@ -626,13 +626,19 @@ function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time,
             self:setSelectedStage(self.m_selectedStage + 1)
         end
 
-		-- 경쟁 메뉴 UI에서 사용하기 위해서 total point 갱신
+		-- 점수 갱신
 		if (ret['point']) then
 			self.m_lTotalPoint[stage] = ret['point']
 		end
 
+		-- open info 갱신
+		local is_open_next_team = self:isOpenNextTeam(stage, is_win)
+		if (is_open_next_team) then
+			self.m_lOpenInfo[stage + 1] = 1
+		end
+
         if finish_cb then
-            finish_cb(ret, stage)
+            finish_cb(ret, stage, is_open_next_team)
         end
     end
 
@@ -761,17 +767,44 @@ function ServerData_ChallengeMode:isClearStage_challengeMode(stage)
 end
 
 -------------------------------------
--- function getLastChallengeStage
+-- function isOpenNextTeam
+-- @breif 다음 팀이 열렸는지?
+-------------------------------------
+function ServerData_ChallengeMode:isOpenNextTeam(stage, is_win)
+	local is_open = false
+		
+	-- 1위팀 클리어한 경우 항상 false
+	if (stage >= self:getTopStage()) then
+		
+	-- 다음 스테이지 오픈 안되어 있는 상황에서
+	elseif (not self:isOpenStage_challengeMode(stage + 1)) then
+		-- 승리
+		if (is_win) then
+			is_open = true
+		-- 3회 이상 도전
+		elseif (self:getChallengeModeStagePlayCnt(stage) + 1 >= 3) then
+			is_open = true
+		end
+	end
+
+	return is_open
+end
+
+-------------------------------------
+-- function getLastChallengeTeam
 -- @breif 도전해야할 가장 최상위 팀
 -------------------------------------
-function ServerData_ChallengeMode:getLastChallengeStage()
-	local ret = 0
-	for stage, _ in pairs(self.m_lTotalPoint) do
+function ServerData_ChallengeMode:getLastChallengeTeam()
+	local ret = 1
+	for stage, _ in pairs(self.m_lOpenInfo) do
 		if (ret < stage) then
 			ret = stage
 		end
 	end
-	return (self:getTopStage() - ret)
+	local top = self:getTopStage()
+	local team = (top - ret + 1)
+
+	return math_clamp(team, 1, top)
 end
 
 -------------------------------------

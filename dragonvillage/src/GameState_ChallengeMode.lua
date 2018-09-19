@@ -26,8 +26,8 @@ function GameState_ChallengeMode:makeResultUI(is_win)
     end
 
     -- 2. UI 생성
-    func_ui_result = function(ret, stage)
-        UI_ChallengeModeResult(is_win, ret, stage)
+    func_ui_result = function(ret, stage, is_open_next_team)
+        UI_ChallengeModeResult(is_win, ret, stage, is_open_next_team)
     end
 
     -- 최초 실행

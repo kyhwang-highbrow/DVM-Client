@@ -7,7 +7,7 @@ UI_ChallengeModeResult = class(PARENT, {
 		m_currStage = 'number',
 		m_playReward = 'table',
 		m_winReward = 'table',
-		m_isOpenNextStage = 'boolean',
+		m_isOpenNextTeam = 'boolean',
      })
 
 local ACTION_MOVE_Y = 700
@@ -15,9 +15,12 @@ local ACTION_MOVE_Y = 700
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ChallengeModeResult:init(is_win, t_data, stage)
+function UI_ChallengeModeResult:init(is_win, t_data, stage, is_open_next_team)
 	self.m_currStage = stage
 
+	-- 다음 팀 열림
+	self.m_isOpenNextTeam = is_open_next_team
+	
 	-- 승리 보상, 도전 보상 확인
 	local items_list = t_data['added_items']['items_list']
 	if (items_list) then
@@ -32,24 +35,6 @@ function UI_ChallengeModeResult:init(is_win, t_data, stage)
 		end
 	end
 
-	-- 다음 스테이지 열림 체크
-	do
-		self.m_isOpenNextStage = false
-		
-		-- 1위팀 클리어한 경우 항상 false
-		if (stage >= g_challengeMode:getTopStage()) then
-		
-		-- 다음 스테이지 오픈 안되어 있는 상황에서
-		elseif (not g_challengeMode:isOpenStage_challengeMode(stage + 1)) then
-			-- 승리
-			if (is_win) then
-				self.m_isOpenNextStage = true
-			-- 3회 이상 도전
-			elseif (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 >= 3) then
-				self.m_isOpenNextStage = true
-			end
-		end
-	end
 end
 
 -------------------------------------
@@ -140,7 +125,7 @@ end
 -- function direction_nextStage
 -------------------------------------
 function UI_ChallengeModeResult:direction_nextStage()
-	if (not self.m_isOpenNextStage) then
+	if (not self.m_isOpenNextTeam) then
 		self:doNextWork()
 		return
 	end

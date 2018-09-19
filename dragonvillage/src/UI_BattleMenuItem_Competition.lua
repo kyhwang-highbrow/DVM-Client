@@ -216,9 +216,9 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 	elseif (state == ServerData_ChallengeMode.STATE['OPEN']) then
 		text_1 = Str('여러분의 한계에 도전해 보세요!')
 
-		local stage = g_challengeMode:getLastChallengeStage()
-		if (stage ~= 0) then
-			text_2 = Str('다음 도전 상대 : {1}위', stage)
+		local team = g_challengeMode:getLastChallengeTeam()
+		if (team ~= 0) then
+			text_2 = Str('다음 도전 상대 : {1}위', team)
 		end
 
 		use_timer = true
