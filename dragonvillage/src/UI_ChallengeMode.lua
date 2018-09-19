@@ -119,6 +119,15 @@ function UI_ChallengeMode:appearDone()
         self.m_tableView:relocateContainerFromIndex(floor + 1)
     end
 
+    -- 시즌 보상이 있을 경우 팝업
+    if g_challengeMode.m_tSeasonRewardInfo then
+        local t_data = g_challengeMode.m_tSeasonRewardInfo
+        g_challengeMode.m_tSeasonRewardInfo = nil
+        UI_ChallengeModeRankingRewardPopup(t_data)
+        return
+    end
+
+
     -- 그림자의 신전 배경 설명
     UI_ChallengeModeInfoPopup:open('bg')
 end
@@ -209,7 +218,8 @@ function UI_ChallengeMode:refresh(stage)
 
     do-- 버튼 상태 처리
         -- 시즌 보상 획득만 가능한 상태
-        if (g_challengeMode:getChallengeModeState() == ServerData_ChallengeMode.STATE['REWARD']) then
+        if (g_challengeMode:getChallengeModeState() == ServerData_ChallengeMode.STATE['REWARD']) or
+            (g_challengeMode:getChallengeModeState() == ServerData_ChallengeMode.STATE['DONE']) then
             vars['startBtn']:setVisible(false)
             vars['lockSprite']:setVisible(false)
 

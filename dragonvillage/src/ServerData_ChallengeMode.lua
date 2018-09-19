@@ -19,6 +19,7 @@ ServerData_ChallengeMode = class({
         -- 1 -> 이번 시즌 보상 받음
         -- 2 -> 이번 시즌 보상 받을게 없음
         m_seasonRewardStatus = 'number',
+        m_tSeasonRewardInfo = 'talbe', -- 시즌 보상을 받았을 경우
 
         m_selectedStage = 'number',
         m_tempLogData = 'table',
@@ -430,6 +431,11 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
         -- 챌린지 모드 관리 테이블
         if ret['table_challenge_management'] then
             self.m_challengeManageTable = ret['table_challenge_management']
+        end
+
+        -- 시즌 보상 정보 저장
+        if ret['reward_info'] and (0 < table.count(ret['reward_info'])) then
+            self.m_tSeasonRewardInfo = ret['reward_info']
         end
 
         if finish_cb then

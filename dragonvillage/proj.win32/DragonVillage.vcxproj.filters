@@ -3781,6 +3781,9 @@
     <None Include="..\src\UI_ChallengeModeRewardListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ChallengeModeRankingRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
