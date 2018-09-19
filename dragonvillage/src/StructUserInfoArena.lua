@@ -267,7 +267,7 @@ end
 -- function getRankText
 -- @brief
 -------------------------------------
-function StructUserInfoArena:getRankText(detail)
+function StructUserInfoArena:getRankText(detail, carriage_return)
     if (not self.m_rank) then
         return Str('기록 없음')
     end
@@ -281,7 +281,11 @@ function StructUserInfoArena:getRankText(detail)
         local rank_str = Str('{1}위', comma_value(self.m_rank))
 
         if (detail) then
-            rank_str = rank_str .. string.format(' (%.1f%%)', self.m_rankPercent * 100)
+            if carriage_return then
+                rank_str = rank_str .. string.format('\n(%.1f%%)', self.m_rankPercent * 100)
+            else
+                rank_str = rank_str .. string.format(' (%.1f%%)', self.m_rankPercent * 100)
+            end
         end
 
         return rank_str

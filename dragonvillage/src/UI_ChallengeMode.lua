@@ -148,7 +148,7 @@ function UI_ChallengeMode:refresh_playerRank()
     vars['profileNode']:addChild(card.root)
 
     -- 랭킹
-    local rank_text = struct_user_info:getRankText(true) -- param : detail
+    local rank_text = struct_user_info:getRankText(true, true) -- param : detail, carriage_return
     vars['rankLabel']:setString(rank_text)
 
     -- 승리한 상대
@@ -204,12 +204,16 @@ function UI_ChallengeMode:refresh(stage)
         local rank = t_data['rank']
         local nick = t_data['nick']
         local clan = t_data['clan']
-        local str = Str('{1}위', rank)
-        str = str .. ' {@}' .. nick
+        --local str = Str('{1}위', rank)
+        local str = ''
+        str = str .. '{@}' .. nick
         if (clan and (clan ~= '')) then
-            str = str .. ' {@clan_name}' .. clan
+            str = str .. '\n{@clan_name}' .. clan
         end
         vars['tamerNameLabel']:setString(str)
+
+        -- 순위는 별도
+        vars['stageNumberLabel']:setString(tostring(rank))
     end
 
     -- 날개
