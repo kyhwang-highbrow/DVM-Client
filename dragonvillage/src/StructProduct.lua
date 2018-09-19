@@ -678,7 +678,6 @@ function StructProduct:getMaxBuyTermStr()
     local max_buy_display = self['max_buy_display']
     -- 구매 제한 표시 값이 존재하는 경우 그 값으로 치환
     if (max_buy_display) and (max_buy_display ~= '') then
-        ccdump(max_buy_display)
         max_buy_term = max_buy_display
     end
 
