@@ -219,6 +219,7 @@ function UI_ChallengeMode:refresh(stage)
     -- 날개
     local st = g_challengeMode:getChallengeMode_staminaCost(stage)
     vars['priceaLabel']:setString(tostring(st))
+    vars['priceaLabel2']:setString(tostring(st))
 
     do-- 버튼 상태 처리
         -- 시즌 보상 획득만 가능한 상태
@@ -230,16 +231,12 @@ function UI_ChallengeMode:refresh(stage)
         -- 시즌 진행 중인 상태
         elseif g_challengeMode:isOpenStage_challengeMode(stage) then
             vars['startBtn']:setVisible(true)
-            vars['lockSprite']:setVisible(false)
+            vars['lockBtn']:setVisible(false)
 
         --시즌 진행 중이지만 스테이지가 잠긴 상태
         else
             vars['startBtn']:setVisible(false)
-            vars['lockSprite']:setVisible(true)
-
-            local t_data = g_challengeMode:getChallengeMode_StageInfo(stage - 1)
-            local str = Str('{1}위에게 승리 혹은 3회 도전 시 잠금 해제', t_data['rank'])
-            vars['lockLabel']:setString(str)
+            vars['lockBtn']:setVisible(true)
         end
     end
 end
@@ -251,6 +248,7 @@ function UI_ChallengeMode:initButton()
     local vars = self.vars
 
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infonfoBtn() end)
     vars['lockSprite']:setEnabled(false) -- 버튼으로 되어있음
@@ -265,7 +263,7 @@ end
 
 -------------------------------------
 -- function click_startBtn
--- @brief 출전 덱 설정 버튼
+-- @brief 전투 준비 버튼
 -------------------------------------
 function UI_ChallengeMode:click_startBtn()
     local stage = self.m_selectedStageID
@@ -284,6 +282,15 @@ function UI_ChallengeMode:click_startBtn()
     else
         MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
     end
+end
+
+-------------------------------------
+-- function click_lockBtn
+-- @brief 전투 준비 잠금 버튼
+-------------------------------------
+function UI_ChallengeMode:click_lockBtn()
+    -- 잠금 해제 안내
+    UI_ChallengeModeInfoPopup('lock')
 end
 
 -------------------------------------
