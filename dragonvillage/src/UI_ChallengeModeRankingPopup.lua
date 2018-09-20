@@ -8,6 +8,8 @@ local OFFSET_GAP = 30 -- 한번에 보여주는 랭커 수
 UI_ChallengeModeRankingPopup = class(PARENT,{
         m_rankTableView = 'UIC_TableView',
         m_rankOffset = 'number',
+        m_rewardTableView = '',
+        m_selectedUI = '',
     })
 
 -------------------------------------
@@ -70,6 +72,67 @@ function UI_ChallengeModeRankingPopup:refresh_playerUserInfo()
     local ui = UI_ChallengeModeRankingListItem(struct_user_info)
     vars['rankingMeNode']:removeAllChildren()
     vars['rankingMeNode']:addChild(ui.root)
+
+    if self.m_selectedUI then
+        self.m_selectedUI.vars['meSprite']:setVisible(false)
+        self.m_selectedUI = nil
+    end
+
+
+    local rank = struct_user_info.m_rank
+    if (not rank) or (rank <= 0) then
+        return
+    end
+    
+    local ratio = (struct_user_info.m_rankPercent or 1) * 100
+
+    local l_item_list = self.m_rewardTableView.m_itemList
+    local idx = nil
+    local ui = nil
+    for i,v in ipairs(l_item_list) do
+        local data = v['data']
+        local unique_id = v['unique_id']
+        local _ui = v['ui']
+        
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= rank) and (rank <= rank_max) then
+                idx = unique_id
+                ui = _ui
+                break
+            end
+
+        -- 비율 필터
+        elseif (ratio_min and ratio_max) then
+            if (ratio_min < ratio) and (ratio <= ratio_max) then
+                idx = unique_id
+                ui = _ui
+                break
+            end
+        end
+    end
+
+
+
+    if (not idx) then
+        return
+    end
+
+    self.m_rewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    self.m_rewardTableView:relocateContainerFromIndex(idx)
+
+    local t_item = self.m_rewardTableView:getItem(idx)
+    local ui = t_item['ui'] or t_item['generated_ui']
+    if (ui) then
+        self.m_selectedUI = ui
+        ui.vars['meSprite']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -178,10 +241,11 @@ function UI_ChallengeModeRankingPopup:makeRankRewardTableView()
     table_view.m_defaultCellSize = cc.size(550, 75 + 5)
     table_view:setCellUIClass(UI_ChallengeModeRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
+    table_view:setItemList(l_item_list, true)
     --self.m_rewardTableView = table_view
 
-    table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))  
+    table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))
+    self.m_rewardTableView = table_view
 end
 
 --@CHECK
