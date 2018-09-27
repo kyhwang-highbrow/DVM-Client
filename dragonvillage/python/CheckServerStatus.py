@@ -36,6 +36,8 @@ SERVER_PATH = {
 HMAC_SECRET = 'Vjpmgg6MhKSBkSj4k36MQNyUwqS68qJCzRaXmID+45RQO07myxHJakFYY4i7Af6B'
 MD5_SECRET = 'bd09b49ad742473a9663b0df11521927'
 
+PROBLEM_COUNT = {}
+
 ######################################################################
 
 class CheckServerStatusJob():
@@ -65,18 +67,36 @@ class CheckServerStatusJob():
         print "# Current time : ", now_str
 
     ## send slack
-    def sendSlackMsg(self, server_name):
+    def sendSlackMsg(self, server_name, is_red_card):
+        channel = "C1RUT070B"
+        text = 'warning! %s server not response.' % server_name,
+        if (is_red_card):
+            channel = "C1QFD2E4S"
+            text = 'warning! %s server is gone.' % server_name,
+
         fullUrl = 'https://slack.com/api/chat.postMessage'
         params = {
             'token' : 'xoxp-4049551466-58528144482-409940306166-79d561e763e94b36a6ca49a54bb9cd7d',
-            'channel' : 'C1RUT070B',
-            'text' : 'warning! %s server is gone.' % server_name,
+            'channel' : channel,
+            'text' : text,
             'username' : 'DVM Server Checker',
             'icon_emoji' : ':no_entry:'
         }
         r = requests.get(fullUrl, params = params)
-        print r.status_code
-        print "send slack msg"
+        print "# send slack msg"
+
+    # set problem count by server name and send slack msg if have to do
+    def setProblemCountAndSlack(self, server_name):
+        if (server_name in PROBLEM_COUNT):
+            PROBLEM_COUNT[server_name] += 1
+        else:
+            PROBLEM_COUNT[server_name] = 1
+
+        if (PROBLEM_COUNT[server_name] >= 3):
+            PROBLEM_COUNT[server_name] = 0
+            self.sendSlackMsg(server_name, True)
+        else:
+            self.sendSlackMsg(server_name, False)
 
     ## call server status api
     def checkServerStatus(self, path, server_name):
@@ -89,7 +109,7 @@ class CheckServerStatusJob():
             print r.json()
         else:
             print "%s return status code %d." % (path, r.status_code)
-            self.sendSlackMsg(server_name)
+            self.setProblemCountAndSlack(server_name)
         
         print '----------------------------------'
 
@@ -115,7 +135,7 @@ class CheckServerStatusJob():
             print r.json()
         else:
             print "### %s server return status code %d." % (server_name, r.status_code)
-            self.sendSlackMsg(server_name)
+            self.setProblemCountAndSlack(server_name)
         
         print '----------------------------------'
 
@@ -134,7 +154,7 @@ def doJob():
 def main():
     print '### SCHEDULER START ###'
 
-    schedule.every(5).minutes.do(doJob)
+    schedule.every(3).minutes.do(doJob)
     while 1:
         schedule.run_pending()
         time.sleep(1)
