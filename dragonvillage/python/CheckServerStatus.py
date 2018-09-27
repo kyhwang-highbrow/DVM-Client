@@ -45,22 +45,26 @@ class CheckServerStatusJob():
     # def __del__(self):
     #     print '## def __del__'
     
+    ## return platform auth key 
     def getPlatformServerAuth(self, data):
         text = json.dumps(data)
         key = hmac.new(MD5_SECRET, text, hashlib.md5).hexdigest()
         return key
 
+    ## return game server auth key
     def getGameServerAuth(self, data, url):
         query = "os=windows&uid=server"
         text = "POST\n%s\n%s" % (url, query)
         key = hmac.new(HMAC_SECRET, text, hashlib.sha1).hexdigest()
-        return key
+        return str(key)
 
+    ## print time
     def printCurrentTimeStr(self):
         now = time.localtime()
         now_str = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        print "current time : ", now_str
+        print "# Current time : ", now_str
 
+    ## send slack
     def sendSlackMsg(self, server_name):
         fullUrl = 'https://slack.com/api/chat.postMessage'
         params = {
@@ -74,7 +78,8 @@ class CheckServerStatusJob():
         print r.status_code
         print "send slack msg"
 
-    def checkServerIsAlive(self, path, server_name):
+    ## call server status api
+    def checkServerStatus(self, path, server_name):
         url = "/get_version"
         fullUrl = path + url
         r = requests.get(fullUrl)
@@ -88,26 +93,54 @@ class CheckServerStatusJob():
         
         print '----------------------------------'
 
+    ## try to login so check server is alive
+    def checkServerByTryToLogin(self, path, server_name):
+        url = "/login"
+        fullUrl = path + url
+        data = {
+            "uid" : "server",
+            "os" : "windows"
+        }
+        headers = {
+            "Content-Type" : "application/x-www-form-urlencoded; charset=utf-8",
+            # for platform server
+            "HMAC" : self.getPlatformServerAuth(data),
+            # for game server
+            "hmac" : self.getGameServerAuth(data, url)
+        }
+        r = requests.post(fullUrl, headers=headers, data=data)
+
+        if (r.status_code == 200):
+            print "%s server is OK." % server_name
+            print r.json()
+        else:
+            print "### %s server return status code %d." % (server_name, r.status_code)
+            self.sendSlackMsg(server_name)
+        
+        print '----------------------------------'
+
 ######################################################################
 
 def doJob():
+    print '## JOB START ##'
     checkJob = CheckServerStatusJob()
     checkJob.printCurrentTimeStr()
-
-    checkJob.checkServerIsAlive(SERVER_PATH['KOREA'], "korea")
-    checkJob.checkServerIsAlive(SERVER_PATH['JAPAN'], "japan")
-    checkJob.checkServerIsAlive(SERVER_PATH['ASIA'], "asia")
-    checkJob.checkServerIsAlive(SERVER_PATH['AMERICA'], "america")
-
-    print '##JOB DONE\n'
+    checkJob.checkServerByTryToLogin(SERVER_PATH['KOREA'], "korea")
+    checkJob.checkServerByTryToLogin(SERVER_PATH['JAPAN'], "japan")
+    checkJob.checkServerByTryToLogin(SERVER_PATH['ASIA'], "asia")
+    checkJob.checkServerByTryToLogin(SERVER_PATH['AMERICA'], "america")
+    print '## JOB DONE ##\n'
 
 def main():
-    print '## START ##'
+    print '### SCHEDULER START ###'
 
-    schedule.every(1).minutes.do(doJob)
-    
+    schedule.every(5).minutes.do(doJob)
     while 1:
         schedule.run_pending()
+        time.sleep(1)
+
+    print '### SCHEDULER DONE ###'
+
     
 ###################################
 if __name__ == '__main__':
