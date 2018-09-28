@@ -30,7 +30,7 @@ public class PerpleConfig {
     public static final boolean USE_XSOLLA = true;
     public static final int XSOLLA_MERCHANT_ID = 60608;
     public static final String XSOLLA_API_KEY = "tP3xsMG3ZXasBD52";
-    public static final int XSOLLA_PROJECT_ID = 35042;
-    public static final String XSOLLA_SECRET_KEY = "dR0p3BnJAunszS5g";
+    public static final int XSOLLA_PROJECT_ID = 35264;
+    public static final String XSOLLA_SECRET_KEY = "5CxonpyaUmJxbWdz";
 
 }
