@@ -69,10 +69,10 @@ class CheckServerStatusJob():
     ## send slack
     def sendSlackMsg(self, server_name, is_red_card):
         channel = "C1RUT070B"
-        text = 'warning! %s server not response.' % server_name,
+        text = 'warning! [%s] server do not respond.' % server_name,
         if (is_red_card):
             channel = "C1QFD2E4S"
-            text = 'warning! %s server is gone.' % server_name,
+            text = 'warning! [%s] server is gone.' % server_name,
 
         fullUrl = 'https://slack.com/api/chat.postMessage'
         params = {
@@ -86,20 +86,20 @@ class CheckServerStatusJob():
         print "# send slack msg"
 
     # set problem count by server name and send slack msg if have to do
-    def setProblemCountAndSlack(self, server_name):
-        if (server_name in PROBLEM_COUNT):
-            PROBLEM_COUNT[server_name] += 1
+    def addProblemCount(self, serverName):
+        if (serverName in PROBLEM_COUNT):
+            PROBLEM_COUNT[serverName] += 1
         else:
-            PROBLEM_COUNT[server_name] = 1
+            PROBLEM_COUNT[serverName] = 1
 
-        if (PROBLEM_COUNT[server_name] >= 3):
-            PROBLEM_COUNT[server_name] = 0
-            self.sendSlackMsg(server_name, True)
+        if (PROBLEM_COUNT[serverName] >= 3):
+            PROBLEM_COUNT[serverName] = 0
+            return True
         else:
-            self.sendSlackMsg(server_name, False)
+            return False
 
     ## call server status api
-    def checkServerStatus(self, path, server_name):
+    def checkServerStatus(self, path, serverName):
         url = "/get_version"
         fullUrl = path + url
         r = requests.get(fullUrl)
@@ -107,14 +107,17 @@ class CheckServerStatusJob():
         if (r.status_code == 200):
             print "%s server is OK." % path
             print r.json()
+            PROBLEM_COUNT[serverName] = 0
+
         else:
             print "%s return status code %d." % (path, r.status_code)
-            self.setProblemCountAndSlack(server_name)
+            isRedCard = self.addProblemCount(serverName)
+            self.sendSlackMsg(serverName, isRedCard)
         
         print '----------------------------------'
 
     ## try to login so check server is alive
-    def checkServerByTryToLogin(self, path, server_name):
+    def checkServerByTryToLogin(self, path, serverName):
         url = "/login"
         fullUrl = path + url
         data = {
@@ -125,17 +128,19 @@ class CheckServerStatusJob():
             "Content-Type" : "application/x-www-form-urlencoded; charset=utf-8",
             # for platform server
             "HMAC" : self.getPlatformServerAuth(data),
-            # for game server
+            # for game server ## hardcording
             "hmac" : self.getGameServerAuth(data, url)
         }
         r = requests.post(fullUrl, headers=headers, data=data)
 
         if (r.status_code == 200):
-            print "%s server is OK." % server_name
+            print "%s server is OK." % serverName
             print r.json()
+            PROBLEM_COUNT[serverName] = 0
         else:
-            print "### %s server return status code %d." % (server_name, r.status_code)
-            self.setProblemCountAndSlack(server_name)
+            print "### %s server return status code %d." % (serverName, r.status_code)
+            isRedCard = self.addProblemCount(serverName)
+            self.sendSlackMsg(serverName, isRedCard)
         
         print '----------------------------------'
 
@@ -145,10 +150,10 @@ def doJob():
     print '## JOB START ##'
     checkJob = CheckServerStatusJob()
     checkJob.printCurrentTimeStr()
-    checkJob.checkServerByTryToLogin(SERVER_PATH['KOREA'], "korea")
-    checkJob.checkServerByTryToLogin(SERVER_PATH['JAPAN'], "japan")
-    checkJob.checkServerByTryToLogin(SERVER_PATH['ASIA'], "asia")
-    checkJob.checkServerByTryToLogin(SERVER_PATH['AMERICA'], "america")
+    checkJob.checkServerByTryToLogin(SERVER_PATH['KOREA'], "KOREA")
+    checkJob.checkServerByTryToLogin(SERVER_PATH['JAPAN'], "JAPAN")
+    checkJob.checkServerByTryToLogin(SERVER_PATH['ASIA'], "ASIA")
+    checkJob.checkServerByTryToLogin(SERVER_PATH['AMERICA'], "AMERICA")
     print '## JOB DONE ##\n'
 
 def main():
