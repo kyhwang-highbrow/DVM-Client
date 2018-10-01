@@ -107,16 +107,16 @@ public class AppActivity extends Cocos2dxActivity{
         // @perplesdk
         PerpleSDK.createInstance(this);
 
-        // @perplesdk, Lua 콜백??GL Thread ?�서 ?�행?�고????경우 ?�정?�다.
+        // @perplesdk, Lua 콜백을 GL Thread 에서 실행하고자 할 경우 설정한다.
         PerpleSDK.setGLSurfaceView(getGLSurfaceView());
 
-        // ?�버�?메시지 출력
+        // 디버그 메시지 출력
         boolean isDebug = BuildConfig.DEBUG;
 
         // @perplesdk // getString(R.string.gcm_defaultSenderId) GCM is deprecated, use FCM
         if (PerpleSDK.getInstance().initSDK(PerpleConfig.BASE64_PUBLIC_KEY, isDebug)) {
 
-            // firebase FCM ?�림???�그?�운???�태?�서??받고????경우 true�??�정
+            // firebase FCM 알림을 포그라운드 상태에서도 받고자 할 경우 true로 설정
             PerpleSDK.getInstance().setReceivePushOnForeground(false);
 
             // @google
@@ -263,46 +263,46 @@ public class AppActivity extends Cocos2dxActivity{
             sOBBDownloader.setDownloaderCallback(new APKExpansionDownloaderCallback() {
                 @Override
                 public void onInit() {
-                    // startAPKExpansionDownloader()�?onCreate()?�서 직접 ?�출??경우 ?�래 코드 주석 처리
+                    // startAPKExpansionDownloader()를 onCreate()에서 직접 호출할 경우 아래 코드 주석 처리
                     sOBBDownloader.connectDownloaderClient(sActivity);
 
-                    // ?�운로드 ?�작
-                    // ?�운로드 진행 ?�시 UI ?�기
+                    // 다운로드 시작
+                    // 다운로드 진행 표시 UI 열기
                     sdkEventResult("apkexp_start", "start", "");
                 }
                 @Override
                 public void onCompleted() {
                     Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
 
-                    // ?�운로드 ?�료
-                    // ?�운로드 진행 ?�시 UI ?�고 게임 ?�작
+                    // 다운로드 완료
+                    // 다운로드 진행 표시 UI 닫고 게임 시작
                     sdkEventResult("apkexp_start", "complete", "end");
                 }
                 @Override
                 public void onUpdateStatus(boolean isPaused, boolean isIndeterminate, boolean isInterruptable, int code, String statusText) {
-                    // ?�운로드 진행 �??�류 ?�황 처리
+                    // 다운로드 진행 중 오류 상황 처리
                     if (!isIndeterminate) {
                         if (isPaused && isInterruptable) {
 
                             // Error Code
                             // -----------------------------------------------
-                            // IDownloaderClient.STATE_PAUSED_NETWORK_UNAVAILABLE (6) : ?�트?�크가 ?�결?�어 ?��? ?��? 경우
-                            // IDownloaderClient.STATE_PAUSED_BY_REQUEST (7) : sOBBDownloader.requestPauseDownload() �?강제�??�운로드 중단?�킨 경우
-                            // IDownloaderClient.STATE_PAUSED_ROAMING (12) : 로밍 �? 로밍 중이므�??�금???�??경고�??�고 계속 진행/중단 처리?�다.
-                            // IDownloaderClient.STATE_FAILED_UNLICENSED (15) : ?�식?�로 ?�을 ?�운로드 받�? ?��? 경우, APK�?별도�??�치?�여 ?�스?�하??개발 버전?�선 ?�패 처리?��? ?�고 그�?�?진행?�킨??
-                            // IDownloaderClient.STATE_FAILED_SDCARD_FULL (17) : ?��? ?�???�치???�량??부족한 경우
-                            // IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED (19) : WRITE_EXTERNAL_STORAGE 권한??거�???경우
-                            // IDownloaderClient.STATE_FAILED_NO_GOOGLE_ACCOUNT (20) : 로그?�된 구�? 계정???�는 경우
-                            // IDownloaderClient.STATE_FAILED (99) : ?????�는 ?�류
+                            // IDownloaderClient.STATE_PAUSED_NETWORK_UNAVAILABLE (6) : 네트워크가 연결되어 있지 않은 경우
+                            // IDownloaderClient.STATE_PAUSED_BY_REQUEST (7) : sOBBDownloader.requestPauseDownload() 로 강제로 다운로드 중단시킨 경우
+                            // IDownloaderClient.STATE_PAUSED_ROAMING (12) : 로밍 중, 로밍 중이므로 요금에 대한 경고를 하고 계속 진행/중단 처리한다.
+                            // IDownloaderClient.STATE_FAILED_UNLICENSED (15) : 정식으로 앱을 다운로드 받지 않은 경우, APK를 별도로 설치하여 테스트하는 개발 버전에선 실패 처리하지 않고 그대로 진행시킨다.
+                            // IDownloaderClient.STATE_FAILED_SDCARD_FULL (17) : 외부 저장 장치의 용량이 부족한 경우
+                            // IDownloaderClient.STATE_FAILED_WRITE_STORAGE_PERMISSION_DENIED (19) : WRITE_EXTERNAL_STORAGE 권한을 거부한 경우
+                            // IDownloaderClient.STATE_FAILED_NO_GOOGLE_ACCOUNT (20) : 로그인된 구글 계정이 없는 경우
+                            // IDownloaderClient.STATE_FAILED (99) : 알 수 없는 오류
 
-                            // 계속 진행?�고???�다�? ?�류 ?�황???�소?�고 sOBBDownloader.requestContinueDownload() �??�출?�야 ?�다.
-                            // ?? ?�반?�으로는 STATE_PAUSED_BY_REQUEST 가 ?�닌 모든 경우 그냥 ?�패 처리?�고 ?�을 ?�설치하?�록 ?�도?�는 것이 좋다.
+                            // 계속 진행하고자 한다면, 오류 상황을 해소하고 sOBBDownloader.requestContinueDownload() 를 호출해야 한다.
+                            // 단, 일반적으로는 STATE_PAUSED_BY_REQUEST 가 아닌 모든 경우 그냥 실패 처리하고 앱을 재설치하도록 유도하는 것이 좋다.
 
-                            // ?�패 처리
-                            // sOBBDownloader.disconnectDownloaderClient(sActivity) �??�출?�여 ?�운로드???�전??중단?�키�?
-                            // ???�에???�을 ?�설치하?�록 ?�도?�는 메시지�?출력?�고 ??종료처리�??�다.
+                            // 실패 처리
+                            // sOBBDownloader.disconnectDownloaderClient(sActivity) 를 호출하여 다운로드는 완전히 중단시키고,
+                            // 앱 안에서 앱을 재설치하도록 유도하는 메시지를 출력하고 앱 종료처리를 한다.
 
-                            // WiFI 가 ?�결?��? ?��? 경우?�는 ?�이브러�??��??�서 ?�체?�으�?처리가 ?�어 ?�으므�?별도 처리 ?�요 ?�다.
+                            // WiFI 가 연결되지 않은 경우에는 라이브러리 내부에서 자체적으로 처리가 되어 있으므로 별도 처리 필요 없다.
 
                             String info = "";
                             try {
@@ -320,8 +320,8 @@ public class AppActivity extends Cocos2dxActivity{
                 }
                 @Override
                 public void onUpdateProgress(long current, long total, String progress, String percent) {
-                    // ?�운로드 진행 �?
-                    // ?�운로드 진행 ?�황 UI ?�데?�트
+                    // 다운로드 진행 중
+                    // 다운로드 진행 상황 UI 업데이트
 
                     String info = "";
                     try {
@@ -342,7 +342,7 @@ public class AppActivity extends Cocos2dxActivity{
         } else {
             Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
 
-            // 바로 게임 ?�작
+            // 바로 게임 시작
             sdkEventResult("apkexp_start", "complete", "pass");
         }
     }
