@@ -315,6 +315,29 @@ function Translate:getFontSizeScale()
 end
 
 -------------------------------------
+-- function setDefaultFallbackFont
+-- @brief fallback font 설정
+-------------------------------------
+function Translate:setDefaultFallbackFont()
+	-- @mskim 주석처리한 fallback font들은 1.1.6 앱 업데이트에서 적용하면 됨.
+
+	-- ko
+	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01.ttf', 'res/font/common_font_01_cn.ttc')
+	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01.ttf', 'res/font/common_font_01_ja.ttf')
+
+	-- ja / es
+    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_ja.ttf', 'res/font/common_font_01.ttf')
+    
+	-- zh
+	cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01.ttf')
+	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01_ja.ttf')
+    
+	-- th
+	cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01.ttf')
+	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01_ja.ttf')
+end
+
+-------------------------------------
 -- function getGameLangTable
 -- @breif
 -------------------------------------
