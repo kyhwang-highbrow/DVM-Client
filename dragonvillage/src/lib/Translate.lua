@@ -334,7 +334,7 @@ function Translate:setDefaultFallbackFont()
     
 	-- th
 	cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01.ttf')
-	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01_ja.ttf')
+	--cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01_ja.ttf')
 end
 
 -------------------------------------
