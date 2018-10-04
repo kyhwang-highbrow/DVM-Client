@@ -740,40 +740,32 @@ FT_UInt FontFreeType::getCharGlyphIndex(FT_Face &fontRef, unsigned int theChar)
 	}
 
 	std::string fontName = _fontName;
-	while (!fontName.empty())
+    for (auto it = s_fallbackFontNames.begin(); it != s_fallbackFontNames.end(); ++it)
 	{
-		auto it = s_fallbackFontNames.find(fontName);
-		if (it != s_fallbackFontNames.end())
-		{
-			fontName = it->second;
+        fontName = it->second;
 
-			auto it2 = _fallbackFontRefs.find(fontName);
-			if (it2 != _fallbackFontRefs.end())
-			{
-				fontRef = it2->second;
-			}
-			else
-			{
-				fontRef = getFontObject(fontName, _fontSize);
-				if (fontRef)
-				{
-					_fallbackFontRefs[fontName] = fontRef;
-				}
-			}
+        auto it2 = _fallbackFontRefs.find(fontName);
+        if (it2 != _fallbackFontRefs.end())
+        {
+            fontRef = it2->second;
+        }
+        else
+        {
+            fontRef = getFontObject(fontName, _fontSize);
+            if (fontRef)
+            {
+                _fallbackFontRefs[fontName] = fontRef;
+            }
+        }
 
-			if (fontRef)
-			{
-				auto glyphIndex = FT_Get_Char_Index(fontRef, theChar);
-				if (glyphIndex != 0)
-				{
-					return glyphIndex;
-				}
-			}
-		}
-		else
-		{
-			fontName.clear();
-		}
+        if (fontRef)
+        {
+            auto glyphIndex = FT_Get_Char_Index(fontRef, theChar);
+            if (glyphIndex != 0)
+            {
+                return glyphIndex;
+            }
+        }
 	}
 
     fontRef = nullptr;
