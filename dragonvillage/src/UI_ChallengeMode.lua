@@ -58,6 +58,11 @@ function UI_ChallengeMode:initUI()
     -- 남은 시간 표기
     local str_time = g_challengeMode:getChallengeModeStatusText()
     vars['timeLabel']:setString(str_time)
+
+    -- 네트워크 통신 전 최초에 보여지는 값 처리
+    vars['startBtn']:setVisible(false)
+    vars['tamerNameLabel']:setString('')
+    vars['stageNumberLabel']:setString('')
 end
 
 -------------------------------------
@@ -335,7 +340,11 @@ function UI_ChallengeMode:selectFloor(floor_info)
             self:refresh(curr_stage)
         end
 
-        g_challengeMode:request_challengeModeStageDetailInfo(curr_stage, finish_cb)
+        -- 서버상의 이슈로 해당 스에티지 정보가 없을 경우 예외처리
+        local t_data = g_challengeMode:getChallengeMode_StageInfo(curr_stage)
+        if t_data then
+            g_challengeMode:request_challengeModeStageDetailInfo(curr_stage, finish_cb)
+        end
     end
 end
 

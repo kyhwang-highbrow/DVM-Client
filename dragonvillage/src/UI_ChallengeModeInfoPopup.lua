@@ -47,12 +47,16 @@ function UI_ChallengeModeInfoPopup:initUI()
     local l_stage = g_challengeMode:getChallengeModeStagesInfo()
 
     -- 위쪽 순위
-    local ui = UI_ChallengeModeListItem(l_stage[high_stage])
-    vars['stageItem1']:addChild(ui.root)
+    if l_stage[high_stage] then
+        local ui = UI_ChallengeModeListItem(l_stage[high_stage])
+        vars['stageItem1']:addChild(ui.root)
+    end
 
     -- 아래쪽 순위
-    local ui = UI_ChallengeModeListItem(l_stage[low_stage])
-    vars['stageItem2']:addChild(ui.root)
+    if l_stage[low_stage] then
+        local ui = UI_ChallengeModeListItem(l_stage[low_stage])
+        vars['stageItem2']:addChild(ui.root)
+    end
 end
 
 -------------------------------------
