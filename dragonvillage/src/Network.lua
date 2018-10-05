@@ -362,18 +362,31 @@ function Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
     t_data['nickname'] = nickname
     t_data['hashed_uid'] = nil
     t_data['imei'] = nil
-    t_data['market'] = nil
+    
 
     -- 로그인 시 os 정보 추가
-    local os = 'android'
-    if isAndroid() then
+    local os
+	local market 
+    if CppFunctions:isAndroid() then
         os = 'android'
-    elseif isIos() then
+		if (PerpleSdkManager:xsollaIsAvailable()) then
+			market = 'xsolla'
+		else
+			market = 'google'
+		end
+    elseif CppFunctions:isIos() then
         os = 'ios'
-    elseif isWin32() then
+		market = 'apple'
+    elseif CppFunctions:isWin32() then
         os = 'windows'
+		market = 'windows'
+	elseif CppFunctions:isMac() then
+		os = 'mac'
+		market = 'mac'
     end
+
     t_data['os'] = os
+	t_data['market'] = market
 
     -- 단말 정보 추가
     for key,value in pairs(device_info_json) do
