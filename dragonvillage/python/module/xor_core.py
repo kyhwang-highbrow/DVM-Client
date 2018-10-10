@@ -20,18 +20,31 @@ def setTargetExtensionList(l_ext):
 def changeExt(org):
     dest = os.path.splitext(org)[0] + EXT_TO_CHANGE
     return dest
-
-def copy_files(src, dst):
-    if not os.path.isdir(src):
+                
+def check_excluded_dir(excluded_dir_list, dir):
+    abs_path = os.path.abspath(dir)
+    for excluded_dir in excluded_dir_list:
+        if abs_path == os.path.abspath(excluded_dir):
+            return True
+        
+    return False
+        
+# 특정 경로를 제외하고 복사
+def copy_files2(src, dst, excluded_dir_list):
+    if check_excluded_dir(excluded_dir_list, src):
+        return
+    elif not os.path.isdir(src):
         return
     else:
         for item in os.listdir(src):
             path = os.path.join(src, item)
-
             # hidden file have not to copy
             if utility.is_hidden(path):
                 continue
-
+            
+            if check_excluded_dir(excluded_dir_list, path):
+                continue
+                    
             # Android can not package the file that ends with ".gz"
             if os.path.isfile(path) and not item.endswith('.gz'):
                 shutil.copy(path, dst)
@@ -39,8 +52,12 @@ def copy_files(src, dst):
             if os.path.isdir(path):
                 new_dst = os.path.join(dst, item)
                 os.mkdir(new_dst)
-                copy_files(path, new_dst)
+                copy_files2(path, new_dst, excluded_dir_list)
                 
+def copy_files(src, dst):
+    excluded_dir_list = []
+    return copy_files2(src, dst, excluded_dir_list)
+
 def convert(rootdir, subdir, subdir2):
     path = os.path.join(rootdir, subdir)
 

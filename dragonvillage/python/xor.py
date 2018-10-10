@@ -21,6 +21,10 @@ def main():
     root_dir = os.path.join(root_dir, '../')
     src_dir = os.path.join(root_dir, 'src')
     ps_dir = os.path.join(root_dir, 'ps')
+    
+    #복사를 제외할 경로 리스트 지정
+    exclude_dir_list = []
+    exclude_dir_list.append(os.path.join(src_dir, 'monitor'))
 
     # 1. ps폴더 삭제
     print('1. rmtree "ps"')
@@ -33,7 +37,7 @@ def main():
 
     # 3. 폴더 복사
     print('3. copy_files')
-    xor_core.copy_files(src_dir, ps_dir)
+    xor_core.copy_files2(src_dir, ps_dir, exclude_dir_list)
         
     # 4. xor 암호화
     sub_dir = 'ps'
