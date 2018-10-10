@@ -183,7 +183,7 @@ local function coroutine_function(dt)
 
         local sku = struct_product['sku']
         local product_id = struct_product['product_id']
-        local price = struct_product['price']
+        local price = struct_product['xsolla_price_dollar']
         local validation_key = nil
         local orderId = nil
 
@@ -217,9 +217,9 @@ local function coroutine_function(dt)
 				["nick"] = g_userData:get('nick'),
 				['validation_key'] = validation_key,
 				["product_id"] = product_id,
-				['price'] = price,
-				['sku'] = sku,
-				['amount'] = 1 -- 입력 가능하도록 해둠 나중에 필요하면 사용!
+				
+				['currency'] = 'USD',
+				['price'] = price
 			}
 			local payload = dkjson.encode(payload_table)
 			
