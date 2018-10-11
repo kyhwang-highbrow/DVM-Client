@@ -20,8 +20,8 @@ public class PerpleConfig {
     public static final int NAVER_COMMUNITY_ID = 0;
 
     // @adjust
-    public static final String ADJUST_TOKKEN_ID = "esjmkti8vim8";
-    public static final long[] ADJUST_SECRET_KEY = {1, 562501988, 1877997235, 662395286, 1781468312};
+    public static final String ADJUST_TOKKEN_ID = "b8g1u0sf2jgg";
+    public static final long[] ADJUST_SECRET_KEY = {1, 802116882, 108885210, 1871691159, 1469206808};
 
     // @admob
     public static final String ADMOB_APP_ID = "ca-app-pub-9497777061019569~9623723983";
