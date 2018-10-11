@@ -72,6 +72,10 @@ end
 -- @return string 'DEV', 'QA', 'LIVE'
 -------------------------------------
 function CppFunctionsClass:getTargetServer()
+	if (LIVE_SERVER_TARGET) then
+		return LIVE_SERVER_TARGET
+	end
+
     return getTargetServer()
 end
 

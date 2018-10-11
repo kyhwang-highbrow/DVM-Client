@@ -5,6 +5,7 @@ URL = {}
 LIVE_SERVER_CONNECT = false 
 LIVE_SERVER_APP_VER = '1.1.4'
 LIVE_SERVER_PATCH_VER = '29'
+LIVE_SERVER_TARGET = nil
 
 -- Game server 
 URL['SERVER_DEV'] = 'http://dv-test.perplelab.com:9003'
