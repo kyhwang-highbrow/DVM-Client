@@ -75,7 +75,7 @@ function GoogleHelper.checkAchievementClear(t_data)
             end
 
         -- 마스터의 길과 로직 공유
-        elseif (ServerData_MasterRoad.checkClear(t_google['clear_type'], t_google['clear_value'], t_data, {'raw_data'})) then
+        elseif (ServerData_MasterRoad.checkClear(t_google['clear_type'], t_google['clear_value'], t_data, {})) then
             -- id 전달
             t_data['achievement_id'] =  t_google['achievement_id']
             return true
