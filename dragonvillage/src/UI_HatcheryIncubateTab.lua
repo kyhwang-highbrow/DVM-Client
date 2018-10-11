@@ -172,6 +172,10 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
 
         -- 하일라이트 노티 갱신을 위해 호출
         self.m_ownerUI:refresh_highlight()
+
+		-- @ GOOGLE ACHIEVEMENT
+        local t_data = {['clear_key'] = 'egg'}
+        GoogleHelper.updateAchievement(t_data)
     end
 
     local function fail_cb()

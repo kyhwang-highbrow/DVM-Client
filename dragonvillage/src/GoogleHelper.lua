@@ -60,24 +60,26 @@ function GoogleHelper.checkAchievementClear(t_data)
 
     -- 업적 리스트를 가져온다.
     local l_achievement = TableGoogleQuest():filterList('clear_type', achv_key)
-    table.sort(l_achievement, function(a, b)
-        return a['gqid'] < b['gqid']
-    end)
-
+	if (table.count(l_achievement) > 1) then
+		table.sort(l_achievement, function(a, b)
+			return a['gqid'] > b['gqid']
+		end)
+	end
+	
     -- 업적을 클리어 여부 파악
     local user_lv = g_userData:get('lv')
     for i, t_google in pairs(l_achievement) do
         -- 레벨은 별도로 처리
         if (achv_key == 'u_lv') then
             if (t_google['clear_value'] == user_lv) then
-                t_data['achievement_id'] =  t_google['achievement_id']
+                t_data['achievement_id'] = t_google['achievement_id']
                 return true
             end
 
         -- 마스터의 길과 로직 공유
         elseif (ServerData_MasterRoad.checkClear(t_google['clear_type'], t_google['clear_value'], t_data, {})) then
             -- id 전달
-            t_data['achievement_id'] =  t_google['achievement_id']
+            t_data['achievement_id'] = t_google['achievement_id']
             return true
         end
     end
