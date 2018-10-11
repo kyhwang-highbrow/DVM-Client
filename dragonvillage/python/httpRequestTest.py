@@ -13,8 +13,7 @@ def testRequestXsolla():
 
     merchantId = 60608
     apiKey = "tP3xsMG3ZXasBD52"
-    projectId = 35042
-    secretKey = "dR0p3BnJAunszS5g"
+    projectId = 35264
 
     url = "https://api.xsolla.com/merchant/v3/merchants/%d/token" % merchantId
     print url
@@ -29,7 +28,7 @@ def testRequestXsolla():
     data = {
         "user" : {
             "id" : {
-                "value" : "test_user.id.value",
+                "value" : "typOEMNKDZSfZHvZP2HEYUjy2653",
                 "hidden" : True
             },
             "name" : {
@@ -39,7 +38,7 @@ def testRequestXsolla():
         },
         "settings" : {
             "project_id" : projectId,
-            "external_id" : "test_external_id", 
+            "external_id" : "validation_key", 
             "mode" : "sandbox",
             "ui" : {
                 "size" : "medium",
@@ -48,13 +47,9 @@ def testRequestXsolla():
             }
         },
         "purchase" : {
-            "virtual_items" : {
-                "items" : [
-                    {
-                        "sku" : "test_sku_gold",
-                        "amount" : 1
-                    }
-                ]
+            "checkout" : {
+                "currency" : "USD",
+                "amount" : 55
             }
         },
         "custom_parameters" : {
@@ -86,7 +81,7 @@ def testRequestPlatformServer():
 # def main
 ###################################
 def main():
-    r = testRequestPlatformServer()
+    r = testRequestXsolla()
     
     print '\n###################################\n[response]\n###################################'
     print "status_code : %s" % r.status_code
