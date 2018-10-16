@@ -82,8 +82,8 @@ function UI_TamerCostumeListItem:refresh()
         elseif (is_limit) then
             badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_period.png'))
 
-            vars['limitNode']:setVisible(true)
-            vars['limitLabel']:setString(msg_limit)
+            --vars['limitNode']:setVisible(true)
+            --vars['limitLabel']:setString(msg_limit)
             self:setPriceData()
 
         -- 판매종료
