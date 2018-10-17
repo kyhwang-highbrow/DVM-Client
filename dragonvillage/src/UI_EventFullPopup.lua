@@ -127,6 +127,11 @@ function UI_EventFullPopup:initUI()
 	elseif (popup_key == 'event_1st_comeback') then
 		ui = UI_Event1stComeback()
 
+    -- 누적 결제 보상 이벤트
+    elseif pl.stringx.startswith(popup_key, 'purchase_point') then
+		local l_str = plSplit(popup_key, ';')
+        local event_version = l_str[2]
+        ui = UI_EventPopupTab_PurchasePoint(event_version)
     end
 
     if (ui) and (ui.root) then

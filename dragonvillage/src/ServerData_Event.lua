@@ -248,6 +248,13 @@ function ServerData_Event:getEventFullPopupList()
 			elseif (event_id == 'limited') then
 				visible = g_hotTimeData:isActiveEvent(event_type)
 
+            -- 누적 결제 보상 이벤트
+            elseif (event_type == 'purchase_point') then
+                visible = g_hotTimeData:isActiveEvent('event_purchase_point')
+                if visible then
+                    event_type = event_type .. ';' .. event_id
+                end
+
             end
             
             if (visible) then

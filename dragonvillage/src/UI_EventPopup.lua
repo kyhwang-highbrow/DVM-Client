@@ -271,9 +271,9 @@ function UI_EventPopup:makeEventPopupTab(tab)
 	elseif (tab == 'event_1st_comeback') then
 		ui = UI_Event1stComeback()
 
-    -- purchase_point
+    -- 누적 결제 보상 이벤트 
     elseif pl.stringx.startswith(tab, 'purchase_point') then
-        local event_version = struct_event_popup_tab.m_eventData['version']
+        local event_version = struct_event_popup_tab.m_eventData['version'] or struct_event_popup_tab.m_eventData['event_id']
         ui = UI_EventPopupTab_PurchasePoint(event_version)
 
     end
