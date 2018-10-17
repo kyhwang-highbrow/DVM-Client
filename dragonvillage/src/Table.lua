@@ -33,6 +33,7 @@ local TableInfo = {
         dragon_exp          = {'table_dragon_exp',          'eid',          false},
         exp_tamer           = {'table_user_level',          'ulv',          false},
         item                = {'table_item',                'item',         false},
+		item_type           = {'table_item_type',           'type',			false},
         fruit               = {'table_fruit',               'fid',          false},
         friendbuff          = {'table_dragon_friendbuff',   'rarity',       false},
 

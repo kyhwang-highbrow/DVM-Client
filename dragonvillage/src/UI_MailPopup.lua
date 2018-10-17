@@ -90,7 +90,7 @@ function UI_MailPopup:refresh(tab)
     vars['emptySprite']:setVisible(self.m_mTableView[tab]:getItemCount() == 0)
     
     -- 아이템 및 공지 탭 모두 받기 막음
-    local is_block_read_all = (tab == 'item') or (tab == 'notice')
+    local is_block_read_all = (tab == 'notice')
     vars['rewardAllBtn']:setVisible(not is_block_read_all)
 
     -- noti 갱신
@@ -241,17 +241,20 @@ function UI_MailPopup:click_rewardAllBtn()
 	-- 우편이 없다면 탈출
 	local possible = g_mailData:canReadAll(self.m_currTab)
 	if (not possible) then 
-		UIManager:toastNotificationRed(Str('수령할 수 있는 메일이 없습니다.'))
+		if(self.m_currTab == 'item') then
+			UIManager:toastNotificationRed(Str('모두 받기가 가능한 아이템이 없습니다.'))
+		else
+			UIManager:toastNotificationRed(Str('수령할 수 있는 메일이 없습니다.'))
+		end
 		return
 	end
 
 	-- 우편 모두 받기 콜백
 	local get_all_reward_cb = function() 
 		local function finish_cb(ret, mail_id_list)
-			
-			-- 모두 받기의 경우 리스트 팝업
-			UI_ObtainPopup(ret['added_items']['items_list'])
 
+			UI_ObtainPopup(ret['added_items']['items_list'], nil, nil, true, true)
+			
 			for _, mail_id in pairs(mail_id_list) do
 				self.m_mTableView[self.m_currTab]:delItem(mail_id)
 			end

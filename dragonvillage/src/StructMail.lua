@@ -180,8 +180,9 @@ function StructMail:isMailCanReadAll()
 	if (not self['items_list'][1]) then
 		return false
 	end
+	
 	local item_id = self['items_list'][1]['item_id']
-	return (TableItem:getItemTypeFromItemID(item_id) ~= nil)
+	return TableItem():isCanReadAllFromID(item_id)	
 end
 
 -------------------------------------

@@ -85,6 +85,46 @@ function TableItem:getItemTypeFromItemID(item_id)
 end
 
 -------------------------------------
+-- function isCanReadAllFromID
+-- @brief 모두 받기 여부 판별해주는 함수
+-------------------------------------
+function TableItem:isCanReadAllFromID(item_id)
+	local item_type_table = TABLE:get('item_type')
+	local item_type = self:getValue(item_id, 'type')
+	
+	local is_read_all = item_type_table[item_type]['is_read_all']
+
+	if (not is_read_all) then
+		--테스트 모드에서만 에러
+		if (CppFunctionsClass:isTestMode()) then
+			error('undefined type in Item_Type_Table : '..tostring(item_type))
+		end
+		return false
+	elseif (is_read_all == 'TRUE') then
+		return true
+	else
+		return false
+	end
+end
+
+-------------------------------------
+-- function MailItemTypeFromID
+-- @brief 메일탭에 따른 타입
+-------------------------------------
+function TableItem:MailItemTypeFromID(item_id)
+	local item_type_table = TABLE:get('item_type')
+	local item_type = self:getValue(item_id, 'type')
+	
+	local mail_type = item_type_table[item_type]['mail_tab_type']
+
+	if(not mail_type and CppFunctionsClass:isTestMode()) then
+		error('undefined type in Item_Type_Table : '..tostring(item_type))
+	end
+	
+	return mail_type
+end
+
+-------------------------------------
 -- function getRewardItem
 -- @brief 보상용 아이템을 찾는다
 -------------------------------------

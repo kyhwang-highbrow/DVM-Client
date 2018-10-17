@@ -13,7 +13,7 @@ UI_ObtainPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ObtainPopup:init(l_item, msg, ok_btn_cb)
+function UI_ObtainPopup:init(l_item, msg, ok_btn_cb, is_merge_all_item, is_merge_all_money)
     local vars = self:load('popup_obtain.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -23,7 +23,7 @@ function UI_ObtainPopup:init(l_item, msg, ok_btn_cb)
     g_currScene:pushBackKeyListener(self, function() self:click_okBtn() end, 'UI_ObtainPopup')
 
 	-- initialize
-	self.m_lItemList = self:makePrettyList(l_item)
+	self.m_lItemList = self:makePrettyList(l_item, is_merge_all_item, is_merge_all_money)
 	self.m_isSingle = (#l_item == 1)
     self.m_msg = msg
     self.m_cbOKBtn = ok_btn_cb
@@ -75,25 +75,42 @@ end
 -------------------------------------
 -- function makePrettyList
 -- @brief 특정 재화들은 여러개가 있을 경우 합친다.
+-- 리스트 중 아이템만 합쳐라/ (디폴트)돈만 합쳐라
 -------------------------------------
-function UI_ObtainPopup:makePrettyList(l_item)
+function UI_ObtainPopup:makePrettyList(l_item, is_merge_all_item, is_merge_all_money)
 	local l_ret = {}
 	local t_simple = {}
+	local table_item_class = TableItem()
+
+	--디폴트(돈만 합쳐라)
+	if (nil == is_merge_all_item and nil == is_merge_all_money) then
+		is_merge_all_money = true
+		is_merge_all_item = false
+	end
 
 	for i, v in pairs(l_item) do
 		local item_id = v['item_id']
 
-		-- 클라에 정의된 타입은 합치는 재화로 간주
-		if (TableItem:getItemTypeFromItemID(item_id)) then
-			if (t_simple[item_id]) then
-				t_simple[item_id]['count'] = t_simple[item_id]['count'] + v['count']
-
+		--합산 가능
+		if (table_item_class:isCanReadAllFromID(item_id)) then
+			local is_merge_type
+			--합산 옵션 적용
+			if (table_item_class:MailItemTypeFromID(item_id) == 'ITEM') then
+				is_merge_type = is_merge_all_item
 			else
-				t_simple[item_id] = v
-
+				is_merge_type = is_merge_all_money
 			end
-
-		-- 그외는 합칠 수 없는 오브젝트 아이템
+			
+			if (is_merge_type) then
+				if (t_simple[item_id]) then
+					t_simple[item_id]['count'] = t_simple[item_id]['count'] + v['count']
+				else
+					t_simple[item_id] = v
+				end
+			else
+				l_ret[i] = v
+			end
+		--합산 안됨
 		else
 			l_ret[i] = v
 		end
