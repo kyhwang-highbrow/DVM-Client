@@ -6,6 +6,7 @@ local PARENT = UI
 UI_EventPopupTab_PurchasePoint = class(PARENT,{
         m_eventVersion = '',
         m_rewardUIList = '',
+        m_rewardBoxUIList = '',
     })
 
 -------------------------------------
@@ -21,6 +22,7 @@ function UI_EventPopupTab_PurchasePoint:init(event_version)
     self:initUI()
     self:initButton()
     self:refresh()
+    self:refresh_rewardBoxUIList()
 end
 
 -------------------------------------
@@ -34,6 +36,7 @@ function UI_EventPopupTab_PurchasePoint:initUI()
     local step_count = g_purchasePointData:getPurchasePoint_stepCount(version)
 
     self.m_rewardUIList = {}
+    self.m_rewardBoxUIList = {}
     for step=1, step_count do
         local parent_node = vars['rewardNode' .. step]
         if parent_node then
@@ -41,6 +44,19 @@ function UI_EventPopupTab_PurchasePoint:initUI()
             parent_node:addChild(ui.root)
             ui.vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
             table.insert(self.m_rewardUIList, ui)
+        end
+
+        -- 진행도 게이지 상자
+        local box_node = vars['boxNode' .. step]
+        if box_node then
+            local ui = UI()
+            ui:load('event_purchase_point_item_02.ui')
+            box_node:addChild(ui.root)
+
+            local point = g_purchasePointData:getPurchasePoint_step(version, step)
+            ui.vars['boxLabel']:setString(comma_value(point))
+            
+            table.insert(self.m_rewardBoxUIList, ui)
         end
     end
 
@@ -115,6 +131,44 @@ function UI_EventPopupTab_PurchasePoint:refresh_rewardUIList()
     end
 end
 
+-------------------------------------
+-- function refresh_rewardBoxUIList
+-------------------------------------
+function UI_EventPopupTab_PurchasePoint:refresh_rewardBoxUIList()
+    if (not self.m_rewardBoxUIList) then
+        return
+    end
+
+    local version = self.m_eventVersion
+
+    for step,ui in pairs(self.m_rewardBoxUIList) do
+        local vars = ui.vars
+        local t_step, reward_state = g_purchasePointData:getPurchasePoint_rewardStepInfo(version, step)
+
+        vars['checkSprite']:setVisible(false)
+        vars['receiveVisual']:setVisible(false)
+        vars['openSprite']:setVisible(false)
+        vars['closeSprite']:setVisible(false)
+        
+
+        -- 획득 완료
+        if (reward_state == 1) then
+            vars['checkSprite']:setVisible(true)
+            vars['openSprite']:setVisible(true)
+    
+        -- 획득 가능
+        elseif (reward_state == 0) then
+            vars['openSprite']:setVisible(true)
+            vars['receiveVisual']:setVisible(true)
+
+        -- 획득 불가
+        --elseif (reward_state == -1) then
+        else
+            vars['closeSprite']:setVisible(true)
+        end
+    end
+end
+
 
 -------------------------------------
 -- function click_helpBtn
@@ -137,6 +191,7 @@ function UI_EventPopupTab_PurchasePoint:click_receiveBtn(reward_step)
 
         self:refresh()
         self:refresh_rewardUIList()
+        self:refresh_rewardBoxUIList()
     end
 
     g_purchasePointData:request_purchasePointReward(version, reward_step, cb_func)
