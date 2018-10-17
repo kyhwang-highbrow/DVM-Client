@@ -12,6 +12,7 @@ ServerData_PurchasePoint = class({
 -------------------------------------
 function ServerData_PurchasePoint:init(server_data)
     self.m_serverData = server_data
+    self.m_purchasePointInfo = {}
 end
 
 -------------------------------------
@@ -207,6 +208,13 @@ end
 -- @brief UI_EventPopup의 탭 리스트 생성 용도
 -------------------------------------
 function ServerData_PurchasePoint:getEventPopupTabList()
+    -- hottime에 설정되지 않은 경우 skip
+    if g_hotTimeData then
+        if (not g_hotTimeData:isActiveEvent('event_purchase_point')) then
+            return {}
+        end
+    end
+
     local purchase_point_list = self.m_purchasePointInfo['purchase_point_list'] or {}
 
     local l_item_list = {}
