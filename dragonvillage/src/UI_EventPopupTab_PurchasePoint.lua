@@ -47,7 +47,9 @@ function UI_EventPopupTab_PurchasePoint:initUI()
         end
 
         -- 진행도 게이지 상자
-        local box_node = vars['boxNode' .. step]
+        --local box_node = vars['boxNode' .. step]
+        local last_step_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
+        local box_node = vars['boxNode']
         if box_node then
             local ui = UI()
             ui:load('event_purchase_point_item_02.ui')
@@ -55,6 +57,9 @@ function UI_EventPopupTab_PurchasePoint:initUI()
 
             local point = g_purchasePointData:getPurchasePoint_step(version, step)
             ui.vars['boxLabel']:setString(comma_value(point))
+
+            local x_rate = (step / step_count) --(point / last_step_point)
+            ui.root:setAnchorPoint(cc.p(1 - x_rate, 0.5))
             
             table.insert(self.m_rewardBoxUIList, ui)
         end
@@ -113,8 +118,26 @@ function UI_EventPopupTab_PurchasePoint:refresh()
     vars['nextStepLabel']:setString(str)
 
     -- 결제 포인트 게이지
-    local last_step_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
-    local percentage = math_clamp((purchase_point / last_step_point) * 100, 0, 100)
+    local _purchase_point = purchase_point
+    local percentage = 0
+    local prev_point = 0
+    for i=1, last_step do
+        local _point = g_purchasePointData:getPurchasePoint_step(version, i)
+        local temp = prev_point
+        prev_point = _point
+        _point = (_point - temp)
+
+        if (_point <= _purchase_point) then
+            percentage = (percentage + (1/last_step))
+            cclog('# percentage : ' .. percentage)
+        else
+            percentage = (percentage + (_purchase_point/_point/last_step))
+            cclog('# percentage : ' .. percentage)
+            break
+        end
+        _purchase_point = (_purchase_point - _point)
+    end
+    percentage = math_clamp((percentage * 100), 0, 100)
     vars['purchaseGg']:runAction(cc.ProgressTo:create(0.2, percentage)) 
 end
 
