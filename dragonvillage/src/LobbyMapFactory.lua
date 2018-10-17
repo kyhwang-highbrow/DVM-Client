@@ -3,12 +3,24 @@
 -------------------------------------
 LobbyMapFactory = {}
 
+-- 로비 낮/밤 전환용 임시 변수
+USE_NIGHT = false
+SKIP_CHECK_DAY_OR_NIGHT = false
+
+local LAYER_INFO_LIST = {
+	{'left', -1280}, 
+	{'center', 0}, 
+	{'right', 1280}
+}
+
 -------------------------------------
 -- function createLobbyWorld
 -------------------------------------
 function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 
-	self:chcekDayOrNight()
+	-- 할로윈 밤 고정
+	--self:chcekDayOrNight()
+	USE_NIGHT = true
 
     local lobby_map = LobbyMap(parent_node)
     lobby_map:setContainerSize(1280*3, 960)
@@ -20,30 +32,17 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 
 	do -- 땅
 		local lobby_ground = self:makeLobbyLayer(1)
-		lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby, 'lobby')
-		--self:makeLobbyDeco_onLayer(lobby_ground, 'wanted') -- 전단지
+		lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby)
+		
+		-- 할로윈 장식
+		self:makeLobbyDeco_onLayer(lobby_ground, 'halloween')
 	end
 
-    lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
-
-    --[[
-    lobby_map:setMoveStartCB(function()
-        self:doActionReverse()
-        g_topUserInfo:doActionReverse()
-    end)
-
-    lobby_map:setMoveEndCB(function()
-        self:doAction(nil, nil, 0.5)
-        g_topUserInfo:doAction(nil, nil, 0.5)
-    end)
-    --]]
+	lobby_map:addLayer(self:makeLobbyDecoLayer('halloween'), 1) -- 근경 할로윈 장식
+    --lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
 
     return lobby_map
 end
-
--- 로비 낮/밤 전환용 임시 변수
-USE_NIGHT = false
-SKIP_CHECK_DAY_OR_NIGHT = false
 
 -------------------------------------
 -- function makeLobbyLayer
@@ -65,45 +64,24 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 	-- 2. 없으면 png를 찾는다
 	-- 3. png도 없다면 불러오지 않는다
 
-	-- left
-	local res_name = string.format('lobby_layer_%.2d_left%s', idx, night)
-	local path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
-	if (cc.FileUtils:getInstance():isFileExist(path) == false) then
-        path = string.format('res/lobby/%s.png', res_name)
-    end
-	animator = MakeAnimator(path, skip_error_msg)
-	if (animator.m_node) then
-		animator:setDockPoint(CENTER_POINT)
-		animator:setAnchorPoint(CENTER_POINT)
-		animator:setPositionX(-1280)
-		node:addChild(animator.m_node)
-	end
+	for _, l_info in ipairs(LAYER_INFO_LIST) do
+		local dir = l_info[1]
+		local pos_x = l_info[2]
+		
+		local res_name = string.format('lobby_layer_%.2d_%s%s', idx, dir, night)
+		local path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
+		
+		if (cc.FileUtils:getInstance():isFileExist(path) == false) then
+			path = string.format('res/lobby/%s.png', res_name)
+		end
 
-	-- center
-	local res_name = string.format('lobby_layer_%.2d_center%s', idx, night)
-	local path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
-	if (cc.FileUtils:getInstance():isFileExist(path) == false) then
-        path = string.format('res/lobby/%s.png', res_name)
-    end
-	animator = MakeAnimator(path, skip_error_msg)
-	if (animator.m_node) then
-		animator:setDockPoint(CENTER_POINT)
-		animator:setAnchorPoint(CENTER_POINT)
-		node:addChild(animator.m_node)
-	end
-
-	-- right
-	local res_name = string.format('lobby_layer_%.2d_right%s', idx, night)
-	local path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
-	if (cc.FileUtils:getInstance():isFileExist(path) == false) then
-        path = string.format('res/lobby/%s.png', res_name)
-    end
-	animator = MakeAnimator(path, skip_error_msg)
-	if (animator.m_node) then
-		animator:setDockPoint(CENTER_POINT)
-		animator:setAnchorPoint(CENTER_POINT)
-		animator:setPositionX(1280)
-		node:addChild(animator.m_node)
+		animator = MakeAnimator(path, skip_error_msg)
+		if (animator.m_node) then
+			animator:setDockPoint(CENTER_POINT)
+			animator:setAnchorPoint(CENTER_POINT)
+			animator:setPositionX(pos_x)
+			node:addChild(animator.m_node)
+		end
 	end
 
     return node
@@ -135,6 +113,26 @@ function LobbyMapFactory:makeLobbyDecoLayer(deco_type)
 			animator:setPosition(200, 0)
 			node:addChild(animator.m_node)
 		end
+
+	-- 할로윈 0번 레이어
+	elseif (deco_type == 'halloween') then
+		local l_layer_info = {
+			{'left', -1280}, {'right', 1280}
+		}
+
+		for _, l_info in ipairs(l_layer_info) do
+			local name = l_info[1]
+			local pos_x = l_info[2]
+			local full_path = string.format('res/lobby/lobby_season_deco/halloween/lobby_halloween_00_%s.png', name)
+			animator = MakeAnimator(full_path, skip_error_msg)
+			if (animator.m_node) then
+				animator:setDockPoint(CENTER_POINT)
+				animator:setAnchorPoint(CENTER_POINT)
+				animator:setPositionX(pos_x)
+				node:addChild(animator.m_node)
+			end
+		end
+
 	end
 
 	return node
@@ -142,6 +140,7 @@ end
 
 -------------------------------------
 -- function makeLobbyDeco_onLayer
+-- @brief 바닥과 테이머 사이에 찍기 위해서 ground_node에 직접 붙임
 -------------------------------------
 function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 	local night = ''
@@ -156,10 +155,44 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		if (animator.m_node) then
 			animator:setDockPoint(CENTER_POINT)
 			animator:setAnchorPoint(CENTER_POINT)
-			animator:setPosition(645, 110)
-			animator:setLocalZOrder(1)
+			animator:setPosition(645, 110, 1)
 			node:addChild(animator.m_node)
 		end
+	
+	-- 크리스마스 트리
+	elseif (deco_type == 'christmas') then
+		animator = MakeAnimator('res/lobby/lobby_layer_01_center_tree/lobby_layer_01_center_tree.vrp')
+		if (animator.m_node) then
+			animator:setDockPoint(CENTER_POINT)
+			animator:setAnchorPoint(CENTER_POINT)
+			animator:setPosition(235, 145)
+			node:addChild(animator.m_node)
+		end
+		
+	-- 1주년 기념
+	elseif (deco_type == '1st_annivasary') then
+		animator = MakeAnimator('res/lobby/lobby_layer_01_center_cake/lobby_layer_01_center_cake.vrp')
+		if (animator.m_node) then
+			animator:setPosition(0, 0)
+			self.m_tree:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
+			node:addChild(animator.m_node)
+		end
+
+	-- 할로윈 1번 레이어
+	elseif (deco_type == 'halloween') then
+		for _, l_info in ipairs(LAYER_INFO_LIST) do
+			local name = l_info[1]
+			local pos_x = l_info[2]
+			local full_path = string.format('res/lobby/lobby_season_deco/halloween/lobby_halloween_01_%s.png', name)
+			animator = MakeAnimator(full_path, skip_error_msg)
+			if (animator.m_node) then
+				animator:setDockPoint(CENTER_POINT)
+				animator:setAnchorPoint(CENTER_POINT)
+				animator:setPositionX(pos_x)
+				node:addChild(animator.m_node)
+			end
+		end
+
 	end
 end
 
@@ -181,7 +214,6 @@ function LobbyMapFactory:chcekDayOrNight()
 	-- 오전 6시 ~ 오후 6시 사이는 낮
 	if (hour > 6) and (hour < 18) then
 		USE_NIGHT = false
-
 	-- 밤
 	else
 		USE_NIGHT = true
