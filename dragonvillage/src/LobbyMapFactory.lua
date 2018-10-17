@@ -189,7 +189,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 				animator:setDockPoint(CENTER_POINT)
 				animator:setAnchorPoint(CENTER_POINT)
 				animator:setPositionX(pos_x)
-				node:addChild(animator.m_node)
+				node:addChild(animator.m_node, 1)
 			end
 		end
 
