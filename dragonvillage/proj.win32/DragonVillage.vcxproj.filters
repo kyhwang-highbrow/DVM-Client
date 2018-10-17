@@ -3784,6 +3784,15 @@
     <None Include="..\src\UI_ChallengeModeRankingRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_PurchasePoint.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_PurchasePoint.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GuidePopup_PurchasePoint.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
