@@ -771,8 +771,9 @@ function ServerData_Shop:getSkuList()
 
     -- 가격별 sku
     local t_pricing_matrix = self:getPricingMatrix()
-    for price,sku in pairs(t_pricing_matrix) do
-        tTemp[sku] = 1
+    for price,v in pairs(t_pricing_matrix) do
+        local _sku = v[2]
+        tTemp[_sku] = 1
     end
 
     local ret = ''
