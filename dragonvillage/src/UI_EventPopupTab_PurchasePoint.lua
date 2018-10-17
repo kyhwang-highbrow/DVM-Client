@@ -129,10 +129,8 @@ function UI_EventPopupTab_PurchasePoint:refresh()
 
         if (_point <= _purchase_point) then
             percentage = (percentage + (1/last_step))
-            cclog('# percentage : ' .. percentage)
         else
             percentage = (percentage + (_purchase_point/_point/last_step))
-            cclog('# percentage : ' .. percentage)
             break
         end
         _purchase_point = (_purchase_point - _point)
