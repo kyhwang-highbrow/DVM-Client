@@ -12,6 +12,7 @@ StructProduct = class(PARENT, {
         price = 'number',
         price_dollar = 'number',
 		xsolla_price_dollar = 'number',
+        purchase_point = 'number',
 
         product_content = 'string',
         mail_content = 'string',

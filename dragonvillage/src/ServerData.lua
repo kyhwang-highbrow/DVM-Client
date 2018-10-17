@@ -100,6 +100,9 @@ function ServerData:getInstance()
     -- 출석체크
     g_attendanceData = ServerData_Attendance(g_serverData)
 
+    -- 누적 결제 보상
+    g_purchasePointData = ServerData_PurchasePoint(g_serverData)
+
     -- 이벤트 교환소
     g_exchangeData = ServerData_Exchange(g_serverData)
 

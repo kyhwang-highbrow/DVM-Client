@@ -85,7 +85,7 @@ function UI_EventPopup:init_tableView()
     local node = self.vars['listNode']
     --node:removeAllChildren()
 
-    local l_item_list = g_eventData:getEventPopupTabList()
+    local l_item_list = self:getEventPopupTabList()
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -271,6 +271,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
 	elseif (tab == 'event_1st_comeback') then
 		ui = UI_Event1stComeback()
 
+    -- purchase_point
+    elseif pl.stringx.startswith(tab, 'purchase_point') then
+        ui = UI_EventPopupTab_PurchasePoint()
+
     end
 
     self.m_mTabUI[tab] = ui
@@ -336,6 +340,23 @@ function UI_EventPopup:checkNotiList()
     end
 
     return false
+end
+
+-------------------------------------
+-- function getEventPopupTabList
+-------------------------------------
+function UI_EventPopup:getEventPopupTabList()
+    local l_item_list = g_eventData:getEventPopupTabList()
+
+    -- purchase
+    local l_item_list_purchase_point = g_purchasePointData:getEventPopupTabList()
+
+    -- map형태의 탭 리스트를 merge
+    for key,value in pairs(l_item_list_purchase_point) do
+        l_item_list[key] = value
+    end
+
+    return l_item_list
 end
 
 --@CHECK
