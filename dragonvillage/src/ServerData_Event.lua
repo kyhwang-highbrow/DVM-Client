@@ -250,7 +250,7 @@ function ServerData_Event:getEventFullPopupList()
 
             -- 누적 결제 보상 이벤트
             elseif (event_type == 'purchase_point') then
-                visible = g_hotTimeData:isActiveEvent('event_purchase_point')
+                visible = g_purchasePointData:isActivePurchasePointEvent(event_id) -- version
                 if visible then
                     event_type = event_type .. ';' .. event_id
                 end

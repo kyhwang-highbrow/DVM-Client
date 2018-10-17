@@ -208,45 +208,38 @@ end
 -- @brief UI_EventPopup의 탭 리스트 생성 용도
 -------------------------------------
 function ServerData_PurchasePoint:getEventPopupTabList()
-    -- hottime에 설정되지 않은 경우 skip
-    if g_hotTimeData then
-        if (not g_hotTimeData:isActiveEvent('event_purchase_point')) then
-            return {}
-        end
-    end
-
     local purchase_point_list = self.m_purchasePointInfo['purchase_point_list'] or {}
 
     local l_item_list = {}
 
     for version,v in pairs(purchase_point_list) do
+        if self:isActivePurchasePointEvent(version) then
+            local event_data = {}
+            event_data['t_name'] = Str('누적 결제 이벤트')
+            event_data['icon'] = 'ui/event/list_time_reward.png'
+            event_data['version'] = version
 
-        local event_data = {}
-        event_data['t_name'] = Str('누적 결제 이벤트')
-        event_data['icon'] = 'ui/event/list_time_reward.png'
-        event_data['version'] = version
+            local struct_event_popup_tab = StructEventPopupTab(event_data)
+            local type_name = 'purchase_point_' .. version
+            struct_event_popup_tab.m_type = type_name
+            struct_event_popup_tab.m_sortIdx = 0
 
-        local struct_event_popup_tab = StructEventPopupTab(event_data)
-        local type_name = 'purchase_point_' .. version
-        struct_event_popup_tab.m_type = type_name
-        struct_event_popup_tab.m_sortIdx = 0
-
-        -- 획득 가능한 보상이 있는지 확인
-        local curr_purchase_point = self:getPurchasePoint(version)
-        local curr_purchase_reward_step = self:getPurchaseRewardStep(version)
-        struct_event_popup_tab.m_hasNoti = false
-        for i,v in pairs(v['step_list']) do
-            -- 다음 보상이 획득 가능하지 확인
-            if (tonumber(i) == (curr_purchase_reward_step + 1)) then
-                if (v['purchase_point'] <= curr_purchase_point) then
-                    struct_event_popup_tab.m_hasNoti = true
-                    break
+            -- 획득 가능한 보상이 있는지 확인
+            local curr_purchase_point = self:getPurchasePoint(version)
+            local curr_purchase_reward_step = self:getPurchaseRewardStep(version)
+            struct_event_popup_tab.m_hasNoti = false
+            for i,v in pairs(v['step_list']) do
+                -- 다음 보상이 획득 가능하지 확인
+                if (tonumber(i) == (curr_purchase_reward_step + 1)) then
+                    if (v['purchase_point'] <= curr_purchase_point) then
+                        struct_event_popup_tab.m_hasNoti = true
+                        break
+                    end
                 end
             end
-        end
-        
 
-        l_item_list[type_name] = struct_event_popup_tab
+            l_item_list[type_name] = struct_event_popup_tab
+        end
     end
 
     return l_item_list
@@ -258,6 +251,7 @@ end
 -- @brief 해당 버전에 대한 정보 리턴 (row data)
 -------------------------------------
 function ServerData_PurchasePoint:getPurchasePointInfo(version)
+    local version = tostring(version)
     local purchase_point_list = self.m_purchasePointInfo['purchase_point_list'] or {}
 
     if (not purchase_point_list) then
@@ -344,4 +338,42 @@ function ServerData_PurchasePoint:getPurchasePoint_step(version, step)
 
     local purchase_point = (t_step['purchase_point'] or 0)
     return purchase_point
+end
+
+-------------------------------------
+-- function isActivePurchasePointEvent
+-- @brief 해당 버전이 활성화 상태인지 여부
+-------------------------------------
+function ServerData_PurchasePoint:isActivePurchasePointEvent(version)
+    -- 핫타임에  event_purchase_point 가 설정되어 있어야 함
+    if (not g_hotTimeData) then
+        return false
+    end
+    
+    -- 핫타임에  event_purchase_point 가 설정되어 있어야 함
+    if (not g_hotTimeData:isActiveEvent('event_purchase_point')) then
+        return false
+    end
+
+    -- 해당 버전 정보가 없는 경우
+    local purchase_point_info = self:getPurchasePointInfo(version)
+    if (not purchase_point_info) then
+        return false
+    end
+
+    local curr_time = Timer:getServerTime()
+    local start_time = purchase_point_info['start'] / 1000
+    local end_time = purchase_point_info['end'] / 1000
+    
+    -- 이벤트 시작 시간 전
+    if (curr_time < start_time) then
+        return false
+    end
+
+    -- 이벤트 시작 시간 후
+    if (end_time < curr_time) then
+        return false
+    end
+
+    return true
 end
