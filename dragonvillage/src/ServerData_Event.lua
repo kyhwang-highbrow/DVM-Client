@@ -412,6 +412,10 @@ function ServerData_Event:isHighlightEvent()
 	elseif (g_highlightData:isHighlighDailyMissionClan()) then
 		b_highlight = true
 
+    -- 누적 결제 보상 이벤트의 보상이 있을 경우
+    elseif (g_purchasePointData and g_purchasePointData:hasPurchasePointReward()) then
+        b_highlight = true
+
     end
 
     return b_highlight

@@ -55,6 +55,14 @@ function UI_PurchasePointListItem:initUI()
         str = Str('첫 구매')
     end
     vars['scoreLabel']:setString(str)
+
+
+    -- 마지막 보상은 강조
+    if (step == g_purchasePointData:getPurchasePoint_stepCount(version)) then
+        vars['lastSprite']:setVisible(true)
+    else
+        vars['lastSprite']:setVisible(false)
+    end
 end
 
 -------------------------------------

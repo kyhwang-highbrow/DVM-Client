@@ -231,6 +231,21 @@ function ServerData_PurchasePoint:getEventPopupTabList()
         struct_event_popup_tab.m_type = type_name
         struct_event_popup_tab.m_sortIdx = 0
 
+        -- 획득 가능한 보상이 있는지 확인
+        local curr_purchase_point = self:getPurchasePoint(version)
+        local curr_purchase_reward_step = self:getPurchaseRewardStep(version)
+        struct_event_popup_tab.m_hasNoti = false
+        for i,v in pairs(v['step_list']) do
+            -- 다음 보상이 획득 가능하지 확인
+            if (tonumber(i) == (curr_purchase_reward_step + 1)) then
+                if (v['purchase_point'] <= curr_purchase_point) then
+                    struct_event_popup_tab.m_hasNoti = true
+                    break
+                end
+            end
+        end
+        
+
         l_item_list[type_name] = struct_event_popup_tab
     end
 
