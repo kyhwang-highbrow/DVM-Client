@@ -27,7 +27,7 @@ function UI_ChallengeModeRewardListItem:initUI()
     local t_reward_info = self.m_rewardInfo
     --{
     --    ['tier_id']=16;
-    --    ['t_name']='11À§~20À§';
+    --    ['t_name']='11ìœ„~20ìœ„';
     --    ['ratio_min']='';
     --    ['rank_min']=11;
     --    ['ratio_max']='';
@@ -37,9 +37,9 @@ function UI_ChallengeModeRewardListItem:initUI()
     --    ['reward']='cash;4200,valor;60';
     --}
     --
-    -- rank_id·Î Á¤·Ä
+    -- rank_idë¡œ ì •ë ¬
 
-    -- ¼øÀ§
+    -- ìˆœìœ„
     vars['rankingLabel']:setString(Str(t_reward_info['t_name']))
 
     local str = t_reward_info['reward']
