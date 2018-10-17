@@ -29,6 +29,18 @@ end
 -- function initUI
 -------------------------------------
 function UI_GuidePopup_PurchasePoint:initUI()
+    local vars = self.vars
+
+    local l_matrix = g_shopDataNew:getPricingMatrix()
+
+    for i,v in ipairs(l_matrix) do
+        local price = v[1]
+        local sku = v[2]
+        local price_str = g_shopDataNew:getPriceStrBySku(sku)
+        vars['purchaseLabel' .. i]:setString(price_str)
+    end
+
+    
 end
 
 -------------------------------------
