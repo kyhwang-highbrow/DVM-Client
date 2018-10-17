@@ -843,6 +843,7 @@ local t_module = {
     'UI_DragonChanceUp',
     'UI_DragonChanceUpListItem',
     'UI_GoldDungeonScene',
+    'UI_PurchasePointListItem',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',
