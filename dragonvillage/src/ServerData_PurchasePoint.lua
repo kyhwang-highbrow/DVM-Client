@@ -216,7 +216,7 @@ function ServerData_PurchasePoint:getEventPopupTabList()
         if self:isActivePurchasePointEvent(version) then
             local event_data = {}
             event_data['t_name'] = Str('누적 결제 이벤트')
-            event_data['icon'] = 'ui/event/list_time_reward.png'
+            event_data['icon'] = 'ui/event/list_purchase_point.png'
             event_data['version'] = version
 
             local struct_event_popup_tab = StructEventPopupTab(event_data)
