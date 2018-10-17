@@ -542,7 +542,10 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
         
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
-    
+
+        -- 누적 결제 보상 이벤트 관련 데이터 갱신
+        g_purchasePointData:response_purchasePointInfo(ret, nil) -- param : ret, finish_cb
+
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product and struct_product:needRenewAfterBuy() then
             self:setDirty()

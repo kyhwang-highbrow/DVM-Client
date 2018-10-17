@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_EventPopupTab_PurchasePoint = class(PARENT,{
         m_eventVersion = '',
+        m_rewardUIList = '',
     })
 
 -------------------------------------
@@ -32,11 +33,14 @@ function UI_EventPopupTab_PurchasePoint:initUI()
     local version = self.m_eventVersion
     local step_count = g_purchasePointData:getPurchasePoint_stepCount(version)
 
+    self.m_rewardUIList = {}
     for step=1, step_count do
         local parent_node = vars['rewardNode' .. step]
         if parent_node then
             local ui = UI_PurchasePointListItem(version, step)
             parent_node:addChild(ui.root)
+            ui.vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
+            table.insert(self.m_rewardUIList, ui)
         end
     end
 
@@ -99,11 +103,43 @@ function UI_EventPopupTab_PurchasePoint:refresh()
 end
 
 -------------------------------------
+-- function refresh_rewardUIList
+-------------------------------------
+function UI_EventPopupTab_PurchasePoint:refresh_rewardUIList()
+    if (not self.m_rewardUIList) then
+        return
+    end
+
+    for _,ui in pairs(self.m_rewardUIList) do
+        ui:refresh()
+    end
+end
+
+
+-------------------------------------
 -- function click_helpBtn
 -- @brief 도움말
 -------------------------------------
 function UI_EventPopupTab_PurchasePoint:click_helpBtn()
     UI_GuidePopup_PurchasePoint()
+end
+
+-------------------------------------
+-- function click_receiveBtn
+-- @brief
+-------------------------------------
+function UI_EventPopupTab_PurchasePoint:click_receiveBtn(reward_step)
+    local version = self.m_eventVersion
+
+    local function cb_func(ret)
+        -- 보상 획득
+        ItemObtainResult(ret)
+
+        self:refresh()
+        self:refresh_rewardUIList()
+    end
+
+    g_purchasePointData:request_purchasePointReward(version, reward_step, cb_func)
 end
 
 --@CHECK

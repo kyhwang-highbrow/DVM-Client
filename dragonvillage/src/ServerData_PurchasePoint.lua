@@ -88,6 +88,39 @@ function ServerData_PurchasePoint:applyPurchasePointInfo(t_data)
     end
 end
 
+-------------------------------------
+-- function request_purchasePointReward
+-------------------------------------
+function ServerData_PurchasePoint:request_purchasePointReward(version, reward_step, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:applyPurchasePointInfo(ret['purchase_point_info'])
+
+        -- 보상 획득 UI
+        -- ItemObtainResult(ret) -- UI 에서 출력함
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/purchase_point/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('version', version)
+    ui_network:setParam('reward_step', reward_step)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
 
 -------------------------------------
 -- function hasPurchasePointReward
