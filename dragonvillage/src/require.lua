@@ -842,6 +842,7 @@ local t_module = {
     'UI_TeamBonusListItem',
     'UI_DragonChanceUp',
     'UI_DragonChanceUpListItem',
+    'UI_CostumeEventPopup',
     'UI_GoldDungeonScene',
     'UI_PurchasePointListItem',
 

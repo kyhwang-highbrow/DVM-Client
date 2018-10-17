@@ -53,6 +53,10 @@ function UI_EventFullPopup:initUI()
     -- 확률업 드래곤 배너
     elseif (popup_key == 'dragon_chance_up') then
         ui = UI_DragonChanceUp()
+
+    -- 코스튬
+    elseif (popup_key == 'costume_event') then
+        ui = UI_CostumeEventPopup()
         
 	-- Daily Mission
 	elseif string.find(popup_key, 'daily_mission') then

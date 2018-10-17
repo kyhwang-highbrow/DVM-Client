@@ -131,7 +131,7 @@ end
 -------------------------------------
 -- function request_costumeInfo
 -------------------------------------
-function ServerData_TamerCostume:request_costumeInfo(cb_func, check_shop_info)
+function ServerData_TamerCostume:request_costumeInfo(cb_func, check_shop_info, fail_cb)
     -- check_shop_info = true 일 경우 코스튬 상품 정보가 있다면 통신 하지 않음 (불필요한 통신 줄이기위해)
     if (check_shop_info) then
         local l_shop = table.MapToList(self.m_shopInfo)
@@ -168,9 +168,11 @@ function ServerData_TamerCostume:request_costumeInfo(cb_func, check_shop_info)
     ui_network:setUrl('/users/tamer/info')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+    return ui_network
 end
 
 -------------------------------------

@@ -220,6 +220,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'dragon_chance_up') then
         ui = UI_DragonChanceUp()
 
+    -- 코스튬
+    elseif (tab == 'costume_event') then
+        ui = UI_CostumeEventPopup()
+
     -- 업데이트 공지 
     elseif (tab == 'notice') then
         ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)

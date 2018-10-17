@@ -115,6 +115,11 @@ function ServerData_Event:getEventPopupTabList()
             
         elseif (event_type == 'event_1st_comeback') then
 		    visible = self:isComebackUser_1st()
+
+        -- 코스튬
+        elseif (event_type == 'costume_event') then
+            visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
+
         end
 
         if (visible) then
@@ -254,6 +259,10 @@ function ServerData_Event:getEventFullPopupList()
                 if visible then
                     event_type = event_type .. ';' .. event_id
                 end
+
+            -- 코스튬
+            elseif (event_type == 'costume_event') then
+                visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
 
             end
             

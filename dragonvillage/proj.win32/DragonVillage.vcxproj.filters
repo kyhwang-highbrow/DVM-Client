@@ -3796,6 +3796,9 @@
     <None Include="..\src\UI_PurchasePointListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_CostumeEventPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
