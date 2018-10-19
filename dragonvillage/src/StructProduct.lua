@@ -536,7 +536,7 @@ function StructProduct:buy(cb_func, sub_msg)
                 self:payment_win(finish_cb)
 			else
 				-- 엑솔라 사용 가능하면 엑솔라 결제 이용
-				if (PerpleSdkManager:eIsAvailable()) then
+				if (PerpleSdkManager:xsollaIsAvailable()) then
 					self:payment_xsolla(finish_cb)
 				else
 					self:payment(finish_cb)
