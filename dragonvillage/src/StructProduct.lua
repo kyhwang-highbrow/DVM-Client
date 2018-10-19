@@ -441,7 +441,7 @@ function StructProduct:getPriceStr()
 
 			-- 엑솔라 가격
 			if (PerpleSdkManager:xsollaIsAvailable()) then
-				return '$ ' .. comma_value(self:getPrice())
+				return '$' .. comma_value(self['xsolla_price_dollar'])
             -- 마켓에서 받은 가격이 있다면 표시
             elseif (sku) and (dicMarketPrice[sku]) then
                 return dicMarketPrice[sku]
@@ -744,11 +744,7 @@ end
 -- function getPrice
 -------------------------------------
 function StructProduct:getPrice()
-	if (PerpleSdkManager:xsollaIsAvailable()) then
-		return self['xsolla_price_dollar']
-	else
-		return self['price']
-	end
+	return self['price']
 end
 
 -------------------------------------
