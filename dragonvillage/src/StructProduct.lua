@@ -439,8 +439,11 @@ function StructProduct:getPriceStr()
 			local sku = self['sku']
 			local dicMarketPrice = g_shopDataNew.m_dicMarketPrice
 
+			-- 엑솔라 가격
+			if (PerpleSdkManager:xsollaIsAvailable()) then
+				return '$ ' .. comma_value(self:getPrice())
             -- 마켓에서 받은 가격이 있다면 표시
-            if (sku) and (dicMarketPrice[sku]) then
+            elseif (sku) and (dicMarketPrice[sku]) then
                 return dicMarketPrice[sku]
             -- 없다면 기본 달러 표시
             else
@@ -533,7 +536,7 @@ function StructProduct:buy(cb_func, sub_msg)
                 self:payment_win(finish_cb)
 			else
 				-- 엑솔라 사용 가능하면 엑솔라 결제 이용
-				if (PerpleSdkManager:xsollaIsAvailable()) then
+				if (PerpleSdkManager:eIsAvailable()) then
 					self:payment_xsolla(finish_cb)
 				else
 					self:payment(finish_cb)
@@ -741,7 +744,11 @@ end
 -- function getPrice
 -------------------------------------
 function StructProduct:getPrice()
-    return self['price']
+	if (PerpleSdkManager:xsollaIsAvailable()) then
+		return self['xsolla_price_dollar']
+	else
+		return self['price']
+	end
 end
 
 -------------------------------------
