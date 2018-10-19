@@ -3799,6 +3799,9 @@
     <None Include="..\src\UI_CostumeEventPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableItemType.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

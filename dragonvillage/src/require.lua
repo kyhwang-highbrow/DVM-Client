@@ -328,6 +328,7 @@ local t_module = {
     'TableRuneGrade',
     'TableRuneMoptStatus',
     'TableItem',
+    'TableItemType',
     'TableItemRand',
 	'TableQuest',
 	'TableMasterRoad',

@@ -80,8 +80,8 @@ end
 function UI_ObtainPopup:makePrettyList(l_item, is_merge_all_item, is_merge_all_money)
 	local l_ret = {}
 	local t_simple = {}
-	local table_item_class = TableItem()
-
+	local table_item_type = TableItemType()
+	local table_item = TableItem()
 	--디폴트(돈만 합쳐라)
 	if (nil == is_merge_all_item and nil == is_merge_all_money) then
 		is_merge_all_money = true
@@ -90,12 +90,12 @@ function UI_ObtainPopup:makePrettyList(l_item, is_merge_all_item, is_merge_all_m
 
 	for i, v in pairs(l_item) do
 		local item_id = v['item_id']
-
+		local item_type = table_item:getItemType(item_id)
 		--합산 가능
-		if (table_item_class:isCanReadAllFromID(item_id)) then
+		if (table_item_type:isCanReadAllFromType(item_type)) then
 			local is_merge_type
 			--합산 옵션 적용
-			if (table_item_class:MailItemTypeFromID(item_id) == 'ITEM') then
+			if (table_item_type:MailItemTypeFromType(item_type) == 'item') then
 				is_merge_type = is_merge_all_item
 			else
 				is_merge_type = is_merge_all_money

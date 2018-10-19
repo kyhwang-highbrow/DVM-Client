@@ -241,11 +241,11 @@ function UI_MailPopup:click_rewardAllBtn()
 	-- 우편이 없다면 탈출
 	local possible = g_mailData:canReadAll(self.m_currTab)
 	if (not possible) then 
-		--if(self.m_currTab == 'item') then
-		--	UIManager:toastNotificationRed(Str('모두 받기가 가능한 아이템이 없습니다.'))
-		--else
-		UIManager:toastNotificationRed(Str('수령할 수 있는 메일이 없습니다.'))
-		--end
+		if (self.m_currTab == 'item') then
+			UIManager:toastNotificationRed(Str('모두 받기가 가능한 아이템이 없습니다.'))
+		else
+			UIManager:toastNotificationRed(Str('수령할 수 있는 메일이 없습니다.'))
+		end
 		return
 	end
 
