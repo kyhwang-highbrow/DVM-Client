@@ -13,7 +13,7 @@ UI_ObtainPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ObtainPopup:init(l_item, msg, ok_btn_cb, is_merge_all_item, is_merge_all_money)
+function UI_ObtainPopup:init(l_item, msg, ok_btn_cb, is_merge_all_item)
     local vars = self:load('popup_obtain.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -23,7 +23,7 @@ function UI_ObtainPopup:init(l_item, msg, ok_btn_cb, is_merge_all_item, is_merge
     g_currScene:pushBackKeyListener(self, function() self:click_okBtn() end, 'UI_ObtainPopup')
 
 	-- initialize
-	self.m_lItemList = self:makePrettyList(l_item, is_merge_all_item, is_merge_all_money)
+	self.m_lItemList = self:makePrettyList(l_item, is_merge_all_item)
 	self.m_isSingle = (#l_item == 1)
     self.m_msg = msg
     self.m_cbOKBtn = ok_btn_cb
@@ -75,30 +75,31 @@ end
 -------------------------------------
 -- function makePrettyList
 -- @brief 특정 재화들은 여러개가 있을 경우 합친다.
--- 리스트 중 아이템만 합쳐라/ (디폴트)돈만 합쳐라
 -------------------------------------
-function UI_ObtainPopup:makePrettyList(l_item, is_merge_all_item, is_merge_all_money)
+function UI_ObtainPopup:makePrettyList(l_item, is_merge_all_item) 
 	local l_ret = {}
 	local t_simple = {}
-	local table_item_type = TableItemType()
-	local table_item = TableItem()
-	--디폴트(돈만 합쳐라)
-	if (nil == is_merge_all_item and nil == is_merge_all_money) then
-		is_merge_all_money = true
-		is_merge_all_item = false
-	end
+	local table_type = TableItemType()
 
 	for i, v in pairs(l_item) do
 		local item_id = v['item_id']
-		local item_type = table_item:getItemType(item_id)
-		--합산 가능
-		if (table_item_type:isCanReadAllFromType(item_type)) then
-			local is_merge_type
-			--합산 옵션 적용
-			if (table_item_type:MailItemTypeFromType(item_type) == 'item') then
-				is_merge_type = is_merge_all_item
+		local is_merge_type  
+
+		if (table_type:isCanReadAll(item_id)) then
+			-- is_merge_all_item == true 인 경우 아이템만 함산
+			if (table_type:isMailItem(item_id)) then
+				if (is_merge_all_item) then
+					is_merge_type = true
+				else
+					is_merge_type = false
+				end
+			-- 우편함의 우정/스테/돈 경우 무조건 합산
+			elseif (table_type:isMailFp(item_id) or table_type:isMailStaminas(item_id) or table_type:isMailMoney(item_id)) then
+				is_merge_type = true
+			-- 그 외의 경우 
 			else
-				is_merge_type = is_merge_all_money
+				table_type:errorUndefineType(item_id)
+				is_merge_type = false
 			end
 			
 			if (is_merge_type) then
@@ -110,7 +111,7 @@ function UI_ObtainPopup:makePrettyList(l_item, is_merge_all_item, is_merge_all_m
 			else
 				l_ret[i] = v
 			end
-		--합산 안됨
+		-- 합산 안되는 경우
 		else
 			l_ret[i] = v
 		end

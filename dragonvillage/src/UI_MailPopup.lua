@@ -253,7 +253,7 @@ function UI_MailPopup:click_rewardAllBtn()
 	local get_all_reward_cb = function() 
 		local function finish_cb(ret, mail_id_list)
 
-			UI_ObtainPopup(ret['added_items']['items_list'], nil, nil, true, true)
+			UI_ObtainPopup(ret['added_items']['items_list'], nil, nil, true)
 			
 			for _, mail_id in pairs(mail_id_list) do
 				self.m_mTableView[self.m_currTab]:delItem(mail_id)

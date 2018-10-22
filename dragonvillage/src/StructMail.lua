@@ -182,8 +182,7 @@ function StructMail:isMailCanReadAll()
 	end
 	
 	local item_id = self['items_list'][1]['item_id']
-	local item_type = TableItem():getValue(item_id, 'type')
-	return TableItemType():isCanReadAllFromType(item_type)	
+	return TableItemType:isCanReadAll(item_id)	
 end
 
 -------------------------------------
