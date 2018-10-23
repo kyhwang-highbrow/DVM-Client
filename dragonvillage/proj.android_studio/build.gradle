@@ -5,8 +5,8 @@ buildscript {
         gradle_version = '3.2.1'
     }
     repositories {
-        jcenter()
         google()
+        jcenter()
         maven { url "https://maven.google.com" }
     }
     dependencies {
@@ -19,10 +19,10 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
         maven {
             url "https://adcolony.bintray.com/AdColony"
         }
-        google()
     }
 }
