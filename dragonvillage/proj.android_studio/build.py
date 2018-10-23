@@ -7,6 +7,11 @@ import os
 #os.system('gradlew clean')
 
 # build
-os.system('gradlew assembleDevFullDebug assembleQaFullDebug assembleLiveqaFullDebug assembleLiveFullDebug assembleLiveMarketRelease')
+
+## google
+#os.system('gradlew assembleDevFullGoogleDebug assembleQaFullGoogleDebug assembleLiveqaFullGoogleDebug assembleLiveFullGoogleDebug assembleLiveMarketGoogleRelease')
+
+## xsolla
+os.system('gradlew assembleDevFullXsollaDebug assembleQaFullXsollaDebug assembleLiveFullXsollaRelease')
 
 os.system('pause')
