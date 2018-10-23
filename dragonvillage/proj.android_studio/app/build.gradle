@@ -306,21 +306,18 @@ allprojects {
         }
     }
     dependencies {
-        // support Kotlin
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.61"
-
         // @multidex below Android api 21 (5.0 lolipop)
         implementation 'com.android.support:multidex:1.0.3'
-
         // @cocos2d-x
         implementation project(':libcocos2dx')
-
         // @apk-expansion
         implementation project(':downloader_library')
-
         // @perplesdk
         implementation(name:'perplesdk', ext:'aar')
 
+        // support Kotlin
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        
         // @naver-cafe
         implementation(name: 'cafeSdk-3.3.2', ext: 'aar')
         implementation 'com.navercorp.volleyextensions:volleyer:2.0.1', {
