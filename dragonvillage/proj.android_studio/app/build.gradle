@@ -149,7 +149,6 @@ android {
             dimension "server"
             versionName PROP_APPVER_DEV
             applicationIdSuffix ".dev"
-            minSdkVersion 21 // native dex 사용하여 빌드 속도 높임
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
