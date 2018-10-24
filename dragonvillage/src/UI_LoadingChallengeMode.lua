@@ -54,7 +54,8 @@ function UI_LoadingChallengeMode:initUI()
 
     -- 3회 이상 도전 시 수동/자동 선택 가능
 	local stage = g_challengeMode:getSelectedStage()
-    if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
+    --if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
+    if (true) then -- @sgkim 2018-10-23 조건 없이 첫번째 전투부터 선택 가능하도록 기획 변경
         vars['btnNode']:setVisible(true)
         vars['loadingNode']:setVisible(false)
 
@@ -129,7 +130,9 @@ function UI_LoadingChallengeMode:setNextLoadingStr()
     if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
 		PARENT.setNextLoadingStr(self)
 	else
-		self.vars['loadingLabel']:setString(Str('1~3회 도전은 자동전투만 가능합니다.'))
+        -- @sgkim 2018-10-23 조건 없이 첫번째 전투부터 선택 가능하도록 기획 변경
+		--self.vars['loadingLabel']:setString(Str('1~3회 도전은 자동전투만 가능합니다.'))
+        PARENT.setNextLoadingStr(self)
 	end
 end
 

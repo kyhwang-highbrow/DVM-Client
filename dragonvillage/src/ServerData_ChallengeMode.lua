@@ -781,8 +781,9 @@ function ServerData_ChallengeMode:isOpenNextTeam(stage, is_win)
 		-- 승리
 		if (is_win) then
 			is_open = true
-		-- 3회 이상 도전
-		elseif (self:getChallengeModeStagePlayCnt(stage) + 1 >= 3) then
+		-- 1회 이상 도전 (@sgkim 2018-10-23 3회에서 1회로 변경)
+        --elseif (self:getChallengeModeStagePlayCnt(stage) + 1 >= 3) then
+		elseif (self:getChallengeModeStagePlayCnt(stage) + 1 >= 1) then
 			is_open = true
 		end
 	end
@@ -834,6 +835,11 @@ function ServerData_ChallengeMode:getChallengeMode_staminaCost(stage)
     local cost_value = 5
     local cost_delta = 5
     local cost_maximum = 50
+
+    -- @sgkim 2018-10-23 그림자의 신전 개편으로 모든 스테이지에서 10개로 고정
+    cost_value = 10
+    cost_delta = 0
+    cost_maximum = 10
 
     local stamina = cost_value + (play_cnt * cost_delta)
     stamina = math_min(stamina, cost_maximum)
