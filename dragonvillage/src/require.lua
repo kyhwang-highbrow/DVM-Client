@@ -56,6 +56,7 @@ local t_module = {
     'ConstantStatusEffect',
     'ConstantColosseum',
     'ConstantColor',
+    'ConstantDifficulty',
 
     -- Struct
     'Structure',

@@ -3802,6 +3802,9 @@
     <None Include="..\src\TableItemType.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ConstantDifficulty.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
