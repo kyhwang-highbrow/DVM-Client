@@ -30,6 +30,7 @@ ServerData_ChallengeMode = class({
         m_tSeasonRewardInfo = 'talbe', -- 시즌 보상을 받았을 경우
 
         m_selectedStage = 'number',
+        m_selectedDifficulty = 'number', -- DIFFICULTY (ConstantDifficulty.lua)
         m_tempLogData = 'table',
 
         -- 랭킹 정보에 사용
@@ -313,7 +314,9 @@ function ServerData_ChallengeMode:getChallengeModeStagePoint(stage)
     local point = 0
 
     if self.m_lTotalPoint[stage] then
-        point = (self.m_lTotalPoint[stage] - 10000)
+        --point = (self.m_lTotalPoint[stage] - 10000)
+        -- @sgkim 2018-10-24 클리어 층 개념이 사라지면서 점수를 그대로 사용
+        point = self.m_lTotalPoint[stage]
     end
 
     return point
@@ -656,6 +659,7 @@ function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time,
     -- 유저 ID
     local uid = g_userData:get('uid')
     local stage = self.m_selectedStage
+    local difficulty = self.m_selectedDifficulty
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -712,6 +716,7 @@ function ServerData_ChallengeMode:request_challengeModeFinish(is_win, play_time,
     ui_network:setParam('is_auto', is_auto)
 
     ui_network:setParam('stage', stage)
+    ui_network:setParam('difficulty', difficulty)
 
     -- 통신 후에는 삭제
     self.m_tempLogData = {}
@@ -757,6 +762,34 @@ end
 -------------------------------------
 function ServerData_ChallengeMode:resetSelectedStage()
     self.m_selectedStage = nil
+end
+
+-------------------------------------
+-- function getSelectedDifficulty
+-- @brief
+-------------------------------------
+function ServerData_ChallengeMode:getSelectedDifficulty()
+    if (not self.m_selectedDifficulty) then
+        return DIFFICULTY.NORMAL
+    end
+
+    return self.m_selectedDifficulty
+end
+
+-------------------------------------
+-- function setSelectedDifficulty
+-- @brief
+-------------------------------------
+function ServerData_ChallengeMode:setSelectedDifficulty(difficulty)
+    self.m_selectedDifficulty = difficulty
+end
+
+-------------------------------------
+-- function resetSelectedDifficulty
+-- @brief
+-------------------------------------
+function ServerData_ChallengeMode:resetSelectedDifficulty()
+    self.m_selectedDifficulty = nil
 end
 
 -------------------------------------
@@ -993,4 +1026,78 @@ function ServerData_ChallengeMode:getChallengeModeClearPoint(difficulty, is_auto
     end
 
     return point
+end
+
+-------------------------------------
+-- function parseChallengeModeStagePoint
+-- @brief 스테이지 점수로 난이도, 자동 전투 여부
+--        하드코딩
+-------------------------------------
+function ServerData_ChallengeMode:parseChallengeModeStagePoint(point)
+    local difficulty = nil
+    local is_auto = nil
+
+    -- 쉬움
+    if (point == 20) then
+        difficulty = DIFFICULTY.EASY
+        is_auto = false
+
+    elseif (point == 30) then
+        difficulty = DIFFICULTY.EASY
+        is_auto = true
+
+    -- 보통
+    elseif (point == 40) then
+        difficulty = DIFFICULTY.NORMAL
+        is_auto = false
+
+    elseif (point == 60) then
+        difficulty = DIFFICULTY.NORMAL
+        is_auto = true
+
+    -- 어려움
+    elseif (point == 80) then
+        difficulty = DIFFICULTY.HARD
+        is_auto = false
+
+    elseif (point == 100) then
+        difficulty = DIFFICULTY.HARD
+        is_auto = true
+    end
+
+    return difficulty, is_auto
+end
+
+-------------------------------------
+-- function getRecommandDifficulty
+-- @brief 추천 난이도
+-------------------------------------
+function ServerData_ChallengeMode:getRecommandDifficulty(stage)
+
+    -- 1회도 플레이 하지 않았을 경우 보통 추천
+    local play_cnt = self:getChallengeModeStagePlayCnt(stage)
+    if (play_cnt <= 0) then
+        return DIFFICULTY.NORMAL
+    end
+
+    local point = self:getChallengeModeStagePoint(stage)
+    local difficulty, is_auto = self:parseChallengeModeStagePoint(point)
+
+    -- 클리어 난이도가 없는 경우 쉬움 추천
+    if (not difficulty) then
+        return DIFFICULTY.EASY
+    end
+
+    -- 자동전투로 클리어 하지 않은 경우 현재 난이도 추천
+    if (is_auto == false) then
+        return difficulty
+    end
+
+    -- 자동 전투로 클리어 했을 경우 다음 난이도 추천
+    if (is_auto == true) then
+        local next_difficulty = (difficulty + 1)
+
+        -- 최대 난이도 hard
+        return math_min(DIFFICULTY.HARD, next_difficulty)
+    end
 end

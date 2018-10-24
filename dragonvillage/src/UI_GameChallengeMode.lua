@@ -36,7 +36,10 @@ function UI_GameChallengeMode:lockButton()
 	-- 3회 초과 도전 시 수동/자동 선택 가능
 	local stage = g_challengeMode:getSelectedStage()
     local is_auto_mode
-	if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
+
+    -- @sgkim 2018-10-23 조건 없이 첫번째 전투부터 선택 가능하도록 기획 변경
+	--if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
+    if (true) then
 		-- g_autoPlaySetting의 auto_mode는 휘발성이므로 arena와 공유해도 상관 없음
 		is_auto_mode = g_autoPlaySetting:get('auto_mode') or false
 	else

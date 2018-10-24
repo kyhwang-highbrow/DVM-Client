@@ -7,6 +7,7 @@ UI_ChallengeMode = class(PARENT, {
         m_tableView = 'table',
         m_selectedStageID = 'number', -- 현재 선택된 스테이지 아이디
         m_selectedDifficulty = 'number',
+        m_sortListUI = 'UIC_SortList',
     })
 
 -------------------------------------
@@ -114,7 +115,7 @@ function UI_ChallengeMode:make_UIC_SortList()
     end
 
     uic:setSortChangeCB(function(sort_type) self:click_selectDifficultyBtn(sort_type) end)
-    uic:setSelectSortType(DIFFICULTY.NORMAL)
+    self.m_sortListUI = uic
 end
 
 -------------------------------------
@@ -127,6 +128,9 @@ function UI_ChallengeMode:click_selectDifficultyBtn(difficulty)
     end
 
     self.m_selectedDifficulty = difficulty
+
+    -- 실제로 진행될 난이도 저장
+    g_challengeMode:setSelectedDifficulty(difficulty)
 end
 
 -------------------------------------
@@ -339,6 +343,7 @@ function UI_ChallengeMode:click_startBtn()
     if g_challengeMode:isOpenStage_challengeMode(stage) then
         UI_ChallengeModeDeckSettings(CHALLENGE_MODE_STAGE_ID)
 
+        --[[
         -- 안내 팝업 띄움
         local play_cnt = g_challengeMode:getChallengeModeStagePlayCnt(stage)
         if (play_cnt < 3) then
@@ -348,6 +353,7 @@ function UI_ChallengeMode:click_startBtn()
             -- 소비 날개 안내
             UI_ChallengeModeInfoPopup:open('wing')
         end
+        --]]
     else
         MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
     end
@@ -402,6 +408,10 @@ function UI_ChallengeMode:selectFloor(floor_info)
             self:changeFloorVisual(prev_stage)
             self:changeFloorVisual(curr_stage)
             self:refresh(curr_stage)
+
+            -- 난이도 조정
+            local difficulty = g_challengeMode:getRecommandDifficulty(curr_stage)
+            self.m_sortListUI:setSelectSortType(difficulty)
         end
 
         -- 서버상의 이슈로 해당 스에티지 정보가 없을 경우 예외처리
