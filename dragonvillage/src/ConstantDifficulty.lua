@@ -13,9 +13,9 @@ function DIFFICULTY:init()
 
     -- enum
     DIFFICULTY.EASY = 0
-    DIFFICULTY.EASY = 1
-    DIFFICULTY.NORMAL = 2
-    DIFFICULTY.HARD = 3
+    DIFFICULTY.NORMAL = 1
+    DIFFICULTY.HARD = 2
+    DIFFICULTY.HEL = 3
 end
 
 -------------------------------------
