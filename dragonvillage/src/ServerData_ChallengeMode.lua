@@ -1,3 +1,10 @@
+-- 챌린지 모드 스테이지 난이도
+CHALLENGE_MODE_DIFFICULTY = {}
+CHALLENGE_MODE_DIFFICULTY.EASY = 0
+CHALLENGE_MODE_DIFFICULTY.NORMAL = 1
+CHALLENGE_MODE_DIFFICULTY.HARD = 2
+CHALLENGE_MODE_DIFFICULTY.HEL = 3 -- 현재는 사용하지 않지만 예비용으로 추가
+
 -------------------------------------
 -- class ServerData_ChallengeMode
 -------------------------------------
@@ -13,6 +20,7 @@ ServerData_ChallengeMode = class({
         m_lTotalPoint = 'list',
         m_lPlayInfo = 'list',
         m_lOpenInfo = 'list',
+        m_lDifficultyInfo = 'list',
 		
         -- 시즌 보상 획득 상태
         -- 0 -> 이번 시즌 보상 받을게 있음
@@ -312,6 +320,18 @@ function ServerData_ChallengeMode:getChallengeModeStagePoint(stage)
 end
 
 -------------------------------------
+-- function getChallengeModeClearStageDifficulty
+-- @brief 클리어한 스테이지 난이도
+-- @return number CHALLENGE_MODE_DIFFICULTY
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeClearStageDifficulty(stage)
+    local difficulty = self.m_lDifficultyInfo[stage]
+
+    -- difficulty가 nil일 경우 스테이지 클리어 하지 못한 상태
+    return difficulty
+end
+
+-------------------------------------
 -- function setChallengeModePlayInfo
 -- @brief 서버에서 넘어온 데이터 가공
 -------------------------------------
@@ -351,6 +371,24 @@ function ServerData_ChallengeMode:setChallengeModeOpenInfo(data_map)
     end
 end
 
+-------------------------------------
+-- function setChallengeModeDifficultyInfo
+-- @brief 서버에서 넘어온 데이터 가공
+-------------------------------------
+function ServerData_ChallengeMode:setChallengeModeDifficultyInfo(data_map)
+    if (not data_map) then
+        return
+    end
+
+    self.m_lDifficultyInfo = {}
+
+    -- difficulty (CHALLENGE_MODE_DIFFICULTY)
+    -- difficulty 가 nil일 경우 스테이지 클리어 하지 못한 상태
+    for i,difficulty in pairs(data_map) do
+        local stage = tonumber(i)
+        self.m_lDifficultyInfo[stage] = difficulty
+    end
+end
 
 -------------------------------------
 -- function getChallengeModeStagesInfo
@@ -415,6 +453,9 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
         end
         if ret['open_info'] then
             self:setChallengeModeOpenInfo(ret['open_info'])
+        end
+        if ret['difficulty_info'] then
+            self:setChallengeModeDifficultyInfo(ret['difficulty_info'])
         end
 
         -- 플레이어 랭킹 정보 갱신
@@ -924,4 +965,32 @@ function ServerData_ChallengeMode:request_challengeModeRanking(offset, finish_cb
     end
 
     func_request()
+end
+
+-------------------------------------
+-- function getChallengeModeClearPoint
+-- @brief 난이도, 자동 전투 여부에 따른 클리어 점수 리턴
+--        (변경의 여지가 거의 없어서 서버와 클라이언트 모두 하드코딩으로 처리함)
+-- @return number
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeClearPoint(difficulty, is_auto)
+    local point = 0
+
+    -- 쉬움
+    if (difficulty == CHALLENGE_MODE_DIFFICULTY.EASY) then
+        point = conditionalOperator(is_auto, 30, 20)
+
+    -- 보통
+    elseif (difficulty == CHALLENGE_MODE_DIFFICULTY.NORMAL) then
+        point = conditionalOperator(is_auto, 60, 40)
+
+    -- 어려움
+    elseif (difficulty == CHALLENGE_MODE_DIFFICULTY.HARD) then
+        point = conditionalOperator(is_auto, 100, 80)
+
+    else
+        error('difficulty : ' .. tostring(difficulty))
+    end
+
+    return point
 end

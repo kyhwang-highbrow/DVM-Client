@@ -1109,3 +1109,15 @@ function changeAnchorPointWithOutTransPos(node, cha_anchor)
     node:setAnchorPoint(cha_anchor)
     node:setPosition(cha_pos_x, cha_pos_y)
 end
+
+-------------------------------------
+-- function conditionalOperator
+-- @brief 3항 연산자
+-------------------------------------
+function conditionalOperator(condition, expression1, expression2)
+    if condition then
+        return expression1
+    else
+        return expression2
+    end
+end
