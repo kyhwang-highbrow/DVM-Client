@@ -642,6 +642,10 @@ function StructUserInfoArena:getChallengeMode_pointText()
     local num = 0
     local rp = self:getRP()
 
+    if (rp <= 0) then
+        rp = 0
+    end
+
     -- @sgkim 2018-10-24 클리어 수 개념이 사라지면서 점수를 그대로 사용
     -- 플레이 정보가 없으면 -1rp가 넘어옴. 클리어를 하면 최소 10000점 이상.
     --if (10000 <= rp) then
