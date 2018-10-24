@@ -47,9 +47,9 @@ function UI_ChallengeModeRankingListItem:initUI()
     local str = t_rank_info:getChallengeMode_pointText()
     vars['scoreLabel']:setString(str)
 
-    -- 승리 수 표시
-    local str = t_rank_info:getChallengeMode_clearText()
-    vars['clearLabel']:setString(str)
+    -- 승리 수 표시 -- @sgkim 2018-10-24 클리어 수 개념 삭제
+    --local str = t_rank_info:getChallengeMode_clearText()
+    --vars['clearLabel']:setString(str)
 
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['userLabel']:setString(t_rank_info:getUserText())

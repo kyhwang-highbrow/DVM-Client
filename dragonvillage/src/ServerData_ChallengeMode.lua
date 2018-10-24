@@ -1036,36 +1036,43 @@ end
 function ServerData_ChallengeMode:parseChallengeModeStagePoint(point)
     local difficulty = nil
     local is_auto = nil
+    local text = nil
 
     -- 쉬움
     if (point == 20) then
         difficulty = DIFFICULTY.EASY
         is_auto = false
+        text = Str('쉬움 수동전투')
 
     elseif (point == 30) then
         difficulty = DIFFICULTY.EASY
         is_auto = true
+        text = Str('쉬움 자동전투')
 
     -- 보통
     elseif (point == 40) then
         difficulty = DIFFICULTY.NORMAL
         is_auto = false
+        text = Str('보통 수동전투')
 
     elseif (point == 60) then
         difficulty = DIFFICULTY.NORMAL
         is_auto = true
+        text = Str('보통 자동전투')
 
     -- 어려움
     elseif (point == 80) then
         difficulty = DIFFICULTY.HARD
         is_auto = false
+        text = Str('어려움 수동전투')
 
     elseif (point == 100) then
         difficulty = DIFFICULTY.HARD
         is_auto = true
+        text = Str('어려움 자동전투')
     end
 
-    return difficulty, is_auto
+    return difficulty, is_auto, text
 end
 
 -------------------------------------

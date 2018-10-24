@@ -105,7 +105,7 @@ function UI_ChallengeModeListItem:initUI()
     -- 점수
     local point = g_challengeMode:getChallengeModeStagePoint(stage)
     local color_str
-    if (point < 2) then
+    if (point < 100) then
         color_str = '{@DESC}'
     else
         color_str = '{@gray}'
@@ -114,8 +114,20 @@ function UI_ChallengeModeListItem:initUI()
     vars['pointLabel']:setString(str)
 
     -- 도전 횟수
-    local play_cnt = g_challengeMode:getChallengeModeStagePlayCnt(stage)
-    vars['playLabel']:setString('{@gray}' .. Str('{1}회 도전', play_cnt))
+    --local play_cnt = g_challengeMode:getChallengeModeStagePlayCnt(stage)
+    --vars['playLabel']:setString('{@gray}' .. Str('{1}회 도전', play_cnt))
+
+
+    -- 클리어한 난이도와 자동 전투 여부 표시
+    if (point == 0) then
+        vars['difficultyLabel']:setVisible(false)
+    else
+        vars['difficultyLabel']:setVisible(true)
+
+        local difficulty, is_auto, text = g_challengeMode:parseChallengeModeStagePoint(point)
+        vars['difficultyLabel']:setString(text or DIFFICULTY:getText(difficulty))
+        vars['difficultyLabel']:setColor(DIFFICULTY:getColor(difficulty))
+    end
 end
 
 -------------------------------------
