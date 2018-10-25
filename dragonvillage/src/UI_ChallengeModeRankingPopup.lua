@@ -42,6 +42,9 @@ function UI_ChallengeModeRankingPopup:initUI()
     local vars = self.vars
 
     self:makeRankRewardTableView()
+
+    -- 랭킹 종류 아직 구현하지 않음 (내 랭킹, 최상위 랭킹, 친구 랭킹, 클랜원 랭킹)
+    vars['rankingBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -192,7 +195,7 @@ function UI_ChallengeModeRankingPopup:makeRankTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(550, 75 + 5)
+    table_view.m_defaultCellSize = cc.size(550, 55 + 5)
     table_view:setCellUIClass(UI_ChallengeModeRankingListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
@@ -238,7 +241,7 @@ function UI_ChallengeModeRankingPopup:makeRankRewardTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(550, 75 + 5)
+    table_view.m_defaultCellSize = cc.size(550, 55 + 5)
     table_view:setCellUIClass(UI_ChallengeModeRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, true)
