@@ -66,6 +66,12 @@ function UI_ChallengeMode:initUI()
     vars['tamerNameLabel']:setString('')
     vars['stageNumberLabel']:setString('')
 
+
+    -- 획득한 골드 (도전 보상, 승리 보상)
+    vars['rewardNode']:setVisible(true)
+    local str = Str('{1}\n/{2}', comma_value(g_challengeMode:getCumulativeGold()), comma_value(10000000))
+    vars['rewardLabel']:setString(str)
+
     self:make_UIC_SortList()
 end
 

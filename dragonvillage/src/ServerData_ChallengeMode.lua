@@ -1109,3 +1109,25 @@ function ServerData_ChallengeMode:getRecommandDifficulty(stage)
         return math_min(DIFFICULTY.HARD, next_difficulty)
     end
 end
+
+
+-------------------------------------
+-- function getCumulativeGold
+-- @brief 도전 보상, 승리 보상 누적 골드
+-------------------------------------
+function ServerData_ChallengeMode:getCumulativeGold()
+    local cumulative_gold = 0
+    for stage=1, 100 do
+        -- 도전 보상 (1회 이상 플레이)
+        if (0 < self:getChallengeModeStagePlayCnt(stage)) then
+            cumulative_gold = (cumulative_gold + 20000)
+        end
+
+        -- 승리 보상
+        if self:isClearStage_challengeMode(stage) then
+            cumulative_gold = (cumulative_gold + 80000)
+        end
+    end
+
+    return cumulative_gold
+end
