@@ -71,22 +71,23 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
     -- 텍스트 초기화
 	vars['rewardLabel1']:setString('')
 	vars['rewardLabel2']:setString('')
+    vars['descLabel']:setString('')
 
 	-- 고대의 탑
 	if (content_type == 'ancient') then
-		t_item, text_1, text_2 = self:initCompetitionRewardInfo_ancient()
+		t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_ancient()
 
 	-- 시험의 탑
 	elseif (content_type == 'attr_tower') then
-        t_item, text_1, text_2 = self:initCompetitionRewardInfo_attrTower()
+        t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_attrTower()
 
 	-- 콜로세움
 	elseif (content_type == 'colosseum') then
-		t_item, text_1, text_2 = self:initCompetitionRewardInfo_colosseum()
+		t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_colosseum()
         
-	-- 콜로세움
+	-- 그림자의 신전
 	elseif (content_type == 'challenge_mode') then
-        t_item, text_1, text_2 = self:initCompetitionRewardInfo_challengeMode()
+        t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_challengeMode()
 
     end
 
@@ -105,6 +106,9 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	if (text_2) then
 		vars['rewardLabel2']:setString(text_2)
 	end
+    if (desc) then
+        vars['descLabel']:setString(desc)
+    end
 end
 
 -------------------------------------
@@ -138,8 +142,9 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
 
 	local _, text = struct_quest:getProgressInfo()
 	local text_2 = Str('달성 : {1}', text)
+    local desc = nil
 
-    return t_item, text_1, text_2
+    return t_item, text_1, text_2, desc
 end
 
 -------------------------------------
@@ -162,8 +167,9 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_ancient()
 	local goal_floor = (50 > curr_floor) and (curr_floor >= 30) and 50 or 30
 	local left_cnt = goal_floor - curr_floor
 	local text_2 = Str('{1}층 남음', left_cnt)
+    local desc = nil
 
-	return t_item, text_1, text_2
+	return t_item, text_1, text_2, desc
 end
 
 -------------------------------------
@@ -188,8 +194,9 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_colosseum()
 
 	local left_cnt = next_reward_info['play_cnt'] - cnt
 	local text_2 = Str('{1}회 남음', left_cnt)
+    local desc = nil
 
-	return t_item, text_1, text_2
+	return t_item, text_1, text_2, desc
 end
 
 -------------------------------------
@@ -199,7 +206,7 @@ end
 function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 	local vars = self.vars
 	local state = g_challengeMode:getChallengeModeState()
-	local t_item, text_1, text_2
+	local t_item, text_1, text_2, desc
 	
 	local use_timer = false
 	local has_reward = false
@@ -226,6 +233,9 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 		use_timer = true
 		timer_key = 'event_challenge'
 
+        t_item = {item_id=ITEM_ID_GOLD}
+        desc = Str('최대 10,000,000골드 획득 가능!')
+
 	-- 그림자의 신전 보상 수령 상태
 	elseif (state == ServerData_ChallengeMode.STATE['REWARD']) then
 		text_1 = Str('이벤트가 종료되었습니다.')
@@ -248,7 +258,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 		self:startUpdateChallengeMode(timer_key, has_reward)
 	end
 
-	return t_item, text_1, text_2
+	return t_item, text_1, text_2, desc
 end
 
 -------------------------------------
