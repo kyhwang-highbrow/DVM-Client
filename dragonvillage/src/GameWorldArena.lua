@@ -518,6 +518,17 @@ function GameWorldArena:makeEnemyDeck()
             end
         end
     end
+
+    -- 시작과 동시에 적용할 버프 (그림자의 신전에서 사용 함)
+    local l_option_list = g_gameScene:getStartOption_Opponent()
+    for _,dragon in pairs(self.m_lEnemyDragons) do
+        for _, v in pairs(l_option_list) do
+            local type = v['type']
+            local value = v['value']
+            local status, action = TableOption:parseOptionKey(type)
+            dragon.m_statusCalc:addOption(action, status, value)
+        end
+    end
 end
 
 -------------------------------------

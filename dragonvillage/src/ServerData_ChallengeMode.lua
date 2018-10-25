@@ -7,6 +7,7 @@ CHALLENGE_MODE_DIFFICULTY.HEL = 3 -- 현재는 사용하지 않지만 예비용�
 
 -------------------------------------
 -- class ServerData_ChallengeMode
+-- @instance g_challengeMode
 -------------------------------------
 ServerData_ChallengeMode = class({
         m_serverData = 'ServerData',

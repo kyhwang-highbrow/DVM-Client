@@ -227,3 +227,47 @@ function SceneGameChallengeMode:getStructUserInfo_Opponent()
     local user_info = g_challengeMode:getMatchUserInfo()
     return user_info
 end
+
+-------------------------------------
+-- function getStartOption_Opponent
+-- @brief 상대방 드래곤들의 시작 버프
+-------------------------------------
+function SceneGameChallengeMode:getStartOption_Opponent()
+    
+    -- DIFFICULTY enum
+    local difficulty = g_challengeMode:getSelectedDifficulty()
+
+    -- table_option.csv의 key를 type으로 사용 가능
+    local l_buff_list = {}
+
+    -- 쉬움
+    if (difficulty == DIFFICULTY.EASY) then
+        -- 피해량 증가 : 주는 피해량 +{1}%
+        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=-100})
+
+        -- 받는 피해량 감소 : 받는 피해량 -{1}%
+        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=-100})
+
+        -- 치유량 감소 : 주는 치유량 -{1}%
+        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=-100})
+
+    -- 보통
+    elseif (difficulty == DIFFICULTY.NORMAL) then
+
+    -- 어려움
+    elseif (difficulty == DIFFICULTY.HARD) then
+        -- 피해량 증가 : 주는 피해량 +{1}%
+        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=100})
+
+        -- 받는 피해량 감소 : 받는 피해량 -{1}%
+        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=100})
+
+        -- 치유량 감소 : 주는 치유량 -{1}%
+        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=100})
+
+    else
+        error('difficulty : ' .. tostring(difficulty))
+    end
+
+    return l_buff_list
+end

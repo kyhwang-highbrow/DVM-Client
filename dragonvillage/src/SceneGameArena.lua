@@ -380,3 +380,11 @@ function SceneGameArena:getStructUserInfo_Opponent()
     local user_info = is_friendMatch and g_friendMatchData.m_matchInfo  or g_arenaData:getMatchUserInfo()
     return user_info
 end
+
+-------------------------------------
+-- function getStartOption_Opponent
+-- @brief 상대방 드래곤들의 시작 버프
+-------------------------------------
+function SceneGameArena:getStartOption_Opponent()
+    return {}
+end
