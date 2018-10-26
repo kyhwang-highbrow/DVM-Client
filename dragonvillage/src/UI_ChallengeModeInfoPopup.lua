@@ -86,7 +86,9 @@ function UI_ChallengeModeInfoPopup:initTab(default_tab)
     self:addTabAuto('lock', vars, vars['lockInfoMenu'])
     self:addTabAuto('score', vars, vars['scoreInfoMenu'])
     self:addTabAuto('wing', vars, vars['wingInfoMenu'])
+    self:addTabAuto('difficulty', vars, vars['difficultyInfoMenu'])
     self:addTabAuto('reward', vars, vars['rewardInfoMenu'])
+    
     self:setTab(default_tab)
 end
 
