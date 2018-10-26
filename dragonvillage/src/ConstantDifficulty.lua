@@ -50,9 +50,6 @@ function DIFFICULTY:getInfo(difficulty)
                 return v
             end
         end
-
-    else
-        error()
     end
 
     return nil
@@ -108,6 +105,19 @@ function DIFFICULTY:getColor(difficulty)
     end
 
     return ret or cc.c4b(255, 255, 255, 255)
+end
+
+-------------------------------------
+-- function getColorKey
+-------------------------------------
+function DIFFICULTY:getColorKey(difficulty)
+    local ret = '{@}'
+    local t_info = self:getInfo(difficulty)
+    if t_info then
+        ret = '{@diff_' .. t_info['string'] .. '}'
+    end
+
+    return ret
 end
 
 

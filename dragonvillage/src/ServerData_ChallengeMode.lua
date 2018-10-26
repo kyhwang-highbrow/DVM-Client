@@ -32,6 +32,7 @@ ServerData_ChallengeMode = class({
 
         m_selectedStage = 'number',
         m_selectedDifficulty = 'number', -- DIFFICULTY (ConstantDifficulty.lua)
+        m_selectedAuto = 'boolean',
         m_tempLogData = 'table',
 
         -- 랭킹 정보에 사용
@@ -781,8 +782,12 @@ end
 -- function setSelectedDifficulty
 -- @brief
 -------------------------------------
-function ServerData_ChallengeMode:setSelectedDifficulty(difficulty)
+function ServerData_ChallengeMode:setSelectedDifficulty(difficulty, is_auto)
     self.m_selectedDifficulty = difficulty
+
+    if (is_auto ~= nil) then
+        self.m_selectedAuto = is_auto
+    end
 end
 
 -------------------------------------
@@ -1039,8 +1044,13 @@ function ServerData_ChallengeMode:parseChallengeModeStagePoint(point)
     local is_auto = nil
     local text = nil
 
+    if (point == 0) then
+        difficulty = nil
+        is_auto = false
+        text = Str('기록 없음')
+
     -- 쉬움
-    if (point == 20) then
+    elseif (point == 20) then
         difficulty = DIFFICULTY.EASY
         is_auto = false
         text = Str('쉬움 수동전투')
@@ -1085,7 +1095,7 @@ function ServerData_ChallengeMode:getRecommandDifficulty(stage)
     -- 1회도 플레이 하지 않았을 경우 보통 추천
     local play_cnt = self:getChallengeModeStagePlayCnt(stage)
     if (play_cnt <= 0) then
-        return DIFFICULTY.NORMAL
+        return DIFFICULTY.NORMAL, false
     end
 
     local point = self:getChallengeModeStagePoint(stage)
@@ -1093,20 +1103,23 @@ function ServerData_ChallengeMode:getRecommandDifficulty(stage)
 
     -- 클리어 난이도가 없는 경우 쉬움 추천
     if (not difficulty) then
-        return DIFFICULTY.EASY
+        return DIFFICULTY.EASY, false
     end
 
     -- 자동전투로 클리어 하지 않은 경우 현재 난이도 추천
     if (is_auto == false) then
-        return difficulty
+        return difficulty, true
     end
 
     -- 자동 전투로 클리어 했을 경우 다음 난이도 추천
     if (is_auto == true) then
         local next_difficulty = (difficulty + 1)
-
-        -- 최대 난이도 hard
-        return math_min(DIFFICULTY.HARD, next_difficulty)
+        
+        if (DIFFICULTY.HARD < next_difficulty) then
+            return DIFFICULTY.HARD, true
+        else
+            return next_difficulty, false
+        end
     end
 end
 

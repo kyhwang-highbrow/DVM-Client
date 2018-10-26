@@ -6,8 +6,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_ChallengeMode = class(PARENT, {
         m_tableView = 'table',
         m_selectedStageID = 'number', -- 현재 선택된 스테이지 아이디
-        m_selectedDifficulty = 'number',
-        m_sortListUI = 'UIC_SortList',
     })
 
 -------------------------------------
@@ -71,72 +69,6 @@ function UI_ChallengeMode:initUI()
     vars['rewardNode']:setVisible(true)
     local str = Str('{1}\n/{2}', comma_value(g_challengeMode:getCumulativeGold()), comma_value(10000000))
     vars['rewardLabel']:setString(str)
-
-    self:make_UIC_SortList()
-end
-
--------------------------------------
--- function make_UIC_SortList
--- @brief 난이도 선택
--------------------------------------
-function UI_ChallengeMode:make_UIC_SortList()
-    local vars = self.vars
-    local button = vars['difficultyBtn']
-    local label = vars['difficultyLabel']
-
-    local width, height = button:getNormalSize()
-    local parent = button:getParent()
-    local x, y = button:getPosition()
-
-    local uic = UIC_SortList()
-
-    uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
-    uic:setNormalSize(width, height)
-    uic:setPosition(x, y)
-    uic:setDockPoint(button:getDockPoint())
-    uic:setAnchorPoint(button:getAnchorPoint())
-    uic:init_container()
-
-    uic:setExtendButton(button)
-    uic:setSortTypeLabel(label)
-
-    parent:addChild(uic.m_node)
-
-    -- 난이도 설정
-    local l_difficulty = {}
-    table.insert(l_difficulty, DIFFICULTY.EASY) -- 쉬움
-    table.insert(l_difficulty, DIFFICULTY.NORMAL) -- 보통
-    table.insert(l_difficulty, DIFFICULTY.HARD) -- 어려움
-
-    for i,difficulty in ipairs(l_difficulty) do
-        -- 난이도 명칭
-        local text = DIFFICULTY:getText(difficulty)
-       
-       -- 폰트 색상 지정
-        local t_label_data = {}
-        t_label_data['color'] = DIFFICULTY:getColor(difficulty)
-        t_label_data['stroke'] = 0
-
-        uic:addSortType(difficulty, text, t_label_data)
-    end
-
-    uic:setSortChangeCB(function(sort_type) self:click_selectDifficultyBtn(sort_type) end)
-    self.m_sortListUI = uic
-end
-
--------------------------------------
--- function click_selectDifficultyBtn
--- @brief 난이도 변경 버튼
--------------------------------------
-function UI_ChallengeMode:click_selectDifficultyBtn(difficulty)
-    if (self.m_selectedDifficulty == difficulty) then
-        return
-    end
-
-    self.m_selectedDifficulty = difficulty
-
-    -- 실제로 진행될 난이도 저장
-    g_challengeMode:setSelectedDifficulty(difficulty)
 end
 
 -------------------------------------
@@ -418,10 +350,6 @@ function UI_ChallengeMode:selectFloor(floor_info)
             self:changeFloorVisual(prev_stage)
             self:changeFloorVisual(curr_stage)
             self:refresh(curr_stage)
-
-            -- 난이도 조정
-            local difficulty = g_challengeMode:getRecommandDifficulty(curr_stage)
-            self.m_sortListUI:setSelectSortType(difficulty)
         end
 
         -- 서버상의 이슈로 해당 스에티지 정보가 없을 경우 예외처리

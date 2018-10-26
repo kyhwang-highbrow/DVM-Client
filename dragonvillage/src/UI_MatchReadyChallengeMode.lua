@@ -10,6 +10,7 @@ UI_MatchReadyChallengeMode = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_MatchReadyChallengeMode:init()
+    self:initChallengeModeUI()
 end
 
 -------------------------------------
@@ -139,4 +140,106 @@ function UI_MatchReadyChallengeMode:initStaminaInfo()
     local stage = g_challengeMode:getSelectedStage()
     local cost = g_challengeMode:getChallengeMode_staminaCost(stage)
     vars['actingPowerLabel']:setString(tostring(cost))
+end
+
+-------------------------------------
+-- function initChallengeModeUI
+-------------------------------------
+function UI_MatchReadyChallengeMode:initChallengeModeUI()
+    local vars = self.vars
+    vars['challengeModeMenu']:setVisible(true)
+
+    local stage = g_challengeMode:getSelectedStage()
+
+    -- 점수
+    local point = g_challengeMode:getChallengeModeStagePoint(stage)
+    local difficulty_text = self:makePointRichText(point)
+    vars['currentPointLabel']:setString(difficulty_text)
+
+    -- 난이도 선택 드롭리스트
+    self:make_UIC_SortList()
+end
+
+-------------------------------------
+-- function make_UIC_SortList
+-- @brief 난이도 선택
+-------------------------------------
+function UI_MatchReadyChallengeMode:make_UIC_SortList()
+    local vars = self.vars
+    local button = vars['difficultyBtn']
+    local label = vars['difficultyLabel']
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    -- 난이도 설정
+    local l_difficulty_point = {}
+    table.insert(l_difficulty_point, 20) -- 쉬움 수동
+    table.insert(l_difficulty_point, 30) -- 쉬움 자동
+
+    table.insert(l_difficulty_point, 40) -- 보통 수동
+    table.insert(l_difficulty_point, 60) -- 보통 자동
+
+    table.insert(l_difficulty_point, 80) -- 어려움 수동
+    table.insert(l_difficulty_point, 100) -- 어려움 자동
+
+    for i,difficulty_point in ipairs(l_difficulty_point) do
+        
+        local difficulty, is_auto, text = g_challengeMode:parseChallengeModeStagePoint(difficulty_point)
+        local difficulty_text = self:makePointRichText(difficulty_point)
+        uic:addSortType(difficulty_point, difficulty_text, nil, true)
+    end
+
+    uic:setSortChangeCB(function(sort_type) self:click_selectDifficultyBtn(sort_type) end)
+
+    -- 기본 선택 난이도 설정
+    local stage = g_challengeMode:getSelectedStage()
+    local difficulty, is_auto = g_challengeMode:getRecommandDifficulty(stage)
+    local point = g_challengeMode:getChallengeModeClearPoint(difficulty, is_auto)
+    uic:setSelectSortType(point)
+end
+
+-------------------------------------
+-- function click_selectDifficultyBtn
+-------------------------------------
+function UI_MatchReadyChallengeMode:click_selectDifficultyBtn(point)
+    local difficulty, is_auto, text = g_challengeMode:parseChallengeModeStagePoint(point)
+
+    -- 실제로 진행될 난이도 저장
+    g_challengeMode:setSelectedDifficulty(difficulty, is_auto)
+end
+
+-------------------------------------
+-- function makePointRichText
+-------------------------------------
+function UI_MatchReadyChallengeMode:makePointRichText(point)
+    local point_color
+    if (point < 100) then
+        point_color = '{@DESC}'
+    else
+        point_color = '{@gray}'
+    end
+
+    -- 난이도
+    local difficulty, is_auto, text = g_challengeMode:parseChallengeModeStagePoint(point)
+    local difficulty_color = DIFFICULTY:getColorKey(difficulty)
+
+    local difficulty_text = difficulty_color .. text .. ' ' .. point_color .. '(' .. Str('{1}점', point) .. ')'
+
+    return difficulty_text
 end

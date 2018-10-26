@@ -24,6 +24,8 @@ function UI_MatchReady:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
