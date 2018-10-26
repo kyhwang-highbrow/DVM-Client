@@ -3805,6 +3805,9 @@
     <None Include="..\src\ConstantDifficulty.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_BannerChallengeMode.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

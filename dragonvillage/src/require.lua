@@ -769,6 +769,7 @@ local t_module = {
     'UI_StaminaInfo',
     'UI_RuneAutoSellAgreePopup',
     'UI_ValorCostumeInfoPopup', -- 용맹 코스튬 안내(구매) 팝업
+    'UI_BannerChallengeMode',
 
     'UI_GachaResult_Dragon',
 	'UI_PickDragon',

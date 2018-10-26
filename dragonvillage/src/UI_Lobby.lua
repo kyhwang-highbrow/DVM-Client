@@ -558,6 +558,9 @@ function UI_Lobby:refresh(is_hard_refresh)
     g_eventData.m_bDirty = false
     self:update_rightButtons()
 
+    -- 오른쪽 배너 갱신
+    self:refresh_rightBanner()
+
     -- hard refresh
     if (is_hard_refresh) then
         -- update()와 중복
@@ -797,6 +800,8 @@ function UI_Lobby:update_attendanceDday()
     else
         btn:setVisible(false)
     end
+
+    self:onRefresh_banner()
 end
 
 -------------------------------------
@@ -1555,6 +1560,62 @@ function UI_Lobby:update_rightButtons()
     end
 end
 
+-------------------------------------
+-- function refresh_rightBanner
+-- @brief 오른쪽에 배너 갱신
+-------------------------------------
+function UI_Lobby:refresh_rightBanner()
+    local vars = self.vars
+
+    -- 그림자의 신전
+    local state = g_challengeMode:getChallengeModeState()
+    if isExistValue(state, ServerData_ChallengeMode.STATE['OPEN'], ServerData_ChallengeMode.STATE['REWARD']) then
+        if (not vars['banner_challenge_mode']) then
+            local banner = UI_BannerChallengeMode()
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(cc.p(1, 1))
+            banner.root:setAnchorPoint(cc.p(1, 1))
+            vars['banner_challenge_mode'] = banner
+        else
+            vars['banner_challenge_mode']:refresh()
+        end
+    else
+        if vars['banner_challenge_mode'] then
+            vars['banner_challenge_mode'].root:removeFromParent()
+            vars['banner_challenge_mode'] = nil
+        end
+    end
+
+    self:onRefresh_banner()
+end
+
+-------------------------------------
+-- function onRefresh_banner
+-- @brief 오른쪽에 배너 갱신
+-------------------------------------
+function UI_Lobby:onRefresh_banner()
+    local vars = self.vars
+    local l_node = {}
+
+    -- 출석 보상 d-day
+    if (vars['ddayBtn'] and vars['ddayBtn']:isVisible()) then
+        table.insert(l_node, vars['ddayBtn'])
+    end
+
+    -- 그림자의 신전
+    if vars['banner_challenge_mode'] then
+        table.insert(l_node, vars['banner_challenge_mode'].root)
+    end
+
+    local pos_y = 0
+    local interval = -80
+
+    -- 위치 지정
+    for i,v in ipairs(l_node) do
+        local _pos_y = pos_y + ((i-1) * interval)
+        v:setPositionY(_pos_y)
+    end
+end
 
 --@CHECK
 UI:checkCompileError(UI_Lobby)
