@@ -11,6 +11,7 @@ UI_LoadingChallengeMode = class(PARENT,{
 -------------------------------------
 function UI_LoadingChallengeMode:init(curr_scene)
 	self.m_uiName = 'UI_LoadingChallengeMode'
+    self.m_remainTimer = 0
 end
 
 -------------------------------------
@@ -52,6 +53,17 @@ function UI_LoadingChallengeMode:initUI()
 		end
     end
 
+
+
+
+    -- 그림자의 신전 자동 전투 여부 바로 선택 (UI_MatchReadyChallengeMode에서 설정하고 진입함)
+    if (g_challengeMode.m_selectedAuto == true) then
+        self:selectAuto(true)
+    else
+        self:selectAuto(false)
+    end
+
+    --[[
     -- 3회 이상 도전 시 수동/자동 선택 가능
 	local stage = g_challengeMode:getSelectedStage()
     --if (g_challengeMode:getChallengeModeStagePlayCnt(stage) + 1 > 3) then
@@ -64,6 +76,7 @@ function UI_LoadingChallengeMode:initUI()
 		self:selectAuto(true)
 
     end
+    --]]
 end
 
 -------------------------------------
