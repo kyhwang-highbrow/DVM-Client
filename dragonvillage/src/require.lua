@@ -848,6 +848,8 @@ local t_module = {
     'UI_CostumeEventPopup',
     'UI_GoldDungeonScene',
     'UI_PurchasePointListItem',
+    'UI_MatchReady',
+    'UI_MatchReadyChallengeMode',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',

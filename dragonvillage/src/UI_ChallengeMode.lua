@@ -347,7 +347,11 @@ end
 function UI_ChallengeMode:click_startBtn()
     local stage = self.m_selectedStageID
     if g_challengeMode:isOpenStage_challengeMode(stage) then
-        UI_ChallengeModeDeckSettings(CHALLENGE_MODE_STAGE_ID)
+        --UI_ChallengeModeDeckSettings(CHALLENGE_MODE_STAGE_ID)
+
+        local t_match_user = g_challengeMode:getChallengeMode_StageDetailInfo(stage)
+        g_challengeMode:makeMatchUserInfo(t_match_user)
+        UI_MatchReadyChallengeMode()
 
         --[[
         -- 안내 팝업 띄움

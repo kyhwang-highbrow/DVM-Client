@@ -259,7 +259,12 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoArena:getUserText()
-    local str = Str('Lv.{1} {2}', self.m_lv, self.m_nickname)
+    local str
+    if self.m_lv and (0 < self.m_lv) then
+        str = Str('Lv.{1} {2}', self.m_lv, self.m_nickname)
+    else
+        str = self.m_nickname
+    end
     return str
 end
 

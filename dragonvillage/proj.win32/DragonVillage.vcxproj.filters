@@ -3808,6 +3808,12 @@
     <None Include="..\src\UI_BannerChallengeMode.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_MatchReady.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_MatchReadyChallengeMode.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

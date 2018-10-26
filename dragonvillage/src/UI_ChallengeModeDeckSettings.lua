@@ -36,6 +36,15 @@ end
 -------------------------------------
 function UI_ChallengeModeDeckSettings:init(stage_id, sub_info)
     local vars = self.vars
+
+
+    -- 덱 변경만 가능
+    if sub_info then
+        vars['actingPowerNode']:setVisible(false)
+        vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+        vars['startBtnLabel']:setPositionX(0)
+        vars['startBtnLabel']:setString(Str('변경 완료'))
+    end
 end
 
 -------------------------------------
