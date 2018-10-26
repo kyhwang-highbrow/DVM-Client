@@ -54,7 +54,6 @@ function UI_BannerChallengeMode:update(dt)
     local vars = self.vars
 
     local state = g_challengeMode:getChallengeModeState()
-    state = ServerData_ChallengeMode.STATE['REWARD']
     
     -- 이벤트 진행 중
     if (state == ServerData_ChallengeMode.STATE['OPEN']) then
