@@ -24,8 +24,6 @@ function SceneGameChallengeMode:init(game_key, stage_id, stage_name, develop_mod
     -- UI_ReadySceneNew.lua checkDeckProper() 함수와 통일해야함
     g_deckData:setSelectedDeck(DECK_CHALLENGE_MODE)
 
-    -- 아레나 로딩은 상대방 덱을 확인하기 위해 5초간 유지
-    self.m_minLoadingTime = 5
     self.m_bSuccessNetForPlayStart = false
 end
 
@@ -243,13 +241,13 @@ function SceneGameChallengeMode:getStartOption_Opponent()
     -- 쉬움
     if (difficulty == DIFFICULTY.EASY) then
         -- 피해량 증가 : 주는 피해량 +{1}%
-        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=-100})
+        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=-50})
 
         -- 받는 피해량 감소 : 받는 피해량 -{1}%
-        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=-100})
+        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=50})
 
         -- 치유량 감소 : 주는 치유량 -{1}%
-        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=-100})
+        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=-50})
 
     -- 보통
     elseif (difficulty == DIFFICULTY.NORMAL) then
@@ -257,17 +255,18 @@ function SceneGameChallengeMode:getStartOption_Opponent()
     -- 어려움
     elseif (difficulty == DIFFICULTY.HARD) then
         -- 피해량 증가 : 주는 피해량 +{1}%
-        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=100})
+        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=25})
 
         -- 받는 피해량 감소 : 받는 피해량 -{1}%
-        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=100})
+        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=-25})
 
         -- 치유량 감소 : 주는 치유량 -{1}%
-        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=100})
+        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=25})
 
     else
         error('difficulty : ' .. tostring(difficulty))
     end
+
 
     return l_buff_list
 end
