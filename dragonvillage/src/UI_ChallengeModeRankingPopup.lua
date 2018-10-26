@@ -7,6 +7,7 @@ local OFFSET_GAP = 30 -- 한번에 보여주는 랭커 수
 -------------------------------------
 UI_ChallengeModeRankingPopup = class(PARENT,{
         m_rankTableView = 'UIC_TableView',
+        m_rankType = 'string',
         m_rankOffset = 'number',
         m_rewardTableView = '',
         m_selectedUI = '',
@@ -32,7 +33,6 @@ function UI_ChallengeModeRankingPopup:init()
     self:initUI()
     self:initButton()
     self:refresh()
-    self:request_rank()
 end
 
 -------------------------------------
@@ -43,7 +43,6 @@ function UI_ChallengeModeRankingPopup:initUI()
 
     self:makeRankRewardTableView()
     self:make_UIC_SortList()
-    vars['rankingBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -146,8 +145,9 @@ function UI_ChallengeModeRankingPopup:request_rank()
         self:makeRankTableView()
         self:refresh_playerUserInfo()
     end
+    local rank_type = self.m_rankType
     local offset = self.m_rankOffset
-    g_challengeMode:request_challengeModeRanking(offset, finish_cb)
+    g_challengeMode:request_challengeModeRanking(rank_type, offset, finish_cb)
 end
 
 -------------------------------------
@@ -160,13 +160,16 @@ function UI_ChallengeModeRankingPopup:makeRankTableView()
 
     local l_item_list = g_challengeMode.m_lGlobalRank
 
-    if (1 < self.m_rankOffset) then
-        local prev_data = { m_tag = 'prev' }
-        l_item_list['prev'] = prev_data
-    end
+    -- 이전, 다음 버튼은 전체 랭킹에서만 사용
+    if (self.m_rankType == 'world') then
+        if (1 < self.m_rankOffset) then
+            local prev_data = { m_tag = 'prev' }
+            l_item_list['prev'] = prev_data
+        end
 
-    local next_data = { m_tag = 'next' }
-    l_item_list['next'] = next_data
+        local next_data = { m_tag = 'next' }
+        l_item_list['next'] = next_data
+    end
     
     -- 이전 랭킹 보기
     local function click_prevBtn()
@@ -216,8 +219,8 @@ function UI_ChallengeModeRankingPopup:makeRankTableView()
             end
 
             -- 랭킹으로 선별
-            local a_rank = a_data.m_rank
-            local b_rank = b_data.m_rank
+            local a_rank = conditionalOperator((0 < a_data.m_rank), a_data.m_rank, 9999999)
+            local b_rank = conditionalOperator((0 < b_data.m_rank), b_data.m_rank, 9999999)
             return a_rank < b_rank
         end
 
@@ -226,6 +229,23 @@ function UI_ChallengeModeRankingPopup:makeRankTableView()
 
     table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
     self.m_rankTableView = table_view
+
+
+    do -- 리스트 중 플레이어의 랭킹이 있으면 포커스를 맞춰준다
+        local idx = nil
+        for i,v in pairs(table_view.m_itemList) do
+            if v['data'] then
+                if (v['data'].m_uid == g_userData:get('uid')) then
+                    idx = i
+                    break
+                end
+            end
+        end
+        if idx then
+            self.m_rankTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+            self.m_rankTableView:relocateContainerFromIndex(idx)
+        end
+    end
 end
 
 
@@ -283,15 +303,35 @@ function UI_ChallengeModeRankingPopup:make_UIC_SortList()
     uic:addSortType('friend', Str('친구 랭킹'))
     uic:addSortType('clan', Str('클랜원 랭킹'))
 
-    --[[
-    uic:setSortChangeCB(function(sort_type) self:click_selectDifficultyBtn(sort_type) end)
+    uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
+    uic:setSelectSortType('my')
+end
 
-    -- 기본 선택 난이도 설정
-    local stage = g_challengeMode:getSelectedStage()
-    local difficulty, is_auto = g_challengeMode:getRecommandDifficulty(stage)
-    local point = g_challengeMode:getChallengeModeClearPoint(difficulty, is_auto)
-    uic:setSelectSortType(point)
-    --]]
+-------------------------------------
+-- function onChangeRankingType
+-- @brief
+-------------------------------------
+function UI_ChallengeModeRankingPopup:onChangeRankingType(type)
+
+    if (type == 'my') then
+        self.m_rankType = 'world'
+        self.m_rankOffset = -1
+
+    elseif (type == 'top') then
+        self.m_rankType = 'world'
+        self.m_rankOffset = 1
+
+    elseif (type == 'friend') then
+        self.m_rankType = 'friend'
+        self.m_rankOffset = 1
+
+    elseif (type == 'clan') then
+        self.m_rankType = 'clan'
+        self.m_rankOffset = 1
+
+    end
+
+    self:request_rank()
 end
 
 --@CHECK

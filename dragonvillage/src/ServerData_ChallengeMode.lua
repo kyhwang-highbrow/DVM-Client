@@ -953,7 +953,7 @@ end
 -- function request_challengeModeRanking
 -- @brief 챌린지 모드(그림자의 신전) 랭킹 통신
 -------------------------------------
-function ServerData_ChallengeMode:request_challengeModeRanking(offset, finish_cb, fail_cb)
+function ServerData_ChallengeMode:request_challengeModeRanking(rank_type, offset, finish_cb, fail_cb)
     local func_request
     local func_success_cb
     local func_response_status_cb
@@ -966,6 +966,7 @@ function ServerData_ChallengeMode:request_challengeModeRanking(offset, finish_cb
         local ui_network = UI_Network()
         ui_network:setUrl('/game/challenge/ranking')
         ui_network:setParam('uid', uid)
+        ui_network:setParam('type', rank_type)
         ui_network:setParam('offset', offset)
         ui_network:setParam('limit', 30)
         ui_network:setMethod('POST')
