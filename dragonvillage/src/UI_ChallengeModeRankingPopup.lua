@@ -313,6 +313,12 @@ end
 -------------------------------------
 function UI_ChallengeModeRankingPopup:onChangeRankingType(type)
 
+    if (type == 'clan' and g_clanData:isClanGuest()) then
+        local msg = Str('소속된 클랜이 없습니다.')
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+
     if (type == 'my') then
         self.m_rankType = 'world'
         self.m_rankOffset = -1
