@@ -53,7 +53,7 @@ function UI_MatchReadyChallengeMode:click_startBtn()
     -- 콜로세움 공격 덱이 설정되었는지 여부 체크
     local l_dragon_list = self:getStructUserInfo_Player():getDeck_dragonList()
     if (table.count(l_dragon_list) <= 0) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('챌린지모드 덱이 설정되지 않았습니다.'))
+        MakeSimplePopup(POPUP_TYPE.OK, Str('그림자의 신전 덱이 설정되지 않았습니다.'))
         return
     end
 
