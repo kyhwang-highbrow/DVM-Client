@@ -33,6 +33,8 @@ function UI_Package_Bundle:init(package_name, is_popup)
     self:initUI()
 	self:initButton()
     self:refresh()
+
+    self:customInit(package_name, is_popup)
 end
 
 -------------------------------------
@@ -310,4 +312,22 @@ end
 -------------------------------------
 function UI_Package_Bundle:setBuyCB(func)
     self.m_cbBuy = func
+end
+
+-------------------------------------
+-- function customInit
+-------------------------------------
+function UI_Package_Bundle:customInit(package_name, is_popup)
+    local vars = self.vars
+
+    -- 주말 패키지에 테이머 표시
+    if (package_name == 'package_weekly_02') then
+        vars['tamerNode']:removeAllChildren()
+        --local l_cid = {730101, 730102, 730201, 730202, 730302, 730303, 730402, 730403, 730501, 730602}
+        --local cid = l_cid[math_random(1, #l_cid)]
+        local cid = 730403
+        local res = TableTamerCostume:getTamerResSD(cid)
+        local ani_tamer = AnimatorHelper:makeTamerAnimator(res)
+        vars['tamerNode']:addChild(ani_tamer.m_node)
+    end
 end
