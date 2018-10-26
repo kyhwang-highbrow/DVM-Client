@@ -42,8 +42,7 @@ function UI_ChallengeModeRankingPopup:initUI()
     local vars = self.vars
 
     self:makeRankRewardTableView()
-
-    -- 랭킹 종류 아직 구현하지 않음 (내 랭킹, 최상위 랭킹, 친구 랭킹, 클랜원 랭킹)
+    self:make_UIC_SortList()
     vars['rankingBtn']:setVisible(false)
 end
 
@@ -249,6 +248,50 @@ function UI_ChallengeModeRankingPopup:makeRankRewardTableView()
 
     table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))
     self.m_rewardTableView = table_view
+end
+
+-------------------------------------
+-- function make_UIC_SortList
+-- @brief
+-------------------------------------
+function UI_ChallengeModeRankingPopup:make_UIC_SortList()
+    local vars = self.vars
+    local button = vars['rankingBtn']
+    local label = vars['rankingLabel']
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+
+    uic:addSortType('my', Str('내 랭킹'))
+    uic:addSortType('top', Str('최상위 랭킹'))
+    uic:addSortType('friend', Str('친구 랭킹'))
+    uic:addSortType('clan', Str('클랜원 랭킹'))
+
+    --[[
+    uic:setSortChangeCB(function(sort_type) self:click_selectDifficultyBtn(sort_type) end)
+
+    -- 기본 선택 난이도 설정
+    local stage = g_challengeMode:getSelectedStage()
+    local difficulty, is_auto = g_challengeMode:getRecommandDifficulty(stage)
+    local point = g_challengeMode:getChallengeModeClearPoint(difficulty, is_auto)
+    uic:setSelectSortType(point)
+    --]]
 end
 
 --@CHECK
