@@ -58,7 +58,7 @@ function UI_Game:init(game_scene)
     --cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_damage/ingame_damage.plist')
     Translate:a2dTranslate('ui/a2d/ingame_damage/ingame_damage.plist')
 
-    local vars = self:load(self:getUIFileName(), false, true, true)
+    local vars = self:load(self:getUIFileName(), false, true, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
     UIManager:open(self, UIManager.NORMAL)
 
 	 -- 백키 지정

@@ -24,6 +24,18 @@ function UI_GameChallengeMode:initUI()
     
     -- 그림자의 신전에서는 연속 전투를 제공하지 않음
     vars['autoStartButton']:setVisible(false)
+
+
+    -- 현재 도전 중인 난이도, 자동전투 여부 출력
+    if vars['difficultyMenu'] then
+        local difficulty = g_challengeMode:getSelectedDifficulty()
+        local is_auto = g_challengeMode.m_selectedAuto
+        local point = g_challengeMode:getChallengeModeClearPoint(difficulty, is_auto)
+        local text = UI_MatchReadyChallengeMode:makePointRichText(point)
+
+        vars['difficultyMenu']:setVisible(true)
+        vars['difficultyLabel']:setString(text)
+    end
 end
 
 -------------------------------------
