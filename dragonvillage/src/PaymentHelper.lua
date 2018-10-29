@@ -214,7 +214,7 @@ local function coroutine_function(dt)
             -- 페이로드 생성
 			local payload_table = {
 				["uid"] = g_userData:get('uid'),
-				["nick"] = g_userData:get('nick'),
+				["nick"] = 'Xsolla',
 				['validation_key'] = validation_key,
 				["product_id"] = product_id,
 				
