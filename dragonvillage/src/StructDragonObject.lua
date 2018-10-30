@@ -864,6 +864,7 @@ function StructDragonObject:parseDragonStringData(str)
     local t_data = {}
     t_data['did'] = getValue('did', true)
     t_data['lv'] = getValue('lv', true)
+    t_data['rlv'] = getValue('rlv', true)
     t_data['exp'] = getValue('exp', true)
     t_data['eclv'] = getValue('eclv', true)
     t_data['evolution'] = getValue('evolution', true)
@@ -871,7 +872,7 @@ function StructDragonObject:parseDragonStringData(str)
     t_data['mastery_lv'] = getValue('mastery_lv', true)
 
     local struct_dragon_object = StructDragonObject(t_data)
-    
+
 
     return struct_dragon_object
 end
