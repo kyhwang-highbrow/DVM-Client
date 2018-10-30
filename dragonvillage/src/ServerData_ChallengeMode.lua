@@ -126,6 +126,9 @@ function ServerData_ChallengeMode:getPlayerArenaUserInfo()
     local t_deck_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
     self.m_playerUserInfo:applyPvpDeckData(t_deck_data)
 
+    -- 클랜 정보는 항상 갱신
+    self.m_playerUserInfo:setStructClan(g_clanData:getClanStruct())
+
     return self.m_playerUserInfo
 end
 
@@ -985,7 +988,7 @@ function ServerData_ChallengeMode:request_challengeModeRanking(rank_type, offset
 
     -- 성공 콜백
     func_success_cb = function(ret)
-        self.m_nGlobalOffset = ret['offset']
+        self.m_nGlobalOffset = ret['offset'] + 1
 
         -- 유저 리스트 저장
         self.m_lGlobalRank = {}

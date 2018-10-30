@@ -159,7 +159,7 @@ function UI_ChallengeMode:refresh_playerRank()
     vars['profileNode']:addChild(card.root)
 
     -- 랭킹
-    local rank_text = struct_user_info:getRankText(true, true) -- param : detail, carriage_return
+    local rank_text = struct_user_info:getChallengeMode_RankText(true, true) -- param : detail, carriage_return
     vars['rankLabel']:setString(rank_text)
 
     -- 승리한 상대
