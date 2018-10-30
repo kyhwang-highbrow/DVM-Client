@@ -1,6 +1,6 @@
 local PARENT = UI
 
-local OFFSET_GAP = 3 -- 한번에 보여주는 랭커 수
+local OFFSET_GAP = 30 -- 한번에 보여주는 랭커 수
 
 -------------------------------------
 -- class UI_ChallengeModeRankingPopup

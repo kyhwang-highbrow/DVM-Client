@@ -971,7 +971,7 @@ function ServerData_ChallengeMode:request_challengeModeRanking(rank_type, offset
         ui_network:setParam('uid', uid)
         ui_network:setParam('type', rank_type)
         ui_network:setParam('offset', offset)
-        ui_network:setParam('limit', 3)
+        ui_network:setParam('limit', 30)
         ui_network:setMethod('POST')
         ui_network:setSuccessCB(func_success_cb)
         ui_network:setResponseStatusCB(response_status_cb)
