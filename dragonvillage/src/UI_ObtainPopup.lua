@@ -79,26 +79,27 @@ end
 function UI_ObtainPopup:makePrettyList(l_item, is_merge_all_item) 
 	local l_ret = {}
 	local t_simple = {}
-	local table_type = TableItemType()
+	local table_item_type = TableItemType()
 
 	for i, v in pairs(l_item) do
 		local item_id = v['item_id']
 		local is_merge_type  
 
-		if (table_type:isCanReadAll(item_id)) then
-			-- is_merge_all_item == true 인 경우 아이템만 함산
-			if (table_type:isMailItem(item_id)) then
+		if (table_item_type:isCanReadAll(item_id)) then
+			
+			-- 우편함의 우정/스테/돈 경우 무조건 합산
+			if (table_item_type:isMailFp(item_id) or table_item_type:isMailStaminas(item_id) or table_item_type:isMailMoney(item_id)) then
+				is_merge_type = true
+			-- 아이템의 경우 is_merge_all_item == true 인 경우만 합산
+			elseif (table_item_type:isMailItem(item_id)) then
 				if (is_merge_all_item) then
 					is_merge_type = true
 				else
 					is_merge_type = false
 				end
-			-- 우편함의 우정/스테/돈 경우 무조건 합산
-			elseif (table_type:isMailFp(item_id) or table_type:isMailStaminas(item_id) or table_type:isMailMoney(item_id)) then
-				is_merge_type = true
 			-- 그 외의 경우 
 			else
-				table_type:errorUndefineType(item_id)
+				table_item_type:errorUndefineType(item_id)
 				is_merge_type = false
 			end
 			

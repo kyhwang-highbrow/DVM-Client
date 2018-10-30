@@ -4,7 +4,7 @@ local PARENT = TableClass
 -- class TableItemType
 -------------------------------------
 TableItemType = class(PARENT, {
-        m_itemTable = 'class',
+        m_tableItem = 'class',
     })
 
 local THIS = TableItemType
@@ -15,15 +15,26 @@ local THIS = TableItemType
 function TableItemType:init()
     self.m_tableName = 'item_type'
     self.m_orgTable = TABLE:get(self.m_tableName)
-	self.m_itemTable = TableItem()
+	self.m_tableItem = nil
+end
+
+-------------------------------------
+-- function getTableItem
+-------------------------------------
+function TableItemType:getTableItem()
+	if (not self.m_tableItem) then
+		self.m_tableItem = TableItem()
+	end
+
+	return self.m_tableItem
 end
 
 -------------------------------------
 -- function isMailItem
 -- @brief 우편함의 '아이템' 탭 아이템인지 여부
 -------------------------------------
-function TableItemType:isMailItem(item_type)
-	if (self:getMailType(item_type) == 'item') then
+function TableItemType:isMailItem(item_id)
+	if (self:getMailType(item_id) == 'item') then
 		return true
 	else
 		return false
@@ -34,8 +45,8 @@ end
 -- function isMailMoney
 -- @brief 우편함의 '재화' 탭 아이템인지 여부
 -------------------------------------
-function TableItemType:isMailMoney(item_type)
-	if (self:getMailType(item_type) == 'money') then
+function TableItemType:isMailMoney(item_id)
+	if (self:getMailType(item_id) == 'money') then
 		return true
 	else
 		return false
@@ -46,8 +57,8 @@ end
 -- function isMailStaminas
 -- @brief 우편함의 '날개' 탭 아이템인지 여부
 -------------------------------------
-function TableItemType:isMailStaminas(item_type)
-	if (self:getMailType(item_type) == 'staminas') then
+function TableItemType:isMailStaminas(item_id)
+	if (self:getMailType(item_id) == 'staminas') then
 		return true
 	else
 		return false
@@ -58,8 +69,8 @@ end
 -- function isMailFP
 -- @brief 우편함의 '우정' 탭 아이템인지 여부
 -------------------------------------
-function TableItemType:isMailFp(item_type)
-	if (self:getMailType(item_type) == 'fp') then
+function TableItemType:isMailFp(item_id)
+	if (self:getMailType(item_id) == 'fp') then
 		return true
 	else
 		return false
@@ -75,7 +86,8 @@ function TableItemType:getMailType(item_id)
         self = THIS()
     end
 	
-	local item_type = self.m_itemTable:getItemType(item_id)
+	local table_item = self:getTableItem()
+	local item_type = table_item:getItemType(item_id)
 	local mail_type = self:getValue(item_type, 'mail_tab_type')
 	
 	-- item_type이 정의되지 않은 경우
@@ -95,7 +107,8 @@ function TableItemType:isCanReadAll(item_id)
         self = THIS()
     end
 
-	local item_type = self.m_itemTable:getItemType(item_id)
+	local table_item = self:getTableItem()
+	local item_type = table_item:getItemType(item_id)
 	
 	if (not self:exists(item_type)) then
 		self:errorUndefineType(item_type)
@@ -118,6 +131,6 @@ end
 -------------------------------------
 function TableItemType:errorUndefineType(item_type)
 	if (CppFunctionsClass:isTestMode()) then
-			error('table_item_type.csv에 정의 되지 않음 : ' .. tostring(item_type))
+		error('table_item_type.csv에 정의 되지 않음 : ' .. tostring(item_type))
 	end
 end

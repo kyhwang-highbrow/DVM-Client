@@ -175,7 +175,7 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 		self.m_mMailMap[mail_type] = {}
 	end
 
-    local table_item = TableItem()
+	local table_item_type = TableItemType()
 
     self.m_excludedNoticeCnt = 0
 
@@ -208,35 +208,19 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 		else
 			local t_item = t_mail['items_list'][1]
 			local item_id = t_item['item_id']
-
-			-- 클라에서 미리 정의한 item type을 가져온다. goods와 item 구분이 모호하기 때문에!
-			local item_type = TableItem:getItemTypeFromItemID(item_id)
-			
-			if item_type then
-				-- staminas는 '활동력'에 속함		
-				if string.find(item_type, 'stamina') then
-					category = 'st'
-				
-                -- fp는 '우정'로 보내준다.		
-			    elseif string.find(item_type, 'fp') then
-					category = 'friend'
-
-                -- booster는 '아이템'으로 보내준다.		
-			    elseif string.find(item_type, 'booster') then
-					category = 'item'
-                
-				-- stamina가 없고 item type이 있다면 모두 '재화'에 해당
-				else
-					category = 'goods'
-				end
-
-			-- 클라에서 미리 정의 하지 않은 것
+	
+			if (table_item_type:isMailStaminas(item_id)) then
+				category = 'st'		
+			elseif (table_item_type:isMailFp(item_id)) then
+				category = 'friend'	
+			elseif (table_item_type:isMailItem(item_id)) then
+				category = 'item'
+			elseif (table_item_type:isMailMoney(item_id)) then
+				category = 'goods'
 			else
-                category = 'item'
+				category = 'item'
 			end
-
 		end
-
         -- mail struct로 생성
         if (is_mail) then
             self.m_mMailMap[category][moid] = StructMail(t_mail)
