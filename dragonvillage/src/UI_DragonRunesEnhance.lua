@@ -8,7 +8,8 @@ UI_DragonRunesEnhance = class(PARENT,{
         m_changeOptionList = 'list',
 
 		-- 연속 강화
-		m_isContinuous = 'bool',
+		m_optionRadioBtn = 'UIC_RadioButton',
+		m_enhanceOptionLv = 'num',
 		m_coroutineHelper = 'CoroutinHelepr',
     })
 
@@ -43,7 +44,7 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self:doAction(nil, false)
 
 	-- initilize
-	self.m_isContinuous = false
+	self.m_enhanceOptionLv = 0
 
     self:initUI(attr)
     self:initButton()
@@ -65,8 +66,38 @@ function UI_DragonRunesEnhance:initUI(attr)
     local rune_obj = self.m_runeObject
     vars['runeNameLabel']:setString(rune_obj['name'])
 
-	vars['checkSprite']:setVisible(false)
+	self:initOptionRadioBtn()
 end
+
+-------------------------------------
+-- function initOptionRadioBtn
+-- @brief
+-------------------------------------
+function UI_DragonRunesEnhance:initOptionRadioBtn()
+	local vars = self.vars
+
+	-- radio button 선언
+    local radio_button = UIC_RadioButton()
+	radio_button:setChangeCB(function(option_type)
+        self.m_enhanceOptionLv = option_type * 3
+    end)
+	self.m_optionRadioBtn = radio_button
+
+    -- 버튼 등록
+	--local btn, sprite = nil, nil
+	for idx = 0, 5 do
+		local btn = vars['enhanceOptionBtn' .. idx]
+        local sprite = vars['enhanceOptionSprite' .. idx]
+		if (idx ~= 0) then
+			local label = vars['enhanceOptionLabel' .. idx]
+			label:setString(Str(label:getString(), idx * 3))
+		end
+		radio_button:addButton(idx, btn, sprite)
+	end
+
+	radio_button:setSelectedButton(0)
+end
+
 
 -------------------------------------
 -- function initButton
@@ -74,7 +105,6 @@ end
 function UI_DragonRunesEnhance:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-	vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
 	vars['stopBtn']:registerScriptTapHandler(function() self:click_stopBtn() end)
     vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
 end
@@ -134,9 +164,17 @@ function UI_DragonRunesEnhance:refresh()
     local only_value = true
     g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.RUNE_ENHANCE, vars, 'enhanceEventSprite', only_value)
 
+	-- 연속 강화 옵션 처리
+	for idx = 1, 5 do
+		if (curr_lv >= idx * 3) then
+			self.m_optionRadioBtn:disable(idx)
+		end
+	end
+
+	-- 강화 만렙 처리
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)
-	vars['checkNode']:setVisible(not is_max_lv)
+	vars['enhanceOptionNode']:setVisible(not is_max_lv)
 end
 
 -------------------------------------
@@ -207,14 +245,6 @@ function UI_DragonRunesEnhance:setChangeOptionList(old_data, new_data)
 end
 
 -------------------------------------
--- function click_checkBtn
--------------------------------------
-function UI_DragonRunesEnhance:click_checkBtn()
-	self.m_isContinuous = not self.m_isContinuous
-	self.vars['checkSprite']:setVisible(self.m_isContinuous)
-end
-
--------------------------------------
 -- function click_stopBtn
 -------------------------------------
 function UI_DragonRunesEnhance:click_stopBtn()
@@ -228,7 +258,7 @@ end
 -------------------------------------
 function UI_DragonRunesEnhance:click_enhanceBtn()
 	-- 일회 강화
-	if (not self.m_isContinuous) then
+	if (self.m_enhanceOptionLv == 0) then
 		local block_ui = UI_BlockPopup()
 		local function cb_func()
 			block_ui:close()
@@ -246,6 +276,7 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 
 		-- 코루틴 종료 콜백
 		local function close_cb()
+			self.m_optionRadioBtn:setSelectedButton(0)
 			self.m_coroutineHelper = nil
 			vars['countNode']:setVisible(false)
 			vars['stopBtn']:setVisible(false)
@@ -257,32 +288,22 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
         -- 터치 블럭
         UIManager:blockBackKey(true)
 
-		-- 레벨업 비교용 레벨
-		local curr_lv = self.m_runeObject:getLevel()
-		
 		-- UI 처리
 		vars['countNode']:setVisible(true)
 		vars['stopBtn']:setVisible(true)
+		vars['enhanceBtn']:setVisible(false)
 
 		-- 연속 강화 루프
-		local enhance_cnt = 10
-        while (enhance_cnt > 0) do
+		local enhance_cnt = 0
+        while (self.m_runeObject:getLevel() < self.m_enhanceOptionLv) do -- 연속 강화 옵션 목표 레벨 달성 시 종료
             co:work()
-			
-			-- 레벨업 시 종료
-			if (curr_lv ~= self.m_runeObject:getLevel()) then
-				co.NEXT()
-				break
-			end
-
-			vars['enhanceBtn']:setVisible(false)
-			
+				
 			-- 강화 시도
             self:request_enhance(co.NEXT)	
 
-			-- 회수 처리
-			enhance_cnt = enhance_cnt - 1
-			vars['countLabel']:setString(Str('{1}회 남음', enhance_cnt))
+			-- 강화 횟수 증가
+			enhance_cnt = enhance_cnt + 1
+			vars['countLabel']:setString(Str('{1}회 강화 중', enhance_cnt))
 
             if co:waitWork() then return end
         end

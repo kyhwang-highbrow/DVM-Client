@@ -66,11 +66,11 @@ function UIC_RadioButton:setSelectedButton(button_name)
     end
 
     if self.m_selectedButton then
-        self:deactivate(self.m_selectedButton)
+        self:inactivate(self.m_selectedButton)
     else
         for i,v in pairs(self.m_buttonMap) do
             if (i ~= button_name) then
-                self:deactivate(i)
+                self:inactivate(i)
             end
         end
     end
@@ -82,9 +82,9 @@ function UIC_RadioButton:setSelectedButton(button_name)
 end
 
 -------------------------------------
--- function deactivate
+-- function inactivate
 -------------------------------------
-function UIC_RadioButton:deactivate(button_name)
+function UIC_RadioButton:inactivate(button_name)
     local t_button_data = self.m_buttonMap[button_name]
 
     local button = t_button_data['button']
@@ -122,6 +122,23 @@ function UIC_RadioButton:activate(button_name)
 
     if self.m_changeCB then
         self.m_changeCB(button_name)
+    end
+end
+
+-------------------------------------
+-- function disable
+-- @brief activate, inactivate 와 유기적으로 동작하는 것이 아님. 일방향
+-------------------------------------
+function UIC_RadioButton:disable(button_name)
+	local t_button_data = self.m_buttonMap[button_name]
+
+    local button = t_button_data['button']
+    button:setEnabled(false)
+	button:setColor(COLOR['deep_dark_gray'])
+
+	local sprite = t_button_data['sprite']
+    if sprite then
+        sprite:setVisible(false)
     end
 end
 
