@@ -27,8 +27,51 @@ function SceneDV:onEnter()
     PerpleScene.onEnter(self)
     g_currScene:addKeyKeyListener(self)
     
-    self:labelTest()
+    self:controlSliderTest()
 end
+
+-------------------------------------
+-- function controlSliderTest
+-------------------------------------
+function SceneDV:controlSliderTest()
+	-- 화면에 찍을 라벨
+	local label = cc.Label:createWithTTF(0, 
+        'res/font/common_font_01.ttf', 
+        20, 
+        1, 
+        cc.size(100, 100), 
+        1, 1)
+	local uic_label = UIC_LabelTTF(label)
+    uic_label:setPosition(0, 0)
+    uic_label:setDockPoint(CENTER_POINT)
+    uic_label:setAnchorPoint(CENTER_POINT)
+    uic_label:setColor(cc.c3b(0, 255, 255))
+    self.m_scene:addChild(uic_label.m_node)
+
+
+	-- controlSlider 생성
+	local res_slider_track = 'res/ui/gauges/clan_raid_boss_hp_01.png'
+	local res_slider_progress = 'res/ui/gauges/clan_raid_boss_hp_02.png'
+	local res_slider_thumb = 'res/ui/gauges/ingame_pannel_skill_mana_0101.png'
+
+	local control_slider = cc.ControlSlider:create(res_slider_track, res_slider_progress, res_slider_thumb)
+	control_slider:setPosition(0, 0)
+	control_slider:setDockPoint(CENTER_POINT)
+    control_slider:setAnchorPoint(CENTER_POINT)
+	control_slider:setMinimumValue(0)
+	control_slider:setMaximumValue(30)
+	control_slider:setValue(15)
+	
+	-- 이벤트 핸들러 등록
+	local function valueChangedFunc(obj)
+		cclog(obj:getValue())
+		uic_label:setString(obj:getValue())
+	end
+	control_slider:registerControlEventHandler(valueChangedFunc, cc.CONTROL_EVENTTYPE_VALUE_CHANGED)
+
+	self.m_scene:addChild(control_slider)
+end
+
 
 -------------------------------------
 -- function labelTest
