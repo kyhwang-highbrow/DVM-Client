@@ -59,18 +59,12 @@ end
 -------------------------------------
 function UI_Setting:click_serviceBtn()
     --한국서버와 나머지 서버
-    local _url = GetCSUrl( g_localData:getServerName() )
-    local market = 'android' or 'undefined'
+	local _url = GetCSUrl(server)
+    local market = GetMarketAndOS()
     local ver = getAppVer() or 'undefined'
     local uid = g_userData:get('uid') or 'undefined'
     local lang = Translate:getGameLang()
     local server = g_localData:getServerName()
-
-    if isAndroid() then
-        market = 'android'
-    elseif isIos() then
-        market = 'ios'
-    end
 
     local url;
     if server == SERVER_NAME.KOREA then
@@ -78,9 +72,9 @@ function UI_Setting:click_serviceBtn()
     else
         url = formatMessage('{1}?market={2}&ver={3}&uid={4}&lang={5}&server={6}', _url, market, ver, uid, lang, server)
     end
+
     cclog('url : ' .. url )
     SDKManager:goToWeb(url)
-    --UI_WebView(url)
 end
 
 -------------------------------------

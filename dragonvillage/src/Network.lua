@@ -365,25 +365,7 @@ function Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
     
 
     -- 로그인 시 os 정보 추가
-    local os
-	local market 
-    if CppFunctions:isAndroid() then
-        os = 'android'
-		if (PerpleSdkManager:xsollaIsAvailable()) then
-			market = 'xsolla'
-		else
-			market = 'google'
-		end
-    elseif CppFunctions:isIos() then
-        os = 'ios'
-		market = 'apple'
-    elseif CppFunctions:isWin32() then
-        os = 'windows'
-		market = 'windows'
-	elseif CppFunctions:isMac() then
-		os = 'mac'
-		market = 'mac'
-    end
+    local market, os = GetMarketAndOS()
 
     t_data['os'] = os
 	t_data['market'] = market

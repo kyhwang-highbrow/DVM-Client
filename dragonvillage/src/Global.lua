@@ -337,6 +337,32 @@ function getAppVerNum()
     return app_ver_num
 end
 
+-------------------------------------
+-- function getMarketAndOS
+-------------------------------------
+function GetMarketAndOS()
+    local os
+	local market 
+    if CppFunctions:isAndroid() then
+        os = 'android'
+		if (PerpleSdkManager:xsollaIsAvailable()) then
+			market = 'xsolla'
+		else
+			market = 'google'
+		end
+    elseif CppFunctions:isIos() then
+        os = 'ios'
+		market = 'apple'
+    elseif CppFunctions:isWin32() then
+        os = 'windows'
+		market = 'windows'
+	elseif CppFunctions:isMac() then
+		os = 'mac'
+		market = 'mac'
+    end
+
+	return market, os
+end
 
 -------------------------------------
 -- function LoadLocalSaveJson

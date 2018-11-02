@@ -120,13 +120,15 @@ URL['DVM_COMMUNITY'] = 'http://m.dragonvillage.net/dvm'
 
 --cs
 URL['DVM_CS'] = 'http://ask.dvm.perplelab.com'
-URL['DVM_CS_GLOBAL'] = 'http://ask.dvm.perplelab.com/index_en.html'
+URL['DVM_CS_EN'] = 'http://ask.dvm.perplelab.com/index_en.html'
+URL['DVM_CS_XSOLLA'] = 'http://ask.dvm.perplelab.com/index_xsolla.html'
+URL['DVM_CS_XSOLLA_EN'] = 'http://ask.dvm.perplelab.com/index_xsolla_en.html'
 
-function GetCSUrl( server )
+function GetCSUrl(server)
     if server == SERVER_NAME.KOREA then
-        return URL['DVM_CS']
+        return PerpleSdkManager:xsollaIsAvailable() and URL['DVM_CS_XSOLLA'] or URL['DVM_CS']
     else
-        return URL['DVM_CS_GLOBAL']
+        return PerpleSdkManager:xsollaIsAvailable() and URL['DVM_CS_XSOLLA_EN'] or URL['DVM_CS_EN']
     end
 end
 
