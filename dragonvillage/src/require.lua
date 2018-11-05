@@ -179,6 +179,7 @@ local t_module = {
     'ServerData_EventMandragoraQuest',
     'ServerData_EventAlphabet', -- 알파벳 이벤트
     'ServerData_ChallengeMode', -- 챌린지 모드
+    'ServerData_SpotSale', -- 깜짝 할인 상품
 
     -- Interface
     'IEventDispatcher',

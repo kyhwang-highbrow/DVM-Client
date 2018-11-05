@@ -232,6 +232,9 @@ function ServerData:getInstance()
     -- 만드라고라의 모험 이벤트
     g_mandragoraQuest = ServerData_EventMandragoraQuest(g_serverData)
 
+    -- 깜짝 할인 상품
+    g_spotSaleData = ServerData_SpotSale(g_serverData)
+
     return g_serverData
 end
 
