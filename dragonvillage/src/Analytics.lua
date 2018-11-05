@@ -3,32 +3,66 @@ Analytics = {
 }
 Adbrix = {}
 Tapjoy = {}
-Adjust = {
-    EVENT = {
-        FIRST_PURCHASE = 'vooktq',              --첫구매
-        PURCHASE = '33qpix',                    --구매 통합
-        PURCHASE_USD = '2a7wxs',                --구매 (달러)
 
-        CREATE_NICKNAME = 'kfwvim',             --닉네임 생성
-        CREATE_NICKNAME_REPEAT = 'j878iw',      --닉네임 생성 unique아닌거(리세마라 체크용)
-        TUTORIAL_FINISH_INTRO = '8kbl5r',       --인트로 전투 끝
-        TUTORIAL_FINISH_1_2 = '8muhb5',         --1-2스테이지 끝
-        STAGE_FINISH_1_7 = 'jvsd8a',            --1-7 스테이지 끝
-        TAMER_LV_4 = 'jwr2ph',                  --테이머 레벨4
-        TAMER_LV_6 = 'cr2mhh',                  --테이머 레벨6
-        TAMER_LV_8 = 'vu1op6',                  --테이머 레벨8
-        TAMER_LV_10 = 'qdp5xl',                 --테이머 레벨10
-        TAMER_LV_12 = 'isdc0l',                 --테이머 레벨12
-        TAMER_LV_15 = '7jdlbl',                 --테이머 레벨15
-        DRAGON_ENVOLVE = 'm2n4v9',              --드래곤 진화
-        DRAGON_RANKUP = 'l3gjj6',               --드래곤 승급
-        DRAGON_MAKE_6GRADE = 't17tqo',          --6성드래곤 만듬
-        RUNE_EQUIP = 'oe7bdp',                  --6성 룬 장비
-        PURCHASE_10_US = 'y7mq3a',              --누적 결제금액 1만원 이상
-        PURCHASE_100_US = '6c2snf',             --누적 결제금액 10만원 이상
-        PURCHASE_1000_US = 'yu1up4',            --누적 결제금액 100만원 이상
-    }
-}
+require 'CppFunctions'
+require 'PerpleSdkManager'
+if (PerpleSdkManager:xsollaIsAvailable()) then
+	Adjust = {
+		EVENT = {
+			FIRST_PURCHASE = '793ad3',
+			PURCHASE = 'nil',
+			PURCHASE_USD = 'at7due',
+
+			PURCHASE_1000_US = 'qobhb0',
+			PURCHASE_100_US = '2x0qi0',
+			PURCHASE_10_US = 'vtowtt',
+			TUTORIAL_FINISH_1_2 = 't78879',
+			STAGE_FINISH_1_7 = 'k7hrgn',
+			RUNE_EQUIP = 'rr9kfq',
+			CREATE_NICKNAME = '404adx',
+			CREATE_NICKNAME_REPEAT = 'bdofei',
+			TUTORIAL_FINISH_INTRO = 'fi0mg2',
+			DRAGON_ENVOLVE = 'oqm19x',
+			DRAGON_RANKUP = 'knulf0',
+			DRAGON_MAKE_6GRADE = '4zoahx',
+			TAMER_LV_4 = 'oumkg2',
+			TAMER_LV_6 = 'qk0pe4',
+			TAMER_LV_8 = 'ju80wk',
+			TAMER_LV_10 = 'iniqva',
+			TAMER_LV_12 = '7cy2lu',
+			TAMER_LV_15 = 'eqqxkc',
+		}
+	}
+else
+	Adjust = {
+		EVENT = {
+			FIRST_PURCHASE = 'vooktq',              --첫구매
+			PURCHASE = '33qpix',                    --구매 통합
+			PURCHASE_USD = '2a7wxs',                --구매 (달러)
+
+			CREATE_NICKNAME = 'kfwvim',             --닉네임 생성
+			CREATE_NICKNAME_REPEAT = 'j878iw',      --닉네임 생성 unique아닌거(리세마라 체크용)
+			TUTORIAL_FINISH_INTRO = '8kbl5r',       --인트로 전투 끝
+			TUTORIAL_FINISH_1_2 = '8muhb5',         --1-2스테이지 끝
+			STAGE_FINISH_1_7 = 'jvsd8a',            --1-7 스테이지 끝
+			TAMER_LV_4 = 'jwr2ph',                  --테이머 레벨4
+			TAMER_LV_6 = 'cr2mhh',                  --테이머 레벨6
+			TAMER_LV_8 = 'vu1op6',                  --테이머 레벨8
+			TAMER_LV_10 = 'qdp5xl',                 --테이머 레벨10
+			TAMER_LV_12 = 'isdc0l',                 --테이머 레벨12
+			TAMER_LV_15 = '7jdlbl',                 --테이머 레벨15
+			DRAGON_ENVOLVE = 'm2n4v9',              --드래곤 진화
+			DRAGON_RANKUP = 'l3gjj6',               --드래곤 승급
+			DRAGON_MAKE_6GRADE = 't17tqo',          --6성드래곤 만듬
+			RUNE_EQUIP = 'oe7bdp',                  --6성 룬 장비
+			PURCHASE_10_US = 'y7mq3a',              --누적 결제금액 1만원 이상
+			PURCHASE_100_US = '6c2snf',             --누적 결제금액 10만원 이상
+			PURCHASE_1000_US = 'yu1up4',            --누적 결제금액 100만원 이상
+		}
+	}
+end
+
+
 
 CUS_CATEGORY = {
 
