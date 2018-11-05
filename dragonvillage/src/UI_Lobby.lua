@@ -124,108 +124,8 @@ function UI_Lobby:entryCoroutine()
             MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
         end
         
-		-- lobby 공통 함수
-		co:work()
-		do
-			-- param
-			local uid = g_userData:get('uid')
-			local time = g_accessTimeData:getTime()
-			local combat_power = g_dragonsData:getBestCombatPower()
-			-- ui_network
-			local ui_network = UI_Network()
-			ui_network:setUrl('/users/lobby')
-			ui_network:setParam('uid', uid)
-			ui_network:setParam('access_time', time)
-			ui_network:setParam('dragon_power', combat_power)
-			ui_network:setRevocable(true)
-			ui_network:setSuccessCB(function(ret)
-
-				co:work()
-				cclog('# 친구 정보 받는 중')
-				g_friendData:response_friendList(ret, co.NEXT)
-				if co:waitWork() then return end
-
-				co:work()
-				cclog('# 출석 정보 받는 중')
-				g_attendanceData:response_attendanceInfo(ret, co.NEXT)
-				if co:waitWork() then return end
-
-				co:work()
-				cclog('# 핫타임 정보 요청 중')
-				g_hotTimeData:response_hottime(ret, co.NEXT)
-				if co:waitWork() then return end
-
-				co:work()
-				cclog('# 이벤트 정보 받는 중')
-				g_eventData:response_eventList(ret, co.NEXT)
-				if co:waitWork() then return end
-
-				co:work()
-				cclog('# 드래곤의 숲 확인 중')
-				ServerData_Forest:getInstance():response_forestInfo(ret, co.NEXT)
-				if co:waitWork() then return end
-
-				co:work()
-				cclog('# 접속시간 저장 중')
-				g_accessTimeData:response_saveTime(ret, co.NEXT)
-				if co:waitWork() then return end
-
-				co:work()
-				cclog('# 드래곤 전투력 저장 중')
-				g_dragonsData:response_updatePower(ret, co.NEXT)
-				if co:waitWork() then return end
-
-				cclog('# 인연 던전 확인 중')
-				if (ret['secret_dungeon_cnt']) then
-					g_secretDungeonData:setSecretDungeonExist(ret['secret_dungeon_cnt'] > 0)
-				end
-
-                cclog('# 자동줍기 결과 확인 중')
-                if (ret['hours'] and ret['ingame_drop_stats']) then
-                    g_serverData:networkCommonRespone(ret) -- expired 갱신
-					UI_AutoItemPickResultPopup(ret['hours'], ret['ingame_drop_stats'])
-				end
-
-				cclog('# 퀘스트 확인 중')
-				if (ret['quest_info']) then
-					g_questData:applyQuestInfo(ret['quest_info'])
-				end
-
-				cclog('# 고대의 탑 정보 확인 중')
-				if (ret['ancient_info']) then
-					g_ancientTowerData:setInfoForLobby(ret['ancient_info'])
-				end
-
-				cclog('# 콜로세움 정보 확인 중')
-				if (ret['pvp_info']) then -- 콜로세움 (기존) <-- 닫혀있음 안줌
-					g_colosseumData:setInfoForLobby(ret['pvp_info'])
-				end
-
-                if (ret['arena_info']) then -- 콜로세움 (신규) <-- 닫혀있음 안줌
-					g_arenaData:setInfoForLobby(ret['arena_info'])
-				end
-
-                cclog('# 누적 결제 보상 정보 확인 중')
-                if (ret['purchase_point_info']) then
-                    g_purchasePointData:applyPurchasePointInfo(ret['purchase_point_info'])
-                end
-				
-                cclog('# 스킬 이전 가격 정보 받는 중')
-                g_dragonsData:setSkillMovePrice(ret)
-
-                cclog('# 확률업 드래곤 정보 받는 중')
-                g_eventData:applyChanceUpDragons(ret)
-
-                cclog('# 출시 드래곤 정보 받는 중')
-                g_dragonsData:setReleasedDragons(ret)
-
-				co.NEXT()
-			end)
-			ui_network:setFailCB(required_fail_cb)
-			ui_network:hideBGLayerColor()
-			ui_network:request()
-		end
-		if co:waitWork() then return end
+        -- lobby 공통 함수
+        self:entryCoroutine_requestUsersLobby(co)
 
 		if (g_hotTimeData:isActiveEvent('event_exchange')) then
             co:work()
@@ -365,6 +265,115 @@ function UI_Lobby:entryCoroutine()
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
+end
+
+-------------------------------------
+-- function entryCoroutine_requestUsersLobby
+-- @brief lobby 공통 함수
+-------------------------------------
+function UI_Lobby:entryCoroutine_requestUsersLobby(co)
+	co:work()
+	
+    -- param
+	local uid = g_userData:get('uid')
+	local time = g_accessTimeData:getTime()
+	local combat_power = g_dragonsData:getBestCombatPower()
+
+	-- ui_network
+	local ui_network = UI_Network()
+	ui_network:setUrl('/users/lobby')
+	ui_network:setParam('uid', uid)
+	ui_network:setParam('access_time', time)
+	ui_network:setParam('dragon_power', combat_power)
+	ui_network:setRevocable(true)
+	ui_network:setSuccessCB(function(ret)
+
+		co:work()
+		cclog('# 친구 정보 받는 중')
+		g_friendData:response_friendList(ret, co.NEXT)
+		if co:waitWork() then return end
+
+		co:work()
+		cclog('# 출석 정보 받는 중')
+		g_attendanceData:response_attendanceInfo(ret, co.NEXT)
+		if co:waitWork() then return end
+
+		co:work()
+		cclog('# 핫타임 정보 요청 중')
+		g_hotTimeData:response_hottime(ret, co.NEXT)
+		if co:waitWork() then return end
+
+		co:work()
+		cclog('# 이벤트 정보 받는 중')
+		g_eventData:response_eventList(ret, co.NEXT)
+		if co:waitWork() then return end
+
+		co:work()
+		cclog('# 드래곤의 숲 확인 중')
+		ServerData_Forest:getInstance():response_forestInfo(ret, co.NEXT)
+		if co:waitWork() then return end
+
+		co:work()
+		cclog('# 접속시간 저장 중')
+		g_accessTimeData:response_saveTime(ret, co.NEXT)
+		if co:waitWork() then return end
+
+		co:work()
+		cclog('# 드래곤 전투력 저장 중')
+		g_dragonsData:response_updatePower(ret, co.NEXT)
+		if co:waitWork() then return end
+
+		cclog('# 인연 던전 확인 중')
+		if (ret['secret_dungeon_cnt']) then
+			g_secretDungeonData:setSecretDungeonExist(ret['secret_dungeon_cnt'] > 0)
+		end
+
+        cclog('# 자동줍기 결과 확인 중')
+        if (ret['hours'] and ret['ingame_drop_stats']) then
+            g_serverData:networkCommonRespone(ret) -- expired 갱신
+			UI_AutoItemPickResultPopup(ret['hours'], ret['ingame_drop_stats'])
+		end
+
+		cclog('# 퀘스트 확인 중')
+		if (ret['quest_info']) then
+			g_questData:applyQuestInfo(ret['quest_info'])
+		end
+
+		cclog('# 고대의 탑 정보 확인 중')
+		if (ret['ancient_info']) then
+			g_ancientTowerData:setInfoForLobby(ret['ancient_info'])
+		end
+
+		cclog('# 콜로세움 정보 확인 중')
+		if (ret['pvp_info']) then -- 콜로세움 (기존) <-- 닫혀있음 안줌
+			g_colosseumData:setInfoForLobby(ret['pvp_info'])
+		end
+
+        if (ret['arena_info']) then -- 콜로세움 (신규) <-- 닫혀있음 안줌
+			g_arenaData:setInfoForLobby(ret['arena_info'])
+		end
+
+        cclog('# 누적 결제 보상 정보 확인 중')
+        if (ret['purchase_point_info']) then
+            g_purchasePointData:applyPurchasePointInfo(ret['purchase_point_info'])
+        end
+				
+        cclog('# 스킬 이전 가격 정보 받는 중')
+        g_dragonsData:setSkillMovePrice(ret)
+
+        cclog('# 확률업 드래곤 정보 받는 중')
+        g_eventData:applyChanceUpDragons(ret)
+
+        cclog('# 출시 드래곤 정보 받는 중')
+        g_dragonsData:setReleasedDragons(ret)
+
+		co.NEXT()
+	end)
+	ui_network:setFailCB(required_fail_cb)
+	ui_network:hideBGLayerColor()
+	ui_network:request()
+
+	if co:waitWork() then return end
 end
 
 -------------------------------------
