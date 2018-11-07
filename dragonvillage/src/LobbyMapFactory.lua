@@ -18,9 +18,7 @@ local LAYER_INFO_LIST = {
 -------------------------------------
 function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 
-	-- 할로윈 밤 고정
-	--self:chcekDayOrNight()
-	USE_NIGHT = true
+	self:chcekDayOrNight()
 
     local lobby_map = LobbyMap(parent_node)
     lobby_map:setContainerSize(1280*3, 960)
@@ -35,10 +33,10 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 		lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby)
 		
 		-- 할로윈 장식
-		self:makeLobbyDeco_onLayer(lobby_ground, 'halloween')
+		--self:makeLobbyDeco_onLayer(lobby_ground, 'halloween')
 	end
 
-	lobby_map:addLayer(self:makeLobbyDecoLayer('halloween'), 1) -- 근경 할로윈 장식
+	--lobby_map:addLayer(self:makeLobbyDecoLayer('halloween'), 1) -- 근경 할로윈 장식
     --lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
 
     return lobby_map
