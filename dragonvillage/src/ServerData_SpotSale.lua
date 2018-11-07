@@ -19,6 +19,15 @@ function ServerData_SpotSale:init(server_data)
 end
 
 -------------------------------------
+-- function setSpotSaleTable
+-- @brief 서버csv테이블 세팅 / priority 기준으로 정렬
+-------------------------------------
+function ServerData_SpotSale:setSpotSaleTable()
+    self.m_spotSaleTable = TABLE:get('table_spot_sale')
+	self:sortByPriority()
+end
+
+-------------------------------------
 -- function showSpotSale
 -------------------------------------
 function ServerData_SpotSale:showSpotSale(finish_cb)
@@ -33,6 +42,21 @@ function ServerData_SpotSale:checkLackItem()
     
 	return true
 	
+end
+
+-------------------------------------
+-- function sortByPriority
+-------------------------------------
+function ServerData_SpotSale:sortByPriority()
+	local l_spot_sale = table.MapToList(self.m_spotSaleTable)
+	
+	function sortByPriority(a, b)
+		return a['priority'] < b['priority']
+	end
+	-- priority 기준으로 정렬
+	table.sort(l_spot_sale, sortByPriority)
+
+	self.m_spotSaleTable = table.listToMap(l_spot_sale, 'id')
 end
 
 -------------------------------------
