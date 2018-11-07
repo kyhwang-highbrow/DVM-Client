@@ -163,6 +163,16 @@ function UI_QuestListItem:setRewardCard()
             end
         end
     end
+
+	-- 클랜 경험치
+	local clan_exp = self.m_questData:getRewardClanExp()
+	if (clan_exp) then
+		local clan_exp_card = UI_ClanExpCard(clan_exp)
+		local reward_node = vars['rewardNode' .. last_idx + 1]
+		if (reward_node) then
+			reward_node:addChild(clan_exp_card.root)
+		end
+	end
 end
 
 -------------------------------------

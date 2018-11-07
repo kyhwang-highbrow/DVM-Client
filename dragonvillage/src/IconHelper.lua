@@ -634,3 +634,10 @@ function IconHelper:getManaIcon(mana)
     local res_path = string.format('res/ui/buttons/skill_mana_01%02d.png', mana)
     return IconHelper:getIcon(res_path)
 end
+
+-------------------------------------
+-- function getClanExpIcon
+-------------------------------------
+function IconHelper:getClanExpIcon()
+    return IconHelper:getIcon('res/ui/icons/item/lactea.png')
+end

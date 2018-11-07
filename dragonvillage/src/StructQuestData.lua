@@ -126,3 +126,15 @@ function StructQuestData:getProgressInfo()
 
     return percentage, text
 end
+
+-------------------------------------
+-- function getRewardClanExp
+-- @breif
+-------------------------------------
+function StructQuestData:getRewardClanExp()
+	local clan_exp = self['t_quest']['clan_exp']
+	if (clan_exp == '') then
+		return nil
+	end
+	return clan_exp
+end

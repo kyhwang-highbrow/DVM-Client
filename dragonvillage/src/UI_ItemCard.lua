@@ -284,3 +284,34 @@ end
 function UI_ItemCard:setCheckSpriteVisible(visible)
     self.vars['checkSprite']:setVisible(visible)
 end
+
+
+------------------------------------
+-- function UI_ClanExpCard
+-- @brief UI에서 사용하기 위한 클랜 카드, itemCard를 사용하지는 않음
+-------------------------------------
+function UI_ClanExpCard(clan_exp)
+	local ui = UI()
+    local vars = ui:load('icon_item_item.ui')
+    
+    local icon = IconHelper:getClanExpIcon()
+    vars['stoneNode']:addChild(icon)
+    vars['icon'] = icon
+
+    if (not clan_exp) or (clan_exp == 0) then
+        vars['numberLabel']:setString('')
+    else
+        vars['numberLabel']:setString(comma_value(clan_exp))
+    end
+
+    vars['disableSprite']:setVisible(false)
+
+	-- 클릭 시 툴팁
+	vars['clickBtn']:registerScriptTapHandler(function()
+		local str = '{@SKILL_NAME}' .. Str('클랜 경험치')
+		local tool_tip = UI_Tooltip_Skill(70, -145, str)
+		tool_tip:autoPositioning(vars['clickBtn'])
+	end)
+
+	return ui
+end
