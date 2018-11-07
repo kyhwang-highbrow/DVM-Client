@@ -51,7 +51,8 @@ function UI_ExchangeEventListItem:initUI()
 
     -- 1주년 스페셜 (케이크)
     if (step == 12) then
-        vars['1stAnniversarySprite']:setVisible(true)
+        -- sgkim 1주년 이벤트 종료로 비활성화
+        --vars['1stAnniversarySprite']:setVisible(true)
     end
 end
 
