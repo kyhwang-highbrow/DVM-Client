@@ -162,7 +162,9 @@ local TableInfo_fromServer = {
         -- 만드라고라의 모험
         ['table_mandragora_quest_event'] = {'table_mandragora_quest_event', 'qid'},
 
-        ['table_alphabet_event'] = {'table_alphabet_event', 'id'} -- 알파벳 이벤트
+        ['table_alphabet_event'] = {'table_alphabet_event', 'id'}, -- 알파벳 이벤트
+
+		['table_spot_sale'] = {'table_spot_sale', 'id'} -- 깜짝 세일 상품
     }
 
 -------------------------------------
