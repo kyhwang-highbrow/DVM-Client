@@ -366,6 +366,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 
         cclog('# 출시 드래곤 정보 받는 중')
         g_dragonsData:setReleasedDragons(ret)
+		
+		cclog('# 깜짝 세일 상품 정보 받는 중')
+		if (ret['spot_sale']) then
+			--g_spotSaleData:applySpotSaleInfo(ret['spot_sale'])
+		end
 
 		co.NEXT()
 	end)
