@@ -27,6 +27,12 @@ StructClan = class(PARENT, {
 
         m_structClanMark = 'StructClanMark',
         m_memberList = 'list[StructUserInfoCLan]',
+
+		-- 클랜 컨텐츠 업데이트로 추가
+		lv = 'number',
+		exp = 'number',
+		required_exp = 'number',
+		member_max = 'number',
     })
 
 local THIS = StructClan
@@ -35,7 +41,6 @@ local THIS = StructClan
 -- function init
 -------------------------------------
 function StructClan:init(data)
-
     if (data['mark']) then
         self.m_structClanMark = StructClanMark:create(data['mark'])
     else
@@ -68,7 +73,8 @@ end
 -- function getClanName
 -------------------------------------
 function StructClan:getClanName()
-    return self['name']
+	local lv = self['lv'] or 0
+    return string.format('Lv.%d %s', lv, self['name'])
 end
 
 -------------------------------------
@@ -138,7 +144,7 @@ end
 -- function getMemberCntText
 -------------------------------------
 function StructClan:getMemberCntText()
-    local max_member_cnt = 20
+    local max_member_cnt = self['member_max']
     local text = Str('{1}/{2}', self['member_cnt'], max_member_cnt)
     return text
 end
@@ -175,6 +181,28 @@ function StructClan:getClanNoticeText()
 
     return notice_text
 end
+
+-------------------------------------
+-- function getClanLv
+-------------------------------------
+function StructClan:getClanLv()
+	return self['lv']
+end
+
+-------------------------------------
+-- function getClanExp
+-------------------------------------
+function StructClan:getClanExp()
+	return self['exp']
+end
+
+-------------------------------------
+-- function getClanMaxMember
+-------------------------------------
+function StructClan:getClanMaxMember()
+	return self['member_max']
+end
+
 
 -------------------------------------
 -- function makeClanMarkIcon

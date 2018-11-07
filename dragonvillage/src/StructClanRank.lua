@@ -10,7 +10,8 @@ StructClanRank = class(PARENT, {
         mark = 'string', -- 클랜 문장
         master = 'string', -- 클랜 마스터 닉네임
         m_structClanMark = 'StructClanMark',
-    
+		lv = 'number',
+
         -- structClan 에 없는 항목
         rank = 'number',
         score = 'number',
@@ -22,6 +23,7 @@ StructClanRank = class(PARENT, {
         member_cnt = 'number',
         info = '', -- ??
         cdlv = '', -- 현재 진행중 단계 (던전에서만 옴)
+		member_max = ''
     })
 
 local THIS = StructClanRank
@@ -60,7 +62,15 @@ end
 -- function getClanName
 -------------------------------------
 function StructClanRank:getClanName()
-    return self['name']
+    local lv = self['lv'] or 0
+    return string.format('레벨 %d %s', lv, self['name'])
+end
+
+-------------------------------------
+-- function getClanLv
+-------------------------------------
+function StructClanRank:getClanLv()
+    return self['lv']
 end
 
 -------------------------------------

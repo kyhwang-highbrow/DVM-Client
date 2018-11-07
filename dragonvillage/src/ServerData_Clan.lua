@@ -835,8 +835,8 @@ function ServerData_Clan:request_accept(finish_cb, fail_cb, req_uid)
         return
     end
 
-    -- 20명 이상일 경우
-    if (20 <= self.m_structClan:getMemberCnt()) then
+    -- 멤버 최대치 이상일 경우
+    if (self.m_structClan:getMaxMember() <= self.m_structClan:getMemberCnt()) then
         UIManager:toastNotificationRed(Str('클랜원 목록이 가득 찼습니다.'))
         return
     end
