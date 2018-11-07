@@ -1,5 +1,7 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
+local ENTRY_LOBBY_CNT = 0
+
 -------------------------------------
 -- class UI_Lobby
 -------------------------------------
@@ -51,6 +53,8 @@ function UI_Lobby:init()
 
     -- @ E.T.
     g_errorTracker:cleanupIngameLog()
+
+	ENTRY_LOBBY_CNT = ENTRY_LOBBY_CNT + 1
 end
 
 -------------------------------------
@@ -245,6 +249,8 @@ function UI_Lobby:entryCoroutine()
                     if co:waitWork() then return end
                 end
             end
+
+			-- self:entryCoroutine_spotSale(co)
         end
         
         -- @ UI_ACTION
@@ -266,6 +272,27 @@ function UI_Lobby:entryCoroutine()
 
     Coroutine(coroutine_function, '로비 코루틴')
 end
+
+-------------------------------------
+-- function entryCoroutine_spotSale
+-- @brief 깜짝 할인 상품 코루틴 
+-------------------------------------
+function UI_Lobby:entryCoroutine_spotSale(co)
+	-- 로비 최초 진입 시에는 skip
+	if (ENTRY_LOBBY_CNT < 2) then
+		return
+	end
+
+	-- 깜짝 할인 상품 리스트 확인 후 없으면 skip
+	if (not g_spotSaleData:checkLackItem()) then
+		return
+	end
+
+	co:work()
+	g_spotSaleData:showSpotSale(co.NEXT)
+	if co:waitWork() then return end
+end
+
 
 -------------------------------------
 -- function entryCoroutine_requestUsersLobby
