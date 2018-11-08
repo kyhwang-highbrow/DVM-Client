@@ -142,12 +142,12 @@ function UI_QuestListItem:setRewardCard()
 
     local l_reward_info = self.m_questData:getRewardInfoList()
 
-    local last_idx = 0
+    local reward_idx = 1
     for i, v in ipairs(l_reward_info) do
         local reward_card = UI_ItemCard(v['item_id'], v['count'])
         reward_card.root:setSwallowTouch(false)
         vars['rewardNode' .. i]:addChild(reward_card.root)
-        last_idx = i
+        reward_idx = reward_idx + 1
     end
 
     -- 일일 퀘스트 보상 2배 적용 중일 경우
@@ -155,12 +155,13 @@ function UI_QuestListItem:setRewardCard()
         for i, v in ipairs(l_reward_info) do
             local reward_card = UI_ItemCard(v['item_id'], v['count'])
             reward_card.root:setSwallowTouch(false)
-            local reward_node = vars['rewardNode' .. last_idx + i]
+            local reward_node = vars['rewardNode' .. reward_idx]
             reward_card.vars['bonusSprite']:setVisible(true)
             reward_card.vars['bonusLabel']:setString('')
             if reward_node then
                 reward_node:addChild(reward_card.root)
             end
+			reward_idx = reward_idx + 1
         end
     end
 
@@ -168,7 +169,7 @@ function UI_QuestListItem:setRewardCard()
 	local clan_exp = self.m_questData:getRewardClanExp()
 	if (clan_exp) then
 		local clan_exp_card = UI_ClanExpCard(clan_exp)
-		local reward_node = vars['rewardNode' .. last_idx + 1]
+		local reward_node = vars['rewardNode' .. reward_idx]
 		if (reward_node) then
 			reward_node:addChild(clan_exp_card.root)
 		end
