@@ -888,6 +888,7 @@ local t_module = {
     'UI_Package_Step',
     'UI_Package_Step02',
     'UI_Package_Select_Radio',
+    'UI_Package_SpotSale',
     'UI_SubscriptionPopup',
     'UI_SubscriptionPopup_Ing',
     'UI_SubscriptionPopupNew',

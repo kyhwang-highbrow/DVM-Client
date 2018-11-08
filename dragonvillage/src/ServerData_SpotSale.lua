@@ -184,27 +184,69 @@ end
 -- @brief 로비 통신에서 받아오는 SpotSale 정보 적용
 -------------------------------------
 function ServerData_SpotSale:applySpotSaleInfo(t_spot_sale)
+    if (not t_spot_sale) then
+        return
+    end
+
+    -- t_spot_sale ex
+    --"spot_sale":{
+    --    "active_list":{
+    --      "100010":1541675830386
+    --    },
+    --    "global_cool_down":1541747830386,
+    --    "cool_down_list":{
+    --      "100010":1541834230386
+    --    }
+    --  }
+
 	self.m_spotSaleInfo = t_spot_sale
 end
 
 -------------------------------------
 -- function getSpotSaleInfo_activeProduct
 -- @brief 
+-- @return spot_sale_id, endtime(timestamp 상품 판매 종료 시점 시간)
 -------------------------------------
 function ServerData_SpotSale:getSpotSaleInfo_activeProduct()
-	for i,v in pairs(self.m_spotSaleInfo['active_list']) do
-		if (i) then
-			return i, v
-		end
+    local spot_sale_info = self:getSpotSaleInfo()
+
+    if (not spot_sale_info['active_list']) then
+        return nil, nil
+    end
+
+    -- 현재 시간
+    local curr_time = Timer:getServerTime()
+
+    -- 우선 깜짝 할인 상품은 동시에 1개만 발동된다고 가정함 (기획의도)
+	for spot_sale_id, endtime in pairs(spot_sale_info['active_list']) do
+
+        -- 상품 만료 시간 이전일 경우
+        if (curr_time < endtime) then
+            return spot_sale_id, endtime
+        end
 	end
+end
+
+-------------------------------------
+-- function hasSpotSaleItem
+-- @brief 판매 중인 깜짝 할인 상품이 있는지 여부
+-------------------------------------
+function ServerData_SpotSale:hasSpotSaleItem()
+    local spot_slae_id, endtime = self:getSpotSaleInfo_activeProduct()
+
+    if spot_slae_id then
+        return true
+    else
+        return false
+    end
 end
 
 -------------------------------------
 -- function request_startSpotSale
 -- @brief 깜짝 세일 상품 발동
+-- @param id table_spot_sale에서 key값
 -------------------------------------
 function ServerData_SpotSale:request_startSpotSale(id, succ_cb)
-    
 	local func_request
 	local fail_cb
 	local response_status_cb
@@ -226,8 +268,9 @@ function ServerData_SpotSale:request_startSpotSale(id, succ_cb)
 		ui_network:request()
 	end
 
+    -- 통신 성공 콜백
 	success_cb = function(ret)
-		self:applySpotSaleInfo(ret)
+		self:applySpotSaleInfo(ret['spot_sale'])
 		succ_cb()
     end
 
@@ -238,10 +281,6 @@ function ServerData_SpotSale:request_startSpotSale(id, succ_cb)
 
 	-- 통신 에러 리턴 콜백 (true를 리턴하면 자체적으로 처리를 완료했다는 뜻)
     response_status_cb = function(ret)
-        if (ret['status'] == -1108) then
-            return true
-        end
-
         return false
     end
 

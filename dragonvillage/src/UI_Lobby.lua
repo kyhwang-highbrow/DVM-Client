@@ -293,7 +293,8 @@ function UI_Lobby:entryCoroutine_spotSale(co)
     end
     
 	co:work()
-    g_spotSaleData:showSpotSale(lack_item_id, co.NEXT)
+    --g_spotSaleData:showSpotSale(lack_item_id, co.NEXT)
+    g_spotSaleData:request_startSpotSale(lack_item_id, co.NEXT)
 	if co:waitWork() then return end
 end
 
@@ -1175,7 +1176,7 @@ end
 -- function click_spotSaleBtn
 -------------------------------------
 function UI_Lobby:click_spotSaleBtn()
-    
+    UI_Package_SpotSale()
 end
 
 -------------------------------------
@@ -1378,7 +1379,7 @@ function UI_Lobby:update(dt)
         end
     end
 
-	-- self:update_spotSaleButtons()
+	self:update_spotSaleButtons()
     
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -1488,13 +1489,8 @@ end
 -- @brief
 -------------------------------------
 function UI_Lobby:update_spotSaleButtons()
-
-	local active_sale = g_spotSaleData:getSpotSaleInfo_activeProduct()
-	if (active_sale) then
-		self.vars['spotSaleBtn1']:setVisible(true)
-	else
-		self.vars['spotSaleBtn1']:setVisible(false)
-	end
+	local has_spot_sale_item = g_spotSaleData:hasSpotSaleItem()
+    self.vars['spotSaleBtn1']:setVisible(has_spot_sale_item)
 end
 
 -------------------------------------

@@ -552,6 +552,11 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
             self:setDirty()
         end
 
+        -- 깜짝 세일 상품 정보 받는 중
+		if (ret['spot_sale']) then
+			g_spotSaleData:applySpotSaleInfo(ret['spot_sale'])
+		end
+
 		if (cb_func) then
 			cb_func(ret)
 		end
