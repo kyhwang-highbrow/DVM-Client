@@ -284,12 +284,15 @@ function UI_Lobby:entryCoroutine_spotSale(co)
 	end
 
 	-- 깜짝 할인 상품 리스트 확인 후 없으면 skip
-	if (not g_spotSaleData:checkLackItem()) then
+	local lack_item = g_spotSaleData:getLackItem()
+
+	if (lack_item) then
+		g_spotSaleData:showSpotSale(lack_item, co.NEXT)
+	else
 		return
 	end
 
 	co:work()
-	g_spotSaleData:showSpotSale(co.NEXT)
 	if co:waitWork() then return end
 end
 
