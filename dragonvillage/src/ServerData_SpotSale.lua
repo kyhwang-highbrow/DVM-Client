@@ -142,6 +142,18 @@ function ServerData_SpotSale:applySpotSaleInfo(t_spot_sale)
 end
 
 -------------------------------------
+-- function getSpotSaleInfo_activeProduct
+-- @brief 
+-------------------------------------
+function ServerData_SpotSale:getSpotSaleInfo_activeProduct()
+	for i,v in pairs(self.m_spotSaleInfo['active_list']) do
+		if (i) then
+			return i, v
+		end
+	end
+end
+
+-------------------------------------
 -- function request_startSpotSale
 -- @brief 깜짝 세일 상품 발동
 -------------------------------------

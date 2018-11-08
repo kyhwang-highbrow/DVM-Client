@@ -546,6 +546,7 @@ function UI_Lobby:initButton()
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
     vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
     vars['goldBoosterBtn']:registerScriptTapHandler(function() self:click_goldBoosterBtn() end)
+	vars['spotSaleBtn1']:registerScriptTapHandler(function() self:click_spotSaleBtn() end)
 
     -- 우측 UI
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
@@ -1170,6 +1171,13 @@ function UI_Lobby:click_googleGameBtn()
 end
 
 -------------------------------------
+-- function click_spotSaleBtn
+-------------------------------------
+function UI_Lobby:click_spotSaleBtn()
+    
+end
+
+-------------------------------------
 -- function click_googleAchievementBtn
 -------------------------------------
 function UI_Lobby:click_googleAchievementBtn()
@@ -1368,6 +1376,8 @@ function UI_Lobby:update(dt)
             end
         end
     end
+
+	-- self:update_spotSaleButtons()
     
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -1470,6 +1480,20 @@ function UI_Lobby:update_boosterButtons()
         local _pos_x = pos_x + ((i-1) * interval)
         v:setPositionX(_pos_x)
     end
+end
+
+-------------------------------------
+-- function update_spotSaleButtons
+-- @brief
+-------------------------------------
+function UI_Lobby:update_spotSaleButtons()
+
+	local active_sale = g_spotSaleData:getSpotSaleInfo_activeProduct()
+	if (active_sale) then
+		self.vars['spotSaleBtn1']:setVisible(true)
+	else
+		self.vars['spotSaleBtn1']:setVisible(false)
+	end
 end
 
 -------------------------------------
