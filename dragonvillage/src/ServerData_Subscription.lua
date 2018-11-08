@@ -150,8 +150,6 @@ function ServerData_Subscription:response_subscriptionInfo(ret)
         return
     end
 
-    cclog('### response_subscriptionInfo(ret) call!!')
-
     local table_shop_cash = self:listToDic(ret['table_shop_cash'], 'product_id')
     local table_shop_basic = self:listToDic(ret['table_shop_basic'], 'product_id')
     local table_subscription_list = self:listToDic(ret['table_subscription_list'], 'list_id')

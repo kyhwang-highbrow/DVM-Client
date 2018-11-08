@@ -35,6 +35,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['daily'] = {}
     self.m_dicProduct['reinforce'] = {}
     self.m_dicProduct['skillslime'] = {}
+    self.m_dicProduct['etc'] = {}
     self.m_dicBuyCnt = {}
     self.m_dicMarketPrice = {}
 
