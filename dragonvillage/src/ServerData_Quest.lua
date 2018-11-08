@@ -283,6 +283,14 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
 		    self:applyQuestInfo(ret['quest_info'])
         end
         
+		-- 클랜 경험치 획득하여 레벨업 시 클랜 정보가 오므로 갱신해줌
+		if (ret['clan']) then
+			g_clanData:setClanStruct(ret['clan'])
+		end
+		if (ret['clan_buff']) then
+			g_clanData:setClanBuffStruct(ret['clan_buff'])
+		end
+
 		-- 여기서 highlight 정보가 넘어오긴 하는데.. 어차피 로비에서 다시 통신하는 구조이므로
 		-- 노티 정보를 갱신하기 위해서 호출
 		g_highlightData:setDirty(true)
