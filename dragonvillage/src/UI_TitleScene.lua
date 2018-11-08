@@ -746,10 +746,6 @@ function UI_TitleScene:workGameLogin()
 		g_serverData:applyServerData(ret['tamers'], 'tamers')
 		g_tamerData:reMappingTamerInfo(ret['tamers'])
 
-		-- clan
-		g_clanData:setClanStruct(ret['clan'])
-		g_clanData:setClanBuff(ret['clan_buff'])
-
 		g_serverData:unlockSaveData()
 
         -- server_info 정보를 갱신
