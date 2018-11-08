@@ -1,5 +1,6 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
+-- UI_Lobby인스턴스가 생성된 횟수 (최초 진입 시를 구별하기 위해 추가)
 local ENTRY_LOBBY_CNT = 0
 
 -------------------------------------
@@ -54,7 +55,7 @@ function UI_Lobby:init()
     -- @ E.T.
     g_errorTracker:cleanupIngameLog()
 
-	ENTRY_LOBBY_CNT = ENTRY_LOBBY_CNT + 1
+	ENTRY_LOBBY_CNT = (ENTRY_LOBBY_CNT + 1)
 end
 
 -------------------------------------
@@ -250,7 +251,7 @@ function UI_Lobby:entryCoroutine()
                 end
             end
 
-			-- self:entryCoroutine_spotSale(co)
+			self:entryCoroutine_spotSale(co)
         end
         
         -- @ UI_ACTION
@@ -278,21 +279,21 @@ end
 -- @brief 깜짝 할인 상품 코루틴 
 -------------------------------------
 function UI_Lobby:entryCoroutine_spotSale(co)
+    -- UIManager:toastNotificationRed('ENTRY_LOBBY_CNT : ' .. ENTRY_LOBBY_CNT)
+
 	-- 로비 최초 진입 시에는 skip
-	if (ENTRY_LOBBY_CNT < 2) then
+	if (ENTRY_LOBBY_CNT <= 1) then
 		return
 	end
 
 	-- 깜짝 할인 상품 리스트 확인 후 없으면 skip
-	local lack_item = g_spotSaleData:getLackItem()
-
-	if (lack_item) then
-		g_spotSaleData:showSpotSale(lack_item, co.NEXT)
-	else
-		return
-	end
-
+	local lack_item_id = g_spotSaleData:getSpotSaleLackItemID()
+    if (not lack_item_id) then
+        return
+    end
+    
 	co:work()
+    g_spotSaleData:showSpotSale(lack_item_id, co.NEXT)
 	if co:waitWork() then return end
 end
 
