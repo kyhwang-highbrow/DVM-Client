@@ -105,7 +105,7 @@ function UI_AdventureSceneNew:initButton()
     -- 개발 스테이지 테스트 모드에서만 on
     if IS_TEST_MODE() then
         vars['devStageBtn']:setVisible(true)
-        vars['devStageBtn']:registerScriptTapHandler(function() self:openAdventureStageInfoPopup(DEV_STAGE_ID) end)
+        vars['devStageBtn']:registerScriptTapHandler(function() self:click_devStageBtn() end)
 
         -- 클랜 던전 테스트
         vars['clanraidStageBtn']:setVisible(true)
@@ -548,6 +548,18 @@ function UI_AdventureSceneNew:click_stageBtn(stage_id, is_open)
         UIManager:toastNotificationRed(msg)
     end
 end
+
+-------------------------------------
+-- function click_devStageBtn
+-- @brief 개발 스테이지 버튼
+--        sgkim 2018.11.07 10vs10 PvP 테스트 버튼으로 사용 중
+-------------------------------------
+function UI_AdventureSceneNew:click_devStageBtn()
+    --self:openAdventureStageInfoPopup(DEV_STAGE_ID)
+    local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
+    scene:runScene()
+end
+
 
 -------------------------------------
 -- function focusStageButton

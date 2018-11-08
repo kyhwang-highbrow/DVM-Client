@@ -74,7 +74,8 @@ function GameState_EventArena.update_start(self, dt)
             world:changeCameraOption({
                 pos_x = 0,
                 pos_y = 0,
-                scale = 0.6,
+                --scale = 0.6,
+                scale = 0.7,
                 time = 2,
                 cb = function()
                     self:nextStep()
@@ -101,4 +102,12 @@ function GameState_EventArena.update_start(self, dt)
             self:changeState(GAME_STATE_WAVE_INTERMISSION)
         end
     end
+end
+
+-------------------------------------
+-- function makeResultUI
+-------------------------------------
+function GameState_EventArena:makeResultUI(is_win)
+    local t_data = { added_rp = 0, added_honor = 0 }
+    UI_EventArenaResult(is_win, t_data)
 end

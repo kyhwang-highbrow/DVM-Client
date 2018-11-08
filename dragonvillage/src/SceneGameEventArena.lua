@@ -57,7 +57,7 @@ function SceneGameEventArena:onEnter()
         g_autoPlaySetting:setAutoPlay(false)
     end
     
-    self.m_inGameUI = UI_GameArena(self)
+    self.m_inGameUI = UI_GameEventArena(self)
     self.m_resPreloadMgr = ResPreloadMgr()
 
     -- 절전모드 설정
@@ -127,6 +127,13 @@ function SceneGameEventArena:prepare()
 		self.m_inGameUI:init_dpsUI()
 		self.m_inGameUI:init_panelUI()
     end)
+
+    -- 개발 중 퍼포먼스 확인을 위해 FPS 화면에 표시
+    self:addLoading(function()
+        --local fps_meter = FpsMeter()
+        --fps_meter:init_physWolrd(self.m_gameWorld.m_physWorld)
+        --self.m_fpsMeter = fps_meter
+    end)
 end
 
 -------------------------------------
@@ -146,6 +153,10 @@ function SceneGameEventArena:prepareDone()
     self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
     
     self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
+
+    -- 전투에 필수적인 요소만 남겨서 보자
+    self.m_inGameUI.root:setVisible(false)
+    self.m_gameWorld.m_bgNode:setVisible(false)
 end
 
 -------------------------------------
@@ -340,4 +351,24 @@ function SceneGameEventArena:networkGameFinish_response_drop_reward(ret, t_resul
         local t_data = {item_id, count}
         table.insert(drop_reward_list, t_data)
     end
+end
+
+-------------------------------------
+-- function getStructUserInfo_Player
+-- @brief 플레이어 유저 정보
+-- @return StructUserInfo
+-------------------------------------
+function SceneGameEventArena:getStructUserInfo_Player()
+    local struct_user_info = StructUserInfo()
+    return struct_user_info
+end
+
+-------------------------------------
+-- function getStructUserInfo_Opponent
+-- @brief 상대방 유저 정보
+-- @return StructUserInfo
+-------------------------------------
+function SceneGameEventArena:getStructUserInfo_Opponent()
+    local struct_user_info = StructUserInfo()
+    return struct_user_info
 end

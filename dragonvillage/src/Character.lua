@@ -1542,6 +1542,7 @@ end
 -- function makeDamageNumber
 -------------------------------------
 function Character:makeDamageNumber(damage, r, g, b)
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_btn/ingame_btn.plist')
     local x_offset = 0
     local str = comma_value(damage)
     local length = #str

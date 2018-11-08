@@ -3817,6 +3817,12 @@
     <None Include="..\src\ServerData_SpotSale.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_EventArenaResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameEventArena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

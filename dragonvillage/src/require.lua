@@ -964,6 +964,7 @@ local t_module = {
     'UI_ArenaRankInfoPopup',
     'UI_ArenaRankingRewardPopup',
     'UI_ArenaReady',
+    'UI_EventArenaResult',
 
     -- UI : 친선전
     'UI_FriendMatchReady',
@@ -997,6 +998,7 @@ local t_module = {
     'UI_Game_Mana',
     'UI_GameColosseum',
     'UI_GameArena',
+    'UI_GameEventArena',
     'UI_GameClanRaid',
     'UI_GameEventGold',
     'UI_GameResultNew',
