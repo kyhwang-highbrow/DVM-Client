@@ -14,7 +14,7 @@ local DUNGEON_INFO_SHOW_ONLY_MANAGER = true
 -------------------------------------
 function UI_ClanMemberListItem:init(data)
     self.m_structUserInfo = data
-    local vars = self:load('clan_item_member_new.ui')
+    local vars = self:load('clan_item_member.ui')
 
     self:initUI()
     self:initButton()
@@ -123,14 +123,16 @@ function UI_ClanMemberListItem:refresh()
         end
     end
 
-    -- 던전 정보
-    local play_text = user_info:getDungeonPlayText()
-    vars['playInfoLabel']:setString(play_text)
-    if (DUNGEON_INFO_SHOW_ONLY_MANAGER) then
-        vars['playInfoNode']:setVisible((my_member_type == 'master') or (my_member_type == 'manager'))
-    else
+    -- 던전 + 기여도 정보
+	if ((my_member_type == 'master') or (my_member_type == 'manager')) then
+		local play_text = user_info:getDungeonPlayText()
         vars['playInfoNode']:setVisible(true)
-    end
+		vars['playInfoLabel']:setString(play_text)
+	else
+		local contribution_text = user_info:getClanContribution()
+        vars['expInfoNode']:setVisible(true)
+		vars['expInfoLabel']:setString(contribution_text)
+	end
 
     -- 다른 클랜의 정보를 보는 경우 nil처리를 하였음
     if (not vars['friendlyBattleBtn']) then
