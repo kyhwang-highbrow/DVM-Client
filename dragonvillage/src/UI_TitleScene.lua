@@ -748,6 +748,7 @@ function UI_TitleScene:workGameLogin()
 
 		-- clan
 		g_clanData:setClanStruct(ret['clan'])
+		g_clanData:setClanBuff(ret['clan_buff'])
 
 		g_serverData:unlockSaveData()
 

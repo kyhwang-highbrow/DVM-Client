@@ -636,6 +636,14 @@ function ServerData_Clan:setClanStruct(t_clan_data)
 end
 
 -------------------------------------
+-- function setClanBuff
+-- @brief
+-------------------------------------
+function ServerData_Clan:setClanBuff(t_clan_buff)
+	self.m_structClan:setClanBuffStruct(t_clan_buff)
+end
+
+-------------------------------------
 -- function requestClanInfoDetailPopup
 -- @brief
 -------------------------------------

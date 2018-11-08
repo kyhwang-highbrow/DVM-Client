@@ -27,6 +27,7 @@ StructClan = class(PARENT, {
 
         m_structClanMark = 'StructClanMark',
         m_memberList = 'list[StructUserInfoCLan]',
+		m_structClanBuff = 'StructClanBuff',
 
 		-- 클랜 컨텐츠 업데이트로 추가
 		lv = 'number',
@@ -40,12 +41,14 @@ local THIS = StructClan
 -------------------------------------
 -- function init
 -------------------------------------
-function StructClan:init(data)
+function StructClan:init(data, t_clan_buff)
     if (data['mark']) then
         self.m_structClanMark = StructClanMark:create(data['mark'])
     else
         self.m_structClanMark = StructClanMark()
     end
+
+	self.m_structClanBuff = StructClanBuff()
 end
 
 -------------------------------------
@@ -73,8 +76,7 @@ end
 -- function getClanName
 -------------------------------------
 function StructClan:getClanName()
-	local lv = self['lv'] or 0
-    return string.format('Lv.%d %s', lv, self['name'])
+    return self['name']
 end
 
 -------------------------------------
@@ -203,6 +205,27 @@ function StructClan:getClanMaxMember()
 	return self['member_max']
 end
 
+-------------------------------------
+-- function setClanBuffStruct
+-------------------------------------
+function StructClan:setClanBuffStruct(t_clan_buff)
+	ccdump(t_clan_buff)
+	self.m_structClanBuff:applyTableData(t_clan_buff)
+end
+
+-------------------------------------
+-- function getClanBuffStruct
+-------------------------------------
+function StructClan:getClanBuffStruct()
+	return self.m_structClanBuff
+end
+
+-------------------------------------
+-- function getClanBuffByType
+-------------------------------------
+function StructClan:getClanBuffByType(clan_buff_type)
+	return self.m_structClanBuff:getClanBuff(clan_buff_type)
+end
 
 -------------------------------------
 -- function makeClanMarkIcon

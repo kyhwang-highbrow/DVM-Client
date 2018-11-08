@@ -98,6 +98,7 @@ local t_module = {
     'StructClanMark',
     'StructClanRank',
     'StructClanRaid',
+	'StructClanBuff',
     'StructEventDiceInfo',
 	'StructDailyMission',
 	'StructCapsuleBox',

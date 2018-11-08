@@ -62,8 +62,7 @@ end
 -- function getClanName
 -------------------------------------
 function StructClanRank:getClanName()
-    local lv = self['lv'] or 0
-    return string.format('레벨 %d %s', lv, self['name'])
+    return self['name']
 end
 
 -------------------------------------
