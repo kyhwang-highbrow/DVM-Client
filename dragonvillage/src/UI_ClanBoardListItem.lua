@@ -86,6 +86,11 @@ function UI_ClanBoardListItem:initUI_system()
 	-- 이름
 	vars['infoLabel']:setString('{@mustard}SYSTEM')
 
+	-- 프레임 처리
+	vars['systemSprite']:setVisible(true)
+	vars['profileSprite']:setVisible(false)
+	vars['assessSystemSprite']:setVisible(true)
+
 	-- 프사
 	local icon = IconHelper:getSystemIcon()
 	vars['profileNode']:addChild(icon)

@@ -29,7 +29,7 @@ end
 -- function init
 -------------------------------------
 function UI_Clan:init()
-    local vars = self:load_keepZOrder('clan_02_new.ui')
+    local vars = self:load_keepZOrder('clan_02.ui')
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_Clan'
@@ -391,6 +391,18 @@ function UI_Clan:refresh()
     vars['markNode']:removeAllChildren()
     vars['markNode']:addChild(icon)
 
+	-- 클랜 레벨
+	local clan_lv = struct_clan:getClanLv()
+	vars['clanLvLabel']:setString(string.format('Clan Lv.%d', clan_lv))
+
+	-- 클랜 경험치
+	local clan_exp_percent = struct_clan:getClanExpRatio() * 100
+	vars['clanExpGg']:setPercentage(clan_exp_percent)
+	vars['clanExpLabel']:setString(string.format('%.2f%%', clan_exp_percent))
+
+	-- 클랜 버프
+	self:refresh_clanBuff()
+
     -- 클랜 이름
     local clan_name = struct_clan:getClanName()
     vars['clanNameLabel']:setString(clan_name)
@@ -465,6 +477,29 @@ function UI_Clan:refresh_memberCnt()
     -- 출석
     local str = Str('{1}/{2}', struct_clan:getCurrAttd(), 20)
     vars['attendanceLabel']:setString(str)
+end
+
+-------------------------------------
+-- function refresh_clanBuff
+-------------------------------------
+function UI_Clan:refresh_clanBuff()
+	local vars = self.vars
+	local struct_clan_buff = g_clanData:getClanStruct():getClanBuffStruct()
+	local idx = 1
+
+	for clan_buff_type, value in pairs(struct_clan_buff) do
+		-- 아이콘
+		vars['buffIconNode' .. idx]:removeAllChildren(true)
+		local icon = IconHelper:getClanBuffIcon(clan_buff_type)
+		if (icon) then
+			vars['buffIconNode' .. idx]:addChild(icon)
+		end
+
+		-- 버프 수치
+		vars['buffLabel' .. idx]:setString(string.format('+%d%%', value))
+
+		idx = idx + 1
+	end
 end
 
 -------------------------------------

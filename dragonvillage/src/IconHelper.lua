@@ -636,7 +636,7 @@ function IconHelper:getManaIcon(mana)
 end
 
 -------------------------------------
--- function getClanExpIcon
+-- function getSystemIcon
 -------------------------------------
 function IconHelper:getSystemIcon()
 	return IconHelper:getIcon('res/ui/icons/item/dvm.png')
@@ -647,4 +647,20 @@ end
 -------------------------------------
 function IconHelper:getClanExpIcon()
     return IconHelper:getIcon('res/ui/icons/item/lactea.png')
+end
+
+-------------------------------------
+-- function getClanBuffIcon
+-------------------------------------
+function IconHelper:getClanBuffIcon(clan_buff_type)
+	local res
+	if (string.find(clan_buff_type, 'exp')) then
+		res = 'res/ui/icons/hot_time/hot_time_exp.png'
+
+	elseif (string.find(clan_buff_type, 'gold')) then
+		res = 'res/ui/icons/hot_time/hot_time_gold.png'
+
+	end
+
+	return res and IconHelper:getIcon(res) or nil
 end

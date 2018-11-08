@@ -197,6 +197,13 @@ function StructClan:getClanExp()
 end
 
 -------------------------------------
+-- function getClanExpRatio
+-------------------------------------
+function StructClan:getClanExpRatio()
+	return (self['exp'] / self['required_exp'])
+end
+
+-------------------------------------
 -- function getClanMaxMember
 -------------------------------------
 function StructClan:getClanMaxMember()
