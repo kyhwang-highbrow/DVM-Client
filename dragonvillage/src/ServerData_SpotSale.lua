@@ -60,11 +60,54 @@ function ServerData_SpotSale:getLackItem()
 		
 		-- 현재 아이템 갯수가 조건보다 적다면 
 		if (curr_cnt < v['condition']) then
-			return v['id']
+			local lack_id = v['id']
+			if (self:checkCondition(lack_id)) then
+				return lack_id
+			end
 		end
 	end
 
 	return nil
+end
+
+-------------------------------------
+-- function checkCondition
+-- @brief 개별 상품에 대한 조건 검사
+-------------------------------------
+function ServerData_SpotSale:checkCondition(id)
+	-- 레벨 검사
+	if (g_userData:get('lv') < self:getSpotSaleTable_lv(id)) then
+		return false
+	end
+	
+	-- 개별 쿨타임 종료 시간 검사
+	local cool_down = self:getSpotSaleInfo_coolDown(id)
+	if (cool_down) then
+		-- 현재 쿨타임 종료 시간을 넘은 경우
+		if(cool_down < Timer:getServerTime()) then
+			return true
+		else
+			return false
+		end		
+	end
+
+	return true
+end
+
+-------------------------------------
+-- function getSpotSaleTable_lv
+-- @brief 테이블에서 해당 키의 타입 값 반환
+-------------------------------------
+function ServerData_SpotSale:getSpotSaleTable_lv(id)
+	return self.m_spotSaleTable[id]['user_lv']
+end
+
+-------------------------------------
+-- function getSpotSaleInfo_coolDown
+-- @brief 서버에서 받은 개별 쿨종료 시간 반환
+-------------------------------------
+function ServerData_SpotSale:getSpotSaleInfo_coolDown(id)
+	return self.m_spotSaleInfo['cool_down_list'][id]
 end
 
 -------------------------------------
