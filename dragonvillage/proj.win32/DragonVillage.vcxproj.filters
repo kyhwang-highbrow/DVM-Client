@@ -3823,6 +3823,9 @@
     <None Include="..\src\UI_GameEventArena.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructClanBuff.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
