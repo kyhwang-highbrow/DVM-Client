@@ -224,7 +224,7 @@ end
 -- function getClanBuffByType
 -------------------------------------
 function StructClan:getClanBuffByType(clan_buff_type)
-	if (not self.m_structClanBuff) then
+	if (not self.m_structClanBuff) or (not clan_buff_type) then
 		return 0
 	end
 	return self.m_structClanBuff:getClanBuff(clan_buff_type)

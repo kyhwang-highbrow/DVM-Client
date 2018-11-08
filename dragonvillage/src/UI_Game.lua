@@ -113,6 +113,23 @@ function UI_Game:initUI()
     self:initHotTimeUI()
 end
 
+local HOTTIME_UI_INFO = {
+	['gold'] = {
+		['button'] = 'hotTimeGoldBtn',
+		['label'] = 'hotTimeGoldLabel',
+		['format'] = '+%s%%',
+	},
+	['exp'] = {
+		['button'] = 'hotTimeExpBtn',
+		['label'] = 'hotTimeExpLabel',
+		['format'] = '+%s%%',
+	},
+	['stamina'] = {
+		['button'] = 'hotTimeStBtn',
+		['label'] = 'hotTimeStLabel',
+		['format'] = '1/2',
+	}
+}
 -------------------------------------
 -- function initHotTimeUI
 -- @brief 적용된 핫타임
@@ -129,90 +146,39 @@ function UI_Game:initHotTimeUI()
     vars['hotTimeGoldLabel']:setString('')
     vars['hotTimeExpLabel']:setString('')
 
+	local l_item_ui = {}
     local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key) or {}
-    local t_ui_name = {
-        ['stamina_50p'] = 'hotTimeStBtn',
-        ['gold_1_5x'] = 'hotTimeGoldBtn',
-        ['gold_2x'] = 'hotTimeGoldBtn',
-        ['exp_1_5x'] = 'hotTimeExpBtn',
-        ['exp_2x'] = 'hotTimeExpBtn',
-
-        ['buff_gold2x'] = 'hotTimeGoldBtn',
-        ['buff_exp2x'] = 'hotTimeExpBtn',
-    }
-
-    local t_ui_label_name = {
-        ['stamina_50p'] = {'hotTimeStLabel', '50'},
-        ['gold_1_5x'] = {'hotTimeGoldLabel', '50'},
-        ['gold_2x'] = {'hotTimeGoldLabel', '100'},
-        ['exp_1_5x'] = {'hotTimeExpLabel', '50'},
-        ['exp_2x'] = {'hotTimeExpLabel', '100'},
-
-        ['buff_gold2x'] = {'hotTimeGoldLabel', '100'},
-        ['buff_exp2x'] = {'hotTimeExpLabel', '100'},
-    }
-
-    -- hottime key를 ui name으로 변환
-    local l_item_ui = {}
+	local t_hottime_calc_value = {
+		['gold'] = 0,
+		['exp'] = 0,
+		['stamina'] = 0,
+	}
+	-- 총 버프 수치를 start 통신에서 받아온 따끈한 핫타임 정보로 계산
     for i, hot_key in pairs(l_hottime) do
-        if (t_ui_name[hot_key]) then
-
-            -- 툴팁 버튼 기능 추가
-            local btn_lua_name = t_ui_name[hot_key]
-            local btn = vars[btn_lua_name]
-
-            local hottime_type 
-            if (string.find(hot_key, 'gold')) then
-                hottime_type = 'gold'
-
-            elseif (string.find(hot_key, 'exp')) then
-                hottime_type = 'exp'
-
-            elseif (string.find(hot_key, 'stamina')) then
-                hottime_type = 'stamina'
-            end
-
-            if (hottime_type) then
-                btn:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(hottime_type, btn) end)
-            end
-            
-            local t_label_info = t_ui_label_name[hot_key]
-            local ui_name = t_label_info[1]
-            local value = t_label_info[2]
-            local target_label = vars[ui_name]
-
-            -- 골드, 경험치는 핫타임과 버프아이템 중복가능
-            if ( string.find(ui_name, 'Gold') or string.find(ui_name, 'Exp') ) then
-                local curr_value = target_label:getString()
-                if (curr_value == '') then
-                    target_label:setString(value)
-                else
-                    local new_value = tonumber(curr_value) + tonumber(value)
-                    target_label:setString(tostring(new_value))
-                end
-            else
-                target_label:setString(value)
-            end
-        end
+        local t_info = g_hotTimeData:getHottimeInfo(hot_key)
+		if (t_info) then
+			t_hottime_calc_value[t_info['type']] = t_hottime_calc_value[t_info['type']] + t_info['value']
+		end
     end
+	for hottime_type, value in pairs(t_hottime_calc_value) do
+		-- 클랜 버프 추가
+		if (not g_clanData:isClanGuest()) then
+			value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE[hottime_type:upper()])
+		end
 
-    -- 날개, 골드, 경험치 핫타임 string format 다름
-    function apply_hottime_string(ui_name, str_format)
-        local label = vars[ui_name]
-        local value = label:getString()
-        if (value ~= '') then
-            label:setString(string.format(str_format, value))
-
-            -- 버튼 활성화
-            local visible_ui_name = string.gsub(ui_name, 'Label', 'Btn')
-            table.insert(l_item_ui, 1, visible_ui_name)
-        end
-    end
-
-    apply_hottime_string('hotTimeStLabel', '1/2')
-    apply_hottime_string('hotTimeGoldLabel', '+%s%%')
-    apply_hottime_string('hotTimeExpLabel', '+%s%%')
-
+		if (value > 0) then
+			local t_ui_info = HOTTIME_UI_INFO[hottime_type]
+			
+			local btn_name = t_ui_info['button']
+			vars[btn_name]:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(hottime_type, vars[btn_name]) end)
+			
+			local label_name = t_ui_info['label']
+			vars[label_name]:setString(string.format(t_ui_info['format'], value))
+			
+			table.insert(l_item_ui, 1, btn_name)
+		end
+	end
+    
     self:arrangeItemUI(l_item_ui)
 end
 

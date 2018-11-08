@@ -83,12 +83,10 @@ end
 local CLAN_BUFF_INFO = {
 	-- 클랜 버프
 	['gold_bonus_rate'] = {
-		['key'] = 'gold_bonus_rate',
 		['title'] = Str('클랜 버프'),
 		['tool_tip'] = Str('획득 골드량 {1}% 증가'),
 	},
 	['exp_bonus_rate'] = {
-		['key'] = 'exp_bonus_rate',
 		['title'] = Str('클랜 버프'),
 		['tool_tip'] = Str('드래곤 경험치 획득량 {1}% 증가'),
 	},
@@ -100,42 +98,56 @@ function ServerData_HotTime:init_hotTimeType()
     self.m_hotTimeType = {
 		['gold_1_5x'] = {
 			['key'] = 'gold_1_5x',
+			['type'] = 'gold',
 			['title'] = Str('핫타임 이벤트'),
-			['tool_tip'] = Str('획득 골드량 50% 증가'),
+			['tool_tip'] = Str('획득 골드량 {1}% 증가', 50),
+			['value'] = 50,
 		},
 		['gold_2x'] = {
 			['key'] = 'gold_2x',
+			['type'] = 'gold',
 			['title'] = Str('핫타임 이벤트'),
-			['tool_tip'] = Str('획득 골드량 100% 증가'),
+			['tool_tip'] = Str('획득 골드량 {1}% 증가', 100),
+			['value'] = 100,
 		},
 
 		['exp_1_5x'] = {
 			['key'] = 'exp_1_5x',
+			['type'] = 'exp',
 			['title'] = Str('핫타임 이벤트'),
-			['tool_tip'] =  Str('드래곤 경험치 획득량 50% 증가')
+			['tool_tip'] =  Str('드래곤 경험치 획득량 {1}% 증가', 50),
+			['value'] = 50,
 		},
 		['exp_2x'] = {
 			['key'] = 'exp_2x',
+			['type'] = 'exp',
 			['title'] = Str('핫타임 이벤트'),
-			['tool_tip'] =  Str('드래곤 경험치 획득량 100% 증가'),
+			['tool_tip'] =  Str('드래곤 경험치 획득량 {1}% 증가', 100),
+			['value'] = 100,
 		},
 
 		['stamina_50p'] = {
 			['key'] = 'stamina_50p',
+			['type'] = 'stamina',
 			['title'] = Str('핫타임 이벤트'),
-			['tool_tip'] = Str('소비 입장권 50% 할인')
+			['tool_tip'] = Str('소비 입장권 {1}% 할인', 50),
+			['value'] = 50,
 		},
 
 		-- 부스터 아이템
 		['buff_gold2x'] = {
 			['key'] = 'buff_gold2x',
+			['type'] = 'gold',
 			['title'] = Str('골드 부스터'),
-			['tool_tip'] = Str('획득 골드량 100% 증가'),
+			['tool_tip'] = Str('획득 골드량 {1}% 증가', 100),
+			['value'] = 100,
 		},
 		['buff_exp2x'] = {
 			['key'] = 'buff_exp2x',
+			['type'] = 'exp',
 			['title'] = Str('경험치 부스터'),
-			['tool_tip'] = Str('드래곤 경험치 획득량 100% 증가'),
+			['tool_tip'] = Str('드래곤 경험치 획득량 {1}% 증가', 100),
+			['value'] = 100,
 		},
 	}
 end
@@ -366,6 +378,73 @@ function ServerData_HotTime:getActiveHotTimeInfo_stamina()
 end
 
 -------------------------------------
+-- function getActiveHotTimeInfo_gold
+-------------------------------------
+function ServerData_HotTime:getActiveHotTimeInfo_gold()
+    local value = self:getActiveBonusValue('gold')
+    return (value > 0), value
+end
+
+-------------------------------------
+-- function getActiveHotTimeInfo_exp
+-------------------------------------
+function ServerData_HotTime:getActiveHotTimeInfo_exp()
+    local value = self:getActiveBonusValue('exp')
+    return (value > 0), value
+end
+
+-------------------------------------
+-- function getActiveBonusValue
+-- @brief 받은 타입의 활성화된 보너스 수치 리턴
+-- @param bonus_type : gold, exp, stamina
+-- @comment hottime, buff, clan_buff의 통칭은 bonus로 충분할까요?
+-------------------------------------
+function ServerData_HotTime:getActiveBonusValue(bonus_type)
+	local value = 0
+
+	-- 핫타임 버프 + 부스터 버프
+	for k, v in pairs(self.m_hotTimeType) do
+		if (v['type'] == bonus_type) then
+			if (self:getActiveHotTimeInfo(k)) then
+				value = value + v['value']
+			end
+		end
+	end
+
+	-- 클랜 버프 추가
+	if (not g_clanData:isClanGuest()) then
+		value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE[bonus_type:upper()])
+	end
+
+	return value
+end
+
+-------------------------------------
+-- function getHottimeValue
+-------------------------------------
+function ServerData_HotTime:getHottimeInfo(hottime_type)
+	if (not self.m_hotTimeType[hottime_type]) then
+		return 
+	end
+	return self.m_hotTimeType[hottime_type]
+end
+
+-------------------------------------
+-- function isHighlightHotTime
+-------------------------------------
+function ServerData_HotTime:isHighlightHotTime()
+    for _,v in pairs(self.m_hotTimeType) do
+        local key = v['key']
+        -- 부스터는 포함하지 않음
+        if (not string.find(key, 'buff')) and (self:getActiveHotTimeInfo(key)) then
+            return true
+        end
+    end
+    
+    return false
+end
+
+-------------------------------------
 -- function getHotTimeBuffText
 -------------------------------------
 function ServerData_HotTime:getHotTimeBuffText(type)
@@ -394,77 +473,6 @@ function ServerData_HotTime:getHotTimeBuffText(type)
     end
 
     return str, state
-end
-
--------------------------------------
--- function getActiveHotTimeInfo_gold
--------------------------------------
-function ServerData_HotTime:getActiveHotTimeInfo_gold()
-    local active = false
-    local value = 0
-
-    -- 핫타임과 부스터아이템 중복처리
-    local t_info = {}
-    t_info['gold_2x'] = 100
-    t_info['gold_1_5x'] = 50
-    t_info['buff_gold2x'] = 100
-    
-    for k, v in pairs(t_info) do
-        if (g_hotTimeData:getActiveHotTimeInfo(k)) then
-            active = true
-            value = value + v
-        end
-    end
-
-	-- 클랜 버프 추가
-	if (not g_clanData:isClanGuest()) then	
-		value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE['GOLD'])
-	end
-
-    return active, value
-end
-
--------------------------------------
--- function getActiveHotTimeInfo_exp
--------------------------------------
-function ServerData_HotTime:getActiveHotTimeInfo_exp()
-    local active = false
-    local value = 0
-
-    -- 핫타임과 부스터아이템 중복처리
-    local t_info = {}
-    t_info['exp_2x'] = 100
-    t_info['exp_1_5x'] = 50
-    t_info['buff_exp2x'] = 100
-
-    for k, v in pairs(t_info) do
-        if (g_hotTimeData:getActiveHotTimeInfo(k)) then
-            active = true
-            value = value + v
-        end
-    end
-
-	-- 클랜 버프 추가
-	if (not g_clanData:isClanGuest()) then
-		value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE['EXP'])
-	end
-
-    return active, value
-end
-
--------------------------------------
--- function isHighlightHotTime
--------------------------------------
-function ServerData_HotTime:isHighlightHotTime()
-    for _,v in pairs(self.m_hotTimeType) do
-        local key = v['key']
-        -- 부스터는 포함하지 않음
-        if (not string.find(key, 'buff')) and (self:getActiveHotTimeInfo(key)) then
-            return true
-        end
-    end
-    
-    return false
 end
 
 -------------------------------------
@@ -499,7 +507,7 @@ function ServerData_HotTime:makeHotTimeToolTip(hottime_type, btn)
 
 		-- 정의된 키만 사용한다.
 		if (string.find(k, hottime_type)) then
-			if (g_hotTimeData:getActiveHotTimeInfo(k)) then
+			if (self:getActiveHotTimeInfo(k)) then
 				title = v['title']
 				desc = v['tool_tip']
 			end
