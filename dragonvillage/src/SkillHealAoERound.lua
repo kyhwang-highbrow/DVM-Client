@@ -93,16 +93,22 @@ end
 function SkillHealAoERound:setAttackInterval()
 	local duration = 0
     
+    -- 스킬의 에니메이션 길이를 적용
     if (self.m_animator) then
         duration = self.m_animator:getDuration()
+
+    -- 스킬을 사용하는 주체의 에니메이션 길이를 적용 (드래곤의 스킬 후모션 길이)
+    elseif (self.m_owner and self.m_owner.m_animator) then
+        duration = self.m_owner.m_animator:getDuration()
     end
 
-	-- 이펙트 재생 단위 시간
+    -- 기본값 1초
     if (duration == 0) then
-        self.m_hitInterval = 1 / self.m_maxAttackCount
-    else
-	    self.m_hitInterval = duration / self.m_maxAttackCount
+        duration = 1
     end
+
+    -- 이펙트 재생 단위 시간
+    self.m_hitInterval = (duration / self.m_maxAttackCount)
 end
 
 -------------------------------------

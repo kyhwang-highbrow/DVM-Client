@@ -111,6 +111,17 @@ function SkillAoERound:setAttackInterval()
 end
 
 -------------------------------------
+-- function onStateDelegateEnter
+-- @brief 
+-------------------------------------
+function SkillAoERound:onStateDelegateEnter()
+    local owner = self.m_character
+
+    owner.m_tStateAni['delegate'] = 'skill_disappear'
+    owner.m_tStateAniLoop['delegate'] = false
+end
+
+-------------------------------------
 -- function enterAttack
 -------------------------------------
 function SkillAoERound:enterAttack()
