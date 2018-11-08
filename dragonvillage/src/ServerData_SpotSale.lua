@@ -140,3 +140,52 @@ end
 function ServerData_SpotSale:applySpotSaleInfo(t_spot_sale)
 	self.m_spotSaleInfo = t_spot_sale
 end
+
+-------------------------------------
+-- function request_startSpotSale
+-- @brief 깜짝 세일 상품 발동
+-------------------------------------
+function ServerData_SpotSale:request_startSpotSale(id, succ_cb)
+    
+	local func_request
+	local fail_cb
+	local response_status_cb
+	local success_cb
+	local uid = g_userData:get('uid')
+
+	 -- 네트워크 통신
+	func_request = function()
+		local ui_network = UI_Network()
+		ui_network:setUrl('/shop/spot_sale')
+		ui_network:setParam('uid', uid)
+		ui_network:setParam('id', id)
+		ui_network:setMethod('POST')
+		ui_network:setSuccessCB(success_cb)
+		ui_network:setFailCB(fail_cb)
+		ui_network:setResponseStatusCB(response_status_cb)
+		ui_network:setRevocable(false)
+		ui_network:setReuse(false)
+		ui_network:request()
+	end
+
+	success_cb = function(ret)
+		self:applySpotSaleInfo(ret)
+		succ_cb()
+    end
+
+	-- 통신 실패 콜백
+	fail_cb = function(ret)
+		succ_cb()
+	end
+
+	-- 통신 에러 리턴 콜백 (true를 리턴하면 자체적으로 처리를 완료했다는 뜻)
+    response_status_cb = function(ret)
+        if (ret['status'] == -1108) then
+            return true
+        end
+
+        return false
+    end
+
+	func_request()
+end
