@@ -8,6 +8,8 @@ UI_ClanBoardListItem = class(PARENT,{
 		m_tBoard = 'table',
     })
 
+local SYSTEM_NOTICE = 'system'
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -18,7 +20,11 @@ function UI_ClanBoardListItem:init(owner_ui, t_data)
 	self.m_tBoard = t_data
 
 	-- initialize
-    self:initUI()
+	if (self.m_tBoard['uid'] == SYSTEM_NOTICE) then
+		self:initUI_system()
+	else
+	    self:initUI()
+	end
     self:initButton()
     self:refresh()
 end
@@ -67,6 +73,33 @@ function UI_ClanBoardListItem:initUI()
     if (is_mine or member_type == 'master') or (member_type == 'manager') then
         vars['deleteBtn']:setVisible(true)
     end
+end
+
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanBoardListItem:initUI_system()
+	local vars = self.vars
+	local t_data = self.m_tBoard
+
+	-- 이름
+	vars['infoLabel']:setString('{@mustard}SYSTEM')
+
+	-- 프사
+	local icon = IconHelper:getSystemIcon()
+	vars['profileNode']:addChild(icon)
+
+	-- 작성 시간
+	local date = pl.Date()
+	date:set(t_data['date']/1000)
+	local date_format = pl.Date.Format('yyyy.mm.dd')
+	local review_time = date_format:tostring(date)
+	vars['timeLabel']:setString(review_time)
+	
+	-- 내용
+	local review = t_data['text']
+	self:setContentWithAdjHeight(review)
 end
 
 -------------------------------------

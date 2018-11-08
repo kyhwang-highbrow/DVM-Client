@@ -638,6 +638,13 @@ end
 -------------------------------------
 -- function getClanExpIcon
 -------------------------------------
+function IconHelper:getSystemIcon()
+	return IconHelper:getIcon('res/ui/icons/item/dvm.png')
+end
+
+-------------------------------------
+-- function getClanExpIcon
+-------------------------------------
 function IconHelper:getClanExpIcon()
     return IconHelper:getIcon('res/ui/icons/item/lactea.png')
 end
