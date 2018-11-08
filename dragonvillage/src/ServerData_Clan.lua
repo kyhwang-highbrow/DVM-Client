@@ -128,7 +128,7 @@ end
 -------------------------------------
 function ServerData_Clan:applyClanInfo_Title(ret)
 	if (ret['clan']) then
-		self.m_structClan = StructClan(ret['clan'])
+		self:setClanStruct(ret['clan'])
 	else
 		return
 	end
@@ -137,7 +137,7 @@ function ServerData_Clan:applyClanInfo_Title(ret)
 		self.m_structClan:setMembersData(ret['clan_members'])
 	end
 	if (ret['clan_buff']) then
-		self.m_structClan:setClanBuffStruct(ret['clan_buff'])
+		self:setClanBuff(ret['clan_buff'])
 	end
 end
 
