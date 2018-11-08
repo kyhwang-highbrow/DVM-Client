@@ -31,8 +31,8 @@ function UI_ClanListItem:initUI()
     local icon = struct_clan:makeClanMarkIcon()
     vars['userNode']:addChild(icon)
 
-    -- 클랜 이름
-    local clan_name = struct_clan:getClanName()
+    -- 클랜 레벨 + 이름
+    local clan_name = struct_clan:getClanLvWithName()
     vars['nameLabel']:setString(clan_name)
     
     -- 마스터 닉네임

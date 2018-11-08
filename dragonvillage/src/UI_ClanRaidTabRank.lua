@@ -171,7 +171,7 @@ function UI_ClanRaidTabRank.makeRankCell(t_data)
     vars['markNode']:addChild(icon)
 
     -- 클랜 이름
-    local clan_name = struct_clan_rank:getClanName()
+    local clan_name = struct_clan_rank:getClanLvWithName()
     vars['clanLabel']:setString(clan_name)
 
     -- 점수

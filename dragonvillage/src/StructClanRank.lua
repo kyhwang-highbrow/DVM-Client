@@ -66,6 +66,13 @@ function StructClanRank:getClanName()
 end
 
 -------------------------------------
+-- function getClanLvWithName
+-------------------------------------
+function StructClanRank:getClanLvWithName()
+    return string.format('Lv.%d %s', self['lv'], self['name'])
+end
+
+-------------------------------------
 -- function getClanLv
 -------------------------------------
 function StructClanRank:getClanLv()

@@ -190,6 +190,13 @@ function StructClan:getClanLv()
 end
 
 -------------------------------------
+-- function getClanLvWithName
+-------------------------------------
+function StructClan:getClanLvWithName()
+    return string.format('Lv.%d %s', self['lv'], self['name'])
+end
+
+-------------------------------------
 -- function getClanExp
 -------------------------------------
 function StructClan:getClanExp()
