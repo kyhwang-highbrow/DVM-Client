@@ -41,14 +41,12 @@ local THIS = StructClan
 -------------------------------------
 -- function init
 -------------------------------------
-function StructClan:init(data, t_clan_buff)
+function StructClan:init(data)
     if (data['mark']) then
         self.m_structClanMark = StructClanMark:create(data['mark'])
     else
         self.m_structClanMark = StructClanMark()
     end
-
-	self.m_structClanBuff = StructClanBuff()
 end
 
 -------------------------------------
@@ -209,7 +207,9 @@ end
 -- function setClanBuffStruct
 -------------------------------------
 function StructClan:setClanBuffStruct(t_clan_buff)
-	ccdump(t_clan_buff)
+	if (not self.m_structClanBuff) then
+		self.m_structClanBuff = StructClanBuff()
+	end
 	self.m_structClanBuff:applyTableData(t_clan_buff)
 end
 
@@ -224,6 +224,9 @@ end
 -- function getClanBuffByType
 -------------------------------------
 function StructClan:getClanBuffByType(clan_buff_type)
+	if (not self.m_structClanBuff) then
+		return 0
+	end
 	return self.m_structClanBuff:getClanBuff(clan_buff_type)
 end
 

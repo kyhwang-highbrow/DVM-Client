@@ -137,7 +137,7 @@ function ServerData_Clan:applyClanInfo_Title(ret)
 		self.m_structClan:setMembersData(ret['clan_members'])
 	end
 	if (ret['clan_buff']) then
-		self:setClanBuff(ret['clan_buff'])
+		self.m_structClan:setClanBuffStruct(ret['clan_buff'])
 	end
 end
 
@@ -160,6 +160,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
             self.m_structClan:setMembersData(ret['clan_members'])
             self.m_structClan:setClanNotice(ret['clan_notice'])
             self.m_structClan:setCurrAttd(ret['clan_attd'])
+			self.m_structClan:setClanBuffStruct(ret['clan_buff'])
             self.m_bClanGuest = false
         else
             self.m_structClan = nil
@@ -644,10 +645,10 @@ function ServerData_Clan:setClanStruct(t_clan_data)
 end
 
 -------------------------------------
--- function setClanBuff
+-- function setClanBuffStruct
 -- @brief
 -------------------------------------
-function ServerData_Clan:setClanBuff(t_clan_buff)
+function ServerData_Clan:setClanBuffStruct(t_clan_buff)
 	self.m_structClan:setClanBuffStruct(t_clan_buff)
 end
 
@@ -663,6 +664,7 @@ function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id, close_cb)
     local function success_cb(ret)
         local struct_clan = StructClan(ret['clan'])
         struct_clan:setMembersData(ret['clan_members'])
+		sturct_clan:setClanBuffStruct(ret['clan_buff'])
         local ui = UI_ClanInfoDetailPopup(struct_clan)
 
         if close_cb then
@@ -704,6 +706,7 @@ function ServerData_Clan:requestClanInfoDetailPopup_byClanName(clan_name)
     local function success_cb(ret)
         local struct_clan = StructClan(ret['clan'])
         struct_clan:setMembersData(ret['clan_members'])
+		sturct_clan:setClanBuffStruct(ret['clan_buff'])
         UI_ClanInfoDetailPopup(struct_clan)
     end
 

@@ -80,75 +80,64 @@ function ServerData_HotTime:init(server_data)
 	self:init_hotTimeType()
 end
 
+local CLAN_BUFF_INFO = {
+	-- 클랜 버프
+	['gold_bonus_rate'] = {
+		['key'] = 'gold_bonus_rate',
+		['title'] = Str('클랜 버프'),
+		['tool_tip'] = Str('획득 골드량 {1}% 증가'),
+	},
+	['exp_bonus_rate'] = {
+		['key'] = 'exp_bonus_rate',
+		['title'] = Str('클랜 버프'),
+		['tool_tip'] = Str('드래곤 경험치 획득량 {1}% 증가'),
+	},
+}
 -------------------------------------
 -- function init_hotTimeType
 -------------------------------------
 function ServerData_HotTime:init_hotTimeType()
-    self.m_hotTimeType = {}
+    self.m_hotTimeType = {
+		['gold_1_5x'] = {
+			['key'] = 'gold_1_5x',
+			['title'] = Str('핫타임 이벤트'),
+			['tool_tip'] = Str('획득 골드량 50% 증가'),
+		},
+		['gold_2x'] = {
+			['key'] = 'gold_2x',
+			['title'] = Str('핫타임 이벤트'),
+			['tool_tip'] = Str('획득 골드량 100% 증가'),
+		},
 
-    do
-        local key = 'gold_1_5x'
-        local t_data = {}
-        t_data['key'] = key
-        t_data['title'] = Str('핫타임 이벤트')
-        t_data['tool_tip'] = Str('획득 골드량 50% 증가')
-        self.m_hotTimeType[key] = t_data
-    end
+		['exp_1_5x'] = {
+			['key'] = 'exp_1_5x',
+			['title'] = Str('핫타임 이벤트'),
+			['tool_tip'] =  Str('드래곤 경험치 획득량 50% 증가')
+		},
+		['exp_2x'] = {
+			['key'] = 'exp_2x',
+			['title'] = Str('핫타임 이벤트'),
+			['tool_tip'] =  Str('드래곤 경험치 획득량 100% 증가'),
+		},
 
-    do
-        local key = 'gold_2x'
-        local t_data = {}
-        t_data['key'] = key
-        t_data['title'] = Str('핫타임 이벤트')
-        t_data['tool_tip'] = Str('획득 골드량 100% 증가')
-        self.m_hotTimeType[key] = t_data
-    end
+		['stamina_50p'] = {
+			['key'] = 'stamina_50p',
+			['title'] = Str('핫타임 이벤트'),
+			['tool_tip'] = Str('소비 입장권 50% 할인')
+		},
 
-    do
-        local key = 'exp_1_5x'
-        local t_data = {}
-        t_data['key'] = key
-        t_data['title'] = Str('핫타임 이벤트')
-        t_data['tool_tip'] = Str('드래곤 경험치 획득량 50% 증가')
-        self.m_hotTimeType[key] = t_data
-    end
-
-    do
-        local key = 'exp_2x'
-        local t_data = {}
-        t_data['key'] = key
-        t_data['title'] = Str('핫타임 이벤트')
-        t_data['tool_tip'] = Str('드래곤 경험치 획득량 100% 증가')
-        self.m_hotTimeType[key] = t_data
-    end
-
-    do
-        local key = 'stamina_50p'
-        local t_data = {}
-        t_data['key'] = key
-        t_data['title'] = Str('핫타임 이벤트')
-        t_data['tool_tip'] = Str('소비 입장권 50% 할인')
-        self.m_hotTimeType[key] = t_data
-    end
-
-    -- 부스터 아이템
-    do
-        local key = 'buff_gold2x'
-        local t_data = {}
-        t_data['key'] = key
-        t_data['title'] = Str('골드 부스터')
-        t_data['tool_tip'] = Str('획득 골드량 100% 증가')
-        self.m_hotTimeType[key] = t_data
-    end
-
-    do
-        local key = 'buff_exp2x'
-        local t_data = {}
-        t_data['key'] = key
-        t_data['title'] = Str('경험치 부스터')
-        t_data['tool_tip'] = Str('드래곤 경험치 획득량 100% 증가')
-        self.m_hotTimeType[key] = t_data
-    end
+		-- 부스터 아이템
+		['buff_gold2x'] = {
+			['key'] = 'buff_gold2x',
+			['title'] = Str('골드 부스터'),
+			['tool_tip'] = Str('획득 골드량 100% 증가'),
+		},
+		['buff_exp2x'] = {
+			['key'] = 'buff_exp2x',
+			['title'] = Str('경험치 부스터'),
+			['tool_tip'] = Str('드래곤 경험치 획득량 100% 증가'),
+		},
+	}
 end
 
 -------------------------------------
@@ -427,6 +416,11 @@ function ServerData_HotTime:getActiveHotTimeInfo_gold()
         end
     end
 
+	-- 클랜 버프 추가
+	if (not g_clanData:isClanGuest()) then	
+		value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE['GOLD'])
+	end
+
     return active, value
 end
 
@@ -449,6 +443,11 @@ function ServerData_HotTime:getActiveHotTimeInfo_exp()
             value = value + v
         end
     end
+
+	-- 클랜 버프 추가
+	if (not g_clanData:isClanGuest()) then
+		value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE['EXP'])
+	end
 
     return active, value
 end
@@ -492,18 +491,45 @@ end
 -- param hottime_type : stamina, gold, exp
 -------------------------------------
 function ServerData_HotTime:makeHotTimeToolTip(hottime_type, btn)
-    local title = ''
-    local desc = ''
     local str = ''
 
+	-- 핫타임 버프 정보
     for k, v in pairs(self.m_hotTimeType) do
-        if (string.find(k, hottime_type)) and (g_hotTimeData:getActiveHotTimeInfo(k)) then
-            title = v['title']
-            desc = v['tool_tip']
-            local _str = '{@SKILL_NAME} ' .. title .. '\n {@SKILL_DESC}' .. desc
-            str = (str == '') and  (_str) or (str .. '\n\n' .. _str)
-        end
+		local title, desc
+
+		-- 정의된 키만 사용한다.
+		if (string.find(k, hottime_type)) then
+			if (g_hotTimeData:getActiveHotTimeInfo(k)) then
+				title = v['title']
+				desc = v['tool_tip']
+			end
+		end
+
+		if (title ~= nil) then
+			local _str = string.format('{@SKILL_NAME} %s\n  {@SKILL_DESC} %s', title, desc)
+			str = (str == '') and  (_str) or (str .. '\n\n' .. _str)
+		end
     end
+
+	-- 클랜 버프 정보  
+	if (not g_clanData:isClanGuest()) then
+		for clan_buff_type, t_data in pairs(CLAN_BUFF_INFO) do
+			local title, desc
+
+			if (string.find(clan_buff_type, hottime_type)) then
+				local value = g_clanData:getClanStruct():getClanBuffByType(clan_buff_type)
+				if (value > 0) then
+					title = t_data['title']
+					desc = Str(t_data['tool_tip'], value)
+				end
+			end
+
+			if (title ~= nil) then
+				local _str = string.format('{@SKILL_NAME} %s\n  {@SKILL_DESC} %s', title, desc)
+				str = (str == '') and  (_str) or (str .. '\n\n' .. _str)
+			end
+		end
+	end
 
     if (str ~= '') then
         local tooltip = UI_Tooltip_Skill(0, 0, str)

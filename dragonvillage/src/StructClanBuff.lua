@@ -22,7 +22,6 @@ function StructClanBuff:init(data)
 	if (not data) then
 		self.gold_bonus_rate = 0
 		self.exp_bonus_rate = 0
-		cclog(debug.traceback())
 	end
 end
 
