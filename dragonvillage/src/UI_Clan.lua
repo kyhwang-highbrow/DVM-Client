@@ -153,6 +153,7 @@ function UI_Clan:initButton()
     vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
     vars['noticeBtn']:registerScriptTapHandler(function() self:click_noticeBtn() end)
     vars['boardBtn']:registerScriptTapHandler(function() self:click_boardBtn() end)
+	vars['clanInfoBtn']:registerScriptTapHandler(function() UI_Help('clan') end)
 end
 
 -------------------------------------

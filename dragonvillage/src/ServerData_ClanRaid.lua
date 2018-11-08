@@ -244,6 +244,7 @@ function ServerData_ClanRaid:setRewardInfo(ret)
         self.m_tClanRewardInfo['contribution'] = ret['ratio'] 
         self.m_tClanRewardInfo['rank'] = StructClanRank(ret['last_clan_info'])
         self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
+		self.m_tClanRewardInfo['clan_exp'] = ret['clan_exp']
     end
 end
 

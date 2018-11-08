@@ -72,6 +72,16 @@ function UI_ClanRaidRankingRewardPopup:initUI(t_info, is_clan)
             end
         end
 
+		-- 클랜 경험치
+		local clan_exp = t_info['clan_exp']
+		if (clan_exp and clan_exp > 0) then
+			reward_cnt = reward_cnt + 1
+
+			local icon = IconHelper:getClanExpIcon()
+			vars['rewardNode' .. reward_cnt]:addChild(icon)
+            vars['rewardLabel' .. reward_cnt]:setString(comma_value(clan_exp))
+		end
+
         -- 노드 보상 갯수에 따른 위치 변경
         local max_cnt = 3
         for i = 1, max_cnt do

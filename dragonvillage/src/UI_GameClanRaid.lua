@@ -67,6 +67,18 @@ function UI_GameClanRaid:click_pauseButton()
 end
 
 -------------------------------------
+-- function initHotTimeUI
+-- @brief 핫타임 띄우지 않도록 처리
+-------------------------------------
+function UI_GameClanRaid:initHotTimeUI()
+	local vars = self.vars
+	vars['hotTimeStBtn']:setVisible(false)
+    vars['hotTimeGoldBtn']:setVisible(false)
+    vars['hotTimeExpBtn']:setVisible(false)
+    vars['hotTimeMarbleBtn']:setVisible(false)
+end
+
+-------------------------------------
 -- function init_timeUI
 -------------------------------------
 function UI_GameClanRaid:init_timeUI(display_wave, time)

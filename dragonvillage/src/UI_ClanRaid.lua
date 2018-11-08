@@ -75,13 +75,7 @@ function UI_ClanRaid:checkEnterEvent()
         local t_info = g_clanRaidData.m_tClanRewardInfo
         local is_clan = true
 
-        if (ui) then
-            ui:setCloseCB(function()
-                UI_ClanRaidRankingRewardPopup(t_info, is_clan)
-            end)
-        else
-            UI_ClanRaidRankingRewardPopup(t_info, is_clan)
-        end
+        UI_ClanRaidRankingRewardPopup(t_info, is_clan)
 
         g_clanRaidData.m_tClanRewardInfo = nil
     end
