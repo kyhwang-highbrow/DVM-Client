@@ -306,7 +306,7 @@ function UI_QuestPopup:click_subscriptionBuyBtn()
     local sub_msg = Str('이미 완료한 일일 퀘스트의 추가 보상은 구매 즉시 우편으로 지급됩니다.')
 	local sub_msg_2 = Str('클랜 경험치는 일일 퀘스트 보상 2배 대상에서 제외됩니다.')
 	
-	struct_product:buy(cb_func, string.format('%s\n(%s)', sub_msg, sub_msg_2))
+	struct_product:buy(cb_func, string.format('{@default}- %s\n- %s', sub_msg, sub_msg_2))
 end
 
 --@CHECK

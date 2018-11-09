@@ -565,7 +565,7 @@ function StructProduct:buy(cb_func, sub_msg)
 		local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
 		if (platform_id == 'firebase') then
 			if ui and ui.vars and ui.vars['subLabel'] then
-				ui.vars['subLabel']:setString(Str('(게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.)'))
+				ui.vars['subLabel']:setString('{@sub_msg}' .. Str('(게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.)'))
 			end
 		end
 	end
