@@ -56,6 +56,15 @@ function TimeLib:getServerTime()
 end
 
 -------------------------------------
+-- function getServerTime_Milliseconds
+-- @brief 단위 (1/1000초)
+-------------------------------------
+function TimeLib:getServerTime_Milliseconds()
+    local server_time = (self:getServerTime() * 1000)
+    return server_time
+end
+
+-------------------------------------
 -- function setUTCHour
 -- @brief hour 양수면 UTC +, 음수면 UTC -
 -------------------------------------
