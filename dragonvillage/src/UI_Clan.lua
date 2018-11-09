@@ -394,7 +394,7 @@ function UI_Clan:refresh()
 
 	-- 클랜 레벨
 	local clan_lv = struct_clan:getClanLv()
-	vars['clanLvLabel']:setString(string.format('Clan Lv.%d', clan_lv))
+	vars['clanLvLabel']:setString(string.format('Lv. %d', clan_lv))
 
 	-- 클랜 경험치
 	local clan_exp_percent = struct_clan:getClanExpRatio() * 100

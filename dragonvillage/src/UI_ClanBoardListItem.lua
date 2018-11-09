@@ -84,7 +84,7 @@ function UI_ClanBoardListItem:initUI_system()
 	local t_data = self.m_tBoard
 
 	-- 이름
-	vars['infoLabel']:setString('{@mustard}SYSTEM')
+	vars['infoLabel']:setString('{@apricot}SYSTEM')
 
 	-- 프레임 처리
 	vars['systemSprite']:setVisible(true)
