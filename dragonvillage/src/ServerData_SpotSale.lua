@@ -8,6 +8,8 @@ ServerData_SpotSale = class({
         m_serverData = 'ServerData',
 		m_spotSaleInfo = 'table',
 		m_sortedSpotSaleList = 'list',
+
+        m_bDebugLog = 'boolean', -- 클래스 로그 출력 여부
     })
 
 -------------------------------------
@@ -15,6 +17,7 @@ ServerData_SpotSale = class({
 -------------------------------------
 function ServerData_SpotSale:init(server_data)
     self.m_serverData = server_data
+    self.m_bDebugLog = true
 end
 
 -------------------------------------
@@ -55,8 +58,12 @@ end
 -------------------------------------
 function ServerData_SpotSale:getSpotSaleLackItemID()
 
+    self:log('====================================================')
+    self:log('## ServerData_SpotSale:getSpotSaleLackItemID() START')
 	-- 1. 글로벌 쿨타임(global_cool_down) 확인
 	if (not self:getGlobalCoolTimeDone()) then
+        self:log('## 글로벌 쿨타임')
+        self:log('## ServerData_SpotSale:getSpotSaleLackItemID() END')
 		return nil
 	end 
 
@@ -66,10 +73,12 @@ function ServerData_SpotSale:getSpotSaleLackItemID()
 	for _,v in ipairs(sorted_spot_sale_lsit) do
         local spot_sale_id = v['id']
         if (self:checkCondition(spot_sale_id)) then
+            self:log('## ServerData_SpotSale:getSpotSaleLackItemID() END')
 			return spot_sale_id
 		end
 	end
 
+    self:log('## ServerData_SpotSale:getSpotSaleLackItemID() END')
 	return nil
 end
 
@@ -78,7 +87,7 @@ end
 -- @brief 개별 상품에 대한 조건 검사
 -------------------------------------
 function ServerData_SpotSale:checkCondition(id)
-
+    
     local table_spot_sale = TABLE:get('table_spot_sale')
     if (not table_spot_sale) then
         return false
@@ -89,11 +98,17 @@ function ServerData_SpotSale:checkCondition(id)
         return false
     end
 
+    self:log('# id ' .. id)
+
     do-- 1. 개별 쿨타임(cooldown) 확인
         local cool_down = self:getSpotSaleInfo_coolDown(id)
-        local curr_time = Timer:getServerTime()
+        local curr_time = Timer:getServerTime_Milliseconds()
 
         if (curr_time < cool_down) then
+            if self.m_bDebugLog then
+                local desc = datetime.makeTimeDesc((cool_down-curr_time)/1000, true) -- param : sec, showSeconds, firstOnly, timeOnly
+                self:log('개별 쿨 ' .. desc .. '남음')
+            end
             return false
         end
     end
@@ -103,6 +118,7 @@ function ServerData_SpotSale:checkCondition(id)
         local require_lv = t_spot_sale['user_lv']
         
         if (lv < require_lv) then
+            self:log('레벨 제한 ' .. require_lv)
             return false
         end
     end
@@ -123,6 +139,7 @@ function ServerData_SpotSale:checkCondition(id)
 		
 		-- 현재 아이템 갯수가 조건보다 적다면 
 		if (condition < curr_cnt) then
+            self:log('아이템 수량 충분함 ' .. curr_cnt .. '/' .. condition)
             return false
 		end
 
@@ -138,6 +155,7 @@ end
 --                  (현재보다 과거 시간으로 처리하기 위해)
 -------------------------------------
 function ServerData_SpotSale:getSpotSaleInfo_coolDown(id)
+    local id = tostring(id)
     local spot_sale_info = self:getSpotSaleInfo()
 
     if (not spot_sale_info['cool_down_list']) then
@@ -174,7 +192,14 @@ function ServerData_SpotSale:getGlobalCoolTimeDone()
     end
 
     -- 현재 시간    
-    local curr_time = Timer:getServerTime()
+    local curr_time = Timer:getServerTime_Milliseconds()
+
+    if self.m_bDebugLog then
+        if (curr_time < global_cool_down) then
+            local desc = datetime.makeTimeDesc((global_cool_down-curr_time)/1000, true) -- param : sec, showSeconds, firstOnly, timeOnly
+            self:log(desc .. '남음')
+        end
+    end
 
     return (global_cool_down <= curr_time)
 end
@@ -215,7 +240,7 @@ function ServerData_SpotSale:getSpotSaleInfo_activeProduct()
     end
 
     -- 현재 시간
-    local curr_time = Timer:getServerTime()
+    local curr_time = Timer:getServerTime_Milliseconds()
 
     -- 우선 깜짝 할인 상품은 동시에 1개만 발동된다고 가정함 (기획의도)
 	for spot_sale_id, endtime in pairs(spot_sale_info['active_list']) do
@@ -285,4 +310,25 @@ function ServerData_SpotSale:request_startSpotSale(id, succ_cb)
     end
 
 	func_request()
+end
+
+-------------------------------------
+-- function log
+-- @brief 개발 용도 로그 함수
+-------------------------------------
+function ServerData_SpotSale:log(data)
+    if (not self.m_bDebugLog) then
+        return
+    end
+
+    local data_type = type(data)
+    if (data_type == 'string') then
+        cclog(data)
+    elseif (data_type == 'number') then
+        cclog(tostring(data))
+    elseif (data_type == 'table') then
+        ccdump(data)
+    else
+        ccdump(tostring(data))
+    end
 end
