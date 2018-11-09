@@ -32,7 +32,7 @@ function UI_ClanInfoDetailPopup:init(struct_clan)
 
     self.m_uiName = 'UI_ClanInfoDetailPopup'
 
-    local vars = self:load('clan_02_new.ui')
+    local vars = self:load('clan_02.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -85,6 +85,8 @@ function UI_ClanInfoDetailPopup:initUI()
         self.vars['clanNoticeLabel'] = scroll_label
     end
 
+	vars['runeDungeonBtn']:setVisible(false) -- 클랜 룬 던전 버튼 숨김
+	vars['clanInfoBtn']:setVisible(false) -- 클랜 정보..?
     vars['raidBtn']:setVisible(false) -- 클랜던전 버튼 숨김
     vars['noticeBtn']:setVisible(false) -- 공지사항 작성 버튼 숨김
     vars['boardBtn']:setVisible(false) -- 게시판 작성 버튼 숨김
@@ -128,6 +130,18 @@ function UI_ClanInfoDetailPopup:refresh()
     vars['markNode']:removeAllChildren()
     vars['markNode']:addChild(icon)
 
+	-- 클랜 레벨
+	local clan_lv = struct_clan:getClanLv()
+	vars['clanLvLabel']:setString(string.format('Clan Lv.%d', clan_lv))
+
+	-- 클랜 경험치
+	local clan_exp_percent = struct_clan:getClanExpRatio() * 100
+	vars['clanExpGg']:setPercentage(clan_exp_percent)
+	vars['clanExpLabel']:setString(string.format('%.2f%%', clan_exp_percent))
+
+	-- 클랜 버프
+	self:refresh_clanBuff()
+
     -- 클랜 이름
     vars['clanNameLabel']:setString(struct_clan['name'])
 
@@ -170,6 +184,13 @@ function UI_ClanInfoDetailPopup:refresh()
         -- 선택된 필수 참여 컨텐츠
         label:setColor(COLOR['GOLD'])
     end
+end
+
+-------------------------------------
+-- function refresh_clanBuff
+-------------------------------------
+function UI_ClanInfoDetailPopup:refresh_clanBuff()
+	UI_Clan.refresh_clanBuff(self)
 end
 
 -------------------------------------

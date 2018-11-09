@@ -224,6 +224,9 @@ function StructClan:setClanBuffStruct(t_clan_buff)
 	if (not self.m_structClanBuff) then
 		self.m_structClanBuff = StructClanBuff()
 	end
+	if (not t_clan_buff) then
+		return
+	end
 	self.m_structClanBuff:applyTableData(t_clan_buff)
 end
 

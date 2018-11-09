@@ -668,7 +668,7 @@ function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id, close_cb)
     local function success_cb(ret)
         local struct_clan = StructClan(ret['clan'])
         struct_clan:setMembersData(ret['clan_members'])
-		sturct_clan:setClanBuffStruct(ret['clan_buff'])
+		struct_clan:setClanBuffStruct(ret['clan_buff'])
         local ui = UI_ClanInfoDetailPopup(struct_clan)
 
         if close_cb then
