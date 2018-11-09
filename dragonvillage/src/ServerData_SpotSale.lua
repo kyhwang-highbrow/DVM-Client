@@ -330,3 +330,18 @@ function ServerData_SpotSale:log(data)
         ccdump(tostring(data))
     end
 end
+
+-------------------------------------
+-- function getSpotSaleInfo_EndOfSaleTime
+-- @brief 판매 종료 시간
+-------------------------------------
+function ServerData_SpotSale:getSpotSaleInfo_EndOfSaleTime(spot_sale_id)
+    local spot_sale_id = tostring(spot_sale_id)
+    local spot_sale_info = self:getSpotSaleInfo()
+
+    if (not spot_sale_info['active_list']) then
+        return 0
+    end
+
+    return (spot_sale_info['active_list'][spot_sale_id] or 0)
+end

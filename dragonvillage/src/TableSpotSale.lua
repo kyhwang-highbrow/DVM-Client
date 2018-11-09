@@ -89,3 +89,42 @@ function TableSpotSale:getProductID(spot_sale_id)
 
     return self:getValue(spot_sale_id, 'product_id')
 end
+
+-------------------------------------
+-- function getUIIdx
+-- @brief 깜짝 할인 상품별 UI에서 사용하는 index
+-- ex)
+-- itemLabel1 -> 다이아
+-- itemLabel2 -> 골드
+-- itemLabel3 -> 날개
+-------------------------------------
+function TableSpotSale:getUIIdx(spot_sale_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(spot_sale_id, 'ui_idx')
+end
+
+-------------------------------------
+-- function getUIIdxList
+-- @brief 깜짝 할인 상품의 ui_idx 리스트
+-------------------------------------
+function TableSpotSale:getUIIdxList()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local ui_idx_list = {}
+    local max = 0
+    for i,v in pairs(self.m_orgTable) do
+        local ui_idx = v['ui_idx']
+        table.insert(ui_idx_list, ui_idx)
+
+        if (max < ui_idx) then
+            max = ui_idx
+        end
+    end
+
+    return ui_idx_list, max
+end

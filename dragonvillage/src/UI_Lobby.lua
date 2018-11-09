@@ -10,6 +10,7 @@ UI_Lobby = class(PARENT,{
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
         m_etcExpendedUI = 'UIC_ExtendedUI',
 		m_lobbyGuide = 'UIC_LobbyGuide',
+        m_lobbySpotSaleBtn = 'UI_LobbySpotSaleBtn',
 
         -- 버튼 상태
         m_bItemAutoEnabled = 'bool',
@@ -77,6 +78,9 @@ function UI_Lobby:initUI()
 
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
+
+    -- 깜짝 할인 상품 버튼 관리 클래스 생성
+    self.m_lobbySpotSaleBtn = UI_LobbySpotSaleBtn(self)
 
 	--self:initParticle()
 end
@@ -557,7 +561,6 @@ function UI_Lobby:initButton()
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
     vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
     vars['goldBoosterBtn']:registerScriptTapHandler(function() self:click_goldBoosterBtn() end)
-	vars['spotSaleBtn1']:registerScriptTapHandler(function() self:click_spotSaleBtn() end)
 
     -- 우측 UI
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
@@ -1182,13 +1185,6 @@ function UI_Lobby:click_googleGameBtn()
 end
 
 -------------------------------------
--- function click_spotSaleBtn
--------------------------------------
-function UI_Lobby:click_spotSaleBtn()
-    UI_Package_SpotSale()
-end
-
--------------------------------------
 -- function click_googleAchievementBtn
 -------------------------------------
 function UI_Lobby:click_googleAchievementBtn()
@@ -1388,7 +1384,10 @@ function UI_Lobby:update(dt)
         end
     end
 
-	self:update_spotSaleButtons()
+	-- 깜짝 할인 상품 버튼 상태 갱신
+    if self.m_lobbySpotSaleBtn then
+        self.m_lobbySpotSaleBtn:update()
+    end
     
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -1491,15 +1490,6 @@ function UI_Lobby:update_boosterButtons()
         local _pos_x = pos_x + ((i-1) * interval)
         v:setPositionX(_pos_x)
     end
-end
-
--------------------------------------
--- function update_spotSaleButtons
--- @brief
--------------------------------------
-function UI_Lobby:update_spotSaleButtons()
-	local has_spot_sale_item = g_spotSaleData:hasSpotSaleItem()
-    self.vars['spotSaleBtn1']:setVisible(has_spot_sale_item)
 end
 
 -------------------------------------

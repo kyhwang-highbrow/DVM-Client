@@ -729,6 +729,7 @@ local t_module = {
 	'UI_LoadingGuide_Patch',
     'UI_LoadingArena',
     'UI_Lobby',
+    'UI_LobbySpotSaleBtn',
     'LobbyMapSpotMgr',
     'LobbyMap',
     'LobbyMapFactory',
