@@ -59,9 +59,7 @@ function UI_Package_SpotSale:click_buyBtn1()
     local spot_sale_id, endtime = g_spotSaleData:getSpotSaleInfo_activeProduct()
     UIManager:toastNotificationRed(Str('활성화 상품') .. spot_sale_id)
 
-    local table_spot_sale = TABLE:get('table_spot_sale')
-    local t_spot_sale = table_spot_sale[tonumber(spot_sale_id)]
-    local product_id = t_spot_sale['product_id']
+    local product_id = TableSpotSale:getProductID(spot_sale_id)
 
     local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
     local cb_func = nil

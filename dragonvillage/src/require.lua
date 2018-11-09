@@ -373,6 +373,7 @@ local t_module = {
     'TableCollectionReward',
     'TableMastery', -- 특성 테이블
     'TableAlphabetEvent', -- 알파벳 이벤트
+    'TableSpotSale',
 
     -- Scene
     'SceneCommon',

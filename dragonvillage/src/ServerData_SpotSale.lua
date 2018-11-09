@@ -28,17 +28,7 @@ function ServerData_SpotSale:getSortedSpotSaleList()
 
     -- 없으면 생성
     if (not self.m_sortedSpotSaleList) then
-        local table_spot_sale = TABLE:get('table_spot_sale')
-
-        -- 정렬을 위해 list형태로 변환
-        local l_spot_sale = table.MapToList(table_spot_sale)
-
-        -- priority가 낮은 순서로 정렬
-	    function sortByPriority(a, b)
-		    return a['priority'] < b['priority']
-	    end
-	    table.sort(l_spot_sale, sortByPriority)
-	    self.m_sortedSpotSaleList = l_spot_sale
+	    self.m_sortedSpotSaleList = TableSpotSale:getSortedSpotSaleList()
     end
 
     return self.m_sortedSpotSaleList
@@ -88,13 +78,8 @@ end
 -------------------------------------
 function ServerData_SpotSale:checkCondition(id)
     
-    local table_spot_sale = TABLE:get('table_spot_sale')
-    if (not table_spot_sale) then
-        return false
-    end
-
-    local t_spot_sale = table_spot_sale[id]
-    if (not t_spot_sale) then
+    local table_spot_sale = TableSpotSale()
+    if (not table_spot_sale:exists(id)) then
         return false
     end
 
@@ -115,7 +100,7 @@ function ServerData_SpotSale:checkCondition(id)
 
     do-- 2. 레벨(user_lv) 제한 확인
         local lv = g_userData:get('lv') -- 유저 레벨
-        local require_lv = t_spot_sale['user_lv']
+        local require_lv = table_spot_sale:getRequiredLevel(id)
         
         if (lv < require_lv) then
             self:log('레벨 제한 ' .. require_lv)
@@ -124,8 +109,8 @@ function ServerData_SpotSale:checkCondition(id)
     end
 
     do-- 3. 수량(condition) 확인
-        local condition = t_spot_sale['condition']
-        local item_id = t_spot_sale['item']
+        local condition = table_spot_sale:getCondition(id)
+        local item_id = table_spot_sale:getItemID(id)
 
         -- 2018.11.08 처리 중인 타입 cash, gold, staminas_st
 	    local item_type = TableItem:getItemType(item_id)
@@ -247,7 +232,7 @@ function ServerData_SpotSale:getSpotSaleInfo_activeProduct()
 
         -- 상품 만료 시간 이전일 경우
         if (curr_time < endtime) then
-            return spot_sale_id, endtime
+            return tonumber(spot_sale_id), endtime
         end
 	end
 end
@@ -271,15 +256,17 @@ end
 -- @brief 깜짝 세일 상품 발동
 -- @param id table_spot_sale에서 key값
 -------------------------------------
-function ServerData_SpotSale:request_startSpotSale(id, succ_cb)
+function ServerData_SpotSale:request_startSpotSale(id, finish_cb)
 	local func_request
 	local fail_cb
 	local response_status_cb
 	local success_cb
-	local uid = g_userData:get('uid')
+    local finish_cb = finish_cb or function() end
 
 	 -- 네트워크 통신
 	func_request = function()
+        local uid = g_userData:get('uid')
+
 		local ui_network = UI_Network()
 		ui_network:setUrl('/shop/spot_sale')
 		ui_network:setParam('uid', uid)
@@ -296,17 +283,20 @@ function ServerData_SpotSale:request_startSpotSale(id, succ_cb)
     -- 통신 성공 콜백
 	success_cb = function(ret)
 		self:applySpotSaleInfo(ret['spot_sale'])
-		succ_cb()
+		finish_cb()
     end
 
 	-- 통신 실패 콜백
 	fail_cb = function(ret)
-		succ_cb()
+        -- 깜짝 할인 상품 통신은 오류가 발생해도 유저에게 아무런 표시를 하지 않음
+		finish_cb()
 	end
 
 	-- 통신 에러 리턴 콜백 (true를 리턴하면 자체적으로 처리를 완료했다는 뜻)
     response_status_cb = function(ret)
-        return false
+        -- 깜짝 할인 상품 통신은 오류가 발생해도 유저에게 아무런 표시를 하지 않음
+        finish_cb()
+        return true
     end
 
 	func_request()

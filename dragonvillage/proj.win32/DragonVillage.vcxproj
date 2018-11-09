@@ -935,6 +935,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableSkillSound.lua" />
     <None Include="..\src\TableSlime.lua" />
     <None Include="..\src\TableSlimeExp.lua" />
+    <None Include="..\src\TableSpotSale.lua" />
     <None Include="..\src\TableStageData.lua" />
     <None Include="..\src\TableStageDesc.lua" />
     <None Include="..\src\TableStageMission.lua" />

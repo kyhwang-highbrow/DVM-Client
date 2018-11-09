@@ -3829,6 +3829,9 @@
     <None Include="..\src\UI_Package_SpotSale.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableSpotSale.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

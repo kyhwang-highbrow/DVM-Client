@@ -293,8 +293,17 @@ function UI_Lobby:entryCoroutine_spotSale(co)
     end
     
 	co:work()
+    local function finish_cb()
+        -- 깜짝 할인 상품이 있을 경우 즉시 팝업
+        if g_spotSaleData:hasSpotSaleItem() then
+            local ui = UI_Package_SpotSale()
+            ui:setCloseCB(co.NEXT)
+        else
+            co.NEXT()
+        end
+    end
     --g_spotSaleData:showSpotSale(lack_item_id, co.NEXT)
-    g_spotSaleData:request_startSpotSale(lack_item_id, co.NEXT)
+    g_spotSaleData:request_startSpotSale(lack_item_id, finish_cb)
 	if co:waitWork() then return end
 end
 
