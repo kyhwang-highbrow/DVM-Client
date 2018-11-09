@@ -61,11 +61,11 @@ function MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_bt
 end
 
 -------------------------------------
--- function ConfirmPrice
+-- function ConfirmPrice_original
 -- @brief
 -- @return bool
 -------------------------------------
-function ConfirmPrice(price_type, price_value)
+function ConfirmPrice_original(price_type, price_value)
     if (price_type == 'cash') then
         local cash = g_userData:get('cash')
 
@@ -101,4 +101,41 @@ function ConfirmPrice(price_type, price_value)
     end
 
     return true
+end
+
+-------------------------------------
+-- function ConfirmPrice
+-- @brief
+-- @return bool
+-------------------------------------
+function ConfirmPrice(price_type, price_value)
+    -- 보유량
+    local amount = 0
+
+    if (price_type == 'cash') then
+        amount = g_userData:get('cash')
+
+    elseif (price_type == 'gold') then
+        amount = g_userData:get('gold')
+
+    elseif (price_type == 'fp') then
+        amount = g_userData:get('fp')
+
+    elseif (price_type == 'ancient') then
+        amount = g_userData:get('ancient')
+
+    else
+        return true
+    end
+
+    if (price_value <= amount) then
+        return true
+    end
+
+    -- 깜짝 할인 상품이 있는지 확인
+    if (ServerData_SpotSale:checkSpotSale(price_type)) then
+        return false
+    end
+
+    return ConfirmPrice_original(price_type, price_value)
 end

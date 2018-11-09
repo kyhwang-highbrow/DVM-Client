@@ -35,18 +35,11 @@ function ServerData_SpotSale:getSortedSpotSaleList()
 end
 
 -------------------------------------
--- function showSpotSale
--------------------------------------
-function ServerData_SpotSale:showSpotSale(id, finish_cb)
-	MakeSimplePopup(POPUP_TYPE.OK, '깜짝 상품 세일' .. tostring(id), finish_cb, finish_cb)
-end
-
--------------------------------------
 -- function getSpotSaleLackItemID
 -- @brief 부족한 상품 체크/ 부족한 상품 없으면 nil 반환
 -- @return table_spot_sale테이블의 id 값 (spot_sale_id)
 -------------------------------------
-function ServerData_SpotSale:getSpotSaleLackItemID()
+function ServerData_SpotSale:getSpotSaleLackItemID(item_id)
     self:log('====================================================')
     self:log('## ServerData_SpotSale:getSpotSaleLackItemID() START')
 
@@ -68,12 +61,21 @@ function ServerData_SpotSale:getSpotSaleLackItemID()
     -- priority값이 낮은 순서로 정렬된 table_spot_sale
     local sorted_spot_sale_lsit = self:getSortedSpotSaleList()
 
+    -- 수량 체크를 스킵할지 여부. 지정 상품이 있다는 것은 강제로 노출시키기 위함이기 때문에 condition 수량 확인을 skip함
+    local skip_condition = false
+    if item_id then
+        skip_condition = true
+    end
 	for _,v in ipairs(sorted_spot_sale_lsit) do
         local spot_sale_id = v['id']
-        if (self:checkCondition(spot_sale_id)) then
-            self:log('## ServerData_SpotSale:getSpotSaleLackItemID() END')
-			return spot_sale_id
-		end
+
+        -- 지정 아이템이 없거나 지정된 아이템인 경우만 동작
+        if (not item_id) or (item_id == v['item']) then
+            if (self:checkCondition(spot_sale_id, skip_condition)) then
+                self:log('## ServerData_SpotSale:getSpotSaleLackItemID() END')
+			    return spot_sale_id
+		    end
+        end
 	end
 
     self:log('## ServerData_SpotSale:getSpotSaleLackItemID() END')
@@ -84,7 +86,7 @@ end
 -- function checkCondition
 -- @brief 개별 상품에 대한 조건 검사
 -------------------------------------
-function ServerData_SpotSale:checkCondition(id)
+function ServerData_SpotSale:checkCondition(id, skip_conditon)
     
     local table_spot_sale = TableSpotSale()
     if (not table_spot_sale:exists(id)) then
@@ -116,7 +118,8 @@ function ServerData_SpotSale:checkCondition(id)
         end
     end
 
-    do-- 3. 수량(condition) 확인
+    -- 3. 수량(condition) 확인
+    if (not skip_conditon) then
         local condition = table_spot_sale:getCondition(id)
         local item_id = table_spot_sale:getItemID(id)
 
@@ -344,4 +347,65 @@ function ServerData_SpotSale:getSpotSaleInfo_EndOfSaleTime(spot_sale_id)
     end
 
     return (spot_sale_info['active_list'][spot_sale_id] or 0)
+end
+
+
+-------------------------------------
+-- function checkSpotSale
+-- @brief
+-------------------------------------
+function ServerData_SpotSale:checkSpotSale(item_type, item_value)
+    local item_id = TableItem:getItemIDFromItemType(item_type)
+
+    -- 깜짝 할인 상품 리스트 확인 후 없으면 skip
+	local lack_item_id = g_spotSaleData:getSpotSaleLackItemID(item_id)
+    if (not lack_item_id) then
+        return false
+    end
+
+    local func_request
+    local func_finish_cb
+    local func_simple_popup
+    local func_spot_sale_popup
+
+    -- 서버에 깜짝 상품 판매 시작 요청
+    func_request = function()
+        g_spotSaleData:request_startSpotSale(lack_item_id, func_finish_cb)
+    end
+
+    -- 서버 통신 response
+    func_finish_cb = function()
+        -- 깜짝 상품이 있는 경우
+        if g_spotSaleData:hasSpotSaleItem() then
+            func_simple_popup(item_type)
+
+        -- 깜짝 상품이 없는 경우
+        else
+            ConfirmPrice_original(item_type, item_value)
+        end
+    end
+
+    -- 재화가 부족하다는 것을 유저에게 알림
+    func_simple_popup = function(item_type)
+
+        local msg = ''
+        if (item_type == 'cash') then
+            msg = Str('다이아몬드가 부족합니다.')
+        elseif (item_type == 'gold') then
+            msg = Str('골드가 부족합니다.')
+        elseif (item_type == 'staminas_st') then
+            msg = Str('입장권이 부족합니다.')
+        end
+
+        MakeSimplePopup(POPUP_TYPE.OK, msg, func_spot_sale_popup)
+    end
+
+    -- 깜작 할인 상품 팝업 띄움
+    func_spot_sale_popup = function()
+        UI_Package_SpotSale(lack_item_id)
+    end
+
+    func_request()
+
+    return true
 end
