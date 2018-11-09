@@ -62,6 +62,17 @@ function UI_ClanAttendanceReward:initUI()
         local item_card = UI_ItemCard(item_id, count)
         table.insert(icon_list, item_card)
     end
+	
+	-- 클랜 경험치
+	local clan_exp = self.m_tRewardInfo['clan_exp']
+	if (clan_exp) then
+		local clan_exp_card = UI_ClanExpCard(clan_exp)
+		table.insert(icon_list, clan_exp_card)
+	end
+
+	-- reward_info는 list(index table)이고 ItemCard 생성 시 ipairs를 쓰기 때문에 clan_exp 값은 사용되지 않는다.
+	-- 그래서 클랜 경험치는 따로 값을 빼와 사용하고 있으며 구조가 예쁘지 않지만 
+	-- 너무 많은 멤버 변수가 추가되어 되려 혼동이 있을까 싶어 위와 같이 구현함
 
     -- 아이템 아이콘 위치 정렬
     local scale = (120 / 150)

@@ -222,7 +222,11 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
         end
 
         -- 출석 보상 정보
+		-- 보상 UI 출력 부분 주석 확인해주세요
         self.m_attdRewardInfo = ret['reward_info']
+		if (self.m_attdRewardInfo) then
+			self.m_attdRewardInfo['clan_exp'] = ret['clan_exp'] or 0
+		end
 
         -- 재가입 제한 시간
         self.m_clanExitTimeStamp = ret['clan_exit']
