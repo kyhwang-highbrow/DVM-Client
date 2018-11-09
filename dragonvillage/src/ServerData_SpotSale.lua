@@ -47,10 +47,18 @@ end
 -- @return table_spot_sale테이블의 id 값 (spot_sale_id)
 -------------------------------------
 function ServerData_SpotSale:getSpotSaleLackItemID()
-
     self:log('====================================================')
     self:log('## ServerData_SpotSale:getSpotSaleLackItemID() START')
-	-- 1. 글로벌 쿨타임(global_cool_down) 확인
+
+
+    -- 1. 현재 활성화된 깜짝 할인 상품이 있을 경우
+    if (self:hasSpotSaleItem() == true) then
+        self:log('## 현재 활성화된 깜짝 할인 상품이 있음')
+        self:log('## ServerData_SpotSale:getSpotSaleLackItemID() END')
+        return nil
+    end
+
+	-- 2. 글로벌 쿨타임(global_cool_down) 확인
 	if (not self:getGlobalCoolTimeDone()) then
         self:log('## 글로벌 쿨타임')
         self:log('## ServerData_SpotSale:getSpotSaleLackItemID() END')
