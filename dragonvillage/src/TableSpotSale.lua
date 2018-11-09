@@ -91,6 +91,18 @@ function TableSpotSale:getProductID(spot_sale_id)
 end
 
 -------------------------------------
+-- function getBonusRate
+-- @brief 깜짝 할인 상품의 보너스 비율
+-------------------------------------
+function TableSpotSale:getBonusRate(spot_sale_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(spot_sale_id, 'bonus_rate') or 0
+end
+
+-------------------------------------
 -- function getUIIdx
 -- @brief 깜짝 할인 상품별 UI에서 사용하는 index
 -- ex)

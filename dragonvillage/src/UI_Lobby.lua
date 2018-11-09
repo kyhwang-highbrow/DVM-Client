@@ -300,7 +300,7 @@ function UI_Lobby:entryCoroutine_spotSale(co)
     local function finish_cb()
         -- 깜짝 할인 상품이 있을 경우 즉시 팝업
         if g_spotSaleData:hasSpotSaleItem() then
-            local ui = UI_Package_SpotSale()
+            local ui = UI_Package_SpotSale(lack_item_id)
             ui:setCloseCB(co.NEXT)
         else
             co.NEXT()
