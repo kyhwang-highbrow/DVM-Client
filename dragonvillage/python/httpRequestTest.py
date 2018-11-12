@@ -77,15 +77,20 @@ def testRequestPlatformServer():
     r = requests.post(url, headers = headers, data = json.dumps(data))
     return r
 
+def testRequestUpdatePatch():
+    url = "http://192.168.1.41:7777/maintenance/update_patch_dv"
+    r = requests.get(url)
+    return r
+
 ###################################
 # def main
 ###################################
 def main():
-    r = testRequestXsolla()
+    r = testRequestUpdatePatch()
     
     print '\n###################################\n[response]\n###################################'
     print "status_code : %s" % r.status_code
-    print "text : %s" % r.text
+    # print "text : %s" % r.text
 
 ###################################
 # MAIN
