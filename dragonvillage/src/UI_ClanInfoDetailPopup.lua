@@ -190,7 +190,8 @@ end
 -- function refresh_clanBuff
 -------------------------------------
 function UI_ClanInfoDetailPopup:refresh_clanBuff()
-	UI_Clan.refresh_clanBuff(self)
+	local struct_clan = self.m_structClan
+	UI_Clan.refresh_clanBuff(self, struct_clan)
 end
 
 -------------------------------------

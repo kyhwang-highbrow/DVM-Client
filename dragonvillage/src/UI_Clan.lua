@@ -402,7 +402,7 @@ function UI_Clan:refresh()
 	vars['clanExpLabel']:setString(string.format('%.2f%%', clan_exp_percent))
 
 	-- 클랜 버프
-	self:refresh_clanBuff()
+	self:refresh_clanBuff(struct_clan)
 
     -- 클랜 이름
     local clan_name = struct_clan:getClanName()
@@ -483,9 +483,9 @@ end
 -------------------------------------
 -- function refresh_clanBuff
 -------------------------------------
-function UI_Clan:refresh_clanBuff()
+function UI_Clan:refresh_clanBuff(struct_clan)
 	local vars = self.vars
-	local struct_clan_buff = g_clanData:getClanStruct():getClanBuffStruct()
+	local struct_clan_buff = struct_clan:getClanBuffStruct()
 	local idx = 1
 
 	for clan_buff_type, value in pairs(struct_clan_buff) do
