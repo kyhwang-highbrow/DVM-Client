@@ -692,3 +692,53 @@ function ServerData:confirm_reward(ret)
         g_highlightData:setHighlightMail()
     end
 end
+
+--[[
+
+	-- 통신 형식 예시
+
+	1. 통신 요청 함수 이름 request_XXXX
+	2. 함수 변수 선언 후 함수 정의(권장/실행 순서대로 코드 짜기 위해)
+	3. UI_Network()의 모든 Set함수 사용 권장
+		a. 매개변수 Default값이 변경되었을 때 발생하는 오류 방지
+		b. 다른 request함수 만들 때 참고할 수 있도록
+
+	local func_request
+	local fail_cb
+	local response_status_cb
+	local success_cb
+    local finish_cb = finish_cb or function() end
+
+	 -- 네트워크 통신
+	func_request = function()
+        local uid = g_userData:get('uid')
+
+		local ui_network = UI_Network()				
+		ui_network:setUrl('/shop/spot_sale')
+		ui_network:setParam('uid', uid)
+		ui_network:setParam('id', id)
+		ui_network:setMethod('POST')			
+		ui_network:setSuccessCB(success_cb)					-- 통신 성공 콜백
+		ui_network:setFailCB(fail_cb)						-- 통신 실패 콜백
+		ui_network:setResponseStatusCB(response_status_cb)	-- 통신 에러 리턴 콜백 (true를 리턴하면 자체적으로 처리를 완료했다는 뜻)/ ret['status']에 따른 처리 가능
+		ui_network:setRevocable(false)						-- 통신 실패 팝업이 떴을 때 = true의 경우 통신 취소 가능/ false의 경우 통신 재시도만 가능
+		ui_network:setReuse(false)							-- 통신 이후 UI 개폐 여부 =  false의 경우 통신 후 UI 닫힘 
+		ui_network:request()
+	end
+
+	func_request()
+
+	success_cb = function(ret)
+		
+    end
+
+
+	fail_cb = function(ret)
+       
+	end
+
+    response_status_cb = function(ret)
+        return true
+    end
+
+--]]
