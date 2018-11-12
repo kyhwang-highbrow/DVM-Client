@@ -646,7 +646,7 @@ end
 -- function getClanExpIcon
 -------------------------------------
 function IconHelper:getClanExpIcon()
-    return IconHelper:getIcon('res/ui/icons/item/lactea.png')
+    return IconHelper:getIcon('res/ui/icons/item/clan_exp.png')
 end
 
 -------------------------------------
@@ -655,10 +655,10 @@ end
 function IconHelper:getClanBuffIcon(clan_buff_type)
 	local res
 	if (string.find(clan_buff_type, 'exp')) then
-		res = 'res/ui/icons/hot_time/hot_time_exp.png'
+		res = 'res/ui/icons/hot_time/clan_buff_exp.png'
 
 	elseif (string.find(clan_buff_type, 'gold')) then
-		res = 'res/ui/icons/hot_time/hot_time_gold.png'
+		res = 'res/ui/icons/hot_time/clan_buff_gold.png'
 
 	end
 
