@@ -280,8 +280,8 @@ function StructUserInfoClan:getClanContribution()
         return ''
     end
 
-    local param_1 = Str('클랜 기여도')
-    local param_2 = Str('{1}점', comma_value(t_dungeon['contribute_exp']))
+    local param_1 = Str('경험치 기여도')
+    local param_2 = Str('{1} xp', comma_value(t_dungeon['contribute_exp']))
 
     -- 번역 추출 안하기 위해 기존 문구 조합으로
     local str = string.format('{@dark_brown}%s : {@apricot}%s', param_1, param_2)
