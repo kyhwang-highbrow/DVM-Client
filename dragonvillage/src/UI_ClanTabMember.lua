@@ -106,6 +106,9 @@ function UI_ClanTabMember:init_TableViewGuest()
 
         -- 던전 정보 관련 노드 visible off
         ui.vars['playInfoNode']:setVisible(false)
+
+		-- 클랜 경험치 기여도
+		ui.vars['expInfoNode']:setVisible(false)
     end
 
     -- 테이블 뷰 인스턴스 생성
