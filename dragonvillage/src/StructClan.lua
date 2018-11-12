@@ -207,6 +207,10 @@ end
 -- function getClanExpRatio
 -------------------------------------
 function StructClan:getClanExpRatio()
+	if (self['required_exp'] <= 0) then
+		return 0
+	end
+
 	return (self['exp'] / self['required_exp'])
 end
 
