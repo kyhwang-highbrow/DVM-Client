@@ -1195,7 +1195,7 @@ end
 -------------------------------------
 function UI_Lobby:click_expBoosterBtn()
     local vars = self.vars
-    g_hotTimeData:makeHotTimeToolTip('exp', vars['expBoosterBtn'])
+    g_hotTimeData:makeHotTimeToolTip('buff_exp', vars['expBoosterBtn'])
 end
 
 -------------------------------------
@@ -1203,7 +1203,7 @@ end
 -------------------------------------
 function UI_Lobby:click_goldBoosterBtn()
     local vars = self.vars
-    g_hotTimeData:makeHotTimeToolTip('gold', vars['goldBoosterBtn'])
+    g_hotTimeData:makeHotTimeToolTip('buff_gold', vars['goldBoosterBtn'])
 end
 
 -------------------------------------
