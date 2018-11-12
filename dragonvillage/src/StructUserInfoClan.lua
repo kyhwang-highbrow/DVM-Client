@@ -263,6 +263,17 @@ end
 -------------------------------------
 -- function getClanContribution
 -------------------------------------
+function StructUserInfoClan:getClanContributionExp()
+	local t_dungeon = self.m_dungeonInfo
+    if (not t_dungeon) then 
+        return 0
+    end
+	return t_dungeon['contribute_exp']
+end
+
+-------------------------------------
+-- function getClanContribution
+-------------------------------------
 function StructUserInfoClan:getClanContribution()
     local t_dungeon = self.m_dungeonInfo
     if (not t_dungeon) then 

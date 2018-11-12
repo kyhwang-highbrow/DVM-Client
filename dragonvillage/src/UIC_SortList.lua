@@ -661,6 +661,7 @@ function MakeUICSortList_clanMember(button, label, direction)
     uic:addSortType('level', Str('레벨'))
     uic:addSortType('active_time', Str('최종접속'))
     uic:addSortType('member_type', Str('직책'))
+	uic:addSortType('contribute_exp', Str('클랜 기여도'))
 
     return uic
 end

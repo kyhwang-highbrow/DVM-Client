@@ -22,6 +22,7 @@ function SortManager_ClanMember:init()
     self:addSortType('active_time', false, function(a, b, ascending) return self:sort_active_time(a, b, ascending) end)
     self:addSortType('level', false, function(a, b, ascending) return self:sort_level(a, b, ascending) end)
     self:addSortType('member_type', false, function(a, b, ascending) return self:sort_memberType(a, b, ascending) end)
+	self:addSortType('contribute_exp', false, function(a, b, ascending) return self:sort_contributeExp(a, b, ascending) end)
     self:setDefaultSortFunc(function(a, b, ascending) return self:sort_uid(a, b, ascending) end)
 end
 
@@ -116,3 +117,27 @@ function SortManager_ClanMember:sort_uid(a, b, ascending)
         return a_value > b_value
     end
 end
+
+-------------------------------------
+-- function sort_contributeExp
+-- @brief 기여도로 정렬
+-------------------------------------
+function SortManager_ClanMember:sort_contributeExp(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_value = a_data:getClanContributionExp()
+    local b_value = b_data:getClanContributionExp()
+
+    if (a_value == b_value) then
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then
+        return a_value < b_value
+    else
+        return a_value > b_value
+    end
+end
+
