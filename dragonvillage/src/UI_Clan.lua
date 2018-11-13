@@ -122,7 +122,7 @@ function UI_Clan:initUI()
 
 	    local rich_label = UIC_RichLabel()
 	    rich_label:setDimension(node_size['width'], node_size['height'])
-	    rich_label:setFontSize(24)
+	    rich_label:setFontSize(22)
 	    rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
 	    rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1.5)
         rich_label:setDefualtColor(COLOR['white'])
