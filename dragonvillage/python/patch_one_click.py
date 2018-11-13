@@ -4,7 +4,6 @@ import os
 import sys
 import shutil
 import zipfile
-import requests
 
 #모듈을 사용하기 위해 시스템 경로 추가
 file_path = os.path.dirname(os.path.realpath(__file__))
@@ -26,25 +25,18 @@ TOOL_SERVER_PATH = ''
 # 플랫폼 서버
 PLATFORM_SERVER_PATH = ''
 
-#import pip
-#pip.main(['install', 'libarchive'])
-
 # 모듈 import(설치되어있지 않은 경우 install 후 import)
 def install_and_import(package):
     import importlib
     try:
-        print("try")
         importlib.import_module(package)
     except ImportError:
-        print("except")
         import pip
-        print("except 1")
         pip.main(['install', package])
-        print("except 2")
     finally:
         globals()[package] = importlib.import_module(package)
         
-#install_and_import('libarchive')
+install_and_import('libarchive')
        
 #마지막 폴더명만 얻어오는 함수
 def getDirName(path):
@@ -126,8 +118,8 @@ def init_global_var():
 # 서버로부터 패치 정보 얻어옴
 def get_patch_info(app_ver):
     print('# get_patch_info ...')
-    import requests
-    #install_and_import('requests')
+    # import requests
+    install_and_import('requests')
     
     params = {'app_ver': app_ver}
     r = requests.get(SERVER_PATH + '/get_patch_info', params=params)
@@ -210,7 +202,6 @@ def copy(src_file, dst_dir):
     
 # 메인 함수
 def main():
-    import requests
     global latest_patch_ver
     
     # 전역변수 초기화
