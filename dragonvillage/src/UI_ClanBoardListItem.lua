@@ -133,7 +133,7 @@ function UI_ClanBoardListItem:setContentWithAdjHeight(review)
 	vars['assessLabel']:setLineBreakWithoutSpace(true)
 	local line = vars['assessLabel']:getStringNumLines()
 
-	if (line > 3) then
+	if (line > 1) then
 		-- line수에 따라 label 영역 계산
 		local label_size = vars['assessLabel'].m_node:getContentSize()
 		local label_height = vars['assessLabel']:getTotalHeight()
