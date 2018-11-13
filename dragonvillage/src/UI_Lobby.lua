@@ -15,6 +15,8 @@ UI_Lobby = class(PARENT,{
         -- 버튼 상태
         m_bItemAutoEnabled = 'bool',
         m_bGiftBoxEnabled = 'bool',
+
+        m_bDirtyLeftButtonMenu = 'boon',
     })
 
 -------------------------------------
@@ -29,6 +31,7 @@ function UI_Lobby:initParentVariable()
     self.m_bUseExitBtn = false
     self.m_bShowChatBtn = true
     self.m_uiBgm = 'bgm_lobby'
+    self.m_bDirtyLeftButtonMenu = true
 end
 
 -------------------------------------
@@ -601,6 +604,14 @@ function UI_Lobby:initButton()
             vars['clanLockNode']:setVisible(false)
         end
     end
+
+    do -- 왼쪽 버튼 leftMenu
+        vars['mailBtn']:setVisible(true)
+        vars['goldBoosterBtn']:setVisible(false)
+        vars['expBoosterBtn']:setVisible(false)
+        vars['googleGameBtn']:setVisible(false)
+        vars['googleAchievementBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -870,14 +881,13 @@ function UI_Lobby:update_google()
 
 	if (not CppFunctions:isAndroid()) then
 		vars['googleGameBtn']:setVisible(false)
-		return 
-	end
-
-    if (g_localData:isGoogleLogin()) then
+	elseif (g_localData:isGoogleLogin()) then
         vars['googleGameBtn']:setVisible(true)
     else
         vars['googleGameBtn']:setVisible(false)
     end
+
+    self.m_bDirtyLeftButtonMenu = true
 end
 
 -------------------------------------
@@ -1178,7 +1188,7 @@ function UI_Lobby:click_googleGameBtn()
         vars['googleAchievementBtn']:runAction(cc.Sequence:create(
             cc.MoveTo:create(0, cc.p(game_pos_x, achv_pos_y)),
             cc.Show:create(),
-            cca.makeBasicEaseMove(0.2, game_pos_x + 100, achv_pos_y)
+            cca.makeBasicEaseMove(0.2, game_pos_x + 73, achv_pos_y)
         ))
     end
 end
@@ -1387,6 +1397,13 @@ function UI_Lobby:update(dt)
     if self.m_lobbySpotSaleBtn then
         self.m_lobbySpotSaleBtn:update()
     end
+
+    -- 왼쪽 버튼 리스트 업데이트
+    if self.m_bDirtyLeftButtonMenu then
+        self.m_bDirtyLeftButtonMenu = false
+        self:update_leftButtons()
+    end
+
     
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -1467,28 +1484,8 @@ function UI_Lobby:update_boosterButtons()
         vars['goldBoosterBtn']:setVisible(state == BOOSTER_ITEM_STATE.INUSE)
     end
 
-    -- 인덱스 1번이 왼쪽
-    local t_btn_name = {}
-    table.insert(t_btn_name, 'expBoosterBtn')
-    table.insert(t_btn_name, 'goldBoosterBtn')
-    
-    -- visible이 켜진 버튼들 리스트
-    local l_btn_list = {}
-    for _,name in ipairs(t_btn_name) do
-        local btn = vars[name]
-        if (btn and btn:isVisible()) then
-            table.insert(l_btn_list, btn)
-        end
-    end
-
-    local pos_x = -124
-    local interval = 106
-
-    -- 버튼들의 위치 지정
-    for i,v in ipairs(l_btn_list) do
-        local _pos_x = pos_x + ((i-1) * interval)
-        v:setPositionX(_pos_x)
-    end
+    -- 버튼들의 위치 조정
+    self.m_bDirtyLeftButtonMenu = true
 end
 
 -------------------------------------
@@ -1615,6 +1612,41 @@ function UI_Lobby:update_rightButtons()
 
     local pos_x = -60
     local interval = -90
+
+    -- 버튼들의 위치 지정
+    for i,v in ipairs(l_btn_list) do
+        local _pos_x = pos_x + ((i-1) * interval)
+        v:setPositionX(_pos_x)
+    end
+end
+
+-------------------------------------
+-- function update_leftButtons
+-- @brief 왼쪽 버튼 정렬 (우편함, 구글 버튼, 부스터 버튼 등)
+-------------------------------------
+function UI_Lobby:update_leftButtons()
+    local vars = self.vars
+
+    -- 인덱스 1번이 오른쪽
+    local t_btn_name = {}
+
+    -- mailBtn은 가장 왼쪽에 고정
+    table.insert(t_btn_name, 'goldBoosterBtn')
+    table.insert(t_btn_name, 'expBoosterBtn')
+    table.insert(t_btn_name, 'googleGameBtn')
+    -- googleAchievementBtn은 googleGameBtn의 오른쪽에 자동으로 위치함
+
+    -- visible이 켜진 버튼들 리스트
+    local l_btn_list = {}
+    for _,name in ipairs(t_btn_name) do
+        local btn = vars[name]
+        if (btn and btn:isVisible()) then
+            table.insert(l_btn_list, btn)
+        end
+    end
+
+    local pos_x = 135
+    local interval = 73
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
