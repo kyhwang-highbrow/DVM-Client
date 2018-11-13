@@ -57,12 +57,16 @@ function UI_LobbySpotSaleBtn:update()
         -- spotSaleLabel1, spotSaleLabel2, spotSaleLabel3
         local lua_name = 'spotSaleLabel' .. ui_idx
         if vars[lua_name] then
-            local end_of_sale_time = g_spotSaleData:getSpotSaleInfo_EndOfSaleTime(spot_sale_id) / 1000
-            local curr_time = Timer:getServerTime()
+            --local end_of_sale_time = g_spotSaleData:getSpotSaleInfo_EndOfSaleTime(spot_sale_id) / 1000
+            --local curr_time = Timer:getServerTime()
+            local end_of_sale_time = g_spotSaleData:getSpotSaleInfo_EndOfSaleTime(spot_sale_id)
+            local curr_time = Timer:getServerTime_Milliseconds()
+
             local str = ''
             if (curr_time < end_of_sale_time) then
                 local time = (end_of_sale_time - curr_time)
-                str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+                --str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+                str = Str('{1}', datetime.makeTimeDesc_timer(time))
             end
             vars[lua_name]:setString(str)
         end

@@ -60,7 +60,7 @@ end
 -- @brief 단위 (1/1000초)
 -------------------------------------
 function TimeLib:getServerTime_Milliseconds()
-    local server_time = (self:getServerTime() * 1000)
+    local server_time = (socket.gettime() + self.m_diffServer) * 1000
     return server_time
 end
 

@@ -101,6 +101,7 @@ function UI_Package_SpotSale:initButton()
     end
 
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn1() end)
+    vars['buyBtn1']:setAutoShake(true)
 end
 
 -------------------------------------

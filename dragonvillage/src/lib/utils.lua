@@ -355,6 +355,45 @@ function datetime.makeTimeDesc(sec, showSeconds, firstOnly, timeOnly)
     end
 end
 
+function datetime.makeTimeDesc_timer(milliseconds)
+    local day = math.floor(milliseconds / 86400000)
+    milliseconds = milliseconds - (day * 86400000)
+
+    local hour = math.floor(milliseconds / 3600000)
+    milliseconds = milliseconds - (hour * 3600000)
+
+    local min = math.floor(milliseconds / 60000)
+    milliseconds = milliseconds - (min * 60000)
+
+    local sec = math.floor(milliseconds / 1000)
+    milliseconds = milliseconds - (sec * 1000)
+
+    local millisec = milliseconds
+
+    local str = ''
+    if (0 < day) then
+        --str = string.format('%.2d:%.2d:%.2d:%.2d:%.3d', day, hour, min, sec, millisec)
+        str = string.format('%.2d:%.2d:%.2d:%.2d', day, hour, min, sec)
+
+    elseif (0 < hour) then
+        --str = string.format('%.2d:%.2d:%.2d:%.3d',  hour, min, sec, millisec)
+        str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+
+    elseif (0 < min) then
+        --str = string.format('%.2d:%.2d:%.3d',  min, sec, millisec)
+        str = string.format('%.2d:%.2d',  min, sec)
+
+    --elseif (0 < sec) then
+    else
+        --str = string.format('%.2d:%.3d', sec, millisec)
+        str = string.format('%d', sec)
+
+    end
+
+    return str
+end
+
+
 function datetime.dayToSecond(day)
     -- 일 * 시 * 분 * 초
     local seconds = day * 24 * 60 * 60
