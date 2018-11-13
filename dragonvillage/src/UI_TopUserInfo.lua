@@ -133,7 +133,7 @@ function UI_TopUserInfo:pushOwnerUI(ui)
     ui.m_ownerUIIdx = self.m_ownerUIIdx
     table.insert(self.m_lOwnerUI, 1, ui)
 
-    self:changeOwnerUI(ui)
+    self:changeOwnerUI(ui, true) -- param : ui, is_push
 end
 
 -------------------------------------
@@ -154,7 +154,7 @@ function UI_TopUserInfo:popOwnerUI(ui)
     end
 
     if change_owner_ui then
-        self:changeOwnerUI(self.m_lOwnerUI[1])
+        self:changeOwnerUI(self.m_lOwnerUI[1], false) -- param : ui, is_push
     end
 end
 
@@ -172,7 +172,7 @@ end
 -------------------------------------
 -- function changeOwnerUI
 -------------------------------------
-function UI_TopUserInfo:changeOwnerUI(ui)
+function UI_TopUserInfo:changeOwnerUI(ui, is_push)
     self.root:removeFromParent()
     ui.root:addChild(self.root, 100)
 
@@ -217,7 +217,7 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     if (ui.m_uiBgm) then
         SoundMgr:playBGM(ui.m_uiBgm)
     end
-    ui:onFocus()
+    ui:onFocus(is_push)
 
     self:refreshData()
     self:doAction()

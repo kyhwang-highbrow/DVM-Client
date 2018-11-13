@@ -258,7 +258,11 @@ function UI_Lobby:entryCoroutine()
                 end
             end
 
-			self:entryCoroutine_spotSale(co)
+            -- UIManager:toastNotificationRed('ENTRY_LOBBY_CNT : ' .. ENTRY_LOBBY_CNT)
+	        -- 로비 최초 진입 시에는 skip
+	        if (1 < ENTRY_LOBBY_CNT) then
+		        self:entryCoroutine_spotSale(co)
+	        end			
         end
         
         -- @ UI_ACTION
@@ -286,13 +290,6 @@ end
 -- @brief 깜짝 할인 상품 코루틴 
 -------------------------------------
 function UI_Lobby:entryCoroutine_spotSale(co)
-    -- UIManager:toastNotificationRed('ENTRY_LOBBY_CNT : ' .. ENTRY_LOBBY_CNT)
-
-	-- 로비 최초 진입 시에는 skip
-	if (ENTRY_LOBBY_CNT <= 1) then
-		return
-	end
-
 	-- 깜짝 할인 상품 리스트 확인 후 없으면 skip
 	local lack_item_id = g_spotSaleData:getSpotSaleLackItemID()
     if (not lack_item_id) then
@@ -1426,7 +1423,7 @@ end
 -- function onFocus
 -- @brief 탑바가 Lobby UI에 포커싱 되었을 때
 -------------------------------------
-function UI_Lobby:onFocus()
+function UI_Lobby:onFocus(is_push)
 	local vars = self.vars
 
     SpineCacheManager:getInstance():purgeSpineCacheData()
@@ -1442,6 +1439,17 @@ function UI_Lobby:onFocus()
     end
 
     self:refresh()
+
+    -- is_push가 true이면 최초에 UI 생성시에 호출된 경우
+    -- 로비에서 onFocus 코루틴은 최초 생성 시에는 skip
+    if (not is_push) then
+        local function coroutine_function(dt)
+            local co = CoroutineHelper()
+            self:entryCoroutine_spotSale(co)
+        end
+
+        Coroutine(coroutine_function, '로비 코루틴 onFocus')
+    end
 end
 
 -------------------------------------
