@@ -118,8 +118,40 @@ function UI_Package_SpotSale:click_buyBtn1()
     local struct_product = self.m_structProduct
 
     local function cb_func(ret)
-        -- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret)
+
+        -- 즉시 우편함을 띄우기 체크
+        local mail_select = false
+        if ret['items_list'] then
+
+            -- 깜짝 상품은 단일 상품만 판매하는 것을 고려. 해당 타입 발견 시 즉시 break
+            for i,v in pairs(ret['items_list']) do
+                local item_id = v['item_id']
+                -- 다이아
+                if (item_id == ITEM_ID_CASH) then
+                    UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS)
+                    mail_select = true
+                    break
+
+                -- 골드
+                elseif (item_id == ITEM_ID_GOLD) then
+                    UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS)
+                    mail_select = true
+                    break
+
+                -- 날개
+                elseif (item_id == ITEM_ID_ST) then
+                    UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.STAMINA)
+                    mail_select = true
+                    break
+                end
+            end
+        end
+
+        -- 우편함을 즉시 띄우지 않았을 경우에만 실행
+        if (not mail_select) then
+            -- 아이템 획득 결과창
+            ItemObtainResult_Shop(ret)
+        end
 
         -- 구매 완료 후 팝업을 닫지 않고 "구매 완료"를 표시
         local vars = self.vars

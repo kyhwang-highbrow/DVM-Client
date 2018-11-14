@@ -354,7 +354,7 @@ end
 -- function checkSpotSale
 -- @brief
 -------------------------------------
-function ServerData_SpotSale:checkSpotSale(item_type, item_value)
+function ServerData_SpotSale:checkSpotSale(item_type, item_value, finish_cb)
     local item_id = TableItem:getItemIDFromItemType(item_type)
 
     -- 깜짝 할인 상품 리스트 확인 후 없으면 skip
@@ -381,7 +381,11 @@ function ServerData_SpotSale:checkSpotSale(item_type, item_value)
 
         -- 깜짝 상품이 없는 경우
         else
-            ConfirmPrice_original(item_type, item_value)
+            if (item_type == 'st') then
+                MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
+            else
+                ConfirmPrice_original(item_type, item_value)
+            end
         end
     end
 
@@ -393,8 +397,8 @@ function ServerData_SpotSale:checkSpotSale(item_type, item_value)
             msg = Str('다이아몬드가 부족합니다.')
         elseif (item_type == 'gold') then
             msg = Str('골드가 부족합니다.')
-        elseif (item_type == 'staminas_st') then
-            msg = Str('입장권이 부족합니다.')
+        elseif (item_type == 'st') then
+            msg = Str('날개가 부족합니다.')
         end
 
         MakeSimplePopup(POPUP_TYPE.OK, msg, func_spot_sale_popup)

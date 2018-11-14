@@ -51,6 +51,7 @@ ITEM_ID_MAP['amor'] = 700014
 ITEM_ID_MAP['oblivion'] = 700015
 
 ITEM_ID_MAP['stamina'] = 700101
+ITEM_ID_MAP['st'] = 700101
 ITEM_ID_MAP['staminas_st'] = 700101
 ITEM_ID_MAP['staminas_pvp'] = 700102
 ITEM_ID_MAP['staminas_tower'] = 700103
