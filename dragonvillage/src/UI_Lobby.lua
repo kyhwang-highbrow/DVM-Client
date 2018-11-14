@@ -16,7 +16,8 @@ UI_Lobby = class(PARENT,{
         m_bItemAutoEnabled = 'bool',
         m_bGiftBoxEnabled = 'bool',
 
-        m_bDirtyLeftButtonMenu = 'boon',
+        m_bDirtyLeftButtonMenu = 'bool',
+        m_bUpdatingHighlights = 'bool',
     })
 
 -------------------------------------
@@ -32,6 +33,7 @@ function UI_Lobby:initParentVariable()
     self.m_bShowChatBtn = true
     self.m_uiBgm = 'bgm_lobby'
     self.m_bDirtyLeftButtonMenu = true
+    self.m_bUpdatingHighlights = false
 end
 
 -------------------------------------
@@ -724,10 +726,12 @@ function UI_Lobby:update_highlight()
                 vars['alphabetNotiYellow']:setVisible(true)
             end
         end
+
+        self.m_bUpdatingHighlights = false
     end
 
+    self.m_bUpdatingHighlights = true
     g_highlightData:request_highlightInfo(highlight_func)
-
 end
 
 -------------------------------------
@@ -1273,8 +1277,10 @@ function UI_Lobby:update(dt)
 
     -- noti 갱신
 	if (g_highlightData:isDirty()) then
-		g_highlightData:setDirty(false)
-		self:update_highlight()
+        if (not self.m_bUpdatingHighlights) then
+		    g_highlightData:setDirty(false)
+		    self:update_highlight()
+        end
 	end
 
     -- 마스터의 길 정보 갱신
