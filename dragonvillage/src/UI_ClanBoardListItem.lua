@@ -103,8 +103,10 @@ function UI_ClanBoardListItem:initUI_system()
 	vars['timeLabel']:setString(review_time)
 	
 	-- 내용
-	local review = t_data['text']
-	self:setContentWithAdjHeight(review)
+	-- 향후 시스템 공지 타입이 추가될 경우 텍스트는 테이블로 관리하고 서버에서 text type과 value만 받아서 번역 처리를 할 수 있도록 하자
+	local org_text = t_data['text'] or ''
+	local _, _, lv = org_text:find('클랜 (%d+)레벨 달성!')
+	self:setContentWithAdjHeight(Str('클랜 {1}레벨 달성!', lv or 0))
 end
 
 -------------------------------------
