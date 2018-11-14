@@ -888,7 +888,9 @@ function UI_Lobby:update_google()
         vars['googleGameBtn']:setVisible(false)
     end
 
-    self.m_bDirtyLeftButtonMenu = true
+    -- 그냥 즉시 갱신하도록 수정 (매 프레임 콜이 되지 않기때문에 부담 없음)
+    --self.m_bDirtyLeftButtonMenu = true
+    self:update_leftButtons()
 end
 
 -------------------------------------
