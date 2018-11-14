@@ -80,21 +80,23 @@ function ServerData_HotTime:init(server_data)
 	self:init_hotTimeType()
 end
 
-local CLAN_BUFF_INFO = {
-	-- 클랜 버프
-	['gold_bonus_rate'] = {
-		['title'] = Str('클랜 버프'),
-		['tool_tip'] = Str('획득 골드량 {1}% 증가'),
-	},
-	['exp_bonus_rate'] = {
-		['title'] = Str('클랜 버프'),
-		['tool_tip'] = Str('드래곤 경험치 획득량 {1}% 증가'),
-	},
-}
+local CLAN_BUFF_INFO
 -------------------------------------
 -- function init_hotTimeType
 -------------------------------------
 function ServerData_HotTime:init_hotTimeType()
+	CLAN_BUFF_INFO = {
+		-- 클랜 버프
+		['gold_bonus_rate'] = {
+			['title'] = Str('클랜 버프'),
+			['tool_tip'] = Str('획득 골드량 {1}% 증가'),
+		},
+		['exp_bonus_rate'] = {
+			['title'] = Str('클랜 버프'),
+			['tool_tip'] = Str('드래곤 경험치 획득량 {1}% 증가'),
+		},
+	}
+
     self.m_hotTimeType = {
 		['gold_1_5x'] = {
 			['key'] = 'gold_1_5x',
