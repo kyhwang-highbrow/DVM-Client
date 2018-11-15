@@ -865,6 +865,13 @@ function UI_TitleScene:workGetServerInfo()
             ui_network:setParam('uid', uid)
 			ui_network:setRevocable(true)
             ui_network:setSuccessCB(function(ret)
+				
+				 -- 클랜 정보 (클랜 로비가 들어가면서 추가)
+                if (ret['clan']) then
+                    cclog('# 클랜 정보')
+                    g_clanData:applyClanInfo_Title(ret)
+                end
+
                 -- contents 관련  
                 if (ret['stage_list']) then
                     cclog('# 모험 스테이지 리스트')
@@ -960,11 +967,6 @@ function UI_TitleScene:workGetServerInfo()
 					cclog('# 1주년 스페셜 복귀 유저 이벤트 정보')
 					g_eventData:setComebackUser_1st(ret['comback_reward_one_year'])
 				end
-
-                do -- 클랜 정보 (클랜 로비가 들어가면서 추가)
-                    cclog('# 클랜 정보')
-                    g_clanData:applyClanInfo_Title(ret)
-                end
 
                 co.NEXT()
 			end)
