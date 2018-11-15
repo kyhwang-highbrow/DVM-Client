@@ -859,7 +859,7 @@ function ServerData_Clan:request_accept(finish_cb, fail_cb, req_uid)
     end
 
     -- 멤버 최대치 이상일 경우
-    if (self.m_structClan:getMaxMember() <= self.m_structClan:getMemberCnt()) then
+    if (self.m_structClan:getClanMaxMember() <= self.m_structClan:getMemberCnt()) then
         UIManager:toastNotificationRed(Str('클랜원 목록이 가득 찼습니다.'))
         return
     end

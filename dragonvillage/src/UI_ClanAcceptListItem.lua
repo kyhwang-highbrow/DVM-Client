@@ -12,7 +12,7 @@ UI_ClanAcceptListItem = class(PARENT, {
 -------------------------------------
 function UI_ClanAcceptListItem:init(data)
     self.m_structUserInfo = data
-    local vars = self:load('clan_item_member_new.ui')
+    local vars = self:load('clan_item_member.ui')
 
     self:initUI()
     self:initButton()
