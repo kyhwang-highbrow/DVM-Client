@@ -303,7 +303,7 @@ function ChatClientSocket:write(pcode, msg)
     local errMsg
 
     p['pcode'] = pcode
-    p['payload'], errMsg = msg:Serialize()
+    p['payload'], errMsg = msg and msg:Serialize() or 'error on writing'
     p['packetId'] = 0
     p['recvCounter'] = 0
     if errMsg then
