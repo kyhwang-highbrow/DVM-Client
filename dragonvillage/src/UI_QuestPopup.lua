@@ -26,6 +26,8 @@ function UI_QuestPopup:init()
     -- 초기 값 (일일 퀘스트 보상 2배 구독 관련)
     vars['doingLabel']:setString('')
     vars['priceLabel']:setString('')
+	vars['dailyQuestLabel']:setString('')
+	vars['dailyQuestLabel2']:setString('')
 
 	-- 통신 후 UI 출력
 	local cb_func = function()
