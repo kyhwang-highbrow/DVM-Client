@@ -146,6 +146,9 @@ function ServerData_Arena:refresh_playerUserInfo(t_data, l_deck)
         l_deck['deckName'] = 'arena' -- 서버 작업이 안되서 arena로 일딴 설정
         self.m_playerUserInfo:applyPvpDeckData(l_deck)
     end
+
+    -- 클랜 정보는 항상 갱신
+    self.m_playerUserInfo:setStructClan(g_clanData:getClanStruct())
 end
 
 -------------------------------------
