@@ -26,6 +26,7 @@ UI_ReadySceneNew = class(PARENT,{
 
         -- 멀티덱 사용하는 경우 (클랜 던전, 고대 유적 던전)
         m_multiDeckMgr = 'MultiDeckMgr',
+		m_isDaily = 'boolean',				--@jhakim 2018-11-19 임시 매개변수 
     })
 
 -------------------------------------
@@ -95,6 +96,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
     end
+	self.m_isDaily = true
 end
 
 -------------------------------------
@@ -1031,9 +1033,22 @@ function UI_ReadySceneNew:click_startBtn()
         return
     end
 
-    if (self:check_startCondition(stage_id)) then
-        self:startGame(stage_id)
+    if (not self:check_startCondition(stage_id)) then    
+		return
     end
+
+	-- 황금던전 진입 전에 자동줍기 상품 팝업 조건 체크
+	if (stage_id == EVENT_GOLD_STAGE_ID) then
+		-- 입장 할 때 한 번만 팝업 
+		if( self.m_isDaily == true) then	
+			MakeSimplePopup(POPUP_TYPE.OK, Str('자동줍기가 비활성화 상태입니다'))
+			self.m_isDaily = false
+			return
+		end 
+	end
+		
+	self:startGame(stage_id)
+	
 end
 
 -------------------------------------
