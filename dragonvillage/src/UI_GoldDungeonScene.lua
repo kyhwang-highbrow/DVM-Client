@@ -26,6 +26,9 @@ function UI_GoldDungeonScene:init()
     self:refresh()
 
     self:sceneFadeInAction()
+	
+	self:setPromoteAutoPick()
+
 end
 
 -------------------------------------
@@ -94,6 +97,17 @@ function UI_GoldDungeonScene:click_dungeonInfoBtn()
     UI_EventGoldDungeonPopup()
 end
 
+-------------------------------------
+-- function setPromoteAutoPick
+-- @brief 자동 줍기 상품 판매를 촉진하는 팝업 정보 초기화
+-------------------------------------
+function UI_GoldDungeonScene:setPromoteAutoPick()
+	local data = g_settingData:get('promote_auto_pick')
+	if (not data) then
+		g_settingData:applySettingData(0, 'promote_auto_pick', 'latest_day') -- 매일 첫 팝업 출력되는 시간 timestemp
+		g_settingData:applySettingData(0, 'promote_auto_pick', 'cool_time') -- 7일 쿨타임 timestemp
+	end
+end
 
 --@CHECK
 UI:checkCompileError(UI_GoldDungeonScene)
