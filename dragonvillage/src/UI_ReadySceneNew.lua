@@ -1040,8 +1040,12 @@ function UI_ReadySceneNew:click_startBtn()
 	-- 황금던전 진입 전에 자동줍기 상품 팝업 조건 체크
 	if (stage_id == EVENT_GOLD_STAGE_ID) then
 		-- 입장 할 때 한 번만 팝업 
-		if( self.m_isDaily == true) then	
-			MakeSimplePopup(POPUP_TYPE.OK, Str('자동줍기가 비활성화 상태입니다'))
+		if (self.m_isDaily == true) then	
+			local ok_btn_cb = function()
+				g_subscriptionData:openSubscriptionPopup()
+			end
+
+			MakeSimplePopup(POPUP_TYPE.YES_NO, '자동 줍기가 비활성화 상태입니다. 자동줍기를 구매하시겠습니까?', ok_btn_cb)
 			self.m_isDaily = false
 			return
 		end 
