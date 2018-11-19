@@ -406,21 +406,8 @@ function UI_HatcheryRelationTab:click_summonBtn()
 
         -- 리스트 아이템 갱신
         local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
-        local cur_rpoint = g_bookData:getRelationPoint(self.m_selectedDid)
-        if (0 < cur_rpoint) then
-            if t_item and t_item['ui'] then
-                t_item['ui']:refresh()
-            end
-        else
-            self.m_tableViewTD:delItem(self.m_selectedDid)
-            self:click_dragonCard(nil)
-
-            -- 첫 아이템 클릭
-            local t_item = self.m_tableViewTD.m_itemList[1]
-            if t_item and t_item['data'] and t_item['data']['did'] then
-                local did = t_item['data']['did']
-                self:click_dragonCard(did)
-            end
+        if t_item and t_item['ui'] then
+            t_item['ui']:refresh()
         end
 
         -- 하일라이트 노티 갱신을 위해 호출
