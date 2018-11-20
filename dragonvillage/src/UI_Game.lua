@@ -137,6 +137,7 @@ local HOTTIME_UI_INFO = {
 function UI_Game:initHotTimeUI()
     local vars = self.vars
     local game_key = self.m_gameScene.m_gameKey
+	local game_mode = self.m_gameScene.m_gameMode
 
     vars['hotTimeStBtn']:setVisible(false)
     vars['hotTimeGoldBtn']:setVisible(false)
@@ -146,6 +147,11 @@ function UI_Game:initHotTimeUI()
     vars['hotTimeGoldLabel']:setString('')
     vars['hotTimeExpLabel']:setString('')
 
+	-- 모험 모드가 아니면 버프 계산하지 않음
+	if (game_mode ~= GAME_MODE_ADVENTURE) then
+		return
+	end
+
 	local l_item_ui = {}
     local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key) or {}
 	local t_hottime_calc_value = {
@@ -153,19 +159,23 @@ function UI_Game:initHotTimeUI()
 		['exp'] = 0,
 		['stamina'] = 0,
 	}
-	-- 총 버프 수치를 start 통신에서 받아온 따끈한 핫타임 정보로 계산
+
+	-- start 통신에서 받아온 따끈한 핫타임 정보로 활성화 버프 수치 계산
     for i, hot_key in pairs(l_hottime) do
         local t_info = g_hotTimeData:getHottimeInfo(hot_key)
 		if (t_info) then
 			t_hottime_calc_value[t_info['type']] = t_hottime_calc_value[t_info['type']] + t_info['value']
 		end
     end
+
+	-- 계산한 버프 수치에 클랜 버프 추가하고 UI 처리하기 위한 데이터 생성
 	for hottime_type, value in pairs(t_hottime_calc_value) do
 		-- 클랜 버프 추가
 		if (not g_clanData:isClanGuest()) then
 			value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE[hottime_type:upper()])
 		end
 
+		-- UI 처리용 데이터
 		if (value > 0) then
 			local t_ui_info = HOTTIME_UI_INFO[hottime_type]
 			
