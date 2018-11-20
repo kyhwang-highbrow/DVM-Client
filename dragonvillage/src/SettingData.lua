@@ -208,6 +208,13 @@ function SettingData:makeDefaultSettingData()
     -- 언어 확인 (기기 언어와, 게임 언어가 다를 경우)
     root_table['language_verification_complete'] = false
 
+    do -- 상품별 판매 촉진하는 팝업 쿨타임 만료시간
+        local t_data = {}
+        table.insert(t_data, 'auto_pick')           -- 황금 던전에서 자동줍기 상품 
+        table.insert(t_data, 'quest_double')        -- 일일퀘스트 2배 상품 
+        root_table['promote_expired'] = t_data
+    end
+
     return root_table
 end
 
@@ -511,4 +518,30 @@ end
 -------------------------------------
 function SettingData:setSleepMode(sleep_mode)
     self:applySettingData(sleep_mode, 'sleep_mode')
+end
+
+-------------------------------------
+-- function getPromoteExpired
+-- @brief 상품별(key) 판매 촉진하는 팝업 만료시간
+-------------------------------------
+function SettingData:getPromoteExpired(key)
+    
+    -- 값이 없을 경우 0으로 리턴(현재보다 과거 시간으로 처리하기 위해)
+    if (not self:get('promote_expired')) then
+        return 0    
+    end
+    
+    if (not self:get('promote_expired', key)) then
+        return 0
+    end
+    
+    return self:get('promote_expired', key)
+end
+
+-------------------------------------
+-- function setPromoteCoolTime
+-- @brief 상품별(key) 판매 촉진하는 팝업 만료시간 갱신
+-------------------------------------
+function SettingData:setPromoteCoolTime(key, time)
+    g_settingData:applySettingData(time, 'promote_expired', key) 
 end

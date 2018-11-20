@@ -26,9 +26,6 @@ function UI_GoldDungeonScene:init()
     self:refresh()
 
     self:sceneFadeInAction()
-	
-	self:setPromoteAutoPick()
-
 end
 
 -------------------------------------
@@ -95,17 +92,6 @@ end
 -------------------------------------
 function UI_GoldDungeonScene:click_dungeonInfoBtn()
     UI_EventGoldDungeonPopup()
-end
-
--------------------------------------
--- function setPromoteAutoPick
--- @brief 자동 줍기 상품 판매를 촉진하는 팝업 정보 초기화
--------------------------------------
-function UI_GoldDungeonScene:setPromoteAutoPick()
-	local data = g_settingData:get('promote_auto_pick')
-	if (not data) then
-		g_settingData:applySettingData(0, 'promote_auto_pick', 'cool_time') 
-	end
 end
 
 --@CHECK

@@ -26,7 +26,6 @@ UI_ReadySceneNew = class(PARENT,{
 
         -- 멀티덱 사용하는 경우 (클랜 던전, 고대 유적 던전)
         m_multiDeckMgr = 'MultiDeckMgr',
-		m_isDaily = 'boolean',				--@jhakim 2018-11-19 임시 매개변수 
     })
 
 -------------------------------------
@@ -96,7 +95,6 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
     end
-	self.m_isDaily = true
 end
 
 -------------------------------------
@@ -1050,31 +1048,43 @@ end
 -------------------------------------
 -- function checkPromoteAutoPick
 -- @breif 
--- @return 판매 촉진 팝업 조건 만족할 경우 true, 불만족할 경우 false
+-- @return 판매 촉진하는 팝업 조건 만족할 경우 true, 불만족할 경우 false
 -------------------------------------
 function UI_ReadySceneNew:checkPromoteAutoPick(stage_id)
-	if (stage_id == EVENT_GOLD_STAGE_ID) then
-		
-		local cool_time = g_settingData:get('promote_auto_pick', 'cool_time')
-		local cur_time = Timer:getServerTime()
-		
-		if (cool_time < cur_time) then			
-			local ok_btn_cb = function()
-				g_subscriptionData:openSubscriptionPopup()
-			end
+    -- 황금던전에서만 동작함 2018-11-20
+    if (stage_id ~= EVENT_GOLD_STAGE_ID) then
+        return false
+    end
 
-			MakeSimplePopup(POPUP_TYPE.YES_NO, '{@yellow}자동 줍기가 비활성화 상태입니다.\n\n {@write}자동줍기를 구매하시겠습니까?', ok_btn_cb)
-				
-			-- 2018-11-19 @jhakim 황금던전 자동줍기 상품 판매촉진 쿨타임 1일
-			local next_cool_time = cur_time+datetime.dayToSecond(1)
+    -- 쿨타임 만료시간 확인 (한번 노출 시 24시간 동안 노출하지 않음)
+    local cool_time = g_settingData:getPromoteExpired('auto_pick')
+    local cur_time = Timer:getServerTime()
+    if (cur_time < cool_time) then
+        return false
+    end
 
-			-- 쿨 타임 갱신
-			g_settingData:applySettingData(next_cool_time, 'promote_auto_pick', 'cool_time') 
-			return true
-		end
-	end
+    local func_show_popup -- 1
+    local func_show_autopick_popup -- 2
 
-	return false
+    -- 1. 자동 줍기 비활성화 알림&구매유도 팝업
+    func_show_popup = function()
+        local msg1 = Str('자동 줍기가 비활성화 상태입니다.')
+        local msg2 = Str('자동줍기를 구매하시겠습니까?')
+        local msg = '{@yellow}' .. msg1 .. '\n\n{@write}' .. msg2
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, func_show_autopick_popup, nil) -- param : type, msg, yes_cb, no_cb
+    end
+
+    -- 2. 자동 줍기 구매 팝업
+    func_show_autopick_popup = function()
+        -- 2018-11-19 황금던전 자동줍기 상품 판매촉진 쿨타임 1일
+        local next_cool_time = cur_time + datetime.dayToSecond(1)
+        -- 쿨 타임 만료시간 갱신
+        g_settingData:setPromoteCoolTime('auto_pick', next_cool_time)
+        -- 자동 줍기 구매 팝업
+        g_subscriptionData:openSubscriptionPopup()
+    end
+    func_show_popup()
+    return true
 end
 
 -------------------------------------
