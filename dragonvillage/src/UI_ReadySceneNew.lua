@@ -1055,28 +1055,23 @@ end
 function UI_ReadySceneNew:checkPromoteAutoPick(stage_id)
 	if (stage_id == EVENT_GOLD_STAGE_ID) then
 		
-		local latest_day = g_settingData:get('promote_auto_pick', 'latest_day')
-		local promote_cool_time = g_settingData:get('promote_auto_pick', 'cool_time')
+		local cool_time = g_settingData:get('promote_auto_pick', 'cool_time')
 		local cur_time = Timer:getServerTime()
 		
-		-- 하루에 한번씩만 판매 촉진 팝업 출력
-		if (datetime.secondToDay(latest_day) <= datetime.secondToDay(cur_time)) then	
-			if (promote_cool_time < cur_time) then
-				local ok_btn_cb = function()
-					g_subscriptionData:openSubscriptionPopup()
-				end
-
-				MakeSimplePopup(POPUP_TYPE.YES_NO, '자동 줍기가 비활성화 상태입니다. 자동줍기를 구매하시겠습니까?', ok_btn_cb)
-				
-				-- 2018-11-19 @jhakim 황금던전 자동줍기 상품 판매촉진 쿨타임 7일
-				local next_cool_time = cur_time+datetime.dayToSecond(7)
-
-				-- 쿨 타임 갱신
-				g_settingData:applySettingData(cur_time, 'promote_auto_pick', 'latest_day') 
-				g_settingData:applySettingData(next_cool_time, 'promote_auto_pick', 'cool_time')
-				return true
+		if (cool_time < cur_time) then			
+			local ok_btn_cb = function()
+				g_subscriptionData:openSubscriptionPopup()
 			end
-		end 
+
+			MakeSimplePopup(POPUP_TYPE.YES_NO, '{@yellow}자동 줍기가 비활성화 상태입니다.\n\n {@write}자동줍기를 구매하시겠습니까?', ok_btn_cb)
+				
+			-- 2018-11-19 @jhakim 황금던전 자동줍기 상품 판매촉진 쿨타임 1일
+			local next_cool_time = cur_time+datetime.dayToSecond(1)
+
+			-- 쿨 타임 갱신
+			g_settingData:applySettingData(next_cool_time, 'promote_auto_pick', 'cool_time') 
+			return true
+		end
 	end
 
 	return false
