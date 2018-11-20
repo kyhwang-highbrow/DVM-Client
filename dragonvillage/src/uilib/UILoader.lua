@@ -561,23 +561,32 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         -- 2017-07-10 sgkim TableView대신 UIC_TableView로 전환함
 		cclog('2017-07-10 sgkim TableView대신 UIC_TableView로 전환함')
     elseif type == 'Sprite' then
-        UILoader.checkTranslate(data)
-        local res = uiRoot .. data.file_name
+		--Spine type을 임시로 Sprite에서 생성
+		if (ui_name == 'spine') then
+			local res = uiRoot .. data.file_name
+			if (data.file_name) then
+				node = MakeAnimator(res).m_node
+				setPropsForNode(node, data)
+			end
+		else
+			UILoader.checkTranslate(data)
+			local res = uiRoot .. data.file_name
 
-        if use_sprite_frames then
-            -- 확장자를 포함한 파일명만 얻어옴
-            local file_name = res:match('([^/]+)$')
+			if use_sprite_frames then
+			    -- 확장자를 포함한 파일명만 얻어옴
+			    local file_name = res:match('([^/]+)$')
 
-            -- SpriteFrames를 통해 Sprite를 생성
-            node = cc.Sprite:createWithSpriteFrameName(file_name)
-        else
-            node = cc.Sprite:create(res)
-        end
+			    -- SpriteFrames를 통해 Sprite를 생성
+			    node = cc.Sprite:createWithSpriteFrameName(file_name)
+			else
+			    node = cc.Sprite:create(res)
+			end
 
-        if (not node) then
-            error(string.format('"%s"(이)가 없습니다.', res))
-        end
-        setPropsForSprite(node, data)
+			if (not node) then
+			    error(string.format('"%s"(이)가 없습니다.', res))
+			end
+			setPropsForSprite(node, data)
+	end
     elseif type == 'ProgressTimer' then
         UILoader.checkTranslate(data)
         local spr = cc.Sprite:create(uiRoot .. data.file_name)
