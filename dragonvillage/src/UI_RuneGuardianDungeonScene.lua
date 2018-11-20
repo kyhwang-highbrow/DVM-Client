@@ -10,7 +10,7 @@ UI_RuneGuardianDungeonScene = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_RuneGuardianDungeonScene:init()
-    local vars = self:load('dungeon_scene.ui')
+    local vars = self:load('rune_guardian_dungeon_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정

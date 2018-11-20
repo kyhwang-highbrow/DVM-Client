@@ -11,7 +11,7 @@ local THIS = UI_BattleMenuItem_Clan
 -- function init
 -------------------------------------
 function UI_BattleMenuItem_Clan:init(content_type)
-    local vars = self:load('battle_menu_dungeon_item.ui')
+    local vars = self:load('battle_menu_clan_item.ui')
 
     self:initUI()
     self:initButton()
