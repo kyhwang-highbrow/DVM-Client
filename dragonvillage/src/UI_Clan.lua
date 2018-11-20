@@ -139,6 +139,12 @@ function UI_Clan:initUI()
     self:initEditBox()
     self:initRaidInfo()
     self:initBoardTableView()
+
+    vars['searchMenu']:setVisible(true)
+    vars['searchBtn']:registerScriptTapHandler(function() self:click_searchBtn() end)
+
+    -- IOS maxlength 설정 안하면 입력 안됨
+    vars['searchEditBox']:setMaxLength(10)
 end
 
 -------------------------------------
@@ -597,6 +603,21 @@ end
 -------------------------------------
 function UI_Clan:click_runeDungeonBtn()
     UINavigator:goTo('rune_guardian')
+end
+
+-------------------------------------
+-- function click_searchBtn
+-------------------------------------
+function UI_Clan:click_searchBtn()
+    local vars = self.vars
+    local clan_name = vars['searchEditBox']:getText()
+
+    if (clan_name == '') then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('검색할 클랜명을 입력하세요.'))
+        return
+    end
+
+    g_clanData:requestClanInfoDetailPopup_byClanName(clan_name)
 end
 
 --@CHECK
