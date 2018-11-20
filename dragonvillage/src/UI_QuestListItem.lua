@@ -233,7 +233,14 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
-	ui_quest_popup:setBlock(true)
+    
+    -- 일일퀘스트 보상 2배 상품 판매촉진 팝업 띄울건지 체크
+    local is_promote = self:checkPromoteQuestDouble(ui_quest_popup)
+	if (is_promote) then
+		return
+	end
+    
+    ui_quest_popup:setBlock(true)
 	local cb_function = function(t_quest_data)
 		-- 우편함으로 전송
 		local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
@@ -251,6 +258,58 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 	end
 
 	g_questData:requestQuestReward(self.m_questData, cb_function)
+end
+
+------------------------------------
+-- function checkPromoteQuestDouble
+-- @return 일일퀘스트 보상 2배 상품 판매 촉진하는 팝업 띄울 수 있을 경우 true, 없을 경우 false
+-------------------------------------
+function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
+    -- 1. 조건 확인     
+    --      a. 퀘스트 10개 달성 보상 버튼만
+    --      b. 일일퀘스트 보상 2배 상품 적용 비활성화 상태
+    --      c. 쿨 타임 
+    -- 2. 퀘스트 2배 상품 소개 팝업
+    -- 3. 퀘스트 2배 상품 구매 팝업
+
+
+    -- 1. 조건 확인
+    -- a. 퀘스트 10개 달성 보상 버튼만
+    if (not self.m_questData:isQuest_ClearTen()) then
+        return false
+    end
+
+    -- b. 일일퀘스트 보상 2배 상품 적용 비활성화 상태
+    if (not self.m_questData:isDailyType() and g_questData:isSubscriptionActive()) then
+        return false
+    end
+
+    -- c. 쿨 타임 
+    local cool_time = g_settingData:getPromoteExpired('quest_double')
+    local cur_time = Timer:getServerTime()
+    if (cur_time < cool_time) then
+        return false
+    end
+
+    local func_show_popup 
+    local func_show_questdouble_popup 
+    -- 2. 퀘스트 2배 상품 소개 팝업
+    func_show_popup = function()
+        local msg = Str('일일보상을 2배로 받을 수 있는 기회!')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, func_show_questdouble_popup, nil) -- param : type, msg, yes_cb, no_cb
+    end
+
+    -- 3. 퀘스트 2배 상품 구매 팝업
+    func_show_questdouble_popup = function()
+        -- 2018-11-20 일일퀘스트 2배 보상 상품 판매 촉진하는 팝업 쿨타임 14일
+        local next_cool_time = cur_time + datetime.dayToSecond(14)
+        -- 쿨 타임 만료시간 갱신
+        g_settingData:setPromoteCoolTime('quest_double', next_cool_time)
+        -- 퀘스트 2배 상품 구매 팝업
+        ui_quest_popup:click_subscriptionBuyBtn()
+    end
+    func_show_popup()
+    return true
 end
 
 -------------------------------------

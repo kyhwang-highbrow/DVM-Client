@@ -89,6 +89,19 @@ function StructQuestData:getQuestClearType()
 end
 
 -------------------------------------
+-- function isQuest_ClearTen
+-- @breif '일일 퀘스트 10개 클리어' 퀘스트 인지 확인
+-------------------------------------
+function StructQuestData:isQuest_ClearTen()
+    local quest_key = self:getQuestClearType()
+    
+    -- quest_key == nil 일 경우 예외처리는
+    -- 해당 함수가 값이 아니라 비교 결과를 리턴하기 때문에 따로 해주지 않음
+    return (quest_key == 'dq_clear')
+
+end
+
+-------------------------------------
 -- function getQuestDesc
 -- @breif 퀘스트 설명
 -------------------------------------
