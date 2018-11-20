@@ -17,7 +17,7 @@ ServerData_SpotSale = class({
 -------------------------------------
 function ServerData_SpotSale:init(server_data)
     self.m_serverData = server_data
-    self.m_bDebugLog = true
+    self.m_bDebugLog = false
 end
 
 -------------------------------------
