@@ -62,6 +62,40 @@ end
 -- function initUI
 -------------------------------------
 function UI_BattleMenu:initUI()
+
+    do -- 클랜 가입 여부에 따라 탭 갯수가 달라짐 (3~4)
+
+        local clan_exist = (not g_clanData:isClanGuest())
+
+        local btn_list = {}
+        table.insert(btn_list, 'adventureBtn')
+        table.insert(btn_list, 'dungeonBtn')
+        table.insert(btn_list, 'competitionBtn')
+        table.insert(btn_list, 'clanBtn')
+
+        local vars = self.vars
+        local is_short = false
+
+        -- 클랜 미가입 시
+        if g_clanData:isClanGuest() then
+            -- Tab이 3개인 경우 긴 버전을 사용
+            is_short = false
+            for i,v in pairs(btn_list) do
+                vars[v] = vars['long_' .. v]
+            end
+        else
+            -- Tab이 4개인 경우 짧은 버전을 사용
+            is_short = true
+            for i,v in pairs(btn_list) do
+                vars[v] = vars['short_' .. v]
+            end
+        end
+
+        vars['longMenu']:setVisible(not is_short)
+        vars['shortMenu']:setVisible(is_short)
+    end
+
+    -- 탭 초기화
     self:initTab()
 end
 
@@ -126,17 +160,24 @@ function UI_BattleMenu:initTab()
     vars['adventureBg']:setOpacity(0)
     vars['dungeonBg']:setOpacity(0)
     vars['competitionBg']:setOpacity(0)
+    vars['clanBg']:setOpacity(0)
 
     -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
     local scr_size = cc.Director:getInstance():getWinSize()
     vars['adventureBg']:setScale(scr_size.width / 1280)
     vars['dungeonBg']:setScale(scr_size.width / 1280)
     vars['competitionBg']:setScale(scr_size.width / 1280)
+    vars['clanBg']:setScale(scr_size.width / 1280)
 
     -- 탭 초기화
     self:addTab('adventure', vars['adventureBtn'], vars['adventureMenu'])
     self:addTab('dungeon', vars['dungeonBtn'], vars['dungeonMenu'])
     self:addTab('competition', vars['competitionBtn'], vars['competitionMenu'])
+
+    -- 클랜 버튼은 클랜 가입 여부에 따라 없을수도 있음
+    if vars['clanBtn'] then
+        self:addTab('clan', vars['clanBtn'], vars['clanMenu'])
+    end
 
     -- 최초 탭 설정
     self:setTab('adventure')
@@ -185,6 +226,9 @@ function UI_BattleMenu:onChangeTab(tab, first)
 
         elseif (tab == 'competition') then
             self:initCompetitionTab() 
+        
+        elseif (tab == 'clan') then
+            --self:initCompetitionTab() 
         end
     end
 
@@ -199,6 +243,9 @@ function UI_BattleMenu:onChangeTab(tab, first)
 
     elseif (tab == 'competition') then
         self:runBtnAppearAction(self.m_lCompetitionBtnUI)
+
+    elseif (tab == 'clan') then
+        --self:runBtnAppearAction(self.m_lCompetitionBtnUI)
 
     end
 end
