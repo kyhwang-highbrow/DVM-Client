@@ -154,6 +154,7 @@ function UI_Clan:initButton()
     vars['noticeBtn']:registerScriptTapHandler(function() self:click_noticeBtn() end)
     vars['boardBtn']:registerScriptTapHandler(function() self:click_boardBtn() end)
 	vars['clanInfoBtn']:registerScriptTapHandler(function() UI_Help('clan') end)
+    vars['runeDungeonBtn']:registerScriptTapHandler(function() self:click_runeDungeonBtn() end)
 end
 
 -------------------------------------
@@ -588,6 +589,14 @@ function UI_Clan:click_boardBtn()
 		self:initBoardTableView() 
 	end
 	ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_runeDungeonBtn
+-- @breif 룬 수호자 던전 버튼
+-------------------------------------
+function UI_Clan:click_runeDungeonBtn()
+    UINavigator:goTo('rune_guardian')
 end
 
 --@CHECK

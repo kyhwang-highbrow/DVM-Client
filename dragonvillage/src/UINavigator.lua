@@ -82,6 +82,9 @@ if false then
 
     -- @brief 챌린지 모드로 이동
     UINavigator:goTo('challenge_mode')
+
+    -- @brief 룬 수호자 던전으로 이동
+    UINavigator:goTo('rune_guardian')
 end
 
 

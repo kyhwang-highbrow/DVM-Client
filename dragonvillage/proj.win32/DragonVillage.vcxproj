@@ -1050,6 +1050,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_BattleMenu.lua" />
     <None Include="..\src\UI_BattleMenuItem.lua" />
     <None Include="..\src\UI_BattleMenuItem_Adventure.lua" />
+    <None Include="..\src\UI_BattleMenuItem_Clan.lua" />
     <None Include="..\src\UI_BattleMenuItem_Competition.lua" />
     <None Include="..\src\UI_BattleMenuItem_Dungeon.lua" />
     <None Include="..\src\UI_Book.lua" />
@@ -1360,6 +1361,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Party.lua" />
     <None Include="..\src\UI_RuneAutoSellAgreePopup.lua" />
     <None Include="..\src\UI_RuneDevApiPopup.lua" />
+    <None Include="..\src\UI_RuneGuardianDungeonScene.lua" />
     <None Include="..\src\UI_RuneSetFilter.lua" />
     <None Include="..\src\UI_ScenarioPlayer_util.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Narrate.lua" />

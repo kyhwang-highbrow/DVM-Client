@@ -174,6 +174,10 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'clan_raid') then
         UINavigator:goTo('clan_raid')
 
+    -- 룬 수호자 던전
+    elseif (content_type == 'rune_guardian') then
+        UINavigator:goTo('rune_guardian')
+
     -- 고대 유적 던전
     elseif (content_type == 'ancient_ruin') then
         UINavigator:goTo('ancient_ruin')

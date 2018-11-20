@@ -3835,6 +3835,12 @@
     <None Include="..\src\UI_LobbySpotSaleBtn.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_BattleMenuItem_Clan.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_RuneGuardianDungeonScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

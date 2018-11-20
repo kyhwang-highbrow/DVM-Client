@@ -797,6 +797,7 @@ local t_module = {
     'UI_BattleMenuItem_Adventure',
     'UI_BattleMenuItem_Dungeon',
     'UI_BattleMenuItem_Competition',
+    'UI_BattleMenuItem_Clan',
 	'UI_QuestPopup',
     'UI_QuestListItem',
 	'UI_MasterRoadPopup',
@@ -854,6 +855,7 @@ local t_module = {
     'UI_PurchasePointListItem',
     'UI_MatchReady',
     'UI_MatchReadyChallengeMode',
+    'UI_RuneGuardianDungeonScene',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',

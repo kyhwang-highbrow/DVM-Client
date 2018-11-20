@@ -1225,7 +1225,7 @@ function UINavigatorDefinition:goTo_clan_raid(...)
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
         if (is_opend == true) then
             self:closeUIList(idx)
-            ui:setTab('dungeon') -- 전투 메뉴에서 tab의 이름이 'dungeon'이다.
+            ui:setTab('clan') -- 전투 메뉴에서 tab의 이름이 'clan'이다.
             ui:resetButtonsPosition()
             UI_ClanRaid()
             return
@@ -1264,6 +1264,63 @@ function UINavigatorDefinition:goTo_clan_raid(...)
     -- 클랜 정보 요청
     local stage_id = nil
     g_clanRaidData:request_info(stage_id, finish_cb, fail_cb)
+end
+
+-------------------------------------
+-- function goTo_rune_guardian
+-- @brief 룬 수호자 던전으로 이동
+-- @usage UINavigatorDefinition:goTo('rune_guardian')
+-------------------------------------
+function UINavigatorDefinition:goTo_rune_guardian(...)
+    -- 클랜 가입이 되지 않은 상태에서 진입시에
+    if (g_clanData:isClanGuest()) then
+        local msg = Str('클랜이 존재하지 않습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
+    -- 룬 수호자 던전 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_RuneGuardianDungeonScene')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        ui:refresh(true)
+        return
+    end
+        
+    -- 전투 메뉴가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        ui:setTab('clan') -- 전투 메뉴에서 tab의 이름이 'clan'이다.
+        ui:resetButtonsPosition()
+        UI_RuneGuardianDungeonScene()
+        return
+    end
+
+    -- 클랜 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Clan')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        UI_RuneGuardianDungeonScene()
+        return
+    end
+
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        UI_RuneGuardianDungeonScene()
+        return
+    end
+
+    do-- Scene으로 클랜 던전 UI 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        local scene = SceneCommon(UI_RuneGuardianDungeonScene, close_cb)
+        scene:runScene()
+    end
 end
 
 -------------------------------------

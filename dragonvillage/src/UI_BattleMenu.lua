@@ -7,6 +7,7 @@ UI_BattleMenu = class(PARENT, {
         m_lAdventureBtnUI = '',
         m_lDungeonBtnUI = '',
         m_lCompetitionBtnUI = '',
+        m_lClanBtnUI = '',
 
         m_tNotiSprite = '',
      })
@@ -228,7 +229,7 @@ function UI_BattleMenu:onChangeTab(tab, first)
             self:initCompetitionTab() 
         
         elseif (tab == 'clan') then
-            --self:initCompetitionTab() 
+            self:initClanTab() 
         end
     end
 
@@ -245,7 +246,7 @@ function UI_BattleMenu:onChangeTab(tab, first)
         self:runBtnAppearAction(self.m_lCompetitionBtnUI)
 
     elseif (tab == 'clan') then
-        --self:runBtnAppearAction(self.m_lCompetitionBtnUI)
+        self:runBtnAppearAction(self.m_lClanBtnUI)
 
     end
 end
@@ -397,6 +398,43 @@ function UI_BattleMenu:initCompetitionTab()
     end
 
     self.m_lCompetitionBtnUI = l_btn_ui
+end
+
+-------------------------------------
+-- function initClanTab
+-- @brief 클랜 탭 초기화
+-------------------------------------
+function UI_BattleMenu:initClanTab()
+    local vars = self.vars
+    -- 메뉴 아이템 x축 간격
+    local interval_x = 416
+    local pos_y = -80
+
+    local l_content_str = {}
+    do -- 콘텐츠 리스트 생성
+        table.insert(l_content_str, 'clan_raid') -- 클랜 던전
+        table.insert(l_content_str, 'rune_guardian') -- 룬 수호자 (세트별 룬 파밍 던전)
+    end
+
+    -- 3개 초과이면 얇은 모드
+    local is_thin = (3 < table.count(l_content_str))
+    if is_thin then
+        interval_x = 285
+    end
+
+    local l_btn_ui = {}
+    do -- 콘텐츠 리스트 UI 생성
+        local l_pos = getSortPosList(interval_x, table.count(l_content_str))
+        for i,v in ipairs(l_content_str) do
+            local ui = UI_BattleMenuItem_Clan(v, is_thin)
+            local pos_x = l_pos[i]
+            ui.root:setPosition(pos_x, pos_y)
+            vars['clanMenu']:addChild(ui.root)
+            table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=pos_y})
+        end
+    end
+
+    self.m_lClanBtnUI = l_btn_ui
 end
 
 -------------------------------------
