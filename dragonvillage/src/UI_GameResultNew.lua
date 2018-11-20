@@ -748,6 +748,10 @@ function UI_GameResultNew:set_modeButton()
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         vars['ancientRuinBtn']:setVisible(true)
 
+    -- 룬 수호자 던전
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        moveToCenterBtn()
+
     -- 모험 
     else
         vars['mapBtn']:setVisible(true)

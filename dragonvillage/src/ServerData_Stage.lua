@@ -87,6 +87,11 @@ function ServerData_Stage:getStageName(stage_id)
     -- 고대유적던전
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         name = g_ancientRuinData:getStageName(stage_id)
+
+    -- 룬 수호자 던전
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        name = Str('룬 수호자 던전')
+
     end
 
     return name
@@ -136,6 +141,10 @@ function ServerData_Stage:isOpenStage(stage_id)
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         ret = g_nestDungeonData:isOpenStage(stage_id)
 
+    -- 룬 수호자 던전 (모든 스테이지가 열린 상태로 시작)
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        ret = true
+
     end
 
     return ret
@@ -177,6 +186,10 @@ function ServerData_Stage:getNextStage(stage_id)
     -- 고대 유적 던전 모드
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         ret = g_ancientRuinData:getNextStageID(stage_id)
+    
+    -- 룬 수호자 던전 (다음 스테이지 개념 없음)
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+
     end
 
     return ret
@@ -202,6 +215,10 @@ function ServerData_Stage:getSimpleNextStage(stage_id)
     -- 비밀 던전 모드
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         ret = g_secretDungeonData:getSimpleNextStageID(stage_id)
+
+    -- 룬 수호자 던전 (다음 스테이지 개념 없음)
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+
     end
 
     return ret
@@ -247,6 +264,10 @@ function ServerData_Stage:getSimplePrevStage(stage_id)
     -- 고대 유적 던전 모드
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         ret = g_ancientRuinData:getSimplePrevStageID(stage_id)
+    
+    -- 룬 수호자 던전 (다음 스테이지 개념 없음)
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+    
     end
 
 
@@ -365,6 +386,11 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
 
             return false
         end
+
+    -- 룬 수호자 던전
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        api_url = '/game/rune_guardian/start'
+
     end
 
     local function success_cb(ret)
@@ -651,6 +677,9 @@ function ServerData_Stage:goToStage(stage_id)
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         UINavigator:goTo('ancient_ruin', stage_id)
 
+    -- 룬 수호자 던전
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        UINavigator:goTo('rune_guardian')
     end
 end
 

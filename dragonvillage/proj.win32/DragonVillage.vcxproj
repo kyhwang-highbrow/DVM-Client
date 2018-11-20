@@ -346,6 +346,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameState_NestDungeon_Jewel.lua" />
     <None Include="..\src\GameState_NestDungeon_Nightmare.lua" />
     <None Include="..\src\GameState_NestDungeon_Tree.lua" />
+    <None Include="..\src\GameState_RuneGuardianDungeon.lua" />
     <None Include="..\src\GameState_SecretDungeon_Relation.lua" />
     <None Include="..\src\GameUnitGroup.lua" />
     <None Include="..\src\GameWorldArena.lua" />
@@ -478,6 +479,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneGameClanRaid.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
+    <None Include="..\src\SceneRuneGuardianDungeon.lua" />
     <None Include="..\src\SceneSecretDungeon.lua" />
     <None Include="..\src\ScriptCache.lua" />
     <None Include="..\src\SDKManager.lua" />
@@ -1193,6 +1195,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GamePause_ClanRaid.lua" />
     <None Include="..\src\UI_GamePause_EventGoldDungeon.lua" />
     <None Include="..\src\UI_GameResult_AncientRuin.lua" />
+    <None Include="..\src\UI_GameResult_RuneGuardianDungeon.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_GoldDungeonScene.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />

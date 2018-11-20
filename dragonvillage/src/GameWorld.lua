@@ -326,6 +326,9 @@ function GameWorld:createComponents()
         elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
             self.m_gameState = GameState_EventGold(self)
 
+        -- 6. 룬 수호자 던전
+        elseif (self.m_gameMode == GAME_MODE_RUNE_GUARDIAN) then
+            self.m_gameState = GameState_RuneGuardianDungeon(self)
         end
 
         --self.m_inGameUI:init_timeUI(display_wave, display_time)

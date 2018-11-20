@@ -50,6 +50,12 @@ end
 -- function initButton
 -------------------------------------
 function UI_RuneGuardianDungeonScene:initButton() 
+    local vars = self.vars
+
+    vars['stageBtn01']:registerScriptTapHandler(function() self:click_stageBtn(1700011) end)
+    vars['stageBtn02']:registerScriptTapHandler(function() self:click_stageBtn(1700012) end)
+    vars['stageBtn03']:registerScriptTapHandler(function() self:click_stageBtn(1700013) end)
+    vars['stageBtn04']:registerScriptTapHandler(function() self:click_stageBtn(1700014) end)
 end
 
 -------------------------------------
@@ -62,8 +68,23 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_RuneGuardianDungeonScene:click_exitBtn()
-    self:close()
+	if (g_currScene.m_sceneName == 'SceneRuneGuardianDungeon') then
+		local is_use_loading = false
+		local scene = SceneLobby(is_use_loading)
+		scene:runScene()
+	else
+		self:close()
+	end
 end
+
+
+-------------------------------------
+-- function click_stageBtn
+-------------------------------------
+function UI_RuneGuardianDungeonScene:click_stageBtn(stage_id)
+    UI_AdventureStageInfo(stage_id)
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_RuneGuardianDungeonScene)

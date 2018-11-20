@@ -123,6 +123,9 @@ function SceneGame:init_gameMode(stage_id)
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
 		self.m_bgmName = 'bgm_dungeon_special'
 
+    elseif (self.m_gameMode == GAME_MODE_RUNE_GUARDIAN) then
+        self.m_bgmName = 'bgm_dungeon_special'
+
     else
         self.m_bgmName = 'bgm_dungeon'
     end
@@ -576,6 +579,13 @@ function SceneGame:networkGamePlayStart(next_func)
     t_request['method'] = 'POST'
     t_request['data'] = { uid = g_userData:get('uid'), stage = self.m_stageID }
     t_request['success'] = success_cb
+
+    local game_mode = self.m_gameMode
+
+    -- 룬 수호자 던전은 별도 API 사용
+    if (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        t_request['url'] = '/game/rune_guardian/play'
+    end
     
     Network:HMacRequest(t_request)
 
@@ -679,6 +689,10 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         api_url = '/game/ruin/finish'
         multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
         auto = g_autoPlaySetting:getSequenceAutoPlay() and 1 or 0
+
+    -- 룬 수호자 던전
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        api_url = '/game/rune_guardian/finish'
     end
 
     local ui_network = UI_Network()

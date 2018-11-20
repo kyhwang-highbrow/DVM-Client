@@ -3841,6 +3841,15 @@
     <None Include="..\src\UI_RuneGuardianDungeonScene.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\GameState_RuneGuardianDungeon.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_GameResult_RuneGuardianDungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SceneRuneGuardianDungeon.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

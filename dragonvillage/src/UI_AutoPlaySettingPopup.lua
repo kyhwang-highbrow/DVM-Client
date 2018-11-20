@@ -117,7 +117,7 @@ function UI_AutoPlaySettingPopup:initUI()
 		vars['autoMenu3']:setVisible(self.m_gameMode == GAME_MODE_ADVENTURE)
 
         -- 룬 자동 판매 (모험, 악몽, 고대 유적)
-        if isExistValue(self.m_gameMode, GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON, GAME_MODE_ANCIENT_RUIN) then
+        if isExistValue(self.m_gameMode, GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON, GAME_MODE_ANCIENT_RUIN, GAME_MODE_RUNE_GUARDIAN) then
             vars['runAutoSellMenu']:setVisible(true)
         end
 	end

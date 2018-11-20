@@ -392,6 +392,7 @@ local t_module = {
     'SceneAdventure',
     'SceneNestDungeon',
     'SceneSecretDungeon',
+    'SceneRuneGuardianDungeon',
 
     -- Phys
 	'PhysWorld',
@@ -434,6 +435,7 @@ local t_module = {
     'GameState_EventArena',
     'GameState_ClanRaid',
     'GameState_ChallengeMode',
+    'GameState_RuneGuardianDungeon',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -1013,6 +1015,7 @@ local t_module = {
     'UI_GameResult_NestDungeon',
     'UI_GameResult_SecretDungeon',
     'UI_GameResult_AncientRuin',
+    'UI_GameResult_RuneGuardianDungeon',
     'UI_GamePause',
     'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',
