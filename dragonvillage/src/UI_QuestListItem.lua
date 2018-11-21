@@ -295,8 +295,7 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     local func_show_questdouble_popup 
     -- 2. 퀘스트 2배 상품 소개 팝업
     func_show_popup = function()
-        local msg = Str('일일보상을 2배로 받을 수 있는 기회!')
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, func_show_questdouble_popup, nil) -- param : type, msg, yes_cb, no_cb
+        UI_PromoteQuestDouble(func_show_questdouble_popup)
     end
 
     -- 3. 퀘스트 2배 상품 구매 팝업

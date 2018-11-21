@@ -911,6 +911,7 @@ local t_module = {
 	'UI_Shop_Popup_Reinforce',
     'UI_Shop_Popup_SkillSlime',
     'UI_PromoteAutoPick',
+    'UI_PromoteQuestDouble',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',
