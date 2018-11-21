@@ -1076,14 +1076,15 @@ function UI_ReadySceneNew:checkPromoteAutoPick(stage_id)
 
     -- 2. 자동 줍기 구매 팝업
     func_show_autopick_popup = function()
-        -- 2018-11-19 황금던전 자동줍기 상품 판매촉진 쿨타임 1일
-        local next_cool_time = cur_time + datetime.dayToSecond(1)
-        -- 쿨 타임 만료시간 갱신
-        g_settingData:setPromoteCoolTime('auto_pick', next_cool_time)
-        -- 자동 줍기 구매 팝업
         g_subscriptionData:openSubscriptionPopup()
     end
     func_show_popup()
+
+    -- 2018-11-19 황금던전 자동줍기 상품 판매촉진 쿨타임 1일
+    local next_cool_time = cur_time + datetime.dayToSecond(1)
+    -- 쿨 타임 만료시간 갱신
+    g_settingData:setPromoteCoolTime('auto_pick', next_cool_time)
+
     return true
 end
 

@@ -301,14 +301,14 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
 
     -- 3. 퀘스트 2배 상품 구매 팝업
     func_show_questdouble_popup = function()
-        -- 2018-11-20 일일퀘스트 2배 보상 상품 판매 촉진하는 팝업 쿨타임 14일
-        local next_cool_time = cur_time + datetime.dayToSecond(14)
-        -- 쿨 타임 만료시간 갱신
-        g_settingData:setPromoteCoolTime('quest_double', next_cool_time)
-        -- 퀘스트 2배 상품 구매 팝업
         ui_quest_popup:click_subscriptionBuyBtn()
     end
     func_show_popup()
+
+    -- 2018-11-20 일일퀘스트 2배 보상 상품 판매 촉진하는 팝업 쿨타임 14일
+    local next_cool_time = cur_time + datetime.dayToSecond(14)
+    -- 쿨 타임 만료시간 갱신
+    g_settingData:setPromoteCoolTime('quest_double', next_cool_time)
     return true
 end
 
