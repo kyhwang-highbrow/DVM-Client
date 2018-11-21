@@ -34,3 +34,33 @@ function UI_GameResult_RuneGuardianDungeon:click_againBtn()
     local scene = SceneRuneGuardianDungeon(self.m_stageID)
     scene:runScene()
 end
+
+-------------------------------------
+-- function click_contentBtn
+-------------------------------------
+function UI_GameResult_RuneGuardianDungeon:click_contentBtn()
+    local scene = SceneRuneGuardianDungeon()
+    scene:runScene()
+end
+
+-------------------------------------
+-- function set_modeButton
+-- @brief 모드별 버튼 정리
+-------------------------------------
+function UI_GameResult_RuneGuardianDungeon:set_modeButton()
+    local vars = self.vars
+
+    -- 룬 수호자 던전에서 사용하지 않는 버튼 숨김
+    vars['mapBtn']:setVisible(false)
+    vars['prevBtn']:setVisible(false)
+    vars['nextBtn']:setVisible(false)
+
+    -- 버튼 위치들 조정
+    vars['againBtn']:setPositionX(-110)
+    vars['quickBtn']:setPositionX(110)
+
+    -- 룬 수호자 던전 버튼 활성화
+    vars['contentBtn']:setVisible(true)
+    vars['contentLabel']:setString(Str('룬 수호자 던전'))
+    vars['contentBtn']:registerScriptTapHandler(function() self:click_contentBtn() end)
+end
