@@ -124,3 +124,15 @@ function TableQuest:getTitleQuestMap()
 
     return map_title_quest
 end
+
+------------------------------------
+-- function getQuestTable
+-- @brief 
+-------------------------------------
+function TableQuest:getQuestTable()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self.m_orgTable
+end
