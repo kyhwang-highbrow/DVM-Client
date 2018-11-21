@@ -1068,10 +1068,7 @@ function UI_ReadySceneNew:checkPromoteAutoPick(stage_id)
 
     -- 1. 자동 줍기 비활성화 알림&구매유도 팝업
     func_show_popup = function()
-        local msg1 = Str('자동 줍기가 비활성화 상태입니다.')
-        local msg2 = Str('자동줍기를 구매하시겠습니까?')
-        local msg = '{@yellow}' .. msg1 .. '\n\n{@write}' .. msg2
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, func_show_autopick_popup, nil) -- param : type, msg, yes_cb, no_cb
+        UI_PromoteAutoPick(func_show_autopick_popup)
     end
 
     -- 2. 자동 줍기 구매 팝업
