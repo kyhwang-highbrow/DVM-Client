@@ -1056,6 +1056,12 @@ function UI_ReadySceneNew:checkPromoteAutoPick(stage_id)
         return false
     end
 
+    -- 현재 자동줍기 활성화 상태인지 확인
+    local is_used = g_autoItemPickData:isActiveAutoItemPick()
+    if (is_used) then
+        return false 
+    end
+
     -- 쿨타임 만료시간 확인 (한번 노출 시 24시간 동안 노출하지 않음)
     local cool_time = g_settingData:getPromoteExpired('auto_pick')
     local cur_time = Timer:getServerTime()

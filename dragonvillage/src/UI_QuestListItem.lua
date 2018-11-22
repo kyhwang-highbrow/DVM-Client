@@ -280,7 +280,7 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     end
 
     -- b. 일일퀘스트 보상 2배 상품 적용 비활성화 상태
-    if (not self.m_questData:isDailyType() and g_questData:isSubscriptionActive()) then
+    if (self.m_questData:isDailyType() and g_questData:isSubscriptionActive()) then
         return false
     end
 
