@@ -607,3 +607,22 @@ function ServerData_NestDungeon:getNestModeStaminaType(dungeon_id)
     local stamina_type = TableDrop:getStageStaminaType(stage_id)
     return stamina_type
 end
+
+-------------------------------------
+-- function isClearNightmare
+-- @brief 악몽 던전 모든 스테이지 클리어 여부
+-------------------------------------
+function ServerData_NestDungeon:isClearNightmare()
+    -- 악몽 던전 마지막 스테이지 ID
+    local last_stage_id = 1220110
+
+    -- 네스트 던전 정보 받아옴 (타이틀 화면에서 서버에서 받아옴)
+    local t_dungeon_id_info = self:getNestDungeonStageClearInfo(last_stage_id)
+    if (not t_dungeon_id_info) then
+        return false
+    end
+
+    local clear_cnt = (t_dungeon_id_info['clear_cnt'] or 0)
+    local is_clear = (0 < clear_cnt)
+    return is_clear
+end
