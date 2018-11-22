@@ -185,7 +185,20 @@ T_LINK_FUNC = {
         UINavigator:goTo('nest_nightmare')
     end,
 
-    -- 2018-11-22 룬 수호자 던전 추가
+    -- 악몽던전 또는 고대 유적 던전 {1}회 플레이
+    ['ply_nm_ruin'] = function()
+        -- 고대 유적 던전이 오픈되었을 경우 고대 유적 던전으로 이동
+        if g_ancientRuinData then
+            if g_ancientRuinData:isOpenAncientRuin() then
+                UINavigator:goTo('ancient_ruin')
+                return
+            end
+        end
+
+        -- 고대 유적 던전이 오픈되지 않았거나 정보가 없을 경우 악몽던전으로 이동
+        UINavigator:goTo('nest_nightmare')
+    end,
+
     -- 악몽던전 또는 고대 유적 던전, 룬 수호자 던전 {1}회 플레이
     ['ply_nm_ruin_grd'] = function()
         -- 고대 유적 던전이 오픈되었을 경우 고대 유적 던전으로 이동
