@@ -3853,7 +3853,7 @@
     <None Include="..\src\UI_PromoteAutoPick.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\Users\jha\Desktop\UI_PromoteQuestDouble.lua">
+    <None Include="..\src\UI_PromoteQuestDouble.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
