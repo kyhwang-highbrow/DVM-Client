@@ -210,8 +210,8 @@ function SettingData:makeDefaultSettingData()
 
     do -- 상품별 판매 촉진하는 팝업 쿨타임 만료시간
         local t_data = {}
-        table.insert(t_data, 'auto_pick')           -- 황금 던전에서 자동줍기 상품 
-        table.insert(t_data, 'quest_double')        -- 일일퀘스트 2배 상품 
+        t_data['auto_pick'] = 0         -- 황금 던전에서 자동줍기 상품 
+        t_data['quest_double'] = 0      -- 일일퀘스트 2배 상품
         root_table['promote_expired'] = t_data
     end
 
