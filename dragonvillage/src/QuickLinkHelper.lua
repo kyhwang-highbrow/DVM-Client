@@ -185,8 +185,9 @@ T_LINK_FUNC = {
         UINavigator:goTo('nest_nightmare')
     end,
 
-    -- 악몽던전 또는 고대 유적 던전 {1}회 플레이
-    ['ply_nm_ruin'] = function()
+    -- 2018-11-22 룬 수호자 던전 추가
+    -- 악몽던전 또는 고대 유적 던전, 룬 수호자 던전 {1}회 플레이
+    ['ply_nm_ruin_grd'] = function()
         -- 고대 유적 던전이 오픈되었을 경우 고대 유적 던전으로 이동
         if g_ancientRuinData then
             if g_ancientRuinData:isOpenAncientRuin() then
@@ -443,6 +444,12 @@ T_LINK_FUNC = {
     end,
 	['d_rlvup_sq'] = function()
         UINavigator:goTo('dragon_manage', 'reinforce')
+    end,
+
+    -- 2018-11-22 일일퀘스트에 추가
+    -- 황금던전 {1}회 플레이
+    ['ply_gold'] = function()
+        UINavigator:goTo('gold_dungeon')
     end,
 
     -- 바로가기 키를 띄우지 않을 것들
