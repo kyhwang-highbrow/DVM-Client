@@ -572,6 +572,62 @@ function StructProduct:buy(cb_func, sub_msg)
 end
 
 -------------------------------------
+-- function buyWithoutPopup
+-- @brief 관례적인 구매 팝업 없이 바로 결제 진행
+-- @brief 2018-11-23 일일퀘스트 2배 보상 상품만 이 결제 루트를 사용
+-- @brief StructProduct:buy() 함수에서 팝업 띄우는 부분 삭제한 버젼
+-- @brief 여러개 고르는 기능을 제공하는 팝업이 없으니 해당 루트는 묶음 구매 아닌 상품만 이용
+-------------------------------------
+function StructProduct:buyWithoutPopup(cb_func)
+    if (not self:isBuyable()) then
+        return
+    end
+    --묶음 구매 아닌 단일 구매의 경우 nil로 처리
+    local count = nil
+	
+    local function finish_cb(ret)
+        
+        -- 상품 리스트 갱신이 필요할 경우
+        if (g_shopDataNew.m_bDirty == true) then
+            ret['need_refresh'] = true
+            local function info_refresh_cb()
+                if (cb_func) then
+			        cb_func(ret)
+		        end
+
+                -- 로비 노티 갱신
+		        g_highlightData:setDirty(true)
+            end
+            g_shopDataNew:request_shopInfo(info_refresh_cb)
+        else
+            ret['need_refresh'] = false
+            if (cb_func) then
+			    cb_func(ret)
+		    end
+
+            -- 로비 노티 갱신
+		    g_highlightData:setDirty(true)
+        end
+    end
+
+    -- 마켓에서 구매하는 상품
+    if self:isPaymentProduct() then
+        if isWin32() then
+            self:payment_win(finish_cb)
+		else
+			-- 엑솔라 사용 가능하면 엑솔라 결제 이용
+			if (PerpleSdkManager:xsollaIsAvailable()) then
+				self:payment_xsolla(finish_cb)
+			else
+				self:payment(finish_cb)
+			end
+        end
+    else
+        g_shopDataNew:request_buy(self, count, finish_cb)
+    end
+end
+
+-------------------------------------
 -- function canBuyBundle
 -- @brief 묶음 구매 가능 여부
 -------------------------------------
