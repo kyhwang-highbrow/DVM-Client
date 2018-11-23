@@ -4,7 +4,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_QuestListItem
 -------------------------------------
 UI_QuestListItem = class(PARENT, {
-        m_questData = 'table',
+        m_questData = 'StructQuestData',
         --{
         --        ['t_quest']={
         --                ['r_val_1']=30;
@@ -268,22 +268,26 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     --      c. 쿨 타임 
     -- 2. 퀘스트 2배 상품 소개 팝업
     -- 3. 퀘스트 2배 상품 구매 팝업
-
+    local quest_struct = self.m_questData
+    local cur_time = Timer:getServerTime()
 
     -- 1. 조건 확인
     -- a. 퀘스트 10개 달성 보상 버튼만
-    if (not self.m_questData:isQuest_ClearTen()) then
+    if (not quest_struct:isQuest_ClearTen()) then
         return
     end
 
     -- b. 일일퀘스트 보상 2배 상품 적용 비활성화 상태
-    if (self.m_questData:isDailyType() and g_questData:isSubscriptionActive()) then
+    if (not quest_struct:isDailyType()) then
+        return
+    end
+
+    if (g_questData:isSubscriptionActive()) then
         return
     end
 
     -- c. 쿨 타임 
     local cool_time = g_settingData:getPromoteExpired('quest_double')
-    local cur_time = Timer:getServerTime()
     if (cur_time < cool_time) then
         return
     end

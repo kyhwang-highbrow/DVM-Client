@@ -522,25 +522,16 @@ end
 
 -------------------------------------
 -- function getPromoteExpired
--- @brief 상품별(key) 판매 촉진하는 팝업 만료시간
+-- @return 상품별(key) 판매 촉진하는 팝업 만료시간(second)
 -------------------------------------
 function SettingData:getPromoteExpired(key)
-    
     -- 값이 없을 경우 0으로 리턴(현재보다 과거 시간으로 처리하기 위해)
-    if (not self:get('promote_expired')) then
-        return 0    
-    end
-    
-    if (not self:get('promote_expired', key)) then
-        return 0
-    end
-    
-    return self:get('promote_expired', key)
+    return self:get('promote_expired', key) or 0
 end
 
 -------------------------------------
 -- function setPromoteCoolTime
--- @brief 상품별(key) 판매 촉진하는 팝업 만료시간 갱신
+-- @brief 상품별(key) 판매 촉진하는 팝업 만료시간(second) 갱신
 -------------------------------------
 function SettingData:setPromoteCoolTime(key, time)
     g_settingData:applySettingData(time, 'promote_expired', key) 
