@@ -234,12 +234,6 @@ end
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
     
-    -- 일일퀘스트 보상 2배 상품 판매촉진 팝업 띄울건지 체크
-    local is_promote = self:checkPromoteQuestDouble(ui_quest_popup)
-	if (is_promote) then
-		return
-	end
-    
     ui_quest_popup:setBlock(true)
 	local cb_function = function(t_quest_data)
 		-- 우편함으로 전송
@@ -255,6 +249,9 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 		self:refresh(t_quest_data)
 		ui_quest_popup:refresh(t_quest_data)
 		ui_quest_popup:setBlock(false)
+
+        -- 일일퀘스트 보상 2배 상품 판매촉진하는 팝업 조건 체크 후 팝업 출력
+        self:checkPromoteQuestDouble(ui_quest_popup)
 	end
 
 	g_questData:requestQuestReward(self.m_questData, cb_function)
@@ -262,7 +259,7 @@ end
 
 ------------------------------------
 -- function checkPromoteQuestDouble
--- @return 일일퀘스트 보상 2배 상품 판매 촉진하는 팝업 띄울 수 있을 경우 true, 없을 경우 false
+-- @return 일일퀘스트 보상 2배 상품 판매 촉진하는 팝업 조건 체크 후 팝업 출력
 -------------------------------------
 function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     -- 1. 조건 확인     
@@ -276,19 +273,19 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     -- 1. 조건 확인
     -- a. 퀘스트 10개 달성 보상 버튼만
     if (not self.m_questData:isQuest_ClearTen()) then
-        return false
+        return
     end
 
     -- b. 일일퀘스트 보상 2배 상품 적용 비활성화 상태
     if (self.m_questData:isDailyType() and g_questData:isSubscriptionActive()) then
-        return false
+        return
     end
 
     -- c. 쿨 타임 
     local cool_time = g_settingData:getPromoteExpired('quest_double')
     local cur_time = Timer:getServerTime()
     if (cur_time < cool_time) then
-        return false
+        return
     end
 
     local func_show_popup 
@@ -308,7 +305,6 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     local next_cool_time = cur_time + datetime.dayToSecond(14)
     -- 쿨 타임 만료시간 갱신
     g_settingData:setPromoteCoolTime('quest_double', next_cool_time)
-    return true
 end
 
 -------------------------------------
