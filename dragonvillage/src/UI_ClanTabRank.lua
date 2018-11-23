@@ -13,6 +13,7 @@ UI_ClanTabRank = class(PARENT,{
 UI_ClanTabRank.TAB_ANCT = CLAN_RANK['ANCT']
 UI_ClanTabRank.TAB_CLSM = CLAN_RANK['CLSM']
 UI_ClanTabRank.TAB_RAID = CLAN_RANK['RAID']
+UI_ClanTabRank.TAB_LEVEL = CLAN_RANK['LEVEL']
 
 local CLAN_OFFSET_GAP = 20
 
@@ -54,7 +55,7 @@ end
 -------------------------------------
 function UI_ClanTabRank:initTab()
     local vars = self.vars
-    local tab_list = {CLAN_RANK['ANCT'], CLAN_RANK['CLSM'], CLAN_RANK['RAID']}
+    local tab_list = {CLAN_RANK['ANCT'], CLAN_RANK['CLSM'], CLAN_RANK['RAID'], CLAN_RANK['LEVEL']}
 
     for i, tab in ipairs(tab_list) do
         self:addTabAuto(tab, vars, vars[tab .. 'Node'])
@@ -280,6 +281,11 @@ function UI_ClanTabRank.makeRankCell(t_data, rank_type)
         local clan_object_id = struct_clan_rank:getClanObjectID()
         g_clanData:requestClanInfoDetailPopup(clan_object_id)
     end)
+
+    -- 클랜 레벨은 점수를 표기하지 않음
+    if (rank_type) and (rank_type == 'level') then
+        vars['scoreLabel']:setString('')
+    end
 
 	return ui
 end

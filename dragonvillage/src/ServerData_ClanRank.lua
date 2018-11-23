@@ -5,6 +5,7 @@ CLAN_RANK =
     ['CLSM'] = 'colosseum',
     ['RAID'] = 'dungeon',
     ['AREN'] = 'arena',
+    ['LEVEL'] = 'level',
 }
 
 -------------------------------------
