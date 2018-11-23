@@ -297,18 +297,18 @@ end
 -- @brief 일일 퀘스트 보상 2배 상품 구매 버튼 클릭
 -------------------------------------
 function UI_QuestPopup:click_subscriptionBuyBtn()
-    local struct_product = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
-
-    local function cb_func(ret)
-        -- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret)
-        self:close()
-        UI_QuestPopup()
-	end
-    local sub_msg = Str('이미 완료한 일일 퀘스트의 추가 보상은 구매 즉시 우편으로 지급됩니다.')
-	local sub_msg_2 = Str('클랜 경험치는 일일 퀘스트 보상 2배 대상에서 제외됩니다.')
-	
-	struct_product:buy(cb_func, string.format('{@default}- %s\n- %s', sub_msg, sub_msg_2))
+    local buy = function()
+        local struct_product = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
+        local function cb_func(ret)
+            -- 아이템 획득 결과창
+            ItemObtainResult_Shop(ret)
+            self:close()
+            UI_QuestPopup()
+	    end
+        local sub_msg = nil
+	    struct_product:buyWithoutPopup(cb_func, sub_msg)
+    end
+    UI_PromoteQuestDouble(buy)
 end
 
 --@CHECK

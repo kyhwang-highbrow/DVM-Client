@@ -293,15 +293,23 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     end
 
     local func_show_popup 
-    local func_show_questdouble_popup 
+    local func_buy 
     -- 2. 퀘스트 2배 상품 소개 팝업
     func_show_popup = function()
-        UI_PromoteQuestDouble(func_show_questdouble_popup)
+        UI_PromoteQuestDouble(func_buy)
     end
 
     -- 3. 퀘스트 2배 상품 구매 팝업
-    func_show_questdouble_popup = function()
-        ui_quest_popup:click_subscriptionBuyBtn()
+    func_buy = function()
+        local struct_product = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
+
+        local function cb_func(ret)
+            -- 아이템 획득 결과창
+            ItemObtainResult_Shop(ret)
+            UI_QuestPopup()
+	    end
+        local sub_msg = nil
+	    struct_product:buyWithoutPopup(cb_func, sub_msg)
     end
     func_show_popup()
 
