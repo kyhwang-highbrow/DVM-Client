@@ -41,15 +41,20 @@ function UI_PromoteQuestDouble:initUI()
 
     local table_item = TableItem()
     for id, value in pairs(t_quest_max_map) do
-        local item_type = table_item:getItemTypeFromItemID(tonumber(id))
+        local item_type = table_item:getItemTypeFromItemID(id)
         if (item_type) then
             local label_name = item_type .. 'Label' -- lua_name : 아이템타입+Label  ex) goldLabel, cashLabel
-            local ori_label = vars[label_name]:getString()
+
             -- 최대 보상 개수 : 일일 보상 합산 x 상품 지속 기간
             -- 2018-11-21 상품 지속 기간 14일
             local max_value = tonumber(value) * 14
+
+            -- 라벨에 들어갈 문구 조합  -- ex) 골드\n10000개
             if (vars[label_name]) then
-                vars[label_name]:setString(Str(ori_label, max_value))
+                local item_name = Str(table_item:getItemName(id))
+                local value_str = comma_value(Str('{1}개', max_value))
+                local full_str = item_name .. '\n' .. value_str
+                vars[label_name]:setString(full_str)
             end
         end 
     end
@@ -81,7 +86,7 @@ function UI_PromoteQuestDouble:addAllReward_dailyQuest()
             local comma_split_list = plSplit(reward, ',') -- 아이템별로 리스트 생성
             for i, each_reward_str in pairs(comma_split_list) do
                 local semi_split_list = plSplit(each_reward_str, ';') -- 아이템 id와 count 분리한 리스트 생성
-                local reward_id = semi_split_list[1]
+                local reward_id = tonumber(semi_split_list[1])
                 local reward_count = semi_split_list[2]
                 -- 아이템 개수 초기화 
                 if (not max_count_map[reward_id]) then
