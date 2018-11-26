@@ -57,9 +57,6 @@ function UI_QuickPopupNew:init_adventureBtn()
     table.insert(l_content, 'home') -- 로비 버튼은 여기 추가
     table.insert(l_content, 'adventure')
     table.insert(l_content, 'exploration')
-    if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
-        table.insert(l_content, 'gold_dungeon')
-    end
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
 end
@@ -73,10 +70,11 @@ function UI_QuickPopupNew:init_dungeonBtn()
     table.insert(l_content, 'nest_tree')
     table.insert(l_content, 'nest_evo_stone')
 
-    -- 클랜 던전은 클랜 가입시에만 오픈
-    if (not g_clanData:isClanGuest()) then
-         table.insert(l_content, 'clan_raid')
+    -- 황금 던전
+    if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
+        table.insert(l_content, 'gold_dungeon')
     end
+
     -- 고대 유적 던전은 열린 경우에만 노출 (악몽던전 앞에)
     if (g_ancientRuinData:isOpenAncientRuin()) then
         table.insert(l_content, 'ancient_ruin') 
@@ -100,6 +98,13 @@ function UI_QuickPopupNew:init_competitionBtn()
         table.insert(l_content, 'attr_tower')
     end
     table.insert(l_content, 'colosseum')
+
+    -- 클랜 가입시에만 오픈 (클랜 던전은, 룬 수호자 던전)
+    if (not g_clanData:isClanGuest()) then
+         table.insert(l_content, 'clan_raid')
+         table.insert(l_content, 'rune_guardian')
+    end
+
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
 end
@@ -162,6 +167,14 @@ function UI_QuickPopupNew:checkLockContent(l_content)
                 beta_label:setVisible(true) 
             else
                 beta_label:setVisible(false)
+            end
+        end
+
+        -- 룬 수호자 던전 (악몽 10단계 클리어 못했을 경우)
+        if (content == 'rune_guardian') then
+            if (not g_nestDungeonData:isClearNightmare()) then
+                vars['rune_guardianBtn']:setEnabled(false)
+                vars['rune_guardianLockSprite']:setVisible(true)
             end
         end
     end

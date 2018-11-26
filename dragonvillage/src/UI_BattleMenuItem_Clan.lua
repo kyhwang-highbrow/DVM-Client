@@ -25,7 +25,17 @@ function UI_BattleMenuItem_Clan:initUI()
     PARENT.initUI(self)
 
     local vars = self.vars
+    local content_type = self.m_contentType
     vars['dscLabel']:setString(self:getDescStr(content_type))
+
+
+    -- 룬 수호자 던전
+    if (content_type == 'rune_guardian') then
+        if (not g_nestDungeonData:isClearNightmare()) then
+            vars['lockSprite']:setVisible(true)
+            vars['lockLabel2']:setVisible(true)
+        end
+    end
 end
 
 -------------------------------------

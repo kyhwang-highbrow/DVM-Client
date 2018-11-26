@@ -160,7 +160,6 @@ function UI_Clan:initButton()
     vars['noticeBtn']:registerScriptTapHandler(function() self:click_noticeBtn() end)
     vars['boardBtn']:registerScriptTapHandler(function() self:click_boardBtn() end)
 	vars['clanInfoBtn']:registerScriptTapHandler(function() self:click_clanInfoBtn() end)
-    vars['runeDungeonBtn']:registerScriptTapHandler(function() self:click_runeDungeonBtn() end)
 
     if vars['buffIconBtn1'] then
         vars['buffIconBtn1']:registerScriptTapHandler(function() self:makeHotTimeToolTip('gold', vars['buffIconBtn1']) end)
@@ -170,6 +169,13 @@ function UI_Clan:initButton()
         vars['buffIconBtn2']:registerScriptTapHandler(function() self:makeHotTimeToolTip('exp', vars['buffIconBtn2']) end)
     end
     
+
+
+    -- 룬 수호자 던전
+    if (not g_nestDungeonData:isClearNightmare()) then
+        vars['runeGuardianLockSprite']:setVisible(true)
+    end
+    vars['runeDungeonBtn']:registerScriptTapHandler(function() self:click_runeDungeonBtn() end)
 end
 
 -------------------------------------

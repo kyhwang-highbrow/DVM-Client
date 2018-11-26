@@ -1279,6 +1279,13 @@ function UINavigatorDefinition:goTo_rune_guardian(...)
         return
     end
 
+    -- 악몽 10단계 클리어하지 않았을 경우
+    if (not g_nestDungeonData:isClearNightmare()) then
+        local msg = Str('룬 수호자 던전은 클랜 전용 던전이며 악몽 던전 10단계 클리어 후 오픈 됩니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
     -- 룬 수호자 던전 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_RuneGuardianDungeonScene')
     if (is_opend == true) then
