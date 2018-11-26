@@ -75,7 +75,7 @@ end
 function StructTabUI:makeChildMenu(ui_name, ui_depth)
 
     if self.m_funcMakeChildMenu then
-        return self.m_funcMakeChildMenu(ui_name, ui_depth)
+        return self.m_funcMakeChildMenu(self, ui_name, ui_depth)
     end
     
     return nil

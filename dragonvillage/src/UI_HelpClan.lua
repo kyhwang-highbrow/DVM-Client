@@ -1,7 +1,7 @@
 -------------------------------------
 -- function make_child_menu
 -------------------------------------
-local make_child_menu = function(ui_name, ui_depth)
+local make_child_menu = function(self, ui_name, ui_depth)
     -- 클랜 던전
     if (ui_name == 'help_clan_dungeon_summary.ui') then
         return UI_HelpClanDungeonSummary(ui_name, false, ui_depth, self) -- param : ui_name, is_root, ui_depth, struct_tab_ui
