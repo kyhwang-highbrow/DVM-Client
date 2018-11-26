@@ -12,12 +12,12 @@ UI_PromoteQuestDouble = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PromoteQuestDouble:init(buy_cb, is_promote)
+function UI_PromoteQuestDouble:init(cb_func, is_promote)
     self.m_uiName = 'UI_PromoteQuestDouble'
     local vars = self:load('promote_quest_double.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_structProduct = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
-    self.m_buyCb = buy_cb
+    self.m_buyCb = cb_func
     self.m_isPromote = is_promote
 
     -- backkey 지정

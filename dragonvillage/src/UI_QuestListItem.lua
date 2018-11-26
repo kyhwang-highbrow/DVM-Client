@@ -267,7 +267,7 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     --      b. 일일퀘스트 보상 2배 상품 적용 비활성화 상태
     --      c. 쿨 타임 
     -- 2. 퀘스트 2배 상품 소개 팝업
-    -- 3. 퀘스트 2배 상품 구매 팝업
+    -- 3. 퀘스트 UI 갱신 (2배 상품 적용)
     local quest_struct = self.m_questData
     local cur_time = Timer:getServerTime()
 
@@ -293,14 +293,14 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     end
 
     local func_show_popup 
-    local func_buy 
+    local func_refresh 
     -- 2. 퀘스트 2배 상품 소개 팝업
     func_show_popup = function()
-        UI_PromoteQuestDouble(func_buy, true) -- param buy_cb, is_promote
+        UI_PromoteQuestDouble(func_refresh, true) -- param : cb_func, is_promote
     end
 
-    -- 3. 퀘스트 2배 상품 구매 팝업
-    func_buy = function()
+    -- 3. 퀘스트 UI 갱신 (2배 상품 적용)
+    func_refresh = function(ret)
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
         ui_quest_popup:close()

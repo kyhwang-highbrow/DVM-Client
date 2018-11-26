@@ -303,7 +303,7 @@ function UI_QuestPopup:click_subscriptionBuyBtn()
         self:close()
         UI_QuestPopup()
     end
-    UI_PromoteQuestDouble(cb_func, false) -- param buy_cb, is_promote
+    UI_PromoteQuestDouble(cb_func, false) -- param : cb_func, is_promote
 end
 
 --@CHECK
