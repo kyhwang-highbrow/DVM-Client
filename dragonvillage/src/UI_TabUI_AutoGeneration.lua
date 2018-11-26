@@ -4,19 +4,26 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_TabUI_AutoGeneration
 -------------------------------------
 UI_TabUI_AutoGeneration = class(PARENT,{
+        m_uiDepth = 'number',
+        m_structTabUI = 'StructTabUI',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TabUI_AutoGeneration:init(ui_name, is_root)
+function UI_TabUI_AutoGeneration:init(ui_name, is_root, ui_depth, struct_tab_ui)
+    self.m_uiName = 'UI_TabUI_AutoGeneration (' .. ui_name .. ')'
     local vars = self:load(ui_name)
+    self.m_structTabUI = struct_tab_ui or StructTabUI()
 
     if is_root then
         UIManager:open(self, UIManager.SCENE)
 
         -- backkey 지정
         g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_TabUI_AutoGeneration')
+        self.m_uiDepth = 1
+    else
+        self.m_uiDepth = ui_depth
     end
 
     -- @UI_ACTION
@@ -99,8 +106,16 @@ function UI_TabUI_AutoGeneration:initTab()
         end
     end
 
+    -- 외부에서 설정된 초기 탭이 있다면
+    local initial_tab = self.m_structTabUI:getDefaultTab(self.m_uiDepth)
+    if not (initial_tab and self:existTab(initial_tab)) then
+        initial_tab = nil
+    end   
 
-    if default_tab_name then
+    if initial_tab then
+        self:setTab(self.m_structTabUI:getDefaultTab(self.m_uiDepth))
+
+    elseif default_tab_name then
         self:setTab(default_tab_name)
     end
 end
@@ -113,17 +128,35 @@ function UI_TabUI_AutoGeneration:onChangeTab(tab, first)
     local vars = self.vars
 
     if (first == true) then
-        local ui_name = 'help_' .. tab_name .. '.ui'
-        if LuaBridge:isFileExist('res/' .. ui_name) then
-            local ui = UI_TabUI_AutoGeneration(ui_name, false) -- ui_name, is_root
+        local ui = self:makeChildMenu(tab_name)
+        if ui then
             vars[tab_name .. 'TabMenu']:addChild(ui.root)
         end
     end
-
-    -- 탭할때마다 액션 
-    --self:doActionReset()
-    --self:doAction(nil, false)
 end
+
+-------------------------------------
+-- function makeChildMenu
+-------------------------------------
+function UI_TabUI_AutoGeneration:makeChildMenu(tab_name)
+    local vars = self.vars
+    local ui_depth = (self.m_uiDepth + 1)
+    local prefix = self.m_structTabUI:getPrefix()
+    local ui_name = prefix .. tab_name .. '.ui'
+
+    local ui = self.m_structTabUI:makeChildMenu(ui_name, ui_depth)
+    if ui then
+        return ui
+    end
+
+    if LuaBridge:isFileExist('res/' .. ui_name) then
+        local ui = UI_TabUI_AutoGeneration(ui_name, false, ui_depth, self.m_structTabUI) -- ui_name, is_root, ui_depth, struct_tab_ui
+        return ui
+    end
+
+    return nil
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_TabUI_AutoGeneration)

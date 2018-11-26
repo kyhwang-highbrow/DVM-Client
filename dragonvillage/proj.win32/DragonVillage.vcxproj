@@ -862,6 +862,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructSlimeObject.lua" />
     <None Include="..\src\StructStatusEffect.lua" />
     <None Include="..\src\StructSubscribedInfo.lua" />
+    <None Include="..\src\StructTabUI.lua" />
     <None Include="..\src\StructTamerCostume.lua" />
     <None Include="..\src\StructTeamBonus.lua" />
     <None Include="..\src\Structure.lua" />
@@ -1202,6 +1203,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GuidePopup_PurchasePoint.lua" />
     <None Include="..\src\UI_GuidePopup_Rune.lua" />
     <None Include="..\src\UI_Help.lua" />
+    <None Include="..\src\UI_HelpClan.lua" />
+    <None Include="..\src\UI_HelpClanDungeonReward.lua" />
+    <None Include="..\src\UI_HelpClanDungeonSummary.lua" />
     <None Include="..\src\UI_IngameBossHp.lua" />
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UIC_LobbyGuide.lua" />

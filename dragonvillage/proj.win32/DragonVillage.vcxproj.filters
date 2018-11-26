@@ -3859,6 +3859,18 @@
     <None Include="..\src\UI_TabUI_AutoGeneration.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructTabUI.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_HelpClanDungeonSummary.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_HelpClanDungeonReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_HelpClan.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

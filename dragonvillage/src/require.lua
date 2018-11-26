@@ -109,6 +109,7 @@ local t_module = {
     'StructEventMandragoraQuest',
     'StructAiSkillInfo',
     'StructDeck', -- 덱(팀) 정보를 관리하는 구조체
+    'StructTabUI',
 
 	-- ServerData
     'ServerData',
@@ -783,6 +784,8 @@ local t_module = {
     'UI_GuidePopup',
     'UI_GuidePopup_Rune',
     'UI_TabUI_AutoGeneration',
+    'UI_HelpClanDungeonSummary',
+    'UI_HelpClanDungeonReward',
     'UI_NestDungeonScene',
     'UI_NestDungeonListItem',
     'UI_NestDungeonStageListItem',
@@ -829,6 +832,7 @@ local t_module = {
     'UI_LoginPopup',
     'UI_WebView',
     'UI_Help',
+    'UI_HelpClan',
     'UI_GuidePopup_PurchasePoint',
     'UI_DragonGoodbyeResult',
     'UI_QuickPopupNew',

@@ -159,7 +159,7 @@ function UI_Clan:initButton()
     vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
     vars['noticeBtn']:registerScriptTapHandler(function() self:click_noticeBtn() end)
     vars['boardBtn']:registerScriptTapHandler(function() self:click_boardBtn() end)
-	vars['clanInfoBtn']:registerScriptTapHandler(function() UI_TabUI_AutoGeneration('help_clan2.ui', true) end) -- 클랜 도움말 UI 구현 중
+	vars['clanInfoBtn']:registerScriptTapHandler(function() self:click_clanInfoBtn() end)
     vars['runeDungeonBtn']:registerScriptTapHandler(function() self:click_runeDungeonBtn() end)
 end
 
@@ -595,6 +595,14 @@ function UI_Clan:click_boardBtn()
 		self:initBoardTableView() 
 	end
 	ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_clanInfoBtn
+-- @brief 클랜 도움말
+-------------------------------------
+function UI_Clan:click_clanInfoBtn()
+    UI_HelpClan()
 end
 
 -------------------------------------
