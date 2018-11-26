@@ -3871,6 +3871,9 @@
     <None Include="..\src\UI_HelpClan.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\MonsterLua_BossUseDeadMotion.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
