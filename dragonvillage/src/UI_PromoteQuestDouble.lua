@@ -137,7 +137,7 @@ end
 -------------------------------------
 function UI_PromoteQuestDouble:click_okay()
     local sub_msg = nil
-	self.m_structProduct:buyWithoutPopup(self.m_buyCb, sub_msg)
+	self.m_structProduct:buy(self.m_buyCb, sub_msg, true) -- param cb_func, sub_msg, no_popup
     self:close()
 end
 

@@ -297,15 +297,13 @@ end
 -- @brief 일일 퀘스트 보상 2배 상품 구매 버튼 클릭
 -------------------------------------
 function UI_QuestPopup:click_subscriptionBuyBtn()
-    local buy = function()
-        local function cb_func(ret)
-            -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret)
-            self:close()
-            UI_QuestPopup()
-	    end
+    local function cb_func(ret)
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+        self:close()
+        UI_QuestPopup()
     end
-    UI_PromoteQuestDouble(buy, false) -- param buy_cb, is_promote
+    UI_PromoteQuestDouble(cb_func, false) -- param buy_cb, is_promote
 end
 
 --@CHECK

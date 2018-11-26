@@ -301,12 +301,11 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
 
     -- 3. 퀘스트 2배 상품 구매 팝업
     func_buy = function()
-        local function cb_func(ret)
-            -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret)
-            UI_QuestPopup()
-	    end
-    end
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+        ui_quest_popup:close()
+        UI_QuestPopup()
+	end
     func_show_popup()
 
     -- 2018-11-20 일일퀘스트 2배 보상 상품 판매 촉진하는 팝업 쿨타임 14일
