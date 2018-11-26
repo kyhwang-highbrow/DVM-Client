@@ -5,16 +5,20 @@ local PARENT = UI
 -------------------------------------
 UI_PromoteQuestDouble = class(PARENT,{
         m_buyCb = 'function',
+        m_structProduct = 'StructProduct',
+        m_isPromote = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PromoteQuestDouble:init(buy_cb)
+function UI_PromoteQuestDouble:init(buy_cb, is_promote)
     self.m_uiName = 'UI_PromoteQuestDouble'
     local vars = self:load('promote_quest_double.ui')
     UIManager:open(self, UIManager.POPUP)
+    self.m_structProduct = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
     self.m_buyCb = buy_cb
+    self.m_isPromote = is_promote
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_PromoteAutoPick')
@@ -36,6 +40,26 @@ end
 -------------------------------------
 function UI_PromoteQuestDouble:initUI()
     local vars = self.vars
+
+    vars['priceLabel']:setString(self.m_structProduct:getPriceStr())
+
+    -- 2018-11-26 해당 팝업이 판매촉진&구매팝업 두 개의 역할을 함 
+    -- 단순 구매팝업의 경우 타이틀에 상품명만 출력
+    -- 판매촉진의 경우 이 팝업이 왜 갑자기 나왔는지 설명 필요 : ex) 상품명+목적(소개)
+    if (self.m_isPromote) then
+        vars['titleLabel']:setString('14일 동안 일일 퀘스트 보상을 2배씩 받을 수 있는 상품을 소개합니다!')
+    else
+        vars['titleLabel']:setString('14일 동안 일일 퀘스트 보상 2배')
+    end
+
+    -- 게스트 계정 확인
+    local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+	if (platform_id == 'firebase') then
+	    if vars['guestLabel'] then
+			vars['guestLabel']:setString(Str('게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.'))
+        end
+	end
+
     -- 일일 퀘스트 보상 개수(아이템별) 합산한 맵 
     local t_quest_max_map = self:addAllReward_dailyQuest()
 
@@ -112,7 +136,8 @@ end
 -- function click_okay
 -------------------------------------
 function UI_PromoteQuestDouble:click_okay()
-    self.m_buyCb()
+    local sub_msg = nil
+	self.m_structProduct:buyWithoutPopup(self.m_buyCb, sub_msg)
     self:close()
 end
 

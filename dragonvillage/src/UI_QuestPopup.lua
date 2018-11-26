@@ -298,17 +298,14 @@ end
 -------------------------------------
 function UI_QuestPopup:click_subscriptionBuyBtn()
     local buy = function()
-        local struct_product = g_subscriptionData:getSubscriptionProductInfo('daily_quest')
         local function cb_func(ret)
             -- 아이템 획득 결과창
             ItemObtainResult_Shop(ret)
             self:close()
             UI_QuestPopup()
 	    end
-        local sub_msg = nil
-	    struct_product:buyWithoutPopup(cb_func, sub_msg)
     end
-    UI_PromoteQuestDouble(buy)
+    UI_PromoteQuestDouble(buy, false) -- param buy_cb, is_promote
 end
 
 --@CHECK
