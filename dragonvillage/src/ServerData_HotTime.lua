@@ -551,7 +551,41 @@ function ServerData_HotTime:makeHotTimeToolTip(hottime_type, btn)
 end
 
 
+-------------------------------------
+-- function makeHotTimeToolTip_onlyClanBuff
+-- param hottime_type : stamina, gold, exp
+-------------------------------------
+function ServerData_HotTime:makeHotTimeToolTip_onlyClanBuff(hottime_type, btn)
+    local str = ''
 
+    -- 클랜 버프 정보  
+	if (not g_clanData:isClanGuest()) then
+		for clan_buff_type, t_data in pairs(CLAN_BUFF_INFO) do
+			local title, desc
+
+			if (string.find(clan_buff_type, hottime_type)) then
+				local value = g_clanData:getClanStruct():getClanBuffByType(clan_buff_type)
+				if (value >= 0) then
+					title = t_data['title']
+					desc = Str(t_data['tool_tip'], value)
+				end
+			end
+
+			if (title ~= nil) then
+				local _str = string.format('{@SKILL_NAME} %s\n  {@SKILL_DESC} %s', title, desc)
+				str = (str == '') and  (_str) or (str .. '\n\n' .. _str)
+			end
+		end
+	end
+
+    if (str ~= '') then
+        local tooltip = UI_Tooltip_Skill(0, 0, str)
+
+        if (tooltip and btn) then
+            tooltip:autoPositioning(btn)
+        end
+    end
+end
 
 
 

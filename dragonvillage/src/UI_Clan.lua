@@ -161,6 +161,15 @@ function UI_Clan:initButton()
     vars['boardBtn']:registerScriptTapHandler(function() self:click_boardBtn() end)
 	vars['clanInfoBtn']:registerScriptTapHandler(function() self:click_clanInfoBtn() end)
     vars['runeDungeonBtn']:registerScriptTapHandler(function() self:click_runeDungeonBtn() end)
+
+    if vars['buffIconBtn1'] then
+        vars['buffIconBtn1']:registerScriptTapHandler(function() self:makeHotTimeToolTip('gold', vars['buffIconBtn1']) end)
+    end
+
+    if vars['buffIconBtn2'] then
+        vars['buffIconBtn2']:registerScriptTapHandler(function() self:makeHotTimeToolTip('exp', vars['buffIconBtn2']) end)
+    end
+    
 end
 
 -------------------------------------
@@ -627,6 +636,26 @@ function UI_Clan:click_searchBtn()
 
     g_clanData:requestClanInfoDetailPopup_byClanName(clan_name)
 end
+
+-------------------------------------
+-- function makeHotTimeToolTip
+-- @brief 클랜 버프 (경험치, 골드 부스터 툴팁)
+-------------------------------------
+function UI_Clan:makeHotTimeToolTip(hottime_type, btn)
+    if (not btn) then
+        return
+    end
+
+    -- 버프가 적용 전일 경우 클랜 레벨 도움말 띄움
+    local value = g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE[hottime_type:upper()])
+    if (value <= 0) then
+        UI_HelpClan('clan_level')
+        return
+    end
+
+    btn:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(hottime_type, btn) end)
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_Clan)
