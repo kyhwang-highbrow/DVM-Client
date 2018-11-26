@@ -487,6 +487,7 @@ local t_module = {
     'DragonState',
     'Monster',
     'MonsterLua_Boss',
+    'MonsterLua_BossUseDeadMotion',
     'Monster_GiantDragon',
     'Monster_GiantMandragora',
     'Monster_GoldDragon',
