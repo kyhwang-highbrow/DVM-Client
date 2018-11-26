@@ -1442,6 +1442,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SubscriptionPopupNew.lua" />
     <None Include="..\src\UI_SubscriptionPopupNew_Ing.lua" />
     <None Include="..\src\UI_SubscriptionPopup_Ing.lua" />
+    <None Include="..\src\UI_TabUI_AutoGeneration.lua" />
     <None Include="..\src\UI_TamerCostumeConfirmPopup.lua" />
     <None Include="..\src\UI_TamerCostumeListItem.lua" />
     <None Include="..\src\UI_TamerListItem.lua" />

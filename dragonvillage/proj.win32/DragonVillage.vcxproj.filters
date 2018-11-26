@@ -3856,6 +3856,9 @@
     <None Include="..\src\UI_PromoteQuestDouble.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_TabUI_AutoGeneration.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

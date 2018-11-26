@@ -159,7 +159,7 @@ function UI_Clan:initButton()
     vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
     vars['noticeBtn']:registerScriptTapHandler(function() self:click_noticeBtn() end)
     vars['boardBtn']:registerScriptTapHandler(function() self:click_boardBtn() end)
-	vars['clanInfoBtn']:registerScriptTapHandler(function() UI_Help('clan') end)
+	vars['clanInfoBtn']:registerScriptTapHandler(function() UI_TabUI_AutoGeneration('help_clan2.ui', true) end) -- 클랜 도움말 UI 구현 중
     vars['runeDungeonBtn']:registerScriptTapHandler(function() self:click_runeDungeonBtn() end)
 end
 

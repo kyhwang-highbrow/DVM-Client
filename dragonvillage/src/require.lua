@@ -782,6 +782,7 @@ local t_module = {
     'UI_DragonAppear',
     'UI_GuidePopup',
     'UI_GuidePopup_Rune',
+    'UI_TabUI_AutoGeneration',
     'UI_NestDungeonScene',
     'UI_NestDungeonListItem',
     'UI_NestDungeonStageListItem',
