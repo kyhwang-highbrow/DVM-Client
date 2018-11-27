@@ -1341,6 +1341,10 @@ function UI_Lobby:update(dt)
             self.m_bItemAutoEnabled = enable1
             vars['itemAutoBtn']:setAutoShake(self.m_bItemAutoEnabled)
         end
+        
+        -- 자동 줍기 3일 남았으면 빨간 느낌표 출력
+        local is_auto_3day = g_advertisingData:checkLeftDay(AD_TYPE.AUTO_ITEM_PICK, 3)
+        vars['itemAutoNotiSprite']:setVisible(is_auto_3day)
 
         -- 선물상자
         local msg2, enable2 = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_LOBBY)

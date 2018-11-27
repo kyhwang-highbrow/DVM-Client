@@ -138,10 +138,11 @@ function ServerData_Advertising:getCoolTimeStatus(ad_type)
         expired = self.m_adv_cool_time
     end
 
+    local time = nil
     -- 서버상의 시간을 얻어옴
     if (expired) then
         local server_time = Timer:getServerTime()
-        local time = (expired/1000 - server_time)
+        time = (expired/1000 - server_time)
         if (time > 0) then
             enable = false
             local show_second = true
@@ -149,8 +150,31 @@ function ServerData_Advertising:getCoolTimeStatus(ad_type)
             msg = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
         end
     end
+    return msg, enable, time
+end
+
+-------------------------------------
+-- function checkLeftDay
+-- @return 상품기간이 day 이내라면  true 반환, 아니라면 false 반환
+-------------------------------------
+function ServerData_Advertising:checkLeftDay(ad_type, day)
+   
+    -- 상품 활성화x일때 time에 nil값 반환
+    local msg, enable, time = self:getCoolTimeStatus(ad_type)
     
-    return msg, enable 
+    if (not time) then
+        return false
+    end
+
+    if (time < 0) then
+        return false
+    end
+
+    if (time < datetime.dayToSecond(day)) then
+        return true
+    end
+
+    return false
 end
 
 -------------------------------------
