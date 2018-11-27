@@ -561,32 +561,23 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         -- 2017-07-10 sgkim TableView대신 UIC_TableView로 전환함
 		cclog('2017-07-10 sgkim TableView대신 UIC_TableView로 전환함')
     elseif type == 'Sprite' then
-		--Spine type을 임시로 Sprite에서 생성
-		if (ui_name == 'spine') then
-			local res = uiRoot .. data.file_name
-			if (data.file_name) then
-				node = MakeAnimator(res).m_node
-				setPropsForNode(node, data)
-			end
+		UILoader.checkTranslate(data)
+		local res = uiRoot .. data.file_name
+
+		if use_sprite_frames then
+		    -- 확장자를 포함한 파일명만 얻어옴
+		    local file_name = res:match('([^/]+)$')
+
+		    -- SpriteFrames를 통해 Sprite를 생성
+		    node = cc.Sprite:createWithSpriteFrameName(file_name)
 		else
-			UILoader.checkTranslate(data)
-			local res = uiRoot .. data.file_name
+		    node = cc.Sprite:create(res)
+		end
 
-			if use_sprite_frames then
-			    -- 확장자를 포함한 파일명만 얻어옴
-			    local file_name = res:match('([^/]+)$')
-
-			    -- SpriteFrames를 통해 Sprite를 생성
-			    node = cc.Sprite:createWithSpriteFrameName(file_name)
-			else
-			    node = cc.Sprite:create(res)
-			end
-
-			if (not node) then
-			    error(string.format('"%s"(이)가 없습니다.', res))
-			end
-			setPropsForSprite(node, data)
-	end
+		if (not node) then
+		    error(string.format('"%s"(이)가 없습니다.', res))
+		end
+		setPropsForSprite(node, data)
     elseif type == 'ProgressTimer' then
         UILoader.checkTranslate(data)
         local spr = cc.Sprite:create(uiRoot .. data.file_name)
@@ -599,34 +590,52 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         setPropsForClippingNode(node, data, parent)
         delegator = UIC_ClippingNode(node)
     elseif type == 'Visual' then
-        local res_name = string.sub(data.file_name, 1, string.len(data.file_name) - 4)
+        if (ui_name ~= 'spine') then 
+            local res_name = string.sub(data.file_name, 1, string.len(data.file_name) - 4)
 
-        -- 번역 이미지 체크
-        UILoader.addTranslatedTypoPlist(data)
+            -- 번역 이미지 체크
+            UILoader.addTranslatedTypoPlist(data)
 
-        -- vrp 생성
-        local vrp_name = res_name .. '.vrp'
-        node = cc.AzVRP:create(uiRoot .. vrp_name)
-        if not node then
-            node = cc.AzVisual:create(uiRoot .. data.file_name)
+            -- vrp 생성
+            local vrp_name = res_name .. '.vrp'
+            node = cc.AzVRP:create(uiRoot .. vrp_name)
+            if not node then
+                node = cc.AzVisual:create(uiRoot .. data.file_name)
+            end
+            node:loadPlistFiles('')
+            node:buildSprite('')
+
+            local idx = string.find(data.visual_id, ';')
+            if idx then
+                local visual_group_name = string.sub(data.visual_id, 0, idx - 1)
+                local visual_name = string.sub(data.visual_id, idx + 1)
+                node:setVisual(visual_group_name, visual_name)
+            end
+            node:setRepeat(data.is_repeat)
+            setPropsForNode(node, data)
+            setPropsForRGBAProtocol(node, data)
+
+            -- vrp의 대리자를 AnimatorVrp로 생성
+            local animator = AnimatorVrp(nil)
+            animator.m_node = node
+            delegator = animator
+        else
+            --Spine type을 임시로 Visual에서 생성
+			local res = uiRoot .. data.file_name
+			if (data.file_name) then
+                -- json 통합 여부
+                if (AnimatorHelper:isIntegratedSpineResName(data.file_name)) then
+                    node = MakeAnimatorSpineToIntegrated(res).m_node
+                else
+                    node = MakeAnimator(res).m_node
+                end
+				
+                if(node) then
+				    setPropsForNode(node, data)
+                end
+			end
         end
-        node:loadPlistFiles('')
-        node:buildSprite('')
 
-        local idx = string.find(data.visual_id, ';')
-        if idx then
-            local visual_group_name = string.sub(data.visual_id, 0, idx - 1)
-            local visual_name = string.sub(data.visual_id, idx + 1)
-            node:setVisual(visual_group_name, visual_name)
-        end
-        node:setRepeat(data.is_repeat)
-        setPropsForNode(node, data)
-        setPropsForRGBAProtocol(node, data)
-
-        -- vrp의 대리자를 AnimatorVrp로 생성
-        local animator = AnimatorVrp(nil)
-        animator.m_node = node
-        delegator = animator
 
     elseif type == 'SocketNode' then
         -- 소켓노드를 포함하는 Visual부모노드가 항상 존재한다고 가정
