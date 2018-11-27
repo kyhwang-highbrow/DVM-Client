@@ -659,7 +659,7 @@ function UI_Clan:makeHotTimeToolTip(hottime_type, btn)
         return
     end
 
-    btn:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(hottime_type, btn) end)
+    btn:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip_onlyClanBuff(hottime_type, btn) end)
 end
 
 -------------------------------------
