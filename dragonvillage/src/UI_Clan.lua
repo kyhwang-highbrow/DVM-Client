@@ -662,6 +662,16 @@ function UI_Clan:makeHotTimeToolTip(hottime_type, btn)
     btn:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(hottime_type, btn) end)
 end
 
+-------------------------------------
+-- function onFocus
+-- @brief 탑바가 Lobby UI에 포커싱 되었을 때
+-------------------------------------
+function UI_Clan:onFocus(is_push)
+    if (not is_push) then
+        self:refresh()
+    end
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_Clan)
