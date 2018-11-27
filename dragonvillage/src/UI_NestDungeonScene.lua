@@ -224,13 +224,13 @@ function UI_NestDungeonScene:initButton()
     if (self.m_dungeonType == NEST_DUNGEON_NIGHTMARE) then
 		vars['infoBtn']:setVisible(true)
         vars['infoBtn']:setAutoShake(true)
-        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(UI_GuidePopup_Rune.NIGHTMARE) end)
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn('nightmare') end)
 
     -- 고대 유적 던전
     elseif (self.m_dungeonType == NEST_DUNGEON_ANCIENT_RUIN) then
 		vars['infoBtn']:setVisible(true)
         vars['infoBtn']:setAutoShake(true)
-        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(UI_GuidePopup_Rune.ANCIENT_RUIN) end)
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn('ancient_ruin') end)
 	end
     
 end
@@ -240,11 +240,7 @@ end
 -- @breif 던전 정보 (룬 드랍 정보)
 -------------------------------------
 function UI_NestDungeonScene:click_infoBtn(tab_type)
-    local struct_tab_ui = StructTabUI()
-    struct_tab_ui:setPrefix('help_')
-    struct_tab_ui:setDefaultTab('probability', tab_type)
-    struct_tab_ui:setMakeChildMenuFunc(nil)
-    return UI_TabUI_AutoGeneration('rune_guide_popup.ui', true, 1, struct_tab_ui) -- param ui_name, is_root, ui_depth, struct_tab_ui
+    UI_HelpRune('probability', tab_type)
 end
 
 -------------------------------------

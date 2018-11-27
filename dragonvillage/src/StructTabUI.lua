@@ -8,6 +8,7 @@ StructTabUI = class(PARENT, {
         m_lDefaultTab = 'list',
         m_prefix = 'string',
         m_funcMakeChildMenu = 'function',
+        m_funcSetAfter = 'function',
     })
 
 local THIS = StructTabUI
@@ -18,6 +19,8 @@ local THIS = StructTabUI
 function StructTabUI:init(data)
     self.m_prefix = ''
     self.m_lDefaultTab = {}
+    self.m_funcMakeChildMenu = nil
+    self.m_funcSetAfter = nil
 end
 
 -------------------------------------
@@ -86,4 +89,20 @@ end
 -------------------------------------
 function StructTabUI:setMakeChildMenuFunc(func)
     self.m_funcMakeChildMenu = func
+end
+
+-------------------------------------
+-- function setAfterFunc
+-------------------------------------
+function StructTabUI:setAfterFunc(func)
+    self.m_funcSetAfter = func
+end
+
+-------------------------------------
+-- function setAfter
+-------------------------------------
+function StructTabUI:setAfter(ui_name, ui)
+    if (self.m_funcSetAfter) then
+        self.m_funcSetAfter(ui_name, ui)
+    end
 end

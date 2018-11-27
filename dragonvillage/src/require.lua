@@ -834,6 +834,7 @@ local t_module = {
     'UI_WebView',
     'UI_Help',
     'UI_HelpClan',
+    'UI_HelpRune',
     'UI_GuidePopup_PurchasePoint',
     'UI_DragonGoodbyeResult',
     'UI_QuickPopupNew',
