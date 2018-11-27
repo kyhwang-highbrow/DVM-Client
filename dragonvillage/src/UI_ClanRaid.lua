@@ -410,7 +410,7 @@ end
 -- @brief 클랜 던전 보상
 -------------------------------------
 function UI_ClanRaid:click_rewardBtn()
-    UI_ClanRaidRewardPopup()
+    UI_HelpClan('clan_dungeon','clan_dungeon_reward')
 end
 
 -------------------------------------
@@ -470,7 +470,7 @@ end
 -- @brief 보스 정보
 -------------------------------------
 function UI_ClanRaid:click_bossInfoBtn(tab)
-    UI_ClanRaidBossInfo(tab)
+    UI_HelpClan('clan_dungeon','clan_dungeon_summary')
 end
 
 --@CHECK

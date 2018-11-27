@@ -42,6 +42,49 @@ end
 function UI_TabUI_AutoGeneration:initUI()
     local vars = self.vars
     self:initTab()
+    self:initScroll()
+end
+
+-------------------------------------
+-- function initScroll
+-------------------------------------
+function UI_TabUI_AutoGeneration:initScroll()
+    local vars = self.vars
+    for lua_name,v in pairs(vars) do    
+        if (string.match(lua_name, 'ScrollNode')) then
+            local scroll_name = pl.stringx.rpartition(lua_name,'ScrollNode')
+            self:makeScroll(scroll_name)
+        end
+    end
+end
+
+-------------------------------------
+-- function makeScroll
+-------------------------------------
+function UI_TabUI_AutoGeneration:makeScroll(scroll_name)
+    local vars = self.vars
+    local scroll_menu = vars[scroll_name .. 'ScrollMenu']
+    local scroll_node = vars[scroll_name .. 'ScrollNode']
+    
+    if (not scroll_menu or not scroll_node) then
+        return
+    end
+
+    local size = scroll_menu:getContentSize()
+    local scroll_view = cc.ScrollView:create()
+    scroll_view:setNormalSize(size)
+    scroll_menu:setSwallowTouch(false)
+    scroll_menu:addChild(scroll_view)
+
+    local target_size = scroll_node:getContentSize()
+    scroll_view:setContentSize(target_size)
+    scroll_view:setDockPoint(ZERO_POINT)
+    scroll_view:setAnchorPoint(ZERO_POINT)
+    scroll_view:setPosition(CENTER_POINT)
+    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    scroll_view:setTouchEnabled(true)
+    scroll_node:removeFromParent()
+    scroll_view:addChild(scroll_node)
 end
 
 -------------------------------------

@@ -106,7 +106,11 @@ end
 -- @brief 룬 도움말
 -------------------------------------
 function UI_Inventory:click_runeInfoBtn()
-    UI_GuidePopup_Rune()
+    local struct_tab_ui = StructTabUI()
+    struct_tab_ui:setPrefix('help_')
+    struct_tab_ui:setDefaultTab(nil)
+    struct_tab_ui:setMakeChildMenuFunc(nil)
+    return UI_TabUI_AutoGeneration('rune_guide_popup.ui', true, 1, struct_tab_ui) -- param ui_name, is_root, ui_depth, struct_tab_ui
 end
 
 -------------------------------------

@@ -940,9 +940,11 @@ end
 -- @brief 룬 도움말
 -------------------------------------
 function UI_DragonRunes:click_runeInfoBtn()
-	--UI_Help('rune')
-    UI_GuidePopup_Rune()
-    -- sgkim 2018.08.22 텍스트로만 되어있는 도움말에서 별도의 룬 관련 도움말 UI로 변경
+	local struct_tab_ui = StructTabUI()
+    struct_tab_ui:setPrefix('help_')
+    struct_tab_ui:setDefaultTab(nil)
+    struct_tab_ui:setMakeChildMenuFunc(nil)
+    return UI_TabUI_AutoGeneration('rune_guide_popup.ui', true, 1, struct_tab_ui) -- param ui_name, is_root, ui_depth, struct_tab_ui
 end
 
 -------------------------------------
