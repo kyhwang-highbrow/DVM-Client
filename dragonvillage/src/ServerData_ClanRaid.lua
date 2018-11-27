@@ -260,10 +260,16 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
         -- server_info, staminas 정보를 갱신
         g_serverData:networkCommonRespone(ret)
 
-        -- 클랜 UI가 아닌 battle menu에서 진입시 클랜정보도 받아와야함
-        if (not g_clanData.m_structClan) and (ret['clan']) then
-            g_clanData.m_structClan = StructClan(ret['clan'])
-            g_clanData.m_bClanGuest = false 
+		-- 클랜 정보
+        if ret['clan'] then
+			-- 클랜 데이터 없는 경우 : 클랜 UI가 아닌 battle menu에서 진입시
+			if (not g_clanData.m_structClan) then
+				g_clanData.m_structClan = StructClan(ret['clan'])
+				g_clanData.m_bClanGuest = false 
+			-- 갱신
+			else
+				g_clanData.m_structClan:applySetting(ret['clan'])
+			end
         end
 
         -- 클랜 던전 오픈/종료 시간
