@@ -780,6 +780,7 @@ function UI_BookDetailPopup:click_evolutionBtn(evolution)
 	-- refresh
 	self:onChangeEvolution()
 	self:onChangeGrade()
+    self:onChangeLV()
 	self:calculateStat()
 end
 
