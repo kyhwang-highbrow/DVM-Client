@@ -78,13 +78,26 @@ function UI_TabUI_AutoGeneration:makeScroll(scroll_name)
 
     local target_size = scroll_node:getContentSize()
     scroll_view:setContentSize(target_size)
-    scroll_view:setDockPoint(ZERO_POINT)
-    scroll_view:setAnchorPoint(ZERO_POINT)
-    scroll_view:setPosition(CENTER_POINT)
-    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    scroll_view:setDockPoint(CENTER_POINT)
+    scroll_view:setAnchorPoint(CENTER_POINT)
+    scroll_view:setPosition(ZERO_POINT)
     scroll_view:setTouchEnabled(true)
     scroll_node:removeFromParent()
     scroll_view:addChild(scroll_node)
+
+    local container_node = scroll_view:getContainer()
+    local size_x = size.width - target_size.width
+    local size_y = size.height - target_size.height
+    
+    -- 스크롤 방향 결정 
+    if (math_abs(size_x) > math_abs(size_y)) then
+        container_node:setPositionY(size_x)
+        scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    else
+        container_node:setPositionY(size_y)
+        scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    end
+    
 end
 
 -------------------------------------
