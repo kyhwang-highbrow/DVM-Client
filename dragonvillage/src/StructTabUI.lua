@@ -3,12 +3,13 @@ local PARENT = Structure
 -------------------------------------
 -- class StructTabUI
 -- @instance struct_tab_ui
+-- @brief UI_TabUI_AutoGeneration 생성 시 필요한 요소 Struct
 -------------------------------------
 StructTabUI = class(PARENT, {
-        m_lDefaultTab = 'list',
-        m_prefix = 'string',
-        m_funcMakeChildMenu = 'function',
-        m_funcSetAfter = 'function',
+        m_lDefaultTab = 'list',             -- Depth에 따라 초기화 탭 지정 
+        m_prefix = 'string',                -- 자동으로 생성되는 UI에 접두사 붙여서 구별(UIMaker에서)
+        m_funcMakeChildMenu = 'function',   -- UI 생성 함수(커스텀 가능)
+        m_funcSetAfter = 'function',        -- UI 생성 후 후처리 함수(커스텀 가능)
     })
 
 local THIS = StructTabUI
