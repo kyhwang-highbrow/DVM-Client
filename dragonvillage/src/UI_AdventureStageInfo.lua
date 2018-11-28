@@ -245,6 +245,11 @@ function UI_AdventureStageInfo:refresh()
             -- 고대 유적 던전 보스
             elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
                 animator:setScale(0.5)
+
+            -- 룬 수호자 던전 보스
+            elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+                animator:setScale(0.7)
+
             end
 
             do -- 보스 이름, 속성 아이콘
