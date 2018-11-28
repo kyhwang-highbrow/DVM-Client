@@ -55,10 +55,10 @@ function UI_PromoteQuestDouble:initUI()
     -- 게스트 계정 확인
     local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
 	if (platform_id == 'firebase') then
-	    if vars['guestLabel'] then
-			vars['guestLabel']:setString(Str('(게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.)'))
-        end
-	end
+        vars['guestLabel']:setVisible(true)
+	else
+        vars['guestLabel']:setVisible(false)
+    end
 
     -- 일일 퀘스트 보상 개수(아이템별) 합산한 맵 
     local t_quest_max_map = self:addAllReward_dailyQuest()
