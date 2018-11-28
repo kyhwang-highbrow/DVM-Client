@@ -1342,8 +1342,8 @@ function UI_Lobby:update(dt)
             vars['itemAutoBtn']:setAutoShake(self.m_bItemAutoEnabled)
         end
         
-        -- 자동 줍기 3일 남았으면 빨간 느낌표 출력
-        local is_auto_3day = g_advertisingData:checkLeftDay(AD_TYPE.AUTO_ITEM_PICK, 3)
+        -- 2018-11-28 상품 끝나기 3일 전에 구독상품 연장구매 가능하다고 알림
+        local is_auto_3day = g_autoItemPickData:checkSubsAlarm('subscription', 3) -- param : auto_type, day
         vars['itemAutoNotiSprite']:setVisible(is_auto_3day)
 
         -- 선물상자

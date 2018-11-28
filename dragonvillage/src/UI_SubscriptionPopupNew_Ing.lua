@@ -212,7 +212,11 @@ function UI_SubscriptionPopupNew_Ing:refresh()
     -- 남은 기간 출력
     local text = info:getRemainDaysText()
     vars['dayLabel']:setString(text)
-
+    
+    -- 구독 상품 남은기간 3일 이내면 노티 출력
+    local is_auto_3day = g_autoItemPickData:checkSubsAlarm('subscription', 3) -- param : auto_type, day
+    vars['notiSprite']:setVisible(is_auto_3day)
+    
     -- 구매 가능
     if (struct_product) then
         -- 구매 회차 (구분할 수 있는 값이 pid 밖에 없음)

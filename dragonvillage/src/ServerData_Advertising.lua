@@ -154,30 +154,6 @@ function ServerData_Advertising:getCoolTimeStatus(ad_type)
 end
 
 -------------------------------------
--- function checkLeftDay
--- @return 상품기간이 day 이내라면  true 반환, 아니라면 false 반환
--------------------------------------
-function ServerData_Advertising:checkLeftDay(ad_type, day)
-   
-    -- 상품 활성화x일때 time에 nil값 반환
-    local msg, enable, time = self:getCoolTimeStatus(ad_type)
-    
-    if (not time) then
-        return false
-    end
-
-    if (time < 0) then
-        return false
-    end
-
-    if (time < datetime.dayToSecond(day)) then
-        return true
-    end
-
-    return false
-end
-
--------------------------------------
 -- function request_adv_reward_list
 -------------------------------------
 function ServerData_Advertising:request_adv_reward_list(finish_cb, fail_cb)

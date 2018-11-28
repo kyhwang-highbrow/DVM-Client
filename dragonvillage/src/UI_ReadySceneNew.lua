@@ -786,6 +786,9 @@ function UI_ReadySceneNew:update_item(dt)
     do
         local str, active = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
         vars['itemAutoLabel']:setString(str)
+        -- 구독 상품 남은기간 3일 이내면 노티 출력
+        local is_auto_3day = g_autoItemPickData:checkSubsAlarm('subscription', 3) -- param : auto_type, day
+        vars['notiSprite']:setVisible(is_auto_3day)
     end
 
     -- 경험치 부스터

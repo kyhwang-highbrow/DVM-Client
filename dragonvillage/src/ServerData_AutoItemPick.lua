@@ -109,3 +109,39 @@ function ServerData_AutoItemPick:getAutoItemPickExpiredWithType(type)
 
     return expired
 end
+
+-------------------------------------
+-- function checkSubsAlarm
+-- @return 자동줍기 아이템에 노티 붙이는 조건 충족 시 true 반환
+-------------------------------------
+function ServerData_AutoItemPick:checkSubsAlarm(auto_type, day)
+    
+    -- 1.활성화 된 자동 줍기가 ad_type 상품인지 확인
+    -- 2.남은 기간이 day일 이하인지 확인
+    -- 3.살 수 있는 구독 상품이 남아 있는지 확인
+
+    -- 1.활성화 된 자동 줍기가 ad_type 상품인지 확인
+    local subs_expired = self:getAutoItemPickExpiredWithType(auto_type)
+    if (not subs_expired) then
+        return false
+    end
+
+    local server_time = Timer:getServerTime()
+    local time = (subs_expired/1000 - server_time)
+    if (time < 0) then
+        return false
+    end
+
+    -- 2.남은 기간이 day일 이하인지 확인
+    if (time > datetime.dayToSecond(day)) then
+        return false
+    end
+    
+    -- 3.살 수 있는 구독 상품이 남아 있는지 확인
+    local struct_product, base_product = g_subscriptionData:getAvailableProduct() -- StructProductSubscription
+    if (not struct_product) then
+        return false
+    end
+    
+    return true
+end
