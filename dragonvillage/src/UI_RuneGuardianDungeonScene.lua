@@ -56,6 +56,8 @@ function UI_RuneGuardianDungeonScene:initButton()
     vars['stageBtn02']:registerScriptTapHandler(function() self:click_stageBtn(1700012) end)
     vars['stageBtn03']:registerScriptTapHandler(function() self:click_stageBtn(1700013) end)
     vars['stageBtn04']:registerScriptTapHandler(function() self:click_stageBtn(1700014) end)
+
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_runeInfo() end)
 end
 
 -------------------------------------
@@ -77,6 +79,13 @@ function UI_RuneGuardianDungeonScene:click_exitBtn()
 	end
 end
 
+-------------------------------------
+-- function click_runeInfo
+-- @brief 룬 도움말(룬 획득확률 -> 룬 수호자 던전) 팝업 출력
+-------------------------------------
+function UI_RuneGuardianDungeonScene:click_runeInfo()
+    UI_HelpRune('probability', 'runeGuardian')
+end
 
 -------------------------------------
 -- function click_stageBtn
