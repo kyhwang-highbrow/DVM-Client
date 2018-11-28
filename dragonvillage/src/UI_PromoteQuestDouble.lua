@@ -47,9 +47,9 @@ function UI_PromoteQuestDouble:initUI()
     -- 단순 구매팝업의 경우 타이틀에 상품명만 출력
     -- 판매촉진의 경우 이 팝업이 왜 갑자기 나왔는지 설명 필요 : ex) 상품명+목적(소개)
     if (self.m_isPromote) then
-        vars['titleLabel']:setString('14일 동안 일일 퀘스트 보상을 2배씩 받을 수 있는 상품을 소개합니다!')
+        vars['titleLabel']:setString(Str('14일 동안 일일 퀘스트 보상을 2배씩 받을 수 있는 상품을 소개합니다!'))
     else
-        vars['titleLabel']:setString('14일 동안 일일 퀘스트 보상 2배')
+        vars['titleLabel']:setString(Str('14일 동안 일일 퀘스트 보상 2배'))
     end
 
     -- 게스트 계정 확인
