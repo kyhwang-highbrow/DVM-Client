@@ -315,6 +315,38 @@ local function setPropsForProgressTimer(node, data)
     node:setPercentage(data.percentage)
 end
 
+-------------------------------------
+-- function makeSpine
+-- @brief Spine type을 임시로 Visual에서 생성
+-------------------------------------
+local function makeSpine(filename)
+    if (not filename) then
+        return
+    end
+    
+    local node = nil
+    local res = 'res/' .. filename
+    local path = string.match(filename, "(.-)([^//]-)(%.[^%.]+)$")
+    
+    -- path 추출 안되면 
+    -- 올바른 path가 아니면 isIntegratedSpineResName에서 에러나서 예외처리
+    if (not path) then
+        if (IS_TEST_MODE()) then
+            error('Wrong filename of spine : '.. filename)
+        end
+        return
+    end
+
+    -- json 통합 사용 여부
+    if (AnimatorHelper:isIntegratedSpineResName(filename)) then
+        node = MakeAnimatorSpineToIntegrated(res).m_node
+    else
+        node = MakeAnimator(res).m_node
+    end
+	
+    return node
+end
+
 local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     if not data.loaded then
         -- 저해상도(3GS)를 위해 Label을 강제로 ui property를 변경해준다.
@@ -620,22 +652,11 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             animator.m_node = node
             delegator = animator
         else
-            --Spine type을 임시로 Visual에서 생성
-			local res = uiRoot .. data.file_name
-			if (data.file_name) then
-                -- json 통합 여부
-                if (AnimatorHelper:isIntegratedSpineResName(data.file_name)) then
-                    node = MakeAnimatorSpineToIntegrated(res).m_node
-                else
-                    node = MakeAnimator(res).m_node
-                end
-				
-                if(node) then
-				    setPropsForNode(node, data)
-                end
-			end
+            node = makeSpine(data.file_name)
+            if (node) then
+                setPropsForNode(node, data)
+            end
         end
-
 
     elseif type == 'SocketNode' then
         -- 소켓노드를 포함하는 Visual부모노드가 항상 존재한다고 가정
