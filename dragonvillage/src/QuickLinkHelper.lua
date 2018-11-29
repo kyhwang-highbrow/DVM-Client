@@ -74,6 +74,10 @@ function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         link_type = 'ply_ancient_ruin'
 
+    -- 룬 수호자 던전 플레이
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        link_type = 'play_rune_guardian'
+
     -- 모험 모드
     else
         link_type = 'ply_adv'
@@ -236,6 +240,11 @@ T_LINK_FUNC = {
     -- 고대 유적 던전 플레이
     ['ply_ancient_ruin'] = function()
         UINavigator:goTo('ancient_ruin')
+    end,
+
+    -- 룬 수호자 던전 플레이
+    ['play_rune_guardian'] = function()
+        UINavigator:goTo('rune_guardian')
     end,
 
     -- 유저 레벨 달성
