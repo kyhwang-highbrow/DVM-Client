@@ -65,7 +65,7 @@ function UI_PromoteQuestDouble:initUI()
 
     local table_item = TableItem()
     for id, value in pairs(t_quest_max_map) do
-        local item_type = table_item:getItemTypeFromItemID(id)
+        local item_type = table_item:getItemType(id)
         if (item_type) then
             local label_name = item_type .. 'Label' -- lua_name : 아이템타입+Label  ex) goldLabel, cashLabel
 
