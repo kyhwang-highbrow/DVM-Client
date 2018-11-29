@@ -66,11 +66,16 @@ end
 -- function refreshDragonInfo
 -------------------------------------
 function UI_CharacterCard:refreshDragonInfo()
-    if (not self.m_dragonData) then
+    local t_dragon_data = self.m_dragonData
+
+    if (not t_dragon_data) then
         return
     end
 
-    local t_dragon_data = self.m_dragonData
+    if (not t_dragon_data['did']) or (t_dragon_data['did'] == 0) then
+        return
+    end
+
     local did = t_dragon_data['did']
     local attr = t_dragon_data:getAttr()
 
