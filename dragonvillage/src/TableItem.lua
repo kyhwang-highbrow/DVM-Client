@@ -79,6 +79,7 @@ end
 -------------------------------------
 -- function getItemTypeFromItemID
 -- @brief item_id를 문자열로 치환해주는 함수
+-- @brief 2018-11-29 TableItem:getItemType() 사용 권장 / ios 에서 pairs 처리순서가 달라 android와 다르게 동작
 -------------------------------------
 function TableItem:getItemTypeFromItemID(item_id)
     local item_type = ITEM_TYPE_MAP[item_id]
