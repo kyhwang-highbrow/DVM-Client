@@ -189,6 +189,7 @@ end
 -- @brief 하나의 json으로 모든 속성이 공유되는 형태의 spine 리소스인지 검증
 -------------------------------------
 function AnimatorHelper:isIntegratedSpineResName(res_name)
+    -- ex) res_name = res/character/dragon/gale_all_03/gale_earth_03.spine
     local path, file_name, extension = string.match(res_name, "(.-)([^//]-)(%.[^%.]+)$")
     if (pl.stringx.endswith(path, '_all/') or string.find(path, '_all_')) then
         return true

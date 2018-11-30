@@ -325,23 +325,30 @@ local function makeSpine(filename)
     end
     
     local node = nil
-    local res = 'res/' .. filename
-    local path = string.match(filename, "(.-)([^//]-)(%.[^%.]+)$")
-    
-    -- path 추출 안되면 
-    -- 올바른 path가 아니면 isIntegratedSpineResName에서 에러나서 예외처리
-    if (not path) then
-        if (IS_TEST_MODE()) then
-            error('Wrong filename of spine : '.. filename)
-        end
-        return
-    end
+    local isIntegratedSpine = false
+    -- 경로를 '/'로 나누어 리스트로 저장
+    local path_list = plSplit(filename, '/')
 
     -- json 통합 사용 여부
-    if (AnimatorHelper:isIntegratedSpineResName(filename)) then
-        node = MakeAnimatorSpineToIntegrated(res).m_node
+    -- 경로 검사하면서 _all, _all_ 있는지 확인
+    for _, path_part in ipairs(path_list) do
+        if (pl.stringx.endswith(path_part, '_all') or string.find(path_part, '_all_')) then
+            isIntegratedSpine = true
+            break
+        end 
+    end 
+
+    local path, name, extention= string.match(filename, "(.-)([^//]-)(%.[^%.]+)$")
+    path = 'res/' .. path
+    if (isIntegratedSpine) then
+        -- ex) res/character/dragon/abyssedge_all_01/abyssedge_earth_01/abyssedge_all_01.atlas 을
+        -- ex) res/character/dragon/abyssedge_all_01/abyssedge_earth_01.spine 으로 수정하는 과정
+        path = pl.stringx.rpartition(path,'/')
+        path = path .. '.spine'
+        node = MakeAnimatorSpineToIntegrated(path).m_node
     else
-        node = MakeAnimator(res).m_node
+        path = path .. name .. '.json'
+        node = MakeAnimator(path).m_node
     end
 	
     return node
