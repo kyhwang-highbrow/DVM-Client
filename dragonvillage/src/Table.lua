@@ -164,7 +164,9 @@ local TableInfo_fromServer = {
 
         ['table_alphabet_event'] = {'table_alphabet_event', 'id'}, -- 알파벳 이벤트
 
-		['table_spot_sale'] = {'table_spot_sale', 'id'} -- 깜짝 세일 상품
+		['table_spot_sale'] = {'table_spot_sale', 'id'}, -- 깜짝 세일 
+
+        ['table_capsule_box_schedule'] = {'table_capsule_box_schedule', 'day'} -- 캡슐 뽑기 스케쥴
     }
 
 -------------------------------------
