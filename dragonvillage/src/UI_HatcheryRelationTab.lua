@@ -38,15 +38,30 @@ function UI_HatcheryRelationTab:onEnterTab(first)
         self:initTab()
         self:init_TableView()
         
-        -- 첫 아이템 클릭
-        local t_item = self.m_tableViewTD.m_itemList[1]
-        if t_item and t_item['data'] and t_item['data']['did'] then
-            local did = t_item['data']['did']
-            self:click_dragonCard(did)
+        -- 가장 첫 번째 인연포인트 클릭
+        local valid_did = self:getValidDragonId()
+        if (valid_did) then
+            self:click_dragonCard(valid_did)
         else
             self:refresh()
         end
     end
+end
+
+-------------------------------------
+-- function getValidDragonId
+-- @brief 인연 포인트 리스트 중 DragonTable에 존재하는 가장 첫 번째 드래곤 id 반환
+-------------------------------------
+function UI_HatcheryRelationTab:getValidDragonId()
+     for _, t_item in ipairs(self.m_tableViewTD.m_itemList) do
+         if t_item and t_item['data'] and t_item['data']['did'] then
+             local did = t_item['data']['did']
+             if (TableDragon():exists(did)) then
+                 return did
+             end
+         end
+     end
+     return nil
 end
 
 -------------------------------------
