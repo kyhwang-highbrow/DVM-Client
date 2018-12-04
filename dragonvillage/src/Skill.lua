@@ -594,9 +594,11 @@ function Skill:onAttack(target_char, target_collision)
 
     -- 화면 쉐이킹
     if (self.m_chanceType == 'active') then
-        self.m_world.m_shakeMgr:doShake(50, 50, 1)
+        self.m_world.m_shakeMgr:doShakeRandomAngle(40, 1) -- distance, duration
+        --self.m_world.m_shakeMgr:doShake(50, 50, 1)
     elseif (self.m_owner:getCharType() ~= 'tamer') then
-        self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
+        self.m_world.m_shakeMgr:doShakeRandomAngle(35, 0.5) -- distance, duration
+        --self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
     end
 
     -- 상태효과

@@ -32,6 +32,18 @@ function ShakeManager:getStandardShake(duration, level, repeat_time)
 end
 
 -------------------------------------
+-- function doShakeRandomAngle
+-- @brief 화면 떨림 연출
+-------------------------------------
+function ShakeManager:doShakeRandomAngle(distance, duration, is_repeat, interval)
+    local distance = (distance or 40)
+    local angle = math_random(1, 360)
+    local x = distance * math_cos(angle)
+    local y = distance * math_sin(angle)
+    self:doShake(x, y, duration, is_repeat, interval)
+end
+
+-------------------------------------
 -- function doShake
 -- @brief 화면 떨림 연출
 -------------------------------------
