@@ -226,6 +226,9 @@ function ServerData:getInstance()
     -- 콜로세움 (신규)
     g_arenaData = ServerData_Arena(g_serverData)
 
+    -- 그랜드 콜로세움
+    g_grandArena = ServerData_GrandArena(g_serverData)
+
     -- 챌린지 모드
     g_challengeMode = ServerData_ChallengeMode(g_serverData)
 

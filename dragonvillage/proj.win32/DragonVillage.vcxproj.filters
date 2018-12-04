@@ -3877,6 +3877,12 @@
     <None Include="..\src\UI_HelpRune.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_GrandArena.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_GrandArena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

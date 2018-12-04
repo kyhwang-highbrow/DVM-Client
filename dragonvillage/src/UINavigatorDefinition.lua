@@ -662,6 +662,71 @@ function UINavigatorDefinition:goTo_challenge_mode(...)
 end
 
 -------------------------------------
+-- function goTo_grand_arena
+-- @brief 그랜드 콜로세움으로 이동
+-- @usage UINavigatorDefinition:goTo('grand_arena')
+-------------------------------------
+function UINavigatorDefinition:goTo_grand_arena(...)
+    local args = {...}
+    local stage = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_GrandArena')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    local function finish_cb()
+
+        if (not g_grandArena:isActive_grandArena()) then
+            local msg = Str('오픈시간이 아닙니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+		end
+
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            ui:resetButtonsPosition()
+            UI_GrandArena()
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_GrandArena()
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_GrandArena, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+
+    finish_cb()
+    -- 정보 요청
+    --g_challengeMode:request_challengeModeInfo(stage, finish_cb, fail_cb, true) -- param : stage, finish_cb, fail_cb, include_reward
+end
+
+-------------------------------------
 -- function goTo_nestdungeon
 -- @brief 네스트던전으로 이동
 -- @usage UINavigatorDefinition:goTo('nestdungeon', stage_id, dungeon_type)

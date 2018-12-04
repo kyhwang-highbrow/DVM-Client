@@ -377,6 +377,11 @@ function UI_BattleMenu:initCompetitionTab()
         if (g_challengeMode:isActive_challengeMode()) then
             table.insert(l_content_str, 'challenge_mode') 
         end
+
+        -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+        if (g_grandArena:isActive_grandArena()) then
+            table.insert(l_content_str, 'grand_arena') 
+        end
     end
 
     -- 3개 초과이면 얇은 모드

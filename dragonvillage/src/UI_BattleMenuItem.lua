@@ -190,6 +190,10 @@ function UI_BattleMenuItem:click_enterBtn()
     elseif (content_type == 'challenge_mode') then
         UINavigator:goTo('challenge_mode')
 
+    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (content_type == 'grand_arena') then
+        UINavigator:goTo('grand_arena')
+
     else
         error('content_type : ' .. content_type)
     end

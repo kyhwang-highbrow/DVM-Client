@@ -354,6 +354,9 @@ function getContentName(content_type)
     elseif (content_type == 'rune_guardian') then
         content_name = Str('룬 수호자 던전')
 
+    elseif (content_type == 'grand_arena') then
+        content_name = Str('그랜드 콜로세움')
+
     else
         error('content_type : ' .. content_type)
     end

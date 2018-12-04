@@ -177,6 +177,7 @@ local t_module = {
     'ServerData_AncientRuin',
     'ServerData_RandomShop',
     'ServerData_Arena',
+    'ServerData_GrandArena',
     'ServerData_EventMatchCard',
     'ServerData_EventMandragoraQuest',
     'ServerData_EventAlphabet', -- 알파벳 이벤트
@@ -1059,6 +1060,9 @@ local t_module = {
     'UI_ChallengeModeInfoPopup',
     'UI_ChallengeModeRewardListItem',
     'UI_ChallengeModeRankingRewardPopup',
+
+    -- UI : 그랜드 콜로세움
+    'UI_GrandArena',
 
 	-- UI : 가방
     'UI_Inventory',
