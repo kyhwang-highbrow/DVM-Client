@@ -69,6 +69,17 @@ function UI_ChallengeMode:initUI()
     vars['rewardNode']:setVisible(true)
     local str = Str('{1}\n/{2}', comma_value(g_challengeMode:getCumulativeGold()), comma_value(10000000))
     vars['rewardLabel']:setString(str)
+   
+    -- 정렬 UI 생성 
+    if (vars['sortBtn']) and (vars['sortLabel']) then
+        local uic_sort_list = MakeUICSortList_challengModeRanker(vars['sortBtn'], vars['sortLabel'])
+
+        -- 버튼을 통해 정렬이 변경되었을 경우
+        local function sort_change_cb(sort_type)
+        end
+
+        uic_sort_list:setSortChangeCB(sort_change_cb)
+    end
 end
 
 -------------------------------------

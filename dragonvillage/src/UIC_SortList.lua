@@ -695,3 +695,40 @@ end
 
 -- show/hide
 -- addSortType (sort_type, sort_name)
+
+function MakeUICSortList_challengModeRanker(button, label, direction)
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+    local direction = direction or UIC_SORT_LIST_TOP_TO_BOT
+
+    local uic = UIC_SortList()
+	uic.m_buttonHeight = 40
+	uic.m_fontSize = 20
+    uic.m_direction = direction
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    -- 버튼 리스트 세팅
+	uic:addSortType('easy'          , Str('쉬움 수동전투 승리'))
+	uic:addSortType('easy_auto'     , Str('쉬움 자동전투 승리'))
+	uic:addSortType('normal'        , Str('보통 수동전투 승리'))
+	uic:addSortType('normal_auto'   , Str('보통 자동전투 승리'))
+	uic:addSortType('hard'          , Str('어려움 수동전투 승리'))
+	uic:addSortType('hard_auto'     , Str('어려움 자동전투 승리'))
+	uic:addSortType('hell'          , Str('지옥 수동전투 승리'))
+	uic:addSortType('hell_auto'     , Str('지옥 자동전투 승리'))
+
+    --uic:show()
+
+    return uic
+end
