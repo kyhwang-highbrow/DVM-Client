@@ -71,6 +71,8 @@ function ResPreloadMgr:loadFromStageId(stage_id)
             self.m_lPreloadList = self:makeResListForIntro()
         elseif (game_mode == GAME_MODE_CLAN_RAID or game_mode == GAME_MODE_ANCIENT_RUIN) then
             self.m_lPreloadList = self:makeResListForDoubleTeam(game_mode)
+        elseif (game_mode == GAME_MODE_EVENT_ARENA) then
+            self.m_lPreloadList = self:makeResListForDoubleTeam(game_mode)
         else
             self.m_lPreloadList = self:makeResListForGame()
         end
@@ -284,6 +286,10 @@ function ResPreloadMgr:makeResListForDoubleTeam(game_mode)
 
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         g_data = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
+
+    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (game_mode == GAME_MODE_EVENT_ARENA) then
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA)
     end
     
     -- 아군 관련 리소스

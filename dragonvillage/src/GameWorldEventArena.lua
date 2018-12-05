@@ -333,6 +333,95 @@ function GameWorldEventArena:prepareAuto()
 end
 
 -------------------------------------
+-- function setBattleZone
+-- @brief 전투영역 설정
+-------------------------------------
+function GameWorldEventArena:setBattleZone()
+
+    local rage = (70 * 5)
+
+    -- 실제 사각형 영역
+    local min_x = 0
+    local max_x = rage
+    local min_y = -(rage / 2)
+    local max_y = (rage / 2)
+
+    -- 드래곤의 포지션 영역 padding처리
+    local padding_x = 20
+    local padding_y = 56
+    min_x = (min_x + padding_x)
+    max_x = (max_x - padding_x)
+    min_y = (min_y + padding_y)
+    max_y = (max_y - padding_y)
+
+    -- offset 지정(카메라 역할)
+    local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
+    local x_start_offset = 150 + 85
+
+    -- 조작 가능 덱
+    do
+        local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - x_start_offset - rage
+        local offset_y = cameraHomePosY + 20
+        local distance = 400
+        local half_distance = (distance / 2)
+        
+        if (self:getPCGroup() == PHYS.HERO_TOP) then
+            offset_y = (offset_y + half_distance)
+        else
+            offset_y = (offset_y - half_distance)
+        end
+
+        local l_pos_list = TableFormationArena:getFormationPositionList(self.m_deckFormation, 
+            (min_x + offset_x),
+            (max_x + offset_x),
+            (min_y + offset_y),
+            (max_y + offset_y)
+        )
+
+        for _, unit in pairs(self.m_mUnitGroup[self:getPCGroup()]:getSurvivorList()) do
+            local pos_idx = unit:getPosIdx()
+            local pos_x = l_pos_list[pos_idx]['x']
+            local pos_y = l_pos_list[pos_idx]['y']
+        
+            unit:setOrgHomePos(pos_x, pos_y)     
+            unit:setHomePos(pos_x, pos_y)
+            unit:setPosition(pos_x, pos_y)
+        end
+    end
+
+    -- 조작 불가능 덱
+    do
+        local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - x_start_offset - rage
+        local offset_y = cameraHomePosY + 20
+        local distance = 400
+        local half_distance = (distance / 2)
+
+        if (self:getNPCGroup() == PHYS.HERO_TOP) then
+            offset_y = (offset_y + half_distance)
+        else
+            offset_y = (offset_y - half_distance)
+        end
+
+        local l_pos_list = TableFormationArena:getFormationPositionList(self.m_subDeckFormation, 
+            (min_x + offset_x),
+            (max_x + offset_x),
+            (min_y + offset_y),
+            (max_y + offset_y)
+        )
+
+        for _, unit in pairs(self.m_mUnitGroup[self:getNPCGroup()]:getSurvivorList()) do
+            local pos_idx = unit:getPosIdx()
+            local pos_x = l_pos_list[pos_idx]['x']
+            local pos_y = l_pos_list[pos_idx]['y']
+        
+            unit:setOrgHomePos(pos_x, pos_y)     
+            unit:setHomePos(pos_x, pos_y)
+            unit:setPosition(pos_x, pos_y)
+        end
+    end
+end
+
+-------------------------------------
 -- function setBattleZoneForEnemys
 -- @brief 전투영역 설정
 -------------------------------------
@@ -361,15 +450,17 @@ function GameWorldEventArena:setBattleZoneForEnemys()
     -- 조작 가능 덱
     do
         local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) + x_start_offset
-        local offset_y = cameraHomePosY + 30
+        local offset_y = cameraHomePosY + 20
+        local distance = 400
+        local half_distance = (distance / 2)
         
         if (self:getOpponentPCGroup() == PHYS.ENEMY_TOP) then
-            offset_y = offset_y + 250
+            offset_y = (offset_y + half_distance)
         else
-            offset_y = offset_y - 270
+            offset_y = (offset_y - half_distance)
         end
 
-        local l_pos_list = TableFormation:getFormationPositionList(self.m_deckFormation, 
+        local l_pos_list = TableFormationArena:getFormationPositionList(self.m_deckFormation, 
             (min_x + offset_x),
             (max_x + offset_x),
             (min_y + offset_y),
@@ -391,15 +482,17 @@ function GameWorldEventArena:setBattleZoneForEnemys()
     -- 조작 불가능 덱
     do
         local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) + x_start_offset
-        local offset_y = cameraHomePosY + 30
+        local offset_y = cameraHomePosY + 20
+        local distance = 400
+        local half_distance = (distance / 2)
 
         if (self:getOpponentNPCGroup() == PHYS.ENEMY_TOP) then
-            offset_y = offset_y + 250
+            offset_y = (offset_y + half_distance)
         else
-            offset_y = offset_y - 270
+            offset_y = (offset_y - half_distance)
         end
 
-        local l_pos_list = TableFormation:getFormationPositionList(self.m_subDeckFormation, 
+        local l_pos_list = TableFormationArena:getFormationPositionList(self.m_subDeckFormation, 
             (min_x + offset_x),
             (max_x + offset_x),
             (min_y + offset_y),
@@ -432,16 +525,134 @@ function GameWorldEventArena:isPossibleControl()
 end
 
 -------------------------------------
--- function makeEnemyDeck
+-- function makeHeroDeck
 -------------------------------------
-function GameWorldEventArena:makeEnemyDeck()
-    --local g_data = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA)
-    local g_data = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
+function GameWorldEventArena:makeHeroDeck()
+    local g_data = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA)
 
     -- 조작할 그룹을 설정
     local sel_deck = g_data:getMainDeck()
-    local str_main_deck_name
-    local str_sub_deck_name
+    local main_deck_name
+    local sub_deck_name
+
+    if (sel_deck == 'up') then
+        main_deck_name = g_data:getDeckName('up')
+        sub_deck_name = g_data:getDeckName('down')
+
+    elseif (sel_deck == 'down') then
+        main_deck_name = g_data:getDeckName('down')
+        sub_deck_name = g_data:getDeckName('up')
+
+    else
+        error('invalid sel_deck : ' .. sel_deck)
+    end
+
+    self.m_myDragons = {}
+
+    -- 조작할 수 있는 덱을 가져옴
+    do
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck(main_deck_name)
+        local formation_lv = 0
+    
+        self.m_deckFormation = formation
+        self.m_deckFormationLv = formation_lv
+
+        -- 팀보너스를 가져옴
+        local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+
+        -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
+        for i, doid in pairs(l_deck) do
+            local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+            if (t_dragon_data) then
+                local status_calc = MakeOwnDragonStatusCalculator(doid)
+                local hero = self:makeDragonNew(t_dragon_data, false, status_calc)
+                if (hero) then
+                    self.m_myDragons[i] = hero
+                    hero:setPosIdx(tonumber(i))
+
+                    self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
+                    self.m_physWorld:addObject(self:getPCGroup(), hero)
+                    self:bindHero(hero)
+                    self:addHero(hero)
+
+                    -- 진형 버프 적용
+                    hero.m_statusCalc:applyArenaFormationBonus(formation, formation_lv, i)
+
+                    -- 스테이지 버프 적용
+                    hero.m_statusCalc:applyStageBonus(self.m_stageID)
+                    hero:setStatusCalc(hero.m_statusCalc)
+
+                    -- 팀보너스 적용
+                    for i, teambonus_data in ipairs(l_teambonus_data) do
+                        TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, hero)
+                    end
+
+				    -- 리더 등록
+				    if (i == leader) then
+					    self.m_mUnitGroup[self:getPCGroup()]:setLeader(hero)
+				    end
+                end
+            end
+        end
+    end
+
+    -- 조작할 수 없는 덱을 가져옴
+    do
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck(sub_deck_name)
+        local formation_lv = 0
+    
+        self.m_subDeckFormation = formation
+        self.m_subDeckFormationLv = formation_lv
+
+        -- 팀보너스를 가져옴
+        local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+
+        for i, doid in pairs(l_deck) do
+            local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+            if (t_dragon_data) then
+                local status_calc = MakeOwnDragonStatusCalculator(doid)
+                local hero = self:makeDragonNew(t_dragon_data, false, status_calc)
+                if (hero) then
+                    self.m_myDragons[5 + i] = hero
+                    hero:setPosIdx(tonumber(i))
+
+                    self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
+                    self.m_physWorld:addObject(self:getNPCGroup(), hero)
+                    self:bindHero(hero)
+                    self:addHero(hero)
+
+                    -- 진형 버프 적용
+                    hero.m_statusCalc:applyArenaFormationBonus(formation, formation_lv, i)
+
+                    -- 스테이지 버프 적용
+                    hero.m_statusCalc:applyStageBonus(self.m_stageID)
+                    hero:setStatusCalc(hero.m_statusCalc)
+
+                    -- 팀보너스 적용
+                    for i, teambonus_data in ipairs(l_teambonus_data) do
+                        TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, hero)
+                    end
+
+				    -- 리더 등록
+				    if (i == leader) then
+					    self.m_mUnitGroup[self:getNPCGroup()]:setLeader(hero)
+				    end
+                end
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function makeEnemyDeck
+-------------------------------------
+function GameWorldEventArena:makeEnemyDeck()
+    local g_data = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA)
+
+    -- 조작할 그룹을 설정
+    local sel_deck = g_data:getMainDeck()
+    local main_deck_name
+    local sub_deck_name
 
     if (sel_deck == 'up') then
         main_deck_name = g_data:getDeckName('up')
@@ -461,7 +672,7 @@ function GameWorldEventArena:makeEnemyDeck()
     -- 조작할 수 있는 덱을 가져옴
     do
         local l_deck, formation, deck_name, leader = g_deckData:getDeck(main_deck_name)
-        local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
+        local formation_lv = 0
     
         self.m_enemyDeckFormation = formation
         self.m_enemyDeckFormationLv = formation_lv
@@ -485,7 +696,7 @@ function GameWorldEventArena:makeEnemyDeck()
                     self:addEnemy(enemy)
 
                     -- 진형 버프 적용
-                    enemy.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
+                    enemy.m_statusCalc:applyArenaFormationBonus(formation, formation_lv, i)
 
                     -- 스테이지 버프 적용
                     enemy.m_statusCalc:applyStageBonus(self.m_stageID)
@@ -508,7 +719,7 @@ function GameWorldEventArena:makeEnemyDeck()
     -- 조작할 수 없는 덱을 가져옴
     do
         local l_deck, formation, deck_name, leader = g_deckData:getDeck(sub_deck_name)
-        local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
+        local formation_lv = 0
     
         self.m_subDeckFormation = formation
         self.m_subDeckFormationLv = formation_lv
@@ -530,8 +741,8 @@ function GameWorldEventArena:makeEnemyDeck()
                     self:bindEnemy(enemy)
                     self:addEnemy(enemy)
 
-                    -- 진형 버프 적용
-                    enemy.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
+                    -- 진형 버프 적용 (콜로세움류에서는 진형 버프를 적용하지 않음)
+                    enemy.m_statusCalc:applyArenaFormationBonus(formation, formation_lv, i)
 
                     -- 스테이지 버프 적용
                     enemy.m_statusCalc:applyStageBonus(self.m_stageID)
