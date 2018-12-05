@@ -138,6 +138,9 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 	local t_dragon_skill_time = g_constant:get('INGAME', 'DRAGON_SKILL_DIRECTION_DURATION')
     local delayTime = t_dragon_skill_time[1]
 
+    -- @sgkim 2018.12.05 액티브 스킬 시전 직후 즉시 전투 재개 (10대10 PvP에 첫 사용)
+    local skip_skill_after = (world.m_gameMode == GAME_MODE_EVENT_ARENA)
+
 	if (dragon:isDead()) then
         world.m_gameTimeScale:reset()
         world.m_gameCamera:reset()
@@ -295,8 +298,9 @@ function GameDragonSkill.st_playDragSkill(self, dt)
                 -- 유닛 정보 표시
                 self:setVisible_UnitInfo(true)
             end
-            
-        elseif (self:isPassedStepTime(1.5)) then
+
+        elseif (skip_skill_after and self:isPassedStepTime(0.1)) or (self:isPassedStepTime(1.5)) then
+        --elseif (self:isPassedStepTime(1.5)) then
             -- 카메라 초기화
             world.m_gameCamera:reset()
 
@@ -307,12 +311,14 @@ function GameDragonSkill.st_playDragSkill(self, dt)
         end
 
     elseif (self:getStep() == 5) then
-        if (self:isPassedStepTime(0.5)) then
+        if (skip_skill_after or self:isPassedStepTime(0.5)) then
+        --if (self:isPassedStepTime(0.5)) then
             self:nextStep()
         end
 
     elseif (self:getStep() == 6) then
-        if (dragon.m_state ~= 'delegate') then
+        if (skip_skill_after or (dragon.m_state ~= 'delegate')) then
+        --if (dragon.m_state ~= 'delegate') then
             -- 특정 던전의 경우 배속 조절
             if (world.m_gameMode == GAME_MODE_CLAN_RAID or world.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
                 world.m_gameTimeScale:reset()
