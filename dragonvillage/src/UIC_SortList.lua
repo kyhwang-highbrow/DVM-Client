@@ -696,7 +696,13 @@ end
 -- show/hide
 -- addSortType (sort_type, sort_name)
 
-function MakeUICSortList_challengModeRanker(button, label, direction)
+
+
+-------------------------------------
+-- function MakeUICSortList_challengModeStage
+-- @brief 필터 버튼
+-------------------------------------
+function MakeUICSortList_challengModeStage(button, label, direction)
 
     local width, height = button:getNormalSize()
     local parent = button:getParent()
@@ -719,14 +725,14 @@ function MakeUICSortList_challengModeRanker(button, label, direction)
     parent:addChild(uic.m_node)
 
     -- 버튼 리스트 세팅
-	uic:addSortType('easy'          , Str('쉬움 수동전투 승리'))
-	uic:addSortType('easy_auto'     , Str('쉬움 자동전투 승리'))
-	uic:addSortType('normal'        , Str('보통 수동전투 승리'))
-	uic:addSortType('normal_auto'   , Str('보통 자동전투 승리'))
-	uic:addSortType('hard'          , Str('어려움 수동전투 승리'))
-	uic:addSortType('hard_auto'     , Str('어려움 자동전투 승리'))
-	uic:addSortType('hell'          , Str('지옥 수동전투 승리'))
-	uic:addSortType('hell_auto'     , Str('지옥 자동전투 승리'))
+	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.EASY_AUTO     , Str('쉬움 수동전투 승리'))
+	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.EASY_HAND     , Str('쉬움 자동전투 승리'))
+	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.NORMAL_AUTO   , Str('보통 수동전투 승리'))
+	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.NORMAL_HAND   , Str('보통 자동전투 승리'))
+	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.HARD_AUTO     , Str('어려움 수동전투 승리'))
+	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.HARD_HAND     , Str('어려움 자동전투 승리'))
+	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.HELL_AUTO      , Str('지옥 수동전투 승리'))
+	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.HELL_HAND      , Str('지옥 자동전투 승리'))
 
     --uic:show()
 

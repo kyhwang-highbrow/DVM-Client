@@ -70,15 +70,16 @@ function UI_ChallengeMode:initUI()
     local str = Str('{1}\n/{2}', comma_value(g_challengeMode:getCumulativeGold()), comma_value(10000000))
     vars['rewardLabel']:setString(str)
    
-    -- 정렬 UI 생성 
+    -- 필터용 버튼리스트 UI 생성 
     if (vars['sortBtn']) and (vars['sortLabel']) then
-        local uic_sort_list = MakeUICSortList_challengModeRanker(vars['sortBtn'], vars['sortLabel'])
+        local uic_sort_list = MakeUICSortList_challengModeStage(vars['sortBtn'], vars['sortLabel'])
 
-        -- 버튼을 통해 정렬이 변경되었을 경우
-        local function sort_change_cb(sort_type)
+        -- 버튼을 통해 필터 타입이 변경되었을 경우
+        local function filter_change_cb(filter_type)
+            self:sortStage(filter_type)
         end
 
-        uic_sort_list:setSortChangeCB(sort_change_cb)
+        uic_sort_list:setSortChangeCB(filter_change_cb)
     end
 end
 
@@ -274,6 +275,36 @@ function UI_ChallengeMode:initButton()
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infonfoBtn() end)
     vars['lockSprite']:setEnabled(false) -- 버튼으로 되어있음
+end
+
+-------------------------------------
+-- function sortStage
+-- @brief 필터로 분류한 리스트를 TableView에 적용
+-------------------------------------
+function UI_ChallengeMode:sortStage(filter_type)
+    local l_ranker_list = self:getStageList(filter_type)
+    self.m_tableView:mergeItemList(l_ranker_list)
+    self.m_tableView:setDirtyItemList()
+end
+
+-------------------------------------
+-- function getStageList
+-- @return 필터 조건에 맞는 리스트 만들어 반환
+-------------------------------------
+function UI_ChallengeMode:getStageList(filter_type)
+   local stage_list = g_challengeMode:getChallengeModeStagesInfo()
+   local sorted_list = {}
+   for i,v in pairs(stage_list) do
+        -- 서버에서 v['rank']정보가 뒤집혀서 들어옴 ex) 순위 = 100 는 rank = 1
+        local point = g_challengeMode:getChallengeModeStagePoint(g_challengeMode:getTopStage() + 1 - v['rank']) -- ex) 1 위의 경우 100+1-100
+        
+        -- CHALLENGE_MODE_DIFFICULTY 참고, filter_type은 포인트 값을 가지고 있는 상태
+        if (point == filter_type) then
+            sorted_list[i] = v
+        end
+   end
+
+   return sorted_list
 end
 
 -------------------------------------
