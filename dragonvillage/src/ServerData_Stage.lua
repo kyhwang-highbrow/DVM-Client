@@ -25,6 +25,10 @@ function ServerData_Stage:getGameMode(stage_id)
         return GAME_MODE_ARENA
     elseif (stage_id == CHALLENGE_MODE_STAGE_ID) then
         return GAME_MODE_CHALLENGE_MODE
+
+    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (stage_id == GRAND_ARENA_STAGE_ID) then
+        return GAME_MODE_EVENT_ARENA
     end
 
     local game_mode = getDigit(stage_id, 100000, 2)
@@ -143,6 +147,10 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     -- 룬 수호자 던전 (모든 스테이지가 열린 상태로 시작)
     elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        ret = true
+
+    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (game_mode == GAME_MODE_EVENT_ARENA) then
         ret = true
 
     end

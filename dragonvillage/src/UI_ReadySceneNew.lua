@@ -48,7 +48,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     -- 아레나모드 (콜로세움 진입, 친구대전 진입시)
     self.m_bArena = false
     --if (stage_id == ARENA_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID) then
-    if isExistValue(stage_id, ARENA_STAGE_ID, FRIEND_MATCH_STAGE_ID, CHALLENGE_MODE_STAGE_ID) then
+    if isExistValue(stage_id, ARENA_STAGE_ID, FRIEND_MATCH_STAGE_ID, CHALLENGE_MODE_STAGE_ID, GRAND_ARENA_STAGE_ID) then
         self.m_bArena = true
     end
 
@@ -176,8 +176,6 @@ function UI_ReadySceneNew:checkDeckProper()
         return
     end
 
-	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
-
     -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
     local multi_deck_mgr = self.m_multiDeckMgr 
     if (multi_deck_mgr) then
@@ -187,6 +185,8 @@ function UI_ReadySceneNew:checkDeckProper()
             return
         end
     end
+
+    local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 
     -- 시험의 탑인 경우 고대의 탑과 STAGE ID 같이 쓰이므로 덱네임 다시 받아옴
     if (curr_mode == 'ancient') then
@@ -395,6 +395,10 @@ function UI_ReadySceneNew:initMultiDeckMode()
     -- @ 고대 유적 던전
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN, make_deck)
+
+    -- @ 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA, make_deck)
     end
 end
 
@@ -625,6 +629,13 @@ function UI_ReadySceneNew:refresh_combatPower()
 
 	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID or stage_id == ARENA_STAGE_ID) then
 		vars['cp_Label']:setString('')
+        vars['cp_Label2']:setString('')
+
+        local deck = self.m_readySceneDeck:getDeckCombatPower()
+		vars['cp_Label1']:setString(comma_value( math.floor(deck + 0.5) ))
+
+    elseif isExistValue(game_mode, GAME_MODE_EVENT_ARENA) then
+        vars['cp_Label']:setString('')
         vars['cp_Label2']:setString('')
 
         local deck = self.m_readySceneDeck:getDeckCombatPower()
@@ -1394,6 +1405,11 @@ function UI_ReadySceneNew:replaceGameScene(game_key)
 
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         scene = SceneGameClanRaid(game_key, stage_id, stage_name, false)
+
+    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+        scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', false, false) -- game_key, stage_id, stage_name, develop_mode, friend_match
+
     else
         scene = SceneGame(game_key, stage_id, stage_name, false)
     end
@@ -1419,6 +1435,10 @@ function UI_ReadySceneNew:networkGameStart()
 
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         g_ancientRuinData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+
+    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+        finish_cb(game_key)
 
     else
         g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)

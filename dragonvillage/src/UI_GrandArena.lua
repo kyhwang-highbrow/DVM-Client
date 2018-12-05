@@ -72,8 +72,13 @@ end
 -- @brief 전투 준비 버튼
 -------------------------------------
 function UI_GrandArena:click_startBtn()
-    local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
-    scene:runScene()
+
+    local stage_id = GRAND_ARENA_STAGE_ID
+    UI_ReadySceneNew(stage_id)
+
+
+    --local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
+    --scene:runScene()
 end
 
 -------------------------------------
