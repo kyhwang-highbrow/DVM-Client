@@ -10,7 +10,7 @@ UI_GrandArena = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_GrandArena:init()
-    local vars = self:load_keepZOrder('challenge_mode_scene.ui')
+    local vars = self:load_keepZOrder('grand_arena_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -42,6 +42,24 @@ end
 -- function initUI
 -------------------------------------
 function UI_GrandArena:initUI()
+    self:initTab()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_GrandArena:initTab()
+    local vars = self.vars
+    local l_tab_name = {}
+    table.insert(l_tab_name, 'topRank')
+    table.insert(l_tab_name, 'defense')
+    table.insert(l_tab_name, 'offense')
+
+    for _,tab_name in pairs(l_tab_name) do
+        self:addTabAuto(tab_name, vars, vars[tab_name .. 'TabMenu'])
+    end
+
+    self:setTab('topRank')
 end
 
 -------------------------------------
@@ -65,6 +83,8 @@ end
 function UI_GrandArena:initButton()
     local vars = self.vars
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    
 end
 
 -------------------------------------
@@ -79,6 +99,14 @@ function UI_GrandArena:click_startBtn()
 
     --local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
     --scene:runScene()
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief 도움말 버튼
+-------------------------------------
+function UI_GrandArena:click_infoBtn()
+    UI_HelpGrandArena()
 end
 
 -------------------------------------

@@ -835,6 +835,7 @@ local t_module = {
     'UI_Help',
     'UI_HelpClan',
     'UI_HelpRune',
+    'UI_HelpGrandArena',
     'UI_GuidePopup_PurchasePoint',
     'UI_DragonGoodbyeResult',
     'UI_QuickPopupNew',

@@ -3883,6 +3883,9 @@
     <None Include="..\src\UI_GrandArena.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_HelpGrandArena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

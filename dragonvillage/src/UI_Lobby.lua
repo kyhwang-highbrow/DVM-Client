@@ -186,6 +186,13 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+        if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
+        	co:work('# 그랜드 콜로세움 정보 받는 중')
+            g_grandArena:request_grandArenaInfo(co.NEXT, required_fail_cb, false) -- param : finish_cb, fail_cb, include_reward
+            if co:waitWork() then return end
+        end
+
 
         -- 네스트 던전 정보 갱신이 필요한 경우 (고대 유적 던전 오픈과 같은 케이스)
         -- requestNestDungeonInfo 내부에서 m_bDirtyNestDungeonInfo가 false인 경우는 통신하지 않으므로 추가
