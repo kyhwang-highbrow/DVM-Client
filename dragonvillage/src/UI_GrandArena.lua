@@ -42,6 +42,15 @@ end
 -- function initUI
 -------------------------------------
 function UI_GrandArena:initUI()
+    local vars = self.vars
+
+    -- UI가 enter로 진입되었을 때 update함수 호출
+    self.root:registerScriptHandler(function(event)
+        if (event == 'enter') then
+            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+        end
+    end)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
     self:initTab()
 end
 
@@ -73,8 +82,26 @@ end
 -- function refresh
 -- @brief
 -------------------------------------
-function UI_GrandArena:refresh(stage)
+function UI_GrandArena:refresh()
     local vars = self.vars
+
+    local struct_user_info = g_grandArena:getPlayerArenaUserInfo()
+    do
+        -- 티어 아이콘
+        vars['tierIconNode']:removeAllChildren()
+        local icon = struct_user_info:makeTierIcon(nil, 'big')
+        vars['tierIconNode']:addChild(icon)
+
+        -- 티어 이름
+        local tier_name = struct_user_info:getTierName()
+        vars['tierLabel1']:setString(tier_name)
+
+        -- 순위, 점수, 승률
+        local str = struct_user_info:getRankText(true) .. '\n'
+            .. struct_user_info:getRPText()  .. '\n'
+            .. struct_user_info:getWinRateText()  .. '\n'
+        vars['rankingLabel']:setString(str)
+    end
 end
 
 -------------------------------------
@@ -82,9 +109,24 @@ end
 -------------------------------------
 function UI_GrandArena:initButton()
     local vars = self.vars
-    vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['rankingBtn']:registerScriptTapHandler(function() self:click_rankingBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-    
+    vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+end
+
+-------------------------------------
+-- function click_rankingBtn
+-- @brief 랭킹 버튼
+-------------------------------------
+function UI_GrandArena:click_rankingBtn()
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief 도움말 버튼
+-------------------------------------
+function UI_GrandArena:click_infoBtn()
+    UI_HelpGrandArena()
 end
 
 -------------------------------------
@@ -102,18 +144,20 @@ function UI_GrandArena:click_startBtn()
 end
 
 -------------------------------------
--- function click_infoBtn
--- @brief 도움말 버튼
--------------------------------------
-function UI_GrandArena:click_infoBtn()
-    UI_HelpGrandArena()
-end
-
--------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_GrandArena:click_exitBtn()
 	self:close()
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_GrandArena:update(dt)
+    local vars = self.vars
+
+    local str = g_grandArena:getGrandArenaStatusText()
+    vars['timeLabel']:setString(str)
 end
 
 --@CHECK

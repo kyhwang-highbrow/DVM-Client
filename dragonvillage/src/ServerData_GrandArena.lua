@@ -4,6 +4,9 @@
 -------------------------------------
 ServerData_GrandArena = class({
         m_serverData = 'ServerData',
+
+        m_matchUserInfo = 'StructUserInfoArena',
+		m_playerUserInfo = 'StructUserInfoArena',
     })
 
 -------------------------------------
@@ -33,6 +36,11 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
     local function success_cb(ret)
         -- 동기화
         g_serverData:networkCommonRespone(ret)
+
+        -- 플레이어 랭킹 정보 갱신
+        if ret['season'] then
+            self:refresh_playerUserInfo(ret['season'], nil)
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -77,4 +85,111 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function getPlayerArenaUserInfo
+-------------------------------------
+function ServerData_GrandArena:getPlayerArenaUserInfo()
+    -- 기본 정보 생성을 위해 호출
+    if (not self.m_playerUserInfo) then
+        self:refresh_playerUserInfo()
+    end
+
+    -- 덱 정보는 항상 갱신
+    --local t_deck_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
+    --self.m_playerUserInfo:applyPvpDeckData(t_deck_data)
+
+    -- 클랜 정보는 항상 갱신
+    self.m_playerUserInfo:setStructClan(g_clanData:getClanStruct())
+
+    return self.m_playerUserInfo
+end
+
+-------------------------------------
+-- function refresh_playerUserInfo
+-- @brief 플레이어 정보 갱신
+-------------------------------------
+function ServerData_GrandArena:refresh_playerUserInfo(t_data, l_deck)
+    if (not self.m_playerUserInfo) then
+        -- 플레이어 유저 정보 생성
+        local struct_user_info = StructUserInfoArena()
+        struct_user_info.m_uid = g_userData:get('uid')
+		struct_user_info:setStructClan(g_clanData:getClanStruct())
+        self.m_playerUserInfo = struct_user_info
+    end
+
+    if t_data then
+        self:_refresh_playerUserInfo(self.m_playerUserInfo, t_data)
+    end
+
+    -- 덱 설정
+    if l_deck then
+        l_deck['deckName'] = 'arena' -- 서버 작업이 안되서 arena로 일딴 설정
+        self.m_playerUserInfo:applyPvpDeckData(l_deck)
+    end
+
+    -- 클랜 정보는 항상 갱신
+    self.m_playerUserInfo:setStructClan(g_clanData:getClanStruct())
+end
+
+-------------------------------------
+-- function _refresh_playerUserInfo
+-------------------------------------
+function ServerData_GrandArena:_refresh_playerUserInfo(struct_user_info, t_data)
+    -- 최신 정보로 갱신
+    struct_user_info.m_nickname = g_userData:get('nick')
+    struct_user_info.m_lv = g_userData:get('lv')
+
+    do -- 콜로세움 정보 갱신
+        if t_data['win'] then
+            struct_user_info.m_winCnt = t_data['win']
+        end
+
+        if t_data['lose'] then
+            struct_user_info.m_loseCnt = t_data['lose']
+        end
+
+        if t_data['rank'] then
+            struct_user_info.m_rank = t_data['rank']
+        end
+
+        if t_data['rate'] then
+            struct_user_info.m_rankPercent = t_data['rate']
+        end
+
+        if t_data['rp'] then
+            struct_user_info.m_rp = t_data['rp']
+        end
+
+        if t_data['tier'] then
+            struct_user_info.m_tier = t_data['tier']
+        end
+
+        if t_data['straight'] then
+            struct_user_info.m_straight = t_data['straight']
+        end
+    end
+end
+
+-------------------------------------
+-- function getGrandArenaStatusText
+-------------------------------------
+function ServerData_GrandArena:getGrandArenaStatusText()
+    local time = g_hotTimeData:getEventRemainTime('event_grand_arena') or 0
+
+    local str = ''
+    if (not self:isActive_grandArena()) then
+        if (time <= 0) then
+            str = Str('오픈시간이 아닙니다.')
+        end
+
+    elseif (0 < time) then
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+
+    else
+        str = Str('종료되었습니다.')
+    end
+
+    return str
 end
