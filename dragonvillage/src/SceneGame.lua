@@ -1039,8 +1039,10 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
     local stage_id = ret['stage']
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-        local stage_info = g_adventureData:getStageInfo(stage_id)
-        stage_info:applyTableData(stage_clear_info)
+        if (stage_clear_info) then
+            local stage_info = g_adventureData:getStageInfo(stage_id)
+            stage_info:applyTableData(stage_clear_info)
+        end
 
         -- 스테이지 클리어 통계
         do
@@ -1095,6 +1097,9 @@ function SceneGame:networkGameFinish_response_chapter_achievement_info(ret)
 
     -- 리스트 형태로 넘어와서 한개만 추출
     local data = table.getFirst(ret['chapter_list'])
+    if (not data) then
+        return
+    end
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         local chapter_id = data['chapter_id']
