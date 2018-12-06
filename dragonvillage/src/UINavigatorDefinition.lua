@@ -720,10 +720,8 @@ function UINavigatorDefinition:goTo_grand_arena(...)
 
     end
 
-
-    finish_cb()
     -- 정보 요청
-    --g_challengeMode:request_challengeModeInfo(stage, finish_cb, fail_cb, true) -- param : stage, finish_cb, fail_cb, include_reward
+    g_grandArena:request_grandArenaInfo(finish_cb, fail_cb, true) -- param : finish_cb, fail_cb, include_reward)
 end
 
 -------------------------------------

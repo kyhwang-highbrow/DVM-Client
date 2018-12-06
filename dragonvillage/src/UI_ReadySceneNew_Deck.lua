@@ -713,15 +713,28 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
 	end
 
     -- pvp는 테이머까지 처리
-    if (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) then
+    if (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deckname) then
         if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
             b_change = true
         end
     end
 
     if (b_change) then
+        -- deckpvp collection을 사용하는 덱일 경우
+        if (g_deckData:isUsedDeckPvpDB(deckname)) then
+            local l_edoid = {}
+            l_edoid[1] = self.m_lDeckList[1]
+            l_edoid[2] = self.m_lDeckList[2]
+            l_edoid[3] = self.m_lDeckList[3]
+            l_edoid[4] = self.m_lDeckList[4]
+            l_edoid[5] = self.m_lDeckList[5]
+            local tamer_id = self.m_uiReadyScene:getCurrTamerID()
+            local fail_cb = nil
+            g_deckData:request_setDeckPvpCollection(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
+
+
         -- 콜로세움 (신규) 전용 덱 처리
-        if (deckname == 'arena') then
+        elseif (deckname == 'arena') then
             local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]

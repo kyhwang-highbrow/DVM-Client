@@ -912,6 +912,11 @@ function UI_TitleScene:workGetServerInfo()
                     g_deckData:response_deckInfo(ret['deck_info'])
                 end
 
+                if (ret['pvp_deck_info']) then
+                    cclog('# 각 모드 덱')
+                    g_deckData:response_deckPvpInfo(ret['pvp_deck_info'])
+                end
+
                 if (ret['pvpdeck_info']) then
                     cclog('# 콜로세움 공격덱 방어덱')
                     g_colosseumData:response_playerColosseumDeck(ret['pvpdeck_info'])

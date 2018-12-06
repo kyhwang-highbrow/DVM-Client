@@ -51,7 +51,7 @@ function UI_GrandArena:initUI()
         end
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
-    self:initTab()
+    --self:initTab()
 end
 
 -------------------------------------
@@ -136,7 +136,10 @@ end
 function UI_GrandArena:click_startBtn()
 
     local stage_id = GRAND_ARENA_STAGE_ID
-    UI_ReadySceneNew(stage_id)
+
+    --local struct_deck_setting_ui_config = StructDeckSettingUIConfig()
+    --UI_DeckSetting(struct_deck_setting_ui_config)
+    UI_GrandArenaDeckSettings(stage_id)
 
 
     --local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)

@@ -26,6 +26,14 @@ function ServerData_Deck:response_deckInfo(l_deck)
 end
 
 -------------------------------------
+-- function response_deckPvpInfo
+-- @brief game/pvp/get_deck에 해당하는 response이며 users/title에서 함께 받는 것으로 수정됨
+-------------------------------------
+function ServerData_Deck:response_deckPvpInfo(l_deck)
+    self.m_serverData:applyServerData(l_deck, 'deckpvp')
+end
+
+-------------------------------------
 -- function get
 -------------------------------------
 function ServerData_Deck:get(key)
@@ -52,6 +60,29 @@ function ServerData_Deck:setDeck(deck_name, t_deck)
     end
 
     self.m_serverData:applyServerData(t_deck, 'deck', idx)
+    self:resetDragonDeckInfo()
+end
+
+-------------------------------------
+-- function setDeck_usedDeckPvp
+-- @brief
+-------------------------------------
+function ServerData_Deck:setDeck_usedDeckPvp(deck_name, t_deck)
+    local l_deck = self.m_serverData:get('deckpvp') or {}
+
+    local idx = nil
+    for i,value in pairs(l_deck) do
+        if (value['deckname'] == deck_name) or (value['deckName'] == deck_name) then
+            idx = i
+            break
+        end
+    end
+
+    if (not idx) then
+        idx = #l_deck + 1
+    end
+
+    self.m_serverData:applyServerData(t_deck, 'deckpvp', idx)
     self:resetDragonDeckInfo()
 end
 
@@ -111,6 +142,10 @@ function ServerData_Deck:getDeck_core(deck_name)
         end
 
         return t_ret, self:adjustFormationName(formation), deck_name, leader, tamer_id
+
+    -- deckpvp collection을 사용하는 덱은 별도로 처리
+    elseif self:isUsedDeckPvpDB(deck_name) then
+        return self:getDeck_core_usedDeckPvpDB(deck_name)
     end
 
     local l_deck = self.m_serverData:get('deck')
@@ -121,6 +156,59 @@ function ServerData_Deck:getDeck_core(deck_name)
     local tamer_id
     for i, value in ipairs(l_deck) do
         if (value['deckname'] == deck_name) then
+            t_deck = value['deck']
+            formation = value['formation']
+			leader = value['leader']
+            tamer_id = value['tamer']
+        end
+    end
+
+    if t_deck then
+        local t_ret = {}
+        for i,v in pairs(t_deck) do
+            if (v ~= '') and g_dragonsData:getDragonDataFromUid(v) then
+                t_ret[tonumber(i)] = v
+            end
+        end
+        
+        return t_ret, self:adjustFormationName(formation), deck_name, leader, tamer_id
+    end
+
+    return {}, self:adjustFormationName('default'), deck_name, 1, tamer_id
+end
+
+-------------------------------------
+-- function isUsedDeckPvpDB
+-- @brief 서버에서 deck과 deckpvp라는 collection을 사용하는데
+--        콜로세움, 그랜드 콜로세움 등은 deckpvp에서 덱 정보를 저장함
+--        deckpvp 콜렉션을 사용하는 덱 명칭인지 확인용 함수
+-------------------------------------
+function ServerData_Deck:isUsedDeckPvpDB(deck_name)
+    if (deck_name == 'grand_arena_up') then
+        return true
+    end
+
+    if (deck_name == 'grand_arena_down') then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function getDeck_core_usedDeckPvpDB
+-- @brief 서버에서 deck과 deckpvp라는 collection을 사용하는데
+--        콜로세움, 그랜드 콜로세움 등은 deckpvp에서 덱 정보를 저장함
+-------------------------------------
+function ServerData_Deck:getDeck_core_usedDeckPvpDB(deck_name)
+    local l_deck = self.m_serverData:get('deckpvp') or {}
+
+    local t_deck
+    local formation
+	local leader
+    local tamer_id
+    for i, value in ipairs(l_deck) do
+        if (value['deckname'] == deck_name) or (value['deckName'] == deck_name) then
             t_deck = value['deck']
             formation = value['formation']
 			leader = value['leader']
@@ -234,4 +322,53 @@ function ServerData_Deck:getDeckCombatPower(deck_name)
     end
 
     return combat_power
+end
+
+-------------------------------------
+-- function request_setDeckPvpCollection
+-------------------------------------
+function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leader, l_edoid, tamer, finish_cb, fail_cb)
+    local _deckname = deckname
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        if ret['deck'] then
+            local ret_deck = ret['deck']
+            local t_deck = ret_deck['deck']
+            local deckname = ret_deck['deckname'] or ret_deck['deckName']
+
+            g_deckData:setDeck_usedDeckPvp(deckname, ret_deck)
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/set_deck')
+    ui_network:setParam('uid', uid)
+
+    ui_network:setParam('deckname', _deckname)
+    ui_network:setParam('formation', formation)
+    ui_network:setParam('leader', leader)
+    ui_network:setParam('tamer', tamer)
+    
+
+    for i,doid in pairs(l_edoid) do
+        ui_network:setParam('edoid' .. i, doid)
+    end
+
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end
