@@ -109,6 +109,14 @@ function UI_AutoPlaySettingPopup:initUI()
         vars['autoMenu6']:setVisible(true)
 		vars['autoMenu3']:setVisible(false)
 
+    -- 그랜드 콜로세움 분기처리
+	elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+        vars['autoMenu2']:setVisible(false)
+		vars['autoMenu4']:setVisible(false)
+		vars['autoMenu5']:setVisible(false)
+        vars['autoMenu6']:setVisible(true)
+		vars['autoMenu3']:setVisible(false)
+
 	else
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(true)

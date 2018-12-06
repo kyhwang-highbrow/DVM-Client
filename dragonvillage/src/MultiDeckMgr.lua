@@ -12,6 +12,8 @@ MultiDeckMgr = class({
         -- 덱 map (임시 저장)
 		m_tDeckMap_1 = 'map', -- 인게임 상단덱 (1공격대)
         m_tDeckMap_2 = 'map', -- 인게임 하단덱 (2공격대)
+
+        m_bUseManualSelection = 'boolean', -- 수동, 자동 선택기능 사용 여부
      })
 
 
@@ -37,6 +39,13 @@ function MultiDeckMgr:init(deck_mode, make_deck, sub_data)
     -- up, down 덱 map생성
     if (make_deck) then
         self:makeDeckMap()
+    end
+
+    -- 그랜드 콜로세움은 수동, 자동 선택기능 없음
+    if (deck_mode == MULTI_DECK_MODE.EVENT_ARENA) then
+        self.m_bUseManualSelection = false
+    else
+        self.m_bUseManualSelection = true
     end
 end
 

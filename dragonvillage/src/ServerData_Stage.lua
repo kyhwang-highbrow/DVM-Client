@@ -96,6 +96,10 @@ function ServerData_Stage:getStageName(stage_id)
     elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
         name = Str('룬 수호자 던전')
 
+    -- 그랜드 콜로세움
+    elseif (game_mode == GAME_MODE_EVENT_ARENA) then
+        name = Str('그랜드 콜로세움')
+
     end
 
     return name

@@ -80,6 +80,11 @@ function UI_ReadySceneNew_Deck:initUI()
     if (multi_deck_mgr) then
         vars['formationNode']:setPositionX(-225)
         vars['clanRaidMenu']:setVisible(true)
+
+        if (multi_deck_mgr.m_bUseManualSelection == false) then
+            vars['upRadioBtn']:setVisible(false)
+            vars['downRadioBtn']:setVisible(false)
+        end
     end
 end
 
@@ -91,7 +96,7 @@ function UI_ReadySceneNew_Deck:initButton()
     local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
 
     -- 멀티 덱 처리 (수동, 자동 선택)
-    if (multi_deck_mgr) then
+    if (multi_deck_mgr and multi_deck_mgr.m_bUseManualSelection) then
         local radio_button = UIC_RadioButton()
         radio_button:addButtonAuto('up', vars)
         radio_button:addButtonAuto('down', vars)
