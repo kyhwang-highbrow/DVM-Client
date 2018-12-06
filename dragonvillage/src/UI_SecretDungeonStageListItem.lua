@@ -66,7 +66,7 @@ function UI_SecretDungeonStageListItem:refresh(t_data)
     end
 
     do -- 발견자
-        local nickname = Str(self.m_stageTable['nick'])
+        local nickname = self.m_stageTable['nick']
         vars['userNameLabel']:setString(Str('발견 : {1}', nickname))
     end
 
