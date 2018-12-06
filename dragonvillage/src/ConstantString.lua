@@ -39,6 +39,9 @@ function chapterName(chapter)
     elseif (chapter == 12) then
         return Str('부서진 검은 요새')
 
+    elseif (chapter == SPECIAL_CHAPTER.ADVENT) then
+        return Str('깜짝 출현')
+
     else
         return Str('개발용')
 

@@ -273,6 +273,11 @@ end
 function ServerData_Adventure:getSimplePrevStageID(stage_id)
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
+    -- 깜짝 출현 챕터
+    if (chapter == SPECIAL_CHAPTER.ADVENT) then
+        return nil
+    end
+
     if (1 < stage) then
         local next_stage_id = makeAdventureID(difficulty, chapter, stage - 1)
         return next_stage_id
@@ -312,6 +317,11 @@ end
 -------------------------------------
 function ServerData_Adventure:getSimpleNextStageID(stage_id)
     local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    -- 깜짝 출현 챕터
+    if (chapter == SPECIAL_CHAPTER.ADVENT) then
+        return nil
+    end
 
     if (stage < MAX_ADVENTURE_STAGE) then
         local next_stage_id = makeAdventureID(difficulty, chapter, stage + 1)

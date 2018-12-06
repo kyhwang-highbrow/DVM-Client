@@ -181,18 +181,24 @@ function UI_AdventureStageInfo:refresh()
 
     -- 획득한 별 표시
     if (game_mode == GAME_MODE_ADVENTURE) then
-        local stage_info = g_adventureData:getStageInfo(stage_id)
-        local num_of_stars = stage_info:getNumberOfStars()
-
-        for i=1, 3 do
-            local visible = stage_info['mission_' .. i]
-            vars['starSprite' .. i]:setVisible(visible)
-        end
-
-        if (num_of_stars < 3) then
-            vars['starButton']:setAutoShake(true)
+        local difficulty, chapter, stage = parseAdventureID(stage_id)
+        -- 깜짝 출현 챕터
+        if (chapter == SPECIAL_CHAPTER.ADVENT) then
+            vars['starButton']:setVisible(false)
         else
-            vars['starButton']:setAutoShake(false)
+            local stage_info = g_adventureData:getStageInfo(stage_id)
+            local num_of_stars = stage_info:getNumberOfStars()
+
+            for i=1, 3 do
+                local visible = stage_info['mission_' .. i]
+                vars['starSprite' .. i]:setVisible(visible)
+            end
+
+            if (num_of_stars < 3) then
+                vars['starButton']:setAutoShake(true)
+            else
+                vars['starButton']:setAutoShake(false)
+            end
         end
     end
 

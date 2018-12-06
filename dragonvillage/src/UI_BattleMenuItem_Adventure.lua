@@ -1,4 +1,4 @@
-local PARENT = UI_BattleMenuItem
+﻿local PARENT = UI_BattleMenuItem
 
 -------------------------------------
 -- class UI_BattleMenuItem_Adventure
@@ -16,4 +16,38 @@ function UI_BattleMenuItem_Adventure:init(content_type)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    if (content_type == 'adventure') then
+        self:initAdvent()
+    end
+end
+
+-------------------------------------
+-- function initAdvent
+-------------------------------------
+function UI_BattleMenuItem_Adventure:initAdvent()
+    if (g_hotTimeData:isActiveEvent('event_advent')) then
+        local vars = self.vars
+
+        -- 깜짝 출현 남은 시간
+        vars['timeSprite']:setVisible(true)
+        vars['timeLabel']:setString('')
+
+        local frame_guard = 1
+        local title = Str('드래곤 깜짝 출현')
+        local function update(dt)
+            frame_guard = frame_guard + dt
+            if (frame_guard < 1) then
+                return
+            end
+            frame_guard = frame_guard - 1
+            
+            local remain_time = g_hotTimeData:getEventRemainTime('event_advent')
+            if remain_time > 0 then
+                local time_str = datetime.makeTimeDesc(remain_time, true)
+                vars['timeLabel']:setString(title .. '\n' .. Str('{1} 남음', time_str))
+            end
+        end
+        vars['timeSprite']:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+    end
 end

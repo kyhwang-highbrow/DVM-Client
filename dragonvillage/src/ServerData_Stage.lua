@@ -47,7 +47,11 @@ function ServerData_Stage:getStageName(stage_id)
     if (game_mode == GAME_MODE_ADVENTURE) then
         local difficulty, chapter, stage = parseAdventureID(stage_id)
         local chapter_name = chapterName(chapter)
-        name = chapter_name .. Str(' {1}-{2}', chapter, stage)
+        if (chapter == SPECIAL_CHAPTER.ADVENT) then
+            name = string.format('%s-%d', chapter_name, stage)
+        else
+            name = string.format('%s %d-%d', chapter_name, chapter, stage)
+        end
 
     -- 네스트 던전 모드
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then

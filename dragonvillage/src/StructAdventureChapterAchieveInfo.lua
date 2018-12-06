@@ -62,6 +62,9 @@ function StructAdventureChapterAchieveInfo:isExist(star)
     end
 
     local t_chap_achieve_data = g_adventureData:getChapterAchieveData(self.chapter_id)
+    if (not t_chap_achieve_data) then
+        return false
+    end
 
     local reward_str = t_chap_achieve_data['reward_' .. star]
     if reward_str and (reward_str ~= '') then

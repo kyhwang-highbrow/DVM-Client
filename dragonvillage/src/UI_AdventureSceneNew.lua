@@ -11,6 +11,7 @@ T_CHAPTER_MAP_RES[9] = 'res/bg/map_ocean2/map_ocean2.vrp'
 T_CHAPTER_MAP_RES[10] = 'res/bg/map_forest2/map_forest2.vrp'
 T_CHAPTER_MAP_RES[11] = 'res/bg/map_sky_temple2/map_sky_temple2.vrp'
 T_CHAPTER_MAP_RES[12] = 'res/bg/map_dark_castle/map_dark_castle.vrp'
+T_CHAPTER_MAP_RES[SPECIAL_CHAPTER.ADVENT] = 'res/bg/map_forest/map_forest.vrp'
 
 -------------------------------------
 -- class UI_AdventureSceneNew
@@ -118,6 +119,7 @@ function UI_AdventureSceneNew:initButton()
     vars['chapterSelectBtn']:setVisible(true)
     vars['chapterSelectBtn']:registerScriptTapHandler(function() self:click_chapterSelectBtn() end)
 
+    vars['adventChapterBtn']:registerScriptTapHandler(function() self:click_adventChapterBtn() end)
 end
 
 -------------------------------------
@@ -343,7 +345,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     if (not force) and (self.m_currChapter == chapter) and (self.m_currDifficulty == difficulty) then
         return
     end
-
+        
     -- tutorial 실행중이라면
     if TutorialManager.getInstance():isDoing() then
         chapter = 1
@@ -353,7 +355,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     local vars = self.vars
     self.m_currChapter = chapter
     self.m_currDifficulty = difficulty or self.m_currDifficulty
-
+    
 	-- @ TUTORIAL 1-7 클리어 보상
 	if (TutorialManager.getInstance():showAmazingNewbiePresent()) then
 		vars['clearEventSprite']:setVisible(chapter == 1)
@@ -365,10 +367,6 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         vars['splashLayer']:stopAllActions()
         vars['splashLayer']:setOpacity(255)
         vars['splashLayer']:runAction(cc.Sequence:create(cc.FadeOut:create(0.2), cc.Hide:create()))
-    end
-
-    do -- 챕터 이름 지정
-        vars['titleLabel']:setString(Str('챕터.{1}', chapter) .. ' ' .. chapterName(chapter))
     end
 
     do -- 챕터 배경
@@ -390,12 +388,63 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         vars['chapterNode']:addChild(animator.m_node)
     end
+    
+    -- 핫타임 정보 갱신
+    self:refreshHotTimeInfo()
 
+    -- 이전 스테이지 버튼 제거
+    self:clearStageButton()
+
+    -- 깜짝 출현 챕터
+    if (chapter == SPECIAL_CHAPTER.ADVENT) then
+        if (g_hotTimeData:isActiveEvent('event_advent')) then
+            self:refreshChapter_advent(chapter, difficulty, stage)
+            return
+
+        -- 챕터 99로 저장되어있지만 이벤트 비활성화 된 경우 챕터 1로 보냄
+        else
+            chapter = 1
+        end
+    end
+
+    -- 일반 챕터
+    self:refreshChapter_common(chapter, difficulty, stage)
+end
+
+-------------------------------------
+-- function refreshChapter_common
+-- @breif 챕터 변경 - 깜짝 출현 챕터 전용
+-- @sub refreshChapter
+-------------------------------------
+function UI_AdventureSceneNew:refreshChapter_common(chapter, difficulty, stage)
+    local vars = self.vars
+
+    do 
+        -- 챕터 이름
+        vars['titleLabel']:setString(Str('챕터.{1}', chapter) .. ' ' .. chapterName(chapter))
+        vars['timeLabel']:setString('')
+        vars['titleFrameSprite']:unscheduleUpdate()
+
+        -- 타이틀 프레임
+        local frame_size = vars['titleFrameSprite']:getContentSize()
+        local height = 42
+        vars['titleFrameSprite']:setContentSize(frame_size['width'], height)
+
+        -- 이전, 다음 챕터 버튼
+        vars['prevBtn']:setVisible(1 < chapter)
+        vars['nextBtn']:setVisible(chapter < MAX_ADVENTURE_CHAPTER)
+
+        -- 일반 챕터 리소스
+        vars['adventChapterBtn']:setVisible(g_hotTimeData:isActiveEvent('event_advent'))
+        vars['stagePathSprite']:setVisible(true)
+        vars['achieveBtnMenu']:setVisible(true)
+    end
+
+    -- 스테이지 버튼 생성
     self.m_lStageButton = {}
     for i=1, MAX_ADVENTURE_STAGE do
         local dock_node = vars[string.format('stageDock%.2d', i)]
         if dock_node then
-            dock_node:removeAllChildren()
             local stage_id = makeAdventureID(self.m_currDifficulty, chapter, i)
             local button = UI_AdventureStageButton(self, stage_id)
             dock_node:addChild(button.root)
@@ -429,10 +478,6 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         end
     end
 
-    -- 이전, 다음 챕터 버튼
-    vars['prevBtn']:setVisible(1 < chapter)
-    vars['nextBtn']:setVisible(chapter < MAX_ADVENTURE_CHAPTER)
-
     -- 챕터 도전과제
     self:refresh_MissionReward()
 
@@ -440,8 +485,78 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         local stage_id = makeAdventureID(self.m_currDifficulty, chapter, stage)
         g_stageData:setFocusStage(stage_id)
     end
+end
 
-    self:refreshHotTimeInfo()
+-------------------------------------
+-- function refreshChapter_advent
+-- @breif 챕터 변경 - 깜짝 출현 챕터 전용
+-- @sub refreshChapter
+-------------------------------------
+function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
+    local vars = self.vars
+
+    -- 깜짝 출현 드래곤 mid 리스트
+    local l_advent_mid = g_hotTimeData:getAdventDragonList()
+    local did_count = #l_advent_mid
+
+    do 
+        -- 챕터 이름
+        local title = Str('{1} 깜짝 출현!', TableMonster:getMonsterName(l_advent_mid[1]))
+        vars['titleLabel']:setString(title)
+        
+        -- 깜짝 출현 남은 시간
+        vars['timeLabel']:setString('')
+        local frame_guard = 1
+        local function update(dt)
+            frame_guard = frame_guard + dt
+            if (frame_guard < 1) then
+                return
+            end
+            frame_guard = frame_guard - 1
+
+            local remain_time = g_hotTimeData:getEventRemainTime('event_advent')
+            if remain_time > 0 then
+                local time_str = datetime.makeTimeDesc(remain_time, true)
+                vars['timeLabel']:setString(Str('{1} 남음', time_str))
+            end
+        end
+        vars['titleFrameSprite']:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+
+        -- 타이틀 프레임
+        local frame_size = vars['titleFrameSprite']:getContentSize()
+        local height = 84
+        vars['titleFrameSprite']:setContentSize(frame_size['width'], height)
+
+        -- 이전, 다음 챕터 버튼
+        vars['prevBtn']:setVisible(false)
+        vars['nextBtn']:setVisible(false)
+
+        -- 깜짝 출현을 위한 세팅
+        vars['adventChapterBtn']:setVisible(false)
+        vars['stagePathSprite']:setVisible(false)
+        vars['achieveBtnMenu']:setVisible(false)
+    end
+ 
+    -- 깜짝 출현 스테이지 버튼 생성
+    self.m_lStageButton = {}
+    local advent_dock_node = vars['adventStageDock']
+    local stage_btn_gap = 200
+    for i = 1, 3 do
+        local stage_id = makeAdventureID(self.m_currDifficulty, chapter, i)
+        local button = UI_AdventureStageButton(self, stage_id)
+
+        local pos_x = UIHelper:getNodePosXWithScale(did_count, i, stage_btn_gap)
+        button.root:setPositionX(pos_x)
+
+        advent_dock_node:addChild(button.root)
+        self.m_lStageButton[i] = button
+    end
+    
+    -- stage 보정
+    stage = 1 or math_clamp(stage, 1, did_count)
+
+    -- 비공정 이동
+    self:focusStageButton(stage, true, true)
 end
 
 -------------------------------------
@@ -560,6 +675,32 @@ function UI_AdventureSceneNew:click_devStageBtn()
     scene:runScene()
 end
 
+-------------------------------------
+-- function click_adventChapterBtn
+-- @brief 현재 난이도의 깜짝 출현 챕터 1스테이지로 보냄
+-------------------------------------
+function UI_AdventureSceneNew:click_adventChapterBtn()
+    local difficulty = self.m_currDifficulty
+    local chapter = SPECIAL_CHAPTER.ADVENT
+    local stage = 1
+    self:refreshChapter(chapter, difficulty, stage)
+    self.m_uicSortList:setSelectSortType(difficulty)
+end
+
+-------------------------------------
+-- function clearStageButton
+-------------------------------------
+function UI_AdventureSceneNew:clearStageButton()
+    local vars = self.vars
+    for i=1, MAX_ADVENTURE_STAGE do
+        local dock_node = vars[string.format('stageDock%.2d', i)]
+        if dock_node then
+            dock_node:removeAllChildren()
+        end
+    end
+    local advent_dock_node = vars['adventStageDock']
+    advent_dock_node:removeAllChildren()
+end
 
 -------------------------------------
 -- function focusStageButton
@@ -594,6 +735,10 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force, stage_
 
         -- 배의 위치를 조절
         local x, y = next_btn.root:getParent():getPosition()
+        if (self.m_currChapter == SPECIAL_CHAPTER.ADVENT) then
+            x, y = next_btn.root:getPosition()
+        end
+
         self:moveShipObject(x, y + 50, immediately, stage_id)
     end
 

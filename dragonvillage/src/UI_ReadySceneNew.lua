@@ -1131,13 +1131,16 @@ function UI_ReadySceneNew:check_startCondition(stage_id)
             return false
         end
     end
+    
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+    local is_advent = (chapter == SPECIAL_CHAPTER.ADVENT)
 
     -- 모드 상관없이 공통으로 체크
     if (self:getDragonCount() <= 0) then
         UIManager:toastNotificationRed(Str('최소 1명 이상은 출전시켜야 합니다.'))
         return false
 
-    elseif (not g_stageData:isOpenStage(stage_id)) then
+    elseif (not is_advent) and (not g_stageData:isOpenStage(stage_id)) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
         return false
 

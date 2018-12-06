@@ -45,6 +45,9 @@ ServerData_HotTime = class({
         -- 부스터 아이템 정보
         m_boosterMailInfo = 'map',
         m_boosterInfoDirty = 'boolean',
+
+        -- 깜짝 출현 정보
+        m_adventDragonList = 'table',
     })
 
 -- 할인 이벤트 
@@ -829,4 +832,22 @@ function ServerData_HotTime:getDiscountEventList()
     end
 	
 	return l_dc_event
+end
+
+-------------------------------------
+-- function setAdventDragonList
+-------------------------------------
+function ServerData_HotTime:setAdventDragonList(list_str)
+    self.m_adventDragonList = {}
+    local l_ret = plSplit(list_str[1], ',')
+    for i, v in ipairs(l_ret) do
+        table.insert(self.m_adventDragonList, tonumber(v))
+    end
+end
+
+-------------------------------------
+-- function getAdventDragonList
+-------------------------------------
+function ServerData_HotTime:getAdventDragonList()
+    return self.m_adventDragonList
 end

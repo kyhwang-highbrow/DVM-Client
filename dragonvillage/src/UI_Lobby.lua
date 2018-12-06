@@ -425,6 +425,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 			g_spotSaleData:applySpotSaleInfo(ret['spot_sale'])
 		end
 
+        cclog('# 깜짝 출현 드래곤 정보 받는 중')
+        if (ret['advent_did_list']) then
+            g_hotTimeData:setAdventDragonList(ret['advent_did_list'])
+        end
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)
