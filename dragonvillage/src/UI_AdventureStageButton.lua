@@ -12,6 +12,7 @@ UI_AdventureStageButton = class(PARENT, {
 -------------------------------------
 function UI_AdventureStageButton:init(parent_ui, stage_id)
     local vars = self:load('adventure_stage_icon.ui')
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
 
     -- 깜짝 출현 챕터
     if (chapter == SPECIAL_CHAPTER.ADVENT) then
@@ -99,7 +100,7 @@ function UI_AdventureStageButton:init_advent(parent_ui, stage_id, vars)
     -- 스테이지 이름
     vars['stageLabel']:setString(stage)
 
-    -- 깜짝 출현은 항상 모든 스테이지 오픈
+    -- 깜짝 출현은 항상 모든 스테이지 오픈 
     do
         vars['completeSprite']:setVisible(true)
         vars['lockSprite']:setVisible(false)
