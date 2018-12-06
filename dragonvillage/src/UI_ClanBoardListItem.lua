@@ -1,5 +1,13 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
+-- 나중에는 어딘가 적절한 테이블로 옮길 수도 있다.
+local CLAN_BOARD_STR = {
+    ['lvup'] = Str('클랜 {1}레벨 달성!'),
+    ['join'] = Str('{1}님이 클랜에 가입했습니다. 환영합니다!'),
+    ['exit'] = Str('{1}님이 클랜에서 탈퇴했습니다.'),
+    ['kicked'] = Str('{1}님이 클랜에서 추방되었습니다.'),
+}
+
 -------------------------------------
 -- class UI_ClanBoardListItem
 -------------------------------------
@@ -75,9 +83,8 @@ function UI_ClanBoardListItem:initUI()
     end
 end
 
-
 -------------------------------------
--- function initUI
+-- function initUI_system
 -------------------------------------
 function UI_ClanBoardListItem:initUI_system()
 	local vars = self.vars
@@ -103,10 +110,29 @@ function UI_ClanBoardListItem:initUI_system()
 	vars['timeLabel']:setString(review_time)
 	
 	-- 내용
-	-- 향후 시스템 공지 타입이 추가될 경우 텍스트는 테이블로 관리하고 서버에서 text type과 value만 받아서 번역 처리를 할 수 있도록 하자
-	local org_text = t_data['text'] or ''
-	local _, _, lv = org_text:find('클랜 (%d+)레벨 달성!')
-	self:setContentWithAdjHeight(Str('클랜 {1}레벨 달성!', lv or 0))
+    do
+        local org = t_data['text'] or '' -- "key;value1,value2,value3..."
+    
+        local l_split = plSplit(org, ';')
+        local text_key = l_split[1]
+        local l_value = plSplit(l_split[2], ',')
+
+        -- 정의된 타입의 경우
+        if (l_value) then
+            local text_form = CLAN_BOARD_STR[text_key]
+            self:setContentWithAdjHeight(Str(text_form, l_value[1], l_value[2]))
+
+        -- 레거시 또는 오류
+        else
+            local org_text = t_data['text'] or ''
+	        local _, _, lv = org_text:find('클랜 (%d+)레벨 달성!')
+            if (lv) then
+	            self:setContentWithAdjHeight(Str(CLAN_BOARD_STR['lvup'], lv or 0))
+            else
+                self:setContentWithAdjHeight('error')
+            end
+        end
+    end
 end
 
 -------------------------------------
