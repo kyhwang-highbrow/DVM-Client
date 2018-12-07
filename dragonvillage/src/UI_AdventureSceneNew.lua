@@ -29,6 +29,8 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         m_lAchieveRewardButtons = '',
 
         m_uicSortList = 'UIC_SortList',
+
+        m_rewindStageId = 'number' -- advent chpater로 진입 시 되돌아올 stage 임시 저장
      })
 
 -------------------------------------
@@ -435,9 +437,11 @@ function UI_AdventureSceneNew:refreshChapter_common(chapter, difficulty, stage)
         vars['nextBtn']:setVisible(chapter < MAX_ADVENTURE_CHAPTER)
 
         -- 일반 챕터 리소스
-        vars['adventChapterBtn']:setVisible(g_hotTimeData:isActiveEvent('event_advent'))
         vars['stagePathSprite']:setVisible(true)
         vars['achieveBtnMenu']:setVisible(true)
+
+        vars['adventChapterBtn']:setVisible(g_hotTimeData:isActiveEvent('event_advent'))
+        vars['adventChapterLabel']:setString(Str('깜짝 출현 챕터'))
     end
 
     -- 스테이지 버튼 생성
@@ -480,11 +484,6 @@ function UI_AdventureSceneNew:refreshChapter_common(chapter, difficulty, stage)
 
     -- 챕터 도전과제
     self:refresh_MissionReward()
-
-    do -- 마지막에 진입한 스테이지 저장
-        local stage_id = makeAdventureID(self.m_currDifficulty, chapter, stage)
-        g_stageData:setFocusStage(stage_id)
-    end
 end
 
 -------------------------------------
@@ -528,13 +527,15 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
         vars['nextBtn']:setVisible(false)
 
         -- 깜짝 출현을 위한 세팅
-        vars['adventChapterBtn']:setVisible(false)
         vars['stagePathSprite']:setVisible(false)
         vars['achieveBtnMenu']:setVisible(false)
+
+        vars['adventChapterBtn']:setVisible(true)
+        vars['adventChapterLabel']:setString(Str('모험 챕터'))
     end
   
-    -- 깜짝 출현 드래곤 개수
-    local did_count = #g_eventAdventData:getAdventDragonList()
+    -- 깜짝 출현 스테이지
+    local advent_stage_count = g_eventAdventData:getAdventStageCount()
 
     -- 깜짝 출현 스테이지 버튼 생성
     self.m_lStageButton = {}
@@ -544,7 +545,7 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
         local stage_id = makeAdventureID(self.m_currDifficulty, chapter, i)
         local button = UI_AdventureStageButton(self, stage_id)
 
-        local pos_x = UIHelper:getNodePosXWithScale(did_count, i, stage_btn_gap)
+        local pos_x = UIHelper:getNodePosXWithScale(advent_stage_count, i, stage_btn_gap)
         button.root:setPositionX(pos_x)
 
         advent_dock_node:addChild(button.root)
@@ -552,7 +553,7 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
     end
     
     -- stage 보정
-    stage = 1 or math_clamp(stage, 1, did_count)
+    stage = stage and math_clamp(stage, 1, advent_stage_count) or 1
 
     -- 비공정 이동
     self:focusStageButton(stage, true, true)
@@ -676,12 +677,33 @@ end
 
 -------------------------------------
 -- function click_adventChapterBtn
--- @brief 현재 난이도의 깜짝 출현 챕터 1스테이지로 보냄
+-- @brief 모험 챕터 <--> 깜짝 출현 챕터 전환
 -------------------------------------
 function UI_AdventureSceneNew:click_adventChapterBtn()
-    local difficulty = self.m_currDifficulty
-    local chapter = SPECIAL_CHAPTER.ADVENT
-    local stage = 1
+    local difficulty, chapter, stage = nil, nil, nil
+    
+    -- 모험 챕터 현재 난이도로 보냄
+    if (self.m_currChapter == SPECIAL_CHAPTER.ADVENT) then
+        -- 스테이지 되감기
+        if (self.m_rewindStageId) then
+            difficulty, chapter, stage = parseAdventureID(self.m_rewindStageId)
+        -- 없는 경우 1챕터 1스테이지
+        else
+            difficulty = self.m_currDifficulty
+            chapter = 1
+            stage = 1
+        end
+
+    -- 깜짝 출현 챕터 현재 난이도의 1스테이지로 보냄
+    else
+        difficulty = self.m_currDifficulty
+        chapter = SPECIAL_CHAPTER.ADVENT
+        stage = 1
+
+        -- 되돌아올 stage id 저장
+        self.m_rewindStageId = makeAdventureID(difficulty, self.m_currChapter, self.m_focusStageIdx)
+    end
+
     self:refreshChapter(chapter, difficulty, stage)
     self.m_uicSortList:setSelectSortType(difficulty)
 end
