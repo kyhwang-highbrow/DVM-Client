@@ -6,8 +6,7 @@ ServerData_TamerCostume = class({
         m_shopInfo = 'map',
         m_openList = 'list',
         m_saleInfo = 'map',
-
-        m_bDirtyValorCostumeInfo = 'bool', -- 용맹 코스튬 구매로 인해 갱신이 필요한지 여부
+        m_bDirtyCostumeInfo = 'bool', -- 코스튬 구매로 인해 갱신이 필요한지 여부
     })
 
 -------------------------------------
@@ -18,7 +17,7 @@ function ServerData_TamerCostume:init(server_data)
     self.m_shopInfo = {}
     self.m_openList = {}
     self.m_saleInfo = {}
-    self.m_bDirtyValorCostumeInfo = false
+    self.m_bDirtyCostumeInfo = false
 end
 
 -------------------------------------

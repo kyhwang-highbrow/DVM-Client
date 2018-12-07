@@ -260,11 +260,9 @@ function UI_Product:click_buyBtn()
                 UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS)
 
             else
-                -- 용맹 훈장 코스튬 상품은 별도 처리 
-                if self:isValorCostume() then
-                    g_tamerCostumeData.m_bDirtyValorCostumeInfo = true
-                    local msg = Str('용맹 코스튬 세트 구매가 완료되었습니다.\n테이머 관리에서 코스튬을 선택할 수 있습니다.')
-                    MakeSimplePopup(POPUP_TYPE.OK, msg)
+                -- 코스튬 상점 구매 결과창
+                if (self:isCostumeInStore()) then
+                    self:obtainResultPopup_costume()
                 else
                     -- 아이템 획득 결과창
                     ItemObtainResult_Shop(ret)
@@ -301,7 +299,38 @@ function UI_Product:adjustLayout()
     end
 end
 
+-------------------------------------
+-- function obtainResultPopup_costume
+-- @brief 코스튬 구매 시 결과창 팝업
+-------------------------------------
+function UI_Product:obtainResultPopup_costume()
+    local struct_product = self.m_structProduct
+    local product_name = Str(struct_product:getProductName())
+    local message = product_name .. ' ' .. Str('구매가 완료되었습니다.') .. '\n' .. Str('테이머 관리에서 코스튬을 선택할 수 있습니다.')
+    -- 코스튬 관리창 들어갈 때 구매 정보 반영되도록 dirty 처리
+    g_tamerCostumeData.m_bDirtyCostumeInfo = true
+    MakeSimplePopup(POPUP_TYPE.OK, message)
+end
 
+-------------------------------------
+-- function isCostumeInStore
+-- @return 상점에서 파는 (단일 상품)코스튬이면 true
+-- @brief 상점에서 코스튬 팔 경우 이 함수에 product_id 추가 필요
+-------------------------------------
+function UI_Product:isCostumeInStore()
+    local struct_product = self.m_structProduct
+    local product_id = struct_product:getProductID()
+
+    -- (누리)겨울 여왕 - 토파즈 상점에서 판매
+    if (product_id == 30013) then
+        return true
+    -- 용맹 코스튬 세트 - 용맹 상점에서 판매
+    elseif (self:isValorCostume()) then
+        return true
+    else
+        return false
+    end
+end
 
 -------------------------------------
 -- function isValorCostume

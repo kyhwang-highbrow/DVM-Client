@@ -101,10 +101,10 @@ function UINavigatorDefinition:goTo_tamer(...)
     -- 코스튬 정보가 있다면 굳이 갱신이 필요하지 않아 통신하지 않음
     local check_shop_info = true
 
-    -- 용맹 코스튬을 구매한 후에 테이머 관리에 진입할때는 통신 필요
-    if g_tamerCostumeData.m_bDirtyValorCostumeInfo then
+    -- 코스튬을 구매한 후에 테이머 관리에 진입할때는 통신 필요
+    if (g_tamerCostumeData.m_bDirtyCostumeInfo) then
         check_shop_info = false
-        g_tamerCostumeData.m_bDirtyValorCostumeInfo = false
+        g_tamerCostumeData.m_bDirtyCostumeInfo = false
     end
     g_tamerCostumeData:request_costumeInfo(finish_cb, check_shop_info)
 end

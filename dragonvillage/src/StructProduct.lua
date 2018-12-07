@@ -768,6 +768,13 @@ function StructProduct:getProductID()
     return self['product_id']
 end
 
+-------------------------------------
+-- function getProductName
+-------------------------------------
+function StructProduct:getProductName()
+    return self['t_name']
+end
+
 
 
 
