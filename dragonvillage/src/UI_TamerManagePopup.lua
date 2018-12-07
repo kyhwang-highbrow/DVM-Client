@@ -47,6 +47,23 @@ function UI_TamerManagePopup:init(tamer_id)
 end
 
 -------------------------------------
+-- function onFocus
+-------------------------------------
+function UI_TamerManagePopup:onFocus()
+    -- 코스튬을 구매한 경우, 결과 적용하기 위해 통신 
+    if (g_tamerCostumeData.m_bDirtyCostumeInfo) then
+        g_tamerCostumeData:request_costumeInfo(nil, false)
+
+        -- 초기화
+        self:refresh()
+        self:refreshCostumeData()
+        self:setTamerCostume()
+        
+        g_tamerCostumeData.m_bDirtyCostumeInfo = false
+    end
+end
+
+-------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
@@ -299,6 +316,11 @@ function UI_TamerManagePopup:setTamerCostume()
         ui.vars['buyBtn']:registerScriptTapHandler(function()
             self:click_buy_costume(ui.m_costumeData)
         end)
+
+         -- 상점으로 이동
+        ui.vars['gotoBtn']:registerScriptTapHandler(function()
+            self:click_go_shop(ui.m_costumeData)
+        end)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -534,7 +556,17 @@ function UI_TamerManagePopup:click_exitBtn()
     self:close()
 end
 
-
+-------------------------------------
+-- function click_go_shop
+-------------------------------------
+function UI_TamerManagePopup:click_go_shop(costume_data)
+	
+    if (costume_data:isSaleType_topaz()) then
+        UINavigator:goTo('shop', 'topaz')    
+    elseif (costume_data:isValorCostume()) then
+        UINavigator:goTo('shop', 'valor')
+    end
+end
 
 -------------------------------------
 -- function _hasTamer
