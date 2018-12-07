@@ -355,8 +355,6 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     end
 
     local vars = self.vars
-    self.m_currChapter = chapter
-    self.m_currDifficulty = difficulty or self.m_currDifficulty
     
 	-- @ TUTORIAL 1-7 클리어 보상
 	if (TutorialManager.getInstance():showAmazingNewbiePresent()) then
@@ -377,14 +375,14 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
 
         local animator = MakeAnimator(res)
         animator:setDefaultAniName('easy')
-        if (self.m_currDifficulty == 1) then
+        if (difficulty == 1) then
             animator:changeAni('easy', true)
-        elseif (self.m_currDifficulty == 2) then
+        elseif (difficulty == 2) then
             animator:changeAni('normal', true)
-        elseif (self.m_currDifficulty == 3) then
+        elseif (difficulty == 3) then
             animator:changeAni('hard', true)
         else
-            error('self.m_currDifficulty : ' .. self.m_currDifficulty)
+            error('difficulty : ' .. difficulty)
         end
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
@@ -403,11 +401,15 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
             self:refreshChapter_advent(chapter, difficulty, stage)
             return
 
-        -- 챕터 99로 저장되어있지만 이벤트 비활성화 된 경우 챕터 1로 보냄
+        -- 깜짝 출현 챕터로 저장되어있지만 이벤트 비활성화 된 경우 챕터 1로 보냄
         else
             chapter = 1
+            stage = 1
         end
     end
+    
+    self.m_currChapter = chapter
+    self.m_currDifficulty = difficulty or self.m_currDifficulty
 
     -- 일반 챕터
     self:refreshChapter_common(chapter, difficulty, stage)
