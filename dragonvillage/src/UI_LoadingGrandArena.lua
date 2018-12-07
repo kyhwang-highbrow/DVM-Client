@@ -71,7 +71,7 @@ function UI_LoadingGrandArena:initUI()
 
     -- 상대방
     do
-		local struct_user_info = g_grandArena:getPlayerGrandArenaUserInfo()
+		local struct_user_info = g_grandArena:getMatchUserInfo()
 		if (struct_user_info) then
 			-- 덱
             local deck_name = 'grand_arena_up'

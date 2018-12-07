@@ -88,6 +88,13 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
 end
 
 -------------------------------------
+-- function getMatchUserInfo
+-------------------------------------
+function ServerData_GrandArena:getMatchUserInfo()
+    return self:getPlayerGrandArenaUserInfo()
+end
+
+-------------------------------------
 -- function getPlayerGrandArenaUserInfo
 -------------------------------------
 function ServerData_GrandArena:getPlayerGrandArenaUserInfo()

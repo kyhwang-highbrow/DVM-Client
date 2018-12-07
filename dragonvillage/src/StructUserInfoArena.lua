@@ -618,7 +618,12 @@ end
 -- function getDeckTamerID
 -- @return tamer_id number
 -------------------------------------
-function StructUserInfoArena:getDeckTamerID()
+function StructUserInfoArena:getDeckTamerID(deckname)
+    if (deckname and self.m_deckDataList[deckname]) then
+        local tamer_id = self.m_deckDataList[deckname]['tamer'] or 110001
+        return tamer_id
+    end
+
     local tamer_id = self:getPvpDeck()['tamer'] or 110001
     return tamer_id
 end
@@ -645,7 +650,12 @@ end
 -- function getDeckTamerInfo
 -- @return tamer_id number
 -------------------------------------
-function StructUserInfoArena:getDeckTamerInfo()
+function StructUserInfoArena:getDeckTamerInfo(deckname)
+    if (deckname and self.m_deckDataList[deckname]) then
+        local tamer_info = self.m_deckDataList[deckname]['tamerInfo']
+        return tamer_info
+    end
+
     local tamer_info = self:getPvpDeck()['tamerInfo']
     return tamer_info
 end
