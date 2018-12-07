@@ -46,10 +46,11 @@ function ServerData_Stage:getStageName(stage_id)
     -- 모험 모드
     if (game_mode == GAME_MODE_ADVENTURE) then
         local difficulty, chapter, stage = parseAdventureID(stage_id)
-        local chapter_name = chapterName(chapter)
         if (chapter == SPECIAL_CHAPTER.ADVENT) then
-            name = string.format('%s-%d', chapter_name, stage)
+            local chapter_name = g_hotTimeData:getAdventTitle()
+            name = string.format('%s - %d', chapter_name, stage)
         else
+            local chapter_name = chapterName(chapter)
             name = string.format('%s %d-%d', chapter_name, chapter, stage)
         end
 

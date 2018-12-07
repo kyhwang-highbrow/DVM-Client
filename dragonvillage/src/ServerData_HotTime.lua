@@ -834,6 +834,13 @@ function ServerData_HotTime:getDiscountEventList()
 	return l_dc_event
 end
 
+
+--------------------------------------------------------------------------
+-- 깜짝 출현 던전 관련 정보
+-- 양이 좀 많아지면 다른 클래스 테이블로 빼주자
+--------------------------------------------------------------------------
+
+
 -------------------------------------
 -- function setAdventDragonList
 -------------------------------------
@@ -850,4 +857,35 @@ end
 -------------------------------------
 function ServerData_HotTime:getAdventDragonList()
     return self.m_adventDragonList
+end
+
+-------------------------------------
+-- function getAdventDragonList
+-- @brief 깜짝 출현 타이틀
+-------------------------------------
+function ServerData_HotTime:getAdventTitle()
+    if (not self:isActiveEvent('event_advent')) then
+        return Str('드래곤')
+    end
+    if (not self.m_adventDragonList) and (not self.m_adventDragonList[1]) then
+        return Str('드래곤')
+    end
+
+    local dragon_name = TableDragon:getDragonName(self.m_adventDragonList[1])
+    return Str('{1} 깜짝 출현!', dragon_name)
+end
+
+-------------------------------------
+-- function getAdventStageCount
+-- @brief 깜짝 출현 던전 개수
+-------------------------------------
+function ServerData_HotTime:getAdventStageCount()
+    if (not self:isActiveEvent('event_advent')) then
+        return 0
+    end
+    if (not self.m_adventDragonList) and (not self.m_adventDragonList[1]) then
+        return 0
+    end
+
+    return #self.m_adventDragonList
 end

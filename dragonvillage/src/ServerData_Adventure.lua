@@ -273,11 +273,6 @@ end
 function ServerData_Adventure:getSimplePrevStageID(stage_id)
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
-    -- 깜짝 출현 챕터
-    if (chapter == SPECIAL_CHAPTER.ADVENT) then
-        return nil
-    end
-
     if (1 < stage) then
         local next_stage_id = makeAdventureID(difficulty, chapter, stage - 1)
         return next_stage_id
@@ -293,7 +288,7 @@ end
 function ServerData_Adventure:getNextStageID(stage_id)
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
-    if (stage < MAX_ADVENTURE_STAGE) then
+    if (stage < self:getMaxStage(chapter)) then
         local next_stage_id = makeAdventureID(difficulty, chapter, stage + 1)
         return next_stage_id
     end
@@ -318,17 +313,24 @@ end
 function ServerData_Adventure:getSimpleNextStageID(stage_id)
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
-    -- 깜짝 출현 챕터
-    if (chapter == SPECIAL_CHAPTER.ADVENT) then
-        return nil
-    end
-
-    if (stage < MAX_ADVENTURE_STAGE) then
+    if (stage < self:getMaxStage(chapter)) then
         local next_stage_id = makeAdventureID(difficulty, chapter, stage + 1)
         return next_stage_id
     end
 
     return nil
+end
+
+-------------------------------------
+-- function getMaxStage
+-- @brief chapter에 따라 최대 스테이지 리턴
+-------------------------------------
+function ServerData_Adventure:getMaxStage(chapter)
+    if (chapter == SPECIAL_CHAPTER.ADVENT) then
+        return g_hotTimeData:getAdventStageCount()
+    else
+        return MAX_ADVENTURE_STAGE
+    end
 end
 
 -------------------------------------
@@ -419,6 +421,10 @@ end
 -------------------------------------
 function getPrevStageID(stage_id)
     local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    if (chapter == SPECIAL_CHAPTER.ADVENT) then
+        return false
+    end
 
     if (difficulty==1) and (chapter==1) and (stage==1) then
         return false

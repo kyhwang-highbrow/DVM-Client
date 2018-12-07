@@ -18,14 +18,14 @@ function UI_BattleMenuItem_Adventure:init(content_type)
     self:refresh()
 
     if (content_type == 'adventure') then
-        self:initAdvent()
+        self:initUI_advent()
     end
 end
 
 -------------------------------------
--- function initAdvent
+-- function initUI_advent
 -------------------------------------
-function UI_BattleMenuItem_Adventure:initAdvent()
+function UI_BattleMenuItem_Adventure:initUI_advent()
     if (g_hotTimeData:isActiveEvent('event_advent')) then
         local vars = self.vars
 
@@ -33,8 +33,10 @@ function UI_BattleMenuItem_Adventure:initAdvent()
         vars['timeSprite']:setVisible(true)
         vars['timeLabel']:setString('')
 
+        -- 깜짝 출현 타이틀
+        local title = g_hotTimeData:getAdventTitle()
+        
         local frame_guard = 1
-        local title = Str('드래곤 깜짝 출현')
         local function update(dt)
             frame_guard = frame_guard + dt
             if (frame_guard < 1) then
