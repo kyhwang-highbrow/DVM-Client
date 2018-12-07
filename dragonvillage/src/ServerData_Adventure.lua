@@ -248,6 +248,11 @@ end
 -- @brief 해당 스테이지 클리어 여부
 -------------------------------------
 function ServerData_Adventure:isClearStage(stage_id)
+    -- 깜짝 출현 스테이지는 항상 클리어
+    if (isAdventStageID(stage_id)) then
+        return true
+    end
+
     local stage_info = self:getStageInfo(stage_id)
     return (0 < stage_info['clear_cnt'])
 end
@@ -424,8 +429,8 @@ function parseAdventureID(stage_id)
 end
 
 -------------------------------------
--- function parseAdventureID
--- @brief 모험모드 스테이지 ID 분석
+-- function isAdventStageID
+-- @brief 깜짝 출현 챕터 여부
 -------------------------------------
 function isAdventStageID(stage_id)
     local stage_id = tonumber(stage_id)

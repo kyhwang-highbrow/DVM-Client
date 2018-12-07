@@ -542,7 +542,7 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
     local advent_dock_node = vars['adventStageDock']
     local stage_btn_gap = 200
     for i = 1, 3 do
-        local stage_id = makeAdventureID(self.m_currDifficulty, chapter, i)
+        local stage_id = makeAdventureID(difficulty, chapter, i)
         local button = UI_AdventureStageButton(self, stage_id)
 
         local pos_x = UIHelper:getNodePosXWithScale(advent_stage_count, i, stage_btn_gap)
