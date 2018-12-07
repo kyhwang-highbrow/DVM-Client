@@ -3898,6 +3898,9 @@
     <None Include="..\src\UI_EventAdvent.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_EventAdvent.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
