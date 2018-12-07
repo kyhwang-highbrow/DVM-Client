@@ -299,10 +299,18 @@ function ServerData_Adventure:getNextStageID(stage_id)
     end
 
     if (difficulty < MAX_ADVENTURE_DIFFICULTY) then
-        local next_stage_id = makeAdventureID(difficulty + 1, 1, 1)
+        -- 깜짝 출현 챕터로 인해 다음 난이도의 첫번째 챕터 예외처리
+        local first_chapter
+        if (chapter == SPECIAL_CHAPTER.ADVENT) then
+            first_chapter = SPECIAL_CHAPTER.ADVENT
+        else
+            first_chapter = 1
+        end
+
+        local next_stage_id = makeAdventureID(difficulty + 1, first_chapter, 1)
         return next_stage_id
     end
-
+    
     return nil
 end
 
@@ -423,7 +431,7 @@ function getPrevStageID(stage_id)
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
     if (chapter == SPECIAL_CHAPTER.ADVENT) then
-        return false
+        return getPrevStageID_advent(difficulty, chapter, stage)
     end
 
     if (difficulty==1) and (chapter==1) and (stage==1) then
@@ -436,6 +444,24 @@ function getPrevStageID(stage_id)
 
     if (stage==1) then
         return makeAdventureID(difficulty, chapter-1, MAX_ADVENTURE_STAGE)
+    end
+
+    return makeAdventureID(difficulty, chapter, stage-1)
+end
+
+-------------------------------------
+-- function getPrevStageID_advent
+-- @brief 깜짝 출협 챕터 전용 
+-- @sub getPrevStageID
+-------------------------------------
+function getPrevStageID_advent(difficulty, chapter, stage)
+    if (difficulty == 1) and (stage == 1) then
+        return false
+    end
+
+    if (stage == 1) then
+        stage = g_eventAdventData:getAdventStageCount()
+        return makeAdventureID(difficulty - 1, chapter, stage)
     end
 
     return makeAdventureID(difficulty, chapter, stage-1)
