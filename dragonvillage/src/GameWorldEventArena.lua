@@ -461,7 +461,7 @@ function GameWorldEventArena:setBattleZoneForEnemys()
             offset_y = (offset_y - half_distance)
         end
 
-        local l_pos_list = TableFormationArena:getFormationPositionList(self.m_deckFormation, 
+        local l_pos_list = TableFormationArena:getFormationPositionList(self.m_enemyDeckFormation, 
             (min_x + offset_x),
             (max_x + offset_x),
             (min_y + offset_y),
@@ -493,7 +493,7 @@ function GameWorldEventArena:setBattleZoneForEnemys()
             offset_y = (offset_y - half_distance)
         end
 
-        local l_pos_list = TableFormationArena:getFormationPositionList(self.m_subDeckFormation, 
+        local l_pos_list = TableFormationArena:getFormationPositionList(self.m_subEnemyDeckFormation, 
             (min_x + offset_x),
             (max_x + offset_x),
             (min_y + offset_y),
@@ -648,32 +648,19 @@ end
 -- function makeEnemyDeck
 -------------------------------------
 function GameWorldEventArena:makeEnemyDeck()
-    local g_data = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA)
-
-    -- 조작할 그룹을 설정
-    local sel_deck = g_data:getMainDeck()
-    local main_deck_name
-    local sub_deck_name
-
-    if (sel_deck == 'up') then
-        main_deck_name = g_data:getDeckName('up')
-        sub_deck_name = g_data:getDeckName('down')
-
-    elseif (sel_deck == 'down') then
-        main_deck_name = g_data:getDeckName('down')
-        sub_deck_name = g_data:getDeckName('up')
-
-    else
-        error('invalid sel_deck : ' .. sel_deck)
-    end
+    local struct_user_info = g_grandArena:getMatchUserInfo()
 
     -- 출전 중인 적드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_lEnemyDragons = {}
 
     -- 조작할 수 있는 덱을 가져옴
     do
-        local l_deck, formation, deck_name, leader = g_deckData:getDeck(main_deck_name)
-        local formation_lv = 0
+        local deck_name = 'grand_arena_up'
+        local l_deck = struct_user_info:getDeck_dragonObjList(deck_name)
+        local t_deck_low_data = struct_user_info:getDeckLowData(deck_name)
+        local formation = t_deck_low_data['formation']
+        local formation_lv = t_deck_low_data['formationlv']
+        local leader = t_deck_low_data['leader']
     
         self.m_enemyDeckFormation = formation
         self.m_enemyDeckFormationLv = formation_lv
@@ -682,10 +669,9 @@ function GameWorldEventArena:makeEnemyDeck()
         local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 
         -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
-        for i, doid in pairs(l_deck) do
-            local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        for i, t_dragon_data in pairs(l_deck) do
             if (t_dragon_data) then
-                local status_calc = MakeOwnDragonStatusCalculator(doid, nil, 'pvp')
+                local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, 'pvp') -- t_dragon_data, game_mode
                 local enemy = self:makeDragonNew(t_dragon_data, true, status_calc)
                 if (enemy) then
                     self.m_lEnemyDragons[i] = enemy
@@ -719,19 +705,22 @@ function GameWorldEventArena:makeEnemyDeck()
 
     -- 조작할 수 없는 덱을 가져옴
     do
-        local l_deck, formation, deck_name, leader = g_deckData:getDeck(sub_deck_name)
-        local formation_lv = 0
+        local deck_name = 'grand_arena_down'
+        local l_deck = struct_user_info:getDeck_dragonObjList(deck_name)
+        local t_deck_low_data = struct_user_info:getDeckLowData(deck_name)
+        local formation = t_deck_low_data['formation']
+        local formation_lv = t_deck_low_data['formationlv']
+        local leader = t_deck_low_data['leader']
     
-        self.m_subDeckFormation = formation
-        self.m_subDeckFormationLv = formation_lv
+        self.m_subEnemyDeckFormation = formation
+        self.m_subEnemyDeckFormationLv = formation_lv
 
         -- 팀보너스를 가져옴
         local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 
-        for i, doid in pairs(l_deck) do
-            local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        for i, t_dragon_data in pairs(l_deck) do
             if (t_dragon_data) then
-                local status_calc = MakeOwnDragonStatusCalculator(doid, nil, 'pvp')
+                local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, 'pvp') -- t_dragon_data, game_mode
                 local enemy = self:makeDragonNew(t_dragon_data, true, status_calc)
                 if (enemy) then
                     self.m_lEnemyDragons[5 + i] = enemy

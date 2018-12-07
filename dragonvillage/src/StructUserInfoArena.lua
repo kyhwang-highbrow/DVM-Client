@@ -172,6 +172,69 @@ function StructUserInfoArena:createUserInfo(t_data)
 end
 
 -------------------------------------
+-- function createUserInfo_forGrandArena
+-- @brief 그랜드 콜로세움 유저 인포
+-------------------------------------
+function StructUserInfoArena:createUserInfo_forGrandArena(t_data)
+    local user_info = StructUserInfoArena()
+    user_info.m_uid = t_data['uid']
+    user_info.m_nickname = t_data['nick']
+    user_info.m_lv = t_data['lv']
+    user_info.m_rank = t_data['rank']
+    user_info.m_rankPercent = t_data['rate']
+    user_info.m_tier = t_data['tier']
+    user_info.m_rp = t_data['rp']
+
+    --match??
+    --tamer??
+    --revenge??
+    --max_cnt??
+    --retry_cnt??
+    --match_at??
+
+    if t_data['leader'] then
+        user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
+    end
+    
+
+    -- 룬 리스트 가공
+    local l_runes = {}
+    if t_data['runes1'] then
+        for i,v in pairs(t_data['runes1']) do
+            table.insert(l_runes, v)
+        end
+    end
+    if t_data['runes2'] then
+        for i,v in pairs(t_data['runes2']) do
+            table.insert(l_runes, v)
+        end
+    end
+
+    -- 드래곤 리스트 가공
+    local l_dragons = {}
+    if t_data['dragons1'] then
+        for i,v in pairs(t_data['dragons1']) do
+            table.insert(l_dragons, v)
+        end
+    end
+    if t_data['dragons2'] then
+        for i,v in pairs(t_data['dragons2']) do
+            table.insert(l_dragons, v)
+        end
+    end
+
+    -- 룬 & 드래곤 리스트 저장
+    user_info:applyRunesDataList(l_runes) --반드시 드래곤 설정 전에 룬을 설정해야함
+    user_info:applyDragonsDataList(l_dragons)
+
+    -- 덱 저장
+    user_info:applyDeckData('grand_arena_up', t_data['deck1'])
+    user_info:applyDeckData('grand_arena_down', t_data['deck2'])
+
+    return user_info
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function StructUserInfoArena:init()

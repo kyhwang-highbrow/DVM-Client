@@ -33,20 +33,9 @@ function UI_GrandArenaDeckSettings:networkGameStart()
     local deck_name = g_deckData:getSelectedDeckName()
     local combat_power = self.m_readySceneDeck:getDeckCombatPower()
 
+    g_grandArena:request_grandArenaGetMatchList(false, finish_cb, nil) -- param : is_cash, finish_cb, fail_cb
 
-
-    finish_cb(game_key)
-
-
-
-
-    -- 실제로는 서버 통신 후 다음 step으로 넘어가야 함
-    -- 개발 중이어서 finish_cb을 강제로 호출 중
-    if true then
-        return
-    end
-    
-    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+    --finish_cb(game_key)
 end
 
 -------------------------------------

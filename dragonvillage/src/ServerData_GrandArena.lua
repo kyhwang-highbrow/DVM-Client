@@ -88,9 +88,60 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
 end
 
 -------------------------------------
+-- function request_grandArenaGetMatchList
+-- @brief
+-------------------------------------
+function ServerData_GrandArena:request_grandArenaGetMatchList(is_cash, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 동기화
+        g_serverData:networkCommonRespone(ret)
+
+        if ret['matchlist'] and (0 < table.count(ret['matchlist'])) then
+            local t_data = ret['matchlist'][math_random(1, table.count(ret['matchlist']))]
+            if t_data then
+                self.m_matchUserInfo = StructUserInfoArena:createUserInfo_forGrandArena(t_data)
+            end
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        return false
+    end
+
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/grand_arena/get_match_list')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('is_cash', is_cash)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
+
+-------------------------------------
 -- function getMatchUserInfo
 -------------------------------------
 function ServerData_GrandArena:getMatchUserInfo()
+    if self.m_matchUserInfo then
+        return self.m_matchUserInfo
+    end
+
     return self:getPlayerGrandArenaUserInfo()
 end
 
