@@ -1204,6 +1204,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GoodsInfo.lua" />
     <None Include="..\src\UI_GrandArena.lua" />
     <None Include="..\src\UI_GrandArenaDeckSettings.lua" />
+    <None Include="..\src\UI_GrandArenaRankingPopup.lua" />
     <None Include="..\src\UI_GuidePopup_PurchasePoint.lua" />
     <None Include="..\src\UI_GuidePopup_Rune.lua" />
     <None Include="..\src\UI_Help.lua" />
@@ -1219,6 +1220,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_InventoryTabTransform.lua" />
     <None Include="..\src\UI_LoadingArena.lua" />
     <None Include="..\src\UI_LoadingChallengeMode.lua" />
+    <None Include="..\src\UI_LoadingGrandArena.lua" />
     <None Include="..\src\UI_LobbyGuideAdventure.lua" />
     <None Include="..\src\UI_LobbyGuideAncientTower.lua" />
     <None Include="..\src\UI_LobbyGuideArena.lua" />

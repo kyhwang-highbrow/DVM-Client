@@ -79,7 +79,7 @@ end
 -- @brief scene전환 중 로딩화면 생성
 -------------------------------------
 function SceneGameEventArena:makeLoadingUI()
-    return UI_LoadingArena(self)
+    return UI_LoadingGrandArena(self)
 end
 
 -------------------------------------
@@ -155,7 +155,7 @@ function SceneGameEventArena:prepareDone()
     self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
 
     -- 전투에 필수적인 요소만 남겨서 보자
-    self.m_inGameUI.root:setVisible(false)
+    --self.m_inGameUI.root:setVisible(false)
     self.m_gameWorld.m_bgNode:setVisible(false)
 end
 

@@ -53,6 +53,10 @@ StructUserInfoArena = class(PARENT, {
         m_pvpDeck = 'table',
         m_pvpDeckCombatPower = 'number',
 
+        -- 여러 덱 정보
+        m_deckDataList = 'table',
+        m_deckCombatPowerList = 'number',
+
         m_matchResult = 'number', -- -1:매치 전, 0:패, 1:승
         m_matchTime = 'timestamp',
 
@@ -179,6 +183,9 @@ function StructUserInfoArena:init()
     self.m_rankPercent = nil
     self.m_tier = 'beginner'
     self.m_straight = 0
+
+    self.m_deckDataList = {}
+    self.m_deckCombatPowerList = {}
 end
 
 -------------------------------------
@@ -367,6 +374,18 @@ function StructUserInfoArena:applyDragonsDataList(l_data)
 end
 
 -------------------------------------
+-- function applyDeckData
+-- @brief
+-------------------------------------
+function StructUserInfoArena:applyDeckData(deck_name, t_data)
+    if (not deck_name) then
+        return
+    end
+
+    self.m_deckDataList[deck_name] = t_data
+end
+
+-------------------------------------
 -- function applyPvpDeckData
 -- @brief
 -------------------------------------
@@ -386,6 +405,33 @@ function StructUserInfoArena:getDeck_dragonList(use_doid)
     local t_deck = {}
     if (self.m_pvpDeck['deck']) then
         for i,v in pairs(self.m_pvpDeck['deck']) do
+            local idx = tonumber(i)
+            local doid = v
+        
+            -- doid로 저장 혹은 오브젝트로 저장
+            if use_doid then
+                t_deck[idx] = doid
+            else
+                t_deck[idx] = self:getDragonObject(doid)
+            end
+        end
+    end
+
+    return t_deck
+end
+
+-------------------------------------
+-- function getDeck_dragonObjList
+-- @brief
+-------------------------------------
+function StructUserInfoArena:getDeck_dragonObjList(deck_name, use_doid)
+    if (not self.m_deckDataList) or (not self.m_deckDataList[deck_name]) then
+        return {}
+    end
+
+    local t_deck = {}
+    if (self.m_deckDataList[deck_name]['deck']) then
+        for i,v in pairs(self.m_deckDataList[deck_name]['deck']) do
             local idx = tonumber(i)
             local doid = v
         
@@ -427,6 +473,34 @@ function StructUserInfoArena:getDeckCombatPower(force)
     end
 
     return self.m_pvpDeckCombatPower
+end
+
+-------------------------------------
+-- function getDeckCombatPowerByDeckname
+-- @brief 공격 덱 전투력
+-------------------------------------
+function StructUserInfoArena:getDeckCombatPowerByDeckname(deckname, force)
+    if (not self.m_deckCombatPowerList[deckname]) or force then
+        if (not self.m_deckDataList[deckname]) then
+            return 0
+        end
+
+        local t_deck_dragon_list = self:getDeck_dragonObjList(deckname)
+        local formation_lv = self.m_deckDataList[deckname]['formationlv'] or 1
+
+        -- 드래곤
+        local total_combat_power = 0
+        for i,v in pairs(t_deck_dragon_list) do
+            total_combat_power = (total_combat_power + v:getCombatPower())
+        end
+
+        -- 진형
+        --total_combat_power = total_combat_power + (formation_lv * g_constant:get('UI', 'FORMATION_LEVEL_COMBAT_POWER'))
+
+        self.m_deckCombatPowerList[deckname] = total_combat_power
+    end
+
+    return self.m_deckCombatPowerList[deckname]
 end
 
 -------------------------------------
@@ -511,6 +585,36 @@ function StructUserInfoArena:getPvpDeck()
 end
 
 -------------------------------------
+-- function getDeckLowData
+-- @brief 덱 정보 리턴
+-- @return table
+-- {
+--      ['formationlv']=1;
+--      ['tamer']=110001;
+--      ['tamerInfo']={
+--          ['skill_lv4']=1;
+--  	    ['skill_lv3']=1;
+--          ['skill_lv2']=1;
+--		    ['tid']=110001;
+--		    ['skill_lv1']=1;
+--	    };
+--      ['deck']={
+--          ['4']='598dd775e8919371d1bdb64b';
+--          ['1']='598db431e8919371d1bdb157';
+--          ['5']='598eb17ae8919371d1bdc157';
+--          ['2']='598dcdade8919371d1bdb528';
+--          ['3']='598dd019e8919371d1bdb57d';
+--      };
+--      ['formation']='attack';
+--      ['leader']=5;
+--      ['deckName']='atk';
+-- }
+-------------------------------------
+function StructUserInfoArena:getDeckLowData(deckname)
+    return self.m_deckDataList[deckname] or {}
+end
+
+-------------------------------------
 -- function getDeckTamerID
 -- @return tamer_id number
 -------------------------------------
@@ -550,9 +654,23 @@ end
 -- function getDeckTamerIcon
 -- @return tamer_id number
 -------------------------------------
-function StructUserInfoArena:getDeckTamerIcon()
+function StructUserInfoArena:getDeckTamerIcon(deckname)
     local icon
-    local t_tamer_info = self:getPvpDeck()['tamerInfo']
+
+    local t_tamer_info = nil
+    if deckname then
+        local t_deck_low_data = self:getDeckLowData(deckname)
+        if (t_deck_low_data and t_deck_low_data['tamerInfo']) then
+            t_tamer_info = t_deck_low_data['tamerInfo']
+        end
+    end
+
+    if (not t_tamer_info) then
+        if self:getPvpDeck() then
+            t_tamer_info = self:getPvpDeck()['tamerInfo']
+        end
+    end
+    
     if (t_tamer_info) then
         local tid = t_tamer_info['tid']
         local costume_id = t_tamer_info['costume']

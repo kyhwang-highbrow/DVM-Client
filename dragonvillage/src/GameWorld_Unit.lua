@@ -78,6 +78,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and
         self.m_gameMode ~= GAME_MODE_ARENA and
         self.m_gameMode ~= GAME_MODE_CHALLENGE_MODE and
+        self.m_gameMode ~= GAME_MODE_EVENT_ARENA and
         bRightFormation) then
 
         -- 스테이지 버프 적용

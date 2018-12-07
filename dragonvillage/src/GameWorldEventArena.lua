@@ -564,7 +564,7 @@ function GameWorldEventArena:makeHeroDeck()
         for i, doid in pairs(l_deck) do
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
             if (t_dragon_data) then
-                local status_calc = MakeOwnDragonStatusCalculator(doid)
+                local status_calc = MakeOwnDragonStatusCalculator(doid, nil, 'pvp')
                 local hero = self:makeDragonNew(t_dragon_data, false, status_calc)
                 if (hero) then
                     self.m_myDragons[i] = hero
@@ -610,7 +610,7 @@ function GameWorldEventArena:makeHeroDeck()
         for i, doid in pairs(l_deck) do
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
             if (t_dragon_data) then
-                local status_calc = MakeOwnDragonStatusCalculator(doid)
+                local status_calc = MakeOwnDragonStatusCalculator(doid, nil, 'pvp')
                 local hero = self:makeDragonNew(t_dragon_data, false, status_calc)
                 if (hero) then
                     self.m_myDragons[5 + i] = hero

@@ -19,7 +19,7 @@ end
 -- @brief "확인" 버튼
 -------------------------------------
 function UI_EventArenaResult:click_okBtn()
-	UINavigator:goTo('adventure')
+	UINavigator:goTo('grand_arena')
 end
 
 -------------------------------------

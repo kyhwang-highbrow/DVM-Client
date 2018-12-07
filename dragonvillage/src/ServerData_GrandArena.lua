@@ -88,17 +88,20 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
 end
 
 -------------------------------------
--- function getPlayerArenaUserInfo
+-- function getPlayerGrandArenaUserInfo
 -------------------------------------
-function ServerData_GrandArena:getPlayerArenaUserInfo()
+function ServerData_GrandArena:getPlayerGrandArenaUserInfo()
     -- 기본 정보 생성을 위해 호출
     if (not self.m_playerUserInfo) then
         self:refresh_playerUserInfo()
     end
 
     -- 덱 정보는 항상 갱신
-    --local t_deck_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
-    --self.m_playerUserInfo:applyPvpDeckData(t_deck_data)
+    local t_deck_data = g_deckData:getDeck_lowData('grand_arena_up')
+    self.m_playerUserInfo:applyDeckData('grand_arena_up', t_deck_data)
+
+    local t_deck_data = g_deckData:getDeck_lowData('grand_arena_down')
+    self.m_playerUserInfo:applyDeckData('grand_arena_down', t_deck_data)
 
     -- 클랜 정보는 항상 갱신
     self.m_playerUserInfo:setStructClan(g_clanData:getClanStruct())

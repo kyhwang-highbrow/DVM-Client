@@ -235,6 +235,17 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Deck:getDeck_lowData(deck_name)
+
+    -- deckpvp collection을 사용하는 덱인 경우
+    if self:isUsedDeckPvpDB(deck_name) then
+        local l_deck = self.m_serverData:get('deckpvp')
+        for i, value in ipairs(l_deck) do
+            if (value['deckname'] == deck_name) or (value['deckName'] == deck_name) then
+                return value
+            end
+        end
+    end
+
     local l_deck = self.m_serverData:get('deck')
     for i, value in ipairs(l_deck) do
         if (value['deckname'] == deck_name) then

@@ -51,7 +51,7 @@ function UI_GrandArena:initUI()
         end
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
-    --self:initTab()
+    self:initTab()
 end
 
 -------------------------------------
@@ -60,7 +60,7 @@ end
 function UI_GrandArena:initTab()
     local vars = self.vars
     local l_tab_name = {}
-    table.insert(l_tab_name, 'topRank')
+    table.insert(l_tab_name, 'top_rank')
     table.insert(l_tab_name, 'defense')
     table.insert(l_tab_name, 'offense')
 
@@ -68,7 +68,7 @@ function UI_GrandArena:initTab()
         self:addTabAuto(tab_name, vars, vars[tab_name .. 'TabMenu'])
     end
 
-    self:setTab('topRank')
+    self:setTab('top_rank')
 end
 
 -------------------------------------
@@ -85,7 +85,7 @@ end
 function UI_GrandArena:refresh()
     local vars = self.vars
 
-    local struct_user_info = g_grandArena:getPlayerArenaUserInfo()
+    local struct_user_info = g_grandArena:getPlayerGrandArenaUserInfo()
     do
         -- 티어 아이콘
         vars['tierIconNode']:removeAllChildren()
@@ -119,6 +119,7 @@ end
 -- @brief 랭킹 버튼
 -------------------------------------
 function UI_GrandArena:click_rankingBtn()
+    UI_GrandArenaRankingPopup()
 end
 
 -------------------------------------
