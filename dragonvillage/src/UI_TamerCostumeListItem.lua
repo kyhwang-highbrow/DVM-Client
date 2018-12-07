@@ -91,7 +91,11 @@ function UI_TamerCostumeListItem:refresh()
             if costume_data:isValorCostume() then
                 vars['finishLabel']:setString(Str('용맹훈장 상점에서 구매'))
                 vars['finishBtn']:setVisible(true)
-                vars['finishBtn']:setEnabled(false)
+                vars['finishBtn']:setEnabled(true)
+            elseif (costume_data:isSaleType_topaz()) then
+                vars['finishLabel']:setString(Str('토파즈 상점에서 구매'))
+                vars['finishBtn']:setVisible(true)
+                vars['finishBtn']:setEnabled(true)
             else
                 badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
 

@@ -275,3 +275,12 @@ end
 function StructTamerCostume:isValorCostume()
     return (self.m_saleType == 'valor')
 end
+
+-------------------------------------
+-- function isSaleType_topaz
+-- @brief 상품 세일 타입이 topaz인지 여부 ex) 겨울 여왕 코스튬
+-------------------------------------
+function StructTamerCostume:isSaleType_topaz()
+    return (self.m_saleType == 'topaz')
+end
+
