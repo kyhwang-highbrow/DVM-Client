@@ -424,6 +424,17 @@ function parseAdventureID(stage_id)
 end
 
 -------------------------------------
+-- function parseAdventureID
+-- @brief 모험모드 스테이지 ID 분석
+-------------------------------------
+function isAdventStageID(stage_id)
+    local stage_id = tonumber(stage_id)
+    local chapter = getDigit(stage_id, 100, 2)
+
+    return (chapter == SPECIAL_CHAPTER.ADVENT)
+end
+
+-------------------------------------
 -- function getPrevStageID
 -- @brief
 -------------------------------------

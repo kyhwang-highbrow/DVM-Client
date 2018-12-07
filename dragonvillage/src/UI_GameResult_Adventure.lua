@@ -24,16 +24,25 @@ function UI_GameResult_Adventure:setSuccessVisual()
 
     -- 성공 or 실패
     if (is_success == true) then
+        SoundMgr:playBGM('bgm_dungeon_victory', false)
 
         local stage_id = self.m_stageID
-        local stage_info = g_adventureData:getStageInfo(stage_id)
-        local num_of_stars = stage_info:getNumberOfStars()
 
-        SoundMgr:playBGM('bgm_dungeon_victory', false)    
-        vars['successVisual']:changeAni('success_0' .. num_of_stars, false)
-        vars['successVisual']:addAniHandler(function()
-            vars['successVisual']:changeAni('success_idle_0' .. num_of_stars, true)
-        end)
+        -- 깜짝 출현 던전 예외처리
+        if (isAdventStageID(stage_id)) then
+            vars['successVisual']:changeAni('success', false)
+            vars['successVisual']:addAniHandler(function()
+                vars['successVisual']:changeAni('success_idle', true)
+            end)
+
+        else
+            local stage_info = g_adventureData:getStageInfo(stage_id)
+            local num_of_stars = stage_info:getNumberOfStars()
+            vars['successVisual']:changeAni('success_0' .. num_of_stars, false)
+            vars['successVisual']:addAniHandler(function()
+                vars['successVisual']:changeAni('success_idle_0' .. num_of_stars, true)
+            end)
+        end
     else
         SoundMgr:playBGM('bgm_dungeon_lose', false)
         vars['successVisual']:changeAni('fail')
