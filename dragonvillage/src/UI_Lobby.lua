@@ -427,7 +427,7 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 
         cclog('# 깜짝 출현 드래곤 정보 받는 중')
         if (ret['advent_did_list']) then
-            g_hotTimeData:setAdventDragonList(ret['advent_did_list'])
+            g_eventAdventData:setAdventDragonList(ret['advent_did_list'])
         end
 
 		co.NEXT()
@@ -586,6 +586,7 @@ function UI_Lobby:initButton()
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
     vars['matchCardBtn']:registerScriptTapHandler(function() self:click_matchCardBtn() end) -- 카드 짝 맞추기 이벤트
     vars['mandragoraBtn']:registerScriptTapHandler(function() self:click_mandragoraBtn() end) -- 만드라고라의 모험 이벤트
+    vars['adventBtn']:registerScriptTapHandler(function() self:click_adventBtn() end) -- 만드라고라의 모험 이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
@@ -1148,6 +1149,17 @@ function UI_Lobby:click_mandragoraBtn()
 end
 
 -------------------------------------
+-- function click_adventBtn 
+-- @brief 깜짝 출현 이벤트
+-------------------------------------
+function UI_Lobby:click_adventBtn()
+    if (not g_hotTimeData:isActiveEvent('event_advent')) then
+        return
+    end
+    g_eventData:openEventPopup('event_advent')
+end
+
+-------------------------------------
 -- function click_lvUpPackBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
@@ -1591,6 +1603,13 @@ function UI_Lobby:update_rightButtons()
         vars['mandragoraBtn']:setVisible(false)
     end
 
+    -- 만드라고라의 모험 버튼
+    if g_hotTimeData:isActiveEvent('event_advent') then
+        vars['adventBtn']:setVisible(true)
+    else
+        vars['adventBtn']:setVisible(false)
+    end
+
 	-- 캡슐 신전 버튼
 	if (g_capsuleBoxData:isOpen()) then
 		vars['capsuleBoxBtn']:setVisible(true)
@@ -1631,6 +1650,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'mandragoraBtn')
     table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'randomShopBtn')
+    table.insert(t_btn_name, 'adventBtn')
     table.insert(t_btn_name, 'eventBtn')
     
     -- visible이 켜진 버튼들 리스트

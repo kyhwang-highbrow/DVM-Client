@@ -327,7 +327,7 @@ end
 -------------------------------------
 function ServerData_Adventure:getMaxStage(chapter)
     if (chapter == SPECIAL_CHAPTER.ADVENT) then
-        return g_hotTimeData:getAdventStageCount()
+        return g_eventAdventData:getAdventStageCount()
     else
         return MAX_ADVENTURE_STAGE
     end

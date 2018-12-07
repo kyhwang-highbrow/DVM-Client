@@ -497,7 +497,7 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
 
     do 
         -- 챕터 이름
-        local title = g_hotTimeData:getAdventTitle()
+        local title = g_eventAdventData:getAdventTitle()
         vars['titleLabel']:setString(title)
         
         -- 깜짝 출현 남은 시간
@@ -534,7 +534,7 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
     end
   
     -- 깜짝 출현 드래곤 개수
-    local did_count = #g_hotTimeData:getAdventDragonList()
+    local did_count = #g_eventAdventData:getAdventDragonList()
 
     -- 깜짝 출현 스테이지 버튼 생성
     self.m_lStageButton = {}

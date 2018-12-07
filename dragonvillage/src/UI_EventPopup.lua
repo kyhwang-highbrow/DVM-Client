@@ -279,6 +279,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif pl.stringx.startswith(tab, 'purchase_point') then
         local event_version = struct_event_popup_tab.m_eventData['version'] or struct_event_popup_tab.m_eventData['event_id']
         ui = UI_EventPopupTab_PurchasePoint(event_version)
+        
+    -- 깜짝 출현 이벤트
+    elseif (tab =='event_advent') then
+        ui = UI_EventAdvent()
 
     end
 

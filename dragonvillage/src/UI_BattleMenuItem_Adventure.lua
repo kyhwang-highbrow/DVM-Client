@@ -34,7 +34,7 @@ function UI_BattleMenuItem_Adventure:initUI_advent()
         vars['timeLabel']:setString('')
 
         -- 깜짝 출현 타이틀
-        local title = g_hotTimeData:getAdventTitle()
+        local title = g_eventAdventData:getAdventTitle()
         
         local frame_guard = 1
         local function update(dt)

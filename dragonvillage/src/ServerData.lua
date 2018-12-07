@@ -133,6 +133,9 @@ function ServerData:getInstance()
     -- 이벤트
     g_eventMatchCardData = ServerData_EventMatchCard()
 
+    -- 깜짝 출현 이벤트
+    g_eventAdventData = ServerData_EventAdvent()
+
     -- 하일라이트
     g_highlightData = ServerData_Highlight(g_serverData)
 
