@@ -61,6 +61,14 @@ function UI_EventAdvent:refresh()
 end
 
 -------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventAdvent:onEnterTab()
+    self:refresh()
+end
+
+-------------------------------------
 -- function click_stageMoveBtn
 -- @brief 황금 던전 설명 팝업
 -------------------------------------
