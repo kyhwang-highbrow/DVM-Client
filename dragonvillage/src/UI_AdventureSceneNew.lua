@@ -354,8 +354,10 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         difficulty = 1
     end
 
-    local vars = self.vars
-    
+    local vars = self.vars        
+    self.m_currChapter = chapter
+    self.m_currDifficulty = difficulty or self.m_currDifficulty
+
 	-- @ TUTORIAL 1-7 클리어 보상
 	if (TutorialManager.getInstance():showAmazingNewbiePresent()) then
 		vars['clearEventSprite']:setVisible(chapter == 1)
@@ -405,11 +407,10 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         else
             chapter = 1
             stage = 1
+                
+            self.m_currChapter = chapter
         end
     end
-    
-    self.m_currChapter = chapter
-    self.m_currDifficulty = difficulty or self.m_currDifficulty
 
     -- 일반 챕터
     self:refreshChapter_common(chapter, difficulty, stage)
