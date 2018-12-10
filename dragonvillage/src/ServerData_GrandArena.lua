@@ -7,7 +7,8 @@ ServerData_GrandArena = class({
 
         m_matchUserInfo = 'StructUserInfoArena',
 		m_playerUserInfo = 'StructUserInfoArena',
-
+        m_nGlobalOffset = 'number',
+        m_lGlobalRank = 'list',
         m_matchListStructUserInfo = 'table',
     })
 
@@ -76,7 +77,7 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
     ui_network:setUrl('/game/grand_arena/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('include_infos', include_infos)
-    --ui_network:setParam('include_tables', include_tables)
+    ui_network:setParam('include_tables', true)   -- 2018-12-10 일단 무조건 테이블 정보를 받아 옵니다.
     ui_network:setParam('reward', include_reward) -- true면 시즌 보상을 지금, false면 시즌 보상을 미지급
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
@@ -239,6 +240,98 @@ function ServerData_GrandArena:requestGameFinish(gamekey, is_win, clear_time, fi
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
     ui_network:request()
+end
+
+-------------------------------------
+-- function request_grandArenaRanking
+-------------------------------------
+function ServerData_GrandArena:request_grandArenaRanking(rank_type, offset, finish_cb, fail_cb)
+    
+--[[  
+        -- 데이터 구조
+        ['lv']=65;
+        ['rate']=0.14285714924335;
+        ['rank']=1;
+        ['tier']='legend';
+        ['tamer']=110001;
+        ['un']=130200096;
+        ['clan_info']={
+                ['mark']='25;34;29;21';
+                ['name']='그림자모여라';
+                ['id']='5bd679c8e891935dfd79f290';
+        };
+        ['uid']='IITgW1cBs1Mwyl3gKaOETar6gs23';
+        ['total']=7;
+        ['leader']={
+                ['lv']=60;
+                ['mastery_lv']=10;
+                ['grade']=6;
+                ['rlv']=6;
+                ['eclv']=0;
+                ['did']=120872;
+                ['mastery_skills']={
+                        ['410203']=3;
+                        ['410101']=3;
+                        ['410301']=3;
+                        ['410402']=1;
+                };
+                ['evolution']=3;
+                ['mastery_point']=0;
+        };
+        ['nick']='남작';
+        ['rp']=660;
+        ['score']=0;
+--]]
+    local func_request
+    local func_success_cb
+    local func_response_status_cb
+
+    func_request = function()
+        -- 유저 ID
+        local uid = g_userData:get('uid')
+
+        -- 네트워크 통신
+        local ui_network = UI_Network()
+        ui_network:setUrl('/game/grand_arena/ranking')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('type', rank_type)
+        ui_network:setParam('offset', offset)
+        ui_network:setParam('limit', 30)
+        ui_network:setMethod('POST')
+        ui_network:setSuccessCB(func_success_cb)
+        ui_network:setResponseStatusCB(response_status_cb)
+        ui_network:setFailCB(fail_cb)
+        ui_network:setRevocable(true)
+        ui_network:setReuse(false)
+        ui_network:request()
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    func_response_status_cb = function(ret)
+        return false
+    end
+
+    -- 성공 콜백
+    func_success_cb = function(ret)
+        self.m_nGlobalOffset = ret['offset']
+        -- 유저 리스트 저장
+        self.m_lGlobalRank = {}
+        for i,v in pairs(ret['list']) do
+            local user_info = StructUserInfoArena:create_forRanking(v)
+            table.insert(self.m_lGlobalRank, user_info)
+        end
+
+        -- 플레이어 랭킹 정보 갱신
+        if ret['my_info'] then
+            self:refresh_playerUserInfo(ret['my_info'], nil)
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    func_request()
 end
 
 -------------------------------------

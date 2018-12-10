@@ -69,7 +69,7 @@ function UI_GrandArenaRankingPopup:refresh_playerUserInfo()
     local vars = self.vars
 
     -- 플레이어 정보 받아옴
-    local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
+    local struct_user_info = g_grandArena:getPlayerGrandArenaUserInfo()
     local ui = UI_ChallengeModeRankingListItem(struct_user_info)
     vars['rankingMeNode']:removeAllChildren()
     vars['rankingMeNode']:addChild(ui.root)
@@ -141,13 +141,13 @@ end
 -------------------------------------
 function UI_GrandArenaRankingPopup:request_rank()
     local function finish_cb()
-        self.m_rankOffset = g_challengeMode.m_nGlobalOffset
+        self.m_rankOffset = g_grandArena.m_nGlobalOffset
         self:makeRankTableView()
         self:refresh_playerUserInfo()
     end
     local rank_type = self.m_rankType
     local offset = self.m_rankOffset
-    g_challengeMode:request_challengeModeRanking(rank_type, offset, finish_cb)
+    g_grandArena:request_grandArenaRanking(rank_type, offset, finish_cb)
 end
 
 -------------------------------------
@@ -158,7 +158,7 @@ function UI_GrandArenaRankingPopup:makeRankTableView()
     local node = vars['rankingListNode']
     node:removeAllChildren()
 
-    local l_item_list = g_challengeMode.m_lGlobalRank
+    local l_item_list = g_grandArena.m_lGlobalRank
 
     -- 이전, 다음 버튼은 전체 랭킹에서만 사용
     if (self.m_rankType == 'world') then
@@ -180,7 +180,7 @@ function UI_GrandArenaRankingPopup:makeRankTableView()
 
     -- 다음 랭킹 보기
     local function click_nextBtn()
-        local add_offset = #g_challengeMode.m_lGlobalRank
+        local add_offset = #g_grandArena.m_lGlobalRank
         if (add_offset < OFFSET_GAP) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
             return
