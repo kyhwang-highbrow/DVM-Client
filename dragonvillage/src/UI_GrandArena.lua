@@ -97,7 +97,7 @@ function UI_GrandArena:refresh()
         vars['tierLabel1']:setString(tier_name)
 
         -- 순위, 점수, 승률
-        local str = struct_user_info:getRankText(true) .. '\n'
+        local str = struct_user_info:getGrandArena_RankText(true) .. '\n'
             .. struct_user_info:getRPText()  .. '\n'
             .. struct_user_info:getWinRateText()  .. '\n'
         vars['rankingLabel']:setString(str)

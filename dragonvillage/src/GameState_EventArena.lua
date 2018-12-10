@@ -106,8 +106,17 @@ end
 
 -------------------------------------
 -- function makeResultUI
+-- @param is_win boolean 전투 승리 여부
 -------------------------------------
 function GameState_EventArena:makeResultUI(is_win)
-    local t_data = { added_rp = 0, added_honor = 0 }
-    UI_EventArenaResult(is_win, t_data)
+    local function finish_cb()
+        local t_data = { added_rp = 0, added_honor = 0 }
+        UI_EventArenaResult(is_win, t_data)
+    end
+
+	-- GameState클래스에서 전투 종료 통신용 데이터 가공
+    local t_param = self:makeGameFinishParam(is_win)
+
+    local gamekey = g_gameScene.m_gameKey
+    g_grandArena:requestGameFinish(gamekey, is_win, t_param['clear_time'], finish_cb)
 end

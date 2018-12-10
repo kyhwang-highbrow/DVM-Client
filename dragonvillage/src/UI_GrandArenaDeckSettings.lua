@@ -27,15 +27,14 @@ UI_GrandArenaDeckSettings = class(PARENT,{
 -------------------------------------
 function UI_GrandArenaDeckSettings:networkGameStart()
     local function finish_cb(game_key)
-        self:replaceGameScene(game_key)
+        --self:replaceGameScene(game_key)
+        UI_GrandArenaMatchList()
     end
 
     local deck_name = g_deckData:getSelectedDeckName()
     local combat_power = self.m_readySceneDeck:getDeckCombatPower()
 
     g_grandArena:request_grandArenaGetMatchList(false, finish_cb, nil) -- param : is_cash, finish_cb, fail_cb
-
-    --finish_cb(game_key)
 end
 
 -------------------------------------

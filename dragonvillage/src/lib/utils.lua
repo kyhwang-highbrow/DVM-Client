@@ -1151,7 +1151,7 @@ end
 
 -------------------------------------
 -- function conditionalOperator
--- @brief 3항 연산자
+-- @brief 3항 연산자 (삼항 연산자)
 -------------------------------------
 function conditionalOperator(condition, expression1, expression2)
     if condition then

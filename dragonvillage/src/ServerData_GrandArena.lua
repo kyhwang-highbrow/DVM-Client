@@ -7,6 +7,8 @@ ServerData_GrandArena = class({
 
         m_matchUserInfo = 'StructUserInfoArena',
 		m_playerUserInfo = 'StructUserInfoArena',
+
+        m_matchListStructUserInfo = 'table',
     })
 
 -------------------------------------
@@ -100,10 +102,11 @@ function ServerData_GrandArena:request_grandArenaGetMatchList(is_cash, finish_cb
         -- 동기화
         g_serverData:networkCommonRespone(ret)
 
-        if ret['matchlist'] and (0 < table.count(ret['matchlist'])) then
-            local t_data = ret['matchlist'][math_random(1, table.count(ret['matchlist']))]
-            if t_data then
-                self.m_matchUserInfo = StructUserInfoArena:createUserInfo_forGrandArena(t_data)
+        -- 매치 리스트를 StructUserInfoArena로 생성
+        self.m_matchListStructUserInfo = {}
+        if ret['matchlist'] then
+            for i,t_data in ipairs(ret['matchlist']) do
+                self.m_matchListStructUserInfo[i] = StructUserInfoArena:createUserInfo_forGrandArena(t_data)
             end
         end
 
@@ -114,6 +117,13 @@ function ServerData_GrandArena:request_grandArenaGetMatchList(is_cash, finish_cb
 
     -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
     local function response_status_cb(ret)
+        -- -1108 not exist match (매칭 상대가 없음)
+        if (ret['status'] == -1108) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('현재 점수 구간 내의 대전 가능한 상대가 없습니다.\n다른 상대의 콜로세움 참여를 기다린 후에 다시 시도해 주세요.'), ok_cb)
+            return true
+        end
+
+    
         return false
     end
 
@@ -132,6 +142,121 @@ function ServerData_GrandArena:request_grandArenaGetMatchList(is_cash, finish_cb
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function requestGameStart
+-------------------------------------
+function ServerData_GrandArena:requestGameStart(vs_uid, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    local response_status_cb
+
+    local function success_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        local game_key = ret['gamekey']
+        finish_cb(game_key)
+
+        -- match_user
+        -- status
+        -- gamekey
+        -- message
+        -- staminas
+
+        -- 인게임 아이템 드랍 정보 설정
+        --self:response_ingameDropInfo(ret)
+
+        -- 핫타임 정보 저장
+        --g_hotTimeData:setIngameHotTimeList(game_key, ret['hottime'])
+
+        -- 스피드핵 방지 실제 플레이 시간 기록
+        g_accessTimeData:startCheckTimer()
+
+        -- 온전한 연속 전투 검사
+        g_autoPlaySetting:setSequenceAutoPlay()
+    end
+
+
+    local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.EVENT_ARENA)
+    local deck_name1 = multi_deck_mgr:getDeckName('up')
+    local deck_name2 = multi_deck_mgr:getDeckName('down')
+
+    local token1 = g_stageData:makeDragonToken(deck_name1)
+    local token2 = g_stageData:makeDragonToken(deck_name2)
+    local teambonus1 = g_stageData:getTeamBonusIds(deck_name1)
+    local teambonus2 = g_stageData:getTeamBonusIds(deck_name2)
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/grand_arena/start')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('vs_uid', vs_uid)
+    ui_network:setParam('deck_name1', deck_name1)
+    ui_network:setParam('deck_name2', deck_name2)
+    ui_network:setParam('token1', token1)
+    ui_network:setParam('token2', token2)
+    ui_network:setParam('combat_power', 0) -- combat_power) ??
+    ui_network:setParam('team_bonus1', teambonus1)
+    ui_network:setParam('team_bonus2', teambonus2)
+    ui_network:setParam('is_cash', false) -- ??
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function requestGameFinish
+-------------------------------------
+function ServerData_GrandArena:requestGameFinish(gamekey, is_win, clear_time, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        finish_cb()
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        -- -1351 invalid time (오픈 시간이 아님)
+        if (ret['status'] == -1351) or (ret['status'] == -1364) then
+
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), function() UINavigator:goTo('lobby') end)
+            return true
+        end
+
+        return false
+    end
+
+    -- 승리 여부를 서버에 전달할때 number로 전달
+    if (type(is_win) == 'boolean') then
+        is_win = conditionalOperator((is_win == true), 1, 0)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/grand_arena/finish')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('is_win', is_win)
+    ui_network:setParam('gamekey', gamekey)
+    ui_network:setParam('clear_time', clear_time)
+    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+    ui_network:setParam('force_exit', false)
+
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function setMatchUserInfo
+-------------------------------------
+function ServerData_GrandArena:setMatchUserInfo(struct_user_info)
+    self.m_matchUserInfo = struct_user_info
 end
 
 -------------------------------------

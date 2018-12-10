@@ -880,3 +880,15 @@ function StructUserInfoArena:getChallengeMode_RankText(detail, carriage_return)
         return '-'
     end
 end
+
+-------------------------------------
+-- function getGrandArena_RankText
+-- @brief
+-------------------------------------
+function StructUserInfoArena:getGrandArena_RankText(detail, carriage_return)
+    if (self.m_rank == -1) then
+        return '-'
+    end
+
+    return self:getChallengeMode_RankText(detail, carriage_return)
+end

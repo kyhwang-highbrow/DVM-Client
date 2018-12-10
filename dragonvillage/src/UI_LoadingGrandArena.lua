@@ -208,7 +208,7 @@ function UI_LoadingGrandArena:initUserInfo(direction, struct_user_info)
 	end
 
     -- 랭킹
-    vars['rankLabel' .. idx]:setString(struct_user_info:getRankText(true))
+    vars['rankLabel' .. idx]:setString(struct_user_info:getGrandArena_RankText(true))
 
     -- 레벨, 닉네임
     vars['userLabel' .. idx]:setString(struct_user_info:getUserText())

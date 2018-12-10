@@ -3901,6 +3901,12 @@
     <None Include="..\src\ServerData_EventAdvent.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_GrandArenaMatchListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GrandArenaMatchList.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
