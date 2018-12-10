@@ -11,9 +11,27 @@ ServerData_GrandArena = class({
         m_lGlobalRank = 'list',
         m_matchListStructUserInfo = 'table',
         m_grandArenaRewardTable = 'table',
+
+        -- 시즌 보상 획득 상태
+        -- 0 -> 이번 시즌 보상 받을게 있음
+        -- 1 -> 이번 시즌 보상 받음
+        -- 2 -> 이번 시즌 보상 받을게 없음
+        m_seasonRewardStatus = 'number',
+        m_tSeasonRewardInfo = 'talbe', -- 시즌 보상을 받았을 경우
+
         -- 서버 로그를 위해 임시 저장
         m_tempLogData = 'table',
     })
+
+
+ServerData_GrandArena.STATE = {
+	['INACTIVE'] = 1,	-- 이벤트 던전 비활성화
+	['LOCK'] = 2,		-- 레벨 제한
+    ['PRESEASON'] = 3,	-- 프리시즌
+	['OPEN'] = 4,		-- 이벤트 던전 입장 가능
+	['REWARD'] = 5,		-- 보상 수령 가능
+	['DONE'] = 6,		-- 보상 수령 후 
+}
 
 -------------------------------------
 -- function init
@@ -28,7 +46,51 @@ end
 -- @brief 그랜드 콜로세움 이벤트가 진행 중인지 여부 true or false
 -------------------------------------
 function ServerData_GrandArena:isActive_grandArena()
-    return true
+    return (self:getGrandArenaModeState() ~= ServerData_GrandArena.STATE['INACTIVE'])
+end
+
+-------------------------------------
+-- function getGrandArenaModeState
+-- @brief 그랜드 콜로세움 상태
+-- @use ServerData_GrandArena.STATE
+-------------------------------------
+function ServerData_GrandArena:getGrandArenaModeState()
+	-- 예외처리
+	if (not g_hotTimeData) then
+		return ServerData_GrandArena.STATE['INACTIVE']
+
+	-- 이벤트 기간
+	elseif (g_hotTimeData:isActiveEvent('event_grand_arena')) then
+		
+		-- 레벨 체크
+		if (g_contentLockData:isContentLock('grand_arena')) then
+			return ServerData_GrandArena.STATE['LOCK']
+
+		else
+			return ServerData_GrandArena.STATE['OPEN']
+		end
+
+	-- 보상 수령 기간
+	elseif (g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
+		
+		-- 레벨 체크
+		if (g_contentLockData:isContentLock('grand_arena')) then
+			return ServerData_GrandArena.STATE['LOCK']
+
+		-- 보상 수령 전 (0 -> 이번 시즌 보상 받을게 있음)
+		elseif (self.m_seasonRewardStatus == 0) then
+			return ServerData_GrandArena.STATE['REWARD']
+
+		-- 보상 수령 후 (1 -> 이번 시즌 보상 받음, 2 -> 이번 시즌 보상 받을게 없음)
+		elseif (self.m_seasonRewardStatus == 1) or (self.m_seasonRewardStatus == 2) then
+			return ServerData_GrandArena.STATE['DONE']
+
+		end
+
+	end
+
+	-- 해당 없으면 비활성화
+	return ServerData_GrandArena.STATE['INACTIVE']
 end
 
 -------------------------------------
@@ -49,6 +111,17 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
             self:refresh_playerUserInfo(ret['season'], nil)
         end
 
+        -- 보상 수령 여부 저장
+		if (ret['reward']) then
+			self.m_seasonRewardStatus = ret['reward']
+		end
+
+        -- 시즌 보상 정보 저장
+        if ret['reward_info'] and (0 < table.count(ret['reward_info'])) then
+            self.m_tSeasonRewardInfo = ret['reward_info']
+        end
+
+        -- 시즌 보상 정보 저장
         if (ret['table_grand_arena_rank']) then
             self.m_grandArenaRewardTable = ret['table_grand_arena_rank']
         end

@@ -1727,6 +1727,26 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
+
+    -- 그랜드 콜로세움
+    local state = g_grandArena:getGrandArenaModeState()
+    if isExistValue(state, ServerData_GrandArena.STATE['OPEN'], ServerData_GrandArena.STATE['REWARD']) then
+        if (not vars['banner_grand_arena']) then
+            local banner = UI_BannerGrandArena()
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(cc.p(1, 1))
+            banner.root:setAnchorPoint(cc.p(1, 1))
+            vars['banner_grand_arena'] = banner
+        else
+            vars['banner_grand_arena']:refresh()
+        end
+    else
+        if vars['banner_grand_arena'] then
+            vars['banner_grand_arena'].root:removeFromParent()
+            vars['banner_grand_arena'] = nil
+        end
+    end
+
     self:onRefresh_banner()
 end
 
@@ -1746,6 +1766,11 @@ function UI_Lobby:onRefresh_banner()
     -- 그림자의 신전
     if vars['banner_challenge_mode'] then
         table.insert(l_node, vars['banner_challenge_mode'].root)
+    end
+
+    -- 그랜드 콜로세움
+    if vars['banner_grand_arena'] then
+        table.insert(l_node, vars['banner_grand_arena'].root)
     end
 
     local pos_y = 0
