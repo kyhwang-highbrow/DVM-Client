@@ -70,7 +70,7 @@ function UI_GrandArenaRankingPopup:refresh_playerUserInfo()
 
     -- 플레이어 정보 받아옴
     local struct_user_info = g_grandArena:getPlayerGrandArenaUserInfo()
-    local ui = UI_ChallengeModeRankingListItem(struct_user_info)
+    local ui = UI_GrandArenaRankingListItem(struct_user_info)
     vars['rankingMeNode']:removeAllChildren()
     vars['rankingMeNode']:addChild(ui.root)
 
@@ -261,7 +261,7 @@ function UI_GrandArenaRankingPopup:makeRankRewardTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(550, 55 + 5)
-    table_view:setCellUIClass(UI_ChallengeModeRewardListItem, create_func)
+    table_view:setCellUIClass(UI_GrandArenaRankingRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, true)
     --self.m_rewardTableView = table_view

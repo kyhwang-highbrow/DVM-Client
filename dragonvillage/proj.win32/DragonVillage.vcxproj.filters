@@ -3910,6 +3910,9 @@
     <None Include="..\src\UI_GrandArenaRankingListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_GrandArenaRankingRewardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
