@@ -19,7 +19,7 @@ UI_GrandArenaRankingPopup = class(PARENT,{
 function UI_GrandArenaRankingPopup:init()
     self.m_uiName = 'UI_GrandArenaRankingPopup'
     self.m_rankOffset = 1
-    local vars = self:load('challenge_mode_ranking_popup.ui')
+    local vars = self:load('grand_arena_ranking_popup.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
