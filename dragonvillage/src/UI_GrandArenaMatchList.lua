@@ -12,7 +12,7 @@ UI_GrandArenaMatchList = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_GrandArenaMatchList:init()
-    local vars = self:load('grand_arena_loading.ui')
+    local vars = self:load('grand_arena_match_list.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -63,8 +63,19 @@ function UI_GrandArenaMatchList:initUI()
         local ui = UI_GrandArenaMatchListItem(struct_user_info)
         vars['tamerBtnItemNode' .. i]:addChild(ui.root)
         ui.vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn(ui, struct_user_info) end)
+        ui.vars['tamerIconBtn']:registerScriptTapHandler(function() self:click_tamerBtn(ui, struct_user_info) end)
         table.insert(self.m_matchUserUIList, ui)
     end
+
+    -- 매칭된 상대방 숫자 표기
+    local match_list_cnt = table.count(match_list_low_data)
+    vars['normalGuideLabel']:setString(Str('대전 상대 {1}명을 찾았습니다.\n상대 팀을 선택해주세요', match_list_cnt))
+
+    -- 상대방을 선택하기 전 visible off
+    vars['selectedNode']:setVisible(false)
+    vars['startBtn']:setVisible(false)
+    vars['selectedGuideLabel']:setVisible(false)
+    vars['normalGuideLabel']:setVisible(true)
 end
 
 -------------------------------------
@@ -185,10 +196,17 @@ function UI_GrandArenaMatchList:click_tamerBtn(ui, struct_user_info)
             _ui.vars['tamerInfoSprite']:setVisible(false)
         end 
 
-        local temp_node = vars['tamerBtnItemNode1']:getParent()
-        temp_node:setPositionX(750)
+        -- 상대방 선택 버튼 위치 조정
+        --vars['tamerBtnMenu']:setPositionX(320)
+        local position_y = vars['tamerBtnMenu']:getPositionY()
+        vars['tamerBtnMenu']:stopAllActions()
+        vars['tamerBtnMenu']:runAction((cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(320, position_y)), 2)))
 
+        -- 선택 상태에 따른 visible 정리
         vars['startBtn']:setVisible(true)
+        vars['selectedNode']:setVisible(true)
+        vars['selectedGuideLabel']:setVisible(true)
+        vars['normalGuideLabel']:setVisible(false)
     end
 
     if old_ui then
