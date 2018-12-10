@@ -31,7 +31,7 @@ end
 
 -------------------------------------
 -- function isMailItem
--- @brief ¿ìÆíÇÔÀÇ '¾ÆÀÌÅÛ' ÅÇ ¾ÆÀÌÅÛÀÎÁö ¿©ºÎ
+-- @brief ìš°í¸í•¨ì˜ 'ì•„ì´í…œ' íƒ­ ì•„ì´í…œì¸ì§€ ì—¬ë¶€
 -------------------------------------
 function TableItemType:isMailItem(item_id)
 	if (self:getMailType(item_id) == 'item') then
@@ -43,7 +43,7 @@ end
 
 -------------------------------------
 -- function isMailMoney
--- @brief ¿ìÆíÇÔÀÇ 'ÀçÈ­' ÅÇ ¾ÆÀÌÅÛÀÎÁö ¿©ºÎ
+-- @brief ìš°í¸í•¨ì˜ 'ì¬í™”' íƒ­ ì•„ì´í…œì¸ì§€ ì—¬ë¶€
 -------------------------------------
 function TableItemType:isMailMoney(item_id)
 	if (self:getMailType(item_id) == 'money') then
@@ -55,7 +55,7 @@ end
 
 -------------------------------------
 -- function isMailStaminas
--- @brief ¿ìÆíÇÔÀÇ '³¯°³' ÅÇ ¾ÆÀÌÅÛÀÎÁö ¿©ºÎ
+-- @brief ìš°í¸í•¨ì˜ 'ë‚ ê°œ' íƒ­ ì•„ì´í…œì¸ì§€ ì—¬ë¶€
 -------------------------------------
 function TableItemType:isMailStaminas(item_id)
 	if (self:getMailType(item_id) == 'staminas') then
@@ -67,7 +67,7 @@ end
 
 -------------------------------------
 -- function isMailFP
--- @brief ¿ìÆíÇÔÀÇ '¿ìÁ¤' ÅÇ ¾ÆÀÌÅÛÀÎÁö ¿©ºÎ
+-- @brief ìš°í¸í•¨ì˜ 'ìš°ì •' íƒ­ ì•„ì´í…œì¸ì§€ ì—¬ë¶€
 -------------------------------------
 function TableItemType:isMailFp(item_id)
 	if (self:getMailType(item_id) == 'fp') then
@@ -79,7 +79,7 @@ end
 
 -------------------------------------
 -- function getMailType
--- @brief ¿ìÆíÇÔ ÅÇ¿¡ µû¸¥ Å¸ÀÔ
+-- @brief ìš°í¸í•¨ íƒ­ì— ë”°ë¥¸ íƒ€ì…
 -------------------------------------
 function TableItemType:getMailType(item_id)	
 	if (self == THIS) then
@@ -90,7 +90,7 @@ function TableItemType:getMailType(item_id)
 	local item_type = table_item:getItemType(item_id)
 	local mail_type = self:getValue(item_type, 'mail_tab_type')
 	
-	-- item_typeÀÌ Á¤ÀÇµÇÁö ¾ÊÀº °æ¿ì
+	-- item_typeì´ ì •ì˜ë˜ì§€ ì•Šì€ ê²½ìš°
 	if (not mail_type) then
 		self:errorUndefineType(item_type)
 		return false
@@ -100,7 +100,7 @@ end
 
 -------------------------------------
 -- function isCanReadAll
--- @brief ¿ìÆíÇÔ¿¡¼­ ¸ğµÎ ¹Ş±â°¡ °¡´ÉÇÑÁö ¿©ºÎ ¸®ÅÏ
+-- @brief ìš°í¸í•¨ì—ì„œ ëª¨ë‘ ë°›ê¸°ê°€ ê°€ëŠ¥í•œì§€ ì—¬ë¶€ ë¦¬í„´
 -------------------------------------
 function TableItemType:isCanReadAll(item_id)
 	if (self == THIS) then
@@ -117,7 +117,7 @@ function TableItemType:isCanReadAll(item_id)
 
 	local is_read_all = self:getValue(item_type, 'is_read_all')
 	
-	-- °ªÀÌ 1ÀÎ °æ¿ì ¸ğµÎ¹Ş±â °¡´É/nilÀÎ °æ¿ì ºÒ°¡´É
+	-- ê°’ì´ 1ì¸ ê²½ìš° ëª¨ë‘ë°›ê¸° ê°€ëŠ¥/nilì¸ ê²½ìš° ë¶ˆê°€ëŠ¥
 	if (is_read_all == 1) then
 		return true
 	else
@@ -127,10 +127,10 @@ end
 
 -------------------------------------
 -- function errorUndefineType
--- @brief csv¿¡ Á¤ÀÇµÇÁö ¾ÊÀº ¿ä¼Ò°¡ ÀÖ´Ù¸é Å×½ºÆ® ¸ğµåÀÏ ¶§¸¸ ¿¡·¯¸Ş¼¼Áö Ãâ·Â
+-- @brief csvì— ì •ì˜ë˜ì§€ ì•Šì€ ìš”ì†Œê°€ ìˆë‹¤ë©´ í…ŒìŠ¤íŠ¸ ëª¨ë“œì¼ ë•Œë§Œ ì—ëŸ¬ë©”ì„¸ì§€ ì¶œë ¥
 -------------------------------------
 function TableItemType:errorUndefineType(item_type)
 	if (CppFunctionsClass:isTestMode()) then
-		error('table_item_type.csv¿¡ Á¤ÀÇ µÇÁö ¾ÊÀ½ : ' .. tostring(item_type))
+		error('table_item_type.csvì— ì •ì˜ ë˜ì§€ ì•ŠìŒ : ' .. tostring(item_type))
 	end
 end

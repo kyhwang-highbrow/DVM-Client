@@ -127,7 +127,7 @@ end
 
 -------------------------------------
 -- function disable
--- @brief activate, inactivate ¿Í À¯±âÀûÀ¸·Î µ¿ÀÛÇÏ´Â °ÍÀÌ ¾Æ´Ô. ÀÏ¹æÇâ
+-- @brief activate, inactivate ì™€ ìœ ê¸°ì ìœ¼ë¡œ ë™ì‘í•˜ëŠ” ê²ƒì´ ì•„ë‹˜. ì¼ë°©í–¥
 -------------------------------------
 function UIC_RadioButton:disable(button_name)
 	local t_button_data = self.m_buttonMap[button_name]

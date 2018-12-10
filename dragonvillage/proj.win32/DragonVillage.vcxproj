@@ -1469,7 +1469,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_TamerSkillCard.lua" />
     <None Include="..\src\UI_TeamBonus.lua" />
     <None Include="..\src\UI_TeamBonusListItem.lua" />
-    <None Include="..\src\UI_TeamBonus_Apply.lua" />
     <None Include="..\src\UI_TeamBonus_Detail.lua" />
     <None Include="..\src\UI_TeamBonus_Dragon.lua" />
     <None Include="..\src\UI_TeamBonus_Total.lua" />

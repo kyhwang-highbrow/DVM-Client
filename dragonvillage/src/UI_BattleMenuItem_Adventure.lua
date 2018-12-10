@@ -1,4 +1,4 @@
-﻿local PARENT = UI_BattleMenuItem
+local PARENT = UI_BattleMenuItem
 
 -------------------------------------
 -- class UI_BattleMenuItem_Adventure

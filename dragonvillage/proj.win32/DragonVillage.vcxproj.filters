@@ -3286,9 +3286,6 @@
     <None Include="..\src\UI_TeamBonus_Detail.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_TeamBonus_Apply.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_LobbyGuideColosseum.lua">
       <Filter>lua\UI</Filter>
     </None>

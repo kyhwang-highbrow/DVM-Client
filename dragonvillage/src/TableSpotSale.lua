@@ -2,7 +2,7 @@ local PARENT = TableClass
 
 -------------------------------------
 -- class TableSpotSale
--- @breif ±ôÂ¦ ÇÒÀÎ »óÇ°
+-- @breif ê¹œì§ í• ì¸ ìƒí’ˆ
 -------------------------------------
 TableSpotSale = class(PARENT, {
     })
@@ -22,7 +22,7 @@ end
 
 -------------------------------------
 -- function getSortedSpotSaleList
--- @brief priority°ªÀÌ ³·Àº ¼ø¼­·Î Á¤·ÄµÈ table_spot_sale
+-- @brief priorityê°’ì´ ë‚®ì€ ìˆœì„œë¡œ ì •ë ¬ëœ table_spot_sale
 -------------------------------------
 function TableSpotSale:getSortedSpotSaleList()
     if (self == THIS) then
@@ -31,10 +31,10 @@ function TableSpotSale:getSortedSpotSaleList()
 
     local table_spot_sale = self.m_orgTable
 
-    -- Á¤·ÄÀ» À§ÇØ listÇüÅÂ·Î º¯È¯
+    -- ì •ë ¬ì„ ìœ„í•´ listí˜•íƒœë¡œ ë³€í™˜
     local l_spot_sale = table.MapToList(table_spot_sale)
 
-    -- priority°¡ ³·Àº ¼ø¼­·Î Á¤·Ä
+    -- priorityê°€ ë‚®ì€ ìˆœì„œë¡œ ì •ë ¬
 	function sortByPriority(a, b)
 		return a['priority'] < b['priority']
 	end
@@ -44,7 +44,7 @@ end
 
 -------------------------------------
 -- function getItemID
--- @brief ±ôÂ¦ ÇÒÀÎ »óÇ°ÀÇ ´ë»ó ¾ÆÀÌÅÛ (´ÙÀÌ¾Æ, °ñµå, ³¯°³ µîÀÇ item_id)
+-- @brief ê¹œì§ í• ì¸ ìƒí’ˆì˜ ëŒ€ìƒ ì•„ì´í…œ (ë‹¤ì´ì•„, ê³¨ë“œ, ë‚ ê°œ ë“±ì˜ item_id)
 -------------------------------------
 function TableSpotSale:getItemID(spot_sale_id)
     if (self == THIS) then
@@ -56,7 +56,7 @@ end
 
 -------------------------------------
 -- function getCondition
--- @brief ±ôÂ¦ ÇÒÀÎ »óÇ° ¹ßµ¿ ¼ö·® (ÀÌ °ªº¸´Ù ÀûÀº °æ¿ì »óÇ° ¹ßµ¿)
+-- @brief ê¹œì§ í• ì¸ ìƒí’ˆ ë°œë™ ìˆ˜ëŸ‰ (ì´ ê°’ë³´ë‹¤ ì ì€ ê²½ìš° ìƒí’ˆ ë°œë™)
 -------------------------------------
 function TableSpotSale:getCondition(spot_sale_id)
     if (self == THIS) then
@@ -68,7 +68,7 @@ end
 
 -------------------------------------
 -- function getRequiredLevel
--- @brief ±ôÂ¦ ÇÒÀÎ »óÇ° ¹ßµ¿ ÇÊ¿ä ·¹º§
+-- @brief ê¹œì§ í• ì¸ ìƒí’ˆ ë°œë™ í•„ìš” ë ˆë²¨
 -------------------------------------
 function TableSpotSale:getRequiredLevel(spot_sale_id)
     if (self == THIS) then
@@ -80,7 +80,7 @@ end
 
 -------------------------------------
 -- function getProductID
--- @brief ±ôÂ¦ ÇÒÀÎ »óÇ°ÀÇ product_id
+-- @brief ê¹œì§ í• ì¸ ìƒí’ˆì˜ product_id
 -------------------------------------
 function TableSpotSale:getProductID(spot_sale_id)
     if (self == THIS) then
@@ -92,7 +92,7 @@ end
 
 -------------------------------------
 -- function getBonusRate
--- @brief ±ôÂ¦ ÇÒÀÎ »óÇ°ÀÇ º¸³Ê½º ºñÀ²
+-- @brief ê¹œì§ í• ì¸ ìƒí’ˆì˜ ë³´ë„ˆìŠ¤ ë¹„ìœ¨
 -------------------------------------
 function TableSpotSale:getBonusRate(spot_sale_id)
     if (self == THIS) then
@@ -104,11 +104,11 @@ end
 
 -------------------------------------
 -- function getUIIdx
--- @brief ±ôÂ¦ ÇÒÀÎ »óÇ°º° UI¿¡¼­ »ç¿ëÇÏ´Â index
+-- @brief ê¹œì§ í• ì¸ ìƒí’ˆë³„ UIì—ì„œ ì‚¬ìš©í•˜ëŠ” index
 -- ex)
--- itemLabel1 -> ´ÙÀÌ¾Æ
--- itemLabel2 -> °ñµå
--- itemLabel3 -> ³¯°³
+-- itemLabel1 -> ë‹¤ì´ì•„
+-- itemLabel2 -> ê³¨ë“œ
+-- itemLabel3 -> ë‚ ê°œ
 -------------------------------------
 function TableSpotSale:getUIIdx(spot_sale_id)
     if (self == THIS) then
@@ -120,7 +120,7 @@ end
 
 -------------------------------------
 -- function getUIIdxList
--- @brief ±ôÂ¦ ÇÒÀÎ »óÇ°ÀÇ ui_idx ¸®½ºÆ®
+-- @brief ê¹œì§ í• ì¸ ìƒí’ˆì˜ ui_idx ë¦¬ìŠ¤íŠ¸
 -------------------------------------
 function TableSpotSale:getUIIdxList()
     if (self == THIS) then
