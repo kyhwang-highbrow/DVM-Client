@@ -33,7 +33,7 @@ function UI_GrandArena:initParentVariable()
     self.m_uiName = 'UI_GrandArena'
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('그랜드 콜로세움')
-    self.m_staminaType = 'st'
+    self.m_staminaType = 'grand_arena'
     self.m_subCurrency = 'valor'
     self.m_uiBgm = 'bgm_lobby'
 end
