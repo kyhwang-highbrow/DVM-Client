@@ -311,7 +311,7 @@ function UI_LoadingGrandArena:selectAuto(auto_mode)
     g_autoPlaySetting:set('auto_mode', auto_mode)
 
     -- 서버 Log를 위해 임시저장
-    g_arenaData.m_tempLogData['is_auto'] = auto_mode
+    g_grandArena.m_tempLogData['is_auto'] = auto_mode
 end
 
 --@CHECK

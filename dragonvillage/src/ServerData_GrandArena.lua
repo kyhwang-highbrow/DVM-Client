@@ -10,12 +10,16 @@ ServerData_GrandArena = class({
         m_nGlobalOffset = 'number',
         m_lGlobalRank = 'list',
         m_matchListStructUserInfo = 'table',
+
+        -- 서버 로그를 위해 임시 저장
+        m_tempLogData = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_GrandArena:init(server_data)
+    self.m_tempLogData = {}
 end
 
 
@@ -44,6 +48,10 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
         if ret['season'] then
             self:refresh_playerUserInfo(ret['season'], nil)
         end
+
+        -- 통신 후에는 삭제
+        -- 서버 로그를 위해 임시 저장
+        self.m_tempLogData = {}
 
         if finish_cb then
             finish_cb(ret)
@@ -128,6 +136,8 @@ function ServerData_GrandArena:request_grandArenaGetMatchList(is_cash, finish_cb
         return false
     end
 
+    -- Log를 위해 start/finish에 던질 데이터들 임시 저장
+    self.m_tempLogData['is_cash'] = is_cash
 
     -- 네트워크 통신
     local ui_network = UI_Network()
@@ -178,6 +188,7 @@ function ServerData_GrandArena:requestGameStart(vs_uid, combat_power, finish_cb,
     local teambonus1 = g_stageData:getTeamBonusIds(deck_name1)
     local teambonus2 = g_stageData:getTeamBonusIds(deck_name2)
 
+    
     local ui_network = UI_Network()
     ui_network:setUrl('/game/grand_arena/start')
     ui_network:setRevocable(true)
@@ -190,6 +201,11 @@ function ServerData_GrandArena:requestGameStart(vs_uid, combat_power, finish_cb,
     ui_network:setParam('combat_power', combat_power) -- 팀 전투력 log를 위해 전송
     ui_network:setParam('team_bonus1', teambonus1)
     ui_network:setParam('team_bonus2', teambonus2)
+
+    -- 다이아 사용 
+    local is_cash = self.m_tempLogData['is_cash'] or false
+    ui_network:setParam('is_cash', is_cash)
+
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
@@ -203,10 +219,34 @@ function ServerData_GrandArena:requestGameFinish(gamekey, is_win, clear_time, fi
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
+        local prev_gold = g_userData:get('gold')
+
         -- server_info, staminas 정보를 갱신
         g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
 
-        finish_cb()
+        -- 플레이어 랭킹 정보 갱신
+        if ret['season'] then
+            self:refresh_playerUserInfo(ret['season'], nil)
+        end
+
+        -- 변경 데이터
+        --ret['added_rp'] = (self.m_playerUserInfo.m_rp - prev_rp)
+        ret['added_rp'] = ret['point'] -- 실시간으로 변경된 값이 있을 수 있으므로 서버에서 넘어오는 값을 표기
+        --ret['added_gold'] = (g_userData:get('gold') - prev_gold)
+
+        -- 골드 증가량
+        local added_gold = 0
+        if (ret['added_items'] and ret['added_items']['items_list']) then
+            for i,v in pairs(ret['added_items']['items_list']) do
+                if (v['item_id'] == ITEM_ID_GOLD) then
+                    added_gold = (added_gold + (v['count'] or 0))
+                end
+            end
+        end
+        ret['added_gold'] = added_gold
+
+        finish_cb(ret)
     end
 
     -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
@@ -234,7 +274,32 @@ function ServerData_GrandArena:requestGameFinish(gamekey, is_win, clear_time, fi
     ui_network:setParam('gamekey', gamekey)
     ui_network:setParam('clear_time', clear_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
-    ui_network:setParam('force_exit', false)
+
+    -- 서버 Log를 위해 클라에서 넘기는 값들
+    do 
+        -- 다이아 사용 
+        local is_cash = self.m_tempLogData['is_cash'] or false
+        ui_network:setParam('is_cash', is_cash)
+
+        -- 수동/자동
+        local is_auto = self.m_tempLogData['is_auto'] or false
+        ui_network:setParam('is_auto', is_auto)
+
+        -- 연속 전투
+        if (not is_auto) then
+            ui_network:setParam('is_continuous', false)
+        else
+            local is_continuous = g_autoPlaySetting:isAutoPlay() 
+            ui_network:setParam('is_continuous', is_continuous)
+
+        end
+        -- 전투중 종료
+        local force_exit = self.m_tempLogData['force_exit'] or false
+        ui_network:setParam('force_exit', force_exit)
+
+        -- 통신 후에는 삭제
+        self.m_tempLogData = {}
+    end
 
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)

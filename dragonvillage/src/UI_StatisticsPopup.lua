@@ -37,7 +37,7 @@ function UI_StatisticsPopup:init(world)
 
 	-- 멤버 변수 초기화
 	self.m_mode = world.m_gameMode
-    self.m_isPvp = isExistValue(world.m_gameMode, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_CHALLENGE_MODE)
+    self.m_isPvp = isExistValue(world.m_gameMode, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_CHALLENGE_MODE, GAME_MODE_EVENT_ARENA)
     self.m_bFriendMatch = (self.m_isPvp) and world.m_bFriendMatch or false
 
 	self.m_charList_A = world.m_myDragons
@@ -90,6 +90,8 @@ function UI_StatisticsPopup:initUserInfo()
 	-- 이부분을 외부로 빼서 받아오면 깔끔해질듯
 	local my_struct_user_info
 	local enemy_struct_user_info
+    local my_tamer_info
+    local enemy_tamer_info
 
 	if (self.m_bFriendMatch) then
 		my_struct_user_info = g_friendMatchData.m_playerUserInfo
@@ -108,6 +110,12 @@ function UI_StatisticsPopup:initUserInfo()
 		my_struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
 		enemy_struct_user_info = g_challengeMode:getMatchUserInfo()
 
+    elseif (self.m_mode == GAME_MODE_EVENT_ARENA) then
+		my_struct_user_info = g_grandArena:getPlayerGrandArenaUserInfo()
+		enemy_struct_user_info = g_grandArena:getMatchUserInfo()
+        my_tamer_info = my_struct_user_info:getDeckTamerInfo('grand_arena_up')
+        enemy_tamer_info = enemy_struct_user_info:getDeckTamerInfo('grand_arena_up')
+
 	end
 
 	-- 유저 정보 출력
@@ -120,7 +128,9 @@ function UI_StatisticsPopup:initUserInfo()
 
             local tamer_info, profile_icon
             
-			if (is_colosseum) then
+            if (my_tamer_info) then
+                tamer_info = my_tamer_info
+			elseif (is_colosseum) then
 				tamer_info = user_info:getPvpAtkDeck()['tamerInfo']
 			else
 				tamer_info = user_info:getPvpDeck()['tamerInfo']
@@ -148,7 +158,9 @@ function UI_StatisticsPopup:initUserInfo()
 
             local tamer_info, profile_icon
             
-			if (is_colosseum) then
+            if (enemy_tamer_info) then
+                tamer_info = enemy_tamer_info
+			elseif (is_colosseum) then
 				tamer_info = user_info:getPvpAtkDeck()['tamerInfo']
 			else
 				tamer_info = user_info:getPvpDeck()['tamerInfo']

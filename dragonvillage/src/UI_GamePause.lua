@@ -245,6 +245,11 @@ function UI_GamePause:confirmExit(exit_cb)
             g_arenaData.m_tempLogData['force_exit'] = true
         end
 
+        -- 아레나인 경우 강제 종료 로그 남김
+        if (self.m_stageID == GRAND_ARENA_STAGE_ID) then
+            g_grandArena.m_tempLogData['force_exit'] = true
+        end
+
         -- 멈춘 상태에서 바로 종료될시 어색하므로 resume 시키고 종료
         local world = g_gameScene.m_gameWorld
         world.m_gameState:changeState(GAME_STATE_FAILURE)
