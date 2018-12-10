@@ -1116,11 +1116,13 @@ function UI_ReadySceneNew:check_startCondition(stage_id)
     local stamina_charge = true
     local multi_deck_mgr = self.m_multiDeckMgr
 
+    -- 클랜던전은 활동력 충전 x 소비 o
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        stamina_charge = false
+    end
+
     -- 멀티덱 - 상단덱과 하단덱 추가 확인
     if (multi_deck_mgr) then
-
-        -- 클랜던전은 활동력 충전 x 소비 o
-        stamina_charge = false
 
         -- 상단, 하단 덱 모두 체크
         if (not multi_deck_mgr:checkDeckCondition()) then
