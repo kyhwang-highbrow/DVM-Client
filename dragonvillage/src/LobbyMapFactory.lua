@@ -39,8 +39,9 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
         self:makeLobbyDeco_onLayer(lobby_ground, 'christmas')
 	end
 
-	--lobby_map:addLayer(self:makeLobbyDecoLayer('halloween'), 1) -- 근경 할로윈 장식
-    --lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
+    -- 근경
+    lobby_map:addLayer(self:makeLobbyLayer(0), 1)
+	--lobby_map:addLayer(self:makeLobbyDecoLayer('halloween'), 1) -- 할로윈 장식
 
     return lobby_map
 end
