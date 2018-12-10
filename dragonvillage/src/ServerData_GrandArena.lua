@@ -46,15 +46,15 @@ end
 -- @brief 그랜드 콜로세움 이벤트가 진행 중인지 여부 true or false
 -------------------------------------
 function ServerData_GrandArena:isActive_grandArena()
-    return (self:getGrandArenaModeState() ~= ServerData_GrandArena.STATE['INACTIVE'])
+    return (self:getGrandArenaState() ~= ServerData_GrandArena.STATE['INACTIVE'])
 end
 
 -------------------------------------
--- function getGrandArenaModeState
+-- function getGrandArenaState
 -- @brief 그랜드 콜로세움 상태
 -- @use ServerData_GrandArena.STATE
 -------------------------------------
-function ServerData_GrandArena:getGrandArenaModeState()
+function ServerData_GrandArena:getGrandArenaState()
 	-- 예외처리
 	if (not g_hotTimeData) then
 		return ServerData_GrandArena.STATE['INACTIVE']

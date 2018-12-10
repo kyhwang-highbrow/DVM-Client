@@ -1729,7 +1729,7 @@ function UI_Lobby:refresh_rightBanner()
 
 
     -- 그랜드 콜로세움
-    local state = g_grandArena:getGrandArenaModeState()
+    local state = g_grandArena:getGrandArenaState()
     if isExistValue(state, ServerData_GrandArena.STATE['OPEN'], ServerData_GrandArena.STATE['REWARD']) then
         if (not vars['banner_grand_arena']) then
             local banner = UI_BannerGrandArena()

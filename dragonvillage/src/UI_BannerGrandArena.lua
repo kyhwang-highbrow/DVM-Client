@@ -53,7 +53,7 @@ end
 function UI_BannerGrandArena:update(dt)
     local vars = self.vars
 
-    local state = g_grandArena:getGrandArenaModeState()
+    local state = g_grandArena:getGrandArenaState()
     
     -- 이벤트 진행 중
     if (state == ServerData_GrandArena.STATE['OPEN']) then

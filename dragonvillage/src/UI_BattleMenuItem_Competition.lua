@@ -44,7 +44,7 @@ function UI_BattleMenuItem_Competition:initUI()
 		self:initCompetitionRewardInfo(content_type)
 
 	-- lock 상태에서도 시간 표시 할 수 있도록 강제로 보냄
-	elseif (content_type == 'challenge_mode') then
+	elseif (content_type == 'challenge_mode') or (content_type == 'grand_arena') then
 		self:initCompetitionRewardInfo(content_type)
 
 	end
@@ -88,6 +88,10 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	-- 그림자의 신전
 	elseif (content_type == 'challenge_mode') then
         t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_challengeMode()
+
+    -- 그랜드 콜로세움
+    elseif (content_type == 'grand_arena') then
+        t_item, text_1, text_2, desc = self:initCompetitionRewardInfo_grandArena()
 
     end
 
@@ -246,6 +250,60 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 		timer_key = 'event_challenge_reward'
 
 	elseif (state == ServerData_ChallengeMode.STATE['DONE']) then
+		text_1 = Str('이벤트가 종료되었습니다.')
+
+	else
+		return nil, nil, nil
+
+	end
+
+	-- 타이머 사용하는 경우 스케쥴러 등록
+	if (use_timer) then
+		self:startUpdateChallengeMode(timer_key, has_reward)
+	end
+
+	return t_item, text_1, text_2, desc
+end
+
+-------------------------------------
+-- function initCompetitionRewardInfo_grandArena
+-- @brief 이벤트 그랜드 콜로세움
+-------------------------------------
+function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_grandArena()
+	local vars = self.vars
+	local state = g_grandArena:getGrandArenaState()
+	local t_item, text_1, text_2, desc
+	
+	local use_timer = false
+	local has_reward = false
+	local timer_key
+
+	-- 비활성화 상태 .. 정상적이라면 여기로 들어오지 않는다.
+	if (state == ServerData_GrandArena.STATE['INACTIVE']) then
+		return nil, nil, nil
+
+	-- 일반적으로 lock은 UI_BattleMenuItem:initUI() 에서 처리하나 타이머 동작하기 위해서 여기로 보냄
+	elseif (state == ServerData_GrandArena.STATE['LOCK']) then
+		use_timer = true
+		timer_key = 'event_grand_arena'
+
+	-- 그림자의 신전 사용 가능 상태
+	elseif (state == ServerData_GrandArena.STATE['OPEN']) then
+		text_1 = Str('여러분의 한계에 도전해 보세요!')
+
+		use_timer = true
+		timer_key = 'event_grand_arena'
+
+	-- 그림자의 신전 보상 수령 상태
+	elseif (state == ServerData_GrandArena.STATE['REWARD']) then
+		text_1 = Str('이벤트가 종료되었습니다.')
+		text_2 = Str('보상을 획득하세요')
+
+		use_timer = true
+		has_reward = true
+		timer_key = 'event_grand_arena_reward'
+
+	elseif (state == ServerData_GrandArena.STATE['DONE']) then
 		text_1 = Str('이벤트가 종료되었습니다.')
 
 	else
