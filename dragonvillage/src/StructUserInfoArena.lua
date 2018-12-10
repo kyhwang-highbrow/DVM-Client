@@ -231,6 +231,13 @@ function StructUserInfoArena:createUserInfo_forGrandArena(t_data)
     user_info:applyDeckData('grand_arena_up', t_data['deck1'])
     user_info:applyDeckData('grand_arena_down', t_data['deck2'])
 
+        -- 클랜
+    if (t_data['clan_info']) then
+        local struct_clan = StructClan({})
+        struct_clan:applySimple(t_data['clan_info'])
+        user_info:setStructClan(struct_clan)
+    end
+
     return user_info
 end
 

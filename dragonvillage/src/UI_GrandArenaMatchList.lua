@@ -269,7 +269,8 @@ function UI_GrandArenaMatchList:click_startBtn()
     end
 
     local vs_uid = struct_user_info:getUid()
-    g_grandArena:requestGameStart(vs_uid, finish_cb, nil) -- vs_uid, finish_cb, fail_cb)
+    local combat_power = struct_user_info:getDeckCombatPowerByDeckname('grand_arena_up') + struct_user_info:getDeckCombatPowerByDeckname('grand_arena_down')
+    g_grandArena:requestGameStart(vs_uid, combat_power, finish_cb, nil) -- vs_uid, finish_cb, fail_cb)
 end
 
 -------------------------------------

@@ -147,7 +147,7 @@ end
 -------------------------------------
 -- function requestGameStart
 -------------------------------------
-function ServerData_GrandArena:requestGameStart(vs_uid, finish_cb, fail_cb)
+function ServerData_GrandArena:requestGameStart(vs_uid, combat_power, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
     local response_status_cb
 
@@ -158,17 +158,7 @@ function ServerData_GrandArena:requestGameStart(vs_uid, finish_cb, fail_cb)
         local game_key = ret['gamekey']
         finish_cb(game_key)
 
-        -- match_user
-        -- status
-        -- gamekey
-        -- message
-        -- staminas
-
-        -- 인게임 아이템 드랍 정보 설정
-        --self:response_ingameDropInfo(ret)
-
-        -- 핫타임 정보 저장
-        --g_hotTimeData:setIngameHotTimeList(game_key, ret['hottime'])
+        -- match_user를 받고 있지만 사용하지 않음
 
         -- 스피드핵 방지 실제 플레이 시간 기록
         g_accessTimeData:startCheckTimer()
@@ -196,10 +186,9 @@ function ServerData_GrandArena:requestGameStart(vs_uid, finish_cb, fail_cb)
     ui_network:setParam('deck_name2', deck_name2)
     ui_network:setParam('token1', token1)
     ui_network:setParam('token2', token2)
-    ui_network:setParam('combat_power', 0) -- combat_power) ??
+    ui_network:setParam('combat_power', combat_power) -- 팀 전투력 log를 위해 전송
     ui_network:setParam('team_bonus1', teambonus1)
     ui_network:setParam('team_bonus2', teambonus2)
-    ui_network:setParam('is_cash', false) -- ??
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
