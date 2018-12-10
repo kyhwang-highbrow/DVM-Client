@@ -28,7 +28,7 @@ function UI_GameResult_Adventure:setSuccessVisual()
 
         local stage_id = self.m_stageID
 
-        -- 깜짝 출현 던전 예외처리
+        -- 깜짝 출현 챕터 예외처리
         if (isAdventStageID(stage_id)) then
             vars['successVisual']:changeAni('success', false)
             vars['successVisual']:addAniHandler(function()

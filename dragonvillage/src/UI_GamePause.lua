@@ -70,16 +70,22 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
     -- 획득한 별 표시 (모험 모드에서만)
     local game_mode = g_stageData:getGameMode(stage_id)
     if (game_mode == GAME_MODE_ADVENTURE) then
-        local stage_info = g_adventureData:getStageInfo(stage_id)
-        local num_of_stars = stage_info:getNumberOfStars()
-        for i=1, 3 do
-            local visible = stage_info['mission_' .. i]
-            vars['starSprite' .. i]:setVisible(visible)
-        end
+        -- 깜짝 출현 던전 예외처리
+        if (isAdventStageID(stage_id)) then
+            vars['btnMenu']:setPositionY(0)
+            vars['starMenu']:setVisible(false)
+        else
+            local stage_info = g_adventureData:getStageInfo(stage_id)
+            local num_of_stars = stage_info:getNumberOfStars()
+            for i=1, 3 do
+                local visible = stage_info['mission_' .. i]
+                vars['starSprite' .. i]:setVisible(visible)
+            end
 
-        local desc_list = stage_info:getMissionDescList()
-        for i=1, 3 do
-            vars['infoLabel' .. i]:setString(desc_list[i])
+            local desc_list = stage_info:getMissionDescList()
+            for i=1, 3 do
+                vars['infoLabel' .. i]:setString(desc_list[i])
+            end
         end
     else
         vars['btnMenu']:setPositionY(0)
