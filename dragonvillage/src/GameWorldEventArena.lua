@@ -362,7 +362,7 @@ function GameWorldEventArena:setBattleZone()
     -- 조작 가능 덱
     do
         local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - x_start_offset - rage
-        local offset_y = cameraHomePosY + 20
+        local offset_y = cameraHomePosY - 50
         local distance = 400
         local half_distance = (distance / 2)
         
@@ -393,7 +393,7 @@ function GameWorldEventArena:setBattleZone()
     -- 조작 불가능 덱
     do
         local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - x_start_offset - rage
-        local offset_y = cameraHomePosY + 20
+        local offset_y = cameraHomePosY - 50
         local distance = 400
         local half_distance = (distance / 2)
 
@@ -451,7 +451,7 @@ function GameWorldEventArena:setBattleZoneForEnemys()
     -- 조작 가능 덱
     do
         local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) + x_start_offset
-        local offset_y = cameraHomePosY + 20
+        local offset_y = cameraHomePosY - 50
         local distance = 400
         local half_distance = (distance / 2)
         
@@ -483,7 +483,7 @@ function GameWorldEventArena:setBattleZoneForEnemys()
     -- 조작 불가능 덱
     do
         local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) + x_start_offset
-        local offset_y = cameraHomePosY + 20
+        local offset_y = cameraHomePosY - 50
         local distance = 400
         local half_distance = (distance / 2)
 

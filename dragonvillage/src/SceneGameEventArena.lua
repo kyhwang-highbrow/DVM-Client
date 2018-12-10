@@ -156,7 +156,7 @@ function SceneGameEventArena:prepareDone()
 
     -- 전투에 필수적인 요소만 남겨서 보자
     --self.m_inGameUI.root:setVisible(false)
-    self.m_gameWorld.m_bgNode:setVisible(false)
+    --self.m_gameWorld.m_bgNode:setVisible(false)
 end
 
 -------------------------------------
@@ -359,7 +359,7 @@ end
 -- @return StructUserInfo
 -------------------------------------
 function SceneGameEventArena:getStructUserInfo_Player()
-    local struct_user_info = StructUserInfo()
+    local struct_user_info = g_grandArena:getPlayerGrandArenaUserInfo()
     return struct_user_info
 end
 
@@ -369,6 +369,6 @@ end
 -- @return StructUserInfo
 -------------------------------------
 function SceneGameEventArena:getStructUserInfo_Opponent()
-    local struct_user_info = StructUserInfo()
+    local struct_user_info = g_grandArena:getMatchUserInfo()
     return struct_user_info
 end

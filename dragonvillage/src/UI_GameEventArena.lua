@@ -63,7 +63,28 @@ function UI_GameEventArena:initUI()
     vars['panelBgSprite']:setLocalZOrder(-1)
 
     self:initManaUI()
+
+
+    -- visible off
+    vars['dpsInfoNode']:setVisible(false)
+    vars['manaSprite']:setVisible(false)
+    vars['manaVisual']:setVisible(false)
+    vars['panelBgSprite']:setVisible(false)
 end
+
+
+-------------------------------------
+-- function init_panelUI
+-------------------------------------
+function UI_GameEventArena:init_panelUI()
+    PARENT.init_panelUI(self)
+
+    -- 그랜드 콜로세움에선 하단 UI 사용하지 않음
+    if self.m_panelUI then
+        self.m_panelUI.root:setVisible(false)
+    end
+end
+
 
 -------------------------------------
 -- function initTamerUI

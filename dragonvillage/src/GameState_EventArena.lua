@@ -35,7 +35,8 @@ function GameState_EventArena.update_start(self, dt)
             world:changeCameraOption({
                 pos_x = 0,
                 pos_y = -280,
-                scale = 1,
+                --scale = 1,
+                scale = 0.75,
                 time = 2,
                 cb = function()
                     self:nextStep()
@@ -75,7 +76,7 @@ function GameState_EventArena.update_start(self, dt)
                 pos_x = 0,
                 pos_y = 0,
                 --scale = 0.6,
-                scale = 0.7,
+                scale = 0.75,
                 time = 2,
                 cb = function()
                     self:nextStep()
