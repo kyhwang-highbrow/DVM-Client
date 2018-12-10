@@ -84,6 +84,72 @@ function UI_GrandArena:initTab()
 end
 
 -------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_GrandArena:onChangeTab(tab, first)
+
+    if (tab == 'top_rank') then
+        if (first == true) then
+            local function finish_cb()
+                self:makeRankTableView()
+            end
+            local rank_type = 'top'
+            local offset = 1
+            g_grandArena:request_grandArenaRanking(rank_type, offset, finish_cb)
+        end
+    end
+end
+
+-------------------------------------
+-- function makeRankTableView
+-------------------------------------
+function UI_GrandArena:makeRankTableView()
+    local vars = self.vars
+    local node = vars['rankingListNode']
+    node:removeAllChildren()
+
+    local l_item_list = g_grandArena.m_lGlobalRank
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(550, 90 + 5)
+    table_view:setCellUIClass(UI_GrandArenaSceneRankingListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
+
+    do-- 테이블 뷰 정렬
+        local function sort_func(a, b)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            -- 이전, 다음 버튼 정렬
+            if (a_data.m_tag == 'prev') then
+                return true
+            elseif (b_data.m_tag == 'prev') then
+                return false
+            elseif (a_data.m_tag == 'next') then
+                return false
+            elseif (b_data.m_tag == 'next') then
+                return true
+            end
+
+            -- 랭킹으로 선별
+            local a_rank = conditionalOperator((0 < a_data.m_rank), a_data.m_rank, 9999999)
+            local b_rank = conditionalOperator((0 < b_data.m_rank), b_data.m_rank, 9999999)
+            return a_rank < b_rank
+        end
+
+        table.sort(table_view.m_itemList, sort_func)
+    end
+
+    table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
+end
+
+-------------------------------------
 -- function appearDone
 -- @brief UI전환 종료 시점
 -------------------------------------

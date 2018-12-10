@@ -3916,6 +3916,9 @@
     <None Include="..\src\UI_GrandArenaRankingRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_GrandArenaSceneRankingListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
