@@ -256,7 +256,7 @@ end
 function UI_GrandArenaRankingPopup:makeRankRewardTableView()
     local node = self.vars['rankRewardNode']
 
-    local l_item_list = g_challengeMode.m_challengeRewardTable or {}
+    local l_item_list = g_grandArena.m_grandArenaRewardTable or {}
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)

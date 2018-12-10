@@ -10,7 +10,7 @@ ServerData_GrandArena = class({
         m_nGlobalOffset = 'number',
         m_lGlobalRank = 'list',
         m_matchListStructUserInfo = 'table',
-
+        m_grandArenaRewardTable = 'table',
         -- 서버 로그를 위해 임시 저장
         m_tempLogData = 'table',
     })
@@ -47,6 +47,10 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
         -- 플레이어 랭킹 정보 갱신
         if ret['season'] then
             self:refresh_playerUserInfo(ret['season'], nil)
+        end
+
+        if (ret['table_grand_arena_rank']) then
+            self.m_grandArenaRewardTable = ret['table_grand_arena_rank']
         end
 
         -- 통신 후에는 삭제
