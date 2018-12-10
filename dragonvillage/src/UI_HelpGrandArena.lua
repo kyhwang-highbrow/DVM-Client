@@ -20,13 +20,16 @@ end
 -------------------------------------
 function UI_HelpGrandArena(...)
     local struct_tab_ui = StructTabUI()
-    struct_tab_ui:setPrefix('help_')        -- 사용할 접두어 설정
-    struct_tab_ui:setDefaultTab(...)        -- Depth별 디폴트 탭 설정
-    struct_tab_ui:setAfterFunc(set_after)   -- UI 생성 후 후처리 함수 설정
-    struct_tab_ui:setMakeChildMenuFunc(nil) -- UI 생성 함수 설정
+    struct_tab_ui:setPrefix('help_')                    -- 사용할 접두어 설정
+    struct_tab_ui:setDefaultTab(...)                    -- Depth별 디폴트 탭 설정
+    struct_tab_ui:setAfterFunc(set_after)               -- UI 생성 후 후처리 함수 설정
+    struct_tab_ui:setMakeChildMenuFunc(make_child_menu) -- UI 생성 함수 설정
     return UI_TabUI_AutoGeneration('help_grand_arena.ui', true, 1, struct_tab_ui) -- param ui_name, is_root, ui_depth, struct_tab_ui
 end
 
 
 -- # 접두어로 'help_'가 붙음
--- help_grand_arena                 (help_grand_arena.ui)
+-- help_grand_arena                         (help_grand_arena.ui)
+--      help_grand_reward                   (help_grand_reward.ui)
+--      help_grand_rull                     (help_grand_rull.ui)
+--      help_grand_summary                  (help_grand_summary.ui)
