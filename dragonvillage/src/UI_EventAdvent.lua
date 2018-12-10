@@ -70,7 +70,7 @@ end
 
 -------------------------------------
 -- function click_stageMoveBtn
--- @brief 황금 던전 설명 팝업
+-- @brief 깜짝 출현 챕터 보통 난이도 1스테이지로 보냄
 -------------------------------------
 function UI_EventAdvent:click_stageMoveBtn()
     local advent_default_stage_id = 1119901
