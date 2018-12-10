@@ -1068,6 +1068,7 @@ local t_module = {
     'UI_GrandArenaDeckSettings',
     'UI_GrandArenaMatchList',
     'UI_GrandArenaMatchListItem',
+    'UI_GrandArenaRankingListItem',
     'UI_GrandArenaRankingPopup',
     'UI_LoadingGrandArena',
 
