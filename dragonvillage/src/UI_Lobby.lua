@@ -87,7 +87,8 @@ function UI_Lobby:initUI()
     -- 깜짝 할인 상품 버튼 관리 클래스 생성
     self.m_lobbySpotSaleBtn = UI_LobbySpotSaleBtn(self)
 
-	--self:initParticle()
+    -- particle 관리
+	self:initParticle()
 end
 
 -------------------------------------
@@ -102,15 +103,8 @@ end
 -- function:initParticle
 -------------------------------------
 function UI_Lobby:initParticle()
-	-- 저사양 모드에서는 실행하지 않는다.
-	if (isLowEndMode()) then
-		return
-	end
-
-	local particle = cc.ParticleSystemQuad:create("res/ui/particle/particle_cherry.plist")
-	particle:setAnchorPoint(CENTER_POINT)
-	particle:setDockPoint(CENTER_POINT)
-	self.root:addChild(particle)
+    -- 관리 용이하도록 LobbyMapFactory에서 컨트롤 하도록 함.
+    LobbyMapFactory.makeLobbyParticle(self)
 end
 
 -------------------------------------

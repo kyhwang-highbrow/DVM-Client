@@ -34,6 +34,9 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 		
 		-- 할로윈 장식
 		--self:makeLobbyDeco_onLayer(lobby_ground, 'halloween')
+
+        -- 크리스마스 트리
+        self:makeLobbyDeco_onLayer(lobby_ground, 'christmas')
 	end
 
 	--lobby_map:addLayer(self:makeLobbyDecoLayer('halloween'), 1) -- 근경 할로윈 장식
@@ -216,4 +219,34 @@ function LobbyMapFactory:chcekDayOrNight()
 	else
 		USE_NIGHT = true
 	end
+end
+
+-------------------------------------
+-- function makeLobbyParticle
+-- @brief 관리 차원에서 로비에서 사용되는
+-------------------------------------
+function LobbyMapFactory.makeLobbyParticle(lobby_ui)
+    if (not lobby_ui) then
+        return
+    end
+
+ 	-- 저사양 모드에서는 실행하지 않는다.
+	if (isLowEndMode()) then
+		return
+	end
+    
+    -- on/off 용
+    if (false) then
+        return
+    end
+
+    -- 눈은 밤에만 내리도록 함
+    if (not USE_NIGHT) then
+        return
+    end
+
+	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist")
+	particle:setAnchorPoint(CENTER_POINT)
+	particle:setDockPoint(CENTER_POINT)
+	lobby_ui.root:addChild(particle)
 end
