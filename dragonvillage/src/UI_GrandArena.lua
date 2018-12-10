@@ -88,6 +88,14 @@ end
 -- @brief UI전환 종료 시점
 -------------------------------------
 function UI_GrandArena:appearDone()
+
+    -- 시즌 보상이 있을 경우 팝업
+    if g_grandArena.m_tSeasonRewardInfo then
+        local t_data = g_grandArena.m_tSeasonRewardInfo
+        g_grandArena.m_tSeasonRewardInfo = nil
+        UI_GrandArenaRankingRewardPopup(t_data)
+        return
+    end
 end
 
 -------------------------------------

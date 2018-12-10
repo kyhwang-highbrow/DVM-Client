@@ -1072,6 +1072,7 @@ local t_module = {
     'UI_GrandArenaRankingListItem',
     'UI_GrandArenaRankingRewardListItem',
     'UI_GrandArenaRankingPopup',
+    'UI_GrandArenaRankingRewardPopup',
     'UI_LoadingGrandArena',
 
 	-- UI : 가방
