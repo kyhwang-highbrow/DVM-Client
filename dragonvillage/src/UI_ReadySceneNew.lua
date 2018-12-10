@@ -86,6 +86,9 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     -- 자동 전투 off
     if (stage_id == ARENA_STAGE_ID) then
         g_autoPlaySetting:setMode(AUTO_COLOSSEUM)
+    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (stage_id == GRAND_ARENA_STAGE_ID) then
+        g_autoPlaySetting:setMode(AUTO_GRAND_ARENA)
     else
         g_autoPlaySetting:setMode(AUTO_NORMAL)
     end

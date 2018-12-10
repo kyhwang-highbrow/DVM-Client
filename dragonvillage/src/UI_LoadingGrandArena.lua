@@ -133,7 +133,7 @@ function UI_LoadingGrandArena:initUI()
 
 
     -- 그랜드 콜로세움은 자동으로 진행
-    self:selectAuto(false)
+    self:selectAuto(true)
 end
 
 -------------------------------------
@@ -308,7 +308,7 @@ function UI_LoadingGrandArena:selectAuto(auto_mode)
 
     self.m_bSelected = true
 
-    g_autoPlaySetting:set('auto_mode', auto_mode)
+    g_autoPlaySetting:set('auto_mode', auto_mode) -- AUTO_GRAND_ARENA
 
     -- 서버 Log를 위해 임시저장
     g_grandArena.m_tempLogData['is_auto'] = auto_mode

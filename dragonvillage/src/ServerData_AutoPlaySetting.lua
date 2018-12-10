@@ -15,6 +15,7 @@ ServerData_AutoPlaySetting = class({
 
 AUTO_NORMAL = 'normal'
 AUTO_COLOSSEUM = 'colosseum'
+AUTO_GRAND_ARENA = 'grand_arena'
 -------------------------------------
 -- function init
 -------------------------------------
@@ -24,7 +25,7 @@ function ServerData_AutoPlaySetting:init()
     if (not t_auto_play_setting) then
         t_auto_play_setting = {}
         
-        local l_mode = {AUTO_NORMAL, AUTO_COLOSSEUM}
+        local l_mode = {AUTO_NORMAL, AUTO_COLOSSEUM, AUTO_GRAND_ARENA}
         for _, mode in pairs(l_mode) do
             self:setDefaultSetting(mode, t_auto_play_setting)
         end

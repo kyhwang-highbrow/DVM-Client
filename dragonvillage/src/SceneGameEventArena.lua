@@ -50,7 +50,7 @@ function SceneGameEventArena:onEnter()
 
     SoundMgr:playBGM(self.m_bgmName)
     
-    g_autoPlaySetting:setMode(AUTO_COLOSSEUM)
+    g_autoPlaySetting:setMode(AUTO_GRAND_ARENA)
 
     if (IS_ARENA_AUTOPLAY()) then -- 테스트 모드에서 연속전투 활성화
     else
