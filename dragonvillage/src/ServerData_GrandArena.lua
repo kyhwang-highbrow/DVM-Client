@@ -54,6 +54,14 @@ function ServerData_GrandArena:isActive_grandArena()
 end
 
 -------------------------------------
+-- function isPreseason
+-- @brief 연습전 기간인지
+-------------------------------------
+function ServerData_GrandArena:isPreseason()
+    return (self:getGrandArenaState() == ServerData_GrandArena.STATE['PRESEASON'])
+end
+
+-------------------------------------
 -- function getGrandArenaState
 -- @brief 그랜드 콜로세움 상태
 -- @use ServerData_GrandArena.STATE

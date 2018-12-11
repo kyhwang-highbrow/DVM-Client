@@ -720,6 +720,12 @@ function UINavigatorDefinition:goTo_grand_arena(...)
 
     end
 
+    -- 연습전 기간
+    if g_grandArena:isPreseason() then
+        finish_cb()
+        return
+    end
+
     -- 정보 요청
     g_grandArena:request_grandArenaInfo(finish_cb, fail_cb, true) -- param : finish_cb, fail_cb, include_reward)
 end
