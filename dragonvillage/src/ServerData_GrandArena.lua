@@ -11,6 +11,9 @@ ServerData_GrandArena = class({
         m_lGlobalRank = 'list',
         m_matchListStructUserInfo = 'table',
         m_grandArenaRewardTable = 'table',
+        
+        -- Ranking tier 정보 필요해서 서버에서 받음, table_grand_arena
+        m_grandArenaRankingInfoTable = 'table',
 
         -- 시즌 보상 획득 상태
         -- 0 -> 이번 시즌 보상 받을게 있음
@@ -124,6 +127,11 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
         -- 시즌 보상 정보 저장
         if (ret['table_grand_arena_rank']) then
             self.m_grandArenaRewardTable = ret['table_grand_arena_rank']
+        end
+
+        -- 랭킹 정보 테이블 저장
+        if (ret['table_grand_arena']) then
+            self.m_grandArenaRankingInfoTable = ret['table_grand_arena']
         end
 
         -- 통신 후에는 삭제
