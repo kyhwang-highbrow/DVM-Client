@@ -27,9 +27,9 @@ function GameWorldForDoubleTeam:init()
         local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
         sel_deck = multi_deck_mgr:getMainDeck()
 
+    -- 그랜드 콜로세움은 자동으로 진행. 조작 가능한 덱이 없음
     elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
-        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
-        sel_deck = multi_deck_mgr:getMainDeck()
+        sel_deck = 'up'
 
     else
         error('invalid game mode : ' .. self.m_gameMode)
