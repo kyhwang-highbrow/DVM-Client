@@ -180,7 +180,7 @@ function UI_GrandArena:refresh()
 
         -- 티어 이름
         local tier_name = struct_user_info:getTierName()
-        vars['tierLabel1']:setString(tier_name)
+        vars['tierLabel']:setString(tier_name)
 
         -- 순위, 점수, 승률
         local str = struct_user_info:getGrandArena_RankText(true) .. '\n'
