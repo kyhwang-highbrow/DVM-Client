@@ -47,7 +47,7 @@ function UI_GrandArenaMatchListItem:refresh()
     -- 전투력
     local combat_power_up = struct_user_info:getDeckCombatPowerByDeckname('grand_arena_up') or 0
     local combat_power_down = struct_user_info:getDeckCombatPowerByDeckname('grand_arena_down') or 0
-    local combat_power_str = comma_value(combat_power_up, combat_power_down)
+    local combat_power_str = comma_value(combat_power_up + combat_power_down)
     vars['powerLabel']:setString(Str('전투력 : {1}', combat_power_str))
 
     -- 테이머 아이콘
