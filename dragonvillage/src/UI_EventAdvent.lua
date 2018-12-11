@@ -11,6 +11,10 @@ UI_EventAdvent = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventAdvent:init()
+    -- summon.vrp를 에러 메시지 없이 불러오려면 아래 plist를 SpriteFrameCache에 올려줘야한다.
+    -- 하지만 에러 메세지 없애자고 메모리를 낭비할 필요는 없음
+    -- Translate:a2dTranslate('ui/a2d/summon/summon_cut.plist')
+
     local vars = self:load('event_advent.ui')
 
     self:initUI()
