@@ -62,6 +62,18 @@ function ServerData_GrandArena:getGrandArenaState()
 	if (not g_hotTimeData) then
 		return ServerData_GrandArena.STATE['INACTIVE']
 
+    --[[
+    -- 연습전
+    elseif (g_hotTimeData:isActiveEvent('event_grand_arena_preseason')) then
+        -- 레벨 체크
+		if (g_contentLockData:isContentLock('grand_arena')) then
+			return ServerData_GrandArena.STATE['LOCK']
+
+		else
+			return ServerData_GrandArena.STATE['PRESEASON']
+		end
+    --]]
+
 	-- 이벤트 기간
 	elseif (g_hotTimeData:isActiveEvent('event_grand_arena')) then
 		
@@ -605,6 +617,14 @@ end
 -- function getGrandArenaStatusText
 -------------------------------------
 function ServerData_GrandArena:getGrandArenaStatusText()
+    
+    -- 연습전 기간 (프리시즌)
+    if (self:getGrandArenaState() == ServerData_GrandArena.STATE['PRESEASON']) then
+        local time = g_hotTimeData:getEventRemainTime('event_grand_arena_preseason') or 0
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        return str
+    end
+
     local time = g_hotTimeData:getEventRemainTime('event_grand_arena') or 0
 
     local str = ''

@@ -55,8 +55,16 @@ function UI_BannerGrandArena:update(dt)
 
     local state = g_grandArena:getGrandArenaState()
     
+    -- 연습전
+    if (state == ServerData_GrandArena.STATE['PRESEASON']) then
+        local text = g_grandArena:getGrandArenaStatusText()
+        vars['timeLabel']:setString(text)
+
+        local text = ''
+        vars['descLabel']:setString(text)
+
     -- 이벤트 진행 중
-    if (state == ServerData_GrandArena.STATE['OPEN']) then
+    elseif (state == ServerData_GrandArena.STATE['OPEN']) then
         local text = g_grandArena:getGrandArenaStatusText()
         vars['timeLabel']:setString(text)
 

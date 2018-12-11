@@ -51,7 +51,7 @@ function UI_GrandArena:initUI()
         end
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
-    self:initTab()
+    --self:initTab()
 
     -- 프리시즌 (연습전)
     local grand_arena_state = g_grandArena:getGrandArenaState()
@@ -59,10 +59,16 @@ function UI_GrandArena:initUI()
         vars['reserveNode']:setVisible(true)
         vars['reservePeriodLabel']:setVisible(true)
         vars['officialPeriodLabel']:setVisible(false)
+
+        vars['rankingBtn']:setVisible(false)
     else
         vars['reserveNode']:setVisible(false)
         vars['reservePeriodLabel']:setVisible(false)
         vars['officialPeriodLabel']:setVisible(true)
+
+        vars['rankingBtn']:setVisible(true)
+
+        self:initTab()
     end
 end
 

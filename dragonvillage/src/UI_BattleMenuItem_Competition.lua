@@ -277,6 +277,8 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_grandArena()
 	local use_timer = false
 	local has_reward = false
 	local timer_key
+    local param_title
+    local param_msg
 
 	-- 비활성화 상태 .. 정상적이라면 여기로 들어오지 않는다.
 	if (state == ServerData_GrandArena.STATE['INACTIVE']) then
@@ -286,6 +288,14 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_grandArena()
 	elseif (state == ServerData_GrandArena.STATE['LOCK']) then
 		use_timer = true
 		timer_key = 'event_grand_arena'
+
+    -- 연습전
+    elseif (state == ServerData_GrandArena.STATE['PRESEASON']) then
+
+		use_timer = true
+		timer_key = 'event_grand_arena_preseason'
+        param_title = Str('연습전 종료까지')
+        param_msg = '{1} 남음'
 
 	-- 그림자의 신전 사용 가능 상태
 	elseif (state == ServerData_GrandArena.STATE['OPEN']) then
@@ -313,7 +323,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_grandArena()
 
 	-- 타이머 사용하는 경우 스케쥴러 등록
 	if (use_timer) then
-		self:startUpdateChallengeMode(timer_key, has_reward)
+		self:startUpdateChallengeMode(timer_key, has_reward, param_title, param_msg)
 	end
 
 	return t_item, text_1, text_2, desc
@@ -323,10 +333,13 @@ end
 -- function updateChallengeMode
 -- @brief 이벤트 그림자의 신전
 -------------------------------------
-function UI_BattleMenuItem_Competition:startUpdateChallengeMode(timer_key, has_reward)
+function UI_BattleMenuItem_Competition:startUpdateChallengeMode(timer_key, has_reward, param_title, param_msg)
 	local vars = self.vars
 	local timer = 1
 	local title = (has_reward) and Str('보상 수령 가능') or Str('기간 한정 이벤트')
+    if param_title then
+        title = param_title
+    end
 		
 	vars['timeSprite']:setVisible(true)
 		
@@ -348,7 +361,10 @@ function UI_BattleMenuItem_Competition:startUpdateChallengeMode(timer_key, has_r
 					return
 				end
 
-				local time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
+                local time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
+                if param_msg then
+                    time_str = Str(param_msg, datetime.makeTimeDesc(time))
+                end
 				vars['timeLabel']:setString(title .. '\n' .. time_str)
 			end
 		end
