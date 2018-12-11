@@ -597,8 +597,8 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
         -- dragon
         local evolution = 3
         local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)
-        animator:setPositionY(50)
-        animator:setScale(0.5)
+        animator:setPositionY(32)
+        animator:setScale(0.38)
         animator:setFlip(math_random(2) == 1)
         animator:setTimeScale(math_random(64,128)/100)
         self.m_adventDragonAniList[i] = animator
