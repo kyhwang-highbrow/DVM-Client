@@ -114,7 +114,7 @@ function GameState_EventArena:makeResultUI(is_win)
     -- 연습전 (개발 모드일 경우)
     local world = self.m_world
     if (world.m_bDevelopMode == true) then
-        local t_data = { added_rp = 0, added_gold = 0 }
+        local t_data = { added_rp = 0, added_gold = 0, develop_mode = true }
         UI_EventArenaResult(is_win, t_data)
         return
     end

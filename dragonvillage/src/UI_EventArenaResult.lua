@@ -37,6 +37,12 @@ function UI_EventArenaResult:init(is_win, t_data)
 
     self:setWorkList()
     self:doNextWork()
+
+
+    if (t_data['develop_mode'] == true) then
+        vars['colosseumNode']:setVisible(false)
+        vars['resultBgSprite']:setVisible(false)
+    end
 end
 
 -------------------------------------
