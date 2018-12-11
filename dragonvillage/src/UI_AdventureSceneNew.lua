@@ -466,7 +466,9 @@ function UI_AdventureSceneNew:refreshChapter_common(chapter, difficulty, stage)
         vars['adventStagePathSprite']:setVisible(false)
         vars['achieveBtnMenu']:setVisible(true)
 
-        vars['adventChapterBtn']:setVisible(g_hotTimeData:isActiveEvent('event_advent'))
+        local is_active_advent = g_hotTimeData:isActiveEvent('event_advent')
+        vars['adventChapterBtn']:setVisible(is_active_advent)
+        vars['adventBtnVisual']:setVisible(is_active_advent)
         vars['adventureBtn']:setVisible(false)
 
         -- 파티클 있다면 제거
@@ -564,6 +566,7 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
         vars['achieveBtnMenu']:setVisible(false)
 
         vars['adventChapterBtn']:setVisible(false)
+        vars['adventBtnVisual']:setVisible(false)
         vars['adventureBtn']:setVisible(true)
 
         -- 눈 파티클 추가
