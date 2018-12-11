@@ -162,8 +162,17 @@ function UI_TamerCostumeListItem:setPriceData(is_sale)
         vars['saleTimeLabel']:setString(msg)
         vars['salePriceNode']:addChild(price_icon)
     else
-        vars['priceLabel']:setString(comma_value(price))
-        vars['priceNode']:removeAllChildren()
-        vars['priceNode']:addChild(price_icon)
+        -- 가격 정보가 있을 경우
+        if (type(price) == 'number') then
+            vars['priceLabel']:setString(comma_value(price))
+            vars['priceNode']:removeAllChildren()
+            vars['priceNode']:addChild(price_icon)
+        -- 가격 정보가 없을 경우 '구매 불가'
+        else
+            vars['finishBtn']:setVisible(true)
+            vars['finishBtn']:setEnabled(false)
+            vars['buyBtn']:setEnabled(false)
+            vars['selectBtn']:setEnabled(false)
+        end
     end
 end
