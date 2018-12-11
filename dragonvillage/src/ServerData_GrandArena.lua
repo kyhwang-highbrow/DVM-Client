@@ -63,7 +63,6 @@ function ServerData_GrandArena:getGrandArenaState()
 	if (not g_hotTimeData) then
 		return ServerData_GrandArena.STATE['INACTIVE']
 
-    --[[
     -- 연습전
     elseif (g_hotTimeData:isActiveEvent('event_grand_arena_preseason')) then
         -- 레벨 체크
@@ -73,7 +72,6 @@ function ServerData_GrandArena:getGrandArenaState()
 		else
 			return ServerData_GrandArena.STATE['PRESEASON']
 		end
-    --]]
 
 	-- 이벤트 기간
 	elseif (g_hotTimeData:isActiveEvent('event_grand_arena')) then
@@ -726,3 +724,16 @@ function ServerData_GrandArena:request_grandArenaHistory(type, finish_cb, fail_c
 	return ui_network
 end
 
+-------------------------------------
+-- function setPreseasonData
+-------------------------------------
+function ServerData_GrandArena:setPreseasonData()
+    -- 매치 리스트를 StructUserInfoArena로 생성
+    self.m_matchListStructUserInfo = {}
+
+    self.m_matchListStructUserInfo[1] = StructUserInfoArena:createUserInfo_forGrandArena(TABLE:loadJsonTable('grand_arena_bot1', '.txt'))
+    self.m_matchListStructUserInfo[2] = StructUserInfoArena:createUserInfo_forGrandArena(TABLE:loadJsonTable('grand_arena_bot2', '.txt'))
+    self.m_matchListStructUserInfo[3] = StructUserInfoArena:createUserInfo_forGrandArena(TABLE:loadJsonTable('grand_arena_bot3', '.txt'))
+    self.m_matchListStructUserInfo[4] = StructUserInfoArena:createUserInfo_forGrandArena(TABLE:loadJsonTable('grand_arena_bot4', '.txt'))
+    self.m_matchListStructUserInfo[5] = StructUserInfoArena:createUserInfo_forGrandArena(TABLE:loadJsonTable('grand_arena_bot5', '.txt'))
+end

@@ -25,6 +25,25 @@ function UI_GrandArenaDeckSettings:init(stage_id, sub_info)
 end
 
 -------------------------------------
+-- function initButton
+-------------------------------------
+function UI_GrandArenaDeckSettings:initButton()
+    PARENT.initButton(self)
+    local vars = self.vars
+
+    -- 연습전 기간일 경우
+    local grand_arena_state = g_grandArena:getGrandArenaState()
+    if (grand_arena_state == ServerData_GrandArena.STATE['PRESEASON']) then
+        vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn_preseason() end)
+
+        -- 연속 전투 버튼 숨김
+        vars['autoStartOnBtn']:setVisible(false)
+        vars['manageBtn']:setPositionX(80)
+        vars['teamBonusBtn']:setPositionX(-80)
+    end
+end
+
+-------------------------------------
 -- function getCurrTamerID
 -------------------------------------
 function UI_GrandArenaDeckSettings:getCurrTamerID()
@@ -195,6 +214,43 @@ function UI_GrandArenaDeckSettings:click_startBtn()
         UI_GrandArenaMatchList()
     end
 
+
+    -- 시작 함수 호출
+    check_change_deck()
+end
+
+-------------------------------------
+-- function click_startBtn_preseason
+-- @brief 시작 버튼 (연습전 기간)
+-------------------------------------
+function UI_GrandArenaDeckSettings:click_startBtn_preseason()
+    local check_change_deck
+    local check_deck_setting
+    local open_matchlist_ui
+
+    -- 덱 변경 확인 (덱이 변경되었으면 갱신 통신)
+    check_change_deck = function()
+        self:checkChangeDeck(check_deck_setting)
+    end
+
+    -- 그랜드 콜로세움 덱이 설정되었는지 여부 체크
+    check_deck_setting = function()
+        -- 상단, 하단 덱 모두 체크
+        local multi_deck_mgr = self.m_multiDeckMgr
+        if (not multi_deck_mgr:checkDeckCondition()) then
+            return
+        end
+
+        open_matchlist_ui()
+    end
+
+    -- 매치리스트
+    open_matchlist_ui = function()
+
+        -- 프리시즌용 데이터 설정 후 UI 이동
+        g_grandArena:setPreseasonData()
+        UI_GrandArenaMatchList(true) -- param : is_preseason
+    end
 
     -- 시작 함수 호출
     check_change_deck()

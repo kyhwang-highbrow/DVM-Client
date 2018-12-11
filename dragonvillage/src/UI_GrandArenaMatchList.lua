@@ -4,6 +4,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -- class UI_GrandArenaMatchList
 -------------------------------------
 UI_GrandArenaMatchList = class(PARENT, {
+        m_bPreseason = 'boolean',
         m_selectedMatchUserUI = 'UI_GrandArenaMatchListItem',
         m_matchUserUIList = 'list[UI_GrandArenaMatchListItem]',
     })
@@ -11,7 +12,8 @@ UI_GrandArenaMatchList = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GrandArenaMatchList:init()
+function UI_GrandArenaMatchList:init(is_preseason)
+    self.m_bPreseason = is_preseason
     local vars = self:load('grand_arena_match_list.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -259,13 +261,21 @@ function UI_GrandArenaMatchList:click_startBtn()
     g_grandArena:setMatchUserInfo(struct_user_info)
 
 
-    local function finish_cb(game_key)
+    local function finish_cb(game_key, develop_mode)
         -- 매칭 상대 데이터 설정
         -- 시작이 두번 되지 않도록 하기 위함
         UI_BlockPopup()
 
-        local scene = SceneGameEventArena(game_key, ARENA_STAGE_ID, 'stage_colosseum', false, false) -- game_key, stage_id, stage_name, develop_mode, friend_match
+        local scene = SceneGameEventArena(game_key, ARENA_STAGE_ID, 'stage_colosseum', develop_mode, false) -- game_key, stage_id, stage_name, develop_mode, friend_match
         scene:runScene()
+    end
+
+    -- 연습전
+    if (self.m_bPreseason) then
+        local game_key = nil
+        local develop_mode = true
+        finish_cb(game_key, develop_mode)
+        return
     end
 
     local vs_uid = struct_user_info:getUid()

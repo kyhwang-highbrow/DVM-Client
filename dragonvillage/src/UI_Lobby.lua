@@ -181,7 +181,7 @@ function UI_Lobby:entryCoroutine()
         end
 
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
-        if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
+        if (g_hotTimeData:isActiveEvent('event_grand_arena_preseason') or g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
         	co:work('# 그랜드 콜로세움 정보 받는 중')
             g_grandArena:request_grandArenaInfo(co.NEXT, required_fail_cb, false) -- param : finish_cb, fail_cb, include_reward
             if co:waitWork() then return end
