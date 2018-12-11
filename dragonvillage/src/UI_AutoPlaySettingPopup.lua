@@ -116,6 +116,7 @@ function UI_AutoPlaySettingPopup:initUI()
 		vars['autoMenu5']:setVisible(false)
         vars['autoMenu6']:setVisible(true)
 		vars['autoMenu3']:setVisible(false)
+        vars['autoStartInfoLabel']:setString(Str('연속 전투시 상대 팀이 자동으로 선택됩니다.'))
 
 	else
 		vars['autoMenu4']:setVisible(false)

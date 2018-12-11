@@ -214,12 +214,14 @@ function ServerData_GrandArena:request_grandArenaGetMatchList(is_cash, finish_cb
         -- -1108 not exist match (매칭 상대가 없음)
         if (ret['status'] == -1108) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('현재 점수 구간 내의 대전 가능한 상대가 없습니다.\n다른 상대의 콜로세움 참여를 기다린 후에 다시 시도해 주세요.'), ok_cb)
+            if fail_cb then fail_cb() end
             return true
 
         -- -1278 not enough st_grand_arena
         elseif (ret['status'] == -1278) then
             local msg = Str('입장권이 부족합니다.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
+            if fail_cb then fail_cb() end
             return true
         end
 

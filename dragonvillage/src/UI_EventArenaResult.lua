@@ -226,36 +226,87 @@ end
 -- @brief 바로재시작 버튼
 -------------------------------------
 function UI_EventArenaResult:click_quickBtn()
-    local start_func = function()
-        self:startGame()
-    end
+    local check_stamina_type
+        local confirm_cash_stamina -- 상황에 따라 호출되는 함수여서 들여쓰기함
+    local request_match_list
+    local request_start
+    local start_game
 
+
+    local NEED_CASH = 50
     local cancel_func = function()
         -- 자동 전투 off
         g_autoPlaySetting:setAutoPlay(false)
     end
 
-    -- 콜로세움에선 룬 획득, 드래곤 획득 없으므로 입장권만 체크
-    local need_cash = 50 -- 유료 입장 다이아 개수
-
-    -- 기본 입장권 부족시
-    if (not g_staminasData:checkStageStamina(ARENA_STAGE_ID)) then
-        -- 유료 입장권 체크
-        local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_ext', 1)
-        if (is_enough) then
-            is_cash = true
-            local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', need_cash)
-            MakeSimplePopup_Confirm('cash', need_cash, msg, start_func, cancel_func)
-
-        -- 유료 입장권도 부족시 입장 불가 
+    -- 입장권 확인
+    -- grand_arena를 사용하고 모두 소모하면 다이아와 함께 grand_arena_ext를 소모
+    check_stamina_type = function()
+        -- stage_id에 해당하는 stamina가 있는지 확인
+        if (g_staminasData:checkStageStamina(GRAND_ARENA_STAGE_ID)) then
+            request_match_list(false) -- param : is_cash
         else
-            local msg = Str('입장권을 모두 소모하였습니다.')
-            MakeSimplePopup(POPUP_TYPE.OK, msg, cancel_func)
+            confirm_cash_stamina()
         end
-    else
-        is_cash = false
-        start_func()
     end
+
+        -- 다이아로 입장이 필요한 경우 (상황에 따라 호출되는 함수여서 들여쓰기함)
+        confirm_cash_stamina = function()
+            -- 유료 입장권 체크
+            local is_enough, insufficient_num = g_staminasData:hasStaminaCount('grand_arena_ext', 1)
+            if (is_enough) then
+                local function request()
+                    request_match_list(true) -- param : is_cash
+                end
+                local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', NEED_CASH)
+                MakeSimplePopup_Confirm('cash', NEED_CASH, msg, request, cancel_func)
+
+            -- 유료 입장권 부족시 입장 불가 
+            else
+                local msg = Str('입장권을 모두 소모하였습니다.')
+                MakeSimplePopup(POPUP_TYPE.OK, msg, cancel_func)
+            end
+        end
+
+    -- 매치 리스트 정보 얻어옴
+    request_match_list = function(is_cash)
+        local finish_cb = request_start
+        local fail_cb = cancel_func
+        g_grandArena:request_grandArenaGetMatchList(is_cash, finish_cb, fail_cb) -- param : is_cash, finish_cb, fail_cb
+    end
+
+    -- 매칭된 유저 중 1명을 랜덤으로 선택하여 start
+    request_start = function()
+        -- 매칭된 유저 중 1명 랜덤으로
+        local count = table.count(g_grandArena.m_matchListStructUserInfo)
+        local struct_user_info = g_grandArena.m_matchListStructUserInfo[math_random(1, count)]
+        g_grandArena:setMatchUserInfo(struct_user_info)
+
+        -- start 통신
+        local vs_uid = struct_user_info:getUid()
+        local combat_power = struct_user_info:getDeckCombatPowerByDeckname('grand_arena_up') + struct_user_info:getDeckCombatPowerByDeckname('grand_arena_down')
+        local finish_cb = start_game
+        local fail_cb = cancel_func
+        g_grandArena:requestGameStart(vs_uid, combat_power, finish_cb, fail_cb) -- vs_uid, finish_cb, fail_cb
+    end
+
+    -- 게임 시작
+    start_game = function(game_key)
+        -- 시작이 두번 되지 않도록 하기 위함(시작 버튼 클릭 막기용)
+        UI_BlockPopup()
+
+        -- 연속 전투일 경우 횟수 증가
+		if (g_autoPlaySetting:isAutoPlay()) then
+			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+		end
+
+        -- 게임으로 진입
+        local scene = SceneGameEventArena(game_key, ARENA_STAGE_ID, 'stage_colosseum', false, false) -- game_key, stage_id, stage_name, develop_mode, friend_match
+        scene:runScene()
+    end
+
+    -- 시작 함수 호출
+    check_stamina_type()
 end
 
 -------------------------------------
