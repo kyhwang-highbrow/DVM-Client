@@ -131,7 +131,10 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
 
         -- 랭킹 정보 테이블 저장
         if (ret['table_grand_arena']) then
-            self.m_grandArenaRankingInfoTable = ret['table_grand_arena']
+            if (not self.m_grandArenaRankingInfoTable) then
+                local list = ret['table_grand_arena']
+                self.m_grandArenaRankingInfoTable = table.listToMap(list, 'tid')
+            end
         end
 
         -- 통신 후에는 삭제
@@ -627,8 +630,8 @@ function ServerData_GrandArena:requestUserDeck_grandArena(peer_uid)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
-        --local struct_user_info = StructUserInfoArena:createUserInfo(ret['pvpuser_info'])
-        UI_UserDeckInfo_GrandArena_Popup()
+        local struct_user_info = StructUserInfoArena:createUserInfo(ret['pvpuser_info'])
+        UI_UserDeckInfo_GrandArena_Popup(struct_user_info)
     end
 
     local function fail_cb(ret)
@@ -648,3 +651,16 @@ function ServerData_GrandArena:requestUserDeck_grandArena(peer_uid)
     ui_network:setFailCB(fail_cb)
     ui_network:request()
 end
+
+-------------------------------------
+-- function getTierGroupByTierId
+-------------------------------------
+function ServerData_GrandArena:getTierGroupByTierId(tier_id)
+    if (not self.m_grandArenaRankingInfoTable[tier_id]) then
+        return nil
+    end
+
+    return self.m_grandArenaRankingInfoTable[tier_id]['group']
+end
+
+

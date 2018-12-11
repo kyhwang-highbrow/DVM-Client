@@ -66,6 +66,13 @@ function UI_GrandArenaRankingListItem:initUI()
         end
     end
 
+    do -- 티어 아이콘
+        local icon = t_rank_info:makeTierIcon(nil, 'small')
+        vars['tierNode']:addChild(icon)
+
+        vars['tierLabel']:setString(t_rank_info:getTierName())
+    end
+
     do -- 내 순위 UI일 경우
         local uid = g_userData:get('uid')
         local is_my_rank = (uid == t_rank_info.m_uid)

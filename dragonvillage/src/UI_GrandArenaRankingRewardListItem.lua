@@ -63,6 +63,17 @@ function UI_GrandArenaRankingRewardListItem:initUI()
 
     vars['rewardLabel1']:setString(comma_value(cash))
     vars['rewardLabel2']:setString(comma_value(valor))
+
+    -- 티어 (예외처리 안한 상태)
+    local struct_colosseum = StructUserInfoColosseum()
+    local tier_group = g_grandArena:getTierGroupByTierId(t_reward_info['tier_id'])
+    local tier_name = struct_colosseum:getTierName(tier_group)
+    local icon = struct_colosseum:makeTierIcon(tier_group, 'small')
+
+    if (icon) then
+        vars['tierNode']:addChild(icon)
+        vars['tierLabel']:setString(Str(tier_name))
+    end
 end
 
 -------------------------------------
