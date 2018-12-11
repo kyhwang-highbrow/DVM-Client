@@ -701,19 +701,14 @@ function ServerData_GrandArena:getTierNameByTierId(tier_id)
 end
 
 -------------------------------------
--- function request_arenaHistory
+-- function request_grandArenaHistory
 -------------------------------------
-function ServerData_GrandArena:request_arenaHistory(type, finish_cb, fail_cb)
+function ServerData_GrandArena:request_grandArenaHistory(type, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
-    end
-
-    -- 콜백 함수
-    local function fail_cb(ret)
-       
     end
 
     -- 네트워크 통신 UI 생성

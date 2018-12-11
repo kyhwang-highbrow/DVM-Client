@@ -103,6 +103,20 @@ function UI_GrandArena:onChangeTab(tab, first)
             local offset = 1
             g_grandArena:request_grandArenaRanking(rank_type, offset, finish_cb)
         end
+    elseif (tab == 'defense') then
+        if (first == true) then
+            local function finish_cb()
+                self:makeHistoryTableView(tab)
+            end
+            g_grandArena:request_grandArenaHistory('def', finish_cb, nil) -- param : type, finish_cb, fail_cb
+        end
+    elseif (tab == 'offense') then
+        if (first == true) then
+            local function finish_cb()
+                self:makeHistoryTableView(tab)
+            end 
+            g_grandArena:request_grandArenaHistory('atk', finish_cb, nil) -- param : type, finish_cb, fail_cb
+        end
     end
 end
 
@@ -153,6 +167,28 @@ function UI_GrandArena:makeRankTableView()
     end
 
     table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
+end
+
+-------------------------------------
+-- function makeHistoryTableView
+-------------------------------------
+function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
+    local vars = self.vars
+    local node = vars['rankingListNode']
+    node:removeAllChildren()
+
+    local l_item_list = g_grandArena.m_lGlobalRank
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(550, 90 + 5)
+    table_view:setCellUIClass(UI_GrandArenaSceneRankingListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
 end
 
 -------------------------------------
