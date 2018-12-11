@@ -628,7 +628,7 @@ function ServerData_GrandArena:requestUserDeck_grandArena(peer_uid)
 
     local function success_cb(ret)
         --local struct_user_info = StructUserInfoArena:createUserInfo(ret['pvpuser_info'])
-        --UI_UserDeckInfoPopupNew(struct_user_info)
+        UI_UserDeckInfo_GrandArena_Popup()
     end
 
     local function fail_cb(ret)

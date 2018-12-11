@@ -1500,6 +1500,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_TutorialPlayer.lua" />
     <None Include="..\src\UI_UserDeckInfoPopup.lua" />
     <None Include="..\src\UI_UserDeckInfoPopupNew.lua" />
+    <None Include="..\src\UI_UserDeckInfo_GrandArena_Popup.lua" />
     <None Include="..\src\UI_UserInfoDetailPopup.lua" />
     <None Include="..\src\UI_UserInfoDetailPopup_SetLeader.lua" />
     <None Include="..\src\UI_UserInfoDetailPopup_SetTitle.lua" />
