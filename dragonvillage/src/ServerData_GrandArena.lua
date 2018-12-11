@@ -603,3 +603,30 @@ function ServerData_GrandArena:getGrandArenaStatusText()
 
     return str
 end
+
+-------------------------------------
+-- function requestUserDeck_grandArena
+-------------------------------------
+function ServerData_GrandArena:requestUserDeck_grandArena(peer_uid)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        --local struct_user_info = StructUserInfoArena:createUserInfo(ret['pvpuser_info'])
+        --UI_UserDeckInfoPopupNew(struct_user_info)
+    end
+
+    local function fail_cb(ret)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setRevocable(true)
+    ui_network:setUrl('/game/grand_arena/user_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('peer', peer_uid)
+    if (history_id) then
+        ui_network:setParam('oid', history_id)
+    end
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
