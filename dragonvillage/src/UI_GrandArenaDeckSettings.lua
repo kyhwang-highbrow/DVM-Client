@@ -16,39 +16,12 @@ UI_GrandArenaDeckSettings = class(PARENT,{
 function UI_GrandArenaDeckSettings:init(stage_id, sub_info)
     local vars = self.vars
 
-    --[[
     -- 유료 입장권
     local icon = IconHelper:getItemIcon(ITEM_ID_CASH)
     icon:setScale(0.5)
     vars['staminaExtNode']:addChild(icon)
     vars['actingPowerExtLabel']:setString(NEED_CASH)
     vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
-    --]]
-end
-
--------------------------------------
--- function networkGameStart
--- @breif
--- '전투 시작' 버튼을 클릭하고 각종 조건을 체크 후 최종적으로 버서와 통신하는 코드
---  (sgkim 2019.12.06 기준)
---  click_startBtn
---      checkChangeDeck
---      check_startCondition
---      checkPromoteAutoPick
---      startGame
---          networkGameStart <-----
---              replaceGameScene
--------------------------------------
-function UI_GrandArenaDeckSettings:networkGameStart()
-    local function finish_cb(game_key)
-        --self:replaceGameScene(game_key)
-        UI_GrandArenaMatchList()
-    end
-
-    local deck_name = g_deckData:getSelectedDeckName()
-    local combat_power = self.m_readySceneDeck:getDeckCombatPower()
-
-    g_grandArena:request_grandArenaGetMatchList(false, finish_cb, nil) -- param : is_cash, finish_cb, fail_cb
 end
 
 -------------------------------------
@@ -109,4 +82,99 @@ function UI_GrandArenaDeckSettings:update_stamina(dt)
 
     -- 기본 입장권 & 유료 입장권 둘다 부족한 경우 - 시작 버튼 비활성화
     vars['startBtn']:setEnabled(is_enough or is_enough_ext)
+end
+
+-------------------------------------
+-- function click_startBtn
+-- @brief 시작 버튼
+-------------------------------------
+function UI_GrandArenaDeckSettings:click_startBtn()
+    local check_change_deck
+    local check_deck_setting
+    local check_dragon_inven
+    local check_item_inven
+    local check_stamina_type
+        local confirm_cash_stamina -- 상황에 따라 호출되는 함수여서 들여쓰기함
+    local request_match_list
+    local open_match_list_ui
+    local start_game
+
+
+    -- 덱 변경 확인 (덱이 변경되었으면 갱신 통신)
+    check_change_deck = function()
+        self:checkChangeDeck(check_deck_setting)
+    end
+
+    -- 그랜드 콜로세움 덱이 설정되었는지 여부 체크
+    check_deck_setting = function()
+        -- 상단, 하단 덱 모두 체크
+        local multi_deck_mgr = self.m_multiDeckMgr
+        if (not multi_deck_mgr:checkDeckCondition()) then
+            return
+        end
+
+        check_dragon_inven()
+    end
+
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            self:click_manageBtn()
+        end
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+    end
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            UI_Inventory()
+        end
+        g_inventoryData:checkMaximumItems(check_stamina_type, manage_func)
+    end
+
+    -- 입장권 확인
+    -- grand_arena를 사용하고 모두 소모하면 다이아와 함께 grand_arena_ext를 소모
+    check_stamina_type = function()
+        -- stage_id에 해당하는 stamina가 있는지 확인
+        if (g_staminasData:checkStageStamina(GRAND_ARENA_STAGE_ID)) then
+            request_match_list(false) -- param : is_cash
+        else
+            confirm_cash_stamina()
+        end
+    end
+
+        -- 다이아로 입장이 필요한 경우 (상황에 따라 호출되는 함수여서 들여쓰기함)
+        confirm_cash_stamina = function()
+            -- 유료 입장권 체크
+            local is_enough, insufficient_num = g_staminasData:hasStaminaCount('grand_arena_ext', 1)
+            if (is_enough) then
+                local function request()
+                    request_match_list(true) -- param : is_cash
+                end
+                local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', NEED_CASH)
+                MakeSimplePopup_Confirm('cash', NEED_CASH, msg, request)
+
+            -- 유료 입장권 부족시 입장 불가 
+            else
+                -- 스케쥴러에서 버튼 비활성화로 막혀있는 상태 (클릭이 불가능한 상황)
+            end
+        end
+
+    -- 매치 리스트 정보 얻어옴
+    request_match_list = function(is_cash)
+        local finish_cb = open_match_list_ui
+        g_grandArena:request_grandArenaGetMatchList(is_cash, finish_cb, nil) -- param : is_cash, finish_cb, fail_cb
+
+        -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
+        self.vars['itemMenu']:unscheduleUpdate()
+    end
+
+    -- 매치 리스트 UI 오픈
+    open_match_list_ui = function()
+        UI_GrandArenaMatchList()
+    end
+
+
+    -- 시작 함수 호출
+    check_change_deck()
 end
