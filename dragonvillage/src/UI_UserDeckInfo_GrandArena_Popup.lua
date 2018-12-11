@@ -42,8 +42,8 @@ end
 function UI_UserDeckInfo_GrandArena_Popup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['teamBonusBtn1']:registerScriptTapHandler(function() self:click_teamBonusBtn() end)
-    vars['teamBonusBtn2']:registerScriptTapHandler(function() self:click_teamBonusBtn() end)
+    vars['teamBonusBtn1']:registerScriptTapHandler(function() self:click_teamBonusBtn('grand_arena_up') end)
+    vars['teamBonusBtn2']:registerScriptTapHandler(function() self:click_teamBonusBtn('grand_arena_down') end)
 end
 
 -------------------------------------
@@ -132,9 +132,9 @@ end
 -------------------------------------
 -- function click_teamBonusBtn
 -------------------------------------
-function UI_UserDeckInfo_GrandArena_Popup:click_teamBonusBtn()
+function UI_UserDeckInfo_GrandArena_Popup:click_teamBonusBtn(deck_name)
     local struct_user_info = self.m_structUserInfo_grandArena
-    local l_dragons = struct_user_info:getDeck_dragonList()
-    local b_recommend = false
-	local ui = UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_dragons, nil, b_recommend)
+	local l_dragon_obj = struct_user_info:getDeck_dragonObjList(deck_name)
+    local ui = UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_dragon_obj)
+    ui:setOnlyMyTeamBonus()
 end
