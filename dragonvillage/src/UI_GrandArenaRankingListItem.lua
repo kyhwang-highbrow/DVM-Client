@@ -80,10 +80,21 @@ end
 -- function initButton
 -------------------------------------
 function UI_GrandArenaRankingListItem:initButton()
+    local vars = self.vars
+    vars['deckBtn']:registerScriptTapHandler(function() self:showDeck_grandArena() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_GrandArenaRankingListItem:refresh()
+end
+
+
+-------------------------------------
+-- function showDeck_grandArena
+-------------------------------------
+function UI_GrandArenaRankingListItem:showDeck_grandArena()
+    local uid = self.m_rankInfo:getUid()
+    g_grandArena:requestUserDeck_grandArena(uid)
 end

@@ -637,6 +637,8 @@ function ServerData_GrandArena:requestUserDeck_grandArena(peer_uid)
     local ui_network = UI_Network()
     ui_network:setRevocable(true)
     ui_network:setUrl('/game/grand_arena/user_info')
+    ui_network:setParam('deck_name1', 'grand_arena_up')
+    ui_network:setParam('deck_name2', 'grand_arena_down')
     ui_network:setParam('uid', uid)
     ui_network:setParam('peer', peer_uid)
     if (history_id) then
