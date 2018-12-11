@@ -24,6 +24,7 @@ ServerData_GrandArena = class({
 
         -- 서버 로그를 위해 임시 저장
         m_tempLogData = 'table',
+        m_grandArenaVersion = 'version', -- 히스토리 요청할 때 필요한 파라매터
     })
 
 
@@ -140,6 +141,11 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
         if (ret['table_grand_arena_rank']) then
             self.m_grandArenaRewardTable = ret['table_grand_arena_rank']
         end
+
+		 -- 현재 시즌 버젼 정보 저장
+		if (ret['version']) then
+			self.m_grandArenaVersion = ret['version']
+		end
 
         -- 랭킹 정보 테이블 저장
         if (ret['table_grand_arena']) then
@@ -694,4 +700,34 @@ function ServerData_GrandArena:getTierNameByTierId(tier_id)
     return self.m_grandArenaRankingInfoTable[tier_id]['tier']
 end
 
+-------------------------------------
+-- function request_arenaHistory
+-------------------------------------
+function ServerData_GrandArena:request_arenaHistory(type, finish_cb, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+    end
+
+    -- 콜백 함수
+    local function fail_cb(ret)
+       
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/grand_arena/history')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('version', self.m_grandArenaVersion) -- 현재 시즌 버젼
+    ui_network:setParam('type', type) -- atk 공격 기록 , def 방어 기록
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
 
