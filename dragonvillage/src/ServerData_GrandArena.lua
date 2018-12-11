@@ -630,7 +630,7 @@ function ServerData_GrandArena:requestUserDeck_grandArena(peer_uid)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
-        local struct_user_info = StructUserInfoArena:createUserInfo(ret['pvpuser_info'])
+        local struct_user_info = StructUserInfoArena:createUserInfo_forGrandArena(ret['pvpuser_info'])
         UI_UserDeckInfo_GrandArena_Popup(struct_user_info)
     end
 
