@@ -663,4 +663,15 @@ function ServerData_GrandArena:getTierGroupByTierId(tier_id)
     return self.m_grandArenaRankingInfoTable[tier_id]['group']
 end
 
+-------------------------------------
+-- function getTierNameTierId
+-------------------------------------
+function ServerData_GrandArena:getTierNameByTierId(tier_id)
+    if (not self.m_grandArenaRankingInfoTable[tier_id]) then
+        return nil
+    end
+
+    return self.m_grandArenaRankingInfoTable[tier_id]['tier']
+end
+
 

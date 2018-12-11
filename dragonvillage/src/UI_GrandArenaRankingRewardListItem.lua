@@ -67,12 +67,13 @@ function UI_GrandArenaRankingRewardListItem:initUI()
     -- 티어 (예외처리 안한 상태)
     local struct_arena = StructUserInfoArena()
     local tier_group = g_grandArena:getTierGroupByTierId(t_reward_info['tier_id'])
-    local tier_name = struct_arena:getTierName(tier_group)
+    local tier_name = g_grandArena:getTierNameByTierId(t_reward_info['tier_id'])
+    local tier_name_kr = struct_arena:getTierName(tier_name)
     local icon = struct_arena:makeTierIcon(tier_group, 'small')
 
     if (icon) then
         vars['tierNode']:addChild(icon)
-        vars['tierLabel']:setString(Str(tier_name))
+        vars['tierLabel']:setString(Str(tier_name_kr))
     end
 end
 

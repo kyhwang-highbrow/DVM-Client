@@ -69,7 +69,6 @@ function UI_GrandArenaRankingListItem:initUI()
     do -- 티어 아이콘
         local icon = t_rank_info:makeTierIcon(nil, 'small')
         vars['tierNode']:addChild(icon)
-
         vars['tierLabel']:setString(t_rank_info:getTierName())
     end
 
