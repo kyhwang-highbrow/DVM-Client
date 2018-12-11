@@ -99,6 +99,36 @@ function UI_ErrorPopup:initUI(str)
         label:setAnchorPoint(CENTER_POINT)
 		self.vars[lua_name]:addChild(label)
     end
+
+    self:initEditbox()
+end
+
+-------------------------------------
+-- function initEditbox
+-------------------------------------
+function UI_ErrorPopup:initEditbox()
+    -- 에러 레포트 시 에러 메세지 담기위한 edit box
+    local normalBG = cc.Scale9Sprite:create(EMPTY_PNG)
+    local editbox = cc.EditBox:create(cc.size(100, 100), normalBG)
+    editbox:setPlaceHolder('제보자, 상세 내용을 입력해주세요!\nex)[문성] 모험 맵 진입 시 발생')
+    editbox:setVisible(false)
+    self.root:addChild(editbox)
+    self.vars['report_editbox'] = editbox
+    
+    -- editBox handler 등록
+	local function editBoxTextEventHandle(strEventName, pSender)
+        -- 참고로 확인 / 취소 모두 return event가 발생한다.
+        if (strEventName == "return") then
+            if (pSender:getText() == '') then
+                UIManager:toastNotificationRed('메세지를 입력하지 않으면 전송되지 않습니다.')
+            else
+                local error_str = string.format('%s\nmsg : %s', self.m_errorStr, pSender:getText())
+                slack_api(error_str)
+                UIManager:toastNotificationGreen('에러 로그 전송 완료!')
+            end
+        end
+    end
+    editbox:registerScriptEditBoxHandler(editBoxTextEventHandle)
 end
 
 -------------------------------------
@@ -138,9 +168,7 @@ end
 -- function click_slackBtn
 -------------------------------------
 function UI_ErrorPopup:click_slackBtn()
-    local error_str = self.m_errorStr
-    slack_api(error_str)
-    UIManager:toastNotificationGreen('에러 로그 전송 완료!')
+    self.vars['report_editbox']:openKeyboard()
 end
 
 -------------------------------------

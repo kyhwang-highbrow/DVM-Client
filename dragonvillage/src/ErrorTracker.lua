@@ -111,6 +111,7 @@ function ErrorTracker:getTrackerText_(msg)
  
 5. failed res list
 %s
+-------------------------------------------
 ]]
 
 	local text = string.format(
