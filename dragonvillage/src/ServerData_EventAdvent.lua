@@ -2,8 +2,8 @@
 -- class ServerData_EventAdvent
 -------------------------------------
 ServerData_EventAdvent = class({
-        -- 깜짝 출현 정보
-        m_adventDragonList = 'table',
+        -- 깜짝 출현 did list
+        m_adventDidList = 'table',
     })
 -------------------------------------
 -- function init
@@ -12,21 +12,21 @@ function ServerData_EventAdvent:init()
 end
 
 -------------------------------------
--- function setAdventDragonList
+-- function setAdventDidList
 -------------------------------------
-function ServerData_EventAdvent:setAdventDragonList(list_str)
-    self.m_adventDragonList = {}
+function ServerData_EventAdvent:setAdventDidList(list_str)
+    self.m_adventDidList = {}
     local l_ret = plSplit(list_str[1], ',')
     for i, v in ipairs(l_ret) do
-        table.insert(self.m_adventDragonList, tonumber(v))
+        table.insert(self.m_adventDidList, tonumber(v))
     end
 end
 
 -------------------------------------
--- function getAdventDragonList
+-- function getAdventDidList
 -------------------------------------
-function ServerData_EventAdvent:getAdventDragonList()
-    return self.m_adventDragonList
+function ServerData_EventAdvent:getAdventDidList()
+    return self.m_adventDidList
 end
 
 -------------------------------------
@@ -34,11 +34,11 @@ end
 -- @brief 깜짝 출현 타이틀
 -------------------------------------
 function ServerData_EventAdvent:getAdventTitle()
-    if (not self.m_adventDragonList) and (not self.m_adventDragonList[1]) then
+    if (not self.m_adventDidList) and (not self.m_adventDidList[1]) then
         return Str('드래곤')
     end
 
-    local dragon_name = TableDragon:getDragonName(self.m_adventDragonList[1])
+    local dragon_name = TableDragon:getDragonName(self.m_adventDidList[1])
     return Str('{1} 깜짝 출현!', dragon_name)
 end
 
@@ -47,9 +47,9 @@ end
 -- @brief 깜짝 출현 던전 개수
 -------------------------------------
 function ServerData_EventAdvent:getAdventStageCount()
-    if (not self.m_adventDragonList) and (not self.m_adventDragonList[1]) then
+    if (not self.m_adventDidList) and (not self.m_adventDidList[1]) then
         return 0
     end
 
-    return #self.m_adventDragonList
+    return #self.m_adventDidList
 end

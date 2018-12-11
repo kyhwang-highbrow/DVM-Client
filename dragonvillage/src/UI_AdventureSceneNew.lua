@@ -33,6 +33,7 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         -- 깜짝 출현 챕터
         m_rewindStageId = 'number', -- advent chpater로 진입 시 되돌아올 stage 임시 저장
         m_particle = 'cc.Particle',
+        m_adventDragonAniList = 'table<Animator>',
      })
 
 -------------------------------------
@@ -187,19 +188,26 @@ function UI_AdventureSceneNew:moveShipObject(x, y, immediately, stage_id)
     self.m_adventureShip:stopAllActions()
 
     -- 깜짝 출현 챕터 예외 처리
-    local front_ani_name, back_ani_name
+    local front_ani_name, back_ani_name, func_arrival
     if (self.m_currChapter == SPECIAL_CHAPTER.ADVENT) then
         front_ani_name = 'advent_front'
         back_ani_name = 'advent_back'
+        func_arrival = function()
+            for i, animator in ipairs(self.m_adventDragonAniList) do
+                animator:setVisible(i ~= self.m_focusStageIdx)
+            end
+        end
     else
         front_ani_name = 'front'
         back_ani_name = 'back'
+        func_arrival = function() end
     end
 
     if immediately then
         self.m_adventureShip:setPosition(x, y)
         self.m_adventureShipAnimator.m_node:setScaleX(1)
         self.m_adventureShipAnimator:changeAni(back_ani_name, true)
+        func_arrival()
     else
         local start_x, start_y = self.m_adventureShip:getPosition()
 
@@ -225,6 +233,7 @@ function UI_AdventureSceneNew:moveShipObject(x, y, immediately, stage_id)
         if stage_id then
             local function func()
                 self:openAdventureStageInfoPopup(stage_id)
+                func_arrival()
             end
             action = cc.Sequence:create(action, cc.CallFunc:create(func))
             cca.reserveFunc(self.m_adventureShip, duration, func)
@@ -460,7 +469,6 @@ function UI_AdventureSceneNew:refreshChapter_common(chapter, difficulty, stage)
         vars['adventChapterBtn']:setVisible(g_hotTimeData:isActiveEvent('event_advent'))
         vars['adventureBtn']:setVisible(false)
 
-
         -- 파티클 있다면 제거
         if (self.m_particle) then
             self.m_particle:removeFromParent()
@@ -571,16 +579,30 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
     -- 깜짝 출현 스테이지
     local advent_stage_count = g_eventAdventData:getAdventStageCount()
 
-    -- 깜짝 출현 스테이지 버튼 생성
+    -- 깜짝 출현 스테이지 버튼 및 드래곤 애니 생성
     self.m_lStageButton = {}
+    self.m_adventDragonAniList = {}
     local advent_dock_node
     local stage_btn_gap = 200
-    for i = 1, 3 do
+    local l_advent_did_list = g_eventAdventData:getAdventDidList()
+    for i, did in ipairs(l_advent_did_list) do
         advent_dock_node = vars[string.format('adventStageDock%.2d', i)]
+        
+        -- button
         local stage_id = makeAdventureID(difficulty, chapter, i)
         local button = UI_AdventureStageButton(self, stage_id)
-        advent_dock_node:addChild(button.root)
         self.m_lStageButton[i] = button
+        advent_dock_node:addChild(button.root)
+
+        -- dragon
+        local evolution = 3
+        local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)
+        animator:setPositionY(50)
+        animator:setScale(0.5)
+        animator:setFlip(math_random(2) == 1)
+        animator:setTimeScale(math_random(64,128)/100)
+        self.m_adventDragonAniList[i] = animator
+        advent_dock_node:addChild(animator.m_node)
     end
     
     -- stage 보정
@@ -771,6 +793,8 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force, stage_
         prev_btn.vars['arrowSprite']:setVisible(false)
     end
 
+    self.m_focusStageIdx = idx
+
     local next_btn = self.m_lStageButton[idx]
     if next_btn then
         do -- 열림 여부 체크
@@ -792,8 +816,6 @@ function UI_AdventureSceneNew:focusStageButton(idx, immediately, b_force, stage_
         local x, y = next_btn.root:getParent():getPosition()
         self:moveShipObject(x, y + 50, immediately, stage_id)
     end
-
-    self.m_focusStageIdx = idx
 
     do -- 마지막에 진입한 스테이지 저장
         local stage_id = makeAdventureID(self.m_currDifficulty, self.m_currChapter, idx)

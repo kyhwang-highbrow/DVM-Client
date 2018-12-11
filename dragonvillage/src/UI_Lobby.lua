@@ -421,7 +421,7 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 
         cclog('# 깜짝 출현 드래곤 정보 받는 중')
         if (ret['advent_did_list']) then
-            g_eventAdventData:setAdventDragonList(ret['advent_did_list'])
+            g_eventAdventData:setAdventDidList(ret['advent_did_list'])
         end
 
 		co.NEXT()
