@@ -156,7 +156,6 @@ function GameWorldEventArena:initTamer()
     local ENEMY_TAMER_POS_X = 960 + 50
     --local TAMER_POS_Y = -600
     local TAMER_POS_Y = -580
-    local is_friendMatch = g_gameScene.m_bFriendMatch
 
     -- 아군 테이머 생성
     do
@@ -165,7 +164,7 @@ function GameWorldEventArena:initTamer()
         local t_tamer_data = clone(g_tamerData:getTamerServerInfo(tamer_id))
         local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
 
-        self.m_tamer = self:makeTamerNew(t_tamer_data, t_costume_data)
+        self.m_tamer = self:makeTamerNew(t_tamer_data, t_costume_data, false) -- param : t_tamer_data, t_costume_data, bRightFormation)
         self.m_tamer:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
         --self.m_tamer:setAnimatorScale(1)
         self.m_tamer:setAnimatorScale(0.9)
@@ -186,7 +185,7 @@ function GameWorldEventArena:initTamer()
         local t_costume = TableTamerCostume():get(costume_id)
         local t_costume_data = StructTamerCostume(t_costume)
                 
-        self.m_enemyTamer = self:makeTamerNew(t_tamer_data, t_costume_data, true)
+        self.m_enemyTamer = self:makeTamerNew(t_tamer_data, t_costume_data, true) -- param : t_tamer_data, t_costume_data, bRightFormation)
         self.m_enemyTamer:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
         self.m_enemyTamer:setAnimatorScale(1)
         self.m_enemyTamer:changeState('appear_colosseum')
