@@ -106,14 +106,14 @@ function UI_GrandArena:onChangeTab(tab, first)
     elseif (tab == 'defense') then
         if (first == true) then
             local function finish_cb()
-                self:makeHistoryTableView(tab)
+                self:makeHistoryTableView('def')
             end
             g_grandArena:request_grandArenaHistory('def', finish_cb, nil) -- param : type, finish_cb, fail_cb
         end
     elseif (tab == 'offense') then
         if (first == true) then
             local function finish_cb()
-                self:makeHistoryTableView(tab)
+                self:makeHistoryTableView('atk')
             end 
             g_grandArena:request_grandArenaHistory('atk', finish_cb, nil) -- param : type, finish_cb, fail_cb
         end
@@ -174,10 +174,22 @@ end
 -------------------------------------
 function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
     local vars = self.vars
-    local node = vars['rankingListNode']
+    local node
+ 
+    local l_item_list
+    -- 코드 예쁘게 고칠 예정
+    if (type == 'atk') then
+        l_item_list = g_grandArena.m_matchAtkHistory
+        node = vars['offenseTabMenu']
+    elseif (type == 'def') then
+        l_item_list = g_grandArena.m_matchDefHistory
+        node = vars['defenseTabMenu']
+    end
     node:removeAllChildren()
 
-    local l_item_list = g_grandArena.m_lGlobalRank
+    if (not l_item_list) then
+        return
+    end
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -185,10 +197,10 @@ function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(550, 90 + 5)
-    table_view:setCellUIClass(UI_GrandArenaSceneRankingListItem, create_func)
+    table_view.m_defaultCellSize = cc.size(790, 150)
+    table_view:setCellUIClass(UI_GrandArenaHistoryListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-
+    table_view:setItemList(l_item_list)
 end
 
 -------------------------------------

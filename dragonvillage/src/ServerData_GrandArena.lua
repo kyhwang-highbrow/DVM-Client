@@ -25,6 +25,8 @@ ServerData_GrandArena = class({
         -- 서버 로그를 위해 임시 저장
         m_tempLogData = 'table',
         m_grandArenaVersion = 'version', -- 히스토리 요청할 때 필요한 파라매터
+        m_matchAtkHistory = 'table',
+        m_matchDefHistory = 'table',
     })
 
 
@@ -42,6 +44,8 @@ ServerData_GrandArena.STATE = {
 -------------------------------------
 function ServerData_GrandArena:init(server_data)
     self.m_tempLogData = {}
+    self.m_matchAtkHistory = {}
+    self.m_matchDefHistory = {}
 end
 
 
@@ -709,12 +713,23 @@ end
 -------------------------------------
 -- function request_grandArenaHistory
 -------------------------------------
-function ServerData_GrandArena:request_grandArenaHistory(type, finish_cb, fail_cb)
+function ServerData_GrandArena:request_grandArenaHistory(mode, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
+        for i,v in pairs(ret['history']) do
+            local user_info = StructUserInfoArena:createUserInfo_forGrandArena(v)
+
+            -- 코드 예쁘게 고칠 예정
+            if (mode == 'atk') then
+                table.insert(self.m_matchAtkHistory, user_info)
+            elseif (mode == 'def') then
+                table.insert(self.m_matchDefHistory, user_info)
+            end
+        end
+        finish_cb()
     end
 
     -- 네트워크 통신 UI 생성
@@ -722,7 +737,7 @@ function ServerData_GrandArena:request_grandArenaHistory(type, finish_cb, fail_c
     ui_network:setUrl('/game/grand_arena/history')
     ui_network:setParam('uid', uid)
     ui_network:setParam('version', self.m_grandArenaVersion) -- 현재 시즌 버젼
-    ui_network:setParam('type', type) -- atk 공격 기록 , def 방어 기록
+    ui_network:setParam('type', mode) -- atk 공격 기록 , def 방어 기록
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
