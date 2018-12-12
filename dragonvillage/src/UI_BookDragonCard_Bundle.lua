@@ -28,7 +28,7 @@ function UI_BookDragonCard_Bundle:initUI()
     local data = self.m_data
     local did = data['did']
     local is_slime = TableSlime:isSlimeID(did)
-    local is_cardpack = (data['category'] and data['category'] == 'cardpack') or false -- 카드팩 드래곤인지
+    local is_cardpack = (data['category'] and data['category'] == 'cardpack') or false -- 토파즈 드래곤인지
     local is_limit = (data['category'] and data['category'] == 'limited') or false -- 한정 드래곤인지
     local is_event = (data['category'] and data['category'] == 'event') or false -- 이벤트 드래곤인지
 
@@ -55,7 +55,7 @@ function UI_BookDragonCard_Bundle:initUI()
         end
     
     elseif (is_cardpack) then
-        desc = '{@purple}'.. Str('카드팩 드래곤')
+        desc = '{@purple}'.. Str('토파즈 드래곤')
 
     elseif (is_limit) then
         desc = '{@purple}'.. Str('한정 드래곤')
