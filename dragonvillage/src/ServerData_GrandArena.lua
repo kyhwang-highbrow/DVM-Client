@@ -184,12 +184,10 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
     end
 
     -- 서버에서 테이블 정보를 받아옴
-        --[[
     local include_tables = false
-    if (self.m_challengeRewardTable == nil) or (self.m_challengeManageTable == nil) then
+    if (self.m_grandArenaRankingInfoTable == nil) or (self.m_grandArenaRewardTable == nil) then
         include_tables = true
     end
-    --]]
     
     -- 시즌 보상을 받을지 여부 (타이틀 화면에서 정보 요청을 위해 호출될때는 제외하기 위함)
     local include_reward = (include_reward or false)
@@ -199,7 +197,7 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
     ui_network:setUrl('/game/grand_arena/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('include_infos', include_infos)
-    ui_network:setParam('include_tables', true)   -- 2018-12-10 일단 무조건 테이블 정보를 받아 옵니다.
+    ui_network:setParam('include_tables', include_tables)
     ui_network:setParam('reward', include_reward) -- true면 시즌 보상을 지금, false면 시즌 보상을 미지급
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
