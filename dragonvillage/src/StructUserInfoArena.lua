@@ -192,10 +192,18 @@ function StructUserInfoArena:createUserInfo_forGrandArena(t_data)
     --retry_cnt??
     --match_at??
 
+    if t_data['match'] then
+        user_info.m_matchResult = t_data['match']
+    end
+
+    if t_data['match_at'] then
+        user_info.m_matchTime = t_data['match_at']
+    end
+    
     if t_data['leader'] then
         user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     end
-    
+
 
     -- 룬 리스트 가공
     local l_runes = {}

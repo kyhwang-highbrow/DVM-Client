@@ -75,6 +75,14 @@ function UI_GrandArenaHistoryListItem:initUI()
         vars['resultLabel']:setString(Str('패배'))
     end
 
+    do -- 시간
+        local curr_time = Timer:getServerTime()
+        local match_time = (user_info.m_matchTime / 1000)
+        local time = (curr_time - match_time)
+        local str = Str('{1} 전', datetime.makeTimeDesc(time, true))
+        vars['timeLabel']:setString(str)
+    end
+
     -- 공통의 정보
     self:initRankInfo(vars, user_info)   
 end
