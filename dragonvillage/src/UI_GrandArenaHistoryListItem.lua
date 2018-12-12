@@ -47,7 +47,7 @@ function UI_GrandArenaHistoryListItem:initUI()
     vars['userLabel']:setString(user_info:getUserText())
 
     -- 전투력 표시
-    local combat_power = user_info:getDeckCombatPower()
+    local combat_power = user_info:getDeckCombatPowerByDeckname('grand_arena_up') + user_info:getDeckCombatPowerByDeckname('grand_arena_down')
     vars['powerLabel']:setString(Str('전투력 : {1}', comma_value(combat_power)))
 
     -- 드래곤 리스트

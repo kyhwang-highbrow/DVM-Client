@@ -197,7 +197,7 @@ function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(790, 150)
+    table_view.m_defaultCellSize = cc.size(790, 160)
     table_view:setCellUIClass(UI_GrandArenaHistoryListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
