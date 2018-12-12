@@ -8,6 +8,7 @@ local OFFSET_GAP = 30 -- 한번에 보여주는 랭커 수
 UI_GrandArenaRankingPopup = class(PARENT,{
         m_rankTableView = 'UIC_TableView',
         m_rankType = 'string',
+        m_rankFullType = 'string',
         m_rankOffset = 'number',
         m_rewardTableView = '',
         m_selectedUI = '',
@@ -231,19 +232,24 @@ function UI_GrandArenaRankingPopup:makeRankTableView()
     self.m_rankTableView = table_view
 
 
-    do -- 리스트 중 플레이어의 랭킹이 있으면 포커스를 맞춰준다
-        local idx = nil
-        for i,v in pairs(table_view.m_itemList) do
-            if v['data'] then
-                if (v['data'].m_uid == g_userData:get('uid')) then
-                    idx = i
-                    break
+    do -- 최상위 랭킹의 경우 cell idx = 1
+        if (self.m_rankFullType == 'world_top') then
+            self.m_rankTableView:update(0)
+            self.m_rankTableView:relocateContainerFromIndex(1)
+        else
+            local idx = nil
+            for i,v in pairs(table_view.m_itemList) do
+                if v['data'] then
+                    if (v['data'].m_uid == g_userData:get('uid')) then
+                        idx = i
+                        break
+                    end
                 end
             end
-        end
-        if idx then
-            self.m_rankTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-            self.m_rankTableView:relocateContainerFromIndex(idx)
+            if idx then
+                self.m_rankTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+                self.m_rankTableView:relocateContainerFromIndex(idx)
+            end
         end
     end
 end
@@ -321,18 +327,22 @@ function UI_GrandArenaRankingPopup:onChangeRankingType(type)
 
     if (type == 'my') then
         self.m_rankType = 'world'
-        self.m_rankOffset = -1
+        self.m_rankFullType = 'world_my'
+        self.m_rankOffset = 1
 
     elseif (type == 'top') then
         self.m_rankType = 'world'
+        self.m_rankFullType = 'world_top'
         self.m_rankOffset = 1
 
     elseif (type == 'friend') then
         self.m_rankType = 'friend'
+        self.m_rankFullType = 'friend'
         self.m_rankOffset = 1
 
     elseif (type == 'clan') then
         self.m_rankType = 'clan'
+        self.m_rankFullType = 'clan'
         self.m_rankOffset = 1
 
     end
