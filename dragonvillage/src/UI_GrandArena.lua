@@ -138,7 +138,7 @@ function UI_GrandArena:makeRankTableView()
     local node = vars['rankingListNode']
     node:removeAllChildren()
 
-    local l_item_list = g_grandArena.m_lGlobalRank
+    local l_item_list = g_grandArena.m_lGlobalRank or {}
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -193,7 +193,7 @@ function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
     node = vars[tab_menu_name]
     node:removeAllChildren()
 
-    l_item_list = g_grandArena.m_matchHistory[type]
+    l_item_list = g_grandArena.m_matchHistory[type] or {}
     if (not l_item_list) then
         l_item_list = {}
     end
