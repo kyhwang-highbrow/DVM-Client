@@ -561,6 +561,10 @@ function ServerData_GrandArena:getPlayerGrandArenaUserInfo()
     -- 클랜 정보는 항상 갱신
     self.m_playerUserInfo:setStructClan(g_clanData:getClanStruct())
 
+    -- 기본 정보 갱신
+    self.m_playerUserInfo.m_nickname = g_userData:get('nick')
+    self.m_playerUserInfo.m_lv = g_userData:get('lv')
+
     return self.m_playerUserInfo
 end
 
