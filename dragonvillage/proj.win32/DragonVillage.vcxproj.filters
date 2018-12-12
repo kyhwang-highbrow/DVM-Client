@@ -3922,6 +3922,9 @@
     <None Include="..\src\UI_UserDeckInfo_GrandArena_Popup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_GrandArenaHistoryListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

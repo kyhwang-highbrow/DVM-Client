@@ -1067,6 +1067,7 @@ local t_module = {
     -- UI : 그랜드 콜로세움
     'UI_GrandArena',
     'UI_GrandArenaDeckSettings',
+    'UI_GrandArenaHistoryListItem',
     'UI_UserDeckInfo_GrandArena_Popup',
     'UI_GrandArenaMatchList',
     'UI_GrandArenaMatchListItem',
