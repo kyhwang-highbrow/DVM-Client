@@ -79,8 +79,8 @@ function UI_GrandArena:initTab()
     local vars = self.vars
     local l_tab_name = {}
     table.insert(l_tab_name, 'top_rank')
-    table.insert(l_tab_name, 'defense')
-    table.insert(l_tab_name, 'offense')
+    table.insert(l_tab_name, 'defHistory')
+    table.insert(l_tab_name, 'atkHistory')
 
     for _,tab_name in pairs(l_tab_name) do
         self:addTabAuto(tab_name, vars, vars[tab_name .. 'TabMenu'])
@@ -93,8 +93,11 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_GrandArena:onChangeTab(tab, first)
-
-    if (tab == 'top_rank') then
+    -- ex) defHistory -> def, 
+    -- 문자열에 History 없을 경우 문자열 그대로 반환
+    local tab_type = pl.stringx.rpartition(tab,'History')
+    
+    if (tab_type == 'top_rank') then
         if (first == true) then
             local function finish_cb()
                 self:makeRankTableView()
@@ -103,19 +106,13 @@ function UI_GrandArena:onChangeTab(tab, first)
             local offset = 1
             g_grandArena:request_grandArenaRanking(rank_type, offset, finish_cb)
         end
-    elseif (tab == 'defense') then
+    else
         if (first == true) then
             local function finish_cb()
-                self:makeHistoryTableView('def')
+                self:makeHistoryTableView(tab_type)
             end
-            g_grandArena:request_grandArenaHistory('def', finish_cb, nil) -- param : type, finish_cb, fail_cb
-        end
-    elseif (tab == 'offense') then
-        if (first == true) then
-            local function finish_cb()
-                self:makeHistoryTableView('atk')
-            end 
-            g_grandArena:request_grandArenaHistory('atk', finish_cb, nil) -- param : type, finish_cb, fail_cb
+            -- tab_type = atk, def 의 히스토리 갱신
+            g_grandArena:request_grandArenaHistory(tab_type, finish_cb, nil) -- param : type, finish_cb, fail_cb
         end
     end
 end
@@ -177,16 +174,13 @@ function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
     local node
  
     local l_item_list
-    -- 코드 예쁘게 고칠 예정
-    if (type == 'atk') then
-        l_item_list = g_grandArena.m_matchAtkHistory
-        node = vars['offenseTabMenu']
-    elseif (type == 'def') then
-        l_item_list = g_grandArena.m_matchDefHistory
-        node = vars['defenseTabMenu']
-    end
+    -- TabMenu lua_name : atkHistoryTabMenu, defHistoryTabMenu
+    local tab_menu_name = type .. 'HistoryTabMenu'
+
+    node = vars[tab_menu_name]
     node:removeAllChildren()
 
+    l_item_list = g_grandArena.m_matchHistory[type]
     if (not l_item_list) then
         return
     end
