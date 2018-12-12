@@ -297,14 +297,14 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_grandArena()
         param_title = Str('연습전 종료까지')
         param_msg = '{1} 남음'
 
-	-- 그림자의 신전 사용 가능 상태
+	-- 그랜드 콜로세움 사용 가능 상태
 	elseif (state == ServerData_GrandArena.STATE['OPEN']) then
-		text_1 = Str('여러분의 한계에 도전해 보세요!')
+		text_1 = Str('10 vs 10 대규모 대전 등장!')
 
 		use_timer = true
 		timer_key = 'event_grand_arena'
 
-	-- 그림자의 신전 보상 수령 상태
+	-- 그랜드 콜로세움  보상 수령 상태
 	elseif (state == ServerData_GrandArena.STATE['REWARD']) then
 		text_1 = Str('이벤트가 종료되었습니다.')
 		text_2 = Str('보상을 획득하세요')
