@@ -232,10 +232,11 @@ function UI_GrandArenaRankingPopup:makeRankTableView()
     self.m_rankTableView = table_view
 
 
-    do -- 최상위 랭킹의 경우 cell idx = 1
+    do -- 최상위 랭킹의 경우 포커스를 1위에 위치
         if (self.m_rankFullType == 'world_top') then
             self.m_rankTableView:update(0)
             self.m_rankTableView:relocateContainerFromIndex(1)
+        -- 내 랭킹의 경우 포커스를 내 랭킹에 위치
         else
             local idx = nil
             for i,v in pairs(table_view.m_itemList) do
