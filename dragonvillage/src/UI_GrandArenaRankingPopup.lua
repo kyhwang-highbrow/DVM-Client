@@ -161,39 +161,43 @@ function UI_GrandArenaRankingPopup:makeRankTableView()
 
     local l_item_list = g_grandArena.m_lGlobalRank
 
-    -- 이전, 다음 버튼은 전체 랭킹에서만 사용
-    if (self.m_rankType == 'world') then
-        if (1 < self.m_rankOffset) then
-            local prev_data = { m_tag = 'prev' }
-            l_item_list['prev'] = prev_data
+    -- 리스트가 없을 경우 이전, 다음 버튼 만들지 않음
+    -- 그래야 '다음 랭킹이 존재하지 않습니다.' 문구가 뜸
+    if (#l_item_list ~= 0) then
+        -- 이전, 다음 버튼은 전체 랭킹에서만 사용
+        if (self.m_rankType == 'world') then
+            if (1 < self.m_rankOffset) then
+                local prev_data = { m_tag = 'prev' }
+                l_item_list['prev'] = prev_data
+            end
+
+            local next_data = { m_tag = 'next' }
+            l_item_list['next'] = next_data
+        end
+        
+        -- 이전 랭킹 보기
+        local function click_prevBtn()
+            self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
+            self.m_rankOffset = math_max(self.m_rankOffset, 0)
+            self:request_rank()
         end
 
-        local next_data = { m_tag = 'next' }
-        l_item_list['next'] = next_data
-    end
-    
-    -- 이전 랭킹 보기
-    local function click_prevBtn()
-        self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
-        self.m_rankOffset = math_max(self.m_rankOffset, 0)
-        self:request_rank()
-    end
-
-    -- 다음 랭킹 보기
-    local function click_nextBtn()
-        local add_offset = #g_grandArena.m_lGlobalRank
-        if (add_offset < OFFSET_GAP) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
-            return
+        -- 다음 랭킹 보기
+        local function click_nextBtn()
+            local add_offset = #g_grandArena.m_lGlobalRank
+            if (add_offset < OFFSET_GAP) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+                return
+            end
+            self.m_rankOffset = self.m_rankOffset + add_offset
+            self:request_rank()
         end
-        self.m_rankOffset = self.m_rankOffset + add_offset
-        self:request_rank()
-    end
 
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
-        ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
+        -- 생성 콜백
+        local function create_func(ui, data)
+            ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
+            ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
+        end
     end
 
     -- 테이블 뷰 인스턴스 생성
