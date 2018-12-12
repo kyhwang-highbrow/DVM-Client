@@ -29,11 +29,12 @@ function UI_GrandArenaHistoryListItem:initUI()
     local user_info = self.m_userInfo
     local rank = user_info.m_rank
 
-    -- 코스튬 적용
-    local icon = user_info:getDeckTamerIcon()
+    -- 테이머
+    icon = user_info:getDeckTamerIcon('grand_arena_up') -- deckname
     if (icon) then
+        vars['profileNode']:removeAllChildren()
         vars['profileNode']:addChild(icon)
-		vars['profileBtn']:registerScriptTapHandler(function() 
+        vars['profileBtn']:registerScriptTapHandler(function() 
 			local is_visit = true
 			UI_UserInfoDetailPopup:open(user_info, is_visit, nil)
 		end)
