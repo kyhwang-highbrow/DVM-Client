@@ -44,7 +44,6 @@ ServerData_GrandArena.STATE = {
 function ServerData_GrandArena:init(server_data)
     self.m_tempLogData = {}
     self.m_matchHistory = {['atk']={}, ['def']= {}}
-    self.m_lGlobalRank = {}
 end
 
 
@@ -503,6 +502,7 @@ function ServerData_GrandArena:request_grandArenaRanking(rank_type, offset, fini
     func_success_cb = function(ret)
         self.m_nGlobalOffset = ret['offset']
         -- 유저 리스트 저장
+        self.m_lGlobalRank = {}
         for i,v in pairs(ret['list']) do
             local user_info = StructUserInfoArena:create_forRanking(v)
             table.insert(self.m_lGlobalRank, user_info)
