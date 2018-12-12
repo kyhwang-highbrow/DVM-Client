@@ -216,6 +216,20 @@ function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
         msg = Str('방어전 기록이 없다고라')
     end
     table_view:makeDefaultEmptyMandragora(msg)
+
+    local function sort_func(a, b)
+        -- StructUserInfoArena
+        local a_data = a['data']
+        local b_data = b['data']
+
+        -- 최근 매치한 순서로 가져옴
+        local a_match = a_data.m_matchTime
+        local b_match = b_data.m_matchTime
+
+        return a_match > b_match
+    end
+    table.sort(table_view.m_itemList, sort_func)
+
 end
 
 -------------------------------------

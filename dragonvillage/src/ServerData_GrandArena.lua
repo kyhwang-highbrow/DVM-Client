@@ -717,6 +717,7 @@ function ServerData_GrandArena:request_grandArenaHistory(type, finish_cb, fail_c
 
     -- 콜백 함수
     local function success_cb(ret)
+        self.m_matchHistory[type] = {}
         for i,v in pairs(ret['history']) do
             local user_info = StructUserInfoArena:createUserInfo_forGrandArena(v)
             table.insert(self.m_matchHistory[type], user_info)   
