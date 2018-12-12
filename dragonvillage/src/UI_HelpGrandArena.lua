@@ -3,7 +3,7 @@
 -- @brief UI_TabUI_AutoGeneration에서 생성 할 때 따로 생성이 필요한 UI 처리
 -------------------------------------
 local make_child_menu = function(self, ui_name, ui_depth)
-  
+    
 end
 
 -------------------------------------
@@ -11,7 +11,28 @@ end
 -- @brief UI_TabUI_AutoGeneration에서 UI 생성 후 UI설정 필요한 부분 처리
 -------------------------------------
 local set_after = function(ui_name, ui)
- 
+    if (ui_name == 'help_grand_arena.ui') then
+        local l_item_list = g_grandArena.m_grandArenaRewardTable or {}
+        -- 서버에서 테이블 보상 정보를 주지 않으면 해당 탭 버튼을 비활성화
+        if (#l_item_list == 0) then
+            ui.vars['grand_arena_rankingTabBtn']:setVisible(false)
+            ui.vars['grand_arena_rankingTabBtn']:setEnabled(false)
+        end
+    end
+
+    if (ui_name == 'help_grand_arena_ranking.ui') then
+        -- 시즌 보상 테이블 뷰 생성
+        local node = ui.vars['ranking_reward_TabMenu']
+        local l_item_list = g_grandArena.m_grandArenaRewardTable or {}
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(550, 55 + 5)
+        table_view:setCellUIClass(UI_GrandArenaRankingRewardListItem, create_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_item_list, true)
+        table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))
+    end
 end
 
 -------------------------------------
@@ -31,5 +52,6 @@ end
 -- # 접두어로 'help_'가 붙음
 -- help_grand_arena                         (help_grand_arena.ui)
 --      help_grand_reward                   (help_grand_reward.ui)
---      help_grand_rull                     (help_grand_rull.ui)
+--      help_grand_rules                    (help_grand_rules.ui)
 --      help_grand_summary                  (help_grand_summary.ui)
+--      help_grand_ranking
