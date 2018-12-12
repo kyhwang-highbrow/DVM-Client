@@ -29,6 +29,31 @@ function GameState_EventArena:initState()
 end
 
 -------------------------------------
+-- function getCameraSacle
+-- @brief 그랜드 콜로세움은 10대10으로
+--        5대5인 콜로세움보다 줌아웃을 더 하게됨
+--        배경 이미지가 작아서 위아래로 잘림
+--        해상도에 따라서 줌아웃을 조절하여 해결
+-------------------------------------
+function GameState_EventArena:getCameraSacle()
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+
+    local curr_height = visibleSize.height
+
+    local min_height = 720 -- 최소 height
+    local max_height = 960 -- 최대 height (아이패드 4:3비율)
+
+    local min_scale = 0.75 -- 최소 height에서의 줌아웃
+    local max_scale = 0.95 -- 최대 height에서의 줌아웃
+
+    local gap = (curr_height - min_height)
+    local ratio = gap / (max_height - min_height)
+    local scale = min_scale + ((max_scale - min_scale) * ratio)
+
+    return scale
+end
+
+-------------------------------------
 -- function update_start
 -------------------------------------
 function GameState_EventArena.update_start(self, dt)
@@ -47,9 +72,10 @@ function GameState_EventArena.update_start(self, dt)
             -- 카메라 줌인
             world:changeCameraOption({
                 pos_x = 0,
-                pos_y = -280,
+                --pos_y = -280,
+                pos_y = -250,
                 --scale = 1,
-                scale = 0.75,
+                scale = self:getCameraSacle(),
                 time = 2,
                 cb = function()
                     self:nextStep()
@@ -89,7 +115,7 @@ function GameState_EventArena.update_start(self, dt)
                 pos_x = 0,
                 pos_y = 0,
                 --scale = 0.6,
-                scale = 0.75,
+                scale = self:getCameraSacle(),
                 time = 2,
                 cb = function()
                     self:nextStep()
