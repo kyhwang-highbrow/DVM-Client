@@ -178,6 +178,11 @@ function ServerData_GrandArena:request_grandArenaInfo(finish_cb, fail_cb, includ
         if (ret['status'] == -1351) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'))
             return true
+
+        -- -1364 invalid season
+        elseif (ret['status'] == -1364) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'))
+            return true
         end
 
         return false

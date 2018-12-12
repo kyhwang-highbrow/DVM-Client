@@ -35,7 +35,7 @@ function UI_GrandArenaRankingRewardPopup:initUI(t_info)
     local reward_info = t_info
     
     -- 플레이어 정보 받아옴
-    local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
+    local struct_user_info = g_grandArena:getPlayerGrandArenaUserInfo()
     local rank_ui = UI_GrandArenaRankingListItem(struct_user_info)
     
     -- 지난 시즌 랭킹 정보
