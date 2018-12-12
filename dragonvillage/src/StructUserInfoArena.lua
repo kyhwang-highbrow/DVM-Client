@@ -460,6 +460,10 @@ function StructUserInfoArena:applyDeckData(deck_name, t_data)
         return
     end
 
+    -- 계산된 전투력이 있으면 초기화
+    if (self.m_deckCombatPowerList and self.m_deckCombatPowerList[deck_name]) then
+        self.m_deckCombatPowerList[deck_name] = nil
+    end
     self.m_deckDataList[deck_name] = t_data
 end
 
