@@ -150,6 +150,7 @@ function UI_GrandArenaMatchList:initUserInfo(direction, struct_user_info)
 	if (struct_user_info.m_tier ~= nil) then
 		icon = struct_user_info:makeTierIcon(nil, 'small')
 		if (icon) then
+            vars['tierNode' .. idx]:removeAllChildren()
 			vars['tierNode' .. idx]:addChild(icon)
 		end
 	end
