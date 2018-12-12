@@ -182,7 +182,7 @@ function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
 
     l_item_list = g_grandArena.m_matchHistory[type]
     if (not l_item_list) then
-        return
+        l_item_list = {}
     end
 
     -- 생성 콜백
@@ -195,6 +195,15 @@ function UI_GrandArena:makeHistoryTableView(type) -- type = atk, def
     table_view:setCellUIClass(UI_GrandArenaHistoryListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
+
+    -- 히스토리 기록 없을 때 디폴트 이미지
+    local msg
+    if (type == 'atk') then
+        msg = Str('공격전 기록이 없다고라')
+    elseif (type == 'def') then
+        msg = Str('방어전 기록이 없다고라')
+    end
+    table_view:makeDefaultEmptyMandragora(msg)
 end
 
 -------------------------------------
