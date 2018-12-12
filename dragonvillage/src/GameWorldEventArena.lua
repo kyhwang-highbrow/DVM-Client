@@ -143,6 +143,12 @@ function GameWorldEventArena:initBG(waveMgr)
         self.m_mapManager:setSpeed(-100)
         self.m_mapManager:bindCameraNode(g_gameScene.m_cameraLayer)
         self.m_mapManager:bindEventDispatcher(self)
+
+        -- 배경 연출 정보 설정
+        -- 그랜드 콜로세움 배경은 콜로세움의 광폭화 배경을 사용
+        -- 중간에 별도로 변경하지 않음
+        local map_layer = self.m_mapManager.m_tMapLayer[1]
+        map_layer.m_animator:changeAni('idle_2', true)
     else
         error('bg_type : ' .. bg_type)
     end

@@ -6,6 +6,19 @@ local PARENT = GameState_Arena
 GameState_EventArena = class(PARENT, {})
 
 -------------------------------------
+-- function initEnrage
+-- @brief 광폭화 관련 초기화값 설정
+-------------------------------------
+function GameState_EventArena:initEnrage()
+    PARENT.initEnrage(self)
+
+    -- 배경 연출 정보 설정
+    -- 그랜드 콜로세움 배경은 콜로세움의 광폭화 배경을 사용
+    -- 중간에 별도로 변경하지 않음
+    self.m_tEnrageBgInfo = {}
+end
+
+-------------------------------------
 -- function initState
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
