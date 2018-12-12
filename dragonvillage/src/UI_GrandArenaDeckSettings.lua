@@ -155,21 +155,22 @@ function UI_GrandArenaDeckSettings:click_startBtn()
     -- 입장권이 소모가 됨을 알림
     confirm = function()
 
-        -- 최초 1회만 안내 팝업을 띄움
+        -- 1일 1회만 안내 팝업을 띄움
         local save_key = ('event_grand_arena' .. '_stamina')
-        local is_view = g_settingData:get('popup_only_once', save_key) or false
+        local is_view = g_settingData:get('event_full_popup', save_key) or false
         if (is_view) then
             check_stamina_type()
             return
         else
-            g_settingData:applySettingData(true, 'popup_only_once', save_key)
+            g_settingData:applySettingData(true, 'event_full_popup', save_key)
         end
 
         local msg1 = Str('그랜드 콜로세움에서는 입장권을 먼저 사용한 후 대전 상대를 선택합니다.')
         local msg2 = Str('입장권 사용 후에는 취소할 수 없으며 사용한 입장권은 복구되지 않습니다.')
         local msg = msg1 .. '\n' .. msg2
+        local sub_msg = Str('그랜드 콜로세움에서는 저사양 모드 사용을 권장합니다.')
         local ok_cb = check_stamina_type
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, ok_cb)
     end
 
     -- 입장권 확인

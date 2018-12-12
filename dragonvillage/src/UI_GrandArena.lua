@@ -61,6 +61,18 @@ function UI_GrandArena:initUI()
         vars['officialPeriodLabel']:setVisible(false)
 
         vars['rankingBtn']:setVisible(false)
+
+    -- 시즌 보상 획득 기간
+    elseif (grand_arena_state == ServerData_GrandArena.STATE['REWARD']) or (grand_arena_state == ServerData_GrandArena.STATE['DONE']) then
+        vars['reserveNode']:setVisible(false)
+        vars['reservePeriodLabel']:setVisible(false)
+        vars['officialPeriodLabel']:setVisible(true)
+
+        vars['rankingBtn']:setVisible(true)
+        vars['startBtn']:setVisible(false)
+
+        self:initTab()
+
     else
         vars['reserveNode']:setVisible(false)
         vars['reservePeriodLabel']:setVisible(false)
