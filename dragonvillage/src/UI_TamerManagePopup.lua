@@ -50,16 +50,19 @@ end
 -- function onFocus
 -------------------------------------
 function UI_TamerManagePopup:onFocus()
-    -- 코스튬을 구매한 경우, 결과 적용하기 위해 통신 
-    if (g_tamerCostumeData.m_bDirtyCostumeInfo) then
-        g_tamerCostumeData:request_costumeInfo(nil, false)
-
+    
+    local cb_func = function()
         -- 초기화
         self:refresh()
         self:refreshCostumeData()
         self:setTamerCostume()
         
         g_tamerCostumeData.m_bDirtyCostumeInfo = false
+    end
+    
+    -- 코스튬을 구매한 경우, 결과 적용하기 위해 통신 
+    if (g_tamerCostumeData.m_bDirtyCostumeInfo) then
+        g_tamerCostumeData:request_costumeInfo(cb_func, false)
     end
 end
 
