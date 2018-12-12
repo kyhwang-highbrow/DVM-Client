@@ -64,10 +64,34 @@ function UI_GrandArenaRankingRewardListItem:initUI()
     vars['rewardLabel1']:setString(comma_value(cash))
     vars['rewardLabel2']:setString(comma_value(valor))
 
-    -- 티어 (예외처리 안한 상태)
+    -- 티어
+    self:makeTierUI()
+end
+
+
+-------------------------------------
+-- function makeTierUI
+-------------------------------------
+function UI_GrandArenaRankingRewardListItem:makeTierUI()
+    local t_reward_info = self.m_rewardInfo
+    local vars = self.vars
+
     local struct_arena = StructUserInfoArena()
-    local tier_group = g_grandArena:getTierGroupByTierId(t_reward_info['tier_id'])
-    local tier_name = g_grandArena:getTierNameByTierId(t_reward_info['tier_id'])
+    local tier_id = t_reward_info['tier_id']
+
+    -- ex) tier_group : hero, tier_id 16
+    local tier_group = g_grandArena:getTierGroupByTierId(tier_id)
+
+    if (not tier_group) then
+        return
+    end
+    -- ex) tier_name : hero_1, tier_id : 16
+    local tier_name = g_grandArena:getTierNameByTierId(tier_id)
+
+    if (not tier_name) then
+        return
+    end
+    -- ex) tier_name_kr : 히어로 1, tier_name : hero_1
     local tier_name_kr = struct_arena:getTierName(tier_name)
     local icon = struct_arena:makeTierIcon(tier_group, 'small')
 
