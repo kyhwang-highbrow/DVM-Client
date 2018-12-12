@@ -138,7 +138,10 @@ function ServerData_ContentLock:getOpenContentNameWithLv(lv)
 
     for _, t_content_lock in pairs(table_content_lock) do
         local req_user_lv = t_content_lock['req_user_lv']
-        if (req_user_lv == lv) then
+
+		-- 콘텐츠 오픈 팝업 skip항목 필터 (sgkim 2018.12.12 그림자의 신전, 그랜드 콜로세움)
+        local skip_popup = toboolean(t_content_lock['skip_popup'])
+        if (not skip_popup) and (req_user_lv == lv) then
             return t_content_lock['content_name']
         end
     end

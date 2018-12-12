@@ -1160,3 +1160,35 @@ function conditionalOperator(condition, expression1, expression2)
         return expression2
     end
 end
+
+-------------------------------------
+-- function toboolean
+-- @brief 문자열을 boolean타입으로 변환
+-------------------------------------
+function toboolean(value)
+    if (value == 'true') then
+        return true
+    end
+
+    if (value == 'TRUE') then
+        return true
+    end
+
+    if (value == 'True') then
+        return true
+    end
+
+    if (value == 'false') then
+        return false
+    end
+
+    if (value == 'FALSE') then
+        return false
+    end
+
+    if (value == 'False') then
+        return false
+    end
+
+    return nil
+end
