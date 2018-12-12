@@ -13,6 +13,18 @@ local LAYER_INFO_LIST = {
 	{'right', 1280}
 }
 
+local DECO_TYPE = {
+    ['X_MAS'] = 'christmas',
+    ['BLOSSOM'] = 'blossom',
+    ['HALLOWEEN'] = 'halloween',
+}
+
+-- ## 장식 추가 스텝 ##
+-- DECO_TYPE 추가
+-- function getDecoType : 적절한 조건에 따라 deco_type 반환하도록 추가
+-- function createLobbyWorld : deco_type에 따라 적절한 장식 생성 함수 호출
+-- function makeLobbyDecoLayer, makeLobbyDeco_onLayer, makeLobbyParticle : 적절하게 장식 생성 로직 추가
+
 -------------------------------------
 -- function createLobbyWorld
 -------------------------------------
@@ -20,42 +32,47 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 
 	self:chcekDayOrNight()
 
+    local lobby_ground = self:makeLobbyLayer(1)
     local lobby_map = LobbyMap(parent_node)
     lobby_map:setContainerSize(1280*3, 960)
     
+    -- 레이어 생성
     lobby_map:addLayer(self:makeLobbyLayer(4), 0.7) -- 하늘
     lobby_map:addLayer(self:makeLobbyLayer(3), 0.8) -- 마을
     lobby_map:addLayer(self:makeLobbyLayer(2), 0.9) -- 분수
-	--lobby_map:addLayer(self:makeLobbyDecoLayer('blossom'), 1) -- 벚꽃
+	lobby_map:addLayer_lobbyGround(lobby_ground) -- 바닥
+    lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
 
-	do -- 땅
-		local lobby_ground = self:makeLobbyLayer(1)
-		lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby)
-		
-		-- 할로윈 장식
-		--self:makeLobbyDeco_onLayer(lobby_ground, 'halloween')
+    -- 이벤트 장식 타입
+    local deco_type = self.getDecoType()
 
-        -- 크리스마스 트리
-        self:makeLobbyDeco_onLayer(lobby_ground, 'christmas')
-	end
-
-    -- 근경
-    lobby_map:addLayer(self:makeLobbyLayer(0), 1)
-	--lobby_map:addLayer(self:makeLobbyDecoLayer('halloween'), 1) -- 할로윈 장식
+	-- 할로윈
+    if (deco_type == DECO_TYPE.HALLOWEEN) then
+	    self:makeLobbyDeco_onLayer(lobby_ground, deco_type) -- 바닥 장식
+	    lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 근경 레이어
+        
+    -- 크리스마스
+    elseif (deco_type == DECO_TYPE.X_MAS) then
+        self:makeLobbyDeco_onLayer(lobby_ground, deco_type) -- 바닥 트리
+        self:makeLobbyParticle(ui_lobby, deco_type) -- 눈 파티클
+    
+    -- 벚꽃
+    elseif (deco_type == DECO_TYPE.BLOSSOM) then
+	    lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 벚꽃 나무 레이어
+        self:makeLobbyParticle(ui_lobby, deco_type) -- 벚꽃 파티클
+    end
 
     return lobby_map
 end
 
 -------------------------------------
 -- function makeLobbyLayer
+-- @param idx : layer 생성의 키이자 local_z_order로 사용함
 -------------------------------------
 function LobbyMapFactory:makeLobbyLayer(idx)
     local node = cc.Node:create()
     node:setDockPoint(CENTER_POINT)
     node:setAnchorPoint(CENTER_POINT)
-
-    local skip_error_msg = true
-	local animator = nil
 
 	local night = ''
 	if USE_NIGHT then
@@ -66,12 +83,16 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 	-- 2. 없으면 png를 찾는다
 	-- 3. png도 없다면 불러오지 않는다
 
+    
+    local skip_error_msg = true
+	local animator = nil
+    local dir, pos_x, res_name, path = nil, nil, nil, nil
 	for _, l_info in ipairs(LAYER_INFO_LIST) do
-		local dir = l_info[1]
-		local pos_x = l_info[2]
+		dir = l_info[1]
+		pos_x = l_info[2]
 		
-		local res_name = string.format('lobby_layer_%.2d_%s%s', idx, dir, night)
-		local path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
+		res_name = string.format('lobby_layer_%.2d_%s%s', idx, dir, night)
+		path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
 		
 		if (cc.FileUtils:getInstance():isFileExist(path) == false) then
 			path = string.format('res/lobby/%s.png', res_name)
@@ -106,7 +127,7 @@ function LobbyMapFactory:makeLobbyDecoLayer(deco_type)
 	end
 
 	-- 벚꽃 나무
-	if (deco_type == 'blossom') then
+	if (deco_type == DECO_TYPE.BLOSSOM) then
 		local full_path = string.format('res/lobby/lobby_season_deco/lobby_blossom%s.png', night)
 		animator = MakeAnimator(full_path, skip_error_msg)
 		if (animator.m_node) then
@@ -117,7 +138,7 @@ function LobbyMapFactory:makeLobbyDecoLayer(deco_type)
 		end
 
 	-- 할로윈 0번 레이어
-	elseif (deco_type == 'halloween') then
+	elseif (deco_type == DECO_TYPE.HALLOWEEN) then
 		local l_layer_info = {
 			{'left', -1280}, {'right', 1280}
 		}
@@ -158,17 +179,17 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 			animator:setDockPoint(CENTER_POINT)
 			animator:setAnchorPoint(CENTER_POINT)
 			animator:setPosition(645, 110, 1)
-			node:addChild(animator.m_node)
+			node:addChild(animator.m_node, 1)
 		end
 	
 	-- 크리스마스 트리
-	elseif (deco_type == 'christmas') then
+	elseif (deco_type == DECO_TYPE.X_MAS) then
 		animator = MakeAnimator('res/lobby/lobby_layer_01_center_tree/lobby_layer_01_center_tree.vrp')
 		if (animator.m_node) then
 			animator:setDockPoint(CENTER_POINT)
 			animator:setAnchorPoint(CENTER_POINT)
 			animator:setPosition(235, 145)
-			node:addChild(animator.m_node)
+			node:addChild(animator.m_node, 1)
 		end
 		
 	-- 1주년 기념
@@ -177,11 +198,11 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		if (animator.m_node) then
 			animator:setPosition(0, 0)
 			self.m_tree:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
-			node:addChild(animator.m_node)
+			node:addChild(animator.m_node, 1)
 		end
 
 	-- 할로윈 1번 레이어
-	elseif (deco_type == 'halloween') then
+	elseif (deco_type == DECO_TYPE.HALLOWEEN) then
 		for _, l_info in ipairs(LAYER_INFO_LIST) do
 			local name = l_info[1]
 			local pos_x = l_info[2]
@@ -196,6 +217,56 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		end
 
 	end
+end
+
+-------------------------------------
+-- function makeLobbyParticle
+-- @brief ui_lobby에 파티클을 생성한다.
+-------------------------------------
+function LobbyMapFactory:makeLobbyParticle(ui_lobby, deco_type)
+    if (not ui_lobby) then
+        return
+    end
+    
+    local particle_res
+
+    -- 눈은 밤에만 내린다
+    if (deco_type == DECO_TYPE.X_MAS) and (USE_NIGHT) then 
+        particle_res = 'res/ui/particle/dv_snow.plist'
+
+    -- 벚꽃
+    elseif (deco_type == DECO_TYPE.BLOSSOM) then
+        particle_res = 'res/ui/particle/particle_cherry.plist'
+
+    -- 정의되지 않은 타입은 파티클 생성안함
+    else
+        return
+    end
+
+	local particle = cc.ParticleSystemQuad:create(particle_res)
+	particle:setAnchorPoint(CENTER_POINT)
+	particle:setDockPoint(CENTER_POINT)
+	ui_lobby.root:addChild(particle)
+end
+
+-------------------------------------
+-- function getDecoType
+-- @brief 현재의 deco_type 반환
+-- @comment 일단 하드코딩으로 처리
+-------------------------------------
+function LobbyMapFactory.getDecoType()
+    local curr_time = os.time()
+	local date = pl.Date()
+	date:set(curr_time)
+
+    local month, day = date:month(), date:day()
+
+    -- 12.22 ~ 12.31
+    if (month == 12) and (day >= 22) then
+        return DECO_TYPE.X_MAS
+    else
+        return nil
+    end
 end
 
 -------------------------------------
@@ -220,34 +291,4 @@ function LobbyMapFactory:chcekDayOrNight()
 	else
 		USE_NIGHT = true
 	end
-end
-
--------------------------------------
--- function makeLobbyParticle
--- @brief 관리 차원에서 로비에서 사용되는
--------------------------------------
-function LobbyMapFactory.makeLobbyParticle(lobby_ui)
-    if (not lobby_ui) then
-        return
-    end
-
- 	-- 저사양 모드에서는 실행하지 않는다.
-	if (isLowEndMode()) then
-		return
-	end
-    
-    -- on/off 용
-    if (false) then
-        return
-    end
-
-    -- 눈은 밤에만 내리도록 함
-    if (not USE_NIGHT) then
-        return
-    end
-
-	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist")
-	particle:setAnchorPoint(CENTER_POINT)
-	particle:setDockPoint(CENTER_POINT)
-	lobby_ui.root:addChild(particle)
 end

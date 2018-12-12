@@ -86,9 +86,6 @@ function UI_Lobby:initUI()
 
     -- 깜짝 할인 상품 버튼 관리 클래스 생성
     self.m_lobbySpotSaleBtn = UI_LobbySpotSaleBtn(self)
-
-    -- particle 관리
-	self:initParticle()
 end
 
 -------------------------------------
@@ -97,14 +94,6 @@ end
 function UI_Lobby:init_after()
     PARENT.init_after(self)
     g_topUserInfo:doActionReset()
-end
-
--------------------------------------
--- function:initParticle
--------------------------------------
-function UI_Lobby:initParticle()
-    -- 관리 용이하도록 LobbyMapFactory에서 컨트롤 하도록 함.
-    LobbyMapFactory.makeLobbyParticle(self)
 end
 
 -------------------------------------
