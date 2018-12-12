@@ -174,6 +174,7 @@ return {['10vs10 대규모 대전 등장!']='10 vs 10 massive scale battle is no
 ['산타 모자 이벤트']='Santa Hat Event',
 ['산타 모자\n이벤트']='Santa Hat\nEvent',
 ['선물상자 교환에 사용한 산타 모자의 누적 사용량에 따라 보상을 획득할 수 있어요.']='You can get a reward according to the number of Santa Hat used to exchange gift boxes.',
+['351~400위']='351th-400th',
 [' 빛의 거목']='Massive Light Tree',
 ['\"{1}\" 진행하시겠습니까?']='{1} Continue?',
 ['\"언어 설정\"은 준비 중입니다.']='“Languages” is currently in preparation.',
