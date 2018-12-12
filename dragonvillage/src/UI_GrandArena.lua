@@ -67,6 +67,7 @@ function UI_GrandArena:initUI()
         vars['reserveNode']:setVisible(false)
         vars['reservePeriodLabel']:setVisible(false)
         vars['officialPeriodLabel']:setVisible(true)
+        vars['officialPeriodLabel']:setString(Str('그랜드 콜로세움'))
 
         vars['rankingBtn']:setVisible(true)
         vars['startBtn']:setVisible(false)
