@@ -591,7 +591,7 @@ end
 -------------------------------------
 function UI_TamerManagePopup:click_go_shop(costume_data)
 	
-    if (costume_data:isSaleType_topaz()) then
+    if (costume_data:isTopazCostume()) then
         UINavigator:goTo('shop', 'topaz')    
     elseif (costume_data:isValorCostume()) then
         UINavigator:goTo('shop', 'valor')

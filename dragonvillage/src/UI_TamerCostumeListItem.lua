@@ -94,7 +94,7 @@ function UI_TamerCostumeListItem:refresh()
                 vars['gotoLabel']:setString(Str('용맹훈장 상점에서 구매'))
                 vars['gotoBtn']:setVisible(true)
                 vars['gotoBtn']:setEnabled(true)
-            --elseif (costume_data:isSaleType_topaz()) then
+            --elseif (costume_data:isTopazCostume()) then
             --   vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
             --   vars['gotoBtn']:setVisible(true)
             --   vars['gotoBtn']:setEnabled(true)

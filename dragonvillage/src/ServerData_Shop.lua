@@ -559,7 +559,7 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
 
         -- 구매한 아이템 중 코스튬이 있다면 dirty 갱신
         if (ret['added_items']) then
-            if (self:isCostume(ret['added_items'])) then
+            if (self:isContainCostume(ret['added_items'])) then
                 g_tamerCostumeData.m_bDirtyCostumeInfo = true
             end
         end
@@ -608,16 +608,16 @@ end
 -- function isCostume
 -- @breif 구매한 제품 중 아이템이 하나라도 코스튬이면 true 반환
 -------------------------------------
-function ServerData_Shop:isCostume(added_items)
+function ServerData_Shop:isContainCostume(added_items)
     if (not added_items['items_list']) then
         return false
     end
 
     local items_list = added_items['items_list']
     local table_item = TableItem()
-    for _, list in pairs(items_list) do
+    for _, t_item in pairs(items_list) do
         if (list['item_id']) then
-            if (table_item:getItemType(list['item_id']) == 'costume') then
+            if (table_item:getItemType(t_item['item_id']) == 'costume') then
                 return true
             end
         end
