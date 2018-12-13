@@ -231,19 +231,25 @@ function UI_ChallengeModeRankingPopup:makeRankTableView()
     self.m_rankTableView = table_view
 
 
-    do -- 리스트 중 플레이어의 랭킹이 있으면 포커스를 맞춰준다
-        local idx = nil
-        for i,v in pairs(table_view.m_itemList) do
-            if v['data'] then
-                if (v['data'].m_uid == g_userData:get('uid')) then
-                    idx = i
-                    break
+    do -- 최상위 랭킹의 경우 포커스를 1위에 위치
+        if (self.m_rankFullType == 'world_top') then
+            self.m_rankTableView:update(0)
+            self.m_rankTableView:relocateContainerFromIndex(1)
+        -- 내 랭킹의 경우 포커스를 내 랭킹에 위치
+        else
+            local idx = nil
+            for i,v in pairs(table_view.m_itemList) do
+                if v['data'] then
+                    if (v['data'].m_uid == g_userData:get('uid')) then
+                        idx = i
+                        break
+                    end
                 end
             end
-        end
-        if idx then
-            self.m_rankTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-            self.m_rankTableView:relocateContainerFromIndex(idx)
+            if idx then
+                self.m_rankTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+                self.m_rankTableView:relocateContainerFromIndex(idx)
+            end
         end
     end
 end
