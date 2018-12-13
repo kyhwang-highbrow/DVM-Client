@@ -21,7 +21,12 @@ function UI_GrandArenaDeckSettings:init(stage_id, sub_info)
     icon:setScale(0.5)
     vars['staminaExtNode']:addChild(icon)
     vars['actingPowerExtLabel']:setString(NEED_CASH)
-    vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
+
+	-- 연습전 기간에는 입장권 소모가 없음
+	-- 입장권 관련 실시간 갱신이 필요없음
+    if (not g_grandArena:isPreseason()) then
+        vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
+    end
 end
 
 -------------------------------------
