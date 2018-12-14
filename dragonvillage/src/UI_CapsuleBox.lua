@@ -1,4 +1,18 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local BOX_KEY_1 = 'first'
+local BOX_KEY_2 = 'second'
+local BOX_KEY_3 = 'third'
+local L_BOX = {
+	BOX_KEY_1,
+	BOX_KEY_2
+}
+-- visual ani 명 serverKey 에 맵핑
+local T_ANI = {
+	[BOX_KEY_1] = 'special_idle',
+	[BOX_KEY_2] = 'normal_idle'
+}
+local CURR_Z_ORDER = 10
+local RENEW_INTERVAL = 10
+
 
 local BOX_KEY_1 = 'first'
 local BOX_KEY_2 = 'second'
@@ -18,50 +32,33 @@ local RENEW_INTERVAL = 10
 -------------------------------------
 -- class UI_CapsuleBox
 -------------------------------------
-UI_CapsuleBox = class(PARENT,{
+UI_CapsuleBox = class({
 		m_capsuleBoxData = '',
 		m_isBusy = 'bool',
 		m_preRefreshTime = 'time',
+        m_vars = 'ui.vars',
     })
-
--------------------------------------
--- function initParentVariable
--- @brief 자식 클래스에서 반드시 구현할 것
--------------------------------------
-function UI_CapsuleBox:initParentVariable()
-    -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_CapsuleBox'
-    self.m_bVisible = true
-    self.m_titleStr = Str('캡슐 뽑기')
-    self.m_bUseExitBtn = true
-end
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_CapsuleBox:init()
-	local vars = self:load('capsule_box.ui')
-	UIManager:open(self, UIManager.SCENE)
-	
+function UI_CapsuleBox:init(ui_name, ui)
+    self.m_vars = ui.vars
 	self.m_capsuleBoxData = g_capsuleBoxData:getCapsuleBoxInfo()
 	self.m_isBusy = false
 	self.m_preRefreshTime = 0
+    self:initUI()
+    self:initButton()
+    self:refresh()
+	ui.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
-	-- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_CapsuleBox')
-
-	self:initUI()
-	self:initButton()
-	self:refresh()
-
-	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_CapsuleBox:initUI()
-	local vars = self.vars
+	local vars = self.m_vars
 
 	local capsulebox_data = self.m_capsuleBoxData
 
@@ -98,7 +95,7 @@ end
 -- function initButton
 -------------------------------------
 function UI_CapsuleBox:initButton()
-	local vars = self.vars
+	local vars = self.m_vars
 	
 	-- 보상 내역 확인
 	vars['firstRewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn(BOX_KEY_1) end)
@@ -110,7 +107,8 @@ function UI_CapsuleBox:initButton()
 	vars['secondDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2) end)
 
 	-- 새로고침
-	vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+	vars['heroRefreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    vars['legendRefreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 
 	-- 캡슐 코인 구매
 	vars['firstCoinBtn']:registerScriptTapHandler(function() self:click_firstCoinBtn() end)
@@ -123,8 +121,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_CapsuleBox:refresh()
-	local vars = self.vars
-
+	local vars = self.m_vars
 	local capsulebox_data = self.m_capsuleBoxData
 
 	for _, box_key in pairs(L_BOX) do
@@ -159,8 +156,7 @@ function UI_CapsuleBox:refresh()
     -- 캡슐 코인 5+1 패키지 갱신
     self:refresh_dailyCapsulePackage()
 
-
-    -- 1주년 스페셜 절대적인전설의 알 출현 이벤트 (9/1~9/2 양일간)
+ 	-- 1주년 스페셜 절대적인전설의 알 출현 이벤트 (9/1~9/2 양일간)
     local day = g_capsuleBoxData:getScheduleDay()
     if (day == 20180901) or (day == 20180902) then
         vars['1stEventMenu']:setVisible(true)
@@ -174,7 +170,7 @@ end
 -- @brief 캡슐코인 5+1 상품은 패키지 등록되지 않은 상태서 UI_CapsuleBox에서만 구입 가능
 -------------------------------------
 function UI_CapsuleBox:refresh_dailyCapsulePackage()
-    local vars = self.vars
+    local vars = self.m_vars
     local struct_product = g_shopDataNew:getDailyCapsulePackage()
     if (struct_product and struct_product:isItBuyable()) then
         vars['buyBtn']:setVisible(true)
@@ -196,7 +192,8 @@ end
 function UI_CapsuleBox:update(dt)
 	-- 남은 시간
 	local remain_text = g_capsuleBoxData:getRemainTimeText()
-	self.vars['remainTimeLabel']:setString(Str('{1} 남음', remain_text))
+	self.m_vars['legendRemainTimeLabel']:setString(Str('{1} 남음', remain_text))
+    self.m_vars['heroRemainTimeLabel']:setString(Str('{1} 남음', remain_text))
 
 	-- 중복 호출 방지 처리
 	if (self.m_isBusy) then
@@ -277,7 +274,7 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 		local block_ui = UI_BlockPopup()
 
 		-- 연출 시작
-		local ani = self.vars[box_key .. 'Visual']
+		local ani = self.m_vars[box_key .. 'Visual']
 		
 		CURR_Z_ORDER = CURR_Z_ORDER + 1
 		ani:setLocalZOrder(CURR_Z_ORDER)
@@ -369,7 +366,7 @@ function UI_CapsuleBox:click_buyBtn()
 end
 
 -------------------------------------
--- function click_exitBtn
+-- function click_exitBtn -- 닫기 전 처리 필요!
 -------------------------------------
 function UI_CapsuleBox:click_exitBtn()
 	-- 연출 중이라면 UI가 닫히지 않도록 한다
@@ -379,11 +376,6 @@ function UI_CapsuleBox:click_exitBtn()
 
     self:close()
 end
-
-
-
-
-
 
 -------------------------------------
 -- function makeRewardCell
@@ -418,5 +410,44 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	return ui
 end
 
---@CHECK
-UI:checkCompileError(UI_CapsuleBox)
+
+
+
+
+------------------------------------
+-- function set_after
+-- @brief UI_TabUI_AutoGeneration에서 UI 생성 후 UI설정 필요한 부분 처리
+-------------------------------------
+local set_after = function(ui_name, ui)
+
+    if(ui_name == 'capsule_box_schedule_list.ui') then
+        --[[
+        local list = TABLE:get('table_capsule_box_schedule')
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(ui.vars['capsule_Schedule_TabMenu'])
+        table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
+        table_view.m_defaultCellSize = cc.size(900, 200)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(list)
+    --]]
+        UI_CapsuleBox(ui_name, ui)
+    end
+
+end
+
+-------------------------------------
+-- function UI_HelpCapsuleBox
+-------------------------------------
+function UI_HelpCapsuleBox(...)
+    local struct_tab_ui = StructTabUI()
+    struct_tab_ui:setPrefix('help_')
+    struct_tab_ui:setDefaultTab(...)
+    struct_tab_ui:setAfterFunc(set_after)   -- UI 생성 후 후처리 함수 설정
+    struct_tab_ui:setMakeChildMenuFunc(make_child_menu)
+    
+    local useTopInfo = {}
+    useTopInfo['ui_name'] = 'UI'
+    useTopInfo['ui_title'] = '캡슐뽑기'
+    useTopInfo['useInfo'] = true
+    return UI_TabUI_AutoGeneration('capsule_box_schedule_list.ui', true, 1, struct_tab_ui, useTopInfo) -- param ui_name, is_root, ui_depth, struct_tab_ui , use_top_user_info
+end

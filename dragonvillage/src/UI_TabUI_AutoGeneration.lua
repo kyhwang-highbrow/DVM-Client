@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITabUI:getCloneTable())
+local PARENT = class(UI, ITabUI:getCloneTable(), ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_TabUI_AutoGeneration
@@ -6,16 +6,34 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_TabUI_AutoGeneration = class(PARENT,{
         m_uiDepth = 'number',
         m_structTabUI = 'StructTabUI',
+        m_useTopInfo = '',
     })
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_TabUI_AutoGeneration:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = self.m_useTopInfo['ui_name']
+    self.m_titleStr = self.m_useTopInfo['ui_title']
+end
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TabUI_AutoGeneration:init(ui_name, is_root, ui_depth, struct_tab_ui)
+function UI_TabUI_AutoGeneration:init(ui_name, is_root, ui_depth, struct_tab_ui, use_top_info)
     self.m_uiName = 'UI_TabUI_AutoGeneration (' .. ui_name .. ')'
+    self.m_useTopInfo = use_top_info
+
+    if (use_top_info) then
+        self:useUserTopInfo(use_top_info['useInfo'])
+    else
+        self:useUserTopInfo(false)
+    end
+
     local vars = self:load(ui_name)
     self.m_structTabUI = struct_tab_ui or StructTabUI()
-
     if is_root then
         UIManager:open(self, UIManager.SCENE)
 
@@ -231,6 +249,18 @@ function UI_TabUI_AutoGeneration:makeChildMenu(tab_name)
     end
 
     return nil
+end
+
+
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_TabUI_AutoGeneration:click_exitBtn()
+	
+
+   self:close()
+
 end
 
 

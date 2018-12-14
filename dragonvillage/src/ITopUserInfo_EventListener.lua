@@ -44,12 +44,13 @@ end
 -- function init_after
 -------------------------------------
 function ITopUserInfo_EventListener:init_after()
-    self:initParentVariable()
-
     -- UI_TopUserInfo를 사용하지 않는 경우 등록하지 않는다
     if (not self.m_useTopUserInfo) then
         return
     end
+    
+    self:initParentVariable()
+
     if g_topUserInfo then
         g_topUserInfo:pushOwnerUI(self)
     end
