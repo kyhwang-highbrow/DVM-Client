@@ -18,6 +18,7 @@ ITopUserInfo_EventListener = {
     m_bShowInvenBtn = '',
 
     m_uiBgm = 'string',
+    m_useTopUserInfo = 'bool',
 }
 
 -------------------------------------
@@ -34,6 +35,9 @@ function ITopUserInfo_EventListener:init()
     self.m_invenType = 'dragon'
     self.m_bShowInvenBtn = false
     self.m_uiBgm = nil
+
+    --ItopUserInfo_EventListner 클래스를 상속 받지만 사용은 안하는 경우 구분
+    self.m_useTopUserInfo = true
 end
 
 -------------------------------------
@@ -41,9 +45,21 @@ end
 -------------------------------------
 function ITopUserInfo_EventListener:init_after()
     self:initParentVariable()
+
+    -- UI_TopUserInfo를 사용하지 않는 경우 등록하지 않는다
+    if (not self.m_useTopUserInfo) then
+        return
+    end
     if g_topUserInfo then
         g_topUserInfo:pushOwnerUI(self)
     end
+end
+
+-------------------------------------
+-- function useUserTopInfo
+-------------------------------------
+function ITopUserInfo_EventListener:useUserTopInfo(use_top_user_info)
+    self.m_useTopUserInfo = use_top_user_info
 end
 
 -------------------------------------
