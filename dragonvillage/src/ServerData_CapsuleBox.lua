@@ -172,9 +172,12 @@ end
 -------------------------------------
 -- function request_capsuleBoxBuy
 -------------------------------------
-function ServerData_CapsuleBox:request_capsuleBoxBuy(box, price_type, finish_cb, fail_cb)
+function ServerData_CapsuleBox:request_capsuleBoxBuy(box, price_type, finish_cb, fail_cb, count)
     -- 파라미터
     local uid = g_userData:get('uid')
+    if (not count) then
+        count = 1
+    end
 
     -- 콜백 함수
     local function success_cb(ret)
@@ -199,6 +202,7 @@ function ServerData_CapsuleBox:request_capsuleBoxBuy(box, price_type, finish_cb,
     ui_network:setUrl('/shop/capsule_box/buy')
     ui_network:setParam('uid', uid)
 	ui_network:setParam('box', box)
+    ui_network:setParam('count', count)
 	ui_network:setParam('price_type', price_type)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

@@ -351,7 +351,7 @@ end
 -- function click_drawBtn
 -- @brief 뽑기
 -------------------------------------
-function UI_CapsuleBox:click_drawBtn(box_key, idx)
+function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 	if (self.m_isBusy) then
 		return
 	end
@@ -408,8 +408,13 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			
 			-- 보상 수령 확인 팝업
 			if (ret['items_list']) then
-				local text = Str('상품이 우편함으로 전송되었습니다.')
-				UI_ObtainPopup(ret['items_list'], text)
+                -- count 값이 없으면 1회 뽑기
+                if (not count) then
+				    local text = Str('상품이 우편함으로 전송되었습니다.')
+				    UI_ObtainPopup(ret['items_list'], text)
+                else
+                    -- UI_EventMatchCardResult(ret['items_list'], 0)
+                end
 			end
 
 			self:refresh()
@@ -428,7 +433,7 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			self.m_isBusy = false
 		end)
 	end
-	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func)
+	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func, count)
 end
 
 -------------------------------------
