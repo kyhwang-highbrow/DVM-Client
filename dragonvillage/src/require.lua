@@ -848,6 +848,7 @@ local t_module = {
     'UI_FormationDetailPopup',
     'UI_EventFullPopup',
     'UI_CapsuleScheduleListItem',
+    'UI_CapsuleBoxResultPopup',
 	'UI_CapsuleBox',
 	'UI_CapsuleBoxRewardList',
     'UI_ContentOpenPopup',

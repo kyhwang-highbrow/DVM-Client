@@ -408,12 +408,13 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 			
 			-- 보상 수령 확인 팝업
 			if (ret['items_list']) then
-                -- count 값이 없으면 1회 뽑기
+                -- count 값이 없으면 기본 결과 팝업(1뽑기 용)
                 if (not count) then
 				    local text = Str('상품이 우편함으로 전송되었습니다.')
 				    UI_ObtainPopup(ret['items_list'], text)
                 else
-                    -- UI_EventMatchCardResult(ret['items_list'], 0)
+                -- count 값이 있을 경우 보상 가로로 나열해 주는 팝업(10뽑기 용)
+                    UI_CapsuleBoxResultPopup(ret['items_list'])
                 end
 			end
 
