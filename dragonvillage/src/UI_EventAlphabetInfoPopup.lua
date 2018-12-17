@@ -52,6 +52,7 @@ function UI_EventAlphabetInfoPopup:initButton()
     table.insert(l_content_list, 'ancient_ruin')
     table.insert(l_content_list, 'nest_nightmare')
     table.insert(l_content_list, 'secret_relation')
+    table.insert(l_content_list, 'rune_guardian')
 
     for i,v in pairs(l_content_list) do
         if vars[v .. 'Btn'] then
