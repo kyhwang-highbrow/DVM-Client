@@ -62,36 +62,63 @@ end
 -------------------------------------
 function UI_CapsuleBox:initUI()
 	local vars = self.vars
+end
+
+-------------------------------------
+-- function initTabContents
+-- @brief 탭 내용물 초기화 (캡슐 애니메이션, 캡슐 아이템 정보,액션 등등)
+-------------------------------------
+function UI_CapsuleBox:initTabContents(i, box_key)
+	local vars = self.vars
 
 	local capsulebox_data = self.m_capsuleBoxData
 
-	for i, box_key in pairs(L_BOX) do
-		local ani = vars[box_key .. 'Visual']
+	local ani = vars[box_key .. 'Visual']
 
-		-- 애니메이션 일단 정지..
-		ani:setAnimationPause(true)
-		cca.dropping(ani.m_node, 1000, i)
+	-- 애니메이션 일단 정지..
+	ani:changeAni(T_ANI[box_key], false)
+	ani:setAnimationPause(true)
+	cca.dropping(ani.m_node, 1000, i)
 
-		-- price 및 가격 표시
-		local struct_capsule = capsulebox_data[box_key]
-		local l_price_list = struct_capsule:getPriceList()
-		for i, t_price in pairs(l_price_list) do
-			-- 가격 표시
-			local price = t_price['value']
-			vars[box_key .. 'PriceLabel' .. i]:setString(comma_value(price))
+	-- price 및 가격 표시
+	local struct_capsule = capsulebox_data[box_key]
+	local l_price_list = struct_capsule:getPriceList()
+	for i, t_price in pairs(l_price_list) do
+		-- 가격 표시
+		local price = t_price['value']
+		vars[box_key .. 'PriceLabel' .. i]:setString(comma_value(price))
 
-			-- 가격 아이콘
-			local price_type = t_price['type']
-			local price_icon
-			if (box_key == 'first') then
-				price_icon = IconHelper:getPriceBigIcon(price_type)
-			else
-				price_icon = IconHelper:getPriceIcon(price_type)
-			end
-			vars[box_key .. 'PriceNode' .. i]:removeAllChildren(true)
-			vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
+		-- 가격 아이콘
+		local price_type = t_price['type']
+		local price_icon
+		if (box_key == 'first') then
+			price_icon = IconHelper:getPriceBigIcon(price_type)
+		else
+			price_icon = IconHelper:getPriceIcon(price_type)
+		end
+		vars[box_key .. 'PriceNode' .. i]:removeAllChildren(true)
+		vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
+	end
+
+    local struct_capsule_box = capsulebox_data[box_key]
+	local rank = 1
+	local l_reward = struct_capsule_box:getRankRewardList(rank)
+
+	-- 대표 보상 표시
+	for i, struct_reward in ipairs(l_reward) do
+		if (i <= 3) then
+			local ui = self.makeRewardCell(box_key, struct_reward)
+			vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
+			vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
+			
+			cca.fruitReact(ui.root, i)
 		end
 	end
+
+	-- 남은 캡슐 비율
+	local curr_per = struct_capsule_box:getTopRewardProb()
+	vars[box_key .. 'CurrentRateLabel']:setString(curr_per)
+
 end
 
 -------------------------------------
@@ -138,8 +165,13 @@ end
 -------------------------------------
 function UI_CapsuleBox:onChangeTab(tab, first)
 	-- 최초 생성만 실행
-	if first then 
-        
+	if first then
+        if (tab == 'legend_Capsule_') then
+            self:initTabContents(1, BOX_KEY_1)
+        elseif (tab == 'hero_Capsule_') then
+            self:initTabContents(2, BOX_KEY_2)
+        else
+        end
 	end
 end
 
@@ -183,6 +215,7 @@ function UI_CapsuleBox:refresh()
     -- 캡슐 코인 5+1 패키지 갱신
     self:refresh_dailyCapsulePackage()
 
+    --[[
     -- 1주년 스페셜 절대적인전설의 알 출현 이벤트 (9/1~9/2 양일간)
     local day = g_capsuleBoxData:getScheduleDay()
     if (day == 20180901) or (day == 20180902) then
@@ -190,6 +223,7 @@ function UI_CapsuleBox:refresh()
     else
         vars['1stEventMenu']:setVisible(false)
     end
+    --]]
 end
 
 -------------------------------------
