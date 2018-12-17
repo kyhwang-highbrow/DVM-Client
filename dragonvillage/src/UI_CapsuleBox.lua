@@ -173,28 +173,64 @@ function UI_CapsuleBox:onChangeTab(tab, first)
         elseif (tab == 'hero_Capsule_') then
             self:initTabContents(2, BOX_KEY_2)
         else
-            local list = TABLE:get('table_capsule_box_schedule')
-            -- 테이블 뷰 인스턴스 생성
-            local table_view = UIC_TableView(vars['capsule_Schedule_TabMenu'])
-            table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
-            table_view.m_defaultCellSize = cc.size(900, 190)
-            table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-            table.MapToList(list)
-            table_view:setItemList(list)
+            self:makeCapsuleSchduleTableView()
+	    end
+    end
+end
 
-            -- 캡슐 판매일 지난 것부터 출력되도록 정렬
-            local function sort_func(a, b)
-                local a_data = a['data']
-                local b_data = b['data']
+-------------------------------------
+-- function makeCapsuleSchduleTableView
+-------------------------------------
+function UI_CapsuleBox:makeCapsuleSchduleTableView()
+    local vars = self.vars
 
-                local a_time = a_data['day']
-                local b_time = b_data['day']
+    local list = TABLE:get('table_capsule_box_schedule')
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(vars['capsule_Schedule_TabMenu'])
+    table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
+    table_view.m_defaultCellSize = cc.size(900, 190)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table.MapToList(list)
+    table_view:setItemList(list)
 
-                return a_time < b_time
+    -- 캡슐 판매일 오래된 것부터 출력되도록 정렬
+    local function sort_func(a, b)
+        local a_data = a['data']
+        local b_data = b['data']
+
+        local a_time = a_data['day']
+        local b_time = b_data['day']
+
+        return a_time < b_time
+    end
+    table.sort(table_view.m_itemList, sort_func)
+
+    local idx = nil
+    local date_format = 'yyyymmdd'
+    local parser = pl.Date.Format(date_format)
+    local cur_time = Timer:getServerTime()
+    
+    -- 현재 판매중인 목록에 focus 하기 위해 판매 예정일이 가장 가까운 목록 찾음
+    for i,v in pairs(table_view.m_itemList) do
+        if v['data'] then
+            local schedule_date = parser:parse(tostring(v['data']['day']))
+            local schedule_time = schedule_date['time'] 
+            if (cur_time < schedule_time) then
+                idx = i
+                break
             end
-            table.sort(table_view.m_itemList, sort_func)
         end
-	end
+    end
+
+    if idx then
+        -- focus가 리스트 마지막을 넘어갈 경우 예외처리
+        if (idx > #table_view.m_itemList) then
+             idx = #table_view.m_itemList
+        end
+        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        table_view:relocateContainerFromIndex(idx)
+    end
+
 end
 
 -------------------------------------
