@@ -164,6 +164,8 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_CapsuleBox:onChangeTab(tab, first)
+    local vars = self.vars
+
 	-- 최초 생성만 실행
 	if first then
         if (tab == 'legend_Capsule_') then
@@ -171,6 +173,13 @@ function UI_CapsuleBox:onChangeTab(tab, first)
         elseif (tab == 'hero_Capsule_') then
             self:initTabContents(2, BOX_KEY_2)
         else
+            local list = TABLE:get('table_capsule_box_schedule')
+            -- 테이블 뷰 인스턴스 생성
+            local table_view = UIC_TableView(vars['capsule_Schedule_TabMenu'])
+            table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
+            table_view.m_defaultCellSize = cc.size(900, 190)
+            table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+            table_view:setItemList(list)
         end
 	end
 end
