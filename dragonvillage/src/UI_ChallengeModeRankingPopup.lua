@@ -8,6 +8,7 @@ local OFFSET_GAP = 30 -- 한번에 보여주는 랭커 수
 UI_ChallengeModeRankingPopup = class(PARENT,{
         m_rankTableView = 'UIC_TableView',
         m_rankType = 'string',
+        m_rankFullType = 'string',
         m_rankOffset = 'number',
         m_rewardTableView = '',
         m_selectedUI = '',
