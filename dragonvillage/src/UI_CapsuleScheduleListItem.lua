@@ -44,48 +44,58 @@ end
 -- function initUI
 -------------------------------------
 function UI_CapsuleScheduleListItem:initUI()
-   local vars = self.vars
+    local vars = self.vars
+    -- item_key_list í•­ëª© ëœ» 
+    -- ex)  first_1 : ì „ì„¤ ìº¡ìŠ ì²« ë²ˆì§¸ ì•„ì´í…œ, second_2 : ì˜ì›… ìº¡ìŠ  ë‘ ë²ˆì§¸ ì•„ì´í…œ
+    local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'}
 
-   -- item_key_list Ç×¸ñ ¶æ 
-   -- ex)  first_1 : Àü¼³ Ä¸½¶ Ã¹ ¹øÂ° ¾ÆÀÌÅÛ, second_2 : ¿µ¿õ Ä¸½¶  µÎ ¹øÂ° ¾ÆÀÌÅÛ
-   local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'}
+    for i, reward_name in ipairs(item_key_list) do
 
-   for i, reward_name in ipairs(item_key_list) do
-          
-       local node_name
-       if (string.match(reward_name,'first')) then
-           node_name = 'legendDragonNode'
-       elseif(string.find(reward_name, 'second')) then
-           node_name = 'heroDragonNode'
-       end
-       
-       if (node_name) then
-          -- first_1ÀÇ ¼ıÀÚ¸¦ ÃßÃâ
-          local node_number = string.match(reward_name, '%d')
-          -- ex) legendDragonNode + 1
-          node_name = node_name ..  node_number
+        local node_name
+        if (string.match(reward_name,'first')) then
+            node_name = 'legendDragonNode'
+        elseif(string.find(reward_name, 'second')) then
+            node_name = 'heroDragonNode'
+        end
 
-          if (vars[node_name]) then
-             local reward_card = UI_ItemCard(self.m_scheduleData[reward_name], 1).root
-             reward_card:setScale(0.66)
-             vars[node_name]:addChild(reward_card)
-          end
-       end
-   end
-   --[[
-   -- ¸®½ºÆ® ¾ÆÀÌÅÛ ¸¸µé±â Àü¿¡ ¶Ç °Ë»ç
-   local date = pl.Date()
-   local res = date['tab']['month']*100 + date['tab']['year']*10000 + date['tab']['day']
+        if (node_name) then
+            -- first_1ì˜ ìˆ«ìë¥¼ ì¶”ì¶œ
+            local node_number = string.match(reward_name, '%d')
 
-   if (res < tonumber(self.m_scheduleData['day'])) 
-   -- ÆÇ¸ÅÁß or ÆÇ¸Å ¿¹Á¤
+            -- ex) legendDragonNode + 1
+            node_name = node_name ..  node_number
 
-   self.vars['titleHeroLabel'] 
-   self.vars['titleLegendLabel']
-   
-   self.vars['leftTimeLabel']
-   self.vars['purchaseStateLabel']
-   --]]
+            -- ë…¸ë“œì— ì•„ì´í…œ ì¹´ë“œ ë§¤ë‹¬ê¸°, ì´ê±° ìœ„ë¡œ
+            if (vars[node_name]) then
+                local capsule_item_id = self:getCapsuleBoxItemId(reward_name)
+                if (capsule_item_id) then
+                    local reward_card = UI_ItemCard(capsule_item_id, 1).root
+                    reward_card:setScale(0.66)
+                    vars[node_name]:addChild(reward_card)
+                end
+            end
+        end
+    end
+
+    local purchase_state = ''
+    local purechase_remain_time
+
+    -- ì˜ˆì™¸ì²˜ë¦¬ í•„ìš”
+    local cur_time = Timer:getServerTime()
+    local schedule_time = self:getScheduleTime()
+    local diff_time = (schedule_time - cur_time)
+    if (diff_time > 0) then
+        purchase_state = 'íŒë§¤ê¹Œì§€'
+    else
+        purchase_state = 'íŒë§¤ì¤‘'
+    end
+
+    self.vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
+    self.vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
+
+    self.vars['timeLabel']:setString(Str('{1} ë‚¨ìŒ', datetime.makeTimeDesc(diff_time, true)))
+    self.vars['purchaseStateLabel']:setString(Str(purchase_state))
+    
 end
 
 -------------------------------------
@@ -99,3 +109,51 @@ end
 -------------------------------------
 function UI_CapsuleScheduleListItem:refresh()
 end
+
+-------------------------------------
+-- function getScheduleData
+-------------------------------------
+function UI_CapsuleScheduleListItem:getScheduleData()
+    return self.m_scheduleData or {}
+end
+
+-------------------------------------
+-- function getScheduleTime
+-------------------------------------
+function UI_CapsuleScheduleListItem:getScheduleTime()
+    local schedule_data = self:getScheduleData()
+    local schedule_time = self.m_scheduleData['day']
+
+    if (not schedule_time) then
+        return 0
+    end
+
+    local date_format = 'yyyymmdd'
+    local parser = pl.Date.Format(date_format)
+
+    local end_date = parser:parse(tostring(schedule_time))
+    return end_date['time']
+end
+
+-------------------------------------
+-- function getCapsuleBoxItemId
+-------------------------------------
+function UI_CapsuleScheduleListItem:getCapsuleBoxItemId(item_key)
+    local schedule_data = self:getScheduleData()
+    return self.m_scheduleData[item_key] or nil 
+end
+
+-------------------------------------
+-- function getCapsuleBoxTitle
+-------------------------------------
+function UI_CapsuleScheduleListItem:getCapsuleBoxTitle(type)
+    local schedule_data = self:getScheduleData()
+
+    if (type == 'legend') then
+        return Str(self.m_scheduleData['t_first_name']) or ''
+    else
+        return Str(self.m_scheduleData['t_second_name']) or ''
+    end
+end
+
+
