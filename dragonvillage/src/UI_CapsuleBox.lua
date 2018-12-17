@@ -179,7 +179,20 @@ function UI_CapsuleBox:onChangeTab(tab, first)
             table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
             table_view.m_defaultCellSize = cc.size(900, 190)
             table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+            table.MapToList(list)
             table_view:setItemList(list)
+
+            -- 캡슐 판매일 지난 것부터 출력되도록 정렬
+            local function sort_func(a, b)
+                local a_data = a['data']
+                local b_data = b['data']
+
+                local a_time = a_data['day']
+                local b_time = b_data['day']
+
+                return a_time < b_time
+            end
+            table.sort(table_view.m_itemList, sort_func)
         end
 	end
 end
