@@ -222,7 +222,7 @@ function ServerData_CapsuleBox:openCapsuleBoxUI(show_reward_list)
 	-- ui open function
 	local function open_box()
 		self:request_capsuleBoxStatus(function()
-			local ui = UI_HelpCapsuleBox()
+			local ui = UI_CapsuleBox()
 
 			-- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
 			if (show_reward_list) then
