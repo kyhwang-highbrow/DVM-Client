@@ -52,7 +52,8 @@ function UI_CapsuleBox:init()
 
 	self:initUI()
 	self:initButton()
-	self:refresh()
+	self:refresh(BOX_KEY_1)
+    self:refresh(BOX_KEY_2)
     self:initTab()
 	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
@@ -68,17 +69,16 @@ end
 -- function initTabContents
 -- @brief 탭 내용물 초기화 (캡슐 애니메이션, 캡슐 아이템 정보,액션 등등)
 -------------------------------------
-function UI_CapsuleBox:initTabContents(i, box_key)
+function UI_CapsuleBox:initTabContents(box_key)
 	local vars = self.vars
 
 	local capsulebox_data = self.m_capsuleBoxData
 
 	local ani = vars[box_key .. 'Visual']
-
 	-- 애니메이션 일단 정지..
 	ani:changeAni(T_ANI[box_key], false)
 	ani:setAnimationPause(true)
-	cca.dropping(ani.m_node, 1000, i)
+	cca.dropping(ani.m_node, 1000)
 
 	-- price 및 가격 표시
 	local struct_capsule = capsulebox_data[box_key]
@@ -137,8 +137,8 @@ function UI_CapsuleBox:initButton()
 	vars['secondDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2) end)
 
 	-- 새로고침
-	vars['heroRefreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
-    vars['legendRefreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    vars['legendRefreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn(BOX_KEY_1) end)
+	vars['heroRefreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn(BOX_KEY_2) end)
 
 	-- 캡슐 코인 구매
 	vars['firstCoinBtn']:registerScriptTapHandler(function() self:click_firstCoinBtn() end)
@@ -169,9 +169,9 @@ function UI_CapsuleBox:onChangeTab(tab, first)
 	-- 최초 생성만 실행
 	if first then
         if (tab == 'legend_Capsule_') then
-            self:initTabContents(1, BOX_KEY_1)
+            self:initTabContents(BOX_KEY_1)
         elseif (tab == 'hero_Capsule_') then
-            self:initTabContents(2, BOX_KEY_2)
+            self:initTabContents(BOX_KEY_2)
         else
             self:makeCapsuleSchduleTableView()
 	    end
@@ -239,31 +239,28 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_CapsuleBox:refresh()
+function UI_CapsuleBox:refresh(box_key)
 	local vars = self.vars
 
 	local capsulebox_data = self.m_capsuleBoxData
-
-	for _, box_key in pairs(L_BOX) do
-		local struct_capsule_box = capsulebox_data[box_key]
-		local rank = 1
-		local l_reward = struct_capsule_box:getRankRewardList(rank)
-
-		-- 대표 보상 표시
-		for i, struct_reward in ipairs(l_reward) do
-			if (i <= 3) then
-				local ui = self.makeRewardCell(box_key, struct_reward)
-				vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
-				vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
-				
-				cca.fruitReact(ui.root, i)
-			end
+	local struct_capsule_box = capsulebox_data[box_key]
+	local rank = 1
+	local l_reward = struct_capsule_box:getRankRewardList(rank)
+	-- 대표 보상 표시
+	for i, struct_reward in ipairs(l_reward) do
+		if (i <= 3) then
+			local ui = self.makeRewardCell(box_key, struct_reward)
+			vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
+			vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
+			
+			cca.fruitReact(ui.root, i)
 		end
-
-		-- 남은 캡슐 비율
-		local curr_per = struct_capsule_box:getTopRewardProb()
-		vars[box_key .. 'CurrentRateLabel']:setString(curr_per)
 	end
+
+	-- 남은 캡슐 비율
+	local curr_per = struct_capsule_box:getTopRewardProb()
+	vars[box_key .. 'CurrentRateLabel']:setString(curr_per)
+
 
 	-- 현재 보유한 캡슐 코인..
 	local capsule_coin = g_userData:get('capsule_coin')
@@ -421,7 +418,7 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
                 end
 			end
 
-			self:refresh()
+			self:refresh(box_key)
 
 			-- 블럭 해제
 			UIManager:blockBackKey(false)
@@ -433,7 +430,7 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 	local function fail_func()
 		-- 일반적인 갱신
 		g_capsuleBoxData:request_capsuleBoxStatus(function()
-			self:refresh()
+			self:refresh(box_key)
 			self.m_isBusy = false
 		end)
 	end
@@ -443,7 +440,7 @@ end
 -------------------------------------
 -- function click_refreshBtn
 -------------------------------------
-function UI_CapsuleBox:click_refreshBtn()
+function UI_CapsuleBox:click_refreshBtn(box_key)
 	-- 갱신 가능 시간인지 체크한다
 	local curr_time = Timer:getServerTime()
 	if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
@@ -451,7 +448,7 @@ function UI_CapsuleBox:click_refreshBtn()
 
 		-- 일반적인 갱신
 		g_capsuleBoxData:request_capsuleBoxStatus(function()
-			self:refresh()
+			self:refresh(box_key)
 		end)
 	
 	-- 시간이 되지 않았다면 몇초 남았는지 토스트 메세지를 띄운다
