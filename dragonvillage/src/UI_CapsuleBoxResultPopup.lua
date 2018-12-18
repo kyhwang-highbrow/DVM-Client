@@ -45,14 +45,16 @@ function UI_CapsuleBoxResultPopup:initUI()
 		local card = UI_ItemCard(item_id, item_cnt)
 		vars['dropRewardMenu']:addChild(card.root)
 
-        local scale = 0.65 
+        -- 아이템 카드 설정
+        local scale = 0.65
 		local pos_x = UIHelper:getCardPosXWithScale(10, idx, scale)
 		card.root:setPositionX(pos_x)
         card.root:setScale(scale)
-
         cca.uiReactionSlow(card.root, scale, scale, scale - 0.1)
 
-        self:setItemCardRarity(card, 1)
+        -- legend의 1,2 등급 아이템에 빛나는 이펙트 추가
+        local grade = self:getRarity(item_id)
+        self:setItemCardRarity(card, grade)
 	end
 end
 
@@ -60,19 +62,51 @@ end
 -- function setItmeCardRarity()
 -------------------------------------
 function UI_CapsuleBoxResultPopup:setItemCardRarity(item_card, grade)
-    local grade = tonumber(grade)
-	if (grade > 3) then
-		local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
-		if (grade == 5) then
-			rarity_effect:changeAni('summon_regend', true)
-		else
-			rarity_effect:changeAni('summon_hero', true)
-		end
-		rarity_effect:setScale(1.7)
-		rarity_effect:setAlpha(0)
-		item_card.root:addChild(rarity_effect.m_node)
-        rarity_effect.m_node:runAction(cc.FadeIn:create(0.2))
+	if (not grade) then
+        return
+    end
+
+	local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
+	if (grade == 1) then
+		rarity_effect:changeAni('summon_regend', true)
+	else
+		rarity_effect:changeAni('summon_hero', true)
 	end
+	rarity_effect:setScale(1.7)
+	rarity_effect:setAlpha(0)
+	item_card.root:addChild(rarity_effect.m_node)
+    rarity_effect.m_node:runAction(cc.FadeIn:create(0.2))
+
+end
+
+-------------------------------------
+-- function getRarity()
+-- @brief 1,2등급인지 판단
+-------------------------------------
+function UI_CapsuleBoxResultPopup:getRarity(item_id)
+    local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
+    local struct_capsule_box = capsulebox_data['first']
+
+    -- 1등급 판단
+    local rank = 1
+    local l_reward = struct_capsule_box:getRankRewardList(rank)
+    for i, struct_reward in ipairs(l_reward) do
+        if (struct_reward['item_id'] == item_id) then
+            return rank
+        end
+    end
+
+    --2등급 판단
+    rank = 2
+    l_reward = struct_capsule_box:getRankRewardList(rank)
+    for i, struct_reward in ipairs(l_reward) do
+        if (struct_reward['item_id'] == item_id) then
+            return rank
+        end
+    end
+
+    -- 1,2 등급이 아니라면 nil값 반환
+    return nil 
 end
 
 -------------------------------------
