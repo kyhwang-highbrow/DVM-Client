@@ -1564,13 +1564,18 @@ end
 
 -------------------------------------
 -- function dragonMaterialWarning
--- @brief 드래곤이 재료로 사용될 때 경고 메시지 확인 (성장시켜놓은 드래곤)
+-- @brief 드래곤이 재료로 사용,판매, 작별 등등..될 때 경고 메시지 확인 (성장시켜놓은 드래곤)
 -- @param oid : object_id 드래곤이나 슬라임의 오브젝트 ID
 -------------------------------------
-function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning)
+function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, warning_msg)
     local t_warning = t_warning or {}
     local object = self:getDragonObject(oid)
-
+    
+    -- 경고 메세지가 없을 경우 재료로 사용한다고 설정 
+    if (not warning_msg) then
+        warning_msg = '재료로 선택하시겠습니까?'
+    end
+    
     -- 슬라임의 경우 재료 전용이므로 pass
     if (object:getObjectType() == 'slime') then
         next_func()
@@ -1594,7 +1599,7 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning)
 		if (comb_did) then
 			local combine_name = TableDragon:getDragonNameWithAttr(comb_did)
 			local msg = Str('{@DEEPSKYBLUE}{1}{@DESC}의 조합 재료인 드래곤입니다.', combine_name)
-			local submsg = Str('재료로 선택하시겠습니까?')
+            local submsg = Str(warning_msg)
 			MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, next_func)
 			return
 		end
@@ -1641,8 +1646,15 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning)
 
     if (warning == true) then
         local name = object:getDragonNameWithEclv()
-        local msg_ = Str('재료로 사용한 드래곤은 사라집니다.') .. '\n' .. name .. ' : ' .. msg
-        local submsg = Str('재료로 선택하시겠습니까?')
+        local default_msg = ''
+        
+        -- 경고 메세지가 없을 경우 재료로 사용한다고 설정
+        if (not warning_msg) then
+            default_msg = Str('재료로 사용한 드래곤은 사라집니다.')
+        end
+        
+        local msg_ = default_msg .. '\n' .. name .. ' : ' .. msg
+        local submsg = Str(warning_msg)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg_, submsg, next_func)
     else
         if next_func then

@@ -202,7 +202,7 @@ function UI_DragonSell:click_dragonMaterial(t_dragon_data)
     else
         -- 재료 경고
         local oid = t_dragon_data['id']
-        g_dragonsData:dragonMaterialWarning(oid, next_func)
+        g_dragonsData:dragonMaterialWarning(oid, next_func, nil, '판매하시겠습니까?') -- param : oid, next_func, t_warning, warning_msg
     end
 end
 

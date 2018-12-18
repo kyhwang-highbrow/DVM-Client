@@ -824,7 +824,7 @@ function UI_DragonManageInfo:click_goodbyeBtn()
     -- 재료 경고
     material_warning_popup = function()
         local oid = self.m_selectDragonOID
-        g_dragonsData:dragonMaterialWarning(oid, really_warning_popup)
+        g_dragonsData:dragonMaterialWarning(oid, really_warning_popup, nil, '작별하시겠습니까?') -- param : oid, next_func, t_warning, warning_msg
     end
 
 	-- 정말 작별 하는지 되물음
