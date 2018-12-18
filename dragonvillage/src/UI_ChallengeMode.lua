@@ -171,7 +171,12 @@ function UI_ChallengeMode:refresh_playerRank()
     vars['profileNode']:addChild(card.root)
 
     -- 랭킹
+    -- ex) rank_text = 5위\n(55%)
     local rank_text = struct_user_info:getChallengeMode_RankText(true, true) -- param : detail, carriage_return
+    local rank_percentage =  math.floor((struct_user_info.m_rankPercent or 0) * 100)
+    
+    -- 한 줄로 출력 
+    rank_text = string.gsub(rank_text, '\n', '')
     vars['rankLabel']:setString(rank_text)
 
     -- 승리한 상대
