@@ -205,12 +205,14 @@ function UI_CapsuleBox:makeCapsuleSchduleTableView()
     end
     table.sort(table_view.m_itemList, sort_func)
 
-    local idx = nil
+    -- 20180989 형식을 서버타임(초) 단위로 변환
     local date_format = 'yyyymmdd'
     local parser = pl.Date.Format(date_format)
     local cur_time = Timer:getServerTime()
-    
-    -- 현재 판매중인 목록에 focus 하기 위해 판매 예정일이 가장 가까운 목록 찾음
+
+
+    local idx = nil
+    -- 판매 예정일이 가장 가까운 항목의 인덱스 찾음
     for i,v in pairs(table_view.m_itemList) do
         if v['data'] then
             local schedule_date = parser:parse(tostring(v['data']['day']))
@@ -222,6 +224,7 @@ function UI_CapsuleBox:makeCapsuleSchduleTableView()
         end
     end
 
+    -- 판매 예정일이 가장 가까운 항목에 focus 맞춤 (현재 판매중인 항목이 맨 위에 보이도록) 
     if idx then
         -- focus가 리스트 마지막을 넘어갈 경우 예외처리
         if (idx > #table_view.m_itemList) then
