@@ -961,6 +961,38 @@ function UI_BookDetailPopup.open(did, grade, evolution, is_pick, pick_cb)
 	end
 end
 
+-------------------------------------
+-- function openWithFrame
+-------------------------------------
+function UI_BookDetailPopup.openWithFrame(did, grade, evolution, scale, is_popup)
+    local t_dragon
+    if TableSlime:isSlimeID(did) then
+        local table_slime = TableSlime()
+        t_dragon = clone(table_slime:get(did))
+        t_dragon['did'] = did
+        t_dragon['bookType'] = 'slime'
+    else
+        local table_dragon = TableDragon()
+        t_dragon = clone(table_dragon:get(did))
+        t_dragon['bookType'] = 'dragon'
+    end
+	t_dragon['grade'] = grade or t_dragon['birthgrade']
+	t_dragon['evolution'] = evolution or 1
+
+	local ui = UI_BookDetailPopup(t_dragon, is_popup)
+    ui:setUnableIndex()
+    ui.root:setScale(scale)
+    
+    -- 프레임 용 요소들 활성화(엑스버튼, 배경 프레임..)
+    ui.vars['frameSprite']:setVisible(true)
+    ui.vars['popupCloseBtn']:setVisible(true)
+    ui.vars['clippingNode']:setVisible(true)
+    
+    -- 배경을 clippingNode에 넣어서 크기를 재단
+    ui.vars['bgNode']:removeFromParent()
+    ui.vars['clippingNode']:addChild(ui.vars['bgNode'])
+    return ui
+end
 
 --@CHECK
 UI:checkCompileError(UI_BookDetailPopup)

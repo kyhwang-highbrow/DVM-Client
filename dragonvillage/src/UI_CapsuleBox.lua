@@ -373,12 +373,13 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_CapsuleBox:click_exitBtn()
-	-- 연출 중이라면 UI가 닫히지 않도록 한다
+    -- 연출 중이라면 UI가 닫히지 않도록 한다
 	if (self.m_isBusy) then
 		return
 	end
 
     self:close()
+
 end
 
 
@@ -405,9 +406,6 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	local item_id = struct_reward['item_id']
 	local item_cnt = struct_reward['item_cnt']
 
-	local item_card = UI_ItemCard(item_id, item_cnt)
-	vars['rewardNode']:addChild(item_card.root)
-
 	-- 보상 이름
 	local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
 	vars['rewardLabel']:setString(name)
@@ -416,6 +414,18 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	local count = struct_reward:getCount()
 	vars['chanceLabel']:setString(Str('{@apricot}남은 수량 {@blue_green}{1}개',count))
 
+	local item_card = UI_ItemCard(item_id, item_cnt)
+	vars['rewardNode']:addChild(item_card.root)
+    
+    -- item_id 를 dragon_id로 만드는 계산
+    local did = tonumber(item_id) - 640000 - ( 10000)
+    
+    local func_tap_dragon_card
+    item_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap_dragon_card() end)
+    func_tap_dragon_card = function()
+        -- 예외처리 필요!!!!!!!!!!!!!!!!
+        local book_ui = UI_BookDetailPopup.openWithFrame(did, 3, 3, 0.8, true)      
+    end
 	return ui
 end
 
