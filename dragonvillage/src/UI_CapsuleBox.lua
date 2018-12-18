@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 local BOX_KEY_1 = 'first'
 local BOX_KEY_2 = 'second'
@@ -40,7 +40,7 @@ end
 -- function init
 -------------------------------------
 function UI_CapsuleBox:init()
-	local vars = self:load('capsule_box_schedule_list.ui')
+	local vars = self:load('capsule_box.ui')
 	UIManager:open(self, UIManager.SCENE)
 	
 	self.m_capsuleBoxData = g_capsuleBoxData:getCapsuleBoxInfo()
@@ -52,9 +52,8 @@ function UI_CapsuleBox:init()
 
 	self:initUI()
 	self:initButton()
-	self:refresh(BOX_KEY_1)
-    self:refresh(BOX_KEY_2)
-    self:initTab()
+	self:refresh()
+
 	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
@@ -63,62 +62,36 @@ end
 -------------------------------------
 function UI_CapsuleBox:initUI()
 	local vars = self.vars
-end
-
--------------------------------------
--- function initTabContents
--- @brief 탭 내용물 초기화 (캡슐 애니메이션, 캡슐 아이템 정보,액션 등등)
--------------------------------------
-function UI_CapsuleBox:initTabContents(box_key)
-	local vars = self.vars
 
 	local capsulebox_data = self.m_capsuleBoxData
 
-	local ani = vars[box_key .. 'Visual']
-	-- 애니메이션 일단 정지..
-	ani:changeAni(T_ANI[box_key], false)
-	ani:setAnimationPause(true)
-	cca.dropping(ani.m_node, 1000)
+	for i, box_key in pairs(L_BOX) do
+		local ani = vars[box_key .. 'Visual']
 
-	-- price 및 가격 표시
-	local struct_capsule = capsulebox_data[box_key]
-	local l_price_list = struct_capsule:getPriceList()
-	for i, t_price in pairs(l_price_list) do
-		-- 가격 표시
-		local price = t_price['value']
-		vars[box_key .. 'PriceLabel' .. i]:setString(comma_value(price))
+		-- 애니메이션 일단 정지..
+		ani:setAnimationPause(true)
+		cca.dropping(ani.m_node, 1000, i)
 
-		-- 가격 아이콘
-		local price_type = t_price['type']
-		local price_icon
-		if (box_key == 'first') then
-			price_icon = IconHelper:getPriceBigIcon(price_type)
-		else
-			price_icon = IconHelper:getPriceIcon(price_type)
-		end
-		vars[box_key .. 'PriceNode' .. i]:removeAllChildren(true)
-		vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
-	end
+		-- price 및 가격 표시
+		local struct_capsule = capsulebox_data[box_key]
+		local l_price_list = struct_capsule:getPriceList()
+		for i, t_price in pairs(l_price_list) do
+			-- 가격 표시
+			local price = t_price['value']
+			vars[box_key .. 'PriceLabel' .. i]:setString(comma_value(price))
 
-    local struct_capsule_box = capsulebox_data[box_key]
-	local rank = 1
-	local l_reward = struct_capsule_box:getRankRewardList(rank)
-
-	-- 대표 보상 표시
-	for i, struct_reward in ipairs(l_reward) do
-		if (i <= 3) then
-			local ui = self.makeRewardCell(box_key, struct_reward)
-			vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
-			vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
-			
-			cca.fruitReact(ui.root, i)
+			-- 가격 아이콘
+			local price_type = t_price['type']
+			local price_icon
+			if (box_key == 'first') then
+				price_icon = IconHelper:getPriceBigIcon(price_type)
+			else
+				price_icon = IconHelper:getPriceIcon(price_type)
+			end
+			vars[box_key .. 'PriceNode' .. i]:removeAllChildren(true)
+			vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
 		end
 	end
-
-	-- 남은 캡슐 비율
-	local curr_per = struct_capsule_box:getTopRewardProb()
-	vars[box_key .. 'CurrentRateLabel']:setString(curr_per)
-
 end
 
 -------------------------------------
@@ -137,8 +110,7 @@ function UI_CapsuleBox:initButton()
 	vars['secondDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2) end)
 
 	-- 새로고침
-    vars['legendRefreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn(BOX_KEY_1) end)
-	vars['heroRefreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn(BOX_KEY_2) end)
+	vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 
 	-- 캡슐 코인 구매
 	vars['firstCoinBtn']:registerScriptTapHandler(function() self:click_firstCoinBtn() end)
@@ -148,119 +120,33 @@ function UI_CapsuleBox:initButton()
 end
 
 -------------------------------------
--- function initTab
--------------------------------------
-function UI_CapsuleBox:initTab()
-    local vars = self.vars
-
-    self:addTabAuto('legend_Capsule_', vars, vars['legend_Capsule_TabMenu'])
-    self:addTabAuto('hero_Capsule_', vars, vars['hero_Capsule_TabMenu'])
-    self:addTabAuto('capsule_Schedule_', vars, vars['capsule_Schedule_TabMenu'])
-    self:setTab('legend_Capsule_', vars)
-
-end
-
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_CapsuleBox:onChangeTab(tab, first)
-    local vars = self.vars
-
-	-- 최초 생성만 실행
-	if first then
-        if (tab == 'legend_Capsule_') then
-            self:initTabContents(BOX_KEY_1)
-        elseif (tab == 'hero_Capsule_') then
-            self:initTabContents(BOX_KEY_2)
-        else
-            self:makeCapsuleSchduleTableView()
-	    end
-    end
-end
-
--------------------------------------
--- function makeCapsuleSchduleTableView
--------------------------------------
-function UI_CapsuleBox:makeCapsuleSchduleTableView()
-    local vars = self.vars
-
-    local list = TABLE:get('table_capsule_box_schedule')
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(vars['capsule_Schedule_TabMenu'])
-    table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
-    table_view.m_defaultCellSize = cc.size(900, 190)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table.MapToList(list)
-    table_view:setItemList(list)
-
-    -- 캡슐 판매일 오래된 것부터 출력되도록 정렬
-    local function sort_func(a, b)
-        local a_data = a['data']
-        local b_data = b['data']
-
-        local a_time = a_data['day']
-        local b_time = b_data['day']
-
-        return a_time < b_time
-    end
-    table.sort(table_view.m_itemList, sort_func)
-
-    -- 20180989 형식을 서버타임(초) 단위로 변환
-    local date_format = 'yyyymmdd'
-    local parser = pl.Date.Format(date_format)
-    local cur_time = Timer:getServerTime()
-
-
-    local idx = nil
-    -- 판매 예정일이 가장 가까운 항목의 인덱스 찾음
-    for i,v in pairs(table_view.m_itemList) do
-        if v['data'] then
-            local schedule_date = parser:parse(tostring(v['data']['day']))
-            local schedule_time = schedule_date['time'] 
-            if (cur_time < schedule_time) then
-                idx = i
-                break
-            end
-        end
-    end
-
-    -- 판매 예정일이 가장 가까운 항목에 focus 맞춤 (현재 판매중인 항목이 맨 위에 보이도록) 
-    if idx then
-        -- focus가 리스트 마지막을 넘어갈 경우 예외처리
-        if (idx > #table_view.m_itemList) then
-             idx = #table_view.m_itemList
-        end
-        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-        table_view:relocateContainerFromIndex(idx)
-    end
-
-end
-
--------------------------------------
 -- function refresh
 -------------------------------------
-function UI_CapsuleBox:refresh(box_key)
+function UI_CapsuleBox:refresh()
 	local vars = self.vars
 
 	local capsulebox_data = self.m_capsuleBoxData
-	local struct_capsule_box = capsulebox_data[box_key]
-	local rank = 1
-	local l_reward = struct_capsule_box:getRankRewardList(rank)
-	-- 대표 보상 표시
-	for i, struct_reward in ipairs(l_reward) do
-		if (i <= 3) then
-			local ui = self.makeRewardCell(box_key, struct_reward)
-			vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
-			vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
-			
-			cca.fruitReact(ui.root, i)
+
+	for _, box_key in pairs(L_BOX) do
+		local struct_capsule_box = capsulebox_data[box_key]
+		local rank = 1
+		local l_reward = struct_capsule_box:getRankRewardList(rank)
+
+		-- 대표 보상 표시
+		for i, struct_reward in ipairs(l_reward) do
+			if (i <= 3) then
+				local ui = self.makeRewardCell(box_key, struct_reward)
+				vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
+				vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
+				
+				cca.fruitReact(ui.root, i)
+			end
 		end
+
+		-- 남은 캡슐 비율
+		local curr_per = struct_capsule_box:getTopRewardProb()
+		vars[box_key .. 'CurrentRateLabel']:setString(curr_per)
 	end
-
-	-- 남은 캡슐 비율
-	local curr_per = struct_capsule_box:getTopRewardProb()
-	vars[box_key .. 'CurrentRateLabel']:setString(curr_per)
-
 
 	-- 현재 보유한 캡슐 코인..
 	local capsule_coin = g_userData:get('capsule_coin')
@@ -273,7 +159,7 @@ function UI_CapsuleBox:refresh(box_key)
     -- 캡슐 코인 5+1 패키지 갱신
     self:refresh_dailyCapsulePackage()
 
-    --[[
+
     -- 1주년 스페셜 절대적인전설의 알 출현 이벤트 (9/1~9/2 양일간)
     local day = g_capsuleBoxData:getScheduleDay()
     if (day == 20180901) or (day == 20180902) then
@@ -281,7 +167,6 @@ function UI_CapsuleBox:refresh(box_key)
     else
         vars['1stEventMenu']:setVisible(false)
     end
-    --]]
 end
 
 -------------------------------------
@@ -309,11 +194,9 @@ end
 -- function update
 -------------------------------------
 function UI_CapsuleBox:update(dt)
-    local vars = self.vars
 	-- 남은 시간
 	local remain_text = g_capsuleBoxData:getRemainTimeText()
-	vars['legendRemainTimeLabel']:setString(Str('{1} 남음', remain_text))
-    vars['heroRemainTimeLabel']:setString(Str('{1} 남음', remain_text))
+	self.vars['remainTimeLabel']:setString(Str('{1} 남음', remain_text))
 
 	-- 중복 호출 방지 처리
 	if (self.m_isBusy) then
@@ -351,7 +234,7 @@ end
 -- function click_drawBtn
 -- @brief 뽑기
 -------------------------------------
-function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
+function UI_CapsuleBox:click_drawBtn(box_key, idx)
 	if (self.m_isBusy) then
 		return
 	end
@@ -408,17 +291,11 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 			
 			-- 보상 수령 확인 팝업
 			if (ret['items_list']) then
-                -- count 값이 없으면 기본 결과 팝업(1뽑기 용)
-                if (not count) then
-				    local text = Str('상품이 우편함으로 전송되었습니다.')
-				    UI_ObtainPopup(ret['items_list'], text)
-                else
-                -- count 값이 있을 경우 보상 가로로 나열해 주는 팝업(10뽑기 용)
-                    UI_CapsuleBoxResultPopup(ret['items_list'])
-                end
+				local text = Str('상품이 우편함으로 전송되었습니다.')
+				UI_ObtainPopup(ret['items_list'], text)
 			end
 
-			self:refresh(box_key)
+			self:refresh()
 
 			-- 블럭 해제
 			UIManager:blockBackKey(false)
@@ -430,17 +307,17 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 	local function fail_func()
 		-- 일반적인 갱신
 		g_capsuleBoxData:request_capsuleBoxStatus(function()
-			self:refresh(box_key)
+			self:refresh()
 			self.m_isBusy = false
 		end)
 	end
-	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func, count)
+	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func)
 end
 
 -------------------------------------
 -- function click_refreshBtn
 -------------------------------------
-function UI_CapsuleBox:click_refreshBtn(box_key)
+function UI_CapsuleBox:click_refreshBtn()
 	-- 갱신 가능 시간인지 체크한다
 	local curr_time = Timer:getServerTime()
 	if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
@@ -448,7 +325,7 @@ function UI_CapsuleBox:click_refreshBtn(box_key)
 
 		-- 일반적인 갱신
 		g_capsuleBoxData:request_capsuleBoxStatus(function()
-			self:refresh(box_key)
+			self:refresh()
 		end)
 	
 	-- 시간이 되지 않았다면 몇초 남았는지 토스트 메세지를 띄운다
