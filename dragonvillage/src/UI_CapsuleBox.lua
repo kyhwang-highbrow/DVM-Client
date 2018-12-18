@@ -34,6 +34,7 @@ function UI_CapsuleBox:initParentVariable()
     self.m_bVisible = true
     self.m_titleStr = Str('캡슐 뽑기')
     self.m_bUseExitBtn = true
+    self.m_subCurrency = 'capsule_coin'
 end
 
 -------------------------------------
