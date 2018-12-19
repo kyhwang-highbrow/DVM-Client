@@ -289,6 +289,17 @@ function ServerData_CapsuleBox:openCapsuleBoxUI(show_reward_list)
 		self:request_capsuleBoxStatus(function()
 			local ui = UI_CapsuleBox()
 
+            local cur_time = Timer:getServerTime()
+            local cool_time = g_settingData:getPromoteExpired('capsule_box')
+            
+            -- 쿨타임이 지났을 경우 팝업 출력
+            if (cur_time > cool_time) then
+                UI_CapsuleBoxTodayInfoPopup()
+                --쿨타임 하루
+                local next_cool_time = cur_time + datetime.dayToSecond(1)
+                g_settingData:setPromoteCoolTime('capsule_box', next_cool_time)
+            end
+
 			-- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
 			if (show_reward_list) then
 				ui:click_rewardBtn('first')

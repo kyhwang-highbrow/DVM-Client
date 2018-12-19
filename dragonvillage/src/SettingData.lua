@@ -212,6 +212,7 @@ function SettingData:makeDefaultSettingData()
         local t_data = {}
         t_data['auto_pick'] = 0         -- 황금 던전에서 자동줍기 상품 
         t_data['quest_double'] = 0      -- 일일퀘스트 2배 상품
+        t_data['capsule_box'] = 0       -- 캡슐 뽑기 입장 팝업
         root_table['promote_expired'] = t_data
     end
 
