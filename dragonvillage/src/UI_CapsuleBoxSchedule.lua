@@ -33,7 +33,10 @@ end
 -------------------------------------
 function UI_CapsuleBoxSchedule:initUI()
     local vars = self.vars
-
+    
+    local capsule_data = g_capsuleBoxData:getCapsuleBoxInfo()
+    local capsule_title = capsule_data['first']:getCapsuleTitle()
+    vars['rotationTitleLabel']:setString(Str(capsule_title))
    
 end
 
@@ -42,7 +45,7 @@ end
 -------------------------------------
 function UI_CapsuleBoxSchedule:initButton()
     local vars = self.vars
-   
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
