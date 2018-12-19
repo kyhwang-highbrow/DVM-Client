@@ -9,6 +9,7 @@ StructCapsuleBox = class(PARENT, {
 		curr = 'number',
 		box_total = 'number',
 		price = 'table',
+        title = 'string',
     })
 
 local THIS = StructCapsuleBox
@@ -141,6 +142,21 @@ function StructCapsuleBox:setContents(t_content)
 
 		self['contents'][gift_id] = struct_reward
 	end
+end
+
+-------------------------------------
+-- function setCapsuleTitle
+-------------------------------------
+function StructCapsuleBox:setCapsuleTitle(title_str)
+    
+    self['title'] = title_str
+end
+
+-------------------------------------
+-- function getLegendCapsuleTitle
+-------------------------------------
+function StructCapsuleBox:getCapsuleTitle()
+    return self['title'] or ''
 end
 
 -------------------------------------

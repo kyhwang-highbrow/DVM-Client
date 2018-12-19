@@ -162,6 +162,9 @@ function UI_CapsuleBox:refresh()
 	vars['firstCoinBtn']:setVisible(capsule_coin == 0)
 	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
 
+    vars['rotationTitleLabel1']:setString(capsulebox_data['first']:getCapsuleTitle())
+    vars['rotationTitleLabel2']:setString(capsulebox_data['second']:getCapsuleTitle())
+
     -- 캡슐 코인 5+1 패키지 갱신
     self:refresh_dailyCapsulePackage()
 

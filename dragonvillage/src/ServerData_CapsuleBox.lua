@@ -133,6 +133,34 @@ function ServerData_CapsuleBox:response_capsuleBoxInfo(ret)
     if ret['day'] then
         self.m_day = ret['day']
     end
+    
+    -- 타이틀도 같이 갱신
+    self:refreshTitle()
+
+end
+
+-------------------------------------
+-- function refreshTitle
+-------------------------------------
+function ServerData_CapsuleBox:refreshTitle()
+	local schedule_map = TABLE:get('table_capsule_box_schedule')
+    -- 20180989 형식을 서버타임(초) 단위로 변환
+    local date_format = 'yyyymmdd'
+    local parser = pl.Date.Format(date_format)
+    local cur_time = Timer:getServerTime()
+    local idx = nil
+    -- 현재 판매 중인 항목 찾기
+    -- 현재와 판매 시작일 사이 간격이 하루 미만일 경우 -- 20181212 로 일치시키는 방향으로 다시 할 것
+    for i,v in pairs(schedule_map) do
+        local schedule_date = parser:parse(tostring(v['day']))
+        local schedule_time = schedule_date['time'] 
+        local diff_time = cur_time - schedule_time 
+        if (diff_time < datetime.dayToSecond(1) and diff_time > 0) then
+            self.m_tStrurctCapsuleBox['first']:setCapsuleTitle(v['t_first_name'])
+            self.m_tStrurctCapsuleBox['second']:setCapsuleTitle(v['t_second_name'])
+            break
+        end
+    end
 end
 
 -------------------------------------
