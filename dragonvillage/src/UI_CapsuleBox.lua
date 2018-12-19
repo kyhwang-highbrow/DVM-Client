@@ -84,11 +84,14 @@ function UI_CapsuleBox:initUI()
 			-- 가격 아이콘
 			local price_type = t_price['type']
 			local price_icon
-			if (box_key == 'first') then
-				price_icon = IconHelper:getPriceBigIcon(price_type)
-			else
-				price_icon = IconHelper:getPriceIcon(price_type)
+
+			-- 서버에서 item_type에 capsule_coin10을 주어서 숫자 제거
+            local price_number = string.match(price_type, '%d+')
+            if (price_number) then
+                price_type = string.gsub(price_type, price_number, '')
 			end
+		    price_icon = IconHelper:getPriceIcon(price_type)
+
 			vars[box_key .. 'PriceNode' .. i]:removeAllChildren(true)
 			vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
 		end
