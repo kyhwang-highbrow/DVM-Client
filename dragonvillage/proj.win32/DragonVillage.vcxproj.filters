@@ -3934,6 +3934,9 @@
     <None Include="..\src\UI_CapsuleBoxSchedule.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_CapsuleBoxTodayInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
