@@ -45,12 +45,35 @@ end
 -------------------------------------
 function UI_CapsuleScheduleListItem:initUI()
     local vars = self.vars
+    
+    self.vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
+    self.vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
+    
+    -- yyyy년 mm월 dd일    
+    local date_str = self:getScheduleTime()
+    self.vars['timeLabel']:setString(date_str)
+
+    local is_check_new_dragon = false
+
+    -- 판매 중인 상품은 하이라이트 표시
+    -- 판매 끝난 상품은 lock 표시 
+    local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
+    local capsule_date = tonumber(self.m_scheduleData['day'])
+    if (cur_date == capsule_date) then
+        self.vars['todaySprite']:setVisible(true)
+    elseif (cur_date > capsule_date) then
+        self.vars['lockSprite']:setVisible(true)
+    -- 판매 예정인 상품은 출시 안된 드래곤 체크해야함
+    else
+        is_check_new_dragon = true
+    end
+    
     -- item_key_list 항목 뜻 
     -- ex)  first_1 : 전설 캡슐 첫 번째 아이템, second_2 : 영웅 캡슐  두 번째 아이템
     local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'}
 
+    -- 아이템 카드 세팅
     for i, reward_name in ipairs(item_key_list) do
-
         local node_name
         if (string.match(reward_name,'first')) then
             node_name = 'legendDragonNode'
@@ -66,33 +89,36 @@ function UI_CapsuleScheduleListItem:initUI()
             node_name = node_name ..  node_number
 
             -- 노드에 아이템 카드 매달기, 이거 위로
+            local reward_card
+            local capsule_item_id
             if (vars[node_name]) then
-                local capsule_item_id = self:getCapsuleBoxItemId(reward_name)
+                capsule_item_id = self:getCapsuleBoxItemId(reward_name)
                 if (capsule_item_id) then
-                    local reward_card = UI_ItemCard(capsule_item_id, 1).root
+                    reward_card = UI_ItemCard(capsule_item_id, 1).root
                     reward_card:setScale(0.66)
                     vars[node_name]:addChild(reward_card)
+                end
+            end
+
+            if (is_check_new_dragon) then
+                -- item_id 를 dragon_id로 만드는 계산
+                local did = tonumber(capsule_item_id) - 640000 - (10000)
+                
+                -- 드래곤이라면 출시 전인지 확인
+                local is_dragon = TableDragon():get(did, true)
+                if (is_dragon) and (g_dragonsData:isReleasedDragon(did)) then
+                    -- 물음표 넣을 자리
                 end
             end
         end
     end
 
-    self.vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
-    self.vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
-    
-    -- yyyy년 mm월 dd일    
-    local date_str = self:getScheduleTime()
-    self.vars['timeLabel']:setString(date_str)
+end
 
-    -- 판매 중인 상품은 하이라이트 표시
-    -- 판매 끝난 상품은 lock 표시 
-    local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
-    local capsule_date = tonumber(self.m_scheduleData['day'])
-    if (cur_date == capsule_date) then
-        self.vars['todaySprite']:setVisible(true)
-    elseif (cur_date > capsule_date) then
-        self.vars['lockSprite']:setVisible(true)
-    end
+-------------------------------------
+-- function initItemCard
+-------------------------------------
+function UI_CapsuleScheduleListItem:initButton()
 end
 
 -------------------------------------

@@ -439,15 +439,16 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	vars['rewardNode']:addChild(item_card.root)
     
     -- item_id 를 dragon_id로 만드는 계산
-    local did = tonumber(item_id) - 640000 - ( 10000)
-    
-    -- 드래곤이 아닐 경우
+    local did = tonumber(item_id) - 640000 - (10000)
     
     local func_tap_dragon_card
     item_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap_dragon_card() end)
     func_tap_dragon_card = function()
-        -- 예외처리 필요!!!!!!!!!!!!!!!!
-        local book_ui = UI_BookDetailPopup.openWithFrame(did, 3, 3, 0.8, true)      
+        local is_dragon = TableDragon():get(did, true)
+        -- 드래곤 이면 도감 상세UI 오픈
+        if (is_dragon) then
+            local book_ui = UI_BookDetailPopup.openWithFrame(did, 3, 3, 0.8, true)      
+        end
     end
 	return ui
 end
