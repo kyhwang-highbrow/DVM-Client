@@ -9,6 +9,9 @@ ServerData_CapsuleBox = class({
         m_day = 'number', -- 20180827 <- 이런 형태로 스케쥴 상의 날짜를 리턴
 		
 		m_open = 'bool',
+        m_todayScheduleidx = 'number',
+        m_todaySchedule = 'number',
+        m_sortedScheduleList = 'list',
     })
 
 local L_BOX_KEY = {'first', 'second'}
@@ -144,23 +147,50 @@ end
 -------------------------------------
 function ServerData_CapsuleBox:refreshTitle()
 	local schedule_map = TABLE:get('table_capsule_box_schedule')
+    local schedule_list = table.MapToList(schedule_map)
+
+    -- 캡슐 판매일 오래된 것부터 출력되도록 정렬
+    local function sort_func(a, b)
+        local a_time = a['day']
+        local b_time = b['day']
+
+        return a_time < b_time
+    end
+    table.sort(schedule_list, sort_func)
+    self.m_sortedScheduleList = schedule_list
+
+    -- 현재 판매 중인 항목 찾기
+    -- 현재와 판매 시작일 사이 간격이 하루 미만일 경우 -- 20181212 로 일치시키는 방향으로 다시 할 것
+    local today_schedule_info = self:findTodaySchedule(schedule_map)
+    if (today_schedule_info) then
+        self.m_tStrurctCapsuleBox['first']:setCapsuleTitle(today_schedule_info['t_first_name'])
+        self.m_tStrurctCapsuleBox['second']:setCapsuleTitle(today_schedule_info['t_second_name'])
+    end
+            
+end
+
+-------------------------------------
+-- function findTodaySchedule
+-------------------------------------
+function ServerData_CapsuleBox:findTodaySchedule(list)
+	local idx = 1
     -- 20180989 형식을 서버타임(초) 단위로 변환
     local date_format = 'yyyymmdd'
     local parser = pl.Date.Format(date_format)
     local cur_time = Timer:getServerTime()
-    local idx = nil
-    -- 현재 판매 중인 항목 찾기
-    -- 현재와 판매 시작일 사이 간격이 하루 미만일 경우 -- 20181212 로 일치시키는 방향으로 다시 할 것
-    for i,v in pairs(schedule_map) do
+
+    for i,v in pairs(list) do
         local schedule_date = parser:parse(tostring(v['day']))
         local schedule_time = schedule_date['time'] 
         local diff_time = cur_time - schedule_time 
-        if (diff_time < datetime.dayToSecond(1) and diff_time > 0) then
-            self.m_tStrurctCapsuleBox['first']:setCapsuleTitle(v['t_first_name'])
-            self.m_tStrurctCapsuleBox['second']:setCapsuleTitle(v['t_second_name'])
-            break
+        if (diff_time < datetime.dayToSecond(1)) and (diff_time > 0) then
+            self.m_todayScheduleidx = idx
+            return v
         end
+        idx = idx + 1
     end
+
+    return nil
 end
 
 -------------------------------------

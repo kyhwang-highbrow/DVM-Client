@@ -12,7 +12,7 @@ UI_CapsuleBoxSchedule = class(PARENT,{
 -------------------------------------
 function UI_CapsuleBoxSchedule:init()
     self.m_uiName = 'UI_CapsuleBoxSchedule'
-    local vars = self:load('event_capsule_box_schedule.ui')
+    local vars = self:load('capsule_box_schedule_pop_up.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -33,11 +33,18 @@ end
 -------------------------------------
 function UI_CapsuleBoxSchedule:initUI()
     local vars = self.vars
-    
-    local capsule_data = g_capsuleBoxData:getCapsuleBoxInfo()
-    local capsule_title = capsule_data['first']:getCapsuleTitle()
-    vars['rotationTitleLabel']:setString(Str(capsule_title))
-   
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(vars['scrollNode'])
+    table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
+    table_view.m_defaultCellSize = cc.size(900, 130)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(g_capsuleBoxData.m_sortedScheduleList)
+
+    local idx = g_capsuleBoxData.m_todayScheduleidx
+    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    table_view:relocateContainerFromIndex(idx)
+
 end
 
 -------------------------------------
