@@ -93,8 +93,6 @@ function UI_CapsuleBox:initUI()
 			vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
 		end
 	end
-
-    vars['first' .. 'PriceLabel' .. 2]:setString('10') -- 이 값도 서버에서 받아야 하나?
 end
 
 -------------------------------------
@@ -439,6 +437,8 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
     
     -- item_id 를 dragon_id로 만드는 계산
     local did = tonumber(item_id) - 640000 - ( 10000)
+    
+    -- 드래곤이 아닐 경우
     
     local func_tap_dragon_card
     item_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap_dragon_card() end)

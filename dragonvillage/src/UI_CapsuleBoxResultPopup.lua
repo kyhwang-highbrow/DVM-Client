@@ -56,6 +56,13 @@ function UI_CapsuleBoxResultPopup:initUI()
         local grade = self:getRarity(item_id)
         self:setItemCardRarity(card, grade)
 	end
+
+    -- 캡슐 수량이 부족해서 10개 미만이 뽑혔을 경우 경고 문구
+    if (#reward_info < 10) then
+        vars['noticeLabel']:setString(Str('남아있는 캡슐 상품이 부족하여 획득한 상품의 개수만큼만 캡슐 코인이 사용되었습니다.'))
+    else
+        vars['noticeLabel']:setString('')
+    end
 end
 
 -------------------------------------
