@@ -29,6 +29,27 @@ function UI_CapsuleBoxTodayInfoPopup:initUI()
 	local vars = self.vars
     local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
     vars['rotationTitleLabel']:setString(capsulebox_data['first']:getCapsuleTitle())
+
+    local l_reward = capsulebox_data['first']:getRankRewardList(1)
+    local first_dragon_attr
+    for idx, struct_reward in ipairs(l_reward) do
+        -- 드래곤 아이디로 리스트 아이템 생성
+        local dragon_id = tonumber(struct_reward['item_id']) - 640000 - (10000)
+        local today_dragon_card = UI_CapsuleBoxTodayListItem(dragon_id)
+        if (vars['itemNode' .. idx]) then
+            vars['itemNode' .. idx]:addChild(today_dragon_card.root)
+        end
+
+        --첫 번째 드래곤 속성 저장
+        if (idx == 1) then
+            first_dragon_attr = TableDragon:getDragonAttr(dragon_id)
+        end
+        idx = idx + 1
+    end
+
+    --첫 번째 드래곤 속성으로 배경 생성
+    local animator = ResHelper:getUIDragonBG(first_dragon_attr, 'idle')
+    vars['bgNode']:addChild(animator.m_node)
 end
 
 -------------------------------------
@@ -37,6 +58,7 @@ end
 function UI_CapsuleBoxTodayInfoPopup:initButton()
 	local vars = self.vars
 	
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -45,6 +67,13 @@ end
 function UI_CapsuleBoxTodayInfoPopup:refresh()
 	local vars = self.vars
 
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_CapsuleBoxTodayInfoPopup:click_closeBtn()
+    self:close()
 end
 
 
