@@ -77,24 +77,11 @@ function UI_CapsuleScheduleListItem:initUI()
         end
     end
 
-    local purchase_state = ''
-    local purechase_remain_time
-
-    -- 예외처리 필요
-    local cur_time = Timer:getServerTime()
-    local schedule_time = self:getScheduleTime()
-    local diff_time = (schedule_time - cur_time)
-    if (diff_time > 0) then
-        purchase_state = '판매까지'
-    else
-        purchase_state = '판매중'
-    end
-
+    local date_str = self:getScheduleTime()
     self.vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
     self.vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
 
-    self.vars['timeLabel']:setString(Str('{1} 남음', datetime.makeTimeDesc(diff_time, true)))
-    self.vars['purchaseStateLabel']:setString(Str(purchase_state))
+    self.vars['timeLabel']:setString(date_str)
     
 end
 
@@ -128,11 +115,14 @@ function UI_CapsuleScheduleListItem:getScheduleTime()
         return 0
     end
 
-    local date_format = 'yyyymmdd'
-    local parser = pl.Date.Format(date_format)
-
-    local end_date = parser:parse(tostring(schedule_time))
-    return end_date['time']
+    local year = string.sub(schedule_time, 0, 4)
+    local month = string.sub(schedule_time, 5, 6)
+    local day = string.sub(schedule_time, 7, 8)
+    
+    --월화수목금 번역?
+    
+    local date_str = string.format('%d년 %d월 %d일(월)', tonumber(year), tonumber(month),tonumber(day))
+    return Str(date_str)
 end
 
 -------------------------------------
