@@ -851,6 +851,7 @@ local t_module = {
     'UI_CapsuleBoxResultPopup',
 	'UI_CapsuleBox',
 	'UI_CapsuleBoxRewardList',
+    'UI_CapsuleBoxSchedule',
     'UI_ContentOpenPopup',
     'UI_DragonGuidePopup',
     'UI_DragonGuideListItem',

@@ -384,7 +384,7 @@ end
 -- function click_rotaionBtn
 -------------------------------------
 function UI_CapsuleBox:click_rotaionBtn()
-
+    UI_CapsuleBoxSchedule()
 end
 
 -------------------------------------
