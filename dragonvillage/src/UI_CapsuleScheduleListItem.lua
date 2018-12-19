@@ -77,12 +77,17 @@ function UI_CapsuleScheduleListItem:initUI()
         end
     end
 
-    local date_str = self:getScheduleTime()
     self.vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
     self.vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
-
-    self.vars['timeLabel']:setString(date_str)
     
+    -- yyyy년 mm월 dd일    
+    local date_str = self:getScheduleTime()
+    self.vars['timeLabel']:setString(date_str)
+
+    -- 현재 판매중인 상품은 하이라이트 표시
+    if (g_capsuleBoxData.m_todaySchedule['day'] == self.m_scheduleData['day']) then
+         self.vars['todaySprite']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -119,9 +124,15 @@ function UI_CapsuleScheduleListItem:getScheduleTime()
     local month = string.sub(schedule_time, 5, 6)
     local day = string.sub(schedule_time, 7, 8)
     
+    local date_format = 'yyyymmdd'
+    local parser = pl.Date.Format(date_format)
+
+    local schedule_date = parser:parse(tostring(schedule_time))
+    local schedule_time = schedule_date['time'] 
+
     --월화수목금 번역?
-    
-    local date_str = string.format('%d년 %d월 %d일(월)', tonumber(year), tonumber(month),tonumber(day))
+    -- local week_name = pl.Date():weekday_name(schedule_time)
+    local date_str = string.format('%d년 %d월 %d일', tonumber(year), tonumber(month),tonumber(day))
     return Str(date_str)
 end
 

@@ -39,9 +39,13 @@ function UI_CapsuleBoxSchedule:initUI()
     table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
     table_view.m_defaultCellSize = cc.size(900, 130)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    
+    -- 현재 판매중인 캡슐 상품 정보
     table_view:setItemList(g_capsuleBoxData.m_sortedScheduleList)
-
-    local idx = g_capsuleBoxData.m_todayScheduleidx
+    
+    -- 현재 판매중인 캡슐 상품 인덱스
+    local idx = g_capsuleBoxData.m_todayScheduleIdx
+    
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view:relocateContainerFromIndex(idx)
 
