@@ -93,6 +93,8 @@ function UI_CapsuleBox:initUI()
 			vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
 		end
 	end
+
+    vars['first' .. 'PriceLabel' .. 2]:setString('10') -- 이 값도 서버에서 받아야 하나?
 end
 
 -------------------------------------
@@ -107,6 +109,7 @@ function UI_CapsuleBox:initButton()
 	
 	-- 뽑기 버튼
 	vars['firstDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_1, 1) end)
+    vars['firstDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_1, 1, 10) end)
 	vars['secondDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 1) end)
 	vars['secondDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2) end)
 
@@ -118,6 +121,10 @@ function UI_CapsuleBox:initButton()
 
     -- 캡슐 코인 (5+1) 구매
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+
+    -- 캡슐 뽑기 일정
+    vars['rotationBtn']:registerScriptTapHandler(function() self:click_rotaionBtn() end)
+    
 end
 
 -------------------------------------
@@ -235,7 +242,7 @@ end
 -- function click_drawBtn
 -- @brief 뽑기
 -------------------------------------
-function UI_CapsuleBox:click_drawBtn(box_key, idx)
+function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 	if (self.m_isBusy) then
 		return
 	end
@@ -292,8 +299,14 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			
 			-- 보상 수령 확인 팝업
 			if (ret['items_list']) then
-				local text = Str('상품이 우편함으로 전송되었습니다.')
-				UI_ObtainPopup(ret['items_list'], text)
+                -- count 값이 없으면 기본 결과 팝업(1뽑기 용)
+                if (not count) then
+				    local text = Str('상품이 우편함으로 전송되었습니다.')
+				    UI_ObtainPopup(ret['items_list'], text)
+                else
+                -- count 값이 있을 경우 보상 가로로 나열해 주는 팝업(10뽑기 용)
+                    UI_CapsuleBoxResultPopup(ret['items_list'])
+                end
 			end
 
 			self:refresh()
@@ -312,7 +325,7 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			self.m_isBusy = false
 		end)
 	end
-	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func)
+	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func, count)
 end
 
 -------------------------------------
@@ -367,6 +380,13 @@ function UI_CapsuleBox:click_buyBtn()
 
         struct_product:buy(buy_cb)
     end
+end
+
+-------------------------------------
+-- function click_rotaionBtn
+-------------------------------------
+function UI_CapsuleBox:click_rotaionBtn()
+
 end
 
 -------------------------------------
