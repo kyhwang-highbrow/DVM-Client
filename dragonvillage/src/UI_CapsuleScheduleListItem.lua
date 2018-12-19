@@ -84,9 +84,14 @@ function UI_CapsuleScheduleListItem:initUI()
     local date_str = self:getScheduleTime()
     self.vars['timeLabel']:setString(date_str)
 
-    -- 현재 판매중인 상품은 하이라이트 표시
-    if (g_capsuleBoxData.m_todaySchedule['day'] == self.m_scheduleData['day']) then
-         self.vars['todaySprite']:setVisible(true)
+    -- 판매 중인 상품은 하이라이트 표시
+    -- 판매 끝난 상품은 lock 표시 
+    local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
+    local capsule_date = tonumber(self.m_scheduleData['day'])
+    if (cur_date == capsule_date) then
+        self.vars['todaySprite']:setVisible(true)
+    elseif (cur_date > capsule_date) then
+        self.vars['lockSprite']:setVisible(true)
     end
 end
 
