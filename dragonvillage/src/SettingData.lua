@@ -213,6 +213,7 @@ function SettingData:makeDefaultSettingData()
         t_data['auto_pick'] = 0         -- 황금 던전에서 자동줍기 상품 
         t_data['quest_double'] = 0      -- 일일퀘스트 2배 상품
         t_data['capsule_box'] = 0       -- 캡슐 뽑기 입장 팝업
+        t_data['challenge_mode'] = 0    -- 그림자 신전 입장 권유 팝업
         root_table['promote_expired'] = t_data
     end
 
@@ -222,7 +223,7 @@ function SettingData:makeDefaultSettingData()
         t_data['history_rank_time'] = 0     -- 랭킹 갱신될 때마다 시간 기록
         t_data['last_day_rank'] = 0         -- 이전 날짜 랭킹 기록
         t_data['last_day_rank_time'] = 0    -- 이전 날짜 랭킹 기록
-
+        t_data['last_entry_day'] = 0       -- 그림자 신전에 마지막으로 입장한 시간 기록(일 단위로 저장)
         root_table['challenge_history'] = t_data
     end
 
@@ -597,4 +598,26 @@ end
 function SettingData:setChellengeModeLastDayRank(type, value)
     local full_key = 'last_day' .. '_' .. type
     self:applySettingData(value, 'challenge_history', full_key) 
+end
+
+------------------------------------
+-- function getChellengeModeLastEntry
+-- @brief  그림자 신전에 마지막으로 입장한 시간 기록 
+-------------------------------------
+function SettingData:getChellengeModeLastEntry()
+    return self:get('challenge_history', 'last_entry_day') or 0
+end
+
+-------------------------------------
+-- function setChellengeModeLastEntry
+-- @param : second
+-------------------------------------
+function SettingData:setChellengeModeLastEntry(value)
+    local cur_time = Timer:getServerTime()
+    local cur_day = datetime.secondToDay(cur_time)
+    local record_day = datetime.secondToDay(value)
+    if (value == cur_day) then
+        return
+    end
+    self:applySettingData(value, 'challenge_history', 'last_entry_day') 
 end

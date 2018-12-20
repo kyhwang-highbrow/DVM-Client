@@ -111,6 +111,10 @@ function UI_ChallengeMode:initUI()
                 order_spr:runAction(cc.RotateTo:create(0.15, 0))
             end
         end)
+
+    -- 그림자 신전 입장 시간 기록 (입장 권유 팝업 용)
+    local cur_time = Timer:getServerTime()
+    g_settingData:getChellengeModeLastEntry(cur_time)
 end
 
 -------------------------------------

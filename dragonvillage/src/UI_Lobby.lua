@@ -255,8 +255,8 @@ function UI_Lobby:entryCoroutine()
 	        if (1 < ENTRY_LOBBY_CNT) then
 		        self:entryCoroutine_spotSale(co)
 	        end			
-        end
-        
+         end
+	        		
         -- @ UI_ACTION
         co:work()
 	    self:doAction(function() 
@@ -302,6 +302,54 @@ function UI_Lobby:entryCoroutine_spotSale(co)
 	if co:waitWork() then return end
 end
 
+
+-------------------------------------
+-- function entryCoroutine_challengeModePopup
+-- @brief 그림자 신전 입장 권유 팝업 조건 체크 코루틴 
+-------------------------------------
+function UI_Lobby:entryCoroutine_challengeModePopup(co)
+	-- 1. 오픈 이후 3일 이상 입장x, 마지막으로 입장 후 3일이상 입장x
+    -- 2. 1일 1회만 표시
+    -- 3. 모든 스테이지를 승리한 유저에게는 표시x
+
+    -- 1. 오픈 이후 3일 이상 입장x, 마지막으로 입장 후 3일이상 입장x
+    local cur_time = Timer:getServerTime()
+    local cur_day = datetime.secondToDay(cur_time)
+    local last_entry_time = g_settingData:getChellengeModeLastEntry()
+    local last_entry_day = datetime.secondToDay(last_entry_time)
+    if (cur_day - last_entry_day < 3) then
+        return
+    end
+    
+    -- 2. 1일 1회만 표시
+    local popup_expired = g_settingData:getPromoteExpired('challenge_mode')
+    if (cur_time < popup_expired) then
+        return
+    end
+
+    -- 3. 모든 스테이지를 승리한 유저에게는 표시x
+    if (g_challengeMode:isVictoryAllStage()) then
+        return
+    end
+
+	co:work()
+    
+    -- 풀 팝업용 UI를 UI파일 따로 만들지 않고 출력
+    local ui = UI()
+    local vars = ui:load('event_challenge_mode.ui')
+    UIManager:open(ui, UIManager.POPUP)
+    vars['exitBtn']:setVisible(true)
+    vars['exitBtn']:registerScriptTapHandler(function() 
+    ui:close()
+    
+    -- 쿨타임 갱신
+    local next_cool_time = cur_time + datetime.dayToSecond(1)
+    g_settingData:setPromoteCoolTime('challenge_mode', next_cool_time)
+    
+    co:NEXT() 
+    end)
+	if co:waitWork() then return end
+end
 
 -------------------------------------
 -- function entryCoroutine_requestUsersLobby

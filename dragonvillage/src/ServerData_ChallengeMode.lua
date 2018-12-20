@@ -351,7 +351,7 @@ end
 -- @brief (최상위)잠긴 상태 → 어려움 자동 승리→ 어려움 수동 승리 → ... →쉬움 수동 승리 → 승리 없음
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeVictoryModePoint(stage)
-    local is_open = g_challengeMode:isOpenStage_challengeMode(stage)
+    local is_open = self:isOpenStage_challengeMode(stage)
     if (not is_open) then
         return 99999
     else
@@ -1192,4 +1192,20 @@ function ServerData_ChallengeMode:getDiffRankFromLastDay()
     end
     local diff_rank = cur_rank - tonumber(last_rank)
     return diff_rank
+end
+
+-------------------------------------
+-- function isVictoryAllStage
+-- @brief 난이도 상관없이 모든 스테이지에서 승리했는지 체크
+-------------------------------------
+function ServerData_ChallengeMode:isVictoryAllStage()
+    local max_stage = 100 --2018.12.20 그림자 신전 스테이지 총 갯수
+
+    for stage = 1, max_stage do
+        local point = self:getChallengeModeStagePoint(stage)
+        if (point == 0) then
+            return false
+        end
+    end
+    return true
 end
