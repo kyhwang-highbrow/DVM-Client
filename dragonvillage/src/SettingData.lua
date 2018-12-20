@@ -216,6 +216,16 @@ function SettingData:makeDefaultSettingData()
         root_table['promote_expired'] = t_data
     end
 
+    do -- 그림자 신전 순위 변동 체크를 위한 기록
+        local t_data = {}
+        t_data['history_rank'] = 0          -- 랭킹 갱신될 때마다 랭킹 기록
+        t_data['history_rank_time'] = 0     -- 랭킹 갱신될 때마다 시간 기록
+        t_data['last_day_rank'] = 0         -- 이전 날짜 랭킹 기록
+        t_data['last_day_rank_time'] = 0    -- 이전 날짜 랭킹 기록
+
+        root_table['challenge_history'] = t_data
+    end
+
     return root_table
 end
 
@@ -536,4 +546,55 @@ end
 -------------------------------------
 function SettingData:setPromoteCoolTime(key, time)
     g_settingData:applySettingData(time, 'promote_expired', key) 
+end
+
+-------------------------------------
+-- function getChellengeModeRankHistory
+-- rank_history_rank
+-------------------------------------
+function SettingData:getChellengeModeRankHistory(type)
+    local full_key = 'history' .. '_' .. type
+    return self:get('challenge_history', full_key) or 0
+end
+
+-------------------------------------
+-- function setChellengeModeRankHistory
+-------------------------------------
+function SettingData:setChellengeModeRankHistory(type, value)
+    local full_key = 'history' .. '_' .. type
+    
+    -- 시간 기록할 때
+    if (type == 'rank_time') then
+         local last_record_day = self:getChellengeModeRankHistory('rank_time')
+         local cur_record_day = value
+
+         -- 날짜가 지났다면 '지난 날짜 기록'(last_day_rank)을 갱신
+         if (last_record_day < cur_record_day) then
+             local last_record_rank = self:getChellengeModeRankHistory('rank')
+             self:setChellengeModeLastDayRank('rank', last_record_rank)
+         end
+    end
+    
+    -- 이전 기록이랑 똑같다면 로컬에 쓰지 않음
+    if (self:getChellengeModeRankHistory(type) == value) then
+        return
+    end
+
+    return self:applySettingData(value, 'challenge_history', full_key) 
+end
+
+-------------------------------------
+-- function getChellengeModeLastDayRank
+-------------------------------------
+function SettingData:getChellengeModeLastDayRank(type)
+    local full_key = 'last_day' .. '_' .. type
+    return self:get('challenge_history', full_key) or 0
+end
+
+-------------------------------------
+-- function setChellengeModeLastDayRank
+-------------------------------------
+function SettingData:setChellengeModeLastDayRank(type, value)
+    local full_key = 'last_day' .. '_' .. type
+    self:applySettingData(value, 'challenge_history', full_key) 
 end

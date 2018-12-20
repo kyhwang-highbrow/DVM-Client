@@ -62,7 +62,18 @@ function UI_BannerChallengeMode:update(dt)
 
         local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
         local text = struct_user_info:getChallengeMode_RankText()
-        vars['descLabel']:setString(text)
+        local diff_rank = g_challengeMode:getDiffRankFromLastDay() -- 현재 랭킹 - 지난 랭킹
+        local diff_rank_msg
+
+        -- 순위 변동
+        if (diff_rank < 0) then
+            diff_rank_msg = '(▲-' .. math.abs(diff_rank) .. ')'
+        elseif(diff_rank > 0) then
+            diff_rank_msg = '(▼-' .. diff_rank .. ')'
+        else
+            diff_rank_msg = '(-)'
+        end
+        vars['descLabel']:setString(text .. diff_rank_msg)
 
     -- 이벤트 종료 후 보상 획득 가능
     elseif (state == ServerData_ChallengeMode.STATE['REWARD']) then

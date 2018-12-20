@@ -182,6 +182,13 @@ function ServerData_ChallengeMode:refresh_playerUserInfo(t_data, l_deck)
 
         if t_data['rank'] then
             struct_user_info.m_rank = t_data['rank']
+
+            -- 랭킹 정보 받을 때 마다 로컬에 저장
+            -- 순위 변동 기록하는 데 사용
+            local cur_time = Timer:getServerTime()
+            local cur_day = datetime.secondToDay(cur_time)
+            g_settingData:setChellengeModeRankHistory('rank', struct_user_info.m_rank)
+            g_settingData:setChellengeModeRankHistory('rank_time', math.floor(cur_day))
         end
 
         if t_data['tier'] then
@@ -1156,4 +1163,19 @@ function ServerData_ChallengeMode:getCumulativeGold()
     end
 
     return cumulative_gold
+end
+
+-------------------------------------
+-- function getDiffRankFromLastDay
+-- @brief 전날 기록한 순위와 비교
+-------------------------------------
+function ServerData_ChallengeMode:getDiffRankFromLastDay()
+    local struct_user_info = self:getPlayerArenaUserInfo()
+    local cur_rank = struct_user_info.m_rank
+    local last_rank = g_settingData:getChellengeModeLastDayRank('rank')
+    if (not last_rank) then
+        return 0
+    end
+    local diff_rank = cur_rank - tonumber(last_rank)
+    return diff_rank
 end
