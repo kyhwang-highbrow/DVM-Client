@@ -700,7 +700,7 @@ end
 
 -------------------------------------
 -- function MakeUICSortList_challengModeStage
--- @brief 필터 버튼
+-- @brief 정렬 버튼
 -------------------------------------
 function MakeUICSortList_challengModeStage(button, label, direction)
 
@@ -725,14 +725,8 @@ function MakeUICSortList_challengModeStage(button, label, direction)
     parent:addChild(uic.m_node)
 
     -- 버튼 리스트 세팅
-	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.EASY_AUTO     , Str('쉬움 수동전투 승리'))
-	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.EASY_HAND     , Str('쉬움 자동전투 승리'))
-	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.NORMAL_AUTO   , Str('보통 수동전투 승리'))
-	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.NORMAL_HAND   , Str('보통 자동전투 승리'))
-	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.HARD_AUTO     , Str('어려움 수동전투 승리'))
-	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.HARD_HAND     , Str('어려움 자동전투 승리'))
-	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.HELL_AUTO      , Str('지옥 수동전투 승리'))
-	uic:addSortType(CHALLENGE_MODE_DIFFICULTY.HELL_HAND      , Str('지옥 자동전투 승리'))
+	uic:addSortType('stage', Str('스테이지'))
+	uic:addSortType('victory_mode', Str('승리 난이도'))
 
     --uic:show()
 

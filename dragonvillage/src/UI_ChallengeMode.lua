@@ -6,6 +6,11 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_ChallengeMode = class(PARENT, {
         m_tableView = 'table',
         m_selectedStageID = 'number', -- 현재 선택된 스테이지 아이디
+        m_isSortAscending = 'bool',
+        m_sortStageFunc = '',
+        m_sortModeFunc = '',
+        m_originStageList = 'table',
+        m_sortType = 'string',
     })
 
 -------------------------------------
@@ -14,7 +19,10 @@ UI_ChallengeMode = class(PARENT, {
 function UI_ChallengeMode:init()
     local vars = self:load_keepZOrder('challenge_mode_scene.ui')
     UIManager:open(self, UIManager.SCENE)
-
+    
+    -- 정렬 초기화
+    self.m_sortType = 'stage'
+    self.m_isSortAscending = true
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ChallengeMode')
 
@@ -69,18 +77,40 @@ function UI_ChallengeMode:initUI()
     vars['rewardNode']:setVisible(true)
     local str = Str('{1}\n/{2}', comma_value(g_challengeMode:getCumulativeGold()), comma_value(10000000))
     vars['rewardLabel']:setString(str)
-   
+    
+    -- 정렬 함수 셋팅
+    self:setSortFunc()
+
     -- 필터용 버튼리스트 UI 생성 
     if (vars['sortBtn']) and (vars['sortLabel']) then
         local uic_sort_list = MakeUICSortList_challengModeStage(vars['sortBtn'], vars['sortLabel'])
 
         -- 버튼을 통해 필터 타입이 변경되었을 경우
-        local function filter_change_cb(filter_type)
-            self:sortStage(filter_type)
+        local function sort_change_cb(filter_type)
+            self:apply_StageSort(filter_type)
+            self.m_sortType = filter_type
         end
 
-        uic_sort_list:setSortChangeCB(filter_change_cb)
+        uic_sort_list:setSortChangeCB(sort_change_cb)
     end
+     -- 오름차순/내림차순 버튼
+    vars['sortOrderBtn']:registerScriptTapHandler(function()
+
+            if (not self.m_isSortAscending) then
+                self.m_isSortAscending = true
+            else
+                self.m_isSortAscending = false
+            end
+            self:apply_StageSort(self.m_sortType)
+
+			local order_spr = vars['sortOrderSprite']
+            order_spr:stopAllActions()
+            if self.m_isSortAscending then
+                order_spr:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                order_spr:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end)
 end
 
 -------------------------------------
@@ -125,6 +155,8 @@ function UI_ChallengeMode:initUI_tableView()
         return a['data']['stage'] < b['data']['stage']
     end
     table.sort(self.m_tableView.m_itemList, sort_func)
+    -- 정렬할 원본 테이블은 항상 스테이지 오름차순 정렬 상태
+    self.m_originStageList = self.m_tableView.m_itemList
 end
 
 -------------------------------------
@@ -280,6 +312,57 @@ function UI_ChallengeMode:initButton()
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infonfoBtn() end)
     vars['lockSprite']:setEnabled(false) -- 버튼으로 되어있음
+end
+
+
+
+-------------------------------------
+-- function apply_StageSort
+-------------------------------------
+function UI_ChallengeMode:apply_StageSort(type)
+    local list = self.m_originStageList
+    -- 스테이지 순으로 정렬
+    if (type == 'stage') then
+        table.sort(list, self.m_sortStageFunc)
+    -- 스테이지 순으로 정렬 후 승리 모드로 정렬
+    elseif (type == 'victory_mode') then
+        table.sort(list, self.m_sortStageFunc)
+        table.sort(list, self.m_sortModeFunc)
+    end
+
+    self.m_tableView:mergeItemList(list)
+    self.m_tableView:setDirtyItemList()
+
+end
+
+-------------------------------------
+-- function setSortFunc
+-- @brief 필터로 분류한 리스트를 TableView에 적용
+-------------------------------------
+function UI_ChallengeMode:setSortFunc()
+   self.m_sortStageFunc = function(a, b)
+        -- 오름차순 or 내림차순
+        if (self.m_isSortAscending) then
+            return a['data']['stage'] < b['data']['stage']
+        else
+            return a['data']['stage'] > b['data']['stage']
+        end
+    end
+
+    self.m_sortModeFunc = function(a, b)
+        local a_data = a['data']['stage']
+        local b_data = b['data']['stage']
+
+        local a_point = g_challengeMode:getChallengeModeVictoryModePoint(a_data) 
+        local b_point = g_challengeMode:getChallengeModeVictoryModePoint(b_data)
+
+        -- 오름차순 or 내림차순
+        if (self.m_isSortAscending) then
+            return a_point < b_point
+        else
+            return a_point > b_point
+        end
+    end
 end
 
 -------------------------------------

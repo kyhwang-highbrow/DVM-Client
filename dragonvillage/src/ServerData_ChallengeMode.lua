@@ -337,12 +337,26 @@ function ServerData_ChallengeMode:getChallengeModeStagePoint(stage)
     local point = 0
 
     if self.m_lTotalPoint[stage] then
-        --point = (self.m_lTotalPoint[stage] - 10000)
+        -- point = (self.m_lTotalPoint[stage] - 10000)
         -- @sgkim 2018-10-24 클리어 층 개념이 사라지면서 점수를 그대로 사용
         point = self.m_lTotalPoint[stage]
     end
 
     return point
+end
+
+-------------------------------------
+-- function getChallengeModeStagePoint
+-- @brief 승리모드 별로 정렬하기 위해 스테이지 점수 반환 (잠긴 상태 9999점, 승리 없음 0점)
+-- @brief (최상위)잠긴 상태 → 어려움 자동 승리→ 어려움 수동 승리 → ... →쉬움 수동 승리 → 승리 없음
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeVictoryModePoint(stage)
+    local is_open = g_challengeMode:isOpenStage_challengeMode(stage)
+    if (not is_open) then
+        return 99999
+    else
+        return self:getChallengeModeStagePoint(stage) or 0
+    end
 end
 
 -------------------------------------
