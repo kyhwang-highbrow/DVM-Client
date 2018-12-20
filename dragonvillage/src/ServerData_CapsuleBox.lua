@@ -148,6 +148,13 @@ end
 function ServerData_CapsuleBox:refreshTitle()
 	local schedule_map = TABLE:get('table_capsule_box_schedule')
     local schedule_list = table.MapToList(schedule_map)
+    local schedule_valid_list = {}
+     -- notice_visible 값 1인 목록 추출해서 리스트 생성
+    for _, v in pairs(schedule_list) do
+        if (v['notice_visible'] == 1) then
+            table.insert(schedule_valid_list, v)
+        end
+    end
 
     -- 캡슐 판매일 오래된 것부터 출력되도록 정렬
     local function sort_func(a, b)
@@ -156,12 +163,12 @@ function ServerData_CapsuleBox:refreshTitle()
 
         return a_time < b_time
     end
-    table.sort(schedule_list, sort_func)
-    self.m_sortedScheduleList = schedule_list
+    table.sort(schedule_valid_list, sort_func)
+    self.m_sortedScheduleList = schedule_valid_list
 
     -- 현재 판매 중인 항목 찾기
     -- 현재와 판매 시작일 사이 간격이 하루 미만일 경우 -- 20181212 로 일치시키는 방향으로 다시 할 것
-    local today_schedule_info, today_schedule_idx = self:findTodaySchedule(schedule_list)
+    local today_schedule_info, today_schedule_idx = self:findTodaySchedule(schedule_valid_list)
     self.m_todayScheduleIdx = today_schedule_idx
     self.m_todaySchedule = today_schedule_info
 

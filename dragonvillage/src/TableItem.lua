@@ -362,3 +362,19 @@ function TableItem:getDidByItemId(item_id)
 
     return t_item['did']
 end
+
+-------------------------------------
+-- function isDragonByItemId
+-- @brief 아이템 아이디로 해당 아이템이 드래곤이면 true 반환
+-------------------------------------
+function TableItem:isDragonByItemId(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+    local did = self:getDidByItemId(item_id)
+    if (did == '' or not did) then
+        return false
+    end
+    return true
+end
+

@@ -33,8 +33,7 @@ end
 -------------------------------------
 function UI_CapsuleBoxSchedule:initUI()
     local vars = self.vars
-    UIManager:toastNotificationRed('기능 미완성 상태')
-    --[[
+
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['scrollNode'])
     table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
@@ -49,7 +48,7 @@ function UI_CapsuleBoxSchedule:initUI()
     
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view:relocateContainerFromIndex(idx)
-    --]]
+
 end
 
 -------------------------------------

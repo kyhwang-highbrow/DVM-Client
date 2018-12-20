@@ -54,14 +54,11 @@ function UI_CapsuleScheduleListItem:initUI()
     self.vars['timeLabel']:setString(date_str)
 
     local is_check_new_dragon = false
-
-    -- 판매 중인 상품은 하이라이트 표시
-    -- 판매 끝난 상품은 lock 표시 
     local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
     local capsule_date = tonumber(self.m_scheduleData['day'])
-    if (cur_date == capsule_date) then
+    if (cur_date == capsule_date) then                              -- 판매 중인 상품은 하이라이트 표시
         self.vars['todaySprite']:setVisible(true)
-    elseif (cur_date > capsule_date) then
+    elseif (cur_date > capsule_date) then                           -- 판매 끝난 상품은 lock 표시 
         self.vars['lockSprite']:setVisible(true)
     -- 판매 예정인 상품은 출시 안된 드래곤 체크해야함
     else
@@ -71,6 +68,8 @@ function UI_CapsuleScheduleListItem:initUI()
     -- item_key_list 항목 뜻 
     -- ex)  first_1 : 전설 캡슐 첫 번째 아이템, second_2 : 영웅 캡슐  두 번째 아이템
     local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'}
+
+    local table_item = TableItem()
 
     -- 아이템 카드 세팅
     for i, reward_name in ipairs(item_key_list) do
@@ -88,26 +87,29 @@ function UI_CapsuleScheduleListItem:initUI()
             -- ex) legendDragonNode + 1
             node_name = node_name ..  node_number
 
-            -- 노드에 아이템 카드 매달기, 이거 위로
+            -- 노드에 아이템 카드 매달기
             local reward_card
             local capsule_item_id
             if (vars[node_name]) then
                 capsule_item_id = self:getCapsuleBoxItemId(reward_name)
+                -- 아이템이 드래곤이라면 출시 여부 판단 
+                if (table_item:isDragonByItemId(capsule_item_id)) then
+                    local did = table_item:getDidByItemId()
+                    -- 출시 되지 않은 드래곤이면 출력 안함
+                    if (not g_dragonsData:isReleasedDragon(did)) then
+                        return
+                    end
+                end
+
+                -- table_item에 있는 id인지 확인
+                if (not table_item:getItemName()) then
+                    return
+                end
+                
                 if (capsule_item_id) then
                     reward_card = UI_ItemCard(capsule_item_id, 1).root
                     reward_card:setScale(0.66)
                     vars[node_name]:addChild(reward_card)
-                end
-            end
-
-            if (is_check_new_dragon) then
-                -- item_id 를 dragon_id로 만드는 계산
-                local did = tonumber(capsule_item_id) - 640000 - (10000)
-                
-                -- 드래곤이라면 출시 전인지 확인
-                local is_dragon = TableDragon():get(did, true)
-                if (is_dragon) and (g_dragonsData:isReleasedDragon(did)) then
-                    -- 물음표 넣을 자리
                 end
             end
         end
