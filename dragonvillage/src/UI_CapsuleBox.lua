@@ -293,8 +293,12 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 		
 		CURR_Z_ORDER = CURR_Z_ORDER + 1
 		ani:setLocalZOrder(CURR_Z_ORDER)
-
-		ani:setAnimationPause(false)
+        
+        -- 10연뽑이면 애니 바꾸어 연출
+        if (count == 10) then
+            ani:changeAni('special_idle_10', false)
+        end
+	    ani:setAnimationPause(false)
 
 		-- 후속 연출
 		ani:addAniHandler(function()
