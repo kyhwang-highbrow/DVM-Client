@@ -22,7 +22,7 @@ function UI_ChallengeMode:init()
     
     -- 정렬 초기화
     self.m_sortType = 'stage'
-    self.m_isSortAscending = true
+    self.m_isSortAscending = false
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ChallengeMode')
 
@@ -83,7 +83,7 @@ function UI_ChallengeMode:initUI()
 
     -- 필터용 버튼리스트 UI 생성 
     if (vars['sortBtn']) and (vars['sortLabel']) then
-        local uic_sort_list = MakeUICSortList_challengModeStage(vars['sortBtn'], vars['sortLabel'])
+        local uic_sort_list = MakeUICSortList_challengModeStage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_BOT_TO_TOP)
 
         -- 버튼을 통해 필터 타입이 변경되었을 경우
         local function sort_change_cb(filter_type)
@@ -362,9 +362,9 @@ function UI_ChallengeMode:setSortFunc()
    self.m_sortStageFunc = function(a, b)
         -- 오름차순 or 내림차순
         if (self.m_isSortAscending) then
-            return a['data']['stage'] < b['data']['stage']
-        else
             return a['data']['stage'] > b['data']['stage']
+        else
+            return a['data']['stage'] < b['data']['stage']
         end
     end
 
