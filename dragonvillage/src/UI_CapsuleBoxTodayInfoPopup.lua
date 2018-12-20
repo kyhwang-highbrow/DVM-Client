@@ -30,7 +30,9 @@ function UI_CapsuleBoxTodayInfoPopup:initUI()
     local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
     vars['rotationTitleLabel']:setString(capsulebox_data['first']:getCapsuleTitle())
 
-    local l_reward = capsulebox_data['first']:getRankRewardList(1)
+    -- 전설 캡슐 뽑기 리스트
+    local rank = 1
+    local l_reward = capsulebox_data['first']:getRankRewardList(rank)
     local first_dragon_attr
     for idx, struct_reward in ipairs(l_reward) do
         -- 드래곤 아이디로 리스트 아이템 생성

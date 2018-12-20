@@ -292,18 +292,43 @@ function ServerData_CapsuleBox:openCapsuleBoxUI(show_reward_list)
             local cur_time = Timer:getServerTime()
             local cool_time = g_settingData:getPromoteExpired('capsule_box')
             
-            -- 쿨타임이 지났을 경우 팝업 출력
-            if (cur_time > cool_time) then
-                UI_CapsuleBoxTodayInfoPopup()
-                --쿨타임 하루
-                local next_cool_time = cur_time + datetime.dayToSecond(1)
-                g_settingData:setPromoteCoolTime('capsule_box', next_cool_time)
-            end
-
-			-- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
+            -- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
 			if (show_reward_list) then
 				ui:click_rewardBtn('first')
 			end
+
+            -- 전설 캡슐 뽑기 팝업, 조건 체크 후 출력
+            do
+                -- 1. 쿨타임이 지났을 경우
+                if (cur_time < cool_time) then
+                    return
+                end
+                -- 2. 상품이 모두 드래곤일 경우
+                local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
+                local table_item = TableItem()
+                
+                -- 전설 캡슐 뽑기 리스트
+                local rank = 1
+                local l_reward = capsulebox_data['first']:getRankRewardList(rank)
+                
+                -- 아이템 하나라도 드래곤이 아니면 팝업 출력x
+                for _,struct_reward in ipairs(l_reward) do
+                    local item_id = struct_reward['item_id']
+                    local did = table_item:getDidByItemId(item_id)
+                    if (did == '' or not did) then
+                        return
+                    end
+                end
+
+                UI_CapsuleBoxTodayInfoPopup()
+            end
+
+            -- 쿨타임 갱신 (하루)
+            local next_cool_time = cur_time + datetime.dayToSecond(1)
+            g_settingData:setPromoteCoolTime('capsule_box', next_cool_time)
+
+
+			
 		end)
 	end
 

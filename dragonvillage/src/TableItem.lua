@@ -344,3 +344,21 @@ function TableItem:getItemIDByDid(did, evolution)
 	local item_id = did + 640000 + (evolution * 10000)
 	return item_id
 end
+
+-------------------------------------
+-- function getDidByItemId
+-- @brief
+-------------------------------------
+function TableItem:getDidByItemId(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_item = self:get(item_id)
+
+    if (not t_item) then
+        return nil
+    end
+
+    return t_item['did']
+end
