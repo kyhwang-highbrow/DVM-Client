@@ -25,7 +25,6 @@ function UI_ChallengeMode:init()
     self.m_isSortAscending = false
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ChallengeMode')
-
     self:initUI()
     self:initButton()
     self:refresh()
@@ -114,7 +113,7 @@ function UI_ChallengeMode:initUI()
 
     -- 그림자 신전 입장 시간 기록 (입장 권유 팝업 용)
     local cur_time = Timer:getServerTime()
-    g_settingData:getChellengeModeLastEntry(cur_time)
+    g_settingData:setChellengeModeLastEntry(cur_time)
 end
 
 -------------------------------------

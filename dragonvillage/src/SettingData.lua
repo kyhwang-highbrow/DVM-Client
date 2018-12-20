@@ -563,23 +563,30 @@ end
 -------------------------------------
 function SettingData:setChellengeModeRankHistory(type, value)
     local full_key = 'history' .. '_' .. type
-    
+    local last_record_day
+    local cur_record_day 
     -- 시간 기록할 때
     if (type == 'rank_time') then
-         local last_record_day = self:getChellengeModeRankHistory('rank_time')
-         local cur_record_day = value
+        -- 예전에 기록한 날짜(last_day_rank)
+        last_record_day = self:getChellengeModeLastDayRank('rank_time')
+        -- 지금 날짜
+        cur_record_day = datetime.secondToDay(value)
 
-         -- 날짜가 지났다면 '지난 날짜 기록'(last_day_rank)을 갱신
-         if (last_record_day < cur_record_day) then
-             local last_record_rank = self:getChellengeModeRankHistory('rank')
-             self:setChellengeModeLastDayRank('rank', last_record_rank)
-         end
+        -- 날짜가 지났다면 '지난 날짜 기록'(last_day_rank)의 랭크를 갱신
+        if (last_record_day < cur_record_day) then
+            local last_record_rank = self:getChellengeModeRankHistory('rank')
+            self:setChellengeModeLastDayRank('rank', last_record_rank)
+        end
+        
+        -- 자신의 바로 이전 값을 가져옴
+        local record_day = self:getChellengeModeRankHistory('rank_time')
+        
+        -- 날짜 기준으로 자신의 이전 기록이랑 똑같다면 로컬에 쓰지 않음
+        if (record_day == cur_record_day) then
+            return
+        end
     end
     
-    -- 이전 기록이랑 똑같다면 로컬에 쓰지 않음
-    if (self:getChellengeModeRankHistory(type) == value) then
-        return
-    end
 
     return self:applySettingData(value, 'challenge_history', full_key) 
 end
@@ -613,11 +620,10 @@ end
 -- @param : second
 -------------------------------------
 function SettingData:setChellengeModeLastEntry(value)
-    local cur_time = Timer:getServerTime()
-    local cur_day = datetime.secondToDay(cur_time)
-    local record_day = datetime.secondToDay(value)
-    if (value == cur_day) then
+    local record_day = math.floor(datetime.secondToDay(value))
+    local last_data = math.floor(self:getChellengeModeLastEntry())
+    if (record_day == last_data) then
         return
     end
-    self:applySettingData(value, 'challenge_history', 'last_entry_day') 
+    self:applySettingData(record_day, 'challenge_history', 'last_entry_day') 
 end

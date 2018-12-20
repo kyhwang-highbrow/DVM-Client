@@ -186,9 +186,8 @@ function ServerData_ChallengeMode:refresh_playerUserInfo(t_data, l_deck)
             -- 랭킹 정보 받을 때 마다 로컬에 저장
             -- 순위 변동 기록하는 데 사용
             local cur_time = Timer:getServerTime()
-            local cur_day = datetime.secondToDay(cur_time)
             g_settingData:setChellengeModeRankHistory('rank', struct_user_info.m_rank)
-            g_settingData:setChellengeModeRankHistory('rank_time', math.floor(cur_day))
+            g_settingData:setChellengeModeRankHistory('rank_time', cur_time)
         end
 
         if t_data['tier'] then
