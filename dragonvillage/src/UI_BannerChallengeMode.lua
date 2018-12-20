@@ -61,19 +61,35 @@ function UI_BannerChallengeMode:update(dt)
         vars['timeLabel']:setString(text)
 
         local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
-        local text = struct_user_info:getChallengeMode_RankText()
+        local rank_text = struct_user_info:getChallengeMode_RankText()
+        -- 숫자만 추출
+        local my_rank = string.match(text,'%d+')
         local diff_rank = g_challengeMode:getDiffRankFromLastDay() -- 현재 랭킹 - 지난 랭킹
         local diff_rank_msg
 
         -- 순위 변동
         if (diff_rank < 0) then
-            diff_rank_msg = '(▲-' .. math.abs(diff_rank) .. ')'
+            diff_rank_msg = '{@defualt}({@blue}▲{@defualt}-' .. math.abs(diff_rank) .. ')'
         elseif(diff_rank > 0) then
-            diff_rank_msg = '(▼-' .. diff_rank .. ')'
+            diff_rank_msg = '{@defualt}({@red}▼{@defualt}-' .. diff_rank .. ')'
         else
-            diff_rank_msg = '(-)'
+            if (my_rank) then
+                diff_rank_msg = '(-)'
+            else
+            -- 자기 랭크가 없을 때에는 표기 안함
+                diff_rank_msg = ''
+            end
         end
-        vars['descLabel']:setString(text .. diff_rank_msg)
+
+        vars['descLabel']:setString(rank_text)
+        vars['changedLabel']:setString(diff_rank_msg)
+
+        -- 1000위 (@-10000) 길이가 너무 길 경우 폰트 사이즈 조절 
+        if (my_rank * diff_rank > 1000000000) then
+            vars['descLabel']:setFontSize(25)
+            vars['changedLabel']:setFontSize(18)
+        end
+
 
     -- 이벤트 종료 후 보상 획득 가능
     elseif (state == ServerData_ChallengeMode.STATE['REWARD']) then
