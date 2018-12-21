@@ -117,7 +117,7 @@ function UI_CapsuleBox:initButton()
 	-- 새로고침
 	vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 
-	-- 캡슐 코인 구매
+    -- 캡슐 코인 구매
 	vars['firstCoinBtn']:registerScriptTapHandler(function() self:click_firstCoinBtn() end)
 
     -- 캡슐 코인 (5+1) 구매
@@ -157,13 +157,14 @@ function UI_CapsuleBox:refresh()
 		vars[box_key .. 'CurrentRateLabel']:setString(curr_per)
 	end
 
-	-- 현재 보유한 캡슐 코인..
+    -- 현재 보유한 캡슐 코인..
 	local capsule_coin = g_userData:get('capsule_coin')
 	vars['firstHaveLabel']:setString(comma_value(capsule_coin))
 
 	-- 캡슐 코인 구매 버튼 온오프
 	vars['firstCoinBtn']:setVisible(capsule_coin == 0)
 	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
+    vars['firstDrawBtn2']:setVisible(capsule_coin ~= 0)
 
     vars['rotationTitleLabel1']:setString(capsulebox_data['second']:getCapsuleTitle())
     vars['rotationTitleLabel2']:setString(capsulebox_data['first']:getCapsuleTitle())
@@ -445,17 +446,20 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	local item_card = UI_ItemCard(item_id, item_cnt)
 	vars['rewardNode']:addChild(item_card.root)
     
-    -- item_id 를 dragon_id로 만드는 계산
-    local did = tonumber(item_id) - 640000 - (10000)
-    
+    -- item_id로 드래곤 판단
+    local table_item = TableItem()
+    local did = table_item:getDidByItemId(item_id)
+    local is_dragon = table_item:isDragonByItemId(item_id)    
     local func_tap_dragon_card
-    item_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap_dragon_card() end)
+
+    -- 드래곤이면 도감버젼으로 Info팝업 띄우는 함수 등록
+    if (is_dragon) then
+        item_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap_dragon_card() end)
+    end
+
+    -- 도감 팝업 출력
     func_tap_dragon_card = function()
-        local is_dragon = TableDragon():get(did, true)
-        -- 드래곤 이면 도감 상세UI 오픈
-        if (is_dragon) then
-            local book_ui = UI_BookDetailPopup.openWithFrame(did, 3, 3, 0.8, true)      
-        end
+        UI_BookDetailPopup.openWithFrame(did, 3, 3, 0.8, true)    -- param : did, grade, evolution scale, ispopup
     end
 	return ui
 end

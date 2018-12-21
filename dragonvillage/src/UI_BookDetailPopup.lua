@@ -963,6 +963,7 @@ end
 
 -------------------------------------
 -- function openWithFrame
+-- @brief 도감 외부에서 독립 팝업 형태로 출력  
 -------------------------------------
 function UI_BookDetailPopup.openWithFrame(did, grade, evolution, scale, is_popup)
     local t_dragon
@@ -981,13 +982,26 @@ function UI_BookDetailPopup.openWithFrame(did, grade, evolution, scale, is_popup
 
 	local ui = UI_BookDetailPopup(t_dragon, is_popup)
     ui:setUnableIndex()
-    ui.root:setScale(scale)
-    
-    -- 프레임 용 요소들 활성화(엑스버튼, 배경 프레임..)
+
+    -- 프레임 용 요소들 활성화(프레임 용 close 버튼, 배경 프레임..)
     ui.vars['frameSprite']:setVisible(true)
     ui.vars['popupCloseBtn']:setVisible(true)
+    ui.vars['popupCloseBtn']:registerScriptTapHandler(function() ui:close() end)
     ui.vars['clippingNode']:setVisible(true)
     
+    -- 해당 팝업에서는 화살표 뒤로가기 버튼과 속성별 드래곤 선택 비활성화
+    do
+        -- close 버튼 비활성화
+        ui.vars['closeBtn']:setVisible(false)
+        
+        -- 속성별 드래곤 선택 불가
+        local l_attr = getAttrTextList()
+        for _, attr in ipairs(l_attr) do
+            -- 아예 안 만드는 쪽으로 수정해야함
+            ui.vars[attr..'Node']:setVisible(false)
+        end
+    end
+
     -- 배경을 clippingNode에 넣어서 크기를 재단
     ui.vars['bgNode']:removeFromParent()
     ui.vars['clippingNode']:addChild(ui.vars['bgNode'])
