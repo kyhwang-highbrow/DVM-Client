@@ -177,9 +177,26 @@ function UI_CapsuleScheduleListItem:getScheduleTime()
     local month = string.sub(schedule_time, 5, 6)
     local day = string.sub(schedule_time, 7, 8)
 
-    --월화수목금 번역?
+    -- Date 인스턴스 타겟 날짜로 생성
+    local date = pl.Date()
+	date:year(tonumber(year))
+    date:month(tonumber(month))
+    date:day(tonumber(day))
+    
+    -- 요일 구하는 함수
+    local week_day_eng = date:weekday_name()
+    local week_day_kr
+    if ('Mon' == week_day_eng) then week_day_kr = Str('월')
+    elseif ('Tue' == week_day_eng) then week_day_kr = Str('화')
+    elseif ('Wed' == week_day_eng) then week_day_kr = Str('수')
+    elseif ('Thu' == week_day_eng) then week_day_kr = Str('목')
+    elseif ('Fri' == week_day_eng) then week_day_kr = Str('금')
+    elseif ('Sat' == week_day_eng) then week_day_kr = Str('토')
+    elseif ('Sun' == week_day_eng) then week_day_kr = Str('일')
+    end
+
     -- local week_name = pl.Date():weekday_name(schedule_time)
-    local date_str = string.format('%d년 %d월 %d일', tonumber(year), tonumber(month),tonumber(day))
+    local date_str = string.format('%d년 %d월 %d일(%s)', tonumber(year), tonumber(month),tonumber(day), week_day_kr)
     return Str(date_str)
 end
 
