@@ -196,9 +196,12 @@ function UI_CapsuleScheduleListItem:getScheduleTime()
     elseif ('Sun' == week_day_eng) then week_day_kr = Str('일')
     end
 
-    -- local week_name = pl.Date():weekday_name(schedule_time)
-    local date_str = string.format('%d년 %d월 %d일(%s)', tonumber(year), tonumber(month),tonumber(day), week_day_kr)
-    return Str(date_str)
+    local year_kr = Str('년')
+    local month_kr = Str('월')
+    local day_kr = Str('일')
+    local date_form = '%d' .. year_kr .. ' ' .. '%d' .. month_kr .. ' ' .. '%d' .. day_kr .. ' ' .. '(%s)'
+    local date_str = string.format(date_form, tonumber(year), tonumber(month),tonumber(day), week_day_kr)
+    return date_str
 end
 
 -------------------------------------
@@ -216,9 +219,9 @@ function UI_CapsuleScheduleListItem:getCapsuleBoxTitle(type)
     local schedule_data = self:getScheduleData()
 
     if (type == 'legend') then
-        return Str(self.m_scheduleData['t_first_name'] .. ' ' .. Str('캡슐')) or ''
+        return Str(self.m_scheduleData['t_first_name']) .. ' ' .. Str('캡슐') or ''
     else
-        return Str(self.m_scheduleData['t_second_name'] .. ' ' .. Str('캡슐')) or ''
+        return Str(self.m_scheduleData['t_second_name']) .. ' ' .. Str('캡슐') or ''
     end
 end
 
