@@ -216,9 +216,9 @@ function UI_CapsuleScheduleListItem:getCapsuleBoxTitle(type)
     local schedule_data = self:getScheduleData()
 
     if (type == 'legend') then
-        return Str(self.m_scheduleData['t_first_name']) or ''
+        return Str(self.m_scheduleData['t_first_name'] .. ' ' .. Str('캡슐')) or ''
     else
-        return Str(self.m_scheduleData['t_second_name']) or ''
+        return Str(self.m_scheduleData['t_second_name'] .. ' ' .. Str('캡슐')) or ''
     end
 end
 
