@@ -311,11 +311,17 @@ end
 -- @brief 그림자 신전 입장 권유 팝업 조건 체크 코루틴 
 -------------------------------------
 function UI_Lobby:entryCoroutine_challengeModePopup(co)
+    -- 0. 그림자 신전 이벤트 중인가
 	-- 1. 그림자 신전 레벨 조건 확인
     -- 2. 오픈 이후 3일 이상 입장x, 마지막으로 입장 후 3일이상 입장x
     -- 3. 1일 1회만 표시
     -- 4. 모든 스테이지를 승리한 유저에게는 표시x
 
+    -- 0. 그림자 신전 이벤트 중인가
+    if (not g_challengeMode:isActive_challengeMode()) then
+        return
+    end
+    
     -- 1. 레벨 체크
 	if (g_contentLockData:isContentLock('challenge_mode')) then
         return

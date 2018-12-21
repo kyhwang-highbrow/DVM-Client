@@ -223,7 +223,7 @@ function SettingData:makeDefaultSettingData()
         t_data['history_rank_time'] = 0     -- 랭킹 갱신될 때마다 시간 기록
         t_data['last_day_rank'] = 0         -- 이전 날짜 랭킹 기록
         t_data['last_day_rank_time'] = 0    -- 이전 날짜 랭킹 기록
-        t_data['last_entry_day'] = 0       -- 그림자 신전에 마지막으로 입장한 시간 기록(일 단위로 저장)
+        t_data['last_entry_day'] = 0        -- 그림자 신전에 마지막으로 입장한 시간 기록(일 단위로 저장)
         root_table['challenge_history'] = t_data
     end
 
@@ -551,7 +551,7 @@ end
 
 -------------------------------------
 -- function getChellengeModeRankHistory
--- rank_history_rank
+-- @brief rank_history_rank
 -------------------------------------
 function SettingData:getChellengeModeRankHistory(type)
     local full_key = 'history' .. '_' .. type
@@ -560,6 +560,7 @@ end
 
 -------------------------------------
 -- function setChellengeModeRankHistory
+-- @brief 랭크 갱신될 때마다 기록
 -------------------------------------
 function SettingData:setChellengeModeRankHistory(type, value)
     local full_key = 'history' .. '_' .. type
@@ -570,12 +571,12 @@ function SettingData:setChellengeModeRankHistory(type, value)
         -- 예전에 기록한 날짜(last_day_rank)
         last_record_day = self:getChellengeModeLastDayRank('rank_time')
         -- 지금 날짜
-        cur_record_day = datetime.secondToDay(value)
-
+        cur_record_day = math.floor(datetime.secondToDay(2))
         -- 날짜가 지났다면 '지난 날짜 기록'(last_day_rank)의 랭크를 갱신
         if (last_record_day < cur_record_day) then
             local last_record_rank = self:getChellengeModeRankHistory('rank')
             self:setChellengeModeLastDayRank('rank', last_record_rank)
+            self:setChellengeModeLastDayRank('rank_time', cur_record_day)
         end
         
         -- 자신의 바로 이전 값을 가져옴
@@ -601,15 +602,15 @@ end
 
 -------------------------------------
 -- function setChellengeModeLastDayRank
+-- @brief 전 날의 랭킹을 저장
 -------------------------------------
 function SettingData:setChellengeModeLastDayRank(type, value)
     local full_key = 'last_day' .. '_' .. type
     self:applySettingData(value, 'challenge_history', full_key) 
 end
 
-------------------------------------
--- function getChellengeModeLastEntry
--- @brief  그림자 신전에 마지막으로 입장한 시간 기록 
+-------------------------------------
+-- function getChellengeModeLastDayRank
 -------------------------------------
 function SettingData:getChellengeModeLastEntry()
     return self:get('challenge_history', 'last_entry_day') or 0
@@ -617,7 +618,7 @@ end
 
 -------------------------------------
 -- function setChellengeModeLastEntry
--- @param : second
+-- @brief 그림자 신전 마지막 입장을 갱신
 -------------------------------------
 function SettingData:setChellengeModeLastEntry(value)
     local record_day = math.floor(datetime.secondToDay(value))
