@@ -46,33 +46,28 @@ end
 function UI_CapsuleScheduleListItem:initUI()
     local vars = self.vars
     
+    -- 캡슐 타이틀 설정
     self.vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
     self.vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
     
-    -- yyyy년 mm월 dd일    
+    -- 캡슐 일정 설정     
     local date_str = self:getScheduleTime()
-    self.vars['timeLabel']:setString(date_str)
+    self.vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
 
-    local is_check_new_dragon = false
+    -- 캡슐 상품 일정 체크 
     local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
     local capsule_date = tonumber(self.m_scheduleData['day'])
-    if (cur_date == capsule_date) then                              -- 판매 중인 상품은 하이라이트 표시
+    if (cur_date == capsule_date) then                              -- 오늘 상품은 하이라이트 표시
         self.vars['todaySprite']:setVisible(true)
     elseif (cur_date > capsule_date) then                           -- 판매 끝난 상품은 lock 표시 
         self.vars['lockSprite']:setVisible(true)
-    -- 판매 예정인 상품은 출시 안된 드래곤 체크해야함
-    else
-        is_check_new_dragon = true
     end
     
-    -- item_key_list 항목 뜻 
-    -- ex)  first_1 : 전설 캡슐 첫 번째 아이템, second_2 : 영웅 캡슐  두 번째 아이템
-    local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'}
-
-    local table_item = TableItem()
-
-    -- 아이템 카드 세팅
+    -- 캡슐 아이템 세팅
+    local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'} -- ex)  first_1 : 전설 캡슐 첫 번째 아이템, second_2 : 영웅 캡슐  두 번째 아이템
     for i, reward_name in ipairs(item_key_list) do
+        
+        -- 전설, 영웅 판별해서 노드 이름 판단
         local node_name
         if (string.match(reward_name,'first')) then
             node_name = 'legendDragonNode'
@@ -81,36 +76,37 @@ function UI_CapsuleScheduleListItem:initUI()
         end
 
         if (node_name) then
-            -- first_1의 숫자를 추출
+            -- ex) first_1 은 legendDragonNode1 와 대응
             local node_number = string.match(reward_name, '%d')
-
-            -- ex) legendDragonNode + 1
             node_name = node_name ..  node_number
-
-            -- 노드에 아이템 카드 매달기
-            local reward_card
-            local capsule_item_id
+            
+            -- 아이템 카드 세팅
             if (vars[node_name]) then
-                capsule_item_id = self:getCapsuleBoxItemId(reward_name)
-                -- 아이템이 드래곤이라면 출시 여부 판단 
-                if (table_item:isDragonByItemId(capsule_item_id)) then
-                    local did = table_item:getDidByItemId()
-                    -- 출시 되지 않은 드래곤이면 출력 안함
-                    if (not g_dragonsData:isReleasedDragon(did)) then
-                        return
-                    end
-                end
+                local capsule_item_id = self:getCapsuleBoxItemId(reward_name)
+                local is_can_show = self:checkValidItem(reward_name, capsule_item_id)
+                local item_card
 
-                -- table_item에 있는 id인지 확인
-                if (not table_item:getItemName()) then
-                    return
+                -- 보여줄 수 있는 카드는 아이템 카드 생성
+                -- 보여줄 수 없는 카드는 물음표 카드 생성
+                if (is_can_show and capsule_item_id) then
+                    item_card = UI_ItemCard(capsule_item_id, 1)
+
+                    -- 뱃지 생성
+                    local badge_ui = self:makeBadge(reward_name)
+                    item_card.root:addChild(badge_ui.root)
+
+                else             
+                    local empty_ui = UI()
+                    empty_ui:load('icon_item_item.ui')
+                    empty_ui.vars['lockSprite']:setVisible(true)
+                    item_card = empty_ui
                 end
                 
-                if (capsule_item_id) then
-                    reward_card = UI_ItemCard(capsule_item_id, 1).root
-                    reward_card:setScale(0.66)
-                    vars[node_name]:addChild(reward_card)
-                end
+                -- 아이템 카드 해당 노드에 추가       
+                if (item_card) then
+                    vars[node_name]:addChild(item_card.root)
+                    item_card.root:setScale(0.66)
+                end        
             end
         end
     end
@@ -118,9 +114,32 @@ function UI_CapsuleScheduleListItem:initUI()
 end
 
 -------------------------------------
--- function initItemCard
+-- function makeItemCard
 -------------------------------------
-function UI_CapsuleScheduleListItem:initButton()
+function UI_CapsuleScheduleListItem:checkValidItem(reward_name, capsule_item_id)
+    
+    local table_item = TableItem()
+    local reward_card
+
+    if (not capsule_item_id) then
+        return false
+    end
+
+    -- 아이템이 드래곤이라면 출시 여부 판단 
+    if (table_item:isDragonByItemId(capsule_item_id)) then
+        local did = table_item:getDidByItemId()
+        -- 출시 되지 않은 드래곤이면 출력 안함
+        if (not g_dragonsData:isReleasedDragon(did)) then
+            return false
+        end
+    end
+
+    -- table_item에 있는 id인지 확인
+    if (not table_item:getItemName()) then
+        return false
+    end
+    
+    return true
 end
 
 -------------------------------------
@@ -153,15 +172,10 @@ function UI_CapsuleScheduleListItem:getScheduleTime()
         return 0
     end
 
+    -- 20181212을 년월일로 분리하는 과정
     local year = string.sub(schedule_time, 0, 4)
     local month = string.sub(schedule_time, 5, 6)
     local day = string.sub(schedule_time, 7, 8)
-    
-    local date_format = 'yyyymmdd'
-    local parser = pl.Date.Format(date_format)
-
-    local schedule_date = parser:parse(tostring(schedule_time))
-    local schedule_time = schedule_date['time'] 
 
     --월화수목금 번역?
     -- local week_name = pl.Date():weekday_name(schedule_time)
@@ -190,4 +204,50 @@ function UI_CapsuleScheduleListItem:getCapsuleBoxTitle(type)
     end
 end
 
+-------------------------------------
+-- function makeBadge
+-------------------------------------
+function UI_CapsuleScheduleListItem:makeBadge(reward_name)
+    -- 뱃지용 UI 로드
+    local badge_ui = UI()
+    badge_ui:load('icon_badge.ui')
+    badge_ui.vars['badgeNode']:setVisible(true)
+    
+    -- 뱃지 텍스쳐 설정 (event, hot, new)
+    local badege_type = self.m_scheduleData['badge_' .. reward_name]
+    local badge_res = self:getBadgeResource(badege_type)
+    if (badge_res) then
+        badge_ui.vars['badgeSprite']:setTexture(badge_res)
+    end
 
+    return badge_ui
+end
+
+-------------------------------------
+-- function getBadgeResource
+-------------------------------------
+function UI_CapsuleScheduleListItem:getBadgeResource(type)
+    local vars = self.vars
+    local res = 'res/ui/frames/capsule_box_badge_%s.png'
+    local res_number = ''
+
+    if (not type) then
+        return nil
+    end
+
+    if (type == '') then
+        return nil
+    end
+
+    -- ex) res/ui/frames/capsule_box_badge_0301.png
+    if (type == 'event') then
+        res_number = '0301'
+    elseif (type == 'hot') then
+        res_number = '0302'
+    elseif (type == 'new') then
+        res_number = '0303'
+    end
+
+    local full_res = string.format(res, res_number)
+    return full_res
+end
