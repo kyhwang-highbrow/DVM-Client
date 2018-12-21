@@ -92,9 +92,10 @@ function UI_CapsuleScheduleListItem:initUI()
                     item_card = UI_ItemCard(capsule_item_id, 1)
 
                     -- 뱃지 생성
-                    local badge_ui = self:makeBadge(reward_name)
-                    item_card.root:addChild(badge_ui.root)
-
+                    local badge_ui = g_capsuleBoxData:makeBadge(self.m_scheduleData, reward_name)
+                    if (badge_ui) then
+                        item_card.root:addChild(badge_ui.root)
+                    end
                 else             
                     local empty_ui = UI()
                     empty_ui:load('icon_item_item.ui')

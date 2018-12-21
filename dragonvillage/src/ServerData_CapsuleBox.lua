@@ -388,3 +388,49 @@ function ServerData_CapsuleBox:getScheduleDay()
 
     return day
 end
+
+-------------------------------------
+-- function getBadgeRes
+-------------------------------------
+function ServerData_CapsuleBox:getBadgeRes(badge_type)
+    if (not badge_type) then
+        return nil
+    end
+
+    if (badge_type == '') then
+        return nil
+    end
+
+    local res = 'res/ui/frames/capsule_box_badge_%s.png'
+    local res_number = ''
+
+    -- ex) res/ui/frames/capsule_box_badge_0301.png
+    if (badge_type == 'event') then
+        res_number = '0301'
+    elseif (badge_type == 'hot') then
+        res_number = '0302'
+    elseif (badge_type == 'new') then
+        res_number = '0303'
+    end
+
+    local full_res = string.format(res, res_number)
+    return full_res
+end
+
+-------------------------------------
+-- function makeBadge
+-------------------------------------
+function ServerData_CapsuleBox:makeBadge(schedule_info_per_day, reward_name)
+    -- 뱃지용 UI 로드
+    local badge_ui = UI()
+    badge_ui:load('icon_badge.ui')
+    badge_ui.vars['badgeNode']:setVisible(true)
+    
+    -- 뱃지 텍스쳐 설정 (event, hot, new)
+    local badge_type = schedule_info_per_day['badge_' .. reward_name]
+    local badge_res = self:getBadgeRes(badge_type)
+    if (badge_res) then
+        badge_ui.vars['badgeSprite']:setTexture(badge_res)
+    end
+    return badge_ui
+end

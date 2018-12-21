@@ -144,10 +144,9 @@ function UI_CapsuleBox:refresh()
 		-- 대표 보상 표시
 		for i, struct_reward in ipairs(l_reward) do
 			if (i <= 3) then
-				local ui = self.makeRewardCell(box_key, struct_reward)
+				local ui = self.makeRewardCell(box_key, struct_reward, i)
 				vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
 				vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
-				
 				cca.fruitReact(ui.root, i)
 			end
 		end
@@ -419,7 +418,7 @@ end
 -------------------------------------
 -- function makeRewardCell
 -------------------------------------
-function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
+function UI_CapsuleBox.makeRewardCell(box_key, struct_reward ,idx)
 	local ui = UI()
 	
 	if (box_key == BOX_KEY_1) then
@@ -446,6 +445,12 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	local item_card = UI_ItemCard(item_id, item_cnt)
 	vars['rewardNode']:addChild(item_card.root)
     
+    -- 뱃지 생성
+    local reward_name = box_key .. '_' .. idx
+    local badge_ui = g_capsuleBoxData:makeBadge(g_capsuleBoxData.m_todaySchedule, reward_name)
+    if (badge_ui) then
+        item_card.root:addChild(badge_ui.root)
+    end
     -- item_id로 드래곤 판단
     local table_item = TableItem()
     local did = table_item:getDidByItemId(item_id)
