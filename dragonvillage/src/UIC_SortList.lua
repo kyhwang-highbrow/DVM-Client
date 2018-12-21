@@ -722,7 +722,7 @@ function MakeUICSortList_challengModeStage(button, label, direction)
     uic:setExtendButton(button)
     uic:setSortTypeLabel(label)
 
-    parent:addChild(uic.m_node)
+    parent:addChild(uic.m_node, 1)
 
     -- 버튼 리스트 세팅
 	uic:addSortType('stage', Str('스테이지'))

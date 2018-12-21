@@ -82,7 +82,7 @@ function UI_ChallengeMode:initUI()
 
     -- 필터용 버튼리스트 UI 생성 
     if (vars['sortBtn']) and (vars['sortLabel']) then
-        local uic_sort_list = MakeUICSortList_challengModeStage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_BOT_TO_TOP)
+        local uic_sort_list = MakeUICSortList_challengModeStage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_TOP_TO_BOT)
 
         -- 버튼을 통해 필터 타입이 변경되었을 경우
         local function sort_change_cb(filter_type)
