@@ -31,16 +31,18 @@ UI_BookDetailPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BookDetailPopup:init(t_dragon, is_popup)
+function UI_BookDetailPopup:init(t_dragon, is_popup, no_open)
     self.m_uiName = 'UI_BookDetailPopup'
     local vars = self:load('book_detail_popup.ui')
     local is_popup = is_popup or false
-    local mode = is_popup and UIManager.POPUP or UIManager.SCENE
-    UIManager:open(self, mode)
+    -- 디폴트 값은 false UIMaker 여는 것
+    if (not no_open) then
+        local mode = is_popup and UIManager.POPUP or UIManager.SCENE
+        UIManager:open(self, mode)
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BookDetailPopup')
-
+        -- backkey 지정
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BookDetailPopup')
+    end
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
@@ -980,15 +982,22 @@ function UI_BookDetailPopup.openWithFrame(did, grade, evolution, scale, is_popup
 	t_dragon['grade'] = grade or t_dragon['birthgrade']
 	t_dragon['evolution'] = evolution or 1
 
-	local ui = UI_BookDetailPopup(t_dragon, is_popup)
-    ui:setUnableIndex()
+    local frame_ui = UI()
+    frame_ui:load('capsule_box_dragon_info_pop_up.ui')
+    UIManager:open(frame_ui, UIManager.POPUP)
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(frame_ui, function() frame_ui:close() end, 'UI_BookDetailPopup')
 
-    -- 프레임 용 요소들 활성화(프레임 용 close 버튼, 배경 프레임..)
-    ui.vars['frameSprite']:setVisible(true)
-    ui.vars['popupCloseBtn']:setVisible(true)
-    ui.vars['popupCloseBtn']:registerScriptTapHandler(function() ui:close() end)
-    ui.vars['clippingNode']:setVisible(true)
+
+	local ui = UI_BookDetailPopup(t_dragon, is_popup, true)
+    ui:setUnableIndex()
+    ui.vars['rootMenu']:setScale(0.8)
     
+    -- UI_BookDetailPopup을 프레임 UI에 붙임
+    frame_ui.vars['clippingNode']:addChild(ui.vars['rootMenu'])
+    frame_ui.vars['closeBtn']:registerScriptTapHandler(function() frame_ui:close() end)
+    frame_ui.vars['closeBtn']:setVisible(true)
+
     -- 해당 팝업에서는 화살표 뒤로가기 버튼과 속성별 드래곤 선택 비활성화
     do
         -- close 버튼 비활성화
@@ -1001,10 +1010,6 @@ function UI_BookDetailPopup.openWithFrame(did, grade, evolution, scale, is_popup
             ui.vars[attr..'Node']:setVisible(false)
         end
     end
-
-    -- 배경을 clippingNode에 넣어서 크기를 재단
-    ui.vars['bgNode']:removeFromParent()
-    ui.vars['clippingNode']:addChild(ui.vars['bgNode'])
     return ui
 end
 

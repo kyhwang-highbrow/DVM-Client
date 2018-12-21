@@ -28,7 +28,7 @@ end
 function UI_CapsuleBoxTodayInfoPopup:initUI()
 	local vars = self.vars
     local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
-    vars['rotationTitleLabel']:setString(capsulebox_data['first']:getCapsuleTitle())
+    vars['rotationTitleLabel']:setString(capsulebox_data['first']:getCapsuleTitle() .. ' ' .. Str('캡슐'))
 
     -- 전설 캡슐 뽑기 리스트
     local rank = 1
