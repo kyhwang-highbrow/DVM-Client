@@ -319,6 +319,7 @@ function UI_Lobby:entryCoroutine_challengeModePopup(co)
 
     -- 0. 그림자 신전 이벤트 중인가
     if (not g_challengeMode:isActive_challengeMode()) then
+        g_settingData:resetChallengeSettingData()
         return
     end
     
@@ -329,9 +330,13 @@ function UI_Lobby:entryCoroutine_challengeModePopup(co)
 
     -- 2. 오픈 이후 3일 이상 입장x, 마지막으로 입장 후 3일이상 입장x
     local cur_time = Timer:getServerTime()
-    local cur_day = datetime.secondToDay(cur_time)
-    local last_entry_time = g_settingData:getChellengeModeLastEntry()
-    local last_entry_day = datetime.secondToDay(last_entry_time)
+    local cur_day = math.floor(datetime.secondToDay(cur_time))
+    local last_entry_day = g_settingData:getChellengeModeLastEntry()
+    -- 그림자 신전 입장을 아예 안한 상태 제외
+    if (last_entry_day == 0) then
+        return
+    end
+
     if (cur_day - last_entry_day < 3) then
         return
     end

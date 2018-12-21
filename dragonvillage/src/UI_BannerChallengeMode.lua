@@ -73,11 +73,11 @@ function UI_BannerChallengeMode:update(dt)
         elseif(diff_rank > 0) then
             diff_rank_msg = '{@defualt}({@red}▼{@defualt}-' .. diff_rank .. ')'
         else
-            if (my_rank) then
-                diff_rank_msg = '(-)'
-            else
             -- 자기 랭크가 없을 때에는 표기 안함
+            if (not my_rank or my_rank == 0) then
                 diff_rank_msg = ''
+            else
+                diff_rank_msg = '{@defualt}(-)'
             end
         end
 
@@ -85,7 +85,7 @@ function UI_BannerChallengeMode:update(dt)
         vars['changedLabel']:setString(diff_rank_msg)
 
         -- 1000위 (@-10000) 길이가 너무 길 경우 폰트 사이즈 조절 
-        if (my_rank * diff_rank > 1000000000) then
+        if (my_rank * diff_rank > 10000000) then
             vars['descLabel']:setFontSize(25)
             vars['changedLabel']:setFontSize(18)
         end

@@ -546,7 +546,7 @@ end
 -- @brief 상품별(key) 판매 촉진하는 팝업 만료시간(second) 갱신
 -------------------------------------
 function SettingData:setPromoteCoolTime(key, time)
-    g_settingData:applySettingData(time, 'promote_expired', key) 
+    self:applySettingData(time, 'promote_expired', key) 
 end
 
 -------------------------------------
@@ -565,16 +565,17 @@ end
 function SettingData:setChellengeModeRankHistory(type, value)
     local full_key = 'history' .. '_' .. type
     local last_record_day
-    local cur_record_day 
+    local cur_record_day
     -- 시간 기록할 때
     if (type == 'rank_time') then
         -- 예전에 기록한 날짜(last_day_rank)
         last_record_day = self:getChellengeModeLastDayRank('rank_time')
         -- 지금 날짜
-        cur_record_day = math.floor(datetime.secondToDay(2))
+        cur_record_day = math.floor(datetime.secondToDay(value))
         -- 날짜가 지났다면 '지난 날짜 기록'(last_day_rank)의 랭크를 갱신
         if (last_record_day < cur_record_day) then
             local last_record_rank = self:getChellengeModeRankHistory('rank')
+            print(last_record_rank, cur_record_day)
             self:setChellengeModeLastDayRank('rank', last_record_rank)
             self:setChellengeModeLastDayRank('rank_time', cur_record_day)
         end
@@ -627,4 +628,20 @@ function SettingData:setChellengeModeLastEntry(value)
         return
     end
     self:applySettingData(record_day, 'challenge_history', 'last_entry_day') 
+end
+
+
+
+-------------------------------------
+-- function resetChallengeSettingData
+-- @brief 
+-------------------------------------
+function SettingData:resetChallengeSettingData()
+     self:applySettingData(nil, 'challenge_history', 'last_entry_day')
+     self:applySettingData(nil, 'challenge_history', 'last_day_rank')
+     self:applySettingData(nil, 'challenge_history', 'last_day_rank_time')
+     self:applySettingData(nil, 'challenge_history', 'history_rank')
+     self:applySettingData(nil, 'challenge_history', 'history_rank_time')
+     self:applySettingData(nil, 'challenge_history', 'last_entry_day')
+     self:applySettingData(nil, 'promote_expired', 'challenge_mode')
 end

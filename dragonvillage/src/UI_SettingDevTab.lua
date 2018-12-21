@@ -766,6 +766,8 @@ function UI_Setting:click_setUidBtn()
             end
 
             g_localData:applyLocalData(uid, 'local', 'uid')
+            -- settingData에 있는 이전 기록(그림자 신전 관련) 삭제
+            g_settingData:resetChallengeSettingData()
             CppFunctions:restart()
         end
     end
