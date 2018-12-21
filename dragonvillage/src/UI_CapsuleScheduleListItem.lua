@@ -47,20 +47,20 @@ function UI_CapsuleScheduleListItem:initUI()
     local vars = self.vars
     
     -- 캡슐 타이틀 설정
-    self.vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
-    self.vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
+    vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
+    vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
     
     -- 캡슐 일정 설정     
     local date_str = self:getScheduleTime()
-    self.vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
+    vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
 
     -- 캡슐 상품 일정 체크 
     local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
     local capsule_date = tonumber(self.m_scheduleData['day'])
     if (cur_date == capsule_date) then                              -- 오늘 상품은 하이라이트 표시
-        self.vars['todaySprite']:setVisible(true)
+        vars['todaySprite']:setVisible(true)
     elseif (cur_date > capsule_date) then                           -- 판매 끝난 상품은 lock 표시 
-        self.vars['lockSprite']:setVisible(true)
+        vars['lockSprite']:setVisible(true)
     end
     
     -- 캡슐 아이템 세팅
@@ -101,6 +101,13 @@ function UI_CapsuleScheduleListItem:initUI()
                     empty_ui:load('icon_item_item.ui')
                     empty_ui.vars['lockSprite']:setVisible(true)
                     item_card = empty_ui
+
+                    -- 카드 중 한개라도 빈 카드면 타이틀을 숨김
+                    if (string.match(node_name, 'hero')) then
+                        vars['titleHeroLabel']:setVisible(false)
+                    else
+                        vars['titleLegendLabel']:setVisible(false)
+                    end
                 end
                 
                 -- 아이템 카드 해당 노드에 추가       

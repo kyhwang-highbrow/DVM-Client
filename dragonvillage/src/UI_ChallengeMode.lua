@@ -327,9 +327,8 @@ function UI_ChallengeMode:apply_StageSort(type)
     -- 스테이지 순으로 정렬
     if (type == 'stage') then
         table.sort(list, self.m_sortStageFunc)
-    -- 스테이지 순으로 정렬 후 승리 모드로 정렬
+    -- 승리 모드로 정렬
     elseif (type == 'victory_mode') then
-        table.sort(list, self.m_sortStageFunc)
         table.sort(list, self.m_sortModeFunc)
     end
 
@@ -373,6 +372,10 @@ function UI_ChallengeMode:setSortFunc()
 
         local a_point = g_challengeMode:getChallengeModeVictoryModePoint(a_data) 
         local b_point = g_challengeMode:getChallengeModeVictoryModePoint(b_data)
+
+        if (a_point == b_point) then
+            return a_data < b_data
+        end
 
         -- 오름차순 or 내림차순
         if (self.m_isSortAscending) then
