@@ -24,19 +24,19 @@ end
 function UI_CapsuleBoxTodayListItem:initUI()
     local vars = self.vars
     local table_dragon = TableDragon()
-    
+    local did = self.m_did
     -- 이름
-    local dragon_name = table_dragon:getDragonName(self.m_did)
+    local dragon_name = table_dragon:getDragonName(did)
     vars['nameLabel']:setString(Str(dragon_name))
     
     -- 속성 ex) dark
-    local dragon_attr = table_dragon:getDragonAttr(self.m_did)
+    local dragon_attr = table_dragon:getDragonAttr(did)
     local attr_icon = IconHelper:getAttributeIcon(dragon_attr)
     vars['attrNode']:addChild(attr_icon)
     vars['attrLabel']:setString(dragonAttributeName(dragon_attr))
 
     -- 역할 ex) healer
-    local role_type = table_dragon:getDragonRole(self.m_did)
+    local role_type = table_dragon:getDragonRole(did)
     local role_icon = IconHelper:getRoleIcon(role_type)
     vars['typeNode']:addChild(role_icon)
     vars['typeLabel']:setString(dragonRoleTypeName(role_type))
@@ -47,7 +47,7 @@ function UI_CapsuleBoxTodayListItem:initUI()
     vars['rarityLabel']:setString(dragonRarityName('legend'))
 
     local dragon_animator = UIC_DragonAnimator()
-    dragon_animator:setDragonAnimator(self.m_did, 3)
+    dragon_animator:setDragonAnimator(did, 3)
     vars['dragonNode']:addChild(dragon_animator.m_node)
 end
 
