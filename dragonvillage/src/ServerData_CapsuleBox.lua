@@ -185,16 +185,12 @@ end
 -------------------------------------
 function ServerData_CapsuleBox:findTodaySchedule(list)
 	local idx = 1
-    -- 20180989 형식을 서버타임(초) 단위로 변환
-    local date_format = 'yyyymmdd'
-    local parser = pl.Date.Format(date_format)
-    local cur_time = Timer:getServerTime()
+    -- ex) 20181224
+    local date = pl.Date()
+	local date_str = date:year() .. date:month() .. date:day()
 
     for i,v in pairs(list) do
-        local schedule_date = parser:parse(tostring(v['day']))
-        local schedule_time = schedule_date['time'] 
-        local diff_time = cur_time - schedule_time 
-        if (diff_time < datetime.dayToSecond(1)) and (diff_time > 0) then
+        if (date_str == tostring(v['day'])) then
             return v, idx
         end
         idx = idx + 1

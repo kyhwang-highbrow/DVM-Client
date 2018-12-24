@@ -58,7 +58,7 @@ function UI_CapsuleScheduleListItem:initUI()
         vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
     end
 
-    -- 캡슐 상품 일정 체크 
+    -- 캡슐 상품 일정 체크
     local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
     if (self.m_scheduleData['day']) then
         local capsule_date = tonumber(self.m_scheduleData['day'])
@@ -70,72 +70,39 @@ function UI_CapsuleScheduleListItem:initUI()
     end
 
     -- 캡슐 아이템 세팅
-    local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'} -- ex)  first_1 : 전설 캡슐 첫 번째 아이템, second_2 : 영웅 캡슐  두 번째 아이템
-    for i, reward_name in ipairs(item_key_list) do
-        
-        -- 전설, 영웅 판별해서 노드 이름 판단
+    -- 공통적으로 사용하는 first_1, second_1 이용해서 노드 이름, 아이템 정보 알아냄 
+    local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'}
+    for i, reward_name in ipairs(item_key_list) do   
         local node_name
-        if (string.match(reward_name,'first')) then
-            node_name = 'legendDragonNode'
-        elseif(string.find(reward_name, 'second')) then
-            node_name = 'heroDragonNode'
-        end
-
-        if (node_name) then
-            -- ex) first_1 은 legendDragonNode1 와 대응
+        do -- 노드 이름 만드는 과정 : ex) first_1 -> legendDragonNode1
+            if (string.match(reward_name,'first')) then
+                node_name = 'legendDragonNode'
+            elseif(string.find(reward_name, 'second')) then
+                node_name = 'heroDragonNode'
+            end
+            
             local node_number = string.match(reward_name, '%d')
             node_name = node_name ..  node_number
-            
-            -- 아이템 카드 세팅
-            if (vars[node_name]) then
-                local capsule_item_id = self:getCapsuleBoxItemId(reward_name)
-                local is_can_show = self:checkValidItem(reward_name, capsule_item_id)
-
-                if (self.m_scheduleData['advance_notice']) then
-                    is_can_show = false
-                end
-
-                local item_card
-
-                -- 보여줄 수 있는 카드는 아이템 카드 생성
-                -- 보여줄 수 없는 카드는 물음표 카드 생성
-                if (is_can_show and capsule_item_id) then
-                    item_card = UI_ItemCard(capsule_item_id, 1)
-
-                    -- 뱃지 생성
-                    local badge_ui = g_capsuleBoxData:makeBadge(self.m_scheduleData, reward_name)
-                    if (badge_ui) then
-                        item_card.root:addChild(badge_ui.root)
-                    end
-                else             
-                    local empty_ui = UI()
-                    empty_ui:load('icon_item_item.ui')
-                    empty_ui.vars['lockSprite']:setVisible(true)
-                    item_card = empty_ui
-
-                    -- 카드 중 한개라도 빈 카드면 타이틀을 숨김
-                    if (string.match(node_name, 'hero')) then
-                        vars['titleHeroLabel']:setVisible(false)
-                    else
-                        vars['titleLegendLabel']:setVisible(false)
-                    end
-                end
-                
-                -- 아이템 카드 해당 노드에 추가       
-                if (item_card) then
-                    vars[node_name]:addChild(item_card.root)
-                    item_card.root:setScale(0.66)
-                end        
-            end
         end
+        if (vars[node_name]) then         
+            -- 아이템 카드 세팅
+            local item_card = self:makeItemCard(reward_name, node_name)
+            -- 아이템 카드 해당 노드에 추가       
+            if (item_card) then
+                vars[node_name]:addChild(item_card.root)
+                item_card.root:setScale(0.66)
+            end        
+        end
+
     end
 
 end
 
 -------------------------------------
--- function makeItemCard
+-- function isValidItem
+-- @brief 출시 예정 드래곤 or 적합하지 않은 id의 경우 true 
 -------------------------------------
-function UI_CapsuleScheduleListItem:checkValidItem(reward_name, capsule_item_id)
+function UI_CapsuleScheduleListItem:isValidItem(reward_name, capsule_item_id)
     
     local table_item = TableItem()
     local reward_card
@@ -245,4 +212,64 @@ function UI_CapsuleScheduleListItem:getCapsuleBoxTitle(type)
     else
         return Str(self.m_scheduleData['t_second_name']) .. ' ' .. Str('캡슐') or ''
     end
+
+end
+
+-------------------------------------
+-- function makeItemCard
+-------------------------------------
+function UI_CapsuleScheduleListItem:makeItemCard(reward_name, node_name)
+    local vars = self.vars
+    local capsule_item_id = self:getCapsuleBoxItemId(reward_name)
+
+    -- 출시 예정 드래곤 or 잘못된 id의 경우 아이템 카드는 적합하지 않음 (물음표 표시)
+    local is_valid_item = self:isValidItem(reward_name, capsule_item_id)
+    
+    -- 마지막에 추가되는 일정 예고 아이템 (물음표 표시)
+    if (self.m_scheduleData['advance_notice']) then
+        is_valid_item = false
+    end
+
+
+    local item_card
+    -- 아이템 정상 출력
+    if (is_valid_item) then
+        local table_item = TableItem()
+        -- 드래곤의 경우 드래곤 카드 클래스로 생성
+        if (table_item:isDragonByItemId(capsule_item_id)) then
+            local t_dragon_data = {}
+            local t_item = table_item:get(capsule_item_id)
+            t_dragon_data['did'] = t_item['did']
+            t_dragon_data['evolution'] = t_item['evolution']
+            t_dragon_data['grade'] = t_item['grade']
+            t_dragon_data['skill_0'] = 1
+            t_dragon_data['skill_1'] = 0
+            t_dragon_data['skill_2'] = 0
+            t_dragon_data['skill_3'] = 0
+        
+            item_card = UI_DragonCard(StructDragonObject(t_dragon_data))
+        else
+            item_card = UI_ItemCard(capsule_item_id, 1)
+        end
+        -- 뱃지 생성
+        local badge_ui = g_capsuleBoxData:makeBadge(self.m_scheduleData, reward_name)
+        if (badge_ui) then
+            item_card.root:addChild(badge_ui.root)
+        end
+    -- 아이템을 물음표로 출력
+    else
+        local empty_ui = UI()
+        empty_ui:load('icon_item_item.ui')              -- 물음표만 활성화 하면 되기 때문에 ItemCard 생성하지 않고(init함수들 사용x) vars만 긁어옴
+        empty_ui.vars['lockSprite']:setVisible(true)
+        item_card = empty_ui
+    
+        -- 카드 중 한개라도 빈 카드면 타이틀을 숨김
+        if (string.match(node_name, 'hero')) then
+            vars['titleHeroLabel']:setVisible(false)
+        else
+            vars['titleLegendLabel']:setVisible(false)
+        end
+    end
+
+    return item_card
 end
