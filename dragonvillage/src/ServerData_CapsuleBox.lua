@@ -137,19 +137,28 @@ function ServerData_CapsuleBox:response_capsuleBoxInfo(ret)
         self.m_day = ret['day']
     end
     
-    -- 타이틀도 같이 갱신
-    self:refreshTitle()
+    -- 캡슐 일정 테이블 정렬
+    self:makeSortedScheduleList()
 
+    -- 오늘의 캡슐 일정 데이터 갱신
+    self:setTodaySchedule()
 end
 
 -------------------------------------
--- function refreshTitle
+-- function makeSortedScheduleList
 -------------------------------------
-function ServerData_CapsuleBox:refreshTitle()
-	local schedule_map = TABLE:get('table_capsule_box_schedule')
+function ServerData_CapsuleBox:makeSortedScheduleList()
+	
+    -- 이미 만들어진 리스트가 있다면 return
+    if (self.m_sortedScheduleList) then
+        return
+    end
+
+    local schedule_map = TABLE:get('table_capsule_box_schedule')
     local schedule_list = table.MapToList(schedule_map)
     local schedule_valid_list = {}
-     -- notice_visible 값 1인 목록 추출해서 리스트 생성
+
+     -- notice_visible 값 1인 목록만 테이블에 추가
     for _, v in pairs(schedule_list) do
         if (v['notice_visible'] == 1) then
             table.insert(schedule_valid_list, v)
@@ -165,31 +174,37 @@ function ServerData_CapsuleBox:refreshTitle()
     end
     table.sort(schedule_valid_list, sort_func)
     self.m_sortedScheduleList = schedule_valid_list
+        
+end
 
-    -- 현재 판매 중인 항목 찾기
-    -- 현재와 판매 시작일 사이 간격이 하루 미만일 경우 -- 20181212 로 일치시키는 방향으로 다시 할 것
-    local today_schedule_info, today_schedule_idx = self:findTodaySchedule(schedule_valid_list)
+-------------------------------------
+-- function setTodaySchedule
+-------------------------------------
+function ServerData_CapsuleBox:setTodaySchedule()
+    
+    -- 오늘의 캡슐 일정 데이터 갱신
+    local today_schedule_info, today_schedule_idx = self:findTodaySchedule()
     self.m_todayScheduleIdx = today_schedule_idx
     self.m_todaySchedule = today_schedule_info
 
+    -- 타이틀도 갱신
     if (today_schedule_info) then
         self.m_tStrurctCapsuleBox['first']:setCapsuleTitle(today_schedule_info['t_first_name'])
         self.m_tStrurctCapsuleBox['second']:setCapsuleTitle(today_schedule_info['t_second_name'])
     end
-            
 end
 
 -------------------------------------
 -- function findTodaySchedule
 -- @brief 리스트 중에서 오늘 판매하는 상품 정보, 인덱스 반환
 -------------------------------------
-function ServerData_CapsuleBox:findTodaySchedule(list)
+function ServerData_CapsuleBox:findTodaySchedule()
 	local idx = 1
     -- ex) 20181224
     local date = pl.Date()
 	local date_str = date:year() .. date:month() .. date:day()
 
-    for i,v in pairs(list) do
+    for i,v in pairs(self.m_sortedScheduleList) do
         if (date_str == tostring(v['day'])) then
             return v, idx
         end
@@ -291,47 +306,14 @@ function ServerData_CapsuleBox:openCapsuleBoxUI(show_reward_list)
 	local function open_box()
 		self:request_capsuleBoxStatus(function()
 			local ui = UI_CapsuleBox()
-
-            local cur_time = Timer:getServerTime()
-            local cool_time = g_settingData:getPromoteExpired('capsule_box')
             
             -- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
 			if (show_reward_list) then
 				ui:click_rewardBtn('first')
 			end
-
-            -- 전설 캡슐 뽑기 팝업, 조건 체크 후 출력
-            do
-                -- 1. 쿨타임이 지났을 경우
-                if (cur_time < cool_time) then
-                    return
-                end
-                -- 2. 상품이 모두 드래곤일 경우
-                local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
-                local table_item = TableItem()
-                
-                -- 전설 캡슐 뽑기 리스트
-                local rank = 1
-                local l_reward = capsulebox_data['first']:getRankRewardList(rank)
-                
-                -- 아이템 하나라도 드래곤이 아니면 팝업 출력x
-                for _,struct_reward in ipairs(l_reward) do
-                    local item_id = struct_reward['item_id']
-                    local did = table_item:getDidByItemId(item_id)
-                    if (did == '' or not did) then
-                        return
-                    end
-                end
-
-                UI_CapsuleBoxTodayInfoPopup()
-            end
-
-            -- 쿨타임 갱신 (하루)
-            local next_cool_time = cur_time + datetime.dayToSecond(1)
-            g_settingData:setPromoteCoolTime('capsule_box', next_cool_time)
-
-
-			
+            
+            -- 오늘의 전설 캡슐뽑기 보여주는 팝업 출력
+            self:openTodayCapsuleBoxDtagon()
 		end)
 	end
 
@@ -354,6 +336,44 @@ end
 function ServerData_CapsuleBox:checkReopen()
 	local curr_time = Timer:getServerTime()
 	return (curr_time > self.m_endTime)
+end
+
+-------------------------------------
+-- function openTodayCapsuleBoxDtagon
+-------------------------------------
+function ServerData_CapsuleBox:openTodayCapsuleBoxDtagon()
+    local cur_time = Timer:getServerTime()
+    local cool_time = g_settingData:getPromoteExpired('capsule_box')
+    
+  
+    -- 1. 쿨타임이 지났을 경우
+    if (cur_time < cool_time) then
+        return
+    end
+    
+    do -- 2. 상품이 모두 드래곤일 경우
+        local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
+        local table_item = TableItem()
+
+        local rank = 1
+        local l_reward = capsulebox_data['first']:getRankRewardList(rank)
+        
+        -- 아이템 하나라도 드래곤이 아니면 팝업 출력x
+        for _,struct_reward in ipairs(l_reward) do
+            local item_id = struct_reward['item_id']
+            local did = table_item:getDidByItemId(item_id)
+            if (did == '' or not did) then
+                return
+            end
+        end
+    end
+    UI_CapsuleBoxTodayInfoPopup()
+
+    
+    -- 쿨타임 갱신 (하루)
+    local next_cool_time = cur_time + datetime.dayToSecond(1)
+    g_settingData:setPromoteCoolTime('capsule_box', next_cool_time)
+    
 end
 
 -------------------------------------
@@ -387,6 +407,7 @@ end
 
 -------------------------------------
 -- function getBadgeRes
+-- @brief 뱃지 Sprite 경로 생성
 -------------------------------------
 function ServerData_CapsuleBox:getBadgeRes(badge_type)
     if (not badge_type) then
@@ -415,6 +436,7 @@ end
 
 -------------------------------------
 -- function makeBadge
+-- @brief 캡슐뽑기 아이템에 붙이는 뱃지 생성
 -------------------------------------
 function ServerData_CapsuleBox:makeBadge(schedule_info_per_day, reward_name)
     -- 뱃지용 UI 로드

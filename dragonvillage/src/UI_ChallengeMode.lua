@@ -94,14 +94,16 @@ function UI_ChallengeMode:initUI()
     end
      -- 오름차순/내림차순 버튼
     vars['sortOrderBtn']:registerScriptTapHandler(function()
-
+            -- 오른차순/내림차순 switch
             if (not self.m_isSortAscending) then
                 self.m_isSortAscending = true
             else
                 self.m_isSortAscending = false
             end
+            -- 정렬에 적용
             self:apply_StageSort(self.m_sortType)
 
+            -- 오름차순/내림차순에 따른 화살표 회전
 			local order_spr = vars['sortOrderSprite']
             order_spr:stopAllActions()
             if self.m_isSortAscending then
@@ -158,7 +160,7 @@ function UI_ChallengeMode:initUI_tableView()
         return a['data']['stage'] < b['data']['stage']
     end
     table.sort(self.m_tableView.m_itemList, sort_func)
-    -- 정렬할 원본 테이블은 항상 스테이지 오름차순 정렬 상태
+    -- 정렬할 원본 테이블은 항상 정렬된 상태
     self.m_originStageList = self.m_tableView.m_itemList
 end
 
@@ -170,7 +172,7 @@ function UI_ChallengeMode:appearDone()
     local t_data = {stage=g_challengeMode:getSelectedStage()}
     self:selectFloor(t_data)
 
-    -- 현재 도전중인 층이 바로 보이도록 처리
+    -- 현재 선택된 층이 바로 보이도록 처리
     if self.m_selectedStageID then
         local floor = self.m_selectedStageID
         self.m_tableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
@@ -335,12 +337,12 @@ function UI_ChallengeMode:apply_StageSort(type)
     self.m_tableView:mergeItemList(list)
     self.m_tableView:setDirtyItemList()
 
-    -- 현재 도전중인 층이 바로 보이도록 처리
+    -- 현재 선택된 층이 바로 보이도록 처리
     if self.m_selectedStageID then
         local stage_id = self.m_selectedStageID
         local floor = 1
 
-        -- 정렬된 리스트에서 현재 도전하는 스테이지 인덱스 탐색
+        -- 정렬된 리스트에서 현재 선택된 스테이지 인덱스 탐색
         for i,v in ipairs(list) do
             if (v['data']['stage'] == stage_id) then
                 floor = i

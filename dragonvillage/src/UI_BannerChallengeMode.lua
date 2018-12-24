@@ -62,30 +62,32 @@ function UI_BannerChallengeMode:update(dt)
 
         local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
         local rank_text = struct_user_info:getChallengeMode_RankText()
-        -- 숫자만 추출
-        local my_rank = string.match(rank_text,'%d+')
-        local diff_rank = g_challengeMode:getDiffRankFromLastDay() -- 현재 랭킹 - 지난 랭킹
+
+        -- 순위 차이 (현재 랭킹 - 지난 랭킹)
+        local diff_rank = g_challengeMode:getDiffRankFromLastDay()
         local diff_rank_msg
 
-        -- 순위 변동
-        if (diff_rank > 0) then
-            diff_rank_msg = '{@defualt}({@blue}▲{@defualt}-' .. math.abs(diff_rank) .. ')'
-        elseif(diff_rank < 0) then
-            diff_rank_msg = '{@defualt}({@red}▼{@defualt}-' .. diff_rank .. ')'
+        local my_rank = string.match(rank_text,'%d+')
+        
+        -- 자기 랭크가 없을 때에는 표기 안함
+        if (not my_rank or my_rank == 0) then
+            diff_rank_msg = ''
         else
-            -- 자기 랭크가 없을 때에는 표기 안함
-            if (not my_rank or my_rank == 0) then
-                diff_rank_msg = ''
-            else
+            -- 순위 변동 메세지
+            if (diff_rank > 0) then
+                diff_rank_msg = '{@defualt}({@blue}▲{@defualt}-' .. math.abs(diff_rank) .. ')'
+            elseif(diff_rank < 0) then
+                diff_rank_msg = '{@defualt}({@red}▼{@defualt}-' .. diff_rank .. ')'
+            else   
                 diff_rank_msg = '{@defualt}(-)'
-            end
+            end   
         end
 
         vars['descLabel']:setString(rank_text)
         vars['changedLabel']:setString(diff_rank_msg)
 
         if (my_rank) then
-            -- 1000위 (@-10000) 길이가 너무 길 경우 폰트 사이즈 조절 
+            -- 1000위 (@-10000) 길이가 너무 길 경우 폰트 사이즈 조절 - 전체 글자수로 해야할 듯
             if (my_rank * diff_rank > 10000000) then
                 vars['descLabel']:setFontSize(25)
                 vars['changedLabel']:setFontSize(18)

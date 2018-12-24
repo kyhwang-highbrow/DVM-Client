@@ -100,7 +100,7 @@ end
 
 -------------------------------------
 -- function isValidItem
--- @brief 출시 예정 드래곤 or 적합하지 않은 id의 경우 true 
+-- @brief 출시 예정 드래곤 or 적합하지 않은 id의 경우 false 
 -------------------------------------
 function UI_CapsuleScheduleListItem:isValidItem(reward_name, capsule_item_id)
     
