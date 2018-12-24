@@ -971,7 +971,6 @@ end
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeStatusText()
     local time = g_hotTimeData:getEventRemainTime('event_challenge') or 0
-
     local str = ''
     if (not self:isActive_challengeMode()) then
         if (time <= 0) then
@@ -1223,7 +1222,8 @@ function ServerData_ChallengeMode:checkPromotePopupCondition()
     local cur_time = Timer:getServerTime()
     
     -- 0. 그림자 신전 이벤트 중인가
-    if (not g_challengeMode:isActive_challengeMode()) then
+    if (not self:isActive_challengeMode()) then
+        -- 이벤트 기간이 아니라면 관련 데이터 초기화
         g_settingData:resetChallengeSettingData()
         return false
     end
@@ -1255,9 +1255,10 @@ function ServerData_ChallengeMode:checkPromotePopupCondition()
     end
 
     -- 4. 모든 스테이지를 승리한 유저에게는 표시x
-    if (g_challengeMode:isVictoryAllStage()) then
+    if (self:isVictoryAllStage()) then
         return false
     end
     
     return true
 end
+

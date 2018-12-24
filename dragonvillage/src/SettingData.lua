@@ -578,14 +578,6 @@ function SettingData:setChellengeModeRankHistory(type, value)
             self:setChellengeModeLastDayRank('rank', last_record_rank)
             self:setChellengeModeLastDayRank('rank_time', cur_record_day)
         end
-        
-        -- 자신의 바로 이전 값을 가져옴
-        local record_day = self:getChellengeModeRankHistory('rank_time')
-        
-        -- 날짜 기준으로 자신의 이전 기록이랑 똑같다면 로컬에 쓰지 않음
-        if (record_day == cur_record_day) then
-            return
-        end
     end
     
 
@@ -622,14 +614,8 @@ end
 -------------------------------------
 function SettingData:setChellengeModeLastEntry(value)
     local record_day = math.floor(datetime.secondToDay(value))
-    local last_data = math.floor(self:getChellengeModeLastEntry())
-    if (record_day == last_data) then
-        return
-    end
     self:applySettingData(record_day, 'challenge_history', 'last_entry_day') 
 end
-
-
 
 -------------------------------------
 -- function resetChallengeSettingData
