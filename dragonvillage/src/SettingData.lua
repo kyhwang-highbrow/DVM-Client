@@ -575,7 +575,6 @@ function SettingData:setChellengeModeRankHistory(type, value)
         -- 날짜가 지났다면 '지난 날짜 기록'(last_day_rank)의 랭크를 갱신
         if (last_record_day < cur_record_day) then
             local last_record_rank = self:getChellengeModeRankHistory('rank')
-            print(last_record_rank, cur_record_day)
             self:setChellengeModeLastDayRank('rank', last_record_rank)
             self:setChellengeModeLastDayRank('rank_time', cur_record_day)
         end

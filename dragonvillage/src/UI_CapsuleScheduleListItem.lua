@@ -50,19 +50,25 @@ function UI_CapsuleScheduleListItem:initUI()
     vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
     vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
     
-    -- 캡슐 일정 설정     
-    local date_str = self:getScheduleTime()
-    vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
+    -- 캡슐 일정 설정  
+    if (self.m_scheduleData['advance_notice']) then
+        vars['timeLabel']:setString(self.m_scheduleData['advance_notice'])
+    else
+        local date_str = self:getScheduleTime()
+        vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
+    end
 
     -- 캡슐 상품 일정 체크 
     local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
-    local capsule_date = tonumber(self.m_scheduleData['day'])
-    if (cur_date == capsule_date) then                              -- 오늘 상품은 하이라이트 표시
-        vars['todaySprite']:setVisible(true)
-    elseif (cur_date > capsule_date) then                           -- 판매 끝난 상품은 lock 표시 
-        vars['lockSprite']:setVisible(true)
+    if (self.m_scheduleData['day']) then
+        local capsule_date = tonumber(self.m_scheduleData['day'])
+        if (cur_date == capsule_date) then                              -- 오늘 상품은 하이라이트 표시
+            vars['todaySprite']:setVisible(true)
+        elseif (cur_date > capsule_date) then                           -- 판매 끝난 상품은 lock 표시 
+            vars['lockSprite']:setVisible(true)
+        end
     end
-    
+
     -- 캡슐 아이템 세팅
     local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'} -- ex)  first_1 : 전설 캡슐 첫 번째 아이템, second_2 : 영웅 캡슐  두 번째 아이템
     for i, reward_name in ipairs(item_key_list) do
@@ -84,6 +90,11 @@ function UI_CapsuleScheduleListItem:initUI()
             if (vars[node_name]) then
                 local capsule_item_id = self:getCapsuleBoxItemId(reward_name)
                 local is_can_show = self:checkValidItem(reward_name, capsule_item_id)
+
+                if (self.m_scheduleData['advance_notice']) then
+                    is_can_show = false
+                end
+
                 local item_card
 
                 -- 보여줄 수 있는 카드는 아이템 카드 생성
@@ -225,57 +236,13 @@ end
 function UI_CapsuleScheduleListItem:getCapsuleBoxTitle(type)
     local schedule_data = self:getScheduleData()
 
+    if (not self.m_scheduleData['t_first_name']) then
+        return ''
+    end
+
     if (type == 'legend') then
         return Str(self.m_scheduleData['t_first_name']) .. ' ' .. Str('캡슐') or ''
     else
         return Str(self.m_scheduleData['t_second_name']) .. ' ' .. Str('캡슐') or ''
     end
-end
-
--------------------------------------
--- function makeBadge
--------------------------------------
-function UI_CapsuleScheduleListItem:makeBadge(reward_name)
-    -- 뱃지용 UI 로드
-    local badge_ui = UI()
-    badge_ui:load('icon_badge.ui')
-    badge_ui.vars['badgeNode']:setVisible(true)
-    
-    -- 뱃지 텍스쳐 설정 (event, hot, new)
-    local badege_type = self.m_scheduleData['badge_' .. reward_name]
-    local badge_res = self:getBadgeResource(badege_type)
-    if (badge_res) then
-        badge_ui.vars['badgeSprite']:setTexture(badge_res)
-    end
-
-    return badge_ui
-end
-
--------------------------------------
--- function getBadgeResource
--------------------------------------
-function UI_CapsuleScheduleListItem:getBadgeResource(type)
-    local vars = self.vars
-    local res = 'res/ui/frames/capsule_box_badge_%s.png'
-    local res_number = ''
-
-    if (not type) then
-        return nil
-    end
-
-    if (type == '') then
-        return nil
-    end
-
-    -- ex) res/ui/frames/capsule_box_badge_0301.png
-    if (type == 'event') then
-        res_number = '0301'
-    elseif (type == 'hot') then
-        res_number = '0302'
-    elseif (type == 'new') then
-        res_number = '0303'
-    end
-
-    local full_res = string.format(res, res_number)
-    return full_res
 end

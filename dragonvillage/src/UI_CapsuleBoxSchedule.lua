@@ -40,8 +40,13 @@ function UI_CapsuleBoxSchedule:initUI()
     table_view.m_defaultCellSize = cc.size(900, 130)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     
+    -- 마지막에 추가하는 테이블 아이템
+    local l_item_list = g_capsuleBoxData.m_sortedScheduleList
+    local advance_notice_item = { advance_notice = Str('{@ORANGE}다음 업데이트를\n기다려 주세요') }
+    l_item_list['advance_notice'] = advance_notice_item
+
     -- 현재 판매중인 캡슐 상품 정보
-    table_view:setItemList(g_capsuleBoxData.m_sortedScheduleList)
+    table_view:setItemList(l_item_list)
     
     -- 현재 판매중인 캡슐 상품 인덱스
     local idx = g_capsuleBoxData.m_todayScheduleIdx
