@@ -94,10 +94,10 @@ function UI_TamerCostumeListItem:refresh()
                 vars['gotoLabel']:setString(Str('용맹훈장 상점에서 구매'))
                 vars['gotoBtn']:setVisible(true)
                 vars['gotoBtn']:setEnabled(true)
-            --elseif (costume_data:isTopazCostume()) then
-            --   vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
-            --   vars['gotoBtn']:setVisible(true)
-            --   vars['gotoBtn']:setEnabled(true)
+            elseif (costume_data:isTopazCostume()) then
+               vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
+               vars['gotoBtn']:setVisible(true)
+               vars['gotoBtn']:setEnabled(true)
             else
                 badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
 

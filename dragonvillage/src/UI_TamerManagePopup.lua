@@ -326,41 +326,14 @@ function UI_TamerManagePopup:setTamerCostume()
         end)
     end
 
-    -- 상품 정보 주지 않는 코스튬은 리스트에서 제외(겨울 여왕만) 
-    local sale_list = self:removeCostume_WithoutShopInfo(l_struct_costume)
-    
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(170, 280)
     table_view:setCellUIClass(UI_TamerCostumeListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setItemList(sale_list)
+    table_view:setItemList(l_struct_costume)
 
     self.m_costumeTalbeView = table_view
-end
-
-
--------------------------------------
--- function removeCostume_WithoutShopInfo
--- @brief 겨울 여왕의 경우 서버에서 상품 정보를 주지 않으면 리스트에서 제외
--- @brief (구매 상품 빼고는 다 상품 정보를 주지 않기 때문에 겨울 여왕만 예외처리)
--------------------------------------
-function UI_TamerManagePopup:removeCostume_WithoutShopInfo(l_struct_costume)
-    local sale_list = {}
-    local remove_idx = 1
-    for _, struct_costume in ipairs(l_struct_costume) do
-        -- 상품 정보가 없을 경우
-        if (struct_costume:isEnd()) then
-            -- 겨울 여왕의 경우
-            if (struct_costume:getCid() == 730204) then
-                table.remove(l_struct_costume, remove_idx)
-                return l_struct_costume
-            end
-        end
-        remove_idx = remove_idx + 1
-    end
-
-    return l_struct_costume
 end
 
 -------------------------------------
