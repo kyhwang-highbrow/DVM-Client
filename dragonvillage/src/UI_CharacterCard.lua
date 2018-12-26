@@ -560,7 +560,7 @@ end
 -------------------------------------
 -- function UI_DragonCard
 -------------------------------------
-function UI_DragonCard(t_dragon_data, struct_user_info)
+function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop)
     if t_dragon_data and (not t_dragon_data.m_objectType) then
         t_dragon_data = StructDragonObject(t_dragon_data)
     end
@@ -572,7 +572,18 @@ function UI_DragonCard(t_dragon_data, struct_user_info)
             UI_SimpleDragonInfoPopup(t_dragon_data)
         end
     end
+
+    local function tap_func()
+        if (is_tooltop) then
+            local str = getDragonToolTipDesc(t_dragon_data['id'])
+            local tool_tip = UI_Tooltip_Skill(70, -145, str)
+
+            -- 자동 위치 지정
+            tool_tip:autoPositioning(ui.vars['clickBtn'])
+        end
+    end
     ui.vars['clickBtn']:registerScriptPressHandler(func)
+    ui.vars['clickBtn']:registerScriptTapHandler(tap_func)
 
     -- 친구 드래곤일 경우 친구 마크 추가
     local doid = t_dragon_data['id']
@@ -590,6 +601,25 @@ function UI_DragonCard(t_dragon_data, struct_user_info)
     return ui
 end
 
+-------------------------------------
+-- function getDragonToolTipDesc
+-------------------------------------
+function getDragonToolTipDesc(item_id)
+
+    local table_item = TABLE:get('item')
+    local t_item = table_item[item_id]
+    -- @delete_rune
+    if (not t_item) then
+        return '{@SKILL_NAME}none'
+    end
+    local desc = t_item['t_desc']
+
+    -- 설정된 별도의 이름이 있으면 우선 사용
+    local name = t_item['t_name']
+
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str(name), Str(desc))
+    return str
+end
 
 -------------------------------------
 -- function UI_FriendDragonCard
