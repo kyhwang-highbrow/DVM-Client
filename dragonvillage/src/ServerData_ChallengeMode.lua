@@ -1185,7 +1185,7 @@ function ServerData_ChallengeMode:getDiffRankFromLastDay()
     local struct_user_info = self:getPlayerArenaUserInfo()
     local cur_rank = struct_user_info.m_rank
     local last_rank = g_settingData:getChellengeModeLastDayRank('rank')
-    if (not last_rank) then
+    if (not last_rank or last_rank == 0) then
         return 0
     end
     local diff_rank = cur_rank - tonumber(last_rank)

@@ -992,6 +992,9 @@ function UI_BookDetailPopup.openWithFrame(did, grade, evolution, scale, is_popup
 	local ui = UI_BookDetailPopup(t_dragon, is_popup, true)
     ui:setUnableIndex()
     ui.vars['rootMenu']:setScale(0.8)
+    ui.vars['rewardNode1']:setVisible(false)
+    ui.vars['rewardNode2']:setVisible(false)
+    ui.vars['rewardNode3']:setVisible(false)
     
     -- UI_BookDetailPopup을 프레임 UI에 붙임
     frame_ui.vars['clippingNode']:addChild(ui.vars['rootMenu'])

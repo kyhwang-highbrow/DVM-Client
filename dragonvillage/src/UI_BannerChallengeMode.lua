@@ -77,7 +77,7 @@ function UI_BannerChallengeMode:update(dt)
             if (diff_rank > 0) then
                 diff_rank_msg = '{@defualt}({@red}▼{@defualt}-' .. math.abs(diff_rank) .. ')'
             elseif(diff_rank < 0) then
-                diff_rank_msg = '{@defualt}({@blue}▲{@defualt}-' .. math.abs(diff_rank) .. ')'
+                diff_rank_msg = '{@defualt}({@blue}▲{@defualt}+' .. math.abs(diff_rank) .. ')'
             else   
                 diff_rank_msg = '{@defualt}(-)'
             end   
