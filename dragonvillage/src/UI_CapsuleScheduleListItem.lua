@@ -181,12 +181,8 @@ function UI_CapsuleScheduleListItem:getScheduleTime()
     elseif ('Sun' == week_day_eng) then week_day_kr = Str('일')
     end
 
-    local year_kr = Str('년')
-    local month_kr = Str('월')
-    local day_kr = Str('일')
-    local date_form = '%d' .. year_kr .. ' ' .. '%d' .. month_kr .. ' ' .. '%d' .. day_kr .. ' ' .. '(%s)'
-    local date_str = string.format(date_form, tonumber(year), tonumber(month),tonumber(day), week_day_kr)
-    return date_str
+    local str = Str('{1}년 {2}월 {3}일', tonumber(year), tonumber(month), tonumber(day)) .. '(' .. Str(week_day_kr) .. ')'
+    return str
 end
 
 -------------------------------------

@@ -996,6 +996,10 @@ function UI_BookDetailPopup.openWithFrame(did, grade, evolution, scale, is_popup
     ui.vars['rewardNode2']:setVisible(false)
     ui.vars['rewardNode3']:setVisible(false)
     
+    -- 도감 UI를 프레임 UI에 맞추어 축소시키면 스토리 라벨이 아래로 처짐
+    -- 임의로 위치를 올림 원래 위치는 (-10, -189)
+    ui.vars['storyLabel']:setPosition(-10, -169)
+
     -- UI_BookDetailPopup을 프레임 UI에 붙임
     frame_ui.vars['clippingNode']:addChild(ui.vars['rootMenu'])
     frame_ui.vars['closeBtn']:registerScriptTapHandler(function() frame_ui:close() end)
