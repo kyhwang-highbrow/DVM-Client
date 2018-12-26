@@ -334,15 +334,29 @@ function UI_ChallengeMode:apply_StageSort(type)
         table.sort(list, self.m_sortModeFunc)
     end
 
-    self.m_tableView:mergeItemList(list)
-    self.m_tableView:setDirtyItemList()
+    -- 다음 도전할 스테이지에 포커스
+    self:focusOnNextStage(list)
+    self.m_tableView:setDirtyItemList()  
+end
 
-    -- 현재 선택된 층이 바로 보이도록 처리
-    if self.m_selectedStageID then
-        local stage_id = self.m_selectedStageID
+-------------------------------------
+-- function focusOnNextStage
+-------------------------------------
+function UI_ChallengeMode:focusOnNextStage(list)
+    -- 현재 선택된 스테이지 리셋
+    g_challengeMode:resetSelectedStage()
+    
+    -- 다음 도전할 스테이지 선택
+    local t_data = {stage = g_challengeMode:getSelectedStage()}
+    self:selectFloor(t_data)
+    
+    local next_floor = g_challengeMode:getSelectedStage()
+    -- 다음 도전할 스테이지 바로 보이도록 처리
+    if (next_floor) then
+        local stage_id = next_floor
         local floor = 1
 
-        -- 정렬된 리스트에서 현재 선택된 스테이지 인덱스 탐색
+        -- 정렬된 리스트에서 현재 다음 도전할 스테이지 인덱스 탐색
         for i,v in ipairs(list) do
             if (v['data']['stage'] == stage_id) then
                 floor = i
@@ -352,6 +366,7 @@ function UI_ChallengeMode:apply_StageSort(type)
         self.m_tableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         self.m_tableView:relocateContainerFromIndex(floor + 1)
     end
+    
 end
 
 -------------------------------------

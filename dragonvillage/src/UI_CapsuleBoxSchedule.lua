@@ -42,7 +42,7 @@ function UI_CapsuleBoxSchedule:initUI()
     
     -- 마지막에 추가하는 테이블 아이템
     local l_item_list = g_capsuleBoxData.m_sortedScheduleList
-    local advance_notice_item = { advance_notice = Str('{@ORANGE}다음 업데이트를\n기다려 주세요') }
+    local advance_notice_item = { advance_notice = '{@ORANGE}' .. Str('업데이트 예정')}
     l_item_list['advance_notice'] = advance_notice_item
 
     -- 현재 판매중인 캡슐 상품 정보

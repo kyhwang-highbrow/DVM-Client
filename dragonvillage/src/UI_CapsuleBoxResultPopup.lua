@@ -40,7 +40,7 @@ function UI_CapsuleBoxResultPopup:initUI()
 
 	for idx, t_item in pairs(reward_info) do
 		local item_id = t_item['item_id']
-		local item_cnt = 1
+		local item_cnt = t_item['count']
         
 		local card = UI_ItemCard(item_id, item_cnt)
 		vars['dropRewardMenu']:addChild(card.root)
