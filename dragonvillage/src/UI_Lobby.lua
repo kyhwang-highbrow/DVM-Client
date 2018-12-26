@@ -317,37 +317,8 @@ function UI_Lobby:entryCoroutine_challengeModePopup(co)
     end
 
     co:work()
-    -- 촉진팝업 용으로 UI파일 따로 만들어야 함
-    local ui = UI()
-    local vars = ui:load('event_challenge_mode.ui')
-    UIManager:open(ui, UIManager.POPUP)
-
-    local refresh_cooltime_func
-
-    vars['promoteMenu']:setVisible(true)
+    UI_ChallengeModePromotePopup(co)
     
-    -- 바로 가기 버튼 함수
-    vars['gotoBtn']:registerScriptTapHandler(function()
-        UINavigatorDefinition:goTo('challenge_mode')
-        refresh_cooltime_func()
-        co.ESCAPE()
-    end)
-
-    -- 닫기 버튼 함수
-    vars['exitBtn']:setVisible(true)
-    vars['exitBtn']:registerScriptTapHandler(function()
-        ui:close()
-        refresh_cooltime_func()
-        co:NEXT() 
-    end)
-
-    -- 팝업 만료시간 1일 후로 세팅 
-    refresh_cooltime_func =  function()
-        local cur_time = Timer:getServerTime()
-        local next_cool_time = cur_time + datetime.dayToSecond(1)
-        g_settingData:setPromoteCoolTime('challenge_mode', next_cool_time)
-    end
-
 	if co:waitWork() then return end
 end
 

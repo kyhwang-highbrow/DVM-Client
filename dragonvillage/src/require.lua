@@ -1068,6 +1068,7 @@ local t_module = {
     'UI_ChallengeModeInfoPopup',
     'UI_ChallengeModeRewardListItem',
     'UI_ChallengeModeRankingRewardPopup',
+    'UI_ChallengeModePromotePopup',
 
     -- UI : 그랜드 콜로세움
     'UI_GrandArena',
