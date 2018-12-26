@@ -425,9 +425,9 @@ function ServerData_CapsuleBox:getBadgeRes(badge_type)
     if (badge_type == 'event') then
         res_number = '0301'
     elseif (badge_type == 'hot') then
-        res_number = '0302'
-    elseif (badge_type == 'new') then
         res_number = '0303'
+    elseif (badge_type == 'new') then
+        res_number = '0302'
     end
 
     local full_res = string.format(res, res_number)
@@ -449,6 +449,8 @@ function ServerData_CapsuleBox:makeBadge(schedule_info_per_day, reward_name)
     local badge_res = self:getBadgeRes(badge_type)
     if (badge_res) then
         badge_ui.vars['badgeSprite']:setTexture(badge_res)
+    else
+        badge_ui.vars['badgeSprite']:setVisible(false)
     end
     return badge_ui
 end
