@@ -148,11 +148,6 @@ end
 -- function makeSortedScheduleList
 -------------------------------------
 function ServerData_CapsuleBox:makeSortedScheduleList()
-	
-    -- 이미 만들어진 리스트가 있다면 return
-    if (self.m_sortedScheduleList) then
-        return
-    end
 
     local schedule_map = TABLE:get('table_capsule_box_schedule')
     local schedule_list = table.MapToList(schedule_map)

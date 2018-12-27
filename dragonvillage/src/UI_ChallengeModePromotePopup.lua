@@ -13,15 +13,36 @@ UI_ChallengeModePromotePopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ChallengeModePromotePopup:init(co)
-	local vars = self:load('event_challenge_mode.ui')
+	local vars = self:load('event_popup.ui')
 	UIManager:open(self, UIManager.POPUP)
     self.m_lobby_coroutine = co
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChallengeModePromotePopup')
 
+    -- 이벤트 팝업 밑에 붙일 그림자 신전 팝업
+    self.m_eventPopupUI = UI()
+    self.m_eventPopupUI:load('event_challenge_mode.ui')
+
+    -- 패키지 UI 크기에 따라 풀팝업 UI 사이즈 변경후 추가
+    do
+        local l_children = self.m_eventPopupUI.root:getChildren()
+        local tar_menu = l_children[1]
+    
+        -- 최상위 메뉴 사이즈로 변경
+        if (tar_menu) then
+            local size = tar_menu:getContentSize()
+            local width = size['width']
+            local height = 640
+            vars['mainNode']:setContentSize(cc.size(width, height))
+        end
+    
+        vars['eventNode']:addChild(self.m_eventPopupUI.root)
+    end
+
 	self:initUI()
 	self:initButton()
 	self:refresh()
+
 end
 
 -------------------------------------
@@ -29,14 +50,16 @@ end
 -------------------------------------
 function UI_ChallengeModePromotePopup:initUI()
 	local vars = self.vars
-    vars['promoteMenu']:setVisible(true)
+    local challenge_vars = self.m_eventPopupUI.vars
+
+    challenge_vars['promoteMenu']:setVisible(true)
     local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
     local rank_text = struct_user_info:getChallengeMode_RankText()
-    vars['rankLabel']:setString(rank_text)
+    challenge_vars['rankLabel']:setString(rank_text)
 
     local gold_label = Str(' {1}/{2}', comma_value(g_challengeMode:getCumulativeGold()), comma_value(10000000))
     local gold_title_label = Str('획득한 골드')
-    vars['goldLabel']:setString(gold_title_label .. gold_label)
+    challenge_vars['goldLabel']:setString(gold_title_label .. gold_label)
 end
 
 -------------------------------------
@@ -44,42 +67,29 @@ end
 -------------------------------------
 function UI_ChallengeModePromotePopup:initButton()
 	local vars = self.vars
-    local ui = UI()
-    self.m_eventPopupUI = ui:load('event_popup.ui')
-    local ui_check = self.m_eventPopupUI
-    ui_check['mainNode']:removeFromParent()
-    self.root:addChild(ui_check['mainNode'])
-
-    -- 하위 버튼 눌리도록
-    ui_check['eventNode']:removeFromParent()
-    ui_check['clickBtn']:removeFromParent()
+    local challenge_vars = self.m_eventPopupUI.vars
 
     local refresh_cooltime_func
 
      -- 바로 가기 버튼 함수
      -- 코루틴 탈출
-    vars['gotoBtn']:registerScriptTapHandler(function()
+    challenge_vars['gotoBtn']:registerScriptTapHandler(function()
         self:click_closeBtn()
         UINavigatorDefinition:goTo('challenge_mode')
+        -- 다음 코루틴 진행하지 않고 로비에서 벗어나므로 코루틴 강제 종료
         self.m_lobby_coroutine.ESCAPE()
     end)
 
     -- 닫기 버튼 함수
     -- 코루틴 진행
-    ui_check['closeBtn']:setVisible(true)
-    ui_check['closeBtn']:registerScriptTapHandler(function()
+    vars['closeBtn']:setVisible(true)
+    vars['closeBtn']:registerScriptTapHandler(function()
         self:click_closeBtn()
-        self.m_lobby_coroutine:NEXT() 
+        self.m_lobby_coroutine.NEXT() 
     end)
    
-    ui_check['checkBtn']:setVisible(true)
-    ui_check['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
-
-    local size = vars['MainMenu']:getContentSize()
-    local width = size['width']
-    local height = size['height']
-    ui_check['mainNode']:setContentSize(cc.size(width, height))
-    ui_check['mainNode']:setPosition(vars['MainMenu']:getPosition())
+    vars['checkBtn']:setVisible(true)
+    vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
 
 end
 
@@ -103,7 +113,7 @@ end
 
 -------------------------------------
 -- function click_closeBtn
--- @brief 닫을 때 [하루동안 다시 보지 않기 체크] 확인
+-- @brief 닫을 때 [하루동안 다시 보지 않기 체크] 되어있으면 쿨타임 시작
 -------------------------------------
 function UI_ChallengeModePromotePopup:click_closeBtn()
     if (self.m_isCheck) then
@@ -122,7 +132,7 @@ function UI_ChallengeModePromotePopup:click_checkBtn()
         self.m_isCheck = true
     end
 
-    self.m_eventPopupUI['checkSprite']:setVisible(self.m_isCheck)
+    self.vars['checkSprite']:setVisible(self.m_isCheck)
 end
 
 
