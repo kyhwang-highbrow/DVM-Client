@@ -30,6 +30,13 @@ function UI_BannerChallengeMode:initUI()
     local vars = self.vars
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    vars['titleLabel']:setString(Str('그림자의 신전'))
+    
+    -- 스페인어의 경우 그림자의 신전 번역이 잘리는 이슈 때문에 폰트 사이즈 줄임
+    local cur_lang = Translate:getGameLang()
+    if (cur_lang == 'es') then
+        vars['titleLabel']:setFontSize(20)
+    end
 end
 
 -------------------------------------
