@@ -4,20 +4,24 @@ local PARENT = UI
 -- class UI_ChallengeModePromotePopup
 -------------------------------------
 UI_ChallengeModePromotePopup = class(PARENT,{
-        m_lobby_coroutine = 'coroutine',
         m_isCheck = 'bool',
-        m_eventPopupUI = 'ui'
+        m_eventPopupUI = 'ui',
+        m_close_cb = 'func',
+        m_goto_cb = 'func'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ChallengeModePromotePopup:init(co)
+function UI_ChallengeModePromotePopup:init(close_cb, goto_cb)
 	local vars = self:load('event_popup.ui')
 	UIManager:open(self, UIManager.POPUP)
-    self.m_lobby_coroutine = co
+    
+    self.m_close_cb = close_cb
+    self.m_goto_cb = goto_cb
+
 	-- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChallengeModePromotePopup')
+	g_currScene:pushBackKeyListener(self, function() self.m_close_cb() self:close() end, 'UI_ChallengeModePromotePopup')
 
     -- 이벤트 팝업 밑에 붙일 그림자 신전 팝업
     self.m_eventPopupUI = UI()
@@ -74,18 +78,18 @@ function UI_ChallengeModePromotePopup:initButton()
      -- 바로 가기 버튼 함수
      -- 코루틴 탈출
     challenge_vars['gotoBtn']:registerScriptTapHandler(function()
+        -- 다음 코루틴 진행하지 않고 로비에서 벗어나므로 코루틴 강제 종료
+        self.m_goto_cb()
         self:click_closeBtn()
         UINavigatorDefinition:goTo('challenge_mode')
-        -- 다음 코루틴 진행하지 않고 로비에서 벗어나므로 코루틴 강제 종료
-        self.m_lobby_coroutine.ESCAPE()
     end)
 
     -- 닫기 버튼 함수
     -- 코루틴 진행
     vars['closeBtn']:setVisible(true)
     vars['closeBtn']:registerScriptTapHandler(function()
+        self.m_close_cb()
         self:click_closeBtn()
-        self.m_lobby_coroutine.NEXT() 
     end)
    
     vars['checkBtn']:setVisible(true)

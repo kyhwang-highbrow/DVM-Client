@@ -248,13 +248,7 @@ function UI_Lobby:entryCoroutine()
                     GoogleHelper.allAchievementCheck(co.NEXT)
                     if co:waitWork() then return end
                 end
-            end
-
-            -- UIManager:toastNotificationRed('ENTRY_LOBBY_CNT : ' .. ENTRY_LOBBY_CNT)
-	        -- 로비 최초 진입 시에는 skip
-	        if (1 < ENTRY_LOBBY_CNT) then
-		        self:entryCoroutine_spotSale(co)
-	        end			
+            end		
 	    end   		
         -- @ UI_ACTION
         co:work()
@@ -273,7 +267,7 @@ function UI_Lobby:entryCoroutine()
         if co:waitWork() then return end
 
         if (1 < ENTRY_LOBBY_CNT) and (not TutorialManager.getInstance():checkFullPopupBlock()) then
-		    self:entryCoroutine_challengeModePopup(co)
+		    self:entryCoroutine_Escapable(co)
 	    end
     end
 
@@ -305,21 +299,38 @@ function UI_Lobby:entryCoroutine_spotSale(co)
 	if co:waitWork() then return end
 end
 
-
 -------------------------------------
 -- function entryCoroutine_challengeModePopup
 -- @brief 그림자 신전 입장 권유 팝업 조건 체크 코루틴 
 -------------------------------------
 function UI_Lobby:entryCoroutine_challengeModePopup(co)
-   
     if (not g_challengeMode:checkPromotePopupCondition()) then
         return
     end
 
     co:work()
-    UI_ChallengeModePromotePopup(co)
+    -- 창을 닫으면 다음 코루틴 시작
+    local close_cb = function()
+        co.NEXT()
+    end
+
+    -- 바로가기 버튼 누르면 로비에서 벗어나기 때문에 코루틴 탈출
+    local goto_cb = function()
+        co.ESCAPE()
+    end
+    
+    UI_ChallengeModePromotePopup(close_cb, goto_cb)
     
 	if co:waitWork() then return end
+end
+
+-------------------------------------
+-- function entryCoroutine_Escapable
+-- @brief 코루틴 탈출되어도 상관없는 코루틴 함수 
+-------------------------------------
+function UI_Lobby:entryCoroutine_Escapable(co)
+        self:entryCoroutine_spotSale(co)
+        self:entryCoroutine_challengeModePopup(co)
 end
 
 -------------------------------------
@@ -1483,8 +1494,7 @@ function UI_Lobby:onFocus(is_push)
     if (not is_push) then
         local function coroutine_function(dt)
             local co = CoroutineHelper()
-            self:entryCoroutine_spotSale(co)
-            self:entryCoroutine_challengeModePopup(co)
+            self:entryCoroutine_Escapable(co)
         end
 
         Coroutine(coroutine_function, '로비 코루틴 onFocus')
