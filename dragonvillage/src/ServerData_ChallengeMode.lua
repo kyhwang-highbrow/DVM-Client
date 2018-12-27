@@ -1092,34 +1092,34 @@ function ServerData_ChallengeMode:parseChallengeModeStagePoint(point)
     elseif (point == 20) then
         difficulty = DIFFICULTY.EASY
         is_auto = false
-        text = string.format('%s(%s)', Str('쉬움'), Str('수동'))
+        text = Str('쉬움 (수동)')
 
     elseif (point == 30) then
         difficulty = DIFFICULTY.EASY
         is_auto = true
-        text = string.format('%s(%s)', Str('쉬움'), Str('자동'))
+        text = Str('쉬움 (자동)')
 
     -- 보통
     elseif (point == 40) then
         difficulty = DIFFICULTY.NORMAL
         is_auto = false
-        text = string.format('%s(%s)', Str('보통'), Str('수동'))
+        text = Str('보통 (수동)')
 
     elseif (point == 60) then
         difficulty = DIFFICULTY.NORMAL
         is_auto = true
-        text = string.format('%s(%s)', Str('보통'), Str('자동'))
+        text = Str('보통 (자동)')
 
     -- 어려움
     elseif (point == 80) then
         difficulty = DIFFICULTY.HARD
         is_auto = false
-        text = string.format('%s(%s)', Str('어려움'), Str('수동'))
+        text = Str('어려움 (수동)')
 
     elseif (point == 100) then
         difficulty = DIFFICULTY.HARD
         is_auto = true
-        text = string.format('%s(%s)', Str('어려움'), Str('자동'))
+        text = Str('어려움 (자동)')
     end
 
     return difficulty, is_auto, text
