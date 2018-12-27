@@ -198,13 +198,18 @@ function UIC_SortList:addSortType(sort_type, sort_name, t_label_data, rich_label
         local outline_color = t_label_data['outline_color'] or cc.c4b(85, 44, 25,255)
         local stroke_tickness = t_label_data['stroke'] or 2
 
-        local size = cc.size(256, 256)
+        -- 버튼 크기보다 조금 크도록 gap 지정 
+        local label_gap = 5
+        local size = cc.size(width + label_gap, heigth + label_gap)
         local node = cc.Label:createWithTTF(sort_name, font_name, font_size, stroke_tickness, size, cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        -- 언어별 사이즈 비율 적용
+        local font_retX, font_retY = Translate:getFontScaleRate()
+        node:setScale(font_retX, font_retY)
+
         node:setDockPoint(cc.p(0.5, 0.5))
         node:setAnchorPoint(cc.p(.5, 0.5))
         node:setTextColor(label_color)
         node:enableOutline(outline_color, stroke_tickness)
-
         button:addChild(node)
     end
 
@@ -711,7 +716,7 @@ function MakeUICSortList_challengModeStage(button, label, direction)
 
     local uic = UIC_SortList()
 	uic.m_buttonHeight = 40
-	uic.m_fontSize = 20
+	uic.m_fontSize = 18
     uic.m_direction = direction
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
@@ -726,7 +731,7 @@ function MakeUICSortList_challengModeStage(button, label, direction)
 
     -- 버튼 리스트 세팅
 	uic:addSortType('stage', Str('스테이지'))
-	uic:addSortType('victory_mode', Str('승리 난이도'))
+    uic:addSortType('victory_mode', Str('승리 난이도'))
 
     --uic:show()
 
