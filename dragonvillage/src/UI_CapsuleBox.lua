@@ -245,38 +245,11 @@ function UI_CapsuleBox:click_rewardBtn(box_key)
 end
 
 -------------------------------------
--- function click_drawBtn
--- @brief 뽑기
+-- function executeDraw
+-- @brief 뽑기 실행
 -------------------------------------
-function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
-	if (self.m_isBusy) then
-		return
-	end
-
-	local struct_capsule_box = self.m_capsuleBoxData[box_key]
-	if (struct_capsule_box:isDone()) then
-		local msg = Str('상품이 모두 소진되었습니다.')
-		UIManager:toastNotificationGreen(msg)
-		return
-	end
-
-	local t_price = struct_capsule_box:getPrice(idx)
-	
-	-- 가격 정보 없을 경우
-	if (not t_price) then
-		return
-	end
-
-	-- 가격 변수
-	local price_type = t_price['type']
-	local price = tonumber(t_price['value'])
-
-	-- 가격 미리 체크
-	if (not ConfirmPrice(price_type, price)) then
-		return
-	end
-
-	-- 뽑기 중
+function UI_CapsuleBox:executeDraw(box_key, idx, count, price_type)
+    -- 뽑기 중
 	self.m_isBusy = true
 
 	-- 뽑기 요청
@@ -336,6 +309,50 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 		end)
 	end
 	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func, count)
+end
+-------------------------------------
+-- function click_drawBtn
+-- @brief 뽑기
+-------------------------------------
+function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
+	if (self.m_isBusy) then
+		return
+	end
+
+	local struct_capsule_box = self.m_capsuleBoxData[box_key]
+	if (struct_capsule_box:isDone()) then
+		local msg = Str('상품이 모두 소진되었습니다.')
+		UIManager:toastNotificationGreen(msg)
+		return
+	end
+
+	local t_price = struct_capsule_box:getPrice(idx)
+	
+	-- 가격 정보 없을 경우
+	if (not t_price) then
+		return
+	end
+
+	-- 가격 변수
+	local price_type = t_price['type']
+	local price = tonumber(t_price['value'])
+
+	-- 가격 미리 체크
+	if (not ConfirmPrice(price_type, price)) then
+		return
+	end
+
+    local execute_draw = function()
+        self:executeDraw(box_key, idx, count, price_type)    
+    end
+    
+    -- 10회 뽑기면 구매 의사 한 번 더 물어보는 팝업 출력
+    if (count == 10) then
+        local msg = Str('전설 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, execute_draw)
+	else
+        execute_draw()
+    end
 end
 
 -------------------------------------
