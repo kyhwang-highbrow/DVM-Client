@@ -197,7 +197,7 @@ function ServerData_CapsuleBox:findTodaySchedule()
 	local idx = 1
     -- ex) 20181224
     local date = pl.Date()
-	local date_str = date:year() .. date:month() .. date:day()
+	local date_str = string.format('%d%02d%02d', date:year(), date:month(), date:day())
 
     for i,v in pairs(self.m_sortedScheduleList) do
         if (date_str == tostring(v['day'])) then
