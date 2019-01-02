@@ -9,9 +9,9 @@ ServerData_CapsuleBox = class({
         m_day = 'number', -- 20180827 <- 이런 형태로 스케쥴 상의 날짜를 리턴
 		
 		m_open = 'bool',
-        m_todayScheduleIdx = 'number',
-        m_todaySchedule = 'table',
-        m_sortedScheduleList = 'list',
+
+        -- 캡슐 뽑기 일정 테이블
+        m_scheduleTable = 'table'
     })
 
 local L_BOX_KEY = {'first', 'second'}
@@ -136,40 +136,19 @@ function ServerData_CapsuleBox:response_capsuleBoxInfo(ret)
     if ret['day'] then
         self.m_day = ret['day']
     end
-    
-    -- 캡슐 일정 테이블 정렬
-    self:makeSortedScheduleList()
 
-    -- 오늘의 캡슐 일정 데이터 갱신
-    self:setTodaySchedule()
-end
-
--------------------------------------
--- function makeSortedScheduleList
--------------------------------------
-function ServerData_CapsuleBox:makeSortedScheduleList()
-
-    local schedule_map = TABLE:get('table_capsule_box_schedule')
-    local schedule_list = table.MapToList(schedule_map)
-    local schedule_valid_list = {}
-
-     -- notice_visible 값 1인 목록만 테이블에 추가
-    for _, v in pairs(schedule_list) do
+    self.m_scheduleTable = {}
+    -- 20190102 jhakim 나중에 서버에서 notice_visible = 1 인 데이터만 필터링 해서 받을 예정
+    local schedule_table = TABLE:get('table_capsule_box_schedule')
+    local valid_schedule_table = {}
+    for i,v in pairs(schedule_table) do
         if (v['notice_visible'] == 1) then
-            table.insert(schedule_valid_list, v)
+            table.insert(self.m_scheduleTable, v)
         end
     end
+    self.m_scheduleTable = table.listToMap(self.m_scheduleTable, 'day')
 
-    -- 캡슐 판매일 오래된 것부터 출력되도록 정렬
-    local function sort_func(a, b)
-        local a_time = a['day']
-        local b_time = b['day']
-
-        return a_time < b_time
-    end
-    table.sort(schedule_valid_list, sort_func)
-    self.m_sortedScheduleList = schedule_valid_list
-        
+    
 end
 
 -------------------------------------
@@ -178,10 +157,7 @@ end
 function ServerData_CapsuleBox:setTodaySchedule()
     
     -- 오늘의 캡슐 일정 데이터 갱신
-    local today_schedule_info, today_schedule_idx = self:findTodaySchedule()
-    self.m_todayScheduleIdx = today_schedule_idx
-    self.m_todaySchedule = today_schedule_info
-
+    local today_schedule_info = self:getTodaySchedule()
     -- 타이틀도 갱신
     if (today_schedule_info) then
         self.m_tStrurctCapsuleBox['first']:setCapsuleTitle(today_schedule_info['t_first_name'])
@@ -191,22 +167,11 @@ end
 
 -------------------------------------
 -- function findTodaySchedule
--- @brief 리스트 중에서 오늘 판매하는 상품 정보, 인덱스 반환
+-- @brief 리스트 중에서 오늘 판매하는 상품 정보 반환
 -------------------------------------
-function ServerData_CapsuleBox:findTodaySchedule()
-	local idx = 1
-    -- ex) 20181224
-    local date = pl.Date()
-	local date_str = string.format('%d%02d%02d', date:year(), date:month(), date:day())
-
-    for i,v in pairs(self.m_sortedScheduleList) do
-        if (date_str == tostring(v['day'])) then
-            return v, idx
-        end
-        idx = idx + 1
-    end
-
-    return nil, nil
+function ServerData_CapsuleBox:getTodaySchedule()
+    local cur_day = self:getScheduleDay()
+    return self.m_scheduleTable[cur_day]
 end
 
 -------------------------------------
@@ -221,8 +186,12 @@ function ServerData_CapsuleBox:request_capsuleBoxStatus(finish_cb, fail_cb)
 		self:applyCapsuleStatus(ret)
 
         -- 스케쥴 날짜 갱신
-        if ret['day'] then
+        if (ret['day']) then
             self.m_day = ret['day']
+        end
+
+        if (ret['table_capsule_box_schedule']) then
+            self.m_scheduleTable = ret['table_capsule_box_schedule']
         end
 
         if finish_cb then
@@ -349,7 +318,7 @@ function ServerData_CapsuleBox:openTodayCapsuleBoxDtagon()
     do -- 2. 상품이 모두 드래곤일 경우
         local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
         local table_item = TableItem()
-
+    
         local rank = 1
         local l_reward = capsulebox_data['first']:getRankRewardList(rank)
         
@@ -434,6 +403,11 @@ end
 -- @brief 캡슐뽑기 아이템에 붙이는 뱃지 생성
 -------------------------------------
 function ServerData_CapsuleBox:makeBadge(schedule_info_per_day, reward_name)
+    
+    if (not schedule_info_per_day) then
+        return    
+    end
+    
     -- 뱃지용 UI 로드
     local badge_ui = UI()
     badge_ui:load('icon_badge.ui')

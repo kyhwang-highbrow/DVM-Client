@@ -58,17 +58,6 @@ function UI_CapsuleScheduleListItem:initUI()
         vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
     end
 
-    -- 캡슐 상품 일정 체크
-    local cur_date = tonumber(g_capsuleBoxData.m_todaySchedule['day'])
-    if (self.m_scheduleData['day']) then
-        local capsule_date = tonumber(self.m_scheduleData['day'])
-        if (cur_date == capsule_date) then                              -- 오늘 상품은 하이라이트 표시
-            vars['todaySprite']:setVisible(true)
-        elseif (cur_date > capsule_date) then                           -- 판매 끝난 상품은 lock 표시 
-            vars['lockSprite']:setVisible(true)
-        end
-    end
-
     -- 캡슐 아이템 세팅
     -- 공통적으로 사용하는 first_1, second_1 이용해서 노드 이름, 아이템 정보 알아냄 
     local item_key_list = {'first_1', 'first_2', 'first_3','second_1', 'second_2', 'second_3'}
@@ -94,6 +83,21 @@ function UI_CapsuleScheduleListItem:initUI()
             end        
         end
 
+    end
+
+    local today_schedule_info = g_capsuleBoxData:getTodaySchedule()
+    if (not today_schedule_info) then
+        return
+    end
+
+    local cur_date = tonumber(g_capsuleBoxData:getScheduleDay())
+    if (self.m_scheduleData['day']) then
+        local capsule_date = tonumber(self.m_scheduleData['day'])
+        if (cur_date == capsule_date) then                              -- 오늘 상품은 하이라이트 표시
+            vars['todaySprite']:setVisible(true)
+        elseif (cur_date > capsule_date) then                           -- 판매 끝난 상품은 lock 표시 
+            vars['lockSprite']:setVisible(true)
+        end
     end
 
 end

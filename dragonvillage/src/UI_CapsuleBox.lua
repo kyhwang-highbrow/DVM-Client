@@ -165,11 +165,10 @@ function UI_CapsuleBox:refresh()
 	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
     vars['firstDrawBtn2']:setVisible(capsule_coin ~= 0)
 
+    g_capsuleBoxData:setTodaySchedule()
     local legend_title = capsulebox_data['first']:getCapsuleTitle()
-    local hero_title = capsulebox_data['second']:getCapsuleTitle()
-    vars['rotationTitleLabel1']:setString(Str(hero_title) .. ' ' .. Str('캡슐'))
-    vars['rotationTitleLabel2']:setString(Str(legend_title) .. ' ' .. Str('캡슐'))
-
+    vars['rotationTitleLabel2']:setString(legend_title)
+    
     -- 캡슐 코인 5+1 패키지 갱신
     self:refresh_dailyCapsulePackage()
 
@@ -466,7 +465,8 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward ,idx)
     
     -- 뱃지 생성
     local reward_name = box_key .. '_' .. idx
-    local badge_ui = g_capsuleBoxData:makeBadge(g_capsuleBoxData.m_todaySchedule, reward_name)
+    local today_schedule_info = g_capsuleBoxData:getTodaySchedule()
+    local badge_ui = g_capsuleBoxData:makeBadge(today_schedule_info, reward_name)
     if (badge_ui) then
         item_card.root:addChild(badge_ui.root)
     end

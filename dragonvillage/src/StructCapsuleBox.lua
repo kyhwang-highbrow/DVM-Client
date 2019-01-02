@@ -156,7 +156,10 @@ end
 -- function getLegendCapsuleTitle
 -------------------------------------
 function StructCapsuleBox:getCapsuleTitle()
-    return self['title'] or ''
+    if (not self['title']) then
+        return ''
+    end
+    return Str(self['title']) .. ' ' .. Str('캡슐')
 end
 
 -------------------------------------
