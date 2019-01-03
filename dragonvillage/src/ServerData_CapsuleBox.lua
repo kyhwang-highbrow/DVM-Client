@@ -136,19 +136,6 @@ function ServerData_CapsuleBox:response_capsuleBoxInfo(ret)
     if ret['day'] then
         self.m_day = ret['day']
     end
-
-    self.m_scheduleTable = {}
-    -- 20190102 jhakim 나중에 서버에서 notice_visible = 1 인 데이터만 필터링 해서 받을 예정
-    local schedule_table = TABLE:get('table_capsule_box_schedule')
-    local valid_schedule_table = {}
-    for i,v in pairs(schedule_table) do
-        if (v['notice_visible'] == 1) then
-            table.insert(self.m_scheduleTable, v)
-        end
-    end
-    self.m_scheduleTable = table.listToMap(self.m_scheduleTable, 'day')
-
-    
 end
 
 -------------------------------------
@@ -171,7 +158,12 @@ end
 -------------------------------------
 function ServerData_CapsuleBox:getTodaySchedule()
     local cur_day = self:getScheduleDay()
-    return self.m_scheduleTable[cur_day]
+    local scheduleTable = self.m_scheduleTable
+    if (not scheduleTable) then
+        return
+    end
+
+    return scheduleTable[cur_day]
 end
 
 -------------------------------------
@@ -191,7 +183,7 @@ function ServerData_CapsuleBox:request_capsuleBoxStatus(finish_cb, fail_cb)
         end
 
         if (ret['table_capsule_box_schedule']) then
-            self.m_scheduleTable = ret['table_capsule_box_schedule']
+            --self.m_scheduleTable = ret['table_capsule_box_schedule']
         end
 
         if finish_cb then
