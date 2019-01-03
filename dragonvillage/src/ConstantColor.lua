@@ -93,7 +93,9 @@ COLOR = {
     ['diff_normal'] = cc.c4b(105, 236, 87, 255),
     ['diff_hard'] = cc.c4b(255, 115, 53, 255),
     ['diff_hell'] = cc.c4b(233, 88, 255, 255),
-	['proofreading'] = cc.c4b(255, 100, 100, 255),
+	['diff_hellfire'] = cc.c4b(255,51,56,255),
+    ['proofreading'] = cc.c4b(255, 100, 100, 255),
+
 
     -- 클랜
     ['clan_name'] = cc.c3b(237, 114, 255),

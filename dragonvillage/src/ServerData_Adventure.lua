@@ -1,6 +1,6 @@
 MAX_ADVENTURE_CHAPTER = 12
 MAX_ADVENTURE_STAGE = 7
-MAX_ADVENTURE_DIFFICULTY = 3
+MAX_ADVENTURE_DIFFICULTY = 4
 
 -------------------------------------
 -- class ServerData_Adventure

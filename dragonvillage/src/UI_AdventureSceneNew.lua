@@ -156,6 +156,7 @@ function UI_AdventureSceneNew:makeUICSortList()
     uic:addSortType(1, Str('보통'), {color = COLOR['diff_normal'], stroke = 0})
     uic:addSortType(2, Str('어려움'), {color = COLOR['diff_hard'], stroke = 0})
     uic:addSortType(3, Str('지옥'), {color = COLOR['diff_hell'], stroke = 0})
+    uic:addSortType(4, Str('불지옥'), {color = COLOR['diff_hellfire'], stroke = 0})
 
 	self.m_uicSortList = uic
 	self.m_uicSortList:setSortChangeCB(function(sort_type) 
@@ -405,6 +406,8 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
             animator:changeAni('normal', true)
         elseif (difficulty == 3) then
             animator:changeAni('hard', true)
+        elseif (difficulty == 4) then
+            animator:changeAni('easy', true)
         else
             error('difficulty : ' .. difficulty)
         end
