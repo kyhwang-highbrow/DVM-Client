@@ -57,7 +57,9 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         elseif (difficulty == 3) then
             vars['difficultyLabel']:setColor(COLOR['diff_hell'])
             vars['difficultyLabel']:setString(Str('지옥'))
-    
+        elseif (difficulty == 4) then
+            vars['difficultyLabel']:setColor(COLOR['diff_hellfire'])
+            vars['difficultyLabel']:setString(Str('불지옥'))
         end
     end
     
