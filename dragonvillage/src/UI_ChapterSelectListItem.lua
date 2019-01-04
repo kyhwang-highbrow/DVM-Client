@@ -31,6 +31,7 @@ function UI_ChapterSelectListItem:initUI()
         'normal',
         'hard',
         'hell',
+        'hellFire',
     }
 
     local target_btn = vars[t_difficulty[difficulty]..'Btn']
