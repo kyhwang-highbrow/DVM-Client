@@ -182,8 +182,35 @@ function ServerData_CapsuleBox:request_capsuleBoxStatus(finish_cb, fail_cb)
             self.m_day = ret['day']
         end
 
-        if (ret['table_capsule_box_schedule']) then
-            --self.m_scheduleTable = ret['table_capsule_box_schedule']
+        --[[
+        "capsule_box_schedule":[{
+          "table":{
+            "second_3":770512,
+            "first_1":770902,
+            "badge_first":"",
+            "badge_second":"",
+            "badge_first_2":"",
+            "chance_up_1":121035,
+            "second_2":770212,
+            "first_3":770782,
+            "chance_up_2":121012,
+            "t_first_name":"물 속성",
+            "badge_second_1":"",
+            "second_1":770112,
+            "t_second_name":"물 속성",
+            "badge_first_1":"",
+            "day":20181227,
+            "badge_second_2":"",
+            "badge_second_3":"",
+            "badge_first_3":"",
+            "notice_visible":1,
+            "first_2":770402
+          }
+        --]]
+
+        if (ret['capsule_box_schedule']) then
+            local t_capsule_schedule = ret['capsule_box_schedule']
+            self.m_scheduleTable = self:makeScheduleMap(t_capsule_schedule)
         end
 
         if finish_cb then
@@ -202,6 +229,21 @@ function ServerData_CapsuleBox:request_capsuleBoxStatus(finish_cb, fail_cb)
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function makeScheduleMap
+-- @brief day를 키값으로 가지는 맵 형태로 변환
+-------------------------------------
+function ServerData_CapsuleBox:makeScheduleMap(t_capsule_schedule)
+    local map_schedule = {}
+    for _,v in ipairs(t_capsule_schedule) do
+        if (v['table'] and v['table']['day']) then
+            local day_key = v['table']['day']
+            map_schedule[day_key] = v['table']
+        end
+    end
+    return map_schedule
 end
 
 -------------------------------------
