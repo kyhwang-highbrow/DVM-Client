@@ -308,8 +308,8 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
 	end
     func_show_popup()
 
-    -- 2018-11-20 일일퀘스트 2배 보상 상품 판매 촉진하는 팝업 쿨타임 14일
-    local next_cool_time = cur_time + datetime.dayToSecond(14)
+    -- 2019-01-08 일일퀘스트 2배 보상 상품 판매 촉진하는 팝업 쿨타임 7일
+    local next_cool_time = cur_time + datetime.dayToSecond(7)
     -- 쿨 타임 만료시간 갱신
     g_settingData:setPromoteCoolTime('quest_double', next_cool_time)
 end
