@@ -127,7 +127,7 @@ function UI_Package_Bundle:refresh()
                     end
                 end
 
-                local discount_value = 20
+                local discount_value = 30
                 vars['bonusLabel1']:setString(Str('다이아 {1}% 보너스 상품 판매!', discount_value))
                 vars['bonusLabel2']:setString(Str('{1}%\n보너스', discount_value))
 
