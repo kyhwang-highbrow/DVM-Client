@@ -395,6 +395,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     end
 
     do -- 챕터 배경
+       -- 20190108 챕터 배경 애니는 easy만 존재 (defult값 easy)
         vars['chapterNode']:removeAllChildren()
         local res = T_CHAPTER_MAP_RES[chapter]
 
@@ -407,7 +408,7 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         elseif (difficulty == 3) then
             animator:changeAni('hard', true)
         elseif (difficulty == 4) then
-            animator:changeAni('easy', true)
+            animator:changeAni('hellfire', true)
         else
             error('difficulty : ' .. difficulty)
         end
