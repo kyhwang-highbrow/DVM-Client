@@ -1,6 +1,8 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 apply plugin: 'com.android.application'
+// @crashlytics
+apply plugin: 'io.fabric'
 
 // task preBuild excuted before android build 
 preBuild {
@@ -86,10 +88,10 @@ android {
         }
 
         google {
-            java.srcDirs = ["src/common", "src/google"]
+            java.srcDirs = ["src/main", "src/google"]
         }
         xsolla { 
-            java.srcDirs = ["src/common", "src/xsolla"]
+            java.srcDirs = ["src/main", "src/xsolla"]
         }
 
         main {
@@ -154,8 +156,8 @@ android {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
-                    cppFlags.add("-DMINOR_VER=NUM_5")
-                    cppFlags.add("-DBUILD_VER=NUM_8")
+                    cppFlags.add("-DMINOR_VER=NUM_6")
+                    cppFlags.add("-DBUILD_VER=NUM_0")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -170,8 +172,8 @@ android {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
-                    cppFlags.add("-DMINOR_VER=NUM_5")
-                    cppFlags.add("-DBUILD_VER=NUM_9")
+                    cppFlags.add("-DMINOR_VER=NUM_6")
+                    cppFlags.add("-DBUILD_VER=NUM_1")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -187,7 +189,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
                     cppFlags.add("-DMINOR_VER=NUM_1")
-                    cppFlags.add("-DBUILD_VER=NUM_5")
+                    cppFlags.add("-DBUILD_VER=NUM_6")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -203,7 +205,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
                     cppFlags.add("-DMINOR_VER=NUM_1")
-                    cppFlags.add("-DBUILD_VER=NUM_5")
+                    cppFlags.add("-DBUILD_VER=NUM_6")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
                     cppFlags.add("-DLUA_DEBUG=1")
@@ -305,35 +307,42 @@ allprojects {
         }
     }
     dependencies {
+        // support Kotlin
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
         // @multidex below Android api 21 (5.0 lolipop)
         implementation 'com.android.support:multidex:1.0.3'
+
         // @cocos2d-x
         implementation project(':libcocos2dx')
+
         // @apk-expansion
         implementation project(':downloader_library')
+
+        // @crashlytics
+        implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
+            
+        // perplesdk dependencies
         // @perplesdk
         implementation(name:'perplesdk', ext:'aar')
 
-        // support Kotlin
-        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-        
         // @naver-cafe
-        implementation(name: 'cafeSdk-3.3.2', ext: 'aar')
+        implementation(name: 'cafeSdk-3.3.3', ext: 'aar')
         implementation 'com.navercorp.volleyextensions:volleyer:2.0.1', {
             exclude group: 'com.mcxiaoke.volley', module: 'library'
         }
-        implementation 'com.google.code.gson:gson:2.8.0'
+        implementation 'com.google.code.gson:gson:2.8.2'
         implementation 'com.github.bumptech.glide:glide:3.7.0'
         implementation 'com.squareup:otto:1.3.8'
 
         // @firebase
-        implementation 'com.google.firebase:firebase-core:16.0.3'
-        implementation 'com.google.firebase:firebase-auth:16.0.3'
-        implementation 'com.google.firebase:firebase-messaging:17.3.0'
+        implementation 'com.google.firebase:firebase-core:16.0.6'
+        implementation 'com.google.firebase:firebase-auth:16.1.0'
+        implementation 'com.google.firebase:firebase-messaging:17.3.4'
 
         // @google
-        implementation 'com.google.android.gms:play-services-auth:16.0.0'
-        implementation 'com.google.android.gms:play-services-games:15.0.1'
+        implementation 'com.google.android.gms:play-services-auth:16.0.1'
+        implementation 'com.google.android.gms:play-services-games:16.0.0'
 
         // @facebook
         implementation 'com.facebook.android:facebook-android-sdk:4.35.0'
@@ -343,17 +352,17 @@ allprojects {
 
         // @igawCommon
         implementation 'com.android.installreferrer:installreferrer:1.0'
-        
+
         // @tapjoy
         implementation 'com.tapjoy:tapjoy-android-sdk:12.0.0'
 
         // @adjust
         implementation 'com.adjust.sdk:adjust-android:4.14.0'
-        implementation 'com.google.android.gms:play-services-analytics:16.0.3'
+        implementation 'com.google.android.gms:play-services-analytics:16.0.6'
 
         // @admob
-        implementation 'com.google.firebase:firebase-ads:15.0.1'
-        implementation 'com.android.support:support-annotations:27.1.1'
+        implementation 'com.google.firebase:firebase-ads:17.1.2'
+        implementation 'com.android.support:support-annotations:28.0.0'
         implementation 'com.google.ads.mediation:adcolony:3.3.5.0'
         implementation 'com.google.ads.mediation:unity:2.3.0.0'
         // @adcolony
