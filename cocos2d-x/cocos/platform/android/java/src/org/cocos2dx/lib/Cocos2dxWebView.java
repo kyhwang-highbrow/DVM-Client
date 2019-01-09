@@ -9,6 +9,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -176,5 +177,15 @@ public class Cocos2dxWebView extends WebView {
         layoutParams.height = maxHeight;
         layoutParams.gravity = Gravity.TOP | Gravity.LEFT;
         this.setLayoutParams(layoutParams);
+    }
+
+    // block key event
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return false;
+    }
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        return false;
     }
 }
