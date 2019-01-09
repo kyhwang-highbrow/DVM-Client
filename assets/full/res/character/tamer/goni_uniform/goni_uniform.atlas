@@ -1,0 +1,279 @@
+
+goni_uniform.png
+size: 793,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+goni_uniform_acc_01
+  rotate: true
+  xy: 617, 107
+  size: 46, 72
+  orig: 46, 72
+  offset: 0, 0
+  index: -1
+goni_uniform_acc_03
+  rotate: false
+  xy: 685, 174
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+goni_uniform_arm_01
+  rotate: false
+  xy: 554, 118
+  size: 61, 70
+  orig: 61, 70
+  offset: 0, 0
+  index: -1
+goni_uniform_arm_02
+  rotate: false
+  xy: 538, 52
+  size: 47, 61
+  orig: 47, 61
+  offset: 0, 0
+  index: -1
+goni_uniform_arm_03
+  rotate: true
+  xy: 538, 8
+  size: 42, 60
+  orig: 42, 60
+  offset: 0, 0
+  index: -1
+goni_uniform_body_01
+  rotate: false
+  xy: 333, 8
+  size: 85, 106
+  orig: 85, 106
+  offset: 0, 0
+  index: -1
+goni_uniform_body_02
+  rotate: true
+  xy: 691, 121
+  size: 51, 47
+  orig: 51, 47
+  offset: 0, 0
+  index: -1
+goni_uniform_brow_01
+  rotate: false
+  xy: 737, 176
+  size: 22, 17
+  orig: 22, 17
+  offset: 0, 0
+  index: -1
+goni_uniform_brow_02
+  rotate: true
+  xy: 693, 51
+  size: 15, 11
+  orig: 15, 11
+  offset: 0, 0
+  index: -1
+goni_uniform_effect_01
+  rotate: true
+  xy: 646, 375
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+goni_uniform_eye_01
+  rotate: false
+  xy: 759, 246
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+goni_uniform_eye_02
+  rotate: false
+  xy: 740, 151
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+goni_uniform_eye_03
+  rotate: true
+  xy: 759, 271
+  size: 45, 17
+  orig: 45, 17
+  offset: 0, 0
+  index: -1
+goni_uniform_face_01
+  rotate: true
+  xy: 2, 2
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+goni_uniform_face_02
+  rotate: true
+  xy: 103, 2
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+goni_uniform_foot_02
+  rotate: false
+  xy: 330, 116
+  size: 98, 141
+  orig: 98, 141
+  offset: 0, 0
+  index: -1
+goni_uniform_hair_01
+  rotate: false
+  xy: 696, 233
+  size: 61, 83
+  orig: 61, 83
+  offset: 0, 0
+  index: -1
+goni_uniform_hair_02
+  rotate: false
+  xy: 693, 68
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+goni_uniform_hair_03
+  rotate: false
+  xy: 706, 15
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1
+goni_uniform_hand_01
+  rotate: false
+  xy: 649, 50
+  size: 42, 55
+  orig: 42, 55
+  offset: 0, 0
+  index: -1
+goni_uniform_hand_02
+  rotate: true
+  xy: 737, 195
+  size: 36, 33
+  orig: 36, 33
+  offset: 0, 0
+  index: -1
+goni_uniform_hand_03
+  rotate: true
+  xy: 644, 6
+  size: 42, 60
+  orig: 42, 60
+  offset: 0, 0
+  index: -1
+goni_uniform_head_01
+  rotate: true
+  xy: 420, 14
+  size: 99, 116
+  orig: 99, 116
+  offset: 0, 0
+  index: -1
+goni_uniform_i_effect_01
+  rotate: false
+  xy: 2, 291
+  size: 333, 230
+  orig: 333, 230
+  offset: 0, 0
+  index: -1
+goni_uniform_i_effect_02
+  rotate: false
+  xy: 495, 374
+  size: 149, 147
+  orig: 149, 147
+  offset: 0, 0
+  index: -1
+goni_uniform_i_effect_05
+  rotate: true
+  xy: 614, 227
+  size: 84, 80
+  orig: 84, 80
+  offset: 0, 0
+  index: -1
+goni_uniform_i_effect_06
+  rotate: false
+  xy: 617, 155
+  size: 66, 70
+  orig: 66, 70
+  offset: 0, 0
+  index: -1
+goni_uniform_i_effect_08
+  rotate: false
+  xy: 430, 115
+  size: 65, 142
+  orig: 65, 142
+  offset: 0, 0
+  index: -1
+goni_uniform_i_effect_14
+  rotate: false
+  xy: 672, 318
+  size: 119, 55
+  orig: 119, 55
+  offset: 0, 0
+  index: -1
+goni_uniform_i_effect_15
+  rotate: false
+  xy: 2, 95
+  size: 195, 194
+  orig: 195, 194
+  offset: 0, 0
+  index: -1
+goni_uniform_lowbody_01
+  rotate: false
+  xy: 199, 113
+  size: 129, 176
+  orig: 129, 176
+  offset: 0, 0
+  index: -1
+goni_uniform_lowbody_02
+  rotate: false
+  xy: 337, 360
+  size: 156, 161
+  orig: 156, 161
+  offset: 0, 0
+  index: -1
+goni_uniform_lowbody_03
+  rotate: true
+  xy: 497, 115
+  size: 73, 55
+  orig: 73, 55
+  offset: 0, 0
+  index: -1
+goni_uniform_wepon_01
+  rotate: true
+  xy: 587, 52
+  size: 53, 60
+  orig: 53, 60
+  offset: 0, 0
+  index: -1
+goni_uniform_wepon_02
+  rotate: false
+  xy: 600, 13
+  size: 42, 37
+  orig: 42, 37
+  offset: 0, 0
+  index: -1
+uniform_effect_01
+  rotate: false
+  xy: 495, 313
+  size: 175, 59
+  orig: 175, 59
+  offset: 0, 0
+  index: -1
+uniform_effect_02
+  rotate: false
+  xy: 337, 259
+  size: 155, 99
+  orig: 155, 99
+  offset: 0, 0
+  index: -1
+uniform_effect_03
+  rotate: false
+  xy: 497, 190
+  size: 115, 121
+  orig: 115, 121
+  offset: 0, 0
+  index: -1
+uniform_effect_04
+  rotate: false
+  xy: 204, 12
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1

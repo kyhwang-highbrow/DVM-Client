@@ -112,7 +112,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'mailInfoLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
 				text = '보상 아이템은 우편함에서 받으실 수 있습니다.';

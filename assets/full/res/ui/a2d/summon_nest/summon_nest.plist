@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>summon_eggnest_01.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{536,236}</string>
+                <key>spriteSourceSize</key>
+                <string>{536,236}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{536,236}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>summon_nest.png</string>
+            <key>size</key>
+            <string>{538,238}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:1e4014e3e62820ffb5898bdeea0b8919:82d0a9752ca0944b32c19547e78a10f0:44a35cea23c0692d6683ea39edc9bc16$</string>
+            <key>textureFileName</key>
+            <string>summon_nest.png</string>
+        </dict>
+    </dict>
+</plist>

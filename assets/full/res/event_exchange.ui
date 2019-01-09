@@ -15,7 +15,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 930;
-				height = 1700;
+				height = 1840;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -35,13 +35,53 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 11.000000;
-				y = -148.000000;
+				x = 0.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 461;
-				height = 50;
+				width = 900;
+				height = 90;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 55;
+				text = '산타 모자를 찾아라!';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 234; 0; };
+				opacity = 255;
+				dimension_width = 900;
+				dimension_height = 90;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = false;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = true;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 100;
+				shadow_direction = 0;
+				shadow_distance = 7.000000;
+			};
+			[3] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -238.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 550;
+				height = 45;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -50,54 +90,14 @@
 				visible = true;
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
+				font_size = 23;
 				text = 'timeLabel';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 192; 255; 255; };
+				color = { 0; 255; 96; };
 				opacity = 255;
-				dimension_width = 461;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[3] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 20.000000;
-				y = -202.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 298;
-				height = 58;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'numberLabel1';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 36;
-				text = '';
-				h_alignment = 2;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 298;
-				dimension_height = 58;
+				dimension_width = 550;
+				dimension_height = 45;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -115,13 +115,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -130.000000;
-				y = 648.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.000000; 0.500000; };
+				x = 0.000000;
+				y = -207.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 140;
-				height = 58;
+				width = 860;
+				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -130,14 +130,14 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
-				text = '획득한 축구공';
-				h_alignment = 0;
+				font_size = 24;
+				text = '게임을 플레이하고 아이템을 모아보세요.';
+				h_alignment = 1;
 				v_alignment = 1;
-				color = { 237; 212; 157; };
+				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 140;
-				dimension_height = 58;
+				dimension_width = 860;
+				dimension_height = 70;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -154,9 +154,129 @@
 			[5] =
 			{
 				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -166.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 860;
+				height = 70;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 26;
+				text = '산타 모자 수집 이벤트';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 85; };
+				opacity = 255;
+				dimension_width = 860;
+				dimension_height = 70;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[6] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 37.000000;
+				y = -290.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 298;
+				height = 58;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'numberLabel1';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 35;
+				text = '';
+				h_alignment = 2;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 298;
+				dimension_height = 58;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[7] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = -149.000000;
+				y = 628.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 232;
+				height = 58;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 23;
+				text = '획득한 산타 모자';
+				h_alignment = 0;
+				v_alignment = 1;
+				color = { 255; 255; 164; };
+				opacity = 255;
+				dimension_width = 232;
+				dimension_height = 58;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[8] =
+			{
+				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 0.000000;
-				y = 598.000000;
+				y = 569.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -191,7 +311,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[6] =
+			[9] =
 			{
 				[1] =
 				{
@@ -236,12 +356,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -300.000000;
+				y = -405.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 400;
-				height = 60;
+				height = 65;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -255,19 +375,19 @@
 				disable = '';
 				image_type = 1;
 			};
-			[7] =
+			[10] =
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -196.000000;
-				y = -88.000000;
+				x = -199.000000;
+				y = -150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 150;
 				height = 150;
-				scale_x = 0.900000;
-				scale_y = 0.900000;
+				scale_x = 0.750000;
+				scale_y = 0.750000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -281,19 +401,19 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[8] =
+			[11] =
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -196.000000;
-				y = 650.000000;
+				x = -199.000000;
+				y = 627.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 150;
 				height = 150;
-				scale_x = 0.900000;
-				scale_y = 0.900000;
+				scale_x = 0.750000;
+				scale_y = 0.750000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -307,12 +427,12 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[9] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -334.000000;
-				y = -607.000000;
+				y = -737.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -335,24 +455,24 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
+				stroke_color = { 34; 124; 78; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 34; 124; 78; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[10] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -234.000000;
-				y = -607.000000;
+				y = -737.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -375,24 +495,24 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
+				stroke_color = { 34; 124; 78; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 34; 124; 78; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[11] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -134.000000;
-				y = -607.000000;
+				y = -737.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -415,24 +535,24 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
+				stroke_color = { 34; 124; 78; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 34; 124; 78; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[12] =
+			[15] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 134.000000;
-				y = -607.000000;
+				x = 135.000000;
+				y = -737.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -455,24 +575,24 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
+				stroke_color = { 34; 124; 78; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 34; 124; 78; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[13] =
+			[16] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 235.000000;
-				y = -607.000000;
+				y = -737.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -495,24 +615,24 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
+				stroke_color = { 34; 124; 78; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 34; 124; 78; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[14] =
+			[17] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 335.000000;
-				y = -607.000000;
+				y = -737.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -535,19 +655,19 @@
 				dimension_width = 100;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
+				stroke_color = { 34; 124; 78; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
+				shadow_color = { 34; 124; 78; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[15] =
+			[18] =
 			{
 				[1] =
 				{
@@ -596,11 +716,11 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 16.000000;
-						y = 0.000000;
+						y = -1.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 94;
+						width = 111;
 						height = 50;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -611,12 +731,12 @@
 						lua_name = 'boxLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 28;
-						text = '{1}';
+						text = '';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 94;
+						dimension_width = 111;
 						dimension_height = 50;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -635,15 +755,15 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = -66.000000;
-						y = 2.000000;
+						x = -62.000000;
+						y = 1.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 150;
 						height = 150;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
@@ -684,12 +804,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -670.000000;
+				y = -808.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 400;
-				height = 60;
+				height = 65;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -703,12 +823,12 @@
 				disable = 'ui/buttons/base_btn_0102.png';
 				image_type = 1;
 			};
-			[16] =
+			[19] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
 				x = -2.000000;
-				y = -218.000000;
+				y = -287.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -733,12 +853,12 @@
 				mid_point_y = 0.000000;
 				percentage = 100;
 			};
-			[17] =
+			[20] =
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
 				x = -2.000000;
-				y = -537.000000;
+				y = -606.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -763,12 +883,12 @@
 				mid_point_y = 0.000000;
 				percentage = 100;
 			};
-			[18] =
+			[21] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 20.000000;
-				y = -90.000000;
+				x = 41.000000;
+				y = -147.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -782,7 +902,7 @@
 				visible = true;
 				lua_name = 'numberLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 36;
+				font_size = 35;
 				text = '';
 				h_alignment = 2;
 				v_alignment = 1;
@@ -791,7 +911,7 @@
 				dimension_width = 298;
 				dimension_height = 58;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -803,16 +923,16 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[19] =
+			[22] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -130.000000;
-				y = -90.000000;
+				x = -147.000000;
+				y = -147.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 140;
+				width = 175;
 				height = 58;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -822,16 +942,16 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
-				text = '누적 축구공';
+				font_size = 23;
+				text = '누적 산타 모자';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 237; 212; 157; };
+				color = { 255; 255; 164; };
 				opacity = 255;
-				dimension_width = 140;
+				dimension_width = 175;
 				dimension_height = 58;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -843,12 +963,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[20] =
+			[23] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -374.000000;
-				y = -293.000000;
+				y = -361.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -862,12 +982,12 @@
 				visible = true;
 				lua_name = 'itemNode1';
 			};
-			[21] =
+			[24] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -225.000000;
-				y = -293.000000;
+				y = -361.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -881,12 +1001,12 @@
 				visible = true;
 				lua_name = 'itemNode2';
 			};
-			[22] =
+			[25] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -76.000000;
-				y = -293.000000;
+				y = -361.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -900,12 +1020,12 @@
 				visible = true;
 				lua_name = 'itemNode3';
 			};
-			[23] =
+			[26] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 73.000000;
-				y = -293.000000;
+				y = -361.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -919,12 +1039,12 @@
 				visible = true;
 				lua_name = 'itemNode4';
 			};
-			[24] =
+			[27] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 222.000000;
-				y = -293.000000;
+				y = -361.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -938,12 +1058,12 @@
 				visible = true;
 				lua_name = 'itemNode5';
 			};
-			[25] =
+			[28] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 371.000000;
-				y = -293.000000;
+				y = -361.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -957,12 +1077,12 @@
 				visible = true;
 				lua_name = 'itemNode6';
 			};
-			[26] =
+			[29] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -374.000000;
-				y = -612.000000;
+				y = -680.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -976,12 +1096,12 @@
 				visible = true;
 				lua_name = 'itemNode7';
 			};
-			[27] =
+			[30] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -225.000000;
-				y = -612.000000;
+				y = -680.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -995,12 +1115,12 @@
 				visible = true;
 				lua_name = 'itemNode8';
 			};
-			[28] =
+			[31] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = -76.000000;
-				y = -612.000000;
+				y = -680.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1014,12 +1134,12 @@
 				visible = true;
 				lua_name = 'itemNode9';
 			};
-			[29] =
+			[32] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 73.000000;
-				y = -612.000000;
+				y = -680.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1033,12 +1153,12 @@
 				visible = true;
 				lua_name = 'itemNode10';
 			};
-			[30] =
+			[33] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 222.000000;
-				y = -612.000000;
+				y = -680.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1052,12 +1172,12 @@
 				visible = true;
 				lua_name = 'itemNode11';
 			};
-			[31] =
+			[34] =
 			{
 				type = 'Node';
 				ui_name = '';
 				x = 371.000000;
-				y = -612.000000;
+				y = -680.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1071,7 +1191,52 @@
 				visible = true;
 				lua_name = 'itemNode12';
 			};
-			[32] =
+			[35] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 1.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 900;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = '';
+					file_name = 'ui/typo/ko/1st_anniversary_title.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = 3.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 1.000000; };
+				relative_size_type = 0;
+				width = 900;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.850000;
+				skew_y = 0.850000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'titleNode';
+			};
+			[36] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -1087,7 +1252,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
@@ -1111,172 +1276,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[33] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 12.000000;
-				y = -100.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 820;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 60;
-				text = '축구공 이벤트';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 215; 0; };
-				opacity = 255;
-				dimension_width = 820;
-				dimension_height = 80;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = false;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[34] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 12.000000;
-				y = -404.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 820;
-				height = 80;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 50;
-				text = '선물 상자';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 0; 0; 0; };
-				opacity = 255;
-				dimension_width = 820;
-				dimension_height = 80;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[35] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 12.000000;
-				y = -449.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 820;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
-				text = '획득한 축구공을 사용해 선물상자와 교환할 수 있어요.';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 0; 0; 0; };
-				opacity = 255;
-				dimension_width = 820;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[36] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 12.000000;
-				y = -478.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 820;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '아래의 보상중 하나를 획득할 수 있습니다.';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 165; 42; 0; };
-				opacity = 255;
-				dimension_width = 820;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
 			[37] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 12.000000;
-				y = -802.000000;
+				x = 0.000000;
+				y = -534.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1290,11 +1295,11 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 50;
-				text = '누적 축구공 보상';
+				font_size = 45;
+				text = '선물 상자';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 28; 94; 72; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 80;
@@ -1315,8 +1320,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 12.000000;
-				y = -847.000000;
+				x = 0.000000;
+				y = -581.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1331,10 +1336,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '선물상자 교환에 사용한 축구공의 누적 사용량에 따라 보상을 획득할 수 있어요.';
+				text = '획득한 산타 모자를 사용해 선물상자와 교환할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 28; 94; 72; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1356,7 +1361,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 12.000000;
-				y = -876.000000;
+				y = -610.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1370,7 +1375,127 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 21;
+				text = '아래의 보상중 하나를 획득할 수 있습니다.';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 79; 79; };
+				opacity = 255;
+				dimension_width = 820;
+				dimension_height = 50;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[40] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -927.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 820;
+				height = 80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 45;
+				text = '누적 산타 모자 보상';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 246; 255; 0; };
+				opacity = 255;
+				dimension_width = 820;
+				dimension_height = 80;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = false;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[41] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -970.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 820;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 21;
+				text = '선물상자 교환에 사용한 산타 모자의 누적 사용량에 따라 보상을 획득할 수 있어요.';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 820;
+				dimension_height = 50;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[42] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -997.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 820;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 21;
 				text = '누적 보상은 최초 1회만 획득 가능합니다.';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -1399,7 +1524,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 930;
-			height = 1700;
+			height = 1840;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -1416,7 +1541,7 @@
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
 		width = -350;
-		height = 980;
+		height = 1120;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;

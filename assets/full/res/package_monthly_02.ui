@@ -9,15 +9,41 @@
 			{
 				[1] =
 				{
-					type = 'LabelTTF';
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 930;
+						height = 640;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/package/bg_monthly_02.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'ClippingNode';
 					ui_name = '';
 					x = 0.000000;
-					y = -70.000000;
-					dock_point = { 0.500000; 1.000000; };
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 821;
-					height = 104;
+					width = 926;
+					height = 636;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -25,29 +51,12 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 45;
-					text = '월간 환상 패키지';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 215; 0; };
-					opacity = 255;
-					dimension_width = 821;
-					dimension_height = 104;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = true;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
 				};
-				type = 'Sprite';
+				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
 				y = 0.000000;
@@ -63,22 +72,66 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/package/bg_monthly_02.png';
+				file_name = 'ui/frames/base_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			[2] =
+			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/package_montly_02/bg_montly_03.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;idle';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				type = 'Node';
+				ui_name = 'bg_visual';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+			};
+			[3] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
+					y = -6.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
@@ -92,7 +145,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 17;
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -101,7 +154,7 @@
 					dimension_width = 700;
 					dimension_height = 50;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -135,7 +188,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -161,7 +214,7 @@
 					type = 'LabelTTF';
 					ui_name = 'rich';
 					x = 0.000000;
-					y = -4.000000;
+					y = -9.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
@@ -175,7 +228,7 @@
 					visible = true;
 					lua_name = 'buyLabel1';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 19;
 					text = 'buyLabel1';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -215,7 +268,7 @@
 					visible = true;
 					lua_name = 'priceLabel1';
 					font_name = 'Helvetica';
-					font_size = 30;
+					font_size = 26;
 					text = 'price';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -226,13 +279,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -310.000000;
-				y = -208.000000;
+				x = -298.000000;
+				y = -233.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 260;
-				height = 70;
+				width = 230;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -246,7 +299,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -272,7 +325,7 @@
 					type = 'LabelTTF';
 					ui_name = 'rich';
 					x = 0.000000;
-					y = -4.000000;
+					y = -9.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
@@ -286,7 +339,7 @@
 					visible = true;
 					lua_name = 'buyLabel2';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 19;
 					text = 'buyLabel2';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -326,7 +379,7 @@
 					visible = true;
 					lua_name = 'priceLabel2';
 					font_name = 'Helvetica';
-					font_size = 30;
+					font_size = 26;
 					text = 'price';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -338,12 +391,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -208.000000;
+				y = -233.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 260;
-				height = 70;
+				width = 230;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -357,7 +410,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -383,7 +436,7 @@
 					type = 'LabelTTF';
 					ui_name = 'rich';
 					x = 0.000000;
-					y = -4.000000;
+					y = -9.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
@@ -397,7 +450,7 @@
 					visible = true;
 					lua_name = 'buyLabel3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 19;
 					text = 'buyLabel3';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -437,7 +490,7 @@
 					visible = true;
 					lua_name = 'priceLabel3';
 					font_name = 'Helvetica';
-					font_size = 30;
+					font_size = 26;
 					text = 'price';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -448,13 +501,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 310.000000;
-				y = -208.000000;
+				x = 298.000000;
+				y = -233.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 260;
-				height = 70;
+				width = 230;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -468,7 +521,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -492,16 +545,16 @@
 				disable = '';
 				image_type = 0;
 			};
-			[7] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -310.000000;
-				y = -70.000000;
+				x = -298.000000;
+				y = -110.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 280;
+				width = 250;
 				height = 150;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -517,47 +570,7 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 280;
-				dimension_height = 150;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[8] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = -70.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 280;
-				height = 150;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'itemLabel2';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
-				text = 'itemLabel2';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 255; };
-				opacity = 255;
-				dimension_width = 280;
+				dimension_width = 250;
 				dimension_height = 150;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -576,12 +589,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 310.000000;
-				y = -70.000000;
+				x = 0.000000;
+				y = -110.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 280;
+				width = 250;
 				height = 150;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -589,15 +602,15 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'itemLabel3';
+				lua_name = 'itemLabel2';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = 'itemLabel3';
+				text = 'itemLabel2';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 280;
+				dimension_width = 250;
 				dimension_height = 150;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -614,69 +627,43 @@
 			};
 			[10] =
 			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 390;
-					height = 60;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
-					text = '구매 완료';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 215; 0; };
-					opacity = 255;
-					dimension_width = 390;
-					dimension_height = 60;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = false;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				type = 'Scale9Sprite';
+				type = 'LabelTTF';
 				ui_name = '';
-				x = -300.000000;
-				y = -208.000000;
+				x = 298.000000;
+				y = -110.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 260;
-				height = 70;
+				width = 250;
+				height = 150;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
-				lua_name = 'completeNode1';
-				file_name = 'ui/buttons/base_btn_0102.png';
+				visible = true;
+				lua_name = 'itemLabel3';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 22;
+				text = 'itemLabel3';
+				h_alignment = 1;
+				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
+				dimension_width = 250;
+				dimension_height = 150;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
 			};
 			[11] =
 			{
@@ -699,7 +686,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 24;
 					text = '구매 완료';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -722,20 +709,20 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 0.000000;
-				y = -208.000000;
+				x = -298.000000;
+				y = -233.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 260;
-				height = 70;
+				width = 230;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = false;
-				lua_name = 'completeNode2';
+				lua_name = 'completeNode1';
 				file_name = 'ui/buttons/base_btn_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -765,7 +752,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 24;
 					text = '구매 완료';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -788,13 +775,79 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 300.000000;
-				y = -208.000000;
+				x = 0.000000;
+				y = -233.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 260;
-				height = 70;
+				width = 230;
+				height = 60;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'completeNode2';
+				file_name = 'ui/buttons/base_btn_0102.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[13] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 390;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '구매 완료';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 215; 0; };
+					opacity = 255;
+					dimension_width = 390;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 85; 44; 25; };
+					has_shadow = false;
+					shadow_color = { 85; 44; 25; };
+					shadow_opacity = 150;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 298.000000;
+				y = -233.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -809,6 +862,90 @@
 				center_rect_y = 0;
 				center_rect_width = 0;
 				center_rect_height = 0;
+			};
+			[14] =
+			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 0.500000;
+					scale_y = 0.300000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/dragon_upgrade_fx/dragon_upgrade_fx.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;bottom_idle';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = -17.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 1.000000; };
+				relative_size_type = 0;
+				width = 97;
+				height = 100;
+				scale_x = 0.500000;
+				scale_y = 0.600000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = '';
+			};
+			[15] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -48.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 750;
+				height = 70;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 45;
+				text = '월간 환상 패키지';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 215; 0; };
+				opacity = 255;
+				dimension_width = 750;
+				dimension_height = 70;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
 			};
 			type = 'Menu';
 			ui_name = '';

@@ -99,7 +99,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -200.000000;
+				x = -300.000000;
 				y = -120.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -163,7 +163,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
+				x = -100.000000;
 				y = -120.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -227,7 +227,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 200.000000;
+				x = 100.000000;
 				y = -120.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -249,6 +249,70 @@
 			};
 			[6] =
 			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 200;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'hellFireLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 28;
+					text = '불지옥';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 200;
+					dimension_height = 60;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 300.000000;
+				y = -120.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 200;
+				height = 60;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'hellFireBtn';
+				enable = true;
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0103.png';
+				image_type = 1;
+			};
+			[7] =
+			{
 				type = 'Node';
 				ui_name = '';
 				x = -300.000000;
@@ -266,7 +330,7 @@
 				visible = true;
 				lua_name = 'chapterNode1';
 			};
-			[7] =
+			[8] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -285,7 +349,7 @@
 				visible = true;
 				lua_name = 'chapterNode2';
 			};
-			[8] =
+			[9] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -304,7 +368,7 @@
 				visible = true;
 				lua_name = 'chapterNode3';
 			};
-			[9] =
+			[10] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -323,7 +387,7 @@
 				visible = true;
 				lua_name = 'chapterNode4';
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -342,7 +406,7 @@
 				visible = true;
 				lua_name = 'chapterNode5';
 			};
-			[11] =
+			[12] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -361,7 +425,7 @@
 				visible = true;
 				lua_name = 'chapterNode6';
 			};
-			[12] =
+			[13] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -380,7 +444,7 @@
 				visible = true;
 				lua_name = 'chapterNode7';
 			};
-			[13] =
+			[14] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -399,7 +463,7 @@
 				visible = true;
 				lua_name = 'chapterNode8';
 			};
-			[14] =
+			[15] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -418,7 +482,7 @@
 				visible = true;
 				lua_name = 'chapterNode9';
 			};
-			[15] =
+			[16] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -437,7 +501,7 @@
 				visible = true;
 				lua_name = 'chapterNode10';
 			};
-			[16] =
+			[17] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -456,7 +520,7 @@
 				visible = true;
 				lua_name = 'chapterNode11';
 			};
-			[17] =
+			[18] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -475,7 +539,7 @@
 				visible = true;
 				lua_name = 'chapterNode12';
 			};
-			[18] =
+			[19] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';

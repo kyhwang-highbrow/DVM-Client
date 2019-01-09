@@ -2218,12 +2218,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -86.000000;
+				x = -61.000000;
 				y = -148.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 342;
+				width = 292;
 				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -2239,6 +2239,30 @@
 				image_type = 1;
 			};
 			[4] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -231.000000;
+				y = -148.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 42;
+				height = 42;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'runeInfoBtn2';
+				enable = true;
+				normal = 'ui/buttons/42_info_0101.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[5] =
 			{
 				[1] =
 				{
@@ -2302,7 +2326,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -2352,7 +2376,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -2378,7 +2402,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[7] =
+			[8] =
 			{
 				[1] =
 				{

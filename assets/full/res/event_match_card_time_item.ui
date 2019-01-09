@@ -14,8 +14,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
-				width = 0;
-				height = 0;
+				width = 95;
+				height = 10;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -37,8 +37,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
-				width = 0;
-				height = 0;
+				width = 95;
+				height = 10;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -59,11 +59,11 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 29.000000;
+				y = 32.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 150;
+				width = 230;
 				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -79,7 +79,7 @@
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 150;
+				dimension_width = 230;
 				dimension_height = 70;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -105,7 +105,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 120;
+					width = 200;
 					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -121,7 +121,7 @@
 					v_alignment = 1;
 					color = { 0; 0; 0; };
 					opacity = 255;
-					dimension_width = 120;
+					dimension_width = 200;
 					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -139,11 +139,11 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = 36.000000;
+				y = 31.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 130;
+				width = 220;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -171,7 +171,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 130;
+						width = 200;
 						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -187,7 +187,7 @@
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 130;
+						dimension_width = 200;
 						dimension_height = 60;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -209,7 +209,7 @@
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 130;
+					width = 220;
 					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -233,8 +233,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
-				width = 0;
-				height = 0;
+				width = 95;
+				height = 10;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -263,7 +263,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 130;
+						width = 220;
 						height = 64;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -279,7 +279,7 @@
 						v_alignment = 1;
 						color = { 255; 215; 0; };
 						opacity = 255;
-						dimension_width = 130;
+						dimension_width = 220;
 						dimension_height = 64;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -301,7 +301,7 @@
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 130;
+					width = 220;
 					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -377,8 +377,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
-				width = 0;
-				height = 0;
+				width = 95;
+				height = 10;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

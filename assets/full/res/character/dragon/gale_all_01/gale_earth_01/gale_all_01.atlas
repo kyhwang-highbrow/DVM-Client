@@ -1,0 +1,314 @@
+
+gale_all_01.png
+size: 1851,915
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+gale_all_01_all_turn_01
+  rotate: false
+  xy: 413, 542
+  size: 372, 371
+  orig: 372, 371
+  offset: 0, 0
+  index: -1
+gale_all_01_arm_1a
+  rotate: false
+  xy: 236, 5
+  size: 50, 38
+  orig: 50, 38
+  offset: 0, 0
+  index: -1
+gale_all_01_arm_2b
+  rotate: true
+  xy: 288, 2
+  size: 41, 32
+  orig: 41, 32
+  offset: 0, 0
+  index: -1
+gale_all_01_body_1
+  rotate: false
+  xy: 323, 149
+  size: 79, 101
+  orig: 79, 101
+  offset: 0, 0
+  index: -1
+gale_all_01_ear_1
+  rotate: true
+  xy: 734, 286
+  size: 61, 43
+  orig: 61, 43
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_attack_1
+  rotate: true
+  xy: 1789, 293
+  size: 301, 58
+  orig: 301, 58
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_attack_2
+  rotate: true
+  xy: 404, 19
+  size: 165, 167
+  orig: 165, 167
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_attack_3
+  rotate: false
+  xy: 1347, 129
+  size: 117, 117
+  orig: 117, 117
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_heart_1
+  rotate: false
+  xy: 322, 80
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light
+  rotate: true
+  xy: 734, 415
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_1
+  rotate: true
+  xy: 323, 340
+  size: 87, 86
+  orig: 87, 86
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_10
+  rotate: false
+  xy: 1480, 276
+  size: 307, 318
+  orig: 307, 318
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_11
+  rotate: true
+  xy: 1129, 42
+  size: 204, 216
+  orig: 204, 216
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_2
+  rotate: false
+  xy: 323, 252
+  size: 84, 86
+  orig: 84, 86
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_3_1
+  rotate: true
+  xy: 787, 570
+  size: 343, 344
+  orig: 343, 344
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_3_2
+  rotate: false
+  xy: 2, 534
+  size: 409, 379
+  orig: 409, 379
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_3_3
+  rotate: false
+  xy: 1133, 569
+  size: 343, 344
+  orig: 343, 344
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_6
+  rotate: false
+  xy: 323, 429
+  size: 87, 103
+  orig: 87, 103
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_7
+  rotate: false
+  xy: 1794, 236
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_light_8
+  rotate: false
+  xy: 787, 224
+  size: 340, 344
+  orig: 340, 344
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_skill_01
+  rotate: false
+  xy: 2, 5
+  size: 188, 171
+  orig: 188, 171
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_skill_02
+  rotate: false
+  xy: 779, 27
+  size: 244, 195
+  orig: 244, 195
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_skill_03
+  rotate: false
+  xy: 1480, 24
+  size: 312, 250
+  orig: 312, 250
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_skill_04
+  rotate: false
+  xy: 1478, 596
+  size: 323, 317
+  orig: 323, 317
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_skill_05
+  rotate: false
+  xy: 1129, 248
+  size: 349, 319
+  orig: 349, 319
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_skill_06
+  rotate: true
+  xy: 413, 186
+  size: 354, 319
+  orig: 354, 319
+  offset: 0, 0
+  index: -1
+gale_all_01_effect_skill_07
+  rotate: true
+  xy: 2, 178
+  size: 354, 319
+  orig: 354, 319
+  offset: 0, 0
+  index: -1
+gale_all_01_eye_1
+  rotate: false
+  xy: 1794, 16
+  size: 42, 33
+  orig: 42, 33
+  offset: 0, 0
+  index: -1
+gale_all_01_eye_2
+  rotate: true
+  xy: 1803, 871
+  size: 42, 33
+  orig: 42, 33
+  offset: 0, 0
+  index: -1
+gale_all_01_eye_3
+  rotate: true
+  xy: 1803, 825
+  size: 44, 32
+  orig: 44, 32
+  offset: 0, 0
+  index: -1
+gale_all_01_head_1
+  rotate: false
+  xy: 192, 45
+  size: 128, 131
+  orig: 128, 131
+  offset: 0, 0
+  index: -1
+gale_all_01_leg_1a
+  rotate: false
+  xy: 734, 349
+  size: 46, 64
+  orig: 46, 64
+  offset: 0, 0
+  index: -1
+gale_all_01_leg_2a
+  rotate: false
+  xy: 734, 229
+  size: 43, 55
+  orig: 43, 55
+  offset: 0, 0
+  index: -1
+gale_all_01_leg_3b
+  rotate: false
+  xy: 322, 23
+  size: 56, 55
+  orig: 56, 55
+  offset: 0, 0
+  index: -1
+gale_all_01_leg_4b
+  rotate: false
+  xy: 1794, 91
+  size: 37, 41
+  orig: 37, 41
+  offset: 0, 0
+  index: -1
+gale_all_01_mouth_1
+  rotate: true
+  xy: 1794, 51
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: -1
+gale_all_01_neck_1
+  rotate: false
+  xy: 734, 172
+  size: 43, 55
+  orig: 43, 55
+  offset: 0, 0
+  index: -1
+gale_all_01_neck_2
+  rotate: false
+  xy: 1794, 134
+  size: 37, 52
+  orig: 37, 52
+  offset: 0, 0
+  index: -1
+gale_all_01_neckligjt_2_01
+  rotate: true
+  xy: 1347, 24
+  size: 103, 105
+  orig: 103, 105
+  offset: 0, 0
+  index: -1
+gale_all_01_shoulder_1a
+  rotate: false
+  xy: 192, 3
+  size: 42, 40
+  orig: 42, 40
+  offset: 0, 0
+  index: -1
+gale_all_01_shoulder_2b
+  rotate: false
+  xy: 1794, 188
+  size: 38, 46
+  orig: 38, 46
+  offset: 0, 0
+  index: -1
+gale_all_01_tail_1
+  rotate: false
+  xy: 573, 29
+  size: 92, 155
+  orig: 92, 155
+  offset: 0, 0
+  index: -1
+gale_all_01_wing_1
+  rotate: true
+  xy: 667, 62
+  size: 122, 64
+  orig: 122, 64
+  offset: 0, 0
+  index: -1
+gale_all_01_wing_2
+  rotate: false
+  xy: 734, 475
+  size: 51, 65
+  orig: 51, 65
+  offset: 0, 0
+  index: -1

@@ -67,7 +67,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'stagePathSprite';
 				file_name = 'ui/icons/adventure_map/stage_line.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -77,6 +77,32 @@
 				dest_blend = 771;
 			};
 			[4] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -94.000000;
+				y = 31.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 818;
+				height = 525;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'adventStagePathSprite';
+				file_name = 'ui/icons/adventure_map/advent_stage_line.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[5] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -95,7 +121,7 @@
 				visible = true;
 				lua_name = 'stageDock01';
 			};
-			[5] =
+			[6] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -114,7 +140,7 @@
 				visible = true;
 				lua_name = 'stageDock03';
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -133,7 +159,7 @@
 				visible = true;
 				lua_name = 'stageDock02';
 			};
-			[7] =
+			[8] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -152,7 +178,7 @@
 				visible = true;
 				lua_name = 'stageDock05';
 			};
-			[8] =
+			[9] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -171,7 +197,7 @@
 				visible = true;
 				lua_name = 'stageDock04';
 			};
-			[9] =
+			[10] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -190,7 +216,7 @@
 				visible = true;
 				lua_name = 'stageDock06';
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -209,31 +235,12 @@
 				visible = true;
 				lua_name = 'stageDock07';
 			};
-			[11] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 456.000000;
-				y = 80.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 150;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'stageDock09';
-			};
 			[12] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 313.000000;
-				y = -54.000000;
+				x = -99.000000;
+				y = -170.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -244,15 +251,15 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
-				lua_name = 'stageDock08';
+				visible = true;
+				lua_name = 'adventStageDock01';
 			};
 			[13] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 316.000000;
-				y = 156.000000;
+				x = -226.000000;
+				y = 125.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -263,15 +270,15 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
-				lua_name = 'stageDock10';
+				visible = true;
+				lua_name = 'adventStageDock02';
 			};
 			[14] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 173.000000;
-				y = 69.000000;
+				x = 276.000000;
+				y = -9.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -282,29 +289,10 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
-				lua_name = 'stageDock11';
+				visible = true;
+				lua_name = 'adventStageDock03';
 			};
 			[15] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 27.000000;
-				y = -6.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 150;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'stageDock12';
-			};
-			[16] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -328,7 +316,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[17] =
+			[16] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -352,7 +340,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[18] =
+			[17] =
 			{
 				type = 'LayerColor';
 				ui_name = '';
@@ -375,15 +363,55 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[19] =
+			[18] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
+					y = -63.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 690;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'timeLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = 'eventTimeLabel';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 60; 179; 113; };
+					opacity = 255;
+					dimension_width = 690;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -21.000000;
+					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 690;
@@ -397,7 +425,7 @@
 					lua_name = 'titleLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 34;
-					text = '{0}.titleLabel';
+					text = 'titleLabel';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 243; 236; 225; };
@@ -420,9 +448,9 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -108.000000;
+				y = -87.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
 				width = 550;
 				height = 42;
@@ -432,7 +460,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'titleFrameSprite';
 				file_name = 'ui/frames/temp/result_status_bg.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -441,7 +469,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[20] =
+			[19] =
 			{
 				[1] =
 				{
@@ -516,7 +544,7 @@
 				visible = true;
 				lua_name = 'achieveBtnMenu';
 			};
-			[21] =
+			[20] =
 			{
 				[1] =
 				{
@@ -751,7 +779,7 @@
 				visible = true;
 				lua_name = 'hotTimeMenu';
 			};
-			[22] =
+			[21] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -794,63 +822,6 @@
 			lua_name = '';
 		};
 		[2] =
-		{
-			[1] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = -368.000000;
-				y = -70.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 238;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'stc_stageBtn2';
-			};
-			[2] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = -482.000000;
-				y = 88.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 238;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'stc_stageBtn';
-			};
-			type = 'Node';
-			ui_name = 'tutorial';
-			x = 0.000000;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			lua_name = '';
-		};
-		[3] =
 		{
 			[1] =
 			{
@@ -914,7 +885,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[4] =
+		[3] =
 		{
 			[1] =
 			{
@@ -1004,14 +975,14 @@
 			disable = 'ui/buttons/base_btn_0102.png';
 			image_type = 1;
 		};
-		[5] =
+		[4] =
 		{
 			type = 'LabelTTF';
 			ui_name = '';
-			x = -10.000000;
-			y = 59.000000;
+			x = -110.000000;
+			y = 74.000000;
 			dock_point = { 1.000000; 0.000000; };
-			anchor_point = { 1.000000; 0.000000; };
+			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 200;
 			height = 30;
@@ -1044,7 +1015,7 @@
 			shadow_direction = 0;
 			shadow_distance = 3.000000;
 		};
-		[6] =
+		[5] =
 		{
 			[1] =
 			{
@@ -1108,7 +1079,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[7] =
+		[6] =
 		{
 			[1] =
 			{
@@ -1171,6 +1142,234 @@
 			selected = 'ui/buttons/base_btn_0102.png';
 			disable = '';
 			image_type = 1;
+		};
+		[7] =
+		{
+			[1] =
+			{
+				type = 'SocketNode';
+				socket_name = 'cut';
+			};
+			[2] =
+			{
+				type = 'SocketNode';
+				socket_name = 'egg';
+			};
+			type = 'Visual';
+			ui_name = '';
+			x = -121.000000;
+			y = -160.000000;
+			dock_point = { 1.000000; 1.000000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 0.200000;
+			scale_y = 0.200000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			action_type = 5;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.400000;
+			lua_name = 'adventBtnVisual';
+			file_name = 'ui/a2d/summon/summon.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;bottom_idle_04';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[8] =
+		{
+			[1] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -60.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 166;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 28;
+				text = '깜짝 출현 챕터';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 0; };
+				opacity = 255;
+				dimension_width = 230;
+				dimension_height = 166;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 100;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = -121.000000;
+			y = -160.000000;
+			dock_point = { 1.000000; 1.000000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 140;
+			height = 140;
+			scale_x = 0.700000;
+			scale_y = 0.700000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			action_type = 5;
+			action_delay_1 = 0.000000;
+			action_delay_2 = 0.000000;
+			action_duration = 0.400000;
+			lua_name = 'adventChapterBtn';
+			enable = true;
+			normal = 'ui/buttons/event_advent_btn_0101.png';
+			selected = 'ui/buttons/event_advent_btn_0102.png';
+			disable = 'ui/buttons/event_advent_btn_0102.png';
+			image_type = 0;
+		};
+		[9] =
+		{
+			[1] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -60.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 230;
+				height = 60;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 28;
+				text = '모험 챕터';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 0; };
+				opacity = 255;
+				dimension_width = 230;
+				dimension_height = 60;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 100;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = -121.000000;
+			y = -160.000000;
+			dock_point = { 1.000000; 1.000000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 140;
+			height = 140;
+			scale_x = 0.700000;
+			scale_y = 0.700000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'adventureBtn';
+			enable = true;
+			normal = 'ui/buttons/lobby_main_btn_adventure_0101.png';
+			selected = 'ui/buttons/lobby_main_btn_adventure_0102.png';
+			disable = 'ui/buttons/lobby_main_btn_adventure_0102.png';
+			image_type = 0;
+		};
+		[10] =
+		{
+			[1] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -368.000000;
+				y = -70.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 150;
+				height = 238;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_stageBtn2';
+			};
+			[2] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -482.000000;
+				y = 88.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 150;
+				height = 238;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_stageBtn';
+			};
+			type = 'Node';
+			ui_name = 'tutorial';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = '';
 		};
 		type = 'Menu';
 		ui_name = '';

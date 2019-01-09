@@ -1,0 +1,27 @@
+
+effect_billbord_light.png
+size: 392,271
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_billbord_light_1
+  rotate: true
+  xy: 2, 2
+  size: 267, 287
+  orig: 267, 287
+  offset: 0, 0
+  index: -1
+effect_billbord_light_2
+  rotate: false
+  xy: 291, 90
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+effect_billbord_light_3
+  rotate: true
+  xy: 291, 142
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1

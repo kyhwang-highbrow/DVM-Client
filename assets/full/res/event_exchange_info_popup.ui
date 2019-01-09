@@ -328,12 +328,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -270.000000;
+				x = -274.000000;
 				y = 40.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 276;
+				width = 268;
 				height = 214;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -344,12 +344,12 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '- 모험\n- 거목 던전\n- 거대용 던전\n- 악몽 던전\n- 인연 던전';
+				text = '- 모험\n- 거목 던전\n- 거대용 던전\n- 악몽 던전\n- 인연 던전\n- 고대 유적 던전\n- 룬 수호자 던전';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 276;
+				dimension_width = 268;
 				dimension_height = 214;
 				letter_spacing = 0.000000;
 				has_stroke = false;

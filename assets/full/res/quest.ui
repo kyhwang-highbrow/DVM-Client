@@ -199,15 +199,15 @@
 				{
 					[1] =
 					{
-						type = 'Scale9Sprite';
+						type = 'Sprite';
 						ui_name = '';
 						x = 0.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 3;
-						width = 0;
-						height = 0;
+						relative_size_type = 0;
+						width = 1180;
+						height = 85;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -215,13 +215,13 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/frames/base_list_0101.png';
-						color = { 0; 0; 0; };
+						file_name = 'ui/frames/frame_double_reward.png';
+						color = { 255; 255; 255; };
 						opacity = 255;
-						center_rect_x = 0;
-						center_rect_y = 0;
-						center_rect_width = 0;
-						center_rect_height = 0;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
 					};
 					[2] =
 					{
@@ -357,12 +357,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 50.000000;
+						x = 52.000000;
 						y = -14.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 600;
+						width = 854;
 						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -373,12 +373,12 @@
 						lua_name = 'dailyQuestLabel2';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 21;
-						text = '14일간 일일 퀘스트의 모든 보상 2배';
+						text = 'dailyQuestLabel2';
 						h_alignment = 0;
 						v_alignment = 1;
-						color = { 240; 215; 159; };
+						color = { 255; 242; 183; };
 						opacity = 255;
-						dimension_width = 600;
+						dimension_width = 854;
 						dimension_height = 60;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -397,12 +397,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 50.000000;
+						x = 52.000000;
 						y = 14.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 600;
+						width = 808;
 						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -413,12 +413,12 @@
 						lua_name = 'dailyQuestLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 21;
-						text = '일일 퀘스트 보상 2배';
+						text = 'dailyQuestLabel';
 						h_alignment = 0;
 						v_alignment = 1;
-						color = { 240; 215; 159; };
+						color = { 255; 242; 183; };
 						opacity = 255;
-						dimension_width = 600;
+						dimension_width = 808;
 						dimension_height = 60;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -437,21 +437,21 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = -535.000000;
-						y = -10.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
+						x = -2.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 1.000000; };
+						anchor_point = { 0.000000; 1.000000; };
 						relative_size_type = 0;
-						width = 150;
-						height = 150;
-						scale_x = 0.700000;
-						scale_y = 0.700000;
+						width = 53;
+						height = 53;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
 						lua_name = 'bonusSprite';
-						file_name = 'ui/frames/temp/icon_bonus_bg.png';
+						file_name = 'ui/frames/ribbon_double_reward.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;

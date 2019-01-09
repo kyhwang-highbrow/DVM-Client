@@ -201,7 +201,7 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'easySprite';
 			file_name = 'ui/icons/adventure_map/stage_icon_easy.png';
 			color = { 255; 255; 255; };
@@ -265,6 +265,32 @@
 		};
 		[10] =
 		{
+			type = 'Sprite';
+			ui_name = '';
+			x = 0.000015;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 150;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'hellFireSprite';
+			file_name = 'ui/icons/adventure_map/stage_icon_hell_fire.png';
+			color = { 255; 255; 255; };
+			opacity = 255;
+			flip_x = false;
+			flip_y = false;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[11] =
+		{
 			type = 'LabelTTF';
 			ui_name = '';
 			x = 0.000000;
@@ -296,14 +322,14 @@
 			stroke_detail_level = 0;
 			is_sharp_text = true;
 			stroke_tickness = 2.000000;
-			stroke_color = { 85; 67; 51; };
+			stroke_color = { 71; 58; 45; };
 			has_shadow = false;
-			shadow_color = { 85; 67; 51; };
+			shadow_color = { 71; 58; 45; };
 			shadow_opacity = 255;
 			shadow_direction = 0;
 			shadow_distance = 3.000000;
 		};
-		[11] =
+		[12] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -327,7 +353,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[12] =
+		[13] =
 		{
 			type = 'Node';
 			ui_name = '';
