@@ -477,6 +477,29 @@ function StructProduct:makeBadgeIcon()
 end
 
 -------------------------------------
+-- function getBonusRate
+-- @breif 20190109 풀팝업 다이아 보너스율 표기에만 사용
+-- @brief 보너스율 정보가 테이블에 없어서 table_shop_cash의 badge에서 얻어옴 ex) bonus_30 의 숫자만 추출
+-- @warring 확실한 방법은 아니기 때문에 정확히 보너스율 얻을 수 있는 방법 필요
+-------------------------------------
+function StructProduct:getBonusRate()
+	local badge = self['badge']
+    local badge_value
+
+    -- 뱃지 텍스트에서 숫자 추출
+    if badge and (badge ~= '') then
+        badge_value = string.match(badge, '%d+')
+    end
+
+    if (badge_value) then
+        return badge_value
+    else
+    -- 뱃지에 숫자가 없다면 임의의 값 00을 반환(오류 방지)
+        return '00'
+    end
+end
+
+-------------------------------------
 -- function isPaymentProduct
 -------------------------------------
 function StructProduct:isPaymentProduct()

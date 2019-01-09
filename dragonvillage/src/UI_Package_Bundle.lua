@@ -127,10 +127,11 @@ function UI_Package_Bundle:refresh()
                     end
                 end
 
-                local discount_value = 30
+                local discount_value = struct_product:getBonusRate()              
                 vars['bonusLabel1']:setString(Str('다이아 {1}% 보너스 상품 판매!', discount_value))
                 vars['bonusLabel2']:setString(Str('{1}%\n보너스', discount_value))
 
+                -- 하드 코딩 수정 필요(like 다이아 보너스율)
                 if (self.m_package_name == 'event_gold_bonus') then
                     local discount_value = 50
                     vars['bonusLabel1']:setString(Str('골드 {1}% 보너스 상품 판매!', discount_value))
