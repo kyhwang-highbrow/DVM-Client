@@ -148,7 +148,6 @@ end
 -- function setCapsuleTitle
 -------------------------------------
 function StructCapsuleBox:setCapsuleTitle(title_str)
-    
     self['title'] = title_str
 end
 
@@ -156,10 +155,12 @@ end
 -- function getLegendCapsuleTitle
 -------------------------------------
 function StructCapsuleBox:getCapsuleTitle()
-    if (not self['title']) then
+    local title_str = self['title']
+    if (not title_str) then
         return ''
     end
-    return Str(self['title']) .. ' ' .. Str('캡슐')
+
+    return Str('{1} 캡슐', Str(title_str))
 end
 
 -------------------------------------

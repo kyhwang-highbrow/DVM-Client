@@ -47,7 +47,6 @@ function UI_CapsuleScheduleListItem:initUI()
     local vars = self.vars
     
     -- 캡슐 타이틀 설정
-    vars['titleHeroLabel']:setString(self:getCapsuleBoxTitle('hero'))
     vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
     
     -- 캡슐 일정 설정  
@@ -202,17 +201,12 @@ end
 -------------------------------------
 function UI_CapsuleScheduleListItem:getCapsuleBoxTitle(type)
     local schedule_data = self:getScheduleData()
-
-    if (not self.m_scheduleData['t_first_name']) then
+    local title_str = self.m_scheduleData['t_first_name']
+    if (not title_str) then
         return ''
     end
 
-    if (type == 'legend') then
-        return Str(self.m_scheduleData['t_first_name']) .. ' ' .. Str('캡슐') or ''
-    else
-        return Str(self.m_scheduleData['t_second_name']) .. ' ' .. Str('캡슐') or ''
-    end
-
+    return Str('{1} 캡슐', Str(title_str))
 end
 
 -------------------------------------
