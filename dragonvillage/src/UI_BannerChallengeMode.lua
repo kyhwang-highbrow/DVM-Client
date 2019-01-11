@@ -106,10 +106,14 @@ function UI_BannerChallengeMode:update(dt)
         vars['timeLabel']:setString('')
 
         vars['descLabel']:setString(Str('보상'))
+
+        vars['changedLabel']:setString('')
     else
         vars['timeLabel']:setString('')
 
         vars['descLabel']:setString('')
+
+        vars['changedLabel']:setString('')
     end
 end
 
