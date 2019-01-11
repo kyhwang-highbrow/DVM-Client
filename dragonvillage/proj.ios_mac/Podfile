@@ -6,11 +6,15 @@ target 'DragonVillageM iOS' do
     # use_frameworks!
 
     # Pods for DragonVillageM iOS
-
+    
     # Pods for Firebase
     pod 'Firebase/Core'
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
+
+    # Pods for Crashlytics
+    pod 'Fabric'
+    pod 'Crashlytics'
 
     ## SOCIAL
     # Pods for Google

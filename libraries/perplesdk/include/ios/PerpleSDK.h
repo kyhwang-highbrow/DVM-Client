@@ -107,6 +107,7 @@
 @class PerpleBilling;
 @class PerpleAdjust;
 @class PerpleAdMob;
+@class PerpleCrashlytics;
 
 typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 
@@ -259,6 +260,14 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) adMobLoadRequestWithId:(NSString *)adUnitId;
 - (void) adMobSetResultCallBack:(PerpleSDKCallback) callback;
 - (void) adMobShow:(NSString *)adUnitId;
+
+// @crashlytics
+- (void) crashlyticsForceCrash;
+- (void) crashlyticsSetUid:(NSString *)uid;
+- (void) crashlyticsSetLog:(NSString *)message;
+- (void) crashlyticsSetObejctValue:(id)value forKey:(NSString *)key;
+- (void) crashlyticsSetIntValue:(int)value forKey:(NSString *)key;
+- (void) crashlyticsSetBoolValue:(BOOL)value forKey:(NSString *)key;
 
 #pragma mark - Initialization
 

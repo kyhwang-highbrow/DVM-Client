@@ -46,25 +46,17 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-*/
-
-// Override to allow orientations other than the default portrait orientation.
-// This method is deprecated on iOS6.
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    if (ConfigParser::getInstance()->isLanscape()) {
-        return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-    } else {
-        return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+    if (@available(iOS 11.0, *)) {
+        [self setNeedsUpdateOfScreenEdgesDeferringSystemGestures];
+    }
+    else {
     }
 }
-#else
-// For iOS6, use supportedInterfaceOrientations & shouldAutorotate instead
+
 - (NSUInteger)supportedInterfaceOrientations{
     if (ConfigParser::getInstance()->isLandscape()) {
         return UIInterfaceOrientationMaskLandscape;
@@ -80,7 +72,6 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
         return NO;
     }
 }
-#endif
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
@@ -97,12 +88,18 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
     }
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_7_0
-// Fix not hide status on iOS7.
+
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
-#endif
+
+- (BOOL)prefersHomeIndicatorAutoHidden {
+    return YES;
+}
+
+- (UIRectEdge)preferredScreenEdgesDeferringSystemGestures {
+    return UIRectEdgeAll;
+}
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
