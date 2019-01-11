@@ -2,13 +2,23 @@
 -- table PerpleSdkManager
 -- @brief PerpleSDK의 social 기능 bridge
 -------------------------------------
-PerpleSdkManager = {}
+PerpleSdkManager = {
+    isAvailable = true
+}
+
+if (isWin32()) then
+    PerpleSdkManager.isAvailable = false
+end
+
+-- private function table
+-- 함수 사용 구조를 예쁘게 한다.
+local Crashlytics = {}
 
 -------------------------------------
 -- function twitterComposeTweet
 -------------------------------------
 function PerpleSdkManager:twitterComposeTweet(success_cb, fail_cb, cancel_cb)
-	if (CppFunctions:isWin32()) then
+	if (not self.isAvailable) then
 		return
 	end
 
@@ -97,3 +107,77 @@ function PerpleSdkManager:makeErrorPopup(info)
 	end
     MakeSimplePopup(POPUP_TYPE.OK, error_str)
 end
+
+-------------------------------------
+-- function getCrashlytics
+-- @brief PerpleSdkManager를 통해서 crashlytics에 접근하도록 한다.
+-------------------------------------
+function PerpleSdkManager.getCrashlytics()
+    return Crashlytics
+end
+
+
+
+
+-------------------------------------
+-- table Crashlytics
+-- @brief Firebase Crashlytics
+-------------------------------------
+-------------------------------------
+-- function forceCrash
+-------------------------------------
+function Crashlytics:forceCrash()
+	if (not PerpleSdkManager.isAvailable) then
+		return
+	end
+    PerpleSDK:crashlyticsForceCrash()
+end
+
+-------------------------------------
+-- function setUid
+-------------------------------------
+function Crashlytics:setUid(uid)
+	if (not PerpleSdkManager.isAvailable) then
+		return
+	end
+    PerpleSDK:crashlyticsSetUid(uid)
+end
+
+-------------------------------------
+-- function setLog
+-------------------------------------
+function Crashlytics:setLog(msg)
+	if (not PerpleSdkManager.isAvailable) then
+		return
+	end
+    PerpleSDK:crashlyticsSetLog(msg)
+end
+
+-------------------------------------
+-- function setData
+-- @param key is have to string type
+-- @param value can be string, int(not float), boolean
+-------------------------------------
+function Crashlytics:setData(key, value)
+	if (not PerpleSdkManager.isAvailable) then
+		return
+	end
+
+    if (not key) then
+        return
+    elseif (value == nil) then
+        return
+    elseif (type(key) ~= 'string') then
+        return
+    end
+
+    local value_type = type(value)
+    if (value_type == 'string') then
+        PerpleSDK:crashlyticsSetKeyString(key, value)
+    elseif (value_type == 'number') then
+        PerpleSDK:crashlyticsSetKeyInt(key, math_floor(value))
+    elseif (value_type == 'boolean') then
+        PerpleSDK:crashlyticsSetKeyBool(key, value and true or false)
+    end
+end
+
