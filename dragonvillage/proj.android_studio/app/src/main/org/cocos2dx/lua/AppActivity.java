@@ -54,11 +54,6 @@ import android.content.pm.PackageManager;
 // @app configuration
 import com.perplelab.PerpleConfig;
 
-// @crashylitics 
-import io.fabric.sdk.android.Fabric;
-import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.ndk.CrashlyticsNdk;
-
 //@perplesdk
 import com.perplelab.PerpleSDK;
 
@@ -118,48 +113,47 @@ public class AppActivity extends Cocos2dxActivity{
         // 디버그 메시지 출력
         boolean isDebug = BuildConfig.DEBUG;
 
+        PerpleSDK perpleSdkInstance = PerpleSDK.getInstance();
+
         // @perplesdk // getString(R.string.gcm_defaultSenderId) GCM is deprecated, use FCM
-        if (PerpleSDK.getInstance().initSDK(PerpleConfig.BASE64_PUBLIC_KEY, isDebug)) {
+        if (perpleSdkInstance.initSDK(PerpleConfig.BASE64_PUBLIC_KEY, isDebug)) {
 
             // firebase FCM 알림을 포그라운드 상태에서도 받고자 할 경우 true로 설정
-            PerpleSDK.getInstance().setReceivePushOnForeground(false);
+            perpleSdkInstance.setReceivePushOnForeground(false);
 
             // @google
             // default_web_client_id : auto generated from google-services.json
-            PerpleSDK.getInstance().initGoogle(getString(R.string.default_web_client_id));
+            perpleSdkInstance.initGoogle(getString(R.string.default_web_client_id));
 
             // @facebook
-            PerpleSDK.getInstance().initFacebook();
+            perpleSdkInstance.initFacebook();
 
             // @twitter
-            PerpleSDK.getInstance().initTwitter(PerpleConfig.TWITTER_CONSUMER_KEY, PerpleConfig.TWITTER_CONSUMER_SECRET);
+            perpleSdkInstance.initTwitter(PerpleConfig.TWITTER_CONSUMER_KEY, PerpleConfig.TWITTER_CONSUMER_SECRET);
         }
 
         // @adbrix
-        PerpleSDK.getInstance().initAdbrix();
+        perpleSdkInstance.initAdbrix();
 
         // @tapjoy
-        PerpleSDK.getInstance().initTapjoy(PerpleConfig.TAPJOY_SDK_KEY, "", isDebug);
+        perpleSdkInstance.initTapjoy(PerpleConfig.TAPJOY_SDK_KEY, "", isDebug);
 
         // @naver-cafe
-        PerpleSDK.getInstance().initNaverCafe(PerpleConfig.NAVER_CAFE_CLIENT_ID, PerpleConfig.NAVER_CAFE_CLIENT_SECRET, PerpleConfig.NAVER_CAFE_ID, PerpleConfig.NAVER_NEO_ID_CONSUMER_KEY, PerpleConfig.NAVER_COMMUNITY_ID);
+        perpleSdkInstance.initNaverCafe(PerpleConfig.NAVER_CAFE_CLIENT_ID, PerpleConfig.NAVER_CAFE_CLIENT_SECRET, PerpleConfig.NAVER_CAFE_ID, PerpleConfig.NAVER_NEO_ID_CONSUMER_KEY, PerpleConfig.NAVER_COMMUNITY_ID);
 
         // @adjust
-        PerpleSDK.getInstance().initAdjust(PerpleConfig.ADJUST_TOKKEN_ID, PerpleConfig.ADJUST_SECRET_KEY, isDebug);
+        perpleSdkInstance.initAdjust(PerpleConfig.ADJUST_TOKKEN_ID, PerpleConfig.ADJUST_SECRET_KEY, isDebug);
 
         // @admob
-        PerpleSDK.getInstance().initAdMob(PerpleConfig.ADMOB_APP_ID, isDebug);
+        perpleSdkInstance.initAdMob(PerpleConfig.ADMOB_APP_ID, isDebug);
 
         // @xsolla
         if (PerpleConfig.USE_XSOLLA) {
-            PerpleSDK.getInstance().initXsolla(PerpleConfig.XSOLLA_MERCHANT_ID, PerpleConfig.XSOLLA_API_KEY, PerpleConfig.XSOLLA_PROJECT_ID, PerpleConfig.XSOLLA_SECRET_KEY, isDebug);
+            perpleSdkInstance.initXsolla(PerpleConfig.XSOLLA_MERCHANT_ID, PerpleConfig.XSOLLA_API_KEY, PerpleConfig.XSOLLA_PROJECT_ID, PerpleConfig.XSOLLA_SECRET_KEY, isDebug);
         }
 
         // @crashlytics
-        Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics(), new CrashlyticsNdk())
-                .build();
-        Fabric.with(fabric);
+        perpleSdkInstance.initCrashlytics();
     }
 
     @Override
