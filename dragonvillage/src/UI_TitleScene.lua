@@ -761,6 +761,9 @@ function UI_TitleScene:workGameLogin()
 			g_settingData:clearDataListDaily()
 		end
         
+        -- @crashyltics setUid
+        PerpleSdkManager.getCrashlytics():setUid(ret['user']['uid'])
+        
         self:doNextWork()
     end
 

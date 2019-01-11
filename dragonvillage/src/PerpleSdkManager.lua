@@ -140,6 +140,9 @@ function Crashlytics:setUid(uid)
 	if (not PerpleSdkManager.isAvailable) then
 		return
 	end
+    if (not uid) then
+        return
+    end
     PerpleSDK:crashlyticsSetUid(uid)
 end
 
