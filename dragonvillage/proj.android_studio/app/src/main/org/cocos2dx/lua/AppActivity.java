@@ -54,6 +54,11 @@ import android.content.pm.PackageManager;
 // @app configuration
 import com.perplelab.PerpleConfig;
 
+// @crashylitics 
+import io.fabric.sdk.android.Fabric;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.ndk.CrashlyticsNdk;
+
 //@perplesdk
 import com.perplelab.PerpleSDK;
 
@@ -149,6 +154,12 @@ public class AppActivity extends Cocos2dxActivity{
         if (PerpleConfig.USE_XSOLLA) {
             PerpleSDK.getInstance().initXsolla(PerpleConfig.XSOLLA_MERCHANT_ID, PerpleConfig.XSOLLA_API_KEY, PerpleConfig.XSOLLA_PROJECT_ID, PerpleConfig.XSOLLA_SECRET_KEY, isDebug);
         }
+
+        // @crashlytics
+        Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics(), new CrashlyticsNdk())
+                .build();
+        Fabric.with(fabric);
     }
 
     @Override
