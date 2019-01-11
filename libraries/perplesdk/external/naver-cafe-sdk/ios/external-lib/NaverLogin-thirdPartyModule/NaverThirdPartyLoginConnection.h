@@ -6,7 +6,6 @@
 //  Copyright 2014 Naver Corp. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "NaverThirdPartyConstantsForApp.h"
 
