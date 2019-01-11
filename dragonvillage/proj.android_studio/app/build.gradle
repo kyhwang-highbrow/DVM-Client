@@ -318,16 +318,13 @@ allprojects {
 
         // @apk-expansion
         implementation project(':downloader_library')
-
-        // @crashlytics
-        implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
-            
+    
         // perplesdk dependencies
         // @perplesdk
         implementation(name:'perplesdk', ext:'aar')
 
         // @naver-cafe
-        implementation(name: 'cafeSdk-3.3.3', ext: 'aar')
+        implementation(name: 'cafeSdk-3.3.4', ext: 'aar')
         implementation 'com.navercorp.volleyextensions:volleyer:2.0.1', {
             exclude group: 'com.mcxiaoke.volley', module: 'library'
         }
@@ -339,6 +336,10 @@ allprojects {
         implementation 'com.google.firebase:firebase-core:16.0.6'
         implementation 'com.google.firebase:firebase-auth:16.1.0'
         implementation 'com.google.firebase:firebase-messaging:17.3.4'
+
+        // @crashlytics
+        implementation 'com.crashlytics.sdk.android:crashlytics:2.9.8'
+        implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.0.5'
 
         // @google
         implementation 'com.google.android.gms:play-services-auth:16.0.1'
