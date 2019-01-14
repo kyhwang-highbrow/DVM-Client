@@ -820,10 +820,10 @@
 				5023810717EBBCAC00990C9B /* AppController.h */,
 				5023810817EBBCAC00990C9B /* AppController.mm */,
 				5023811617EBBCAC00990C9B /* RootViewController.h */,
+				373AE55B2126AA790033B453 /* Info.plist */,
 				5023811717EBBCAC00990C9B /* RootViewController.mm */,
 				374D47A51F42E70600D5AC0F /* DeviceDetector.h */,
 				374D47A61F42E70600D5AC0F /* DeviceDetector.m */,
-				373AE55B2126AA790033B453 /* Info.plist */,
 				37EF84281B268F3B00EFA299 /* InfoPlist.strings */,
 			);
 			path = ios;
@@ -1026,6 +1026,7 @@
 				F293B3C615EB7BE500256477 /* Resources */,
 				EA5592A87A60493425F44DF0 /* [CP] Embed Pods Frameworks */,
 				A619FE01C96CB32A2D73160B /* [CP] Copy Pods Resources */,
+				3773CD2121EC4A0300B22F35 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1327,6 +1328,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		3773CD2121EC4A0300B22F35 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/upload-symbols\" -gsp \"${PROJECT_DIR}/GoogleService-Info.plist\" -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\n";
 		};
 		A619FE01C96CB32A2D73160B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
