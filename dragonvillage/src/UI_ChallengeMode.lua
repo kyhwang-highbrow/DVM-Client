@@ -114,8 +114,10 @@ function UI_ChallengeMode:initUI()
         end)
 
     -- 그림자 신전 입장 시간 기록 (입장 권유 팝업 용)
-    local cur_time = Timer:getServerTime()
-    g_settingData:setChellengeModeLastEntry(cur_time)
+    if (g_challengeMode:isOpen_challengeMode()) then
+        local cur_time = Timer:getServerTime()
+        g_settingData:setChellengeModeLastEntry(cur_time)
+    end
 end
 
 -------------------------------------

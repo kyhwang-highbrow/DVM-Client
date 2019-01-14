@@ -71,13 +71,20 @@ function ServerData_ChallengeMode:init(server_data)
     self.m_lStagesDetailInfo = {}
 end
 
-
 -------------------------------------
 -- function isActive_challengeMode
--- @brief 챌린지 모드 이벤트가 진행 중인지 여부 true or false
+-- @brief 챌린지 모드 이벤트가 활성화(이벤트 기간+보상 수령 기간) 상태인지 여부 true or false
 -------------------------------------
 function ServerData_ChallengeMode:isActive_challengeMode()
     return (self:getChallengeModeState() ~= ServerData_ChallengeMode.STATE['INACTIVE'])
+end
+
+-------------------------------------
+-- function isOpen_challengeMode
+-- @brief 챌린지 모드 이벤트를 플레이할 수 있는 상태인지 여부 true or false
+-------------------------------------
+function ServerData_ChallengeMode:isOpen_challengeMode()
+    return (self:getChallengeModeState() == ServerData_ChallengeMode.STATE['OPEN'])
 end
 
 -------------------------------------
@@ -183,11 +190,7 @@ function ServerData_ChallengeMode:refresh_playerUserInfo(t_data, l_deck)
         if t_data['rank'] then
             struct_user_info.m_rank = t_data['rank']
 
-            -- 랭킹 정보 받을 때 마다 로컬에 저장
-            -- 순위 변동 기록하는 데 사용
-            local cur_time = Timer:getServerTime()
-            g_settingData:setChellengeModeRankHistory('rank', struct_user_info.m_rank)
-            g_settingData:setChellengeModeRankHistory('rank_time', cur_time)
+            self:registerRankHistory(struct_user_info.m_rank)
         end
 
         if t_data['tier'] then
@@ -1222,7 +1225,7 @@ function ServerData_ChallengeMode:checkPromotePopupCondition()
     local cur_time = Timer:getServerTime()
     
     -- 0. 그림자 신전 이벤트 중인가
-    if (not self:isActive_challengeMode()) then
+    if (not self:isOpen_challengeMode()) then
         -- 이벤트 기간이 아니라면 관련 데이터 초기화
         g_settingData:resetChallengeSettingData()
         return false
@@ -1262,3 +1265,16 @@ function ServerData_ChallengeMode:checkPromotePopupCondition()
     return true
 end
 
+-------------------------------------
+-- function registerRankHistory
+-- @brief 순위 변동 기록
+-------------------------------------
+function ServerData_ChallengeMode:registerRankHistory(rank)
+    -- 랭킹 정보 받을 때 마다 로컬에 저장
+    -- 순위 변동 기록하는 데 사용
+    if (self:isOpen_challengeMode()) then
+        local cur_time = Timer:getServerTime()
+        g_settingData:setChellengeModeRankHistory('rank', rank)
+        g_settingData:setChellengeModeRankHistory('rank_time', cur_time)
+    end
+end
