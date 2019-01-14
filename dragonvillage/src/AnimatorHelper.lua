@@ -180,6 +180,17 @@ function AnimatorHelper:getTitleAnimator()
 	end
 
 	local animator = MakeAnimator(res)
+
+    -- 2018.08.24 sgkim 추가 해상도 대응
+    -- 18.5:9 (삼성 갤럭시 등), 18:9 (LG, Pexel2XL), 19.5:9 (iPhoneX)
+    -- 드빌M의 타이틀 이미지가 1280 * 960으로 제작되어 불가피하게 하드코딩
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local scale = visibleSize.width/1280
+    if (scale > 1) then
+	    animator:setScale(scale)
+	    animator:setPositionY(-30)
+    end
+
 	return animator
 end
 
