@@ -129,12 +129,16 @@ end
 -- @brief 
 -------------------------------------
 function SDKManager:goToAppStore()
-    local appId = 'com.perplelab.dragonvillagem.kr'
-    if isIos() then
-        -- AppStore App ID
-        appId = '1281873988'
+    if (PerpleSdkManager:xsollaIsAvailable()) then
+        self:goToWeb(URL['DVM_XSOLLA_DOWNLOAD'])
+    else
+        local appId = 'com.perplelab.dragonvillagem.kr'
+        if isIos() then
+            -- AppStore App ID
+            appId = '1281873988'
+        end
+        self:sendEvent('app_gotoStore', appId)
     end
-    self:sendEvent('app_gotoStore', appId)
 end
 
 -------------------------------------

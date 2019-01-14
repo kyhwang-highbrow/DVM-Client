@@ -103,7 +103,14 @@ end
 ----------------------------------------
 function PatchChecker:needNecessaryAppUpdate()
     HideLoading()
-    local msg = Str('버전이 낮아서 게임에 접속할 수 없습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
+
+    local msg
+    -- 엑솔라 빌드
+    if (PerpleSdkManager:xsollaIsAvailable()) then
+        msg = Str('버전이 낮아서 게임에 접속할 수 없습니다.\n배포 페이지를 통해 업데이트를 하기바랍니다.')
+    else
+        msg = Str('버전이 낮아서 게임에 접속할 수 없습니다.\n스토어를 통해 업데이트를 하기바랍니다.')
+    end
     MakeNetworkPopup(POPUP_TYPE.OK, msg, function() self:gotoAppStore() end)
 end
 
