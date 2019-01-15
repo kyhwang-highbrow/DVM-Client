@@ -169,6 +169,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     float longLength = 0;
     float shortLength = 0;
+    ResolutionPolicy resolutionPolicy = ResolutionPolicy::EXACT_FIT;
 
     // 4:3 1.333
     if (ratio <= 1.41)
@@ -215,15 +216,16 @@ bool AppDelegate::applicationDidFinishLaunching()
     // 19.5:9 2.1667
     else
     {
-        longLength = 1560;
+        longLength = 1440;
         shortLength = 720;
+        resolutionPolicy = ResolutionPolicy::SHOW_ALL; // for Notch Design
     }
 
 
     if (ConfigParser::getInstance()->isLandscape() == true)
-        Director::getInstance()->getOpenGLView()->setDesignResolutionSize(longLength, shortLength, ResolutionPolicy::EXACT_FIT);
+        Director::getInstance()->getOpenGLView()->setDesignResolutionSize(longLength, shortLength, resolutionPolicy);
     else
-        Director::getInstance()->getOpenGLView()->setDesignResolutionSize(shortLength, longLength, ResolutionPolicy::EXACT_FIT);
+        Director::getInstance()->getOpenGLView()->setDesignResolutionSize(shortLength, longLength, resolutionPolicy);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	Director::getInstance()->getOpenGLView()->setFrameZoomFactor(ConfigParser::getInstance()->getScale());
