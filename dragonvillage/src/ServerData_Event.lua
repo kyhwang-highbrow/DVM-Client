@@ -491,14 +491,11 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
 
-        -- 임시로 네트워크 연결 받지 않음 
-        --[[
         if (g_hotTimeData:isActiveEvent('event_mandraquest')) then
             co:work('# 만드라고라의 모험 이벤트 정보 받는 중')
             g_mandragoraQuest:request_questInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
-        --]]
 
         if (g_hotTimeData:isActiveEvent('event_alphabet')) then
             co:work('# 알파벳 이벤트 정보 받는 중')
