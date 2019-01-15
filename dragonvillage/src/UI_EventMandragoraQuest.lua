@@ -17,9 +17,9 @@ UI_EventMandragoraQuest = class(PARENT,{
 -------------------------------------
 function UI_EventMandragoraQuest:init()
     local vars = self:load('event_mandragora.ui')
-
-    self:initUI()
-    self:initButton()
+    UIManager:toastNotificationGreen(Str('만드라고라 이벤트 준비중'))
+    --self:initUI()
+    --self:initButton()
 end
 
 -------------------------------------
