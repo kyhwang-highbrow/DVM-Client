@@ -145,7 +145,7 @@ public class AppActivity extends Cocos2dxActivity{
         perpleSdkInstance.initAdjust(PerpleConfig.ADJUST_TOKKEN_ID, PerpleConfig.ADJUST_SECRET_KEY, isDebug);
 
         // @admob
-        perpleSdkInstance.initAdMob(PerpleConfig.ADMOB_APP_ID, isDebug);
+        perpleSdkInstance.initAdMob(PerpleConfig.ADMOB_APP_ID);
 
         // @xsolla
         if (PerpleConfig.USE_XSOLLA) {
