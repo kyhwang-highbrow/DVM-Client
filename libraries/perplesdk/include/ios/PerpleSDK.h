@@ -255,11 +255,17 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) adjustGdprForgetMe;
 
 // @adMob
-- (void) adMobStart:(NSString *)adUnitIdList;
-- (void) adMobLoadRequest;
-- (void) adMobLoadRequestWithId:(NSString *)adUnitId;
-- (void) adMobSetResultCallBack:(PerpleSDKCallback) callback;
-- (void) adMobShow:(NSString *)adUnitId;
+- (void) adMobInitRewardedVideoAd;
+- (void) adMobInitInterstitialAd;
+
+- (void) rvAdLoadRequestWithId:(NSString *)adUnitId;
+- (void) rvAdSetResultCallback:(PerpleSDKCallback)callback;
+- (void) rvAdShow:(NSString *)adUnitId;
+
+- (void) itAdSetAdUnitId:(NSString *)adUnitId;
+- (void) itAdSetResultCallbakc:(PerpleSDKCallback)callback;
+- (void) itAdLoadRequest;
+- (void) itAdShow;
 
 // @crashlytics
 - (void) crashlyticsForceCrash;

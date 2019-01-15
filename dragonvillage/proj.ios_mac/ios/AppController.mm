@@ -142,7 +142,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID neoIdConsumerKey:NAVER_NEO_ID_CONSUMER_KEY communityId:NAVER_COMMUNITY_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID secret:adjustSecretKey debug:isDebug];
-    [[PerpleSDK sharedInstance] initAdMobWithAppId:ADMOB_APP_ID debug:isDebug];
+    [[PerpleSDK sharedInstance] initAdMobWithAppId:ADMOB_APP_ID];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     cocos2d::Application::getInstance()->run();
 
