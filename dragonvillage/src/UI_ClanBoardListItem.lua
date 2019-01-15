@@ -172,6 +172,7 @@ function UI_ClanBoardListItem:setContentWithAdjHeight(review)
 		local bg_height = label_height + 15
 		vars['assessSprite']:setNormalSize(bg_size['width'], bg_height)
 		vars['assessMySprite']:setNormalSize(bg_size['width'], bg_height)
+        vars['assessSystemSprite']:setNormalSize(bg_size['width'], bg_height)
 
 		-- 배경보다 길도록 container 사이즈 조정
 		local con_size = vars['container']:getContentSize()
