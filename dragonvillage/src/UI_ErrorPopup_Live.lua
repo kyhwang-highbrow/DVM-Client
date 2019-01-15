@@ -52,7 +52,8 @@ function UI_ErrorPopup_Live:click_reportBtn()
 
     local error_str = self.m_errorStr
     local function cb_func()
-        UIManager:toastNotificationGreen('전송이 완료되었다고라.')
+        local toast_str = Str('전송이 완료되었다고라.')
+        UIManager:toastNotificationGreen(toast_str)
         self:click_closeBtn()
     end
     g_errorTracker:sendErrorLog(error_str, cb_func)
