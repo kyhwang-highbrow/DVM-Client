@@ -40,8 +40,8 @@ end
 -------------------------------------
 function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
 	-- 광고 비활성화 시
-	if (AdManager:isAdInactive()) then
-		AdManager:makePopupAdInactive()
+	if (AdMobManager:isAdInactive()) then
+		AdMobManager:makePopupAdInactive()
 		return
 	end
 
@@ -103,7 +103,7 @@ function ServerData_Advertising:showAd(ad_type, finish_cb)
         end
     end
 
-    AdManager:showByAdType(ad_type, result_cb)
+    AdMobManager:getRewardedVideoAd():showByAdType(ad_type, result_cb)
 end
 
 -------------------------------------

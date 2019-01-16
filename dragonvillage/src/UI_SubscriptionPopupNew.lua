@@ -101,8 +101,8 @@ end
 -------------------------------------
 function UI_SubscriptionPopupNew:click_adBtn()
 	-- 광고 비활성화 시
-	if (AdManager:isAdInactive()) then
-		AdManager:makePopupAdInactive()
+	if (AdMobManager:isAdInactive()) then
+		AdMobManager:makePopupAdInactive()
 		return
 	end
 

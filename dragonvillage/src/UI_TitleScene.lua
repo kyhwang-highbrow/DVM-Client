@@ -1152,7 +1152,9 @@ end
 function UI_TitleScene:workPrepareAd()
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
-    AdManager:start()
+    AdMobManager:initRewardedVideoAd()
+    AdMobManager:initInterstitialAd()
+
     self:doNextWork()
 end
 function UI_TitleScene:workPrepareAd_click()

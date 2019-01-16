@@ -282,7 +282,7 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data
 
     -- 무료 뽑기는 광고 시청
     if (is_ad) then
-        AdManager:showDailyAd(AD_TYPE['FSUMMON'], function()
+        AdMobManager:getRewardedVideoAd():showDailyAd(AD_TYPE['FSUMMON'], function()
             g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
         end)
     else
@@ -349,8 +349,8 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
     elseif (is_ad) then
 		-- 광고 비활성화 시
-		if (AdManager:isAdInactive()) then
-			AdManager:makePopupAdInactive()
+		if (AdMobManager:isAdInactive()) then
+			AdMobManager:makePopupAdInactive()
 			return
 		end
 

@@ -91,8 +91,8 @@ end
 -------------------------------------
 function UI_Exploration:click_adBtn()
 	-- 광고 비활성화 시
-	if (AdManager:isAdInactive()) then
-		AdManager:makePopupAdInactive()
+	if (AdMobManager:isAdInactive()) then
+		AdMobManager:makePopupAdInactive()
 		return
 	end
 
@@ -105,7 +105,7 @@ function UI_Exploration:click_adBtn()
     
     -- 탐험 광고 안내 팝업
     local function ok_cb()
-        AdManager:showDailyAd(AD_TYPE['EXPLORE'], function()
+        AdMobManager:getRewardedVideoAd():showDailyAd(AD_TYPE['EXPLORE'], function()
             UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
             g_explorationData:setDirty()
             g_explorationData:request_explorationInfo(function() self:refresh() end)

@@ -39,7 +39,7 @@ local t_module = {
 	'PaymentHelper',
     'ScriptCache',
     'CppFunctions',
-    'AdManager',
+    'AdMobManager',
     'XorCipher',
     'PackageManager',
     'FullPopupManager',
