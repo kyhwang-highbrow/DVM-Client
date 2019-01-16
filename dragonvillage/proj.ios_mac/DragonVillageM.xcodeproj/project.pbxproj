@@ -820,10 +820,10 @@
 				5023810717EBBCAC00990C9B /* AppController.h */,
 				5023810817EBBCAC00990C9B /* AppController.mm */,
 				5023811617EBBCAC00990C9B /* RootViewController.h */,
-				373AE55B2126AA790033B453 /* Info.plist */,
 				5023811717EBBCAC00990C9B /* RootViewController.mm */,
 				374D47A51F42E70600D5AC0F /* DeviceDetector.h */,
 				374D47A61F42E70600D5AC0F /* DeviceDetector.m */,
+				373AE55B2126AA790033B453 /* Info.plist */,
 				37EF84281B268F3B00EFA299 /* InfoPlist.strings */,
 			);
 			path = ios;
