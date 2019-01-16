@@ -162,11 +162,9 @@ function UI_DiceEvent:refresh()
     -- 최초 출발 처리
     local is_first = ((curr_cell == 1) and (lap_cnt == 0))
     local first_cell_ui = self.m_cellUIList[1]
-    if (is_first) then
-        first_cell_ui.vars['startSprite']:setVisible(is_first)
-    elseif (first_cell_ui.vars['startSprite']:isVisible()) then
-        first_cell_ui.vars['startSprite']:setVisible(false)
-    end
+
+    first_cell_ui.vars['startSprite']:setVisible(is_first)
+    first_cell_ui.vars['iconNode']:setVisible(not is_first)
 
     -- 완주 보상 UI 처리
     for i, t_ui in ipairs(self.m_lapRewardInfoList) do
