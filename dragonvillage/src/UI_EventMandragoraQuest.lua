@@ -17,7 +17,6 @@ UI_EventMandragoraQuest = class(PARENT,{
 -------------------------------------
 function UI_EventMandragoraQuest:init()
     local vars = self:load('event_mandragora.ui')
-    UIManager:toastNotificationGreen(Str('만드라고라 이벤트 준비중'))
     self:initUI()
     self:initButton()
 end
@@ -66,6 +65,7 @@ function UI_EventMandragoraQuest:initUI()
         self.m_goalUi = ui
     end
 
+    --[[
     -- 캐릭터 페어 보상은 한국서버만 노출
     if (g_localData:isKoreaServer()) then
         vars['eventMenu']:setVisible(true)
@@ -73,6 +73,7 @@ function UI_EventMandragoraQuest:initUI()
          -- 캐릭터 페어 보상 안내 (네이버 sdk 링크)
         NaverCafeManager:setPluginInfoBtn(vars['plugBtn'], 'chrpair_notice')
     end
+    --]]
 end
 
 -------------------------------------
@@ -80,7 +81,8 @@ end
 -------------------------------------
 function UI_EventMandragoraQuest:initButton()
     local vars = self.vars
-    vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end)
+    -- 캐릭터 페어
+    -- vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end)
 end
 
 -------------------------------------
@@ -99,10 +101,11 @@ function UI_EventMandragoraQuest:refresh()
         self.m_goalUi.vars['selectSprite']:setVisible(true)
     end
 
+    --[[
     -- 캐릭터 페어 보상
     local is_available = g_mandragoraQuest:isAvailable_SpecialReward()
     vars['eventBtn']:setVisible(is_available)
-
+    --]]
     self:refresh_containerPos()
     self:refresh_items()
 end
