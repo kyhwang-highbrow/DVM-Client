@@ -199,7 +199,7 @@ function ItemObtainResult_Shop(t_ret, show_all)
 
     local type = type or 'reward'
 
-    -- 우편함으로 정송
+    -- 구매한 아이템, 우편함으로 전송된 경우
     if (t_ret['new_mail'] == true) then
         g_highlightData:setHighlightMail()
         local toast_msg = Str('상품이 우편함으로 전송되었습니다.')
@@ -307,6 +307,27 @@ end
 -------------------------------------
 function ItemObtainResult_Mail(t_ret)
     ItemObtainResult(t_ret, true) -- t_ret, is_mail
+end
+
+-------------------------------------
+-- function ItemObtainResult_ShowMailBox
+-- @brief 받은 아이템을 우편함 형식으로 보여줌
+-------------------------------------
+function ItemObtainResult_ShowMailBox(t_ret, select_type)
+    if (not t_ret) then
+        return
+    end
+
+    -- 이 함수는 우편함으로 전송된 아이템 결과만 표시
+    -- 바로 추가된 아이템이 있을 경우 기존에 사용하던 ItemObtainResult에서 결과화면 출력하도록 함
+    if (t_ret['added_items']) then
+        ItemObtainResult(t_ret, true)
+    end
+
+    -- 우편함으로 전송
+    if (t_ret['new_mail'] == true) then
+        UINavigator:goTo('mail_select', select_type, nil)
+    end
 end
 
 --@CHECK

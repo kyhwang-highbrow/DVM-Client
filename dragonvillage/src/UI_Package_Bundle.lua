@@ -253,8 +253,13 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
             show_all = true
         end
 
-        -- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret, show_all)
+        -- 캡슐 코인 패키지 상품 구매시 우편함 팝업 출력
+        if (self.m_package_name == 'package_capsule_coin') then
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.GOODS)
+        else
+            -- 아이템 획득 결과창
+            ItemObtainResult_Shop(ret, show_all)
+        end
 
         -- 갱신이 필요한 상태일 경우
         if ret['need_refresh'] then
