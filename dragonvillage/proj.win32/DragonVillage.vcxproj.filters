@@ -2517,9 +2517,6 @@
     <None Include="..\src_tool\CsvToLuaTableStr.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src\AdManager.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ServerData_Advertising.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3942,6 +3939,9 @@
     </None>
     <None Include="..\src\UI_ChallengeModePromotePopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\AdMobManager.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
