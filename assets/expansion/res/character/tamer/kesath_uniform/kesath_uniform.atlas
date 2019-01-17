@@ -1,0 +1,419 @@
+
+kesath_uniform.png
+size: 665,1033
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kesath_uniform_acc_02
+  rotate: false
+  xy: 372, 291
+  size: 14, 16
+  orig: 14, 16
+  offset: 0, 0
+  index: -1
+kesath_uniform_acc_03
+  rotate: false
+  xy: 608, 156
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+kesath_uniform_arm_01
+  rotate: false
+  xy: 451, 80
+  size: 51, 82
+  orig: 51, 82
+  offset: 0, 0
+  index: -1
+kesath_uniform_arm_02
+  rotate: true
+  xy: 543, 166
+  size: 65, 63
+  orig: 65, 63
+  offset: 0, 0
+  index: -1
+kesath_uniform_arm_03
+  rotate: true
+  xy: 472, 166
+  size: 65, 69
+  orig: 65, 69
+  offset: 0, 0
+  index: -1
+kesath_uniform_arm_04
+  rotate: false
+  xy: 577, 11
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+kesath_uniform_arm_05
+  rotate: false
+  xy: 617, 237
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+kesath_uniform_belt_01
+  rotate: false
+  xy: 560, 576
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+kesath_uniform_belt_02
+  rotate: false
+  xy: 602, 84
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+kesath_uniform_body_01
+  rotate: true
+  xy: 569, 789
+  size: 65, 94
+  orig: 65, 94
+  offset: 0, 0
+  index: -1
+kesath_uniform_body_02
+  rotate: true
+  xy: 300, 432
+  size: 115, 194
+  orig: 115, 194
+  offset: 0, 0
+  index: -1
+kesath_uniform_body_03
+  rotate: true
+  xy: 388, 164
+  size: 54, 82
+  orig: 54, 82
+  offset: 0, 0
+  index: -1
+kesath_uniform_body_04
+  rotate: false
+  xy: 617, 279
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+kesath_uniform_body_05
+  rotate: true
+  xy: 275, 5
+  size: 35, 85
+  orig: 35, 85
+  offset: 0, 0
+  index: -1
+kesath_uniform_body_06
+  rotate: true
+  xy: 560, 549
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+kesath_uniform_brow_01
+  rotate: true
+  xy: 642, 413
+  size: 49, 21
+  orig: 49, 21
+  offset: 0, 0
+  index: -1
+kesath_uniform_cape_01
+  rotate: true
+  xy: 496, 423
+  size: 124, 106
+  orig: 124, 106
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_01
+  rotate: false
+  xy: 2, 724
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_02
+  rotate: false
+  xy: 2, 415
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_03
+  rotate: true
+  xy: 2, 2
+  size: 159, 170
+  orig: 159, 170
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_04
+  rotate: false
+  xy: 300, 549
+  size: 173, 230
+  orig: 173, 230
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_05
+  rotate: false
+  xy: 300, 781
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_06
+  rotate: false
+  xy: 2, 163
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_07
+  rotate: false
+  xy: 388, 220
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_08
+  rotate: false
+  xy: 471, 233
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_i_01
+  rotate: true
+  xy: 606, 615
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_i_02
+  rotate: true
+  xy: 557, 319
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_i_03
+  rotate: false
+  xy: 393, 2
+  size: 79, 56
+  orig: 79, 56
+  offset: 0, 0
+  index: -1
+kesath_uniform_effect_i_04
+  rotate: true
+  xy: 504, 85
+  size: 79, 40
+  orig: 79, 40
+  offset: 0, 0
+  index: -1
+kesath_uniform_eye_01
+  rotate: true
+  xy: 630, 936
+  size: 55, 31
+  orig: 55, 31
+  offset: 0, 0
+  index: -1
+kesath_uniform_eye_02
+  rotate: true
+  xy: 630, 889
+  size: 45, 31
+  orig: 45, 31
+  offset: 0, 0
+  index: -1
+kesath_uniform_eye_03
+  rotate: false
+  xy: 615, 331
+  size: 45, 17
+  orig: 45, 17
+  offset: 0, 0
+  index: -1
+kesath_uniform_face_01
+  rotate: false
+  xy: 464, 322
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+kesath_uniform_finger_01
+  rotate: true
+  xy: 615, 47
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+kesath_uniform_finger_02
+  rotate: true
+  xy: 615, 10
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+kesath_uniform_foot_01
+  rotate: false
+  xy: 630, 993
+  size: 33, 38
+  orig: 33, 38
+  offset: 0, 0
+  index: -1
+kesath_uniform_foot_02
+  rotate: true
+  xy: 604, 423
+  size: 39, 36
+  orig: 39, 36
+  offset: 0, 0
+  index: -1
+kesath_uniform_foot_03
+  rotate: false
+  xy: 601, 120
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
+kesath_uniform_hair_01
+  rotate: false
+  xy: 554, 234
+  size: 61, 83
+  orig: 61, 83
+  offset: 0, 0
+  index: -1
+kesath_uniform_hair_02
+  rotate: true
+  xy: 546, 53
+  size: 47, 54
+  orig: 47, 54
+  offset: 0, 0
+  index: -1
+kesath_uniform_hair_03
+  rotate: true
+  xy: 475, 549
+  size: 77, 83
+  orig: 77, 83
+  offset: 0, 0
+  index: -1
+kesath_uniform_hair_04
+  rotate: false
+  xy: 604, 558
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+kesath_uniform_hand_01
+  rotate: false
+  xy: 615, 350
+  size: 45, 61
+  orig: 45, 61
+  offset: 0, 0
+  index: -1
+kesath_uniform_hand_03
+  rotate: true
+  xy: 531, 2
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+kesath_uniform_leg_01
+  rotate: true
+  xy: 275, 42
+  size: 119, 116
+  orig: 119, 116
+  offset: 0, 0
+  index: -1
+kesath_uniform_leg_02
+  rotate: false
+  xy: 372, 309
+  size: 90, 121
+  orig: 90, 121
+  offset: 0, 0
+  index: -1
+kesath_uniform_lowbody_01
+  rotate: false
+  xy: 475, 628
+  size: 129, 151
+  orig: 129, 151
+  offset: 0, 0
+  index: -1
+kesath_uniform_lowbody_02
+  rotate: false
+  xy: 546, 102
+  size: 53, 62
+  orig: 53, 62
+  offset: 0, 0
+  index: -1
+kesath_uniform_lowbody_03
+  rotate: true
+  xy: 474, 5
+  size: 73, 55
+  orig: 73, 55
+  offset: 0, 0
+  index: -1
+kesath_uniform_wepon_01
+  rotate: true
+  xy: 606, 719
+  size: 68, 57
+  orig: 68, 57
+  offset: 0, 0
+  index: -1
+kesath_uniform_wepon_02
+  rotate: false
+  xy: 608, 192
+  size: 22, 40
+  orig: 22, 40
+  offset: 0, 0
+  index: -1
+kesath_uniform_wepon_03
+  rotate: true
+  xy: 393, 60
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_uniform_wepon_04
+  rotate: false
+  xy: 632, 199
+  size: 30, 36
+  orig: 30, 36
+  offset: 0, 0
+  index: -1
+kesath_uniform_wepon_05
+  rotate: true
+  xy: 362, 10
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+kesath_uniform_wepon_06
+  rotate: true
+  xy: 604, 464
+  size: 92, 50
+  orig: 92, 50
+  offset: 0, 0
+  index: -1
+uniform_effect_01
+  rotate: true
+  xy: 569, 856
+  size: 175, 59
+  orig: 175, 59
+  offset: 0, 0
+  index: -1
+uniform_effect_02
+  rotate: true
+  xy: 174, 6
+  size: 155, 99
+  orig: 155, 99
+  offset: 0, 0
+  index: -1
+uniform_effect_03
+  rotate: false
+  xy: 271, 163
+  size: 115, 121
+  orig: 115, 121
+  offset: 0, 0
+  index: -1
+uniform_effect_04
+  rotate: true
+  xy: 271, 286
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1

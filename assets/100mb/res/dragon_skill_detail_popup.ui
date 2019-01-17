@@ -349,7 +349,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = -160.000000;
-				y = -610.000000;
+				y = -646.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -393,7 +393,7 @@
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 700;
+				width = 770;
 				height = 102;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -409,7 +409,7 @@
 				v_alignment = 0;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 700;
+				dimension_width = 770;
 				dimension_height = 102;
 				letter_spacing = 0.000000;
 				has_stroke = false;

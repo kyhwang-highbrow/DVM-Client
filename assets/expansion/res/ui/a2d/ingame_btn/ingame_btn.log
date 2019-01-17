@@ -1,0 +1,71 @@
+write chunk  "<root>" : 0
+write chunk  "<root>::header" : 0
+write chunk  "<root>::visuals" : 32
+write chunk  "<root>::visuals::visual-60" : 48
+write chunk  "<root>::visuals::visual-71" : 80
+write chunk  "<root>::visuals::visual-82" : 112
+write chunk  "<root>::layers" : 144
+write chunk  "<root>::layers::layer-62" : 144
+write chunk  "<root>::layers::layer-65" : 224
+write chunk  "<root>::layers::layer-68" : 304
+write chunk  "<root>::layers::layer-73" : 384
+write chunk  "<root>::layers::layer-76" : 464
+write chunk  "<root>::layers::layer-79" : 544
+write chunk  "<root>::layers::layer-84" : 624
+write chunk  "<root>::layers::layer-87" : 704
+write chunk  "<root>::layers::layer-90" : 784
+write chunk  "<root>::sprites" : 864
+write chunk  "<root>::sockets" : 888
+write chunk  "<root>::event_shapes" : 892
+write chunk  "<root>::fonts" : 896
+write chunk  "<root>::plists" : 896
+write chunk  "<root>::string_pool" : 904
+write chunk  "<root>::string_pool::group" : 944
+write chunk  "<root>::string_pool::top_auto_idle" : 952
+write chunk  "<root>::string_pool::top_repeat_idle" : 968
+write chunk  "<root>::string_pool::top_speed_idle" : 984
+write chunk  "<root>::string_pool::ingame_btn_auto_0103.png" : 1000
+write chunk  "<root>::string_pool::ingame_btn_idle_0101.png" : 1028
+write chunk  "<root>::string_pool::ingame_btn_idle_0102.png" : 1056
+write chunk  "<root>::string_pool::ingame_btn_repeat_0103.png" : 1084
+write chunk  "<root>::string_pool::ingame_btn_speed_0103.png" : 1112
+write chunk  "<root>::string_pool::ingame_btn.plist" : 1140
+ -- link - at "<root>::header" : (8) to "visuals" : (32)
+ -- link - at "<root>::header" : (12) to "sprites" : (864)
+ -- link - at "<root>::header" : (16) to "sockets" : (888)
+ -- link - at "<root>::header" : (20) to "event_shapes" : (892)
+ -- link - at "<root>::header" : (28) to "plists" : (896)
+ -- link - at "<root>::visuals" : (36) to "visual-60" : (48)
+ -- link - at "<root>::visuals" : (40) to "visual-71" : (80)
+ -- link - at "<root>::visuals" : (44) to "visual-82" : (112)
+ -- link - at "<root>::visuals::visual-60" : (48) to "group" : (944)
+ -- link - at "<root>::visuals::visual-60" : (52) to "top_auto_idle" : (952)
+ -- link - at "<root>::visuals::visual-60" : (68) to "layer-62" : (144)
+ -- link - at "<root>::visuals::visual-60" : (72) to "layer-65" : (224)
+ -- link - at "<root>::visuals::visual-60" : (76) to "layer-68" : (304)
+ -- link - at "<root>::visuals::visual-71" : (80) to "group" : (944)
+ -- link - at "<root>::visuals::visual-71" : (84) to "top_repeat_idle" : (968)
+ -- link - at "<root>::visuals::visual-71" : (100) to "layer-73" : (384)
+ -- link - at "<root>::visuals::visual-71" : (104) to "layer-76" : (464)
+ -- link - at "<root>::visuals::visual-71" : (108) to "layer-79" : (544)
+ -- link - at "<root>::visuals::visual-82" : (112) to "group" : (944)
+ -- link - at "<root>::visuals::visual-82" : (116) to "top_speed_idle" : (984)
+ -- link - at "<root>::visuals::visual-82" : (132) to "layer-84" : (624)
+ -- link - at "<root>::visuals::visual-82" : (136) to "layer-87" : (704)
+ -- link - at "<root>::visuals::visual-82" : (140) to "layer-90" : (784)
+ -- link - at "<root>::sprites" : (868) to "ingame_btn_auto_0103.png" : (1000)
+ -- link - at "<root>::sprites" : (872) to "ingame_btn_idle_0101.png" : (1028)
+ -- link - at "<root>::sprites" : (876) to "ingame_btn_idle_0102.png" : (1056)
+ -- link - at "<root>::sprites" : (880) to "ingame_btn_repeat_0103.png" : (1084)
+ -- link - at "<root>::sprites" : (884) to "ingame_btn_speed_0103.png" : (1112)
+ -- link - at "<root>::plists" : (900) to "ingame_btn.plist" : (1140)
+ -- link - at "<root>::string_pool" : (904) to "group" : (944)
+ -- link - at "<root>::string_pool" : (908) to "top_auto_idle" : (952)
+ -- link - at "<root>::string_pool" : (912) to "top_repeat_idle" : (968)
+ -- link - at "<root>::string_pool" : (916) to "top_speed_idle" : (984)
+ -- link - at "<root>::string_pool" : (920) to "ingame_btn_auto_0103.png" : (1000)
+ -- link - at "<root>::string_pool" : (924) to "ingame_btn_idle_0101.png" : (1028)
+ -- link - at "<root>::string_pool" : (928) to "ingame_btn_idle_0102.png" : (1056)
+ -- link - at "<root>::string_pool" : (932) to "ingame_btn_repeat_0103.png" : (1084)
+ -- link - at "<root>::string_pool" : (936) to "ingame_btn_speed_0103.png" : (1112)
+ -- link - at "<root>::string_pool" : (940) to "ingame_btn.plist" : (1140)

@@ -1,0 +1,188 @@
+
+enix_all_03.png
+size: 1588,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_enix_all_03_eff_01
+  rotate: false
+  xy: 1246, 5
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+effect_enix_all_03_eff_02
+  rotate: true
+  xy: 1137, 4
+  size: 39, 62
+  orig: 39, 62
+  offset: 0, 0
+  index: -1
+effect_enix_all_03_eff_03
+  rotate: false
+  xy: 1526, 455
+  size: 60, 66
+  orig: 60, 66
+  offset: 0, 0
+  index: -1
+effect_enix_all_03_eff_04
+  rotate: true
+  xy: 577, 8
+  size: 174, 306
+  orig: 174, 306
+  offset: 0, 0
+  index: -1
+effect_enix_all_03_eff_05
+  rotate: true
+  xy: 224, 3
+  size: 162, 241
+  orig: 162, 241
+  offset: 0, 0
+  index: -1
+effect_enix_all_03_effhorn_l
+  rotate: true
+  xy: 224, 167
+  size: 354, 288
+  orig: 354, 288
+  offset: 0, 0
+  index: -1
+effect_enix_all_03_effhorn_r
+  rotate: true
+  xy: 790, 212
+  size: 309, 297
+  orig: 309, 297
+  offset: 0, 0
+  index: -1
+enix_all_03_arm_l
+  rotate: false
+  xy: 467, 7
+  size: 108, 158
+  orig: 108, 158
+  offset: 0, 0
+  index: -1
+enix_all_03_arm_r
+  rotate: true
+  xy: 1327, 106
+  size: 132, 129
+  orig: 132, 129
+  offset: 0, 0
+  index: -1
+enix_all_03_body
+  rotate: false
+  xy: 885, 17
+  size: 250, 193
+  orig: 250, 193
+  offset: 0, 0
+  index: -1
+enix_all_03_ear
+  rotate: false
+  xy: 1361, 257
+  size: 88, 78
+  orig: 88, 78
+  offset: 0, 0
+  index: -1
+enix_all_03_ear_acc
+  rotate: true
+  xy: 790, 188
+  size: 22, 29
+  orig: 22, 29
+  offset: 0, 0
+  index: -1
+enix_all_03_effect_lightdust
+  rotate: false
+  xy: 1458, 121
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+enix_all_03_eye
+  rotate: true
+  xy: 1286, 15
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+enix_all_03_eye_02
+  rotate: true
+  xy: 1315, 15
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+enix_all_03_face
+  rotate: false
+  xy: 1458, 222
+  size: 125, 101
+  orig: 125, 101
+  offset: 0, 0
+  index: -1
+enix_all_03_hair
+  rotate: false
+  xy: 1201, 3
+  size: 43, 40
+  orig: 43, 40
+  offset: 0, 0
+  index: -1
+enix_all_03_horn_l
+  rotate: true
+  xy: 514, 184
+  size: 337, 274
+  orig: 337, 274
+  offset: 0, 0
+  index: -1
+enix_all_03_horn_r
+  rotate: true
+  xy: 1089, 240
+  size: 281, 270
+  orig: 281, 270
+  offset: 0, 0
+  index: -1
+enix_all_03_leg_l
+  rotate: false
+  xy: 1361, 337
+  size: 88, 184
+  orig: 88, 184
+  offset: 0, 0
+  index: -1
+enix_all_03_leg_r
+  rotate: true
+  xy: 1344, 13
+  size: 91, 180
+  orig: 91, 180
+  offset: 0, 0
+  index: -1
+enix_all_03_light_01
+  rotate: false
+  xy: 1458, 470
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+enix_all_03_mouth
+  rotate: false
+  xy: 2, 2
+  size: 27, 14
+  orig: 27, 14
+  offset: 0, 0
+  index: -1
+enix_all_03_smog
+  rotate: false
+  xy: 1451, 325
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+enix_all_03_tail
+  rotate: false
+  xy: 2, 18
+  size: 220, 503
+  orig: 220, 503
+  offset: 0, 0
+  index: -1
+enix_all_03_wing_l
+  rotate: false
+  xy: 1137, 45
+  size: 188, 193
+  orig: 188, 193
+  offset: 0, 0
+  index: -1

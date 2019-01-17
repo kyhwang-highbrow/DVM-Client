@@ -155,46 +155,6 @@
 		{
 			[1] =
 			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = 'rich';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 1150;
-					height = 150;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'talkLabel';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
-					text = 'talkLabel';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 1150;
-					dimension_height = 150;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
-					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -204,7 +164,7 @@
 				relative_size_type = 0;
 				width = 1280;
 				height = 203;
-				scale_x = 1.000000;
+				scale_x = 1.200000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
@@ -220,6 +180,46 @@
 				dest_blend = 771;
 			};
 			[2] =
+			{
+				type = 'LabelTTF';
+				ui_name = 'rich';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 0;
+				width = 1150;
+				height = 203;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'talkLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 28;
+				text = 'talkLabel';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 1150;
+				dimension_height = 203;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[3] =
 			{
 				[1] =
 				{
@@ -285,7 +285,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -412,6 +412,77 @@
 		};
 		[9] =
 		{
+			[1] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 720;
+				scale_x = -1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frames/letterbox.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 720;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frames/letterbox.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			type = 'Menu';
+			ui_name = '';
+			x = 0.000000;
+			y = -0.000061;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 1480;
+			height = 960;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'letterboxMenu';
+		};
+		[10] =
+		{
 			type = 'Visual';
 			ui_name = '';
 			x = -28.000000;
@@ -435,7 +506,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[10] =
+		[11] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -459,7 +530,7 @@
 			disable = '';
 			image_type = 0;
 		};
-		[11] =
+		[12] =
 		{
 			[1] =
 			{

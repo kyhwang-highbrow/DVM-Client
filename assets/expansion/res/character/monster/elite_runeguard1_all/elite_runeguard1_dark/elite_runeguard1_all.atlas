@@ -1,0 +1,125 @@
+
+elite_runeguard1_all.png
+size: 2028,1445
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_runeguard1_all_arm
+  rotate: false
+  xy: 1471, 64
+  size: 153, 183
+  orig: 153, 183
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_backeffect
+  rotate: false
+  xy: 2, 42
+  size: 559, 561
+  orig: 559, 561
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_face
+  rotate: false
+  xy: 1721, 1054
+  size: 298, 389
+  orig: 298, 389
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_faceeffect
+  rotate: true
+  xy: 1646, 25
+  size: 237, 288
+  orig: 237, 288
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_hammer
+  rotate: false
+  xy: 838, 872
+  size: 460, 571
+  orig: 460, 571
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_hammereffect01
+  rotate: true
+  xy: 1057, 325
+  size: 376, 396
+  orig: 376, 396
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_hammereffect02
+  rotate: false
+  xy: 1721, 680
+  size: 299, 372
+  orig: 299, 372
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_hammereffect03
+  rotate: false
+  xy: 563, 2
+  size: 492, 601
+  orig: 492, 601
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_hammereffect04
+  rotate: false
+  xy: 1300, 907
+  size: 419, 536
+  orig: 419, 536
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_hammereffect05
+  rotate: false
+  xy: 2, 605
+  size: 834, 838
+  orig: 834, 838
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_mid
+  rotate: true
+  xy: 1471, 249
+  size: 191, 173
+  orig: 191, 173
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_pointeffect01
+  rotate: true
+  xy: 838, 615
+  size: 86, 77
+  orig: 86, 77
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_pointeffect02
+  rotate: false
+  xy: 838, 703
+  size: 657, 167
+  orig: 657, 167
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_shoulder01
+  rotate: false
+  xy: 1455, 442
+  size: 154, 232
+  orig: 154, 232
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_shoulder02
+  rotate: false
+  xy: 1497, 676
+  size: 162, 229
+  orig: 162, 229
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_wing01
+  rotate: false
+  xy: 1661, 264
+  size: 365, 414
+  orig: 365, 414
+  offset: 0, 0
+  index: -1
+elite_runeguard1_all_wing02
+  rotate: true
+  xy: 1057, 69
+  size: 254, 412
+  orig: 254, 412
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>grand_arena_loading_guide.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{43,31}</string>
+                <key>spriteSourceSize</key>
+                <string>{43,31}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{43,31}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>grand_arena_loading_guide.png</string>
+            <key>size</key>
+            <string>{45,33}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:1920c99ae5fed9370e1e907b8b159b60:e9e4c85bb86d469e733faf8a113f3671:1dfe2e67a034f4e59c41f8ef4061602b$</string>
+            <key>textureFileName</key>
+            <string>grand_arena_loading_guide.png</string>
+        </dict>
+    </dict>
+</plist>

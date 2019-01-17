@@ -20,7 +20,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'bgVisual';
 			file_name = 'bg/ui/dragon_bg_dark/dragon_bg_dark.vrp';
 			auto_play = true;
 			is_repeat = true;

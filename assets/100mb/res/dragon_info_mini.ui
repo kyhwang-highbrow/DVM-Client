@@ -82,8 +82,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 1090;
-				height = 570;
+				width = 1094;
+				height = 574;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -148,22 +148,45 @@
 				};
 				[3] =
 				{
-					type = 'Node';
+					[1] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 180.000000;
+						y = -40.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'dragonNode';
+					};
+					type = 'ClippingNode';
 					ui_name = '';
-					x = 10.000000;
-					y = -40.000000;
+					x = -170.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 100;
-					height = 100;
+					width = 1098;
+					height = 576;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'dragonNode';
+					lua_name = '';
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
 				};
 				type = 'Menu';
 				ui_name = '';

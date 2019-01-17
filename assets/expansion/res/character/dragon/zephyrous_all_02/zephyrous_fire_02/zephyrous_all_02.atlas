@@ -1,0 +1,286 @@
+
+zephyrous_all_02.png
+size: 1998,1195
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zephyros_all_02_arm_01
+  rotate: false
+  xy: 1304, 133
+  size: 155, 147
+  orig: 155, 147
+  offset: 0, 0
+  index: -1
+zephyros_all_02_armour_01
+  rotate: true
+  xy: 1756, 143
+  size: 104, 87
+  orig: 104, 87
+  offset: 0, 0
+  index: -1
+zephyros_all_02_armour_02
+  rotate: true
+  xy: 1477, 276
+  size: 81, 187
+  orig: 81, 187
+  offset: 0, 0
+  index: -1
+zephyros_all_02_armour_03
+  rotate: false
+  xy: 1877, 558
+  size: 82, 141
+  orig: 82, 141
+  offset: 0, 0
+  index: -1
+zephyros_all_02_armour_04
+  rotate: false
+  xy: 1775, 14
+  size: 94, 127
+  orig: 94, 127
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_01
+  rotate: false
+  xy: 1092, 487
+  size: 317, 359
+  orig: 317, 359
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_02
+  rotate: true
+  xy: 1291, 282
+  size: 203, 184
+  orig: 203, 184
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_03
+  rotate: false
+  xy: 1845, 143
+  size: 31, 31
+  orig: 31, 31
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_04
+  rotate: false
+  xy: 1961, 614
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_05
+  rotate: false
+  xy: 1948, 196
+  size: 36, 37
+  orig: 36, 37
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_06
+  rotate: false
+  xy: 1961, 645
+  size: 35, 54
+  orig: 35, 54
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_07
+  rotate: true
+  xy: 1619, 2
+  size: 132, 154
+  orig: 132, 154
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_08
+  rotate: true
+  xy: 1304, 7
+  size: 124, 154
+  orig: 124, 154
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_09
+  rotate: false
+  xy: 1857, 826
+  size: 139, 170
+  orig: 139, 170
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_10
+  rotate: false
+  xy: 688, 46
+  size: 215, 421
+  orig: 215, 421
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_11
+  rotate: false
+  xy: 1610, 136
+  size: 144, 111
+  orig: 144, 111
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_12
+  rotate: false
+  xy: 1948, 235
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_13
+  rotate: false
+  xy: 1411, 514
+  size: 46, 45
+  orig: 46, 45
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_14
+  rotate: false
+  xy: 1666, 249
+  size: 170, 121
+  orig: 170, 121
+  offset: 0, 0
+  index: -1
+zephyros_all_02_body_15
+  rotate: false
+  xy: 1101, 207
+  size: 188, 278
+  orig: 188, 278
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_01
+  rotate: true
+  xy: 1101, 3
+  size: 202, 201
+  orig: 202, 201
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_02
+  rotate: false
+  xy: 1477, 359
+  size: 186, 200
+  orig: 186, 200
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_03
+  rotate: true
+  xy: 704, 469
+  size: 377, 386
+  orig: 377, 386
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_04
+  rotate: false
+  xy: 704, 848
+  size: 710, 345
+  orig: 710, 345
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_05
+  rotate: false
+  xy: 2, 3
+  size: 481, 497
+  orig: 481, 497
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_06
+  rotate: false
+  xy: 1416, 760
+  size: 439, 433
+  orig: 439, 433
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_07
+  rotate: false
+  xy: 1665, 372
+  size: 196, 187
+  orig: 196, 187
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_08
+  rotate: true
+  xy: 485, 27
+  size: 473, 201
+  orig: 473, 201
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_09
+  rotate: false
+  xy: 1411, 561
+  size: 464, 197
+  orig: 464, 197
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_10
+  rotate: true
+  xy: 905, 2
+  size: 465, 194
+  orig: 465, 194
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_12
+  rotate: true
+  xy: 1863, 442
+  size: 114, 104
+  orig: 114, 104
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_13
+  rotate: true
+  xy: 1460, 12
+  size: 117, 157
+  orig: 117, 157
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_14
+  rotate: false
+  xy: 1877, 701
+  size: 119, 123
+  orig: 119, 123
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_15
+  rotate: false
+  xy: 1461, 131
+  size: 147, 143
+  orig: 147, 143
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_16
+  rotate: false
+  xy: 1845, 176
+  size: 101, 101
+  orig: 101, 101
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_17
+  rotate: true
+  xy: 1857, 998
+  size: 195, 135
+  orig: 195, 135
+  offset: 0, 0
+  index: -1
+zephyros_all_02_effect_18
+  rotate: false
+  xy: 2, 502
+  size: 700, 691
+  orig: 700, 691
+  offset: 0, 0
+  index: -1
+zephyros_all_02_finger_01
+  rotate: false
+  xy: 1914, 279
+  size: 73, 70
+  orig: 73, 70
+  offset: 0, 0
+  index: -1
+zephyros_all_02_finger_02
+  rotate: false
+  xy: 1838, 279
+  size: 74, 70
+  orig: 74, 70
+  offset: 0, 0
+  index: -1
+zephyros_all_02_hand_01
+  rotate: true
+  xy: 1863, 351
+  size: 89, 104
+  orig: 89, 104
+  offset: 0, 0
+  index: -1

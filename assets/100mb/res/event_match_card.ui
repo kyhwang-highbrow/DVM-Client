@@ -920,12 +920,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 362.000000;
-				y = 439.000000;
+				y = 432.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 140;
-				height = 130;
+				height = 140;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -957,7 +957,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'timeNode5';
 			};
 			[24] =
@@ -976,20 +976,20 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'timeNode4';
 			};
 			[25] =
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -72.000000;
-				y = 439.000000;
+				x = 169.000000;
+				y = 432.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 140;
-				height = 130;
+				width = 235;
+				height = 140;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1002,13 +1002,13 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -218.000000;
-				y = 439.000000;
+				x = -73.000000;
+				y = 432.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 140;
-				height = 130;
+				width = 235;
+				height = 140;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1021,13 +1021,13 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -362.000000;
-				y = 439.000000;
+				x = -314.000000;
+				y = 432.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 140;
-				height = 130;
+				width = 235;
+				height = 140;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

@@ -83,7 +83,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '숲 관리';
 				h_alignment = 1;
 				v_alignment = 0;
@@ -253,7 +253,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '드래곤 배치';
 				h_alignment = 1;
 				v_alignment = 0;
@@ -369,7 +369,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '시간 단축';
 				h_alignment = 1;
 				v_alignment = 0;

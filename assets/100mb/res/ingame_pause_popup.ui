@@ -1008,7 +1008,7 @@
 			type = 'LabelTTF';
 			ui_name = '';
 			x = 0.000000;
-			y = 228.000000;
+			y = 227.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -1022,7 +1022,7 @@
 			visible = true;
 			lua_name = 'difficultyLabel';
 			font_name = 'font/common_font_01.ttf';
-			font_size = 40;
+			font_size = 36;
 			text = 'difficultyLabel';
 			h_alignment = 1;
 			v_alignment = 1;

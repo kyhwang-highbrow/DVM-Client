@@ -1,0 +1,153 @@
+
+lumines_all_02.png
+size: 1612,271
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+lumines_all_02_acc_01
+  rotate: false
+  xy: 923, 2
+  size: 76, 81
+  orig: 76, 81
+  offset: 0, 0
+  index: -1
+lumines_all_02_acc_02
+  rotate: true
+  xy: 669, 20
+  size: 38, 35
+  orig: 38, 35
+  offset: 0, 0
+  index: -1
+lumines_all_02_arm_01
+  rotate: false
+  xy: 1347, 151
+  size: 87, 118
+  orig: 87, 118
+  offset: 0, 0
+  index: -1
+lumines_all_02_arm_02
+  rotate: true
+  xy: 512, 9
+  size: 49, 95
+  orig: 49, 95
+  offset: 0, 0
+  index: -1
+lumines_all_02_body_01
+  rotate: false
+  xy: 294, 20
+  size: 216, 249
+  orig: 216, 249
+  offset: 0, 0
+  index: -1
+lumines_all_02_ear_01
+  rotate: true
+  xy: 738, 5
+  size: 78, 88
+  orig: 78, 88
+  offset: 0, 0
+  index: -1
+lumines_all_02_effect_02
+  rotate: true
+  xy: 512, 60
+  size: 209, 202
+  orig: 209, 202
+  offset: 0, 0
+  index: -1
+lumines_all_02_effect_03
+  rotate: false
+  xy: 2, 8
+  size: 290, 261
+  orig: 290, 261
+  offset: 0, 0
+  index: -1
+lumines_all_02_effect_04
+  rotate: false
+  xy: 1440, 103
+  size: 170, 166
+  orig: 170, 166
+  offset: 0, 0
+  index: -1
+lumines_all_02_effect_05
+  rotate: false
+  xy: 609, 7
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+lumines_all_02_effect_07
+  rotate: false
+  xy: 1290, 3
+  size: 148, 146
+  orig: 148, 146
+  offset: 0, 0
+  index: -1
+lumines_all_02_effect_08
+  rotate: false
+  xy: 716, 85
+  size: 217, 184
+  orig: 217, 184
+  offset: 0, 0
+  index: -1
+lumines_all_02_effect_1
+  rotate: true
+  xy: 935, 124
+  size: 145, 195
+  orig: 145, 195
+  offset: 0, 0
+  index: -1
+lumines_all_02_eye_01
+  rotate: false
+  xy: 706, 21
+  size: 30, 37
+  orig: 30, 37
+  offset: 0, 0
+  index: -1
+lumines_all_02_horn_01
+  rotate: false
+  xy: 1440, 13
+  size: 86, 88
+  orig: 86, 88
+  offset: 0, 0
+  index: -1
+lumines_all_02_horn_02
+  rotate: true
+  xy: 1528, 44
+  size: 57, 60
+  orig: 57, 60
+  offset: 0, 0
+  index: -1
+lumines_all_02_leg_01
+  rotate: true
+  xy: 1149, 45
+  size: 82, 139
+  orig: 82, 139
+  offset: 0, 0
+  index: -1
+lumines_all_02_leg_02
+  rotate: true
+  xy: 828, 13
+  size: 70, 93
+  orig: 70, 93
+  offset: 0, 0
+  index: -1
+lumines_all_02_tail_01
+  rotate: false
+  xy: 1001, 19
+  size: 146, 103
+  orig: 146, 103
+  offset: 0, 0
+  index: -1
+lumines_all_02_wing_01
+  rotate: true
+  xy: 1132, 129
+  size: 140, 123
+  orig: 140, 123
+  offset: 0, 0
+  index: -1
+lumines_all_02_wing_02
+  rotate: false
+  xy: 1257, 151
+  size: 88, 118
+  orig: 88, 118
+  offset: 0, 0
+  index: -1
