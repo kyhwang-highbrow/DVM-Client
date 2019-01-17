@@ -95,9 +95,17 @@ function StructEventMandragoraQuest:getQuestStateText()
     local clear_cnt = t_info['clear_value_1']
     local main_str = Str(t_desc, clear_cnt) 
 
-    -- 고대의 탑은 clear_value가 층수를 의미함.. 지금 구조에선 회수 변경 불가
+    -- 고대의 탑은 퀘스트 텍스트 표시 하드코딩
+    -- curr_cnt가 플레이한 층 합계, 플레이한 층 수의 합이 10 이상일 때 (1/1) 표시되도록 함
+    print(t_info['key'], curr_cnt)
     if (t_info['key'] == 'clr_tower') then
-        clear_cnt = 1
+        if (tonumber(curr_cnt) >= 10) then
+            curr_cnt = 1
+            clear_cnt = 1
+        else
+            curr_cnt = 0
+            clear_cnt = 1
+        end
     end
     local sub_str = Str('({1}/{2})', curr_cnt, clear_cnt)
 
