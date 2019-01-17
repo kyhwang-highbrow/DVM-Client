@@ -44,6 +44,7 @@
 		373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		373E2D851A038712004EF0DB /* PerpSupportLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D801A038712004EF0DB /* PerpSupportLua.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		373EDE6E21F10D870073FC8A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 373EDE6D21F10D870073FC8A /* Launch Screen.storyboard */; };
 		3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3746350B1F7B8BB9004F8387 /* Images.xcassets */; };
@@ -86,7 +87,6 @@
 		3772F40C1FF4ECC300A9EF7A /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3FA1FF4ECC100A9EF7A /* SDWebImageDownloader.m */; };
 		3773CD1A21E8668800B22F35 /* libPerpleSDK_simulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F9997520B07B7E00048AC7 /* libPerpleSDK_simulator.a */; };
 		3773CD1E21E88B1900B22F35 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 3773CD1B21E88B1900B22F35 /* data_dat */; };
-		3773CD1F21E88B1900B22F35 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 3773CD1C21E88B1900B22F35 /* ps */; };
 		3773CD2021E88B1900B22F35 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3773CD1D21E88B1900B22F35 /* res */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128AF1B45380F00200C23 /* EventKit.framework */; };
@@ -165,6 +165,7 @@
 		37F9995920ADBCEA00048AC7 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 37F9995420ADBCE900048AC7 /* sound */; };
 		37F9995F20ADFAA800048AC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9995D20ADF7E800048AC7 /* main.m */; };
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
+		37FED7B921F06238009C0BD0 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37FED7B821F06237009C0BD0 /* ps */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812517EBBCAC00990C9B /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023811717EBBCAC00990C9B /* RootViewController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -400,6 +401,7 @@
 		373E2D811A038712004EF0DB /* PerpSupportLua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportLua.h; path = ../Classes/PerpSupportLua.h; sourceTree = "<group>"; };
 		373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSupportPatch.cpp; path = ../Classes/PerpSupportPatch.cpp; sourceTree = "<group>"; };
 		373E2D831A038712004EF0DB /* PerpSupportPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportPatch.h; path = ../Classes/PerpSupportPatch.h; sourceTree = "<group>"; };
+		373EDE6D21F10D870073FC8A /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		3744D20B19FDD5DE003D7120 /* e_os2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = e_os2.h; path = ../Classes/e_os2.h; sourceTree = "<group>"; };
 		3744D20C19FDD5DE003D7120 /* ioapi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ioapi.cpp; path = ../Classes/ioapi.cpp; sourceTree = "<group>"; };
 		3744D20D19FDD5DE003D7120 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = ../Classes/ioapi.h; sourceTree = "<group>"; };
@@ -478,7 +480,6 @@
 		3772F3FC1FF4ECC200A9EF7A /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		3772F3FD1FF4ECC200A9EF7A /* SDWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageManager.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageManager.h"; sourceTree = "<group>"; };
 		3773CD1B21E88B1900B22F35 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
-		3773CD1C21E88B1900B22F35 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
 		3773CD1D21E88B1900B22F35 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		37A056BF2089ED97007B20F5 /* PerpleSDK.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; name = PerpleSDK.xcworkspace; path = ../../../perplesdk/sdk/proj.ios/PerpleSDK.xcworkspace; sourceTree = "<group>"; };
 		37AC8D51208B3F9200258021 /* libPerpleSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK.a; sourceTree = "<group>"; };
@@ -538,6 +539,7 @@
 		37F9997520B07B7E00048AC7 /* libPerpleSDK_simulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK_simulator.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK_simulator.a; sourceTree = "<group>"; };
 		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		37FED7B821F06237009C0BD0 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
 		443DFCB194072EE0D70877AC /* libPods-DragonVillageM iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageM iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -681,8 +683,8 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				37FED7B821F06237009C0BD0 /* ps */,
 				3773CD1B21E88B1900B22F35 /* data_dat */,
-				3773CD1C21E88B1900B22F35 /* ps */,
 				3773CD1D21E88B1900B22F35 /* res */,
 				37F9995420ADBCE900048AC7 /* sound */,
 				37F9995320ADBCE900048AC7 /* translate */,
@@ -825,6 +827,7 @@
 				374D47A61F42E70600D5AC0F /* DeviceDetector.m */,
 				373AE55B2126AA790033B453 /* Info.plist */,
 				37EF84281B268F3B00EFA299 /* InfoPlist.strings */,
+				373EDE6D21F10D870073FC8A /* Launch Screen.storyboard */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -1026,7 +1029,7 @@
 				F293B3C615EB7BE500256477 /* Resources */,
 				EA5592A87A60493425F44DF0 /* [CP] Embed Pods Frameworks */,
 				A619FE01C96CB32A2D73160B /* [CP] Copy Pods Resources */,
-				3773CD2121EC4A0300B22F35 /* ShellScript */,
+				373EDE6F21F111970073FC8A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1274,6 +1277,7 @@
 			files = (
 				3773CD1E21E88B1900B22F35 /* data_dat in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
+				373EDE6E21F10D870073FC8A /* Launch Screen.storyboard in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
 				3706F1761F680E9200777433 /* NaverCafeSDK.bundle in Resources */,
 				370B476B1F7CB6290072CA71 /* config.json in Resources */,
@@ -1288,6 +1292,7 @@
 				370B47721F7CB6290072CA71 /* DeprecatedClass.lua in Resources */,
 				3772F3D61FF4EC8000A9EF7A /* include in Resources */,
 				370B47731F7CB6290072CA71 /* DeprecatedEnum.lua in Resources */,
+				37FED7B921F06238009C0BD0 /* ps in Resources */,
 				370B47741F7CB6290072CA71 /* DeprecatedOpenglEnum.lua in Resources */,
 				370B47751F7CB6290072CA71 /* DrawPrimitives.lua in Resources */,
 				370B47761F7CB6290072CA71 /* entry_main.lua in Resources */,
@@ -1298,7 +1303,6 @@
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
 				370B477C1F7CB6290072CA71 /* luaj.lua in Resources */,
-				3773CD1F21E88B1900B22F35 /* ps in Resources */,
 				370B477D1F7CB6290072CA71 /* luaoc.lua in Resources */,
 				370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */,
 				370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */,
@@ -1329,7 +1333,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3773CD2121EC4A0300B22F35 /* ShellScript */ = {
+		373EDE6F21F111970073FC8A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1734,7 +1738,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
@@ -1787,7 +1790,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
