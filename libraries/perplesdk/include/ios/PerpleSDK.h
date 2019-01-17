@@ -291,7 +291,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
 - (BOOL) initBilling;
 - (BOOL) initAdjustWithAppKey:(NSString *)appKey secret:(NSArray *)secretKey debug:(BOOL)isDebug;
-- (BOOL) initAdMobWithAppId:(NSString *)appId debug:(BOOL)isDebug;
+- (BOOL) initAdMobWithAppId:(NSString *)appId;
 #pragma mark - Static methods
 
 + (id) sharedInstance;
