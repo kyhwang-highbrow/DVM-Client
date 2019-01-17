@@ -497,8 +497,8 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
-	ccdisplay('adMob load request with id test')
-	PerpleSDK:adMobLoadRequestWithId('ca-app-pub-9497777061019569/7721594075')
+	ccdisplay('adMob interstitial ad test')
+	AdMobManager:getInterstitialAd():show()
 end
 
 -------------------------------------
