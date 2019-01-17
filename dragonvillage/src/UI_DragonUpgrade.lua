@@ -11,6 +11,7 @@ UI_DragonUpgrade = class(PARENT,{
         m_selectedDragonGrade = 'number',
         m_selectedMaterialCnt = 'number',
         m_currSlotIdx = 'number',
+        m_bEnoughUpgradeMaterial = 'boolean',
     })
 
 -------------------------------------
@@ -301,6 +302,8 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
         dragon_dic[doid] = nil
     end
 
+    self.m_bEnoughUpgradeMaterial = false
+
     -- 예외적으로 보다 낮은 등급 드래곤은 아예 빼버림
     -- 승급용이 아닌 슬라임도 제외
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
@@ -315,6 +318,10 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
             local slime_type = v:getSlimeType()
             if (slime_type ~= 'upgrade') then
                 dragon_dic[oid] = nil
+            end
+        else
+            if (v['lock'] == false) then
+                self.m_bEnoughUpgradeMaterial = true
             end
         end
     end
@@ -589,6 +596,31 @@ function UI_DragonUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_next_drag
     directing_result()
 end
 
+-------------------------------------
+-- function isPackageBuyable
+-------------------------------------
+function UI_DragonUpgrade:isPackageBuyable()
+	-- 업그레이트 재료가 부족하지 않다면 패스
+	if (self.m_bEnoughUpgradeMaterial) then
+		return false
+	end
+
+    -- 드래곤 정보
+	local struct_dragon_object = self.m_selectDragonData
+    if (not struct_dragon_object) then
+        return false
+    end
+
+	-- pid 찾아서 StructProduct 찾아서 구매 가능 여부 확인
+	-- local attr = struct_dragon_object:getAttr()
+	-- local pid = T_EVOLUTION_PACKAGE_ID_TABLE[rarity][attr]
+	-- local struct_product = g_shopDataNew:getProduct('package', pid)
+
+    -- 구매 카운트 검사
+	--return struct_product:checkMaxBuyCount()
+    
+    return true
+end
 
 --@CHECK
 UI:checkCompileError(UI_DragonUpgrade)
