@@ -65,6 +65,8 @@ function UI_EventMandragoraQuest:initUI()
         self.m_goalUi = ui
     end
 
+
+    vars['plugBtn']:setVisible(false)
     --[[
     -- 캐릭터 페어 보상은 한국서버만 노출
     if (g_localData:isKoreaServer()) then
