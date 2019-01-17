@@ -263,7 +263,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) rvAdShow:(NSString *)adUnitId;
 
 - (void) itAdSetAdUnitId:(NSString *)adUnitId;
-- (void) itAdSetResultCallbakc:(PerpleSDKCallback)callback;
+- (void) itAdSetResultCallback:(PerpleSDKCallback)callback;
 - (void) itAdLoadRequest;
 - (void) itAdShow;
 
