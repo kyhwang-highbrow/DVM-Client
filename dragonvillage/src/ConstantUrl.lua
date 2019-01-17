@@ -33,8 +33,7 @@ function SetApiUrl(url)
 end
 
 
--- Platform server 
--- 아직 라이브,QA서버는 작업전이라 개발로 전부 붙입니다.
+-- Platform server
 URL['PLATFORM_DEV'] = 'https://d27b1s0fi2x5xo.cloudfront.net/1003'
 URL['PLATFORM_QA'] = 'https://d27b1s0fi2x5xo.cloudfront.net/1003'
 URL['PLATFORM_LIVE'] = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
@@ -112,17 +111,18 @@ URL['PERPLELAB_PI'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation
 URL['PERPLELAB_AGREEMENT_EN'] = 'http://s3.dvm.perplelab.com/perplelab/agreement_en.html'
 URL['PERPLELAB_PI_EN'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation_en.html'
 
-
 -- Highbrow
 URL['HIGHBROW'] = 'http://account.game.highbrow-inc.com:8080/'
 URL['HIGHBROW_CS'] = 'http://m.dragonvillage.net/support/customer/faq'
-URL['DVM_COMMUNITY'] = 'http://m.dragonvillage.net/dvm'
 
---cs
+-- CS
 URL['DVM_CS'] = 'http://ask.dvm.perplelab.com'
 URL['DVM_CS_EN'] = 'http://ask.dvm.perplelab.com/index_en.html'
+
+-- Xsolla 
 URL['DVM_CS_XSOLLA'] = 'http://ask.dvm.perplelab.com/index_xsolla.html'
 URL['DVM_CS_XSOLLA_EN'] = 'http://ask.dvm.perplelab.com/index_xsolla_en.html'
+URL['DVM_XSOLLA_DOWNLOAD'] = 'http://dvmx.perplelab.com'
 
 function GetCSUrl(server)
     if server == SERVER_NAME.KOREA then
