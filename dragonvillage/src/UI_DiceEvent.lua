@@ -468,6 +468,11 @@ function UI_DiceEvent.makeLap(t_data)
         g_eventDiceData:request_diceReward(lap, finish_cb)
     end)
 
+    -- 20190117 1주년 이벤트 마지막 완주 보상은 돋보이도록 이미지로 표시, 마지막 완주 횟수 : 40
+    if (tonumber(lap) == 40) then
+        vars['lastRewardSprite']:setVisible(true)
+    end
+
     return ui
 end
 
