@@ -17,6 +17,8 @@ local DECO_TYPE = {
     ['X_MAS'] = 'christmas',
     ['BLOSSOM'] = 'blossom',
     ['HALLOWEEN'] = 'halloween',
+    ['ANNIVERSARY_1ST'] = '1st_annivasary',
+    ['ANNIVERSARY_1ST_GLOBAL'] = '1st_annivasary_global'
 }
 
 -- ## 장식 추가 스텝 ##
@@ -43,6 +45,19 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 	lobby_map:addLayer_lobbyGround(lobby_ground) -- 바닥
     lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
 
+    self:setDeco(lobby_map)
+
+    return lobby_map
+end
+
+-------------------------------------
+-- function setDeco
+-------------------------------------
+function LobbyMapFactory:setDeco(lobby_map)
+
+    local lobby_ground = lobby_map.m_groudNode
+    local lobby_map = lobby_map
+
     -- 이벤트 장식 타입
     local deco_type = self.getDecoType()
 
@@ -60,11 +75,19 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
     elseif (deco_type == DECO_TYPE.BLOSSOM) then
 	    lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 벚꽃 나무 레이어
         self:makeLobbyParticle(ui_lobby, deco_type) -- 벚꽃 파티클
+    
+    -- 1주년 기념(케이크)
+    elseif (deco_type == DECO_TYPE.ANNIVERSARY_1ST) then
+        self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
+
+    -- 글로벌 1주년 기념(민트초코 케이크)
+    elseif (deco_type == DECO_TYPE.ANNIVERSARY_1ST_GLOBAL) then
+        self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
     end
 
     return lobby_map
-end
 
+end
 -------------------------------------
 -- function makeLobbyLayer
 -- @param idx : layer 생성의 키이자 local_z_order로 사용함
@@ -197,7 +220,15 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		animator = MakeAnimator('res/lobby/lobby_layer_01_center_cake/lobby_layer_01_center_cake.vrp')
 		if (animator.m_node) then
 			animator:setPosition(0, 0)
-			self.m_tree:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
+			animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
+			node:addChild(animator.m_node, 1)
+		end
+    -- 1주년 기념 케이크 (민트 초코)
+	elseif (deco_type == '1st_annivasary_global') then
+		animator = MakeAnimator('res/lobby/lobby_layer_01_center_cake2/lobby_layer_01_center_cake2.vrp')
+		if (animator.m_node) then
+			animator:setPosition(0, 0)
+			animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
 			node:addChild(animator.m_node, 1)
 		end
 
@@ -255,18 +286,31 @@ end
 -- @comment 일단 하드코딩으로 처리
 -------------------------------------
 function LobbyMapFactory.getDecoType()
-    local curr_time = os.time()
-	local date = pl.Date()
-	date:set(curr_time)
-
-    local month, day = date:month(), date:day()
-
-    -- 12.22 ~ 12.31
-    if (month == 12) and (day >= 22) then
-        return DECO_TYPE.X_MAS
-    else
-        return nil
+    if (not g_eventData.m_eventList) then
+        return nil   
     end
+
+	local deco_id
+    for _, v in ipairs(g_eventData.m_eventList) do
+        local start_date = v['start_date']
+        local end_date = v['end_date']
+
+        -- 현재 이벤트 중인 로비 장식 아이디 검색
+        -- 로비 장식은 한 개만 적용
+        if (g_eventData:checkEventTime(start_date, end_date)) then
+            if v['event_type'] == 'lobby_deco' then
+                deco_id = v['event_id']
+                break
+            end
+        end
+
+    end
+
+    if (deco_id) then
+        return deco_id
+    end
+
+    return nil
 end
 
 -------------------------------------

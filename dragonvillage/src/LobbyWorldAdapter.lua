@@ -181,6 +181,13 @@ function LobbyWorldAdapter:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
+-- function getLobbymap
+-------------------------------------
+function LobbyWorldAdapter:getLobbymap()
+    return self.m_lobbyMap
+end
+
+-------------------------------------
 -- function onDestroy
 -------------------------------------
 function LobbyWorldAdapter:onDestroy()

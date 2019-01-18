@@ -122,6 +122,11 @@ function ServerData_Event:getEventPopupTabList()
 
         end
 
+        -- 로비 장식은 이벤트 탭에 노출되지 않음
+        if (event_type == 'lobby_deco') then
+            visible = false
+        end
+
         if (visible) then
             local event_popup_tab = StructEventPopupTab(v)
 
@@ -266,6 +271,11 @@ function ServerData_Event:getEventFullPopupList()
 
             end
             
+            -- 로비 장식은 풀팝업으로 나오지 않음
+            if (event_type == 'lobby_deco') then
+                visible = false
+            end
+
             if (visible) then
                 l_priority[event_type] = tonumber(priority)
                 table.insert(l_list, event_type)
@@ -320,14 +330,14 @@ function ServerData_Event:checkEventTime(start_date, end_date)
     local timezone_server = Timer:getServerTimeZoneOffset()
     local offset = (timezone_local - timezone_server)
 
-    if (start_date ~= '') then
+    if (start_date ~= '' or start_date) then
         local parse_start_date = parser:parse(start_date)
         if (parse_start_date) then
             start_time = parse_start_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
         end
     end
 
-    if (end_date ~= '') then
+    if (end_date ~= '' or end_date) then
         local parse_end_date = parser:parse(end_date)
         if (parse_end_date) then
             end_time = parse_end_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
