@@ -38,6 +38,7 @@ function StructMail:init(data)
         
         self:setExpireRemainTime()
     end
+
 end
 
 -------------------------------------
@@ -218,9 +219,16 @@ function StructMail:readMe(cb_func)
         end
 	end
 
-    -- 고급 소환권 api 
-    if self:isSummonTicket() then
-        g_mailData:request_summonTicket(mail_id_list, finish_cb)
+    -- 소환권 종류는 메일을 받으면 통신 후 결과물 출력
+    if self:isSummonType() then     
+        -- 11연뽑 고급소환권
+        if (self:getItemFullType() == 'summon_dragon') then
+            g_mailData:request_summonTicket(mail_id_list, finish_cb)
+        
+        -- 토파즈 드래곤 뽑기
+        elseif (self:getItemFullType() == 'summon_draw') then
+            --g_mailData:request_summonDraw(mail_id_list, finish_cb)
+        end
     else
         g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
     end
@@ -249,6 +257,33 @@ function StructMail:isSummonTicket()
     end
     local item_id = self:getItemList()[1]['item_id']
     return (item_id == ITEM_ID_SUMMON_TICKET)
+end
+
+-------------------------------------
+-- function isSummonType
+-- @brief 소환권 종류 확인
+-- @brief 20190117 item_type == 'summon' : 10+1 고급소환권, 토파즈 드래곤 뽑기권 
+-------------------------------------
+function StructMail:isSummonType()
+    if (not self:getItemList()[1]) then
+        return false
+    end
+    local item_id = self:getItemList()[1]['item_id']
+    local item_type = TableItem:getItemType(item_id)
+    return (item_type == 'summon')
+end
+
+-------------------------------------
+-- function getItemFullType
+-- @brief 메일 아이템의 풀타입 반환 
+-------------------------------------
+function StructMail:getItemFullType()
+    if (not self:getItemList()[1]) then
+        return false
+    end
+    local item_id = self:getItemList()[1]['item_id']
+    local item_full_type = TableItem:getItemFullType(item_id)
+    return item_full_type
 end
 
 -------------------------------------

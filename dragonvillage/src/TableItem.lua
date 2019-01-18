@@ -364,6 +364,24 @@ function TableItem:getDidByItemId(item_id)
 end
 
 -------------------------------------
+-- function getItemFullType
+-- @brief
+-------------------------------------
+function TableItem:getItemFullType(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_item = self:get(item_id)
+
+    if (not t_item) then
+        return nil
+    end
+
+    return t_item['full_type']
+end
+
+-------------------------------------
 -- function isDragonByItemId
 -- @brief 아이템 아이디로 해당 아이템이 드래곤이면 true 반환
 -------------------------------------
