@@ -112,6 +112,7 @@ function UI_DragonUpgrade:initButton()
     
     vars['buyBtn']:setVisible(false)
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    cca.pickMePickMe(vars['buyBtn'], 10)
 end
 
 -------------------------------------
@@ -130,7 +131,12 @@ end
 -------------------------------------
 function UI_DragonUpgrade:isBuyBtnVisible()
     local vars = self.vars    
-    
+ 
+    -- 상품 구입이 가능한 상태
+    if (not self:isPackageBuyable()) then
+        return false
+    end
+
     -- 선택된 드래곤이 승급 가능 상태
     local upgradeable = g_dragonsData:possibleUpgradeable(self.m_selectDragonOID)
     if (not upgradeable) then
@@ -142,11 +148,6 @@ function UI_DragonUpgrade:isBuyBtnVisible()
         return false
     end
 
-    -- 상품 구입이 가능한 상태
-    if (not self:isPackageBuyable()) then
-        return false
-    end
-    
     return true
 end
 
@@ -376,7 +377,7 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
         end
 
         if (invalid_dragon_oid) then
-            dragon_dic[dragon_oid] = nil
+            dragon_dic[invalid_dragon_oid] = nil
         -- 재료로 적합할 경우 잠겨 있나 확인
         -- 하나라도 잠겨 있지 않으면 승급시킬 재료 있다고 판단
         else
