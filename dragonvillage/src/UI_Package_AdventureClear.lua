@@ -10,7 +10,11 @@ UI_Package_AdventureClear = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Package_AdventureClear:init(struct_product, is_popup)
+    
+    -- 상점-패키지에서 출력될 경우
+    -- UI_Package 룰에 따라 세팅됨 ex) 가격 버튼
     if (struct_product) then
+        self:setInfoPopup()
         return
     end
 
@@ -22,7 +26,7 @@ function UI_Package_AdventureClear:init(struct_product, is_popup)
         -- 백키 지정
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AdventureClear')
     end
-	
+
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
@@ -50,6 +54,20 @@ function UI_Package_AdventureClear:refresh()
         vars['completeNode']:setVisible(false)
         vars['buyBtn']:setVisible(true)
     end
+end
+
+-------------------------------------
+-- function setInfoPopup
+-------------------------------------
+function UI_Package_AdventureClear:setInfoPopup()
+    local popup_ui = UI()
+    popup_ui:load('package_adventure_clear_popup.ui')
+    UIManager:open(popup_ui, UIManager.POPUP)
+
+    -- 닫기 버튼 셋팅
+    popup_ui.vars['okBtn']:registerScriptTapHandler(function() popup_ui:close() end)
+    popup_ui.vars['closeBtn']:registerScriptTapHandler(function() popup_ui:close() end)
+    g_currScene:pushBackKeyListener(popup_ui, function() popup_ui:close() end, 'UI_Package_AdventureClearPOPUP')
 end
 
 -------------------------------------
