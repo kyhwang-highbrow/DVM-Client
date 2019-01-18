@@ -283,34 +283,16 @@ end
 -------------------------------------
 -- function getDecoType
 -- @brief 현재의 deco_type 반환
--- @comment 일단 하드코딩으로 처리
 -------------------------------------
 function LobbyMapFactory.getDecoType()
-    if (not g_eventData.m_eventList) then
+    -- table_event_list 의 event_type 과 현재의 deco_type 형식 맞추어야함
+    -- ex) event_type = 1st_annivasary_global
+    local lobby_deco_event_id = g_eventData:getLobbyDeco_eventId()
+    if (not lobby_deco_event_id) then
         return nil   
     end
-
-	local deco_id
-    for _, v in ipairs(g_eventData.m_eventList) do
-        local start_date = v['start_date']
-        local end_date = v['end_date']
-
-        -- 현재 이벤트 중인 로비 장식 아이디 검색
-        -- 로비 장식은 한 개만 적용
-        if (g_eventData:checkEventTime(start_date, end_date)) then
-            if v['event_type'] == 'lobby_deco' then
-                deco_id = v['event_id']
-                break
-            end
-        end
-
-    end
-
-    if (deco_id) then
-        return deco_id
-    end
-
-    return nil
+    
+    return lobby_deco_event_id
 end
 
 -------------------------------------

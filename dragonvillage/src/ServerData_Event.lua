@@ -9,6 +9,7 @@ ServerData_Event = class({
 		m_isComebackUser_1st = 'bool',
 
         m_bDirty = 'boolean',
+        m_tLobbyDeco = 'table',
     })
 
 local LIMITED_EVENT_LIST = {
@@ -120,11 +121,6 @@ function ServerData_Event:getEventPopupTabList()
         elseif (event_type == 'costume_event') then
             visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
 
-        end
-
-        -- 로비 장식은 이벤트 탭에 노출되지 않음
-        if (event_type == 'lobby_deco') then
-            visible = false
         end
 
         if (visible) then
@@ -269,11 +265,6 @@ function ServerData_Event:getEventFullPopupList()
             elseif (event_type == 'costume_event') then
                 visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
 
-            end
-            
-            -- 로비 장식은 풀팝업으로 나오지 않음
-            if (event_type == 'lobby_deco') then
-                visible = false
             end
 
             if (visible) then
@@ -588,9 +579,9 @@ function ServerData_Event:response_eventList(ret, finish_cb)
 			if (v['ui_priority'] ~= '') or (v['full_popup'] ~= '') then
 				table.insert(self.m_eventList, v)
             
-            -- 로비 장식은 칼럼 상관없이 추가
+            -- 로비 장식은 매개변수에 저장 (유효한 로비 장식이 여러개의 경우 마지막 장식 적용)
             elseif(v['event_type'] == 'lobby_deco') then
-                table.insert(self.m_eventList, v)
+                self:setLobbyDecoData(v)
 			end
         end
 
@@ -599,6 +590,19 @@ function ServerData_Event:response_eventList(ret, finish_cb)
 
     if finish_cb then
         finish_cb(ret)
+    end
+end
+
+-------------------------------------
+-- function setLobbyDecoTable
+-- @brief (이벤트 기간이) 유효한 로비 데이터 저장
+-------------------------------------
+function ServerData_Event:setLobbyDecoData(table_lobbydeco)
+    local start_date = table_lobbydeco['start_date']
+    local end_date = table_lobbydeco['end_date']
+
+    if (self:checkEventTime(start_date, end_date)) then
+        self.m_tLobbyDeco = table_lobbydeco
     end
 end
 
@@ -618,6 +622,17 @@ end
 -------------------------------------
 function ServerData_Event:getChanceUpDragons()
     return self.m_mapChanceUpDragons
+end
+
+-------------------------------------
+-- function getLobbyDeco_eventId
+-------------------------------------
+function ServerData_Event:getLobbyDeco_eventId()
+    if (not self.m_tLobbyDeco) then
+        return nil
+    end
+
+    return self.m_tLobbyDeco['event_id']
 end
 
 -------------------------------------
