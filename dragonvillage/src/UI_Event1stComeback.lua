@@ -63,13 +63,13 @@ function UI_Event1stComeback:request_comebackReward()
         local msg = Str('복귀유저 이벤트 선물이 우편함으로 지급되었습니다.')
         UI_ToastPopup(msg)
 		
-		g_eventData:setComebackUser_1st(ret['comback_reward_one_year'])
+		g_eventData:setComebackUser_1st(ret['comeback_reward'])
         self:refresh()
     end
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/users/comback_one_year/reward')
+    ui_network:setUrl('/users/get_comeback_reward')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)

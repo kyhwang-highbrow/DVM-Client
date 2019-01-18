@@ -961,9 +961,9 @@ function UI_TitleScene:workGetServerInfo()
 					g_clanData.m_bAttdRewardNoti = ret['clan_attd_reward']
 				end
 
-				if (ret['comback_reward_one_year']) then
+				if (ret['comeback_reward']) then
 					cclog('# 1주년 스페셜 복귀 유저 이벤트 정보')
-					g_eventData:setComebackUser_1st(ret['comback_reward_one_year'])
+					g_eventData:setComebackUser_1st(ret['comeback_reward'])
 				end
 
                 co.NEXT()
