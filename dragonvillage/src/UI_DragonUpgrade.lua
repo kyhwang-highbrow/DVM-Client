@@ -1,5 +1,14 @@
 local PARENT = UI_DragonManage_Base
 
+-- 속성별 승급 패키지 product_id (table_shop_cash)
+local T_UPGRADE_PACKAGE_ID_TABLE = {
+		['earth'] = 110111,
+		['water'] = 110112,
+		['fire'] = 110113,
+		['light'] = 110114,
+		['dark'] = 110115,
+}
+
 -------------------------------------
 -- class UI_DragonUpgrade
 -------------------------------------
@@ -12,6 +21,7 @@ UI_DragonUpgrade = class(PARENT,{
         m_selectedMaterialCnt = 'number',
         m_currSlotIdx = 'number',
         m_bEnoughUpgradeMaterial = 'boolean',
+        m_updatePackageStruct = 'StructProduct',
     })
 
 -------------------------------------
@@ -97,7 +107,47 @@ end
 -------------------------------------
 function UI_DragonUpgrade:initButton()
     local vars = self.vars
+
     vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
+    
+    vars['buyBtn']:setVisible(false)
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+end
+
+-------------------------------------
+-- function setBuyBtn
+-------------------------------------
+function UI_DragonUpgrade:setBuyBtn()
+    local vars = self.vars
+
+    local buy_btn_visible = self:isBuyBtnVisible()
+    vars['buyBtn']:setVisible(buy_btn_visible)
+end
+
+-------------------------------------
+-- function isBuyBtnVisible
+-- @brief 승급 패키지 구매 버튼(만드라고라) 노출 여부
+-------------------------------------
+function UI_DragonUpgrade:isBuyBtnVisible()
+    local vars = self.vars    
+    
+    -- 선택된 드래곤이 승급 가능 상태
+    local upgradeable = g_dragonsData:possibleUpgradeable(self.m_selectDragonOID)
+    if (not upgradeable) then
+        return true
+    end
+
+    -- 재료가 충분하지 않은 상태
+    if (self.m_bEnoughUpgradeMaterial) then
+        return false
+    end
+
+    -- 상품 구입이 가능한 상태
+    if (not self:isPackageBuyable()) then
+        return false
+    end
+    
+    return true
 end
 
 -------------------------------------
@@ -212,6 +262,9 @@ function UI_DragonUpgrade:refresh()
     self:refresh_stats(t_dragon_data)
 	
     self:refresh_dragonMaterialTableView()
+
+    -- 승급 패키지 구매 버튼(만드라고라) 노출 갱신
+    self:setBuyBtn()
 end
 
 -------------------------------------
@@ -308,8 +361,9 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
     -- 승급용이 아닌 슬라임도 제외
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
     for oid,v in pairs(dragon_dic) do
+        local invalid_dragon_oid = nil
         if (v['grade'] < t_dragon_data['grade']) then
-            dragon_dic[oid] = nil
+            invalid_dragon_oid = oid
 
         -- 슬라임의 경우
         elseif (v:getObjectType() == 'slime') then
@@ -317,10 +371,16 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
             -- 슬라임 타입이 upgrade가 아니면 제외
             local slime_type = v:getSlimeType()
             if (slime_type ~= 'upgrade') then
-                dragon_dic[oid] = nil
+                invalid_dragon_oid = oid
             end
+        end
+
+        if (invalid_dragon_oid) then
+            dragon_dic[dragon_oid] = nil
+        -- 재료로 적합할 경우 잠겨 있나 확인
+        -- 하나라도 잠겨 있지 않으면 승급시킬 재료 있다고 판단
         else
-            if (v['lock'] == false) then
+            if (not v['lock']) then
                 self.m_bEnoughUpgradeMaterial = true
             end
         end
@@ -442,6 +502,24 @@ function UI_DragonUpgrade:click_dragonMaterial(data)
         local grade = self.m_selectDragonData['grade'] + 1
         g_dragonsData:dragonMaterialWarning(oid, next_func, {grade=grade})
     end
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_DragonUpgrade:click_buyBtn()
+    local struct_product = self.m_updatePackageStruct
+	local ui = UI_Package(struct_product, true) -- is_popup
+
+	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
+	-- 구매 후 간이 우편함 출력
+	-- 간이 우편함 닫을 때 패키지UI 닫고 진화UI 갱신
+	ui:setBuyCB(function() 
+		UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.UPDATE_PACK, function()
+			ui:close()
+			self:refresh()
+		end)
+	end)
 end
 
 -------------------------------------
@@ -600,26 +678,22 @@ end
 -- function isPackageBuyable
 -------------------------------------
 function UI_DragonUpgrade:isPackageBuyable()
-	-- 업그레이트 재료가 부족하지 않다면 패스
-	if (self.m_bEnoughUpgradeMaterial) then
-		return false
-	end
 
-    -- 드래곤 정보
+    -- 드래곤 정보 있는 지 확인
 	local struct_dragon_object = self.m_selectDragonData
     if (not struct_dragon_object) then
         return false
     end
 
 	-- pid 찾아서 StructProduct 찾아서 구매 가능 여부 확인
-	-- local attr = struct_dragon_object:getAttr()
-	-- local pid = T_EVOLUTION_PACKAGE_ID_TABLE[rarity][attr]
-	-- local struct_product = g_shopDataNew:getProduct('package', pid)
+	local attr = struct_dragon_object:getAttr()
+    local pid = T_UPGRADE_PACKAGE_ID_TABLE[attr]
+	local struct_product = g_shopDataNew:getProduct('package', pid)
 
-    -- 구매 카운트 검사
-	--return struct_product:checkMaxBuyCount()
-    
-    return true
+	-- 구매할때 쓰기 위해서 따로 저장
+	self.m_updatePackageStruct = struct_product
+
+	return struct_product:checkMaxBuyCount()
 end
 
 --@CHECK

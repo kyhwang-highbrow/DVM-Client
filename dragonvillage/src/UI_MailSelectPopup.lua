@@ -21,6 +21,7 @@ MAIL_SELECT_TYPE = {
     CAPSULE_COIN = 5,   -- 캡슐 코인
 	ITEM = 6,			-- 메일 아이템 탭
 	EVOLUTION_PACK = 7,	-- 진화 패키지 구매 시
+    UPDATE_PACK = 8,    -- 승급 패키지 구매 시
 }
 
 -------------------------------------
@@ -84,6 +85,10 @@ function UI_MailSelectPopup:initUI()
 	elseif (type == MAIL_SELECT_TYPE.EVOLUTION_PACK) then
         title = Str('진화재료')
         self:setEvolutionPackageItems()
+
+    elseif (type == MAIL_SELECT_TYPE.UPDATE_PACK) then
+        title = Str('승급재료')
+        self:setUpdatePackageItems()
 
     end
 
@@ -151,6 +156,26 @@ function UI_MailSelectPopup:setEvolutionPackageItems()
     if (item_mail_map) then
         for _, struct_mail in pairs(item_mail_map) do
             if (struct_mail:isEvolutionStone()) or (struct_mail:isSlime()) then
+                local id = struct_mail:getMid()
+                self.m_selectMap[id] = struct_mail
+            end
+        end
+    end
+
+    self.m_dirty = true
+end
+
+-------------------------------------
+-- function setUpdatePackageItems
+-- @brief 승급 패키지 아이템을 가져온다 (슈펴/경험치 슬라임)
+-------------------------------------
+function UI_MailSelectPopup:setUpdatePackageItems()
+    local item_type = self.m_selectType
+    local item_mail_map = g_mailData.m_mMailMap['item']
+
+    if (item_mail_map) then
+        for _, struct_mail in pairs(item_mail_map) do
+            if struct_mail:isSlime() then
                 local id = struct_mail:getMid()
                 self.m_selectMap[id] = struct_mail
             end
