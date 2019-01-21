@@ -129,6 +129,9 @@ function UI_PackagePopup:onChangeTab(tab, first)
             container:addChild(ui.root)
         end
     else
+        if (tab == 90057) then
+            UI_Package_AdventureClear():setInfoPopup()
+        end
         if (self.m_mTabUI[tab]) then
             self.m_mTabUI[tab]:onEnterTab()
         end
