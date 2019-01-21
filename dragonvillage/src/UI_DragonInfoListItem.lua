@@ -1,17 +1,17 @@
-local PARENT = class(UI, ITableViewCell:getCloneTable())
+local PARENT = UI
 
 -------------------------------------
--- class UI_SummonDrawInfoListItem
+-- class UI_DragonInfoListItem
 -------------------------------------
-UI_SummonDrawInfoListItem = class(PARENT, {
+UI_DragonInfoListItem = class(PARENT, {
         m_did = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SummonDrawInfoListItem:init(did)
-    local vars = self:load('event_capsule_box_schedule_item.ui')
+function UI_DragonInfoListItem:init(did, ui_res)
+    local vars = self:load(ui_res)
     self.m_did = tonumber(did)
     self:initUI()
     self:initButton()
@@ -21,7 +21,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_SummonDrawInfoListItem:initUI()
+function UI_DragonInfoListItem:initUI()
     local vars = self.vars
     local table_dragon = TableDragon()
     local did = self.m_did
@@ -57,17 +57,11 @@ end
 -------------------------------------
 -- function initItemCard
 -------------------------------------
-function UI_SummonDrawInfoListItem:initButton()
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function UI_SummonDrawInfoListItem:initButton()
+function UI_DragonInfoListItem:initButton()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_SummonDrawInfoListItem:refresh()
+function UI_DragonInfoListItem:refresh()
 end

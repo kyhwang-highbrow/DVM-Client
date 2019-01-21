@@ -736,6 +736,7 @@ local t_module = {
     'UI_LoadingArena',
     'UI_Lobby',
     'UI_LobbySpotSaleBtn',
+    'UI_DragonInfoListItem',
     'LobbyMapSpotMgr',
     'LobbyMap',
     'LobbyMapFactory',
@@ -927,7 +928,6 @@ local t_module = {
     'UI_Shop_Popup_SkillSlime',
     'UI_PromoteAutoPick',
     'UI_PromoteQuestDouble',
-    'UI_SummonDrawInfoListItem',
     'UI_SummonDrawInfo',
 
 	-- UI : 모험

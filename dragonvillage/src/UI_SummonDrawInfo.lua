@@ -40,8 +40,9 @@ function UI_SummonDrawInfo:initUI()
     local dragon_list_str = TablePickDragon:getCustomList(self.m_item_id)
     local dragon_list = plSplit(dragon_list_str, ',') -- 122023, 122323 .. 형식의 드래곤 아이디를 리스트로
 
+    local ui_res = 'package_global_anniversary_popup_item.ui'
     for i, dragon_id in ipairs(dragon_list) do
-        local list_item_ui = UI_SummonDrawInfoListItem(dragon_id)
+        local list_item_ui = UI_DragonInfoListItem(dragon_id, ui_res)
         vars['itemNode'.. i]:addChild(list_item_ui.root)
     end
 

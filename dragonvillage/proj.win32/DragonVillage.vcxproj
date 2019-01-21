@@ -1136,6 +1136,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonDiaryPopup.lua" />
     <None Include="..\src\UI_DragonGuideListItem.lua" />
     <None Include="..\src\UI_DragonGuidePopup.lua" />
+    <None Include="..\src\UI_DragonInfoListItem.lua" />
     <None Include="..\src\UI_DragonMasteryBoardNew.lua" />
     <None Include="..\src\UI_DragonMasteryLevelUp_Result.lua" />
     <None Include="..\src\UI_DragonMasteryNew.lua" />
@@ -1471,7 +1472,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SubscriptionPopupNew_Ing.lua" />
     <None Include="..\src\UI_SubscriptionPopup_Ing.lua" />
     <None Include="..\src\UI_SummonDrawInfo.lua" />
-    <None Include="..\src\UI_SummonDrawInfoListItem.lua" />
     <None Include="..\src\UI_TabUI_AutoGeneration.lua" />
     <None Include="..\src\UI_TamerCostumeConfirmPopup.lua" />
     <None Include="..\src\UI_TamerCostumeListItem.lua" />

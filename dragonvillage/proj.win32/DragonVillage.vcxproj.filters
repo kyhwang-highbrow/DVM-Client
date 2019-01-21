@@ -3946,7 +3946,7 @@
     <None Include="..\src\UI_SummonDrawInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_SummonDrawInfoListItem.lua">
+    <None Include="..\src\UI_DragonInfoListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
