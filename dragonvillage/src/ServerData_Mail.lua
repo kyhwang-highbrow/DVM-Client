@@ -408,3 +408,52 @@ function ServerData_Mail:request_summonTicket(mail_id_list, finish_cb)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function request_summonDrawTicket
+-- @brief 우편 읽기 (토파즈 드래곤 뽑기권)
+-------------------------------------
+function ServerData_Mail:request_summonDrawTicket(mail_id_list, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local mids = listToCsv(mail_id_list)
+    -- 콜백 함수
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        for i,v in ipairs(mail_id_list) do
+            self:deleteMailData(v)
+        end
+
+		-- 로비 노티 갱신
+		g_highlightData:setDirty(true)
+
+        -- 드래곤들 추가
+        local dragon_list = {}  -- added_dragons 드래곤이 리스트 형식으로 안와서 리스트 만듬, 추후에 수정해야함     
+        table.insert(dragon_list, ret['added_dragons'])
+        g_dragonsData:applyDragonData_list(dragon_list)
+
+
+        if finish_cb then
+            finish_cb(ret, mail_id_list)
+        end
+
+
+		local gacha_type = 'immediately'
+        local l_dragon_list = dragon_list
+        local l_slime_list = nil
+        local egg_id = nil
+        local egg_res = nil
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, 0)
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/summon/draw_mail')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('mid', mids)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

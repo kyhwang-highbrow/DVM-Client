@@ -227,7 +227,11 @@ function StructMail:readMe(cb_func)
         
         -- 토파즈 드래곤 뽑기
         elseif (self:getItemFullType() == 'summon_draw') then
-            --g_mailData:request_summonDraw(mail_id_list, finish_cb)
+            local draw_cb = function()
+                g_mailData:request_summonDrawTicket(mail_id_list, finish_cb)
+            end
+            local ui_draw_info = UI_SummonDrawInfo(nil, true)
+            ui_draw_info:setDrawCb(draw_cb)
         end
     else
         g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)

@@ -50,7 +50,7 @@ function PackageManager:getTargetUI(package_name, is_popup)
     -- 글로벌 1주년 패키지
     elseif (_package_name == 'package_global_anniversary') then
         target_ui = UI_Package_Bundle(_package_name, is_popup)
-        target_ui.vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_SummonDrawInfoPopup() end)
+        target_ui.vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_SummonDrawInfo() end)
 
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
