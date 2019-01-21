@@ -13,6 +13,8 @@ AD_TYPE = {
 -------------------------------------
 AdMobManager = {}
 
+local USE_OLD_AD_API = true
+
 local AdMobRewardedVideoAd = {
     mIsInit = false,
     mCallback = nil,
@@ -67,8 +69,12 @@ function AdMobManager:initRewardedVideoAd()
         return
     end
 
+    -- @ AdManager
+    if (USE_OLD_AD_API) then
+        PerpleSDK:adMobStart(ADMOB_APP_AD_UNIT_ID)
+    end
+
     PerpleSDK:adMobInitRewardedVideoAd()
-    --PerpleSDK:adMobStart(ADMOB_APP_AD_UNIT_ID)
     AdMobRewardedVideoAd.mIsInit = true
    
     local rewarded_video_ad = self:getRewardedVideoAd()
@@ -89,6 +95,11 @@ end
 -------------------------------------
 function AdMobManager:initInterstitialAd()
     if (CppFunctions:isWin32()) or (self:isAdInactive()) then
+        return
+    end
+
+    -- @ AdManager
+    if (USE_OLD_AD_API) then
         return
     end
 
@@ -244,8 +255,12 @@ function AdMobRewardedVideoAd:loadRequest(ad_unit_id)
     if (not self.mIsInit) then
         return
     end
-    PerpleSDK:rvAdLoadRequestWithId(ad_unit_id)
-    --PerpleSDK:adMobLoadRequest()
+    -- @ AdManager
+    if (USE_OLD_AD_API) then
+        PerpleSDK:adMobLoadRequest()
+    else
+        PerpleSDK:rvAdLoadRequestWithId(ad_unit_id)
+    end
 end
 
 -------------------------------------
@@ -255,8 +270,13 @@ function AdMobRewardedVideoAd:setResultCallback(cb_func)
     if (not self.mIsInit) then
         return
     end
-    PerpleSDK:rvAdSetResultCallback(cb_func)
-    --PerpleSDK:adMobSetResultCallBack(_result_cb)
+
+    -- @ AdManager
+    if (USE_OLD_AD_API) then
+        PerpleSDK:adMobSetResultCallBack(cb_func)
+    else
+        PerpleSDK:rvAdSetResultCallback(cb_func)
+    end
 end
 
 -------------------------------------
@@ -268,8 +288,13 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
     end
 
     self.mCallback = result_cb
-    PerpleSDK:rvAdShow(ad_unit_id)
-    --PerpleSDK:adMobShow(ad_unit_id)
+
+    -- @ AdManager
+    if (USE_OLD_AD_API) then
+        PerpleSDK:adMobShow(ad_unit_id)
+    else
+        PerpleSDK:rvAdShow(ad_unit_id)
+    end
 end
 
 -------------------------------------
