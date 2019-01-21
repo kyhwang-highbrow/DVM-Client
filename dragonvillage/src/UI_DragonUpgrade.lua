@@ -20,7 +20,7 @@ UI_DragonUpgrade = class(PARENT,{
         m_selectedDragonGrade = 'number',
         m_selectedMaterialCnt = 'number',
         m_currSlotIdx = 'number',
-        m_bEnoughUpgradeMaterial = 'boolean',
+        m_upgradeMaterialCnt = 'number',
         m_updatePackageStruct = 'StructProduct',
     })
 
@@ -132,19 +132,19 @@ end
 function UI_DragonUpgrade:isBuyBtnVisible()
     local vars = self.vars    
  
-    -- 상품 구입이 가능한 상태
+    -- 상품 구입이 가능하지 않으면 노출x
     if (not self:isPackageBuyable()) then
         return false
     end
 
-    -- 선택된 드래곤이 승급 가능 상태
+    -- 선택된 드래곤이 승급 가능 상태가 아니면(레벨max) 노출x
     local upgradeable = g_dragonsData:possibleUpgradeable(self.m_selectDragonOID)
     if (not upgradeable) then
         return true
     end
 
-    -- 재료가 충분하지 않은 상태
-    if (self.m_bEnoughUpgradeMaterial) then
+    -- 재료가 충분하다면 노출x
+    if (self.m_upgradeMaterialCnt >= self.m_selectedDragonGrade) then
         return false
     end
 
@@ -356,7 +356,7 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
         dragon_dic[doid] = nil
     end
 
-    self.m_bEnoughUpgradeMaterial = false
+    self.m_upgradeMaterialCnt = 0
 
     -- 예외적으로 보다 낮은 등급 드래곤은 아예 빼버림
     -- 승급용이 아닌 슬라임도 제외
@@ -378,11 +378,10 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
 
         if (invalid_dragon_oid) then
             dragon_dic[invalid_dragon_oid] = nil
-        -- 재료로 적합할 경우 잠겨 있나 확인
-        -- 하나라도 잠겨 있지 않으면 승급시킬 재료 있다고 판단
+        -- 재료로 적합할 경우 lock 상태인지 확인 후 재료 갯수에 추가 
         else
             if (not v['lock']) then
-                self.m_bEnoughUpgradeMaterial = true
+                self.m_upgradeMaterialCnt = self.m_upgradeMaterialCnt + 1
             end
         end
     end
