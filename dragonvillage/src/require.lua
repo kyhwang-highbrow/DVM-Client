@@ -927,6 +927,8 @@ local t_module = {
     'UI_Shop_Popup_SkillSlime',
     'UI_PromoteAutoPick',
     'UI_PromoteQuestDouble',
+    'UI_SummonDrawInfoListItem',
+    'UI_SummonDrawInfo',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',
@@ -1320,7 +1322,7 @@ local t_module = {
     'Network',
     'socket',
 
-    -- UI : Generated
+    -- UI : Generated   
 }
 
 -------------------------------------

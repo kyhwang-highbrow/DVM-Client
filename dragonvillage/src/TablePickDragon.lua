@@ -104,3 +104,16 @@ function TablePickDragon:isCustomPick(item_id)
 	local t_pick = self:get(item_id)
 	return t_pick['custom_dids'] and (t_pick['custom_dids'] ~= '')
 end
+
+-------------------------------------
+-- function getCustomList
+-- @brief 커스텀된 드래곤 목록 반환
+-------------------------------------
+function TablePickDragon:getCustomList(item_id)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+	local t_pick = self:get(item_id)
+	return t_pick['custom_dids']
+end
