@@ -13,7 +13,7 @@ AD_TYPE = {
 -------------------------------------
 AdMobManager = {}
 
-local USE_OLD_AD_API = true
+local USE_OLD_AD_API = (CppFunctions:getAppVer() ~= '1.1.6')
 
 local AdMobRewardedVideoAd = {
     mIsInit = false,

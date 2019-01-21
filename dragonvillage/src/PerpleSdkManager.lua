@@ -12,7 +12,9 @@ end
 
 -- private function table
 -- 함수 사용 구조를 예쁘게 한다.
-local Crashlytics = {}
+local Crashlytics = {
+    isCrashlyticsAvailable = (CppFunctions:getAppVer() == '1.1.6') -- PerpleSdkManager.isAvailable
+}
 
 -------------------------------------
 -- function twitterComposeTweet
@@ -127,7 +129,7 @@ end
 -- function forceCrash
 -------------------------------------
 function Crashlytics:forceCrash()
-	if (not PerpleSdkManager.isAvailable) then
+	if (not self.isCrashlyticsAvailable) then
 		return
 	end
     PerpleSDK:crashlyticsForceCrash()
@@ -137,7 +139,7 @@ end
 -- function setUid
 -------------------------------------
 function Crashlytics:setUid(uid)
-	if (not PerpleSdkManager.isAvailable) then
+	if (not self.isCrashlyticsAvailable) then
 		return
 	end
     if (not uid) then
@@ -150,7 +152,7 @@ end
 -- function setLog
 -------------------------------------
 function Crashlytics:setLog(msg)
-	if (not PerpleSdkManager.isAvailable) then
+	if (not self.isCrashlyticsAvailable) then
 		return
 	end
     PerpleSDK:crashlyticsSetLog(msg)
@@ -162,7 +164,7 @@ end
 -- @param value can be string, int(not float), boolean
 -------------------------------------
 function Crashlytics:setData(key, value)
-	if (not PerpleSdkManager.isAvailable) then
+	if (not self.isCrashlyticsAvailable) then
 		return
 	end
 
