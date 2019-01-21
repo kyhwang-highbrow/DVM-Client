@@ -401,7 +401,7 @@ function UI_CapsuleBox:click_buyBtn()
 
         -- 캡슐 코인 우편함 바로 보여줌
         buy_cb = function()
-            UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.CAPSULE_COIN, refresh_cb)
+            UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS, refresh_cb)
         end
 
         struct_product:buy(buy_cb)
