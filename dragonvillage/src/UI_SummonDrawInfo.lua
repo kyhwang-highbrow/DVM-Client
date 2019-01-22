@@ -52,6 +52,7 @@ function UI_SummonDrawInfo:initUI()
     local make_func = function(did)
         local card_ui = MakeSimpleDragonCard(tonumber(did))
         card_ui.root:setScale(0.66)
+        card_ui.root:setEnabled(false)
         return card_ui
     end
 
