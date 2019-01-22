@@ -144,7 +144,9 @@ function UI_DragonSell:getDragonMaterialList(doid)
 	-- 슬라임 추가
 	local slime_dic = g_slimesData:getSlimeList()
 	for oid, v in pairs(slime_dic) do
-		dragon_dic[oid] = v
+        if (not v['lock']) then
+		    dragon_dic[oid] = v
+        end
 	end
 
     return dragon_dic

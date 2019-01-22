@@ -880,6 +880,12 @@ function UI_DragonManageInfo:click_sellBtn()
 		        UIManager:toastNotificationRed(msg)
                 return
 	        end
+        -- 슬라임이라도 잠금상태면 판매목록에서 제외
+        elseif (object.m_objectType == 'slime') then
+            if (object.lock == true) then
+                UIManager:toastNotificationRed(Str('잠금 상태입니다.'))
+                return
+            end
         end
     end
 
