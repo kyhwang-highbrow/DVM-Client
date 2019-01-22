@@ -10,17 +10,16 @@ UI_Package_AdventureClear = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Package_AdventureClear:init(struct_product, is_popup)
-    
-    -- 상점-패키지에서 출력될 경우
-    -- UI_Package 룰에 따라 세팅됨 ex) 가격 버튼
+    -- 모험돌파 패키지 구매 전, 기능 설정하지않고 return UI만 출력
     if (struct_product) then
-        self:setInfoPopup(true)
+        self.vars['closeBtn']:setVisible(false)
+        self.vars['closeBtn']:setEnabled(false)
         return
     end
 
-    self.m_isPopup = is_popup or false
-
     local vars = self:load('package_adventure_clear.ui')
+    
+    self.m_isPopup = is_popup or false
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
         -- 백키 지정
@@ -61,9 +60,14 @@ end
 -------------------------------------
 function UI_Package_AdventureClear:initButton()
     local vars = self.vars
+
+    vars['closeBtn']:setVisible(true)
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['closeBtn2']:registerScriptTapHandler(function() self:setInfoPopup(false) end)
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:setInfoPopup(false) end)
 end
+
 -------------------------------------
 -- function setInfoPopup
 -------------------------------------

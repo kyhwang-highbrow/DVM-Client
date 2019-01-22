@@ -27,10 +27,24 @@ function UI_EventPopupTab_Package:initUI()
 
     local is_popup = false
     local ui = PackageManager:getTargetUI(package_name, is_popup)
+    
+    self:setAfter(ui)
 
     if (ui) then
         local node = vars['shopNode']
         node:addChild(ui.root)
+    end
+end
+
+-------------------------------------
+-- function setAfter
+-- @brief 패키지UI는 PackageMnager에서 공동으로 관리
+-- @brief 상점 패키지에만 따로 설정을 해주고 싶을 경우 여기에서 세팅 ex) 모험돌파 패키지 풀팝업에는 정보 팝업x 패키지에는 팝업o
+-------------------------------------
+function UI_EventPopupTab_Package:setAfter(ui)
+    local package_name = self.m_package_name
+    if (package_name == 'package_adventure_clear') then
+        ui:setInfoPopup(true)
     end
 end
 
