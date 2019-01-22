@@ -288,7 +288,21 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
         return
     end
 
-    self.mCallback = result_cb
+    self.mCallback = function(ret, info)
+        
+        -- 광고 show 완료
+        if (ret == 'finish') then
+            self:loadRequest(ad_unit_id)
+
+        -- 광고 show 중단
+        elseif (ret == 'cancel') then
+            self:loadRequest(ad_unit_id)
+        end
+
+        if (result_cb) then
+            result_cb(ret, info)
+        end
+    end
 
     -- @ AdManager
     if (USE_OLD_AD_API) then
