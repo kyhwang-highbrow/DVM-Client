@@ -71,7 +71,13 @@ function AdMobManager:initRewardedVideoAd()
 
     -- @ AdManager
     if (USE_OLD_AD_API) then
+        local function _result_cb(ret, info)
+            self:result(ret, info)
+        end
+        PerpleSDK:adMobSetResultCallBack(_result_cb)
         PerpleSDK:adMobStart(ADMOB_APP_AD_UNIT_ID)
+        PerpleSDK:adMobLoadRequest()
+        return
     end
 
     PerpleSDK:adMobInitRewardedVideoAd()
