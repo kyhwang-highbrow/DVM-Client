@@ -83,9 +83,14 @@ function UI_Package:refresh()
         local color_key = is_buy_all and '{@impossible}' or '{@available}'
         local rich_str = color_key .. str
         vars['buyLabel']:setString(rich_str)
+        
+        -- 구매 불가능할 경우 '구매완료' 출력
+        if (vars['completeNode']) then
+            vars['completeNode']:setVisible(is_buy_all)
+        end
     end
-
-	-- 가격
+	
+    -- 가격
     if vars['priceLabel'] then
 	    local price = struct_product:getPriceStr()
         vars['priceLabel']:setString(price)
