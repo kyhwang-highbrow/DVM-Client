@@ -330,7 +330,7 @@ end
 -------------------------------------
 function UI_Lobby:entryCoroutine_Escapable(co)
         self:entryCoroutine_spotSale(co)
-        self:entryCoroutine_challengeModePopup(co)
+        --self:entryCoroutine_challengeModePopup(co)
 end
 
 -------------------------------------
