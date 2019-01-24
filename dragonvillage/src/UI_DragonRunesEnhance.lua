@@ -1,5 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
-
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 -------------------------------------
 -- class UI_DragonRunesEnhance
 -------------------------------------
@@ -12,6 +11,9 @@ UI_DragonRunesEnhance = class(PARENT,{
 		m_enhanceOptionLv = 'num',
 		m_coroutineHelper = 'CoroutinHelepr',
     })
+
+UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
+UI_DragonRunesEnhance.GRIND = 'grind' -- 특성 스킬
 
 -------------------------------------
 -- function initParentVariable
@@ -32,7 +34,7 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self.m_runeObject = rune_obj
     self.m_changeOptionList = {}
 
-    local vars = self:load('dragon_rune_enhance.ui')
+    local vars = self:load('rune_upgrade_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -43,11 +45,12 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self:doActionReset()
     self:doAction(nil, false)
 
-	-- initilize
+	-- 룬 강화 레벨 초기화
 	self.m_enhanceOptionLv = 0
 
     self:initUI(attr)
     self:initButton()
+    self:initTab()
     self:refresh()
 end
 
@@ -67,6 +70,26 @@ function UI_DragonRunesEnhance:initUI(attr)
     vars['runeNameLabel']:setString(rune_obj['name'])
 
 	self:initOptionRadioBtn()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_DragonRunesEnhance:initTab()
+    local vars = self.vars
+    self:addTabAuto(UI_DragonRunesEnhance.ENHANCE, vars, vars['enhanceMenu'])
+    self:addTabAuto(UI_DragonRunesEnhance.GRIND, vars, vars['grindMenu'])
+    self:setTab(UI_DragonRunesEnhance.ENHANCE)
+
+	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+end
+
+-------------------------------------
+-- function onChangeTab
+-- @brief
+-------------------------------------
+function UI_DragonRunesEnhance:onChangeTab(tab, first)
+
 end
 
 -------------------------------------
@@ -107,6 +130,9 @@ function UI_DragonRunesEnhance:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 	vars['stopBtn']:registerScriptTapHandler(function() self:click_stopBtn() end)
     vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+
+    -- 룬 연마
+    vars['grindBtn']:registerScriptTapHandler(function() self:click_grind() end)
 end
 
 -------------------------------------
@@ -128,25 +154,7 @@ function UI_DragonRunesEnhance:refresh()
     local option_label = vars['optionLabel']
     option_label:setString(rune_obj:makeRuneDescRichText(for_enhance))
     
-    -- 변경된 옵션이 있다면 애니메이션 효과
-    local change_list = self.m_changeOptionList
-    for i, v in ipairs(change_list) do
-        local node_list = option_label:findContentNodeWithkey(v)
-        if (#node_list > 0) then
-            for _i, _v in ipairs(node_list) do
-                local find_node = _v
-                -- 자연스러운 액션을 위해 앵커포인트 변경
-                --폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
-                local orgAnchor = find_node:getAnchorPoint()
-                local function onFinish(node)
-                    changeAnchorPointWithOutTransPos(node, orgAnchor)
-                end
-                changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
-                cca.stampShakeActionLabel(find_node, 1.5, 0.1, 0, 0)
-                cca.reserveFunc(find_node, 0.1, onFinish)
-            end
-        end
-    end
+    self:showChangeLabelEffect(option_label, self.m_changeOptionList)
 
     -- 강화 성공시 옵션 추가되는 경우 
     local max_lv = RUNE_LV_MAX
@@ -178,6 +186,84 @@ function UI_DragonRunesEnhance:refresh()
 end
 
 -------------------------------------
+-- function refresh
+-------------------------------------
+function UI_DragonRunesEnhance:refresh_grind()
+    local vars = self.vars
+
+    local rune_obj = self.m_runeObject
+
+    -- 룬 아이콘
+    vars['runeNode']:removeAllChildren()
+    local ui = UI_RuneCard(rune_obj)
+    cca.uiReactionSlow(ui.root)
+    vars['runeNode']:addChild(ui.root)
+
+    -- 능력치 출력
+    local for_enhance = true
+    local option_label = vars['optionLabel']
+    option_label:setString(rune_obj:makeRuneDescRichText(for_enhance))
+    
+    self:showChangeLabelEffect(option_label, self.m_changeOptionList)
+
+    -- 강화 성공시 옵션 추가되는 경우 
+    local max_lv = RUNE_LV_MAX
+    local curr_lv = rune_obj['lv']
+
+    vars['bonusEffectLabel']:setVisible((curr_lv ~= max_lv - 1) and (curr_lv % 3 == 2))
+    vars['maxLvEffectLabel']:setVisible((curr_lv == max_lv - 1))
+
+    -- 소모 골드
+    local req_gold = rune_obj:getRuneEnhanceReqGold()
+    vars['enhancePriceLabel']:setString(comma_value(req_gold))
+    cca.uiReactionSlow(vars['enhancePriceLabel'])
+
+    -- 할인 이벤트
+    local only_value = true
+    g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.RUNE_ENHANCE, vars, 'enhanceEventSprite', only_value)
+
+	-- 연속 강화 옵션 처리
+	for idx = 1, 5 do
+		if (curr_lv >= idx * 3) then
+			self.m_optionRadioBtn:disable(idx)
+		end
+	end
+
+	-- 강화 만렙 처리
+    local is_max_lv = rune_obj:isMaxRuneLv()
+    vars['enhanceBtn']:setVisible(not is_max_lv)
+	vars['enhanceOptionNode']:setVisible(not is_max_lv)
+end
+
+-------------------------------------
+-- function showChangeLabelEffect 
+-- @brief 변경된 옵션 라벨에 애니메이션 효과
+-------------------------------------
+function UI_DragonRunesEnhance:showChangeLabelEffect(label, change_option_list)
+
+    -- 변경된 옵션이 있다면 애니메이션 효과
+    local change_list = change_option_list
+    for i, v in ipairs(change_list) do
+        local node_list = label:findContentNodeWithkey(v)
+
+        if (#node_list > 0) then
+            for _i, _v in ipairs(node_list) do
+                local find_node = _v
+                -- 자연스러운 액션을 위해 앵커포인트 변경
+                -- 폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
+                local orgAnchor = find_node:getAnchorPoint()
+                local function onFinish(node)
+                    changeAnchorPointWithOutTransPos(node, orgAnchor)
+                end
+                changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
+                cca.stampShakeActionLabel(find_node, 1.5, 0.1, 0, 0)
+                cca.reserveFunc(find_node, 0.1, onFinish)
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function show_upgradeEffect
 -- @param cb_func : 단일 강화시 block_ui를 제어하며 연속 강화시 CoroutineHelper를 종료시킨다
 -------------------------------------
@@ -197,17 +283,8 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func)
         top_visual:setVisible(false)
         bottom_visual:setVisible(false)
 
-        local rune_obj = self.m_runeObject
-        if (is_success) then
-            self:refresh()
-            UIManager:toastNotificationGreen(Str('{1}강화를 성공하였습니다.', rune_obj['lv']))
-        else
-			vars['enhanceBtn']:setVisible(true)
-            UIManager:toastNotificationRed(Str('{1}강화를 실패하였습니다.', rune_obj['lv'] + 1))
-        end
-
 		if (cb_func) then
-			cb_func()
+			cb_func(is_success)
 		end
     end)
 
@@ -218,8 +295,28 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func)
     end
 end
 
+
 -------------------------------------
--- function checkChangeSubOption
+-- function showUpgradeResult
+-------------------------------------
+function UI_DragonRunesEnhance:showUpgradeResult(is_success, enhance_type)
+    local vars = self.vars
+    local rune_obj = self.m_runeObject
+    
+    if(enhance_type == UI_DragonRunesEnhance.GRIND) then
+        self:refresh()
+        UIManager:toastNotificationGreen(Str('연마를 성공하였습니다.'))
+    elseif (is_success) then
+        self:refresh()
+        UIManager:toastNotificationGreen(Str('{1}강화를 성공하였습니다.', rune_obj['lv']))
+    else
+		vars['enhanceBtn']:setVisible(true)
+        UIManager:toastNotificationRed(Str('{1}강화를 실패하였습니다.', rune_obj['lv'] + 1))
+    end
+end
+
+-------------------------------------
+-- function setChangeOptionList
 -------------------------------------
 function UI_DragonRunesEnhance:setChangeOptionList(old_data, new_data)
     self.m_changeOptionList = {}
@@ -254,16 +351,34 @@ function UI_DragonRunesEnhance:click_stopBtn()
 end
 
 -------------------------------------
+-- function click_grind
+-------------------------------------
+function UI_DragonRunesEnhance:click_grind()
+    local block_ui = UI_BlockPopup()
+
+	local function cb_func(is_success)
+        self:showUpgradeResult(is_success, UI_DragonRunesEnhance.GRIND)
+		block_ui:close()
+	end
+
+    self:request_grind(cb_func)
+	return
+end
+
+-------------------------------------
 -- function click_enhanceBtn
 -------------------------------------
 function UI_DragonRunesEnhance:click_enhanceBtn()
 	-- 일회 강화
 	if (self.m_enhanceOptionLv == 0) then
 		local block_ui = UI_BlockPopup()
-		local function cb_func()
+
+		local function cb_func(is_success)
+            self:showUpgradeResult(is_success)
 			block_ui:close()
 		end
-		self:request_enhance(cb_func)
+		
+        self:request_enhance(cb_func)
 		return
 	end
 
@@ -351,4 +466,11 @@ function UI_DragonRunesEnhance:request_enhance(cb_func)
     end
 
     g_runesData:request_runeLevelup(owner_doid, roid, finish_cb)
+end
+
+-------------------------------------
+-- function request_grind
+-------------------------------------
+function UI_DragonRunesEnhance:request_grind(cb_func)
+    self:show_upgradeEffect(true, cb_func)
 end
