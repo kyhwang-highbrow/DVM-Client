@@ -149,12 +149,23 @@ function UI_DragonRunesEnhance:refresh()
     cca.uiReactionSlow(ui.root)
     vars['runeNode']:addChild(ui.root)
 
-    -- 능력치 출력
-    local for_enhance = true
-    local option_label = vars['optionLabel']
-    option_label:setString(rune_obj:makeRuneDescRichText(for_enhance))
-    
-    self:showChangeLabelEffect(option_label, self.m_changeOptionList)
+    for i,v in ipairs(RUNE_OPTION_TYPE) do
+        local option_label = string.format("%s_optionLabel", v)
+        local option_label_node = string.format("%s_optionNode", v)
+        local desc_str = rune_obj:makeEachRuneDescRichText(v, i == 1)
+
+        if (desc_str == '') then
+            if (vars[option_label_node]) then
+                vars[option_label_node]:setVisible(false)
+            end
+        else
+            if (vars[option_label]) then
+                vars[option_label]:setString(desc_str)
+            end
+        end
+    end
+
+    self:showChangeLabelEffect(self.m_changeOptionList)
 
     -- 강화 성공시 옵션 추가되는 경우 
     local max_lv = RUNE_LV_MAX
@@ -199,11 +210,6 @@ function UI_DragonRunesEnhance:refresh_grind()
     cca.uiReactionSlow(ui.root)
     vars['runeNode']:addChild(ui.root)
 
-    -- 능력치 출력
-    local for_enhance = true
-    local option_label = vars['optionLabel']
-    option_label:setString(rune_obj:makeRuneDescRichText(for_enhance))
-    
     self:showChangeLabelEffect(option_label, self.m_changeOptionList)
 
     -- 강화 성공시 옵션 추가되는 경우 
@@ -239,28 +245,36 @@ end
 -- function showChangeLabelEffect 
 -- @brief 변경된 옵션 라벨에 애니메이션 효과
 -------------------------------------
-function UI_DragonRunesEnhance:showChangeLabelEffect(label, change_option_list)
+function UI_DragonRunesEnhance:showChangeLabelEffect(change_option_list)
 
     -- 변경된 옵션이 있다면 애니메이션 효과
     local change_list = change_option_list
     for i, v in ipairs(change_list) do
-        local node_list = label:findContentNodeWithkey(v)
-
-        if (#node_list > 0) then
-            for _i, _v in ipairs(node_list) do
-                local find_node = _v
-                -- 자연스러운 액션을 위해 앵커포인트 변경
-                -- 폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
-                local orgAnchor = find_node:getAnchorPoint()
-                local function onFinish(node)
-                    changeAnchorPointWithOutTransPos(node, orgAnchor)
-                end
-                changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
-                cca.stampShakeActionLabel(find_node, 1.5, 0.1, 0, 0)
-                cca.reserveFunc(find_node, 0.1, onFinish)
-            end
+        local option_label_str = string.format('%s_optionLabel', v)
+       
+        if (self.vars[option_label_str]) then
+            self:showLabelEffect(self.vars[option_label_str])
         end
     end
+end
+
+-------------------------------------
+-- function showLabelEffect 
+-- @brief 라벨 애니메이션 효과(빙글 도는)
+-------------------------------------
+function UI_DragonRunesEnhance:showLabelEffect(label)
+
+    local find_node = label
+    -- 자연스러운 액션을 위해 앵커포인트 변경
+    -- 폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
+    local orgAnchor = find_node:getAnchorPoint()
+    local function onFinish(node)
+        changeAnchorPointWithOutTransPos(node, orgAnchor)
+    end
+    changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
+    cca.stampShakeActionLabel(find_node, 1.5, 0.1, 0, 0)
+    cca.reserveFunc(find_node, 0.1, onFinish)
+
 end
 
 -------------------------------------
@@ -354,6 +368,17 @@ end
 -- function click_grind
 -------------------------------------
 function UI_DragonRunesEnhance:click_grind()
+    
+    local grade = self.m_runeObject:getGrade()
+    
+    if (not grade) then
+        return
+    end
+    
+    if (grade < 12) then
+        UIManager:toastNotificationRed(Str('12강화 이상의 룬만 연마 할 수 있습니다.'))
+    end
+    
     local block_ui = UI_BlockPopup()
 
 	local function cb_func(is_success)

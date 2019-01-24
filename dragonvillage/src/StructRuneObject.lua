@@ -1,6 +1,16 @@
 RUNE_SLOT_MAX = 6
 RUNE_LV_MAX = 15
 
+RUNE_OPTION_TYPE =
+{
+    'mopt',
+    'uopt',
+    'sopt_1',
+    'sopt_2',
+    'sopt_3',
+    'sopt_4'
+}
+
 -------------------------------------
 -- class StructRuneObject
 -- @instance rune_obj
@@ -221,6 +231,28 @@ function StructRuneObject:makeRuneDescRichText(for_enhance)
 
     return text or ''
 end
+
+-------------------------------------
+-- function makeEachRuneDescRichText
+-------------------------------------
+function StructRuneObject:makeEachRuneDescRichText(opt_type, for_enhance)
+    local text = ''
+    local text_ = self:getRuneOptionDesc(self[opt_type])
+
+    if text_ then
+        text = string.format('{@&w;%s}%s', opt_type, text_)
+
+        if for_enhance then
+            local new_option_str = self:getNextLevelMopt()
+            if new_option_str then
+                text = text .. ' {@&O;mopt}▶ {@&G;mopt}' .. self:getRuneOptionDesc(new_option_str)
+            end
+        end
+    end
+
+    return text or ''
+end
+
 
 -------------------------------------
 -- function makeRuneSetDescRichText
@@ -504,4 +536,23 @@ function StructRuneObject:getStringData()
     )
 
     return str
+end
+
+-------------------------------------
+-- function getGrade
+-------------------------------------
+function StructRuneObject:getGrade()
+    local grade = self['grade'] 
+    return grade
+end
+
+-------------------------------------
+-- function getIcono
+-------------------------------------
+function StructRuneObject:getIcon(opt_type)
+    local option_type = self[opt_type]
+
+    --if (option_type == 'mopt')
+
+    --return grade
 end
