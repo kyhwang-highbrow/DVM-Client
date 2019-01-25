@@ -190,20 +190,7 @@ function UI_DragonRunesEnhance:refresh_common()
     vars['runeNode']:addChild(ui.root)
 
     -- 룬 옵션 세팅
-    for i,v in ipairs(RUNE_OPTION_TYPE) do
-        local option_label = string.format("%s_optionLabel", v)        -- ex) mopt_1_optionLabel
-        local option_label_node = string.format("%s_optionNode", v)    -- ex) mopt_1_optionNode
-        local desc_str = rune_obj:makeEachRuneDescRichText(v, i == 1)
-
-        -- 옵션 desc가 없다면 해당 옵션은 노출하지 않는다
-        if (desc_str == '') then
-            vars[option_label_node]:setVisible(false)
-        else
-            vars[option_label_node]:setVisible(true)
-            vars[option_label]:setString(desc_str)
-        end
-    end
-
+    rune_obj:setOptionLabel(self, 'option', true)
 end
 
 -------------------------------------

@@ -580,11 +580,8 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     local rune_icon = UI_RuneCard(rune_obj)
     vars['useRuneNode']:addChild(rune_icon.root)
 
-    -- 메인, 유니크 옵션
-    vars['useMainOptionLabel']:setString(rune_obj:makeRuneDescRichText())
-
-    -- 서브 옵션
-    vars['useSubOptionLabel']:setString('')
+    -- 룬 옵션 라벨
+    self:setOptionLabel(false)
 
     -- 세트 옵션
     vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
@@ -643,11 +640,8 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     local rune_icon = UI_RuneCard(rune_obj)
     vars['selectRuneNode']:addChild(rune_icon.root)
 
-    -- 메인, 유니크 옵션
-    vars['selectMainOptionLabel']:setString(rune_obj:makeRuneDescRichText())
-
-    -- 서브 옵션
-    vars['selectSubOptionLabel']:setString('')
+    -- 룬 옵션 라벨
+    self:setOptionLabel(true)
 
     -- 세트 옵션
     vars['selectRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
@@ -687,6 +681,23 @@ function UI_DragonRunes:setTableViewItemHighlight(roid, visible)
     end
 
     ui:setHighlightSpriteVisible(visible)
+end
+
+-------------------------------------
+-- function setOptionLabel
+-- @brief
+-------------------------------------
+function UI_DragonRunes:setOptionLabel(is_selected)
+
+    if (is_selected) then
+        local rune_selected_obj = self.m_selectedRuneObject
+        rune_selected_obj:setOptionLabel(self, 'select')
+    else
+        local rune_equipped_obj = self.m_equippedRuneObject
+        if (rune_equipped_obj) then
+            rune_equipped_obj:setOptionLabel(self, 'use')
+        end
+    end
 end
 
 -------------------------------------

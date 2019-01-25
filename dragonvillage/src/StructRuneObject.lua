@@ -578,3 +578,31 @@ function StructRuneObject:existOptionType(option_type)
         return true
     end
 end
+
+-------------------------------------
+-- function setOptionLabel
+-- @return 
+-------------------------------------
+function StructRuneObject:setOptionLabel(ui, label_format, show_change)
+    local vars = ui.vars
+
+    -- 룬 옵션 세팅
+    for i,v in ipairs(RUNE_OPTION_TYPE) do
+        local option_label = string.format("%s_%sLabel", v, label_format)
+        local option_label_node = string.format("%s_%sNode", v, label_format)
+        
+        if (show_change) then
+            show_change = (i == 1)
+        end
+        
+        local desc_str = self:makeEachRuneDescRichText(v, show_change)
+
+        -- 옵션 desc가 없다면 해당 옵션은 노출하지 않는다
+        if (desc_str == '') then
+            vars[option_label_node]:setVisible(false)
+        else
+            vars[option_label_node]:setVisible(true)
+            vars[option_label]:setString(desc_str)
+        end
+    end
+end
