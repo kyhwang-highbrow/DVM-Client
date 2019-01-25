@@ -198,7 +198,7 @@ function AdMobManager:showErrorPopup(error_info)
     elseif (code == "-2103") then
 		msg = Str('광고를 불러오는 중입니다. 잠시 후에 다시 시도해주세요.')
 
-    -- invalid ad unit id : show 요청 받았으나 ad unit id가 비정상
+    -- fail to load : 광고 불러오기 실패
     elseif (code == "-2104") then
         msg = Str('비정상적인 광고 요청입니다.')
 
