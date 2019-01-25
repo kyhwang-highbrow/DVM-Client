@@ -176,9 +176,6 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
         local name = t_rune_data['name']
         vars['itemNameLabel']:setString(name)
     end
-
-    vars['runeDscLabel']:setVisible(true)
-    vars['runeDscLabel']:setString(t_rune_data:makeRuneDescRichText())
     
     -- 판매 버튼
     if self.m_inventoryUI.m_selectSellItemsUI and (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) then
@@ -192,6 +189,26 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     vars['itemDscLabel2']:setString(str)
 
     self.m_selectedRuneObject = t_rune_data
+
+    -- 룬 옵션 라벨
+    self.vars['runeInfoNode']:setVisible(true)
+    self.m_selectedRuneObject:setOptionLabel(self, '', false)
+    
+
+    -- 룬 라벨 길이에 따라 룬 아이콘 위치 결정되도록 위치 계산
+    for i,v in ipairs(RUNE_OPTION_TYPE) do
+        local option_label = string.format("%s_%sLabel", v, '')
+        local option_icon = string.format("%s_%siconNode", v, '')
+        local w, h = vars[option_icon]:getNormalSize() + 5
+        
+        local str_width = vars[option_label]:getStringWidth() + 5
+        local total_width = (str_width + w)
+        local start_x = -(total_width / 2)
+
+        vars[option_icon]:setPositionX(start_x + (w/2))  
+        vars[option_label]:setPositionX(start_x + w + (str_width/2))
+    end
+
 end
 
 -------------------------------------
