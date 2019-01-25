@@ -13,7 +13,8 @@ UI_DragonRunesEnhance = class(PARENT,{
 
         -- 연마
         m_optionGrindRadioBtn = 'UIC_RadioButton',
-        m_seletedGrindOption = 'option_type'        -- 연마하기로 결정된 옵션 (최초에만 라디오 버튼으로 선택, 이 후에는 고정)
+        m_seletedGrindOption = 'option_type',        -- 연마하기로 결정된 옵션 (최초에만 라디오 버튼으로 선택, 이 후에는 고정)
+        m_optionLabel = 'ui',
     })
 
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
@@ -43,6 +44,8 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonRunesEnhance')
+    
+    self.m_optionLabel = nil
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -189,8 +192,6 @@ function UI_DragonRunesEnhance:refresh_common()
     cca.uiReactionSlow(ui.root)
     vars['runeNode']:addChild(ui.root)
 
-    -- 룬 옵션 세팅
-    rune_obj:setOptionLabel(self, 'option', true) -- param : ui, label_format, show_change
 end
 
 -------------------------------------
@@ -201,6 +202,13 @@ function UI_DragonRunesEnhance:refresh_enhance()
     local rune_obj = self.m_runeObject
     
     self:refresh_common()
+
+    -- 룬 옵션 세팅
+    if (not self.m_optionLabel) then
+        self.m_optionLabel = rune_obj:getOptionLabel()
+        vars['runeInfo']:addChild(self.m_optionLabel.root)
+    end
+    rune_obj:setOptionLabel(self.m_optionLabel, 'use', true) -- param : ui, label_format, show_change
 
     -- 바뀐 룬 옵션이 있을 경우 라벨 애니메이션 동작
     self:showChangeLabelEffect(self.m_changeOptionList)
@@ -241,7 +249,7 @@ function UI_DragonRunesEnhance:refresh_grind()
     local vars = self.vars 
 
     self:refresh_common()
-
+    --rune_obj:setOptionLabel(self.m_optionLabel, 'use', true) -- param : ui, label_format, show_change
     local selected_option = self.m_seletedGrindOption
     
     -- 연마 대상 룬 옵션 라벨만 애니메이션 동작
@@ -255,11 +263,11 @@ end
 -- @brief 변경된 옵션 라벨에 애니메이션 효과
 -------------------------------------
 function UI_DragonRunesEnhance:showChangeLabelEffect(change_list)
-    local vars = self.vars
+    local vars = self.m_optionLabel.vars
 
     -- 변경된 옵션이 있다면 애니메이션 효과
     for i, v in ipairs(change_list) do
-        local option_label_str = string.format('%s_optionLabel', v)
+        local option_label_str = string.format('%s_useLabel', v)
        
         if (vars[option_label_str]) then
             self:showLabelEffect(vars[option_label_str])

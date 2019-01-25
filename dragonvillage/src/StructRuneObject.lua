@@ -617,3 +617,15 @@ function StructRuneObject:setOptionLabel(ui, label_format, show_change)
         end
     end
 end
+
+-------------------------------------
+-- function getOptionLabel
+-------------------------------------
+function StructRuneObject:getOptionLabel(size)
+    local option_label = UI()
+    option_label:load('rune_info_board.ui')
+    option_label.vars['runeInfo']:setVisible(true)
+    option_label.vars['useMenu']:setVisible(false)
+
+    return option_label
+end

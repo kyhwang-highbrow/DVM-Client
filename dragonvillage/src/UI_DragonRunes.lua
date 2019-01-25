@@ -12,6 +12,8 @@ UI_DragonRunes = class(PARENT,{
         m_selectedRuneObject = 'StructRuneObject',
 
         m_mEquippedRuneObjects = 'map',
+        m_selectOptionLabel = 'ui',
+        m_useOptionLabel = 'ui',
     })
 
 -------------------------------------
@@ -35,6 +37,8 @@ function UI_DragonRunes:init(doid, slot_idx)
     self.m_selectDragonOID = doid
     self.m_listFilterSetID = 0
     self.m_mEquippedRuneObjects = {}
+    self.m_selectOptionLabel = nil
+    self.m_useOptionLabel = nil
 
     local vars = self:load('dragon_rune.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -571,6 +575,8 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
         vars['useMenu']:setVisible(true)
         vars['useEmptyMenu']:setVisible(false)
         cca.uiReactionSlow(vars['useMenu'], 1, 1, 0.95)
+        -- 룬 옵션 라벨
+        self:setOptionLabel(false)
     end
 
     -- 룬 명칭
@@ -579,9 +585,6 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     -- 룬 아이콘
     local rune_icon = UI_RuneCard(rune_obj)
     vars['useRuneNode']:addChild(rune_icon.root)
-
-    -- 룬 옵션 라벨
-    self:setOptionLabel(false)
 
     -- 세트 옵션
     vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
@@ -627,6 +630,8 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     else
         vars['selectMenu']:setVisible(true)
         cca.uiReactionSlow(vars['selectMenu'], 1, 1, 0.95)
+        -- 룬 옵션 라벨
+        self:setOptionLabel(true)
     end
 
 	-- 신규 룬 표시 삭제
@@ -639,9 +644,6 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     -- 룬 아이콘
     local rune_icon = UI_RuneCard(rune_obj)
     vars['selectRuneNode']:addChild(rune_icon.root)
-
-    -- 룬 옵션 라벨
-    self:setOptionLabel(true)
 
     -- 세트 옵션
     vars['selectRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
@@ -691,12 +693,18 @@ function UI_DragonRunes:setOptionLabel(is_selected)
 
     if (is_selected) then
         local rune_selected_obj = self.m_selectedRuneObject
-        rune_selected_obj:setOptionLabel(self, 'select') -- param : ui, label_format, show_change
+        if (not self.m_selectOptionLabel) then
+            self.m_selectOptionLabel = rune_selected_obj:getOptionLabel()
+            self.vars['selectMenu']:addChild(self.m_selectOptionLabel.root)
+        end
+        rune_selected_obj:setOptionLabel(self.m_selectOptionLabel, 'use') -- param : ui, label_format, show_change
     else
         local rune_equipped_obj = self.m_equippedRuneObject
-        if (rune_equipped_obj) then
-            rune_equipped_obj:setOptionLabel(self, 'use') -- param : ui, label_format, show_change
+        if (not self.m_useOptionLabel) then      
+            self.m_useOptionLabel = rune_equipped_obj:getOptionLabel()
+            self.vars['useMenu']:addChild(self.m_useOptionLabel.root)
         end
+        rune_equipped_obj:setOptionLabel(self.m_useOptionLabel, 'use') -- param : ui, label_format, show_change
     end
 end
 

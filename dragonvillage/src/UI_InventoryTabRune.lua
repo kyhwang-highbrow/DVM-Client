@@ -9,6 +9,7 @@ UI_InventoryTabRune = class(PARENT, {
         m_mSortManagerMap = 'map',
 
 		m_tNotiSprite = 'table',
+        m_optionLabel = 'ui',
      })
 
 -------------------------------------
@@ -18,7 +19,7 @@ function UI_InventoryTabRune:init(inventory_ui)
     self.m_mTableViewListMap = {}
     self.m_mSortManagerMap = {}
 	self.m_tNotiSprite = {}
-
+    self.m_optionLabel = nil
     local vars = self.vars
 
     -- 'inventory.ui'를 사용
@@ -192,22 +193,11 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
 
     -- 룬 옵션 라벨
     self.vars['runeInfoNode']:setVisible(true)
-    self.m_selectedRuneObject:setOptionLabel(self, '', false)
-    
-
-    -- 룬 라벨 길이에 따라 룬 아이콘 위치 결정되도록 위치 계산
-    for i,v in ipairs(RUNE_OPTION_TYPE) do
-        local option_label = string.format("%s_%sLabel", v, '')
-        local option_icon = string.format("%s_%siconNode", v, '')
-        local w, h = vars[option_icon]:getNormalSize() + 5
-        
-        local str_width = vars[option_label]:getStringWidth() + 5
-        local total_width = (str_width + w)
-        local start_x = -(total_width / 2)
-
-        vars[option_icon]:setPositionX(start_x + (w/2))  
-        vars[option_label]:setPositionX(start_x + w + (str_width/2))
+    if (not self.m_optionLabel) then
+        self.m_optionLabel = self.m_selectedRuneObject:getOptionLabel()
+        self.vars['runeInfoNode']:addChild(self.m_optionLabel.root)
     end
+    self.m_selectedRuneObject:setOptionLabel(self.m_optionLabel, 'use', false)
 
 end
 
