@@ -10,6 +10,7 @@ UI_DragonRunesEnhance = class(PARENT,{
 		m_optionRadioBtn = 'UIC_RadioButton',
 		m_enhanceOptionLv = 'num',
 		m_coroutineHelper = 'CoroutinHelepr',
+        m_optionGrindRadioBtn = 'UIC_RadioButton',
     })
 
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
@@ -119,6 +120,28 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
 	end
 
 	radio_button:setSelectedButton(0)
+
+
+    local rune_obj = self.m_runeObject
+    local grind_radio_button = UIC_RadioButton()
+	grind_radio_button:setChangeCB(function(option_type)
+        
+    end)
+	self.m_optionGrindRadioBtn = radio_button
+    for i,v in ipairs(RUNE_OPTION_TYPE) do
+        if (i>2) then
+            local option_btn = string.format('%s_btn', v)
+
+            local option_sprite = string.format('%s_sprite',v)
+            local option_label = string.format('%s_label',v)
+            if (vars[option_label]) then
+                vars[option_label]:setString(rune_obj:makeEachRuneDescRichText(v, i == 1))
+                grind_radio_button:addButton(i, vars[option_btn], vars[option_sprite])
+            end
+
+        end
+    end
+    grind_radio_button:setSelectedButton(3)
 end
 
 
@@ -159,6 +182,9 @@ function UI_DragonRunesEnhance:refresh()
                 vars[option_label_node]:setVisible(false)
             end
         else
+            if (vars[option_label_node]) then
+                vars[option_label_node]:setVisible(true)
+            end
             if (vars[option_label]) then
                 vars[option_label]:setString(desc_str)
             end
@@ -212,33 +238,7 @@ function UI_DragonRunesEnhance:refresh_grind()
 
     self:showChangeLabelEffect(option_label, self.m_changeOptionList)
 
-    -- 강화 성공시 옵션 추가되는 경우 
-    local max_lv = RUNE_LV_MAX
-    local curr_lv = rune_obj['lv']
-
-    vars['bonusEffectLabel']:setVisible((curr_lv ~= max_lv - 1) and (curr_lv % 3 == 2))
-    vars['maxLvEffectLabel']:setVisible((curr_lv == max_lv - 1))
-
-    -- 소모 골드
-    local req_gold = rune_obj:getRuneEnhanceReqGold()
-    vars['enhancePriceLabel']:setString(comma_value(req_gold))
-    cca.uiReactionSlow(vars['enhancePriceLabel'])
-
-    -- 할인 이벤트
-    local only_value = true
-    g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.RUNE_ENHANCE, vars, 'enhanceEventSprite', only_value)
-
-	-- 연속 강화 옵션 처리
-	for idx = 1, 5 do
-		if (curr_lv >= idx * 3) then
-			self.m_optionRadioBtn:disable(idx)
-		end
-	end
-
-	-- 강화 만렙 처리
-    local is_max_lv = rune_obj:isMaxRuneLv()
-    vars['enhanceBtn']:setVisible(not is_max_lv)
-	vars['enhanceOptionNode']:setVisible(not is_max_lv)
+    
 end
 
 -------------------------------------
@@ -377,6 +377,7 @@ function UI_DragonRunesEnhance:click_grind()
     
     if (grade < 12) then
         UIManager:toastNotificationRed(Str('12강화 이상의 룬만 연마 할 수 있습니다.'))
+        return
     end
     
     local block_ui = UI_BlockPopup()
