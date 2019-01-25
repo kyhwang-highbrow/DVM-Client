@@ -556,3 +556,25 @@ function StructRuneObject:getIcon(opt_type)
 
     --return grade
 end
+
+-------------------------------------
+-- function getLevel
+-------------------------------------
+function StructRuneObject:getLevel()
+    local level = self['lv'] 
+    return tonumber(level)
+end
+
+-------------------------------------
+-- function existOptionType
+-- @param mopt, sopt..
+-- @return 해당 옵션 타입이 존재한다면 true 반환
+-------------------------------------
+function StructRuneObject:existOptionType(option_type)
+    local option_value = self[option_type] 
+    if (option_value == '') then
+        return false
+    else
+        return true
+    end
+end

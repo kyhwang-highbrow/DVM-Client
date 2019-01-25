@@ -10,7 +10,10 @@ UI_DragonRunesEnhance = class(PARENT,{
 		m_optionRadioBtn = 'UIC_RadioButton',
 		m_enhanceOptionLv = 'num',
 		m_coroutineHelper = 'CoroutinHelepr',
+
+        -- 연마
         m_optionGrindRadioBtn = 'UIC_RadioButton',
+        m_seletedGrindOption = 'option_type'        -- 연마하기로 결정된 옵션 (최초에만 라디오 버튼으로 선택, 이 후에는 고정)
     })
 
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
@@ -52,7 +55,8 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self:initUI(attr)
     self:initButton()
     self:initTab()
-    self:refresh()
+    self:refresh_enhance()
+    self:refresh_grind()
 end
 
 -------------------------------------
@@ -95,12 +99,12 @@ end
 
 -------------------------------------
 -- function initOptionRadioBtn
--- @brief
+-- @brief 연마/강화의 라디오 버튼 초기화
 -------------------------------------
 function UI_DragonRunesEnhance:initOptionRadioBtn()
 	local vars = self.vars
 
-	-- radio button 선언
+    -- 강화 radio button 선언
     local radio_button = UIC_RadioButton()
 	radio_button:setChangeCB(function(option_type)
         self.m_enhanceOptionLv = option_type * 3
@@ -108,7 +112,7 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
 	self.m_optionRadioBtn = radio_button
 
     -- 버튼 등록
-	--local btn, sprite = nil, nil
+	-- local btn, sprite = nil, nil
 	for idx = 0, 5 do
 		local btn = vars['enhanceOptionBtn' .. idx]
         local sprite = vars['enhanceOptionSprite' .. idx]
@@ -118,30 +122,43 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
 		end
 		radio_button:addButton(idx, btn, sprite)
 	end
-
+    -- default : 첫 번째 버튼 선택
 	radio_button:setSelectedButton(0)
 
 
+
+    -- 연마 radio button 선언
     local rune_obj = self.m_runeObject
     local grind_radio_button = UIC_RadioButton()
 	grind_radio_button:setChangeCB(function(option_type)
-        
+        self.m_seletedGrindOption = option_type
     end)
 	self.m_optionGrindRadioBtn = radio_button
+
+    -- 연마 버튼 등록
     for i,v in ipairs(RUNE_OPTION_TYPE) do
-        if (i>2) then
-            local option_btn = string.format('%s_btn', v)
+        if (i>2) then   -- 전체 옵션 중에서 sopt만 연마, 
+            local option_btn = string.format('%s_btn', v)       -- ex) sopt_1_btn
+            local option_sprite = string.format('%s_sprite',v)  -- ex) sopt_1_sprite
+            local option_label = string.format('%s_label',v)    -- ex) sopt_1_label
 
-            local option_sprite = string.format('%s_sprite',v)
-            local option_label = string.format('%s_label',v)
-            if (vars[option_label]) then
-                vars[option_label]:setString(rune_obj:makeEachRuneDescRichText(v, i == 1))
-                grind_radio_button:addButton(i, vars[option_btn], vars[option_sprite])
+            local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
+            if (rune_desc_str ~= '') then
+                vars[option_label]:setString(rune_desc_str)
+                grind_radio_button:addButton(v, vars[option_btn], vars[option_sprite])
+                vars[option_btn]:setVisible(true)
+            else
+                vars[option_btn]:setVisible(false)
             end
-
         end
     end
-    grind_radio_button:setSelectedButton(3)
+
+    if (rune_obj:existOptionType('sopt_1')) then
+        -- default : sopt_1 라디오 버튼 선택
+        grind_radio_button:setSelectedButton('sopt_1')
+    else
+        -- 연마할 보조옵션이 없을 경우
+    end
 end
 
 
@@ -159,41 +176,49 @@ function UI_DragonRunesEnhance:initButton()
 end
 
 -------------------------------------
--- function refresh
+-- function refresh_common
 -------------------------------------
-function UI_DragonRunesEnhance:refresh()
+function UI_DragonRunesEnhance:refresh_common()
     local vars = self.vars
 
     local rune_obj = self.m_runeObject
 
-    -- 룬 아이콘
+    -- 룬 아이템 카드 세팅
     vars['runeNode']:removeAllChildren()
     local ui = UI_RuneCard(rune_obj)
     cca.uiReactionSlow(ui.root)
     vars['runeNode']:addChild(ui.root)
 
+    -- 룬 옵션 세팅
     for i,v in ipairs(RUNE_OPTION_TYPE) do
-        local option_label = string.format("%s_optionLabel", v)
-        local option_label_node = string.format("%s_optionNode", v)
+        local option_label = string.format("%s_optionLabel", v)        -- ex) mopt_1_optionLabel
+        local option_label_node = string.format("%s_optionNode", v)    -- ex) mopt_1_optionNode
         local desc_str = rune_obj:makeEachRuneDescRichText(v, i == 1)
 
+        -- 옵션 desc가 없다면 해당 옵션은 노출하지 않는다
         if (desc_str == '') then
-            if (vars[option_label_node]) then
-                vars[option_label_node]:setVisible(false)
-            end
+            vars[option_label_node]:setVisible(false)
         else
-            if (vars[option_label_node]) then
-                vars[option_label_node]:setVisible(true)
-            end
-            if (vars[option_label]) then
-                vars[option_label]:setString(desc_str)
-            end
+            vars[option_label_node]:setVisible(true)
+            vars[option_label]:setString(desc_str)
         end
     end
 
+end
+
+-------------------------------------
+-- function refresh_enhance
+-------------------------------------
+function UI_DragonRunesEnhance:refresh_enhance()
+    local vars = self.vars  
+    local rune_obj = self.m_runeObject
+    
+    self:refresh_common()
+
+    -- 바뀐 룬 옵션이 있을 경우 라벨 애니메이션 동작
     self:showChangeLabelEffect(self.m_changeOptionList)
 
-    -- 강화 성공시 옵션 추가되는 경우 
+    -- 강화 성공 시 옵션 추가되는 경우 
     local max_lv = RUNE_LV_MAX
     local curr_lv = rune_obj['lv']
 
@@ -223,37 +248,34 @@ function UI_DragonRunesEnhance:refresh()
 end
 
 -------------------------------------
--- function refresh
+-- function refresh_grind
 -------------------------------------
 function UI_DragonRunesEnhance:refresh_grind()
-    local vars = self.vars
+    local vars = self.vars 
 
-    local rune_obj = self.m_runeObject
+    self:refresh_common()
 
-    -- 룬 아이콘
-    vars['runeNode']:removeAllChildren()
-    local ui = UI_RuneCard(rune_obj)
-    cca.uiReactionSlow(ui.root)
-    vars['runeNode']:addChild(ui.root)
-
-    self:showChangeLabelEffect(option_label, self.m_changeOptionList)
-
+    local selected_option = self.m_seletedGrindOption
     
+    -- 연마 대상 룬 옵션 라벨만 애니메이션 동작
+    local changed_label_str = string.format('%s_label', selected_option)
+    local changed_label = vars[changed_label_str]
+    self:showLabelEffect(changed_label)
 end
 
 -------------------------------------
 -- function showChangeLabelEffect 
 -- @brief 변경된 옵션 라벨에 애니메이션 효과
 -------------------------------------
-function UI_DragonRunesEnhance:showChangeLabelEffect(change_option_list)
+function UI_DragonRunesEnhance:showChangeLabelEffect(change_list)
+    local vars = self.vars
 
     -- 변경된 옵션이 있다면 애니메이션 효과
-    local change_list = change_option_list
     for i, v in ipairs(change_list) do
         local option_label_str = string.format('%s_optionLabel', v)
        
-        if (self.vars[option_label_str]) then
-            self:showLabelEffect(self.vars[option_label_str])
+        if (vars[option_label_str]) then
+            self:showLabelEffect(vars[option_label_str])
         end
     end
 end
@@ -269,10 +291,12 @@ function UI_DragonRunesEnhance:showLabelEffect(label)
     -- 폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
     local orgAnchor = find_node:getAnchorPoint()
     local function onFinish(node)
-        changeAnchorPointWithOutTransPos(node, orgAnchor)
+
     end
-    changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
+
+
     cca.stampShakeActionLabel(find_node, 1.5, 0.1, 0, 0)
+
     cca.reserveFunc(find_node, 0.1, onFinish)
 
 end
@@ -318,10 +342,10 @@ function UI_DragonRunesEnhance:showUpgradeResult(is_success, enhance_type)
     local rune_obj = self.m_runeObject
     
     if(enhance_type == UI_DragonRunesEnhance.GRIND) then
-        self:refresh()
+        self:refresh_grind()
         UIManager:toastNotificationGreen(Str('연마를 성공하였습니다.'))
     elseif (is_success) then
-        self:refresh()
+        self:refresh_enhance()
         UIManager:toastNotificationGreen(Str('{1}강화를 성공하였습니다.', rune_obj['lv']))
     else
 		vars['enhanceBtn']:setVisible(true)
@@ -369,13 +393,13 @@ end
 -------------------------------------
 function UI_DragonRunesEnhance:click_grind()
     
-    local grade = self.m_runeObject:getGrade()
+    local level = self.m_runeObject:getLevel()
     
-    if (not grade) then
+    if (not level) then
         return
     end
-    
-    if (grade < 12) then
+
+    if (level < 12) then
         UIManager:toastNotificationRed(Str('12강화 이상의 룬만 연마 할 수 있습니다.'))
         return
     end
