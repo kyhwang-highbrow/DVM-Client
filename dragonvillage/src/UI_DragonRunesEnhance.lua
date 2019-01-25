@@ -190,7 +190,7 @@ function UI_DragonRunesEnhance:refresh_common()
     vars['runeNode']:addChild(ui.root)
 
     -- 룬 옵션 세팅
-    rune_obj:setOptionLabel(self, 'option', true)
+    rune_obj:setOptionLabel(self, 'option', true) -- param : ui, label_format, show_change
 end
 
 -------------------------------------

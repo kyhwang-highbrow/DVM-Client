@@ -691,11 +691,11 @@ function UI_DragonRunes:setOptionLabel(is_selected)
 
     if (is_selected) then
         local rune_selected_obj = self.m_selectedRuneObject
-        rune_selected_obj:setOptionLabel(self, 'select')
+        rune_selected_obj:setOptionLabel(self, 'select') -- param : ui, label_format, show_change
     else
         local rune_equipped_obj = self.m_equippedRuneObject
         if (rune_equipped_obj) then
-            rune_equipped_obj:setOptionLabel(self, 'use')
+            rune_equipped_obj:setOptionLabel(self, 'use') -- param : ui, label_format, show_change
         end
     end
 end

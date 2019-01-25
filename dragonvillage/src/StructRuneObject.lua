@@ -581,21 +581,32 @@ end
 
 -------------------------------------
 -- function setOptionLabel
--- @return 
+-- @brief 옵션 라벨 mopt~sopt4까지 자동으로 셋팅
+-- @brief mopt_XXXLabel, mopt_XXXNode 와 같이 일정한 형식에서만 작동
 -------------------------------------
 function StructRuneObject:setOptionLabel(ui, label_format, show_change)
     local vars = ui.vars
 
     -- 룬 옵션 세팅
     for i,v in ipairs(RUNE_OPTION_TYPE) do
-        local option_label = string.format("%s_%sLabel", v, label_format)
+        local option_label = string.format("%s_%sLabel", v, label_format) -- ex) label_vormat 이 XX의 경우, mopt_XXLabel인 라벨을 찾아서 사용
         local option_label_node = string.format("%s_%sNode", v, label_format)
         
+        -- show_chage가 true 라면 주옵션만 ex) 공격력 +4% -> 공격력 +5% 표시
         if (show_change) then
             show_change = (i == 1)
         end
         
         local desc_str = self:makeEachRuneDescRichText(v, show_change)
+
+        -- node와 label 둘 중 하나라도 없다면 출력x, 에러메세지
+        if (not vars[option_label_node] or not vars[option_label]) then
+            if (IS_TEST_MODE()) then
+                local error_str = string.format('wrong luaname in .ui : %s, %s', option_label_node, option_label) 
+                error(error_str)
+            end
+            return
+        end
 
         -- 옵션 desc가 없다면 해당 옵션은 노출하지 않는다
         if (desc_str == '') then
