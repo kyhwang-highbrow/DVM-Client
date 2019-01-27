@@ -585,6 +585,10 @@ end
 -- @brief mopt_XXXLabel, mopt_XXXNode 와 같이 일정한 형식에서만 작동
 -------------------------------------
 function StructRuneObject:setOptionLabel(ui, label_format, show_change)
+    if (not ui) then
+        return
+    end
+    
     local vars = ui.vars
 
     -- 룬 옵션 세팅

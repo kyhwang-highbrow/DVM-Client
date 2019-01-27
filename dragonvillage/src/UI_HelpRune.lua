@@ -49,11 +49,7 @@ local set_after = function(ui_name, ui)
          local rune_icon = UI_RuneCard(rune_obj)
          vars['runeNode']:addChild(rune_icon.root)
 
-         -- 메인, 유니크 옵션
-         vars['useMainOptionLabel']:setString(rune_obj:makeRuneDescRichText())
-
-         -- 서브 옵션
-         vars['useSubOptionLabel']:setString('')
+         rune_obj:setOptionLabel(sub_ui, 'use', false)
 
          -- 세트 옵션
          vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())

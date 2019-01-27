@@ -8,6 +8,7 @@ UI_RandomShop = class(PARENT,{
 
         m_selectUI = 'UI_RandomShopListItem',
         m_selectItem = 'StructRandomShopItem',
+        m_selectRuneOptionLabel = 'ui',
     })
 
 local NEED_REFRESH_TYPE = 'cash'
@@ -17,6 +18,8 @@ local NEED_REFRESH_TYPE = 'cash'
 function UI_RandomShop:init()
     local vars = self:load('shop_random.ui')
     UIManager:open(self, UIManager.SCENE)
+
+    self.m_selectRuneOptionLabel = nil
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_RandomShop')
@@ -167,8 +170,17 @@ function UI_RandomShop:refresh_itemInfo()
 
         if (is_rune) then
             local t_rune_data = struct_item:getRuneData()
+            --[[
             local desc = t_rune_data:makeRuneDescRichText()
             vars['runeDscLabel']:setString(desc)
+            --]]
+            vars['runeDscLabel']:setString('')
+            local struct_rune = StructRuneObject(t_rune_data)
+            if (not self.m_selectRuneOptionLabel) then
+                self.m_selectRuneOptionLabel = struct_rune:getOptionLabel()
+                vars['runeDscLabel']:addChild(self.m_selectRuneOptionLabel.root)                    
+            end
+            struct_rune:setOptionLabel(self.m_selectRuneOptionLabel, 'use', false) 
 
             -- 임시 룬 오브젝트를 생성 (룬 세트 설명 함수를 사용하기 위해)
             local _data = {}
