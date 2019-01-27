@@ -240,7 +240,7 @@ function StructRuneObject:makeEachRuneDescRichText(opt_type, for_enhance)
     local text_ = self:getRuneOptionDesc(self[opt_type])
 
     if text_ then
-        text = string.format('{@&w;%s}%s', opt_type, text_)
+        text = string.format('%s', text_)
 
         if for_enhance then
             local new_option_str = self:getNextLevelMopt()
