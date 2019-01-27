@@ -286,12 +286,10 @@ function UI_DragonRunesEnhance:showLabelEffect(label)
     -- 폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
     local orgAnchor = find_node:getAnchorPoint()
     local function onFinish(node)
-
+        changeAnchorPointWithOutTransPos(node, orgAnchor)
     end
-
-
+    changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
     cca.stampShakeActionLabel(find_node, 1.5, 0.1, 0, 0)
-
     cca.reserveFunc(find_node, 0.1, onFinish)
 
 end
