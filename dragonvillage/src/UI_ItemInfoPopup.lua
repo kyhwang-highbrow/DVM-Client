@@ -71,8 +71,15 @@ function UI_ItemInfoPopup:initUI()
     -- 아이템 설명
     local desc = ''
     if (type == 'rune') and self.m_tSubData then
+        -- 룬일 경우
         local t_rune_data = self.m_tSubData
-        desc = t_rune_data:makeRuneDescRichText()
+        
+        -- 옵션 라벨 UI를 로드한다
+        local opt_label = t_rune_data:getOptionLabel()
+        self.vars['itemDscLabel']:addChild(opt_label.root)
+        
+        -- 해당 UI를 옵션정보로 채운다 
+        t_rune_data:setOptionLabel(opt_label, 'use', false) -- param : ui, label_format, show_change
     else
         desc = TableItem():getValue(self.m_itemID, 't_desc')
     end
