@@ -198,6 +198,9 @@ function UI_MatchReadyChallengeMode:make_UIC_SortList()
     table.insert(l_difficulty_point, 80) -- 어려움 수동
     table.insert(l_difficulty_point, 100) -- 어려움 자동
 
+    table.insert(l_difficulty_point, 120) -- 지옥 수동
+    table.insert(l_difficulty_point, 150) -- 지옥 자동
+
     for i,difficulty_point in ipairs(l_difficulty_point) do
         
         local difficulty, is_auto, text = g_challengeMode:parseChallengeModeStagePoint(difficulty_point)

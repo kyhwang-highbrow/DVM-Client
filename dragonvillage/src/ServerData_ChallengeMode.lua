@@ -1123,6 +1123,14 @@ function ServerData_ChallengeMode:parseChallengeModeStagePoint(point)
         difficulty = DIFFICULTY.HARD
         is_auto = true
         text = Str('어려움 (자동)')
+    elseif (point == 120) then
+        difficulty = DIFFICULTY.HELL
+        is_auto = true
+        text = Str('지옥 (수동)')
+    elseif (point == 150) then
+        difficulty = DIFFICULTY.HELL
+        is_auto = true
+        text = Str('지옥 (자동)')
     end
 
     return difficulty, is_auto, text
