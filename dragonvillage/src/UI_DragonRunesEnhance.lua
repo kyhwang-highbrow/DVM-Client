@@ -163,8 +163,6 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
     if (rune_obj:existOptionType('sopt_1')) then
         -- default : sopt_1 라디오 버튼 선택
         grind_radio_button:setSelectedButton('sopt_1')
-    else
-        -- 연마할 보조옵션이 없을 경우
     end
 end
 
@@ -251,6 +249,7 @@ end
 -------------------------------------
 function UI_DragonRunesEnhance:refresh_grind()
     local vars = self.vars 
+    local rune_obj = self.m_runeObject
 
     self:refresh_common()
 
@@ -259,6 +258,24 @@ function UI_DragonRunesEnhance:refresh_grind()
     local changed_label_str = string.format('%s_label', selected_option)
     local changed_label = vars[changed_label_str]
     self:showLabelEffect(changed_label)
+
+
+    -- 라디오 버튼 정보 갱신
+    for i,v in ipairs(RUNE_OPTION_TYPE) do
+        if (i>2) then   -- 전체 옵션 중에서 sopt만 연마, 
+            local option_btn = string.format('%s_btn', v)       -- ex) sopt_1_btn
+            local option_sprite = string.format('%s_sprite',v)  -- ex) sopt_1_sprite
+            local option_label = string.format('%s_label',v)    -- ex) sopt_1_label
+
+            local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
+            if (rune_desc_str ~= '') then
+                vars[option_label]:setString(rune_desc_str)
+                vars[option_btn]:setVisible(true)
+            else
+                vars[option_btn]:setVisible(false)
+            end
+        end
+    end
 end
 
 -------------------------------------
