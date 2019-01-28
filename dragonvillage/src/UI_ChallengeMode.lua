@@ -72,9 +72,11 @@ function UI_ChallengeMode:initUI()
     vars['stageNumberLabel']:setString('')
 
 
-    -- 획득한 골드 (도전 보상, 승리 보상)
+    -- 획득한 연마석
     vars['rewardNode']:setVisible(true)
-    local str = Str('{1}\n/{2}', comma_value(g_challengeMode:getCumulativeGold()), comma_value(10000000))
+
+    -- 하드코딩에, 연마석은 축적된 연마석이 아니라 승리한 층 갯수를 받아옴, 후에 수정해야함
+    local str = Str('{1}\n/{2}', comma_value(g_challengeMode:getCumulativeGrindStone()), comma_value(60))
     vars['rewardLabel']:setString(str)
     
     -- 정렬 함수 셋팅
@@ -143,7 +145,7 @@ function UI_ChallengeMode:initUI_tableView()
 
     local vaild_list = {}
     for i,v in ipairs(t_floor) do
-        -- 마스터 모드가 풀리지 않았다면
+        -- 마스터 시즌이 아니라면 
         if (not g_challengeMode:getChallengeModeMasterState()) then
             -- 마스터 구역은 리스트에 추가하지 않는다
             if (v['rank'] >= g_challengeMode:getMasterStage()) then
@@ -152,6 +154,31 @@ function UI_ChallengeMode:initUI_tableView()
         else
             table.insert(vaild_list, v)
         end
+    end
+    
+    
+    local function sort_func(a, b)
+        return a['stage'] < b['stage']
+    end
+
+    table.sort(vaild_list, sort_func)
+
+    -- 마스터 시즌이 아니라면, 
+    -- 1. 마스터 시즌 예고하는 테이블아이템 추가
+    -- 2. masterTimeSprite OFF
+    if (not g_challengeMode:getChallengeModeMasterState()) then
+        local extra_list_item = { advance_notice = true, stage = 200 }
+        table.insert(vaild_list, extra_list_item)
+        vars['masterTimeSprite']:setVisible(false)
+    else
+        vars['masterTimeSprite']:setVisible(true)
+
+        -- 남은 시간 표기
+        local sec = g_challengeMode:getChallengeModeMasterStatusText()
+        local day = math.floor(sec / 86400)
+        local hour = math.floor(sec / 3600) % 24
+        local str_time = vars['masterTimeLabel']:getString()
+        vars['masterTimeLabel']:setString(Str(str_time,day, hour))
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -165,10 +192,7 @@ function UI_ChallengeMode:initUI_tableView()
 
     --self.m_tableView.m_scrollView:setLimitedOffset(true)
 
-    local function sort_func(a, b)
-        return a['data']['stage'] < b['data']['stage']
-    end
-    table.sort(self.m_tableView.m_itemList, sort_func)
+
     -- 정렬할 원본 테이블은 항상 정렬된 상태
     self.m_originStageList = self.m_tableView.m_itemList
 end
@@ -335,6 +359,7 @@ end
 -------------------------------------
 function UI_ChallengeMode:apply_StageSort(type)
     local list = self.m_originStageList
+
     -- 스테이지 순으로 정렬
     if (type == 'stage') then
         table.sort(list, self.m_sortStageFunc)
@@ -343,6 +368,22 @@ function UI_ChallengeMode:apply_StageSort(type)
         table.sort(list, self.m_sortModeFunc)
     end
 
+    local advanced_notice_item = nil
+    
+    -- 예고 데이터 삭제
+    -- data에 uid가 없다면 예고 데이터라고 생각하고 지웠다가 추가
+    for i, v in ipairs(self.m_originStageList) do
+        if (not v['data']['uid']) then
+            advanced_notice_item = table.remove(self.m_originStageList, i)
+            break
+        end
+    end
+
+    -- 지워진 예고 데이터가 있을 경우에만 다시 마지막에 추가
+    if (advanced_notice_item) then
+        table.insert(self.m_originStageList, advanced_notice_item)
+    end
+    
     -- 다음 도전할 스테이지에 포커스
     self:focusOnNextStage(list)
     self.m_tableView:setDirtyItemList()  

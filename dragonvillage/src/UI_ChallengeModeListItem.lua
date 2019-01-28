@@ -27,6 +27,21 @@ function UI_ChallengeModeListItem:initUI()
     local vars = self.vars
 
     local t_data = self.m_userData
+
+    if (t_data['advance_notice']) then
+        vars['masterTimeSprite']:setVisible(true)
+        vars['stageBtn']:setEnabled(false)
+        vars['stageBtn']:setVisible(false)
+
+        -- 남은 시간 표기
+        local sec = g_challengeMode:getChallengeModeMasterStatusText()
+        local day = math.floor(sec / 86400)
+        local hour = math.floor(sec / 3600) % 24
+        local str_time = vars['masterTimeLabel']:getString()
+        vars['masterTimeLabel']:setString(Str(str_time,day, hour))
+        return
+    end
+
     local stage = t_data['stage']
     local nick = t_data['nick'] or ''
     local clan = t_data['clan'] or ''

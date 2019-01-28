@@ -1024,6 +1024,14 @@ function ServerData_ChallengeMode:getChallengeModeStatusText()
 end
 
 -------------------------------------
+-- function getChallengeModeMasterStatusText
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeMasterStatusText()
+    local time = g_hotTimeData:getEventRemainTime('event_challenge_master') or 0
+    return time
+end
+
+-------------------------------------
 -- function request_challengeModeRanking
 -- @brief 챌린지 모드(그림자의 신전) 랭킹 통신
 -------------------------------------
@@ -1215,6 +1223,22 @@ function ServerData_ChallengeMode:getCumulativeGold()
         -- 승리 보상
         if self:isClearStage_challengeMode(stage) then
             cumulative_gold = (cumulative_gold + 80000)
+        end
+    end
+
+    return cumulative_gold
+end
+
+-------------------------------------
+-- function getCumulativeGrindStone
+-- @brief 누적 연마석
+-------------------------------------
+function ServerData_ChallengeMode:getCumulativeGrindStone()
+    local cumulative_gold = 0
+    for stage=1, 60 do
+        -- 승리 보상
+        if self:isClearStage_challengeMode(stage) then
+            cumulative_gold = (cumulative_gold + 1)
         end
     end
 
