@@ -1384,6 +1384,6 @@ end
 -- function getUserCanEnterChallengeMode
 -- @brief 유저의 입장 자격
 -------------------------------------
-function ServerData_ChallengeMode:getUserCanEnterChallengeMode(rank)
+function ServerData_ChallengeMode:getUserCanEnterChallengeMode()
     return self.m_bEnterChallengeMode
 end

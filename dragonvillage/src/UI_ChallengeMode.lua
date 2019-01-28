@@ -114,6 +114,8 @@ function UI_ChallengeMode:initUI()
                 order_spr:runAction(cc.RotateTo:create(0.15, 0))
             end
         end)
+
+    self:setEntrancePopup()
 end
 
 -------------------------------------
@@ -226,6 +228,32 @@ function UI_ChallengeMode:appearDone()
     UI_ChallengeModeInfoPopup:open('bg')
 end
 
+
+-------------------------------------
+-- function setEntrancePopup
+-------------------------------------
+function UI_ChallengeMode:setEntrancePopup()
+    -- 그림자 신전 입장 자격이 될 경우 이벤트 동안 1번만 입장 팝업
+    if (g_challengeMode:getUserCanEnterChallengeMode()) then
+        local expired_time = g_settingData:getChellengeModeSettingdata('onece_for_season')
+        local cur_time = Timer:getServerTime()
+    
+        if (cur_time > tonumber(expired_time)) then
+            local msg = Str('그림자의 신전은 콜로세움 지난 시즌에서 골드 3등급 이상을 달성한 테이머만 도전할 수 있습니다.\n테이머님의 지난 시즌 성적은 {1} 입니다.\n그림자의 신전 도전 자격을 달성했습니다. 여러분의 한계에 도전해 보세요!\n(자격은 시즌 종료까지 유지됩니다.)', g_arena)
+            UI_SimplePopup(POPUP_TYPE.OK, msg, nil, nil, UIManager.LOADING)
+            
+            -- 쿨타임 20일 이후로 갱신
+            local next_cool_time = cur_time + datetime.dayToSecond(20)
+            g_settingData:applySettingData(next_cool_time, 'challenge_history', 'onece_for_season')
+        end
+    
+    -- 그림자 신전 입장 자격이 안 될 경우 계속 입장 불가 팝업
+    else
+        local msg = Str('그림자의 신전은 콜로세움 지난 시즌에서 골드 3등급 이상을 달성한 테이머만 도전할 수 있습니다.\n테이머님의 지난 시즌 성적은 {1} 입니다.\n그림자의 신전에 도전할 수 없습니다.. 콜로세움에서 골드 등급 달성에 도전해 주세요.)', g_arena)
+        UI_SimplePopup(POPUP_TYPE.OK, msg, nil, nil, UIManager.LOADING)    
+    end
+end
+
 -------------------------------------
 -- function refresh_playerRank
 -- @brief 플레이어 랭킹 정보 갱신
@@ -331,11 +359,20 @@ function UI_ChallengeMode:refresh(stage)
         elseif g_challengeMode:isOpenStage_challengeMode(stage) then
             vars['startBtn']:setVisible(true)
             vars['lockBtn']:setVisible(false)
-
-        --시즌 진행 중이지만 스테이지가 잠긴 상태
         else
             vars['startBtn']:setVisible(false)
             vars['lockBtn']:setVisible(true)
+        end
+
+        -- 입장 자격이 안되는 경우
+        if (not g_challengeMode:getUserCanEnterChallengeMode()) then
+            vars['lockSprite']:setVisible(true)
+            vars['lockLabel2']:setVisible(true)
+            vars['startBtn']:setEnabled(false)
+        else
+            vars['lockSprite']:setVisible(false)
+            vars['lockLabel2']:setVisible(false)
+            vars['startBtn']:setEnabled(true)
         end
     end
 end

@@ -224,6 +224,7 @@ function SettingData:makeDefaultSettingData()
         t_data['last_day_rank'] = 0         -- 이전 날짜 랭킹 기록
         t_data['last_day_rank_time'] = 0    -- 이전 날짜 랭킹 기록
         t_data['last_entry_day'] = 0        -- 그림자 신전에 마지막으로 입장한 시간 기록(일 단위로 저장)
+        t_data['onece_for_season'] = 0      -- 그림자 신전 첫 입장시에만 팝업 띄우기 위한 시간 기록
         root_table['challenge_history'] = t_data
     end
 
@@ -550,13 +551,30 @@ function SettingData:setPromoteCoolTime(key, time)
 end
 
 -------------------------------------
--- function getChellengeModeRankHistory
--- @brief rank_history_rank
+-- function setChellengeModeSettingdata
 -------------------------------------
-function SettingData:getChellengeModeRankHistory(type)
-    local full_key = 'history' .. '_' .. type
-    return self:get('challenge_history', full_key) or 0
+function SettingData:getChellengeModeSettingdata(type, value)
+    self:applySettingData(time, 'promote_expired', type) 
 end
+
+------------------------------------
+-- function getChellengeModeSettingdata
+-------------------------------------
+function SettingData:getChellengeModeSettingdata(type)
+    return self:get('challenge_history', type) or 0
+end
+
+-------------------------------------
+-- function setChellengeModeSettingdata
+-------------------------------------
+function SettingData:setChellengeModeSettingdata(type, value)
+    self:applySettingData(value, 'challenge_history', type) 
+end
+
+
+
+
+-- 사용하지 않는 settingdata
 
 -------------------------------------
 -- function setChellengeModeRankHistory
