@@ -253,9 +253,13 @@ function UI_DragonRunesEnhance:refresh_grind()
     local vars = self.vars 
 
     self:refresh_common()
-    --rune_obj:setOptionLabel(self.m_optionLabel, 'use', true) -- param : ui, label_format, show_change
+
+    local rune_obj = self.m_runeObject
+    if (rune_obj.grind_opt) then
+        self.m_seletedGrindOption = rune_obj.grind_opt
+    end
+
     local selected_option = self.m_seletedGrindOption
-    
     -- 연마 대상 룬 옵션 라벨만 애니메이션 동작
     local changed_label_str = string.format('%s_label', selected_option)
     local changed_label = vars[changed_label_str]
@@ -302,7 +306,7 @@ end
 -- function show_upgradeEffect
 -- @param cb_func : 단일 강화시 block_ui를 제어하며 연속 강화시 CoroutineHelper를 종료시킨다
 -------------------------------------
-function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func)
+function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func, is_grind)
     local vars = self.vars
     local top_visual = vars['enhanceTopVisual']
     local bottom_visual = vars['enhanceBottomVisual']
@@ -319,6 +323,7 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func)
         bottom_visual:setVisible(false)
 
 		if (cb_func) then
+            self:showUpgradeResult(is_success, is_grind)
 			cb_func(is_success)
 		end
     end)
@@ -404,7 +409,6 @@ function UI_DragonRunesEnhance:click_grind()
     local block_ui = UI_BlockPopup()
 
 	local function cb_func(is_success)
-        self:showUpgradeResult(is_success, UI_DragonRunesEnhance.GRIND)
 		block_ui:close()
 	end
 
@@ -421,7 +425,6 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 		local block_ui = UI_BlockPopup()
 
 		local function cb_func(is_success)
-            self:showUpgradeResult(is_success)
 			block_ui:close()
 		end
 		
@@ -459,7 +462,7 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 		local enhance_cnt = 0
         while (self.m_runeObject:getLevel() < self.m_enhanceOptionLv) do -- 연속 강화 옵션 목표 레벨 달성 시 종료
             co:work()
-				
+			
 			-- 강화 시도
             self:request_enhance(co.NEXT)	
 
@@ -519,13 +522,24 @@ end
 -- function request_grind
 -------------------------------------
 function UI_DragonRunesEnhance:request_grind(cb_func)
+    local req_gold = self.m_runeObject:getRuneGrindReqGold()
+    local req_grind_stone = self.m_runeObject:getRuneGrindReqGrindstone()
+
+    if (not ConfirmPrice('gold', req_gold) or not ConfirmPrice('grindstone', req_grind_stone)) then
+		if (cb_func) then
+			cb_func()
+		end
+
+        return false
+    end
+    
     -- 통신 시작
     local rune_obj = self.m_runeObject
     local owner_doid = rune_obj['owner_doid']
     local roid = rune_obj['roid']
 
     local finish_func = function()
-        self:show_upgradeEffect(true, cb_func)
+        self:show_upgradeEffect(true, cb_func, true)
     end
 
     local select_sopt_number = string.match(self.m_seletedGrindOption, '%d+')

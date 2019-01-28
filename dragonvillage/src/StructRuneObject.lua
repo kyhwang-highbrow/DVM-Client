@@ -297,6 +297,32 @@ function StructRuneObject:getRuneEnhanceReqGold()
 end
 
 -------------------------------------
+-- function getRuneEnhanceReqGold
+-------------------------------------
+function StructRuneObject:getRuneGrindReqGold()
+    local rarity = self:getRarity()
+    local t_grind = TABLE:get('table_rune_grind')
+    if (not t_grind[rarity]) then
+        return 10000
+    end
+
+    return t_grind[rarity]['price'] or 10000
+end
+
+-------------------------------------
+-- function getRuneEnhanceReqGrindstone
+-------------------------------------
+function StructRuneObject:getRuneGrindReqGrindstone()
+    local rarity = self:getRarity()
+    local t_grind = TABLE:get('table_rune_grind')
+    if (not t_grind[rarity]) then
+        return 1
+    end
+
+    return t_grind[rarity]['grindstone'] or 1
+end
+
+-------------------------------------
 -- function isEquippedRune
 -------------------------------------
 function StructRuneObject:isEquippedRune()
@@ -565,6 +591,14 @@ end
 function StructRuneObject:getLevel()
     local level = self['lv'] 
     return tonumber(level)
+end
+
+-------------------------------------
+-- function getRarity
+-------------------------------------
+function StructRuneObject:getRarity()
+    local rarity = self['rarity'] 
+    return tonumber(rarity)
 end
 
 -------------------------------------

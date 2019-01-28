@@ -90,6 +90,8 @@ local TableInfo = {
 		table_pick_dragon = {'table_pick_dragon', 'itemid', false},
         table_collection_reward = {'table_collection_reward', 'birthgrade', false}, -- 도감에서 최초 획득 보상 정보 (해치, 해츨링, 성룡 최초 획득 시 다이아 보상 수량)
         table_mastery = {'table_mastery', 'id', false}, -- 특성
+
+        table_rune_grind = {'table_rune_grind', 'rarity', false},
     }
 
 -------------------------------------
