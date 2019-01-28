@@ -457,14 +457,21 @@ function ServerData_Runes:request_runeGrind(owner_doid, roid, sopt_slot, using_i
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- 룬 강화 성공
+        if ret['modified_rune'] then
+            ret['modified_rune']['owner_doid'] = owner_doid
+            self:applyRuneData(ret['modified_rune'])
+        end
+            
         -- 공통 응답 처리 (골드 갱신을 위해)
         g_serverData:networkCommonRespone(ret)
+
 
         if finish_cb then
             finish_cb(ret)
         end
     end
-    
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/runes/grind')

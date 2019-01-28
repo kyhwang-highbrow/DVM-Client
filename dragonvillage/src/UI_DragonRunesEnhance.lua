@@ -524,6 +524,10 @@ function UI_DragonRunesEnhance:request_grind(cb_func)
     local owner_doid = rune_obj['owner_doid']
     local roid = rune_obj['roid']
 
-    --g_runesData:request_runeGrind(owner_doid, roid, 1, nil, nil, nil) -- owner_doid, roid, sopt_slot, using_item_id finish_cb, fail_cb
-    self:show_upgradeEffect(true, cb_func)
+    local finish_func = function()
+        self:show_upgradeEffect(true, cb_func)
+    end
+
+    local select_sopt_number = string.match(self.m_seletedGrindOption, '%d+')
+    g_runesData:request_runeGrind(owner_doid, roid, select_sopt_number, nil, finish_func, nil) -- owner_doid, roid, sopt_slot, using_item_id finish_cb, fail_cb
 end
