@@ -223,9 +223,6 @@ function UI_ChallengeMode:appearDone()
         return
     end
 
-
-    -- 그림자의 신전 배경 설명
-    UI_ChallengeModeInfoPopup:open('bg')
 end
 
 
@@ -233,24 +230,24 @@ end
 -- function setEntrancePopup
 -------------------------------------
 function UI_ChallengeMode:setEntrancePopup()
+    
+    local cb_func = function()
+        UI_ChallengeModeInfoPopup('bg')
+    end
+
     -- 그림자 신전 입장 자격이 될 경우 이벤트 동안 1번만 입장 팝업
     if (g_challengeMode:getUserCanEnterChallengeMode()) then
-        local expired_time = g_settingData:getChellengeModeSettingdata('onece_for_season')
-        local cur_time = Timer:getServerTime()
-    
-        if (cur_time > tonumber(expired_time)) then
+        local is_once_enter = g_settingData:getChellengeModeSettingdata('onece_for_season')
+        if (is_once_enter) then
             local msg = Str('그림자의 신전은 콜로세움 지난 시즌에서 골드 3등급 이상을 달성한 테이머만 도전할 수 있습니다.\n테이머님의 지난 시즌 성적은 {1} 입니다.\n그림자의 신전 도전 자격을 달성했습니다. 여러분의 한계에 도전해 보세요!\n(자격은 시즌 종료까지 유지됩니다.)', g_arena)
-            UI_SimplePopup(POPUP_TYPE.OK, msg, nil, nil, UIManager.LOADING)
-            
-            -- 쿨타임 20일 이후로 갱신
-            local next_cool_time = cur_time + datetime.dayToSecond(20)
-            g_settingData:applySettingData(next_cool_time, 'challenge_history', 'onece_for_season')
+            UI_SimplePopup(POPUP_TYPE.OK, msg, cb_func, cb_func, UIManager.LOADING)
+            g_settingData:applySettingData(true, 'challenge_history', 'onece_for_season')
         end
     
     -- 그림자 신전 입장 자격이 안 될 경우 계속 입장 불가 팝업
     else
         local msg = Str('그림자의 신전은 콜로세움 지난 시즌에서 골드 3등급 이상을 달성한 테이머만 도전할 수 있습니다.\n테이머님의 지난 시즌 성적은 {1} 입니다.\n그림자의 신전에 도전할 수 없습니다.. 콜로세움에서 골드 등급 달성에 도전해 주세요.)', g_arena)
-        UI_SimplePopup(POPUP_TYPE.OK, msg, nil, nil, UIManager.LOADING)    
+        UI_SimplePopup(POPUP_TYPE.OK, msg, cb_func, cb_func, UIManager.LOADING)    
     end
 end
 

@@ -254,11 +254,6 @@ function UI_DragonRunesEnhance:refresh_grind()
 
     self:refresh_common()
 
-    local rune_obj = self.m_runeObject
-    if (rune_obj.grind_opt) then
-        self.m_seletedGrindOption = rune_obj.grind_opt
-    end
-
     local selected_option = self.m_seletedGrindOption
     -- 연마 대상 룬 옵션 라벨만 애니메이션 동작
     local changed_label_str = string.format('%s_label', selected_option)
