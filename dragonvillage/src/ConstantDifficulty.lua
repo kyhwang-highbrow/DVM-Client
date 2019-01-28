@@ -9,13 +9,13 @@ function DIFFICULTY:init()
     self:addDifficultyInfo(0, 'easy', Str('쉬움'), COLOR['diff_easy'])
     self:addDifficultyInfo(1, 'normal', Str('보통'), COLOR['diff_normal'])
     self:addDifficultyInfo(2, 'hard', Str('어려움'), COLOR['diff_hard'])
-    self:addDifficultyInfo(3, 'hell', Str('지옥'), COLOR['diff_hel'])
+    self:addDifficultyInfo(3, 'hell', Str('지옥'), COLOR['diff_hell'])
 
     -- enum
     DIFFICULTY.EASY = 0
     DIFFICULTY.NORMAL = 1
     DIFFICULTY.HARD = 2
-    DIFFICULTY.HEL = 3
+    DIFFICULTY.HELL = 3
 end
 
 -------------------------------------

@@ -262,6 +262,17 @@ function SceneGameChallengeMode:getStartOption_Opponent()
 
         -- 치유량 감소 : 주는 치유량 -{1}%
         table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=15})
+    
+    -- 지옥
+    elseif (difficulty == DIFFICULTY.HELL) then
+        -- 피해량 증가 : 주는 피해량 +{1}%
+        table.insert(l_buff_list, {type='final_dmg_rate_multi', value=35})
+
+        -- 받는 피해량 감소 : 받는 피해량 -{1}%
+        table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=-35})
+
+        -- 치유량 감소 : 주는 치유량 -{1}%
+        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=30})
 
     else
         error('difficulty : ' .. tostring(difficulty))

@@ -14,7 +14,7 @@ CHALLENGE_MODE_DIFFICULTY.NORMAL_HAND = 60
 CHALLENGE_MODE_DIFFICULTY.HARD_AUTO = 80
 CHALLENGE_MODE_DIFFICULTY.HARD_HAND = 100
 CHALLENGE_MODE_DIFFICULTY.HELL_AUTO = 120
-CHALLENGE_MODE_DIFFICULTY.HELL_HAND = 140
+CHALLENGE_MODE_DIFFICULTY.HELL_HAND = 150
 
 -------------------------------------
 -- class ServerData_ChallengeMode
@@ -53,6 +53,13 @@ ServerData_ChallengeMode = class({
         -- 테이블 정보 (관리 테이블, 시즌 보상)
         m_challengeRewardTable = 'table',
         m_challengeManageTable = 'table',
+
+
+        -- 마스터 구역 관련
+        m_masterStartStage = 'number', -- 해당 층 부터 마스터 구역
+        
+        -- 입장 자격
+        m_isEnter = 'boolean'
     })
 
 ServerData_ChallengeMode.STATE = {
