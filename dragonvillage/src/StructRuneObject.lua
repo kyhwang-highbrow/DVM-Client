@@ -100,10 +100,19 @@ function StructRuneObject:applyTableData(data)
     -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
     local replacement = {}
     replacement['id'] = 'roid'
+    
+    -- 연마된 옵션값 초기화
+    self['grind_opt'] = nil
 
     for i,v in pairs(data) do
-        local key = replacement[i] and replacement[i] or i
-        self[key] = v
+        if (i == 'grind_opt') then
+            for i,v in pairs(v) do
+                self['grind_opt'] = opt_name .. opt_num
+            end
+        else
+            local key = replacement[i] and replacement[i] or i
+            self[key] = v
+        end
     end
 end
 
@@ -668,4 +677,18 @@ function StructRuneObject:getOptionLabel(size)
     option_label.vars['useMenu']:setVisible(false)
 
     return option_label
+end
+
+-------------------------------------
+-- function getGrindedOption
+-------------------------------------
+function StructRuneObject:getGrindedOption()
+    return self.grind_opt
+end
+
+-------------------------------------
+-- function getGrindedOption
+-------------------------------------
+function StructRuneObject:setGrindedOption(opt_name)
+     self.grind_opt = opt_name
 end

@@ -140,30 +140,7 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
 	grind_radio_button:setChangeCB(function(option_type)
         self.m_seletedGrindOption = option_type
     end)
-	self.m_optionGrindRadioBtn = radio_button
-
-    -- 연마 버튼 등록
-    for i,v in ipairs(RUNE_OPTION_TYPE) do
-        if (i>2) then   -- 전체 옵션 중에서 sopt만 연마, 
-            local option_btn = string.format('%s_btn', v)       -- ex) sopt_1_btn
-            local option_sprite = string.format('%s_sprite',v)  -- ex) sopt_1_sprite
-            local option_label = string.format('%s_label',v)    -- ex) sopt_1_label
-
-            local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
-            if (rune_desc_str ~= '') then
-                vars[option_label]:setString(rune_desc_str)
-                grind_radio_button:addButton(v, vars[option_btn], vars[option_sprite])
-                vars[option_btn]:setVisible(true)
-            else
-                vars[option_btn]:setVisible(false)
-            end
-        end
-    end
-
-    if (rune_obj:existOptionType('sopt_1')) then
-        -- default : sopt_1 라디오 버튼 선택
-        grind_radio_button:setSelectedButton('sopt_1')
-    end
+	self.m_optionGrindRadioBtn = grind_radio_button
 end
 
 
@@ -250,10 +227,19 @@ end
 function UI_DragonRunesEnhance:refresh_grind()
     local vars = self.vars 
     local rune_obj = self.m_runeObject
+    local rune_grinded_opt = rune_obj:getGrindedOption()
 
     self:refresh_common()
+    
 
-    local selected_option = self.m_seletedGrindOption
+    self.m_seletedGrindOption = 'sopt_1'
+    local grinded_option = rune_obj:getGrindedOption()
+    if (grinded_option) then
+        self.m_seletedGrindOption = grinded_option
+    end
+    local select_grind_opt = self.m_seletedGrindOption
+
+
     -- 연마 대상 룬 옵션 라벨만 애니메이션 동작
     local changed_label_str = string.format('%s_label', selected_option)
     local changed_label = vars[changed_label_str]
@@ -261,6 +247,8 @@ function UI_DragonRunesEnhance:refresh_grind()
 
 
     -- 라디오 버튼 정보 갱신
+    local grind_radio_button = self.m_optionGrindRadioBtn
+
     for i,v in ipairs(RUNE_OPTION_TYPE) do
         if (i>2) then   -- 전체 옵션 중에서 sopt만 연마, 
             local option_btn = string.format('%s_btn', v)       -- ex) sopt_1_btn
@@ -270,11 +258,25 @@ function UI_DragonRunesEnhance:refresh_grind()
             local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
             if (rune_desc_str ~= '') then
                 vars[option_label]:setString(rune_desc_str)
+                -- 없는 버튼이면 등록한다
+                if (not grind_radio_button:existButton(v)) then
+                    grind_radio_button:addButton(v, vars[option_btn], vars[option_sprite])
+                end
                 vars[option_btn]:setVisible(true)
             else
                 vars[option_btn]:setVisible(false)
             end
+            if (grinded_option) then
+                if (v ~= grinded_option and grind_radio_button:existButton(v)) then
+                    self.m_optionGrindRadioBtn:disable(v)
+                end
+            end
         end
+    end
+
+    if (rune_obj:existOptionType(select_grind_opt)) then
+        -- default : sopt_1 라디오 버튼 선택
+        grind_radio_button:setSelectedButton(select_grind_opt)
     end
 end
 
@@ -300,7 +302,9 @@ end
 -- @brief 라벨 애니메이션 효과(빙글 도는)
 -------------------------------------
 function UI_DragonRunesEnhance:showLabelEffect(label)
-
+    if (not label) then
+        return
+    end
     local find_node = label
     -- 자연스러운 액션을 위해 앵커포인트 변경
     -- 폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
@@ -351,11 +355,11 @@ end
 -------------------------------------
 -- function showUpgradeResult
 -------------------------------------
-function UI_DragonRunesEnhance:showUpgradeResult(is_success, enhance_type)
+function UI_DragonRunesEnhance:showUpgradeResult(is_success, is_grind)
     local vars = self.vars
     local rune_obj = self.m_runeObject
     
-    if(enhance_type == UI_DragonRunesEnhance.GRIND) then
+    if (is_grind) then
         self:refresh_grind()
         UIManager:toastNotificationGreen(Str('연마를 완료했습니다.'))
     elseif (is_success) then
@@ -537,6 +541,8 @@ function UI_DragonRunesEnhance:request_grind(cb_func)
     local req_gold = self.m_runeObject:getRuneGrindReqGold()
     local req_grind_stone = self.m_runeObject:getRuneGrindReqGrindstone()
 
+    local select_grind_opt = self.m_seletedGrindOption
+
     if (not ConfirmPrice('gold', req_gold) or not ConfirmPrice('grindstone', req_grind_stone)) then
 		if (cb_func) then
 			cb_func()
@@ -551,9 +557,11 @@ function UI_DragonRunesEnhance:request_grind(cb_func)
     local roid = rune_obj['roid']
 
     local finish_func = function()
+        self.m_runeObject = g_runesData:getRuneObject(roid)
+        self.m_runeObject:setGrindedOption(select_grind_opt)
         self:show_upgradeEffect(true, cb_func, true)
     end
 
-    local select_sopt_number = string.match(self.m_seletedGrindOption, '%d+')
+    local select_sopt_number = string.match(select_grind_opt, '%d+')
     g_runesData:request_runeGrind(owner_doid, roid, select_sopt_number, nil, finish_func, nil) -- owner_doid, roid, sopt_slot, using_item_id finish_cb, fail_cb
 end

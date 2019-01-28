@@ -148,3 +148,16 @@ end
 function UIC_RadioButton:setChangeCB(func)
     self.m_changeCB = func
 end
+
+-------------------------------------
+-- function existButton
+-------------------------------------
+function UIC_RadioButton:existButton(name)
+    for btn_name,v in pairs(self.m_buttonMap) do
+        if (btn_name == name ) then
+            return true
+        end
+    end
+
+    return false
+end
