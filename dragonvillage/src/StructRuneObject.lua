@@ -54,6 +54,8 @@ StructRuneObject = class({
         is_ancient = 'boolean', -- 고대 룬 여부
         ---------------------------------------------
         owner_doid = 'doid', -- 룬을 장착 중인 드래곤 doid
+        ---------------------------------------------
+        grind_opt = 'table',
     })
 
 StructRuneObject.OPTION_LIST = {'mopt', 'uopt', 'sopt_1', 'sopt_2', 'sopt_3', 'sopt_4'}

@@ -446,3 +446,36 @@ function ServerData_Runes:request_runesLock_toggle(roid, owner_doid, finish_cb, 
     local lock = (not rune_object['lock'])
     return self:request_runesLock(roid, owner_doid, lock, finish_cb, fail_cb)
 end
+
+-------------------------------------
+-- function request_runeGrind
+-- @breif
+-------------------------------------
+function ServerData_Runes:request_runeGrind(owner_doid, roid, sopt_slot, using_item_id, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 공통 응답 처리 (골드 갱신을 위해)
+        g_serverData:networkCommonRespone(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/grind')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('roid', roid)
+    ui_network:setParam('sopt_slot', sopt_slot)
+    ui_network:setParam('item_id', using_item_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

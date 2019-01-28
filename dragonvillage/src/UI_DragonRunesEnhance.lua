@@ -97,7 +97,11 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonRunesEnhance:onChangeTab(tab, first)
-
+    if (tab == 'enhance') then
+        self:refresh_enhance()
+    else
+        self:refresh_grind()
+    end
 end
 
 -------------------------------------
@@ -336,7 +340,7 @@ function UI_DragonRunesEnhance:showUpgradeResult(is_success, enhance_type)
     
     if(enhance_type == UI_DragonRunesEnhance.GRIND) then
         self:refresh_grind()
-        UIManager:toastNotificationGreen(Str('연마를 성공하였습니다.'))
+        UIManager:toastNotificationGreen(Str('연마를 완료했습니다.'))
     elseif (is_success) then
         self:refresh_enhance()
         UIManager:toastNotificationGreen(Str('{1}강화를 성공하였습니다.', rune_obj['lv']))
@@ -515,5 +519,11 @@ end
 -- function request_grind
 -------------------------------------
 function UI_DragonRunesEnhance:request_grind(cb_func)
+    -- 통신 시작
+    local rune_obj = self.m_runeObject
+    local owner_doid = rune_obj['owner_doid']
+    local roid = rune_obj['roid']
+
+    --g_runesData:request_runeGrind(owner_doid, roid, 1, nil, nil, nil) -- owner_doid, roid, sopt_slot, using_item_id finish_cb, fail_cb
     self:show_upgradeEffect(true, cb_func)
 end
