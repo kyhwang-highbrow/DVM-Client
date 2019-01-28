@@ -70,36 +70,9 @@ function UI_ChallengeModeListItem:initUI()
     local is_clear = g_challengeMode:isClearStage_challengeMode(t_data['stage'])
     vars['clearSprite']:setVisible(is_clear)
 
-    do -- 골드 보상
-        -- 도전 보상
-        local card = UI_ItemCard(ITEM_ID_GOLD, 20000)
-        card.root:setSwallowTouch(false)
-        --card.vars['commonSprite']:setVisible(false)
-        --card.vars['bgSprite']:setVisible(false)
-        card.vars['clickBtn']:registerScriptTapHandler(function() UI_ChallengeModeInfoPopup('reward') end)
-        vars['rewardNode1']:addChild(card.root)
-
-        local play_cnt = g_challengeMode:getChallengeModeStagePlayCnt(stage)
-        if (0 < play_cnt) then
-            local icon = IconHelper:getIcon('res/ui/icons/stage_box_check.png')
-            icon:setScale(2)
-            card.root:addChild(icon)
-        end
-
-        -- 클리어 보상
-        local card = UI_ItemCard(ITEM_ID_GOLD, 80000)
-        card.root:setSwallowTouch(false)
-        --card.vars['commonSprite']:setVisible(false)
-        --card.vars['bgSprite']:setVisible(false)
-        card.vars['clickBtn']:registerScriptTapHandler(function() UI_ChallengeModeInfoPopup('reward') end)
-        vars['rewardNode2']:addChild(card.root)
-        
-        local point = g_challengeMode:getChallengeModeStagePoint(stage)
-        if (0 < point) then
-            local icon = IconHelper:getIcon('res/ui/icons/stage_box_check.png')
-            icon:setScale(2)
-            card.root:addChild(icon)
-        end
+    do -- 클리어 보상
+        self:setRewardItemCard(ITEM_ID_GOLD, 2000)
+        self:setRewardItemCard(ITEM_ID_GRIND_STONE, 1)
     end
 
     -- 점수
@@ -146,4 +119,29 @@ end
 -- function refresh
 -------------------------------------
 function UI_ChallengeModeListItem:refresh()
+end
+
+-------------------------------------
+-- function setRewardItemCard
+-------------------------------------
+function UI_ChallengeModeListItem:setRewardItemCard(reward_item_id, count)
+    local vars = self.vars
+    
+    local item_card = UI_ItemCard(reward_item_id, count)
+    item_card.root:setSwallowTouch(false)
+    --card.vars['commonSprite']:setVisible(false)
+    --card.vars['bgSprite']:setVisible(false)
+    item_card.vars['clickBtn']:registerScriptTapHandler(function() UI_ChallengeModeInfoPopup('reward') end)
+    if (reward_item_id == ITEM_ID_GOLD) then
+        vars['rewardNode2']:addChild(item_card.root)
+    else
+        vars['rewardNode1']:addChild(item_card.root)
+    end
+    
+    local point = g_challengeMode:getChallengeModeStagePoint(stage)
+    if (0 < point) then
+        local icon = IconHelper:getIcon('res/ui/icons/stage_box_check.png')
+        icon:setScale(2)
+        item_card.root:addChild(icon)
+    end
 end

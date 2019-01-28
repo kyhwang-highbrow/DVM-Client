@@ -59,7 +59,7 @@ ServerData_ChallengeMode = class({
         m_masterStartStage = 'number', -- 해당 층 부터 마스터 구역
         
         -- 입장 자격
-        m_isEnter = 'boolean'
+        m_bEnterChallengeMode = 'boolean'
     })
 
 ServerData_ChallengeMode.STATE = {
@@ -530,6 +530,11 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
         -- 시즌 보상 정보 저장
         if ret['reward_info'] and (0 < table.count(ret['reward_info'])) then
             self.m_tSeasonRewardInfo = ret['reward_info']
+        end
+
+        -- 입장 가능 여부 저장
+        if ret['open'] then
+            self.m_bEnterChallengeMode = ret['open']
         end
 
         if finish_cb then
@@ -1292,4 +1297,12 @@ function ServerData_ChallengeMode:registerRankHistory(rank)
         g_settingData:setChellengeModeRankHistory('rank', rank)
         g_settingData:setChellengeModeRankHistory('rank_time', cur_time)
     end
+end
+
+-------------------------------------
+-- function getUserCanEnterChallengeMode
+-- @brief 유저의 입장 자격
+-------------------------------------
+function ServerData_ChallengeMode:getUserCanEnterChallengeMode(rank)
+    return self.m_bEnterChallengeMode
 end
