@@ -142,6 +142,20 @@ function ServerData_ChallengeMode:getChallengeModeState()
 end
 
 -------------------------------------
+-- function getChallengeModeMasterState
+-- @brief 이벤트 그림자 신전 마스터 상태 
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeMasterState()
+    -- 예외처리
+	if (not g_hotTimeData) then
+		return false
+    end
+
+	-- 이벤트 기간
+	return g_hotTimeData:isActiveEvent('event_challenge_master')
+end
+
+-------------------------------------
 -- function getPlayerArenaUserInfo
 -------------------------------------
 function ServerData_ChallengeMode:getPlayerArenaUserInfo()

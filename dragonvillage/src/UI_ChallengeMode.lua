@@ -112,12 +112,6 @@ function UI_ChallengeMode:initUI()
                 order_spr:runAction(cc.RotateTo:create(0.15, 0))
             end
         end)
-
-    -- 그림자 신전 입장 시간 기록 (입장 권유 팝업 용)
-    if (g_challengeMode:isOpen_challengeMode()) then
-        local cur_time = Timer:getServerTime()
-        g_settingData:setChellengeModeLastEntry(cur_time)
-    end
 end
 
 -------------------------------------
@@ -146,7 +140,20 @@ function UI_ChallengeMode:initUI_tableView()
 
 		return true
     end
-		
+
+    local vaild_list = {}
+    for i,v in ipairs(t_floor) do
+        -- 마스터 모드가 풀리지 않았다면
+        if (not g_challengeMode:getChallengeModeMasterState()) then
+            -- 마스터 구역은 리스트에 추가하지 않는다
+            if (v['rank'] >= g_challengeMode:getMasterStage()) then
+                table.insert(vaild_list, v)
+            end
+        else
+            table.insert(vaild_list, v)
+        end
+    end
+
     -- 테이블 뷰 인스턴스 생성
     self.m_tableView = UIC_TableView(node)
     --self.m_tableView:setUseVariableSize(true)
@@ -154,7 +161,7 @@ function UI_ChallengeMode:initUI_tableView()
     self.m_tableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_BOTTOMUP)
     self.m_tableView:setCellUIClass(UI_ChallengeModeListItem, create_func)
     self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    self.m_tableView:setItemList(t_floor, false)
+    self.m_tableView:setItemList(vaild_list, false)
 
     --self.m_tableView.m_scrollView:setLimitedOffset(true)
 
