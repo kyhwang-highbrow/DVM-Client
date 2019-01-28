@@ -59,7 +59,10 @@ ServerData_ChallengeMode = class({
         m_masterStartStage = 'number', -- 해당 층 부터 마스터 구역
         
         -- 입장 자격
-        m_bEnterChallengeMode = 'boolean'
+        m_bEnterChallengeMode = 'boolean',
+
+        -- 스테이지 별 보상 정보
+        m_tReward = 'table',
     })
 
 ServerData_ChallengeMode.STATE = {
@@ -537,6 +540,10 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
             self.m_bEnterChallengeMode = ret['open']
         end
 
+        if (ret['table_challenge_management']) then
+            self:applyManageData(ret['table_challenge_management'])
+        end
+        
         if finish_cb then
             finish_cb(ret)
         end
@@ -1213,6 +1220,42 @@ function ServerData_ChallengeMode:getDiffRankFromLastDay()
     end
     local diff_rank = cur_rank - tonumber(last_rank)
     return diff_rank
+end
+
+-------------------------------------
+-- function applyManageData
+-------------------------------------
+function ServerData_ChallengeMode:applyManageData(t_manage_data)
+    self.m_tReward = {} 
+    for i,v in ipairs(t_manage_data) do
+        if (v['table']['use'] == 'stage_clear_reward' or v['table']['use'] == 'stage_clear_reward_master') then
+            self.m_tReward[v['table']['use']] = v['table']['value']          
+        elseif (v['table']['use'] == 'master_stage_limit') then
+            self.m_masterStartStage = v['table']['value']
+        end
+    end
+end
+
+-------------------------------------
+-- function getRewardList
+-------------------------------------
+function ServerData_ChallengeMode:getRewardList(reward_type)
+    if (reward_type == 'clear_reward') then
+        return self.m_tReward['stage_clear_reward']
+    elseif (reward_type == 'clear_reward_master') then
+        return self.m_tReward['stage_clear_reward_master']
+    end
+end
+
+-------------------------------------
+-- function getMasterStage
+-------------------------------------
+function ServerData_ChallengeMode:getMasterStage()
+    if (not self.m_masterStartStage) then
+        return 40 -- 서버 값이 오지 않을 경우 노출되는 것을 막기 위해 하드코딩
+    end
+    
+    return tonumber(self.m_masterStartStage)
 end
 
 -------------------------------------

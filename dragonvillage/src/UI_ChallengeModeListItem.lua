@@ -71,8 +71,25 @@ function UI_ChallengeModeListItem:initUI()
     vars['clearSprite']:setVisible(is_clear)
 
     do -- 클리어 보상
-        self:setRewardItemCard(ITEM_ID_GOLD, 2000)
-        self:setRewardItemCard(ITEM_ID_GRIND_STONE, 1)
+        
+        -- 마스터 스테이지 인지 구별
+        local master_stage = g_challengeMode:getRewardList('clear_reward')
+        local reward_type = 'clear_reward'
+        if (tonumber(t_data['rank']) > g_challengeMode:getMasterStage()) then
+            reward_type = 'clear_reward'
+        else
+            reward_type = 'clear_reward_master'
+        end
+
+        -- 700002;100000 형식의 보상 문자열을 파싱하여 보상 카드 생성
+        local reward_str = g_challengeMode:getRewardList(reward_type)
+        local comma_split_list = plSplit(reward_str, ',') -- 아이템별로 리스트 생성
+        for i, each_reward_str in pairs(comma_split_list) do
+            local semi_split_list = plSplit(each_reward_str, ';') -- 아이템 id와 count 분리한 리스트 생성
+            item_id = semi_split_list[1]
+            item_count = semi_split_list[2]               
+            self:setRewardItemCard(tonumber(item_id), tonumber(item_count))
+        end
     end
 
     -- 점수

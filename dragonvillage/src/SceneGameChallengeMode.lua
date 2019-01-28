@@ -272,7 +272,7 @@ function SceneGameChallengeMode:getStartOption_Opponent()
         table.insert(l_buff_list, {type='dmg_adj_rate_multi', value=-35})
 
         -- 치유량 감소 : 주는 치유량 -{1}%
-        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=30})
+        table.insert(l_buff_list, {type='final_heal_rate_multi_debuff', value=25})
 
     else
         error('difficulty : ' .. tostring(difficulty))
