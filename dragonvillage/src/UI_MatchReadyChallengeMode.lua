@@ -198,8 +198,15 @@ function UI_MatchReadyChallengeMode:make_UIC_SortList()
     table.insert(l_difficulty_point, 80) -- 어려움 수동
     table.insert(l_difficulty_point, 100) -- 어려움 자동
 
-    table.insert(l_difficulty_point, 120) -- 지옥 수동
-    table.insert(l_difficulty_point, 150) -- 지옥 자동
+
+    -- 마스터 시즌 중 and 마스터 구간일 경우에만 지옥 모드
+    if (g_challengeMode:getChallengeModeMasterState()) then
+        local cur_stage = 100 - tonumber(g_challengeMode:getSelectedStage())
+        if (cur_stage < tonumber(g_challengeMode:getMasterStage())) then
+            table.insert(l_difficulty_point, 120) -- 지옥 수동
+            table.insert(l_difficulty_point, 150) -- 지옥 자동
+        end
+    end
 
     for i,difficulty_point in ipairs(l_difficulty_point) do
         

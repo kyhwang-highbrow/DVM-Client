@@ -148,7 +148,7 @@ function UI_ChallengeMode:initUI_tableView()
         -- 마스터 시즌이 아니라면 
         if (not g_challengeMode:getChallengeModeMasterState()) then
             -- 마스터 구역은 리스트에 추가하지 않는다
-            if (v['rank'] >= g_challengeMode:getMasterStage()) then
+            if (v['rank'] > g_challengeMode:getMasterStage()) then
                 table.insert(vaild_list, v)
             end
         else
@@ -165,20 +165,21 @@ function UI_ChallengeMode:initUI_tableView()
 
     -- 마스터 시즌이 아니라면, 
     -- 1. 마스터 시즌 예고하는 테이블아이템 추가
-    -- 2. masterTimeSprite OFF
+    -- 2. masterTimeSprite ON
+    -- 3. 남은 시간 표기
     if (not g_challengeMode:getChallengeModeMasterState()) then
         local extra_list_item = { advance_notice = true, stage = 200 }
         table.insert(vaild_list, extra_list_item)
-        vars['masterTimeSprite']:setVisible(false)
-    else
-        vars['masterTimeSprite']:setVisible(true)
 
-        -- 남은 시간 표기
+         -- 남은 시간 표기
         local sec = g_challengeMode:getChallengeModeMasterStatusText()
         local day = math.floor(sec / 86400)
         local hour = math.floor(sec / 3600) % 24
         local str_time = vars['masterTimeLabel']:getString()
         vars['masterTimeLabel']:setString(Str(str_time,day, hour))
+        vars['masterTimeSprite']:setVisible(true)
+    else
+        vars['masterTimeSprite']:setVisible(false)
     end
 
     -- 테이블 뷰 인스턴스 생성

@@ -663,9 +663,8 @@ function ServerData_ChallengeMode:request_challengeModeStart(finish_cb, fail_cb)
     local func_request
     local func_success_cb
     local func_response_status_cb
-
+    local diff = g_challengeMode:getSelectedDifficulty()
     local stage = self.m_selectedStage
-
     func_request = function()
         -- 유저 ID
         local uid = g_userData:get('uid')
@@ -675,6 +674,7 @@ function ServerData_ChallengeMode:request_challengeModeStart(finish_cb, fail_cb)
         local ui_network = UI_Network()
         ui_network:setUrl('/game/challenge/start')
         ui_network:setParam('uid', uid)
+        ui_network:setParam('difficulty', diff)
         ui_network:setParam('deck_name', DECK_CHALLENGE_MODE)
         ui_network:setParam('token', token)
         ui_network:setParam('stage', stage)
@@ -1027,7 +1027,7 @@ end
 -- function getChallengeModeMasterStatusText
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeMasterStatusText()
-    local time = g_hotTimeData:getEventRemainTime('event_challenge_master') or 0
+    local time = g_hotTimeData:getChallengeMasterBeginTime() or 0
     return time
 end
 

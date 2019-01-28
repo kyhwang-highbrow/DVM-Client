@@ -322,6 +322,28 @@ function ServerData_HotTime:getEventBeginTime(event_name)
 end
 
 -------------------------------------
+-- function getChallengeMasterBeginTime
+-- @brief 이벤트 시작 날짜
+-------------------------------------
+function ServerData_HotTime:getChallengeMasterBeginTime()
+	self:refreshActiveList()
+
+    for _, t in pairs(self.m_hotTimeInfoList) do
+        if (t['event'] == 'event_challenge_master') then
+            local curr_time = Timer:getServerTime()
+            if (t['begindate']) then
+                local curr_time = Timer:getServerTime()
+                local start_time = t['begindate']/1000
+                local time = start_time - curr_time
+                return time
+            end           
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function getEventRemainTimeText
 -- @brief event 항목의 남은 시간 텍스트
 -------------------------------------
