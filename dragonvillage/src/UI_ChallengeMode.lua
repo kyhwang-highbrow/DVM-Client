@@ -43,7 +43,7 @@ function UI_ChallengeMode:initParentVariable()
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('그림자의 신전')
     self.m_staminaType = 'st'
-    self.m_subCurrency = 'grindstone'
+    self.m_subCurrency = 'runeGrindStone' -- 원래는 테이블 값, 서버에서 runeGrindStone 던져줌, 수정해야함
     self.m_uiBgm = 'bgm_lobby'
 end
 
