@@ -106,7 +106,7 @@ end
 -------------------------------------
 function UI_ChallengeModeResult:direction_winReward()
 	local t_item = self.m_winReward
-	if (not t_item) then
+	if (#t_item == 0) then
 		self:doNextWork()
 		return
 	end
@@ -145,6 +145,8 @@ function UI_ChallengeModeResult:makeRewardPopup(t_item, title)
 
 	-- 우편 안내 숨김
 	ui.vars['mailInfoLabel']:setVisible(false)
+    
+    -- @jhakim 테이블 뷰로 나오도록 후에 수정할것!
     if (t_item) then
        for i, v in ipairs(t_item) do
 	        -- 보상 아이템 표기    
