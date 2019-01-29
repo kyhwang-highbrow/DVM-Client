@@ -61,6 +61,10 @@ end
 function UI_GoodsInfo:makeGoodsIcon(goods_name)
     local goods_name = (goods_name or self.m_goodsType)
 
+    if (goods_name == 'runeGrindStone') then
+        goods_name = 'grindstone'
+    end
+
     local res_icon = string.format('res/ui/icons/inbox/inbox_%s.png', goods_name)
     local icon = cc.Sprite:create(res_icon)
 
