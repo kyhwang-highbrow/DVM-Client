@@ -105,6 +105,10 @@ function UI_RuneCard:makeIcon()
 	if (self.m_runeData['slot'] == 1) then
 		self.vars['runeNode']:setPositionY(1)
 	end
+    
+    if (self.m_runeData:getGrindedOption()) then
+        self:makeSprite('grindRuneIconNode', 'res/ui/icons/rune/grind_rune_icon.png', true) -- (lua_name, res, no_use_frames)
+    end
 end
 
 -------------------------------------

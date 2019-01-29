@@ -648,10 +648,20 @@ function StructRuneObject:setOptionLabel(ui, label_format, show_change)
         local desc_str = self:makeEachRuneDescRichText(v, show_change)
         local is_max = self:isMaxOption(v, desc_str)
 
-        if (is_max and i>2) then
-            desc_str = desc_str .. '{@red}[MAX]'
-        end
+        -- 추가옵션은 max, 연마 표시
+        if (i > 2) then
+            if (is_max) then
+                desc_str = desc_str .. '{@red}[MAX]'
+            end
         
+            local is_grinded_opt = self:isGrindedOption(v)
+            local grind_icon_node = string.format('%s_grindIconNode', v)
+            local icon_node = string.format('%s_useIconNode', v)
+            ui.vars[icon_node]:setVisible(not is_grinded_opt)
+            ui.vars[grind_icon_node]:setVisible(is_grinded_opt)         
+        end
+
+
         -- node와 label 둘 중 하나라도 없다면 출력x, 에러메세지
         if (not vars[option_label_node] or not vars[option_label]) then
             if (IS_TEST_MODE()) then
@@ -723,4 +733,11 @@ function StructRuneObject:isMaxOption(opt_name, opt_desc)
     end
 
     return false
+end
+
+-------------------------------------
+-- function isMaxOption
+-------------------------------------
+function StructRuneObject:isGrindedOption(opt_name)
+    return self.grind_opt == opt_name
 end
