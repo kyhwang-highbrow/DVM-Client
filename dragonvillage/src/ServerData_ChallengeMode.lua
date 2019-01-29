@@ -63,6 +63,9 @@ ServerData_ChallengeMode = class({
 
         -- 스테이지 별 보상 정보
         m_tReward = 'table',
+
+        -- 지난 콜로세움 티어 정보
+        m_arenaLastTierName = 'str',
     })
 
 ServerData_ChallengeMode.STATE = {
@@ -554,6 +557,10 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
 
         if (ret['table_challenge_management']) then
             self:applyManageData(ret['table_challenge_management'])
+        end
+
+        if (ret['arena_last_season_tier']) then
+            self.m_arenaLastTierName = ret['arena_last_season_tier']
         end
         
         if finish_cb then
@@ -1395,4 +1402,12 @@ end
 -------------------------------------
 function ServerData_ChallengeMode:getUserCanEnterChallengeMode()
     return self.m_bEnterChallengeMode
+end
+
+-------------------------------------
+-- function getLastArenaTierName
+-- @brief 지난 콜로세움 티어 아이디
+-------------------------------------
+function ServerData_ChallengeMode:getLastArenaTierName()
+    return self.m_arenaLastTierName
 end

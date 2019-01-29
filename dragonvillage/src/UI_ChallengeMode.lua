@@ -234,20 +234,32 @@ function UI_ChallengeMode:setEntrancePopup()
         UI_ChallengeModeInfoPopup('bg')
     end
 
+    local is_enter = g_challengeMode:getUserCanEnterChallengeMode()
+    
     -- 그림자 신전 입장 자격이 될 경우 이벤트 동안 1번만 입장 팝업
-    if (g_challengeMode:getUserCanEnterChallengeMode()) then
+    if (is_enter) then
         local is_once_enter = g_settingData:getChellengeModeSettingdata('onece_for_season')
+        print(is_once_enter)
         if (not is_once_enter) then
-            local msg = Str('그림자의 신전은 콜로세움 지난 시즌에서 골드 3등급 이상을 달성한 테이머만 도전할 수 있습니다.\n테이머님의 지난 시즌 성적은 {1} 입니다.\n그림자의 신전 도전 자격을 달성했습니다. 여러분의 한계에 도전해 보세요!\n(자격은 시즌 종료까지 유지됩니다.)', g_arena)
-            UI_SimplePopup(POPUP_TYPE.OK, msg, cb_func, cb_func, UIManager.LOADING)
             g_settingData:applySettingData(true, 'challenge_history', 'onece_for_season')
         end
-    
-    -- 그림자 신전 입장 자격이 안 될 경우 계속 입장 불가 팝업
-    else
-        local msg = Str('그림자의 신전은 콜로세움 지난 시즌에서 골드 3등급 이상을 달성한 테이머만 도전할 수 있습니다.\n테이머님의 지난 시즌 성적은 {1} 입니다.\n그림자의 신전에 도전할 수 없습니다.. 콜로세움에서 골드 등급 달성에 도전해 주세요.)', g_arena)
-        UI_SimplePopup(POPUP_TYPE.OK, msg, cb_func, cb_func, UIManager.LOADING)    
     end
+
+    -- 입장팝업
+    local entrance_ui = UI()
+    entrance_ui:load('challenge_mode_enter_popup.ui')
+    UIManager:open(entrance_ui, UIManager.POPUP)
+    g_currScene:pushBackKeyListener(entrance_ui, function() entrance_ui:close() end, 'UI_EntranceChallenge')
+
+    local tier = g_challengeMode:getLastArenaTierName()
+    local tier_name = StructUserInfoArena:getTierName(tier)
+    local tier_icon = StructUserInfoArena:makeTierIcon(tier, 'big')
+    entrance_ui.vars['rankNode']:addChild(tier_icon)
+    entrance_ui.vars['rankLabel']:setString(Str('테이머님의 지난 시즌 성적은 {1}입니다.', tier_name))
+    entrance_ui.vars['enterNode1']:setVisible(is_enter)
+    entrance_ui.vars['enterNode2']:setVisible(not is_enter)
+    entrance_ui.vars['okBtn']:registerScriptTapHandler(function() entrance_ui:close() end)
+    entrance_ui:setCloseCB(cb_func)
 end
 
 -------------------------------------
