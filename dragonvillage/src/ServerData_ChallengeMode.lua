@@ -3,7 +3,7 @@ CHALLENGE_MODE_DIFFICULTY = {}
 CHALLENGE_MODE_DIFFICULTY.EASY = 0
 CHALLENGE_MODE_DIFFICULTY.NORMAL = 1
 CHALLENGE_MODE_DIFFICULTY.HARD = 2
-CHALLENGE_MODE_DIFFICULTY.HEL = 3 -- 현재는 사용하지 않지만 예비용으로 추가
+CHALLENGE_MODE_DIFFICULTY.HELL = 3 -- 현재는 사용하지 않지만 예비용으로 추가
 
 -- 챌린지 모드 스테이지 난이도+자동 여부 판단하는 (enum기능)테이블 필요해서 따로 생성, 값은 난이도 포인트 하드코딩
 -- [WARNING] 2018-12-05 포인트 중복 고려하지 않은 상태, 지옥 난이도 포인트 임의로 설정한 상태
@@ -1107,6 +1107,10 @@ function ServerData_ChallengeMode:getChallengeModeClearPoint(difficulty, is_auto
     -- 어려움
     elseif (difficulty == CHALLENGE_MODE_DIFFICULTY.HARD) then
         point = conditionalOperator(is_auto, 100, 80)
+    
+    -- 지옥
+    elseif (difficulty == CHALLENGE_MODE_DIFFICULTY.HELL) then
+        point = conditionalOperator(is_auto, 150, 120)
 
     else
         error('difficulty : ' .. tostring(difficulty))
