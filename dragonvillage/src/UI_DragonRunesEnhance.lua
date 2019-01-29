@@ -35,7 +35,7 @@ function UI_DragonRunesEnhance:initParentVariable()
     self.m_uiName = 'UI_DragonRunesEnhance'
     self.m_bVisible = true
     self.m_titleStr = Str('룬 강화')
-    self.m_subCurrency = 'runeGrindStone' -- 원래는 테이블 값, 서버에서 runeGrindStone 던져줌, 수정해야함
+    self.m_subCurrency = 'runeGrindStone'
     self.m_bUseExitBtn = false
 end
 
@@ -140,12 +140,23 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
 	radio_button:setSelectedButton(0)
 
 
-
     -- 연마 radio button 선언
     local rune_obj = self.m_runeObject
     local grind_radio_button = UIC_RadioButton()
 	grind_radio_button:setChangeCB(function(option_type)
         self.m_seletedGrindOption = option_type
+        
+        for i,v in ipairs(RUNE_OPTION_TYPE) do
+            if (i > 2) then
+                local option_label = string.format('%s_label', v)    -- ex) sopt_1_label
+                local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
+                if (self.m_seletedGrindOption ==  v) then
+                    vars[option_label]:setString('{@yellow}'.. rune_desc_str)
+                else
+                    vars[option_label]:setString(rune_desc_str)
+                end
+            end      
+        end
     end)
 	self.m_optionGrindRadioBtn = grind_radio_button
 
@@ -302,6 +313,11 @@ function UI_DragonRunesEnhance:refresh_grind()
                 if (v ~= grinded_option and grind_radio_button:existButton(v)) then
                     self.m_optionGrindRadioBtn:disable(v)
                 end
+            end
+
+            if (self.m_seletedGrindOption ==  v) then
+                local ori_str = vars[option_label]:getString()
+                vars[option_label]:setString('{@yellow}'.. ori_str)
             end
         end
     end
@@ -596,7 +612,7 @@ function UI_DragonRunesEnhance:request_grind(cb_func)
     local req_gold = self.m_runeObject:getRuneGrindReqGold()
 
     local req_grind_stone = self.m_runeObject:getRuneGrindReqGrindstone()
-    local grind_stone_cnt = g_userData:get('ancient')
+    local grind_stone_cnt = g_userData:get('runeGrindStone')
     local confirm_grindstone_price = (req_grind_stone <= grind_stone_cnt)
     
     if ((not ConfirmPrice('gold', req_gold)) or (not confirm_grindstone_price)) then
