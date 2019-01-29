@@ -21,19 +21,12 @@ function UI_ChallengeModeResult:init(is_win, t_data, stage, is_open_next_team)
 	-- 다음 팀 열림
 	self.m_isOpenNextTeam = is_open_next_team
 	
-	-- 승리 보상, 도전 보상 확인
+	-- 승리 보상
 	local items_list = t_data['added_items']['items_list']
 	if (items_list) then
-		for i, t_item in ipairs(items_list) do
-			if (t_item['item_id'] == ITEM_ID_GOLD) then
-				if (t_item['count'] == 20000) then
-					self.m_playReward = t_item
-				elseif (t_item['count'] == 80000) then
-					self.m_winReward = t_item
-				end
-			end
-		end
+        self.m_winReward = items_list
 	end
+    
 
 end
 
@@ -66,7 +59,7 @@ function UI_ChallengeModeResult:setWorkList()
     self.m_lWorkList = {}
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
-	table.insert(self.m_lWorkList, 'direction_playReward')
+	-- table.insert(self.m_lWorkList, 'direction_playReward')
 	table.insert(self.m_lWorkList, 'direction_winReward')
 	table.insert(self.m_lWorkList, 'direction_nextStage')
 end
@@ -152,14 +145,23 @@ function UI_ChallengeModeResult:makeRewardPopup(t_item, title)
 
 	-- 우편 안내 숨김
 	ui.vars['mailInfoLabel']:setVisible(false)
+    if (t_item) then
+       for i, v in ipairs(t_item) do
+	        -- 보상 아이템 표기    
+	        local icon = IconHelper:getItemIcon(v['item_id'])
+	        local count = comma_value(v['count'])
 
-	-- 보상 아이템 표기
-	if (t_item) then
-		local icon = IconHelper:getItemIcon(t_item['item_id'])
-		ui.vars['rewardNode']:addChild(icon)
-		local count = comma_value(t_item['count'])
-		ui.vars['rewardLabel']:setString(count)
-	end
+            if (#t_item > 1) then
+                ui.vars['rewardFrameNode' .. i+1]:setVisible(true)
+                ui.vars['rewardNode' .. i+1]:addChild(icon)
+	            ui.vars['rewardLabel' .. i+1]:setString(count)
+                ui.vars['rewardFrameNode']:setVisible(false)
+            else
+                ui.vars['rewardNode']:addChild(icon)
+	            ui.vars['rewardLabel']:setString(count)          
+            end
+       end
+    end
 
 	-- 버튼
 	ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
