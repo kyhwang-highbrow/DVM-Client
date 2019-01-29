@@ -36,7 +36,7 @@ function UI_ChallengeModeListItem:initUI()
         -- 남은 시간 표기
         local sec = g_challengeMode:getChallengeModeMasterStatusText()
         local time_str = datetime.makeTimeDesc(sec, false, false, false)
-        vars['masterTimeLabel']:setString(Str('마스터 구역 잠금해제까지\n {1} 남음', Str(time_str)))
+        vars['masterTimeLabel']:setString(Str('다음 순위부터는 마스터 구역입니다.'))
         return
     end
 
@@ -102,7 +102,7 @@ function UI_ChallengeModeListItem:initUI()
             local semi_split_list = plSplit(each_reward_str, ';') -- 아이템 id와 count 분리한 리스트 생성
             item_id = semi_split_list[1]
             item_count = semi_split_list[2]               
-            self:setRewardItemCard(tonumber(item_id), tonumber(item_count))
+            self:setRewardItemCard(tonumber(item_id), tonumber(item_count), tonumber(t_data['stage']))
         end
     end
 
@@ -155,7 +155,7 @@ end
 -------------------------------------
 -- function setRewardItemCard
 -------------------------------------
-function UI_ChallengeModeListItem:setRewardItemCard(reward_item_id, count)
+function UI_ChallengeModeListItem:setRewardItemCard(reward_item_id, count, stage)
     local vars = self.vars
     
     local item_card = UI_ItemCard(reward_item_id, count)

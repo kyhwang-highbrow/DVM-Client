@@ -43,7 +43,7 @@ function UI_ChallengeMode:initParentVariable()
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('그림자의 신전')
     self.m_staminaType = 'st'
-    self.m_subCurrency = 'valor'
+    self.m_subCurrency = 'grindstone'
     self.m_uiBgm = 'bgm_lobby'
 end
 
