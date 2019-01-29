@@ -60,6 +60,9 @@ ITEM_ID_MAP['staminas_arena'] = 700106
 ITEM_ID_MAP['exp_booster'] = 700402
 ITEM_ID_MAP['gold_booster'] = 700403
 
+ITEM_ID_MAP['max_fixed_ticket'] = 704901
+ITEM_ID_MAP['opt_keep_ticket'] = 704902
+
 local ITEM_TYPE_MAP = {}
 for i,v in pairs(ITEM_ID_MAP) do
     ITEM_TYPE_MAP[v] = i

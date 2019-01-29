@@ -124,9 +124,6 @@ function ConfirmPrice(price_type, price_value)
     elseif (price_type == 'ancient') then
         amount = g_userData:get('ancient')
 
-    elseif (price_type == 'grindstone') then
-        amount = g_userData:get('runeGrindStone')
-
     else
         return true
     end

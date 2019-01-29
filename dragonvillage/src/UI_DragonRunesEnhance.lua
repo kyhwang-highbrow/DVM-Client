@@ -15,10 +15,16 @@ UI_DragonRunesEnhance = class(PARENT,{
         m_optionGrindRadioBtn = 'UIC_RadioButton',
         m_seletedGrindOption = 'option_type',        -- 연마하기로 결정된 옵션 (최초에만 라디오 버튼으로 선택, 이 후에는 고정)
         m_optionLabel = 'ui',
+
+        -- 연마 보조 아이템
+        m_optionItemGrindRadioBtn = 'UIC_RadioButton',
+        m_selectOptionItem = 'item_name_str'
     })
 
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
 UI_DragonRunesEnhance.GRIND = 'grind' -- 특성 스킬
+
+GRINDITEM_RADIO_LIST = { none_select = 'notSelect', runeGrindMax = 'maxFixed', runeGrindOptKeep = 'optKeep'}--max_fixed_ticket = 'maxFixed', opt_keep_ticket = 'optKeep'}
 
 -------------------------------------
 -- function initParentVariable
@@ -142,6 +148,31 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
         self.m_seletedGrindOption = option_type
     end)
 	self.m_optionGrindRadioBtn = grind_radio_button
+
+    -- 연마 아이템(Max확정권, 옵션 유지권) radio button 선언
+    local grind_item_radio_button = UIC_RadioButton()
+	grind_item_radio_button:setChangeCB(function(option_item_type)
+        self.m_selectOptionItem = option_item_type
+    end)
+	self.m_optionItemGrindRadioBtn = grind_item_radio_button
+
+    -- 연마 보조아이템 라디오 버튼 갱신
+    for item_name, ui_name in pairs(GRINDITEM_RADIO_LIST) do
+        local option_item_btn = string.format('%sBtn', ui_name)
+        local option_item_sprite = string.format('%sSprite', ui_name)
+        local option_item_label = string.format('%sLabel', ui_name)
+
+        grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
+        if (item_name ~= 'none_select') then
+            local option_item_cnt = g_userData:get(item_name)
+            vars[option_item_label]:setString(option_item_cnt)
+            if (option_item_cnt == 0) then
+                self.m_optionItemGrindRadioBtn:disable(item_name)
+            end
+        end
+    end
+
+    grind_item_radio_button:setSelectedButton('none_select')
 end
 
 
@@ -280,6 +311,20 @@ function UI_DragonRunesEnhance:refresh_grind()
         grind_radio_button:setSelectedButton(select_grind_opt)
     end
 
+    -- 연마 보조아이템 라디오 버튼 갱신
+    for item_name, ui_name in pairs(GRINDITEM_RADIO_LIST) do
+        local option_item_btn = string.format('%sBtn', ui_name)
+        local option_item_sprite = string.format('%sSprite', ui_name)
+        local option_item_label = string.format('%sLabel', ui_name)
+        if (item_name ~= 'none_select') then
+            local option_item_cnt = g_userData:get(item_name)
+            vars[option_item_label]:setString(option_item_cnt)
+            if (option_item_cnt == 0) then
+                self.m_optionItemGrindRadioBtn:disable(item_name)
+            end
+        end
+    end
+     
     local grind_stone_cnt = g_userData:get('runeGrindStone')
     local req_grind_stone_cnt = self.m_runeObject:getRuneGrindReqGrindstone()
     vars['quantityLabel']:setString(Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt))
@@ -546,18 +591,23 @@ end
 -- function request_grind
 -------------------------------------
 function UI_DragonRunesEnhance:request_grind(cb_func)
+    
+    -- 재료 확인
     local req_gold = self.m_runeObject:getRuneGrindReqGold()
+
     local req_grind_stone = self.m_runeObject:getRuneGrindReqGrindstone()
-
-    local select_grind_opt = self.m_seletedGrindOption
-
-    if (not ConfirmPrice('gold', req_gold) or not ConfirmPrice('grindstone', req_grind_stone)) then
+    local grind_stone_cnt = g_userData:get('ancient')
+    local confirm_grindstone_price = (req_grind_stone <= grind_stone_cnt)
+    
+    if ((not ConfirmPrice('gold', req_gold)) or (not confirm_grindstone_price)) then
         UIManager:toastNotificationRed(Str('재료가 부족합니다.'))
         if (cb_func) then
 			cb_func()
 		end
         return false
     end
+    
+    local select_grind_opt = self.m_seletedGrindOption
     
     -- 통신 시작
     local rune_obj = self.m_runeObject
@@ -570,6 +620,10 @@ function UI_DragonRunesEnhance:request_grind(cb_func)
         self:show_upgradeEffect(true, cb_func, true)
     end
 
+    local item_id = TableItem:getItemIDFromItemType(self.m_selectOptionItem)
+    if (not item_id) then
+        item_id = nil
+    end
     local select_sopt_number = string.match(select_grind_opt, '%d+')
-    g_runesData:request_runeGrind(owner_doid, roid, select_sopt_number, nil, finish_func, nil) -- owner_doid, roid, sopt_slot, using_item_id finish_cb, fail_cb
+    g_runesData:request_runeGrind(owner_doid, roid, select_sopt_number, tonumber(item_id), finish_func, nil) -- owner_doid, roid, sopt_slot, using_item_id finish_cb, fail_cb
 end
