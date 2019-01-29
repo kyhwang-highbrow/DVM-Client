@@ -78,7 +78,14 @@ function UI_ChallengeModeRankingPopup:refresh_playerUserInfo()
     local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
     local rank_str = ui.vars['rankingLabel']:getString()
     local rank_percentage =  math.floor((struct_user_info.m_rankPercent or 0) * 100)
+
     ui.vars['rankingLabel']:setString(rank_str .. '\n(' .. rank_percentage .. '%)')
+    
+    if (rank_str == '-') then
+        ui.vars['rankingLabel']:setString(rank_str)
+    end
+    
+
 
     if self.m_selectedUI then
         self.m_selectedUI.vars['meSprite']:setVisible(false)
