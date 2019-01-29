@@ -29,6 +29,7 @@ function UI_DragonRunesEnhance:initParentVariable()
     self.m_uiName = 'UI_DragonRunesEnhance'
     self.m_bVisible = true
     self.m_titleStr = Str('룬 강화')
+    self.m_subCurrency = 'runeGrindStone' -- 원래는 테이블 값, 서버에서 runeGrindStone 던져줌, 수정해야함
     self.m_bUseExitBtn = false
 end
 
@@ -278,6 +279,13 @@ function UI_DragonRunesEnhance:refresh_grind()
         -- default : sopt_1 라디오 버튼 선택
         grind_radio_button:setSelectedButton(select_grind_opt)
     end
+
+    local grind_stone_cnt = g_userData:get('runeGrindStone')
+    local req_grind_stone_cnt = self.m_runeObject:getRuneGrindReqGrindstone()
+    vars['quantityLabel']:setString(Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt))
+
+    local req_gold = self.m_runeObject:getRuneGrindReqGold()
+    vars['grindPriceLabel']:setString(req_gold)
 end
 
 -------------------------------------
@@ -544,10 +552,10 @@ function UI_DragonRunesEnhance:request_grind(cb_func)
     local select_grind_opt = self.m_seletedGrindOption
 
     if (not ConfirmPrice('gold', req_gold) or not ConfirmPrice('grindstone', req_grind_stone)) then
-		if (cb_func) then
+        UIManager:toastNotificationRed(Str('재료가 부족합니다.'))
+        if (cb_func) then
 			cb_func()
 		end
-
         return false
     end
     
