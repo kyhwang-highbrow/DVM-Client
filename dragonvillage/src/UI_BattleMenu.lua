@@ -373,10 +373,8 @@ function UI_BattleMenu:initCompetitionTab()
         -- 콜로세움
         table.insert(l_content_str, 'colosseum')
 
-        -- 챌린지 모드 (챌린지 모드 이벤트가 진행 중인지 여부 true or false)
-        if (g_challengeMode:isActive_challengeMode()) then
-            table.insert(l_content_str, 'challenge_mode') 
-        end
+        -- 챌린지 모드 정규화
+        table.insert(l_content_str, 'challenge_mode') 
 
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
         if (g_grandArena:isActive_grandArena()) then
@@ -384,17 +382,19 @@ function UI_BattleMenu:initCompetitionTab()
         end
     end
 
-    -- 3개 초과이면 얇은 모드
-    local is_thin = (3 < table.count(l_content_str))
-    if is_thin then
+    -- 리스트 갯수에 따라 interval_x 간격 조절
+    local list_count = table.count(l_content_str)
+    if (list_count == 4) then
         interval_x = 285
+    elseif (list_count >= 5) then
+        interval_x = 230
     end
 
     local l_btn_ui = {}
     do -- 콘텐츠 리스트 UI 생성
         local l_pos = getSortPosList(interval_x, table.count(l_content_str))
         for i,v in ipairs(l_content_str) do
-            local ui = UI_BattleMenuItem_Competition(v, is_thin)
+            local ui = UI_BattleMenuItem_Competition(v, list_count)
             local pos_x = l_pos[i]
             ui.root:setPosition(pos_x, pos_y)
             vars['competitionMenu']:addChild(ui.root)

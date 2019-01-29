@@ -4,7 +4,7 @@ local PARENT = UI_BattleMenuItem
 -- class UI_BattleMenuItem_Competition
 -------------------------------------
 UI_BattleMenuItem_Competition = class(PARENT, {
-        m_isThin = 'boolean', -- 가로 넓이가 얇은 모드인지
+        m_menuListCnt = 'number', -- 컨텐츠가 몇 개인지
     })
 
 local THIS = UI_BattleMenuItem_Competition
@@ -12,13 +12,16 @@ local THIS = UI_BattleMenuItem_Competition
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BattleMenuItem_Competition:init(content_type, is_thin)
-    self.m_isThin = is_thin
+function UI_BattleMenuItem_Competition:init(content_type, list_count)
+    self.m_menuListCnt = list_count
     local ui_name = 'battle_menu_competition_item.ui'
-    if (is_thin == true) then
-        ui_name = 'battle_menu_competition_item_02.ui'
-    end
 
+    if (list_count == 4) then
+        ui_name = 'battle_menu_competition_item_02.ui'
+    elseif (list_count >= 5) then
+        ui_name = 'battle_menu_competition_item_03.ui'
+    end
+    
     local vars = self:load(ui_name)
 
     self:initUI()
@@ -50,8 +53,10 @@ function UI_BattleMenuItem_Competition:initUI()
 	end
 
     -- 컨텐츠 타입별 지정
-    if (self.m_isThin == true) then
+    if (self.m_menuListCnt == 4) then
         vars['itemVisual']:changeAni(content_type .. '_list', true)
+    elseif (self.m_menuListCnt >= 5) then
+        vars['itemVisual']:changeAni(content_type .. '_02', true)
     end
 end
 
