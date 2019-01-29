@@ -1184,6 +1184,13 @@ end
 -- @brief 추천 난이도
 -------------------------------------
 function ServerData_ChallengeMode:getRecommandDifficulty(stage)
+    
+    -- 1회도 플레이 하지 않았을 경우 보통 추천
+    local play_cnt = self:getChallengeModeStagePlayCnt(stage)
+    if (play_cnt <= 0) then
+        return DIFFICULTY.NORMAL, false
+    end
+    
     local point = self:getChallengeModeStagePoint(stage)
     local difficulty, is_auto = self:parseChallengeModeStagePoint(point)
 
@@ -1201,8 +1208,8 @@ function ServerData_ChallengeMode:getRecommandDifficulty(stage)
     if (is_auto == true) then
         local next_difficulty = (difficulty + 1)
         
-        if (DIFFICULTY.HARD < next_difficulty) then
-            return DIFFICULTY.HARD, true
+        if (DIFFICULTY.HELL < next_difficulty) then
+            return DIFFICULTY.HELL, true
         else
             return next_difficulty, false
         end
