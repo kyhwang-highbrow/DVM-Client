@@ -104,14 +104,14 @@ function StructRuneObject:applyTableData(data)
     self['grind_opt'] = nil
 
     for i,v in pairs(data) do
-       --if (i == 'grind_opt') then
-       --    for i,v in pairs(v) do
-       --        self['grind_opt'] = opt_name .. opt_num
-       --    end
-       --else
-           local key = replacement[i] and replacement[i] or i
-           self[key] = v
-       --end
+        if (i == 'grind_opt') then
+            for opt_name, opt_num in pairs(v) do
+                self['grind_opt'] = opt_name .. '_' .. opt_num
+            end
+        else
+            local key = replacement[i] and replacement[i] or i
+            self[key] = v
+        end
     end
 end
 
