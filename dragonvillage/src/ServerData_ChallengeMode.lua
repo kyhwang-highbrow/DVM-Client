@@ -213,8 +213,6 @@ function ServerData_ChallengeMode:refresh_playerUserInfo(t_data, l_deck)
 
         if t_data['rank'] then
             struct_user_info.m_rank = t_data['rank']
-
-            self:registerRankHistory(struct_user_info.m_rank)
         end
 
         if t_data['tier'] then
