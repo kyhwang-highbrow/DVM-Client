@@ -168,7 +168,9 @@ local TableInfo_fromServer = {
 
 		['table_spot_sale'] = {'table_spot_sale', 'id'}, -- 깜짝 세일 
 
-        ['table_capsule_box_schedule'] = {'table_capsule_box_schedule', 'day'} -- 캡슐 뽑기 스케쥴
+        ['table_capsule_box_schedule'] = {'table_capsule_box_schedule', 'day'}, -- 캡슐 뽑기 스케쥴,
+
+        ['table_rune_opt_status'] = {'table_rune_opt_status', 'key'} -- 옵션 최대치
     }
 
 -------------------------------------

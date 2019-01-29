@@ -299,6 +299,12 @@ function UI_DragonRunesEnhance:refresh_grind()
             local option_label = string.format('%s_label',v)    -- ex) sopt_1_label
 
             local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
+            
+            local is_max = rune_obj:isMaxOption(v, rune_desc_str)
+            if (is_max) then
+                rune_desc_str = rune_desc_str .. '{@red}[MAX]'
+            end
+            
             if (rune_desc_str ~= '') then
                 vars[option_label]:setString(rune_desc_str)
                 -- 없는 버튼이면 등록한다

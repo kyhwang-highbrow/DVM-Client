@@ -637,16 +637,21 @@ function StructRuneObject:setOptionLabel(ui, label_format, show_change)
 
     -- 룬 옵션 세팅
     for i,v in ipairs(RUNE_OPTION_TYPE) do
-        local option_label = string.format("%s_%sLabel", v, label_format) -- ex) label_vormat 이 XX의 경우, mopt_XXLabel인 라벨을 찾아서 사용
+        local option_label = string.format("%s_%sLabel", v, label_format)
         local option_label_node = string.format("%s_%sNode", v, label_format)
         
-        -- show_chage가 true 라면 주옵션만 ex) 공격력 +4% -> 공격력 +5% 표시
+        -- show_change가 true 라면 주옵션만 ex) 공격력 +4% -> 공격력 +5% 표시
         if (show_change) then
             show_change = (i == 1)
         end
         
         local desc_str = self:makeEachRuneDescRichText(v, show_change)
+        local is_max = self:isMaxOption(v, desc_str)
 
+        if (is_max and i>2) then
+            desc_str = desc_str .. '{@red}[MAX]'
+        end
+        
         -- node와 label 둘 중 하나라도 없다면 출력x, 에러메세지
         if (not vars[option_label_node] or not vars[option_label]) then
             if (IS_TEST_MODE()) then
@@ -690,4 +695,32 @@ end
 -------------------------------------
 function StructRuneObject:setGrindedOption(opt_name)
      self.grind_opt = opt_name
+end
+
+-------------------------------------
+-- function isMaxOption
+-------------------------------------
+function StructRuneObject:isMaxOption(opt_name, opt_desc)
+    local max_value = 0
+    local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+    
+    -- ex)hp_mult;30 를 파싱하여
+    -- hp_multi를 키로 사용해 max값을 구한다
+    local opt_str = self[opt_name]
+    opt_str = pl.stringx.split(opt_str, ';')
+    
+    if (#opt_str>0) then
+        max_value = t_rune_opt_max[opt_str[1]]['status_max']
+    
+    end
+    
+    local opt_value = string.match(opt_desc,'%d+')
+    if (not opt_value) then
+        return false
+    end
+    if (tonumber(opt_value) >= tonumber(max_value)) then
+        return true
+    end
+
+    return false
 end
