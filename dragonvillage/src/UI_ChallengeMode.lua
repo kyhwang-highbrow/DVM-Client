@@ -235,31 +235,35 @@ function UI_ChallengeMode:setEntrancePopup()
     end
 
     local is_enter = g_challengeMode:getUserCanEnterChallengeMode()
-    
+    local is_popup_show = false
     -- 그림자 신전 입장 자격이 될 경우 이벤트 동안 1번만 입장 팝업
     if (is_enter) then
         local is_once_enter = g_settingData:getChellengeModeSettingdata('onece_for_season')
-        print(is_once_enter)
         if (not is_once_enter) then
             g_settingData:applySettingData(true, 'challenge_history', 'onece_for_season')
+            is_popup_show = true
         end
+    else
+        is_popup_show = true
     end
 
-    -- 입장팝업
-    local entrance_ui = UI()
-    entrance_ui:load('challenge_mode_enter_popup.ui')
-    UIManager:open(entrance_ui, UIManager.POPUP)
-    g_currScene:pushBackKeyListener(entrance_ui, function() entrance_ui:close() end, 'UI_EntranceChallenge')
+    if (is_popup_show) then
+        -- 입장팝업
+        local entrance_ui = UI()
+        entrance_ui:load('challenge_mode_enter_popup.ui')
+        UIManager:open(entrance_ui, UIManager.POPUP)
+        g_currScene:pushBackKeyListener(entrance_ui, function() entrance_ui:close() end, 'UI_EntranceChallenge')
 
-    local tier = g_challengeMode:getLastArenaTierName()
-    local tier_name = StructUserInfoArena:getTierName(tier)
-    local tier_icon = StructUserInfoArena:makeTierIcon(tier, 'big')
-    entrance_ui.vars['rankNode']:addChild(tier_icon)
-    entrance_ui.vars['rankLabel']:setString(Str('테이머님의 지난 시즌 성적은 {1}입니다.', tier_name))
-    entrance_ui.vars['enterNode1']:setVisible(is_enter)
-    entrance_ui.vars['enterNode2']:setVisible(not is_enter)
-    entrance_ui.vars['okBtn']:registerScriptTapHandler(function() entrance_ui:close() end)
-    entrance_ui:setCloseCB(cb_func)
+        local tier = g_challengeMode:getLastArenaTierName()
+        local tier_name = StructUserInfoArena:getTierName(tier)
+        local tier_icon = StructUserInfoArena:makeTierIcon(tier, 'big')
+        entrance_ui.vars['rankNode']:addChild(tier_icon)
+        entrance_ui.vars['rankLabel']:setString(Str('테이머님의 지난 시즌 성적은 {1}입니다.', tier_name))
+        entrance_ui.vars['enterNode1']:setVisible(is_enter)
+        entrance_ui.vars['enterNode2']:setVisible(not is_enter)
+        entrance_ui.vars['okBtn']:registerScriptTapHandler(function() entrance_ui:close() end)
+        entrance_ui:setCloseCB(cb_func)
+    end
 end
 
 -------------------------------------
