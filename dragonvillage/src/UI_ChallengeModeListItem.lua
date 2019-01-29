@@ -35,10 +35,8 @@ function UI_ChallengeModeListItem:initUI()
 
         -- 남은 시간 표기
         local sec = g_challengeMode:getChallengeModeMasterStatusText()
-        local day = math.floor(sec / 86400)
-        local hour = math.floor(sec / 3600) % 24
-        local str_time = vars['masterTimeLabel']:getString()
-        vars['masterTimeLabel']:setString(Str(str_time,day, hour))
+        local time_str = datetime.makeTimeDesc(sec, false, false, false)
+        vars['masterTimeLabel']:setString('남은 시간 : '.. time_str)
         return
     end
 

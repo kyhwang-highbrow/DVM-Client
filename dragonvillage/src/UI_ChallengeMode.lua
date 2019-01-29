@@ -175,10 +175,9 @@ function UI_ChallengeMode:initUI_tableView()
 
          -- 남은 시간 표기
         local sec = g_challengeMode:getChallengeModeMasterStatusText()
-        local day = math.floor(sec / 86400)
-        local hour = math.floor(sec / 3600) % 24
+        local time_str = datetime.makeTimeDesc(sec, false, false, false)
         local str_time = vars['masterTimeLabel']:getString()
-        vars['masterTimeLabel']:setString(Str(str_time,day, hour))
+        vars['masterTimeLabel']:setString('남은 시간 : '.. time_str)
         vars['masterTimeSprite']:setVisible(true)
     else
         vars['masterTimeSprite']:setVisible(false)
@@ -238,7 +237,7 @@ function UI_ChallengeMode:setEntrancePopup()
     -- 그림자 신전 입장 자격이 될 경우 이벤트 동안 1번만 입장 팝업
     if (g_challengeMode:getUserCanEnterChallengeMode()) then
         local is_once_enter = g_settingData:getChellengeModeSettingdata('onece_for_season')
-        if (is_once_enter) then
+        if (not is_once_enter) then
             local msg = Str('그림자의 신전은 콜로세움 지난 시즌에서 골드 3등급 이상을 달성한 테이머만 도전할 수 있습니다.\n테이머님의 지난 시즌 성적은 {1} 입니다.\n그림자의 신전 도전 자격을 달성했습니다. 여러분의 한계에 도전해 보세요!\n(자격은 시즌 종료까지 유지됩니다.)', g_arena)
             UI_SimplePopup(POPUP_TYPE.OK, msg, cb_func, cb_func, UIManager.LOADING)
             g_settingData:applySettingData(true, 'challenge_history', 'onece_for_season')
