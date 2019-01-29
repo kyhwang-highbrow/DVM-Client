@@ -616,7 +616,7 @@ function ServerData_Shop:isContainCostume(added_items)
     local items_list = added_items['items_list']
     local table_item = TableItem()
     for _, t_item in pairs(items_list) do
-        if (list['item_id']) then
+        if (t_item['item_id']) then
             if (table_item:getItemType(t_item['item_id']) == 'costume') then
                 return true
             end
