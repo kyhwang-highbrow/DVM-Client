@@ -133,6 +133,7 @@ function UI_MatchReadyChallengeMode:initStaminaInfo()
     -- 스태미나 아이콘
     local stamina_type = TableDrop:getStageStaminaType(CHALLENGE_MODE_STAGE_ID)
     local icon = IconHelper:getStaminaInboxIcon(stamina_type)
+
     vars['staminaNode']:removeAllChildren()
     vars['staminaNode']:addChild(icon)
 
@@ -155,6 +156,13 @@ function UI_MatchReadyChallengeMode:initChallengeModeUI()
     local point = g_challengeMode:getChallengeModeStagePoint(stage)
     local difficulty_text = self:makePointRichText(point)
     vars['currentPointLabel']:setString(difficulty_text)
+
+    local uid = g_userData:get('uid')
+    local taget_uid = self:getStructUserInfo_Player():getUid()
+    vars['serverLabel1']:setVisible(true)
+    vars['serverLabel2']:setVisible(true)
+    vars['serverLabel1']:setString(g_challengeMode:getUserServer(uid))
+    vars['serverLabel2']:setString(g_challengeMode:getUserServer(taget_uid))
 
     -- 난이도 선택 드롭리스트
     self:make_UIC_SortList()

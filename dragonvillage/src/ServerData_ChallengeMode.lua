@@ -1411,3 +1411,29 @@ end
 function ServerData_ChallengeMode:getLastArenaTierName()
     return self.m_arenaLastTierName
 end
+
+-------------------------------------
+-- function getUserServer
+-------------------------------------
+function ServerData_ChallengeMode:getUserServer(uid, is_color)
+    local server_str = plSplit(uid, '@') -- 'qewdf_dfs@America' 를 qewdf_dfs 와 America로 분리
+    local server_color = '{@server_name}'
+
+    if (not server_str[1]) then
+        server_str = "<KOR>"
+    else
+        if (server_str[2] == 'America') then
+            server_str = "<USA>"
+        elseif (server_str[2] == 'Japan') then
+            server_str = "<JPN>"
+        elseif(server_str[2] == 'Asia') then
+            server_str = "<ASIA>"
+        else
+            server_str = "<KOR>"
+        end
+    end
+    if (is_color) then
+        server_str = server_color .. server_str
+    end
+    return server_str
+end

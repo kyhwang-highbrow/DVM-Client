@@ -58,10 +58,8 @@ function UI_ChallengeModeListItem:initUI()
     vars['stageNumberLabel']:setString(tostring(t_data['rank']))
     
     -- 서버, 닉네임, 클랜명
-    local server_name = self:getUserServer(uid)
-    local server_color = '{@server_name}'
-    local str = server_color .. server_name
-    str = str .. ' {@default}' .. nick
+    local server_name = g_challengeMode:getUserServer(uid, true)
+    local str = server_name .. ' {@default}' .. nick
     if (clan and (clan ~= '')) then
         str = str .. ' {@clan_name}' .. clan
     end
@@ -177,27 +175,4 @@ function UI_ChallengeModeListItem:setRewardItemCard(reward_item_id, count)
         icon:setScale(2)
         item_card.root:addChild(icon)
     end
-end
-
--------------------------------------
--- function getUserServer
--------------------------------------
-function UI_ChallengeModeListItem:getUserServer(uid)
-    local server_str = plSplit(uid, '@') -- 'qewdf_dfs@America' 를 qewdf_dfs 와 America로 분리
-
-    if (not server_str[1]) then
-        server_str = "<KOR>"
-    else
-        if (server_str[2] == 'America') then
-            server_str = "<USA>"
-        elseif (server_str[2] == 'Japan') then
-            server_str = "<JPN>"
-        elseif(server_str[2] == 'Asia') then
-            server_str = "<ASIA>"
-        else
-            server_str = "<KOR>"
-        end
-    end
-
-    return server_str
 end

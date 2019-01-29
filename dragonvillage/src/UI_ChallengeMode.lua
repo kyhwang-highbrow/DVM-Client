@@ -64,7 +64,7 @@ function UI_ChallengeMode:initUI()
 
     -- 남은 시간 표기
     local str_time = g_challengeMode:getChallengeModeStatusText()
-    vars['timeLabel']:setString(Str('시즌 종료까지 \n{1}', Str(str_time)))
+    vars['timeLabel']:setString(Str('시즌 종료까지 {1}', Str(str_time)))
 
     -- 네트워크 통신 전 최초에 보여지는 값 처리
     vars['startBtn']:setVisible(false)
@@ -76,7 +76,7 @@ function UI_ChallengeMode:initUI()
     vars['rewardNode']:setVisible(true)
 
     -- 하드코딩에, 연마석은 축적된 연마석이 아니라 승리한 층 갯수를 받아옴, 후에 수정해야함
-    local str = Str('{1}\n/{2}', comma_value(g_challengeMode:getCumulativeGrindStone()), comma_value(60))
+    local str = Str('{1}/{2}', comma_value(g_challengeMode:getCumulativeGrindStone()), comma_value(60))
     vars['rewardLabel']:setString(str)
     
     -- 정렬 함수 셋팅
@@ -343,12 +343,16 @@ function UI_ChallengeMode:refresh(stage)
         local rank = t_data['rank']
         local nick = t_data['nick']
         local clan = t_data['clan']
+        local uid = t_data['uid']
         --local str = Str('{1}위', rank)
         local str = ''
         str = str .. '{@}' .. nick
         if (clan and (clan ~= '')) then
             str = str .. '\n{@clan_name}' .. clan
         end
+
+        local server_name = g_challengeMode:getUserServer(uid, true)
+        str = str .. '\n' .. server_name
         vars['tamerNameLabel']:setString(str)
 
         -- 순위는 별도
