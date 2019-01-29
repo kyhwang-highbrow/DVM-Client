@@ -69,7 +69,6 @@ function StructRuneObject:init(data)
     end
 
     local rid = self['rid']
-
     -- 아이템ID는 룬ID와 동일하게 사용
     self['item_id'] = rid
 
@@ -105,14 +104,14 @@ function StructRuneObject:applyTableData(data)
     self['grind_opt'] = nil
 
     for i,v in pairs(data) do
-        if (i == 'grind_opt') then
-            for i,v in pairs(v) do
-                self['grind_opt'] = opt_name .. opt_num
-            end
-        else
-            local key = replacement[i] and replacement[i] or i
-            self[key] = v
-        end
+       --if (i == 'grind_opt') then
+       --    for i,v in pairs(v) do
+       --        self['grind_opt'] = opt_name .. opt_num
+       --    end
+       --else
+           local key = replacement[i] and replacement[i] or i
+           self[key] = v
+       --end
     end
 end
 

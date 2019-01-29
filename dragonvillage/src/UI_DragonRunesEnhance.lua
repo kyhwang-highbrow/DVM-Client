@@ -558,7 +558,7 @@ function UI_DragonRunesEnhance:request_grind(cb_func)
 
     local finish_func = function()
         self.m_runeObject = g_runesData:getRuneObject(roid)
-        self.m_runeObject:setGrindedOption(select_grind_opt)
+        --self.m_runeObject:setGrindedOption(select_grind_opt)
         self:show_upgradeEffect(true, cb_func, true)
     end
 
