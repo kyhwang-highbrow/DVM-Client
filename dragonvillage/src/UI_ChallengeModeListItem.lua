@@ -36,14 +36,14 @@ function UI_ChallengeModeListItem:initUI()
         -- 남은 시간 표기
         local sec = g_challengeMode:getChallengeModeMasterStatusText()
         local time_str = datetime.makeTimeDesc(sec, false, false, false)
-        vars['masterTimeLabel']:setString('남은 시간 : '.. time_str)
+        vars['masterTimeLabel']:setString(Str('마스터 구역 잠금해제까지\n {1} 남음', Str(time_str)))
         return
     end
 
     local stage = t_data['stage']
     local nick = t_data['nick'] or ''
     local clan = t_data['clan'] or ''
-
+    local uid = t_data['uid'] or ''
     -- 랭킨, 클랜, 닉네임
     --[[
     local str = Str('{1}위', t_data['rank'])
@@ -57,8 +57,11 @@ function UI_ChallengeModeListItem:initUI()
     -- 스테이지 (순위)
     vars['stageNumberLabel']:setString(tostring(t_data['rank']))
     
-    -- 닉네임, 클랜명
-    local str = nick
+    -- 서버, 닉네임, 클랜명
+    local server_name = self:getUserServer(uid)
+    local server_color = '{@server_name}'
+    local str = server_color .. server_name
+    str = str .. ' {@default}' .. nick
     if (clan and (clan ~= '')) then
         str = str .. ' {@clan_name}' .. clan
     end
@@ -174,4 +177,27 @@ function UI_ChallengeModeListItem:setRewardItemCard(reward_item_id, count)
         icon:setScale(2)
         item_card.root:addChild(icon)
     end
+end
+
+-------------------------------------
+-- function getUserServer
+-------------------------------------
+function UI_ChallengeModeListItem:getUserServer(uid)
+    local server_str = plSplit(uid, '@') -- 'qewdf_dfs@America' 를 qewdf_dfs 와 America로 분리
+
+    if (not server_str[1]) then
+        server_str = "<KOR>"
+    else
+        if (server_str[2] == 'America') then
+            server_str = "<USA>"
+        elseif (server_str[2] == 'Japan') then
+            server_str = "<JPN>"
+        elseif(server_str[2] == 'Asia') then
+            server_str = "<ASIA>"
+        else
+            server_str = "<KOR>"
+        end
+    end
+
+    return server_str
 end

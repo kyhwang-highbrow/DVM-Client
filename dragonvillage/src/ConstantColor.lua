@@ -154,6 +154,9 @@ COLOR = {
     
     -- 특정 색상 (그림자 신전 순위 변동 화살표 색깔로 이용)
     ['light_blue'] = cc.c3b(0,84,224),
+    
+    -- 그림자 신전 유저의 서버 라벨 색깔
+    ['server_name'] = cc.c3b(127,255,212),
 }
 
 -- 재정의 색상들
@@ -167,7 +170,6 @@ COLOR['item_name'] = COLOR['DEEPSKYBLUE']
 COLOR['count'] = COLOR['MUSTARD']
 COLOR['emphasis'] = COLOR['ROSE']
 COLOR['available'] = COLOR['light_green']
-
 
 -- 임의로 사용되는 색상
 COLOR['alphabet_wild'] = cc.c3b(240, 255, 0)
