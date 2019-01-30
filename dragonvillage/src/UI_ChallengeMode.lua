@@ -350,13 +350,14 @@ function UI_ChallengeMode:refresh(stage)
         local uid = t_data['uid']
         --local str = Str('{1}위', rank)
         local str = ''
+        local server_name = g_challengeMode:getUserServer(uid, true)
+        str = server_name .. '\n' .. str
         str = str .. '{@}' .. nick
         if (clan and (clan ~= '')) then
             str = str .. '\n{@clan_name}' .. clan
         end
 
-        local server_name = g_challengeMode:getUserServer(uid, true)
-        str = str .. '\n' .. server_name
+
         vars['tamerNameLabel']:setString(str)
 
         -- 순위는 별도
