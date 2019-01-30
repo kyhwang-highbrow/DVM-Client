@@ -13,8 +13,6 @@ AD_TYPE = {
 -------------------------------------
 AdMobManager = {}
 
-local USE_OLD_AD_API = (CppFunctions:getAppVer() ~= '1.1.6')
-
 local AdMobRewardedVideoAd = {
     mIsInit = false,
     mCallback = nil,
@@ -70,11 +68,7 @@ function AdMobManager:initRewardedVideoAd()
     end
 
     -- @ AdManager
-    if (USE_OLD_AD_API) then
-        PerpleSDK:adMobStart(ADMOB_APP_AD_UNIT_ID)
-    else
-        PerpleSDK:adMobInitRewardedVideoAd()
-    end
+    PerpleSDK:adMobInitRewardedVideoAd()
     AdMobRewardedVideoAd.mIsInit = true
    
     local rewarded_video_ad = self:getRewardedVideoAd()
@@ -100,10 +94,6 @@ function AdMobManager:initInterstitialAd()
     end
 
     -- @ AdManager
-    if (USE_OLD_AD_API) then
-        return
-    end
-
     PerpleSDK:adMobInitInterstitialAd()
     AdMobInterstitialAd.mIsInit = true
 
@@ -257,11 +247,7 @@ function AdMobRewardedVideoAd:loadRequest(ad_unit_id)
         return
     end
     -- @ AdManager
-    if (USE_OLD_AD_API) then
-        PerpleSDK:adMobLoadRequest()
-    else
-        PerpleSDK:rvAdLoadRequestWithId(ad_unit_id)
-    end
+    PerpleSDK:rvAdLoadRequestWithId(ad_unit_id)
 end
 
 -------------------------------------
@@ -273,11 +259,7 @@ function AdMobRewardedVideoAd:setResultCallback(cb_func)
     end
 
     -- @ AdManager
-    if (USE_OLD_AD_API) then
-        PerpleSDK:adMobSetResultCallBack(cb_func)
-    else
-        PerpleSDK:rvAdSetResultCallback(cb_func)
-    end
+    PerpleSDK:rvAdSetResultCallback(cb_func)
 end
 
 -------------------------------------
@@ -305,11 +287,7 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
     end
 
     -- @ AdManager
-    if (USE_OLD_AD_API) then
-        PerpleSDK:adMobShow(ad_unit_id)
-    else
-        PerpleSDK:rvAdShow(ad_unit_id)
-    end
+    PerpleSDK:rvAdShow(ad_unit_id)
 end
 
 -------------------------------------

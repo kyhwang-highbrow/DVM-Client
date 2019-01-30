@@ -13,7 +13,7 @@ end
 -- private function table
 -- 함수 사용 구조를 예쁘게 한다.
 local Crashlytics = {
-    isCrashlyticsAvailable = (CppFunctions:getAppVer() == '1.1.6') -- PerpleSdkManager.isAvailable
+    isCrashlyticsAvailable = PerpleSdkManager.isAvailable
 }
 
 -------------------------------------
