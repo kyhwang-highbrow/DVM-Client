@@ -1227,12 +1227,18 @@ function ServerData_ChallengeMode:getRecommandDifficulty(stage)
         return difficulty, true
     end
 
+    -- 마스터 층 아래에는 HELL이 없음
+    local limit_difficulty = DIFFICULTY.HARD
+    if (100 - self:getMasterStage() < stage) then
+        limit_difficulty = DIFFICULTY.HELL
+    end
+    
     -- 자동 전투로 클리어 했을 경우 다음 난이도 추천
     if (is_auto == true) then
         local next_difficulty = (difficulty + 1)
         
-        if (DIFFICULTY.HELL < next_difficulty) then
-            return DIFFICULTY.HELL, true
+        if (limit_difficulty < next_difficulty) then
+            return limit_difficulty, true
         else
             return next_difficulty, false
         end

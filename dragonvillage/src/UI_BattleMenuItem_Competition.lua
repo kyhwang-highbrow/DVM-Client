@@ -227,7 +227,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 
 	-- 일반적으로 lock은 UI_BattleMenuItem:initUI() 에서 처리하나 타이머 동작하기 위해서 여기로 보냄
 	elseif (state == ServerData_ChallengeMode.STATE['LOCK']) then
-		use_timer = true
+		use_timer = false
 		timer_key = 'event_challenge'
 
 	-- 그림자의 신전 사용 가능 상태
