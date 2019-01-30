@@ -987,9 +987,18 @@ end
 
 -------------------------------------
 -- function getChallengeMode_staminaCost
--- @breif 스테이지 정보
+-- @breif 그림자 신전 플레이에 필요한 날개 갯수
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeMode_staminaCost(stage)
+    
+    local is_master = self:isMasterStage(100-stage)
+    if (is_master) then
+        return self.m_challengeManageTable['cost_value_master'] or 20 -- 테이블 값 하드 코딩
+    else
+        return self.m_challengeManageTable['cost_value'] or 10 -- 테이블 값 하드 코딩
+    end
+
+    --[[
     local play_cnt = self:getChallengeModeStagePlayCnt(stage)
 
     local cost_value = 5
@@ -1005,6 +1014,7 @@ function ServerData_ChallengeMode:getChallengeMode_staminaCost(stage)
     stamina = math_min(stamina, cost_maximum)
 
     return stamina
+    --]]
 end
 
 -------------------------------------
@@ -1310,6 +1320,18 @@ function ServerData_ChallengeMode:getMasterStage()
     end
     
     return tonumber(self.m_masterStartStage)
+end
+
+-------------------------------------
+-- function isMasterStage
+-------------------------------------
+function ServerData_ChallengeMode:isMasterStage(stage)
+    local master_stage = self:getMasterStage()
+    if (stage < master_stage) then
+        return true
+    end
+    
+    return false
 end
 
 -------------------------------------

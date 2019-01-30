@@ -262,7 +262,11 @@ function UI_ChallengeMode:setEntrancePopup()
         entrance_ui.vars['enterNode1']:setVisible(is_enter)
         entrance_ui.vars['enterNode2']:setVisible(not is_enter)
         entrance_ui.vars['okBtn']:registerScriptTapHandler(function() entrance_ui:close() end)
-        entrance_ui:setCloseCB(cb_func)
+
+        -- 입장 가능할 때만 입장 팝업 이후에 도움말 팝업
+        if (is_enter) then
+            entrance_ui:setCloseCB(cb_func)
+        end
     end
 end
 
