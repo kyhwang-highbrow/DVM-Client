@@ -11,6 +11,7 @@ UI_DragonRunesEnhance = class(PARENT,{
 		m_optionRadioBtn = 'UIC_RadioButton',
 		m_enhanceOptionLv = 'num',
 		m_coroutineHelper = 'CoroutinHelepr',
+        m_optionLabel = 'UI'
     })
 
 -------------------------------------
@@ -31,6 +32,7 @@ end
 function UI_DragonRunesEnhance:init(rune_obj, attr)
     self.m_runeObject = rune_obj
     self.m_changeOptionList = {}
+    self.m_optionLabel = nil
 
     local vars = self:load('dragon_rune_enhance.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -125,33 +127,35 @@ function UI_DragonRunesEnhance:refresh()
 
     -- 능력치 출력
     local for_enhance = true
-    local option_label = vars['optionLabel']
-    option_label:setString(rune_obj:makeRuneDescRichText(for_enhance))
     
+    if (not self.m_optionLabel) then
+        self.m_optionLabel = rune_obj:getOptionLabel()
+        vars['runeInfo']:addChild(self.m_optionLabel.root)
+    end
+
+    rune_obj:setOptionLabel(self.m_optionLabel, 'use', true) -- param : ui, label_format, show_change
+    vars['optionLabel']:setVisible(false)
+
     -- 변경된 옵션이 있다면 애니메이션 효과
-    local change_list = self.m_changeOptionList
-    for i, v in ipairs(change_list) do
-        local node_list = option_label:findContentNodeWithkey(v)
-        if (#node_list > 0) then
-            for _i, _v in ipairs(node_list) do
-                local find_node = _v
-                -- 자연스러운 액션을 위해 앵커포인트 변경
-                --폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
-                local orgAnchor = find_node:getAnchorPoint()
-                local function onFinish(node)
-                    changeAnchorPointWithOutTransPos(node, orgAnchor)
-                end
-                changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
-                cca.stampShakeActionLabel(find_node, 1.5, 0.1, 0, 0)
-                cca.reserveFunc(find_node, 0.1, onFinish)
+    for i, v in ipairs(self.m_changeOptionList) do
+        local option_label_str = string.format('%s_useLabel', v)
+        local find_node = self.m_optionLabel.vars[option_label_str]
+        if (find_node) then
+            -- 자연스러운 액션을 위해 앵커포인트 변경
+            -- 폰트 스케일 변경 때문에 연출끝나면 앵커포인트 다시 변경
+            local orgAnchor = find_node:getAnchorPoint()
+            local function onFinish(node)
+                changeAnchorPointWithOutTransPos(node, orgAnchor)
             end
+            changeAnchorPointWithOutTransPos(find_node, cc.p(0.5, 0.5))
+            cca.stampShakeActionLabel(find_node, 1.5, 0.1, 0, 0)
+            cca.reserveFunc(find_node, 0.1, onFinish)
         end
     end
 
     -- 강화 성공시 옵션 추가되는 경우 
     local max_lv = RUNE_LV_MAX
     local curr_lv = rune_obj['lv']
-
     vars['bonusEffectLabel']:setVisible((curr_lv ~= max_lv - 1) and (curr_lv % 3 == 2))
     vars['maxLvEffectLabel']:setVisible((curr_lv == max_lv - 1))
 
