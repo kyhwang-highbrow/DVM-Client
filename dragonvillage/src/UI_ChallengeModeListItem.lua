@@ -32,11 +32,7 @@ function UI_ChallengeModeListItem:initUI()
         vars['masterTimeSprite']:setVisible(true)
         vars['stageBtn']:setEnabled(false)
         vars['stageBtn']:setVisible(false)
-
-        -- 남은 시간 표기
-        local sec = g_challengeMode:getChallengeModeMasterStatusText()
-        local time_str = datetime.makeTimeDesc(sec, false, false, false)
-        vars['masterTimeLabel']:setString(Str('다음 순위부터는 마스터 구역입니다.'))
+        vars['masterTimeSprite']:setVisible(true)
         return
     end
 
