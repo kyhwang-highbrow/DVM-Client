@@ -1035,7 +1035,7 @@ function ServerData_ChallengeMode:getChallengeModeStatusText()
         end
 
     elseif (0 < time) then
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        str = Str('시즌 종료까지') .. Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
 
     else
         str = Str('종료되었습니다.')

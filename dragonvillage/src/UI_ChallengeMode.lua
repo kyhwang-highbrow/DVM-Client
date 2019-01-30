@@ -63,8 +63,8 @@ function UI_ChallengeMode:initUI()
     end
 
     -- 남은 시간 표기
-    local str_time = g_challengeMode:getChallengeModeStatusText()
-    vars['timeLabel']:setString(Str('시즌 종료까지 {1}', Str(str_time)))
+    local str_time = g_challengeMode:getChallengeModeStatusText()    
+    vars['timeLabel']:setString(Str(str_time))
 
     -- 네트워크 통신 전 최초에 보여지는 값 처리
     vars['startBtn']:setVisible(false)
@@ -177,7 +177,7 @@ function UI_ChallengeMode:initUI_tableView()
         local sec = g_challengeMode:getChallengeModeMasterStatusText()
         local time_str = datetime.makeTimeDesc(sec, false, false, false)
         local str_time = vars['masterTimeLabel']:getString()
-        vars['masterTimeLabel']:setString(Str('마스터 구역 잠금해제까지\n {1} 남음', Str(time_str)))
+        vars['masterTimeLabel']:setString(Str('마스터 구역 잠금해제까지\n{1}', Str(time_str)))
         vars['masterTimeSprite']:setVisible(true)
     else
         vars['masterTimeSprite']:setVisible(false)
