@@ -24,7 +24,7 @@ UI_DragonRunesEnhance = class(PARENT,{
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
 UI_DragonRunesEnhance.GRIND = 'grind' -- 특성 스킬
 
-GRINDITEM_RADIO_LIST = { none_select = 'notSelect', runeGrindMax = 'maxFixed', runeGrindOptKeep = 'optKeep'}--max_fixed_ticket = 'maxFixed', opt_keep_ticket = 'optKeep'}
+GRINDITEM_RADIO_LIST = { none_select = 'notSelect', max_fixed_ticket = 'maxFixed', opt_keep_ticket = 'optKeep'}
 
 -------------------------------------
 -- function initParentVariable
@@ -35,7 +35,7 @@ function UI_DragonRunesEnhance:initParentVariable()
     self.m_uiName = 'UI_DragonRunesEnhance'
     self.m_bVisible = true
     self.m_titleStr = Str('룬 강화')
-    self.m_subCurrency = 'runeGrindStone'
+    self.m_subCurrency = 'grindstone'
     self.m_bUseExitBtn = false
 end
 
@@ -146,7 +146,7 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
 	grind_radio_button:setChangeCB(function(option_type)
         self.m_seletedGrindOption = option_type
         
-        for i,v in ipairs(RUNE_OPTION_TYPE) do
+        for i,v in ipairs(StructRuneObject.OPTION_LIST) do
             if (i > 2) then
                 local option_label = string.format('%s_label', v)    -- ex) sopt_1_label
                 local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
@@ -292,7 +292,7 @@ function UI_DragonRunesEnhance:refresh_grind()
     -- 라디오 버튼 정보 갱신
     local grind_radio_button = self.m_optionGrindRadioBtn
 
-    for i,v in ipairs(RUNE_OPTION_TYPE) do
+    for i,v in ipairs(StructRuneObject.OPTION_LIST) do
         if (i>2) then   -- 전체 옵션 중에서 sopt만 연마, 
             local option_btn = string.format('%s_btn', v)       -- ex) sopt_1_btn
             local option_sprite = string.format('%s_sprite',v)  -- ex) sopt_1_sprite
@@ -347,7 +347,7 @@ function UI_DragonRunesEnhance:refresh_grind()
         end
     end
      
-    local grind_stone_cnt = g_userData:get('runeGrindStone')
+    local grind_stone_cnt = g_userData:get('grindstone') or 0
     local req_grind_stone_cnt = self.m_runeObject:getRuneGrindReqGrindstone()
     vars['quantityLabel']:setString(Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt))
 
@@ -618,7 +618,14 @@ function UI_DragonRunesEnhance:request_grind(cb_func)
     local req_gold = self.m_runeObject:getRuneGrindReqGold()
 
     local req_grind_stone = self.m_runeObject:getRuneGrindReqGrindstone()
-    local grind_stone_cnt = g_userData:get('runeGrindStone')
+    local grind_stone_cnt = g_userData:get('grindstone')
+    
+    -- 값이 하나라도 nil이면 연마 실행 x
+    if (not req_grind_stone or not grind_stone_cnt) then
+        cb_func()
+        return
+    end
+    
     local confirm_grindstone_price = (req_grind_stone <= grind_stone_cnt)
     
     if ((not ConfirmPrice('gold', req_gold)) or (not confirm_grindstone_price)) then

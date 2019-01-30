@@ -1,16 +1,6 @@
 RUNE_SLOT_MAX = 6
 RUNE_LV_MAX = 15
 
-RUNE_OPTION_TYPE =
-{
-    'mopt',
-    'uopt',
-    'sopt_1',
-    'sopt_2',
-    'sopt_3',
-    'sopt_4'
-}
-
 -------------------------------------
 -- class StructRuneObject
 -- @instance rune_obj
@@ -636,7 +626,7 @@ function StructRuneObject:setOptionLabel(ui, label_format, show_change)
     local vars = ui.vars
 
     -- 룬 옵션 세팅
-    for i,v in ipairs(RUNE_OPTION_TYPE) do
+    for i,v in ipairs(StructRuneObject.OPTION_LIST) do
         local option_label = string.format("%s_%sLabel", v, label_format)
         local option_label_node = string.format("%s_%sNode", v, label_format)
         
