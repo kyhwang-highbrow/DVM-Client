@@ -12,7 +12,7 @@ UI_ChallengeMode = class(PARENT, {
         m_originStageList = 'table',
         m_sortType = 'string',
     })
-
+    
 -------------------------------------
 -- function init
 -------------------------------------
@@ -204,7 +204,17 @@ end
 -- @brief UI전환 종료 시점
 -------------------------------------
 function UI_ChallengeMode:appearDone()
+    
     local t_data = {stage=g_challengeMode:getSelectedStage()}
+
+    -- 마스터 시즌이 아니라면
+    if (not g_challengeMode:getChallengeModeMasterState()) then
+        local master_stage = g_challengeMode:getMasterStage()
+        if (master_stage > 100 - tonumber(t_data['stage'])) then
+            t_data['stage'] = 100 - (master_stage) -- 40층부터 마스터 신전이라면 41에 포커스
+        end
+    end
+
     self:selectFloor(t_data)
 
     -- 현재 선택된 층이 바로 보이도록 처리
@@ -454,9 +464,18 @@ end
 function UI_ChallengeMode:focusOnNextStage(list)
     -- 현재 선택된 스테이지 리셋
     g_challengeMode:resetSelectedStage()
-    
+
     -- 다음 도전할 스테이지 선택
     local t_data = {stage = g_challengeMode:getSelectedStage()}
+    
+    -- 마스터 시즌이 아니라면
+    if (not g_challengeMode:getChallengeModeMasterState()) then
+        local master_stage = g_challengeMode:getMasterStage()
+        if (master_stage > 100 - tonumber(t_data['stage'])) then
+            t_data['stage'] = 100 - (master_stage) -- 40층부터 마스터 신전이라면 41에 포커스
+        end
+    end
+
     self:selectFloor(t_data)
     
     local next_floor = g_challengeMode:getSelectedStage()
