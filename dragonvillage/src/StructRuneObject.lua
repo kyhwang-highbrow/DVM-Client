@@ -641,7 +641,7 @@ function StructRuneObject:setOptionLabel(ui, label_format, show_change)
         -- 추가옵션은 max, 연마 표시
         if (i > 2) then
             if (is_max) then
-                desc_str = desc_str .. '{@red}[MAX]'
+                desc_str = desc_str .. '{@yellow} [MAX]'
             end
         
             local is_grinded_opt = self:isGrindedOption(v)
@@ -713,11 +713,16 @@ function StructRuneObject:isMaxOption(opt_name, opt_desc)
         max_value = t_rune_opt_max[opt_str[1]]['status_max']
     
     end
-    
-    local opt_value = string.match(opt_desc,'%d+')
+
+    local opt_value = string.match(opt_desc, '%d+')
     if (not opt_value) then
         return false
     end
+
+    if (not max_value) then
+        return false
+    end
+    
     if (tonumber(opt_value) >= tonumber(max_value)) then
         return true
     end
