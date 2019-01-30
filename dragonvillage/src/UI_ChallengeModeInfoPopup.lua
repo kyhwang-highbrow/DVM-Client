@@ -57,6 +57,10 @@ function UI_ChallengeModeInfoPopup:initUI()
         ui.vars['lockSprite']:setVisible(false)
         vars['stageItem2']:addChild(ui.root)
     end
+
+    if (vars['scoreLabel']) then
+        vars['scoreLabel']:setString(Str('{1}점',0))
+    end
 end
 
 -------------------------------------
