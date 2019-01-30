@@ -239,18 +239,20 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 			text_2 = Str('다음 도전 상대 : {1}위', team)
 		end
 
-		use_timer = true
+		use_timer = false
 		timer_key = 'event_challenge'
 
+        --[[
         t_item = {item_id=ITEM_ID_GOLD}
         desc = Str('최대 10,000,000골드 획득 가능!')
+        --]]
 
 	-- 그림자의 신전 보상 수령 상태
 	elseif (state == ServerData_ChallengeMode.STATE['REWARD']) then
 		text_1 = Str('이벤트가 종료되었습니다.')
 		text_2 = Str('보상을 획득하세요')
 
-		use_timer = true
+		use_timer = false
 		has_reward = true
 		timer_key = 'event_challenge_reward'
 
@@ -314,7 +316,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_grandArena()
 		text_1 = Str('이벤트가 종료되었습니다.')
 		text_2 = Str('보상을 획득하세요')
 
-		use_timer = true
+		use_timer = false
 		has_reward = true
 		timer_key = 'event_grand_arena_reward'
 
