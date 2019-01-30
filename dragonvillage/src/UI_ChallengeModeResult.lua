@@ -26,7 +26,6 @@ function UI_ChallengeModeResult:init(is_win, t_data, stage, is_open_next_team)
 	if (items_list) then
         self.m_winReward = items_list
 	end
-    
 
 end
 
@@ -167,21 +166,24 @@ function UI_ChallengeModeResult:makeRewardPopup(t_item, title)
 	-- 우편 안내 숨김
 	ui.vars['mailInfoLabel']:setVisible(false)
     
-    -- @jhakim 테이블 뷰로 나오도록 후에 수정할것!
+    -- @jhakim 20190130 테이블 뷰로 나오도록 후에 수정할것!
     if (t_item) then
        for i, v in ipairs(t_item) do
-	        -- 보상 아이템 표기    
-	        local icon = IconHelper:getItemIcon(v['item_id'])
-	        local count = comma_value(v['count'])
+            -- @jhakim UI에 아이템 출력하는 칸이 두개밖에 없는 상태라서 서버에서 그 이상 줘도 UI에 아이템 출력하지 않음
+            if (i<=2) then
+	            -- 보상 아이템 표기    
+	            local icon = IconHelper:getItemIcon(v['item_id'])
+	            local count = comma_value(v['count'])
 
-            if (#t_item > 1) then
-                ui.vars['rewardFrameNode' .. i+1]:setVisible(true)
-                ui.vars['rewardNode' .. i+1]:addChild(icon)
-	            ui.vars['rewardLabel' .. i+1]:setString(count)
-                ui.vars['rewardFrameNode']:setVisible(false)
-            else
-                ui.vars['rewardNode']:addChild(icon)
-	            ui.vars['rewardLabel']:setString(count)          
+                if (#t_item > 1) then
+                    ui.vars['rewardFrameNode' .. i+1]:setVisible(true)
+                    ui.vars['rewardNode' .. i+1]:addChild(icon)
+	                ui.vars['rewardLabel' .. i+1]:setString(count)
+                    ui.vars['rewardFrameNode']:setVisible(false)
+                else
+                    ui.vars['rewardNode']:addChild(icon)
+	                ui.vars['rewardLabel']:setString(count)          
+                end
             end
        end
     end
