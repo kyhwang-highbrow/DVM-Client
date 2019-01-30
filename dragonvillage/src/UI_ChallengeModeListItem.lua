@@ -33,6 +33,7 @@ function UI_ChallengeModeListItem:initUI()
         vars['stageBtn']:setEnabled(false)
         vars['stageBtn']:setVisible(false)
         vars['masterTimeSprite']:setVisible(true)
+        vars['clearSprite']:setVisible(false)
         return
     end
 
@@ -49,9 +50,6 @@ function UI_ChallengeModeListItem:initUI()
     end
     vars['stageNumberLabel']:setString(str)
     --]]
-
-    -- 스테이지 (순위)
-    vars['stageNumberLabel']:setString(tostring(t_data['rank']))
     
     -- 서버, 닉네임, 클랜명
     local server_name = g_challengeMode:getUserServer(uid, true)
@@ -85,11 +83,22 @@ function UI_ChallengeModeListItem:initUI()
         -- 마스터 스테이지 인지 구별
         local master_stage = g_challengeMode:getRewardList('clear_reward')
         local reward_type = 'clear_reward'
-        if (tonumber(t_data['rank']) > g_challengeMode:getMasterStage()) then
+        local is_master = tonumber(t_data['rank']) > g_challengeMode:getMasterStage()
+        if (is_master) then
             reward_type = 'clear_reward'
+            vars['stageNumberLabel']:setString(tostring(t_data['rank']))
         else
             reward_type = 'clear_reward_master'
+            -- 색상 변경
+            vars['stageNumberLabel']:setString('{@yellow}'.. tostring(t_data['rank']))
         end
+
+        vars['masterStageInfoSprite']:setVisible(not is_master)
+        vars['masterStageInfoSprite2']:setVisible(not is_master)
+        vars['masterStageNumberSprite']:setVisible(not is_master)
+        vars['stageInfoSprite']:setVisible(is_master)
+        vars['normalStageNumberSprite']:setVisible(is_master)
+
 
         -- 700002;100000 형식의 보상 문자열을 파싱하여 보상 카드 생성
         local reward_str = g_challengeMode:getRewardList(reward_type)
