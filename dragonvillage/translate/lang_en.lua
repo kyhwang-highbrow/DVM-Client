@@ -133,6 +133,7 @@ return {[' 내 곁으로 오너라. 내가 너를 지켜주겠다.']='Come to me
 ['연마석 1개']='Upgrade Stone X1',
 ['시즌 종료까지 {1}']='Season ends in {1}',
 ['랭킹 보상']='Ranking Reward',
+['그림자의 신전 보상']='Temple of Shadows Reward',
 [' 빛의 거목']='Massive Light Tree',
 ['\"{1}\" 진행하시겠습니까?']='{1} Continue?',
 ['\"언어 설정\"은 준비 중입니다.']='“Languages” is currently in preparation.',
