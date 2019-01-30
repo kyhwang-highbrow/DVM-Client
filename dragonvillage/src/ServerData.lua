@@ -446,6 +446,21 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['capsule_coin'], 'user', 'capsule_coin')
         end
 
+        -- 룬 연마석
+        if ret['grindstone'] then
+            self:applyServerData(ret['grindstone'], 'user', 'grindstone')    
+        end
+
+        -- Max확정권
+        if ret['max_fixed_ticket'] then
+            self:applyServerData(ret['max_fixed_ticket'], 'user', 'max_fixed_ticket')    
+        end
+
+        -- 옵션 유지권
+        if ret['opt_keep_ticket'] then
+            self:applyServerData(ret['opt_keep_ticket'], 'user', 'opt_keep_ticket')    
+        end
+
         -- 고대 주화
         if ret['ancient'] then
             self:applyServerData(ret['ancient'], 'user', 'ancient')
