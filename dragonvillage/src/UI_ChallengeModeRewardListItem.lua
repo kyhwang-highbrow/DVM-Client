@@ -54,9 +54,10 @@ function UI_ChallengeModeRewardListItem:initUI()
         local key = l_str[1]
         local value = l_str[2]
 
+        -- @jhakim 20190130 서버에서 "reward":"cash;6000,704900;40" 주는 상태..
         if (key == 'cash') then
             cash = value
-        elseif (key == 'valor') then
+        elseif (key == '704900') then
             valor = value
         end
     end
