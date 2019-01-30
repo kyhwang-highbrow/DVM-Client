@@ -126,7 +126,28 @@ function UI_ChallengeModeResult:direction_nextStage()
 	local function ok_func()
 		self:doNextWork()
 	end
-	MakeSimplePopup2(POPUP_TYPE.OK, Str('다음 순위 잠금해제!'), Str('{1}위 팀에 도전할 수 있습니다.', g_challengeMode:getTopStage() - self.m_currStage), ok_func)
+
+    -- 다음 도전할 층
+    local challenge_stage = 0
+
+    -- 마스터 시즌이 아니라면
+    if (not g_challengeMode:getChallengeModeMasterState()) then
+        local stage_limit = g_challengeMode:getMasterStage()
+        local cur_stage = g_challengeMode:getTopStage() - self.m_currStage
+
+        -- 마스터 구간까지 깻을 경우
+        if (cur_stage <= stage_limit) then
+            
+            -- 남은 시간 표기
+            local sec = g_challengeMode:getChallengeModeMasterStatusText()
+            local time_str = datetime.makeTimeDesc(sec, false, false, false)
+            local remain_time_str = (Str('마스터 구역 잠금해제까지\n {1} 남음', Str(time_str)))
+            MakeSimplePopup2(POPUP_TYPE.OK, Str('다음 순위부터는 마스터 구역입니다.'), remain_time_str, ok_func)
+            return
+        end
+    end      
+        challenge_stage = g_challengeMode:getTopStage() - self.m_currStage
+        MakeSimplePopup2(POPUP_TYPE.OK, Str('다음 순위 잠금해제!'), Str('{1}위 팀에 도전할 수 있습니다.', challenge_stage), ok_func)
 end
 
 -------------------------------------

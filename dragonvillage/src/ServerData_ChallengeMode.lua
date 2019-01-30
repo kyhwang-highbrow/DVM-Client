@@ -964,8 +964,14 @@ function ServerData_ChallengeMode:getLastChallengeTeam()
 	end
 	local top = self:getTopStage()
 	local team = (top - ret + 1)
+    local bottom = 1
 
-	return math_clamp(team, 1, top)
+    -- 마스터 시즌이 아니라면
+    if (not g_challengeMode:getChallengeModeMasterState()) then
+        bottom = self:getMasterStage()
+    end
+
+	return math_clamp(team, bottom, top)
 end
 
 -------------------------------------
