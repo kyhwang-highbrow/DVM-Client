@@ -45,14 +45,14 @@ function UI_ChallengeModeInfoPopup:initUI()
     local l_stage = g_challengeMode:getChallengeModeStagesInfo()
 
     -- 위쪽 순위
-    if l_stage[99] then
+    if l_stage[1] then
         local ui = UI_ChallengeModeListItem(l_stage[1])
         ui.vars['lockSprite']:setVisible(true)
         vars['stageItem1']:addChild(ui.root)
     end
 
     -- 아래쪽 순위
-    if l_stage[100] then
+    if l_stage[2] then
         local ui = UI_ChallengeModeListItem(l_stage[2])
         ui.vars['lockSprite']:setVisible(false)
         vars['stageItem2']:addChild(ui.root)
