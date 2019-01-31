@@ -695,14 +695,14 @@ function UI_DragonRunes:setOptionLabel(is_selected)
         local rune_selected_obj = self.m_selectedRuneObject
         if (not self.m_selectOptionLabel) then
             self.m_selectOptionLabel = rune_selected_obj:getOptionLabel()
-            self.vars['selectMenu']:addChild(self.m_selectOptionLabel.root)
+            self.vars['selectRuneInfoNode']:addChild(self.m_selectOptionLabel.root)
         end
         rune_selected_obj:setOptionLabel(self.m_selectOptionLabel, 'use') -- param : ui, label_format, show_change
     else
         local rune_equipped_obj = self.m_equippedRuneObject
         if (not self.m_useOptionLabel) then      
             self.m_useOptionLabel = rune_equipped_obj:getOptionLabel()
-            self.vars['useMenu']:addChild(self.m_useOptionLabel.root)
+            self.vars['useRuneInfoNode']:addChild(self.m_useOptionLabel.root)
         end
         rune_equipped_obj:setOptionLabel(self.m_useOptionLabel, 'use') -- param : ui, label_format, show_change
     end
