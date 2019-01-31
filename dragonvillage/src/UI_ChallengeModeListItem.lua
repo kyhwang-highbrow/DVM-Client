@@ -5,17 +5,17 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_ChallengeModeListItem = class(PARENT, {
         m_userData = 'table',
-        m_noClickItemCardBtn = 'boolean',
+        m_bEmpty = 'boolean',   -- 층 정보 일부 감춤(점수, 난이도, 클리어 여부..)
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ChallengeModeListItem:init(t_data, no_click_item_card)
+function UI_ChallengeModeListItem:init(t_data, is_empty)
     local vars = self:load('challenge_mode_list_item_01.ui')
 
     self.m_userData = t_data
-    self.m_noClickItemCardBtn = no_click_item_card
+    self.m_bEmpty = is_empty
     self:initUI()
     self:initButton()
     self:refresh()
@@ -71,14 +71,6 @@ function UI_ChallengeModeListItem:initUI()
         end
     end
 
-    -- 잠금 여부
-    local is_open = g_challengeMode:isOpenStage_challengeMode(t_data['stage'])
-    vars['lockSprite']:setVisible(not is_open)
-
-    -- 클리어 여부
-    local is_clear = g_challengeMode:isClearStage_challengeMode(t_data['stage'])
-    vars['clearSprite']:setVisible(is_clear)
-
     do -- 클리어 보상
         
         -- 마스터 스테이지 인지 구별
@@ -112,6 +104,24 @@ function UI_ChallengeModeListItem:initUI()
         end
     end
 
+    
+    -- self.m_bEmpty == true 일 경우 UI는 임의로 점수와 난이도 지정
+    if (self.m_bEmpty == true) then
+        vars['pointLabel']:setString('')
+        vars['difficultyLabel']:setVisible()
+        vars['pointLabel']:setString(Str('{@DESC}'..'{1}점', 0))
+        return
+    end
+
+    
+    -- 잠금 여부
+    local is_open = g_challengeMode:isOpenStage_challengeMode(t_data['stage'])
+    vars['lockSprite']:setVisible(not is_open)
+
+    -- 클리어 여부
+    local is_clear = g_challengeMode:isClearStage_challengeMode(t_data['stage'])
+    vars['clearSprite']:setVisible(is_clear)
+
     -- 점수
     local point = g_challengeMode:getChallengeModeStagePoint(stage)
     local color_str
@@ -138,6 +148,7 @@ function UI_ChallengeModeListItem:initUI()
         vars['difficultyLabel']:setString(text or DIFFICULTY:getText(difficulty))
         vars['difficultyLabel']:setColor(DIFFICULTY:getColor(difficulty))
     end
+
 end
 
 -------------------------------------
@@ -169,15 +180,16 @@ function UI_ChallengeModeListItem:setRewardItemCard(reward_item_id, count, stage
     --card.vars['commonSprite']:setVisible(false)
     --card.vars['bgSprite']:setVisible(false)
     item_card.vars['clickBtn']:registerScriptTapHandler(function() UI_ChallengeModeInfoPopup('reward') end)
-    
-    if (self.m_noClickItemCardBtn == true) then
-        item_card.vars['clickBtn']:setEnabled(false)
-    end
 
     if (reward_item_id == ITEM_ID_GOLD) then
         vars['rewardNode2']:addChild(item_card.root)
     else
         vars['rewardNode1']:addChild(item_card.root)
+    end
+
+    if (self.m_bEmpty == true) then
+        item_card.vars['clickBtn']:setEnabled(false)
+        return
     end
     
     local point = g_challengeMode:getChallengeModeStagePoint(stage)
