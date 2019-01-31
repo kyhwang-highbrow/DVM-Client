@@ -142,9 +142,6 @@ function UI_FriendMatchReadyArena:initUI()
         vars['friendshipNode']:setVisible(true)
     end
 
-    vars['currentPointSprite']:setVisible(false)
-    vars['difficultyBtn']:setVisible(false)
-
     self:initUI_userInfo()
 end
 

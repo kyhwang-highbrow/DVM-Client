@@ -152,6 +152,11 @@ function UI_MatchReadyChallengeMode:initChallengeModeUI()
 
     local stage = g_challengeMode:getSelectedStage()
 
+    
+    vars['currentPointSprite']:setVisible(true)
+    vars['difficultyBtn']:setVisible(true)
+
+
     -- 점수
     local point = g_challengeMode:getChallengeModeStagePoint(stage)
     local difficulty_text = self:makePointRichText(point)
