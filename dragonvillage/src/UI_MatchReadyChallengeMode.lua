@@ -248,7 +248,17 @@ end
 -------------------------------------
 function UI_MatchReadyChallengeMode:makePointRichText(point)
     local point_color
-    if (point < 100) then
+    local top_difficulty = 100
+    
+    -- 최상위 난이도에 회색 표시 : 마스터 150, 일반 100
+    local cur_stage = 100 - g_challengeMode:getSelectedStage()
+    if (g_challengeMode:isMasterStage(cur_stage)) then
+        top_difficulty = 150
+    else
+        top_difficulty = 100    
+    end
+
+    if (point < top_difficulty) then
         point_color = '{@DESC}'
     else
         point_color = '{@gray}'
