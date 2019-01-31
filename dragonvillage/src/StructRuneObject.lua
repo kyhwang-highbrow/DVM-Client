@@ -704,6 +704,10 @@ function StructRuneObject:isMaxOption(opt_name, opt_desc)
     local max_value = 0
     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
     
+    if (not t_rune_opt_max) then
+        return
+    end
+
     -- ex)hp_mult;30 를 파싱하여
     -- hp_multi를 키로 사용해 max값을 구한다
     local opt_str = self[opt_name]
