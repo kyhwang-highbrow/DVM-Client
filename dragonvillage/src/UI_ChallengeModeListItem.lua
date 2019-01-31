@@ -5,16 +5,17 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_ChallengeModeListItem = class(PARENT, {
         m_userData = 'table',
+        m_noClickItemCardBtn = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ChallengeModeListItem:init(t_data)
+function UI_ChallengeModeListItem:init(t_data, no_click_item_card)
     local vars = self:load('challenge_mode_list_item_01.ui')
 
     self.m_userData = t_data
-
+    self.m_noClickItemCardBtn = no_click_item_card
     self:initUI()
     self:initButton()
     self:refresh()
@@ -168,6 +169,11 @@ function UI_ChallengeModeListItem:setRewardItemCard(reward_item_id, count, stage
     --card.vars['commonSprite']:setVisible(false)
     --card.vars['bgSprite']:setVisible(false)
     item_card.vars['clickBtn']:registerScriptTapHandler(function() UI_ChallengeModeInfoPopup('reward') end)
+    
+    if (self.m_noClickItemCardBtn == true) then
+        item_card.vars['clickBtn']:setEnabled(false)
+    end
+
     if (reward_item_id == ITEM_ID_GOLD) then
         vars['rewardNode2']:addChild(item_card.root)
     else
@@ -181,3 +187,4 @@ function UI_ChallengeModeListItem:setRewardItemCard(reward_item_id, count, stage
         item_card.root:addChild(icon)
     end
 end
+
