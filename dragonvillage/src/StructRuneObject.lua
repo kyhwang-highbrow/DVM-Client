@@ -705,7 +705,7 @@ function StructRuneObject:isMaxOption(opt_name, opt_desc)
     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
     
     if (not t_rune_opt_max) then
-        return
+        return false
     end
 
     -- ex)hp_mult;30 를 파싱하여

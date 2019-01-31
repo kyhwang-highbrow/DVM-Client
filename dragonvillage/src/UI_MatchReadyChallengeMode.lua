@@ -158,7 +158,8 @@ function UI_MatchReadyChallengeMode:initChallengeModeUI()
     vars['currentPointLabel']:setString(difficulty_text)
 
     local uid = g_userData:get('uid')
-    local taget_uid = self:getStructUserInfo_Player():getUid()
+    local taget_uid = self:getStructUserInfo_Opponent():getUid()
+
     vars['serverLabel1']:setVisible(true)
     vars['serverLabel2']:setVisible(true)
     vars['serverLabel1']:setString(g_challengeMode:getUserServer(uid))
