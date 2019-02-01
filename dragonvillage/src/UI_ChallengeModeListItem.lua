@@ -108,7 +108,7 @@ function UI_ChallengeModeListItem:initUI()
     -- self.m_bEmpty == true 일 경우 UI는 임의로 점수와 난이도 지정
     if (self.m_bEmpty == true) then
         vars['pointLabel']:setString('')
-        vars['difficultyLabel']:setVisible()
+        vars['difficultyLabel']:setVisible(false)
         vars['pointLabel']:setString(Str('{@DESC}'..'{1}점', 0))
         return
     end
