@@ -144,6 +144,9 @@ COLOR = {
     ['r_set_blackwhite'] = cc.c3b(255, 255, 255),
     ['r_set_blackgreen'] = cc.c3b(170, 255, 107),
     ['r_set_blackpurple'] = cc.c3b(250, 119, 255),
+    
+    -- 룬 옵션 선택 색상
+    ['r_opt_selected'] = cc.c3b(255, 250, 190),
 
     -- 속성별
     ['earth'] = cc.c3b(88,234,102),

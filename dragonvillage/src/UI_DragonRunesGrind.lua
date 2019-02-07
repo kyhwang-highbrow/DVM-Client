@@ -61,10 +61,11 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
                 local option_label = string.format('%s_label', opt_type)    -- ex) sopt_1_label
                 local opt_desc = ''
                 if (self.m_seletedGrindOption ==  opt_type) then
-                    opt_desc = self:makeRuneDesc_grind(opt_type, '{@yellow}')
+                    opt_desc = self:makeRuneDesc_grind(opt_type, '{@r_opt_selected}')
                 else
                     opt_desc = self:makeRuneDesc_grind(opt_type, nil)
                 end
+
                 vars[option_label]:setString(opt_desc)
             end      
         end
@@ -146,7 +147,7 @@ function UI_DragonRunesGrind:refresh_grind()
                 if (opt_type ~= grinded_option and grind_radio_button:existButton(opt_type)) then
                     self.m_optionGrindRadioBtn:disable(opt_type)
                 -- 연마된 옵션 라벨 색상 노랑
-                elseif (self.m_seletedGrindOption ==  opt_type) then
+                elseif (self.m_seletedGrindOption == opt_type) then
                     opt_desc = self:makeRuneDesc_grind(opt_type, '{@yellow}')
                     vars[option_label]:setString(opt_desc)                
                 end
@@ -334,7 +335,7 @@ function UI_DragonRunesGrind:makeRuneDesc_grind(opt_type, color_str)
     --  Max 표시
     local is_max = rune_obj:isMaxOption(opt_type, rune_desc_str)
     if (is_max) then
-        rune_desc_str = rune_desc_str .. '{@green} [MAX]'  
+        rune_desc_str = rune_desc_str .. '{@yellow} [MAX]'  
     end
 
     if (color_str) then
