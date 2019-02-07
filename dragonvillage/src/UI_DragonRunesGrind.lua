@@ -185,9 +185,7 @@ function UI_DragonRunesGrind:refresh_grind()
     grind_item_radio_button:setSelectedButton('none_select')
     
     -- 룬 연마석 정보 갱신
-    local grind_stone_cnt = g_userData:get('grindstone') or 0
-    local req_grind_stone_cnt = rune_obj:getRuneGrindReqGrindstone()
-    vars['quantityLabel']:setString(Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt))
+    self:refresh_grindstoneCount()
 
     -- 필요한 골드 정보 갱신
     local req_gold = rune_obj:getRuneGrindReqGold()
@@ -277,6 +275,20 @@ function UI_DragonRunesGrind:click_grind()
 
 end
 
+
+-------------------------------------
+-- function refresh_grindstoneCount
+-------------------------------------
+function UI_DragonRunesGrind:refresh_grindstoneCount()
+    local rune_obj = self.m_runeEnhanceClass:getRuneObject()
+    local vars = self.m_runeEnhanceClass.vars
+
+    -- 룬 연마석 정보 갱신
+    local grind_stone_cnt = g_userData:get('grindstone') or 0
+    local req_grind_stone_cnt = rune_obj:getRuneGrindReqGrindstone()
+    vars['quantityLabel']:setString(Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt))
+end
+
 -------------------------------------
 -- function request_grind
 -------------------------------------
@@ -287,6 +299,9 @@ function UI_DragonRunesGrind:request_grind(cb_func)
     local roid = rune_obj['roid']
 
     local finish_func = function()
+        -- 룬 연마석 갯수, 사용하자마자 갱신
+        self:refresh_grindstoneCount()
+
         rune_obj = g_runesData:getRuneObject(roid)
         self.m_runeEnhanceClass:setRuneObject(rune_obj)
         self.m_runeEnhanceClass:show_upgradeEffect(true, cb_func, true)
