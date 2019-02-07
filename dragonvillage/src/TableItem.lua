@@ -75,6 +75,10 @@ end
 -- @brief item_id를 문자열로 입력된 경우 치환해주는 함수
 -------------------------------------
 function TableItem:getItemIDFromItemType(item_type)
+    if (not item_type) then
+        return nil
+    end
+    
     local item_id = ITEM_ID_MAP[item_type]
     return item_id
 end
@@ -85,6 +89,10 @@ end
 -- @brief 2018-11-29 TableItem:getItemType() 사용 권장 / ios 에서 pairs 처리순서가 달라 android와 다르게 동작
 -------------------------------------
 function TableItem:getItemTypeFromItemID(item_id)
+    if (not item_id) then
+        return nil
+    end
+    
     local item_type = ITEM_TYPE_MAP[item_id]
     return item_type
 end

@@ -1,0 +1,302 @@
+
+-------------------------------------
+-- class UI_DragonRunesGrind
+-------------------------------------
+UI_DragonRunesGrind = class({     
+        m_optionGrindRadioBtn = 'UIC_RadioButton',   -- 연마할 옵션 선택하는 라디오 버튼
+        m_seletedGrindOption = 'option_type',        -- 연마하기로 결정된 옵션 (최초에만 라디오 버튼으로 선택, 한 번 연마한 후에는 서버에서 저장된 값 사용)
+        m_optionLabel = 'ui',
+
+        -- 연마 보조 아이템 : 옵션 유지권, MAX 확정권
+        m_grindItemRadioBtn = 'UIC_RadioButton',   -- 연마 보조 아이템 선택하는 라디오 버튼
+        m_selectOptionItem = 'item_name_str',       -- 라디오 버튼으로 선택한 보조 아이템 이름
+        
+        m_runeEnhanceClass = 'UI_DragonRuneEnhance'
+    })
+
+
+GRIND_ITEM_RADIO_LIST = { none_select = 'notSelect', max_fixed_ticket = 'maxFixed', opt_keep_ticket = 'optKeep'} -- UI의 lua_name = '아이템 명',
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_DragonRunesGrind:init(enhance_class)
+    self.m_runeEnhanceClass = enhance_class
+    self.m_optionLabel = nil
+
+    self:initUI()
+    self:initButton()
+    self:initOptionRadioBtn()
+    self:refresh_grind()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_DragonRunesGrind:initUI()
+	
+end
+
+-------------------------------------
+-- function initOptionRadioBtn
+-- @brief 연마/강화의 라디오 버튼 초기화
+-------------------------------------
+function UI_DragonRunesGrind:initOptionRadioBtn()
+    local enhance_class = self.m_runeEnhanceClass
+	local vars = enhance_class.vars
+
+    -- 연마할 옵션 radio button 선언
+    local rune_obj = enhance_class:getRuneObject()
+    local grind_radio_button = UIC_RadioButton()
+
+    -- 라디오 버튼 변경 콜백 함수 셋팅
+	grind_radio_button:setChangeCB(function(option_type)
+        -- 선택한 옵션 저장
+        self.m_seletedGrindOption = option_type
+        local rune_obj = enhance_class:getRuneObject()
+        
+        --선택한 옵션 색상만 노란색으로 변경
+        for i,v in ipairs(StructRuneObject.OPTION_LIST) do
+            if (i > 2) then
+                local option_label = string.format('%s_label', v)    -- ex) sopt_1_label
+                local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
+                
+                if (self.m_seletedGrindOption ==  v) then
+                    vars[option_label]:setString('{@yellow}'.. rune_desc_str)
+                else
+                    vars[option_label]:setString(rune_desc_str)
+                end
+
+            end      
+        end
+    end)
+	self.m_optionGrindRadioBtn = grind_radio_button
+
+
+
+    -- 연마 아이템(Max확정권, 옵션 유지권) radio button 선언
+    local grind_item_radio_button = UIC_RadioButton()
+	grind_item_radio_button:setChangeCB(function(option_item_type)
+        self.m_selectOptionItem = option_item_type
+    end)
+	self.m_grindItemRadioBtn = grind_item_radio_button
+end
+
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_DragonRunesGrind:initButton()
+    local vars = self.m_runeEnhanceClass.vars
+    -- 룬 연마
+    vars['grindBtn']:registerScriptTapHandler(function() self:click_grind() end)
+end
+
+-------------------------------------
+-- function refresh_grind
+-------------------------------------
+function UI_DragonRunesGrind:refresh_grind()
+    local enhance_class = self.m_runeEnhanceClass
+	local vars = enhance_class.vars
+    local rune_obj = enhance_class:getRuneObject()
+    local rune_grinded_opt = rune_obj:getGrindedOption()
+
+    -- 룬 카드 갱신
+    enhance_class:refresh_common(self)
+    
+
+    -- 룬 오브젝트에 grindoption정보가 있다면 그 옵션만 선택되어 있도록 고정, 없다면 sopt_1로 고정
+    local grinded_option = rune_obj:getGrindedOption()
+    if (grinded_option) then
+        self.m_seletedGrindOption = grinded_option
+    else
+        self.m_seletedGrindOption = 'sopt_1'       
+    end
+    local select_grind_opt = self.m_seletedGrindOption
+
+
+    -- 연마할 라벨에 애니메이션 효과
+    local changed_label_str = string.format('%s_label', select_grind_opt)
+    local changed_label = vars[changed_label_str]
+    UI_DragonRunesEnhance:showLabelEffect(changed_label)
+
+
+    -- 라디오 버튼 정보 갱신
+    local grind_radio_button = self.m_optionGrindRadioBtn
+
+    for i,v in ipairs(StructRuneObject.OPTION_LIST) do
+        if (i>2) then   -- 전체 옵션 중에서 sopt만 연마, 
+            local option_btn = string.format('%s_btn', v)       -- ex) sopt_1_btn
+            local option_sprite = string.format('%s_sprite',v)  -- ex) sopt_1_sprite
+            local option_label = string.format('%s_label',v)    -- ex) sopt_1_label
+
+            local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
+            
+            --  Max 표시
+            local is_max = rune_obj:isMaxOption(v, rune_desc_str)
+            if (is_max) then
+                rune_desc_str = rune_desc_str .. '{@yellow} [MAX]'
+            end
+
+            -- 룬 설명 정보가 있다면 갱신
+            if (rune_desc_str ~= '') then
+                vars[option_label]:setString(rune_desc_str)               
+                if (not grind_radio_button:existButton(v)) then -- 없는 버튼이면 등록
+                    grind_radio_button:addButton(v, vars[option_btn], vars[option_sprite])
+                end
+                vars[option_btn]:setVisible(true)
+            else
+                vars[option_btn]:setVisible(false)
+            end
+
+            -- 연마된 옵션이 있다면, 해당 옵션 빼고 라디오 기능 모두 끄기
+            if (grinded_option) then
+                if (v ~= grinded_option and grind_radio_button:existButton(v)) then
+                    self.m_optionGrindRadioBtn:disable(v)
+                -- 연마된 옵션 라벨 색상 노랑
+                elseif (self.m_seletedGrindOption ==  v) then
+                    local ori_str = vars[option_label]:getString()
+                    vars[option_label]:setString('{@yellow}'.. ori_str)                
+                end
+            end
+
+        end
+    end
+
+    -- 라디오 버튼 디폴트 값 설정
+    if (rune_obj:existOptionType(select_grind_opt)) then
+        grind_radio_button:setSelectedButton(select_grind_opt)
+    end
+
+    -- 연마 보조아이템 라디오 버튼 갱신
+    local grind_item_radio_button = self.m_grindItemRadioBtn
+ 
+    for item_name, ui_name in pairs(GRIND_ITEM_RADIO_LIST) do
+        local option_item_btn = string.format('%sBtn', ui_name)
+        local option_item_sprite = string.format('%sSprite', ui_name)
+        local option_item_label = string.format('%sLabel', ui_name)
+        
+        if (not grind_radio_button:existButton(v)) then -- 없는 버튼이면 등록
+            grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
+        end
+               
+        -- max 확정권, 옵션 유지권은 보유 갯수 갱신
+        if (item_name ~= 'none_select') then
+            local option_item_cnt = g_userData:get(item_name)
+            vars[option_item_label]:setString(option_item_cnt)
+            if (option_item_cnt == 0) then
+                self.m_grindItemRadioBtn:disable(item_name)
+            end
+        end
+    end
+
+    -- 연마 보조 아이템 디폴트 값 설정
+    grind_item_radio_button:setSelectedButton('none_select')
+    
+    -- 룬 연마석 정보 갱신
+    local grind_stone_cnt = g_userData:get('grindstone') or 0
+    local req_grind_stone_cnt = rune_obj:getRuneGrindReqGrindstone()
+    vars['quantityLabel']:setString(Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt))
+
+    -- 필요한 골드 정보 갱신
+    local req_gold = rune_obj:getRuneGrindReqGold()
+    vars['grindPriceLabel']:setString(req_gold)
+end
+
+-------------------------------------
+-- function showUpgradeResult
+-------------------------------------
+function UI_DragonRunesGrind:showUpgradeResult()  
+    self:refresh_grind()
+    UIManager:toastNotificationGreen(Str('연마를 완료했습니다.'))
+end
+
+-------------------------------------
+-- function checkGrindCondition
+-------------------------------------
+function UI_DragonRunesGrind:checkGrindCondition()
+    local rune_obj = self.m_runeEnhanceClass:getRuneObject()
+    
+    -- 강화 레벨 확인
+    local level = rune_obj:getLevel()
+    
+    if (not level) then
+        return false
+    end
+    
+    if (level < 12) then
+        UIManager:toastNotificationRed(Str('12강화 이상의 룬만 연마 할 수 있습니다.'))
+        return false
+    end
+    
+    -- 재료 확인
+    local req_grind_stone = rune_obj:getRuneGrindReqGrindstone()
+    local grind_stone_cnt = g_userData:get('grindstone')
+    
+    -- 값이 하나라도 nil이면 연마 실행 x
+    if (not req_grind_stone or not grind_stone_cnt) then
+        return false
+    end
+    
+    -- 값이 하나라도 부족하면 연마 실행x
+    local req_gold = rune_obj:getRuneGrindReqGold()
+    local confirm_grindstone_price = (req_grind_stone <= grind_stone_cnt)   
+    if ((not ConfirmPrice('gold', req_gold)) or (not confirm_grindstone_price)) then
+        UIManager:toastNotificationRed(Str('재료가 부족합니다.'))
+        return false
+    end
+
+    -- 아이템 선택했다면 아이템 갯수도 확인
+
+    return true
+end
+
+-------------------------------------
+-- function click_grind
+-------------------------------------
+function UI_DragonRunesGrind:click_grind()
+    if (not self:checkGrindCondition()) then
+        return
+    end
+    
+    -- 통신 전, 블럭 팝업 생성
+    local block_ui = UI_BlockPopup()
+
+    -- 통신 후, 결과 출력&블럭 팝업 닫기
+	local function cb_func(is_success)
+        self:showUpgradeResult(is_success)
+		block_ui:close()
+	end
+
+    -- 통신 시작
+    self:request_grind(cb_func)
+	return
+end
+
+-------------------------------------
+-- function request_grind
+-------------------------------------
+function UI_DragonRunesGrind:request_grind(cb_func)
+    local rune_obj = self.m_runeEnhanceClass:getRuneObject() 
+    local select_grind_opt = self.m_seletedGrindOption
+    local owner_doid = rune_obj['owner_doid']
+    local roid = rune_obj['roid']
+
+    local finish_func = function()
+        rune_obj = g_runesData:getRuneObject(roid)
+        self.m_runeEnhanceClass:setRuneObject(rune_obj)
+        self.m_runeEnhanceClass:show_upgradeEffect(true, cb_func, true)
+    end
+
+    -- request_runeGrind param으로 보조 아이템 id 요구, 없다면 nil
+    local item_id = TableItem:getItemIDFromItemType(self.m_selectOptionItem)
+    if (not item_id) then
+        item_id = nil
+    end
+
+    -- request_runeGrind의 param ex) sopt : 1
+    local select_sopt_number = string.match(select_grind_opt, '%d+')
+    
+    -- 통신 시작
+    g_runesData:request_runeGrind(owner_doid, roid, select_sopt_number, tonumber(item_id), finish_func, nil) -- owner_doid, roid, sopt_slot, using_item_id finish_cb, fail_cb
+end
