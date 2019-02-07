@@ -641,7 +641,7 @@ function StructRuneObject:setOptionLabel(ui, label_format, show_change)
         -- 추가옵션은 max, 연마 표시
         if (i > 2) then
             if (is_max) then
-                desc_str = desc_str .. '{@yellow} [MAX]'
+                desc_str = desc_str .. '{@green} [MAX]'
             end
         
             local is_grinded_opt = self:isGrindedOption(v)

@@ -61,6 +61,12 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
                 local option_label = string.format('%s_label', v)    -- ex) sopt_1_label
                 local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
                 
+                --  Max 표시
+                local is_max = rune_obj:isMaxOption(v, rune_desc_str)
+                if (is_max) then
+                    rune_desc_str = rune_desc_str .. '{@green} [MAX]'  
+                end
+
                 if (self.m_seletedGrindOption ==  v) then
                     vars[option_label]:setString('{@yellow}'.. rune_desc_str)
                 else
@@ -131,15 +137,16 @@ function UI_DragonRunesGrind:refresh_grind()
             local option_label = string.format('%s_label',v)    -- ex) sopt_1_label
 
             local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
-            
-            --  Max 표시
-            local is_max = rune_obj:isMaxOption(v, rune_desc_str)
-            if (is_max) then
-                rune_desc_str = rune_desc_str .. '{@yellow} [MAX]'
-            end
 
             -- 룬 설명 정보가 있다면 갱신
             if (rune_desc_str ~= '') then
+                
+                --  Max 표시
+                local is_max = rune_obj:isMaxOption(v, rune_desc_str)
+                if (is_max) then
+                    rune_desc_str = rune_desc_str .. '{@green} [MAX]'  
+                end
+
                 vars[option_label]:setString(rune_desc_str)               
                 if (not grind_radio_button:existButton(v)) then -- 없는 버튼이면 등록
                     grind_radio_button:addButton(v, vars[option_btn], vars[option_sprite])
@@ -155,11 +162,9 @@ function UI_DragonRunesGrind:refresh_grind()
                     self.m_optionGrindRadioBtn:disable(v)
                 -- 연마된 옵션 라벨 색상 노랑
                 elseif (self.m_seletedGrindOption ==  v) then
-                    local ori_str = vars[option_label]:getString()
-                    vars[option_label]:setString('{@yellow}'.. ori_str)                
+                    vars[option_label]:setString('{@yellow}'.. rune_desc_str)                
                 end
             end
-
         end
     end
 
