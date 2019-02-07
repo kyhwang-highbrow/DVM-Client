@@ -146,6 +146,7 @@ end
 -------------------------------------
 -- function isPossibleUseCash
 -- @brief 여의주 사용하여 던전 시작 가능한 상태인지 (파이널 블로우거나 하루 제한에 걸리지않거나)
+-- @brief 20190207 파이널 블로우일 때만 다이아 사용할 수 있도록 변경
 -------------------------------------
 function ServerData_ClanRaid:isPossibleUseCash()
     local clan_raid_data = self.m_structClanRaid
@@ -153,12 +154,7 @@ function ServerData_ClanRaid:isPossibleUseCash()
 
     -- 파이널 블로우인 상태 가능
     if (clan_raid_data:getState() == CLAN_RAID_STATE.FINALBLOW) then
-        return true
-    
-    -- 하루 제한에 걸리지 않았다면 가능
-    elseif (self.m_use_cash < USE_CASH_LIMIT) then
-        return true
-
+        return true    
     else
         return false
     end
