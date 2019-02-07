@@ -56,23 +56,16 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
         local rune_obj = enhance_class:getRuneObject()
         
         --선택한 옵션 색상만 노란색으로 변경
-        for i,v in ipairs(StructRuneObject.OPTION_LIST) do
+        for i, opt_type in ipairs(StructRuneObject.OPTION_LIST) do
             if (i > 2) then
-                local option_label = string.format('%s_label', v)    -- ex) sopt_1_label
-                local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
-                
-                --  Max 표시
-                local is_max = rune_obj:isMaxOption(v, rune_desc_str)
-                if (is_max) then
-                    rune_desc_str = rune_desc_str .. '{@green} [MAX]'  
-                end
-
-                if (self.m_seletedGrindOption ==  v) then
-                    vars[option_label]:setString('{@yellow}'.. rune_desc_str)
+                local option_label = string.format('%s_label', opt_type)    -- ex) sopt_1_label
+                local opt_desc = ''
+                if (self.m_seletedGrindOption ==  opt_type) then
+                    opt_desc = self:makeRuneDesc_grind(opt_type, '{@yellow}')
                 else
-                    vars[option_label]:setString(rune_desc_str)
+                    opt_desc = self:makeRuneDesc_grind(opt_type, nil)
                 end
-
+                vars[option_label]:setString(opt_desc)
             end      
         end
     end)
@@ -130,26 +123,18 @@ function UI_DragonRunesGrind:refresh_grind()
     -- 라디오 버튼 정보 갱신
     local grind_radio_button = self.m_optionGrindRadioBtn
 
-    for i,v in ipairs(StructRuneObject.OPTION_LIST) do
+    for i, opt_type in ipairs(StructRuneObject.OPTION_LIST) do
         if (i>2) then   -- 전체 옵션 중에서 sopt만 연마, 
-            local option_btn = string.format('%s_btn', v)       -- ex) sopt_1_btn
-            local option_sprite = string.format('%s_sprite',v)  -- ex) sopt_1_sprite
-            local option_label = string.format('%s_label',v)    -- ex) sopt_1_label
-
-            local rune_desc_str = rune_obj:makeEachRuneDescRichText(v, false)
+            local option_btn = string.format('%s_btn', opt_type)       -- ex) sopt_1_btn
+            local option_sprite = string.format('%s_sprite', opt_type)  -- ex) sopt_1_sprite
+            local option_label = string.format('%s_label', opt_type)    -- ex) sopt_1_label
+            local opt_desc = self:makeRuneDesc_grind(opt_type, nil)
 
             -- 룬 설명 정보가 있다면 갱신
-            if (rune_desc_str ~= '') then
-                
-                --  Max 표시
-                local is_max = rune_obj:isMaxOption(v, rune_desc_str)
-                if (is_max) then
-                    rune_desc_str = rune_desc_str .. '{@green} [MAX]'  
-                end
-
-                vars[option_label]:setString(rune_desc_str)               
-                if (not grind_radio_button:existButton(v)) then -- 없는 버튼이면 등록
-                    grind_radio_button:addButton(v, vars[option_btn], vars[option_sprite])
+            if (opt_desc ~= '') then
+                vars[option_label]:setString(opt_desc)               
+                if (not grind_radio_button:existButton(opt_type)) then -- 없는 버튼이면 등록
+                    grind_radio_button:addButton(opt_type, vars[option_btn], vars[option_sprite])
                 end
                 vars[option_btn]:setVisible(true)
             else
@@ -158,11 +143,12 @@ function UI_DragonRunesGrind:refresh_grind()
 
             -- 연마된 옵션이 있다면, 해당 옵션 빼고 라디오 기능 모두 끄기
             if (grinded_option) then
-                if (v ~= grinded_option and grind_radio_button:existButton(v)) then
-                    self.m_optionGrindRadioBtn:disable(v)
+                if (opt_type ~= grinded_option and grind_radio_button:existButton(opt_type)) then
+                    self.m_optionGrindRadioBtn:disable(opt_type)
                 -- 연마된 옵션 라벨 색상 노랑
-                elseif (self.m_seletedGrindOption ==  v) then
-                    vars[option_label]:setString('{@yellow}'.. rune_desc_str)                
+                elseif (self.m_seletedGrindOption ==  opt_type) then
+                    opt_desc = self:makeRuneDesc_grind(opt_type, '{@yellow}')
+                    vars[option_label]:setString(opt_desc)                
                 end
             end
         end
@@ -181,7 +167,7 @@ function UI_DragonRunesGrind:refresh_grind()
         local option_item_sprite = string.format('%sSprite', ui_name)
         local option_item_label = string.format('%sLabel', ui_name)
         
-        if (not grind_radio_button:existButton(v)) then -- 없는 버튼이면 등록
+        if (not grind_radio_button:existButton(opt_type)) then -- 없는 버튼이면 등록
             grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
         end
                
@@ -260,22 +246,35 @@ end
 -- function click_grind
 -------------------------------------
 function UI_DragonRunesGrind:click_grind()
+    local rune_obj = self.m_runeEnhanceClass:getRuneObject() 
+
     if (not self:checkGrindCondition()) then
         return
     end
     
-    -- 통신 전, 블럭 팝업 생성
-    local block_ui = UI_BlockPopup()
+    local start_grind_cb = function()
 
-    -- 통신 후, 결과 출력&블럭 팝업 닫기
-	local function cb_func(is_success)
-        self:showUpgradeResult(is_success)
-		block_ui:close()
-	end
+        -- 통신 전, 블럭 팝업 생성
+        local block_ui = UI_BlockPopup()
 
-    -- 통신 시작
-    self:request_grind(cb_func)
-	return
+        -- 통신 후, 결과 출력&블럭 팝업 닫기
+	    local function cb_func(is_success)
+            self:showUpgradeResult(is_success)
+	    	block_ui:close()
+	    end
+
+        -- 통신 시작
+        self:request_grind(cb_func)
+    end
+
+    -- 첫 연마라면 연마 확인 팝업 생성
+    if (not rune_obj:getGrindedOption()) then
+        local opt_desc = self:makeRuneDesc_grind(self.m_seletedGrindOption, nil)
+        UI_DragonRunesGrindFirstPopup(opt_desc, start_grind_cb)
+    else
+        start_grind_cb()
+    end
+
 end
 
 -------------------------------------
@@ -304,4 +303,28 @@ function UI_DragonRunesGrind:request_grind(cb_func)
     
     -- 통신 시작
     g_runesData:request_runeGrind(owner_doid, roid, select_sopt_number, tonumber(item_id), finish_func, nil) -- owner_doid, roid, sopt_slot, using_item_id finish_cb, fail_cb
+end
+
+-------------------------------------
+-- function makeRuneDesc_grind
+-------------------------------------
+function UI_DragonRunesGrind:makeRuneDesc_grind(opt_type, color_str)
+    if (not opt_type) then
+        return
+    end
+
+    local rune_obj = self.m_runeEnhanceClass:getRuneObject()    
+    local rune_desc_str = rune_obj:makeEachRuneDescRichText(opt_type, false)
+
+    --  Max 표시
+    local is_max = rune_obj:isMaxOption(opt_type, rune_desc_str)
+    if (is_max) then
+        rune_desc_str = rune_desc_str .. '{@green} [MAX]'  
+    end
+
+    if (color_str) then
+        rune_desc_str = color_str .. rune_desc_str
+    end
+
+    return rune_desc_str
 end
