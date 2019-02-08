@@ -81,7 +81,15 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
         self.m_selectOptionItem = option_item_type
         self:refresh_grindItemRadioBtn()
     end)
-	self.m_grindItemRadioBtn = grind_item_radio_button
+
+    self.m_grindItemRadioBtn = grind_item_radio_button
+
+    -- 연마 아이템 라디오 버튼 갱신 겸 등록
+    self:refresh_grindItemRadioBtn()
+    
+    -- 연마 보조 아이템 디폴트 값 설정
+    grind_item_radio_button:setSelectedButton('none_select')
+
 end
 
 
@@ -133,11 +141,6 @@ function UI_DragonRunesGrind:refresh_grind()
 
     self:refresh_grindItemRadioBtn()
     
-    local grind_item_radio_button = self.m_grindItemRadioBtn
-
-    -- 연마 보조 아이템 디폴트 값 설정
-    grind_item_radio_button:setSelectedButton('none_select')
-    
     -- 룬 연마석 정보 갱신
     self:refresh_grindstoneCount()
 
@@ -167,7 +170,7 @@ function UI_DragonRunesGrind:refresh_grindItemRadioBtn()
     for item_name, ui_name in pairs(GRIND_ITEM_RADIO_LIST) do
         local option_item_btn = string.format('%sBtn', ui_name)
         local option_item_sprite = string.format('%sSprite', ui_name)
-        local option_item_label = string.format('%sLabel', ui_name)
+        local option_item_node = string.format('%sNode', ui_name)
         
         if (not grind_item_radio_button:existButton(opt_type)) then -- 없는 버튼이면 등록
             grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
@@ -175,8 +178,11 @@ function UI_DragonRunesGrind:refresh_grindItemRadioBtn()
                
         -- max 확정권, 옵션 유지권은 보유 갯수 갱신
         if (item_name ~= 'none_select') then
+            local option_item_id = TableItem:getItemIDFromItemType(item_name)
             local option_item_cnt = g_userData:get(item_name)
-            vars[option_item_label]:setString(option_item_cnt)
+            local option_item_card = UI_ItemCard(option_item_id, option_item_cnt)
+            vars[option_item_node]:addChild(option_item_card.root)
+
             if (option_item_cnt == 0) then
                 self.m_grindItemRadioBtn:disable(item_name)
             end
