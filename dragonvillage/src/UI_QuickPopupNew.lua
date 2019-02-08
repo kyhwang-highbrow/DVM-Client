@@ -104,6 +104,12 @@ function UI_QuickPopupNew:init_competitionBtn()
          table.insert(l_content, 'clan_raid')
          table.insert(l_content, 'rune_guardian')
     end
+   
+    -- 그림자의 신전
+    local is_content_lock, req_user_lv = g_contentLockData:isContentLock('challenge_mode')
+    if (not is_content_lock) then
+        table.insert(l_content, 'challenge_mode')
+    end
 
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
