@@ -64,7 +64,7 @@ function ServerData_Clan:init(server_data)
 
     self.m_clanBoardInfo = {}
 
-    self.m_cur_season_boss_attr = 'earth' -- @warning! 임시로 고정
+    self.m_cur_season_boss_attr = 'earth' -- 서버에서 값이 없을 경우를 대비
 end
 
 -------------------------------------
@@ -189,6 +189,10 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
 
             if ret['dungeon_info']['endtime'] then
                 g_clanRaidData.m_endTime = ret['dungeon_info']['endtime']
+            end
+
+            if ret['dungeon_info']['attr'] then
+                self.m_cur_season_boss_attr = ret['dungeon_info']['attr']
             end
         end
 
