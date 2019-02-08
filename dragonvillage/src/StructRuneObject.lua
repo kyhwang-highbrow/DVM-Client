@@ -147,7 +147,6 @@ end
 -------------------------------------
 function StructRuneObject:getRuneOptionDesc(option_str)
     local option, value = self:parseRuneOptionStr(option_str)
-
     if (not option) then
         return nil
     end
@@ -703,7 +702,8 @@ end
 function StructRuneObject:isMaxOption(opt_name, opt_desc)
     local max_value = 0
     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-    
+    local option, opt_value = self:parseRuneOptionStr(self[opt_name])
+
     if (not t_rune_opt_max) then
         return false
     end
@@ -718,7 +718,6 @@ function StructRuneObject:isMaxOption(opt_name, opt_desc)
     
     end
 
-    local opt_value = string.match(opt_desc, '%d+')
     if (not opt_value) then
         return false
     end
@@ -726,7 +725,7 @@ function StructRuneObject:isMaxOption(opt_name, opt_desc)
     if (not max_value) then
         return false
     end
-    
+
     if (tonumber(opt_value) >= tonumber(max_value)) then
         return true
     end
