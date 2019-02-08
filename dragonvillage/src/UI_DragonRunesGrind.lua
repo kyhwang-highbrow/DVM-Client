@@ -185,6 +185,11 @@ function UI_DragonRunesGrind:refresh_grindItemRadioBtn()
 
             if (option_item_cnt == 0) then
                 self.m_grindItemRadioBtn:disable(item_name)
+                
+                -- 선택 중이던 라디오 버튼이 비활성화 되었을 경우 포커스를 none_select로 옮김
+                if (self.m_selectOptionItem == item_name) then
+                    grind_item_radio_button:setSelectedButton('none_select')
+                end
             end
         end
     end
@@ -319,7 +324,11 @@ function UI_DragonRunesGrind:refresh_grindstoneCount()
     -- 룬 연마석 정보 갱신
     local grind_stone_cnt = g_userData:get('grindstone') or 0
     local req_grind_stone_cnt = rune_obj:getRuneGrindReqGrindstone()
-    vars['quantityLabel']:setString(Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt))
+    local grindstone_cnt_str = Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt)
+    if (grind_stone_cnt == 0) then
+        grindstone_cnt_str = '{@red}' .. grindstone_cnt_str
+    end
+    vars['quantityLabel']:setString(grindstone_cnt_str)
 end
 
 -------------------------------------
