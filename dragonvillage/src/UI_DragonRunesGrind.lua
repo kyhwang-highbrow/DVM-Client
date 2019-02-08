@@ -79,6 +79,13 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
     local grind_item_radio_button = UIC_RadioButton()
 	grind_item_radio_button:setChangeCB(function(option_item_type)
         self.m_selectOptionItem = option_item_type
+        
+        -- 아이템 선택할 때마다 해당 아이템의 설명이 나옴       
+        local is_optKepp = (option_item_type == 'opt_keep_ticket')
+        local is_maxFixed = (option_item_type == 'max_fixed_ticket')
+        vars['optKeepDescLabel']:setVisible(is_optKepp)
+        vars['maxFixedDescLabel']:setVisible(is_maxFixed)
+
         self:refresh_grindItemRadioBtn()
     end)
 
@@ -147,6 +154,7 @@ function UI_DragonRunesGrind:refresh_grind()
     -- 필요한 골드 정보 갱신
     local req_gold = rune_obj:getRuneGrindReqGold()
     vars['grindPriceLabel']:setString(req_gold)
+
 end
 
 -------------------------------------
