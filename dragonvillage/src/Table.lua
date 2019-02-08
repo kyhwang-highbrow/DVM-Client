@@ -92,6 +92,7 @@ local TableInfo = {
         table_mastery = {'table_mastery', 'id', false}, -- 특성
 
         table_rune_grind = {'table_rune_grind', 'rarity', false},
+        table_clan_dungeon_buff = {'table_clan_dungeon_buff', 'stage', false}, -- 클랜 버프 테이블
     }
 
 -------------------------------------

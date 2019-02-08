@@ -35,6 +35,8 @@ ServerData_Clan = class({
 
         -- 클랜 게시판 정보 (StructClan에 포함시키지 않음)
         m_clanBoardInfo = 'table',
+
+        m_cur_season_boss_attr = 'string',
     })
 
 -- 클랜 필수 참여 카테고리 (서버와 통일한 값)
@@ -61,6 +63,8 @@ function ServerData_Clan:init(server_data)
     self.m_needClanSetting = false
 
     self.m_clanBoardInfo = {}
+
+    self.m_cur_season_boss_attr = 'earth' -- @warning! 임시로 고정
 end
 
 -------------------------------------
@@ -1274,4 +1278,12 @@ function ServerData_Clan:isHighlightClan()
     end
 
     return false
+end
+
+-------------------------------------
+-- function getCurSeasonBossAttr
+-- @brief
+-------------------------------------
+function ServerData_Clan:getCurSeasonBossAttr()
+    return self.m_cur_season_boss_attr
 end

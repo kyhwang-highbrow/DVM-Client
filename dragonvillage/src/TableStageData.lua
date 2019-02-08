@@ -79,6 +79,10 @@ function TableStageData:getStageAttr(stage_id)
         self = THIS()
     end
 
+    if (self:isClanRaidStage(stage_id)) then
+        return g_clanData:getCurSeasonBossAttr()
+    end
+    
     local attr = self:getValue(stage_id, 'attr')
     return attr
 end
@@ -199,4 +203,16 @@ function TableStageData:verifyTable()
     for _, stage_id in ipairs(l_stage_id) do
         cclog('invalid buff data stage  : ' .. stage_id)
     end
+end
+
+-------------------------------------
+-- function isClanRaidStage
+-------------------------------------
+function TableStageData:isClanRaidStage(stage_id)
+    local stage_id_number = tonumber(stage_id) 
+    if (math.floor(stage_id_number/100000) == 15) then
+        return true
+    end
+    
+    return false
 end

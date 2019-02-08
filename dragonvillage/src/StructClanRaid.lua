@@ -118,7 +118,9 @@ end
 -------------------------------------
 function StructClanRaid:getAttr()
     local stage_id = self['stage']
-    return TableStageData:getStageAttr(stage_id)
+
+    return g_clanData:getCurSeasonBossAttr()
+    --return TableStageData:getStageAttr(stage_id) -- @jhakim 20190207 table_stage에 있는 속성 정보를 따르지 않음
 end
 
 -------------------------------------
@@ -228,7 +230,7 @@ end
 -------------------------------------
 function StructClanRaid:getBonusSynastryInfo()
     local stage_id = self:getStageID()
-    local ret = TableStageData:getStageBuff(stage_id)
+    local ret = self:getSynastryInfo_Attr()
 
     local map_attr = {}
     local map_buff_type = {}
@@ -262,7 +264,7 @@ end
 -------------------------------------
 function StructClanRaid:getPenaltySynastryInfo()
     local stage_id = self:getStageID()
-    local ret = TableStageData:getStageBuff(stage_id)
+    local ret = self:getSynastryInfo_Attr()
 
     local map_attr = {}
     local map_buff_type = {}
@@ -288,4 +290,86 @@ function StructClanRaid:getPenaltySynastryInfo()
     end
 
     return str, map_attr
+end
+
+-------------------------------------
+-- function getSynastryInfo_Attr
+-------------------------------------
+function StructClanRaid:getSynastryInfo_Attr()
+    local stage_id = self:getStageID()
+    local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
+    local bonus_attr_list, penalty_attr_list = self:getSynastryAttr(cur_clan_raid_attr)
+
+    local synastry_info_list = self:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr_list)
+    return synastry_info_list
+end
+
+-------------------------------------
+-- function getSynastryAttr
+-- @brief 클랜 던전 속성의 상성/역상성 리스트 반환
+-------------------------------------
+function StructClanRaid:getSynastryAttr(attr_str)
+    local bonus_attr = getAttrAdvantageList(attr_str)
+    local penalty_attr = {}
+
+    -- 클랜 던전 빛, 어둠의 역상성은 자신을 제외한 전체
+    if (attr_str == 'light' or attr_str == 'dark') then
+        local all_attr_list = getAttrTextList()
+        for _, attr in ipairs(all_attr_list) do
+            if (attr ~= getAttrAdvantage(attr_str)) then
+                table.insert(penalty_attr, attr)
+            end
+        end
+    else
+        penalty_attr = getAttrDisadvantageList(attr_str)
+    end
+
+    return bonus_attr, penalty_attr
+end
+
+-------------------------------------
+-- function makeClanBuffList
+-- @brief @jhakim 나중에 정리해야함
+-------------------------------------
+function StructClanRaid:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr_list)
+    --[[
+        {
+                ['condition_type']='attr';
+                ['condition_value']='light';
+                ['buff_type']='atk_multi';
+                ['buff_value']=5;
+        };
+    --]]
+
+    local table_buff = TABLE:get('table_clan_dungeon_buff')
+    local l_buff = {}
+
+    for buff_name, value in pairs(table_buff[stage_id]) do
+        if (buff_name ~= 'r_value' and buff_name ~= 'stage') then
+            local attr_list
+            
+            if (tonumber(value) < 0) then
+                attr_list = penalty_attr_list
+            else
+                attr_list = bonus_attr_list
+            end
+            
+            for _, attr in ipairs(attr_list) do
+                local _ret = {}
+                _ret['condition_type'] = 'attr'
+                _ret['condition_value'] = attr
+                _ret['buff_type'] = buff_name
+                _ret['buff_value'] = value
+                if (not string.match(buff_name, 'drag_cool')) then
+                    if (attr == 'light' or attr == 'dark') then
+                        _ret['buff_value'] = _ret['buff_value']/2
+                    end
+                end
+                table.insert(l_buff, _ret)
+            end
+        end
+    end
+
+    return l_buff
+
 end

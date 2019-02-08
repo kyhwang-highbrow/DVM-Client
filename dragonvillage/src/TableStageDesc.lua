@@ -76,8 +76,20 @@ end
 -- @brief 스테이지에 등장하는 몬스터 ID 리스트를 리턴
 -------------------------------------
 function TableStageDesc:getMonsterIDList(stage_id)
-    local t_table = self:get(stage_id)
 
+    -- @jhakim 20190208 시즌별로 클랜던전 속성 정보를 받음 (table_stage_desc 테이블을 따르지 않음)
+    if (TableStageData:isClanRaidStage(stage_id)) then
+        local cur_clan_boss_attr = g_clanData:getCurSeasonBossAttr()
+        if (cur_clan_boss_attr == 'earth') then stage_id = 1500001
+        elseif (cur_clan_boss_attr == 'water') then stage_id = 1500002
+        elseif (cur_clan_boss_attr == 'fire') then stage_id = 1500003
+        elseif (cur_clan_boss_attr == 'light') then stage_id = 1500004
+        elseif (cur_clan_boss_attr == 'dark') then stage_id = 1500005
+        end
+    end
+    
+    local t_table = self:get(stage_id)
+        
     local str = tostring(t_table['monster_id']) or ''
     local l_moster_id = plSplit(str, ';')
 

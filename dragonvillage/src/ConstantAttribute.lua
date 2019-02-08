@@ -96,6 +96,8 @@ function initAttributeSynastry()
             end
         end
     end
+    table.insert(t_attr_advantage['dark'], 'light')
+    table.insert(t_attr_advantage['light'], 'dark')
 end
 
 -------------------------------------
