@@ -40,6 +40,9 @@ ServerData_ChallengeMode = class({
         -- 2 -> 이번 시즌 보상 받을게 없음
         m_seasonRewardStatus = 'number',
         m_tSeasonRewardInfo = 'talbe', -- 시즌 보상을 받았을 경우
+        
+        -- 그림자 신전 오픈 여부
+        m_isChallengeModeOpen = 'boolean',
 
         m_selectedStage = 'number',
         m_selectedDifficulty = 'number', -- DIFFICULTY (ConstantDifficulty.lua)
@@ -551,8 +554,13 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
         end
 
         -- 입장 가능 여부 저장
+        if ret['available'] then
+            self.m_bEnterChallengeMode = ret['available']
+        end
+
+        -- 그림자 신전 오픈 여부
         if ret['open'] then
-            self.m_bEnterChallengeMode = ret['open']
+            self.m_isChallengeModeOpen = ret['open']
         end
 
         if (ret['table_challenge_management']) then
