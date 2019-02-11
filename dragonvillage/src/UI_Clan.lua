@@ -246,8 +246,8 @@ function UI_Clan:initRaidInfo()
     local vars = self.vars
     local struct_raid = g_clanRaidData:getClanRaidStruct()
 
-    vars['raidLockSprite']:setVisible(struct_raid == nil)
-    vars['raidBtn']:setVisible(struct_raid ~= nil)
+    vars['raidLockSprite']:setVisible(false)
+    vars['raidBtn']:setVisible(true)
 
     -- 정보 없으면 락타임이라 간주
     if (not struct_raid) then
@@ -259,7 +259,9 @@ function UI_Clan:initRaidInfo()
             if (not g_clanRaidData:isOpenClanRaid()) then
                 local msg = Str('클랜던전 오픈 전입니다.\n오픈까지 {1}', g_clanRaidData:getClanRaidStatusText())
                 vars['raidTimelabel']:setString(msg)
-
+                vars['bossLevelLabel']:setVisible(false)
+                vars['bossHpLabel']:setVisible(false)
+                vars['raidTimelabel']:setVisible(true)
             -- UI 진입된 상태에서 오픈되는 경우 - 인포 다시 호출
             else
                 vars['raidTimelabel']:setString('')
@@ -278,40 +280,17 @@ function UI_Clan:initRaidInfo()
                 ]]--
             end
         end
-
+        vars['raidTimelabel']:setVisible(false)
         self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
-
+        
+        local cur_boss_attr = g_clanData:getCurSeasonBossAttr()
+        local stage_id = TableStageDesc:getStageIdByClanBossAttr(cur_boss_attr)
+        self:setBossAni(stage_id)
         return
     end
 
     local stage_id = struct_raid:getStageID()
-    local _, boss_mid = g_stageData:isBossStage(stage_id)
-
-    -- 보스 animator
-    local boss_node = vars['bossNode']
-    boss_node:removeAllChildren()
-
-    local l_monster = g_stageData:getMonsterIDList(stage_id)
-    for _, mid in ipairs(l_monster) do
-        local res, attr, evolution = TableMonster:getMonsterRes(mid)
-        animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
-        
-        if (animator) then
-            local zOrder = WORLD_Z_ORDER.BOSS
-            local idx = getDigit(mid, 10, 1)
-            if (idx == 1) and (mid == boss_mid) then
-                zOrder = WORLD_Z_ORDER.BOSS     
-            elseif (idx == 1) then
-                zOrder = WORLD_Z_ORDER.BOSS + 1
-            elseif (idx == 7) then
-                zOrder = WORLD_Z_ORDER.BOSS
-            else
-                zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
-            end
-            boss_node:addChild(animator.m_node, zOrder)
-            animator:changeAni('idle', true)
-        end
-    end
+    self:setBossAni(stage_id)
 
     -- 레벨, 이름
     local is_rich_label = true
@@ -373,6 +352,41 @@ function UI_Clan:sortBoardTalbeView()
         return a['data']['no'] < b['data']['no']
     end
     table.sort(self.m_tableView.m_itemList, sort_func)
+end
+
+-------------------------------------
+-- function setBossAni
+-------------------------------------
+function UI_Clan:setBossAni(stage_id)
+    local vars = self.vars
+    
+    local _, boss_mid = g_stageData:isBossStage(stage_id)
+
+    -- 보스 animator
+    local boss_node = vars['bossNode']
+    boss_node:removeAllChildren()
+
+    local l_monster = g_stageData:getMonsterIDList(stage_id)
+    for _, mid in ipairs(l_monster) do
+        local res, attr, evolution = TableMonster:getMonsterRes(mid)
+        animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        
+        if (animator) then
+            local zOrder = WORLD_Z_ORDER.BOSS
+            local idx = getDigit(mid, 10, 1)
+            if (idx == 1) and (mid == boss_mid) then
+                zOrder = WORLD_Z_ORDER.BOSS     
+            elseif (idx == 1) then
+                zOrder = WORLD_Z_ORDER.BOSS + 1
+            elseif (idx == 7) then
+                zOrder = WORLD_Z_ORDER.BOSS
+            else
+                zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
+            end
+            boss_node:addChild(animator.m_node, zOrder)
+            animator:changeAni('idle', true)
+        end
+    end
 end
             
 -------------------------------------
