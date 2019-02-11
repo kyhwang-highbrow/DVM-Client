@@ -34,7 +34,13 @@ end
 -- function initUI
 -------------------------------------
 function UI_DragonRunesGrind:initUI()
-	
+    local enhance_class = self.m_runeEnhanceClass
+	local vars = enhance_class.vars
+
+    -- 룬 연마석 아이콘 추가
+    local grindstone_card = UI_ItemCard(704900, 0)
+    grindstone_card.root:setScale(0.8)
+	vars['grindStoneNode']:addChild(grindstone_card.root)
 end
 
 -------------------------------------
@@ -91,8 +97,17 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
 
     self.m_grindItemRadioBtn = grind_item_radio_button
 
-    -- 연마 아이템 라디오 버튼 갱신 겸 등록
-    self:refresh_grindItemRadioBtn()
+    -- 연마 아이템 라디오 버튼 등록
+     for item_name, ui_name in pairs(GRIND_ITEM_RADIO_LIST) do
+        local option_item_btn = string.format('%sBtn', ui_name)
+        local option_item_sprite = string.format('%sSprite', ui_name)
+        local option_item_node = string.format('%sNode', ui_name)
+        local option_item_label = string.format('%sNameLabel', ui_name)
+        
+        if (not grind_item_radio_button:existButton(opt_type)) then -- 없는 버튼이면 등록
+            grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
+        end
+    end
     
     -- 연마 보조 아이템 디폴트 값 설정
     grind_item_radio_button:setSelectedButton('none_select')
@@ -179,25 +194,30 @@ function UI_DragonRunesGrind:refresh_grindItemRadioBtn()
         local option_item_btn = string.format('%sBtn', ui_name)
         local option_item_sprite = string.format('%sSprite', ui_name)
         local option_item_node = string.format('%sNode', ui_name)
-        
-        if (not grind_item_radio_button:existButton(opt_type)) then -- 없는 버튼이면 등록
-            grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
-        end
-               
+        local option_item_not_sprite = string.format('%sNotSprite', ui_name)
+           
         -- max 확정권, 옵션 유지권은 보유 갯수 갱신
         if (item_name ~= 'none_select') then
             local option_item_id = TableItem:getItemIDFromItemType(item_name)
             local option_item_cnt = g_userData:get(item_name)
             local option_item_card = UI_ItemCard(option_item_id, option_item_cnt)
+            option_item_card:setEnabledClickBtn(false)
+            vars[option_item_node]:removeAllChildren()
             vars[option_item_node]:addChild(option_item_card.root)
 
             if (option_item_cnt == 0) then
-                self.m_grindItemRadioBtn:disable(item_name)
+                local cb_func = function(t_radio_data)
+                    vars[option_item_not_sprite]:setVisible(true)
+                    vars[option_item_btn]:setEnabled(false)
+                end
+                self.m_grindItemRadioBtn:disable(item_name, cb_func) -- item_name, cb_func(비활성화 일 때 따로 처리)
                 
                 -- 선택 중이던 라디오 버튼이 비활성화 되었을 경우 포커스를 none_select로 옮김
                 if (self.m_selectOptionItem == item_name) then
                     grind_item_radio_button:setSelectedButton('none_select')
                 end
+            else
+                vars[option_item_not_sprite]:setVisible(false)
             end
         end
     end
@@ -239,8 +259,8 @@ function UI_DragonRunesGrind:refresh_grindOptionRadioBtn()
                     self.m_optionGrindRadioBtn:disable(opt_type)
                 -- 연마된 옵션 라벨 색상 노랑
                 elseif (self.m_seletedGrindOption == opt_type) then
-                    opt_desc = self:makeRuneDesc_grind(opt_type, '{@yellow}')
-                    vars[option_label]:setString(opt_desc)              
+                    opt_desc = self:makeRuneDesc_grind(opt_type, '{@r_opt_selected}')
+                    vars[option_label]:setString(opt_desc)   
                 end
             end
         end

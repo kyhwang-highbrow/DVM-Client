@@ -129,12 +129,17 @@ end
 -- function disable
 -- @brief activate, inactivate 와 유기적으로 동작하는 것이 아님. 일방향
 -------------------------------------
-function UIC_RadioButton:disable(button_name)
+function UIC_RadioButton:disable(button_name, cb_func)
 	local t_button_data = self.m_buttonMap[button_name]
 
-    local button = t_button_data['button']
-    button:setEnabled(false)
-	button:setColor(COLOR['deep_dark_gray'])
+    -- diable일 때 따로 커스텀할 함수가 없다면 디폴트값 사용
+    if (not cb_func) then
+        local button = t_button_data['button']
+        button:setEnabled(false)
+	    button:setColor(cc.c4b(0, 0, 0, 255))
+    else
+        cb_func(t_button_data)
+    end
 
 	local sprite = t_button_data['sprite']
     if sprite then
