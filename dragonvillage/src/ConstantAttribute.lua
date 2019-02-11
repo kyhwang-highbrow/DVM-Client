@@ -24,6 +24,32 @@ ATTR_COLOR[ATTR_DARK] = cc.c3b(150, 80, 255)
 
 
 local t_attr_synastry = nil -- 속성 상성 정보 테이블 
+--[[
+-- @brief @jhakim 빛과 어둠은 서로 카운터, but 서로 상성&역상성으로 표기할 수는 없기 때문에 표기할 때는 서로 보너스 상성으로만 표시
+-- ** t_attr_synastry
+
+ ['none']={
+        };
+        ['dark']={
+                ['light']=1;
+        };
+        ['light']={
+                ['dark']=1;
+        };
+        ['earth']={
+                ['water']=1;
+                ['fire']=-1;
+        };
+        ['water']={
+                ['fire']=1;
+                ['earth']=-1;
+        };
+        ['fire']={
+                ['water']=-1;
+                ['earth']=1;
+        };
+--]]
+
 local t_attr_advantage = nil    -- t_attr_advantage['fire'] = {'earth'}
 local t_attr_disadvantage  = nil  -- t_attr_disadvantage['fire'] = {'water'}
 
@@ -96,6 +122,8 @@ function initAttributeSynastry()
             end
         end
     end
+
+    -- 20190211 @jhakim t_attr_synastry에서 어둠과 빛을 보너스 상성으로만 표시하기 때문에 상성/역상성 테이블만들 때 보너스 상성이 누락됨(line 107 ~ 124), 하드코딩으로 채워줌
     table.insert(t_attr_advantage['dark'], 'light')
     table.insert(t_attr_advantage['light'], 'dark')
 end

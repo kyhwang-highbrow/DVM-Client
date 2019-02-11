@@ -230,7 +230,7 @@ end
 -------------------------------------
 function StructClanRaid:getBonusSynastryInfo()
     local stage_id = self:getStageID()
-    local ret = self:getSynastryInfo_Attr()
+    local ret = self:getClanAttrBuffList()
 
     local map_attr = {}
     local map_buff_type = {}
@@ -264,7 +264,7 @@ end
 -------------------------------------
 function StructClanRaid:getPenaltySynastryInfo()
     local stage_id = self:getStageID()
-    local ret = self:getSynastryInfo_Attr()
+    local ret = self:getClanAttrBuffList()
 
     local map_attr = {}
     local map_buff_type = {}
@@ -293,22 +293,22 @@ function StructClanRaid:getPenaltySynastryInfo()
 end
 
 -------------------------------------
--- function getSynastryInfo_Attr
+-- function getClanAttrBuffList
 -------------------------------------
-function StructClanRaid:getSynastryInfo_Attr()
+function StructClanRaid:getClanAttrBuffList()
     local stage_id = self:getStageID()
     local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
-    local bonus_attr_list, penalty_attr_list = self:getSynastryAttr(cur_clan_raid_attr)
+    local bonus_attr_list, penalty_attr_list = self:getSynastryAttrList(cur_clan_raid_attr)
 
     local synastry_info_list = self:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr_list)
     return synastry_info_list
 end
 
 -------------------------------------
--- function getSynastryAttr
+-- function getSynastryAttrList
 -- @brief 클랜 던전 속성의 상성/역상성 리스트 반환
 -------------------------------------
-function StructClanRaid:getSynastryAttr(attr_str)
+function StructClanRaid:getSynastryAttrList(attr_str)
     local bonus_attr = getAttrAdvantageList(attr_str)
     local penalty_attr = {}
 
@@ -329,9 +329,14 @@ end
 
 -------------------------------------
 -- function makeClanBuffList
--- @brief @jhakim 나중에 정리해야함
+-- @brief 
 -------------------------------------
 function StructClanRaid:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr_list)
+    
+    -- 1. 수치가 양수이면 보너스, 음수이면 패널티 버프로 분류
+    -- 2. 속성이 여러개일 경우, 해당 버프를 속성마다 부여 ex)  풀 : 공격력 증가 10%, 물 : 공격력 증가 10% ...
+    -- 3. drag_cool이고 light, dark 속성이라면 수치의 반만 적용
+    -- 4. 아래와 같은 값을 가지는 버프 테이블 생성
     --[[
         {
                 ['condition_type']='attr';
@@ -348,18 +353,22 @@ function StructClanRaid:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr
         if (buff_name ~= 'r_value' and buff_name ~= 'stage') then
             local attr_list
             
+            -- 1. 수치가 양수이면 보너스, 음수이면 패널티 버프로 분류
             if (tonumber(value) < 0) then
                 attr_list = penalty_attr_list
             else
                 attr_list = bonus_attr_list
             end
-            
+
+            -- 2. 속성이 여러개일 경우, 해당 버프를 속성마다 부여
             for _, attr in ipairs(attr_list) do
                 local _ret = {}
                 _ret['condition_type'] = 'attr'
                 _ret['condition_value'] = attr
                 _ret['buff_type'] = buff_name
                 _ret['buff_value'] = value
+
+                -- 3. drag_cool이고 light, dark 속성이라면 수치의 반만 적용
                 if (not string.match(buff_name, 'drag_cool')) then
                     if (attr == 'light' or attr == 'dark') then
                         _ret['buff_value'] = _ret['buff_value']/2
