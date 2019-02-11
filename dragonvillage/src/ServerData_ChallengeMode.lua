@@ -1294,21 +1294,6 @@ function ServerData_ChallengeMode:getCumulativeGrindStone()
 end
 
 -------------------------------------
--- function getDiffRankFromLastDay
--- @brief 전날 기록한 순위와 비교
--------------------------------------
-function ServerData_ChallengeMode:getDiffRankFromLastDay()
-    local struct_user_info = self:getPlayerArenaUserInfo()
-    local cur_rank = struct_user_info.m_rank
-    local last_rank = g_settingData:getChellengeModeLastDayRank('rank')
-    if (not last_rank or last_rank == 0) then
-        return 0
-    end
-    local diff_rank = cur_rank - tonumber(last_rank)
-    return diff_rank
-end
-
--------------------------------------
 -- function applyManageData
 -------------------------------------
 function ServerData_ChallengeMode:applyManageData(t_manage_data)
@@ -1400,7 +1385,7 @@ function ServerData_ChallengeMode:checkPromotePopupCondition()
     -- 2. 오픈 이후 3일 이상 입장x, 마지막으로 입장 후 3일이상 입장x
     do  
         local cur_day = math.floor(datetime.secondToDay(cur_time))
-        local last_entry_day = g_settingData:getChellengeModeLastEntry()
+        local last_entry_day = 0--g_settingData:getChellengeModeLastEntry()
 
         -- 그림자 신전 입장을 아예 안한 상태 제외
         if (last_entry_day == 0) then
@@ -1424,20 +1409,6 @@ function ServerData_ChallengeMode:checkPromotePopupCondition()
     end
     
     return true
-end
-
--------------------------------------
--- function registerRankHistory
--- @brief 순위 변동 기록
--------------------------------------
-function ServerData_ChallengeMode:registerRankHistory(rank)
-    -- 랭킹 정보 받을 때 마다 로컬에 저장
-    -- 순위 변동 기록하는 데 사용
-    if (self:isOpen_challengeMode()) then
-        local cur_time = Timer:getServerTime()
-        g_settingData:setChellengeModeRankHistory('rank', rank)
-        g_settingData:setChellengeModeRankHistory('rank_time', cur_time)
-    end
 end
 
 -------------------------------------
