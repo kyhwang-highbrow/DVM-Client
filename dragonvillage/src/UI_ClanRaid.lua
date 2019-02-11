@@ -340,6 +340,10 @@ function UI_ClanRaid:showDungeonStateUI()
     elseif (state == CLAN_RAID_STATE.CLEAR) then
         noti_visual:changeAni('clear', true)
         noti_visual.m_node:setScale(1.3)
+        
+        if(struct_raid:isOverMaxStage()) then
+            vars['atkLabel']:setString(Str('마지막 스테이지를 클리어 했습니다.\n다음 시즌까지 {1}', 00))
+        end
 
     end
 
@@ -363,10 +367,19 @@ function UI_ClanRaid:refreshBtn()
     local next_stage_id = g_stageData:getNextStage(stage_id)
 
     -- 현재 진행중인 던전 이후는 특정 레벨까지만 보여줌 (던전 인스턴스 생성되지 않은 상태)
-    vars['nextBtn']:setVisible(curr_stage_id + SHOW_NEXT_LEVEL_LIMIT >= next_stage_id)
+    if (struct_raid:isOverMaxStage(next_stage_id)) then
+        vars['nextBtn']:setVisible(false)
+    else
+        vars['nextBtn']:setVisible(curr_stage_id + SHOW_NEXT_LEVEL_LIMIT >= next_stage_id)
+    end
 
-    -- 시작버튼 활성화/비활성화
-    vars['readyBtn']:setEnabled(stage_id == curr_stage_id)
+    -- 시작버튼 활성화/비활성화, 해당 스테이지가 최대 스테이지를 넘었다면 비활성화
+    if(struct_raid:isOverMaxStage(stage_id)) then
+        vars['readyBtn']:setEnabled(false) 
+    else
+        vars['readyBtn']:setEnabled(stage_id == curr_stage_id)       
+    end
+
 end
 
 -------------------------------------

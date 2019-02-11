@@ -1,5 +1,7 @@
 local PARENT = Structure
 
+MAX_STAGE_ID = 1500100
+
 CLAN_RAID_STATE = {
     NORMAL = 1, -- 입장 가능
     CHALLENGE = 2, -- 유저 도전중
@@ -381,4 +383,20 @@ function StructClanRaid:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr
 
     return l_buff
 
+end
+
+-------------------------------------
+-- function isOverMaxStage
+-- @brief 
+-------------------------------------
+function StructClanRaid:isOverMaxStage(stage_id)   
+    if (not stage_id) then
+        stage_id = self.stage
+    end
+
+    if (tonumber(stage_id) > MAX_STAGE_ID) then
+        return true
+    else
+        return false
+    end
 end
