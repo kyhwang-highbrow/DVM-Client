@@ -7,6 +7,7 @@ UI_HelpClanDungeonSummary = class(PARENT, {
         m_sel_mid = 'number',
         m_sel_ui = 'UI_MonsterCard',
         m_map_animator = '',
+        m_struct_clan_raid = 'StructClanRaid',
     })
 
 -------------------------------------
@@ -22,7 +23,14 @@ end
 function UI_HelpClanDungeonSummary:initUI()
     self.m_map_animator = {}
 
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    self.m_struct_clan_raid = g_clanRaidData:getClanRaidStruct()
+    
+    if (not self.m_struct_clan_raid) then
+        self.m_struct_clan_raid = self:getSampleClanRaid()
+    end
+
+    local struct_raid = self.m_struct_clan_raid
+    
     local stage_id = struct_raid:getStageID()
 
     -- 최초 보스 선택으로 
@@ -42,7 +50,7 @@ function UI_HelpClanDungeonSummary:onChangeTab(tab, first)
         local check_part = false
 
         if (tab == 'cldg_summary') then
-            local struct_raid = g_clanRaidData:getClanRaidStruct()
+            local struct_raid = self.m_struct_clan_raid
             local stage_id = struct_raid:getStageID()
 
             -- 배경
@@ -83,7 +91,7 @@ function UI_HelpClanDungeonSummary:initUI_info()
     local vars = self.vars
     self:initMonsterList()
 
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local struct_raid = self.m_struct_clan_raid
     local stage_id = struct_raid:getStageID()
 
     -- 배경
@@ -106,7 +114,7 @@ end
 function UI_HelpClanDungeonSummary:initUI_synastry()
     local vars = self.vars
 
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local struct_raid = self.m_struct_clan_raid
     local stage_id = struct_raid:getStageID()
 
     -- 보스 이름
@@ -190,7 +198,7 @@ function UI_HelpClanDungeonSummary:initMonsterList()
     local node = vars['monsterListNode']
     node:removeAllChildren()
 
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local struct_raid = self.m_struct_clan_raid
     local stage_id = struct_raid:getStageID()
     local _, boss_mid = g_stageData:isBossStage(stage_id)
     local l_monster = g_stageData:getMonsterIDList(stage_id)
@@ -238,7 +246,7 @@ end
 -------------------------------------
 function UI_HelpClanDungeonSummary:initBossVrp(target_node, check_part)
     local vars = self.vars
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local struct_raid = self.m_struct_clan_raid
     local stage_id = struct_raid:getStageID()
     local _, boss_mid = g_stageData:isBossStage(stage_id)
 
@@ -287,7 +295,7 @@ end
 -------------------------------------
 function UI_HelpClanDungeonSummary:refresh_BossInfo()
     local vars = self.vars
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local struct_raid = self.m_struct_clan_raid
     local origin_name = struct_raid:getBossNameWithLv(true)
     vars['nameLabel']:setString(origin_name)
 
@@ -359,4 +367,16 @@ function UI_HelpClanDungeonSummary:click_partInfo(ui, data)
     end
 
     self:refresh()
+end
+
+-------------------------------------
+-- function getSampleClanRaid
+-- @brief 클랜 던전이 열리지 않으면 서버에서 보스 정보를 주지 않기 때문에 임시로 사용
+-------------------------------------
+function UI_HelpClanDungeonSummary:getSampleClanRaid()
+    local struct_clan_raid_sample_data = {}
+    struct_clan_raid_sample_data['stage'] = 1500099
+    struct_clan_raid_sample_data['hp'] = 571312500
+    struct_clan_raid_sample_data['hp'] = 571312500
+    return StructClanRaid(struct_clan_raid_sample_data)
 end
