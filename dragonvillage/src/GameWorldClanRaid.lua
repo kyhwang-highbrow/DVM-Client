@@ -72,3 +72,60 @@ function GameWorldClanRaid:removeAllEnemy()
 	
     self.m_waveMgr:clearDynamicWave()
 end
+
+-------------------------------------
+-- function makeHeroDeck
+-- @brief
+-------------------------------------
+function GameWorldClanRaid:makeHeroDeck()
+    -- 부모 함수 호출
+    -- GameWorldForDoubleTeam:makeHeroDeck에서는 스테이지 버프를(table_stage_data) 셋팅한 상태
+    PARENT.makeHeroDeck(self)
+    
+    -- 유저의 드래곤 덱 리스트
+    local l_deck = self:getDragonList()
+    
+    -- (table_clan_dungseon_buff)로 만든 스테이지 버프 사용
+    for i, dragon in pairs(l_deck) do
+        -- 스테이지 버프 적용
+        self:applyClanRaidStageBonus(dragon)
+        dragon:setStatusCalc(dragon.m_statusCalc)      
+    end
+end
+
+-------------------------------------
+-- function applyClanRaidStageBonus
+-- @brief
+-------------------------------------
+function GameWorldClanRaid:applyClanRaidStageBonus(dragon)
+
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local l_buff = struct_raid:getClanAttrBuffList()
+
+    for i, v in ipairs(l_buff) do
+        local condition_type = v['condition_type']
+        local condition_value = v['condition_value']
+
+        if (condition_type == 'did' or condition_type == 'mid') then
+            condition_value = tonumber(condition_value)
+        end
+        local t_char = dragon:getCharTable()
+
+        if (v['condition_type'] == 'all' or condition_value == t_char[condition_type]) then
+            local buff_type = v['buff_type']
+            local buff_value = v['buff_value']
+            local t_option = TableOption():get(buff_type)
+
+            if (t_option) then
+                local status_type = t_option['status']
+                if (status_type) then
+                    if (t_option['action'] == 'multi') then
+                        dragon.m_statusCalc:setStageMulti(status_type, buff_value)
+                    elseif (t_option['action'] == 'add') then
+                        dragon.m_statusCalc:setStageAdd(status_type, buff_value)
+                    end
+                end
+            end
+        end
+    end
+end

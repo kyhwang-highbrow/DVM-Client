@@ -390,6 +390,22 @@ function StructIndividualStatus:addStageAdd(value)
 end
 
 -------------------------------------
+-- function setStageMulti
+-------------------------------------
+function StructIndividualStatus:setStageMulti(value)
+    self.m_stageMulti = value
+    self:setDirtyFinalStat()
+end
+
+-------------------------------------
+-- function setStageAdd
+-------------------------------------
+function StructIndividualStatus:setStageAdd(value)
+    self.m_stageAdd = value
+    self:setDirtyFinalStat()
+end
+
+-------------------------------------
 -- function addBuffMulti
 -------------------------------------
 function StructIndividualStatus:addBuffMulti(value)
