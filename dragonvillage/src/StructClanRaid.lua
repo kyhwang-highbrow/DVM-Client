@@ -25,7 +25,8 @@ StructClanRaid = class(PARENT, {
 
         player = 'user', -- 현재 플레이중인 유저정보
 
-        state = 'CLAN_RAID_STATE'
+        state = 'CLAN_RAID_STATE',
+        finish = 'bool',
     })
 
 local THIS = StructClanRaid
