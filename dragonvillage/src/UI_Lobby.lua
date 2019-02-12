@@ -1738,7 +1738,7 @@ function UI_Lobby:refresh_rightBanner()
     local vars = self.vars
 
     -- 그림자의 신전
-    -- local state = g_challengeMode:getChallengeModeState()
+    -- local state = g_challengeMode:getChallengeModeState_Routine()
     -- if isExistValue(state, ServerData_ChallengeMode.STATE['OPEN'], ServerData_ChallengeMode.STATE['REWARD']) then
     --     if (not vars['banner_challenge_mode']) then
     --         local banner = UI_BannerChallengeMode()

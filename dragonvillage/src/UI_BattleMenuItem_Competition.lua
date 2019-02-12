@@ -214,7 +214,7 @@ end
 -------------------------------------
 function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 	local vars = self.vars
-	local state = g_challengeMode:getChallengeModeState()
+	local state = g_challengeMode:getChallengeModeState_Routine()
 	local t_item, text_1, text_2, desc
 	
 	local use_timer = false

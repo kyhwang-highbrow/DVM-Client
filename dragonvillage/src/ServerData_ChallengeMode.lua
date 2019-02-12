@@ -69,6 +69,12 @@ ServerData_ChallengeMode = class({
 
         -- 지난 콜로세움 티어 정보
         m_arenaLastTierName = 'str',
+
+        -- 정규화에 필요한 정보
+        m_isMasterMode = 'bollean',
+        m_masterStartTime = 'milisecond',
+        m_challengeModeEndTime = 'milisecond',
+        m_challengeModeStartTime = 'milisecond',
     })
 
 ServerData_ChallengeMode.STATE = {
@@ -85,6 +91,7 @@ ServerData_ChallengeMode.STATE = {
 function ServerData_ChallengeMode:init(server_data)
     self.m_tempLogData = {}
     self.m_lStagesDetailInfo = {}
+    self.m_isMasterMode = false
 end
 
 -------------------------------------
@@ -92,7 +99,7 @@ end
 -- @brief 챌린지 모드 이벤트가 활성화(이벤트 기간+보상 수령 기간) 상태인지 여부 true or false
 -------------------------------------
 function ServerData_ChallengeMode:isActive_challengeMode()
-    return (self:getChallengeModeState() ~= ServerData_ChallengeMode.STATE['INACTIVE'])
+    return (self:getChallengeModeState_Routine() ~= ServerData_ChallengeMode.STATE['INACTIVE'])
 end
 
 -------------------------------------
@@ -100,7 +107,7 @@ end
 -- @brief 챌린지 모드 이벤트를 플레이할 수 있는 상태인지 여부 true or false
 -------------------------------------
 function ServerData_ChallengeMode:isOpen_challengeMode()
-    return (self:getChallengeModeState() == ServerData_ChallengeMode.STATE['OPEN'])
+    return (self:getChallengeModeState_Routine() == ServerData_ChallengeMode.STATE['OPEN'])
 end
 
 -------------------------------------
@@ -110,7 +117,7 @@ end
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeState()
 	-- 예외처리
-	if (not g_hotTimeData) then
+	if (not self.m_isChallengeModeOpen) then
 		return ServerData_ChallengeMode.STATE['INACTIVE']
 
 	-- 이벤트 기간
@@ -148,17 +155,34 @@ function ServerData_ChallengeMode:getChallengeModeState()
 end
 
 -------------------------------------
--- function getChallengeModeMasterState
+-- function isChallengeModeMasterMode
 -- @brief 이벤트 그림자 신전 마스터 상태 
 -------------------------------------
-function ServerData_ChallengeMode:getChallengeModeMasterState()
+function ServerData_ChallengeMode:isChallengeModeMasterMode()
+	return self.m_isMasterMode
+end
+
+-------------------------------------
+-- function getChallengeModeState_Routine
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeState_Routine()
+
     -- 예외처리
-	if (not g_hotTimeData) then
-		return false
-    end
+	if (not self.m_isChallengeModeOpen) then
+		return ServerData_ChallengeMode.STATE['INACTIVE']
 
 	-- 이벤트 기간
-	return g_hotTimeData:isActiveEvent('event_challenge_master')
+	else		
+		-- 레벨 체크
+		if (g_contentLockData:isContentLock('challenge_mode')) then
+			return ServerData_ChallengeMode.STATE['LOCK']
+		else
+			return ServerData_ChallengeMode.STATE['OPEN']
+		end
+	end
+
+	-- 해당 없으면 비활성화
+	return ServerData_ChallengeMode.STATE['INACTIVE']
 end
 
 -------------------------------------
@@ -570,7 +594,23 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
         if (ret['arena_last_season_tier']) then
             self.m_arenaLastTierName = ret['arena_last_season_tier']
         end
+
+        if (ret['master_start_time']) then
+            self.m_masterStartTime = ret['master_start_time']
+        end
         
+        if (ret['master_open']) then
+            self.m_isMasterMode = ret['master_open']
+        end
+        
+        if (ret['end_time']) then
+            self.m_challengeModeEndTime = ret['end_time']
+        end
+        
+        if (ret['end_time']) then
+            self.m_challengeModeStartTime = ret['start_time']
+        end
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -975,7 +1015,7 @@ function ServerData_ChallengeMode:getLastChallengeTeam()
     local bottom = 1
 
     -- 마스터 시즌이 아니라면
-    if (not g_challengeMode:getChallengeModeMasterState()) then
+    if (not g_challengeMode:isChallengeModeMasterMode()) then
         bottom = self:getMasterStage()
     end
 
@@ -1035,7 +1075,7 @@ end
 -- function getChallengeModeStatusText
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeStatusText()
-    local time = g_hotTimeData:getEventRemainTime('event_challenge') or 0
+    local time = self:getChallengeModeRemainTime()
     local str = ''
     if (not self:isActive_challengeMode()) then
         if (time <= 0) then
@@ -1056,7 +1096,21 @@ end
 -- function getChallengeModeMasterStatusText
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeMasterStatusText()
-    local time = g_hotTimeData:getChallengeMasterBeginTime() or 0
+    local time = self.m_masterStartTime or 0
+    local curr_time = Timer:getServerTime()
+    local end_time = tonumber(time)/1000
+    time = (end_time - curr_time)
+    return time
+end
+
+-------------------------------------
+-- function getChallengeModeRemainTime
+-------------------------------------
+function ServerData_ChallengeMode:getChallengeModeRemainTime()
+    local time = self.m_challengeModeEndTime or 0
+    local curr_time = Timer:getServerTime()
+    local end_time = tonumber(time)/1000
+    time = (end_time - curr_time)
     return time
 end
 

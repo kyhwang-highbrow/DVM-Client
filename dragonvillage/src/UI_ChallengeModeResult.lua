@@ -130,7 +130,7 @@ function UI_ChallengeModeResult:direction_nextStage()
     local challenge_stage = 0
 
     -- 마스터 시즌이 아니라면
-    if (not g_challengeMode:getChallengeModeMasterState()) then
+    if (not g_challengeMode:isChallengeModeMasterMode()) then
         local stage_limit = g_challengeMode:getMasterStage()
         local cur_stage = g_challengeMode:getTopStage() - self.m_currStage
 

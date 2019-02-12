@@ -148,7 +148,7 @@ function UI_ChallengeMode:initUI_tableView()
     local vaild_list = {}
     for i,v in ipairs(t_floor) do
         -- 마스터 시즌이 아니라면 
-        if (not g_challengeMode:getChallengeModeMasterState()) then
+        if (not g_challengeMode:isChallengeModeMasterMode()) then
             -- 마스터 구역은 리스트에 추가하지 않는다
             if (v['rank'] > g_challengeMode:getMasterStage()) then
                 table.insert(vaild_list, v)
@@ -169,7 +169,7 @@ function UI_ChallengeMode:initUI_tableView()
     -- 1. 마스터 시즌 예고하는 테이블아이템 추가
     -- 2. masterTimeSprite ON
     -- 3. 남은 시간 표기
-    if (not g_challengeMode:getChallengeModeMasterState()) then
+    if (not g_challengeMode:isChallengeModeMasterMode()) then
         local extra_list_item = { advance_notice = true, stage = 200 }
         table.insert(vaild_list, extra_list_item)
 
@@ -208,7 +208,7 @@ function UI_ChallengeMode:appearDone()
     local t_data = {stage=g_challengeMode:getSelectedStage()}
 
     -- 마스터 시즌이 아니라면
-    if (not g_challengeMode:getChallengeModeMasterState()) then
+    if (not g_challengeMode:isChallengeModeMasterMode()) then
         local master_stage = g_challengeMode:getMasterStage()
         if (master_stage > 100 - tonumber(t_data['stage'])) then
             t_data['stage'] = 100 - (master_stage) -- 40층부터 마스터 신전이라면 41에 포커스
@@ -381,8 +381,8 @@ function UI_ChallengeMode:refresh(stage)
 
     do-- 버튼 상태 처리
         -- 시즌 보상 획득만 가능한 상태
-        if (g_challengeMode:getChallengeModeState() == ServerData_ChallengeMode.STATE['REWARD']) or
-            (g_challengeMode:getChallengeModeState() == ServerData_ChallengeMode.STATE['DONE']) then
+        if (g_challengeMode:getChallengeModeState_Routine() == ServerData_ChallengeMode.STATE['REWARD']) or
+            (g_challengeMode:getChallengeModeState_Routine() == ServerData_ChallengeMode.STATE['DONE']) then
             vars['startBtn']:setVisible(false)
             vars['lockSprite']:setVisible(false)
 
@@ -469,7 +469,7 @@ function UI_ChallengeMode:focusOnNextStage(list)
     local t_data = {stage = g_challengeMode:getSelectedStage()}
     
     -- 마스터 시즌이 아니라면
-    if (not g_challengeMode:getChallengeModeMasterState()) then
+    if (not g_challengeMode:isChallengeModeMasterMode()) then
         local master_stage = g_challengeMode:getMasterStage()
         if (master_stage > 100 - tonumber(t_data['stage'])) then
             t_data['stage'] = 100 - (master_stage) -- 40층부터 마스터 신전이라면 41에 포커스
