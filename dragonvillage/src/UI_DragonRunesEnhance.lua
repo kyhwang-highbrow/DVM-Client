@@ -190,7 +190,7 @@ function UI_DragonRunesEnhance:refresh_enhance()
 	-- 강화 만렙 처리
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)
-	vars['enhanceOptionNode']:setVisible(not is_max_lv)
+	vars['enhanceOptionNode']:setVisible(false)
 end
 
 
