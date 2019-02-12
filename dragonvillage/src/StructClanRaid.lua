@@ -64,6 +64,10 @@ function StructClanRaid:applyTableData(data)
         end
     end
 
+    if (not data['finish']) then
+        self.finish = false -- 초기화
+    end
+
     self:setState()
 end
 
@@ -411,7 +415,7 @@ end
 
 -------------------------------------
 -- function isOverMaxStage
--- @brief 
+-- @brief 각 스테이지가 마지막 스테이지인지 판단
 -------------------------------------
 function StructClanRaid:isOverMaxStage(stage_id)   
     if (not stage_id) then
@@ -423,4 +427,12 @@ function StructClanRaid:isOverMaxStage(stage_id)
     else
         return false
     end
+end
+
+-------------------------------------
+-- function isClearAllClanRaidStage
+-- @brief 마지막 스테이지 클리어 여부 서버에서 내려준 값 반환
+-------------------------------------
+function StructClanRaid:isClearAllClanRaidStage()   
+    return self.finish
 end

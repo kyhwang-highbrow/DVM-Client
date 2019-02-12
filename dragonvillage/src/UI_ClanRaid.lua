@@ -338,11 +338,19 @@ function UI_ClanRaid:showDungeonStateUI()
 
     -- 클리어한 상태
     elseif (state == CLAN_RAID_STATE.CLEAR) then
-        noti_visual:changeAni('clear', true)
-        noti_visual.m_node:setScale(1.3)
-        
-        if(struct_raid:isOverMaxStage()) then
-            vars['atkLabel']:setString(Str('마지막 스테이지를 클리어 했습니다.\n다음 시즌까지 {1}', 00))
+
+        -- 끝까지 클리어한 경우, 마지막 스테이지에서 다음 시즌 정보 출력
+        if (struct_raid:isClearAllClanRaidStage() and stage_id == MAX_STAGE_ID) then
+            local status_text = g_clanRaidData:getClanRaidStatusText()
+            vars['atkLabel']:setString(Str('마지막 스테이지를 클리어 했습니다.\n다음 시즌까지 {1}', status_text))
+            vars['atkLabel']:setVisible(true)
+            --vars['lastClearSprite']:setVisible(true)
+        else
+            vars['atkLabel']:setVisible(false)
+            --vars['lastClearSprite']:setVisible(false)
+            
+            noti_visual:changeAni('clear', true)
+            noti_visual.m_node:setScale(1.3)
         end
 
     end
@@ -373,8 +381,9 @@ function UI_ClanRaid:refreshBtn()
         vars['nextBtn']:setVisible(curr_stage_id + SHOW_NEXT_LEVEL_LIMIT >= next_stage_id)
     end
 
-    -- 시작버튼 활성화/비활성화, 해당 스테이지가 최대 스테이지를 넘었다면 비활성화
-    if(struct_raid:isOverMaxStage(stage_id)) then
+    -- 시작버튼 활성화/비활성화, 
+    -- 해당 스테이지가 마지막이고, 마지막 스테이지 클리어한 상태라면 준비버튼 비활성화
+    if (struct_raid:isClearAllClanRaidStage() and stage_id == MAX_STAGE_ID) then
         vars['readyBtn']:setEnabled(false) 
     else
         vars['readyBtn']:setEnabled(stage_id == curr_stage_id)       
