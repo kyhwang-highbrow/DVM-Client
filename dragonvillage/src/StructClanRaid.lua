@@ -301,10 +301,30 @@ end
 function StructClanRaid:getClanAttrBuffList()
     local stage_id = self:getStageID()
     local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
-    local bonus_attr_list, penalty_attr_list = self:getSynastryAttrList(cur_clan_raid_attr)
+
+    local reverse_cur_raid_attr = self:getReverseAttr(cur_clan_raid_attr)
+
+    local bonus_attr_list, penalty_attr_list = self:getSynastryAttrList(reverse_cur_raid_attr)
 
     local synastry_info_list = self:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr_list)
     return synastry_info_list
+end
+
+-------------------------------------
+-- function getReverseAttr
+-- ex) 보스가 물 속성인 경우 (어둠/빛 제외)
+-- ex) 유저 드래곤 에게 땅 +버프, 보스에게는 땅 -버프, 유저 중심으로 버프를 계산해야하기 떄문에 반대 속성으로 버프 리스트 생성
+-------------------------------------
+function StructClanRaid:getReverseAttr(attr)
+    if (not attr) then
+        return
+    end
+    
+    local rev_attr = attr
+    if (attr ~= 'dark' and attr ~= 'light') then
+        rev_attr = getAttrAdvantage(attr)
+    end
+    return rev_attr
 end
 
 -------------------------------------
@@ -338,7 +358,7 @@ function StructClanRaid:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr
     
     -- 1. 수치가 양수이면 보너스, 음수이면 패널티 버프로 분류
     -- 2. 속성이 여러개일 경우, 해당 버프를 속성마다 부여 ex)  풀 : 공격력 증가 10%, 물 : 공격력 증가 10% ...
-    -- 3. drag_cool이고 light, dark 속성이라면 수치의 반만 적용
+    -- 3. drag_cool이 아니고 보스가 light or dark 속성이라면 수치의 반만 적용
     -- 4. 아래와 같은 값을 가지는 버프 테이블 생성
     --[[
         {
@@ -350,6 +370,7 @@ function StructClanRaid:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr
     --]]
 
     local table_buff = TABLE:get('table_clan_dungeon_buff')
+    local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
     local l_buff = {}
 
     for buff_name, value in pairs(table_buff[stage_id]) do
@@ -371,10 +392,12 @@ function StructClanRaid:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr
                 _ret['buff_type'] = buff_name
                 _ret['buff_value'] = value
 
-                -- 3. drag_cool이고 light, dark 속성이라면 수치의 반만 적용
+                -- 3. drag_cool이 아니고 light, dark 속성이라면 수치의 반만 적용
                 if (not string.match(buff_name, 'drag_cool')) then
-                    if (attr == 'light' or attr == 'dark') then
-                        _ret['buff_value'] = _ret['buff_value']/2
+                    if (cur_clan_raid_attr == 'light' or cur_clan_raid_attr == 'dark') then
+                        if (tonumber(value) < 0) then
+                            _ret['buff_value'] = _ret['buff_value']/2
+                        end
                     end
                 end
                 table.insert(l_buff, _ret)
