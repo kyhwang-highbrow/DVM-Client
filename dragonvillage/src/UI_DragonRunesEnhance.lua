@@ -452,7 +452,12 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func, is_grind)
     local ani_name = (is_success) and 'success' or 'fail'
     top_visual:changeAni(ani_name..'_top', false)
     bottom_visual:changeAni(ani_name..'_bottom', false)
-
+    
+    if (is_grind) then
+        top_visual:changeAni('grind_1', false)
+        bottom_visual:setVisible(false)
+    end
+    
     top_visual:addAniHandler(function()
         top_visual:setVisible(false)
         bottom_visual:setVisible(false)

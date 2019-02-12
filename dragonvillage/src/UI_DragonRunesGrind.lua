@@ -176,8 +176,25 @@ end
 -- function showUpgradeResult
 -------------------------------------
 function UI_DragonRunesGrind:showUpgradeResult()  
+    local enhance_class = self.m_runeEnhanceClass
+    local vars = enhance_class.vars
+    
     self:refresh_grind()
     UIManager:toastNotificationGreen(Str('연마를 완료했습니다.'))
+
+    -- 라벨을 스치는 애니메이션
+    local grind_label_visual = vars['grindEffectVisual']
+    local changed_label_str = string.format('%s_btn', self.m_seletedGrindOption)
+    
+    -- 연마할 옵션 위치에 애니메이션 셋팅
+    local opt_pos_x, opt_pos_y = vars[changed_label_str]:getPosition()
+    grind_label_visual:setPosition(opt_pos_x, opt_pos_y)
+    
+    grind_label_visual:setVisible(true)
+    grind_label_visual:changeAni('grind_2')
+    grind_label_visual:addAniHandler(function()
+        grind_label_visual:setVisible(false)
+    end)
 end
 
 -------------------------------------
