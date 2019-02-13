@@ -233,7 +233,6 @@ function UI_DragonRunesEnhance:refresh_enhance()
         -- 현재 레벨보다 작은 단계 버튼은 다 뺀다
         for i = 1, 5 do
             if ((i * 3) <= curr_lv)  then
-            print(i * 3, curr_lv)
                 self.m_enhanceBtnList:subFromSortList('enhance_cnt_' .. (i * 3))
             end
         end

@@ -175,7 +175,6 @@ function UIC_SortList:subFromSortList(sort_type)
     for i, v in ipairs(sub_list) do
         table.remove(self.m_lSortData, v)
     end
-    ccdump(self.m_lSortData)
 end
 
 
