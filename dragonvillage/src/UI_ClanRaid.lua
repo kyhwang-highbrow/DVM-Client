@@ -312,8 +312,8 @@ function UI_ClanRaid:setCurStageArrowItem()
     end
     
     -- 그래프에서 stage 위치 구함
-    local start_pos_x = vars['firstStageLabel']:getPosition()
-    local end_pos_x = vars['lastStageLabel']:getPosition()
+    local start_pos_x = vars['firstNode']:getPosition()
+    local end_pos_x = vars['lastNode']:getPosition()
     local stage_pos_x = (end_pos_x - start_pos_x)/100 * tonumber(cur_stage) + start_pos_x
 
     -- stage 1 일 때 맨 앞에 가서 붙도록 예외처리, 그렇게 하지 않으면 1/100 위치에 붙음
@@ -328,8 +328,8 @@ function UI_ClanRaid:setCurStageArrowItem()
     local is_first_stage = (cur_stage == 1)
     local is_last_stage = (cur_stage == MAX_STAGE)
 
-    vars['firstStageLabel']:setVisible(not is_first_stage)
-    vars['lastStageLabel']:setVisible(not is_last_stage)
+    vars['firstNode']:setVisible(not is_first_stage)
+    vars['lastNode']:setVisible(not is_last_stage)
    
     if (is_first_stage or is_last_stage) then
         self.m_cur_stage_arrow_item.vars['currentLabel']:setString(string.format('Lv.%d', cur_stage))
