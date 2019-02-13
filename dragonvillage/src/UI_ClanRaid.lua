@@ -301,6 +301,8 @@ end
 function UI_ClanRaid:setCurStageArrowItem()
     local vars = self.vars
     local struct_raid = g_clanRaidData:getClanRaidStruct()
+    -- 현재 진행중인 stage 정보
+    local cur_stage = g_clanRaidData:getCurChallengStage()
     
     -- 현재 스테이지 표시할 아이템 생성
     if (not self.m_cur_stage_arrow_item) then
@@ -309,24 +311,31 @@ function UI_ClanRaid:setCurStageArrowItem()
         vars['itemNode']:addChild(self.m_cur_stage_arrow_item.root)
     end
     
-    -- 현재 진행중인 stage 정보
-    local cur_stage = g_clanRaidData:getCurChallengStage()
-    self.m_cur_stage_arrow_item.vars['currentLabel']:setString(tostring(cur_stage))
-
     -- 그래프에서 stage 위치 구함
     local start_pos_x = vars['firstStageLabel']:getPosition()
     local end_pos_x = vars['lastStageLabel']:getPosition()
     local stage_pos_x = (end_pos_x - start_pos_x)/100 * tonumber(cur_stage) + start_pos_x
-    
+
+    -- stage 1 일 때 맨 앞에 가서 붙도록 예외처리, 그렇게 하지 않으면 1/100 위치에 붙음
+    if (cur_stage == 1) then 
+        stage_pos_x = start_pos_x 
+    end
+
     local _, item_node_pos_y = vars['itemNode']:getPosition()
     vars['itemNode']:setPosition(stage_pos_x, item_node_pos_y)
 
     -- 처음이랑 마지막일 때에는 ui가 겹치지 않도록 예외처리
     local is_first_stage = (cur_stage == 1)
     local is_last_stage = (cur_stage == MAX_STAGE)
+
     vars['firstStageLabel']:setVisible(not is_first_stage)
     vars['lastStageLabel']:setVisible(not is_last_stage)
    
+    if (is_first_stage or is_last_stage) then
+        self.m_cur_stage_arrow_item.vars['currentLabel']:setString(string.format('Lv.%d', cur_stage))
+    else
+        self.m_cur_stage_arrow_item.vars['currentLabel']:setString(tostring(cur_stage))
+    end
 end
 
 -------------------------------------
@@ -378,7 +387,7 @@ function UI_ClanRaid:showDungeonStateUI()
     -- 클리어한 상태
     elseif (state == CLAN_RAID_STATE.CLEAR) then
 
-        -- 끝까지 클리어한 경우, 마지막 스테이지에서 다음 시즌 정보 출력
+        -- 끝까지 클리어한 경우
         if (struct_raid:isClearAllClanRaidStage() and stage_id == MAX_STAGE_ID) then
             local status_text = g_clanRaidData:getClanRaidStatusText()
             vars['atkLabel']:setString(Str('마지막 스테이지를 클리어 했습니다.\n다음 시즌까지 {1}', status_text))
