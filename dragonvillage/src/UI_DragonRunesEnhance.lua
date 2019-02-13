@@ -172,7 +172,7 @@ function UI_DragonRunesEnhance:initButtonList()
 	local vars = self.vars
     
     self.m_enhanceBtnList = MakeUICSortList_RuneEnhance(vars['difficultyBtn'], vars['difficultyLabel'], UIC_SORT_LIST_BOT_TO_TOP)
-    
+
     -- 버튼을 통해 필터 타입이 변경되었을 경우
     local function sort_change_cb(filter_type)
         local seq_enhance_cnt = string.match(filter_type, '%d+') -- ex) enhance_cnt_9
@@ -180,7 +180,7 @@ function UI_DragonRunesEnhance:initButtonList()
     end
 
     self.m_enhanceBtnList:setSortChangeCB(sort_change_cb)
-    self.m_enhanceBtnList:setSelectSortType('enhance_cnt_9')
+    self.m_enhanceBtnList:setSelectSortType('enhance_cnt_0')
 end
 
 
@@ -230,7 +230,13 @@ function UI_DragonRunesEnhance:refresh_enhance()
     g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.RUNE_ENHANCE, vars, 'enhanceEventSprite', only_value)
 
     if (self.m_enhanceBtnList) then
-        self.m_enhanceBtnList:setSelectSortType('enhance_cnt_0')
+        -- 현재 레벨보다 작은 단계 버튼은 다 뺀다
+        for i = 1, 5 do
+            if ((i * 3) <= curr_lv)  then
+            print(i * 3, curr_lv)
+                self.m_enhanceBtnList:subFromSortList('enhance_cnt_' .. (i * 3))
+            end
+        end
     end
 
     --[[
@@ -344,6 +350,11 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 			vars['stopBtn']:setVisible(false)
 			-- 터치 블럭 해제
             UIManager:blockBackKey(false)
+
+            -- 연속 강화 끝나면 반복 없음 으로 초기화
+            if (self.m_enhanceBtnList) then
+                self.m_enhanceBtnList:setSelectSortType('enhance_cnt_0')
+            end
 		end
 		co:setCloseCB(close_cb)
 
@@ -369,12 +380,12 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 			-- 강화 횟수 증가
 			enhance_cnt = enhance_cnt + 1
 			vars['countLabel']:setString(Str('{1}회 강화 중', enhance_cnt))
-
             if co:waitWork() then return end
         end
 
 		-- 코루틴 종료
         co:close()
+        
 	end
 
 	Coroutine(coroutine_function, 'Rune Enhancing Continuously')

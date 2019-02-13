@@ -37,6 +37,7 @@ UIC_SortList = class(UIC_Node, {
         m_buttonHeight = 'number',
         m_buttonMargin = 'number',
 		m_fontSize = 'number', -- 필요한 경우에만 지정하고 이외에는 m_buttonHeight를 기준으로 계산한다
+
     })
 
 -------------------------------------
@@ -144,6 +145,37 @@ end
 -------------------------------------
 function UIC_SortList:setSortChangeCB(func)
     self.m_sortChangeCB = func
+end
+
+-------------------------------------
+-- function setSortChangeCB
+-------------------------------------
+function UIC_SortList:setSortChangeCB(func)
+    self.m_sortChangeCB = func
+end
+
+-------------------------------------
+-- function subFromSortList
+-- @brief 버튼 리스트에서 해당 타입의 버튼을 삭제
+-------------------------------------
+function UIC_SortList:subFromSortList(sort_type)
+    local sub_list = {}
+
+    for i, sort_data in ipairs(self.m_lSortData) do
+       if (sort_data['sort_type'] == sort_type) then
+           table.insert(sub_list, i)
+       end
+    end
+
+    if (self.m_mSortData[sort_type]) then
+        self.m_mSortData[sort_type]['button']:setVisible(false)
+        self.m_mSortData[sort_type] = nil
+    end
+
+    for i, v in ipairs(sub_list) do
+        table.remove(self.m_lSortData, v)
+    end
+    ccdump(self.m_lSortData)
 end
 
 
