@@ -23,31 +23,26 @@ function UI_HelpClanDungeonReward:initUI()
     local node = vars['cldg_rewardScrollNode']
     -- 테이블 뷰 인스턴스 생성
     local tableView = UIC_TableView(node)
-    --self.m_tableView:setUseVariableSize(true)
     tableView.m_defaultCellSize = cc.size(1000, 40)
 
-    local l_reward = TABLE:get('table_clan_reward')
-    ccdump(l_reward)
-    tableView:setCellUIClass(UI_HelpClanRewardListItem)
-    tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    tableView:setItemList(l_reward, false)
-
-    --self.m_tableView.m_scrollView:setLimitedOffset(true)
-
-    -- 개인 보상 최대 퍼센트
-    local personal_max_percent = 0.08
-    --[[
-    for i, cnt in ipairs(t_clan_coin_max) do
-        if (vars['clancoinLabel'..i]) then
-            vars['clancoinLabel'..i]:setString(Str('{1}개', comma_value(cnt)))
-        end
-        
-        local personal_cnt = math_floor(cnt * personal_max_percent)
-        if (vars['personalLabel'..i]) then
-            vars['personalLabel'..i]:setString(Str('{1}개', comma_value(personal_cnt)))
+    local l_item_list = {}
+    -- 클랜 던전 보상 정보만 리스트에 담는다
+    for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do    
+        -- week가 지정되어 있고, 그 week가 현재 주차와 일치한다면 그 테이블을 사용하는 예외처리 필요
+        if (t_data['category'] == 'dungeon') then
+            table.insert(l_item_list, t_data)
         end
     end
-    --]]
+
+    -- 테이블 정렬
+    table.sort(l_item_list, function(a, b) 
+        return tonumber(a['rank_id']) < tonumber(b['rank_id'])
+    end)
+
+    tableView:setCellUIClass(UI_HelpClanRewardListItem)
+    tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    tableView:setItemList(l_item_list, false)
+
     PARENT.initUI(self)
 end
 
@@ -106,7 +101,7 @@ function UI_HelpClanRewardListItem:initUI()
     local personal_cnt = math_floor(reward_cnt * personal_max_percent)
     vars['personalLabel']:setString(personal_cnt)
     vars['clancoinLabel']:setString(reward_cnt)
-    vars['rankLabel']:setString(data['t_name'])
-    vars['secondSprite']:setVisible(false)
+    vars['rankLabel']:setString(Str(data['t_name']))
+    vars['secondSprite']:setVisible(data['rank_id']%2 == 0)
 
 end

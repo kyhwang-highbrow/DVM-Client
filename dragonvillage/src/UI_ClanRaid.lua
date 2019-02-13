@@ -344,11 +344,13 @@ function UI_ClanRaid:showDungeonStateUI()
             local status_text = g_clanRaidData:getClanRaidStatusText()
             vars['atkLabel']:setString(Str('마지막 스테이지를 클리어 했습니다.\n다음 시즌까지 {1}', status_text))
             vars['atkLabel']:setVisible(true)
-            --vars['lastClearSprite']:setVisible(true)
+            vars['lastClearSprite']:setVisible(true)
+            vars['notiVisual']:setVisible(false)
         else
             vars['atkLabel']:setVisible(false)
-            --vars['lastClearSprite']:setVisible(false)
-            
+            vars['lastClearSprite']:setVisible(false)
+            vars['notiVisual']:setVisible(true)
+
             noti_visual:changeAni('clear', true)
             noti_visual.m_node:setScale(1.3)
         end
