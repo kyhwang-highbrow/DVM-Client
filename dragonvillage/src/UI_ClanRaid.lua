@@ -8,6 +8,7 @@ UI_ClanRaid = class(PARENT, {
         m_preRefreshTime = 'time',
 
         m_contributionTab = '',
+        m_cur_stage_arrow_item = 'ui',
      })
 
 local TAB_CLAN_CONTRIBUTION = 'clan_contribution' -- 클랜 기여도 
@@ -39,6 +40,7 @@ function UI_ClanRaid:init()
     UIManager:open(self, UIManager.SCENE)
 
     self.m_preRefreshTime = 0
+    self.m_cur_stage_arrow_item = nil
 
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     self.m_stageID = struct_raid:getStageID()
@@ -174,7 +176,7 @@ function UI_ClanRaid:initRaidInfo()
 
     -- 종료 시간
     local status_text = g_clanRaidData:getClanRaidStatusText()
-    vars['timeLabel']:setString(status_text)
+    vars['timeLabel']:setString(Str('시즌 종료까지') .. ' ' .. status_text)
 
     -- 골드 누적 보상 표시
     local boss_lv = g_clanRaidData.m_challenge_stageID % 1000 -- 현재 진행중인 레벨
@@ -218,8 +220,10 @@ function UI_ClanRaid:initRaidInfo()
 
     -- 레벨, 이름
     local is_rich_label = true
-    local name = struct_raid:getBossNameWithLv(is_rich_label)
-    vars['levelLabel']:setString(name)
+    local boss_lv = struct_raid:getLv()
+    local boss_name = struct_raid:getBossName()
+    vars['levelLabel']:setString(string.format('Lv.%d', boss_lv))
+    vars['bossNameLabel']:setString(boss_name)
 
     -- 속성 아이콘
     local attr = struct_raid:getAttr()
@@ -287,7 +291,42 @@ function UI_ClanRaid:initRaidInfo()
         end
     end
 
+    self:setCurStageArrowItem()
     self:showDungeonStateUI()
+end
+
+-------------------------------------
+-- function setCurStageArrowItem
+-------------------------------------
+function UI_ClanRaid:setCurStageArrowItem()
+    local vars = self.vars
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    
+    -- 현재 스테이지 표시할 아이템 생성
+    if (not self.m_cur_stage_arrow_item) then
+        self.m_cur_stage_arrow_item = UI()
+        self.m_cur_stage_arrow_item:load('clan_raid_scene_record_item.ui')
+        vars['itemNode']:addChild(self.m_cur_stage_arrow_item.root)
+    end
+    
+    -- 현재 진행중인 stage 정보
+    local cur_stage = g_clanRaidData:getCurChallengStage()
+    self.m_cur_stage_arrow_item.vars['currentLabel']:setString(tostring(cur_stage))
+
+    -- 그래프에서 stage 위치 구함
+    local start_pos_x = vars['firstStageLabel']:getPosition()
+    local end_pos_x = vars['lastStageLabel']:getPosition()
+    local stage_pos_x = (end_pos_x - start_pos_x)/100 * tonumber(cur_stage) + start_pos_x
+    
+    local _, item_node_pos_y = vars['itemNode']:getPosition()
+    vars['itemNode']:setPosition(stage_pos_x, item_node_pos_y)
+
+    -- 처음이랑 마지막일 때에는 ui가 겹치지 않도록 예외처리
+    local is_first_stage = (cur_stage == 1)
+    local is_last_stage = (cur_stage == MAX_STAGE)
+    vars['firstStageLabel']:setVisible(not is_first_stage)
+    vars['lastStageLabel']:setVisible(not is_last_stage)
+   
 end
 
 -------------------------------------

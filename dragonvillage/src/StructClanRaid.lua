@@ -1,6 +1,7 @@
 local PARENT = Structure
 
 MAX_STAGE_ID = 1500100
+MAX_STAGE = 100
 
 CLAN_RAID_STATE = {
     NORMAL = 1, -- 입장 가능

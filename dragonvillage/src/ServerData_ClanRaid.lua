@@ -60,6 +60,13 @@ function ServerData_ClanRaid:getChallengStageID()
 end
 
 -------------------------------------
+-- function getCurChallengStage
+-------------------------------------
+function ServerData_ClanRaid:getCurChallengStage()
+    return tonumber(self.m_challenge_stageID)%1000 -- ex) 1500100 -> 100층 
+end
+
+-------------------------------------
 -- function getRankList
 -------------------------------------
 function ServerData_ClanRaid:getRankList()
