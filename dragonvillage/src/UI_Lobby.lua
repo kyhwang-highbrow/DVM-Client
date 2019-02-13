@@ -162,13 +162,6 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        -- 그림자의 신전 정보
-        if (g_hotTimeData:isActiveEvent('event_challenge') or g_hotTimeData:isActiveEvent('event_challenge_reward')) then
-        	co:work('# 그림자의 신전 정보 받는 중')
-            g_challengeMode:request_challengeModeInfo(nil, co.NEXT, required_fail_cb, false) -- param : stage, finish_cb, fail_cb, include_reward
-            if co:waitWork() then return end
-        end
-
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
         if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
         	co:work('# 그랜드 콜로세움 정보 받는 중')
