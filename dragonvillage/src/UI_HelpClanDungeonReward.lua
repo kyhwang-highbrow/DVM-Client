@@ -97,7 +97,7 @@ function UI_HelpClanRewardListItem:initUI()
     vars['clanExpLabel']:setString(data['clan_exp'])
     local reward_cnt = string.match(data['reward'], '%d+')
     -- 개인 보상 최대 퍼센트
-    local personal_max_percent = 0.08
+    local personal_max_percent = 0.06
     local personal_cnt = math_floor(reward_cnt * personal_max_percent)
     vars['personalLabel']:setString(personal_cnt)
     vars['clancoinLabel']:setString(reward_cnt)

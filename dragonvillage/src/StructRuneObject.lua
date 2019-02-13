@@ -294,6 +294,20 @@ function StructRuneObject:getRuneEnhanceReqGold()
 end
 
 -------------------------------------
+-- function getRuneBlessReqGold
+-------------------------------------
+function StructRuneObject:getRuneBlessReqGold()
+    return 200000
+end
+
+-------------------------------------
+-- function getRuneBlessReqItem
+-------------------------------------
+function StructRuneObject:getRuneBlessReqItem()
+    return 1
+end
+
+-------------------------------------
 -- function getRuneEnhanceReqGold
 -------------------------------------
 function StructRuneObject:getRuneGrindReqGold()

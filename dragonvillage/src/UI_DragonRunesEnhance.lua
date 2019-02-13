@@ -11,7 +11,14 @@ UI_DragonRunesEnhance = class(PARENT,{
 		m_optionRadioBtn = 'UIC_RadioButton',
 		m_enhanceOptionLv = 'num',
 		m_coroutineHelper = 'CoroutinHelepr',
+
+        -- 연속 강화 버튼 리스트
+        m_enhanceBtnList = 'UICSortList',
+
         m_runeGrindClass = 'UI_DragonRuneGrind',
+
+        -- 축복 강화 여부
+        m_isBlessEnhance = 'boolean',
     })
 
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
@@ -37,7 +44,8 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self.m_runeObject = rune_obj
     self.m_changeOptionList = {}
     self.m_optionLabel = nil
-
+    self.m_enhanceBtnList = nil
+    
     local vars = self:load('rune_upgrade_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -55,6 +63,7 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self:initUI(attr)
     self:initButton()
     self:initTab()
+    self:initButtonList()
     self:refresh_enhance()
 end
 
@@ -93,24 +102,45 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonRunesEnhance:onChangeTab(tab, first)
+    local vars = self.vars
+
     if (tab == 'enhance') then
         self:refresh_enhance()
+        vars['difficultyBtn']:setVisible(true)
     else
         if (first) then
             self.m_runeGrindClass = UI_DragonRunesGrind(self)
         else
             self.m_runeGrindClass:refresh_grind()
         end
+        vars['difficultyBtn']:setVisible(false)
     end
 end
 
 -------------------------------------
 -- function initOptionRadioBtn
--- @brief 연마/강화의 라디오 버튼 초기화
+-- @brief 일반 강화/ 축복 강화 라디오 버튼 초기화
 -------------------------------------
 function UI_DragonRunesEnhance:initOptionRadioBtn()
 	local vars = self.vars
 
+    -- 일반 강화/ 축복 강화 라디오 버튼
+    local radio_button = UIC_RadioButton()
+    radio_button:setChangeCB(function(option_type)   
+        self.m_isBlessEnhance = (option_type ~= 'normalOpt')
+    end)
+
+	local btn = vars['normalOptBtn']
+    local sprite = vars['normalOptSprite']
+	radio_button:addButton('normalOpt', btn, sprite)
+
+    local btn = vars['runeBlessOptBtn']
+    local sprite = vars['runeBlessOptSprite']
+	radio_button:addButton('runeBlessOpt', btn, sprite)
+    
+    radio_button:setSelectedButton('normalOpt')
+
+    --[[
     -- 강화 radio button 선언
     local radio_button = UIC_RadioButton()
 	radio_button:setChangeCB(function(option_type)
@@ -131,7 +161,26 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
 	end
     -- default : 첫 번째 버튼 선택
 	radio_button:setSelectedButton(0)
+    --]]
+end
 
+-------------------------------------
+-- function initButtonList
+-- @brief 연속 강화 버튼 리스트
+-------------------------------------
+function UI_DragonRunesEnhance:initButtonList()
+	local vars = self.vars
+    
+    self.m_enhanceBtnList = MakeUICSortList_RuneEnhance(vars['difficultyBtn'], vars['difficultyLabel'], UIC_SORT_LIST_BOT_TO_TOP)
+    
+    -- 버튼을 통해 필터 타입이 변경되었을 경우
+    local function sort_change_cb(filter_type)
+        local seq_enhance_cnt = string.match(filter_type, '%d+') -- ex) enhance_cnt_9
+        self.m_enhanceOptionLv = tonumber(seq_enhance_cnt)
+    end
+
+    self.m_enhanceBtnList:setSortChangeCB(sort_change_cb)
+    self.m_enhanceBtnList:setSelectSortType('enhance_cnt_9')
 end
 
 
@@ -180,12 +229,18 @@ function UI_DragonRunesEnhance:refresh_enhance()
     local only_value = true
     g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.RUNE_ENHANCE, vars, 'enhanceEventSprite', only_value)
 
+    if (self.m_enhanceBtnList) then
+        self.m_enhanceBtnList:setSelectSortType('enhance_cnt_0')
+    end
+
+    --[[
 	-- 연속 강화 옵션 처리
 	for idx = 1, 5 do
 		if (curr_lv >= idx * 3) then
 			self.m_optionRadioBtn:disable(idx)
 		end
 	end
+    --]]
 
 	-- 강화 만렙 처리
     local is_max_lv = rune_obj:isMaxRuneLv()
@@ -250,8 +305,19 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_DragonRunesEnhance:click_enhanceBtn()
-	-- 일회 강화
-	if (self.m_enhanceOptionLv == 0) then
+
+    if (self.m_isBlessEnhance) then
+        local block_ui = UI_BlockPopup()
+
+		local function cb_func(is_success)
+            self:showUpgradeResult(is_success)
+			block_ui:close()
+		end
+		
+        self:request_bless(cb_func)
+	
+    -- 일회 강화
+	elseif (self.m_enhanceOptionLv == 0) then
 		local block_ui = UI_BlockPopup()
 
 		local function cb_func(is_success)
@@ -272,7 +338,7 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 
 		-- 코루틴 종료 콜백
 		local function close_cb()
-			self.m_optionRadioBtn:setSelectedButton(0)
+			--self.m_optionRadioBtn:setSelectedButton(0)
 			self.m_coroutineHelper = nil
 			vars['countNode']:setVisible(false)
 			vars['stopBtn']:setVisible(false)
@@ -359,7 +425,10 @@ end
 function UI_DragonRunesEnhance:request_bless(cb_func)
     -- 골드가 충분히 있는지 확인
     local req_gold = self.m_runeObject:getRuneBlessReqGold()
-    if (not ConfirmPrice('gold', req_gold)) then		
+    local req_rune_bless = self.m_runeObject:getRuneBlessReqItem()
+    local cur_rune_bless_cnt = g_userData:get('rune_bless')
+    
+    if (not ConfirmPrice('gold', req_gold) or (cur_rune_bless_cnt < req_rune_bless)) then		
 	    cb_func()
         return false
     end

@@ -737,3 +737,38 @@ function MakeUICSortList_challengModeStage(button, label, direction)
 
     return uic
 end
+
+
+-------------------------------------
+-- function MakeUICSortList_RuneEnhance
+-- @brief 정렬 버튼
+-------------------------------------
+function MakeUICSortList_RuneEnhance(button, label, direction)
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+    local direction = direction or UIC_SORT_LIST_TOP_TO_BOT
+
+    local uic = UIC_SortList()
+	uic.m_buttonHeight = 40
+	uic.m_fontSize = 18
+    uic.m_direction = direction
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node, 1)
+
+    -- 버튼 리스트 세팅
+	uic:addSortType('enhance_cnt_0', Str('반복 없음'))
+    for i = 1, 5 do 
+        uic:addSortType('enhance_cnt_' .. i * 3, Str('+{1} 까지 강화', i*3))
+    end
+
+    return uic
+end
