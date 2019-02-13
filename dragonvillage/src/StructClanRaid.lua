@@ -306,30 +306,18 @@ end
 function StructClanRaid:getClanAttrBuffList()
     local stage_id = self:getStageID()
     local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
+    local bonus_attr_list, penalty_attr_list
 
-    local reverse_cur_raid_attr = self:getReverseAttr(cur_clan_raid_attr)
-
-    local bonus_attr_list, penalty_attr_list = self:getSynastryAttrList(reverse_cur_raid_attr)
+    -- ex) 보스가 물 속성인 경우 (어둠/빛 제외)
+    -- ex) 유저 드래곤 에게 땅 +버프, 보스에게는 땅 -버프, 유저 중심으로 버프를 계산해야하기 떄문에 패널티, 보너스 속성을 반대로 적용
+    if (cur_clan_raid_attr ~= 'dark' and cur_clan_raid_attr ~= 'light') then
+        penalty_attr_list, bonus_attr_list = self:getSynastryAttrList(cur_clan_raid_attr)
+    else
+        bonus_attr_list, penalty_attr_list = self:getSynastryAttrList(cur_clan_raid_attr)
+    end
 
     local synastry_info_list = self:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr_list)
     return synastry_info_list
-end
-
--------------------------------------
--- function getReverseAttr
--- ex) 보스가 물 속성인 경우 (어둠/빛 제외)
--- ex) 유저 드래곤 에게 땅 +버프, 보스에게는 땅 -버프, 유저 중심으로 버프를 계산해야하기 떄문에 반대 속성으로 버프 리스트 생성
--------------------------------------
-function StructClanRaid:getReverseAttr(attr)
-    if (not attr) then
-        return
-    end
-    
-    local rev_attr = attr
-    if (attr ~= 'dark' and attr ~= 'light') then
-        rev_attr = getAttrAdvantage(attr)
-    end
-    return rev_attr
 end
 
 -------------------------------------
@@ -397,10 +385,12 @@ function StructClanRaid:makeClanBuffList(stage_id, bonus_attr_list, penalty_attr
                 _ret['buff_type'] = buff_name
                 _ret['buff_value'] = value
 
-                -- 3. drag_cool이 아니고 light, dark 속성이라면 수치의 반만 적용
+                -- 3. drag_cool이 아니고 light, dark 속성이라면 수치의 반만 적용, (light 와 dark의 보너스 속성은 그대로)
                 if (not string.match(buff_name, 'drag_cool')) then
                     if (cur_clan_raid_attr == 'light' or cur_clan_raid_attr == 'dark') then
-                        if (tonumber(value) < 0) then
+                        if (getAttrAdvantage(cur_clan_raid_attr) == attr and tonumber(value) > 0) then
+                            _ret['buff_value'] = _ret['buff_value']
+                        else
                             _ret['buff_value'] = _ret['buff_value']/2
                         end
                     end
