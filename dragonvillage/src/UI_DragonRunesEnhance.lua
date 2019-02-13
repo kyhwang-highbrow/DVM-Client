@@ -353,6 +353,32 @@ function UI_DragonRunesEnhance:request_enhance(cb_func)
 end
 
 -------------------------------------
+-- function request_bless
+-- @param cb_func : block ui 또는 CoroutinHelper 제어용
+-------------------------------------
+function UI_DragonRunesEnhance:request_bless(cb_func)
+    -- 골드가 충분히 있는지 확인
+    local req_gold = self.m_runeObject:getRuneBlessReqGold()
+    if (not ConfirmPrice('gold', req_gold)) then		
+	    cb_func()
+        return false
+    end
+	
+	-- 통신 시작
+    local rune_obj = self.m_runeObject
+    local owner_doid = rune_obj['owner_doid']
+    local roid = rune_obj['roid']
+
+    local function finish_cb(ret)
+        self.m_runeObject = g_runesData:getRuneObject(roid)
+        self:setChangeOptionList(rune_obj, self.m_runeObject)
+        self:show_upgradeEffect(true, cb_func)
+    end
+
+    g_runesData:request_runeBless(owner_doid, roid, finish_cb)
+end
+
+-------------------------------------
 -- function getRuneObject
 -------------------------------------
 function UI_DragonRunesEnhance:getRuneObject()
