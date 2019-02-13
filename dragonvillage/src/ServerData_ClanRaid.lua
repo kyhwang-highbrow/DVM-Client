@@ -175,24 +175,22 @@ function ServerData_ClanRaid:getClanRaidStatusText()
 
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
-
+    
     local str = ''
     if (not self:isOpenClanRaid()) then
         local time = (start_time - curr_time)
         if (time < 0) then
             str = Str('오픈시간이 아닙니다.')
         else
-            str = Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
+            str = Str('오픈까지') .. Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
         end
 
     elseif (curr_time < start_time) then
         local time = (start_time - curr_time)
         str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
-
     elseif (start_time <= curr_time) and (curr_time <= end_time) then
         local time = (end_time - curr_time)
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, true))
-
+        str = Str('시즌 종료까지') .. ' ' .. Str('{1} 남음', datetime.makeTimeDesc(time, true))
     else
         str = Str('시즌이 종료되었습니다.')
     end

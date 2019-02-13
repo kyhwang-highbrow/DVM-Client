@@ -1285,7 +1285,7 @@ function UINavigatorDefinition:goTo_clan_raid(...)
     local function finish_cb()
         -- 오픈 상태 여부 체크
         if (not g_clanRaidData:isOpenClanRaid()) then
-            local msg = Str('클랜던전 오픈 전입니다.\n오픈까지 {1}', g_clanRaidData:getClanRaidStatusText())
+            local msg = Str(g_clanRaidData:getClanRaidStatusText())
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
 		end

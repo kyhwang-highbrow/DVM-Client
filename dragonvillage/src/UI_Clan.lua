@@ -257,7 +257,7 @@ function UI_Clan:initRaidInfo()
             end
 
             if (not g_clanRaidData:isOpenClanRaid()) then
-                local msg = Str('클랜던전 오픈 전입니다.\n오픈까지 {1}', g_clanRaidData:getClanRaidStatusText())
+                local msg = Str(g_clanRaidData:getClanRaidStatusText())
                 vars['raidTimelabel']:setString(msg)
                 vars['bossLevelLabel']:setVisible(false)
                 vars['bossHpLabel']:setVisible(false)

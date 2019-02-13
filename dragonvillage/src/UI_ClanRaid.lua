@@ -176,7 +176,7 @@ function UI_ClanRaid:initRaidInfo()
 
     -- 종료 시간
     local status_text = g_clanRaidData:getClanRaidStatusText()
-    vars['timeLabel']:setString(Str('시즌 종료까지') .. ' ' .. status_text)
+    vars['timeLabel']:setString(Str(status_text))
 
     -- 골드 누적 보상 표시
     local boss_lv = g_clanRaidData.m_challenge_stageID % 1000 -- 현재 진행중인 레벨
@@ -328,8 +328,8 @@ function UI_ClanRaid:setCurStageArrowItem()
     local is_first_stage = (cur_stage == 1)
     local is_last_stage = (cur_stage == MAX_STAGE)
 
-    vars['firstNode']:setVisible(not is_first_stage)
-    vars['lastNode']:setVisible(not is_last_stage)
+    vars['firstStageLabel']:setVisible(not is_first_stage)
+    vars['lastStageLabel']:setVisible(not is_last_stage)
    
     if (is_first_stage or is_last_stage) then
         self.m_cur_stage_arrow_item.vars['currentLabel']:setString(string.format('Lv.%d', cur_stage))
@@ -390,7 +390,7 @@ function UI_ClanRaid:showDungeonStateUI()
         -- 끝까지 클리어한 경우
         if (struct_raid:isClearAllClanRaidStage() and stage_id == MAX_STAGE_ID) then
             local status_text = g_clanRaidData:getClanRaidStatusText()
-            vars['atkLabel']:setString(Str('마지막 스테이지를 클리어 했습니다.\n다음 시즌까지 {1}', status_text))
+            vars['atkLabel']:setString(status_text)
             vars['atkLabel']:setVisible(true)
             vars['lastClearSprite']:setVisible(true)
             vars['notiVisual']:setVisible(false)
