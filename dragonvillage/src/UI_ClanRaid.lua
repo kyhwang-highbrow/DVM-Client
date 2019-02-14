@@ -123,6 +123,8 @@ function UI_ClanRaid:initUI()
     -- 클랜 이름
     local clan_name = struct_clan:getClanName()
     vars['clanLabel']:setString(clan_name)
+
+    vars['lastStageLabel']:setString(string.format('Lv.%d', MAX_STAGE))
 end
 
 -------------------------------------
@@ -332,28 +334,19 @@ function UI_ClanRaid:setCurStageArrowItem()
     -- 그래프에서 stage 위치 구함
     local start_pos_x = vars['firstNode']:getPosition()
     local end_pos_x = vars['lastNode']:getPosition()
-    local stage_pos_x = (end_pos_x - start_pos_x)/100 * tonumber(cur_stage) + start_pos_x
+    local stage_pos_x = (end_pos_x - start_pos_x)/MAX_STAGE * tonumber(cur_stage) + start_pos_x
 
     -- stage 1 일 때 맨 앞에 가서 붙도록 예외처리, 그렇게 하지 않으면 1/100 위치에 붙음
     if (cur_stage == 1) then 
         stage_pos_x = start_pos_x 
     end
 
+    -- stage 위치에 세팅
     local _, item_node_pos_y = vars['itemNode']:getPosition()
     vars['itemNode']:setPosition(stage_pos_x, item_node_pos_y)
 
-    -- 처음이랑 마지막일 때에는 ui가 겹치지 않도록 예외처리
-    local is_first_stage = (cur_stage == 1)
-    local is_last_stage = (cur_stage == MAX_STAGE)
+    self.m_cur_stage_arrow_item.vars['currentLabel']:setString(tostring(cur_stage))
 
-    vars['firstStageLabel']:setVisible(not is_first_stage)
-    vars['lastStageLabel']:setVisible(not is_last_stage)
-   
-    if (is_first_stage or is_last_stage) then
-        self.m_cur_stage_arrow_item.vars['currentLabel']:setString(string.format('Lv.%d', cur_stage))
-    else
-        self.m_cur_stage_arrow_item.vars['currentLabel']:setString(tostring(cur_stage))
-    end
 end
 
 -------------------------------------
