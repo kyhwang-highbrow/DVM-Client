@@ -80,6 +80,24 @@ function UI_ClanRaid:checkEnterEvent()
         UI_ClanRaidRankingRewardPopup(t_info, is_clan)
 
         g_clanRaidData.m_tClanRewardInfo = nil
+    else
+        -- 공지사항 팝업
+        self:openNotiPopup()
+    end
+end
+
+-------------------------------------
+-- function openNotiPopup
+-------------------------------------
+function UI_ClanRaid:openNotiPopup()
+    local check_never_show = g_settingData:get('clan_raid_noti')
+
+    local ok_btn_cb = function()
+        g_settingData:applySettingData(true,'clan_raid_noti')
+    end
+
+    if (not check_never_show) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, '클랜 공지사항 ~~~', ok_btn_cb)
     end
 end
 
