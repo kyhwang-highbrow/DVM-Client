@@ -106,16 +106,29 @@ function UI_DragonRunesEnhance:onChangeTab(tab, first)
 
     if (tab == 'enhance') then
         self:refresh_enhance()
-        vars['difficultyBtn']:setVisible(true)
+        self:setSeqEnhanceVisible(true)
     else
         if (first) then
             self.m_runeGrindClass = UI_DragonRunesGrind(self)
         else
             self.m_runeGrindClass:refresh_grind()
         end
-        vars['difficultyBtn']:setVisible(false)
+        self:setSeqEnhanceVisible(false)
     end
 end
+
+-------------------------------------
+-- function setSeqEnhanceVisible
+-- @brief 연속 강화는 룬 강화 영역이지만 tab할 때 안바뀜, 탭할 때마다 바뀌는 부분 설정
+-------------------------------------
+function UI_DragonRunesEnhance:setSeqEnhanceVisible(is_visible)
+    local vars = self.vars
+
+    vars['difficultyBtn']:setVisible(is_visible)
+    if (self.m_enhanceBtnList) then
+        self.m_enhanceBtnList.m_node:setVisible(is_visible)
+    end
+ end
 
 -------------------------------------
 -- function initOptionRadioBtn
@@ -251,6 +264,10 @@ function UI_DragonRunesEnhance:refresh_enhance()
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)
 	vars['enhanceOptionNode']:setVisible(false)
+    vars['difficultyBtn']:setVisible(not is_max_lv)
+    vars['enhanceOptionMenu']:setVisible(not is_max_lv)
+    vars['enhanceBtnMenu']:setVisible(not is_max_lv)
+
 end
 
 
