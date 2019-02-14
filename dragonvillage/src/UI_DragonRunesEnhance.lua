@@ -104,9 +104,9 @@ end
 function UI_DragonRunesEnhance:onChangeTab(tab, first)
     local vars = self.vars
 
-    if (tab == 'enhance') then
-        self:refresh_enhance()
+    if (tab == 'enhance') then     
         self:setSeqEnhanceVisible(true)
+        self:refresh_enhance()
     else
         if (first) then
             self.m_runeGrindClass = UI_DragonRunesGrind(self)
@@ -237,7 +237,6 @@ function UI_DragonRunesEnhance:refresh_enhance()
     -- 소모 골드
     self:setEnhancePriceLabel()
     
-
     -- 할인 이벤트
     local only_value = true
     g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.RUNE_ENHANCE, vars, 'enhanceEventSprite', only_value)
@@ -268,6 +267,12 @@ function UI_DragonRunesEnhance:refresh_enhance()
     vars['enhanceOptionMenu']:setVisible(not is_max_lv)
     vars['enhanceBtnMenu']:setVisible(not is_max_lv)
 
+
+    -- 룬 축복서 아이템 카드
+    vars['runeBlessIconNode']:removeAllChildren()
+    local cur_rune_bless_cnt = g_userData:get('rune_bless')
+    local rune_bless_card = UI_ItemCard(704903, cur_rune_bless_cnt) -- 룬 축복서
+    vars['runeBlessIconNode']:addChild(rune_bless_card.root)
 end
 
 
@@ -357,8 +362,11 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 
 		local co = CoroutineHelper()
 		self.m_coroutineHelper = co
-
-		-- 코루틴 종료 콜백
+        
+        -- 코루틴 도중에 라디오 버튼 클릭 방지
+        self:isEnhanceRadioBtnEnabled(false)
+		
+        -- 코루틴 종료 콜백
 		local function close_cb()
 			--self.m_optionRadioBtn:setSelectedButton(0)
 			self.m_coroutineHelper = nil
@@ -401,6 +409,8 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 
 		-- 코루틴 종료
         co:close()
+        -- 라디오 버튼 클릭 가능
+        self:isEnhanceRadioBtnEnabled(true)
         
 	end
 
@@ -526,6 +536,16 @@ function UI_DragonRunesEnhance:setEnhancePriceLabel()
     cca.uiReactionSlow(vars['enhancePriceLabel'])
 
     vars['enhanceTypeLabel']:setString(enhance_type)
+end
+
+-------------------------------------
+-- function setEnhancePriceLabel
+-------------------------------------
+function UI_DragonRunesEnhance:isEnhanceRadioBtnEnabled(is_enabled)
+    local vars = self.vars
+    vars['normalOptBtn']:setEnabled(is_enabled)
+    vars['runeBlessOptBtn']:setEnabled(is_enabled)
+    vars['difficultyBtn']:setEnabled(is_enabled)
 end
 
 
