@@ -293,12 +293,6 @@ function UI_DragonRunesEnhance:refresh_enhance()
     local rune_bless_card = UI_ItemCard(704903, cur_rune_bless_cnt) -- 룬 축복서
     vars['runeBlessIconNode']:addChild(rune_bless_card.root)
 
-    -- 룬 축복서 아이템이 없다면 라디오 버튼 비활성화
-    if (cur_rune_bless_cnt < 1) then
-        if (self.m_optionRadioBtn) then
-            self.m_optionRadioBtn:disable('runeBlessOpt')
-        end
-    end
 end
 
 
@@ -360,6 +354,10 @@ end
 function UI_DragonRunesEnhance:click_enhanceBtn()
 
     if (self.m_isBlessEnhance) then
+        if (not self:checkBlessCondition()) then
+            return
+        end
+
         local block_ui = UI_BlockPopup()
 
 		local function cb_func(is_success)
@@ -486,16 +484,6 @@ end
 -- @param cb_func : block ui 또는 CoroutinHelper 제어용
 -------------------------------------
 function UI_DragonRunesEnhance:request_bless(cb_func)
-    -- 골드가 충분히 있는지 확인
-    local req_gold = self:calcReqGoldForBless()
-
-    local req_rune_bless = self.m_runeObject:getRuneBlessReqItem()
-    local cur_rune_bless_cnt = g_userData:get('rune_bless')
-    
-    if (not ConfirmPrice('gold', req_gold) or (cur_rune_bless_cnt < req_rune_bless)) then		
-	    cb_func()
-        return false
-    end
 	
 	-- 통신 시작
     local rune_obj = self.m_runeObject
@@ -572,6 +560,23 @@ function UI_DragonRunesEnhance:isEnhanceRadioBtnEnabled(is_enabled)
     vars['normalOptBtn']:setEnabled(is_enabled)
     vars['runeBlessOptBtn']:setEnabled(is_enabled)
     vars['difficultyBtn']:setEnabled(is_enabled)
+end
+
+-------------------------------------
+-- function checkBlessCondition
+-------------------------------------
+function UI_DragonRunesEnhance:checkBlessCondition()
+    -- 골드와 축복서 충분히 있는지 확인
+    local req_gold = self:calcReqGoldForBless()
+
+    local req_rune_bless = self.m_runeObject:getRuneBlessReqItem()
+    local cur_rune_bless_cnt = g_userData:get('rune_bless')
+    
+    if (not ConfirmPrice('gold', req_gold) or (cur_rune_bless_cnt < req_rune_bless)) then
+        UIManager:toastNotificationRed(Str('재료가 부족합니다.'))
+        return false
+    end
+    return true
 end
 
 
