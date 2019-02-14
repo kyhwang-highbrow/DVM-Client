@@ -38,6 +38,10 @@ UIC_SortList = class(UIC_Node, {
         m_buttonMargin = 'number',
 		m_fontSize = 'number', -- 필요한 경우에만 지정하고 이외에는 m_buttonHeight를 기준으로 계산한다
 
+        ------------------------------------
+        -- extend 버튼 클릭 콜백
+        m_extend_btn_cb = 'function',
+
     })
 
 -------------------------------------
@@ -57,6 +61,8 @@ function UIC_SortList:init()
 
     self.m_bDirectHide = true
     self.m_bShow = false
+
+    self.m_extend_btn_cb = nil
 end
 
 -------------------------------------
@@ -410,11 +416,22 @@ end
 -- function toggleVisibility
 -------------------------------------
 function UIC_SortList:toggleVisibility()
+    if (self.m_extend_btn_cb) then
+        self.m_extend_btn_cb()
+    end
+
     if self.m_bShow then
         self:hide()
     else
         self:show()
     end
+end
+
+-------------------------------------
+-- function setExtendBtnCb
+-------------------------------------
+function UIC_SortList:setExtendBtnCb(click_cb)
+    self.m_extend_btn_cb = click_cb
 end
 
 -------------------------------------

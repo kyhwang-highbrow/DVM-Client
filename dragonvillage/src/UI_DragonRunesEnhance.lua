@@ -17,6 +17,9 @@ UI_DragonRunesEnhance = class(PARENT,{
 
         m_runeGrindClass = 'UI_DragonRuneGrind',
 
+        -- 일반 강화/룬 축복서
+        m_enhanceTypeRadioBtn = 'UIC_RadioButton',
+
         -- 축복 강화 여부
         m_isBlessEnhance = 'boolean',
     })
@@ -63,7 +66,6 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self:initUI(attr)
     self:initButton()
     self:initTab()
-    self:initButtonList()
     self:refresh_enhance()
 end
 
@@ -83,6 +85,7 @@ function UI_DragonRunesEnhance:initUI(attr)
     vars['runeNameLabel']:setString(rune_obj['name'])
 
 	self:initOptionRadioBtn()
+    self:initButtonList()
 end
 
 -------------------------------------
@@ -136,12 +139,19 @@ function UI_DragonRunesEnhance:setSeqEnhanceVisible(is_visible)
 -------------------------------------
 function UI_DragonRunesEnhance:initOptionRadioBtn()
 	local vars = self.vars
+    local cur_rune_bless_cnt = g_userData:get('rune_bless')
 
     -- 일반 강화/ 축복 강화 라디오 버튼
     local radio_button = UIC_RadioButton()
     radio_button:setChangeCB(function(option_type)   
         self.m_isBlessEnhance = (option_type ~= 'normalOpt')
         self:setEnhancePriceLabel()
+        -- 룬 축복서 아이템이 없다면 라디오 버튼 비활성화
+        if (cur_rune_bless_cnt < 1) then
+            vars['runeBlessOptBtn']:setEnabled(false)
+            vars['runeBlessOptSprite']:setVisible(false)
+            vars['runeBlessOptBtn']:setColor(cc.c4b(0, 0, 0, 255))
+        end
     end)
 
 	local btn = vars['normalOptBtn']
@@ -151,9 +161,14 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
     local btn = vars['runeBlessOptBtn']
     local sprite = vars['runeBlessOptSprite']
 	radio_button:addButton('runeBlessOpt', btn, sprite)
-    
-    radio_button:setSelectedButton('normalOpt')
 
+    if (cur_rune_bless_cnt < 1) then
+        vars['runeBlessOptBtn']:setEnabled(false)
+        vars['runeBlessOptSprite']:setVisible(false)
+        vars['runeBlessOptBtn']:setColor(cc.c4b(0, 0, 0, 255))
+    end
+    radio_button:setSelectedButton('normalOpt')
+    self.m_enhanceTypeRadioBtn = radio_button
     --[[
     -- 강화 radio button 선언
     local radio_button = UIC_RadioButton()
@@ -195,6 +210,11 @@ function UI_DragonRunesEnhance:initButtonList()
 
     self.m_enhanceBtnList:setSortChangeCB(sort_change_cb)
     self.m_enhanceBtnList:setSelectSortType('enhance_cnt_0')
+    
+    local function click_extend_btn()
+        self.m_enhanceTypeRadioBtn:setSelectedButton('normalOpt')
+    end
+    self.m_enhanceBtnList:setExtendBtnCb(click_extend_btn)
 end
 
 
@@ -267,12 +287,18 @@ function UI_DragonRunesEnhance:refresh_enhance()
     vars['enhanceOptionMenu']:setVisible(not is_max_lv)
     vars['enhanceBtnMenu']:setVisible(not is_max_lv)
 
-
     -- 룬 축복서 아이템 카드
     vars['runeBlessIconNode']:removeAllChildren()
     local cur_rune_bless_cnt = g_userData:get('rune_bless')
     local rune_bless_card = UI_ItemCard(704903, cur_rune_bless_cnt) -- 룬 축복서
     vars['runeBlessIconNode']:addChild(rune_bless_card.root)
+
+    -- 룬 축복서 아이템이 없다면 라디오 버튼 비활성화
+    if (cur_rune_bless_cnt < 1) then
+        if (self.m_optionRadioBtn) then
+            self.m_optionRadioBtn:disable('runeBlessOpt')
+        end
+    end
 end
 
 
@@ -379,6 +405,8 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
             if (self.m_enhanceBtnList) then
                 self.m_enhanceBtnList:setSelectSortType('enhance_cnt_0')
             end
+            -- 라디오 버튼 클릭 가능
+            self:isEnhanceRadioBtnEnabled(true)
 		end
 		co:setCloseCB(close_cb)
 
@@ -409,8 +437,6 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 
 		-- 코루틴 종료
         co:close()
-        -- 라디오 버튼 클릭 가능
-        self:isEnhanceRadioBtnEnabled(true)
         
 	end
 
@@ -539,7 +565,7 @@ function UI_DragonRunesEnhance:setEnhancePriceLabel()
 end
 
 -------------------------------------
--- function setEnhancePriceLabel
+-- function isEnhanceRadioBtnEnabled
 -------------------------------------
 function UI_DragonRunesEnhance:isEnhanceRadioBtnEnabled(is_enabled)
     local vars = self.vars

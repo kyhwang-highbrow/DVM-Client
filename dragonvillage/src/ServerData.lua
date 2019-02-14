@@ -480,6 +480,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['oblivion'] then
             self:applyServerData(ret['oblivion'], 'user', 'oblivion')
         end
+
+        -- 룬 축복서
+        if ret['rune_bless'] then
+            self:applyServerData(ret['rune_bless'], 'user', 'rune_bless')
+        end
     end
 
 	-- 퀘스트 갱신
