@@ -141,6 +141,7 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
     local radio_button = UIC_RadioButton()
     radio_button:setChangeCB(function(option_type)   
         self.m_isBlessEnhance = (option_type ~= 'normalOpt')
+        self:setEnhancePriceLabel()
     end)
 
 	local btn = vars['normalOptBtn']
@@ -234,9 +235,8 @@ function UI_DragonRunesEnhance:refresh_enhance()
     vars['maxLvEffectLabel']:setVisible((curr_lv == max_lv - 1))
 
     -- 소모 골드
-    local req_gold = rune_obj:getRuneEnhanceReqGold()
-    vars['enhancePriceLabel']:setString(comma_value(req_gold))
-    cca.uiReactionSlow(vars['enhancePriceLabel'])
+    self:setEnhancePriceLabel()
+    
 
     -- 할인 이벤트
     local only_value = true
@@ -451,7 +451,8 @@ end
 -------------------------------------
 function UI_DragonRunesEnhance:request_bless(cb_func)
     -- 골드가 충분히 있는지 확인
-    local req_gold = self.m_runeObject:getRuneBlessReqGold()
+    local req_gold = self:calcReqGoldForBless()
+
     local req_rune_bless = self.m_runeObject:getRuneBlessReqItem()
     local cur_rune_bless_cnt = g_userData:get('rune_bless')
     
@@ -477,6 +478,22 @@ end
 -------------------------------------
 -- function getRuneObject
 -------------------------------------
+function UI_DragonRunesEnhance:calcReqGoldForBless()
+    local rune_obj = self.m_runeObject
+    local cur_lv = rune_obj['lv']
+    local cur_grade = rune_obj['grade']
+    local sum_req_gold = 0
+
+    for i = cur_lv, (RUNE_LV_MAX-1) do
+        sum_req_gold = sum_req_gold + rune_obj:calcReqGoldForEnhance(i, cur_grade)
+    end
+
+    return sum_req_gold
+end
+
+-------------------------------------
+-- function getRuneObject
+-------------------------------------
 function UI_DragonRunesEnhance:getRuneObject()
     return self.m_runeObject
 end
@@ -487,6 +504,30 @@ end
 function UI_DragonRunesEnhance:setRuneObject(rune_obj)
     self.m_runeObject = rune_obj
 end
+
+-------------------------------------
+-- function setEnhancePriceLabel
+-------------------------------------
+function UI_DragonRunesEnhance:setEnhancePriceLabel()
+    local vars = self.vars
+    local rune_obj = self.m_runeObject
+    local enhance_type
+
+    local req_gold
+    if (self.m_isBlessEnhance) then
+        req_gold = self:calcReqGoldForBless()
+        enhance_type = Str('축복 강화')
+    else
+        req_gold = rune_obj:getRuneEnhanceReqGold()
+        enhance_type = Str('일반 강화')
+    end
+       
+    vars['enhancePriceLabel']:setString(comma_value(req_gold))
+    cca.uiReactionSlow(vars['enhancePriceLabel'])
+
+    vars['enhanceTypeLabel']:setString(enhance_type)
+end
+
 
 
 

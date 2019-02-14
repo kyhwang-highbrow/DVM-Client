@@ -294,6 +294,28 @@ function StructRuneObject:getRuneEnhanceReqGold()
 end
 
 -------------------------------------
+-- function calcReqGoldForEnhance
+-------------------------------------
+function StructRuneObject:calcReqGoldForEnhance(lv, grade)
+    if self:isMaxRuneLv() then
+        return 0
+    end
+
+    local table_rune_enhance = TABLE:get('table_rune_enhance')
+    local t_rune_enhance = table_rune_enhance[lv]
+
+    -- 룬 강화 할인 합산
+    local dc_value = g_hotTimeData:getDiscountEventValue(HOTTIME_SALE_EVENT.RUNE_ENHANCE)
+    local dc_rate = (100 - dc_value)/100
+
+    -- 등급, 레벨별 가격이 적용되도록 변경됨 2017-09-21 sgkim
+    print(t_rune_enhance['req_gold_' .. grade] , dc_rate)
+    local req_gold = math_floor(t_rune_enhance['req_gold_' .. grade] * dc_rate)
+
+    return req_gold
+end
+
+-------------------------------------
 -- function getRuneBlessReqGold
 -------------------------------------
 function StructRuneObject:getRuneBlessReqGold()
@@ -308,7 +330,7 @@ function StructRuneObject:getRuneBlessReqItem()
 end
 
 -------------------------------------
--- function getRuneEnhanceReqGold
+-- function getRuneGrindReqGold
 -------------------------------------
 function StructRuneObject:getRuneGrindReqGold()
     local rarity = self:getRarity()
