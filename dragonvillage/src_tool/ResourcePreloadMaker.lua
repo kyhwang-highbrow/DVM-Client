@@ -147,9 +147,10 @@ function ResourcePreloadMaker:getPreloadList_Stage(stage_id)
     local script_name
 
     if (game_mode == '15') then
+        -- @jhakim 20190214 클랜던전 보스 이미지는 미리 PreLoad 하지 않음 (이 시점에서는 보스가 어떤 속성인지를 모름)
         -- 클랜 던전의 경우는 스테이지 속성에 따른 이름을 사용
-        local attr = table_stage_data:getStageAttr(stage_id)
-        script_name = string.format('stage_clanraid_%s', attr)
+        -- local attr = table_stage_data:getStageAttr(stage_id)
+        -- script_name = string.format('stage_clanraid_%s', attr)
     else
         script_name = 'stage_' .. stage_id
     end

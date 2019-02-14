@@ -80,7 +80,9 @@ function TableStageData:getStageAttr(stage_id)
     end
 
     if (self:isClanRaidStage(stage_id)) then
-        return g_clanData:getCurSeasonBossAttr()
+        if (g_clanData) then
+            return g_clanData:getCurSeasonBossAttr()
+        end
     end
     
     local attr = self:getValue(stage_id, 'attr')
