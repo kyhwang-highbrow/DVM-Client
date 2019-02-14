@@ -66,6 +66,15 @@ function UI_EventPopupTab_PurchasePoint:initUI()
     end
 
     vars['purchaseGg']:setPercentage(0)
+    
+    local purchase_event_data = g_eventData:getEventData('purchase_point')
+    if (purchase_event_data) then
+        local start_date = purchase_event_data['start_date']
+        vars['timeLabel']:setString(string.format('{1} 00:00 ~ {2}'), start_date, Str('다음 안내시까지'))
+        vars['timeLabel']:setVisible(true)
+    else
+        vars['timeLabel']:setVisible(false)
+    end
 end
 
 -------------------------------------

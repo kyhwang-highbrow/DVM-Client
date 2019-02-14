@@ -660,3 +660,16 @@ end
 function ServerData_Event:isComebackUser_1st()
     return self.m_isComebackUser_1st
 end
+
+-------------------------------------
+-- function getEventData
+-------------------------------------
+function ServerData_Event:getEventData(event_type)
+    for i, event_data in ipairs(self.m_eventList) do
+        if (v['event_type'] == event_type) then
+            return v
+        end
+    end
+
+    return nil
+end
