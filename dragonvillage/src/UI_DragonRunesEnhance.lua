@@ -493,7 +493,7 @@ function UI_DragonRunesEnhance:request_bless(cb_func)
     local function finish_cb(ret)
         self.m_runeObject = g_runesData:getRuneObject(roid)
         self:setChangeOptionList(rune_obj, self.m_runeObject)
-        self:show_upgradeEffect(true, cb_func)
+        self:show_blessEffect(true, cb_func)
     end
 
     g_runesData:request_runeBless(owner_doid, roid, finish_cb)
@@ -686,4 +686,31 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func, is_grind)
     else
         SoundMgr:playEffect('UI', 'ui_rune_fail')
     end
+end
+
+-------------------------------------
+-- function show_blessEffect
+-------------------------------------
+function UI_DragonRunesEnhance:show_blessEffect(is_success, cb_func)
+    local vars = self.vars
+
+    local bless_visual = vars['runeBlessVisual']
+
+    bless_visual:setVisible(true)
+
+    local ani_name = (is_success) and 'success' or 'fail'
+    bless_visual:changeAni('top_appear', false)
+    
+    
+    bless_visual:addAniHandler(function()
+        bless_visual:setVisible(false)
+
+		if (cb_func) then
+			cb_func(is_success)
+		end
+    end)
+
+
+    SoundMgr:playEffect('UI', 'ui_rune_success')
+    
 end
