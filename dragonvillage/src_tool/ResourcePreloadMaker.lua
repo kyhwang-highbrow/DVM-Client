@@ -63,7 +63,11 @@ function ResourcePreloadMaker:makePreloadFile()
 
     -- 스테이지 별 리소스 생성
     for stage_id, _ in pairs(table_stage_desc.m_orgTable) do
-        l_preload_list[stage_id] = self:getPreloadList_Stage(stage_id)
+        
+        -- @jhakim 클랜던전은 preload 하지 않음 (테이블에서 preload할 스테이지리스트 던지는 함수 필요할 듯)
+        if (not TableStageData:isClanRaidStage(stage_id)) then
+            l_preload_list[stage_id] = self:getPreloadList_Stage(stage_id)
+        end
     end
     
     -- 총 프리로드 리소스 카운트
@@ -150,13 +154,14 @@ function ResourcePreloadMaker:getPreloadList_Stage(stage_id)
     if (game_mode == '15') then
         -- @jhakim 20190214 클랜던전 보스 이미지는 미리 PreLoad 하지 않음 (이 시점에서는 보스가 어떤 속성인지를 모름)
         -- 클랜 던전의 경우는 스테이지 속성에 따른 이름을 사용
-        -- local attr = table_stage_data:getStageAttr(stage_id)
-        -- script_name = string.format('stage_clanraid_%s', attr)
+         local attr = table_stage_data:getStageAttr(stage_id)
+         script_name = string.format('stage_clanraid_%s', attr)
+    else  
+        script_name = 'stage_' .. stage_id
     end
     --]]
-    
-    script_name = 'stage_' .. stage_id
 
+    script_name = 'stage_' .. stage_id
 
     local script = TABLE:loadStageScript(script_name)
     if script and script['wave'] then

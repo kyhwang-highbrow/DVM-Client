@@ -211,8 +211,9 @@ end
 -- function isClanRaidStage
 -------------------------------------
 function TableStageData:isClanRaidStage(stage_id)
-    local stage_id_number = tonumber(stage_id) 
-    if (math.floor(stage_id_number/100000) == 15) then
+    local game_mode = string.sub(tostring(stage_id), 1, 2)
+
+    if (game_mode == '15') then
         return true
     end
     
