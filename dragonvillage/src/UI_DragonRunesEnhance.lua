@@ -153,9 +153,12 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
             vars['runeBlessOptSprite']:setVisible(false)
         end
 
-        -- 축복서일 경우
+        -- 축복서일 경우, 연속강화 버튼리스트 숨기고(못 누르게), 설명라벨 출력
         if (option_type ~= 'normalOpt') then
             self.m_enhanceBtnList:hide()
+            vars['runeBlessOptDescLabel']:setVisible(true)
+        else
+            vars['runeBlessOptDescLabel']:setVisible(false)
         end
     end)
 
@@ -298,6 +301,7 @@ function UI_DragonRunesEnhance:refresh_enhance()
     vars['runeBlessIconNode']:removeAllChildren()
     local cur_rune_bless_cnt = g_userData:get('rune_bless')
     local rune_bless_card = UI_ItemCard(704903, cur_rune_bless_cnt) -- 룬 축복서
+    rune_bless_card:setEnabledClickBtn(false)
     vars['runeBlessIconNode']:addChild(rune_bless_card.root)
 
 end
