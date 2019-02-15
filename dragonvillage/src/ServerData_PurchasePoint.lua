@@ -44,6 +44,8 @@ function ServerData_PurchasePoint:applyPurchasePointInfo(t_data)
     --        "1010001": {
     --            "end": 1539788400000,
     --            "start": 1538578800000,
+    --            "start_day":"20190213"
+    --            "is_start":1,
     --            "step_list": {
     --                "2": {
     --                    "item": "700002;5000000",
@@ -316,6 +318,35 @@ function ServerData_PurchasePoint:getPurchasePoint_stepCount(version)
     local count = table.count(step_list)
     return count
 end
+-------------------------------------
+-- function getPurchasePoint_stepCount
+-- @breif 해당 버전의 시간 정보 리턴
+-------------------------------------
+function ServerData_PurchasePoint:getPurchasePointTime(version)
+    local purchase_point_info = self:getPurchasePointInfo(version)
+    if (not purchase_point_info) then
+        return 0
+    end
+
+    local time_str = ''
+
+    -- 업데이트 이후부터 시작 : 2/13 업데이트 이후 ~ 다음 안내시까지
+    -- 지정한 시간 부터 시작 : 2/13 00:00 ~ 다음 안내시까지
+    local is_after_update = purchase_point_info['is_start'] or 0
+    local start_time = purchase_point_info['start_day']
+    local start_month = string.sub(start_time, 5, 6)
+    local start_day = string.sub(start_time, 7, 8)
+    local start_str = Str('{1}/{2}', tonumber(start_month), tonumber(start_day)) .. ' 00:00'
+
+    if (is_after_update == 1) then
+        time_str = Str('{1} 점검 후 ~ 다음 안내시까지', start_str)
+    else
+        time_str = Str('{1} ~ 다음 안내시까지', start_str)
+    end
+
+    return time_str
+end
+
 
 -------------------------------------
 -- function getPurchasePoint_lastStepPoint

@@ -131,11 +131,11 @@ end
 -------------------------------------
 function UIC_RadioButton:disable(button_name, cb_func)
 	local t_button_data = self.m_buttonMap[button_name]
-
+    local button = t_button_data['button']
+    button:setEnabled(false)
+    
     -- diable일 때 따로 커스텀할 함수가 없다면 디폴트값 사용
-    if (not cb_func) then
-        local button = t_button_data['button']
-        button:setEnabled(false)
+    if (not cb_func) then        
 	    button:setColor(cc.c4b(0, 0, 0, 255))
     else
         cb_func(t_button_data)

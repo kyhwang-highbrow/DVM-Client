@@ -101,6 +101,12 @@ function UI_EventPopupTab_PurchasePoint:refresh()
     local str = Str('누적 결제 점수') .. ' : ' .. Str('{1}점', comma_value(purchase_point))
     vars['scoreLabel']:setString(str)
 
+    -- 누적 결제 시간 안내
+    local time_str = g_purchasePointData:getPurchasePointTime(version)
+    vars['timeLabel']:setString(time_str)
+    vars['timeLabel']:setVisible(true)
+
+
     -- 보상 수령 상태 안내 메세지
     local last_step = g_purchasePointData:getPurchasePoint_stepCount(version)
     local curr_step = g_purchasePointData:getPurchaseRewardStep(version)
