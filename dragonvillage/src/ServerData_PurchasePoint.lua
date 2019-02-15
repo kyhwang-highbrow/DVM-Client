@@ -336,12 +336,12 @@ function ServerData_PurchasePoint:getPurchasePointTime(version)
     local start_time = purchase_point_info['start_day']
     local start_month = string.sub(start_time, 5, 6)
     local start_day = string.sub(start_time, 7, 8)
-    local start_str = Str('{1}/{2}', tonumber(start_month), tonumber(start_day)) .. ' 00:00'
+    local start_str = Str('{1}/{2}', tonumber(start_month), tonumber(start_day))
 
     if (is_after_update == 1) then
         time_str = Str('{1} 점검 후 ~ 다음 안내시까지', start_str)
     else
-        time_str = Str('{1} ~ 다음 안내시까지', start_str)
+        time_str = Str('{1} ~ 다음 안내시까지', start_str .. ' 00:00')
     end
 
     return time_str
