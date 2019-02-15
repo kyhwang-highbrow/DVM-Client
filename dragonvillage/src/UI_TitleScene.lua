@@ -300,7 +300,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workLoading')
     table.insert(self.m_lWorkList, 'workGetServerList')
     table.insert(self.m_lWorkList, 'workCheckUserID')    
-    table.insert(self.m_lWorkList, 'workPlatformLogin')    
+    --table.insert(self.m_lWorkList, 'workPlatformLogin')    
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
 
