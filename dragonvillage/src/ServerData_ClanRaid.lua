@@ -190,7 +190,7 @@ function ServerData_ClanRaid:getClanRaidStatusText()
         str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
     elseif (start_time <= curr_time) and (curr_time <= end_time) then
         local time = (end_time - curr_time)
-        str = Str('시즌 종료까지') .. ' ' .. Str('{1} 남음', datetime.makeTimeDesc(time, true))
+        str = Str('시즌 종료까지') .. '\n' .. Str('{1} 남음', datetime.makeTimeDesc(time, true))
     else
         str = Str('시즌이 종료되었습니다.')
     end
