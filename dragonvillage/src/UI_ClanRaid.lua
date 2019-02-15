@@ -92,12 +92,13 @@ end
 function UI_ClanRaid:openNotiPopup()
     local check_never_show = g_settingData:get('clan_raid_noti')
 
-    local ok_btn_cb = function()
-        g_settingData:applySettingData(true,'clan_raid_noti')
-    end
-
     if (not check_never_show) then
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '클랜 공지사항 ~~~', ok_btn_cb)
+        local notice_ui = UI('')
+        notice_ui:load('clan_raid_change_popup.ui')
+        UIManager:open(notice_ui, UIManager.POPUP)
+        notice_ui.vars['closeBtn']:registerScriptTapHandler(function() g_settingData:applySettingData(true,'clan_raid_noti') notice_ui:close() end)
+        -- backkey 지정
+        g_currScene:pushBackKeyListener(notice_ui, function() notice_ui:close() end, 'UI_ClanRaidNotiPopup')
     end
 end
 
@@ -558,3 +559,10 @@ end
 
 --@CHECK
 UI:checkCompileError(UI_ClanRaid)
+
+
+
+
+
+
+
