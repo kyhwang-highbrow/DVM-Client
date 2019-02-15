@@ -523,7 +523,7 @@ function UI_DragonRunesEnhance:calcReqGoldForBless()
         sum_req_gold = sum_req_gold + rune_obj:calcReqGoldForEnhance(i, cur_grade)
     end
 
-    return sum_req_gold
+    return math.floor(sum_req_gold * 2.5)
 end
 
 -------------------------------------
