@@ -146,12 +146,7 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
     radio_button:setChangeCB(function(option_type)   
         self.m_isBlessEnhance = (option_type ~= 'normalOpt')
         self:setEnhancePriceLabel()
-        -- 룬 축복서 아이템이 없다면 라디오 버튼 비활성화
-        vars['runeBlessOptBtn']:setEnabled(not (cur_rune_bless_cnt < 1))
-        vars['runeBlessOptNotSprite']:setVisible(cur_rune_bless_cnt < 1)
-        if (cur_rune_bless_cnt < 1) then
-            vars['runeBlessOptSprite']:setVisible(false)
-        end
+        self:setBlessRadioBtnState()
 
         -- 축복서일 경우, 연속강화 버튼리스트 숨기고(못 누르게), 설명라벨 출력
         if (option_type ~= 'normalOpt') then
@@ -170,12 +165,7 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
     local sprite = vars['runeBlessOptSprite']
 	radio_button:addButton('runeBlessOpt', btn, sprite)
 
-    -- 룬 축복서 아이템이 없다면 라디오 버튼 비활성화
-    vars['runeBlessOptBtn']:setEnabled(not (cur_rune_bless_cnt < 1))
-    vars['runeBlessOptNotSprite']:setVisible(cur_rune_bless_cnt < 1)
-    if (cur_rune_bless_cnt < 1) then
-        vars['runeBlessOptSprite']:setVisible(false)
-    end
+    self:setBlessRadioBtnState()
     
     radio_button:setSelectedButton('normalOpt')
     self.m_enhanceTypeRadioBtn = radio_button
@@ -304,6 +294,7 @@ function UI_DragonRunesEnhance:refresh_enhance()
     rune_bless_card:setEnabledClickBtn(false)
     vars['runeBlessIconNode']:addChild(rune_bless_card.root)
 
+    self:setBlessRadioBtnState()
 end
 
 
@@ -389,15 +380,31 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 		
         self:request_enhance(cb_func)
 		return
-	end
+	else
+        self:startSeqEnhance() 
+    end
+end
 
-	-- 연속 강화
+-------------------------------------
+-- function startSeqEnhance
+-------------------------------------
+function UI_DragonRunesEnhance:startSeqEnhance()
+    
+    local click_cb = function()
+        -- 블록 팝업 풀릴 때 '중지' 기능
+        self:click_stopBtn()
+    end
+
+    -- 연속 강화할 동안 버튼 클릭을 막음
+    local block_ui = self:makeRuneEnhanceBlockPopup(click_cb)
+    
+    -- 연속 강화
 	local function coroutine_function(dt)
 		local vars = self.vars
 
 		local co = CoroutineHelper()
 		self.m_coroutineHelper = co
-        
+
         -- 코루틴 도중에 라디오 버튼 클릭 방지
         self:isEnhanceRadioBtnEnabled(false)
 		
@@ -416,6 +423,7 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
             end
             -- 라디오 버튼 클릭 가능
             self:isEnhanceRadioBtnEnabled(true)
+            block_ui:close()
 		end
 		co:setCloseCB(close_cb)
 
@@ -724,4 +732,42 @@ function UI_DragonRunesEnhance:show_blessEffect(is_success, cb_func)
 
     SoundMgr:playEffect('UI', 'ui_rune_success')
     
+end
+
+
+-------------------------------------
+-- function setBlessItemState
+-------------------------------------
+function UI_DragonRunesEnhance:setBlessRadioBtnState()
+    local vars =  self.vars
+
+    -- 룬 축복서 아이템이 없다면 라디오 버튼 비활성화
+    local cur_rune_bless_cnt = g_userData:get('rune_bless')
+    vars['runeBlessOptBtn']:setEnabled(not (cur_rune_bless_cnt < 1))
+    vars['runeBlessOptNotSprite']:setVisible(cur_rune_bless_cnt < 1)
+    if (cur_rune_bless_cnt < 1) then
+        vars['runeBlessOptSprite']:setVisible(false)
+    end
+end
+
+
+
+
+
+
+
+-------------------------------------
+-- function makeRuneEnhanceBlockPopup
+-- @breif 연속 강화가 진행되는 동안 클릭을 막음
+-------------------------------------
+function UI_DragonRunesEnhance:makeRuneEnhanceBlockPopup(cb_func)
+    local block_ui = UI()
+    block_ui:load('rune_enhance_block.ui')
+    UIManager:open(block_ui, UIManager.POPUP, true)
+
+    -- 기존 강화탭과 동일한 중지 버튼, 블록 팝업을 닫음
+    block_ui.vars['stopBtn']:registerScriptTapHandler(function() block_ui:close() cb_func() end)
+    g_currScene:pushBackKeyListener(block_ui, function() block_ui:close() cb_func() end, 'UI_RuneEnhanceBlock')
+
+    return block_ui
 end
