@@ -147,10 +147,15 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
         self.m_isBlessEnhance = (option_type ~= 'normalOpt')
         self:setEnhancePriceLabel()
         -- 룬 축복서 아이템이 없다면 라디오 버튼 비활성화
+        vars['runeBlessOptBtn']:setEnabled(not (cur_rune_bless_cnt < 1))
+        vars['runeBlessOptNotSprite']:setVisible(cur_rune_bless_cnt < 1)
         if (cur_rune_bless_cnt < 1) then
-            vars['runeBlessOptBtn']:setEnabled(false)
             vars['runeBlessOptSprite']:setVisible(false)
-            vars['runeBlessOptBtn']:setColor(cc.c4b(0, 0, 0, 255))
+        end
+
+        -- 축복서일 경우
+        if (option_type ~= 'normalOpt') then
+            self.m_enhanceBtnList:hide()
         end
     end)
 
@@ -162,11 +167,13 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
     local sprite = vars['runeBlessOptSprite']
 	radio_button:addButton('runeBlessOpt', btn, sprite)
 
+    -- 룬 축복서 아이템이 없다면 라디오 버튼 비활성화
+    vars['runeBlessOptBtn']:setEnabled(not (cur_rune_bless_cnt < 1))
+    vars['runeBlessOptNotSprite']:setVisible(cur_rune_bless_cnt < 1)
     if (cur_rune_bless_cnt < 1) then
-        vars['runeBlessOptBtn']:setEnabled(false)
         vars['runeBlessOptSprite']:setVisible(false)
-        vars['runeBlessOptBtn']:setColor(cc.c4b(0, 0, 0, 255))
     end
+    
     radio_button:setSelectedButton('normalOpt')
     self.m_enhanceTypeRadioBtn = radio_button
     --[[
@@ -366,7 +373,7 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 		end
 		
         self:request_bless(cb_func)
-	
+	    return
     -- 일회 강화
 	elseif (self.m_enhanceOptionLv == 0) then
 		local block_ui = UI_BlockPopup()
