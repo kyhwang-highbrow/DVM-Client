@@ -1513,3 +1513,24 @@ function ServerData_ChallengeMode:getUserServer(uid, is_color)
     end
     return server_str
 end
+
+-------------------------------------
+-- function setInfoForLobby
+-------------------------------------
+function ServerData_ChallengeMode:setInfoForLobby(ret)
+    if (ret['start_time']) then
+        
+    end
+    
+    if (ret['end_time']) then
+    
+    end
+
+    if ret['open_info'] then
+        self:setChallengeModeOpenInfo(ret['open_info'])
+    end
+    
+    if (ret['open']) then
+        self.m_isChallengeModeOpen = ret['open']
+    end
+end

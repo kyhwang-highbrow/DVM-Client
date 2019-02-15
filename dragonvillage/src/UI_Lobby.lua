@@ -418,6 +418,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 			g_colosseumData:setInfoForLobby(ret['pvp_info'])
 		end
 
+        cclog('# 그림자의 신전 정보 확인 중')
+		if (ret['challenge_info']) then
+			g_challengeMode:setInfoForLobby(ret['challenge_info'])
+		end
+
         if (ret['arena_info']) then -- 콜로세움 (신규) <-- 닫혀있음 안줌
 			g_arenaData:setInfoForLobby(ret['arena_info'])
 		end
