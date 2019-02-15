@@ -101,7 +101,18 @@ function UI_HelpClanRewardListItem:initUI()
     local personal_cnt = math_floor(reward_cnt * personal_max_percent)
     vars['personalLabel']:setString(personal_cnt)
     vars['clancoinLabel']:setString(reward_cnt)
-    vars['rankLabel']:setString(Str(data['t_name']))
+    local rank_str
+    if (data['rank_min'] ~= data['rank_max']) then
+        rank_str = Str('{1}위', data['rank_min']) .. '~' .. Str('{1}위', data['rank_max'])
+    else
+        if(data['ratio_max'] ~= '') then
+            rank_str = Str('{1}위 미만', data['ratio_max'])
+        else
+            rank_str = Str('{1}위', data['rank_min'])
+        end
+    end
+
+    vars['rankLabel']:setString(rank_str) 
     vars['secondSprite']:setVisible(data['rank_id']%2 == 0)
 
 end
