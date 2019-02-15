@@ -9,7 +9,7 @@ UI_ChallengeModeRankingRewardPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ChallengeModeRankingRewardPopup:init(t_info)
+function UI_ChallengeModeRankingRewardPopup:init(t_info, t_last_data)
     local vars = self:load('challenge_mode_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -21,7 +21,7 @@ function UI_ChallengeModeRankingRewardPopup:init(t_info)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI(t_info)
+    self:initUI(t_info, t_last_data)
     self:initButton()
     self:refresh()
 end
@@ -29,14 +29,14 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ChallengeModeRankingRewardPopup:initUI(t_info)
+function UI_ChallengeModeRankingRewardPopup:initUI(t_info, t_last_data)
     local vars = self.vars
     
     local reward_info = t_info
     
     -- 플레이어 정보 받아옴
     local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
-    local rank_ui = UI_ChallengeModeRankingListItem(struct_user_info)
+    local rank_ui = UI_ChallengeModeRankingListItem(struct_user_info, t_last_data)
     
     -- 지난 시즌 랭킹 정보
     vars['rankNode']:addChild(rank_ui.root)

@@ -5,13 +5,15 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -------------------------------------
 UI_ChallengeModeRankingListItem = class(PARENT, {
         m_rankInfo = '',
+        m_lastData= '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ChallengeModeRankingListItem:init(t_rank_info)
+function UI_ChallengeModeRankingListItem:init(t_rank_info, t_last_data)
     self.m_rankInfo = t_rank_info
+    self.m_lastData = t_last_data
     local vars = self:load('challenge_mode_ranking_item.ui')
 
     self:initUI()
@@ -43,9 +45,15 @@ function UI_ChallengeModeRankingListItem:initUI()
         return
     end
 
-    -- 점수 표시
-    local str = t_rank_info:getChallengeMode_pointText()
-    vars['scoreLabel']:setString(str)
+    if (self.m_lastData) then
+        -- 점수 표시
+        vars['scoreLabel']:setString(Str('{1}점', self.m_lastData['point']))
+        -- 순위 표시
+        vars['rankingLabel']:setString(Str('{1}위', self.m_lastData['rank']))
+    else
+        vars['scoreLabel']:setString('')
+        vars['rankingLabel']:setString('')
+    end
 
     -- 승리 수 표시 -- @sgkim 2018-10-24 클리어 수 개념 삭제
     --local str = t_rank_info:getChallengeMode_clearText()
@@ -54,8 +62,7 @@ function UI_ChallengeModeRankingListItem:initUI()
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['userLabel']:setString(t_rank_info:getUserText())
 
-    -- 순위 표시
-    vars['rankingLabel']:setString(t_rank_info:getChallengeMode_RankText())
+
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()

@@ -228,7 +228,9 @@ function UI_ChallengeMode:appearDone()
     if g_challengeMode.m_tSeasonRewardInfo then
         local t_data = g_challengeMode.m_tSeasonRewardInfo
         g_challengeMode.m_tSeasonRewardInfo = nil
-        UI_ChallengeModeRankingRewardPopup(t_data)
+        local t_last_data = g_challengeMode.m_tableLastInfo
+        g_challengeMode.m_tableLastInfo = nil
+        UI_ChallengeModeRankingRewardPopup(t_data, t_last_data)
         return
     end
 
@@ -249,7 +251,7 @@ function UI_ChallengeMode:setEntrancePopup()
     -- 그림자 신전 입장 자격이 될 경우 시즌 종료 후 첫 입장 시에만 팝업 출력
     -- 그림자 신전 입장 자격이 안 될 경우 계속 팝업 출력
     if (is_enter) then
-        is_popup_show = g_challengeMode.m_isLastInfo
+        is_popup_show = g_challengeMode.m_tableLastInfo
     else
         is_popup_show = true
     end

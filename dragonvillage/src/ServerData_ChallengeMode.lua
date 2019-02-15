@@ -76,7 +76,7 @@ ServerData_ChallengeMode = class({
         m_challengeModeEndTime = 'milisecond',
         m_challengeModeStartTime = 'milisecond',
 
-        m_isLastInfo = 'boolean', -- 시즌 끝난 후 첫 입장 판단
+        m_tableLastInfo = 'boolean', -- 지난 시즌 기록
     })
 
 ServerData_ChallengeMode.STATE = {
@@ -174,7 +174,7 @@ function ServerData_ChallengeMode:getChallengeModeState_Routine()
 		return ServerData_ChallengeMode.STATE['INACTIVE']
 
 	-- 이벤트 기간
-	else		
+	else
 		-- 레벨 체크
 		if (g_contentLockData:isContentLock('challenge_mode')) then
 			return ServerData_ChallengeMode.STATE['LOCK']
@@ -182,7 +182,6 @@ function ServerData_ChallengeMode:getChallengeModeState_Routine()
 			return ServerData_ChallengeMode.STATE['OPEN']
 		end
 	end
-
 	-- 해당 없으면 비활성화
 	return ServerData_ChallengeMode.STATE['INACTIVE']
 end
@@ -579,10 +578,10 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
             self.m_tSeasonRewardInfo = ret['reward_info']
         end
 
-        if (ret['reward_info']) then
-            self.m_isLastInfo = true
+        if (ret['lastinfo']) then
+            self.m_tableLastInfo = ret['lastinfo']
         else
-            self.m_isLastInfo = false
+            self.m_tableLastInfo = nil
         end
         
         -- 입장 가능 여부 저장
