@@ -1084,7 +1084,7 @@ end
 function ServerData_ChallengeMode:getChallengeModeStatusText()
     local time = self:getChallengeModeRemainTime()
     local str = ''
-    if (not self:isActive_challengeMode()) then
+    if (not self:isOpen_challengeMode()) then
         if (time <= 0) then
             str = Str('오픈시간이 아닙니다.')
         end

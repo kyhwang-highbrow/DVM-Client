@@ -616,7 +616,7 @@ function UINavigatorDefinition:goTo_challenge_mode(...)
 
     local function finish_cb()
 
-        if (not g_challengeMode:isActive_challengeMode()) then
+        if (not g_challengeMode:isOpen_challengeMode()) then
             local msg = Str('오픈시간이 아닙니다.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
