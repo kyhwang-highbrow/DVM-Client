@@ -242,10 +242,6 @@ end
 -------------------------------------
 function UI_ChallengeMode:setEntrancePopup()
     
-    local cb_func = function()
-        UI_ChallengeModeInfoPopup('bg')
-    end
-
     local is_enter = g_challengeMode:getUserCanEnterChallengeMode()
     local is_popup_show = false
     -- 그림자 신전 입장 자격이 될 경우 시즌 종료 후 첫 입장 시에만 팝업 출력
@@ -271,11 +267,6 @@ function UI_ChallengeMode:setEntrancePopup()
         entrance_ui.vars['enterNode1']:setVisible(is_enter)
         entrance_ui.vars['enterNode2']:setVisible(not is_enter)
         entrance_ui.vars['okBtn']:registerScriptTapHandler(function() entrance_ui:close() end)
-
-        -- 입장 가능할 때만 입장 팝업 이후에 도움말 팝업
-        if (is_enter) then
-            entrance_ui:setCloseCB(cb_func)
-        end
     end
 end
 
