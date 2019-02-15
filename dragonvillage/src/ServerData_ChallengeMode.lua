@@ -75,6 +75,8 @@ ServerData_ChallengeMode = class({
         m_masterStartTime = 'milisecond',
         m_challengeModeEndTime = 'milisecond',
         m_challengeModeStartTime = 'milisecond',
+
+        m_isLastInfo = 'boolean', -- 시즌 끝난 후 첫 입장 판단
     })
 
 ServerData_ChallengeMode.STATE = {
@@ -577,6 +579,12 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
             self.m_tSeasonRewardInfo = ret['reward_info']
         end
 
+        if (ret['reward_info']) then
+            self.m_isLastInfo = true
+        else
+            self.m_isLastInfo = false
+        end
+        
         -- 입장 가능 여부 저장
         if ret['available'] then
             self.m_bEnterChallengeMode = ret['available']

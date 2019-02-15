@@ -246,13 +246,10 @@ function UI_ChallengeMode:setEntrancePopup()
 
     local is_enter = g_challengeMode:getUserCanEnterChallengeMode()
     local is_popup_show = false
-    -- 그림자 신전 입장 자격이 될 경우 이벤트 동안 1번만 입장 팝업
+    -- 그림자 신전 입장 자격이 될 경우 시즌 종료 후 첫 입장 시에만 팝업 출력
+    -- 그림자 신전 입장 자격이 안 될 경우 계속 팝업 출력
     if (is_enter) then
-        local is_once_enter = g_settingData:getChellengeModeSettingdata('onece_for_season')
-        if (not is_once_enter) then
-            g_settingData:applySettingData(true, 'challenge_history', 'onece_for_season')
-            is_popup_show = true
-        end
+        is_popup_show = g_challengeMode.m_isLastInfo
     else
         is_popup_show = true
     end
