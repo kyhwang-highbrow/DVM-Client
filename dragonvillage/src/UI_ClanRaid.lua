@@ -119,7 +119,8 @@ end
 function UI_ClanRaid:initUI()
     local vars = self.vars
     local struct_clan = g_clanData:getClanStruct()
-
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    
     -- 클랜 마크
     local icon = struct_clan:makeClanMarkIcon()
     vars['clanNode']:removeAllChildren()
@@ -128,6 +129,10 @@ function UI_ClanRaid:initUI()
     -- 클랜 이름
     local clan_name = struct_clan:getClanName()
     vars['clanLabel']:setString(clan_name)
+
+    -- 보스 hp
+    vars['hpLabel2']:setVisible(true)
+    vars['hpLabel2']:setString(Str('{1}/{1}', struct_raid:getHp(), struct_raid:getMaxHp()))
 
     vars['lastStageLabel']:setString(string.format('Lv.%d', MAX_STAGE))
 end

@@ -103,7 +103,7 @@ function UI_HelpClanRewardListItem:initUI()
     vars['clancoinLabel']:setString(reward_cnt)
     local rank_str
     if (data['rank_min'] ~= data['rank_max']) then
-        rank_str = Str('{1}위', data['rank_min']) .. '~' .. Str('{1}위', data['rank_max'])
+        rank_str = Str('{1}~{2}위', data['rank_min'], data['rank_max'])
     else
         if(data['ratio_max'] ~= '') then
             rank_str = Str('{1}위 미만', data['ratio_max'])
