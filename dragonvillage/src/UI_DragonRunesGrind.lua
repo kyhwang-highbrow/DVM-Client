@@ -272,8 +272,11 @@ function UI_DragonRunesGrind:refresh_grindOptionRadioBtn()
             local grinded_option = rune_obj:getGrindedOption()
             -- 연마된 옵션이 있다면, 해당 옵션 빼고 라디오 기능 모두 끄기
             if (grinded_option) then
+                local disable_cb = function(t_data)
+                    t_data['button']:setColor(cc.c4b(127,127,127,255))
+                end
                 if (opt_type ~= grinded_option and grind_radio_button:existButton(opt_type)) then
-                    self.m_optionGrindRadioBtn:disable(opt_type)
+                    self.m_optionGrindRadioBtn:disable(opt_type, disable_cb)
                 -- 연마된 옵션 라벨 색상 노랑
                 elseif (self.m_seletedGrindOption == opt_type) then
                     opt_desc = self:makeRuneDesc_grind(opt_type, '{@r_opt_selected}')
