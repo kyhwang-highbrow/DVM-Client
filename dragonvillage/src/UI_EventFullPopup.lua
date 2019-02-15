@@ -6,13 +6,22 @@ local PARENT = UI
 UI_EventFullPopup = class(PARENT,{
         m_popupKey = 'string',
 		m_innerUI = 'UI',
+
+        -- @jhakim 로비 풀 팝용이 아닌 용도, 나중에 클래스 분리할 거임
+        m_targetUI = 'UI', -- 외부 UI를 이 형식에 맞추어 사용
+        m_check_cb = 'function'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventFullPopup:init(popup_key)
+function UI_EventFullPopup:init(popup_key, target_ui, m_check_cb)
     self.m_popupKey = popup_key
+    
+    
+    -- @jhakim 로비 풀 팝용이 아닌 용도, 나중에 클래스 분리할 거임
+    self.m_targetUI = target_ui
+    self.m_check_cb = m_check_cb
 end
 
 -------------------------------------
@@ -136,8 +145,10 @@ function UI_EventFullPopup:initUI()
 		local l_str = plSplit(popup_key, ';')
         local event_version = l_str[2]
         ui = UI_EventPopupTab_PurchasePoint(event_version)
+    elseif (self.m_targetUI) then
+        ui = self.m_targetUI
     end
-
+    
     if (ui) and (ui.root) then
         -- 패키지 UI 크기에 따라 풀팝업 UI 사이즈 변경후 추가
         do
@@ -219,11 +230,14 @@ function UI_EventFullPopup:click_checkBtn()
     local vars = self.vars
     vars['checkSprite']:setVisible(true)
 
-    -- 다시보지않기
-    local product_id = self.m_popupKey
-    local save_key = tostring(product_id)
-    g_settingData:applySettingData(true, 'event_full_popup', save_key)
-
+    if (self.m_check_cb) then
+        self.m_check_cb()
+    else  
+        -- 다시보지않기
+        local product_id = self.m_popupKey
+        local save_key = tostring(product_id)
+        g_settingData:applySettingData(true, 'event_full_popup', save_key)
+    end
     self:close()
 end
 

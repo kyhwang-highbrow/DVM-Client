@@ -91,14 +91,18 @@ end
 -------------------------------------
 function UI_ClanRaid:openNotiPopup()
     local check_never_show = g_settingData:get('clan_raid_noti')
-
     if (not check_never_show) then
-        local notice_ui = UI('')
+        local notice_ui = UI()
         notice_ui:load('clan_raid_change_popup.ui')
-        UIManager:open(notice_ui, UIManager.POPUP)
-        notice_ui.vars['closeBtn']:registerScriptTapHandler(function() g_settingData:applySettingData(true,'clan_raid_noti') notice_ui:close() end)
-        -- backkey 지정
-        g_currScene:pushBackKeyListener(notice_ui, function() notice_ui:close() end, 'UI_ClanRaidNotiPopup')
+        notice_ui.vars['closeBtn']:setVisible(false)
+        
+        local check_cb = function()
+            g_settingData:applySettingData(true, 'clan_raid_noti')
+        end
+
+        -- 체크 박스 붙어있는 이벤트 풀팝업에 붙여서 사용
+        local ui_full_popup = UI_EventFullPopup('', notice_ui, check_cb) -- popup_key, target_ui, m_check_cb
+        ui_full_popup:openEventFullPopup()
     end
 end
 
