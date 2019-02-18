@@ -103,6 +103,7 @@ function UI_ClanRaid:openNotiPopup()
         -- 체크 박스 붙어있는 이벤트 풀팝업에 붙여서 사용
         local ui_full_popup = UI_EventFullPopup('', notice_ui, check_cb) -- popup_key, target_ui, m_check_cb
         ui_full_popup:openEventFullPopup()
+        ui_full_popup.vars['checkMsgLabel']:setString(Str('다시 보지 않기'))
     end
 end
 
