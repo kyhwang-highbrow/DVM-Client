@@ -719,7 +719,7 @@ function UI_DragonRunesEnhance:show_blessEffect(is_success, cb_func)
 
     local ani_name = (is_success) and 'success' or 'fail'
     bless_visual:changeAni('top_appear', false)
-    
+    bless_visual:setIgnoreLowEndMode(true)
     
     bless_visual:addAniHandler(function()
         bless_visual:setVisible(false)
