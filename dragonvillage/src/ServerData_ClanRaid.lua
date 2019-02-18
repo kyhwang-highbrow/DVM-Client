@@ -182,7 +182,7 @@ function ServerData_ClanRaid:getClanRaidStatusText()
         if (time < 0) then
             str = Str('오픈시간이 아닙니다.')
         else
-            str = Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
+            str = Str('클랜던전 오픈 전입니다.\n오픈까지 {1}', datetime.makeTimeDesc(time, true))
         end
 
     elseif (curr_time < start_time) then
