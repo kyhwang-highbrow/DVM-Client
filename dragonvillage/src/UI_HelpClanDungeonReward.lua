@@ -27,9 +27,10 @@ function UI_HelpClanDungeonReward:initUI()
 
     local l_item_list = {}
     -- 클랜 던전 보상 정보만 리스트에 담는다
-    for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do    
-        -- week가 지정되어 있고, 그 week가 현재 주차와 일치한다면 그 테이블을 사용하는 예외처리 필요
-        if (t_data['category'] == 'dungeon') then
+    for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do
+        -- week가 지정되어 있고, 그 week가 현재 주차와 일치한다면 그 테이블을 사용하는 예외처리 필요 
+        -- @jhakim 임의로 주차보상은 보이지 않도록 처리
+        if (t_data['category'] == 'dungeon') and (t_data['week'] == 1) then
             table.insert(l_item_list, t_data)
         end
     end
