@@ -373,8 +373,10 @@ function UI_DragonRunesGrind:refresh_grindstoneCount()
     local grind_stone_cnt = g_userData:get('grindstone') or 0
     local req_grind_stone_cnt = rune_obj:getRuneGrindReqGrindstone()
     local grindstone_cnt_str = Str('{1}/{2}', grind_stone_cnt, req_grind_stone_cnt)
-    if (grind_stone_cnt == 0) then
-        grindstone_cnt_str = '{@red}' .. grindstone_cnt_str
+    if (grind_stone_cnt <= 0) then
+        grindstone_cnt_str = '{@impossible}' .. grindstone_cnt_str
+    else
+        grindstone_cnt_str = '{@possible}' .. grindstone_cnt_str
     end
     vars['quantityLabel']:setString(grindstone_cnt_str)
 end
