@@ -106,10 +106,7 @@ function UI_QuickPopupNew:init_competitionBtn()
     end
    
     -- 그림자의 신전
-    local is_content_lock, req_user_lv = g_contentLockData:isContentLock('challenge_mode')
-    if (not is_content_lock) then
-        table.insert(l_content, 'challenge_mode')
-    end
+    table.insert(l_content, 'challenge_mode')
 
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
