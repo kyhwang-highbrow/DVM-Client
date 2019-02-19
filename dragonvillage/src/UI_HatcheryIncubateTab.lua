@@ -85,9 +85,9 @@ end
 -------------------------------------
 function UI_HatcheryIncubateTab:initButton()
     local vars = self.vars
-
+    
     -- 알도감 (바로가기)
-    vars['eggInfoBtn']:registerScriptTapHandler(function() self:click_eggInfoBtn() end)
+    vars['eggInfoBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -267,16 +267,4 @@ function UI_HatcheryIncubateTab:refreshEggList()
 
     -- 2번째 아이템을 포커스 (1번째 아이템은 "상점")
     egg_picker:setFocus(2)
-end
-
--------------------------------------
--- function click_eggInfoBtn
--------------------------------------
-function UI_HatcheryIncubateTab:click_eggInfoBtn()
-    local ui = UI_BookEgg()
-    -- 바로가기 기능
-    ui.m_shortcutsFunc = function(focus_id)
-        local id = tonumber(focus_id)
-        self.m_eggPicker:focusEggByID(id)
-    end
 end

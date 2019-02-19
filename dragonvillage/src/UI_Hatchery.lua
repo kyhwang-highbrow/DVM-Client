@@ -69,6 +69,9 @@ function UI_Hatchery:initButton()
 
     -- 마일리지 샵
     vars['mileageBtn']:registerScriptTapHandler(function() self:click_mileageBtn() end)
+    
+    -- 알도감 (바로가기)
+    vars['eggInfoBtn']:registerScriptTapHandler(function() self:click_eggInfoBtn() end)
 end
 
 -------------------------------------
@@ -107,6 +110,16 @@ function UI_Hatchery:initTab(focus_id)
     self:addTabWithTabUIAndLabel('relation', vars['relationTabBtn'], vars['relationTabLabel'], relation_tab) -- 인연
 
     self:setTab('summon')
+
+    -- 탭 바뀔 때 호출하는 함수 세팅
+    self.m_cbChangeTab = function(tab, first)
+        if (tab ~= 'summon') then
+            vars['eggInfoBtn']:setVisible(true)
+        else
+            vars['eggInfoBtn']:setVisible(false)
+        end 
+    end
+
 end
 
 -------------------------------------
@@ -184,4 +197,15 @@ end
 -------------------------------------
 function UI_Hatchery:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
+end
+
+-------------------------------------
+-- function click_eggInfoBtn
+-------------------------------------
+function UI_Hatchery:click_eggInfoBtn()
+    local ui = UI_BookEgg()
+    -- 바로가기 기능
+    ui.m_shortcutsFunc = function(focus_id)
+
+    end
 end
