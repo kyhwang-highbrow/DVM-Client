@@ -61,13 +61,11 @@ function ResourcePreloadMaker:makePreloadFile()
     local intro_stage_id = 1010001
     l_preload_list[intro_stage_id] = self:getPreloadList_Stage(intro_stage_id)
 
+
+    local l_stage = TableStageDesc:getPreloadStageList()
     -- 스테이지 별 리소스 생성
-    for stage_id, _ in pairs(table_stage_desc.m_orgTable) do
-        
-        -- @jhakim 클랜던전은 preload 하지 않음 (테이블에서 preload할 스테이지리스트 던지는 함수 필요할 듯)
-        if (not TableStageData:isClanRaidStage(stage_id)) then
-            l_preload_list[stage_id] = self:getPreloadList_Stage(stage_id)
-        end
+    for _,stage_id in ipairs(l_stage) do
+        l_preload_list[stage_id] = self:getPreloadList_Stage(stage_id)
     end
     
     -- 총 프리로드 리소스 카운트

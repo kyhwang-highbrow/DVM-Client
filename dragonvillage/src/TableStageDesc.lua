@@ -176,3 +176,26 @@ function TableStageDesc:checkStartTamerScenario(scenario_name)
 
     return l_str[1]
 end
+
+
+-------------------------------------
+-- function getPreloadStageList
+-- @brief preload용 스테이지 리스트 만들어서 반환
+-------------------------------------
+function TableStageDesc:getPreloadStageList()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_stage_data = TableStageData()
+    local l_stage = {}
+    
+    for stage_id, _ in pairs(self.m_orgTable) do       
+        -- @jhakim 20190208 클랜던전은 preload리스트에서 제외
+        if (not t_stage_data:isClanRaidStage(stage_id)) then
+            table.insert(l_stage, stage_id)    
+        end
+    end
+
+    return l_stage
+end
