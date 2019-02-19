@@ -45,7 +45,7 @@ end
 
 -------------------------------------
 -- function initOptionRadioBtn
--- @brief 연마/강화의 라디오 버튼 초기화
+-- @brief 연마 옵션라벨 버튼 초기화
 -------------------------------------
 function UI_DragonRunesGrind:initOptionRadioBtn()
     local enhance_class = self.m_runeEnhanceClass
@@ -91,7 +91,8 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
         local is_maxFixed = (option_item_type == 'max_fixed_ticket')
         vars['optKeepDescLabel']:setVisible(is_optKepp)
         vars['maxFixedDescLabel']:setVisible(is_maxFixed)
-
+        vars['grindNotiLabel2']:setVisible((is_optKepp or is_maxFixed))
+        vars['grindNotiLabel']:setVisible(not (is_optKepp or is_maxFixed))
         self:refresh_grindItemRadioBtn()
     end)
 
