@@ -129,8 +129,18 @@ function UI_BundlePopup:click_quantityBtn(is_add)
 		return
 	end
 
-	-- 재화 부족 예외처리
-	local struct_product = self.m_structProduct
+    local struct_product = self.m_structProduct
+    
+    -- 구매 한도 예외처리
+    local max_buy_cnt = tonumber(struct_product['max_buy_count'])
+    local cur_buy_cnt = g_shopDataNew:getBuyCount(struct_product['product_id'])
+    if (max_buy_cnt) then
+        if (count > max_buy_cnt - cur_buy_cnt) then
+            return
+        end
+    end
+
+	-- 재화 부족 예외처리	
 	local price = struct_product:getPrice()
 	local price_type = struct_product:getPriceType()
 	if (not UIHelper:checkPrice(price_type, price * count)) then
