@@ -145,12 +145,23 @@ end
 -------------------------------------
 function UI_ChallengeModeResult:direction_winReward()
 	local t_item = self.m_winReward
-	if (#t_item == 0) then
+	
+    -- 이벤트(수집 이벤트) 보상이 섞여 들어왔을 때는 보상 목록에서 제외
+    local remove_ind
+    for ind, item_data in ipairs(t_item) do
+        if (item_data['from'] == 'event') then
+            remove_ind = ind
+            break
+        end
+    end
+    table.remove(t_item, ind)
+    
+    if (#t_item == 0) then
 		self:doNextWork()
 		return
 	end
 
-	self:makeRewardPopup(t_item, Str('승리 보상 획득!'))
+    self:makeRewardPopup(t_item, Str('승리 보상 획득!'))
 end
 
 -------------------------------------
