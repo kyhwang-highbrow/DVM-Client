@@ -59,8 +59,11 @@ function UI_ChallengeModeResult:setWorkList()
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
 	-- table.insert(self.m_lWorkList, 'direction_playReward')
-	table.insert(self.m_lWorkList, 'direction_winReward')
-	table.insert(self.m_lWorkList, 'direction_nextStage')
+    -- 승리 시, 승리 보상 UI 출력
+    if (self.m_isWin) then
+	    table.insert(self.m_lWorkList, 'direction_winReward')
+	end
+    table.insert(self.m_lWorkList, 'direction_nextStage')
 end
 
 -------------------------------------
@@ -74,6 +77,7 @@ function UI_ChallengeModeResult:direction_end()
     resultMenu:setVisible(true)
 
     -- 연출 준비
+    local t_data = self.m_resultData
 	vars['resultVisual']:setPositionY(100)
 	vars['okBtn']:setPositionY(-100)
 	vars['statsBtn']:setPositionY(-100)
@@ -81,7 +85,43 @@ function UI_ChallengeModeResult:direction_end()
     vars['eventNode1']:setVisible(false)
     vars['eventNode2']:setVisible(false)
 
-    local show_act = cc.EaseExponentialOut:create(cc.MoveBy:create(0.3, cc.p(0, ACTION_MOVE_Y)))
+    -- 이벤트 아이템 표시
+    local event_act = cc.CallFunc:create(function()
+        if (not t_data['added_items']) then 
+            return 
+        end
+        local drop_list = t_data['added_items']['items_list'] or {}
+		local idx = 1
+        for _, item in ipairs(drop_list) do
+			-- 보호 장치
+			if (idx > 2) then
+				break
+			end
+
+            -- item_id 로 직접 체크한다
+            if (item['from'] == 'event') then
+				-- visible on
+                vars['eventNode' .. idx]:setVisible(true)
+
+				-- 재화 아이콘
+				local item_id = item['item_id']
+				local icon = IconHelper:getItemIcon(item_id)
+				vars['eventIconNode' .. idx]:addChild(icon)
+
+				-- 재화 이름
+				local item_name = TableItem:getItemName(item_id)
+                vars['eventNameLabel' .. idx]:setString(item_name)
+
+				-- 재화 수량
+                local cnt = item['count']
+                vars['eventLabel' .. idx]:setString(comma_value(cnt))
+
+				idx = idx + 1
+			end
+        end
+    end)
+    local move_func = cc.EaseExponentialOut:create(cc.MoveBy:create(0.3, cc.p(0, ACTION_MOVE_Y)))
+    local show_act = cc.Sequence:create(move_func, event_act)
 	resultMenu:runAction(show_act)
 
     self:doNextWorkWithDelayTime(0.5)
