@@ -147,15 +147,18 @@ function UI_ChallengeModeResult:direction_winReward()
 	local t_item = self.m_winReward
 	
     -- 이벤트(수집 이벤트) 보상이 섞여 들어왔을 때는 보상 목록에서 제외
-    local remove_ind
+    local remove_ind = nil
     for ind, item_data in ipairs(t_item) do
         if (item_data['from'] == 'event') then
             remove_ind = ind
             break
         end
     end
-    table.remove(t_item, ind)
     
+    if (remove_ind) then
+        table.remove(t_item, remove_ind)
+    end
+
     if (#t_item == 0) then
 		self:doNextWork()
 		return
