@@ -240,7 +240,7 @@ function UI_DragonRunesEnhance:refresh_enhance()
     -- 룬 옵션 세팅
     if (not self.m_optionLabel) then
         self.m_optionLabel = rune_obj:getOptionLabel()
-        vars['runeInfo']:addChild(self.m_optionLabel.root)
+        vars['runeDscNode']:addChild(self.m_optionLabel.root)
     end
     rune_obj:setOptionLabel(self.m_optionLabel, 'use', true) -- param : ui, label_format, show_change
 

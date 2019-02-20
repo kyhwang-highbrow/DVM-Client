@@ -192,10 +192,10 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     self.m_selectedRuneObject = t_rune_data
 
     -- 룬 옵션 라벨
-    self.vars['runeInfoNode']:setVisible(true)
+    self.vars['runeDscNode']:setVisible(true)
     if (not self.m_optionLabel) then
         self.m_optionLabel = self.m_selectedRuneObject:getOptionLabel()
-        self.vars['runeInfoNode']:addChild(self.m_optionLabel.root)
+        self.vars['runeDscNode']:addChild(self.m_optionLabel.root)
     end
     self.m_selectedRuneObject:setOptionLabel(self.m_optionLabel, 'use', false)
 

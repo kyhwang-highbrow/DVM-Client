@@ -165,7 +165,6 @@ function UI_RandomShop:refresh_itemInfo()
     do -- 설명
         local is_rune = struct_item:isRuneItem()
         vars['itemDscLabel']:setVisible(not is_rune)
-        vars['runeDscLabel']:setVisible(is_rune)
         vars['itemDscNode2']:setVisible(is_rune) -- 룬 세트 효과 노드
 
         if (is_rune) then
@@ -174,11 +173,10 @@ function UI_RandomShop:refresh_itemInfo()
             local desc = t_rune_data:makeRuneDescRichText()
             vars['runeDscLabel']:setString(desc)
             --]]
-            vars['runeDscLabel']:setString('')
             local struct_rune = StructRuneObject(t_rune_data)
             if (not self.m_selectRuneOptionLabel) then
                 self.m_selectRuneOptionLabel = struct_rune:getOptionLabel()
-                vars['runeDscLabel']:addChild(self.m_selectRuneOptionLabel.root)                    
+                vars['runeDscNode']:addChild(self.m_selectRuneOptionLabel.root)                   
             end
             struct_rune:setOptionLabel(self.m_selectRuneOptionLabel, 'use', false) 
 
