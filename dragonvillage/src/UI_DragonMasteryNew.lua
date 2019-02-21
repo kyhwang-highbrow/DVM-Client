@@ -350,6 +350,7 @@ function UI_DragonMasteryNew:getDragonMaterialList(doid)
             local t_material = {}
             t_material['did'] = 999 -- 드래곤과 구별을 위해 임의로 특성재료 did를 999로 설정
             t_material['item_id'] = material_id
+            t_material['idx'] = i
             dragon_dic['mastery_material' .. i] = t_material
         end        
     end
@@ -364,58 +365,61 @@ end
 function UI_DragonMasteryNew:click_dragonMaterial(data)
     local doid = data['id']
 
-    -- 선택된 드래곤이 특성 레벨업이 가능한지
-    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
-    local possible, noti_str = g_dragonsData:possibleDragonMasteryLevelUp(dragon_obj['id'])
-    if (not possible) then
-        UIManager:toastNotificationRed(noti_str)
-        return
+    if (data['did'] ~= 999) then
+        doid = data['id']
+        -- 선택된 드래곤이 특성 레벨업이 가능한지
+        local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+        local possible, noti_str = g_dragonsData:possibleDragonMasteryLevelUp(dragon_obj['id'])
+        if (not possible) then
+            UIManager:toastNotificationRed(noti_str)
+            return
+        end
+
+        -- 재료로 사용 가능한 드래곤 검증
+        local possible, noti_str = g_dragonsData:possibleMaterialDragon(doid)
+        if (not possible) then
+            UIManager:toastNotificationRed(noti_str)
+            return
+        end
+    else
+        doid = data['idx'] -- 드래곤은 id/ 특성 재료의 경우 idx를 고유하게 가짐
     end
-
-    -- 재료로 사용 가능한 드래곤 검증
-    local possible, noti_str = g_dragonsData:possibleMaterialDragon(doid)
-    if (not possible) then
-        UIManager:toastNotificationRed(noti_str)
-        return
-    end
-
-
-    local list_item = self.m_mtrlTableViewTD:getItem(doid)
-    local list_item_ui = list_item['ui']
 
     local function set_ui()
-		-- 재료 경고
-        g_dragonsData:dragonMaterialWarning(doid, function()
-			if (self.m_selectedUI) then
-				self.m_selectedUI:setCheckSpriteVisible(false)
-			end
+        if (data['did'] ~= 999) then
+		    -- 재료 경고
+            g_dragonsData:dragonMaterialWarning(doid, function()
+		    	if (self.m_selectedUI) then
+		    		self.m_selectedUI:setCheckSpriteVisible(false)
+		    	end
 
-			self.m_selectedMtrl = data['id']
-			self.m_selectedUI = list_item_ui
-			list_item_ui:setCheckSpriteVisible(true)
-		end)
+                local list_item = self.m_mtrlTableViewTD:getItem(data['id'])
+                local list_item_ui = list_item['ui']
+		    	self.m_selectedMtrl = data['id']
+		    	self.m_selectedUI = list_item_ui
+		    	list_item_ui:setCheckSpriteVisible(true)
+                
+		    end)
+        else
+            self.m_selectedMtrl = data['idx'] -- 드래곤은 id/ 특성 재료의 경우 idx를 고유하게 가짐
+            local list_item = self.m_mtrlTableViewTD:getItem('mastery_material' .. data['idx'])
+            local list_item_ui = list_item['ui']
+            self.m_selectedUI = list_item_ui
+            list_item_ui:setCheckSpriteVisible(true)
+        end
     end
 
 
-    -- 선택된 재료가 있는 경우
+    -- 선택된 재료가 있는 경우, 해제 처리
     if self.m_selectedMtrl then
-		-- 선택된 재료와 클릭한 재료가 같음 
-		if (doid == self.m_selectedMtrl) then
-			--> 해제 처리
-			self.m_selectedMtrl = nil
-            self.m_selectedUI = nil
-			list_item_ui:setCheckSpriteVisible(false)
-
-		-- 선택 클릭 다름
-		else
-			--> @TODO 해제 및 다시 선택
-            set_ui()
-		end
-
-	-- 선택된 재료가 없는 경우
-    else
-		set_ui()
+        -- 해제 처리
+		self.m_selectedUI:setCheckSpriteVisible(false)
+        self.m_selectedMtrl = nil
+        self.m_selectedUI = nil
 	end
+		
+    -- 클릭한 UI, 선택 처리    
+    set_ui()
 end
 
 -------------------------------------
