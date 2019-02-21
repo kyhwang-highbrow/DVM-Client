@@ -486,6 +486,25 @@ function SortManager_Dragon:sort_created_at(a, b, ascending)
 end
 
 -------------------------------------
+-- function sort_exclude_material
+-- @brief 특성 재료를 맨 앞으로 정렬
+-------------------------------------
+function SortManager_Dragon:sort_with_material(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_value = a_data['did']
+    local b_value = b_data['did']
+
+    if (a_value ~= 999) and (b_value ~= 999) then -- 특성재료의 did를 임의로 999로 설정, 특성 재료가 아닐시 다음 정렬 적용
+        return nil
+    end
+
+    -- 특성 재료를 맨 앞으로
+    return a_value < b_value
+end
+
+-------------------------------------
 -- function sort_doid
 -- @brief 오브젝트 ID
 -------------------------------------

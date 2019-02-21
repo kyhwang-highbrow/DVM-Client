@@ -48,7 +48,13 @@ function UI_DragonMasteryNew:init(doid)
 
     -- 정렬 도우미
     self:init_dragonSortMgr()
-	self:init_mtrDragonSortMgr(true) -- slime_first
+    
+    -- 특성 재료를 우선 순위 배치하는 정렬함수를 PreSortType로 추가
+    self.m_mtrlDragonSortManager = SortManager_Dragon()
+    self.m_mtrlDragonSortManager:addPreSortType('mastery_material', true, function(a, b, ascending) return self.m_mtrlDragonSortManager:sort_with_material(a, b, ascending) end)
+	
+    self:init_mtrDragonSortMgr(false) -- slime_first
+
 end
 
 -------------------------------------
@@ -333,6 +339,21 @@ function UI_DragonMasteryNew:getDragonMaterialList(doid)
         end
     end
 
+    local material_name = 'mastery_material_0' .. (dragon_obj:getBirthGrade() - 1) -- 해당 희귀도의 특성재료 
+    local mastery_material_cnt = g_userData:get(material_name)
+    local material_id = TableItem:getItemIDFromItemType(material_name)
+
+    do
+        -- 특성 재료 보유 갯수 만큼 리스트에 추가
+        for i = 1, mastery_material_cnt do
+            local t_data = {}
+            local t_material = {}
+            t_material['did'] = 999 -- 드래곤과 구별을 위해 임의로 특성재료 did를 999로 설정
+            t_material['item_id'] = material_id
+            dragon_dic['mastery_material' .. i] = t_material
+        end        
+    end
+
     return dragon_dic
 end
 
@@ -427,11 +448,60 @@ function UI_DragonMasteryNew:createDragonCardCB(ui, data)
 end
 
 -------------------------------------
+-- function UI_DragonMasteryNew
+-- @brief 특성 재료 테이블 뷰 갱신
+-------------------------------------
+function UI_DragonMasteryNew:refresh_dragonMaterialTableView()
+    local vars = self.vars   
+    local list_table_node = vars['materialTableViewNode']
+    list_table_node:removeAllChildren()
+
+    -- 리스트 아이템 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.66)
+        -- 클릭 버튼 설정
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
+
+		self:createMtrlDragonCardCB(ui, data)
+    end
+    
+    local function make_func(object)
+        if (object['did'] == 999) then
+            return UI_ItemCard(object['item_id'])
+        else
+            return UI_DragonCard(object)
+        end
+    end
+
+    -- 테이블뷰 생성
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td.m_cellSize = cc.size(100, 100)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(make_func, create_func)
+    self.m_mtrlTableViewTD = table_view_td
+
+    -- 특성 재료로 사용 가능한 리스트를 얻어옴
+    local l_dragon_list = self:getDragonMaterialList(self.m_selectDragonOID)
+    self.m_mtrlTableViewTD:setItemList(l_dragon_list)
+
+    -- 리스트가 비었을 때
+    local msg = Str('도와줄 드래곤이 없다고라') 
+    table_view_td:makeDefaultEmptyMandragora(msg)
+
+	self:apply_mtrlDragonSort()
+end
+
+-------------------------------------
 -- function createMtrlDragonCardCB
 -- @brief 재료 카드 만든 후..
 -------------------------------------
 function UI_DragonMasteryNew:createMtrlDragonCardCB(ui, data)
     if (not ui) then
+        return
+    end
+
+    -- 특성 재료는 모두 재료로 사용 가능
+    if (data['did'] == 999) then
         return
     end
 
@@ -442,7 +512,7 @@ function UI_DragonMasteryNew:createMtrlDragonCardCB(ui, data)
             ui:setShadowSpriteVisible(true)
             return
         end
-
+    
     elseif (data:getObjectType() == 'slime') then
         if (not g_slimesData:possibleMaterialSlime(doid, 'skill')) then
             ui:setShadowSpriteVisible(true)

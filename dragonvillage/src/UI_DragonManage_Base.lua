@@ -580,8 +580,10 @@ end
 function UI_DragonManage_Base:init_mtrDragonSortMgr(slime_first)
 	local is_slime_first = slime_first or false
 
-    -- 정렬 매니저 생성
-    self.m_mtrlDragonSortManager = SortManager_Dragon()
+    if (not self.m_mtrlDragonSortManager) then
+        -- 정렬 매니저 생성
+        self.m_mtrlDragonSortManager = SortManager_Dragon()
+    end
 
 	if (is_slime_first) then
 		self.m_mtrlDragonSortManager:addPreSortType('object_type', false, function(a, b, ascending) return self.m_mtrlDragonSortManager:sort_object_type(a, b, ascending) end)
