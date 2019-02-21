@@ -11,7 +11,7 @@ UI_ChallengeModeRankingListItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ChallengeModeRankingListItem:init(t_rank_info, t_last_data)
+function UI_ChallengeModeRankingListItem:init(t_rank_info, t_last_data) -- t_rank_info, t_last_data(보상 출력해줄 때만 값이 들어옴)
     self.m_rankInfo = t_rank_info
     self.m_lastData = t_last_data
     local vars = self:load('challenge_mode_ranking_item.ui')
@@ -27,6 +27,7 @@ end
 function UI_ChallengeModeRankingListItem:initUI()
     local vars = self.vars
     local t_rank_info = self.m_rankInfo
+    local t_last_info = self.m_lastData
     local rank = t_rank_info.m_rank
 
     local tag = t_rank_info.m_tag
@@ -45,14 +46,22 @@ function UI_ChallengeModeRankingListItem:initUI()
         return
     end
 
+    -- 보상 출력하는 경우 self.m_lastData의 데이터를 사용
     if (self.m_lastData) then
         -- 점수 표시
-        vars['scoreLabel']:setString(Str('{1}점', self.m_lastData['point']))
+        vars['scoreLabel']:setString(Str('{1}점', t_last_info['point']))
         -- 순위 표시
-        vars['rankingLabel']:setString(Str('{1}위', self.m_lastData['rank']))
+        vars['rankingLabel']:setString(Str('{1}위', t_last_info['rank']))
+
+    -- 랭킹 출력하는 경우 self.m_rankInfo의 데이터를 사용
     else
-        vars['scoreLabel']:setString('')
-        vars['rankingLabel']:setString('')
+        -- 점수 표시
+        local score_str = t_rank_info:getChallengeMode_pointText()
+        vars['scoreLabel']:setString(str)
+        -- 순위 표시
+        local rank_str = t_rank_info:getChallengeMode_RankText()
+        vars['rankingLabel']:setString(rank_str)
+
     end
 
     -- 승리 수 표시 -- @sgkim 2018-10-24 클리어 수 개념 삭제
