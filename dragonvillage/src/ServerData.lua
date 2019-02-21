@@ -485,6 +485,21 @@ function ServerData:networkCommonRespone(ret)
         if ret['rune_bless'] then
             self:applyServerData(ret['rune_bless'], 'user', 'rune_bless')
         end
+
+        -- 희귀 특성 재료
+        if ret['mastery_material_02'] then
+            self:applyServerData(ret['mastery_material_02'], 'user', 'mastery_material_02')
+        end
+
+        -- 영웅 특성 재료
+        if ret['mastery_material_03'] then
+            self:applyServerData(ret['mastery_material_03'], 'user', 'mastery_material_03')
+        end
+
+        -- 전설 특성재료
+        if ret['mastery_material_04'] then
+            self:applyServerData(ret['mastery_material_04'], 'user', 'mastery_material_04')
+        end
     end
 
 	-- 퀘스트 갱신
