@@ -355,8 +355,7 @@ function UI_DragonRunesGrind:click_grind()
 
     -- 첫 연마라면 연마 확인 팝업 생성
     if (not rune_obj:getGrindedOption()) then
-        local opt_desc = self:makeRuneDesc_grind(self.m_seletedGrindOption, nil)
-        UI_DragonRunesGrindFirstPopup(opt_desc, start_grind_cb)
+        UI_DragonRunesGrindFirstPopup(self.m_seletedGrindOption, rune_obj, start_grind_cb)
     else
         start_grind_cb()
     end
