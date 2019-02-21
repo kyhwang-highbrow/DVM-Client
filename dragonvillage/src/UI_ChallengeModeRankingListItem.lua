@@ -57,11 +57,10 @@ function UI_ChallengeModeRankingListItem:initUI()
     else
         -- 점수 표시
         local score_str = t_rank_info:getChallengeMode_pointText()
-        vars['scoreLabel']:setString(str)
+        vars['scoreLabel']:setString(score_str)
         -- 순위 표시
         local rank_str = t_rank_info:getChallengeMode_RankText()
         vars['rankingLabel']:setString(rank_str)
-
     end
 
     -- 승리 수 표시 -- @sgkim 2018-10-24 클리어 수 개념 삭제
