@@ -575,6 +575,14 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
     local doid = dragon_obj['id']
     local src_doid = self.m_selectedMtrl
 
+    -- 임의로 지정
+    if (src_doid < 10) then
+        local material_name = 'mastery_material_0' .. (dragon_obj:getBirthGrade() - 1) -- 해당 희귀도의 특성재료 
+        local mastery_material_cnt = g_userData:get(material_name)
+        local material_id = TableItem:getItemIDFromItemType(material_name)
+        src_doid = material_id
+    end
+
     local function cb_func(ret)
         self:refresh_dragonIndivisual(doid)
         
