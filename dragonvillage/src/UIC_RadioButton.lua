@@ -23,6 +23,7 @@ function UIC_RadioButton:addButton(name, button, sprite, cb)
     t_button_data['button'] = button
     t_button_data['sprite'] = sprite
     t_button_data['cb'] = cb
+    t_button_data['death'] = false
 
     if (not button) then
         error('there is not button : ' .. name)
@@ -86,6 +87,9 @@ end
 -------------------------------------
 function UIC_RadioButton:inactivate(button_name)
     local t_button_data = self.m_buttonMap[button_name]
+    if (t_button_data['death']) then
+        return
+    end
 
     local button = t_button_data['button']
     button:setEnabled(true)
@@ -95,10 +99,7 @@ function UIC_RadioButton:inactivate(button_name)
         label:setTextColor(cc.c4b(240, 215, 159, 255))
     end
 
-    local sprite = t_button_data['sprite']
-    if sprite then
-        sprite:setVisible(false)
-    end
+    self:setRadioSelectedSprite(button_name, false)
 end
 
 -------------------------------------
@@ -106,6 +107,9 @@ end
 -------------------------------------
 function UIC_RadioButton:activate(button_name)
     local t_button_data = self.m_buttonMap[button_name]
+    if (t_button_data['death']) then
+        return
+    end
 
     local button = t_button_data['button']
     button:setEnabled(false)
@@ -115,10 +119,7 @@ function UIC_RadioButton:activate(button_name)
         label:setTextColor(cc.c4b(0, 0, 0, 255))
     end
 
-    local sprite = t_button_data['sprite']
-    if sprite then
-        sprite:setVisible(true)
-    end
+    self:setRadioSelectedSprite(button_name, true)
 
     if self.m_changeCB then
         self.m_changeCB(button_name)
@@ -134,17 +135,14 @@ function UIC_RadioButton:disable(button_name, cb_func)
     local button = t_button_data['button']
     button:setEnabled(false)
     
-    -- diable일 때 따로 커스텀할 함수가 없다면 디폴트값 사용
+    -- disabled 상태일 때 ui 커스텀 할 수 있는 콜백 함수
     if (not cb_func) then        
-	    button:setColor(cc.c4b(0, 0, 0, 255))
+	    button:setColor(cc.c4b(0, 0, 0, 255)) -- 디폴트, 버튼의 색상을 어둡게
     else
         cb_func(t_button_data)
     end
 
-	local sprite = t_button_data['sprite']
-    if sprite then
-        sprite:setVisible(false)
-    end
+	self:setRadioSelectedSprite(button_name, false)
 end
 
 -------------------------------------
@@ -165,4 +163,37 @@ function UIC_RadioButton:existButton(name)
     end
 
     return false
+end
+
+-------------------------------------
+-- function killBtn
+-- @brief isActive/isInactive 함수에 영향 받지 않음
+-------------------------------------
+function UIC_RadioButton:killBtn(button_name, cb_func)
+    local t_button_data = self.m_buttonMap[button_name]
+    local button = t_button_data['button']
+    button:setEnabled(false)
+    
+    -- killed 상태일 때 ui 커스텀 할 수 있는 콜백 함수
+    if (not cb_func) then        
+	    button:setColor(cc.c4b(0, 0, 0, 255)) -- 디폴트, 버튼의 색상을 어둡게
+    else
+        cb_func(t_button_data)
+    end
+
+	self:setRadioSelectedSprite(button_name, false)
+
+    t_button_data['button'] = true
+end
+
+-------------------------------------
+-- function setRadioSelectedSprite
+-- @brief 라디오 버튼 선택 표시하는 스프라이트 turn off/on
+-------------------------------------
+function UIC_RadioButton:setRadioSelectedSprite(button_name, is_turn_on)
+    local t_button_data = self.m_buttonMap[button_name]
+    local sprite = t_button_data['sprite']
+    if sprite then
+        sprite:setVisible(is_turn_on)
+    end
 end
