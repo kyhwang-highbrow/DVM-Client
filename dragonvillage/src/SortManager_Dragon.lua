@@ -496,11 +496,20 @@ function SortManager_Dragon:sort_with_material(a, b, ascending)
     local a_value = a_data['did']
     local b_value = b_data['did']
 
-    if (a_value ~= 999) and (b_value ~= 999) then -- 특성재료의 did를 임의로 999로 설정, 특성 재료가 아닐시 다음 정렬 적용
+    -- 비교값이 모두 특성재료라면 nil 반환(다음 정렬규칙을 적용)
+    if (a_value ~= 'mastery_material') and (b_value ~= 'mastery_material') then
         return nil
     end
 
-    -- 특성 재료를 맨 앞으로
+    -- 값이 특성 재료라면 값을 0으로 두고 비교 (특성 재료를 맨 앞으로)
+    if (a_value == 'mastery_material') then
+        a_value = 0
+    end
+
+    if (b_value == 'mastery_material') then
+        b_value = 0
+    end
+
     return a_value < b_value
 end
 
