@@ -364,12 +364,12 @@ end
 -- @override 재료 클릭 시,
 -------------------------------------
 function UI_DragonMasteryNew:click_dragonMaterial(data)
-    local doid = data['id']
+    local material_id = data['id']
     
     -- 1.재료로 사용할 수 있는지 확인
     -- 2.선택된 재료가 있는 경우 체크 해제 처리
     -- 3.(사용 전)재료 확인 팝업 (드래곤 정보 팝업/특성 재료 정보 팝업)
-    -- 4.현재 선택한 재료의 UI클래스 체크 표시
+    -- 4.체크 or 체크x
 
 
     -- 1.재료로 사용할 수 있는지 확인
@@ -391,7 +391,7 @@ function UI_DragonMasteryNew:click_dragonMaterial(data)
         self.m_selectedMtrl = nil
 	end
 
-	-- 4.현재 선택한 재료의 UI클래스 체크 표시
+	-- 체크 표시 func
     local check_ui = function()
         self.m_selectedMtrl = data['id']
         local list_item = self.m_mtrlTableViewTD:getItem(self.m_selectedMtrl)
@@ -400,19 +400,23 @@ function UI_DragonMasteryNew:click_dragonMaterial(data)
         list_item_ui:setCheckSpriteVisible(true)
     end
 
-    -- 3.(사용 전)재료 확인 팝업   
-    if (not self:isMasteryMaterial(data['id'])) then
-        g_dragonsData:dragonMaterialWarning(doid, function()
-	    	if (self.m_selectedUI) then
-	    		self.m_selectedUI:setCheckSpriteVisible(false)
-	    	end
-            check_ui()      
-	    end)
-    else
-        check_ui()
+    -- 체크 해제 func
+    local un_check_ui = function()
+        if self.m_selectedMtrl then
+            -- 해제 처리
+		    self.m_selectedUI:setCheckSpriteVisible(false)
+            self.m_selectedUI = nil
+            self.m_selectedMtrl = nil
+        end
     end
 
-    
+    -- 특성재료일 경우 해당 특성재료 아이템 아이디로 material_id을 변경
+    if (self:isMasteryMaterial(data['id'])) then
+        local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+        material_id = self:getMasteryItemIdForDragon(dragon_obj['id'])
+    end
+
+    UI_DragonMasteryConfirmPopup(material_id, check_ui, un_check_ui) -- 드래곤의 경우 오브젝트 아이디/아이템의 경우 아이템 아이디
 end
 
 -------------------------------------
@@ -601,9 +605,7 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
 
     -- 특성재료일 경우, 특성 재료 아이템 아이디를 넣어줌
     if (self:isMasteryMaterial(src_doid)) then
-        local material_name = 'mastery_material_0' .. (dragon_obj:getBirthGrade() - 1) -- 해당 희귀도의 특성재료 
-        local mastery_material_cnt = g_userData:get(material_name)
-        local material_id = TableItem:getItemIDFromItemType(material_name)
+        local material_id = self:getMasteryItemIdForDragon(src_doid)
         src_doid = material_id
     end
 
@@ -786,6 +788,84 @@ function UI_DragonMasteryNew:isMasteryMaterial(doid)
         return false
     end
 end
+
+-------------------------------------
+-- function getMasteryItemIdForDragon
+-- @brief 현재 드래곤이 사용할 특성재료아이디 반환
+-------------------------------------
+function UI_DragonMasteryNew:getMasteryItemIdForDragon(doid)
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid) -- StructDragonObject
+
+    local material_name = 'mastery_material_0' .. (dragon_obj:getBirthGrade() - 1) -- 해당 희귀도의 특성재료 
+    local mastery_material_cnt = g_userData:get(material_name)
+    local material_id = TableItem:getItemIDFromItemType(material_name)
+    return material_id
+end
+
+
+
+
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_DragonMasteryConfirmPopup
+-------------------------------------
+UI_DragonMasteryConfirmPopup = class(PARENT,{
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_DragonMasteryConfirmPopup:init(id, ok_cb, cancel_cb) -- 드래곤의 경우 드래곤 오브젝트 아이디/ 아이템의 경우 아이템 아이디
+    local vars = self:load('dragon_mastery_material_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() cancel_cb() self:close() end, 'UI_DragonMasteryConfirmPopup')
+
+    -- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI(id, ok_cb, cancel_cb)
+    self:initButton()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_DragonMasteryConfirmPopup:initUI(id, ok_cb, cancel_cb)
+    local vars = self.vars
+    local card_ui = nil
+    local item_name = ''
+
+    -- 드래곤/특성 재료 아이템일 경우 아이템 카드/이름 생성
+    -- 특성 재료 하드코딩, 드래곤 oid랑 아이템 아이디 구분을 어떻게 해야할 지..
+    if (id == 741021 or id == 741031 or id == 741041) then
+        card_ui = UI_ItemCard(id)
+        item_name = TableItem:getItemName(id)
+    else
+        local dragon_obj = g_dragonsData:getDragonDataFromUid(id)
+        card_ui = UI_DragonCard(dragon_obj)
+        item_name = TableDragon:getDragonName(dragon_obj:getDid())
+    end
+    
+    vars['okBtn']:registerScriptTapHandler(function() ok_cb() self:close() end)
+    vars['cancelBtn']:registerScriptTapHandler(function() cancel_cb() self:close() end)
+    vars['closeBtn']:registerScriptTapHandler(function() cancel_cb() self:close() end)
+    vars['itemDscLabel']:setString(item_name)
+    if (card_ui) then
+        card_ui.root:setScale(0.8)
+        vars['iconNode']:addChild(card_ui.root)
+    end
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_DragonMasteryNew)
