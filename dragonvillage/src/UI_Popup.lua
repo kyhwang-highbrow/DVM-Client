@@ -90,6 +90,15 @@ function ConfirmPrice_original(price_type, price_value)
             MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.\n친구에게 우정포인트를 요청해보세요!'))
             return false
         end
+
+    elseif (price_type == 'rune_bless') then
+        local cur_rune_bless = g_userData:get('rune_bless')
+        -- 재화가 충분히 있는지 체크
+        print(cur_rune_bless , price_value)
+        if (cur_rune_bless < price_value) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}가 부족합니다.\n상점으로 이동하시겠습니까?', '룬 축복서'), function() g_shopDataNew:openShopPopup('amethyst') end)
+            return false
+        end
     elseif (price_type == 'ancient') then
         local ancient = g_userData:get('ancient')
 

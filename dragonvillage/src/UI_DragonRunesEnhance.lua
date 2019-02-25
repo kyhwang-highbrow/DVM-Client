@@ -171,9 +171,7 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
     -- 디폴트로 일반 강화 선택
     radio_button:setSelectedButton('normalOpt')  
     
-    self.m_enhanceTypeRadioBtn = radio_button
-    self:setBlessRadioBtnState()
-    
+    self.m_enhanceTypeRadioBtn = radio_button  
 
     --[[
     -- 강화 radio button 선언
@@ -598,12 +596,17 @@ function UI_DragonRunesEnhance:checkBlessCondition()
     local req_gold = self:calcReqGoldForBless()
 
     local req_rune_bless = self.m_runeObject:getRuneBlessReqItem()
-    local cur_rune_bless_cnt = g_userData:get('rune_bless')
     
-    if (not ConfirmPrice('gold', req_gold) or (cur_rune_bless_cnt < req_rune_bless)) then
-        UIManager:toastNotificationRed(Str('재료가 부족합니다.'))
+    if (not ConfirmPrice_original('rune_bless', req_rune_bless)) then
+        UIManager:toastNotificationRed(Str('{1}가 부족합니다.','룬 축복서'))       
         return false
     end
+
+    if (not ConfirmPrice('gold', req_gold)) then
+        UIManager:toastNotificationRed(Str('{1}가 부족합니다.', '골드'))
+        return false
+    end
+
     return true
 end
 
