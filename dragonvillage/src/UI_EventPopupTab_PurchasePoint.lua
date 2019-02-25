@@ -47,21 +47,23 @@ function UI_EventPopupTab_PurchasePoint:initUI()
             -- 아이템 프레임
             local ui_frame = UI()
             ui_frame:load('event_purchase_point_item_new_01.ui')
+            ui_frame.vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
             item_node:addChild(ui_frame.root)
             
             local item_id, count = self:getRewardInfoByStep(version, step)
 
             -- 아이템 카드
             local ui_card = UI_ItemCard(item_id, count)
-            ui_frame.root:addChild(ui_card.root)
-            ui_card.root:setScale(0.5)
+            ui_frame.vars['iconNode']:addChild(ui_card.root)
             ui_frame.root:setScale(1.2)
+            ui_card:setEnabledClickBtn(false)   
+            ui_card.root:setScale(0.7)
 
             -- 보상 점수
             local point = g_purchasePointData:getPurchasePoint_step(version, step-1)
             vars['scoreLabel' .. step]:setString(comma_value(point))
-            
-            table.insert(self.m_rewardBoxUIList, ui)
+
+            table.insert(self.m_rewardBoxUIList, ui_frame)
         end
     end
 
@@ -188,24 +190,23 @@ function UI_EventPopupTab_PurchasePoint:refresh_rewardBoxUIList()
     for step,ui in pairs(self.m_rewardBoxUIList) do
         local vars = ui.vars
         local t_step, reward_state = g_purchasePointData:getPurchasePoint_rewardStepInfo(version, step)
-        
-        --[[
+        vars['checkSprite']:setVisible(false)
+        vars['receiveBtn']:setVisible(false)
+
         -- 획득 완료
         if (reward_state == 1) then
             vars['checkSprite']:setVisible(true)
-            vars['openSprite']:setVisible(true)
-    
+            vars['receiveBtn']:setVisible(false)
         -- 획득 가능
         elseif (reward_state == 0) then
-            vars['openSprite']:setVisible(true)
-            vars['receiveVisual']:setVisible(true)
+            vars['checkSprite']:setVisible(false)
+            vars['receiveBtn']:setVisible(true)
 
         -- 획득 불가
         --elseif (reward_state == -1) then
         else
-            vars['closeSprite']:setVisible(true)
+            --vars['closeSprite']:setVisible(true)
         end
-        --]]
 
     end
 end
