@@ -3955,6 +3955,9 @@
     <None Include="..\src\UI_DragonRunesGrind.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_PurchasePointBg.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

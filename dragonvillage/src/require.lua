@@ -1213,6 +1213,7 @@ local t_module = {
     'UI_EventPopupTab_HBShop_Coupon',
     'UI_EventPopupTab_PackageGrowth',
     'UI_EventPopupTab_Scroll',
+    'UI_PurchasePointBg',
     'UI_EventPopupTab_PurchasePoint',
     'UI_ExchangeProductListItem',
     'UI_AccessTimeDataListItem',
