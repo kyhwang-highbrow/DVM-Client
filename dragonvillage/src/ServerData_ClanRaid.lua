@@ -277,7 +277,12 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
         self.m_bOpen = ret['open']
         self.m_startTime = ret['start_time']
         self.m_endTime = ret['endtime']
-
+        
+        -- 클랜던전의 현재 속성을 clans/info, clans/dungeon_info 두 API에서 모두 받게 수정
+        if (ret['attr'] and g_clanData) then
+            g_clanData.m_cur_season_boss_attr = ret['attr']
+        end
+        
         self.m_challenge_stageID = ret['cur_stage']
 
         self.m_use_cash = ret['use_cash'] or 0
