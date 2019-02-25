@@ -37,29 +37,29 @@ function UI_EventPopupTab_PurchasePoint:initUI()
 
     self.m_rewardUIList = {}
     self.m_rewardBoxUIList = {}
+    
+    -- 보상 아이템 카드
     for step=1, step_count do
-        local parent_node = vars['rewardNode' .. step]
-        if parent_node then
-            local ui = UI_PurchasePointListItem(version, step)
-            parent_node:addChild(ui.root)
-            ui.vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
-            table.insert(self.m_rewardUIList, ui)
-        end
-
-        -- 진행도 게이지 상자
-        --local box_node = vars['boxNode' .. step]
         local last_step_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
-        local box_node = vars['boxNode']
-        if box_node then
-            local ui = UI()
-            ui:load('event_purchase_point_item_02.ui')
-            box_node:addChild(ui.root)
+        local item_node = vars['itemNode'..step]
+        if item_node then
+            item_node:setVisible(true)
+            -- 아이템 프레임
+            local ui_frame = UI()
+            ui_frame:load('event_purchase_point_item_new_01.ui')
+            item_node:addChild(ui_frame.root)
+            
+            local item_id, count = self:getRewardInfoByStep(version, step)
 
-            local point = g_purchasePointData:getPurchasePoint_step(version, step)
-            ui.vars['boxLabel']:setString(comma_value(point))
+            -- 아이템 카드
+            local ui_card = UI_ItemCard(item_id, count)
+            ui_frame.root:addChild(ui_card.root)
+            ui_card.root:setScale(0.5)
+            ui_frame.root:setScale(1.2)
 
-            local x_rate = (step / step_count) --(point / last_step_point)
-            ui.root:setAnchorPoint(cc.p(1 - x_rate, 0.5))
+            -- 보상 점수
+            local point = g_purchasePointData:getPurchasePoint_step(version, step-1)
+            vars['scoreLabel' .. step]:setString(comma_value(point))
             
             table.insert(self.m_rewardBoxUIList, ui)
         end
@@ -75,6 +75,22 @@ end
 function UI_EventPopupTab_PurchasePoint:initButton()
     local vars = self.vars
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
+end
+
+-------------------------------------
+-- function getRewardInfoByStep
+-------------------------------------
+function UI_EventPopupTab_PurchasePoint:getRewardInfoByStep(version, step)
+    local t_step, reward_state = g_purchasePointData:getPurchasePoint_rewardStepInfo(version, step)
+    local package_item_str = t_step['item']
+    local l_reward = ServerData_Item:parsePackageItemStr(package_item_str)
+    
+    -- 구조상 다중 보상 지급이 가능하나, 현재로선 하나만 처리 중 sgkim 2018.10.17
+    local first_item = l_reward[1]
+    local item_id = first_item['item_id']
+    local count = first_item['count']
+
+    return item_id, count
 end
 
 -------------------------------------
@@ -172,13 +188,8 @@ function UI_EventPopupTab_PurchasePoint:refresh_rewardBoxUIList()
     for step,ui in pairs(self.m_rewardBoxUIList) do
         local vars = ui.vars
         local t_step, reward_state = g_purchasePointData:getPurchasePoint_rewardStepInfo(version, step)
-
-        vars['checkSprite']:setVisible(false)
-        vars['receiveVisual']:setVisible(false)
-        vars['openSprite']:setVisible(false)
-        vars['closeSprite']:setVisible(false)
         
-
+        --[[
         -- 획득 완료
         if (reward_state == 1) then
             vars['checkSprite']:setVisible(true)
@@ -194,6 +205,8 @@ function UI_EventPopupTab_PurchasePoint:refresh_rewardBoxUIList()
         else
             vars['closeSprite']:setVisible(true)
         end
+        --]]
+
     end
 end
 
