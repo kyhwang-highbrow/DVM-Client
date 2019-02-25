@@ -629,6 +629,28 @@ function ServerData:networkCommonRespone_addedItems(ret)
     -- 망각의 서
     RefreshGoods(t_added_items, 'oblivion')
 
+     -- 룬 연마석
+    RefreshGoods(t_added_items, 'grindstone')
+
+    -- Max확정권
+    RefreshGoods(t_added_items, 'max_fixed_ticket')
+
+    -- 옵션 유지권
+    RefreshGoods(t_added_items, 'opt_keep_ticket')
+    
+    -- 룬 축복서
+    RefreshGoods(t_added_items, 'rune_bless')
+   
+    -- 희귀 특성 재료
+    RefreshGoods(t_added_items, 'mastery_material_02')
+
+    -- 영웅 특성 재료
+    RefreshGoods(t_added_items, 'mastery_material_03')
+   
+    -- 전설 특성재료
+    RefreshGoods(t_added_items, 'mastery_material_04')
+   
+
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
         g_dragonsData:applyDragonData_list(t_added_items['dragons'])
