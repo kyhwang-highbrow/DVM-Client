@@ -47,9 +47,11 @@ function UI_SummonDrawInfo:initUI()
     local dragon_list = plSplit(dragon_list_str, ',') -- 122023, 122323 .. 형식의 드래곤 아이디를 리스트로
 
     local ui_res = 'package_global_anniversary_popup_item.ui'
+    local l_pos = getPosXForCenterSortting(1150, -430, #dragon_list, 287) -- background_width, start_pos, count, list_item_width
     for i, dragon_id in ipairs(dragon_list) do
         local list_item_ui = UI_DragonInfoListItem(dragon_id, ui_res)
-        vars['itemNode'.. i]:addChild(list_item_ui.root)
+        list_item_ui.root:setPosition(l_pos[i] ,0)
+        vars['itemNode']:addChild(list_item_ui.root)       
     end
 
     vars['okBtn']:setVisible(not is_draw)

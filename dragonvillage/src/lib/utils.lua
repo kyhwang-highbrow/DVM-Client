@@ -976,6 +976,21 @@ function getSortPosList(interval, count)
 end
 
 -------------------------------------
+-- function getPosXForCenterSortting
+-- @brief 리스트를 background 크기 내에서 가운데로 정렬한 (x_pos) 리스트 반환
+-------------------------------------
+function getPosXForCenterSortting(background_width, start_pos, count, list_item_width)
+ 
+ local dis = (background_width-(list_item_width*(count)))/2
+ local l_pos_x = {}
+ for i=1,count do
+    local pos_x = start_pos + dis + list_item_width*(i-1)
+    table.insert(l_pos_x, pos_x)
+ end
+ return l_pos_x
+end
+
+-------------------------------------
 -- function printMemory
 -- @brief 보기 좋게 현재 메모리 출력
 -------------------------------------
