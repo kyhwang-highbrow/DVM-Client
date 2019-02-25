@@ -71,8 +71,10 @@ function UI_EventPopupTab_PurchasePoint:initUI()
 
     -- 누적 결제 배경
     local item_id, count = self:getRewardInfoByStep(version, step_count)
-    local ui_bg = openPurchasePointBgByType('dragon_ticket', item_id, count)
-    vars['productNode']:addChild(ui_bg.root)
+    if (item_id == 700602) then
+        local ui_bg = openPurchasePointBgByType('dragon_ticket', item_id, count)
+        vars['productNode']:addChild(ui_bg.root)
+    end
 end
 
 -------------------------------------

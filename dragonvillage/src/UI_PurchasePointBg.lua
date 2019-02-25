@@ -29,19 +29,20 @@ local PARENT = UI
 -- class UI_PurchasePointBg_DragonTicket
 -------------------------------------
 UI_PurchasePointBg_DragonTicket = class(PARENT,{
-
+        m_item_id = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PurchasePointBg_DragonTicket:init(item_id, item_count)
+function UI_PurchasePointBg_DragonTicket:init(item_id)
     self:load('event_purchase_point_item_new_02.ui')
+    self.m_item_id = item_id
 
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI(700602, item_count)
+    self:initUI()
     self:initButton()
 end
 
@@ -49,11 +50,15 @@ end
 -- function initUI
 -- @breif
 -------------------------------------
-function UI_PurchasePointBg_DragonTicket:initUI(item_id, item_count)
+function UI_PurchasePointBg_DragonTicket:initUI()
     local vars = self.vars
-    local ui_card = UI_ItemCard(item_id, item_count)
-    local item_name = TableItem:getItemName(item_id)
+    local item_id = self.m_item_id
+
+    local ui_card = UI_ItemCard(item_id, 0)
+    ui_card.root:setScale(0.66)
     vars['productNode1']:addChild(ui_card.root)
+
+    local item_name = TableItem:getItemName(item_id)
     vars['itemLabel']:setString(item_name)
     
     -- 드래곤 뽑기권에서 나올 드래곤들 출력
@@ -81,6 +86,9 @@ end
 -- function initButton
 -------------------------------------
 function UI_PurchasePointBg_DragonTicket:initButton()
+   local vars = self.vars
+   local item_id = self.m_item_id
    
+   vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_SummonDrawInfo(item_id, false) end)
 end
 

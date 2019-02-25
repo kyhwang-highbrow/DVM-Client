@@ -36,7 +36,13 @@ end
 function UI_SummonDrawInfo:initUI()
 	local vars = self.vars
     local is_draw = self.m_is_draw
-    vars['titleLabel']:setString(Str('토파즈 드래곤 뽑기권'))
+    local item_id = self.m_item_id
+
+    -- 아이템 이름
+    local item_name = TableItem:getItemName(item_id)
+    vars['titleLabel']:setString(Str(item_name))
+
+    -- 뽑기권 내용물
     local dragon_list_str = TablePickDragon:getCustomList(self.m_item_id)
     local dragon_list = plSplit(dragon_list_str, ',') -- 122023, 122323 .. 형식의 드래곤 아이디를 리스트로
 
@@ -56,7 +62,8 @@ function UI_SummonDrawInfo:initUI()
         return card_ui
     end
 
-    vars['listTableNode']:setNormalSize(400, 100)
+    local view_width = #dragon_list * 100
+    vars['listTableNode']:setNormalSize(view_width, 100)
     local table_view = UIC_TableView(vars['listTableNode'])
     table_view.m_defaultCellSize = cc.size(100, 100)
     table_view:setCellUIClass(make_func, nil)
