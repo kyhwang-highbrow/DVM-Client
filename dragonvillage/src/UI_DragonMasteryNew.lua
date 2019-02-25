@@ -605,7 +605,7 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
 
     -- 특성재료일 경우, 특성 재료 아이템 아이디를 넣어줌
     if (self:isMasteryMaterial(src_doid)) then
-        local material_id = self:getMasteryItemIdForDragon(src_doid)
+        local material_id = self:getMasteryItemIdForDragon(doid)
         src_doid = material_id
     end
 
