@@ -86,6 +86,17 @@ function UI_ItemCard:init_commonItem(t_item, t_sub_data)
 end
 
 -------------------------------------
+-- function setRareCountText
+-------------------------------------
+function UI_ItemCard:setRareCountText(count)
+    local vars = self.vars
+    if (not count) then
+        count = 0
+    end
+    vars['numberLabel']:setString(Str('{1}', comma_value(count))) 
+end
+
+-------------------------------------
 -- function init_dragonItem
 -------------------------------------
 function UI_ItemCard:init_dragonItem(t_item, t_sub_data)

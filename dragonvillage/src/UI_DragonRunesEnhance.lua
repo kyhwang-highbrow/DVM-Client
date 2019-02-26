@@ -121,6 +121,19 @@ function UI_DragonRunesEnhance:onChangeTab(tab, first)
 end
 
 -------------------------------------
+-- function onFocus
+-- @brief
+-------------------------------------
+function UI_DragonRunesEnhance:onFocus()
+    local vars = self.vars
+    self:refresh_enhance()
+
+    if (self.m_runeGrindClass) then           
+        self.m_runeGrindClass:refresh_grind()
+    end
+end
+
+-------------------------------------
 -- function setSeqEnhanceVisible
 -- @brief 연속 강화는 룬 강화 영역이지만 tab할 때 안바뀜, 탭할 때마다 바뀌는 부분 설정
 -------------------------------------
@@ -296,6 +309,7 @@ function UI_DragonRunesEnhance:refresh_enhance()
     vars['runeBlessIconNode']:removeAllChildren()
     local cur_rune_bless_cnt = g_userData:get('rune_bless')
     local rune_bless_card = UI_ItemCard(704903, cur_rune_bless_cnt) -- 룬 축복서
+    rune_bless_card:setRareCountText(cur_rune_bless_cnt) -- 0일 때 숫자 그대로 출력되도록 (기존에는 0이면 출력 안됨)
     rune_bless_card:setEnabledClickBtn(false)
     vars['runeBlessIconNode']:addChild(rune_bless_card.root)
 end
