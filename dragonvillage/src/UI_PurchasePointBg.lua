@@ -159,16 +159,15 @@ function UI_PurchasePointBg_Dragon:initUI()
     vars['rarityNode']:addChild(rarity_icon)
     vars['rarityLabel']:setString(dragonRarityName('legend'))
 
-    -- 진화도
-    local evolution_name = evolutionName(3)
-    vars['evolutionLabel']:setString(Str(evolution_name))
+    -- 진화도 by 별
+    local res = string.format('res/ui/icons/star/star_%s_%02d%02d.png', 'red', 2, 5)
+    local sprite = IconHelper:getIcon(res)
+	vars['starNode']:addChild(sprite)
 
     local dragon_animator = UIC_DragonAnimator()
     dragon_animator:setDragonAnimator(did, 3)
     dragon_animator:setTalkEnable(false)
     vars['dragonNode4']:addChild(dragon_animator.m_node)
-
-
 end
 
 -------------------------------------
