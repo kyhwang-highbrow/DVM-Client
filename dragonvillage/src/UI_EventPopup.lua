@@ -299,6 +299,7 @@ function UI_EventPopup:onFocus()
     for tab, ui in pairs(self.m_mTabUI) do
         if pl.stringx.startswith(tab, 'purchase_point') then
             self.m_mTabUI[tab]:refresh()
+            self.m_mTabUI[tab]:refresh_rewardBoxUIList()
         end
     end
 end
