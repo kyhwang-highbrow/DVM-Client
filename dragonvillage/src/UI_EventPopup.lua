@@ -292,6 +292,18 @@ function UI_EventPopup:makeEventPopupTab(tab)
 end
 
 -------------------------------------
+-- function onFocus
+-------------------------------------
+function UI_EventPopup:onFocus()
+    -- 누적 결제의 경우, 패키지로 들어가 상품 구매했을 때 갱신 필요
+    for (tab,ui in pairs(self.m_mTabUI)) do
+        if pl.stringx.startswith(tab, 'purchase_point') then
+            self.m_mTabUI[tab]:refresh()
+        end
+    end
+end
+
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_EventPopup:click_exitBtn()
