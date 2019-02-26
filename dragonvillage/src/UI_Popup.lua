@@ -96,7 +96,7 @@ function ConfirmPrice_original(price_type, price_value)
         -- 재화가 충분히 있는지 체크
         print(cur_rune_bless , price_value)
         if (cur_rune_bless < price_value) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('{1}가 부족합니다.\n상점으로 이동하시겠습니까?', '룬 축복서'), function() g_shopDataNew:openShopPopup('amethyst') end)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('{1}가 부족합니다.\n상점으로 이동하시겠습니까?', '룬 축복서'), function() g_shopDataNew:openShopPopup('amethyst') end)
             return false
         end
     elseif (price_type == 'ancient') then
