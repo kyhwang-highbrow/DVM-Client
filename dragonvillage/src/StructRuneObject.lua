@@ -734,7 +734,7 @@ end
 -------------------------------------
 -- function isMaxOption
 -------------------------------------
-function StructRuneObject:isMaxOption(opt_name, opt_desc)
+function StructRuneObject:isMaxOption(opt_name)
     local max_value = 0
     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
     local option, opt_value = self:parseRuneOptionStr(self[opt_name])
@@ -769,7 +769,43 @@ function StructRuneObject:isMaxOption(opt_name, opt_desc)
 end
 
 -------------------------------------
--- function isMaxOption
+-- function getOptionMinValue
+-------------------------------------
+function StructRuneObject:getOptionMinValue(opt_name) -- ex) atk_multi
+    local min_value = 0
+    local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+
+    if (t_rune_opt_max[opt_name]) then
+        min_value = t_rune_opt_max[opt_name]['single_min']   
+    end
+
+    if (not max_value) then
+        min_value = 0
+    end
+
+    return min_value
+end
+
+-------------------------------------
+-- function getOptionMaxValue
+-------------------------------------
+function StructRuneObject:getOptionMaxValue(opt_name) -- ex) atk_multi
+    local max_value = 0
+    local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+
+    if (t_rune_opt_max[opt_name]) then
+        max_value = t_rune_opt_max[opt_name]['status_max']   
+    end
+
+    if (not max_value) then
+        max_value = 0
+    end
+
+    return max_value
+end
+
+-------------------------------------
+-- function isGrindedOption
 -------------------------------------
 function StructRuneObject:isGrindedOption(opt_name)
     return self.grind_opt == opt_name

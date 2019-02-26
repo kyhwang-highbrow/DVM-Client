@@ -106,9 +106,12 @@ function UI_DragonRunesGrindFirstPopup:getExpectedOptionStr()
             end
         end
 
+        local min_value = rune_obj:getOptionMinValue(opt_type)
+        local max_value = rune_obj:getOptionMaxValue(opt_type)
+        local min_max_str = string.format('%d~%d', min_value, max_value)
         -- 2, 4번 조건 처리
         if (is_expected) and (opt_type ~= 'none') and (opt_type ~= 'aspd_multi') and (opt_type ~= 'cri_avoid_add') then
-            expected_option_str = expected_option_str .. Str(table_opt:getValue(opt_type, 't_desc'),'??') .. '\n'
+            expected_option_str = expected_option_str ..Str(table_opt:getValue(opt_type, 't_desc'), min_max_str) .. '\n'
         end
     end
 
