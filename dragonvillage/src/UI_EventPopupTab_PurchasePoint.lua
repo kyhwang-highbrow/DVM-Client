@@ -56,7 +56,6 @@ function UI_EventPopupTab_PurchasePoint:initUI()
             local ui_card = UI_ItemCard(item_id, count)
             ui_frame.vars['iconNode']:addChild(ui_card.root)
             ui_frame.root:setScale(1.2)
-            ui_card:setEnabledClickBtn(false)   
             ui_card.root:setScale(0.7)
 
             -- 보상 점수
