@@ -199,10 +199,11 @@ function UI_RandomShop:refresh_itemInfo()
             local cnt = struct_item:getCount()
             local item_id = struct_item:getItemID()
             local did = TableItem:getDidByItemId(item_id)
+            local req_rpoint = TableDragon():getRelationPoint(did)
             local cur_rpoint = g_bookData:getRelationPoint(did)
 
             vars['relationNode']:setVisible(true)
-            vars['quantityLabel']:setString(string.format('%d/%d', cur_rpoint, cnt))
+            vars['quantityLabel']:setString(string.format('%d/%d', cur_rpoint, req_rpoint))
         else
             vars['relationNode']:setVisible(false)
         end
