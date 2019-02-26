@@ -779,7 +779,7 @@ function StructRuneObject:getOptionMinValue(opt_name) -- ex) atk_multi
         min_value = t_rune_opt_max[opt_name]['single_min']   
     end
 
-    if (not max_value) then
+    if (not min_value) then
         min_value = 0
     end
 
