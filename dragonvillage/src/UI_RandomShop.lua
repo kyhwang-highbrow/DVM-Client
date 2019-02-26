@@ -165,7 +165,8 @@ function UI_RandomShop:refresh_itemInfo()
     do -- 설명
         local is_rune = struct_item:isRuneItem()
         vars['itemDscLabel']:setVisible(not is_rune)
-        vars['itemDscNode2']:setVisible(is_rune) -- 룬 세트 효과 노드
+        vars['runeDscNode']:setVisible(is_rune)
+        vars['itemDscLabel2']:setVisible(is_rune) -- 룬 세트 효과 노드
 
         if (is_rune) then
             local t_rune_data = struct_item:getRuneData()
@@ -191,6 +192,19 @@ function UI_RandomShop:refresh_itemInfo()
         else
             local desc = struct_item:getDesc()
             vars['itemDscLabel']:setString(desc)
+        end
+            
+        -- 인연 포인트 갯수 세팅
+        if (struct_item:isRelationItem()) then     
+            local cnt = struct_item:getCount()
+            local item_id = struct_item:getItemID()
+            local did = TableItem:getDidByItemId(item_id)
+            local cur_rpoint = g_bookData:getRelationPoint(did)
+
+            vars['relationNode']:setVisible(true)
+            vars['quantityLabel']:setString(string.format('%d/%d', cur_rpoint, cnt))
+        else
+            vars['relationNode']:setVisible(false)
         end
     end
 

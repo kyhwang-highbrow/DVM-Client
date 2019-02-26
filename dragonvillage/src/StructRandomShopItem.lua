@@ -71,6 +71,19 @@ function StructRandomShopItem:isRuneItem()
 end
 
 -------------------------------------
+-- function isRelationItem
+-------------------------------------
+function StructRandomShopItem:isRelationItem()
+    local item_id = self:getItemID()
+    local item_type = TableItem:getItemType(item_id)
+    if (item_type == 'relation_point') then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function isSale
 -------------------------------------
 function StructRandomShopItem:isSale()
