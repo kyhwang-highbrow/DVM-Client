@@ -56,7 +56,7 @@ function UI_PurchasePointBg_DragonTicket:initUI()
 
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
-    vars['productNode1']:addChild(ui_card.root)
+    vars['itemNode']:addChild(ui_card.root)
 
     local item_name = TableItem:getItemName(item_id)
     vars['itemLabel']:setString(item_name)
