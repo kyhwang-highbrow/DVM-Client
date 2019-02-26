@@ -131,9 +131,43 @@ end
 function UI_PurchasePointBg_Dragon:initUI()
     local vars = self.vars
     local item_id = self.m_item_id
-
+    local did = TableItem:getDidByItemId(item_id)
+    
     vars['productNode1']:setVisible(false)
     vars['productNode2']:setVisible(true)
+
+    local table_dragon = TableDragon()
+
+    -- 이름
+    local dragon_name = table_dragon:getDragonName(did)
+    vars['dragonNameLabel']:setString(Str(dragon_name))
+    
+    -- 속성 ex) dark
+    local dragon_attr = table_dragon:getDragonAttr(did)
+    local attr_icon = IconHelper:getAttributeIcon(dragon_attr)
+    vars['attrNode']:addChild(attr_icon)
+    vars['attrLabel']:setString(dragonAttributeName(dragon_attr))
+
+    -- 역할 ex) healer
+    local role_type = table_dragon:getDragonRole(did)
+    local role_icon = IconHelper:getRoleIcon(role_type)
+    vars['typeNode']:addChild(role_icon)
+    vars['typeLabel']:setString(dragonRoleTypeName(role_type))
+
+    -- 희귀도 ex) legend
+    local rarity_icon = IconHelper:getRarityIcon('legend')
+    vars['rarityNode']:addChild(rarity_icon)
+    vars['rarityLabel']:setString(dragonRarityName('legend'))
+
+    -- 진화도
+    local evolution_name = evolutionName(3)
+    vars['evolutionLabel']:setString(Str(evolution_name))
+
+    local dragon_animator = UIC_DragonAnimator()
+    dragon_animator:setDragonAnimator(did, 3)
+    dragon_animator:setTalkEnable(false)
+    vars['dragonNode4']:addChild(dragon_animator.m_node)
+
 
 end
 
@@ -142,6 +176,9 @@ end
 -------------------------------------
 function UI_PurchasePointBg_Dragon:initButton()
    local vars = self.vars
+   local item_id = self.m_item_id
    
+   local did = TableItem:getDidByItemId(item_id)
+   vars['infoBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
 end
 
