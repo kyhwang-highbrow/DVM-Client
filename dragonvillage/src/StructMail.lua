@@ -230,7 +230,7 @@ function StructMail:readMe(cb_func)
             local draw_cb = function()
                 g_mailData:request_summonDrawTicket(mail_id_list, finish_cb)
             end
-            local ui_draw_info = UI_SummonDrawInfo(nil, true)
+            local ui_draw_info = UI_SummonDrawInfo(self:getItemId(), true)
             ui_draw_info:setDrawCb(draw_cb)
         end
     else
@@ -288,6 +288,18 @@ function StructMail:getItemFullType()
     local item_id = self:getItemList()[1]['item_id']
     local item_full_type = TableItem:getItemFullType(item_id)
     return item_full_type
+end
+
+-------------------------------------
+-- function getItemId
+-- @brief 메일 아이템의 아이디 반환
+-------------------------------------
+function StructMail:getItemId()
+    if (not self:getItemList()[1]) then
+        return false
+    end
+    local item_id = self:getItemList()[1]['item_id']
+    return item_id
 end
 
 -------------------------------------
