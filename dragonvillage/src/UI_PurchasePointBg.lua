@@ -11,10 +11,11 @@
 -------------------------------------
 function openPurchasePointBgByType(bg_type, item_id, item_count)
     local ui_bg = nil
+
     if (bg_type == 'dragon_ticket') then
-        ui_bg = UI_PurchasePointBg_DragonTicket(item_id, item_count)
-    else
-        ui_bg = UI_PurchasePointBg_DragonTicket(item_id, item_count)
+        ui_bg = UI_PurchasePointBg_DragonTicket(item_id)
+    elseif (bg_type == 'dragon') then
+        ui_bg = UI_PurchasePointBg_Dragon(item_id)
     end
 
     return  ui_bg
@@ -54,6 +55,9 @@ function UI_PurchasePointBg_DragonTicket:initUI()
     local vars = self.vars
     local item_id = self.m_item_id
 
+    vars['productNode1']:setVisible(true)
+    vars['productNode2']:setVisible(false)
+
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
     vars['itemNode']:addChild(ui_card.root)
@@ -90,5 +94,54 @@ function UI_PurchasePointBg_DragonTicket:initButton()
    local item_id = self.m_item_id
    
    vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_SummonDrawInfo(item_id, false) end)
+end
+
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_PurchasePointBg_Dragon
+-------------------------------------
+UI_PurchasePointBg_Dragon = class(PARENT,{
+        m_item_id = 'number',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_PurchasePointBg_Dragon:init(item_id)
+    self:load('event_purchase_point_item_new_02.ui')
+    self.m_item_id = item_id
+
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+end
+
+-------------------------------------
+-- function initUI
+-- @breif
+-------------------------------------
+function UI_PurchasePointBg_Dragon:initUI()
+    local vars = self.vars
+    local item_id = self.m_item_id
+
+    vars['productNode1']:setVisible(false)
+    vars['productNode2']:setVisible(true)
+
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_PurchasePointBg_Dragon:initButton()
+   local vars = self.vars
+   
 end
 

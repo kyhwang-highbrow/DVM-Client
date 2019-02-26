@@ -68,10 +68,12 @@ function UI_EventPopupTab_PurchasePoint:initUI()
 
     vars['purchaseGg']:setPercentage(0)
 
+    
     -- 누적 결제 배경
-    local item_id, count = self:getRewardInfoByStep(version, step_count)
-    if (item_id == 700602) then
-        local ui_bg = openPurchasePointBgByType('dragon_ticket', item_id, count)
+    local last_reward_type = g_purchasePointData:getLastRewardType(version)
+    local last_reward_item_id = self:getRewardInfoByStep(version, step_count)
+    local ui_bg = openPurchasePointBgByType(last_reward_type, last_reward_item_id, count)
+    if (ui_bg) then
         vars['productNode']:addChild(ui_bg.root)
     end
 end

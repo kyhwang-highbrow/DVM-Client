@@ -318,6 +318,18 @@ function ServerData_PurchasePoint:getPurchasePoint_stepCount(version)
     local count = table.count(step_list)
     return count
 end
+
+-------------------------------------
+-- function getLastRewardType
+-- @breif 최종 보상 타입 반환
+-------------------------------------
+function ServerData_PurchasePoint:getLastRewardType(version)
+    local last_step = self:getPurchasePoint_stepCount(version)
+    local t_last_reward = self:getPurchasePoint_rewardStepInfo(version, last_step)
+    local reward_type = t_last_reward['reward_type']
+    return reward_type
+end
+
 -------------------------------------
 -- function getPurchasePoint_stepCount
 -- @breif 해당 버전의 시간 정보 리턴
