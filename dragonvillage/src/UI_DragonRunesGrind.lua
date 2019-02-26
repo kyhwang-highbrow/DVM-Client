@@ -229,8 +229,6 @@ function UI_DragonRunesGrind:refresh_grindItemRadioBtn()
                     vars[option_item_btn]:setEnabled(false)
                 end
                 self.m_grindItemRadioBtn:disable(item_name, cb_func) -- item_name, cb_func(비활성화 일 때 따로 처리)
-                vars[option_item_btn]:setEnabled(true)
-                vars[option_item_btn]:registerScriptTapHandler(function() self:showItemDsc(item_name) end)
                 -- 선택 중이던 라디오 버튼이 비활성화 되었을 경우 포커스를 none_select로 옮김
                 if (self.m_selectOptionItem == item_name) then
                     grind_item_radio_button:setSelectedButton('none_select')
