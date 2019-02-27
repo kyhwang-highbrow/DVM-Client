@@ -195,7 +195,7 @@ function UI_DragonRunesGrind:showUpgradeResult()
     
     -- 연마할 옵션 위치에 애니메이션 셋팅
     local opt_pos_x, opt_pos_y = vars[changed_label_str]:getPosition()
-    grind_label_visual:setPosition(opt_pos_x - 100, opt_pos_y)
+    grind_label_visual:setPositionY(opt_pos_y)
     
     grind_label_visual:setVisible(true)
     grind_label_visual:changeAni('grind_2')
