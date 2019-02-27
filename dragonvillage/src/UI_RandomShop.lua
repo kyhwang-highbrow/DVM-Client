@@ -194,16 +194,22 @@ function UI_RandomShop:refresh_itemInfo()
             vars['itemDscLabel']:setString(desc)
         end
             
-        -- 인연 포인트 갯수 세팅
+        -- 인연 포인트 갯수 출력
         if (struct_item:isRelationItem()) then     
-            local cnt = struct_item:getCount()
             local item_id = struct_item:getItemID()
             local did = TableItem:getDidByItemId(item_id)
+            
             local req_rpoint = TableDragon():getRelationPoint(did)
             local cur_rpoint = g_bookData:getRelationPoint(did)
 
+            -- 인연 포인트 충분한지 색상으로 표시
+            local str_color = '{@impossible}'
+            if (cur_rpoint >= req_rpoint) then
+                str_color = '{@possible}'
+            end
+            
             vars['relationNode']:setVisible(true)
-            vars['quantityLabel']:setString(string.format('%d/%d', cur_rpoint, req_rpoint))
+            vars['quantityLabel']:setString(string.format('%s%d/%d', str_color, cur_rpoint, req_rpoint))
         else
             vars['relationNode']:setVisible(false)
         end
