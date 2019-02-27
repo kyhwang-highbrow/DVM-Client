@@ -36,7 +36,6 @@ function ServerData_PurchasePoint:applyPurchasePointInfo(t_data)
     if (not t_data) then
         return
     end
-
     -- t_dat : ret에 purchase_point_info라는 key 값으로 아래와 같은 형태로 전달됨
     -- start, end : timestamp
     --"purchase_point_info": {
@@ -100,8 +99,7 @@ function ServerData_PurchasePoint:request_purchasePointReward(version, reward_st
 
     -- 성공 콜백
     local function success_cb(ret)
-        self:applyPurchasePointInfo(ret['purchase_point_info'])
-
+        self.m_purchasePointInfo['purchase_point_reward'][version] = ret['purchase_point_info']['purchase_point_reward'][version]
         -- 보상 획득 UI
         -- ItemObtainResult(ret) -- UI 에서 출력함
 

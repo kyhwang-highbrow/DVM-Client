@@ -22,7 +22,6 @@ function UI_EventPopupTab_PurchasePoint:init(event_version)
     self:initUI()
     self:initButton()
     self:refresh()
-    self:refresh_rewardBoxUIList()
 end
 
 -------------------------------------
@@ -169,6 +168,8 @@ function UI_EventPopupTab_PurchasePoint:refresh()
     end
     percentage = math_clamp((percentage * 100), 0, 100)
     vars['purchaseGg']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+
+    self:refresh_rewardBoxUIList()
 end
 
 -------------------------------------
@@ -239,8 +240,6 @@ function UI_EventPopupTab_PurchasePoint:click_receiveBtn(reward_step)
         ItemObtainResult(ret)
 
         self:refresh()
-        self:refresh_rewardUIList()
-        self:refresh_rewardBoxUIList()
     end
 
     g_purchasePointData:request_purchasePointReward(version, reward_step, cb_func)

@@ -287,7 +287,6 @@ function UI_EventPopup:makeEventPopupTab(tab)
     end
 
     self.m_mTabUI[tab] = ui
-
     return ui
 end
 
@@ -295,15 +294,20 @@ end
 -- function onFocus
 -------------------------------------
 function UI_EventPopup:onFocus()
+    self:refresh_PurchasePointTab()
+end
+
+-------------------------------------
+-- function refresh_PurchasePointTab
+-------------------------------------
+function UI_EventPopup:refresh_PurchasePointTab()
     -- 누적 결제의 경우, 패키지로 들어가 상품 구매했을 때 갱신 필요
     for tab, ui in pairs(self.m_mTabUI) do
         if pl.stringx.startswith(tab, 'purchase_point') then
             self.m_mTabUI[tab]:refresh()
-            self.m_mTabUI[tab]:refresh_rewardBoxUIList()
         end
     end
 end
-
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
