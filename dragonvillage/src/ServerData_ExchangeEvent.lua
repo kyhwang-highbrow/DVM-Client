@@ -5,8 +5,8 @@ ServerData_ExchangeEvent = class({
         m_serverData = 'ServerData',
 
         m_nMaterialCnt = 'number', -- 재화 보유량
-        m_nMaterialGet = 'number', -- 재화 획득량
-        m_nMaterialUse = 'number', -- 재화 누적 소모량
+        m_nMaterialGet = 'number', -- 재화 획득량 (일일)
+        m_nMaterialUse = 'number', -- 재화 획득량 (누적)
 
         m_productInfo = 'map', -- 교환 상품 정보
         m_rewardInfo = 'map', -- 보상 정보
@@ -85,9 +85,9 @@ end
 -- function networkCommonRespone
 -------------------------------------
 function ServerData_ExchangeEvent:networkCommonRespone(ret)
-    self.m_nMaterialCnt = ret['event'] or 0
-    self.m_nMaterialGet = ret['event_get'] or 0
-    self.m_nMaterialUse = ret['event_use'] or 0
+    self.m_nMaterialCnt = ret['event'] or 0 -- 재화 보유량
+    self.m_nMaterialGet = ret['event_get'] or 0 -- 재화 획득량 (일일)
+    self.m_nMaterialUse = ret['event_use'] or 0 -- 재화 획득량 (누적)
 
     if (ret['event_reward']) then
         self.m_rewardInfo = ret['event_reward']
@@ -205,4 +205,36 @@ function ServerData_ExchangeEvent:request_eventReward(step, finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function isHighlightRed_ex
+-- @brief 빨간 느낌표 아이콘 출력 여부
+-------------------------------------
+function ServerData_ExchangeEvent:isHighlightRed_ex()
+
+    -- 받아야 할 누적 획득 보상이 있는 경우
+    if (self:hasReward() == true) then
+        return true
+    end
+
+    -- 획득한 재료 300개 이상으로 교환 가능한 경우
+    if (self.m_nMaterialCnt >= 300) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isHighlightYellow_ex
+-- @brief 노란 느낌표 아이콘 출력 여부
+-------------------------------------
+function ServerData_ExchangeEvent:isHighlightYellow_ex()
+    -- 일일 최대 획득량이 남았을 경우
+    if (self.m_nMaterialGet < 2000) then
+        return true
+    end
+
+    return false
 end

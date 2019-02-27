@@ -750,6 +750,17 @@ function UI_Lobby:update_highlight()
             end
         end
 
+        do -- 수집 이벤트
+            vars['exchangeNotiRed']:setVisible(false)
+            vars['exchangeNotiYellow']:setVisible(false)
+
+            if g_exchangeEventData:isHighlightRed_ex() then
+                vars['exchangeNotiRed']:setVisible(true)
+            elseif g_exchangeEventData:isHighlightYellow_ex() then
+                vars['exchangeNotiYellow']:setVisible(true)
+            end
+        end
+
         do -- 알파벳 이벤트
             vars['alphabetNotiRed']:setVisible(false)
             vars['alphabetNotiYellow']:setVisible(false)
