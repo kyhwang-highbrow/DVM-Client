@@ -754,10 +754,12 @@ function UI_Lobby:update_highlight()
             vars['exchangeNotiRed']:setVisible(false)
             vars['exchangeNotiYellow']:setVisible(false)
 
-            if g_exchangeEventData:isHighlightRed_ex() then
-                vars['exchangeNotiRed']:setVisible(true)
-            elseif g_exchangeEventData:isHighlightYellow_ex() then
-                vars['exchangeNotiYellow']:setVisible(true)
+            if g_hotTimeData:isActiveEvent('event_exchange') then
+                if g_exchangeEventData:isHighlightRed_ex() then
+                    vars['exchangeNotiRed']:setVisible(true)
+                elseif g_exchangeEventData:isHighlightYellow_ex() then
+                    vars['exchangeNotiYellow']:setVisible(true)
+                end
             end
         end
 
