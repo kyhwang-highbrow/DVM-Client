@@ -7,18 +7,21 @@ UI_DragonRunesGrindFirstPopup = class(PARENT,{
         m_selectedopt = 'string',
         m_okCb = 'function',
         m_structRune = 'StructRuneeObject',
+        m_isInfo = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonRunesGrindFirstPopup:init(selected_opt, rune_obj, ok_cb)
+function UI_DragonRunesGrindFirstPopup:init(selected_opt, rune_obj, ok_cb, is_info)
     local vars = self:load('rune_grind_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self.m_okCb = ok_cb
     self.m_structRune = rune_obj
     self.m_selectedopt = selected_opt
+    self.m_isInfo = is_info
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonRunesGrindFirstPopup')
 
@@ -50,6 +53,9 @@ function UI_DragonRunesGrindFirstPopup:initUI()
     
     local expected_option_str = self:getExpectedOptionStr()
     vars['sopt_changeLabel']:setString(expected_option_str)
+
+    vars['grindMenu']:setVisible(not self.m_isInfo)
+    vars['backBtn']:setVisible(self.m_isInfo)
 end
 
 -------------------------------------
@@ -61,6 +67,7 @@ function UI_DragonRunesGrindFirstPopup:initButton()
     vars['okBtn']:registerScriptTapHandler(function() self:click_okay() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['backBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------

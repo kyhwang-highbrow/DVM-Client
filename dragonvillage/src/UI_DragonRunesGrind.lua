@@ -75,11 +75,16 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
                 end
 
                 vars[option_label]:setString(opt_desc)
-            end      
+            end
         end
+        
+        -- 연마 정보 버튼 위치 세팅
+        self:setGrindInfo()
     end)
 	self.m_optionGrindRadioBtn = grind_radio_button
 
+    -- 룬 연마 옵션 정보 버튼 활성화
+    vars['runeGrindBtn']:setVisible(true)
 
     -- 연마 아이템(Max확정권, 옵션 유지권) radio button 선언
     local grind_item_radio_button = UIC_RadioButton()
@@ -123,6 +128,7 @@ function UI_DragonRunesGrind:initButton()
     local vars = self.m_runeEnhanceClass.vars
     -- 룬 연마
     vars['grindBtn']:registerScriptTapHandler(function() self:click_grind() end)
+    vars['runeGrindBtn']:registerScriptTapHandler(function() self:click_grindinfo() end)
 end
 
 -------------------------------------
@@ -286,6 +292,8 @@ function UI_DragonRunesGrind:refresh_grindOptionRadioBtn()
         end
     end
     
+    -- 연마 정보 버튼 위치 세팅
+    self:setGrindInfo()
 end
 
 -------------------------------------
@@ -360,7 +368,27 @@ function UI_DragonRunesGrind:click_grind()
 
 end
 
+-------------------------------------
+-- function click_grindinfo
+-------------------------------------
+function UI_DragonRunesGrind:click_grindinfo()
+    local rune_obj = self.m_runeEnhanceClass:getRuneObject()
+    UI_DragonRunesGrindFirstPopup(self.m_seletedGrindOption, rune_obj, nil, true)
+end
 
+-------------------------------------
+-- function setGrindInfo
+-------------------------------------
+function UI_DragonRunesGrind:setGrindInfo()
+    local vars = self.m_runeEnhanceClass.vars
+    
+    local changed_label_str = string.format('%s_label', self.m_seletedGrindOption)
+    local str_width = vars[changed_label_str]:getStringWidth() + 5
+    
+    local changed_btn_str = string.format('%s_btn', self.m_seletedGrindOption)
+    local opt_pos_x, opt_pos_y = vars[changed_btn_str]:getPosition()
+    vars['runeGrindBtn']:setPosition(opt_pos_x + str_width - 40 , opt_pos_y)
+end
 -------------------------------------
 -- function refresh_grindstoneCount
 -------------------------------------
