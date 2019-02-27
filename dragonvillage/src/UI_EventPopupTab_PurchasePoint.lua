@@ -68,13 +68,26 @@ function UI_EventPopupTab_PurchasePoint:initUI()
     vars['purchaseGg']:setPercentage(0)
 
     
-    -- 누적 결제 배경
+    -- 타입에 따른 누적 결제 배경UI
     local last_reward_type = g_purchasePointData:getLastRewardType(version)
     local last_reward_item_id = self:getRewardInfoByStep(version, step_count)
     local ui_bg = openPurchasePointBgByType(last_reward_type, last_reward_item_id, count)
     if (ui_bg) then
         vars['productNode']:addChild(ui_bg.root)
     end
+
+    -- 최종 상품이 드래곤일 때만 속성에 맞는 visual 출력
+    local animator
+    if (last_reward_type == 'dragon') then
+        local did = TableItem:getDidByItemId(last_reward_item_id)
+        local dragon_attr = TableDragon:getDragonAttr(did)
+        animator = ResHelper:getUIDragonBG(dragon_attr, 'idle')
+    -- 드래곤이 아니라면 디폴트 visual 출력
+    else
+        local res = 'res/bg/ui/dragon_evolution_result/dragon_evolution_result.vrp'
+        animator = MakeAnimator(res)
+    end
+    vars['bgNode']:addChild(animator.m_node)
 end
 
 -------------------------------------
