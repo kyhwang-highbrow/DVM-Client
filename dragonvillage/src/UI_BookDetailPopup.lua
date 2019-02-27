@@ -979,7 +979,7 @@ function UI_BookDetailPopup.openWithFrame(did, grade, evolution, scale, is_popup
         t_dragon = clone(table_dragon:get(did))
         t_dragon['bookType'] = 'dragon'
     end
-	t_dragon['grade'] = grade or t_dragon['birthgrade']
+	t_dragon['grade'] = grade or t_dragon['birthgrade'] + 1
 	t_dragon['evolution'] = evolution or 1
 
     local frame_ui = UI()
