@@ -612,12 +612,12 @@ function UI_DragonRunesEnhance:checkBlessCondition()
     local req_rune_bless = self.m_runeObject:getRuneBlessReqItem()
     
     if (not ConfirmPrice_original('rune_bless', req_rune_bless)) then
-        UIManager:toastNotificationRed(Str('{1}가 부족합니다.','룬 축복서'))       
+        UIManager:toastNotificationRed(Str('{1}가 부족합니다.', Str('룬 축복서')))       
         return false
     end
 
     if (not ConfirmPrice('gold', req_gold)) then
-        UIManager:toastNotificationRed(Str('{1}가 부족합니다.', '골드'))
+        UIManager:toastNotificationRed(Str('{1}가 부족합니다.', Str('골드')))
         return false
     end
 
