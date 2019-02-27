@@ -160,7 +160,7 @@ function UI_PurchasePointBg_Dragon:initUI()
     vars['rarityLabel']:setString(dragonRarityName('legend'))
 
     -- 진화도 by 별
-    local res = string.format('res/ui/icons/star/star_%s_%02d%02d.png', 'red', 2, 5)
+    local res = string.format('res/ui/icons/star/star_%s_%02d%02d.png', 'yellow', 2, 5)
     local sprite = IconHelper:getIcon(res)
 	vars['starNode']:addChild(sprite)
 
