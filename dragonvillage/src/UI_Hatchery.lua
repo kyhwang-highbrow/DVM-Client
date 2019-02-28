@@ -5,6 +5,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_Hatchery = class(PARENT,{
         m_npcAnimator = 'Animator',
+        m_ui_incubateTab = 'UI', -- @jhakim 사용 클래스 바뀌면서 임시로 사용
     })
 
 -------------------------------------
@@ -96,16 +97,16 @@ function UI_Hatchery:initTab(focus_id)
     local vars = self.vars
 
     local summon_tab = UI_HatcherySummonTab(self)
-    local incubate_tab = UI_HatcheryIncubateTab(self, focus_id)
+    self.m_ui_incubateTab = UI_HatcheryIncubateTab(self, focus_id)
     local combine_tab = UI_HatcheryCombineTab(self)
     local relation_tab = UI_HatcheryRelationTab(self)
     vars['indivisualTabMenu']:addChild(summon_tab.root)
-    vars['indivisualTabMenu']:addChild(incubate_tab.root)
+    vars['indivisualTabMenu']:addChild(self.m_ui_incubateTab.root)
     vars['indivisualTabMenu']:addChild(combine_tab.root)
     vars['indivisualTabMenu']:addChild(relation_tab.root)
 
     self:addTabWithTabUIAndLabel('summon', vars['summonTabBtn'], vars['summonTabLabel'], summon_tab)       -- 소환
-    self:addTabWithTabUIAndLabel('incubate', vars['incubateTabBtn'], vars['incubateTabLabel'], incubate_tab) -- 부화
+    self:addTabWithTabUIAndLabel('incubate', vars['incubateTabBtn'], vars['incubateTabLabel'], self.m_ui_incubateTab) -- 부화
     self:addTabWithTabUIAndLabel('combine', vars['combineTabBtn'], vars['combineTabLabel'], combine_tab)    -- 조합
     self:addTabWithTabUIAndLabel('relation', vars['relationTabBtn'], vars['relationTabLabel'], relation_tab) -- 인연
 
@@ -113,7 +114,7 @@ function UI_Hatchery:initTab(focus_id)
 
     -- 탭 바뀔 때 호출하는 함수 세팅
     self.m_cbChangeTab = function(tab, first)
-        if (tab ~= 'summon') then
+        if (tab == 'incubate') then
             vars['eggInfoBtn']:setVisible(true)
         else
             vars['eggInfoBtn']:setVisible(false)
@@ -204,8 +205,12 @@ end
 -------------------------------------
 function UI_Hatchery:click_eggInfoBtn()
     local ui = UI_BookEgg()
+
     -- 바로가기 기능
     ui.m_shortcutsFunc = function(focus_id)
-
+        if (self.m_ui_incubateTab.m_eggPicker) then
+            local id = tonumber(focus_id)
+            self.m_ui_incubateTab.m_eggPicker:focusEggByID(id)
+        end
     end
 end
