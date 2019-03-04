@@ -106,10 +106,16 @@ function SetClanChatServerUrl(url)
 end
 
 -- Perplelab
-URL['PERPLELAB_AGREEMENT'] = 'http://s3.dvm.perplelab.com/perplelab/agreement.html'
-URL['PERPLELAB_PI'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation.html'
-URL['PERPLELAB_AGREEMENT_EN'] = 'http://s3.dvm.perplelab.com/perplelab/agreement_en.html'
-URL['PERPLELAB_PI_EN'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation_en.html'
+--URL['PERPLELAB_AGREEMENT'] = 'http://s3.dvm.perplelab.com/perplelab/agreement.html'
+--URL['PERPLELAB_PI'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation.html'
+--URL['PERPLELAB_AGREEMENT_EN'] = 'http://s3.dvm.perplelab.com/perplelab/agreement_en.html'
+--URL['PERPLELAB_PI_EN'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation_en.html'
+
+-- @sgkim 2019.02.28 운영 주체가 하이브로로 이관되면서 변경된 이용 약관 적용 (네이버 카페, PLUG)
+URL['PERPLELAB_AGREEMENT'] = 'https://cafe.naver.com/dragonvillagemobile/53493' -- 이용 약관 (Terms of Service)
+URL['PERPLELAB_PI'] = 'https://cafe.naver.com/dragonvillagemobile/53497' -- 개인 정보 취급 방침 (Privacy Policy)
+URL['PERPLELAB_AGREEMENT_EN'] = 'https://www.plug.game/DragonvillageMGlobal#/posts/1812' -- 이용 약관 (Terms of Service)
+URL['PERPLELAB_PI_EN'] = 'https://www.plug.game/DragonvillageMGlobal/1031345#/posts/1813' -- 개인 정보 취급 방침 (Privacy Policy)
 
 -- Highbrow
 URL['HIGHBROW'] = 'http://account.game.highbrow-inc.com:8080/'
