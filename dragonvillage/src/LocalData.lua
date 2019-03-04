@@ -346,7 +346,6 @@ function LocalData:isKoreaServer()
     if (server == SERVER_NAME.KOREA) then
     elseif (server == SERVER_NAME.DEV) then
     elseif (server == SERVER_NAME.QA) then
-        return false
     else
         return false
     end
