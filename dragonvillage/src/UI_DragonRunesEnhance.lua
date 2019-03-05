@@ -312,6 +312,9 @@ function UI_DragonRunesEnhance:refresh_enhance()
     rune_bless_card:setRareCountText(cur_rune_bless_cnt) -- 0일 때 숫자 그대로 출력되도록 (기존에는 0이면 출력 안됨)
     rune_bless_card:setEnabledClickBtn(false)
     vars['runeBlessIconNode']:addChild(rune_bless_card.root)
+
+    local cur_lv = rune_obj['lv']
+    vars['grindTabBtn']:setVisible(cur_lv>=12)    
 end
 
 
