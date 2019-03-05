@@ -82,7 +82,7 @@ function UI_ClanRaid:checkEnterEvent()
         g_clanRaidData.m_tClanRewardInfo = nil
     else
         -- 공지사항 팝업
-        self:openNotiPopup()
+        -- self:openNotiPopup()
     end
 end
 
