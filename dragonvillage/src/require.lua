@@ -138,6 +138,7 @@ local t_module = {
     'ServerData_Attendance',
     'ServerData_PurchasePoint',
     'ServerData_Exchange',
+    'ServerData_EventBingo',
     'ServerData_Exploration',
     'ServerData_HotTime',
     'ServerData_Event',
@@ -1237,6 +1238,7 @@ local t_module = {
     'UI_EventAlphabetInfoPopup',
     'UI_EventAlphabetConfirmPopup',
     'UI_EventAdvent',
+    'UI_EventBingo',
 
 	-- UI : 연출
 	'DirectingCharacter',
