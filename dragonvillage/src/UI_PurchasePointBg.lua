@@ -1,21 +1,16 @@
---[[
-    *누적결제 최종 상품 타입에 따라 다른 BackGround를 사용
-    * 파일명은 UI_PurchasePointBg이고 두 개의 클래스를 포함함
-    UI_PurchasePointBg
-        - UI_PurchasePointBg_DragonTicket  ex) 상품 : 드래곤 뽑기권
-        - UI_PurchasePointBg_Dragon        ex) 상품 : 미트라
---]]
-
 -------------------------------------
 -- function openPurchasePointBgByType
 -------------------------------------
 function openPurchasePointBgByType(bg_type, item_id, item_count)
-    local ui_bg = nil
+    local ui_bg = UI_PurchasePointBg(item_id)
 
+    -- 타입별로 세팅
     if (bg_type == 'dragon_ticket') then
-        ui_bg = UI_PurchasePointBg_DragonTicket(item_id)
+        ui_bg:setDragonTicket()
     elseif (bg_type == 'dragon') then
-        ui_bg = UI_PurchasePointBg_Dragon(item_id)
+        ui_bg:setDragon()
+    elseif (bg_type == 'reinforce') then
+        ui_bg:setReinforce(item_count)
     end
 
     return  ui_bg
@@ -27,36 +22,55 @@ end
 local PARENT = UI
 
 -------------------------------------
--- class UI_PurchasePointBg_DragonTicket
+-- class UI_PurchasePointBg
 -------------------------------------
-UI_PurchasePointBg_DragonTicket = class(PARENT,{
+UI_PurchasePointBg = class(PARENT,{
         m_item_id = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PurchasePointBg_DragonTicket:init(item_id)
+function UI_PurchasePointBg:init(item_id)
     self:load('event_purchase_point_item_new_02.ui')
     self.m_item_id = item_id
 
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
-    self:initButton()
+    -- 타입별 노드 초기화
+    self.vars['productNode1']:setVisible(false)
+    self.vars['productNode2']:setVisible(false)
+    self.vars['productNode3']:setVisible(false)
 end
 
+function UI_PurchasePointBg:setDragonTicket()
+    self:initUI_dragonTicket()
+    self:initButton_dragonTicket()
+end
+
+function UI_PurchasePointBg:setDragon()
+    self:initUI_dragon()
+    self:initButton_dragon()
+end
+
+function UI_PurchasePointBg:setReinforce(item_count)
+    self:initUI_reinforce(item_count)
+end
+
+
+
+
+
 -------------------------------------
--- function initUI
--- @breif
+-- function initUI_dragonTicket
+-- @breif 누적결제 최종 상품이 [드래곤 뽑기권]일 경우 세팅
 -------------------------------------
-function UI_PurchasePointBg_DragonTicket:initUI()
+function UI_PurchasePointBg:initUI_dragonTicket()
     local vars = self.vars
     local item_id = self.m_item_id
 
     vars['productNode1']:setVisible(true)
-    vars['productNode2']:setVisible(false)
 
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
@@ -84,12 +98,16 @@ function UI_PurchasePointBg_DragonTicket:initUI()
         end
     end
 
+    local res = 'res/bg/ui/dragon_evolution_result/dragon_evolution_result.vrp'
+    animator = MakeAnimator(res)    
+    vars['bgNode']:addChild(animator.m_node)
+
 end
 
 -------------------------------------
--- function initButton
+-- function initButton_dragonTicket
 -------------------------------------
-function UI_PurchasePointBg_DragonTicket:initButton()
+function UI_PurchasePointBg:initButton_dragonTicket()
    local vars = self.vars
    local item_id = self.m_item_id
    
@@ -100,40 +118,15 @@ end
 
 
 
-
-local PARENT = UI
-
 -------------------------------------
--- class UI_PurchasePointBg_Dragon
+-- function initUI_dragon
+-- @breif 누적결제 최종 상품이 [드래곤]일 경우 세팅
 -------------------------------------
-UI_PurchasePointBg_Dragon = class(PARENT,{
-        m_item_id = 'number',
-    })
-
--------------------------------------
--- function init
--------------------------------------
-function UI_PurchasePointBg_Dragon:init(item_id)
-    self:load('event_purchase_point_item_new_02.ui')
-    self.m_item_id = item_id
-
-    self:doActionReset()
-    self:doAction(nil, false)
-
-    self:initUI()
-    self:initButton()
-end
-
--------------------------------------
--- function initUI
--- @breif
--------------------------------------
-function UI_PurchasePointBg_Dragon:initUI()
+function UI_PurchasePointBg:initUI_dragon()
     local vars = self.vars
     local item_id = self.m_item_id
     local did = TableItem:getDidByItemId(item_id)
     
-    vars['productNode1']:setVisible(false)
     vars['productNode2']:setVisible(true)
 
     local table_dragon = TableDragon()
@@ -168,16 +161,48 @@ function UI_PurchasePointBg_Dragon:initUI()
     dragon_animator:setDragonAnimator(did, 3)
     dragon_animator:setTalkEnable(false)
     vars['dragonNode4']:addChild(dragon_animator.m_node)
+
+    
+    -- 최종 상품이 드래곤일 경우 visual  세팅
+    local animator
+    local did = TableItem:getDidByItemId(item_id)
+    local dragon_attr = TableDragon:getDragonAttr(did)
+    animator = ResHelper:getUIDragonBG(dragon_attr, 'idle')
+    vars['bgNode']:addChild(animator.m_node)
 end
 
 -------------------------------------
--- function initButton
+-- function initButton_dragon
 -------------------------------------
-function UI_PurchasePointBg_Dragon:initButton()
+function UI_PurchasePointBg:initButton_dragon()
    local vars = self.vars
    local item_id = self.m_item_id
    
    local did = TableItem:getDidByItemId(item_id)
    vars['infoBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
+end
+
+
+
+
+
+
+-------------------------------------
+-- function initUI_reinforce
+-- @breif 누적결제 최종 상품이 [강화 포인트]일 경우 세팅
+-------------------------------------
+function UI_PurchasePointBg:initUI_reinforce(item_count)
+    local vars = self.vars
+    local item_id = self.m_item_id
+    
+    vars['productNode3']:setVisible(true)
+
+    local item_name = TableItem:getItemName(item_id)
+    vars['itemLabel2']:setString(string.format('%s X %d', item_name, item_count))
+    vars['dcsLabel']:setString(Str('해당 상품 이용 시, 즉시 6성 강화 가능!'))
+
+     -- 최종 상품이 드래곤일 경우 visual  세팅
+    local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
+    vars['bgNode']:addChild(animator.m_node)
 end
 
