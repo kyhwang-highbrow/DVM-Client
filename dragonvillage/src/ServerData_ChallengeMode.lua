@@ -1530,6 +1530,10 @@ function ServerData_ChallengeMode:setInfoForLobby(ret)
         self:setChallengeModeOpenInfo(ret['open_info'])
     end
     
+    if ret['master_open'] then
+        self.m_isMasterMode = ret['master_open']
+    end
+
     if (ret['open']) then
         self.m_isChallengeModeOpen = ret['open']
     end
