@@ -1144,11 +1144,15 @@ function UI_ReadySceneNew:check_startCondition(stage_id)
     if (self:getDragonCount() <= 0) then
         UIManager:toastNotificationRed(Str('최소 1명 이상은 출전시켜야 합니다.'))
         return false
-
+    -- 1명만 출전할 경우, 내 드래곤 없이 친구만 출전하는지 체크 @jhakim 친구를 1명만 데려갈 수 있다는 룰일 때만 유효
+    elseif (self:getDragonCount() == 1) then
+        if (not self.m_readySceneDeck:isContainMyDragon()) then
+            UIManager:toastNotificationRed(Str('친구 드래곤만 출전할 수는 없습니다'))
+            return false
+        end
     elseif (not is_advent) and (not g_stageData:isOpenStage(stage_id)) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
         return false
-
     -- 스태미너 소모 체크
     elseif (stamina_charge) and (not g_staminasData:checkStageStamina(stage_id)) then
         g_staminasData:staminaCharge(stage_id)
@@ -1470,6 +1474,13 @@ end
 -------------------------------------
 function UI_ReadySceneNew:checkChangeDeck(next_func)
     return self.m_readySceneDeck:checkChangeDeck(next_func)
+end
+
+-------------------------------------
+-- function isContainMyDragon
+-------------------------------------
+function UI_ReadySceneNew:isContainMyDragon()
+    return self.m_readySceneDeck:isContainMyDragon()
 end
 
 -------------------------------------

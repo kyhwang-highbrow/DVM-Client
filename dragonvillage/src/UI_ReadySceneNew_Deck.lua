@@ -829,8 +829,24 @@ end
 -- function getDragonCount
 -------------------------------------
 function UI_ReadySceneNew_Deck:getDragonCount()
+    if (g_friendData:getDragonDataFromDoid(doid_a)) then
+            return true
+    end
     local count = table.count(self.m_lDeckList)
     return count
+end
+
+-------------------------------------
+-- function isContainMyDragon
+-------------------------------------
+function UI_ReadySceneNew_Deck:isContainMyDragon()    
+    for _,doid in ipairs(self.m_lDeckList) do
+        if (not g_dragonsData:getDragonDataFromUidRef(doid)) then
+                return false
+        end
+    end
+
+    return true
 end
 
 -------------------------------------
