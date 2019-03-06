@@ -329,6 +329,17 @@ function ServerData_PurchasePoint:getLastRewardType(version)
 end
 
 -------------------------------------
+-- function getLastRewardDesc
+-- @breif 최종 보상 설명 반환
+-------------------------------------
+function ServerData_PurchasePoint:getLastRewardDesc(version)
+    local last_step = self:getPurchasePoint_stepCount(version)
+    local t_last_reward = self:getPurchasePoint_rewardStepInfo(version, last_step)
+    local reward_desc = t_last_reward['t_desc']
+    return reward_desc
+end
+
+-------------------------------------
 -- function getPurchasePoint_stepCount
 -- @breif 해당 버전의 시간 정보 리턴
 -------------------------------------

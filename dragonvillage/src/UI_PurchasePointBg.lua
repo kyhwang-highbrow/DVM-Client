@@ -45,16 +45,28 @@ function UI_PurchasePointBg:init(item_id)
 end
 
 function UI_PurchasePointBg:setDragonTicket()
+    if (not self.m_item_id) then
+        return
+    end
+
     self:initUI_dragonTicket()
     self:initButton_dragonTicket()
 end
 
 function UI_PurchasePointBg:setDragon()
+    if (not self.m_item_id) then
+        return
+    end
+
     self:initUI_dragon()
     self:initButton_dragon()
 end
 
 function UI_PurchasePointBg:setReinforce(item_count)
+    if (not self.m_item_id) then
+        return
+    end
+
     self:initUI_reinforce(item_count)
 end
 
@@ -195,11 +207,14 @@ function UI_PurchasePointBg:initUI_reinforce(item_count)
     local vars = self.vars
     local item_id = self.m_item_id
     
+    if (not item_count) then
+        return
+    end
+
     vars['productNode3']:setVisible(true)
 
     local item_name = TableItem:getItemName(item_id)
     vars['itemLabel2']:setString(string.format('%s X %d', item_name, item_count))
-    vars['dcsLabel']:setString(Str('해당 상품 이용 시, 즉시 6성 강화 가능!'))
 
      -- 최종 상품이 드래곤일 경우 visual  세팅
     local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
