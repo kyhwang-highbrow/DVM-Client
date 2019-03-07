@@ -1202,8 +1202,16 @@ function UI_ReadySceneNew:startGame(stage_id)
         if (g_clanRaidData:isClanRaidStageID(stage_id)) then
             local struct_raid = g_clanRaidData:getClanRaidStruct()
             
+            -- 파이널 블로우의 경우 다이아 or 입장권 선택
+            if (g_clanRaidData:isFinalBlow()) then
+                local select_func = function(is_cash)
+                    self.m_bUseCash = is_cash
+                    check_boss()
+                end
+                g_clanRaidData:selectEnterWayPopup(select_func, stage_id)
+            
             -- 활동력 체크 (소비 타입이 아니어서 여기서 체크)
-            if (g_staminasData:checkStageStamina(stage_id)) then
+            elseif (g_staminasData:checkStageStamina(stage_id)) then
                 check_boss()
 
             -- 진행중인 유저 체크 추가 (덱 준비화면은 진행 여부 상관없이 진입 가능하게 수정됨)
@@ -1213,12 +1221,6 @@ function UI_ReadySceneNew:startGame(stage_id)
                     g_clanRaidData:request_info(self.m_stageID)
                 end
                 MakeSimplePopup(POPUP_TYPE.OK, msg, refresh_cb)
-
-            -- 여의주 사용가능
-            elseif (g_clanRaidData:isPossibleUseCash()) then
-                local cash_cnt = g_clanRaidData:getUseCashCnt()
-                self:askCashPlay(cash_cnt, check_boss)
-
             else
                 UIManager:toastNotificationRed(Str('더이상 던전에 입장할 수 없습니다.'))
             end

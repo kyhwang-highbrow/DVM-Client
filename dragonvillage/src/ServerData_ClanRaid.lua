@@ -151,23 +151,6 @@ function ServerData_ClanRaid:isClanRaidStageID(stage_id)
 end
 
 -------------------------------------
--- function isPossibleUseCash
--- @brief 여의주 사용하여 던전 시작 가능한 상태인지 (파이널 블로우거나 하루 제한에 걸리지않거나)
--- @brief 20190207 파이널 블로우일 때만 다이아 사용할 수 있도록 변경
--------------------------------------
-function ServerData_ClanRaid:isPossibleUseCash()
-    local clan_raid_data = self.m_structClanRaid
-    if (not clan_raid_data) then return false end
-
-    -- 파이널 블로우인 상태 가능
-    if (clan_raid_data:getState() == CLAN_RAID_STATE.FINALBLOW) then
-        return true    
-    else
-        return false
-    end
-end
-
--------------------------------------
 -- function getClanRaidStatusText
 -------------------------------------
 function ServerData_ClanRaid:getClanRaidStatusText()
@@ -390,4 +373,81 @@ function ServerData_ClanRaid:requestGameStart(stage_id, deck_name, combat_power,
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
+end
+
+
+-------------------------------------
+-- function isFinalBlow
+-- @brief 여의주 사용하여 던전 시작 가능한 상태인지 (파이널 블로우거나 하루 제한에 걸리지않거나)
+-- @brief 20190207 파이널 블로우일 때만 다이아 사용할 수 있도록 변경
+-------------------------------------
+function ServerData_ClanRaid:isFinalBlow()
+    local clan_raid_data = self.m_structClanRaid
+    if (not clan_raid_data) then return false end
+
+    -- 파이널 블로우인 상태 가능
+    if (clan_raid_data:getState() == CLAN_RAID_STATE.FINALBLOW) then
+        return true    
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function selectEnterWayPopup
+-- @brief 파이널 블로우 때 다이아, 입장권 고르는 팝업
+-------------------------------------
+function ServerData_ClanRaid:selectEnterWayPopup(cb_func, stage_id)
+    local ui = UI()
+
+    -- 다이아 이용해 입장할 경우
+    local click_useDiaBtn = function(cb_func)
+        if (not self:checkRequireCash()) then
+            UIManager:toastNotificationRed(Str('{1}가 부족합니다.', Str('골드')))
+        else
+            ui:close()
+            cb_func(true) -- is_cash
+        end
+    end
+
+    -- 티켓 이용해 입장할 경우
+    local click_useTicketBtn = function(cb_func)
+        if (not self:checkRequireTicket(stage_id)) then
+            UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('클랜던전 입장권')))
+        else
+            ui:close()
+            cb_func(false) -- is_cash
+        end
+    end
+
+    ui:load('clan_raid_scene_enter_popup.ui')
+    ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+    ui.vars['diaBtn']:registerScriptTapHandler(function() click_useDiaBtn(cb_func) end)
+    ui.vars['cldgBtn']:registerScriptTapHandler(function() click_useTicketBtn(cb_func) end)
+
+    local cash_cnt = g_clanRaidData:getUseCashCnt()
+    ui.vars['cashCountLabel']:setString(tostring(cash_cnt))
+    g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'clan_raid_scene_enter_popup')
+    UIManager:open(ui, UIManager.POPUP)
+end
+
+-------------------------------------
+-- function checkRequireCash
+-------------------------------------
+function ServerData_ClanRaid:checkRequireCash()
+    local cash_cnt = g_clanRaidData:getUseCashCnt()
+    local cur_cash = g_userData:get('cash')
+    
+    if (cur_cash < cash_cnt) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function checkRequireTicket
+-------------------------------------
+function ServerData_ClanRaid:checkRequireTicket(stage_id)
+    return g_staminasData:checkStageStamina(stage_id)
 end
