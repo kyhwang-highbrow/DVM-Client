@@ -602,6 +602,7 @@ function UI_Lobby:initButton()
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
+    vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['alphabetBtn']:registerScriptTapHandler(function() self:click_alphabetBtn() end) -- 알파벳 이벤트
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
@@ -1128,6 +1129,17 @@ function UI_Lobby:click_exchangeBtn()
 end
 
 -------------------------------------
+-- function click_bingoBtn
+-- @brief 빙고 이벤트
+-------------------------------------
+function UI_Lobby:click_bingoBtn()
+    if (not g_hotTimeData:isActiveEvent('event_bingo')) then
+        return
+    end
+    g_eventData:openEventPopup('event_bingo')
+end
+
+-------------------------------------
 -- function click_diceBtn
 -- @brief 주사위 이벤트
 -------------------------------------
@@ -1595,6 +1607,13 @@ function UI_Lobby:update_rightButtons()
         vars['diceBtn']:setVisible(false)
     end
 
+    -- 빙고 이벤트 버튼
+    if g_hotTimeData:isActiveEvent('event_bingo') then
+        vars['bingoBtn']:setVisible(true)
+    else
+        vars['bingoBtn']:setVisible(false)
+    end
+
     -- 주사위 버튼
     local visible = g_hotTimeData:isActiveEvent('event_alphabet')
     vars['alphabetBtn']:setVisible(visible)
@@ -1675,6 +1694,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'itemAutoBtn')
     table.insert(t_btn_name, 'giftBoxBtn')
     table.insert(t_btn_name, 'exchangeBtn')
+    table.insert(t_btn_name, 'bingoBtn')
     table.insert(t_btn_name, 'diceBtn')
     table.insert(t_btn_name, 'alphabetBtn')
     table.insert(t_btn_name, 'levelupBtn')
