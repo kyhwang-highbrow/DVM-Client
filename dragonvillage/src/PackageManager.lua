@@ -9,7 +9,7 @@ PackageManager = {}
 function PackageManager:getTargetUI(package_name, is_popup)
     local target_ui = nil
     local _package_name = package_name
-
+    
     -- struct product로 들어온 경우 package_name 으로 변환
     if (type(package_name) ~= 'string') then
         local struct_product = package_name
@@ -31,6 +31,10 @@ function PackageManager:getTargetUI(package_name, is_popup)
     elseif (_package_name == 'package_adventure_clear') then
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
         target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
+    
+    -- 특정 드래곤 판매 패키지 UI(ex : 뱃도치)
+    elseif (_package_name == 'package_new_dragon') then
+        target_ui = UI_Package_New_Dragon(_package_name, is_popup)
 
     -- 단계별 패키지 UI
     elseif (_package_name == 'package_step') then

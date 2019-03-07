@@ -113,8 +113,14 @@ end
 -------------------------------------
 function UI_Package:initButton(is_popup)
 	local vars = self.vars
-    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
-	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    if (vars['buyBtn']) then
+        vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    end
+
+    if (vars['closeBtn']) then
+	    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    end
+
     if vars['contractBtn'] then
         vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     end
@@ -122,7 +128,9 @@ function UI_Package:initButton(is_popup)
 		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 	end
     if (not is_popup) then
-        vars['closeBtn']:setVisible(false)
+        if (vars['closeBtn']) then
+            vars['closeBtn']:setVisible(false)
+        end
     end
 end
 

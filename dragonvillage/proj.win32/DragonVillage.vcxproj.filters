@@ -3964,6 +3964,12 @@
     <None Include="..\src\UI_EventBingo.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Package_New_DragonBg.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_New_Dragon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
