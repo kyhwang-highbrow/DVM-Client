@@ -18,6 +18,7 @@ function UI_EventBingo:init()
 
     self:initUI()
     self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -58,6 +59,22 @@ function UI_EventBingo:initButton()
     vars['playBtn1']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['playBtn2']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_EventBingo:refresh()
+    local vars = self.vars
+    
+    local temp = '00' -- 임시
+    vars['timeLabel']:setString(Str('{1} 남음', temp))
+    vars['numberLabel1']:setString(Str('{1}개',temp))
+    vars['obtainLabel']:setString(Str('일일 최대 {1}/2,000개 획득 가능', temp))
+    vars['rewardLabel']:setString(Str('{1} 빙고 보상', temp))
+    vars['progressLabel']:setString(Str('진행도: {1}/12', temp))
+    vars['numberLabel2']:setString(Str('{1}개', temp))
+    vars['numberLabel3']:setString(Str('{1}개', temp))   
 end
 
 -------------------------------------
@@ -162,7 +179,11 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_EventBingo:click_infoBtn()
-
+    local ui = UI()
+    ui:load('event_exchange_info_popup.ui')
+    ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+    g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'event_chuseok_info_popup')
+    UIManager:open(ui, UIManager.POPUP)
 end
 
 
