@@ -233,7 +233,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab =='event_exchange') then
         local inner_ui = UI_ExchangeEvent()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
-
+    -- 빙고 이벤트
+    elseif (tab =='event_bingo') then
+        local inner_ui = UI_EventBingo()
+        ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
     -- 주사위 이벤트
     elseif (tab =='event_dice') then
         local inner_ui = UI_DiceEvent()

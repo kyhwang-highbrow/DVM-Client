@@ -130,6 +130,12 @@ function UI_EventFullPopup:initUI()
         local temp_struct_data = StructEventPopupTab({event_type = 'event_exchange'})
         ui = UI_EventPopupTab_Scroll(self, temp_struct_data, inner_ui)
 
+    -- 빙고 이벤트 
+    elseif string.find(popup_key, 'event_bingo') then
+        local inner_ui = UI_EventBingo()
+        local temp_struct_data = StructEventPopupTab({event_type = 'event_exchange'})
+        ui = UI_EventPopupTab_Scroll(self, temp_struct_data, inner_ui)
+
     -- 만드라고라의 모험 이벤트 
     --elseif string.find(popup_key, 'event_mandraquest') then
         --local inner_ui = UI_EventMandragoraQuest()

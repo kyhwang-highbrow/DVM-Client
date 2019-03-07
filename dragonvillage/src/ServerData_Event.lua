@@ -480,6 +480,13 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
 
+        --[[
+        if (g_hotTimeData:isActiveEvent('event_bingo')) then
+            co:work('# 빙고 이벤트 정보 받는 중')
+            g_eventDiceData:request_diceInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+        --]]
         if (g_hotTimeData:isActiveEvent('event_gold_dungeon')) then
             co:work('# 황금던전 이벤트 정보 받는 중')
             g_eventGoldDungeonData:request_dungeonInfo(co.NEXT, co.ESCAPE)

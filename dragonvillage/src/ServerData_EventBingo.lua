@@ -1,5 +1,6 @@
 -------------------------------------
 -- class ServerData_EventBingo
+-- @instance g_eventBingoData
 -------------------------------------
 ServerData_EventBingo = class({
         m_serverData = 'ServerData',

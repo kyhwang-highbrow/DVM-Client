@@ -5,6 +5,7 @@
     event_gold_dungeon : 황금던전 이벤트
     event_match_card : 카드 짝맞추기 이벤트
     event_mandraquest : 만드라고라의 모험 이벤트
+    event_bingo : 빙고 이벤트
 
     dc_rune_50 : 룬 해제 50% 할인 이벤트
     dc_rune_100 : 룬 해제 무료 이벤트
