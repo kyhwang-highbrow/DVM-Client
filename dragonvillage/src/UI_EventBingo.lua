@@ -26,8 +26,9 @@ end
 function UI_EventBingo:initUI()
     local vars = self.vars
     
+    -- 빙고 칸 세팅
     for i = 1, 25 do
-        local ui = UI_EventBingoListItem(i, self)
+        local ui = _UI_EventBingoListItem(i)
         local node = vars['bingoNode'..i]
         if node then
             node:removeAllChildren()
@@ -36,6 +37,15 @@ function UI_EventBingo:initUI()
         end
     end
 
+    -- 빙고 보상 세팅
+    for i = 1, 12 do
+        local ui = _UI_EventBingoRewardListItem(i)
+        local node = vars['itemNode'..i]
+        if node then
+            node:removeAllChildren()
+            node:addChild(ui.root)
+        end
+    end
 end
 
 -------------------------------------
@@ -163,16 +173,16 @@ end
 
 local PARENT = UI
 -------------------------------------
--- class UI_EventBingoListItem
+-- class _UI_EventBingoListItem
 -------------------------------------
-UI_EventBingoListItem = class(PARENT,{
+_UI_EventBingoListItem = class(PARENT,{
         m_bingoInd = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventBingoListItem:init(number, ui)
+function _UI_EventBingoListItem:init(number)
     local vars = self:load('event_bingo_item_01.ui')
     self.m_bingoInd = number
 
@@ -183,7 +193,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_EventBingoListItem:initUI()
+function _UI_EventBingoListItem:initUI()
     local vars = self.vars
     
     -- 1~ 25까지 세팅
@@ -197,7 +207,7 @@ end
 -- function setActiveNumber
 -- @brief 빙고 숫자를 활성화(유효하게)
 -------------------------------------
-function UI_EventBingoListItem:setActiveNumber()
+function _UI_EventBingoListItem:setActiveNumber()
     local vars = self.vars
     local action_speed = 0.1
     
@@ -217,8 +227,54 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_EventBingoListItem:initButton()
+function _UI_EventBingoListItem:initButton()
     local vars = self.vars
 
-    vars['clickBtn']:registerScriptTapHandler(function() self:setActiveNumber() end)   
+    vars['clickBtn']:registerScriptTapHandler(function() self:setActiveNumber() end)
+    vars['clickBtn']:setEnabled(false)
+end
+
+
+
+
+
+
+
+
+
+local PARENT = UI
+-------------------------------------
+-- class _UI_EventBingoListItem
+-------------------------------------
+_UI_EventBingoRewardListItem = class(PARENT,{
+        m_rewardInd = 'number',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function _UI_EventBingoRewardListItem:init(reward_ind)
+    local vars = self:load('event_bingo_item_02.ui')
+    self.m_rewardInd = reward_ind
+
+    self:initUI()
+    self:initButton()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function _UI_EventBingoRewardListItem:initUI()
+    local vars = self.vars
+    local table_bingo_reward = TABLE:get('table_bingo_reward')
+    local reward_id = 1000 + self.m_rewardInd
+    
+    local reward_item_str = table_bingo_reward[reward_id]['reward'] -- 700002;1
+    local t_reward = pl.stringx.split(reward_item_str, ';')
+    local reward_item_id, reward_item_cnt = tonumber(t_reward[1]), tonumber(t_reward[2])
+    
+    local reward_card = UI_ItemCard(reward_item_id, reward_item_cnt)
+    reward_card.vars['bgSprite']:setVisible(false)
+    reward_card.vars['commonSprite']:setVisible(false)
+    vars['iconNode']:addChild(reward_card.root)
 end
