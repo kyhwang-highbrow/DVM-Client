@@ -79,7 +79,9 @@ function UI_EventPopupTab_PurchasePoint:initUI()
     -- 설명 값 and 설명라벨 있다면 설명 출력
     local last_reward_desc = g_purchasePointData:getLastRewardDesc(version)
     if (last_reward_desc) then
-        if (ui_bg.vars['dcsLabel']) then
+        if (ui_bg.vars['dcsLabel'] and ui_bg.vars['dscSprite']) then
+            ui_bg.vars['dscSprite']:setVisible(true)
+            ui_bg.vars['dcsLabel']:setVisible(true)
             ui_bg.vars['dcsLabel']:setString(last_reward_desc)
         end
     end
