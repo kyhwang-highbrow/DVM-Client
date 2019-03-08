@@ -445,3 +445,17 @@ function getAttrTextList()
     table.insert(l_attr, 'dark')
     return l_attr
 end
+
+-------------------------------------
+-- function getAttrOrderMap
+-------------------------------------
+function getAttrOrderMap()
+    local l_attr = {}
+    -- 땅, 불, 물, 빛, 어둠 순서 지키자!
+    l_attr['earth'] = 1
+    l_attr['water'] = 2
+    l_attr['fire'] = 3
+    l_attr['light'] = 4
+    l_attr['dark'] = 5
+    return l_attr
+end

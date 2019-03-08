@@ -136,6 +136,58 @@ function UI_ClanRaid:initUI()
     vars['hpLabel2']:setString(Str('{1}/{1}', struct_raid:getHp(), struct_raid:getMaxHp()))
 
     vars['lastStageLabel']:setString(string.format('Lv.%d', MAX_STAGE))
+
+    -- 보너스 속성
+    do
+        local str, map_attr = struct_raid:getBonusSynastryInfo()
+        vars['bonusTipsDscLabel']:setString(str)
+
+        for k, v in pairs(map_attr) do
+            -- 속성 아이콘
+            local icon = IconHelper:getAttributeIcon(k)
+            local target_node = vars['bonusTipsNode']
+            target_node:addChild(icon)
+        end
+    end
+
+    -- 페널티 속성
+    do
+        local str, map_attr = struct_raid:getPenaltySynastryInfo()
+        vars['panaltyTipsDscLabel']:setString(str)
+
+        local cnt = table.count(map_attr)
+        local idx = 0
+
+        for k, v in pairs(map_attr) do
+            idx = idx + 1
+            -- 속성 아이콘
+            local icon = IconHelper:getAttributeIcon(k)
+            local target_node = (cnt == 1) and 
+                                vars['panaltyTipsNode'] or 
+                                vars['panaltyTipsNode'..idx]
+            target_node:addChild(icon)
+        end
+    end
+
+    -- 속성 로테이션
+    local attr = struct_raid:getAttr()
+    local l_rotation_order = getAttrTextList()
+    local m_rotation_order = getAttrOrderMap()
+    local attr_order = m_rotation_order[attr]
+
+    -- 현재 속성을 가운데에 두기 위해, Node3부터 찍는다
+    for i=3,7 do
+        local target_order = attr_order + (i-3) -- 1씩 증가
+        -- 인덱스 로테이션 예외처리
+        if (i>5) then
+            i = i - 5
+        end
+        -- 속성 순서 로테이션 예외처리
+        if (target_order>5) then
+            target_order = target_order - 5
+        end
+        vars['rotationAttrNode' .. i]:setTexture(string.format('res/ui/icons/attr/attr_%s_02.png', l_rotation_order[target_order]))
+    end
 end
 
 -------------------------------------
@@ -197,8 +249,9 @@ function UI_ClanRaid:initRaidInfo()
     local state = struct_raid:getState()
 
     -- 종료 시간
-    local status_text = g_clanRaidData:getClanRaidStatusText()
-    vars['timeLabel']:setString(Str(status_text))
+    local status_text = Str(g_clanRaidData:getClanRaidStatusText())
+    status_text = string.gsub(status_text, '\n', ' ')
+    vars['timeLabel']:setString(status_text)
 
     -- 골드 누적 보상 표시
     local boss_lv = g_clanRaidData.m_challenge_stageID % 1000 -- 현재 진행중인 레벨
