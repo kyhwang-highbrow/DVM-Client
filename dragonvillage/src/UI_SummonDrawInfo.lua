@@ -54,23 +54,29 @@ function UI_SummonDrawInfo:initUI()
         vars['itemNode']:addChild(list_item_ui.root)       
     end
 
+    -- 뽑기 버튼 or 확인(닫기) 버튼
     vars['okBtn']:setVisible(not is_draw)
     vars['summonBtn']:setVisible(is_draw)
 
     local make_func = function(did)
         local card_ui = MakeSimpleDragonCard(tonumber(did))
         card_ui.root:setScale(0.66)
-        card_ui.root:setEnabled(false)
+        card_ui.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(tonumber(did), nil, 3, 0.8, true) end)      
         return card_ui
     end
 
-    local view_width = #dragon_list * 100
-    vars['listTableNode']:setNormalSize(view_width, 100)
-    local table_view = UIC_TableView(vars['listTableNode'])
-    table_view.m_defaultCellSize = cc.size(100, 100)
-    table_view:setCellUIClass(make_func, nil)
-    table_view:setItemList(dragon_list)
+    -- 뽑기권 내용물 드래곤 카드 세팅
+    local dragon_cnt = #dragon_list
+    local bg_width = vars['listTableNode']:getNormalSize()
+    local start_pos = -520
+    local list_item_width = 100
+    local l_pos_x = getPosXForCenterSortting(bg_width, start_pos, dragon_cnt, list_item_width)
 
+    for i=1, dragon_cnt do
+        local ui_item_card = make_func(dragon_list[i])
+        ui_item_card.root:setPositionX(l_pos_x[i])
+        vars['listTableNode']:addChild(ui_item_card.root)
+    end
 end
 
 -------------------------------------
