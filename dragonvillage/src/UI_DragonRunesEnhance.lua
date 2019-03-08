@@ -122,7 +122,7 @@ function UI_DragonRunesEnhance:onChangeTab(tab, first)
             return
         end
         
-        if (first) then
+        if (not self.m_runeGrindClass) then
             self.m_runeGrindClass = UI_DragonRunesGrind(self)
         else
             self.m_runeGrindClass:refresh_grind()
