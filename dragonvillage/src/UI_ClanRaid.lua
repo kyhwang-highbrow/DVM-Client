@@ -155,6 +155,8 @@ function UI_ClanRaid:initButton()
 
     -- 클랜 던전 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'clanraid_help')
+
+    vars['clanRankBtn']:registerScriptTapHandler(function() self:click_clanRankBtn() end)
 end
 
 -------------------------------------
@@ -163,20 +165,9 @@ end
 function UI_ClanRaid:initTab()
     local vars = self.vars
     self:addTabWithLabel(TAB_CLAN_CONTRIBUTION, vars['contributionTabBtn'], vars['contributionTabLabel'], vars['contributionTabMenu'])
-    self:addTabWithLabel(TAB_CLAN_RANK, vars['clanRankTabBtn'], vars['clanRankTabLabel'], vars['clanRankTabMenu'])
 
     self:setTab(TAB_CLAN_CONTRIBUTION)
     self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
-end
-
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_ClanRaid:onChangeTab(tab, first)
-    -- 클랜 랭킹은 클릭할때마다 갱신
-    if (tab == TAB_CLAN_RANK) then
-        UI_ClanRaidTabRank(self)
-    end
 end
 
 -------------------------------------
@@ -565,6 +556,14 @@ end
 -------------------------------------
 function UI_ClanRaid:click_bossInfoBtn(tab)
     UI_HelpClan('clan_dungeon','clan_dungeon_summary')
+end
+
+-------------------------------------
+-- function click_clanRankBtn
+-- @brief 랭킹 정보 버튼
+-------------------------------------
+function UI_ClanRaid:click_clanRankBtn()
+    UI_ClanRaidRankingPopup()
 end
 
 --@CHECK
