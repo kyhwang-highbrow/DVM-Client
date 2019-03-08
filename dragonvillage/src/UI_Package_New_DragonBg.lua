@@ -1,18 +1,26 @@
+
 -------------------------------------
 -- function openPackage_New_Dragon
 -------------------------------------
-function openPackage_New_Dragon(product_id)
-    local struct_product = g_shopDataNew:getTargetProduct(tonumber(product_id))
+function openPackage_New_Dragon(struct_product, premier_item_id)
+    local ui_res = 'package_new_dragon_item_01.ui'
+    local ui_bg = nil
 
-    local ui_bg = UI_Package_New_DragonBg(struct_product)
-    
-    -- 타입별로 세팅
-    if (bg_type == 'dragon_ticket') then
+    local premier_item_type = TableItem:getItemType(premier_item_id)
+
+    -- 대표 상품이 뽑기권일 경우
+    if (premier_item_type == 'summon') then
+        ui_res = 'package_new_dragon_item_01.ui'
+        ui_bg = UI_Package_New_DragonBg(struct_product, ui_res, premier_item_id) 
         ui_bg:setDragonTicket()
-    elseif (bg_type == 'dragon') then
+
+    -- 대표 상품이 드래곤일 경우
+    elseif (premier_item_type == 'dragon') then
+        ui_res = 'package_new_dragon_item_02.ui'
+        ui_bg = UI_Package_New_DragonBg(struct_product, ui_res, premier_item_id)
         ui_bg:setDragon()
     end
-
+     
     return  ui_bg
 end
 
@@ -23,79 +31,93 @@ local PARENT = UI
 
 -------------------------------------
 -- class UI_Package_New_DragonBg
+-- @todo UI_Package 상속받도록 수정할 것
 -------------------------------------
 UI_Package_New_DragonBg = class(PARENT,{
         m_struct_product = 'StructProduct',
+        m_premier_item_id = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_New_DragonBg:init(struct_product)
-    self:load('package_new_dragon_item_01.ui')
+function UI_Package_New_DragonBg:init(struct_product, ui_res, premier_item_id)
+    self:load(ui_res)
     self.m_struct_product = struct_product
-
+    self.m_premier_item_id = premier_item_id
+    
     self:doActionReset()
     self:doAction(nil, false)
-    self:initProductUI()
+    self:refresh()
+    self:initButton()
 end
 
-function UI_Package_New_DragonBg:initProductUI()
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Package_New_DragonBg:refresh()
     local vars = self.vars
     local struct_product = self.m_struct_product
 
     local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
-
-    -- 구성품
+    local item_str = ''
+    
+    -- 구성품 설명 라벨
     if (l_item_list) then
-        local item_str = ''
         for idx, data in ipairs(l_item_list) do
-            
             local name = TableItem:getItemName(data['item_id'])
             local cnt = data['count']
-
-            item_str = item_str .. Str('{1}개', comma_value(cnt)) or Str('{1}\n{2}개', name, comma_value(cnt)) .. '\n'
+            item_str = item_str .. Str('{1} {2}개', name, comma_value(cnt)) .. '\n'
         end
 
-        local label = vars['itemLabel2']
-        label:setString(str)
+        local label = vars['itemLabel']
+        label:setString(item_str)
     end
 
     -- 구매 제한
-    if vars['buyLabel2'] then
+    if vars['buyLabel'] then
         local str = struct_product:getMaxBuyTermStr()
         -- 구매 가능/불가능 텍스트 컬러 변경
         local is_buy_all = struct_product:isBuyAll()
         local color_key = is_buy_all and '{@impossible}' or '{@available}'
         local rich_str = color_key .. str
-        vars['buyLabel2']:setString(rich_str)
+        vars['buyLabel']:setString(rich_str)
         
         -- 구매 불가능할 경우 '구매완료' 출력
-        if (vars['completeNode2']) then
-            vars['completeNode2']:setVisible(is_buy_all)
+        if (vars['completeNode']) then
+            vars['completeNode']:setVisible(is_buy_all)
         end
     end
 	
     -- 가격
-    if vars['priceLabel2'] then
+    if vars['priceLabel'] then
 	    local price = struct_product:getPriceStr()
-        vars['priceLabel2']:setString(price)
+        vars['priceLabel']:setString(price)
     end
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Package_New_DragonBg:initButton()
+   local vars = self.vars
+   
+   if (vars['buyBtn']) then
+        vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+   end
+
+   if (vars['dragonInfoBtn']) then
+        vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+   end
 end
 
 function UI_Package_New_DragonBg:setDragonTicket()
     self:initUI_dragonTicket()
-    self:initButton_dragonTicket()
-
 end
 
 function UI_Package_New_DragonBg:setDragon()
     self:initUI_dragon()
-    self:initButton_dragon()
 end
-
-
-
 
 -------------------------------------
 -- function initUI_dragonTicket
@@ -103,8 +125,8 @@ end
 -------------------------------------
 function UI_Package_New_DragonBg:initUI_dragonTicket()
     local vars = self.vars
+    local item_id = self.m_premier_item_id
 
-    --[[
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
     vars['itemNode']:addChild(ui_card.root)
@@ -115,41 +137,16 @@ function UI_Package_New_DragonBg:initUI_dragonTicket()
     -- 드래곤 뽑기권에서 나올 드래곤들 출력
     local dragon_list_str = TablePickDragon:getCustomList(item_id)
     local dragon_list = plSplit(dragon_list_str, ',')
-
     for i, dragon_id in ipairs(dragon_list) do
         local dragon_animator = UIC_DragonAnimator()
         dragon_animator:setDragonAnimator(tonumber(dragon_id), 3)
         dragon_animator:setTalkEnable(false)
-        
-        -- 2,3 번째 드래곤은 바라보는 방향이 다름        
-        if (i >= 2) then
-            dragon_animator.m_animator:setFlip(true)
-        end
 
         if (vars['dragonNode'.. i]) then
             vars['dragonNode'.. i]:addChild(dragon_animator.m_node)
         end
     end
-
-    local res = 'res/bg/ui/dragon_evolution_result/dragon_evolution_result.vrp'
-    animator = MakeAnimator(res)    
-    vars['bgNode']:addChild(animator.m_node)
-    --]]
 end
-
--------------------------------------
--- function initButton_dragonTicket
--------------------------------------
-function UI_Package_New_DragonBg:initButton_dragonTicket()
-   local vars = self.vars
-   local item_id = self.m_item_id
-   
-   --vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_SummonDrawInfo(item_id, false) end)
-end
-
-
-
-
 
 -------------------------------------
 -- function initUI_dragon
@@ -157,62 +154,44 @@ end
 -------------------------------------
 function UI_Package_New_DragonBg:initUI_dragon()
     local vars = self.vars
-    --[[
-    local item_id = self.m_item_id
-    local did = TableItem:getDidByItemId(item_id)
     
-    vars['productNode2']:setVisible(true)
-
-    local table_dragon = TableDragon()
-
-    -- 이름
-    local dragon_name = table_dragon:getDragonName(did)
-    vars['dragonNameLabel']:setString(Str(dragon_name))
-    
-    -- 속성 ex) dark
-    local dragon_attr = table_dragon:getDragonAttr(did)
-    local attr_icon = IconHelper:getAttributeIcon(dragon_attr)
-    vars['attrNode']:addChild(attr_icon)
-    vars['attrLabel']:setString(dragonAttributeName(dragon_attr))
-
-    -- 역할 ex) healer
-    local role_type = table_dragon:getDragonRole(did)
-    local role_icon = IconHelper:getRoleIcon(role_type)
-    vars['typeNode']:addChild(role_icon)
-    vars['typeLabel']:setString(dragonRoleTypeName(role_type))
-
-    -- 희귀도 ex) legend
-    local rarity_icon = IconHelper:getRarityIcon('legend')
-    vars['rarityNode']:addChild(rarity_icon)
-    vars['rarityLabel']:setString(dragonRarityName('legend'))
-
-    -- 진화도 by 별
-    local res = string.format('res/ui/icons/star/star_%s_%02d%02d.png', 'yellow', 2, 5)
-    local sprite = IconHelper:getIcon(res)
-	vars['starNode']:addChild(sprite)
-
+    local did = TableItem:getDidByItemId(self.m_premier_item_id)
     local dragon_animator = UIC_DragonAnimator()
-    dragon_animator:setDragonAnimator(did, 3)
+    dragon_animator:setDragonAnimator(tonumber(did), 3)
     dragon_animator:setTalkEnable(false)
-    vars['dragonNode4']:addChild(dragon_animator.m_node)
-
-    
-    -- 최종 상품이 드래곤일 경우 visual  세팅
-    local animator
-    local did = TableItem:getDidByItemId(item_id)
-    local dragon_attr = TableDragon:getDragonAttr(did)
-    animator = ResHelper:getUIDragonBG(dragon_attr, 'idle')
-    vars['bgNode']:addChild(animator.m_node)
-    --]]
+    vars['dragonNode']:addChild(dragon_animator.m_node)
 end
 
 -------------------------------------
--- function initButton_dragon
+-- function click_buyBtn
 -------------------------------------
-function UI_Package_New_DragonBg:initButton_dragon()
-   local vars = self.vars
-   local item_id = self.m_item_id
-   
-   --local did = TableItem:getDidByItemId(item_id)
-   --vars['infoBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
+function UI_Package_New_DragonBg:click_buyBtn()
+	local struct_product = self.m_struct_product
+
+	local function cb_func(ret)
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+
+        -- 갱신이 필요한 상태일 경우
+        if ret['need_refresh'] then
+            self:refresh()
+            g_eventData.m_bDirty = true
+		end
+	end
+
+	struct_product:buy(cb_func)
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_Package_New_DragonBg:click_infoBtn()
+    local premier_item_type = TableItem:getItemType(self.m_premier_item_id)
+    local did = TableItem:getDidByItemId(self.m_premier_item_id)
+
+	if (premier_item_type == 'dragon') then
+        UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true)    -- param : did, grade, evolution scale, ispopup
+    elseif (premier_item_type == 'summon') then
+        UI_SummonDrawInfo(self.m_premier_item_id, false) -- item_id, is_draw
+    end
 end

@@ -40,25 +40,36 @@ end
 function UI_Package_New_Dragon:initUI()
     local vars = self.vars
 
-    local ui_product1 = openPackage_New_Dragon(self.m_pids[1])
-    local ui_product2 = openPackage_New_Dragon(self.m_pids[2])
+    local struct_product1 = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
+    local struct_product2 = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[2]))
+    
+    -- @jhakim 20190308 대표상품 하드코딩 -> mail_content 의 첫 번쨰 아이템으로 수정해야함
+    local left_premier_item_id = 700603
+    local right_premier_item_id = 771115
+
+    local ui_product1 = openPackage_New_Dragon(struct_product1, left_premier_item_id)
+    local ui_product2 = openPackage_New_Dragon(struct_product2, right_premier_item_id)
 
     vars['productNode1']:addChild(ui_product1.root)
     vars['productNode2']:addChild(ui_product2.root)
-    
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Package_New_Dragon:refresh()
+    local vars = self.vars   
     
-end
-
--------------------------------------
--- function init_tableView
--------------------------------------
-function UI_Package_New_Dragon:init_tableView()
-    local vars = self.vars
+    local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1])) -- 패키지 2개의 판매기간이 같다고 가정
+    -- 판매종료시간 있는 경우 표시
+    local time_label = vars['timeLabel']
+    local end_date = struct_product:getEndDateStr()
+    if (time_label) then
+        if (end_date) then
+            time_label:setString(end_date)
+        else    
+            time_label:setString('')
+        end
+    end
     
 end
