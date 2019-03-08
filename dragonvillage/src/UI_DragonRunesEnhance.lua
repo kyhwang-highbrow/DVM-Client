@@ -1,4 +1,5 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+
 -------------------------------------
 -- class UI_DragonRunesEnhance
 -------------------------------------
@@ -26,6 +27,7 @@ UI_DragonRunesEnhance = class(PARENT,{
 
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
 UI_DragonRunesEnhance.GRIND = 'grind' -- 특성 스킬
+UI_DragonRunesEnhance.GRIND_ABLE_LV = 12
 
 -------------------------------------
 -- function initParentVariable
@@ -111,6 +113,15 @@ function UI_DragonRunesEnhance:onChangeTab(tab, first)
         self:setSeqEnhanceVisible(true)
         self:refresh_enhance()
     else
+        -- 12강화 이상이 아니면, 다시 강화탭으로 보냄
+        local rune_obj = self.m_runeObject
+        local cur_lv = rune_obj['lv']
+        if (cur_lv<UI_DragonRunesEnhance.GRIND_ABLE_LV) then
+            self:setTab('enhance')
+            UIManager:toastNotificationRed(Str('12강화 이상의 룬만 연마 할 수 있습니다.'))
+            return
+        end
+        
         if (first) then
             self.m_runeGrindClass = UI_DragonRunesGrind(self)
         else
@@ -311,10 +322,7 @@ function UI_DragonRunesEnhance:refresh_enhance()
     local rune_bless_card = UI_ItemCard(704903, cur_rune_bless_cnt) -- 룬 축복서
     rune_bless_card:setRareCountText(cur_rune_bless_cnt) -- 0일 때 숫자 그대로 출력되도록 (기존에는 0이면 출력 안됨)
     rune_bless_card:setEnabledClickBtn(false)
-    vars['runeBlessIconNode']:addChild(rune_bless_card.root)
-
-    local cur_lv = rune_obj['lv']
-    vars['grindTabBtn']:setVisible(cur_lv>=12)    
+    vars['runeBlessIconNode']:addChild(rune_bless_card.root)   
 end
 
 

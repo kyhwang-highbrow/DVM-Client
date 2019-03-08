@@ -309,7 +309,7 @@ function UI_DragonRunesGrind:checkGrindCondition()
         return false
     end
     
-    if (level < 12) then
+    if (level < UI_DragonRunesEnhance.GRIND_ABLE_LV) then
         UIManager:toastNotificationRed(Str('12강화 이상의 룬만 연마 할 수 있습니다.'))
         return false
     end
