@@ -26,7 +26,6 @@ function UI_ClanRaidRankingPopup:init()
     self:doActionReset()
     self:doAction(nil, false)
     self:request_clanRank()
-    self:initTableView()
     
     self:initUI()
     self:initButton()
@@ -46,12 +45,9 @@ function UI_ClanRaidRankingPopup:initUI()
     self:addTabWithLabel('light', vars['attrTabBtn4'])
     self:addTabWithLabel('dark', vars['attrTabBtn5'])
 
-
-    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+    --self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 
     self:setTab('earth')
-
-    self:initTableView()
 end
 
 -------------------------------------
@@ -70,23 +66,37 @@ function UI_ClanRaidRankingPopup:refresh()
 end
 
 -------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_ClanRaidRankingPopup:onChangeTab(tab, first)
-
-end
-
-
--------------------------------------
 -- function initTableView
 -------------------------------------
-function UI_ClanRaidRankingPopup:initTableView()
+function UI_ClanRaidRankingPopup:initRank()
     local rank_type = CLAN_RANK['RAID']
     self.m_rank_data = g_clanRankData:getRankData(rank_type)
 
     local vars = self.vars
 	local node = vars['rankListNode']
 	local l_rank_list = self.m_rank_data
+
+    self:initTableView(vars, node, l_rank_list)
+end
+
+-------------------------------------
+-- function initTableView
+-------------------------------------
+function UI_ClanRaidRankingPopup:initAttrRecord()
+    local rank_type = CLAN_RANK['RAID']
+    self.m_rank_data = g_clanRankData:getRankData(rank_type)
+
+    local vars = self.vars
+	local node = vars['attrRankList']
+	local l_rank_list = self.m_rank_data
+    local empty_str = Str('랭킹 정보가 없습니다.')
+    self:initTableView(vars, node, l_rank_list, empty_str)
+end
+
+-------------------------------------
+-- function initTableView
+-------------------------------------
+function UI_ClanRaidRankingPopup:initTableView(vars, node, l_rank_list, empty_str)
 
     -- 이전 보기 추가
     if (1 < self.m_offset) then
@@ -161,13 +171,14 @@ function UI_ClanRaidRankingPopup:initTableView()
 
             table.sort(table_view.m_itemList, sort_func)
         end
-
-        -- 정산 문구 분기
-        local empty_str
-        if (g_clanRankData:isSettlingDown()) then
-            empty_str = Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요.')
-        else
-            empty_str = Str('랭킹 정보가 없습니다.')
+        if (not empty_str) then
+            -- 정산 문구 분기
+            empty_str = ''
+            if (g_clanRankData:isSettlingDown()) then
+                empty_str = Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요.')
+            else
+                empty_str = Str('랭킹 정보가 없습니다.')
+            end
         end
         table_view:makeDefaultEmptyDescLabel(empty_str)
     end
@@ -249,7 +260,8 @@ function UI_ClanRaidRankingPopup:request_clanRank(first)
     local offset = self.m_offset
     local cb_func = function()
         self:makeMyRank()
-        self:initTableView()
+        self:initRank()
+        self:initAttrRecord() -- 임시로 여기서
     end
     g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
