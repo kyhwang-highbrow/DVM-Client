@@ -83,6 +83,9 @@ function UI_AcquisitionRegionListItem:initUI()
 			title_str = Str('[획득 불가]')
 			content_str = Str('이벤트에서 획득')
 			vars['locationBtn']:setVisible(false)
+        elseif (get_type == 'challenge_mode') then
+			title_str = Str('그림자의 신전')
+            content_str = ''
 
         elseif string.find(get_type, 'coupon') then
             local n_time = string.gsub(get_type, 'coupon', '')
@@ -125,7 +128,6 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 	-- 드래곤으로 간주
 	else
 		local get_type = self.m_region
-
 		if (get_type == 'combine') then
 			UINavigator:goTo('hatchery', get_type)
 
@@ -143,6 +145,14 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 
 		elseif (get_type == 'relation') then
 			UINavigator:goTo('hatchery', get_type)
+
+        elseif (get_type == 'challenge_mode') then
+            -- 그림자 신전이 열려있지 않다면 이동시키지 않음
+            if (not g_challengeMode:isOpen_challengeMode()) then
+                UIManager:toastNotificationGreen(Str('오픈시간이 아닙니다.'))
+                return
+            end
+			UINavigator:goTo('challenge_mode')
 
         elseif string.find(get_type, 'coupon') then
             ccdisplay('쿠폰 등록 팝업으로 이동!')

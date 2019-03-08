@@ -16,6 +16,7 @@ UI_DragonRunesGrind = class({
 
 
 GRIND_ITEM_RADIO_LIST = { none_select = 'notSelect', max_fixed_ticket = 'maxFixed', opt_keep_ticket = 'optKeep'} -- UI의 lua_name = '아이템 명',
+local GRIND_ITEM_ID = 704900
 
 -------------------------------------
 -- function init
@@ -38,7 +39,8 @@ function UI_DragonRunesGrind:initUI()
 	local vars = enhance_class.vars
 
     -- 룬 연마석 아이콘 추가
-    local grindstone_card = UI_ItemCard(704900, 0)
+    local grindstone_card = UI_ItemCard(GRIND_ITEM_ID, 0)
+    grindstone_card:setEnabledClickBtn(false)
     grindstone_card.root:setScale(0.8)
 	vars['grindStoneNode']:addChild(grindstone_card.root)
 end
@@ -128,6 +130,7 @@ function UI_DragonRunesGrind:initButton()
     local vars = self.m_runeEnhanceClass.vars
     -- 룬 연마
     vars['grindBtn']:registerScriptTapHandler(function() self:click_grind() end)
+    vars['grindItemBtn']:registerScriptTapHandler(function() self:click_grindItemBtn() end)
     vars['runeGrindBtn']:registerScriptTapHandler(function() self:click_grindinfo() end)
 end
 
@@ -374,6 +377,10 @@ end
 function UI_DragonRunesGrind:click_grindinfo()
     local rune_obj = self.m_runeEnhanceClass:getRuneObject()
     UI_DragonRunesGrindFirstPopup(self.m_seletedGrindOption, rune_obj, nil, true, self.m_selectOptionItem) -- selected_opt, rune_obj, ok_cb, is_info, item_type
+end
+
+function UI_DragonRunesGrind:click_grindItemBtn()
+    UI_ItemInfoPopup(GRIND_ITEM_ID)
 end
 
 -------------------------------------
