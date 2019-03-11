@@ -40,18 +40,36 @@ end
 function UI_Package_New_Dragon:initUI()
     local vars = self.vars
 
-    local struct_product1 = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
-    local struct_product2 = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[2]))
+    local struct_product_left = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
+    local struct_product_right = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[2]))
     
-    -- @jhakim 20190308 대표상품 하드코딩 -> mail_content 의 첫 번쨰 아이템으로 수정해야함
-    local left_premier_item_id = 700603
-    local right_premier_item_id = 771115
 
-    local ui_product1 = openPackage_New_Dragon(struct_product1, left_premier_item_id)
-    local ui_product2 = openPackage_New_Dragon(struct_product2, right_premier_item_id)
+    local product_id_left = self:getFirstProductId(struct_product_left)
+    local product_id_right = self:getFirstProductId(struct_product_right)
 
-    vars['productNode1']:addChild(ui_product1.root)
-    vars['productNode2']:addChild(ui_product2.root)
+    -- 왼쪽 상품 UI 세팅
+    do
+        if (not product_id_left) then
+            return
+        end
+
+        local ui_product_left = openPackage_New_Dragon(struct_product_left, product_id_left)   
+        if (ui_product_left) then
+            vars['productNode1']:addChild(ui_product_left.root)
+        end
+    end
+    
+    -- 오른쪽 상품 UI 세팅
+    do
+        if (not product_id_right) then
+            return
+        end
+        
+        local ui_product_right = openPackage_New_Dragon(struct_product_right, product_id_right)
+        if (ui_product_right) then
+            vars['productNode2']:addChild(ui_product_right.root)
+        end
+    end
 end
 
 -------------------------------------
@@ -72,4 +90,25 @@ function UI_Package_New_Dragon:refresh()
         end
     end
     
+end
+
+-------------------------------------
+-- function getFirstProductId
+-- @breif 패키지에서 UI로 보여줄 상품은 mail_content의 첫 번째 상품
+-------------------------------------
+function UI_Package_New_Dragon:getFirstProductId(struct_product)
+ 
+    if (not struct_product) then
+        return nil 
+    end
+
+    if (not struct_product['mail_content']) then
+        return nil 
+    end
+
+    -- ex) 771115;1,700002;1000000,700001;3000,700009;9
+    local l_mail_content = plSplit(struct_product['mail_content'], ',')
+    -- ex) 771115;1
+    local l_product = plSplit(l_mail_content[1], ';')
+    return tonumber(l_product[1])
 end
