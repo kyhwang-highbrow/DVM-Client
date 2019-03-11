@@ -130,9 +130,6 @@ function UI_Package_New_DragonBg:initUI_dragonTicket()
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
     vars['itemNode']:addChild(ui_card.root)
-
-    local item_name = TableItem:getItemName(item_id)
-    vars['itemLabel']:setString(item_name)
     
     -- 드래곤 뽑기권에서 나올 드래곤들 출력
     local dragon_list_str = TablePickDragon:getCustomList(item_id)
