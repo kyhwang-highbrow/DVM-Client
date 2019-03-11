@@ -135,8 +135,6 @@ function UI_ClanRaid:initUI()
     vars['hpLabel2']:setVisible(true)
     vars['hpLabel2']:setString(Str('{1}/{1}', struct_raid:getHp(), struct_raid:getMaxHp()))
 
-    vars['lastStageLabel']:setString(string.format('Lv.%d', MAX_STAGE))
-
     -- 보너스 속성
     do
         local str, map_attr = struct_raid:getBonusSynastryInfo()
@@ -195,8 +193,7 @@ end
 -------------------------------------
 function UI_ClanRaid:initButton()
     local vars = self.vars
-    vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
-    vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
     
@@ -366,42 +363,7 @@ function UI_ClanRaid:initRaidInfo()
         end
     end
 
-    self:setCurStageArrowItem()
     self:showDungeonStateUI()
-end
-
--------------------------------------
--- function setCurStageArrowItem
--------------------------------------
-function UI_ClanRaid:setCurStageArrowItem()
-    local vars = self.vars
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-    -- 현재 진행중인 stage 정보
-    local cur_stage = g_clanRaidData:getCurChallengStage()
-    
-    -- 현재 스테이지 표시할 아이템 생성
-    if (not self.m_cur_stage_arrow_item) then
-        self.m_cur_stage_arrow_item = UI()
-        self.m_cur_stage_arrow_item:load('clan_raid_scene_record_item.ui')
-        vars['itemNode']:addChild(self.m_cur_stage_arrow_item.root)
-    end
-    
-    -- 그래프에서 stage 위치 구함
-    local start_pos_x = vars['firstNode']:getPosition()
-    local end_pos_x = vars['lastNode']:getPosition()
-    local stage_pos_x = (end_pos_x - start_pos_x)/MAX_STAGE * tonumber(cur_stage) + start_pos_x
-
-    -- stage 1 일 때 맨 앞에 가서 붙도록 예외처리, 그렇게 하지 않으면 1/100 위치에 붙음
-    if (cur_stage == 1) then 
-        stage_pos_x = start_pos_x 
-    end
-
-    -- stage 위치에 세팅
-    local _, item_node_pos_y = vars['itemNode']:getPosition()
-    vars['itemNode']:setPosition(stage_pos_x, item_node_pos_y)
-
-    self.m_cur_stage_arrow_item.vars['currentLabel']:setString(tostring(cur_stage))
-
 end
 
 -------------------------------------
@@ -484,18 +446,8 @@ function UI_ClanRaid:refreshBtn()
     local struct_raid = g_clanRaidData:getClanRaidStruct()
 
     local stage_id = struct_raid:getStageID()
-    local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
-    vars['prevBtn']:setVisible((prev_stage_id ~= nil))
 
     local curr_stage_id = g_clanRaidData:getChallengStageID()
-    local next_stage_id = g_stageData:getNextStage(stage_id)
-
-    -- 현재 진행중인 던전 이후는 특정 레벨까지만 보여줌 (던전 인스턴스 생성되지 않은 상태)
-    if (struct_raid:isOverMaxStage(next_stage_id)) then
-        vars['nextBtn']:setVisible(false)
-    else
-        vars['nextBtn']:setVisible(curr_stage_id + SHOW_NEXT_LEVEL_LIMIT >= next_stage_id)
-    end
 
     -- 시작버튼 활성화/비활성화, 
     -- 해당 스테이지가 마지막이고, 마지막 스테이지 클리어한 상태라면 준비버튼 비활성화
@@ -505,42 +457,6 @@ function UI_ClanRaid:refreshBtn()
         vars['readyBtn']:setEnabled(stage_id == curr_stage_id)       
     end
 
-end
-
--------------------------------------
--- function click_prevBtn
--- @brief 이전 던전 정보
--------------------------------------
-function UI_ClanRaid:click_prevBtn()
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-    local stage_id = struct_raid:getStageID()
-    local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
-
-    local finish_cb = function()
-        self:refresh()
-    end
-
-    if (prev_stage_id) then
-        g_clanRaidData:request_info(prev_stage_id, finish_cb)
-    end
-end
-
--------------------------------------
--- function click_nextBtn
--- @brief 다음 던전 정보
--------------------------------------
-function UI_ClanRaid:click_nextBtn()
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-    local stage_id = struct_raid:getStageID()
-    local next_stage_id = g_stageData:getNextStage(stage_id)
-
-    local finish_cb = function()
-        self:refresh()
-    end
-
-    if (next_stage_id) then
-        g_clanRaidData:request_info(next_stage_id, finish_cb)
-    end
 end
 
 -------------------------------------
