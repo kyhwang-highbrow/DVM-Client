@@ -31,6 +31,7 @@ function UI_Setting:init_devTab()
     vars['colosseumOldBtn']:registerScriptTapHandler(function() self:click_colosseumOldBtn() end)
     vars['colosseumTestBtn']:registerScriptTapHandler(function() self:click_colosseumTestBtn() end)
     vars['dailyInitBtn']:registerScriptTapHandler(function() self:click_dailyInitBtn() end)
+    vars['eggSimulBtn']:registerScriptTapHandler(function() self:click_eggSimulBtn() end)
     self:refresh_devTap()
 end
 
@@ -838,4 +839,11 @@ function UI_Setting:click_dailyInitBtn()
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function click_eggSimulBtn
+-------------------------------------
+function UI_Setting:click_eggSimulBtn()
+    UI_EggSimulator()
 end

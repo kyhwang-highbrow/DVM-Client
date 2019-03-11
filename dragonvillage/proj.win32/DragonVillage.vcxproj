@@ -1155,6 +1155,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonTransformChange.lua" />
     <None Include="..\src\UI_DragonTransformChangeResult.lua" />
     <None Include="..\src\UI_EggPopup.lua" />
+    <None Include="..\src\UI_EggSimulator.lua" />
     <None Include="..\src\UI_ErrorPopup_Live.lua" />
     <None Include="..\src\UI_Event1stComeback.lua" />
     <None Include="..\src\UI_EventAdvent.lua" />

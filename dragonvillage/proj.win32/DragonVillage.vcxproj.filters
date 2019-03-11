@@ -3973,6 +3973,9 @@
     <None Include="..\src\UI_ClanRaidRankingPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EggSimulator.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
