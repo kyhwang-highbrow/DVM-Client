@@ -86,12 +86,14 @@ function UI_AcquisitionRegionListItem:initUI()
         elseif (get_type == 'challenge_mode') then
 			title_str = Str('그림자의 신전')
             content_str = ''
-
+            local icon = IconHelper:getIcon('res/ui/icons/content/challenge_mode.png')
+            if (icon) then
+			    vars['iconNode']:addChild(icon)
+            end
         elseif string.find(get_type, 'coupon') then
             local n_time = string.gsub(get_type, 'coupon', '')
             title_str = Str('[오프라인 카드]')
             content_str = Str('드래곤 빌리지 카드 {1}탄 쿠폰에서 획득', n_time)
-
 		end
 
 		vars['locationLabel1']:setString(title_str)
