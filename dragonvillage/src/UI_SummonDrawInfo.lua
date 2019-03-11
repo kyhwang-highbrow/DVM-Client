@@ -68,7 +68,8 @@ function UI_SummonDrawInfo:initUI()
     -- 뽑기권 내용물 드래곤 카드 세팅
     local dragon_cnt = #dragon_list
     local bg_width = vars['listTableNode']:getNormalSize()
-    local start_pos = -520
+    local bg_pos_x = vars['listTableNode']:getPositionX()
+    local start_pos = bg_pos_x - bg_width/2 + 45
     local list_item_width = 100
     local l_pos_x = getPosXForCenterSortting(bg_width, start_pos, dragon_cnt, list_item_width)
 
