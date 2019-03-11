@@ -12,7 +12,7 @@ UI_BookEgg = class(PARENT,{
 -------------------------------------
 function UI_BookEgg:init()
     local vars = self:load('hatchery_incubate_info.ui')
-    UIManager:open(self, UIManager.SCENE)
+    UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_BookEgg')
