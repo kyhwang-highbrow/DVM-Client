@@ -138,6 +138,7 @@ function UI_Package_New_DragonBg:initUI_dragonTicket()
         local dragon_animator = UIC_DragonAnimator()
         dragon_animator:setDragonAnimator(tonumber(dragon_id), 3)
         dragon_animator:setTalkEnable(false)
+        dragon_animator:setIdle()
 
         if (vars['dragonNode'.. i]) then
             vars['dragonNode'.. i]:addChild(dragon_animator.m_node)
@@ -156,6 +157,8 @@ function UI_Package_New_DragonBg:initUI_dragon()
     local dragon_animator = UIC_DragonAnimator()
     dragon_animator:setDragonAnimator(tonumber(did), 3)
     dragon_animator:setTalkEnable(false)
+    dragon_animator:setIdle()
+
     vars['dragonNode']:addChild(dragon_animator.m_node)
 end
 

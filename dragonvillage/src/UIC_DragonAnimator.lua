@@ -198,3 +198,11 @@ function UIC_DragonAnimator:setTalkEnable(enable)
     end
 end
 
+-------------------------------------
+-- function setIdle
+-- @brief 드래곤 애니메이션 Idle만 출력
+-------------------------------------
+function UIC_DragonAnimator:setIdle()
+    self.m_randomAnimationList = {}
+    table.insert(self.m_randomAnimationList, 'idle')
+end

@@ -49,6 +49,7 @@ function UI_CapsuleBoxTodayListItem:initUI()
     local dragon_animator = UIC_DragonAnimator()
     dragon_animator:setDragonAnimator(did, 3)
     dragon_animator:setTalkEnable(false)
+    dragon_animator:setIdle()
     vars['dragonNode']:addChild(dragon_animator.m_node)
 end
 
