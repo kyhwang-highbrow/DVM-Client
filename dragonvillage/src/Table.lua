@@ -93,7 +93,6 @@ local TableInfo = {
 
         table_rune_grind = {'table_rune_grind', 'rarity', false},
         table_clan_dungeon_buff = {'table_clan_dungeon_buff', 'stage', false}, -- 클랜 버프 테이블
-        table_bingo_reward = {'table_bingo_reward', 'id', false}, -- 빙고 리워드, 서버에서 받는 게 좋을 듯
     }
 
 -------------------------------------
