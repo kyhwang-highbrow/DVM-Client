@@ -252,6 +252,7 @@ function StructClanRaid:getBonusSynastryInfo()
         if (buff_value) and (buff_value > 0) then
             if (map_buff_type[buff_type] == nil) then
                 local str_buff = TableOption:getOptionDesc(buff_type, buff_value)
+                -- 드래그 스킬은 맨 처음 출력
                 if (buff_type == 'drag_cool_add') then
                     str = (str == '') and str_buff or str_buff .. '\n' .. str
                 else
@@ -290,7 +291,8 @@ function StructClanRaid:getPenaltySynastryInfo()
         if (buff_value) and (buff_value < 0) then
             if (map_buff_type[buff_type] == nil) then
                 local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
-                ccdump(str_buff)
+
+                -- 드래그 스킬은 맨 처음 출력
                 if (buff_type == 'drag_cool_add_debuff') then
                     str = (str == '') and str_buff or str_buff .. '\n' .. str
                 else
