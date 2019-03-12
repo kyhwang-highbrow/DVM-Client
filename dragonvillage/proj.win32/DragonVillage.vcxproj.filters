@@ -3970,10 +3970,13 @@
     <None Include="..\src\UI_Package_New_Dragon.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ClanRaidRankingPopup.lua">
+    <None Include="..\src\UI_EggSimulator.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_EggSimulator.lua">
+    <None Include="..\src\UI_ClanRaidLastRankingTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanRaidRankingPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

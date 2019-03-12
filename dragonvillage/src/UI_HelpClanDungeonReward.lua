@@ -25,24 +25,11 @@ function UI_HelpClanDungeonReward:initUI()
     local tableView = UIC_TableView(node)
     tableView.m_defaultCellSize = cc.size(1000, 40)
 
-    local l_item_list = {}
-    -- 클랜 던전 보상 정보만 리스트에 담는다
-    for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do
-        -- week가 지정되어 있고, 그 week가 현재 주차와 일치한다면 그 테이블을 사용하는 예외처리 필요 
-        -- @jhakim 임의로 주차보상은 보이지 않도록 처리
-        if (t_data['category'] == 'dungeon') and (t_data['week'] == 1) then
-            table.insert(l_item_list, t_data)
-        end
-    end
-
-    -- 테이블 정렬
-    table.sort(l_item_list, function(a, b) 
-        return tonumber(a['rank_id']) < tonumber(b['rank_id'])
-    end)
+    local l_rank_reward = g_clanRaidData:getRankRewardList()
 
     tableView:setCellUIClass(UI_HelpClanRewardListItem)
     tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    tableView:setItemList(l_item_list, false)
+    tableView:setItemList(l_rank_reward, false)
 
     PARENT.initUI(self)
 end

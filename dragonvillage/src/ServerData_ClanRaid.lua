@@ -451,3 +451,27 @@ end
 function ServerData_ClanRaid:checkRequireTicket(stage_id)
     return g_staminasData:checkStageStamina(stage_id)
 end
+
+-------------------------------------
+-- function getRankRewardList
+-- @brief 클랜 시즌 보상 정보
+-------------------------------------
+function ServerData_ClanRaid:getRankRewardList()
+    local l_item_list = {}
+    local table_clan_reward = TABLE:get('table_clan_reward')
+    -- 클랜 던전 보상 정보만 리스트에 담는다
+    for rank_id, t_data in pairs(table_clan_reward) do
+        -- week가 지정되어 있고, 그 week가 현재 주차와 일치한다면 그 테이블을 사용하는 예외처리 필요 
+        -- @jhakim 임의로 주차보상은 보이지 않도록 처리
+        if (t_data['category'] == 'dungeon') and (t_data['week'] == 1) then
+            table.insert(l_item_list, t_data)
+        end
+    end
+
+    -- 테이블 정렬
+    table.sort(l_item_list, function(a, b) 
+        return tonumber(a['rank_id']) < tonumber(b['rank_id'])
+    end)
+
+    return l_item_list
+end

@@ -1293,6 +1293,7 @@ local t_module = {
     'UI_ClanRaidResult',
     'UI_ClanRaidRankPopup',
     'UI_ClanRaidRankingPopup',
+    'UI_ClanRaidLastRankingTab',
     'UI_ClanRaidRankingRewardPopup',
     'UI_ClanRaidTabRank',
     'UI_ClanRaidTabContribution',
