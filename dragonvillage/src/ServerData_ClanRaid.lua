@@ -488,3 +488,26 @@ function ServerData_ClanRaid:getRankRewardList()
 
     return l_item_list
 end
+
+-------------------------------------
+-- function getAttrRankList
+-- @brief 클랜 이전 시즌 시즌 정보
+-------------------------------------
+function ServerData_ClanRaid:getAttrRankList()
+    local uid = g_userData:get('uid')
+    
+    local function success_cb(ret)
+        
+    end
+    
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('clans/rank_history')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('offset', 20)
+    ui_network:setParam('attr', 'all')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
