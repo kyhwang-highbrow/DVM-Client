@@ -28,6 +28,7 @@ function UI_ClanRaidRankingPopup:init()
     self:request_clanRank()
     
     self:initUI()
+    self:initRankReward()
     self:initButton()
     self:refresh()
 end
@@ -37,17 +38,13 @@ end
 -------------------------------------
 function UI_ClanRaidRankingPopup:initUI()
     local vars = self.vars
-    local l_attr = getAttrTextList()
-    
-    self:addTabWithLabel('earth', vars['attrTabBtn1'])
-    self:addTabWithLabel('water', vars['attrTabBtn2'])
-    self:addTabWithLabel('fire', vars['attrTabBtn3'])
-    self:addTabWithLabel('light', vars['attrTabBtn4'])
-    self:addTabWithLabel('dark', vars['attrTabBtn5'])
 
+    self:addTabAuto('lastRank', vars)
+    self:addTabAuto('nowRank', vars)
+
+    self:setTab('nowRank')
     --self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
-
-    self:setTab('earth')
+    
 end
 
 -------------------------------------
@@ -66,6 +63,18 @@ function UI_ClanRaidRankingPopup:refresh()
 end
 
 -------------------------------------
+-- function initRankReward
+-------------------------------------
+function UI_ClanRaidRankingPopup:initRankReward()
+    local vars = self.vars
+
+	local node = vars['attrRankList']
+	local l_rank_list = g_clanRaidData:getRankRewardList()
+
+    self:initRankTableView(vars, node, l_rank_list)
+end
+
+-------------------------------------
 -- function initTableView
 -------------------------------------
 function UI_ClanRaidRankingPopup:initRank()
@@ -80,17 +89,47 @@ function UI_ClanRaidRankingPopup:initRank()
 end
 
 -------------------------------------
--- function initTableView
+-- function initRankTableView
 -------------------------------------
-function UI_ClanRaidRankingPopup:initAttrRecord()
-    local rank_type = CLAN_RANK['RAID']
-    self.m_rank_data = g_clanRankData:getRankData(rank_type)
+function UI_ClanRaidRankingPopup:initRankTableView(vars, node, l_rank_list, empty_str)
+    
+    local func_make_reward = function(data)
+        local ui = class(UI, ITableViewCell:getCloneTable())()
+	    local vars = ui:load('clan_raid_rank_popup_item_01.ui')
+        if (not data) then
+            return ui
+        end
 
-    local vars = self.vars
-	local node = vars['attrRankList']
-	local l_rank_list = self.m_rank_data
-    local empty_str = Str('랭킹 정보가 없습니다.')
-    self:initTableView(vars, node, l_rank_list, empty_str)
+        local rank_str
+        if (data['rank_min'] ~= data['rank_max']) then
+            rank_str = Str('{1}~{2}위 ', data['rank_min'], data['rank_max'])
+        else
+            if(data['ratio_max'] ~= '') then
+                rank_str = Str('{1}위 미만', data['ratio_max'])
+            else
+                rank_str = Str('{1}위', data['rank_min'])
+            end
+        end
+
+        vars['rankLabel']:setString(rank_str)
+        
+        local reward_cnt = string.match(data['reward'], '%d+')       
+        -- 개인 보상 최대 퍼센트
+        local personal_max_percent = 0.06
+        local personal_cnt = math_floor(reward_cnt * personal_max_percent)
+        vars['rewardLabel1']:setString(reward_cnt)
+        vars['rewardLabel2']:setString(personal_cnt)
+        vars['rewardLabel3']:setString(data['clan_exp'])
+
+        return ui
+    end
+    
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(510, 50 + 5)
+    table_view:setCellUIClass(func_make_reward)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_rank_list)
 end
 
 -------------------------------------
@@ -261,7 +300,6 @@ function UI_ClanRaidRankingPopup:request_clanRank(first)
     local cb_func = function()
         self:makeMyRank()
         self:initRank()
-        self:initAttrRecord() -- 임시로 여기서
     end
     g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end

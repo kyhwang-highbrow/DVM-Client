@@ -457,6 +457,19 @@ end
 -- @brief 클랜 시즌 보상 정보
 -------------------------------------
 function ServerData_ClanRaid:getRankRewardList()
+     --[[  
+        ['clan_exp']=25000;
+        ['category']='dungeon';
+        ['t_name']='36~40위';
+        ['ratio_min']='';
+        ['rank_min']=36;
+        ['ratio_max']='';
+        ['rank_max']=40;
+        ['week']=1;
+        ['rank_id']=3024;
+        ['reward']='clancoin;1850';
+    --]]
+
     local l_item_list = {}
     local table_clan_reward = TABLE:get('table_clan_reward')
     -- 클랜 던전 보상 정보만 리스트에 담는다
