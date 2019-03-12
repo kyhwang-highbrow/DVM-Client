@@ -39,11 +39,11 @@ end
 function UI_ClanRaidRankingPopup:initUI()
     local vars = self.vars
 
-    self:addTabAuto('lastRank', vars)
-    self:addTabAuto('nowRank', vars)
+    self:addTabAuto('lastRank', vars, vars['lastRank' .. 'TabMenu'])
+    self:addTabAuto('nowRank', vars, vars['nowRank' .. 'TabMenu'])
 
     self:setTab('nowRank')
-    --self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
     
 end
 
@@ -60,6 +60,16 @@ end
 -------------------------------------
 function UI_ClanRaidRankingPopup:refresh()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ClanRaidRankingPopup:onChangeTab(tab, first)
+    local vars = self.vars
+    if (tab == 'lastRank') and (first) then
+        UI_ClanRaidLastRankingTab(vars)
+    end
 end
 
 -------------------------------------
