@@ -56,7 +56,6 @@ function UI_ClanRaid:init()
 
     self:initUI()
     self:initButton()
-    self:initTab()
     
     self:refresh(true)
 
@@ -207,17 +206,6 @@ function UI_ClanRaid:initButton()
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'clanraid_help')
 
     vars['clanRankBtn']:registerScriptTapHandler(function() self:click_clanRankBtn() end)
-end
-
--------------------------------------
--- function initTab
--------------------------------------
-function UI_ClanRaid:initTab()
-    local vars = self.vars
-    self:addTabWithLabel(TAB_CLAN_CONTRIBUTION, vars['contributionTabBtn'], vars['contributionTabLabel'], vars['contributionTabMenu'])
-
-    self:setTab(TAB_CLAN_CONTRIBUTION)
-    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
 -------------------------------------
