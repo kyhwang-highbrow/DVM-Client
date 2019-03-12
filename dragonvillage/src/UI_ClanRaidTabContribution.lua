@@ -5,6 +5,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -------------------------------------
 UI_ClanRaidTabContribution = class(PARENT,{
         m_owner_ui = '',
+        m_contribution_table_view = 'TableView', -- 누적 기여도 테이블 뷰
     })
 
 local TAB_TOTAL = 'total_contribution' -- 누적 기여도
@@ -40,10 +41,10 @@ end
 function UI_ClanRaidTabContribution:initTab()
     local vars = self.m_owner_ui.vars
     self:addTabWithLabel(TAB_TOTAL, vars['contributionTabBtn1'], vars['contributionTabLabel1'], vars['contributionTabNode1'])
-    self:addTabWithLabel(TAB_TOTAL_REWARD, vars['contributionTabBtn2'], vars['contributionTabLabel2'], vars['contributionTabNode2'])
+    self:addTabWithLabel(TAB_TOTAL_REWARD, vars['contributionTabBtn2'], vars['contributionTabLabel2'], vars['contributionTabNode1'])
     self:addTabWithLabel(TAB_CURRENT, vars['contributionTabBtn3'], vars['contributionTabLabel3'], vars['contributionTabNode3'])
 
-    self:setTab(TAB_TOTAL)
+    self:setTab(TAB_TOTAL_REWARD)
     self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
@@ -51,19 +52,20 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_ClanRaidTabContribution:onChangeTab(tab, first)
-    if (not first) then
-        return
-    end
 
     if (tab == TAB_TOTAL) then
-        self:initTableViewTotalRank()
+        self:setTotal(true)
 
     elseif (tab == TAB_TOTAL_REWARD) then
-        self:initTableViewTotalReward()
+        if (first) then
+            self:initTableViewTotalRank()
+        end
+        self:setTotal(false)
 
     elseif (tab == TAB_CURRENT) then
-        self:initTableViewCurrentRank()
-
+        if (first) then
+            self:initTableViewCurrentRank()
+        end
     end
 end
 
@@ -95,36 +97,23 @@ function UI_ClanRaidTabContribution:initTableViewTotalRank()
     table_view:setCellUIClass(self.makeTotalRankCell)
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank_list)
-
+    self.m_contribution_table_view = table_view
     local msg = Str('참여한 유저가 없습니다.')
     table_view:makeDefaultEmptyDescLabel(msg)
 end
 
 -------------------------------------
--- function initTableViewTotalReward
--- @brief 누적 기여도에 따른 보상 
+-- function setTotal
 -------------------------------------
-function UI_ClanRaidTabContribution:initTableViewTotalReward()
-        local vars = self.m_owner_ui.vars
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-
-    local node = vars['contributionTabNode2']
-    node:removeAllChildren()
-
-    -- cell size 정의
-	local width = node:getContentSize()['width']
-	local height = 50 + 2
-
-    -- 테이블 뷰 인스턴스 생성
+function UI_ClanRaidTabContribution:setTotal(is_reward)
     local l_rank_list = g_clanRaidData:getRankList()
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(width, height)
-    table_view:setCellUIClass(self.makeTotalRewardCell)
-	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_rank_list)
-
-    local msg = Str('참여한 유저가 없습니다.')
-    table_view:makeDefaultEmptyDescLabel(msg)
+    for key, v in ipairs(l_rank_list) do
+        local t_data = self.m_contribution_table_view:getItem(key)
+        if (t_data['ui']) then
+            t_data['ui'].vars['rewardNode']:setVisible(is_reward)
+            t_data['ui'].vars['damageLabel']:setVisible(not is_reward)
+        end
+    end
 end
 
 -------------------------------------
@@ -165,6 +154,12 @@ function UI_ClanRaidTabContribution.makeTotalRankCell(t_data)
     end
 
     local t_rank_info = t_data
+
+    -- 보상 기여도
+    vars['rewardPercentLabel']:setString(t_rank_info:getRewardContributionText())
+
+    -- 보상받을 클랜코인
+    vars['rewardLabel']:setString(t_rank_info:getRewardText())
 
     -- 점수 표시
     vars['damageLabel']:setString(t_rank_info:getScoreText())
