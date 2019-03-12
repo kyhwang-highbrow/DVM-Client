@@ -193,14 +193,15 @@ end
 -------------------------------------
 function UI_ClanRaid:initButton()
     local vars = self.vars
+    vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
+    vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
 
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
     
     -- 상세 정보 팝업
-    vars['bossInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('info') end)
-    vars['synastryInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('synastry') end)
-    vars['fbInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('finalblow') end)
+    vars['bossInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('cldg_summary') end)
+    vars['synastryInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('cldg_attr_bonus') end)
 
     -- 클랜 던전 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'clanraid_help')
@@ -446,8 +447,18 @@ function UI_ClanRaid:refreshBtn()
     local struct_raid = g_clanRaidData:getClanRaidStruct()
 
     local stage_id = struct_raid:getStageID()
+    local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
+    vars['prevBtn']:setVisible((prev_stage_id ~= nil))
 
     local curr_stage_id = g_clanRaidData:getChallengStageID()
+    local next_stage_id = g_stageData:getNextStage(stage_id)
+
+    -- 현재 진행중인 던전 이후는 특정 레벨까지만 보여줌 (던전 인스턴스 생성되지 않은 상태)
+    if (struct_raid:isOverMaxStage(next_stage_id)) then
+        vars['nextBtn']:setVisible(false)
+    else
+        vars['nextBtn']:setVisible(curr_stage_id + SHOW_NEXT_LEVEL_LIMIT >= next_stage_id)
+    end
 
     -- 시작버튼 활성화/비활성화, 
     -- 해당 스테이지가 마지막이고, 마지막 스테이지 클리어한 상태라면 준비버튼 비활성화
@@ -457,6 +468,42 @@ function UI_ClanRaid:refreshBtn()
         vars['readyBtn']:setEnabled(stage_id == curr_stage_id)       
     end
 
+end
+
+-------------------------------------
+-- function click_prevBtn
+-- @brief 이전 던전 정보
+-------------------------------------
+function UI_ClanRaid:click_prevBtn()
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local stage_id = struct_raid:getStageID()
+    local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
+
+    local finish_cb = function()
+        self:refresh()
+    end
+
+    if (prev_stage_id) then
+        g_clanRaidData:request_info(prev_stage_id, finish_cb)
+    end
+end
+
+-------------------------------------
+-- function click_nextBtn
+-- @brief 다음 던전 정보
+-------------------------------------
+function UI_ClanRaid:click_nextBtn()
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local stage_id = struct_raid:getStageID()
+    local next_stage_id = g_stageData:getNextStage(stage_id)
+
+    local finish_cb = function()
+        self:refresh()
+    end
+
+    if (next_stage_id) then
+        g_clanRaidData:request_info(next_stage_id, finish_cb)
+    end
 end
 
 -------------------------------------
@@ -524,7 +571,7 @@ end
 -- @brief 보스 정보
 -------------------------------------
 function UI_ClanRaid:click_bossInfoBtn(tab)
-    UI_HelpClan('clan_dungeon','clan_dungeon_summary')
+    UI_HelpClan('clan_dungeon','clan_dungeon_summary', tab)
 end
 
 -------------------------------------
