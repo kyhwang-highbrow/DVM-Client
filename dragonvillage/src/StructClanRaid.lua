@@ -252,8 +252,11 @@ function StructClanRaid:getBonusSynastryInfo()
         if (buff_value) and (buff_value > 0) then
             if (map_buff_type[buff_type] == nil) then
                 local str_buff = TableOption:getOptionDesc(buff_type, buff_value)
-                str = (str == '') and str_buff or str..'\n'..str_buff
-
+                if (buff_type == 'drag_cool_add') then
+                    str = (str == '') and str_buff or str_buff .. '\n' .. str
+                else
+                    str = (str == '') and str_buff or str..'\n'..str_buff
+                end
                 map_buff_type[buff_type] = true
             end 
 
@@ -277,6 +280,7 @@ function StructClanRaid:getPenaltySynastryInfo()
     local map_attr = {}
     local map_buff_type = {}
     local str = '' 
+    
     for _, v in ipairs(ret) do
         local buff_attr = v['condition_value']
         local buff_type = v['buff_type']
@@ -286,8 +290,12 @@ function StructClanRaid:getPenaltySynastryInfo()
         if (buff_value) and (buff_value < 0) then
             if (map_buff_type[buff_type] == nil) then
                 local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
-                str = (str == '') and str_buff or str..'\n'..str_buff
-
+                ccdump(str_buff)
+                if (buff_type == 'drag_cool_add_debuff') then
+                    str = (str == '') and str_buff or str_buff .. '\n' .. str
+                else
+                    str = (str == '') and str_buff or str..'\n'..str_buff
+                end
                 map_buff_type[buff_type] = true
             end 
 
