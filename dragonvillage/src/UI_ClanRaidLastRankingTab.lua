@@ -189,23 +189,23 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     do
         if (1 < self.m_rankOffset[attr]) then
             local prev_data = { m_tag = 'prev' }
-            l_item_list['prev'] = prev_data
+            table.insert(l_item_list, 1, prev_data)
         end
 
         if (#l_item_list > 0) then
             local next_data = { m_tag = 'next' }
-            l_item_list['next'] = next_data
+            table.insert(l_item_list, next_data)
         end
 
         -- 이전 랭킹 보기
-        local function click_prevBtn()
+        local click_prevBtn = function()
             self.m_rankOffset[attr] = self.m_rankOffset[attr] - CLAN_OFFSET_GAP
             self.m_rankOffset[attr] = math_max(self.m_rankOffset[attr], 0)
             self:request_clanAttrRank(attr)
         end
 
         -- 다음 랭킹 보기
-        local function click_nextBtn()
+        local click_nextBtn = function()
             local add_offset = #l_item_list
             if (add_offset < CLAN_OFFSET_GAP) then
                 MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
@@ -214,38 +214,39 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
             self.m_rankOffset[attr] = self.m_rankOffset[attr] + add_offset
             self:request_clanAttrRank(attr)
         end
-    end
 
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
-        ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
-        if (data['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
-            ui.vars['meSprite']:setVisible(true)
+
+        -- 생성 콜백
+        local function create_func(ui, data)
+            ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
+            ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
+            if (data['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
+                ui.vars['meSprite']:setVisible(true)
+            end
         end
-    end
 
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(245, 80+5)
-    table_view:setCellUIClass(self.makeAttrRankListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list, true)
-    --self.m_rewardTableView = table_view
-    table_view:makeDefaultEmptyDescLabel(Str(''))
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(245, 80+5)
+        table_view:setCellUIClass(self.makeAttrRankListItem, create_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_item_list, true)
+        --self.m_rewardTableView = table_view
+        table_view:makeDefaultEmptyDescLabel(Str(''))
 
-    -- 포커싱
-    local idx = nil
-    for i,v in pairs(l_item_list) do
-        if (v['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
-            idx = i
-            break
+        -- 포커싱
+        local idx = nil
+        for i,v in pairs(l_item_list) do
+            if (v['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
+                idx = i
+                break
+            end
         end
-    end
 
-    if idx then
-        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-        table_view:relocateContainerFromIndex(idx)
+        if idx then
+            table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+            table_view:relocateContainerFromIndex(idx)
+        end
     end
 end
 
