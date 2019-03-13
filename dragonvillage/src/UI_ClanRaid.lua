@@ -417,7 +417,6 @@ function UI_ClanRaid:showDungeonStateUI()
             vars['notiVisual']:setVisible(true)
 
             noti_visual:changeAni('clear', true)
-            noti_visual.m_node:setScale(1.3)
         end
 
     end
