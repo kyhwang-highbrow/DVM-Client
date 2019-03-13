@@ -493,7 +493,7 @@ end
 -- function requestAttrRankList
 -- @brief 클랜 이전 시즌 시즌 정보
 -------------------------------------
-function ServerData_ClanRaid:requestAttrRankList(rank_offset, cb_func)
+function ServerData_ClanRaid:requestAttrRankList(attr_type, rank_offset, cb_func)
     local uid = g_userData:get('uid')
     
     local function success_cb(ret)
@@ -559,7 +559,7 @@ function ServerData_ClanRaid:requestAttrRankList(rank_offset, cb_func)
     ui_network:setUrl('/clans/rank_history')
     ui_network:setParam('uid', uid)
     ui_network:setParam('offset', rank_offset)
-    ui_network:setParam('attr', 'all')
+    ui_network:setParam('attr', attr_type)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)

@@ -4,8 +4,7 @@
 -------------------------------------
 UI_ClanRaidLastRankingTab = class({
         m_rank_data = 'table',
-        m_rankOffset = 'number',
-        m_selected_attr = 'string',
+        m_rankOffset = 'table',
         m_vars = 'vars'
     })
 
@@ -16,17 +15,16 @@ local CLAN_OFFSET_GAP = 20
 -------------------------------------
 function UI_ClanRaidLastRankingTab:init(vars)
     self.m_vars = vars
-    self.m_rankOffset = CLAN_OFFSET_GAP
-    self.m_selected_attr = 'all'
 
-    -- 속성별 랭킹 기록 초기화
+    -- 속성별 랭킹 기록/offset 초기화
     self.m_rank_data = {}
+    self.m_rankOffset = {}
     local l_attr = getAttrTextList()
     for _, attr in ipairs(l_attr) do
-        self.m_rank_data[attr] = {}   
+        self.m_rank_data[attr] = {}
+        self.m_rankOffset[attr] = 1
     end
 
-    self.m_rank_data['earth'] = {}
     self:initUI()
     self:initButton()
     self:refresh()
@@ -95,12 +93,15 @@ end
 -- @brief
 -------------------------------------
 function UI_ClanRaidLastRankingTab:onChangeRankingType(type)
-
+    local l_attr = getAttrTextList() 
     if (type == 'my') then
-        self.m_rankOffset = -1
-
+        for i,v in pairs(l_attr) do
+            self.m_rankOffset[l_attr] = -1
+        end
     elseif (type == 'top') then
-        self.m_rankOffset = 1
+        for i,v in pairs(l_attr) do
+            self.m_rankOffset[l_attr] = 1
+        end
     end
     self:request_clanAttrRank()
 end
@@ -108,12 +109,11 @@ end
 -------------------------------------
 -- function request_clanRank
 -------------------------------------
-function UI_ClanRaidLastRankingTab:request_clanAttrRank()
-    local selected_attr = self.m_selected_attr
+function UI_ClanRaidLastRankingTab:request_clanAttrRank(selected_attr)
     local cb_func = function(ret)
         self:applyAttrRankData(ret)
 
-        if (selected_attr == 'all') then
+        if (not selected_attr) then
             local l_attr = getAttrTextList()
             for i, attr in ipairs(l_attr) do
                 self:makeAttrTableView(attr)
@@ -121,12 +121,17 @@ function UI_ClanRaidLastRankingTab:request_clanAttrRank()
         else
             self:makeAttrTableView(selected_attr)
         end
-    end 
-    g_clanRaidData:requestAttrRankList(self.m_rankOffset, cb_func)
+    end
+    local attr_type = selected_attr
+    if (not selected_attr) then
+        attr_type = 'all'
+    end
+    g_clanRaidData:requestAttrRankList(attr_type, self.m_rankOffset[selected_attr], cb_func)
 end
 
 -------------------------------------
 -- function applyAttrRankData
+-- @brief 서버에서 받은 속성별 랭킹정보를 key = 속성인 맵으로 변환
 -------------------------------------
 function UI_ClanRaidLastRankingTab:applyAttrRankData(ret)
     local l_attr = getAttrTextList()
@@ -142,23 +147,62 @@ end
 
 -------------------------------------
 -- function makeAttrTableView
--- @brief 보상 정보 테이블 뷰 생성
+-- @brief 속성 랭킹 테이블 뷰 생성
 -------------------------------------
 function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     local l_attr = getAttrTextList()
     local map_attr = getAttrOrderMap()
     local attr_node_str = string.format('attr%dListNode', map_attr[attr])
     local node = self.m_vars[attr_node_str]
+    node:removeAllChildren()
 
     local l_item_list = self.m_rank_data[attr]['list']
     if (not l_item_list) then
         l_item_list = {}
     end
     
+    if (1 < self.m_rankOffset[attr]) then
+        local prev_data = { m_tag = 'prev' }
+        l_item_list['prev'] = prev_data
+    end
+
+    if (#l_item_list > 0) then
+        local next_data = { m_tag = 'next' }
+        l_item_list['next'] = next_data
+    end
+
+    -- 이전 랭킹 보기
+    local function click_prevBtn()
+        self.m_rankOffset[attr] = self.m_rankOffset[attr] - CLAN_OFFSET_GAP
+        self.m_rankOffset[attr] = math_max(self.m_rankOffset[attr], 0)
+        self:request_rank()
+    end
+
+    -- 다음 랭킹 보기
+    local function click_nextBtn()
+        local add_offset = #l_item_list
+        if (add_offset < CLAN_OFFSET_GAP) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+            return
+        end
+        self.m_rankOffset[attr] = self.m_rankOffset[attr] + add_offset
+        self:request_clanAttrRank(attr)
+    end
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
+        ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
+            
+        if (data['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
+            ui.vars['meSprite']:setVisible(true)
+        end
+    end
+
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(245, 80+5)
-    table_view:setCellUIClass(self.makeAttrRankListItem)
+    table_view:setCellUIClass(self.makeAttrRankListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, true)
     --self.m_rewardTableView = table_view
@@ -176,6 +220,21 @@ function UI_ClanRaidLastRankingTab.makeAttrRankListItem(t_data)
         return ui
     end
     
+    local tag = t_data['m_tag']
+    -- 다음 랭킹 보기 
+    if (tag == 'next') then
+        vars['nextBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
+        return ui
+    end
+
+    -- 이전 랭킹 보기 
+    if (tag == 'prev') then
+        vars['prevBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
+        return ui
+    end
+
     vars['clanLabel']:setString(Str(t_data['name']))
     vars['scoreLabel']:setString(t_data['score'])
     vars['rankLabel']:setString(t_data['rank'])
