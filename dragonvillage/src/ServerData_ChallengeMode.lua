@@ -614,7 +614,7 @@ function ServerData_ChallengeMode:request_challengeModeInfo(stage, finish_cb, fa
             self.m_challengeModeEndTime = ret['end_time']
         end
         
-        if (ret['end_time']) then
+        if (ret['start_time']) then
             self.m_challengeModeStartTime = ret['start_time']
         end
 
@@ -1082,11 +1082,15 @@ end
 -- function getChallengeModeStatusText
 -------------------------------------
 function ServerData_ChallengeMode:getChallengeModeStatusText()
-    local time = self:getChallengeModeRemainTime()
     local str = ''
-    if (not self:isOpen_challengeMode()) then
-        if (time <= 0) then
-            str = Str('오픈시간이 아닙니다.')
+    if (self.m_challengeModeStartTime) then
+        local start_time = self.m_challengeModeStartTime
+        local cur_time = Timer:getServerTime()
+        local remain_time = cur_time - (start_time/1000)
+        if (remain_time > 0) then
+            str = Str('다음 시즌 오픈까지 {1}', datetime.makeTimeDesc(remain_time, true))
+        else
+            str = Str('오픈 시간이 아닙니다')
         end
 
     elseif (0 < time) then
@@ -1519,11 +1523,11 @@ end
 -------------------------------------
 function ServerData_ChallengeMode:setInfoForLobby(ret)
     if (ret['start_time']) then
-        
+        self.m_challengeModeStartTime = ret['start_time']
     end
     
     if (ret['end_time']) then
-    
+        self.m_challengeModeStartTime = ret['end_time']
     end
 
     if ret['open_info'] then

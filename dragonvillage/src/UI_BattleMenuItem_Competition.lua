@@ -223,7 +223,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 
 	-- 비활성화 상태 .. 정상적이라면 여기로 들어오지 않는다.
 	if (state == ServerData_ChallengeMode.STATE['INACTIVE']) then
-		text_1 = Str('시즌이 종료되었습니다.')
+		text_1 = g_challengeMode:getChallengeModeStatusText()
         return nil, text_1, nil
 
 	-- 일반적으로 lock은 UI_BattleMenuItem:initUI() 에서 처리하나 타이머 동작하기 위해서 여기로 보냄
@@ -258,7 +258,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 		timer_key = 'event_challenge_reward'
 
 	elseif (state == ServerData_ChallengeMode.STATE['DONE']) then
-		text_1 = Str('시즌이 종료되었습니다.')
+		text_1 = g_challengeMode:getChallengeModeStatusText()
 
 	else
 		return nil, nil, nil
