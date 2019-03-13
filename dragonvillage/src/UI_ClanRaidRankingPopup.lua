@@ -92,7 +92,6 @@ function UI_ClanRaidRankingPopup:initRankReward()
     local rank_type = CLAN_RANK['RAID']
     self.m_rank_data = g_clanRankData:getRankData(rank_type)
 	local node = vars['reawardNode']
-    ccdump(node)
 	local l_rank_list = g_clanRaidData:getRankRewardList()
 
     self:initRankTableView(vars, node, l_rank_list, empty_str)
