@@ -54,13 +54,13 @@ end
 function UI_ClanRaidTabContribution:onChangeTab(tab, first)
 
     if (tab == TAB_TOTAL) then
-        self:setTotal(true)
+        self:setTotal(false)
 
     elseif (tab == TAB_TOTAL_REWARD) then
         if (first) then
             self:initTableViewTotalRank()
         end
-        self:setTotal(false)
+        self:setTotal(true)
 
     elseif (tab == TAB_CURRENT) then
         if (first) then
@@ -115,6 +115,7 @@ end
 -- function setTotal
 -------------------------------------
 function UI_ClanRaidTabContribution:setTotal(is_reward)
+
     local l_rank_list = g_clanRaidData:getRankList()
     for key, v in ipairs(l_rank_list) do
         local t_data = self.m_contribution_table_view:getItem(key)
@@ -172,6 +173,9 @@ function UI_ClanRaidTabContribution.makeTotalRankCell(t_data)
 
     -- 점수 표시
     vars['damageLabel']:setString(t_rank_info:getScoreText())
+    vars['damageLabel']:setVisible(false)
+
+    vars['rewardNode']:setVisible(true)
 
     -- 유저 정보 표시 
     vars['levelLabel']:setString(t_rank_info:getLvText())
