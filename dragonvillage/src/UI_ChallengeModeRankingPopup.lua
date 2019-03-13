@@ -18,13 +18,12 @@ UI_ChallengeModeRankingPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ChallengeModeRankingPopup:init()
-    self.m_uiName = 'UI_ChallengeModeRankingPopup'
     self.m_rankOffset = 1
     local vars = self:load('challenge_mode_ranking_popup.ui')
-    UIManager:open(self, UIManager.SCENE)
+    UIManager:open(self, UIManager.POPUP)
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChallengeModeRankingPopup')
+	-- backkey 지정
+	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ChallengeModeRankingPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)

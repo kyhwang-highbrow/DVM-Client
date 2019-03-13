@@ -140,55 +140,6 @@ function UI_ClanRaidRankingPopup:initRankTableView(vars, node, l_rank_list, empt
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank_list)
     
-    --[[
-       {
-                ['clan_exp']=15000;
-                ['category']='dungeon';
-                ['t_name']='100위 미만';
-                ['ratio_min']=0;
-                ['rank_min']='';
-                ['ratio_max']=100;
-                ['rank_max']='';
-                ['reward_value']=0.06;
-                ['week']=1;
-                ['rank_id']=3032;
-                ['reward']='clancoin;1450';
-        };
-
-
-    local idx = nil
-    local rank = self.m_rank_data:getRank()
-    local ratio = self.m_rank_data:getClanRate()
-    for i,data in pairs(l_rank_list) do
-        do 
-            local rank_min = tonumber(data['rank_min'])
-            local rank_max = tonumber(data['rank_max'])
-
-            local ratio_min = tonumber(data['ratio_min'])
-            local ratio_max = tonumber(data['ratio_max'])
-
-            -- 순위 필터
-            if (rank_min and rank_max) then
-                if (rank_min <= rank) and (rank <= rank_max) then
-                    idx = i
-                    break
-                end
-
-            -- 비율 필터
-            elseif (ratio_min and ratio_max) then
-                if (ratio_min < ratio) and (ratio <= ratio_max) then
-                    idx = i
-                    break
-                end
-            end          
-        end
-    end
-
-    if idx then
-        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-        table_view:relocateContainerFromIndex(idx)
-    end
-    --]]
 end
 
 -------------------------------------
@@ -374,6 +325,7 @@ function UI_ClanRaidRankingPopup:request_clanRank(first)
         self:makeMyRank()
         self:initRank()
     end
+
     g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
 
@@ -420,11 +372,11 @@ function UI_ClanRaidRankingPopup:onChangeRankingType(type)
     local l_attr = getAttrTextList() 
     if (type == 'my') then
         for i,v in pairs(l_attr) do
-            self.m_offset = 1
+            self.m_offset = -1
         end
     elseif (type == 'top') then
         for i,v in pairs(l_attr) do
-            self.m_offset = -1
+            self.m_offset = 1
         end
     end
     self:request_clanRank()

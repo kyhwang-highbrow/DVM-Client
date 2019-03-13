@@ -93,14 +93,15 @@ end
 -- @brief
 -------------------------------------
 function UI_ClanRaidLastRankingTab:onChangeRankingType(type)
-    local l_attr = getAttrTextList() 
+    local l_attr = getAttrTextList()
+
     if (type == 'my') then
-        for i,v in pairs(l_attr) do
-            self.m_rankOffset[l_attr] = -1
+        for i, attr in pairs(l_attr) do
+            self.m_rankOffset[attr] = -1
         end
     elseif (type == 'top') then
-        for i,v in pairs(l_attr) do
-            self.m_rankOffset[l_attr] = 1
+        for i, attr in pairs(l_attr) do
+            self.m_rankOffset[attr] = 1
         end
     end
     self:request_clanAttrRank()
@@ -110,10 +111,11 @@ end
 -- function request_clanRank
 -------------------------------------
 function UI_ClanRaidLastRankingTab:request_clanAttrRank(selected_attr)
+    local attr_type = selected_attr
     local cb_func = function(ret)
         self:applyAttrRankData(ret)
 
-        if (not selected_attr) then
+        if (attr_type == 'all') then
             local l_attr = getAttrTextList()
             for i, attr in ipairs(l_attr) do
                 self:makeAttrTableView(attr)
@@ -123,11 +125,12 @@ function UI_ClanRaidLastRankingTab:request_clanAttrRank(selected_attr)
         else
             self:makeAttrTableView(selected_attr)
         end
-    end
-    local attr_type = selected_attr
+    end  
     if (not selected_attr) then
         attr_type = 'all'
+        selected_attr = 'earth'
     end
+
     g_clanRaidData:requestAttrRankList(attr_type, self.m_rankOffset[selected_attr], cb_func)
 end
 
@@ -181,40 +184,42 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     if (not l_item_list) then
         l_item_list = {}
     end
-    
-    if (1 < self.m_rankOffset[attr]) then
-        local prev_data = { m_tag = 'prev' }
-        l_item_list['prev'] = prev_data
-    end
 
-    if (#l_item_list > 0) then
-        local next_data = { m_tag = 'next' }
-        l_item_list['next'] = next_data
-    end
-
-    -- 이전 랭킹 보기
-    local function click_prevBtn()
-        self.m_rankOffset[attr] = self.m_rankOffset[attr] - CLAN_OFFSET_GAP
-        self.m_rankOffset[attr] = math_max(self.m_rankOffset[attr], 0)
-        self:request_clanAttrRank(attr)
-    end
-
-    -- 다음 랭킹 보기
-    local function click_nextBtn()
-        local add_offset = #l_item_list
-        if (add_offset < CLAN_OFFSET_GAP) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
-            return
+    -- 다음/이전 버튼 관련 세팅, 정리해야함
+    do
+        if (1 < self.m_rankOffset[attr]) then
+            local prev_data = { m_tag = 'prev' }
+            l_item_list['prev'] = prev_data
         end
-        self.m_rankOffset[attr] = self.m_rankOffset[attr] + add_offset
-        self:request_clanAttrRank(attr)
+
+        if (#l_item_list > 0) then
+            local next_data = { m_tag = 'next' }
+            l_item_list['next'] = next_data
+        end
+
+        -- 이전 랭킹 보기
+        local function click_prevBtn()
+            self.m_rankOffset[attr] = self.m_rankOffset[attr] - CLAN_OFFSET_GAP
+            self.m_rankOffset[attr] = math_max(self.m_rankOffset[attr], 0)
+            self:request_clanAttrRank(attr)
+        end
+
+        -- 다음 랭킹 보기
+        local function click_nextBtn()
+            local add_offset = #l_item_list
+            if (add_offset < CLAN_OFFSET_GAP) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+                return
+            end
+            self.m_rankOffset[attr] = self.m_rankOffset[attr] + add_offset
+            self:request_clanAttrRank(attr)
+        end
     end
 
     -- 생성 콜백
     local function create_func(ui, data)
         ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
         ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
-            
         if (data['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
             ui.vars['meSprite']:setVisible(true)
         end
@@ -229,6 +234,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     --self.m_rewardTableView = table_view
     table_view:makeDefaultEmptyDescLabel(Str(''))
 
+    -- 포커싱
     local idx = nil
     for i,v in pairs(l_item_list) do
         if (v['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
