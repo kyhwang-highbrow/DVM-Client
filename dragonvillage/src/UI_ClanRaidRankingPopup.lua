@@ -25,7 +25,6 @@ function UI_ClanRaidRankingPopup:init()
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
-    self:request_clanRank()
     
     self:initUI()
     self:initRankReward()
@@ -44,7 +43,8 @@ function UI_ClanRaidRankingPopup:initUI()
 
     self:setTab('nowRank')
     self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
-    
+    self:make_UIC_SortList()
+    self:initRankReward()
 end
 
 -------------------------------------
@@ -78,10 +78,11 @@ end
 function UI_ClanRaidRankingPopup:initRank()
     local vars = self.vars
 	local node = vars['rankListNode']
+    local rank_type = CLAN_RANK['RAID']
+    self.m_rank_data = g_clanRankData:getRankData(rank_type)
 	local l_rank_list = self.m_rank_data
 
     self:initTableView(vars, node, l_rank_list)
-    self:initRankReward()
 end
 
 -------------------------------------
@@ -89,8 +90,6 @@ end
 -------------------------------------
 function UI_ClanRaidRankingPopup:initRankReward()
     local vars = self.vars
-    local rank_type = CLAN_RANK['RAID']
-    self.m_rank_data = g_clanRankData:getRankData(rank_type)
 	local node = vars['reawardNode']
 	local l_rank_list = g_clanRaidData:getRankRewardList()
 
@@ -376,6 +375,59 @@ function UI_ClanRaidRankingPopup:request_clanRank(first)
         self:initRank()
     end
     g_clanRankData:request_getRank(rank_type, offset, cb_func)
+end
+
+-------------------------------------
+-- function make_UIC_SortList
+-- @brief
+-------------------------------------
+function UI_ClanRaidRankingPopup:make_UIC_SortList()
+    local vars = self.vars
+    local button = vars['rankBtn1']
+    local label = vars['rankLabel1']
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+
+    uic:addSortType('my', Str('내 클랜 랭킹'))
+    uic:addSortType('top', Str('최상위 클랜 랭킹'))
+
+    uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
+    uic:setSelectSortType('my')
+end
+
+-------------------------------------
+-- function onChangeRankingType
+-- @brief
+-------------------------------------
+function UI_ClanRaidRankingPopup:onChangeRankingType(type)
+    local l_attr = getAttrTextList() 
+    if (type == 'my') then
+        for i,v in pairs(l_attr) do
+            self.m_offset = 1
+        end
+    elseif (type == 'top') then
+        for i,v in pairs(l_attr) do
+            self.m_offset = -1
+        end
+    end
+    self:request_clanRank()
 end
 
 --@CHECK
