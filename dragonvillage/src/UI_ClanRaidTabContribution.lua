@@ -100,6 +100,15 @@ function UI_ClanRaidTabContribution:initTableViewTotalRank()
     self.m_contribution_table_view = table_view
     local msg = Str('참여한 유저가 없습니다.')
     table_view:makeDefaultEmptyDescLabel(msg)
+
+    local user_rank = 1
+    for i,data in ipairs(l_rank_list) do
+        if (data['m_uid'] == g_userData:get('uid')) then
+            user_rank = i
+        end
+    end
+    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    table_view:relocateContainerFromIndex(user_rank)
 end
 
 -------------------------------------
@@ -189,6 +198,11 @@ function UI_ClanRaidTabContribution.makeTotalRankCell(t_data)
         vars['rankLabel']:setString(t_rank_info:getRankText())
     end
 
+    do -- 내 순위 UI일 경우
+        local uid = g_userData:get('uid')
+        local is_my_rank = t_rank_info['m_uid'] == g_userData:get('uid')
+        vars['meSprite']:setVisible(is_my_rank)
+    end
     return ui
 end
 
