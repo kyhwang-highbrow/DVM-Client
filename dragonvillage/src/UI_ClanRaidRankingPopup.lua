@@ -141,6 +141,7 @@ function UI_ClanRaidRankingPopup:initRankTableView(vars, node, l_rank_list, empt
     table_view:setCellUIClass(func_make_reward)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank_list)
+
 end
 
 -------------------------------------

@@ -3,8 +3,8 @@
 -- class UI_ClanRaidLastRankingTab
 -------------------------------------
 UI_ClanRaidLastRankingTab = class({
-        m_rank_data = 'table',
-        m_rankOffset = 'table',
+        m_rank_data = 'table',  -- 속성별 랭킹 데이터
+        m_rankOffset = 'table', -- 속성별 offset
         m_vars = 'vars'
     })
 
@@ -118,6 +118,8 @@ function UI_ClanRaidLastRankingTab:request_clanAttrRank(selected_attr)
             for i, attr in ipairs(l_attr) do
                 self:makeAttrTableView(attr)
             end
+            -- 전체 세팅할 때, 각 테이블이 비었는지 확인
+            self:checkEmptyRank()
         else
             self:makeAttrTableView(selected_attr)
         end
@@ -142,7 +144,26 @@ function UI_ClanRaidLastRankingTab:applyAttrRankData(ret)
             self.m_rank_data[attr] = ret[attr..'_Rankinfo']
         end
     end
+end
 
+-------------------------------------
+-- function checkEmptyRank
+-- @brief 서버에서 랭킹값을 주지 않았을 경우 ui 세팅
+-------------------------------------
+function UI_ClanRaidLastRankingTab:checkEmptyRank()
+    local vars = self.m_vars
+    local l_rank_data = self.m_rank_data
+    local m_attr = getAttrOrderMap()
+    
+    for attr, t_data in pairs(l_rank_data) do
+        local empty_node = vars[string.format('attr%dNotRankNode', m_attr[attr])]
+        local l_data = t_data['list']
+        if (l_data == nil) then
+            empty_node:setVisible(true)
+        else
+            empty_node:setVisible(false)
+        end
+    end
 end
 
 -------------------------------------
@@ -207,7 +228,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     table_view:setItemList(l_item_list, true)
     --self.m_rewardTableView = table_view
     
-    table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
+    table_view:makeDefaultEmptyDescLabel(Str(''))
 end
 
 -------------------------------------
@@ -235,9 +256,17 @@ function UI_ClanRaidLastRankingTab.makeAttrRankListItem(t_data)
         return ui
     end
 
+    -- 클랜 이름
     vars['clanLabel']:setString(Str(t_data['name']))
-    vars['scoreLabel']:setString(t_data['score'])
+    
+    -- 점수 출력
+    local score_str = comma_value(tonumber(t_data['score']))
+    vars['scoreLabel']:setString(Str('{1}점', score_str))
+    
+    -- 클랜 랭크
     vars['rankLabel']:setString(t_data['rank'])
+    
+    -- 클리어한 보스 레벨
     vars['bossLabel']:setString('Lv.' ..t_data['cdlv'])
 
     -- 마크 정보
