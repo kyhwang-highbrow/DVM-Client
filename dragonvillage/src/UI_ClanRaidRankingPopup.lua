@@ -19,7 +19,7 @@ function UI_ClanRaidRankingPopup:init()
     self.m_offset = 1
     
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ClanRaidRankingPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanRaidRankingPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
