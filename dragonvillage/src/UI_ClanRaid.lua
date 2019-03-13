@@ -320,36 +320,13 @@ function UI_ClanRaid:initRaidInfo()
     -- 보너스 속성
     do
         local str, map_attr = struct_raid:getBonusSynastryInfo()
-
-        for k, v in pairs(map_attr) do
-            -- 속성 아이콘
-            local icon = IconHelper:getAttributeIcon(k)
-            local target_node = vars['bonusAttrNode']
-            target_node:removeAllChildren()
-            target_node:addChild(icon)
-        end
+        vars['bonusTipsDscLabel']:setString(str)        
     end
 
     -- 페널티 속성
     do
-        vars['panaltyAttrNode']:removeAllChildren()
-        for i = 1, 4 do
-            vars['panaltyAttrNode'..i]:removeAllChildren()
-        end
-
         local str, map_attr = struct_raid:getPenaltySynastryInfo()
-        local cnt = table.count(map_attr)
-        local idx = 0
-
-        for k, v in pairs(map_attr) do
-            idx = idx + 1
-            -- 속성 아이콘
-            local icon = IconHelper:getAttributeIcon(k)
-            local target_node = (cnt == 1) and 
-                                vars['panaltyAttrNode'] or 
-                                vars['panaltyAttrNode'..idx]
-            target_node:addChild(icon)
-        end
+        vars['panaltyTipsDscLabel']:setString(str)
     end
 
     self:showDungeonStateUI()
