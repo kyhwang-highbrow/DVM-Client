@@ -73,29 +73,29 @@ function UI_ClanRaidRankingPopup:onChangeTab(tab, first)
 end
 
 -------------------------------------
--- function initRankReward
--------------------------------------
-function UI_ClanRaidRankingPopup:initRankReward()
-    local vars = self.vars
-
-	local node = vars['attrRankList']
-	local l_rank_list = g_clanRaidData:getRankRewardList()
-
-    self:initRankTableView(vars, node, l_rank_list)
-end
-
--------------------------------------
 -- function initTableView
 -------------------------------------
 function UI_ClanRaidRankingPopup:initRank()
-    local rank_type = CLAN_RANK['RAID']
-    self.m_rank_data = g_clanRankData:getRankData(rank_type)
-
     local vars = self.vars
 	local node = vars['rankListNode']
 	local l_rank_list = self.m_rank_data
 
     self:initTableView(vars, node, l_rank_list)
+    self:initRankReward()
+end
+
+-------------------------------------
+-- function initRankReward
+-------------------------------------
+function UI_ClanRaidRankingPopup:initRankReward()
+    local vars = self.vars
+    local rank_type = CLAN_RANK['RAID']
+    self.m_rank_data = g_clanRankData:getRankData(rank_type)
+	local node = vars['reawardNode']
+    ccdump(node)
+	local l_rank_list = g_clanRaidData:getRankRewardList()
+
+    self:initRankTableView(vars, node, l_rank_list, empty_str)
 end
 
 -------------------------------------
@@ -134,14 +134,63 @@ function UI_ClanRaidRankingPopup:initRankTableView(vars, node, l_rank_list, empt
 
         return ui
     end
-    
+   
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(510, 50 + 5)
     table_view:setCellUIClass(func_make_reward)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank_list)
+    
+    --[[
+       {
+                ['clan_exp']=15000;
+                ['category']='dungeon';
+                ['t_name']='100위 미만';
+                ['ratio_min']=0;
+                ['rank_min']='';
+                ['ratio_max']=100;
+                ['rank_max']='';
+                ['reward_value']=0.06;
+                ['week']=1;
+                ['rank_id']=3032;
+                ['reward']='clancoin;1450';
+        };
 
+
+    local idx = nil
+    local rank = self.m_rank_data:getRank()
+    local ratio = self.m_rank_data:getClanRate()
+    for i,data in pairs(l_rank_list) do
+        do 
+            local rank_min = tonumber(data['rank_min'])
+            local rank_max = tonumber(data['rank_max'])
+
+            local ratio_min = tonumber(data['ratio_min'])
+            local ratio_max = tonumber(data['ratio_max'])
+
+            -- 순위 필터
+            if (rank_min and rank_max) then
+                if (rank_min <= rank) and (rank <= rank_max) then
+                    idx = i
+                    break
+                end
+
+            -- 비율 필터
+            elseif (ratio_min and ratio_max) then
+                if (ratio_min < ratio) and (ratio <= ratio_max) then
+                    idx = i
+                    break
+                end
+            end          
+        end
+    end
+
+    if idx then
+        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        table_view:relocateContainerFromIndex(idx)
+    end
+    --]]
 end
 
 -------------------------------------
@@ -232,7 +281,21 @@ function UI_ClanRaidRankingPopup:initTableView(vars, node, l_rank_list, empty_st
             end
         end
         table_view:makeDefaultEmptyDescLabel(empty_str)
+        
+        local idx = nil
+        for i,v in pairs(l_rank_list) do
+            if (v['id'] == g_clanData.m_structClan:getClanObjectID()) then
+                idx = i
+                break
+            end
+        end
+
+        if idx then
+            table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+            table_view:relocateContainerFromIndex(idx)
+        end
     end
+    
 end
 
 -------------------------------------

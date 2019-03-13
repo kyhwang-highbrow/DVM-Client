@@ -227,8 +227,20 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, true)
     --self.m_rewardTableView = table_view
-    
     table_view:makeDefaultEmptyDescLabel(Str(''))
+
+    local idx = nil
+    for i,v in pairs(l_item_list) do
+        if (v['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
+            idx = i
+            break
+        end
+    end
+
+    if idx then
+        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        table_view:relocateContainerFromIndex(idx)
+    end
 end
 
 -------------------------------------
