@@ -500,6 +500,59 @@ function ServerData_ClanRaid:requestAttrRankList(rank_offset, cb_func)
         cb_func(ret)
     end
 
+    --[[
+    -- attr 이 all일 경우
+    "fire_Rankinfo":{
+        "my_claninfo":{
+          "cdlv":52,
+          "master":"dd",
+          "id":"5c0f8684e89193165bd86b3d",
+          "rank":3,
+          "intro":"",
+          "member_max":22,
+          "lv":13,
+          "member_cnt":6,
+          "rate":0.75,
+          "join":true,
+          "mark":"",
+          "name":"11",
+          "score":10854985
+        },
+        "list":[{
+            "cdlv":1,
+            "master":"Nacel",
+            "id":"5c650e40e8919307c84cf737",
+            "rank":4,
+            "intro":"",
+            "member_max":20,
+            "lv":4,
+            "member_cnt":1,
+            "rate":0,
+            "join":true,
+            "mark":"",
+            "name":"네코냥",
+            "score":469834
+          }]
+      },
+      "status":0,
+      "water_Rankinfo":{
+        "my_claninfo":{
+          "cdlv":52,
+          "master":"dd",
+          "id":"5c0f8684e89193165bd86b3d",
+          "rank":-1,
+          "intro":"",
+          "member_max":22,
+          "lv":13,
+          "member_cnt":6,
+          "rate":1,
+          "join":true,
+          "mark":"",
+          "name":"11",
+          "score":-1
+        },
+    
+        --]]
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
