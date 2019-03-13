@@ -196,7 +196,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     local function click_prevBtn()
         self.m_rankOffset[attr] = self.m_rankOffset[attr] - CLAN_OFFSET_GAP
         self.m_rankOffset[attr] = math_max(self.m_rankOffset[attr], 0)
-        self:request_rank()
+        self:request_clanAttrRank(attr)
     end
 
     -- 다음 랭킹 보기
