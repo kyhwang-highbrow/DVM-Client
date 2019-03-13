@@ -1086,7 +1086,7 @@ function ServerData_ChallengeMode:getChallengeModeStatusText()
     if (self.m_challengeModeStartTime) then
         local start_time = self.m_challengeModeStartTime
         local cur_time = Timer:getServerTime()
-        local remain_time = cur_time - (start_time/1000)
+        local remain_time = (start_time/1000) - cur_time
         if (remain_time > 0) then
             str = Str('다음 시즌 오픈까지 {1}', datetime.makeTimeDesc(remain_time, true))
         else
