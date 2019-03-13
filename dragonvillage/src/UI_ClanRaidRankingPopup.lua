@@ -15,7 +15,7 @@ local CLAN_OFFSET_GAP = 20
 -------------------------------------
 function UI_ClanRaidRankingPopup:init()
     local vars = self:load('clan_raid_rank_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
     self.m_offset = 1
     
     -- backkey 지정
