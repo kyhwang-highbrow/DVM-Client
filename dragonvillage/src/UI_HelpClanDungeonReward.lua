@@ -69,14 +69,15 @@ end
 function UI_HelpClanRewardListItem:initUI()
     local vars = self.vars
     local data = self.m_tdata
-   
-    vars['clanExpLabel']:setString(data['clan_exp'])
+    
+    local num_clan_exp = tonumber(data['clan_exp'])
+    vars['clanExpLabel']:setString(comma_value(num_clan_exp))
     local reward_cnt = string.match(data['reward'], '%d+')
     -- 개인 보상 최대 퍼센트
     local personal_max_percent = 0.06
     local personal_cnt = math_floor(reward_cnt * personal_max_percent)
-    vars['personalLabel']:setString(personal_cnt)
-    vars['clancoinLabel']:setString(reward_cnt)
+    vars['personalLabel']:setString(comma_value(personal_cnt))
+    vars['clancoinLabel']:setString(comma_value(reward_cnt))
     local rank_str
     if (data['rank_min'] ~= data['rank_max']) then
         rank_str = Str('{1}~{2}위 ', data['rank_min'], data['rank_max'])

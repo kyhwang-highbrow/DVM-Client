@@ -127,9 +127,10 @@ function UI_ClanRaidRankingPopup:initRankTableView(vars, node, l_rank_list, empt
         -- 개인 보상 최대 퍼센트
         local personal_max_percent = 0.06
         local personal_cnt = math_floor(reward_cnt * personal_max_percent)
-        vars['rewardLabel1']:setString(reward_cnt)
-        vars['rewardLabel2']:setString(personal_cnt)
-        vars['rewardLabel3']:setString(data['clan_exp'])
+        vars['rewardLabel1']:setString(comma_value(reward_cnt))
+        vars['rewardLabel2']:setString(comma_value(personal_cnt))
+        local num_clan_exp = tonumber(data['clan_exp'])
+        vars['rewardLabel3']:setString(comma_value(num_clan_exp))
 
         return ui
     end
