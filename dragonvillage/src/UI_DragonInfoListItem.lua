@@ -44,9 +44,10 @@ function UI_DragonInfoListItem:initUI()
     vars['typeLabel']:setString(dragonRoleTypeName(role_type))
 
     -- 희귀도 ex) legend
-    local rarity_icon = IconHelper:getRarityIcon('legend')
+    local rarity_str = table_dragon:getDragonRarity(did)
+    local rarity_icon = IconHelper:getRarityIcon(rarity_str)
     vars['rarityNode']:addChild(rarity_icon)
-    vars['rarityLabel']:setString(dragonRarityName('legend'))
+    vars['rarityLabel']:setString(dragonRarityName(rarity_str))
 
     local dragon_animator = UIC_DragonAnimator()
     dragon_animator:setDragonAnimator(did, 3)

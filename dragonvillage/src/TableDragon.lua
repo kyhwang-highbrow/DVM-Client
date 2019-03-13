@@ -27,6 +27,14 @@ function TableDragon:getDragonRole(key)
 end
 
 -------------------------------------
+-- function getDragonRarity
+-------------------------------------
+function TableDragon:getDragonRarity(key)
+    local t_skill = self:get(key)
+    return t_skill['rarity']
+end
+
+-------------------------------------
 -- function isSameDragonType
 -------------------------------------
 function TableDragon:isSameDragonType(did1, did2)
