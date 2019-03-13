@@ -39,6 +39,8 @@ end
 -- @brief 광고 보기 팝업 노출
 -------------------------------------
 function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
+    PerpleSdkManager.getCrashlytics():setData('showAdvPopup_0', true)
+
 	-- 광고 비활성화 시
 	if (AdMobManager:isAdInactive()) then
 		AdMobManager:makePopupAdInactive()
@@ -46,6 +48,7 @@ function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
 	end
 
     local function show_popup()
+        PerpleSdkManager.getCrashlytics():setData('showAdvPopup_1', true)
         local ui = UI_AdvertisingPopup(ad_type)
         if (finish_cb) then
             ui:setCloseCB(finish_cb)
@@ -80,6 +83,7 @@ end
 -- @type 시간 제한
 -------------------------------------
 function ServerData_Advertising:showAd(ad_type, finish_cb)
+    PerpleSdkManager.getCrashlytics():setData('showAd_0', true)
     if (isWin32()) then 
         self:request_adv_reward(ad_type, finish_cb)
         return
@@ -88,6 +92,8 @@ function ServerData_Advertising:showAd(ad_type, finish_cb)
     self.m_is_fail = false
     
     local function result_cb(ret, info)
+        PerpleSdkManager.getCrashlytics():setData('showAd_2', ret)
+
         -- 광고 시청 완료 -> 보상 처리
         if (ret == 'finish') then
             self:request_adv_reward(ad_type, finish_cb)
@@ -103,6 +109,7 @@ function ServerData_Advertising:showAd(ad_type, finish_cb)
         end
     end
 
+    PerpleSdkManager.getCrashlytics():setData('showAd_1', true)
     AdMobManager:getRewardedVideoAd():showByAdType(ad_type, result_cb)
 end
 

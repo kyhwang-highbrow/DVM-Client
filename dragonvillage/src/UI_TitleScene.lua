@@ -1150,12 +1150,16 @@ end
 -- @brief 광고 준비
 -------------------------------------
 function UI_TitleScene:workPrepareAd()
+    PerpleSdkManager.getCrashlytics():setData('workPrepareAd_1', true)
+
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
     AdMobManager:initRewardedVideoAd()
     -- 2019.03.13 sgkim 전면 광고는 아직 사용하지 않기 때문에 주석 처리
     --                  aos 비정상 종료에 영향을 주지 않을까 싶어서 주석 처리하는 의미도 포함
     --AdMobManager:initInterstitialAd()
+
+    PerpleSdkManager.getCrashlytics():setData('workPrepareAd_2', true)
 
     self:doNextWork()
 end
