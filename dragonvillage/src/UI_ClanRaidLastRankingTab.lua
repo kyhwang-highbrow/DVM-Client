@@ -230,7 +230,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
         table_view.m_defaultCellSize = cc.size(245, 80+5)
         table_view:setCellUIClass(self.makeAttrRankListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(l_item_list, true)
+        table_view:setItemList(l_item_list, false)
         --self.m_rewardTableView = table_view
         table_view:makeDefaultEmptyDescLabel(Str(''))
 
@@ -283,7 +283,7 @@ function UI_ClanRaidLastRankingTab.makeAttrRankListItem(t_data)
     vars['scoreLabel']:setString(Str('{1}점', score_str))
     
     -- 클랜 랭크
-    vars['rankLabel']:setString(t_data['rank'])
+    vars['rankLabel']:setString(tostring(t_data['rank']))
     
     -- 클리어한 보스 레벨
     vars['bossLabel']:setString('Lv.' ..t_data['cdlv'])

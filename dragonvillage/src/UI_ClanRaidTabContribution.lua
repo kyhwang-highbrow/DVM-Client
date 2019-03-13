@@ -145,7 +145,7 @@ function UI_ClanRaidTabContribution:initTableViewCurrentRank()
     local l_rank_list = struct_raid:getRankList()
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(width, height)
-    table_view:setCellUIClass(self.makeTotalRankCell)
+    table_view:setCellUIClass(self.makeTotalRankCell, is_current)
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank_list)
 
@@ -165,7 +165,7 @@ end
 -------------------------------------
 -- function makeTotalRankCell
 -------------------------------------
-function UI_ClanRaidTabContribution.makeTotalRankCell(t_data)
+function UI_ClanRaidTabContribution.makeTotalRankCell(t_data, is_current)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('clan_raid_scene_item_01.ui')
     if (not t_data) then
@@ -182,9 +182,9 @@ function UI_ClanRaidTabContribution.makeTotalRankCell(t_data)
 
     -- 점수 표시
     vars['damageLabel']:setString(t_rank_info:getScoreText())
-    vars['damageLabel']:setVisible(false)
+    vars['damageLabel']:setVisible(not is_current)
 
-    vars['rewardNode']:setVisible(true)
+    vars['rewardNode']:setVisible(is_current)
 
     -- 유저 정보 표시 
     vars['levelLabel']:setString(t_rank_info:getLvText())
