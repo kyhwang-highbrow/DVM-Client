@@ -161,7 +161,7 @@ function UI_ClanRaidLastRankingTab:checkEmptyRank()
     for attr, t_data in pairs(l_rank_data) do
         local empty_node = vars[string.format('attr%dNotRankNode', m_attr[attr])]
         local l_data = t_data['list']
-        if (l_data == nil) then
+        if (not l_data) or (#l_data == 0) then
             empty_node:setVisible(true)
         else
             empty_node:setVisible(false)
