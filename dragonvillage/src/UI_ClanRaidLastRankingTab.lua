@@ -287,6 +287,7 @@ function UI_ClanRaidLastRankingTab.makeAttrRankListItem(t_data)
     
     -- 클리어한 보스 레벨
     vars['bossLabel']:setString('Lv.' ..t_data['cdlv'])
+    vars['bossLabel']:setVisible(false)
 
     -- 마크 정보
     local struct_mark = StructClanMark:create(t_data['mark'])
