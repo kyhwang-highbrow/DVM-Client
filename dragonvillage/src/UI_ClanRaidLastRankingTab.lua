@@ -224,7 +224,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
                 ui.vars['meSprite']:setVisible(true)
             end
         end
-
+       
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(245, 80+5)
@@ -241,6 +241,11 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
                 idx = i
                 break
             end
+        end
+        
+        -- 최상위 랭킹 필터일 때는 1위에 포커싱
+        if (self.m_rankOffset[attr] == 1) then
+            idx = 1
         end
 
         if idx then
