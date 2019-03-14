@@ -6,6 +6,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_ClanRaidTabContribution = class(PARENT,{
         m_owner_ui = '',
         m_contribution_table_view = 'TableView', -- 누적 기여도 테이블 뷰
+        m_selected_tab = 'string',
     })
 
 local TAB_TOTAL = 'total_contribution' -- 누적 기여도
@@ -16,6 +17,7 @@ local TAB_CURRENT = 'current_contribution' -- 현재 기여도
 -------------------------------------
 function UI_ClanRaidTabContribution:init(owner_ui)
     self.m_owner_ui = owner_ui
+    self.m_selected_tab = TAB_TOTAL_REWARD
 
     self:initUI()
     self:initButton()
@@ -52,7 +54,7 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_ClanRaidTabContribution:onChangeTab(tab, first)
-
+    self.m_selected_tab = tab
     if (tab == TAB_TOTAL) then
         self:setTotal(false)
 
@@ -91,8 +93,9 @@ function UI_ClanRaidTabContribution:initTableViewTotalRank()
 	local height = 50 + 2
 
     local create_func = function(ui, data)
-        ui.vars['damageLabel']:setVisible(false)
-        ui.vars['rewardNode']:setVisible(true)
+        local is_reward = self.m_selected_tab == TAB_TOTAL_REWARD
+        ui.vars['damageLabel']:setVisible(not is_reward)
+        ui.vars['rewardNode']:setVisible(is_reward)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -147,8 +150,9 @@ function UI_ClanRaidTabContribution:initTableViewCurrentRank()
 	local height = 50 + 2
 
     local create_func = function(ui, data)
-        ui.vars['damageLabel']:setVisible(true)
-        ui.vars['rewardNode']:setVisible(false)
+        local is_damage = self.m_selected_tab == TAB_TOTAL
+        ui.vars['damageLabel']:setVisible(is_damage)
+        ui.vars['rewardNode']:setVisible(not is_damage)
     end
     
     -- 테이블 뷰 인스턴스 생성
