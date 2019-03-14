@@ -90,11 +90,16 @@ function UI_ClanRaidTabContribution:initTableViewTotalRank()
 	local width = node:getContentSize()['width']
 	local height = 50 + 2
 
+    local create_func = function(ui, data)
+        ui.vars['damageLabel']:setVisible(false)
+        ui.vars['rewardNode']:setVisible(true)
+    end
+
     -- 테이블 뷰 인스턴스 생성
     local l_rank_list = g_clanRaidData:getRankList()
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(width, height)
-    table_view:setCellUIClass(self.makeTotalRankCell)
+    table_view:setCellUIClass(self.makeTotalRankCell, create_func)
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank_list)
     self.m_contribution_table_view = table_view
@@ -141,11 +146,16 @@ function UI_ClanRaidTabContribution:initTableViewCurrentRank()
 	local width = node:getContentSize()['width']
 	local height = 50 + 2
 
+    local create_func = function(ui, data)
+        ui.vars['damageLabel']:setVisible(true)
+        ui.vars['rewardNode']:setVisible(false)
+    end
+    
     -- 테이블 뷰 인스턴스 생성
     local l_rank_list = struct_raid:getRankList()
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(width, height)
-    table_view:setCellUIClass(self.makeTotalRankCell, is_current)
+    table_view:setCellUIClass(self.makeTotalRankCell, create_func)
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank_list)
 
@@ -165,7 +175,7 @@ end
 -------------------------------------
 -- function makeTotalRankCell
 -------------------------------------
-function UI_ClanRaidTabContribution.makeTotalRankCell(t_data, is_current)
+function UI_ClanRaidTabContribution.makeTotalRankCell(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('clan_raid_scene_item_01.ui')
     if (not t_data) then
@@ -182,9 +192,6 @@ function UI_ClanRaidTabContribution.makeTotalRankCell(t_data, is_current)
 
     -- 점수 표시
     vars['damageLabel']:setString(t_rank_info:getScoreText())
-    vars['damageLabel']:setVisible(not is_current)
-
-    vars['rewardNode']:setVisible(is_current)
 
     -- 유저 정보 표시 
     vars['levelLabel']:setString(t_rank_info:getLvText())

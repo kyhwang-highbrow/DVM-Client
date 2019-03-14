@@ -151,7 +151,7 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
         elseif (get_type == 'challenge_mode') then
             -- 그림자 신전이 열려있지 않다면 이동시키지 않음
             if (not g_challengeMode:isOpen_challengeMode()) then
-                UIManager:toastNotificationGreen(Str('오픈시간이 아닙니다.'))
+                UIManager:toastNotificationRed(Str('오픈시간이 아닙니다.'))
                 return
             end
 			UINavigator:goTo('challenge_mode')
