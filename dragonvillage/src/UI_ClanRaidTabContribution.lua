@@ -150,7 +150,7 @@ function UI_ClanRaidTabContribution:initTableViewCurrentRank()
 	local height = 50 + 2
 
     local create_func = function(ui, data)
-        local is_damage = self.m_selected_tab == TAB_TOTAL
+        local is_damage = self.m_selected_tab == TAB_CURRENT
         ui.vars['damageLabel']:setVisible(is_damage)
         ui.vars['rewardNode']:setVisible(not is_damage)
     end
