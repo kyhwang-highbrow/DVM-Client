@@ -185,6 +185,12 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
         l_item_list = {}
     end
 
+    if (self.m_rankOffset[attr] == -1) then
+        if (l_item_list[1]) then
+            self.m_rankOffset[attr] = l_item_list[1]['rank']
+        end
+    end
+
     -- 다음/이전 버튼 관련 세팅, 정리해야함
     do
         if (1 < self.m_rankOffset[attr]) then
@@ -206,8 +212,8 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
 
         -- 다음 랭킹 보기
         local click_nextBtn = function()
-            local add_offset = #l_item_list
-            if (add_offset < CLAN_OFFSET_GAP) then
+            local add_offset = #l_item_list - 2
+            if (#l_item_list < CLAN_OFFSET_GAP) then
                 MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
                 return
             end

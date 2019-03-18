@@ -63,6 +63,12 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
     local l_item = self.m_itemList
     self.m_offsetGap = offset_gap
 
+    if (self.m_offset == -1) then
+        if (l_item_list[1] or l_item_list[1]) then
+            self.m_offset = l_item_list[1]['rank']
+        end
+    end
+
     -- 이전 보기 추가
     if (1 < self.m_offset) then
         l_item['prev'] = 'prev'
@@ -183,7 +189,7 @@ end
 -- function click_prev
 -------------------------------------
 function UIC_RankingList:click_prev()
-    self.m_offset = math_max(self.m_offset - self.m_offsetGap, 1)
+    self.m_offset = math_max(self.m_offset - self.m_offsetGap, 0)
     if (self.m_prevCb) then
         self.m_prevCb()
     end
@@ -198,7 +204,8 @@ function UIC_RankingList:click_next()
         MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
         return
     end
-    self.m_offset = self.m_offset + self.m_offsetGap
+
+    self.m_offset = self.m_offset + #l_item - 2
 
     if (self.m_nextCb) then
         self.m_nextCb()
