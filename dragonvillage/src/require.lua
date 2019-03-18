@@ -711,6 +711,7 @@ local t_module = {
     'UIC_ScrollButton',
 	'UIC_LobbyGuide',
     'UIC_AlarmClockIcon',
+    'UIC_RankingList',
 	
     -- UI : CARD
     'UI_Card',

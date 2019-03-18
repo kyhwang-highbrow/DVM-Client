@@ -201,7 +201,7 @@ function UIC_TableView:update(dt)
             table.remove(self.m_makeReserveQueue, 1)
 
             if self.m_cellUIAppearCB then
-                self.m_cellUIAppearCB(t_item['ui'])
+                self.m_cellUIAppearCB(t_item['ui'], t_item['data'])
             end
         end
 
