@@ -56,13 +56,13 @@ end
 function UI_ClanRaidTabContribution:onChangeTab(tab, first)
     self.m_selected_tab = tab
     if (tab == TAB_TOTAL) then
-        self:setTotal(false)
+        self:visibleContributeRank(false)
 
     elseif (tab == TAB_TOTAL_REWARD) then
         if (first) then
             self:initTableViewTotalRank()
         end
-        self:setTotal(true)
+        self:visibleContributeRank(true)
 
     elseif (tab == TAB_CURRENT) then
         if (first) then
@@ -93,7 +93,7 @@ function UI_ClanRaidTabContribution:initTableViewTotalRank()
 	local height = 50 + 2
 
     local create_func = function(ui, data)
-        local is_reward = self.m_selected_tab == TAB_TOTAL_REWARD
+        local is_reward = (self.m_selected_tab == TAB_TOTAL_REWARD)
         ui.vars['damageLabel']:setVisible(not is_reward)
         ui.vars['rewardNode']:setVisible(is_reward)
     end
@@ -120,9 +120,10 @@ function UI_ClanRaidTabContribution:initTableViewTotalRank()
 end
 
 -------------------------------------
--- function setTotal
+-- function visibleContributeRank
+-- @breif 누적 기여도 보상/점수 구분
 -------------------------------------
-function UI_ClanRaidTabContribution:setTotal(is_reward)
+function UI_ClanRaidTabContribution:visibleContributeRank(is_reward)
 
     local l_rank_list = g_clanRaidData:getRankList()
     for key, v in ipairs(l_rank_list) do
@@ -150,9 +151,8 @@ function UI_ClanRaidTabContribution:initTableViewCurrentRank()
 	local height = 50 + 2
 
     local create_func = function(ui, data)
-        local is_damage = self.m_selected_tab == TAB_CURRENT
-        ui.vars['damageLabel']:setVisible(is_damage)
-        ui.vars['rewardNode']:setVisible(not is_damage)
+        ui.vars['damageLabel']:setVisible(true)
+        ui.vars['rewardNode']:setVisible(false)
     end
     
     -- 테이블 뷰 인스턴스 생성
