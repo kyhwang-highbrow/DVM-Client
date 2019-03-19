@@ -80,24 +80,26 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
     local l_item = self.m_itemList
     self.m_offsetGap = offset_gap
     self.m_cellCount = #l_item
-    
+
     -- 첫 통신할 때 내 순위를 받아오기 위해 offset을 -1 로 들고 있음
     -- 첫 통신 이후에는 offset에 옳은 값에 넣어줌 (offset : offset (랭킹)부터 시작하는 랭킹 리스트를 받음)
     if (self.m_offset == -1) then
-        if (l_item_list[1] or l_item_list[1]) then
-            self.m_offset = l_item_list[1]['rank']
+        if (l_item[1] or l_item[1]['rank']) then
+            self.m_offset = l_item[1]['rank']
         end
     end
 
     -- 이전 보기 추가
     if (1 < self.m_offset) then
-        l_item['prev'] = 'prev'
         self.m_cellCount = self.m_cellCount + 1
+        local prev_data = { rank = 'prev' }
+        table.insert(l_item, 1, prev_data)
     end
     
     -- 다음 보기 추가
     if (#l_item > 0) then
-        l_item['next'] = 'next'
+        local next_data = { rank = 'next' }
+        table.insert(l_item, next_data)
         self.m_cellCount = self.m_cellCount + 1
     end
 
@@ -120,7 +122,7 @@ function UIC_RankingList:makeRankList(node)
             self:click_prev()
         end       
 
-        if (data == 'prev') then
+        if (data['rank'] == 'prev') then
             if (ui.vars['prevBtn']) then
                 ui.vars['prevBtn']:registerScriptTapHandler(click_prev)
                 ui.vars['prevBtn']:setVisible(true)
@@ -133,7 +135,7 @@ function UIC_RankingList:makeRankList(node)
             self:click_next()
         end
 
-        if (data == 'next') then
+        if (data['rank'] == 'next') then
             if (ui.vars['nextBtn']) then
                 ui.vars['nextBtn']:registerScriptTapHandler(click_next)
                 ui.vars['nextBtn']:setVisible(true)
@@ -214,9 +216,9 @@ end
 -- function click_prev
 -------------------------------------
 function UIC_RankingList:click_prev()
-    self.m_offset = math_max(self.m_offset - self.m_offsetGap, 0)
+    self.m_offset = math_max(self.m_offset - self.m_offsetGap, 1)
     if (self.m_prevCb) then
-        self.m_prevCb()
+        self.m_prevCb(self.m_offset)
     end
 end
 
@@ -233,6 +235,6 @@ function UIC_RankingList:click_next()
     self.m_offset = self.m_offset + self.m_cellCount
 
     if (self.m_nextCb) then
-        self.m_nextCb()
+        self.m_nextCb(self.m_offset)
     end
 end

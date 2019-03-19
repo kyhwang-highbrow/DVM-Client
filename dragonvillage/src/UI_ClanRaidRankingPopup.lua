@@ -18,7 +18,7 @@ local CLAN_OFFSET_GAP = 20
 function UI_ClanRaidRankingPopup:init()
     local vars = self:load('clan_raid_rank_popup.ui')
     UIManager:open(self, UIManager.SCENE)
-    self.m_offset = 1
+    self.m_offset = -1
     
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanRaidRankingPopup')
@@ -85,20 +85,26 @@ function UI_ClanRaidRankingPopup:initRank()
     self.m_rank_data = g_clanRankData:getRankData(rank_type)
 	local l_rank_list = self.m_rank_data
 
-    local click_func = function()
-        g_clanRankData:request_getRank(rank_type, offset, nil)
+    local cb_func = function()
+       self:initRank()
+       self:focusInRankReward()
+    end
+
+    local click_func = function(offset)
+        g_clanRankData:request_getRank(rank_type, offset, cb_func)
     end
 
     
     if (not self.m_rank_list) then
         self.m_rank_list = UIC_RankingList()                                    -- step0. (필수)랭킹 UI 컴포넌트 생성
     end
-    
+
     self.m_rank_list:setRankUIClass(_UI_ClanRaidRankListItem, nil)              -- step1. (필수)셸 UI 설정  
     self.m_rank_list:setRankList(l_rank_list)                                   -- step2. (필수)리스트 설정
-    self.m_rank_list:makeRankMoveBtn(click_func, click_func, CLAN_OFFSET_GAP)   -- step3. (선택)이전, 다음 버튼 사용할 것인가 (눌렀을 때 콜백 함수, )
-    self.m_rank_list:setEmptyStr('')                                            -- step4. (선택)랭킹이 없을 때, 메세지 설정
-    self.m_rank_list:setOffset(offset)                                          -- step5. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터)
+    self.m_rank_list:setOffset(offset)                                          -- step3. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터)
+    self.m_rank_list:makeRankMoveBtn(click_func, click_func, CLAN_OFFSET_GAP)   -- step4. (선택)이전, 다음 버튼 사용할 것인가 (눌렀을 때 콜백 함수, )
+    self.m_rank_list:setEmptyStr('')                                            -- step5. (선택)랭킹이 없을 때, 메세지 설정
+    
     
     local make_my_rank_cb = function()
         self:makeMyRank()
@@ -358,12 +364,12 @@ function _UI_ClanRaidRankListItem:initUI()
     if (not data) then
         return ui
     end
-
-
-    if (data == 'next') then
+    
+    if (data['rank'] == 'prev') then
         return ui
     end
-    if (data == 'prev') then
+
+    if (data['rank'] == 'next') then
         return ui
     end
 
