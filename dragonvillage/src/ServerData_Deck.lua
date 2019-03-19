@@ -146,6 +146,29 @@ function ServerData_Deck:getDeck_core(deck_name)
     -- deckpvp collection을 사용하는 덱은 별도로 처리
     elseif self:isUsedDeckPvpDB(deck_name) then
         return self:getDeck_core_usedDeckPvpDB(deck_name)
+
+	-- 고대의 탑의 경우, 저장되어 있는 데이터를 불러온다
+    elseif (string.match(deck_name, 'ancient')) then
+        t_ret = LoadLocalSaveJson('ancient_deck_data.json')
+        self.m_selectedDeck = deck_name
+        if (t_ret) then
+            local stage_id = string.match(deck_name, '%d+')
+            local t_data = t_ret[tostring(stage_id)]
+            local l_deck = {}
+            if (t_data) then
+                for i,v in pairs(t_data['deck']) do
+                    if (v ~= '') and g_dragonsData:getDragonDataFromUid(v) then
+                        l_deck[tonumber(i)] = v
+                    end
+                end
+                return l_deck, self:adjustFormationName(t_data['formation']), deck_name, t_data['leader'], t_data['tamer_id']
+            -- 데이터가 없다면 가장 최근의 acient 덱을 불러온다
+            else
+                self.m_selectedDeck = 'ancient'
+                deck_name = self.m_selectedDeck
+                ccdump(self.m_selectedDeck)
+            end
+        end
     end
 
     local l_deck = self.m_serverData:get('deck')
@@ -170,7 +193,6 @@ function ServerData_Deck:getDeck_core(deck_name)
                 t_ret[tonumber(i)] = v
             end
         end
-        
         return t_ret, self:adjustFormationName(formation), deck_name, leader, tamer_id
     end
 
