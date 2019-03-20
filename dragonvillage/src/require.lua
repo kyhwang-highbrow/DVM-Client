@@ -100,6 +100,7 @@ local t_module = {
     'StructClanRaid',
 	'StructClanBuff',
     'StructEventDiceInfo',
+    'StructEventBingoInfo',
 	'StructDailyMission',
 	'StructCapsuleBox',
 	'StructCapsuleBoxReward',

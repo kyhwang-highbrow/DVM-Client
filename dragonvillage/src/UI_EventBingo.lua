@@ -27,9 +27,14 @@ end
 function UI_EventBingo:initUI()
     local vars = self.vars
     
+    -- 선택한 번호로 확정 뽑기
+    local func_click_bingoNum = function(selected_num)
+        self:request_selectedDraw(selected_num)
+    end
+
     -- 빙고 칸 세팅
     for i = 1, 25 do
-        local ui = _UI_EventBingoListItem(i)
+        local ui = _UI_EventBingoListItem(i, func_click_bingoNum)
         local node = vars['bingoNode'..i]
         if node then
             node:removeAllChildren()
@@ -47,7 +52,20 @@ function UI_EventBingo:initUI()
             node:addChild(ui.root)
         end
     end
-
+    --[[
+    -- 누적 보상 아이템 카드
+    local dragon_cnt = 5
+    local bg_width = vars['rewardIconNode']:getNormalSize()
+    local bg_pos_x = vars['rewardIconNode']:getPositionX()
+    local start_pos = bg_pos_x - bg_width/2 + 45
+    local list_item_width = 877
+    local l_pos_x = getPosXForCenterSortting(bg_width, start_pos, dragon_cnt, list_item_width)
+    for i, item_id in ipairs(dragon_list) do
+        local list_item_ui = UI_ItemCard(item_id)
+        list_item_ui.root:setPosition(l_pos[i], 0)
+        vars['rewardIconNode']:addChild(list_item_ui.root)       
+    end
+    --]]
 end
 
 -------------------------------------
@@ -56,9 +74,8 @@ end
 function UI_EventBingo:initButton()
     local vars = self.vars
 
-    vars['notRewardBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-    vars['playBtn1']:registerScriptTapHandler(function() self:click_infoBtn() end)
-    vars['playBtn2']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    vars['playBtn1']:registerScriptTapHandler(function() self:click_drawNumberBtn() end)
+    vars['playBtn2']:registerScriptTapHandler(function() self:click_chooseNumberBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
@@ -187,6 +204,54 @@ function UI_EventBingo:click_infoBtn()
     UIManager:open(ui, UIManager.POPUP)
 end
 
+-------------------------------------
+-- function click_drawNumberBtn
+-------------------------------------
+function UI_EventBingo:click_drawNumberBtn()
+    local cb_func = function(ret)
+        self:pickNumberAction(ret['number'])
+    end
+    --g_eventBingoData:request_DrawNumber(cb_func)
+end
+
+-------------------------------------
+-- function bingoNumBtnEnabled
+-------------------------------------
+function UI_EventBingo:bingoNumBtnEnabled(is_enabled)
+    local l_bingo_num = self.m_tBingoListItem
+
+    for _, ui in ipairs(l_bingo_num) do
+        ui:setBtnEnabled(is_enabled)
+    end
+end
+
+-------------------------------------
+-- function click_chooseNumberBtn
+-------------------------------------
+function UI_EventBingo:click_chooseNumberBtn()
+    local l_bingo_num = self.m_tBingoListItem
+
+    for _, ui in ipairs(l_bingo_num) do
+        ui:setBtnEnabled(true)
+    end
+end
+
+-------------------------------------
+-- function request_selectedDraw
+-------------------------------------
+function UI_EventBingo:request_selectedDraw(selected_num)    
+     local cb_func = function()
+        self:bingoNumBtnEnabled(false)
+     end  
+     --g_eventBingoData:request_bingoInfo(cb_func, selected_num)
+end
+
+
+
+
+
+
+
 
 
 
@@ -199,14 +264,18 @@ local PARENT = UI
 -------------------------------------
 _UI_EventBingoListItem = class(PARENT,{
         m_bingoInd = 'number',
+        m_click_cb = 'function',
+        m_isPickedNumber = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function _UI_EventBingoListItem:init(number)
+function _UI_EventBingoListItem:init(number, click_cb)
     local vars = self:load('event_bingo_item_01.ui')
     self.m_bingoInd = number
+    self.m_click_cb = click_cb
+    self.m_isPickedNumber = false
 
     self:initUI()
     self:initButton()
@@ -244,6 +313,9 @@ function _UI_EventBingoListItem:setActiveNumber()
     local flip_action_reverse = cc.ScaleTo:create(action_speed, 1, 1)
 	local sequence_action = cc.Sequence:create(flip_action, cb_frunc, flip_action_reverse)
     cca.runAction(self.root, sequence_action, nil)
+    self.m_isPickedNumber = true
+
+    self.m_click_cb(self.m_bingoInd)
 end
 
 -------------------------------------
@@ -253,10 +325,21 @@ function _UI_EventBingoListItem:initButton()
     local vars = self.vars
 
     vars['clickBtn']:registerScriptTapHandler(function() self:setActiveNumber() end)
-    vars['clickBtn']:setEnabled(false)
+    self:setBtnEnabled(false)
 end
 
+-------------------------------------
+-- function setBtnEnabled
+-- @breif 확정 뽑기를 위해 전체 버튼을 turn on/off
+-------------------------------------
+function _UI_EventBingoListItem:setBtnEnabled(is_enabled)
+    local vars = self.vars
 
+    -- 이미 골라진 숫자가 아닐 경우에만 버튼 on/off
+    if (not self.m_isPickedNumber) then
+        vars['clickBtn']:setEnabled(is_enabled)
+    end
+end
 
 
 

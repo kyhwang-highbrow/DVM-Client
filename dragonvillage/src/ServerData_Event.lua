@@ -480,13 +480,14 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
 
-        --[[
+
         if (g_hotTimeData:isActiveEvent('event_bingo')) then
             co:work('# 빙고 이벤트 정보 받는 중')
-            g_eventDiceData:request_diceInfo(co.NEXT, co.ESCAPE)
+            co.NEXT()
+            --g_eventBingoData:request_bingoInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
-        --]]
+
         if (g_hotTimeData:isActiveEvent('event_gold_dungeon')) then
             co:work('# 황금던전 이벤트 정보 받는 중')
             g_eventGoldDungeonData:request_dungeonInfo(co.NEXT, co.ESCAPE)
@@ -531,6 +532,7 @@ function ServerData_Event:openEventPopup(tab, close_cb)
         local ui
         if (tab) then
             local noti = false -- 탭 타겟을 정한 경우 이벤트 노티 체크하는 부분이랑 꼬임, 노티 꺼줌
+
             ui = UI_EventPopup(noti)
             ui:setTab(tab, true)
         else

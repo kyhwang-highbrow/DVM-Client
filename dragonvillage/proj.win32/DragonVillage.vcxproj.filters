@@ -3985,6 +3985,9 @@
     <None Include="..\src\UI_ClanRaidTrainingPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructEventBingoInfo.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
