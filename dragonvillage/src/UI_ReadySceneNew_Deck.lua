@@ -778,6 +778,10 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             local uid = g_userData:get('uid')
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
 
+            if (deckname == 'ancient') then
+                g_deckData:saveAncientTowerDeck(self.m_lDeckList, self.m_currFormation, self.m_currLeader, tamer_id)
+            end
+            
             local function success_cb(ret)
                 if ret['deck'] then
                     local ret_deck = ret['deck']

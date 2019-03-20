@@ -146,6 +146,15 @@ function ServerData_Deck:getDeck_core(deck_name)
     -- deckpvp collection을 사용하는 덱은 별도로 처리
     elseif self:isUsedDeckPvpDB(deck_name) then
         return self:getDeck_core_usedDeckPvpDB(deck_name)
+
+    -- 고대의 탑의 경우, 로컬에 저장된 덱이 있다면 불러옴
+    elseif (deck_name == 'ancient') then
+        local t_ret, formation, deck_name, leader, tamer_id = self:getDeckAncient(deck_name)
+        
+        -- 저장된 값이 있다면 그 값을 리턴, 없다면 서버에 저장한 ancient 덱(최근에 사용한 덱)을 사용
+        if (t_ret) then
+            return t_ret, formation, deck_name, leader, tamer_id
+        end
     end
 
     local l_deck = self.m_serverData:get('deck')
@@ -336,6 +345,31 @@ function ServerData_Deck:getDeckCombatPower(deck_name)
 end
 
 -------------------------------------
+-- function getDeckAncient
+-- @brief
+-------------------------------------
+function ServerData_Deck:getDeckAncient(deck_name)
+    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
+    local ancient_deck_data = LoadLocalSaveJson('ancient_deck_data.json')
+
+    if (ancient_deck_data) then
+        local t_ancient_deck = ancient_deck_data[tostring(cur_stage_id)]
+        local l_dragon = {}
+        if (t_ancient_deck) then
+            for i,v in pairs(t_ancient_deck['deck']) do
+                -- 드래곤 데이터를 리스트 형식으로 변환
+                if (v ~= '') and g_dragonsData:getDragonDataFromUid(v) then
+                    l_dragon[tonumber(i)] = v
+                end
+            end
+            return l_dragon, self:adjustFormationName(t_ancient_deck['formation']), deck_name, t_ancient_deck['leader'], t_ancient_deck['tamer_id']
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function request_setDeckPvpCollection
 -------------------------------------
 function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leader, l_edoid, tamer, finish_cb, fail_cb)
@@ -382,4 +416,36 @@ function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leade
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function saveAncientTowerDeck
+-------------------------------------
+function ServerData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_id)
+    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
+    
+    -- 기존에 저장된 덱 정보
+    local ancient_deck_data = LoadLocalSaveJson('ancient_deck_data.json')
+    
+    if (not ancient_deck_data) then
+        ancient_deck_data = {}
+    end
+    
+    -- 새로 저장할 덱 정보
+    local t_new_deck_data = {}
+    t_new_deck_data['deck'] = l_deck
+    t_new_deck_data['formation'] = formation
+    t_new_deck_data['deckname'] = 'ancient'
+    t_new_deck_data['leader'] = leader
+    t_new_deck_data['tamer'] = tamer_id
+
+    -- 드래곤이 배치되지 않았다면 저장하지 않음
+    if (#l_deck == 0) then
+        return
+    end
+    
+    -- 덱 정보 갱신
+    ancient_deck_data[tostring(cur_stage_id)] = t_new_deck_data
+
+    SaveLocalSaveJson('ancient_deck_data.json', ancient_deck_data, true) -- param : filename, t_data, skip_xor
 end
