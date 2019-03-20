@@ -1,4 +1,4 @@
-local PARENT = class(UI)
+local PARENT = UI
 
 -------------------------------------
 -- class UI_ClanRaidTrainingPopup
