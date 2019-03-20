@@ -1058,8 +1058,12 @@ function UI_ReadySceneNew:click_startBtn()
 		return
 	end
 	
-	self:startGame(stage_id)
-	
+    -- 클랜던전 연습모드의 경우
+    if (self.m_subInfo == 'training') then
+        self:startGame_clanRaidTraining(stage_id)
+    else
+	    self:startGame(stage_id)
+    end	
 end
 
 -------------------------------------
@@ -1532,6 +1536,13 @@ end
 function UI_ReadySceneNew:getCurrTamerID()
     local tamer_id = g_tamerData:getCurrTamerID()
     return tamer_id
+end
+
+-------------------------------------
+-- function startGame_clanRaidTraining
+-------------------------------------
+function UI_ReadySceneNew:startGame_clanRaidTraining()
+    self:networkGameStart() -- 임시로 게임 시작
 end
 
 --@CHECK

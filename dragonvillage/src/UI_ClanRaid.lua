@@ -206,6 +206,8 @@ function UI_ClanRaid:initButton()
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'clanraid_help')
 
     vars['clanRankBtn']:registerScriptTapHandler(function() self:click_clanRankBtn() end)
+
+    vars['trainingBtn']:registerScriptTapHandler(function() self:click_trainBtn() end)
 end
 
 -------------------------------------
@@ -545,6 +547,14 @@ end
 function UI_ClanRaid:click_clanRankBtn()
     UI_ClanRaidRankingPopup()
 end
+
+-------------------------------------
+-- function click_trainBtn
+-------------------------------------
+function UI_ClanRaid:click_trainBtn()
+    UI_ReadySceneNew(self.m_stageID, 'training')
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_ClanRaid)
