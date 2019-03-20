@@ -552,7 +552,8 @@ end
 -- function click_trainBtn
 -------------------------------------
 function UI_ClanRaid:click_trainBtn()
-    UI_ReadySceneNew(self.m_stageID, 'training')
+    
+    UI_ClanRaidTrainingPopup(self.m_stageID)
 end
 
 

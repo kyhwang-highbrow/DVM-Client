@@ -1289,6 +1289,7 @@ local t_module = {
     'UI_ClanAttendanceRewardInfo',
     'UI_ClanAcceptPopup', -- 가입 승인 관리 팝업 (마스터, 부마스터 권한)
     'UI_ClanAcceptListItem',
+    'UI_ClanRaidTrainingPopup',
     'UI_ClanRaid',
     'UI_ClanRaidRankListItem',
     'UI_ClanRaidResult',
