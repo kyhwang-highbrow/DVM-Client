@@ -52,13 +52,6 @@ local THIS = StructEventBingoInfo
 --]]
 
 -------------------------------------
--- function init
--------------------------------------
-function StructEventBingoInfo:init(event_data)
-    self:apply(event_data)
-end
-
--------------------------------------
 -- function getClassName
 -------------------------------------
 function StructEventBingoInfo:getClassName()
@@ -72,13 +65,3 @@ function StructEventBingoInfo:getThis()
     return THIS
 end
 
--------------------------------------
--- function apply
--------------------------------------
-function StructEventBingoInfo:apply(t_data)
-    for i, v in pairs(self) do
-        if (t_data[i] ~= nil) then
-            self[i] = t_data[i]
-        end
-    end
-end

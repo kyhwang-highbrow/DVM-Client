@@ -47,19 +47,13 @@ end
 -- function request_bingoInfo
 -------------------------------------
 function ServerData_EventBingo:request_bingoInfo(finish_cb, fail_cb)
-    -- 임시
-        if finish_cb then
-            finish_cb(ret)
-        end
-
-
     
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
     local function success_cb(ret)
-        self.m_structBingo = StructEventDiceInfo(ret)
+        self.m_structBingo = StructEventBingoInfo(ret)
         self.m_endTime = ret['end']
         self.m_startTime = ret['begin']
         if finish_cb then
@@ -84,7 +78,9 @@ end
 -------------------------------------
 -- function request_bingoInfo
 -------------------------------------
-function ServerData_EventBingo:request_DrawNum(finish_cb, is_selected)
+function ServerData_EventBingo:request_DrawNumber(finish_cb, pick_number)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
 
     -- 콜백
     local function success_cb(ret)
@@ -96,8 +92,40 @@ function ServerData_EventBingo:request_DrawNum(finish_cb, is_selected)
     
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/event_bingo_info')
+    ui_network:setUrl('/shop/event_bingo_use')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('number', pick_number)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+	ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_rewardBingo
+-------------------------------------
+function ServerData_EventBingo:request_rewardBingo(reward_type, reward_ind, finish_cb, pick_number)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/event_bingo_reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', reward_type)
+    ui_network:setParam('number', reward_ind)
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

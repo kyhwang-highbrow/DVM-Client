@@ -483,8 +483,7 @@ function ServerData_Event:openEventPopup(tab, close_cb)
 
         if (g_hotTimeData:isActiveEvent('event_bingo')) then
             co:work('# 빙고 이벤트 정보 받는 중')
-            co.NEXT()
-            --g_eventBingoData:request_bingoInfo(co.NEXT, co.ESCAPE)
+            g_eventBingoData:request_bingoInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
