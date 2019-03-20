@@ -416,18 +416,9 @@ function UI_ReadySceneNew_Deck:init_deck()
         self.m_lSettedDragonCard = {}
     end
 
-    local l_deck = nil
+    local l_deck, formation, deckname, leader, tamer_id, formation_lv = g_deckData:getDeck()
+	l_deck = self:convertSimpleDeck(l_deck)
 
-	-- 고대의 탑의 경우, 로컬에 저장되어 있는 덱 정보가 있다면 그 정보를 사용한
-    local stage_id = self.m_uiReadyScene.m_stageID
-    if (TableDrop():getValue(stage_id, 'mode') == 'ancient') then
-        local deck_name = ('ancient' .. stage_id)
-        l_deck, formation, deckname, leader, tamer_id, formation_lv = g_deckData:getDeck(deck_name)
-    else
-        l_deck, formation, deckname, leader, tamer_id, formation_lv = g_deckData:getDeck()
-	end
-
-    l_deck = self:convertSimpleDeck(l_deck)
 	self.m_currLeader = leader
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
@@ -677,7 +668,6 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
     local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
-
     local b_arena = self.m_uiReadyScene.m_bArena
 
     local formation_lv = b_arena and 1 or g_formationData:getFormationInfo(formation)['formation_lv']
@@ -794,21 +784,7 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
                     local t_deck = ret_deck['deck']
                     local deckname = ret_deck['deckname']
 
-					-- 고대의 탑의 경우, 해당 스테이지를 key로 하는 덱 테이터를 로컬에 저장한
-                    if (string.match(deckname, 'ancient')) then
-                        local stage_id = self.m_uiReadyScene.m_stageID
-                        local t_deck = LoadLocalSaveJson('ancient_deck_data.json')
-                        
-                        if (not t_deck) then
-                            t_deck = {}
-                        end
-                        t_deck[tostring(stage_id)] = ret_deck
-                        SaveLocalSaveJson('ancient_deck_data.json', t_deck, true) -- param : filename, t_data, skip_xor
-                        g_deckData:setDeck(deckname, ret_deck)
-                        
-                        -- 최근 덱을 ancient에 저장
-                        g_deckData:setDeck('ancient', ret_deck)
-                    end
+                    g_deckData:setDeck(deckname, ret_deck)
                 end
                 next_func()
             end
