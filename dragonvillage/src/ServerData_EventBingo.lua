@@ -8,6 +8,7 @@ ServerData_EventBingo = class({
         m_startTime = 'number',
 
         m_structBingo = 'StructEventBingoInfo',
+        m_isSameNumber = 'boolean',
     })
 
 -------------------------------------
@@ -84,10 +85,10 @@ function ServerData_EventBingo:request_DrawNumber(finish_cb, pick_number)
 
     -- 콜백
     local function success_cb(ret)
+        self:checkSameNumber(ret['bingo_number'])
         self.m_structBingo:addBingoNumber(ret['bingo_number'])
         self.m_structBingo:applyInfo(ret)
         self.m_structBingo:addBingoClearLine(ret['bingo_clear'])
-        
         if finish_cb then
             finish_cb(ret)
         end
@@ -138,4 +139,21 @@ function ServerData_EventBingo:request_rewardBingo(reward_type, reward_ind, fini
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function checkSameNumber
+-------------------------------------
+function ServerData_EventBingo:checkSameNumber(pick_number)
+    local struct_bingo = g_eventBingoData.m_structBingo  
+    local l_number = struct_bingo:getBingoNumberList()
+
+    for _, number_data in ipairs(l_number) do
+        local number = string.match(number_data, '%d+')
+        if (tonumber(number) == tonumber(pick_number)) then
+            self.m_isSameNumber = true
+            return
+        end
+    end
+    self.m_isSameNumber = false
 end

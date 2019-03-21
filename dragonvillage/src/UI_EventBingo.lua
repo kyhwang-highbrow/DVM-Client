@@ -116,8 +116,8 @@ function UI_EventBingo:refresh()
 
     local bingo_line_cnt = struct_bingo:getBingoLineCnt()
     vars['timeLabel']:setString(remain_time)
-    vars['numberLabel1']:setString(Str('{1}개', struct_bingo:getTodayEventItemCnt()))
-    vars['obtainLabel']:setString(Str('일일 최대 {1}/{2}개 획득 가능', struct_bingo:getTodayEventItemCnt(), struct_bingo:getTodayMaxEventItemCnt()))
+    vars['numberLabel1']:setString(Str('{1}/{2}개', struct_bingo:getTodayEventItemCnt(), struct_bingo:getTodayMaxEventItemCnt()))
+    vars['obtainLabel']:setString(Str('일일 최대 {1}개 획득 가능', struct_bingo:getTodayMaxEventItemCnt()))
     vars['rewardLabel']:setString(Str('{1} 빙고 보상', bingo_line_cnt))
     vars['progressLabel']:setString(Str('진행도: {1}/12', bingo_line_cnt))
     vars['numberLabel2']:setString(Str('{1}개', struct_bingo:getEventItemCnt()))
@@ -136,6 +136,10 @@ function UI_EventBingo:refresh()
     for i, number in ipairs(l_bingo_number) do
         local is_pick = false
         self.m_lBingoNumber[tonumber(number)]:setActiveNumber(is_pick)
+    end
+
+    if (struct_bingo:isTakeLastReward() == true) then
+        self:completeBingo()
     end
 end
 
@@ -170,15 +174,15 @@ function UI_EventBingo:refresh_bingoCntReward()
         ui_data:setBtnEnabled(false)
         -- 획득 완료
         if (reward_state == 1) then
-            ui_data.vars['completeSprite']:setVisible(true)
-            ui_data.vars['receiveVisual']:setVisible(false)
+            ui_data.vars['checkSprite']:setVisible(true)
+            ui_data.vars['receiveBtn']:setVisible(false)
         -- 획득 가능
         elseif (reward_state == 0) then
             -- 받을 수 있는 버튼 한 개만 눌리도록
             if (one_enabled == false) then
                 if (bingo_cnt >= ui_data.m_sub_data) then
-                    ui_data.vars['completeSprite']:setVisible(false)
-                    ui_data.vars['receiveVisual']:setVisible(true)
+                    ui_data.vars['checkSprite']:setVisible(false)
+                    ui_data.vars['receiveBtn']:setVisible(true)
                     ui_data:setBtnEnabled(true)
                     one_enabled = true
                 end
@@ -237,6 +241,13 @@ function UI_EventBingo:setBingo(bingo_line_number) -- HORIZONTAL, VERTICAL, CROS
     else
         ani:changeAni('cross_left_to_right')
     end
+
+    -- 후속 연출
+	ani:addAniHandler(function()
+	    self:refresh_bingoCntReward()
+        self:refresh_bingoReward()
+    end)
+
 end
 
 -------------------------------------
@@ -345,19 +356,27 @@ function UI_EventBingo:click_drawNumberBtn()
         return
     end
 
+    -- 통신 전, 블럭 팝업 생성
+    local block_ui = UI_BlockPopup()
+
     local cb_func = function(ret)
         local finish_cb = function()
             local l_clear = ret['bingo_clear']
+            local is_same_number = g_eventBingoData.m_isSameNumber
+            if (is_same_number) then
+                self:showSameNumberGora()
+            else
+                self:showNewNumberGora()
+            end
+            
             for i, number in ipairs(l_clear) do
                 self:setBingo(number)
             end
+
+            block_ui:close()
         end
         
-        self:pickNumberAction(tonumber(ret['bingo_number']), finish_cb)
-        self:refresh_bingoCntReward()
-        self:refresh_bingoReward()
-        
-        
+        self:pickNumberAction(tonumber(ret['bingo_number']), finish_cb)        
     end
     g_eventBingoData:request_DrawNumber(cb_func)
 end
@@ -393,17 +412,19 @@ end
 -- function request_selectedDraw
 -------------------------------------
 function UI_EventBingo:request_selectedDraw(selected_num)    
+     -- 통신 전, 블럭 팝업 생성
+     local block_ui = UI_BlockPopup()
+
      local cb_func = function(ret)
         self:bingoNumBtnEnabled(false)
-        self:refresh_bingoCntReward()
-        self:refresh_bingoReward()
-        
+
         local l_clear = ret['bingo_clear']
         for i, number in ipairs(l_clear) do
             self:setBingo(number)
         end
 
         self:refresh()
+        block_ui:close()
      end  
      
      g_eventBingoData:request_DrawNumber(cb_func, selected_num)
@@ -412,11 +433,16 @@ end
 -------------------------------------
 -- function click_cntRewardBingo
 -------------------------------------
-function UI_EventBingo:click_cntRewardBingo(reward_ind)
+function UI_EventBingo:click_cntRewardBingo(reward_ind)   
+    -- 통신 전, 블럭 팝업 생성
+    local block_ui = UI_BlockPopup()
+    
     local cb_func = function(ret)
         self:refresh_bingoReward()
         self:refresh_bingoCntReward()
+        block_ui:close()
     end
+
     g_eventBingoData:request_rewardBingo('step', reward_ind, cb_func)
 end
 
@@ -424,11 +450,61 @@ end
 -- function click_rewardBingo
 -------------------------------------
 function UI_EventBingo:click_rewardBingo(reward_ind)
+    -- 통신 전, 블럭 팝업 생성
+    local block_ui = UI_BlockPopup()
+    
     local cb_func = function(ret)
         self:refresh_bingoReward()
         self:refresh_bingoCntReward()
+        block_ui:close()
     end
     g_eventBingoData:request_rewardBingo('bingo', reward_ind, cb_func)
+end
+
+-------------------------------------
+-- function completeBingo
+-------------------------------------
+function UI_EventBingo:completeBingo()
+    local vars = self.vars
+    vars['completeNode']:setVisible(true)
+    vars['playBtn1']:setEnabled(false)
+    vars['playBtn2']:setEnabled(false)
+end
+
+-------------------------------------
+-- function showSameNumberGora
+-------------------------------------
+function UI_EventBingo:showSameNumberGora()
+    local vars = self.vars
+    self:showGoraAnimation(vars['goraMenu2'])
+end
+
+-------------------------------------
+-- function showNewNumberGora
+-------------------------------------
+function UI_EventBingo:showNewNumberGora()
+    local vars = self.vars
+    self:showGoraAnimation(vars['goraMenu1'])
+end
+
+-------------------------------------
+-- function showAnimation
+-------------------------------------
+function UI_EventBingo:showGoraAnimation(node)
+    node:setVisible(true)
+    node:setPosition(cc.p(-200, 50))
+    
+    local delete_func = function()
+        node:setVisible(false)
+    end
+
+    -- 만드라 고라 나타나는 효과
+    local delete_delay_action = cc.DelayTime:create(0.7)
+    local move_action_1 = cc.EaseOut:create(cc.MoveTo:create(0.3, cc.p(4.5, 50)), 0.3)
+    local move_action_2 = cc.EaseOut:create(cc.MoveTo:create(0.3, cc.p(-200, 50)), 0.3)
+    local delete_action = cc.CallFunc:create(delete_func)
+    local sequence_action = cc.Sequence:create(move_action_1, delete_delay_action, move_action_2, delete_action)
+    node:runAction(sequence_action)
 end
 
 
@@ -533,6 +609,7 @@ function _UI_EventBingoListItem:setBtnEnabled(is_enabled)
     -- 이미 골라진 숫자가 아닐 경우에만 버튼 on/off
     if (not self.m_isPickedNumber) then
         vars['clickBtn']:setEnabled(is_enabled)
+        vars['pickSprite']:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 100))))
         vars['pickSprite']:setVisible(is_enabled)
     end
 
@@ -566,8 +643,13 @@ _UI_EventBingoRewardListItem = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function _UI_EventBingoRewardListItem:init(reward_ind, reward_item_str, click_cb, is_bingo_reward, sub_data)
-    local vars = self:load('event_bingo_item_02.ui')
+function _UI_EventBingoRewardListItem:init(reward_ind, reward_item_str, click_cb, is_bingo_reward_cnt, sub_data)
+    local vars
+    if (not is_bingo_reward_cnt) then
+        vars = self:load('event_bingo_item_02.ui')
+    else
+        vars = self:load('event_bingo_item_03.ui')
+    end
     self.m_rewardInd = reward_ind
     self.m_rewardItemStr = reward_item_str
     self.m_click_cb = click_cb
@@ -577,7 +659,7 @@ function _UI_EventBingoRewardListItem:init(reward_ind, reward_item_str, click_cb
         return
     end
     
-    if (not is_bingo_reward) then
+    if (not is_bingo_reward_cnt) then
         self:initUI()
     else
         self:initUI_cntReward()
@@ -616,6 +698,8 @@ end
 function _UI_EventBingoRewardListItem:initUI_cntReward()
     local vars = self.vars
     local struct_bingo = g_eventBingoData.m_structBingo
+    vars['rewardLabel']:setString(Str('{1}빙고', self.m_sub_data))
+    self.root:setScale(1.2)
 
     -- 누적 보상 아이템 카드 (임시 하드코딩)
     local reward_cnt = struct_bingo:getBingoRewardListCnt()
@@ -629,11 +713,10 @@ function _UI_EventBingoRewardListItem:initUI_cntReward()
     local l_item_str = pl.stringx.split(item_str, ';')
     local item_id = l_item_str[1]
     local item_cnt = l_item_str[2]
-    local node = vars['rewardIconNode']
 
     local reward_card = UI_ItemCard(tonumber(item_id), tonumber(item_cnt))
-    reward_card.vars['clickBtn']:registerScriptTapHandler(function() self.m_click_cb(node_ind) end)
-    self.root:setScale(0.7)
+    vars['receiveBtn']:registerScriptTapHandler(function() self.m_click_cb(node_ind) end)
+    reward_card.root:setScale(0.6)
 
     if (reward_card) then
         vars['iconNode']:addChild(reward_card.root)
@@ -650,5 +733,10 @@ end
 -- function setBtnEnabled
 -------------------------------------
 function _UI_EventBingoRewardListItem:setBtnEnabled(is_enabled)
+    local vars = self.vars
+
     self.m_item_card.vars['clickBtn']:setEnabled(is_enabled)
+    if (vars['receiveBtn']) then
+        vars['receiveBtn']:setEnabled(is_enabled)
+    end
 end

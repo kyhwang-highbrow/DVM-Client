@@ -87,6 +87,20 @@ function StructEventBingoInfo:getBingoRewardList()
 end
 
 -------------------------------------
+-- function isTakeLastReward
+-------------------------------------
+function StructEventBingoInfo:isTakeLastReward()
+    local last_ind = self:getBingoRewardListCnt()
+    local is_last = self['bingo_count_info']['count_reward_'..last_ind]
+
+    if (is_last == 1) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
 -- function getBingoRewardListCnt
 -------------------------------------
 function StructEventBingoInfo:getBingoRewardListCnt()
@@ -219,6 +233,7 @@ function StructEventBingoInfo:getBingoLineRewardState(ind)
         end
     end
 end
+
 
 
 
