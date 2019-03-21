@@ -138,12 +138,7 @@ end
 -- function getBingoLineCnt
 -------------------------------------
 function StructEventBingoInfo:getBingoLineCnt()
-    local cnt = 0
-    local m_bingo_line = self:getBingoLine()
-    for _, v in pairs(m_bingo_line) do
-        cnt = cnt + 1
-    end
-    return cnt
+    return self['bingo_count_info']['bingo_count'] or 0
 end
 
 -------------------------------------
@@ -191,9 +186,41 @@ end
 -------------------------------------
 function StructEventBingoInfo:addBingoClearLine(ret)
     local l_bingo = self['bingo_line']
-    for i, number in ipairs(l_bingo) do
-        table.insert(l_bingo, number)
+    for i, number in ipairs(ret) do
+        local key = tostring(number)
+        l_bingo[key] = 0
     end
     self['bingo_line'] = l_bingo
 end
+
+-------------------------------------
+-- function getBingoCntRewardState
+-------------------------------------
+function StructEventBingoInfo:getBingoCntRewardState(ind)
+    local t_bingo_cnt_info = self['bingo_count_info']
+    for key, state in pairs(t_bingo_cnt_info) do
+        if (string.match(key, 'count_reward_')) then
+            local reward_ind = string.match(key, '%d+')
+            if (tostring(reward_ind) == tostring(ind)) then
+                return state -- 0 : 받을 수 없음, 1 : 받음
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function getBingoLineReward
+-------------------------------------
+function StructEventBingoInfo:getBingoLineRewardState(ind)
+    local t_line = self['bingo_line']
+    for key, state in pairs(t_line) do
+        if (tostring(key) == tostring(ind)) then
+            return state -- 0 : 받을 수 없음, 1 : 받음
+        end
+    end
+end
+
+
+
+
 

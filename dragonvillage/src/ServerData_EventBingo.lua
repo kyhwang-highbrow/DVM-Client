@@ -31,16 +31,9 @@ end
 -- function confirm_reward
 -- @brief 보상 정보
 -------------------------------------
-function ServerData_EventBingo:confirm_reward(ret)
-    local item_info = ret['item_info'] or nil
-    if (item_info) then
-        UI_MailRewardPopup(item_info)
-    else
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
-
-        g_highlightData:setHighlightMail()
-    end
+function ServerData_EventBingo:confirm_reward()
+    UIManager:toastNotificationGreen(Str('보상이 우편함으로 전송되었습니다.'))
+    g_highlightData:setHighlightMail()
 end
 
 -------------------------------------
@@ -125,6 +118,7 @@ function ServerData_EventBingo:request_rewardBingo(reward_type, reward_ind, fini
     -- 콜백
     local function success_cb(ret)
         self.m_structBingo:applyInfo(ret)
+        self:confirm_reward()
         if finish_cb then
             finish_cb(ret)
         end
