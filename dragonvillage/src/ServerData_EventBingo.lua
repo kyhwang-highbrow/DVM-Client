@@ -1,10 +1,10 @@
--------------------------------------
+ï»¿-------------------------------------
 -- class ServerData_EventBingo
 -- @instance g_eventBingoData
 -------------------------------------
 ServerData_EventBingo = class({
-        m_nMaterialCnt = 'number', -- ÀçÈ­ º¸À¯·®
-        m_endTime = 'number', -- Á¾·á ½Ã°£
+        m_nMaterialCnt = 'number', -- ì¬í™” ë³´ìœ ëŸ‰
+        m_endTime = 'number', -- ì¢…ë£Œ ì‹œê°„
         m_startTime = 'number',
 
         m_structBingo = 'StructEventBingoInfo',
@@ -24,19 +24,19 @@ function ServerData_EventBingo:getStatusText()
     local end_time = (self.m_endTime / 1000)
 
     local time = (end_time - curr_time)
-    return Str('ÀÌº¥Æ® Á¾·á±îÁö {1} ³²À½', datetime.makeTimeDesc(time, true))
+    return Str('ì´ë²¤íŠ¸ ì¢…ë£Œê¹Œì§€ {1} ë‚¨ìŒ', datetime.makeTimeDesc(time, true))
 end
 
 -------------------------------------
 -- function confirm_reward
--- @brief º¸»ó Á¤º¸
+-- @brief ë³´ìƒ ì •ë³´
 -------------------------------------
 function ServerData_EventBingo:confirm_reward(ret)
     local item_info = ret['item_info'] or nil
     if (item_info) then
         UI_MailRewardPopup(item_info)
     else
-        local toast_msg = Str('º¸»óÀÌ ¿ìÆíÇÔÀ¸·Î Àü¼ÛµÇ¾ú½À´Ï´Ù.')
+        local toast_msg = Str('ë³´ìƒì´ ìš°í¸í•¨ìœ¼ë¡œ ì „ì†¡ë˜ì—ˆìŠµë‹ˆë‹¤.')
         UI_ToastPopup(toast_msg)
 
         g_highlightData:setHighlightMail()
@@ -44,14 +44,21 @@ function ServerData_EventBingo:confirm_reward(ret)
 end
 
 -------------------------------------
+-- function getStructEventBingo
+-------------------------------------
+function ServerData_EventBingo:getStructEventBingo()
+    return self.m_structBingo
+end
+
+-------------------------------------
 -- function request_bingoInfo
 -------------------------------------
 function ServerData_EventBingo:request_bingoInfo(finish_cb, fail_cb)
     
-    -- À¯Àú ID
+    -- ìœ ì € ID
     local uid = g_userData:get('uid')
 
-    -- Äİ¹é
+    -- ì½œë°±
     local function success_cb(ret)
         self.m_structBingo = StructEventBingoInfo(ret)
         self.m_endTime = ret['end']
@@ -61,7 +68,7 @@ function ServerData_EventBingo:request_bingoInfo(finish_cb, fail_cb)
         end
     end
     
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/event_bingo_info')
     ui_network:setParam('uid', uid)
@@ -79,18 +86,19 @@ end
 -- function request_bingoInfo
 -------------------------------------
 function ServerData_EventBingo:request_DrawNumber(finish_cb, pick_number)
-    -- À¯Àú ID
+    -- ìœ ì € ID
     local uid = g_userData:get('uid')
 
-    -- Äİ¹é
+    -- ì½œë°±
     local function success_cb(ret)
-        
+        self.m_structBingo:addBingoNumber(ret['bingo_number'])
+        self.m_structBingo:applyInfo(ret)
         if finish_cb then
             finish_cb(ret)
         end
     end
     
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/event_bingo_use')
     ui_network:setParam('uid', uid)
@@ -109,18 +117,18 @@ end
 -- function request_rewardBingo
 -------------------------------------
 function ServerData_EventBingo:request_rewardBingo(reward_type, reward_ind, finish_cb, pick_number)
-    -- À¯Àú ID
+    -- ìœ ì € ID
     local uid = g_userData:get('uid')
 
-    -- Äİ¹é
+    -- ì½œë°±
     local function success_cb(ret)
-        
+        self.m_structBingo:applyInfo(ret)
         if finish_cb then
             finish_cb(ret)
         end
     end
     
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/event_bingo_reward')
     ui_network:setParam('uid', uid)

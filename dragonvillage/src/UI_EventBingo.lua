@@ -69,7 +69,7 @@ function UI_EventBingo:initUI()
         local list_item_ui = UI_ItemCard(tonumber(l_item[1]), l_item[2])
         list_item_ui.root:setScale(0.6)
         list_item_ui.root:setPositionX(l_pos_x[ind])
-        list_item_ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_rewardBingo(i) end)
+        list_item_ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_rewardBingo(ind) end)
         vars['rewardIconNode']:addChild(list_item_ui.root)
         ind = ind + 1
     end
@@ -94,42 +94,73 @@ end
 -------------------------------------
 function UI_EventBingo:refresh()
     local vars = self.vars
-     
-    local temp = '00' -- 임시
+    
     local remain_time = g_eventBingoData:getStatusText()
-    local struct_bingo = g_eventBingoData.m_structBingo
+    local struct_bingo = g_eventBingoData:getStructEventBingo()
 
-    local bingo_cnt = tonumber(#struct_bingo['bingo_line'])
+    local bingo_line_cnt = struct_bingo:getBingoLineCnt()
     vars['timeLabel']:setString(remain_time)
-    vars['numberLabel1']:setString(Str('{1}개', struct_bingo['event_get']))
-    vars['obtainLabel']:setString(Str('일일 최대 {1}/{2}개 획득 가능', struct_bingo['event_get'], struct_bingo['event_max']))
-    vars['rewardLabel']:setString(Str('{1} 빙고 보상', bingo_cnt))
-    vars['progressLabel']:setString(Str('진행도: {1}/12', bingo_cnt))
-    vars['numberLabel2']:setString(Str('{1}개', struct_bingo['event']))
-    vars['numberLabel3']:setString(Str('{1}개', struct_bingo['bingo_pick_count'])) 
-    vars['rewardLabel']:setString(Str('{1} 빙고', bingo_cnt))
-    vars['progressLabel']:setString(Str('다음 보상까지 {1} 빙고 남았습니다.', 12 - bingo_cnt))
+    vars['numberLabel1']:setString(Str('{1}개', struct_bingo:getTodayEventItemCnt()))
+    vars['obtainLabel']:setString(Str('일일 최대 {1}/{2}개 획득 가능', struct_bingo:getTodayEventItemCnt(), struct_bingo:getTodayMaxEventItemCnt()))
+    vars['rewardLabel']:setString(Str('{1} 빙고 보상', bingo_line_cnt))
+    vars['progressLabel']:setString(Str('진행도: {1}/12', bingo_line_cnt))
+    vars['numberLabel2']:setString(Str('{1}개', struct_bingo:getEventItemCnt()))
+    vars['numberLabel3']:setString(Str('{1}개', struct_bingo:getPickEventItemCnt())) 
+    vars['rewardLabel']:setString(Str('{1} 빙고', bingo_line_cnt))
+    vars['progressLabel']:setString(Str('다음 보상까지 {1} 빙고 남았습니다.', 12 - bingo_line_cnt))
 
     -- 누적 보상 게이지
-    local reward_cnt = struct_bingo['bingo_count_info']['bingo_count']
-    local max_reward = #struct_bingo['bingo_count_info']['bingo_count_reward']
+    local reward_cnt = struct_bingo:getBingoRewardCnt()
+    local max_reward = #struct_bingo:getBingoRewardList()
     local percentage = reward_cnt/max_reward * 100
     vars['ggSprite']:runAction(cc.ProgressTo:create(0.2, percentage))
+
+    -- 획득한 빙고 숫자 표기
+    local l_bingo_number = struct_bingo:getBingoNumberList()
+    for i, number in ipairs(l_bingo_number) do
+        local is_pick = false
+        self.m_tBingoListItem[tonumber(number)]:setActiveNumber(is_pick)
+    end
+
+    -- 완성된 빙고 표기
+    vars['visualNode']:removeAllChildren()
+    local m_bingo_line = struct_bingo:getBingoLine()
+    for line_number, state in pairs(m_bingo_line) do
+        self:setBingo(line_number)
+    end
+
+end
+
+-------------------------------------
+-- function getBingoType
+-- @brief 
+-------------------------------------
+function UI_EventBingo:getBingoType(bingo_line_number)
+    local bingo_line_number = tonumber(bingo_line_number)
+    if (bingo_line_number == 1) then
+        return BINGO_TYPE.CROSS_LEFT_TO_RIGHT, nil
+    elseif (bingo_line_number == 7) then
+        return BINGO_TYPE.CROSS_RIGHT_TO_LEFT, nil    
+    elseif (bingo_line_number>=2 and bingo_line_number<=6) then
+        return BINGO_TYPE.HORIZONTAL, bingo_line_number - 1
+    elseif (bingo_line_number>=8 and bingo_line_number<=12) then
+        return BINGO_TYPE.VERTICAL, 13 - bingo_line_number
+    end
 end
 
 -------------------------------------
 -- function setBingo
 -- @brief 빙고가 성립됨
 -------------------------------------
-function UI_EventBingo:setBingo(bingo_type, line) -- HORIZONTAL, VERTICAL, CROSS
+function UI_EventBingo:setBingo(bingo_line_number) -- HORIZONTAL, VERTICAL, CROSS
     local vars = self.vars
-
+    local bingo_type, line = self:getBingoType(bingo_line_number)
     -- 보상 버튼 활성화
 
-    -- a2d 애니메이션
-    local ani = MakeAnimator('res/ui/a2d/event_bingo/event_bingo/event_bingo.vrp')
+    -- a2d 빙고 표시 애니메이션
+    local ani = MakeAnimator('res/ui/a2d/event_bingo/event_bingo.vrp')
     vars['visualNode']:addChild(ani.m_node)
-    
+
     local pos_x, pos_y = self:getLinePos(bingo_type, line)
     ani:setPosition(pos_x, pos_y)
 
@@ -151,25 +182,26 @@ function UI_EventBingo:getLinePos(bingo_type, line) -- param 의미 : 가로 3 �
     local vars = self.vars
 
     local pos_x, pos_y = 0, 0
-    local offset = 40 -- 빙고칸 절반크기 조금 안되는 위치
+    local offset = 50 -- 빙고칸 절반크기 조금 안되는 위치
 
     if (bingo_type == BINGO_TYPE.HORIZONTAL) then        -- 가로 빙고 : line 첫 칸 - offsetX
         local _line = 1 + (line-1) * 5
         pos_x, pos_y = vars['bingoNode'.._line]:getPosition()
-        pos_x = pos_x - offset
+        pos_x = pos_x - 60
 
     elseif (bingo_type == BINGO_TYPE.VERTICAL) then       -- 세로 빙고 : line 첫 줄 + offsetY
         pos_x, pos_y = vars['bingoNode'..line]:getPosition()
-        pos_y = pos_y + offset
+        pos_y = pos_y + 60
 
     elseif (bingo_type == BINGO_TYPE.CROSS_LEFT_TO_RIGHT) then  -- 대각선 빙고(left_to_right) : 1번 칸 - offsetX + offsetY
         pos_x, pos_y = vars['bingoNode1']:getPosition()
-        pos_x = pos_x - offset
-        pos_y = pos_y + offset
+        pos_x = -230
+        pos_y = 230
+
     elseif (bingo_type == BINGO_TYPE.CROSS_RIGHT_TO_LEFT) then  -- 대각선 빙고(right_to_left) : 1번 칸 + offsetX + offsetY
         pos_x, pos_y = vars['bingoNode5']:getPosition()
-        pos_x = pos_x + offset
-        pos_y = pos_y + offset
+        pos_x = 230
+        pos_y = 230
     end
 
     return pos_x, pos_y
@@ -183,12 +215,14 @@ function UI_EventBingo:pickNumberAction(number)
     local vars = self.vars
     local change_speed = 0.05
     local repeat_cnt = 12
+    local delete_time = 0.5
     
     if (not vars['pickAniSprite']) then
         return
     end
     
     vars['pickAniSprite']:setVisible(true)
+    vars['bingoSprite']:setVisible(true)
 
     local random_frunc = function()
         local num = math_random(24) + 1
@@ -202,7 +236,13 @@ function UI_EventBingo:pickNumberAction(number)
         local _num = string.format('%03d', num) --ex) 001, ..023 3자리 형식
         local num_sprite_name = string.format('res/ui/icons/bingo/%s.png', _num)
         vars['pickAniSprite']:setTexture(num_sprite_name)
-    end 
+    end
+    
+    local delete_frunc = function()
+        vars['pickAniSprite']:setVisible(false)
+        vars['bingoSprite']:setVisible(false)
+        self:refresh()
+    end
     
     -- 랜덤으로 바뀌는 효과
     local random_action = cc.CallFunc:create(random_frunc)
@@ -210,7 +250,9 @@ function UI_EventBingo:pickNumberAction(number)
     local repeat_sequence_action = cc.Sequence:create(random_action, delay_action)
     local repeat_action = cc.Repeat:create(repeat_sequence_action, repeat_cnt)
     local end_action = cc.CallFunc:create(end_frunc)
-    local sequence_action = cc.Sequence:create(repeat_action, end_action)
+    local delete_delay_action = cc.DelayTime:create(delete_time)
+    local delete_action = cc.CallFunc:create(delete_frunc)
+    local sequence_action = cc.Sequence:create(repeat_action, end_action, delete_delay_action, delete_action)
 
     cca.runAction(self.root, sequence_action, nil)
 end
@@ -264,6 +306,7 @@ end
 function UI_EventBingo:request_selectedDraw(selected_num)    
      local cb_func = function()
         self:bingoNumBtnEnabled(false)
+        self:refresh()
      end  
      
      g_eventBingoData:request_DrawNumber(cb_func, selected_num)
@@ -327,10 +370,14 @@ end
 -- function setActiveNumber
 -- @brief 빙고 숫자를 활성화(유효하게)
 -------------------------------------
-function _UI_EventBingoListItem:setActiveNumber()
+function _UI_EventBingoListItem:setActiveNumber(is_pick)
     local vars = self.vars
     local action_speed = 0.1
-    
+
+    if (self.m_isPickedNumber) then
+        return
+    end
+
     local func_active = function()
         vars['clearSprite']:setVisible(true)
         vars['numberSprite']:setColor(cc.c3b(72,25,0))
@@ -344,7 +391,11 @@ function _UI_EventBingoListItem:setActiveNumber()
     cca.runAction(self.root, sequence_action, nil)
     self.m_isPickedNumber = true
 
-    self.m_click_cb(self.m_bingoInd)
+    -- 확정 뽑기의 경우, 선택한 숫자 정보를 서버에 보냄
+    if (is_pick) then
+        self.m_click_cb(self.m_bingoInd)
+
+    end
 end
 
 -------------------------------------
@@ -353,7 +404,7 @@ end
 function _UI_EventBingoListItem:initButton()
     local vars = self.vars
 
-    vars['clickBtn']:registerScriptTapHandler(function() self:setActiveNumber() end)
+    vars['clickBtn']:registerScriptTapHandler(function() self:setActiveNumber(true) end)
     self:setBtnEnabled(false)
 end
 

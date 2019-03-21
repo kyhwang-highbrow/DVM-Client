@@ -59,9 +59,111 @@ function StructEventBingoInfo:getClassName()
 end
 
 -------------------------------------
+-- function getBingoNumberList
+-------------------------------------
+function StructEventBingoInfo:getBingoNumberList()
+    return self['bingo_number'] or {}
+end
+
+-------------------------------------
 -- function getThis
 -------------------------------------
 function StructEventBingoInfo:getThis()
     return THIS
+end
+
+-------------------------------------
+-- function getBingoRewardCnt
+-------------------------------------
+function StructEventBingoInfo:getBingoRewardCnt()
+    return self['bingo_count_info']['bingo_count'] or 0
+end
+
+-------------------------------------
+-- function getBingoRewardList
+-------------------------------------
+function StructEventBingoInfo:getBingoRewardList()
+    return self['bingo_count_info']['bingo_count_reward']
+end
+
+-------------------------------------
+-- function getEventItemCnt
+-------------------------------------
+function StructEventBingoInfo:getEventItemCnt()
+    return self['event'] or 0
+end
+
+-------------------------------------
+-- function getTodayEventItemCnt
+-------------------------------------
+function StructEventBingoInfo:getTodayEventItemCnt()
+    return self['event_get']  or 0
+end
+
+-------------------------------------
+-- function getPickEventItemCnt
+-------------------------------------
+function StructEventBingoInfo:getPickEventItemCnt()
+    return self['bingo_pick_count'] or 0
+end
+
+-------------------------------------
+-- function getBingoLine
+-------------------------------------
+function StructEventBingoInfo:getBingoLine()
+    local m_bingo_line = self['bingo_line']
+    return m_bingo_line or {}
+end
+
+-------------------------------------
+-- function getBingoLineCnt
+-------------------------------------
+function StructEventBingoInfo:getBingoLineCnt()
+    local cnt = 0
+    local m_bingo_line = self:getBingoLine()
+    for _, v in pairs(m_bingo_line) do
+        cnt = cnt + 1
+    end
+    return cnt
+end
+
+-------------------------------------
+-- function getTodayMaxEventItemCnt
+-------------------------------------
+function StructEventBingoInfo:getTodayMaxEventItemCnt()
+    return self['event_max'] or 0
+end
+
+-------------------------------------
+-- function addBingoNumber
+-------------------------------------
+function StructEventBingoInfo:addBingoNumber(number)
+    local l_bingo_number = self:getBingoNumberList()
+    table.insert(l_bingo_number, number)
+end
+
+-------------------------------------
+-- function applyInfo
+-------------------------------------
+function StructEventBingoInfo:applyInfo(ret)
+    if (ret['event']) then
+        self['event'] = ret['event']
+    end
+
+    if (ret['event_get']) then
+        self['event_get'] = ret['event_get']
+    end
+
+    if (ret['bingo_pick_count']) then
+        self['bingo_pick_count'] = ret['bingo_pick_count']
+    end
+
+    if (ret['bingo_count_info']) then
+        self['bingo_count_info'] = ret['bingo_count_info']
+    end
+
+    if (ret['bingo_line']) then
+        self['bingo_line'] = ret['bingo_line']
+    end
 end
 
