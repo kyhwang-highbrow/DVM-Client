@@ -139,7 +139,7 @@ function UI_ClanRaidTrainingPopup:setCurrCount(count, ignore_slider_bar)
     self.m_select_stage_id = count
 
     -- 지원 레벨
-    vars['quantityLabel']:setString(comma_value(self.m_select_stage_id))
+    vars['quantityLabel']:setString(comma_value(self.m_cur_stage_id))
 
     -- 퍼센트 지정
     if (not ignore_slider_bar) then
@@ -157,6 +157,60 @@ end
 -- function onTouchEnded
 -------------------------------------
 function UI_ClanRaidTrainingPopup:onTouchEnded(touch, event)
+    self:refreshBoss('light') -- 임의로
+end
+
+-------------------------------------
+-- function refreshBoss
+-------------------------------------
+function UI_ClanRaidTrainingPopup:refreshBoss(attr)
+    local vars = self.vars
+    local cur_attr
+    local is_boss_dirty = false
+    if (attr) then
+        is_boss_dirty = true
+        cur_attr = attr
+    else
+        cur_attr = g_clanData:getCurSeasonBossAttr()
+    end
+    vars['lvLabel']:setString('')
+    vars['hpLabel2']:setString('')
+    vars['hpLabel1']:setString('') -- 퍼센트
+    
+    local icon = IconHelper:getAttributeIcon(cur_attr)
+    vars['attrNode']:removeAllChildren()
+    vars['attrNode']:addChild(icon)
+
+    if (is_boss_dirty) then
+        vars['bossNode']:removeAllChildren()
+
+        local l_monster = g_stageData:getMonsterIDList(self.m_cur_stage_id)
+        for _, mid in ipairs(l_monster) do
+            local res, attr, evolution = TableMonster:getMonsterRes(mid)
+            local animator = AnimatorHelper:makeMonsterAnimator(res, cur_attr, evolution)
+            if (animator) then
+                local zOrder = WORLD_Z_ORDER.BOSS
+                local idx = getDigit(mid, 10, 1)
+                if (idx == 1) and (mid == boss_mid) then
+                    zOrder = WORLD_Z_ORDER.BOSS     
+                elseif (idx == 1) then
+                    zOrder = WORLD_Z_ORDER.BOSS + 1
+                elseif (idx == 7) then
+                    zOrder = WORLD_Z_ORDER.BOSS
+                else
+                    zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
+                end
+                vars['bossNode']:addChild(animator.m_node, zOrder)
+
+                animator:changeAni('idle', true)
+            end
+        end
+        
+    end
+
+
+    vars['hpGauge']:runAction(cc.ProgressTo:create(0.2, 5))
+
 end
 
 -------------------------------------
