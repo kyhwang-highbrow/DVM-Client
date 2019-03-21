@@ -1084,6 +1084,7 @@ end
 function ServerData_ChallengeMode:getChallengeModeStatusText()
     local time = self:getChallengeModeRemainTime()
     local str = ''
+
     if (not self:isOpen_challengeMode()) then
         local remain_time = 0
         if (self.m_challengeModeStartTime) then
@@ -1531,7 +1532,7 @@ function ServerData_ChallengeMode:setInfoForLobby(ret)
     end
     
     if (ret['end_time']) then
-        self.m_challengeModeStartTime = ret['end_time']
+        self.m_challengeModeEndTime = ret['end_time']
     end
 
     if ret['open_info'] then
