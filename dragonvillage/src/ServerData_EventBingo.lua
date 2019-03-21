@@ -93,6 +93,8 @@ function ServerData_EventBingo:request_DrawNumber(finish_cb, pick_number)
     local function success_cb(ret)
         self.m_structBingo:addBingoNumber(ret['bingo_number'])
         self.m_structBingo:applyInfo(ret)
+        self.m_structBingo:addBingoClearLine(ret['bingo_clear'])
+        
         if finish_cb then
             finish_cb(ret)
         end
@@ -123,7 +125,6 @@ function ServerData_EventBingo:request_rewardBingo(reward_type, reward_ind, fini
     -- 콜백
     local function success_cb(ret)
         self.m_structBingo:applyInfo(ret)
-        self.m_structBingo:addBingoClearLine(ret['bingo_clear'])
         if finish_cb then
             finish_cb(ret)
         end

@@ -79,6 +79,13 @@ function UI_EventBingo:initUI()
         end
     end
 
+    -- 완성된 빙고 표기
+    vars['visualNode']:removeAllChildren()
+    local m_bingo_line = struct_bingo:getBingoLine()
+    for line_number, state in pairs(m_bingo_line) do
+        self:setBingo(line_number)
+    end
+
     vars['ggSprite']:setPercentage(0)
 end
 
@@ -126,12 +133,7 @@ function UI_EventBingo:refresh()
         self.m_lBingoNumber[tonumber(number)]:setActiveNumber(is_pick)
     end
 
-    -- 완성된 빙고 표기
-    vars['visualNode']:removeAllChildren()
-    local m_bingo_line = struct_bingo:getBingoLine()
-    for line_number, state in pairs(m_bingo_line) do
-        self:setBingo(line_number)
-    end
+
 
     --[[
     -- 획득 완료
@@ -157,9 +159,9 @@ end
 -------------------------------------
 function UI_EventBingo:getBingoType(bingo_line_number)
     local bingo_line_number = tonumber(bingo_line_number)
-    if (bingo_line_number == 1) then
+    if (bingo_line_number == 7) then
         return BINGO_TYPE.CROSS_LEFT_TO_RIGHT, nil
-    elseif (bingo_line_number == 7) then
+    elseif (bingo_line_number == 1) then
         return BINGO_TYPE.CROSS_RIGHT_TO_LEFT, nil    
     elseif (bingo_line_number>=2 and bingo_line_number<=6) then
         return BINGO_TYPE.HORIZONTAL, bingo_line_number - 1
@@ -294,6 +296,11 @@ end
 function UI_EventBingo:click_drawNumberBtn()
     local cb_func = function(ret)
         self:pickNumberAction(tonumber(ret['bingo_number']))
+        
+        local l_clear = ret['bingo_clear']
+        for i, number in ipairs(l_clear) do
+            self:setBingo(number)
+        end
     end
     g_eventBingoData:request_DrawNumber(cb_func)
 end
@@ -324,8 +331,14 @@ end
 -- function request_selectedDraw
 -------------------------------------
 function UI_EventBingo:request_selectedDraw(selected_num)    
-     local cb_func = function()
+     local cb_func = function(ret)
         self:bingoNumBtnEnabled(false)
+        
+        local l_clear = ret['bingo_clear']
+        for i, number in ipairs(l_clear) do
+            self:setBingo(number)
+        end
+
         self:refresh()
      end  
      
@@ -337,10 +350,7 @@ end
 -------------------------------------
 function UI_EventBingo:click_rewardBingo(reward_ind)
     local cb_func = function(ret)
-        local l_clear = ret['bingo_clear']
-        for i, number in ipairs(l_clear) do
-            self:setBingo(number)
-        end
+
     end
     g_eventBingoData:request_rewardBingo('step', reward_ind, cb_func)
 end
@@ -446,6 +456,11 @@ function _UI_EventBingoListItem:setBtnEnabled(is_enabled)
         vars['clickBtn']:setEnabled(is_enabled)
         vars['pickSprite']:setVisible(is_enabled)
     end
+
+    -- 활성화 아닐때에는, 고를 수 있는 표시 무조건 끔
+    if (not is_enabled) then
+        vars['pickSprite']:setVisible(false)
+    end
 end
 
 
@@ -494,9 +509,11 @@ function _UI_EventBingoRewardListItem:initUI()
     local item_id = l_item_str[1]
     local item_cnt = l_item_str[2]
     local node = vars['itemNode'..node_ind]
-    print(item_str, item_id, item_cnt)
     local reward_card = UI_ItemCard(tonumber(item_id), tonumber(item_cnt))
     reward_card.vars['bgSprite']:setVisible(false)
     reward_card.vars['commonSprite']:setVisible(false)
-    vars['iconNode']:addChild(reward_card.root)
+
+    if (reward_card) then
+        vars['iconNode']:addChild(reward_card.root)
+    end
 end
