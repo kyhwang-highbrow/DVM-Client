@@ -26,17 +26,21 @@ UI_ReadySceneNew = class(PARENT,{
 
         -- 멀티덱 사용하는 경우 (클랜 던전, 고대 유적 던전)
         m_multiDeckMgr = 'MultiDeckMgr',
+
+        m_tSubInfo = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ReadySceneNew:init(stage_id, sub_info)
+function UI_ReadySceneNew:init(stage_id, sub_info, t_sub_info)
     -- spine 캐시 정리
     SpineCacheManager:getInstance():purgeSpineCacheData()
     self.m_gameMode = g_stageData:getGameMode(stage_id)
     self.m_subInfo = sub_info
-	if (not stage_id) then
+    self.m_tSubInfo = t_sub_info
+	
+    if (not stage_id) then
 		stage_id = COLOSSEUM_STAGE_ID
 	end
     self:init_MemberVariable(stage_id)
@@ -1059,8 +1063,10 @@ function UI_ReadySceneNew:click_startBtn()
 	end
 	
     -- 클랜던전 연습모드의 경우
-    if (self.m_subInfo == 'training') then
-        self:startGame_clanRaidTraining(stage_id)
+    if (self.m_tSubInfo) then
+        if (self.m_tSubInfo['type'] == 'training') then
+            self:startGame_clanRaidTraining(self.m_tSubInfo)
+        end
     else
 	    self:startGame(stage_id)
     end	
@@ -1541,8 +1547,13 @@ end
 -------------------------------------
 -- function startGame_clanRaidTraining
 -------------------------------------
-function UI_ReadySceneNew:startGame_clanRaidTraining()
-    self:networkGameStart() -- 임시로 게임 시작
+function UI_ReadySceneNew:startGame_clanRaidTraining(t_sub_info)
+    local function finish_cb(game_key)
+        self:replaceGameScene(game_key)
+    end
+    local deck_name = g_deckData:getSelectedDeckName()
+    local combat_power = self.m_readySceneDeck:getDeckCombatPower()
+    g_stageData:requestGameStart_training(t_sub_info['stage_id'], deck_name, combat_power, finish_cb, nil, t_sub_info)
 end
 
 --@CHECK

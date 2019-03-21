@@ -188,10 +188,21 @@ function UI_ClanRaidTrainingPopup:click_plusBtn()
 end
 
 -------------------------------------
+-- function click_maxBtn
+-------------------------------------
+function UI_ClanRaidTrainingPopup:click_maxBtn()
+    self:setCurrCount(STAGE_MAX)
+end
+
+-------------------------------------
 -- function click_applyBtn
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_applyBtn()
-    UI_ReadySceneNew(self.m_cur_stage_id, 'training') 
+    local training_info = {}
+    training_info['type'] = 'training'
+    training_info['attr'] = 'earth'
+    training_info['stage_id'] = self.m_select_stage_id
+    UI_ReadySceneNew(self.m_cur_stage_id, nil, training_info) 
 end
 
 --@CHECK

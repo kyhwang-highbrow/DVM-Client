@@ -763,3 +763,29 @@ function ServerData_Stage:getTeamBonusIds(deckname)
     
     return ids
 end
+
+-------------------------------------
+-- function requestGameStart_training
+-------------------------------------
+function ServerData_Stage:requestGameStart_training(stage_id, deck_name, combat_power, finish_cb, fail_cb, t_stage_info)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        local game_key = 'training'
+        finish_cb(game_key)
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/dungeon_training_start')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage_id)
+    ui_network:setParam('attr', t_stage_info['attr'])
+    
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end

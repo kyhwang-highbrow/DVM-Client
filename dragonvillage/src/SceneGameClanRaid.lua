@@ -341,19 +341,38 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
         return false
     end
 
-    local api_url = '/clans/dungeon_finish'
-    
-    local ui_network = UI_Network()
-    ui_network:setUrl(api_url)
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', self.m_stageID)
+    if (self.m_gameKey == 'training') then
+        local api_url = '/clans/dungeon_training_finish'
+        
+        local ui_network = UI_Network()
+        ui_network:setUrl(api_url)
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('stage', self.m_stageID)
+        local attr = TableStageData():getStageAttr(self.m_stageID)
 
-    -- 데미지 임의 
-    ui_network:setParam('damage', t_param['damage'])
-    ui_network:setParam('gamekey', self.m_gameKey)
-    ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:request()
+        -- 데미지 임의 
+        ui_network:setParam('attr', attr)
+        ui_network:setParam('score', t_param['damage'])
+        ui_network:setParam('deck1_dids', '')
+        ui_network:setParam('deck2_dids', '')
+        ui_network:setResponseStatusCB(response_status_cb)
+        ui_network:setSuccessCB(success_cb)
+        ui_network:request()
+    else
+        local api_url = '/clans/dungeon_finish'
+        
+        local ui_network = UI_Network()
+        ui_network:setUrl(api_url)
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('stage', self.m_stageID)
+
+        -- 데미지 임의 
+        ui_network:setParam('damage', t_param['damage'])
+        ui_network:setParam('gamekey', self.m_gameKey)
+        ui_network:setResponseStatusCB(response_status_cb)
+        ui_network:setSuccessCB(success_cb)
+        ui_network:request()
+    end
 end
 
 -------------------------------------
