@@ -123,6 +123,7 @@ function ServerData_EventBingo:request_rewardBingo(reward_type, reward_ind, fini
     -- 콜백
     local function success_cb(ret)
         self.m_structBingo:applyInfo(ret)
+        self.m_structBingo:addBingoClearLine(ret['bingo_clear'])
         if finish_cb then
             finish_cb(ret)
         end

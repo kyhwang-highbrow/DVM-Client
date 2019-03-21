@@ -5,7 +5,7 @@ local PARENT = Structure
 -- @brief 이벤트 팝업에 등록된 탭
 -------------------------------------
 StructEventBingoInfo = class(PARENT, {
-        table_event_product = 'table',
+        table_bingo_reward = 'table',
         
         event = 'number',
         event_get = 'number',
@@ -83,7 +83,26 @@ end
 -- function getBingoRewardList
 -------------------------------------
 function StructEventBingoInfo:getBingoRewardList()
-    return self['bingo_count_info']['bingo_count_reward']
+    return self['bingo_count_info']['bingo_count_reward'] or {}
+end
+
+-------------------------------------
+-- function getBingoRewardListCnt
+-------------------------------------
+function StructEventBingoInfo:getBingoRewardListCnt()
+    local t_bingo = self:getBingoRewardList()
+    local cnt = 0
+    for _,_ in pairs(t_bingo) do
+        cnt = cnt + 1
+    end
+    return cnt
+end
+
+-------------------------------------
+-- function getBingoLineRewardList
+-------------------------------------
+function StructEventBingoInfo:getBingoLineRewardList()
+    return self['table_bingo_reward'] or {}
 end
 
 -------------------------------------
@@ -165,5 +184,16 @@ function StructEventBingoInfo:applyInfo(ret)
     if (ret['bingo_line']) then
         self['bingo_line'] = ret['bingo_line']
     end
+end
+
+-------------------------------------
+-- function addBingoClearLine
+-------------------------------------
+function StructEventBingoInfo:addBingoClearLine(ret)
+    local l_bingo = self['bingo_line']
+    for i, number in ipairs(l_bingo) do
+        table.insert(l_bingo, number)
+    end
+    self['bingo_line'] = l_bingo
 end
 
