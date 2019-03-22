@@ -8,6 +8,7 @@ UI_ClanRaidTrainingPopup = class(PARENT, {
         m_curHp = 'number',
         m_selectStageLv = 'number',
         m_selectedAttr = 'string',
+        m_selectedHp = 'number',
         m_isMaxHp = 'boolean',
      })
 
@@ -23,8 +24,8 @@ function UI_ClanRaidTrainingPopup:init()
     local struct_clan_raid =  g_clanRaidData:getClanRaidStruct()
     self.m_curStageLv = struct_clan_raid:getLv()
     self.m_curHp = struct_clan_raid:getHp()
-    self.m_selectStageLv = nil
-    self.m_isMaxHp = false
+    
+    self.m_isMaxHp = true
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanRaidTrainingPopup')
 
@@ -38,8 +39,9 @@ function UI_ClanRaidTrainingPopup:init()
     self:initButton()
     self:initSlideBar()
     self:refresh(true)
-    self:refreshInfo()
+    self:refreshInfo(self.m_curStageLv, self.m_curHp)
     self:setCurrCount(self.m_curStageLv, false)
+    self.m_selectStageLv = self.m_curStageLv
 end
 
 -------------------------------------
@@ -194,11 +196,20 @@ function UI_ClanRaidTrainingPopup:onTouchEnded(touch, event)
 end
 
 -------------------------------------
+-- function getMaxHp
+-------------------------------------
+function UI_ClanRaidTrainingPopup:getMaxHp(stage_lv)
+    local stage_id = 1500000 + stage_lv
+    local table_clan_raid = TABLE:get('table_clan_dungeon')
+    local max_hp = table_clan_raid[stage_id]['boss_hp']
+    return max_hp
+end
+
+-------------------------------------
 -- function refreshInfo
 -------------------------------------
 function UI_ClanRaidTrainingPopup:refreshInfo(lv, hp)
     local vars = self.vars   
-    local table_clan_raid = TABLE:get('table_clan_dungeon')
     
     local stage_lv = self.m_selectStageLv
     if (not self.m_selectStageLv) then
@@ -210,7 +221,7 @@ function UI_ClanRaidTrainingPopup:refreshInfo(lv, hp)
     end
 
     local stage_id = 1500000 + stage_lv
-    local max_hp = table_clan_raid[stage_id]['boss_hp']
+    local max_hp = self:getMaxHp(stage_lv)
     local stage_hp = max_hp
 
     if (self.m_isMaxHp == false) then
@@ -222,6 +233,7 @@ function UI_ClanRaidTrainingPopup:refreshInfo(lv, hp)
     end
 
     local hp_ratio = stage_hp/max_hp * 100
+    self.m_selectedHp = stage_hp
     vars['lvLabel']:setString(Str('Lv.{1}', stage_lv))
     vars['hpLabel2']:setString(Str('{1}/{2}', stage_hp, max_hp))
     local hp_ratio_str = string.format('%0.2f%%', hp_ratio)
@@ -332,7 +344,11 @@ end
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_resetBtn()
     local cur_attr = g_clanData:getCurSeasonBossAttr()
-    self:setTab(cur_attr)
+
+    self.m_selectStageLv = self.m_curStageLv
+    self.m_selectedAttr = cur_attr
+    
+    self:setTab(cur_attr)    
     self:setCurrCount(self.m_curStageLv, false)
     self:refreshInfo(self.m_curStageLv, self.m_curHp)
 end
@@ -341,11 +357,14 @@ end
 -- function click_applyBtn
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_applyBtn()
-    local training_info = {}
-    training_info['type'] = 'training'
-    training_info['attr'] = 'earth'
-    training_info['stage_id'] = self.m_selectStageLv
-    UI_ReadySceneNew(self.m_curStageLv, nil, training_info) 
+    local training_info = StructClanRaid()
+    local selected_stage_id = self.m_selectStageLv + 1500000
+    training_info['clan_raid_type'] = 'training'
+    training_info['attr'] = self.m_selectedAttr
+    training_info['hp'] = SecurityNumberClass(self.m_selectedHp)
+    training_info['max_hp'] = SecurityNumberClass(self:getMaxHp(self.m_selectStageLv))
+    training_info['stage'] = selected_stage_id
+    UI_ReadySceneNew(selected_stage_id, nil, training_info) 
 end
 
 --@CHECK

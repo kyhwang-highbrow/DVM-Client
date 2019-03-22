@@ -1064,7 +1064,7 @@ function UI_ReadySceneNew:click_startBtn()
 	
     -- 클랜던전 연습모드의 경우
     if (self.m_tSubInfo) then
-        if (self.m_tSubInfo['type'] == 'training') then
+        if (self.m_tSubInfo['clan_raid_type'] == 'training') then
             self:startGame_clanRaidTraining(self.m_tSubInfo)
         end
     else
@@ -1553,7 +1553,7 @@ function UI_ReadySceneNew:startGame_clanRaidTraining(t_sub_info)
     end
     local deck_name = g_deckData:getSelectedDeckName()
     local combat_power = self.m_readySceneDeck:getDeckCombatPower()
-    g_stageData:requestGameStart_training(t_sub_info['stage_id'], deck_name, combat_power, finish_cb, nil, t_sub_info)
+    g_stageData:requestGameStart_training(t_sub_info['stage'], deck_name, combat_power, finish_cb, nil, t_sub_info)
 end
 
 --@CHECK

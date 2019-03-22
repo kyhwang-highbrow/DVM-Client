@@ -28,6 +28,9 @@ StructClanRaid = class(PARENT, {
 
         state = 'CLAN_RAID_STATE',
         finish = 'bool',
+
+        clan_raid_type = 'string',
+        attr = 'string',
     })
 
 local THIS = StructClanRaid
@@ -173,7 +176,12 @@ function StructClanRaid:getBossNameWithLv(is_richlabel)
     local name = self:getBossName()
     
     local boss_mid = self:getBossMid()
+
     local attr = TableMonster:getMonsterAttr(boss_mid)
+
+    if (self['attr']) then
+        attr = self['attr']
+    end
 
     local str = is_richlabel and
                 string.format('{@apricot}Lv.%s {@%s}%s', lv, attr, name) or
