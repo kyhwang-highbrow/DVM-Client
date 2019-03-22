@@ -1289,5 +1289,14 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Clan:getCurSeasonBossAttr()
+    local struct_clan_raid = g_clanRaidData:getClanRaidStruct()
+    
+    -- 저장된 속성이 있다면 그 속성을 사용
+    if (struct_clan_raid) then
+        if (struct_clan_raid['attr']) then
+            return struct_clan_raid['attr']
+        end
+    end
+    
     return self.m_cur_season_boss_attr
 end

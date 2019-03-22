@@ -357,13 +357,15 @@ end
 -- function click_applyBtn
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_applyBtn()
-    local training_info = StructClanRaid()
+    local training_info = g_clanRaidData.m_structClanRaid
     local selected_stage_id = self.m_selectStageLv + 1500000
     training_info['clan_raid_type'] = 'training'
     training_info['attr'] = self.m_selectedAttr
     training_info['hp'] = SecurityNumberClass(self.m_selectedHp)
     training_info['max_hp'] = SecurityNumberClass(self:getMaxHp(self.m_selectStageLv))
     training_info['stage'] = selected_stage_id
+    training_info['id'] = selected_stage_id
+    g_clanRaidData.m_structClanRaid = training_info
     UI_ReadySceneNew(selected_stage_id, nil, training_info) 
 end
 

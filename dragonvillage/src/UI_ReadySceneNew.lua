@@ -483,14 +483,10 @@ function UI_ReadySceneNew:initUI()
             local stage_id = struct_raid:getStageID()
             local _, boss_mid = g_stageData:isBossStage(stage_id)
             local l_monster = g_stageData:getMonsterIDList(stage_id)
-            for _, v in ipairs(l_monster) do
-                if (v == boss_mid) then
-                    local ui = UI_MonsterCustomCard(v)
-                    ui.vars['clickBtn']:setEnabled(false)
-                    vars['bossNode']:addChild(ui.root)
-                    break
-                end
-            end
+
+            local ui = UI_MonsterCustomCard(l_monster[#l_monster])
+            ui.vars['clickBtn']:setEnabled(false)
+            vars['bossNode']:addChild(ui.root)
         end
     end
 end

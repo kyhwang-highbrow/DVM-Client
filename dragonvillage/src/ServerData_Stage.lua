@@ -646,8 +646,18 @@ end
 -------------------------------------
 function ServerData_Stage:getMonsterIDList(stage_id)
     local game_mode = self:getGameMode(stage_id)
-
+    local table_stage_desc = TableStageDesc()
     local ret = nil
+
+    -- 클랜던전의 경우, 현재 StructClanRaid에 attr 값이 있는 지 확인하고 없다면 그 attr을 사용
+    if (TableStageData:isClanRaidStage(stage_id)) then
+        local clan_raid_struct = g_clanRaidData:getClanRaidStruct()
+        if (clan_raid_struct['attr']) then
+            local ret = table_stage_desc:getMonsterIDList_ClanMonster(clan_raid_struct['attr'])
+            return ret
+        end
+    end
+
 
     -- 비밀 던전 모드
     if (game_mode == GAME_MODE_SECRET_DUNGEON) then
@@ -656,7 +666,6 @@ function ServerData_Stage:getMonsterIDList(stage_id)
         ret = g_secretDungeonData:getMonsterIDList(stage_id)
 
     else
-        local table_stage_desc = TableStageDesc()
         if (not table_stage_desc:get(stage_id)) then
             return {}
         end

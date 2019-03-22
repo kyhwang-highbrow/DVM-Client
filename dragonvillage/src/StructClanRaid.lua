@@ -445,3 +445,12 @@ end
 function StructClanRaid:isClearAllClanRaidStage()   
     return self.finish
 end
+
+-------------------------------------
+-- function resetTrainingSettingInfo
+-------------------------------------
+function StructClanRaid:resetTrainingSettingInfo()   
+    self.clan_raid_type = nil
+    self.attr = nil
+end
+

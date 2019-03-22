@@ -300,6 +300,7 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
         -- 클랜 던전 정보
         if (ret['dungeon']) then
             self.m_structClanRaid = StructClanRaid(ret['dungeon'])
+            self.m_structClanRaid:resetTrainingSettingInfo()
         else
             self.m_structClanRaid = nil
         end
