@@ -506,6 +506,24 @@ function UI_CharacterCard:setAttrSynastry(attr_synastry)
 end
 
 -------------------------------------
+-- function setClanAttrSynastry
+-------------------------------------
+function UI_CharacterCard:setClanAttrSynastry(attr_synastry)
+    local lua_name = 'clanAttrVisual'
+    local res = 'res/ui/a2d/clan_raid_attr_info/clan_raid_attr_info.vrp'
+    local ani
+    local visible = (attr_synastry ~= 0)
+
+    if (attr_synastry == 1) then
+        ani = 'clan_raid_attr_info_02'
+    elseif (attr_synastry == -1) then
+        return
+    end
+
+    self:setAnimatorVisible(lua_name, res, 'clan_raid_attr_info_02', visible)
+end
+
+-------------------------------------
 -- function setBookRewardVisual
 -- @brief 도감 보상 표시
 -- @external call

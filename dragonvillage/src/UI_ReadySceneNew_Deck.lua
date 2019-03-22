@@ -523,6 +523,7 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
         local _, bonus_info = raid_info:getBonusSynastryInfo()
         local _, penalty_info = raid_info:getPenaltySynastryInfo()
         ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
+        ui:setClanAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
     else
         ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
     end

@@ -470,7 +470,7 @@ function UI_ReadySceneNew:initUI()
             if (not struct_raid) then
                 return
             end
-
+            --[[
             vars['bossInfoMenu']:setVisible(true)
 
             local is_rich_label = true
@@ -487,6 +487,41 @@ function UI_ReadySceneNew:initUI()
             local ui = UI_MonsterCustomCard(l_monster[#l_monster])
             ui.vars['clickBtn']:setEnabled(false)
             vars['bossNode']:addChild(ui.root)
+            --]]
+            vars['synastryTipsMenu']:setVisible(true)
+            vars['synastryInfoBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_dungeon','clan_dungeon_summary', 'cldg_attr_bonus') end)
+            vars['attrInfoSprite']:setVisible(false)
+            -- 보너스 속성
+            do
+                local str, map_attr = struct_raid:getBonusSynastryInfo()
+                vars['bonusTipsDscLabel']:setString(str)
+
+                for k, v in pairs(map_attr) do
+                    -- 속성 아이콘
+                    local icon = IconHelper:getAttributeIcon(k)
+                    local target_node = vars['bonusTipsNode']
+                    target_node:addChild(icon)
+                end
+            end
+
+            -- 페널티 속성
+            do
+                local str, map_attr = struct_raid:getPenaltySynastryInfo()
+                vars['panaltyTipsDscLabel']:setString(str)
+
+                local cnt = table.count(map_attr)
+                local idx = 0
+
+                for k, v in pairs(map_attr) do
+                    idx = idx + 1
+                    -- 속성 아이콘
+                    local icon = IconHelper:getAttributeIcon(k)
+                    local target_node = (cnt == 1) and 
+                                        vars['panaltyTipsNode'] or 
+                                        vars['panaltyTipsNode'..idx]
+                    target_node:addChild(icon)
+                end
+            end
         end
     end
 end
