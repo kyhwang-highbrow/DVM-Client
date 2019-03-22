@@ -84,7 +84,24 @@ function TableStageDesc:getMonsterIDList(stage_id)
     end
     
     local t_table = self:get(stage_id)
-        
+    local str = tostring(t_table['monster_id']) or ''
+    local l_moster_id = plSplit(str, ';')
+
+    for i,v in ipairs(l_moster_id) do
+        l_moster_id[i] = tonumber(trim(v))
+    end
+
+    return l_moster_id or {}
+end
+
+-------------------------------------
+-- function getMonsterIDList_ClanMonster
+-- @brief 클랜 보스 애니 소스를 속성별로 가져옴
+-------------------------------------
+function TableStageDesc:getMonsterIDList_ClanMonster(attr)  
+    local stage_id = self:getStageIdByClanBossAttr(attr)
+   
+    local t_table = self:get(stage_id)
     local str = tostring(t_table['monster_id']) or ''
     local l_moster_id = plSplit(str, ';')
 

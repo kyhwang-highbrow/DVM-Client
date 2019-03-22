@@ -1,11 +1,14 @@
-local PARENT = UI
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_ClanRaidTrainingPopup
 -------------------------------------
 UI_ClanRaidTrainingPopup = class(PARENT, {
-        m_cur_stage_id = 'number',
-        m_select_stage_id = 'number',
+        m_curStageLv = 'number',
+        m_curHp = 'number',
+        m_selectStageLv = 'number',
+        m_selectedAttr = 'string',
+        m_isMaxHp = 'boolean',
      })
 
 local STAGE_MAX = 150
@@ -13,12 +16,15 @@ local STAGE_MAX = 150
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanRaidTrainingPopup:init(stage_id)
+function UI_ClanRaidTrainingPopup:init()
     local vars = self:load('clan_raid_training.ui')
     UIManager:open(self, UIManager.POPUP)
 
-    self.m_cur_stage_id = stage_id
-
+    local struct_clan_raid =  g_clanRaidData:getClanRaidStruct()
+    self.m_curStageLv = struct_clan_raid:getLv()
+    self.m_curHp = struct_clan_raid:getHp()
+    self.m_selectStageLv = nil
+    self.m_isMaxHp = false
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanRaidTrainingPopup')
 
@@ -27,10 +33,13 @@ function UI_ClanRaidTrainingPopup:init(stage_id)
     self:doAction(nil, false)
 
     self:initUI()
+    self:initTab()
+    self:initRadioBtn()
     self:initButton()
     self:initSlideBar()
     self:refresh(true)
-    self:setCurrCount(stage_id, true)
+    self:refreshInfo()
+    self:setCurrCount(self.m_curStageLv, false)
 end
 
 -------------------------------------
@@ -38,6 +47,23 @@ end
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_ClanRaidTrainingPopup:initTab()
+    local vars = self.vars
+    self:addTab('earth', vars['attrBtn1'])
+    self:addTab('water', vars['attrBtn2'])
+    self:addTab('fire', vars['attrBtn3'])
+    self:addTab('light', vars['attrBtn4'])
+    self:addTab('dark', vars['attrBtn5'])
+
+    local cur_attr = g_clanData:getCurSeasonBossAttr()
+    self:setTab(cur_attr)
+
+	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
 -------------------------------------
@@ -49,19 +75,26 @@ function UI_ClanRaidTrainingPopup:initUI()
 end
 
 -------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanRaidTrainingPopup:onChangeTab(tab, first)
+    local vars = self.vars
+    self.m_selectedAttr = tab
+    self:refreshBoss(self.m_selectedAttr)
+end
+
+-------------------------------------
 -- function initButton
 -------------------------------------
 function UI_ClanRaidTrainingPopup:initButton()
     local vars = self.vars
-    for i=1,5 do
-        vars['attrBtn'..i]:registerScriptTapHandler(function() self:click_attrBtn(i) end)
-    end
 
     vars['okBtn']:registerScriptTapHandler(function() self:click_applyBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['quantityBtn1']:registerScriptTapHandler(function() self:click_minusBtn() end)
     vars['quantityBtn3']:registerScriptTapHandler(function() self:click_plusBtn() end)
     vars['quantityBtn4']:registerScriptTapHandler(function() self:click_maxBtn() end)
+    vars['resetBtn']:registerScriptTapHandler(function() self:click_resetBtn() end)
 end
 
 -------------------------------------
@@ -132,32 +165,68 @@ function UI_ClanRaidTrainingPopup:setCurrCount(count, ignore_slider_bar)
     local vars = self.vars
     local count = math_clamp(count, 1, STAGE_MAX)
     
-    if (self.m_select_stage_id == count) then
+    if (self.m_selectStageLv == count) then
         return
     end
 
-    self.m_select_stage_id = count
-
-    -- 지원 레벨
-    vars['quantityLabel']:setString(comma_value(self.m_cur_stage_id))
+    self.m_selectStageLv = count
 
     -- 퍼센트 지정
     if (not ignore_slider_bar) then
-        local percentage = (self.m_select_stage_id / STAGE_MAX) * 100
+        local percentage = (self.m_selectStageLv / STAGE_MAX) * 100
         vars['quantityGuage']:stopAllActions()
         vars['quantityGuage']:runAction(cc.ProgressTo:create(0.2, percentage))
     
-        local pos_x = 230 * (self.m_select_stage_id / STAGE_MAX)
+        local pos_x = (self.m_selectStageLv / STAGE_MAX) * 300
         vars['quantityBtn2']:stopAllActions()
         vars['quantityBtn2']:runAction(cc.MoveTo:create(0.2, cc.p(pos_x, 0)))
     end
+
+    -- 지원 레벨
+    vars['quantityLabel']:setString(comma_value(self.m_selectStageLv))
 end
 
 -------------------------------------
 -- function onTouchEnded
 -------------------------------------
 function UI_ClanRaidTrainingPopup:onTouchEnded(touch, event)
-    self:refreshBoss('light') -- 임의로
+    self:refreshInfo()
+end
+
+-------------------------------------
+-- function refreshInfo
+-------------------------------------
+function UI_ClanRaidTrainingPopup:refreshInfo(lv, hp)
+    local vars = self.vars   
+    local table_clan_raid = TABLE:get('table_clan_dungeon')
+    
+    local stage_lv = self.m_selectStageLv
+    if (not self.m_selectStageLv) then
+        stage_lv = self.m_curStageLv
+    end
+
+    if (lv) then
+        stage_lv = lv
+    end
+
+    local stage_id = 1500000 + stage_lv
+    local max_hp = table_clan_raid[stage_id]['boss_hp']
+    local stage_hp = max_hp
+
+    if (self.m_isMaxHp == false) then
+        stage_hp = max_hp * 0.05
+    end
+
+    if (hp) then
+        stage_hp = hp
+    end
+
+    local hp_ratio = stage_hp/max_hp * 100
+    vars['lvLabel']:setString(Str('Lv.{1}', stage_lv))
+    vars['hpLabel2']:setString(Str('{1}/{2}', stage_hp, max_hp))
+    local hp_ratio_str = string.format('%0.2f%%', hp_ratio)
+    vars['hpLabel1']:setString(hp_ratio_str, false)
+    vars['hpGauge']:setPercentage(hp_ratio)
 end
 
 -------------------------------------
@@ -165,52 +234,34 @@ end
 -------------------------------------
 function UI_ClanRaidTrainingPopup:refreshBoss(attr)
     local vars = self.vars
-    local cur_attr
-    local is_boss_dirty = false
-    if (attr) then
-        is_boss_dirty = true
-        cur_attr = attr
-    else
-        cur_attr = g_clanData:getCurSeasonBossAttr()
-    end
-    vars['lvLabel']:setString('')
-    vars['hpLabel2']:setString('')
-    vars['hpLabel1']:setString('') -- 퍼센트
     
-    local icon = IconHelper:getAttributeIcon(cur_attr)
+    local icon = IconHelper:getAttributeIcon(attr)
     vars['attrNode']:removeAllChildren()
     vars['attrNode']:addChild(icon)
 
-    if (is_boss_dirty) then
-        vars['bossNode']:removeAllChildren()
+    vars['bossNode']:removeAllChildren()
 
-        local l_monster = g_stageData:getMonsterIDList(self.m_cur_stage_id)
-        for _, mid in ipairs(l_monster) do
-            local res, attr, evolution = TableMonster:getMonsterRes(mid)
-            local animator = AnimatorHelper:makeMonsterAnimator(res, cur_attr, evolution)
-            if (animator) then
-                local zOrder = WORLD_Z_ORDER.BOSS
-                local idx = getDigit(mid, 10, 1)
-                if (idx == 1) and (mid == boss_mid) then
-                    zOrder = WORLD_Z_ORDER.BOSS     
-                elseif (idx == 1) then
-                    zOrder = WORLD_Z_ORDER.BOSS + 1
-                elseif (idx == 7) then
-                    zOrder = WORLD_Z_ORDER.BOSS
-                else
-                    zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
-                end
-                vars['bossNode']:addChild(animator.m_node, zOrder)
-
-                animator:changeAni('idle', true)
+    local l_monster = TableStageDesc():getMonsterIDList_ClanMonster(attr)
+    for _, mid in ipairs(l_monster) do
+        local res, attr, evolution = TableMonster:getMonsterRes(mid)
+        local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        if (animator) then
+            local zOrder = WORLD_Z_ORDER.BOSS
+            local idx = getDigit(mid, 10, 1)
+            if (idx == 1) and (mid == boss_mid) then
+                zOrder = WORLD_Z_ORDER.BOSS     
+            elseif (idx == 1) then
+                zOrder = WORLD_Z_ORDER.BOSS + 1
+            elseif (idx == 7) then
+                zOrder = WORLD_Z_ORDER.BOSS
+            else
+                zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
             end
+            vars['bossNode']:addChild(animator.m_node, zOrder)
+
+            animator:changeAni('idle', true)
         end
-        
     end
-
-
-    vars['hpGauge']:runAction(cc.ProgressTo:create(0.2, 5))
-
 end
 
 -------------------------------------
@@ -221,24 +272,43 @@ function UI_ClanRaidTrainingPopup:refresh(force)
 end
 
 -------------------------------------
--- function click_attrBtn
+-- function initRadioBtn
 -------------------------------------
-function UI_ClanRaidTrainingPopup:click_attrBtn(ind)
-    
+function UI_ClanRaidTrainingPopup:initRadioBtn()
+    local vars = self.vars
+
+    local radio_button = UIC_RadioButton()
+    radio_button:setChangeCB(function(hp_type)          
+        self.m_isMaxHp = (hp_type == 'maxHp')
+        self:refreshInfo()
+    end)
+
+    local btn = vars['contentBtn1']
+    local label = vars['contentSprite1']
+	radio_button:addButton('maxHp', btn, label)
+
+    local btn = vars['contentBtn2']
+    local label = vars['contentSprite2']
+	radio_button:addButton('fianlBlow', btn, label)
+
+    -- 디폴트로 일반 강화 선택
+    --radio_button:setSelectedButton('normalOpt')  
 end
 
 -------------------------------------
 -- function click_minusBtn
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_minusBtn()
-    self:setCurrCount(self.m_select_stage_id - 1)
+    self:setCurrCount(self.m_selectStageLv - 1, false)
+    self:refreshInfo()
 end
 
 -------------------------------------
 -- function click_plusBtn
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_plusBtn()
-    self:setCurrCount(self.m_select_stage_id + 1)
+    self:setCurrCount(self.m_selectStageLv + 1, false)
+    self:refreshInfo()
 end
 
 -------------------------------------
@@ -246,6 +316,25 @@ end
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_maxBtn()
     self:setCurrCount(STAGE_MAX)
+    self:refreshInfo()
+end
+
+-------------------------------------
+-- function click_attrBtn
+-------------------------------------
+function UI_ClanRaidTrainingPopup:click_attrBtn(ind)
+    local l_attr = getAttrOrderMap()
+    self.m_selectedAttr = l_attr[ind]
+end
+
+-------------------------------------
+-- function click_resetBtn
+-------------------------------------
+function UI_ClanRaidTrainingPopup:click_resetBtn()
+    local cur_attr = g_clanData:getCurSeasonBossAttr()
+    self:setTab(cur_attr)
+    self:setCurrCount(self.m_curStageLv, false)
+    self:refreshInfo(self.m_curStageLv, self.m_curHp)
 end
 
 -------------------------------------
@@ -255,8 +344,8 @@ function UI_ClanRaidTrainingPopup:click_applyBtn()
     local training_info = {}
     training_info['type'] = 'training'
     training_info['attr'] = 'earth'
-    training_info['stage_id'] = self.m_select_stage_id
-    UI_ReadySceneNew(self.m_cur_stage_id, nil, training_info) 
+    training_info['stage_id'] = self.m_selectStageLv
+    UI_ReadySceneNew(self.m_curStageLv, nil, training_info) 
 end
 
 --@CHECK

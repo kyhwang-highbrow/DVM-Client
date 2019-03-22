@@ -93,6 +93,7 @@ local TableInfo = {
 
         table_rune_grind = {'table_rune_grind', 'rarity', false},
         table_clan_dungeon_buff = {'table_clan_dungeon_buff', 'stage', false}, -- 클랜 버프 테이블
+        table_clan_dungeon = {'table_clan_dungeon', 'stage', false}, -- 클랜 던전 정보
     }
 
 -------------------------------------
