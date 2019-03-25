@@ -837,11 +837,26 @@ function _UI_EventBingoRewardListItem:initUI()
     local node = vars['itemNode'..node_ind]
 
     local reward_card = UI_ItemCard(tonumber(item_id), tonumber(item_cnt))
+    
+    -- 아이템 카드의 경우 : 뒷 배경 끔
     if (reward_card.vars['bgSprite']) then
         reward_card.vars['bgSprite']:setVisible(false)
     end
     if (reward_card.vars['commonSprite']) then
         reward_card.vars['commonSprite']:setVisible(false)
+    end
+
+    -- 드래곤 카드의 경우: 속성, 프레임 끔
+    if (reward_card.vars['attrNode']) then
+        reward_card.vars['attrNode']:setVisible(false)
+    end
+
+    if (reward_card.vars['frameNode']) then
+        reward_card.vars['frameNode']:setVisible(false)
+    end
+
+    if (reward_card.vars['bgNode']) then
+        reward_card.vars['bgNode']:setVisible(false)
     end
 
     if (reward_card) then
