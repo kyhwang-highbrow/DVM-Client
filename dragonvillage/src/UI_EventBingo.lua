@@ -14,8 +14,7 @@ UI_EventBingo = class(PARENT,{
     })
 
 local BINGO_TYPE = {['HORIZONTAL'] = 1, ['VERTICAL'] = 2, ['CROSS_RIGHT_TO_LEFT'] = 3, ['CROSS_LEFT_TO_RIGHT'] = 4}
-local NEED_PICK_TOKEN = 100
-local NEED_TOKEN = 10
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -39,6 +38,7 @@ function UI_EventBingo:initUI()
     -- 선택한 번호로 확정 뽑기
     local func_click_bingoNum = function(selected_num)
         self:request_selectedDraw(selected_num)
+        vars['cancleBtn']:setVisible(false)
     end
 
     self.m_lBingoNumber = {}
@@ -103,6 +103,8 @@ function UI_EventBingo:initButton()
     vars['playBtn1']:registerScriptTapHandler(function() self:click_drawNumberBtn() end)
     vars['playBtn2']:registerScriptTapHandler(function() self:click_chooseNumberBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    vars['cancleBtn']:registerScriptTapHandler(function() self:click_cancelPick() end)
+    vars['cancleBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -116,12 +118,18 @@ function UI_EventBingo:refresh()
 
     local bingo_line_cnt = struct_bingo:getBingoLineCnt()
     vars['timeLabel']:setString(remain_time)
-    vars['numberLabel1']:setString(Str('{1}/{2}개', struct_bingo:getTodayEventItemCnt(), struct_bingo:getTodayMaxEventItemCnt()))
-    vars['obtainLabel']:setString(Str('일일 최대 {1}개 획득 가능', struct_bingo:getTodayMaxEventItemCnt()))
+    
+    local cur_cnt = struct_bingo:getTodayEventItemCnt()
+    local max_cnt = struct_bingo:getTodayMaxEventItemCnt()
+    vars['numberLabel1']:setString(Str('{1}/{2}개', comma_value(cur_cnt), comma_value(max_cnt)))
+    vars['obtainLabel']:setString(Str('일일 최대 {1}개 획득 가능', comma_value(max_cnt)))
     vars['rewardLabel']:setString(Str('{1} 빙고 보상', bingo_line_cnt))
     vars['progressLabel']:setString(Str('진행도: {1}/12', bingo_line_cnt))
-    vars['numberLabel2']:setString(Str('{1}개', struct_bingo:getEventItemCnt()))
-    vars['numberLabel3']:setString(Str('{1}개', struct_bingo:getPickEventItemCnt())) 
+
+    local eventCnt = struct_bingo:getEventItemCnt()
+    local eventPickCnt = struct_bingo:getPickEventItemCnt()
+    vars['numberLabel2']:setString(Str('{1}개', comma_value(eventCnt)))
+    vars['numberLabel3']:setString(Str('{1}개', comma_value(eventPickCnt))) 
     vars['rewardLabel']:setString(Str('{1} 빙고', bingo_line_cnt))
     vars['tokenPrice']:setString(struct_bingo.event_price)
     vars['pickTokenPrice']:setString(struct_bingo.event_token_price)
@@ -369,8 +377,7 @@ function UI_EventBingo:click_drawNumberBtn()
     
     -- 빙고판이 보이도록 포커싱
     self:moveContainer(0)
-
-    if (struct_bingo:getEventItemCnt() < NEED_TOKEN) then
+    if (struct_bingo:getEventItemCnt() < struct_bingo.event_price) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('보유 토큰')))
         return
     end
@@ -383,6 +390,7 @@ function UI_EventBingo:click_drawNumberBtn()
             local l_clear = ret['bingo_clear']
             local is_same_number = g_eventBingoData.m_isSameNumber
             if (is_same_number) then
+                self:showSameNumberAction(ret['bingo_number'])
                 self:showSameNumberGora()
             else
                 self:showNewNumberGora()
@@ -415,13 +423,14 @@ end
 -- function click_chooseNumberBtn
 -------------------------------------
 function UI_EventBingo:click_chooseNumberBtn()
+    local vars = self.vars
     local l_bingo_num = self.m_lBingoNumber
     local struct_bingo = g_eventBingoData.m_structBingo
 
     -- 빙고판이 보이도록 포커싱
     self:moveContainer(0)
 
-    if (struct_bingo:getPickEventItemCnt() < NEED_PICK_TOKEN) then
+    if (struct_bingo:getPickEventItemCnt() < struct_bingo.event_token_price) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('확정 뽑기 토큰')))
         return
     end
@@ -429,6 +438,8 @@ function UI_EventBingo:click_chooseNumberBtn()
     for _, ui in ipairs(l_bingo_num) do
         ui:setBtnEnabled(true)
     end
+
+    vars['cancleBtn']:setVisible(true)
 end
 
 -------------------------------------
@@ -485,6 +496,15 @@ function UI_EventBingo:click_rewardBingo(reward_ind)
 end
 
 -------------------------------------
+-- function click_cancelPick
+-------------------------------------
+function UI_EventBingo:click_cancelPick()
+    local vars = self.vars
+    self:bingoNumBtnEnabled(false)
+    vars['cancleBtn']:setVisible(false)
+end
+
+-------------------------------------
 -- function completeBingo
 -------------------------------------
 function UI_EventBingo:completeBingo()
@@ -531,6 +551,13 @@ function UI_EventBingo:showGoraAnimation(node)
 end
 
 -------------------------------------
+-- function showSameNumberAction
+-------------------------------------
+function UI_EventBingo:showSameNumberAction(number)
+    self.m_lBingoNumber[number]:setSameNumberAction()
+end
+
+-------------------------------------
 -- function moveContainer
 -------------------------------------
 function UI_EventBingo:moveContainer(pos_y, is_force)
@@ -543,18 +570,6 @@ function UI_EventBingo:moveContainer(pos_y, is_force)
             return
         end
     end
-
-    --[[
-    -- 움직인 Y좌표에 따라 2가지 값 사용 (위 또는 아래 포커스)
-    local pos_y
-    if (compare_y > 0) then
-        pos_y = self.m_containerTopPosY
-    elseif (compare_y == 0) then
-        pos_y = (self.m_containerTopPosY / 2)
-    else
-        pos_y = 0
-    end
-    --]]
 
     -- 현재의 좌표와 이동할 좌표가 같다면 이동하지 않음.. 강제는 가능
     if (not is_force) and (self.m_container:getPositionY() == pos_y) then
@@ -680,6 +695,7 @@ function _UI_EventBingoListItem:setBtnEnabled(is_enabled)
     local vars = self.vars
 
     -- 이미 골라진 숫자가 아닐 경우에만 버튼 on/off
+    -- 버튼 누를 수 있는 상태 = 확정 버튼 누른 상태
     if (not self.m_isPickedNumber) then
         vars['clickBtn']:setEnabled(is_enabled)
         vars['pickSprite']:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 100))))
@@ -690,6 +706,18 @@ function _UI_EventBingoListItem:setBtnEnabled(is_enabled)
     if (not is_enabled) then
         vars['pickSprite']:setVisible(false)
     end
+end
+
+-------------------------------------
+-- function setSameNumberAction
+-------------------------------------
+function _UI_EventBingoListItem:setSameNumberAction()
+    local vars = self.vars
+    local cb_func = function()
+        vars['clearSprite']:setOpacity(255)
+    end
+    local func_action = cc.CallFunc:create(cb_func)
+    vars['clearSprite']:runAction(cc.Repeat:create(cc.Sequence:create(cc.FadeTo:create(0.4, 0), cc.FadeTo:create(0.4, 100), func_action), 2))
 end
 
 
