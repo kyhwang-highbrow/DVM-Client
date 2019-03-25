@@ -508,19 +508,22 @@ end
 -------------------------------------
 -- function setClanAttrSynastry
 -------------------------------------
-function UI_CharacterCard:setClanAttrSynastry(attr_synastry)
+function UI_CharacterCard:setClanAttrSynastry(attr_synastry, attr)
     local lua_name = 'clanAttrVisual'
     local res = 'res/ui/a2d/clan_raid_attr_info/clan_raid_attr_info.vrp'
-    local ani
-    local visible = (attr_synastry ~= 0)
+    local ani = 'clan_raid_attr_info_01'
+    local visible = (attr_synastry == 1)
+    local attr_map = getAttrOrderMap()
 
-    if (attr_synastry == 1) then
-        ani = 'clan_raid_attr_info_02'
-    elseif (attr_synastry == -1) then
+    if (attr_synastry ~= 1) then
         return
     end
 
-    self:setAnimatorVisible(lua_name, res, 'clan_raid_attr_info_02', visible)
+    if (attr_map[attr]) then
+        ani = 'clan_raid_attr_info_0' ..  attr_map[attr]
+    end
+
+    self:setAnimatorVisible(lua_name, res, ani, visible)
 end
 
 -------------------------------------
