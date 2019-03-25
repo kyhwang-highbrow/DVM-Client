@@ -16,7 +16,7 @@ StructEventBingoInfo = class(PARENT, {
         bingo_number = 'list',
         bingo_line = 'list',
         bingo_pick_count = 'number',
-        event_token_price = 'number',
+        event_pick_price = 'number',
         event_price = 'number',
 
         m_lSortedCntReward = 'list',

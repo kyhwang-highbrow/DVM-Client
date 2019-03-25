@@ -132,7 +132,7 @@ function UI_EventBingo:refresh()
     vars['numberLabel3']:setString(Str('{1}개', comma_value(eventPickCnt))) 
     vars['rewardLabel']:setString(Str('{1} 빙고', bingo_line_cnt))
     vars['tokenPrice']:setString(struct_bingo.event_price)
-    vars['pickTokenPrice']:setString(struct_bingo.event_token_price)
+    vars['pickTokenPrice']:setString(struct_bingo.event_pick_price)
 
 
     local l_cnt_reward = struct_bingo:getBingoRewardList()
@@ -430,7 +430,7 @@ function UI_EventBingo:click_chooseNumberBtn()
     -- 빙고판이 보이도록 포커싱
     self:moveContainer(0)
 
-    if (struct_bingo:getPickEventItemCnt() < struct_bingo.event_token_price) then
+    if (struct_bingo:getPickEventItemCnt() < struct_bingo.event_pick_price) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('확정 뽑기 토큰')))
         return
     end
