@@ -26,19 +26,16 @@ UI_ReadySceneNew = class(PARENT,{
 
         -- 멀티덱 사용하는 경우 (클랜 던전, 고대 유적 던전)
         m_multiDeckMgr = 'MultiDeckMgr',
-
-        m_tSubInfo = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ReadySceneNew:init(stage_id, sub_info, t_sub_info)
+function UI_ReadySceneNew:init(stage_id, sub_info)
     -- spine 캐시 정리
     SpineCacheManager:getInstance():purgeSpineCacheData()
     self.m_gameMode = g_stageData:getGameMode(stage_id)
     self.m_subInfo = sub_info
-    self.m_tSubInfo = t_sub_info
 	
     if (not stage_id) then
 		stage_id = COLOSSEUM_STAGE_ID
@@ -577,6 +574,18 @@ function UI_ReadySceneNew:initButton()
         vars['startBtnLabel']:setPositionX(0)
         vars['startBtnLabel']:setString(Str('변경 완료'))
     end
+
+    -- 클랜던전 연습 모드
+    if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        if (struct_raid:isTrainingMode()) then
+            vars['startBtn']:setVisible(false)
+            vars['trainingBtn']:setVisible(true)
+            vars['trainingBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+            vars['trainingBtn']:setClickSoundName('ui_game_start')
+            vars['trainingLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
+        end
+    end
 end
 
 -------------------------------------
@@ -605,6 +614,12 @@ function UI_ReadySceneNew:refresh()
 
         elseif (stage_id == CHALLENGE_MODE_STAGE_ID) then
             str = Str('그림자의 신전')
+        -- 클랜던전 연습모드의 경우
+        elseif (g_clanRaidData:isClanRaidStageID(stage_id)) then    
+            local struct_raid = g_clanRaidData:getClanRaidStruct()
+            if (struct_raid:isTrainingMode()) then
+                str = Str('클랜 던전 연습 전투')
+            end
         end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
@@ -1094,13 +1109,15 @@ function UI_ReadySceneNew:click_startBtn()
 	end
 	
     -- 클랜던전 연습모드의 경우
-    if (self.m_tSubInfo) then
-        if (self.m_tSubInfo['clan_raid_type'] == 'training') then
-            self:startGame_clanRaidTraining(self.m_tSubInfo)
+    if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then    
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        if (struct_raid:isTrainingMode()) then
+            self:startGame_clanRaidTraining()
+            return
         end
-    else
-	    self:startGame(stage_id)
-    end	
+    end
+	
+    self:startGame(stage_id)	
 end
 
 -------------------------------------
@@ -1578,13 +1595,19 @@ end
 -------------------------------------
 -- function startGame_clanRaidTraining
 -------------------------------------
-function UI_ReadySceneNew:startGame_clanRaidTraining(t_sub_info)
-    local function finish_cb(game_key)
-        self:replaceGameScene(game_key)
+function UI_ReadySceneNew:startGame_clanRaidTraining()
+    
+    if (g_clanRaidData.m_triningTicketCnt <= 0) then
+        UIManager:toastNotificationRed(Str('{1}이 부족합니다', '연습전투 티켓'))
+        return 
     end
-    local deck_name = g_deckData:getSelectedDeckName()
-    local combat_power = self.m_readySceneDeck:getDeckCombatPower()
-    g_stageData:requestGameStart_training(t_sub_info['stage'], deck_name, combat_power, finish_cb, nil, t_sub_info)
+    
+    local function finish_cb()
+        self:replaceGameScene()
+    end
+
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    g_stageData:requestGameStart_training(struct_raid:getStageID(), struct_raid.attr, finish_cb, nil)
 end
 
 --@CHECK

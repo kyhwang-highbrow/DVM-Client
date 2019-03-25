@@ -454,3 +454,10 @@ function StructClanRaid:resetTrainingSettingInfo()
     self.attr = nil
 end
 
+-------------------------------------
+-- function isTrainingMode
+-------------------------------------
+function StructClanRaid:isTrainingMode()   
+    return self.clan_raid_type == 'training'
+end
+

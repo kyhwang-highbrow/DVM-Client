@@ -552,8 +552,10 @@ end
 -- function click_trainBtn
 -------------------------------------
 function UI_ClanRaid:click_trainBtn()
-    
-    UI_ClanRaidTrainingPopup(self.m_stageID)
+    local cb_func = function()
+        UI_ClanRaidTrainingPopup(self.m_stageID)
+    end
+    g_clanRaidData:requestGameInfo_training(cb_func)
 end
 
 

@@ -652,9 +652,11 @@ function ServerData_Stage:getMonsterIDList(stage_id)
     -- 클랜던전의 경우, 현재 StructClanRaid에 attr 값이 있는 지 확인하고 없다면 그 attr을 사용
     if (TableStageData:isClanRaidStage(stage_id)) then
         local clan_raid_struct = g_clanRaidData:getClanRaidStruct()
-        if (clan_raid_struct['attr']) then
-            local ret = table_stage_desc:getMonsterIDList_ClanMonster(clan_raid_struct['attr'])
-            return ret
+        if (clan_raid_struct) then
+            if (clan_raid_struct['attr']) then
+                local ret = table_stage_desc:getMonsterIDList_ClanMonster(clan_raid_struct['attr'])
+                return ret
+            end
         end
     end
 
@@ -776,15 +778,13 @@ end
 -------------------------------------
 -- function requestGameStart_training
 -------------------------------------
-function ServerData_Stage:requestGameStart_training(stage_id, deck_name, combat_power, finish_cb, fail_cb, t_stage_info)
+function ServerData_Stage:requestGameStart_training(stage_id, attr, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
         -- server_info, staminas 정보를 갱신
         g_serverData:networkCommonRespone(ret)
-
-        local game_key = 'training'
-        finish_cb(game_key)
+        finish_cb()
     end
 
     local ui_network = UI_Network()
@@ -792,7 +792,7 @@ function ServerData_Stage:requestGameStart_training(stage_id, deck_name, combat_
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', stage_id)
-    ui_network:setParam('attr', t_stage_info['attr'])
+    ui_network:setParam('attr', attr)
     
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)

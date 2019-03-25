@@ -32,6 +32,9 @@ ServerData_ClanRaid = class({
 
         -- 보상에 적용되는 실제 기여도 (서버에서 넘겨줌)
         m_mapRewardContribution = 'map',
+
+        m_triningTicketCnt = 'number',
+        m_triningTicketMaxCnt = 'number',
     })
 
 local USE_CASH_LIMIT = 1 -- 하루 최대 여의주 사용 입장횟수
@@ -566,4 +569,45 @@ function ServerData_ClanRaid:requestAttrRankList(attr_type, rank_offset, cb_func
     ui_network:setReuse(false)
     ui_network:request()
 
+end
+
+
+-------------------------------------
+-- function requestGameInfo_training
+-------------------------------------
+function ServerData_ClanRaid:requestGameInfo_training(finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+        g_clanRaidData:applyTrainingInfo(ret['staminas']['cldg_tr'])
+        finish_cb()
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/dungeon_training_info')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function applyTrainingInfo
+-------------------------------------
+function ServerData_ClanRaid:applyTrainingInfo(ret)
+    if (not ret) then
+        return
+    end
+
+    if (ret['cnt']) then
+        self.m_triningTicketCnt = ret['cnt']
+    end
+
+    if (ret['max_cnt']) then
+        self.m_triningTicketMaxCnt = ret['max_cnt']
+    end
 end
