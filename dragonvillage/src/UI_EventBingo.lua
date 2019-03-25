@@ -81,6 +81,7 @@ function UI_EventBingo:initUI()
     for ind, data in ipairs(l_reward_item) do
         local ui = _UI_EventBingoRewardListItem(ind, data['reward_str'], click_bingo_cnt_cb, true, data['reward_index']) -- reward_ind, reward_item_str, click_cb, is_bingo_reward, sub_data
         vars['rewardIconNode']:addChild(ui.root)
+        table.insert(self.m_lBingoCntReward, ui)
     end
 
     -- 완성된 빙고 표기
@@ -122,10 +123,20 @@ function UI_EventBingo:refresh()
     vars['numberLabel2']:setString(Str('{1}개', struct_bingo:getEventItemCnt()))
     vars['numberLabel3']:setString(Str('{1}개', struct_bingo:getPickEventItemCnt())) 
     vars['rewardLabel']:setString(Str('{1} 빙고', bingo_line_cnt))
+    vars['tokenPrice']:setString(struct_bingo.event_price)
+    vars['pickTokenPrice']:setString(struct_bingo.event_token_price)
 
-    --local struct_bingo:getBingoRewardList
-    --local next_bingo = 
-    vars['progressLabel']:setString(Str('다음 보상까지 {1} 빙고 남았습니다.', 12 - bingo_line_cnt))
+
+    local l_cnt_reward = struct_bingo:getBingoRewardList()
+    local next_step = 12
+    for ind, data in ipairs(l_cnt_reward) do
+        if (bingo_line_cnt < data['reward_index']) then
+            next_step = data['reward_index']
+            break
+        end
+    end
+    local next_bingo = 
+    vars['progressLabel']:setString(Str('다음 보상까지 {1} 빙고 남았습니다.', next_step - bingo_line_cnt))
 
     -- 누적 보상 게이지
     local reward_cnt = bingo_line_cnt
@@ -140,7 +151,8 @@ function UI_EventBingo:refresh()
         self.m_lBingoNumber[tonumber(number)]:setActiveNumber(is_pick)
     end
 
-    if (struct_bingo:isTakeLastReward() == true) then
+    -- 빙고 12개 완료 되었을 경우
+    if (struct_bingo:getBingoLineCnt() == 12) then
         self:completeBingo()
     end
 end
@@ -170,6 +182,7 @@ function UI_EventBingo:refresh_bingoCntReward()
     local l_bingo_cnt = self.m_lBingoCntReward
     local struct_bingo = g_eventBingoData.m_structBingo
     local bingo_cnt = struct_bingo:getBingoRewardCnt()
+
     local one_enabled = false
     for ind, ui_data in ipairs(l_bingo_cnt) do
         local reward_state = struct_bingo:getBingoCntRewardState(ui_data.m_rewardInd)

@@ -16,6 +16,8 @@ StructEventBingoInfo = class(PARENT, {
         bingo_number = 'list',
         bingo_line = 'list',
         bingo_pick_count = 'number',
+        event_token_price = 'number',
+        event_price = 'number',
 
         m_lSortedCntReward = 'list',
     })
@@ -120,13 +122,12 @@ function StructEventBingoInfo:sortCntReward(ret)
 
     table.sort(l_cnt_reward, func_sort)
     self.m_lSortedCntReward = l_cnt_reward
-    ccdump(self.m_lSortedCntReward)
 end
 
 -------------------------------------
--- function isTakeLastReward
+-- function isCompeletBingo
 -------------------------------------
-function StructEventBingoInfo:isTakeLastReward()
+function StructEventBingoInfo:isCompeletBingo()
     local last_ind = self:getBingoRewardListCnt()
     local is_last = self['bingo_count_info']['count_reward_'..last_ind]
 
