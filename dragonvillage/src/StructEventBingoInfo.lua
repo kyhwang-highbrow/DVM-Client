@@ -16,6 +16,8 @@ StructEventBingoInfo = class(PARENT, {
         bingo_number = 'list',
         bingo_line = 'list',
         bingo_pick_count = 'number',
+
+        m_lSortedCntReward = 'list',
     })
 
 local THIS = StructEventBingoInfo
@@ -83,7 +85,42 @@ end
 -- function getBingoRewardList
 -------------------------------------
 function StructEventBingoInfo:getBingoRewardList()
-    return self['bingo_count_info']['bingo_count_reward'] or {}
+    return self.m_lSortedCntReward or {}
+    
+end
+
+-------------------------------------
+-- function sortCntReward
+-------------------------------------
+function StructEventBingoInfo:sortCntReward(ret)
+    local t_cnt_reward = ret['bingo_count_info']['bingo_count_reward'] or {}
+    local l_cnt_reward = {}
+
+    --[[
+        reward_index 를 기준으로 정렬한 리스트 생성
+        {
+                ['reward_index']=1;
+                ['reward_str']='703003;1';
+        };
+        {
+                ['reward_index']=3;
+                ['reward_str']='703019;1';
+        };
+    --]]
+    for key, data in pairs(t_cnt_reward) do
+        local t_temp = {}
+        t_temp['reward_index'] = tonumber(key)
+        t_temp['reward_str'] = data
+        table.insert(l_cnt_reward, t_temp)
+    end
+    
+    local func_sort = function(a, b)
+        return a['reward_index'] <b['reward_index']
+    end
+
+    table.sort(l_cnt_reward, func_sort)
+    self.m_lSortedCntReward = l_cnt_reward
+    ccdump(self.m_lSortedCntReward)
 end
 
 -------------------------------------
@@ -188,6 +225,7 @@ function StructEventBingoInfo:applyInfo(ret)
 
     if (ret['bingo_count_info']) then
         self['bingo_count_info'] = ret['bingo_count_info']
+        self:sortCntReward(ret)
     end
 
     if (ret['bingo_line']) then

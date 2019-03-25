@@ -57,6 +57,7 @@ function ServerData_EventBingo:request_bingoInfo(finish_cb, fail_cb)
         self.m_structBingo = StructEventBingoInfo(ret)
         self.m_endTime = ret['end']
         self.m_startTime = ret['begin']
+        self.m_structBingo:applyInfo(ret)
         if finish_cb then
             finish_cb(ret)
         end
