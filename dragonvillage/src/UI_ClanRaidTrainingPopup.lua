@@ -357,16 +357,20 @@ end
 -- function click_applyBtn
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_applyBtn()
-    local training_info = g_clanRaidData.m_structClanRaid
-    local selected_stage_id = self.m_selectStageLv + 1500000
-    training_info['clan_raid_type'] = 'training'
-    training_info['attr'] = self.m_selectedAttr
-    training_info['hp'] = SecurityNumberClass(self.m_selectedHp)
+
+    -- 서버 데이터가 들고 있는 StructClanRaid 정보에 커스텀한 정보를 덮어씌움
+    local training_info = g_clanRaidData.m_structClanRaid    
+    training_info['clan_raid_type'] = 'training'                        -- 타입 지정 (연습 모드인지 구분 용도)
+    training_info['attr'] = self.m_selectedAttr                         -- 연습 모드에서 커스텀한 속성
+    training_info['hp'] = SecurityNumberClass(self.m_selectedHp)        -- 연습 모드에서 커스텀한 체력
     training_info['max_hp'] = SecurityNumberClass(self:getMaxHp(self.m_selectStageLv))
-    training_info['stage'] = selected_stage_id
-    training_info['id'] = selected_stage_id
+    
+    local selected_stage_id = self.m_selectStageLv + 1500000
+    training_info['stage'] = selected_stage_id                          -- 연습 모드에서 커스텀한 스테이지
+    
     g_clanRaidData.m_structClanRaid = training_info
-    UI_ReadySceneNew(selected_stage_id, nil, training_info) 
+
+    UI_ReadySceneNew(selected_stage_id, nil) 
 end
 
 --@CHECK
