@@ -974,7 +974,7 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
             l_bonus_item[item_id] = l_bonus_item[item_id] + count
 
         -- 이벤트 아이템 (ex:송편)
-        elseif (from == 'event') then
+        elseif (from == 'event') or (from == 'event_bingo') then
             local t_data = {item_id, count, from, data}
             table.insert(drop_reward_list, t_data)
 

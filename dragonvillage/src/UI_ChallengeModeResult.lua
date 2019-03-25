@@ -99,7 +99,7 @@ function UI_ChallengeModeResult:direction_end()
 			end
 
             -- item_id 로 직접 체크한다
-            if (item['from'] == 'event') then
+            if (item['from'] == 'event' or item['from'] == 'event_bingo') then
 				-- visible on
                 vars['eventNode' .. idx]:setVisible(true)
 
