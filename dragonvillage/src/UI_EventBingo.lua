@@ -7,6 +7,10 @@ UI_EventBingo = class(PARENT,{
         m_lBingoNumber = 'list', -- 획득한 빙고 숫자 리스트
         m_lBingoCntReward = '_UI_EventBingoRewardListItem', -- 빙고 횟수에 따른 보상 UI
         m_lBingoLineReward = '_UI_EventBingoRewardListItem', -- 빙고 라인 보상 UI
+
+        m_container = 'ScrolView Container',
+        m_containerTopPosY = 'number',
+        m_isContainerMoving = 'bool',
     })
 
 local BINGO_TYPE = {['HORIZONTAL'] = 1, ['VERTICAL'] = 2, ['CROSS_RIGHT_TO_LEFT'] = 3, ['CROSS_LEFT_TO_RIGHT'] = 4}
@@ -351,6 +355,10 @@ end
 -------------------------------------
 function UI_EventBingo:click_drawNumberBtn()
     local struct_bingo = g_eventBingoData.m_structBingo
+    
+    -- 빙고판이 보이도록 포커싱
+    self:moveContainer(0)
+
     if (struct_bingo:getEventItemCnt() < NEED_TOKEN) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('보유 토큰')))
         return
@@ -398,6 +406,10 @@ end
 function UI_EventBingo:click_chooseNumberBtn()
     local l_bingo_num = self.m_lBingoNumber
     local struct_bingo = g_eventBingoData.m_structBingo
+
+    -- 빙고판이 보이도록 포커싱
+    self:moveContainer(0)
+
     if (struct_bingo:getPickEventItemCnt() < NEED_PICK_TOKEN) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('확정 뽑기 토큰')))
         return
@@ -507,6 +519,56 @@ function UI_EventBingo:showGoraAnimation(node)
     node:runAction(sequence_action)
 end
 
+-------------------------------------
+-- function moveContainer
+-------------------------------------
+function UI_EventBingo:moveContainer(pos_y, is_force)
+    -- 컨테이너가 없거나 이동중이면 다시 움직이지 않는다.
+    if (not is_force) then
+        if (not self.m_container) then
+            return
+        end
+        if (self.m_isContainerMoving) then
+            return
+        end
+    end
+
+    --[[
+    -- 움직인 Y좌표에 따라 2가지 값 사용 (위 또는 아래 포커스)
+    local pos_y
+    if (compare_y > 0) then
+        pos_y = self.m_containerTopPosY
+    elseif (compare_y == 0) then
+        pos_y = (self.m_containerTopPosY / 2)
+    else
+        pos_y = 0
+    end
+    --]]
+
+    -- 현재의 좌표와 이동할 좌표가 같다면 이동하지 않음.. 강제는 가능
+    if (not is_force) and (self.m_container:getPositionY() == pos_y) then
+        return
+    end
+    self.m_container:stopAllActions()
+
+    local duration = 0.5
+    local move = cca.makeBasicEaseMove(duration, 0, pos_y)
+    local cb = cc.CallFunc:create(function()
+        self.m_isContainerMoving = false
+    end)
+    local sequence = cc.Sequence:create(move, cb)
+    self.m_container:runAction(sequence)
+    
+    self.m_isContainerMoving = true
+end
+
+-------------------------------------
+-- function setContainerAndPosY
+-------------------------------------
+function UI_EventBingo:setContainerAndPosY(container, pos_y)
+    self.m_container = container
+    self.m_containerTopPosY = pos_y
+end
 
 
 

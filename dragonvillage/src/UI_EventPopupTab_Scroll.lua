@@ -52,6 +52,11 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab, inner_ui)
         inner_ui:refresh()
     end
 
+    if (self.m_eventType == 'event_bingo') then
+        inner_ui:setContainerAndPosY(container_node, self.m_originPosY)
+        inner_ui:moveContainer(self.m_originPosY)
+    end
+
     self:onEnterTab()
 end
 
