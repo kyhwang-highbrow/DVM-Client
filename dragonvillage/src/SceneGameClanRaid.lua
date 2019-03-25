@@ -309,13 +309,20 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
         -- 보상 등급 지정
         t_result_ref['dmg_rank'] = ret['dmg_rank'] or 1
 
-        -- 클랜 던전 정보 갱신
-        if (ret['dungeon']) then
-            g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
+        -- 연습 모드 아닌 경우, 클랜 던전 정보 갱신
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        if (not struct_raid:isTrainingMode()) then
+            if (ret['dungeon']) then
+                g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
+            end
+        -- 연습 모드일 경우, @jhakim 190325 finish통신에서 damage로 남은 hp값 계산해서 주는 데 training 모드는 finish통신에서 hp를 받지 않기 때문에 클라에서 계산
+        else   
+            local ex_hp = g_clanRaidData.m_structClanRaid['hp']:get()
+            local cur_hp = ex_hp - t_param['damage']
+            g_clanRaidData.m_structClanRaid['hp']:set(cur_hp)
         end
 
         self.m_bWaitingNet = false
-
         if next_func then
             next_func()
         end
