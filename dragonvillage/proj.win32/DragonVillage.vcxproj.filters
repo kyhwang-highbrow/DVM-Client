@@ -3988,6 +3988,9 @@
     <None Include="..\src\StructEventBingoInfo.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StatusEffect_ClanRaidBoss.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

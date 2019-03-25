@@ -452,6 +452,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 		status_effect = StatusEffect_AttributeChange(res)
 		status_effect:init_statusEffect(target_char)
 
+    ----------- 클랜 보스 폭주 ------------------
+	elseif (status_effect_type == 'cldg_dmg_add') then
+        status_effect = StatusEffect_ClanRaidBoss(res)
+
     else
         status_effect = StatusEffect(res)
     end

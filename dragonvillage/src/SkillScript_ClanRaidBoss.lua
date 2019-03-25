@@ -35,7 +35,7 @@ function SkillScript_ClanRaidBoss:init_skill(script_name, duration)
 
     -- 받는 피해 증가 상태효과 설정
     local struct_status_effect = StructStatusEffect({
-        type = 'dmg_add',
+        type = 'cldg_dmg_add',
 		target_type = 'self',
 		target_count = 1,
 		trigger = CON_SKILL_IDLE,

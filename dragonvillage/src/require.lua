@@ -559,6 +559,7 @@ local t_module = {
     'StatusEffect_AccelMana',
     'StatusEffect_ProtectionByTime',
     'StatusEffect_SkillCoolReduce',
+    'StatusEffect_ClanRaidBoss',
 
     'StatusEffectEdgeDirector',
 	'StatusEffectIcon',

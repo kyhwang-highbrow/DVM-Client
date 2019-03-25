@@ -805,6 +805,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StatusEffectHelper.lua" />
     <None Include="..\src\StatusEffectIcon.lua" />
     <None Include="..\src\StatusEffect_Bleed.lua" />
+    <None Include="..\src\StatusEffect_ClanRaidBoss.lua" />
     <None Include="..\src\StatusEffect_ConditionalBuff.lua" />
     <None Include="..\src\StatusEffect_ConditionalModify.lua" />
     <None Include="..\src\StatusEffect_ConsumeToMissile.lua" />
