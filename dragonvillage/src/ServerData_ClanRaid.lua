@@ -33,6 +33,7 @@ ServerData_ClanRaid = class({
         -- 보상에 적용되는 실제 기여도 (서버에서 넘겨줌)
         m_mapRewardContribution = 'map',
 
+        -- 연습 전 티켓
         m_triningTicketCnt = 'number',
         m_triningTicketMaxCnt = 'number',
     })

@@ -6,10 +6,13 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_ClanRaidTrainingPopup = class(PARENT, {
         m_curStageLv = 'number',
         m_curHp = 'number',
+
         m_selectStageLv = 'number',
         m_selectedAttr = 'string',
         m_selectedHp = 'number',
         m_isMaxHp = 'boolean',
+
+         m_hpRadioBtn = 'UIC_RadioBtn',
      })
 
 local STAGE_MAX = 150
@@ -25,7 +28,7 @@ function UI_ClanRaidTrainingPopup:init()
     self.m_curStageLv = struct_clan_raid:getLv()
     self.m_curHp = struct_clan_raid:getHp()
     
-    self.m_isMaxHp = true
+    self.m_isMaxHp = nil
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanRaidTrainingPopup')
 
@@ -73,7 +76,7 @@ end
 -------------------------------------
 function UI_ClanRaidTrainingPopup:initUI()
     local vars = self.vars
-    
+    vars['actingPowerLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
 end
 
 -------------------------------------
@@ -192,7 +195,7 @@ end
 -- function onTouchEnded
 -------------------------------------
 function UI_ClanRaidTrainingPopup:onTouchEnded(touch, event)
-    self:refreshInfo()
+    self:setLevel()
 end
 
 -------------------------------------
@@ -234,8 +237,9 @@ function UI_ClanRaidTrainingPopup:refreshInfo(lv, hp)
 
     local hp_ratio = stage_hp/max_hp * 100
     self.m_selectedHp = stage_hp
-    vars['lvLabel']:setString(Str('Lv.{1}', stage_lv))
-    vars['hpLabel2']:setString(Str('{1}/{2}', stage_hp, max_hp))
+    vars['lvLabel']:setString(Str('Lv.{1}', comma_value(stage_lv)))
+    vars['hpLabel2']:setString(Str('{1}/{2}', comma_value(stage_hp), comma_value(max_hp)))
+
     local hp_ratio_str = string.format('%0.2f%%', hp_ratio)
     vars['hpLabel1']:setString(hp_ratio_str, false)
     vars['hpGauge']:setPercentage(hp_ratio)
@@ -301,10 +305,11 @@ function UI_ClanRaidTrainingPopup:initRadioBtn()
 
     local btn = vars['contentBtn2']
     local label = vars['contentSprite2']
-	radio_button:addButton('fianlBlow', btn, label)
+	radio_button:addButton('finalBlow', btn, label)
 
+    self.m_hpRadioBtn = radio_button
     -- 디폴트로 일반 강화 선택
-    --radio_button:setSelectedButton('normalOpt')  
+    --radio_button:setSelectedButton('maxHp')  
 end
 
 -------------------------------------
@@ -312,7 +317,7 @@ end
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_minusBtn()
     self:setCurrCount(self.m_selectStageLv - 1, false)
-    self:refreshInfo()
+    self:setLevel()
 end
 
 -------------------------------------
@@ -320,6 +325,16 @@ end
 -------------------------------------
 function UI_ClanRaidTrainingPopup:click_plusBtn()
     self:setCurrCount(self.m_selectStageLv + 1, false)
+    self:setLevel()
+end
+
+-------------------------------------
+-- function setLevel
+-------------------------------------
+function UI_ClanRaidTrainingPopup:setLevel()
+    if (self.m_isMaxHp == nil) then
+        self.m_hpRadioBtn:setSelectedButton('maxHp') -- 리셋 후 레벨 조정시 라디오 버튼 - 최대생명력 체크
+    end
     self:refreshInfo()
 end
 
@@ -345,12 +360,15 @@ end
 function UI_ClanRaidTrainingPopup:click_resetBtn()
     local cur_attr = g_clanData:getCurSeasonBossAttr()
 
-    self.m_selectStageLv = self.m_curStageLv
     self.m_selectedAttr = cur_attr
-    
-    self:setTab(cur_attr)    
-    self:setCurrCount(self.m_curStageLv, false)
+    self.m_selectedHp = self.m_curHp
+    self.m_isMaxHp = nil
+
+    self:setTab(cur_attr)
     self:refreshInfo(self.m_curStageLv, self.m_curHp)
+    self:setCurrCount(self.m_curStageLv, false)
+    self.m_hpRadioBtn:inactivate('maxHp')
+    self.m_hpRadioBtn:inactivate('finalBlow')
 end
 
 -------------------------------------
