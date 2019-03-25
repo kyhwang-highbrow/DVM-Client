@@ -38,7 +38,7 @@ function UI_EventBingo:initUI()
     -- 선택한 번호로 확정 뽑기
     local func_click_bingoNum = function(selected_num)
         self:request_selectedDraw(selected_num)
-        vars['cancleBtn']:setVisible(false)
+        self:setCancelActive(vars['goraMenu3'], false)
     end
 
     self.m_lBingoNumber = {}
@@ -81,6 +81,9 @@ function UI_EventBingo:initUI()
     for ind, data in ipairs(l_reward_item) do
         local ui = _UI_EventBingoRewardListItem(ind, data['reward_str'], click_bingo_cnt_cb, true, data['reward_index']) -- reward_ind, reward_item_str, click_cb, is_bingo_reward, sub_data
         vars['rewardIconNode']:addChild(ui.root)
+        if (#l_reward_item == ind) then
+            ui.vars['lastRewardVisual']:setVisible(true)
+        end
         table.insert(self.m_lBingoCntReward, ui)
     end
 
@@ -143,8 +146,11 @@ function UI_EventBingo:refresh()
             break
         end
     end
-    local next_bingo = 
+
     vars['progressLabel']:setString(Str('다음 보상까지 {1} 빙고 남았습니다.', next_step - bingo_line_cnt))
+    if (next_step - bingo_line_cnt == 0) then
+        vars['progressLabel']:setVisible(false)
+    end
 
     -- 누적 보상 게이지
     local reward_cnt = bingo_line_cnt
@@ -439,7 +445,7 @@ function UI_EventBingo:click_chooseNumberBtn()
         ui:setBtnEnabled(true)
     end
 
-    vars['cancleBtn']:setVisible(true)
+    self:setCancelActive(vars['goraMenu3'], true)
 end
 
 -------------------------------------
@@ -501,7 +507,7 @@ end
 function UI_EventBingo:click_cancelPick()
     local vars = self.vars
     self:bingoNumBtnEnabled(false)
-    vars['cancleBtn']:setVisible(false)
+    self:setCancelActive(vars['goraMenu3'], false)
 end
 
 -------------------------------------
@@ -548,6 +554,54 @@ function UI_EventBingo:showGoraAnimation(node)
     local delete_action = cc.CallFunc:create(delete_func)
     local sequence_action = cc.Sequence:create(move_action_1, delete_delay_action, move_action_2, delete_action)
     node:runAction(sequence_action)
+end
+
+-------------------------------------
+-- function moveFrontGoraAnimation
+-------------------------------------
+function UI_EventBingo:moveFrontGoraAnimation(node)
+    node:setVisible(true)
+    node:setPosition(cc.p(-200, 50))
+
+    -- 만드라 고라 옆에서 나오는 효과
+    local delete_delay_action = cc.DelayTime:create(0.7)
+    local move_action_1 = cc.EaseOut:create(cc.MoveTo:create(0.3, cc.p(4.5, 50)), 0.3)
+    node:runAction(move_action_1)
+end
+
+------------------------------------
+-- function moveBackGoraAnimation
+-------------------------------------
+function UI_EventBingo:moveBackGoraAnimation(node)
+    local delete_func = function()
+        node:setVisible(false)
+    end
+
+    -- 만드라 고라 옆으로 나가는 효과
+    local move_action_2 = cc.EaseOut:create(cc.MoveTo:create(0.3, cc.p(-200, 50)), 0.3)
+    local delete_action = cc.CallFunc:create(delete_func)
+    local sequence_action = cc.Sequence:create( move_action_2, delete_action)
+    node:runAction(sequence_action)
+end
+
+------------------------------------
+-- function setCancelActive
+-------------------------------------
+function UI_EventBingo:setCancelActive(node, is_active)
+    local vars = self.vars
+    
+    if (not node) then
+        return nil
+    end
+    
+    vars['cancleBtn']:setVisible(is_active)
+    vars['playBtn1']:setEnabled(not is_active)
+
+    if (is_active) then
+        self:moveFrontGoraAnimation(node)
+    else
+        self:moveBackGoraAnimation(node)
+    end
 end
 
 -------------------------------------
@@ -789,7 +843,6 @@ function _UI_EventBingoRewardListItem:initUI()
     if (reward_card.vars['commonSprite']) then
         reward_card.vars['commonSprite']:setVisible(false)
     end
-    reward_card.vars['clickBtn']:registerScriptTapHandler(function() self.m_click_cb(node_ind) end)
 
     if (reward_card) then
         vars['iconNode']:addChild(reward_card.root)
@@ -831,8 +884,6 @@ function _UI_EventBingoRewardListItem:initUI_cntReward()
 
     self.root:setPositionX(start_pos + list_item_width*(node_ind-1))
 
-    
-
     self:setBtnEnabled(false)
 end
 
@@ -843,10 +894,14 @@ function _UI_EventBingoRewardListItem:setBtnEnabled(is_enabled)
     local vars = self.vars
 
     if (self.m_item_card) then
-        self.m_item_card.vars['clickBtn']:setEnabled(is_enabled)
+        -- 보상 버튼 활성화 되면, 아이템 설명 툴팁 -> 콜백 함수 호출
+        if (is_enabled) then
+            self.m_item_card.vars['clickBtn']:registerScriptTapHandler(function() self.m_click_cb(self.m_rewardInd) end)
+        end
     end
 
     if (vars['receiveBtn']) then
         vars['receiveBtn']:setEnabled(is_enabled)
     end
+
 end

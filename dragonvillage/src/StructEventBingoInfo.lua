@@ -125,20 +125,6 @@ function StructEventBingoInfo:sortCntReward(ret)
 end
 
 -------------------------------------
--- function isCompeletBingo
--------------------------------------
-function StructEventBingoInfo:isCompeletBingo()
-    local last_ind = self:getBingoRewardListCnt()
-    local is_last = self['bingo_count_info']['count_reward_'..last_ind]
-
-    if (is_last == 1) then
-        return true
-    else
-        return false
-    end
-end
-
--------------------------------------
 -- function getBingoRewardListCnt
 -------------------------------------
 function StructEventBingoInfo:getBingoRewardListCnt()
@@ -292,8 +278,14 @@ end
 -- @brief 노란 느낌표 아이콘 출력 여부
 -------------------------------------
 function StructEventBingoInfo:isHighlightYellow_ex()
+    
+    -- 빙고가 끝났을 경우
+    if (self:getBingoLineCnt() == 12) then
+        return false
+    end
+    
     -- 일일 최대 획득량이 남았을 경우
-    if (self:getTodayEventItemCnt() < 1500) then
+    if (self:getTodayEventItemCnt() < self:getTodayMaxEventItemCnt()) then
         return true
     end
 
