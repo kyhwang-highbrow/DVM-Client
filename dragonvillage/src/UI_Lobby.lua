@@ -131,6 +131,13 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('event_bingo')) then
+            co:work()
+            cclog('# 빙고 이벤트 정보 받는 중')
+            g_eventBingoData:request_bingoInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         if (g_hotTimeData:isActiveEvent('event_dice')) then
             co:work()
             cclog('# 주사위 이벤트 정보 받는 중')
@@ -760,6 +767,20 @@ function UI_Lobby:update_highlight()
                     vars['exchangeNotiRed']:setVisible(true)
                 elseif g_exchangeEventData:isHighlightYellow_ex() then
                     vars['exchangeNotiYellow']:setVisible(true)
+                end
+            end
+        end
+
+        do -- 빙고 이벤트
+            vars['bingoNotiRed']:setVisible(false)
+            vars['bingoNotiYellow']:setVisible(false)
+
+            if g_hotTimeData:isActiveEvent('event_bingo') then
+                local struct_bingo = g_eventBingoData:getStructEventBingo()
+                if struct_bingo:isHighlightRed_ex() then
+                    vars['bingoNotiRed']:setVisible(true)
+                elseif struct_bingo:isHighlightYellow_ex() then
+                    vars['bingoNotiYellow']:setVisible(true)
                 end
             end
         end

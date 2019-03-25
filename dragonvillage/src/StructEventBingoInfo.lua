@@ -142,12 +142,7 @@ end
 -- function getBingoRewardListCnt
 -------------------------------------
 function StructEventBingoInfo:getBingoRewardListCnt()
-    local t_bingo = self:getBingoRewardList()
-    local cnt = 0
-    for _,_ in pairs(t_bingo) do
-        cnt = cnt + 1
-    end
-    return cnt
+    return #self:getBingoRewardList() or 0
 end
 
 -------------------------------------
@@ -273,6 +268,68 @@ function StructEventBingoInfo:getBingoLineRewardState(ind)
     end
 end
 
+-------------------------------------
+-- function isHighlightRed_ex
+-- @brief 빨간 느낌표 아이콘 출력 여부
+-------------------------------------
+function StructEventBingoInfo:isHighlightRed_ex()
+
+    -- 받아야 할 누적 획득 보상이 있는 경우
+    if (self:hasCntReward() == true) then
+        return true
+    end
+
+    -- 받아야 할 빙고 보상이 있는 경우
+    if (self:hasBingoReward()) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isHighlightYellow_ex
+-- @brief 노란 느낌표 아이콘 출력 여부
+-------------------------------------
+function StructEventBingoInfo:isHighlightYellow_ex()
+    -- 일일 최대 획득량이 남았을 경우
+    if (self:getTodayEventItemCnt() < 1500) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function hasBingoReward
+-------------------------------------
+function StructEventBingoInfo:hasBingoReward()
+    local t_bingo = self:getBingoLine()
+    for _, is_reward in pairs(t_bingo) do
+        
+        if (is_reward == 0) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function hasCntReward
+-------------------------------------
+function StructEventBingoInfo:hasCntReward()
+    local bingo_cnt = self:getBingoRewardCnt()
+    local reward_cnt = self:getBingoRewardListCnt()
+    for i=1, reward_cnt do
+        if (self.m_lSortedCntReward[i]['reward_index'] > bingo_cnt) then
+            if (self:getBingoCntRewardState(i) == 1) then
+                return true
+            end
+        end
+    end
+    return false
+end
 
 
 
