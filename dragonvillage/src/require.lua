@@ -1243,6 +1243,7 @@ local t_module = {
     'UI_EventAlphabetInfoPopup',
     'UI_EventAlphabetConfirmPopup',
     'UI_EventAdvent',
+    'UI_EventBingoRewardListItem',
     'UI_EventBingo',
 
 	-- UI : 연출

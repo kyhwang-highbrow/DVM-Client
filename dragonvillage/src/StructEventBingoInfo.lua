@@ -20,6 +20,11 @@ StructEventBingoInfo = class(PARENT, {
         event_price = 'number',
 
         m_lSortedCntReward = 'list',
+
+        status = '',
+        message = '',
+        begin_date = '',
+        end_date = '',
     })
 
 local THIS = StructEventBingoInfo
