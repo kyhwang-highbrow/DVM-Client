@@ -523,7 +523,7 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
         local _, bonus_info = raid_info:getBonusSynastryInfo()
         local _, penalty_info = raid_info:getPenaltySynastryInfo()
         ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
-        ui:setClanAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info), dragon_attr)
+		ui:setClanAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info), dragon_attr)
     else
         ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
     end
@@ -779,10 +779,6 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             local uid = g_userData:get('uid')
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
 
-            if (deckname == 'ancient') then
-                g_deckData:saveAncientTowerDeck(self.m_lDeckList, self.m_currFormation, self.m_currLeader, tamer_id)
-            end
-            
             local function success_cb(ret)
                 if ret['deck'] then
                     local ret_deck = ret['deck']
