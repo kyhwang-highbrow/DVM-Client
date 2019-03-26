@@ -351,6 +351,7 @@ function UI_ClanRaid:showDungeonStateUI()
     local is_lock_stage = (stage_id == curr_stage_id)
     vars['lockNode']:setVisible(not is_lock_stage)
     vars['readyBtn']:setVisible(is_lock_stage)
+    vars['bossLockSprite']:setVisible(stage_id > curr_stage_id)
     vars['trainingBtn']:setVisible(is_lock_stage)
 
     -- 다른 유저 도전중인 상태 

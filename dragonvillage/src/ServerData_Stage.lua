@@ -79,7 +79,12 @@ function ServerData_Stage:getStageName(stage_id)
         
     -- 클랜던전
     elseif (game_mode == GAME_MODE_CLAN_RAID) then
-        name = Str('클랜 던전')
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        if (struct_raid:isTrainingMode()) then
+            name = Str('클랜 던전 연습 전투')
+        else
+            name = Str('클랜 던전')
+        end
 
     -- 콜로세움 모드
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
