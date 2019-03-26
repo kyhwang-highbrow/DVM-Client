@@ -576,17 +576,32 @@ function UI_ReadySceneNew:initButton()
     end
 
     -- 클랜던전 연습 모드
-    if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then
-        local struct_raid = g_clanRaidData:getClanRaidStruct()
-        if (struct_raid:isTrainingMode()) then
-            vars['startBtn']:setVisible(false)
-            vars['trainingBtn']:setVisible(true)
-            vars['trainingBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
-            vars['trainingBtn']:setClickSoundName('ui_game_start')
-            vars['trainingLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
-            vars['trainingSetBtn']:setVisible(true)
-            vars['trainingSetBtn']:registerScriptTapHandler(function() self:click_showTrainingBtn() end)
+    if (g_clanRaidData) then
+        if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then
+            local struct_raid = g_clanRaidData:getClanRaidStruct()
+            if (struct_raid:isTrainingMode()) then
+                vars['startBtn']:setVisible(false)
+                vars['trainingBtn']:setVisible(true)
+                vars['trainingBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+                vars['trainingBtn']:setClickSoundName('ui_game_start')
+                vars['trainingLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
+                vars['trainingSetBtn']:setVisible(true)
+                vars['trainingSetBtn']:registerScriptTapHandler(function() self:click_showTrainingBtn() end)
+            end
         end
+    end
+    
+    if (IS_TEST_MODE()) then
+    -- 고대의 탑
+    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        if (g_ancientTowerData:isAncientTowerStage(self.m_stageID)) then
+            vars['towerMenu']:setVisible(true)
+            vars['towerScoreLabel']:setString(Str('{1}층 팀 최고점수 : {2}', g_ancientTowerData:getFloorFromStageID(self.m_stageID), 0))
+            vars['loadLabel']:setString(Str('{1}층 베스트 팀 불러오기', g_ancientTowerData:getFloorFromStageID(self.m_stageID)))
+            vars['towerSetBtn']:registerScriptTapHandler(function() self:click_bestTeamBtn() end)
+            vars['loadBtn']:registerScriptTapHandler(function() self:click_loadBestTeam() end)
+        end
+    end
     end
 end
 
@@ -1471,6 +1486,21 @@ function UI_ReadySceneNew:click_leaderBtn()
         self:refresh_combatPower()
 		self:refresh_buffInfo()
 	end)
+end
+
+-------------------------------------
+-- function click_bestTeamBtn
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:click_bestTeamBtn()
+    UI_AncientTowerBestDeckPopup()
+end
+
+-------------------------------------
+-- function click_loadBestTeam
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:click_loadBestTeam()
 end
 
 -------------------------------------
