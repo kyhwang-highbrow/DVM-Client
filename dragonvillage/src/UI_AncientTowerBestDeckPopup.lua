@@ -34,6 +34,21 @@ end
 function UI_AncientTowerBestDeckPopup:initUI()
     local vars = self.vars
 
+    local l_temp = {}
+    for i=1,50 do
+        table.insert(l_temp, i)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(vars['listNode'])
+    table_view:setCellUIClass(UI_AncientTowerBestDeckListItem, nil)
+    table_view.m_defaultCellSize = cc.size(1217, 77)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
+    table_view:setItemList(l_temp)
+    
+    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    table_view:relocateContainerFromIndex(table_index)
     --[[
 
     -- 테이블 뷰 인스턴스 생성

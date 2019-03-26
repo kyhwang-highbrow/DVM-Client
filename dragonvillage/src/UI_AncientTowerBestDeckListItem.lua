@@ -32,8 +32,7 @@ UI_AncientTowerBestDeckListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_AncientTowerBestDeckListItem:init(data)
-    local vars = self:load('capsule_box_schedule_list_item.ui')
-    self.m_scheduleData = data
+    local vars = self:load('tower_best_popup_item.ui')
 
     self:initUI()
     self:initButton()
@@ -45,6 +44,26 @@ end
 -------------------------------------
 function UI_AncientTowerBestDeckListItem:initUI()
     local vars = self.vars
+    --[[
+    vars['fomationNode']
+    vars['dragonNode5']
+    vars['meBestScoreLabel']
+    vars['meTopScoreLabel2']
+    vars['meTopScoreLabel1']
+    vars['userTopScoreLabel']
+    vars['stageLabel']
+    vars['meSprite']
+    --]]
+end
 
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_AncientTowerBestDeckListItem:initButton()
+    local vars = self.vars
+    --[[
+    vars['delBtn']
+    vars['loadBtn']
+    --]]
 end
 
