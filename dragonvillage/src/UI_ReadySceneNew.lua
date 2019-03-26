@@ -1606,7 +1606,7 @@ end
 -- function startGame_clanRaidTraining
 -------------------------------------
 function UI_ReadySceneNew:startGame_clanRaidTraining()
-    
+       
     if (g_clanRaidData.m_triningTicketCnt <= 0) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다', '연습 전투 티켓'))
         return 
@@ -1616,8 +1616,12 @@ function UI_ReadySceneNew:startGame_clanRaidTraining()
         self:replaceGameScene()
     end
 
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-    g_stageData:requestGameStart_training(struct_raid:getStageID(), struct_raid.attr, finish_cb, nil)
+    local func_start = function()
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        g_stageData:requestGameStart_training(struct_raid:getStageID(), struct_raid.attr, finish_cb, nil)
+    end
+
+    self:checkChangeDeck(func_start)
 end
 
 --@CHECK
