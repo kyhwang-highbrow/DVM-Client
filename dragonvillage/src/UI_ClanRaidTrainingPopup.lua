@@ -15,7 +15,8 @@ UI_ClanRaidTrainingPopup = class(PARENT, {
          m_hpRadioBtn = 'UIC_RadioBtn',
      })
 
-local STAGE_MAX = 150
+-- 1903026 @jhakim 150층까지 있지만 너무 많은 스테이지를 보여주지 않음
+local STAGE_MAX = 100
 
 -------------------------------------
 -- function init
@@ -371,8 +372,11 @@ function UI_ClanRaidTrainingPopup:click_resetBtn()
     self:setTab(cur_attr)
     self:refreshInfo(self.m_curStageLv, self.m_curHp)
     self:setCurrCount(self.m_curStageLv, false)
+    
+    --  라디오 버튼 리셋
     self.m_hpRadioBtn:inactivate('maxHp')
     self.m_hpRadioBtn:inactivate('finalBlow')
+    self.m_hpRadioBtn.m_selectedButton = '' 
 end
 
 -------------------------------------

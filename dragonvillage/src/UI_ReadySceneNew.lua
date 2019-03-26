@@ -584,6 +584,8 @@ function UI_ReadySceneNew:initButton()
             vars['trainingBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
             vars['trainingBtn']:setClickSoundName('ui_game_start')
             vars['trainingLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
+            vars['trainingSetBtn']:setVisible(true)
+            vars['trainingSetBtn']:registerScriptTapHandler(function() self:click_showTrainingBtn() end)
         end
     end
 end
@@ -1367,6 +1369,14 @@ function UI_ReadySceneNew:click_fomationBtn()
         end
 	end
 	ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_showTrainingBtn
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:click_showTrainingBtn()
+	self:close()
 end
 
 -------------------------------------

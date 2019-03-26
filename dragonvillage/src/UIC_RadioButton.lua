@@ -65,7 +65,7 @@ function UIC_RadioButton:setSelectedButton(button_name)
     if (self.m_selectedButton == button_name) then
         return false
     end
-
+    
     if self.m_selectedButton then
         self:inactivate(self.m_selectedButton)
     else
@@ -87,6 +87,11 @@ end
 -------------------------------------
 function UIC_RadioButton:inactivate(button_name)
     local t_button_data = self.m_buttonMap[button_name]
+
+    if (not t_button_data) then
+        return
+    end
+    
     if (t_button_data['death']) then
         return
     end
@@ -107,6 +112,11 @@ end
 -------------------------------------
 function UIC_RadioButton:activate(button_name)
     local t_button_data = self.m_buttonMap[button_name]
+
+    if (not t_button_data) then
+        return
+    end
+    
     if (t_button_data['death']) then
         return
     end
