@@ -312,6 +312,10 @@ function UI_ClanRaidTrainingPopup:refreshBoss(attr)
     local cnt = table.count(map_attr)
     local idx = 0
 
+    vars['panaltyTipsNode']:removeAllChildren()
+    for i=1,4 do
+        vars['panaltyTipsNode'..i]:removeAllChildren()
+    end
     for k, v in pairs(map_attr) do
         idx = idx + 1
         -- 속성 아이콘
@@ -319,7 +323,6 @@ function UI_ClanRaidTrainingPopup:refreshBoss(attr)
         local target_node = (cnt == 1) and 
                             vars['panaltyTipsNode'] or 
                             vars['panaltyTipsNode'..idx]
-        target_node:removeAllChildren()
         target_node:addChild(icon)
     end
 end

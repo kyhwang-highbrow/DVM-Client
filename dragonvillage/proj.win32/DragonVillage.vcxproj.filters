@@ -3991,6 +3991,9 @@
     <None Include="..\src\StatusEffect_ClanRaidBoss.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_EventBingoRewardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
