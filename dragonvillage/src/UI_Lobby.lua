@@ -1483,6 +1483,7 @@ function UI_Lobby:update(dt)
         map_check_event['event_gold_dungeon'] = 'goldDungeonLabel' -- 황금 던전 (골드라고라 던전)
         map_check_event['event_alphabet'] = 'alphabetLabel' -- 알파벳 이벤트
         map_check_event['event_exchange'] = 'exchangeLabel' -- 수집 이벤트
+        map_check_event['event_bingo'] = 'bingoLabel' -- 빙고 이벤트
         
         for event_name, label_name in pairs(map_check_event) do
             local remain_text = g_hotTimeData:getEventRemainTimeText(event_name)
