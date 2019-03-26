@@ -243,6 +243,10 @@ function UI_ClanRaidTrainingPopup:refreshInfo(lv, hp)
     local hp_ratio_str = string.format('%0.2f%%', hp_ratio)
     vars['hpLabel1']:setString(hp_ratio_str, false)
     vars['hpGauge']:setPercentage(hp_ratio)
+    
+    local is_final_blow = (hp_ratio <= 5) 
+    vars['fbVisual']:setVisible(is_final_blow)
+
 end
 
 -------------------------------------
