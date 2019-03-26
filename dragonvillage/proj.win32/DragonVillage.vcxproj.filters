@@ -3994,6 +3994,15 @@
     <None Include="..\src\UI_EventBingoRewardListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_AncientTowerBestDeckPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AncientTowerBestDeckListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\SettingData_Deck.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

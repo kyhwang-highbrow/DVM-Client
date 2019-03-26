@@ -559,6 +559,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Tutorial.lua" />
     <None Include="..\src\ServerListData.lua" />
     <None Include="..\src\SettingData.lua" />
+    <None Include="..\src\SettingData_Deck.lua" />
     <None Include="..\src\shader\characterDamaged.fsh" />
     <None Include="..\src\shader\gray.fsh" />
     <None Include="..\src\shader\position_texture_color_noMvp_vertex.vsh" />
@@ -1023,6 +1024,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AdvertisingPopup.lua" />
     <None Include="..\src\UI_AncientRuinStageListItem.lua" />
     <None Include="..\src\UI_AncientTower.lua" />
+    <None Include="..\src\UI_AncientTowerBestDeckListItem.lua" />
+    <None Include="..\src\UI_AncientTowerBestDeckPopup.lua" />
     <None Include="..\src\UI_AncientTowerClanRankListItem.lua" />
     <None Include="..\src\UI_AncientTowerClanRewardListItem.lua" />
     <None Include="..\src\UI_AncientTowerFloorInfo.lua" />

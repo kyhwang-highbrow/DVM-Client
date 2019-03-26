@@ -217,6 +217,7 @@ local t_module = {
     'MapManager',
     'LocalData',
     'SettingData',
+    'SettingData_Deck',
     'ChatMacroData',
     'LobbyGuideData',
     'LobbyGuideAbstract',
@@ -878,6 +879,8 @@ local t_module = {
     'UI_MatchReady',
     'UI_MatchReadyChallengeMode',
     'UI_RuneGuardianDungeonScene',
+    'UI_AncientTowerBestDeckListItem',
+    'UI_AncientTowerBestDeckPopup',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',
