@@ -323,7 +323,13 @@ end
 -------------------------------------
 function StructClanRaid:getClanAttrBuffList()
     local stage_id = self:getStageID()
-    local cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
+    local cur_clan_raid_attr 
+    if (self:isTrainingMode()) then
+        cur_clan_raid_attr = self['attr']      
+    else
+        cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
+    end
+
     local bonus_attr_list, penalty_attr_list
 
     -- ex) 보스가 물 속성인 경우 (어둠/빛 제외)

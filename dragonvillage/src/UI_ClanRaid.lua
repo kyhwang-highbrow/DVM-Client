@@ -348,10 +348,10 @@ function UI_ClanRaid:showDungeonStateUI()
     -- 잠금 표시
     local curr_stage_id = g_clanRaidData:getChallengStageID()
     local stage_id = struct_raid:getStageID()
-    local is_lock_stage = (stage_id > curr_stage_id)
-    vars['lockNode']:setVisible(is_lock_stage)
-    vars['readyBtn']:setVisible(not is_lock_stage)
-    vars['trainingBtn']:setVisible(not is_lock_stage)
+    local is_lock_stage = (stage_id == curr_stage_id)
+    vars['lockNode']:setVisible(not is_lock_stage)
+    vars['readyBtn']:setVisible(is_lock_stage)
+    vars['trainingBtn']:setVisible(is_lock_stage)
 
     -- 다른 유저 도전중인 상태 
     if (state == CLAN_RAID_STATE.CHALLENGE) then

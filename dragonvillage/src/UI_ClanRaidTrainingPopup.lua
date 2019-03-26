@@ -101,6 +101,7 @@ function UI_ClanRaidTrainingPopup:initButton()
     vars['quantityBtn3']:registerScriptTapHandler(function() self:click_plusBtn() end)
     vars['quantityBtn4']:registerScriptTapHandler(function() self:click_maxBtn() end)
     vars['resetBtn']:registerScriptTapHandler(function() self:click_resetBtn() end)
+    vars['synastryInfoBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_dungeon','clan_dungeon_summary', 'cldg_attr_bonus') end)
 end
 
 -------------------------------------
@@ -248,6 +249,16 @@ function UI_ClanRaidTrainingPopup:refreshInfo(lv, hp)
     local is_final_blow = (hp_ratio <= 5) 
     vars['fbVisual']:setVisible(is_final_blow)
 
+    local struct_clan_raid = self:getCostumedStructClanRaid()
+    
+    -- 보너스 속성    
+    local str, map_attr = struct_clan_raid:getBonusSynastryInfo()
+    vars['bonusTipsDscLabel']:setString(str)
+    
+    -- 패널티 속성  
+    local str, map_attr = struct_clan_raid:getPenaltySynastryInfo()
+    vars['panaltyTipsDscLabel']:setString(str)
+
 end
 
 -------------------------------------
@@ -283,15 +294,60 @@ function UI_ClanRaidTrainingPopup:refreshBoss(attr)
             animator:changeAni('idle', true)
         end
     end
+
+    local struct_clan_raid = self:getCostumedStructClanRaid()
+    
+    -- 보너스 속성
+    local str, map_attr = struct_clan_raid:getBonusSynastryInfo()
+    for k, v in pairs(map_attr) do
+        -- 속성 아이콘
+        local icon = IconHelper:getAttributeIcon(k)
+        local target_node = vars['bonusTipsNode']
+        target_node:removeAllChildren()
+        target_node:addChild(icon)
+    end
+
+    -- 패널티 속성  
+    local str, map_attr = struct_clan_raid:getPenaltySynastryInfo()
+    local cnt = table.count(map_attr)
+    local idx = 0
+
+    for k, v in pairs(map_attr) do
+        idx = idx + 1
+        -- 속성 아이콘
+        local icon = IconHelper:getAttributeIcon(k)
+        local target_node = (cnt == 1) and 
+                            vars['panaltyTipsNode'] or 
+                            vars['panaltyTipsNode'..idx]
+        target_node:removeAllChildren()
+        target_node:addChild(icon)
+    end
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ClanRaidTrainingPopup:refresh(force)
-    
+
 end
 
+------------------------
+-- function getCostumedStructClanRaid
+-------------------------------------
+function UI_ClanRaidTrainingPopup:getCostumedStructClanRaid()
+    local struct_clan_raid = StructClanRaid()
+    struct_clan_raid['clan_raid_type'] = 'training'                        -- 타입 지정 (연습 모드인지 구분 용도)
+    struct_clan_raid['attr'] = self.m_selectedAttr                         -- 연습 모드에서 커스텀한 속성
+    
+    local selected_stage_id 
+    if (self.m_selectStageLv) then
+        selected_stage_id = self.m_selectStageLv + 1500000
+    else
+        selected_stage_id = self.m_curStageLv + 1500000
+    end
+    struct_clan_raid['stage'] = selected_stage_id
+    return struct_clan_raid
+end
 -------------------------------------
 -- function initRadioBtn
 -------------------------------------

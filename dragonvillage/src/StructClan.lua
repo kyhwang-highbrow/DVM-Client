@@ -34,6 +34,8 @@ StructClan = class(PARENT, {
 		exp = 'number',
 		required_exp = 'number',
 		member_max = 'number',
+
+        PCT_PERCENT_DEFAULT = '',
     })
 
 local THIS = StructClan
