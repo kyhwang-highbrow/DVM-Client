@@ -81,6 +81,8 @@ function UI_EventBingoRewardListItem:initUI()
         vars['iconNode']:addChild(reward_card.root)
     end
     self.m_item_card = reward_card
+
+    vars['receiveVisual']:setIgnoreLowEndMode(true)
 end
 
 

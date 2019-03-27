@@ -13,7 +13,7 @@ UI_CapsuleBoxSchedule = class(PARENT,{
 function UI_CapsuleBoxSchedule:init()
     self.m_uiName = 'UI_CapsuleBoxSchedule'
     local vars = self:load('capsule_box_schedule_pop_up.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_CapsuleBoxSchedule')
