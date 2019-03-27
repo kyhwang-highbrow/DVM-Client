@@ -239,7 +239,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
             end
             
             -- 클리어한 보스 레벨          
-            ui.vars['bossLabel']:setVisible(true)
+            ui.vars['bossLabel']:setVisible(false)
         end
        
         -- 테이블 뷰 인스턴스 생성
