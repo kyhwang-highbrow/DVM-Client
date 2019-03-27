@@ -23,7 +23,10 @@ StructClanRank = class(PARENT, {
         member_cnt = 'number',
         info = '', -- ??
         cdlv = '', -- 현재 진행중 단계 (던전에서만 옴)
-		member_max = ''
+		member_max = '',
+        
+        cldg_last_info = 'table',
+        cldg_Attr = 'table',
     })
 
 local THIS = StructClanRank

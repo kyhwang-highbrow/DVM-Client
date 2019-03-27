@@ -229,12 +229,23 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
             if (data['id'] == self.m_rank_data[attr]['my_claninfo']['id']) then
                 ui.vars['meSprite']:setVisible(true)
             end
+            
+            local last_lv = '-'
+            if (data['cldg_last_info']) then
+                last_lv = (data['cldg_last_info'][attr]['cldg_last_lv'])%1000
+                ui.vars['bossLabel']:setString('Lv.' .. last_lv)
+            else
+                ui.vars['bossLabel']:setString('-')
+            end
+            
+            -- 클리어한 보스 레벨          
+            ui.vars['bossLabel']:setVisible(true)
         end
        
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(245, 80+5)
-        table_view:setCellUIClass(self.makeAttrRankListItem, create_func)
+        table_view:setCellUIClass(UI_ClanRaidLastRankingListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_item_list, false)
         --self.m_rewardTableView = table_view
@@ -261,16 +272,39 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     end
 end
 
+
+
+
+
+
+
+
+
+local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
--- function makeAttrRankListItem
+-- class UI_ClanRaidLastRankingListItem
 -------------------------------------
-function UI_ClanRaidLastRankingTab.makeAttrRankListItem(t_data)
-    local ui = class(UI, ITableViewCell:getCloneTable())()
-	local vars = ui:load('clan_raid_rank_popup_item_02.ui')
-    if (not t_data) then
-        return ui
-    end
-    
+UI_ClanRaidLastRankingListItem = class(PARENT,{
+        m_tData = 'table',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanRaidLastRankingListItem:init(t_data)
+    local vars = self:load('clan_raid_rank_popup_item_02.ui')
+    self.m_tData = t_data
+
+    self:initUI()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanRaidLastRankingListItem:initUI()
+    local vars = self.vars
+    local t_data = self.m_tData
+
     local tag = t_data['m_tag']
     -- 다음 랭킹 보기 
     if (tag == 'next') then
@@ -295,17 +329,15 @@ function UI_ClanRaidLastRankingTab.makeAttrRankListItem(t_data)
     
     -- 클랜 랭크
     vars['rankLabel']:setString(tostring(t_data['rank']))
-    
-    -- 클리어한 보스 레벨
-    vars['bossLabel']:setString('Lv.' ..t_data['cdlv'])
-    vars['bossLabel']:setVisible(false)
 
     -- 마크 정보
     local struct_mark = StructClanMark:create(t_data['mark'])
     local mark_icon = struct_mark:makeClanMarkIcon()
     vars['markNode']:addChild(mark_icon)
-    return ui
+
 end
+
+
 
 --@CHECK
 UI:checkCompileError(UI_ClanRaidLastRankingTab)
