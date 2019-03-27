@@ -466,6 +466,10 @@ function UI_EventBingo:resetGoraAction()
     self.vars['goraMenu2']:setPosition(cc.p(-200, 50))
     self.vars['goraMenu3']:setPosition(cc.p(-200, 50))
 
+    self.vars['goraMenu1']:stopAllActions()
+    self.vars['goraMenu2']:stopAllActions()
+    self.vars['goraMenu3']:stopAllActions()
+
     self.vars['goraMenu1']:setVisible(false)
     self.vars['goraMenu2']:setVisible(false)
     self.vars['goraMenu3']:setVisible(false)
@@ -549,7 +553,7 @@ end
 function UI_EventBingo:showSameNumberGora()
     local vars = self.vars
     self:resetGoraAction()
-    self:moveFrontGoraAnimation(vars['goraMenu2'])
+    self:showGoraAnimation(vars['goraMenu2'])
 end
 -------------------------------------
 -- function showNewNumberGora
@@ -557,7 +561,7 @@ end
 function UI_EventBingo:showNewNumberGora()
     local vars = self.vars
     self:resetGoraAction()
-    self:moveFrontGoraAnimation(vars['goraMenu1'])
+    self:showGoraAnimation(vars['goraMenu1'])
 end
 
 -------------------------------------
@@ -572,7 +576,7 @@ function UI_EventBingo:showGoraAnimation(node)
     end
 
     -- 만드라 고라 나타나는 효과
-    local delete_delay_action = cc.DelayTime:create(1)
+    local delete_delay_action = cc.DelayTime:create(5)
     local move_action_1 = cc.EaseOut:create(cc.MoveTo:create(0.05, cc.p(4.5, 50)), 0.3)
     local move_action_2 = cc.EaseOut:create(cc.MoveTo:create(0.1, cc.p(-200, 50)), 0.3)
     local delete_action = cc.CallFunc:create(delete_func)

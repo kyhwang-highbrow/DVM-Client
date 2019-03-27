@@ -54,7 +54,8 @@ function UI_EventBingoRewardListItem:initUI()
     local node = vars['itemNode'..node_ind]
 
     local reward_card = UI_ItemCard(tonumber(item_id), tonumber(item_cnt))
-    
+    reward_card.root:setSwallowTouch(false)
+
     -- 아이템 카드의 경우 : 뒷 배경 끔
     if (reward_card.vars['bgSprite']) then
         reward_card.vars['bgSprite']:setVisible(false)
@@ -108,7 +109,7 @@ function UI_EventBingoRewardListItem:initUI_cntReward()
     local reward_card = UI_ItemCard(tonumber(item_id), tonumber(item_cnt))
     vars['receiveBtn']:registerScriptTapHandler(function() self.m_click_cb(node_ind) end)
     reward_card.root:setScale(0.6)
-
+    reward_card.root:setSwallowTouch(false)
     if (reward_card) then
         vars['iconNode']:addChild(reward_card.root)
         self.m_item_card = reward_card
