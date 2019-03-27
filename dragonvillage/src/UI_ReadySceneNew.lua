@@ -1638,7 +1638,7 @@ end
 function UI_ReadySceneNew:startGame_clanRaidTraining()
        
     if (g_clanRaidData.m_triningTicketCnt <= 0) then
-        UIManager:toastNotificationRed(Str('{1}이 부족합니다', '연습 전투 입장권'))
+        UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('연습 전투 입장권')))
         return 
     end
     
