@@ -83,7 +83,7 @@ function UI_ClanRaidRankingPopup:initRank()
     local rank_type = CLAN_RANK['RAID']
     
     self.m_rank_data = g_clanRankData:getRankData(rank_type)
-	local l_rank_list = self.m_rank_data
+	local l_rank_list = self.m_rank_data or {}
 
     local cb_func = function()
        self:initRank()
@@ -98,22 +98,24 @@ function UI_ClanRaidRankingPopup:initRank()
     if (not self.m_rank_list) then
         self.m_rank_list = UIC_RankingList()                                    -- step0. (필수)랭킹 UI 컴포넌트 생성
     end
-
-    self.m_rank_list:setRankUIClass(_UI_ClanRaidRankListItem, nil)              -- step1. (필수)셸 UI 설정  
-    self.m_rank_list:setRankList(l_rank_list)                                   -- step2. (필수)리스트 설정
-    self.m_rank_list:setOffset(offset)                                          -- step3. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터)
-    self.m_rank_list:makeRankMoveBtn(click_func, click_func, CLAN_OFFSET_GAP)   -- step4. (선택)이전, 다음 버튼 사용할 것인가 (눌렀을 때 콜백 함수, )
-    self.m_rank_list:setEmptyStr('')                                            -- step5. (선택)랭킹이 없을 때, 메세지 설정
+    if (#l_rank_list > 1) then
+        self.m_rank_list:setRankUIClass(_UI_ClanRaidRankListItem, nil)              -- step1. (필수)셸 UI 설정  
+        self.m_rank_list:setRankList(l_rank_list)                                   -- step2. (필수)리스트 설정
+        self.m_rank_list:setOffset(offset)                                          -- step3. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터)
+        self.m_rank_list:makeRankMoveBtn(click_func, click_func, CLAN_OFFSET_GAP)   -- step4. (선택)이전, 다음 버튼 사용할 것인가 (눌렀을 때 콜백 함수, )
+        self.m_rank_list:setEmptyStr('')                                            -- step5. (선택)랭킹이 없을 때, 메세지 설정
+        
+        
+        local make_my_rank_cb = function()
+            self:makeMyRank()
+        end
+        self.m_rank_list:setMyRank(make_my_rank_cb)                                 -- step6. (선택)내 랭킹 만드는 콜백 함수
     
+        self.m_rank_list:makeRankList(node)                                         -- step7. (필수)실제로 랭킹 생성
     
-    local make_my_rank_cb = function()
-        self:makeMyRank()
+        local focus_value = g_clanData.m_structClan:getClanObjectID()
+        self.m_rank_list:setFocus('id', focus_value)                                -- step8. (선택)해당 리스트에서 (type : id) focus_value 값에 포커싱, 하이라이트(vars['mySprite']가 있다면)
     end
-    self.m_rank_list:setMyRank(make_my_rank_cb)                                 -- step6. (선택)내 랭킹 만드는 콜백 함수
-    self.m_rank_list:makeRankList(node)                                         -- step7. (필수)실제로 랭킹 생성
-
-    local focus_value = g_clanData.m_structClan:getClanObjectID()
-    self.m_rank_list:setFocus('id', focus_value)                                -- step8. (선택)해당 리스트에서 (type : id) focus_value 값에 포커싱, 하이라이트(vars['mySprite']가 있다면)
 end
 
 -------------------------------------
@@ -122,7 +124,7 @@ end
 function UI_ClanRaidRankingPopup:initRankReward()
     local vars = self.vars
 	local node = vars['reawardNode']
-	local l_rank_list = g_clanRaidData:getRankRewardList()
+	local l_rank_list = g_clanRaidData:getRankRewardList() or {}
 
     local reward_rank_list = UIC_RankingList()                                  -- step0. (필수)랭킹 UI 컴포넌트 생성
     reward_rank_list:setRankUIClass(_UI_ClanRaidRewardListItem, nil)            -- step1. (필수)셸 UI 설정  
@@ -170,9 +172,14 @@ function UI_ClanRaidRankingPopup:focusInRankReward()
         end
     end
 
-    if (rank_type) then       
-        self.m_rank_reward_list:makeRankList(self.vars['reawardNode'])                                         -- step7. (필수)실제로 랭킹 생성
-        self.m_rank_reward_list:setFocus(rank_type, rank_value)                              -- step8. (선택)해당 리스트에서 (type : id) focus_value 값에 포커싱, 하이라이트(vars['mySprite']가 있다면)
+    if (rank_type) then
+        if (self.m_rank_list.m_itemList) then
+            local list_cnt = #self.m_rank_list.m_itemList
+            if (list_cnt > 1) then
+                self.m_rank_reward_list:makeRankList(self.vars['reawardNode'])                                         -- step7. (필수)실제로 랭킹 생성
+                self.m_rank_reward_list:setFocus(rank_type, rank_value)                              -- step8. (선택)해당 리스트에서 (type : id) focus_value 값에 포커싱, 하이라이트(vars['mySprite']가 있다면)
+            end
+        end
     end
 
 end
