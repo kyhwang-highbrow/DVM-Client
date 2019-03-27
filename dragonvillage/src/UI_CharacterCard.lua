@@ -523,7 +523,7 @@ function UI_CharacterCard:setClanAttrSynastry(attr_synastry, attr)
         ani = 'clan_raid_attr_info_0' ..  attr_map[attr]
     end
 
-    self:setAnimatorVisible(lua_name, res, ani, visible)
+    self:setAnimatorVisible_IgnoreLowMode(lua_name, res, ani, visible)
 end
 
 -------------------------------------

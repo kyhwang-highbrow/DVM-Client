@@ -84,6 +84,7 @@ function UI_EventBingo:initUI()
         vars['rewardIconNode']:addChild(ui.root)
         if (#l_reward_item == ind) then
             ui.vars['lastRewardVisual']:setVisible(true)
+            ui.vars['lastRewardVisual']:setIgnoreLowEndMode(true)
         end
         table.insert(self.m_lBingoCntReward, ui)
     end
@@ -640,7 +641,7 @@ function UI_EventBingo:showSameNumberAction(number)
     local vars = self.vars
 
     local struct_bingo = g_eventBingoData:getStructEventBingo()
-    cca.stampShakeActionLabel(vars['numberLabel3'], 2, 0.1, 0, 0)
+    cca.stampShakeActionLabel(vars['cashNode2'], 2, 0.1, 0, 0)
     vars['pickTokenPrice']:setString(struct_bingo.event_pick_price)
     
     self.m_lBingoNumber[number]:setSameNumberAction()

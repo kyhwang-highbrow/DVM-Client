@@ -148,6 +148,26 @@ function UI_Card:setAnimatorVisible(lua_name, res, ani, visible)
 end
 
 -------------------------------------
+-- function setAnimatorVisible
+-- @brief visible 관리하고 없다면 만든다.
+-------------------------------------
+function UI_Card:setAnimatorVisible_IgnoreLowMode(lua_name, res, ani, visible)
+    local vars = self.vars
+    if vars[lua_name] then
+        vars[lua_name]:setVisible(visible)
+        return vars[lua_name]
+    elseif (visible) then
+        local animator = MakeAnimator(res)
+        animator:changeAni(ani, true)
+        animator:setIgnoreLowEndMode(true)
+        vars['clickBtn']:addChild(animator.m_node)
+        self:setCardInfo(lua_name, animator)
+        vars[lua_name] = animator
+        return animator
+    end
+end
+
+-------------------------------------
 -- function setNumberText
 -- @brief 숫자 텍스트 생성용
 -------------------------------------
