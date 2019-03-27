@@ -653,9 +653,17 @@ end
 -------------------------------------
 function UI_EventBingo:showSameNumberAction(number)
     local vars = self.vars
+    local cb_func = function()
+        vars['cashNode2']:setScale(1)     
+    end
 
-    local struct_bingo = g_eventBingoData:getStructEventBingo()
-    cca.stampShakeActionLabel(vars['cashNode2'], 2, 0.1, 0, 0)
+    local struct_bingo = g_eventBingoData.m_structBingo
+    local scale_action = cca.stampShakeActionLabel_action(vars['cashNode2'], 2, 0.1, 0, 0)
+    local cb_action = cc.CallFunc:create(cb_func)
+	local sequence_action = cc.Sequence:create(scale_action, cb_action)
+    vars['cashNode2']:runAction(sequence_action)
+
+    -- 아이템 갯수 갱신
     vars['pickTokenPrice']:setString(struct_bingo.event_pick_price)
     
     self.m_lBingoNumber[number]:setSameNumberAction()
