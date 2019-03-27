@@ -181,6 +181,17 @@ function UI_PurchasePointBg:initUI_dragon()
     local dragon_attr = TableDragon:getDragonAttr(did)
     animator = ResHelper:getUIDragonBG(dragon_attr, 'idle')
     vars['bgNode']:addChild(animator.m_node)
+
+
+    local category_str = table_dragon:getDragonCartegory(did)
+    if (category_str == 'cardpack') then
+        category_str = Str('토파즈 드래곤')
+    elseif (category_str == 'cardpack') then
+        category_str = Str('한정 드래곤')
+    else
+        category_str = Str('')
+    end
+    vars['dscLabel']:setString(category_str)
 end
 
 -------------------------------------
