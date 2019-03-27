@@ -132,7 +132,7 @@ function UI_EventPopupTab_PurchasePoint:refresh()
 
     -- 누적 결제 점수
     local purchase_point = g_purchasePointData:getPurchasePoint(version)
-    local str = Str('누적 결제 점수') .. ' : ' .. Str('{1}점', comma_value(purchase_point))
+    local str = Str('누적 결제 점수: {1}점', comma_value(purchase_point))
     vars['scoreLabel']:setString(str)
 
     -- 누적 결제 시간 안내
