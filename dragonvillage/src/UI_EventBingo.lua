@@ -39,6 +39,7 @@ function UI_EventBingo:initUI()
     local func_click_bingoNum = function(selected_num)
         self:request_selectedDraw(selected_num)
         self:setCancelActive(vars['goraMenu3'], false)
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
     end
 
     self.m_lBingoNumber = {}
@@ -147,7 +148,7 @@ function UI_EventBingo:refresh()
         end
     end
 
-    vars['progressLabel']:setString(Str('다음 보상까지 {1} 빙고 남았습니다.', next_step - bingo_line_cnt))
+    vars['progressLabel']:setString(Str('다음 보상까지 {1}빙고 남았습니다.', next_step - bingo_line_cnt))
     if (next_step - bingo_line_cnt == 0) then
         vars['progressLabel']:setVisible(false)
     end
@@ -169,6 +170,10 @@ function UI_EventBingo:refresh()
     if (struct_bingo:getBingoLineCnt() == 12) then
         self:completeBingo()
     end
+
+    local eventPickCnt = struct_bingo:getPickEventItemCnt()
+    local is_pickable = eventPickCnt >= 10
+    vars['playBtn2']:setEnabled(is_pickable)
 end
 
 -------------------------------------
@@ -317,10 +322,10 @@ end
 -------------------------------------
 function UI_EventBingo:pickNumberAction(number, finish_cb)
     local vars = self.vars
-    local change_speed = 0.1
+    local change_speed = 0.06
     local repeat_cnt = 12
-    local delete_time = 0.5
-    
+    local delete_time = 0.7
+
     if (not vars['pickAniSprite']) then
         return
     end
@@ -345,6 +350,7 @@ function UI_EventBingo:pickNumberAction(number, finish_cb)
     local delete_frunc = function()
         vars['pickAniSprite']:setVisible(false)
         vars['bingoSprite']:setVisible(false)
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
         self:refresh()
         if (finish_cb) then
             finish_cb()
@@ -384,7 +390,7 @@ end
 -------------------------------------
 function UI_EventBingo:click_drawNumberBtn()
     local struct_bingo = g_eventBingoData.m_structBingo
-    
+
     -- 빙고판이 보이도록 포커싱
     self:moveContainer(0)
     if (struct_bingo:getEventItemCnt() < struct_bingo.event_price) then
@@ -450,6 +456,19 @@ function UI_EventBingo:click_chooseNumberBtn()
     end
 
     self:setCancelActive(vars['goraMenu3'], true)
+end
+
+-------------------------------------
+-- function resetGoraAction
+-------------------------------------
+function UI_EventBingo:resetGoraAction()
+    self.vars['goraMenu1']:setPosition(cc.p(-200, 50))
+    self.vars['goraMenu2']:setPosition(cc.p(-200, 50))
+    self.vars['goraMenu3']:setPosition(cc.p(-200, 50))
+
+    self.vars['goraMenu1']:setVisible(false)
+    self.vars['goraMenu2']:setVisible(false)
+    self.vars['goraMenu3']:setVisible(false)
 end
 
 -------------------------------------
@@ -529,15 +548,16 @@ end
 -------------------------------------
 function UI_EventBingo:showSameNumberGora()
     local vars = self.vars
-    self:showGoraAnimation(vars['goraMenu2'])
+    self:resetGoraAction()
+    self:moveFrontGoraAnimation(vars['goraMenu2'])
 end
-
 -------------------------------------
 -- function showNewNumberGora
 -------------------------------------
 function UI_EventBingo:showNewNumberGora()
     local vars = self.vars
-    self:showGoraAnimation(vars['goraMenu1'])
+    self:resetGoraAction()
+    self:moveFrontGoraAnimation(vars['goraMenu1'])
 end
 
 -------------------------------------
@@ -602,6 +622,7 @@ function UI_EventBingo:setCancelActive(node, is_active)
     vars['playBtn1']:setEnabled(not is_active)
 
     if (is_active) then
+        self:resetGoraAction()
         self:moveFrontGoraAnimation(node)
     else
         self:moveBackGoraAnimation(node)
