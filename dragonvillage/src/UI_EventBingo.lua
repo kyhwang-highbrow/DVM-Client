@@ -501,7 +501,13 @@ end
 -------------------------------------
 -- function click_cntRewardBingo
 -------------------------------------
-function UI_EventBingo:click_cntRewardBingo(reward_ind)   
+function UI_EventBingo:click_cntRewardBingo(reward_ind)
+    local struct_bingo = g_eventBingoData.m_structBingo
+    local is_received = struct_bingo:getBingoCntRewardState(reward_ind)
+    if (is_received == 1) then
+       return
+    end
+    
     -- 통신 전, 블럭 팝업 생성
     local block_ui = UI_BlockPopup()
     
