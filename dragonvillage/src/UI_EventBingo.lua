@@ -317,7 +317,7 @@ end
 -------------------------------------
 function UI_EventBingo:pickNumberAction(number, finish_cb)
     local vars = self.vars
-    local change_speed = 0.05
+    local change_speed = 0.1
     local repeat_cnt = 12
     local delete_time = 0.5
     
@@ -351,15 +351,19 @@ function UI_EventBingo:pickNumberAction(number, finish_cb)
         end
     end
     
+
     -- 랜덤으로 바뀌는 효과
     local random_action = cc.CallFunc:create(random_frunc)
     local delay_action = cc.DelayTime:create(change_speed)
+
     local repeat_sequence_action = cc.Sequence:create(random_action, delay_action)
     local repeat_action = cc.Repeat:create(repeat_sequence_action, repeat_cnt)
+    local accel_repeat = cc.EaseIn:create(repeat_action, 0.5)
     local end_action = cc.CallFunc:create(end_frunc)
     local delete_delay_action = cc.DelayTime:create(delete_time)
     local delete_action = cc.CallFunc:create(delete_frunc)
-    local sequence_action = cc.Sequence:create(repeat_action, end_action, delete_delay_action, delete_action)
+    
+    local sequence_action = cc.Sequence:create(accel_repeat, end_action, delete_delay_action, delete_action)
 
     cca.runAction(self.root, sequence_action, nil)
 end
@@ -548,9 +552,9 @@ function UI_EventBingo:showGoraAnimation(node)
     end
 
     -- 만드라 고라 나타나는 효과
-    local delete_delay_action = cc.DelayTime:create(0.7)
-    local move_action_1 = cc.EaseOut:create(cc.MoveTo:create(0.3, cc.p(4.5, 50)), 0.3)
-    local move_action_2 = cc.EaseOut:create(cc.MoveTo:create(0.3, cc.p(-200, 50)), 0.3)
+    local delete_delay_action = cc.DelayTime:create(1)
+    local move_action_1 = cc.EaseOut:create(cc.MoveTo:create(0.05, cc.p(4.5, 50)), 0.3)
+    local move_action_2 = cc.EaseOut:create(cc.MoveTo:create(0.1, cc.p(-200, 50)), 0.3)
     local delete_action = cc.CallFunc:create(delete_func)
     local sequence_action = cc.Sequence:create(move_action_1, delete_delay_action, move_action_2, delete_action)
     node:runAction(sequence_action)
@@ -564,8 +568,8 @@ function UI_EventBingo:moveFrontGoraAnimation(node)
     node:setPosition(cc.p(-200, 50))
 
     -- 만드라 고라 옆에서 나오는 효과
-    local delete_delay_action = cc.DelayTime:create(0.7)
-    local move_action_1 = cc.EaseOut:create(cc.MoveTo:create(0.3, cc.p(4.5, 50)), 0.3)
+    local delete_delay_action = cc.DelayTime:create(1)
+    local move_action_1 = cc.EaseOut:create(cc.MoveTo:create(0.05, cc.p(4.5, 50)), 0.3)
     node:runAction(move_action_1)
 end
 
@@ -578,7 +582,7 @@ function UI_EventBingo:moveBackGoraAnimation(node)
     end
 
     -- 만드라 고라 옆으로 나가는 효과
-    local move_action_2 = cc.EaseOut:create(cc.MoveTo:create(0.3, cc.p(-200, 50)), 0.3)
+    local move_action_2 = cc.EaseOut:create(cc.MoveTo:create(0.1, cc.p(-200, 50)), 0.3)
     local delete_action = cc.CallFunc:create(delete_func)
     local sequence_action = cc.Sequence:create( move_action_2, delete_action)
     node:runAction(sequence_action)
@@ -608,6 +612,12 @@ end
 -- function showSameNumberAction
 -------------------------------------
 function UI_EventBingo:showSameNumberAction(number)
+    local vars = self.vars
+
+    local struct_bingo = g_eventBingoData:getStructEventBingo()
+    cca.stampShakeActionLabel(vars['numberLabel3'], 2, 0.1, 0, 0)
+    vars['pickTokenPrice']:setString(struct_bingo.event_pick_price)
+    
     self.m_lBingoNumber[number]:setSameNumberAction()
 end
 
