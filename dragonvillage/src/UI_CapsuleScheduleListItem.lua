@@ -243,8 +243,10 @@ function UI_CapsuleScheduleListItem:makeItemCard(reward_name, node_name)
             t_dragon_data['skill_3'] = 0
         
             item_card = UI_DragonCard(StructDragonObject(t_dragon_data), nil, true) -- t_dragon_data, struct_user_info, is_tooltop
+            item_card.root:setSwallowTouch(false)
         else
             item_card = UI_ItemCard(capsule_item_id, 1)
+            item_card.root:setSwallowTouch(false)
         end
         -- 뱃지 생성
         local badge_ui = g_capsuleBoxData:makeBadge(self.m_scheduleData, reward_name)
