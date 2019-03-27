@@ -128,7 +128,6 @@ function UI_ClanRaidRankingPopup:initRankReward()
     reward_rank_list:setRankUIClass(_UI_ClanRaidRewardListItem, nil)            -- step1. (필수)셸 UI 설정  
     reward_rank_list:setRankList(l_rank_list)                                   -- step2. (필수)리스트 설정
     reward_rank_list:setOffset(-1)                                              -- step5. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터)
-    reward_rank_list:makeRankList(node)                                         -- step7. (필수)실제로 랭킹 생성
     self.m_rank_reward_list = reward_rank_list
 end
 
@@ -171,7 +170,8 @@ function UI_ClanRaidRankingPopup:focusInRankReward()
         end
     end
 
-    if (rank_type) then
+    if (rank_type) then       
+        self.m_rank_reward_list:makeRankList(self.vars['reawardNode'])                                         -- step7. (필수)실제로 랭킹 생성
         self.m_rank_reward_list:setFocus(rank_type, rank_value)                              -- step8. (선택)해당 리스트에서 (type : id) focus_value 값에 포커싱, 하이라이트(vars['mySprite']가 있다면)
     end
 
