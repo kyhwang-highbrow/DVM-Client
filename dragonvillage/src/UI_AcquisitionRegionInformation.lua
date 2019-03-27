@@ -165,6 +165,12 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 			table.insert(l_region, 'relation')
 		end
 
+        -- 토파즈
+		local category = TableDragon():getDragonCartegory(did)
+		if (category == 'cardpack') then
+			table.insert(l_region, 'cardpack')
+		end
+
 		-- 아무것도 없다면 하나 출력해준다... 뭐...
 		if (#l_region == 0) then
 			table.insert(l_region, 'empty')

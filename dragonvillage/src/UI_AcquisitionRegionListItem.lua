@@ -78,6 +78,9 @@ function UI_AcquisitionRegionListItem:initUI()
 		elseif (get_type == 'relation') then
 			title_str = Str('[인연 던전]')
 			content_str = Str('인연 던전에서 획득')
+        elseif (get_type == 'cardpack') then
+			title_str = Str('토파즈 드래곤')
+			content_str = Str('토파즈 상점에서 구매')
 
 		elseif (get_type == 'empty') then
 			title_str = Str('[획득 불가]')
@@ -147,6 +150,8 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 
 		elseif (get_type == 'relation') then
 			UINavigator:goTo('hatchery', get_type)
+        elseif (get_type == 'cardpack') then
+			UINavigator:goTo('shop', 'topaz') 
 
         elseif (get_type == 'challenge_mode') then
             -- 그림자 신전이 열려있지 않다면 이동시키지 않음
