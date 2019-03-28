@@ -149,7 +149,7 @@ function UI_ChallengeModeResult:direction_winReward()
     -- 이벤트(수집 이벤트) 보상이 섞여 들어왔을 때는 보상 목록에서 제외
     local remove_ind = nil
     for ind, item_data in ipairs(t_item) do
-        if (item_data['from'] == 'event') then
+        if (item_data['from'] == 'event' or item_data['from'] == 'event_bingo') then
             remove_ind = ind
             break
         end
