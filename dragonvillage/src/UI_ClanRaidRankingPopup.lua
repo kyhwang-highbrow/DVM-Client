@@ -21,7 +21,7 @@ function UI_ClanRaidRankingPopup:init()
     self.m_offset = -1
     
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanRaidRankingPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end , 'UI_ClanRaidRankingPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -287,8 +287,6 @@ _UI_ClanRaidRewardListItem = class(PARENT,{
 function _UI_ClanRaidRewardListItem:init(data)
     local vars = self:load('clan_raid_rank_popup_item_01.ui')
     self.m_data = data
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, '_UI_ClanRaidRewardListItem')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -348,8 +346,6 @@ _UI_ClanRaidRankListItem = class(PARENT,{
 function _UI_ClanRaidRankListItem:init(data)
     local vars = self:load('clan_raid_scene_item_03.ui')
     self.m_data = data
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, '_UI_ClanRaidRankListItem')
     
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
