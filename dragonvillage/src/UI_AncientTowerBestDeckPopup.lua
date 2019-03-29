@@ -14,7 +14,8 @@ function UI_AncientTowerBestDeckPopup:init()
     self.m_uiName = 'UI_AncientTowerBestDeckPopup'
     local vars = self:load('tower_best_popup.ui')
     UIManager:open(self, UIManager.POPUP)
-
+    
+    SettingData_Deck:getInstance()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_AncientTowerBestDeckPopup')
 
@@ -34,10 +35,14 @@ end
 function UI_AncientTowerBestDeckPopup:initUI()
     local vars = self.vars
 
-    local l_temp = {}
-    for i=1,50 do
-        table.insert(l_temp, i)
+    local l_deck = g_settingDeckData:getDeckAllAncient('ancient')
+
+    if (not l_deck) then
+        return 
     end
+
+    l_deck = l_deck['ancient_deck']
+    l_deck = table.MapToList(l_deck)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['listNode'])
@@ -45,7 +50,7 @@ function UI_AncientTowerBestDeckPopup:initUI()
     table_view.m_defaultCellSize = cc.size(1217, 77)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    table_view:setItemList(l_temp)
+    table_view:setItemList(l_deck)
     
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view:relocateContainerFromIndex(table_index)
