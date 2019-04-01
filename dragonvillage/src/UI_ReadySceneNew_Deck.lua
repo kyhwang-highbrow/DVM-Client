@@ -443,6 +443,44 @@ function UI_ReadySceneNew_Deck:init_deck()
 end
 
 -------------------------------------
+-- function setDeck
+-------------------------------------
+function UI_ReadySceneNew_Deck:setDeck(l_deck, formation, deckname, leader, tamer_id, formation_lv)
+    do -- UI 정리
+        if self.m_lSettedDragonCard then
+            for _,ui in pairs(self.m_lSettedDragonCard) do
+                ui.root:removeFromParent()
+            end
+        end
+        self.m_lSettedDragonCard = {}
+    end
+
+	l_deck = self:convertSimpleDeck(l_deck)
+
+	self.m_currLeader = leader
+    self.m_lDeckList = {}
+    self.m_tDeckMap = {}
+
+    for idx,doid in pairs(l_deck) do
+        local skip_sort = true
+        self:setSlot(idx, doid, skip_sort)
+        
+        if (idx == leader) then
+            self.m_currLeaderOID = doid
+        end
+    end
+
+    -- focus deck
+    self:refreshFocusDeckSlot()
+
+	-- leader set
+	self:refreshLeader()
+    self:setFormation(formation)
+    self:setFormationLv(formation_lv)
+    self:setDirtyDeck()
+end
+
+-------------------------------------
 -- function convertSimpleDeck
 -- @brief 기존 1~9번의 index를 쓰던 것에서 1~5만 사용하는 것으로 변경
 -------------------------------------

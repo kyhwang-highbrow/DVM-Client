@@ -1484,7 +1484,12 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_bestTeamBtn()
-    UI_AncientTowerBestDeckPopup()
+    --[[
+    local apply_cb = function(l_deck, formation, deckname, leader, tamer_id, formation_lv)
+        self.m_readySceneDeck:setDeck(l_deck, formation, deckname, leader, tamer_id, formation_lv)
+    end
+    --]]
+    UI_AncientTowerBestDeckPopup(apply_cb)
 end
 
 -------------------------------------
@@ -1492,6 +1497,21 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_loadBestTeam()
+    local t_data = g_settingDeckData:getDeckAncient(self.m_stageID)
+
+    if (not t_data) then
+        UIManager:toastNotificationRed(Str('저장된 베스트 팀이 없습니다'))
+        return
+    end
+    
+    local l_deck = t_data['deck']
+    local formation = t_data['formation']
+    local deckname = t_data['deckname']
+    local leader = t_data['leader']
+    local tamer_id = t_data['tamer_id']
+    local formation_lv = 1
+
+    self.m_readySceneDeck:setDeck(l_deck, formation, deckname, leader, tamer_id, formation_lv)
 end
 
 -------------------------------------

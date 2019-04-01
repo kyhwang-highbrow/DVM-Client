@@ -93,7 +93,7 @@ function SettingData_Deck:getAncientStageScore(stage_id)
         return 0
     end
 
-    return self.m_rootTable['ancient_deck'][tonumber(stage_id)]['best_score']
+    return self.m_rootTable['ancient_deck'][tostring(stage_id)]['best_score']
 end
 
 -------------------------------------
@@ -110,28 +110,20 @@ end
 -- function getDeckAncient
 -- @brief 로컬 파일에서 덱 정보 읽어서 리턴
 -------------------------------------
-function SettingData_Deck:getDeckAncient(deck_name, stage_id)
-    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
-    local t_ancient_deck = self.m_rootTable['ancient_deck'][stage_id]
-    local l_dragon = {}
-
-    if (not t_ancient_deck) then
-        return nil
-    end
-
+function SettingData_Deck:getDeckAncient(stage_id)
+    local t_ancient_deck = self.m_rootTable['ancient_deck'][tostring(stage_id)]
+    ccdump(self.m_rootTable['ancient_deck'][tostring(stage_id)])
+    ccdump(stage_id)
+    -- deck 정보가 없다면 빈 정보로 간주(best_score 등 초기화 정보 있는 상태)
     if (not t_ancient_deck['deck']) then
         return nil
     end
-
-    for i,v in pairs(t_ancient_deck['deck']) do
-        -- 드래곤 데이터를 리스트 형식으로 변환
-        if (v ~= '') and g_dragonsData:getDragonDataFromUid(v) then
-            l_dragon[tonumber(i)] = v
-        end
-    end
-
     
-    return l_dragon, t_ancient_deck
+    if (not t_ancient_deck) then
+        return nil
+    end
+    
+    return t_ancient_deck
 end
  
 -------------------------------------
