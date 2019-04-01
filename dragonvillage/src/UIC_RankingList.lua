@@ -80,7 +80,10 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
     local l_item = self.m_itemList
     self.m_offsetGap = offset_gap
     self.m_cellCount = #l_item
-
+    if (self.m_cellCount == 0) then
+        return
+    end
+    
     -- 첫 통신할 때 내 순위를 받아오기 위해 offset을 -1 로 들고 있음
     -- 첫 통신 이후에는 offset에 옳은 값에 넣어줌 (offset : offset (랭킹)부터 시작하는 랭킹 리스트를 받음)
     if (self.m_offset == -1) then

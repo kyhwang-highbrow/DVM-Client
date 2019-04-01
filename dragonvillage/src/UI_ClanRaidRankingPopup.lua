@@ -29,7 +29,6 @@ function UI_ClanRaidRankingPopup:init()
     self:doAction(nil, false)
     
     self:initUI()
-    self:initRankReward()
     self:initButton()
     self:refresh()
 end
@@ -85,11 +84,6 @@ function UI_ClanRaidRankingPopup:initRank()
     self.m_rank_data = g_clanRankData:getRankData(rank_type)
 	local l_rank_list = self.m_rank_data or {}
 
-    local cb_func = function()
-       self:initRank()
-       self:focusInRankReward()
-    end
-
     local click_func = function(offset)
         g_clanRankData:request_getRank(rank_type, offset, cb_func)
     end
@@ -98,23 +92,20 @@ function UI_ClanRaidRankingPopup:initRank()
     if (not self.m_rank_list) then
         self.m_rank_list = UIC_RankingList()                                        -- step0. (필수)랭킹 UI 컴포넌트 생성
     end
-    if (#l_rank_list > 1) then
-        self.m_rank_list:setRankUIClass(_UI_ClanRaidRankListItem, nil)              -- step1. (필수)셸 UI 설정  
-        self.m_rank_list:setRankList(l_rank_list)                                   -- step2. (필수)리스트 설정
-        self.m_rank_list:setOffset(offset)                                          -- step3. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터)
-        self.m_rank_list:makeRankMoveBtn(click_func, click_func, CLAN_OFFSET_GAP)   -- step4. (선택)이전, 다음 버튼 사용할 것인가 (눌렀을 때 콜백 함수, )
-        self.m_rank_list:setEmptyStr('')                                            -- step5. (선택)랭킹이 없을 때, 메세지 설정
-        
-        local make_my_rank_cb = function()
-            self:makeMyRank()
-        end
-        self.m_rank_list:setMyRank(make_my_rank_cb)                                 -- step6. (선택)내 랭킹 만드는 콜백 함수
+
+    self.m_rank_list:setRankUIClass(_UI_ClanRaidRankListItem, nil)              -- step1. (필수)셸 UI 설정  
+    self.m_rank_list:setRankList(l_rank_list)                                   -- step2. (필수)리스트 설정
+    self.m_rank_list:setOffset(offset)                                          -- step3. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터)
+    self.m_rank_list:makeRankMoveBtn(click_func, click_func, CLAN_OFFSET_GAP)   -- step4. (선택)이전, 다음 버튼 사용할 것인가 (눌렀을 때 콜백 함수, )
+    self.m_rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))                   -- step5. (선택)랭킹이 없을 때, 메세지 설정
     
-        self.m_rank_list:makeRankList(node)                                         -- step7. (필수)실제로 랭킹 생성
-    
-        local focus_value = g_clanData.m_structClan:getClanObjectID()
-        self.m_rank_list:setFocus('id', focus_value)                                -- step8. (선택)해당 리스트에서 (type : id) focus_value 값에 포커싱, 하이라이트(vars['mySprite']가 있다면)
+    local make_my_rank_cb = function()
+        self:makeMyRank()
     end
+    self.m_rank_list:setMyRank(make_my_rank_cb)                                 -- step6. (선택)내 랭킹 만드는 콜백 함수
+    
+    self.m_rank_list:makeRankList(node)                                         -- step7. (필수)실제로 랭킹 생성
+
 end
 
 -------------------------------------
@@ -124,21 +115,22 @@ function UI_ClanRaidRankingPopup:initRankReward()
     local vars = self.vars
 	local node = vars['reawardNode']
 	local l_rank_list = g_clanRaidData:getRankRewardList() or {}
-    
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(552, 52)
-    table_view:setCellUIClass(_UI_ClanRaidRewardListItem)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_rank_list, false)
-    self.m_rank_reward = table_view
+    if (not self.m_rank_reward) then
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(552, 52)
+        table_view:setCellUIClass(_UI_ClanRaidRewardListItem)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_rank_list, false)
+        self.m_rank_reward = table_view
+    end
 end
 
 -------------------------------------
--- function initRankReward
+-- function focusInRankReward
 -------------------------------------
 function UI_ClanRaidRankingPopup:focusInRankReward()
 
-    local idx = nil
+    local idx = 1
     local ui = nil
     local struct_clan_rank = g_clanRankData:getMyRankData(CLAN_RANK['RAID'])
     local l_rank_list = g_clanRaidData:getRankRewardList()
@@ -170,7 +162,15 @@ function UI_ClanRaidRankingPopup:focusInRankReward()
                 break
             end
         end
+
+        idx = idx + 1
     end
+    
+    if (self.m_offset == 1) then
+        idx = 1
+    end
+    self.m_rank_reward:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    self.m_rank_reward:relocateContainerFromIndex(idx)
 
 end
 
@@ -241,6 +241,7 @@ function UI_ClanRaidRankingPopup:onChangeRankingType(type)
 
     local cb_func = function()
        self:initRank()
+       self:initRankReward()
        self:focusInRankReward()
     end
 
@@ -319,12 +320,47 @@ function _UI_ClanRaidRewardListItem:initUI()
     vars['rewardLabel2']:setString(comma_value(personal_cnt))
     local num_clan_exp = tonumber(data['clan_exp'])
     vars['rewardLabel3']:setString(comma_value(num_clan_exp))
+
+    local struct_clan_rank = g_clanRankData:getMyRankData(CLAN_RANK['RAID'])
+    local my_rank = struct_clan_rank:getRank()
+    local my_rank_rate = struct_clan_rank:getClanRate()
+    local rank_type = nil
+    local rank_value = 1
+        
+    local rank_min = tonumber(data['rank_min'])
+    local rank_max = tonumber(data['rank_max'])
+
+    local ratio_min = tonumber(data['ratio_min'])
+    local ratio_max = tonumber(data['ratio_max'])
+
+    -- 순위 필터
+    if (rank_min and rank_max) then
+        if (rank_min <= my_rank) and (my_rank <= rank_max) then
+            vars['meSprite']:setVisible(true)
+            return
+        end
+    end
+
+    -- 비율 필터
+    if (ratio_min and ratio_max) then
+        if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+            vars['meSprite']:setVisible(true)
+            return
+        end
+    end
+
 end
+
+
+
+
+
+
 
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
--- class UI_ClanRaidRankingPopup
+-- class _UI_ClanRaidRankListItem
 -------------------------------------
 _UI_ClanRaidRankListItem = class(PARENT,{
         m_data = 'table'
@@ -395,6 +431,12 @@ function _UI_ClanRaidRankListItem:initUI()
         local clan_object_id = struct_clan_rank:getClanObjectID()
         g_clanData:requestClanInfoDetailPopup(clan_object_id)
     end)
+
+    
+    local focus_value = g_clanData.m_structClan:getClanObjectID()
+    if (data['id'] == focus_value) then
+        vars['mySprite']:setVisible(true)
+    end
 end
 
 --@CHECK
