@@ -195,29 +195,28 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
     do
         if (1 < self.m_rankOffset[attr]) then
             local prev_data = { m_tag = 'prev' }
-            table.insert(l_item_list, 1, prev_data)
+            l_item_list['prev'] = prev_data
         end
 
         if (#l_item_list > 0) then
             local next_data = { m_tag = 'next' }
-            table.insert(l_item_list, next_data)
+            l_item_list['next'] = next_data
         end
 
         -- 이전 랭킹 보기
         local click_prevBtn = function()
-            self.m_rankOffset[attr] = self.m_rankOffset[attr] - CLAN_OFFSET_GAP
+            -- 랭킹 리스트 중 가장 첫 번째 랭킹 - CLAN_OFFSET_GAP 부터 랭킹 데이터 가져옴
+            self.m_rankOffset[attr] = self.m_rank_data[attr]['list'][1]['rank'] - CLAN_OFFSET_GAP
             self.m_rankOffset[attr] = math_max(self.m_rankOffset[attr], 0)
             self:request_clanAttrRank(attr)
         end
 
         -- 다음 랭킹 보기
         local click_nextBtn = function()
-            local add_offset = #l_item_list - 2
-            if (#l_item_list < CLAN_OFFSET_GAP) then
-                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
-                return
-            end
-            self.m_rankOffset[attr] = self.m_rankOffset[attr] + add_offset
+            -- 랭킹 리스트 중 가장 마지막 랭킹 + 1 부터 랭킹 데이터 가져옴
+            local cnt = #self.m_rank_data[attr]['list']
+            local next_ind = self.m_rank_data[attr]['list'][cnt]['rank']
+            self.m_rankOffset[attr] = next_ind + 1
             self:request_clanAttrRank(attr)
         end
 
@@ -250,6 +249,32 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
         table_view:setItemList(l_item_list, false)
         --self.m_rewardTableView = table_view
         table_view:makeDefaultEmptyDescLabel(Str(''))
+
+        do-- 테이블 뷰 정렬
+            local function sort_func(a, b)
+                local a_data = a['data']
+                local b_data = b['data']
+
+                -- 이전, 다음 버튼 정렬
+                if (a_data.m_tag == 'prev') then
+                    return true
+                elseif (b_data.m_tag == 'prev') then
+                    return false
+                elseif (a_data.m_tag == 'next') then
+                    return false
+                elseif (b_data.m_tag == 'next') then
+                    return true
+                end
+
+                -- 랭킹으로 선별
+                local a_rank = a_data.rank
+                local b_rank = b_data.rank
+                return a_rank < b_rank
+            end
+
+            table.sort(table_view.m_itemList, sort_func)
+        end
+
 
         -- 포커싱
         local idx = nil
