@@ -15,7 +15,6 @@ function UI_AncientTowerBestDeckPopup:init()
     local vars = self:load('tower_best_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
-    SettingData_Deck:getInstance()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_AncientTowerBestDeckPopup')
 

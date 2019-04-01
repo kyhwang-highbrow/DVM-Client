@@ -1,6 +1,7 @@
 
 -------------------------------------
 -- class SettingData_Deck
+-- @instance g_settingDeckData
 -------------------------------------
 SettingData_Deck = class({
         m_rootTable = 'table',
@@ -32,7 +33,21 @@ end
 -- function loadSettingDataFile
 -------------------------------------
 function SettingData_Deck:loadSettingDataFile()
-    self.m_rootTable = LoadLocalSaveJson('local_deck_data.json')
+    local ret_json, success_load = LoadLocalSaveJson(self:getSettingDataSaveFileName())
+
+    if (success_load == true) then
+        self.m_rootTable = ret_json
+    else
+        self.m_rootTable = self:makeDefaultSettingData()
+        self:saveSettingDataFile()
+    end
+end
+
+-------------------------------------
+-- function saveSettingDataFile
+-------------------------------------
+function SettingData_Deck:saveSettingDataFile()
+    return SaveLocalSaveJson(self:getSettingDataSaveFileName(), self.m_rootTable, false) -- param : filename, t_data, skip_xor)
 end
 
 -------------------------------------
@@ -51,16 +66,34 @@ end
 -------------------------------------
 function SettingData_Deck:makeDefaultSettingData()
     local root_table = {}
-
+    root_table['ancient_deck'] = {}
     do -- 고대의 탑 덱 저장
-        local t_data = {}
         for stage_id = 1401001, 1401050 do
-            t_data[stage_id] = {}  
+            local t_data = {}
+            t_data['stage_id'] = stage_id
+            t_data['best_score'] = 0
+            root_table['ancient_deck'][stage_id] = t_data
         end
-        root_table['ancient_deck'] = t_data
+       
     end
 
     return root_table
+end
+
+-------------------------------------
+-- function getStageScore
+-------------------------------------
+function SettingData_Deck:getAncientStageScore(stage_id)
+    
+    if (tonumber(stage_id) < 1401001) then
+        return 0
+    end
+
+    if (tonumber(stage_id) > 1401050) then
+        return 0
+    end
+
+    return self.m_rootTable['ancient_deck'][tonumber(stage_id)]['best_score']
 end
 
 -------------------------------------
@@ -77,9 +110,9 @@ end
 -- function getDeckAncient
 -- @brief 로컬 파일에서 덱 정보 읽어서 리턴
 -------------------------------------
-function SettingData_Deck:getA(deck_name)
+function SettingData_Deck:getDeckAncient(deck_name, stage_id)
     local cur_stage_id = g_ancientTowerData:getChallengingStageID()
-    local t_ancient_deck = self.m_rootTable
+    local t_ancient_deck = self.m_rootTable['ancient_deck'][stage_id]
     local l_dragon = {}
 
     if (not t_ancient_deck) then
@@ -105,15 +138,15 @@ end
 -- function saveAncientTowerDeck
 -- @brief 로컬에 덱 정보 저장
 -------------------------------------
-function SettingData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_id)
+function SettingData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, score, cur_stage_id)
     if (not g_ancientTowerData) then
         return
     end
     
-    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
-     
+    local cur_floor = self:getFloorByStageId(cur_stage_id)
+    
     -- 기존에 저장된 덱 정보
-    local ancient_deck_data = self:getDeckAncient('ancient_deck')
+    local ancient_deck_data = self.m_rootTable['ancient_deck']
      
     if (not ancient_deck_data) then
         ancient_deck_data = {}
@@ -126,7 +159,18 @@ function SettingData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_
     t_new_deck_data['deckname'] = 'ancient'
     t_new_deck_data['leader'] = leader
     t_new_deck_data['tamer'] = tamer_id
+    t_new_deck_data['best_score'] = score
+    t_new_deck_data['stage_id'] = cur_stage_id
  
     -- 덱 정보 갱신
-    self.m_rootTable[cur_stage_id] = t_new_deck_data
+    self.m_rootTable['ancient_deck'][cur_stage_id] = t_new_deck_data
+    return SaveLocalSaveJson(self:getSettingDataSaveFileName(), self.m_rootTable, false) 
+end
+
+-------------------------------------
+-- function getFloorByStageId
+-------------------------------------
+function SettingData_Deck:getFloorByStageId(stage_id)
+    local stage_id = stage_id or 0
+    return tonumber(stage_id)%100
 end
