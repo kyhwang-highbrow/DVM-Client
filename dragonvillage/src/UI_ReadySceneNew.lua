@@ -115,7 +115,10 @@ function UI_ReadySceneNew:initParentVariable()
     -- 입장권 타입 설정
     self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
 
-    
+    if (self:isClanRaidTrainingMode(self.m_stageID)) then
+        self.m_staminaType = 'cldg_tr'
+    end
+
 	-- 들어온 경로에 따라 sound가 다름
 	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
 		self.m_uiBgm = 'bgm_dungeon_ready'
@@ -576,22 +579,16 @@ function UI_ReadySceneNew:initButton()
     end
 
     -- 클랜던전 연습 모드
-    if (g_clanRaidData) then
-        if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then
-            local struct_raid = g_clanRaidData:getClanRaidStruct()
-            if (struct_raid:isTrainingMode()) then
-                vars['startBtn']:setVisible(false)
-                vars['trainingBtn']:setVisible(true)
-                vars['trainingBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
-                vars['trainingBtn']:setClickSoundName('ui_game_start')
-                vars['trainingLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
-                vars['trainingSetBtn']:setVisible(true)
-                vars['trainingSetBtn']:registerScriptTapHandler(function() self:click_showTrainingBtn() end)
-            end
-        end
+    if (self:isClanRaidTrainingMode(self.m_stageID)) then
+        vars['startBtn']:setVisible(false)
+        vars['trainingBtn']:setVisible(true)
+        vars['trainingBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+        vars['trainingBtn']:setClickSoundName('ui_game_start')
+        vars['trainingLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
+        vars['trainingSetBtn']:setVisible(true)
+        vars['trainingSetBtn']:registerScriptTapHandler(function() self:click_showTrainingBtn() end)
     end
     
-    if (IS_TEST_MODE()) then
     -- 고대의 탑
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
         if (g_ancientTowerData:isAncientTowerStage(self.m_stageID)) then
@@ -602,7 +599,7 @@ function UI_ReadySceneNew:initButton()
             vars['loadBtn']:registerScriptTapHandler(function() self:click_loadBestTeam() end)
         end
     end
-    end
+
 end
 
 -------------------------------------
@@ -632,11 +629,8 @@ function UI_ReadySceneNew:refresh()
         elseif (stage_id == CHALLENGE_MODE_STAGE_ID) then
             str = Str('그림자의 신전')
         -- 클랜던전 연습모드의 경우
-        elseif (g_clanRaidData:isClanRaidStageID(stage_id)) then    
-            local struct_raid = g_clanRaidData:getClanRaidStruct()
-            if (struct_raid:isTrainingMode()) then
-                str = Str('클랜 던전 연습 전투')
-            end
+        elseif (self:isClanRaidTrainingMode(stage_id)) then         
+            str = Str('클랜 던전 연습 전투')
         end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
@@ -1126,12 +1120,9 @@ function UI_ReadySceneNew:click_startBtn()
 	end
 	
     -- 클랜던전 연습모드의 경우
-    if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then    
-        local struct_raid = g_clanRaidData:getClanRaidStruct()
-        if (struct_raid:isTrainingMode()) then
-            self:startGame_clanRaidTraining()
-            return
-        end
+    if (self:isClanRaidTrainingMode(self.m_stageID)) then           
+        self:startGame_clanRaidTraining()
+        return
     end
 	
     self:startGame(stage_id)	
@@ -1654,5 +1645,20 @@ function UI_ReadySceneNew:startGame_clanRaidTraining()
     self:checkChangeDeck(func_start)
 end
 
+
+-------------------------------------
+-- function isClanRaidTrainingMode
+-------------------------------------
+function UI_ReadySceneNew:isClanRaidTrainingMode(stage_id)
+    if (g_clanRaidData) then
+        if (g_clanRaidData:isClanRaidStageID(stage_id)) then
+            local struct_raid = g_clanRaidData:getClanRaidStruct()
+            if (struct_raid:isTrainingMode()) then
+                return true
+            end
+        end
+    end
+    return false
+end
 --@CHECK
 UI:checkCompileError(UI_ReadySceneNew)
