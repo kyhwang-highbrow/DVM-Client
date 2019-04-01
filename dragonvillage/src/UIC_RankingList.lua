@@ -254,8 +254,8 @@ end
 -------------------------------------
 function UIC_RankingList:click_next()
     local l_item = self.m_itemList
-    
-    if (table.count(l_item) < self.m_offsetGap) then
+
+    if (table.count(l_item) < self.m_offsetGap-1) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
         return
     end

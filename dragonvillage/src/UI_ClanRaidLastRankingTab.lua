@@ -215,6 +215,11 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
         local click_nextBtn = function()
             -- 랭킹 리스트 중 가장 마지막 랭킹 + 1 부터 랭킹 데이터 가져옴
             local cnt = #self.m_rank_data[attr]['list']
+            if (cnt < CLAN_OFFSET_GAP-1) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+                return
+            end
+           
             local next_ind = self.m_rank_data[attr]['list'][cnt]['rank']
             self.m_rankOffset[attr] = next_ind + 1
             self:request_clanAttrRank(attr)
