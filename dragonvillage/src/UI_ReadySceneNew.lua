@@ -1484,12 +1484,11 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_bestTeamBtn()
-    --[[
-    local apply_cb = function(l_deck, formation, deckname, leader, tamer_id, formation_lv)
-        self.m_readySceneDeck:setDeck(l_deck, formation, deckname, leader, tamer_id, formation_lv)
+    local cb_finish = function(t_data)
+        UI_AncientTowerBestDeckPopup(self.m_stageID, t_data)       
     end
-    --]]
-    UI_AncientTowerBestDeckPopup(apply_cb)
+    
+    g_ancientTowerData:requestAllAncientScore(cb_finish)
 end
 
 -------------------------------------

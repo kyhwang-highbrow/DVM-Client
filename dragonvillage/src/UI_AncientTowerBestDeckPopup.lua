@@ -4,17 +4,20 @@ local PARENT = UI
 -- class UI_AncientTowerBestDeckPopup
 -------------------------------------
 UI_AncientTowerBestDeckPopup = class(PARENT,{
-        m_cbApplyBtn = 'function',
+        m_cur_stage_id = 'number',
+        m_tData = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AncientTowerBestDeckPopup:init(cb_click_apply)
+function UI_AncientTowerBestDeckPopup:init(cur_stage_id, t_data)
     self.m_uiName = 'UI_AncientTowerBestDeckPopup'
     local vars = self:load('tower_best_popup.ui')
     UIManager:open(self, UIManager.POPUP)
-    self.m_cbApplyBtn = cb_click_apply
+    self.m_tData = t_data
+    self.m_cur_stage_id = cur_stage_id
+
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_AncientTowerBestDeckPopup')
@@ -34,7 +37,7 @@ end
 -------------------------------------
 function UI_AncientTowerBestDeckPopup:initUI()
     local vars = self.vars
-
+    local t_score_data = self.m_tData
     local l_deck = g_settingDeckData:getDeckAllAncient('ancient')
 
     if (not l_deck) then
@@ -52,7 +55,14 @@ function UI_AncientTowerBestDeckPopup:initUI()
 
     -- 덱 팝업에 덱 적용 버튼 있을 경우
     local create_func = function(ui, data)
-        --ui:setApplyBtnFunc(self.m_cbApplyBtn)
+        -- 스테이지에 해당하는 점수 테이블 보내줌
+        local stage_id = tostring(data['stage_id'])
+        ui:setScore(t_score_data[stage_id])
+
+        -- 해당 층 일때 하이라이트
+        if (self.m_cur_stage_id == tonumber(stage_id)) then
+            ui:setHighlight(true)
+        end
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -64,7 +74,7 @@ function UI_AncientTowerBestDeckPopup:initUI()
     table_view:setItemList(l_deck)
     
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-    table_view:relocateContainerFromIndex(table_index)
+    table_view:relocateContainerFromIndex(self.m_cur_stage_id%1000)
    
 end
 

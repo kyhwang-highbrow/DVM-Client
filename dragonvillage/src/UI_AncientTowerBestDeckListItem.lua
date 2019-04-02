@@ -5,7 +5,6 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_AncientTowerBestDeckListItem = class(PARENT, {
         m_tData = 'table',
-        m_cb_apply = 'function',
         --[[
             -- 로컬 데이터
             {                             -- 탑 층수
@@ -60,8 +59,8 @@ function UI_AncientTowerBestDeckListItem:initUI()
     --]]
 
 
+    -- 덱 정보(드래곤 카드UI)
     local l_deck = data['deck']
-
     if (l_deck) then
         for ind, doj in ipairs(l_deck) do
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(doj)
@@ -70,21 +69,15 @@ function UI_AncientTowerBestDeckListItem:initUI()
             ui_dragon_card.root:setSwallowTouch(false)
             vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
         end
-        
-        local info = g_ancientTowerData.m_challengingInfo
-        
-        local my_score = info.m_myScore
-        local my_high_score = info.m_myHighScore
-        local season_high_score = info.m_seasonHighScore
-
-        vars['meBestScoreLabel']:setString(comma_value(my_high_score))
-        vars['meTopScoreLabel2']:setString(comma_value(my_score))
-        vars['meTopScoreLabel1']:setString(comma_value(season_high_score))
     end
 
     local floor = tonumber(data['stage_id'])%100
     vars['stageLabel']:setString(floor)
 
+    vars['meBestScoreLabel']:setString(data['best_score'])
+    vars['meTopScoreLabel2']:setString('')
+    vars['meTopScoreLabel1']:setString('')
+    vars['userTopScoreLabel']:setString('')
     --[[
 
     local ui_dragon_card = UI_DragonCard()
@@ -102,27 +95,25 @@ function UI_AncientTowerBestDeckListItem:initUI()
 end
 
 -------------------------------------
--- function setApplyBtnFunc
+-- function setScore
 -------------------------------------
-function UI_AncientTowerBestDeckListItem:setApplyBtnFunc(cb_apply)
-    self.m_cb_apply = cb_apply
+function UI_AncientTowerBestDeckListItem:setScore(t_score)
+    local vars = self.vars
+
+    if (not t_score) then
+        return
+    end
+
+    vars['meTopScoreLabel2']:setString(comma_value(t_score['hiscore']))
+    vars['meTopScoreLabel1']:setString(comma_value(t_score['score']))
+    vars['userTopScoreLabel']:setString(comma_value(t_score['topuser_score']))
 end
 
 -------------------------------------
--- function initUI
+-- function setHighlight
 -------------------------------------
-function UI_AncientTowerBestDeckListItem:clickApplyBtn()
-    --[[
-    local data = self.m_tData
-
-    local l_deck = data['deck']
-    local formation = data['formation']
-    local deckname = data['deckname']
-    local leader = data['leader']
-    local tamer_id = data['tamer_id']
-    local formation_lv = 1
-    
-    self.m_cb_apply(l_deck, formation, deckname, leader, tamer_id, formation_lv)
-    --]]
+function UI_AncientTowerBestDeckListItem:setHighlight(is_highlight)
+    local vars = self.vars
+    vars['meSprite']:setVisible(is_highlight)
 end
 

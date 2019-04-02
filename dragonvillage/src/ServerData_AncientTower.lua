@@ -37,7 +37,7 @@ ServerData_AncientTower = class({
         m_tSeasonRewardInfo = 'table', -- 시즌 보상 정보
         m_tClanRewardInfo = 'table', -- 클랜 보상 정보
 
-        m_bOpen = 'booelan', 
+        m_bOpen = 'booelan',
     })
 
 -------------------------------------
@@ -277,6 +277,75 @@ function ServerData_AncientTower:request_ancientTowerSeasonRankInfo(finish_cb)
 
 	return ui_network
 end
+
+-------------------------------------
+-- function requestAllAncientScore
+-------------------------------------
+function ServerData_AncientTower:requestAllAncientScore(finish_cb)
+    --[[
+         "status":0,
+         "ancient_clear_stage":1401006,
+         "message":"success",
+         "open":true,
+         "start_time":1553734800000,
+         "end_time":1554908400000,
+         "server_info":{
+           "midnight":1554217200000,
+           "hour":9,
+           "timezone":"Asia/Seoul",
+           "server_time":1554186268397
+         },
+         "myrate":0.40000000596046,
+         "myrank":2,
+         "total_score":21521,
+         "season":201913,
+         "ancient_stage_all":{
+           "1401018":{
+             "stage":1401018,
+             "score":0,
+             "fail_cnt":0,
+             "topuser_score":0,
+             "hiscore":0
+           },
+           "1401045":{
+             "stage":1401045,
+             "score":0,
+             "fail_cnt":0,
+             "topuser_score":0,
+             "hiscore":0
+           },
+           "1401044":{
+             "stage":1401044,
+             "score":0,
+             "fail_cnt":0,
+             "topuser_score":0,
+             "hiscore":0
+           },
+    --]]
+    
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+         if finish_cb then
+            return finish_cb(ret['ancient_stage_all'])
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/ancient/info_all')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
+
 
 -------------------------------------
 -- function makeAcientTower_stageList
