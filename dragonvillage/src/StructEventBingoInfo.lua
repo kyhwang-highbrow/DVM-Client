@@ -288,9 +288,21 @@ function StructEventBingoInfo:isHighlightYellow_ex()
     if (self:getBingoLineCnt() == 12) then
         return false
     end
-    
     -- 일일 최대 획득량이 남았을 경우
     if (self:getTodayEventItemCnt() < self:getTodayMaxEventItemCnt()) then
+        return true
+    end
+
+    local eventCnt = self:getEventItemCnt()
+    local eventPickCnt = self:getPickEventItemCnt()
+
+    -- 빙고 뽑기가 가능한 상태
+    if (eventCnt > self['event_price']) then
+        return true
+    end
+    
+    -- 확정 뽑기가 가능한 상태
+    if (eventPickCnt > self['event_pick_price']) then
         return true
     end
 
@@ -316,16 +328,17 @@ end
 -- function hasCntReward
 -------------------------------------
 function StructEventBingoInfo:hasCntReward()
-    local bingo_cnt = self:getBingoRewardCnt()
-    local reward_cnt = self:getBingoRewardListCnt()
-    for i=1, reward_cnt do
-        if (self.m_lSortedCntReward[i]['reward_index'] > bingo_cnt) then
-            if (self:getBingoCntRewardState(i) == 1) then
+    local l_reward = self.m_lSortedCntReward
+    for ind, data in ipairs(l_reward) do
+        local reward_state = self:getBingoCntRewardState(ind)
+        local cnt_reward = self:getBingoLineCnt()
+
+        if (data['reward_index'] <= cnt_reward) then
+            if (reward_state == 0) then
                 return true
             end
         end
     end
-    return false
 end
 
 

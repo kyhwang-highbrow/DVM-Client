@@ -140,6 +140,7 @@ function UI_EventBingo:refresh()
     vars['pickTokenPrice']:setString(struct_bingo.event_pick_price)
 
 
+    -- 누적 보상 다음 스텝 정보
     local l_cnt_reward = struct_bingo:getBingoRewardList()
     local next_step = 12
     for ind, data in ipairs(l_cnt_reward) do
@@ -173,7 +174,7 @@ function UI_EventBingo:refresh()
     end
 
     local eventPickCnt = struct_bingo:getPickEventItemCnt()
-    local is_pickable = eventPickCnt >= 10
+    local is_pickable = eventPickCnt >= struct_bingo.event_pick_price
     vars['playBtn2']:setEnabled(is_pickable)
 end
 
