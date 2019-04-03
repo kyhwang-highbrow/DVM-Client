@@ -257,7 +257,7 @@ end
 -------------------------------------
 function UI_AncientTower:click_rankBtn(floor_info)
     local vars = self.vars
-    
+    UI_AncientTowerRankNew()
 end
 
 -------------------------------------
