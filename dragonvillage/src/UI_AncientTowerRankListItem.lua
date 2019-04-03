@@ -12,7 +12,7 @@ UI_AncientTowerRankListItem = class(PARENT, {
 -------------------------------------
 function UI_AncientTowerRankListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
-    local vars = self:load('tower_scene_ranking_item.ui')
+    local vars = self:load('tower_user_rank_item.ui')
 
     self:initUI()
     self:initButton()
@@ -44,8 +44,10 @@ function UI_AncientTowerRankListItem:initUI()
     -- 점수 표시
     vars['scoreLabel']:setString(t_rank_info:getScoreText())
 
-    -- 유저 정보 표시 (레벨, 닉네임)
-    vars['nameLabel']:setString(t_rank_info:getUserText())
+    if (vars['userLabel']) then
+        -- 유저 정보 표시 (레벨, 닉네임)
+        vars['userLabel']:setString(t_rank_info:getUserText())
+    end
 
     -- 순위 표시
     vars['rankingLabel']:setString(t_rank_info:getRankText())

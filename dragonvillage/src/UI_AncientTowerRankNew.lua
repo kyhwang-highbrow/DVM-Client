@@ -51,6 +51,11 @@ UI_AncientTowerRankNew.CLAN_REWARD = 'clanRewardList'
 -- function initUI
 -------------------------------------
 function UI_AncientTowerRankNew:initUI()
+    self.m_rankOffset = 1
+    self.m_clanRankOffset = 1
+    self.m_rewardInfo = {}
+
+    self:make_UIC_SortList()
 end
 
 -------------------------------------
@@ -66,6 +71,69 @@ function UI_AncientTowerRankNew:initButton()
     local vars = self.vars
     vars['randomShopBtn']:registerScriptTapHandler(function() self:click_ancientShopBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+-------------------------------------
+-- function make_UIC_SortList
+-- @brief
+-------------------------------------
+function UI_AncientTowerRankNew:make_UIC_SortList()
+    local vars = self.vars
+    local button = vars['rankBtn']
+    local label = vars['rankLabel1']
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+
+    uic:addSortType('my', Str('내 랭킹'))
+    uic:addSortType('top', Str('최상위 랭킹'))
+
+    uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
+    uic:setSelectSortType('my')
+end
+
+-------------------------------------
+-- function onChangeRankingType
+-- @brief
+-------------------------------------
+function UI_AncientTowerRankNew:onChangeRankingType(type)
+    local l_attr = getAttrTextList() 
+    if (type == 'my') then
+        for i,v in pairs(l_attr) do
+            self.m_rankOffset = -1
+        end
+    elseif (type == 'top') then
+        for i,v in pairs(l_attr) do
+            self.m_rankOffset = 1
+        end
+    end
+
+    local function finish_cb(ret)
+            self.m_rewardInfo = ret['table_ancient_rank']
+            self:init_rewardTableView()
+    end
+
+    if (not self.m_rewardTableView) then
+        g_ancientTowerData:request_ancientTowerSeasonRankInfo(finish_cb)
+    end
+
+    self:request_Rank()
 end
 
 -------------------------------------
@@ -115,7 +183,7 @@ function UI_AncientTowerRankNew:init_rankTableView()
 
     -- 내 순위
 	do
-        local ui = UI_AncientTowerRankNewListItem(g_ancientTowerData.m_playerUserInfo)
+        local ui = UI_AncientTowerRankListItem(g_ancientTowerData.m_playerUserInfo)
         my_node:addChild(ui.root)
 	end
 
@@ -157,8 +225,8 @@ function UI_AncientTowerRankNew:init_rankTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 100 + 5)
-    table_view:setCellUIClass(UI_AncientTowerRankNewListItem, create_func)
+    table_view.m_defaultCellSize = cc.size(550, 60)
+    table_view:setCellUIClass(UI_AncientTowerRankListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
     self.m_rankTableView = table_view
@@ -202,7 +270,7 @@ function UI_AncientTowerRankNew:init_rewardTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 160 + 5)
+    table_view.m_defaultCellSize = cc.size(640, 60)
     table_view:setCellUIClass(UI_AncientTowerRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)

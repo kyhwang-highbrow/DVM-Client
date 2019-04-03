@@ -12,7 +12,7 @@ UI_AncientTowerRewardListItem = class(PARENT, {
 -------------------------------------
 function UI_AncientTowerRewardListItem:init(t_reward_info)
     self.m_rewardInfo = t_reward_info
-    local vars = self:load('tower_scene_reward_item.ui')
+    local vars = self:load('tower_user_rank_reward_item.ui')
     self:initUI()
     self:initButton()
     self:refresh()
@@ -24,7 +24,7 @@ end
 function UI_AncientTowerRewardListItem:initUI()
     local vars = self.vars
     local t_reward_info = self.m_rewardInfo
-    vars['rankingLabel']:setString(Str(t_reward_info['t_name']))
+    vars['rankLabel']:setString(Str(t_reward_info['t_name']))
 
     local l_reward = TableClass:seperate(t_reward_info['reward'], ',', true)
     for i = 1, #l_reward do
@@ -47,7 +47,7 @@ function UI_AncientTowerRewardListItem:initUI()
 
         local name = TableItem:getItemName(id)
         local cnt = l_str[2]
-        vars['rewardLabel'..i]:setString(Str('{1} x{2}', name, cnt))
+        vars['rewardLabel'..i]:setString(Str('{1}', cnt))
     end
 end
 
