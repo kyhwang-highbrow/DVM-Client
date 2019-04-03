@@ -76,22 +76,7 @@ function UI_AncientTowerBestDeckListItem:initUI()
 
     vars['meBestScoreLabel']:setString(data['best_score'])
     vars['meTopScoreLabel2']:setString('')
-    vars['meTopScoreLabel1']:setString('')
     vars['userTopScoreLabel']:setString('')
-    --[[
-
-    local ui_dragon_card = UI_DragonCard()
-    vars['fomationNode']
-    vars['dragonNode5']
-    vars['meBestScoreLabel']
-    vars['meTopScoreLabel2']
-    vars['meTopScoreLabel1']
-    vars['userTopScoreLabel']
-    
-    vars['meSprite']
-    --]]
-
-    self.vars['loadBtn']:registerScriptTapHandler(function() self:clickApplyBtn() end)
 end
 
 -------------------------------------
@@ -105,7 +90,6 @@ function UI_AncientTowerBestDeckListItem:setScore(t_score)
     end
 
     vars['meTopScoreLabel2']:setString(comma_value(t_score['hiscore']))
-    vars['meTopScoreLabel1']:setString(comma_value(t_score['score']))
     vars['userTopScoreLabel']:setString(comma_value(t_score['topuser_score']))
 end
 

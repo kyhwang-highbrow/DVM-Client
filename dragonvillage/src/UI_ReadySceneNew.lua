@@ -593,10 +593,11 @@ function UI_ReadySceneNew:initButton()
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
         if (g_ancientTowerData:isAncientTowerStage(self.m_stageID)) then
             vars['towerMenu']:setVisible(true)
-            vars['towerScoreLabel']:setString(Str('{1}층 팀 최고점수 : {2}', g_ancientTowerData:getFloorFromStageID(self.m_stageID), 0))
+            local season_high_score = g_ancientTowerData.m_challengingInfo.m_seasonHighScore
+            vars['towerScoreLabel']:setString(Str('{1}층 팀 최고점수 : {2}', g_ancientTowerData:getFloorFromStageID(self.m_stageID), comma_value(season_high_score)))
             vars['loadLabel']:setString(Str('{1}층 베스트 팀 불러오기', g_ancientTowerData:getFloorFromStageID(self.m_stageID)))
-            vars['towerSetBtn']:registerScriptTapHandler(function() self:click_bestTeamBtn() end)
             vars['loadBtn']:registerScriptTapHandler(function() self:click_loadBestTeam() end)
+            vars['saveBtn']:registerScriptTapHandler(function() self:click_saveBestTeam() end)
         end
     end
 
@@ -1066,6 +1067,16 @@ function UI_ReadySceneNew:click_teamBtn(deck_name)
 end
 
 -------------------------------------
+-- function click_saveBestTeam
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:click_saveBestTeam(deck_name)
+    local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck('ancient')
+    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
+    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, cur_stage_id) -- l_deck, formation, leader, tamer_id, score
+end
+
+-------------------------------------
 -- function changeTeam
 -- @breif
 -------------------------------------
@@ -1477,18 +1488,6 @@ function UI_ReadySceneNew:click_leaderBtn()
         self:refresh_combatPower()
 		self:refresh_buffInfo()
 	end)
-end
-
--------------------------------------
--- function click_bestTeamBtn
--- @breif
--------------------------------------
-function UI_ReadySceneNew:click_bestTeamBtn()
-    local cb_finish = function(t_data)
-        UI_AncientTowerBestDeckPopup(self.m_stageID, t_data)       
-    end
-    
-    g_ancientTowerData:requestAllAncientScore(cb_finish)
 end
 
 -------------------------------------

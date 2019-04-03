@@ -208,6 +208,8 @@ end
 function UI_AncientTower:initButton()
     local vars = self.vars
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+    vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
+    vars['recordBtn']:registerScriptTapHandler(function() self:click_recordBtn() end)
 end
 
 -------------------------------------
@@ -248,6 +250,26 @@ function UI_AncientTower:refresh(floor_info)
     local is_open = g_ancientTowerData:isOpenStage(select_floor)
     vars['readyBtn']:setEnabled(is_open)
     vars['lockSprite']:setVisible(not is_open)
+end
+
+-------------------------------------
+-- function click_rankBtn
+-------------------------------------
+function UI_AncientTower:click_rankBtn(floor_info)
+    local vars = self.vars
+    
+end
+
+-------------------------------------
+-- function click_recordBtn
+-------------------------------------
+function UI_AncientTower:click_recordBtn(floor_info)
+    local vars = self.vars
+    local cb_finish = function(t_data)
+        UI_AncientTowerBestDeckPopup(self.m_selectedStageID, t_data)       
+    end
+    
+    g_ancientTowerData:requestAllAncientScore(cb_finish)
 end
 
 -------------------------------------
