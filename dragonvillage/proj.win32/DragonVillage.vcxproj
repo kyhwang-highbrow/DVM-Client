@@ -1033,6 +1033,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AncientTowerRank.lua" />
     <None Include="..\src\UI_AncientTowerRankingRewardPopup.lua" />
     <None Include="..\src\UI_AncientTowerRankListItem.lua" />
+    <None Include="..\src\UI_AncientTowerRankNew.lua" />
     <None Include="..\src\UI_AncientTowerRewardListItem.lua" />
     <None Include="..\src\UI_Arena.lua" />
     <None Include="..\src\UI_ArenaClanRankListItem.lua" />
