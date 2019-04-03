@@ -150,6 +150,7 @@ function UI_AncientTowerRankNew:request_Rank()
     local function finish_cb()
         self.m_rankOffset = g_ancientTowerData.m_nGlobalOffset
         self:init_rankTableView()
+        self:focusInRankReward()
     end
     local offset = self.m_rankOffset
     g_ancientTowerData:request_ancientTowerRank(offset, finish_cb)
@@ -437,4 +438,55 @@ end
 function UI_AncientTowerRankNew:click_ancientShopBtn()
     -- 마녀의 상점으로 변경
     UINavigator:goTo('shop_random')
+end
+
+-------------------------------------
+-- function focusInRankReward
+-------------------------------------
+function UI_AncientTowerRankNew:focusInRankReward()
+
+    local idx = 1
+    local ui = nil
+
+    local l_rank_list = self.m_rewardInfo
+
+    -- 받을 수 있는 포상에 포커싱
+    local my_rank = g_ancientTowerData.m_nTotalRank
+    local my_rank_rate = g_ancientTowerData.m_nTotalRate
+    local rank_type = nil
+    local rank_value = 1
+    for i,data in ipairs(l_rank_list) do
+        
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                rank_type = 'rank_min'
+                rank_value = rank_min
+                break
+            end
+
+        -- 비율 필터
+        elseif (ratio_min and ratio_max) then
+            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+                rank_type = 'ratio_min'
+                rank_value = ratio_min
+                break
+            end
+        end
+
+        idx = idx + 1
+    end
+    
+    if (self.m_rankOffset == 1) then
+        idx = 1
+    end
+    self.m_rewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    self.m_rewardTableView:relocateContainerFromIndex(idx)
+
 end
