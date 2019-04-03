@@ -266,7 +266,11 @@ end
 function UI_AncientTower:click_recordBtn(floor_info)
     local vars = self.vars
     local cb_finish = function(t_data)
-        UI_AncientTowerBestDeckPopup(self.m_selectedStageID, t_data)       
+        local ui_best = UI_AncientTowerBestDeckPopup(self.m_selectedStageID, t_data)
+        local move_func = function(t_data)
+            self:selectFloor(t_data, true) -- 해당 층에 포커싱, 이동 시켜줌
+        end
+        ui_best:setFuncMove(move_func)    
     end
     
     g_ancientTowerData:requestAllAncientScore(cb_finish)
@@ -312,20 +316,25 @@ end
 -------------------------------------
 -- function selectFloor
 -------------------------------------
-function UI_AncientTower:selectFloor(floor_info)
+function UI_AncientTower:selectFloor(floor_info, is_move)
     local stage_id = floor_info['stage']
-
+    
     if (self.m_selectedStageID ~= stage_id) then
         local finish_cb 
         finish_cb = function(ret)
             local prev_stage_id = self.m_selectedStageID
             self.m_selectedStageID = stage_id
-
             local stage_info = ret['ancient_stage']
             local floor_info = StructAncientTowerFloorData(stage_info)
             self:refresh(floor_info)
             self:changeFloorVisual(prev_stage_id)
             self:changeFloorVisual(self.m_selectedStageID)
+
+            if (is_move) then
+                -- 현재 도전중인 층이 바로 보이도록 처리
+                local floor = g_ancientTowerData:getFloorFromStageID(self.m_selectedStageID)
+                self.m_tableView:relocateContainerFromIndex(floor + 1)
+            end
         end
 
         g_ancientTowerData:request_ancientTowerInfo(stage_id, finish_cb)

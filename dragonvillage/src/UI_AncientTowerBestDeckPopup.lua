@@ -6,6 +6,7 @@ local PARENT = UI
 UI_AncientTowerBestDeckPopup = class(PARENT,{
         m_cur_stage_id = 'number',
         m_tData = 'table',
+        m_moveCb = 'function',
     })
 
 -------------------------------------
@@ -63,6 +64,15 @@ function UI_AncientTowerBestDeckPopup:initUI()
         if (self.m_cur_stage_id == tonumber(stage_id)) then
             ui:setHighlight(true)
         end
+
+        ui.vars['moveBtn']:registerScriptTapHandler(function() 
+            local t_data = {}
+            t_data['stage'] = tonumber(data['stage_id'])
+            if (self.m_moveCb) then
+                self.m_moveCb(t_data)
+            end
+            self:close() 
+        end)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -91,6 +101,13 @@ end
 -------------------------------------
 function UI_AncientTowerBestDeckPopup:refresh()
     
+end
+
+-------------------------------------
+-- function setMoveBtnFunc
+-------------------------------------
+function UI_AncientTowerBestDeckPopup:setFuncMove(func_move)
+    self.m_moveCb = func_move
 end
 
 
