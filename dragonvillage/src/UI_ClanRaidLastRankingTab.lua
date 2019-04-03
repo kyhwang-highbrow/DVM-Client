@@ -365,6 +365,16 @@ function UI_ClanRaidLastRankingListItem:initUI()
     local mark_icon = struct_mark:makeClanMarkIcon()
     vars['markNode']:addChild(mark_icon)
 
+
+    local rank_dis = tonumber(t_data['rankChange'])
+    local rank_dis_str = '-'
+    if (rank_dis < 0) then
+        rank_dis_str = string.format('{@blue}▼{@default}%d', math.abs(rank_dis))
+    elseif (rank_dis > 0) then
+        rank_dis_str = string.format('{@red}▲{@default}%d', math.abs(rank_dis))
+    end
+
+    vars['rankDifferentLabel']:setString(rank_dis_str)
 end
 
 
