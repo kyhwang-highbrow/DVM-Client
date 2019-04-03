@@ -47,7 +47,7 @@ function UI_AncientTowerRewardListItem:initUI()
 
         local name = TableItem:getItemName(id)
         local cnt = l_str[2]
-        vars['rewardLabel'..i]:setString(Str('{1}', cnt))
+        vars['rewardLabel'..i]:setString(Str('{1}', comma_value(cnt)))
     end
 
 

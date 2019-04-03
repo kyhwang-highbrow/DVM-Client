@@ -73,7 +73,7 @@ function UI_AncientTowerClanRewardListItem:refresh()
         local name = TableItem:getItemName(id)
         local cnt = l_str[2]
         if (vars['rewardLabel1']) then
-            vars['rewardLabel1']:setString(Str('{1}', cnt))
+            vars['rewardLabel1']:setString(Str('{1}', comma_value(cnt)))
         end
     end
 end

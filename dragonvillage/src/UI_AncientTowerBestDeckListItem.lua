@@ -75,8 +75,11 @@ function UI_AncientTowerBestDeckListItem:initUI()
 
     local floor = tonumber(data['stage_id'])%100
     vars['stageLabel']:setString(floor)
-
-    vars['meBestScoreLabel']:setString(data['best_score'])
+    local best_score = data['best_score']
+    if (not best_score or best_score == 0) then
+        best_score = '-'
+    end
+    vars['meBestScoreLabel']:setString(best_score)
     vars['meTopScoreLabel2']:setString('')
     vars['userTopScoreLabel']:setString('')
 end
