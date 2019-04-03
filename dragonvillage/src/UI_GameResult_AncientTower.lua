@@ -257,6 +257,7 @@ function UI_GameResult_AncientTower:startGame()
 			if (self.m_bSuccess) then
 				local stage_id = self.m_stageID
 				self.m_stageID = stage_id + 1
+				g_ancientTowerData.m_stageIdInAuto = self.m_stageID
 			end
 		end
 	end

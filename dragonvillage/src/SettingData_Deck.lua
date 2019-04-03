@@ -113,6 +113,9 @@ end
 function SettingData_Deck:getDeckAncient(stage_id)
     local t_ancient_deck = self.m_rootTable['ancient_deck'][tostring(stage_id)]
 
+    if (not t_ancient_deck) then
+        return nil
+    end
     -- deck 정보가 없다면 빈 정보로 간주(best_score 등 초기화 정보 있는 상태)
     if (not t_ancient_deck['deck']) then
         return nil

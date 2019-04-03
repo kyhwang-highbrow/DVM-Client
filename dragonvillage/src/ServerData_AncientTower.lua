@@ -38,6 +38,7 @@ ServerData_AncientTower = class({
         m_tClanRewardInfo = 'table', -- 클랜 보상 정보
 
         m_bOpen = 'booelan',
+		m_stageIdInAuto = 'number', -- 연속 전투 중, 스테이지 아이디 기록
     })
 
 -------------------------------------
@@ -168,6 +169,7 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
 
         self.m_challengingInfo = StructAncientTowerFloorData(t_challenging_info)
         self.m_challengingStageID = t_challenging_info['stage']
+		self.m_stageIdInAuto = self.m_challengingStageID
         self.m_challengingFloor = (self.m_challengingStageID % ANCIENT_TOWER_STAGE_ID_START)
 
         self:setClearStage(ret['ancient_clear_stage'])

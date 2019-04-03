@@ -63,7 +63,10 @@ function ServerData_AutoPlaySetting:setDefaultSetting(mode, t_auto_play_setting)
         -- DPS 패널 사용
         ['dps_panel'] = true,
         -- 연출 스킵 모드 사용
-        ['skip_mode'] = false
+        ['skip_mode'] = false,
+
+        -- 고대의 탑, 저장되어 있는 베스트 덱 사용
+        ['load_best_deck'] = false
     }
 
     do -- 룬 자동 판매

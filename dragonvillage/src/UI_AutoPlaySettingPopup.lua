@@ -4,7 +4,8 @@ local PARENT = class(UI, ITabUI:getCloneTable(), IEventDispatcher:getCloneTable(
 -- class UI_AutoPlaySettingPopup
 -------------------------------------
 UI_AutoPlaySettingPopup = class(PARENT, {
-		m_gameMode = '',
+        m_gameMode = '',
+        m_loadDeckCb = 'function',
     })
 
 UI_AutoPlaySettingPopup.TAB_SKILL = 1
@@ -74,6 +75,21 @@ function UI_AutoPlaySettingPopup:click_autoStartOnBtn()
         end
     end
 
+    -- 베스트 덱 자동으로 불러오기 사용할 경우
+    if vars['autoLoadBtn']:isChecked() then
+        local ok_btn_cb = function()
+            if (self.m_loadDeckCb) then
+                self.m_loadDeckCb()
+            end
+        end
+
+        local cancel_btn_cb = function()
+            vars['autoStartOnBtn']:setChecked(false)
+            return
+        end
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('현재 덱을 베스트 덱으로 교체하여 진행하시겠습니까?'), ok_btn_cb, cancel_btn_cb)
+    end
+
     -- 활성 상태일 경우 창을 닫음
     self:close()
 end
@@ -100,6 +116,7 @@ function UI_AutoPlaySettingPopup:initUI()
 		vars['autoMenu4']:setVisible(true)
 		vars['autoMenu5']:setVisible(false)
 		vars['autoMenu3']:setVisible(false)
+		vars['autoLoadBtn']:setVisible(true)
 
     -- 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_ARENA) then
@@ -191,8 +208,11 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
 	-- tower
     vars['autoStartBtn4']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['autoStartBtn5']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+    vars['autoLoadBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
     vars['autoStartBtn4'] = UIC_CheckBox(vars['autoStartBtn4'].m_node, vars['autoStartSprite4'], false)
-    vars['autoStartBtn5'] = UIC_CheckBox(vars['autoStartBtn5'].m_node, vars['autoStartSprite5'], false)  
+    vars['autoStartBtn5'] = UIC_CheckBox(vars['autoStartBtn5'].m_node, vars['autoStartSprite5'], false)
+    vars['autoLoadBtn'] = UIC_CheckBox(vars['autoLoadBtn'].m_node, vars['autoLoadSprite'], false) 
+
 
 	-- farming
 	vars['autoStartBtn3']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
@@ -237,7 +257,7 @@ function UI_AutoPlaySettingPopup:refresh()
 	-- tower
     vars['autoStartBtn4']:setChecked(g_autoPlaySetting:get('tower_next_floor'))
     vars['autoStartBtn5']:setChecked(g_autoPlaySetting:get('stop_condition_find_rel_dungeon'))
-	
+	vars['autoLoadBtn']:setChecked(g_autoPlaySetting:get('load_best_deck'))	
 	-- farming
 	vars['autoStartBtn3']:setChecked(g_autoPlaySetting:get('dragon_farming_mode'))
 	 
@@ -266,7 +286,7 @@ function UI_AutoPlaySettingPopup:close()
 	-- tower
     g_autoPlaySetting:set('tower_next_floor', vars['autoStartBtn4']:isChecked())
     g_autoPlaySetting:set('stop_condition_find_rel_dungeon', vars['autoStartBtn5']:isChecked())
-
+    g_autoPlaySetting:set('load_best_deck', vars['autoLoadBtn']:isChecked())
 	-- farming
 	g_autoPlaySetting:set('dragon_farming_mode', vars['autoStartBtn3']:isChecked())
     
@@ -287,6 +307,12 @@ function UI_AutoPlaySettingPopup:close()
     PARENT.close(self)
 end
 
+-------------------------------------
+-- function setLoadDeckCb
+-------------------------------------
+function UI_AutoPlaySettingPopup:setLoadDeckCb(func_load_deck)
+    self.m_loadDeckCb = func_load_deck
+end
 
 --@CHECK
 UI:checkCompileError(UI_AutoPlaySettingPopup)

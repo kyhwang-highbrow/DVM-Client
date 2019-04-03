@@ -143,6 +143,24 @@ function ServerData_Deck:getDeck_core(deck_name)
 
         return t_ret, self:adjustFormationName(formation), deck_name, leader, tamer_id
 
+	-- 고대의 탑 (베스트팀 불러오기 사용했을 경우)
+    elseif (deck_name == 'ancient') then
+        if (g_autoPlaySetting:isAutoPlay()) then
+            if (g_autoPlaySetting:get('load_best_deck')) then
+                local stage_id = g_ancientTowerData.m_stageIdInAuto
+                local t_data = g_settingDeckData:getDeckAncient(stage_id)
+
+                if (t_data) then
+                    local t_ret = {}
+                    for i,v in ipairs(t_data['deck']) do
+                        if (v ~= '') and g_dragonsData:getDragonDataFromUid(v) then
+                            t_ret[tonumber(i)] = v
+                        end
+                    end
+                    return t_data['deck'], self:adjustFormationName(t_data['formation']), 'ancient', t_data['leader'], t_data['tamer_id']
+                end
+            end
+        end
     -- deckpvp collection을 사용하는 덱은 별도로 처리
     elseif self:isUsedDeckPvpDB(deck_name) then
         return self:getDeck_core_usedDeckPvpDB(deck_name)

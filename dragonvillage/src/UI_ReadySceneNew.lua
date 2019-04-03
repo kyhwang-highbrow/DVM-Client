@@ -1341,6 +1341,10 @@ function UI_ReadySceneNew:click_autoStartOnBtn()
         self.vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay())
     end
 
+    local function load_best_deck()
+        self:click_loadBestTeam()
+    end
+
     local is_auto = g_autoPlaySetting:isAutoPlay()
 
     -- 바로 해제
@@ -1350,6 +1354,7 @@ function UI_ReadySceneNew:click_autoStartOnBtn()
     else
         local ui = UI_AutoPlaySettingPopup(self.m_gameMode)
         ui:setCloseCB(refresh_btn)
+        ui:setLoadDeckCb(load_best_deck)
     end
 end
 

@@ -213,7 +213,7 @@ end
 -------------------------------------
 function GameState_AncientTower:isUpperScore(final_score)
     local world = self.m_world
-    local ex_score = g_settingDeckData:getAncientStageScore(world.m_stageID)
+    local ex_score = g_settingDeckData:getAncientStageScore(world.m_stageID) or 0
     
     if (final_score > ex_score) then
         return true

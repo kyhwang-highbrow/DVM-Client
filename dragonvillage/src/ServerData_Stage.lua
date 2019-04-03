@@ -456,6 +456,21 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         ui_network:setParam('team_bonus', teambonus_ids) 
     end
     ui_network:setParam('token', self:makeDragonToken())
+	if (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        local _attr = g_attrTowerData:getSelAttr()
+        -- 고대의 탑
+        if (not _attr) then
+            local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck('ancient')
+            ui_network:setParam('token', nil)
+            ui_network:setParam('edoid1', l_deck[1])
+            ui_network:setParam('edoid2', l_deck[2])
+            ui_network:setParam('edoid3', l_deck[3])
+            ui_network:setParam('edoid4', l_deck[4])
+            ui_network:setParam('edoid5', l_deck[5])
+            ui_network:setParam('tamer', tamer_id)
+            ui_network:setParam('formation', formation)
+        end
+    end
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
