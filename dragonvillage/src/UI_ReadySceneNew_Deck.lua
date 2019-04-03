@@ -1272,3 +1272,10 @@ function UI_ReadySceneNew_Deck:setReadySpriteVisible(ui, visible)
         ui:setReadySpriteVisible(visible)
     end
 end
+
+-------------------------------------
+-- function getCurDeckInfo
+-------------------------------------
+function UI_ReadySceneNew_Deck:getCurDeckInfo()
+    return self.m_lDeckList, self.m_currFormation, self.m_currFormationLv, 'ancient', self.m_currLeader, self.m_uiReadyScene:getCurrTamerID()
+end

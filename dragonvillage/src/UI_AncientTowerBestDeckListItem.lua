@@ -62,12 +62,14 @@ function UI_AncientTowerBestDeckListItem:initUI()
     -- 덱 정보(드래곤 카드UI)
     local l_deck = data['deck']
     if (l_deck) then
-        for ind, doj in ipairs(l_deck) do
-            local t_dragon_data = g_dragonsData:getDragonDataFromUid(doj)
-            local ui_dragon_card = UI_DragonCard(t_dragon_data)
-            ui_dragon_card.root:setScale(0.66)
-            ui_dragon_card.root:setSwallowTouch(false)
-            vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
+        for ind = 1, 5 do
+            if (l_deck[ind]) then
+                local t_dragon_data = g_dragonsData:getDragonDataFromUid(l_deck[ind])
+                local ui_dragon_card = UI_DragonCard(t_dragon_data)
+                ui_dragon_card.root:setScale(0.66)
+                ui_dragon_card.root:setSwallowTouch(false)
+                vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
+            end
         end
     end
 

@@ -1067,16 +1067,6 @@ function UI_ReadySceneNew:click_teamBtn(deck_name)
 end
 
 -------------------------------------
--- function click_saveBestTeam
--- @breif
--------------------------------------
-function UI_ReadySceneNew:click_saveBestTeam(deck_name)
-    local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck('ancient')
-    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
-    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, cur_stage_id) -- l_deck, formation, leader, tamer_id, score
-end
-
--------------------------------------
 -- function changeTeam
 -- @breif
 -------------------------------------
@@ -1495,8 +1485,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_loadBestTeam()
-    local t_data = g_settingDeckData:getDeckAncient(self.m_stageID)
-
+    local t_data = g_settingDeckData:getDeckAncient(tostring(self.m_stageID))
     if (not t_data) then
         UIManager:toastNotificationRed(Str('저장된 베스트 팀이 없습니다'))
         return
@@ -1510,6 +1499,16 @@ function UI_ReadySceneNew:click_loadBestTeam()
     local formation_lv = 1
 
     self.m_readySceneDeck:setDeck(l_deck, formation, deckname, leader, tamer_id, formation_lv)
+end
+
+-------------------------------------
+-- function click_saveBestTeam
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:click_saveBestTeam(deck_name)
+    local l_deck, formation, deck_name, leader, tamer_id = self.m_readySceneDeck:getCurDeckInfo()
+    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
+    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, cur_stage_id) -- l_deck, formation, leader, tamer_id, score
 end
 
 -------------------------------------
