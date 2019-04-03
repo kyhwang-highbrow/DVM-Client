@@ -12,7 +12,7 @@ UI_AncientTowerClanRankListItem = class(PARENT, {
 -------------------------------------
 function UI_AncientTowerClanRankListItem:init(stuct_data)
     self.m_structRank = stuct_data
-    local vars = self:load('tower_scene_ranking_item_clan.ui')
+    local vars = self:load('tower_clan_rank_item.ui')
 
     if (stuct_data == 'next') or (stuct_data == 'prev') then
         return
@@ -35,11 +35,12 @@ end
 -------------------------------------
 function UI_AncientTowerClanRankListItem:initButton()
     local vars = self.vars
-
+    --[[
     vars['infoBtn']:registerScriptTapHandler(function()
         local clan_object_id = self.m_structRank:getClanObjectID()
         g_clanData:requestClanInfoDetailPopup(clan_object_id)
     end)
+    --]]
 end
 
 -------------------------------------
@@ -72,11 +73,13 @@ function UI_AncientTowerClanRankListItem:refresh()
     
     -- 등수 
     local clan_rank = struct_clan_rank:getClanRank()
-    vars['rankLabel']:setString(clan_rank)
+    if (vars['rankingLabel']) then
+        vars['rankingLabel']:setString(clan_rank)
+    end
 
     -- 내클랜
     if (struct_clan_rank:isMyClan()) then
-        vars['mySprite']:setVisible(true)
-        vars['infoBtn']:setVisible(false)
+        vars['meSprite']:setVisible(true)
+        --vars['infoBtn']:setVisible(false)
     end
 end

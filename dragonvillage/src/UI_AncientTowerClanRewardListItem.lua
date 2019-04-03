@@ -12,7 +12,7 @@ UI_AncientTowerClanRewardListItem = class(PARENT, {
 -------------------------------------
 function UI_AncientTowerClanRewardListItem:init(t_reward_info)
     self.m_rewardInfo = t_reward_info
-    local vars = self:load('tower_scene_reward_item_clan.ui')
+    local vars = self:load('tower_clan_rank_reward_item.ui')
 
     self:initUI()
     self:initButton()
@@ -23,6 +23,31 @@ end
 -- function initUI
 -------------------------------------
 function UI_AncientTowerClanRewardListItem:initUI()
+    local t_reward_info = self.m_rewardInfo
+    local vars = self.vars
+
+    local my_data = g_clanRankData:getMyRankData(CLAN_RANK['ANCT'])
+    local my_rank = my_data['rank']
+
+    -- 받을 수 있는 포상에 하이라이트
+    local my_rank = g_ancientTowerData.m_nTotalRank
+    local rank_type = nil
+    local rank_value = 1
+        
+    local rank_min = tonumber(t_reward_info['rank_min'])
+    local rank_max = tonumber(t_reward_info['rank_max'])
+
+    local ratio_min = tonumber(t_reward_info['ratio_min'])
+    local ratio_max = tonumber(t_reward_info['ratio_max'])
+
+    -- 순위 필터
+    if (rank_min and rank_max) then
+        if (rank_min <= my_rank) and (my_rank <= rank_max) then
+            vars['meSprite']:setVisible(true)
+            return
+        end
+    end
+
 end
 
 -------------------------------------
@@ -37,15 +62,18 @@ end
 function UI_AncientTowerClanRewardListItem:refresh()
     local vars = self.vars
     local t_reward_info = self.m_rewardInfo    
-    vars['rankLabel']:setString(Str(t_reward_info['t_name']))
-    
-    -- ����
+    if (vars['rankLabel']) then
+        vars['rankLabel']:setString(Str(t_reward_info['t_name']))
+    end
+
     do
         local l_str = plSplit(t_reward_info['reward'], ';')
         local item_type = l_str[1]
         local id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
         local name = TableItem:getItemName(id)
         local cnt = l_str[2]
-        vars['rewardLabel']:setString(Str('{1} x{2}', name, cnt))
+        if (vars['rewardLabel1']) then
+            vars['rewardLabel1']:setString(Str('{1}', cnt))
+        end
     end
 end

@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_AncientTowerRankNew
@@ -51,9 +51,17 @@ UI_AncientTowerRankNew.CLAN_REWARD = 'clanRewardList'
 -- function initUI
 -------------------------------------
 function UI_AncientTowerRankNew:initUI()
+    local vars = self.vars
     self.m_rankOffset = 1
     self.m_clanRankOffset = 1
     self.m_rewardInfo = {}
+
+
+    self:addTabAuto('userRank', vars, vars['userRankTabMenu'])
+    self:addTabAuto('clanRank', vars, vars['clanRankTabMenu'])
+
+    self:setTab('userRank')
+    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 
     self:make_UIC_SortList()
 end
@@ -65,11 +73,25 @@ function UI_AncientTowerRankNew:refresh()
 end
 
 -------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_AncientTowerRankNew:onChangeTab(tab, first)
+    local vars = self.vars
+    if (tab == 'clanRank') and (first) then
+        self:makeClanRank()
+        if (not self.m_clanRewardTableView) then
+            self:init_clanRewardTableView()
+        end
+    end
+end
+
+-------------------------------------
 -- function initButton
 -------------------------------------
 function UI_AncientTowerRankNew:initButton()
     local vars = self.vars
     vars['randomShopBtn']:registerScriptTapHandler(function() self:click_ancientShopBtn() end)
+    vars['clancoinShopBtn']:registerScriptTapHandler(function() self:click_clancoinShopBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
@@ -79,7 +101,9 @@ end
 -------------------------------------
 function UI_AncientTowerRankNew:make_UIC_SortList()
     local vars = self.vars
-    local button = vars['rankBtn']
+
+    -- 내 순위 필터
+    local button = vars['userRankBtn']
     local label = vars['rankLabel1']
 
     local width, height = button:getNormalSize()
@@ -106,6 +130,35 @@ function UI_AncientTowerRankNew:make_UIC_SortList()
 
     uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
     uic:setSelectSortType('my')
+
+    -- 클랜 순위 필터
+    local button = vars['clanRankListBtn']
+    local label = vars['rankLabel2']
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+
+    uic:addSortType('my', Str('내 클랜 랭킹'))
+    uic:addSortType('top', Str('최상위 클랜 랭킹'))
+
+    uic:setSortChangeCB(function(sort_type) self:onChangeRankingType_Clan(sort_type) end)
+    uic:setSelectSortType('my')
 end
 
 -------------------------------------
@@ -125,8 +178,8 @@ function UI_AncientTowerRankNew:onChangeRankingType(type)
     end
 
     local function finish_cb(ret)
-            self.m_rewardInfo = ret['table_ancient_rank']
-            self:init_rewardTableView()
+        self.m_rewardInfo = ret['table_ancient_rank']
+        self:init_rewardTableView()
     end
 
     if (not self.m_rewardTableView) then
@@ -137,10 +190,22 @@ function UI_AncientTowerRankNew:onChangeRankingType(type)
 end
 
 -------------------------------------
--- function onChangeOption
+-- function onChangeRankingType
+-- @brief
 -------------------------------------
-function UI_AncientTowerRankNew:onChangeOption()
-    
+function UI_AncientTowerRankNew:onChangeRankingType_Clan(type)
+    local l_attr = getAttrTextList() 
+    if (type == 'my') then
+        for i,v in pairs(l_attr) do
+            self.m_rankOffset = -1
+        end
+    elseif (type == 'top') then
+        for i,v in pairs(l_attr) do
+            self.m_rankOffset = 1
+        end
+    end
+
+    self:makeClanRank()
 end
 
 -------------------------------------
@@ -157,11 +222,63 @@ function UI_AncientTowerRankNew:request_Rank()
 end
 
 -------------------------------------
+-- function focusInRankReward
+-------------------------------------
+function UI_AncientTowerRankNew:focusInRankReward()
+
+    local idx = 1
+    local ui = nil
+
+    local l_rank_list = self.m_rewardInfo
+
+    -- 받을 수 있는 포상에 포커싱
+    local my_rank = g_ancientTowerData.m_nTotalRank
+    local my_rank_rate = g_ancientTowerData.m_nTotalRate
+    local rank_type = nil
+    local rank_value = 1
+    for i,data in ipairs(l_rank_list) do
+        
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                rank_type = 'rank_min'
+                rank_value = rank_min
+                break
+            end
+
+        -- 비율 필터
+        elseif (ratio_min and ratio_max) then
+            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+                rank_type = 'ratio_min'
+                rank_value = ratio_min
+                break
+            end
+        end
+
+        idx = idx + 1
+    end
+    
+    if (self.m_rankOffset == 1) then
+        idx = 1
+    end
+    self.m_rewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    self.m_rewardTableView:relocateContainerFromIndex(idx)
+
+end
+
+-------------------------------------
 -- function request_clanRank
 -------------------------------------
 function UI_AncientTowerRankNew:request_clanRank()
     local rank_type = CLAN_RANK['ANCT']
     local offset = self.m_clanRankOffset
+
     local cb_func = function()
         -- 최초 생성
         if (not self.m_clanRankTableView) then
@@ -281,6 +398,13 @@ function UI_AncientTowerRankNew:init_rewardTableView()
 end
 
 -------------------------------------
+-- function makeClanRank
+-------------------------------------
+function UI_AncientTowerRankNew:makeClanRank()
+    self:request_clanRank()
+end
+
+-------------------------------------
 -- function makeTableViewRanking
 -------------------------------------
 function UI_AncientTowerRankNew:makeMyClanRankNode()
@@ -289,21 +413,16 @@ function UI_AncientTowerRankNew:makeMyClanRankNode()
 
     -- 자기 클랜이 있는 경우
     if (info) then
-        vars['userListNode']:setVisible(true)
-        vars['userMeNode']:setVisible(false)
+        vars['clanMeNode']:setVisible(true)
 
-        local my_node = vars['userMeNode']
+        local my_node = vars['clanMeNode']
         my_node:removeAllChildren()
         local ui = UI_AncientTowerClanRankListItem(info)
         my_node:addChild(ui.root)
 
-        self.m_hasMyClan = true
-
     -- 무적자
     else
-        vars['userListNode']:setVisible(false)
-        vars['userMeNode']:setVisible(true)
-        self.m_hasMyClan = false
+        vars['clanMeNode']:setVisible(false)
     end
 end
 
@@ -311,11 +430,11 @@ end
 -- function init_clanRankingTableView
 -------------------------------------
 function UI_AncientTowerRankNew:init_clanRankingTableView()
-    local vars = self.m_uiScene.vars
+    local vars = self.vars
 
     -- 전체 순위
     do
-        local node = vars['userListNode']
+        local node = vars['clanListNode']
         node:removeAllChildren()
 
         local l_item_list = g_clanRankData:getRankData(CLAN_RANK['ANCT'])
@@ -360,7 +479,7 @@ function UI_AncientTowerRankNew:init_clanRankingTableView()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(640, 100 + 5)
+        table_view.m_defaultCellSize = cc.size(550, 55 + 5)
         table_view:setCellUIClass(UI_AncientTowerClanRankListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_item_list)
@@ -406,7 +525,7 @@ end
 -- function init_clanRewardTableView
 -------------------------------------
 function UI_AncientTowerRankNew:init_clanRewardTableView()
-    local node = self.vars['userRewardNode']
+    local node = self.vars['clanRewardNode']
 
     -- 고대의 탑 보상 정보만 빼온다.
     local l_item_list = {}
@@ -423,7 +542,7 @@ function UI_AncientTowerRankNew:init_clanRewardTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 100 + 5)
+    table_view.m_defaultCellSize = cc.size(640, 60)
     table_view:setCellUIClass(UI_AncientTowerClanRewardListItem, nil)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list or {})
@@ -441,52 +560,9 @@ function UI_AncientTowerRankNew:click_ancientShopBtn()
 end
 
 -------------------------------------
--- function focusInRankReward
+-- function click_clancoinShopBtn
 -------------------------------------
-function UI_AncientTowerRankNew:focusInRankReward()
-
-    local idx = 1
-    local ui = nil
-
-    local l_rank_list = self.m_rewardInfo
-
-    -- 받을 수 있는 포상에 포커싱
-    local my_rank = g_ancientTowerData.m_nTotalRank
-    local my_rank_rate = g_ancientTowerData.m_nTotalRate
-    local rank_type = nil
-    local rank_value = 1
-    for i,data in ipairs(l_rank_list) do
-        
-        local rank_min = tonumber(data['rank_min'])
-        local rank_max = tonumber(data['rank_max'])
-
-        local ratio_min = tonumber(data['ratio_min'])
-        local ratio_max = tonumber(data['ratio_max'])
-
-        -- 순위 필터
-        if (rank_min and rank_max) then
-            if (rank_min <= my_rank) and (my_rank <= rank_max) then
-                rank_type = 'rank_min'
-                rank_value = rank_min
-                break
-            end
-
-        -- 비율 필터
-        elseif (ratio_min and ratio_max) then
-            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
-                rank_type = 'ratio_min'
-                rank_value = ratio_min
-                break
-            end
-        end
-
-        idx = idx + 1
-    end
-    
-    if (self.m_rankOffset == 1) then
-        idx = 1
-    end
-    self.m_rewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-    self.m_rewardTableView:relocateContainerFromIndex(idx)
-
+function UI_AncientTowerRankNew:click_clancoinShopBtn()
+    local ui_shop_popup = UI_Shop()
+    ui_shop_popup:setTab('clancoin')
 end
