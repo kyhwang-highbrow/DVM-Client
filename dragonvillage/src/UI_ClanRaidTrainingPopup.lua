@@ -78,6 +78,10 @@ end
 function UI_ClanRaidTrainingPopup:initUI()
     local vars = self.vars
     vars['actingPowerLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
+
+    -- 시작 위치 초기화
+    vars['quantityGuage']:setPercentage(0)
+    vars['quantityBtn2']:setPositionX(0)
 end
 
 -------------------------------------
