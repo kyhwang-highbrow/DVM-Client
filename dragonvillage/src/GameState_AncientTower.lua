@@ -142,12 +142,6 @@ function GameState_AncientTower:makeResultUI(is_success)
             t_param['score'] = score_calc:getFinalScore()
         end
 
-        -- 로컬 기록과 비교하여 더 높은 점수라면 로컬에 데이터 저장
-        local cur_score = score_calc:getFinalScore()
-        if (self:isUpperScore(cur_score)) then
-            self:saveAncientDeckData(cur_score) 
-        end
-
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end
 
@@ -208,25 +202,3 @@ function GameState_AncientTower:doDirectionForIntermission()
     world:cleanupItem()
 end
 
--------------------------------------
--- function isUpperScore
--------------------------------------
-function GameState_AncientTower:isUpperScore(final_score)
-    local world = self.m_world
-    local ex_score = g_settingDeckData:getAncientStageScore(world.m_stageID) or 0
-    
-    if (final_score > ex_score) then
-        return true
-    end
-
-    return false
-end
-
--------------------------------------
--- function saveAncientDeckData
--------------------------------------
-function GameState_AncientTower:saveAncientDeckData(final_score)
-    local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck('ancient')
-    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
-    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, cur_stage_id) -- l_deck, formation, leader, tamer_id, score
-end

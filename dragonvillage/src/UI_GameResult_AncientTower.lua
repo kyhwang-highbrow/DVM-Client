@@ -113,6 +113,31 @@ function UI_GameResult_AncientTower:setAnimationData()
 end
 
 -------------------------------------
+-- function setWorkList
+-------------------------------------
+function UI_GameResult_AncientTower:setWorkList()
+    self.m_workIdx = 0
+
+    self.m_lWorkList = {}
+--    table.insert(self.m_lWorkList, 'direction_showTamer')
+	table.insert(self.m_lWorkList, 'check_tutorial')
+	table.insert(self.m_lWorkList, 'check_masterRoad')
+--    table.insert(self.m_lWorkList, 'direction_hideTamer')
+    table.insert(self.m_lWorkList, 'direction_showScore')
+    table.insert(self.m_lWorkList, 'direction_start')
+    table.insert(self.m_lWorkList, 'direction_end')
+    table.insert(self.m_lWorkList, 'direction_showBox')
+    table.insert(self.m_lWorkList, 'direction_openBox')
+    table.insert(self.m_lWorkList, 'direction_dropItem')
+    table.insert(self.m_lWorkList, 'direction_secretDungeon')
+    table.insert(self.m_lWorkList, 'direction_showButton')
+    table.insert(self.m_lWorkList, 'direction_moveMenu')
+    table.insert(self.m_lWorkList, 'direction_dragonGuide')
+    table.insert(self.m_lWorkList, 'direction_checkBestScore')
+    table.insert(self.m_lWorkList, 'direction_masterRoad')
+end
+
+-------------------------------------
 -- function makeScoreAnimation
 -------------------------------------
 function UI_GameResult_AncientTower:makeScoreAnimation()
@@ -327,6 +352,7 @@ function UI_GameResult_AncientTower:click_prevBtn()
         g_ancientTowerData:request_ancientTowerInfo(prev_stage_id, goto_cb)
     end
 end
+
 -------------------------------------
 -- function direction_showScore
 -------------------------------------
@@ -342,6 +368,23 @@ function UI_GameResult_AncientTower:direction_showScore()
     else
         self:doNextWork()
     end
+end
+
+-------------------------------------
+-- function direction_checkBestScore
+-------------------------------------
+function UI_GameResult_AncientTower:direction_checkBestScore()
+    local score_calc = self.m_scoreCalc:getFinalScore()
+    local stage_id = self.m_stageID
+    
+    -- 로컬 기록과 비교하여 더 높은 점수라면 로컬에 데이터 저장
+    if (self:isUpperScore(score_calc)) then
+        print(score_calc, stage_id)
+        UI_AncientTowerRenewBestTeam(score_calc, stage_id)
+        self:saveAncientDeckData(score_calc) 
+    end
+    
+    self:doNextWork()
 end
 
 -------------------------------------
@@ -403,4 +446,82 @@ function UI_GameResult_AncientTower:setTotalScoreLabel()
 
     total_score = NumberLabel(total_score, 0, 0.3)
     self.m_totalScore = total_score
+end
+
+
+-------------------------------------
+-- function isUpperScore
+-------------------------------------
+function UI_GameResult_AncientTower:isUpperScore(final_score)
+    local stage_id = self.m_stageID
+    local ex_score = g_settingDeckData:getAncientStageScore(stage_id) or 0
+    print(final_score , ex_score)
+    if (final_score > ex_score) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function saveAncientDeckData
+-------------------------------------
+function UI_GameResult_AncientTower:saveAncientDeckData(final_score)
+    local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck('ancient')
+    local stage_id = self.m_stageID
+    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, cur_stage_id) -- l_deck, formation, leader, tamer_id, score
+end
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_AncientTowerRenewBestTeam
+-- @brief 고대의 탑, 베스트 팀 최고 점수 갱신했을 때 등장 팝업
+-------------------------------------
+UI_AncientTowerRenewBestTeam = class(PARENT, {
+        m_best_score = 'number',
+        m_stage_id = 'number',
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_AncientTowerRenewBestTeam:init(best_score, stage_id)
+    local vars = self:load('tower_best_popup_02.ui')
+	UIManager:open(self, UIManager.POPUP)
+    self.m_best_score = best_score
+    self.m_stage_id = stage_id
+
+	-- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_AncientTowerRenewBestTeam')
+
+	-- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+	self:initButton()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_AncientTowerRenewBestTeam:initUI()
+    local vars = self.vars
+    
+    local stage_id = self.m_stage_id
+    local stage = stage_id%100
+    vars['stageLabel']:setString(Str('{1}층', stage))
+    vars['dscLabel']:setString(Str('현재 팀이 {1}층 베스트 팀으로 저장되었습니다.', stage))
+    
+    local ex_score = g_settingDeckData:getAncientStageScore(stage_id) or 0
+    vars['scoreLabel1']:setString(comma_value(ex_score))
+    vars['scoreLabel2']:setString(comma_value(self.m_best_score))
+
+    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
