@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_AncientTower
@@ -40,7 +40,6 @@ function UI_AncientTower:init()
     self.m_selectedStageID = challengingStageID
 
     self:initUI()
-    self:initTab()
     self:initButton()
 
     -- 최초 진입시 도전 층 정보 표시
@@ -191,18 +190,6 @@ function UI_AncientTower:initUI()
 end
 
 -------------------------------------
--- function initTab
--------------------------------------
-function UI_AncientTower:initTab()
-    local vars = self.vars
-    self:addTabWithLabel(UI_AncientTower.TAB_INFO, vars['towerTabBtn'], vars['towerTabLabel'], vars['towerMenu'])
-    self:addTabWithLabel(UI_AncientTower.TAB_RANK, vars['rankingTabBtn'], vars['rankingTabLabel'], vars['rankingMenu'])
-    self:setTab(UI_AncientTower.TAB_INFO)
-
-	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
-end
-
--------------------------------------
 -- function initButton
 -------------------------------------
 function UI_AncientTower:initButton()
@@ -240,7 +227,6 @@ end
 -------------------------------------
 function UI_AncientTower:refresh(floor_info)
     local vars = self.vars
-    self:setTab(UI_AncientTower.TAB_INFO)
 
     -- 층 정보 UI 갱신
     self.m_floorInfo:refresh(floor_info)
@@ -274,18 +260,6 @@ function UI_AncientTower:click_recordBtn(floor_info)
     end
     
     g_ancientTowerData:requestAllAncientScore(cb_finish)
-end
-
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_AncientTower:onChangeTab(tab, first)
-    if (not first) then return end
-
-    -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
-    if (tab == UI_AncientTower.TAB_RANK) then
-        self.m_rankInfo.m_typeRadioButton:setSelectedButton(UI_AncientTowerRank.RANKING)
-    end
 end
 
 -------------------------------------

@@ -72,21 +72,6 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
                         nick)
         vars['scoreLabel']:setString(str)
 
-        local struct_clan = top_user and top_user:getStructClan() or nil
-        if struct_clan then
-            -- 클랜 마크
-            local icon = struct_clan:makeClanMarkIcon()
-            vars['markNode']:removeAllChildren()
-            vars['markNode']:addChild(icon)
-
-            -- 클랜명
-            local clan_name = struct_clan:getClanName()
-            vars['clanLabel']:setString(clan_name)
-        end
-
-        vars['markNode']:setVisible(struct_clan and true or false)
-        vars['clanLabel']:setVisible(struct_clan and true or false)
-
         local fail_cnt = info.m_failCnt
         vars['challengeLabel']:setString(Str('도전 횟수 {1}회', fail_cnt))
 
@@ -105,6 +90,8 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         vars['staminaNode']:addChild(icon)
         vars['actingPowerLabel']:setString(st_cnt)
     end
+
+    vars['meTotalScoreLabel']:setString(Str('{@yellow}{1}위{@default} {2}점', g_ancientTowerData.m_nTotalRank, g_ancientTowerData.m_nTotalScore))
 end
 
 -------------------------------------
