@@ -32,7 +32,6 @@ ServerData_AncientTower = class({
 
         
         m_nTotalRank = 'number', -- 시즌 내 순위
-        m_nExTotalRank = 'number', -- 시즌 내 순위 갱신 전 기록
         m_nTotalRate = 'number', 
         m_nTotalScore = 'number', -- 시즌 내 총점수
 
@@ -55,7 +54,6 @@ function ServerData_AncientTower:init(server_data)
     self.m_bOpen = true
 	self.m_startTime = 0
 	self.m_endTime = 0
-    self.m_nExTotalRank = 0
     self.m_nTotalRank = 0
 
     self:setWeakGradeCountList()
@@ -184,7 +182,6 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
         self.m_startTime = ret['start_time']
         self.m_endTime = ret['end_time']
 
-        self.m_nExTotalRank = self.m_nTotalRank
         self.m_nTotalRank = ret['myrank']
         self.m_nTotalRate= ret['myrate']
         self.m_nTotalScore = ret['total_score']
@@ -704,13 +701,13 @@ function ServerData_AncientTower:getPossibleReward_rank()
         -- 순위 필터
         if (rank_min and rank_max) then
             if (rank_min <= my_rank) and (my_rank <= rank_max) then
-                return data['reward'], i
+                return data, i
             end
 
         -- 비율 필터
         elseif (ratio_min and ratio_max) then
             if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
-                return data['reward'], i
+                return data, i
             end
         end
     end
@@ -738,14 +735,14 @@ function ServerData_AncientTower:getPossibleReward_score()
         if (rank_min and rank_max) then
             if (rank_min <= my_rank) and (my_rank <= rank_max) then
                 if (my_score > data['score_min']) then
-                    return data['reward'], i
+                    return data, i
                 end
             end
 
         -- 점수 필터
         elseif (data['score_min']) then
             if (my_score > data['score_min']) then
-                return data['reward'], i
+                return data, i
             end
         end
     end

@@ -63,7 +63,7 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:getFinalScore())
 
     -- 지난 점수와의 차이 표시
-    local change_score = (g_ancientTowerData.m_nExTotalRank - g_ancientTowerData.m_nTotalRank)
+    local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myHighScore
     table.insert(score_list, change_score or 0)
 
 
@@ -179,7 +179,8 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     local number_time   = 0.2 -- 넘버링 타임
     local ani_time      = delay_time + fadein_time + number_time
 
-    local is_numbering  = (idx % 2 == 0)
+    local is_numbering = (idx % 2 == 0)
+
     local pos_x, pos_y  = node:getPosition()
 
     local action_scale  = 1.08
@@ -194,9 +195,16 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
         -- 순위 변동 표시 나타내는 라벨은 다르게 동작해서 하드코딩
         if (idx == #node_list) then
             local score = tonumber(score_list[6])
-            --if (score > 0) then
-                node:setString(string.format('+(%d)', score))
-            --end
+            local score_str = ''
+            if (score > 0) then
+                self.vars['newRecordNode']:setVisible(true)
+                score_str = string.format('({@red}▲{@default}%d)', score)
+            elseif (score < 0) then
+                score_str = string.format('({@blue}▼{@default}%d)', score)
+            else
+                score_str = '(-)'
+            end
+            node:setString(score_str)
             self:removeScore()
         end
 
@@ -243,6 +251,7 @@ function UI_GameResult_AncientTower:removeScore()
     local vars          = self.vars
     local score_node    = vars['scoreNode']
     local total_node    = vars['totalSprite']
+    local new_node    = vars['newRecordNode']
 
     local delay_time = 2.0
 
@@ -257,6 +266,14 @@ function UI_GameResult_AncientTower:removeScore()
 
     -- 스코어 노드 사라짐
     doAllChildren(score_node, function(node)
+        local act1 = cc.DelayTime:create(delay_time)
+        local act2 = cc.FadeOut:create(0.2)
+        local action = cc.Sequence:create(act1, act2)
+        node:runAction(action) 
+    end)
+
+    -- 점수 갱신 노드 사라짐
+    doAllChildren(new_node, function(node)
         local act1 = cc.DelayTime:create(delay_time)
         local act2 = cc.FadeOut:create(0.2)
         local action = cc.Sequence:create(act1, act2)
