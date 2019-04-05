@@ -4006,6 +4006,9 @@
     <None Include="..\src\UI_AncientTowerRankNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ResultLeaderBoard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

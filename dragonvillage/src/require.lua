@@ -1067,6 +1067,7 @@ local t_module = {
     'UI_IngameBossHp',
     'UI_AutoPlaySettingPopup',
     'UI_EventGoldDungeonResult',
+    'UI_ResultLeaderBoard',
 
     -- UI : 챌린지 모드
     'UI_ChallengeMode',

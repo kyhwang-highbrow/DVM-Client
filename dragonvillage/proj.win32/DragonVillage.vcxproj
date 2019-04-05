@@ -1412,6 +1412,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dragon.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dungeon.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Party.lua" />
+    <None Include="..\src\UI_ResultLeaderBoard.lua" />
     <None Include="..\src\UI_RuneAutoSellAgreePopup.lua" />
     <None Include="..\src\UI_RuneDevApiPopup.lua" />
     <None Include="..\src\UI_RuneGuardianDungeonScene.lua" />
