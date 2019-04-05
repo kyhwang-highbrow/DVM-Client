@@ -187,6 +187,28 @@ function UI_AncientTower:initUI()
     -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
     local scr_size = cc.Director:getInstance():getWinSize()
     vars['bgSprite']:setScale(scr_size.width / 1280)
+
+    local possible_reward = g_ancientTowerData:getPossibleReward() -- gold;500000,cash;5000,ancient;750
+    if (possible_reward) then
+        local l_reward = plSplit(possible_reward, ',')
+        local ind = 1
+        for _, item_str in ipairs(l_reward) do -- 예정된 보상 : 골드, 다이아, 고대 주화
+            local t_item = plSplit(item_str, ';')
+            if (vars['meRewardLabel' .. ind]) then
+                vars['meRewardLabel' .. ind]:setString(descBlank(t_item[2]))
+            end
+            ind = ind + 1
+        end
+    -- 보상 정보가 없다면 - 로 세팅
+    else
+        vars['meRewardLabel1']:setString('-')
+        vars['meRewardLabel2']:setString('-')
+        vars['meRewardLabel3']:setString('-')
+    end
+
+    local until_next_reward = g_ancientTowerData:getUntilNextRewardText()
+    vars['rewardLabel']:setString(until_next_reward)
+
 end
 
 -------------------------------------

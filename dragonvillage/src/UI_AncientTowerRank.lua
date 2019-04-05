@@ -106,11 +106,12 @@ function UI_AncientTowerRank:onChangeOption()
             return 
         end
 
-        local function finish_cb(ret)
-            self.m_rewardInfo = ret['table_ancient_rank']
+        -- 보상 테이블 정보는 고대의 탑 들어올 때 받음
+        self.m_rewardInfo = g_ancientTowerData.m_rewardTable
+        if (self.m_rewardInfo) then
             self:init_rewardTableView()
         end
-        g_ancientTowerData:request_ancientTowerSeasonRankInfo(finish_cb)
+
         
     -- 클랜 랭킹
     elseif (type == UI_AncientTowerRank.CLAN_RANKING) then

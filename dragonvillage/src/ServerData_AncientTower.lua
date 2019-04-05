@@ -41,6 +41,8 @@ ServerData_AncientTower = class({
 
         m_bOpen = 'booelan',
 		m_stageIdInAuto = 'number', -- 연속 전투 중, 스테이지 아이디 기록
+
+        m_rewardTable = 'table', -- 보상 테이블
     })
 
 -------------------------------------
@@ -267,8 +269,9 @@ function ServerData_AncientTower:request_ancientTowerSeasonRankInfo(finish_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+         self.m_rewardTable = ret['table_ancient_rank']
          if finish_cb then
-            return finish_cb(ret)
+            return finish_cb()
         end
     end
 
@@ -665,4 +668,121 @@ function ServerData_AncientTower:checkAttrTowerAndGoStage(stage_id)
     else
         UINavigator:goTo('ancient', stage_id)
     end
+end
+
+-------------------------------------
+-- function getPossibleReward
+-- @brief 받을 수 있는 보상, 인덱스 리턴
+-------------------------------------
+function ServerData_AncientTower:getPossibleReward()
+    local l_rank_list = g_ancientTowerData.m_rewardTable
+    
+    -- @jhakim 201900405 점수+rank로 보상 판단하는 버젼, score_min 여부로 판단
+    if (l_rank_list[1]['score_min']) then
+        return self:getPossibleReward_score() -- gold;500000,cash;5000,ancient;750
+    else
+        return self:getPossibleReward_rank() -- gold;500000,cash;5000,ancient;750
+    end
+end
+
+-------------------------------------
+-- function getPossibleReward_rank
+-------------------------------------
+function ServerData_AncientTower:getPossibleReward_rank()
+    local my_rank = g_ancientTowerData.m_nTotalRank
+    local my_rank_rate = g_ancientTowerData.m_nTotalRate
+    local l_rank_list = g_ancientTowerData.m_rewardTable
+
+    for i,data in ipairs(l_rank_list) do
+        
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                return data['reward'], i
+            end
+
+        -- 비율 필터
+        elseif (ratio_min and ratio_max) then
+            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+                return data['reward'], i
+            end
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
+-- function getPossibleReward_score
+-------------------------------------
+function ServerData_AncientTower:getPossibleReward_score()
+    local my_rank = g_ancientTowerData.m_nTotalRank
+    local my_score = g_ancientTowerData.m_nTotalScore
+    local l_rank_list = g_ancientTowerData.m_rewardTable
+    
+    for i,data in ipairs(l_rank_list) do
+
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local score_min = tonumber(data['score_min'])
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                if (my_score > data['score_min']) then
+                    return data['reward'], i
+                end
+            end
+
+        -- 점수 필터
+        elseif (data['score_min']) then
+            if (my_score > data['score_min']) then
+                return data['reward'], i
+            end
+        end
+    end
+
+    local last_ind = #l_rank_list
+    return l_rank_list[last_ind]['reward']
+end
+
+-------------------------------------
+-- function getUntilNextRewardText
+-------------------------------------
+function ServerData_AncientTower:getUntilNextRewardText()
+    local possible_reward, ind = self:getPossibleReward()
+    local l_rank_list = g_ancientTowerData.m_rewardTable
+    local my_rank = g_ancientTowerData.m_nTotalRank or 0
+    local my_score = g_ancientTowerData.m_nTotalScore or 0
+
+
+    -- 1위는 표시할 남은 점수/순위가 없음
+    if (ind == 1) then
+        return '-'
+    end
+
+    -- 받을 보상이 없는 사람은 마지막 단계+1로 세팅
+    if (not ind) then
+        ind = #l_rank_list + 1
+    end
+
+    -- 점수 기준인 경우
+    if (l_rank_list[ind -1]['score_min']) then
+        local dis = l_rank_list[ind -1]['score_min'] - my_score
+        return Str('다음 단계 보상까지 {1}점 남음', dis)
+    end
+
+    -- 순위 기준인 경우
+    if (l_rank_list[ind -1]['rank_min']) then
+        local dis = l_rank_list[ind -1]['rank_min'] - my_rank
+        return Str('다음 단계 보상까지 {1}위 남음', dis)
+    end
+
+    return '-'
 end

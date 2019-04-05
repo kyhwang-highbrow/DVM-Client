@@ -521,8 +521,13 @@ function UINavigatorDefinition:goTo_ancient(...)
 
     end
 
-    -- 정보 요청
-    g_ancientTowerData:request_ancientTowerInfo(stage_id, finish_cb, fail_cb)
+    local req_table_cb = function()
+        -- 정보 요청
+        g_ancientTowerData:request_ancientTowerInfo(stage_id, finish_cb, fail_cb)
+    end
+
+    -- 보상 테이블 요청
+    g_ancientTowerData:request_ancientTowerSeasonRankInfo(req_table_cb)
 end
 
 -------------------------------------
