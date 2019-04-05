@@ -194,9 +194,9 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
         -- 순위 변동 표시 나타내는 라벨은 다르게 동작해서 하드코딩
         if (idx == #node_list) then
             local score = tonumber(score_list[6])
-            if (score > 0) then
+            --if (score > 0) then
                 node:setString(string.format('+(%d)', score))
-            end
+            --end
             self:removeScore()
         end
 
