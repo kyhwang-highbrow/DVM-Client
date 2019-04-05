@@ -87,7 +87,9 @@ function UI_AutoPlaySettingPopup:click_autoStartOnBtn()
             vars['autoStartOnBtn']:setChecked(false)
             return
         end
-        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('현재 덱을 베스트 덱으로 교체하여 진행하시겠습니까?'), ok_btn_cb, cancel_btn_cb)
+        if (self.m_loadDeckCb) then
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('현재 덱을 베스트 덱으로 교체하여 진행하시겠습니까?'), ok_btn_cb, cancel_btn_cb)
+        end
     end
 
     -- 활성 상태일 경우 창을 닫음
