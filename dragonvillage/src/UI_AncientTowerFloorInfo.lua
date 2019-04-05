@@ -51,9 +51,6 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
     vars['towerTabLabel']:setString(Str('고대의 탑 {1}층', info.m_floor))
 
     do -- 시즌 정보
-        local str_rank = g_ancientTowerData:getRankText()  
-        vars['totalRankLabel']:setString(str_rank)
-
         local season_score = math_max(g_ancientTowerData.m_nTotalScore, 0)
         local str_score = Str('{1}점', season_score)
         vars['totalScoreLabel']:setString(str_score)

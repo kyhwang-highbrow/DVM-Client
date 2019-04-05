@@ -678,10 +678,10 @@ function ServerData_AncientTower:getPossibleReward()
     local l_rank_list = g_ancientTowerData.m_rewardTable
     
     -- @jhakim 201900405 점수+rank로 보상 판단하는 버젼, score_min 여부로 판단
-    if (l_rank_list[1]['score_min']) then
-        return self:getPossibleReward_score() -- gold;500000,cash;5000,ancient;750
+    if (l_rank_list[1]['score_min'] ~= '') then
+        return self:getPossibleReward_score()
     else
-        return self:getPossibleReward_rank() -- gold;500000,cash;5000,ancient;750
+        return self:getPossibleReward_rank()
     end
 end
 
@@ -717,7 +717,7 @@ function ServerData_AncientTower:getPossibleReward_rank()
 
     -- 마지막 보상 리턴
     local last_ind = #l_rank_list
-    return l_rank_list[last_ind]['reward'], last_ind
+    return l_rank_list[last_ind], last_ind
 end
 
 -------------------------------------
@@ -752,7 +752,7 @@ function ServerData_AncientTower:getPossibleReward_score()
 
     -- 마지막 보상 리턴
     local last_ind = #l_rank_list
-    return l_rank_list[last_ind]['reward'], last_ind
+    return l_rank_list[last_ind], last_ind
 end
 
 -------------------------------------

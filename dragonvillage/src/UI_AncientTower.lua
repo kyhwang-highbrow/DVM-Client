@@ -190,7 +190,7 @@ function UI_AncientTower:initUI()
 
     local possible_reward = g_ancientTowerData:getPossibleReward() -- gold;500000,cash;5000,ancient;750
     if (possible_reward) then
-        local l_reward = plSplit(possible_reward, ',')
+        local l_reward = plSplit(possible_reward['reward'], ',')
         local ind = 1
         for _, item_str in ipairs(l_reward) do -- 예정된 보상 : 골드, 다이아, 고대 주화
             local t_item = plSplit(item_str, ';')
@@ -208,6 +208,8 @@ function UI_AncientTower:initUI()
 
     local until_next_reward = g_ancientTowerData:getUntilNextRewardText()
     vars['rewardLabel']:setString(until_next_reward)
+ 
+    vars['totalRankLabel']:setString(Str(possible_reward['t_name']))
 
 end
 
