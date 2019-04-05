@@ -51,38 +51,12 @@ function UI_AncientTowerRewardListItem:initUI()
     end
 
 
-    -- 받을 수 있는 포상에 하이라이트
-    local my_rank = g_ancientTowerData.m_nTotalRank
-    local my_rank_rate = g_ancientTowerData.m_nTotalRate
-    local rank_type = nil
-    local rank_value = 1
-        
-    local rank_min = tonumber(t_reward_info['rank_min'])
-    local rank_max = tonumber(t_reward_info['rank_max'])
-
-    local ratio_min = tonumber(t_reward_info['ratio_min'])
-    local ratio_max = tonumber(t_reward_info['ratio_max'])
-
-    -- 순위 필터
-    if (rank_min and rank_max) then
-        if (rank_min <= my_rank) and (my_rank <= rank_max) then
-            vars['meSprite']:setVisible(true)
-            return
-        end
+    -- 받을 수 있는 보상에 하이라이트
+    local str_reward, idx = g_ancientTowerData:getPossibleReward()
+    if (t_reward_info['reward'] == str_reward) then
+        vars['meSprite']:setVisible(true)
     end
-
-    if (my_rank_rate < 5) then
-        return
-    end
-
-    -- 비율 필터
-    if (ratio_min and ratio_max) then
-        if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
-            vars['meSprite']:setVisible(true)
-            return
-        end
-    end
-
+   
 end
 
 -------------------------------------

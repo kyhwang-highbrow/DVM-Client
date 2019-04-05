@@ -715,7 +715,9 @@ function ServerData_AncientTower:getPossibleReward_rank()
         end
     end
 
-    return nil
+    -- 마지막 보상 리턴
+    local last_ind = #l_rank_list
+    return l_rank_list[last_ind]['reward'], last_ind
 end
 
 -------------------------------------
@@ -748,8 +750,9 @@ function ServerData_AncientTower:getPossibleReward_score()
         end
     end
 
+    -- 마지막 보상 리턴
     local last_ind = #l_rank_list
-    return l_rank_list[last_ind]['reward']
+    return l_rank_list[last_ind]['reward'], last_ind
 end
 
 -------------------------------------
