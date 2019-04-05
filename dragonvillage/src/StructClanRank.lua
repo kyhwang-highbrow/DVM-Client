@@ -27,6 +27,8 @@ StructClanRank = class(PARENT, {
         
         cldg_last_info = 'table',
         cldg_Attr = 'table',
+
+        rankChange = 'number',
     })
 
 local THIS = StructClanRank
