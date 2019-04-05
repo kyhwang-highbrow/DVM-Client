@@ -137,6 +137,10 @@ function SettingData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_
         return
     end
     
+    if (not cur_stage_id) then
+        return
+    end
+
     local cur_floor = self:getFloorByStageId(cur_stage_id)
     
     -- 기존에 저장된 덱 정보

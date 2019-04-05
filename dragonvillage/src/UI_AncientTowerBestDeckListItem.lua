@@ -65,10 +65,12 @@ function UI_AncientTowerBestDeckListItem:initUI()
         for ind = 1, 5 do
             if (l_deck[ind]) then
                 local t_dragon_data = g_dragonsData:getDragonDataFromUid(l_deck[ind])
-                local ui_dragon_card = UI_DragonCard(t_dragon_data)
-                ui_dragon_card.root:setScale(0.66)
-                ui_dragon_card.root:setSwallowTouch(false)
-                vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
+                if (t_dragon_data) then
+                    local ui_dragon_card = UI_DragonCard(t_dragon_data)
+                    ui_dragon_card.root:setScale(0.66)
+                    ui_dragon_card.root:setSwallowTouch(false)
+                    vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
+                end
             end
         end
     end

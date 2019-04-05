@@ -1487,7 +1487,7 @@ end
 
 -------------------------------------
 -- function click_loadBestTeam
--- @breif
+-- @breif 저장되어 있던 베스트 덱을 세팅
 -------------------------------------
 function UI_ReadySceneNew:click_loadBestTeam()
     local t_data = g_settingDeckData:getDeckAncient(tostring(self.m_stageID))
@@ -1508,12 +1508,20 @@ end
 
 -------------------------------------
 -- function click_saveBestTeam
--- @breif
+-- @breif 베스트 팀 갱신, 최고 점수는 0으로 초기화
 -------------------------------------
-function UI_ReadySceneNew:click_saveBestTeam(deck_name)
-    local l_deck, formation, deck_name, leader, tamer_id = self.m_readySceneDeck:getCurDeckInfo()
-    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
-    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, cur_stage_id) -- l_deck, formation, leader, tamer_id, score
+function UI_ReadySceneNew:click_saveBestTeam()
+    local cur_stage_id = self.m_stageID
+    local ok_btn_cb = function()
+        local l_deck, formation, deck_name, leader, tamer_id = self.m_readySceneDeck:getCurDeckInfo()
+        g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, 0, cur_stage_id) -- l_deck, formation, leader, tamer_id, score  
+    end
+
+    local cancel_btn_cb = function()
+    end
+    
+    local msg = Str('현재 팀을 {1}층 베스트 팀으로 저장합니다.\n{1}층 팀 최고 점수는 초기화 됩니다.', cur_stage_id%1000)
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
 end
 
 -------------------------------------

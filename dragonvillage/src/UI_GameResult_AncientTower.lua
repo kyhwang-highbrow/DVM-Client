@@ -62,6 +62,11 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
 
+    -- 지난 점수와의 차이 표시
+    local change_score = (g_ancientTowerData.m_nExTotalRank - g_ancientTowerData.m_nTotalRank)
+    table.insert(score_list, change_score or 0)
+
+
     -- 애니메이션 적용되는 라벨 저장
     local var_list = {}
     table.insert(var_list, 'clearLabel1')
@@ -88,6 +93,7 @@ function UI_GameResult_AncientTower:setAnimationData()
 
     table.insert(var_list, 'totalLabel1')
     table.insert(var_list, 'totalLabel2')
+    table.insert(var_list, 'scoreChangeLabel')
 
     -- 현재 약화 등급 
     local weak_grade = g_ancientTowerData:getWeakGrade()
@@ -150,6 +156,7 @@ function UI_GameResult_AncientTower:makeScoreAnimation()
 
     score_node:setVisible(true)
     total_node:setVisible(true)
+    vars['scoreChangeLabel']:setVisible(true)
 
     doAllChildren(score_node,   function(node) node:setOpacity(0) end)
     doAllChildren(total_node,   function(node) node:setOpacity(0) end)
@@ -166,7 +173,6 @@ end
 function UI_GameResult_AncientTower:runScoreAction(idx, node)
     local score_list    = self.m_scoreList
     local node_list     = self.m_animationList
-
     local move_x        = 20
     local delay_time    = 0.0 -- 애니메이션 간 간격
     local fadein_time   = 0.1 -- 페이드인 타임
@@ -185,17 +191,25 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     -- 라벨일 경우 넘버링 애니메이션 
     local number_func
     number_func = function()
+        -- 순위 변동 표시 나타내는 라벨은 다르게 동작해서 하드코딩
+        if (idx == #node_list) then
+            local score = tonumber(score_list[6])
+            if (score > 0) then
+                node:setString(string.format('+(%d)', score))
+            end
+            self:removeScore()
+        end
+
         if (not is_numbering) then return end
         local score = tonumber(score_list[idx/2])
         local is_ani = (score < #node_list - 2) and true or false
         node = NumberLabel(node, 0, number_time)
-        node:setNumber(score, is_ani)
+        node:setNumber(score, true)
 
         -- 최종 점수 애니메이션
-        if (idx == #node_list) then
+        if (idx == #node_list - 1) then
             self:setTotalScoreLabel()
-            self.m_totalScore:setNumber(score, is_ani)
-            self:removeScore()
+            self.m_totalScore:setNumber(score, is_ani)        
         end
     end
 
@@ -213,7 +227,7 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     node:runAction( action )
 
     -- 최종 점수 Sprite
-    if idx == (#node_list - 2) then
+    if idx == (#node_list - 3) then
         local total_node = self.vars['totalSprite']
         local act1 = cc.DelayTime:create( ani_time * idx )
         local act2 = cc.FadeIn:create( fadein_time )
@@ -360,7 +374,6 @@ function UI_GameResult_AncientTower:direction_showScore()
     self.root:stopAllActions()
     local is_success = self.m_bSuccess
     self:setSuccessVisual_Ancient()
-
     -- 성공시에만 스코어 연출
     if (is_success) then
         self:setAnimationData()
@@ -374,16 +387,18 @@ end
 -- function direction_checkBestScore
 -------------------------------------
 function UI_GameResult_AncientTower:direction_checkBestScore()
-    local score_calc = self.m_scoreCalc:getFinalScore()
+    local score = self.m_scoreCalc:getFinalScore()
     local stage_id = self.m_stageID
-    
-    -- 로컬 기록과 비교하여 더 높은 점수라면 로컬에 데이터 저장
-    if (self:isUpperScore(score_calc)) then
-        print(score_calc, stage_id)
-        UI_AncientTowerRenewBestTeam(score_calc, stage_id)
-        self:saveAncientDeckData(score_calc) 
+    local is_success = self.m_bSuccess
+    if (is_success) then
+        -- 로컬 기록과 비교하여 더 높은 점수라면 로컬에 데이터 저장
+        if (self:isUpperScore(score)) then
+            local ui = UI_AncientTowerRenewBestTeam(score, stage_id)
+            self.vars['ancientScoreGapPopupNode']:setVisible(true)
+            self.vars['ancientScoreGapPopupNode']:addChild(ui.root)
+            self:saveAncientDeckData(score) 
+        end
     end
-    
     self:doNextWork()
 end
 
@@ -455,7 +470,6 @@ end
 function UI_GameResult_AncientTower:isUpperScore(final_score)
     local stage_id = self.m_stageID
     local ex_score = g_settingDeckData:getAncientStageScore(stage_id) or 0
-    print(final_score , ex_score)
     if (final_score > ex_score) then
         return true
     end
@@ -469,7 +483,7 @@ end
 function UI_GameResult_AncientTower:saveAncientDeckData(final_score)
     local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck('ancient')
     local stage_id = self.m_stageID
-    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, cur_stage_id) -- l_deck, formation, leader, tamer_id, score
+    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, stage_id) -- l_deck, formation, leader, tamer_id, score
 end
 
 
@@ -492,12 +506,11 @@ UI_AncientTowerRenewBestTeam = class(PARENT, {
 -------------------------------------
 function UI_AncientTowerRenewBestTeam:init(best_score, stage_id)
     local vars = self:load('tower_best_popup_02.ui')
-	UIManager:open(self, UIManager.POPUP)
     self.m_best_score = best_score
     self.m_stage_id = stage_id
 
 	-- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_AncientTowerRenewBestTeam')
+    g_currScene:pushBackKeyListener(self, function() self.root:setVisible(false) end, 'UI_AncientTowerRenewBestTeam')
 
 	-- @UI_ACTION
     self:doActionReset()
@@ -522,6 +535,6 @@ function UI_AncientTowerRenewBestTeam:initUI()
     vars['scoreLabel1']:setString(comma_value(ex_score))
     vars['scoreLabel2']:setString(comma_value(self.m_best_score))
 
-    vars['okBtn']:registerScriptTapHandler(function() self:close() end)
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['okBtn']:registerScriptTapHandler(function() self.root:setVisible(false) end)
+    vars['closeBtn']:registerScriptTapHandler(function() self.root:setVisible(false) end)
 end

@@ -30,7 +30,9 @@ ServerData_AncientTower = class({
 
         m_playerUserInfo = 'StructUserInfoAncientTower', -- 내 랭킹 정보
 
+        
         m_nTotalRank = 'number', -- 시즌 내 순위
+        m_nExTotalRank = 'number', -- 시즌 내 순위 갱신 전 기록
         m_nTotalRate = 'number', 
         m_nTotalScore = 'number', -- 시즌 내 총점수
 
@@ -51,6 +53,8 @@ function ServerData_AncientTower:init(server_data)
     self.m_bOpen = true
 	self.m_startTime = 0
 	self.m_endTime = 0
+    self.m_nExTotalRank = 0
+    self.m_nTotalRank = 0
 
     self:setWeakGradeCountList()
 end
@@ -178,6 +182,7 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
         self.m_startTime = ret['start_time']
         self.m_endTime = ret['end_time']
 
+        self.m_nExTotalRank = self.m_nTotalRank
         self.m_nTotalRank = ret['myrank']
         self.m_nTotalRate= ret['myrate']
         self.m_nTotalScore = ret['total_score']
