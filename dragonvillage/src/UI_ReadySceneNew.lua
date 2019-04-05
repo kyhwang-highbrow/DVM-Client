@@ -1495,15 +1495,24 @@ function UI_ReadySceneNew:click_loadBestTeam()
         UIManager:toastNotificationRed(Str('저장된 베스트 팀이 없습니다'))
         return
     end
-    
+
     local l_deck = t_data['deck']
     local formation = t_data['formation']
     local deckname = t_data['deckname']
     local leader = t_data['leader']
-    local tamer_id = t_data['tamer_id']
-    local formation_lv = 1
+    local tamer_id = t_data['tamer']
 
-    self.m_readySceneDeck:setDeck(l_deck, formation, deckname, leader, tamer_id, formation_lv)
+
+    local func_refresh = function()
+        self:refresh_tamer()
+        self:refresh_buffInfo()
+        self:refresh_combatPower()
+    end
+    -- 테이머 세팅
+    g_tamerData:request_setTamer(tamer_id, func_refresh)
+
+    -- 덱 세팅
+    self.m_readySceneDeck:setDeck(l_deck, formation, deckname, leader, tamer_id, nil)
 end
 
 -------------------------------------

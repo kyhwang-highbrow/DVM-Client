@@ -5,29 +5,6 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_AncientTowerBestDeckListItem = class(PARENT, {
         m_tData = 'table',
-        --[[
-            -- 로컬 데이터
-            {                             -- 탑 층수
-                    "tamer":110001,                 -- 테이머 정보
-                    "tamerInfo":{
-                      "skill_lv4":1,
-                      "skill_lv3":1,
-                      "costume":730100,
-                      "skill_lv2":1,
-                      "tid":110001,
-                      "skill_lv1":1
-                    },
-                    "deck":{                        -- 덱 정보
-                      "1":"5bdb9ff4e891935dfd7a0418",
-                      "2":"5bdb9ff4e891935dfd7a0418"
-                      "3":"5bdb9ff4e891935dfd7a0418"
-                    },
-                    "formation":"attack",           -- 덱 형식 정보
-                    "deckname":"ancient",           -- 덱 이름
-                    "leader":1                      -- 리더
-                    "top_score":0                   -- 최고 점수
-            },
-        --]]
     })
 
 -------------------------------------
@@ -51,39 +28,56 @@ function UI_AncientTowerBestDeckListItem:initUI()
                 "deckname":"ancient",
                 "tamer":110001,
                 "best_score":3584,
-                "deck":["5ba1bcbce891935dfd799479","5ba1bcbfe891935dfd7994c7","5ba1bcbee891935dfd7994ac"],
+                "deck":["5ba1bcbce891935dfd799479","5ba1bcbfe891935dfd7994c7","5ba1bcbee891935dfd7994ac", nil, nil],
                 "formation":"attack",
                 "stage_id":1401006,
                 "leader":1
                 },
     --]]
 
+    -- 층 정보
+    local floor = tonumber(data['stage_id'])%100
+    vars['stageLabel']:setString(floor)
 
-    -- 덱 정보(드래곤 카드UI)
-    local l_deck = data['deck']
-    if (l_deck) then
-        for ind = 1, 5 do
-            if (l_deck[ind]) then
-                local t_dragon_data = g_dragonsData:getDragonDataFromUid(l_deck[ind])
-                if (t_dragon_data) then
-                    local ui_dragon_card = UI_DragonCard(t_dragon_data)
-                    ui_dragon_card.root:setScale(0.66)
-                    ui_dragon_card.root:setSwallowTouch(false)
-                    vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
-                end
-            end
+    -- 점수
+    local best_score = data['best_score']
+    vars['meBestScoreLabel']:setString(descBlank(best_score))
+    vars['meTopScoreLabel2']:setString(descBlank(0))
+    vars['userTopScoreLabel']:setString(descBlank(0))
+
+    -- 진형 정보
+    if (data['formation']) then
+        local formation_icon = IconHelper:getFormationIcon(data['formation'], true)   
+        if (formation_icon) then
+            vars['formationNode']:addChild(formation_icon)
         end
     end
 
-    local floor = tonumber(data['stage_id'])%100
-    vars['stageLabel']:setString(floor)
-    local best_score = data['best_score']
-    if (not best_score or best_score == 0) then
-        best_score = '-'
+    -- 테이머 정보
+    if (data['tamer']) then
+        local tamer_icon = IconHelper:getTamerSDIcon(data['tamer'])
+        if (tamer_icon) then
+            vars['tamerNode']:addChild(tamer_icon)
+        end
     end
-    vars['meBestScoreLabel']:setString(best_score)
-    vars['meTopScoreLabel2']:setString('')
-    vars['userTopScoreLabel']:setString('')
+    
+    -- 덱 정보(드래곤 카드UI)
+    local l_deck = data['deck']
+    if (not l_deck) then
+        return
+    end
+    
+    for ind = 1, 5 do
+        if (l_deck[ind]) then
+            local t_dragon_data = g_dragonsData:getDragonDataFromUid(l_deck[ind])
+            if (t_dragon_data) then
+                local ui_dragon_card = UI_DragonCard(t_dragon_data)
+                ui_dragon_card.root:setScale(0.66)
+                ui_dragon_card.root:setSwallowTouch(false)
+                vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -96,8 +90,8 @@ function UI_AncientTowerBestDeckListItem:setScore(t_score)
         return
     end
 
-    vars['meTopScoreLabel2']:setString(comma_value(t_score['hiscore']))
-    vars['userTopScoreLabel']:setString(comma_value(t_score['topuser_score']))
+    vars['meTopScoreLabel2']:setString(descBlank(t_score['hiscore']))
+    vars['userTopScoreLabel']:setString(descBlank(t_score['topuser_score']))
 end
 
 -------------------------------------
@@ -107,4 +101,5 @@ function UI_AncientTowerBestDeckListItem:setHighlight(is_highlight)
     local vars = self.vars
     vars['meSprite']:setVisible(is_highlight)
 end
+
 

@@ -909,6 +909,10 @@ end
 -- function setFormationLv
 -------------------------------------
 function UI_ReadySceneNew_Deck:setFormationLv(formation_lv)
+    if (not formation_lv) then
+        return
+    end
+
     if (self.m_currFormationLv == formation_lv) then
         return
     end
@@ -1277,5 +1281,5 @@ end
 -- function getCurDeckInfo
 -------------------------------------
 function UI_ReadySceneNew_Deck:getCurDeckInfo()
-    return self.m_lDeckList, self.m_currFormation, self.m_currFormationLv, 'ancient', self.m_currLeader, self.m_uiReadyScene:getCurrTamerID()
+    return self.m_lDeckList, self.m_currFormation, 'ancient', self.m_currLeader, self.m_uiReadyScene:getCurrTamerID()
 end

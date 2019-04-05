@@ -567,10 +567,26 @@ function IconHelper:makeTamerReadyIcon(tamer_id)
 end
 
 -------------------------------------
+-- function getTamerSDIcon
+-------------------------------------
+function IconHelper:getTamerSDIcon(tamer_id)
+    if (not tamer_id) then
+        return nil
+    end
+    local costume_data = g_tamerCostumeData:getUsedStructCostumeData(tamer_id)
+
+    local sd_icon = costume_data:getTamerSDIcon()
+    return sd_icon
+end
+
+-------------------------------------
 -- function getFormationIcon
 -- @brief 진형 아이콘 생성
 -------------------------------------
 function IconHelper:getFormationIcon(formation_type, is_activated)
+    if (not formation_type) then
+        return nil
+    end
 	local sub_str = is_activated and '02' or '01'
     local res_name = string.format('res/ui/icons/fomation/%s_%s.png', formation_type, sub_str)
     local sprite = self:getIcon(res_name)

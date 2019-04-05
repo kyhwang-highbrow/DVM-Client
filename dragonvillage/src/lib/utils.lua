@@ -1207,3 +1207,16 @@ function toboolean(value)
 
     return nil
 end
+
+-------------------------------------
+-- function descBlank
+-- @brief 값이 없거나 0일 때 -로 표시 (comma_value까지 처리)
+-------------------------------------
+function descBlank(score)
+    local score = comma_value(score)
+    if (not score or score == 0 or score == '0') then
+        score = '-'
+    end
+
+    return score
+end
