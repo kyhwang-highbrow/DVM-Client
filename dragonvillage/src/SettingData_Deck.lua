@@ -125,7 +125,21 @@ function SettingData_Deck:getDeckAncient(stage_id)
         return nil
     end
     
+    self:checkUserDragon(t_ancient_deck['deck'])
+
     return t_ancient_deck
+end
+
+-------------------------------------
+-- function checkUserDragon
+-- @brief 유저의 드래곤인지 체크, 아니라면 드래곤 obj를 nil로 변환
+-------------------------------------
+function SettingData_Deck:checkUserDragon(l_deck)
+    for ind, doid in ipairs(l_deck) do
+        if (not g_dragonsData:getDragonDataFromUid(doid)) then
+            l_deck[ind] = nil
+        end
+    end
 end
  
 -------------------------------------
