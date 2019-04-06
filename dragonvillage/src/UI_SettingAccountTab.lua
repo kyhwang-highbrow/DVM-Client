@@ -583,8 +583,12 @@ function UI_Setting:loginSuccess(info)
     g_localData:applyLocalData(account_info, 'local', 'account_info')
 
     -- settingData에 있는 이전 기록(그림자 신전 관련) 삭제
-    g_settingData:resetChallengeSettingData()
-    g_settingDeckData:resetAncientBestDeck()
+    if (g_settingData) then
+        g_settingData:resetChallengeSettingData()
+    end
+    if (g_settingDeckData) then
+        g_settingDeckData:resetAncientBestDeck()
+    end
 
     if platform_id == 'google.com' then
 		if (t_info['google'] and t_info['google']['playServicesConnected']) then
