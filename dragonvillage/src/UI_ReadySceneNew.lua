@@ -772,26 +772,12 @@ function UI_ReadySceneNew:refresh_buffInfo()
 
 	-- 리더 버프
 	do
-		self.m_readySceneDeck:refreshLeader()
-		
-		local leader_buff		
-		local leader_idx = self.m_readySceneDeck.m_currLeader
-		local l_doid = self.m_readySceneDeck.m_lDeckList
-		local leader_doid = l_doid[leader_idx]
-		if (leader_doid) then
-			local t_dragon_data = g_dragonsData:getDragonDataFromUid(leader_doid)
-			local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
-			local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
-
-			if (skill_info) then
-				leader_buff = skill_info:getSkillDesc()
-			else
-				leader_buff = Str('리더 버프 없음')
-			end
-		else
-			leader_buff = Str('리더 버프 없음')
-		end
-		vars['leaderBuffLabel']:setString(leader_buff)
+        local leader_buff_str = self:getLeaderBuffDesc()
+        if (leader_buff_str) then
+            vars['leaderBuffLabel']:setString(leader_buff_str)
+        else
+            vars['leaderBuffLabel']:setString(Str('리더 버프 없음'))
+        end
 	end
 
 	-- 진형 버프
@@ -835,6 +821,34 @@ function UI_ReadySceneNew:refresh_slotLight()
     end
 end
 
+
+-------------------------------------
+-- function getLeaderBuffDesc
+-------------------------------------
+function UI_ReadySceneNew:getLeaderBuffDesc()
+    self.m_readySceneDeck:refreshLeader()
+	
+	local leader_buff		
+	local leader_idx = self.m_readySceneDeck.m_currLeader
+	local l_doid = self.m_readySceneDeck.m_lDeckList
+	local leader_doid = l_doid[leader_idx]
+    if (not leader_doid) then
+        return nil
+    end
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(leader_doid)
+    if (not t_dragon_data) then
+        return nil
+    end
+	local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
+        
+    if (not skill_info) then
+        return nil
+    end
+
+	leader_buff = skill_info:getSkillDesc()
+	return leader_buff	    
+end
 -------------------------------------
 -- function refresh_buffInfo_TamerBuff
 -------------------------------------
