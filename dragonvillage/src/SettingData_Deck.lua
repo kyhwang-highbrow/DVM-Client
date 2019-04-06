@@ -193,3 +193,10 @@ function SettingData_Deck:getFloorByStageId(stage_id)
     local stage_id = stage_id or 0
     return tonumber(stage_id)%100
 end
+
+-------------------------------------
+-- function resetAncientBestDeck
+-------------------------------------
+function SettingData_Deck:resetAncientBestDeck()
+    SaveLocalSaveJson(self:getSettingDataSaveFileName(), nil, false)
+end

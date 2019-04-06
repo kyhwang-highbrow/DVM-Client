@@ -584,6 +584,7 @@ function UI_Setting:loginSuccess(info)
 
     -- settingData에 있는 이전 기록(그림자 신전 관련) 삭제
     g_settingData:resetChallengeSettingData()
+    g_settingDeckData:resetAncientBestDeck()
 
     if platform_id == 'google.com' then
 		if (t_info['google'] and t_info['google']['playServicesConnected']) then
