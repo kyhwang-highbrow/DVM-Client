@@ -114,11 +114,13 @@ function UI_AutoPlaySettingPopup:initUI()
     vars['autoMenu6']:setVisible(false)
 
 	-- 고대의탑 분기처리
-	if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-		vars['autoMenu4']:setVisible(true)
-		vars['autoMenu5']:setVisible(false)
-		vars['autoMenu3']:setVisible(false)
-		vars['autoLoadBtn']:setVisible(true)
+    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        if (not g_ancientTowerData:isAttrChallengeMode()) then
+		    vars['autoMenu4']:setVisible(true)
+		    vars['autoMenu5']:setVisible(false)
+		    vars['autoMenu3']:setVisible(false)
+            vars['autoLoadBtn']:setVisible(true)
+        end
 
     -- 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_ARENA) then

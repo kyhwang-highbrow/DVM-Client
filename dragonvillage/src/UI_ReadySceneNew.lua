@@ -591,7 +591,7 @@ function UI_ReadySceneNew:initButton()
     
     -- 고대의 탑
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-        if (g_ancientTowerData:isAncientTowerStage(self.m_stageID)) then
+        if (not g_ancientTowerData:isAttrChallengeMode()) then
             vars['towerMenu']:setVisible(true)
             local season_high_score = g_ancientTowerData.m_challengingInfo.m_seasonHighScore
             vars['towerScoreLabel']:setString(Str('{1}층 팀 최고점수 : {2}', g_ancientTowerData:getFloorFromStageID(self.m_stageID), comma_value(season_high_score)))
@@ -1368,7 +1368,9 @@ function UI_ReadySceneNew:click_autoStartOnBtn()
     else
         local ui = UI_AutoPlaySettingPopup(self.m_gameMode)
         ui:setCloseCB(refresh_btn)
-        ui:setLoadDeckCb(load_best_deck)
+        if (not g_ancientTowerData:isAttrChallengeMode()) then
+            ui:setLoadDeckCb(load_best_deck)
+        end
     end
 end
 

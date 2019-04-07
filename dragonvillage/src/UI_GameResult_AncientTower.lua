@@ -53,10 +53,8 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:calcClearBonus())
     table.insert(score_list, score_calc:calcClearTimeBonus())
     table.insert(score_list, score_calc:calcClearNoDeathBonus())
-    local is_attr_tower = g_ancientTowerData:isAttrChallengeMode()
-    if attr and (attr ~= '') and (not is_attr_tower) then
-        table.insert(score_list, score_calc:calcAttrBonus())
-    end
+    table.insert(score_list, score_calc:calcAttrBonus())
+
     --table.insert(score_list, score_calc:calcKillBossBonus())
     --table.insert(score_list, score_calc:calcAcitveSkillBonus())
     table.insert(score_list, score_calc:getWeakGradeMinusScore())
@@ -78,15 +76,11 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(var_list, 'injuryLabel1')
     table.insert(var_list, 'injuryLabel2')
 
-    if attr and (attr ~= '') and (not is_attr_tower) then
-        table.insert(var_list, 'attrBonusLabel1')
-        table.insert(var_list, 'attrBonusLabel2')
-        vars['attrBonusLabel1']:setVisible(true)
-        vars['attrBonusLabel2']:setVisible(true)
-    else
-        vars['attrBonusLabel1']:setVisible(false)
-        vars['attrBonusLabel2']:setVisible(false)
-    end
+    table.insert(var_list, 'attrBonusLabel1')
+    table.insert(var_list, 'attrBonusLabel2')
+    vars['attrBonusLabel1']:setVisible(true)
+    vars['attrBonusLabel2']:setVisible(true)
+
 
     table.insert(var_list, 'weakLabel1')
     table.insert(var_list, 'weakLabel2')
@@ -94,6 +88,75 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(var_list, 'totalLabel1')
     table.insert(var_list, 'totalLabel2')
     table.insert(var_list, 'scoreChangeLabel')
+
+    -- 현재 약화 등급 
+    local weak_grade = g_ancientTowerData:getWeakGrade()
+    if (weak_grade > 0) then
+        vars['weakLabel1']:setString(Str('약화 등급 패널티', weak_grade))
+        vars['weakLabel2']:setColor(cc.c3b(255, 96, 0))
+    else
+        vars['weakLabel1']:setVisible(false)
+        vars['weakLabel2']:setVisible(false)
+    end
+
+    local node_list = {}
+    for _, v in ipairs(var_list) do
+        local node = vars[v]
+        if string.find(v, '2') then
+            node:setString(tostring(0))
+        end
+        table.insert(node_list, node)
+    end
+
+    self.m_scoreList = score_list
+    self.m_animationList = node_list
+end
+
+-------------------------------------
+-- function setAnimationData_Attr
+-- @brief 애니메이션에 필요한 노드 리스트로 관리
+-------------------------------------
+function UI_GameResult_AncientTower:setAnimationData_Attr()
+    local vars = self.vars
+    local score_calc = self.m_scoreCalc
+
+    -- 스테이지 속성 보너스
+    local stage_id = self.m_stageID
+    local t_info = TABLE:get('anc_floor_reward')[stage_id]
+    local attr = t_info['bonus_attr']
+
+
+    -- 각 미션별 점수 계산 저장
+    local score_list = {}
+    table.insert(score_list, score_calc:calcClearBonus())
+    table.insert(score_list, score_calc:calcClearTimeBonus())
+    table.insert(score_list, score_calc:calcClearNoDeathBonus())
+
+    --table.insert(score_list, score_calc:calcKillBossBonus())
+    --table.insert(score_list, score_calc:calcAcitveSkillBonus())
+    table.insert(score_list, score_calc:getWeakGradeMinusScore())
+    table.insert(score_list, score_calc:getFinalScore())
+
+    -- 애니메이션 적용되는 라벨 저장
+    local var_list = {}
+    table.insert(var_list, 'clearLabel1')
+    table.insert(var_list, 'clearLabel2')
+
+    table.insert(var_list, 'timeLabel1')
+    table.insert(var_list, 'timeLabel2')
+
+    table.insert(var_list, 'injuryLabel1')
+    table.insert(var_list, 'injuryLabel2')
+
+    vars['attrBonusLabel1']:setVisible(false)
+    vars['attrBonusLabel2']:setVisible(false)
+
+
+    table.insert(var_list, 'weakLabel1')
+    table.insert(var_list, 'weakLabel2')
+
+    table.insert(var_list, 'totalLabel1')
+    table.insert(var_list, 'totalLabel2')
 
     -- 현재 약화 등급 
     local weak_grade = g_ancientTowerData:getWeakGrade()
@@ -139,14 +202,17 @@ function UI_GameResult_AncientTower:setWorkList()
     table.insert(self.m_lWorkList, 'direction_showButton')
     table.insert(self.m_lWorkList, 'direction_moveMenu')
     table.insert(self.m_lWorkList, 'direction_dragonGuide')
-    table.insert(self.m_lWorkList, 'direction_checkBestScore')
+    local is_attr = g_ancientTowerData:isAttrChallengeMode()
+    if (not is_attr) then
+        table.insert(self.m_lWorkList, 'direction_checkBestScore')
+    end
     table.insert(self.m_lWorkList, 'direction_masterRoad')
 end
 
 -------------------------------------
 -- function makeScoreAnimation
 -------------------------------------
-function UI_GameResult_AncientTower:makeScoreAnimation()
+function UI_GameResult_AncientTower:makeScoreAnimation(is_attr)
     local vars          = self.vars
     local score_list    = self.m_scoreList
     local node_list     = self.m_animationList
@@ -156,14 +222,18 @@ function UI_GameResult_AncientTower:makeScoreAnimation()
 
     score_node:setVisible(true)
     total_node:setVisible(true)
-    vars['scoreChangeLabel']:setVisible(true)
+    vars['scoreChangeLabel']:setVisible(not is_attr)
 
     doAllChildren(score_node,   function(node) node:setOpacity(0) end)
     doAllChildren(total_node,   function(node) node:setOpacity(0) end)
 
     -- 점수 카운팅 애니메이션
     for idx, node in ipairs(node_list) do
-        self:runScoreAction(idx, node)
+        if (is_attr) then
+            self:runScoreAction_Attr(idx, node)
+        else
+            self:runScoreAction(idx, node)     
+        end
     end
 end
 
@@ -236,6 +306,68 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
 
     -- 최종 점수 Sprite
     if idx == (#node_list - 3) then
+        local total_node = self.vars['totalSprite']
+        local act1 = cc.DelayTime:create( ani_time * idx )
+        local act2 = cc.FadeIn:create( fadein_time )
+        local action = cc.Sequence:create( act1, act2 )
+        total_node:runAction(action)
+    end
+end
+
+-------------------------------------
+-- function runScoreAction
+-------------------------------------
+function UI_GameResult_AncientTower:runScoreAction_Attr(idx, node)
+    local score_list    = self.m_scoreList
+    local node_list     = self.m_animationList
+
+    local move_x        = 20
+    local delay_time    = 0.0 -- 애니메이션 간 간격
+    local fadein_time   = 0.1 -- 페이드인 타임
+    local number_time   = 0.2 -- 넘버링 타임
+    local ani_time      = delay_time + fadein_time + number_time
+
+    local is_numbering  = (idx % 2 == 0)
+    local pos_x, pos_y  = node:getPosition()
+
+    local action_scale  = 1.08
+    local add_x         = (is_numbering) and -move_x or move_x
+
+    node:setScale(action_scale)
+    node:setPositionX(pos_x - add_x)
+
+    -- 라벨일 경우 넘버링 애니메이션 
+    local number_func
+    number_func = function()
+        if (not is_numbering) then return end
+        local score = tonumber(score_list[idx/2])
+        local is_ani = (score < #node_list - 2) and true or false
+        node = NumberLabel(node, 0, number_time)
+        node:setNumber(score, is_ani)
+
+        -- 최종 점수 애니메이션
+        if (idx == #node_list) then
+            self:setTotalScoreLabel()
+            self.m_totalScore:setNumber(score, is_ani)
+            self:removeScore()
+        end
+    end
+
+    local act1 = cc.DelayTime:create( ani_time * idx )
+
+    local act2 = cc.FadeIn:create( fadein_time )
+    local act3 = cc.EaseInOut:create( cc.MoveTo:create(fadein_time, cc.p(pos_x, pos_y)), 2 )
+    local act4 = cc.Spawn:create( act2, act3 )
+
+    local act5 = cc.EaseInOut:create( cc.ScaleTo:create(number_time, 1), 2 )
+    local act6 = cc.CallFunc:create( number_func )
+    local act7 = cc.Spawn:create( act5, act6 )
+
+    local action = cc.Sequence:create( act1, act4, act7 )
+    node:runAction( action )
+
+    -- 최종 점수 Sprite
+    if idx == (#node_list - 2) then
         local total_node = self.vars['totalSprite']
         local act1 = cc.DelayTime:create( ani_time * idx )
         local act2 = cc.FadeIn:create( fadein_time )
@@ -393,8 +525,13 @@ function UI_GameResult_AncientTower:direction_showScore()
     self:setSuccessVisual_Ancient()
     -- 성공시에만 스코어 연출
     if (is_success) then
-        self:setAnimationData()
-        self:makeScoreAnimation()
+        local is_attr = g_ancientTowerData:isAttrChallengeMode()
+        if (is_attr) then
+            self:setAnimationData_Attr()
+        else
+            self:setAnimationData()           
+        end
+        self:makeScoreAnimation(is_attr)
     else
         self:doNextWork()
     end
