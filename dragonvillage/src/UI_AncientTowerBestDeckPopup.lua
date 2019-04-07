@@ -39,13 +39,12 @@ end
 function UI_AncientTowerBestDeckPopup:initUI()
     local vars = self.vars
     local t_score_data = self.m_tData
-    local l_deck = g_settingDeckData:getDeckAllAncient('ancient')
+    local l_deck = g_settingDeckData:getDeckAllAncient()
 
     if (not l_deck) then
         return 
     end
 
-    l_deck = l_deck['ancient_deck']
     l_deck = table.MapToList(l_deck)
 
     local sort_func = function(a,b)

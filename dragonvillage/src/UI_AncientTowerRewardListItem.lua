@@ -51,10 +51,12 @@ function UI_AncientTowerRewardListItem:initUI()
     end
 
 
-    -- 받을 수 있는 보상에 하이라이트
+    -- 諛쏆쓣 ???덈뒗 蹂댁긽???섏씠?쇱씠??
     local t_reward, idx = g_ancientTowerData:getPossibleReward()
-    if (t_reward_info['reward'] == t_reward['reward']) then
-        vars['meSprite']:setVisible(true)
+    if (t_reward) then
+        if (t_reward_info['reward'] == t_reward['reward']) then
+            vars['meSprite']:setVisible(true)
+        end
     end
    
 end

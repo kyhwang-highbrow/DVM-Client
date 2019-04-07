@@ -188,29 +188,31 @@ function UI_AncientTower:initUI()
     local scr_size = cc.Director:getInstance():getWinSize()
     vars['bgSprite']:setScale(scr_size.width / 1280)
 
+    -- 받기로 예정된 보상
     local t_possible_reward = g_ancientTowerData:getPossibleReward()
     if (t_possible_reward) then
         local l_reward = plSplit(t_possible_reward['reward'], ',')
         local ind = 1
-        for _, item_str in ipairs(l_reward) do -- 예정된 보상 : 골드, 다이아, 고대 주화
+        for _, item_str in ipairs(l_reward) do
             local t_item = plSplit(item_str, ';')
             if (vars['meRewardLabel' .. ind]) then
                 vars['meRewardLabel' .. ind]:setString(descBlank(t_item[2]))
             end
             ind = ind + 1
         end
+        vars['totalRankLabel']:setString(Str(t_possible_reward['t_name']))
     -- 보상 정보가 없다면 - 로 세팅
     else
         vars['meRewardLabel1']:setString('-')
         vars['meRewardLabel2']:setString('-')
         vars['meRewardLabel3']:setString('-')
+        vars['totalRankLabel']:setString('-')
     end
 
+    -- 다음 보상 까지 ~ 남음
     local until_next_reward = g_ancientTowerData:getUntilNextRewardText()
     vars['rewardLabel']:setString(until_next_reward)
- 
-    vars['totalRankLabel']:setString(Str(t_possible_reward['t_name']))
-
+    
 end
 
 -------------------------------------

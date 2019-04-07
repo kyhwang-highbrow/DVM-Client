@@ -74,7 +74,6 @@ function SettingData_Deck:makeDefaultSettingData()
             t_data['best_score'] = 0
             root_table['ancient_deck'][tostring(stage_id)] = t_data
         end
-       
     end
 
     return root_table
@@ -98,12 +97,19 @@ end
 
 -------------------------------------
 -- function getDeckAncient
--- @brief 로컬 파일에서 덱 정보 읽어서 리턴
+-- @brief 로컬 파일에서 덱 정보 읽어서 리턴, 베스트 팀 팝업 출력할 때 사용
 -------------------------------------
-function SettingData_Deck:getDeckAllAncient(deck_name)
-    local cur_stage_id = g_ancientTowerData:getChallengingStageID()
-    local t_ancient_deck = self.m_rootTable
-    return self.m_rootTable
+function SettingData_Deck:getDeckAllAncient()
+    local t_ancientDeck = {}
+    for stage_id = 1401001, 1401050 do
+        local t_data = self:getDeckAncient(stage_id)
+        -- 드래곤 덱이 없을 경우 nill값을 반환, 찍어줄 때 점수 정보는 필요하기에 디폴트 정보 출력
+        if (not t_data) then
+            t_data = self.m_rootTable['ancient_deck'][tostring(stage_id)]
+        end
+        t_ancientDeck[stage_id] = t_data
+    end
+    return t_ancientDeck
 end
 
 -------------------------------------
@@ -116,6 +122,7 @@ function SettingData_Deck:getDeckAncient(stage_id)
     if (not t_ancient_deck) then
         return nil
     end
+
     -- deck 정보가 없다면 빈 정보로 간주(best_score 등 초기화 정보 있는 상태)
     if (not t_ancient_deck['deck']) then
         return nil
@@ -124,10 +131,23 @@ function SettingData_Deck:getDeckAncient(stage_id)
     if (not t_ancient_deck) then
         return nil
     end
-    
+
+    -- 보유한 드래곤인지 체크
     self:checkUserDragon(t_ancient_deck['deck'])
+    
+    -- 보유한 테이머인지 체크
+    self:checkUserTamer(t_ancient_deck)
 
     return t_ancient_deck
+end
+
+-------------------------------------
+-- function checkUserTamer
+-------------------------------------
+function SettingData_Deck:checkUserTamer(t_ancient_deck)
+    if (not g_tamerData:hasTamer(t_ancient_deck['tamer'])) then
+        t_ancient_deck['tamer'] = nil
+    end
 end
 
 -------------------------------------

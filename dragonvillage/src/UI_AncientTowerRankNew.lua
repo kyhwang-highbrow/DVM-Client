@@ -176,7 +176,9 @@ function UI_AncientTowerRankNew:onChangeRankingType(type)
             self.m_rankOffset = 1
         end
     end
-
+    
+    self:request_Rank()
+    
     if (self.m_rewardTableView) then 
         return 
     end
@@ -186,8 +188,6 @@ function UI_AncientTowerRankNew:onChangeRankingType(type)
     if (self.m_rewardInfo) then
         self:init_rewardTableView()
     end
-
-    self:request_Rank()
 end
 
 -------------------------------------
