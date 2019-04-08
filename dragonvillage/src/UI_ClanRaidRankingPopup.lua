@@ -84,6 +84,22 @@ function UI_ClanRaidRankingPopup:initRank()
     
 	local l_item_list = clone(g_clanRankData:getRankData(rank_type)) or {}
 
+    -- 내 랭킹에 포커스
+    local struct_clan_rank = g_clanRankData:getMyRankData(rank_type)
+    local my_rank = struct_clan_rank:getRank()
+    local index = 1
+    for ind, data in ipairs(l_item_list) do
+        if (tonumber(data['rank']) == tonumber(my_rank)) then
+            index = ind
+            break
+        end
+    end
+
+    if (self.m_offset == 1) then
+        index = 1
+    end
+
+
     -- 내 순위라면 offset을 첫 번 째 랭킹으로 
     if (self.m_offset == -1) then
         if (l_item_list[1]) then
@@ -163,19 +179,9 @@ function UI_ClanRaidRankingPopup:initRank()
     table_view.m_defaultCellSize = cc.size(552, 52)
     table_view:setCellUIClass(_UI_ClanRaidRankListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list, false)   
-
-    -- 내 랭킹에 포커스
-    local rank_type = CLAN_RANK['RAID']
-    local struct_clan_rank = g_clanRankData:getMyRankData(rank_type)
-    local my_rank = struct_clan_rank:getRank()
-    local index = 1
-    for ind, data in ipairs(l_item_list) do
-        if (tonumber(data['rank']) == tonumber(my_rank)) then
-            index = ind
-            break
-        end
-    end
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list, false)
+    table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
 
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view:relocateContainerFromIndex(index)
@@ -243,10 +249,7 @@ function UI_ClanRaidRankingPopup:focusInRankReward()
 
         idx = idx + 1
     end
-    
-    if (self.m_offset == 1) then
-        idx = 1
-    end
+
     self.m_rank_reward:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     self.m_rank_reward:relocateContainerFromIndex(idx)
 
