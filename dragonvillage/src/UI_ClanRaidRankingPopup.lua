@@ -6,7 +6,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_ClanRaidRankingPopup = class(PARENT,{
         m_rank_data = 'table',
         m_offset = 'number',
-        m_rank_list = 'UIC_RankList',
+        m_rank_list = 'UIC_TableView',
         m_rank_reward = 'UIC_TableView',
     })
 
@@ -80,37 +80,76 @@ function UI_ClanRaidRankingPopup:initRank()
 	local node = vars['rankListNode']
     local offset = self.m_offset
     local rank_type = CLAN_RANK['RAID']
+    node:removeAllChildren()
     
     self.m_rank_data = g_clanRankData:getRankData(rank_type)
-	local l_rank_list = self.m_rank_data or {}
+	local l_item_list = self.m_rank_data or {}
+
+    -- 내 순위라면 offset을 첫 번 째 랭킹으로 
+    if (self.m_offset == -1) then
+        if (l_item_list[1]) then
+            self.m_offset = l_item_list[1]['rank']
+        end
+    end
 
     local cb_func = function()
        self:initRank()
        self:focusInRankReward()
     end
 
-    local click_func = function(offset)
-        g_clanRankData:request_getRank(rank_type, offset, cb_func)
+    -- 다음/이전 버튼 관련 세팅, 정리해야함
+    do
+        if (1 < self.m_offset) then
+            local prev_data = { m_tag = 'prev' }
+            l_item_list['prev'] = prev_data
+        end
+
+        if (#l_item_list > 0) then
+            local next_data = { m_tag = 'next' }
+            l_item_list['next'] = next_data
+        end
+
+        -- 이전 랭킹 보기
+        local click_prevBtn = function()
+            -- 랭킹 리스트 중 가장 첫 번째 랭킹 - CLAN_OFFSET_GAP 부터 랭킹 데이터 가져옴
+            self.m_offset = l_item_list[1]['rank'] - CLAN_OFFSET_GAP
+            self.m_offset = math_max(self.m_offset, 0)
+            g_clanRankData:request_getRank(rank_type, self.m_offset, cb_func)
+        end
+
+        -- 다음 랭킹 보기
+        local click_nextBtn = function()
+            -- 랭킹 리스트 중 가장 마지막 랭킹 + 1 부터 랭킹 데이터 가져옴
+            local cnt = #l_item_list
+            if (cnt < CLAN_OFFSET_GAP-1) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+                return
+            end
+           
+            local next_ind = l_item_list[cnt]['rank']
+            self.m_offset = next_ind + 1
+            g_clanRankData:request_getRank(rank_type, self.m_offset, cb_func)
+        end
     end
 
-    
-    if (not self.m_rank_list) then
-        self.m_rank_list = UIC_RankingList()                                        -- step0. (필수)랭킹 UI 컴포넌트 생성  
-    end
-    
-    
-    local make_my_rank_cb = function()
-        self:makeMyRank()
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
+        ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
+        
+        local struct_clan_rank = g_clanRankData:getMyRankData(CLAN_RANK['RAID'])
+        local my_rank = struct_clan_rank:getRank()
+        
+        if (data['rank'] == my_rank) then
+            ui.vars['meSprite']:setVisible(true)
+        end
     end
 
-    self.m_rank_list:setRankUIClass(_UI_ClanRaidRankListItem, nil)              -- step1. (필수)셸 UI 설정
-    self.m_rank_list:setRankList(l_rank_list)                                   -- step2. (필수)리스트 설정
-    self.m_rank_list:setOffset(offset)                                          -- step3. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터)
-    self.m_rank_list:setMyRank(make_my_rank_cb)                                 -- step6. (선택)내 랭킹 만드는 콜백 함수
-    self.m_rank_list:makeRankList(node)                                         -- step7. (필수)실제로 랭킹 생성
-    self.m_rank_list:makeRankMoveBtn(click_func, click_func, CLAN_OFFSET_GAP)   -- step4. (선택)이전, 다음 버튼 사용할 것인가 (눌렀을 때 콜백 함수, )
-    self.m_rank_list:setEmptyStr(Str('랭킹 정보가 없습니다.'))                   -- step5. (선택)랭킹이 없을 때, 메세지 설정  
-
+    self.m_rank_list = UIC_TableView(node)
+    self.m_rank_list:setCellUIClass(_UI_ClanRaidRankListItem, create_func)
+    self.m_rank_list:setItemList(l_item_list)
+    self.m_rank_list:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
+    self:makeMyRank()
 end
 
 -------------------------------------
@@ -120,6 +159,7 @@ function UI_ClanRaidRankingPopup:initRankReward()
     local vars = self.vars
 	local node = vars['reawardNode']
 	local l_rank_list = g_clanRaidData:getRankRewardList() or {}
+
     if (not self.m_rank_reward) then
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(552, 52)
@@ -128,6 +168,7 @@ function UI_ClanRaidRankingPopup:initRankReward()
         table_view:setItemList(l_rank_list, false)
         self.m_rank_reward = table_view
     end
+
 end
 
 -------------------------------------
@@ -304,6 +345,7 @@ function _UI_ClanRaidRewardListItem:initUI()
         return
     end
 
+    -- 순위 이름
     local rank_str
     if (data['rank_min'] ~= data['rank_max']) then
         rank_str = Str('{1}~{2}위 ', data['rank_min'], data['rank_max'])
@@ -315,19 +357,27 @@ function _UI_ClanRaidRewardListItem:initUI()
         end
     end
 
+    -- 랭킹
     vars['rankLabel']:setString(rank_str)
     
-    local reward_cnt = string.match(data['reward'], '%d+')       
-    -- 개인 보상 최대 퍼센트
-    local personal_max_percent = 0.06
+    -- 클랜 보상
+    local reward_cnt = string.match(data['reward'], '%d+')         
+    local personal_max_percent = 0.06 -- 개인 보상 최대 퍼센트
     local personal_cnt = math_floor(reward_cnt * personal_max_percent)
     vars['rewardLabel1']:setString(comma_value(reward_cnt))
     vars['rewardLabel2']:setString(comma_value(personal_cnt))
+    
+    -- 클랜 경험치
     local num_clan_exp = tonumber(data['clan_exp'])
     vars['rewardLabel3']:setString(comma_value(num_clan_exp))
 
+
+    -- 내 클랜 보상에 하이라이트
     local struct_clan_rank = g_clanRankData:getMyRankData(CLAN_RANK['RAID'])
     local my_rank = struct_clan_rank:getRank()
+    if (my_rank == -1) then
+        return
+    end
     local my_rank_rate = struct_clan_rank:getClanRate()
     local rank_type = nil
     local rank_value = 1
