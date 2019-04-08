@@ -1155,9 +1155,13 @@ function UI_TitleScene:workPrepareAd()
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
     AdMobManager:initRewardedVideoAd()
+
     -- 2019.03.13 sgkim 전면 광고는 아직 사용하지 않기 때문에 주석 처리
     --                  aos 비정상 종료에 영향을 주지 않을까 싶어서 주석 처리하는 의미도 포함
-    --AdMobManager:initInterstitialAd()
+    -- 2019.04.08 sgkim aos에서만 전면 광고가 초기화 되도록 추가
+    if (CppFunctions:isAndroid() == true) then
+        AdMobManager:initInterstitialAd()
+    end
 
     PerpleSdkManager.getCrashlytics():setData('workPrepareAd_2', true)
 

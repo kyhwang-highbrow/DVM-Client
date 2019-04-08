@@ -499,7 +499,9 @@ end
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
 	ccdisplay('adMob interstitial ad test')
-	AdMobManager:getInterstitialAd():show()
+    if (CppFunctions:isAndroid() == true) then
+	    AdMobManager:getInterstitialAd():show()
+    end
 end
 
 -------------------------------------
