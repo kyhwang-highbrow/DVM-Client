@@ -1,18 +1,18 @@
 local PARENT = class(UI, IRankListItem:getCloneTable())
 
 -------------------------------------
--- class UI_AncientTowerRankListItem
+-- class UI_AncientTowerRankListItemNew
 -------------------------------------
-UI_AncientTowerRankListItem = class(PARENT, {
+UI_AncientTowerRankListItemNew = class(PARENT, {
         m_rankInfo = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AncientTowerRankListItem:init(t_rank_info)
+function UI_AncientTowerRankListItemNew:init(t_rank_info)
     self.m_rankInfo = t_rank_info
-    local vars = self:load('tower_scene_ranking_item.ui')
+    local vars = self:load('tower_user_rank_item.ui')
 
     self:initUI()
     self:initButton()
@@ -22,7 +22,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_AncientTowerRankListItem:initUI()
+function UI_AncientTowerRankListItemNew:initUI()
     local vars = self.vars
     local t_rank_info = self.m_rankInfo
     local tag = t_rank_info.m_tag
@@ -44,10 +44,11 @@ function UI_AncientTowerRankListItem:initUI()
     -- 점수 표시
     vars['scoreLabel']:setString(t_rank_info:getScoreText())
 
-    -- 유저 정보 표시 (레벨, 닉네임)
     if (vars['userLabel']) then
+        -- 유저 정보 표시 (레벨, 닉네임)
         vars['userLabel']:setString(t_rank_info:getUserText())
     end
+
     -- 순위 표시
     vars['rankingLabel']:setString(t_rank_info:getRankText())
 
@@ -77,11 +78,11 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_AncientTowerRankListItem:initButton()
+function UI_AncientTowerRankListItemNew:initButton()
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_AncientTowerRankListItem:refresh()
+function UI_AncientTowerRankListItemNew:refresh()
 end

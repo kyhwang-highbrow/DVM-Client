@@ -268,7 +268,7 @@ function UI_AncientTowerRankNew:init_rankTableView()
 
     -- 내 순위
 	do
-        local ui = UI_AncientTowerRankListItem(g_ancientTowerData.m_playerUserInfo)
+        local ui = UI_AncientTowerRankListItemNew(g_ancientTowerData.m_playerUserInfo)
         my_node:addChild(ui.root)
 	end
 
@@ -311,7 +311,7 @@ function UI_AncientTowerRankNew:init_rankTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(550, 60)
-    table_view:setCellUIClass(UI_AncientTowerRankListItem, create_func)
+    table_view:setCellUIClass(UI_AncientTowerRankListItemNew, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
     self.m_rankTableView = table_view

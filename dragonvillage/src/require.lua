@@ -1017,6 +1017,7 @@ local t_module = {
     'UI_AncientTowerRankNew',
     'UI_AncientTowerListItem',
     'UI_AncientTowerRankListItem',
+    'UI_AncientTowerRankListItemNew',
     'UI_AncientTowerRewardListItem',
     'UI_AncientTowerRankingRewardPopup',
     'UI_AncientTowerClanRankListItem',
