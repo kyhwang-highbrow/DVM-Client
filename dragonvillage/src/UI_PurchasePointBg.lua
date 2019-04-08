@@ -11,6 +11,8 @@ function openPurchasePointBgByType(bg_type, item_id, item_count)
         ui_bg:setDragon()
     elseif (bg_type == 'reinforce') then
         ui_bg:setReinforce(item_count)
+    elseif(bg_type == 'skill_slime') then
+        ui_bg:setSkillSlime(item_count)
     end
 
     return  ui_bg
@@ -68,6 +70,14 @@ function UI_PurchasePointBg:setReinforce(item_count)
     end
 
     self:initUI_reinforce(item_count)
+end
+
+function UI_PurchasePointBg:setSkillSlime(item_count)
+    if (not self.m_item_id) then
+        return
+    end
+
+    self:initUI_skillSlime(item_count)
 end
 
 
@@ -227,8 +237,31 @@ function UI_PurchasePointBg:initUI_reinforce(item_count)
     local item_name = TableItem:getItemName(item_id)
     vars['itemLabel2']:setString(string.format('%s X %d', item_name, item_count))
 
-     -- 최종 상품이 드래곤일 경우 visual  세팅
+     -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
     vars['bgNode']:addChild(animator.m_node)
 end
+
+-------------------------------------
+-- function initUI_skillSlime
+-- @breif 누적결제 최종 상품이 [스킬 슬라임]일 경우 세팅
+-------------------------------------
+function UI_PurchasePointBg:initUI_skillSlime(item_count)
+    local vars = self.vars
+    local item_id = self.m_item_id
+
+    -- 강화포인트와 같은 MenuNode 사용
+    vars['productNode3']:setVisible(true)
+    
+    local animator = MakeAnimator('res/character/monster/skill_slime_03/skill_slime_03.json') -- json...
+    vars['slimeNode']:addChild(animator.m_node)
+    
+    local item_name = TableItem:getItemName(item_id)
+    vars['itemLabel2']:setString(string.format('%s X %d', item_name, item_count))
+
+    -- 배경 visual  세팅
+    local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
+    vars['bgNode']:addChild(animator.m_node)
+end
+
 
