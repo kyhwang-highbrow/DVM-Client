@@ -612,3 +612,35 @@ function ServerData_ClanRaid:applyTrainingInfo(ret)
         self.m_triningTicketMaxCnt = ret['max_cnt']
     end
 end
+
+-------------------------------------
+-- function possibleReward_ClanRaid
+-- @brief 예상 보상 정보
+-------------------------------------
+function ServerData_ClanRaid:possibleReward_ClanRaid(my_rank, my_ratio)
+    local l_reward = g_clanRaidData:getRankRewardList()
+    
+    for ind, data in ipairs(l_reward) do
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                return data
+            end
+        end
+
+        -- 비율 필터
+        if (ratio_min and ratio_max) then
+            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+                return data
+            end
+        end
+    end
+
+    return nil
+end
