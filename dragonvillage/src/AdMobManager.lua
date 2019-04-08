@@ -17,20 +17,12 @@ local AdMobRewardedVideoAd = {
     mIsInit = false,
     mCallback = nil,
 }
-local AdMobInterstitialAd = {
-    mIsInit = false,
-    mCallback = nil,
-}
 
 -- 광고 키
 local ADMOB_AD_UNIT_ID_TABLE
 local ADMOB_APP_AD_UNIT_ID -- app launching 시 사용
-local ADMOB_INTERSTITIAL_AD_ID
 
 if (CppFunctions:isAndroid()) then
-    --ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/1033173712' -- test id
-    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-9497777061019569/3511157419'
-
     ADMOB_APP_AD_UNIT_ID = 'ca-app-pub-9497777061019569/6433744394'
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/8284077763',
@@ -40,8 +32,6 @@ if (CppFunctions:isAndroid()) then
         [AD_TYPE.FSUMMON] = 'ca-app-pub-9497777061019569/7338450690',
     }
 elseif (CppFunctions:isIos()) then
-    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/4411468910' -- test id 이며 생성 필요
-
 	ADMOB_APP_AD_UNIT_ID = 'ca-app-pub-9497777061019569/2042688805'
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/5295237757',
@@ -94,21 +84,8 @@ function AdMobManager:initInterstitialAd()
         return
     end
 
-    -- @ AdManager
-    PerpleSDK:adMobInitInterstitialAd()
-    AdMobInterstitialAd.mIsInit = true
-
     local interstitial_ad = self:getInterstitialAd()
-    if (interstitial_ad) then
-        interstitial_ad:setResultCallback(function(ret, info) 
-            self:result(ret, info)
-            if (interstitial_ad.mCallback) then
-                interstitial_ad.mCallback(ret, info)
-            end
-        end)
-        interstitial_ad:setAdUnitId(ADMOB_INTERSTITIAL_AD_ID)
-        interstitial_ad:loadRequest()
-    end
+    interstitial_ad:initInterstitialAd()
 end
 
 -------------------------------------
@@ -321,55 +298,4 @@ function AdMobRewardedVideoAd:showDailyAd(ad_type, finish_cb)
     end
 
     self:show(ad_unit_id, result_cb)
-end
-
---------------------------------------------------------------------------
--- table AdMobInterstitialAd
---------------------------------------------------------------------------
-
--------------------------------------
--- function setAdUnitId
--------------------------------------
-function AdMobInterstitialAd:setAdUnitId(ad_unit_id)
-    if (not self.mIsInit) then
-        return
-    end
-    PerpleSDK:itAdSetAdUnitId(ad_unit_id)
-end
-
--------------------------------------
--- function loadRequest
--------------------------------------
-function AdMobInterstitialAd:loadRequest()
-    if (not self.mIsInit) then
-        return
-    end
-    PerpleSDK:itAdLoadRequest()
-end
-
--------------------------------------
--- function setResultCallback
--------------------------------------
-function AdMobInterstitialAd:setResultCallback(cb_func)
-    if (not self.mIsInit) then
-        return
-    end
-    PerpleSDK:itAdSetResultCallback(cb_func)
-end
-
--------------------------------------
--- function show
--------------------------------------
-function AdMobInterstitialAd:show(result_cb)
-    if (not self.mIsInit) then
-        return
-    end
-    
-    self.mCallback = function(ret, info)
-        if (result_cb) then
-            result_cb(ret, info)
-        end
-    end
-
-    PerpleSDK:itAdShow()
 end

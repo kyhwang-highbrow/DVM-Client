@@ -4015,6 +4015,9 @@
     <None Include="..\src\UI_ResultLeaderBoardListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\AdMobInterstitialAd.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
