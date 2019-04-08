@@ -244,6 +244,19 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
             
             -- 클리어한 보스 레벨          
             ui.vars['bossLabel']:setVisible(false)
+            if (data['cldg_last_info']) then
+                if (data['cldg_last_info'][attr]['change_rank']) then
+                    local rank_dis = tonumber(data['cldg_last_info'][attr]['change_rank'])
+                    local rank_dis_str = '-'
+                    if (rank_dis < 0) then
+                        rank_dis_str = string.format('{@blue}▼{@default}%d', math.abs(rank_dis))
+                    elseif (rank_dis > 0) then
+                        rank_dis_str = string.format('{@red}▲{@default}%d', math.abs(rank_dis))
+                    end
+
+                    ui.vars['rankDifferentLabel']:setString(rank_dis_str)
+                end
+            end
         end
        
         -- 테이블 뷰 인스턴스 생성
@@ -364,17 +377,6 @@ function UI_ClanRaidLastRankingListItem:initUI()
     local struct_mark = StructClanMark:create(t_data['mark'])
     local mark_icon = struct_mark:makeClanMarkIcon()
     vars['markNode']:addChild(mark_icon)
-
-
-    local rank_dis = tonumber(t_data['rankChange'])
-    local rank_dis_str = '-'
-    if (rank_dis < 0) then
-        rank_dis_str = string.format('{@blue}▼{@default}%d', math.abs(rank_dis))
-    elseif (rank_dis > 0) then
-        rank_dis_str = string.format('{@red}▲{@default}%d', math.abs(rank_dis))
-    end
-
-    vars['rankDifferentLabel']:setString(rank_dis_str)
 end
 
 
