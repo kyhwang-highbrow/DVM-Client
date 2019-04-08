@@ -82,8 +82,7 @@ function UI_ClanRaidRankingPopup:initRank()
     local rank_type = CLAN_RANK['RAID']
     node:removeAllChildren()
     
-    self.m_rank_data = g_clanRankData:getRankData(rank_type)
-	local l_item_list = self.m_rank_data or {}
+	local l_item_list = clone(g_clanRankData:getRankData(rank_type)) or {}
 
     -- 내 순위라면 offset을 첫 번 째 랭킹으로 
     if (self.m_offset == -1) then
@@ -96,60 +95,92 @@ function UI_ClanRaidRankingPopup:initRank()
        self:initRank()
        self:focusInRankReward()
     end
+    
+    if (1 < self.m_offset) then
+        local prev_data = { rank = 'prev' }
+        table.insert(l_item_list, prev_data)
+    end
 
-    -- 다음/이전 버튼 관련 세팅, 정리해야함
-    do
-        if (1 < self.m_offset) then
-            local prev_data = { m_tag = 'prev' }
-            l_item_list['prev'] = prev_data
-        end
+    if (#l_item_list > 0) then
+        local next_data = { rank = 'next' }
+        table.insert(l_item_list, next_data)
+    end
 
-        if (#l_item_list > 0) then
-            local next_data = { m_tag = 'next' }
-            l_item_list['next'] = next_data
-        end
+    -- 이전 랭킹 보기
+    local click_prevBtn = function()
+        -- 랭킹 리스트 중 가장 첫 번째 랭킹 - CLAN_OFFSET_GAP 부터 랭킹 데이터 가져옴
+        self.m_offset = g_clanRankData:getRankData(rank_type)[1]['rank'] - CLAN_OFFSET_GAP
+        self.m_offset = math_max(self.m_offset, 0)
+        g_clanRankData:request_getRank(rank_type, self.m_offset, cb_func)
+    end
 
-        -- 이전 랭킹 보기
-        local click_prevBtn = function()
-            -- 랭킹 리스트 중 가장 첫 번째 랭킹 - CLAN_OFFSET_GAP 부터 랭킹 데이터 가져옴
-            self.m_offset = l_item_list[1]['rank'] - CLAN_OFFSET_GAP
-            self.m_offset = math_max(self.m_offset, 0)
-            g_clanRankData:request_getRank(rank_type, self.m_offset, cb_func)
+    -- 다음 랭킹 보기
+    local click_nextBtn = function()
+        -- 랭킹 리스트 중 가장 마지막 랭킹 + 1 부터 랭킹 데이터 가져옴
+        local cnt = #g_clanRankData:getRankData(rank_type)
+        if (cnt < CLAN_OFFSET_GAP-1) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+            return
         end
-
-        -- 다음 랭킹 보기
-        local click_nextBtn = function()
-            -- 랭킹 리스트 중 가장 마지막 랭킹 + 1 부터 랭킹 데이터 가져옴
-            local cnt = #l_item_list
-            if (cnt < CLAN_OFFSET_GAP-1) then
-                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
-                return
-            end
-           
-            local next_ind = l_item_list[cnt]['rank']
-            self.m_offset = next_ind + 1
-            g_clanRankData:request_getRank(rank_type, self.m_offset, cb_func)
-        end
+       
+        local next_ind = g_clanRankData:getRankData(rank_type)[cnt]['rank']
+        self.m_offset = next_ind + 1
+        g_clanRankData:request_getRank(rank_type, self.m_offset, cb_func)
     end
 
     -- 생성 콜백
     local function create_func(ui, data)
         ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
-        ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
-        
-        local struct_clan_rank = g_clanRankData:getMyRankData(CLAN_RANK['RAID'])
-        local my_rank = struct_clan_rank:getRank()
-        --[[
-        if (data['rank'] == my_rank) then
-            ui.vars['meSprite']:setVisible(true)
+        ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)     
+    end
+    
+
+    local function sort_func(a, b)
+        local a_data = a
+        local b_data = b
+
+        -- 이전, 다음 버튼 정렬
+        if (a_data.rank == 'prev') then
+            return true
+        elseif (b_data.rank == 'prev') then
+            return false
+        elseif (a_data.rank == 'next') then
+            return false
+        elseif (b_data.rank == 'next') then
+            return true
         end
-        --]]
+
+        -- 랭킹으로 선별
+        local a_rank = a_data.rank
+        local b_rank = b_data.rank
+        return a_rank < b_rank
     end
 
-    self.m_rank_list = UIC_TableView(node)
-    self.m_rank_list:setCellUIClass(_UI_ClanRaidRankListItem, create_func)
-    self.m_rank_list:setItemList(l_item_list, true)
-    self.m_rank_list:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
+    table.sort(l_item_list, sort_func)
+
+
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(552, 52)
+    table_view:setCellUIClass(_UI_ClanRaidRankListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list, false)   
+
+    -- 내 랭킹에 포커스
+    local rank_type = CLAN_RANK['RAID']
+    local struct_clan_rank = g_clanRankData:getMyRankData(rank_type)
+    local my_rank = struct_clan_rank:getRank()
+    local index = 1
+    for ind, data in ipairs(l_item_list) do
+        if (tonumber(data['rank']) == tonumber(my_rank)) then
+            index = ind
+            break
+        end
+    end
+
+    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    table_view:relocateContainerFromIndex(index)
+
+    -- 내 랭킹
     self:makeMyRank()
 end
 
@@ -445,16 +476,20 @@ end
 function _UI_ClanRaidRankListItem:initUI()
     local data = self.m_data
     local vars = self.vars
-    --[[
+
     if (not data) then
         return ui
     end
-    
+
     if (data['rank'] == 'prev') then
+        vars['prevBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
         return ui
     end
 
     if (data['rank'] == 'next') then
+        vars['nextBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
         return ui
     end
 
@@ -493,7 +528,7 @@ function _UI_ClanRaidRankListItem:initUI()
     if (data['id'] == focus_value) then
         vars['mySprite']:setVisible(true)
     end
-    --]]
+
 end
 
 --@CHECK
