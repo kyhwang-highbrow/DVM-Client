@@ -139,15 +139,16 @@ function UI_ClanRaidRankingPopup:initRank()
         
         local struct_clan_rank = g_clanRankData:getMyRankData(CLAN_RANK['RAID'])
         local my_rank = struct_clan_rank:getRank()
-        
+        --[[
         if (data['rank'] == my_rank) then
             ui.vars['meSprite']:setVisible(true)
         end
+        --]]
     end
 
     self.m_rank_list = UIC_TableView(node)
     self.m_rank_list:setCellUIClass(_UI_ClanRaidRankListItem, create_func)
-    self.m_rank_list:setItemList(l_item_list)
+    self.m_rank_list:setItemList(l_item_list, true)
     self.m_rank_list:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
     self:makeMyRank()
 end
@@ -444,7 +445,7 @@ end
 function _UI_ClanRaidRankListItem:initUI()
     local data = self.m_data
     local vars = self.vars
-
+    --[[
     if (not data) then
         return ui
     end
@@ -492,6 +493,7 @@ function _UI_ClanRaidRankListItem:initUI()
     if (data['id'] == focus_value) then
         vars['mySprite']:setVisible(true)
     end
+    --]]
 end
 
 --@CHECK
