@@ -4012,6 +4012,9 @@
     <None Include="..\src\UI_AncientTowerRankListItemNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ResultLeaderBoardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

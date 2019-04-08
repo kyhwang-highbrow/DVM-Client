@@ -82,6 +82,17 @@ function UI_ResultLeaderBoard:setCurrentInfo()
     vars['rewardLabel3']:setString(comma_value(cur_reward_2_cnt))  -- 보상2 갯수
     vars['rewardLabel4']:setString('')  -- 보상2 차이
 
+
+    -- 
+    local ui_upper = UI_ResultLeaderBoardListItem(type, '찬란한혜택', 5, 100, false, sub_data) -- type, user_name, rank, score, is_me, sub_data
+    vars['upperNode']:addChild(ui_upper.root)
+
+    local ui_me = UI_ResultLeaderBoardListItem(type, '도롱이', 3, 300, true, sub_data)
+    vars['meNode']:addChild(ui_me.root)
+
+    local ui_lower = UI_ResultLeaderBoardListItem(type, '캐논쥬비터', 1, 500, false, sub_data)
+    vars['lowerNode']:addChild(ui_lower.root)
+
 end
 
 -------------------------------------
