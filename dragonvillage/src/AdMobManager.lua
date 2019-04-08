@@ -28,7 +28,8 @@ local ADMOB_APP_AD_UNIT_ID -- app launching 시 사용
 local ADMOB_INTERSTITIAL_AD_ID
 
 if (CppFunctions:isAndroid()) then
-    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/1033173712' --'ca-app-pub-9497777061019569/3511157419'
+    --ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/1033173712' -- test id
+    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-9497777061019569/3511157419'
 
     ADMOB_APP_AD_UNIT_ID = 'ca-app-pub-9497777061019569/6433744394'
     ADMOB_AD_UNIT_ID_TABLE = {
@@ -359,9 +360,16 @@ end
 -------------------------------------
 -- function show
 -------------------------------------
-function AdMobInterstitialAd:show()
+function AdMobInterstitialAd:show(result_cb)
     if (not self.mIsInit) then
         return
     end
+    
+    self.mCallback = function(ret, info)
+        if (result_cb) then
+            result_cb(ret, info)
+        end
+    end
+
     PerpleSDK:itAdShow()
 end

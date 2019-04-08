@@ -500,7 +500,13 @@ end
 function UI_Setting:click_testCodeBtn()
 	ccdisplay('adMob interstitial ad test')
     if (CppFunctions:isAndroid() == true) then
-	    AdMobManager:getInterstitialAd():show()
+
+        local function result_cb(ret, info)
+            ccdisplay(tostring(ret))
+            ccdisplay(tostring(info))
+        end
+
+	    AdMobManager:getInterstitialAd():show(result_cb)
     end
 end
 
