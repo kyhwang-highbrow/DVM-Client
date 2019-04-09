@@ -62,7 +62,7 @@ function UI_GameResult_AncientTower:setAnimationData()
 
     -- 지난 점수와의 차이 표시
     local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myHighScore
-    table.insert(score_list, comma_value(change_score) or 0)
+    table.insert(score_list, change_score or 0)
 
 
     -- 애니메이션 적용되는 라벨 저장
@@ -268,9 +268,9 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
             local score_str = ''
             if (score > 0) then
                 self.vars['newRecordNode']:setVisible(true)
-                score_str = string.format('({@red}▲{@default}%d)', score)
+                score_str = string.format('({@red}▲{@default}%s)', comma_value(score))
             elseif (score < 0) then
-                score_str = string.format('({@blue}▼{@default}%d)', score)
+                score_str = string.format('({@blue}▼{@default}%s)', comma_value(score))
             else
                 score_str = '(-)'
             end

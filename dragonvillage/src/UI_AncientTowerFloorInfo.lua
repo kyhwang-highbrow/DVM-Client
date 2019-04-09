@@ -52,7 +52,7 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
 
     do -- 시즌 정보
         local season_score = math_max(g_ancientTowerData.m_nTotalScore, 0)
-        local str_score = Str('{1}점', season_score)
+        local str_score = Str('{1}점', comma_value(season_score))
         vars['totalScoreLabel']:setString(str_score)
     end
     
@@ -88,7 +88,7 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         vars['actingPowerLabel']:setString(st_cnt)
     end
 
-    vars['meTotalScoreLabel']:setString(Str('{@yellow}{1}위{@default} {2}점', g_ancientTowerData.m_nTotalRank, g_ancientTowerData.m_nTotalScore))
+    vars['meTotalScoreLabel']:setString(Str('{@yellow}{1}위{@default} {2}점', g_ancientTowerData.m_nTotalRank, comma_value(g_ancientTowerData.m_nTotalScore)))
 end
 
 -------------------------------------

@@ -8,25 +8,32 @@ local structLeaderBoard
 UI_ResultLeaderBoard = class(PARENT, {
         m_before_rank = 'number',
         m_cur_rank = 'number',
+        
         m_before_ratio = 'number',
         m_cur_ratio = 'number',
-        m_before_score = 'number',
+        
+        m_before_score = 'number', 
         m_cur_score = 'number',
+        
         m_tUpperRank = 'table',
         m_tMeRank = 'table',
         m_tLowerRank = 'table',
+
+        m_isPopup = 'boolean',
     })
 
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ResultLeaderBoard:init(type)
+function UI_ResultLeaderBoard:init(type, is_popup)
     local vars = self:load('rank_ladder.ui')
-    UIManager:open(self, UIManager.POPUP)
-
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ResultLeaderBoard')
+    self.m_isPopup = is_popup
+    if (is_popup) then -- is_popup 이 false인 경우 : UI_EventFullPopup에 노드 매달아서 사용하는 형태
+        UIManager:open(self, UIManager.POPUP)
+        -- backkey 지정
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ResultLeaderBoard') 
+    end
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -50,6 +57,7 @@ end
 -- function initButton
 -------------------------------------
 function UI_ResultLeaderBoard:initButton()
+    self.vars['closeBtn']:setVisible(self.m_isPopup)
     self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
@@ -64,6 +72,8 @@ end
 -------------------------------------
 function UI_ResultLeaderBoard:setCurrentInfo()
     local vars = self.vars
+
+    vars['gaugeSprite']:setVisible(self.m_isPopup)
 
     -- 현재 점수
     vars['scoreLabel']:setString(comma_value(self.m_cur_score))        -- 점수
@@ -234,7 +244,11 @@ function makeLeaderBoard(type, is_move)
     local t_upper = {rank = 1, score = 10000}
     local t_lower = {rank = 5, score = 1000}
     local t_me = {rank = 4, score = 8000}
-    local ui_leader_board = UI_ResultLeaderBoard(type)
+
+    -- @jhakim 190409 애니메이션 들어가서 움직이는 건 무조건 팝업형태라고 가정
+    local is_popup = is_move
+
+    local ui_leader_board = UI_ResultLeaderBoard(type, is_popup)
     if (type =='clan_raid') then
         ui_leader_board:setScore(0, 8000)
         ui_leader_board:setRatio(0.0, 0.3)
@@ -246,6 +260,8 @@ function makeLeaderBoard(type, is_move)
     if (is_move) then
         ui_leader_board:startMoving()
     end
+
+    return ui_leader_board
 end
 
 
