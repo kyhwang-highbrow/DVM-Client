@@ -90,8 +90,8 @@ function UI_AncientTowerBestDeckListItem:setScore(t_score)
         return
     end
 
-    vars['meTopScoreLabel2']:setString(descBlank(t_score['hiscore']))
-    vars['userTopScoreLabel']:setString(descBlank(t_score['topuser_score']))
+    vars['meTopScoreLabel2']:setString(descBlank(t_score['score'])) -- 현 시즌 점수
+    vars['userTopScoreLabel']:setString(descBlank(t_score['topuser_score'])) -- 현 시즌 최고 유저 점수
 end
 
 -------------------------------------

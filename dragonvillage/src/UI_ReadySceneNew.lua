@@ -593,8 +593,8 @@ function UI_ReadySceneNew:initButton()
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
         if (not g_ancientTowerData:isAttrChallengeMode()) then
             vars['towerMenu']:setVisible(true)
-            local season_high_score = g_ancientTowerData.m_challengingInfo.m_seasonHighScore
-            vars['towerScoreLabel']:setString(Str('{1}층 팀 최고점수 : {2}', g_ancientTowerData:getFloorFromStageID(self.m_stageID), comma_value(season_high_score)))
+            local best_score = g_settingDeckData:getAncientStageScore(self.m_stageID)
+            vars['towerScoreLabel']:setString(Str('{1}층 팀 최고점수 : {2}', g_ancientTowerData:getFloorFromStageID(self.m_stageID), comma_value(best_score)))
             vars['loadLabel']:setString(Str('{1}층 베스트 팀 불러오기', g_ancientTowerData:getFloorFromStageID(self.m_stageID)))
             vars['loadBtn']:registerScriptTapHandler(function() self:click_loadBestTeam() end)
             vars['saveBtn']:registerScriptTapHandler(function() self:click_saveBestTeam() end)

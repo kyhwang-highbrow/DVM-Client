@@ -61,7 +61,8 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:getFinalScore())
 
     -- 지난 점수와의 차이 표시
-    local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myHighScore
+    print(score_calc:getFinalScore() , g_ancientTowerData.m_challengingInfo.m_myScore)
+    local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myScore
     table.insert(score_list, change_score or 0)
 
 
@@ -264,7 +265,7 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     number_func = function()
         -- 순위 변동 표시 나타내는 라벨은 다르게 동작해서 하드코딩
         if (idx == #node_list) then
-            local score = tonumber(score_list[6])
+            local score = tonumber(score_list[7])
             local score_str = ''
             if (score > 0) then
                 self.vars['newRecordNode']:setVisible(true)
