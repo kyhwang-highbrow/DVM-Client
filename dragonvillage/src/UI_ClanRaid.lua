@@ -89,16 +89,27 @@ end
 -------------------------------------
 function UI_ClanRaid:openLeaderBoard()
     local check_never_show = g_settingData:get('clan_raid_leader')
+    local t_upper, t_me, t_lower = g_clanRaidData:getCloseRankers()
+    if (not t_me) then
+        return
+    end
 
     if (not check_never_show) then
-        local ui_leader = makeLeaderBoard('clan_raid', false) -- type, is_move
+        local ui_leader_board = UI_ResultLeaderBoard('clan_raid', false, false) -- type, is_move, is_popup
+        ui_leader_board:setScore(0, t_me['score'])
+        ui_leader_board:setRatio(1, t_me['rate'])
+        ui_leader_board:setRank(1, t_me['rank'])
+        ui_leader_board:setRanker(t_upper, t_me, t_lower)
+        ui_leader_board:setCurrentInfo()
+        --ui_leader_board:startMoving()
+
         local check_cb = function()
             local cur_time = Timer:getServerTime() 
             g_settingData:applySettingData(true, 'clan_raid_leader')
         end
 
          -- 체크 박스 붙어있는 이벤트 풀팝업에 붙여서 사용
-        local ui_full_popup = UI_EventFullPopup('', ui_leader, check_cb) -- popup_key, target_ui, m_check_cb
+        local ui_full_popup = UI_EventFullPopup('', ui_leader_board, check_cb) -- popup_key, target_ui, m_check_cb
         ui_full_popup:openEventFullPopup()
     end
 end

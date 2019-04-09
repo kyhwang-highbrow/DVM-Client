@@ -36,6 +36,12 @@ ServerData_ClanRaid = class({
         -- 연습 전 티켓
         m_triningTicketCnt = 'number',
         m_triningTicketMaxCnt = 'number',
+
+        -- 앞/뒤 순위 클랜 정보, UI_ReasultLeaderBoard에서 사용
+        -- m_lCloseRankers = { upper_ranker = 'table', me_ranker = 'table', lower_ranker = 'table'}
+        m_lCloseRankers = 'table', 
+
+        m_tMyClanInfo = 'table',
     })
 
 local USE_CASH_LIMIT = 1 -- 하루 최대 여의주 사용 입장횟수
@@ -308,6 +314,17 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
         else
             self.m_structClanRaid = nil
         end
+
+        -- 내 클랜 정보
+        if (ret['my_claninfo']) then
+            self.m_tMyClanInfo = ret['my_claninfo']
+        end
+
+        -- 앞/뒤 순위 정보
+        if (ret['rank_list']) then
+            self:applyCloseRankerData(ret['rank_list'])
+        end
+        
 
 		if (cb_func) then
 			cb_func(ret)
@@ -611,6 +628,82 @@ function ServerData_ClanRaid:applyTrainingInfo(ret)
     if (ret['max_cnt']) then
         self.m_triningTicketMaxCnt = ret['max_cnt']
     end
+end
+
+-------------------------------------
+-- function applyCloseRankerData
+-------------------------------------
+function ServerData_ClanRaid:applyCloseRankerData(l_rankers)
+--[[
+    "cldg_last_info":{
+        "dark":{
+          "cldg_last_lv":1500007,
+          "change_rank":0
+        },
+        "light":{
+          "cldg_last_lv":1500000,
+          "change_rank":0
+        },
+        "earth":{
+          "cldg_last_lv":1500010,
+          "change_rank":0
+        },
+        "fire":{
+          "cldg_last_lv":1500000,
+          "change_rank":0
+        },
+        "water":{
+          "cldg_last_lv":1500001,
+          "change_rank":0
+        }
+      },
+      "cdlv":5,
+      "master":"dd",
+      "id":"5c0f8684e89193165bd86b3d",
+      "cldg_Attr":["earth","water","fire","light","dark"],
+      "rank":1,
+      "intro":"",
+      "member_max":22,
+      "lv":14,
+      "member_cnt":20,
+      "rate":0,
+      "join":true,
+      "mark":"",
+      "name":"11",
+      "score":79983800
+    },
+    --]]
+
+    local my_rank = self.m_tMyClanInfo['rank']
+    local upper_rank = my_rank - 1
+    local lower_rank = my_rank + 1
+
+    self.m_lCloseRankers = {}
+    self.m_lCloseRankers['me_ranker'] = nil
+    self.m_lCloseRankers['upper_ranker'] = nil
+    self.m_lCloseRankers['lower_rank'] = nil
+    ccdump(l_rankers)
+    for _,data in ipairs(l_rankers) do
+        print(my_rank, l_rankers['rank'])
+        if (tonumber(data['rank']) == tonumber(my_rank)) then
+            self.m_lCloseRankers['me_ranker'] = data
+        end
+
+        if (tonumber(data['rank']) == tonumber(upper_rank)) then
+            self.m_lCloseRankers['upper_ranker'] = data
+        end
+
+        if (tonumber(data['rank']) == tonumber(lower_rank)) then
+            self.m_lCloseRankers['lower_rank'] = data
+        end
+    end
+end
+
+-------------------------------------
+-- function getCloseRankers
+-------------------------------------
+function ServerData_ClanRaid:getCloseRankers()
+    return self.m_lCloseRankers['upper_ranker'], self.m_lCloseRankers['me_ranker'], self.m_lCloseRankers['lower_rank']
 end
 
 -------------------------------------

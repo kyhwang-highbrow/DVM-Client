@@ -7,21 +7,21 @@ UI_ResultLeaderBoardListItem = class(PARENT, {
         m_userName = 'string',
         m_rank = 'number',
         m_score = 'number',
-        m_subData = 'table',
         m_isMe = 'boolean',
+        m_mark = 'StructClanMark',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ResultLeaderBoardListItem:init(type, user_name, rank, score, is_me, sub_data)
+function UI_ResultLeaderBoardListItem:init(type, t_data, is_me)
     local vars = self:load('rank_ladder_item.ui')
 
-    self.m_userName = user_name
-    self.m_rank = rank
-    self.m_score = score
-    self.m_subData = sub_data
+    self.m_userName = t_data['name']
+    self.m_rank = t_data['rank']
+    self.m_score = t_data['score']
     self.m_isMe = is_me
+    self.m_mark = StructClanMark:create(t_data['mark'])
 
     self:initUI()
     self:initButton()
@@ -44,9 +44,13 @@ function UI_ResultLeaderBoardListItem:initUI()
         vars['meNameLabel']:setString(Str(user_name))
         vars['meScoreLabel']:setString(comma_value(score))
         vars['meRankLabel']:setString(comma_value(rank))
+        local icon = self.m_mark:makeClanMarkIcon()
+        vars['meMarkNode']:addChild(icon)
     else
         vars['nameLabel']:setString(Str(user_name))
         vars['scoreLabel']:setString(comma_value(score))
         vars['rankLabel']:setString(comma_value(rank))
+        local icon = self.m_mark:makeClanMarkIcon()
+        vars['markNode']:addChild(icon)
     end
 end
