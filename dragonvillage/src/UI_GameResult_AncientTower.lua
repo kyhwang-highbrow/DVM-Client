@@ -53,7 +53,9 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:calcClearBonus())
     table.insert(score_list, score_calc:calcClearTimeBonus())
     table.insert(score_list, score_calc:calcClearNoDeathBonus())
-    table.insert(score_list, score_calc:calcAttrBonus())
+    if attr and (attr ~= '') and (not is_attr_tower) then
+        table.insert(score_list, score_calc:calcAttrBonus())
+    end
 
     --table.insert(score_list, score_calc:calcKillBossBonus())
     --table.insert(score_list, score_calc:calcAcitveSkillBonus())
@@ -61,7 +63,6 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:getFinalScore())
 
     -- 지난 점수와의 차이 표시
-    print(score_calc:getFinalScore() , g_ancientTowerData.m_challengingInfo.m_myScore)
     local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myScore
     table.insert(score_list, change_score or 0)
 
@@ -77,10 +78,15 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(var_list, 'injuryLabel1')
     table.insert(var_list, 'injuryLabel2')
 
-    table.insert(var_list, 'attrBonusLabel1')
-    table.insert(var_list, 'attrBonusLabel2')
-    vars['attrBonusLabel1']:setVisible(true)
-    vars['attrBonusLabel2']:setVisible(true)
+    if attr and (attr ~= '') and (not is_attr_tower) then
+        table.insert(var_list, 'attrBonusLabel1')
+        table.insert(var_list, 'attrBonusLabel2')
+        vars['attrBonusLabel1']:setVisible(true)
+        vars['attrBonusLabel2']:setVisible(true)
+    else
+        vars['attrBonusLabel1']:setVisible(false)
+        vars['attrBonusLabel2']:setVisible(false)
+    end
 
 
     table.insert(var_list, 'weakLabel1')
@@ -265,7 +271,8 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     number_func = function()
         -- 순위 변동 표시 나타내는 라벨은 다르게 동작해서 하드코딩
         if (idx == #node_list) then
-            local score = tonumber(score_list[7])
+            local ind = #score_list
+            local score = tonumber(score_list[ind])
             local score_str = ''
             if (score > 0) then
                 self.vars['newRecordNode']:setVisible(true)

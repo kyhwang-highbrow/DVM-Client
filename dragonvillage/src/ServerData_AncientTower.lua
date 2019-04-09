@@ -782,13 +782,13 @@ function ServerData_AncientTower:getUntilNextRewardText()
     end
 
     -- 점수 기준인 경우
-    if (l_rank_list[ind-1]['rank_min'] == '') then
+    if (l_rank_list[ind-1]['rank_max'] == '') then
         local dis = l_rank_list[ind-1]['score_min'] - my_score
         return Str('다음 단계 보상까지 {1}점 남음', math.abs(dis))
     end
 
     -- 순위 기준인 경우
-    local dis = l_rank_list[ind-1]['rank_min'] - my_rank
+    local dis = l_rank_list[ind-1]['rank_max'] - my_rank
     return Str('다음 단계 보상까지 {1}위 남음', math.abs(dis))
 
 end
