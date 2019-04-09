@@ -306,6 +306,17 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
 			g_highlightData:setHighlightMail()
 		end
 
+        -- 내 클랜 정보
+        if (ret['my_claninfo']) then
+            g_clanRaidData.m_tExMyClanInfo = clone(g_clanRaidData.m_tMyClanInfo)
+            g_clanRaidData.m_tMyClanInfo = ret['my_claninfo']
+        end
+
+        -- 앞/뒤 순위 정보
+        if (ret['rank_list']) then
+            g_clanRaidData:applyCloseRankerData(ret['rank_list'])
+        end
+
         -- 보상 등급 지정
         t_result_ref['dmg_rank'] = ret['dmg_rank'] or 1
 

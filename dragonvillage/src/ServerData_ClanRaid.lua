@@ -41,7 +41,10 @@ ServerData_ClanRaid = class({
         -- m_lCloseRankers = { upper_ranker = 'table', me_ranker = 'table', lower_ranker = 'table'}
         m_lCloseRankers = 'table', 
 
+        -- UI_ReasultLeaderBoard에서 사용하는 내 랭킹 
         m_tMyClanInfo = 'table',
+        -- UI_ReasultLeaderBoard에서 사용하는 이전 내 랭킹
+        m_tExMyClanInfo = 'table',
     })
 
 local USE_CASH_LIMIT = 1 -- 하루 최대 여의주 사용 입장횟수
@@ -317,6 +320,7 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
 
         -- 내 클랜 정보
         if (ret['my_claninfo']) then
+            self.m_tExMyClanInfo = clone(self.m_tMyClanInfo)
             self.m_tMyClanInfo = ret['my_claninfo']
         end
 
@@ -682,9 +686,8 @@ function ServerData_ClanRaid:applyCloseRankerData(l_rankers)
     self.m_lCloseRankers['me_ranker'] = nil
     self.m_lCloseRankers['upper_ranker'] = nil
     self.m_lCloseRankers['lower_rank'] = nil
-    ccdump(l_rankers)
+
     for _,data in ipairs(l_rankers) do
-        print(my_rank, l_rankers['rank'])
         if (tonumber(data['rank']) == tonumber(my_rank)) then
             self.m_lCloseRankers['me_ranker'] = data
         end

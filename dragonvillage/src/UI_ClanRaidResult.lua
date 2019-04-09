@@ -404,9 +404,46 @@ function UI_ClanRaidResult:direction_end()
 
     local reward_info = self.m_data['mail_reward_list'] or {}
     if (#reward_info > 0) then
-        local action = cc.Sequence:create(cc.DelayTime:create(0.5), cc.CallFunc:create(function() self:show_finalblowReward(reward_info) end))
+        local action = cc.Sequence:create(cc.DelayTime:create(0.5),
+            cc.CallFunc:create(function() self:show_finalblowReward(reward_info) end), 
+            cc.CallFunc:create(function() self:showLeaderBoard() end))
         self.root:runAction(action)
     end
+end
+
+-------------------------------------
+-- function showLeaderBoard
+-------------------------------------
+function UI_ClanRaidResult:showLeaderBoard()
+    local vars = self.vars
+    
+    -- 게임 후, 앞/뒤 랭커 정보
+    local t_upper, t_me, t_lower = g_clanRaidData:getCloseRankers()
+    if (not t_me) then
+        self:doNextWork()
+        return
+    end
+
+    -- 게임 전 내 정보
+    local t_ex_me = g_clanRaidData.m_tExMyClanInfo
+    if (not t_ex_me) then
+        self:doNextWork()
+        return
+    end
+
+    local ui_leader_board = UI_ResultLeaderBoard('clan_raid', true, true) -- type, is_move, is_popup
+    ui_leader_board:setScore(t_ex_me['score'], t_me['score'])
+    ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
+    ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
+    ui_leader_board:setRanker(t_upper, t_me, t_lower)
+    ui_leader_board:setCurrentInfo()
+    ui_leader_board:startMoving()
+end
+
+-------------------------------------
+-- function direction_showLeaderBoard_click
+-------------------------------------
+function UI_ClanRaidResult:direction_showLeaderBoard_click()
 end
 
 -------------------------------------
