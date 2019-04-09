@@ -62,7 +62,7 @@ function UI_GameResult_AncientTower:setAnimationData()
 
     -- 지난 점수와의 차이 표시
     local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myHighScore
-    table.insert(score_list, change_score or 0)
+    table.insert(score_list, comma_value(change_score) or 0)
 
 
     -- 애니메이션 적용되는 라벨 저장

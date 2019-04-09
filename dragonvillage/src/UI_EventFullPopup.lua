@@ -165,10 +165,9 @@ function UI_EventFullPopup:initUI()
             if (tar_menu) then
                 local size = tar_menu:getContentSize()
                 local width = size['width']
-                local height = 640
+                local height = size['height']
                 vars['mainNode']:setContentSize(cc.size(width, height))
             end
-
             vars['eventNode']:addChild(ui.root)
         end
 

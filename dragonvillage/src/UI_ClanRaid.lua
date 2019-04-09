@@ -80,8 +80,26 @@ function UI_ClanRaid:checkEnterEvent()
 
         g_clanRaidData.m_tClanRewardInfo = nil
     else
-        -- 공지사항 팝업
-        -- self:openNotiPopup()
+        self:openLeaderBoard()
+    end
+end
+
+-------------------------------------
+-- function openLeaderBoard
+-------------------------------------
+function UI_ClanRaid:openLeaderBoard()
+    local check_never_show = g_settingData:get('clan_raid_leader')
+
+    if (not check_never_show) then
+        local ui_leader = makeLeaderBoard('clan_raid', false) -- type, is_move
+        local check_cb = function()
+            local cur_time = Timer:getServerTime() 
+            g_settingData:applySettingData(true, 'clan_raid_leader')
+        end
+
+         -- 체크 박스 붙어있는 이벤트 풀팝업에 붙여서 사용
+        local ui_full_popup = UI_EventFullPopup('', ui_leader, check_cb) -- popup_key, target_ui, m_check_cb
+        ui_full_popup:openEventFullPopup()
     end
 end
 
