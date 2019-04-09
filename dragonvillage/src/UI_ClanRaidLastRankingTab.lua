@@ -242,8 +242,11 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
                 ui.vars['bossLabel']:setString('-')
             end
             
+            -- @jhakim 190409 개발은 해놓았지만 데이터가 모이지 않아 표시하지 않음
             -- 클리어한 보스 레벨          
             ui.vars['bossLabel']:setVisible(false)
+            ui.vars['rankDifferentLabel']:setVisible(false)
+            --[[
             if (data['cldg_last_info']) then
                 if (data['cldg_last_info'][attr]['change_rank']) then
                     local rank_dis = tonumber(data['cldg_last_info'][attr]['change_rank'])
@@ -257,6 +260,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
                     ui.vars['rankDifferentLabel']:setString(rank_dis_str)
                 end
             end
+            --]]
         end
        
         -- 테이블 뷰 인스턴스 생성
