@@ -3,6 +3,8 @@ local MAX_MIN = 60
 
 -------------------------------------
 -- class UI_EventPopupTab_AccessTime
+-- @brief 접속 시간 보상
+--        이벤트 팝업에서 일간 접속 시간에 따라 보상을 획득
 -------------------------------------
 UI_EventPopupTab_AccessTime = class(PARENT,{
         m_lEventDataUi = 'list'
