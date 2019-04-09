@@ -12,6 +12,9 @@ UI_ResultLeaderBoard = class(PARENT, {
         m_cur_ratio = 'number',
         m_before_score = 'number',
         m_cur_score = 'number',
+        m_tUpperRank = 'table',
+        m_tMeRank = 'table',
+        m_tLowerRank = 'table',
     })
 
 
@@ -83,16 +86,71 @@ function UI_ResultLeaderBoard:setCurrentInfo()
     vars['rewardLabel4']:setString('')  -- 보상2 차이
 
 
-    -- 
-    local ui_upper = UI_ResultLeaderBoardListItem(type, '찬란한혜택', 5, 100, false, sub_data) -- type, user_name, rank, score, is_me, sub_data
+    -- 앞 순위 유저
+    local ui_upper = UI_ResultLeaderBoardListItem(type, '캐논쥬비터', 1, 10000, false, sub_data)
     vars['upperNode']:addChild(ui_upper.root)
 
-    local ui_me = UI_ResultLeaderBoardListItem(type, '도롱이', 3, 300, true, sub_data)
+    -- 자기 자신
+    local ui_me = UI_ResultLeaderBoardListItem(type, '도롱이', 4, 8000, true, sub_data)
     vars['meNode']:addChild(ui_me.root)
 
-    local ui_lower = UI_ResultLeaderBoardListItem(type, '캐논쥬비터', 1, 500, false, sub_data)
+    -- 뒤 순위 유저
+    local ui_lower = UI_ResultLeaderBoardListItem(type, '찬란한혜택', 5, 1000, false, sub_data) -- type, user_name, rank, score, is_me, sub_data
     vars['lowerNode']:addChild(ui_lower.root)
 
+end
+
+-------------------------------------
+-- function startMoving
+-------------------------------------
+function UI_ResultLeaderBoard:startMoving()
+    local vars = self.vars
+
+    local cur_posX, cur_gap_per = self:getScorePosX(self.m_cur_score)
+    local ex_posX, ex_gap_per = self:getScorePosX(self.m_before_score)
+    
+    -- 뒤 순위를 초월한 경우, 시작 위치 100으로 고정
+    if (self.m_before_score < self.m_tLowerRank.score) then
+        ex_posX = 100
+    end
+
+    -- 내 노드 움직임
+    local action = cc.MoveTo:create(2, cc.p(cur_posX, 50))
+    vars['meNode']:setPositionX(ex_posX)
+    vars['meNode']:runAction(action)
+
+    -- 게이지 위치 초기화
+    vars['gaugeSprite']:setPositionX(ex_posX + 50)
+    vars['gaugeSprite']:setScale(0, 2)
+    
+    -- cur_pos까지 스프라이트 크기를 키우려면 : x스케일 = 원하는 길이 / 리소스 길이
+    local target_scale = (cur_posX - ex_posX - 25)/592
+    local action = cc.ScaleTo:create(2, target_scale, 2)
+    vars['gaugeSprite']:runAction(action)
+end
+
+-------------------------------------
+-- function getScorePosX
+-------------------------------------
+function UI_ResultLeaderBoard:getScorePosX(score)
+     local vars = self.vars   
+     local posX_upper = vars['upperNode']:getPositionX() 
+     local posX_lower = vars['lowerNode']:getPositionX()
+     
+     -- 앞/뒤 순위 노드 간 간격
+     local pos_gap = math.abs(posX_upper - posX_lower)
+     
+     -- 앞/뒤 순위 랭크 간격
+     local score_gap = self.m_tUpperRank['score'] - self.m_tLowerRank['score']
+     
+     -- 앞/뒤 랭크중 해당 순위가 어디에 위치하는지 퍼센트 계산
+     local score_me_gap =  score - self.m_tLowerRank['score']
+     local gap_per = score_me_gap/ math.abs(score_gap)
+     
+     -- 해당 순위 위치 계산
+     local posX_me = posX_lower + (pos_gap * gap_per)
+     
+     return posX_me, gap_per
 end
 
 -------------------------------------
@@ -158,19 +216,35 @@ function UI_ResultLeaderBoard:setRatio(before, current)
     self.m_cur_ratio = tonumber(current)
 end
 
+-------------------------------------
+-- function setRanker
+-------------------------------------
+function UI_ResultLeaderBoard:setRanker(upper, me, lower)
+    self.m_tUpperRank = upper
+    self.m_tMeRank = me
+    self.m_tLowerRank = lower
+end
+
 
 
 -------------------------------------
 -- function makeLeaderBoard
 -------------------------------------
-function makeLeaderBoard(type, is_move)
-    
+function makeLeaderBoard(type, is_move) 
+    local t_upper = {rank = 1, score = 10000}
+    local t_lower = {rank = 5, score = 1000}
+    local t_me = {rank = 4, score = 8000}
     local ui_leader_board = UI_ResultLeaderBoard(type)
     if (type =='clan_raid') then
-        ui_leader_board:setScore(0, 100)
+        ui_leader_board:setScore(0, 8000)
         ui_leader_board:setRatio(0.0, 0.3)
-        ui_leader_board:setRank(1, 10)
+        ui_leader_board:setRank(7, 4)
+        ui_leader_board:setRanker(t_upper, t_me, t_lower)
         ui_leader_board:setCurrentInfo()
+    end
+
+    if (is_move) then
+        ui_leader_board:startMoving()
     end
 end
 
