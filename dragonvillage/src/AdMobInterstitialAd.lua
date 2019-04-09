@@ -5,14 +5,15 @@
 AdMobInterstitialAd = {
     mIsInit = false,
     mCallback = nil,
+    mOneTimeCallback = nil,
 }
 
 -- 광고 키
 local ADMOB_INTERSTITIAL_AD_ID
 
 if (CppFunctions:isAndroid()) then
-    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/1033173712' -- test id
-    --ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-9497777061019569/3511157419'
+    --ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/1033173712' -- test id
+    ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-9497777061019569/3511157419'
 
 elseif (CppFunctions:isIos()) then
     ADMOB_INTERSTITIAL_AD_ID = 'ca-app-pub-3940256099942544/4411468910' -- test id 이며 생성 필요
@@ -31,6 +32,12 @@ function AdMobInterstitialAd:initInterstitialAd()
         self:result(ret, info)
         if (self.mCallback) then
             self.mCallback(ret, info)
+        end
+
+        -- 한 번만 호출되는 콜백
+        if (self.mOneTimeCallback) then
+            self.mOneTimeCallback(ret, info)
+            self.mOneTimeCallback = nil
         end
     end)
     self:setAdUnitId(ADMOB_INTERSTITIAL_AD_ID)
@@ -89,7 +96,7 @@ end
 -- @brief 공용 callback 처리
 -------------------------------------
 function AdMobInterstitialAd:result(ret, info)
-    cclog('AdMob Callback - ret:' .. tostring(ret) .. ', info:' .. tostring(info))
+    cclog('AdMobInterstitialAd Callback - ret:' .. tostring(ret) .. ', info:' .. tostring(info))
 
     -- 광고 load 완료
     if (ret == 'receive') then
@@ -117,4 +124,13 @@ function AdMobInterstitialAd:result(ret, info)
     elseif (ret == 'error') then
         SoundMgr:playPrevBGM()
     end
+end
+
+-------------------------------------
+-- function setOneTimeCallback
+-- @brief 한 번만 호출되는 콜백 등록
+-- @param one_time_callback(ret, info)
+-------------------------------------
+function AdMobInterstitialAd:setOneTimeCallback(one_time_callback)
+    self.mOneTimeCallback = one_time_callback
 end

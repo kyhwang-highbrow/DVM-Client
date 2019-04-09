@@ -501,12 +501,48 @@ function UI_Setting:click_testCodeBtn()
 	ccdisplay('adMob interstitial ad test')
     if (CppFunctions:isAndroid() == true) then
 
-        local function result_cb(ret, info)
-            ccdisplay(tostring(ret))
-            ccdisplay(tostring(info))
+        local loading = nil
+
+        -- 광고를 재생하는 동안 로딩창으로 블럭 처리
+        local loading = UI_Loading()
+        loading:setLoadingMsg(Str('네트워크 통신 중...'))
+
+        -- 일정 시간 후 닫기
+        local node = loading.root
+        local duration = 5
+        local function func()
+            loading:close()
+            loading = nil
+        end
+        cca.reserveFunc(node, duration, func)
+
+        -- 콜백에서 로딩창 닫기
+        local function one_time_callback(ret, info)
+            ccdisplay(tostring(ret) .. tostring(info))
+
+            if loading then
+                loading:close()
+                loading = nil
+            end
         end
 
-	    AdMobManager:getInterstitialAd():show(result_cb)
+        -- 광고 재생
+        AdMobManager:getInterstitialAd():setOneTimeCallback(one_time_callback)
+	    AdMobManager:getInterstitialAd():show()
+
+    -- 윈도우 테스트 코드
+    elseif (CppFunctions:isWin32() == true) then
+        local loading = UI_Loading()
+        loading:setLoadingMsg(Str('네트워크 통신 중...'))
+
+        -- 일정 시간 후 닫기
+        local node = loading.root
+        local duration = 3
+        local function func()
+            loading:close()
+            loading = nil
+        end
+        cca.reserveFunc(node, duration, func)
     end
 end
 

@@ -4018,6 +4018,9 @@
     <None Include="..\src\AdMobInterstitialAd.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_Loading.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

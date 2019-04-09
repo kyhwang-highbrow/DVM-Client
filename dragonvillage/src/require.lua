@@ -737,6 +737,7 @@ local t_module = {
     'UI_NetworkLoading',
     'UI_TitleScene',
     'UI_TitleSceneLoading',
+    'UI_Loading',
 	'UI_LoadingGuide',
 	'UI_LoadingGuide_Patch',
     'UI_LoadingArena',
