@@ -423,6 +423,7 @@ function _UI_ClanRaidRewardListItem:initUI()
     local ratio_min = tonumber(data['ratio_min'])
     local ratio_max = tonumber(data['ratio_max'])
 
+
     -- 순위 필터
     if (rank_min and rank_max) then
         if (rank_min <= my_rank) and (my_rank <= rank_max) then
@@ -431,11 +432,10 @@ function _UI_ClanRaidRewardListItem:initUI()
         end
     end
 
-    -- 비율 필터
-    if (ratio_min and ratio_max) then
-        if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
+    -- 100위 밖
+    if (not rank_min) then
+        if (my_rank > 100) then
             vars['meSprite']:setVisible(true)
-            return
         end
     end
 
