@@ -113,6 +113,7 @@ return {['{1}층 팀 최고 점수: {1}점']='Máximo puntaje del equipo en el p
 ['71~80위']='Puestos 71-80',
 ['81~90위']='Puestos 81-90',
 ['91~100위']='Puestos 91-100',
+['최대 50% 보너스']='Bono máximo: 50%',
 [' 빛의 거목']='Gran Árbol de Luz',
 ['\"{1}\" 진행하시겠습니까?']='\"{1}\" ¿Desea continuar?',
 ['\"언어 설정\"은 준비 중입니다.']='La configuración de lenguajes se encuentra en preparación.',
