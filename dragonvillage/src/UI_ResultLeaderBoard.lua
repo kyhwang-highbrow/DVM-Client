@@ -118,6 +118,10 @@ function UI_ResultLeaderBoard:setCurrentInfo()
         end
     end
 
+    vars['scoreDifferNode']:setVisible(false)
+    vars['rankDifferNode']:setVisible(false)
+    vars['rewardNode1']:setVisible(false)
+    vars['rewardNode2']:setVisible(false)
 end
 
 -------------------------------------
@@ -126,9 +130,13 @@ end
 function UI_ResultLeaderBoard:setChangeInfo()
     local vars = self.vars
 
+    vars['scoreDifferNode']:setVisible(true)
+    vars['rankDifferNode']:setVisible(true)
+    vars['rewardNode1']:setVisible(true)
+    vars['rewardNode2']:setVisible(true)
+
     vars['gaugeSprite']:setVisible(self.m_isPopup)
     
-
     -- 콤마 라벨
     local score_tween_cb = function(number, label)
         local number = math.floor(number)
@@ -177,6 +185,8 @@ function UI_ResultLeaderBoard:setChangeInfo()
         local score_diff_label = NumberLabel(vars['rankDifferLabel'], 0, 2)
         score_diff_label:setTweenCallback(diff_tween_cb)
         score_diff_label:setNumber(self.m_before_rank - self.m_cur_rank, false)
+    else
+        vars['rankDifferNode']:setVisible(false)
     end
 
     -- 현재 보상 갯수
@@ -202,13 +212,17 @@ function UI_ResultLeaderBoard:setChangeInfo()
         local score_diff_label = NumberLabel(vars['rewardLabel2'], 0, 2)
         score_diff_label:setTweenCallback(diff_tween_cb)
         score_diff_label:setNumber(reward_1_gap, false)      
+    else
+        vars['rewardNode1']:setVisible(false)
     end
 
     if (reward_2_gap ~= 0) then
         -- 현재 보상2 차이
         local score_diff_label = NumberLabel(vars['rewardLabel4'], 0, 2)
         score_diff_label:setTweenCallback(diff_tween_cb)
-        score_diff_label:setNumber(reward_2_gap, false)       
+        score_diff_label:setNumber(reward_2_gap, false) 
+    else
+        vars['rewardNode2']:setVisible(false)
     end
 
 end
@@ -242,7 +256,7 @@ function UI_ResultLeaderBoard:startMoving()
     vars['gaugeSprite']:setScale(0, 2)
     
     -- cur_pos까지 스프라이트 크기를 키우려면 : x스케일 = 원하는 길이 / 리소스 길이
-    local target_scale = (cur_posX - ex_posX)/592
+    local target_scale = (cur_posX - ex_posX)/790
     local action = cc.ScaleTo:create(2, target_scale, 2)
     vars['gaugeSprite']:runAction(action)
 
