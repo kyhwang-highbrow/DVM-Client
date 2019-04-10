@@ -284,32 +284,6 @@ function UI_AncientTowerRankNew:init_rankTableView()
 
     local l_item_list = g_ancientTowerData.m_lGlobalRank
 
-    local sort_func = function(a, b)
-        local a_rank = a['m_rank']
-        local b_rank = b['m_rank']
-
-        if (not a_rank) then
-            return true
-        end
-
-        if (not b_rank) then
-            return true
-        end
-        
-        if (a_rank < 1) then
-            return true
-        end
-        
-        if (b_rank < 1) then
-            return true
-        end
-
-        return a_rank < b_rank
-    end
-
-    table.sort(l_item_list, sort_func)
-
-
     if (self.m_rankOffset > 1) then
         local prev_data = { m_tag = 'prev' }
         l_item_list['prev'] = prev_data
@@ -369,10 +343,10 @@ function UI_AncientTowerRankNew:init_rankTableView()
             end
 
             -- 랭킹으로 선별
-            local a_rank = a_data.m_rank
-            local b_rank = b_data.m_rank 
+            local a_rank = conditionalOperator((0 < a_data.m_rank), a_data.m_rank, 9999999)
+            local b_rank = conditionalOperator((0 < b_data.m_rank), b_data.m_rank, 9999999)
+
             return a_rank < b_rank
-            
         end
 
         table.sort(table_view.m_itemList, sort_func)
