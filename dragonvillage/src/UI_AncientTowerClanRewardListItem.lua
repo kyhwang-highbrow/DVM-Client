@@ -30,10 +30,10 @@ function UI_AncientTowerClanRewardListItem:initUI()
     if (not my_data) then
         return
     end
+
     local my_rank = my_data['rank'] 
     
     -- 받을 수 있는 포상에 하이라이트
-    local my_rank = g_ancientTowerData.m_nTotalRank
     local rank_type = nil
     local rank_value = 1
         
