@@ -220,7 +220,7 @@ end
 -------------------------------------
 -- function request_ancientTowerRank
 -------------------------------------
-function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
+function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb, rank_type)
     -- 파라미터
     local uid = g_userData:get('uid')
     local offset = offset or 0
@@ -246,6 +246,7 @@ function ServerData_AncientTower:request_ancientTowerRank(offset, finish_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/ancient/rank')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('type', rank_type)
     ui_network:setParam('offset', offset)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

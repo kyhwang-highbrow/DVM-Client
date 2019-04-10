@@ -18,6 +18,7 @@ UI_AncientTowerRankNew = class(PARENT, {
 
         m_rankOffset = 'number',
         m_clanRankOffset = 'number',
+        m_rankType = 'string',
     })
 
 local OFFSET_GAP = 20 -- 한번에 보여주는 랭커 수
@@ -127,6 +128,8 @@ function UI_AncientTowerRankNew:make_UIC_SortList()
 
     uic:addSortType('my', Str('내 랭킹'))
     uic:addSortType('top', Str('최상위 랭킹'))
+    uic:addSortType('friend', Str('친구 랭킹'))
+    uic:addSortType('clan', Str('클랜 랭킹'))
 
     uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
     uic:setSelectSortType('my')
@@ -168,15 +171,22 @@ end
 function UI_AncientTowerRankNew:onChangeRankingType(type)
     local l_attr = getAttrTextList() 
     if (type == 'my') then
-        for i,v in pairs(l_attr) do
-            self.m_rankOffset = -1
-        end
+        self.m_rankType = 'world'
+        self.m_rankOffset = -1
+
     elseif (type == 'top') then
-        for i,v in pairs(l_attr) do
-            self.m_rankOffset = 1
-        end
+        self.m_rankType = 'world'
+        self.m_rankOffset = 1
+
+    elseif (type == 'friend') then
+        self.m_rankType = 'friend'
+        self.m_rankOffset = 1
+
+    elseif (type == 'clan') then
+        self.m_rankType = 'clan'
+        self.m_rankOffset = 1
     end
-    
+
     self:request_Rank()
     
     if (self.m_rewardTableView) then 
@@ -219,7 +229,7 @@ function UI_AncientTowerRankNew:request_Rank()
         self:focusInRankReward()
     end
     local offset = self.m_rankOffset
-    g_ancientTowerData:request_ancientTowerRank(offset, finish_cb)
+    g_ancientTowerData:request_ancientTowerRank(offset, finish_cb, self.m_rankType)
 end
 
 -------------------------------------
