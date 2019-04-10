@@ -131,37 +131,43 @@ function UI_ResultLeaderBoard:setChangeInfo()
 
     -- 콤마 라벨
     local score_tween_cb = function(number, label)
+        local number = math.floor(number)
         label:setString(Str('{1}점', comma_value(number)))
     end
 
     -- 현재 점수
     local score_label = NumberLabel(vars['scoreLabel'], 0, 2)
-    score_label:setNumber(self.m_cur_score, false)
     score_label:setTweenCallback(score_tween_cb)
+    score_label:setNumber(self.m_cur_score, false)
+
 
     local rank_tween_cb = function(number, label)
-        label:setString(Str('{1}위', comma_value(number)))
+        local number = math.floor(number)
+        label:setString(Str('{1}위', number))
     end
+
     -- 현재 랭킹
     local rank_label = NumberLabel(vars['rankLabel'], 0, 2)
-    rank_label:setNumber(self.m_cur_rank, false)
     rank_label:setTweenCallback(rank_tween_cb)
+    rank_label:setNumber(self.m_cur_rank, false)
 
      -- + 콤마 라벨
     local diff_tween_cb = function(number, label)
+        local number = math.floor(number)
         label:setString(string.format('+'..comma_value(number)))
     end
 
     -- 현재 점수 차이
     local score_diff_label = NumberLabel(vars['scoreDifferLabel'], 0, 2)
-    score_diff_label:setNumber(self.m_cur_score - self.m_before_score, false)
     score_diff_label:setTweenCallback(diff_tween_cb)
+    score_diff_label:setNumber(self.m_cur_score - self.m_before_score, false)
+
 
     if (self.m_before_rank ~= self.m_cur_rank) then
         -- 현재 랭킹 차이
         local score_diff_label = NumberLabel(vars['rankDifferLabel'], 0, 2)
-        score_diff_label:setNumber(self.m_before_rank - self.m_cur_rank, false)
         score_diff_label:setTweenCallback(diff_tween_cb)
+        score_diff_label:setNumber(self.m_before_rank - self.m_cur_rank, false)
     end
 
     -- 현재 보상 갯수
@@ -170,6 +176,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
     
     local score_diff_label = NumberLabel(vars['rewardLabel1'], 0, 2)
     score_diff_label:setNumber(cur_reward_1_cnt, false)
+    
     local score_diff_label = NumberLabel(vars['rewardLabel3'], 0, 2)
     score_diff_label:setNumber(cur_reward_2_cnt, false)
 
@@ -184,15 +191,15 @@ function UI_ResultLeaderBoard:setChangeInfo()
     if (reward_1_gap ~= 0) then
         -- 현재 보상1 차이
         local score_diff_label = NumberLabel(vars['rewardLabel2'], 0, 2)
-        score_diff_label:setNumber(reward_1_gap, false)
         score_diff_label:setTweenCallback(diff_tween_cb)
+        score_diff_label:setNumber(reward_1_gap, false)      
     end
 
     if (reward_2_gap ~= 0) then
         -- 현재 보상2 차이
         local score_diff_label = NumberLabel(vars['rewardLabel4'], 0, 2)
-        score_diff_label:setNumber(reward_2_gap, false)
         score_diff_label:setTweenCallback(diff_tween_cb)
+        score_diff_label:setNumber(reward_2_gap, false)       
     end
 
 end
