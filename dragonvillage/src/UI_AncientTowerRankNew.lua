@@ -342,7 +342,19 @@ function UI_AncientTowerRankNew:init_rankTableView()
         table.sort(table_view.m_itemList, sort_func)
     end
 
-    table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
+    local uid = g_userData:get('uid')
+    local indx = 1
+    for i, data in pairs(l_item_list) do
+        if (data.m_uid == uid) then
+            indx = i
+            break
+        end
+    end
+    
+    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    table_view:relocateContainerFromIndex(indx or 1)
+
+    table_view:makeDefaultEmptyDescLabel('')
 end
 
 -------------------------------------
@@ -361,7 +373,7 @@ function UI_AncientTowerRankNew:init_rewardTableView()
     table_view:setItemList(l_item_list)
     self.m_rewardTableView = table_view
 
-    table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))  
+    table_view:makeDefaultEmptyDescLabel('')  
 end
 
 -------------------------------------
@@ -485,6 +497,19 @@ function UI_AncientTowerRankNew:init_clanRankingTableView()
             empty_str = Str('랭킹 정보가 없습니다.')
         end
         table_view:makeDefaultEmptyDescLabel(empty_str)
+
+
+        local indx = 1
+        local my_clan_info = g_clanRankData:getMyRankData(CLAN_RANK['ANCT'])
+        for ind, data in ipairs(l_item_list) do
+            if (data['rank'] == my_clan_info['rank']) then
+                indx = ind
+            end
+        end
+
+        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        table_view:relocateContainerFromIndex(indx or 1)
+
     end
 end
 
@@ -515,7 +540,12 @@ function UI_AncientTowerRankNew:init_clanRewardTableView()
     table_view:setItemList(l_item_list or {})
     self.m_clanRewardTableView = table_view
 
-    table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))  
+    -- 받을 수 있는 포상에 포커싱
+    local reward, idx = ServerData_ClanRaid():getRankRewardList()
+    self.m_clanRewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    self.m_clanRewardTableView:relocateContainerFromIndex(idx or 1)
+
+    table_view:makeDefaultEmptyDescLabel('')
 end
 
 -------------------------------------
