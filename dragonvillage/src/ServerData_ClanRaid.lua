@@ -715,28 +715,22 @@ end
 -------------------------------------
 function ServerData_ClanRaid:possibleReward_ClanRaid(my_rank, my_ratio)
     local l_reward = g_clanRaidData:getRankRewardList()
-    
+    local my_rank = tonumber(my_rank)
+    local my_ratio = tonumber(my_ratio)
+
     for ind, data in ipairs(l_reward) do
         local rank_min = tonumber(data['rank_min'])
         local rank_max = tonumber(data['rank_max'])
-
-        local ratio_min = tonumber(data['ratio_min'])
-        local ratio_max = tonumber(data['ratio_max'])
+        
 
         -- 순위 필터
-        if (rank_min and rank_max) then
+        if (rank_min and rank_max and rank_min ~= '' and rank_max ~= '') then
             if (rank_min <= my_rank) and (my_rank <= rank_max) then
-                return data
-            end
-        end
-
-        -- 비율 필터
-        if (ratio_min and ratio_max) then
-            if (ratio_min < my_rank_rate) and (my_rank_rate <= ratio_max) then
                 return data
             end
         end
     end
 
-    return nil
+    -- 디폴트로 마지막 보상 돌려줌
+    return l_reward[#l_reward]
 end
