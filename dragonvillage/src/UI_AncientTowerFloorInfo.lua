@@ -90,11 +90,12 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
 
     local rank = comma_value(g_ancientTowerData.m_nTotalRank)
     if (rank == '-1') then
-        rank = '-'
+        vars['meTotalScoreLabel']:setString(Str('기록 없음'))
+    else
+        local score = math.max(g_ancientTowerData.m_nTotalScore, 0)
+        local str_info = '{@yellow}' .. Str('{1}위', comma_value(rank)) .. '{@default}  ' ..  Str('{1}점', comma_value(score))
+        vars['meTotalScoreLabel']:setString(str_info)
     end
-    local score = math.max(g_ancientTowerData.m_nTotalScore, 0)
-    local str_info = '{@yellow}' .. Str('{1}위', comma_value(rank)) .. '{@default}  ' ..  Str('{1}점', comma_value(score))
-    vars['meTotalScoreLabel']:setString(str_info)
 end
 
 -------------------------------------
