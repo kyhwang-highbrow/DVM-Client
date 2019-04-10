@@ -88,8 +88,11 @@ end
 -- function openLeaderBoard
 -------------------------------------
 function UI_ClanRaid:openLeaderBoard()
-    local check_never_show = g_settingData:get('clan_raid_leader')
+    local check_never_show = g_settingData:get('event_full_popup', 'clan_raid_leader')
+
     local t_upper, t_me, t_lower = g_clanRaidData:getCloseRankers()
+    
+    -- 플레이 하지 않아 랭킹 정보가 없을 경우 팝업 뜨지 않음
     if (not t_me) then
         return
     end
@@ -105,7 +108,7 @@ function UI_ClanRaid:openLeaderBoard()
 
         local check_cb = function()
             local cur_time = Timer:getServerTime() 
-            g_settingData:applySettingData(true, 'clan_raid_leader')
+            g_settingData:applySettingData(true, 'event_full_popup', 'clan_raid_leader')
         end
 
          -- 체크 박스 붙어있는 이벤트 풀팝업에 붙여서 사용

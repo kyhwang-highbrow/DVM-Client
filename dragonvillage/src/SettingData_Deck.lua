@@ -125,7 +125,7 @@ function SettingData_Deck:getAncientStageScore(stage_id)
     end
     local score = self:get('ancient_deck', stage_id_str, 'best_score')
     local score_num = tonumber(score)
-    return score or 0
+    return score_num or 0
 end
 
 -------------------------------------
