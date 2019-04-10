@@ -134,7 +134,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
         local number = math.floor(number)
         label:setString(Str('{1}점', comma_value(number)))
     end
-
+    
     -- 현재 점수
     local score_label = NumberLabel(vars['scoreLabel'], 0, 2)
     score_label:setTweenCallback(score_tween_cb)
@@ -156,13 +156,22 @@ function UI_ResultLeaderBoard:setChangeInfo()
         local number = math.floor(number)
         label:setString(string.format('+'..comma_value(number)))
     end
-
+    
+    -- 점수 없을 때
+    if (self.m_before_score == -1) then
+        self.m_before_score = 0    
+    end
+    
     -- 현재 점수 차이
     local score_diff_label = NumberLabel(vars['scoreDifferLabel'], 0, 2)
     score_diff_label:setTweenCallback(diff_tween_cb)
     score_diff_label:setNumber(self.m_cur_score - self.m_before_score, false)
 
-
+    -- 랭킹 없을 때
+    if (self.m_before_rank == -1) then
+        self.m_before_rank = self.m_cur_rank
+    end
+    
     if (self.m_before_rank ~= self.m_cur_rank) then
         -- 현재 랭킹 차이
         local score_diff_label = NumberLabel(vars['rankDifferLabel'], 0, 2)
