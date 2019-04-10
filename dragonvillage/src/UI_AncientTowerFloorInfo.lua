@@ -93,7 +93,8 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         rank = '-'
     end
     local score = math.max(g_ancientTowerData.m_nTotalScore, 0)
-    vars['meTotalScoreLabel']:setString(Str('{@yellow}{1}위 {@default} {2}점', rank, comma_value(score)))
+    local str_info = '{@yellow}' .. Str('{1}위', comma_value(rank)) .. '{@default}  ' ..  Str('{1}점', comma_value(score))
+    vars['meTotalScoreLabel']:setString(str_info)
 end
 
 -------------------------------------
