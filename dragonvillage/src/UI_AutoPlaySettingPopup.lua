@@ -88,7 +88,7 @@ function UI_AutoPlaySettingPopup:click_autoStartOnBtn()
             return
         end
         if (self.m_loadDeckCb) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('현재 덱을 베스트 팀으로 교체하여 진행하시겠습니까?'), ok_btn_cb, cancel_btn_cb)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('현재 팀을 베스트 팀으로 교체하여 진행하시겠습니까?'), ok_btn_cb, cancel_btn_cb)
         end
     end
 
