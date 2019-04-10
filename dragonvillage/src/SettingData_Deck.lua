@@ -80,19 +80,52 @@ function SettingData_Deck:makeDefaultSettingData()
 end
 
 -------------------------------------
--- function getStageScore
+-- function get
+-- @brief
+-------------------------------------
+function SettingData_Deck:get(...)
+    local args = {...}
+    local cnt = #args
+
+    local container = self.m_rootTable
+    for i,key in ipairs(args) do
+        if (i < cnt) then
+            if (type(container[key]) ~= 'table') then
+                return nil
+            end
+            container = container[key]
+        else
+            if (container[key] ~= nil) then
+                return clone(container[key])
+            end
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
+-- function getAncientStageScore
 -------------------------------------
 function SettingData_Deck:getAncientStageScore(stage_id)
-    
-    if (tonumber(stage_id) < 1401001) then
+    -- stage_id가 숫자 형태로 넘어왔는지 확인 (고대의 탑 1층~50층 스테이지ID 범위도 확인)
+    local stage_id_num = tonumber(stage_id)
+    if (stage_id_num == nil) then
+        return 0
+    elseif (stage_id_num < 1401001) then
+        return 0
+    elseif (1401050 < stage_id_num) then
         return 0
     end
 
-    if (tonumber(stage_id) > 1401050) then
+    -- stage_id를 문자열로 변환하여 해당 스테이지의 최고점을 얻어옴
+    local stage_id_str = tostring(stage_id)
+    if (stage_id_str == nil) then
         return 0
     end
-
-    return self.m_rootTable['ancient_deck'][tostring(stage_id)]['best_score'] or 0
+    local score = self:get('ancient_deck', stage_id_str, 'best_score')
+    local score_num = tonumber(score)
+    return score or 0
 end
 
 -------------------------------------
