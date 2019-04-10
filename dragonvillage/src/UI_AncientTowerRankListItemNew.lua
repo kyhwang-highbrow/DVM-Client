@@ -50,7 +50,11 @@ function UI_AncientTowerRankListItemNew:initUI()
     end
 
     -- 순위 표시
-    vars['rankingLabel']:setString(t_rank_info:getRankText())
+    if (t_rank_info.m_rank == nil) or (t_rank_info.m_rank <= 0) then -- 순위가 없는 경우
+        vars['rankingLabel']:setString('-')
+    else
+        vars['rankingLabel']:setString(t_rank_info:getRankText())
+    end
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
