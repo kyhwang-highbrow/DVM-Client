@@ -1513,6 +1513,12 @@ function UI_ReadySceneNew:click_loadBestTeam()
     end
 
     local l_deck = t_data['deck']
+    -- 저장된 드래곤이 없어도 베스트 팀이 없다고 간주
+    if (#l_deck == 0) then
+        UIManager:toastNotificationRed(Str('저장된 베스트 팀이 없습니다'))
+        return
+    end
+    
     local formation = t_data['formation']
     local deckname = t_data['deckname']
     local leader = t_data['leader']

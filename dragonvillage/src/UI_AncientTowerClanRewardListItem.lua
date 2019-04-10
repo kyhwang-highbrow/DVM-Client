@@ -33,6 +33,10 @@ function UI_AncientTowerClanRewardListItem:initUI()
 
     local my_rank = my_data['rank'] 
     
+    if (my_rank == -1) then
+        return
+    end
+
     -- 받을 수 있는 포상에 하이라이트
     local rank_type = nil
     local rank_value = 1
