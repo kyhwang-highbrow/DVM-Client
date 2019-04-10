@@ -247,12 +247,12 @@ function UI_ResultLeaderBoard:startMoving()
     end
 
     -- 내 노드 움직임
-    local action = cc.MoveTo:create(2, cc.p(cur_posX, 50))
+    local action = cc.MoveTo:create(2, cc.p(cur_posX, 0))
     vars['meNode']:setPositionX(ex_posX)
     vars['meNode']:runAction(action)
 
     -- 게이지 위치 초기화
-    vars['gaugeSprite']:setPositionX(ex_posX + 25)
+    vars['gaugeSprite']:setPositionX(ex_posX + 34)
     vars['gaugeSprite']:setScale(0, 2)
     
     -- cur_pos까지 스프라이트 크기를 키우려면 : x스케일 = 원하는 길이 / 리소스 길이
