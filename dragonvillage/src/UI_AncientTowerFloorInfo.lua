@@ -88,7 +88,12 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         vars['actingPowerLabel']:setString(st_cnt)
     end
 
-    vars['meTotalScoreLabel']:setString(Str('{@yellow}{1}위 {@default} {2}점', g_ancientTowerData.m_nTotalRank, comma_value(g_ancientTowerData.m_nTotalScore)))
+    local rank = comma_value(g_ancientTowerData.m_nTotalRank)
+    if (rank == '-1') then
+        rank = '-'
+    end
+    local score = math.max(g_ancientTowerData.m_nTotalScore, 0)
+    vars['meTotalScoreLabel']:setString(Str('{@yellow}{1}위 {@default} {2}점', rank, comma_value(score)))
 end
 
 -------------------------------------

@@ -92,7 +92,7 @@ function SettingData_Deck:getAncientStageScore(stage_id)
         return 0
     end
 
-    return self.m_rootTable['ancient_deck'][tostring(stage_id)]['best_score']
+    return self.m_rootTable['ancient_deck'][tostring(stage_id)]['best_score'] or 0
 end
 
 -------------------------------------
