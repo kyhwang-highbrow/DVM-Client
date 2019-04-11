@@ -75,6 +75,14 @@ function UI_AncientTowerBestDeckListItem:initUI()
                 local ui_dragon_card = UI_DragonCard(t_dragon_data)
                 ui_dragon_card.root:setScale(0.66)
                 ui_dragon_card.root:setSwallowTouch(false)
+                
+                -- 출전 중 표시 안함
+                ui_dragon_card:setReadySpriteVisible(false)
+                
+                -- 리더로 저장되어 있다면 표시
+                if (ind == data['leader']) then
+                    ui_dragon_card:setLeaderSpriteVisible(true)
+                end
                 vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
             end
         end
