@@ -353,17 +353,18 @@ function UI_AncientTowerRankNew:init_rankTableView()
     end
 
     local uid = g_userData:get('uid')
-    local indx = 1
-    for i, data in pairs(l_item_list) do
-        if (data.m_uid == uid) then
-            indx = i
-            break
+    local idx = 1
+    for i, data in ipairs(table_view.m_itemList) do
+        if (data['data']) then
+            if (data['data']['m_uid'] == uid) then
+                idx = i
+                break
+            end
         end
     end
     
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-    table_view:relocateContainerFromIndex(indx or 1)
-
+    table_view:relocateContainerFromIndex(idx or 1)
     table_view:makeDefaultEmptyDescLabel('')
 end
 
