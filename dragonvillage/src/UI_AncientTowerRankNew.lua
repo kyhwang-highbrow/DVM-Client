@@ -169,7 +169,14 @@ end
 -- @brief
 -------------------------------------
 function UI_AncientTowerRankNew:onChangeRankingType(type)
-    local l_attr = getAttrTextList() 
+    if (g_clanData) then
+        if (type == 'clan' and g_clanData:isClanGuest()) then
+            local msg = Str('소속된 클랜이 없습니다.')
+            UIManager:toastNotificationRed(msg)
+            return
+        end
+    end
+    
     if (type == 'my') then
         self.m_rankType = 'world'
         self.m_rankOffset = -1
@@ -512,12 +519,13 @@ function UI_AncientTowerRankNew:init_clanRankingTableView()
 
         local indx = 1
         local my_clan_info = g_clanRankData:getMyRankData(CLAN_RANK['ANCT'])
-        for ind, data in ipairs(l_item_list) do
-            if (data['rank'] == my_clan_info['rank']) then
-                indx = ind
+        if (my_clan_info) then
+            for ind, data in ipairs(l_item_list) do
+                if (data['rank'] == my_clan_info['rank']) then
+                    indx = ind
+                end
             end
         end
-
         table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         table_view:relocateContainerFromIndex(indx or 1)
 
