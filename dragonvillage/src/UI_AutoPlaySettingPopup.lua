@@ -78,27 +78,13 @@ function UI_AutoPlaySettingPopup:click_autoStartOnBtn()
   
     -- 베스트 덱 자동으로 불러오기 사용할 경우
     if vars['autoLoadBtn']:isChecked() then
-        local ok_btn_cb = function()
-            if (self.m_loadDeckCb) then
-                self.m_loadDeckCb()
-            end
-            self:close()
-        end
-
-        -- 연속전투 설정 해제
-        local cancel_btn_cb = function()
-            vars['autoStartOnBtn']:setChecked(false)
-            self:close()
-            return
-        end
         if (self.m_loadDeckCb) then
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('현재 팀을 베스트 팀으로 교체하여 진행하시겠습니까?'), ok_btn_cb, cancel_btn_cb)
+            self.m_loadDeckCb()
         end
-    else
-        -- 활성 상태일 경우 창을 닫음
-        self:close()
     end
 
+    -- 활성 상태일 경우 창을 닫음
+    self:close()
 end
 
 -------------------------------------
