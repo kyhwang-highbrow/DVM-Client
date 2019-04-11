@@ -1368,8 +1368,10 @@ function UI_ReadySceneNew:click_autoStartOnBtn()
     else
         local ui = UI_AutoPlaySettingPopup(self.m_gameMode)
         ui:setCloseCB(refresh_btn)
-        if (not g_ancientTowerData:isAttrChallengeMode()) then
-            ui:setLoadDeckCb(load_best_deck)
+        if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+            if (not g_ancientTowerData:isAttrChallengeMode()) then
+                ui:setLoadDeckCb(load_best_deck)
+            end
         end
     end
 end
