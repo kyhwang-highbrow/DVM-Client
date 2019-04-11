@@ -63,8 +63,9 @@ function UI_AncientTowerBestDeckListItem:initUI()
     
     -- 덱 정보(드래곤 카드UI)
     local l_deck = data['deck']
-    if (not l_deck) then
-        return
+    if (not l_deck) or (#l_deck == 0) then
+       vars['notInfoMenu']:setVisible(true)
+       return
     end
     
     for ind = 1, 5 do
