@@ -77,8 +77,8 @@ end
 -- @brief 튜토리얼 실행
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
-function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)   
-    -- 튜토리얼 테스트
+function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)
+	-- 튜토리얼 테스트
 	if (IS_TEST_MODE()) then
 		if (g_constant:get('DEBUG', 'TEST_TUTORIAL') == tutorial_key) then
 			_startTutorial(self, tutorial_key, tar_ui)
@@ -97,11 +97,6 @@ function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)
     -- 완료 체크
     if (not is_force) and (g_tutorialData:isTutorialDone(tutorial_key)) then
 		return
-    end
-
-    -- @jhakim 190411 고대의 탑 튜토리얼 진입 막음
-    if (tutorial_key == TUTORIAL.ANCIENT) then
-        return
     end
 
 	-- strat
