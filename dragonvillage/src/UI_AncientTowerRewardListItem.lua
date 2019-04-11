@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITableViewCell:getCloneTable())
+﻿local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_AncientTowerRewardListItem
@@ -24,7 +24,9 @@ end
 function UI_AncientTowerRewardListItem:initUI()
     local vars = self.vars
     local t_reward_info = self.m_rewardInfo
-    vars['rankLabel']:setString(Str(t_reward_info['t_name']))
+    
+    local rank_name = self:getNameLabel()
+    self.vars['rankLabel']:setString(rank_name)
 
     local l_reward = TableClass:seperate(t_reward_info['reward'], ',', true)
     for i = 1, #l_reward do
@@ -50,8 +52,6 @@ function UI_AncientTowerRewardListItem:initUI()
         vars['rewardLabel'..i]:setString(Str('{1}', comma_value(cnt)))
     end
 
-
-    -- 받을 ???�는 보상???�이?�이??
     local t_reward, idx = g_ancientTowerData:getPossibleReward()
     if (t_reward) then
         if (t_reward_info['reward'] == t_reward['reward']) then
@@ -72,3 +72,38 @@ end
 -------------------------------------
 function UI_AncientTowerRewardListItem:refresh()
 end
+
+-------------------------------------
+-- function getNameLabel
+-------------------------------------
+function UI_AncientTowerRewardListItem:getNameLabel()
+    local t_reward_info = self.m_rewardInfo
+    local rank_name = t_reward_info['t_name']
+    
+    local rank_min = t_reward_info['rank_min']
+    local rank_max = t_reward_info['rank_max']
+
+    local rank_str = ''
+
+    -- 랭크 타입이 점수
+    if (rank_min == '' and rank_max == '') then
+        local rank_number = tonumber(t_reward_info['score_min'])
+        rank_str = Str('{1}점 이상', comma_value(rank_number))
+        return rank_str
+    end
+
+    -- 랭크 타입이 {1}위
+    if (rank_min == rank_max) then
+        rank_str = Str('{1}위', comma_value(rank_min))
+        return rank_str
+    end
+    
+    -- 랭크 타입이 {1}~{2}위
+    if (rank_min ~= rank_max) then
+        rank_str = Str('{1}~{2}위 ', comma_value(rank_min), comma_value(rank_max))
+        return rank_str
+    end
+    
+    return Str(rank_name)
+end
+
