@@ -421,6 +421,17 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', self.m_stageID)
 
+    -- 사용한 메인덱(수동 조작) 정보를 서버로 올려줌 ('up' = 1, 'down' = 2)
+    local g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, nil)
+    if (g_data) then
+        local main_deck = g_data:getMainDeck()
+        if (main_deck == 'up') then
+            main_deck = 1
+        else
+            main_deck = 2
+        end
+        ui_network:setParam('choice_deck', main_deck)
+    end
     -- 데미지 임의 
     ui_network:setParam('damage', t_param['damage'])
     ui_network:setParam('gamekey', self.m_gameKey)
