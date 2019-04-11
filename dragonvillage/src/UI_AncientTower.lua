@@ -200,7 +200,8 @@ function UI_AncientTower:initUI()
             end
             ind = ind + 1
         end
-        vars['totalRankLabel']:setString(Str(t_possible_reward['t_name']))
+        local rank_name = UI_AncientTowerRewardListItem.getNameStr(t_possible_reward)
+        vars['totalRankLabel']:setString(rank_name)
     -- 보상 정보가 없다면 - 로 세팅
     else
         vars['meRewardLabel1']:setString('-')

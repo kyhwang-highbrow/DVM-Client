@@ -25,7 +25,7 @@ function UI_AncientTowerRewardListItem:initUI()
     local vars = self.vars
     local t_reward_info = self.m_rewardInfo
     
-    local rank_name = self:getNameLabel()
+    local rank_name = self.getNameStr(t_reward_info)
     self.vars['rankLabel']:setString(rank_name)
 
     local l_reward = TableClass:seperate(t_reward_info['reward'], ',', true)
@@ -74,10 +74,9 @@ function UI_AncientTowerRewardListItem:refresh()
 end
 
 -------------------------------------
--- function getNameLabel
+-- function getNameStr
 -------------------------------------
-function UI_AncientTowerRewardListItem:getNameLabel()
-    local t_reward_info = self.m_rewardInfo
+function UI_AncientTowerRewardListItem.getNameStr(t_reward_info)
     local rank_name = t_reward_info['t_name']
     
     local rank_min = t_reward_info['rank_min']
