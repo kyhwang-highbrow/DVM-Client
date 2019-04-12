@@ -1547,7 +1547,11 @@ function UI_ReadySceneNew:click_saveBestTeam()
     local cur_stage_id = self.m_stageID
     local ok_btn_cb = function()
         local l_deck, formation, deck_name, leader, tamer_id = self.m_readySceneDeck:getCurDeckInfo()
-        g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, 0, cur_stage_id) -- l_deck, formation, leader, tamer_id, score  
+        g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, 0, cur_stage_id) -- l_deck, formation, leader, tamer_id, score
+        
+        -- 초기화된 점수 갱신
+        local best_score = g_settingDeckData:getAncientStageScore(self.m_stageID)
+        self.vars['towerScoreLabel']:setString(Str('{1}층 팀 최고점수 : {2}', g_ancientTowerData:getFloorFromStageID(self.m_stageID), comma_value(best_score)))
     end
 
     local cancel_btn_cb = function()
