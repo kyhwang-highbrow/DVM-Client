@@ -231,7 +231,6 @@ end
 -------------------------------------
 function UI_AncientTowerRankNew:request_Rank()
     local function finish_cb()
-        self.m_rankOffset = g_ancientTowerData.m_nGlobalOffset
         self:init_rankTableView()
         self:focusInRankReward()
     end
@@ -282,6 +281,12 @@ function UI_AncientTowerRankNew:init_rankTableView()
 
     node:removeAllChildren()
     my_node:removeAllChildren()
+    
+    -- 최상위 랭크 필터인 경우 포커스를 첫번째 랭킹에 맞춤
+    local is_top = false
+    if (self.m_rankOffset == 1 and self.m_rankType == 'world') then
+        is_top = true
+    end
 
     -- 내 순위
 	do
@@ -370,6 +375,11 @@ function UI_AncientTowerRankNew:init_rankTableView()
         end
     end
     
+
+    if (is_top) then
+        idx = 1
+    end
+    
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view:relocateContainerFromIndex(idx or 1)
     table_view:makeDefaultEmptyDescLabel('')
@@ -428,6 +438,12 @@ end
 -------------------------------------
 function UI_AncientTowerRankNew:init_clanRankingTableView()
     local vars = self.vars
+
+    -- 최상위 랭크 필터인 경우 포커스를 첫번째 랭킹에 맞춤
+    local is_top = false
+    if (self.m_rankOffset == 1) then
+        is_top = true
+    end
 
     -- 전체 순위
     do
@@ -526,6 +542,11 @@ function UI_AncientTowerRankNew:init_clanRankingTableView()
                 end
             end
         end
+
+        if (is_top) then
+            indx = 1
+        end
+
         table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         table_view:relocateContainerFromIndex(indx or 1)
 
