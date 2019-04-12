@@ -8,15 +8,19 @@ UI_GameResult_AncientTower = class(PARENT, {
 
     m_scoreList = 'list',
     m_animationList = 'list',
+
+    m_exScore = 'number',
 })
 
 -------------------------------------
 -- function click_againBtn
 -------------------------------------
-function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open, score_calc)
+function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open, score_calc, ex_score)
     self.m_staminaType = 'tower'
 
     local vars = self.vars
+    self.m_exScore = ex_score
+
     vars['againBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
 end
@@ -195,10 +199,10 @@ function UI_GameResult_AncientTower:setWorkList()
     self.m_workIdx = 0
 
     self.m_lWorkList = {}
---    table.insert(self.m_lWorkList, 'direction_showTamer')
+    -- table.insert(self.m_lWorkList, 'direction_showTamer')
 	table.insert(self.m_lWorkList, 'check_tutorial')
 	table.insert(self.m_lWorkList, 'check_masterRoad')
---    table.insert(self.m_lWorkList, 'direction_hideTamer')
+    -- table.insert(self.m_lWorkList, 'direction_hideTamer'
     table.insert(self.m_lWorkList, 'direction_showScore')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
@@ -553,12 +557,11 @@ function UI_GameResult_AncientTower:direction_checkBestScore()
     local stage_id = self.m_stageID
     local is_success = self.m_bSuccess
     if (is_success) then
-        -- 로컬 기록과 비교하여 더 높은 점수라면 로컬에 데이터 저장
-        if (self:isUpperScore(score)) then
-            local ui = UI_AncientTowerRenewBestTeam(score, stage_id)
+        -- 로컬 기록과 비교하여 더 높은 점수라면 팝업 띄워줌
+        if (self.m_exScore < score) then
+            local ui = UI_AncientTowerRenewBestTeam(stage_id, score, self.m_exScore)
             self.vars['ancientScoreGapPopupNode']:setVisible(true)
             self.vars['ancientScoreGapPopupNode']:addChild(ui.root)
-            self:saveAncientDeckData(score) 
         end
     end
     self:doNextWork()
@@ -626,28 +629,6 @@ function UI_GameResult_AncientTower:setTotalScoreLabel()
 end
 
 
--------------------------------------
--- function isUpperScore
--------------------------------------
-function UI_GameResult_AncientTower:isUpperScore(final_score)
-    local stage_id = self.m_stageID
-    local ex_score = g_settingDeckData:getAncientStageScore(stage_id) or 0
-    if (final_score > ex_score) then
-        return true
-    end
-
-    return false
-end
-
--------------------------------------
--- function saveAncientDeckData
--------------------------------------
-function UI_GameResult_AncientTower:saveAncientDeckData(final_score)
-    local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck('ancient')
-    local stage_id = self.m_stageID
-    g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, stage_id) -- l_deck, formation, leader, tamer_id, score
-end
-
 
 
 
@@ -660,15 +641,17 @@ local PARENT = UI
 -------------------------------------
 UI_AncientTowerRenewBestTeam = class(PARENT, {
         m_best_score = 'number',
+        m_ex_score = 'number',
         m_stage_id = 'number',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AncientTowerRenewBestTeam:init(best_score, stage_id)
+function UI_AncientTowerRenewBestTeam:init(stage_id, best_score, ex_score)
     local vars = self:load('tower_best_popup_02.ui')
     self.m_best_score = best_score
+    self.m_ex_score = ex_score
     self.m_stage_id = stage_id
 
 	-- 백키 지정
@@ -689,11 +672,12 @@ function UI_AncientTowerRenewBestTeam:initUI()
     local vars = self.vars
     
     local stage_id = self.m_stage_id
+    local ex_score = self.m_ex_score
     local stage = stage_id%100
+
     vars['stageLabel']:setString(Str('{1}층', stage))
     vars['dscLabel']:setString(Str('현재 팀이 {1}층 베스트 팀으로 저장되었습니다.', stage))
     
-    local ex_score = g_settingDeckData:getAncientStageScore(stage_id) or 0
     vars['scoreLabel1']:setString(comma_value(ex_score))
     vars['scoreLabel2']:setString(comma_value(self.m_best_score))
 

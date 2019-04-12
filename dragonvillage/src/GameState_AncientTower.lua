@@ -149,7 +149,10 @@ function GameState_AncientTower:makeResultUI(is_success)
     func_ui_result = function()
         local world = self.m_world
         local stage_id = world.m_stageID
-                
+        
+        -- finish 통신 직후, 베스트 팀 점수 로컬에 저장, 이전 기록 반환
+        local ex_score = self:saveBestTeamScore(stage_id, is_success, score_calc:getFinalScore())
+
         UI_GameResult_AncientTower(stage_id,
             is_success,
             self.m_fightTimer,
@@ -160,7 +163,8 @@ function GameState_AncientTower:makeResultUI(is_success)
             t_result_ref['drop_reward_list'],
             t_result_ref['secret_dungeon'],
             t_result_ref['content_open'],
-            score_calc)
+            score_calc,
+            ex_score)
     end
 
     -- 최초 실행
@@ -200,5 +204,30 @@ function GameState_AncientTower:doDirectionForIntermission()
 
     -- 인터미션 시작 시 획득하지 않은 아이템 삭제
     world:cleanupItem()
+end
+
+-------------------------------------
+-- function saveBestTeamScore
+-------------------------------------
+function GameState_AncientTower:saveBestTeamScore(stage_id, is_success, final_score)
+    local ex_score = 999999 -- 기존 기록을  디폴트로 높게 잡아 팝업뜨지 않도록 설정
+    if (not is_success) then
+        return ex_score
+    end
+    
+    -- 기존 기록보다 높은경우에만 기록
+    ex_score = tonumber(g_settingDeckData:getAncientStageScore(stage_id)) or 0
+    if (final_score <= ex_score) then
+        return ex_score
+    end
+
+    -- 성공했을 경우에만 기록
+    if (is_success) then
+        local l_deck, formation, deck_name, leader, tamer_id = g_deckData:getDeck('ancient')
+        g_settingDeckData:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, final_score, stage_id) -- l_deck, formation, leader, tamer_id, score
+        return ex_score
+    end
+
+    return ex_score 
 end
 
