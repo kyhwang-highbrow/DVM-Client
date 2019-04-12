@@ -445,12 +445,7 @@ function ServerData_AncientTower:getRankText()
         return Str('순위 없음')
     end
 
-    -- 100위 이상은 퍼센트로 표시
-    if (100 < season_rank) then
-        return string.format('%.2f%%', season_rate * 100)
-    else
-        return Str('{1}위', comma_value(season_rank))
-    end
+    return Str('{1}위', comma_value(season_rank))
 end
 
 -------------------------------------
