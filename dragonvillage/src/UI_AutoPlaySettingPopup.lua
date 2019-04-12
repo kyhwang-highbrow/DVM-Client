@@ -107,11 +107,14 @@ function UI_AutoPlaySettingPopup:initUI()
 	-- 고대의탑 분기처리
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
         if (not g_ancientTowerData:isAttrChallengeMode()) then
-		    vars['autoMenu4']:setVisible(true)
-		    vars['autoMenu5']:setVisible(false)
-		    vars['autoMenu3']:setVisible(false)
             vars['autoLoadBtn']:setVisible(true)
+        else
+            vars['autoLoadBtn']:setVisible(false)
+            vars['loadTeamLock']:setVisible(false)
         end
+        vars['autoMenu4']:setVisible(true)
+		vars['autoMenu5']:setVisible(false)
+		vars['autoMenu3']:setVisible(false)
 
     -- 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_ARENA) then
@@ -207,7 +210,19 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
     vars['autoStartBtn4'] = UIC_CheckBox(vars['autoStartBtn4'].m_node, vars['autoStartSprite4'], false)
     vars['autoStartBtn5'] = UIC_CheckBox(vars['autoStartBtn5'].m_node, vars['autoStartSprite5'], false)
     vars['autoLoadBtn'] = UIC_CheckBox(vars['autoLoadBtn'].m_node, vars['autoLoadSprite'], false) 
-
+    
+    -- 고대의 탑에서  승리시 다음 층-베스트팀 불러오기 버튼 연계
+    local function on_load_change_cb(checked)
+        if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+            if (not g_ancientTowerData:isAttrChallengeMode()) then
+                vars['loadTeamLock']:setVisible(not checked)
+                if (not checked) then
+                    vars['autoLoadBtn']:setChecked(false)
+                end 
+            end
+        end
+    end
+    vars['autoStartBtn4']:setChangeCB(on_load_change_cb)
 
 	-- farming
 	vars['autoStartBtn3']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
