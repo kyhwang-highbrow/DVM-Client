@@ -191,7 +191,8 @@ function GameState_EventGold:makeGameFinishParam(is_success)
     end
 
     do-- 클리어한 웨이브 수
-        t_param['clear_wave'] = self.m_world.m_waveMgr.m_maxWave
+        local clear_wave = self.m_world.m_waveMgr.m_maxWave -- @jhakim 190415 서버에서 clear_wave 비례해서 경험치값을 주기때문에 마이너스로 내려가지 않도록 수정 
+        t_param['clear_wave'] = math.max(clear_wave, 0)
     end
 
     -- 경험치 보정치 ( 실패했을 경우 사용 ) ex : 66% 인경우 66
