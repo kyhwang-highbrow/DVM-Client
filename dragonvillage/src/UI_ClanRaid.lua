@@ -80,7 +80,7 @@ function UI_ClanRaid:checkEnterEvent()
 
         g_clanRaidData.m_tClanRewardInfo = nil
     else
-        --self:openLeaderBoard()
+        self:openLeaderBoard()
     end
 end
 
