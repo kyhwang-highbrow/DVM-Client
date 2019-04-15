@@ -43,7 +43,14 @@ function UI_EggPopup:initUI()
 	-- 알 아이콘
 	local _res = table_item:getValue(egg_id, 'full_type')
     local egg_res = string.format('res/item/egg/%s_10/%s_10.vrp', _res, _res)
-	local egg_ani = MakeAnimator(egg_res)
+    local egg_animator = nil
+    
+    -- 10개 묶음 이미지가 없다면 1개짜리 이미지로 생성
+    if (not LuaBridge:isFileExist(egg_res)) then
+        egg_res = string.format('res/item/egg/%s/%s.vrp', _res, _res)
+    end
+
+    local egg_ani = MakeAnimator(egg_res)
 	egg_ani:changeAni('egg', true)
 	vars['eggNode']:addChild(egg_ani.m_node)
 end
