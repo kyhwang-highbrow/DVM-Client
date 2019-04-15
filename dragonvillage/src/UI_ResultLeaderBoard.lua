@@ -253,11 +253,11 @@ function UI_ResultLeaderBoard:startMoving()
 
     -- 게이지 위치 초기화
     vars['gaugeSprite']:setPositionX(ex_posX + 34)
-    vars['gaugeSprite']:setScale(0, 2)
+    vars['gaugeSprite']:setScale(0, 1)
     
     -- cur_pos까지 스프라이트 크기를 키우려면 : x스케일 = 원하는 길이 / 리소스 길이
     local target_scale = (cur_posX - ex_posX)/790
-    local action = cc.ScaleTo:create(2, target_scale, 2)
+    local action = cc.ScaleTo:create(2, target_scale, 1)
     vars['gaugeSprite']:runAction(action)
 
     self:setChangeInfo()
