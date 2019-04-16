@@ -245,13 +245,12 @@ function UI_HatcheryIncubateTab:refreshEggList()
         local _res = table_item:getValue(egg_id, 'full_type')
         local res = string.format('res/item/egg/%s/%s.vrp', _res, _res)
         if (v['count'] == 10) then
-            _res = _res .. '_10'
-            local _res_10 = string.format('res/item/egg/%s/%s.vrp', _res, _res)
+            local _res_10 = string.format('res/item/egg/%s_10/%s_10.vrp', _res, _res)
             -- 10개 묶음 이미지 파일이 있다면 그 이미지 파일을 사용
-            if (LuaBridge:isFileExist(file_name)) then
-                res = _res_10
+            if (LuaBridge:isFileExist(_res_10)) then
+                res = _res_10   
             end
-        end 
+        end
 
         local scale = 0.8
         local animator = MakeAnimator(res)
