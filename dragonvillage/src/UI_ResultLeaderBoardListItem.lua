@@ -1,4 +1,4 @@
-local PARENT = UI
+﻿local PARENT = UI
 
 -------------------------------------
 -- class UI_ResultLeaderBoardListItem
@@ -42,13 +42,13 @@ function UI_ResultLeaderBoardListItem:initUI()
 
     if (self.m_isMe) then
         vars['meNameLabel']:setString(Str(user_name))
-        vars['meScoreLabel']:setString(comma_value(score))
+        vars['meScoreLabel']:setString(comma_value(score)..Str('점'))
         vars['meRankLabel']:setString(comma_value(rank))
         local icon = self.m_mark:makeClanMarkIcon()
         vars['meMarkNode']:addChild(icon)
     else
         vars['nameLabel']:setString(Str(user_name))
-        vars['scoreLabel']:setString(comma_value(score))
+        vars['scoreLabel']:setString(comma_value(score)..Str('점'))
         vars['rankLabel']:setString(comma_value(rank))
         local icon = self.m_mark:makeClanMarkIcon()
         vars['markNode']:addChild(icon)

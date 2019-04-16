@@ -22,6 +22,7 @@ UI_ResultLeaderBoard = class(PARENT, {
         m_isPopup = 'boolean',
     })
 
+-- 앞/뒤 순위 정보 없을 때 자신의 점수에서 해당 값을 뺀 값을 뒤 순위 점수, 더한 점수를 앞 순위 점수로 사용
 local DEFAULT_GAP = 1000000
 
 -------------------------------------
@@ -102,6 +103,14 @@ function UI_ResultLeaderBoard:setCurrentInfo()
         end
     end
 
+    if (self.m_tLowerRank) then
+        -- 뒤 순위 유저
+        local ui_lower = UI_ResultLeaderBoardListItem(type, self.m_tLowerRank, false) -- type, t_data, is_me,
+        if (ui_lower) then
+            vars['lowerNode']:addChild(ui_lower.root)
+        end
+    end
+
     if (self.m_tMeRank) then
         -- 자기 자신
         local ui_me = UI_ResultLeaderBoardListItem(type, self.m_tMeRank, true)
@@ -110,13 +119,7 @@ function UI_ResultLeaderBoard:setCurrentInfo()
         end
     end
 
-    if (self.m_tLowerRank) then
-        -- 뒤 순위 유저
-        local ui_lower = UI_ResultLeaderBoardListItem(type, self.m_tLowerRank, false) -- type, t_data, is_me,
-        if (ui_lower) then
-            vars['lowerNode']:addChild(ui_lower.root)
-        end
-    end
+    vars['meNode']:setLocalZOrder(1)
 
     vars['scoreDifferNode']:setVisible(false)
     vars['rankDifferNode']:setVisible(false)
