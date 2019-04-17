@@ -532,6 +532,14 @@ function _UI_ClanRaidRankListItem:initUI()
         vars['mySprite']:setVisible(true)
     end
 
+    -- 순위 등락 표시
+    local cur_rank = struct_clan_rank:getRank()
+    local last_rank = struct_clan_rank:getLastRank()
+    local dis_rank = cur_rank - last_rank
+    local desc_dis_rank = string.format('(%s)', descChangedValue(dis_rank))
+     
+    vars['rankDifferentLabel']:setString(desc_dis_rank)
+
 end
 
 --@CHECK

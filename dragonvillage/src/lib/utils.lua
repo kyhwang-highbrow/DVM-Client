@@ -1222,3 +1222,29 @@ function descBlank(number)
     
     return comma_value(number)
 end
+
+-------------------------------------
+-- function descChangedValue
+-- @brief 값이 마이너스라면 ▼10, 0 이라면 -, 플러스라면 ▲10
+-------------------------------------
+function descChangedValue(number)
+    -- 숫자만 취급
+    if (type(number) ~= 'number') then
+       number = tonumber(number)
+    end
+
+    if (not number) then
+        return '-'
+    end
+    
+    local desc = ''
+    if (number < 0) then
+        desc = string.format('{@blue}▼{@default}%d', math.abs(number))
+    elseif (number > 0) then
+        desc = string.format('{@red}▲{@default}%d', math.abs(number))
+    else
+       desc = '-'
+    end
+
+    return desc
+end

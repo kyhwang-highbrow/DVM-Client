@@ -29,6 +29,9 @@ StructClanRank = class(PARENT, {
         cldg_Attr = 'table',
 
         rankChange = 'number',
+
+        -- 순위 등락 표시
+        last_lank = 'number',
     })
 
 local THIS = StructClanRank
@@ -99,10 +102,17 @@ function StructClanRank:getMasterNick()
 end
 
 -------------------------------------
--- function getMasterNick
+-- function getRank
 -------------------------------------
 function StructClanRank:getRank()
     return self['rank'] or 9999
+end
+
+-------------------------------------
+-- function getLastRank
+-------------------------------------
+function StructClanRank:getLastRank()
+    return self['last_lank'] or 9999
 end
 
 -------------------------------------
