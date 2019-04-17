@@ -266,7 +266,7 @@ function UI_HatcheryIncubateTab:refreshEggList()
 
         -- 10개 꾸러미 리소스 없을 경우 'x10' 라벨 붙임
         if (using_bundle_label) then
-            local sprite = self:makeBundleLabelImage()
+            local sprite = self.makeBundleLabelImage()
             animator.m_node:addChild(sprite)
             using_bundle_label = false
         end
@@ -302,7 +302,8 @@ end
 -------------------------------------
 -- function makeBundleLabelImage
 -------------------------------------
-function UI_HatcheryIncubateTab:makeBundleLabelImage()
-    local bundle_label_image = cc.Sprite:create('res/ui/icons/skill/developing.png')
+function UI_HatcheryIncubateTab.makeBundleLabelImage()
+    local bundle_label_image = cc.Sprite:create('res/ui/icons/item/egg_bundle.png')
+    bundle_label_image:setPosition(115, -145)
     return bundle_label_image
 end

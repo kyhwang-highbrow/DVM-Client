@@ -45,14 +45,21 @@ function UI_EggPopup:initUI()
     local egg_res = string.format('res/item/egg/%s_10/%s_10.vrp', _res, _res)
     local egg_animator = nil
     
-    -- 10개 묶음 이미지가 없다면 1개짜리 이미지로 생성
+    local bundle_img = nil
+    -- 10개 묶음 이미지가 없다면 1개짜리 이미지로
+    -- x10 라벨 붙여줌
     if (not LuaBridge:isFileExist(egg_res)) then
         egg_res = string.format('res/item/egg/%s/%s.vrp', _res, _res)
+        bundle_img = UI_HatcheryIncubateTab.makeBundleLabelImage()
     end
 
     local egg_ani = MakeAnimator(egg_res)
 	egg_ani:changeAni('egg', true)
 	vars['eggNode']:addChild(egg_ani.m_node)
+
+    if (bundle_img) then
+        egg_ani.m_node:addChild(bundle_img)
+    end
 end
 
 -------------------------------------
