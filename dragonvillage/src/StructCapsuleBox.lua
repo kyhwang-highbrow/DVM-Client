@@ -100,14 +100,22 @@ end
 function StructCapsuleBox:setPrice(price_str)
 	local l_price_list = {}
 	
+    -- @jhakim 190417 서버에서 만들어서 보내주는 문자열인데 서버에서도 x10 계산 해주고 있어서 서버/클라 아무 한 쪽에서 해도 상관이 없는 상태, 영웅 10뽑은 클라에서 문자열에 추가
+    -- price_str : gold;300000,cash;300 -> gold;300000,cash;300,gold10;3000000,cash10;3000
+    local price_str = price_str
+    if (self['box_key'] == 'second') then
+        price_str = price_str .. ',gold10;3000000,cash10;3000'
+    end
+
 	-- 여러가지 타입의 가격을 처리할수 있도록...
 	for _, each_price in ipairs(plSplit(price_str, ',')) do
 		local t_price = {}
 		local l_split = plSplit(each_price, ';')
 		t_price['type'] = l_split[1]
 		t_price['value'] = l_split[2]
-		table.insert(l_price_list, t_price)
-	end
+        
+        table.insert(l_price_list, t_price)
+    end
 
 	self['price'] = l_price_list
 end

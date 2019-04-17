@@ -96,6 +96,7 @@ function UI_CapsuleBox:initUI()
 			vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
 		end
 	end
+
 end
 
 -------------------------------------
@@ -113,6 +114,8 @@ function UI_CapsuleBox:initButton()
     vars['firstDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_1, 1, 10) end)
 	vars['secondDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 1) end)
 	vars['secondDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2) end)
+    vars['secondDrawBtn3']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 1, 10) end)
+    vars['secondDrawBtn4']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2, 10) end)
 
 	-- 새로고침
 	vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
@@ -307,6 +310,7 @@ function UI_CapsuleBox:executeDraw(box_key, idx, count, price_type)
 			self.m_isBusy = false
 		end)
 	end
+
 	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func, count)
 end
 -------------------------------------
@@ -347,7 +351,12 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
     
     -- 10회 뽑기면 구매 의사 한 번 더 물어보는 팝업 출력
     if (count == 10) then
-        local msg = Str('전설 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')
+        local msg = ''
+        if (box_key == BOX_KEY_1) then
+            msg = Str('전설 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')
+        else
+            msg = Str('영웅 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')        
+        end
         MakeSimplePopup(POPUP_TYPE.YES_NO, msg, execute_draw)
 	else
         execute_draw()
