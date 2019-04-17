@@ -239,6 +239,11 @@ function UI_HatcheryIncubateTab:refreshEggList()
         egg_picker:addEgg(data, ui)
     end
 
+    -- @brief using_bundle_label
+    -- 알이 10개 이상일 경우 10개 묶음 이미지가 사용되지만, 해당 이미지가 없는 알들의 경우는 'x10'라벨로 대체한다.
+    -- 이 경우에 해당 라벨을 사용할지 여부를 결정하는 변수
+    local using_bundle_label = false
+
     -- 알들 추가
     for i,v in ipairs(l_item_list) do
         local egg_id = tonumber(v['egg_id'])
@@ -249,6 +254,8 @@ function UI_HatcheryIncubateTab:refreshEggList()
             -- 10개 묶음 이미지 파일이 있다면 그 이미지 파일을 사용
             if (LuaBridge:isFileExist(_res_10)) then
                 res = _res_10   
+            else
+                using_bundle_label = true
             end
         end
 
@@ -256,6 +263,13 @@ function UI_HatcheryIncubateTab:refreshEggList()
         local animator = MakeAnimator(res)
         animator:setScale(scale)
         animator:changeAni('egg')
+
+        -- 10개 꾸러미 리소스 없을 경우 'x10' 라벨 붙임
+        if (using_bundle_label) then
+            local sprite = self:makeBundleLabelImage()
+            animator.m_node:addChild(sprite)
+            using_bundle_label = false
+        end
 
         local data = v
 
@@ -283,4 +297,12 @@ function UI_HatcheryIncubateTab:click_eggInfoBtn()
         local id = tonumber(focus_id)
         self.m_eggPicker:focusEggByID(id)
     end
+end
+
+-------------------------------------
+-- function makeBundleLabelImage
+-------------------------------------
+function UI_HatcheryIncubateTab:makeBundleLabelImage()
+    local bundle_label_image = cc.Sprite:create('res/ui/icons/skill/developing.png')
+    return bundle_label_image
 end
