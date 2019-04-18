@@ -40,13 +40,6 @@ end
 function UI_Package_New_Dragon:initUI()
     local vars = self.vars
 
-    -- 드래곤 노드 위치 정보 들고 있는 UI
-    self.m_ui_dragon_node = UI()
-    self.m_ui_dragon_node:load('package_new_dragon_02_item_02.ui')
-    if (vars['dragonNode']) then
-        vars['dragonNode']:addChild(self.m_ui_dragon_node.root)
-    end
-
     -- 첫번째 상품을 드래곤 뽑기권이라고 보고, 드래곤 뽑기권의 드래곤들 출력
     local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
     local item_id = self:getFirstProductItemId(struct_product)
@@ -66,9 +59,13 @@ function UI_Package_New_Dragon:setProduct()
         local item_id = self:getFirstProductItemId(struct_product)
         local ui_product = openPackage_New_Dragon(struct_product, item_id, product_cnt)
         if (item_id) and (ui_product) then
-            local product_node_name = string.format('productNode%s_%s', product_cnt, i)
-            if (vars[product_node_name]) then
-                vars[product_node_name]:addChild(ui_product.root)
+            local pos_ind = i
+            if (product_cnt == 3) then
+                pos_ind = pos_ind + 2
+            end
+            
+            if (vars['productNode'..pos_ind]) then
+                vars['productNode'..pos_ind]:addChild(ui_product.root)
             end
         end
     end
@@ -142,8 +139,8 @@ function UI_Package_New_Dragon:setDragonTicketDragons(item_id)
         dragon_animator:setTalkEnable(false)
         dragon_animator:setIdle()
 
-        if (self.m_ui_dragon_node.vars['dragonNode'.. i]) then
-            self.m_ui_dragon_node.vars['dragonNode'.. i]:addChild(dragon_animator.m_node)
+        if (self.vars['dragonNode'.. i]) then
+            self.vars['dragonNode'.. i]:addChild(dragon_animator.m_node)
         end
     end
 end

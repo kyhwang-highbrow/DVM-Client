@@ -113,12 +113,19 @@ function UI_Package_New_DragonBg:initButton()
    if (vars['dragonInfoBtn']) then
         vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
    end
+
+   if (vars['summonInfoBtn']) then
+        vars['summonInfoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+   end
 end
 
 function UI_Package_New_DragonBg:setDragonTicket()
     local vars = self.vars
     local item_id = self.m_premier_item_id
-
+    
+    vars['dragonMenu']:setVisible(false)
+    vars['summonMenu']:setVisible(true)
+    
     -- 소환권 아이템 카드
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
@@ -128,7 +135,10 @@ function UI_Package_New_DragonBg:setDragonTicket()
 end
 
 function UI_Package_New_DragonBg:setDragon()
-    --self:initUI_dragon()
+    local vars = self.vars
+
+    vars['dragonMenu']:setVisible(true)
+    vars['summonMenu']:setVisible(false)
 end
 
 -------------------------------------
