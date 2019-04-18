@@ -8,13 +8,13 @@ function openPackage_New_Dragon(struct_product, premier_item_id)
 
     local premier_item_type = TableItem:getItemType(premier_item_id)
 
-    -- 대표 상품이 뽑기권일 경우
+
     if (premier_item_type == 'summon') then
         ui_res = 'package_new_dragon_item_01.ui'
         ui_bg = UI_Package_New_DragonBg(struct_product, ui_res, premier_item_id) 
         ui_bg:setDragonTicket()
 
-    -- 대표 상품이 드래곤일 경우
+
     elseif (premier_item_type == 'dragon') then
         ui_res = 'package_new_dragon_item_02.ui'
         ui_bg = UI_Package_New_DragonBg(struct_product, ui_res, premier_item_id)
@@ -123,27 +123,13 @@ end
 -- function initUI_dragonTicket
 -- @breif 누적결제 최종 상품이 [드래곤 뽑기권]일 경우 세팅
 -------------------------------------
-function UI_Package_New_DragonBg:initUI_dragonTicket()
+function UI_Package_New_DragonBg:initUI_dragonTicket(item_id)
     local vars = self.vars
     local item_id = self.m_premier_item_id
 
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
     vars['itemNode']:addChild(ui_card.root)
-    
-    -- 드래곤 뽑기권에서 나올 드래곤들 출력
-    local dragon_list_str = TablePickDragon:getCustomList(item_id)
-    local dragon_list = plSplit(dragon_list_str, ',')
-    for i, dragon_id in ipairs(dragon_list) do
-        local dragon_animator = UIC_DragonAnimator()
-        dragon_animator:setDragonAnimator(tonumber(dragon_id), 3)
-        dragon_animator:setTalkEnable(false)
-        dragon_animator:setIdle()
-
-        if (vars['dragonNode'.. i]) then
-            vars['dragonNode'.. i]:addChild(dragon_animator.m_node)
-        end
-    end
 end
 
 -------------------------------------
@@ -152,15 +138,9 @@ end
 -------------------------------------
 function UI_Package_New_DragonBg:initUI_dragon()
     local vars = self.vars
-    
-    local did = TableItem:getDidByItemId(self.m_premier_item_id)
-    local dragon_animator = UIC_DragonAnimator()
-    dragon_animator:setDragonAnimator(tonumber(did), 3)
-    dragon_animator:setTalkEnable(false)
-    dragon_animator:setIdle()
-
-    vars['dragonNode']:addChild(dragon_animator.m_node)
 end
+
+
 
 -------------------------------------
 -- function click_buyBtn

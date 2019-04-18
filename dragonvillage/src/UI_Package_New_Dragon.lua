@@ -6,7 +6,7 @@ local PARENT = UI
 UI_Package_New_Dragon = class(PARENT,{
         m_data = 'table',
         m_pids = 'table',
-
+        m_ui_dragon_node = 'UI',
         m_package_name = 'string',
     })
 
@@ -30,7 +30,7 @@ function UI_Package_New_Dragon:init(package_name, is_popup)
     self:doAction(nil, false)
 
     self:initUI()
-	self:initButton(is_popup)
+    self:setProduct()
     self:refresh()
 end
 
@@ -40,34 +40,36 @@ end
 function UI_Package_New_Dragon:initUI()
     local vars = self.vars
 
-    local struct_product_left = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
-    local struct_product_right = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[2]))
-    
-
-    local product_id_left = self:getFirstProductId(struct_product_left)
-    local product_id_right = self:getFirstProductId(struct_product_right)
-
-    -- 왼쪽 상품 UI 세팅
-    do
-        if (not product_id_left) then
-            return
-        end
-
-        local ui_product_left = openPackage_New_Dragon(struct_product_left, product_id_left)   
-        if (ui_product_left) then
-            vars['productNode1']:addChild(ui_product_left.root)
-        end
+    -- 드래곤 노드 위치 정보 들고 있는 UI
+    self.m_ui_dragon_node = UI()
+    self.m_ui_dragon_node:load('package_new_dragon_02_item_02.ui')
+    if (vars['dragonNode']) then
+        vars['dragonNode']:addChild(self.m_ui_dragon_node.root)
     end
-    
-    -- 오른쪽 상품 UI 세팅
-    do
-        if (not product_id_right) then
-            return
-        end
-        
-        local ui_product_right = openPackage_New_Dragon(struct_product_right, product_id_right)
-        if (ui_product_right) then
-            vars['productNode2']:addChild(ui_product_right.root)
+
+    -- 첫번째 상품을 드래곤 뽑기권이라고 보고, 드래곤 뽑기권의 드래곤들 출력
+    local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
+    local item_id = self:getFirstProductItemId(struct_product)
+    self:setDragonDisplay(item_id)
+end
+
+-------------------------------------
+-- function setProduct
+-------------------------------------
+function UI_Package_New_Dragon:setProduct()
+    local vars = self.vars
+    local l_product = self.m_pids
+    local product_cnt = #l_product
+
+    for i, data in ipairs(l_product) do
+        local struct_product = g_shopDataNew:getTargetProduct(tonumber(l_product[i]))
+        local item_id = self:getFirstProductItemId(struct_product)
+        local ui_product = openPackage_New_Dragon(struct_product, item_id)
+        if (item_id) and (ui_product) then
+            local product_node_name = string.format('productNode%s_%s', product_cnt, i)
+            if (vars[product_node_name]) then
+                vars[product_node_name]:addChild(ui_product.root)
+            end
         end
     end
 end
@@ -78,7 +80,7 @@ end
 function UI_Package_New_Dragon:refresh()
     local vars = self.vars   
     
-    local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1])) -- 패키지 2개의 판매기간이 같다고 가정
+    local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1])) -- 패키지들의 판매기간이 같다고 가정
     -- 판매종료시간 있는 경우 표시
     local time_label = vars['timeLabel']
     local end_date = struct_product:getEndDateStr()
@@ -93,10 +95,10 @@ function UI_Package_New_Dragon:refresh()
 end
 
 -------------------------------------
--- function getFirstProductId
+-- function getFirstProductItemId
 -- @breif 패키지에서 UI로 보여줄 상품은 mail_content의 첫 번째 상품
 -------------------------------------
-function UI_Package_New_Dragon:getFirstProductId(struct_product)
+function UI_Package_New_Dragon:getFirstProductItemId(struct_product)
  
     if (not struct_product) then
         return nil 
@@ -112,3 +114,54 @@ function UI_Package_New_Dragon:getFirstProductId(struct_product)
     local l_product = plSplit(l_mail_content[1], ';')
     return tonumber(l_product[1])
 end
+
+-------------------------------------
+-- function setDragonDisplay
+-------------------------------------
+function UI_Package_New_Dragon:setDragonDisplay(item_id)
+    local item_type = TableItem:getItemType(item_id)
+    if (item_type == 'summon') then
+        self:setDragonTicketDragons(item_id)
+    end
+end
+
+
+-------------------------------------
+-- function setDragonTicketDragons
+-- @breif [드래곤 뽑기권]일 경우 세팅
+-------------------------------------
+function UI_Package_New_Dragon:setDragonTicketDragons(item_id)
+    local vars = self.vars
+    
+    -- 드래곤 뽑기권에서 나올 드래곤들 출력
+    local dragon_list_str = TablePickDragon:getCustomList(item_id)
+    local dragon_list = plSplit(dragon_list_str, ',')
+    for i, dragon_id in ipairs(dragon_list) do
+        local dragon_animator = UIC_DragonAnimator()
+        dragon_animator:setDragonAnimator(tonumber(dragon_id), 3)
+        dragon_animator:setTalkEnable(false)
+        dragon_animator:setIdle()
+
+        if (self.m_ui_dragon_node.vars['dragonNode'.. i]) then
+            self.m_ui_dragon_node.vars['dragonNode'.. i]:addChild(dragon_animator.m_node)
+        end
+    end
+end
+
+-------------------------------------
+-- function initUI_dragon
+-- @breif [드래곤]일 경우 세팅
+-------------------------------------
+function UI_Package_New_Dragon:initUI_dragon()
+    local vars = self.vars
+    
+    local did = TableItem:getDidByItemId(self.m_premier_item_id)
+    local dragon_animator = UIC_DragonAnimator()
+    dragon_animator:setDragonAnimator(tonumber(did), 3)
+    dragon_animator:setTalkEnable(false)
+    dragon_animator:setIdle()
+
+    vars['dragonNode']:addChild(dragon_animator.m_node)
+end
+
+

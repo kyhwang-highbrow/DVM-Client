@@ -33,7 +33,7 @@ function PackageManager:getTargetUI(package_name, is_popup)
         target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
     
     -- 특정 드래곤 판매 패키지 UI(ex : 뱃도치)
-    elseif (_package_name == 'package_new_dragon') then
+    elseif (_package_name == 'package_new_dragon' or _package_name == 'package_new_dragon_02') then
         target_ui = UI_Package_New_Dragon(_package_name, is_popup)
 
     -- 단계별 패키지 UI
