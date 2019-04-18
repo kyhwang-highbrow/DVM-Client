@@ -379,7 +379,7 @@ function TableDragon:getChanceUpDragonName(did)
 
     local attr = self:getDragonAttr(did)
     local name = self:getDragonName(did)
-    return string.format('{@%s}%s (%s)', attr, name, dragonAttributeName(attr))
+    return string.format('{@%s}%s\n(%s)', attr, name, dragonAttributeName(attr))
 end
 
 -------------------------------------

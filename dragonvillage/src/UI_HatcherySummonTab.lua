@@ -131,11 +131,41 @@ function UI_HatcherySummonTab:setChanceUpDragons()
 
     local total_cnt = #table.MapToList(map_target_dragons)
     local idx = 0
+    local desc_idx = 0 -- dragonName1 :드래곤 1마리 일 때, dragonName2, dragonName3 : 드래곤 2마리 일 때
     for k, did in pairs(map_target_dragons) do
         idx = idx + 1
-        local name = TableDragon:getChanceUpDragonName(did)
-        vars['dragonNameLabel'..idx]:setString(name)
+        desc_idx = idx
+        if (total_cnt == 2) then
+            desc_idx = desc_idx + 1
+        end
 
+        -- 드래곤 이름
+        local name = TableDragon:getChanceUpDragonName(did)
+        vars['dragonNameLabel'..desc_idx]:setString(name)
+
+        -- 드래곤 카드
+        do
+            local t_dragon_data = {}
+            t_dragon_data['did'] = did
+            t_dragon_data['evolution'] = 3
+            t_dragon_data['grade'] = 5
+            t_dragon_data['skill_0'] = 1
+            t_dragon_data['skill_1'] = 1
+            t_dragon_data['skill_2'] = 0
+            t_dragon_data['skill_3'] = 0
+
+            -- 드래곤 클릭 시, 도감 팝업
+            local func_tap = function()
+                UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true)    -- param : did, grade, evolution scale, ispopup
+            end
+
+            local dragon_card = UI_DragonCard(StructDragonObject(t_dragon_data))
+            dragon_card.root:setScale(0.66)
+            dragon_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap() end)
+            vars['dragonCard'..desc_idx]:addChild(dragon_card.root)
+        end
+
+        -- 드래곤 애니메이션
         local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, 3)
         vars['dragonNode'..idx]:addChild(animator.m_node)
 
