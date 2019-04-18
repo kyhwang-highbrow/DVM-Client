@@ -581,7 +581,12 @@ function UI_Lobby:initButton()
     vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
-    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end) -- 상점
+    
+    -- 상점
+    do
+        vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
+        self:setShopNoti()
+    end
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
     vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
 
@@ -1863,6 +1868,18 @@ function UI_Lobby:onRefresh_banner()
     for i,v in ipairs(l_node) do
         local _pos_y = pos_y + ((i-1) * interval)
         v:setPositionY(_pos_y)
+    end
+end
+
+-------------------------------------
+-- function setShopNoti
+-------------------------------------
+function UI_Lobby:setShopNoti()
+    local vars = self.vars
+    if (vars['shopDiaNoti']) then
+        vars['shopDiaNoti']:setVisible(true)
+        local shake_action = cca.buttonAppearShakeAction(8, 0.1)
+        vars['shopDiaNoti']:runAction(shake_action)
     end
 end
 

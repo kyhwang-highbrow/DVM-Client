@@ -232,6 +232,33 @@ function cca.buttonShakeAction(level, delay_time)
 end
 
 -------------------------------------
+-- function buttonAppearShakeAction
+-------------------------------------
+function cca.buttonAppearShakeAction(level, delay_time)
+    local level = level or 1
+    local delay_time = delay_time or 0.5
+    local angle = 5 * level
+    
+    local start_action = cc.RotateTo:create(0.05, angle)
+    local end_action = cc.EaseElasticOut:create(cc.RotateTo:create(0.5 * 2, 0), 0.1)
+    local delay = cc.DelayTime:create(delay_time)
+
+    local sequence = cc.Sequence:create(delay, start_action, end_action)
+
+    local move_action = cc.MoveTo:create(0.2, cc.p(0, 0))
+    local scale_action = cc.ScaleTo:create(0.5, 0)
+    local disappear = cc.Spawn:create(move_action, scale_action)
+    
+
+    local r_move_action = cc.MoveTo:create(0.2, cc.p(50, 50))
+    local r_scale_action = cc.ScaleTo:create(0.2, 0.5)
+    local appear = cc.Spawn:create(r_move_action, r_scale_action)
+    
+    local seq_action = cc.Sequence:create(sequence, sequence, disappear, sequence, sequence, appear)
+    return cc.RepeatForever:create(seq_action)
+end
+
+-------------------------------------
 -- function uiImpossibleAction
 -------------------------------------
 function cca.uiImpossibleAction(node, level)
