@@ -132,6 +132,15 @@ function UI_HatcherySummonTab:setChanceUpDragons()
     local total_cnt = #table.MapToList(map_target_dragons)
     local idx = 0
     local desc_idx = 0 -- dragonName1 :드래곤 1마리 일 때, dragonName2, dragonName3 : 드래곤 2마리 일 때
+
+    if (total_cnt == 2) then
+        vars['summonAttrMenu1']:setVisible(false)
+        vars['summonAttrMenu2']:setVisible(true)
+    else
+        vars['summonAttrMenu1']:setVisible(true)
+        vars['summonAttrMenu2']:setVisible(false)        
+    end
+
     for k, did in pairs(map_target_dragons) do
         idx = idx + 1
         desc_idx = idx
