@@ -2,26 +2,30 @@
 -------------------------------------
 -- function openPackage_New_Dragon
 -------------------------------------
-function openPackage_New_Dragon(struct_product, premier_item_id)
+function openPackage_New_Dragon(struct_product, premier_item_id, product_cnt)
     local ui_res = 'package_new_dragon_item_01.ui'
     local ui_bg = nil
 
-    local premier_item_type = TableItem:getItemType(premier_item_id)
-
-
-    if (premier_item_type == 'summon') then
+    -- 상품 갯수에 따라 다른 크기로 된 UI 사용
+    if (product_cnt == 2) then
         ui_res = 'package_new_dragon_item_01.ui'
-        ui_bg = UI_Package_New_DragonBg(struct_product, ui_res, premier_item_id) 
-        ui_bg:setDragonTicket()
-
-
-    elseif (premier_item_type == 'dragon') then
+    elseif (product_cnt == 3) then
         ui_res = 'package_new_dragon_item_02.ui'
-        ui_bg = UI_Package_New_DragonBg(struct_product, ui_res, premier_item_id)
-        ui_bg:setDragon()
     end
-     
-    return  ui_bg
+
+    ui_bg = UI_Package_New_DragonBg(struct_product, ui_res, premier_item_id)
+
+    -- 대표 상품이 소환권, 드래곤인지 구분
+    if (ui_bg) then
+        local premier_item_type = TableItem:getItemType(premier_item_id)
+        if (premier_item_type == 'summon') then
+            ui_bg:setDragonTicket()
+        elseif (premier_item_type == 'dragon') then
+            ui_bg:setDragon()   
+        end
+    end
+    
+    return ui_bg
 end
 
 
@@ -112,35 +116,20 @@ function UI_Package_New_DragonBg:initButton()
 end
 
 function UI_Package_New_DragonBg:setDragonTicket()
-    self:initUI_dragonTicket()
-end
-
-function UI_Package_New_DragonBg:setDragon()
-    self:initUI_dragon()
-end
-
--------------------------------------
--- function initUI_dragonTicket
--- @breif 누적결제 최종 상품이 [드래곤 뽑기권]일 경우 세팅
--------------------------------------
-function UI_Package_New_DragonBg:initUI_dragonTicket(item_id)
     local vars = self.vars
     local item_id = self.m_premier_item_id
 
+    -- 소환권 아이템 카드
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
-    vars['itemNode']:addChild(ui_card.root)
+    if (vars['itemNode']) then
+        vars['itemNode']:addChild(ui_card.root)
+    end
 end
 
--------------------------------------
--- function initUI_dragon
--- @breif 누적결제 최종 상품이 [드래곤]일 경우 세팅
--------------------------------------
-function UI_Package_New_DragonBg:initUI_dragon()
-    local vars = self.vars
+function UI_Package_New_DragonBg:setDragon()
+    --self:initUI_dragon()
 end
-
-
 
 -------------------------------------
 -- function click_buyBtn

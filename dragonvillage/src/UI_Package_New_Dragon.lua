@@ -64,7 +64,7 @@ function UI_Package_New_Dragon:setProduct()
     for i, data in ipairs(l_product) do
         local struct_product = g_shopDataNew:getTargetProduct(tonumber(l_product[i]))
         local item_id = self:getFirstProductItemId(struct_product)
-        local ui_product = openPackage_New_Dragon(struct_product, item_id)
+        local ui_product = openPackage_New_Dragon(struct_product, item_id, product_cnt)
         if (item_id) and (ui_product) then
             local product_node_name = string.format('productNode%s_%s', product_cnt, i)
             if (vars[product_node_name]) then
