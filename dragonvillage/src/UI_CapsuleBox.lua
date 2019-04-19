@@ -79,7 +79,9 @@ function UI_CapsuleBox:initUI()
 		for i, t_price in pairs(l_price_list) do
 			-- 가격 표시
 			local price = t_price['value']
-			vars[box_key .. 'PriceLabel' .. i]:setString(comma_value(price))
+            if (vars[box_key .. 'PriceLabel' .. i]) then
+			    vars[box_key .. 'PriceLabel' .. i]:setString(comma_value(price))
+            end
 
 			-- 가격 아이콘
 			local price_type = t_price['type']
@@ -92,8 +94,10 @@ function UI_CapsuleBox:initUI()
 			end
 		    price_icon = IconHelper:getPriceIcon(price_type)
 
-			vars[box_key .. 'PriceNode' .. i]:removeAllChildren(true)
-			vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
+            if (vars[box_key .. 'PriceNode' .. i]) then
+			    vars[box_key .. 'PriceNode' .. i]:removeAllChildren(true)
+			    vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
+            end
 		end
 	end
 
@@ -176,9 +180,9 @@ function UI_CapsuleBox:refresh()
     self:refresh_dailyCapsulePackage()
 
 
-    -- 1주년 스페셜 절대적인전설의 알 출현 이벤트 (1/28~1/29 양일간)
+    -- 1주년 스페셜 절대적인전설의 알 출현 이벤트 (5/1~5/2 양일간)
     local day = g_capsuleBoxData:getScheduleDay()
-    if (day == 20190128) or (day == 20190129) then
+    if (day == 20190501) or (day == 20190502) then
         vars['1stEventMenu']:setVisible(true)
     else
         vars['1stEventMenu']:setVisible(false)
@@ -329,8 +333,17 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
 		return
 	end
 
+    -- 10연뽑일 때 인덱스가 제각각이라 하드코딩 ex) 전설 10연뽑 보상 정보는 인덱스 2, 영웅 10연뽑 보상 정보는 인덱스 3,4
 	local t_price = struct_capsule_box:getPrice(idx)
-	
+    if (count == 10)  then
+        if (box_key == BOX_KEY_1) then
+            t_price = struct_capsule_box:getPrice(2)
+        else
+            t_price = struct_capsule_box:getPrice(idx+2)
+        end
+        t_price['type'] = string.gsub(t_price['type'], '10', '')
+    end
+
 	-- 가격 정보 없을 경우
 	if (not t_price) then
 		return
@@ -355,9 +368,9 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
         if (box_key == BOX_KEY_1) then
             msg = Str('전설 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')
         else
-            msg = Str('영웅 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')        
+            msg = Str('영웅 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')   
         end
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, execute_draw)
+        UI_ConfirmPopup(price_type, price, msg, execute_draw, nil)  
 	else
         execute_draw()
     end
