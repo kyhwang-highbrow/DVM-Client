@@ -895,3 +895,21 @@ function ServerData_Shop:getValidStepPackage()
 
     return 'package_step'
 end
+
+-------------------------------------
+-- function checkDiaSale
+-- @brief 다이아 할인상품 한개라도 판매중인지 확인
+-------------------------------------
+function ServerData_Shop:checkDiaSale()
+    local l_cash_product = self:getProductList('cash')
+    for pid, data in pairs(l_cash_product) do
+        local pid = tonumber(pid)
+        if (82011 <= pid) and (pid <= 82036) then
+            if (data:checkIsSale()) then
+                return true
+            end
+        end
+    end
+
+    return false
+end

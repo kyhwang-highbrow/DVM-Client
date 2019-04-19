@@ -1876,10 +1876,14 @@ end
 -------------------------------------
 function UI_Lobby:setShopNoti()
     local vars = self.vars
-    if (vars['shopDiaNoti']) then
-        vars['shopDiaNoti']:setVisible(true)
-        local shake_action = cca.buttonAppearShakeAction(8, 0.1)
-        vars['shopDiaNoti']:runAction(shake_action)
+    if (not g_shopDataNew) then
+        return
+    end
+
+    if (g_shopDataNew:checkDiaSale()) then
+        -- '다이아 할인 판매중'
+    else
+        -- '다이아 할인 판매 안함'
     end
 end
 

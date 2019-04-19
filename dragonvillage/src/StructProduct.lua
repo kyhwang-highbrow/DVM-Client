@@ -739,6 +739,41 @@ function StructProduct:getMaxBuyTermStr()
 end
 
 -------------------------------------
+-- function checkIsSale
+-- @brief 판매중인 상품인지 확인
+-- @brief 서버 title 통신에서 판매중인 상품만 던져주고 있긴하지만 end_date까지 검사
+-------------------------------------
+function StructProduct:checkIsSale()
+    if (not self.m_endDate) then
+        return ''
+    end
+
+    if (type(self.m_endDate) ~= 'string') then
+        return ''
+    end
+
+    local date_format = 'yyyy-mm-dd HH:MM:SS'
+    local parser = pl.Date.Format(date_format)
+    if (not parser) then
+        return ''
+    end
+    
+    local end_date = parser:parse(self.m_endDate)
+    if (not end_date) then
+        return ''
+    end
+
+    local cur_time =  Timer:getServerTime()
+    local end_time = end_date['time']
+    local time = (end_time - cur_time)
+    if (time < 0) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function isBuyAll
 -- @brief 구매 제한 해당 여부
 -------------------------------------
@@ -835,3 +870,4 @@ end
 function StructProduct:handlingMissingPayments(l_payload, cb_func, finish_cb)
     PaymentHelper.handlingMissingPayments(l_payload, cb_func, finish_cb)
 end
+
