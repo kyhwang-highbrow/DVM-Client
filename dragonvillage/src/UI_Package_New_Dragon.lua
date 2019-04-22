@@ -129,7 +129,7 @@ end
 -------------------------------------
 function UI_Package_New_Dragon:setDragonTicketDragons(item_id)
     local vars = self.vars
-    
+    --[[
     -- 드래곤 뽑기권에서 나올 드래곤들 출력
     local dragon_list_str = TablePickDragon:getCustomList(item_id)
     local dragon_list = plSplit(dragon_list_str, ',')
@@ -143,6 +143,7 @@ function UI_Package_New_Dragon:setDragonTicketDragons(item_id)
             self.vars['dragonNode'.. i]:addChild(dragon_animator.m_node)
         end
     end
+    --]]
 end
 
 -------------------------------------

@@ -98,6 +98,20 @@ function UI_Package_New_DragonBg:refresh()
 	    local price = struct_product:getPriceStr()
         vars['priceLabel']:setString(price)
     end
+
+    -- 상품이 드래곤이라면 노드에 해당 드래곤 출력
+    local item_id = self.m_premier_item_id
+    local dragon_id = TableItem:getDidByItemId(item_id)
+    if (dragon_id ~= '') then
+        local dragon_animator = UIC_DragonAnimator()
+        dragon_animator:setDragonAnimator(tonumber(dragon_id), 3)
+        dragon_animator:setTalkEnable(false)
+        dragon_animator:setIdle()
+        
+        if (self.vars['dragonNode']) then
+            self.vars['dragonNode']:addChild(dragon_animator.m_node)
+        end
+    end
 end
 
 -------------------------------------
