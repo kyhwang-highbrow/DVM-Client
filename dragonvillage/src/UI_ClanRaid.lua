@@ -79,41 +79,6 @@ function UI_ClanRaid:checkEnterEvent()
         UI_ClanRaidRankingRewardPopup(t_info, is_clan)
 
         g_clanRaidData.m_tClanRewardInfo = nil
-    else
-        self:openLeaderBoard()
-    end
-end
-
--------------------------------------
--- function openLeaderBoard
--------------------------------------
-function UI_ClanRaid:openLeaderBoard()
-    local check_never_show = g_settingData:get('event_full_popup', 'clan_raid_leader')
-
-    local t_upper, t_me, t_lower = g_clanRaidData:getCloseRankers()
-    
-    -- 플레이 하지 않아 랭킹 정보가 없을 경우 팝업 뜨지 않음
-    if (not t_me) then
-        return
-    end
-
-    if (not check_never_show) then
-        local ui_leader_board = UI_ResultLeaderBoard('clan_raid', false, false) -- type, is_move, is_popup
-        ui_leader_board:setScore(0, t_me['score'])
-        ui_leader_board:setRatio(1, t_me['rate'])
-        ui_leader_board:setRank(1, t_me['rank'])
-        ui_leader_board:setRanker(t_upper, t_me, t_lower)
-        ui_leader_board:setCurrentInfo()
-        --ui_leader_board:startMoving()
-
-        local check_cb = function()
-            local cur_time = Timer:getServerTime() 
-            g_settingData:applySettingData(true, 'event_full_popup', 'clan_raid_leader')
-        end
-
-         -- 체크 박스 붙어있는 이벤트 풀팝업에 붙여서 사용
-        local ui_full_popup = UI_EventFullPopup('', ui_leader_board, check_cb) -- popup_key, target_ui, m_check_cb
-        ui_full_popup:openEventFullPopup()
     end
 end
 
