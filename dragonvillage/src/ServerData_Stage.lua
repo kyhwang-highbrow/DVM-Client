@@ -468,6 +468,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
             ui_network:setParam('edoid4', l_deck[4])
             ui_network:setParam('edoid5', l_deck[5])
             ui_network:setParam('tamer', tamer_id)
+            ui_network:setParam('leader', leader)
             ui_network:setParam('formation', formation)
         end
     end
