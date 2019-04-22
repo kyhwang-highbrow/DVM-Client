@@ -533,7 +533,7 @@ function _UI_ClanRaidRankListItem:initUI()
     -- 순위가 없을 때는 표시하지 않음
     if (cur_rank ~= -1) then
         local last_rank = struct_clan_rank:getLastRank()
-        local dis_rank = cur_rank - last_rank
+        local dis_rank = last_rank - cur_rank
         gap_str = descChangedValue(dis_rank)
         if (gap_str ~= '') then
             gap_str = '\n' .. gap_str
