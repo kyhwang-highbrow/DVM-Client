@@ -65,7 +65,9 @@ function UI_GameResult_AncientTower:setAnimationData()
     --table.insert(score_list, score_calc:calcAcitveSkillBonus())
     table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
-
+    -- 역대 내 최고 점
+	local best_score = g_ancientTowerData.m_challengingInfo.m_myHighScore or 0
+    table.insert(score_list, best_score or 0)
     -- 지난 점수와의 차이 표시
     local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myScore
     table.insert(score_list, change_score or 0)
@@ -98,6 +100,8 @@ function UI_GameResult_AncientTower:setAnimationData()
 
     table.insert(var_list, 'totalLabel1')
     table.insert(var_list, 'totalLabel2')
+    table.insert(var_list, 'totalLabel3')
+    table.insert(var_list, 'totalLabel4')
     table.insert(var_list, 'scoreChangeLabel')
 
     -- 현재 약화 등급 
@@ -234,6 +238,9 @@ function UI_GameResult_AncientTower:makeScoreAnimation(is_attr)
     score_node:setVisible(true)
     total_node:setVisible(true)
     vars['scoreChangeLabel']:setVisible(not is_attr)
+    vars['totalLabel3']:setVisible(not is_attr)
+    vars['totalLabel3']:setString(Str('역대 내 최고 점수'))
+    vars['totalLabel4']:setVisible(not is_attr)
 
     doAllChildren(score_node,   function(node) node:setOpacity(0) end)
     doAllChildren(total_node,   function(node) node:setOpacity(0) end)
@@ -273,6 +280,7 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     -- 라벨일 경우 넘버링 애니메이션 
     local number_func
     number_func = function()
+
         -- 순위 변동 표시 나타내는 라벨은 다르게 동작해서 하드코딩
         if (idx == #node_list) then
             local ind = #score_list
