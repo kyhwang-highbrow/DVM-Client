@@ -117,6 +117,18 @@ function UI_Product:initUI()
 
     -- 상품명, 설명 등의 위치와 크기 조정
     self:adjustLayout()
+
+    local struct_product = self.m_structProduct
+    local product_id = struct_product:getProductID()
+    if (82011 <= product_id) and (product_id <= 82036) then
+        vars['eventSprite']:setVisible(true)
+        vars['limitNoti']:setVisible(true)
+        local shake_action = cca.buttonShakeAction(10, 0.5)
+        cca.runAction(vars['limitNoti'], shake_action)
+    else
+        vars['eventSprite']:setVisible(false)
+        vars['limitNoti']:setVisible(false)        
+    end
 end
 
 -------------------------------------

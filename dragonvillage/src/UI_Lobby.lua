@@ -1881,9 +1881,9 @@ function UI_Lobby:setShopNoti()
     end
 
     if (g_shopDataNew:checkDiaSale()) then
-        -- '다이아 할인 판매중'
+        vars['shopBonusNoti']:setVisible(true)
     else
-        -- '다이아 할인 판매 안함'
+        vars['shopBonusNoti']:setVisible(false)
     end
 end
 

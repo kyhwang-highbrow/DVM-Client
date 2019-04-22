@@ -904,6 +904,7 @@ function ServerData_Shop:checkDiaSale()
     local l_cash_product = self:getProductList('cash')
     for pid, data in pairs(l_cash_product) do
         local pid = tonumber(pid)
+        -- @jhakim 190422 다이아할인상품 목록을 하드코딩
         if (82011 <= pid) and (pid <= 82036) then
             if (data:checkIsSale()) then
                 return true
