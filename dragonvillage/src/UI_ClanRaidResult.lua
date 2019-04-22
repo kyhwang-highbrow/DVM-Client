@@ -403,7 +403,10 @@ function UI_ClanRaidResult:direction_end()
     vars['statsBtn']:setVisible(true)
 
     local func_show_leader = function()
-        self:showLeaderBoard()
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        if (not struct_raid:isTrainingMode()) then
+          self:showLeaderBoard()
+        end
     end
 
     local reward_info = self.m_data['mail_reward_list'] or {}
