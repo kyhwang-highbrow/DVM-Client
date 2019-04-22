@@ -291,6 +291,9 @@ function UI_AncientTowerRankNew:init_rankTableView()
     -- 내 순위
 	do
         local ui = UI_AncientTowerRankListItemNew(g_ancientTowerData.m_playerUserInfo)
+        local rank_str = g_ancientTowerData:getRankText()
+        local rank_rate = g_ancientTowerData.m_nTotalRate or 0
+        ui.vars['rankingLabel']:setString(string.format('%s\n(%d', Str(rank_str), rank_rate*100) .. '%)') -- 10위(4%)
         my_node:addChild(ui.root)
 	end
 
