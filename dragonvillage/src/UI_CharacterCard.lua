@@ -346,6 +346,27 @@ function UI_CharacterCard:setReadySpriteVisible(visible)
 end
 
 -------------------------------------
+-- function setLeaderIconSpriteVisible
+-- @brief 리더 표시
+-- @brief spriteframe에 없는 아이콘이므로, 이 아이콘만 생성함
+-------------------------------------
+function UI_CharacterCard:setLeaderIconSpriteVisible(visible)
+    -- 리더 아이콘
+    local res = 'res/ui/frames/leader_0101.png'
+    local leader_icon = IconHelper:getIcon(res)
+    
+    -- 리더 라벨
+    local leader_label = cc.Label:createWithTTF(Str('리더'), 'res/font/common_font_01.ttf', 24, 0)
+    leader_label:setColor(cc.c3b(187, 255, 2))
+    leader_label:setPosition(35, 15)
+    
+    leader_icon:addChild(leader_label)
+    leader_icon:setPosition(30, 60)
+    
+    self.vars['clickBtn']:addChild(leader_icon, 99)
+end
+
+-------------------------------------
 -- function setTeamReadySpriteVisible
 -- @brief 출전중 표시 (클랜던전 전용 - 1,2 공격대)
 -------------------------------------

@@ -81,7 +81,7 @@ function UI_AncientTowerBestDeckListItem:initUI()
                 
                 -- 리더로 저장되어 있다면 표시
                 if (ind == data['leader']) then
-                    ui_dragon_card:setLeaderSpriteVisible(true)
+                    ui_dragon_card:setLeaderIconSpriteVisible(true)
                 end
                 vars['dragonNode'..ind]:addChild(ui_dragon_card.root)
             end
