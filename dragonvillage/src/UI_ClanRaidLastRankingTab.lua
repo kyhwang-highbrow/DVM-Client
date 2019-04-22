@@ -246,6 +246,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
             -- 클리어한 보스 레벨          
             ui.vars['bossLabel']:setVisible(false)
             ui.vars['rankDifferentLabel']:setVisible(true)
+            ui.vars['rankDifferentLabel']:setString('')
 
             if (data['cldg_last_info']) then
                 if (data['cldg_last_info'][attr]['change_rank']) then
@@ -253,7 +254,7 @@ function UI_ClanRaidLastRankingTab:makeAttrTableView(attr)
                     local rank_dis_str = descChangedValue(rank_dis)
 
                     ui.vars['rankDifferentLabel']:setString(rank_dis_str)
-                end
+                end   
             end
         end
        

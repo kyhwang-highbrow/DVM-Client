@@ -511,11 +511,6 @@ function _UI_ClanRaidRankListItem:initUI()
     local clan_score = struct_clan_rank:getClanScore()
     vars['scoreLabel']:setString(clan_score)
     
-    -- 등수 
-    local clan_rank = struct_clan_rank:getRank()
-    local rank = clan_rank < 0 and '-' or string.format('%d', clan_rank)
-    vars['rankLabel']:setString(rank)
-
     -- 진행중 단계
     local lv = struct_clan_rank['cdlv'] or 1
     vars['bossLabel']:setString(string.format('Lv.%d', lv))
@@ -532,14 +527,25 @@ function _UI_ClanRaidRankListItem:initUI()
         vars['mySprite']:setVisible(true)
     end
 
-    -- 순위 등락 표시
+      -- 순위 등락 표시
     local cur_rank = struct_clan_rank:getRank()
-    local last_rank = struct_clan_rank:getLastRank()
-    local dis_rank = cur_rank - last_rank
-    local desc_dis_rank = string.format('(%s)', descChangedValue(dis_rank))
-     
-    vars['rankDifferentLabel']:setString(desc_dis_rank)
-
+    local gap_str = ''
+    -- 순위가 없을 때는 표시하지 않음
+    if (cur_rank ~= -1) then
+        local last_rank = struct_clan_rank:getLastRank()
+        local dis_rank = cur_rank - last_rank
+        gap_str = descChangedValue(dis_rank)
+        if (gap_str ~= '') then
+            gap_str = '\n' .. gap_str
+        end
+    end
+    
+    -- 등수 
+    local clan_rank = struct_clan_rank:getRank()
+    local rank = clan_rank < 0 and '-' or string.format('%d', clan_rank)
+    local desc_rank = rank .. gap_str
+    vars['rankLabel']:setString(desc_rank)
+    vars['rankDifferentLabel']:setVisible(false)
 end
 
 --@CHECK

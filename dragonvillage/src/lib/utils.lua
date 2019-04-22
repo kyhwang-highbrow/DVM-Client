@@ -1234,7 +1234,7 @@ function descChangedValue(number)
     end
 
     if (not number) then
-        return '-'
+        return ''
     end
     
     local desc = ''
@@ -1243,7 +1243,7 @@ function descChangedValue(number)
     elseif (number > 0) then
         desc = string.format('{@red}▲{@default}%d', math.abs(number))
     else
-       desc = '-'
+       desc = ''
     end
 
     return desc
