@@ -459,7 +459,16 @@ function UI_ClanRaidTrainingPopup:click_applyBtn()
     
     g_clanRaidData.m_structClanRaid = training_info
 
-    UI_ReadySceneNew(selected_stage_id, nil) 
+    -- UI_ReadySceneNew UI가 열려있을 경우, 닫고 다시 연다
+    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ReadySceneNew')
+    if (is_opend == true) then
+        ui:close()
+        UI_ReadySceneNew(selected_stage_id, nil)
+        self:close()
+    else
+        UI_ReadySceneNew(selected_stage_id, nil)
+    end
+     
 end
 
 --@CHECK

@@ -1406,7 +1406,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_showTrainingBtn()
-	self:close()
+	UI_ClanRaidTrainingPopup()
 end
 
 -------------------------------------
