@@ -1521,6 +1521,9 @@ function UI_ReadySceneNew:click_loadBestTeam()
         return
     end
     
+    -- 기존 덱에 있던 드래곤 내보냄
+    self:click_removeBtn()
+
     local formation = t_data['formation']
     local deckname = t_data['deckname']
     local leader = t_data['leader']
