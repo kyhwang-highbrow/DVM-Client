@@ -48,7 +48,7 @@ function UI_AncientTowerBestDeckPopup:initUI()
     l_deck = table.MapToList(l_deck)
 
     local sort_func = function(a,b)
-        return tonumber(a['stage_id']) < tonumber(b['stage_id'])
+        return tonumber(a['stage_id']) > tonumber(b['stage_id'])
     end
 
     table.sort(l_deck, sort_func)

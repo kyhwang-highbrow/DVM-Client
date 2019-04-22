@@ -482,25 +482,13 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_GameResult_AncientTower:click_nextBtn()
-    local stage_id = self.m_stageID
-    local use_scene = true
-    local next_stage_id = g_stageData:getNextStage(stage_id)
-        
-    local function close_cb()
-        g_ancientTowerData:checkAttrTowerAndGoStage(next_stage_id)
-    end
-
-    local function goto_cb()
-        UINavigator:goTo('battle_ready', next_stage_id, close_cb)
-    end
-
-    -- 클리어 정보, 도전 정보 필요해서 info 호출 후 이동
-    local attr = g_attrTowerData:getSelAttr()
-    if (attr) then
-        g_attrTowerData:request_attrTowerInfo(attr, next_stage_id, goto_cb)
-    else
-        g_ancientTowerData:request_ancientTowerInfo(next_stage_id, goto_cb)
-    end
+    if (self:blockButtonUntilWorkDone()) then
+		return
+	end
+    local game_mode = g_gameScene.m_gameMode
+    local dungeon_mode = g_gameScene.m_dungeonMode
+    local condition = self.m_stageID
+    QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
 end
 
 -------------------------------------
