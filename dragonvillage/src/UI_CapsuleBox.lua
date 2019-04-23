@@ -505,7 +505,7 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward ,idx)
     local did = table_item:getDidByItemId(item_id)
     -- 도감 팝업 출력
     func_tap_dragon_card = function()
-        UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true)    -- param : did, grade, evolution scale, ispopup
+        UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)    -- param : did, grade, evolution scale, ispopup
     end
 	return ui
 end

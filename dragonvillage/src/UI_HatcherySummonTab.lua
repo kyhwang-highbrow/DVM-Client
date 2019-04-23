@@ -165,7 +165,7 @@ function UI_HatcherySummonTab:setChanceUpDragons()
 
             -- 드래곤 클릭 시, 도감 팝업
             local func_tap = function()
-                UI_BookDetailPopup.openWithFrame(did, 5, 1, 0.8, true)    -- param : did, grade, evolution scale, ispopup
+                UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)    -- param : did, grade, evolution scale, ispopup
             end
 
             local dragon_card = UI_DragonCard(StructDragonObject(t_dragon_data))

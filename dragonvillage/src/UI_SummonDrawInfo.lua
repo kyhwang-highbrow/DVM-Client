@@ -61,7 +61,7 @@ function UI_SummonDrawInfo:initUI()
     local make_func = function(did)
         local card_ui = MakeSimpleDragonCard(tonumber(did))
         card_ui.root:setScale(0.66)
-        card_ui.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(tonumber(did), nil, 3, 0.8, true) end)      
+        card_ui.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(tonumber(did), nil, 1, 0.8, true) end)      
         return card_ui
     end
 
