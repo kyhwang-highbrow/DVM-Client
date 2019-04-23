@@ -737,17 +737,18 @@ function ServerData_AncientTower:getPossibleReward_score()
         local rank_max = tonumber(data['rank_max'])
 
         local score_min = tonumber(data['score_min'])
+
         -- 순위 필터
         if (rank_min and rank_max) then
             if (rank_min <= my_rank) and (my_rank <= rank_max) then
-                if (my_score > data['score_min']) then
+                if (my_score >= data['score_min']) then
                     return data, i
                 end
             end
 
         -- 점수 필터
         elseif (data['score_min']) then
-            if (my_score > data['score_min']) then
+            if (my_score >= data['score_min']) then
                 return data, i
             end
         end

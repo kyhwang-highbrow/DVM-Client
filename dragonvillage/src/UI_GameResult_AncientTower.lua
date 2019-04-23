@@ -65,9 +65,15 @@ function UI_GameResult_AncientTower:setAnimationData()
     --table.insert(score_list, score_calc:calcAcitveSkillBonus())
     table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
+    
     -- 역대 내 최고 점
+    local cur_score = score_calc:getFinalScore()
 	local best_score = g_ancientTowerData.m_challengingInfo.m_myHighScore or 0
+    if (cur_score > best_score) then
+        best_score = cur_score
+    end
     table.insert(score_list, best_score or 0)
+
     -- 지난 점수와의 차이 표시
     local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myScore
     table.insert(score_list, change_score or 0)
@@ -239,7 +245,7 @@ function UI_GameResult_AncientTower:makeScoreAnimation(is_attr)
     total_node:setVisible(true)
     vars['scoreChangeLabel']:setVisible(not is_attr)
     vars['totalLabel3']:setVisible(not is_attr)
-    vars['totalLabel3']:setString(Str('역대 내 최고 점수'))
+    vars['totalLabel3']:setString(Str('역대 내 최고점수'))
     vars['totalLabel4']:setVisible(not is_attr)
 
     doAllChildren(score_node,   function(node) node:setOpacity(0) end)
