@@ -221,7 +221,7 @@ function UI_CapsuleScheduleListItem:makeItemCard(reward_name, node_name)
     
     -- 마지막에 추가되는 일정 예고 아이템 (물음표 표시)
     if (self.m_scheduleData['advance_notice']) then
-        is_valid_item = false
+        return
     end
 
 
