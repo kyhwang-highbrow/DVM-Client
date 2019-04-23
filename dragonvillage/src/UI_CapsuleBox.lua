@@ -366,9 +366,9 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx, count)
     if (count == 10) then
         local msg = ''
         if (box_key == BOX_KEY_1) then
-            msg = Str('전설 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')
+            msg = string.format('%s %s %s', Str('영웅 뽑기'), Str('{1}회', 10), Str('진행하시겠습니까?'))
         else
-            msg = Str('영웅 10회 뽑기') .. ' ' .. Str('진행하시겠습니까?')   
+            msg = string.format('%s %s %s', Str('전설 뽑기'), Str('{1}회', 10), Str('진행하시겠습니까?'))
         end
         UI_ConfirmPopup(price_type, price, msg, execute_draw, nil)  
 	else
