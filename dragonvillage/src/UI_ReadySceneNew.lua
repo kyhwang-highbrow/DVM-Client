@@ -1540,6 +1540,9 @@ function UI_ReadySceneNew:click_loadBestTeam()
 
     -- 덱 세팅
     self.m_readySceneDeck:setDeck(l_deck, formation, deckname, leader, tamer_id, nil)
+
+    -- 정렬
+    self:apply_dragonSort()
 end
 
 -------------------------------------
