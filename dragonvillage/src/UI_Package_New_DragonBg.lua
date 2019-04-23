@@ -71,7 +71,8 @@ function UI_Package_New_DragonBg:refresh()
         for idx, data in ipairs(l_item_list) do
             local name = TableItem:getItemName(data['item_id'])
             local cnt = data['count']
-            item_str = item_str .. Str('{1} {2}개', name, comma_value(cnt)) .. '\n'
+            local get_label_color = self:getLabelColor(data['item_id'])
+            item_str = item_str .. get_label_color .. Str('{1} {2}개', name, comma_value(cnt)) .. '\n'
         end
 
         local label = vars['itemLabel']
@@ -188,4 +189,17 @@ function UI_Package_New_DragonBg:click_infoBtn()
     elseif (premier_item_type == 'summon') then
         UI_SummonDrawInfo(self.m_premier_item_id, false) -- item_id, is_draw
     end
+end
+
+-------------------------------------
+-- function getLabelColor
+-------------------------------------
+function UI_Package_New_DragonBg:getLabelColor(item_id)
+    local label_color = '{@default}'
+    local did = TableItem:getDidByItemId(item_id)
+    if (did == '') then
+        return label_color
+    end
+    local attr = TableDragon:getDragonAttr(did)
+    return string.format('{@%s}', attr)
 end
