@@ -341,7 +341,7 @@ function UI_DragonMasteryNew:getDragonMaterialList(doid)
 
     -- 특성 재료 타입, 보유량, 아이디
     local material_name = 'mastery_material_0' .. (dragon_obj:getBirthGrade() - 1) -- 해당 희귀도의 특성재료 
-    local mastery_material_cnt = g_userData:get(material_name)
+    local mastery_material_cnt = g_userData:get(material_name) or 0
     local material_id = TableItem:getItemIDFromItemType(material_name)
 
     -- 특성 재료 보유 갯수 만큼 리스트에 추가
