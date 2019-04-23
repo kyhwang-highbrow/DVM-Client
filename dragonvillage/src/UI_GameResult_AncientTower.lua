@@ -323,7 +323,7 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
         node:setNumber(score, true)
 
         -- 최종 점수 애니메이션
-        if (idx == #node_list - 1) then
+        if (idx == #node_list - 3) then -- 마지막에서 3번째 노드가 총 점수 노드
             self:setTotalScoreLabel()
             self.m_totalScore:setNumber(score, is_ani)        
         end
