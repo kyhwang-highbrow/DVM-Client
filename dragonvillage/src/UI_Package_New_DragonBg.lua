@@ -110,6 +110,7 @@ function UI_Package_New_DragonBg:refresh()
         
         if (self.vars['dragonNode']) then
             self.vars['dragonNode']:addChild(dragon_animator.m_node)
+            self.vars['dragonNodeMenu']:setVisible(true)
         end
     end
 end
@@ -183,7 +184,7 @@ function UI_Package_New_DragonBg:click_infoBtn()
     local did = TableItem:getDidByItemId(self.m_premier_item_id)
 
 	if (premier_item_type == 'dragon') then
-        UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true)    -- param : did, grade, evolution scale, ispopup
+        UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)    -- param : did, grade, evolution scale, ispopup
     elseif (premier_item_type == 'summon') then
         UI_SummonDrawInfo(self.m_premier_item_id, false) -- item_id, is_draw
     end
