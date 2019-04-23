@@ -250,7 +250,7 @@ function UI_ResultLeaderBoard:startMoving()
     end
 
     -- 내 노드 움직임
-    local action = cc.MoveTo:create(2, cc.p(cur_posX, 0))
+    local action = cc.EaseOut:create(cc.MoveTo:create(2, cc.p(cur_posX, 0)), 2)
     vars['meNode']:setPositionX(ex_posX)
     vars['meNode']:runAction(action)
 
@@ -260,7 +260,7 @@ function UI_ResultLeaderBoard:startMoving()
     
     -- cur_pos까지 스프라이트 크기를 키우려면 : x스케일 = 원하는 길이 / 리소스 길이
     local target_scale = (cur_posX - ex_posX)/790
-    local action = cc.ScaleTo:create(2, target_scale, 1)
+    local action = cc.EaseOut:create(cc.ScaleTo:create(2, target_scale, 1), 2)
     vars['gaugeSprite']:runAction(action)
 
     self:setChangeInfo()
