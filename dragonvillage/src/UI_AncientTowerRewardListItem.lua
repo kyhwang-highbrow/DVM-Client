@@ -1,5 +1,18 @@
 ﻿local PARENT = class(UI, ITableViewCell:getCloneTable())
 
+
+--[[
+        ['t_name']='181위~200위';
+        ['ratio_min']='';
+        ['rank_min']=181;
+        ['ratio_max']='';
+        ['rank_id']=24;
+        ['score_min']=190000;
+        ['week']=1;
+        ['rank_max']=200;
+        ['reward']='gold;400000,cash;4000,ancient;230';
+--]]
+
 -------------------------------------
 -- class UI_AncientTowerRewardListItem
 -------------------------------------
@@ -58,7 +71,22 @@ function UI_AncientTowerRewardListItem:initUI()
             vars['meSprite']:setVisible(true)
         end
     end
-   
+ 
+ 
+    -- rank_min 값이 없는 경우 : 점수로 보상지급
+    -- rank_min 값이 있는 경우 : 순위로 보상지급, 유저가 190000점 이하면 잠궈놓는다   
+    local total_score =  math_max(g_ancientTowerData.m_nTotalScore, 0)
+
+    if (vars['lockSprite']) then
+        vars['lockSprite']:setVisible(false)
+        if (t_reward_info['rank_min'] ~= '') then -- 순위로 보상 지급하는 리스트 아이템의 경우
+            if (total_score < 190000) then
+                vars['lockSprite']:setVisible(true)
+            end
+        end    
+    end
+    
+
 end
 
 -------------------------------------
