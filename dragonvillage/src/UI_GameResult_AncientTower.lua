@@ -66,18 +66,30 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
     
-    -- 역대 내 최고 점
-    local cur_score = score_calc:getFinalScore()
-	local best_score = g_ancientTowerData.m_challengingInfo.m_myHighScore or 0
-    if (cur_score > best_score) then
-        best_score = cur_score
+    -- 역대 내 최고 점수
+    do
+        local cur_score = score_calc:getFinalScore()
+	    local best_score = g_ancientTowerData.m_challengingInfo.m_myHighScore or 0
+        
+        -- 바로 통신하지 않기 때문에 여기서 갱신
+        if (cur_score > best_score) then
+            best_score = cur_score
+            g_ancientTowerData.m_challengingInfo.m_myHighScore = cur_score
+        end
+        table.insert(score_list, best_score or 0)
     end
-    table.insert(score_list, best_score or 0)
 
-    -- 지난 점수와의 차이 표시
-    local change_score = score_calc:getFinalScore() - g_ancientTowerData.m_challengingInfo.m_myScore
-    table.insert(score_list, change_score or 0)
-
+    do -- 지난 점수와의 차이 표시    
+        local my_last_score = g_ancientTowerData.m_challengingInfo.m_myScore or 0
+        local my_score = score_calc:getFinalScore()
+        local change_score = my_score - my_last_score
+        table.insert(score_list, change_score or 0)
+        
+        -- 바로 통신하지 않기 때문에 여기서 갱신
+        if (my_score > my_last_score) then
+            g_ancientTowerData.m_challengingInfo.m_myScore = my_score
+        end
+    end
 
     -- 애니메이션 적용되는 라벨 저장
     local var_list = {}
