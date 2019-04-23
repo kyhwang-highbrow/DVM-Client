@@ -1239,9 +1239,9 @@ function descChangedValue(number)
     
     local desc = ''
     if (number < 0) then
-        desc = string.format('{@blue}▼{@default}%d', math.abs(number))
+        desc = string.format('{@rank_down}▼{@default}%d', math.abs(number))
     elseif (number > 0) then
-        desc = string.format('{@red}▲{@default}%d', math.abs(number))
+        desc = string.format('{@rank_up}▲{@default}%d', math.abs(number))
     else
        desc = ''
     end

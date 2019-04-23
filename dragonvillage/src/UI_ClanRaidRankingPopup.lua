@@ -535,17 +535,19 @@ function _UI_ClanRaidRankListItem:initUI()
         local last_rank = struct_clan_rank:getLastRank()
         local dis_rank = last_rank - cur_rank
         gap_str = descChangedValue(dis_rank)
-        if (gap_str ~= '') then
-            gap_str = '\n' .. gap_str
-        end
     end
     
     -- 등수 
     local clan_rank = struct_clan_rank:getRank()
     local rank = clan_rank < 0 and '-' or string.format('%d', clan_rank)
-    local desc_rank = rank .. gap_str
-    vars['rankLabel']:setString(desc_rank)
-    vars['rankDifferentLabel']:setVisible(false)
+    
+    -- 등락이 있다면, 순위라벨에 줄바꿈 추가해서 한 칸 올려줌
+    if (gap_str ~= '') then
+        rank = rank .. '\n'
+    end
+    vars['rankLabel']:setString(rank)
+    vars['rankDifferentLabel']:setVisible(true)
+    vars['rankDifferentLabel']:setString(gap_str)
 end
 
 --@CHECK
