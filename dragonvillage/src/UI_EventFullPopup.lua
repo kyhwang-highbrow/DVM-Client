@@ -18,7 +18,6 @@ UI_EventFullPopup = class(PARENT,{
 function UI_EventFullPopup:init(popup_key, target_ui, m_check_cb)
     self.m_popupKey = popup_key
     
-    
     -- @jhakim 로비 풀 팝용이 아닌 용도, 나중에 클래스 분리할 거임
     self.m_targetUI = target_ui
     self.m_check_cb = m_check_cb
@@ -62,6 +61,10 @@ function UI_EventFullPopup:initUI()
     -- 확률업 드래곤 배너
     elseif (popup_key == 'dragon_chance_up') then
         ui = UI_DragonChanceUp()
+
+    -- 블랙찡또 패키지
+    elseif (popup_key == 'package_new_dragon') then
+        ui = UI_Package_New_Dragon('package_new_dragon_02', false)
 
     -- 코스튬
     elseif (popup_key == 'costume_event') then
