@@ -305,7 +305,7 @@ function UI_AncientTowerRankNew:init_rankTableView()
 
     local l_item_list = g_ancientTowerData.m_lGlobalRank
 
-    if (self.m_rankOffset > 1) then
+    if (g_ancientTowerData.m_nGlobalOffset > 1) then
         local prev_data = { m_tag = 'prev' }
         l_item_list['prev'] = prev_data
     end
@@ -317,19 +317,25 @@ function UI_AncientTowerRankNew:init_rankTableView()
 
     -- 이전 랭킹 보기
     local function click_prevBtn()
-        self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
+        local prev_ind 
+        if (#l_item_list>0) then
+            prev_ind = l_item_list[1]['m_rank'] - OFFSET_GAP -- 가져온 랭킹의 가장 첫 번째 - OFFSET_GAP
+        else
+            prev_ind = self.m_rankOffset - OFFSET_GAP
+        end
+        self.m_rankOffset = prev_ind
         self.m_rankOffset = math_max(self.m_rankOffset, 0)
         self:request_Rank()
     end
 
     -- 다음 랭킹 보기
     local function click_nextBtn()
-        local add_offset = #g_ancientTowerData.m_lGlobalRank
-        if (add_offset < OFFSET_GAP) then
+        local next_ind = l_item_list[#l_item_list]['m_rank'] -- 가져온 랭킹의 가장 마지막 + 1
+        if (#l_item_list < OFFSET_GAP) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
             return
         end
-        self.m_rankOffset = self.m_rankOffset + add_offset
+        self.m_rankOffset = next_ind + 1
         self:request_Rank()
     end
 
