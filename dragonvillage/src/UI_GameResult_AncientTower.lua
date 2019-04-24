@@ -305,9 +305,11 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
             local score = tonumber(score_list[ind])
             local score_str = ''
             if (score > 0) then
+                score = math.abs(score)
                 self.vars['newRecordNode']:setVisible(true)
                 score_str = string.format('({@red}▲{@default}%s)', comma_value(score))
             elseif (score < 0) then
+                score = math.abs(score)
                 score_str = string.format('({@blue}▼{@default}%s)', comma_value(score))
             else
                 score_str = '(-)'
