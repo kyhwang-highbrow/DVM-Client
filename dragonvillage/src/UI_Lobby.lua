@@ -1560,6 +1560,9 @@ function UI_Lobby:onFocus(is_push)
 
         Coroutine(coroutine_function, '로비 코루틴 onFocus')
     end
+
+    -- 상점에서 노티 상품 다 사고 돌아왔을 경우 정보 갱신을 위해
+    self:setShopNoti()
 end
 
 -------------------------------------
