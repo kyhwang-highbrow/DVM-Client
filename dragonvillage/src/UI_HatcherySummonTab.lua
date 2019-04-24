@@ -149,7 +149,7 @@ function UI_HatcherySummonTab:setChanceUpDragons()
         end
 
         -- 드래곤 이름
-        local name = TableDragon:getChanceUpDragonName(did)
+        local name = TableDragon:getChanceUpDragonName2(did)
         vars['dragonNameLabel'..desc_idx]:setString(name)
 
         -- 드래곤 카드
