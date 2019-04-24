@@ -83,7 +83,9 @@ function UI_AncientTowerBestDeckPopup:initUI()
     table_view:setItemList(l_deck)
     
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-    table_view:relocateContainerFromIndex(self.m_cur_stage_id%1000)
+    if (type(self.m_cur_stage_id) == 'number') then
+        table_view:relocateContainerFromIndex(50 - self.m_cur_stage_id%1000) -- 내림차순
+    end
    
 end
 
