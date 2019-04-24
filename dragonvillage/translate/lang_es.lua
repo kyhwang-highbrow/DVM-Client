@@ -1,6 +1,6 @@
 return {['101위~120위']='Puestos 101-120',
 ['105,000점 이상']='Puntaje superior a: 105,000',
-['10회\n뽑기']='Sorteo número:\n10',
+['10회\n뽑기']='10°/nSorteo',
 ['121위~140위']='Puestos 121-140',
 ['125,000점 이상']='Puntaje superior a: 125,000',
 ['141위~160위']='Puestos 141-160',
