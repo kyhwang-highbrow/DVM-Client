@@ -182,7 +182,7 @@ function UI_CapsuleBox:refresh()
 
     -- 1주년 스페셜 절대적인전설의 알 출현 이벤트 (5/1~5/2 양일간)
     local day = g_capsuleBoxData:getScheduleDay()
-    if (day >= 20190401) or (day == 20190502) then
+    if (day == 20190501) or (day == 20190502) then
         vars['1stEventMenu']:setVisible(true)
     else
         vars['1stEventMenu']:setVisible(false)
