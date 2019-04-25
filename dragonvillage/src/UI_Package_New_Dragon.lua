@@ -43,6 +43,9 @@ function UI_Package_New_Dragon:initUI()
     -- 첫번째 상품을 드래곤 뽑기권이라고 보고, 드래곤 뽑기권의 드래곤들 출력
     local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
     local item_id = self:getFirstProductItemId(struct_product)
+    if (not item_id) then
+        return
+    end
     self:setDragonDisplay(item_id)
 end
 
