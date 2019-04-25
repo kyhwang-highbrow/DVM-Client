@@ -48,8 +48,9 @@ function UI_AncientTowerRankListItem:initUI()
     if (vars['userLabel']) then
         vars['userLabel']:setString(t_rank_info:getUserText())
     end
+
     -- 순위 표시
-    vars['rankingLabel']:setString(t_rank_info:getRankText())
+    vars['rankingLabel']:setString(t_rank_info:getRankText2())
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
