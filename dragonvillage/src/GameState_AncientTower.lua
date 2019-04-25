@@ -150,8 +150,14 @@ function GameState_AncientTower:makeResultUI(is_success)
         local world = self.m_world
         local stage_id = world.m_stageID
         
-        -- finish 통신 직후, 베스트 팀 점수 로컬에 저장, 이전 기록 반환
-        local ex_score = self:saveBestTeamScore(stage_id, is_success, score_calc:getFinalScore())
+        local ex_score = 99999 -- 최고점 갱신되지 않도록 높은 점수로 초기화
+        if (g_ancientTowerData) then
+            local is_attr = g_ancientTowerData:isAttrChallengeMode()        
+            if (not is_attr) then
+                -- finish 통신 직후, 베스트 팀 점수 로컬에 저장, 이전 기록 반환
+                ex_score = self:saveBestTeamScore(stage_id, is_success, score_calc:getFinalScore())
+            end
+        end
 
         UI_GameResult_AncientTower(stage_id,
             is_success,
@@ -214,7 +220,11 @@ function GameState_AncientTower:saveBestTeamScore(stage_id, is_success, final_sc
     if (not is_success) then
         return ex_score
     end
-    
+
+    if (not g_settingDeckData) then
+        return ex_score
+    end
+
     -- 기존 기록보다 높은경우에만 기록
     ex_score = tonumber(g_settingDeckData:getAncientStageScore(stage_id)) or 0
     if (final_score <= ex_score) then
