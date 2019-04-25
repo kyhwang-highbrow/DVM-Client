@@ -62,10 +62,6 @@ function UI_EventFullPopup:initUI()
     elseif (popup_key == 'dragon_chance_up') then
         ui = UI_DragonChanceUp()
 
-    -- 블랙찡또 패키지
-    elseif (popup_key == 'package_new_dragon') then
-        ui = UI_Package_New_Dragon('package_new_dragon_02', false)
-
     -- 코스튬
     elseif (popup_key == 'costume_event') then
         ui = UI_CostumeEventPopup()
