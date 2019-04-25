@@ -29,6 +29,16 @@ function UI_Package_New_Dragon:init(package_name, is_popup)
     self:doActionReset()
     self:doAction(nil, false)
 
+    -- 상품이 없는 경우 예외처리
+    if (#self.m_pids == 0) then
+        return
+    end
+    
+    -- 상품 정보가 없는 경우 예외처리
+    if (not g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))) then
+        return
+    end
+
     self:initUI()
     self:setProduct()
     self:refresh()
@@ -43,9 +53,6 @@ function UI_Package_New_Dragon:initUI()
     -- 첫번째 상품을 드래곤 뽑기권이라고 보고, 드래곤 뽑기권의 드래곤들 출력
     local struct_product = g_shopDataNew:getTargetProduct(tonumber(self.m_pids[1]))
     local item_id = self:getFirstProductItemId(struct_product)
-    if (not item_id) then
-        return
-    end
     self:setDragonDisplay(item_id)
 end
 
