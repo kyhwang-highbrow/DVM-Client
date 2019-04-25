@@ -112,7 +112,7 @@ end
 -- function getLastRank
 -------------------------------------
 function StructClanRank:getLastRank()
-    return self['last_lank'] or 9999
+    return self['last_lank'] or -1
 end
 
 -------------------------------------

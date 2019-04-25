@@ -530,9 +530,9 @@ function _UI_ClanRaidRankListItem:initUI()
       -- 순위 등락 표시
     local cur_rank = struct_clan_rank:getRank()
     local gap_str = ''
-    -- 순위가 없을 때는 표시하지 않음
-    if (cur_rank ~= -1) then
-        local last_rank = struct_clan_rank:getLastRank()
+    local last_rank = struct_clan_rank:getLastRank()
+    -- 순위/지난 순위가 있을 경우에만 표
+    if (cur_rank ~= -1) and (last_rank ~= -1) then
         local dis_rank = last_rank - cur_rank
         gap_str = descChangedValue(dis_rank)
     end
