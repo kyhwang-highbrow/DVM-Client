@@ -90,6 +90,10 @@ function StructUserInfoAncientTower:getRankText(detail)
         return Str('순위\n없음')
     end
 
+    return Str('{1}위', comma_value(self.m_rank))
+
+    -- @jhakim 190426 퍼센트를 기준으로 보상을 주지 않기 때문에 순위만 표시
+    --[[
     -- 자세히 출력 (순위와 퍼센트)
     if detail then
         if (not self.m_rankPercent) then
@@ -107,6 +111,7 @@ function StructUserInfoAncientTower:getRankText(detail)
             return Str('{1}위', comma_value(self.m_rank))
         end
     end
+    --]]
 end
 
 -------------------------------------
