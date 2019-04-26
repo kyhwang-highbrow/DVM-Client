@@ -48,9 +48,10 @@ function UI_AccessTimeDataListItem:initUI()
         self:refresh()
 
         -- 전면 광고 노출 (6단계 보상에서만 동작)
-        if (tonumber(step) == 6) then
-            self:showInterstitialAD(step)
-        end
+        -- 2019.04.26 mskim 전면 광고 주석 처리
+        -- if (tonumber(step) == 6) then
+        --     self:showInterstitialAD(step)
+        -- end
     end
 
     vars['receiveBtn']:registerScriptTapHandler(function() 
