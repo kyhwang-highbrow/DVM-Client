@@ -71,7 +71,9 @@ function AdMobManager:initRewardedVideoAd()
             end
         end
         rewarded_video_ad:setResultCallback(ad_result_cb)
-        rewarded_video_ad:loadRequest(ADMOB_APP_AD_UNIT_ID)
+
+        -- sgkim 20190429 AdMob의 광고 로드가 비정상 종료에 영향을 준다고 판단하여 프리로드 하지 않도록 변경
+        --rewarded_video_ad:loadRequest(ADMOB_APP_AD_UNIT_ID)
     end
 end
 
