@@ -27,6 +27,9 @@ function UI_AdvertisingPopup:init(ad_type)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    -- 광고 프리로드를 첫 번째에만 요청하도록 설정
+    AdMobManager:getRewardedVideoAd():firstLoadRequest(ad_type)
 end
 
 -------------------------------------

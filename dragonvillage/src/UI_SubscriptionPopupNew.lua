@@ -106,13 +106,21 @@ function UI_SubscriptionPopupNew:click_adBtn()
 		return
 	end
 
-    local ad_type = AD_TYPE.AUTO_ITEM_PICK
+    -- 광고 프리로드를 첫 번째에만 요청하도록 설정
+    AdMobManager:getRewardedVideoAd():firstLoadRequest(AD_TYPE['AUTO_ITEM_PICK'])
 
-    local function finish_cb()
-        self:close()
+    -- 광고 안내 팝업
+    local function ok_cb()
+        local function finish_cb()
+            self:close()
+        end
+
+        g_advertisingData:showAd(AD_TYPE['AUTO_ITEM_PICK'], finish_cb)
     end
 
-    g_advertisingData:showAd(ad_type, finish_cb)
+    local msg = Str("동영상 광고를 보시면 자동줍기가 적용됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+    local submsg = Str("자동줍기는 20분간 유지됩니다.")
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
 end
 
 -------------------------------------
