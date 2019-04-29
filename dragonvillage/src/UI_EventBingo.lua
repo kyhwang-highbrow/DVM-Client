@@ -5,8 +5,8 @@
 -------------------------------------
 UI_EventBingo = class(PARENT,{
         m_lBingoNumber = 'list', -- 획득한 빙고 숫자 리스트
-        m_lBingoCntReward = '_UI_EventBingoRewardListItem', -- 빙고 횟수에 따른 보상 UI
-        m_lBingoLineReward = '_UI_EventBingoRewardListItem', -- 빙고 라인 보상 UI
+        m_lBingoCntReward = 'table', -- 빙고 횟수에 따른 보상 테이블
+        m_lBingoLineReward = 'table', -- 빙고 라인 보상 테이블
 
         m_container = 'ScrolView Container',
         m_containerTopPosY = 'number',
@@ -35,60 +35,10 @@ function UI_EventBingo:initUI()
     local vars = self.vars
     local struct_bingo = g_eventBingoData.m_structBingo
     
-    -- 선택한 번호로 확정 뽑기
-    local func_click_bingoNum = function(selected_num)
-        self:request_selectedDraw(selected_num)
-        self:setCancelActive(vars['goraMenu3'], false)
-        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
-    end
-
-    self.m_lBingoNumber = {}
-    -- 빙고 칸 세팅
-    for i = 1, 25 do
-        local ui = _UI_EventBingoListItem(i, func_click_bingoNum)
-        local node = vars['bingoNode'..i]
-        if node then
-            node:removeAllChildren()
-            node:addChild(ui.root)
-            table.insert(self.m_lBingoNumber, ui)
-        end
-    end
-
-    local click_bingo_reward_cb = function(ind)
-            self:click_rewardBingo(ind)
-    end
-
-    self.m_lBingoLineReward = {}
-    -- 빙고 라인 보상 세팅
-    local l_bingo_reward = struct_bingo:getBingoLineRewardList()
-    for i, data in ipairs(l_bingo_reward) do
-        local node_ind = data['bingo_num']
-        local item_str = data['reward']
-        local node = vars['itemNode' .. node_ind]      
-        local ui = UI_EventBingoRewardListItem(node_ind, item_str, click_bingo_reward_cb)            
-        if (node) and (ui) then
-            node:addChild(ui.root)
-            table.insert(self.m_lBingoLineReward, ui)
-        end
-    end
-
-    local click_bingo_cnt_cb = function(ind)
-        self:click_cntRewardBingo(ind)
-    end
+    self:setBingoNumber() -- 빙고 칸 UI 세팅
+    self:setBingoLineReward() -- 빙고 라인 보상 UI 세팅
+    self:setBingoCntReward() -- 빙고 갯수 보상 UI 세팅
     
-    -- 빙고 갯수 보상
-    self.m_lBingoCntReward = {}
-    local l_reward_item = struct_bingo:getBingoRewardList()
-    for ind, data in ipairs(l_reward_item) do
-        local ui = UI_EventBingoRewardListItem(ind, data['reward_str'], click_bingo_cnt_cb, true, data['reward_index']) -- reward_ind, reward_item_str, click_cb, is_bingo_reward, sub_data
-        vars['rewardIconNode']:addChild(ui.root)
-        if (#l_reward_item == ind) then
-            ui.vars['lastRewardVisual']:setVisible(true)
-            ui.vars['lastRewardVisual']:setIgnoreLowEndMode(true)
-        end
-        table.insert(self.m_lBingoCntReward, ui)
-    end
-
     -- 완성된 빙고 표기
     vars['visualNode']:removeAllChildren()
     local m_bingo_line = struct_bingo:getBingoLine()
@@ -100,6 +50,86 @@ function UI_EventBingo:initUI()
 end
 
 -------------------------------------
+-- function setBingoNumber
+-------------------------------------
+function UI_EventBingo:setBingoNumber()
+    local vars = self.vars
+
+    -- 확정 뽑기 클릭
+    local func_click_bingoNum = function(selected_num)
+        self:request_selectedDraw(selected_num)  -- 뽑은 숫자 통신
+        self:setPickingMode(false)               -- 확정 뽑기 아닌 상태로 세팅
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
+    end
+
+    self.m_lBingoNumber = {}
+
+    -- 빙고 칸 세팅
+    for i = 1, 36 do
+        local ui = _UI_EventBingoListItem(i, func_click_bingoNum) -- 빙고 넘버, 확정 뽑기 눌렀을 때 콜백
+        local node = vars['bingoNode'..i]
+        if node then
+            node:removeAllChildren()
+            node:addChild(ui.root)
+            table.insert(self.m_lBingoNumber, ui)
+        end
+    end
+end
+
+-------------------------------------
+-- function setBingoLineReward
+-------------------------------------
+function UI_EventBingo:setBingoLineReward()
+    local vars = self.vars
+    local struct_bingo = g_eventBingoData.m_structBingo
+
+    local click_bingo_reward_cb = function(ind)
+        self:click_rewardBingo(ind)
+    end
+
+    self.m_lBingoLineReward = {}
+    -- 빙고 라인 보상 세팅
+    local l_bingo_reward = struct_bingo:getBingoLineRewardList()
+    for i, data in ipairs(l_bingo_reward) do
+        local node_ind = data['bingo_num']
+        local item_str = data['reward']
+        local node = vars['itemNode' .. node_ind]      
+        local ui = UI_EventBingoRewardListItem(node_ind, item_str, click_bingo_reward_cb) -- param : node, 12001;1, click_cb            
+        if (node) and (ui) then
+            node:addChild(ui.root)
+            table.insert(self.m_lBingoLineReward, ui)
+        end
+    end
+
+end
+
+-------------------------------------
+-- function setBingoCntReward
+-------------------------------------
+function UI_EventBingo:setBingoCntReward()
+    local vars = self.vars
+    local struct_bingo = g_eventBingoData.m_structBingo
+
+    local click_bingo_cnt_cb = function(ind)
+        self:click_cntRewardBingo(ind)
+    end
+    
+    -- 빙고 갯수 보상
+    self.m_lBingoCntReward = {}
+    local l_reward_item = struct_bingo:getBingoRewardList()
+    for ind, data in ipairs(l_reward_item) do
+        local ui = UI_EventBingoRewardListItem(ind, data['reward_str'], click_bingo_cnt_cb, true, data['reward_index']) -- param : reward_ind, reward_item_str, click_cb, is_bingo_reward, sub_data
+        vars['rewardIconNode']:addChild(ui.root)
+        if (#l_reward_item == ind) then -- 마지막 보상은 강조를 위해 비쥬얼 추가
+            ui.vars['lastRewardVisual']:setVisible(true)
+            ui.vars['lastRewardVisual']:setIgnoreLowEndMode(true)
+        end
+        table.insert(self.m_lBingoCntReward, ui)
+    end
+end
+
+
+-------------------------------------
 -- function initButton
 -------------------------------------
 function UI_EventBingo:initButton()
@@ -108,7 +138,7 @@ function UI_EventBingo:initButton()
     vars['playBtn1']:registerScriptTapHandler(function() self:click_drawNumberBtn() end)
     vars['playBtn2']:registerScriptTapHandler(function() self:click_chooseNumberBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-    vars['cancleBtn']:registerScriptTapHandler(function() self:click_cancelPick() end)
+    vars['cancleBtn']:registerScriptTapHandler(function() self:click_cancelPick() end) -- 확정뽑기 눌렀을 때, 확정 뽑기 취소할 수 있는 버튼
     vars['cancleBtn']:setVisible(false)
 end
 
@@ -133,14 +163,15 @@ function UI_EventBingo:refresh()
 
     local eventCnt = struct_bingo:getEventItemCnt()
     local eventPickCnt = struct_bingo:getPickEventItemCnt()
-    vars['numberLabel2']:setString(Str('{1}개', comma_value(eventCnt)))
-    vars['numberLabel3']:setString(Str('{1}개', comma_value(eventPickCnt))) 
+    vars['numberLabel2']:setString(Str('{1}개', comma_value(eventCnt))) -- 보유 토큰
+    vars['numberLabel3']:setString(Str('{1}개', comma_value(eventPickCnt))) -- 확정 뽑기 토큰
     vars['rewardLabel']:setString(Str('{1} 빙고', bingo_line_cnt))
-    vars['tokenPrice']:setString(struct_bingo.event_price)
-    vars['pickTokenPrice']:setString(struct_bingo.event_pick_price)
+    vars['tokenPrice']:setString(struct_bingo.event_price)  -- 빙고 뽑기 1회 비용
+    vars['pickTokenPrice']:setString(struct_bingo.event_pick_price) -- 확정 뽑기 1회 비용
 
 
-    -- 누적 보상 다음 스텝 정보
+    -- 누적 보상 다음 스텝 정보 : ex) 다음 빙고까지 ~ 남았다
+    -- 빙고갯수보다 많은 누적 보상 스텝 = next_step
     local l_cnt_reward = struct_bingo:getBingoRewardList()
     local next_step = 12
     for ind, data in ipairs(l_cnt_reward) do
@@ -151,6 +182,8 @@ function UI_EventBingo:refresh()
     end
 
     vars['progressLabel']:setString(Str('다음 보상까지 {1}빙고 남았습니다.', next_step - bingo_line_cnt))
+    
+    -- 남은 빙고 없다면 ~남았다는 라벨 비활성화
     if (next_step - bingo_line_cnt == 0) then
         vars['progressLabel']:setVisible(false)
     end
@@ -173,6 +206,7 @@ function UI_EventBingo:refresh()
         self:completeBingo()
     end
 
+    -- 확정 뽑기 가능할 때만 버튼 활성화
     local eventPickCnt = struct_bingo:getPickEventItemCnt()
     local is_pickable = eventPickCnt >= struct_bingo.event_pick_price
     vars['playBtn2']:setEnabled(is_pickable)
@@ -180,24 +214,29 @@ end
 
 -------------------------------------
 -- function getBingoType
--- @brief 
+-- @return BINGO_TYPE, ex) 가로에서 n번째 라인
 -------------------------------------
 function UI_EventBingo:getBingoType(bingo_line_number)
     local bingo_line_number = tonumber(bingo_line_number)
-    if (bingo_line_number == 7) then
+    
+    -- 빙고 7번은 대각선 빙고(왼쪽->오른쪽)
+    if (bingo_line_number == 8) then
         return BINGO_TYPE.CROSS_LEFT_TO_RIGHT, nil
+    -- 빙고 1번은 대각선 빙고(오른쪽->왼쪽)
     elseif (bingo_line_number == 1) then
         return BINGO_TYPE.CROSS_RIGHT_TO_LEFT, nil    
-    elseif (bingo_line_number>=2 and bingo_line_number<=6) then
+    -- 빙고 2-6번은 가로 빙고
+    elseif (bingo_line_number >= 2 and bingo_line_number <= 7) then
         return BINGO_TYPE.HORIZONTAL, bingo_line_number - 1
-    elseif (bingo_line_number>=8 and bingo_line_number<=12) then
-        return BINGO_TYPE.VERTICAL, 13 - bingo_line_number
+    -- 빙고 8-12번은 세로 빙고
+    elseif (bingo_line_number >= 9 and bingo_line_number <= 14) then
+        return BINGO_TYPE.VERTICAL, 15 - bingo_line_number
     end
 end
 
 -------------------------------------
 -- function refresh_bingoCntReward
--- @brief 
+-- @brief 빙고 누적 보상, 획득 완료/가능 표시
 -------------------------------------
 function UI_EventBingo:refresh_bingoCntReward()
     local l_bingo_cnt = self.m_lBingoCntReward
@@ -229,6 +268,7 @@ end
 
 -------------------------------------
 -- function refresh_bingoReward
+-- @brief 빙고 라인보상 획득 완료/가능 표시
 -------------------------------------
 function UI_EventBingo:refresh_bingoReward()
     local l_bingo_cnt = self.m_lBingoLineReward
@@ -256,9 +296,9 @@ end
 -- function setBingo
 -- @brief 빙고가 성립됨
 -------------------------------------
-function UI_EventBingo:setBingo(bingo_line_number) -- HORIZONTAL, VERTICAL, CROSS
+function UI_EventBingo:setBingo(bingo_line_number)
     local vars = self.vars
-    local bingo_type, line = self:getBingoType(bingo_line_number)
+    local bingo_type, line = self:getBingoType(bingo_line_number) -- 빙고 라인 넘버
     -- 보상 버튼 활성화
 
     -- a2d 빙고 표시 애니메이션
@@ -278,7 +318,7 @@ function UI_EventBingo:setBingo(bingo_line_number) -- HORIZONTAL, VERTICAL, CROS
         ani:changeAni('cross_left_to_right')
     end
 
-    -- 후속 연출
+    -- 후속 연출, 선이 그어지고 나서 보상 받을 수 있게 활성화
 	ani:addAniHandler(function()
 	    self:refresh_bingoCntReward()
         self:refresh_bingoReward()
@@ -293,26 +333,21 @@ function UI_EventBingo:getLinePos(bingo_type, line) -- param 의미 : 가로 3 �
     local vars = self.vars
 
     local pos_x, pos_y = 0, 0
-    local offset = 50 -- 빙고칸 절반크기 조금 안되는 위치
+    local offset = 76 -- 빙고칸 크기
 
-    if (bingo_type == BINGO_TYPE.HORIZONTAL) then        -- 가로 빙고 : line 첫 칸 - offsetX
-        local _line = 1 + (line-1) * 5
-        pos_x, pos_y = vars['bingoNode'.._line]:getPosition()
-        pos_x = pos_x - 60
+    if (bingo_type == BINGO_TYPE.HORIZONTAL) then        -- 가로 빙고
+        pos_x, pos_y = -233.985, 188.824                 -- 가로 1번 째 칸 위치 하드코딩
+        pos_y = pos_y - offset*(line-1)
 
-    elseif (bingo_type == BINGO_TYPE.VERTICAL) then       -- 세로 빙고 : line 첫 줄 + offsetY
-        pos_x, pos_y = vars['bingoNode'..line]:getPosition()
-        pos_y = pos_y + 60
+    elseif (bingo_type == BINGO_TYPE.VERTICAL) then       -- 세로 빙고
+        pos_x, pos_y = 193, 239                           -- 세로 6번 째 칸 위치 하드코딩
+        pos_x = pos_x + offset*(line-6)
 
-    elseif (bingo_type == BINGO_TYPE.CROSS_LEFT_TO_RIGHT) then  -- 대각선 빙고(left_to_right) : 1번 칸 - offsetX + offsetY
-        pos_x, pos_y = vars['bingoNode1']:getPosition()
-        pos_x = -230
-        pos_y = 230
+    elseif (bingo_type == BINGO_TYPE.CROSS_LEFT_TO_RIGHT) then  -- 대각선 빙고(left_to_right)
+        pos_x, pos_y = -232.408, 231.437
 
-    elseif (bingo_type == BINGO_TYPE.CROSS_RIGHT_TO_LEFT) then  -- 대각선 빙고(right_to_left) : 1번 칸 + offsetX + offsetY
-        pos_x, pos_y = vars['bingoNode5']:getPosition()
-        pos_x = 230
-        pos_y = 230
+    elseif (bingo_type == BINGO_TYPE.CROSS_RIGHT_TO_LEFT) then  -- 대각선 빙고(right_to_left)
+        pos_x, pos_y = 233.379, 231.437
     end
 
     return pos_x, pos_y
@@ -336,7 +371,7 @@ function UI_EventBingo:pickNumberAction(number, finish_cb)
     vars['bingoSprite']:setVisible(true)
 
     local random_frunc = function()
-        local num = math_random(24) + 1
+        local num = math_random(35) + 1
         local _num = string.format('%03d', num) --ex) 001, ..023 3자리 형식
         local num_sprite_name = string.format('res/ui/icons/bingo/%s.png', _num)
         vars['pickAniSprite']:setTexture(num_sprite_name)
@@ -404,30 +439,39 @@ function UI_EventBingo:click_drawNumberBtn()
     local block_ui = UI_BlockPopup()
 
     local cb_func = function(ret)
+        -- 번호 뽑힌 후 콜백
         local finish_cb = function()
             local l_clear = ret['bingo_clear']
+
             local is_same_number = g_eventBingoData.m_isSameNumber
+            
+            -- 같은 번호 뽑았을 경우
             if (is_same_number) then
                 self:showSameNumberAction(ret['bingo_number'])
                 self:showSameNumberGora()
+            -- 새로운 번호 뽑았을 경우
             else
                 self:showNewNumberGora()
             end
             
+            -- 추가된 빙고 라인 그려줌
             for i, number in ipairs(l_clear) do
                 self:setBingo(number)
             end
 
             block_ui:close()
-        end
-        
-        self:pickNumberAction(tonumber(ret['bingo_number']), finish_cb)        
+        end      
+        -- 랜덤하게 보여주다가, 뽑힌 번호 보여주는 액션
+        self:pickNumberAction(tonumber(ret['bingo_number']), finish_cb)   
     end
+
+    -- 통신
     g_eventBingoData:request_DrawNumber(cb_func)
 end
 
 -------------------------------------
 -- function bingoNumBtnEnabled
+-- @brief 빙고 번호들 눌릴 수 있도록 세팅
 -------------------------------------
 function UI_EventBingo:bingoNumBtnEnabled(is_enabled)
     local l_bingo_num = self.m_lBingoNumber
@@ -439,6 +483,7 @@ end
 
 -------------------------------------
 -- function click_chooseNumberBtn
+-- @brief 확정뽑기 버튼 눌렀을 때
 -------------------------------------
 function UI_EventBingo:click_chooseNumberBtn()
     local vars = self.vars
@@ -457,14 +502,14 @@ function UI_EventBingo:click_chooseNumberBtn()
         ui:setBtnEnabled(true)
     end
 
-    self:setCancelActive(vars['goraMenu3'], true)
+    self:setPickingMode(true)
 end
 
 -------------------------------------
 -- function resetGoraAction
 -------------------------------------
 function UI_EventBingo:resetGoraAction()
-    self.vars['goraMenu1']:setPosition(cc.p(-200, 50))
+    self.vars['goraMenu1']:setPosition(cc.p(-200, 50)) -- cc.p(-200, 50) 골드라고라 안 보이는 위치 하드코딩
     self.vars['goraMenu2']:setPosition(cc.p(-200, 50))
     self.vars['goraMenu3']:setPosition(cc.p(-200, 50))
 
@@ -479,6 +524,7 @@ end
 
 -------------------------------------
 -- function request_selectedDraw
+-- @brief 확정 뽑기로 숫자 골랐을 때
 -------------------------------------
 function UI_EventBingo:request_selectedDraw(selected_num)    
      -- 통신 전, 블럭 팝업 생성
@@ -488,6 +534,7 @@ function UI_EventBingo:request_selectedDraw(selected_num)
         self:bingoNumBtnEnabled(false)
 
         local l_clear = ret['bingo_clear']
+        -- 추가된 빙고라인 그리기
         for i, number in ipairs(l_clear) do
             self:setBingo(number)
         end
@@ -501,6 +548,7 @@ end
 
 -------------------------------------
 -- function click_cntRewardBingo
+-- @brief 누적 빙고 보상 받기 버튼
 -------------------------------------
 function UI_EventBingo:click_cntRewardBingo(reward_ind)
     local struct_bingo = g_eventBingoData.m_structBingo
@@ -523,6 +571,7 @@ end
 
 -------------------------------------
 -- function click_rewardBingo
+-- @brief 빙고 라인 보상
 -------------------------------------
 function UI_EventBingo:click_rewardBingo(reward_ind)
     local struct_bingo = g_eventBingoData.m_structBingo
@@ -546,11 +595,12 @@ end
 
 -------------------------------------
 -- function click_cancelPick
+-- @brief 확정뽑기 취소
 -------------------------------------
 function UI_EventBingo:click_cancelPick()
     local vars = self.vars
     self:bingoNumBtnEnabled(false)
-    self:setCancelActive(vars['goraMenu3'], false)
+    self:setPickingMode(false)
 end
 
 -------------------------------------
@@ -582,6 +632,7 @@ end
 
 -------------------------------------
 -- function showAnimation
+-- @brief 만드라 고라 나타났다가, 일정 시간 후 다시 들어감
 -------------------------------------
 function UI_EventBingo:showGoraAnimation(node)
     node:setVisible(true)
@@ -591,7 +642,7 @@ function UI_EventBingo:showGoraAnimation(node)
         node:setVisible(false)
     end
 
-    -- 만드라 고라 나타나는 효과
+    -- 만드라 고라 나타났다가, 일정 시간 후 다시 들어감
     local delete_delay_action = cc.DelayTime:create(5)
     local move_action_1 = cc.EaseOut:create(cc.MoveTo:create(0.05, cc.p(4.5, 50)), 0.3)
     local move_action_2 = cc.EaseOut:create(cc.MoveTo:create(0.1, cc.p(-200, 50)), 0.3)
@@ -602,6 +653,7 @@ end
 
 -------------------------------------
 -- function moveFrontGoraAnimation
+-- @brief 만드라 고라 나타나기만 함
 -------------------------------------
 function UI_EventBingo:moveFrontGoraAnimation(node)
     node:setVisible(true)
@@ -615,6 +667,7 @@ end
 
 ------------------------------------
 -- function moveBackGoraAnimation
+-- @brief 만드라 고라 들어감
 -------------------------------------
 function UI_EventBingo:moveBackGoraAnimation(node)
     local delete_func = function()
@@ -629,28 +682,33 @@ function UI_EventBingo:moveBackGoraAnimation(node)
 end
 
 ------------------------------------
--- function setCancelActive
+-- function setPickingMode
+-- @brief 확정 뽑기 고를 때 is_active = true, 확정 뽑기 고르는 거 끝났을 때 is_active = false
 -------------------------------------
-function UI_EventBingo:setCancelActive(node, is_active)
+function UI_EventBingo:setPickingMode(node, is_active)
     local vars = self.vars
     
     if (not node) then
         return nil
     end
     
+    -- 취소버튼, 토큰 뽑기 버튼 활성화 세팅
     vars['cancleBtn']:setVisible(is_active)
     vars['playBtn1']:setEnabled(not is_active)
 
+    -- 확정 뽑기 고를 때, 다른 골드라고라 움직임 리셋+고르라고라 나타남
     if (is_active) then
         self:resetGoraAction()
-        self:moveFrontGoraAnimation(node)
+        self:moveFrontGoraAnimation(vars['goraMenu3'])
+    -- 확정 뽑기 끝났을 때,고르라고라를 옆으로 뺌
     else
-        self:moveBackGoraAnimation(node)
+        self:moveBackGoraAnimation(vars['goraMenu3'])
     end
 end
 
 -------------------------------------
 -- function showSameNumberAction
+-- @brief 같은 번호 뽑았을 때, 확정뽑기 버튼 잠깐 흔들어 주는 액션
 -------------------------------------
 function UI_EventBingo:showSameNumberAction(number)
     local vars = self.vars
@@ -751,7 +809,7 @@ end
 function _UI_EventBingoListItem:initUI()
     local vars = self.vars
     
-    -- 1~ 25까지 세팅
+    -- 정해진 숫자로 세팅
     local _num = string.format('%03d', self.m_bingoInd) --ex) 001, ..023 3자리 형식
     local num_sprite_name = string.format('res/ui/icons/bingo/%s.png', _num)
     vars['numberSprite']:setTexture(num_sprite_name)
@@ -766,6 +824,7 @@ function _UI_EventBingoListItem:setActiveNumber(is_pick)
     local vars = self.vars
     local action_speed = 0.1
 
+    -- 이미 뽑힌 번호라면 리턴
     if (self.m_isPickedNumber) then
         return
     end
@@ -783,10 +842,9 @@ function _UI_EventBingoListItem:setActiveNumber(is_pick)
     cca.runAction(self.root, sequence_action, nil)
     self.m_isPickedNumber = true
 
-    -- 확정 뽑기의 경우, 선택한 숫자 정보를 서버에 보냄
+    -- 확정뽑기를 위해, 눌렀을 때 콜백 세팅
     if (is_pick) then
         self.m_click_cb(self.m_bingoInd)
-
     end
 end
 
@@ -802,7 +860,7 @@ end
 
 -------------------------------------
 -- function setBtnEnabled
--- @breif 확정 뽑기를 위해 전체 버튼을 turn on/off
+-- @breif 확정 뽑기를 위해 버튼을 turn on/off
 -------------------------------------
 function _UI_EventBingoListItem:setBtnEnabled(is_enabled)
     local vars = self.vars
@@ -823,6 +881,7 @@ end
 
 -------------------------------------
 -- function setSameNumberAction
+-- @brief 같은 번호 골랐을 때 opacity 조절해서 깜박깜박
 -------------------------------------
 function _UI_EventBingoListItem:setSameNumberAction()
     local vars = self.vars
