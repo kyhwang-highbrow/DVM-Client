@@ -200,16 +200,6 @@ function ScenePatch:runApkExpansion()
         return
     end
 
-    -- sgkim 20190425 게임 내에서 obb(apk 확장파일)를 다운받는 기능 동작 안하도록 수정
-    --          obb를 받을지 체크하는 코드를 실행하면 타이틀 화면에서 크래시나는 횟수가 급격하게 늘어남 (정확한 원인은 아직 찾지 못함)
-    --          현재 aos의 15~30%의 유저가 타이틀 화면에서 발생하는 크래시를 경험하고 있음
-    --          obb파일은 구글플레이에서 최초에 앱을 설치 시 다운이 됨
-    --          만약 obb파일이 손상이 되었다면 마켓에서 새롭게 받아야 함 (이 빈도는 매우 적을것으로 생각됨)
-    if (true) then
-        self:finishPatch()
-        return
-    end
-
     -- 패치 데이터에서 APK 확장파일 정보를 받아옴
     local patch_data = PatchData:getInstance()
     local t_apk_extension = patch_data:getApkExtensionInfo()
