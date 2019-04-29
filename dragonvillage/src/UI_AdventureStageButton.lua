@@ -12,12 +12,16 @@ UI_AdventureStageButton = class(PARENT, {
 -------------------------------------
 function UI_AdventureStageButton:init(parent_ui, stage_id)
     local vars = self:load('adventure_stage_icon.ui')
+    if (stage_id == SPECIAL_CHAPTER.GAME_MODE_EVENT_ILLUSION_DUNSEON) then
+        self:init_illusionDunseon(parent_ui, stage_id, vars)
+        return
+    end
+
     local difficulty, chapter, stage = parseAdventureID(stage_id)
 
     -- 깜짝 출현 챕터
     if (chapter == SPECIAL_CHAPTER.ADVENT) then
         self:init_advent(parent_ui, stage_id, vars)
-       
     -- 일반 챕터 
     else
         self:init_common(parent_ui, stage_id, vars)
@@ -133,5 +137,14 @@ function UI_AdventureStageButton:init_advent(parent_ui, stage_id, vars)
     end
 
     vars['stageBtn']:registerScriptTapHandler(function() parent_ui:click_stageBtn(stage_id, self.m_bOpenStage) end)
+end
+
+-------------------------------------
+-- function init_illusionDunseon
+-- @brief 환상던전 이벤트 정의
+-- @sub init
+-------------------------------------
+function UI_AdventureStageButton:init_illusionDunseon(parent_ui, stage_id, vars)
+    
 end
 

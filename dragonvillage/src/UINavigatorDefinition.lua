@@ -187,6 +187,67 @@ function UINavigatorDefinition:goTo_shop(...)
 end
 
 -------------------------------------
+-- function goTo_event_illusion_dungeon
+-- @brief 환상던전 이벤트로 이동
+-- @usage UINavigatorDefinition:goTo('event_illusion_dungeon')
+-------------------------------------
+function UINavigatorDefinition:goTo_event_illusion_dungeon(...)
+    local args = {...}
+    local stage_id = args[1]
+
+    -- 모험 모드가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_AdventureScene_Illusion')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        if stage_id then
+            ui:focusByStageID(stage_id)
+        end
+        return
+    end
+
+    local function finish_cb()
+        --[[
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('adventure')
+            ui:resetButtonsPosition()
+            UI_AdventureSceneNew(stage_id)
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('adventure')
+            battle_menu_ui:resetButtonsPosition()
+            UI_AdventureSceneNew(stage_id)
+            return
+        end
+        --]]
+        
+        do-- Scene으로 모험 모드 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_AdventureScene_Illusion, close_cb, stage_id)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 모험 정보 요청
+    g_adventureData:request_adventureInfo(finish_cb, fail_cb)
+end
+
+-------------------------------------
 -- function goTo_adventure
 -- @brief 모험 모드로 이동
 -- @usage UINavigatorDefinition:goTo('adventure', stage_id)

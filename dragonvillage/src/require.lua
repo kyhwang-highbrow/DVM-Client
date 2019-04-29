@@ -950,6 +950,7 @@ local t_module = {
     'UI_AdventureStageMissionInfo',
     'UI_ChapterSelect',
     'UI_ChapterSelectListItem',
+    'UI_AdventureScene_Illusion',
 
 	-- UI : 모험 준비
     'UI_ReadySceneNew',

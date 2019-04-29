@@ -620,7 +620,7 @@ function UI_Lobby:initButton()
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
     vars['matchCardBtn']:registerScriptTapHandler(function() self:click_matchCardBtn() end) -- 카드 짝 맞추기 이벤트
     vars['mandragoraBtn']:registerScriptTapHandler(function() self:click_mandragoraBtn() end) -- 만드라고라의 모험 이벤트
-    vars['adventBtn']:registerScriptTapHandler(function() self:click_adventBtn() end) -- 만드라고라의 모험 이벤트
+    vars['adventBtn']:registerScriptTapHandler(function() self:click_adventBtn_illusion() end) -- 만드라고라의 모험 이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
@@ -1232,6 +1232,19 @@ function UI_Lobby:click_adventBtn()
 end
 
 -------------------------------------
+-- function click_adventBtn -- 잠시 깜짝 출현 버튼을 사용 
+-- @brief 환상 던전 이벤트
+-------------------------------------
+function UI_Lobby:click_adventBtn_illusion()
+    if (not g_hotTimeData:isActiveEvent('event_illusion_dungeon')) then
+        return
+    end
+
+    UINavigator:goTo('event_illusion_dungeon')
+    --g_eventData:openEventPopup('event_illusion_dungeon')
+end
+
+-------------------------------------
 -- function click_lvUpPackBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
@@ -1687,8 +1700,8 @@ function UI_Lobby:update_rightButtons()
         vars['mandragoraBtn']:setVisible(false)
     end
 
-    -- 만드라고라의 모험 버튼
-    if g_hotTimeData:isActiveEvent('event_advent') then
+    -- 깜짝 출현 이벤트 버튼
+    if g_hotTimeData:isActiveEvent('event_illusion_dungeon') then -- 임시로 깜짝출현 이벤트 버튼을 환상 이벤트가 사용
         vars['adventBtn']:setVisible(true)
     else
         vars['adventBtn']:setVisible(false)
