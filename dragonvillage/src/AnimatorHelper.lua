@@ -25,10 +25,13 @@ function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
         animator.m_node:setMix('idle', 'idle', 0.1)
         animator.m_node:setMix('idle', 'skill_appear', 0.5)
         animator.m_node:setMix('attack', 'skill_appear', 0.5)
-
+        
+        animator.m_node:setMix('skill_appear', 'idle', 0.2)
         animator.m_node:setMix('skill_appear', 'skill_idle', 0.2)
         animator.m_node:setMix('idle', 'skill_idle', 0.2)
         animator.m_node:setMix('attack', 'skill_idle', 0.2)
+
+        animator.m_node:setMix('skill_disappear', 'idle', 0.5)
 
         animator.m_node:setMix('pose_1', 'idle', 0.2)
         animator.m_node:setMix('idle', 'pose_1', 0.2)
