@@ -14,6 +14,7 @@ UI_EventBingo = class(PARENT,{
     })
 
 local BINGO_TYPE = {['HORIZONTAL'] = 1, ['VERTICAL'] = 2, ['CROSS_RIGHT_TO_LEFT'] = 3, ['CROSS_LEFT_TO_RIGHT'] = 4}
+local BINGO_FOCUS_POS = {['DEFUALT'] = -680, ['BINGO'] = -250, ['EXCHANGE'] = 0}
 
 -------------------------------------
 -- function init
@@ -230,7 +231,7 @@ function UI_EventBingo:getBingoType(bingo_line_number)
         return BINGO_TYPE.HORIZONTAL, bingo_line_number - 1
     -- 빙고 8-12번은 세로 빙고
     elseif (bingo_line_number >= 9 and bingo_line_number <= 14) then
-        return BINGO_TYPE.VERTICAL, 15 - bingo_line_number
+        return BINGO_TYPE.VERTICAL, 14 - bingo_line_number
     end
 end
 
@@ -429,7 +430,7 @@ function UI_EventBingo:click_drawNumberBtn()
     local struct_bingo = g_eventBingoData.m_structBingo
 
     -- 빙고판이 보이도록 포커싱
-    self:moveContainer(0)
+    self:moveContainer(BINGO_FOCUS_POS.BINGO)
     if (struct_bingo:getEventItemCnt() < struct_bingo.event_price) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('보유 토큰')))
         return
@@ -491,7 +492,7 @@ function UI_EventBingo:click_chooseNumberBtn()
     local struct_bingo = g_eventBingoData.m_structBingo
 
     -- 빙고판이 보이도록 포커싱
-    self:moveContainer(0)
+    self:moveContainer(BINGO_FOCUS_POS.BINGO)
 
     if (struct_bingo:getPickEventItemCnt() < struct_bingo.event_pick_price) then
         UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('확정 뽑기 토큰')))
