@@ -66,6 +66,12 @@ function AdMobManager:initRewardedVideoAd()
     local rewarded_video_ad = self:getRewardedVideoAd()
     if (rewarded_video_ad) then
         local function ad_result_cb(ret, info)
+
+            -- 광고 load 완료
+            if (ret == 'receive') then
+                rewarded_video_ad.mIsLoaded = true
+            end
+
             self:result(ret, info)
             if (rewarded_video_ad.mCallback) then
                 rewarded_video_ad.mCallback(ret, info)
@@ -114,7 +120,6 @@ function AdMobManager:result(ret, info)
 
     -- 광고 load 완료
     if (ret == 'receive') then
-        self.mIsLoaded = true
 
     -- 광고 load 실패
     elseif (ret == 'fail') then
