@@ -252,6 +252,12 @@ function UI_BookDetailPopup:refresh_collectionState()
         return
     end
 
+    -- 슬라임일 경우 함수 종료
+    local is_slime = (self.m_tDragon['bookType'] == 'slime')
+    if (is_slime) then
+        return
+    end
+    
     -- UI 생성
     -- langLabel : 획득보상 
     -- rewardLabel : 드래곤의 희귀도와 진화 단계에 따른 획득 가능한 다이아의 개수.
