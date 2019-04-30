@@ -5,6 +5,7 @@ local PARENT = SortManager
 -- @breif 룬 정렬 관리자
 -------------------------------------
 SortManager_Rune = class(PARENT, {
+        m_mMoptSortLevel = 'map',
     })
 
 -------------------------------------
@@ -19,12 +20,27 @@ function SortManager_Rune:init()
     self:addSortType('lv', false, function(a, b, ascending) return self:sort_lv(a, b, ascending) end, Str('레벨'))
     self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end, Str('희귀도'))
 	self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end, Str('획득순'))
+    self:addSortType('mopt', false, function(a, b, ascending) return self:sort_mopt(a, b, ascending) end, Str('주옵션'))
 
 	self:pushSortOrder('created_at')
 	self:pushSortOrder('rarity')
 	self:pushSortOrder('lv')
 	self:pushSortOrder('grade')
 	self:pushSortOrder('set_id')
+    self:pushSortOrder('mopt')
+
+    -- 주옵션 정렬 레벨
+    self.m_mMoptSortLevel = {}
+    self.m_mMoptSortLevel[''] = 999
+    self.m_mMoptSortLevel['atk_multi'] = 0
+    self.m_mMoptSortLevel['def_multi'] = 1
+    self.m_mMoptSortLevel['atk_add'] = 2
+    self.m_mMoptSortLevel['hp_multi'] = 3
+    self.m_mMoptSortLevel['aspd_add'] = 4
+    self.m_mMoptSortLevel['def_add'] = 5
+    self.m_mMoptSortLevel['hp_add'] = 6
+    self.m_mMoptSortLevel['accuracy_add'] = 7
+    self.m_mMoptSortLevel['resistance_add'] = 8
 end
 
 
@@ -99,3 +115,65 @@ function SortManager_Rune:sort_created_at(a, b, ascending)
     local key = 'created_at'
     return self:common_sort(key, a, b, ascending)
 end
+
+-------------------------------------
+-- function sort_mopt
+-- @brief 획득순
+-------------------------------------
+function SortManager_Rune:sort_mopt(a, b, ascending)
+    local key = 'mopt'
+    return self:mopt_sort(key, a, b, ascending)
+end
+
+-------------------------------------
+-- function mopt_sort
+-- @brief 주 옵션 정렬
+-------------------------------------
+function SortManager:mopt_sort(key, a, b, ascending)
+    local a_value = (a['data'] and a['data'][key] or a[key]) or ''
+    local b_value = (b['data'] and b['data'][key] or b[key]) or ''
+
+    a_value = self:getMoptPriority(a_value)
+    b_value = self:getMoptPriority(b_value)
+
+    if (a_value == b_value) then
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then
+        return a_value < b_value
+    else
+        return a_value > b_value
+    end
+end
+
+-------------------------------------
+-- function getMoptPriority
+-- @brief 주 옵션을 우선순위로 변환, hp_add;34440 -> hp_add -> 1(우선순위 반환)
+-------------------------------------
+function SortManager:getMoptPriority(mopt_str)
+    if (mopt_str == '') then
+        return 999
+    end
+
+    local l_mopt = pl.stringx.split(mopt_str, ';')
+
+    if (not l_mopt) then
+        return 999
+    end
+
+    if (#l_mopt<2) then
+        return 999
+    end
+
+    local mopt = l_mopt[1]
+    local mopt_priority = self.m_mMoptSortLevel[mopt]
+    
+    if (not mopt_priority) then
+        return 999
+    end
+
+    return mopt_priority
+end
+

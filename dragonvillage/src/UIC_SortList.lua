@@ -579,6 +579,7 @@ function MakeUICSortList_runeManage(button, label)
     uic:addSortType('lv', Str('레벨'))
     uic:addSortType('rarity', Str('희귀도'))
 	uic:addSortType('created_at', Str('획득순'))
+    uic:addSortType('mopt', Str('주옵션'))
 
     return uic
 end
