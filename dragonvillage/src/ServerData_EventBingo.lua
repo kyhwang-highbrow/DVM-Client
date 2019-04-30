@@ -158,3 +158,42 @@ function ServerData_EventBingo:checkSameNumber(pick_number)
     end
     self.m_isSameNumber = false
 end
+
+-------------------------------------
+-- function request_exchangeDraw
+-------------------------------------
+function ServerData_EventBingo:request_exchangeDraw(finish_cb)
+    --[[
+        "item_info":{
+        "oids":[],
+        "count":60,
+        "item_id":700101
+         },
+        "status":0,
+        "message":"success",
+        "event":750
+    --]]
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/event_bingo_gacha')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+	ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
+end

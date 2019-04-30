@@ -21,6 +21,9 @@ StructEventBingoInfo = class(PARENT, {
 
         m_lSortedCntReward = 'list',
 
+        gacha_list = 'list', -- 아이템 뽑기에 나올 보상 목록
+        event_gachaPrice = 'number',
+
         status = '',
         message = '',
         begin_date = '',
@@ -58,6 +61,32 @@ local THIS = StructEventBingoInfo
     "bingo_line":{},
     "bingo_pick_count":0,
 
+    "gacha_list":[{
+      "table":{
+        "pick_weight":35,
+        "val":30000,
+        "category":"event_bingo",
+        "item_id":700002,
+        "bid":1001,
+        "val_min":"",
+        "val_max":"",
+        "grade":"",
+        "view":1
+      }
+    },{
+      "table":{
+        "pick_weight":5,
+        "val":60000,
+        "category":"event_bingo",
+        "item_id":700002,
+        "bid":1002,
+        "val_min":"",
+        "val_max":"",
+        "grade":"",
+        "view":1
+      }
+    },{
+
 --]]
 
 -------------------------------------
@@ -92,8 +121,29 @@ end
 -- function getBingoRewardList
 -------------------------------------
 function StructEventBingoInfo:getBingoRewardList()
-    return self.m_lSortedCntReward or {}
+    return self['m_lSortedCntReward'] or {}
+end
+
+-------------------------------------
+-- function getExchangePrice
+-------------------------------------
+function StructEventBingoInfo:getExchangePrice()
+    return self['event_gachaPrice'] or 0
+end
+
+-------------------------------------
+-- function getExchangeItemCnt
+-------------------------------------
+function StructEventBingoInfo:getExchangeItemCnt()
+    return #self['gacha_list'] or 0
     
+end
+
+-------------------------------------
+-- function getExchangeItemList
+-------------------------------------
+function StructEventBingoInfo:getExchangeItemList()
+    return self.gacha_list or {}
 end
 
 -------------------------------------

@@ -17,7 +17,6 @@ UI_EventBingo = class(PARENT,{
 
 local BINGO_TYPE = {['HORIZONTAL'] = 1, ['VERTICAL'] = 2, ['CROSS_RIGHT_TO_LEFT'] = 3, ['CROSS_LEFT_TO_RIGHT'] = 4}
 local BINGO_FOCUS_POS = {['DEFUALT'] = -680, ['BINGO'] = -400, ['EXCHANGE'] = 0}
-local EXCHANGE_MAX = 10
 
 -------------------------------------
 -- function init
@@ -170,6 +169,7 @@ function UI_EventBingo:refresh()
     local eventCnt = struct_bingo:getEventItemCnt()
     local eventPickCnt = struct_bingo:getPickEventItemCnt()
     vars['numberLabel2']:setString(Str('{1}개', comma_value(eventCnt))) -- 보유 토큰
+    vars['numberLabel4']:setString(Str('{1}개', comma_value(eventCnt))) -- 보유 토큰
     vars['numberLabel3']:setString(Str('{1}개', comma_value(eventPickCnt))) -- 확정 뽑기 토큰
     vars['rewardLabel']:setString(Str('{1} 빙고', bingo_line_cnt))
     vars['tokenPrice']:setString(struct_bingo.event_price)  -- 빙고 뽑기 1회 비용
@@ -226,17 +226,17 @@ function UI_EventBingo:getBingoType(bingo_line_number)
     local bingo_line_number = tonumber(bingo_line_number)
     
     -- 빙고 7번은 대각선 빙고(왼쪽->오른쪽)
-    if (bingo_line_number == 8) then
+    if (bingo_line_number == 7) then
         return BINGO_TYPE.CROSS_LEFT_TO_RIGHT, nil
     -- 빙고 1번은 대각선 빙고(오른쪽->왼쪽)
-    elseif (bingo_line_number == 1) then
+    elseif (bingo_line_number == 14) then
         return BINGO_TYPE.CROSS_RIGHT_TO_LEFT, nil    
     -- 빙고 2-6번은 가로 빙고
-    elseif (bingo_line_number >= 2 and bingo_line_number <= 7) then
-        return BINGO_TYPE.HORIZONTAL, bingo_line_number - 1
+    elseif (bingo_line_number >= 1 and bingo_line_number <= 6) then
+        return BINGO_TYPE.HORIZONTAL, bingo_line_number
     -- 빙고 8-12번은 세로 빙고
-    elseif (bingo_line_number >= 9 and bingo_line_number <= 14) then
-        return BINGO_TYPE.VERTICAL, 14 - bingo_line_number
+    elseif (bingo_line_number >= 8 and bingo_line_number <= 13) then
+        return BINGO_TYPE.VERTICAL, 13 - bingo_line_number
     end
 end
 
@@ -343,11 +343,11 @@ function UI_EventBingo:getLinePos(bingo_type, line) -- param 의미 : 가로 3 �
 
     if (bingo_type == BINGO_TYPE.HORIZONTAL) then        -- 가로 빙고
         pos_x, pos_y = -233.985, 188.824                 -- 가로 1번 째 칸 위치 하드코딩
-        pos_y = pos_y - offset*(line-1)
+        pos_y = pos_y - offset*(line - 1)
 
     elseif (bingo_type == BINGO_TYPE.VERTICAL) then       -- 세로 빙고
         pos_x, pos_y = 193, 239                           -- 세로 6번 째 칸 위치 하드코딩
-        pos_x = pos_x + offset*(line-6)
+        pos_x = pos_x + offset*(line - 5)
 
     elseif (bingo_type == BINGO_TYPE.CROSS_LEFT_TO_RIGHT) then  -- 대각선 빙고(left_to_right)
         pos_x, pos_y = -232.408, 231.437
@@ -432,7 +432,79 @@ end
 -- function click_exchangeBtn
 -------------------------------------
 function UI_EventBingo:click_exchangeBtn()
-    self:startExchangePickAction(4, nil)
+    local struct_bingo = g_eventBingoData.m_structBingo
+    local eventCnt = struct_bingo:getEventItemCnt()
+    local exchangePrice = struct_bingo:getExchangePrice()
+    if (eventCnt < exchangePrice) then
+        UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('보유 토큰')))
+        return
+    end
+
+    -- 통신 전, 블럭 팝업 생성
+    local block_ui = UI_BlockPopup()
+
+    local cb_func = function(ret)
+        -- 번호 뽑힌 후 콜백
+        local finish_cb = function()
+            block_ui:close()
+            self:confirm_reward(ret)
+        end      
+        -- 랜덤하게 보여주다가, 뽑힌 번호 보여주는 액션
+        local picked_item_number = self:getExchangeNumber(ret)
+        self:startExchangePickAction(picked_item_number, finish_cb)  
+    end
+
+    -- 통신
+    g_eventBingoData:request_exchangeDraw(cb_func)
+end
+
+-------------------------------------
+-- function getExchangeNumber
+-------------------------------------
+function UI_EventBingo:getExchangeNumber(ret)
+    if (not ret) then
+        return 1
+    end
+
+    local item_info = ret['item_info']
+    if (not item_info) then
+        return 1
+    end
+
+    local item_id = item_info['item_id']
+    if (not item_id) then
+        return 1
+    end
+
+    local item_cnt = item_info['count']
+    if (not item_cnt) then
+        return 1
+    end
+
+    local l_exchange = self.m_lExchangeUI
+    for ind, ui in ipairs(l_exchange) do
+        if (ui:isSameItem(item_id, item_cnt)) then
+             return ind
+        end
+    end
+
+    return 1
+end
+
+-------------------------------------
+-- function confirm_reward
+-- @brief 보상 정보
+-------------------------------------
+function UI_EventBingo:confirm_reward(ret)
+    local item_info = ret['item_info'] or nil
+    if (item_info) then
+        UI_MailRewardPopup(item_info)
+    else
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+
+        g_highlightData:setHighlightMail()
+    end
 end
 
 -------------------------------------
@@ -785,13 +857,14 @@ end
 -------------------------------------
 function UI_EventBingo:initExchangeReward()
     local vars = self.vars
-
+    local struct_bingo = g_eventBingoData.m_structBingo
+    
     self.m_lExchangeUI = {}
-    local cnt_reward = EXCHANGE_MAX
-    for i=1,cnt_reward do
-        local node = vars['exchangeNode'..i]
+    local l_exchange = struct_bingo:getExchangeItemList()
+    for ind, t_data in ipairs(l_exchange) do
+        local node = vars['exchangeNode'..ind]
         if (node) then
-            local ui_card = UI_EventBingoExchangeListItem()
+            local ui_card = UI_EventBingoExchangeListItem(t_data)
             node:addChild(ui_card.root)
             table.insert(self.m_lExchangeUI, ui_card)
         end
@@ -805,13 +878,15 @@ function UI_EventBingo:startExchangePickAction(number, finish_cb)
     local vars = self.vars
 
     local l_item_ui = self.m_lExchangeUI
+    local struct_bingo = g_eventBingoData.m_structBingo
+    local item_cnt = struct_bingo:getExchangeItemCnt()
 
     local change_speed = 0.1
-    local repeat_cnt = 12
+    local repeat_cnt = 45
     local delete_time = 1
 
     local random_frunc = function()
-        local num = math_random(EXCHANGE_MAX - 1) + 1
+        local num = math_random(item_cnt - 1) + 1
         -- 전체 하이라이트 끔
         for _, ui in ipairs(l_item_ui) do
             ui:setHighlight(false)
@@ -848,7 +923,7 @@ function UI_EventBingo:startExchangePickAction(number, finish_cb)
 
     local repeat_sequence_action = cc.Sequence:create(random_action, delay_action)
     local repeat_action = cc.Repeat:create(repeat_sequence_action, repeat_cnt)
-    local accel_repeat = cc.EaseIn:create(repeat_action, 0.5)
+    local accel_repeat = cc.EaseIn:create(repeat_action, 0.1)
     local end_action = cc.CallFunc:create(end_frunc)
     local delete_delay_action = cc.DelayTime:create(delete_time)
     local delete_action = cc.CallFunc:create(delete_frunc)
@@ -870,22 +945,62 @@ end
 
 local PARENT = UI
 
-
+--[[
+    ['table']={
+            ['pick_weight']=5;
+            ['val']=180;
+            ['category']='event_bingo';
+            ['item_id']=700001;
+            ['bid']=1010;
+            ['val_min']='';
+            ['val_max']='';
+            ['grade']='';
+            ['view']=1;
+        };
+--]]
 -------------------------------------
 -- class UI_EventBingoExchangeListItem
 -------------------------------------
 UI_EventBingoExchangeListItem = class(PARENT,{
-
+        m_data = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventBingoExchangeListItem:init()
+function UI_EventBingoExchangeListItem:init(t_data)
     local vars = self:load('event_bingo_item_04.ui')
-
+    self.m_data = t_data
     self:initUI()
     self:initButton()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_EventBingoExchangeListItem:initUI()
+    local vars = self.vars
+
+    if (not self.m_data['table']) then
+        return
+    end
+    
+    local data = self.m_data['table']
+    if (not data) then
+        return
+    end
+
+    local item_id = tonumber(data['item_id'])
+    local item_cnt = tonumber(data['val'])
+
+    local ui_card = UI_ItemCard(item_id, item_cnt)
+    if (ui_card) then
+        ui_card.root:setScale(0.66)
+        vars['itemNode']:addChild(ui_card.root)
+    end
+
+    local pick_weight = data['pick_weight']
+    vars['chanceLabel']:setString(string.format('%s.00', pick_weight) .. '%')
 end
 
 -------------------------------------
@@ -894,4 +1009,22 @@ end
 function UI_EventBingoExchangeListItem:setHighlight(is_highlight)
     local vars = self.vars 
     vars['selectSprite']:setVisible(is_highlight)
+end
+
+-------------------------------------
+-- function isSameItem
+-------------------------------------
+function UI_EventBingoExchangeListItem:isSameItem(item_id, count)
+    local data = self.m_data['table']
+    if (not data) then
+        return false
+    end
+    local _item_id = tonumber(data['item_id'])
+    local _item_cnt = tonumber(data['val'])
+
+    if (_item_id == item_id) and (count == _item_cnt) then
+        return true
+    end
+
+    return false
 end
