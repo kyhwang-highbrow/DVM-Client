@@ -306,9 +306,8 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
                 timer = (timer + dt)
                 loading:setLoadingMsg(Str('광고를 불러오는 중...') .. tostring(math_floor(timer)))
                 if (self.mIsLoaded == true) then    
-                        loading:close()
-                        loading = nil
-                    end
+                    loading:close()
+                    loading = nil
                     showFunc()
 
                 -- 3초 이후부터는 취소 버튼 추가
