@@ -4024,6 +4024,9 @@
     <None Include="..\src\UI_AdventureScene_Illusion.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventBingoListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

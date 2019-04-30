@@ -8,13 +8,16 @@ UI_EventBingo = class(PARENT,{
         m_lBingoCntReward = 'table', -- 빙고 횟수에 따른 보상 테이블
         m_lBingoLineReward = 'table', -- 빙고 라인 보상 테이블
 
+        m_lExchangeUI = 'UI_EventBingoExchangeListItem', -- 교환 상품 UI 리스트
+
         m_container = 'ScrolView Container',
         m_containerTopPosY = 'number',
         m_isContainerMoving = 'bool',
     })
 
 local BINGO_TYPE = {['HORIZONTAL'] = 1, ['VERTICAL'] = 2, ['CROSS_RIGHT_TO_LEFT'] = 3, ['CROSS_LEFT_TO_RIGHT'] = 4}
-local BINGO_FOCUS_POS = {['DEFUALT'] = -680, ['BINGO'] = -250, ['EXCHANGE'] = 0}
+local BINGO_FOCUS_POS = {['DEFUALT'] = -680, ['BINGO'] = -400, ['EXCHANGE'] = 0}
+local EXCHANGE_MAX = 10
 
 -------------------------------------
 -- function init
@@ -24,6 +27,7 @@ function UI_EventBingo:init()
 
     self:initUI()
     self:initButton()
+    self:initExchangeReward()
     self:refresh()
     self:refresh_bingoCntReward()
     self:refresh_bingoReward()
@@ -67,7 +71,7 @@ function UI_EventBingo:setBingoNumber()
 
     -- 빙고 칸 세팅
     for i = 1, 36 do
-        local ui = _UI_EventBingoListItem(i, func_click_bingoNum) -- 빙고 넘버, 확정 뽑기 눌렀을 때 콜백
+        local ui = UI_EventBingoListItem(i, func_click_bingoNum) -- 빙고 넘버, 확정 뽑기 눌렀을 때 콜백
         local node = vars['bingoNode'..i]
         if node then
             node:removeAllChildren()
@@ -140,6 +144,7 @@ function UI_EventBingo:initButton()
     vars['playBtn2']:registerScriptTapHandler(function() self:click_chooseNumberBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['cancleBtn']:registerScriptTapHandler(function() self:click_cancelPick() end) -- 확정뽑기 눌렀을 때, 확정 뽑기 취소할 수 있는 버튼
+    vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end)
     vars['cancleBtn']:setVisible(false)
 end
 
@@ -421,6 +426,13 @@ function UI_EventBingo:click_infoBtn()
     ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
     g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'event_chuseok_info_popup')
     UIManager:open(ui, UIManager.POPUP)
+end
+
+-------------------------------------
+-- function click_exchangeBtn
+-------------------------------------
+function UI_EventBingo:click_exchangeBtn()
+    self:startExchangePickAction(4, nil)
 end
 
 -------------------------------------
@@ -768,8 +780,83 @@ function UI_EventBingo:setContainerAndPosY(container, pos_y)
     self.m_containerTopPosY = pos_y
 end
 
+-------------------------------------
+-- function initExchangeReward
+-------------------------------------
+function UI_EventBingo:initExchangeReward()
+    local vars = self.vars
 
+    self.m_lExchangeUI = {}
+    local cnt_reward = EXCHANGE_MAX
+    for i=1,cnt_reward do
+        local node = vars['exchangeNode'..i]
+        if (node) then
+            local ui_card = UI_EventBingoExchangeListItem()
+            node:addChild(ui_card.root)
+            table.insert(self.m_lExchangeUI, ui_card)
+        end
+    end
+end
 
+-------------------------------------
+-- function startExchangePickAction
+-------------------------------------
+function UI_EventBingo:startExchangePickAction(number, finish_cb)
+    local vars = self.vars
+
+    local l_item_ui = self.m_lExchangeUI
+
+    local change_speed = 0.1
+    local repeat_cnt = 12
+    local delete_time = 1
+
+    local random_frunc = function()
+        local num = math_random(EXCHANGE_MAX - 1) + 1
+        -- 전체 하이라이트 끔
+        for _, ui in ipairs(l_item_ui) do
+            ui:setHighlight(false)
+        end
+        -- 고른 ui만 하이라이트 킴
+        l_item_ui[num]:setHighlight(true)
+    end
+    
+    local end_frunc = function()
+        local num = number
+        -- 전체 하이라이트 끔
+        for _, ui in ipairs(l_item_ui) do
+            ui:setHighlight(false)
+        end
+        -- 고른 ui만 하이라이트 킴
+        l_item_ui[num]:setHighlight(true)
+    end
+    
+    local delete_frunc = function()
+        -- 전체 하이라이트 끔
+        for _, ui in ipairs(l_item_ui) do
+            ui:setHighlight(false)
+        end
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
+        if (finish_cb) then
+            finish_cb()
+        end
+    end
+    
+
+    -- 랜덤으로 바뀌는 효과
+    local random_action = cc.CallFunc:create(random_frunc)
+    local delay_action = cc.DelayTime:create(change_speed)
+
+    local repeat_sequence_action = cc.Sequence:create(random_action, delay_action)
+    local repeat_action = cc.Repeat:create(repeat_sequence_action, repeat_cnt)
+    local accel_repeat = cc.EaseIn:create(repeat_action, 0.5)
+    local end_action = cc.CallFunc:create(end_frunc)
+    local delete_delay_action = cc.DelayTime:create(delete_time)
+    local delete_action = cc.CallFunc:create(delete_frunc)
+    
+    local sequence_action = cc.Sequence:create(accel_repeat, end_action, delete_delay_action, delete_action)
+
+    cca.runAction(self.root, sequence_action, nil)
+end
 
 
 
@@ -782,113 +869,29 @@ end
 
 
 local PARENT = UI
+
+
 -------------------------------------
--- class _UI_EventBingoListItem
+-- class UI_EventBingoExchangeListItem
 -------------------------------------
-_UI_EventBingoListItem = class(PARENT,{
-        m_bingoInd = 'number',
-        m_click_cb = 'function',
-        m_isPickedNumber = 'boolean',
+UI_EventBingoExchangeListItem = class(PARENT,{
+
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function _UI_EventBingoListItem:init(number, click_cb)
-    local vars = self:load('event_bingo_item_01.ui')
-    self.m_bingoInd = number
-    self.m_click_cb = click_cb
-    self.m_isPickedNumber = false
+function UI_EventBingoExchangeListItem:init()
+    local vars = self:load('event_bingo_item_04.ui')
 
     self:initUI()
     self:initButton()
 end
 
 -------------------------------------
--- function initUI
+-- function setHighlight
 -------------------------------------
-function _UI_EventBingoListItem:initUI()
-    local vars = self.vars
-    
-    -- 정해진 숫자로 세팅
-    local _num = string.format('%03d', self.m_bingoInd) --ex) 001, ..023 3자리 형식
-    local num_sprite_name = string.format('res/ui/icons/bingo/%s.png', _num)
-    vars['numberSprite']:setTexture(num_sprite_name)
-    vars['numberSprite']:setColor(cc.c3b(240,215,159))
-end
-
--------------------------------------
--- function setActiveNumber
--- @brief 빙고 숫자를 활성화(유효하게)
--------------------------------------
-function _UI_EventBingoListItem:setActiveNumber(is_pick)
-    local vars = self.vars
-    local action_speed = 0.1
-
-    -- 이미 뽑힌 번호라면 리턴
-    if (self.m_isPickedNumber) then
-        return
-    end
-
-    local func_active = function()
-        vars['clearSprite']:setVisible(true)
-        vars['numberSprite']:setColor(cc.c3b(72,25,0))
-    end 
-    
-    -- 카드 뒤집는 효과
-    local flip_action = cc.ScaleTo:create(action_speed, 0, 1)
-    local cb_frunc = cc.CallFunc:create(func_active)
-    local flip_action_reverse = cc.ScaleTo:create(action_speed, 1, 1)
-	local sequence_action = cc.Sequence:create(flip_action, cb_frunc, flip_action_reverse)
-    cca.runAction(self.root, sequence_action, nil)
-    self.m_isPickedNumber = true
-
-    -- 확정뽑기를 위해, 눌렀을 때 콜백 세팅
-    if (is_pick) then
-        self.m_click_cb(self.m_bingoInd)
-    end
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function _UI_EventBingoListItem:initButton()
-    local vars = self.vars
-
-    vars['clickBtn']:registerScriptTapHandler(function() self:setActiveNumber(true) end)
-    self:setBtnEnabled(false)
-end
-
--------------------------------------
--- function setBtnEnabled
--- @breif 확정 뽑기를 위해 버튼을 turn on/off
--------------------------------------
-function _UI_EventBingoListItem:setBtnEnabled(is_enabled)
-    local vars = self.vars
-
-    -- 이미 골라진 숫자가 아닐 경우에만 버튼 on/off
-    -- 버튼 누를 수 있는 상태 = 확정 버튼 누른 상태
-    if (not self.m_isPickedNumber) then
-        vars['clickBtn']:setEnabled(is_enabled)
-        vars['pickSprite']:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 100))))
-        vars['pickSprite']:setVisible(is_enabled)
-    end
-
-    -- 활성화 아닐때에는, 고를 수 있는 표시 무조건 끔
-    if (not is_enabled) then
-        vars['pickSprite']:setVisible(false)
-    end
-end
-
--------------------------------------
--- function setSameNumberAction
--- @brief 같은 번호 골랐을 때 opacity 조절해서 깜박깜박
--------------------------------------
-function _UI_EventBingoListItem:setSameNumberAction()
-    local vars = self.vars
-    local cb_func = function()
-        vars['clearSprite']:setOpacity(255)
-    end
-    local func_action = cc.CallFunc:create(cb_func)
-    vars['clearSprite']:runAction(cc.Repeat:create(cc.Sequence:create(cc.FadeTo:create(0.4, 0), cc.FadeTo:create(0.4, 100), func_action), 2))
+function UI_EventBingoExchangeListItem:setHighlight(is_highlight)
+    local vars = self.vars 
+    vars['selectSprite']:setVisible(is_highlight)
 end

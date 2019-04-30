@@ -1254,6 +1254,7 @@ local t_module = {
     'UI_EventAlphabetConfirmPopup',
     'UI_EventAdvent',
     'UI_EventBingoRewardListItem',
+    'UI_EventBingoListItem',
     'UI_EventBingo',
 
 	-- UI : 연출
