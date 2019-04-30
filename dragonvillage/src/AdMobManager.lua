@@ -288,7 +288,7 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
                 showFunc()
             end
         end
-        self.root:scheduleUpdateWithPriorityLua(update, 0)
+        loading.root:scheduleUpdateWithPriorityLua(update, 0)
 
         -- 일정 시간 후 닫기 (혹시 모를 무한 대기 상태를 대비)
         local node = loading.root
