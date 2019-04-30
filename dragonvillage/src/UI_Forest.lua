@@ -213,8 +213,8 @@ function UI_Forest:click_adBtn()
         return
     end
     
-    -- 광고 프리로드를 첫 번째에만 요청하도록 설정
-    AdMobManager:getRewardedVideoAd():firstLoadRequest(AD_TYPE['FOREST'])
+    -- 광고 프리로드 요청
+    AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['FOREST'])
 
     -- 탐험 광고 안내 팝업
     local function ok_cb()

@@ -106,8 +106,8 @@ function UI_SubscriptionPopupNew:click_adBtn()
 		return
 	end
 
-    -- 광고 프리로드를 첫 번째에만 요청하도록 설정
-    AdMobManager:getRewardedVideoAd():firstLoadRequest(AD_TYPE['AUTO_ITEM_PICK'])
+    -- 광고 프리로드 요청
+    AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['AUTO_ITEM_PICK'])
 
     -- 광고 안내 팝업
     local function ok_cb()

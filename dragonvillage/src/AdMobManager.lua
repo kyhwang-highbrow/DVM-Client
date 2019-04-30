@@ -16,9 +16,7 @@ AdMobManager = {}
 local AdMobRewardedVideoAd = {
     mIsInit = false,
     mCallback = nil,
-    mFirstRequestComplete = false, -- 광고 로드의 최초 요청이 완료되었는지 여부
     mIsLoaded = false, -- 광고가 불러졌는지 확인
-    mShowTimestamp = nil, -- 광고 재생 요청한 시점 시간 저장
 }
 
 -- 광고 키
@@ -225,16 +223,14 @@ end
 
 -------------------------------------
 -- function loadRequest
--- @return boolean 광고 요청을 했는지 여부
 -------------------------------------
 function AdMobRewardedVideoAd:loadRequest(ad_unit_id)
     if (not self.mIsInit) then
-        return false
+        return
     end
 
     -- @ AdManager
     PerpleSDK:rvAdLoadRequestWithId(ad_unit_id)
-    return true
 end
 
 -------------------------------------
@@ -257,46 +253,56 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
         return
     end
 
+    local function showFunc()
+        -- 로드된 광고 소모가 됨으로 false로 설정
+        self.mIsLoaded = false
 
-    ccdisplay('광고 재생 시도!! mIsLoaded : ' .. tostring(self.mIsLoaded))
+        self.mCallback = function(ret, info)
+            if (result_cb) then
+                result_cb(ret, info)
+            end
+        end
 
-    -- 광고가 로드되지 않았고, 재생 요청 5초 이내에 재시도일 경우 skip
-    -- (이 전 프로세스에서 광고 로드를 요청했을 것으로 가정함)
-    -- 5초 이후에는 광고 요청이 무효될 수 있을것을 고려하여 skip하지 않음 (PerpleSDK상에서 다시 로드 요청을 하게됨)
-    if (self.mIsLoaded == false) and (self.mShowTimestamp ~= nil) then
-        local cur_time = os.time()
-        if ((cur_time - self.mShowTimestamp) <= 5) then
-            ccdisplay('광고 재생 시도 간격 ' .. tostring(cur_time - self.mShowTimestamp))
-            local msg = Str('광고를 불러오는 중입니다. 잠시 후에 다시 시도해주세요.')
+        -- @ AdManager
+        PerpleSDK:rvAdShow(ad_unit_id)
+    end
+
+    if (self.mIsLoaded == true) then
+        showFunc()
+    else
+        -- 광고를 로드하는 동안 로딩창으로 터치 블럭 처리
+        local loading = UI_Loading()
+        loading:setLoadingMsg(Str('광고를 불러오는 중...'))
+
+        -- 광고 로드가 완료될때까지 기다림
+        local timer = 0
+        local function update(dt)
+            timer = (timer + dt)
+            loading:setLoadingMsg(Str('광고를 불러오는 중...') .. tostring(math_floor(timer)))
+            if (self.mIsLoaded == true) then
+                if loading then
+                    loading:close()
+                    loading = nil
+                end
+
+                showFunc()
+            end
+        end
+        self.root:scheduleUpdateWithPriorityLua(update, 0)
+
+        -- 일정 시간 후 닫기 (혹시 모를 무한 대기 상태를 대비)
+        local node = loading.root
+        local duration = 10
+        local function func()
+            local msg = Str('광고 시청 할 수 없습니다. 잠시 후에 다시 시도해주세요.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
-            return
+            if loading then
+                loading:close()
+                loading = nil
+            end
         end
+        cca.reserveFunc(node, duration, func)
     end
-
-    -- 광고 재생 요청한 시점 시간 저장
-    self.mShowTimestamp = os.time()
-
-    -- 로드된 광고 소모가 됨으로 false로 설정
-    self.mIsLoaded = false
-
-    self.mCallback = function(ret, info)
-        
-        -- 광고 show 완료
-        if (ret == 'finish') then
-            self:loadRequest(ad_unit_id)
-
-        -- 광고 show 중단
-        elseif (ret == 'cancel') then
-            self:loadRequest(ad_unit_id)
-        end
-
-        if (result_cb) then
-            result_cb(ret, info)
-        end
-    end
-
-    -- @ AdManager
-    PerpleSDK:rvAdShow(ad_unit_id)
 end
 
 -------------------------------------
@@ -333,19 +339,11 @@ end
 
 
 -------------------------------------
--- function firstLoadRequest
--- @breif 광고 프리로드를 첫 번째에만 요청하도록 설정
--- @usage AdMobManager:getRewardedVideoAd():firstLoadRequest(AD_TYPE['FOREST'])
+-- function adPreload
+-- @breif 광고 프리로드 요청
+-- @usage AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['FOREST'])
 -------------------------------------
-function AdMobRewardedVideoAd:firstLoadRequest(ad_type)
-    
-    ccdisplay('첫 번째 광고 로드!! ' .. tostring(not self.mFirstRequestComplete))
-    if isWin32() then
-        self.mFirstRequestComplete = true
-    end
-
-    -- 광고를 로드를 요청하고, 요청이 성공했을 경우
-    if self:loadRequest(ad_unit_id) then
-        self.mFirstRequestComplete = true
-    end
+function AdMobRewardedVideoAd:adPreload(ad_type)
+    ccdisplay('광고 프리 로드 요청')
+    self:loadRequest(ad_unit_id)
 end

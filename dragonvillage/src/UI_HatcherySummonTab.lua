@@ -393,8 +393,8 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 			return
 		end
 
-        -- 광고 프리로드를 첫 번째에만 요청하도록 설정
-        AdMobManager:getRewardedVideoAd():firstLoadRequest(AD_TYPE['FSUMMON'])
+        -- 광고 프리로드 요청
+        AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['FSUMMON'])
 
         -- 탐험 광고 안내 팝업
         local msg = Str("동영상 광고를 보시면 무료 우정 소환이 가능합니다.") .. '\n' .. Str("광고를 보시겠습니까?")
