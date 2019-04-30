@@ -16,6 +16,7 @@ AdMobManager = {}
 local AdMobRewardedVideoAd = {
     mIsInit = false,
     mCallback = nil,
+    mIsRequested = false, -- 광고 로드를 요청했는지 여부
     mIsLoaded = false, -- 광고가 불러졌는지 확인
 }
 
@@ -234,6 +235,10 @@ function AdMobRewardedVideoAd:loadRequest(ad_unit_id)
         return
     end
 
+    ccdisplay('광고 프리 로드 요청 : ' .. tostring(ad_unit_id))
+
+    self.mIsRequested = true
+
     -- @ AdManager
     PerpleSDK:rvAdLoadRequestWithId(ad_unit_id)
 end
@@ -258,9 +263,14 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
         return
     end
 
+    if (self.mIsRequested == false) then
+        self:loadRequest(ad_unit_id)
+    end
+
     local function showFunc()
         -- 로드된 광고 소모가 됨으로 false로 설정
         self.mIsLoaded = false
+        self.mIsRequested = false
 
         self.mCallback = function(ret, info)
             if (result_cb) then
@@ -277,27 +287,43 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
     else
         -- 광고를 로드하는 동안 로딩창으로 터치 블럭 처리
         local loading = UI_Loading()
+        loading.vars['bgLayerColor']:setVisible(true)
         loading:setLoadingMsg(Str('광고를 불러오는 중...'))
+
+        -- 취소
+        local function click()
+            if loading then
+                loading:close()
+                loading = nil
+            end
+        end
+        loading.vars['closeBtn']:registerScriptTapHandler(click)
 
         -- 광고 로드가 완료될때까지 기다림
         local timer = 0
         local function update(dt)
-            timer = (timer + dt)
-            loading:setLoadingMsg(Str('광고를 불러오는 중...') .. tostring(math_floor(timer)))
-            if (self.mIsLoaded == true) then
-                if loading then
-                    loading:close()
-                    loading = nil
-                end
+            if loading then
+                timer = (timer + dt)
+                loading:setLoadingMsg(Str('광고를 불러오는 중...') .. tostring(math_floor(timer)))
+                if (self.mIsLoaded == true) then    
+                        loading:close()
+                        loading = nil
+                    end
+                    showFunc()
 
-                showFunc()
+                -- 3초 이후부터는 취소 버튼 추가
+                elseif (3 <= timer) then
+                    if (loading.vars['closeBtn']:isVisible() == false) then
+                        loading.vars['closeBtn']:setVisible(true)
+                    end
+                end
             end
         end
         loading.root:scheduleUpdateWithPriorityLua(update, 0)
 
         -- 일정 시간 후 닫기 (혹시 모를 무한 대기 상태를 대비)
         local node = loading.root
-        local duration = 10
+        local duration = 60
         local function func()
             local msg = Str('광고 시청 할 수 없습니다. 잠시 후에 다시 시도해주세요.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
@@ -350,6 +376,5 @@ end
 -------------------------------------
 function AdMobRewardedVideoAd:adPreload(ad_type)
     local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[ad_type]
-    ccdisplay('광고 프리 로드 요청 : ' .. tostring(ad_type) .. ' : ' .. tostring(ad_unit_id))
     self:loadRequest(ad_unit_id)
 end
