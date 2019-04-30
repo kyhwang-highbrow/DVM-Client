@@ -344,6 +344,7 @@ end
 -- @usage AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['FOREST'])
 -------------------------------------
 function AdMobRewardedVideoAd:adPreload(ad_type)
-    ccdisplay('광고 프리 로드 요청')
+    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[ad_type]
+    ccdisplay('광고 프리 로드 요청 : ' .. tostring(ad_type) .. ' : ' .. tostring(ad_unit_id))
     self:loadRequest(ad_unit_id)
 end
