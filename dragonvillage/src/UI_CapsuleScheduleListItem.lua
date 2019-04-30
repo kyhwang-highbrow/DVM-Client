@@ -256,8 +256,9 @@ function UI_CapsuleScheduleListItem:makeItemCard(reward_name, node_name)
     -- 아이템을 물음표로 출력
     else
         local empty_ui = UI()
-        empty_ui:load('icon_item_item.ui')              -- 물음표만 활성화 하면 되기 때문에 ItemCard 생성하지 않고(init함수들 사용x) vars만 긁어옴
+        empty_ui:load('icon_item_item.ui')
         empty_ui.vars['lockSprite']:setVisible(true)
+        empty_ui.vars['numberLabel']:setVisible(false)
         item_card = empty_ui
     
         -- 카드 중 한개라도 빈 카드면 타이틀을 숨김
