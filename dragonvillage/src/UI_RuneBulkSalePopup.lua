@@ -107,6 +107,25 @@ function UI_RuneBulkSalePopup:initButton()
         vars['enhanceBtn'] = UIC_CheckBox(vars['enhanceBtn'].m_node, vars['enhanceSprite'], active)
         vars['enhanceBtn']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
+
+    do -- 룬 번호
+        for i = 1, 6 do 
+            local active = g_settingData:get('option_rune_bulk_sell', 'run_num'..i)
+            vars['numBtn'..i] = UIC_CheckBox(vars['numBtn'..i].m_node, vars['numSprite'..i], active)
+            vars['numBtn'..i]:registerScriptTapHandler(function() self:click_checkBox() end)
+        end
+    end
+
+    do -- 주옵션
+        for i = 1, 8 do 
+            local active = g_settingData:get('option_rune_bulk_sell', 'mopt'..i)
+            vars['moptBtn'..i] = UIC_CheckBox(vars['moptBtn'..i].m_node, vars['moptSprite'..i], active)
+            vars['moptBtn'..i]:registerScriptTapHandler(function() self:click_checkBox() end)
+        end
+    end
+
+
+    vars['ancientBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -136,6 +155,8 @@ function UI_RuneBulkSalePopup:init_tableView()
     sort_manager:pushSortOrder('lv')
     sort_manager:pushSortOrder('rarity')
     sort_manager:pushSortOrder('grade')
+    --sort_manager:pushSortOrder('rune_num')
+    --sort_manager:pushSortOrder('mopt')
     self.m_sortManagerRune = sort_manager
 end
 
@@ -181,6 +202,16 @@ function UI_RuneBulkSalePopup:getRuneList()
     l_rarity[3] = vars['rarityBtn3']:isChecked()
     l_rarity[4] = vars['rarityBtn4']:isChecked()
 
+    local l_rune_num = {}
+    for i = 1, 6 do
+        l_rune_num[i] = vars['numBtn'..i]:isChecked()
+    end
+
+    local l_mopt = {}
+    for i = 1, 8 do
+        l_mopt[i] = vars['moptBtn'..i]:isChecked()
+    end
+
     local with_enhanced_runes = vars['enhanceBtn']:isChecked()
 
     for i,v in pairs(l_rune_list) do
@@ -188,14 +219,52 @@ function UI_RuneBulkSalePopup:getRuneList()
         local rarity = v['rarity']
         local lv = v['lv']
         local lock = v['lock']
+        local mopt = self:parseMopt(v['mopt'])
+        local slot = (7-v['slot']) -- 슬롯 순서가 반대
+
         if (not with_enhanced_runes) and (1 <= lv) then
         elseif (lock == true) then
-        elseif (l_stars[grade] and l_rarity[rarity]) then
+        elseif (l_stars[grade] and l_rarity[rarity] and l_rune_num[slot] and l_mopt[mopt]) then
             l_ret_list[i] = v
         end
     end
 
     return l_ret_list, total_count
+end
+
+-------------------------------------
+-- function parseMopt
+-------------------------------------
+function UI_RuneBulkSalePopup:parseMopt(mopt_str)
+    if (not mopt_str) then
+        return 1
+    end
+    local l_mopt = pl.stringx.split(mopt_str, ';')
+    if (#l_mopt < 2) then
+        return 1
+    end
+
+    local mopt = l_mopt[1]
+    if (string.match(mopt, 'hp')) then
+        return 1
+    elseif (string.match(mopt, 'atk')) then
+        return 2
+    elseif (string.match(mopt, 'def')) then
+        return 3
+    elseif (string.match(mopt, 'aspd')) then
+        return 4
+    elseif (string.match(mopt, 'cri_chance')) then
+        return 5
+    elseif (string.match(mopt, 'cri_dmg')) then
+        return 6
+    elseif (string.match(mopt, 'accuracy')) then
+        return 7
+    elseif (string.match(mopt, 'resistance')) then
+        return 8
+    else
+        return 1
+    end
+
 end
 
 -------------------------------------
@@ -323,6 +392,15 @@ function UI_RuneBulkSalePopup:onClose()
         g_settingData:applySettingData(vars['rarityBtn1']:isChecked(), 'option_rune_bulk_sell', 'rarity_1')
 
         g_settingData:applySettingData(vars['enhanceBtn']:isChecked(), 'option_rune_bulk_sell', 'enhance')
+
+        for i = 1, 6 do
+            g_settingData:applySettingData(vars['numBtn'..i]:isChecked(), 'option_rune_bulk_sell', 'run_num'..i)
+        end
+
+        for i = 1, 8 do
+            g_settingData:applySettingData(vars['moptBtn'..i]:isChecked(), 'option_rune_bulk_sell', 'mopt'..i)
+        end
+
 
         g_settingData:unlockSaveData()
         self.m_bOptionChanged = false

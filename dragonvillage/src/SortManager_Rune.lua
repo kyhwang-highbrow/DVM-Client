@@ -36,11 +36,14 @@ function SortManager_Rune:init()
     self.m_mMoptSortLevel['def_multi'] = 1
     self.m_mMoptSortLevel['atk_add'] = 2
     self.m_mMoptSortLevel['hp_multi'] = 3
-    self.m_mMoptSortLevel['aspd_add'] = 4
+    self.m_mMoptSortLevel['aspd_multy'] = 4
     self.m_mMoptSortLevel['def_add'] = 5
     self.m_mMoptSortLevel['hp_add'] = 6
-    self.m_mMoptSortLevel['accuracy_add'] = 7
-    self.m_mMoptSortLevel['resistance_add'] = 8
+    self.m_mMoptSortLevel['accuracy_multy'] = 7
+    self.m_mMoptSortLevel['resistance_multy'] = 8
+    self.m_mMoptSortLevel['cri_chance_multy'] = 9
+    self.m_mMoptSortLevel['cri_dmg_multy'] = 10
+
 end
 
 
