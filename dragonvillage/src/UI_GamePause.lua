@@ -31,6 +31,8 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
     vars['contentsButton']:registerScriptTapHandler(function() self:click_homeButton() end)
     vars['continueButton']:registerScriptTapHandler(function() self:click_continueButton() end)
     vars['settingButton']:registerScriptTapHandler(function() self:click_settingButton() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfoBtn() end)
+    vars['infoBtn']:setVisible(true)
 
     -- 디버그용 버튼
     if (IS_TEST_MODE()) then
@@ -157,6 +159,13 @@ function UI_GamePause:click_retryButton()
     end
     
     self:confirmExit(retry_func)
+end
+
+-------------------------------------
+-- function click_statusInfoBtn
+-------------------------------------
+function UI_GamePause:click_statusInfoBtn()
+    UI_HelpStatus()
 end
 
 -------------------------------------

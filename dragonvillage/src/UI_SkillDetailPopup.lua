@@ -464,7 +464,7 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_SkillDetailPopup:click_infoBtn()
-	UI_Help('effect')
+	UI_HelpStatus()
 end
 
 -------------------------------------

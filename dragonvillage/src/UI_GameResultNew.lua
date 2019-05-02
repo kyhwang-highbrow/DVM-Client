@@ -143,6 +143,8 @@ function UI_GameResultNew:initButton()
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
     vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfoBtn() end)
+    vars['infoBtn']:setVisible(true)
 
     -- 자동재화 버튼
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end)
@@ -1051,6 +1053,13 @@ function UI_GameResultNew:click_backBtn()
     local dungeon_mode = g_gameScene.m_dungeonMode
     local condition = self.m_stageID
     QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
+end
+
+-------------------------------------
+-- function click_statusInfoBtn
+-------------------------------------
+function UI_GameResultNew:click_statusInfoBtn()
+    UI_HelpStatus()
 end
 
 -------------------------------------

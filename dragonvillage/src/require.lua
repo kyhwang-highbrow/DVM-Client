@@ -1158,6 +1158,7 @@ local t_module = {
 	'UI_DragonSkillEnhance',
     'UI_DragonEvolution',
     'UI_SkillDetailPopup',
+    'UI_HelpStatus',
     'UI_DragonRunes',
     'UI_DragonRunesGrind',
     'UI_DragonRunesGrindFirstPopup',
