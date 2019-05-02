@@ -179,7 +179,7 @@ function UI_EventBingo:refresh()
     -- 누적 보상 다음 스텝 정보 : ex) 다음 빙고까지 ~ 남았다
     -- 빙고갯수보다 많은 누적 보상 스텝 = next_step
     local l_cnt_reward = struct_bingo:getBingoRewardList()
-    local next_step = 12
+    local next_step = struct_bingo:getLastRewardCnt()
     for ind, data in ipairs(l_cnt_reward) do
         if (bingo_line_cnt < data['reward_index']) then
             next_step = data['reward_index']
@@ -195,8 +195,8 @@ function UI_EventBingo:refresh()
     end
 
     -- 누적 보상 게이지
-    local reward_cnt = bingo_line_cnt
-    local max_reward = 12
+    local reward_cnt = struct_bingo:getBingoNumberCnt()
+    local max_reward = struct_bingo:getLastRewardCnt()
     local percentage = reward_cnt/max_reward * 100
     vars['ggSprite']:runAction(cc.ProgressTo:create(0.2, percentage))
 
@@ -207,8 +207,8 @@ function UI_EventBingo:refresh()
         self.m_lBingoNumber[tonumber(number)]:setActiveNumber(is_pick)
     end
 
-    -- 빙고 12개 완료 되었을 경우
-    if (struct_bingo:getBingoLineCnt() == 12) then
+    -- 빙고 모두 완료 되었을 경우
+    if (reward_cnt == struct_bingo:getLastRewardCnt()) then
         self:completeBingo()
     end
 
@@ -247,7 +247,7 @@ end
 function UI_EventBingo:refresh_bingoCntReward()
     local l_bingo_cnt = self.m_lBingoCntReward
     local struct_bingo = g_eventBingoData.m_structBingo
-    local bingo_cnt = struct_bingo:getBingoRewardCnt()
+    local bingo_cnt = struct_bingo:getBingoNumberCnt()
 
     local one_enabled = false
     for ind, ui_data in ipairs(l_bingo_cnt) do
@@ -365,8 +365,8 @@ end
 -------------------------------------
 function UI_EventBingo:pickNumberAction(number, finish_cb)
     local vars = self.vars
-    local change_speed = 0.06
-    local repeat_cnt = 12
+    local change_speed = 0.07
+    local repeat_cnt = 20
     local delete_time = 0.7
 
     if (not vars['pickAniSprite']) then
@@ -407,7 +407,7 @@ function UI_EventBingo:pickNumberAction(number, finish_cb)
 
     local repeat_sequence_action = cc.Sequence:create(random_action, delay_action)
     local repeat_action = cc.Repeat:create(repeat_sequence_action, repeat_cnt)
-    local accel_repeat = cc.EaseIn:create(repeat_action, 0.5)
+    local accel_repeat = cc.EaseIn:create(repeat_action, 0.1)
     local end_action = cc.CallFunc:create(end_frunc)
     local delete_delay_action = cc.DelayTime:create(delete_time)
     local delete_action = cc.CallFunc:create(delete_frunc)

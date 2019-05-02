@@ -147,10 +147,26 @@ function StructEventBingoInfo:getExchangeItemList()
 end
 
 -------------------------------------
+-- function getBingoNumberCnt
+-------------------------------------
+function StructEventBingoInfo:getBingoNumberCnt()
+    local bingo_info = self['bingo_count_info']
+    if (not bingo_info) then
+        return 0
+    end
+
+    if (not bingo_info['bingo_number_count']) then
+        return 0
+    end
+    
+    return bingo_info['bingo_number_count']
+end
+
+-------------------------------------
 -- function sortCntReward
 -------------------------------------
 function StructEventBingoInfo:sortCntReward(ret)
-    local t_cnt_reward = ret['bingo_count_info']['bingo_count_reward'] or {}
+    local t_cnt_reward = ret['bingo_count_info']['bingo_number_count_reward'] or {}
     local l_cnt_reward = {}
 
     --[[
@@ -177,6 +193,16 @@ function StructEventBingoInfo:sortCntReward(ret)
 
     table.sort(l_cnt_reward, func_sort)
     self.m_lSortedCntReward = l_cnt_reward
+end
+
+-------------------------------------
+-- function getLastRewardCnt
+-------------------------------------
+function StructEventBingoInfo:getLastRewardCnt()
+    local l_cnt_reward = self.m_lSortedCntReward
+    local last_idx = #l_cnt_reward
+    local last_item = l_cnt_reward[last_idx]
+    return last_item['reward_index'] or 0
 end
 
 -------------------------------------
