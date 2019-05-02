@@ -34,3 +34,25 @@ function UI_AdventureScene_Illusion:init()
 	self:refresh()
 end
 
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_AdventureScene_Illusion:initButton()
+    local vars = self.vars
+
+    for difficulty = 1, 4 do
+        vars['stageBtn0'..difficulty]:registerScriptTapHandler(function() self:click_stage(difficulty) end)
+    end
+end
+
+-------------------------------------
+-- function click_stage
+-------------------------------------
+function UI_AdventureScene_Illusion:click_stage(difficulty)
+    -- 임의로 죄악의 던전
+    local stage_id = g_illusionDungeonData:makeAdventureID(difficulty, 1) -- param : difficulty, stage
+    UI_ReadySceneNew_IllusionDungeon(stage_id)
+end
+
+
+

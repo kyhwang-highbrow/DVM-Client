@@ -93,7 +93,7 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
         elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 			ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 			if (math.floor(data['did']/10)*10 == 120300) then
-				ui:setHighlightSpriteVisible(true)
+				ui:setEventSpriteVisible(true)
 			end
 			ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 		else

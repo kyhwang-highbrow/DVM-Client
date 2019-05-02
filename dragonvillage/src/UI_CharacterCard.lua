@@ -367,6 +367,22 @@ function UI_CharacterCard:setLeaderIconSpriteVisible(visible)
 end
 
 -------------------------------------
+-- function setEventSpriteVisible
+-- @brief 이벤트 표시
+-- @brief spriteframe에 없는 아이콘이므로, 이 아이콘만 생성함
+-------------------------------------
+function UI_CharacterCard:setEventSpriteVisible(visible)
+    -- 이벤트 뱃지 아이콘
+    local res = 'res/ui/frames/capsule_box_badge_0301.png'
+    local leader_icon = IconHelper:getIcon(res)
+    leader_icon:setPositionY(-50)
+    
+    self.vars['clickBtn']:addChild(leader_icon, 99)
+end
+
+
+
+-------------------------------------
 -- function setTeamReadySpriteVisible
 -- @brief 출전중 표시 (클랜던전 전용 - 1,2 공격대)
 -------------------------------------

@@ -565,7 +565,7 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
     elseif (self.m_gameMode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 		ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 		if (math.floor(t_dragon_data['did']/10)*10 == 120300) then
-			ui:setHighlightSpriteVisible(true)
+			ui:setEventSpriteVisible(true)
 		end
 		ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 	else
