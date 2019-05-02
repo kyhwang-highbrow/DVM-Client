@@ -244,6 +244,9 @@ function ServerData:getInstance()
     -- 깜짝 할인 상품
     g_spotSaleData = ServerData_SpotSale(g_serverData)
 
+    -- 환상 던전 이벤
+    g_illusionDungeonData = Serverdata_IllusionDungeon()
+
     return g_serverData
 end
 

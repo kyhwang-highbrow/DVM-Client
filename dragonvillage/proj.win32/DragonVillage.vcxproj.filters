@@ -4030,6 +4030,15 @@
     <None Include="..\src\UI_HelpStatus.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ReadySceneNew_IllusionDungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\Serverdata_IllusionDungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AdventureStageInfo_IllusionDungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

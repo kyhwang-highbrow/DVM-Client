@@ -186,7 +186,9 @@ local t_module = {
     'ServerData_EventAlphabet', -- 알파벳 이벤트
     'ServerData_ChallengeMode', -- 챌린지 모드
     'ServerData_SpotSale', -- 깜짝 할인 상품
-    'ServerData_EventAdvent',
+    'ServerData_EventAdvent', -- 깜짝 출현 이벤트
+    'Serverdata_IllusionDungeon', -- 환상 던전 이벤트
+
 
     -- Interface
     'IEventDispatcher',
@@ -947,6 +949,7 @@ local t_module = {
     'UI_AdventureFirstRewardPopup',
     'UI_AdventureFirstRewardButton',
     'UI_AdventureStageInfo',
+	'UI_AdventureStageInfo_IllusionDungeon',
     'UI_AdventureStageMissionInfo',
     'UI_ChapterSelect',
     'UI_ChapterSelectListItem',
@@ -957,6 +960,8 @@ local t_module = {
     'UI_ReadySceneNew_Deck',
     'UI_ReadySceneNew_Select',
     'UI_ReadyScene_LeaderPopup',
+	'UI_ReadySceneNew_IllusionDungeon',
+
 	
 	-- UI : 전투 통계
 	'UI_StatisticsPopup',

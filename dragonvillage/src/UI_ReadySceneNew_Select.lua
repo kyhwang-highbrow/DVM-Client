@@ -90,7 +90,13 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
             local _, bonus_info = raid_info:getBonusSynastryInfo()
             local _, penalty_info = raid_info:getPenaltySynastryInfo()
             ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
-        else
+        elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
+			ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
+			if (math.floor(data['did']/10)*10 == 120300) then
+				ui:setHighlightSpriteVisible(true)
+			end
+			ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
+		else
             ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
         end
     end

@@ -533,6 +533,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Highbrow.lua" />
     <None Include="..\src\ServerData_Highlight.lua" />
     <None Include="..\src\ServerData_HotTime.lua" />
+    <None Include="..\src\Serverdata_IllusionDungeon.lua" />
     <None Include="..\src\ServerData_Inventory.lua" />
     <None Include="..\src\ServerData_Item.lua" />
     <None Include="..\src\ServerData_LevelUpPackage.lua" />
@@ -1022,6 +1023,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AdventureScene_Illusion.lua" />
     <None Include="..\src\UI_AdventureStageButton.lua" />
     <None Include="..\src\UI_AdventureStageInfo.lua" />
+    <None Include="..\src\UI_AdventureStageInfo_IllusionDungeon.lua" />
     <None Include="..\src\UI_AdventureStageMissionInfo.lua" />
     <None Include="..\src\UI_AdvertisingPopup.lua" />
     <None Include="..\src\UI_AncientRuinStageListItem.lua" />
@@ -1299,6 +1301,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RandomShopListItem.lua" />
     <None Include="..\src\UI_ReadySceneNew.lua" />
     <None Include="..\src\UI_ReadySceneNew_Deck.lua" />
+    <None Include="..\src\UI_ReadySceneNew_IllusionDungeon.lua" />
     <None Include="..\src\UI_ReadySceneNew_Select.lua" />
     <None Include="..\src\UI_ReinforcePointCard.lua" />
     <None Include="..\src\UI_RelationCard.lua" />

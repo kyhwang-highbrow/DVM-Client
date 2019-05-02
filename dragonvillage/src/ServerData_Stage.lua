@@ -21,6 +21,7 @@ end
 -- function getGameMode
 -------------------------------------
 function ServerData_Stage:getGameMode(stage_id)
+
     if (stage_id == ARENA_STAGE_ID) then
         return GAME_MODE_ARENA
     elseif (stage_id == CHALLENGE_MODE_STAGE_ID) then
@@ -29,6 +30,9 @@ function ServerData_Stage:getGameMode(stage_id)
     -- 그랜드 콜로세움 (이벤트 PvP 10대10)
     elseif (stage_id == GRAND_ARENA_STAGE_ID) then
         return GAME_MODE_EVENT_ARENA
+	-- 환상 던전 이벤트
+	elseif (math.floor(stage_id/10000) == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
+		return GAME_MODE_EVENT_ILLUSION_DUNSEON
     end
 
     local game_mode = getDigit(stage_id, 100000, 2)
@@ -109,7 +113,8 @@ function ServerData_Stage:getStageName(stage_id)
     -- 그랜드 콜로세움
     elseif (game_mode == GAME_MODE_EVENT_ARENA) then
         name = Str('그랜드 콜로세움')
-
+	elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
+		name = Str('환상 던전 이벤트')
     end
 
     return name

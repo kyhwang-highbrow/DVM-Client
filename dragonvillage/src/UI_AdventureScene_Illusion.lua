@@ -1,5 +1,7 @@
 local PARENT = UI_AdventureSceneNew
 
+local T_CHAPTER_MAP_RES_ILLUSION ='res/bg/map_illusion/map_illusion.vrp'
+
 -------------------------------------
 -- class UI_AdventureScene_Illusion
 -------------------------------------
@@ -25,52 +27,60 @@ function UI_AdventureScene_Illusion:init(stage_id)
     
 end
 
+-------------------------------------
+-- function openAdventureStageInfoPopup
+-------------------------------------
+function UI_AdventureScene_Illusion:openAdventureStageInfoPopup(stage_id)
+    if (self.m_adventureStageInfoPopup) then
+        return
+    end
+
+    local function close_cb()
+        self.m_adventureStageInfoPopup = nil
+    end
+
+    self.m_adventureStageInfoPopup = UI_AdventureStageInfo_IllusionDungeon(stage_id)
+    self.m_adventureStageInfoPopup:setCloseCB(close_cb)
+end
 
 -------------------------------------
 -- function focusByStageID
 -- @brief
 -------------------------------------
 function UI_AdventureScene_Illusion:focusByStageID(stage_id)
-    local difficulty, chapter, stage = parseAdventureID(stage_id)
+    local difficulty, chapter, stage = g_illusionDungeonData:g_parseAdventureID(stage_id)
     self:refreshChapter(chapter, difficulty, stage)
 end
 
 -------------------------------------
--- function initButton
--- @brief
+-- function click_stageBtn
 -------------------------------------
-function UI_AdventureScene_Illusion:makeUICSortList()
-	local button = self.vars['difficultyBtn']
-	local label = self.vars['difficultyLabel']
+function UI_AdventureScene_Illusion:click_stageBtn(stage_id, is_open)
+    local difficulty, chapter, stage = g_illusionDungeonData:parseStageID(stage_id)
 
-    local width, height = button:getNormalSize()
-    local parent = button:getParent()
-    local x, y = button:getPosition()
+    -- 스테이지 시작
+    if (self.m_focusStageIdx == stage) and is_open then
+        self:openAdventureStageInfoPopup(stage_id)
+        return
+    end
+	--[[
+    -- 열린 스테이지는 포커싱
+    if is_open then
+        self:focusStageButton(stage, nil, nil, stage_id)
+    else
+        -- 잠긴 스테이지는 알림
+        local node = self.m_lStageButton[stage].root
+        local start_action = cc.MoveTo:create(0.05, cc.p(-20, 0))
+        local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, 0)), 0.2)
+        node:stopAllActions()
+        node:runAction(cc.Sequence:create(start_action, end_action))
 
-    local uic = UIC_SortList()
-    uic.m_direction = UIC_SORT_LIST_BOT_TO_TOP
-    uic:setNormalSize(width, height)
-    uic:setPosition(x, y)
-    uic:setDockPoint(button:getDockPoint())
-    uic:setAnchorPoint(button:getAnchorPoint())
-    uic:init_container()
-
-    uic:setExtendButton(button)
-    uic:setSortTypeLabel(label)
-
-    parent:addChild(uic.m_node)
-
-    uic:addSortType(1, Str('보통'), {color = COLOR['diff_normal'], stroke = 0})
-    uic:addSortType(2, Str('어려움'), {color = COLOR['diff_hard'], stroke = 0})
-    uic:addSortType(3, Str('지옥'), {color = COLOR['diff_hell'], stroke = 0})
-    uic:addSortType(4, Str('불지옥'), {color = COLOR['diff_hellfire'], stroke = 0})
-
-	self.m_uicSortList = uic
-	self.m_uicSortList:setSortChangeCB(function(sort_type) 
-        self:click_selectDifficultyBtn(sort_type)
-    end)
+        local msg = Str('{1}스테이지를 먼저 모험하세요.', self.m_openStage)
+        msg = Str('이전 스테이지를 먼저 모험하세요.')
+        UIManager:toastNotificationRed(msg)
+    end
+	--]]
 end
-
 
 -------------------------------------
 -- function moveShipObject
@@ -186,11 +196,11 @@ function UI_AdventureScene_Illusion:refreshChapter(chapter, difficulty, stage, f
     
     do -- 챕터 배경
         vars['chapterNode']:removeAllChildren()
-        local res = 'res/bg/map_forest/map_forest.vrp'
+        local res = T_CHAPTER_MAP_RES_ILLUSION
 
         local animator = MakeAnimator(res)
-        animator:setDefaultAniName('easy')
-        animator:changeAni('easy', true)
+        animator:setDefaultAniName('idle')
+        animator:changeAni('idle', true)
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         vars['chapterNode']:addChild(animator.m_node)
@@ -258,10 +268,9 @@ function UI_AdventureScene_Illusion:refreshChapter_Illusion(chapter, difficulty,
 
     end
 
-    -- 깜짝 출현 스테이지
+    -- 환상 던전 스테이지
     local advent_stage_count = 3
 
-    -- 깜짝 출현 스테이지 버튼 및 드래곤 애니 생성
     self.m_lStageButton = {}
     self.m_adventDragonAniList = {}
     local advent_dock_node
@@ -270,7 +279,8 @@ function UI_AdventureScene_Illusion:refreshChapter_Illusion(chapter, difficulty,
         advent_dock_node = vars[string.format('adventStageDock%.2d', i)]      
         -- button
         --local stage_id = makeAdventureID(1, 1, i)
-        local button = UI_AdventureStageButton(self, SPECIAL_CHAPTER.GAME_MODE_EVENT_ILLUSION_DUNSEON)
+        local stage_id = g_illusionDungeonData:makeAdventureID(self.m_currDifficulty, i) -- parame : difficulty, stage
+        local button = UI_AdventureStageButton(self, stage_id)
         self.m_lStageButton[i] = button
         advent_dock_node:addChild(button.root)
     end
