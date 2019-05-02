@@ -102,6 +102,13 @@ function UI_BattleMenuItem:refresh()
         has_noti = g_secretDungeonData:isSecretDungeonExist()
         noti_pos = cc.p(90, -90)
 
+    elseif (content_type == 'gold_dungeon') then
+        local event_data = g_eventGoldDungeonData
+        -- 현재 입장권 개수
+        local stamina_cnt = event_data:getStaminaCount()
+        has_noti = stamina_cnt > 0
+        noti_pos = cc.p(90, -90)
+
     elseif (content_type == 'clan_raid') then
         has_noti = false
     end
