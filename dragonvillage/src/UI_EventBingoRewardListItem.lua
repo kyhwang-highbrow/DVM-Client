@@ -92,7 +92,7 @@ end
 function UI_EventBingoRewardListItem:initUI_cntReward()
     local vars = self.vars
     local struct_bingo = g_eventBingoData.m_structBingo
-    vars['rewardLabel']:setString(Str('{1}빙고', self.m_sub_data))
+    vars['rewardLabel']:setString(Str('{1} 칸', self.m_sub_data))
     self.root:setScale(1.2)
 
     -- 누적 보상 아이템 카드 (임시 하드코딩)
