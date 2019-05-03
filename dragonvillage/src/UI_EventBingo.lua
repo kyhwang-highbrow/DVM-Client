@@ -117,7 +117,7 @@ function UI_EventBingo:setBingoCntReward()
     local click_bingo_cnt_cb = function(ind)
         self:click_cntRewardBingo(ind)
     end
-    
+
     -- 빙고 갯수 보상
     self.m_lBingoCntReward = {}
     local l_reward_item = struct_bingo:getBingoRewardList()
@@ -208,7 +208,7 @@ function UI_EventBingo:refresh()
     end
 
     -- 빙고 모두 완료 되었을 경우
-    if (reward_cnt == struct_bingo:getLastRewardCnt()) then
+    if (reward_cnt == 36) then
         self:completeBingo()
     end
 
@@ -395,6 +395,7 @@ function UI_EventBingo:pickNumberAction(number, finish_cb)
         vars['bingoSprite']:setVisible(false)
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
         self:refresh()
+        self:refresh_bingoCntReward()
         if (finish_cb) then
             finish_cb()
         end
@@ -625,6 +626,7 @@ function UI_EventBingo:request_selectedDraw(selected_num)
         end
 
         self:refresh()
+        self:refresh_bingoCntReward()
         block_ui:close()
      end  
      
