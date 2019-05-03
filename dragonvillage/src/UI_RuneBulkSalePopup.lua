@@ -134,15 +134,15 @@ function UI_RuneBulkSalePopup:init_tableView()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(0.68)
+        ui.root:setScale(0.55)
     end
 
     local l_item_list = {}
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(102, 102)
-    table_view_td.m_nItemPerCell = 5
+    table_view_td.m_cellSize = cc.size(80, 80)
+    table_view_td.m_nItemPerCell = 6
     table_view_td:setCellUIClass(UI_RuneCard, create_func)
     table_view_td:setItemList(l_item_list)
 
