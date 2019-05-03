@@ -57,7 +57,10 @@ function UI_RuneBulkSalePopup:initButton()
     local vars = self.vars
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
     vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
-    vars['resetBtn']:registerScriptTapHandler(function() self:click_resetBtn() end)
+    vars['resetBtn'] = UIC_CheckBox(vars['allCheckBtn'].m_node, vars['allCheckSprite'], active)
+    vars['resetBtn']:registerScriptTapHandler(function()       
+        self:click_resetBtn()      
+    end)
 
     do -- 등급
         local active = g_settingData:get('option_rune_bulk_sell', 'grade_6')
@@ -187,38 +190,67 @@ function UI_RuneBulkSalePopup:getRuneList()
     local vars = self.vars
 
     local l_stars = {}
-    l_stars[1] = vars['starBtn1']:isChecked()
-    l_stars[2] = vars['starBtn2']:isChecked()
-    l_stars[3] = vars['starBtn3']:isChecked()
-    l_stars[4] = vars['starBtn4']:isChecked()
-    l_stars[5] = vars['starBtn5']:isChecked()
-    l_stars[6] = vars['starBtn6']:isChecked()
+    local is_all_stars = true
+    for i = 1, 6 do
+        l_stars[i] = vars['starBtn'..i]:isChecked()
+        if (vars['starBtn'..i]:isChecked()) then
+            is_all_stars = false
+        end
+    end
+    
 
     local l_rarity = {}
-    l_rarity[1] = vars['rarityBtn1']:isChecked()
-    l_rarity[2] = vars['rarityBtn2']:isChecked()
-    l_rarity[3] = vars['rarityBtn3']:isChecked()
-    l_rarity[4] = vars['rarityBtn4']:isChecked()
+    local is_all_rarity = true
+    for i = 1, 4 do
+        l_rarity[i] = vars['rarityBtn'..i]:isChecked()
+        if (vars['rarityBtn'..i]:isChecked()) then
+            is_all_rarity = false
+        end
+    end
 
     local l_rune_num = {}
+    local is_all_rune_num = true
     for i = 1, 6 do
         l_rune_num[i] = vars['numBtn'..i]:isChecked()
+        if (vars['numBtn'..i]:isChecked()) then
+            is_all_rune_num = false
+        end
     end
 
     local l_mopt = {}
+    local is_all_mopt = true
     for i = 1, 8 do
         l_mopt[i] = vars['moptBtn'..i]:isChecked()
+        if (vars['moptBtn'..i]:isChecked()) then
+            is_all_mopt = false
+        end
     end
 
     local with_enhanced_runes = vars['enhanceBtn']:isChecked()
-
     for i,v in pairs(l_rune_list) do
         local grade = v['grade']
+        if (is_all_stars) then
+            l_stars[grade] = true
+        end
+        
         local rarity = v['rarity']
+        if (is_all_rarity) then
+            l_rarity[rarity] = true
+        end
+
         local lv = v['lv']
+
         local lock = v['lock']
+        
         local mopt = self:parseMopt(v['mopt'])
+        if (is_all_mopt) then
+            l_mopt[mopt] = true
+        end
+
         local slot = (7-v['slot']) -- 슬롯 순서가 반대
+        if (is_all_rune_num) then
+            l_rune_num[slot] = true
+        end
 
         if (not with_enhanced_runes) and (1 <= lv) then
         elseif (lock == true) then
@@ -311,28 +343,31 @@ end
 -------------------------------------
 function UI_RuneBulkSalePopup:click_resetBtn()
     local vars = self.vars
+    local is_reset = vars['resetBtn']:isChecked()
 
-    vars['starBtn6']:setChecked(false)
-    vars['starBtn5']:setChecked(false)
-    vars['starBtn4']:setChecked(false)
-    vars['starBtn3']:setChecked(false)
-    vars['starBtn2']:setChecked(false)
-    vars['starBtn1']:setChecked(false)
+    vars['starBtn6']:setChecked(is_reset)
+    vars['starBtn5']:setChecked(is_reset)
+    vars['starBtn4']:setChecked(is_reset)
+    vars['starBtn3']:setChecked(is_reset)
+    vars['starBtn2']:setChecked(is_reset)
+    vars['starBtn1']:setChecked(is_reset)
     
-    vars['rarityBtn4']:setChecked(false)
-    vars['rarityBtn3']:setChecked(false)
-    vars['rarityBtn2']:setChecked(false)
-    vars['rarityBtn1']:setChecked(false)
+    vars['rarityBtn4']:setChecked(is_reset)
+    vars['rarityBtn3']:setChecked(is_reset)
+    vars['rarityBtn2']:setChecked(is_reset)
+    vars['rarityBtn1']:setChecked(is_reset)
     
-    vars['enhanceBtn']:setChecked(false)
+    vars['enhanceBtn']:setChecked(is_reset)
     
     for i = 1, 6 do
-        vars['numBtn'..i]:setChecked(false)
+        vars['numBtn'..i]:setChecked(is_reset)
     end
     
     for i = 1, 8 do
-        vars['moptBtn'..i]:setChecked(false)
+        vars['moptBtn'..i]:setChecked(is_reset)
     end
+
+    self:refresh()
 end
 
 -------------------------------------
