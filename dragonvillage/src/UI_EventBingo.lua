@@ -171,7 +171,7 @@ function UI_EventBingo:refresh()
     vars['numberLabel2']:setString(Str('{1}개', comma_value(eventCnt))) -- 보유 토큰
     vars['numberLabel4']:setString(Str('{1}개', comma_value(eventCnt))) -- 보유 토큰
     vars['numberLabel3']:setString(Str('{1}개', comma_value(eventPickCnt))) -- 확정 뽑기 토큰
-    vars['rewardLabel']:setString(Str('{1} 빙고', bingo_line_cnt))
+    vars['rewardLabel']:setString(Str('{1} 칸', bingo_line_cnt))
     vars['tokenPrice']:setString(struct_bingo.event_price)  -- 빙고 뽑기 1회 비용
     vars['pickTokenPrice']:setString(struct_bingo.event_pick_price) -- 확정 뽑기 1회 비용
 
@@ -187,7 +187,7 @@ function UI_EventBingo:refresh()
         end
     end
 
-    vars['progressLabel']:setString(Str('다음 보상까지 {1}빙고 남았습니다.', next_step - bingo_line_cnt))
+    vars['progressLabel']:setString(Str('다음 보상까지 {1}칸 남았습니다.', next_step - bingo_line_cnt))
     
     -- 남은 빙고 없다면 ~남았다는 라벨 비활성화
     if (next_step - bingo_line_cnt == 0) then
