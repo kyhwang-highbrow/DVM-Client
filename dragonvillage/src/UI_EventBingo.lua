@@ -449,7 +449,9 @@ function UI_EventBingo:click_exchangeBtn()
         local finish_cb = function()
             block_ui:close()
             self:confirm_reward(ret)
-        end      
+        end
+
+        self:refresh()
         -- 랜덤하게 보여주다가, 뽑힌 번호 보여주는 액션
         local picked_item_number = self:getExchangeNumber(ret)
         self:startExchangePickAction(picked_item_number, finish_cb)  

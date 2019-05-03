@@ -179,6 +179,7 @@ function ServerData_EventBingo:request_exchangeDraw(finish_cb)
 
     -- 콜백
     local function success_cb(ret)
+        self.m_structBingo:applyInfo(ret)
         if finish_cb then
             finish_cb(ret)
         end
