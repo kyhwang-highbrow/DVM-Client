@@ -57,6 +57,7 @@ function UI_RuneBulkSalePopup:initButton()
     local vars = self.vars
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
     vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
+    vars['resetBtn']:registerScriptTapHandler(function() self:click_resetBtn() end)
 
     do -- 등급
         local active = g_settingData:get('option_rune_bulk_sell', 'grade_6')
@@ -123,9 +124,6 @@ function UI_RuneBulkSalePopup:initButton()
             vars['moptBtn'..i]:registerScriptTapHandler(function() self:click_checkBox() end)
         end
     end
-
-
-    vars['ancientBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -305,6 +303,36 @@ end
 -------------------------------------
 function UI_RuneBulkSalePopup:click_cancelBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_resetBtn
+-- @brief "조건(취소)" 버튼 클릭
+-------------------------------------
+function UI_RuneBulkSalePopup:click_resetBtn()
+    local vars = self.vars
+
+    vars['starBtn6']:setChecked(false)
+    vars['starBtn5']:setChecked(false)
+    vars['starBtn4']:setChecked(false)
+    vars['starBtn3']:setChecked(false)
+    vars['starBtn2']:setChecked(false)
+    vars['starBtn1']:setChecked(false)
+    
+    vars['rarityBtn4']:setChecked(false)
+    vars['rarityBtn3']:setChecked(false)
+    vars['rarityBtn2']:setChecked(false)
+    vars['rarityBtn1']:setChecked(false)
+    
+    vars['enhanceBtn']:setChecked(false)
+    
+    for i = 1, 6 do
+        vars['numBtn'..i]:setChecked(false)
+    end
+    
+    for i = 1, 8 do
+        vars['moptBtn'..i]:setChecked(false)
+    end
 end
 
 -------------------------------------
