@@ -33,16 +33,18 @@ function SortManager_Rune:init()
     self.m_mMoptSortLevel = {}
     self.m_mMoptSortLevel[''] = 999
     self.m_mMoptSortLevel['atk_multi'] = 0
-    self.m_mMoptSortLevel['def_multi'] = 1
-    self.m_mMoptSortLevel['atk_add'] = 2
-    self.m_mMoptSortLevel['hp_multi'] = 3
-    self.m_mMoptSortLevel['aspd_multy'] = 4
-    self.m_mMoptSortLevel['def_add'] = 5
-    self.m_mMoptSortLevel['hp_add'] = 6
-    self.m_mMoptSortLevel['accuracy_multy'] = 7
-    self.m_mMoptSortLevel['resistance_multy'] = 8
-    self.m_mMoptSortLevel['cri_chance_multy'] = 9
-    self.m_mMoptSortLevel['cri_dmg_multy'] = 10
+    self.m_mMoptSortLevel['atk_add'] = 1
+    self.m_mMoptSortLevel['def_multi'] = 2
+    self.m_mMoptSortLevel['def_add'] = 3
+    self.m_mMoptSortLevel['hp_multi'] = 4
+    self.m_mMoptSortLevel['hp_add'] = 5
+    self.m_mMoptSortLevel['aspd_multy'] = 6
+    self.m_mMoptSortLevel['cri_chance_multy'] = 7
+    self.m_mMoptSortLevel['cri_dmg_multy'] = 8
+    self.m_mMoptSortLevel['accuracy_multy'] = 9
+    self.m_mMoptSortLevel['resistance_multy'] = 10
+    
+    
 
 end
 
