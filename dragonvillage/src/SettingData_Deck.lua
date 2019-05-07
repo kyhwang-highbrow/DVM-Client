@@ -161,6 +161,11 @@ function SettingData_Deck:getDeckAncient(stage_id)
         return nil
     end
 
+    -- deck 정보가 없다면 빈 정보로 간주(best_score 등 초기화 정보 있는 상태)
+    if (#t_ancient_deck['deck'] == 0) then
+        return nil
+    end
+
     if (not t_ancient_deck) then
         return nil
     end
