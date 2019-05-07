@@ -8,6 +8,7 @@ UI_RuneBulkSalePopup = class(PARENT,{
         m_sortManagerRune = '',
         m_sellCB = '',
         m_bOptionChanged = 'boolean',
+        m_setId = 'number',
     })
 
 -------------------------------------
@@ -16,6 +17,7 @@ UI_RuneBulkSalePopup = class(PARENT,{
 function UI_RuneBulkSalePopup:init()
     local vars = self:load('inventory_sell_popup_02.ui')
     UIManager:open(self, UIManager.POPUP)
+    self.m_setId = 0
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_RuneBulkSalePopup')
@@ -112,12 +114,15 @@ function UI_RuneBulkSalePopup:initButton()
         vars['enhanceBtn']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
-    do -- 룬 번호
-        for i = 1, 6 do 
-            local active = g_settingData:get('option_rune_bulk_sell', 'run_num'..i)
-            vars['numBtn'..i] = UIC_CheckBox(vars['numBtn'..i].m_node, vars['numSprite'..i], active)
-            vars['numBtn'..i]:registerScriptTapHandler(function() self:click_checkBox() end)
-        end
+    do -- 룬 번호 : 홀수
+       local active = g_settingData:get('option_rune_bulk_sell', 'odd')
+       vars['oddBtn'] = UIC_CheckBox(vars['oddBtn'].m_node, vars['oddSprite'], active)
+       vars['oddBtn']:registerScriptTapHandler(function() self:click_checkBox() end)
+
+       -- 룬 번호 : 짝수
+       local active = g_settingData:get('option_rune_bulk_sell', 'even')
+       vars['evenBtn'] = UIC_CheckBox(vars['evenBtn'].m_node, vars['evenSprite'], active)
+       vars['evenBtn']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
     do -- 주옵션
@@ -127,6 +132,34 @@ function UI_RuneBulkSalePopup:initButton()
             vars['moptBtn'..i]:registerScriptTapHandler(function() self:click_checkBox() end)
         end
     end
+
+
+
+
+    vars['setRuneBtn']:registerScriptTapHandler(function() self:click_setSortBtn() end)
+end
+
+-------------------------------------
+-- function click_setSortBtn
+-------------------------------------
+function UI_RuneBulkSalePopup:click_setSortBtn()
+    local ui = UI_RuneSetFilter()
+    ui:setCloseCB(function(set_id)
+        self:refresh_runeSetFilter(set_id)
+    end)
+end
+
+-------------------------------------
+-- function refresh_runeSetFilter
+-------------------------------------
+function UI_RuneBulkSalePopup:refresh_runeSetFilter(set_id)
+    local vars = self.vars
+    local table_rune_set = TableRuneSet()
+    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichText(set_id)
+    vars['setRuneLabel']:setString(text)
+    self.m_setId = set_id
+
+    self:refresh()
 end
 
 -------------------------------------
@@ -183,7 +216,7 @@ end
 -------------------------------------
 function UI_RuneBulkSalePopup:getRuneList()
     local unequipped = true
-    local l_rune_list = g_runesData:getFilteredRuneList(unequipped)
+    local l_rune_list = g_runesData:getFilteredRuneList(unequipped, nil, self.m_setId)
     local total_count = table.count(l_rune_list)
 
     local l_ret_list = {}
@@ -211,9 +244,16 @@ function UI_RuneBulkSalePopup:getRuneList()
     local l_rune_num = {}
     local is_all_rune_num = true
     for i = 1, 6 do
-        l_rune_num[i] = vars['numBtn'..i]:isChecked()
-        if (vars['numBtn'..i]:isChecked()) then
-            is_all_rune_num = false
+        if (i%2 == 1) then
+            l_rune_num[i] = vars['evenBtn']:isChecked()
+            if (vars['evenBtn']:isChecked()) then
+                is_all_rune_num = false
+            end
+        else
+            l_rune_num[i] = vars['oddBtn']:isChecked()
+            if (vars['oddBtn']:isChecked()) then
+                is_all_rune_num = false
+            end
         end
     end
 
@@ -358,10 +398,9 @@ function UI_RuneBulkSalePopup:click_resetBtn()
     vars['rarityBtn1']:setChecked(is_reset)
     
     vars['enhanceBtn']:setChecked(is_reset)
-    
-    for i = 1, 6 do
-        vars['numBtn'..i]:setChecked(is_reset)
-    end
+
+    vars['oddBtn']:setChecked(is_reset)
+    vars['evenBtn']:setChecked(is_reset)
     
     for i = 1, 8 do
         vars['moptBtn'..i]:setChecked(is_reset)
@@ -456,9 +495,9 @@ function UI_RuneBulkSalePopup:onClose()
 
         g_settingData:applySettingData(vars['enhanceBtn']:isChecked(), 'option_rune_bulk_sell', 'enhance')
 
-        for i = 1, 6 do
-            g_settingData:applySettingData(vars['numBtn'..i]:isChecked(), 'option_rune_bulk_sell', 'run_num'..i)
-        end
+        g_settingData:applySettingData(vars['oddBtn']:isChecked(), 'option_rune_bulk_sell', 'odd')
+        g_settingData:applySettingData(vars['evenBtn']:isChecked(), 'option_rune_bulk_sell', 'even')
+
 
         for i = 1, 8 do
             g_settingData:applySettingData(vars['moptBtn'..i]:isChecked(), 'option_rune_bulk_sell', 'mopt'..i)
