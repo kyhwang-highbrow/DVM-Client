@@ -594,13 +594,42 @@ function UI_AncientTowerRankNew:init_clanRewardTableView()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list or {})
     self.m_clanRewardTableView = table_view
+    table_view:makeDefaultEmptyDescLabel('')
 
-    -- 받을 수 있는 포상에 포커싱
-    local reward, idx = ServerData_ClanRaid():getRankRewardList()
+    local my_data = g_clanRankData:getMyRankData(CLAN_RANK['ANCT'])
+    if (not my_data) then
+        return
+    end
+
+    local my_rank = my_data['rank'] 
+    
+    if (my_rank == -1) then
+        return
+    end
+
+    local idx = 1
+    for i,data in ipairs(l_item_list) do
+        -- 받을 수 있는 포상에 하이라이트
+        local rank_type = nil
+        local rank_value = 1
+            
+        local rank_min = tonumber(data['rank_min'])
+        local rank_max = tonumber(data['rank_max'])
+
+        local ratio_min = tonumber(data['ratio_min'])
+        local ratio_max = tonumber(data['ratio_max'])
+
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                idx = i
+                break
+            end
+        end
+    end
+
     self.m_clanRewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     self.m_clanRewardTableView:relocateContainerFromIndex(idx or 1)
-
-    table_view:makeDefaultEmptyDescLabel('')
 end
 
 -------------------------------------
