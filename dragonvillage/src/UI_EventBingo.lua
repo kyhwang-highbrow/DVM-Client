@@ -305,23 +305,38 @@ end
 function UI_EventBingo:setBingo(bingo_line_number)
     local vars = self.vars
     local bingo_type, line = self:getBingoType(bingo_line_number) -- 빙고 라인 넘버
-    -- 보상 버튼 활성화
+    local sample_ui_name = ''
 
     -- a2d 빙고 표시 애니메이션
     local ani = MakeAnimator('res/ui/a2d/event_bingo/event_bingo.vrp')
     vars['visualNode']:addChild(ani.m_node)
 
     local pos_x, pos_y = self:getLinePos(bingo_type, line)
-    ani:setPosition(pos_x, pos_y)
+    ani.m_node:setPosition(pos_x, pos_y)
+
 
     if (bingo_type == BINGO_TYPE.HORIZONTAL) then
         ani:changeAni('horizontal')
+        sample_ui_name = 'widthSample'
+    
     elseif (bingo_type == BINGO_TYPE.VERTICAL) then
-        ani:changeAni('vertical')    
+        ani:changeAni('vertical')
+        sample_ui_name = 'heightSample'
+
     elseif (bingo_type == BINGO_TYPE.CROSS_RIGHT_TO_LEFT) then
         ani:changeAni('cross_right_to_left')
+        sample_ui_name = 'rtlSample'
+        
     else
         ani:changeAni('cross_left_to_right')
+        sample_ui_name = 'ltrSample'
+    end
+
+    if (vars[sample_ui_name]) then
+        local scale_x = vars[sample_ui_name]:getScaleX()
+        local scale_y = vars[sample_ui_name]:getScaleY()
+        ani.m_node:setScaleX(scale_x)
+        ani.m_node:setScaleY(scale_y)
     end
 
     -- 후속 연출, 선이 그어지고 나서 보상 받을 수 있게 활성화
@@ -342,18 +357,18 @@ function UI_EventBingo:getLinePos(bingo_type, line) -- param 의미 : 가로 3 �
     local offset = 76 -- 빙고칸 크기
 
     if (bingo_type == BINGO_TYPE.HORIZONTAL) then        -- 가로 빙고
-        pos_x, pos_y = -233.985, 188.824                 -- 가로 1번 째 칸 위치 하드코딩
+        pos_x, pos_y = vars['widthSample']:getPosition()               -- 가로 1번 째 칸 위치 하드코딩
         pos_y = pos_y - offset*(line - 1)
 
     elseif (bingo_type == BINGO_TYPE.VERTICAL) then       -- 세로 빙고
-        pos_x, pos_y = 193, 239                           -- 세로 6번 째 칸 위치 하드코딩
+        pos_x, pos_y = vars['heightSample']:getPosition()               -- 세로 6번 째 칸 위치 하드코딩
         pos_x = pos_x + offset*(line - 5)
 
     elseif (bingo_type == BINGO_TYPE.CROSS_LEFT_TO_RIGHT) then  -- 대각선 빙고(left_to_right)
-        pos_x, pos_y = -232.408, 231.437
+        pos_x, pos_y = vars['ltrSample']:getPosition()
 
     elseif (bingo_type == BINGO_TYPE.CROSS_RIGHT_TO_LEFT) then  -- 대각선 빙고(right_to_left)
-        pos_x, pos_y = 233.379, 231.437
+        pos_x, pos_y = vars['rtlSample']:getPosition()
     end
 
     return pos_x, pos_y
@@ -774,12 +789,8 @@ end
 -- function setPickingMode
 -- @brief 확정 뽑기 고를 때 is_active = true, 확정 뽑기 고르는 거 끝났을 때 is_active = false
 -------------------------------------
-function UI_EventBingo:setPickingMode(node, is_active)
+function UI_EventBingo:setPickingMode(is_active)
     local vars = self.vars
-    
-    if (not node) then
-        return nil
-    end
     
     -- 취소버튼, 토큰 뽑기 버튼 활성화 세팅
     vars['cancleBtn']:setVisible(is_active)
