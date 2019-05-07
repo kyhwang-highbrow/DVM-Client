@@ -51,6 +51,10 @@ function UI_EventBingo:initUI()
     end
 
     vars['ggSprite']:setPercentage(0)
+
+    -- 빙고 완성 전에는 교환 버튼 비활성화
+    vars['lockSprite']:setVisible(true)
+    vars['exchangeBtn']:setEnabled(false)
 end
 
 -------------------------------------
@@ -169,12 +173,14 @@ function UI_EventBingo:refresh()
     local eventCnt = struct_bingo:getEventItemCnt()
     local eventPickCnt = struct_bingo:getPickEventItemCnt()
     vars['numberLabel2']:setString(Str('{1}개', comma_value(eventCnt))) -- 보유 토큰
-    vars['numberLabel4']:setString(Str('{1}개', comma_value(eventCnt))) -- 보유 토큰
     vars['numberLabel3']:setString(Str('{1}개', comma_value(eventPickCnt))) -- 확정 뽑기 토큰
     vars['rewardLabel']:setString(Str('{1} 칸', bingo_line_cnt))
     vars['tokenPrice']:setString(struct_bingo.event_price)  -- 빙고 뽑기 1회 비용
     vars['pickTokenPrice']:setString(struct_bingo.event_pick_price) -- 확정 뽑기 1회 비용
 
+    local eventCnt = struct_bingo:getEventItemCnt()
+    local exchangePrice = struct_bingo:getExchangePrice() 
+    vars['exchangePrice']:setString(Str('{1}/{2}', comma_value(eventCnt), exchangePrice))
 
     -- 누적 보상 다음 스텝 정보 : ex) 다음 빙고까지 ~ 남았다
     -- 빙고갯수보다 많은 누적 보상 스텝 = next_step
@@ -715,6 +721,8 @@ function UI_EventBingo:completeBingo()
     vars['completeNode']:setVisible(true)
     vars['playBtn1']:setEnabled(false)
     vars['playBtn2']:setEnabled(false)
+    vars['lockSprite']:setVisible(false)
+    vars['exchangeBtn']:setEnabled(true)
 end
 
 -------------------------------------
@@ -1015,7 +1023,7 @@ function UI_EventBingoExchangeListItem:initUI()
     end
 
     local pick_weight = data['pick_weight']
-    vars['chanceLabel']:setString(string.format('%s.00', pick_weight) .. '%')
+    vars['chanceLabel']:setString(string.format('%s', pick_weight) .. '%')
 end
 
 -------------------------------------
