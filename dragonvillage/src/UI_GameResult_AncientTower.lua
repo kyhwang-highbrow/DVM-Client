@@ -70,12 +70,6 @@ function UI_GameResult_AncientTower:setAnimationData()
     do
         local cur_score = score_calc:getFinalScore()
 	    local best_score = g_ancientTowerData.m_challengingInfo.m_myHighScore or 0
-        
-        -- 바로 통신하지 않기 때문에 여기서 갱신
-        if (cur_score > best_score) then
-            best_score = cur_score
-            g_ancientTowerData.m_challengingInfo.m_myHighScore = cur_score
-        end
         table.insert(score_list, best_score or 0)
     end
 
@@ -478,19 +472,27 @@ end
 -- @override
 -------------------------------------
 function UI_GameResult_AncientTower:startGame()
+    local function goto_cb()
+	    -- 연속 전투 : 다음 층 도전
+	    if (g_autoPlaySetting:isAutoPlay()) then
+	    	if (g_autoPlaySetting:get('tower_next_floor')) then
+	    		if (self.m_bSuccess) then
+	    			local stage_id = self.m_stageID
+	    			self.m_stageID = stage_id + 1
+	    			g_ancientTowerData.m_stageIdInAuto = self.m_stageID
+	    		end
+	    	end
+	    end
 
-	-- 연속 전투 : 다음 층 도전
-	if (g_autoPlaySetting:isAutoPlay()) then
-		if (g_autoPlaySetting:get('tower_next_floor')) then
-			if (self.m_bSuccess) then
-				local stage_id = self.m_stageID
-				self.m_stageID = stage_id + 1
-				g_ancientTowerData.m_stageIdInAuto = self.m_stageID
-			end
-		end
-	end
+	    PARENT.startGame(self)
+    end
 
-	PARENT.startGame(self)
+    local attr = g_attrTowerData:getSelAttr()
+    local stage_id = self.m_stageID
+    local next_stage_id = g_stageData:getNextStage(stage_id)
+    if (not attr) then
+        g_ancientTowerData:request_ancientTowerInfo(next_stage_id, goto_cb)
+    end
 end
 
 -------------------------------------
