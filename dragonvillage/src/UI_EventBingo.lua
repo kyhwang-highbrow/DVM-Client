@@ -202,10 +202,26 @@ function UI_EventBingo:refresh()
     end
 
     -- 누적 보상 게이지
-    local max_reward = struct_bingo:getLastRewardCnt()
-    local percentage = bingo_cnt/max_reward * 100
-    vars['ggSprite']:runAction(cc.ProgressTo:create(0.2, percentage))
+    local bingo_count = bingo_cnt
+    local percentage = 0
+    local prev_count = 0
+    for i=1, 5 do
+        local temp_count = struct_bingo.m_lSortedCntReward[i]['reward_index']
+        local temp = prev_count
+        prev_count = temp_count
+        temp_count = (temp_count - temp)
 
+        if (temp_count <= bingo_count) then
+            percentage = (percentage + (1/5))
+        else
+            percentage = (percentage + (bingo_count/temp_count/5))
+            break
+        end
+        bingo_count = (bingo_count - temp_count)
+    end
+    percentage = math_clamp((percentage * 100), 0, 100)
+    vars['ggSprite']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+   
     -- 획득한 빙고 숫자 표기
     local l_bingo_number = struct_bingo:getBingoNumberList()
     for i, number in ipairs(l_bingo_number) do

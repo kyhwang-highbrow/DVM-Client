@@ -97,10 +97,8 @@ function UI_EventBingoRewardListItem:initUI_cntReward()
 
     -- 누적 보상 아이템 카드 (임시 하드코딩)
     local reward_cnt = struct_bingo:getBingoRewardListCnt()
-    local bg_width = 877
-    local bg_pos_x = -4
-    local start_pos = bg_pos_x - bg_width/2 + 50
-    local list_item_width = bg_width/reward_cnt + 20
+    local start_pos = -407
+    local list_item_width = 163
 
     local item_str = self.m_rewardItemStr
     local node_ind = self.m_rewardInd
@@ -117,7 +115,7 @@ function UI_EventBingoRewardListItem:initUI_cntReward()
         self.m_item_card = reward_card
     end
 
-    self.root:setPositionX(start_pos + list_item_width*(node_ind-1))
+    self.root:setPositionX(start_pos + list_item_width*(node_ind))
 
     self:setBtnEnabled(false)
 end
