@@ -1,4 +1,4 @@
-return {['60초마다 피해량이 증가합니다.\n이 효과는 무한히 중첩되며 해제할 수 없습니다.']='Incrementa el ATQ cada 50 s.\nEste ataque se superpone infinitamente y no se puede desactivar.',
+return {['60초마다 피해량이 증가합니다.\n이 효과는 무한히 중첩되며 해제할 수 없습니다.']='Incrementa el ATQ cada 60 s.\nEste ataque se superpone infinitamente y no se puede desactivar.',
 ['weak point 타이밍에 최대한 많은 딜을 넣어 보세요!']='¡Intenta hacer tanto daño como puedas al momento del Punto Débil!',
 ['{1} 칸']='{1} Espacio',
 ['{1}칸']='{1}Espacio',
