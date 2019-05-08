@@ -161,6 +161,7 @@ function UI_EventBingo:refresh()
     local struct_bingo = g_eventBingoData:getStructEventBingo()
 
     local bingo_line_cnt = struct_bingo:getBingoLineCnt()
+    local bingo_cnt = struct_bingo:getBingoNumberCnt()
     vars['timeLabel']:setString(remain_time)
     
     local cur_cnt = struct_bingo:getTodayEventItemCnt()
@@ -174,7 +175,7 @@ function UI_EventBingo:refresh()
     local eventPickCnt = struct_bingo:getPickEventItemCnt()
     vars['numberLabel2']:setString(Str('{1}개', comma_value(eventCnt))) -- 보유 토큰
     vars['numberLabel3']:setString(Str('{1}개', comma_value(eventPickCnt))) -- 확정 뽑기 토큰
-    vars['rewardLabel']:setString(Str('{1} 칸', bingo_line_cnt))
+    vars['rewardLabel']:setString(Str('{1} 칸', bingo_cnt))
     vars['tokenPrice']:setString(struct_bingo.event_price)  -- 빙고 뽑기 1회 비용
     vars['pickTokenPrice']:setString(struct_bingo.event_pick_price) -- 확정 뽑기 1회 비용
 
@@ -187,23 +188,22 @@ function UI_EventBingo:refresh()
     local l_cnt_reward = struct_bingo:getBingoRewardList()
     local next_step = struct_bingo:getLastRewardCnt()
     for ind, data in ipairs(l_cnt_reward) do
-        if (bingo_line_cnt < data['reward_index']) then
+        if (bingo_cnt < data['reward_index']) then
             next_step = data['reward_index']
             break
         end
     end
 
-    vars['progressLabel']:setString(Str('다음 보상까지 {1}칸 남았습니다.', next_step - bingo_line_cnt))
+    vars['progressLabel']:setString(Str('다음 보상까지 {1}칸 남았습니다.', next_step - bingo_cnt))
     
     -- 남은 빙고 없다면 ~남았다는 라벨 비활성화
-    if (next_step - bingo_line_cnt == 0) then
+    if (next_step - bingo_cnt == 0) then
         vars['progressLabel']:setVisible(false)
     end
 
     -- 누적 보상 게이지
-    local reward_cnt = struct_bingo:getBingoNumberCnt()
     local max_reward = struct_bingo:getLastRewardCnt()
-    local percentage = reward_cnt/max_reward * 100
+    local percentage = bingo_cnt/max_reward * 100
     vars['ggSprite']:runAction(cc.ProgressTo:create(0.2, percentage))
 
     -- 획득한 빙고 숫자 표기
