@@ -335,6 +335,11 @@ end
 function ServerData_PurchasePoint:getLastRewardDesc(version)
     local last_step = self:getPurchasePoint_stepCount(version)
     local t_last_reward = self:getPurchasePoint_rewardStepInfo(version, last_step)
+    
+    if (not t_last_reward) then
+        return ''
+    end
+    
     local reward_desc = t_last_reward['t_desc']
     return Str(reward_desc)
 end

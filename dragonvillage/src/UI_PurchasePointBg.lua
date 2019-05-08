@@ -1,8 +1,10 @@
+local MAX_TYPE_CNT = 5
+
 -------------------------------------
 -- function openPurchasePointBgByType
 -------------------------------------
-function openPurchasePointBgByType(bg_type, item_id, item_count)
-    local ui_bg = UI_PurchasePointBg(item_id)
+function openPurchasePointBgByType(bg_type, item_id, item_count, version)
+    local ui_bg = UI_PurchasePointBg(item_id, version)
 
     -- 타입별로 세팅
     if (bg_type == 'dragon_ticket') then
@@ -30,23 +32,28 @@ local PARENT = UI
 -------------------------------------
 UI_PurchasePointBg = class(PARENT,{
         m_item_id = 'number',
+        m_version = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PurchasePointBg:init(item_id)
+function UI_PurchasePointBg:init(item_id, version)
     self:load('event_purchase_point_item_new_02.ui')
     self.m_item_id = item_id
+    self.m_version = version
 
     self:doActionReset()
     self:doAction(nil, false)
 
     -- 타입별 노드 초기화
-    self.vars['productNode1']:setVisible(false)
-    self.vars['productNode2']:setVisible(false)
-    self.vars['productNode3']:setVisible(false)
-    self.vars['productNode4']:setVisible(false)
+    for i = 1, MAX_TYPE_CNT do
+        if (self.vars['productNode'..i]) then
+            self.vars['productNode'..i]:setVisible(false)
+        end
+    end
+
+    self:setDescLabel()
 end
 
 function UI_PurchasePointBg:setDragonTicket()
@@ -286,14 +293,43 @@ function UI_PurchasePointBg:initUI_Item(item_count)
     vars['productNode4']:setVisible(true)
     
     local animator = MakeAnimator('res/item/egg/egg_super_myth/egg_super_myth.vrp') -- json...
+    animator:changeAni('egg_move', true)    
     vars['itemNode2']:addChild(animator.m_node)
     
     local item_name = TableItem:getItemName(item_id)
     vars['itemLabel3']:setString(string.format('%s X %d', item_name, item_count))
 
     -- 배경 visual  세팅
-    local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
+    local animator = MakeAnimator('res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp')
     vars['bgNode']:addChild(animator.m_node)
+end
+
+-------------------------------------
+-- function setDescLabel
+-- @breif 
+-------------------------------------
+function UI_PurchasePointBg:setDescLabel(item_count)
+    local version = self.m_version
+    local vars = self.vars
+
+    -- 설명 값 and 설명라벨 있다면 설명 출력
+    local last_reward_desc = g_purchasePointData:getLastRewardDesc(version)
+    if (last_reward_desc ~= '') then
+        if (vars['dcsLabel'] and vars['dscSprite']) then
+            vars['dscSprite']:setVisible(true)
+            vars['dcsLabel']:setVisible(true)
+            vars['dcsLabel']:setString(last_reward_desc)
+            return
+        end
+    end
+
+    vars['dscSprite']:setVisible(false)
+    vars['dcsLabel']:setVisible(false)
+
+    -- 설명이 없다면 어색하게 공간 떨어지지 않도록 위치 조정 (스킬 슬라임, 아이템 타입만)
+    vars['productNode3']:setPositionY(-42)
+    vars['productNode4']:setPositionY(-42)
+        
 end
 
 
