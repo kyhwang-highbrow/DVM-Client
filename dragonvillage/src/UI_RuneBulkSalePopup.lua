@@ -50,6 +50,8 @@ end
 -- function initUI
 -------------------------------------
 function UI_RuneBulkSalePopup:initUI()
+    local text = string.format('%s (%s)', Str('세트'), Str('전체'))
+    self.vars['setRuneLabel']:setString(text)
 end
 
 -------------------------------------
@@ -155,7 +157,7 @@ end
 function UI_RuneBulkSalePopup:refresh_runeSetFilter(set_id)
     local vars = self.vars
     local table_rune_set = TableRuneSet()
-    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichText(set_id)
+    local text = (set_id == 0) and string.format('%s (%s)', Str('세트'), Str('전체')) or table_rune_set:makeRuneSetNameRichText(set_id)
     vars['setRuneLabel']:setString(text)
     self.m_setId = set_id
 
