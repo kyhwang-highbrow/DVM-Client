@@ -430,6 +430,8 @@ function UI_EventBingo:pickNumberAction(number, finish_cb)
     local delete_frunc = function()
         vars['pickAniSprite']:setVisible(false)
         vars['bingoSprite']:setVisible(false)
+        vars['pickAniSprite']:setColor(cc.c3b(255, 255, 255))
+        vars['pickAniSprite']:setScale(2)
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
         self:refresh()
         self:refresh_bingoCntReward()
@@ -438,6 +440,10 @@ function UI_EventBingo:pickNumberAction(number, finish_cb)
         end
     end
     
+    local change_func = function()
+        vars['pickAniSprite']:setColor(cc.c3b(255,215,0))
+        vars['pickAniSprite']:setScale(2.35)
+    end
 
     -- 랜덤으로 바뀌는 효과
     local random_action = cc.CallFunc:create(random_frunc)
@@ -448,9 +454,10 @@ function UI_EventBingo:pickNumberAction(number, finish_cb)
     local accel_repeat = cc.EaseIn:create(repeat_action, 0.1)
     local end_action = cc.CallFunc:create(end_frunc)
     local delete_delay_action = cc.DelayTime:create(delete_time)
+    local change_color = cc.CallFunc:create(change_func)
     local delete_action = cc.CallFunc:create(delete_frunc)
     
-    local sequence_action = cc.Sequence:create(accel_repeat, end_action, delete_delay_action, delete_action)
+    local sequence_action = cc.Sequence:create(accel_repeat, end_action, delete_delay_action, change_color, delete_delay_action, delete_action)
 
     cca.runAction(self.root, sequence_action, nil)
 end
@@ -919,6 +926,7 @@ function UI_EventBingo:startExchangePickAction(number, finish_cb)
     local l_item_ui = self.m_lExchangeUI
     local struct_bingo = g_eventBingoData.m_structBingo
     local item_cnt = struct_bingo:getExchangeItemCnt()
+    local pre_num = -1
 
     local change_speed = 0.1
     local repeat_cnt = 25
@@ -926,6 +934,11 @@ function UI_EventBingo:startExchangePickAction(number, finish_cb)
 
     local random_frunc = function()
         local num = math_random(1, item_cnt)
+        if (pre_num == num) then
+            num = math_random(1, item_cnt)
+        end
+        pre_num = num
+
         -- 전체 하이라이트 끔
         for _, ui in ipairs(l_item_ui) do
             ui:setHighlight(false)
@@ -944,18 +957,23 @@ function UI_EventBingo:startExchangePickAction(number, finish_cb)
         l_item_ui[num]:setHighlight(true)
     end
     
+    local end_blinking_func = function()
+        l_item_ui[number]:setColorChange()
+    end
+
     local delete_frunc = function()
         -- 전체 하이라이트 끔
         for _, ui in ipairs(l_item_ui) do
             ui:setHighlight(false)
         end
+        l_item_ui[number]:setColorDefault()
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
         if (finish_cb) then
             finish_cb()
         end
     end
     
-
+    --notification.m_root:runAction(cc.Sequence:create(cc.FadeTo:create(0.3, 255), cc.DelayTime:create(4), cc.FadeTo:create(0.5, 0), cc.CallFunc:create(cb)))
     -- 랜덤으로 바뀌는 효과
     local random_action = cc.CallFunc:create(random_frunc)
     local delay_action = cc.DelayTime:create(change_speed)
@@ -964,10 +982,11 @@ function UI_EventBingo:startExchangePickAction(number, finish_cb)
     local repeat_action = cc.Repeat:create(repeat_sequence_action, repeat_cnt)
     local accel_repeat = cc.EaseIn:create(repeat_action, 0.1)
     local end_action = cc.CallFunc:create(end_frunc)
+    local end_blinking = cc.CallFunc:create(end_blinking_func) 
     local delete_delay_action = cc.DelayTime:create(delete_time)
     local delete_action = cc.CallFunc:create(delete_frunc)
     
-    local sequence_action = cc.Sequence:create(accel_repeat, end_action, delete_delay_action, delete_action)
+    local sequence_action = cc.Sequence:create(accel_repeat, end_action, delete_delay_action, end_blinking, delete_delay_action, delete_action)--, delete_delay_action, delete_action)
 
     cca.runAction(self.root, sequence_action, nil)
 end
@@ -1048,6 +1067,9 @@ end
 function UI_EventBingoExchangeListItem:setHighlight(is_highlight)
     local vars = self.vars 
     vars['selectSprite']:setVisible(is_highlight)
+    if (not is_highlight) then
+        vars['selectSprite2']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -1066,4 +1088,25 @@ function UI_EventBingoExchangeListItem:isSameItem(item_id, count)
     end
 
     return false
+end
+
+-------------------------------------
+-- function setBlink
+-------------------------------------
+function UI_EventBingoExchangeListItem:setBlink()
+    self.vars['selectSprite']:runAction(cc.Repeat:create(cc.Sequence:create(cc.FadeTo:create(0.4, 0), cc.FadeTo:create(0.4, 100), func_action), 2))
+end
+
+-------------------------------------
+-- function setColorDefault
+-------------------------------------
+function UI_EventBingoExchangeListItem:setColorDefault()
+    self.vars['selectSprite']:setColor(cc.c3b(255, 255, 255))
+end
+
+-------------------------------------
+-- function setColorChange
+-------------------------------------
+function UI_EventBingoExchangeListItem:setColorChange()
+    self.vars['selectSprite2']:setVisible(true)
 end
