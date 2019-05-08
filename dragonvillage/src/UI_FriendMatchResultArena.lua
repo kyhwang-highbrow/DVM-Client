@@ -70,6 +70,10 @@ function UI_FriendMatchResultArena:initButton()
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
     vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
+    if (vars['infoBtn']) then
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfo() end)
+        vars['infoBtn']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -228,4 +232,11 @@ function UI_FriendMatchResultArena:click_homeBtn()
 	local is_use_loading = true
     local scene = SceneLobby(is_use_loading)
     scene:runScene()
+end
+
+-------------------------------------
+-- function click_statusInfo
+-------------------------------------
+function UI_FriendMatchResultArena:click_statusInfo()
+    UI_HelpStatus()
 end
