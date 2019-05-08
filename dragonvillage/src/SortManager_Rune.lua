@@ -32,20 +32,21 @@ function SortManager_Rune:init()
     -- 주옵션 정렬 레벨
     self.m_mMoptSortLevel = {}
     self.m_mMoptSortLevel[''] = 999
-    self.m_mMoptSortLevel['atk_multi'] = 0
-    self.m_mMoptSortLevel['atk_add'] = 1
-    self.m_mMoptSortLevel['def_multi'] = 2
-    self.m_mMoptSortLevel['def_add'] = 3
-    self.m_mMoptSortLevel['hp_multi'] = 4
-    self.m_mMoptSortLevel['hp_add'] = 5
-    self.m_mMoptSortLevel['aspd_multy'] = 6
-    self.m_mMoptSortLevel['cri_chance_multy'] = 7
-    self.m_mMoptSortLevel['cri_dmg_multy'] = 8
-    self.m_mMoptSortLevel['accuracy_multy'] = 9
-    self.m_mMoptSortLevel['resistance_multy'] = 10
-    
-    
-
+    self.m_mMoptSortLevel['atk_multi'] = 15
+    self.m_mMoptSortLevel['atk_add'] = 14
+    self.m_mMoptSortLevel['def_multi'] = 13
+    self.m_mMoptSortLevel['def_add'] = 12
+    self.m_mMoptSortLevel['hp_multi'] = 11
+    self.m_mMoptSortLevel['hp_add'] = 10
+    self.m_mMoptSortLevel['aspd_multy'] = 9
+    self.m_mMoptSortLevel['aspd_add'] = 8
+    self.m_mMoptSortLevel['cri_chance_add'] = 7
+    self.m_mMoptSortLevel['cri_chance_multi'] = 6
+    self.m_mMoptSortLevel['cri_dmg_add'] = 5
+    self.m_mMoptSortLevel['cri_dmg_multi'] = 4
+    self.m_mMoptSortLevel['accuracy_add'] = 3
+    self.m_mMoptSortLevel['resistance_add'] = 2
+    self.m_mMoptSortLevel['resistance_multi'] = 1
 end
 
 
@@ -174,7 +175,7 @@ function SortManager:getMoptPriority(mopt_str)
 
     local mopt = l_mopt[1]
     local mopt_priority = self.m_mMoptSortLevel[mopt]
-    
+      
     if (not mopt_priority) then
         return 999
     end
