@@ -64,6 +64,10 @@ function UI_ClanRaidResult:initButton()
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
+    if (vars['infoBtn']) then
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfo() end)
+        vars['infoBtn']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -534,6 +538,13 @@ end
 function UI_ClanRaidResult:click_statsBtn()
 	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
 	UI_StatisticsPopup(g_gameScene.m_gameWorld)
+end
+
+-------------------------------------
+-- function click_statusInfo
+-------------------------------------
+function UI_ClanRaidResult:click_statusInfo()
+    UI_HelpStatus()
 end
 
 -------------------------------------
