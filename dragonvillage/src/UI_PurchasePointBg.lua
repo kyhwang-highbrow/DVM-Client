@@ -13,6 +13,8 @@ function openPurchasePointBgByType(bg_type, item_id, item_count)
         ui_bg:setReinforce(item_count)
     elseif(bg_type == 'skill_slime') then
         ui_bg:setSkillSlime(item_count)
+    elseif(bg_type == 'item') then
+        ui_bg:setItem(item_count)
     end
 
     return  ui_bg
@@ -44,6 +46,7 @@ function UI_PurchasePointBg:init(item_id)
     self.vars['productNode1']:setVisible(false)
     self.vars['productNode2']:setVisible(false)
     self.vars['productNode3']:setVisible(false)
+    self.vars['productNode4']:setVisible(false)
 end
 
 function UI_PurchasePointBg:setDragonTicket()
@@ -78,6 +81,14 @@ function UI_PurchasePointBg:setSkillSlime(item_count)
     end
 
     self:initUI_skillSlime(item_count)
+end
+
+function UI_PurchasePointBg:setItem(item_count)
+    if (not self.m_item_id) then
+        return
+    end
+
+    self:initUI_Item(item_count)
 end
 
 
@@ -258,6 +269,27 @@ function UI_PurchasePointBg:initUI_skillSlime(item_count)
     
     local item_name = TableItem:getItemName(item_id)
     vars['itemLabel2']:setString(string.format('%s X %d', item_name, item_count))
+
+    -- 배경 visual  세팅
+    local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
+    vars['bgNode']:addChild(animator.m_node)
+end
+
+-------------------------------------
+-- function initUI_Item
+-- @breif 누적결제 최종 상품이 [아이템]일 경우 세팅 (ex) 신화의 알.. 등등 여기서 하드코딩
+-------------------------------------
+function UI_PurchasePointBg:initUI_Item(item_count)
+    local vars = self.vars
+    local item_id = self.m_item_id
+
+    vars['productNode4']:setVisible(true)
+    
+    local animator = MakeAnimator('res/item/egg/egg_super_myth/egg_super_myth.vrp') -- json...
+    vars['itemNode2']:addChild(animator.m_node)
+    
+    local item_name = TableItem:getItemName(item_id)
+    vars['itemLabel3']:setString(string.format('%s X %d', item_name, item_count))
 
     -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
