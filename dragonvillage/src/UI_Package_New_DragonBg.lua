@@ -110,6 +110,7 @@ function UI_Package_New_DragonBg:refresh()
         dragon_animator:setIdle()
         
         if (self.vars['dragonNode']) then
+            self.vars['dragonNode']:removeAllChildren()
             self.vars['dragonNode']:addChild(dragon_animator.m_node)
             self.vars['dragonNodeMenu']:setVisible(true)
         end
