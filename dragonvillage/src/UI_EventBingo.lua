@@ -213,15 +213,15 @@ function UI_EventBingo:refresh()
         self.m_lBingoNumber[tonumber(number)]:setActiveNumber(is_pick)
     end
 
-    -- 빙고 모두 완료 되었을 경우
-    if (reward_cnt == 36) then
-        self:completeBingo()
-    end
-
     -- 확정 뽑기 가능할 때만 버튼 활성화
     local eventPickCnt = struct_bingo:getPickEventItemCnt()
     local is_pickable = eventPickCnt >= struct_bingo.event_pick_price
     vars['playBtn2']:setEnabled(is_pickable)
+
+    -- 빙고 모두 완료 되었을 경우
+    if (bingo_cnt == 36) then
+        self:completeBingo()
+    end
 end
 
 -------------------------------------
@@ -386,9 +386,9 @@ end
 -------------------------------------
 function UI_EventBingo:pickNumberAction(number, finish_cb)
     local vars = self.vars
-    local change_speed = 0.07
-    local repeat_cnt = 20
-    local delete_time = 0.7
+    local change_speed = 0.06
+    local repeat_cnt = 25
+    local delete_time = 0.5
 
     if (not vars['pickAniSprite']) then
         return
@@ -905,11 +905,11 @@ function UI_EventBingo:startExchangePickAction(number, finish_cb)
     local item_cnt = struct_bingo:getExchangeItemCnt()
 
     local change_speed = 0.1
-    local repeat_cnt = 45
-    local delete_time = 1
+    local repeat_cnt = 25
+    local delete_time = 0.7
 
     local random_frunc = function()
-        local num = math_random(item_cnt - 1) + 1
+        local num = math_random(1, item_cnt)
         -- 전체 하이라이트 끔
         for _, ui in ipairs(l_item_ui) do
             ui:setHighlight(false)
