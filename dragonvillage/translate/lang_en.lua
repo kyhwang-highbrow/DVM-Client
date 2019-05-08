@@ -146,7 +146,7 @@ return {['60초마다 피해량이 증가합니다.\n이 효과는 무한히 중
 ['아이템 교환']='Exchange Items',
 ['[변경 전] 생명력이 50%미만인 적에게 1.8배 피해']='[Before] Deal X1.8 damage to enemies whose HP is below 50%',
 ['[변경 후] 생명력이 낮을 수록 최대 3배의 피해']='[After] Deal up to X3 damage as HP gets lower',
-['[변경 후] 생명력이 높을 수록 최대 3배의 피해']='[After] Deal up to X3 damage as HP gets lower',
+['[변경 후] 생명력이 높을 수록 최대 3배의 피해']='[After] Deal up to X3 damage as HP gets higher',
 ['[변경 전] 자신에게 순간적인 무적 효과 부여']='[Before] Become invulnerable for a moment',
 ['[변경 후] 자신에게 5초간 무적 효과 부여, 공격 능력 증가']='[After] Become invulnerable for 5 sec. and increase ATK ability',
 ['전설 드래곤']='Legendary Dragon',
