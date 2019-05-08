@@ -67,6 +67,10 @@ function UI_EventArenaResult:initButton()
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
     vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
+    if (vars['infoBtn']) then
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfo() end)
+        vars['infoBtn']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -175,6 +179,12 @@ end
 function UI_EventArenaResult:direction_end_click()
 end
 
+-------------------------------------
+-- function click_statusInfo
+-------------------------------------
+function UI_EventArenaResult:click_statusInfo()
+    UI_HelpStatus()
+end
 
 -------------------------------------
 -- function direction_masterRoad

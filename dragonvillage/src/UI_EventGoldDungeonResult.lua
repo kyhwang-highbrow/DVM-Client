@@ -62,6 +62,10 @@ function UI_EventGoldDungeonResult:initButton()
     vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
     vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
+    if (vars['infoBtn']) then
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfo() end)
+        vars['infoBtn']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -295,6 +299,13 @@ end
 -------------------------------------
 function UI_EventGoldDungeonResult:click_homeBtn()
 	UINavigator:goTo('lobby')
+end
+
+-------------------------------------
+-- function click_statusInfo
+-------------------------------------
+function UI_EventGoldDungeonResult:click_statusInfo()
+    UI_HelpStatus()
 end
 
 -------------------------------------
