@@ -54,6 +54,9 @@ function UI_Package_New_DragonBg:init(struct_product, ui_res, premier_item_id)
     self:doAction(nil, false)
     self:refresh()
     self:initButton()
+
+    self.vars['itemVisual']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+    self.vars['dragonVisual']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 end
 
 -------------------------------------

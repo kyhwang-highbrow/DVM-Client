@@ -280,6 +280,8 @@ function UI_PurchasePointBg:initUI_skillSlime(item_count)
     -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
     vars['bgNode']:addChild(animator.m_node)
+
+    vars['effect3']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 end
 
 -------------------------------------
@@ -302,6 +304,8 @@ function UI_PurchasePointBg:initUI_Item(item_count)
     -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp')
     vars['bgNode']:addChild(animator.m_node)
+
+    vars['effect4']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 end
 
 -------------------------------------
