@@ -286,8 +286,8 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
         showFunc()
     else
         -- 광고를 로드하는 동안 로딩창으로 터치 블럭 처리
-        local loading = UI_Loading()
-        loading.vars['bgLayerColor']:setVisible(true)
+        local loading = UI_LoadingAdLoad()
+        loading:showBgLayer()
         loading:setLoadingMsg(Str('광고를 불러오는 중...'))
 
         -- 취소
@@ -297,23 +297,26 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
                 loading = nil
             end
         end
-        loading.vars['closeBtn']:registerScriptTapHandler(click)
+        local close_btn = loading.vars['closeBtn']
+        close_btn:setVisible(false)
+        close_btn:registerScriptTapHandler(click)
 
         -- 광고 로드가 완료될때까지 기다림
         local timer = 0
         local function update(dt)
             if loading then
                 timer = (timer + dt)
-                loading:setLoadingMsg(Str('광고를 불러오는 중...') .. tostring(math_floor(timer)))
+                --loading:setLoadingMsg(Str('광고를 불러오는 중...') .. tostring(math_floor(timer)))
                 if (self.mIsLoaded == true) then    
                     loading:close()
                     loading = nil
                     showFunc()
 
-                -- 3초 이후부터는 취소 버튼 추가
-                elseif (3 <= timer) then
-                    if (loading.vars['closeBtn']:isVisible() == false) then
-                        loading.vars['closeBtn']:setVisible(true)
+                -- 5초 이후부터는 취소 버튼 추가
+                elseif (5 <= timer) then
+                    local close_btn = loading.vars['closeBtn']
+                    if (close_btn:isVisible() == false) then
+                        close_btn:setVisible(true)
                     end
                 end
             end
