@@ -308,7 +308,12 @@ function AdMobRewardedVideoAd:show(ad_unit_id, result_cb)
                 timer = (timer + dt)
                 --loading:setLoadingMsg(Str('광고를 불러오는 중...') .. tostring(math_floor(timer)))
                 if (self.mIsLoaded == true) then    
-                    loading:close()
+                    --loading:close()
+                    
+                    -- node 본인의 Update schedule에서 본인을 삭제할 경우 오류가 발생하는 것으로 유추되어 액션으로 0.1초 후 close 시도
+                    local loading_ = loading
+                    cca.reserveFunc(loading_.root, 0.1, function() loading_:close() end)
+
                     loading = nil
                     showFunc()
 
