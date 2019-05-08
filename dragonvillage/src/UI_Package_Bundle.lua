@@ -45,6 +45,10 @@ function UI_Package_Bundle:initUI()
     if (not self.m_isPopup) then
         vars['closeBtn']:setVisible(false)
     end
+
+    if (vars['allSpecVisual']) then
+        vars['allSpecVisual']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+    end
 end
 
 -------------------------------------
