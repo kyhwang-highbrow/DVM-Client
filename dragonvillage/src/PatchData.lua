@@ -135,6 +135,11 @@ function PatchData:getAppVersionAndPatchIdxString()
     -- sgkim 2018-01-24
     patch_idx_str = patch_idx_str .. string.format(' (%s server)', select_server)
 
+    -- Cafe Bazaar 빌드를 식별하기 위해 추가
+    if (CppFunctions:isCafeBazaarBuild() == true) then
+        patch_idx_str = ('[Cafe Bazaar] ' .. patch_idx_str)
+    end
+
     return patch_idx_str
 end
 
