@@ -235,7 +235,7 @@ function AdMobRewardedVideoAd:loadRequest(ad_unit_id)
         return
     end
 
-    ccdisplay('광고 프리 로드 요청 : ' .. tostring(ad_unit_id))
+    --ccdisplay('광고 프리 로드 요청 : ' .. tostring(ad_unit_id))
 
     self.mIsRequested = true
 
