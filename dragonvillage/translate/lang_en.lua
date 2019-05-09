@@ -62,7 +62,7 @@ return {['60초마다 피해량이 증가합니다.\n이 효과는 무한히 중
 ['붕대를 감은 폭탄을 던져 적에게 피해를 줍니다.\n빛 속성 적에게는 {1}배의 피해를 줍니다.']='Throw a bomb wrapped in bandages to inflict damage.\nInflict X{1} damage to Light enemies.',
 ['상처가 나으면 널 상대해 주겠어.']='I\'ll take you on after I\'m healed up.',
 ['생명력이 0이 될 때 발동하며 죽지 않는 상태가 됩니다.\n지속시간이 끝나면 바로 사망합니다.']='Activates when HP reaches 0.\nDragon won\'t die until duration is over.',
-['생명력이 75%, 50%, 25%가 될 때 {1}초간 무적 상태에 돌입하고 자신의 공격력을 {2}%씩 상승시킵니다.\n이 효과는 각 구간에서 1회씩만 발동됩니다.']='Become invulnerable for 10 sec. when HP reaches 75%, 50%, and 25%, and increase your ATK by {2}% at each of those percentages.\nThis effect is activated only once for each of those percentages.',
+['생명력이 75%, 50%, 25%가 될 때 {1}초간 무적 상태에 돌입하고 자신의 공격력을 {2}%씩 상승시킵니다.\n이 효과는 각 구간에서 1회씩만 발동됩니다.']='Become invulnerable for {1} sec. when HP reaches 75%, 50%, and 25%, and increase your ATK by {2}% at each of those percentages.\nThis effect is activated only once for each of those percentages.',
 ['생명력이 75%, 50%, 25%가 될 때 {1}초간 무적 상태에 돌입하고 자신의 공격속도를 {2}%씩 상승시킵니다.\n이 효과는 각 구간에서 1회씩만 발동됩니다.']='Become invulnerable for {1} sec. when HP reaches 75%, 50%, and 25%, and increase your ATK speed by {2}% at each of those percentages.\nThis effect is activated only once for each section.',
 ['선물 교환']='Exchange Gifts',
 ['선물 교환에 사용된 토큰은 사라집니다.']='Tokens used for exchanging gifts will be gone.',
