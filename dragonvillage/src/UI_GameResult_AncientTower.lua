@@ -492,6 +492,8 @@ function UI_GameResult_AncientTower:startGame()
     local next_stage_id = g_stageData:getNextStage(stage_id)
     if (not attr) then
         g_ancientTowerData:request_ancientTowerInfo(next_stage_id, goto_cb)
+    else
+        goto_cb()
     end
 end
 
