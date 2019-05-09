@@ -32,6 +32,7 @@
 #define USE_OBB false
 #define USE_LUA_EXT false
 #define IS_TEST_MODE false
+#define IS_CAFE_BAZAAR_BUILD false // cafe baazar 빌드 여부
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define TARGET_SERVER SERVER_DEV
@@ -39,6 +40,7 @@
 #define USE_OBB false
 #define USE_LUA_EXT true
 #define IS_TEST_MODE true
+#define IS_CAFE_BAZAAR_BUILD false // cafe baazar 빌드 여부
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #define APP_VER 999
@@ -47,6 +49,7 @@
 #define USE_OBB false
 #define USE_LUA_EXT true
 #define IS_TEST_MODE true
+#define IS_CAFE_BAZAAR_BUILD false // cafe baazar 빌드 여부
 
 #endif
 
@@ -78,6 +81,12 @@
 // IS_TEST_MODE : test 기능 사용 여부
 #ifndef IS_TEST_MODE
 #define IS_TEST_MODE false
+#endif
+
+// IS_CAFE_BAZAAR_BUILD : cafe baazar 빌드 여부
+// 기본값은 false이고 build.gradle에서 true로 설정
+#ifndef IS_CAFE_BAZAAR_BUILD
+#define IS_CAFE_BAZAAR_BUILD false
 #endif
 
 // LUA_DEBUG

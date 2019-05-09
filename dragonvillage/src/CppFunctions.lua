@@ -121,5 +121,20 @@ function CppFunctionsClass:openUrl(url)
     openUrl(url)
 end
 
+-------------------------------------
+-- function isCafeBazaarBuild
+-- @brief Cafe Bazaar빌드 전용인지 여부
+--        이란(중동) 마켓 android만 출시
+-- @return boolean
+-------------------------------------
+function CppFunctionsClass:isCafeBazaarBuild()
+    if (not isCafeBazaarBuild) then
+        return false
+    end
+
+    local ret_bool = isCafeBazaarBuild()
+    return ret_bool
+end
+
 -- instance 생성
 CppFunctions = CppFunctionsClass()

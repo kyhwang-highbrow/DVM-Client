@@ -199,6 +199,20 @@ static int l_isTestMode(lua_State* L)
     return 1;
 }
 
+static int l_isCafeBazaarBuild(lua_State* L)
+{
+    bool isCafeBazaarBuild = IS_CAFE_BAZAAR_BUILD;
+    if (isCafeBazaarBuild)
+    {
+        lua_pushboolean(L, (int)1);
+    }
+    else
+    {
+        lua_pushboolean(L, (int)0);
+    }
+    return 1;
+}
+
 static int l_usePatch(lua_State* L)
 {
     bool usePatch = USE_PATCH;
@@ -410,6 +424,7 @@ void AppDelegate::initLuaEngine()
             { "isAndroid", l_isAndroid },
             { "isIos", l_isIos },
 			{ "isTestMode", l_isTestMode },
+            { "isCafeBazaarBuild", l_isCafeBazaarBuild },
             { "usePatch", l_usePatch }, 
             { "useObb", l_useObb },
             { "getTargetServer", l_getTargetServer },
