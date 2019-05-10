@@ -339,6 +339,7 @@ end
 
 -------------------------------------
 -- function getMarketAndOS
+-- @return market(string), os(string)
 -------------------------------------
 function GetMarketAndOS()
     local os
@@ -347,6 +348,8 @@ function GetMarketAndOS()
         os = 'android'
 		if (PerpleSdkManager:xsollaIsAvailable()) then
 			market = 'xsolla'
+        elseif (CppFunctions:isCafeBazaarBuild() == true) then
+            market = 'cafebazaar'
 		else
 			market = 'google'
 		end

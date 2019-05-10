@@ -578,6 +578,8 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     ui_network:setParam('product_id', product_id)
     ui_network:setParam('iswin', iswin)
 	
+    local market, os_ = GetMarketAndOS()
+
 	if (IS_LIVE_SERVER()) then
 		local os = getTargetOSName()
 		local game_lang = Translate:getGameLang()
@@ -588,11 +590,13 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
 		ui_network:setParam('glang', game_lang)
 		ui_network:setParam('dlang', device_lang)
 		ui_network:setParam('auth', auth)
+        ui_network:setParam('market', market)
 	else
 		ui_network:setParam('os', 'test')
 		ui_network:setParam('glang', 'test')
 		ui_network:setParam('dlang', 'test')
 		ui_network:setParam('auth', 'test')
+        ui_network:setParam('market', market)
 	end
 
     ui_network:setSuccessCB(success_cb)
