@@ -27,7 +27,6 @@ function SortManager_Rune:init()
 	self:pushSortOrder('lv')
 	self:pushSortOrder('grade')
 	self:pushSortOrder('set_id')
-    self:pushSortOrder('mopt')
 
     -- 주옵션 정렬 레벨
     self.m_mMoptSortLevel = {}
