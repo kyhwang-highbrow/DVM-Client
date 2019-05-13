@@ -16,6 +16,7 @@ local LANG = {
 	['ENGLISH'] = 'en',
 	['THAI'] = 'th',
 	['SPANISH'] = 'es',
+    ['PERSIAN'] = 'fa', -- 영어 명칭은 Persian, ISO_639 Alpha-2는 fa로 주의할 것
 }
 -------------------------------------
 -- function init
@@ -240,6 +241,7 @@ function Translate:getLangStrTable()
 		['zh'] = '中文(繁體)',
 		['th'] = 'ภาษาไทย',
 		['es'] = 'español',
+        ['fa'] = 'فارسی',
 	}
 end
 
@@ -258,6 +260,10 @@ function Translate:getFontName()
         ret = 'common_font_01_th.ttf'
 	elseif (game_lang == LANG['SPANISH']) then
         ret = 'common_font_01_ja.ttf'
+
+    -- 페르시아어(RTL)은 시스템 폰트를 사용 예정 (ttf폰트는 의미가 없음)
+    elseif (game_lang == LANG['PERSIAN']) then
+        ret = 'common_font_01.ttf'
     end
 
     return ret
