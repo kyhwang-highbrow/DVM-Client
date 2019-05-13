@@ -151,19 +151,11 @@ function UI_Setting:checkGameLanguage()
         return
     end
 
-    -- 기기 언어가 지원하지 않는 언어일 경우 skip
-    local t_lang = Translate:getGameLangTable()
-    local exist = false
-    for i,v in pairs(t_lang) do
-        if (device_lang == v) then
-            exist = true
-            break
-        end
-    end
-    if (not exist) then
+
+    -- 기기 언어가 지원하지 않는 게임 언어일 경우 skip
+    if (Translate:isSupportedLanguage(device_lang) == false) then
         return
-    end
-    
+    end    
 
     local make_info_popup
     local make_setting_popup

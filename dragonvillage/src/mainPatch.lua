@@ -94,6 +94,7 @@ local function main()
 	require 'XorCipher'
 	require 'PatchChecker'
 	require 'LocalData'
+    require 'StructLanguage'
 	require 'lib/Translate'
 	require 'Global'
 	require 'ErrorTracker'

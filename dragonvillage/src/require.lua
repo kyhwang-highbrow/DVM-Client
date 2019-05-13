@@ -7,6 +7,7 @@ local t_module = {
     'lib/net',
     'lib/class',
     'lib/utils',
+    'StructLanguage',
     'lib/Translate',
     'lib/scheduler',
     'lib/SocketTCP',

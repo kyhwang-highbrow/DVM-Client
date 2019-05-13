@@ -2,26 +2,19 @@
 -- table Translate
 -------------------------------------
 Translate = {
+    m_mStructLanguageMap = nil, -- StructLanguage
     m_mLangMap = nil,
     m_stdLang = nil,
     m_deviceLang = nil,
     m_gameLang = nil,
 }
 
--- key는 영어 정식 명칭, value 는 ISO 639의 Alpha-2 표기를 따른다.
-local LANG = {
-	['KOREAN'] = 'ko',
-	['JAPANESE'] = 'ja',
-	['CHINESE'] = 'zh',
-	['ENGLISH'] = 'en',
-	['THAI'] = 'th',
-	['SPANISH'] = 'es',
-    ['PERSIAN'] = 'fa', -- 영어 명칭은 Persian, ISO_639 Alpha-2는 fa로 주의할 것
-}
 -------------------------------------
 -- function init
 -------------------------------------
 function Translate:init()
+    -- 지원 언어의 구조체 리스트를 생성 (StructLanguage 참고)
+    self.m_mStructLanguageMap = StructLanguage:makeStructLanguageMap()
 
     -- getDeviceLang을 하면 중국어에서 zh-cn 으로 들어오고
 	-- 엔진에 있는 languageCode가 의도한대로 값이 들어와
@@ -30,8 +23,8 @@ function Translate:init()
 	-- 디바이스 언어
     self.m_deviceLang = cc.Application:sharedApplication():getCurrentLanguageCode()
 	
-	-- 기준 언어
-	self.m_stdLang = LANG['KOREAN']
+	-- 기준 언어 (한국어)
+	self.m_stdLang = 'ko'
 
 	-- 게임 언어 (유저의 선택)
 	self.m_gameLang = g_localData:getLang()
@@ -39,7 +32,7 @@ function Translate:init()
 	-- 신규 유저의 경우 
 	if (not self.m_gameLang) then
 		-- 정의된 언어는 디바이스 언어를 따름
-		if (table.find(LANG, self.m_deviceLang) ~= nil) then
+		if self:isSupportedLanguage(self.m_deviceLang) then
 			self.m_gameLang = self.m_deviceLang
 		-- 정의되지 않은 언어는 영어로 처리
 		else
@@ -66,32 +59,8 @@ function Translate:load(lang)
     self.m_mLangMap = nil
 	self.m_gameLang = lang
 
-    -- 한국어가 아니라면 m_mLangMap 호출
-    if (lang == LANG['ENGLISH']) then
-        self.m_mLangMap = require 'translate/lang_en'
-
-    elseif (lang == LANG['JAPANESE']) then
-        self.m_mLangMap = require 'translate/lang_jp'
-
-	elseif (lang == LANG['CHINESE']) then
-        self.m_mLangMap = require 'translate/lang_zhtw'
-
-	elseif (lang == LANG['THAI']) then
-        self.m_mLangMap = require 'translate/lang_th'
-
-	elseif (lang == LANG['SPANISH']) then
-        self.m_mLangMap = require 'translate/lang_es'
-
-	-- 한국어는 m_mLangMap을 생성하지 않는다
-	elseif (lang == LANG['KOREAN']) then
-		-- nothing to do
-
-	-- 정의 되지 않은 언어는 '영어'로 일괄 처리
-	else
-		self.m_gameLang = LANG['ENGLISH']
-		self.m_mLangMap = require 'translate/lang_en'
-
-    end
+    local struct_language = self:getStructLanguage()
+    self.m_mLangMap = struct_language:loadLanguageMap()
 end
 
 -------------------------------------
@@ -232,41 +201,28 @@ end
 
 -------------------------------------
 -- function getLangStrTable
+-- @brief 지원 중인 언어 리스트 리턴
+--        t_ret['ko'] = '한국어'
+--        t_ret['en'] = 'English'
 -------------------------------------
 function Translate:getLangStrTable()
-    return {
-		['ko'] = '한국어', 
-		['en'] = 'English', 
-		['ja'] = '日本語', 
-		['zh'] = '中文(繁體)',
-		['th'] = 'ภาษาไทย',
-		['es'] = 'español',
-        ['fa'] = 'فارسی',
-	}
+    local t_ret = {}
+    
+    for lang, struct in pairs(self.m_mStructLanguageMap) do
+        if (struct.m_bActive == true) then
+            t_ret[lang] = struct.m_displayName
+        end
+    end
+
+    return t_ret
 end
 
 -------------------------------------
 -- function getFontName
 -------------------------------------
 function Translate:getFontName()
-    local game_lang = self:getGameLang()
-    local ret = 'common_font_01.ttf'
-
-    if (game_lang == LANG['JAPANESE']) then
-        ret = 'common_font_01_ja.ttf'
-    elseif (game_lang == LANG['CHINESE']) then
-        ret = 'common_font_01_cn.ttc'
-	elseif (game_lang == LANG['THAI']) then
-        ret = 'common_font_01_th.ttf'
-	elseif (game_lang == LANG['SPANISH']) then
-        ret = 'common_font_01_ja.ttf'
-
-    -- 페르시아어(RTL)은 시스템 폰트를 사용 예정 (ttf폰트는 의미가 없음)
-    elseif (game_lang == LANG['PERSIAN']) then
-        ret = 'common_font_01.ttf'
-    end
-
-    return ret
+    local struct_language = self:getStructLanguage()
+    return struct_language.m_fontRes
 end
 
 -------------------------------------
@@ -280,23 +236,9 @@ end
 -- function getFontScaleRate
 -------------------------------------
 function Translate:getFontScaleRate()
-    local retX = 1
-    local retY = 1
-    local game_lang = self:getGameLang()
-
-    if (game_lang == LANG['JAPANESE']) then
-        retX = 0.88
-    elseif (game_lang == LANG['CHINESE']) then
-        retX = 0.88
-        retY = 0.98
-	elseif (game_lang == LANG['THAI']) then
-        retX = 0.8
-		retY = 0.8
-	elseif (game_lang == LANG['SPANISH']) then
-        retX = 0.75
-		retY = 0.82
-    end
-
+    local struct_language = self:getStructLanguage()
+    local retX = struct_language.m_fontScaleRateX
+    local retY = struct_language.m_fontScaleRateY
     return retX, retY
 end
 
@@ -304,19 +246,8 @@ end
 -- function getFontScaleRate
 -------------------------------------
 function Translate:getFontSizeScale()
-	local scale = 1
-    local game_lang = self:getGameLang()
-
-    if (game_lang == LANG['JAPANESE']) then
-        scale = 0.88
-    elseif (game_lang == LANG['CHINESE']) then
-        scale = 0.88
-	elseif (game_lang == LANG['THAI']) then
-        scale = 0.8
-	elseif (game_lang == LANG['SPANISH']) then
-        scale = 0.70
-	end
-
+    local struct_language = self:getStructLanguage()
+    local scale = struct_language.m_fontSizeScale
     return scale
 end
 
@@ -344,9 +275,36 @@ function Translate:setDefaultFallbackFont()
 end
 
 -------------------------------------
--- function getGameLangTable
--- @breif
+-- function getStructLanguage
 -------------------------------------
-function Translate:getGameLangTable()
-    return LANG
+function Translate:getStructLanguage(lang)
+    if (not self.m_mStructLanguageMap) then
+        return nil
+    end
+
+    local lang = (lang or self.m_gameLang)
+    if (not self.m_mStructLanguageMap[lang]) then
+        lang = 'en'
+    end
+
+    return self.m_mStructLanguageMap[lang]
+end
+
+-------------------------------------
+-- function isSupportedLanguage
+-------------------------------------
+function Translate:isSupportedLanguage(lang)
+    if (not self.m_mStructLanguageMap) then
+        return false
+    end
+
+    if (not self.m_mStructLanguageMap[lang]) then
+        return false
+    end
+
+    if (not self.m_mStructLanguageMap[lang].m_bActive) then
+        return false
+    end
+
+    return true
 end
