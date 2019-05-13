@@ -29,8 +29,8 @@ end
 function UI_EventBingoListItem:initUI()
     local vars = self.vars
     
-    -- Á¤ÇØÁø ¼ıÀÚ·Î ¼¼ÆÃ
-    local _num = string.format('%03d', self.m_bingoInd) --ex) 001, ..023 3ÀÚ¸® Çü½Ä
+    -- ì •í•´ì§„ ìˆ«ìë¡œ ì„¸íŒ…
+    local _num = string.format('%03d', self.m_bingoInd) --ex) 001, ..023 3ìë¦¬ í˜•ì‹
     local num_sprite_name = string.format('res/ui/icons/bingo/%s.png', _num)
     vars['numberSprite']:setTexture(num_sprite_name)
     vars['numberSprite']:setColor(cc.c3b(240,215,159))
@@ -38,13 +38,13 @@ end
 
 -------------------------------------
 -- function setActiveNumber
--- @brief ºù°í ¼ıÀÚ¸¦ È°¼ºÈ­(À¯È¿ÇÏ°Ô)
+-- @brief ë¹™ê³  ìˆ«ìë¥¼ í™œì„±í™”(ìœ íš¨í•˜ê²Œ)
 -------------------------------------
 function UI_EventBingoListItem:setActiveNumber(is_pick)
     local vars = self.vars
     local action_speed = 0.1
 
-    -- ÀÌ¹Ì »ÌÈù ¹øÈ£¶ó¸é ¸®ÅÏ
+    -- ì´ë¯¸ ë½‘íŒ ë²ˆí˜¸ë¼ë©´ ë¦¬í„´
     if (self.m_isPickedNumber) then
         return
     end
@@ -54,7 +54,7 @@ function UI_EventBingoListItem:setActiveNumber(is_pick)
         vars['numberSprite']:setColor(cc.c3b(72,25,0))
     end 
     
-    -- Ä«µå µÚÁı´Â È¿°ú
+    -- ì¹´ë“œ ë’¤ì§‘ëŠ” íš¨ê³¼
     local flip_action = cc.ScaleTo:create(action_speed, 0, 1)
     local cb_frunc = cc.CallFunc:create(func_active)
     local flip_action_reverse = cc.ScaleTo:create(action_speed, 1, 1)
@@ -62,7 +62,7 @@ function UI_EventBingoListItem:setActiveNumber(is_pick)
     cca.runAction(self.root, sequence_action, nil)
     self.m_isPickedNumber = true
 
-    -- È®Á¤»Ì±â¸¦ À§ÇØ, ´­·¶À» ¶§ Äİ¹é ¼¼ÆÃ
+    -- í™•ì •ë½‘ê¸°ë¥¼ ìœ„í•´, ëˆŒë €ì„ ë•Œ ì½œë°± ì„¸íŒ…
     if (is_pick) then
         self.m_click_cb(self.m_bingoInd)
     end
@@ -80,20 +80,20 @@ end
 
 -------------------------------------
 -- function setBtnEnabled
--- @breif È®Á¤ »Ì±â¸¦ À§ÇØ ¹öÆ°À» turn on/off
+-- @breif í™•ì • ë½‘ê¸°ë¥¼ ìœ„í•´ ë²„íŠ¼ì„ turn on/off
 -------------------------------------
 function UI_EventBingoListItem:setBtnEnabled(is_enabled)
     local vars = self.vars
 
-    -- ÀÌ¹Ì °ñ¶óÁø ¼ıÀÚ°¡ ¾Æ´Ò °æ¿ì¿¡¸¸ ¹öÆ° on/off
-    -- ¹öÆ° ´©¸¦ ¼ö ÀÖ´Â »óÅÂ = È®Á¤ ¹öÆ° ´©¸¥ »óÅÂ
+    -- ì´ë¯¸ ê³¨ë¼ì§„ ìˆ«ìê°€ ì•„ë‹ ê²½ìš°ì—ë§Œ ë²„íŠ¼ on/off
+    -- ë²„íŠ¼ ëˆ„ë¥¼ ìˆ˜ ìˆëŠ” ìƒíƒœ = í™•ì • ë²„íŠ¼ ëˆ„ë¥¸ ìƒíƒœ
     if (not self.m_isPickedNumber) then
         vars['clickBtn']:setEnabled(is_enabled)
         vars['pickSprite']:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 100))))
         vars['pickSprite']:setVisible(is_enabled)
     end
 
-    -- È°¼ºÈ­ ¾Æ´Ò¶§¿¡´Â, °í¸¦ ¼ö ÀÖ´Â Ç¥½Ã ¹«Á¶°Ç ²û
+    -- í™œì„±í™” ì•„ë‹ë•Œì—ëŠ”, ê³ ë¥¼ ìˆ˜ ìˆëŠ” í‘œì‹œ ë¬´ì¡°ê±´ ë”
     if (not is_enabled) then
         vars['pickSprite']:setVisible(false)
     end
@@ -101,7 +101,7 @@ end
 
 -------------------------------------
 -- function setSameNumberAction
--- @brief °°Àº ¹øÈ£ °ñ¶úÀ» ¶§ opacity Á¶ÀıÇØ¼­ ±ô¹Ú±ô¹Ú
+-- @brief ê°™ì€ ë²ˆí˜¸ ê³¨ëì„ ë•Œ opacity ì¡°ì ˆí•´ì„œ ê¹œë°•ê¹œë°•
 -------------------------------------
 function UI_EventBingoListItem:setSameNumberAction()
     local vars = self.vars

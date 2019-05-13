@@ -11,13 +11,13 @@ UI_ReadySceneNew_IllusionDungeon = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:init(stage_id, sub_info)
-	-- µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
+	-- ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
 	self:addSpecialDragon()
 end
 
 -------------------------------------
 -- function click_manageBtn
--- @breif µå·¡°ï °ü¸®
+-- @breif ë“œë˜ê³¤ ê´€ë¦¬
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
     local function next_func()
@@ -26,11 +26,11 @@ function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
             local function func()
                 self:refresh()
                 self.m_readySceneSelect:init_dragonTableView()
-				-- µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
+				-- ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
 				self:addSpecialDragon()
                 self.m_readySceneDeck:init_deck()
 
-                do -- Á¤·Ä µµ¿ì¹Ì
+                do -- ì •ë ¬ ë„ìš°ë¯¸
 					self:apply_dragonSort()
                 end
             end
@@ -39,13 +39,13 @@ function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
         ui:setCloseCB(close_cb)
     end
     
-    -- µ¦ ÀúÀå ÈÄ ÀÌµ¿
+    -- ë± ì €ì¥ í›„ ì´ë™
     self:checkChangeDeck(next_func)
 end
 
 -------------------------------------
 -- function addSpecialDragon
--- @breif µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
+-- @breif ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:addSpecialDragon()
 
@@ -58,10 +58,10 @@ function UI_ReadySceneNew_IllusionDungeon:addSpecialDragon()
 		return
 	end
 
-	-- ±âÁ¸ º¸À¯ µå·¡°ï
+	-- ê¸°ì¡´ ë³´ìœ  ë“œë˜ê³¤
 	local l_dragon_list = g_dragonsData:getDragonsList()
 
-	-- ÀÓ½Ã·Î »ß¿¡·Î µå·¡°ï »ğÀÔ
+	-- ì„ì‹œë¡œ ì‚ì—ë¡œ ë“œë˜ê³¤ ì‚½ì…
 	-- 120301 - 120305
 	local table_dragon = TableDragon()
 	for i=1,5 do

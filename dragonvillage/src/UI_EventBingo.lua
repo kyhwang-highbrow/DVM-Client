@@ -1,4 +1,4 @@
-﻿local PARENT = UI
+local PARENT = UI
 
 -------------------------------------
 -- class UI_EventBingo

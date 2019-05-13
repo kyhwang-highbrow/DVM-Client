@@ -1,6 +1,6 @@
 -------------------------------------
 -- function make_child_menu
--- @brief UI_TabUI_AutoGeneration¿¡¼­ »ı¼º ÇÒ ¶§ µû·Î »ı¼ºÀÌ ÇÊ¿äÇÑ UI Ã³¸®
+-- @brief UI_TabUI_AutoGenerationì—ì„œ ìƒì„± í•  ë•Œ ë”°ë¡œ ìƒì„±ì´ í•„ìš”í•œ UI ì²˜ë¦¬
 -------------------------------------
 local make_child_menu = function(self, ui_name, ui_depth)
 
@@ -8,7 +8,7 @@ end
 
 -------------------------------------
 -- function set_after
--- @brief UI_TabUI_AutoGeneration¿¡¼­ UI »ı¼º ÈÄ UI¼³Á¤ ÇÊ¿äÇÑ ºÎºĞ Ã³¸®
+-- @brief UI_TabUI_AutoGenerationì—ì„œ UI ìƒì„± í›„ UIì„¤ì • í•„ìš”í•œ ë¶€ë¶„ ì²˜ë¦¬
 -------------------------------------
 local set_after = function(ui_name, ui)
  
@@ -16,13 +16,13 @@ end
 
 -------------------------------------
 -- function UI_HelpStatus
--- @brief UI ÀÚµ¿ »ı¼º
+-- @brief UI ìë™ ìƒì„±
 -------------------------------------
 function UI_HelpStatus(...)
     local struct_tab_ui = StructTabUI()
-    struct_tab_ui:setPrefix('help_status_')        -- »ç¿ëÇÒ Á¢µÎ¾î ¼³Á¤
-    struct_tab_ui:setDefaultTab(...)        -- Depthº° µğÆúÆ® ÅÇ ¼³Á¤
-    struct_tab_ui:setAfterFunc(set_after)   -- UI »ı¼º ÈÄ ÈÄÃ³¸® ÇÔ¼ö ¼³Á¤
-    struct_tab_ui:setMakeChildMenuFunc(nil) -- UI »ı¼º ÇÔ¼ö ¼³Á¤
+    struct_tab_ui:setPrefix('help_status_')        -- ì‚¬ìš©í•  ì ‘ë‘ì–´ ì„¤ì •
+    struct_tab_ui:setDefaultTab(...)        -- Depthë³„ ë””í´íŠ¸ íƒ­ ì„¤ì •
+    struct_tab_ui:setAfterFunc(set_after)   -- UI ìƒì„± í›„ í›„ì²˜ë¦¬ í•¨ìˆ˜ ì„¤ì •
+    struct_tab_ui:setMakeChildMenuFunc(nil) -- UI ìƒì„± í•¨ìˆ˜ ì„¤ì •
     return UI_TabUI_AutoGeneration('help_status.ui', true, 1, struct_tab_ui) -- param ui_name, is_root, ui_depth, struct_tab_ui
 end

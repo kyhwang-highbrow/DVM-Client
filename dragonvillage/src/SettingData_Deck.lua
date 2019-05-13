@@ -67,7 +67,7 @@ end
 function SettingData_Deck:makeDefaultSettingData()
     local root_table = {}
     root_table['ancient_deck'] = {}
-    do -- °í´ëÀÇ Å¾ µ¦ ÀúÀå
+    do -- ê³ ëŒ€ì˜ íƒ‘ ë± ì €ì¥
         for stage_id = 1401001, 1401050 do
             local t_data = {}
             t_data['stage_id'] = stage_id
@@ -108,7 +108,7 @@ end
 -- function getAncientStageScore
 -------------------------------------
 function SettingData_Deck:getAncientStageScore(stage_id)
-    -- stage_id°¡ ¼ıÀÚ ÇüÅÂ·Î ³Ñ¾î¿Ô´ÂÁö È®ÀÎ (°í´ëÀÇ Å¾ 1Ãş~50Ãş ½ºÅ×ÀÌÁöID ¹üÀ§µµ È®ÀÎ)
+    -- stage_idê°€ ìˆ«ì í˜•íƒœë¡œ ë„˜ì–´ì™”ëŠ”ì§€ í™•ì¸ (ê³ ëŒ€ì˜ íƒ‘ 1ì¸µ~50ì¸µ ìŠ¤í…Œì´ì§€ID ë²”ìœ„ë„ í™•ì¸)
     local stage_id_num = tonumber(stage_id)
     if (stage_id_num == nil) then
         return 0
@@ -118,7 +118,7 @@ function SettingData_Deck:getAncientStageScore(stage_id)
         return 0
     end
 
-    -- stage_id¸¦ ¹®ÀÚ¿­·Î º¯È¯ÇÏ¿© ÇØ´ç ½ºÅ×ÀÌÁöÀÇ ÃÖ°íÁ¡À» ¾ò¾î¿È
+    -- stage_idë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜í•˜ì—¬ í•´ë‹¹ ìŠ¤í…Œì´ì§€ì˜ ìµœê³ ì ì„ ì–»ì–´ì˜´
     local stage_id_str = tostring(stage_id)
     if (stage_id_str == nil) then
         return 0
@@ -130,13 +130,13 @@ end
 
 -------------------------------------
 -- function getDeckAncient
--- @brief ·ÎÄÃ ÆÄÀÏ¿¡¼­ µ¦ Á¤º¸ ÀĞ¾î¼­ ¸®ÅÏ, º£½ºÆ® ÆÀ ÆË¾÷ Ãâ·ÂÇÒ ¶§ »ç¿ë
+-- @brief ë¡œì»¬ íŒŒì¼ì—ì„œ ë± ì •ë³´ ì½ì–´ì„œ ë¦¬í„´, ë² ìŠ¤íŠ¸ íŒ€ íŒì—… ì¶œë ¥í•  ë•Œ ì‚¬ìš©
 -------------------------------------
 function SettingData_Deck:getDeckAllAncient()
     local t_ancientDeck = {}
     for stage_id = 1401001, 1401050 do
         local t_data = self:getDeckAncient(stage_id)
-        -- µå·¡°ï µ¦ÀÌ ¾øÀ» °æ¿ì nill°ªÀ» ¹İÈ¯, Âï¾îÁÙ ¶§ Á¡¼ö Á¤º¸´Â ÇÊ¿äÇÏ±â¿¡ µğÆúÆ® Á¤º¸ Ãâ·Â
+        -- ë“œë˜ê³¤ ë±ì´ ì—†ì„ ê²½ìš° nillê°’ì„ ë°˜í™˜, ì°ì–´ì¤„ ë•Œ ì ìˆ˜ ì •ë³´ëŠ” í•„ìš”í•˜ê¸°ì— ë””í´íŠ¸ ì •ë³´ ì¶œë ¥
         if (not t_data) then
             t_data = self.m_rootTable['ancient_deck'][tostring(stage_id)]
         end
@@ -147,7 +147,7 @@ end
 
 -------------------------------------
 -- function getDeckAncient
--- @brief ·ÎÄÃ ÆÄÀÏ¿¡¼­ µ¦ Á¤º¸ ÀĞ¾î¼­ ¸®ÅÏ
+-- @brief ë¡œì»¬ íŒŒì¼ì—ì„œ ë± ì •ë³´ ì½ì–´ì„œ ë¦¬í„´
 -------------------------------------
 function SettingData_Deck:getDeckAncient(stage_id)
     local t_ancient_deck = self.m_rootTable['ancient_deck'][tostring(stage_id)]
@@ -156,12 +156,12 @@ function SettingData_Deck:getDeckAncient(stage_id)
         return nil
     end
 
-    -- deck Á¤º¸°¡ ¾ø´Ù¸é ºó Á¤º¸·Î °£ÁÖ(best_score µî ÃÊ±âÈ­ Á¤º¸ ÀÖ´Â »óÅÂ)
+    -- deck ì •ë³´ê°€ ì—†ë‹¤ë©´ ë¹ˆ ì •ë³´ë¡œ ê°„ì£¼(best_score ë“± ì´ˆê¸°í™” ì •ë³´ ìˆëŠ” ìƒíƒœ)
     if (not t_ancient_deck['deck']) then
         return nil
     end
 
-    -- deck Á¤º¸°¡ ¾ø´Ù¸é ºó Á¤º¸·Î °£ÁÖ(best_score µî ÃÊ±âÈ­ Á¤º¸ ÀÖ´Â »óÅÂ)
+    -- deck ì •ë³´ê°€ ì—†ë‹¤ë©´ ë¹ˆ ì •ë³´ë¡œ ê°„ì£¼(best_score ë“± ì´ˆê¸°í™” ì •ë³´ ìˆëŠ” ìƒíƒœ)
     if (#t_ancient_deck['deck'] == 0) then
         return nil
     end
@@ -170,10 +170,10 @@ function SettingData_Deck:getDeckAncient(stage_id)
         return nil
     end
 
-    -- º¸À¯ÇÑ µå·¡°ïÀÎÁö Ã¼Å©
+    -- ë³´ìœ í•œ ë“œë˜ê³¤ì¸ì§€ ì²´í¬
     self:checkUserDragon(t_ancient_deck['deck'])
     
-    -- º¸À¯ÇÑ Å×ÀÌ¸ÓÀÎÁö Ã¼Å©
+    -- ë³´ìœ í•œ í…Œì´ë¨¸ì¸ì§€ ì²´í¬
     self:checkUserTamer(t_ancient_deck)
 
     return t_ancient_deck
@@ -190,7 +190,7 @@ end
 
 -------------------------------------
 -- function checkUserDragon
--- @brief À¯ÀúÀÇ µå·¡°ïÀÎÁö Ã¼Å©, ¾Æ´Ï¶ó¸é µå·¡°ï obj¸¦ nil·Î º¯È¯
+-- @brief ìœ ì €ì˜ ë“œë˜ê³¤ì¸ì§€ ì²´í¬, ì•„ë‹ˆë¼ë©´ ë“œë˜ê³¤ objë¥¼ nilë¡œ ë³€í™˜
 -------------------------------------
 function SettingData_Deck:checkUserDragon(l_deck)
     for ind, doid in ipairs(l_deck) do
@@ -202,7 +202,7 @@ end
  
 -------------------------------------
 -- function saveAncientTowerDeck
--- @brief ·ÎÄÃ¿¡ µ¦ Á¤º¸ ÀúÀå
+-- @brief ë¡œì»¬ì— ë± ì •ë³´ ì €ì¥
 -------------------------------------
 function SettingData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_id, score, cur_stage_id)
     if (not g_ancientTowerData) then
@@ -215,20 +215,20 @@ function SettingData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_
 
     local cur_floor = self:getFloorByStageId(cur_stage_id)
     
-    -- ±âÁ¸¿¡ ÀúÀåµÈ µ¦ Á¤º¸
+    -- ê¸°ì¡´ì— ì €ì¥ëœ ë± ì •ë³´
     local ancient_deck_data = self.m_rootTable['ancient_deck']
      
     if (not ancient_deck_data) then
         ancient_deck_data = {}
     end
     
-    -- µ¦ ¼ø¼­¿¡ ¸Â°Ô ´Ù½Ã Àç¹è¿­
+    -- ë± ìˆœì„œì— ë§ê²Œ ë‹¤ì‹œ ì¬ë°°ì—´
     local l_deck_order = {}
     for ind = 1,5 do
         l_deck_order[ind] = l_deck[ind]
     end
 
-    -- »õ·Î ÀúÀåÇÒ µ¦ Á¤º¸
+    -- ìƒˆë¡œ ì €ì¥í•  ë± ì •ë³´
     local t_new_deck_data = {}
     t_new_deck_data['deck'] = l_deck_order
     t_new_deck_data['formation'] = formation
@@ -239,7 +239,7 @@ function SettingData_Deck:saveAncientTowerDeck(l_deck, formation, leader, tamer_
     t_new_deck_data['stage_id'] = cur_stage_id
     
     
-    -- µ¦ Á¤º¸ °»½Å
+    -- ë± ì •ë³´ ê°±ì‹ 
     self.m_rootTable['ancient_deck'][tostring(cur_stage_id)] = t_new_deck_data
     return SaveLocalSaveJson(self:getSettingDataSaveFileName(), self.m_rootTable, false) 
 end

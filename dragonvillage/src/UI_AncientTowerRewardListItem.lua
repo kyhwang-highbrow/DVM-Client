@@ -1,4 +1,4 @@
-﻿local PARENT = class(UI, ITableViewCell:getCloneTable())
+local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 
 --[[
