@@ -160,6 +160,14 @@ end
 -------------------------------------
 function UIC_RichLabel:updateAlignmnet()
 
+    -- 페르시아어이고, 페르시아어가 포함된 텍스트일 경우
+    if (Translate:getGameLang() == 'fa') then
+        if string.match(self.m_orgRichText, '[آ-ی]+') then
+            self:updateAlignmnet_forRtl()
+            return
+        end
+    end
+
     local line_height = self.m_fontSize * 1.1
     local content_height = (self.m_lineCount * line_height)
 
@@ -177,6 +185,51 @@ function UIC_RichLabel:updateAlignmnet()
 
         elseif (self.m_hAlignment == cc.TEXT_ALIGNMENT_RIGHT) then
             pos_x = pos_x + (self.m_dimension['width'] - line_width)
+
+        end
+
+        -- Y축 정렬
+        local pos_y = -((idx_y - 1) * line_height)
+        if (self.m_vAlignment == cc.VERTICAL_TEXT_ALIGNMENT_TOP) then
+
+        elseif (self.m_vAlignment == cc.VERTICAL_TEXT_ALIGNMENT_CENTER) then
+            pos_y = pos_y - ((self.m_dimension['height'] - content_height) / 2)
+
+        elseif (self.m_vAlignment == cc.VERTICAL_TEXT_ALIGNMENT_BOTTOM) then
+            pos_y = pos_y - (self.m_dimension['height'] - content_height)
+
+        end
+
+        -- X, Y 설정
+        v['node']:setPosition(pos_x, pos_y)
+    end
+end
+
+-------------------------------------
+-- function updateAlignmnet_forRtl
+-------------------------------------
+function UIC_RichLabel:updateAlignmnet_forRtl()
+    local line_height = self.m_fontSize * 1.1
+    local content_height = (self.m_lineCount * line_height)
+
+    for i,v in ipairs(self.m_nodeList) do
+
+        local idx_y = v['idx_y']
+
+        -- X축 정렬
+        local line_width = self.m_widthList[idx_y]
+        local pos_x = v['pos_x']
+        if (self.m_hAlignment == cc.TEXT_ALIGNMENT_LEFT) then
+            local start_x = 0
+            pos_x = start_x + line_width - (pos_x + v['node_width'])
+
+        elseif (self.m_hAlignment == cc.TEXT_ALIGNMENT_CENTER) then
+            local start_x = ((self.m_dimension['width'] - line_width) / 2)
+            pos_x = start_x + line_width - (pos_x + v['node_width'])
+
+        elseif (self.m_hAlignment == cc.TEXT_ALIGNMENT_RIGHT) then
+            local start_x = self.m_dimension['width'] - line_width
+            pos_x = start_x + line_width - (pos_x + v['node_width'])
 
         end
 
@@ -271,10 +324,13 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             self.m_root:addChild(content_node)
             content_uic:setPosition(pos_x, pos_y)
             
+            local node_width = 0
+
             -- 다음 pos_x
             local prev_x = pos_x
             if (pre_text ~= work_text) then
-                pos_x = pos_x + (label:getStringWidth() * rateX) - self.m_outlineSize -- (outline의 경우 자간에 영향을 줌)
+                node_width = (label:getStringWidth() * rateX) - self.m_outlineSize
+                pos_x = pos_x + node_width
             end
 
             -- 컨텐츠 넓이
@@ -283,6 +339,7 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             do
                 local t_data = {}
                 t_data['node'] = content_uic
+                t_data['node_width'] = node_width
                 t_data['pos_x'] = prev_x
                 t_data['idx_y'] = idx_y
                 table.insert(self.m_nodeList, t_data)
