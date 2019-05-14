@@ -996,6 +996,10 @@ void Label::createSpriteWithFontDefinition()
     _textSprite = Sprite::createWithTexture(texture);
     _textSprite->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
     this->setContentSize(_textSprite->getContentSize());
+
+    // 20190514 sgkim 시스템폰트를 사용할 때 문자열 길이 저장 (화면에 표시되는 길이)
+    // RichLabel에서 사용 중이며, 문자열이 한 줄로 표시된다고 가정
+    _stringWidth = _contentSize.width;
     texture->release();
     if (_blendFuncDirty)
     {
