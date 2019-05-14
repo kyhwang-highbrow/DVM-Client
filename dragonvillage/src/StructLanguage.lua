@@ -223,5 +223,10 @@ function StructLanguage:create_fa()
     struct.m_fontScaleRateX = 1
     struct.m_fontScaleRateY = 1
 
+    -- 카페 바자르 빌드에서만 동작
+    if (CppFunctions:isCafeBazaarBuild() == true) then
+        struct.m_bActive = true
+    end
+
     return struct
 end

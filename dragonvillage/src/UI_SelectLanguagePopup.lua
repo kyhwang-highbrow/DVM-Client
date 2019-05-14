@@ -54,6 +54,11 @@ function UI_SelectLanguagePopup:initButton()
 
 		-- 언어별로 버튼 등록
 		for lang, text in pairs(t_lang_list) do
+            local lang_menu = vars[lang .. 'Menu']
+            if lang_menu then
+                lang_menu:setVisible(true)
+            end
+
 			radio_button:addButtonAuto(lang, vars)
 
 			-- 한국어 번역되어서 클라에서 찍음
