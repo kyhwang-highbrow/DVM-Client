@@ -275,6 +275,7 @@ local t_module = {
     'SortManager_EvolutionStone',
     'SortManager_Transform',
     'SortManager_Dragon',
+    'SortManager_Dragon_Illusion',
     'SortManager_Friend',
     'SortManager_ClanMember',
     'SortManager_ClanRequest',
@@ -402,6 +403,7 @@ local t_module = {
     'SceneAdventure',
     'SceneNestDungeon',
     'SceneSecretDungeon',
+    'SceneGameIllusion',
     'SceneRuneGuardianDungeon',
 
     -- Phys
@@ -428,6 +430,7 @@ local t_module = {
     'GameWorldIntro',
     'GameWorldClanRaid',
     'GameWorldEventArena',
+    'GameWorld_Illusion',
     'GameState',
     'GameState_AncientRuin',
     'GameState_AncientTower',
@@ -960,6 +963,7 @@ local t_module = {
 	-- UI : 모험 준비
     'UI_ReadySceneNew',
     'UI_ReadySceneNew_Deck',
+    'UI_ReadySceneNew_Deck_Illusion',
     'UI_ReadySceneNew_Select',
     'UI_ReadyScene_LeaderPopup',
 	'UI_ReadySceneNew_IllusionDungeon',

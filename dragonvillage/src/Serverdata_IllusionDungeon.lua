@@ -3,12 +3,14 @@
 -- @instance g_illusionDungeonData
 -------------------------------------
 Serverdata_IllusionDungeon = class({
-
+    m_lSortData = 'list', -- doid를 key값으로 하고, 정렬에 필요한 데이터를 저장
+    m_lDragonDeck = 'list', -- 서버덱에 저장하는 대신 여기서 들고 있음
 })
 -------------------------------------
 -- function init
 -------------------------------------
 function Serverdata_IllusionDungeon:init()
+     self.m_lSortData = {}
 end
 
 -------------------------------------
@@ -65,3 +67,99 @@ end
 function Serverdata_IllusionDungeon:getAdventStageCount()
 
 end
+
+-------------------------------------
+-- function getDragonDataFromUid
+-------------------------------------
+function Serverdata_IllusionDungeon:getDragonDataFromUid(doid)
+    local t_dragon = g_dragonsData:getDragonDataFromUid(doid)
+    
+    if (t_dragon) then
+        return t_dragon
+    end
+
+    t_dragon = StructDragonObject()
+
+    local ind = string.match(doid, '%d')
+    t_dragon['did'] = 120300 + tonumber(ind)
+    t_dragon['grade'] = 5
+    t_dragon['evolution'] = 3
+    t_dragon['id'] = doid
+    return t_dragon
+end
+
+-------------------------------------
+-- function getDragonsSortData
+-------------------------------------
+function Serverdata_IllusionDungeon:getDragonsSortData(doid)
+
+    local struct_dragon_object = self:getDragonDataFromUid(doid)
+    local t_sort_data = self.m_lSortData[doid]
+
+	-- @mskim 간혹 kibana에 보고되는 에러, 예외처리함
+	if (not struct_dragon_object) then
+		if (not t_sort_data) then
+			t_sort_data = self:setDragonsSortData(doid)
+		end
+	elseif (not t_sort_data) or (t_sort_data['updated_at'] ~= struct_dragon_object['updated_at']) then
+        t_sort_data = self:setDragonsSortData(doid)
+    end
+
+    return t_sort_data
+end
+
+-------------------------------------
+-- function setDragonsSortData
+-------------------------------------
+function Serverdata_IllusionDungeon:setDragonsSortData(doid)
+    local struct_dragon_object = self:getDragonDataFromUid(doid)
+    local t_sort_data = self:makeDragonsSortData(struct_dragon_object)
+    self.m_lSortData[doid] = t_sort_data
+
+    return t_sort_data
+end
+
+-------------------------------------
+-- function makeDragonsSortData
+-------------------------------------
+function Serverdata_IllusionDungeon:makeDragonsSortData(struct_dragon_object)
+
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[struct_dragon_object['did']]
+
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(struct_dragon_object)
+
+    local t_sort_data = {}
+    t_sort_data['doid'] = doid
+    t_sort_data['did'] = struct_dragon_object['did']
+    t_sort_data['hp'] = status_calc:getFinalStat('hp')
+    t_sort_data['def'] = status_calc:getFinalStat('def')
+    t_sort_data['atk'] = status_calc:getFinalStat('atk')
+    t_sort_data['attr'] = attributeStrToNum(t_dragon['attr'])
+    t_sort_data['lv'] = struct_dragon_object['lv']
+    t_sort_data['grade'] = struct_dragon_object['grade']
+    t_sort_data['evolution'] = struct_dragon_object['evolution']
+    t_sort_data['rarity'] = dragonRarityStrToNum(t_dragon['rarity'])
+    t_sort_data['friendship'] = struct_dragon_object:getFlv()
+    t_sort_data['combat_power'] = struct_dragon_object:getCombatPower(status_calc)
+    t_sort_data['updated_at'] = struct_dragon_object['updated_at']
+
+    return t_sort_data
+end
+
+-------------------------------------
+-- function setDragonDeck
+-------------------------------------
+function Serverdata_IllusionDungeon:setDragonDeck(l_dragon)
+    self.m_lDragonDeck = l_dragon
+end
+
+-------------------------------------
+-- function setDragonDeck
+-------------------------------------
+function Serverdata_IllusionDungeon:getDragonDeck(l_dragon)
+    return self.m_lDragonDeck or {}
+end
+
+
+

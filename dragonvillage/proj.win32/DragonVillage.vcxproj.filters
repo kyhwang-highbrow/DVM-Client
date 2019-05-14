@@ -4033,9 +4033,6 @@
     <None Include="..\src\UI_ReadySceneNew_IllusionDungeon.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\Serverdata_IllusionDungeon.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_AdventureStageInfo_IllusionDungeon.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4044,6 +4041,21 @@
     </None>
     <None Include="..\src\StructLanguage.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\Serverdata_IllusionDungeon.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameWorld_Illusion.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SceneGameIllusion.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SortManager_Dragon_Illusion.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ReadySceneNew_Deck_Illusion.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

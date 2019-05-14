@@ -739,6 +739,30 @@ function StructDragonObject:getDragonSortData()
 end
 
 -------------------------------------
+-- function getDragonSortData_Illusion
+-- @breif getDragonSortData에 환상던전 전용 드래곤이 추가된 버
+-------------------------------------
+function StructDragonObject:getDragonSortData_Illusion()
+    if self.m_sortData then
+        if (self.m_sortData['updated_at'] ~= self['updated_at']) then
+            self.m_sortData = g_illusionDungeonData:makeDragonsSortData(self)
+        end
+        return self.m_sortData
+    end
+
+    local doid = self['id']
+
+    if (not doid) or (doid == '') then
+        self.m_sortData = g_illusionDungeonData:makeDragonsSortData(self)
+        return self.m_sortData
+    end
+
+    -- 생성되지 않았으면 생성한 후 return
+    self.m_sortData = g_illusionDungeonData:getDragonsSortData(doid)
+    return self.m_sortData
+end
+
+-------------------------------------
 -- function getStringData
 -------------------------------------
 function StructDragonObject:getStringData()

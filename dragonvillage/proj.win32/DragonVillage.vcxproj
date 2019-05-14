@@ -358,6 +358,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameWorldIntro.lua" />
     <None Include="..\src\GameWorldClanRaid.lua" />
     <None Include="..\src\GameWorld_Gold.lua" />
+    <None Include="..\src\GameWorld_Illusion.lua" />
     <None Include="..\src\GameWorld_KeyEvent.lua" />
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\Global.lua" />
@@ -478,6 +479,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SceneGameChallengeMode.lua" />
     <None Include="..\src\SceneGameEventArena.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
+    <None Include="..\src\SceneGameIllusion.lua" />
     <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneGameClanRaid.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
@@ -638,6 +640,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SortManager_ClanMember.lua" />
     <None Include="..\src\SortManager_ClanRequest.lua" />
     <None Include="..\src\SortManager_Dragon.lua" />
+    <None Include="..\src\SortManager_Dragon_Illusion.lua" />
     <None Include="..\src\SortManager_EvolutionStone.lua" />
     <None Include="..\src\SortManager_Friend.lua" />
     <None Include="..\src\SortManager_Fruit.lua" />
@@ -1303,6 +1306,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RandomShopListItem.lua" />
     <None Include="..\src\UI_ReadySceneNew.lua" />
     <None Include="..\src\UI_ReadySceneNew_Deck.lua" />
+    <None Include="..\src\UI_ReadySceneNew_Deck_Illusion.lua" />
     <None Include="..\src\UI_ReadySceneNew_IllusionDungeon.lua" />
     <None Include="..\src\UI_ReadySceneNew_Select.lua" />
     <None Include="..\src\UI_ReinforcePointCard.lua" />

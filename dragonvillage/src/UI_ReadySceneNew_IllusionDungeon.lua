@@ -11,13 +11,20 @@ UI_ReadySceneNew_IllusionDungeon = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:init(stage_id, sub_info)
-	-- ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
-	self:addSpecialDragon()
+	self.m_readySceneDeck = UI_ReadySceneNew_Deck_Illusion(self)
+    self.m_readySceneDeck:setOnDeckChangeCB(function() 
+		self:refresh_combatPower()
+		self:refresh_buffInfo()
+        self:refresh_slotLight()
+	end)
+    
+    -- µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
+	self:addSpecialDragon()  
 end
 
 -------------------------------------
 -- function click_manageBtn
--- @breif ë“œë˜ê³¤ ê´€ë¦¬
+-- @breif µå·¡°ï °ü¸®
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
     local function next_func()
@@ -26,11 +33,11 @@ function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
             local function func()
                 self:refresh()
                 self.m_readySceneSelect:init_dragonTableView()
-				-- ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
+				-- µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
 				self:addSpecialDragon()
                 self.m_readySceneDeck:init_deck()
 
-                do -- ì •ë ¬ ë„ìš°ë¯¸
+                do -- Á¤·Ä µµ¿ì¹Ì
 					self:apply_dragonSort()
                 end
             end
@@ -39,13 +46,13 @@ function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
         ui:setCloseCB(close_cb)
     end
     
-    -- ë± ì €ì¥ í›„ ì´ë™
+    -- µ¦ ÀúÀå ÈÄ ÀÌµ¿
     self:checkChangeDeck(next_func)
 end
 
 -------------------------------------
 -- function addSpecialDragon
--- @breif ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
+-- @breif µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:addSpecialDragon()
 
@@ -58,20 +65,178 @@ function UI_ReadySceneNew_IllusionDungeon:addSpecialDragon()
 		return
 	end
 
-	-- ê¸°ì¡´ ë³´ìœ  ë“œë˜ê³¤
+	-- ±âÁ¸ º¸À¯ µå·¡°ï
 	local l_dragon_list = g_dragonsData:getDragonsList()
 
-	-- ì„ì‹œë¡œ ì‚ì—ë¡œ ë“œë˜ê³¤ ì‚½ì…
+	-- ÀÓ½Ã·Î »ß¿¡·Î µå·¡°ï »ğÀÔ
 	-- 120301 - 120305
-	local table_dragon = TableDragon()
 	for i=1,5 do
-		local t_dragon = {}
-		t_dragon['did'] = 120300+i
-		t_dragon['grade'] = 5
-		t_dragon['evolution'] = 3
+		local t_dragon = g_illusionDungeonData:getDragonDataFromUid('illusionDragon'..i, i)
 		l_dragon_list['illusionDragon'..i] = t_dragon
 	end    
 
 	select_table_view:setItemList(l_dragon_list)
 end
 
+-------------------------------------
+-- function check_startCondition
+-- @breif ½ÃÀÛ °¡´ÉÇÑ »óÅÂÀÎÁö Ã¼Å©ÇÏ´Â ÇÔ¼ö ºĞ¸® - °¡´ÉÇÏ¸é true, ºÒ°¡´ÉÇÏ¸é flase ¹İÈ¯
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:check_startCondition(stage_id)
+    -- ¸ğµå »ó°ü¾øÀÌ °øÅëÀ¸·Î Ã¼Å©
+    if (self:getDragonCount() <= 0) then
+        UIManager:toastNotificationRed(Str('ÃÖ¼Ò 1¸í ÀÌ»óÀº ÃâÀü½ÃÄÑ¾ß ÇÕ´Ï´Ù.'))
+        return false
+    --elseif (not is_advent) and (not g_stageData:isOpenStage(stage_id)) then
+    --   MakeSimplePopup(POPUP_TYPE.OK, Str('ÀÌÀü ½ºÅ×ÀÌÁö¸¦ Å¬¸®¾îÇÏ¼¼¿ä.'))
+    --    return false
+    -- ½ºÅÂ¹Ì³Ê ¼Ò¸ğ Ã¼Å©
+    elseif (stamina_charge) and (not g_staminasData:checkStageStamina(stage_id)) then
+        g_staminasData:staminaCharge(stage_id)
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function init_sortMgr
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
+
+	-- Á¤·Ä ¸Å´ÏÀú »ı¼º
+    self.m_sortManagerDragon = SortManager_Dragon_Illusion()
+    self.m_sortManagerFriendDragon = SortManager_Dragon()
+    
+    -- ¸ÖÆ¼µ¦ »ç¿ë½Ã ¿ì¼±¼øÀ§ Ãß°¡
+    if (self.m_multiDeckMgr) then
+        local function cond(a, b)
+			return self.m_multiDeckMgr:sort_multi_deck(a, b)
+		end
+        self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond)
+    end
+
+    do
+        local function cond(a, b)
+			return self:condition_deck_idx(a, b)
+		end
+		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
+        self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
+    end
+
+    -- Ä£±¸ µå·¡°ïÀÎ °æ¿ì ÄğÅ¸ÀÓ Á¤·Ä Ãß°¡
+    local function cond(a, b)
+		return self:condition_cool_time(a, b)
+	end
+    self.m_sortManagerFriendDragon:addPreSortType('used_time', false, cond)
+
+    -- Á¤·Ä UI »ı¼º
+    local vars = self.vars
+    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_TOP_TO_BOT)
+    self.m_uicSortList = uic_sort_list
+    
+	-- ¹öÆ°À» ÅëÇØ Á¤·ÄÀÌ º¯°æµÇ¾úÀ» °æ¿ì
+    local function sort_change_cb(sort_type)
+        self.m_sortManagerDragon:pushSortOrder(sort_type)
+        self.m_sortManagerFriendDragon:pushSortOrder(sort_type)
+        self:apply_dragonSort()
+        self:save_dragonSortInfo()
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- ¿À¸§Â÷¼ø/³»¸²Â÷¼ø ¹öÆ°
+    vars['sortOrderBtn']:registerScriptTapHandler(function()
+        local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
+        self.m_sortManagerDragon:setAllAscending(ascending)
+        self.m_sortManagerFriendDragon:setAllAscending(ascending)
+        self:apply_dragonSort()
+        self:save_dragonSortInfo()
+
+        vars['sortOrderSprite']:stopAllActions()
+        if ascending then
+            vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+        else
+            vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+        end
+    end)
+
+    -- ¼¼ÀÌºêµ¥ÀÌÅÍ¿¡ ÀÖ´Â Á¤·Ä °ªÀ» Àû¿ë
+    self:apply_dragonSort_saveData()
+end
+
+-------------------------------------
+-- function getLeaderBuffDesc
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:getLeaderBuffDesc()
+    self.m_readySceneDeck:refreshLeader()
+	
+	local leader_buff		
+	local leader_idx = self.m_readySceneDeck.m_currLeader
+	local l_doid = self.m_readySceneDeck.m_lDeckList
+	local leader_doid = l_doid[leader_idx]
+    if (not leader_doid) then
+        return nil
+    end
+    local t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(leader_doid)
+    if (not t_dragon_data) then
+        return nil
+    end
+	local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
+        
+    if (not skill_info) then
+        return nil
+    end
+
+	leader_buff = skill_info:getSkillDesc()
+	return leader_buff	    
+end
+
+-------------------------------------
+-- function networkGameStart
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:networkGameStart()
+    --local function finish_cb(game_key)
+        self:replaceGameScene('Illusion_Dungeon')
+    --end
+
+    --[[
+    local deck_name = g_deckData:getSelectedDeckName()
+    local combat_power = self.m_readySceneDeck:getDeckCombatPower()
+
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        local is_cash = self.m_bUseCash
+        g_clanRaidData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, is_cash)
+
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        g_ancientRuinData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+
+    -- ±×·£µå Äİ·Î¼¼¿ò (ÀÌº¥Æ® PvP 10´ë10)
+    elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
+        finish_cb(game_key)
+
+    else
+        g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+    end
+    --]]
+end
+
+-------------------------------------
+-- function replaceGameScene
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:replaceGameScene(game_key)
+    -- ½ÃÀÛÀÌ µÎ¹ø µÇÁö ¾Êµµ·Ï ÇÏ±â À§ÇÔ
+    UI_BlockPopup()
+
+    local stage_id = 1911001
+    local stage_name = 'stage_' .. stage_id
+    local scene
+
+   
+    scene = SceneGameIllusion(game_key, stage_id, stage_name, false)
+
+
+    scene:runScene()
+end
