@@ -480,12 +480,14 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         end
 
     elseif type == 'LabelTTF' then
+        local use_ttf = nil
         -- CustomStroke타입은 create함수에서 stroke_tickness를 0으로 넘겨야 한다.
         local stroke_tickness = 0
         if data.has_stroke and (data.stroke_type == 0) then
             stroke_tickness = data.stroke_tickness
         end
-        node = cc.Label:createWithTTF(
+
+        node, use_ttf = UILoader:createWithTTF(
             Str(data.text)
             , uiRoot .. data.font_name
             , data.font_size
@@ -503,6 +505,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
                 , data.h_alignment
                 , data.v_alignment
             )
+            use_ttf = false
         end
         setPropsForLabel(node, data)
 
@@ -537,9 +540,11 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             delegator:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0) -- // enableShadow(shadowColor = Color4B::BLACK, offset = Size(2,-2),int 	blurRadius = 0)
 		end
 		-- SPACE BETWEEN LETTER
-		if data['letter_spacing'] and data['letter_spacing'] ~= 0 then
-			node:setAdditionalKerning(data['letter_spacing'])
-		end
+        if (use_ttf == true) then -- Not supported system font!
+		    if data['letter_spacing'] and data['letter_spacing'] ~= 0 then
+			    node:setAdditionalKerning(data['letter_spacing'])
+		    end
+        end
 
         --언어별 스케일
         local rateX, rateY = Translate:getFontScaleRate()
@@ -828,4 +833,57 @@ function UILoader.clearCache()
 			UILoaderFileCache[url] = nil
 		end
 	end
+end
+
+
+
+-------------------------------------
+-- function createWithTTF
+-- @brief TTF라벨 사용이 불가한 경우 SystemFont라벨을 생성
+-- @return label, available_ttf(bool)
+-------------------------------------
+function UILoader:createWithTTF(text, font, fontSize, outlineSize, dimensions, hAlignment, vAlignment)
+    
+    -- 파라미터 기본값 설정
+    local text = text or ''
+    local font = font
+    local fontSize = fontSize or 10
+    local outlineSize = outlineSize or 0
+    local dimensions = dimensions or cc.size(0, 0)
+    local hAlignment = hAlignment or cc.TEXT_ALIGNMENT_LEFT
+    local vAlignment = vAlignment or cc.VERTICAL_TEXT_ALIGNMENT_TOP
+
+    -- 기본 변수
+    local label = nil
+    local available_ttf = true
+
+    -- 페르시아어는 RTL이슈로 인해 시스템 폰트를 사용해야 함
+    if (Translate:getGameLang() == 'fa') then
+        available_ttf = false
+    end
+
+    if available_ttf then
+        -- ttf 라벨 생성
+        label = cc.Label:createWithTTF(
+            text
+            , font
+            , fontSize
+            , outlineSize
+            , dimensions
+            , hAlignment
+            , vAlignment
+        )
+    else
+        -- 시스템 폰트 라벨 생성
+        label = cc.Label:createWithSystemFont(
+            text
+            , font
+            , fontSize
+            , dimensions
+            , hAlignment
+            , vAlignment
+        )
+    end
+
+    return label, available_ttf
 end

@@ -222,7 +222,9 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
         local work_text = text
         while (work_text) do
             -- label 생성
-            local label = cc.Label:createWithTTF(work_text, self:getFontName(), self.m_fontSize, self.m_outlineSize)
+            -- TTF를 사용하지 못하는 환경에서 SystemFont Label을 사용 (자세한 내용은 UILoader:createWithTTF를 참조할 것)
+            -- local label = cc.Label:createWithTTF(work_text, self:getFontName(), self.m_fontSize, self.m_outlineSize)
+            local label = UILoader:createWithTTF(work_text, self:getFontName(), self.m_fontSize, self.m_outlineSize)
             label:setScaleX( rateX )
             label:setScaleY( rateY )
 
