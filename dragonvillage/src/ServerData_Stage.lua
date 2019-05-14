@@ -113,7 +113,9 @@ function ServerData_Stage:getStageName(stage_id)
     -- 그랜드 콜로세움
     elseif (game_mode == GAME_MODE_EVENT_ARENA) then
         name = Str('그랜드 콜로세움')
-	elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
+	
+    -- 환상 던전 이벤트
+    elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 		name = Str('환상 던전 이벤트')
     end
 

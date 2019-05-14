@@ -4057,6 +4057,12 @@
     <None Include="..\src\UI_ReadySceneNew_Deck_Illusion.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_GameResult_Illusion.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\GameState_Illusion.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -103,7 +103,7 @@ function GameWorld_Illusion:createComponents()
         -- ## 모드별 분기 처리
         local display_wave = true
         local display_time = nil
-        self.m_gameState = GameState_ClanRaid(self)
+        self.m_gameState = GameState_Illusion(self)
         self.m_inGameUI:init_timeUI(display_wave, 0)
 
     end
