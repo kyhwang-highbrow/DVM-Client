@@ -11,7 +11,14 @@ UI_ReadySceneNew_IllusionDungeon = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:init(stage_id, sub_info)
-	self.m_readySceneDeck = UI_ReadySceneNew_Deck_Illusion(self)
+  
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:initDeck()
+    self.m_readySceneDeck = UI_ReadySceneNew_Deck_Illusion(self)
     self.m_readySceneDeck:setOnDeckChangeCB(function() 
 		self:refresh_combatPower()
 		self:refresh_buffInfo()
@@ -19,7 +26,7 @@ function UI_ReadySceneNew_IllusionDungeon:init(stage_id, sub_info)
 	end)
     
     -- 드래곤 선택하는 창에, 특정 드래곤 추가
-	self:addSpecialDragon()  
+	self:addIllusionDragon()  
 end
 
 -------------------------------------
@@ -51,10 +58,10 @@ function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
 end
 
 -------------------------------------
--- function addSpecialDragon
+-- function addIllusionDragon
 -- @breif 드래곤 선택하는 창에, 특정 드래곤 추가
 -------------------------------------
-function UI_ReadySceneNew_IllusionDungeon:addSpecialDragon()
+function UI_ReadySceneNew_IllusionDungeon:addIllusionDragon()
 
 	if (not self.m_readySceneSelect) then
 		return

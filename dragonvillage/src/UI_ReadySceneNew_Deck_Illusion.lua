@@ -2,6 +2,12 @@
 
 
 local TOTAL_POS_CNT = 5
+
+local DC_POS_Y = 0
+local DC_SCALE_ON_PLATE = 0.7
+local DC_SCALE = 0.61
+local DC_SCALE_PICK = (DC_SCALE * 0.8)
+
 -------------------------------------
 -- class UI_ReadySceneNew_Deck_Illusion
 -------------------------------------

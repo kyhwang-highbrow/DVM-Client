@@ -73,12 +73,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     self.m_readySceneSelect = UI_ReadySceneNew_Select(self)
     self.m_readySceneSelect:setFriend(self.m_bWithFriend)
 
-	self.m_readySceneDeck = UI_ReadySceneNew_Deck(self)
-    self.m_readySceneDeck:setOnDeckChangeCB(function() 
-		self:refresh_combatPower()
-		self:refresh_buffInfo()
-        self:refresh_slotLight()
-	end)
+    self:initDeck()
 
     self:refresh()
 
@@ -126,6 +121,18 @@ function UI_ReadySceneNew:initParentVariable()
 		self.m_uiBgm = 'bgm_lobby'
 	end
 
+end
+
+-------------------------------------
+-- function initDeck
+-------------------------------------
+function UI_ReadySceneNew:initDeck()
+	self.m_readySceneDeck = UI_ReadySceneNew_Deck(self)
+    self.m_readySceneDeck:setOnDeckChangeCB(function() 
+		self:refresh_combatPower()
+		self:refresh_buffInfo()
+        self:refresh_slotLight()
+	end)
 end
 
 -------------------------------------
