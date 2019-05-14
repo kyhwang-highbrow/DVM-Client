@@ -94,6 +94,9 @@ local TableInfo = {
         table_rune_grind = {'table_rune_grind', 'rarity', false},
         table_clan_dungeon_buff = {'table_clan_dungeon_buff', 'stage', false}, -- 클랜 버프 테이블
         table_clan_dungeon = {'table_clan_dungeon', 'stage', false}, -- 클랜 던전 정보
+
+        table_illusion = {'table_illusion', 'event_id', false}, -- 환상던전 이벤트 정보
+        table_illusion_buff = {'table_illusion_buff', 'idx', false}, -- 환상던전 드래곤 버프 정보
     }
 
 -------------------------------------
