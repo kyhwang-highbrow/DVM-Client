@@ -1,4 +1,4 @@
-local PARENT = UI_AdventureStageInfo
+﻿local PARENT = UI_AdventureStageInfo
 
 -------------------------------------
 -- class UI_AdventureStageInfo_IllusionDungeon

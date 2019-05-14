@@ -1,4 +1,4 @@
-local PARENT = SceneGame
+ï»¿local PARENT = SceneGame
 
 
 local LIMIT_TIME = 15
@@ -6,14 +6,14 @@ local LIMIT_TIME = 15
 -- class SceneGameIllusion
 -------------------------------------
 SceneGameIllusion = class(PARENT, {
-        m_realStartTime = 'number', -- Å¬·£ ´øÀü ½ÃÀÛ ½Ã°£
-        m_realLiveTimer = 'number', -- Å¬·£ ´øÀü ÁøÇà ½Ã°£ Å¸ÀÌ¸Ó
-        m_enterBackTime = 'number', -- ¹é±×¶ó¿îµå·Î ³ª°¬À»¶§ ½ÇÁ¦½Ã°£
+        m_realStartTime = 'number', -- í´ëœ ë˜ì „ ì‹œì‘ ì‹œê°„
+        m_realLiveTimer = 'number', -- í´ëœ ë˜ì „ ì§„í–‰ ì‹œê°„ íƒ€ì´ë¨¸
+        m_enterBackTime = 'number', -- ë°±ê·¸ë¼ìš´ë“œë¡œ ë‚˜ê°”ì„ë•Œ ì‹¤ì œì‹œê°„
 
         m_uiPopupTimeOut = 'UI',
 
-        -- ¼­¹ö Åë½Å °ü·Ã
-        m_bWaitingNet = 'boolean', -- ¼­¹ö¿Í Åë½Å Áß ¿©ºÎ
+        -- ì„œë²„ í†µì‹  ê´€ë ¨
+        m_bWaitingNet = 'boolean', -- ì„œë²„ì™€ í†µì‹  ì¤‘ ì—¬ë¶€
     })
 
 -------------------------------------
@@ -31,24 +31,24 @@ end
 -- function prepare
 -------------------------------------
 function SceneGameIllusion:prepare()
-    -- Å×ÀÌºí ¸®·Îµå(¸Ş¸ğ¸® º¸¾ÈÀ» À§ÇÔ)
+    -- í…Œì´ë¸” ë¦¬ë¡œë“œ(ë©”ëª¨ë¦¬ ë³´ì•ˆì„ ìœ„í•¨)
     self:addLoading(function()
         TABLE:reloadForGame()
     end)
 
     self:addLoading(function()
 
-        -- ·¹ÀÌ¾î »ı¼º
+        -- ë ˆì´ì–´ ìƒì„±
         self:init_layer()
         self.m_gameWorld = GameWorld_Illusion(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
         self.m_gameWorld:initGame(self.m_stageName)
         
-        -- ½ºÅ©¸° »çÀÌÁî ÃÊ±âÈ­
+        -- ìŠ¤í¬ë¦° ì‚¬ì´ì¦ˆ ì´ˆê¸°í™”
         self:sceneDidChangeViewSize()
     end)
 
     self:addLoading(function()
-        -- ¸®¼Ò½º ÇÁ¸®·Îµå
+        -- ë¦¬ì†ŒìŠ¤ í”„ë¦¬ë¡œë“œ
         self.m_resPreloadMgr:resCaching('res/ui/a2d/colosseum_result/colosseum_result.vrp')
 
         Translate:a2dTranslate('ui/a2d/ingame_enemy/ingame_enemy.vrp')
@@ -64,7 +64,7 @@ function SceneGameIllusion:prepare()
     end)
 
     self:addLoading(function()
-		-- Å×½ºÆ® ¸ğµå¿¡¼­¸¸ µğ¹ö±×ÆĞ³Î on
+		-- í…ŒìŠ¤íŠ¸ ëª¨ë“œì—ì„œë§Œ ë””ë²„ê·¸íŒ¨ë„ on
 		if (IS_TEST_MODE()) then
 			self.m_inGameUI:init_debugUI()
 		end
@@ -90,7 +90,7 @@ function SceneGameIllusion:updateRealTimer(dt)
     local world = self.m_gameWorld
     local game_state = self.m_gameWorld.m_gameState
     
-    -- ½ÇÁ¦ ÁøÇà ½Ã°£À» °è»ê(¹è¼Ó¿¡ ¿µÇâÀ» ¹ŞÁö ¾Êµµ·Ï ÇÔ)
+    -- ì‹¤ì œ ì§„í–‰ ì‹œê°„ì„ ê³„ì‚°(ë°°ì†ì— ì˜í–¥ì„ ë°›ì§€ ì•Šë„ë¡ í•¨)
     local bUpdateRealLiveTimer = false
 
     if (not world:isPause() or self.m_bPause) then
@@ -101,15 +101,15 @@ function SceneGameIllusion:updateRealTimer(dt)
         self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
     end
 
-    -- ½Ã°£ Á¦ÇÑ Ã¼Å© ¹× Ã³¸®
+    -- ì‹œê°„ ì œí•œ ì²´í¬ ë° ì²˜ë¦¬
     if (self.m_realLiveTimer > LIMIT_TIME and not world:isFinished()) then
         if (self.m_bPause) then
-            -- ÀÏ½Ã Á¤Áö »óÅÂÀÎ °æ¿ì Áï½Ã Á¡¼ö ÀúÀå ÈÄ Á¾·á
+            -- ì¼ì‹œ ì •ì§€ ìƒíƒœì¸ ê²½ìš° ì¦‰ì‹œ ì ìˆ˜ ì €ì¥ í›„ ì¢…ë£Œ
             world:setGameFinish()
 
             local t_param = game_state:makeGameFinishParam(false)
 
-            -- ÃÑ µ¥¹ÌÁö
+            -- ì´ ë°ë¯¸ì§€
             t_param['damage'] = game_state:getTotalDamage()
 
             self:networkGameFinish(t_param, {}, function()
@@ -122,7 +122,7 @@ function SceneGameIllusion:updateRealTimer(dt)
         end
     end
 
-    -- UI ½Ã°£ Ç¥±â °»½Å
+    -- UI ì‹œê°„ í‘œê¸° ê°±ì‹ 
     local remain_time = self:getRemainTimer()
     self.m_inGameUI:setTime(remain_time, true)
 end

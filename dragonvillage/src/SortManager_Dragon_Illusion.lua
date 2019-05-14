@@ -1,4 +1,4 @@
-local PARENT = SortManager_Dragon
+ï»¿local PARENT = SortManager_Dragon
 
 -------------------------------------
 -- class SortManager_Dragon_Illusion
@@ -14,13 +14,13 @@ end
 
 -------------------------------------
 -- function sort_combat_power
--- @brief ÀüÅõ·Â
+-- @brief ì „íˆ¬ë ¥
 -------------------------------------
 function SortManager_Dragon_Illusion:sort_combat_power(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-	-- sturct Å¸ÀÔÀÇ µ¥ÀÌÅÍ ¾Æ´Ñ °æ¿ì¿¡ Åë°ú
+	-- sturct íƒ€ì…ì˜ ë°ì´í„° ì•„ë‹Œ ê²½ìš°ì— í†µê³¼
     if (not a_data.m_objectType) or (not b_data.m_objectType) then
         return nil
     end
@@ -31,12 +31,12 @@ function SortManager_Dragon_Illusion:sort_combat_power(a, b, ascending)
     local a_value = a_sort_data['combat_power']
     local b_value = b_sort_data['combat_power']
 
-    -- °°À» °æ¿ì ¸®ÅÏ
+    -- ê°™ì„ ê²½ìš° ë¦¬í„´
     if (a_value == b_value) then
         return nil
     end
 
-    -- ¿À¸§Â÷¼ø or ³»¸²Â÷¼ø
+    -- ì˜¤ë¦„ì°¨ìˆœ or ë‚´ë¦¼ì°¨ìˆœ
     if ascending then return a_value < b_value
     else              return a_value > b_value
     end
@@ -44,13 +44,13 @@ end
 
 -------------------------------------
 -- function sort_atk
--- @brief °ø°İ·Â
+-- @brief ê³µê²©ë ¥
 -------------------------------------
 function SortManager_Dragon_Illusion:sort_atk(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    -- sturct Å¸ÀÔÀÇ µ¥ÀÌÅÍ ¾Æ´Ñ °æ¿ì¿¡ Åë°ú
+    -- sturct íƒ€ì…ì˜ ë°ì´í„° ì•„ë‹Œ ê²½ìš°ì— í†µê³¼
     if (not a_data.m_objectType) or (not b_data.m_objectType) then
         return nil
     end
@@ -61,10 +61,10 @@ function SortManager_Dragon_Illusion:sort_atk(a, b, ascending)
     local a_value = a_sort_data['atk']
     local b_value = b_sort_data['atk']
 
-    -- °°À» °æ¿ì ¸®ÅÏ
+    -- ê°™ì„ ê²½ìš° ë¦¬í„´
     if (a_value == b_value) then return nil end
 
-    -- ¿À¸§Â÷¼ø or ³»¸²Â÷¼ø
+    -- ì˜¤ë¦„ì°¨ìˆœ or ë‚´ë¦¼ì°¨ìˆœ
     if ascending then return a_value < b_value
     else              return a_value > b_value
     end
@@ -72,13 +72,13 @@ end
 
 -------------------------------------
 -- function sort_def
--- @brief ¹æ¾î·Â
+-- @brief ë°©ì–´ë ¥
 -------------------------------------
 function SortManager_Dragon_Illusion:sort_def(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-	-- sturct Å¸ÀÔÀÇ µ¥ÀÌÅÍ ¾Æ´Ñ °æ¿ì¿¡ Åë°ú
+	-- sturct íƒ€ì…ì˜ ë°ì´í„° ì•„ë‹Œ ê²½ìš°ì— í†µê³¼
     if (not a_data.m_objectType) or (not b_data.m_objectType) then
         return nil
     end
@@ -89,10 +89,10 @@ function SortManager_Dragon_Illusion:sort_def(a, b, ascending)
     local a_value = a_sort_data['def']
     local b_value = b_sort_data['def']
 
-    -- °°À» °æ¿ì ¸®ÅÏ
+    -- ê°™ì„ ê²½ìš° ë¦¬í„´
     if (a_value == b_value) then return nil end
 
-    -- ¿À¸§Â÷¼ø or ³»¸²Â÷¼ø
+    -- ì˜¤ë¦„ì°¨ìˆœ or ë‚´ë¦¼ì°¨ìˆœ
     if ascending then return a_value < b_value
     else              return a_value > b_value
     end
@@ -100,13 +100,13 @@ end
 
 -------------------------------------
 -- function sort_hp
--- @brief Ã¼·Â
+-- @brief ì²´ë ¥
 -------------------------------------
 function SortManager_Dragon_Illusion:sort_hp(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-	-- sturct Å¸ÀÔÀÇ µ¥ÀÌÅÍ ¾Æ´Ñ °æ¿ì¿¡ Åë°ú
+	-- sturct íƒ€ì…ì˜ ë°ì´í„° ì•„ë‹Œ ê²½ìš°ì— í†µê³¼
     if (not a_data.m_objectType) or (not b_data.m_objectType) then
         return nil
     end
@@ -117,10 +117,10 @@ function SortManager_Dragon_Illusion:sort_hp(a, b, ascending)
     local a_value = a_sort_data['hp']
     local b_value = b_sort_data['hp']
 
-    -- °°À» °æ¿ì ¸®ÅÏ
+    -- ê°™ì„ ê²½ìš° ë¦¬í„´
     if (a_value == b_value) then return nil end
 
-    -- ¿À¸§Â÷¼ø or ³»¸²Â÷¼ø
+    -- ì˜¤ë¦„ì°¨ìˆœ or ë‚´ë¦¼ì°¨ìˆœ
     if ascending then return a_value < b_value
     else              return a_value > b_value
     end

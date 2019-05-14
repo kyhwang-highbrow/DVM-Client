@@ -1,4 +1,4 @@
-local PARENT = GameWorld
+ï»¿local PARENT = GameWorld
 
 -------------------------------------
 -- class GameWorld_Illusion
@@ -19,7 +19,7 @@ end
 -- function makeHeroDeck
 -------------------------------------
 function GameWorld_Illusion:makeHeroDeck()
-    -- ¼­¹ö¿¡ ÀúÀåµÈ µå·¡°ï µ¦ »ç¿ë
+    -- ì„œë²„ì— ì €ì¥ëœ ë“œë˜ê³¤ ë± ì‚¬ìš©
     local l_deck, formation, deck_name, leader = g_deckData:getDeck()
 
     local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
@@ -29,10 +29,10 @@ function GameWorld_Illusion:makeHeroDeck()
     self.m_deckFormation = formation
     self.m_deckFormationLv = formation_lv
 
-    -- ÆÀº¸³Ê½º¸¦ °¡Á®¿È
+    -- íŒ€ë³´ë„ˆìŠ¤ë¥¼ ê°€ì ¸ì˜´
     local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 
-    -- ÃâÀü ÁßÀÎ µå·¡°ï °´Ã¼¸¦ ÀúÀåÇÏ´Â ¿ëµµ key : ÃâÀü idx, value :Dragon
+    -- ì¶œì „ ì¤‘ì¸ ë“œë˜ê³¤ ê°ì²´ë¥¼ ì €ì¥í•˜ëŠ” ìš©ë„ key : ì¶œì „ idx, value :Dragon
     self.m_myDragons = {}
 
     for i, doid in pairs(l_deck) do
@@ -50,19 +50,19 @@ function GameWorld_Illusion:makeHeroDeck()
                 self:bindHero(hero)
                 self:addHero(hero)
 
-                -- ÁøÇü ¹öÇÁ Àû¿ë
+                -- ì§„í˜• ë²„í”„ ì ìš©
                 hero.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
 
-                -- ½ºÅ×ÀÌÁö ¹öÇÁ Àû¿ë
+                -- ìŠ¤í…Œì´ì§€ ë²„í”„ ì ìš©
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
                 hero:setStatusCalc(hero.m_statusCalc)
 
-                -- ÆÀº¸³Ê½º Àû¿ë
+                -- íŒ€ë³´ë„ˆìŠ¤ ì ìš©
                 for i, teambonus_data in ipairs(l_teambonus_data) do
                     TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, hero)
                 end
 
-				-- ¸®´õ µî·Ï
+				-- ë¦¬ë” ë“±ë¡
 				if (i == leader) then
                     self.m_mUnitGroup[PHYS.HERO]:setLeader(hero)
 				end
@@ -73,7 +73,7 @@ end
 
 -------------------------------------
 -- function createComponent
--- @brief ±¸¼º ¿ä¼ÒµéÀ» »ı¼º
+-- @brief êµ¬ì„± ìš”ì†Œë“¤ì„ ìƒì„±
 -------------------------------------
 function GameWorld_Illusion:createComponents()
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
@@ -83,11 +83,11 @@ function GameWorld_Illusion:createComponents()
     self.m_gameDragonSkill = GameDragonSkill(self)
     self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
 
-    -- ±Û·Î¹ú ÄğÅ¸ÀÓ
+    -- ê¸€ë¡œë²Œ ì¿¨íƒ€ì„
     self.m_gameCoolTime = GameCoolTime(self)
     self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
 
-    -- À¯´Ö ±×·ìº° °ü¸®ÀÚ »ı¼º
+    -- ìœ ë‹› ê·¸ë£¹ë³„ ê´€ë¦¬ì ìƒì„±
     self.m_mUnitGroup[PHYS.HERO] = GameUnitGroup(self, PHYS.HERO)
     self.m_mUnitGroup[PHYS.HERO]:createMana(self.m_inGameUI)
     self.m_mUnitGroup[PHYS.HERO]:createAuto(self.m_inGameUI)
@@ -98,9 +98,9 @@ function GameWorld_Illusion:createComponents()
     self.m_mUnitGroup[PHYS.ENEMY]:createAuto()
     self.m_mUnitGroup[PHYS.ENEMY]:setAttackbleGroupKeys({PHYS.HERO})
 
-    -- »óÅÂ °ü¸®ÀÚ
+    -- ìƒíƒœ ê´€ë¦¬ì
     do
-        -- ## ¸ğµåº° ºĞ±â Ã³¸®
+        -- ## ëª¨ë“œë³„ ë¶„ê¸° ì²˜ë¦¬
         local display_wave = true
         local display_time = nil
         self.m_gameState = GameState_ClanRaid(self)

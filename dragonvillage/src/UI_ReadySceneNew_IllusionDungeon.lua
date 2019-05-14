@@ -1,4 +1,4 @@
-local PARENT = UI_ReadySceneNew
+ï»¿local PARENT = UI_ReadySceneNew
 
 -------------------------------------
 -- class UI_ReadySceneNew_IllusionDungeon
@@ -18,13 +18,13 @@ function UI_ReadySceneNew_IllusionDungeon:init(stage_id, sub_info)
         self:refresh_slotLight()
 	end)
     
-    -- µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
+    -- ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
 	self:addSpecialDragon()  
 end
 
 -------------------------------------
 -- function click_manageBtn
--- @breif µå·¡°ï °ü¸®
+-- @breif ë“œë˜ê³¤ ê´€ë¦¬
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
     local function next_func()
@@ -33,11 +33,11 @@ function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
             local function func()
                 self:refresh()
                 self.m_readySceneSelect:init_dragonTableView()
-				-- µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
+				-- ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
 				self:addSpecialDragon()
                 self.m_readySceneDeck:init_deck()
 
-                do -- Á¤·Ä µµ¿ì¹Ì
+                do -- ì •ë ¬ ë„ìš°ë¯¸
 					self:apply_dragonSort()
                 end
             end
@@ -46,13 +46,13 @@ function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
         ui:setCloseCB(close_cb)
     end
     
-    -- µ¦ ÀúÀå ÈÄ ÀÌµ¿
+    -- ë± ì €ì¥ í›„ ì´ë™
     self:checkChangeDeck(next_func)
 end
 
 -------------------------------------
 -- function addSpecialDragon
--- @breif µå·¡°ï ¼±ÅÃÇÏ´Â Ã¢¿¡, Æ¯Á¤ µå·¡°ï Ãß°¡
+-- @breif ë“œë˜ê³¤ ì„ íƒí•˜ëŠ” ì°½ì—, íŠ¹ì • ë“œë˜ê³¤ ì¶”ê°€
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:addSpecialDragon()
 
@@ -65,10 +65,10 @@ function UI_ReadySceneNew_IllusionDungeon:addSpecialDragon()
 		return
 	end
 
-	-- ±âÁ¸ º¸À¯ µå·¡°ï
+	-- ê¸°ì¡´ ë³´ìœ  ë“œë˜ê³¤
 	local l_dragon_list = g_dragonsData:getDragonsList()
 
-	-- ÀÓ½Ã·Î »ß¿¡·Î µå·¡°ï »ğÀÔ
+	-- ì„ì‹œë¡œ ì‚ì—ë¡œ ë“œë˜ê³¤ ì‚½ì…
 	-- 120301 - 120305
 	for i=1,5 do
 		local t_dragon = g_illusionDungeonData:getDragonDataFromUid('illusionDragon'..i, i)
@@ -80,17 +80,17 @@ end
 
 -------------------------------------
 -- function check_startCondition
--- @breif ½ÃÀÛ °¡´ÉÇÑ »óÅÂÀÎÁö Ã¼Å©ÇÏ´Â ÇÔ¼ö ºĞ¸® - °¡´ÉÇÏ¸é true, ºÒ°¡´ÉÇÏ¸é flase ¹İÈ¯
+-- @breif ì‹œì‘ ê°€ëŠ¥í•œ ìƒíƒœì¸ì§€ ì²´í¬í•˜ëŠ” í•¨ìˆ˜ ë¶„ë¦¬ - ê°€ëŠ¥í•˜ë©´ true, ë¶ˆê°€ëŠ¥í•˜ë©´ flase ë°˜í™˜
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:check_startCondition(stage_id)
-    -- ¸ğµå »ó°ü¾øÀÌ °øÅëÀ¸·Î Ã¼Å©
+    -- ëª¨ë“œ ìƒê´€ì—†ì´ ê³µí†µìœ¼ë¡œ ì²´í¬
     if (self:getDragonCount() <= 0) then
-        UIManager:toastNotificationRed(Str('ÃÖ¼Ò 1¸í ÀÌ»óÀº ÃâÀü½ÃÄÑ¾ß ÇÕ´Ï´Ù.'))
+        UIManager:toastNotificationRed(Str('ìµœì†Œ 1ëª… ì´ìƒì€ ì¶œì „ì‹œì¼œì•¼ í•©ë‹ˆë‹¤.'))
         return false
     --elseif (not is_advent) and (not g_stageData:isOpenStage(stage_id)) then
-    --   MakeSimplePopup(POPUP_TYPE.OK, Str('ÀÌÀü ½ºÅ×ÀÌÁö¸¦ Å¬¸®¾îÇÏ¼¼¿ä.'))
+    --   MakeSimplePopup(POPUP_TYPE.OK, Str('ì´ì „ ìŠ¤í…Œì´ì§€ë¥¼ í´ë¦¬ì–´í•˜ì„¸ìš”.'))
     --    return false
-    -- ½ºÅÂ¹Ì³Ê ¼Ò¸ğ Ã¼Å©
+    -- ìŠ¤íƒœë¯¸ë„ˆ ì†Œëª¨ ì²´í¬
     elseif (stamina_charge) and (not g_staminasData:checkStageStamina(stage_id)) then
         g_staminasData:staminaCharge(stage_id)
         return false
@@ -104,11 +104,11 @@ end
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
 
-	-- Á¤·Ä ¸Å´ÏÀú »ı¼º
+	-- ì •ë ¬ ë§¤ë‹ˆì € ìƒì„±
     self.m_sortManagerDragon = SortManager_Dragon_Illusion()
     self.m_sortManagerFriendDragon = SortManager_Dragon()
     
-    -- ¸ÖÆ¼µ¦ »ç¿ë½Ã ¿ì¼±¼øÀ§ Ãß°¡
+    -- ë©€í‹°ë± ì‚¬ìš©ì‹œ ìš°ì„ ìˆœìœ„ ì¶”ê°€
     if (self.m_multiDeckMgr) then
         local function cond(a, b)
 			return self.m_multiDeckMgr:sort_multi_deck(a, b)
@@ -124,18 +124,18 @@ function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
         self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
     end
 
-    -- Ä£±¸ µå·¡°ïÀÎ °æ¿ì ÄğÅ¸ÀÓ Á¤·Ä Ãß°¡
+    -- ì¹œêµ¬ ë“œë˜ê³¤ì¸ ê²½ìš° ì¿¨íƒ€ì„ ì •ë ¬ ì¶”ê°€
     local function cond(a, b)
 		return self:condition_cool_time(a, b)
 	end
     self.m_sortManagerFriendDragon:addPreSortType('used_time', false, cond)
 
-    -- Á¤·Ä UI »ı¼º
+    -- ì •ë ¬ UI ìƒì„±
     local vars = self.vars
     local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_TOP_TO_BOT)
     self.m_uicSortList = uic_sort_list
     
-	-- ¹öÆ°À» ÅëÇØ Á¤·ÄÀÌ º¯°æµÇ¾úÀ» °æ¿ì
+	-- ë²„íŠ¼ì„ í†µí•´ ì •ë ¬ì´ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°
     local function sort_change_cb(sort_type)
         self.m_sortManagerDragon:pushSortOrder(sort_type)
         self.m_sortManagerFriendDragon:pushSortOrder(sort_type)
@@ -144,7 +144,7 @@ function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
     end
     uic_sort_list:setSortChangeCB(sort_change_cb)
 
-    -- ¿À¸§Â÷¼ø/³»¸²Â÷¼ø ¹öÆ°
+    -- ì˜¤ë¦„ì°¨ìˆœ/ë‚´ë¦¼ì°¨ìˆœ ë²„íŠ¼
     vars['sortOrderBtn']:registerScriptTapHandler(function()
         local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
         self.m_sortManagerDragon:setAllAscending(ascending)
@@ -160,7 +160,7 @@ function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
         end
     end)
 
-    -- ¼¼ÀÌºêµ¥ÀÌÅÍ¿¡ ÀÖ´Â Á¤·Ä °ªÀ» Àû¿ë
+    -- ì„¸ì´ë¸Œë°ì´í„°ì— ìˆëŠ” ì •ë ¬ ê°’ì„ ì ìš©
     self:apply_dragonSort_saveData()
 end
 
@@ -212,7 +212,7 @@ function UI_ReadySceneNew_IllusionDungeon:networkGameStart()
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         g_ancientRuinData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
 
-    -- ±×·£µå Äİ·Î¼¼¿ò (ÀÌº¥Æ® PvP 10´ë10)
+    -- ê·¸ëœë“œ ì½œë¡œì„¸ì›€ (ì´ë²¤íŠ¸ PvP 10ëŒ€10)
     elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
         finish_cb(game_key)
 
@@ -227,7 +227,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:replaceGameScene(game_key)
-    -- ½ÃÀÛÀÌ µÎ¹ø µÇÁö ¾Êµµ·Ï ÇÏ±â À§ÇÔ
+    -- ì‹œì‘ì´ ë‘ë²ˆ ë˜ì§€ ì•Šë„ë¡ í•˜ê¸° ìœ„í•¨
     UI_BlockPopup()
 
     local stage_id = 1911001

@@ -1,4 +1,4 @@
-local PARENT = UI_ReadySceneNew_Deck
+ï»¿local PARENT = UI_ReadySceneNew_Deck
 
 
 local TOTAL_POS_CNT = 5
@@ -22,10 +22,10 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
     local b_arena = self.m_uiReadyScene.m_bArena
 
     local formation_lv = b_arena and 1 or g_formationData:getFormationInfo(formation)['formation_lv']
-    -- ÃÖ¼Ò 1¸í ÃâÀü È®ÀÎ (ÀÏ´Ü Äİ·Î¼¼¿ò¸¸)   
+    -- ìµœì†Œ 1ëª… ì¶œì „ í™•ì¸ (ì¼ë‹¨ ì½œë¡œì„¸ì›€ë§Œ)   
     local setted_number = table.count(self.m_lDeckList)
     if (setted_number <= 0) then
-        local msg = Str('ÃÖ¼Ò 1¸í ÀÌ»óÀº ÃâÀü½ÃÄÑ¾ß ÇÕ´Ï´Ù.')
+        local msg = Str('ìµœì†Œ 1ëª… ì´ìƒì€ ì¶œì „ì‹œì¼œì•¼ í•©ë‹ˆë‹¤.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
@@ -34,40 +34,40 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
     local b_change = false
 
     for i=1, TOTAL_POS_CNT do
-        -- ±âÁ¸ µå·¡°ïÀÌ ÇØÁ¦µÈ °æ¿ì
+        -- ê¸°ì¡´ ë“œë˜ê³¤ì´ í•´ì œëœ ê²½ìš°
         if (l_deck[i] and (not self.m_lDeckList[i])) then
             b_change = true
             break
         end
 
-        -- ±âÁ¸ µå·¡°ïÀÌ º¯°æµÈ °æ¿ì
+        -- ê¸°ì¡´ ë“œë˜ê³¤ì´ ë³€ê²½ëœ ê²½ìš°
         if l_deck[i] and (l_deck[i] ~= self.m_lDeckList[i]) then
             b_change = true
             break
         end
 
-        -- »õ·Î¿î µå·¡°ïÀÌ ¼³Á¤µÈ °æ¿ì
+        -- ìƒˆë¡œìš´ ë“œë˜ê³¤ì´ ì„¤ì •ëœ ê²½ìš°
         if (not l_deck[i] and (self.m_lDeckList[i])) then
             b_change = true
             break
         end
     end
 
-    -- ÁøÇüÀÌ º¯°æµÇ¾úÀ» °æ¿ì
+    -- ì§„í˜•ì´ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°
     if (self.m_currFormation ~= formation) then
         b_change = true
     end
-    -- ÁøÇü ·¹º§ÀÌ º¯°æµÇ¾úÀ» °æ¿ì
+    -- ì§„í˜• ë ˆë²¨ì´ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°
     if (self.m_currFormationLv ~= formation_lv and not b_arena) then
         self.m_currFormationLv = formation_lv
         b_change = true
     end
-	-- ¸®´õ°¡ º¯°æµÇ¾úÀ» °æ¿ì
+	-- ë¦¬ë”ê°€ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°
 	if (self.m_currLeader ~= leader) then
 		b_change = true
 	end
 
-    -- pvp´Â Å×ÀÌ¸Ó±îÁö Ã³¸®
+    -- pvpëŠ” í…Œì´ë¨¸ê¹Œì§€ ì²˜ë¦¬
     if (deckname == 'arena') or (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') or (deckname == DECK_CHALLENGE_MODE) or g_deckData:isUsedDeckPvpDB(deckname) then
         if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
             b_change = true
@@ -99,7 +99,7 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
 	    ui_network:setParam('leader', self.m_currLeader)
         ui_network:setParam('tamer', tamer_id)
 
-        -- Ä£±¸ µå·¡°ï Ã¼Å© (Ä£±¸ µå·¡°ïÀÏ °æ¿ì ÀúÀåÇÏÁö ¾ÊÀ½)
+        -- ì¹œêµ¬ ë“œë˜ê³¤ ì²´í¬ (ì¹œêµ¬ ë“œë˜ê³¤ì¼ ê²½ìš° ì €ì¥í•˜ì§€ ì•ŠìŒ)
         local set_param 
         set_param = function(doid)
             if doid and g_friendData:checkFriendDragonFromDoid(doid) then 
@@ -109,7 +109,7 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
             return doid or nil          
         end 
         
-        -- ÀÓÀÇ·Î Ãß°¡ÇÑ µå·¡°ïÀº ¼­¹öµ¦¿¡ ÀúÀåÇÏÁö ¾ÊÀ½
+        -- ì„ì˜ë¡œ ì¶”ê°€í•œ ë“œë˜ê³¤ì€ ì„œë²„ë±ì— ì €ì¥í•˜ì§€ ì•ŠìŒ
         for i = 1,5 do
             local doid = self.m_lDeckList[i]
             if (doid) then
@@ -141,13 +141,13 @@ function UI_ReadySceneNew_Deck_Illusion:onTouchEnded(touch, event)
     local vars = self.m_uiReadyScene.vars
     local location = touch:getLocation()
 
-    -- ÁøÇüÀ» ¼³Á¤ÇÏ´Â ¿µ¿ªÀ» ¹ş¾î³µ´ÂÁö Ã¼Å©
+    -- ì§„í˜•ì„ ì„¤ì •í•˜ëŠ” ì˜ì—­ì„ ë²—ì–´ë‚¬ëŠ”ì§€ ì²´í¬
     local bounding_box = vars['formationNode']:getBoundingBox()
     local local_location = vars['formationNode']:getParent():convertToNodeSpace(location)
     local is_contain = cc.rectContainsPoint(bounding_box, local_location)
     if (not is_contain) then
         
-        -- ÀåÂø ÇØÁ¦
+        -- ì¥ì°© í•´ì œ
         local doid = self.m_lDeckList[self.m_selectedDragonSlotIdx]
         local t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(doid)
         
@@ -156,7 +156,7 @@ function UI_ReadySceneNew_Deck_Illusion:onTouchEnded(touch, event)
         return false
     end
 
-    -- °¡Àå °¡±î¿î ¹öÆ° Ã£±â
+    -- ê°€ì¥ ê°€ê¹Œìš´ ë²„íŠ¼ ì°¾ê¸°
     local near_idx = nil
     local near_distance = nil
     local local_location = convertToNodeSpace(vars['formationNode'], location)
@@ -172,13 +172,13 @@ function UI_ReadySceneNew_Deck_Illusion:onTouchEnded(touch, event)
         end
     end
 
-    -- °°Àº ÀÚ¸®ÀÏ °æ¿ì
+    -- ê°™ì€ ìë¦¬ì¼ ê²½ìš°
     if (near_idx == self.m_selectedDragonSlotIdx) then
         local node = self.m_selectedDragonCard.root
         node:setScale(DC_SCALE_ON_PLATE)
         node:setPosition(0, DC_POS_Y)
 
-        -- root·Î ¿Å±è
+        -- rootë¡œ ì˜®ê¹€
         node:retain()
         node:removeFromParent()
         vars['positionNode' .. near_idx]:addChild(node)
@@ -186,17 +186,17 @@ function UI_ReadySceneNew_Deck_Illusion:onTouchEnded(touch, event)
 
         self:setFocusDeckSlotEffect(self.m_selectedDragonSlotIdx)
 
-		-- °¨¼º ¸»Ç³¼± »èÁ¦
+		-- ê°ì„± ë§í’ì„  ì‚­ì œ
 		SensitivityHelper:deleteBubbleText(node)
     else
         local near_idx_doid = self.m_lDeckList[self.m_selectedDragonSlotIdx]
         local selected_idx_doid = self.m_lDeckList[near_idx]
 
-        -- µÑ ´Ù ÇØÁ¦
+        -- ë‘˜ ë‹¤ í•´ì œ
         self:setSlot(near_idx, nil)
         self:setSlot(self.m_selectedDragonSlotIdx, nil)
 
-        -- ´Ù½Ã ÀÔ·Â
+        -- ë‹¤ì‹œ ì…ë ¥
         self:setSlot(near_idx, near_idx_doid)
         self:setSlot(self.m_selectedDragonSlotIdx, selected_idx_doid)
 
@@ -221,7 +221,7 @@ function UI_ReadySceneNew_Deck_Illusion:getDeckCombatPower()
     end
 
     local b_arena = self.m_uiReadyScene.m_bArena
-    -- ÁøÇü
+    -- ì§„í˜•
     if (not b_arena) then
         local l_formation = g_formationData:getFormationInfoList()
 	    local curr_formation = self.m_currFormation
@@ -237,36 +237,36 @@ end
 -- function setSlot
 -------------------------------------
 function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
-    do -- °¹¼ö Ã¼Å©
+    do -- ê°¯ìˆ˜ ì²´í¬
         local count = table.count(self.m_tDeckMap)
         if self.m_lDeckList[idx] then
             count = (count - 1)
         end
         if (count >= TOTAL_POS_CNT) then
-            UIManager:toastNotificationRed(Str('5¸¶¸®±îÁö ÃâÀüÇÒ ¼ö ÀÖ½À´Ï´Ù.'))
+            UIManager:toastNotificationRed(Str('5ë§ˆë¦¬ê¹Œì§€ ì¶œì „í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.'))
             return false
         end
     end
 
-    -- Ä£±¸ µå·¡°ï ½½·Ô °Ë»ç (µ¿Á¾ µ¿¼Ó¼º º¸´Ù ¸ÕÀú °Ë»ç)
+    -- ì¹œêµ¬ ë“œë˜ê³¤ ìŠ¬ë¡¯ ê²€ì‚¬ (ë™ì¢… ë™ì†ì„± ë³´ë‹¤ ë¨¼ì € ê²€ì‚¬)
     if (not g_friendData:checkSetSlotCondition(doid)) then
         return false
     end
 
-    -- µ¿Á¾ µ¿¼Ó¼ºÀÇ µå·¡°ï Á¦¿Ü
+    -- ë™ì¢… ë™ì†ì„±ì˜ ë“œë˜ê³¤ ì œì™¸
     if (self:checkSameDid(idx, doid)) then
-        UIManager:toastNotificationRed(Str('°°Àº µå·¡°ïÀº µ¿½Ã¿¡ ÃâÀüÇÒ ¼ö ¾ø½À´Ï´Ù.'))
+        UIManager:toastNotificationRed(Str('ê°™ì€ ë“œë˜ê³¤ì€ ë™ì‹œì— ì¶œì „í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.'))
         return false
     end
 
-    -- ¸ÖÆ¼ µ¦ - ´Ù¸¥ À§Ä¡ µ¦ µ¿Á¾ µ¿¼Ó¼ºÀÇ µå·¡°ï Á¦¿Ü
+    -- ë©€í‹° ë± - ë‹¤ë¥¸ ìœ„ì¹˜ ë± ë™ì¢… ë™ì†ì„±ì˜ ë“œë˜ê³¤ ì œì™¸
     local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
     local deck_pos = self.m_selTab
     if (multi_deck_mgr) and (multi_deck_mgr:checkSameDidAnoterDeck(deck_pos, doid)) then
         return false
     end
 
-    -- ¼³Á¤µÇ¾î ÀÖ´Â µ¦ ÇØÁ¦
+    -- ì„¤ì •ë˜ì–´ ìˆëŠ” ë± í•´ì œ
     if self.m_lDeckList[idx] then
         local prev_doid = self.m_lDeckList[idx]
         local prev_idx = self.m_tDeckMap[prev_doid]
@@ -274,25 +274,25 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
         self.m_lDeckList[prev_idx] = nil
         self.m_tDeckMap[prev_doid] = nil
 
-        -- ¼³Á¤µÈ µå·¡°ïÀÇ Ä«µå »èÁ¦
+        -- ì„¤ì •ëœ ë“œë˜ê³¤ì˜ ì¹´ë“œ ì‚­ì œ
         if self.m_lSettedDragonCard[prev_idx] then
             self.m_lSettedDragonCard[prev_idx].root:removeFromParent()
             self.m_lSettedDragonCard[prev_idx] = nil
         end
 
-        -- µå·¡°ï ¸®½ºÆ® °»½Å
+        -- ë“œë˜ê³¤ ë¦¬ìŠ¤íŠ¸ ê°±ì‹ 
         self:refresh_dragonCard(prev_doid)
 
-        -- Ä£±¸ µå·¡°ï ÇØÁ¦
+        -- ì¹œêµ¬ ë“œë˜ê³¤ í•´ì œ
         g_friendData:delSettedFriendDragonCard(prev_doid)
 
-        -- ¸ÖÆ¼ µ¦ ÇØÁ¦
+        -- ë©€í‹° ë± í•´ì œ
         if (multi_deck_mgr) then
             multi_deck_mgr:deleteDragon(self.m_selTab, prev_doid)
         end
     end
 
-    -- »õ·Ó°Ô »ı¼º
+    -- ìƒˆë¡­ê²Œ ìƒì„±
     if doid then
         self.m_lDeckList[idx] = doid
         self.m_tDeckMap[doid] = idx
@@ -302,16 +302,16 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
         end
         self:makeSettedDragonCard(t_dragon_data, idx)
 
-        -- Ä£±¸ µå·¡°ï ¼±ÅÃ Ã¼Å©
+        -- ì¹œêµ¬ ë“œë˜ê³¤ ì„ íƒ ì²´í¬
         g_friendData:makeSettedFriendDragonCard(doid, idx)
 
-        -- ¸ÖÆ¼ µ¦ Ãß°¡
+        -- ë©€í‹° ë± ì¶”ê°€
         if (multi_deck_mgr) then
             multi_deck_mgr:addDragon(self.m_selTab, doid)
         end
     end
 
-    -- Áï½Ã Á¤·Ä
+    -- ì¦‰ì‹œ ì •ë ¬
     if (not skip_sort) then
         self.m_uiReadyScene:apply_dragonSort()
     end
