@@ -9,7 +9,7 @@ set HOD_ROOT=%cd%
 ::node --max-old-space-size=4096 tools/extract_scenario.js test_onlyscenario 1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo en;jp;zhtw
 
 ::live
-node --max-old-space-size=4096 tools/extract.js only_ingame 1M_in-ZIMHsXvkSu_EBktrtDxBVpKXSbl0l4wpljU1gw en;jp;zhtw;th;es
-node --max-old-space-size=4096 tools/extract_scenario.js only_scenario 1M_in-ZIMHsXvkSu_EBktrtDxBVpKXSbl0l4wpljU1gw en;jp;zhtw;th;es
+node --max-old-space-size=4096 tools/extract.js only_ingame 1M_in-ZIMHsXvkSu_EBktrtDxBVpKXSbl0l4wpljU1gw en;jp;zhtw;th;es;fa
+node --max-old-space-size=4096 tools/extract_scenario.js only_scenario 1M_in-ZIMHsXvkSu_EBktrtDxBVpKXSbl0l4wpljU1gw en;jp;zhtw;th;es;fa
 
 python slack.py extract_translate
