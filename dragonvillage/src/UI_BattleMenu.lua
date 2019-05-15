@@ -394,7 +394,7 @@ function UI_BattleMenu:initCompetitionTab()
     if (list_count == 4) then
         interval_x = 285
     elseif (list_count >= 5) then
-        interval_x = 230
+        interval_x = 208
     end
 
     local l_btn_ui = {}
