@@ -3,9 +3,16 @@
 -- @instance g_illusionDungeonData
 -------------------------------------
 Serverdata_IllusionDungeon = class({
-    m_lSortData = 'list', -- doid를 key값으로 하고, 정렬에 필요한 데이터를 저장
+    m_illusionInfoLegend = 'StructEventIllusion', -- 전설 관련 서버데이터 Struct
+    m_illusionInfoHero = 'StructEventIllusion', -- 영웅 관련 서버데이터 Struct
+
+    m_lOpenEventId = 'list',
+
+    -- 환상 이벤트 공용 매개변수
+    m_lSortData = 'list', -- 정렬 관련 세팅 정보 보관
     m_lDragonDeck = 'list', -- 서버덱에 저장하는 대신 여기서 들고 있음
 })
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -40,33 +47,6 @@ function Serverdata_IllusionDungeon:parseStageID(stage_id)
     return difficulty, chapter, stage
 end
 
--------------------------------------
--- function setAdventDidList
--------------------------------------
-function Serverdata_IllusionDungeon:setAdventDidList(list_str)
-
-end
-
--------------------------------------
--- function getAdventDidList
--------------------------------------
-function Serverdata_IllusionDungeon:getAdventDidList()
-
-end
-
--------------------------------------
--- function getAdventTitle
--------------------------------------
-function Serverdata_IllusionDungeon:getAdventTitle()
-
-end
-
--------------------------------------
--- function getAdventStageCount
--------------------------------------
-function Serverdata_IllusionDungeon:getAdventStageCount()
-
-end
 
 -------------------------------------
 -- function getDragonDataFromUid
@@ -77,7 +57,7 @@ function Serverdata_IllusionDungeon:getDragonDataFromUid(doid)
     if (t_dragon) then
         return t_dragon
     end
-
+     
     t_dragon = StructDragonObject()
 
     local ind = string.match(doid, '%d')
@@ -90,6 +70,7 @@ end
 
 -------------------------------------
 -- function getDragonsSortData
+-- @brief doid만 가지고 정렬가능한 정보를 요구할 때 사용
 -------------------------------------
 function Serverdata_IllusionDungeon:getDragonsSortData(doid)
 

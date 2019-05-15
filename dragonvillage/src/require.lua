@@ -103,6 +103,7 @@ local t_module = {
 	'StructClanBuff',
     'StructEventDiceInfo',
     'StructEventBingoInfo',
+    'StructEventIllusion',
 	'StructDailyMission',
 	'StructCapsuleBox',
 	'StructCapsuleBoxReward',

@@ -4063,6 +4063,9 @@
     <None Include="..\src\GameState_Illusion.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StructEventIllusion.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

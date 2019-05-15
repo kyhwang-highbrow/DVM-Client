@@ -73,7 +73,7 @@ function UI_ReadySceneNew_IllusionDungeon:addIllusionDragon()
 	end
 
 	-- 기존 보유 드래곤
-	local l_dragon_list = g_dragonsData:getDragonsList()
+	local l_dragon_list = clone(g_dragonsData:getDragonsList())
 
 	-- 임시로 삐에로 드래곤 삽입
 	-- 120301 - 120305

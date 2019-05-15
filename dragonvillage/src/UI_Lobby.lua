@@ -1236,7 +1236,7 @@ end
 -- @brief 환상 던전 이벤트
 -------------------------------------
 function UI_Lobby:click_adventBtn_illusion()
-    if (not g_hotTimeData:isActiveEvent('event_illusion_dungeon')) then
+    if (not g_hotTimeData:isActiveEvent('event_illusion_legend') and not g_hotTimeData:isActiveEvent('event_illusion_hero')) then
         return
     end
 
@@ -1701,7 +1701,7 @@ function UI_Lobby:update_rightButtons()
     end
 
     -- 깜짝 출현 이벤트 버튼
-    if g_hotTimeData:isActiveEvent('event_illusion_dungeon') then -- 임시로 깜짝출현 이벤트 버튼을 환상 이벤트가 사용
+    if g_hotTimeData:isActiveEvent('event_illusion_legend') or g_hotTimeData:isActiveEvent('event_illusion_hero') then -- 임시로 깜짝출현 이벤트 버튼을 환상 이벤트가 사용
         vars['adventBtn']:setVisible(true)
     else
         vars['adventBtn']:setVisible(false)
