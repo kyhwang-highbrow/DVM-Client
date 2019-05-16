@@ -107,10 +107,14 @@ function UI_TamerCostumeListItem:refresh()
             vars['gotoLabel']:setString(Str('용맹훈장 상점에서 구매'))
             vars['gotoBtn']:setVisible(true)
             vars['gotoBtn']:setEnabled(true)
+
         elseif (costume_data:isTopazCostume()) then
-            vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
-            vars['gotoBtn']:setVisible(true)
-            vars['gotoBtn']:setEnabled(true)
+            -- 상점에서 팔고 있다면 상점으로 이동/없다면 구매 불가
+            if (self:isInShop('topaz')) then
+                vars['gotoLabel']:setString(Str('토파즈 상점에서 구매'))
+                vars['gotoBtn']:setVisible(true)
+                vars['gotoBtn']:setEnabled(true)
+            end
         end
     
     end
@@ -140,6 +144,26 @@ function UI_TamerCostumeListItem:setSelected(sel_id)
     local cid = costume_data:getCid()
 
     vars['selectSprite']:setVisible(cid == sel_id)
+end
+
+-------------------------------------
+-- function isInShop
+-- @brief 상점에서 팔고 있는지 확인(토파즈/용맹훈장) 상점에서 판다면 상점으로 보내주기 위해 사용
+-------------------------------------
+function UI_TamerCostumeListItem:isInShop(price_type)
+    local vars = self.vars
+    local costume_data = self.m_costumeData
+    local cid = costume_data:getCid()
+    local l_product = g_shopDataNew:getProductList(price_type)
+
+    for i, struct_product in pairs(l_product) do
+        local product_str = struct_product['product_content'] or ''
+        if (string.match(product_str, tostring(cid))) then
+            return true
+        end
+    end
+
+    return false
 end
 
 -------------------------------------
