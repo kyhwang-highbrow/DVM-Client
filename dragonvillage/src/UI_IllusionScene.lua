@@ -73,5 +73,5 @@ end
 -------------------------------------
 function UI_IllusionScene:click_dungeonBtn(difficulty)
     local stage_id = 1910001 + difficulty * 1000
-    UI_ReadySceneNew_IllusionDungeon(stage_id)
+    UI_AdventureStageInfo_IllusionDungeon(stage_id)
 end

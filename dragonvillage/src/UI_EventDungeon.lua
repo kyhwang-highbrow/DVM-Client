@@ -59,6 +59,12 @@ function UI_EventDungeon:initUI()
     vars['eventNode']:addChild(event_ui.root)
 end
 
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_EventDungeon:click_exitBtn()
+    self:close()
+end
 
 
 
