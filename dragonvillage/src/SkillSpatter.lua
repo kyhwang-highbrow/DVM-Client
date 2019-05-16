@@ -227,6 +227,22 @@ function SkillSpatter:makeSpatterTargetList()
             table.insert(l_enemy_target, v)
         end
     end
+
+    -- 힐을 해줄 아군이 좀비일 경우 우선순위를 뒤로 둔다
+    local sort_zombie = function(a, b)
+        if (a.m_isZombie) then
+            return false
+        end
+
+        if (b.m_isZombie) then
+            return true
+        end
+
+        return false
+    end
+
+    table.sort(l_ally_target, sort_zombie)
+
     local b_next_formation
     if (self.m_onlyAlly) then
         b_next_formation = self.m_owner.m_bLeftFormation
