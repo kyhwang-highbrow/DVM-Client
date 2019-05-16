@@ -144,11 +144,22 @@ function UI_EventBingo:initButton()
     local vars = self.vars
 
     vars['playBtn1']:registerScriptTapHandler(function() self:click_drawNumberBtn() end)
+    vars['playBtn1']:getParent():setSwallowTouch(false)
+    
     vars['playBtn2']:registerScriptTapHandler(function() self:click_chooseNumberBtn() end)
+    vars['playBtn2']:getParent():setSwallowTouch(false)
+
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    vars['infoBtn']:getParent():setSwallowTouch(false)
+
     vars['cancleBtn']:registerScriptTapHandler(function() self:click_cancelPick() end) -- 확정뽑기 눌렀을 때, 확정 뽑기 취소할 수 있는 버튼
+    vars['cancleBtn']:getParent():setSwallowTouch(false)
+
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end)
+    vars['exchangeBtn']:getParent():setSwallowTouch(false)
+
     vars['cancleBtn']:setVisible(false)
+    vars['cancleBtn']:getParent():setSwallowTouch(false)
 end
 
 -------------------------------------
@@ -1054,6 +1065,7 @@ function UI_EventBingoExchangeListItem:initUI()
     local ui_card = UI_ItemCard(item_id, item_cnt)
     if (ui_card) then
         ui_card.root:setScale(0.66)
+        ui_card:setSwallowTouch()
         vars['itemNode']:addChild(ui_card.root)
     end
 

@@ -296,6 +296,13 @@ function UI_ItemCard:setCheckSpriteVisible(visible)
     self.vars['checkSprite']:setVisible(visible)
 end
 
+-------------------------------------
+-- function setSwallowTouch
+-- @brief SwallowTouch 버튼눌러도 스크롤 되도록 
+-------------------------------------
+function UI_ItemCard:setSwallowTouch()
+    self.root:setSwallowTouch(false)
+end
 
 ------------------------------------
 -- function UI_ClanExpCard

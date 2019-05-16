@@ -170,6 +170,7 @@ function UI_QuestListItem:setRewardCard()
 		local clan_exp = self.m_questData:getRewardClanExp()
 		if (clan_exp) then
 			local clan_exp_card = UI_ClanExpCard(clan_exp)
+            clan_exp_card.root:setSwallowTouch(false)
 			local reward_node = vars['rewardNode' .. reward_idx]
 			if (reward_node) then
 				reward_node:addChild(clan_exp_card.root)
