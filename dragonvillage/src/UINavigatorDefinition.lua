@@ -196,7 +196,7 @@ function UINavigatorDefinition:goTo_event_illusion_dungeon(...)
     local stage_id = args[1]
 
     -- 모험 모드가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_AdventureScene_Illusion')
+    local is_opend, idx, ui = self:findOpendUI('UI_EventDungeon')
     if (is_opend == true) then
         self:closeUIList(idx)
         if stage_id then
@@ -234,7 +234,7 @@ function UINavigatorDefinition:goTo_event_illusion_dungeon(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_AdventureScene_Illusion, close_cb, 1911001)
+            local scene = SceneCommon(UI_EventDungeon, close_cb, 1911001)
             scene:runScene()
         end
     end

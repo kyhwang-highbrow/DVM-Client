@@ -864,6 +864,7 @@ local t_module = {
     'UI_AdvertisingPopup',
     'UI_FormationDetailPopup',
     'UI_EventFullPopup',
+    'UI_EventDungeon',
     'UI_CapsuleBoxTodayListItem',
     'UI_CapsuleBoxTodayInfoPopup',
     'UI_CapsuleScheduleListItem',
@@ -892,6 +893,7 @@ local t_module = {
     'UI_RuneGuardianDungeonScene',
     'UI_AncientTowerBestDeckListItem',
     'UI_AncientTowerBestDeckPopup',
+    'UI_IllusionScene',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',

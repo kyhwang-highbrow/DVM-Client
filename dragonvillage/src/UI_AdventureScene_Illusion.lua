@@ -24,7 +24,6 @@ end
 -------------------------------------
 function UI_AdventureScene_Illusion:init()
 	local vars = self:load('event_illusion_dungeon_scene.ui')
-	UIManager:open(self, UIManager.SCENE)
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_AdventureScene_Illusion')
@@ -40,18 +39,16 @@ end
 function UI_AdventureScene_Illusion:initButton()
     local vars = self.vars
 
-    for difficulty = 1, 4 do
-        vars['stageBtn0'..difficulty]:registerScriptTapHandler(function() self:click_stage(difficulty) end)
-    end
+
+    vars['stageBtn01']:registerScriptTapHandler(function() self:gotoDungeon() end)
+
 end
 
 -------------------------------------
--- function click_stage
+-- function gotoDungeon
 -------------------------------------
-function UI_AdventureScene_Illusion:click_stage(difficulty)
-    -- 임의로 죄악의 던전
-    local stage_id = g_illusionDungeonData:makeAdventureID(difficulty, 1) -- param : difficulty, stage
-    UI_ReadySceneNew_IllusionDungeon(stage_id)
+function UI_AdventureScene_Illusion:gotoDungeon()
+    UI_IllusionScene()
 end
 
 

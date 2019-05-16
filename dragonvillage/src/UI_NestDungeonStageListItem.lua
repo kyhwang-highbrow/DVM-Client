@@ -13,6 +13,9 @@ UI_NestDungeonStageListItem = class(PARENT, {
 function UI_NestDungeonStageListItem:init(t_data)
     local vars = self:load('dungeon_stage_item.ui')
 
+    if (not t_data['stage']) then
+        return
+    end
     self.m_stageTable = t_data
 
     self:initUI(t_data)
