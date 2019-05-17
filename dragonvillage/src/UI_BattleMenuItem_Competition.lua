@@ -52,12 +52,8 @@ function UI_BattleMenuItem_Competition:initUI()
 
 	end
 
-    -- 컨텐츠 타입별 지정
-    if (self.m_menuListCnt == 4) then
-        vars['itemVisual']:changeAni(content_type .. '_list', true)
-    elseif (self.m_menuListCnt >= 5) then
-        vars['itemVisual']:changeAni(content_type .. '_02', true)
-    end
+    vars['itemVisual']:changeAni(content_type .. '_02', true)
+
 end
 
 -------------------------------------
@@ -135,10 +131,10 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
     -- 퀘스트 정보가 없을 경우
     if (struct_quest_50) and (not struct_quest_50:isEnd()) then
         struct_quest = struct_quest_50
-        quest_desc = '시험의 탑 모든 속성\n50층 클리어'
+        quest_desc = Str('시험의 탑 모든 속성\n50층 클리어')
     elseif (struct_quest_100) and (not struct_quest_100:isEnd()) then
         struct_quest = struct_quest_100
-        quest_desc = '시험의 탑 모든 속성\n100층 클리어'
+        quest_desc = Str('시험의 탑 모든 속성\n100층 클리어')
     end
 
     -- 종료 처리
@@ -153,7 +149,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
     if (self.m_menuListCnt == 5) then
         text_1 = quest_desc
     else
-        text_1 = ''
+        text_1 = struct_quest:getQuestDesc()
     end
 
 	local _, text = struct_quest:getProgressInfo()
@@ -179,8 +175,14 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_ancient()
 	
     local item_name = UIHelper:makeItemNamePlain(t_item)
 
-    local text_1 = Str('{1} 획득까지', item_name)
+    local text_1 = ''
     
+    if (self.m_menuListCnt == 5) then
+        text_1 = Str('{1} \n획득까지', item_name)
+    else
+        text_1 = Str('{1} 획득까지', item_name)
+    end
+
 	local goal_floor = (50 > curr_floor) and (curr_floor >= 30) and 50 or 30
 	local left_cnt = goal_floor - curr_floor
 	local text_2 = Str('{1}층 남음', left_cnt)
@@ -241,7 +243,11 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 
 	-- 그림자의 신전 사용 가능 상태
 	elseif (state == ServerData_ChallengeMode.STATE['OPEN']) then
-		text_1 = Str('한계에 도전해 보세요!')
+		if (self.m_contentType == 5) then
+            text_1 = Str('여러분의 한계에 도전해 보세요!')
+        else
+            text_1 = Str('한계에 도전해 보세요!')
+        end     
 
 		local team = g_challengeMode:getLastChallengeTeam()
 		if (team ~= 0) then
