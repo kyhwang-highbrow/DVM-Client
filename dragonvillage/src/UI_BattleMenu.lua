@@ -364,7 +364,7 @@ end
 function UI_BattleMenu:initCompetitionTab()
     local vars = self.vars
     -- 메뉴 아이템 x축 간격
-    local interval_x = 416
+    local interval_x = 438
     local pos_y = -80
 
     local l_content_str = {}

@@ -130,13 +130,15 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
     local struct_quest_100 = g_questData:getQuest(TableQuest.CHALLENGE, 14502) -- 시험의 탑 모든 속성 100층 클리어 : 절대적인 전설의 알
 
     local struct_quest = nil
+    local quest_desc = ''
 
     -- 퀘스트 정보가 없을 경우
     if (struct_quest_50) and (not struct_quest_50:isEnd()) then
         struct_quest = struct_quest_50
-
+        quest_desc = '시험의 탑 모든 속성\n50층 클리어'
     elseif (struct_quest_100) and (not struct_quest_100:isEnd()) then
         struct_quest = struct_quest_100
+        quest_desc = '시험의 탑 모든 속성\n100층 클리어'
     end
 
     -- 종료 처리
@@ -147,7 +149,12 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
 	local t_item = struct_quest:getRewardInfoList()[1]
 
 	local item_name = UIHelper:makeItemNamePlain(t_item)
-	local text_1 = struct_quest:getQuestDesc()
+	local text_1 = quest_desc
+    if (self.m_menuListCnt == 5) then
+        text_1 = quest_desc
+    else
+        text_1 = ''
+    end
 
 	local _, text = struct_quest:getProgressInfo()
 	local text_2 = Str('달성 : {1}', text)
@@ -169,10 +176,11 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_ancient()
 	end
 
 	local t_item = {['item_id'] = 779215, ['count'] = 1} -- 스킬 슬라임
-		
-	local item_name = UIHelper:makeItemNamePlain(t_item)
-	local text_1 = Str('{1} 획득까지', item_name)
+	
+    local item_name = UIHelper:makeItemNamePlain(t_item)
 
+    local text_1 = Str('{1} 획득까지', item_name)
+    
 	local goal_floor = (50 > curr_floor) and (curr_floor >= 30) and 50 or 30
 	local left_cnt = goal_floor - curr_floor
 	local text_2 = Str('{1}층 남음', left_cnt)
@@ -233,7 +241,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_challengeMode()
 
 	-- 그림자의 신전 사용 가능 상태
 	elseif (state == ServerData_ChallengeMode.STATE['OPEN']) then
-		text_1 = Str('여러분의 한계에 도전해 보세요!')
+		text_1 = Str('한계에 도전해 보세요!')
 
 		local team = g_challengeMode:getLastChallengeTeam()
 		if (team ~= 0) then
@@ -369,7 +377,7 @@ function UI_BattleMenuItem_Competition:startUpdateChallengeMode(timer_key, has_r
 					return
 				end
 
-                local time_str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time))
+                local time_str = Str('{1} 남음', datetime.makeTimeDesc(time))
                 if param_msg then
                     time_str = Str(param_msg, datetime.makeTimeDesc(time))
                 end
