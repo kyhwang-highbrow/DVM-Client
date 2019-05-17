@@ -4,10 +4,12 @@
 StructEventIllusion = class({
         m_eventId = 'number',   -- 이벤트 아이디 ex) 1 = 삐에로 던전, 2 = 앙그라 던전....
         m_lEventDid = 'list',   -- 이벤트에서 체험 가능한 드래곤 아이디 리스트 
-        m_stageId = 'number',   -- 이벤트 스테이지 아이디  ex) 1911001 죄악의 던전
+        m_l_stageId = 'number',   -- 이벤트 스테이지 아이디  ex) 1911001 죄악의 던전
         m_stageDiff = 'number', -- 1 = 쉬움, 2 = 보통 .. 등등
         m_eventType = 'string', -- legend or hero
     })
+
+local MAX_STAGE = 4
 
 -------------------------------------
 -- function init
@@ -22,10 +24,16 @@ function StructEventIllusion:init(event_id)
         return
     end
     
-    local event_did_str = t_illusion['event_did'] or ''
+    local event_did_str = tostring(t_illusion['event_did']) or ''
     self.m_lEventDid = self:makeEventDidList(event_did_str)
-    self.m_stageId = t_illusion['stage_id'] or 1911001
     self.m_eventType = t_illusion['event_type'] or 'hero'
+    
+    self.m_l_stageId = {}
+    local first_stage = t_illusion['stage_id']
+    for i = 0, MAX_STAGE-1 do
+        local stage_id = first_stage + i * 1000
+        table.insert(self.m_l_stageId, stage_id)
+    end 
 end
 
 -------------------------------------
@@ -39,8 +47,15 @@ end
 -------------------------------------
 -- function getIllusionStageId
 -------------------------------------
-function StructEventIllusion:getIllusionStageId()
-    return self.m_stageId
+function StructEventIllusion:getCurIllusionStageId()
+    return self.m_curStageId
+end
+
+-------------------------------------
+-- function getIllusionStageId
+-------------------------------------
+function StructEventIllusion:setCurIllusionStageId(stage_id)
+    self.m_curStageId = stage_id
 end
 
 -------------------------------------

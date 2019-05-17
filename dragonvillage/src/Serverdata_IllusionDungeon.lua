@@ -26,6 +26,14 @@ Serverdata_IllusionDungeon.STATE = {
 -------------------------------------
 function Serverdata_IllusionDungeon:init()
      self.m_lSortData = {}
+     self.m_illusionInfo = StructEventIllusion(1) -- 임의로 이벤트 키 1로 설정
+end
+
+-------------------------------------
+-- function getEventIllusionInfo
+-------------------------------------
+function Serverdata_IllusionDungeon:getEventIllusionInfo()
+     return self.m_illusionInfo
 end
 
 -------------------------------------
@@ -67,6 +75,43 @@ function Serverdata_IllusionDungeon:getIllusionState()
     
     -- 해당 없으면 비활성화
 	return Serverdata_IllusionDungeon.STATE['INACTIVE']
+end
+
+-------------------------------------
+-- function getIllusionStatusText
+-------------------------------------
+function Serverdata_IllusionDungeon:getIllusionStatusText()
+    
+    -- 연습전 기간 (프리시즌)
+    if (self:getIllusionState() == Serverdata_IllusionDungeon.STATE['PRESEASON']) then
+        local time = g_hotTimeData:getEventRemainTime('event_illusion') or 0
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+        return str
+    end
+
+    local time = g_hotTimeData:getEventRemainTime('event_illusion') or 0
+
+    local str = ''
+    if (not self:isActive_illusion()) then
+        if (time <= 0) then
+            str = Str('오픈시간이 아닙니다.')
+        end
+
+    elseif (0 < time) then
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+
+    else
+        str = Str('종료되었습니다.')
+    end
+
+    return str
+end
+
+-------------------------------------
+-- function isActive_grandArena
+-------------------------------------
+function Serverdata_IllusionDungeon:isActive_illusion()
+    return (self:getIllusionState() ~= Serverdata_IllusionDungeon.STATE['INACTIVE'])
 end
 
 -------------------------------------

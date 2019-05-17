@@ -7,6 +7,8 @@ UI_IllusionScene = class(PARENT, {
 
      })
 
+UI_IllusionScene.DIFF = {[1] = Str('쉬움'), [2] = Str('보통'), [3] = Str('지옥'), [4] = Str('불지옥') } 
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -55,16 +57,18 @@ function UI_IllusionScene:initUI()
     
     -- 난이도에 따른 던전 리스트 아이템 세팅
     local l_table = {}
-    for i=1,4 do
+    for i = 1, 4 do
         local t_table = {}
         t_table['t_name'] = '악몽'
+        t_table['diff_str'] = UI_IllusionScene.DIFF[i]
         t_table['diff'] = i
         table.insert(l_table, t_table)
     end
 
     local create_func = function(ui, data)
         ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(data['diff']) end)
-        ui.vars['dungeonLevelLabel']:setString('환상 던전')
+        ui.vars['dungeonLevelLabel']:setString(data['diff_str'])
+        ui.vars['dungeonNameLabel']:setVisible(false)
     end
     
     -- 테이블 뷰 인스턴스 생성

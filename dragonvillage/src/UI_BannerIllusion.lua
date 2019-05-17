@@ -83,6 +83,9 @@ function UI_BannerIllusion:update(dt)
         vars['descLabel']:setString('')
     end
     --]]
+
+    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
+    vars['timeLabel']:setString(time_text)
 end
 
 -------------------------------------

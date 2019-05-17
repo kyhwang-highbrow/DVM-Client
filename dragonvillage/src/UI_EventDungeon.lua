@@ -96,4 +96,7 @@ function UI_EventDungeonTabListItem:initUI()
     local vars = self.vars
 
     vars['eventLabel']:setString('환상 던전')
+
+    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
+    vars['timeLabel']:setString(time_text)
 end
