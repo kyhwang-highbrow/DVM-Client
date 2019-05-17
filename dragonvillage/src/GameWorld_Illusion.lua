@@ -115,7 +115,7 @@ end
 -------------------------------------
 -- function makeDragonNew
 -------------------------------------
-function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
+function GameWorld_Illusion:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     local t_dragon_data = t_dragon_data
     local bLeftFormation = not bRightFormation
     local bPossibleRevive = true
@@ -162,7 +162,7 @@ end
 -------------------------------------
 -- function setIllusionDragonAni
 -------------------------------------
-function GameWorld:setIllusionDragonAni(dragon, t_dragon_data, bRightFormation)
+function GameWorld_Illusion:setIllusionDragonAni(dragon, t_dragon_data, bRightFormation)
     
     local dragon_id = t_dragon_data['did']
     local bLeftFormation = not bRightFormation
