@@ -54,7 +54,7 @@ function UI_GameResult_Illusion:init(stage_id, is_success, time, gold, t_tamer_l
     self.m_content_open = content_open and content_open['open'] or false
     self.m_scoreCalc = score_calc
 
-    local vars = self:load('illusion_dungeon_result.ui')
+    local vars = self:load('event_illusion_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self:initUI()

@@ -172,6 +172,10 @@ function GameWorld_Illusion:setIllusionDragonAni(dragon, t_dragon_data, bRightFo
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[dragon_id]
 
+    if (not t_dragon_data['id']) then
+        return
+    end
+
     -- 드래곤 보다 앞에 출력됨 , 왜인지 setLocalZOrder가 안 먹힘
     local id = t_dragon_data['id']
     if (string.match(id, 'illusion')) then
