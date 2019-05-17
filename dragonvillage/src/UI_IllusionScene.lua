@@ -40,6 +40,13 @@ function UI_IllusionScene:initParentVariable()
 end
 
 -------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_IllusionScene:click_exitBtn()
+    self:close()
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_IllusionScene:initUI()

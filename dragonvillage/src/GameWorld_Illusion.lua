@@ -111,3 +111,81 @@ function GameWorld_Illusion:createComponents()
     self:initGold()
     self:setMissileRange()
 end
+
+-------------------------------------
+-- function makeDragonNew
+-------------------------------------
+function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
+    local t_dragon_data = t_dragon_data
+    local bLeftFormation = not bRightFormation
+    local bPossibleRevive = true
+
+	-- dragon 생성 시작
+	local size = g_constant:get('INGAME', 'DRAGON_BODY_SIZE') or 20
+    local dragon = Dragon(nil, {0, 0, size})
+    self:addToUnitList(dragon)
+
+    -- 환상던전 안의 드래곤 애니 세팅
+    self:setIllusionDragonAni(dragon, t_dragon_data, bRightFormation)
+
+    if (status_calc) then
+        dragon:setStatusCalc(status_calc)
+    end
+
+	dragon:initState()
+	dragon:initFormation()
+
+    if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and
+        self.m_gameMode ~= GAME_MODE_ARENA and
+        self.m_gameMode ~= GAME_MODE_CHALLENGE_MODE and
+        self.m_gameMode ~= GAME_MODE_EVENT_ARENA and
+        bRightFormation) then
+
+        -- 스테이지 버프 적용
+        dragon.m_statusCalc:applyStageBonus(self.m_stageID, true)
+
+        -- 광폭화 버프 적용
+        self.m_gameState:applyAccumEnrage(dragon)
+
+        -- 스테이지별 hp_ratio 적용.
+        local hp_ratio = TableStageData():getValue(self.m_stageID, 'hp_ratio') or 1
+        dragon.m_statusCalc:appendHpRatio(hp_ratio)
+    
+        dragon:setStatusCalc(dragon.m_statusCalc)
+    end
+
+    self:dispatch('make_dragon', {['dragon']=dragon, ['is_right']=bRightFormation})
+
+    return dragon
+end
+
+-------------------------------------
+-- function setIllusionDragonAni
+-------------------------------------
+function GameWorld:setIllusionDragonAni(dragon, t_dragon_data, bRightFormation)
+    
+    local dragon_id = t_dragon_data['did']
+    local bLeftFormation = not bRightFormation
+    local bPossibleRevive = true
+    
+    -- 테이블의 드래곤 정보
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[dragon_id]
+
+    -- 드래곤 보다 앞에 출력됨 , 왜인지 setLocalZOrder가 안 먹힘
+    local id = t_dragon_data['id']
+    if (string.match(id, 'illusion')) then
+        local back_illusion_effect = MakeAnimator('res/effect/effect_illusion/effect_illusion.vrp')
+        back_illusion_effect:changeAni('idle_back', true)
+        dragon.m_rootNode:addChild(back_illusion_effect.m_node)
+    end
+
+    dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, bPossibleRevive)
+
+    -- 드래곤 보다 뒤에 출력됨 setLocalZOrder가 안 먹힘
+    if (string.match(id, 'illusion')) then
+        local front_illusion_effect = MakeAnimator('res/effect/effect_illusion/effect_illusion.vrp')
+        front_illusion_effect:changeAni('idle_front', true)
+        dragon.m_rootNode:addChild(front_illusion_effect.m_node)
+    end
+end
