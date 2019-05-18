@@ -160,6 +160,34 @@ function UI_ReadySceneNew_IllusionDungeon:check_startCondition(stage_id)
 end
 
 -------------------------------------
+-- function sort_illusion
+-- @brief 환상 드래곤 여부 (환상 드래곤은 항상 맨 앞으로)
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:sort_illusion(a, b)
+
+    local a_data = a['data']['id'] or nil
+    local b_data = b['data']['id'] or nil
+
+    if (not a_data or not b_data) then
+        return nil
+    end
+    
+    if (string.match(a_data, 'illusion') and string.match(b_data, 'illusion')) then
+        return nil
+    end
+
+    if (string.match(a_data, 'illusion')) then
+        return true
+    end
+
+    if (string.match(b_data, 'illusion')) then
+        return false
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function init_sortMgr
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
@@ -168,12 +196,12 @@ function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
     self.m_sortManagerDragon = SortManager_Dragon_Illusion()
     self.m_sortManagerFriendDragon = SortManager_Dragon()
     
-    -- 멀티덱 사용시 우선순위 추가
-    if (self.m_multiDeckMgr) then
-        local function cond(a, b)
-			return self.m_multiDeckMgr:sort_multi_deck(a, b)
+    do
+        local function illusion(a, b)
+			return self:sort_illusion(a, b)
 		end
-        self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond)
+		self.m_sortManagerDragon:addPreSortType('sort_illusion', false, illusion)
+        self.m_sortManagerFriendDragon:addPreSortType('sort_illusion', false, illusion)
     end
 
     do
