@@ -10,6 +10,9 @@ Serverdata_IllusionDungeon = class({
     -- 환상 이벤트 공용 매개변수
     m_lSortData = 'list', -- 정렬 관련 세팅 정보 보관
     m_lDragonDeck = 'list', -- 서버덱에 저장하는 대신 여기서 들고 있음
+
+    m_lillusionDragonInfo = 'List-StructDragonObject',
+    m_lillusionRuneInfo = 'List-StructRuneObject',
 })
 
 
@@ -27,6 +30,7 @@ Serverdata_IllusionDungeon.STATE = {
 function Serverdata_IllusionDungeon:init()
      self.m_lSortData = {}
      self.m_illusionInfo = StructEventIllusion(1) -- 임의로 이벤트 키 1로 설정
+     self:loadIllusionDragonInfo()
 end
 
 -------------------------------------
@@ -252,6 +256,36 @@ function Serverdata_IllusionDungeon:getIllusionStageTitle()
         local cur_stage_str = cur_stage_info['t_name'] or ''
         return Str(cur_stage_str)
  end
+
+
+
+-------------------------------------
+ -- function loadIllusionDragonInfo
+-------------------------------------
+function Serverdata_IllusionDungeon:loadIllusionDragonInfo()
+    self.m_lillusionDragonInfo = {}
+    self.m_lillusionRuneInfo = {}
+    local ret_json, success_load = TABLE:loadJsonTable('illusion_dragon_info', '.txt')
+    
+    if (ret_json['illusion_runes']) then
+        local l_rune = ret_json['illusion_runes']
+        for i, rune_data in ipairs(l_rune) do
+            local _rune_data = StructRuneObject(rune_data)
+            table.insert(self.m_lillusionRuneInfo, rune_data)
+        end
+    end
+
+    if (ret_json['illusion_dragons']) then
+        local l_dragon = ret_json['illusion_dragons']
+        for i, dragon_data in ipairs(l_dragon) do
+            local _dragon_data = StructDragonObject(dragon_data)
+            _dragon_data['id'] = 'illusion_'.. i
+            _dragon_data:setRuneObjects(self.m_lillusionRuneInfo)
+            table.insert(self.m_lillusionDragonInfo, _dragon_data)
+        end
+    end
+end
+
 
 
 

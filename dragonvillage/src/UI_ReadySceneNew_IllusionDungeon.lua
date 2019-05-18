@@ -94,7 +94,7 @@ function UI_ReadySceneNew_IllusionDungeon:click_manageBtn()
                 self:refresh()
                 self.m_readySceneSelect:init_dragonTableView()
 				-- 드래곤 선택하는 창에, 특정 드래곤 추가
-				self:addSpecialDragon()
+				self:addIllusionDragon()
                 self.m_readySceneDeck:init_deck()
 
                 do -- 정렬 도우미
@@ -128,11 +128,9 @@ function UI_ReadySceneNew_IllusionDungeon:addIllusionDragon()
 	-- 기존 보유 드래곤
 	local l_dragon_list = clone(g_dragonsData:getDragonsList())
 
-	-- 임시로 삐에로 드래곤 삽입
-	-- 120301 - 120305
-	for i=1,5 do
-		local t_dragon = g_illusionDungeonData:getDragonDataFromUid('illusionDragon'..i, i)
-		l_dragon_list['illusionDragon'..i] = t_dragon
+    local l_illusion_dragon = g_illusionDungeonData.m_lillusionDragonInfo
+	for i, dragon_data in ipairs(l_illusion_dragon) do
+		l_dragon_list['illusionDragon'..i] = dragon_data
 	end    
 
 	select_table_view:setItemList(l_dragon_list)
