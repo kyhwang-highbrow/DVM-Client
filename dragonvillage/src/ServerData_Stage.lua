@@ -116,7 +116,7 @@ function ServerData_Stage:getStageName(stage_id)
 	
     -- 환상 던전 이벤트
     elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
-		name = Str('환상 던전 이벤트')
+		name = g_illusionDungeonData:getIllusionStageTitle()
     end
 
     return name

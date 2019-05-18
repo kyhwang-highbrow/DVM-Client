@@ -234,7 +234,7 @@ function UINavigatorDefinition:goTo_event_illusion_dungeon(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_EventDungeon, close_cb, 1911001)
+            local scene = SceneCommon(UI_EventDungeon, close_cb)
             scene:runScene()
         end
     end

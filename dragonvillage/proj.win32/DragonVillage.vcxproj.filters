@@ -4075,6 +4075,9 @@
     <None Include="..\src\UI_BannerIllusion.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_IllusionStageListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

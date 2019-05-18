@@ -73,14 +73,15 @@ end
 -------------------------------------
 function UI_GameResult_Illusion:initUI()
     local vars = self.vars
+    local stage_id = self.m_stageID
 
     do
         -- 스테이지 이름
-        local str = g_stageData:getStageName(1911001)
+        local str = g_stageData:getStageName(stage_id)
         vars['titleLabel']:setString(str)
 
         -- 스테이지 난이도를 표시
-        self:init_difficultyIcon(1911001)
+        self:init_difficultyIcon(stage_id)
     end
 
     self:doActionReset()

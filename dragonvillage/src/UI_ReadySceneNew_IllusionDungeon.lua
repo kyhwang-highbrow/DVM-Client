@@ -15,6 +15,59 @@ function UI_ReadySceneNew_IllusionDungeon:init(stage_id, sub_info)
 end
 
 -------------------------------------
+-- function refresh
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:refresh()
+    local stage_id = self.m_stageID
+    local vars = self.vars
+
+    -- 스테이지 이름
+    local str = g_stageData:getStageName(stage_id)
+        
+
+    -- 필요 활동력 표시
+    local stamina_type, stamina_value = TableDrop:getStageStaminaType(stage_id)
+    vars['actingPowerLabel']:setString(stamina_value)
+
+
+    -- 모험 소비 활동력 핫타임 관련
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        local active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
+        if active then
+            local stamina_type, stamina_value = TableDrop:getStageStaminaType(self.m_stageID)
+            local cost_value = math_floor(stamina_value / 2)
+            vars['actingPowerLabel']:setString(cost_value)
+            vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
+            vars['hotTimeSprite']:setVisible(true)
+            vars['hotTimeStLabel']:setString('1/2')
+            vars['staminaNode']:setVisible(false)
+        else
+            vars['actingPowerLabel']:setTextColor(cc.c4b(255, 255, 255, 255))
+            vars['hotTimeSprite']:setVisible(false)
+            vars['staminaNode']:setVisible(true)
+        end
+
+        g_hotTimeData:refresh_boosterMailInfo()
+
+        vars['itemMenu']:setVisible(true)
+        vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_item(dt) end, 0.1)
+
+    -- 황금 던전 (골드라고라 던전)
+    elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+        vars['itemMenu']:setVisible(true)
+        vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_item(dt) end, 0.1)
+
+        -- 자동 줍기 버튼만 활성화하고 나머지는 숨김
+        vars['expBoosterBtn']:setVisible(false)
+        vars['goldBoosterBtn']:setVisible(false)
+    end
+
+    self:refresh_tamer()
+	self:refresh_buffInfo()
+    self:refresh_combatPower()
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:initDeck()
@@ -237,7 +290,7 @@ function UI_ReadySceneNew_IllusionDungeon:replaceGameScene(game_key)
     -- 시작이 두번 되지 않도록 하기 위함
     UI_BlockPopup()
 
-    local stage_id = 1911001
+    local stage_id = self.m_stageID
     local stage_name = 'stage_' .. stage_id
     local scene
 

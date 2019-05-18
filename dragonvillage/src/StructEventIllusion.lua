@@ -7,6 +7,8 @@ StructEventIllusion = class({
         m_l_stageId = 'number',   -- 이벤트 스테이지 아이디  ex) 1911001 죄악의 던전
         m_stageDiff = 'number', -- 1 = 쉬움, 2 = 보통 .. 등등
         m_eventType = 'string', -- legend or hero
+
+        m_curStageId = 'number' -- 선택한 스테이지
     })
 
 local MAX_STAGE = 4
@@ -32,8 +34,13 @@ function StructEventIllusion:init(event_id)
     local first_stage = t_illusion['stage_id']
     for i = 0, MAX_STAGE-1 do
         local stage_id = first_stage + i * 1000
-        table.insert(self.m_l_stageId, stage_id)
+        local t_stage = {}
+        t_stage['stage'] = stage_id
+        table.insert(self.m_l_stageId, t_stage)
     end 
+
+    -- 디폴트로 현재 스테이지 설정
+    self.m_curStageId = self.m_l_stageId[1]['stage']
 end
 
 -------------------------------------
@@ -43,6 +50,17 @@ function StructEventIllusion:makeEventDidList(event_did_str) -- param : 120301, 
     local l_did = plSplit(event_did_str, ',')
     return l_did or {}
 end
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------
+-- get/set 함수
+----------------------------------------------------------------------------------------------------
+
 
 -------------------------------------
 -- function getIllusionStageId
@@ -63,6 +81,13 @@ end
 -------------------------------------
 function StructEventIllusion:getIllusionDragonList()
     return self.m_lEventDid
+end
+
+-------------------------------------
+-- function getIllusionStageList
+-------------------------------------
+function StructEventIllusion:getIllusionStageList()
+    return self.m_l_stageId or {}
 end
 
 

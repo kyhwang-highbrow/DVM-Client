@@ -236,5 +236,22 @@ function Serverdata_IllusionDungeon:getDragonDeck(l_dragon)
     return self.m_lDragonDeck or {}
 end
 
+-------------------------------------
+-- function getIllusionStageTitle
+-------------------------------------
+function Serverdata_IllusionDungeon:getIllusionStageTitle()
+        local table_stage = TABLE:get('stage_data')
+        local struct_illusion = self:getEventIllusionInfo()
+        local cur_stage_id = struct_illusion:getCurIllusionStageId()
+        local cur_stage_info = table_stage[cur_stage_id]
+
+        if (not cur_stage_info) then
+            return ''
+        end
+        
+        local cur_stage_str = cur_stage_info['t_name'] or ''
+        return Str(cur_stage_str)
+ end
+
 
 
