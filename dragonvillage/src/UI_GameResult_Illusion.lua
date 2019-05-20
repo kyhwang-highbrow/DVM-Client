@@ -54,9 +54,6 @@ function UI_GameResult_Illusion:init(stage_id, is_success, time, gold, t_tamer_l
     self.m_content_open = content_open and content_open['open'] or false
     self.m_scoreCalc = score_calc
 
-    local vars = self:load('event_illusion_result.ui')
-    UIManager:open(self, UIManager.POPUP)
-
     self:initUI()
     self:initButton()
     
@@ -72,6 +69,9 @@ end
 -- function initUI
 -------------------------------------
 function UI_GameResult_Illusion:initUI()
+    local vars = self:load('event_illusion_result.ui')
+    UIManager:open(self, UIManager.POPUP)
+    
     local vars = self.vars
     local stage_id = self.m_stageID
 
@@ -97,6 +97,7 @@ function UI_GameResult_Illusion:initButton()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfoBtn() end)
     vars['infoBtn']:setVisible(true)
+    vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
 end
 
 -------------------------------------
@@ -152,6 +153,8 @@ function UI_GameResult_Illusion:setWorkList()
 
     self.m_lWorkList = {}
     table.insert(self.m_lWorkList, 'direction_showScore')
+    table.insert(self.m_lWorkList, 'direction_delay')
+    table.insert(self.m_lWorkList, 'direction_moveMenu')
 end
 
 -------------------------------------
@@ -190,6 +193,21 @@ function UI_GameResult_Illusion:direction_showScore()
     end
 end
 
+-------------------------------------
+-- function direction_delay
+-------------------------------------
+function UI_GameResult_Illusion:direction_delay()
+    local delay_time = 2
+    local next_func = function()
+        self:doNextWork()
+    end
+    
+    local act_next = cc.CallFunc:create(next_func)
+    local act_delay = cc.DelayTime:create(delay_time)
+
+    local action = cc.Sequence:create(act_delay, act_next)
+    self.root:runAction(action)
+end
 -------------------------------------
 -- function makeAnimationData
 -- @brief 애니메이션에 필요한 노드 리스트로 관리
@@ -329,45 +347,6 @@ function UI_GameResult_Illusion:runScoreAction(idx, node)
 end
 
 -------------------------------------
--- function removeScore
--------------------------------------
-function UI_GameResult_Illusion:removeScore()
-    local vars          = self.vars
-    local score_node    = vars['scoreNode']
-    local total_node    = vars['totalSprite']
-    local new_node    = vars['newRecordNode']
-
-    local delay_time = 2.0
-
-    -- 최종 점수 같이 사라짐
-    total_node:stopAllActions()
-    doAllChildren(total_node, function(node)
-        local act1 = cc.DelayTime:create(delay_time)
-        local act2 = cc.FadeOut:create(0.2)
-        local action = cc.Sequence:create(act1, act2)
-        node:runAction(action)
-    end)
-
-    -- 스코어 노드 사라짐
-    doAllChildren(score_node, function(node)
-        local act1 = cc.DelayTime:create(delay_time)
-        local act2 = cc.FadeOut:create(0.2)
-        local action = cc.Sequence:create(act1, act2)
-        node:runAction(action) 
-    end)
-
-    -- 점수 갱신 노드 사라짐
-    doAllChildren(new_node, function(node)
-        local act1 = cc.DelayTime:create(delay_time)
-        local act2 = cc.FadeOut:create(0.2)
-        local action = cc.Sequence:create(act1, act2)
-        node:runAction(action) 
-    end)
-
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(delay_time + 0.5), cc.CallFunc:create(function() self:doNextWork() end)))
-end
-
--------------------------------------
 -- function startGame
 -- @override
 -------------------------------------
@@ -450,4 +429,59 @@ function UI_GameResult_Illusion:setSuccessVisual_Ancient()
         SoundMgr:playBGM('bgm_dungeon_lose', false)
         vars['successVisual']:changeAni('fail')
     end
+end
+
+-------------------------------------
+-- function direction_moveMenu
+-------------------------------------
+function UI_GameResult_Illusion:direction_moveMenu()
+    local vars = self.vars
+    local switch_btn = vars['switchBtn']
+    self:action_switchBtn(function() 
+        switch_btn:setVisible(true)
+        self:doNextWork()
+    end)
+end
+
+-------------------------------------
+-- function direction_moveMenu_click
+-------------------------------------
+function UI_GameResult_Illusion:direction_moveMenu_click()    
+end
+
+-------------------------------------
+-- function click_switchBtn
+-------------------------------------
+function UI_GameResult_Illusion:click_switchBtn()
+    local vars = self.vars
+    self:action_switchBtn()
+end
+
+-------------------------------------
+-- function action_switchBtn
+-------------------------------------
+function UI_GameResult_Illusion:action_switchBtn(callback)
+    local vars = self.vars
+    local result_menu = vars['resultMenu']
+    local switch_btn = vars['switchBtn']
+    local switch_sprite = vars['switchSprite']
+    switch_btn:setEnabled(false)
+
+    local angle = 0
+    if (result_menu:getPositionY() == 100) then
+        move_y = 450 -- 위로 올릴 위치
+        angle = 180
+    else
+        move_y = 100 -- 기본 위치
+        angle = 0
+    end
+    
+    local move_act = cca.makeBasicEaseMove(0.5, 0, move_y)
+    local after_act = cc.CallFunc:create(function()
+        switch_btn:setEnabled(true)
+		if (callback) then callback() end
+	end)
+
+    switch_sprite:runAction(cc.RotateTo:create(0.1, angle))
+    result_menu:runAction(cc.Sequence:create(move_act, after_act))
 end
