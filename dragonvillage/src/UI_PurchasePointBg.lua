@@ -56,6 +56,7 @@ function UI_PurchasePointBg:init(item_id, version)
     self:setDescLabel()
 end
 
+
 function UI_PurchasePointBg:setDragonTicket()
     if (not self.m_item_id) then
         return
@@ -111,6 +112,7 @@ function UI_PurchasePointBg:initUI_dragonTicket()
     local item_id = self.m_item_id
 
     vars['productNode1']:setVisible(true)
+    self:setLimit(1) -- productNode 1의 1
 
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
@@ -168,6 +170,7 @@ function UI_PurchasePointBg:initUI_dragon()
     local did = TableItem:getDidByItemId(item_id)
     
     vars['productNode2']:setVisible(true)
+    self:setLimit(2) -- productNode 2의 2
 
     local table_dragon = TableDragon()
 
@@ -251,6 +254,7 @@ function UI_PurchasePointBg:initUI_reinforce(item_count)
     end
 
     vars['productNode3']:setVisible(true)
+    self:setLimit(3) -- productNode 3의 3
 
     local item_name = TableItem:getItemName(item_id)
     vars['itemLabel2']:setString(string.format('%s X %d', item_name, item_count))
@@ -270,7 +274,8 @@ function UI_PurchasePointBg:initUI_skillSlime(item_count)
 
     -- 강화포인트와 같은 MenuNode 사용
     vars['productNode3']:setVisible(true)
-    
+    self:setLimit(3) -- productNode 3의 3
+
     local animator = MakeAnimator('res/character/monster/skill_slime_03/skill_slime_03.json') -- json...
     vars['slimeNode']:addChild(animator.m_node)
     
@@ -293,6 +298,7 @@ function UI_PurchasePointBg:initUI_Item(item_count)
     local item_id = self.m_item_id
 
     vars['productNode4']:setVisible(true)
+    self:setLimit(4) -- productNode 4의 4
     
     local animator = MakeAnimator('res/item/egg/egg_super_myth/egg_super_myth.vrp') -- json...
     animator:changeAni('egg_move', true)    
@@ -332,8 +338,22 @@ function UI_PurchasePointBg:setDescLabel(item_count)
 
     -- 설명이 없다면 어색하게 공간 떨어지지 않도록 위치 조정 (스킬 슬라임, 아이템 타입만)
     vars['productNode3']:setPositionY(-42)
-    vars['productNode4']:setPositionY(-42)
-        
+    vars['productNode4']:setPositionY(-42)     
 end
 
+-------------------------------------
+-- function setLimit
+-------------------------------------
+function UI_PurchasePointBg:setLimit(idx)
+    if (self.vars['limitNode'..idx]) then
+        local remain_sec = g_purchasePointData:getPurchasePointEventRemainTime(self.m_version)
+        local day = math.floor(remain_sec / 86400)
+        if (day < 2) then
+            self.vars['limitNode'..idx]:setVisible(true)
+            self.vars['limitNode'..idx]:runAction(cca.buttonShakeAction(3, 1)) 
+        else
+            self.vars['limitNode'..idx]:setVisible(false)
+        end
+    end
+end
 
