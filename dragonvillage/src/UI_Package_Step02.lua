@@ -16,6 +16,10 @@ local t_step_pids = {90105, 90106, 90107, 90108}
 function UI_Package_Step02:init(package_name, is_popup)
     self:setCurrentStep()
     self:refresh(self.m_curr_step)
+
+
+    -- @jhakim 2019.05.40 단계별 패키지 종료할 예정이라 날짜 상관없이 띄움
+    self.vars['limitNode']:setVisible(true)
 end
 
 -------------------------------------
