@@ -119,7 +119,7 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
         for i = 1,5 do
             local doid = self.m_lDeckList[i]
             if (doid) then
-                if (string.match(doid, 'illusionDragon')) then
+                if (string.match(doid, 'illusion')) then
                     doid = nil
                 end
             end

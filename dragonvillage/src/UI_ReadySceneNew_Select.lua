@@ -92,10 +92,9 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
             ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
         elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 			ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
-			if (math.floor(data['did']/10)*10 == 120300) then
+			if (g_illusionDungeonData:isIllusionDragon(data)) then
 				ui:setEventSpriteVisible(true)
 			end
-			ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 		else
             ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
         end

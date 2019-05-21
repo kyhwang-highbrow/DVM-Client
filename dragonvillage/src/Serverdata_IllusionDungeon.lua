@@ -156,14 +156,11 @@ function Serverdata_IllusionDungeon:getDragonDataFromUid(doid)
         return t_dragon
     end
      
-    t_dragon = StructDragonObject()
-
-    local ind = string.match(doid, '%d')
-    t_dragon['did'] = 120300 + tonumber(ind)
-    t_dragon['grade'] = 5
-    t_dragon['evolution'] = 3
-    t_dragon['id'] = doid
-    return t_dragon
+    for i, dragon_data in ipairs(self.m_lillusionDragonInfo) do
+        if (dragon_data['id'] == doid) then
+            return dragon_data
+        end
+    end
 end
 
 -------------------------------------
@@ -280,10 +277,32 @@ function Serverdata_IllusionDungeon:loadIllusionDragonInfo()
         for i, dragon_data in ipairs(l_dragon) do
             local _dragon_data = StructDragonObject(dragon_data)
             _dragon_data['id'] = 'illusion_'.. i
+            _dragon_data['updated_at'] = 0
             _dragon_data:setRuneObjects(self.m_lillusionRuneInfo)
             table.insert(self.m_lillusionDragonInfo, _dragon_data)
         end
     end
+end
+
+-------------------------------------
+ -- function getIllusionDragonList
+-------------------------------------
+function Serverdata_IllusionDungeon:getIllusionDragonList()
+    return self.m_lillusionDragonInfo or {}
+end
+
+-------------------------------------
+ -- function isIllusionDragon
+-------------------------------------
+function Serverdata_IllusionDungeon:isIllusionDragon(struct_dragon_object)
+    if (not struct_dragon_object) then
+        return false
+    end
+
+    local dragon_id = tostring(struct_dragon_object['id']) or ''
+    
+    local is_illusion = string.match(dragon_id, 'illusion')
+    return is_illusion
 end
 
 

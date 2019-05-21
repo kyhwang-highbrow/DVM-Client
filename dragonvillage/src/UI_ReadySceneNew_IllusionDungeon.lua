@@ -128,11 +128,11 @@ function UI_ReadySceneNew_IllusionDungeon:addIllusionDragon()
 	-- 기존 보유 드래곤
 	local l_dragon_list = clone(g_dragonsData:getDragonsList())
 
-    local l_illusion_dragon = g_illusionDungeonData.m_lillusionDragonInfo
+    local l_illusion_dragon = g_illusionDungeonData:getIllusionDragonList()
 	for i, dragon_data in ipairs(l_illusion_dragon) do
-		l_dragon_list['illusionDragon'..i] = dragon_data
+		l_dragon_list[dragon_data['id']] = dragon_data
 	end    
-
+    
 	select_table_view:setItemList(l_dragon_list)
 end
 
