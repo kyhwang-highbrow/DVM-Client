@@ -67,11 +67,15 @@ function UI_IllusionScene:initUI()
     table_view:setItemList(l_stage_info, make_item)
 
     -- 왼측 환상 던전용 정보창
-    local ui_illusion_info = UI_NestDungeonListItem()
-    local illusion_sprite = cc.Sprite:create('res/ui/event/ed_illusion_tab.png')
-    ui_illusion_info.vars['dungeonImgNode']:addChild(illusion_sprite)
-
+    local ui_illusion_info = UI()
+    ui_illusion_info:load('event_dungeon_item.ui')
+    ui_illusion_info.vars['titleLabel']:setString(Str('죄악의 환상'))
+    ui_illusion_info.vars['meRankLabel']:setString(Str('내 최고 점수 : '))
+    ui_illusion_info.vars['topRankLabel']:setString(Str('랭킹 1위 점수 : '))
+    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
+    ui_illusion_info.vars['timeLabel']:setString(Str('이벤트 종료 까지') .. ' '.. time_text)
     vars['dungeonNode']:addChild(ui_illusion_info.root)
+    
 end
 
 
