@@ -50,6 +50,8 @@ StatusEffect = class(PARENT, {
 
         -- 별도의 연출 처리를 위한 모듈
         m_edgeDirector = 'StatusEffectEdgeDirector',
+
+        m_keep_value = 'number',
     })
 
 -------------------------------------
@@ -1004,4 +1006,12 @@ end
 -------------------------------------
 function StatusEffect:setOffsetPos(pos)
     self.m_offsetPos = pos
+end
+
+
+-------------------------------------
+-- function initValue
+-------------------------------------
+function StatusEffect:initValue(value)
+    self.m_keep_value = value
 end

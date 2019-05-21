@@ -47,8 +47,10 @@ function Character:onEvent(event_name, t_event, ...)
     elseif (event_name == 'under_teammate_hp') then
         local hp = t_event['hp']
         local max_hp = t_event['max_hp']
+        local arg = {...}
+        local owner = arg[1]
 
-        self:onEvent_underTeammateHp(hp, max_hp)
+        self:onEvent_underTeammateHp(hp, max_hp, owner)
     
 	elseif (event_name == 'stat_changed') then
 		self:onEvent_updateStat(t_event)
@@ -144,6 +146,11 @@ function Character:onEvent_underSelfHp(hp, max_hp)
         for i, v in pairs(list) do
             if (v:isEndCoolTime()) then
                 if (percentage <= v:getChanceValue()) then
+                    -- chance_value값(ex)무적 50%, 생존 30%)이 다른 스킬은 동시에 발동 안됨
+                    local is_diff_chance_value = self:isDiffChanceValue(v.m_skillID)
+                    if (is_diff_chance_value) then            
+                        break
+                    end
                     self:doSkill(v.m_skillID, 0, 0)
                 end
             end
@@ -161,6 +168,48 @@ function Character:onEvent_underSelfHp(hp, max_hp)
             end
         end
     end
+end
+
+-------------------------------------
+-- function isDiffChanceValue
+-------------------------------------
+function Character:isDiffChanceValue(target_skill_id)
+    local target_chance_value = self:getChanceValue(target_skill_id)
+
+    for skill_type, status_effect_class in pairs(self.m_mStatusEffect) do
+        if (status_effect_class.m_keep_value) then
+            if (target_chance_value ~= status_effect_class.m_keep_value) then
+                return true
+            end
+        end
+    end
+    
+end
+
+-------------------------------------
+-- function getChanceValue
+-------------------------------------
+function Character:getChanceValue(skill_id)
+    local table_skill = GetSkillTable(self.m_charType)
+    if (not table_skill) then
+        return nil
+    end
+    
+    local t_skill = table_skill:get(skill_id)
+    if (not t_skill)then
+        return nil
+    end
+
+    local chance_value = t_skill['chance_value']
+
+    -- 발동 조건값(chance_value)이 수식인 경우 수식을 계산
+    if (type(chance_value) == 'function') then
+        chance_value = chance_value(self, nil, nil, skill_id)
+    else
+        chance_value = chance_value
+    end
+
+    return chance_value
 end
 
 -------------------------------------
@@ -186,7 +235,7 @@ end
 -------------------------------------
 -- function onEvent_underTeammateHp
 -------------------------------------
-function Character:onEvent_underTeammateHp(hp, max_hp)
+function Character:onEvent_underTeammateHp(hp, max_hp, unit)
     local list = self:getSkillIndivisualInfo('under_teammate_hp')
 
     if (not list) then return end
@@ -195,10 +244,14 @@ function Character:onEvent_underTeammateHp(hp, max_hp)
     local percentage = (hp / max_hp) * 100
 
     for i, v in pairs(list) do
-        if (v:isEndCoolTime()) then
-            if (percentage <= v:getChanceValue()) then
-                self:doSkill(v.m_skillID, 0, 0)
-            end
+        if (v:isEndCoolTime()) then        
+            if (percentage <= v:getChanceValue()) then            
+                local is_diff_chance_value = unit:isDiffChanceValue(v.m_skillID)
+                if (is_diff_chance_value) then            
+                    break
+                end
+                self:doSkill(v.m_skillID, 0, 0)                         
+            end          
         end
     end
 end

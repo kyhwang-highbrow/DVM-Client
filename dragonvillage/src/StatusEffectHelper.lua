@@ -382,6 +382,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     elseif (status_effect_group == 'barrier_time') then
         status_effect = StatusEffect_ProtectionByTime(res)
+        status_effect:initValue(status_effect_value)
 
     ----------- 상태효과 면역 ------------------
 	elseif (status_effect_group == 'immune') then
