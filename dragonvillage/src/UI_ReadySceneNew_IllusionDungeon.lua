@@ -22,8 +22,9 @@ function UI_ReadySceneNew_IllusionDungeon:refresh()
     local vars = self.vars
 
     -- 스테이지 이름
-    local str = g_stageData:getStageName(stage_id)
-        
+    local str = g_stageData:getStageName(stage_id) or ''
+    self.m_titleStr = str
+    g_topUserInfo:setTitleString(self.m_titleStr)
 
     -- 필요 활동력 표시
     local stamina_type, stamina_value = TableDrop:getStageStaminaType(stage_id)

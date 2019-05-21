@@ -193,3 +193,12 @@ function GameWorld_Illusion:setIllusionDragonAni(dragon, t_dragon_data, bRightFo
         dragon.m_rootNode:addChild(front_illusion_effect.m_node)
     end
 end
+
+-------------------------------------
+-- function bindEnemy
+-------------------------------------
+function GameWorld_Illusion:bindEnemy(enemy)
+    PARENT.bindEnemy(self, enemy)
+    -- 이벤트
+    enemy:addListener('character_set_hp', self.m_gameState)
+end

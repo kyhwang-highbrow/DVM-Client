@@ -23,7 +23,9 @@ function UI_IllusionStageListItem:refresh(t_data)
 
     do -- 난이도
         local diff_str = table_stage[stage_id]['r_difficult']
+        local diff_color = COLOR['diff_' .. diff_str]
         vars['dungeonLevelLabel']:setString(UI_IllusionStageListItem.DIFF[diff_str])
+        vars['dungeonLevelLabel']:setColor(diff_color)
         vars['dungeonNameLabel']:setVisible(false)
     end
 

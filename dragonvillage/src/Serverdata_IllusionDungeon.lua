@@ -3,7 +3,7 @@
 -- @instance g_illusionDungeonData
 -------------------------------------
 Serverdata_IllusionDungeon = class({
-    m_illusionInfo = 'StructEventIllusion', -- 전설 관련 서버데이터 Struct
+    m_illusionInfo = 'StructEventIllusion',
 
     m_lOpenEventId = 'list',
 
@@ -303,6 +303,46 @@ function Serverdata_IllusionDungeon:isIllusionDragon(struct_dragon_object)
     
     local is_illusion = string.match(dragon_id, 'illusion')
     return is_illusion
+end
+
+-------------------------------------
+ -- function getParticiPantInfo
+-------------------------------------
+function Serverdata_IllusionDungeon:isIllusionDragonType(dragon_data)
+    local table_dragon = TableDragon()
+    local struct_illusion = self.m_illusionInfo
+    local l_illusion_dragon = struct_illusion:getIllusionDragonList()
+
+    -- 환상 드래곤 종류가 1가지라고 가정
+    local target_dragon_id = dragon_data['did']
+    if (not target_dragon_id) then
+        return false
+    end
+
+    local target_dragon_type = table_dragon:getDragonType(target_dragon_id)
+    local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1])
+    return target_dragon_type == illusion_dragon_type
+end
+
+-------------------------------------
+ -- function getParticiPantInfo
+ -- @brief 덱에 환상 드래곤 있을 경우 return 1, 덱에 환상 드래곤 종류를 들고 있었다면 return 1, 환상 드래곤이 출전 하지 않았다면 0
+-------------------------------------
+function Serverdata_IllusionDungeon:getParticiPantInfo()
+    local participant_count = 0
+    for i, dragon_data in ipairs(self.m_lDragonDeck) do
+        if (self:isIllusionDragonType(dragon_data)) then
+            if (not self:isIllusionDragon(dragon_data)) then
+                participant_count = -1
+                break
+            else
+                participant_count = 1
+                break
+            end
+        end
+    end
+
+    return participant_count
 end
 
 

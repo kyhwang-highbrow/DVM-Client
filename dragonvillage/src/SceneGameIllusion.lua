@@ -1,7 +1,7 @@
 ﻿local PARENT = SceneGame
 
 
-local LIMIT_TIME = 15
+local LIMIT_TIME = 300
 -------------------------------------
 -- class SceneGameIllusion
 -------------------------------------
@@ -25,6 +25,21 @@ function SceneGameIllusion:init(game_key, stage_id, stage_name, develop_mode, fr
     self.m_enterBackTime = nil
     self.m_uiPopupTimeOut = nil
     self.m_bWaitingNet = false
+end
+
+-------------------------------------
+-- function onEnter
+-------------------------------------
+function SceneGame:onEnter()
+    g_gameScene = self
+    PerpleScene.onEnter(self)
+ 
+
+    self.m_inGameUI = UI_GameClanRaid(self)
+    self.m_resPreloadMgr = ResPreloadMgr()
+
+    -- 절전모드 설정
+    SetSleepMode(false)
 end
 
 -------------------------------------

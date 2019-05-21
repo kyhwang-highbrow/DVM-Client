@@ -7,11 +7,9 @@ UI_GameResult_Illusion = class(PARENT, {
         m_stageID = 'number',
         m_bSuccess = 'boolean',
         m_time = 'number',
-        m_gold = 'number',
-        m_tTamerLevelupData = 'table',
+        m_damage = 'number',  
         m_lDragonList = 'list',
         m_lDropItemList = 'list',
-        m_secretDungeon = 'table',
 
         m_lNumberLabel = 'list',
 
@@ -33,22 +31,22 @@ UI_GameResult_Illusion = class(PARENT, {
         
         m_scoreList = 'list',
         m_animationList = 'list',
-        
-        m_exScore = 'number',
+
 })
+
+local SCORE_DIFF = {[1] = 0, [2] = 1000, [3] = 2000, [4] = 5000}
+local SCORE_PART = {['none'] = 0, ['illusion_dragon'] = 2500, ['my_dragon'] = 5000}
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GameResult_Illusion:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open, score_calc, ex_score)
+function UI_GameResult_Illusion:init(stage_id, is_success, time, damage)
     self.m_stageID = stage_id
     self.m_bSuccess = is_success
     self.m_time = time
-    self.m_gold = gold or 0
-    self.m_tTamerLevelupData = t_tamer_levelup_data
+    self.m_damage = damage
     self.m_lDragonList = l_dragon_list
     self.m_lDropItemList = l_drop_item_list
-    self.m_secretDungeon = secret_dungeon
     self.m_staminaType = 'st'
     self.m_autoCount = false
     self.m_content_open = content_open and content_open['open'] or false
@@ -216,11 +214,31 @@ function UI_GameResult_Illusion:setAnimationData()
     local vars = self.vars
 
     local score_list = {}
-    table.insert(score_list, 1000)
-    table.insert(score_list, 2000)
-    table.insert(score_list, 3000)
-    table.insert(score_list, 4000)
-    table.insert(score_list, 10000)
+    local damage_score = math.floor(self.m_damage / 10000)
+    local time_score = math.floor((5000 / 300) * (300 - self.m_time))
+    
+    -- 난이도 점수
+    local diff = g_illusionDungeonData:parseStageID(self.m_stageID)
+    local diff_score = SCORE_DIFF[tonumber(diff)] or 0
+
+    -- 참가 점수
+    local participant = g_illusionDungeonData:getParticiPantInfo()
+    local participant_score = 0  
+    if (participant < 0) then
+        participant_score = SCORE_PART['none']
+    elseif (participant == 0) then
+        participant_score = SCORE_PART['illusion_dragon']
+    elseif (participant > 0) then
+        participant_score = SCORE_PART['my_dragon']
+    end
+
+    local total_score = damage_score + time_score + diff_score + participant_score
+
+    table.insert(score_list, damage_score) -- damage
+    table.insert(score_list, time_score) -- time
+    table.insert(score_list, diff_score) -- 난이도
+    table.insert(score_list, participant_score) -- 참여 점수
+    table.insert(score_list, total_score) -- 전체 점수
   
 
     -- 애니메이션 적용되는 라벨 저장

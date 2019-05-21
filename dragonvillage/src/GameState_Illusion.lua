@@ -19,17 +19,20 @@ end
 -------------------------------------
 function GameState_Illusion:makeResultUI(is_success)
     self.m_world:setGameFinish()
-    
+     -- @LOG : 스테이지 성공 시 클리어 시간
+	self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)  
     
     local world = self.m_world
     local stage_id = world.m_stageID
     local damage = total_damage
 
+    local t_result_ref = self:makeGameFinishParam(is_success)
+
     local ui = UI_GameResult_Illusion(stage_id,
         is_success,
-        damage,
-        t_result_ref)
-    
+        self.m_fightTimer,
+        self:getTotalDamage()
+        )
     
     --[[
     local total_damage = self:getTotalDamage()
