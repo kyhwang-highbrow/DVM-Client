@@ -287,13 +287,7 @@ function IDragonSkillManager:addSkillInfo(skill_info_list, skill_type, skill_id,
             end
 		end
         if (self.m_bInGameMode) then
-            -- Character:onEvent_underSelfHp(hp, max_hp) 에서 사용하기 좋게 value 순으로 정렬
-            if (skill_type == 'under_self_hp') then
-                table.sort(skill_info_list[skill_type], function(a, b) return a:getChanceValue() > b:getChanceValue() end)
-            -- 기존 정렬 방식인데 의도는 무엇인지 모르겠음
-            else
-                table.sort(skill_info_list[skill_type], function(a, b) return a.m_skillID > b.m_skillID end)
-            end
+            table.sort(skill_info_list[skill_type], function(a, b) return a.m_skillID > b.m_skillID end)
         end
     end
 
@@ -313,6 +307,16 @@ function IDragonSkillManager:addSkillInfo(skill_info_list, skill_type, skill_id,
     end
 
     return skill_indivisual_info
+end
+
+-------------------------------------
+-- function setSelfHpSkillOrder
+-------------------------------------
+function IDragonSkillManager:setSelfHpSkillOrder()
+    local skill_info_list = self.m_lSkillInfo['under_self_hp'] or {}
+    -- Character:onEvent_underSelfHp(hp, max_hp) 에서 사용하기 좋게 value 순으로 정렬
+    table.sort(skill_info_list, function(a, b) return a:getChanceValue() > b:getChanceValue() end)
+    self.m_lSkillInfo['under_self_hp'] = skill_info_list
 end
 
 -------------------------------------

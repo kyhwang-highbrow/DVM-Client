@@ -2881,6 +2881,10 @@ function Character:getStat(stat_type)
 		return 0
 	end
 
+    if (not self.m_statusCalc) then
+        return 0
+    end
+    
     return self.m_statusCalc:getFinalStat(stat_type)
 end
 

@@ -69,8 +69,11 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
 		self:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
 		self:initDragonSkillManager(t_dragon_data)
 		self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
-    
-		self:makeCastingNode()
+        
+        -- under_self_hp 스킬들은 스텟 구한다음 chance_value 순으로 다시 정렬해줌
+        self:setSelfHpSkillOrder()
+		
+        self:makeCastingNode()
 		self:initTriggerListener()
 		self:initLogRecorder(doid or dragon_id)
 	end
