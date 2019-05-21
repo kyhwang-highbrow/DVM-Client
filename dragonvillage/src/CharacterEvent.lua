@@ -177,13 +177,16 @@ function Character:isDiffChanceValue(target_skill_id)
     local target_chance_value = self:getChanceValue(target_skill_id)
 
     for skill_type, status_effect_class in pairs(self.m_mStatusEffect) do
-        if (status_effect_class.m_keep_value) then
-            if (target_chance_value ~= status_effect_class.m_keep_value) then
-                return true
+        if (status_effect_class) then
+            if (status_effect_class.m_keep_value) then
+                if (target_chance_value ~= status_effect_class.m_keep_value) then
+                    return true
+                end
             end
         end
     end
-    
+
+    return false
 end
 
 -------------------------------------
