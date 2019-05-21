@@ -15,7 +15,10 @@ function UI_NestDungeonListItem:init(t_data)
     self.m_tData = t_data
 
     local vars = self:load('dungeon_item.ui')
-
+    
+    if (not t_data) then
+        return
+    end
     self:initUI(t_data)
     self:initButton()
     self:refresh()

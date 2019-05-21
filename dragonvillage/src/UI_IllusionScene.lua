@@ -65,6 +65,13 @@ function UI_IllusionScene:initUI()
     table_view:setCellUIClass(UI_IllusionStageListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_stage_info, make_item)
+
+    -- 왼측 환상 던전용 정보창
+    local ui_illusion_info = UI_NestDungeonListItem()
+    local illusion_sprite = cc.Sprite:create('res/ui/event/ed_illusion_tab.png')
+    ui_illusion_info.vars['dungeonImgNode']:addChild(illusion_sprite)
+
+    vars['dungeonNode']:addChild(ui_illusion_info.root)
 end
 
 
