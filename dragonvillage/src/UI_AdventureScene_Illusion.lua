@@ -42,8 +42,8 @@ function UI_AdventureScene_Illusion:initUI()
     local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
     local l_illusion_dragon = struct_illusion:getIllusionDragonList()
     local illusion_dragon_did = tonumber(l_illusion_dragon[1])
-    local dragon_animator = UIC_DragonAnimator()
 
+    local dragon_animator = UIC_DragonAnimator()
     dragon_animator:setDragonAnimator(illusion_dragon_did, 3)
     dragon_animator:setTalkEnable(false)
     dragon_animator:setIdle()
@@ -57,6 +57,8 @@ function UI_AdventureScene_Illusion:initButton()
     local vars = self.vars
     vars['stageBtn01']:registerScriptTapHandler(function() self:gotoDungeon() end)
     vars['dragonInfoBtn']:registerScriptTapHandler(function() self:showDragonInfo() end)
+    vars['exchangeShopBtn']:registerScriptTapHandler(function() self:gotoExchangeShop() end)
+    vars['rankBtn']:registerScriptTapHandler(function()  end)
 end
 
 -------------------------------------
@@ -73,6 +75,14 @@ function UI_AdventureScene_Illusion:showDragonInfo()
     local l_illusion_dragon_data = g_illusionDungeonData:getIllusionDragonList()
     UI_SimpleDragonInfoPopup(l_illusion_dragon_data[1])
 end
+
+-------------------------------------
+-- function gotoExchangeShop
+-------------------------------------
+function UI_AdventureScene_Illusion:gotoExchangeShop()
+    UI_IllusionShop()
+end
+    
 
 
 

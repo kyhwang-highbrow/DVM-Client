@@ -1275,6 +1275,7 @@ local t_module = {
     'UI_EventBingoRewardListItem',
     'UI_EventBingoListItem',
     'UI_EventBingo',
+    'UI_IllusionShop',-- 환상 던전 교환소
 
 	-- UI : 연출
 	'DirectingCharacter',
