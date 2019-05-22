@@ -178,10 +178,10 @@ function StructLanguage:create_th()
     struct.m_displayName = 'ภาษาไทย'
     struct.m_bActive = true
     struct.m_translateFile = 'translate/lang_th'
-    struct.m_fontRes = 'common_font_01_ja.ttf'
+    struct.m_fontRes = 'common_font_01_th.ttf'
     struct.m_fontSizeScale = 0.8
     struct.m_fontScaleRateX = 0.8
-    struct.m_fontScaleRateY = 8
+    struct.m_fontScaleRateY = 0.8
 
     return struct
 end
