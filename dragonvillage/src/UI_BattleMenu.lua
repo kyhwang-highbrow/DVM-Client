@@ -308,9 +308,10 @@ function UI_BattleMenu:initDungeonTab()
         table.insert(l_item, 'gold_dungeon') -- 황금 던전
     else
         -- 클랜 던전은 클랜 가입시에만 오픈
-        if (not g_clanData:isClanGuest()) then
-            table.insert(l_item, 'clan_raid') -- 클랜 던전
-        end
+        -- 클랜 던전은 클랜 탭에서 보여짐
+        -- if (not g_clanData:isClanGuest()) then
+        --     --table.insert(l_item, 'clan_raid') -- 클랜 던전
+        -- end
     end
 
     -- 고대 유적 던전은 열린 경우에만 노출 (악몽던전 앞에)
@@ -364,7 +365,7 @@ end
 function UI_BattleMenu:initCompetitionTab()
     local vars = self.vars
     -- 메뉴 아이템 x축 간격
-    local interval_x = 438
+    local interval_x = 415
     local pos_y = -80
 
     local l_content_str = {}

@@ -21,7 +21,7 @@ function UI_BattleMenuItem_Competition:init(content_type, list_count)
     elseif (list_count >= 5) then
         ui_name = 'battle_menu_competition_item_03.ui'
     end
-    
+
     local vars = self:load(ui_name)
 
     self:initUI()
@@ -52,8 +52,14 @@ function UI_BattleMenuItem_Competition:initUI()
 
 	end
 
-    vars['itemVisual']:changeAni(content_type .. '_02', true)
-
+    if (self.m_menuListCnt == 4) then
+        vars['itemVisual']:changeAni(content_type .. '_list', true)
+    elseif (self.m_menuListCnt == 5) then
+        vars['itemVisual']:changeAni(content_type .. '_02', true)
+    else
+        vars['itemVisual']:changeAni(content_type, true)
+    end
+    
 end
 
 -------------------------------------
