@@ -30,7 +30,7 @@ end
 -------------------------------------
 -- function onEnter
 -------------------------------------
-function SceneGame:onEnter()
+function SceneGameIllusion:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
  

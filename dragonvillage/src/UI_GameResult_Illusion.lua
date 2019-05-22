@@ -103,7 +103,7 @@ end
 -- @brief 스테이지 난이도를 표시
 --        모험모드에서 사용하므로 고대의 탑에선 off
 -------------------------------------
-function UI_GameResult_AncientTower:init_difficultyIcon(stage_id)
+function UI_GameResult_Illusion:init_difficultyIcon(stage_id)
     local vars = self.vars
     vars['difficultySprite']:setVisible(false)
     vars['gradeLabel']:setVisible(false)

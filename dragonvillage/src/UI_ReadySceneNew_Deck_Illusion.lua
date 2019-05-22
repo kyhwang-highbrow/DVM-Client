@@ -242,7 +242,7 @@ end
 -------------------------------------
 -- function setSlot
 -------------------------------------
-function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
+function UI_ReadySceneNew_Deck_Illusion:setSlot(idx, doid, skip_sort)
     do -- 갯수 체크
         local count = table.count(self.m_tDeckMap)
         if self.m_lDeckList[idx] then
