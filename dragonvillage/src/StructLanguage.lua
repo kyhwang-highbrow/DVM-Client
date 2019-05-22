@@ -138,7 +138,7 @@ function StructLanguage:create_zh()
     struct.m_displayName = '中文(繁體)'
     struct.m_bActive = true
     struct.m_translateFile = 'translate/lang_zhtw'
-    struct.m_fontRes = 'common_font_01_cn.ttf'
+    struct.m_fontRes = 'common_font_01_cn.ttc'
     struct.m_fontSizeScale = 0.88
     struct.m_fontScaleRateX = 0.88
     struct.m_fontScaleRateY = 0.98
