@@ -201,7 +201,7 @@ function StructLanguage:create_es()
     struct.m_fontRes = 'common_font_01_ja.ttf' -- 일본어 폰트 같이 사용 (히스토리는 모르겠음 sgkim)
     struct.m_fontSizeScale = 0.7
     struct.m_fontScaleRateX = 0.75
-    struct.m_fontScaleRateY = 82
+    struct.m_fontScaleRateY = 0.82
 
     return struct
 end
