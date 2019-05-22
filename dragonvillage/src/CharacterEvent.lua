@@ -143,7 +143,7 @@ function Character:onEvent_underSelfHp(hp, max_hp)
     do
         local list = self:getSkillIndivisualInfo('under_self_hp') or {}
 
-        for i, v in pairs(list) do
+        for i, v in ipairs(list) do
             if (v:isEndCoolTime()) then
                 if (percentage <= v:getChanceValue()) then
                     -- chance_value값(ex)무적 50%, 생존 30%)이 다른 스킬은 동시에 발동 안됨
@@ -246,7 +246,7 @@ function Character:onEvent_underTeammateHp(hp, max_hp, unit)
 
     local percentage = (hp / max_hp) * 100
 
-    for i, v in pairs(list) do
+    for i, v in ipairs(list) do
         if (v:isEndCoolTime()) then        
             if (percentage <= v:getChanceValue()) then            
                 local is_diff_chance_value = unit:isDiffChanceValue(v.m_skillID)
