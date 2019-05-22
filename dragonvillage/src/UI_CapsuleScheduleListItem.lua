@@ -259,6 +259,7 @@ function UI_CapsuleScheduleListItem:makeItemCard(reward_name, node_name)
         empty_ui:load('icon_item_item.ui')
         empty_ui.vars['lockSprite']:setVisible(true)
         empty_ui.vars['numberLabel']:setVisible(false)
+        empty_ui.root:setSwallowTouch(false)
         item_card = empty_ui
     
         -- 카드 중 한개라도 빈 카드면 타이틀을 숨김
