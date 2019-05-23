@@ -79,6 +79,8 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
     local l_item = self.m_itemList
     self.m_offsetGap = offset_gap
     if (#l_item == 0) then
+        l_item = {} 
+        self.m_rankTableView:setItemList(l_item)
         return
     end
     
@@ -184,7 +186,6 @@ function UIC_RankingList:makeRankList(node)
     table_view:setCellUIClass(self.m_cellUIClass, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:makeDefaultEmptyDescLabel(self.m_emptyMsg)
-
     self.m_rankTableView = table_view
 
     if (self.m_makeMyRankCb) then

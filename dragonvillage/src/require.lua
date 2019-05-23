@@ -896,6 +896,7 @@ local t_module = {
     'UI_AncientTowerBestDeckListItem',
     'UI_AncientTowerBestDeckPopup',
     'UI_IllusionScene',
+    'UI_IllusionRank',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',

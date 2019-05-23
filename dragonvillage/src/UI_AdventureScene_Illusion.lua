@@ -58,7 +58,7 @@ function UI_AdventureScene_Illusion:initButton()
     vars['stageBtn01']:registerScriptTapHandler(function() self:gotoDungeon() end)
     vars['dragonInfoBtn']:registerScriptTapHandler(function() self:showDragonInfo() end)
     vars['exchangeShopBtn']:registerScriptTapHandler(function() self:gotoExchangeShop() end)
-    vars['rankBtn']:registerScriptTapHandler(function()  end)
+    vars['rankBtn']:registerScriptTapHandler(function() self:showRankInfo() end)
 end
 
 -------------------------------------
@@ -74,6 +74,13 @@ end
 function UI_AdventureScene_Illusion:showDragonInfo()
     local l_illusion_dragon_data = g_illusionDungeonData:getIllusionDragonList()
     UI_SimpleDragonInfoPopup(l_illusion_dragon_data[1])
+end
+
+-------------------------------------
+-- function showRankInfo
+-------------------------------------
+function UI_AdventureScene_Illusion:showRankInfo()
+    UI_IllusionRank()
 end
 
 -------------------------------------
