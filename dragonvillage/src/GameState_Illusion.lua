@@ -77,8 +77,6 @@ end
 -- @brief
 -------------------------------------
 function GameState_Illusion:onEvent(event_name, t_event, ...)
-    PARENT.onEvent(self, event_name, t_event, ...)
-
     -- 보스 체력 공유 처리
     if (event_name == 'character_set_hp') then
         local prev_hp = t_event['prev_hp']
@@ -109,6 +107,9 @@ function GameState_Illusion:onEvent(event_name, t_event, ...)
 
         self.m_world.m_inGameUI:setTotalDamage(total_damage)
 
+        -- GameState_ClanRaid의 character_set_hp는 동작하지 않도록 초기화
+        event_name = ''
+
     -- 보스 막타 데미지
     elseif (event_name == 'clan_boss_final_damage') then
         local damage = t_event['damage']
@@ -133,4 +134,6 @@ function GameState_Illusion:onEvent(event_name, t_event, ...)
 
         self.m_world.m_inGameUI:setTotalDamage(total_damage)
     end
+
+    PARENT.onEvent(self, event_name, t_event, ...)
 end
