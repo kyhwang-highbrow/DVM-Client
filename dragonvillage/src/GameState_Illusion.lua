@@ -4,7 +4,7 @@ local PARENT = GameState_ClanRaid
 -- class GameState_Illusion
 -------------------------------------
 GameState_Illusion = class(PARENT, {
-
+        m_isWin = 'boolean',
     })
 
 -------------------------------------
@@ -15,9 +15,25 @@ function GameState_Illusion:init(world)
 end
 
 -------------------------------------
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
+-------------------------------------
+function GameState_Illusion:initState()
+    PARENT.initState(self)
+
+    self:addState(GAME_STATE_START, GameState_Illusion.update_start)
+    self:addState(GAME_STATE_FIGHT, GameState_Illusion.update_fight)
+    self:addState(GAME_STATE_SUCCESS_WAIT, GameState_Illusion.update_success_wait)
+    self:addState(GAME_STATE_SUCCESS, GameState_Illusion.update_success)
+    self:addState(GAME_STATE_FAILURE, GameState_Illusion.update_failure)
+    self:addState(GAME_STATE_RESULT, GameState_Illusion.update_result)
+end
+
+-------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState_Illusion:makeResultUI(is_success)
+
     self.m_world:setGameFinish()
      -- @LOG : 스테이지 성공 시 클리어 시간
 	self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)  
@@ -27,7 +43,6 @@ function GameState_Illusion:makeResultUI(is_success)
     local damage = total_damage
 
     local t_result_ref = self:makeGameFinishParam(is_success)
-
     local ui = UI_GameResult_Illusion(stage_id,
         is_success,
         self.m_fightTimer,
@@ -70,6 +85,113 @@ function GameState_Illusion:makeResultUI(is_success)
     -- 최초 실행
     func_network_game_finish()
     --]]
+end
+
+-------------------------------------
+-- function update_success
+-------------------------------------
+function GameState_Illusion.update_success(self, dt)
+    if (self.m_stateTimer == 0) then
+        local world = self.m_world
+
+        -- 모든 적들을 죽임
+        world:removeAllEnemy()
+        world:removeMissileAndSkill()
+
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
+
+        for i, hero in ipairs(world:getDragonList()) do
+            if (not hero:isDead()) then
+                hero:killStateDelegate()
+                hero.m_animator:changeAni('pose_1', true)
+            end
+        end
+
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
+        end)
+
+        self.m_stateParam = true
+
+    elseif (self.m_stateTimer >= 3.5) then
+        if self.m_stateParam then
+            self.m_stateParam = false
+            self.m_isWin = true
+            self:changeState(GAME_STATE_RESULT)
+        end
+    end
+end
+
+-------------------------------------
+-- function update_failure
+-------------------------------------
+function GameState_Illusion.update_failure(self, dt)
+    local world = self.m_world
+
+    if (self:getStep() == 0) then
+        if (self:isBeginningStep()) then
+            if (world.m_tamer) then
+                world.m_tamer:changeState('dying')
+            end
+
+        elseif (self:isPassedStepTime(1.5)) then
+            if world.m_skillIndicatorMgr then
+                world.m_skillIndicatorMgr:clear(true)
+            end
+
+            -- 스킬과 미사일도 다 날려 버리자
+	        world:removeMissileAndSkill()
+            world:removeEnemyDebuffs()
+            world:cleanupItem()
+
+            -- 드래곤을 모두 죽임
+            world:removeAllHero()
+
+            -- 기본 배속으로 변경
+            world.m_gameTimeScale:setBase(1)
+
+            world.m_inGameUI:doActionReverse(function()
+                world.m_inGameUI.root:setVisible(false)
+            end)
+        else
+            -- 적군 상태 체크
+            local b = true
+
+            for _, enemy in pairs(world:getEnemyList()) do
+                if (not enemy:isDead() and enemy.m_state ~= 'wait') then
+                    b = false
+                end
+            end
+
+            if (b or self:getStepTimer() >= 4) then
+                self:nextStep()
+            end
+        end
+    
+    elseif (self:getStep() == 1) then
+        if (self:isBeginningStep()) then
+            for i,enemy in ipairs(world:getEnemyList()) do
+                if (not enemy:isDead()) then
+                    enemy:killStateDelegate()
+                    enemy.m_animator:changeAni('pose_1', true)
+                end
+            end
+        
+        elseif (self:getStepTimer() >= 3.5) then
+            self.m_isWin = false
+            self:changeState(GAME_STATE_RESULT)
+        end
+    end
+end
+
+-------------------------------------
+-- function update_result
+-------------------------------------
+function GameState_Illusion.update_result(self, dt)
+    if (self.m_stateTimer == 0) then
+        self:makeResultUI(self.m_isWin)
+    end
 end
 
 -------------------------------------

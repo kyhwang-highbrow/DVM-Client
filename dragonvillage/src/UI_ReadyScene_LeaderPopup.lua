@@ -129,7 +129,7 @@ function UI_ReadyScene_LeaderPopup.makeLeaderCellUI(t_data)
 	-- 환상던전 ReadyScene에서만 환상던전 전용 드래곤 추가
 	-- 리더 드래곤이 보유 드래곤 목록에 없을 때, 환상던전 전용 드래곤인지 확인하는 단계
     if (not t_dragon_data) then
-        if (string.match(doid,'illusionDragon')) then
+        if (string.match(doid,'illusion')) then
             if (g_illusionDungeonData) then
                 t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(doid)
             end

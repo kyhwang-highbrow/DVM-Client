@@ -182,13 +182,9 @@ function UI_GameResult_Illusion:direction_showScore()
     self.root:stopAllActions()
     local is_success = self.m_bSuccess
     self:setSuccessVisual_Ancient()
-    -- 성공시에만 스코어 연출
-    if (is_success) then
-        self:setAnimationData()
-        self:makeScoreAnimation()
-    else
-        self:doNextWork()
-    end
+    self:setAnimationData()
+    self:makeScoreAnimation()
+
 end
 
 -------------------------------------
@@ -215,7 +211,14 @@ function UI_GameResult_Illusion:setAnimationData()
 
     local score_list = {}
     local damage_score = math.floor(self.m_damage / 10000)
-    local time_score = math.floor((5000 / 300) * (300 - self.m_time))
+    
+    local time_score = 0
+    if (self.m_bSuccess) then
+        time_score = math.floor((5000 / 300) * (300 - self.m_time))
+    else
+        time_score = math.floor((5000 / 300) * (self.m_time))
+    end
+     
     
     -- 난이도 점수
     local diff = g_illusionDungeonData:parseStageID(self.m_stageID)
@@ -439,13 +442,13 @@ function UI_GameResult_Illusion:setSuccessVisual_Ancient()
     vars['successVisual']:setVisible(true)
     if (is_success == true) then
         SoundMgr:playBGM('bgm_dungeon_victory', false)  
-        vars['successVisual']:changeAni('success_tower_appear', false)
+        vars['successVisual']:changeAni('clear_idle', false)
         vars['successVisual']:addAniHandler(function()
-            vars['successVisual']:changeAni('success_tower_idle', true)
+            vars['successVisual']:changeAni('clear_idle', true)
         end)
     else
         SoundMgr:playBGM('bgm_dungeon_lose', false)
-        vars['successVisual']:changeAni('fail')
+        vars['successVisual']:changeAni('colossum_defeat_idle_02')
     end
 end
 
