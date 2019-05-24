@@ -80,7 +80,6 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
     self.m_offsetGap = offset_gap
     if (#l_item == 0) then
         l_item = {} 
-        self.m_rankTableView:setItemList(l_item)
         return
     end
     
@@ -103,14 +102,12 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
         local next_data = { rank = 'next' }
         l_item['next'] = next_data
     end
-
-    self.m_rankTableView:setItemList(l_item)
-
+    self.m_itemList = l_item
 
     do-- 테이블 뷰 정렬
         local function sort_func(a, b)
-            local a_data = a['data']
-            local b_data = b['data']
+            local a_data = a
+            local b_data = b
 
             -- 이전, 다음 버튼 정렬
             if (a_data.rank == 'prev') then
@@ -129,7 +126,7 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
             return a_rank < b_rank
         end
 
-        table.sort(self.m_rankTableView.m_itemList, sort_func)
+        table.sort(self.m_itemList, sort_func)
     end
 
 
@@ -186,6 +183,8 @@ function UIC_RankingList:makeRankList(node)
     table_view:setCellUIClass(self.m_cellUIClass, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:makeDefaultEmptyDescLabel(self.m_emptyMsg)
+    table_view:setItemList(l_item)
+
     self.m_rankTableView = table_view
 
     if (self.m_makeMyRankCb) then
