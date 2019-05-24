@@ -36,6 +36,18 @@ function UI_IllusionRank:initUI()
 
     self:make_UIC_SortList()
 
+    self:initRank()
+    self:initReward()
+
+    
+end
+
+-------------------------------------
+-- function initRank
+-- @brief
+-------------------------------------
+function UI_IllusionRank:initRank()
+    local vars = self.vars
     local rank_node = vars['rankListNode']
 
     local make_my_rank_cb = function()
@@ -78,6 +90,31 @@ function UI_IllusionRank:initUI()
     rank_list:setOffset(1)
     rank_list:setFocus('rank', 1)
 end
+
+-------------------------------------
+-- function initReward
+-- @brief
+-------------------------------------
+function UI_IllusionRank:initReward()
+    local vars = self.vars
+    local rank_node = vars['rewardNode']
+    
+    local l_rank_list = {}
+    for i=1,20 do
+        local temp = {}
+        temp['rank'] = i
+        table.insert(l_rank_list, temp)
+    end
+
+    local rank_list = UIC_RankingList()
+    rank_list:setRankUIClass(UI_IllusionRewardListItem, nil)
+    rank_list:setRankList(l_rank_list)
+    rank_list:setEmptyStr('랭킹 정보가 없습니다')
+    rank_list:makeRankList(rank_node)
+    rank_list:setOffset(1)
+    rank_list:setFocus('rank', 1)
+end
+
 
 -------------------------------------
 -- function make_UIC_SortList
@@ -179,5 +216,31 @@ UI_IllusionRankListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_IllusionRankListItem:init()
+    local vars = self:load('event_dungeon_ranking_reward_item.ui')
+end
+
+
+
+
+
+
+
+
+
+
+
+
+local PARENT = class(UI, IRankListItem:getCloneTable())
+
+-------------------------------------
+-- class UI_IllusionRewardListItem
+-------------------------------------
+UI_IllusionRewardListItem = class(PARENT, {
+     })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_IllusionRewardListItem:init()
     local vars = self:load('event_dungeon_ranking_reward_item.ui')
 end
