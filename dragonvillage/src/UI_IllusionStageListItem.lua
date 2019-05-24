@@ -6,7 +6,7 @@
 UI_IllusionStageListItem = class(PARENT, {
     })
 
-UI_IllusionStageListItem.DIFF = {['normal'] = Str('쉬움'), ['hard'] = Str('보통'), ['hell'] = Str('지옥'), ['hellfire'] = Str('불지옥') } 
+UI_IllusionStageListItem.DIFF = {['normal'] = Str('보통'), ['hard'] = Str('어려움'), ['hell'] = Str('지옥'), ['hellfire'] = Str('불지옥') } 
 
 -------------------------------------
 -- function refresh
@@ -26,7 +26,6 @@ function UI_IllusionStageListItem:refresh(t_data)
         local diff_color = COLOR['diff_' .. diff_str]
         vars['dungeonLevelLabel']:setString(UI_IllusionStageListItem.DIFF[diff_str])
         vars['dungeonLevelLabel']:setColor(diff_color)
-        vars['dungeonNameLabel']:setVisible(false)
     end
 
     do -- 스태미나 갯수 표시

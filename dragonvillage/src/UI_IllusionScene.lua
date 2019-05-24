@@ -72,10 +72,19 @@ function UI_IllusionScene:initUI()
     ui_illusion_info.vars['titleLabel']:setString(Str('죄악의 환상'))
     ui_illusion_info.vars['meRankLabel']:setString(Str('내 최고 점수 : '))
     ui_illusion_info.vars['topRankLabel']:setString(Str('랭킹 1위 점수 : '))
-    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
-    ui_illusion_info.vars['timeLabel']:setString(Str('이벤트 종료 까지') .. ' '.. time_text)
-    vars['dungeonNode']:addChild(ui_illusion_info.root)
     
+    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion_legend')
+    ui_illusion_info.vars['timeLabel']:setString(Str('이벤트 종료 까지') .. ' '.. time_text)
+    
+    -- 배경 이미지
+    local event_sprite = cc.Sprite:create('res/ui/event/event_dungeon/ed_tab_illusion.png')
+    event_sprite:setDockPoint(cc.p(0.5, 0.5))
+    ui_illusion_info.vars['dungeonImgNode']:addChild(event_sprite)
+
+    vars['dungeonNode']:addChild(ui_illusion_info.root)
+
+    vars['dscLabel']:setVisible(true)
+    vars['rankBtn']:setVisible(true)
 end
 
 

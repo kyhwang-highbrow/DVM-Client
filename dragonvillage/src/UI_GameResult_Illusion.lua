@@ -215,8 +215,6 @@ function UI_GameResult_Illusion:setAnimationData()
     local time_score = 0
     if (self.m_bSuccess) then
         time_score = math.floor((5000 / 300) * (300 - self.m_time))
-    else
-        time_score = math.floor((5000 / 300) * (self.m_time))
     end
      
     

@@ -41,7 +41,7 @@ end
 
 -------------------------------------
 -- function initUI
--------------------------------------
+------------------------------------
 function UI_EventDungeon:initUI()
     local vars = self.vars
     local node = self.vars['listNode']
@@ -97,7 +97,7 @@ function UI_EventDungeonTabListItem:initUI()
 
     vars['eventLabel']:setString(Str('환상 던전'))
 
-    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
+    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion_legend')
     vars['timeLabel']:setString(time_text)
 
     local event_sprite = cc.Sprite:create('res/ui/event/list_ed_illusion.png')
