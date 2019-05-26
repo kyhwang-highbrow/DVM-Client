@@ -195,7 +195,7 @@ function UINavigatorDefinition:goTo_event_illusion_dungeon(...)
     local args = {...}
     local stage_id = args[1]
 
-    -- 모험 모드가 열려있을 경우
+    -- 환상 이벤트가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_EventDungeon')
     if (is_opend == true) then
         self:closeUIList(idx)
@@ -206,30 +206,7 @@ function UINavigatorDefinition:goTo_event_illusion_dungeon(...)
     end
 
     local function finish_cb()
-        --[[
-        -- 전투 메뉴가 열려있을 경우
-        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
-        if (is_opend == true) then
-            self:closeUIList(idx)
-            ui:setTab('adventure')
-            ui:resetButtonsPosition()
-            UI_AdventureSceneNew(stage_id)
-            return
-        end
-
-        -- 로비가 열려있을 경우
-        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
-        if (is_opend == true) then
-            self:closeUIList(idx)
-            local battle_menu_ui = UI_BattleMenu()
-            battle_menu_ui:setTab('adventure')
-            battle_menu_ui:resetButtonsPosition()
-            UI_AdventureSceneNew(stage_id)
-            return
-        end
-        --]]
-        
-        do-- Scene으로 모험 모드 동작
+        do-- Scene으로 동작
             local function close_cb()
                 UINavigatorDefinition:goTo('lobby')
             end
@@ -243,8 +220,8 @@ function UINavigatorDefinition:goTo_event_illusion_dungeon(...)
 
     end
 
-    -- 모험 정보 요청
-    g_adventureData:request_adventureInfo(finish_cb, fail_cb)
+    -- 정보 요청
+    g_illusionDungeonData:request_illusionInfo(finish_cb, fail_cb) -- param : finish_cb, fail_cb, include_reward
 end
 
 -------------------------------------

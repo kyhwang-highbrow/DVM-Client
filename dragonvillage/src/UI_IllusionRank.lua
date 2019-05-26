@@ -56,6 +56,7 @@ function UI_IllusionRank:initRank()
     end
     
     local l_rank_list = {}
+
     for i=1,20 do
         local temp = {}
         temp['rank'] = i
@@ -198,7 +199,19 @@ function UI_IllusionRank:onChangeRankingType(type)
     --]]
 end
 
-
+-------------------------------------
+-- function request_rank
+-------------------------------------
+function UI_IllusionRank:request_rank()
+    local function finish_cb()
+        self.m_rankOffset = g_grandArena.m_nGlobalOffset
+        self:makeRankTableView()
+        self:refresh_playerUserInfo()
+    end
+    local rank_type = self.m_rankType
+    local offset = self.m_rankOffset
+    g_illusionDungeonData:request_illusionRankInfo(rank_type, offset, finish_cb)
+end
 
 
 

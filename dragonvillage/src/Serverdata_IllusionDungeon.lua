@@ -7,7 +7,6 @@ Serverdata_IllusionDungeon = class({
 
     m_lOpenEventId = 'list',
 
-    -- 환상 이벤트 공용 매개변수
     m_lSortData = 'list', -- 정렬 관련 세팅 정보 보관
     m_lDragonDeck = 'list', -- 서버덱에 저장하는 대신 여기서 들고 있음
 
@@ -189,36 +188,8 @@ end
 -------------------------------------
 function Serverdata_IllusionDungeon:setDragonsSortData(doid)
     local struct_dragon_object = self:getDragonDataFromUid(doid)
-    local t_sort_data = self:makeDragonsSortData(struct_dragon_object)
+    local t_sort_data = g_dragonsData:makeDragonsSortData(struct_dragon_object)
     self.m_lSortData[doid] = t_sort_data
-
-    return t_sort_data
-end
-
--------------------------------------
--- function makeDragonsSortData
--------------------------------------
-function Serverdata_IllusionDungeon:makeDragonsSortData(struct_dragon_object)
-
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[struct_dragon_object['did']]
-
-    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(struct_dragon_object)
-
-    local t_sort_data = {}
-    t_sort_data['doid'] = doid
-    t_sort_data['did'] = struct_dragon_object['did']
-    t_sort_data['hp'] = status_calc:getFinalStat('hp')
-    t_sort_data['def'] = status_calc:getFinalStat('def')
-    t_sort_data['atk'] = status_calc:getFinalStat('atk')
-    t_sort_data['attr'] = attributeStrToNum(t_dragon['attr'])
-    t_sort_data['lv'] = struct_dragon_object['lv']
-    t_sort_data['grade'] = struct_dragon_object['grade']
-    t_sort_data['evolution'] = struct_dragon_object['evolution']
-    t_sort_data['rarity'] = dragonRarityStrToNum(t_dragon['rarity'])
-    t_sort_data['friendship'] = struct_dragon_object:getFlv()
-    t_sort_data['combat_power'] = struct_dragon_object:getCombatPower(status_calc)
-    t_sort_data['updated_at'] = struct_dragon_object['updated_at']
 
     return t_sort_data
 end
@@ -258,6 +229,7 @@ function Serverdata_IllusionDungeon:getIllusionStageTitle()
 
 -------------------------------------
  -- function loadIllusionDragonInfo
+ -- @brief 환상던전 드래곤 정보를 로컬데이터에서 불러옴
 -------------------------------------
 function Serverdata_IllusionDungeon:loadIllusionDragonInfo()
     self.m_lillusionDragonInfo = {}
@@ -345,6 +317,249 @@ function Serverdata_IllusionDungeon:getParticiPantInfo()
     return participant_count
 end
 
+-------------------------------------
+ -- function request_illusionInfo
+-------------------------------------
+function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
 
+    -- 콜백 함수
+    local function success_cb(ret)
+        if (finish_cb) then
+            finish_cb()
+        end
+    end
+
+    -- 콜백 함수
+    local function fail_cb(ret)
+        if (fail_cb) then
+            fail_cb()
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/illusion_dungeon/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
+
+-------------------------------------
+-- function request_illusionStart
+-------------------------------------
+function Serverdata_IllusionDungeon:request_illusionStart(finish_cb, fail_cb)
+    local func_request
+    local func_success_cb
+    local func_response_status_cb
+
+    local stage = g_illusionDungeonData:getCurIllusionStageId()
+    func_request = function()
+        -- 유저 ID
+        local uid = g_userData:get('uid')
+
+        -- 네트워크 통신
+        local ui_network = UI_Network()
+        ui_network:setUrl('/game/illusion_dungeon/start')
+        ui_network:setParam('uid', uid)
+        ui_network:setParam('dungeon_number', 1) -- 전설 환상 던전으로 고정
+        ui_network:setParam('deck_name', 'illusion')
+        ui_network:setParam('is_mydragon', 0) -- 환상 드래곤 부류의 내 드래곤을 사용했나 여부 (아직 서버로직 확실치 않음)
+        ui_network:setParam('stage', stage)
+        ui_network:setMethod('POST')
+        ui_network:setSuccessCB(func_success_cb)
+        ui_network:setResponseStatusCB(response_status_cb)
+        ui_network:setFailCB(fail_cb)
+        ui_network:setRevocable(true)
+        ui_network:setReuse(false)
+        ui_network:request()
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    func_response_status_cb = function(ret)
+        --[[
+        if (ret['status'] == -1108) then
+            -- 비슷한 티어 매칭 상대가 없는 상태
+            -- 콜로세움 UI로 이동
+            local function ok_cb()
+                UINavigator:goTo('arena')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('현재 점수 구간 내의 대전 가능한 상대가 없습니다.\n다른 상대의 콜로세움 참여를 기다린 후에 다시 시도해 주세요.'), ok_cb)
+            return true
+        end
+        --]]
+
+        return false
+    end
+
+    -- 성공 콜백
+    func_success_cb = function(ret)
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+        --[[
+        -- 상대방 정보 여기서 설정
+        if (ret['match_user']) then
+            self:makeMatchUserInfo(ret['match_user'])
+        end
+        --]]
+        self.m_gameKey = ret['gamekey']
+
+        -- 실제 플레이 시간 로그를 위해 체크 타임 보냄
+        g_accessTimeData:startCheckTimer()
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    func_request()
+end
+
+-------------------------------------
+-- function request_illusionFinish
+-------------------------------------
+function Serverdata_IllusionDungeon:request_illusionFinish(is_win, play_time, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local stage = g_illusionDungeonData:getCurIllusionStageId()
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        if finish_cb then
+            finish_cb(ret, stage, is_open_next_team)
+        end
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        --[[
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 전투 UI로 이동
+            local function ok_cb()
+                UINavigator:goTo('battle_menu', 'competition')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+        --]]
+
+        return false
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/illusion_dungeon/finish')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('gamekey', self.m_gameKey)
+
+    ui_network:setParam('stage', stage)
+    ui_network:setParam('clear_type', difficulty) -- 승리/패배
+    --score
+    --check_time
+    --access_time
+    --exp_rate
+
+    -- 통신 후에는 삭제
+    self.m_tempLogData = {}
+
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+ -- function request_illusionRankInfo
+-------------------------------------
+function Serverdata_IllusionDungeon:request_illusionRankInfo(rank_type, offset, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        return {}
+    end
+
+    -- 콜백 함수
+    local function fail_cb(ret)
+        return {}
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/illusion_dungeon/rank')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('offset', offset)
+    ui_network:setParam('limit', 20)
+    ui_network:setParam('type', rank_type)
+    ui_network:setParam('dungeon_number', 1)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+
+-------------------------------------
+ -- function request_illusionShopInfo
+-------------------------------------
+function Serverdata_IllusionDungeon:request_illusionShopInfo(finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+           --[[
+           "table":{
+                "price":3000,
+                "id":1001,
+                "buy_count":2,
+                "item":"703003;1",
+                "token":700208
+              }
+            },{
+              "table":{
+                "price":2400,
+                "id":1002,
+                "buy_count":1,
+                "item":"779215;1",
+                "token":700208
+              }
+        --]]
+        if (finish_cb) then
+            finish_cb(ret)
+        end 
+    end
+
+     -- 콜백 함수
+    local function fail_cb(ret)
+        return {}
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/illusion_dungeon/exchange_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
 
 
