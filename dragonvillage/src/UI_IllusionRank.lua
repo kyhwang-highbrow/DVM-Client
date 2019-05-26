@@ -15,7 +15,7 @@ local RANK_OFFSET = 20
 function UI_IllusionRank:init()
     local vars = self:load('event_dungeon_ranking_popup.ui')
     UIManager:open(self, UIManager.SCENE)
-    
+
 	-- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_IllusionRank')
 	
@@ -34,12 +34,7 @@ end
 function UI_IllusionRank:initUI()
     local vars = self.vars
 
-    self:make_UIC_SortList()
-
-    self:initRank()
-    self:initReward()
-
-    
+    self:make_UIC_SortList()   
 end
 
 -------------------------------------
@@ -51,18 +46,19 @@ function UI_IllusionRank:initRank()
     local rank_node = vars['rankListNode']
 
     local make_my_rank_cb = function()
-        local me_rank = UI_IllusionRankListItem()
+        local my_data = g_illusionDungeonData.m_lillusionRank['my_info'] or {}
+        local me_rank = UI_IllusionRankListItem(my_data)
         vars['meRankNode']:addChild(me_rank.root)
     end
     
-    local l_rank_list = {}
-
+    local l_rank_list = g_illusionDungeonData.m_lillusionRank['list'] or {}
+    --[[
     for i=1,20 do
         local temp = {}
         temp['rank'] = i
         table.insert(l_rank_list, temp)
     end
-
+    --]]
     -- 이전 랭킹 보기
     local function click_prevBtn()
         --self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
@@ -184,9 +180,10 @@ function UI_IllusionRank:onChangeRankingType(type)
         self.m_rankType = 'clan'
         self.m_rankOffset = 1
     end
-    --[[
-    --self:request_Rank()
+
+    self:request_rank()
     
+    --[[   
     if (self.m_rewardTableView) then 
         return 
     end
@@ -204,9 +201,7 @@ end
 -------------------------------------
 function UI_IllusionRank:request_rank()
     local function finish_cb()
-        self.m_rankOffset = g_grandArena.m_nGlobalOffset
-        self:makeRankTableView()
-        self:refresh_playerUserInfo()
+        self:initRank()
     end
     local rank_type = self.m_rankType
     local offset = self.m_rankOffset
@@ -223,16 +218,57 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -- class UI_IllusionRankListItem
 -------------------------------------
 UI_IllusionRankListItem = class(PARENT, {
+        m_data = 'table',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_IllusionRankListItem:init()
-    local vars = self:load('event_dungeon_ranking_reward_item.ui')
+function UI_IllusionRankListItem:init(data)
+    local vars = self:load('event_dungeon_ranking_rank_item.ui')
+    self.m_data = data
+
+    self:initUI()
 end
 
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_IllusionRankListItem:initUI()
+    local vars = self.vars
+    local data = self.m_data
 
+    -- 랭킹
+    local struct_rank = StructUserInfoArena:create_forRanking(data)
+    local rank = struct_rank:getRankText()
+    vars['rankingLabel']:setString(rank)
+    
+    -- 리더 드래곤
+    local profile_sprite = struct_rank:getLeaderDragonCard()
+    vars['profileNode']:addChild(profile_sprite.root)
+
+    -- 점수
+    if (data['score'] >= 0) then
+        vars['scoreLabel']:setString(Str('{1}점', data['score']))
+    else
+        vars['scoreLabel']:setString('-')
+    end
+    
+    -- 유저 정보
+    local user_text = struct_rank:getUserText()
+    vars['userLabel']:setString(user_text)
+
+    -- 클랜 이름
+    local struct_clan = struct_rank:getStructClan()
+    if (struct_clan) then
+        local clan_name = struct_clan:getClanName()
+        local clan_mark = struct_clan:makeClanMarkIcon()
+        vars['clanLabel']:setString(clan_name)
+        vars['markNode']:addChild(clan_mark)
+    else
+        vars['clanLabel']:setString('')
+    end
+end
 
 
 

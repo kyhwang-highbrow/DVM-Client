@@ -12,6 +12,8 @@ Serverdata_IllusionDungeon = class({
 
     m_lillusionDragonInfo = 'List-StructDragonObject',
     m_lillusionRuneInfo = 'List-StructRuneObject',
+
+    m_lillusionRank = 'list',
 })
 
 
@@ -354,12 +356,12 @@ end
 -------------------------------------
 -- function request_illusionStart
 -------------------------------------
-function Serverdata_IllusionDungeon:request_illusionStart(finish_cb, fail_cb)
+function Serverdata_IllusionDungeon:request_illusionStart(stage_id, deck_name, finish_cb, fail_cb)
     local func_request
     local func_success_cb
     local func_response_status_cb
 
-    local stage = g_illusionDungeonData:getCurIllusionStageId()
+    local stage = stage_id
     func_request = function()
         -- 유저 ID
         local uid = g_userData:get('uid')
@@ -422,67 +424,6 @@ function Serverdata_IllusionDungeon:request_illusionStart(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_illusionFinish
--------------------------------------
-function Serverdata_IllusionDungeon:request_illusionFinish(is_win, play_time, finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-    local stage = g_illusionDungeonData:getCurIllusionStageId()
-
-    -- 성공 콜백
-    local function success_cb(ret)
-        -- staminas, cash 동기화
-        g_serverData:networkCommonRespone(ret)
-        g_serverData:networkCommonRespone_addedItems(ret)
-
-        if finish_cb then
-            finish_cb(ret, stage, is_open_next_team)
-        end
-    end
-
-    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
-    local function response_status_cb(ret)
-        --[[
-        -- invalid season
-        if (ret['status'] == -1364) then
-            -- 전투 UI로 이동
-            local function ok_cb()
-                UINavigator:goTo('battle_menu', 'competition')
-            end 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
-            return true
-        end
-        --]]
-
-        return false
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/game/illusion_dungeon/finish')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('gamekey', self.m_gameKey)
-
-    ui_network:setParam('stage', stage)
-    ui_network:setParam('clear_type', difficulty) -- 승리/패배
-    --score
-    --check_time
-    --access_time
-    --exp_rate
-
-    -- 통신 후에는 삭제
-    self.m_tempLogData = {}
-
-    ui_network:setMethod('POST')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(false)
-    ui_network:setReuse(false)
-    ui_network:request()
-end
-
--------------------------------------
  -- function request_illusionRankInfo
 -------------------------------------
 function Serverdata_IllusionDungeon:request_illusionRankInfo(rank_type, offset, finish_cb)
@@ -491,7 +432,10 @@ function Serverdata_IllusionDungeon:request_illusionRankInfo(rank_type, offset, 
 
     -- 콜백 함수
     local function success_cb(ret)
-        return {}
+        self.m_lillusionRank = ret
+        if (finish_cb) then
+            finish_cb()
+        end
     end
 
     -- 콜백 함수
