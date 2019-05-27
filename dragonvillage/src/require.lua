@@ -290,6 +290,7 @@ local t_module = {
     'UINavigator',
     'RenderTextureBatchNode',
     'AncientTowerScoreCalc',
+    'IllusionScoreCalc',
 	'MultiDeckMgr',
     'MatchCardPlayer',
 

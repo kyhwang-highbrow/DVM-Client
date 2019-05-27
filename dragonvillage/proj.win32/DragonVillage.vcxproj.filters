@@ -4084,6 +4084,9 @@
     <None Include="..\src\UI_IllusionRank.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\IllusionScoreCalc.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

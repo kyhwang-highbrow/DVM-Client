@@ -34,6 +34,7 @@ end
 -------------------------------------
 function GameState_Illusion:makeResultUI(is_success)
     self.m_world:setGameFinish()
+    local score_calc = IllusionScoreCalc()
 
        -- UI연출에 필요한 테이블들
     local t_result_ref = {}
@@ -46,8 +47,19 @@ function GameState_Illusion:makeResultUI(is_success)
 
     -- 1. 네트워크 통신
     func_network_game_finish = function()
-        local t_param = self:makeGameFinishParam(is_success)
-        t_param['score'] = 1000
+        local t_param = self:makeGameFinishParam(is_success)        
+        do -- 점수 계산
+            score_calc:calcDamageBonus(self:getTotalDamage())
+            score_calc:calcClearTimeBonus(self.m_fightTimer, is_success)
+
+            local world = self.m_world
+            local stage_id = world.m_stageID
+            score_calc:calcDiffBonus(stage_id)
+            score_calc:calcParticipantBonus()
+            
+            local final_score = score_calc:calcFinalScore()
+            t_param['score'] = final_score
+        end
         -- 총 데미지
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end
@@ -66,7 +78,8 @@ function GameState_Illusion:makeResultUI(is_success)
             self.m_fightTimer,
             self:getTotalDamage(),
             nil,
-            ret['added_items'])
+            ret['added_items'],
+            score_calc)
     end
 
     -- 최초 실행

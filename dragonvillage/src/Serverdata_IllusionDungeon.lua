@@ -300,42 +300,42 @@ function Serverdata_IllusionDungeon:isIllusionDragon(struct_dragon_object)
 end
 
 -------------------------------------
- -- function getParticiPantInfo
+ -- function isIllusionDragonType
 -------------------------------------
-function Serverdata_IllusionDungeon:isIllusionDragonType(dragon_data)
+function Serverdata_IllusionDungeon:isIllusionDragonType(t_dragon_data)
     local table_dragon = TableDragon()
-    local struct_illusion = self.m_illusionInfo
-    local l_illusion_dragon = struct_illusion:getIllusionDragonList()
-
-    -- 환상 드래곤 종류가 1가지라고 가정
-    local target_dragon_id = dragon_data['did']
+    local target_dragon_id = t_dragon_data['did']
     if (not target_dragon_id) then
         return false
     end
-
+    
+    -- 현재 환상인 드래곤 정보
+    local l_illusion_dragon = g_illusionDungeonData:getIllusionDragonList()
+    
+    -- 같은 종류라면 true 반환    
     local target_dragon_type = table_dragon:getDragonType(target_dragon_id)
-    local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1])
-    return target_dragon_type == illusion_dragon_type
+    local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1]['did'])
+    return (target_dragon_type == illusion_dragon_type)
 end
 
 -------------------------------------
  -- function getParticiPantInfo
- -- @brief 덱에 환상 드래곤 있을 경우 return 1, 덱에 환상 드래곤 종류를 들고 있었다면 return 1, 환상 드래곤이 출전 하지 않았다면 0
+ -- @brief 덱에 환상 드래곤 있을 경우 return 마이너스값, 덱에 나의 (환상류) 드래곤을 들고 있었다면 return 플러스값, 환상 드래곤이 출전 하지 않았다면 0
 -------------------------------------
 function Serverdata_IllusionDungeon:getParticiPantInfo()
     local participant_count = 0
-    for i, dragon_data in ipairs(self.m_lDragonDeck) do
-        if (self:isIllusionDragonType(dragon_data)) then
-            if (not self:isIllusionDragon(dragon_data)) then
-                participant_count = -1
-                break
+
+    for i, dragon_id in ipairs(self.m_lDragonDeck) do
+        local t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(dragon_id)
+        if (self:isIllusionDragonType(t_dragon_data)) then
+            -- 환상드래곤이 내 드래곤이라면 
+            if (not self:isIllusionDragon(t_dragon_data)) then
+                participant_count = participant_count + 1
             else
-                participant_count = 1
-                break
+                participant_count = participant_count - 5
             end
         end
     end
-
     return participant_count
 end
 

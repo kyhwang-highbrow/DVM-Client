@@ -34,13 +34,10 @@ UI_GameResult_Illusion = class(PARENT, {
 
 })
 
-local SCORE_DIFF = {[1] = 0, [2] = 1000, [3] = 2000, [4] = 5000}
-local SCORE_PART = {['none'] = 0, ['illusion_dragon'] = 2500, ['my_dragon'] = 5000}
-
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GameResult_Illusion:init(stage_id, is_success, time, damage, t_tamer_levelup_data, l_drop_item_list)
+function UI_GameResult_Illusion:init(stage_id, is_success, time, damage, t_tamer_levelup_data, l_drop_item_list, score_calc)
     self.m_stageID = stage_id
     self.m_bSuccess = is_success
     self.m_time = time
@@ -199,32 +196,14 @@ end
 -------------------------------------
 function UI_GameResult_Illusion:setAnimationData()
     local vars = self.vars
+    local score_calc = self.m_scoreCalc
 
     local score_list = {}
-    local damage_score = math.floor(self.m_damage / 10000)
-    
-    local time_score = 0
-    if (self.m_bSuccess) then
-        time_score = math.floor((5000 / 300) * (300 - self.m_time))
-    end
-     
-    
-    -- 난이도 점수
-    local diff = g_illusionDungeonData:parseStageID(self.m_stageID)
-    local diff_score = SCORE_DIFF[tonumber(diff)] or 0
-
-    -- 참가 점수
-    local participant = g_illusionDungeonData:getParticiPantInfo()
-    local participant_score = 0  
-    if (participant < 0) then
-        participant_score = SCORE_PART['none']
-    elseif (participant == 0) then
-        participant_score = SCORE_PART['illusion_dragon']
-    elseif (participant > 0) then
-        participant_score = SCORE_PART['my_dragon']
-    end
-
-    local total_score = damage_score + time_score + diff_score + participant_score
+    local damage_score = score_calc:calcDamageBonus()
+    local time_score = score_calc:calcClearTimeBonus()
+    local diff_score = score_calc:calcDiffBonus()
+    local participant_score = score_calc:calcParticipantBonus()
+    local total_score = score_calc:calcFinalScore()
 
     table.insert(score_list, damage_score) -- damage
     table.insert(score_list, time_score) -- time
