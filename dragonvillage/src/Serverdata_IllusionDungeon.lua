@@ -28,6 +28,8 @@ Serverdata_IllusionDungeon.STATE = {
 	['DONE'] = 5,		-- 보상 수령 후 
 }
 
+
+local MAX_ILLUSION_DIFFICULTY = 4
 -------------------------------------
 -- function init
 -------------------------------------
@@ -123,7 +125,7 @@ function Serverdata_IllusionDungeon:isActive_illusion()
 end
 
 -------------------------------------
--- function makeAdventureID
+-- function makeIllusionStageID
 -- @brief 환상 던전 스테이지 ID 생성
 --
 -- stage_id
@@ -131,7 +133,7 @@ end
 --    1xxx difficulty 1~4
 --       1 stage 던전 종류 1~..
 -------------------------------------
-function Serverdata_IllusionDungeon:makeAdventureID(difficulty, stage)
+function Serverdata_IllusionDungeon:makeIllusionStageID(difficulty, stage)
     return 1910000 + (difficulty * 1000) + (stage)
 end
 
@@ -149,6 +151,21 @@ function Serverdata_IllusionDungeon:parseStageID(stage_id)
     return difficulty, chapter, stage
 end
 
+-------------------------------------
+-- function parseStageID
+-- @brief 환상 던전 스테이지 ID 분석
+-------------------------------------
+function Serverdata_IllusionDungeon:getNextStage(stage_id)
+    local difficulty, chapter, stage = self:parseStageID(stage_id)
+
+    if (difficulty < MAX_ILLUSION_DIFFICULTY) then
+        local next_diff = difficulty + 1
+        local next_stage_id = self:makeIllusionStageID(next_diff, 1)
+        return next_stage_id
+    end
+    
+    return nil
+end
 
 -------------------------------------
 -- function getDragonDataFromUid
@@ -365,7 +382,6 @@ function Serverdata_IllusionDungeon:request_illusionStart(stage_id, deck_name, f
     local func_request
     local func_success_cb
     local func_response_status_cb
-
     local stage = stage_id
     func_request = function()
         -- 유저 ID

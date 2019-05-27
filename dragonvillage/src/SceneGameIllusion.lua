@@ -175,7 +175,7 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
         self:networkGameFinish_response(ret, t_result_ref, is_success)
 
         if next_func then
-            next_func()
+            next_func(ret)
         end
     end
 

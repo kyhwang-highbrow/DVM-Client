@@ -53,7 +53,7 @@ function GameState_Illusion:makeResultUI(is_success)
     end
 
     -- 2. UI 생성
-    func_ui_result = function()
+    func_ui_result = function(ret)
         -- @LOG : 스테이지 성공 시 클리어 시간
 	    self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)  
         
@@ -64,7 +64,9 @@ function GameState_Illusion:makeResultUI(is_success)
         local ui = UI_GameResult_Illusion(stage_id,
             is_success,
             self.m_fightTimer,
-            self:getTotalDamage())
+            self:getTotalDamage(),
+            nil,
+            ret['added_items'])
     end
 
     -- 최초 실행

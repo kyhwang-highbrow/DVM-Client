@@ -40,13 +40,13 @@ local SCORE_PART = {['none'] = 0, ['illusion_dragon'] = 2500, ['my_dragon'] = 50
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GameResult_Illusion:init(stage_id, is_success, time, damage)
+function UI_GameResult_Illusion:init(stage_id, is_success, time, damage, t_tamer_levelup_data, l_drop_item_list)
     self.m_stageID = stage_id
     self.m_bSuccess = is_success
     self.m_time = time
     self.m_damage = damage
     self.m_lDragonList = l_dragon_list
-    self.m_lDropItemList = l_drop_item_list
+    self.m_lDropItemList = l_drop_item_list['items_list']
     self.m_staminaType = 'st'
     self.m_autoCount = false
     self.m_content_open = content_open and content_open['open'] or false
@@ -88,24 +88,17 @@ end
 -------------------------------------
 function UI_GameResult_Illusion:initButton()
     local vars = self.vars
+
     vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_statusInfoBtn() end)
     vars['infoBtn']:setVisible(true)
-    vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
-end
 
--------------------------------------
--- function init_difficultyIcon
--- @brief 스테이지 난이도를 표시
---        모험모드에서 사용하므로 고대의 탑에선 off
--------------------------------------
-function UI_GameResult_Illusion:init_difficultyIcon(stage_id)
-    local vars = self.vars
-    vars['difficultySprite']:setVisible(false)
-    vars['gradeLabel']:setVisible(false)
-    vars['titleLabel']:setPositionX(0)
-    vars['titleLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
+    vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
+    vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
+    vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
+    vars['illusionBtn']:registerScriptTapHandler(function() self:click_illusionBtn() end)
 end
 
 -------------------------------------
@@ -148,6 +141,7 @@ function UI_GameResult_Illusion:setWorkList()
 
     self.m_lWorkList = {}
     table.insert(self.m_lWorkList, 'direction_showScore')
+    table.insert(self.m_lWorkList, 'direction_showReward')
     table.insert(self.m_lWorkList, 'direction_delay')
     table.insert(self.m_lWorkList, 'direction_moveMenu')
 end
@@ -367,44 +361,28 @@ end
 -- @override
 -------------------------------------
 function UI_GameResult_Illusion:startGame()
-    local function goto_cb()
-	    -- 연속 전투 : 다음 층 도전
-	    if (g_autoPlaySetting:isAutoPlay()) then
-	    	if (g_autoPlaySetting:get('tower_next_floor')) then
-	    		if (self.m_bSuccess) then
-	    			local stage_id = self.m_stageID
-	    			self.m_stageID = stage_id + 1
-	    			g_ancientTowerData.m_stageIdInAuto = self.m_stageID
-	    		end
-	    	end
-	    end
-
-	    PARENT.startGame(self)
-    end
-
-    local attr = g_attrTowerData:getSelAttr()
     local stage_id = self.m_stageID
-    local next_stage_id = g_stageData:getNextStage(stage_id)
-    if (not attr) then
-        g_ancientTowerData:request_ancientTowerInfo(next_stage_id, goto_cb)
-    else
-        goto_cb()
-    end
+	local deck_name = 'illusion'
+
+	local function finish_cb(game_key)
+		-- 연속 전투일 경우 횟수 증가
+		if (g_autoPlaySetting:isAutoPlay()) then
+			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+		end
+
+		local stage_name = 'stage_' .. stage_id
+		local scene = SceneGameIllusion(game_key, stage_id, stage_name, false)
+		scene:runScene()
+	end
+    g_illusionDungeonData:request_illusionStart(self.m_stageID, deck_name, finish_cb, fail_cb) -- param : (stage_id, deck_name, finish_cb, fail_cb)
+
 end
 
 -------------------------------------
--- function click_againBtn
--- @brief 다시하기
+-- function click_illusionBtn
 -------------------------------------
-function UI_GameResult_Illusion:click_againBtn()
+function UI_GameResult_Illusion:click_illusionBtn()
     UINavigatorDefinition:goTo('event_illusion_dungeon')
-end
-
--------------------------------------
--- function click_nextBtn
--------------------------------------
-function UI_GameResult_Illusion:click_nextBtn()
-        UINavigatorDefinition:goTo('event_illusion_dungeon')
 end
 
 -------------------------------------
@@ -425,6 +403,37 @@ function UI_GameResult_Illusion:setTotalScoreLabel()
     self.m_totalScore = total_score
 end
 
+-------------------------------------
+-- function direction_showReward
+-------------------------------------
+function UI_GameResult_Illusion:direction_showReward()
+    local l_drop = self.m_lDropItemList
+    local vars = self.vars
+
+    if (not l_drop) then
+        return
+    end
+    
+    local interval = 95
+    local count = #l_drop
+    local l_pos = getSortPosList(interval, count)
+
+    for i, data in ipairs(l_drop) do
+        local item_id = data['item_id']
+        local count = data['count']
+        local from = data['from']
+
+        local item_card = UI_ItemCard(item_id, count, t_sub_data)
+        item_card:setRarityVisibled(true)
+        item_card.root:setScale(0.6)
+        vars['iconNode']:addChild(item_card.root)
+
+        local pos_x = l_pos[i]
+        item_card.root:setPositionX(pos_x)
+    end
+
+    self:doNextWork()
+end
 
 -------------------------------------
 -- function setSuccessVisual_Ancient
@@ -484,12 +493,12 @@ function UI_GameResult_Illusion:action_switchBtn(callback)
     switch_btn:setEnabled(false)
 
     local angle = 0
-    if (result_menu:getPositionY() == 100) then
-        move_y = 450 -- 위로 올릴 위치
-        angle = 180
-    else
-        move_y = 100 -- 기본 위치
+    if (result_menu:getPositionY() == 130) then
+        move_y = 430 -- 위로 올릴 위치
         angle = 0
+    else
+        move_y = 130 -- 기본 위치
+        angle = 180
     end
     
     local move_act = cca.makeBasicEaseMove(0.5, 0, move_y)
@@ -500,4 +509,114 @@ function UI_GameResult_Illusion:action_switchBtn(callback)
 
     switch_sprite:runAction(cc.RotateTo:create(0.1, angle))
     result_menu:runAction(cc.Sequence:create(move_act, after_act))
+end
+
+-------------------------------------
+-- function click_statusInfoBtn
+-------------------------------------
+function UI_GameResult_Illusion:click_statusInfoBtn()
+    UI_HelpStatus()
+end
+
+-------------------------------------
+-- function click_nextBtn
+-------------------------------------
+function UI_GameResult_Illusion:click_nextBtn()
+    -- 다음 스테이지 ID 지정
+    local stage_id = self.m_stageID
+    local next_stage_id = g_illusionDungeonData:getNextStage(stage_id)
+    if next_stage_id then
+        UI_ReadySceneNew_IllusionDungeon(next_stage_id)
+    -- 다음 스테이지 없는 경우
+    else
+        UIManager:toastNotificationRed(Str('마지막 스테이지 입니다.'))
+    end
+end
+
+-------------------------------------
+-- function click_statsBtn
+-------------------------------------
+function UI_GameResult_Illusion:click_statsBtn()
+	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
+	UI_StatisticsPopup(g_gameScene.m_gameWorld)
+end
+
+-------------------------------------
+-- function click_homeBtn
+-------------------------------------
+function UI_GameResult_Illusion:click_homeBtn()
+	
+	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
+	local block_ui = UI_BlockPopup()
+
+	local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
+    scene:runScene()
+end
+
+-------------------------------------
+-- function click_againBtn
+-------------------------------------
+function UI_GameResult_Illusion:click_againBtn()
+    UI_ReadySceneNew_IllusionDungeon(self.m_stageID)
+end
+
+-------------------------------------
+-- function click_quickBtn
+-------------------------------------
+function UI_GameResult_Illusion:click_quickBtn()
+	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
+	local quick_btn = self.vars['quickBtn']
+	quick_btn:setEnabled(false)
+
+	-- 게임 시작 실패시 동작
+	local function fail_cb()
+		quick_btn:setEnabled(true)
+	end
+
+    local stage_id = self.m_stageID
+	local check_stamina
+    local check_dragon_inven
+    local check_item_inven
+    local start_game
+	
+	-- 활동력도 체크 (준비화면에 가는게 아니므로)
+	check_stamina = function()
+		if (g_staminasData:checkStageStamina(stage_id)) then
+			check_dragon_inven()
+		else
+			fail_cb()
+
+			-- 스태미나 충전
+			local function finish_cb()
+				self:show_staminaInfo()
+			end
+			g_staminasData:staminaCharge(stage_id, finish_cb)
+		end
+	end
+
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            self:click_manageBtn()
+			fail_cb()
+        end
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+    end
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            UI_Inventory()
+			fail_cb()
+        end
+        g_inventoryData:checkMaximumItems(start_game, manage_func)
+    end
+
+    start_game = function()
+        -- 빠른 재시작
+        self:startGame()
+    end
+
+    check_stamina()
 end

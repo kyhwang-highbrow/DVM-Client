@@ -145,6 +145,7 @@ function UI_IllusionShopListItem:initUI()
 
     -- 아이템 카드
     local ui_item_card = UI_ItemCard(item_id)
+    ui_item_card:setSwallowTouch()
     vars['itemNode']:addChild(ui_item_card.root)
 
     -- 구매 가능 횟수
