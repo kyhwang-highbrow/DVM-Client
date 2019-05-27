@@ -88,6 +88,13 @@ function UI_IllusionShop:refresh()
     end
 end
 
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_IllusionShop:click_exitBtn()
+   self:close()
+end
+
 
 
 

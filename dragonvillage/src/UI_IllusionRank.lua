@@ -34,7 +34,16 @@ end
 function UI_IllusionRank:initUI()
     local vars = self.vars
 
-    self:make_UIC_SortList()   
+    self:make_UIC_SortList()
+    self:initReward()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_IllusionRank:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
@@ -44,21 +53,16 @@ end
 function UI_IllusionRank:initRank()
     local vars = self.vars
     local rank_node = vars['rankListNode']
+    local rank_data = g_illusionDungeonData.m_lIllusionRank
 
     local make_my_rank_cb = function()
-        local my_data = g_illusionDungeonData.m_lillusionRank['my_info'] or {}
+        local my_data = rank_data['my_info'] or {}
         local me_rank = UI_IllusionRankListItem(my_data)
         vars['meRankNode']:addChild(me_rank.root)
     end
     
-    local l_rank_list = g_illusionDungeonData.m_lillusionRank['list'] or {}
-    --[[
-    for i=1,20 do
-        local temp = {}
-        temp['rank'] = i
-        table.insert(l_rank_list, temp)
-    end
-    --]]
+    local l_rank_list = rank_data['list'] or {}
+    
     -- 이전 랭킹 보기
     local function click_prevBtn()
         --self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
@@ -96,13 +100,7 @@ function UI_IllusionRank:initReward()
     local vars = self.vars
     local rank_node = vars['rewardNode']
     
-    local l_rank_list = {}
-    for i=1,20 do
-        local temp = {}
-        temp['rank'] = i
-        table.insert(l_rank_list, temp)
-    end
-
+    local l_rank_list = g_illusionDungeonData.m_lIllusionRankReward
     local rank_list = UIC_RankingList()
     rank_list:setRankUIClass(UI_IllusionRewardListItem, nil)
     rank_list:setRankList(l_rank_list)
@@ -182,18 +180,6 @@ function UI_IllusionRank:onChangeRankingType(type)
     end
 
     self:request_rank()
-    
-    --[[   
-    if (self.m_rewardTableView) then 
-        return 
-    end
-    
-    -- 보상 테이블 정보는 고대의 탑 들어올 때 받음
-    self.m_rewardInfo = g_ancientTowerData.m_rewardTable
-    if (self.m_rewardInfo) then
-        self:init_rewardTableView()
-    end
-    --]]
 end
 
 -------------------------------------
@@ -240,7 +226,7 @@ function UI_IllusionRankListItem:initUI()
 
     -- 랭킹
     local struct_rank = StructUserInfoArena:create_forRanking(data)
-    local rank = struct_rank:getRankText()
+    local rank = struct_rank:getRankText_noTier()
     vars['rankingLabel']:setString(rank)
     
     -- 리더 드래곤
@@ -248,7 +234,7 @@ function UI_IllusionRankListItem:initUI()
     vars['profileNode']:addChild(profile_sprite.root)
 
     -- 점수
-    if (data['score'] >= 0) then
+    if (data['score'] and data['score'] >= 0) then
         vars['scoreLabel']:setString(Str('{1}점', data['score']))
     else
         vars['scoreLabel']:setString('-')
@@ -285,11 +271,88 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -- class UI_IllusionRewardListItem
 -------------------------------------
 UI_IllusionRewardListItem = class(PARENT, {
+        m_rankInfo = 'table',
+        --[[
+              "table":{
+                "tier_id":12,
+                "ratio_min":"",
+                "rank_min":2,
+                "ratio_max":"",
+                "rank_id":2,
+                "score_min":7000,
+                "week":1,
+                "rank_max":2,
+                "reward":"cash;3900,gold;700000"
+              }
+            },{
+        --]]
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_IllusionRewardListItem:init()
+function UI_IllusionRewardListItem:init(t_rankInfo)
     local vars = self:load('event_dungeon_ranking_reward_item.ui')
+    self.m_rankInfo = t_rankInfo['table']
+
+    self:initUI()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_IllusionRewardListItem:initUI()
+    local vars = self.vars
+    local data = self.m_rankInfo
+
+    -- 초기화
+    vars['rewardLabel1']:setString('')
+    vars['rewardLabel2']:setString('')
+
+    -- 랭킹 보상
+    local rank_name = self:getRankName()
+    self.vars['rankLabel']:setString(rank_name)
+
+    -- 랭킹 보상 아이템
+    local l_reward = TableClass:seperate(data['reward'], ',', true)
+    for i = 1, #l_reward do
+        local l_str = seperate(l_reward[i], ';')
+        local item_type = l_str[1]
+        local id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
+
+        local icon = IconHelper:getItemIcon(id)
+
+        local table_item = TABLE:get('item')
+        local t_item = table_item[id]
+        vars['rewardNode'..i]:addChild(icon)
+
+        local name = TableItem:getItemName(id)
+        local cnt = l_str[2]
+        vars['rewardLabel'..i]:setString(Str('{1}', comma_value(cnt)))
+    end
+end
+
+-------------------------------------
+-- function getRankName
+-------------------------------------
+function UI_IllusionRewardListItem:getRankName()
+    local data = self.m_rankInfo
+    local rank_min = data['rank_min']
+    local rank_max = data['rank_max']
+    local rank_str = ''
+    if (rank_min ~= '' and rank_max  ~= '') then
+        if (rank_min == rank_max) then
+            rank_str = Str('{1}위', rank_min)
+        else
+            rank_str = Str('{1}위~{1}위', rank_min)
+        end
+        return rank_str
+    end
+
+    local score_min = data['score_min']
+    if (score_min ~= '') then
+        rank_str = Str('{1}점 이상', score_min)
+    end
+
+    return rank_str
 end

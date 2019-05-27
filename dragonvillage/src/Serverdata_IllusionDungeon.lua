@@ -10,10 +10,12 @@ Serverdata_IllusionDungeon = class({
     m_lSortData = 'list', -- 정렬 관련 세팅 정보 보관
     m_lDragonDeck = 'list', -- 서버덱에 저장하는 대신 여기서 들고 있음
 
-    m_lillusionDragonInfo = 'List-StructDragonObject',
-    m_lillusionRuneInfo = 'List-StructRuneObject',
+    m_lIllusionDragonInfo = 'List-StructDragonObject',
+    m_lIllusionRuneInfo = 'List-StructRuneObject',
 
-    m_lillusionRank = 'list',
+    m_lIllusionRank = 'list', -- 랭크 리스트
+    m_lIllusionRankReward = 'list', -- 랭크 보상 리스트
+
     m_gameKey = 'number',
 })
 
@@ -158,7 +160,7 @@ function Serverdata_IllusionDungeon:getDragonDataFromUid(doid)
         return t_dragon
     end
      
-    for i, dragon_data in ipairs(self.m_lillusionDragonInfo) do
+    for i, dragon_data in ipairs(self.m_lIllusionDragonInfo) do
         if (dragon_data['id'] == doid) then
             return dragon_data
         end
@@ -235,15 +237,15 @@ function Serverdata_IllusionDungeon:getIllusionStageTitle()
  -- @brief 환상던전 드래곤 정보를 로컬데이터에서 불러옴
 -------------------------------------
 function Serverdata_IllusionDungeon:loadIllusionDragonInfo()
-    self.m_lillusionDragonInfo = {}
-    self.m_lillusionRuneInfo = {}
+    self.m_lIllusionDragonInfo = {}
+    self.m_lIllusionRuneInfo = {}
     local ret_json, success_load = TABLE:loadJsonTable('illusion_dragon_info', '.txt')
     
     if (ret_json['illusion_runes']) then
         local l_rune = ret_json['illusion_runes']
         for i, rune_data in ipairs(l_rune) do
             local _rune_data = StructRuneObject(rune_data)
-            table.insert(self.m_lillusionRuneInfo, rune_data)
+            table.insert(self.m_lIllusionRuneInfo, rune_data)
         end
     end
 
@@ -253,8 +255,8 @@ function Serverdata_IllusionDungeon:loadIllusionDragonInfo()
             local _dragon_data = StructDragonObject(dragon_data)
             _dragon_data['id'] = 'illusion_'.. i
             _dragon_data['updated_at'] = 0
-            _dragon_data:setRuneObjects(self.m_lillusionRuneInfo)
-            table.insert(self.m_lillusionDragonInfo, _dragon_data)
+            _dragon_data:setRuneObjects(self.m_lIllusionRuneInfo)
+            table.insert(self.m_lIllusionDragonInfo, _dragon_data)
         end
     end
 end
@@ -263,7 +265,7 @@ end
  -- function getIllusionDragonList
 -------------------------------------
 function Serverdata_IllusionDungeon:getIllusionDragonList()
-    return self.m_lillusionDragonInfo or {}
+    return self.m_lIllusionDragonInfo or {}
 end
 
 -------------------------------------
@@ -329,6 +331,8 @@ function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+        self.m_lIllusionRankReward = ret['rank_reward_list'] or {}
+        
         if (finish_cb) then
             finish_cb()
         end
@@ -433,7 +437,7 @@ function Serverdata_IllusionDungeon:request_illusionRankInfo(rank_type, offset, 
 
     -- 콜백 함수
     local function success_cb(ret)
-        self.m_lillusionRank = ret
+        self.m_lIllusionRank = ret
         if (finish_cb) then
             finish_cb()
         end

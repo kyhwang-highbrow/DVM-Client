@@ -196,13 +196,15 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
     local api_url = ''
     api_url = '/game/illusion_dungeon/finish'
 
+
+    local ui_network = UI_Network()
+
     -- 접속시간 저장
     local save_time = g_accessTimeData:getSaveTime()
     if (save_time) then
         ui_network:setParam('access_time', save_time)
     end
-
-    local ui_network = UI_Network()
+    
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', self.m_stageID) 

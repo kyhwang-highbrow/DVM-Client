@@ -54,9 +54,6 @@ function UI_GameResult_Illusion:init(stage_id, is_success, time, damage)
 
     self:initUI()
     self:initButton()
-    
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_GameResult_Illusion')
 
     -- @brief work초기화 용도로 사용함
     self:setWorkList()

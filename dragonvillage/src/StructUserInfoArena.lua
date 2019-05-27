@@ -376,7 +376,35 @@ function StructUserInfoArena:getRankText(detail, carriage_return)
             else
                 rank_str = rank_str .. string.format(' (%.1f%%)', self.m_rankPercent * 100)
             end
-        end
+        end 
+
+        return rank_str
+
+    -- 서버에서 rate 안오는 경우 일딴 하이픈 처리
+    else
+        return '-'
+    end
+end
+
+-------------------------------------
+-- function getRankText_noTier
+-- @brief
+-------------------------------------
+function StructUserInfoArena:getRankText_noTier(detail, carriage_return)
+    if (not self.m_rank) then
+        return Str('기록 없음')
+    end
+
+    if (self.m_rank and self.m_rankPercent) then
+        local rank_str = Str('{1}위', comma_value(self.m_rank))
+
+        if (detail) then
+            if carriage_return then
+                rank_str = rank_str .. string.format('\n(%.1f%%)', self.m_rankPercent * 100)
+            else
+                rank_str = rank_str .. string.format(' (%.1f%%)', self.m_rankPercent * 100)
+            end
+        end 
 
         return rank_str
 
