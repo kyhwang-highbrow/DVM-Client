@@ -47,7 +47,16 @@ function GameState_Illusion:makeResultUI(is_success)
 
     -- 1. 네트워크 통신
     func_network_game_finish = function()
-        local t_param = self:makeGameFinishParam(is_success)        
+        local t_param = self:makeGameFinishParam(is_success)    
+        -- 경험치 보정치 ( 실패했을 경우 사용 ) ex : 66% 인경우 66
+        if is_success then
+            t_param['exp_rate'] = 100
+        else
+            local wave_rate = ((self.m_world.m_waveMgr.m_currWave - 1) / self.m_world.m_waveMgr.m_maxWave)
+            wave_rate = math_floor(wave_rate * 100)
+            t_param['exp_rate'] = math_clamp(wave_rate, 0, 100)
+        end
+           
         do -- 점수 계산
             score_calc:calcDamageBonus(self:getTotalDamage())
             score_calc:calcClearTimeBonus(self.m_fightTimer, is_success)

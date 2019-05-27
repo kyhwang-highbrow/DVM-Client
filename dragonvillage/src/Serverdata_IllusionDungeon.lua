@@ -527,4 +527,35 @@ function Serverdata_IllusionDungeon:request_illusionShopInfo(finish_cb)
     ui_network:request()
 end
 
+-------------------------------------
+ -- function request_illusionShopInfo
+-------------------------------------
+function Serverdata_IllusionDungeon:request_illusionExchange(prodeuct_id, count, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
 
+    -- 콜백 함수
+    local function success_cb(ret)
+        if (finish_cb) then
+            finish_cb(ret)
+        end 
+    end
+
+     -- 콜백 함수
+    local function fail_cb(ret)
+        return {}
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/illusion_dungeon/exchange')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('ex_id', prodeuct_id)
+    ui_network:setParam('count', count)
+    ui_network:setParam('dungeon_number', 1)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

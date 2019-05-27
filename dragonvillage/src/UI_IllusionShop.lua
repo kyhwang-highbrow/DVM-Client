@@ -1,10 +1,10 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+ï»¿local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_IllusionShop
 -------------------------------------
 UI_IllusionShop = class(PARENT, {
-
+        m_lCurExchange = 'table',
      })
 
 -------------------------------------
@@ -14,10 +14,12 @@ function UI_IllusionShop:init()
     local vars = self:load('event_illusion_shop.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    -- backkey ÁöÁ¤
+    self.m_lCurExchange = {}
+
+    -- backkey ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_IllusionShop')
 
-	-- ÃÊ±âÈ­
+	-- ì´ˆê¸°í™”
     self:initUI()
     self:initButton()
     self:refresh()
@@ -28,10 +30,10 @@ end
 -- @brief
 -------------------------------------
 function UI_IllusionShop:initParentVariable()
-    -- ITopUserInfo_EventListenerÀÇ ¸É¹ö º¯¼öµé ¼³Á¤
+    -- ITopUserInfo_EventListenerì˜ ë§´ë²„ ë³€ìˆ˜ë“¤ ì„¤ì •
     self.m_uiName = 'UI_IllusionShop'
     self.m_bVisible = true
-    self.m_titleStr = Str('È¯»ó ´øÀü ±³È¯¼Ò')
+    self.m_titleStr = Str('í™˜ìƒ ë˜ì „ êµí™˜ì†Œ')
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'capsule_coin'
 end
@@ -42,7 +44,7 @@ end
 function UI_IllusionShop:initUI()
     local vars = self.vars
 
-    --Npc°¡ È¯»ó µå·¡°ïÀÏ °æ¿ì ¾Ö´Ï¸ŞÀÌ¼Ç
+    --Npcê°€ í™˜ìƒ ë“œë˜ê³¤ì¼ ê²½ìš° ì• ë‹ˆë©”ì´ì…˜
     local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
     local l_illusion_dragon = struct_illusion:getIllusionDragonList()
     local illusion_dragon_did = tonumber(l_illusion_dragon[1])
@@ -61,12 +63,22 @@ function UI_IllusionShop:refresh()
     local vars = self.vars
 
     local finish_cb = function(ret)
+        self.m_lCurExchange = ret['my_exchange_list'] 
         local l_shop = ret['exchange_list']
-        -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+        vars['listNode']:removeAllChildren()
+
+        local create_cb = function(ui, data)
+            local buy_cnt = self:getProductCnt(data['table']['id'])
+            -- êµ¬ë§¤ ê°€ëŠ¥ íšŸìˆ˜
+            local buy_cnt_str = Str('êµ¬ë§¤ ê°€ëŠ¥ {1}/{2}', data['table']['buy_count'] - buy_cnt, data['table']['buy_count'])
+            ui.vars['maxBuyTermLabel']:setString(buy_cnt_str)
+        end
+
+        -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
         local table_view_td = UIC_TableViewTD(vars['listNode'])
         table_view_td.m_cellSize = cc.size(235, 255)
         table_view_td.m_nItemPerCell = 4
-	    table_view_td:setCellUIClass(UI_IllusionShopListItem)
+	    table_view_td:setCellUIClass(UI_IllusionShopListItem, create_cb)
         table_view_td:setItemList(l_shop)
 	    
 	    table_view_td:setCellCreateInterval(0)
@@ -74,11 +86,11 @@ function UI_IllusionShop:refresh()
         table_view_td:setCellCreatePerTick(3)
     end
 
-    -- ±³È¯¼Ò Åë½Å
+    -- êµí™˜ì†Œ í†µì‹ 
     g_illusionDungeonData:request_illusionShopInfo(finish_cb)
     
 
-    --Npc°¡ È¯»ó µå·¡°ïÀÏ °æ¿ì ¾Ö´Ï¸ŞÀÌ¼Ç
+    --Npcê°€ í™˜ìƒ ë“œë˜ê³¤ì¼ ê²½ìš° ì• ë‹ˆë©”ì´ì…˜
     local res = 'res/character/npc/narvi/narvi.json'
     vars['npcNode']:removeAllChildren(true)
     local animator = MakeAnimator(res)
@@ -95,6 +107,20 @@ function UI_IllusionShop:click_exitBtn()
    self:close()
 end
 
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_IllusionShop:getProductCnt(target_product_id)
+    local target_product_id = tostring(target_product_id)
+
+    for product_id, count in pairs(self.m_lCurExchange) do
+         if (target_product_id == product_id) then
+             return tonumber(count)
+         end
+    end
+
+   return 0
+end
 
 
 
@@ -117,7 +143,7 @@ function UI_IllusionShopListItem:init(data)
     local vars = self:load('event_illusion_shop_item.ui')
     self.m_data = data['table']
 
-	-- ÃÊ±âÈ­
+	-- ì´ˆê¸°í™”
     self:initUI()
     self:initButton()
     self:refresh()
@@ -143,20 +169,41 @@ function UI_IllusionShopListItem:initUI()
     vars['itemLabel']:setString(Str(item_name))
     vars['priceLabel']:setString(data['price'])
 
-    -- ¾ÆÀÌÅÛ Ä«µå
+    -- ì•„ì´í…œ ì¹´ë“œ
     local ui_item_card = UI_ItemCard(item_id)
     ui_item_card:setSwallowTouch()
     vars['itemNode']:addChild(ui_item_card.root)
 
-    -- ±¸¸Å °¡´É È½¼ö
-    local buy_cnt_str = string.format('%s/%s', 0, data['buy_count'])
-    vars['maxBuyTermLabel']:setString(buy_cnt_str)
-
-    -- ÀçÈ­ ¾ÆÀÌÄÜ
+    -- ì¬í™” ì•„ì´ì½˜
     local price_sprite = cc.Sprite:create('res/ui/icons/item/ticket_5_rune.png')
     local str_width = vars['priceLabel']:getStringWidth() + 5 
     local opt_pos_x, opt_pos_y = vars['priceLabel']:getPosition()
     price_sprite:setPosition(opt_pos_x + str_width - 65, 30)
     vars['priceNode']:addChild(price_sprite)
-    
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_IllusionShopListItem:initButton()
+    local vars = self.vars
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_IllusionShopListItem:click_buyBtn()
+    local data = self.m_data
+    local vars = self.vars
+
+    if (not data) then
+        return
+    end
+
+    local finish_cb = function(ret)
+        local buy_cnt_str = Str('êµ¬ë§¤ ê°€ëŠ¥ {1}/{2}', data['buy_count'] - ret['buy_item'], data['buy_count'])
+        vars['maxBuyTermLabel']:setString(buy_cnt_str)
+    end
+    g_illusionDungeonData:request_illusionExchange(data['id'], 1, finish_cb)  
 end
