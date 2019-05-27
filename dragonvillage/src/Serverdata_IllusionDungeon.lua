@@ -14,6 +14,7 @@ Serverdata_IllusionDungeon = class({
     m_lillusionRuneInfo = 'List-StructRuneObject',
 
     m_lillusionRank = 'list',
+    m_gameKey = 'number',
 })
 
 
@@ -416,7 +417,7 @@ function Serverdata_IllusionDungeon:request_illusionStart(stage_id, deck_name, f
         g_accessTimeData:startCheckTimer()
 
         if finish_cb then
-            finish_cb(ret)
+            finish_cb(self.m_gameKey)
         end
     end
 

@@ -284,29 +284,12 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:networkGameStart()
-    --local function finish_cb(game_key)
-        self:replaceGameScene('Illusion_Dungeon')
-    --end
-
-    --[[
-    local deck_name = g_deckData:getSelectedDeckName()
-    local combat_power = self.m_readySceneDeck:getDeckCombatPower()
-
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        local is_cash = self.m_bUseCash
-        g_clanRaidData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, is_cash)
-
-    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
-        g_ancientRuinData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
-
-    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
-    elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
-        finish_cb(game_key)
-
-    else
-        g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+    local function finish_cb(game_key)
+        self:replaceGameScene(game_key)
     end
-    --]]
+
+    local deck_name = 'illusion'
+    g_illusionDungeonData:request_illusionStart(self.m_stageID, deck_name, finish_cb)
 end
 
 -------------------------------------
