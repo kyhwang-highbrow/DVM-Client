@@ -15,6 +15,33 @@ function UI_ReadySceneNew_IllusionDungeon:init(stage_id, sub_info)
 end
 
 -------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_ReadySceneNew_IllusionDungeon'
+    self.m_bVisible = true
+    --self.m_titleStr = nil -- refresh에서 스테이지명 설정
+    self.m_bUseExitBtn = true
+
+    -- 입장권 타입 설정
+    self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
+
+    if (self:isClanRaidTrainingMode(self.m_stageID)) then
+        self.m_staminaType = 'cldg_tr'
+    end
+
+	-- 들어온 경로에 따라 sound가 다름
+	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+		self.m_uiBgm = 'bgm_dungeon_ready'
+	else
+		self.m_uiBgm = 'bgm_lobby'
+	end
+    self.m_subCurrency = 'event_illusion'
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:refresh()

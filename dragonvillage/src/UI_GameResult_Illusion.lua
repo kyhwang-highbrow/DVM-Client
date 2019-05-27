@@ -105,7 +105,7 @@ end
 function UI_GameResult_Illusion:init_difficultyIcon(stage_id)
     local vars = self.vars
 
-    local difficulty = 1
+    local difficulty = g_illusionDungeonData:parseStageID(stage_id)
 
     -- 난이도
     if (difficulty == 1) then

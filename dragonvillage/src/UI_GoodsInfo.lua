@@ -64,7 +64,11 @@ function UI_GoodsInfo:makeGoodsIcon(goods_name)
     if (goods_name == 'runeGrindStone') then
         goods_name = 'grindstone'
     end
-
+    
+    if (goods_name == 'event_illusion') then
+        goods_name = 'staminas_illusion_token_01'
+    end
+    
     local res_icon = string.format('res/ui/icons/inbox/inbox_%s.png', goods_name)
     local icon = cc.Sprite:create(res_icon)
 

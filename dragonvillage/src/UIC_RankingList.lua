@@ -109,7 +109,7 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
             local a_data = a
             local b_data = b
 
-            -- 이전, 다음 버튼 정렬
+            -- 1.이전, 다음 버튼 정렬
             if (a_data.rank == 'prev') then
                 return true
             elseif (b_data.rank == 'prev') then
@@ -120,7 +120,16 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
                 return true
             end
 
-            -- 랭킹으로 선별
+            -- 2.랭킹이 없다면 하위로 정렬
+            if (a_data.rank == -1) then
+                return false
+            end
+
+            if (b_data.rank == -1) then
+                return true
+            end
+
+            -- 3.랭킹으로 선별
             local a_rank = a_data.rank
             local b_rank = b_data.rank
             return a_rank < b_rank

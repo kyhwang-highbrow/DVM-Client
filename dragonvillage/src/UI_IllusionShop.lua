@@ -35,7 +35,7 @@ function UI_IllusionShop:initParentVariable()
     self.m_bVisible = true
     self.m_titleStr = Str('환상 던전 교환소')
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'capsule_coin'
+    self.m_subCurrency = 'event_illusion'
 end
 
 -------------------------------------
@@ -54,6 +54,11 @@ function UI_IllusionShop:initUI()
     dragon_animator:setTalkEnable(false)
     dragon_animator:setIdle()
     vars['npcNode']:addChild(dragon_animator.m_node)
+
+    -- 교환소 남은 시간
+    local time = g_hotTimeData:getEventRemainTime('event_illusion_legend_reward') or 0
+    local remain_str = Str('교환 기간: ') .. Str('{1} 남음', datetime.makeTimeDesc(time, true))
+    vars['timeLabel']:setString(remain_str)
 end
 
 -------------------------------------
@@ -165,9 +170,14 @@ function UI_IllusionShopListItem:initUI()
     local item_id = tonumber(l_item_str[1])
     local item_cnt = l_item_str[2]
     local item_name = TableItem:getItemName(item_id)
+    if (tonumber(item_cnt) > 1) then
+        item_name = item_name .. ' ' .. Str('{1}개', item_cnt)
+    end
+
 
     vars['itemLabel']:setString(Str(item_name))
-    vars['priceLabel']:setString(data['price'])
+    local price = data['price']
+    vars['priceLabel']:setString(comma_value(price))
 
     -- 아이템 카드
     local ui_item_card = UI_ItemCard(item_id)
@@ -175,10 +185,8 @@ function UI_IllusionShopListItem:initUI()
     vars['itemNode']:addChild(ui_item_card.root)
 
     -- 재화 아이콘
-    local price_sprite = cc.Sprite:create('res/ui/icons/item/ticket_5_rune.png')
-    local str_width = vars['priceLabel']:getStringWidth() + 5 
-    local opt_pos_x, opt_pos_y = vars['priceLabel']:getPosition()
-    price_sprite:setPosition(opt_pos_x + str_width - 65, 30)
+    local price_sprite = cc.Sprite:create('res/ui/icons/inbox/inbox_staminas_illusion_token_01.png')
+    price_sprite:setPosition(20, 30)
     vars['priceNode']:addChild(price_sprite)
 end
 

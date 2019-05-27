@@ -392,7 +392,15 @@ end
 -------------------------------------
 function StructUserInfoArena:getRankText_noTier(detail, carriage_return)
     if (not self.m_rank) then
-        return Str('기록 없음')
+        return Str('-')
+    end
+
+    if (type(self.m_rank) == 'string') then
+        return Str('-')
+    end
+
+    if (self.m_rank < 0) then
+        return Str('-')
     end
 
     if (self.m_rank and self.m_rankPercent) then

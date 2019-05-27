@@ -39,7 +39,7 @@ function UI_IllusionScene:initParentVariable()
     local stage_id = struct_illusion:getCurIllusionStageId()
     self.m_titleStr = g_stageData:getStageName(stage_id)
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'capsule_coin'
+    self.m_subCurrency = 'event_illusion'
 end
 
 -------------------------------------
@@ -70,8 +70,11 @@ function UI_IllusionScene:initUI()
     local ui_illusion_info = UI()
     ui_illusion_info:load('event_dungeon_item.ui')
     ui_illusion_info.vars['titleLabel']:setString(Str('죄악의 환상'))
-    ui_illusion_info.vars['meRankLabel']:setString(Str('내 최고 점수 : '))
-    ui_illusion_info.vars['topRankLabel']:setString(Str('랭킹 1위 점수 : '))
+
+    local struct_illusion  = g_illusionDungeonData:getEventIllusionInfo()   
+    local highest_score = struct_illusion:getIllusionHighestScore()
+    ui_illusion_info.vars['meRankLabel']:setString(Str('내 최고 점수 : {1}점', highest_score))
+    ui_illusion_info.vars['topRankLabel']:setString(Str('내 순위 : {1}위', '-'))
     
     local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion_legend')
     ui_illusion_info.vars['timeLabel']:setString(Str('이벤트 종료 까지') .. ' '.. time_text)
@@ -85,6 +88,9 @@ function UI_IllusionScene:initUI()
 
     vars['dscLabel']:setVisible(true)
     vars['rankBtn']:setVisible(true)
+
+    vars['eventDungeonVisual']:setVisible(true)
+    vars['bgVisual']:setVisible(false)
 end
 
 

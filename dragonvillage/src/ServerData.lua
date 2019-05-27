@@ -506,6 +506,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['mastery_material_04'] then
             self:applyServerData(ret['mastery_material_04'], 'user', 'mastery_material_04')
         end
+
+        -- 환상 던전 토큰
+        if ret['illusion_token_01'] then
+            self:applyServerData(ret['illusion_token_01'], 'user', 'event_illusion')
+        end
     end
 
 	-- 퀘스트 갱신

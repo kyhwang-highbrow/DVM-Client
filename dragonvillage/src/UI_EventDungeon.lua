@@ -36,7 +36,7 @@ function UI_EventDungeon:initParentVariable()
     self.m_bVisible = true
     self.m_titleStr = Str('이벤트 던전')
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'capsule_coin'
+    self.m_subCurrency = 'event_illusion'
 end
 
 -------------------------------------
@@ -46,11 +46,11 @@ function UI_EventDungeon:initUI()
     local vars = self.vars
     local node = self.vars['listNode']
 
-    local l_item_list = { [1] = '환상던전'}
+    local l_item_list = { [1] = '환상던전', [2] = 'lock', [3] = 'lock'} -- 임시로 락 걸린 이벤트를 걸어준다. 아직 이벤트 던전 관리 테이블이 없음
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(264, 104 + 5)
+    table_view.m_defaultCellSize = cc.size(320, 125)
     table_view:setCellUIClass(UI_EventDungeonTabListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
@@ -68,20 +68,25 @@ end
 
 
 
+
+
+
+
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_EventDungeonTabListItem
 -------------------------------------
 UI_EventDungeonTabListItem = class(PARENT, {
-
+        m_data = 'table',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventDungeonTabListItem:init()
+function UI_EventDungeonTabListItem:init(data)
     local vars = self:load('event_dungeon_scene_item.ui')
+    self.m_data = data
 
 	-- 초기화
     self:initUI()
@@ -94,6 +99,13 @@ end
 -------------------------------------
 function UI_EventDungeonTabListItem:initUI()
     local vars = self.vars
+    if (self.m_data == 'lock') then
+        vars['lockNode']:setVisible(true)
+        vars['eventLabel']:setVisible(false)
+        vars['timeLabel']:setVisible(false)
+        return
+    end
+
 
     vars['eventLabel']:setString(Str('환상 던전'))
 

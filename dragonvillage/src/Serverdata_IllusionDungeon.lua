@@ -35,7 +35,6 @@ local MAX_ILLUSION_DIFFICULTY = 4
 -------------------------------------
 function Serverdata_IllusionDungeon:init()
      self.m_lSortData = {}
-     self.m_illusionInfo = StructEventIllusion(1) -- 임의로 이벤트 키 1로 설정
      self:loadIllusionDragonInfo()
 end
 
@@ -349,7 +348,18 @@ function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
     -- 콜백 함수
     local function success_cb(ret)
         self.m_lIllusionRankReward = ret['rank_reward_list'] or {}
+
+        -- 환상 던전 토큰 갱신
+        if (ret['event_illusion_legend']) then
+            if (ret['event_illusion_legend']['token']) then
+                g_serverData:applyServerData(ret['event_illusion_legend']['token'], 'user', 'event_illusion')
+            end
+        end
         
+        if (ret['event_illusion_legend']) then
+            self.m_illusionInfo = StructEventIllusion(ret['event_illusion_legend'])
+        end
+
         if (finish_cb) then
             finish_cb()
         end
