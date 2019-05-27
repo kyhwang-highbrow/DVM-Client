@@ -6,6 +6,8 @@
 UI_IllusionRank = class(PARENT, {
         m_rankType = 'string',
         m_rankOffset = 'number',
+
+        m_rewardTableView = 'UIC_TableView',
      })
 
 local RANK_OFFSET = 20
@@ -35,7 +37,6 @@ function UI_IllusionRank:initUI()
     local vars = self.vars
 
     self:make_UIC_SortList()
-    self:initReward()
 end
 
 -------------------------------------
@@ -59,6 +60,7 @@ function UI_IllusionRank:initRank()
         local my_data = rank_data['my_info'] or {}
         local me_rank = UI_IllusionRankListItem(my_data)
         vars['meRankNode']:addChild(me_rank.root)
+        me_rank.vars['meSprite']:setVisible(true)
     end
     
     local l_rank_list = rank_data['list'] or {}
@@ -89,7 +91,7 @@ function UI_IllusionRank:initRank()
     rank_list:makeRankMoveBtn(click_prevBtn, click_nextBtn, RANK_OFFSET)
     rank_list:makeRankList(rank_node)
     rank_list:setOffset(1)
-    rank_list:setFocus('rank', 1)
+    rank_list:setFocus('rank', rank_data['my_info']['rank'])
 end
 
 -------------------------------------
@@ -106,8 +108,7 @@ function UI_IllusionRank:initReward()
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr('랭킹 정보가 없습니다')
     rank_list:makeRankList(rank_node)
-    rank_list:setOffset(1)
-    rank_list:setFocus('rank', 1)
+    self.m_rewardTableView = rank_list.m_rankTableView
 end
 
 
@@ -188,11 +189,65 @@ end
 function UI_IllusionRank:request_rank()
     local function finish_cb()
         self:initRank()
+        self:initReward()
+
+        -- 받을 수 있는 보상에 포커싱
+        local rank_data = g_illusionDungeonData.m_lIllusionRank
+        local my_rank = rank_data['my_info']['rank']
+        local my_score = rank_data['my_info']['score']
+        local l_rank_list = g_illusionDungeonData.m_lIllusionRankReward
+        local reward_data, ind = self.getPossibleReward_score(my_rank, my_score, l_rank_list)
+
+        if (reward_data) then
+            self.m_rewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+            self.m_rewardTableView:relocateContainerFromIndex(ind)
+        end
     end
     local rank_type = self.m_rankType
     local offset = self.m_rankOffset
     g_illusionDungeonData:request_illusionRankInfo(rank_type, offset, finish_cb)
 end
+
+-------------------------------------
+-- function getPossibleReward_score
+-------------------------------------
+function UI_IllusionRank.getPossibleReward_score(my_rank, my_score, l_rank_list)    
+    -- 한번도 플레이 하지 않은 경우
+    if (my_rank == -1) then
+        return nil
+    end
+
+    for i,data in ipairs(l_rank_list) do
+
+        local rank_min = tonumber(data['table']['rank_min'])
+        local rank_max = tonumber(data['table']['rank_max'])
+
+        local score_min = tonumber(data['table']['score_min'])
+        print(rank_min, rank_max,my_rank )
+        -- 순위 필터
+        if (rank_min and rank_max) then
+            if (rank_min <= my_rank) and (my_rank <= rank_max) then
+                if (my_score >= score_min) then
+                    return data, i
+                end
+            end
+
+        -- 점수 필터
+        elseif (score_min) then
+            if (my_score >= score_min) then
+                return data, i
+            end
+        end
+    end
+
+    -- 마지막 보상 리턴
+    local last_ind = #l_rank_list
+    return l_rank_list[last_ind], last_ind
+end
+
+
+
+
 
 
 
@@ -330,6 +385,20 @@ function UI_IllusionRewardListItem:initUI()
         local cnt = l_str[2]
         vars['rewardLabel'..i]:setString(Str('{1}', comma_value(cnt)))
     end
+
+    -- 받을 수 있는 보상에 포커싱
+    local rank_data = g_illusionDungeonData.m_lIllusionRank
+    local my_rank = rank_data['my_info']['rank']
+    local my_score = rank_data['my_info']['score']
+    local l_rank_list = g_illusionDungeonData.m_lIllusionRankReward
+    local t_reward, idx = UI_IllusionRank.getPossibleReward_score(my_rank, my_score, l_rank_list)
+
+    if (t_reward) then
+        if (t_reward['table']['reward'] == data['reward']) then
+            vars['meSprite']:setVisible(true)
+        end
+    end
+
 end
 
 -------------------------------------
@@ -344,7 +413,7 @@ function UI_IllusionRewardListItem:getRankName()
         if (rank_min == rank_max) then
             rank_str = Str('{1}위', rank_min)
         else
-            rank_str = Str('{1}위~{1}위', rank_min)
+            rank_str = Str('{1}위~{2}위', rank_min, rank_max)
         end
         return rank_str
     end
