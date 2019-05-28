@@ -221,7 +221,6 @@ function UI_IllusionRank.getPossibleReward_score(my_rank, my_score, l_rank_list)
 
         local rank_min = tonumber(data['table']['rank_min'])
         local rank_max = tonumber(data['table']['rank_max'])
-
         local score_min = tonumber(data['table']['score_min'])
 
         -- 순위 필터
@@ -231,7 +230,6 @@ function UI_IllusionRank.getPossibleReward_score(my_rank, my_score, l_rank_list)
                     return data, i
                 end
             end
-
         -- 점수 필터
         elseif (score_min) then
             if (my_score >= score_min) then
@@ -390,6 +388,13 @@ function UI_IllusionRewardListItem:initUI()
     local rank_data = g_illusionDungeonData.m_lIllusionRank
     local my_rank = rank_data['my_info']['rank']
     local my_score = rank_data['my_info']['score']
+
+    if (my_score < 7000) then
+        if (data['rank_min'] ~= '' or data['rank_max'] ~= '') then
+            vars['lockSprite']:setVisible(true)
+        end
+    end
+
     local l_rank_list = g_illusionDungeonData.m_lIllusionRankReward
     local t_reward, idx = UI_IllusionRank.getPossibleReward_score(my_rank, my_score, l_rank_list)
 

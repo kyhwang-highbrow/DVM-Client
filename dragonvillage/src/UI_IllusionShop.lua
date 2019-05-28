@@ -185,7 +185,7 @@ function UI_IllusionShopListItem:initUI()
     vars['itemNode']:addChild(ui_item_card.root)
 
     -- 재화 아이콘
-    local price_sprite = cc.Sprite:create('res/ui/icons/inbox/inbox_staminas_illusion_token_01.png')
+    local price_sprite = cc.Sprite:create('res/ui/icons/inbox/inbox_staminas_event_illusion_01.png')
     price_sprite:setPosition(20, 30)
     vars['priceNode']:addChild(price_sprite)
 end

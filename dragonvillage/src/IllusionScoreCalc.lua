@@ -59,7 +59,7 @@ function IllusionScoreCalc:calcClearTimeBonus(time, is_success)
 
     self.m_time_score = (5000 / 300) * (300 - time)
 
-    return self.m_time_score
+    return math.max(self.m_time_score, 0)
 end
 
 -------------------------------------

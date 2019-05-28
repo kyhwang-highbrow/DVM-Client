@@ -66,7 +66,7 @@ function UI_GoodsInfo:makeGoodsIcon(goods_name)
     end
     
     if (goods_name == 'event_illusion') then
-        goods_name = 'staminas_illusion_token_01'
+        goods_name = 'staminas_event_illusion_01'
     end
     
     local res_icon = string.format('res/ui/icons/inbox/inbox_%s.png', goods_name)
