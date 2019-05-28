@@ -683,6 +683,7 @@ local t_module = {
     'WaveMgr_Colosseum',
     'WaveMgr_Arena',
     'DynamicWave',
+    'WaveMgr_Illusion',
 	
 	-- 인게임 Util
     'DamageCalc',

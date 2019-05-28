@@ -325,3 +325,22 @@ function UI_ReadySceneNew_Deck_Illusion:setSlot(idx, doid, skip_sort)
     self:setDirtyDeck()
     return true
 end
+
+-------------------------------------
+-- function checkSameDid
+-- @brief 동종 동속성 드래곤 검사!
+-------------------------------------
+function UI_ReadySceneNew_Deck:checkSameDid(idx, doid)
+    if (not doid) then
+        return false
+    end
+
+    for e_idx, e_doid in pairs(self.m_lDeckList) do
+        -- 같은 did면서 idx가 다른 경우 (해제되는 드래곤과 새로 추가되는 드래곤은 같아도 됨)
+        if (g_illusionDungeonData:isSameDid(doid, e_doid)) and (idx ~= e_idx) then
+            return true
+        end
+    end
+
+    return false
+end

@@ -339,6 +339,23 @@ function Serverdata_IllusionDungeon:getParticiPantInfo()
 end
 
 -------------------------------------
+ -- function isSameDid
+-------------------------------------
+function Serverdata_IllusionDungeon:isSameDid(a_doid, b_doid)
+    local a_dragon = g_illusionDungeonData:getDragonDataFromUid(a_doid)
+    local b_dragon = g_illusionDungeonData:getDragonDataFromUid(b_doid)
+
+    if (not a_dragon) or (not b_dragon) then
+        return false
+    end
+
+    local a_did = a_dragon:getDid()
+    local b_did = b_dragon:getDid()
+
+    return a_did == b_did
+end
+
+-------------------------------------
  -- function request_illusionInfo
 -------------------------------------
 function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
@@ -570,3 +587,28 @@ function Serverdata_IllusionDungeon:request_illusionExchange(prodeuct_id, count,
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+ -- function getCurBossMaxHp
+-------------------------------------
+function Serverdata_IllusionDungeon:getCurBossMaxHp()
+    local struct_illusion = self:getEventIllusionInfo()
+    local cur_stage_id = struct_illusion:getCurIllusionStageId()
+    local basic_hp = 1000000
+    local stage_hp_rate = 1 
+
+    if (cur_stage_id == 1911001) then
+        stage_hp_rate = 2
+    elseif (cur_stage_id == 1912001) then
+        stage_hp_rate = 5
+    elseif (cur_stage_id == 1913001) then
+        stage_hp_rate = 10
+    elseif (cur_stage_id == 1914001) then
+        stage_hp_rate = 25
+    end
+    
+    return basic_hp * stage_hp_rate
+end
+
+
+
