@@ -188,6 +188,8 @@ local function main()
     LobbyPopupData:getInstance()
     ChatMacroData:getInstance()
     
+    SettingData_Deck:getInstance()
+
     stopwatch:stop()
     stopwatch:print()
 

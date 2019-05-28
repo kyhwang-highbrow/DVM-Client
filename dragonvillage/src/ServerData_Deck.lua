@@ -161,6 +161,18 @@ function ServerData_Deck:getDeck_core(deck_name)
                 end
             end
         end
+    -- 환상 던전 로컬에 저장되어 있는 덱을 사용
+    elseif (deck_name == 'illusion') then
+        local t_data = g_settingDeckData:getLocalDeck(deck_name)
+        if (t_data) then
+            local t_ret = {}
+            for i,v in ipairs(t_data['deck']) do
+                if (v ~= '') and g_illusionDungeonData:getDragonDataFromUid(v) then
+                    t_ret[tonumber(i)] = v
+                end
+            end
+            return t_data['deck'], self:adjustFormationName(t_data['formation']), deck_name, t_data['leader'], t_data['tamer_id']
+        end
     -- deckpvp collection을 사용하는 덱은 별도로 처리
     elseif self:isUsedDeckPvpDB(deck_name) then
         return self:getDeck_core_usedDeckPvpDB(deck_name)

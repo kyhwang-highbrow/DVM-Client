@@ -220,6 +220,8 @@ end
 -------------------------------------
 function Serverdata_IllusionDungeon:setDragonDeck(l_dragon)
     self.m_lDragonDeck = l_dragon
+
+    local ret_json, success_load = TABLE:loadJsonTable('illusion_dragon_info', '.txt')
 end
 
 -------------------------------------
@@ -233,17 +235,17 @@ end
 -- function getIllusionStageTitle
 -------------------------------------
 function Serverdata_IllusionDungeon:getIllusionStageTitle()
-        local table_stage = TABLE:get('stage_data')
-        local struct_illusion = self:getEventIllusionInfo()
-        local cur_stage_id = struct_illusion:getCurIllusionStageId()
-        local cur_stage_info = table_stage[cur_stage_id]
-
-        if (not cur_stage_info) then
-            return ''
-        end
-        
-        local cur_stage_str = cur_stage_info['t_name'] or ''
-        return Str(cur_stage_str)
+    local table_stage = TABLE:get('stage_data')
+    local struct_illusion = self:getEventIllusionInfo()
+    local cur_stage_id = struct_illusion:getCurIllusionStageId()
+    local cur_stage_info = table_stage[cur_stage_id]
+    
+    if (not cur_stage_info) then
+        return ''
+    end
+    
+    local cur_stage_str = cur_stage_info['t_name'] or ''
+    return Str(cur_stage_str)
  end
 
 
@@ -257,6 +259,10 @@ function Serverdata_IllusionDungeon:loadIllusionDragonInfo()
     self.m_lIllusionRuneInfo = {}
     local ret_json, success_load = TABLE:loadJsonTable('illusion_dragon_info', '.txt')
     
+    if (not success_load) then
+        return
+    end
+
     if (ret_json['illusion_runes']) then
         local l_rune = ret_json['illusion_runes']
         for i, rune_data in ipairs(l_rune) do

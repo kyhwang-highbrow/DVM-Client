@@ -61,6 +61,70 @@ function SettingData_Deck:getSettingDataSaveFileName()
     return full_path
 end
 
+
+
+
+------------------------------------------------------------------
+-- 범용적으로 사용하는 함수
+------------------------------------------------------------------
+
+-------------------------------------
+-- function getLocalDeck
+-- @brief 로컬 파일에서 덱 정보 읽어서 리턴
+-------------------------------------
+function SettingData_Deck:getLocalDeck(deck_name)
+    local t_deck_data = self.m_rootTable[deck_name]
+
+    if (not t_deck_data) then
+        return nil
+    end
+    -- 보유한 드래곤인지 체크
+    self:checkUserDragon(t_deck_data['deck'], deck_name)
+
+    -- 보유한 테이머인지 체크
+    self:checkUserTamer(t_deck_data)
+
+    return t_deck_data
+end
+
+-------------------------------------
+-- function saveLocalDeck
+-------------------------------------
+function SettingData_Deck:saveLocalDeck(deck_name, l_deck, formation, leader, tamer_id, score) 
+
+    -- 덱 순서에 맞게 다시 재배열
+    local l_deck_order = {}
+    for ind = 1,5 do
+        l_deck_order[ind] = l_deck[ind]
+    end
+
+    -- 새로 저장할 덱 정보
+    local t_new_deck_data = {}
+    t_new_deck_data['deck'] = l_deck_order
+    t_new_deck_data['formation'] = formation
+    t_new_deck_data['deckname'] = deck_name
+    t_new_deck_data['leader'] = leader
+    t_new_deck_data['tamer'] = tamer_id
+    t_new_deck_data['best_score'] = score
+    
+    
+    -- 덱 정보 갱신
+    self.m_rootTable[deck_name] = t_new_deck_data
+    return SaveLocalSaveJson(self:getSettingDataSaveFileName(), self.m_rootTable, false) 
+end
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------
+-- 고대의 탑에서만 사용하는 함수
+------------------------------------------------------------------
+
 -------------------------------------
 -- function makeDefaultSettingData_Deck
 -------------------------------------
@@ -192,10 +256,17 @@ end
 -- function checkUserDragon
 -- @brief 유저의 드래곤인지 체크, 아니라면 드래곤 obj를 nil로 변환
 -------------------------------------
-function SettingData_Deck:checkUserDragon(l_deck)
+function SettingData_Deck:checkUserDragon(l_deck, deck_name)
     for ind, doid in ipairs(l_deck) do
-        if (not g_dragonsData:getDragonDataFromUid(doid)) then
-            l_deck[ind] = nil
+        -- 환상 던전은 다른 드래곤 리스트를 탐색함
+        if (deck_name == 'illusion') then
+            if (not g_illusionDungeonData:getDragonDataFromUid(doid)) then
+                l_deck[ind] = nil
+            end
+        else    
+            if (not g_dragonsData:getDragonDataFromUid(doid)) then
+                l_deck[ind] = nil
+            end
         end
     end
 end

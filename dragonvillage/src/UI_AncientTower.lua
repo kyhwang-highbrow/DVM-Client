@@ -23,8 +23,6 @@ function UI_AncientTower:init()
     local vars = self:load_keepZOrder('tower_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    SettingData_Deck:getInstance()
-
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AncientTower')
 

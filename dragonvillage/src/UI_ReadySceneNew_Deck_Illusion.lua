@@ -105,6 +105,8 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
 	    ui_network:setParam('leader', self.m_currLeader)
         ui_network:setParam('tamer', tamer_id)
 
+        g_settingDeckData:saveLocalDeck('illusion', self.m_lDeckList, self.m_currFormation, self.m_currLeader, tamer_id) -- param : (deck_name, l_deck, formation, leader, tamer_id, score) 
+
         -- 친구 드래곤 체크 (친구 드래곤일 경우 저장하지 않음)
         local set_param 
         set_param = function(doid)
