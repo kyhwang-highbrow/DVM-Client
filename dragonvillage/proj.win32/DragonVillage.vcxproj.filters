@@ -4093,6 +4093,9 @@
     <None Include="..\src\UI_EventScene_Illusion.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_BundlePopupNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

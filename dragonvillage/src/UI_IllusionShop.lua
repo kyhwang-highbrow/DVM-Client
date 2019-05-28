@@ -72,11 +72,9 @@ function UI_IllusionShop:refresh()
         local l_shop = ret['exchange_list']
         vars['listNode']:removeAllChildren()
 
-        local create_cb = function(ui, data)
+        local create_cb = function(ui, data)        
             local buy_cnt = self:getProductCnt(data['table']['id'])
-            -- 구매 가능 횟수
-            local buy_cnt_str = Str('구매 가능 {1}/{2}', data['table']['buy_count'] - buy_cnt, data['table']['buy_count'])
-            ui.vars['maxBuyTermLabel']:setString(buy_cnt_str)
+            ui:setBuyCnt(buy_cnt)
         end
 
         -- 테이블 뷰 인스턴스 생성
@@ -139,6 +137,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_IllusionShopListItem = class(PARENT, {
         m_data = 'table',
+        m_buyCnt = 'number',
      })
 
 -------------------------------------
@@ -199,6 +198,25 @@ function UI_IllusionShopListItem:initButton()
 end
 
 -------------------------------------
+-- function initUI
+-------------------------------------
+function UI_IllusionShopListItem:setBuyCnt(buy_cnt)
+    local data = self.m_data
+    local vars = self.vars 
+
+    -- 구매 가능 횟수
+    local buy_cnt_str = Str('구매 가능 {1}/{2}', data['buy_count'] - buy_cnt, data['buy_count'])
+    self.vars['maxBuyTermLabel']:setString(buy_cnt_str)
+    if (data['buy_count'] == buy_cnt) then
+        self.vars['maxBuyTermLabel']:setColor(cc.c3b(255, 0, 0))
+        vars['buyBtn']:setEnabled(false)
+    else
+        self.vars['maxBuyTermLabel']:setColor(cc.c3b(0, 255, 0))
+    end
+    self.m_buyCnt = buy_cnt
+end
+
+-------------------------------------
 -- function click_buyBtn
 -------------------------------------
 function UI_IllusionShopListItem:click_buyBtn()
@@ -209,9 +227,36 @@ function UI_IllusionShopListItem:click_buyBtn()
         return
     end
 
-    local finish_cb = function(ret)
-        local buy_cnt_str = Str('구매 가능 {1}/{2}', data['buy_count'] - ret['buy_item'], data['buy_count'])
-        vars['maxBuyTermLabel']:setString(buy_cnt_str)
+    -- 재화 체크
+    if (g_userData:get('event_illusion') < data['price']) then
+        UIManager:toastNotificationRed(Str('{1}이 부족합니다.', Str('환상 토큰')))
+        return
     end
-    g_illusionDungeonData:request_illusionExchange(data['id'], 1, finish_cb)  
+
+    local finish_cb = function(ret)
+        self:setBuyCnt(ret['buy_item'])
+    end
+
+    local cb_func = function(cnt)
+        if (not cnt) then
+            cnt = 1
+        end
+        g_illusionDungeonData:request_illusionExchange(data['id'], cnt, finish_cb)  
+    end
+
+    if (data['buy_count'] == 1) then
+        local msg = Str('{1} 교환 하시겠습니까?', vars['itemLabel']:getString())
+        UI_SimplePopup(POPUP_TYPE.YES_NO, msg, cb_func, nil)
+    else
+
+        local item_str = data['item']
+        local l_item_str = pl.stringx.split(item_str, ';') -- 703003;1
+        local item_id = tonumber(l_item_str[1])
+        local item_cnt = l_item_str[2]
+        local item_name = TableItem:getItemName(item_id)
+        if (tonumber(item_cnt) > 1) then
+            item_name = item_name .. ' ' .. Str('{1}개', comma_value(item_cnt))
+        end
+        UI_BundlePopupNew(item_id, self.m_buyCnt, data['buy_count'], 'event_illusion', data['price'], cb_func)
+    end
 end

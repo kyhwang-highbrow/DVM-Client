@@ -604,6 +604,10 @@ function Serverdata_IllusionDungeon:request_illusionExchange(prodeuct_id, count,
 
     -- 콜백 함수
     local function success_cb(ret)
+        if (ret['token']) then
+            g_serverData:applyServerData(ret['token'], 'user', 'event_illusion')
+        end
+        
         if (finish_cb) then
             finish_cb(ret)
         end 
