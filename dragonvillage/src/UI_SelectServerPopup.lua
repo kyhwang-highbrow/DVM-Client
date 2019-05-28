@@ -108,6 +108,20 @@ function UI_SelectServerPopup:click_okBtn()
 end
 
 -------------------------------------
+-- function getSelectedServerName
+-- @brief 선택된 게임 서버 이름 리턴
+-- @return string : 'DEV', 'QA', 'Korea' ...
+-------------------------------------
+function UI_SelectServerPopup:getSelectedServerName()
+    if (not self.m_radioButton) then
+        return nil
+    end
+
+    local selected_server_name = self.m_radioButton.m_selectedButton
+    return selected_server_name
+end
+
+-------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_SelectServerPopup:click_closeBtn()

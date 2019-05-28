@@ -66,10 +66,8 @@ function UI_TitleScene:initUI()
     vars['downloadLabel']:setVisible(false)
 	vars['downloadGauge']:setVisible(false)
 
-    do -- 앱버전과 패치 정보를 출력
-        local patch_idx_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
-        vars['patchIdxLabel']:setString(patch_idx_str)
-    end    
+    -- 앱버전과 패치 정보, 게임 서버를 출력
+    self:refresh_appVersionString()
 
     self.m_loadingUI = UI_TitleSceneLoading()
     self.m_loadingUI:hideLoading()
@@ -89,6 +87,16 @@ end
 -- function refresh
 -------------------------------------
 function UI_TitleScene:refresh()
+end
+
+-------------------------------------
+-- function refresh_appVersionString
+-- @brief 앱버전과 패치 정보, 게임 서버를 출력
+-------------------------------------
+function UI_TitleScene:refresh_appVersionString()
+    local vars = self.vars
+    local patch_idx_str = PatchData:getInstance():getAppVersionAndPatchIdxString()
+    vars['patchIdxLabel']:setString(patch_idx_str)
 end
 
 -------------------------------------
@@ -299,6 +307,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workTitleAni')
     table.insert(self.m_lWorkList, 'workLoading')
     table.insert(self.m_lWorkList, 'workGetServerList')
+    table.insert(self.m_lWorkList, 'workCheckSelectedGameServer') -- 유저가 선택(or 추천)한 게임 서버 확인
     table.insert(self.m_lWorkList, 'workCheckUserID')    
     table.insert(self.m_lWorkList, 'workPlatformLogin')    
     table.insert(self.m_lWorkList, 'workGameLogin')
@@ -596,6 +605,10 @@ function UI_TitleScene:workGetServerList()
                 
         if ret['state'] == 0 then            
             ServerListData:createWithData(ret)
+            
+            -- 앱버전과 패치 정보, 게임 서버를 출력
+            self:refresh_appVersionString()
+
             self:doNextWork()            
         else            
             self:makeFailPopup(nil, ret)
@@ -611,6 +624,63 @@ function UI_TitleScene:workGetServerList()
 end
 function UI_TitleScene:workGetServerList_click()
 end
+
+-------------------------------------
+-- function workCheckSelectedGameServer
+-- @brief 유저가 선택(or 추천)한 게임 서버 확인
+-------------------------------------
+function UI_TitleScene:workCheckSelectedGameServer()
+    cclog('#UI_TitleScene:workCheckSelectedGameServer()')
+
+    -- 1. 서버 선택이 필요한지 여부
+    local need_select_server = false
+    
+    -- 1-1. 선택된 게임 서버가 없을 경우
+    --      기본적으로 ServerListData의 initWithData에서 추천 서버를 선택하기 때문에 이럴 경우는 없어야 한다.
+    local server_name = g_localData:getServerName()
+    if (not server_name) then
+        need_select_server = true
+    end
+
+    -- 1-2. 유저 ID가 설정되지 않았을 경우 (최초 실행)
+    local uid = g_localData:get('local', 'uid')
+    if (not uid) then
+        need_select_server = true
+    end
+
+    -- 2. 서버 선택 과정이 필요 없는 경우 다음 step으로
+    if (not need_select_server) then
+        self:doNextWork()
+        return
+    end
+
+    -- 3. 서버 선택이 필요한 경우 팝업
+    local open_select_server_popup
+    local close_cb
+    local popup_ui
+
+    -- 3-1. 서버 선택 팝업 오픈
+    open_select_server_popup = function()
+        popup_ui = UI_SelectServerPopup(nil) -- param : finish_cb
+        popup_ui:setCloseCB(close_cb)
+    end
+
+    -- 3-2. 서버 선택 종료
+    close_cb = function()
+        local server_name = popup_ui:getSelectedServerName()
+        ServerListData:getInstance():selectServer(server_name)
+
+        -- 앱버전과 패치 정보, 게임 서버를 출력
+        self:refresh_appVersionString()
+
+        self:doNextWork()
+    end
+
+    open_select_server_popup()
+end
+function UI_TitleScene:workCheckSelectedGameServer_click()
+end
+
 
 -------------------------------------
 -- function workPlatformLogin
