@@ -81,7 +81,7 @@ function UI_IllusionShop:refresh()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view_td = UIC_TableViewTD(vars['listNode'])
-        table_view_td.m_cellSize = cc.size(235, 255)
+        table_view_td.m_cellSize = cc.size(235 + 5, 255 + 5)
         table_view_td.m_nItemPerCell = 4
 	    table_view_td:setCellUIClass(UI_IllusionShopListItem, create_cb)
         table_view_td:setItemList(l_shop)
@@ -171,7 +171,7 @@ function UI_IllusionShopListItem:initUI()
     local item_cnt = l_item_str[2]
     local item_name = TableItem:getItemName(item_id)
     if (tonumber(item_cnt) > 1) then
-        item_name = item_name .. ' ' .. Str('{1}개', item_cnt)
+        item_name = item_name .. ' ' .. Str('{1}개', comma_value(item_cnt))
     end
 
 

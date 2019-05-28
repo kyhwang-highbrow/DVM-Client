@@ -58,7 +58,7 @@ function UI_IllusionRank:initRank()
 
     local make_my_rank_cb = function()
         local my_data = rank_data['my_info'] or {}
-        local me_rank = UI_IllusionRankListItem(my_data)
+        local me_rank = UI_IllusionRankListItem(my_data, true)
         vars['meRankNode']:addChild(me_rank.root)
         me_rank.vars['meSprite']:setVisible(true)
     end
@@ -243,71 +243,6 @@ function UI_IllusionRank.getPossibleReward_score(my_rank, my_score, l_rank_list)
     return l_rank_list[last_ind], last_ind
 end
 
-
-
-
-
-
-
-
-
-local PARENT = class(UI, IRankListItem:getCloneTable())
-
--------------------------------------
--- class UI_IllusionRankListItem
--------------------------------------
-UI_IllusionRankListItem = class(PARENT, {
-        m_data = 'table',
-     })
-
--------------------------------------
--- function init
--------------------------------------
-function UI_IllusionRankListItem:init(data)
-    local vars = self:load('event_dungeon_ranking_rank_item.ui')
-    self.m_data = data
-
-    self:initUI()
-end
-
--------------------------------------
--- function initUI
--------------------------------------
-function UI_IllusionRankListItem:initUI()
-    local vars = self.vars
-    local data = self.m_data
-
-    -- 랭킹
-    local struct_rank = StructUserInfoArena:create_forRanking(data)
-    local rank = struct_rank:getRankText_noTier()
-    vars['rankingLabel']:setString(rank)
-    
-    -- 리더 드래곤
-    local profile_sprite = struct_rank:getLeaderDragonCard()
-    vars['profileNode']:addChild(profile_sprite.root)
-
-    -- 점수
-    if (data['score'] and data['score'] >= 0) then
-        vars['scoreLabel']:setString(Str('{1}점', data['score']))
-    else
-        vars['scoreLabel']:setString('-')
-    end
-    
-    -- 유저 정보
-    local user_text = struct_rank:getUserText()
-    vars['userLabel']:setString(user_text)
-
-    -- 클랜 이름
-    local struct_clan = struct_rank:getStructClan()
-    if (struct_clan) then
-        local clan_name = struct_clan:getClanName()
-        local clan_mark = struct_clan:makeClanMarkIcon()
-        vars['clanLabel']:setString(clan_name)
-        vars['markNode']:addChild(clan_mark)
-    else
-        vars['clanLabel']:setString('')
-    end
-end
 
 
 

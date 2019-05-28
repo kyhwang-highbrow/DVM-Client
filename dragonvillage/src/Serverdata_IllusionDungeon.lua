@@ -17,6 +17,10 @@ Serverdata_IllusionDungeon = class({
     m_lIllusionRankReward = 'list', -- 랭크 보상 리스트
 
     m_gameKey = 'number',
+
+    -- 둘 중 하나라도 없다면 보상 없음
+    m_lastInfo = 'table',
+    m_rewardInfo = 'table',
 })
 
 
@@ -65,7 +69,9 @@ function Serverdata_IllusionDungeon:getIllusionState()
 
 	-- 보상 수령 기간
 	elseif (g_hotTimeData:isActiveEvent(illusion_key .. '_reward')) then
-		--[[
+			return Serverdata_IllusionDungeon.STATE['REWARD']
+        
+        --[[
 		-- 레벨 체크
 		if (g_contentLockData:isContentLock('challenge_mode')) then
 			return ServerData_ChallengeMode.STATE['LOCK']
@@ -367,7 +373,6 @@ end
 function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
-
     -- 콜백 함수
     local function success_cb(ret)
         self.m_lIllusionRankReward = ret['rank_reward_list'] or {}
@@ -382,6 +387,20 @@ function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
 
         if (finish_cb) then
             finish_cb()
+
+            -- 보상이 들어왔을 경우 정보 저장, nil 여부로 보상 확인
+            if (ret['lastinfo']) then
+                self.m_lastInfo = ret['lastinfo']
+            else
+                self.m_lastInfo = nil
+            end
+
+            if (ret['reward_info']) then
+                self.m_rewardInfo = ret['reward_info']
+            else
+                self.m_rewardInfo = nil
+            end
+
         end
     end
 

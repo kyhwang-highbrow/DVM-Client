@@ -31,6 +31,21 @@ function UI_AdventureScene_Illusion:init()
 	self:initUI()
 	self:initButton()
 	self:refresh()
+
+    self:sceneFadeInAction(function() self:appearDone() end)
+end
+
+-------------------------------------
+-- function appearDone
+-- @brief UI전환 종료 시점
+-------------------------------------
+function UI_AdventureScene_Illusion:appearDone()
+    local last_info = g_illusionDungeonData.m_lastInfo
+    local reward_info = g_illusionDungeonData.m_rewardInfo
+
+    if (last_info and reward_info) then
+        UI_IllusionRewardPopup(last_info, reward_info)
+    end
 end
 
 -------------------------------------

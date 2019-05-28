@@ -898,6 +898,7 @@ local t_module = {
     'UI_AncientTowerBestDeckPopup',
     'UI_IllusionScene',
     'UI_IllusionRank',
+    'UI_IllusionRankListItem',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',
@@ -1278,6 +1279,7 @@ local t_module = {
     'UI_EventBingoListItem',
     'UI_EventBingo',
     'UI_IllusionShop',-- 환상 던전 교환소
+    'UI_IllusionRewardPopup', -- 환상 던전 보상 팝업
 
 	-- UI : 연출
 	'DirectingCharacter',

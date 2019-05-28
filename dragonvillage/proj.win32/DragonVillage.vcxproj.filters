@@ -4087,6 +4087,12 @@
     <None Include="..\src\IllusionScoreCalc.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_IllusionRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_IllusionRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
