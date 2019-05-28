@@ -10,7 +10,7 @@ UI_IllusionRank = class(PARENT, {
         m_rewardTableView = 'UIC_TableView',
      })
 
-local RANK_OFFSET = 20
+local RANK_OFFSET_GAP = 20
 -------------------------------------
 -- function init
 -------------------------------------
@@ -67,20 +67,34 @@ function UI_IllusionRank:initRank()
     
     -- 이전 랭킹 보기
     local function click_prevBtn()
-        --self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
-        --self.m_rankOffset = math_max(self.m_rankOffset, 0)
-        --self:request_Rank()
+        local prev_ind 
+        if (#l_rank_list>0) then
+            prev_ind = l_rank_list[1]['rank']
+            if (type(prev_ind) == 'string') then
+                prev_ind = l_rank_list[2]['rank']
+            end
+            prev_ind = prev_ind - RANK_OFFSET_GAP -- 가져온 랭킹의 가장 첫 번째 - OFFSET_GAP
+        else
+            prev_ind = self.m_rankOffset - OFFSET_GAP
+        end
+        self.m_rankOffset = prev_ind
+        self.m_rankOffset = math_max(self.m_rankOffset, 0)
+        self:requestRank()
     end
 
     -- 다음 랭킹 보기
     local function click_nextBtn()
-        --local add_offset = #g_ancientTowerData.m_lGlobalRank
-        --if (add_offset < OFFSET_GAP) then
-        --    MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
-        --    return
-        --end
-        --self.m_rankOffset = self.m_rankOffset + add_offset
-        --self:request_Rank()
+        local next_ind = l_rank_list[#l_rank_list]['rank'] -- 가져온 랭킹의 가장 마지막 + 1
+        if (type(next_ind) == 'string') then
+            next_ind = l_rank_list[#l_rank_list-1]['rank']
+        end
+        if (#l_rank_list < RANK_OFFSET_GAP) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+            return
+        end
+        print( next_ind + 1)
+        self.m_rankOffset = next_ind + 1
+        self:requestRank()
     end
 
     local rank_list = UIC_RankingList()
@@ -88,9 +102,9 @@ function UI_IllusionRank:initRank()
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr('랭킹 정보가 없습니다')
     rank_list:setMyRank(make_my_rank_cb)
-    rank_list:makeRankMoveBtn(click_prevBtn, click_nextBtn, RANK_OFFSET)
+    rank_list:setOffset(self.m_rankOffset)
+    rank_list:makeRankMoveBtn(click_prevBtn, click_nextBtn, RANK_OFFSET_GAP)
     rank_list:makeRankList(rank_node)
-    rank_list:setOffset(1)
     rank_list:setFocus('rank', rank_data['my_info']['rank'])
 end
 
@@ -180,13 +194,13 @@ function UI_IllusionRank:onChangeRankingType(type)
         self.m_rankOffset = 1
     end
 
-    self:request_rank()
+    self:requestRank()
 end
 
 -------------------------------------
--- function request_rank
+-- function requestRank
 -------------------------------------
-function UI_IllusionRank:request_rank()
+function UI_IllusionRank:requestRank()
     local function finish_cb()
         self:initRank()
         self:initReward()

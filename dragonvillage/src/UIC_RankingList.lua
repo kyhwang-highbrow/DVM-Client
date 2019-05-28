@@ -94,13 +94,13 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
     -- 이전 보기 추가
     if (1 < self.m_offset) then
         local prev_data = { rank = 'prev' }
-        l_item['prev'] = prev_data
+        table.insert(l_item, prev_data)
     end
 
     -- 다음 보기 추가
     if (#l_item > 0) then
         local next_data = { rank = 'next' }
-        l_item['next'] = next_data
+        table.insert(l_item, next_data)
     end
     self.m_itemList = l_item
 
@@ -270,6 +270,9 @@ function UIC_RankingList:click_next()
     end
 
     local next_rank = l_item[#l_item]['rank']
+    if (type(next_rank) == 'string') then
+        next_rank = l_item[#l_item-1]['rank']
+    end
     self.m_offset = next_rank + 1
 
     if (self.m_nextCb) then

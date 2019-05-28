@@ -31,6 +31,7 @@ function UI_IllusionRankListItem:initUI(show_rank_rate)
     
     -- 리더 드래곤
     local profile_sprite = struct_rank:getLeaderDragonCard()
+    profile_sprite.root:setSwallowTouch(false)
     vars['profileNode']:addChild(profile_sprite.root)
 
     -- 점수
