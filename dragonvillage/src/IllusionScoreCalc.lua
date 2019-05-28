@@ -40,7 +40,7 @@ function IllusionScoreCalc:calcDamageBonus(damage)
     if (not damage) then
         return self.m_damage_score
     end
-    self.m_damage_score = (damage / 10000)
+    self.m_damage_score = (damage / 5000)
 
     return self.m_damage_score
 end
