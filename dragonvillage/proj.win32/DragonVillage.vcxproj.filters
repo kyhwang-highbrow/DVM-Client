@@ -4021,9 +4021,6 @@
     <None Include="..\src\UI_Loading.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_AdventureScene_Illusion.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_EventBingoListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4091,6 +4088,9 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_IllusionRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventScene_Illusion.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

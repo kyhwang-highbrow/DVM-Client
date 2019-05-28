@@ -8,6 +8,7 @@ StructEventIllusion = class(PARENT,{
         last_stage = 'number',
         token = 'number',
         event_id = 'number',   -- 이벤트 아이디 ex) 1 = 삐에로 던전, 2 = 앙그라 던전....
+        rank = 'number',
         
         ---------------------------------------------------------------------------------------
         -- 토컬 테이블로 필요한 정보 가공

@@ -1027,7 +1027,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AdventureFirstRewardButton.lua" />
     <None Include="..\src\UI_AdventureFirstRewardPopup.lua" />
     <None Include="..\src\UI_AdventureSceneNew.lua" />
-    <None Include="..\src\UI_AdventureScene_Illusion.lua" />
     <None Include="..\src\UI_AdventureStageButton.lua" />
     <None Include="..\src\UI_AdventureStageInfo.lua" />
     <None Include="..\src\UI_AdventureStageInfo_IllusionDungeon.lua" />
@@ -1209,6 +1208,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventPopupTab_PackageGrowth.lua" />
     <None Include="..\src\UI_EventPopupTab_PurchasePoint.lua" />
     <None Include="..\src\UI_EventPopupTab_Scroll.lua" />
+    <None Include="..\src\UI_EventScene_Illusion.lua" />
     <None Include="..\src\UI_EvolutionStoneCombine.lua" />
     <None Include="..\src\UI_EvolutionStoneCombineListItem.lua" />
     <None Include="..\src\UI_ExchangeEvent.lua" />

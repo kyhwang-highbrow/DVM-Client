@@ -56,8 +56,8 @@ function UI_IllusionShop:initUI()
     vars['npcNode']:addChild(dragon_animator.m_node)
 
     -- 교환소 남은 시간
-    local time = g_hotTimeData:getEventRemainTime('event_illusion_legend_reward') or 0
-    local remain_str = Str('교환 기간: ') .. Str('{1} 남음', datetime.makeTimeDesc(time, true))
+    local state_text = g_illusionDungeonData:getIllusionExchanageStatusText()
+    local remain_str = Str('교환 기간: {1}', state_text)
     vars['timeLabel']:setString(remain_str)
 end
 

@@ -55,7 +55,7 @@ function UI_EventDungeon:initUI()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     table_view:setItemList(l_item_list)
-    local event_ui = UI_AdventureScene_Illusion()
+    local event_ui = UI_EventScene_Illusion()
     vars['eventNode']:addChild(event_ui.root)
 end
 

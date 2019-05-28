@@ -123,6 +123,24 @@ function Serverdata_IllusionDungeon:getIllusionStatusText()
 end
 
 -------------------------------------
+-- function getIllusionExchanageStatusText
+-------------------------------------
+function Serverdata_IllusionDungeon:getIllusionExchanageStatusText()
+
+    local time = g_hotTimeData:getEventRemainTime('event_illusion_reward') or 0
+
+    local str = ''
+    if (0 < time) then
+        str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
+
+    else
+        str = Str('종료되었습니다.')
+    end
+
+    return str
+end
+
+-------------------------------------
 -- function isActive_grandArena
 -------------------------------------
 function Serverdata_IllusionDungeon:isActive_illusion()

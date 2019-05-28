@@ -74,10 +74,12 @@ function UI_IllusionScene:initUI()
     local struct_illusion  = g_illusionDungeonData:getEventIllusionInfo()   
     local highest_score = struct_illusion:getIllusionHighestScore()
     ui_illusion_info.vars['meRankLabel']:setString(Str('내 최고 점수 : {1}점', highest_score))
-    ui_illusion_info.vars['topRankLabel']:setString(Str('내 순위 : {1}위', '-'))
+    
+    local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
+    ui_illusion_info.vars['topRankLabel']:setString(Str('내 순위 : {1}위', struct_illusion.rank ))
     
     local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
-    ui_illusion_info.vars['timeLabel']:setString(Str('이벤트 종료 까지') .. ' '.. time_text)
+    ui_illusion_info.vars['timeLabel']:setString(Str(time_text))
     
     -- 배경 이미지
     local event_sprite = cc.Sprite:create('res/ui/event/event_dungeon/ed_tab_illusion.png')

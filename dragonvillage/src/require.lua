@@ -896,6 +896,9 @@ local t_module = {
     'UI_RuneGuardianDungeonScene',
     'UI_AncientTowerBestDeckListItem',
     'UI_AncientTowerBestDeckPopup',
+
+    -- UI : 환상 던전
+    'UI_EventScene_Illusion',
     'UI_IllusionScene',
     'UI_IllusionRank',
     'UI_IllusionRankListItem',
@@ -967,7 +970,6 @@ local t_module = {
     'UI_AdventureStageMissionInfo',
     'UI_ChapterSelect',
     'UI_ChapterSelectListItem',
-    'UI_AdventureScene_Illusion',
 
 	-- UI : 모험 준비
     'UI_ReadySceneNew',
