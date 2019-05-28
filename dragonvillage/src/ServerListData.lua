@@ -2,6 +2,7 @@
 -- class ServerListData
 -------------------------------------
 ServerListData = class({
+        -- server name 종류 (QA, DEV, Korea, Asia, Japan, America)
 	    m_recommandServerName = 'string',
         m_selectServerName = 'string',
         m_tservers = 'table'
@@ -26,8 +27,9 @@ function ServerListData:initWithData(tdata)
     local tremove = {}
     local targetServer = CppFunctionsClass:getTargetServer()
     local recommandServerNum = tdata['recommandedServer']
-    local recommandServerName
-    local defaultServerName
+    local recommandServerName = nil
+    local defaultServerName = nil
+
     --서버변경 테스트때문에 개발이랑 qa랑 보이게
     if targetServer == SERVER_NAME.DEV or targetServer == SERVER_NAME.QA then
         for i, server in pairs(tserverList) do
@@ -63,7 +65,7 @@ function ServerListData:initWithData(tdata)
     else
         self.m_recommandServerName = recommandServerName or defaultServerName    
     end
-    self:selectServer( self.m_recommandServerName )
+    self:selectServer(self.m_recommandServerName)
 end
 
 -------------------------------------
@@ -81,30 +83,61 @@ function ServerListData:getSelectServer()
 end
 
 -------------------------------------
--- function selectServer( name )
+-- function selectServer
 -- @brief 서버 선택
 -------------------------------------
-function ServerListData:selectServer( serverName )    
-    self.m_selectServerName = serverName
+function ServerListData:selectServer(server_name)    
+    -- 서버 1개의 정보를 받아옴
+    local t_server_info = self:getGameServerInfo(server_name)
 
-    cclog( 'selectServer : ' .. serverName )
-    local servers = self.m_tservers
-    if servers then
-        for _, server in pairs( servers ) do
-            if server['server_name'] == serverName then                        
-                cclog( 'api_server_ip : ' .. server['api_server_ip'] )
-                cclog( 'chat_server : ' .. server['chat_server'] )
-                cclog( 'clan_chat_server : ' .. server['clan_chat_server'] )
-                
-                SetApiUrl(server['api_server_ip'])
-                SetChatServerUrl(server['chat_server'])
-                SetClanChatServerUrl(server['clan_chat_server'])
-
-                break
-            end
-        end
-                                
+    if (not t_server_info) then
+        return
     end
+
+    cclog('# ServerListData:selectServer(server_name) : ' .. tostring(server_name))
+    cclog('  api_server_ip : ' .. tostring(t_server_info['api_server_ip']))
+    cclog('  chat_server : ' .. tostring(t_server_info['chat_server']))
+    cclog('  clan_chat_server : ' .. tostring(t_server_info['clan_chat_server']))
+
+    -- 게임이 설정된 서버 기준으로 동작할 수 있게 설정
+    SetApiUrl(t_server_info['api_server_ip'])
+    SetChatServerUrl(t_server_info['chat_server'])
+    SetClanChatServerUrl(t_server_info['clan_chat_server'])
+
+    -- 로컬 데이터에 선택된 서버 정보 저장 (로컬 파일에까지 저장)
+    if g_localData then
+        g_localData:setServerName(server_name)
+    end
+end
+
+-------------------------------------
+-- function getGameServerInfo
+-- @brief 게임 서버 정보 리턴
+-- @return 게임 서버 1개의 정보를 담은 테이블
+-- {
+--      "server_name":"Korea",
+--      "newOne":0,
+--      "api_server_ip":"dvm-api.perplelab.com",
+--      "server_num":1,
+--      "clan_chat_server":"dvm-ch1.perplelab.com:2223/",
+--      "chat_server":"dvm-ch1.perplelab.com:2222",
+--      "db_server_ip":""
+-- }
+-------------------------------------
+function ServerListData:getGameServerInfo(server_name)
+    if (not self.m_tservers) then
+        return nil
+    end
+
+    local t_server_info = nil
+    for _, server in pairs(self.m_tservers) do
+        if (server['server_name'] == server_name) then
+            t_server_info = server
+            break
+        end
+    end
+
+    return t_server_info
 end
 
 -------------------------------------
