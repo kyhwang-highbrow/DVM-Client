@@ -28,8 +28,9 @@ function UI_LoginPopup:init()
     self.m_loadingUI = UI_TitleSceneLoading()
     self.m_loadingUI:hideLoading()
 
-    --서버선택 팝업으로 최초에 보여주도록 
-    self:click_changeServer()
+    --서버선택 팝업으로 최초에 보여주도록
+    -- @sgkim 2019-05-28 타이틀 화면(UI_TitleScene:workCheckSelectedGameServer()) 에서 서버 선택을 하도록 변경 
+    --self:click_changeServer()
 end
 
 -------------------------------------

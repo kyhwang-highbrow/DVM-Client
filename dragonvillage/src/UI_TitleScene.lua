@@ -485,17 +485,12 @@ function UI_TitleScene:workCheckUserID()
 
     SoundMgr.m_bStopPreload = false
 
-    local target_server = CppFunctions:getTargetServer()
     if isWin32() then
         local uid = g_localData:get('local', 'uid')
-        local server = g_localData:getServerName()
-        if uid and server then
-            self:doNextWork()
-        else            
+        if (not uid) then
             self:makeRandomUid()
-            self:selectWin32Server()
-            self:doNextWork()
         end
+        self:doNextWork()
         return
     end
 
@@ -630,7 +625,6 @@ end
 -- @brief 유저가 선택(or 추천)한 게임 서버 확인
 -------------------------------------
 function UI_TitleScene:workCheckSelectedGameServer()
-    cclog('#UI_TitleScene:workCheckSelectedGameServer()')
 
     -- 1. 서버 선택이 필요한지 여부
     local need_select_server = false
@@ -1297,17 +1291,6 @@ function UI_TitleScene:workFinish_click()
     local is_use_loading = true
     local scene = SceneLobby(is_use_loading)
     scene:runScene()
-end
-
--------------------------------------
--- function selectWindowServer
--------------------------------------
-function UI_TitleScene:selectWin32Server()
-    local server = CppFunctionsClass:getTargetServer()
-    g_localData:lockSaveData()
-    ServerListData:getInstance():selectServer( server )
-    g_localData:setServerName( server )
-    g_localData:unlockSaveData()
 end
 
 -------------------------------------
