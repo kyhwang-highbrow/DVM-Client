@@ -94,6 +94,9 @@ function ServerListData:selectServer(server_name)
         return
     end
 
+    -- 선택된 서버 이름 저장
+    self.m_selectServerName = server_name
+
     cclog('# ServerListData:selectServer(server_name) : ' .. tostring(server_name))
     cclog('  api_server_ip : ' .. tostring(t_server_info['api_server_ip']))
     cclog('  chat_server : ' .. tostring(t_server_info['chat_server']))
