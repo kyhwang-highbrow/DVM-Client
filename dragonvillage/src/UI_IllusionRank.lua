@@ -223,7 +223,7 @@ function UI_IllusionRank.getPossibleReward_score(my_rank, my_score, l_rank_list)
         local rank_max = tonumber(data['table']['rank_max'])
 
         local score_min = tonumber(data['table']['score_min'])
-        print(rank_min, rank_max,my_rank )
+
         -- 순위 필터
         if (rank_min and rank_max) then
             if (rank_min <= my_rank) and (my_rank <= rank_max) then
