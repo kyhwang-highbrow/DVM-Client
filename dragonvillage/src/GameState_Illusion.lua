@@ -29,6 +29,29 @@ function GameState_Illusion:initState()
     self:addState(GAME_STATE_RESULT, GameState_Illusion.update_result)
 end
 
+------------------------------------
+-- function makeBossHp
+-------------------------------------
+function GameState_Illusion:makeBossHp()
+    local world = self.m_world
+    local boss = world.m_waveMgr.m_lBoss[1]
+    local max_hp = math.ceil(boss.m_maxHp)
+    local hp = math.ceil(boss.m_hp)
+    
+    self.m_orgBossHp:set(hp)
+    self.m_bossHp:set(hp)
+    self.m_bossMaxHp:set(max_hp)
+
+    -- 체력 게이지 UI 생성
+    if (not self.m_uiBossHp) then
+        local parent = world.m_inGameUI.root
+
+        self.m_uiBossHp = UI_IngameSharedBossHp(parent, world.m_waveMgr.m_lBoss, true)
+    end
+
+    self.m_uiBossHp:refresh(hp, max_hp)
+end
+
 -------------------------------------
 -- function makeResultUI
 -------------------------------------

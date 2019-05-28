@@ -84,7 +84,7 @@ function UI_BannerIllusion:update(dt)
     end
     --]]
 
-    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion_legend')
+    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
     vars['timeLabel']:setString(time_text)
 end
 

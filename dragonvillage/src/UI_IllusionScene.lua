@@ -76,7 +76,7 @@ function UI_IllusionScene:initUI()
     ui_illusion_info.vars['meRankLabel']:setString(Str('내 최고 점수 : {1}점', highest_score))
     ui_illusion_info.vars['topRankLabel']:setString(Str('내 순위 : {1}위', '-'))
     
-    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion_legend')
+    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
     ui_illusion_info.vars['timeLabel']:setString(Str('이벤트 종료 까지') .. ' '.. time_text)
     
     -- 배경 이미지

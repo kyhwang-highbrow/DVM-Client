@@ -50,7 +50,7 @@ end
 -- @brief 환상 던전의 상태 
 -------------------------------------
 function Serverdata_IllusionDungeon:getIllusionState()
-    local illusion_key = 'event_illusion_legend'
+    local illusion_key = 'event_illusion'
 	-- 이벤트 기간
 	if (g_hotTimeData:isActiveEvent(illusion_key)) then
 		--[[
@@ -93,12 +93,12 @@ function Serverdata_IllusionDungeon:getIllusionStatusText()
     
     -- 연습전 기간 (프리시즌)
     if (self:getIllusionState() == Serverdata_IllusionDungeon.STATE['PRESEASON']) then
-        local time = g_hotTimeData:getEventRemainTime('event_illusion_legend') or 0
+        local time = g_hotTimeData:getEventRemainTime('event_illusion') or 0
         str = Str('{1} 남음', datetime.makeTimeDesc(time, true)) -- param : sec, showSeconds, firstOnly, timeOnly
         return str
     end
 
-    local time = g_hotTimeData:getEventRemainTime('event_illusion_legend') or 0
+    local time = g_hotTimeData:getEventRemainTime('event_illusion') or 0
 
     local str = ''
     if (not self:isActive_illusion()) then
@@ -367,14 +367,11 @@ function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
         self.m_lIllusionRankReward = ret['rank_reward_list'] or {}
 
         -- 환상 던전 토큰 갱신
-        if (ret['event_illusion_legend']) then
-            if (ret['event_illusion_legend']['token']) then
-                g_serverData:applyServerData(ret['event_illusion_legend']['token'], 'user', 'event_illusion')
+        if (ret['event_illusion']) then
+            if (ret['event_illusion']['token']) then
+                g_serverData:applyServerData(ret['event_illusion']['token'], 'user', 'event_illusion')
             end
-        end
-        
-        if (ret['event_illusion_legend']) then
-            self.m_illusionInfo = StructEventIllusion(ret['event_illusion_legend'])
+            self.m_illusionInfo = StructEventIllusion(ret['event_illusion'])
         end
 
         if (finish_cb) then
@@ -588,27 +585,6 @@ function Serverdata_IllusionDungeon:request_illusionExchange(prodeuct_id, count,
     ui_network:request()
 end
 
--------------------------------------
- -- function getCurBossMaxHp
--------------------------------------
-function Serverdata_IllusionDungeon:getCurBossMaxHp()
-    local struct_illusion = self:getEventIllusionInfo()
-    local cur_stage_id = struct_illusion:getCurIllusionStageId()
-    local basic_hp = 1000000
-    local stage_hp_rate = 1 
-
-    if (cur_stage_id == 1911001) then
-        stage_hp_rate = 2
-    elseif (cur_stage_id == 1912001) then
-        stage_hp_rate = 5
-    elseif (cur_stage_id == 1913001) then
-        stage_hp_rate = 10
-    elseif (cur_stage_id == 1914001) then
-        stage_hp_rate = 25
-    end
-    
-    return basic_hp * stage_hp_rate
-end
 
 
 
