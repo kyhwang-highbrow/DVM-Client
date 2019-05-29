@@ -45,6 +45,7 @@ end
 function UI_IllusionRank:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['exchangeShopBtn']:registerScriptTapHandler(function() self:click_exchangeShop() end)
 end
 
 -------------------------------------
@@ -257,6 +258,12 @@ function UI_IllusionRank.getPossibleReward_score(my_rank, my_score, l_rank_list)
     return l_rank_list[last_ind], last_ind
 end
 
+-------------------------------------
+-- function click_exchangeShop
+-------------------------------------
+function UI_IllusionRank:click_exchangeShop()
+    UI_IllusionShop()
+end
 
 
 

@@ -90,9 +90,17 @@ function UI_IllusionScene:initUI()
 
     vars['dscLabel']:setVisible(true)
     vars['rankBtn']:setVisible(true)
+    vars['rankBtn']:registerScriptTapHandler(function() self:click_illusionRank() end)
 
     vars['eventDungeonVisual']:setVisible(true)
     vars['bgVisual']:setVisible(false)
+end
+
+-------------------------------------
+-- function click_illusionRank
+-------------------------------------
+function UI_IllusionScene:click_illusionRank()
+    UI_IllusionRank()
 end
 
 
