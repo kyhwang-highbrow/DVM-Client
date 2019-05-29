@@ -131,7 +131,8 @@ end
 -------------------------------------
 function UI_EventScene_Illusion:showDragonInfo()
     local l_illusion_dragon_data = g_illusionDungeonData:getIllusionDragonList()
-    UI_SimpleDragonInfoPopup(l_illusion_dragon_data[1], true)
+    local dragon_info_popup = UI_SimpleDragonInfoPopup(l_illusion_dragon_data[1], true)
+    dragon_info_popup:showClickRuneInfoPopup(true)
 end
 
 -------------------------------------

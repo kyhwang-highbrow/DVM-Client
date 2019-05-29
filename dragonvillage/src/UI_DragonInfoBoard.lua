@@ -6,6 +6,8 @@ local PARENT = UI
 UI_DragonInfoBoard = class(PARENT,{
         m_dragonObject = '',
         m_bSimpleMode = 'boolean',
+
+        m_bRuneInfoPopup = 'boolean',
     })
 
 -------------------------------------
@@ -449,6 +451,15 @@ end
 -- @brief 룬 버튼
 -------------------------------------
 function UI_DragonInfoBoard:click_runeBtn(slot_idx)
+    if (self.m_bRuneInfoPopup) then
+        local t_dragon_data = self.m_dragonObject
+		if (t_dragon_data) then
+        	local rune_obj = t_dragon_data:getRuneObjectBySlot(slot_idx)
+        	UI_ItemInfoPopup(rune_obj['item_id'], 1, rune_obj)
+		end
+        return
+    end
+
     -- UI가 간단모드로 설정되어 있을 경우
     if (self.m_bSimpleMode == true) then
         return
@@ -474,6 +485,13 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
         end
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function isClickRuneInfoPopup
+-------------------------------------
+function UI_DragonInfoBoard:showClickRuneInfoPopup(show_popup)
+    self.m_bRuneInfoPopup = show_popup
 end
 
 -------------------------------------
