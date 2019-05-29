@@ -36,7 +36,7 @@ function UI_IllusionStageListItem:refresh(t_data)
     do -- 오픈 여부
         local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
         local last_stage_id = struct_illusion:getIllusionLastStage()
-        local is_open = tonumber(stage_id) <= tonumber(last_stage_id)
+        local is_open = tonumber(stage_id) <= g_illusionDungeonData:getNextStage(last_stage_id)
 
         vars['lockNode']:setVisible(not is_open)
         vars['enterButton']:setVisible(is_open)

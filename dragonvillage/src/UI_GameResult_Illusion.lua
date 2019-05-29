@@ -514,11 +514,20 @@ function UI_GameResult_Illusion:click_nextBtn()
     local stage_id = self.m_stageID
     local next_stage_id = g_illusionDungeonData:getNextStage(stage_id)
     if next_stage_id then
-        UI_ReadySceneNew_IllusionDungeon(next_stage_id)
+        local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
+        local last_stage_id = struct_illusion:getIllusionLastStage()
+        if (stage_id > last_stage_id) then
+            UIManager:toastNotificationRed(Str('열리지 않은 스테이지 입니다.'))
+            return
+        end
+        
     -- 다음 스테이지 없는 경우
     else
         UIManager:toastNotificationRed(Str('마지막 스테이지 입니다.'))
+        return
     end
+
+    UI_ReadySceneNew_IllusionDungeon(next_stage_id)
 end
 
 -------------------------------------

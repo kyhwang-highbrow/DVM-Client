@@ -174,6 +174,9 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
         local is_success = (t_param['clear_type'] == 1) and true or false
         self:networkGameFinish_response(ret, t_result_ref, is_success)
 
+        local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
+        struct_illusion.last_stage = ret['last_stage']
+
         if next_func then
             next_func(ret)
         end
