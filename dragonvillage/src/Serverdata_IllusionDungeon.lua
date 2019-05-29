@@ -288,6 +288,30 @@ function Serverdata_IllusionDungeon:getRewardPossible()
 end
 
 -------------------------------------
+-- function haveLeaderSkill
+-- @brief leader skill 있는 드래곤 여부
+-------------------------------------
+function Serverdata_IllusionDungeon:haveLeaderSkill(doid)
+	if (not doid) then
+		return false
+	end
+
+	local t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(doid)
+    if (not t_dragon_data) then
+        return false
+    end
+
+	local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
+
+	if (skill_info) and (skill_info:isActivated()) then
+		return true
+	end
+
+	return false
+end
+
+-------------------------------------
  -- function loadIllusionDragonInfo
  -- @brief 환상던전 드래곤 정보를 로컬데이터에서 불러옴
 -------------------------------------

@@ -332,7 +332,7 @@ end
 -- function checkSameDid
 -- @brief 동종 동속성 드래곤 검사!
 -------------------------------------
-function UI_ReadySceneNew_Deck:checkSameDid(idx, doid)
+function UI_ReadySceneNew_Deck_Illusion:checkSameDid(idx, doid)
     if (not doid) then
         return false
     end
@@ -345,4 +345,49 @@ function UI_ReadySceneNew_Deck:checkSameDid(idx, doid)
     end
 
     return false
+end
+
+-------------------------------------
+-- function refreshLeader
+-- @brief 리더 처리에 관한 모든것!
+-------------------------------------
+function UI_ReadySceneNew_Deck_Illusion:refreshLeader()
+	local vars = self.m_uiReadyScene.vars
+	local leader_idx = self.m_currLeader
+    local pre_leader_doid = self.m_currLeaderOID
+	local new_leader_doid = self.m_lDeckList[leader_idx]
+
+	local idx
+
+	-- 위치가 바뀌었는지 찾아본다
+    for i, doid in pairs(self.m_lDeckList) do
+        if (doid == pre_leader_doid) then
+            idx = i
+        end
+    end
+        
+    -- 없다면 앞에서 부터 새로이 찾는다.
+    if (idx == nil) then
+		for i, doid in pairs(self.m_lDeckList) do
+			-- 리더 스킬 있다면 저장
+			if (g_illusionDungeonData:haveLeaderSkill(doid)) then
+				idx = i
+                pre_leader_doid = doid
+				break
+			end
+		end
+    end
+
+    -- 리더 체크
+	if (idx) then
+		self.m_currLeader = idx
+        self.m_currLeaderOID = pre_leader_doid
+		self:refreshLeaderSprite(idx)
+
+	else
+		-- 덱에 드래곤이 없으므로 leader표시를 없앤다.
+		vars['leaderSprite']:setVisible(false)
+        self.m_currLeader = nil
+        self.m_currLeaderOID = nil
+	end
 end

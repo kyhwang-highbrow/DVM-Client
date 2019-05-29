@@ -62,6 +62,7 @@ function UI_EventScene_Illusion:initUI()
     dragon_animator:setDragonAnimator(illusion_dragon_did, 3)
     dragon_animator:setTalkEnable(false)
     dragon_animator:setIdle()
+    dragon_animator.vars['dragonButton']:setEnabled(false)
     vars['dragonNode']:addChild(dragon_animator.m_node)
 
     local state = g_illusionDungeonData:getIllusionState()
