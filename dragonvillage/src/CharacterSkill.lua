@@ -434,7 +434,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             elseif (skill_type == 'skill_tamer_arena') then
                 SkillTamerArena:makeSkillInstance(self, t_skill, t_data)
                 return true
-			end
+			elseif (skill_type == 'skill_illusion_fury') then
+                SkillScript_Illusion:makeSkillInstance(self, t_skill, t_data)
+                return true                
+            end
 
 			cclog('미구현 코드 스킬 : ' .. skill_type)
 		end

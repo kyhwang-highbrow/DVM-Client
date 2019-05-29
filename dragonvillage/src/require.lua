@@ -642,6 +642,7 @@ local t_module = {
     'SkillScript_AncientDragon',
     'SkillScript_ClanRaidBoss',
     'SkillScript_ClanRaidBossFinish',
+    'SkillScript_Illusion',
 
     'SkillHealSingle',
     'SkillHealLine',
