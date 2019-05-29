@@ -10,6 +10,7 @@ UI_GameResult_Illusion = class(PARENT, {
         m_damage = 'number',  
         m_lDragonList = 'list',
         m_lDropItemList = 'list',
+        m_secretDungeon = 'table',
 
         m_lNumberLabel = 'list',
 
@@ -37,11 +38,12 @@ UI_GameResult_Illusion = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GameResult_Illusion:init(stage_id, is_success, time, damage, t_tamer_levelup_data, l_drop_item_list, score_calc)
+function UI_GameResult_Illusion:init(stage_id, is_success, l_dragon_list, secret_dungeon, time, damage, t_tamer_levelup_data, l_drop_item_list, score_calc)
     self.m_stageID = stage_id
     self.m_bSuccess = is_success
     self.m_time = time
     self.m_damage = damage
+    self.m_secretDungeon = secret_dungeon
     self.m_lDragonList = l_dragon_list
     self.m_lDropItemList = l_drop_item_list['items_list']
     self.m_staminaType = 'st'
@@ -141,6 +143,7 @@ function UI_GameResult_Illusion:setWorkList()
     table.insert(self.m_lWorkList, 'direction_showReward')
     table.insert(self.m_lWorkList, 'direction_delay')
     table.insert(self.m_lWorkList, 'direction_moveMenu')
+    table.insert(self.m_lWorkList, 'direction_checkAutoPlay')
 end
 
 -------------------------------------
@@ -598,4 +601,116 @@ function UI_GameResult_Illusion:click_quickBtn()
     end
 
     check_stamina()
+end
+
+-------------------------------------
+-- function direction_checkAutoPlay
+-------------------------------------
+function UI_GameResult_Illusion:direction_checkAutoPlay()
+    -- 마스터 로드 기록 후 연속 전투 체크
+    self:checkAutoPlay()
+end
+
+-------------------------------------
+-- function checkAutoPlay
+-- @brief
+-------------------------------------
+function UI_GameResult_Illusion:checkAutoPlay()
+
+    if (not g_autoPlaySetting:isAutoPlay()) then
+        return
+    end
+        
+	local auto_play_stop, msg = self:checkAutoPlayCondition()
+    
+    if (auto_play_stop == true) then
+        -- 자동 전투 off
+        g_autoPlaySetting:setAutoPlay(false)
+
+        -- 메세지 있는 경우에만 팝업 출력
+        if (msg) then MakeSimplePopup(POPUP_TYPE.OK, msg) end
+        return
+    end
+
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(function() self:countAutoPlay()  end)))
+end
+
+-------------------------------------
+-- function countAutoPlay
+-- @brief 연속 전투일 경우 재시작 하기전 카운트 해줌
+-------------------------------------
+function UI_GameResult_Illusion:countAutoPlay()
+    if (not g_autoPlaySetting:isAutoPlay()) then return false end
+
+    self.m_autoCount = true
+    local vars = self.vars
+    local node = vars['autoBattleNode']
+    node:setVisible(true)
+
+    local count_label = vars['countLabel']
+    count_label:setString('')
+
+    local count_num = 3
+    local count_time = 1
+
+    -- count ani
+    for i = count_num, 1, -1 do
+        local act1 = cc.DelayTime:create((count_num - i) * count_time)
+        local act2 = cc.CallFunc:create(function() 
+            count_label:setString(tostring(i)) 
+            count_label:setOpacity(255)
+            count_label:setScale(1)
+        end)
+        local act3 = cc.Spawn:create(cc.FadeOut:create(count_time), cc.ScaleTo:create(count_time, 0.8))
+
+        count_label:runAction(cc.Sequence:create(act1, act2, act3))        
+    end
+
+    -- close
+    do
+        local act1 = cc.DelayTime:create(count_num * count_time)
+        local act2 = cc.CallFunc:create(function()
+            node:setVisible(false) 
+            self:click_quickBtn() 
+        end)
+        self.root:runAction(cc.Sequence:create(act1, act2))
+    end
+end
+
+-------------------------------------
+-- function checkAutoPlayCondition
+-- @override
+-------------------------------------
+function UI_GameResult_Illusion:checkAutoPlayCondition()
+	local auto_play_stop = false
+    local msg = nil
+
+    -- 패배 시 연속 전투 종료
+    if g_autoPlaySetting:get('stop_condition_lose') then
+        if (not self.m_bSuccess) then
+            auto_play_stop = true
+            msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
+        end
+    end
+
+    -- 드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료
+    if g_autoPlaySetting:get('stop_condition_dragon_lv_max') then 
+        for i,v in pairs(self.m_lDragonList) do
+            if v['levelup_data']['is_max_level'] then
+                if (v['levelup_data']['prev_lv'] < v['levelup_data']['curr_lv'])then
+                    auto_play_stop = true
+                    msg = Str('최대레벨에 도달한 드래곤이 있어서\n연속 전투가 종료되었습니다.')
+                end
+            end
+        end
+    end
+
+    -- 인연 던전 발견 시 연속 전투 종료 (발견 팝업이 뜸. 종료 팝업 띄울 필요없음)
+    if g_autoPlaySetting:get('stop_condition_find_rel_dungeon') then
+        if (self.m_secretDungeon) then
+            auto_play_stop = true
+        end
+    end
+
+	return auto_play_stop, msg
 end

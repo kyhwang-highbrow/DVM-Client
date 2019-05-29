@@ -59,16 +59,7 @@ end
 -------------------------------------
 function UI_IllusionStageListItem:refresh_dropItem(t_data)
     local vars = self.vars
-    --[[
-    local stage_id = self.m_stageTable['stage']
-
-    -- 네스트던전의 보너스 아이템 항목을 얻어옴
-    local nest_dungeon_id = g_nestDungeonData:getDungeonIDFromStateID(stage_id)
-    local t_nest_dungeon_info = g_nestDungeonData.m_nestDungeonInfoMap[nest_dungeon_id]
-    local l_bonus_item = {}
-    if (t_nest_dungeon_info['bonus_rate'] > 0) then
-        l_bonus_item = seperate(t_nest_dungeon_info['bonus_value'], ',')
-    end
+    local stage_id = t_data['stage']
 
     local drop_helper = DropHelper(stage_id)
     local l_item_list = drop_helper:getDisplayItemList()
@@ -79,15 +70,8 @@ function UI_IllusionStageListItem:refresh_dropItem(t_data)
             local ui = UI_ItemCard(item_id)
             vars['rewardNode' .. i]:addChild(ui.root)
             ui.root:setSwallowTouch(false)
-            --ui.root:setScale(0.55)
-
-            -- 보너스 아이템일 경우 @TODO sgkim 보너스 뱃지 붙여줄 것
-            if table.find(l_bonus_item, tostring(item_id)) then
-                --cclog('###### find!! ' .. item_id)
-            end
         end
     end
-    --]]
 end
 
 -------------------------------------

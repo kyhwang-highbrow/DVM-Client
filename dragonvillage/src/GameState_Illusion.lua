@@ -103,10 +103,11 @@ function GameState_Illusion:makeResultUI(is_success)
         
         local world = self.m_world
         local stage_id = world.m_stageID
-        local t_result_ref = self:makeGameFinishParam(is_success)
 
         local ui = UI_GameResult_Illusion(stage_id,
             is_success,
+            t_result_ref['dragon_levelu_data_list'],
+            t_result_ref['secret_dungeon'],
             self.m_fightTimer,
             self:getTotalDamage(),
             nil,
