@@ -147,6 +147,8 @@ function UI_LoginPopupWithoutFirebase:click_changeServer()
         ServerListData:getInstance():selectServer(server_name)
         self:setServerName(server_name)
     end
+
+    selecte_server_popup()
 end
 
 -------------------------------------
