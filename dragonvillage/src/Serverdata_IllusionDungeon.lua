@@ -1,4 +1,4 @@
-﻿-------------------------------------
+-------------------------------------
 -- class Serverdata_IllusionDungeon
 -- @instance g_illusionDungeonData
 -------------------------------------
@@ -429,11 +429,28 @@ function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
         end
     end
 
+     -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        -- -1351 invalid time (오픈 시간이 아님)
+        if (ret['status'] == -1351) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+            return true
+
+        -- -1364 invalid season
+        elseif (ret['status'] == -1364) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이벤트가 종료되었습니다.'))
+            return true
+        end
+
+        return false
+    end
+
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/game/illusion_dungeon/info')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
