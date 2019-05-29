@@ -517,7 +517,7 @@ function UI_GameResult_Illusion:click_nextBtn()
         local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
         local last_stage_id = struct_illusion:getIllusionLastStage()
         if (stage_id > last_stage_id) then
-            UIManager:toastNotificationRed(Str('열리지 않은 스테이지 입니다.'))
+            UIManager:toastNotificationRed(Str('이전 난이도를 먼저 클리어하세요!'))
             return
         end
         

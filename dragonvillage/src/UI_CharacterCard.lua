@@ -373,10 +373,12 @@ end
 -------------------------------------
 function UI_CharacterCard:setEventSpriteVisible(visible)
     local lua_name = 'eventDeungeonVisual'
-    local res = 'res/effect/effect_illusion/effect_illusion.vrp'
-    local ani = 'idle_back'
+    local res = 'res/ui/a2d/event_dungeon/event_dungeon.vrp'
+    local ani = 'idle'
     local animator = self:setAnimatorVisible(lua_name, res, ani, visible)
     animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+    animator:setPosition(53, 56)
+    animator:setScale(0.52)
 end
 
 
