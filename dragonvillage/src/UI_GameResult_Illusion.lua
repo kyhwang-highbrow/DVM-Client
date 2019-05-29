@@ -374,7 +374,13 @@ end
 function UI_GameResult_Illusion:setTotalScoreLabel()
     local vars = self.vars
 
-    local total_score = cc.Label:createWithBMFont('res/font/tower_score.fnt', '')
+    local total_score
+    if (self.m_bSuccess) then
+        total_score = cc.Label:createWithBMFont('res/font/tower_score.fnt', '')
+    else
+        total_score = cc.Label:createWithBMFont('res/font/tower_score_defeat.fnt', '')
+    end
+    
     total_score:setAnchorPoint(cc.p(0.5, 0.5))
     total_score:setDockPoint(cc.p(0.5, 0.5))
     total_score:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
