@@ -181,6 +181,9 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
 
     -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
     local function response_status_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+        
         -- invalid season
         if (ret['status'] == -1364) then
             -- 로비로 이동

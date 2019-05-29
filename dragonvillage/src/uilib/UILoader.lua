@@ -661,6 +661,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             local visual_name = string.sub(data.visual_id, idx + 1)
             node:setVisual(visual_group_name, visual_name)
         end
+        
         node:setRepeat(data.is_repeat)
         setPropsForNode(node, data)
         setPropsForRGBAProtocol(node, data)
@@ -669,6 +670,11 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         local animator = AnimatorVrp(nil)
         animator.m_node = node
         delegator = animator
+
+        if (ui_name == 'low_mode') then
+            animator:setIgnoreLowEndMode(true)
+        end
+
     elseif type == 'SocketNode' then
         -- 소켓노드를 포함하는 Visual부모노드가 항상 존재한다고 가정
         if not parent then

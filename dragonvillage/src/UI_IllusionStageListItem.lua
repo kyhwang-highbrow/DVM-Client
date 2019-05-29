@@ -34,13 +34,12 @@ function UI_IllusionStageListItem:refresh(t_data)
     end
 
     do -- 오픈 여부
-        --[[
-        local stage_id = self.m_stageTable['stage']
-        local is_open = g_stageData:isOpenStage(stage_id)
+        local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
+        local last_stage_id = struct_illusion:getIllusionLastStage()
+        local is_open = tonumber(stage_id) <= tonumber(last_stage_id)
 
         vars['lockNode']:setVisible(not is_open)
         vars['enterButton']:setVisible(is_open)
-        --]]
     end
 
     do -- 보스 썸네일 표시
