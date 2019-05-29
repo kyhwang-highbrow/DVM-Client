@@ -21,6 +21,7 @@ Serverdata_IllusionDungeon = class({
     -- 둘 중 하나라도 없다면 보상 없음
     m_lastInfo = 'table',
     m_rewardInfo = 'table',
+    m_isReward= 'boolean',
 })
 
 
@@ -272,7 +273,19 @@ function Serverdata_IllusionDungeon:getIllusionStageTitle()
     return Str(cur_stage_str)
  end
 
+-------------------------------------
+ -- function setRewardPossible
+-------------------------------------
+function Serverdata_IllusionDungeon:setRewardPossible(is_possible)
+    self.m_isReward = is_possible
+end
 
+-------------------------------------
+ -- function getRewardPossible
+-------------------------------------
+function Serverdata_IllusionDungeon:getRewardPossible()
+    return self.m_isReward
+end
 
 -------------------------------------
  -- function loadIllusionDragonInfo

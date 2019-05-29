@@ -109,9 +109,16 @@ function UI_EventDungeonTabListItem:initUI()
 
     vars['eventLabel']:setString(Str('환상 던전'))
 
-    local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
+    -- 남은 시간 출력
+    local time_text = ''
+    if (g_illusionDungeonData:getIllusionState() == Serverdata_IllusionDungeon.STATE['OPEN']) then
+        time_text = g_illusionDungeonData:getIllusionStatusText()
+    else
+        time_text = g_illusionDungeonData:getIllusionExchanageStatusText()
+    end
     vars['timeLabel']:setString(time_text)
 
+    -- 환상던전 이미지 출력
     local event_sprite = cc.Sprite:create('res/ui/event/list_ed_illusion.png')
     event_sprite:setDockPoint(cc.p(0.5, 0.5))
     vars['listNode']:removeAllChildren()

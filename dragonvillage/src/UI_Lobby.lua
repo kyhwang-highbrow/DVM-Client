@@ -458,6 +458,13 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
             g_eventAdventData:setAdventDidList(ret['advent_did_list'])
         end
 
+        cclog('# 환상 던전 보상 여부 정보 받는 중')
+        if (ret['event_illusion_reward']) then
+            g_illusionDungeonData:setRewardPossible(true)
+        else
+            g_illusionDungeonData:setRewardPossible(false)
+        end
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)

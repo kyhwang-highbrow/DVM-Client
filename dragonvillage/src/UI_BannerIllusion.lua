@@ -31,12 +31,17 @@ function UI_BannerIllusion:initUI()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
-    if (not g_illusionDungeonData:isActive_illusion()) then
-        vars['titleLabel']:setString(Str('교환 기간'))
+    if (g_illusionDungeonData:getIllusionState() == Serverdata_IllusionDungeon.STATE['OPEN']) then
+        vars['dscLabel']:setString(Str('이벤트 진행 중'))
     else
-        vars['titleLabel']:setString(Str('환상 던전'))
+        if (g_illusionDungeonData:getRewardPossible()) then
+            vars['dscLabel']:setString(Str('보상 획득 가능'))
+        else
+            vars['dscLabel']:setString(Str('교환 기간'))
+        end
     end
-    
+
+    vars['titleLabel']:setString(Str('환상 던전'))
 end
 
 -------------------------------------
@@ -92,7 +97,7 @@ function UI_BannerIllusion:update(dt)
     --]]
 
     local time_text = ''
-    if (g_illusionDungeonData:isActive_illusion()) then
+    if (g_illusionDungeonData:getIllusionState() == Serverdata_IllusionDungeon.STATE['OPEN']) then
         time_text = g_illusionDungeonData:getIllusionStatusText()
     else
         time_text = g_illusionDungeonData:getIllusionExchanageStatusText()
