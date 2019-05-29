@@ -854,6 +854,7 @@ local t_module = {
     'UI_ContentLock',
     'UI_ChangeNickPopup',
     'UI_LoginPopup',
+    'UI_LoginPopupWithoutFirebase',
     'UI_WebView',
     'UI_Help',
     'UI_HelpClan',

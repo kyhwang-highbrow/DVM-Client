@@ -487,10 +487,16 @@ function UI_TitleScene:workCheckUserID()
 
     if isWin32() then
         local uid = g_localData:get('local', 'uid')
-        if (not uid) then
-            self:makeRandomUid()
+        if uid then
+            self:doNextWork()
+        else
+            local ui = UI_LoginPopupWithoutFirebase()
+            local function close_cb()
+                self:doNextWork()
+            end
+            ui:setCloseCB(close_cb)
         end
-        self:doNextWork()
+        
         return
     end
 
@@ -1291,27 +1297,6 @@ function UI_TitleScene:workFinish_click()
     local is_use_loading = true
     local scene = SceneLobby(is_use_loading)
     scene:runScene()
-end
-
--------------------------------------
--- function makeRandomUid
--------------------------------------
-function UI_TitleScene:makeRandomUid()
-    local random = math.random
-    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-    local uuid = string.gsub(template, '[xy]', function (c)
-        local v = (c == 'x') and random(0, 0xf) or random(8, 0xb)
-        return string.format('%x', v)
-    end) 
-
-    g_localData:applyLocalData(uuid, 'local', 'uid')
-
-    if isWin32() then
-        g_localData:applyLocalData('', 'local', 'push_token')
-        g_localData:applyLocalData('firebase', 'local', 'platform_id')
-        g_localData:applyLocalData('Guest', 'local', 'account_info')
-    end
-
 end
 
 ------------------------------------------------------------------------------------------------------------------------
