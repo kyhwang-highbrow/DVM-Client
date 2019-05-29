@@ -1,4 +1,4 @@
-﻿local PARENT = class(UI, ITabUI:getCloneTable())
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_IllusionRank

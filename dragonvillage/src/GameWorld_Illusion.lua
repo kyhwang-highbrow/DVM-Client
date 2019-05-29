@@ -1,4 +1,4 @@
-﻿local PARENT = GameWorld
+local PARENT = GameWorld
 
 -------------------------------------
 -- class GameWorld_Illusion

@@ -1,4 +1,4 @@
-﻿local PARENT = UI_NestDungeonStageListItem
+local PARENT = UI_NestDungeonStageListItem
 
 -------------------------------------
 -- class UI_IllusionStageListItem

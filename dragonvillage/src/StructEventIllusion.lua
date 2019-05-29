@@ -1,4 +1,4 @@
-﻿local PARENT = Structure
+local PARENT = Structure
 
 -------------------------------------
 -- class StructEventIllusion

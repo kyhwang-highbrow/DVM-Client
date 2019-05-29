@@ -1,4 +1,4 @@
-﻿local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_IllusionStageMenu

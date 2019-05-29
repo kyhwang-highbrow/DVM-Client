@@ -1,4 +1,4 @@
-﻿local PARENT = SceneGame
+local PARENT = SceneGame
 
 
 local LIMIT_TIME = 300

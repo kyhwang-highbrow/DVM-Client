@@ -1,4 +1,4 @@
-﻿local PARENT = UI_ReadySceneNew_Deck
+local PARENT = UI_ReadySceneNew_Deck
 
 
 local TOTAL_POS_CNT = 5

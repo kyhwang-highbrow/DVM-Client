@@ -1,4 +1,4 @@
-﻿local PARENT = SortManager_Dragon
+local PARENT = SortManager_Dragon
 
 -------------------------------------
 -- class SortManager_Dragon_Illusion

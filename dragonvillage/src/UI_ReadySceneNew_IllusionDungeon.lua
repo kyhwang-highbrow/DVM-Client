@@ -1,4 +1,4 @@
-﻿local PARENT = UI_ReadySceneNew
+local PARENT = UI_ReadySceneNew
 
 -------------------------------------
 -- class UI_ReadySceneNew_IllusionDungeon

@@ -1,4 +1,4 @@
-﻿local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_IllusionShop

@@ -1,4 +1,4 @@
-﻿local PARENT = class(UI, IRankListItem:getCloneTable())
+local PARENT = class(UI, IRankListItem:getCloneTable())
 
 -------------------------------------
 -- class UI_IllusionRankListItem
