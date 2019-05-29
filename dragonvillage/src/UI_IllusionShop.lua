@@ -173,7 +173,6 @@ function UI_IllusionShopListItem:initUI()
         item_name = item_name .. ' ' .. Str('{1}개', comma_value(item_cnt))
     end
 
-
     vars['itemLabel']:setString(Str(item_name))
     local price = data['price']
     vars['priceLabel']:setString(comma_value(price))
@@ -254,7 +253,7 @@ function UI_IllusionShopListItem:click_buyBtn()
      if (tonumber(item_cnt) > 1) then
          item_name = item_name .. ' ' .. Str('{1}개', comma_value(item_cnt))
      end
-     local ui_popup = UI_BundlePopupNew(item_id, self.m_buyCnt, data['buy_count'], 'event_illusion', data['price'], cb_func)
+     local ui_popup = UI_BundlePopupNew(item_id, self.m_buyCnt, data['buy_count'], 'event_illusion', data['price'], cb_func, item_name)
      if (data['buy_count'] == 1) then
          ui_popup.vars['quantityBtn1']:setVisible(false)
          ui_popup.vars['quantityBtn2']:setVisible(false)

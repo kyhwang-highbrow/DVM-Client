@@ -10,6 +10,7 @@ UI_BundlePopupNew = class(PARENT,{
         m_priceType = 'string',
         m_priceCnt = 'number',
         m_cbFunc = 'function',
+        m_itemName = 'string',
 
         m_curCount = 'number',
     })
@@ -17,7 +18,7 @@ UI_BundlePopupNew = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BundlePopupNew:init(item_id, item_cnt, max_item_cnt, price_type, price_cnt, cb_func)
+function UI_BundlePopupNew:init(item_id, item_cnt, max_item_cnt, price_type, price_cnt, cb_func, item_name)
     local vars = self:load('shop_purchase.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -28,6 +29,7 @@ function UI_BundlePopupNew:init(item_id, item_cnt, max_item_cnt, price_type, pri
     self.m_priceCnt = tonumber(price_cnt)
     self.m_cbFunc = cb_func
     self.m_curCount = 1
+    self.m_itemName = item_name
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BundlePopupNew')
@@ -45,13 +47,9 @@ function UI_BundlePopupNew:initUI()
 
     local item_id = tonumber(self.m_itemId)
     local item_cnt = tonumber(self.m_itemCnt) or 0
-    local item_name = TableItem:getItemName(item_id)
-    if (item_cnt > 1) then
-        item_name = item_name .. ' ' .. Str('{1}개', comma_value(item_cnt))
-    end
 
     -- 상품 이름
-    vars['itemLabel']:setString(Str(item_name))
+    vars['itemLabel']:setString(Str(self.m_itemName))
 
     local price = self.m_priceCnt
     vars['priceLabel']:setString(comma_value(price))

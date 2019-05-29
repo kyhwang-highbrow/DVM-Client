@@ -61,17 +61,13 @@ function UI_IllusionStageListItem:refresh_dropItem(t_data)
     local vars = self.vars
     local stage_id = t_data['stage']
 
-    local drop_helper = DropHelper(stage_id)
-    local l_item_list = drop_helper:getDisplayItemList()
+    local table_drop = TABLE:get('drop')
+    local t_drop = table_drop[stage_id]
 
-    for i=1, 4 do
-        local item_id = l_item_list[i]
-        if item_id then
-            local ui = UI_ItemCard(item_id)
-            vars['rewardNode' .. i]:addChild(ui.root)
-            ui.root:setSwallowTouch(false)
-        end
-    end
+    local ui = UI_ItemCard(t_drop['item_1_id'], t_drop['item_1_min'])
+    vars['rewardNode1']:addChild(ui.root)
+    ui.root:setSwallowTouch(false)
+
 end
 
 -------------------------------------
