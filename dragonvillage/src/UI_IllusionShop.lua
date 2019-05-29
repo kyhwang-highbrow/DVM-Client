@@ -244,19 +244,19 @@ function UI_IllusionShopListItem:click_buyBtn()
         g_illusionDungeonData:request_illusionExchange(data['id'], cnt, finish_cb)  
     end
 
-    if (data['buy_count'] == 1) then
-        local msg = Str('{1} 교환 하시겠습니까?', vars['itemLabel']:getString())
-        UI_SimplePopup(POPUP_TYPE.YES_NO, msg, cb_func, nil)
-    else
 
-        local item_str = data['item']
-        local l_item_str = pl.stringx.split(item_str, ';') -- 703003;1
-        local item_id = tonumber(l_item_str[1])
-        local item_cnt = l_item_str[2]
-        local item_name = TableItem:getItemName(item_id)
-        if (tonumber(item_cnt) > 1) then
-            item_name = item_name .. ' ' .. Str('{1}개', comma_value(item_cnt))
-        end
-        UI_BundlePopupNew(item_id, self.m_buyCnt, data['buy_count'], 'event_illusion', data['price'], cb_func)
-    end
+
+     local item_str = data['item']
+     local l_item_str = pl.stringx.split(item_str, ';') -- 703003;1
+     local item_id = tonumber(l_item_str[1])
+     local item_cnt = l_item_str[2]
+     local item_name = TableItem:getItemName(item_id)
+     if (tonumber(item_cnt) > 1) then
+         item_name = item_name .. ' ' .. Str('{1}개', comma_value(item_cnt))
+     end
+     local ui_popup = UI_BundlePopupNew(item_id, self.m_buyCnt, data['buy_count'], 'event_illusion', data['price'], cb_func)
+     if (data['buy_count'] == 1) then
+         ui_popup.vars['quantityBtn1']:setVisible(false)
+         ui_popup.vars['quantityBtn2']:setVisible(false)
+     end
 end
