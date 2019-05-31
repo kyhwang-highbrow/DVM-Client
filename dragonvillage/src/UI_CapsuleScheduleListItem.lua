@@ -169,9 +169,9 @@ function UI_CapsuleScheduleListItem:getScheduleTime()
     -- Date 인스턴스 타겟 날짜로 생성
     local date = pl.Date()
 	date:year(tonumber(year))
-    date:month(tonumber(month))
+    date['tab']['month'] = tonumber(month)
     date:day(tonumber(day))
-    
+
     -- 요일 구하는 함수
     local week_day_eng = date:weekday_name()
     local week_day_kr
