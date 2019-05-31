@@ -36,10 +36,15 @@ function UI_IllusionStageListItem:refresh(t_data)
     do -- 오픈 여부
         local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
         local last_stage_id = struct_illusion:getIllusionLastStage()
-        local is_open = tonumber(stage_id) <= g_illusionDungeonData:getNextStage(last_stage_id)
-
-        vars['lockNode']:setVisible(not is_open)
-        vars['enterButton']:setVisible(is_open)
+        if (g_illusionDungeonData:getNextStage(last_stage_id)) then
+            local is_open = tonumber(stage_id) <= g_illusionDungeonData:getNextStage(last_stage_id)
+            vars['lockNode']:setVisible(not is_open)
+            vars['enterButton']:setVisible(is_open)
+        -- 다음 스테이지 없을 경우, 무조건 풀어줌
+        else
+            vars['lockNode']:setVisible(false)
+            vars['enterButton']:setVisible(true)
+        end
     end
 
     do -- 보스 썸네일 표시
