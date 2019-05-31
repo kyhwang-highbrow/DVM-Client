@@ -565,8 +565,12 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
     elseif (self.m_gameMode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 		ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 		if (g_illusionDungeonData:isIllusionDragon(t_dragon_data)) then
-			ui:setEventSpriteVisible(true)
-		end
+			ui:setEventIllusionVisible(true)
+            ui:setEventIllusionFrameVisible(true)
+		elseif (g_illusionDungeonData:isIllusionDragonType(t_dragon_data)) then
+            ui:setEventIllusionVisible(true, true)
+            ui:setEventIllusionFrameVisible(true)
+        end
 	else
         ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
     end

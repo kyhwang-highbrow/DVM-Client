@@ -93,8 +93,12 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
         elseif (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 			ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
 			if (g_illusionDungeonData:isIllusionDragon(data)) then
-				ui:setEventSpriteVisible(true)
-			end
+				ui:setEventIllusionVisible(true) -- param : visible, is_bonus
+                ui:setEventIllusionFrameVisible(true)
+		    elseif (g_illusionDungeonData:isIllusionDragonType(data)) then
+                ui:setEventIllusionVisible(true, true) -- param : visible, is_bonus
+                ui:setEventIllusionFrameVisible(true)
+            end
 		else
             ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
         end

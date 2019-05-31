@@ -367,20 +367,35 @@ function UI_CharacterCard:setLeaderIconSpriteVisible(visible)
 end
 
 -------------------------------------
--- function setEventSpriteVisible
+-- function setEventIllusionVisible
 -- @brief 이벤트 표시
 -- @brief spriteframe에 없는 아이콘이므로, 이 아이콘만 생성함
 -------------------------------------
-function UI_CharacterCard:setEventSpriteVisible(visible)
+function UI_CharacterCard:setEventIllusionVisible(visible, is_bonus)
     local lua_name = 'eventDeungeonVisual'
     local res = 'res/ui/a2d/event_dungeon/event_dungeon.vrp'
     local ani = 'idle'
-    local animator = self:setAnimatorVisible(lua_name, res, ani, visible)
-    animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
-    animator:setPosition(53, 56)
-    animator:setScale(0.52)
+    if (is_bonus) then
+        ani = 'idle_bonus'
+    end
+    local animator = self:setAnimatorVisible_IgnoreLowMode(lua_name, res, ani, visible)
+    animator:setPosition(44, -31)
+    animator:setScale(0.5)
 end
 
+-------------------------------------
+-- function setEventIllusionVisible
+-- @brief 이벤트 표시
+-- @brief spriteframe에 없는 아이콘이므로, 이 아이콘만 생성함
+-------------------------------------
+function UI_CharacterCard:setEventIllusionFrameVisible(visible)
+    local lua_name = 'eventDeungeonFrameVisual'
+    local res = 'res/ui/a2d/event_dungeon/event_dungeon.vrp'
+    local ani = 'card_frame'
+    
+    local animator_frame = self:setAnimatorVisible_IgnoreLowMode(lua_name, res, ani, visible)
+    animator_frame:setScale(1.4)
+end
 
 
 -------------------------------------
