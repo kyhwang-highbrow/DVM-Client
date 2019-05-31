@@ -97,6 +97,15 @@ function UI_EventScene_Illusion:initUI()
     local rarity_icon = IconHelper:getRarityIcon(rarity_str)
     vars['rarityNode']:addChild(rarity_icon)
     vars['rarityLabel']:setString(dragonRarityName(rarity_str))
+
+    -- 남은 시간 출력
+    local time_text = ''
+    if (g_illusionDungeonData:getIllusionState() == Serverdata_IllusionDungeon.STATE['OPEN']) then
+        time_text = Str('이벤트 기간') .. ' ' .. g_illusionDungeonData:getIllusionStatusText()
+    else
+        time_text = Str('교환소 이용 가능 기간') .. ' ' .. g_illusionDungeonData:getIllusionExchanageStatusText()
+    end
+    vars['timeLabel']:setString(time_text)
 end
 
 -------------------------------------
@@ -134,6 +143,7 @@ function UI_EventScene_Illusion:showDragonInfo()
     local l_illusion_dragon_data = g_illusionDungeonData:getIllusionDragonList()
     local dragon_info_popup = UI_SimpleDragonInfoPopup(l_illusion_dragon_data[1], true)
     dragon_info_popup:showClickRuneInfoPopup(true)
+    dragon_info_popup:showIllusionLabel()
 end
 
 -------------------------------------

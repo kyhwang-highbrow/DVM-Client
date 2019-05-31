@@ -177,3 +177,11 @@ end
 function UI_SimpleDragonInfoPopup:showClickRuneInfoPopup(show_popup)
     self.m_dragonInfoBoardUI:showClickRuneInfoPopup(show_popup)
 end
+
+-------------------------------------
+-- function showIllusionLabel
+-------------------------------------
+function UI_SimpleDragonInfoPopup:showIllusionLabel()
+    self.vars['eventDungeonSprite']:setVisible(true)
+end
+

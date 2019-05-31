@@ -55,6 +55,8 @@ function UI_IllusionRankListItem:initUI(show_rank_rate)
     else
         vars['clanLabel']:setString('')
     end
+
+    vars['clanBtn']:getParent():setSwallowTouch(false)
 end
 
 

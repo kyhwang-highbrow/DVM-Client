@@ -407,11 +407,7 @@ function StructUserInfoArena:getRankText_noTier(detail, carriage_return)
         local rank_str = Str('{1}위', comma_value(self.m_rank))
 
         if (detail) then
-            if carriage_return then
-                rank_str = rank_str .. string.format('\n(%.1f%%)', self.m_rankPercent * 100)
-            else
-                rank_str = rank_str .. string.format(' (%.1f%%)', self.m_rankPercent * 100)
-            end
+            rank_str = rank_str .. string.format('\n(%.1f%%)', self.m_rankPercent * 100)
         end 
 
         return rank_str

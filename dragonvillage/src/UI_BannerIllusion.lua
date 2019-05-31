@@ -32,12 +32,12 @@ function UI_BannerIllusion:initUI()
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     if (g_illusionDungeonData:getIllusionState() == Serverdata_IllusionDungeon.STATE['OPEN']) then
-        vars['dscLabel']:setString(Str('이벤트 진행 중'))
+        vars['dscLabel']:setString(Str('이벤트 중'))
     else
         if (g_illusionDungeonData:getRewardPossible()) then
             vars['dscLabel']:setString(Str('보상 획득 가능'))
         else
-            vars['dscLabel']:setString(Str('교환 기간'))
+            vars['dscLabel']:setString(Str('교환소 이용 가능'))
         end
     end
 

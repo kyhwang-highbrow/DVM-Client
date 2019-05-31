@@ -45,7 +45,9 @@ function UI_GameResult_Illusion:init(stage_id, is_success, l_dragon_list, secret
     self.m_damage = damage
     self.m_secretDungeon = secret_dungeon
     self.m_lDragonList = l_dragon_list
-    self.m_lDropItemList = l_drop_item_list['items_list']
+    if (l_drop_item_list) then
+        self.m_lDropItemList = l_drop_item_list['items_list']
+    end 
     self.m_staminaType = 'st'
     self.m_autoCount = false
     self.m_content_open = content_open and content_open['open'] or false
@@ -399,8 +401,12 @@ function UI_GameResult_Illusion:direction_showReward()
     local vars = self.vars
 
     if (not l_drop) then
+        vars['defeatLabel']:setVisible(true)
+        self:doNextWork()
         return
     end
+    
+    vars['defeatLabel']:setVisible(false)
     
     local interval = 95
     local count = #l_drop
