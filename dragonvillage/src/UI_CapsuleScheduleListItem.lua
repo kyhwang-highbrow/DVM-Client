@@ -166,9 +166,20 @@ function UI_CapsuleScheduleListItem:getScheduleTime()
     local month = string.sub(schedule_time, 5, 6)
     local day = string.sub(schedule_time, 7, 8)
 
+
     -- Date 인스턴스 타겟 날짜로 생성
     local date = pl.Date()
-	date:year(tonumber(year))
+    date:year(tonumber(year))
+
+    -- 달 값에서 오류가 나서 예외처리 후 값을 직접 넣어줌
+    if (not date['tab']) then
+        return Str('{1}년 {2}월 {3}일', tonumber(year), tonumber(month), tonumber(day)) .. '(' .. Str('-') .. ')'
+    end
+
+    if (not date['tab']['month']) then
+        return Str('{1}년 {2}월 {3}일', tonumber(year), tonumber(month), tonumber(day)) .. '(' .. Str('-') .. ')'
+    end
+
     date['tab']['month'] = tonumber(month)
     date:day(tonumber(day))
 
