@@ -385,6 +385,92 @@ function Serverdata_IllusionDungeon:isIllusionDragonType(t_dragon_data)
 end
 
 -------------------------------------
+ -- function getBestScoreByDiff
+ -- @brief 난이도별 최고점수
+-------------------------------------
+function Serverdata_IllusionDungeon:getBestScoreByDiff(diff)
+    -- 현재 환상인 드래곤 정보
+    local table_dragon = TableDragon()
+    local l_illusion_dragon = g_illusionDungeonData:getIllusionDragonList() 
+    local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1]['did'])
+    
+    local t_score = g_settingData:getIllusionBestScore()
+    if (type(t_score) ~= 'table') then
+        return 0
+    end
+
+    -- 저장되어 있는 로컬데이터가 현재 버젼이 아닐 경우, 0 리턴
+    local t_cur_version_data = t_score[illusion_dragon_type]
+    if (not t_cur_version_data) then
+        return 0
+    end
+
+    local score_data = t_cur_version_data[diff]
+    if (not score_data) then
+        return 0
+    end
+
+    return score_data['best_score'] or 0
+end
+
+-------------------------------------
+ -- function getBestScoreByDiff
+ -- @brief 난이도별 최고점수 세팅
+-------------------------------------
+function Serverdata_IllusionDungeon:setBestScoreByDiff(diff, score)
+    if (not (diff and score)) then
+        return
+    end
+    
+    -- 현재 환상인 드래곤 정보
+    local table_dragon = TableDragon()
+    local l_illusion_dragon = g_illusionDungeonData:getIllusionDragonList() 
+    local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1]['did'])
+    local t_score = g_settingData:getIllusionBestScore()
+    local have_to_reset = false
+
+    -- 아예 로컬 데이터가 없는 경우, 테이블 초기화
+    if (type(t_score) ~= 'table') then
+        have_to_reset = true
+    else
+        -- 저장되어 있는 로컬데이터가 현재 버젼이 아닐 경우, 테이블 초기화
+        local t_cur_version_data = t_score[illusion_dragon_type]
+        if (not t_cur_version_data) then
+            have_to_reset = true
+        end
+    end
+
+    local t_new_score = {}
+    if (have_to_reset) then
+        local t_diff_score = {}
+        -- 난이도별 점수 초기화
+        for _diff = 1, 4 do
+            local _t_score = {}
+            _t_score['best_score'] = 0
+            table.insert(t_diff_score, _t_score)
+        end
+        t_new_score[illusion_dragon_type] = t_diff_score
+    else
+        t_new_score = t_score
+    end
+
+    t_new_score[illusion_dragon_type][diff]['best_score'] = score
+
+    g_settingData:setIllusionBestScore(t_new_score)
+end
+
+
+
+
+
+
+
+
+----------------------------------------------------------------
+-- 통신 관련 함수
+----------------------------------------------------------------
+
+-------------------------------------
  -- function getParticiPantInfo
  -- @brief 덱에 환상 드래곤 있을 경우 return 마이너스값, 덱에 나의 (환상류) 드래곤을 들고 있었다면 return 플러스값, 환상 드래곤이 출전 하지 않았다면 0
 -------------------------------------
@@ -439,6 +525,18 @@ function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
             end
             self.m_illusionInfo = StructEventIllusion(ret['event_illusion'])
         end
+
+
+        if (ret['remain_token']) then
+            self.m_illusionInfo.remain_token = ret['remain_token']
+        else
+            self.m_illusionInfo.remain_token = nil
+        end
+        
+        if (ret['daily_max_token']) then
+            self.m_illusionInfo.daily_max_token = ret['daily_max_token']
+        end
+        
 
         if (finish_cb) then
             finish_cb()

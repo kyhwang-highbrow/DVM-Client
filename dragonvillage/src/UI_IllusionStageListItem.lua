@@ -16,9 +16,10 @@ function UI_IllusionStageListItem:refresh(t_data)
     local table_stage = TABLE:get('stage_data')
     local stage_id = t_data['stage']
 
-    do -- 스테이지 이름
-        local name = g_stageData:getStageName(stage_id)
-        vars['dungeonNameLabel']:setString(name)
+    do -- 난이도 별 최고 점수
+        local diff_number = g_illusionDungeonData:parseStageID(stage_id)
+        local best_score = g_illusionDungeonData:getBestScoreByDiff(diff_number)      
+        vars['dungeonNameLabel']:setString(Str('내 최고 점수 : {1}점', best_score))
     end
 
     do -- 난이도
@@ -73,6 +74,9 @@ function UI_IllusionStageListItem:refresh_dropItem(t_data)
     vars['rewardNode1']:addChild(ui.root)
     ui.root:setSwallowTouch(false)
 
+    local score_sprite = cc.Sprite:create('res/ui/icons/item/event_illusion_score.png')
+    vars['rewardNode2']:setPositionY(36)
+    vars['rewardNode2']:addChild(score_sprite)
 end
 
 -------------------------------------

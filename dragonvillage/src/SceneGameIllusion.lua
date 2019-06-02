@@ -176,6 +176,19 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
 
         local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
         struct_illusion.last_stage = ret['last_stage']
+        if (ret['remain_token']) then
+            struct_illusion.remain_token = ret['remain_token']
+        else
+            struct_illusion.remain_token = nil
+        end
+        
+        -- 최고점수 갱신
+        local diff_number = g_illusionDungeonData:parseStageID(self.m_stageID)
+        local last_score = g_illusionDungeonData:getBestScoreByDiff(diff_number)
+        local cur_score = t_param['score'] or 0
+        if (last_score < cur_score) then
+            g_illusionDungeonData:setBestScoreByDiff(diff_number, cur_score)
+        end
 
         if next_func then
             next_func(ret)

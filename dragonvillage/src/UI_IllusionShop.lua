@@ -95,10 +95,18 @@ function UI_IllusionShop:refresh()
 
     -- 교환소 통신
     g_illusionDungeonData:request_illusionShopInfo(finish_cb)
-    
-
-    --Npc가 환상 드래곤일 경우 애니메이션
     local res = 'res/character/npc/narvi/narvi.json'
+
+    --Tamer를 랜덤으로 출력
+    local random_number = math_random(1, 5)
+    if (random_number == 1) then res = 'res/character/tamer/durun_i/durun_i.json'
+    elseif (random_number == 2) then res = 'res/character/tamer/goni_i/goni_i.json'
+    elseif (random_number == 3) then res = 'res/character/tamer/dede_i/dede_i.json'
+    elseif (random_number == 4) then res = 'res/character/tamer/kesath_i/kesath_i.json'
+    elseif (random_number == 5) then res = 'res/character/tamer/mokoji_i/mokoji_i.json'
+    end
+
+
     vars['npcNode']:removeAllChildren(true)
     local animator = MakeAnimator(res)
     if (animator.m_node) then

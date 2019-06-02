@@ -9,6 +9,8 @@ StructEventIllusion = class(PARENT,{
         token = 'number',
         event_id = 'number',   -- 이벤트 아이디 ex) 1 = 삐에로 던전, 2 = 앙그라 던전....
         rank = 'number',
+        remain_token = 'number', -- 일일 최대 획득량 - 획득량
+        daily_max_token = 'number', -- 일일 최대 획득량
         
         ---------------------------------------------------------------------------------------
         -- 토컬 테이블로 필요한 정보 가공

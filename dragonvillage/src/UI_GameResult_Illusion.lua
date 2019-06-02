@@ -714,22 +714,13 @@ function UI_GameResult_Illusion:checkAutoPlayCondition()
         end
     end
 
-    -- 드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료
-    if g_autoPlaySetting:get('stop_condition_dragon_lv_max') then 
-        for i,v in pairs(self.m_lDragonList) do
-            if v['levelup_data']['is_max_level'] then
-                if (v['levelup_data']['prev_lv'] < v['levelup_data']['curr_lv'])then
-                    auto_play_stop = true
-                    msg = Str('최대레벨에 도달한 드래곤이 있어서\n연속 전투가 종료되었습니다.')
-                end
-            end
-        end
-    end
-
-    -- 인연 던전 발견 시 연속 전투 종료 (발견 팝업이 뜸. 종료 팝업 띄울 필요없음)
-    if g_autoPlaySetting:get('stop_condition_find_rel_dungeon') then
-        if (self.m_secretDungeon) then
+    -- 일일 최대 환상 토큰 획득 시 전투 종료
+    if g_autoPlaySetting:get('illusion_max_try') then
+        local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
+        local remain_token = struct_illusion.remain_token
+        if (not remain_token or remain_token == 0) then
             auto_play_stop = true
+            msg = Str('획득 가능한 토큰 수량을 초과하여 연속 전투가 종료됩니다.')
         end
     end
 

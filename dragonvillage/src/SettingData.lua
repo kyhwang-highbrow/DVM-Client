@@ -576,3 +576,17 @@ function SettingData:resetChallengeSettingData()
      self:applySettingData(nil, 'promote_expired', 'challenge_mode')
      --]]
 end
+
+-------------------------------------
+-- function getIllusionBestScore
+-------------------------------------
+function SettingData:getIllusionBestScore() -- key : event_illusion
+    return self:get('event_illusion') or 0
+end
+
+-------------------------------------
+-- function setIllusionBestScore
+-------------------------------------
+function SettingData:setIllusionBestScore(t_score_data) -- key : event_illusion
+    self:applySettingData(t_score_data, 'event_illusion') 
+end
