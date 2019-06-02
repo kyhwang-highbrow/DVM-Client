@@ -78,20 +78,10 @@ end
 
 -------------------------------------
 -- function calcParticipantBonus
+-- @brief 환상드래곤 데미지 보너스 (환상드래곤이 1마리일 때를 가정)
 -------------------------------------
 function IllusionScoreCalc:calcParticipantBonus()
-    -- 참가 점수
-    local participant = g_illusionDungeonData:getParticiPantInfo()
-    local participant_score = 0  
-    if (participant == 0) then
-        participant_score = SCORE_PART['none']
-    elseif (participant < 0) then
-        participant_score = SCORE_PART['illusion_dragon']
-    elseif (participant > 0) then
-        participant_score = SCORE_PART['my_dragon']
-    end
-
-    self.m_participant_score = participant_score
-
+    local illusion_dragon_contribution = g_gameScene:getIllusionDragonContribution()
+    self.m_participant_score = math_floor(illusion_dragon_contribution/5000)
     return self.m_participant_score
 end

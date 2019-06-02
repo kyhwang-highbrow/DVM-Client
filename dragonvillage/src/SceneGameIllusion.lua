@@ -240,3 +240,20 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end
+
+-------------------------------------
+-- function getIllusionDragonContribution
+-- @breif 환상 드래곤의 데미지 리턴 (환상드래곤이 1마리일 때만 가정한 상태)
+-------------------------------------
+function SceneGameIllusion:getIllusionDragonContribution()
+    local l_my_dragon = self.m_gameWorld.m_myDragons
+    for i, dragon in pairs(l_my_dragon) do
+        if (g_illusionDungeonData:isIllusionDragon(dragon.m_tDragonInfo)) then
+            local log_recorder = dragon.m_charLogRecorder
+	        local sum_value = log_recorder:getLog('damage')
+            return sum_value
+        end
+    end
+
+    return 0
+end
