@@ -4102,6 +4102,9 @@
     <None Include="..\src\SkillScript_Illusion.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_GameIllusion.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

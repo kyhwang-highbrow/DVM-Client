@@ -35,7 +35,7 @@ function SceneGameIllusion:onEnter()
     PerpleScene.onEnter(self)
  
 
-    self.m_inGameUI = UI_GameClanRaid(self)
+    self.m_inGameUI = UI_GameIllusion(self)
     self.m_resPreloadMgr = ResPreloadMgr()
 
     -- 절전모드 설정

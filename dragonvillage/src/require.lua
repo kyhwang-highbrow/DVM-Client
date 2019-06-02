@@ -1088,6 +1088,7 @@ local t_module = {
     'UI_GameDebug',
     'UI_GameDebug_InfoPopup',
 	'UI_GameDebug_RealTime',
+    'UI_GameIllusion',
     'UI_IngameDragonPanel',
     'UI_IngameDragonPanelItem',
     'UI_IngameTamerPanelItem',
