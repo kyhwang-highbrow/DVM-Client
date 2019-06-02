@@ -11,7 +11,17 @@ UI_ReadySceneNew_IllusionDungeon = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:init(stage_id, sub_info)
-  
+
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:initUI()
+    local vars = self.vars
+    vars['edDscMenu']:setVisible(true)
+    vars['scoreNode']:setVisible(true)
+    vars['rewardNode']:setVisible(true)
 end
 
 -------------------------------------
@@ -90,24 +100,56 @@ function UI_ReadySceneNew_IllusionDungeon:refresh()
         vars['goldBoosterBtn']:setVisible(false)
     end
 
+
+    self:refresh_bonusInfo()
     self:refresh_tamer()
 	self:refresh_buffInfo()
     self:refresh_combatPower()
 end
 
 -------------------------------------
--- function init
+-- function initDeck
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:initDeck()
     self.m_readySceneDeck = UI_ReadySceneNew_Deck_Illusion(self)
     self.m_readySceneDeck:setOnDeckChangeCB(function() 
 		self:refresh_combatPower()
+        self:refresh_bonusInfo()
 		self:refresh_buffInfo()
         self:refresh_slotLight()
 	end)
     
     -- 드래곤 선택하는 창에, 특정 드래곤 추가
 	self:addIllusionDragon()  
+end
+
+-------------------------------------
+-- function initDeck
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:refresh_bonusInfo()
+    local vars = self.vars
+    local l_deck = self.m_readySceneDeck.m_tDeckMap or {}
+    local ui_bonus_reward = UI_IllusionBonusItem()
+    local ui_bonus_score = UI_IllusionBonusItem()
+    local is_active = false
+    local is_my_dragon = false
+
+    -- 환상 드래곤
+    if (g_illusionDungeonData:getParticiPantInfo(l_deck) < 0) then
+        ui_bonus_reward:setRewardBonus(false) -- param : (is_active, is_my_dragon)
+        ui_bonus_score:setScoreBonus(true, false)
+    -- 나의 환상 드래곤
+    elseif (g_illusionDungeonData:getParticiPantInfo(l_deck) > 0) then
+        ui_bonus_reward:setRewardBonus(true, true) -- param : (is_active, is_my_dragon)
+        ui_bonus_score:setScoreBonus(true, true)    
+    -- 환상 드래곤 없을 경우
+    else
+        ui_bonus_reward:setRewardBonus(false) -- param : (is_active, is_my_dragon)
+        ui_bonus_score:setScoreBonus(false)
+    end
+    
+    vars['scoreNode']:addChild(ui_bonus_reward.root)
+    vars['rewardNode']:addChild(ui_bonus_score.root)
 end
 
 -------------------------------------
@@ -336,4 +378,85 @@ function UI_ReadySceneNew_IllusionDungeon:replaceGameScene(game_key)
 
 
     scene:runScene()
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_IllusionBonusItem
+-------------------------------------
+UI_IllusionBonusItem = class(PARENT,{
+        
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_IllusionBonusItem:init()
+    local vars = self:load('event_illusion_bonus_item.ui')
+    
+    vars['bonusLabel']:setVisible(false)
+    vars['scoreSprite']:setVisible(false)
+    vars['tokenSprite']:setVisible(false)
+    vars['bonusVisual']:setVisible(false)
+end
+
+-------------------------------------
+-- function setRewardBonus
+-------------------------------------
+function UI_IllusionBonusItem:setRewardBonus(is_active, is_my_dragon)
+    local vars = self.vars
+    vars['tokenSprite']:setVisible(true)
+    vars['bonusLabel']:setVisible(true)
+    vars['bonusLabel']:setString(Str('보상 보너스'))
+
+    if (not is_active) then
+        vars['notBonusSprite']:setVisible(true)
+        vars['bonusVisual']:setVisible(false)
+        return
+    end
+
+    if (is_my_dragon) then
+        vars['bonusVisual']:setVisible(true)
+        vars['bonusVisual']:changeAni('idle_bonus')
+    else
+        vars['bonusVisual']:setVisible(true)
+        vars['bonusVisual']:changeAni('idle')       
+    end
+end
+
+-------------------------------------
+-- function setScoreBonus
+-------------------------------------
+function UI_IllusionBonusItem:setScoreBonus(is_active, is_my_dragon)
+    local vars = self.vars
+    vars['scoreSprite']:setVisible(true)
+    vars['bonusLabel']:setVisible(true)
+    vars['bonusLabel']:setString(Str('점수 보너스'))
+
+    if (not is_active) then
+        vars['notBonusSprite']:setVisible(true)
+        vars['bonusVisual']:setVisible(false)
+        return
+    end
+
+    if (is_my_dragon) then
+        vars['bonusVisual']:setVisible(true)
+        vars['bonusVisual']:changeAni('idle_bonus')
+    else
+        vars['bonusVisual']:setVisible(true)
+        vars['bonusVisual']:changeAni('idle')       
+    end
 end

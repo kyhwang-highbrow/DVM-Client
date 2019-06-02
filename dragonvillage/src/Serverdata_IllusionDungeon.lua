@@ -474,10 +474,10 @@ end
  -- function getParticiPantInfo
  -- @brief 덱에 환상 드래곤 있을 경우 return 마이너스값, 덱에 나의 (환상류) 드래곤을 들고 있었다면 return 플러스값, 환상 드래곤이 출전 하지 않았다면 0
 -------------------------------------
-function Serverdata_IllusionDungeon:getParticiPantInfo()
+function Serverdata_IllusionDungeon:getParticiPantInfo(m_deck)
     local participant_count = 0
 
-    for i, dragon_id in ipairs(self.m_lDragonDeck) do
+    for dragon_id, _ in pairs(m_deck) do
         local t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(dragon_id)
         if (self:isIllusionDragonType(t_dragon_data)) then
             -- 환상드래곤이 내 드래곤이라면 
