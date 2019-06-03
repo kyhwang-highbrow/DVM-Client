@@ -333,3 +333,22 @@ function UI_ClanExpCard(clan_exp)
 
 	return ui
 end
+
+-------------------------------------
+-- function setEventIllusionVisible
+-------------------------------------
+function UI_ItemCard:setEventIllusionVisible(visible, is_bonus)
+    local res = 'res/ui/a2d/event_dungeon/event_dungeon.vrp'
+    local ani = 'idle'
+    if (is_bonus) then
+        ani = 'idle_bonus'
+    end
+    
+    local animator = MakeAnimator(res)
+    animator:changeAni(ani, true)
+    animator:setIgnoreLowEndMode(true)
+    self.vars['clickBtn']:addChild(animator.m_node)
+
+    animator:setPosition(44, -31)
+    animator:setScale(0.5)
+end

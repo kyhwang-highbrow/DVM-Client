@@ -416,11 +416,16 @@ function UI_GameResult_Illusion:direction_showReward()
         local item_id = data['item_id']
         local count = data['count']
         local from = data['from']
-
+        
         local item_card = UI_ItemCard(item_id, count, t_sub_data)
         item_card:setRarityVisibled(true)
         item_card.root:setScale(0.6)
         vars['iconNode']:addChild(item_card.root)
+
+        -- 환상 드래곤 사용해서 보너스 토큰 얻었을 경우 따로 표시
+        if (from == 'event_illusion') then
+            item_card:setEventIllusionVisible(true) -- param : visible, is_bonus
+        end
 
         local pos_x = l_pos[i]
         item_card.root:setPositionX(pos_x)
