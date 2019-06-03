@@ -19,7 +19,7 @@ function UI_IllusionStageListItem:refresh(t_data)
     do -- 난이도 별 최고 점수
         local diff_number = g_illusionDungeonData:parseStageID(stage_id)
         local best_score = g_illusionDungeonData:getBestScoreByDiff(diff_number)      
-        vars['dungeonNameLabel']:setString(Str('내 최고 점수 : {1}점', best_score))
+        vars['dungeonNameLabel']:setString(Str('내 최고 점수 : {1}점', comma_value(best_score)))
     end
 
     do -- 난이도

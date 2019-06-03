@@ -74,14 +74,16 @@ function UI_IllusionScene:initUI()
 
         local struct_illusion  = g_illusionDungeonData:getEventIllusionInfo()   
         local highest_score = struct_illusion:getIllusionHighestScore()
-        ui_illusion_info.vars['meRankLabel']:setString(Str('내 최고 점수 : {1}점', highest_score))
+        ui_illusion_info.vars['meRankLabel']:setString(Str('내 최고 점수 : {1}점', comma_value(highest_score)))
         
         local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
         local rank_str = ''
         if (struct_illusion.rank < 0) then
             rank_str = '-'    
+        else      
+            rank_str = comma_value(struct_illusion.rank)
         end
-        ui_illusion_info.vars['topRankLabel']:setString(Str('내 순위 : {1}위', struct_illusion.rank ))
+        ui_illusion_info.vars['topRankLabel']:setString(Str('내 순위 : {1}위', rank_str))
         
         local time_text = g_illusionDungeonData:getIllusionStatusText('event_illusion')
         ui_illusion_info.vars['timeLabel']:setString(Str(time_text))

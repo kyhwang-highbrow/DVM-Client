@@ -108,7 +108,7 @@ function UI_EventScene_Illusion:initUI()
     local remain_token = struct_illusion.remain_token
     local get_token = math.max(max_token - remain_token, 0)
     -- 일일 최대 획득 토큰
-    vars['tokenLabel']:setString(Str('{1}/{2}', get_token, max_token))
+    vars['tokenLabel']:setString(Str('{1}/{2}', comma_value(get_token), comma_value(max_token)))
 
     -- 드래곤 종류
     vars['dscLabel']:setString(Str('토파즈 드래곤'))

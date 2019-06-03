@@ -132,18 +132,18 @@ end
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:refresh_bonusInfo()
     local vars = self.vars
-    local l_deck = self.m_readySceneDeck.m_tDeckMap or {}
+    local m_deck = self.m_readySceneDeck.m_tDeckMap or {}
     local ui_bonus_reward = UI_IllusionBonusItem()
     local ui_bonus_score = UI_IllusionBonusItem()
     local is_active = false
     local is_my_dragon = false
 
     -- 환상 드래곤
-    if (g_illusionDungeonData:getParticiPantInfo(l_deck) < 0) then
+    if (g_illusionDungeonData:getParticiPantInfo(m_deck) < 0) then
         ui_bonus_reward:setRewardBonus(false) -- param : (is_active, is_my_dragon)
         ui_bonus_score:setScoreBonus(true, false)
     -- 나의 환상 드래곤
-    elseif (g_illusionDungeonData:getParticiPantInfo(l_deck) > 0) then
+    elseif (g_illusionDungeonData:getParticiPantInfo(m_deck) > 0) then
         ui_bonus_reward:setRewardBonus(true, true) -- param : (is_active, is_my_dragon)
         ui_bonus_score:setScoreBonus(true, true)    
     -- 환상 드래곤 없을 경우

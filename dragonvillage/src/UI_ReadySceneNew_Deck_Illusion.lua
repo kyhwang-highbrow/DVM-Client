@@ -126,7 +126,6 @@ function UI_ReadySceneNew_Deck_Illusion:checkChangeDeck(next_func)
                 end
             end
             ui_network:setParam('edoid'..i, doid)
-            g_illusionDungeonData:setDragonDeck(self.m_lDeckList)
         end
 
         ui_network:setSuccessCB(success_cb)

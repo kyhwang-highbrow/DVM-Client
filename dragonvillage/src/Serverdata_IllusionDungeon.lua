@@ -8,7 +8,6 @@ Serverdata_IllusionDungeon = class({
     m_lOpenEventId = 'list',
 
     m_lSortData = 'list', -- 정렬 관련 세팅 정보 보관
-    m_lDragonDeck = 'list', -- 서버덱에 저장하는 대신 여기서 들고 있음
 
     m_lIllusionDragonInfo = 'List-StructDragonObject',
     m_lIllusionRuneInfo = 'List-StructRuneObject',
@@ -243,17 +242,13 @@ end
 -------------------------------------
 -- function setDragonDeck
 -------------------------------------
-function Serverdata_IllusionDungeon:setDragonDeck(l_dragon)
-    self.m_lDragonDeck = l_dragon
+function Serverdata_IllusionDungeon:getDragonDeck() -- 서버에 저장하는 대신 로컬에 저장된 걸 들고옴
+    local l_deck = g_settingDeckData:getLocalDeck('illusion')
+    if (not l_deck) then
+        return {}
+    end
 
-    local ret_json, success_load = TABLE:loadJsonTable('illusion_dragon_info', '.txt')
-end
-
--------------------------------------
--- function setDragonDeck
--------------------------------------
-function Serverdata_IllusionDungeon:getDragonDeck(l_dragon)
-    return self.m_lDragonDeck or {}
+    return l_deck['deck'] or {}
 end
 
 -------------------------------------
@@ -369,6 +364,10 @@ end
  -- function isIllusionDragonID
 -------------------------------------
 function Serverdata_IllusionDungeon:isIllusionDragonID(t_dragon_data)
+    if (not t_dragon_data) then
+        return false
+    end
+
     local target_dragon_id = t_dragon_data['did']
     if (not target_dragon_id) then
         return false
@@ -472,17 +471,6 @@ function Serverdata_IllusionDungeon:setBestScoreByDiff(diff, score)
     g_settingData:setIllusionBestScore(t_new_score)
 end
 
-
-
-
-
-
-
-
-----------------------------------------------------------------
--- 통신 관련 함수
-----------------------------------------------------------------
-
 -------------------------------------
  -- function getParticiPantInfo
  -- @brief 덱에 환상 드래곤 있을 경우 return 마이너스값, 덱에 나의 (환상류) 드래곤을 들고 있었다면 return 플러스값, 환상 드래곤이 출전 하지 않았다면 0
@@ -490,7 +478,42 @@ end
 function Serverdata_IllusionDungeon:getParticiPantInfo(m_deck)
     local participant_count = 0
 
+    if (not m_deck) then
+        if (IS_TEST_MODE()) then
+            error('덱이 비어있습니다. 잘못된 접근입니다.')
+        end
+        return 0
+    end
+    
     for dragon_id, _ in pairs(m_deck) do
+        local t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(dragon_id)
+        if (self:isIllusionDragonID(t_dragon_data)) then
+            -- 환상드래곤이 내 드래곤이라면 
+            if (not self:isIllusionDragon(t_dragon_data)) then
+                participant_count = participant_count + 1
+            else
+                participant_count = participant_count - 5
+            end
+        end
+    end
+    return participant_count
+end
+
+-------------------------------------
+ -- function getParticiPantInfoByList
+ -- @brief 덱에 환상 드래곤 있을 경우 return 마이너스값, 덱에 나의 (환상류) 드래곤을 들고 있었다면 return 플러스값, 환상 드래곤이 출전 하지 않았다면 0
+-------------------------------------
+function Serverdata_IllusionDungeon:getParticiPantInfoByList(l_deck)
+    local participant_count = 0
+
+    if (not l_deck) then
+        if (IS_TEST_MODE()) then
+            error('덱이 비어있습니다. 잘못된 접근입니다.')
+        end
+        return 0
+    end
+    
+    for _, dragon_id in pairs(l_deck) do
         local t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(dragon_id)
         if (self:isIllusionDragonID(t_dragon_data)) then
             -- 환상드래곤이 내 드래곤이라면 
@@ -520,6 +543,17 @@ function Serverdata_IllusionDungeon:isSameDid(a_doid, b_doid)
 
     return a_did == b_did
 end
+
+
+
+
+
+
+
+
+----------------------------------------------------------------
+-- 통신 관련 함수
+----------------------------------------------------------------
 
 -------------------------------------
  -- function request_illusionInfo
@@ -615,6 +649,15 @@ function Serverdata_IllusionDungeon:request_illusionStart(stage_id, deck_name, f
     local func_success_cb
     local func_response_status_cb
     local stage = stage_id
+    local l_deck = g_illusionDungeonData:getDragonDeck()
+
+    local my_dragon = g_illusionDungeonData:getParticiPantInfoByList(l_deck)
+    if (my_dragon > 0) then
+        my_dragon = 1 -- 환상 드래곤(빌린 or 나의 드래곤) 가지고 있을 경우 1로 표기하여 서버에 올려준다.
+    else
+        my_dragon = 0
+    end
+
     func_request = function()
         -- 유저 ID
         local uid = g_userData:get('uid')
@@ -625,7 +668,7 @@ function Serverdata_IllusionDungeon:request_illusionStart(stage_id, deck_name, f
         ui_network:setParam('uid', uid)
         ui_network:setParam('dungeon_number', 1) -- 전설 환상 던전으로 고정
         ui_network:setParam('deck_name', 'illusion')
-        ui_network:setParam('is_mydragon', 0) -- 환상 드래곤 부류의 내 드래곤을 사용했나 여부 (아직 서버로직 확실치 않음)
+        ui_network:setParam('is_mydragon', my_dragon) -- 환상 드래곤 부류의 내 드래곤을 사용했나 여부
         ui_network:setParam('stage', stage)
         ui_network:setMethod('POST')
         ui_network:setSuccessCB(func_success_cb)
