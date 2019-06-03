@@ -1612,6 +1612,38 @@ function UINavigatorDefinition:goTo_battle_ready(...)
 end
 
 -------------------------------------
+-- function goTo_illusion_battle_ready
+-- @brief 환상 던전 전투 준비 화면으로 이동
+-- @usage UINavigatorDefinition:goTo('illusion_battle_ready')
+-------------------------------------
+function UINavigatorDefinition:goTo_illusion_battle_ready(...)
+    local args = {...}
+    local stage_id = args[1]
+    local finish_cb = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_ReadySceneNew_IllusionDungeon')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            if (finish_cb) then
+                finish_cb()
+            else
+                UINavigatorDefinition:goTo('lobby')
+            end
+        end
+
+        local scene = SceneCommon(UI_ReadySceneNew_IllusionDungeon, close_cb, stage_id)
+        scene:runScene()
+    end
+end
+
+
+-------------------------------------
 -- function goTo_shop_daily
 -- @brief 일일 상점으로 이동
 -- @usage UINavigatorDefinition:goTo('shop_daily')

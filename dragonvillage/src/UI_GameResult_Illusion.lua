@@ -555,7 +555,7 @@ function UI_GameResult_Illusion:click_nextBtn()
         return
     end
 
-    UI_ReadySceneNew_IllusionDungeon(next_stage_id)
+    UINavigator:goTo('illusion_battle_ready', next_stage_id)
 end
 
 -------------------------------------
@@ -583,7 +583,7 @@ end
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_Illusion:click_againBtn()
-    UI_ReadySceneNew_IllusionDungeon(self.m_stageID)
+    UINavigator:goTo('illusion_battle_ready', self.m_stageID)
 end
 
 -------------------------------------
