@@ -1,13 +1,11 @@
 local PARENT = SceneGame
 
-
-local LIMIT_TIME = 300
 -------------------------------------
 -- class SceneGameIllusion
 -------------------------------------
 SceneGameIllusion = class(PARENT, {
-        m_realStartTime = 'number', -- 클랜 던전 시작 시간
-        m_realLiveTimer = 'number', -- 클랜 던전 진행 시간 타이머
+        m_realStartTime = 'number', -- 환상 던전 시작 시간
+        m_realLiveTimer = 'number', -- 환상 던전 진행 시간 타이머
         m_enterBackTime = 'number', -- 백그라운드로 나갔을때 실제시간
 
         m_uiPopupTimeOut = 'UI',
@@ -95,39 +93,38 @@ end
 function SceneGameIllusion:update(dt)
     PARENT.update(self, dt)
 
-    self:updateRealTimer(dt)
 end
 
 -------------------------------------
--- function updateRealTimer
+-- function updateFightTimer
 -------------------------------------
-function SceneGameIllusion:updateRealTimer(dt)
-    local world = self.m_gameWorld
-    local game_state = self.m_gameWorld.m_gameState
-    
-    --진행 시간을 계산
-    local bUpdateRealLiveTimer = true
+function SceneGameIllusion:updateFightTimer(dt)
+    -- 전투 상태에서만 타임 계산
+    if (not isExistValue(self.m_state, GAME_STATE_FIGHT)) then return end
 
-    -- pause 일 때는 시간이 지나지 않음
-    if (self.m_bPause) then
-        bUpdateRealLiveTimer = false
+    local has_limit = (self.m_limitTime > 0)
+    local time = self.m_fightTimer
+
+    -- 플레이 시간 계산
+    self.m_fightTimer = self.m_fightTimer + dt
+
+    if (has_limit) then
+        -- 제한 시간이 있을 경우
+        if (self.m_fightTimer >= self.m_limitTime) then
+            self.m_fightTimer = self.m_limitTime
+
+            -- 제한 시간이 넘었을 경우 처리
+            self:processTimeOut()
+        end
+
+        -- 남은 제한 시간을 표시
+        time = self:getRemainTime()
+	else
+        -- 제한시간이 없을 경우 플레이 시간 표시
+        time = self.m_fightTimer
     end
 
-    if (bUpdateRealLiveTimer) then
-        self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
-    end
-
-    -- UI 시간 표기 갱신
-    local remain_time = self:getRemainTimer()
-    self.m_inGameUI:setTime(remain_time, true)
-end
-
--------------------------------------
--- function getRemainTimer
--------------------------------------
-function SceneGameIllusion:getRemainTimer()
-    local remain_time = math_max(LIMIT_TIME - self.m_realLiveTimer, 0)
-    return remain_time
+    self.m_world.m_inGameUI:setTime(time, has_limit)
 end
 
 -------------------------------------
@@ -244,4 +241,15 @@ function SceneGameIllusion:getIllusionDragonContribution()
     end
 
     return 0
+end
+
+-------------------------------------
+-- function getRemainTimer
+-------------------------------------
+function SceneGameIllusion:getRemainTimer()
+    if (not self.m_gameWorld.m_gameState)then
+        return 0
+    end
+
+    return self.m_gameWorld.m_gameState:getRemainTime()
 end
