@@ -460,6 +460,23 @@ function UI_GameResult_Illusion:direction_moveMenu()
         switch_btn:setVisible(true)
         self:doNextWork()
     end)
+    self:show_staminaInfo()
+end
+
+-------------------------------------
+-- function show_staminaInfo
+-------------------------------------
+function UI_GameResult_Illusion:show_staminaInfo()
+    local vars = self.vars
+    vars['energyNode']:setVisible(true)
+    local stamina_type = self.m_staminaType
+
+    local st_ad = g_staminasData:getStaminaCount(stamina_type)
+    local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
+    vars['energyLabel']:setString(Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt)))
+
+    local icon = IconHelper:getStaminaInboxIcon(stamina_type)
+    vars['energyIconNode']:addChild(icon)
 end
 
 -------------------------------------

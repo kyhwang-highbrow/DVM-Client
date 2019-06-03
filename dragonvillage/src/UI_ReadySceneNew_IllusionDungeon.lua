@@ -19,9 +19,13 @@ end
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:initUI()
     local vars = self.vars
-    vars['edDscMenu']:setVisible(true)
     vars['scoreNode']:setVisible(true)
     vars['rewardNode']:setVisible(true)
+
+    -- 환상 드래곤 아이템 카드로 표기
+    local illusion_data = g_illusionDungeonData:getIllusionDragonList()[1]
+    local ui_dragon_card = UI_DragonCard(illusion_data)
+    vars['eventDragonNode']:addChild(ui_dragon_card.root)
 end
 
 -------------------------------------
@@ -147,7 +151,10 @@ function UI_ReadySceneNew_IllusionDungeon:refresh_bonusInfo()
         ui_bonus_reward:setRewardBonus(false) -- param : (is_active, is_my_dragon)
         ui_bonus_score:setScoreBonus(false)
     end
-    
+
+    vars['scoreNode']:removeAllChildren()
+    vars['rewardNode']:removeAllChildren()
+
     vars['scoreNode']:addChild(ui_bonus_reward.root)
     vars['rewardNode']:addChild(ui_bonus_score.root)
 end
@@ -446,8 +453,6 @@ function UI_IllusionBonusItem:init()
     local vars = self:load('event_illusion_bonus_item.ui')
     
     vars['bonusLabel']:setVisible(false)
-    vars['scoreSprite']:setVisible(false)
-    vars['tokenSprite']:setVisible(false)
     vars['bonusVisual']:setVisible(false)
 end
 
@@ -456,12 +461,14 @@ end
 -------------------------------------
 function UI_IllusionBonusItem:setRewardBonus(is_active, is_my_dragon)
     local vars = self.vars
-    vars['tokenSprite']:setVisible(true)
+    vars['tokenBtn']:setVisible(true)
+    vars['scoreBtn']:setVisible(false)
     vars['bonusLabel']:setVisible(true)
     vars['bonusLabel']:setString(Str('보상 보너스'))
 
     if (not is_active) then
-        vars['notBonusSprite']:setVisible(true)
+        local inactive_nomal_sprite = cc.Sprite:create('res/ui/buttons/event_illusion_bonus_btn_0102.png')
+        vars['tokenBtn']:setNormalImage(inactive_nomal_sprite)      
         vars['bonusVisual']:setVisible(false)
         return
     end
@@ -480,12 +487,14 @@ end
 -------------------------------------
 function UI_IllusionBonusItem:setScoreBonus(is_active, is_my_dragon)
     local vars = self.vars
-    vars['scoreSprite']:setVisible(true)
+    vars['scoreBtn']:setVisible(true)
+    vars['tokenBtn']:setVisible(false)
     vars['bonusLabel']:setVisible(true)
     vars['bonusLabel']:setString(Str('점수 보너스'))
 
     if (not is_active) then
-        vars['notBonusSprite']:setVisible(true)
+        local inactive_nomal_sprite = cc.Sprite:create('res/ui/buttons/event_illusion_bonus_btn_0202.png')
+        vars['scoreBtn']:setNormalImage(inactive_nomal_sprite)
         vars['bonusVisual']:setVisible(false)
         return
     end

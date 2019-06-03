@@ -73,10 +73,6 @@ function UI_IllusionStageListItem:refresh_dropItem(t_data)
     local ui = UI_ItemCard(t_drop['item_1_id'], t_drop['item_1_min'])
     vars['rewardNode1']:addChild(ui.root)
     ui.root:setSwallowTouch(false)
-
-    local score_sprite = cc.Sprite:create('res/ui/icons/item/event_illusion_score.png')
-    vars['rewardNode2']:setPositionY(36)
-    vars['rewardNode2']:addChild(score_sprite)
 end
 
 -------------------------------------
