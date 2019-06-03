@@ -22,6 +22,7 @@ MAIL_SELECT_TYPE = {
 	ITEM = 6,			-- 메일 아이템 탭
 	EVOLUTION_PACK = 7,	-- 진화 패키지 구매 시
     UPDATE_PACK = 8,    -- 승급 패키지 구매 시
+    ITEM_GOOD = 9,      -- 패키지 상품 구성이 아이템+재화 일 때
 }
 
 -------------------------------------
@@ -73,7 +74,6 @@ function UI_MailSelectPopup:initUI()
         self.m_currTab = 'goods' -- 탭이 지정되면 모두 받기 가능
 
     elseif (type == MAIL_SELECT_TYPE.CAPSULE_COIN) then
-
         title = Str('우편함')
         local item_id = TableItem():getItemIDFromItemType('capsule_coin')
         self:setItemByID(item_id)
@@ -89,7 +89,12 @@ function UI_MailSelectPopup:initUI()
     elseif (type == MAIL_SELECT_TYPE.UPDATE_PACK) then
         title = Str('승급재료')
         self:setUpdatePackageItems()
-
+    
+    elseif (type == MAIL_SELECT_TYPE.ITEM_GOOD) then
+        title = Str('우편함')
+        self:setItemByMailType('goods')
+        self:setItemByMailType('item')
+        self.m_dirty = true
     end
 
     -- 타이틀

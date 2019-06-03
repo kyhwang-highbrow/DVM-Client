@@ -11,7 +11,7 @@ UI_DragonRunesGrind = class({
         m_grindItemRadioBtn = 'UIC_RadioButton',   -- 연마 보조 아이템 선택하는 라디오 버튼
         m_selectOptionItem = 'item_name_str',       -- 라디오 버튼으로 선택한 보조 아이템 이름
         
-        m_runeEnhanceClass = 'UI_DragonRuneEnhance'
+        m_runeEnhanceClass = 'UI_DragonRuneEnhance',
     })
 
 
@@ -43,6 +43,46 @@ function UI_DragonRunesGrind:initUI()
     grindstone_card:setEnabledClickBtn(false)
     grindstone_card.root:setScale(0.8)
 	vars['grindStoneNode']:addChild(grindstone_card.root)
+end
+
+-------------------------------------
+-- function setPackageGora
+-- @brief 연마 옵션라벨 버튼 초기화
+-------------------------------------
+function UI_DragonRunesGrind:setPackageGora()
+    local is_package_buyable = false
+    local enhance_class = self.m_runeEnhanceClass
+	local vars = enhance_class.vars
+
+    -- product_id 하드코딩 : 룬 연마 패키지(옵션 유지권), 룬 연마 패키지(MAX 확정권)
+    -- 둘 중 하나라도 판매중이면 패키지 팝업을 열어줌
+	local l_pid = {110131, 110132}
+    for i, pid in ipairs(l_pid) do
+	    local struct_product = g_shopDataNew:getProduct('package', pid)
+        if (struct_product:checkMaxBuyCount()) then
+            is_package_buyable = true
+            break
+        end
+    end
+
+    vars['buyBtn']:setVisible(is_package_buyable)
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_DragonRunesGrind:click_buyBtn()
+	local ui = UI_Package_Bundle('package_rune_grind', true) -- is_popup
+
+	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
+	-- 구매 후 간이 우편함 출력
+	-- 간이 우편함 닫을 때 패키지UI 닫고 룬UI 갱신
+	ui:setBuyCB(function() 
+		UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM_GOOD, function()
+			self:refresh_grind()
+            ui:close()		
+		end)
+	end)
 end
 
 -------------------------------------
@@ -132,6 +172,9 @@ function UI_DragonRunesGrind:initButton()
     vars['grindBtn']:registerScriptTapHandler(function() self:click_grind() end)
     vars['grindItemBtn']:registerScriptTapHandler(function() self:click_grindItemBtn() end)
     vars['runeGrindBtn']:registerScriptTapHandler(function() self:click_grindinfo() end)
+
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+	cca.pickMePickMe(vars['buyBtn'], 10)
 end
 
 -------------------------------------
@@ -180,6 +223,8 @@ function UI_DragonRunesGrind:refresh_grind()
     local req_gold = rune_obj:getRuneGrindReqGold()
     vars['grindPriceLabel']:setString(req_gold)
 
+    -- 룬 연마 패키지 홍보 고라 갱신
+    self:setPackageGora()
 end
 
 -------------------------------------
