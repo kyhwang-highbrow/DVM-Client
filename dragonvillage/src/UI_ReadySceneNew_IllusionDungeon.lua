@@ -240,6 +240,7 @@ function UI_ReadySceneNew_IllusionDungeon:sort_illusion(a, b)
         return nil
     end
     
+    -- 둘 다 환상 드래곤이면 정렬 바꾸지 않는다
     if (string.match(a_data, 'illusion') and string.match(b_data, 'illusion')) then
         return nil
     end
@@ -256,6 +257,35 @@ function UI_ReadySceneNew_IllusionDungeon:sort_illusion(a, b)
 end
 
 -------------------------------------
+-- function sort_myIllusion
+-- @brief 내 드래곤이 환상 드래곤인지 여부
+-------------------------------------
+function UI_ReadySceneNew_IllusionDungeon:sort_myIllusion(a, b)
+
+    local a_data = a['data']['did'] or nil
+    local b_data = b['data']['did'] or nil
+
+    if (not a_data or not b_data) then
+        return nil
+    end
+
+    -- 둘 다 환상 드래곤 타입이라면 정렬하지 않음
+    if g_illusionDungeonData:isIllusionDragonTypeById(a_data) and g_illusionDungeonData:isIllusionDragonTypeById(b_data) then
+        return nil
+    end
+
+    if g_illusionDungeonData:isIllusionDragonTypeById(a_data) then
+        return true
+    end
+
+    if g_illusionDungeonData:isIllusionDragonTypeById(b_data) then
+        return false
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function init_sortMgr
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
@@ -265,6 +295,14 @@ function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
     self.m_sortManagerFriendDragon = SortManager_Dragon()
     
     do
+        local function cond(a, b)
+			return self:condition_deck_idx(a, b)
+		end
+		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
+        self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
+    end
+
+    do
         local function illusion(a, b)
 			return self:sort_illusion(a, b)
 		end
@@ -273,11 +311,11 @@ function UI_ReadySceneNew_IllusionDungeon:init_sortMgr(stage_id)
     end
 
     do
-        local function cond(a, b)
-			return self:condition_deck_idx(a, b)
+        local function my_illusion(a, b)
+			return self:sort_myIllusion(a, b)
 		end
-		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
-        self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
+		self.m_sortManagerDragon:addPreSortType('sort_my_illusion', false, my_illusion)
+        self.m_sortManagerFriendDragon:addPreSortType('sort_my_illusion', false, my_illusion)
     end
 
     -- 친구 드래곤인 경우 쿨타임 정렬 추가

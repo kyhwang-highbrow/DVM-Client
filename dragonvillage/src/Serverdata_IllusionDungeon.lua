@@ -380,6 +380,35 @@ function Serverdata_IllusionDungeon:isIllusionDragonType(t_dragon_data)
     
     -- 같은 종류라면 true 반환    
     local target_dragon_type = table_dragon:getDragonType(target_dragon_id)
+
+    if (not l_illusion_dragon[1]) then
+        return false
+    end
+
+    local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1]['did'])
+    return (target_dragon_type == illusion_dragon_type)
+end
+
+-------------------------------------
+ -- function isIllusionDragonTypeById
+-------------------------------------
+function Serverdata_IllusionDungeon:isIllusionDragonTypeById(dragon_id)
+    local table_dragon = TableDragon()
+    local target_dragon_id = dragon_id
+    if (not target_dragon_id) then
+        return false
+    end
+    
+    -- 현재 환상인 드래곤 정보
+    local l_illusion_dragon = g_illusionDungeonData:getIllusionDragonList()
+    
+    -- 같은 종류라면 true 반환    
+    local target_dragon_type = table_dragon:getDragonType(target_dragon_id)
+
+    if (not l_illusion_dragon[1]) then
+        return false
+    end
+
     local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1]['did'])
     return (target_dragon_type == illusion_dragon_type)
 end
