@@ -564,11 +564,13 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
 		ui:setClanAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info), dragon_attr)
     elseif (self.m_gameMode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
 		ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
-		if (g_illusionDungeonData:isIllusionDragon(t_dragon_data)) then
-			ui:setEventIllusionVisible(true)
+		
+        -- 환상 드래곤이라면 Visual로 표시
+        if (g_illusionDungeonData:isIllusionDragon(t_dragon_data)) then
+			ui:setEventIllusionVisibleForDeck(true)
             ui:setEventIllusionFrameVisible(true)
 		elseif (g_illusionDungeonData:isIllusionDragonID(t_dragon_data)) then
-            ui:setEventIllusionVisible(true, true)
+            ui:setEventIllusionVisibleForDeck(true, true)
             ui:setEventIllusionFrameVisible(true)
         end
 	else

@@ -25,7 +25,11 @@ function UI_ReadySceneNew_IllusionDungeon:initUI()
     -- 환상 드래곤 아이템 카드로 표기
     local illusion_data = g_illusionDungeonData:getIllusionDragonList()[1]
     local ui_dragon_card = UI_DragonCard(illusion_data)
+    ui_dragon_card:setReadySpriteVisible(false)
+    ui_dragon_card: setLockSpriteVisible(false)
     vars['eventDragonNode']:addChild(ui_dragon_card.root)
+
+    vars['edDscMenu']:setVisible(true)
 end
 
 -------------------------------------
@@ -104,8 +108,9 @@ function UI_ReadySceneNew_IllusionDungeon:refresh()
         vars['goldBoosterBtn']:setVisible(false)
     end
 
-
+    -- 점수, 토큰 보너스 아이콘 표시
     self:refresh_bonusInfo()
+
     self:refresh_tamer()
 	self:refresh_buffInfo()
     self:refresh_combatPower()
@@ -454,6 +459,21 @@ function UI_IllusionBonusItem:init()
     
     vars['bonusLabel']:setVisible(false)
     vars['bonusVisual']:setVisible(false)
+
+    -- 터치시 툴팁
+    vars['tokenBtn']:registerScriptTapHandler(function()
+        local desc = Str('자신이 소유한 어둠 앙그라가 출전 하면 더 많은 환상 토큰을 얻을 수 있습니다.')
+        local tool_tip = UI_Tooltip_Skill(70, -145, desc)
+        tool_tip:autoPositioningDirection(vars['tokenBtn'], false)
+        tool_tip:autoRelease(1)
+    end)
+
+     vars['scoreBtn']:registerScriptTapHandler(function()
+        local desc = Str('어둠 앙그라가 준 피해에 따라 추가 점수를 얻을 수 있습니다.')
+        local tool_tip = UI_Tooltip_Skill(70, -145, desc)
+        tool_tip:autoPositioningDirection(vars['scoreBtn'], false)
+        tool_tip:autoRelease(1)
+    end)
 end
 
 -------------------------------------

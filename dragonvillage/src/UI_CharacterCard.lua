@@ -368,7 +368,7 @@ end
 
 -------------------------------------
 -- function setEventIllusionVisible
--- @brief 이벤트 표시
+-- @brief 환상 드래곤 표시(토큰, 점수), 아이템 카드에 사용
 -- @brief spriteframe에 없는 아이콘이므로, 이 아이콘만 생성함
 -------------------------------------
 function UI_CharacterCard:setEventIllusionVisible(visible, is_bonus)
@@ -379,7 +379,24 @@ function UI_CharacterCard:setEventIllusionVisible(visible, is_bonus)
         ani = 'idle_bonus'
     end
     local animator = self:setAnimatorVisible_IgnoreLowMode(lua_name, res, ani, visible)
-    animator:setPosition(44, -31)
+    animator:setPosition(44, 40)
+    animator:setScale(0.5)
+end
+
+-------------------------------------
+-- function setEventIllusionVisibleForDeck
+-- @brief 환상 드래곤 표시(토큰, 점수), 덱에 세팅
+-- @brief spriteframe에 없는 아이콘이므로, 이 아이콘만 생성함
+-------------------------------------
+function UI_CharacterCard:setEventIllusionVisibleForDeck(visible, is_bonus)
+    local lua_name = 'eventDeungeonVisual'
+    local res = 'res/ui/a2d/event_dungeon/event_dungeon.vrp'
+    local ani = 'idle'
+    if (is_bonus) then
+        ani = 'idle_bonus'
+    end
+    local animator = self:setAnimatorVisible_IgnoreLowMode(lua_name, res, ani, visible)
+    animator:setPosition(100, 60)
     animator:setScale(0.5)
 end
 
