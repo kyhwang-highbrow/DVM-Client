@@ -105,36 +105,16 @@ function SceneGameIllusion:updateRealTimer(dt)
     local world = self.m_gameWorld
     local game_state = self.m_gameWorld.m_gameState
     
-    -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
-    local bUpdateRealLiveTimer = false
+    --진행 시간을 계산
+    local bUpdateRealLiveTimer = true
 
-    if (not world:isPause() or self.m_bPause) then
-        bUpdateRealLiveTimer = true
+    -- pause 일 때는 시간이 지나지 않음
+    if (self.m_bPause) then
+        bUpdateRealLiveTimer = false
     end
 
     if (bUpdateRealLiveTimer) then
         self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
-    end
-
-    -- 시간 제한 체크 및 처리
-    if (self.m_realLiveTimer > LIMIT_TIME and not world:isFinished()) then
-        if (self.m_bPause) then
-            -- 일시 정지 상태인 경우 즉시 점수 저장 후 종료
-            world:setGameFinish()
-
-            local t_param = game_state:makeGameFinishParam(false)
-
-            -- 총 데미지
-            t_param['damage'] = game_state:getTotalDamage()
-
-            self:networkGameFinish(t_param, {}, function()
-                self:showTimeOutPopup()
-            end)
-        else
-            if (game_state and game_state:isTimeOut() == false) then
-                game_state:processTimeOut()
-            end
-        end
     end
 
     -- UI 시간 표기 갱신

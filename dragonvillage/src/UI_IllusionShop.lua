@@ -246,6 +246,9 @@ function UI_IllusionShopListItem:click_buyBtn()
 
     local finish_cb = function(ret)
         self:setBuyCnt(ret['buy_item'])
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+
     end
 
     local cb_func = function(cnt)
