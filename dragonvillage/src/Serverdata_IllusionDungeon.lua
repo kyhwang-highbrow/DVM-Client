@@ -366,34 +366,21 @@ function Serverdata_IllusionDungeon:isIllusionDragon(struct_dragon_object)
 end
 
 -------------------------------------
- -- function isIllusionDragonType
+ -- function isIllusionDragonID
 -------------------------------------
-function Serverdata_IllusionDungeon:isIllusionDragonType(t_dragon_data)
-    local table_dragon = TableDragon()
+function Serverdata_IllusionDungeon:isIllusionDragonID(t_dragon_data)
     local target_dragon_id = t_dragon_data['did']
     if (not target_dragon_id) then
         return false
     end
-    
-    -- 현재 환상인 드래곤 정보
-    local l_illusion_dragon = g_illusionDungeonData:getIllusionDragonList()
-    
-    -- 같은 종류라면 true 반환    
-    local target_dragon_type = table_dragon:getDragonType(target_dragon_id)
 
-    if (not l_illusion_dragon[1]) then
-        return false
-    end
-
-    local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1]['did'])
-    return (target_dragon_type == illusion_dragon_type)
+    return self:isIllusionDragonIDById(target_dragon_id)
 end
 
 -------------------------------------
- -- function isIllusionDragonTypeById
+ -- function isIllusionDragonIDById
 -------------------------------------
-function Serverdata_IllusionDungeon:isIllusionDragonTypeById(dragon_id)
-    local table_dragon = TableDragon()
+function Serverdata_IllusionDungeon:isIllusionDragonIDById(dragon_id)
     local target_dragon_id = dragon_id
     if (not target_dragon_id) then
         return false
@@ -401,16 +388,13 @@ function Serverdata_IllusionDungeon:isIllusionDragonTypeById(dragon_id)
     
     -- 현재 환상인 드래곤 정보
     local l_illusion_dragon = g_illusionDungeonData:getIllusionDragonList()
-    
-    -- 같은 종류라면 true 반환    
-    local target_dragon_type = table_dragon:getDragonType(target_dragon_id)
 
     if (not l_illusion_dragon[1]) then
         return false
     end
 
-    local illusion_dragon_type = table_dragon:getDragonType(l_illusion_dragon[1]['did'])
-    return (target_dragon_type == illusion_dragon_type)
+    local illusion_dragon_id = l_illusion_dragon[1]['did']
+    return (target_dragon_id == illusion_dragon_id)
 end
 
 -------------------------------------
@@ -508,7 +492,7 @@ function Serverdata_IllusionDungeon:getParticiPantInfo(m_deck)
 
     for dragon_id, _ in pairs(m_deck) do
         local t_dragon_data = g_illusionDungeonData:getDragonDataFromUid(dragon_id)
-        if (self:isIllusionDragonType(t_dragon_data)) then
+        if (self:isIllusionDragonID(t_dragon_data)) then
             -- 환상드래곤이 내 드래곤이라면 
             if (not self:isIllusionDragon(t_dragon_data)) then
                 participant_count = participant_count + 1

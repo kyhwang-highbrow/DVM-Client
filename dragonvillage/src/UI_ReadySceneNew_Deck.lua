@@ -567,7 +567,7 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
 		if (g_illusionDungeonData:isIllusionDragon(t_dragon_data)) then
 			ui:setEventIllusionVisible(true)
             ui:setEventIllusionFrameVisible(true)
-		elseif (g_illusionDungeonData:isIllusionDragonType(t_dragon_data)) then
+		elseif (g_illusionDungeonData:isIllusionDragonID(t_dragon_data)) then
             ui:setEventIllusionVisible(true, true)
             ui:setEventIllusionFrameVisible(true)
         end

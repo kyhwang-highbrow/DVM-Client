@@ -25,9 +25,6 @@ end
 function UI_EventScene_Illusion:init()
 	local vars = self:load('event_illusion_dungeon_scene.ui')
 
-	-- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventScene_Illusion')
-
 	self:initUI()
 	self:initButton()
 	self:refresh()
@@ -107,8 +104,11 @@ function UI_EventScene_Illusion:initUI()
     end
     vars['timeLabel']:setString(time_text)
 
+    local max_token = struct_illusion.daily_max_token
+    local remain_token = struct_illusion.remain_token
+    local get_token = math.max(max_token - remain_token, 0)
     -- 일일 최대 획득 토큰
-    vars['tokenLabel']:setString(Str('{1}/{2}', struct_illusion.remain_token, struct_illusion.daily_max_token))
+    vars['tokenLabel']:setString(Str('{1}/{2}', get_token, max_token))
 
     -- 드래곤 종류
     vars['dscLabel']:setString(Str('토파즈 드래곤'))

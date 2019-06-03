@@ -95,7 +95,7 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
 			if (g_illusionDungeonData:isIllusionDragon(data)) then
 				ui:setEventIllusionVisible(true) -- param : visible, is_bonus
                 ui:setEventIllusionFrameVisible(true)
-		    elseif (g_illusionDungeonData:isIllusionDragonType(data)) then
+		    elseif (g_illusionDungeonData:isIllusionDragonID(data)) then
                 ui:setEventIllusionVisible(true, true) -- param : visible, is_bonus
                 ui:setEventIllusionFrameVisible(true)
             end

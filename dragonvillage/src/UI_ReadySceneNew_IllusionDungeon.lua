@@ -277,15 +277,15 @@ function UI_ReadySceneNew_IllusionDungeon:sort_myIllusion(a, b)
     end
 
     -- 둘 다 환상 드래곤 타입이라면 정렬하지 않음
-    if g_illusionDungeonData:isIllusionDragonTypeById(a_data) and g_illusionDungeonData:isIllusionDragonTypeById(b_data) then
+    if g_illusionDungeonData:isIllusionDragonIDById(a_data) and g_illusionDungeonData:isIllusionDragonIDById(b_data) then
         return nil
     end
 
-    if g_illusionDungeonData:isIllusionDragonTypeById(a_data) then
+    if g_illusionDungeonData:isIllusionDragonIDById(a_data) then
         return true
     end
 
-    if g_illusionDungeonData:isIllusionDragonTypeById(b_data) then
+    if g_illusionDungeonData:isIllusionDragonIDById(b_data) then
         return false
     end
 

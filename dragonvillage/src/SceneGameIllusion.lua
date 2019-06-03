@@ -248,7 +248,7 @@ end
 function SceneGameIllusion:getIllusionDragonContribution()
     local l_my_dragon = self.m_gameWorld.m_myDragons
     for i, dragon in pairs(l_my_dragon) do
-        if (g_illusionDungeonData:isIllusionDragon(dragon.m_tDragonInfo)) then
+        if (g_illusionDungeonData:isIllusionDragonID(dragon.m_tDragonInfo)) then
             local log_recorder = dragon.m_charLogRecorder
 	        local sum_value = log_recorder:getLog('damage')
             return sum_value
