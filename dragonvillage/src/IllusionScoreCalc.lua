@@ -92,7 +92,7 @@ function IllusionScoreCalc:calcParticipantBonus(boss_max_hp)
     end
     
     local illusion_dragon_contribution = g_gameScene:getIllusionDragonContribution()
-    self.m_participant_score = (illusion_dragon_contribution/boss_max_hp) * 5000vv
+    self.m_participant_score = (illusion_dragon_contribution/boss_max_hp) * 5000
     self.m_participant_score = math_floor(self.m_participant_score)
     return self.m_participant_score
 end
