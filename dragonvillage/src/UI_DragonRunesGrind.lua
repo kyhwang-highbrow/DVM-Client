@@ -54,6 +54,13 @@ function UI_DragonRunesGrind:setPackageGora()
     local enhance_class = self.m_runeEnhanceClass
 	local vars = enhance_class.vars
 
+    -- 연마석이 0개일때만 노출
+    local grind_stone_cnt = g_userData:get('grindstone') or 0
+    if (grind_stone_cnt > 0) then
+        vars['buyBtn']:setVisible(false)
+        return
+    end
+
     -- product_id 하드코딩 : 룬 연마 패키지(옵션 유지권), 룬 연마 패키지(MAX 확정권)
     -- 둘 중 하나라도 판매중이면 패키지 팝업을 열어줌
 	local l_pid = {110131, 110132}
@@ -376,10 +383,21 @@ function UI_DragonRunesGrind:checkGrindCondition()
     local confirm_grindstone_price = (req_grind_stone <= grind_stone_cnt)   
     if ((not ConfirmPrice('gold', req_gold)) or (not confirm_grindstone_price)) then
         UIManager:toastNotificationRed(Str('재료가 부족합니다.'))
+        self:showPackageGoraBig()
         return false
     end
 
     return true
+end
+
+-------------------------------------
+-- function showPackageGoraBig
+-------------------------------------
+function UI_DragonRunesGrind:showPackageGoraBig()
+    local enhance_class = self.m_runeEnhanceClass
+    local vars = enhance_class.vars
+    local ori_pos_y = 40
+    cca.pickMeBig(vars['buyBtn'], 10, ori_pos_y)
 end
 
 -------------------------------------
@@ -401,6 +419,11 @@ function UI_DragonRunesGrind:click_grind()
 	    local function cb_func(is_success)
             self:showUpgradeResult(is_success)
 	    	block_ui:close()
+
+            local after_rune_grind_cnt = g_userData:get('grindstone')
+            if (after_rune_grind_cnt <= 0) then
+                self:showPackageGoraBig()
+            end
 	    end
 
         -- 통신 시작

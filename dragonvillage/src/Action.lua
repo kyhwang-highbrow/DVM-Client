@@ -297,6 +297,31 @@ function cca.pickMePickMe(node, move_y)
 end
 
 -------------------------------------
+-- function pickMeBig
+-- @brief 나를 골라줘! 초반에만 세게 점프, 다음부터는 pickMePickMe와 동일, 룬연마 패키지고라에서 사용 중
+-------------------------------------
+function cca.pickMeBig(node, move_y, ori_y)
+	 node:stopAllActions()
+     node:setPositionY(ori_y)
+
+    local jump_cnt = 3
+	local duration = jump_cnt * 0.3
+    local move_y = move_y or 50
+
+    local big_jump_action = cc.JumpBy:create(duration, cc.p(0, 0), move_y*10, 3)
+
+    local callback = cc.CallFunc:create(function()
+		cca.pickMePickMe(node, move_y)
+	end)
+
+	local jump_action = cc.JumpBy:create(duration, cc.p(0, 0), move_y*3, jump_cnt)
+	local delay = cc.DelayTime:create(0.5)
+	local sequence = cc.Sequence:create(big_jump_action, delay, callback)
+
+    cca.runAction(node, sequence)
+end
+
+-------------------------------------
 -- function brrrAction
 -- @brief 부르르르 떠는 액션
 -------------------------------------
