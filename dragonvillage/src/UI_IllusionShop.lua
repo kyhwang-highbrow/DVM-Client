@@ -56,10 +56,11 @@ function UI_IllusionShop:initUI()
     vars['npcNode']:addChild(dragon_animator.m_node)
 
     -- 교환소 남은 시간
-    if (not g_illusionDungeonData:getIllusionState() == Serverdata_IllusionDungeon.STATE['OPEN']) then
+    if (g_illusionDungeonData:getIllusionState() ~= Serverdata_IllusionDungeon.STATE['OPEN']) then
         local state_text = g_illusionDungeonData:getIllusionExchanageStatusText()
         local remain_str = Str('교환 기간: {1}', state_text)
         vars['timeLabel']:setString(remain_str)
+        vars['timeLabel']:setVisible(true)
     else
         vars['timeLabel']:setString('')
     end

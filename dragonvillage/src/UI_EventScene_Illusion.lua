@@ -62,15 +62,6 @@ function UI_EventScene_Illusion:initUI()
     dragon_animator.vars['dragonButton']:setEnabled(false)
     vars['dragonNode']:addChild(dragon_animator.m_node)
 
-    local state = g_illusionDungeonData:getIllusionState()
-    local state_text = g_illusionDungeonData:getIllusionExchanageStatusText()
-    if (state ~= Serverdata_IllusionDungeon.STATE['OPEN']) then
-        vars['exchangeSprite']:setVisible(true)
-        vars['exchangeLabel']:setString(Str('교환 기간: {1}', state_text))
-    else
-        vars['exchangeSprite']:setVisible(false)
-    end
-
     local table_dragon = TableDragon()
     
     -- 이름
