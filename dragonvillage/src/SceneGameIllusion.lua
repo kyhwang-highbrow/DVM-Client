@@ -32,12 +32,25 @@ function SceneGameIllusion:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
  
-
     self.m_inGameUI = UI_GameIllusion(self)
     self.m_resPreloadMgr = ResPreloadMgr()
 
     -- 절전모드 설정
     SetSleepMode(false)
+end
+
+-------------------------------------
+-- function init_gameMode
+-- @brief 스테이지 ID와 게임 모드 저장
+-------------------------------------
+function SceneGameIllusion:init_gameMode(stage_id)
+    self.m_stageID = stage_id
+
+    self.m_gameMode = GAME_MODE_EVENT_GOLD
+    self.m_bgmName = 'bgm_dungeon'
+
+    -- @E.T.
+	g_errorTracker:set_lastStage(self.m_stageID)
 end
 
 -------------------------------------

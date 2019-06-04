@@ -14,13 +14,6 @@ function UI_AdventureStageButton:init(parent_ui, stage_id)
     local vars = self:load('adventure_stage_icon.ui')
 
     local difficulty, chapter, stage = parseAdventureID(stage_id)
-	
-	-- 환상 던전
-	local game_mode = g_stageData:getGameMode(stage_id)
-	if (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
-		self:init_illusionDunseon(parent_ui, stage_id, vars)
-		return
-	end
 
     -- 깜짝 출현 챕터
     if (chapter == SPECIAL_CHAPTER.ADVENT) then
@@ -145,50 +138,3 @@ function UI_AdventureStageButton:init_advent(parent_ui, stage_id, vars)
 
     vars['stageBtn']:registerScriptTapHandler(function() parent_ui:click_stageBtn(stage_id, self.m_bOpenStage) end)
 end
-
--------------------------------------
--- function init_illusionDunseon
--- @brief 환상던전 이벤트 정의
--- @sub init
--------------------------------------
-function UI_AdventureStageButton:init_illusionDunseon(parent_ui, stage_id, vars)
-	local difficulty, chapter, stage = g_illusionDungeonData:parseStageID(stage_id)
-
-    -- 스테이지 이름
-    vars['stageLabel']:setString(stage)
-
-    -- 깜짝 출현은 항상 모든 스테이지 오픈 
-    do
-        vars['completeSprite']:setVisible(true)
-        vars['lockSprite']:setVisible(false)
-        vars['openSprite']:setVisible(false)
-        self.m_bOpenStage = true
-    end
-
-    do
-        vars['selectSprite']:setVisible(false)
-        vars['arrowSprite']:setVisible(false)
-    end
-
-    do -- 난이도에 따라 sprite표시
-        if (difficulty == 1) then
-            vars['easySprite']:setVisible(true)
-
-        elseif (difficulty == 2) then
-            vars['easySprite']:setVisible(false)
-            vars['normalSprite']:setVisible(true)
-
-        elseif (difficulty == 3) then
-            vars['easySprite']:setVisible(false)
-            vars['hardSprite']:setVisible(true)
-       elseif (difficulty == 4) then
-            vars['easySprite']:setVisible(false)
-            vars['hellFireSprite']:setVisible(true)
-        else
-            error('difficulty : ' .. difficulty)
-        end
-    end
-
-    vars['stageBtn']:registerScriptTapHandler(function() parent_ui:click_stageBtn(stage_id, self.m_bOpenStage) end)
-end
-

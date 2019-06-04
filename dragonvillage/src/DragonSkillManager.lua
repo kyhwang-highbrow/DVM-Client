@@ -361,7 +361,7 @@ function IDragonSkillManager:makeSkillIndivisualInfo(skill_type, skill_id, skill
         local t_skill = GetSkillTable(self.m_charType):get(skill_id)
 
         -- game_mode 체크
-        local game_mode = t_skill['game_mode']
+        local game_mode = t_skill['game_mode'] -- 'pvp' or 'pve'
         if (game_mode and game_mode ~= '') then
             if (game_mode ~= PLAYER_VERSUS_MODE[g_gameScene.m_gameWorld.m_gameMode]) then
                 return
