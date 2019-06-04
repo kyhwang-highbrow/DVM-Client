@@ -96,7 +96,9 @@ function GameState_Illusion:makeResultUI(is_success)
             local world = self.m_world
             local stage_id = world.m_stageID
             score_calc:calcDiffBonus(stage_id)
-            score_calc:calcParticipantBonus(self:getTotalDamage())
+
+            local boss_max_hp = self.m_bossMaxHp:get()
+            score_calc:calcParticipantBonus(boss_max_hp)
             
             local final_score = score_calc:calcFinalScore()
             t_param['score'] = final_score

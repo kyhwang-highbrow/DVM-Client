@@ -349,6 +349,6 @@ function UI_ItemCard:setEventIllusionVisible(visible, is_bonus)
     animator:setIgnoreLowEndMode(true)
     self.vars['clickBtn']:addChild(animator.m_node)
 
-    animator:setPosition(44, -31)
+    animator:setPosition(44, 40)
     animator:setScale(0.5)
 end

@@ -396,7 +396,7 @@ function UI_CharacterCard:setEventIllusionVisibleForDeck(visible, is_bonus)
         ani = 'idle_bonus'
     end
     local animator = self:setAnimatorVisible_IgnoreLowMode(lua_name, res, ani, visible)
-    animator:setPosition(100, 60)
+    animator:setPosition(78, 78)
     animator:setScale(0.5)
 end
 
