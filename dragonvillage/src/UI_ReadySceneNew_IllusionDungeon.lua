@@ -78,14 +78,14 @@ function UI_ReadySceneNew_IllusionDungeon:refresh()
     local str = g_stageData:getStageName(stage_id) or ''
     local difficulty = g_illusionDungeonData:parseStageID(stage_id)
    
-    if (difficulty == 1) then str = string.format('%s (%s)', str, Str('어려움'))
-    elseif (difficulty == 2) then str = string.format('%s (%s)', str, Str('어려움'))
-    elseif (difficulty == 3) then str = string.format('%s (%s)', str, Str('지옥'))
-    elseif (difficulty == 4) then str = string.format('%s (%s)', str, Str('불지옥'))
+    if (difficulty == 1) then str = string.format('%s {@diff_normal}(%s)', str, Str('보통'))
+    elseif (difficulty == 2) then str = string.format('%s {@diff_hard}(%s)', str, Str('어려움'))
+    elseif (difficulty == 3) then str = string.format('%s {@diff_hell}(%s)', str, Str('지옥'))
+    elseif (difficulty == 4) then str = string.format('%s {@diff_hellfire}(%s)', str, Str('불지옥'))
     end
 
-    self.m_titleStr = str 
-    g_topUserInfo:setTitleString(self.m_titleStr)
+    self.m_titleStr = '' 
+    g_topUserInfo:setTitleRichString(str)
 
     -- 필요 활동력 표시
     local stamina_type, stamina_value = TableDrop:getStageStaminaType(stage_id)

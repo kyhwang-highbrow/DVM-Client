@@ -227,7 +227,18 @@ end
 -- function setTitleString
 -------------------------------------
 function UI_TopUserInfo:setTitleString(str)
+    self.vars['titleLabel']:setVisible(true)
+    self.vars['titleRichLabel']:setVisible(false)
     self.vars['titleLabel']:setString(str)
+end
+
+-------------------------------------
+-- function setTitleRichString
+-------------------------------------
+function UI_TopUserInfo:setTitleRichString(str)
+    self.vars['titleLabel']:setVisible(false)
+    self.vars['titleRichLabel']:setVisible(true)
+    self.vars['titleRichLabel']:setString(str)
 end
 
 -------------------------------------
