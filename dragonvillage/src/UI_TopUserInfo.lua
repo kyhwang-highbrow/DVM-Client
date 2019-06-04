@@ -178,7 +178,8 @@ function UI_TopUserInfo:changeOwnerUI(ui, is_push)
 
     local vars = self.vars
     vars['exitBtn']:setVisible(ui.m_bUseExitBtn)
-
+    vars['titleRichLabel']:setVisible(false)
+    
     if (ui.m_titleStr == -1) then
         vars['titleLabel']:setVisible(true)
     elseif ui.m_titleStr then

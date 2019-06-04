@@ -22,7 +22,6 @@ function UI_ReadySceneNew_IllusionDungeon:initUI()
     vars['scoreNode']:setVisible(true)
     vars['rewardNode']:setVisible(true)
 
-    
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
         local vars = self.vars
         local type = TableDrop:getStageStaminaType(self.m_stageID)
@@ -77,15 +76,15 @@ function UI_ReadySceneNew_IllusionDungeon:refresh()
     -- 스테이지 이름
     local str = g_stageData:getStageName(stage_id) or ''
     local difficulty = g_illusionDungeonData:parseStageID(stage_id)
-   
+    --[[
     if (difficulty == 1) then str = string.format('%s {@diff_normal}(%s)', str, Str('보통'))
     elseif (difficulty == 2) then str = string.format('%s {@diff_hard}(%s)', str, Str('어려움'))
     elseif (difficulty == 3) then str = string.format('%s {@diff_hell}(%s)', str, Str('지옥'))
     elseif (difficulty == 4) then str = string.format('%s {@diff_hellfire}(%s)', str, Str('불지옥'))
     end
-
-    self.m_titleStr = '' 
-    g_topUserInfo:setTitleRichString(str)
+    --]]
+    self.m_titleStr = str
+    --g_topUserInfo:setTitleRichString(str)
 
     -- 필요 활동력 표시
     local stamina_type, stamina_value = TableDrop:getStageStaminaType(stage_id)
@@ -145,11 +144,11 @@ function UI_ReadySceneNew_IllusionDungeon:initDeck()
 	end)
     
     -- 드래곤 선택하는 창에, 특정 드래곤 추가
-	self:addIllusionDragon()  
+	self:addIllusionDragon()
 end
 
 -------------------------------------
--- function initDeck
+-- function refresh_bonusInfo
 -------------------------------------
 function UI_ReadySceneNew_IllusionDungeon:refresh_bonusInfo()
     local vars = self.vars
