@@ -332,9 +332,10 @@ end
 function UI_Product:isCostumeInStore()
     local struct_product = self.m_structProduct
     local product_id = struct_product:getProductID()
+ 
 
-    -- (누리)겨울 여왕 - 토파즈 상점에서 판매
-    if (struct_product.price_type == 'topaz') then
+    -- 토파즈+코스튬이라면 true
+    if (struct_product.price_type == 'topaz' and struct_product:isContain('costume')) then
         return true
     -- 용맹 코스튬 세트 - 용맹 상점에서 판매
     elseif (self:isValorCostume()) then
