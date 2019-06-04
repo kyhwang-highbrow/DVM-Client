@@ -162,6 +162,8 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
     local my_dragon = g_illusionDungeonData:getParticiPantInfoByList(l_deck) -- 로컬에 저장된 환상던전 덱에 환상 드래곤이 있는지 판단
     if (my_dragon > 0) then
         my_dragon = 1 -- 환상 드래곤(나의 드래곤) 가지고 있을 경우 1로 표기하여 서버에 올려준다.
+    elseif (my_dragon < 0) then
+        my_dragon = 2 -- 환상 드래곤(빌린) 가지고 있을 경우 1로 표기하여 서버에 올려준다.
     else
         my_dragon = 0
     end

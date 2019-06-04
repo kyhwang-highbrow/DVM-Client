@@ -653,7 +653,9 @@ function Serverdata_IllusionDungeon:request_illusionStart(stage_id, deck_name, f
 
     local my_dragon = g_illusionDungeonData:getParticiPantInfoByList(l_deck)
     if (my_dragon > 0) then
-        my_dragon = 1 -- 환상 드래곤(빌린 or 나의 드래곤) 가지고 있을 경우 1로 표기하여 서버에 올려준다.
+        my_dragon = 1 -- 환상 드래곤(나의 드래곤) 가지고 있을 경우 1로 표기하여 서버에 올려준다.
+    elseif (my_dragon < 0) then
+        my_dragon = 2 -- 환상 드래곤(빌린) 가지고 있을 경우 1로 표기하여 서버에 올려준다.
     else
         my_dragon = 0
     end
