@@ -64,7 +64,7 @@ function UI_EventFullPopup:initUI()
                 if (g_illusionDungeonData:getIllusionState() == Serverdata_IllusionDungeon.STATE['OPEN']) then
                     ui.vars['timeLabel']:setString(Str('이벤트 기간') .. ' ' .. g_illusionDungeonData:getIllusionStatusText())
                 else
-                    ui.vars['timeLabel']:setString('')
+                    ui.vars['timeLabel']:setString(Str('이벤트 기간') .. ' ' .. g_illusionDungeonData:getIllusionExchanageStatusText())
                 end
             end
         end   
