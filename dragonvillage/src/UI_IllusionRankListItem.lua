@@ -36,7 +36,7 @@ function UI_IllusionRankListItem:initUI(show_rank_rate)
 
     -- 점수
     if (data['score'] and data['score'] >= 0) then
-        vars['scoreLabel']:setString(Str('{1}점', data['score']))
+        vars['scoreLabel']:setString(Str('{1}점', comma_value(data['score'])))
     else
         vars['scoreLabel']:setString('-')
     end
