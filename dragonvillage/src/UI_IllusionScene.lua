@@ -101,6 +101,7 @@ function UI_IllusionScene:initUI()
     
 
     vars['dscLabel']:setVisible(true)
+    vars['dscLabel']:setString(Str('※난이도가 어려울수록 더 많은 점수와 보상을 얻을 수 있습니다.\n(보스 처치 시 클리어 보상 수령 가능)'))
     vars['rankBtn']:setVisible(true)
     vars['rankBtn']:registerScriptTapHandler(function() self:click_illusionRank() end)
 
