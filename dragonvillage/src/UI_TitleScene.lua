@@ -389,6 +389,9 @@ end
 -- @brief 타이틀 연출 화면 (패치 종료 후 로그인 직전)
 -------------------------------------
 function UI_TitleScene:workTitleAni()
+    -- @analytics
+    Analytics:firstTimeExperience('Title_TitleAni')
+
     -- @UI_ACTION
     self:doAction(nil, false)
 
@@ -421,6 +424,9 @@ end
 -- @brief 로딩
 -------------------------------------
 function UI_TitleScene:workLoading()
+    -- @analytics
+    Analytics:firstTimeExperience('Title_Loading')
+
     self.m_loadingUI:showLoading(Str('데이터 로딩 중...'))
 
     local function coroutine_function(dt)
@@ -481,6 +487,9 @@ end
 --        uid로 사용
 -------------------------------------
 function UI_TitleScene:workCheckUserID()
+    -- @analytics
+    Analytics:firstTimeExperience('Title_CheckUserID')
+
     self.m_loadingUI:showLoading(Str('유저 계정 확인 중...'))
 
     SoundMgr.m_bStopPreload = false
@@ -614,6 +623,9 @@ end
 -- @brief 플랫폼 서버에 서버리스트를 얻어 온다
 -------------------------------------
 function UI_TitleScene:workGetServerList()
+    -- @analytics
+    Analytics:firstTimeExperience('Title_GetServerList')
+
     self.m_loadingUI:showLoading(Str('서버 목록을 받아오는 중...'))
 
     local success_cb = function(ret)
@@ -646,6 +658,8 @@ end
 -- @brief 유저가 선택(or 추천)한 게임 서버 확인
 -------------------------------------
 function UI_TitleScene:workCheckSelectedGameServer()
+    -- @analytics
+    Analytics:firstTimeExperience('Title_CheckSelectedGameServer')
 
     -- 1. 서버 선택이 필요한지 여부
     local need_select_server = false
@@ -703,6 +717,9 @@ end
 --        C/S 처리에 따라 이 과정에서 uid 가 변경될 수 있음
 -------------------------------------
 function UI_TitleScene:workPlatformLogin()
+    -- @analytics
+    Analytics:firstTimeExperience('Title_PlatformLogin')
+
     self.m_loadingUI:showLoading(Str('플랫폼 서버에 로그인 중...'))
 
     local success_cb = function(ret)
@@ -794,6 +811,9 @@ end
 -- @brief 게임서버에 로그인
 -------------------------------------
 function UI_TitleScene:workGameLogin()
+    -- @analytics
+    Analytics:firstTimeExperience('Title_GameLogin')
+
     self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
 
     local uid = g_localData:get('local', 'uid')
