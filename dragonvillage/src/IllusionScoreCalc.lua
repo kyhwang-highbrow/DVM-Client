@@ -80,8 +80,13 @@ end
 -- function calcParticipantBonus
 -- @brief 환상드래곤 데미지 보너스 (환상드래곤이 1마리일 때를 가정)
 -------------------------------------
-function IllusionScoreCalc:calcParticipantBonus()
+function IllusionScoreCalc:calcParticipantBonus(total_damage)
+    if (not total_damage) then
+        return self.m_participant_score or 0
+    end
+    
     local illusion_dragon_contribution = g_gameScene:getIllusionDragonContribution()
-    self.m_participant_score = math_floor(illusion_dragon_contribution/5000)
+    self.m_participant_score = (illusion_dragon_contribution/total_damage) * 5000
+    self.m_participant_score = math_floor(self.m_participant_score)
     return self.m_participant_score
 end

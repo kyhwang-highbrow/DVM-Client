@@ -22,6 +22,14 @@ function UI_ReadySceneNew_IllusionDungeon:initUI()
     vars['scoreNode']:setVisible(true)
     vars['rewardNode']:setVisible(true)
 
+    
+    do -- 스테이지에 해당하는 스테미나 아이콘 생성
+        local vars = self.vars
+        local type = TableDrop:getStageStaminaType(self.m_stageID)
+        local icon = IconHelper:getStaminaInboxIcon(type)
+        vars['staminaNode']:addChild(icon)
+    end
+
     -- 환상 드래곤 아이템 카드로 표기
     local illusion_data = g_illusionDungeonData:getIllusionDragonList()[1]
     local ui_dragon_card = UI_DragonCard(illusion_data)
@@ -68,7 +76,15 @@ function UI_ReadySceneNew_IllusionDungeon:refresh()
 
     -- 스테이지 이름
     local str = g_stageData:getStageName(stage_id) or ''
-    self.m_titleStr = str
+    local difficulty = g_illusionDungeonData:parseStageID(stage_id)
+   
+    if (difficulty == 1) then str = string.format('%s (%s)', str, Str('어려움'))
+    elseif (difficulty == 2) then str = string.format('%s (%s)', str, Str('어려움'))
+    elseif (difficulty == 3) then str = string.format('%s (%s)', str, Str('지옥'))
+    elseif (difficulty == 4) then str = string.format('%s (%s)', str, Str('불지옥'))
+    end
+
+    self.m_titleStr = str 
     g_topUserInfo:setTitleString(self.m_titleStr)
 
     -- 필요 활동력 표시

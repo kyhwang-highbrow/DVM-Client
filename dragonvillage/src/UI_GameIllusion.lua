@@ -16,7 +16,7 @@ function UI_GameIllusion:initUI()
     vars['clanRaidNode']:setVisible(true)
     vars['speedVisual']:setVisible(true)
     vars['speedButton']:setVisible(true)
-    vars['autoStartVisual']:setVisible(true)
+    vars['autoStartVisual']:setVisible(g_autoPlaySetting:isAutoPlay())
     vars['autoStartButton']:setVisible(true)
     vars['effectBtn']:setVisible(true)
     
