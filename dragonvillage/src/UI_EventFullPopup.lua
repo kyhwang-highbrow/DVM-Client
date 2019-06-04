@@ -58,6 +58,17 @@ function UI_EventFullPopup:initUI()
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
 
+        -- 환상 던전 풀팝업일 경우에만 남은 시간 표기
+        if string.find(popup_key, 'event_illusion') then
+            if (ui.vars['timeLabel']) then
+                if (g_illusionDungeonData:getIllusionState() == Serverdata_IllusionDungeon.STATE['OPEN']) then
+                    ui.vars['timeLabel']:setString(Str('이벤트 기간') .. ' ' .. g_illusionDungeonData:getIllusionStatusText())
+                else
+                    ui.vars['timeLabel']:setString('')
+                end
+            end
+        end   
+
     -- 확률업 드래곤 배너
     elseif (popup_key == 'dragon_chance_up') then
         ui = UI_DragonChanceUp()

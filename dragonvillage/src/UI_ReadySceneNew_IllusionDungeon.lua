@@ -499,7 +499,7 @@ function UI_IllusionBonusItem:setRewardBonus(is_active, is_my_dragon)
     vars['tokenBtn']:setVisible(true)
     vars['scoreBtn']:setVisible(false)
     vars['bonusLabel']:setVisible(true)
-    vars['bonusLabel']:setString(Str('보상 보너스'))
+    vars['bonusLabel']:setString(Str('토큰 보너스'))
 
     if (not is_active) then
         local inactive_nomal_sprite = cc.Sprite:create('res/ui/buttons/event_illusion_bonus_btn_0102.png')
