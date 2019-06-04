@@ -226,12 +226,14 @@ function UIC_RankingList:setFocus(value_type, value)
     -- 해당 셀에 하이라이트
     local func_highlight = function(ui, data)
         if (data[value_type] == value) then
-            if (ui.vars['mySprite']) then
-                ui.vars['mySprite']:setVisible(true)
-            end
+            if (type(data[value_type]) == 'number' and data[value_type] > 0) then
+                if (ui.vars['mySprite']) then
+                    ui.vars['mySprite']:setVisible(true)
+                end
 
-            if (ui.vars['meSprite']) then
-                ui.vars['meSprite']:setVisible(true)
+                if (ui.vars['meSprite']) then
+                    ui.vars['meSprite']:setVisible(true)
+                end
             end
         end
     end
