@@ -387,9 +387,13 @@ function GameWorld:initGame(stage_name)
     do
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
     end
-
+    
+    
+    local game_mode = g_stageData:getGameMode(self.m_stageID) -- @jhakim 190604 환상던전이 황금던전 모드를 사용하는 중, 진짜 황금던전인지 확인
     -- 드랍 아이템 매니져 생성
-    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+    if (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
+        -- 환상던전의 경우 드롭 매니저 생성하지 않고 지나감
+    elseif (self.m_gameMode == GAME_MODE_ADVENTURE) then
         self.m_dropItemMgr = DropItemMgr(self)
     elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
         self.m_dropItemMgr = DropItemMgr_EventGold(self)

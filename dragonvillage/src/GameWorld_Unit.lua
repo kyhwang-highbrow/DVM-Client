@@ -451,6 +451,13 @@ function GameWorld:bindEnemy(enemy)
     enemy:addListener('get_status_effect', self)
 
     -- 모드별 이벤트
+    local game_mode = g_stageData:getGameMode(self.m_stageID) -- @jhakim 190604 환상던전이 황금던전 모드를 사용하는 중, 게임모드가 환상던전이라면 이 함수에서 사용하는 모드를 환상던전으로 변경
+    if (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
+        game_mode = GAME_MODE_EVENT_ILLUSION_DUNSEON
+    else
+        game_mode = self.m_gameMode
+    end
+
     if (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
         -- 딜량에 따른 총 점수 계산을 위함
         enemy:addListener('character_set_damage', self.m_gameState)

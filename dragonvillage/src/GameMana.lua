@@ -45,7 +45,12 @@ function GameMana:init(world, group_key)
     elseif (self.m_world.m_gameMode == GAME_MODE_CHALLENGE_MODE ) then
         self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL_COLOSSEUM')
     elseif (self.m_world.m_gameMode == GAME_MODE_EVENT_GOLD ) then
-        self.m_incValuePerSec = 1 / (g_constant:get('INGAME', 'MANA_INTERVAL') / 2)
+        local game_mode = g_stageData:getGameMode(self.m_world.m_stageID) -- @jhakim 190604 환상던전이 황금던전 모드를 사용하는 중, 진짜 황금던전인지 확인
+        if (game_mode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
+            self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
+        else
+            self.m_incValuePerSec = 1 / (g_constant:get('INGAME', 'MANA_INTERVAL') / 2)
+        end        
     else
         self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
     end
