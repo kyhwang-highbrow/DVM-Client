@@ -36,6 +36,12 @@ function UI_ReadySceneNew_IllusionDungeon:initUI()
     ui_dragon_card: setLockSpriteVisible(false)
     vars['eventDragonNode']:addChild(ui_dragon_card.root)
 
+    -- 배경
+    local animator = ResHelper:getUIDragonBG('dark', 'idle')
+    if (animator) then
+        vars['bgNode']:addChild(animator.m_node)
+    end
+
     vars['edDscMenu']:setVisible(true)
 end
 
