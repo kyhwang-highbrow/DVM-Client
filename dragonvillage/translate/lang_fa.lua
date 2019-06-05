@@ -1,7 +1,7 @@
 return {['{1} 개인 랭킹']='{1} Personal Ranking',
 ['{1}위~{2}위']='Rank {1} - {2}',
 ['{1}이 종료되었습니다.']='{1} has ended.',
-['{@light_red}약점 상태{@apricot}일 때 큰 피해를 줄 수 있는 적이 등장하는 스테이지입니다.\n하나의 대상에게 큰 피해를 줄 수 있는 공격이 효과적입니다.']='In this stage, you can only deal high damage when an enemy is in {@light_red}weak point status{@apricot}.\nIt is better to use an attack skill that deals the highest damage on a single target.',
+['{@light_red}약점 상태{@apricot}일 때 큰 피해를 줄 수 있는 적이 등장하는 스테이지입니다.\n하나의 대상에게 큰 피해를 줄 수 있는 공격이 효과적입니다.']='{@apricot}In this stage, you can only deal high damage when an enemy is in {@light_red}weak point status{@apricot}.\nIt is better to use an attack skill that deals the highest damage on a single target.',
 ['교환 기간: {1}']='Exchange Period: {1}',
 ['교환 기간: {1}일 {1}시간 남음']='Exchange Period: {1} Days {1} Hours Left',
 ['교환 수량']='Amount for Exchange',
