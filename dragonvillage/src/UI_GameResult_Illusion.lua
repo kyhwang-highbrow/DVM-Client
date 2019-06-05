@@ -733,6 +733,7 @@ function UI_GameResult_Illusion:checkAutoPlayCondition()
         if (not self.m_bSuccess) then
             auto_play_stop = true
             msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
+            return auto_play_stop, msg
         end
     end
 
@@ -743,6 +744,7 @@ function UI_GameResult_Illusion:checkAutoPlayCondition()
         if (not remain_token or remain_token == 0) then
             auto_play_stop = true
             msg = Str('획득 가능한 토큰 수량을 초과하여 연속 전투가 종료됩니다.')
+            return auto_play_stop, msg
         end
     end
 

@@ -175,10 +175,11 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
 
         local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
         struct_illusion.last_stage = ret['last_stage']
+        
+        -- 남은 토큰 값 갱신
+        -- 패배했을 경우 토큰 변경이 없어서 아예 값이 내려오지 않음
         if (ret['remain_token']) then
             struct_illusion.remain_token = ret['remain_token']
-        else
-            struct_illusion.remain_token = nil
         end
         
         struct_illusion.token = ret['token']
