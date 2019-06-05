@@ -15,15 +15,21 @@ function UI_IllusionStageListItem:refresh(t_data)
     local vars = self.vars
     local table_stage = TABLE:get('stage_data')
     local stage_id = t_data['stage']
+    local diff_str = ''
 
-    do -- 난이도 별 최고 점수
-        local diff_number = g_illusionDungeonData:parseStageID(stage_id)
-        local best_score = g_illusionDungeonData:getBestScoreByDiff(diff_number)      
-        vars['dungeonNameLabel']:setString(Str('내 최고 점수 : {1}점', comma_value(best_score)))
-    end
+
+    local diff_number = g_illusionDungeonData:parseStageID(stage_id)
+    local best_score = g_illusionDungeonData:getBestScoreByDiff(diff_number)      
+    vars['dungeonNameLabel']:setString(Str('내 최고 점수 : {1}점', comma_value(best_score)))
+
 
     do -- 난이도
-        local diff_str = table_stage[stage_id]['r_difficult']
+        if (diff_number == 1) then diff_str = 'normal'
+        elseif (diff_number == 2) then diff_str = 'hard'
+        elseif (diff_number == 3) then diff_str = 'hell'
+        else diff_str = 'hellfire'
+        end
+
         local diff_color = COLOR['diff_' .. diff_str]
         vars['dungeonLevelLabel']:setString(Str(UI_IllusionStageListItem.DIFF[diff_str]))
         vars['dungeonLevelLabel']:setColor(diff_color)

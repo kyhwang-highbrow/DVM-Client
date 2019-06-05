@@ -66,9 +66,11 @@ function UI_DragonRunesGrind:setPackageGora()
 	local l_pid = {110131, 110132}
     for i, pid in ipairs(l_pid) do
 	    local struct_product = g_shopDataNew:getProduct('package', pid)
-        if (struct_product:checkMaxBuyCount()) then
-            is_package_buyable = true
-            break
+        if (struct_product) then
+            if (struct_product:checkMaxBuyCount()) then
+                is_package_buyable = true
+                break
+            end
         end
     end
 
