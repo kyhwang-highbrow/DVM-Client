@@ -544,9 +544,12 @@ function UI_GameResult_Illusion:click_nextBtn()
     if next_stage_id then
         local struct_illusion = g_illusionDungeonData:getEventIllusionInfo()
         local last_stage_id = struct_illusion:getIllusionLastStage()
-        if (stage_id > last_stage_id) then
-            UIManager:toastNotificationRed(Str('이전 난이도를 먼저 클리어하세요!'))
-            return
+        local possible_stage_id = g_illusionDungeonData:getNextStage(last_stage_id)
+        if (possible_stage_id) then
+            if (next_stage_id > possible_stage_id) then
+                UIManager:toastNotificationRed(Str('이전 난이도를 먼저 클리어하세요!'))
+                return
+            end
         end
         
     -- 다음 스테이지 없는 경우

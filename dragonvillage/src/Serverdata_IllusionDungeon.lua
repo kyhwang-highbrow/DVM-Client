@@ -576,8 +576,6 @@ function Serverdata_IllusionDungeon:request_illusionInfo(finish_cb, fail_cb)
 
         if (ret['remain_token']) then
             self.m_illusionInfo.remain_token = ret['remain_token']
-        else
-            self.m_illusionInfo.remain_token = nil
         end
         
         if (ret['daily_max_token']) then

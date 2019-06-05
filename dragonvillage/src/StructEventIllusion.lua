@@ -129,7 +129,7 @@ end
 -- function getIllusionLastStage
 -------------------------------------
 function StructEventIllusion:getIllusionLastStage()
-    return self.last_stage or self.m_curStageId
+    return self.last_stage
 end
 
 
