@@ -58,7 +58,7 @@ function UI_IllusionShop:initUI()
     -- 교환소 남은 시간
     if (g_illusionDungeonData:getIllusionState() ~= Serverdata_IllusionDungeon.STATE['OPEN']) then
         local state_text = g_illusionDungeonData:getIllusionExchanageStatusText()
-        local remain_str = Str('교환 기간: {1}', state_text)
+        local remain_str = Str('교환소 이용 가능 기간') .. ' ' .. state_text
         vars['timeLabel']:setString(remain_str)
         vars['timeLabel']:setVisible(true)
     else
