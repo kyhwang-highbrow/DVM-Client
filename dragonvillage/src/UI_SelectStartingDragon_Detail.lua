@@ -139,6 +139,9 @@ end
 -- @brief 드래곤 선택
 -------------------------------------
 function UI_SelectStartingDragon_Detail:click_selectBtn()
+    -- @analytics
+    Analytics:firstTimeExperience('Select_Start_DragonDetail')
+
 	local function cb_func()
 		self.m_makeAccountFunc()
 		self:close()

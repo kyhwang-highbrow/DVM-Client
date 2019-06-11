@@ -315,11 +315,11 @@ function UI_TitleScene:setWorkList()
 
     -- @perpelsdk
     if (isAndroid() or isIos()) then
-        table.insert(self.m_lWorkList, 'workBillingSetup')        
-        table.insert(self.m_lWorkList, 'workGetMarketInfo')
-		table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly')
-        table.insert(self.m_lWorkList, 'workNetworkUserInfo')
-        table.insert(self.m_lWorkList, 'workPrepareAd')
+        table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
+        table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
+		table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
+        table.insert(self.m_lWorkList, 'workNetworkUserInfo') -- crash log에 정보 저장
+        table.insert(self.m_lWorkList, 'workPrepareAd') -- 광고 초기화
     end
 
     table.insert(self.m_lWorkList, 'workSoundPreload')
@@ -815,21 +815,76 @@ function UI_TitleScene:workGameLogin()
     Analytics:firstTimeExperience('Title_GameLogin')
 
     self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
+    
+    local naver_cafe_sync_uid   -- 네이버 카페(PLUG) uid 동기화
+    local get_device_info       -- 기기 정보
+    local login                 -- 로그인
+    local login_new_user        -- 로그인 신규 유저
+    local login_existing_user   -- 로그인 기존 유저
 
-    local uid = g_localData:get('local', 'uid')
+    -- 네이버 카페(PLUG) uid 동기화
+    naver_cafe_sync_uid = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Title_GameLogin_naverSyncUid')
 
-    -- 네이버 카페에 uid 연동
-    NaverCafeManager:naverCafeSyncGameUserId(uid)
+        -- 네이버 카페에 uid 연동
+        local uid = g_localData:get('local', 'uid')
+        NaverCafeManager:naverCafeSyncGameUserId(uid)
 
-    local success_cb = function(ret)
+        -- next
+        get_device_info()
+    end
 
-        -- 최초 로그인인 경우 계정 생성
-        if ret['newuser'] then
-            g_startTamerData:setData(ret)
-			self.createAccount()
-            return
+    -- 기기 정보
+    get_device_info = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Title_GameLogin_getDeviceInfo')
+
+        local function cb(ret, info)
+            -- ret의 값에 상관없이 로그인 진행
+            local device_info_json = json_decode(info) or {}
+
+            -- next
+            login(device_info_json)
         end
 
+        SDKManager:deviceInfo(cb)
+    end
+
+    -- 로그인
+    login = function(device_info_json)
+        -- @analytics
+        Analytics:firstTimeExperience('Title_GameLogin_login')
+
+        local success_cb = function(ret)
+            -- next
+            if ret['newuser'] then
+                login_new_user(ret)
+            else
+                login_existing_user(ret)
+            end
+        end
+
+        local fail_cb = function(ret)
+            self:makeFailPopup(nil, ret)
+        end
+
+        local uid = g_localData:get('local', 'uid')
+        local nickname = nil -- @sgkim 2019-06-11 서버에서 사용하지 않는 값 확인
+        Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
+    end
+
+    -- 로그인 신규 유저
+    login_new_user = function(ret)
+        -- @analytics
+        Analytics:firstTimeExperience('Title_GameLogin_loginNewUser')
+
+        g_startTamerData:setData(ret)
+        self.createAccount()
+    end
+
+    -- 로그인 기존 유저
+    login_existing_user = function(ret)
         g_serverData:lockSaveData()
         
 		-- user
@@ -862,19 +917,7 @@ function UI_TitleScene:workGameLogin()
         self:doNextWork()
     end
 
-    local fail_cb = function(ret)
-        self:makeFailPopup(nil, ret)
-    end
-
-    -- 디바이스 정보를 받음
-    local function cb_func(ret, info)
-
-        -- ret의 값에 상관없이 로그인 진행
-        local device_info_json = json_decode(info) or {}
-        Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
-    end
-
-    SDKManager:deviceInfo(cb_func)
+    naver_cafe_sync_uid()
 end
 -------------------------------------
 -- function workGameLogin_click
