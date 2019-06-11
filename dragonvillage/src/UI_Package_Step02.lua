@@ -96,6 +96,13 @@ function UI_Package_Step02:refresh(step)
 
                 -- 현재 단계보다 높으면 구매 불가
                 vars['buyBtn']:setEnabled(self.m_curr_step >= idx)
+
+
+                -- 상품은 여러개인데 마지막 상품 기준으로 남은 시간 출력
+                local end_date = struct_product:getEndDateStr()
+                if (vars['timeLabel']) then
+                    vars['timeLabel']:setString(end_date)
+                end
             end
         end
     end
