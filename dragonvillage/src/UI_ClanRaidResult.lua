@@ -450,7 +450,7 @@ function UI_ClanRaidResult:showLeaderBoard()
     end
 
     local ui_leader_board = UI_ResultLeaderBoard('clan_raid', true, true) -- type, is_move, is_popup
-    ui_leader_board:setScore(t_ex_me['score'], t_me['score'])
+    ui_leader_board:setScore(self.m_damage, t_me['score']) -- param : add_score, current_score (전투 후)데미지 값(=점수), (전투 후)최종 종합 점수
     ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
     ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
     ui_leader_board:setRanker(t_upper, t_me, t_lower)

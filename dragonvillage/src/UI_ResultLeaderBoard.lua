@@ -128,7 +128,7 @@ function UI_ResultLeaderBoard:setCurrentInfo()
 end
 
 -------------------------------------
--- function setCurrentInfo
+-- function setChangeInfo
 -------------------------------------
 function UI_ResultLeaderBoard:setChangeInfo()
     local vars = self.vars
@@ -139,7 +139,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
     vars['rewardNode2']:setVisible(true)
 
     vars['gaugeSprite']:setVisible(self.m_isPopup)
-    
+
     -- 콤마 라벨
     local score_tween_cb = function(number, label)
         local number = math.floor(number)
@@ -165,7 +165,11 @@ function UI_ResultLeaderBoard:setChangeInfo()
      -- + 콤마 라벨
     local diff_tween_cb = function(number, label)
         local number = math.floor(number)
-        label:setString(string.format('+'..comma_value(number)))
+        if (number > 0) then
+            label:setString(string.format('+'..comma_value(number)))
+        else
+            label:setString(string.format(comma_value(number)))
+        end
     end
     
     -- 점수 없을 때
@@ -344,9 +348,15 @@ end
 -------------------------------------
 -- function setScore
 -------------------------------------
-function UI_ResultLeaderBoard:setScore(before, current)
-    self.m_before_score = tonumber(before)
-    self.m_cur_score = tonumber(current)
+function UI_ResultLeaderBoard:setScore(add_score, current_score)
+    if (not add_score) or (not current_score) then
+        self.m_before_score = 0
+        self.m_cur_score = 0
+        return
+    end
+    
+    self.m_before_score = tonumber(current_score) - tonumber(add_score)
+    self.m_cur_score = tonumber(current_score)
 end
 
 -------------------------------------
