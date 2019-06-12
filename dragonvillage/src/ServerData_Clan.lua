@@ -174,6 +174,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
 
         -- 클랜 게시판 정보
         if ret['clan_board'] then
+            self.m_clanBoardInfo = {}
             self:makeBoardData(ret['clan_board'])
         end
 
