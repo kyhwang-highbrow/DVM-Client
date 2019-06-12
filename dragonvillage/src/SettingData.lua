@@ -204,6 +204,7 @@ function SettingData:makeDefaultSettingData()
     root_table['sfx'] = true
     root_table['fps'] = false
     root_table['sleep_mode'] = true
+    root_table['shake_mode'] = true
 
     -- 언어 확인 (기기 언어와, 게임 언어가 다를 경우)
     root_table['language_verification_complete'] = false

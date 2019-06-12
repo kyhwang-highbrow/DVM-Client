@@ -13,6 +13,9 @@ function UI_Setting:init_gameTab()
     -- 저사양 모드
     self:init_lowResModeSetting()
 
+    -- 화면 흔들림
+    self:init_shakeModeSetting()
+
     vars['languageBtn']:registerScriptTapHandler(function() self:click_languageBtn() end)
 
     -- 연출
@@ -125,6 +128,34 @@ function UI_Setting:init_lowResModeSetting()
     radio_button:setChangeCB(change_cb)
 end
 
+-------------------------------------
+-- function init_shakeModeSetting
+-- @brief 화면 흔들림
+-------------------------------------
+function UI_Setting:init_shakeModeSetting()
+    local vars = self.vars
+    
+    local radio_button = UIC_RadioButton()
+    radio_button:addButton('on', vars['shakeOnBtn'])
+    radio_button:addButton('off', vars['shakeOffBtn'])
+
+    if g_settingData:get('shake_mode') then
+        radio_button:setSelectedButton('off')
+    else
+        radio_button:setSelectedButton('on')
+    end
+
+    local function change_cb(selected)
+        if (selected == 'on') then
+            g_settingData:applySettingData(true, 'shake_mode')
+        elseif (selected == 'off') then
+            g_settingData:applySettingData(false, 'shake_mode')
+        end
+    end
+
+    radio_button:setChangeCB(change_cb)
+
+end
 -------------------------------------
 -- function init_chatSetting
 -- @brief 채팅 on/off

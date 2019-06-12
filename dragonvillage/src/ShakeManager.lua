@@ -48,6 +48,12 @@ end
 -- @brief 화면 떨림 연출
 -------------------------------------
 function ShakeManager:doShake(x, y, duration, is_repeat, interval)
+    
+    -- 화면 흔들림 off 상태라면 화면 흔들지 않음
+    if not (g_settingData:get('shake_mode')) then
+        return
+    end
+
 	-- 1. 변수 설정
     local timeScale = cc.Director:getInstance():getScheduler():getTimeScale()
     local duration = (duration or g_constant:get('INGAME', 'SHAKE_DURATION')) * timeScale
