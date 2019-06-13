@@ -8,7 +8,7 @@ UI_Package_Step02 = class(PARENT,{
     })
 
 -- 단계별 패키지 product id
-local t_step_pids = {90105, 90106, 90107, 90108}
+local t_step_pids = {110201, 110202, 110203, 110204}
 
 -------------------------------------
 -- function init
