@@ -28,14 +28,6 @@ function UI_AttrTowerMenuScene:init(attr, stage)
     -- 메뉴 씬 진입 후 속성탑 바로 진입할 경우 fade in time 늘려줌 (중간에 씬 화면 보이지 않게)
     local duration = self.m_selAttr and 1.5 or 0.25
     self:sceneFadeInAction(nil, nil, duration)
-
-    local is_extended = g_attrTowerData.m_bExtendFloor
-    vars['infoNode']:setVisible(not is_extended)
-
-    local need_floor = 200
-    local clear_floor = g_attrTowerData.m_clearFloorTotalCnt
-    local msg = Str('속성에 상관없이 합 {1}개의 층을 클리어하면 시험의 탑 상위 층이 열립니다.', need_floor) .. string.format(' (%d/%d)', clear_floor, need_floor)
-    vars['infoLabel']:setString(msg)
 end
 
 -------------------------------------
@@ -57,6 +49,26 @@ end
 function UI_AttrTowerMenuScene:initUI()
     local vars = self.vars
 	
+    do -- 시험의 탑 확장 관련 메세지
+        local msg = ''
+        local max_stage_id = g_attrTowerData:getAttrMaxStageId()
+        local need_floor = ATTR_TOWER_EXTEND_OPEN_FLOOR
+        local clear_floor = g_attrTowerData.m_clearFloorTotalCnt
+
+        if (max_stage_id == ServerData_AttrTower.MAXSTAGEID['DEFAULT']) then
+            need_floor = ATTR_TOWER_EXTEND_OPEN_FLOOR
+        elseif (max_stage_id == ServerData_AttrTower.MAXSTAGEID['EXTEND_100']) then
+            need_floor = ATTR_TOWER_EXTEND_OPEN_FLOOR_150    
+        else
+            need_floor = 0
+        end
+        
+        -- 확장하는데 필요한 층 정보가 있을 때만 인포 표시
+        vars['infoNode']:setVisible(need_floor > 0)
+        msg = Str('속성에 상관없이 합 {1}개의 층을 클리어하면 시험의 탑 상위 층이 열립니다.', need_floor) .. string.format(' (%d/%d)', clear_floor, need_floor)
+        vars['infoLabel']:setString(msg)
+    end
+
     -- 던전은 화수목 따라서 불,물,땅 순서임..
     local l_attr = {'fire', 'water', 'earth', 'light', 'dark'}
 

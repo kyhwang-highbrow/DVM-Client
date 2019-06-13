@@ -1,5 +1,6 @@
 ATTR_TOWER_OPEN_FLOOR = 40
 ATTR_TOWER_EXTEND_OPEN_FLOOR = 200
+ATTR_TOWER_EXTEND_OPEN_FLOOR_150 = 400
 
 ATTR_TOWER_STAGE_ID_WAIT = 1401050
 ATTR_TOWER_STAGE_ID_FINISH = 1401100
@@ -30,7 +31,15 @@ ServerData_AttrTower = class({
 
         m_subMenuInfo = 'table', -- 서브 메뉴 정보
         m_bExtendFloor = 'boolean', -- 100층까지 확장되었는지
+        m_bExtendFloor_150 = 'boolean', -- 150층까지 확장되었는지
     })
+
+    
+ServerData_AttrTower.MAXSTAGEID = {
+	['DEFAULT'] = 1401050,	        -- 시험의 탑 처음 들어갔을 때 : 속성별 Max 스테이지 50
+	['EXTEND_100'] = 1401100,		-- 시험의 탑 스테이지 200개 클리어 후 : 속성별 Max 스테이지 100
+	['EXTEND_150'] = 1401150,		-- 시험의 탑 스테이지 400개 클리어 후 : 속성별 Max 스테이지 150
+}
 
 -------------------------------------
 -- function init
@@ -99,13 +108,13 @@ function ServerData_AttrTower:getNextStageID(stage_id)
 
     if t_drop then
         local next_stage = stage_id + 1
-        if (not self.m_bExtendFloor) then
-            if (self.m_clearFloorTotalCnt == ATTR_TOWER_EXTEND_OPEN_FLOOR - 1) then
-            else
-                next_stage = (next_stage > ATTR_TOWER_STAGE_ID_WAIT) and ATTR_TOWER_STAGE_ID_WAIT or next_stage
-            end
-        end
         
+        -- 확장 정도에 따라 next_stage가 max_stage를 넘어가면 max값을 반환
+        local max_stage_id = self:getAttrMaxStageId()
+        if (next_stage > max_stage_id) then
+            return max_stage_id
+        end
+
         return next_stage
     else
         return stage_id
@@ -139,16 +148,6 @@ function ServerData_AttrTower:getStageName(stage_id)
 end
 
 -------------------------------------
--- function isAttrTowerStage
--------------------------------------
-function ServerData_AttrTower:isAttrTowerStage(stage_id)
-    if (stage_id > ANCIENT_TOWER_STAGE_ID_START) and (stage_id <= ATTR_TOWER_STAGE_ID_FINISH) then
-        return true
-    end
-    return false
-end
-
--------------------------------------
 -- function goToAttrTowerScene
 -------------------------------------
 function ServerData_AttrTower:goToAttrTowerScene(use_scene, attr, stage_id)
@@ -170,7 +169,7 @@ end
 -------------------------------------
 -- function request_attrTowerInfo
 -------------------------------------
-function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail_cb)
+function ServerData_AttrTower:request_attrTowerInfo(attr, stage_id, finish_cb, fail_cb)
     self:setSelAttr(attr)
 
     -- 파라미터
@@ -188,6 +187,11 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
             -- 100층 확장 여부
             if (menu_info['extended']) then
                 self.m_bExtendFloor = (menu_info['extended'] == 1) and true or false
+            end
+
+            -- 150층 확장 여부
+            if (menu_info['extended_150']) then
+                self.m_bExtendFloor_150 = (menu_info['extended_150'] == 1) and true or false
             end
 
             -- 클리어한 층수 계산
@@ -233,12 +237,14 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
     end
     
     -- 선택한 스테이지
-    if (stage) then
-        if (stage > ATTR_TOWER_STAGE_ID_WAIT and not self.m_bExtendFloor) then
-            stage = ATTR_TOWER_STAGE_ID_WAIT
+    -- 확장되지 않았는데 확장된 스테이지를 요구할 경우
+    if (stage_id) then
+        local max_stage_id = self:getAttrMaxStageId()
+        if (stage_id > max_stage_id) then
+            stage_id = max_stage_id
         end
 
-        ui_network:setParam('stage', stage)
+        ui_network:setParam('stage', stage_id)
     end
 
     ui_network:setSuccessCB(success_cb)
@@ -305,13 +311,14 @@ function ServerData_AttrTower:makeAttrTower_stageList()
         if (game_mode ~= GAME_MODE_ANCIENT_TOWER) then
             return false
         end
-
-        if (self.m_bExtendFloor) then
-            return true
+        
+        local max_stage_id = self:getAttrMaxStageId()
+        if (not max_stage_id) then
+            max_stage_id = ServerData_AttrTower.MAXSTAGEID['DEFAULT']
         end
 
         -- 확장되지 않은 경우 중간층까지만
-        if (stage_id > ATTR_TOWER_STAGE_ID_WAIT) then
+        if (stage_id > max_stage_id) then
             return false
         end
 
@@ -413,7 +420,13 @@ end
 -- @brief 속성 탑 최대층 반환
 -------------------------------------
 function ServerData_AttrTower:getMaxFloor(attr)
-    return (self.m_bExtendFloor) and ATTR_TOWER_STAGE_ID_FINISH % 1000 or ATTR_TOWER_STAGE_ID_WAIT % 1000
+    local max_stage_id = self:getAttrMaxStageId()
+
+    if (not max_stage_id) then
+        max_stage_id = ServerData_AttrTower.MAXSTAGEID['DEFAULT']
+    end
+
+    return max_stage_id % 1000
 end
 
 -------------------------------------
@@ -467,4 +480,22 @@ function ServerData_AttrTower:checkDragonAttr(l_deck)
     end
 
     return true
+end
+
+-------------------------------------
+-- function getAttrMaxStageId
+-------------------------------------
+function ServerData_AttrTower:getAttrMaxStageId()
+    
+    if (not self.m_bExtendFloor) then
+        return ServerData_AttrTower.MAXSTAGEID['DEFAULT']
+    end
+
+    if (not self.m_bExtendFloor_150) then
+        return ServerData_AttrTower.MAXSTAGEID['EXTEND_100']
+    else
+        return ServerData_AttrTower.MAXSTAGEID['EXTEND_150']
+    end
+
+    return ServerData_AttrTower.MAXSTAGEID['DEFAULT']
 end

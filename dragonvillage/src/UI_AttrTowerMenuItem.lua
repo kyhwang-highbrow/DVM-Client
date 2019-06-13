@@ -42,7 +42,7 @@ function UI_AttrTowerMenuItem:initUI()
 
     if (challenge_floor == 'clear') then
         local max_floor = g_attrTowerData:getMaxFloor()
-        local msg = (max_floor == 50) and Str('{1}층 준비중', max_floor + 1) or Str('정복 완료!')
+        local msg = (max_floor < 150) and Str('{1}층 준비중', max_floor + 1) or Str('정복 완료!')
         vars['gaugeLabel']:setString(msg)
         vars['gaugeLabel']:setColor(COLOR[attr])
     else
