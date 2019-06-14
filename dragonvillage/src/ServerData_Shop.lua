@@ -909,7 +909,14 @@ end
 -------------------------------------
 function ServerData_Shop:getPakcageStepPidList(package_step_name) -- 'package_step_02', 'package_step'
     local l_pids = TablePackageBundle:getPidsWithName(package_step_name)
-    return l_pids or {}
+    if (not l_pids) then
+        l_pids = {}
+    end
+    
+    for i,v in ipairs(l_pids) do
+        l_pids[i] = tonumber(v)
+    end
+    return l_pids
 end
 
 -------------------------------------
