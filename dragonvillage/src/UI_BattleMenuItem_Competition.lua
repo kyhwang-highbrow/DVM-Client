@@ -106,6 +106,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 	if (t_item) then
 		local icon = IconHelper:getItemIcon(t_item['item_id'])
 		vars['itemNode']:addChild(icon)
+        vars['itemContainerNode']:setVisible(true)
 	else
 		vars['itemContainerNode']:setVisible(false)
 	end
@@ -130,6 +131,7 @@ end
 function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
 	local struct_quest_50 = g_questData:getQuest(TableQuest.CHALLENGE, 14501) -- 시험의 탑 모든 속성 50층 클리어 : 전설의 알
     local struct_quest_100 = g_questData:getQuest(TableQuest.CHALLENGE, 14502) -- 시험의 탑 모든 속성 100층 클리어 : 절대적인 전설의 알
+    local struct_quest_150 = g_questData:getQuest(TableQuest.CHALLENGE, 14503) -- 시험의 탑 모든 속성 150층 클리어 : 절대적인 전설의 알
 
     local struct_quest = nil
     local quest_desc = ''
@@ -141,6 +143,9 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
     elseif (struct_quest_100) and (not struct_quest_100:isEnd()) then
         struct_quest = struct_quest_100
         quest_desc = Str('시험의 탑 모든 속성\n100층 클리어')
+    elseif (struct_quest_150) and (not struct_quest_150:isEnd()) then
+        struct_quest = struct_quest_150
+        quest_desc = Str('시험의 탑 모든 속성\n150층 클리어')
     end
 
     -- 종료 처리
