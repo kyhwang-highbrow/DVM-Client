@@ -20,15 +20,24 @@ function LobbyPopup_PackageStep:checkCustomCondition()
 
     -- 현재 유효하지 않은 상품일 경우
     local valid_step_package = g_shopDataNew:getValidStepPackage()
+
+    if (not valid_step_package) then
+        return false
+    end
+
     if (valid_step_package ~= 'package_step_02') then
         return false
     end
 
     -- 단계별 패키지 product id
-    local t_step_pids = {90105, 90106, 90107, 90108}
+    local l_step_pids = g_shopDataNew:getPakcageStepPidList('package_step_02')
 
+    if (#l_step_pids ~= 4) then
+        return false
+    end
+    
     -- 1단계 상품을 구매했을 경우
-    if (g_shopDataNew:getBuyCount(90105) > 0) then
+    if (g_shopDataNew:getBuyCount(l_step_pids[1]) > 0) then
         return false
     end
 

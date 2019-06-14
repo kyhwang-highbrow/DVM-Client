@@ -883,21 +883,33 @@ end
 -- @sgkim 2018-05-29
 -------------------------------------
 function ServerData_Shop:getValidStepPackage()
-
     -- 단계별 패키지 product id
-    local t_step_pids = {90077, 90078, 90079, 90080}
+    local l_step_pids = g_shopDataNew:getPakcageStepPidList('package_step')
+
+    if (#l_step_pids ~= 4) then
+        return nil
+    end
 
     -- 1단계도 구매를 안했을 경우
-    if (self:getBuyCount(90077) == 0) then
+    if (self:getBuyCount(l_step_pids[1]) == 0) then
         return 'package_step_02'
     end
 
     -- 4단계까지 모두 구매했을 경우
-    if (self:getBuyCount(90080) > 0) then
+    if (self:getBuyCount(l_step_pids[4]) > 0) then
         return 'package_step_02'
     end
 
     return 'package_step'
+end
+
+-------------------------------------
+-- function getValidStepPackage
+-- @brief 단계별 패키지 product_id list
+-------------------------------------
+function ServerData_Shop:getPakcageStepPidList(package_step_name) -- 'package_step_02', 'package_step'
+    local l_pids = TablePackageBundle:getPidsWithName(package_step_name)
+    return l_pids or {}
 end
 
 -------------------------------------

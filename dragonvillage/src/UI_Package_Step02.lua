@@ -5,15 +5,15 @@ local PARENT = UI_Package_Bundle
 -------------------------------------
 UI_Package_Step02 = class(PARENT,{
         m_curr_step = 'number',
+        m_lStepPids = 'list',
     })
 
--- 단계별 패키지 product id
-local t_step_pids = {110201, 110202, 110203, 110204}
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_Package_Step02:init(package_name, is_popup)
+    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList('package_step_02')
     self:setCurrentStep()
     self:refresh(self.m_curr_step)
 
@@ -27,8 +27,8 @@ end
 -------------------------------------
 function UI_Package_Step02:initButton()
     local vars = self.vars
-
-    for idx = 1, #t_step_pids do
+    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList('package_step_02')
+    for idx = 1, #self.m_lStepPids do
         vars['stepBtn'..idx]:registerScriptTapHandler(function() self:click_stepBtn(idx) end)
         
     end
@@ -42,7 +42,7 @@ end
 -- @breif 구매내역으로 현재 스텝 체크
 -------------------------------------
 function UI_Package_Step02:setCurrentStep()
-    for idx, pid in ipairs(t_step_pids) do
+    for idx, pid in ipairs(self.m_lStepPids) do
         local buy_cnt = g_shopDataNew:getBuyCount(pid)
         if (buy_cnt == 0) then
             self.m_curr_step = idx
@@ -68,13 +68,13 @@ function UI_Package_Step02:refresh(step)
     local vars = self.vars
     local l_item_list = g_shopDataNew:getProductList('package')
 
-    for idx = 1, #t_step_pids do
+    for idx = 1, #self.m_lStepPids do
         vars['stepNode'..idx]:setVisible(idx == step)
 
         if (idx == step) then
-            local target_pid = t_step_pids[idx]
+            local target_pid = tonumber(self.m_lStepPids[idx])
             local struct_product = l_item_list[target_pid]
-
+            
             -- 샵 정보가 없다면 구매 완료인 상태
             local is_buy = struct_product == nil
             vars['buyLabel']:setVisible(not is_buy)
@@ -109,8 +109,8 @@ function UI_Package_Step02:refresh(step)
 
     -- 구매 단계에 따라 전설드래곤 메세지 출력
     local str = ''
-    if (step < #t_step_pids) then
-        str = Str('{1}단계 후 전설 드래곤 선택권 획득 가능!', #t_step_pids - step)
+    if (step < #self.m_lStepPids) then
+        str = Str('{1}단계 후 전설 드래곤 선택권 획득 가능!', #self.m_lStepPids - step)
     else
         str = Str('전설 드래곤 선택권 획득 가능!')
     end
@@ -140,7 +140,7 @@ end
 -------------------------------------
 function UI_Package_Step02:click_buyBtn()
     local l_item_list = g_shopDataNew:getProductList('package')
-    local target_pid = t_step_pids[self.m_curr_step]
+    local target_pid = self.m_lStepPids[self.m_curr_step]
     local struct_product = l_item_list[target_pid]
 
     if (struct_product) then

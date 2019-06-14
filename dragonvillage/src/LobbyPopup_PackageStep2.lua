@@ -25,15 +25,18 @@ function LobbyPopup_PackageStep2:checkCustomCondition()
     end
 
     -- 단계별 패키지 product id
-    local t_step_pids = {110201, 110202, 110203, 110204}
+    local l_step_pids = g_shopDataNew:getPakcageStepPidList('package_step_02')
+    if (#l_step_pids ~= 4) then
+        return false
+    end
 
-    -- 1단계 상품을 구매했을 경우
-    if (g_shopDataNew:getBuyCount(110201) > 0) then
+    -- 1단계를 구매하지 않았을 경우
+    if (g_shopDataNew:getBuyCount(l_step_pids[1]) <= 0) then
         return false
     end
 
     -- 4단계까지 모두 구매했을 경우
-    if (g_shopDataNew:getBuyCount(110204) >= 1) then
+    if (g_shopDataNew:getBuyCount(l_step_pids[4]) >= 1) then
         return false
     end
 
