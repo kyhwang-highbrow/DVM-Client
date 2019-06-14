@@ -20,7 +20,7 @@ function LobbyPopup_PackageStep2:checkCustomCondition()
 
     -- 현재 유효하지 않은 상품일 경우
     local valid_step_package = g_shopDataNew:getValidStepPackage()
-    if (valid_step_package ~='package_step_03') then
+    if (valid_step_package ~='package_step_02') then
         return false
     end
 
