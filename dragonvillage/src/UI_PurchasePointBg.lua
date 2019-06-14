@@ -300,18 +300,42 @@ function UI_PurchasePointBg:initUI_Item(item_count)
     vars['productNode4']:setVisible(true)
     self:setLimit(4) -- productNode 4의 4
     
-    local animator = MakeAnimator('res/item/egg/egg_super_myth/egg_super_myth.vrp') -- json...
-    animator:changeAni('egg_move', true)    
-    vars['itemNode2']:addChild(animator.m_node)
-    
+    -- 갯수 라벨 세팅
     local item_name = TableItem:getItemName(item_id)
     vars['itemLabel3']:setString(string.format('%s X %d', item_name, item_count))
+
+    -- 아이템 Visual 세팅
+    local animator = self:getItemVisual(item_id)
+    if (animator) then
+        vars['itemNode2']:addChild(animator.m_node)
+    end
 
     -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp')
     vars['bgNode']:addChild(animator.m_node)
 
     vars['effect4']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+end
+
+-------------------------------------
+-- function getItemVisual
+-- @breif ItemVisual 세팅
+-------------------------------------
+function UI_PurchasePointBg:getItemVisual(item_id)
+    local animator
+    local item_full_type = TableItem:getItemFullType(tonumber(item_id))
+
+    -- 아이템이 알 종류일 경우 (파일 이름에 규칙이 있다고 가정)
+    if (string.match(item_full_type, 'egg')) then
+        animator = MakeAnimator(string.format('res/item/egg/%s/%s.vrp', item_full_type, item_full_type)) -- ex) res/item/egg/egg_super_myth/egg_super_myth.vrp
+        if (animator) then
+            animator:changeAni('egg_move', true)
+        end
+    else
+        animator = nil
+    end
+
+    return animator
 end
 
 -------------------------------------
