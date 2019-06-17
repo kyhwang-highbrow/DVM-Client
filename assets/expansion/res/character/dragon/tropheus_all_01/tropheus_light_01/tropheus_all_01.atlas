@@ -1,0 +1,293 @@
+
+tropheus_all_01.png
+size: 992,534
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tropheus_all_01_arm_01
+  rotate: true
+  xy: 573, 7
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+tropheus_all_01_arm_02
+  rotate: false
+  xy: 739, 63
+  size: 62, 62
+  orig: 62, 62
+  offset: 0, 0
+  index: -1
+tropheus_all_01_body
+  rotate: false
+  xy: 883, 220
+  size: 107, 101
+  orig: 107, 101
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_01_01
+  rotate: true
+  xy: 465, 418
+  size: 114, 266
+  orig: 114, 266
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_01_02
+  rotate: false
+  xy: 655, 215
+  size: 97, 201
+  orig: 97, 201
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_02
+  rotate: true
+  xy: 280, 28
+  size: 107, 69
+  orig: 107, 69
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_03
+  rotate: false
+  xy: 381, 217
+  size: 169, 175
+  orig: 169, 175
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_04
+  rotate: false
+  xy: 2, 155
+  size: 201, 377
+  orig: 201, 377
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_06
+  rotate: true
+  xy: 803, 75
+  size: 73, 54
+  orig: 73, 54
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_08
+  rotate: false
+  xy: 205, 218
+  size: 174, 174
+  orig: 174, 174
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_light
+  rotate: true
+  xy: 775, 3
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+tropheus_all_01_effect_lightdust
+  rotate: false
+  xy: 754, 222
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+tropheus_all_01_eye_01
+  rotate: true
+  xy: 645, 2
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+tropheus_all_01_eye_02
+  rotate: false
+  xy: 876, 158
+  size: 68, 60
+  orig: 68, 60
+  offset: 0, 0
+  index: -1
+tropheus_all_01_eye_03
+  rotate: true
+  xy: 885, 27
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+tropheus_all_01_eye_04
+  rotate: false
+  xy: 935, 9
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+tropheus_all_01_eye_highlight
+  rotate: true
+  xy: 962, 501
+  size: 31, 28
+  orig: 31, 28
+  offset: 0, 0
+  index: -1
+tropheus_all_01_head
+  rotate: true
+  xy: 2, 4
+  size: 149, 175
+  orig: 149, 175
+  offset: 0, 0
+  index: -1
+tropheus_all_01_horn_02
+  rotate: false
+  xy: 433, 39
+  size: 85, 93
+  orig: 85, 93
+  offset: 0, 0
+  index: -1
+tropheus_all_01_horn_03
+  rotate: true
+  xy: 452, 134
+  size: 81, 123
+  orig: 81, 123
+  offset: 0, 0
+  index: -1
+tropheus_all_01_iris
+  rotate: true
+  xy: 946, 180
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+tropheus_all_01_leg_01
+  rotate: true
+  xy: 645, 67
+  size: 58, 92
+  orig: 58, 92
+  offset: 0, 0
+  index: -1
+tropheus_all_01_leg_02
+  rotate: false
+  xy: 915, 87
+  size: 46, 69
+  orig: 46, 69
+  offset: 0, 0
+  index: -1
+tropheus_all_01_lighting_01_01
+  rotate: false
+  xy: 828, 17
+  size: 55, 56
+  orig: 55, 56
+  offset: 0, 0
+  index: -1
+tropheus_all_01_shield_01
+  rotate: false
+  xy: 740, 127
+  size: 61, 86
+  orig: 61, 86
+  offset: 0, 0
+  index: -1
+tropheus_all_01_shield_01_01
+  rotate: false
+  xy: 652, 127
+  size: 86, 86
+  orig: 86, 86
+  offset: 0, 0
+  index: -1
+tropheus_all_01_shield_02
+  rotate: true
+  xy: 343, 139
+  size: 76, 107
+  orig: 76, 107
+  offset: 0, 0
+  index: -1
+tropheus_all_01_shield_02_02
+  rotate: false
+  xy: 179, 28
+  size: 99, 107
+  orig: 99, 107
+  offset: 0, 0
+  index: -1
+tropheus_all_01_shield_03
+  rotate: false
+  xy: 859, 78
+  size: 54, 70
+  orig: 54, 70
+  offset: 0, 0
+  index: -1
+tropheus_all_01_shield_03_02
+  rotate: true
+  xy: 573, 49
+  size: 79, 70
+  orig: 79, 70
+  offset: 0, 0
+  index: -1
+tropheus_all_01_shield_04
+  rotate: false
+  xy: 552, 217
+  size: 101, 199
+  orig: 101, 199
+  offset: 0, 0
+  index: -1
+tropheus_all_01_tail_01
+  rotate: true
+  xy: 205, 137
+  size: 79, 136
+  orig: 79, 136
+  offset: 0, 0
+  index: -1
+tropheus_all_01_tail_02
+  rotate: true
+  xy: 935, 43
+  size: 42, 41
+  orig: 42, 41
+  offset: 0, 0
+  index: -1
+tropheus_all_01_tail_03
+  rotate: false
+  xy: 705, 2
+  size: 68, 59
+  orig: 68, 59
+  offset: 0, 0
+  index: -1
+tropheus_all_01_wind_01
+  rotate: false
+  xy: 205, 394
+  size: 258, 138
+  orig: 258, 138
+  offset: 0, 0
+  index: -1
+tropheus_all_01_wind_02
+  rotate: false
+  xy: 733, 422
+  size: 227, 110
+  orig: 227, 110
+  offset: 0, 0
+  index: -1
+tropheus_all_01_wind_03
+  rotate: false
+  xy: 754, 323
+  size: 231, 97
+  orig: 231, 97
+  offset: 0, 0
+  index: -1
+tropheus_all_01_wing_01_01
+  rotate: true
+  xy: 520, 47
+  size: 85, 51
+  orig: 85, 51
+  offset: 0, 0
+  index: -1
+tropheus_all_01_wing_01_02
+  rotate: false
+  xy: 803, 150
+  size: 71, 70
+  orig: 71, 70
+  offset: 0, 0
+  index: -1
+tropheus_all_01_wing_01_03
+  rotate: true
+  xy: 351, 26
+  size: 111, 80
+  orig: 111, 80
+  offset: 0, 0
+  index: -1
+tropheus_all_01_wing_02
+  rotate: true
+  xy: 577, 130
+  size: 85, 73
+  orig: 85, 73
+  offset: 0, 0
+  index: -1

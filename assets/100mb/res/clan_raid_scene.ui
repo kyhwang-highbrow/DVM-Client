@@ -426,11 +426,63 @@
 					file_name = 'ui/a2d/clan_raid/clan_raid.vrp';
 					auto_play = true;
 					is_repeat = true;
-					visual_id = 'group;fb_01';
+					visual_id = 'group;clear';
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};
 				[5] =
+				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = 65.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 276;
+						height = 85;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/last_clear_0101.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = -3.000000;
+					y = 30.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 520;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'lastClearSprite';
+					file_name = 'ui/frames/attr_tower_title.png';
+					color = { 255; 255; 255; };
+					opacity = 220;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -470,7 +522,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -560,7 +612,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[7] =
+				[8] =
 				{
 					[1] =
 					{
@@ -650,7 +702,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[8] =
+				[9] =
 				{
 					[1] =
 					{
@@ -740,7 +792,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[9] =
+				[10] =
 				{
 					[1] =
 					{
@@ -1005,7 +1057,7 @@
 					visible = true;
 					lua_name = 'synastryMenu';
 				};
-				[10] =
+				[11] =
 				{
 					[1] =
 					{

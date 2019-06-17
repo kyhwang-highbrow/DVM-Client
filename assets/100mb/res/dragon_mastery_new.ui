@@ -49,6 +49,202 @@
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -58.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 125;
+				height = 168;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icons/mandragora/capsule_coin_daily_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -18.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 240;
+					height = 37;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'packagePriceLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = 'packagePriceLabel';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 240;
+					dimension_height = 37;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -6.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 240;
+					height = 37;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 16;
+					text = '특성 재료를 얻을 수 있골!';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 240;
+					dimension_height = 37;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[3] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 29.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 240;
+					height = 43;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '특성 패키지';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 215; 0; };
+					opacity = 255;
+					dimension_width = 240;
+					dimension_height = 43;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Sprite';
+				ui_name = '';
+				x = 1.000000;
+				y = 30.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 260;
+				height = 113;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'signNode';
+				file_name = 'ui/icons/mandragora/capsule_coin_daily_0102.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 238.000000;
+			y = 108.000000;
+			dock_point = { 0.500000; 0.000000; };
+			anchor_point = { 0.500000; 0.000000; };
+			relative_size_type = 0;
+			width = 260;
+			height = 220;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'buyBtn';
+			enable = true;
+			normal = '';
+			selected = '';
+			disable = '';
+			image_type = 0;
+		};
+		[4] =
+		{
+			[1] =
+			{
 				type = 'LayerColor';
 				ui_name = '';
 				x = 0.000000;
@@ -244,7 +440,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[4] =
+		[5] =
 		{
 			[1] =
 			{
@@ -841,13 +1037,13 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 81.000000;
+							x = 82.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 161;
-							height = 62;
+							width = 164;
+							height = 65;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -856,14 +1052,14 @@
 							visible = true;
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 28;
+							font_size = 24;
 							text = '특성 레벨업';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
 							opacity = 255;
-							dimension_width = 161;
-							dimension_height = 62;
+							dimension_width = 164;
+							dimension_height = 65;
 							letter_spacing = 0.000000;
 							has_stroke = false;
 							stroke_type = 0;
@@ -1418,10 +1614,10 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = 'masteryLvUpMenu';
 		};
-		[5] =
+		[6] =
 		{
 			[1] =
 			{
@@ -2484,10 +2680,10 @@
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = 'masterySkillMenu';
 		};
-		[6] =
+		[7] =
 		{
 			[1] =
 			{
@@ -2551,7 +2747,7 @@
 			disable = 'ui/buttons/base_btn_0103.png';
 			image_type = 1;
 		};
-		[7] =
+		[8] =
 		{
 			[1] =
 			{
@@ -2615,7 +2811,7 @@
 			disable = 'ui/buttons/base_btn_0103.png';
 			image_type = 1;
 		};
-		[8] =
+		[9] =
 		{
 			[1] =
 			{

@@ -1,0 +1,195 @@
+
+mummydragon_all_01.png
+size: 1111,141
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mummydragon_all_01_arm_01
+  rotate: false
+  xy: 681, 4
+  size: 61, 41
+  orig: 61, 41
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_arm_02
+  rotate: false
+  xy: 791, 7
+  size: 61, 46
+  orig: 61, 46
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_ball_01_01
+  rotate: false
+  xy: 781, 55
+  size: 84, 84
+  orig: 84, 84
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_ball_01_02
+  rotate: true
+  xy: 258, 20
+  size: 119, 78
+  orig: 119, 78
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_ball_02_01
+  rotate: false
+  xy: 2, 11
+  size: 141, 128
+  orig: 141, 128
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_ball_02_02
+  rotate: true
+  xy: 564, 41
+  size: 98, 64
+  orig: 98, 64
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_bandage_01
+  rotate: true
+  xy: 338, 2
+  size: 35, 60
+  orig: 35, 60
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_bandage_hair_01_01
+  rotate: true
+  xy: 924, 64
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_bandage_hair_01_02
+  rotate: true
+  xy: 400, 2
+  size: 35, 39
+  orig: 35, 39
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_bandage_hair_02
+  rotate: true
+  xy: 630, 2
+  size: 43, 49
+  orig: 43, 49
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_body
+  rotate: false
+  xy: 338, 39
+  size: 71, 100
+  orig: 71, 100
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_eye_01_01
+  rotate: true
+  xy: 744, 3
+  size: 48, 45
+  orig: 48, 45
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_eye_02_01
+  rotate: true
+  xy: 518, 8
+  size: 31, 44
+  orig: 31, 44
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_eyebrow_01
+  rotate: true
+  xy: 441, 3
+  size: 36, 34
+  orig: 36, 34
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_eyebrow_02
+  rotate: false
+  xy: 564, 9
+  size: 28, 30
+  orig: 28, 30
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_fizz_01
+  rotate: false
+  xy: 1047, 6
+  size: 58, 64
+  orig: 58, 64
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_fizz_02
+  rotate: true
+  xy: 867, 3
+  size: 56, 58
+  orig: 56, 58
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_hand_01
+  rotate: false
+  xy: 477, 6
+  size: 39, 33
+  orig: 39, 33
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_head_01
+  rotate: true
+  xy: 145, 14
+  size: 125, 111
+  orig: 125, 111
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_head_02
+  rotate: false
+  xy: 992, 2
+  size: 53, 60
+  orig: 53, 60
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_leg_01
+  rotate: false
+  xy: 1051, 77
+  size: 58, 62
+  orig: 58, 62
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_leg_02
+  rotate: true
+  xy: 867, 61
+  size: 78, 55
+  orig: 78, 55
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_slash_01
+  rotate: false
+  xy: 717, 53
+  size: 62, 86
+  orig: 62, 86
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_slash_02
+  rotate: true
+  xy: 411, 41
+  size: 98, 151
+  orig: 98, 151
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_tail
+  rotate: true
+  xy: 630, 47
+  size: 92, 85
+  orig: 92, 85
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_wing_01
+  rotate: true
+  xy: 927, 2
+  size: 60, 63
+  orig: 60, 63
+  offset: 0, 0
+  index: -1
+mummydragon_all_01_wing_02
+  rotate: false
+  xy: 994, 72
+  size: 55, 67
+  orig: 55, 67
+  offset: 0, 0
+  index: -1

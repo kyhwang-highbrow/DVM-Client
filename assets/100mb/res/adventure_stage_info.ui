@@ -249,9 +249,9 @@
 			[5] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
+				ui_name = 'rich';
 				x = 0.000000;
-				y = -100.000000;
+				y = -105.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;

@@ -220,42 +220,68 @@
 							type = 'LabelTTF';
 							ui_name = 'rich';
 							x = 0.000000;
-							y = -18.000000;
-							dock_point = { 0.500000; 1.000000; };
-							anchor_point = { 0.500000; 1.000000; };
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
 							width = 350;
-							height = 190;
+							height = 100;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'runeDscLabel';
+							lua_name = 'quantityLabel';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 22;
-							text = 'itemDscLabel\nitemDscLabel\n\nitemDscLabel\nitemDscLabel\nitemDscLabel\nitemDscLabel';
+							font_size = 26;
+							text = '{1}/{1}';
 							h_alignment = 1;
-							v_alignment = 0;
+							v_alignment = 1;
 							color = { 253; 219; 167; };
 							opacity = 255;
 							dimension_width = 350;
-							dimension_height = 190;
+							dimension_height = 100;
 							letter_spacing = 0.000000;
 							has_stroke = false;
 							stroke_type = 0;
 							stroke_detail_level = 0;
 							is_sharp_text = true;
 							stroke_tickness = 1.000000;
-							stroke_color = { 255; 255; 255; };
+							stroke_color = { 0; 0; 0; };
 							has_shadow = false;
-							shadow_color = { 255; 255; 255; };
+							shadow_color = { 0; 0; 0; };
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
 						};
-						[2] =
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = -413.000000;
+						dock_point = { 0.500000; 1.000000; };
+						anchor_point = { 0.500000; 1.000000; };
+						relative_size_type = 0;
+						width = 360;
+						height = 100;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'relationNode';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
+					};
+					[5] =
+					{
+						[1] =
 						{
 							type = 'LabelTTF';
 							ui_name = 'rich';
@@ -295,6 +321,46 @@
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
 						};
+						[2] =
+						{
+							type = 'LabelTTF';
+							ui_name = 'rich';
+							x = 0.000000;
+							y = -40.000000;
+							dock_point = { 0.500000; 1.000000; };
+							anchor_point = { 0.500000; 1.000000; };
+							relative_size_type = 0;
+							width = 350;
+							height = 190;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'runeDscNode';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 22;
+							text = '';
+							h_alignment = 1;
+							v_alignment = 0;
+							color = { 253; 219; 167; };
+							opacity = 255;
+							dimension_width = 350;
+							dimension_height = 190;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 1.000000;
+							stroke_color = { 255; 255; 255; };
+							has_shadow = false;
+							shadow_color = { 255; 255; 255; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
 						type = 'Scale9Sprite';
 						ui_name = '';
 						x = 0.000000;
@@ -319,7 +385,7 @@
 						center_rect_width = 0;
 						center_rect_height = 0;
 					};
-					[5] =
+					[6] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -359,7 +425,7 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[6] =
+					[7] =
 					{
 						[1] =
 						{
@@ -524,7 +590,7 @@
 						disable = 'ui/buttons/base_btn_0102.png';
 						image_type = 1;
 					};
-					[7] =
+					[8] =
 					{
 						[1] =
 						{
@@ -689,7 +755,7 @@
 						disable = 'ui/buttons/base_btn_0102.png';
 						image_type = 1;
 					};
-					[8] =
+					[9] =
 					{
 						[1] =
 						{
@@ -854,7 +920,7 @@
 						disable = 'ui/buttons/base_btn_0102.png';
 						image_type = 1;
 					};
-					[9] =
+					[10] =
 					{
 						type = 'Node';
 						ui_name = '';
@@ -887,7 +953,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
+					visible = true;
 					lua_name = 'rightMenu';
 				};
 				[3] =

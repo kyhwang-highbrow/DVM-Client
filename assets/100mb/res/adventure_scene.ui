@@ -1145,16 +1145,6 @@
 		};
 		[7] =
 		{
-			[1] =
-			{
-				type = 'SocketNode';
-				socket_name = 'cut';
-			};
-			[2] =
-			{
-				type = 'SocketNode';
-				socket_name = 'egg';
-			};
 			type = 'Visual';
 			ui_name = '';
 			x = -121.000000;
@@ -1175,10 +1165,10 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.400000;
 			lua_name = 'adventBtnVisual';
-			file_name = 'ui/a2d/summon/summon.vrp';
+			file_name = 'ui/a2d/package_effect/package_effect.vrp';
 			auto_play = true;
 			is_repeat = true;
-			visual_id = 'group;bottom_idle_04';
+			visual_id = 'group;pack_idle_01';
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};

@@ -1982,7 +1982,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '각 레벨의 보스 처치시마다 클랜원 전원에게 골드 100,000개가 지급됩니다.';
+					text = '각 레벨의 보스 처치시마다 클랜원 전원에게 골드 200,000개가 지급됩니다.';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -2278,7 +2278,7 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 20;
-						text = '골드 100,000개';
+						text = '골드 200,000개';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 255; 215; 0; };

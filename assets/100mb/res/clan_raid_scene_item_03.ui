@@ -33,32 +33,6 @@
 			};
 			[2] =
 			{
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'meSprite';
-				file_name = 'ui/frames/base_frame_0103.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[3] =
-			{
 				type = 'Sprite';
 				ui_name = '';
 				x = 25.000000;
@@ -83,7 +57,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[4] =
+			[3] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -102,17 +76,17 @@
 				visible = false;
 				lua_name = 'rankNode';
 			};
-			[5] =
+			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 93.000000;
+				x = 144.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 168;
-				height = 40;
+				width = 190;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -127,8 +101,48 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 168;
-				dimension_height = 40;
+				dimension_width = 190;
+				dimension_height = 50;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[5] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = -4.000000;
+				y = 0.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 70;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'bossLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = 'Lv.{1}';
+				h_alignment = 2;
+				v_alignment = 1;
+				color = { 170; 139; 115; };
+				opacity = 255;
+				dimension_width = 70;
+				dimension_height = 50;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -144,89 +158,9 @@
 			};
 			[6] =
 			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 27.000000;
-				y = 0.000000;
-				dock_point = { 0.000000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 50;
-				height = 42;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'rankLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
-				text = '{1}';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 170; 139; 115; };
-				opacity = 255;
-				dimension_width = 50;
-				dimension_height = 42;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[7] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = -6.000000;
-				y = 0.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 1.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 70;
-				height = 40;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'bossLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = 'Lv.{1}';
-				h_alignment = 2;
-				v_alignment = 1;
-				color = { 240; 215; 159; };
-				opacity = 255;
-				dimension_width = 70;
-				dimension_height = 40;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
-				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 5.000000;
-			};
-			[8] =
-			{
 				type = 'Node';
 				ui_name = '';
-				x = 70.000000;
+				x = 120.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -241,7 +175,7 @@
 				visible = true;
 				lua_name = 'markNode';
 			};
-			[9] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -281,7 +215,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[10] =
+			[8] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
@@ -291,7 +225,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
 				width = 0;
-				height = 0;
+				height = 1;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -299,7 +233,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'mySprite';
-				file_name = 'ui/frames/base_frame_0901.png';
+				file_name = 'ui/frames/base_frame_0904.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -307,19 +241,19 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[11] =
+			[9] =
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -206.000000;
+				x = -156.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 85;
-				height = 40;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				width = 100;
+				height = 100;
+				scale_x = 0.500000;
+				scale_y = 0.500000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -331,6 +265,86 @@
 				disable = '';
 				image_type = 0;
 			};
+			[10] =
+			{
+				type = 'LabelTTF';
+				ui_name = 'rich';
+				x = 52.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 47;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'rankLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 21;
+				text = '{1}';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 240; 215; 159; };
+				opacity = 255;
+				dimension_width = 100;
+				dimension_height = 47;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[11] =
+			{
+				type = 'LabelTTF';
+				ui_name = 'rich';
+				x = 52.000000;
+				y = -13.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 25;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'rankDifferentLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 18;
+				text = '-';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 185; 143; 107; };
+				opacity = 255;
+				dimension_width = 100;
+				dimension_height = 25;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -338,7 +352,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 510;
+			width = 550;
 			height = 50;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -397,7 +411,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 510;
+			width = 550;
 			height = 50;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -461,7 +475,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 510;
+			width = 550;
 			height = 50;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

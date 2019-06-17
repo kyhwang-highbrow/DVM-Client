@@ -62,7 +62,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -160.000000;
+				y = 239.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -76,11 +76,11 @@
 				visible = true;
 				lua_name = 'bonusLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 40;
+				font_size = 45;
 				text = '다이아 {1}% 보너스 상품 판매!';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 255; 223; 0; };
 				opacity = 255;
 				dimension_width = 930;
 				dimension_height = 100;
@@ -102,7 +102,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -210.000000;
+				y = 195.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -120,7 +120,7 @@
 				text = 'timeLabel';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 0; 255; 0; };
 				opacity = 255;
 				dimension_width = 930;
 				dimension_height = 100;
@@ -141,8 +141,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -282.000000;
-				y = 169.000000;
+				x = 229.000000;
+				y = 116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

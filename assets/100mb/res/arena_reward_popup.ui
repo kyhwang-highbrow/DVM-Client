@@ -7690,7 +7690,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 26;
-							text = '명예+4';
+							text = '명예+5';
 							h_alignment = 0;
 							v_alignment = 1;
 							color = { 255; 215; 0; };
@@ -7842,7 +7842,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 26;
-							text = '명예+2';
+							text = '명예+3';
 							h_alignment = 0;
 							v_alignment = 1;
 							color = { 255; 215; 0; };

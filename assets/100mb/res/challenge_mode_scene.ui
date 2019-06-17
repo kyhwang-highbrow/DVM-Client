@@ -34,7 +34,7 @@
 			type = 'Sprite';
 			ui_name = '';
 			x = -78.000000;
-			y = -60.000000;
+			y = -59.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -61,12 +61,12 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 0.000000;
+				x = -8.000000;
 				y = -16.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 3;
-				width = 0;
+				width = 20;
 				height = -46;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -106,13 +106,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -50.000000;
+				x = -39.000000;
 				y = -10.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 50;
-				height = 50;
+				width = 55;
+				height = 55;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -170,13 +170,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -129.000000;
+				x = -114.000000;
 				y = -10.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 145;
-				height = 50;
+				height = 55;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -189,6 +189,72 @@
 				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
 				image_type = 1;
+			};
+			[4] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 350;
+					height = 70;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'masterTimeLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 18;
+					text = '마스터 구역 잠금 해제까지\n{1}';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 91; 242; };
+					opacity = 255;
+					dimension_width = 350;
+					dimension_height = 70;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = -23.000000;
+				y = 18.000000;
+				dock_point = { 0.000000; 1.000000; };
+				anchor_point = { 0.000000; 1.000000; };
+				relative_size_type = 0;
+				width = 350;
+				height = 55;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'masterTimeSprite';
+				file_name = 'ui/frames/attr_tower_title.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
 			};
 			type = 'Menu';
 			ui_name = 'left';
@@ -722,8 +788,8 @@
 						visible = true;
 						lua_name = 'lockLabel2';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 20;
-						text = '{1}일 뒤 도전 가능';
+						font_size = 19;
+						text = '콜로세움 골드 이상 입장 가능';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 255; 0; 0; };
@@ -745,7 +811,7 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 33.000000;
+					x = 34.000000;
 					y = 43.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -834,7 +900,47 @@
 					type = 'LabelTTF';
 					ui_name = 'rich';
 					x = 245.000000;
-					y = 183.000000;
+					y = 206.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 185;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'serverLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 21;
+					text = 'serverLabel';
+					h_alignment = 0;
+					v_alignment = 1;
+					color = { 127; 255; 212; };
+					opacity = 255;
+					dimension_width = 185;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[7] =
+				{
+					type = 'LabelTTF';
+					ui_name = 'rich';
+					x = 245.000000;
+					y = 185.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -869,7 +975,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[7] =
+				[8] =
 				{
 					[1] =
 					{
@@ -954,7 +1060,7 @@
 					visible = true;
 					lua_name = 'stageNode';
 				};
-				[8] =
+				[9] =
 				{
 					[1] =
 					{
@@ -1044,7 +1150,7 @@
 					disable = 'ui/buttons/lobby_sub_btn_empty_0102.png';
 					image_type = 0;
 				};
-				[9] =
+				[10] =
 				{
 					[1] =
 					{
@@ -1392,12 +1498,12 @@
 							type = 'LabelTTF';
 							ui_name = '';
 							x = 0.000000;
-							y = 10.000000;
+							y = 5.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
 							width = 180;
-							height = 50;
+							height = 75;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
 							skew_x = 0.000000;
@@ -1407,13 +1513,13 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 19;
-							text = '획득한 골드';
+							text = '획득한 연마석';
 							h_alignment = 1;
 							v_alignment = 1;
-							color = { 255; 215; 0; };
+							color = { 255; 255; 0; };
 							opacity = 255;
 							dimension_width = 180;
-							dimension_height = 50;
+							dimension_height = 75;
 							letter_spacing = 0.000000;
 							has_stroke = true;
 							stroke_type = 0;
@@ -1447,7 +1553,7 @@
 							lua_name = 'rewardLabel';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 22;
-							text = '{1}\n/10,000,000';
+							text = '{1}/60';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
@@ -1466,6 +1572,58 @@
 							shadow_opacity = 255;
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
+						};
+						[3] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = -16.000000;
+							y = 53.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 150;
+							height = 150;
+							scale_x = 0.450000;
+							scale_y = 0.450000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = -7.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/icons/item/grindstone.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						[4] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = 11.000000;
+							y = 60.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 150;
+							height = 150;
+							scale_x = 0.520000;
+							scale_y = 0.520000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/icons/item/grindstone.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
 						};
 						type = 'Sprite';
 						ui_name = 'gold Noti';
@@ -1543,7 +1701,7 @@
 							type = 'LabelTTF';
 							ui_name = '';
 							x = 70.000000;
-							y = -56.000000;
+							y = -58.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
@@ -1557,8 +1715,48 @@
 							visible = true;
 							lua_name = 'timeLabel';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 20;
+							font_size = 19;
 							text = 'timeLabel';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 240; 215; 159; };
+							opacity = 255;
+							dimension_width = 330;
+							dimension_height = 43;
+							letter_spacing = 0.000000;
+							has_stroke = true;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 2.000000;
+							stroke_color = { 0; 0; 0; };
+							has_shadow = false;
+							shadow_color = { 0; 0; 0; };
+							shadow_opacity = 150;
+							shadow_direction = 0;
+							shadow_distance = 3.000000;
+						};
+						[3] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 70.000000;
+							y = -37.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 330;
+							height = 43;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 18;
+							text = '그림자의 신전';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 240; 215; 159; };
@@ -1578,12 +1776,12 @@
 							shadow_direction = 0;
 							shadow_distance = 3.000000;
 						};
-						[3] =
+						[4] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 73.000000;
-							y = 22.000000;
+							x = 72.000000;
+							y = 40.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
@@ -1618,12 +1816,12 @@
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
 						};
-						[4] =
+						[5] =
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 74.000000;
-							y = -14.000000;
+							x = 73.000000;
+							y = 4.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
