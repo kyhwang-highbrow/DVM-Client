@@ -1443,7 +1443,7 @@ function ServerData_ChallengeMode:checkPromotePopupCondition()
     -- 0. 그림자 신전 이벤트 중인가
     if (not self:isOpen_challengeMode()) then
         -- 이벤트 기간이 아니라면 관련 데이터 초기화
-        g_settingData:resetChallengeSettingData()
+        -- g_settingData:resetChallengeSettingData()
         return false
     end
 

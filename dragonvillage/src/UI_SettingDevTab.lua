@@ -811,9 +811,9 @@ function UI_Setting:click_setUidBtn()
             end
 
             g_localData:applyLocalData(uid, 'local', 'uid')
-            -- settingData에 있는 이전 기록(그림자 신전 관련) 삭제
+            -- settingData에 있는 기록 삭제
             if (g_settingData) then
-                g_settingData:resetChallengeSettingData()
+                g_settingData:resetSettingData()
             end
             if (g_settingDeckData) then
                 g_settingDeckData:resetAncientBestDeck()
