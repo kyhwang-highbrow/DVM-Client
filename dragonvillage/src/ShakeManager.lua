@@ -36,6 +36,11 @@ end
 -- @brief 화면 떨림 연출
 -------------------------------------
 function ShakeManager:doShakeRandomAngle(distance, duration, is_repeat, interval)
+    -- 화면 흔들림 off 상태라면 화면 흔들지 않음
+    if not (g_settingData:get('shake_mode')) then
+        return
+    end
+    
     local distance = (distance or 40)
     local angle = math_random(1, 360)
     local x = distance * math_cos(angle)
@@ -82,7 +87,12 @@ end
 -- @param level 강도
 -------------------------------------
 function ShakeManager:doShakeUpDown(duration, level)
-	local level = level or 1
+	-- 화면 흔들림 off 상태라면 화면 흔들지 않음
+    if not (g_settingData:get('shake_mode')) then
+        return
+    end
+    
+    local level = level or 1
 	local duration = duration or 0.5
 
 	self:stopShake()
@@ -110,7 +120,12 @@ end
 -- @param level_low  강도
 -------------------------------------
 function ShakeManager:doShakeGrowling(duration, level_low, level_high, repeat_time)
-	local duration = duration or 0.2
+	-- 화면 흔들림 off 상태라면 화면 흔들지 않음
+    if not (g_settingData:get('shake_mode')) then
+        return
+    end
+    
+    local duration = duration or 0.2
 	local repeat_time = repeat_time or 4
 
 	-- Stop Shake
@@ -159,7 +174,12 @@ end
 -- @brief script missile 용 shake
 -------------------------------------
 function ShakeManager:doShakeForScript(repeat_time)
-	-- Stop Shake
+    -- 화면 흔들림 off 상태라면 화면 흔들지 않음
+    if not (g_settingData:get('shake_mode')) then
+        return
+    end
+    
+    -- Stop Shake
 	self:stopShake()
 	
 	local shake_custom_min_pos = g_constant:get('INGAME', 'SHAKE_CUSTOM_MIN_POS')
