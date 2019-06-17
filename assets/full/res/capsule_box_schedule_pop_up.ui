@@ -10,12 +10,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 0.000000;
+				y = -1.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 2;
+				relative_size_type = 3;
 				width = 0;
-				height = 700;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -63,9 +63,9 @@
 				y = -2.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 1190;
-				height = 598;
+				relative_size_type = 3;
+				width = -90;
+				height = -102;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -78,9 +78,9 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 621.000000;
+				x = 0.000000;
 				y = 25.000000;
-				dock_point = { 0.000000; 0.000000; };
+				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 1190;
@@ -93,7 +93,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 23;
 				text = '캡슐 뽑기 일정은 변경 될 수 있습니다.';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -200,9 +200,9 @@
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 2;
+			relative_size_type = 3;
 			width = 0;
-			height = 700;
+			height = -20;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

@@ -32,8 +32,8 @@
 		{
 			type = 'LayerColor';
 			ui_name = '';
-			x = 0.000000;
-			y = 0.000000;
+			x = 97.000000;
+			y = -16.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 3;
@@ -1900,113 +1900,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 370;
-					height = 100;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'itemDscLabel2';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
-					text = 'itemDscLabel\nitemDscLabel\nitemDscLabel';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 253; 219; 167; };
-					opacity = 255;
-					dimension_width = 370;
-					dimension_height = 100;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				type = 'Scale9Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = -450.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
-				relative_size_type = 0;
-				width = 390;
-				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'itemDscNode2';
-				file_name = 'ui/frames/base_frame_0201.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
-			};
-			[10] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = 'rich';
-					x = 0.000000;
-					y = -32.000000;
-					dock_point = { 0.500000; 1.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 360;
-					height = 190;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'runeDscLabel';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '공격력 +10000\n공격력 +10000';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 253; 219; 167; };
-					opacity = 255;
-					dimension_width = 360;
-					dimension_height = 190;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
-					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = 'rich';
-					x = 0.000000;
+					x = 1.000000;
 					y = -7.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 1.000000; };
@@ -2042,8 +1936,93 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
+				[2] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = -25.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 390;
+					height = 230;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'runeDscNode';
+				};
+				[3] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 370;
+						height = 100;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'itemDscLabel2';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = 'itemDscLabel\nitemDscLabel\nitemDscLabel';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 253; 219; 167; };
+						opacity = 255;
+						dimension_width = 370;
+						dimension_height = 100;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 1.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+					};
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = -229.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 1.000000; };
+					relative_size_type = 0;
+					width = 390;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'itemDscNode2';
+					file_name = 'ui/frames/base_frame_0201.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
 				type = 'Scale9Sprite';
-				ui_name = '';
+				ui_name = 'itemInfoSprite';
 				x = 0.000000;
 				y = -221.000000;
 				dock_point = { 0.500000; 1.000000; };
@@ -2057,7 +2036,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'runeInfo';
 				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -2066,7 +2045,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[11] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -2106,7 +2085,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[12] =
+			[11] =
 			{
 				[1] =
 				{
@@ -2170,7 +2149,7 @@
 				disable = 'ui/buttons/72_dia_lock_btn_0102.png';
 				image_type = 0;
 			};
-			[13] =
+			[12] =
 			{
 				[1] =
 				{
@@ -2236,7 +2215,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[14] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';

@@ -73,7 +73,7 @@
 				text = '{1}';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 68; 60; 124; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 100;
 				dimension_height = 34;

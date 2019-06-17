@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{274,38}</string>
                 <key>textureRect</key>
-                <string>{{1,165},{274,38}}</string>
+                <string>{{558,63},{274,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{515,12}</string>
                 <key>textureRect</key>
-                <string>{{1,223},{485,12}}</string>
+                <string>{{558,103},{485,12}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{555,60}</string>
                 <key>textureRect</key>
-                <string>{{1,103},{555,60}}</string>
+                <string>{{558,1},{555,60}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,7 +75,22 @@
                 <key>spriteSourceSize</key>
                 <string>{555,16}</string>
                 <key>textureRect</key>
-                <string>{{1,205},{555,16}}</string>
+                <string>{{1,103},{555,16}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>clan_raid_record.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{41,31}</string>
+                <key>spriteSourceSize</key>
+                <string>{43,31}</string>
+                <key>textureRect</key>
+                <string>{{834,63},{41,31}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -91,9 +106,9 @@
             <key>realTextureFileName</key>
             <string>clan_raid.png</string>
             <key>size</key>
-            <string>{557,236}</string>
+            <string>{1114,120}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ceb3711db8b673363c9e6a136a62b15a:25f5af5d68c885cb95639a2dba594dd0:717db6516b1d2394031775c65f74c6f8$</string>
+            <string>$TexturePacker:SmartUpdate:b35b44ab461e5afc776d043a15621bb4:55f51d2e5d11dd6cbb8c318703704772:717db6516b1d2394031775c65f74c6f8$</string>
             <key>textureFileName</key>
             <string>clan_raid.png</string>
         </dict>

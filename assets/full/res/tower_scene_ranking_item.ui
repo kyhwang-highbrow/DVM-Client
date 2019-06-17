@@ -61,7 +61,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 140.000000;
+				x = 149.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -80,7 +80,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 5.000000;
+				x = 3.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -95,7 +95,7 @@
 				visible = true;
 				lua_name = 'rankingLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 22;
 				text = '{1}위';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -160,7 +160,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 190.000000;
+				x = 199.000000;
 				y = 18.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -173,10 +173,10 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'nameLabel';
+				lua_name = 'userLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = 'nameLabel';
+				text = 'userLabel';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 240; 215; 159; };
@@ -200,7 +200,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 234.000000;
+				x = 243.000000;
 				y = -20.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -240,7 +240,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 210.000000;
+				x = 219.000000;
 				y = -20.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -259,7 +259,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 188.000000;
+				x = 194.000000;
 				y = -20.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };

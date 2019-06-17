@@ -1,0 +1,342 @@
+
+guardian_all_02.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+guardian_all_02_arm_01_01
+  rotate: false
+  xy: 838, 2
+  size: 79, 87
+  orig: 79, 87
+  offset: 0, 0
+  index: -1
+guardian_all_02_arm_01_02
+  rotate: false
+  xy: 1552, 257
+  size: 67, 76
+  orig: 67, 76
+  offset: 0, 0
+  index: -1
+guardian_all_02_arm_02 copy
+  rotate: true
+  xy: 1366, 221
+  size: 95, 116
+  orig: 95, 116
+  offset: 0, 0
+  index: -1
+guardian_all_02_arm_armor_01
+  rotate: false
+  xy: 837, 91
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
+guardian_all_02_arm_armor_02
+  rotate: false
+  xy: 266, 25
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+guardian_all_02_body
+  rotate: false
+  xy: 619, 147
+  size: 86, 192
+  orig: 86, 192
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_01
+  rotate: false
+  xy: 707, 200
+  size: 122, 142
+  orig: 122, 142
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_02
+  rotate: true
+  xy: 1552, 193
+  size: 62, 67
+  orig: 62, 67
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_03
+  rotate: false
+  xy: 1358, 730
+  size: 295, 292
+  orig: 295, 292
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_04
+  rotate: true
+  xy: 2, 57
+  size: 282, 354
+  orig: 282, 354
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_05
+  rotate: false
+  xy: 716, 72
+  size: 119, 126
+  orig: 119, 126
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_06_01
+  rotate: true
+  xy: 984, 395
+  size: 258, 212
+  orig: 258, 212
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_06_02
+  rotate: false
+  xy: 358, 127
+  size: 259, 212
+  orig: 259, 212
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_06_03
+  rotate: false
+  xy: 1825, 499
+  size: 109, 218
+  orig: 109, 218
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_07_01
+  rotate: false
+  xy: 668, 344
+  size: 314, 309
+  orig: 314, 309
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_07_02
+  rotate: false
+  xy: 1055, 721
+  size: 301, 301
+  orig: 301, 301
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_08
+  rotate: false
+  xy: 2, 341
+  size: 664, 681
+  orig: 664, 681
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_10_01
+  rotate: false
+  xy: 984, 231
+  size: 212, 162
+  orig: 212, 162
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_10_02
+  rotate: false
+  xy: 1936, 711
+  size: 110, 145
+  orig: 110, 145
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_expl
+  rotate: false
+  xy: 1382, 504
+  size: 225, 224
+  orig: 225, 224
+  offset: 0, 0
+  index: -1
+guardian_all_02_effect_light
+  rotate: false
+  xy: 1936, 477
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+guardian_all_02_eye_01
+  rotate: false
+  xy: 1988, 906
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+guardian_all_02_eye_02
+  rotate: false
+  xy: 228, 13
+  size: 36, 42
+  orig: 36, 42
+  offset: 0, 0
+  index: -1
+guardian_all_02_eye_03
+  rotate: false
+  xy: 1136, 673
+  size: 37, 46
+  orig: 37, 46
+  offset: 0, 0
+  index: -1
+guardian_all_02_head
+  rotate: false
+  xy: 619, 2
+  size: 95, 143
+  orig: 95, 143
+  offset: 0, 0
+  index: -1
+guardian_all_02_head_armor_01
+  rotate: false
+  xy: 1484, 220
+  size: 66, 96
+  orig: 66, 96
+  offset: 0, 0
+  index: -1
+guardian_all_02_head_armor_02_01
+  rotate: false
+  xy: 1936, 578
+  size: 110, 131
+  orig: 110, 131
+  offset: 0, 0
+  index: -1
+guardian_all_02_head_armor_02_02
+  rotate: true
+  xy: 1988, 862
+  size: 42, 31
+  orig: 42, 31
+  offset: 0, 0
+  index: -1
+guardian_all_02_head_wing_01
+  rotate: true
+  xy: 1366, 318
+  size: 96, 164
+  orig: 96, 164
+  offset: 0, 0
+  index: -1
+guardian_all_02_head_wing_02
+  rotate: true
+  xy: 2, 4
+  size: 51, 165
+  orig: 51, 165
+  offset: 0, 0
+  index: -1
+guardian_all_02_leg_01
+  rotate: true
+  xy: 358, 48
+  size: 77, 205
+  orig: 77, 205
+  offset: 0, 0
+  index: -1
+guardian_all_02_leg_02_01
+  rotate: false
+  xy: 716, 2
+  size: 120, 68
+  orig: 120, 68
+  offset: 0, 0
+  index: -1
+guardian_all_02_leg_02_02
+  rotate: false
+  xy: 1055, 656
+  size: 79, 63
+  orig: 79, 63
+  offset: 0, 0
+  index: -1
+guardian_all_02_leg_02_03
+  rotate: false
+  xy: 1532, 335
+  size: 80, 77
+  orig: 80, 77
+  offset: 0, 0
+  index: -1
+guardian_all_02_leg_02_04
+  rotate: false
+  xy: 565, 78
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+guardian_all_02_light
+  rotate: false
+  xy: 831, 213
+  size: 129, 129
+  orig: 129, 129
+  offset: 0, 0
+  index: -1
+guardian_all_02_neck_wing_01
+  rotate: true
+  xy: 169, 5
+  size: 50, 57
+  orig: 50, 57
+  offset: 0, 0
+  index: -1
+guardian_all_02_neck_wing_02
+  rotate: true
+  xy: 1988, 952
+  size: 70, 56
+  orig: 70, 56
+  offset: 0, 0
+  index: -1
+guardian_all_02_pupil_01 copy 2
+  rotate: true
+  xy: 1198, 231
+  size: 28, 38
+  orig: 28, 38
+  offset: 0, 0
+  index: -1
+guardian_all_02_pupil_02
+  rotate: true
+  xy: 1609, 504
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+guardian_all_02_tail
+  rotate: true
+  xy: 1609, 532
+  size: 185, 214
+  orig: 185, 214
+  offset: 0, 0
+  index: -1
+guardian_all_02_tail_armor_01
+  rotate: true
+  xy: 1554, 414
+  size: 88, 80
+  orig: 88, 80
+  offset: 0, 0
+  index: -1
+guardian_all_02_wing_01_01 copy
+  rotate: false
+  xy: 668, 655
+  size: 385, 367
+  orig: 385, 367
+  offset: 0, 0
+  index: -1
+guardian_all_02_wing_01_02 copy
+  rotate: false
+  xy: 1655, 858
+  size: 331, 164
+  orig: 331, 164
+  offset: 0, 0
+  index: -1
+guardian_all_02_wing_01_03
+  rotate: true
+  xy: 1655, 719
+  size: 137, 278
+  orig: 137, 278
+  offset: 0, 0
+  index: -1
+guardian_all_02_wing_02_01 copy
+  rotate: false
+  xy: 1198, 466
+  size: 182, 253
+  orig: 182, 253
+  offset: 0, 0
+  index: -1
+guardian_all_02_wing_02_02 copy
+  rotate: false
+  xy: 1382, 416
+  size: 170, 86
+  orig: 170, 86
+  offset: 0, 0
+  index: -1
+guardian_all_02_wing_02_03
+  rotate: false
+  xy: 1198, 261
+  size: 166, 203
+  orig: 166, 203
+  offset: 0, 0
+  index: -1

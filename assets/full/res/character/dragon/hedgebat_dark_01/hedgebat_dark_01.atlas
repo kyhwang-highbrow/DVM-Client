@@ -1,0 +1,167 @@
+
+hedgebat_dark_01.png
+size: 413,1016
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hedgeba_dark_01__bfx
+  rotate: true
+  xy: 244, 587
+  size: 103, 150
+  orig: 103, 150
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_arm_01
+  rotate: true
+  xy: 368, 446
+  size: 52, 41
+  orig: 52, 41
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_body_01
+  rotate: false
+  xy: 2, 251
+  size: 222, 194
+  orig: 222, 194
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_eff_02
+  rotate: false
+  xy: 237, 500
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_effect_01
+  rotate: false
+  xy: 2, 680
+  size: 240, 228
+  orig: 240, 228
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_effect_light
+  rotate: false
+  xy: 308, 98
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_effect_lightdust
+  rotate: false
+  xy: 226, 279
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_effect_tail_03
+  rotate: false
+  xy: 2, 447
+  size: 233, 231
+  orig: 233, 231
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_eye_01
+  rotate: true
+  xy: 368, 407
+  size: 37, 40
+  orig: 37, 40
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_face_01
+  rotate: false
+  xy: 226, 199
+  size: 124, 78
+  orig: 124, 78
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_hair_03
+  rotate: true
+  xy: 127, 137
+  size: 112, 97
+  orig: 112, 97
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_hair_04
+  rotate: true
+  xy: 237, 380
+  size: 118, 129
+  orig: 118, 129
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_leg_01
+  rotate: false
+  xy: 352, 207
+  size: 58, 70
+  orig: 58, 70
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_leg_02
+  rotate: true
+  xy: 355, 305
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_mouth_01
+  rotate: true
+  xy: 244, 887
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_mouth_02
+  rotate: false
+  xy: 244, 875
+  size: 18, 10
+  orig: 18, 10
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_spark_1
+  rotate: true
+  xy: 2, 33
+  size: 216, 123
+  orig: 216, 123
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_spark_2
+  rotate: true
+  xy: 226, 2
+  size: 195, 80
+  orig: 195, 80
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_spark_3
+  rotate: true
+  xy: 2, 910
+  size: 104, 270
+  orig: 104, 270
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_tail_01
+  rotate: true
+  xy: 127, 24
+  size: 111, 92
+  orig: 111, 92
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_tail_04
+  rotate: true
+  xy: 308, 23
+  size: 73, 88
+  orig: 73, 88
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_wing_01
+  rotate: false
+  xy: 274, 827
+  size: 136, 187
+  orig: 136, 187
+  offset: 0, 0
+  index: -1
+hedgeba_dark_01_wing_02
+  rotate: true
+  xy: 244, 692
+  size: 133, 163
+  orig: 133, 163
+  offset: 0, 0
+  index: -1

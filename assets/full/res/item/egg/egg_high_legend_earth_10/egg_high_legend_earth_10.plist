@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_high_legend_earth_10_src.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{12,32}</string>
+                <key>spriteSize</key>
+                <string>{573,502}</string>
+                <key>spriteSourceSize</key>
+                <string>{773,810}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{573,502}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_high_legend_earth_10.png</string>
+            <key>size</key>
+            <string>{575,504}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:e8c21f167cd97af0ae971d16f40c8f5a:f81d3f7a7db9e9fa975d6c4cd0d2c96a:f9cd84e41cb3d2903c18621daed2d424$</string>
+            <key>textureFileName</key>
+            <string>egg_high_legend_earth_10.png</string>
+        </dict>
+    </dict>
+</plist>

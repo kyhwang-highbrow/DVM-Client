@@ -772,6 +772,138 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
+			[23] =
+			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/clan_raid_attr_info/clan_raid_attr_info.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;clan_raid_attr_info_02';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 3.000000;
+				y = 1.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 146;
+				height = 144;
+				scale_x = 1.400000;
+				scale_y = 1.400000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'clanAttrVisual';
+			};
+			[24] =
+			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.400000;
+					scale_y = 1.400000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = '';
+					file_name = 'ui/a2d/event_dungeon/event_dungeon.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;card_frame';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'eventDeungeonFrameVisual';
+			};
+			[25] =
+			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 44.000000;
+					y = -31.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 0.500000;
+					scale_y = 0.500000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = '';
+					file_name = 'ui/a2d/event_dungeon/event_dungeon.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;idle_bonus';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 148;
+				height = 148;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'eventDeungeonVisual';
+			};
 			type = 'Menu';
 			ui_name = '캐릭터 카드';
 			x = 0.000000;

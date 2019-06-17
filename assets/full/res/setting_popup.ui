@@ -2136,6 +2136,70 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
+						text = '알 시뮬레이터';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 299;
+						dimension_height = 42;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 85; 67; 51; };
+						has_shadow = true;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 100;
+						shadow_direction = 0;
+						shadow_distance = 3.000000;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = -135.000000;
+					y = -245.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 262;
+					height = 64;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'eggSimulBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = '';
+					image_type = 1;
+				};
+				[27] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 3;
+						width = 0;
+						height = 0;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 24;
 						text = 'initialize daily work';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -3934,7 +3998,7 @@
 					type = 'Menu';
 					ui_name = 'bgm';
 					x = 0.000000;
-					y = 210.000000;
+					y = 238.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -4253,7 +4317,7 @@
 					type = 'Menu';
 					ui_name = 'effect';
 					x = 0.000000;
-					y = 150.000000;
+					y = 178.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -4440,7 +4504,7 @@
 					type = 'Menu';
 					ui_name = 'lowQual';
 					x = 0.000000;
-					y = 90.000000;
+					y = 118.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -4455,6 +4519,193 @@
 					lua_name = '';
 				};
 				[4] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 207;
+						height = 52;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 28;
+						text = '화면 흔들림';
+						h_alignment = 0;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 207;
+						dimension_height = 52;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 69; 51; 63; };
+						has_shadow = false;
+						shadow_color = { 69; 51; 63; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 0.000000;
+							y = -1.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 178;
+							height = 44;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 28;
+							text = 'OFF';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 240; 215; 159; };
+							opacity = 255;
+							dimension_width = 178;
+							dimension_height = 44;
+							letter_spacing = 0.000000;
+							has_stroke = true;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 2.000000;
+							stroke_color = { 69; 51; 63; };
+							has_shadow = false;
+							shadow_color = { 69; 51; 63; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 2.000000;
+						};
+						type = 'Button';
+						ui_name = '';
+						x = -292.500000;
+						y = 0.000000;
+						dock_point = { 1.000000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 195;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'shakeOffBtn';
+						enable = true;
+						normal = 'ui/buttons/base_btn_0201.png';
+						selected = 'ui/buttons/base_btn_0202.png';
+						disable = 'ui/buttons/base_btn_0101.png';
+						image_type = 1;
+					};
+					[3] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 0.000000;
+							y = -1.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 178;
+							height = 44;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 28;
+							text = 'ON';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 240; 215; 159; };
+							opacity = 255;
+							dimension_width = 178;
+							dimension_height = 44;
+							letter_spacing = 0.000000;
+							has_stroke = true;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 2.000000;
+							stroke_color = { 69; 51; 63; };
+							has_shadow = false;
+							shadow_color = { 69; 51; 63; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 2.000000;
+						};
+						type = 'Button';
+						ui_name = '';
+						x = -97.500000;
+						y = 0.000000;
+						dock_point = { 1.000000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 195;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'shakeOnBtn';
+						enable = true;
+						normal = 'ui/buttons/base_btn_0201.png';
+						selected = 'ui/buttons/base_btn_0202.png';
+						disable = 'ui/buttons/base_btn_0103.png';
+						image_type = 1;
+					};
+					type = 'Menu';
+					ui_name = 'shake';
+					x = 0.000000;
+					y = 58.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 600;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+				};
+				[5] =
 				{
 					[1] =
 					{
@@ -4627,7 +4878,7 @@
 					type = 'Menu';
 					ui_name = 'chat';
 					x = 0.000000;
-					y = 30.000000;
+					y = -2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -4641,7 +4892,7 @@
 					visible = true;
 					lua_name = '';
 				};
-				[5] =
+				[6] =
 				{
 					[1] =
 					{
@@ -4814,7 +5065,7 @@
 					type = 'Menu';
 					ui_name = 'push';
 					x = 0.000000;
-					y = -30.000000;
+					y = -62.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -4828,7 +5079,7 @@
 					visible = true;
 					lua_name = '';
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -5001,7 +5252,7 @@
 					type = 'Menu';
 					ui_name = 'sleep';
 					x = 0.000000;
-					y = -90.000000;
+					y = -122.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -5015,7 +5266,7 @@
 					visible = true;
 					lua_name = '';
 				};
-				[7] =
+				[8] =
 				{
 					[1] =
 					{
@@ -5188,7 +5439,7 @@
 					type = 'Menu';
 					ui_name = 'scenario';
 					x = 0.000000;
-					y = -150.000000;
+					y = -182.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -5202,7 +5453,7 @@
 					visible = true;
 					lua_name = '';
 				};
-				[8] =
+				[9] =
 				{
 					[1] =
 					{
@@ -5389,7 +5640,7 @@
 					visible = false;
 					lua_name = '';
 				};
-				[9] =
+				[10] =
 				{
 					[1] =
 					{
@@ -5498,7 +5749,7 @@
 					type = 'Menu';
 					ui_name = 'language';
 					x = 0.000000;
-					y = -210.000000;
+					y = -242.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -5515,12 +5766,12 @@
 				type = 'Menu';
 				ui_name = '';
 				x = 0.000000;
-				y = -44.000000;
+				y = -35.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 1000;
-				height = 540;
+				height = 565;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -5574,7 +5825,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 340.000000;
-				y = -60.000000;
+				y = -45.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -5638,7 +5889,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -60.000000;
+				y = -45.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -5702,7 +5953,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -340.000000;
-				y = -60.000000;
+				y = -45.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

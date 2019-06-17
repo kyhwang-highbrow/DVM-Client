@@ -1,0 +1,237 @@
+
+hedgebat_dark_03.png
+size: 1731,396
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hedgeba_dark_03__bfx
+  rotate: false
+  xy: 657, 2
+  size: 103, 150
+  orig: 103, 150
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_arm_01
+  rotate: false
+  xy: 1663, 281
+  size: 52, 41
+  orig: 52, 41
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_body_01
+  rotate: true
+  xy: 1053, 172
+  size: 222, 194
+  orig: 222, 194
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_eff_02
+  rotate: true
+  xy: 1450, 25
+  size: 172, 85
+  orig: 172, 85
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_effect_01
+  rotate: true
+  xy: 590, 154
+  size: 240, 228
+  orig: 240, 228
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_effect_horn_01
+  rotate: false
+  xy: 133, 4
+  size: 178, 117
+  orig: 178, 117
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_effect_horn_02
+  rotate: false
+  xy: 1631, 39
+  size: 82, 75
+  orig: 82, 75
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_effect_light
+  rotate: false
+  xy: 1555, 215
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_effect_lightdust
+  rotate: true
+  xy: 1226, 43
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_effect_tail_01
+  rotate: true
+  xy: 1116, 39
+  size: 131, 108
+  orig: 131, 108
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_effect_tail_02
+  rotate: true
+  xy: 2, 123
+  size: 271, 245
+  orig: 271, 245
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_effect_tail_03
+  rotate: true
+  xy: 820, 161
+  size: 233, 231
+  orig: 233, 231
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_eye_01
+  rotate: true
+  xy: 1226, 4
+  size: 37, 40
+  orig: 37, 40
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_face_01
+  rotate: false
+  xy: 1537, 316
+  size: 124, 78
+  orig: 124, 78
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_hair_02
+  rotate: true
+  xy: 1555, 116
+  size: 97, 98
+  orig: 97, 98
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_hair_03
+  rotate: true
+  xy: 1456, 202
+  size: 112, 97
+  orig: 112, 97
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_hair_04
+  rotate: true
+  xy: 2, 3
+  size: 118, 129
+  orig: 118, 129
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_hair_05
+  rotate: true
+  xy: 1327, 3
+  size: 173, 121
+  orig: 173, 121
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_horn_01
+  rotate: false
+  xy: 313, 6
+  size: 178, 116
+  orig: 178, 116
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_horn_02
+  rotate: false
+  xy: 493, 2
+  size: 162, 131
+  orig: 162, 131
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_leg_01
+  rotate: false
+  xy: 1663, 324
+  size: 58, 70
+  orig: 58, 70
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_leg_02
+  rotate: true
+  xy: 1456, 321
+  size: 73, 56
+  orig: 73, 56
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_mouth_01
+  rotate: false
+  xy: 951, 2
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_mouth_02
+  rotate: false
+  xy: 590, 142
+  size: 18, 10
+  orig: 18, 10
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_spark_1
+  rotate: true
+  xy: 1249, 178
+  size: 216, 123
+  orig: 216, 123
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_spark_2
+  rotate: true
+  xy: 1374, 199
+  size: 195, 80
+  orig: 195, 80
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_spark_3
+  rotate: false
+  xy: 249, 124
+  size: 104, 270
+  orig: 104, 270
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_tail_01
+  rotate: true
+  xy: 1537, 3
+  size: 111, 92
+  orig: 111, 92
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_tail_02
+  rotate: true
+  xy: 1655, 143
+  size: 46, 43
+  orig: 46, 43
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_tail_03
+  rotate: true
+  xy: 355, 135
+  size: 259, 233
+  orig: 259, 233
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_tail_04
+  rotate: false
+  xy: 1656, 191
+  size: 73, 88
+  orig: 73, 88
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_wing_01
+  rotate: true
+  xy: 762, 16
+  size: 136, 187
+  orig: 136, 187
+  offset: 0, 0
+  index: -1
+hedgeba_dark_03_wing_02
+  rotate: true
+  xy: 951, 26
+  size: 133, 163
+  orig: 133, 163
+  offset: 0, 0
+  index: -1

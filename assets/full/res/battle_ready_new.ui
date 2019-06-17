@@ -108,6 +108,44 @@
 				};
 				[3] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 152.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.000000; };
+					relative_size_type = 1;
+					width = 470;
+					height = -353;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'edListView2';
+				};
+				[4] =
+				{
+					type = 'Node';
+					ui_name = '체험';
+					x = 0.000000;
+					y = -98.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 1.000000; };
+					relative_size_type = 0;
+					width = 470;
+					height = 105;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'edListView1';
+				};
+				[5] =
+				{
 					[1] =
 					{
 						type = 'LabelTTF';
@@ -416,7 +454,7 @@
 							skew_x = 0.000000;
 							skew_y = 0.000000;
 							rotation = 0.000000;
-							visible = true;
+							visible = false;
 							lua_name = 'timeLabel';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 18;
@@ -486,7 +524,7 @@
 					disable = 'ui/buttons/main_btn_0102.png';
 					image_type = 1;
 				};
-				[4] =
+				[6] =
 				{
 					[1] =
 					{
@@ -602,7 +640,7 @@
 					disable = 'ui/buttons/base_btn_0102.png';
 					image_type = 1;
 				};
-				[5] =
+				[7] =
 				{
 					[1] =
 					{
@@ -692,7 +730,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[6] =
+				[8] =
 				{
 					[1] =
 					{
@@ -782,7 +820,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[7] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -822,7 +860,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[8] =
+				[10] =
 				{
 					[1] =
 					{
@@ -938,7 +976,7 @@
 					disable = 'ui/buttons/base_btn_0102.png';
 					image_type = 1;
 				};
-				[9] =
+				[11] =
 				{
 					[1] =
 					{
@@ -1002,7 +1040,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[10] =
+				[12] =
 				{
 					[1] =
 					{
@@ -1050,6 +1088,245 @@
 					normal = 'ui/buttons/base_btn_0101.png';
 					selected = 'ui/buttons/base_btn_0102.png';
 					disable = '';
+					image_type = 1;
+				};
+				[13] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 235;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 22;
+						text = '연습 전투 설정';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 215; 0; };
+						opacity = 255;
+						dimension_width = 235;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 85; 44; 25; };
+						has_shadow = false;
+						shadow_color = { 85; 44; 25; };
+						shadow_opacity = 150;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = 122.000000;
+					y = -69.000000;
+					dock_point = { 0.000000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 235;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'trainingSetBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0102.png';
+					image_type = 1;
+				};
+				[14] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 64.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 326;
+						height = 74;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 29;
+						text = '연습 전투 시작';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 326;
+						dimension_height = 74;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 17; 76; 39; };
+						has_shadow = false;
+						shadow_color = { 17; 76; 39; };
+						shadow_opacity = 150;
+						shadow_direction = 0;
+						shadow_distance = 3.000000;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							[1] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = 0.000000;
+								y = 0.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 60;
+								height = 60;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = '';
+								file_name = 'ui/icons/inbox/inbox_staminas_cldg_tr.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
+							type = 'Node';
+							ui_name = '';
+							x = 5.000000;
+							y = 0.000000;
+							dock_point = { 0.000000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 60;
+							height = 60;
+							scale_x = 0.800000;
+							scale_y = 0.800000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'actionNode';
+						};
+						[2] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = -10.000000;
+							y = 0.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 1.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 124;
+							height = 52;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'trainingLabel';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 24;
+							text = '{1}';
+							h_alignment = 2;
+							v_alignment = 1;
+							color = { 255; 255; 255; };
+							opacity = 255;
+							dimension_width = 124;
+							dimension_height = 52;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 2.000000;
+							stroke_color = { 17; 76; 39; };
+							has_shadow = false;
+							shadow_color = { 17; 76; 39; };
+							shadow_opacity = 150;
+							shadow_direction = 0;
+							shadow_distance = 2.000000;
+						};
+						type = 'Scale9Sprite';
+						ui_name = '';
+						x = 90.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 104;
+						height = 40;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/base_frame_0201.png';
+						color = { 255; 255; 255; };
+						opacity = 200;
+						center_rect_x = 0;
+						center_rect_y = 0;
+						center_rect_width = 0;
+						center_rect_height = 0;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = 0.000000;
+					y = 34.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 480;
+					height = 70;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'trainingBtn';
+					enable = true;
+					normal = 'ui/buttons/main_btn_0101.png';
+					selected = 'ui/buttons/main_btn_0102.png';
+					disable = 'ui/buttons/main_btn_0102.png';
 					image_type = 1;
 				};
 				type = 'Menu';
@@ -1966,8 +2243,8 @@
 					};
 					type = 'Menu';
 					ui_name = 'auto';
-					x = -254.000000;
-					y = -8.000000;
+					x = -256.000000;
+					y = -4.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 1.000000; };
 					relative_size_type = 0;
@@ -3545,7 +3822,7 @@
 							file_name = 'ui/a2d/card/card.vrp';
 							auto_play = true;
 							is_repeat = true;
-							visual_id = 'group;attr_up';
+							visual_id = 'group;attr_down';
 							color = { 255; 255; 255; };
 							opacity = 255;
 						};
@@ -4122,6 +4399,863 @@
 					visible = false;
 					lua_name = 'bossInfoMenu';
 				};
+				[10] =
+				{
+					[1] =
+					{
+						[1] =
+						{
+							[1] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = 0.000000;
+								y = 0.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 110;
+								height = 110;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = '';
+								file_name = 'ui/frames/clan_raid_synastry_info_0103.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
+							[2] =
+							{
+								type = 'LabelTTF';
+								ui_name = '';
+								x = 0.000000;
+								y = 25.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 110;
+								height = 50;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = '';
+								font_name = 'font/common_font_01.ttf';
+								font_size = 19;
+								text = '보너스';
+								h_alignment = 1;
+								v_alignment = 1;
+								color = { 127; 255; 212; };
+								opacity = 255;
+								dimension_width = 110;
+								dimension_height = 50;
+								letter_spacing = 0.000000;
+								has_stroke = false;
+								stroke_type = 0;
+								stroke_detail_level = 0;
+								is_sharp_text = true;
+								stroke_tickness = 1.000000;
+								stroke_color = { 255; 255; 255; };
+								has_shadow = false;
+								shadow_color = { 255; 255; 255; };
+								shadow_opacity = 255;
+								shadow_direction = 0;
+								shadow_distance = 5.000000;
+							};
+							[3] =
+							{
+								type = 'Node';
+								ui_name = '';
+								x = 0.000000;
+								y = -10.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 46;
+								height = 46;
+								scale_x = 0.800000;
+								scale_y = 0.800000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'bonusTipsNode';
+							};
+							type = 'Node';
+							ui_name = 'arrow';
+							x = 4.000000;
+							y = 0.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 1.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 110;
+							height = 110;
+							scale_x = 0.850000;
+							scale_y = 0.850000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+						};
+						[2] =
+						{
+							type = 'LabelTTF';
+							ui_name = 'rich';
+							x = -48.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 170;
+							height = 113;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'bonusTipsDscLabel';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 16;
+							text = 'dscLabel\ndscLabel\ndscLabel\ndscLabel';
+							h_alignment = 2;
+							v_alignment = 1;
+							color = { 240; 215; 159; };
+							opacity = 255;
+							dimension_width = 170;
+							dimension_height = 113;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 1.000000;
+							stroke_color = { 255; 255; 255; };
+							has_shadow = false;
+							shadow_color = { 255; 255; 255; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						type = 'Node';
+						ui_name = 'bonus_tips';
+						x = -127.000000;
+						y = -1.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 255;
+						height = 110;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+					};
+					[2] =
+					{
+						[1] =
+						{
+							[1] =
+							{
+								type = 'Sprite';
+								ui_name = '';
+								x = 0.000000;
+								y = 0.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 110;
+								height = 110;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = '';
+								file_name = 'ui/frames/clan_raid_synastry_info_0104.png';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								flip_x = false;
+								flip_y = false;
+								src_blend = 770;
+								dest_blend = 771;
+							};
+							[2] =
+							{
+								type = 'LabelTTF';
+								ui_name = '';
+								x = 0.000000;
+								y = 25.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 100;
+								height = 50;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = '';
+								font_name = 'font/common_font_01.ttf';
+								font_size = 19;
+								text = '페널티';
+								h_alignment = 1;
+								v_alignment = 1;
+								color = { 255; 173; 91; };
+								opacity = 255;
+								dimension_width = 100;
+								dimension_height = 50;
+								letter_spacing = 0.000000;
+								has_stroke = false;
+								stroke_type = 0;
+								stroke_detail_level = 0;
+								is_sharp_text = true;
+								stroke_tickness = 1.000000;
+								stroke_color = { 255; 255; 255; };
+								has_shadow = false;
+								shadow_color = { 255; 255; 255; };
+								shadow_opacity = 255;
+								shadow_direction = 0;
+								shadow_distance = 5.000000;
+							};
+							[3] =
+							{
+								type = 'Node';
+								ui_name = 'case01_earth, fire, water';
+								x = 0.000000;
+								y = -10.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 46;
+								height = 46;
+								scale_x = 0.750000;
+								scale_y = 0.750000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'panaltyTipsNode';
+							};
+							[4] =
+							{
+								type = 'Node';
+								ui_name = 'case02_light, dargk';
+								x = -14.000000;
+								y = -2.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 46;
+								height = 46;
+								scale_x = 0.600000;
+								scale_y = 0.600000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'panaltyTipsNode1';
+							};
+							[5] =
+							{
+								type = 'Node';
+								ui_name = 'case02_light, dargk';
+								x = 14.000000;
+								y = -2.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 46;
+								height = 46;
+								scale_x = 0.600000;
+								scale_y = 0.600000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'panaltyTipsNode2';
+							};
+							[6] =
+							{
+								type = 'Node';
+								ui_name = 'case02_light, dargk';
+								x = -14.000000;
+								y = -30.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 46;
+								height = 46;
+								scale_x = 0.600000;
+								scale_y = 0.600000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'panaltyTipsNode3';
+							};
+							[7] =
+							{
+								type = 'Node';
+								ui_name = 'case02_light, dargk';
+								x = 14.000000;
+								y = -30.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 46;
+								height = 46;
+								scale_x = 0.600000;
+								scale_y = 0.600000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = 'panaltyTipsNode4';
+							};
+							type = 'Node';
+							ui_name = 'arrow';
+							x = -8.000000;
+							y = 0.000000;
+							dock_point = { 0.000000; 0.500000; };
+							anchor_point = { 0.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 110;
+							height = 110;
+							scale_x = 0.850000;
+							scale_y = 0.850000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+						};
+						[2] =
+						{
+							type = 'LabelTTF';
+							ui_name = 'rich';
+							x = 45.000000;
+							y = 1.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 170;
+							height = 113;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'panaltyTipsDscLabel';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 16;
+							text = 'dscLabel\ndscLabel\ndscLabel\ndscLabel';
+							h_alignment = 0;
+							v_alignment = 1;
+							color = { 240; 215; 159; };
+							opacity = 255;
+							dimension_width = 170;
+							dimension_height = 113;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 1.000000;
+							stroke_color = { 255; 255; 255; };
+							has_shadow = false;
+							shadow_color = { 255; 255; 255; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						type = 'Node';
+						ui_name = 'penalty_tips';
+						x = 127.000000;
+						y = -1.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 255;
+						height = 110;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+					};
+					[3] =
+					{
+						type = 'Button';
+						ui_name = '';
+						x = -2.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 505;
+						height = 105;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'synastryInfoBtn';
+						enable = true;
+						normal = 'ui/buttons/help_btn_0101.png';
+						selected = 'ui/buttons/help_btn_0102.png';
+						disable = 'ui/buttons/help_btn_0102.png';
+						image_type = 0;
+					};
+					type = 'Menu';
+					ui_name = '';
+					x = 128.000000;
+					y = -2.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 1.000000; };
+					relative_size_type = 0;
+					width = 514;
+					height = 110;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'synastryTipsMenu';
+				};
+				[11] =
+				{
+					[1] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 175;
+							height = 50;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 18;
+							text = '현재 팀 저장';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 240; 215; 159; };
+							opacity = 255;
+							dimension_width = 175;
+							dimension_height = 50;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 1.000000;
+							stroke_color = { 255; 255; 255; };
+							has_shadow = false;
+							shadow_color = { 255; 255; 255; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						type = 'Button';
+						ui_name = '';
+						x = 90.000000;
+						y = -30.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 180;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'towerSetBtn';
+						enable = false;
+						normal = 'ui/buttons/base_btn_0101.png';
+						selected = 'ui/buttons/base_btn_0102.png';
+						disable = 'ui/buttons/base_btn_0102.png';
+						image_type = 1;
+					};
+					[2] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 175;
+							height = 50;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'loadLabel';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 18;
+							text = '베스트 팀 배치';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 240; 215; 159; };
+							opacity = 255;
+							dimension_width = 175;
+							dimension_height = 50;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 1.000000;
+							stroke_color = { 255; 255; 255; };
+							has_shadow = false;
+							shadow_color = { 255; 255; 255; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						type = 'Button';
+						ui_name = '';
+						x = -90.000000;
+						y = -30.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 180;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'loadBtn';
+						enable = true;
+						normal = 'ui/buttons/base_btn_0101.png';
+						selected = 'ui/buttons/base_btn_0102.png';
+						disable = 'ui/buttons/base_btn_0102.png';
+						image_type = 1;
+					};
+					[3] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 175;
+							height = 50;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 18;
+							text = '현재 팀 저장';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 240; 215; 159; };
+							opacity = 255;
+							dimension_width = 175;
+							dimension_height = 50;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 1.000000;
+							stroke_color = { 255; 255; 255; };
+							has_shadow = false;
+							shadow_color = { 255; 255; 255; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						type = 'Button';
+						ui_name = '';
+						x = 90.000000;
+						y = -30.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 180;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'saveBtn';
+						enable = true;
+						normal = 'ui/buttons/base_btn_0101.png';
+						selected = 'ui/buttons/base_btn_0102.png';
+						disable = 'ui/buttons/base_btn_0102.png';
+						image_type = 1;
+					};
+					[4] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 11.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 489;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'towerScoreLabel';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 18;
+						text = '{1}층 팀 최고 점수: {1}점';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 215; 0; };
+						opacity = 255;
+						dimension_width = 489;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 1.000000;
+						stroke_color = { 255; 255; 255; };
+						has_shadow = false;
+						shadow_color = { 255; 255; 255; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+					};
+					type = 'Menu';
+					ui_name = '';
+					x = 128.000000;
+					y = -2.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 1.000000; };
+					relative_size_type = 0;
+					width = 360;
+					height = 110;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'towerMenu';
+				};
+				[12] =
+				{
+					[1] =
+					{
+						type = 'Node';
+						ui_name = '보상';
+						x = -115.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'rewardNode';
+					};
+					[2] =
+					{
+						type = 'Node';
+						ui_name = '점수';
+						x = 5.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'scoreNode';
+					};
+					[3] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 123.000000;
+						y = 3.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'eventDragonNode';
+					};
+					[4] =
+					{
+						[1] =
+						{
+							[1] =
+							{
+								type = 'LabelTTF';
+								ui_name = '';
+								x = 0.000000;
+								y = 9.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 265;
+								height = 80;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 0.000000;
+								visible = true;
+								lua_name = '';
+								font_name = 'font/common_font_01.ttf';
+								font_size = 20;
+								text = '체험 드래곤을 전투에서\n사용해 볼 수 있습니다.';
+								h_alignment = 1;
+								v_alignment = 1;
+								color = { 0; 0; 0; };
+								opacity = 255;
+								dimension_width = 265;
+								dimension_height = 80;
+								letter_spacing = 0.000000;
+								has_stroke = false;
+								stroke_type = 0;
+								stroke_detail_level = 0;
+								is_sharp_text = true;
+								stroke_tickness = 2.000000;
+								stroke_color = { 0; 0; 0; };
+								has_shadow = false;
+								shadow_color = { 0; 0; 0; };
+								shadow_opacity = 255;
+								shadow_direction = 0;
+								shadow_distance = 5.000000;
+							};
+							type = 'Sprite';
+							ui_name = '';
+							x = 183.000000;
+							y = 20.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 270;
+							height = 100;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/frames/dragon_board_talk_0301.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Menu';
+						ui_name = '';
+						x = 125.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'edDscMenu';
+					};
+					type = 'Menu';
+					ui_name = '';
+					x = 124.000000;
+					y = -6.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 1.000000; };
+					relative_size_type = 2;
+					width = -256;
+					height = 110;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'eventDungeonMenu';
+				};
 				type = 'Menu';
 				ui_name = 'left';
 				x = -245.000000;
@@ -4463,7 +5597,7 @@
 					type = 'Menu';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -4516,7 +5650,7 @@
 			[8] =
 			{
 				type = 'Sprite';
-				ui_name = '';
+				ui_name = 'Not clan raid';
 				x = -580.000000;
 				y = -148.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -4530,7 +5664,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'attrInfoSprite';
 				file_name = 'ui/icons/attr_diagram.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -4538,6 +5672,114 @@
 				flip_y = false;
 				src_blend = 770;
 				dest_blend = 771;
+			};
+			[9] =
+			{
+				[1] =
+				{
+					[1] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 0.000000;
+							y = 9.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 265;
+							height = 80;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 20;
+							text = '체험 드래곤을 전투에서\n사용해 볼 수 있습니다.';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 0; 0; 0; };
+							opacity = 255;
+							dimension_width = 265;
+							dimension_height = 80;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = true;
+							stroke_tickness = 2.000000;
+							stroke_color = { 0; 0; 0; };
+							has_shadow = false;
+							shadow_color = { 0; 0; 0; };
+							shadow_opacity = 255;
+							shadow_direction = 0;
+							shadow_distance = 5.000000;
+						};
+						type = 'Sprite';
+						ui_name = '';
+						x = 165.000000;
+						y = 9.000000;
+						dock_point = { 0.000000; 1.000000; };
+						anchor_point = { 1.000000; 0.000000; };
+						relative_size_type = 0;
+						width = 270;
+						height = 100;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/frames/dragon_board_talk_0301.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 152.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.000000; };
+					relative_size_type = 1;
+					width = 470;
+					height = -250;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					action_type = 5;
+					action_delay_1 = 0.000000;
+					action_delay_2 = 0.000000;
+					action_duration = 0.350000;
+					lua_name = '';
+				};
+				type = 'Menu';
+				ui_name = '';
+				x = -10.000000;
+				y = -30.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
+				relative_size_type = 1;
+				width = 480;
+				height = -80;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
 			};
 			type = 'Menu';
 			ui_name = '';
