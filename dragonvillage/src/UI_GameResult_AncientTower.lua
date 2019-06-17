@@ -524,6 +524,21 @@ end
 -------------------------------------
 function UI_GameResult_AncientTower:click_nextBtn()
     local attr = g_attrTowerData:getSelAttr()
+    local stage_id = self.m_stageID
+    local max_stage_id = ''
+
+    if (attr) then
+        max_stage_id = g_attrTowerData:getAttrMaxStageId()
+    else
+        max_stage_id = ANCIENT_TOWER_STAGE_ID_FINISH
+    end
+
+    if (stage_id >= max_stage_id) then
+        UIManager:toastNotificationRed(Str('마지막 스테이지 입니다.'))
+        return
+    end
+    
+    
     -- 시험의 탑의 경우
     if (attr) then
         local stage_id = self.m_stageID
