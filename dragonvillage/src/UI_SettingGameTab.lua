@@ -140,9 +140,9 @@ function UI_Setting:init_shakeModeSetting()
     radio_button:addButton('off', vars['shakeOffBtn'])
 
     if g_settingData:get('shake_mode') then
-        radio_button:setSelectedButton('off')
-    else
         radio_button:setSelectedButton('on')
+    else
+        radio_button:setSelectedButton('off')
     end
 
     local function change_cb(selected)
