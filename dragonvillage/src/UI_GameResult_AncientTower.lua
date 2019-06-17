@@ -627,6 +627,22 @@ function UI_GameResult_AncientTower:direction_secretDungeon()
         MakeSimpleSecretFindPopup(self.m_secretDungeon)
     end
 
+   
+    local is_attr = g_ancientTowerData:isAttrChallengeMode()
+    if (is_attr) then
+        local finish_cb = function()     
+            -- 시험의 탑 층별 개방 팝업
+            if (g_attrTowerData:isAttrExpendedFirst()) then
+                UI_ContentOpenPopup('attr_tower_expend')
+            end
+        end
+        
+        local attr = g_attrTowerData:getSelAttr()
+        local stage_id = self.m_stageID
+        local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)        
+        g_attrTowerData:request_attrTowerInfo(attr, prev_stage_id, finish_cb)   
+    end
+    
     -- 시험의 탑 컨텐츠 오픈 팝업
     if (self.m_content_open) then
        UI_ContentOpenPopup('attr_tower')

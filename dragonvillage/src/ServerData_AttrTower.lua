@@ -32,6 +32,8 @@ ServerData_AttrTower = class({
         m_subMenuInfo = 'table', -- 서브 메뉴 정보
         m_bExtendFloor = 'boolean', -- 100층까지 확장되었는지
         m_bExtendFloor_150 = 'boolean', -- 150층까지 확장되었는지
+
+        m_exFloorCnt = 'number', -- 전체 층수 모자른 상태에서(바로 전층이) + 서버에서 expend값을 true로 받았을 때, 처음 개방된 걸로 간주하고 팝업 출력할 용도
     })
 
     
@@ -49,6 +51,7 @@ function ServerData_AttrTower:init(server_data)
     self.m_nStage = 0
     self.m_bExtendFloor = false
     self.m_clearFloorTotalCnt = 0
+    self.m_exFloorCnt = 0
 end
 
 -------------------------------------
@@ -194,6 +197,8 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage_id, finish_cb, f
                 self.m_bExtendFloor_150 = (menu_info['extended_150'] == 1) and true or false
             end
 
+            self.m_exFloorCnt = self.m_clearFloorTotalCnt
+            
             -- 클리어한 층수 계산
             self.m_clearFloorTotalCnt = 0
             local l_attr = getAttrTextList()
@@ -499,3 +504,19 @@ function ServerData_AttrTower:getAttrMaxStageId()
 
     return ServerData_AttrTower.MAXSTAGEID['DEFAULT']
 end
+
+-------------------------------------
+-- function isAttrExpendedFirst
+-- @brief 처음 스테이지 개방되었을 때 return true (ex: 이전 총 스테이지가 200보다 작은데 200)
+-------------------------------------
+function ServerData_AttrTower:isAttrExpendedFirst()
+    local ex_total_floor = g_attrTowerData.m_exFloorCnt
+    if (ex_total_floor < ATTR_TOWER_EXTEND_OPEN_FLOOR) and (self.m_bExtendFloor) then
+        return true
+    elseif (ex_total_floor < ATTR_TOWER_EXTEND_OPEN_FLOOR_150) and (self.m_bExtendFloor_150) then
+        return true
+    end
+
+    return false
+end
+

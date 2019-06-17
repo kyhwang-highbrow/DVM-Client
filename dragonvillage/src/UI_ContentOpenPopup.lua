@@ -37,12 +37,23 @@ end
 function UI_ContentOpenPopup:initUI()
     local vars = self.vars
     local content_type = self.m_content_type
-    vars['contentsVisual']:changeAni('open_'..content_type, true)
-    vars['contentsLabel']:setString(getContentName(content_type))
 
     if (content_type == 'attr_tower') then
         self.vars['linkBtn']:setVisible(true)
+    
+    -- 시험의 탑 층 개방용 팝업
+    elseif (content_type == 'attr_tower_expend') then
+        self.vars['linkBtn']:setVisible(true)
+        local expend_floor = g_attrTowerData:getAttrMaxStageId()%1000
+        self.vars['descLabel']:setString(Str('전 속성 {1}층 개방', expend_floor))
+
+        -- 나머지는 시험의 탑과 동일하게 사용
+        content_type = 'attr_tower'
+        self.m_content_type = 'attr_tower'
     end
+    
+    vars['contentsVisual']:changeAni('open_'..content_type, true)
+    vars['contentsLabel']:setString(getContentName(content_type))
 end
 
 -------------------------------------
