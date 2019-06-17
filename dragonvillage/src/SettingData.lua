@@ -582,8 +582,10 @@ end
 -- function resetSettingData
 -------------------------------------
 function SettingData:resetSettingData()
+    --[[
     self.m_rootTable = nil
     SaveLocalSaveJson(self:getSettingDataSaveFileName(), self.m_rootTable, true) -- param : filename, t_data, skip_xor)
+    --]]
 end
 
 -------------------------------------

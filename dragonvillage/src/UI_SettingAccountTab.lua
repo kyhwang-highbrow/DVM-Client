@@ -582,10 +582,13 @@ function UI_Setting:loginSuccess(info)
     g_localData:applyLocalData(platform_id, 'local', 'platform_id')
     g_localData:applyLocalData(account_info, 'local', 'account_info')
 
+    --[[
     -- settingData에 있는 이전 기록 삭제
     if (g_settingData) then
         g_settingData:resetSettingData()
     end
+    --]]
+
     if (g_settingDeckData) then
         g_settingDeckData:resetAncientBestDeck()
     end

@@ -811,10 +811,13 @@ function UI_Setting:click_setUidBtn()
             end
 
             g_localData:applyLocalData(uid, 'local', 'uid')
+            --[[
             -- settingData에 있는 기록 삭제
             if (g_settingData) then
                 g_settingData:resetSettingData()
             end
+            --]]
+
             if (g_settingDeckData) then
                 g_settingDeckData:resetAncientBestDeck()
             end
