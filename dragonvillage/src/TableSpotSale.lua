@@ -10,14 +10,23 @@ TableSpotSale = class(PARENT, {
 local THIS = TableSpotSale
 
 -- column
--- id	priority	product_id	item	condition	user_lv	cooldown	r_desc	ui_idx
+-- id	priority	product_id	item	condition	user_lv	cooldown	r_desc	ui_idx  on_sale
 
 -------------------------------------
 -- function init
 -------------------------------------
 function TableSpotSale:init()
     self.m_tableName = 'table_spot_sale'
-    self.m_orgTable = TABLE:get(self.m_tableName)
+    local table_spot_sale = TABLE:get(self.m_tableName)
+    self.m_orgTable = {}
+
+    -- table_spot_sale에서 on_sale인 값만 사용
+    for pid, data in pairs(table_spot_sale) do
+        if (data['on_sale'] and data['on_sale'] == 1) then
+            self.m_orgTable[pid] = data
+        end
+    end
+
 end
 
 -------------------------------------
