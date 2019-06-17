@@ -5,17 +5,20 @@ local PARENT = UI_Package_Bundle
 -------------------------------------
 UI_Package_Step = class(PARENT,{
         m_curr_step = 'number',
+        m_lStepPids = 'list',
     })
 
--- 단계별 패키지 product id
-local t_step_pids = {90077, 90078, 90079, 90080}
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_Package_Step:init(package_name, is_popup)
+    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList('package_step')
     self:setCurrentStep()
     self:refresh(self.m_curr_step)
+
+    -- @jhakim 2019.05.40 단계별 패키지 종료할 예정이라 날짜 상관없이 띄움
+    self.vars['limitNode']:setVisible(true)
 end
 
 -------------------------------------
@@ -23,8 +26,8 @@ end
 -------------------------------------
 function UI_Package_Step:initButton()
     local vars = self.vars
-
-    for idx = 1, #t_step_pids do
+    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList('package_step')
+    for idx = 1, #self.m_lStepPids do
         vars['stepBtn'..idx]:registerScriptTapHandler(function() self:click_stepBtn(idx) end)
         
     end
@@ -38,7 +41,7 @@ end
 -- @breif 구매내역으로 현재 스텝 체크
 -------------------------------------
 function UI_Package_Step:setCurrentStep()
-    for idx, pid in ipairs(t_step_pids) do
+    for idx, pid in ipairs(self.m_lStepPids) do
         local buy_cnt = g_shopDataNew:getBuyCount(pid)    
         if (buy_cnt == 0) then
             self.m_curr_step = idx
@@ -64,11 +67,11 @@ function UI_Package_Step:refresh(step)
     local vars = self.vars
     local l_item_list = g_shopDataNew:getProductList('package')
 
-    for idx = 1, #t_step_pids do
+    for idx = 1, #self.m_lStepPids do
         vars['stepNode'..idx]:setVisible(idx == step)
 
         if (idx == step) then
-            local target_pid = t_step_pids[idx]
+            local target_pid = tonumber(self.m_lStepPids[idx])
             local struct_product = l_item_list[target_pid]
 
             -- 샵 정보가 없다면 구매 완료인 상태
@@ -92,9 +95,36 @@ function UI_Package_Step:refresh(step)
 
                 -- 현재 단계보다 높으면 구매 불가
                 vars['buyBtn']:setEnabled(self.m_curr_step >= idx)
+
+
+                -- 상품은 여러개인데 마지막 상품 기준으로 남은 시간 출력
+                local end_date = struct_product:getEndDateStr()
+                if (vars['timeLabel']) then
+                    vars['timeLabel']:setString(end_date)
+                end
             end
         end
     end
+
+    -- 구매 단계에 따라 전설드래곤 메세지 출력
+    local str = ''
+    if (step < #self.m_lStepPids) then
+        str = Str('{1}단계 후 전설 드래곤 선택권 획득 가능!', #self.m_lStepPids - step)
+    else
+        str = Str('전설 드래곤 선택권 획득 가능!')
+    end
+    vars['infoLabel']:setString(str)
+
+
+    -- 정보가 눈에 띄도록 흔들어줌
+    local action = cca.buttonShakeAction(0.8, 1) -- shake_level, delay_time
+    vars['infoNode']:stopAllActions()
+    vars['infoNode']:runAction(action)
+
+    -- 정보가 눈에 띄도록 흔들어줌 (전설 선택권 아이콘)
+    local action = cca.buttonShakeAction(1, 1) -- shake_level, delay_time
+    vars['iconSprite']:stopAllActions()
+    vars['iconSprite']:runAction(action)
 end
 
 -------------------------------------
@@ -109,7 +139,7 @@ end
 -------------------------------------
 function UI_Package_Step:click_buyBtn()
     local l_item_list = g_shopDataNew:getProductList('package')
-    local target_pid = t_step_pids[self.m_curr_step]
+    local target_pid = self.m_lStepPids[self.m_curr_step]
     local struct_product = l_item_list[target_pid]
 
     if (struct_product) then

@@ -30,6 +30,8 @@ function LobbyPopup_PackageStep2:checkCustomCondition()
         return false
     end
 
+    -- brief 1단계를 구매하고 4단계까지 구매하지 않았을 경우
+
     -- 1단계를 구매하지 않았을 경우
     if (g_shopDataNew:getBuyCount(l_step_pids[1]) <= 0) then
         return false

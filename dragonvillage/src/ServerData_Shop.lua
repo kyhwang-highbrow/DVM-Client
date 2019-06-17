@@ -904,10 +904,10 @@ function ServerData_Shop:getValidStepPackage()
 end
 
 -------------------------------------
--- function getValidStepPackage
+-- function getPakcageStepPidList
 -- @brief 단계별 패키지 product_id list
 -------------------------------------
-function ServerData_Shop:getPakcageStepPidList(package_step_name) -- 'package_step_02', 'package_step'
+function ServerData_Shop:getPakcageStepPidList(package_step_name) -- package_step_name : 'package_step_02', 'package_step'
     local l_pids = TablePackageBundle:getPidsWithName(package_step_name)
     if (not l_pids) then
         l_pids = {}
