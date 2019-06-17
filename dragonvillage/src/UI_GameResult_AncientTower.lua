@@ -456,12 +456,21 @@ end
 function UI_GameResult_AncientTower:checkAutoPlayCondition()
 	local auto_play_stop, msg = PARENT.checkAutoPlayCondition(self)
 
-	if (g_autoPlaySetting:get('tower_next_floor')) then
-        -- 50층, 100층 도달 시 다음 층 연속 전투 중지 @jhakim 190412 100층 늘어난 게 고려 안되어 있음, 핫픽스로 임시방편, 추후에 수정 필요
-		if (self.m_stageID % 100 == 50 or self.m_stageID % 1000 == 100) then
-			auto_play_stop = true
-			msg = Str('모든 층을 클리어하여 연속 전투가 종료되었습니다.')
-		end
+	if (g_autoPlaySetting:get('tower_next_floor')) then  
+        local is_attr = g_ancientTowerData:isAttrChallengeMode()
+        -- 시험의 탑의 경우 개방된 최상위 층으로 판단
+        if (is_attr) then
+            local max_stage_id = g_attrTowerData:getAttrMaxStageId()
+            if (self.m_stageID == max_stage_id) then
+                auto_play_stop = true
+            end
+        -- 고대의 탑은 50층이 최상위 층
+        else
+            if (self.m_stageID == ANCIENT_TOWER_STAGE_ID_FINISH) then
+                auto_play_stop = true
+            end
+        end     
+        msg = Str('모든 층을 클리어하여 연속 전투가 종료되었습니다.')
 	end
 
 	return auto_play_stop, msg
