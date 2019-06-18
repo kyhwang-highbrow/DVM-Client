@@ -16,17 +16,8 @@ local THIS = TableSpotSale
 -- function init
 -------------------------------------
 function TableSpotSale:init()
-    self.m_tableName = 'table_spot_sale'
-    local table_spot_sale = TABLE:get(self.m_tableName)
-    self.m_orgTable = {}
-
-    -- table_spot_sale에서 on_sale인 값만 사용
-    for pid, data in pairs(table_spot_sale) do
-        if (data['on_sale'] and data['on_sale'] == 1) then
-            self.m_orgTable[pid] = data
-        end
-    end
-
+    self.m_tableName = 'table_spot_sale' 
+    self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
 -------------------------------------
@@ -40,8 +31,20 @@ function TableSpotSale:getSortedSpotSaleList()
 
     local table_spot_sale = self.m_orgTable
 
+    local t_spot_sale = {}
+
+    -- table_spot_sale에서 start_date, end_date 값에 알맞는 상품만 판매 시작
+    for pid, data in pairs(table_spot_sale) do
+        if (data['start_date'] and data['end_date ']) then
+            local is_valid = ServerData_Event:checkEventTime(data['start_date'], data['end_date '])
+            if (is_valid == true) then
+                t_spot_sale[pid] = data
+            end
+        end
+    end
+
     -- 정렬을 위해 list형태로 변환
-    local l_spot_sale = table.MapToList(table_spot_sale)
+    local l_spot_sale = table.MapToList(t_spot_sale)
 
     -- priority가 낮은 순서로 정렬
 	function sortByPriority(a, b)
