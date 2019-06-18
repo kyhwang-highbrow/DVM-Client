@@ -885,19 +885,25 @@ end
 function ServerData_Shop:getValidStepPackage()
     -- 단계별 패키지 product id
     local l_step_pids = g_shopDataNew:getPakcageStepPidList('package_step')
-
     if (#l_step_pids ~= 4) then
         return nil
     end
 
-    -- 1단계도 구매를 안했을 경우
+    -- 1단계도 구매를 안했을 경우 신규 패키지(아예 살 의지가 없음)
     if (self:getBuyCount(l_step_pids[1]) == 0) then
         return 'package_step_02'
     end
 
-    -- 4단계까지 모두 구매했을 경우
+    -- 4단계까지 모두 구매했을 경우 신규 패키지(다 샀음)
     if (self:getBuyCount(l_step_pids[4]) > 0) then
         return 'package_step_02'
+    end
+
+    -- 구버젼 상품이 1개라도 없다면 신규 패키지를 우선순위로 올림
+    for i = 1, 4 do
+        if (not self:isExist(l_step_pids[i])) then
+            return 'package_step_02'
+        end
     end
 
     return 'package_step'
