@@ -67,3 +67,21 @@ function TableStaminaInfo:getDailyChargeInfo(stamina_type, charge_cnt)
 
     return charge_price, cnt
 end
+
+-------------------------------------
+-- function getChargingCount
+-- @jhakim 190618 고대의 탑이 max인 10개가 아니라 5개씩 충전되어, 충전값 칼럼을 새로 팜
+-------------------------------------
+function TableStaminaInfo:getChargingCount(stamina_type)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local charging_count = self:getValue(stamina_type, 'charging_count')
+
+    if (charging_count == '') then
+        charging_count = nil
+    end
+    
+    return charging_count
+end

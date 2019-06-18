@@ -314,6 +314,12 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
 
         -- 구매제한 없는 경우 처리
         elseif (not charge_limit) or (charge_limit == 0) then
+            -- 구매 제한은 없는 데 충전 수량이 정해져 있을 경
+			local charging_count = TableStaminaInfo:getChargingCount(stamina_type)
+            if (charging_count) then
+                cnt = charging_count
+            end
+
             local msg = Str('입장권이 부족합니다.\n{@possible}입장권 {1}개{@default}를 충전하시겠습니까?', cnt)
             UI_ConfirmPopup('cash', price, msg, ok_btn_cb)
 
