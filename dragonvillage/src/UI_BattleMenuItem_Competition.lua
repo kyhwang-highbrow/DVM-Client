@@ -127,45 +127,75 @@ end
 -- function initCompetitionRewardInfo_attrTower
 -- @brief 경쟁 메뉴 보상 안내
 -- @comment 갱신되는 케이스는 없어 initialize 로 만듬
+-- @jhakim 190618 로비 통신이랑 quest/info 통신이랑 다른 정보를 받음, 일단 하드코딩
 -------------------------------------
 function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_attrTower()
-	local struct_quest_50 = g_questData:getQuest(TableQuest.CHALLENGE, 14501) -- 시험의 탑 모든 속성 50층 클리어 : 전설의 알
-    local struct_quest_100 = g_questData:getQuest(TableQuest.CHALLENGE, 14502) -- 시험의 탑 모든 속성 100층 클리어 : 절대적인 전설의 알
-    local struct_quest_150 = g_questData:getQuest(TableQuest.CHALLENGE, 14503) -- 시험의 탑 모든 속성 150층 클리어 : 절대적인 전설의 알
+    local struct_quest
 
-    local struct_quest = nil
-    local quest_desc = ''
-
-    -- 퀘스트 정보가 없을 경우
-    if (struct_quest_50) and (not struct_quest_50:isEnd()) then
-        struct_quest = struct_quest_50
-        quest_desc = Str('시험의 탑 모든 속성\n50층 클리어')
-    elseif (struct_quest_100) and (not struct_quest_100:isEnd()) then
-        struct_quest = struct_quest_100
-        quest_desc = Str('시험의 탑 모든 속성\n100층 클리어')
-    elseif (struct_quest_150) and (not struct_quest_150:isEnd()) then
-        struct_quest = struct_quest_150
-        quest_desc = Str('시험의 탑 모든 속성\n150층 클리어')
+    -- 로비에서 145001, 145002, 145003 퀘스트의 rawcnt 값을 받음, 
+    -- 다 같은 값이라서 하나만 사용
+    for i = 1, 3 do 
+        struct_quest = g_questData:getQuest(TableQuest.CHALLENGE, 14500 + i)
+        if (struct_quest) then
+            break
+        end
     end
 
-    -- 종료 처리
+    -- 예외 처리
     if (not struct_quest) then
         return nil, nil, nil
     end
-
-	local t_item = struct_quest:getRewardInfoList()[1]
-
-	local item_name = UIHelper:makeItemNamePlain(t_item)
-	local text_1 = quest_desc
-    if (self.m_menuListCnt == 5) then
-        text_1 = quest_desc
-    else
-        text_1 = struct_quest:getQuestDesc()
+    
+    -- 예외 처리   
+    if (not struct_quest['rawcnt']) then
+        return nil, nil, nil
     end
 
-	local _, text = struct_quest:getProgressInfo()
-	local text_2 = Str('달성 : {1}', text)
+    -- 달성 스테이지에 해당하는 퀘스트를 찾음 (보상 여부 상관없이)
+    -- 해당 퀘스트 설명 문구 설정
+    local l_quest_value = {50, 100, 150}
+    local rawcnt = struct_quest['rawcnt']
+    local max_cnt = 0
+    local now_quest_id = 0
+    local quest_desc = Str('시험의 탑 모든 속성 50층 클리어')
+    for i, value in ipairs(l_quest_value) do
+        if (rawcnt < value) then
+            if (self.m_menuListCnt == 5) then
+                quest_desc = Str('시험의 탑 모든 속성\n{1}층 클리어', value)
+            else
+                quest_desc =Str('시험의 탑 모든 속성 {1}층 클리어', value)
+            end
+            now_quest_id =  14500 + i
+            max_cnt = value
+            break
+        end
+    end
+
+    -- 끝까지 달성했을 경우 예외 처리
+    if (rawcnt > 150) then
+        return nil, nil, nil
+    end
+
+    -- 퀘스트 라벨
+    local text_1 = quest_desc
+    local cnt_str = Str('{1}/{2}', rawcnt, max_cnt)
+    local text_2 = Str('달성 : {1}', cnt_str)
     local desc = nil
+
+    -- 퀘스트 보상
+    local table_quest = TableQuest()
+    local t_quest = table_quest:get(now_quest_id)
+    if (not t_quest) then
+        return nil, nil, nil
+    end
+
+    local t_reward = t_quest['t_reward']
+    local t_item = {}
+    if (t_reward[1] and t_reward[1]['item_id']) then
+        t_item['item_id'] = t_reward[1]['item_id']
+    else
+        t_item = nil
+    end
 
     return t_item, text_1, text_2, desc
 end
