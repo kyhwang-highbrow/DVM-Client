@@ -498,6 +498,12 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
+    if true then
+        self:unityAdsTest01()
+        return
+    end
+
+
 	ccdisplay('adMob interstitial ad test')
     if (CppFunctions:isAndroid() == true) then
 
@@ -547,10 +553,58 @@ function UI_Setting:click_testCodeBtn()
 end
 
 -------------------------------------
+-- function unityAdsTest01
+-- @brief Unity Ads 광고 테스트 01
+-------------------------------------
+function UI_Setting:unityAdsTest01()
+    local mode = 'test' -- 'test' or ''
+    local meta_data = ''
+
+    local function listener(ret, info)
+        if ret == 'ready' then
+
+        elseif ret == 'start' then
+
+        elseif ret == 'finish' then
+
+        elseif ret == 'error' then
+
+            if info == 'NOT_READY' then
+
+            elseif ret == 'NOT_INITIALIZED' then
+
+            end
+        end
+
+        cclog('##Unity Ads listener##') 
+        cclog('ret : ' .. tostring(ret))
+        cclog('info : ' .. tostring(info))
+    end
+
+    PerpleSDK:unityAdsStart(mode, meta_data, listener)
+end
+
+-------------------------------------
+-- function unityAdsTest02
+-- @brief Unity Ads 광고 테스트 02
+-------------------------------------
+function UI_Setting:unityAdsTest02()
+    -- @metaData : json format string,  '{"serverId":"@serverId", "ordinalId":"@ordinalId"}'
+    local placement_id = 'placement_id'
+    local meda_data = ''
+    PerpleSDK:unityAdsShow(placement_id, meda_data)
+end
+
+-------------------------------------
 -- function click_testCodeBtn2
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn2()
+    if true then
+        self:unityAdsTest02()
+        return
+    end
+
 	local function success_cb()
 		ccdisplay('success success success') 
 	end
