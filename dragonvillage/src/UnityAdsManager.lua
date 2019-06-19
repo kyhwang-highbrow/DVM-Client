@@ -13,8 +13,8 @@ UnityAdsManager = {
 -------------------------------------
 function UnityAdsManager:initAdSdk()
     -- UnityAds 초기화
-    cclog('##UnityAds## unityads_init')
-    local debug_str = 'debug' -- 'debug' or ''
+    self:log('call initAdSdk()')
+    local debug_str = '' -- 디버그 모드로 하고싶을 경우 'debug'로, 일반 모드일 경우 ''를 전달하면 된다.
     SDKManager:sendEvent('unityads_initialize', debug_str)
 end
 
@@ -26,8 +26,8 @@ function UnityAdsManager:initRewardedVideoAd()
     local unityads_listener = function(ret, info) self:unityAdsListener(ret, info) end
 
     -- UnityAds start
-    cclog('##UnityAds## unityads_start')
-    local mode = 'test' -- 'test' or ''
+    self:log('call initRewardedVideoAd()')
+    local mode = '' -- 테스트 모드로 하고싶을 경우 'test'로, 일반 모드일 경우  ''를 전달하면 된다.
     local meta_data = ''
     PerpleSDK:unityAdsStart(mode, meta_data, unityads_listener)
 end
@@ -37,9 +37,9 @@ end
 -- @brief 이벤트 리스너
 -------------------------------------
 function UnityAdsManager:unityAdsListener(ret, info)
-    cclog('##UnityAds## unityads_listener') 
-    cclog('##UnityAds## ret : ' .. tostring(ret))
-    cclog('##UnityAds## info : ' .. tostring(info))
+    self:log('call unityads_listener()')
+    self:log('ret : ' .. tostring(ret))
+    self:log('info : ' .. tostring(info))
 
     if (ret == 'ready') then
 
@@ -68,6 +68,8 @@ function UnityAdsManager:unityAdsListener(ret, info)
 
     -- 광고 보기 호출 시 콜백
     if (self.m_showResultCallback) then
+        self:log('exist self.m_showResultCallback')
+
         local reset_cb = false
         local _ret = ret
         local _info = info
@@ -93,6 +95,8 @@ function UnityAdsManager:unityAdsListener(ret, info)
             self.m_showResultCallback(_ret, _info)
             self.m_showResultCallback = nil
         end
+    else
+        self:log('not exist self.m_showResultCallback')
     end
 end
 
@@ -101,6 +105,7 @@ end
 -- @breif 광고 프리로드 요청
 -------------------------------------
 function UnityAdsManager:adPreload(ad_type)
+    self:log('call adPreload() ad_type : ' .. tostring(ad_type))
     -- UnityAds는 SDK자체에서 프리로드를 실행하기때문에 별도로 할 필요가 없음
 end
 
@@ -126,7 +131,8 @@ function UnityAdsManager:showByAdType(ad_type, result_cb)
     -- @metaData : json format string,  '{"serverId":"@serverId", "ordinalId":"@ordinalId"}'
     local placement_id = 'lobbyGiftBox'
     local meda_data = ''
-    cclog('##UnityAds## unityAdsShow ' .. placement_id) 
+	self:log('call showByAdType() ad_type : ' .. tostring(ad_type))
+    self:log('call showByAdType() placement_id : ' .. tostring(placement_id))
     PerpleSDK:unityAdsShow(placement_id, meda_data)
 end
 
@@ -135,6 +141,7 @@ end
 -- @breif 횟수 제한형 광고
 -------------------------------------
 function UnityAdsManager:showDailyAd(ad_type, finish_cb)
+    self:log('call showDailyAd() ad_type : ' .. tostring(ad_type)) 
 
     local function result_cb(ret, info)
         if (ret == 'finish') then
@@ -171,4 +178,16 @@ function UnityAdsManager:showErrorPopup(error_info)
     end
 
     MakeSimplePopup(POPUP_TYPE.OK, msg)
+end
+
+-------------------------------------
+-- function log
+-------------------------------------
+function UnityAdsManager:log(msg)
+    local active = true
+    if (not active) then
+        return
+    end
+
+    cclog('##UnityAdsManager log## : ' .. tostring(msg))
 end

@@ -24,15 +24,14 @@ function AdSDKSelector:initAdSDKSelector()
     local appver_str = CppFunctionsClass:getAppVer()
 
     -- 최신 aos 빌드에서는 unityads 사용
-    if isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4') then
-        if CppFunctionsClass:isAndroid() then
-            self.m_sdkName = 'unityads'
-            UnityAdsManager:initAdSdk()
-            return
-        end
+    if (CppFunctionsClass:isAndroid() and isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4')) then
+        self.m_sdkName = 'unityads'
+        UnityAdsManager:initAdSdk()
+    else
+        self.m_sdkName = 'admob'
     end
 
-    self.m_sdkName = 'admob'
+    self:log('call initAdSDKSelector() ' .. tostring(self.m_sdkName))
 end
 
 -------------------------------------
@@ -40,6 +39,8 @@ end
 -- @brief 보상형 광고 초기화
 -------------------------------------
 function AdSDKSelector:initRewardedVideoAd()
+    self:log('call initRewardedVideoAd()')
+
     if (CppFunctions:isWin32()) or (self:isAdInactive()) then
         return
     end
@@ -59,6 +60,8 @@ end
 -- @brief
 -------------------------------------
 function AdSDKSelector:adPreload(ad_type)
+    self:log('call adPreload() ad_type : ' .. tostring(ad_type))
+
     if (not self.m_isInit) then
         return
     end
@@ -76,6 +79,8 @@ end
 -- @brief
 -------------------------------------
 function AdSDKSelector:showByAdType(ad_type, result_cb)
+    self:log('call showByAdType() ad_type : ' .. tostring(ad_type))
+
     if (not self.m_isInit) then
         return
     end
@@ -93,6 +98,8 @@ end
 -- @brief
 -------------------------------------
 function AdSDKSelector:showDailyAd(ad_type, result_cb)
+    self:log('call showByAdType() showDailyAd : ' .. tostring(ad_type))
+
     if (not self.m_isInit) then
         return
     end
@@ -144,4 +151,16 @@ function AdSDKSelector:makePopupAdInactive()
 	end
 
 	MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+end
+
+-------------------------------------
+-- function log
+-------------------------------------
+function AdSDKSelector:log(msg)
+    local active = true
+    if (not active) then
+        return
+    end
+
+    cclog('##AdSDKSelector log## : ' .. tostring(msg))
 end
