@@ -73,6 +73,7 @@ return {['공포, 분노, 증오...그 모든 것이 어둠의 힘으로 이어�
 ['속성에 상관 없이 합 400층 클리어 시 개방!']='¡Apertura al completar los 400 pisos independientemente del atributo!',
 ['{1}단계 상품 구매 시 {2}단계 상품 구매가 가능합니다.']='Puedes hacerla compra de artículos de la Etapa {2} al comprar artículos de la Etapa {1}.',
 ['슬라임 알(모든 속성) 각각 {1}개']='1 Huevo de Limo de cada atributo (todos los atributos).',
+['전설 스킬 슬라임 10 + 5개\n토파즈 30개']='Limo de habilidad Legendaria X10 + 5\nTopacio X30',
 [' 빛의 거목']='Gran Árbol de Luz',
 ['\"{1}\" 진행하시겠습니까?']='\"{1}\" ¿Desea continuar?',
 ['\"언어 설정\"은 준비 중입니다.']='La configuración de lenguajes se encuentra en preparación.',
