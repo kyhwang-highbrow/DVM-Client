@@ -557,10 +557,28 @@ end
 -- @brief Unity Ads 광고 테스트 01
 -------------------------------------
 function UI_Setting:unityAdsTest01()
-    local mode = 'test' -- 'test' or ''
-    local meta_data = ''
+    local unityads_init
+    local unityads_start
+    local unityads_listener
+    local start_func = unityads_init
 
-    local function listener(ret, info)
+    unityads_init = function()
+        cclog('##UnityAds## unityads_init')
+        SDKManager:sendEvent('unityads_initialize', 'debug')
+    end
+    
+    unityads_start = function()
+        cclog('##UnityAds## unityads_start')
+        local mode = 'test' -- 'test' or ''
+        local meta_data = ''
+        PerpleSDK:unityAdsStart(mode, meta_data, unityads_listener)
+    end
+
+    unityads_listener = function(ret, info)
+        cclog('##UnityAds## unityads_listener') 
+        cclog('##UnityAds## ret : ' .. tostring(ret))
+        cclog('##UnityAds## info : ' .. tostring(info))
+
         if ret == 'ready' then
 
         elseif ret == 'start' then
@@ -576,12 +594,10 @@ function UI_Setting:unityAdsTest01()
             end
         end
 
-        cclog('##Unity Ads listener##') 
-        cclog('ret : ' .. tostring(ret))
-        cclog('info : ' .. tostring(info))
+        
     end
 
-    PerpleSDK:unityAdsStart(mode, meta_data, listener)
+    start_func()
 end
 
 -------------------------------------
@@ -590,8 +606,9 @@ end
 -------------------------------------
 function UI_Setting:unityAdsTest02()
     -- @metaData : json format string,  '{"serverId":"@serverId", "ordinalId":"@ordinalId"}'
-    local placement_id = 'placement_id'
+    local placement_id = 'lobbyGiftBox'
     local meda_data = ''
+    cclog('##UnityAds## unityAdsShow ' .. placement_id) 
     PerpleSDK:unityAdsShow(placement_id, meda_data)
 end
 
