@@ -28,9 +28,9 @@ end
 -- function adPreload
 -- @brief
 -------------------------------------
-function AdSDKSelector:adPreload(ad_id)
+function AdSDKSelector:adPreload(ad_type)
     if (self.m_sdkName == 'admob') then
-        return AdMobManager:getRewardedVideoAd():adPreload(ad_id)
+        return AdMobManager:getRewardedVideoAd():adPreload(ad_type)
     end
 end
 
@@ -48,9 +48,9 @@ end
 -- function showDailyAd
 -- @brief
 -------------------------------------
-function AdSDKSelector:showDailyAd(ad_id, result_cb)
+function AdSDKSelector:showDailyAd(ad_type, result_cb)
     if (self.m_sdkName == 'admob') then
-        return AdMobManager:getRewardedVideoAd():showDailyAd(ad_id, result_cb)
+        return AdMobManager:getRewardedVideoAd():showDailyAd(ad_type, result_cb)
     end
 end
 
@@ -60,7 +60,7 @@ end
 -------------------------------------
 function AdSDKSelector:isAdInactive()
     if (self.m_sdkName == 'admob') then
-        return AdMobManager:getRewardedVideoAd():isAdInactive()
+        return AdMobManager:isAdInactive()
     end
 end
 
@@ -69,6 +69,6 @@ end
 -------------------------------------
 function AdSDKSelector:makePopupAdInactive()
     if (self.m_sdkName == 'admob') then
-        return AdMobManager:getRewardedVideoAd():makePopupAdInactive()
+        return AdMobManager:makePopupAdInactive()
     end
 end
