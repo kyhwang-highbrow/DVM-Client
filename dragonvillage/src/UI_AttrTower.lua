@@ -130,7 +130,6 @@ function UI_AttrTower:initUI()
         self.m_tableView:setCellUIClass(make_func, create_func)
         self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         self.m_tableView:setItemList(t_floor)
-        stopwatch:record('setItemList')
 
         self.m_tableView.m_scrollView:setLimitedOffset(true)
 
