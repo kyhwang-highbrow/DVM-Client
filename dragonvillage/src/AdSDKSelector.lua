@@ -20,7 +20,7 @@ end
 -------------------------------------
 function AdSDKSelector:initRewardedVideoAd()
     if (self.m_sdkName == 'admob') then
-        return AdMobManager:getRewardedVideoAd():initRewardedVideoAd()
+        return AdMobManager:initRewardedVideoAd()
     end
 end
 
