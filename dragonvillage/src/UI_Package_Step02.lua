@@ -17,9 +17,8 @@ function UI_Package_Step02:init(package_name, is_popup)
     self:setCurrentStep()
     self:refresh(self.m_curr_step)
 
-
-    -- @jhakim 2019.05.40 단계별 패키지 종료할 예정이라 날짜 상관없이 띄움
-    self.vars['limitNode']:setVisible(true)
+    -- 종료 임박 출력(하드코딩)
+    self.vars['limitNode']:setVisible(false)
 end
 
 -------------------------------------
