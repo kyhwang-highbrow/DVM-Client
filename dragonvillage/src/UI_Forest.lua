@@ -201,8 +201,8 @@ end
 -------------------------------------
 function UI_Forest:click_adBtn()
 	-- 광고 비활성화 시
-	if (AdMobManager:isAdInactive()) then
-		AdMobManager:makePopupAdInactive()
+	if (AdSDKSelector:isAdInactive()) then
+		AdSDKSelector:makePopupAdInactive()
 		return
 	end
 
@@ -214,11 +214,11 @@ function UI_Forest:click_adBtn()
     end
     
     -- 광고 프리로드 요청
-    AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['FOREST'])
+    AdSDKSelector:adPreload(AD_TYPE['FOREST'])
 
     -- 탐험 광고 안내 팝업
     local function ok_cb()
-        AdMobManager:getRewardedVideoAd():showDailyAd(AD_TYPE['FOREST'], function()
+        AdSDKSelector:showDailyAd(AD_TYPE['FOREST'], function()
             ServerData_Forest:getInstance():request_myForestInfo(function()
 				-- ui 닫은 후 콜백 동작하는 경우 예외처리
 				if (self:isClosed()) then

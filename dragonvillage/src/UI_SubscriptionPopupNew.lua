@@ -101,13 +101,13 @@ end
 -------------------------------------
 function UI_SubscriptionPopupNew:click_adBtn()
 	-- 광고 비활성화 시
-	if (AdMobManager:isAdInactive()) then
-		AdMobManager:makePopupAdInactive()
+	if (AdSDKSelector:isAdInactive()) then
+		AdSDKSelector:makePopupAdInactive()
 		return
 	end
 
     -- 광고 프리로드 요청
-    AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['AUTO_ITEM_PICK'])
+    AdSDKSelector:adPreload(AD_TYPE['AUTO_ITEM_PICK'])
 
     -- 광고 안내 팝업
     local function ok_cb()

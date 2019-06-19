@@ -29,7 +29,7 @@ function UI_AdvertisingPopup:init(ad_type)
     self:refresh()
 
     -- 광고 프리로드 요청
-    AdMobManager:getRewardedVideoAd():adPreload(ad_type)
+    AdSDKSelector:adPreload(ad_type)
 end
 
 -------------------------------------

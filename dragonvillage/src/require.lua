@@ -40,6 +40,7 @@ local t_module = {
 	'PaymentHelper',
     'ScriptCache',
     'CppFunctions',
+    'AdSDKSelector',
     'AdMobInterstitialAd',
     'AdMobManager',
     'XorCipher',

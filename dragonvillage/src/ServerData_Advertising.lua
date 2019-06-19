@@ -42,8 +42,8 @@ function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
     PerpleSdkManager.getCrashlytics():setData('showAdvPopup_0', true)
 
 	-- 광고 비활성화 시
-	if (AdMobManager:isAdInactive()) then
-		AdMobManager:makePopupAdInactive()
+	if (AdSDKSelector:isAdInactive()) then
+		AdSDKSelector:makePopupAdInactive()
 		return
 	end
 
@@ -110,7 +110,7 @@ function ServerData_Advertising:showAd(ad_type, finish_cb)
     end
 
     PerpleSdkManager.getCrashlytics():setData('showAd_1', true)
-    AdMobManager:getRewardedVideoAd():showByAdType(ad_type, result_cb)
+    AdSDKSelector:showByAdType(ad_type, result_cb)
 end
 
 -------------------------------------

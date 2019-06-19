@@ -4105,6 +4105,9 @@
     <None Include="..\src\UI_GameIllusion.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\AdSDKSelector.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

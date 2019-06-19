@@ -91,8 +91,8 @@ end
 -------------------------------------
 function UI_Exploration:click_adBtn()
 	-- 광고 비활성화 시
-	if (AdMobManager:isAdInactive()) then
-		AdMobManager:makePopupAdInactive()
+	if (AdSDKSelector:isAdInactive()) then
+		AdSDKSelector:makePopupAdInactive()
 		return
 	end
 
@@ -104,11 +104,11 @@ function UI_Exploration:click_adBtn()
     end
     
     -- 광고 프리로드 요청
-    AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['EXPLORE'])
+    AdSDKSelector:adPreload(AD_TYPE['EXPLORE'])
 
     -- 탐험 광고 안내 팝업
     local function ok_cb()
-        AdMobManager:getRewardedVideoAd():showDailyAd(AD_TYPE['EXPLORE'], function()
+        AdSDKSelector:showDailyAd(AD_TYPE['EXPLORE'], function()
             UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
             g_explorationData:setDirty()
             g_explorationData:request_explorationInfo(function() self:refresh() end)
