@@ -553,15 +553,20 @@ function UI_Setting:click_testCodeBtn()
 end
 
 -------------------------------------
--- function unityAdsTest01
--- @brief Unity Ads 광고 테스트 01
+-- function unityAdsTest00
+-- @brief Unity Ads 광고 테스트 00
 -------------------------------------
-function UI_Setting:unityAdsTest01()
-
+function UI_Setting:unityAdsTest00()
     -- UnityAds 초기화
     cclog('##UnityAds## unityads_init')
     SDKManager:sendEvent('unityads_initialize', 'debug')
-    
+end
+
+-------------------------------------
+-- function unityAdsTest01
+-- @brief Unity Ads 광고 테스트 01
+-------------------------------------
+function UI_Setting:unityAdsTest01()    
     -- 리스너
     local function unityads_listener(ret, info)
         cclog('##UnityAds## unityads_listener') 
@@ -806,6 +811,11 @@ end
 -- @brief 벤치마크
 -------------------------------------
 function UI_Setting:click_benchmarkBtn()
+    if true then
+        self:unityAdsTest00()
+        return
+    end
+
     BenchmarkManager:getInstance()
     g_benchmarkMgr:setBenchmarkJson()
     g_benchmarkMgr:startStage()
