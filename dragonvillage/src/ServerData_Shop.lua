@@ -884,24 +884,47 @@ end
 -------------------------------------
 function ServerData_Shop:getValidStepPackage()
     -- 단계별 패키지 product id
-    local l_step_pids = g_shopDataNew:getPakcageStepPidList('package_step')
-    if (#l_step_pids ~= 4) then
-        return nil
+    local l_step_pids_new = g_shopDataNew:getPakcageStepPidList('package_step_02')
+    local l_step_pids_old = g_shopDataNew:getPakcageStepPidList('package_step')
+
+    -- 신버젼 단계별 패키지 상품 판매 중인지 확인
+    do
+        if (#l_step_pids_new ~= 4) then
+            return nil
+        end
+
+        -- 신버젼 상품이 1개라도 없다면 구버젼 상품 출력
+        for i = 1, 4 do
+            if (not self:isExist(l_step_pids_new[i])) then
+                return 'package_step'
+            end
+        end
+    end
+    
+
+    -- 구버젼 단계별 패키지 상품 판매 중인지 확인
+    do    
+        if (#l_step_pids_old ~= 4) then
+            return nil
+        end
+
+        -- 구버젼 상품이 1개라도 없다면 신버젼 상품 출력
+        for i = 1, 4 do
+            if (not self:isExist(l_step_pids_old[i])) then
+                return 'package_step_02'
+            end
+        end
     end
 
-    -- 1단계도 구매를 안했을 경우 신규 패키지(아예 살 의지가 없음)
-    if (self:getBuyCount(l_step_pids[1]) == 0) then
-        return 'package_step_02'
-    end
+    -- 둘 다 상품 판매중인 경우
+    do 
+        -- 구버젼 1단계도 구매를 안했을 경우 (아예 살 의지가 없음) 그렇다면 신규를 보여줌
+        if (self:getBuyCount(l_step_pids_old[1]) == 0) then
+            return 'package_step_02'
+        end
 
-    -- 4단계까지 모두 구매했을 경우 신규 패키지(다 샀음)
-    if (self:getBuyCount(l_step_pids[4]) > 0) then
-        return 'package_step_02'
-    end
-
-    -- 구버젼 상품이 1개라도 없다면 신규 패키지를 우선순위로 올림
-    for i = 1, 4 do
-        if (not self:isExist(l_step_pids[i])) then
+        -- 구버젼 4단계까지 모두 구매했을 경우 (다 샀음) 그렇다면 신규를 보여줌
+        if (self:getBuyCount(l_step_pids_old[4]) > 0) then
             return 'package_step_02'
         end
     end
