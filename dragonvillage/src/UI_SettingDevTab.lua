@@ -557,24 +557,13 @@ end
 -- @brief Unity Ads 광고 테스트 01
 -------------------------------------
 function UI_Setting:unityAdsTest01()
-    local unityads_init
-    local unityads_start
-    local unityads_listener
-    local start_func = unityads_init
 
-    unityads_init = function()
-        cclog('##UnityAds## unityads_init')
-        SDKManager:sendEvent('unityads_initialize', 'debug')
-    end
+    -- UnityAds 초기화
+    cclog('##UnityAds## unityads_init')
+    SDKManager:sendEvent('unityads_initialize', 'debug')
     
-    unityads_start = function()
-        cclog('##UnityAds## unityads_start')
-        local mode = 'test' -- 'test' or ''
-        local meta_data = ''
-        PerpleSDK:unityAdsStart(mode, meta_data, unityads_listener)
-    end
-
-    unityads_listener = function(ret, info)
+    -- 리스너
+    local function unityads_listener(ret, info)
         cclog('##UnityAds## unityads_listener') 
         cclog('##UnityAds## ret : ' .. tostring(ret))
         cclog('##UnityAds## info : ' .. tostring(info))
@@ -593,11 +582,13 @@ function UI_Setting:unityAdsTest01()
 
             end
         end
-
-        
     end
 
-    start_func()
+    -- UnityAds start
+    cclog('##UnityAds## unityads_start')
+    local mode = 'test' -- 'test' or ''
+    local meta_data = ''
+    PerpleSDK:unityAdsStart(mode, meta_data, unityads_listener)
 end
 
 -------------------------------------
