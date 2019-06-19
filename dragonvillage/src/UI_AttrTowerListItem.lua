@@ -107,6 +107,9 @@ function UI_AttrTowerListTopItem:init(t_data)
 
     local visual_id = g_attrTowerData:getSelAttr() .. '_top'
     vars['towerVisual']:changeAni(visual_id, true)
-    
-    self.m_cellSize = cc.size(800, 300)
+
+	-- 시험의 탑은 최대 150개 층이 있고, 한번에 층 UI를 생성 시 퍼포먼스 이슈가 있음
+    -- 따라사 최상단 탑의 크기를 다른 층들과 같게 하여 한번에 모든 층을 생성하지 않도록 변경함
+    vars['towerVisual']:setPosition(0, 75)    
+    self.m_cellSize = cc.size(800, 150) -- cc.size(800, 300)
 end

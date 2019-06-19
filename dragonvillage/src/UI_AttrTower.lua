@@ -122,11 +122,15 @@ function UI_AttrTower:initUI()
 		
         -- 테이블 뷰 인스턴스 생성
         self.m_tableView = UIC_TableView(node)
-        self.m_tableView:setUseVariableSize(true)
+        --self.m_tableView:setUseVariableSize(true)
+        self.m_tableView:setUseVariableSize(false) -- true를 사용할 경우 setItemList함수에서 모든 셀을 생성하여 퍼포먼스 문제가 있음
+        self.m_tableView:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein_fast']) -- 셀이 생성될 때 fadein효과로 생성 (빠른 버전)
+        self.m_tableView.m_defaultCellSize = cc.size(800, 150)
         self.m_tableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_BOTTOMUP)
         self.m_tableView:setCellUIClass(make_func, create_func)
         self.m_tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         self.m_tableView:setItemList(t_floor)
+        stopwatch:record('setItemList')
 
         self.m_tableView.m_scrollView:setLimitedOffset(true)
 
@@ -135,8 +139,13 @@ function UI_AttrTower:initUI()
         end
         table.sort(self.m_tableView.m_itemList, sort_func)
         
-        self.m_tableView:makeAllItemUINoAction()
+        -- 시험의 탑은 셀 생성 퍼포먼스 이슈로 한번에 생성하지 않음
+        --self.m_tableView:makeAllItemUINoAction()
                 
+        -- 진행 중인 층을 포커스 하기 위에 크기와 위치를 계산
+        self.m_tableView:_updateCellPositions()
+        self.m_tableView:_updateContentSize(true)
+
         -- 현재 도전중인 층이 바로 보이도록 처리
         local floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID)
         self.m_tableView:relocateContainerFromIndex(floor + 1)

@@ -4,6 +4,7 @@ local PARENT = UIC_Node
 CELL_CREATE_DIRECTING = {}
 CELL_CREATE_DIRECTING['scale'] = 0
 CELL_CREATE_DIRECTING['fadein'] = 1
+CELL_CREATE_DIRECTING['fadein_fast'] = 2
 
 -------------------------------------
 -- class UIC_TableView
@@ -191,6 +192,13 @@ function UIC_TableView:update(dt)
 				ui.root:setOpacity(0)
 				local scale_to = cc.FadeIn:create(0.5)
 				local action = cc.EaseInOut:create(scale_to, 2)
+				ui.root:runAction(action)
+
+            elseif (self._cellCreateDirecting == CELL_CREATE_DIRECTING['fadein_fast']) then
+				doAllChildren(ui.root, function(node) node:setCascadeOpacityEnabled(true) end)
+				ui.root:setOpacity(0)
+				local fade_in = cc.FadeIn:create(0.1)
+				local action = cc.EaseInOut:create(fade_in, 2)
 				ui.root:runAction(action)
 
             end
