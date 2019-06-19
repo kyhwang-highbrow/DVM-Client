@@ -125,6 +125,9 @@ function UI_Package_Step02:refresh(step)
     local action = cca.buttonShakeAction(1, 1) -- shake_level, delay_time
     vars['iconSprite']:stopAllActions()
     vars['iconSprite']:runAction(action)
+
+    -- 구매 완료된 상품에 노티
+    self:setNoti()
 end
 
 -------------------------------------
@@ -132,6 +135,27 @@ end
 -------------------------------------
 function UI_Package_Step02:click_stepBtn(step)
     self:refresh(step)
+end
+
+-------------------------------------
+-- function setNoti
+-------------------------------------
+function UI_Package_Step02:setNoti()
+    local vars = self.vars
+    local l_item_list = g_shopDataNew:getProductList('package')
+
+    for idx = 1, #self.m_lStepPids do
+        local target_pid = tonumber(self.m_lStepPids[idx])
+        local struct_product = l_item_list[target_pid]
+        
+        -- 샵 정보가 없다면 구매 완료인 상태
+        local is_buy = struct_product == nil
+
+        --  구매 완료된 상품에 노티
+        if (vars['completeNoti'..idx]) then
+            vars['completeNoti'..idx]:setVisible(is_buy)
+        end
+    end
 end
 
 -------------------------------------

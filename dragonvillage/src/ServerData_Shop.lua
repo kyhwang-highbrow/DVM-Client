@@ -893,11 +893,16 @@ function ServerData_Shop:getValidStepPackage()
             return nil
         end
 
-        -- 신버젼 상품이 1개라도 없다면 구버젼 상품 출력
+        -- 신버젼 상품이 다 없다면 구 버젼 상품 출
+        local is_sale = false
         for i = 1, 4 do
-            if (not self:isExist(l_step_pids_new[i])) then
-                return 'package_step'
+            if (self:isExist('package', l_step_pids_new[i])) then
+                is_sale = true
             end
+        end
+
+        if (not is_sale) then
+            return 'package_step'
         end
     end
     
@@ -908,15 +913,19 @@ function ServerData_Shop:getValidStepPackage()
             return nil
         end
 
-        -- 구버젼 상품이 1개라도 없다면 신버젼 상품 출력
+        -- 구버젼 상품이 다 없다면 신버젼 상품 출력
+        local is_sale = false
         for i = 1, 4 do
-            if (not self:isExist(l_step_pids_old[i])) then
-                return 'package_step_02'
+            if (self:isExist('package', l_step_pids_old[i])) then
+                is_sale = true
             end
+        end
+        if (not is_sale) then
+            return 'package_step_02'
         end
     end
 
-    -- 둘 다 상품 판매중인 경우
+    -- 둘 다 상품 판매중인 경우=
     do 
         -- 구버젼 1단계도 구매를 안했을 경우 (아예 살 의지가 없음) 그렇다면 신규를 보여줌
         if (self:getBuyCount(l_step_pids_old[1]) == 0) then

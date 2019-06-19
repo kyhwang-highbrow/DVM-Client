@@ -134,9 +134,22 @@ function UI_AttrTower:initUI()
             return a['data']['stage'] < b['data']['stage']
         end
         table.sort(self.m_tableView.m_itemList, sort_func)
-        
         self.m_tableView:makeAllItemUINoAction()
-                
+        --[[
+        --
+        self.m_tableView._cellCreateDirecting = ''
+        self.m_tableView:update(0.03)
+        print('=update==========')
+        self.m_tableView:update(0.03)
+        print('=update==========')
+        self.m_tableView:update(0.03)
+        print('=update==========')
+        self.m_tableView:update(0.03)
+        print('=update==========')
+        self.m_tableView:update(0.03)
+        print('=update==========')
+        self.m_tableView:update(0.03)
+        --]]
         -- 현재 도전중인 층이 바로 보이도록 처리
         local floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID)
         self.m_tableView:relocateContainerFromIndex(floor + 1)
