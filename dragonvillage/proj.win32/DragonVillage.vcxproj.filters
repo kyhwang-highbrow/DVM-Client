@@ -4108,6 +4108,9 @@
     <None Include="..\src\AdSDKSelector.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UnityAdsManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

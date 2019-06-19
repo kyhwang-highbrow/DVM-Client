@@ -583,7 +583,7 @@ function UI_Setting:unityAdsTest01()
 
             if info == 'NOT_READY' then
 
-            elseif ret == 'NOT_INITIALIZED' then
+            elseif info == 'NOT_INITIALIZED' then
 
             end
         end

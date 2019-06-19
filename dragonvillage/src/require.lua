@@ -43,6 +43,7 @@ local t_module = {
     'AdSDKSelector',
     'AdMobInterstitialAd',
     'AdMobManager',
+    'UnityAdsManager',
     'XorCipher',
     'PackageManager',
     'FullPopupManager',
