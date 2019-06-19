@@ -27,6 +27,9 @@ public class PerpleConfig {
 
     // @admob
     public static final String ADMOB_APP_ID = "ca-app-pub-9497777061019569~9623723983";
+    
+    // @unityads
+    public static final String UNITYADS_GAME_ID = "1515686";
 
     // @xsolla
     public static final boolean USE_XSOLLA = true;

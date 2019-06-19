@@ -662,6 +662,14 @@ public class AppActivity extends Cocos2dxActivity{
                     permissions[0] = arg0;
                     ActivityCompat.requestPermissions(sActivity, permissions, RC_APP_PERMISSION);
 
+                } else if (id.equals("unityads_initialize")) {
+                    boolean isDebug = false;
+                    if (arg0.equals("debug"))
+                        isDebug = true;
+                    
+                    // @UnitAds
+                    PerpleSDK perpleSdkInstance = PerpleSDK.getInstance();
+                    perpleSdkInstance.initUnityAds(PerpleConfig.UNITYADS_GAME_ID, isDebug);
                 }
             }
         });
