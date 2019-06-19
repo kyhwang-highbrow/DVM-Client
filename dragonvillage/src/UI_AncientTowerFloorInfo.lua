@@ -131,8 +131,8 @@ function UI_AncientTowerFloorInfo:refresh_monsterList()
 
     -- 고대의 탑은 드래곤 몬스터인 경우 모두 보스 처리
     local function is_boss(id)
-        local code = getDigit(id, 1000, 3)
-        if (code == 120) then
+        local code = getDigit(id, 10000, 2)
+        if (code == 12) then
             return true
         end
         return false
