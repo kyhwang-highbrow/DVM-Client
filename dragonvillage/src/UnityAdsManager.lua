@@ -8,15 +8,21 @@ UnityAdsManager = {
     }
 
 -------------------------------------
--- function initRewardedVideoAd
--- @brief 보상형 광고 초기화
+-- function initAdSdk
+-- @brief
 -------------------------------------
-function UnityAdsManager:initRewardedVideoAd()
+function UnityAdsManager:initAdSdk()
     -- UnityAds 초기화
     cclog('##UnityAds## unityads_init')
     local debug_str = 'debug' -- 'debug' or ''
     SDKManager:sendEvent('unityads_initialize', debug_str)
+end
 
+-------------------------------------
+-- function initRewardedVideoAd
+-- @brief 보상형 광고 초기화
+-------------------------------------
+function UnityAdsManager:initRewardedVideoAd()
     local unityads_listener = function(ret, info) self:unityAdsListener(ret, info) end
 
     -- UnityAds start
@@ -42,6 +48,16 @@ function UnityAdsManager:unityAdsListener(ret, info)
     elseif (ret == 'finish') then
 
     elseif (ret == 'error') then
+
+        -- SDK 자체가 초기화되기 전에 start를 호출한 경우
+        -- info : {"code":"-1800","subcode":"0","msg":"UnityAds is not initialized."}
+        local t_error = dkjson.decode(info)
+        if (t_error) then
+            if (t_error['code'] == '-1800') then
+                self:initRewardedVideoAd()
+            end
+        end
+
 
         if (info == 'NOT_READY') then
 

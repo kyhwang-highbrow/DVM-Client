@@ -315,6 +315,7 @@ function UI_TitleScene:setWorkList()
 
     -- @perpelsdk
     if (isAndroid() or isIos()) then
+        table.insert(self.m_lWorkList, 'workInitAdSDKSelector') -- 광고 sdk 초기화    
         table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
         table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
 		table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
@@ -1133,6 +1134,20 @@ end
 function UI_TitleScene:workGetServerInfo_click()
 end
 
+
+-------------------------------------
+-- function workInitAdSDKSelector
+-- @brief 광고 SDK 선택자 초기화
+-------------------------------------
+function UI_TitleScene:workInitAdSDKSelector()
+    AdSDKSelector:initAdSDKSelector()
+    
+    -- 다음 work로 이동
+    self:doNextWork()
+end
+function UI_TitleScene:workInitAdSDKSelector_click()
+end
+
 -------------------------------------
 -- function workBillingSetup
 -- @brief Billing 초기화
@@ -1302,7 +1317,6 @@ function UI_TitleScene:workPrepareAd()
 
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
-    AdSDKSelector:initAdSDKSelector()
     AdSDKSelector:initRewardedVideoAd()
 
     -- 2019.03.13 sgkim 전면 광고는 아직 사용하지 않기 때문에 주석 처리

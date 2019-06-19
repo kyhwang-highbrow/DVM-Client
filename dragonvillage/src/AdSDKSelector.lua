@@ -27,6 +27,7 @@ function AdSDKSelector:initAdSDKSelector()
     if isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4') then
         if CppFunctionsClass:isAndroid() then
             self.m_sdkName = 'unityads'
+            UnityAdsManager:initAdSdk()
             return
         end
     end
