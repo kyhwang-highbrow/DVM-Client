@@ -21,6 +21,16 @@ AdSDKSelector = {
 -- @brief 광고 SDK 선택자 초기화
 -------------------------------------
 function AdSDKSelector:initAdSDKSelector()
+    local appver_str = CppFunctionsClass:getAppVer()
+
+    -- 최신 aos 빌드에서는 unityads 사용
+    if isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4') then
+        if CppFunctionsClass:isAndroid() then
+            self.m_sdkName = 'unityads'
+            return
+        end
+    end
+
     self.m_sdkName = 'admob'
 end
 
