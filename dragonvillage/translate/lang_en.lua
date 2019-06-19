@@ -81,6 +81,7 @@ return {['공포, 분노, 증오...그 모든 것이 어둠의 힘으로 이어�
 ['다이아\n9,000개']='Diamonds\nx9,000',
 ['신화의 알\n1개']='Mythical Egg\nx1',
 ['절대적인 전설의 알\n1개']='Absolute Legendary Egg\nx1',
+['시험의 탑 모든 속성\n{1}층 클리어']='Clear Tower of Tests\n{1}F (All Attributes)',
 [' 빛의 거목']='Massive Light Tree',
 ['\"{1}\" 진행하시겠습니까?']='{1} Continue?',
 ['\"언어 설정\"은 준비 중입니다.']='“Languages” is currently in preparation.',
