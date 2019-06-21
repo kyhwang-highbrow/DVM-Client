@@ -463,14 +463,16 @@ function UI_GameResult_AncientTower:checkAutoPlayCondition()
             local max_stage_id = g_attrTowerData:getAttrMaxStageId()
             if (self.m_stageID == max_stage_id) then
                 auto_play_stop = true
+                msg = Str('모든 층을 클리어하여 연속 전투가 종료되었습니다.')
             end
         -- 고대의 탑은 50층이 최상위 층
         else
             if (self.m_stageID == ANCIENT_TOWER_STAGE_ID_FINISH) then
                 auto_play_stop = true
+                msg = Str('모든 층을 클리어하여 연속 전투가 종료되었습니다.')
             end
         end     
-        msg = Str('모든 층을 클리어하여 연속 전투가 종료되었습니다.')
+        
 	end
 
 	return auto_play_stop, msg
