@@ -95,6 +95,10 @@ function UI_EggSimulator:getEggCntPopup()
     ui_number_popup.vars['titleLabel']:setString('부화할 알의 갯수를 입력하세요.')
     ui_number_popup.vars['dscLabel']:setString('애뮬레이터 로그창에서 부화결과를 확인할 수 있습니다')
     ui_number_popup.vars['okBtn']:registerScriptTapHandler(function() self:request_showResult() end)
+    ui_number_popup.vars['closeBtn']:registerScriptTapHandler(function() ui_number_popup:close() end)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(ui_number_popup, function() ui_number_popup:close() end, 'UI_EggSimulatorPopup')
 
     -- 숫자 3자리까지 입력 가능
     ui_number_popup.vars['editBox']:setMaxLength(3)
