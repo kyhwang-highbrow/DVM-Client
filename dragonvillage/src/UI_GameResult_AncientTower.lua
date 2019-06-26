@@ -456,7 +456,15 @@ end
 function UI_GameResult_AncientTower:checkAutoPlayCondition()
 	local auto_play_stop, msg = PARENT.checkAutoPlayCondition(self)
 
+    -- 승리 시 다음층으로 이동
 	if (g_autoPlaySetting:get('tower_next_floor')) then  
+        -- 패배했다면 더이상 조건체크 안함
+        if (not self.m_bSuccess) then
+            auto_play_stop = true
+            msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
+            return auto_play_stop, msg
+        end
+        
         local is_attr = g_ancientTowerData:isAttrChallengeMode()
         -- 시험의 탑의 경우 개방된 최상위 층으로 판단
         if (is_attr) then
