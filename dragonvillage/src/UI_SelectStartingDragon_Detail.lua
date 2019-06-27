@@ -146,5 +146,22 @@ function UI_SelectStartingDragon_Detail:click_selectBtn()
 		self.m_makeAccountFunc()
 		self:close()
 	end
-    UI_SelectNickname(self.m_selectIdx, cb_func)
+
+    -- @jhakim 닉네임 결정하는 시점에서 유저 이탈이 일어나는 걸로 의심되어 닉네임 결정하는 스텝을 제거
+    --  UI_SelectNickname(self.m_selectIdx, cb_func)
+    self:makeTempNick(cb_func)
+end
+
+-------------------------------------
+-- function makeTempNick
+-- @brief 신규 계정 생성 시, 아무 닉네임이나 주면 서버에서 임시 닉네임을 부여해줌
+-------------------------------------
+function UI_SelectStartingDragon_Detail:makeTempNick(cb_func)
+    local vars = self.vars
+    local idx = self.m_selectIdx
+
+	local l_starting_data = UI_SelectStartingDragon.getStartingData()
+    local user_type = l_starting_data[idx]['user_type']
+
+    g_startTamerData:request_createAccount(user_type, nil, 'temporary_nick', cb_func)
 end
