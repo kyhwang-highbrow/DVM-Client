@@ -40,7 +40,7 @@ end
 function UI_SelectNickname:initButton()
     local vars = self.vars
 
-    vars['createBtn']:registerScriptTapHandler(function() self:click_createBtn() end)
+    vars['createBtn']:registerScriptTapHandler(function() self:click_changeNickBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
@@ -92,5 +92,27 @@ function UI_SelectNickname:click_createBtn()
 		self:close()
 	end
 
-    g_startTamerData:request_createAccount(user_type, nil, nick, finish_cb)
+	g_startTamerData:request_createAccount(user_type, nil, nick, finish_cb)
+end
+
+-------------------------------------
+-- function click_createBtn
+-- @brief 닉네임 변경
+-------------------------------------
+function UI_SelectNickname:click_changeNickBtn()
+    local vars = self.vars
+    local nick = vars['editBox']:getText()
+
+    if (nick == '') then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('사용 할 닉네임을 입력하세요.'))
+        return
+    end
+
+    local function finish_cb()
+		self.m_makeAccountFunc()
+		self:close()
+	end
+
+    --g_startTamerData:request_createAccount(user_type, nil, nick, finish_cb)
+    g_userData:request_changeNick(nil, nil, nick, finish_cb)
 end

@@ -144,6 +144,7 @@ function UI_UserInfoDetailPopup:initButton()
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
     vars['titleChangeBtn']:registerScriptTapHandler(function() self:click_titleChangeBtn() end)
     vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
+    vars['changeBtn']:registerScriptTapHandler(function() self:click_changeNickBtn() end)
 
     if (self.m_hasClan) then
         vars['clanBtn1']:registerScriptTapHandler(function() self:click_clanBtn() end)
@@ -226,6 +227,18 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 	-- 테이머 이름
 	local tamer_name = TableTamer:getTamerName(tamer_id)
 	vars['tamerLabel']:setString(tamer_name)
+    
+    -- 닉네임
+	local nick_name = g_userData:get('nick')
+	vars['nameLabel']:setString(nick_name)
+	
+	-- 닉네임 최초 1회 변경했는지 여부에 따라 visible 설정 
+    local first_nick_change = g_userData:isFirstNickChange()
+    self.vars['changeBtn']:setVisible(first_nick_change)
+	
+	-- 닉네임 길이에 따라 버튼 위치 조정 
+    local nick_str_width = vars['nameLabel']:getStringWidth() + 30
+    self.vars['changeBtn']:setPositionX(nick_str_width)
 end
 
 -------------------------------------
@@ -540,6 +553,15 @@ function UI_UserInfoDetailPopup:click_whisperBtn()
    g_chatManager:openChatPopup_whisper(nickname)
 end
 
+-------------------------------------
+-- function click_changeNickBtn
+-------------------------------------
+function UI_UserInfoDetailPopup:click_changeNickBtn()
+    local cb_finish = function()
+        self:refresh()
+    end
+    UI_SelectNickname(nil, cb_finish)
+end
 
 
 

@@ -387,6 +387,11 @@ function ServerData_User:request_changeNick(mid, code, nick, cb_func)
     local function success_cb(ret)
         -- nickname 적용
         self:applyServerData(nick, 'nick')
+        
+        -- 닉네임 최초 1회 변경했는지 여부값 갱신
+        if (ret['first_nickchange']) then
+            self:applyServerData(ret['first_nickchange'], 'first_nickchange')
+        end
 
         -- 채팅 서버에 변경사항 적용
         g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
@@ -490,4 +495,14 @@ end
 -------------------------------------
 function ServerData_User:getReinforcePoint(item_id)
 	return self:get('reinforce_point')[tostring(item_id)] or 0
+end
+
+-------------------------------------
+-- function isFirstNickChange
+-- @brief 닉네임 변경 가능 여부 리턴(첫 로그인 시, 무료로 1회 변경 가능)
+-- @brief login통신에서 받는 first_nickchange = 1일 경우 return true
+-------------------------------------
+function ServerData_User:isFirstNickChange()
+    local first_nick_change = g_serverData:get('user', 'first_nickchange')
+    return (first_nick_change == 1)
 end
