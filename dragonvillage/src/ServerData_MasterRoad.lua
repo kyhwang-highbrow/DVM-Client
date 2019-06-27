@@ -190,7 +190,7 @@ end
 -- @brief 보상 수령 후에 기본 항목 체크
 -------------------------------------
 function ServerData_MasterRoad:updateMasterRoadAfterReward(cb_func)
-    for _, key in pairs({'t_get', 'make_frd', 'u_lv', 'd_evup', 'd_sklvup', 'd_grup'}) do
+    for _, key in pairs({'t_get', 'make_frd', 'u_lv', 'd_evup', 'd_sklvup', 'd_grup', 'clr_stg'}) do
 
         local t_data = {['clear_key'] = key}
         if (self:checkFocusRoadClear(t_data)) then
@@ -406,6 +406,20 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data, raw_da
             return (raw_cnt >= grup_cnt)
 
         -----------------------------------
+		-- 로비나 마스터의 길 팝업에서 스테이지 정보 사용해서 판
+        -----------------------------------
+        -- 스테이지 클리어 
+        elseif (clear_type == 'clr_stg') then
+            local clear_stage_id = tonumber(clear_cond)
+
+            local stage_info = g_adventureData:getStageInfo(clear_stage_id)
+            local clear_cnt = stage_info['clear_cnt']
+
+            if (clear_cnt and clear_cnt > 0) then
+                return true
+            end
+
+        -----------------------------------
         -- 별도의 비교값이 필요없는 타입
         -----------------------------------
         else
@@ -422,6 +436,7 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data, raw_da
     -- clear_key를 넘기지 않음 -> 인게임 클리어 타입
     else
         -- stage clear
+		-- 인게임 종료 후, 받은 정보로 판단 
         if (pl.stringx.startswith(clear_type, 'clr_')) and (t_data['is_success'] == true) then
             local stage_id = t_data['stage_id']
             return (stage_id == clear_cond)
