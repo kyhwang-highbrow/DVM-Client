@@ -490,12 +490,11 @@ function IconHelper:getStatusEffectIcon(status_effect_type)
     if (res_name and res_name ~= '') then
         local path, file_name, extension = string.match(res_name, "(.-)([^//]-)(%.[^%.]+)$")
         res_name = string.format('ingame_status_effect_%s.png', file_name)
+		-- @jhakim 190628
+		-- 메모리 부족으로 캐싱된 데이터가 지워진 상태에서 sprite를 생성하려다가 오류 발생한 사례가 있었음
+		-- 이미 해당 캐시가 존재한다면 추가로 등록하지 않기 때문에 필요할 때마다 캐시넣는 방향으로 수 
+        cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_status_effect/ingame_status_effect.plist')
         sprite = cc.Sprite:createWithSpriteFrameName(res_name)
-
-        if (not sprite) then
-            cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_status_effect/ingame_status_effect.plist')
-            sprite = cc.Sprite:createWithSpriteFrameName(res_name)
-        end
     else
         sprite = self:getIcon(res_name, 'res/ui/icons/noti_icon_0101.png' )    
     end
