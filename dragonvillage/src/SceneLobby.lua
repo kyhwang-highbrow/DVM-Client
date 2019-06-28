@@ -11,8 +11,23 @@ function SceneLobby:init(is_use_loading)
 	self.m_sceneName = 'SceneLobby'
 
 	self.m_bUseLoadingUI = is_use_loading
-	self.m_loadingGuideType = 'all'
-	self.m_loadingUIDuration = 1
+
+    self:init_loadingGuideType()
+    self.m_loadingUIDuration = 1
+end
+
+-------------------------------------
+-- function init_loadingGuideType
+-- @brief 로딩가이드 타입
+-------------------------------------
+function SceneLobby:init_loadingGuideType()
+	-- 튜토리얼 시작전 로비 진입 로딩화면이라면 in_tutorial_lobby 로딩 가이드 사용
+    local b_before_first_tutorial = TutorialManager.getInstance():beforeFirstTutorialDone()
+    if (b_before_first_tutorial) then
+        self.m_loadingGuideType = 'in_tutorial_lobby'
+    else
+	    self.m_loadingGuideType = 'all'
+	end
 end
 
 -------------------------------------

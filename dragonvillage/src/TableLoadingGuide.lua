@@ -33,6 +33,10 @@ function TableLoadingGuide:getGuideDataByWeight(guide_type)
 
 	-- weight 의 합계를 구한다.
 	for i, v in pairs(l_guide) do
+        local weight = 10
+        if (v['weight'] ~= '') then -- 테이블이 비어있을 경우 디폴트로 10 세팅
+            weight = v['weight']
+        end
 		weight_sum = weight_sum + v['weight']
 	end
 

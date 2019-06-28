@@ -804,3 +804,28 @@ function TutorialManager:forcedClose()
 		end
 	end
 end
+
+-------------------------------------
+-- function isFirstTutorialDone
+-- @comment 첫 번째 튜토리얼 시작 전이라면 return true
+-------------------------------------
+function TutorialManager:beforeFirstTutorialDone()
+	-- 튜토리얼 가능 상태
+	if (not self:isCanTutorial()) then
+		return false
+	end
+
+	-- 1-1 start 클리어 여부
+	local stage_id = 1110101
+	local tutorial_key = TUTORIAL.FIRST_START
+
+	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+	local is_done = g_tutorialData:isTutorialDone(tutorial_key)
+	local is_master_road_clear = g_masterRoadData:isClearedRoad(10001)
+
+	if (not is_done) or (clear_cnt == 0) or (not is_master_road_clear) then
+		return true
+	end
+
+    return false
+end

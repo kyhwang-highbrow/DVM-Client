@@ -283,7 +283,7 @@ end
 -- @brief 로딩가이드 타입 - 인트로 전투일때 어떤 로딩?
 -------------------------------------
 function SceneGameIntro:init_loadingGuideType()
-	self.m_loadingGuideType = 'in_adventure'
+	self.m_loadingGuideType = 'in_tutorial_battle'
 end	
 
 -------------------------------------
