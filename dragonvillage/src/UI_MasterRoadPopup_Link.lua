@@ -23,6 +23,11 @@ function UI_MasterRoadPopup_Link:init(stage_id)
 	-- 나중에 고민하고 살릴 예정
 	-- g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_MasterRoadPopup_Link')
 
+
+    -- @jhakim 190701 강제 튜토리얼 진행중에 나중에 가기 버튼이 (눌리지 않아야하는데)눌리면 오류남 
+    -- '나중에 가기' 버튼이 action 끝나기 전에 눌리는 것을 방지
+    vars['nextBtn']:setEnabled(false)
+
 	-- @UI_ACTION
 	self:doActionReset()
 	self:doAction(function()
@@ -43,6 +48,7 @@ function UI_MasterRoadPopup_Link:init(stage_id)
 
 			end
 		end
+        vars['nextBtn']:setEnabled(true)
 
     end, false)
 
