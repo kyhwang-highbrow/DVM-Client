@@ -236,6 +236,7 @@ end
 -- function createWithSpriteFrameName
 -------------------------------------
 function SkillHitEffectDirector:createWithSpriteFrameName(res_name)
+	Translate:a2dTranslate('ui/a2d/ingame_damage/ingame_damage.plist')
 	local sprite = cc.Sprite:createWithSpriteFrameName(res_name)
     if (not sprite) then
         -- @E.T.

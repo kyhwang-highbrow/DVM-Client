@@ -1637,7 +1637,8 @@ end
 -- function createWithSpriteFrameName
 -------------------------------------
 function Character:createWithSpriteFrameName(res_name)
-	local sprite = cc.Sprite:createWithSpriteFrameName(res_name)
+    Translate:a2dTranslate('ui/a2d/ingame_damage/ingame_damage.plist')
+    local sprite = cc.Sprite:createWithSpriteFrameName(res_name)
     if (not sprite) then
         -- @E.T.
 		g_errorTracker:appendFailedRes(res_name)

@@ -93,6 +93,9 @@ function UI_Card:makeSprite(lua_name, res, no_use_frames)
     if (no_use_frames) then
         sprite = IconHelper:getIcon(res)
     else
+        -- 메모리 부족으로 캐싱된 데이터가 지워진 상태에서 sprite를 생성하려다가 오류 발생
+        -- 등록되어 있다면 또 등록하지 않기 때문에 사용할 때마다 등록하는 방향으로 수정 
+        cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/card/card.plist')
         sprite = IconHelper:createWithSpriteFrameName(res)
     end
     vars['clickBtn']:addChild(sprite)
