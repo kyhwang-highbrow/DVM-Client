@@ -406,18 +406,21 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data, raw_da
             return (raw_cnt >= grup_cnt)
 
         -----------------------------------
-		-- 로비나 마스터의 길 팝업에서 스테이지 정보 사용해서 판
+		-- 로비나 마스터의 길 팝업에서 스테이지 정보 사용해서 판단
         -----------------------------------
         -- 스테이지 클리어 
         elseif (clear_type == 'clr_stg') then
             local clear_stage_id = tonumber(clear_cond)
 
             local stage_info = g_adventureData:getStageInfo(clear_stage_id)
-            local clear_cnt = stage_info['clear_cnt']
+            if (stage_info) then
+                local clear_cnt = stage_info['clear_cnt']
 
-            if (clear_cnt and clear_cnt > 0) then
-                return true
+                if (clear_cnt and clear_cnt > 0) then
+                    return true
+                end
             end
+            return false
 
         -----------------------------------
         -- 별도의 비교값이 필요없는 타입
