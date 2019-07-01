@@ -248,6 +248,15 @@ end
 function UI_Product:click_buyBtn()
 	local struct_product = self.m_structProduct    
 
+    -- @jhakim 190701
+    -- 닉네임 변경권 구입전에 (신규유저라면 무료 변경 가능하다는) 팝업 띄워줘야 해서 구매 전 조건 체크 함수 추가
+    -- 원래는 struct_product:buy 함수에서 일괄적으로 체크하는 것이 맞으나, 작은 일로 buy함수 건들기 위험해서 이쪽에 추가, 후에 구매 전 조건 체크가 필요하다면 함수 옮기는 것을 추천 
+    local product_id = struct_product:getProductID()
+    if (self:canNotBuy(product_id)) then
+        return
+    end
+
+
 	if (struct_product:getTabCategory() == 'package') then
         local is_popup = true
 		local ui = PackageManager:getTargetUI(struct_product, is_popup)
@@ -284,6 +293,26 @@ function UI_Product:click_buyBtn()
         
 		struct_product:buy(cb_func)
 	end
+end
+
+-------------------------------------
+-- function canNotBuy
+-------------------------------------
+function UI_Product:canNotBuy(product_id)
+    if (not product_id) then
+        return false
+    end
+    
+    if (product_id == 10010) then
+        -- 닉네임 최초 1회 변경했는지 여부값 갱신        
+        local first_nick_change = g_userData:isFirstNickChange()
+        if (first_nick_change) then
+            UI_SimplePopup(POPUP_TYPE.OK, Str('유저 상세 정보에서 처음 1회만 변경권 없이 닉네임 변경을 할 수 있습니다.'), nil, nil)
+            return true
+        end
+    end
+
+    return false
 end
 
 -------------------------------------

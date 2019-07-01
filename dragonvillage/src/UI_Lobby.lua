@@ -877,8 +877,8 @@ function UI_Lobby:refresh_userInfo()
     vars['userExpGg']:setPercentage(exp_percentage)
 
     -- 닉네임 최초 1회 변경했는지 여부값 갱신        
-    local firsh_nick_change = g_userData:isFirstNickChange()
-    vars['changeNotiSprite']:setVisible(firsh_nick_change)
+    local first_nick_change = g_userData:isFirstNickChange()
+    vars['changeNotiSprite']:setVisible(first_nick_change)
 end
 
 -------------------------------------

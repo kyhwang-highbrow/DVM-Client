@@ -185,6 +185,12 @@ end
 -- @brief 단일 보상 수령
 -------------------------------------
 function UI_MailPopup:click_rewardBtn(ui, struct_mail)
+    -- @jhakim 190701
+    -- 닉네임 변경권 수령전에 (신규유저라면 무료 변경 가능하다는) 팝업 띄워줘야 해서 수령 전 조건 체크 함수 추가
+    if (self:canNotReward(struct_mail)) then
+        return
+    end
+    
     -- 읽고 난 후 콜백은 동일
 	local function success_cb()
 		if (struct_mail:isNotice()) then
@@ -201,6 +207,33 @@ function UI_MailPopup:click_rewardBtn(ui, struct_mail)
     end
 
     self:check_readType(struct_mail, success_cb)
+end
+
+-------------------------------------
+-- function canNotBuy
+-------------------------------------
+function UI_MailPopup:canNotReward(struct_mail)
+    if (not struct_mail) then
+        return false
+    end
+    
+    local l_mail_item = struct_mail:getItemList() or {}
+    
+    for _, data in ipairs(l_mail_item) do
+        if (data['item_id']) then
+            -- 닉네임 변경권일 경우
+            if (data['item_id'] == 700301) then
+                -- 닉네임 최초 1회 변경했는지 여부값 갱신        
+                local first_nick_change = g_userData:isFirstNickChange()
+                if (first_nick_change) then
+                    UI_SimplePopup(POPUP_TYPE.OK, Str('유저 상세 정보에서 처음 1회만 변경권 없이 닉네임 변경을 할 수 있습니다.'), nil, nil)
+                    return true
+                end
+            end
+        end  
+    end
+
+    return false
 end
 
 -------------------------------------
