@@ -95,7 +95,6 @@ function UI_TutorialPlayer:next(next_effect)
             self.m_nextCallBack = nil
         end
     end
-
     if (self.m_currPage <= self.m_maxPage) then
         -- traget UI 갱신
         if (self.m_targetUI) then
@@ -115,6 +114,7 @@ function UI_TutorialPlayer:next(next_effect)
             excute_next_func()
         end
     else
+
         self:close()
     end
 end

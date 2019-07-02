@@ -774,6 +774,7 @@ local t_module = {
     'UI_Popup',
     'UI_SimplePopup',
     'UI_SimplePopup2',
+    'UI_SimplePopup3',
 	'UI_ConfirmPopup',
 	'UI_ObtainPopup',
     'UI_CheersPopup',

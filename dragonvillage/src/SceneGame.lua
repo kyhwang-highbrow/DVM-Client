@@ -1239,3 +1239,9 @@ end
 function SceneGame:getGameWorld()
     return self.m_gameWorld
 end
+
+-------------------------------------
+-- function showSkipPopup
+-------------------------------------
+function SceneGame:showSkipPopup()
+end

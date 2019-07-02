@@ -773,6 +773,10 @@ function UI_Game:initIntroFight()
             vars[v]:setVisible(false)
         end
     end
+
+    -- 인트로 전투에만 스킵 버튼 추가
+    vars['skipBtn']:setVisible(true)
+    vars['skipBtn']:registerScriptTapHandler(function() self:click_skip() end)
 end
 
 -------------------------------------
@@ -846,4 +850,12 @@ function UI_Game:bindPanelGuide(unit, guide_node)
         guide_node:setPosition(x, y)
         self.m_panelUI.vars['panelMenu']:addChild(guide_node)
     end
+end
+
+-------------------------------------
+-- function click_skip
+-- @jhakim 190702 현재 인트로 전투에서만 사용
+-------------------------------------
+function UI_Game:click_skip()
+    g_gameScene:showSkipPopup()
 end

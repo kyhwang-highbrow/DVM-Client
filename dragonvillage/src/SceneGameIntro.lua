@@ -301,7 +301,7 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
     self.m_tutorialPlayer:next()
 
     -- 스킵은 항상 불가능
-    self.m_tutorialPlayer.vars['skipBtn']:setVisible(false)
+    self.m_tutorialPlayer.vars['skipBtn']:setVisible(true) -- 인트로 전투 스킵 가능하게 바뀜
     self.m_tutorialPlayer.vars['nextBtn']:setVisible(not no_use_next_btn)
     self.m_tutorialPlayer.vars['layerColor2']:setVisible(not no_color_layer)
 
@@ -339,3 +339,42 @@ function SceneGameIntro:next_intro()
     self.m_tutorialPlayer:next()
 end
 
+-------------------------------------
+-- function showSkipPopup
+-------------------------------------
+function SceneGameIntro:showSkipPopup()
+    local game_world = self.m_gameWorld
+    local ok_cb = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Tutorial_Intro_Skip')
+        g_gameScene:networkGameFinish()
+    end
+    local cancel_cb = function() 
+        game_world:setTemporaryPause(false, nil, INGAME_PAUSE__TUTORIAL_TALK) -- pause, excluded_dragon, tag
+    end
+    
+    -- 일시 정지 하고 튜토리얼 스킵 여부 물어봄
+    game_world:setTemporaryPause(true, nil, INGAME_PAUSE__TUTORIAL_TALK) -- pause, excluded_dragon, tag
+    self:makeSkipPopup(ok_cb, cancel_cb)
+end
+
+-------------------------------------
+-- function makeSkipPopup
+-- @brief 
+-- UI_TutorialPlaayer의 z_order는 TUTORIAL_DLG = 128
+-- UI_Popup에서 만드는 팝업은 z_order(UI = 16)가 더 낮아서 가려짐 (MakeSimplePopup.lua 사용 못함)
+-- 씬에 붙일 수 있는 팝업 사용
+-------------------------------------
+function SceneGameIntro:makeSkipPopup(ok_cb, cancel_cb)
+    local sub_msg = '시나리오 전투를 건너뛰시겠습니까?' -- 위 쪽 메세지
+    local msg = '설정→게임→시나리오 다시 보기에서 시나리오 전투를 다시 할 수 있습니다.' -- 아래 쪽 메세지
+    
+    local no_popup = true
+    local close_cb
+
+    local popup_ui = UI_SimplePopup3(POPUP_TYPE.YES_NO, msg, sub_msg, ok_cb, cancel_cb, g_gameScene.m_scene)
+    g_gameScene.m_scene:addChild(popup_ui.root, SCENE_ZORDER.TUTORIAL_DLG + 1)
+
+    -- 눌림 방지
+    UIManager:makeTouchBlock(popup_ui, false)
+end
