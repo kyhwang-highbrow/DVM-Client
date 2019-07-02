@@ -186,7 +186,7 @@ function GameState_AncientTower:checkToDieHighestRariry()
 
     if (world.m_bDevelopMode) then return false end
         
-    return world.m_waveMgr:checkToDieHighestRariry()
+    return world.m_waveMgr:checkToDieHighestRariry_ancient()
 end
 
 -------------------------------------

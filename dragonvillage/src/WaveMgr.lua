@@ -416,6 +416,38 @@ function WaveMgr:checkToDieHighestRariry()
 end
 
 -------------------------------------
+-- function checkToDieHighestRariry_ancient
+-- @brief 현재 웨이브에서 최고 Rariry의 적이 죽었는지 체크
+-- @brief 고대의 탑에서 부활 스킬(resurrect_time) 가진 드래곤은 dead상태만 확
+-------------------------------------
+function WaveMgr:checkToDieHighestRariry_ancient()
+    if (self.m_bDeadHighestRarity) then 
+        return true 
+    end
+    
+    if (not self.m_lBoss) then 
+        return false
+    end
+
+    local is_dead = true
+
+    for i, boss in ipairs(self.m_lBoss) do
+        local has_resurrect = boss:hasStatusEffectToResurrect()
+        
+        -- 자기 부활(resurrect_time) 스킬 있다면 dying말고 dead상태만 확인
+        local only_dead = has_resurrect
+        if (not boss:isDead(only_dead)) then
+            is_dead = false
+            break
+        end
+    end
+
+    self.m_bDeadHighestRarity = is_dead
+    
+    return is_dead
+end
+
+-------------------------------------
 -- function clearDynamicWave
 -------------------------------------
 function WaveMgr:clearDynamicWave()
