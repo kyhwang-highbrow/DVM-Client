@@ -12,6 +12,8 @@ SceneGameIntro = class(PARENT, {
         m_focusingDragon = 'Dragon',
 
 		m_nextCB = 'function',
+
+        m_isReplayMode = 'boolean', -- true 라면 firstTimeExperience 기록 안함
     })
 
 -------------------------------------
@@ -160,7 +162,7 @@ function SceneGameIntro:update(dt)
         self:play_tutorialTalk()
 
         -- @analytics
-        Analytics:firstTimeExperience('Tutorial_Intro_Wave')
+        self:firstTimeExperience('Tutorial_Intro_Wave')
     end 
     
     -- 두번째 웨이브 - 아이템 드랍시
@@ -168,7 +170,7 @@ function SceneGameIntro:update(dt)
         self:play_tutorialTalk(true)
 
         -- @analytics
-        Analytics:firstTimeExperience('Tutorial_Intro_AutoPick')
+        self:firstTimeExperience('Tutorial_Intro_AutoPick')
 
         world.m_dropItemMgr:startIntro()
     end 
@@ -252,7 +254,7 @@ function SceneGameIntro:update(dt)
         end
 
         -- @analytics
-        Analytics:firstTimeExperience('Tutorial_Intro_DragSkill')
+        self:firstTimeExperience('Tutorial_Intro_DragSkill')
 
         self:play_tutorialTalk(false, true)
     end
@@ -346,7 +348,7 @@ function SceneGameIntro:showSkipPopup()
     local game_world = self.m_gameWorld
     local ok_cb = function()
         -- @analytics
-        Analytics:firstTimeExperience('Tutorial_Intro_Skip')
+        self:firstTimeExperience('Tutorial_Intro_Skip')
         g_gameScene:networkGameFinish()
     end
     local cancel_cb = function() 
@@ -368,7 +370,7 @@ end
 function SceneGameIntro:makeSkipPopup(ok_cb, cancel_cb)
     local sub_msg = '시나리오 전투를 건너뛰시겠습니까?' -- 위 쪽 메세지
     local msg = '설정→게임→시나리오 다시 보기에서 시나리오 전투를 다시 할 수 있습니다.' -- 아래 쪽 메세지
-    
+	
     local no_popup = true
     local close_cb
 
@@ -377,4 +379,21 @@ function SceneGameIntro:makeSkipPopup(ok_cb, cancel_cb)
 
     -- 눌림 방지
     UIManager:makeTouchBlock(popup_ui, false)
+end
+
+-------------------------------------
+-- function setReplayMode
+-------------------------------------
+function SceneGameIntro:setReplayMode(is_replay)
+    self.m_isReplayMode = is_replay
+end
+
+-------------------------------------
+-- function firstTimeExperience
+-------------------------------------
+function SceneGameIntro:firstTimeExperience(first_experience_key)
+    if (not self.m_isReplayMode) then
+        -- @analytics
+        Analytics:firstTimeExperience(first_experience_key)
+    end
 end

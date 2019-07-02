@@ -152,7 +152,9 @@ function UI_ScenarioReplay:getScenarioList(chapter_no)
     local l_scenario = {}
     if (chapter_no == 'prologue') then
         table.insert(l_scenario, 'scenario_prologue')
-
+        table.insert(l_scenario, 'scenario_prologue_nightmare_1')
+        table.insert(l_scenario, 'scenario_prologue_intro_battle')
+        table.insert(l_scenario, 'scenario_prologue_nightmare_2')
     else
         local l_stage = {1, 4, 6, 7} -- 1, 4, 6, 7 스테이지만 시나리오 존재함
         for i, stage in ipairs(l_stage) do
@@ -178,6 +180,16 @@ end
 -- function click_replayBtn
 -------------------------------------
 function UI_ScenarioReplay:click_replayBtn(scenario_name)
+    -- 악몽1, 인트로 전투, 악몽2 예외처리
+    if (scenario_name == 'scenario_prologue_nightmare_1') then
+        scenario_name = 'scenario_intro_start_goni' -- 변수와 파일의 시나리오 이름이 다름
+    elseif (scenario_name == 'scenario_prologue_intro_battle') then
+        self:runScenarioBattle()
+        return
+    elseif (scenario_name == 'scenario_prologue_nightmare_2') then
+        scenario_name = 'scenario_intro_finish' -- 변수와 파일의 시나리오 이름이 다름
+    end
+
     local ui = UI_ScenarioPlayer(scenario_name)
     ui:next()
     -- 보고 온 후 타이틀 bgm 다시 재생
@@ -192,6 +204,22 @@ end
 function UI_ScenarioReplay:click_exitBtn()
     cc.SpriteFrameCache:getInstance():removeSpriteFrameByName(PLIST_PATH)
     self:close()
+end
+
+-------------------------------------
+-- function runScenarioBattle
+-------------------------------------
+function UI_ScenarioReplay:runScenarioBattle()
+    local scene = SceneGameIntro()
+    scene:setReplayMode(true)
+    scene:runScene()
+    scene:setNextCB(function()
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end 
+        local scene = SceneCommon(UI_ScenarioReplay, close_cb)
+        scene:runScene() 
+    end)
 end
 
 --@CHECK
