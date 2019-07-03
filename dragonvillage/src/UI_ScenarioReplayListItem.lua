@@ -60,7 +60,7 @@ function UI_ScenarioReplayListItem:setPrologue(scenario_name)
     vars['titleLabel']:setString(Str(title))
 
     -- 배경 & 캐릭터 썸네일
-    local bg_path = 'sc_0.png'
+    local bg_path = (stage == '') and 'sc_0.png' or string.format('sc_%d.png', chapter)
     if (bg_path) then
         local bg_icon = cc.Sprite:createWithSpriteFrameName(bg_path)
         bg_icon:setAnchorPoint(ZERO_POINT)
