@@ -379,5 +379,7 @@ end
 -- function click_skip
 -------------------------------------
 function UI_TutorialPlayer:click_skip()
-    g_gameScene:showSkipPopup()
+    if (g_gameScene) then
+        g_gameScene:showSkipPopup()
+    end
 end
