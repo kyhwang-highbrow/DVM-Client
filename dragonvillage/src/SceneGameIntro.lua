@@ -292,6 +292,11 @@ end
 -- function SceneGameIntro
 ------------------------------------
 function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
+    -- skip기능으로 m_tutorialPlayer 값 지워버린 상태에서 이 함수 들어왔을 때 예외처리 
+    if (not self.m_tutorialPlayer) then
+        return
+    end
+    
     local no_use_next_btn = no_use_next_btn or false
     local no_color_layer = no_color_layer or no_use_next_btn
 
