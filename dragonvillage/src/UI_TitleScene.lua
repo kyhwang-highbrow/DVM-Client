@@ -1313,7 +1313,7 @@ end
 -- @brief 광고 준비
 -------------------------------------
 function UI_TitleScene:workPrepareAd()
-    PerpleSdkManager.getCrashlytics():setData('workPrepareAd_1', true)
+    PerpleSdkManager.getCrashlytics():setLog('workPrepareAd_1')
 
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
@@ -1327,7 +1327,7 @@ function UI_TitleScene:workPrepareAd()
     --     AdMobManager:initInterstitialAd()
     -- end
 
-    PerpleSdkManager.getCrashlytics():setData('workPrepareAd_2', true)
+    PerpleSdkManager.getCrashlytics():setLog('workPrepareAd_2')
 
     self:doNextWork()
 end
