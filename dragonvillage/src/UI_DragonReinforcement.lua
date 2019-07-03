@@ -584,7 +584,14 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
         -- 코루틴이 종료되는 어떠한 상황에서도 호출될 함수
         local function coroutine_finidh_cb()
 	        -- 선택된 버튼(열매id) 초기화
-            self.m_selectedBtnId = nil	
+            self.m_selectedBtnId = nil
+            
+            -- 연출 종료
+		    self.m_reinforceEffect:addAniHandler(function()
+			self.m_reinforceEffect:setVisible(false)
+            end)
+		    -- 백키 블럭 해제
+            UIManager:blockBackKey(false)
         end
         co:setCloseCB(coroutine_finidh_cb)
 
@@ -813,7 +820,11 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
-	local vars = self.vars
+	if (not item_ui) then
+        return
+    end
+    
+    local vars = self.vars
     local pos_x = 0
     local pos_y = 0
 
