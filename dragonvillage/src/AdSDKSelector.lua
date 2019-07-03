@@ -25,8 +25,12 @@ function AdSDKSelector:initAdSDKSelector()
 
     -- 최신 aos 빌드에서는 unityads 사용
     if (CppFunctionsClass:isAndroid() and isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4')) then
-        self.m_sdkName = 'unityads'
-        UnityAdsManager:initAdSdk()
+        --self.m_sdkName = 'unityads'
+        --UnityAdsManager:initAdSdk()
+
+        -- @sgkim 20190703 구글의 Webview 오류 수정이 되었다는 연락을 받음
+        -- 따라서 수익률이 높은 admob으로 다시 변경
+        self.m_sdkName = 'admob'
     else
         self.m_sdkName = 'admob'
     end
