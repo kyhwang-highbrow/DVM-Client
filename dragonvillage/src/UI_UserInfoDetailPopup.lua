@@ -228,17 +228,20 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 	local tamer_name = TableTamer:getTamerName(tamer_id)
 	vars['tamerLabel']:setString(tamer_name)
     
-    -- 닉네임
-	local nick_name = g_userData:get('nick')
-	vars['nameLabel']:setString(nick_name)
-	
-	-- 닉네임 최초 1회 변경했는지 여부에 따라 visible 설정 
-    local first_nick_change = g_userData:isFirstNickChange()
-    self.vars['changeBtn']:setVisible(first_nick_change)
-	
-	-- 닉네임 길이에 따라 버튼 위치 조정 
-    local nick_str_width = vars['nameLabel']:getStringWidth() - 130
-    self.vars['changeBtn']:setPositionX(nick_str_width)
+    -- 자신의 닉네임일 때만 갱신(닉네임 변경 버튼있어서, 자신의 닉네임 갱신은 필요)
+    if (self.m_tUserInfo['uid'] == g_userData:get('uid')) then
+        -- 닉네임
+	    local nick_name = g_userData:get('nick')
+	    vars['nameLabel']:setString(nick_name)
+	    
+	    -- 닉네임 최초 1회 변경했는지 여부에 따라 visible 설정 
+        local first_nick_change = g_userData:isFirstNickChange()
+        self.vars['changeBtn']:setVisible(first_nick_change)
+	    
+	    -- 닉네임 길이에 따라 버튼 위치 조정 
+        local nick_str_width = vars['nameLabel']:getStringWidth() - 130
+        self.vars['changeBtn']:setPositionX(nick_str_width)
+    end
 end
 
 -------------------------------------
