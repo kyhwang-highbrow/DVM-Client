@@ -1,29 +1,5 @@
 local MAX_TYPE_CNT = 5
 
--------------------------------------
--- function openPurchasePointBgByType
--------------------------------------
-function openPurchasePointBgByType(bg_type, item_id, item_count, version)
-    local ui_bg = UI_PurchasePointBg(item_id, version)
-
-    -- 타입별로 세팅
-    if (bg_type == 'dragon_ticket') then
-        ui_bg:setDragonTicket()
-    elseif (bg_type == 'dragon') then
-        ui_bg:setDragon()
-    elseif (bg_type == 'reinforce') then
-        ui_bg:setReinforce(item_count)
-    elseif(bg_type == 'skill_slime') then
-        ui_bg:setSkillSlime(item_count)
-    elseif(bg_type == 'item') then
-        ui_bg:setItem(item_count)
-    end
-
-    return  ui_bg
-end
-
-
-
 
 local PARENT = UI
 
@@ -33,31 +9,55 @@ local PARENT = UI
 UI_PurchasePointBg = class(PARENT,{
         m_item_id = 'number',
         m_version = 'number',
+        m_count = 'number',
+        m_type = 'string', -- dragon_ticket, dragon, skill_slime, item, reinforce
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PurchasePointBg:init(item_id, version)
-    self:load('event_purchase_point_item_new_02.ui')
+function UI_PurchasePointBg:init(bg_type, item_id, item_count, version)
+    
+    local url = self:getUrl(bg_type)
+    self:load(url)
     self.m_item_id = item_id
     self.m_version = version
+    self.m_count = item_count
+    self.m_type = bg_type
 
     self:doActionReset()
     self:doAction(nil, false)
 
-    -- 타입별 노드 초기화
-    for i = 1, MAX_TYPE_CNT do
-        if (self.vars['productNode'..i]) then
-            self.vars['productNode'..i]:setVisible(false)
-        end
+    -- 타입에 맞추어 UI 세팅
+    if (bg_type == 'dragon') then
+        self:initDragon()
+    elseif (bg_type == 'dragon_ticket') then
+        self:initDragonTicket()
+    else
+        self:initItem()
     end
 
+    self:setLimit()
     self:setDescLabel()
 end
 
+-------------------------------------
+-- function getUrl
+-------------------------------------
+function UI_PurchasePointBg:getUrl(bg_type)
+    local url = 'event_purchase_point_item_reward_03.ui'
+    if (bg_type == 'dragon') then
+        url = 'event_purchase_point_item_reward_02.ui'
+    elseif (bg_type == 'dragon_ticket') then
+        url = 'event_purchase_point_item_reward_01.ui'
+    else
+        url = 'event_purchase_point_item_reward_03.ui'
+    end
 
-function UI_PurchasePointBg:setDragonTicket()
+    return url
+end
+
+function UI_PurchasePointBg:initDragonTicket()
     if (not self.m_item_id) then
         return
     end
@@ -66,7 +66,7 @@ function UI_PurchasePointBg:setDragonTicket()
     self:initButton_dragonTicket()
 end
 
-function UI_PurchasePointBg:setDragon()
+function UI_PurchasePointBg:initDragon()
     if (not self.m_item_id) then
         return
     end
@@ -75,29 +75,14 @@ function UI_PurchasePointBg:setDragon()
     self:initButton_dragon()
 end
 
-function UI_PurchasePointBg:setReinforce(item_count)
+function UI_PurchasePointBg:initItem()
     if (not self.m_item_id) then
         return
     end
-
-    self:initUI_reinforce(item_count)
+    
+    self:initUI_Item()
 end
 
-function UI_PurchasePointBg:setSkillSlime(item_count)
-    if (not self.m_item_id) then
-        return
-    end
-
-    self:initUI_skillSlime(item_count)
-end
-
-function UI_PurchasePointBg:setItem(item_count)
-    if (not self.m_item_id) then
-        return
-    end
-
-    self:initUI_Item(item_count)
-end
 
 
 
@@ -110,9 +95,6 @@ end
 function UI_PurchasePointBg:initUI_dragonTicket()
     local vars = self.vars
     local item_id = self.m_item_id
-
-    vars['productNode1']:setVisible(true)
-    self:setLimit(1) -- productNode 1의 1
 
     local ui_card = UI_ItemCard(item_id, 0)
     ui_card.root:setScale(0.66)
@@ -168,10 +150,6 @@ function UI_PurchasePointBg:initUI_dragon()
     local vars = self.vars
     local item_id = self.m_item_id
     local did = TableItem:getDidByItemId(item_id)
-    
-    vars['productNode2']:setVisible(true)
-    self:setLimit(2) -- productNode 2의 2
-
     local table_dragon = TableDragon()
 
     -- 이름
@@ -243,23 +221,59 @@ end
 
 -------------------------------------
 -- function initUI_reinforce
--- @breif 누적결제 최종 상품이 [강화 포인트]일 경우 세팅
+-- @breif 누적결제 최종 상품이 아이템일 경우 세팅
 -------------------------------------
-function UI_PurchasePointBg:initUI_reinforce(item_count)
+function UI_PurchasePointBg:initUI_Item()
     local vars = self.vars
     local item_id = self.m_item_id
+    local reward_type = self.m_type
+    if (not self.m_count) then
+        return
+    end
     
-    if (not item_count) then
+    if (reward_type == 'reinforce') then -- 전설 강화 포인트
+        self:setReinforce()
+    elseif (reward_type == 'skill_slime') then -- 전설 스킬 슬라임
+        self:setSkillSlime()
+    elseif (reward_type == 'item') then -- 아이템 공용 @jhakim 190709 현재는 절대적인 전설의 알에서만 사용
+        self:setItem()
+    end
+
+    self:setCommom()
+end
+
+-------------------------------------
+-- function setCommom
+-------------------------------------
+function UI_PurchasePointBg:setCommom()
+    local vars = self.vars
+    local item_id = self.m_item_id
+    local item_name = TableItem:getItemName(item_id)
+    local item_count = self.m_count
+
+    vars['itemLabel']:setString(string.format('%s X %d', item_name, item_count))
+
+    vars['effect']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+end
+
+-------------------------------------
+-- function setReinforce
+-- @breif 누적결제 최종 상품이 [강화 포인트]일 경우 세팅
+-------------------------------------
+function UI_PurchasePointBg:setReinforce()
+    local vars = self.vars
+    
+    -- 강화 포인트 이미지
+    local reinforce_sprite = cc.Sprite:create('ui/icons/purchase_point/reinforce_point.png')
+    if (not reinforce_sprite) then
         return
     end
 
-    vars['productNode3']:setVisible(true)
-    self:setLimit(3) -- productNode 3의 3
+    reinforce_sprite:setAnchorPoint(CENTER_POINT)
+    reinforce_sprite:setDockPoint(CENTER_POINT)
+    vars['itemNode']:addChild(reinforce_sprite)
 
-    local item_name = TableItem:getItemName(item_id)
-    vars['itemLabel2']:setString(string.format('%s X %d', item_name, item_count))
-
-     -- 배경 visual  세팅
+    -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
     vars['bgNode']:addChild(animator.m_node)
 end
@@ -268,54 +282,49 @@ end
 -- function initUI_skillSlime
 -- @breif 누적결제 최종 상품이 [스킬 슬라임]일 경우 세팅
 -------------------------------------
-function UI_PurchasePointBg:initUI_skillSlime(item_count)
+function UI_PurchasePointBg:setSkillSlime()
     local vars = self.vars
     local item_id = self.m_item_id
-
-    -- 강화포인트와 같은 MenuNode 사용
-    vars['productNode3']:setVisible(true)
-    self:setLimit(3) -- productNode 3의 3
-
+    
+    -- 스킬 슬라임 스파인
     local animator = MakeAnimator('res/character/monster/skill_slime_03/skill_slime_03.json') -- json...
     vars['slimeNode']:addChild(animator.m_node)
-    
-    local item_name = TableItem:getItemName(item_id)
-    vars['itemLabel2']:setString(string.format('%s X %d', item_name, item_count))
+
+    -- 별 비주얼 출력
+    vars['starVisual']:setVisible(true)
 
     -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
     vars['bgNode']:addChild(animator.m_node)
-
-    vars['effect3']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 end
 
 -------------------------------------
 -- function initUI_Item
 -- @breif 누적결제 최종 상품이 [아이템]일 경우 세팅 (ex) 신화의 알.. 등등 여기서 하드코딩
 -------------------------------------
-function UI_PurchasePointBg:initUI_Item(item_count)
+function UI_PurchasePointBg:setItem()
     local vars = self.vars
     local item_id = self.m_item_id
+    local item_count = self.m_count
 
-    vars['productNode4']:setVisible(true)
-    self:setLimit(4) -- productNode 4의 4
-    
     -- 갯수 라벨 세팅
     local item_name = TableItem:getItemName(item_id)
-    vars['itemLabel3']:setString(string.format('%s X %d', item_name, item_count))
+    vars['itemLabel']:setString(string.format('%s X %d', item_name, item_count))
 
     -- 아이템 Visual 세팅
     local animator = self:getItemVisual(item_id)
     if (animator) then
-        vars['itemNode2']:addChild(animator.m_node)
+        vars['eggNode']:addChild(animator.m_node)
     end
 
-    -- 배경 visual  세팅
+    -- 배경 visual 세팅
     local animator = MakeAnimator('res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp')
     vars['bgNode']:addChild(animator.m_node)
-
-    vars['effect4']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 end
+
+
+
+
 
 -------------------------------------
 -- function getItemVisual
@@ -356,27 +365,24 @@ function UI_PurchasePointBg:setDescLabel(item_count)
             return
         end
     end
-
-    vars['dscSprite']:setVisible(false)
-    vars['dcsLabel']:setVisible(false)
-
-    -- 설명이 없다면 어색하게 공간 떨어지지 않도록 위치 조정 (스킬 슬라임, 아이템 타입만)
-    vars['productNode3']:setPositionY(-42)
-    vars['productNode4']:setPositionY(-42)     
+    if (dscSprite) then
+        vars['dscSprite']:setVisible(false)
+        vars['dcsLabel']:setVisible(false)
+    end
 end
 
 -------------------------------------
 -- function setLimit
 -------------------------------------
-function UI_PurchasePointBg:setLimit(idx)
-    if (self.vars['limitNode'..idx]) then
+function UI_PurchasePointBg:setLimit()
+    if (self.vars['limitNode']) then
         local remain_sec = g_purchasePointData:getPurchasePointEventRemainTime(self.m_version)
         local day = math.floor(remain_sec / 86400)
         if (day < 2) then
-            self.vars['limitNode'..idx]:setVisible(true)
-            self.vars['limitNode'..idx]:runAction(cca.buttonShakeAction(3, 1)) 
+            self.vars['limitNode']:setVisible(true)
+            self.vars['limitNode']:runAction(cca.buttonShakeAction(3, 1)) 
         else
-            self.vars['limitNode'..idx]:setVisible(false)
+            self.vars['limitNode']:setVisible(false)
         end
     end
 end

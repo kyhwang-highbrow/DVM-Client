@@ -71,7 +71,7 @@ function UI_EventPopupTab_PurchasePoint:initUI()
     -- 타입에 따른 누적 결제 배경UI
     local last_reward_type = g_purchasePointData:getLastRewardType(version)
     local last_reward_item_id, count = self:getRewardInfoByStep(version, step_count)
-    local ui_bg = openPurchasePointBgByType(last_reward_type, last_reward_item_id, count, version)
+    local ui_bg = UI_PurchasePointBg(last_reward_type, last_reward_item_id, count, version)
     if (ui_bg) then
         vars['productNode']:addChild(ui_bg.root)
     end
