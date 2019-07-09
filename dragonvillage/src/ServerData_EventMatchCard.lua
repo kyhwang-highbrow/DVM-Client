@@ -64,6 +64,11 @@ function ServerData_EventMatchCard:isGetTicket(step)
     local step = tostring(step) 
     local reward_info = self.m_accessTimeRecievedInfo
 
+    -- 첫 접속은 무조건 받은 보상으로 판단
+    if (step == '0') then
+        return true
+    end
+
     return reward_info[step] and true or false
 end
 
