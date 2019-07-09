@@ -33,6 +33,10 @@ function UI_EventMatchCardListItem:initUI()
 
     -- 보상 정보
     local l_reward = seperate(data_info['reward'], ';')
+    if (not l_reward) then
+        return
+    end
+    
     local id = tonumber(l_reward[1])
     local cnt = tonumber(l_reward[2])
 
