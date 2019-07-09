@@ -38,7 +38,6 @@ function UI_PurchasePointBg:init(bg_type, item_id, item_count, version)
     end
 
     self:setLimit()
-    self:setDescLabel()
 end
 
 -------------------------------------
@@ -254,6 +253,9 @@ function UI_PurchasePointBg:setCommom()
     vars['itemLabel']:setString(string.format('%s X %d', item_name, item_count))
 
     vars['effect']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+    
+    -- 설명이 있을 경우 라벨 출력
+    self:setDescLabel()
 end
 
 -------------------------------------
@@ -364,7 +366,11 @@ function UI_PurchasePointBg:setDescLabel(item_count)
             vars['dcsLabel']:setString(last_reward_desc)
             return
         end
+    else
+        -- 설명이 없다면 어색하게 공간 떨어지지 않도록 위치 조정 (스킬 슬라임, 아이템 타입만)
+        self.root:setPositionY(-42)
     end
+
     if (dscSprite) then
         vars['dscSprite']:setVisible(false)
         vars['dcsLabel']:setVisible(false)
