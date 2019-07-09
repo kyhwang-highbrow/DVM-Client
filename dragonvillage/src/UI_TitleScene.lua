@@ -304,7 +304,7 @@ function UI_TitleScene:setWorkList()
 
     self.m_lWorkList = {}
     
-    table.insert(self.m_lWorkList, 'workTitleAni')
+    --table.insert(self.m_lWorkList, 'workTitleAni') -- @jhakim 190709 (오래걸리는)타이틀 애니메이션 제거
     table.insert(self.m_lWorkList, 'workLoading')
     table.insert(self.m_lWorkList, 'workGetServerList')
     table.insert(self.m_lWorkList, 'workCheckSelectedGameServer') -- 유저가 선택(or 추천)한 게임 서버 확인
@@ -1363,8 +1363,11 @@ function UI_TitleScene:workFinish()
     self.m_loadingUI:hideLoading()
 
     -- 화면을 터치하세요. 출력
-    self:setTouchScreen()
-    
+    --self:setTouchScreen() -- @jhakim 190709 화면 터치 단계 제거
+    function cb_touch()
+        self:click_screenBtn()
+    end
+
     self.m_stopWatch:record('finish')
 	self.m_stopWatch:stop()
     self.m_stopWatch:print()
@@ -1373,9 +1376,11 @@ function UI_TitleScene:workFinish()
     -- 절전모드 설정
     SetSleepMode_After(self.root)
 
-
-    -- 언설 설정 확인
-    UI_Setting:checkGameLanguage()
+    -- 언어 설정 팝업이 뜬다면 해당 UI 닫을 때 게임 실행, 언어 설정 팝업이 뜨지 않는다면 바로 게임 실행
+    local is_popup = UI_Setting:checkGameLanguage(cb_touch)
+    if (not is_popup) then
+        cb_touch()
+    end
 end
 function UI_TitleScene:workFinish_click()
     -- @analytics

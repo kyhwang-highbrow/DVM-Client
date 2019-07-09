@@ -133,7 +133,7 @@ end
 --        기기 언어가 지원하는 언어일 경우
 --        언어 변경 안내
 -------------------------------------
-function UI_Setting:checkGameLanguage()
+function UI_Setting:checkGameLanguage(close_cb)
 
     local language_verification_complete = g_settingData:get('language_verification_complete')
     if (language_verification_complete == true) then
@@ -171,9 +171,10 @@ function UI_Setting:checkGameLanguage()
         local ui = UI_Setting()
         ui:setTab('game')
         ui:click_languageBtn()
+        ui:setCloseCB(close_cb)
         g_settingData:applySettingData(true, 'language_verification_complete')
     end
 
     make_info_popup()
-    return
+    return true
 end
