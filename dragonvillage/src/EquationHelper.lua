@@ -61,6 +61,7 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local target_rarity = target and target:getRarity() or 0' ..
         ' local target_grade = target and target:getGrade()' ..
         ' local target_total_level = target and target:getTotalLevel()' ..
+        ' local target_active_skill_target_count = target and target:getActiveSkillTargetCount() or 0' ..
             
         ' local STATUSEFFECT = function(name, column)' ..
         ' if (column) then' ..

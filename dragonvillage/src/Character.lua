@@ -2526,6 +2526,26 @@ function Character:getRole()
 end
 
 -------------------------------------
+-- function getActiveSkillTargetCount
+-- @return 액티브 스킬 타겟 숫자
+-------------------------------------
+function Character:getActiveSkillTargetCount()
+    local t_skill_indivisual = self:getActiveSkillIndivisualInfoBeforeMetamorphosis()
+    if (not t_skill_indivisual) then
+        return 0
+    end
+
+    
+    local t_skill = t_skill_indivisual.m_tSkill
+
+    if (not t_skill) then
+        return 0
+    end
+
+    return active_skill_target_count 
+end
+
+-------------------------------------
 -- function getAttribute
 -------------------------------------
 function Character:getAttribute()
