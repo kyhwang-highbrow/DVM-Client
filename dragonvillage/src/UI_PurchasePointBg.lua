@@ -275,6 +275,9 @@ function UI_PurchasePointBg:setReinforce()
     reinforce_sprite:setDockPoint(CENTER_POINT)
     vars['itemNode']:addChild(reinforce_sprite)
 
+    -- 별 비주얼 출력
+    vars['starVisual']:setVisible(true)
+
     -- 배경 visual  세팅
     local animator = MakeAnimator('res/bg/map_jewel/map_jewel.vrp')
     vars['bgNode']:addChild(animator.m_node)
