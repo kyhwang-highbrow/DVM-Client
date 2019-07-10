@@ -413,6 +413,14 @@ function IDragonSkillManager:getActiveSkillIndivisualInfoBeforeMetamorphosis()
 end
 
 -------------------------------------
+-- function getActiveSkillIndivisualInfoAfterMetamorphosis
+-- @brief 변신 후 액티브 스킬의 DragonSkillIndivisualInfo를 얻어옴
+-------------------------------------
+function IDragonSkillManager:getActiveSkillIndivisualInfoAfterMetamorphosis()
+    return self.m_mSkillInfoList[SKILL_SET.METAMORPHOSIS]['active']
+end
+
+-------------------------------------
 -- function getSkillID
 -- @brief 타입별 스킬 ID를 얻어옴(테이블을 리턴할 수도 있음)
 -------------------------------------

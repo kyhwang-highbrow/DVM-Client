@@ -2530,19 +2530,27 @@ end
 -- @return 액티브 스킬 타겟 숫자
 -------------------------------------
 function Character:getActiveSkillTargetCount()
-    local t_skill_indivisual = self:getActiveSkillIndivisualInfoBeforeMetamorphosis()
+    local t_skill_indivisual
+
+    -- 변신 전 or 후 액티브 스킬 정보
+    if (self:isMetamorphosis()) then
+        t_skill_indivisual = self:getActiveSkillIndivisualInfoAfterMetamorphosis()
+    else
+        t_skill_indivisual = self:getActiveSkillIndivisualInfoBeforeMetamorphosis()
+    end
+
     if (not t_skill_indivisual) then
         return 0
     end
 
     
     local t_skill = t_skill_indivisual.m_tSkill
-
     if (not t_skill) then
         return 0
     end
 
-    return active_skill_target_count 
+    local active_skill_target_count = t_skill['target_count']
+    return active_skill_target_count or 0
 end
 
 -------------------------------------
@@ -3227,4 +3235,11 @@ function Character:getZOrder()
     else
         return WORLD_Z_ORDER.ENEMY
     end
+end
+
+-------------------------------------
+-- function isMetamorphosis
+-------------------------------------
+function Character:isMetamorphosis()
+    return self.m_bMetamorphosis
 end
