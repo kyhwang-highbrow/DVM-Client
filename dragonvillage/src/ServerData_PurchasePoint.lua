@@ -190,6 +190,31 @@ function ServerData_PurchasePoint:getPurchasePointEventRemainTime(version)
 end
 
 -------------------------------------
+-- function getPurchasePointEventRemainTime_milliSecond
+-- @brief event 항목의 남은 시간
+-- @return sec
+-------------------------------------
+function ServerData_PurchasePoint:getPurchasePointEventRemainTime_milliSecond(version)
+    local purchase_point_info = self:getPurchasePointInfo(version)
+
+    if (not purchase_point_info) then
+        return 0
+    end
+
+    local end_time = purchase_point_info['end']
+    if (not end_time) or (end_time == 0) then
+        return 0
+    end
+
+    end_time = end_time
+
+    local curr_time = Timer:getServerTime_Milliseconds()
+    local time = (end_time - curr_time)
+
+    return time
+end
+
+-------------------------------------
 -- function getPurchasePointEventRemainTimeText
 -- @brief event 항목의 남은 시간 텍스트
 -------------------------------------

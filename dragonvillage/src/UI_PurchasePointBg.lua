@@ -390,8 +390,8 @@ function UI_PurchasePointBg:setLimit()
     local remain_time
 
     if (vars['limitNode']) then
-        remain_time = g_purchasePointData:getPurchasePointEventRemainTime(self.m_version)
-        local day = math.floor(remain_time / 86400)
+        remain_time = g_purchasePointData:getPurchasePointEventRemainTime_milliSecond(self.m_version)
+        local day = math.floor(remain_time / 86400000)
         if (day < 2) then
             is_limit = true
         else
@@ -399,13 +399,13 @@ function UI_PurchasePointBg:setLimit()
         end
     end
 
-    if (is_limit) then
+    if (true) then
         -- 한정 표시
         vars['limitNode']:setVisible(true)
         vars['limitMenu']:setVisible(true)
         vars['limitNode']:runAction(cca.buttonShakeAction(3, 1)) 
         
-        local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time*1000, false) -- param : milliseconds, from_day
+        local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day
         
         -- 남은 시간 이미지 텍스트로 보여줌
         local remain_time_label = cc.Label:createWithBMFont('res/font/tower_score.fnt', desc_time)
@@ -429,8 +429,8 @@ function UI_PurchasePointBg:update(dt)
     if (not vars['remainLabel']) then
         return
     end
-    local remain_time = g_purchasePointData:getPurchasePointEventRemainTime(self.m_version)
-    local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time*1000, false) -- param : milliseconds, from_day
+    local remain_time = g_purchasePointData:getPurchasePointEventRemainTime_milliSecond(self.m_version)
+    local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day
 
     vars['remainLabel']:setString(desc_time)
 end
