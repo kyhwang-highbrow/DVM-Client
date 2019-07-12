@@ -4114,6 +4114,9 @@
     <None Include="..\src\UI_SimplePopup3.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyPopup_PurchasePoint.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

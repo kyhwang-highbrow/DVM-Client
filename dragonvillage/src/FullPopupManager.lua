@@ -10,6 +10,8 @@ FULL_POPUP_TYPE = {
     
 	ATTR_TOWER = 'attr_tower', -- 시험의 탑 안내
     SHOP_DAILY = 'shop_daily',
+
+    LOBBY_BY_CONDITION = 5, -- 코드로 조건 체크하는 로비 풀팝업, table_lobby_popup 에 있는 항목들
 }
 -------------------------------------
 -- class FullPopupManager
@@ -112,6 +114,29 @@ function FullPopupManager:show(type, show_func)
             local ui = UI_ShopDaily(is_popup)
             ui:setCloseCB(cb_func)
         end
+
+    -- 로비 진입시 (코드로 조건 체크하는) 풀팝업
+    elseif (type == FULL_POPUP_TYPE.LOBBY_BY_CONDITION) then
+
+        -- 로비 팝업
+        local t_table_lobby_popup = TABLE:get('table_lobby_popup')
+        local l_lobby_popup = {}
+        for i,v in pairs(t_table_lobby_popup) do
+            table.insert(l_lobby_popup, v)
+        end
+
+        -- priority가 낮으면 우선 노출
+        local function sort_func(a, b)
+            return a['priority'] < b['priority']
+        end
+        table.sort(l_lobby_popup, sort_func)
+        
+        for i, data in ipairs(l_lobby_popup) do
+            local popup_key = self:getVaildGuidPopupKey(data)
+            if (popup_key) then
+                show_func(popup_key)
+            end
+        end
     end
 end
 
@@ -138,6 +163,47 @@ end
 -------------------------------------
 function FullPopupManager:isTitleToLobby()
     return self.m_title_to_lobby 
+end
+
+-------------------------------------
+-- function checkGuidCondition
+-------------------------------------
+function FullPopupManager:getVaildGuidPopupKey(data)
+    -- 해당 클래스가 load되어 있는지 확인
+    local lua_class = data['lua_class']
+    if package.loaded[lua_class] then
+    
+        -- 해당 클래스 require통해서 얻어옴
+        local lobby_guide_class = require(lua_class)
+        if lobby_guide_class then   
+            -- 인스턴스 생성
+            local pointer = lobby_guide_class(data)
+    
+            -- 조건 확인
+            pointer:checkCondition()
+    
+            -- 안내가 유효할 경우
+            if (pointer:isActiveGuide() == true) then
+                local popup_key = pointer:getPopupKey()
+                if popup_key then
+                    pointer:startGuide()
+    
+                    -- 하루동안 보지 않기 풀린 팡업인지 판단
+                    local is_view = g_settingData:get('event_full_popup', popup_key) or false
+
+                    -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
+                    if (not is_view) then
+                        return popup_key
+                    end
+                end
+            end
+            pointer = nil
+        end
+    else
+        cclog('## 클래스가 존재하지 않음 lua_class : ' .. tostring(lua_class))
+    end
+
+    return nil
 end
 
 

@@ -211,10 +211,20 @@ function UI_Lobby:entryCoroutine()
             if (is_show) then
                 cclog('# 풀팝업 show')
                 
-                -- 로비 풀팝업 매니저
-                self:entryCoroutine_lobbyPopup(co)
+                local t_showed_popup = {}
+                local function show_full_popup_func(pid)
+                    -- 한 번 보여준 팝업 리스트에 없다면, 팝업 출력
+                    if (not t_showed_popup[pid]) then
+                        show_func(pid)
+                        t_showed_popup[pid] = true
+                    end        
+                end
 
-                g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
+                -- table_lobby_popup에 있는 팝업들 조건 체크, 출력
+                g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY_BY_CONDITION, show_full_popup_func)
+
+                -- table_event_list 에 있는 팝업들 조건 체크, 출력
+                g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_full_popup_func)
             end
             
 			-- 출석 보상 정보 (보상 존재할 경우 출력)
@@ -472,68 +482,6 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 	ui_network:request()
 
 	if co:waitWork() then return end
-end
-
--------------------------------------
--- function entryCoroutine_lobbyPopup
--------------------------------------
-function UI_Lobby:entryCoroutine_lobbyPopup(co)
-    -- 로비 팝업
-    local t_table_lobby_popup = TABLE:get('table_lobby_popup')
-    local l_lobby_popup = {}
-    for i,v in pairs(t_table_lobby_popup) do
-        table.insert(l_lobby_popup, v)
-    end
-
-    -- priority가 낮으면 우선 노출
-    local function sort_func(a, b)
-        return a['priority'] < b['priority']
-    end
-    table.sort(l_lobby_popup, sort_func)
-
-    -- 풀팝업 출력 함수
-    local function show_func(pid) 
-        co:work()
-        local ui = UI_EventFullPopup(pid)
-        ui:setCloseCB(co.NEXT)
-        ui:openEventFullPopup()
-        if co:waitWork() then return end
-    end
-
-    for i,v in ipairs(l_lobby_popup) do
-        -- 해당 클래스가 load되어 있는지 확인
-        local lua_class = v['lua_class']
-        if package.loaded[lua_class] then
-
-            -- 해당 클래스 require통해서 얻어옴
-            local lobby_guide_class = require(lua_class)
-            if lobby_guide_class then
-
-                -- 인스턴스 생성
-                local pointer = lobby_guide_class(v)
-
-                -- 조건 확인
-                pointer:checkCondition()
-
-                -- 안내가 유효할 경우
-                if (pointer:isActiveGuide() == true) then
-                    local popup_key = pointer:getPopupKey()
-                    if popup_key then
-                        pointer:startGuide()
-
-                        local is_view = g_settingData:get('event_full_popup', popup_key) or false
-                        -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
-                        if (not is_view) then
-                            show_func(popup_key)
-                        end 
-                    end
-                end
-                pointer = nil
-            end
-        else
-            cclog('## 클래스가 존재하지 않음 lua_class : ' .. tostring(lua_class))
-        end
-    end
 end
 
 -------------------------------------
