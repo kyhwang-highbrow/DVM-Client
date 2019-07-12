@@ -384,15 +384,39 @@ end
 -- function setLimit
 -------------------------------------
 function UI_PurchasePointBg:setLimit()
-    if (self.vars['limitNode']) then
-        local remain_sec = g_purchasePointData:getPurchasePointEventRemainTime(self.m_version)
-        local day = math.floor(remain_sec / 86400)
+    local vars = self.vars
+    local is_limit
+    local remain_time
+
+    if (vars['limitNode']) then
+        remain_time = g_purchasePointData:getPurchasePointEventRemainTime(self.m_version)
+        local day = math.floor(remain_time / 86400)
         if (day < 2) then
-            self.vars['limitNode']:setVisible(true)
-            self.vars['limitNode']:runAction(cca.buttonShakeAction(3, 1)) 
+            is_limit = true
         else
-            self.vars['limitNode']:setVisible(false)
+            is_limit = false
         end
+    end
+
+    if (is_limit) then
+        -- 한정 표시
+        vars['limitNode']:setVisible(true)
+        vars['limitMenu']:setVisible(true)
+        vars['limitNode']:runAction(cca.buttonShakeAction(3, 1)) 
+        
+        local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time*1000, false) -- param : milliseconds, from_day
+        
+        -- 남은 시간 이미지 텍스트로 보여줌
+        local remain_time_label = cc.Label:createWithBMFont('res/font/tower_score.fnt', desc_time)
+        cclog(desc_time)
+        remain_time_label:setAnchorPoint(cc.p(0.5, 0.5))
+        remain_time_label:setDockPoint(cc.p(0.5, 0.5))
+        remain_time_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        remain_time_label:setAdditionalKerning(0)
+        vars['timeNode']:addChild(remain_time_label)
+    else
+        vars['limitMenu']:setVisible(false)
+        vars['limitNode']:setVisible(false)    
     end
 end
 
