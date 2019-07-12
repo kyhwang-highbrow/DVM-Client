@@ -393,6 +393,31 @@ function datetime.makeTimeDesc_timer(milliseconds)
     return str
 end
 
+function datetime.makeTimeDesc_timer_filledByZero(milliseconds, from_day)
+    local day = math.floor(milliseconds / 86400000)
+    milliseconds = milliseconds - (day * 86400000)
+
+    local hour = math.floor(milliseconds / 3600000)
+    milliseconds = milliseconds - (hour * 3600000)
+
+    local min = math.floor(milliseconds / 60000)
+    milliseconds = milliseconds - (min * 60000)
+
+    local sec = math.floor(milliseconds / 1000)
+    milliseconds = milliseconds - (sec * 1000)
+
+    local millisec = milliseconds
+
+    local str = ''
+    if (from_day) then
+        --str = string.format('%.2d:%.2d:%.2d:%.2d:%.3d', day, hour, min, sec, millisec)
+        str = string.format('%.2d:%.2d:%.2d:%.2d', day, hour, min, sec)
+    else
+        str = string.format('%.2d:%.2d:%.2d', hour, min, sec)
+    end
+
+    return str
+end
 
 function datetime.dayToSecond(day)
     -- 일 * 시 * 분 * 초
