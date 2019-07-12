@@ -38,6 +38,7 @@ function UI_PurchasePointBg:init(bg_type, item_id, item_count, version)
     end
 
     self:setLimit()
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -408,15 +409,29 @@ function UI_PurchasePointBg:setLimit()
         
         -- 남은 시간 이미지 텍스트로 보여줌
         local remain_time_label = cc.Label:createWithBMFont('res/font/tower_score.fnt', desc_time)
-        cclog(desc_time)
         remain_time_label:setAnchorPoint(cc.p(0.5, 0.5))
         remain_time_label:setDockPoint(cc.p(0.5, 0.5))
         remain_time_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         remain_time_label:setAdditionalKerning(0)
+        vars['remainLabel'] = remain_time_label
         vars['timeNode']:addChild(remain_time_label)
     else
         vars['limitMenu']:setVisible(false)
         vars['limitNode']:setVisible(false)    
     end
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_PurchasePointBg:update(dt)
+    local vars = self.vars
+    if (not vars['remainLabel']) then
+        return
+    end
+    local remain_time = g_purchasePointData:getPurchasePointEventRemainTime(self.m_version)
+    local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time*1000, false) -- param : milliseconds, from_day
+
+    vars['remainLabel']:setString(desc_time)
 end
 
