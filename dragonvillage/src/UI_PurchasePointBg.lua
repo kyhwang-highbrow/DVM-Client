@@ -399,7 +399,7 @@ function UI_PurchasePointBg:setLimit()
         end
     end
 
-    if (true) then
+    if (is_limit) then
         -- 한정 표시
         vars['limitNode']:setVisible(true)
         vars['limitMenu']:setVisible(true)
