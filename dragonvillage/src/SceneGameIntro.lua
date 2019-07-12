@@ -343,6 +343,11 @@ function SceneGameIntro:next_intro()
     local world = self.m_gameWorld
     world.m_gameHighlight:setToForced(false)
 
+    -- 스킵 하면 self.m_tutorialPlayer = nil 처리함
+    -- 스킵 동작 중간에 터치 등의 이벤트로 이 함수가 호출되었을 경우 에러 방지
+    if (not self.m_tutorialPlayer) then
+       return 
+    end
     self.m_tutorialPlayer:next()
 end
 
