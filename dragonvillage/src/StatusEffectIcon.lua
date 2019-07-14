@@ -112,7 +112,8 @@ function StatusEffectIcon:setOverlabLabel(overlab_cnt)
     local str = comma_value(overlab_cnt)
     local length = #str
     self.m_overlabNode = cc.Node:create()
-
+    
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_status_effect/ingame_status_effect.plist')
     for i = 1, #str do
         local v = str:sub(i, i)
         local sprite = self:createSpriteWithSpriteFrameName('ingame_status_effect_num_'.. v.. '.png')
