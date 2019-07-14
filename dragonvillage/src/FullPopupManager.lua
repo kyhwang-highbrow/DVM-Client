@@ -132,7 +132,7 @@ function FullPopupManager:show(type, show_func)
         table.sort(l_lobby_popup, sort_func)
         
         for i, data in ipairs(l_lobby_popup) do
-            local popup_key = self:getVaildGuidPopupKey(data)
+            local popup_key = self:getVaildLobbyPopupKey(data) -- t_lobby_popup 관련 코드로 짜여진 조건들 검사
             if (popup_key) then
                 show_func(popup_key)
             end
@@ -166,9 +166,9 @@ function FullPopupManager:isTitleToLobby()
 end
 
 -------------------------------------
--- function checkGuidCondition
+-- function getVaildLobbyPopupKey
 -------------------------------------
-function FullPopupManager:getVaildGuidPopupKey(data)
+function FullPopupManager:getVaildLobbyPopupKey(data)
     -- 해당 클래스가 load되어 있는지 확인
     local lua_class = data['lua_class']
     if package.loaded[lua_class] then

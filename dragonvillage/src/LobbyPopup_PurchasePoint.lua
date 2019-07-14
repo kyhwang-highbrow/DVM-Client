@@ -4,7 +4,7 @@ local PARENT = LobbyPopupAbstract
 -- class LobbyPopup_PurchasePoint
 -------------------------------------
 LobbyPopup_PurchasePoint = class(PARENT, {
-        m_purchasePointVersion = 'number', -- 누적결제 이벤트 팝업은 한 개씩만 뜸, 여러개 하려면 이걸 리스트로 하면 될 둣
+        m_purchasePointVersion = 'number', -- 누적결제 이벤트 팝업은 한 개씩만 뜸
     })
 
 -------------------------------------
@@ -34,19 +34,31 @@ end
 -- @brief 조건 확인
 -------------------------------------
 function LobbyPopup_PurchasePoint:checkCustomCondition()
-    local lobby_popup_data = self.m_tData
+    local t_lobby_popup_data = self.m_tData
+    if (not t_lobby_popup_data) then
+        return false
+    end
 
     -- 현재 열려 있는 누적 결제 이벤트 리스트
-    local l_item_list_purchase_point = g_purchasePointData:getEventPopupTabList()
+    local l_item_list_purchase_point = g_purchasePointData:getEventPopupTabList() or {}
     for _, purchase_point_data in pairs(l_item_list_purchase_point) do
         local data = purchase_point_data.m_eventData
-        local active_version = data['version']
-        self.m_purchasePointVersion = active_version
-        if (lobby_popup_data['popup_key'] == 'purchase_point_value') then
-            return self:checkPoint(active_version)
 
-        elseif (lobby_popup_data['popup_key'] == 'purchase_point_date') then
-            return self:checkDate(active_version)
+        if (data) then
+            local active_version = data['version']
+            self.m_purchasePointVersion = active_version
+            
+            if (active_version) then
+                -- 점수 조건 체크
+                if (t_lobby_popup_data['popup_key'] == 'purchase_point_value') then
+                    return self:checkPoint(active_version)
+
+                -- 날짜 조건 체크
+                elseif (t_lobby_popup_data['popup_key'] == 'purchase_point_date') then
+                    return self:checkDate(active_version)
+                end
+            end
+
         end
     end
 
@@ -62,14 +74,14 @@ function LobbyPopup_PurchasePoint:checkPoint(active_version)
         return false
     end
     
-    local data = self.m_tData
-    local cur_purchase_point = g_purchasePointData:getPurchasePoint(active_version)
-    local min_value = tonumber(data['min_value'])
-    local max_value = tonumber(data['max_value'])
-
-    if (not min_value) or (not max_value) then
+    if (not self.m_tData) then
         return false
     end
+
+    local data = self.m_tData
+    local cur_purchase_point = tonumber(g_purchasePointData:getPurchasePoint(active_version)) or 0
+    local min_value = tonumber(data['min_value']) or 0
+    local max_value = tonumber(data['max_value']) or 0
 
     if (cur_purchase_point < min_value) then
         return false
@@ -90,6 +102,10 @@ function LobbyPopup_PurchasePoint:checkDate(active_version)
     if (not active_version) then
         return false
     end
+
+    if (not self.m_tData) then
+        return false
+    end
     
     local data = self.m_tData
     local purchase_point_info = g_purchasePointData:getPurchasePointInfo(active_version)
@@ -98,8 +114,12 @@ function LobbyPopup_PurchasePoint:checkDate(active_version)
     end
 
     local curr_time = Timer:getServerTime()
-    local start_time = purchase_point_info['start'] / 1000
-    local end_time = purchase_point_info['end'] / 1000
+    local start_time = g_purchasePointData:getStartTime(active_version)
+    local end_time = g_purchasePointData:getEndTime(active_version)
+
+    if (not start_time) or (not end_time) then
+        return false
+    end
 
     -- 1. 상품 판매 시작한 날이라면 (하루가 지나지 않았다면)
     if (curr_time - start_time) < datetime.dayToSecond(1) then

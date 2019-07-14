@@ -459,3 +459,51 @@ function ServerData_PurchasePoint:isActivePurchasePointEvent(version)
 
     return true
 end
+
+-------------------------------------
+-- function getStartTime
+-- @breif
+-------------------------------------
+function ServerData_PurchasePoint:getStartTime(version)
+    if (not version) then
+        return nil
+    end
+    
+    local purchase_point_info = g_purchasePointData:getPurchasePointInfo(version)
+    if (not purchase_point_info) then
+        return nil
+    end
+
+    if (not purchase_point_info['start']) then
+        return nil
+    end
+
+    local start_time = tonumber(purchase_point_info['start'])
+    start_time = start_time/1000
+    
+    return start_time
+end
+
+-------------------------------------
+-- function getEndTime
+-- @breif
+-------------------------------------
+function ServerData_PurchasePoint:getEndTime(version)
+    if (not version) then
+        return nil
+    end
+    
+    local purchase_point_info = g_purchasePointData:getPurchasePointInfo(version)
+    if (not purchase_point_info) then
+        return nil
+    end
+
+    if (not purchase_point_info['end']) then
+        return nil
+    end
+
+    local end_time = tonumber(purchase_point_info['end'])
+    end_time = end_time/1000
+    
+    return end_time
+end
