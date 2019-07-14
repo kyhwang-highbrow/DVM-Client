@@ -7,6 +7,8 @@ UI_DragonReinforcement = class(PARENT,{
 		m_isDragon = 'bool', -- true / false
 		m_reinforceEffect = 'Animator',
         m_oriGold = 'number',
+
+        m_selectedBtnId = 'number', -- item_id or rid
     })
 
 -------------------------------------
@@ -317,14 +319,12 @@ function UI_DragonReinforcement:refresh_relation()
 			do
 				-- 버튼 클릭 등록
 				click_btn:registerScriptTapHandler(function()
-					self.m_isDragon = true
-					self:click_reinforce(rid, ui)
+					self:click_reinforce(rid, ui, true)
 				end)
 
 				-- 버튼 프레스 등록
 				click_btn:registerScriptPressHandler(function()
-					self.m_isDragon = true
-					self:press_reinforce(rid, ui, click_btn)
+					self:press_reinforce(rid, ui, click_btn, true)
 				end)
 			end
 
@@ -357,14 +357,12 @@ function UI_DragonReinforcement:refresh_relation()
 		do
 			-- 버튼 클릭 등록
 			click_btn:registerScriptTapHandler(function()
-				self.m_isDragon = false
-				self:click_reinforce(item_id, ui)
+				self:click_reinforce(item_id, ui, false)
 			end)
 
 			-- 버튼 프레스 등록
 			click_btn:registerScriptPressHandler(function()
-				self.m_isDragon = false
-				self:press_reinforce(item_id, ui, click_btn)
+				self:press_reinforce(item_id, ui, click_btn, false)
 			end)
 		end
 
@@ -430,7 +428,7 @@ end
 -- function exceptionReinforce
 -- @brief 통합 예외 처리
 -------------------------------------
-function UI_DragonReinforcement:exceptionReinforce(rid)
+function UI_DragonReinforcement:exceptionReinforce(rid, is_dragon)
 	local t_dragon_data = self.m_selectDragonData
 	local did = t_dragon_data:getDid()
 	local rlv = t_dragon_data:getRlv()
@@ -450,7 +448,7 @@ function UI_DragonReinforcement:exceptionReinforce(rid)
 	
 	-- 인연 포인트 부족
 	local relation = 0
-	if (self.m_isDragon) then
+	if (is_dragon) then
 		relation = g_bookData:getRelationPoint(rid)
 	else
 		relation = g_userData:getReinforcePoint(rid)
@@ -475,16 +473,31 @@ end
 -- function click_reinforce
 -- @brief
 -------------------------------------
-function UI_DragonReinforcement:click_reinforce(rid, ui)
+function UI_DragonReinforcement:click_reinforce(rid, ui, is_dragon)
+    -- 이미 선택된 버튼이 있다면 return
+    if (self.m_selectedBtnId) then
+        return
+    end
 
 	-- 통합 예외처리
-	if (self:exceptionReinforce(rid)) then
+	if (self:exceptionReinforce(rid, is_dragon)) then
 		return
 	end
+    
+    -- 선택된 버튼 저장
+    self.m_selectedBtnId = rid
+    self.m_isDragon = is_dragon
 
 	local function coroutine_function(dt)
         local co = CoroutineHelper()
         co:setBlockPopup()
+
+        -- 코루틴이 종료되는 어떠한 상황에서도 호출될 함수
+        local function coroutine_finidh_cb()
+	        -- 선택된 버튼 초기화
+            self.m_selectedBtnId = nil
+        end
+        co:setCloseCB(coroutine_finidh_cb)
 
 		-- 연출 시작
 		self.m_reinforceEffect:setVisible(true)
@@ -495,6 +508,33 @@ function UI_DragonReinforcement:click_reinforce(rid, ui)
 
         -- 강화 연출
         co:work()
+
+        -- 경험치, 인연포인트 깍음
+        do
+            local t_dragon_data = self.m_selectDragonData
+            local rcnt = 1
+            local before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
+            local before_relation_point
+		    if (self.m_isDragon) then
+		    	before_relation_point = g_bookData:getBookData(rid):getRelation()
+		    else
+		    	before_relation_point = g_userData:getReinforcePoint(rid)
+		    end
+
+		    -- 강화 경험치 수정
+		    t_dragon_data:getReinforceObject()['exp'] = before_reinforce_exp + rcnt
+
+		    -- 인연 포인트 수정
+		    local relation = before_relation_point - rcnt
+		    if (self.m_isDragon) then
+		    	local struct_book = g_bookData:getBookData(rid)
+		    	struct_book:setRelation(relation)
+		    else
+		    	g_userData:applyServerData(relation, 'reinforce_point', tostring(rid))
+            end
+		end
+
+
         self:reinforceDirecting(ui, co.NEXT)
         if co:waitWork() then return end
 
@@ -517,17 +557,39 @@ end
 -- function press_reinforce
 -- @brief
 -------------------------------------
-function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
+function UI_DragonReinforcement:press_reinforce(rid, ui, btn, is_dragon)
+    -- 이미 선택된 버튼이 있다면 return
+    if (self.m_selectedBtnId) then
+        return
+    end
 
 	-- 통합 예외처리
-	if (self:exceptionReinforce(rid)) then
+	if (self:exceptionReinforce(rid, is_dragon)) then
 		return
 	end
+
+    -- 선택된 버튼(열매id) 저장
+    self.m_selectedBtnId = rid
+    self.m_isDragon = is_dragon
 
 	-- 코루틴 함수
 	local function coroutine_function(dt)
         local co = CoroutineHelper()
 		local t_dragon_data = self.m_selectDragonData
+
+        -- 코루틴이 종료되는 어떠한 상황에서도 호출될 함수
+        local function coroutine_finidh_cb()
+	        -- 선택된 버튼(열매id) 초기화
+            self.m_selectedBtnId = nil
+            
+            -- 연출 종료
+		    self.m_reinforceEffect:addAniHandler(function()
+			self.m_reinforceEffect:setVisible(false)
+            end)
+		    -- 백키 블럭 해제
+            UIManager:blockBackKey(false)
+        end
+        co:setCloseCB(coroutine_finidh_cb)
 
 		-- 백키 블럭 해제
         UIManager:blockBackKey(true)
@@ -680,6 +742,9 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func, fail_cb)
     -- 에러코드 처리
     local function response_status_cb(ret)
         self:refresh_fail(rid, rcnt)
+        if (fail_cb) then
+            fail_cb()
+        end
         return true
     end
 
@@ -754,7 +819,11 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
-	local vars = self.vars
+	if (not item_ui) then
+        return
+    end
+    
+    local vars = self.vars
     local pos_x = 0
     local pos_y = 0
 
