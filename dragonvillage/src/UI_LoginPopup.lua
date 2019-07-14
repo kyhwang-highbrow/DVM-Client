@@ -119,6 +119,11 @@ end
 -- @brief 종료
 -------------------------------------
 function UI_LoginPopup:click_exitBtn()
+    if (self.m_closeCB) then
+        self:close()
+		return
+    end
+
     local function yes_cb()
         closeApplication()
     end

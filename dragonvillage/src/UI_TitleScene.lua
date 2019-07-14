@@ -307,7 +307,7 @@ function UI_TitleScene:setWorkList()
     --table.insert(self.m_lWorkList, 'workTitleAni') -- @jhakim 190709 (오래걸리는)타이틀 애니메이션 제거
     table.insert(self.m_lWorkList, 'workLoading')
     table.insert(self.m_lWorkList, 'workGetServerList')
-    table.insert(self.m_lWorkList, 'workCheckSelectedGameServer') -- 유저가 선택(or 추천)한 게임 서버 확인
+    --table.insert(self.m_lWorkList, 'workCheckSelectedGameServer') -- 유저가 선택(or 추천)한 게임 서버 확인
     table.insert(self.m_lWorkList, 'workCheckUserID')    
     table.insert(self.m_lWorkList, 'workPlatformLogin')    
     table.insert(self.m_lWorkList, 'workGameLogin')
@@ -574,7 +574,8 @@ function UI_TitleScene:workCheckUserID()
 
     local function fail_cb()
         -- 자동로그인에 실패한 경우 로그인 팝업 출력
-        local ui = UI_LoginPopup()
+        --local ui = UI_LoginPopup()
+        local ui = UI_IntegrateLoginPopup()
         local function close_cb()
             self:doNextWork()
         end

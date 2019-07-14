@@ -1,0 +1,158 @@
+local PARENT = UI
+
+-------------------------------------
+-- class UI_IntegrateLoginPopup
+-------------------------------------
+UI_IntegrateLoginPopup = class(PARENT,{
+        
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_IntegrateLoginPopup:init()
+    local vars = self:load('popup_login.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_IntegrateLoginPopup')
+
+    self:initUI()
+    self:initButton()        
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_IntegrateLoginPopup:initUI()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_IntegrateLoginPopup:initButton()
+    local vars = self.vars
+    
+    vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
+    vars['loginBtn']:registerScriptTapHandler(function() self:click_loginBtn() end)
+    vars['serverBtn']:registerScriptTapHandler(function() self:click_serverBtn() end)
+    vars['closeBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function click_guestBtn
+-------------------------------------
+function UI_IntegrateLoginPopup:click_guestBtn()
+   PerpleSDK:loginAnonymously(function(ret, info)
+        if ret == 'success' then
+            cclog('Firebase Guest login was successful.')
+            self:loginSuccess(info)
+            self:close()
+        elseif ret == 'fail' then
+            self:loginFail(info)
+        end
+    end)
+end
+
+-------------------------------------
+-- function click_loginBtn
+-------------------------------------
+function UI_IntegrateLoginPopup:click_loginBtn()
+    local ui_login_popup = UI_LoginPopup()
+    local cb_close = function()
+        -- 로그인 창만 닫음
+    end
+    
+    ui_login_popup:setCloseCB(cb_close)
+end
+
+-------------------------------------
+-- function click_serverBtn
+-------------------------------------
+function UI_IntegrateLoginPopup:click_serverBtn()
+    local function onFinish(name)        
+        ServerListData:getInstance():selectServer(name)
+        self:setServerName(name)
+    end
+    
+    UI_SelectServerPopup(onFinish)
+end
+
+-------------------------------------
+-- function setServerName
+-------------------------------------
+function UI_IntegrateLoginPopup:setServerName(name)
+    local vars = self.vars
+    vars['serverLabel']:setString(string.upper(name))
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_IntegrateLoginPopup:refresh()
+    self:setServerName(ServerListData:getInstance():getSelectServer())
+end
+
+-------------------------------------
+-- function UI_IntegrateLoginPopup
+-------------------------------------
+function UI_IntegrateLoginPopup:loginSuccess(info)
+    local t_info = dkjson.decode(info)
+    local fuid = t_info.fuid
+    local push_token = t_info.pushToken
+    local platform_id = t_info.providerId
+    local account_info = t_info.name
+
+    cclog('fuid: ' .. tostring(fuid))
+    cclog('push_token: ' .. tostring(push_token))
+    cclog('platform_id:' .. tostring(platform_id))
+    cclog('account_info:' .. tostring(account_info))
+
+    g_localData:applyLocalData(fuid, 'local', 'uid')
+    g_localData:applyLocalData(push_token, 'local', 'push_token')
+    g_localData:applyLocalData(platform_id, 'local', 'platform_id')
+    g_localData:applyLocalData(account_info, 'local', 'account_info')
+
+    if platform_id == 'google.com' then
+		if (t_info['google'] and t_info['google']['playServicesConnected']) then
+			g_localData:setGooglePlayConnected(true)
+		end
+    else
+        g_localData:setGooglePlayConnected(false)
+    end
+
+    --선택 서버 저장
+    g_localData:lockSaveData()
+    g_localData:setServerName( ServerListData:getInstance():getSelectServer() )
+    g_localData:unlockSaveData()
+
+
+    --이쪽이면 os 로그인과 서버선택하며 들어가는것으로 naver channel을 추천으로 선택다시해준다.    
+    NaverCafeManager:naverInitGlobalPlug(g_localData:getServerName(), g_localData:getLang())
+    g_localData:setSavedNaverChannel( 1 )
+
+
+    -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
+    UnlinkBrokenPlatform(t_info, platform_id)
+end
+
+-------------------------------------
+-- function loginFail
+-------------------------------------
+function UI_IntegrateLoginPopup:loginFail(info)
+    PerpleSdkManager:makeErrorPopup(info)
+end
+
+-------------------------------------
+-- function click_exitBtn
+-- @brief 종료
+-------------------------------------
+function UI_IntegrateLoginPopup:click_exitBtn()
+    local function yes_cb()
+        closeApplication()
+    end
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
+end
+
+--@CHECK
+UI:checkCompileError(UI_IntegrateLoginPopup)
