@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_IntegrateLoginPopup
 -------------------------------------
 UI_IntegrateLoginPopup = class(PARENT,{
-        
+        m_loadingUI = 'UI_TitleSceneLoading',
     })
 
 -------------------------------------
@@ -18,7 +18,10 @@ function UI_IntegrateLoginPopup:init()
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_IntegrateLoginPopup')
 
     self:initUI()
-    self:initButton()        
+    self:initButton()
+
+    self.m_loadingUI = UI_TitleSceneLoading()
+    self.m_loadingUI:hideLoading()
 end
 
 -------------------------------------
@@ -43,7 +46,10 @@ end
 -- function click_guestBtn
 -------------------------------------
 function UI_IntegrateLoginPopup:click_guestBtn()
+   self.m_loadingUI:showLoading(Str('로그인 중...'))
+
    PerpleSDK:loginAnonymously(function(ret, info)
+        self.m_loadingUI:hideLoading()
         if ret == 'success' then
             cclog('Firebase Guest login was successful.')
             self:loginSuccess(info)
