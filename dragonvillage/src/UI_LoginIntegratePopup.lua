@@ -1,21 +1,21 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_IntegrateLoginPopup
+-- class UI_LoginIntegratePopup
 -------------------------------------
-UI_IntegrateLoginPopup = class(PARENT,{
+UI_LoginIntegratePopup = class(PARENT,{
         m_loadingUI = 'UI_TitleSceneLoading',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_IntegrateLoginPopup:init()
+function UI_LoginIntegratePopup:init()
     local vars = self:load('popup_login.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_IntegrateLoginPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LoginIntegratePopup')
 
     self:initUI()
     self:initButton()
@@ -27,13 +27,13 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_IntegrateLoginPopup:initUI()
+function UI_LoginIntegratePopup:initUI()
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_IntegrateLoginPopup:initButton()
+function UI_LoginIntegratePopup:initButton()
     local vars = self.vars
     
     vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
@@ -45,7 +45,7 @@ end
 -------------------------------------
 -- function click_guestBtn
 -------------------------------------
-function UI_IntegrateLoginPopup:click_guestBtn()
+function UI_LoginIntegratePopup:click_guestBtn()
    self.m_loadingUI:showLoading(Str('로그인 중...'))
 
    PerpleSDK:loginAnonymously(function(ret, info)
@@ -63,19 +63,24 @@ end
 -------------------------------------
 -- function click_loginBtn
 -------------------------------------
-function UI_IntegrateLoginPopup:click_loginBtn()
+function UI_LoginIntegratePopup:click_loginBtn()
     local ui_login_popup = UI_LoginPopup()
-    local cb_close = function()
-        -- 로그인 창만 닫음
+    local cb_close = function(is_back_key)
+        if (is_back_key) then
+            self:refresh()
+        else
+            self:close()
+        end
     end
-    
+
     ui_login_popup:setCloseCB(cb_close)
+
 end
 
 -------------------------------------
 -- function click_serverBtn
 -------------------------------------
-function UI_IntegrateLoginPopup:click_serverBtn()
+function UI_LoginIntegratePopup:click_serverBtn()
     local function onFinish(name)        
         ServerListData:getInstance():selectServer(name)
         self:setServerName(name)
@@ -87,7 +92,7 @@ end
 -------------------------------------
 -- function setServerName
 -------------------------------------
-function UI_IntegrateLoginPopup:setServerName(name)
+function UI_LoginIntegratePopup:setServerName(name)
     local vars = self.vars
     vars['serverLabel']:setString(string.upper(name))
 end
@@ -95,14 +100,14 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_IntegrateLoginPopup:refresh()
+function UI_LoginIntegratePopup:refresh()
     self:setServerName(ServerListData:getInstance():getSelectServer())
 end
 
 -------------------------------------
--- function UI_IntegrateLoginPopup
+-- function UI_LoginIntegratePopup
 -------------------------------------
-function UI_IntegrateLoginPopup:loginSuccess(info)
+function UI_LoginIntegratePopup:loginSuccess(info)
     local t_info = dkjson.decode(info)
     local fuid = t_info.fuid
     local push_token = t_info.pushToken
@@ -145,7 +150,7 @@ end
 -------------------------------------
 -- function loginFail
 -------------------------------------
-function UI_IntegrateLoginPopup:loginFail(info)
+function UI_LoginIntegratePopup:loginFail(info)
     PerpleSdkManager:makeErrorPopup(info)
 end
 
@@ -153,7 +158,7 @@ end
 -- function click_exitBtn
 -- @brief 종료
 -------------------------------------
-function UI_IntegrateLoginPopup:click_exitBtn()
+function UI_LoginIntegratePopup:click_exitBtn()
     local function yes_cb()
         closeApplication()
     end
@@ -161,4 +166,4 @@ function UI_IntegrateLoginPopup:click_exitBtn()
 end
 
 --@CHECK
-UI:checkCompileError(UI_IntegrateLoginPopup)
+UI:checkCompileError(UI_LoginIntegratePopup)

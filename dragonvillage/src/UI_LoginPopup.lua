@@ -15,7 +15,7 @@ function UI_LoginPopup:init()
     UIManager:open(self, UIManager.POPUP)
     
     -- backkey 없음
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LoginPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close(true) end, 'UI_LoginPopup')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -115,19 +115,31 @@ function UI_LoginPopup:setServerName(name)
 end
 
 -------------------------------------
--- function click_exitBtn
--- @brief 종료
+-- function close
 -------------------------------------
-function UI_LoginPopup:click_exitBtn()
-    if (self.m_closeCB) then
-        self:close()
-		return
+function UI_LoginPopup:close(is_back_key)
+    if self.closed then
+        cclog('attempted to close twice')
+        cclog(debug.traceback())
+        return
+    end
+    self.closed = true
+    self:onClose()
+
+    UIManager:close(self)
+    
+    if self.m_closeCB then
+        self.m_closeCB(is_back_key)
     end
 
-    local function yes_cb()
-        closeApplication()
-    end
-    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
+    --[[
+        -- 이전에는 뒤로가기 키 눌렀을 때, 이전 UI가 없어서 앱을 종료시켜줌
+        -- @jhakim 190714 통합 로그인 창 생기면서 로그인하면 바로 다음 넘어가던가, 뒤로가기 키 누르면 UI창만 꺼주는 방향으로 수정
+        local function yes_cb()
+            closeApplication()
+        end
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('종료하시겠습니까?'), yes_cb)
+    --]]
 end
 
 -------------------------------------
