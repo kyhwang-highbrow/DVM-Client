@@ -291,6 +291,7 @@ function DragonSkillIndivisualInfo:getIndicatorIcon()
         indicator_type = string.gsub(indicator_type, '_touch', '')
     end
 
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_panel/ingame_panel.plist')
     local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'
     local icon = IconHelper:createWithSpriteFrameName(res)
     icon:setRotation(rotate)
