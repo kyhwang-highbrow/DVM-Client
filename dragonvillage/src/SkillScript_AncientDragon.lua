@@ -58,6 +58,7 @@ function SkillScript_AncientDragon:init_skill(script_name, duration)
     end
     ]]--
 
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_cha_info/ingame_cha_info.plist')
     -- 게이지 생성
     if (not self.m_hpGaugeFrame) then
         self.m_hpGaugeFrame = cc.Sprite:createWithSpriteFrameName('ingame_cha_info_hp_gg_0101.png')
