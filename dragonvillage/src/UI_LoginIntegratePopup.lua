@@ -10,12 +10,8 @@ UI_LoginIntegratePopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_LoginIntegratePopup:init()
-    local vars = self:load('popup_login.ui')
-    UIManager:open(self, UIManager.POPUP)
-
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LoginIntegratePopup')
+function UI_LoginIntegratePopup:init(owner_ui)
+    self.vars = owner_ui.vars
 
     self:initUI()
     self:initButton()
@@ -28,6 +24,24 @@ end
 -- function initUI
 -------------------------------------
 function UI_LoginIntegratePopup:initUI()
+    local vars = self.vars
+    vars['guestBtn']:setVisible(true)
+    vars['loginBtn']:setVisible(true)
+    vars['serverBtn']:setVisible(true)
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_LoginIntegratePopup:close()
+    local vars = self.vars
+    vars['guestBtn']:setVisible(false)
+    vars['loginBtn']:setVisible(false)
+    vars['serverBtn']:setVisible(false)
+
+    if (self.m_closeCB) then
+        self.m_closeCB()
+    end
 end
 
 -------------------------------------
@@ -39,7 +53,6 @@ function UI_LoginIntegratePopup:initButton()
     vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
     vars['loginBtn']:registerScriptTapHandler(function() self:click_loginBtn() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_serverBtn() end)
-    vars['closeBtn']:setVisible(false)
 end
 
 -------------------------------------

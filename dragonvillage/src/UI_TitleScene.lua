@@ -575,7 +575,7 @@ function UI_TitleScene:workCheckUserID()
     local function fail_cb()
         -- 자동로그인에 실패한 경우 로그인 팝업 출력
         --local ui = UI_LoginPopup()
-        local ui = UI_LoginIntegratePopup()
+        local ui = UI_LoginIntegratePopup(self)
         local function close_cb()
             self:doNextWork()
         end
