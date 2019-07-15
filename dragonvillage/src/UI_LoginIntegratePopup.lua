@@ -25,6 +25,8 @@ end
 -------------------------------------
 function UI_LoginIntegratePopup:initUI()
     local vars = self.vars
+
+    vars['newLoginMenu']:setVisible(true)
     vars['guestBtn']:setVisible(true)
     vars['loginBtn']:setVisible(true)
     vars['serverBtn']:setVisible(true)
@@ -35,6 +37,8 @@ end
 -------------------------------------
 function UI_LoginIntegratePopup:close()
     local vars = self.vars
+
+    vars['newLoginMenu']:setVisible(false)
     vars['guestBtn']:setVisible(false)
     vars['loginBtn']:setVisible(false)
     vars['serverBtn']:setVisible(false)
