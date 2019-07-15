@@ -5,6 +5,8 @@ ServerData_Tutorial = class({
         m_serverData = 'ServerData',
         m_tTutorialClearInfo = 'table',	-- 클리어한 튜토리얼 테이블
 		m_tTutorialStepInfo = 'table', -- 튜토리얼 별 진행중 스텝 (튜토리얼 테이블에 지정된 스텝만 저장)
+    
+        m_isFlagTutorial_1_7 = 'boolean', -- 1-7 튜토리얼 종료 통신 했을 때 true체크, 튜토리얼 종료 바로 직후에만  계정연동 여부 물어보는 팝업 띄우기 위함 
     })
 
 -------------------------------------
@@ -129,6 +131,11 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, step, finish_cb,
             -- @analytics
             Analytics:firstTimeExperience('Tutorial_Intro_Finish')
             Adjust:trackEvent(Adjust.EVENT.TUTORIAL_FINISH_INTRO)
+        end
+	
+		-- 통신했을 때 바로 true 처
+        if (tutorial_key == TUTORIAL.ADV_01_07_END) then
+            self.m_isFlagTutorial_1_7 = true
         end
 
         if finish_cb then

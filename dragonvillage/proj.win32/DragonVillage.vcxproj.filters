@@ -4120,6 +4120,12 @@
     <None Include="..\src\UI_LoginIntegratePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_LoginPopup2.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_RinkLoginPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -859,6 +859,7 @@ local t_module = {
     'UI_ContentLock',
     'UI_ChangeNickPopup',
     'UI_LoginPopup',
+    'UI_LoginPopup2',
     'UI_LoginPopupWithoutFirebase',
     'UI_LoginIntegratePopup',
     'UI_WebView',
@@ -904,6 +905,7 @@ local t_module = {
     'UI_RuneGuardianDungeonScene',
     'UI_AncientTowerBestDeckListItem',
     'UI_AncientTowerBestDeckPopup',
+    'UI_RinkLoginPopup',
 
     -- UI : 환상 던전
     'UI_EventScene_Illusion',

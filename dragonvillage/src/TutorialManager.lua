@@ -829,3 +829,30 @@ function TutorialManager:beforeFirstTutorialDone()
 
     return false
 end
+
+-------------------------------------
+-- function showRecommandLoginPopup
+-- @brief 튜토리얼 1-7끝나고 계정연동 권유 팝업 띄울 조건 확인
+-------------------------------------
+function TutorialManager:showRecommandLoginPopup()
+    -- 1. 게스트 계정인가
+    local is_guest = g_localData:isGuestAccount()
+    if (not is_guest) then
+        return
+    end
+
+    -- 1-7을 클리어 하였는가
+    if (not g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_07_END)) then 
+        return
+    end
+
+    -- 1-7 클리어 통신 직후인가
+    if (not g_tutorialData.m_isFlagTutorial_1_7) then
+        return
+    end
+
+    UI_RinkLoginPopup()
+    
+    -- 팝업 한 번 보았다면, 플래그 초기화
+    g_tutorialData.m_isFlagTutorial_1_7 = false
+end
