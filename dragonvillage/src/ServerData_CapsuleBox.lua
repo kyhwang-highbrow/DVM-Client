@@ -426,6 +426,8 @@ function ServerData_CapsuleBox:getBadgeRes(badge_type)
         res_number = '0303'
     elseif (badge_type == 'new') then
         res_number = '0302'
+    elseif (badge_type == 'recommend') then
+        res_number = '0304'
     end
 
     local full_res = string.format(res, res_number)
