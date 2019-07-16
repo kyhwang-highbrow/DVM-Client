@@ -304,7 +304,7 @@ function UI_TitleScene:setWorkList()
 
     self.m_lWorkList = {}
     
-    --table.insert(self.m_lWorkList, 'workTitleAni') -- @jhakim 190709 (오래걸리는)타이틀 애니메이션 제거
+    table.insert(self.m_lWorkList, 'workTitleAni') -- @jhakim 190709 (오래걸리는)타이틀 애니메이션 제거
     table.insert(self.m_lWorkList, 'workLoading')
     table.insert(self.m_lWorkList, 'workGetServerList')
     --table.insert(self.m_lWorkList, 'workCheckSelectedGameServer') -- 유저가 선택(or 추천)한 게임 서버 확인
