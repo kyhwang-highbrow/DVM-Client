@@ -601,3 +601,17 @@ end
 function SettingData:setIllusionBestScore(t_score_data) -- key : event_illusion
     self:applySettingData(t_score_data, 'event_illusion') 
 end
+
+-------------------------------------
+-- function getLinkLoginStep
+-------------------------------------
+function SettingData:getLinkAccountStep()
+    return self:get('t_link_account_step') or {}
+end
+
+-------------------------------------
+-- function setLinkAccountStep
+-------------------------------------
+function SettingData:setLinkAccountStep(t_link)
+    self:applySettingData(t_link, 't_link_account_step') 
+end

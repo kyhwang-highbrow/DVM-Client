@@ -905,7 +905,7 @@ local t_module = {
     'UI_RuneGuardianDungeonScene',
     'UI_AncientTowerBestDeckListItem',
     'UI_AncientTowerBestDeckPopup',
-    'UI_RinkLoginPopup',
+    'UI_LinkAccountPopup',
 
     -- UI : 환상 던전
     'UI_EventScene_Illusion',

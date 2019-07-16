@@ -335,12 +335,34 @@ function UI_Lobby:entryCoroutine_challengeModePopup(co)
 end
 
 -------------------------------------
+-- function entryCoroutine_linkAccount
+-- @brief 계정 연동 권유 팝업 조건 체크 코루틴 
+-------------------------------------
+function UI_Lobby:entryCoroutine_linkAccount(co)  
+    if (not UI_LinkAccountPopup.checkLinkAccountCondition()) then
+        return
+    end
+
+    co:work()
+    -- 창을 닫으면 다음 코루틴 시작
+    local close_cb = function()
+        co.NEXT()
+    end
+    
+    local link_popup = UI_LinkAccountPopup()
+    link_popup:setCloseCB(close_cb)
+    
+	if co:waitWork() then return end
+end
+
+-------------------------------------
 -- function entryCoroutine_Escapable
 -- @brief 코루틴 탈출되어도 상관없는 코루틴 함수 
 -------------------------------------
 function UI_Lobby:entryCoroutine_Escapable(co)
-        self:entryCoroutine_spotSale(co)
-        --self:entryCoroutine_challengeModePopup(co)
+    self:entryCoroutine_spotSale(co)
+    self:entryCoroutine_linkAccount(co)
+    --self:entryCoroutine_challengeModePopup(co)
 end
 
 -------------------------------------

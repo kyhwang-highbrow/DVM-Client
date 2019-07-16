@@ -4123,7 +4123,7 @@
     <None Include="..\src\UI_LoginPopup2.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_RinkLoginPopup.lua">
+    <None Include="..\src\UI_LinkAccountPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

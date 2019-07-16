@@ -15,7 +15,7 @@ function UI_LoginPopup2:init()
     UIManager:open(self, UIManager.POPUP)
     
     -- backkey 없음
-    g_currScene:pushBackKeyListener(self, function() self:close(true) end, 'UI_LoginPopup2')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoginPopup2')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -48,6 +48,7 @@ function UI_LoginPopup2:initButton()
 	vars['facebookBtn']:registerScriptTapHandler(function() self:click_facebookBtn() end)
 	vars['twitterBtn']:registerScriptTapHandler(function() self:click_twitterBtn() end)
     vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 
 	self:alignButton()
 end
@@ -57,8 +58,6 @@ end
 -------------------------------------
 function UI_LoginPopup2:alignButton()
 	local vars = self.vars
-	
-    vars['closeBtn']:setVisible(false)
 
 	-- visible on/off
 	--vars['googleBtn']:setVisible(true)
