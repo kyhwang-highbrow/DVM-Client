@@ -15,7 +15,7 @@ function UI_LoginPopup:init()
     UIManager:open(self, UIManager.POPUP)
     
     -- backkey 없음
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_LoginPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close(true) end, 'UI_LoginPopup')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -52,7 +52,7 @@ function UI_LoginPopup:initButton()
     vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
     vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_changeServer() end)
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:close(true) end)
 	
     self:alignButton()
 end
