@@ -47,6 +47,7 @@ function UI_ConfirmPopup:initButton()
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
+    vars['guestBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
 end
 
 -------------------------------------
@@ -111,6 +112,13 @@ function UI_ConfirmPopup:click_cancelBtn()
     end
 
     self:close()
+end
+
+-------------------------------------
+-- function click_linkBtn
+-------------------------------------
+function UI_ConfirmPopup:click_linkBtn()
+    UI_LoginPopup2()
 end
 
 --@CHECK
