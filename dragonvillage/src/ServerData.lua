@@ -247,6 +247,9 @@ function ServerData:getInstance()
     -- 환상 던전 이벤
     g_illusionDungeonData = Serverdata_IllusionDungeon()
 
+    -- 원격 설정
+    g_remoteConfig = ServerData_RemoteConfig()
+
     return g_serverData
 end
 

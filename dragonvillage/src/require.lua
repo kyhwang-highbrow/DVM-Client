@@ -193,6 +193,7 @@ local t_module = {
     'ServerData_SpotSale', -- 깜짝 할인 상품
     'ServerData_EventAdvent', -- 깜짝 출현 이벤트
     'Serverdata_IllusionDungeon', -- 환상 던전 이벤트
+    'ServerData_RemoteConfig', -- 원격 설정
 
 
     -- Interface

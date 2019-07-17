@@ -19,12 +19,19 @@ AdSDKSelector = {
 -------------------------------------
 -- function initAdSDKSelector
 -- @brief 광고 SDK 선택자 초기화
+-- @param skip_ad_play(boolean) 광고 재생 생략 여부 (true일 경우 안드로이드에서 광고 재생 생략)
 -------------------------------------
-function AdSDKSelector:initAdSDKSelector()
+function AdSDKSelector:initAdSDKSelector(skip_ad_play)
     local appver_str = CppFunctionsClass:getAppVer()
 
     if CppFunctionsClass:isAndroid() then
-        self.m_sdkName = 'ad_without_play'
+
+        -- 광고 재생 생략 여부 (true일 경우 안드로이드에서 광고 재생 생략)
+        if skip_ad_play then
+            self.m_sdkName = 'ad_without_play'
+        else
+            self.m_sdkName = 'admob'
+        end
 
     -- 최신 aos 빌드에서는 unityads 사용
     elseif (CppFunctionsClass:isAndroid() and isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4')) then

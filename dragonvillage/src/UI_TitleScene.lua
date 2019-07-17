@@ -1116,6 +1116,11 @@ function UI_TitleScene:workGetServerInfo()
 					g_eventData:setComebackUser_1st(ret['comeback_reward'])
 				end
 
+                if (ret['remote_config']) then
+                    cclog('# 원격 설정(remote config)')
+                    g_remoteConfig:applyRemoteConfig(ret['remote_config'])
+                end
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)
@@ -1141,7 +1146,9 @@ end
 -- @brief 광고 SDK 선택자 초기화
 -------------------------------------
 function UI_TitleScene:workInitAdSDKSelector()
-    AdSDKSelector:initAdSDKSelector()
+    -- 광고 재생 생략 여부 (true일 경우 안드로이드에서 광고 재생 생략)
+    local skip_ad_play = g_remoteConfig:getRemoteConfig('skip_ad_play')
+    AdSDKSelector:initAdSDKSelector(skip_ad_play)
     
     -- 다음 work로 이동
     self:doNextWork()

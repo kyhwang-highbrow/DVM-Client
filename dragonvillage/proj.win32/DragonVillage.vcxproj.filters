@@ -4129,6 +4129,9 @@
     <None Include="..\src\AdWithoutPlayManager.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_RemoteConfig.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
