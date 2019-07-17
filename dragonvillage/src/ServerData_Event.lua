@@ -256,7 +256,12 @@ function ServerData_Event:getEventFullPopupList()
 
             -- 누적 결제 보상 이벤트
             elseif (event_type == 'purchase_point') then
-                visible = g_purchasePointData:isActivePurchasePointEvent(event_id) -- version
+                -- 누적 결제 판매 중이 아닐 때에는 visible 끔, 판매 중일 때에는 위의 조건에 따름
+                local is_active = g_purchasePointData:isActivePurchasePointEvent(event_id) -- version
+                if (not is_active) then
+                    visible = is_active
+                end
+
                 if visible then
                     event_type = event_type .. ';' .. event_id
                 end
