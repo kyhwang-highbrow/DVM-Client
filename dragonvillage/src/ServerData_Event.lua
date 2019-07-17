@@ -262,6 +262,12 @@ function ServerData_Event:getEventFullPopupList()
                     visible = is_active
                 end
 
+                -- 마지막 보상 받았다면 띄워주지 않음
+                local is_get_last_reward = g_purchasePointData:isGetLastReward(event_id)
+                if (is_get_last_reward) then
+                    visible = false
+                end
+
                 if visible then
                     event_type = event_type .. ';' .. event_id
                 end

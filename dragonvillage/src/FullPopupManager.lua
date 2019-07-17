@@ -137,6 +137,8 @@ function FullPopupManager:show(type, show_func)
                 show_func(popup_key)
             end
         end
+
+        self.m_title_to_lobby = false
     end
 end
 
