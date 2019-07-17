@@ -115,7 +115,7 @@ return {['{1}발의 마법탄을 날려 적에게 피해를 줍니다.\n매 타�
 ['나 좀 꺼내줘!']='Help me get out!',
 ['토파즈 드래곤 출시']='Topaz Dragon now available!',
 ['미스틱티니는 {@yellow}클랜 던전의 1공격대{@default}에서\n적을 약화시키고 아군을 강하게 하는 지원 스킬을 사용합니다.']='Mystictiny uses a support skill as {@yellow}Clan Dungeon - Raid Party 1{@default}\nthat weakens enemies and strengthens allies.',
-['유리한 속성의 적 1명을 약화시키고 같은 속성의 아군을 강화시키는 능력을 가진 드래곤입니다.\n{@yellow}클랜던전 1공격대{@default}에 추천합니다.']='Specialized in weakening one enemy whose attribute is effective for you in battle, and strengthening allies with the same attribute.\nRecommended for {@yellow}Clan Dungeon - Raid Party 1{@default}.',
+['유리한 속성의 적 1명을 약화시키고 같은 속성의 아군을 강화시키는 능력을 가진 드래곤입니다.\n{@yellow}클랜던전 1공격대{@default}에 추천합니다.']='Specialized in weakening one enemy whose attribute is effective for you in battle, \nand strengthening allies with the same attribute.\nRecommended for {@yellow}Clan Dungeon - Raid Party 1{@default}.',
 ['모험 시작하기']='Start the Adventure',
 ['이야기 시작']='Start the Story',
 ['고대/시험의 탑 추천']='Ancient Tower / Tower of Tests Special',
