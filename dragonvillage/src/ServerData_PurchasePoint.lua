@@ -370,6 +370,22 @@ function ServerData_PurchasePoint:getLastRewardDesc(version)
 end
 
 -------------------------------------
+-- function getLastRewardDesc
+-- @breif 최종 보상 받았는지 확인
+-------------------------------------
+function ServerData_PurchasePoint:isGetLastReward(version)
+    local last_step = self:getPurchasePoint_stepCount(version)
+    local t_last_reward, reward_state = self:getPurchasePoint_rewardStepInfo(version, last_step)
+    
+    -- 보상 받았다면 1
+    if (reward_state == 1) then
+        return true
+    end
+    
+    return false
+end
+
+-------------------------------------
 -- function getPurchasePoint_stepCount
 -- @breif 해당 버전의 시간 정보 리턴
 -------------------------------------

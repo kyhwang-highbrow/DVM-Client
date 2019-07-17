@@ -44,19 +44,25 @@ function LobbyPopup_PurchasePoint:checkCustomCondition()
     for _, purchase_point_data in pairs(l_item_list_purchase_point) do
         local data = purchase_point_data.m_eventData
 
+        -- 활성화 누적 이벤트 한 개만 검사
         if (data) then
             local active_version = data['version']
             self.m_purchasePointVersion = active_version
             
             if (active_version) then
+                -- 마지막 보상 받았을 경우 무조건 false 반환
+                local is_get_last_reward = g_purchasePointData:isGetLastReward(active_version)
+                if (is_get_last_reward) then
+                    return false
                 -- 점수 조건 체크
-                if (t_lobby_popup_data['popup_key'] == 'purchase_point_value') then
+                elseif (t_lobby_popup_data['popup_key'] == 'purchase_point_value') then
                     return self:checkPoint(active_version)
-
                 -- 날짜 조건 체크
                 elseif (t_lobby_popup_data['popup_key'] == 'purchase_point_date') then
                     return self:checkDate(active_version)
                 end
+
+                return false
             end
 
         end
