@@ -668,7 +668,8 @@ function UI_LoginPopup2:loginSuccess(info)
         Network_platform_updateId(fuid, platform_id, account_info)
     end
 
-    self:updateInfo()
+    -- dirty -> lobby btn state
+    GoogleHelper.setDirty(true)
 end
 
 --@CHECK
