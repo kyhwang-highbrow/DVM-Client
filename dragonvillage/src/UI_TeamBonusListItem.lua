@@ -121,8 +121,8 @@ function UI_TeamBonusListItem:checkApplyCondition(l_card)
         end
     end
     
-    vars['applyBtn']:setVisible(false)
-    --vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn(l_dragon_list, t_teambonus) end)
+    vars['applyBtn']:setVisible(true)
+    vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn(l_dragon_list, t_teambonus) end)
 end
 
 -------------------------------------

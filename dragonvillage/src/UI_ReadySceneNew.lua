@@ -1040,9 +1040,12 @@ function UI_ReadySceneNew:applyDeck(l_deck)
     local stage_id = self.m_stageID
 
     -- 시험의 탑 - 속성별 덱 추가 확인
-    if (g_ancientTowerData:isAncientTowerStage(stage_id)) then
-        if (not g_attrTowerData:checkDragonAttr(new_deck)) then
-            return
+    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        local is_attr_tower = g_attrTowerData:getSelAttr()
+        if (is_attr_tower) then
+            if (not g_attrTowerData:checkDragonAttr(new_deck)) then
+                return
+            end
         end
     end
 
@@ -1218,10 +1221,13 @@ function UI_ReadySceneNew:check_startCondition(stage_id)
         end
 
     -- 시험의 탑 - 속성별 덱 추가 확인
-    elseif (g_ancientTowerData:isAncientTowerStage(stage_id)) then
-        local l_deck = self.m_readySceneDeck.m_lDeckList
-        if (not g_attrTowerData:checkDragonAttr(l_deck)) then
-            return false
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        local is_attr_tower = g_attrTowerData:getSelAttr()
+        if (is_attr_tower) then
+            local l_deck = self.m_readySceneDeck.m_lDeckList
+            if (not g_attrTowerData:checkDragonAttr(l_deck)) then
+                return false
+            end
         end
     end
     

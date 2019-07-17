@@ -481,6 +481,26 @@ function UI_ReadySceneNew_Deck:setDeck(l_deck, formation, deckname, leader, tame
 end
 
 -------------------------------------
+-- function getDeckForAttrTower
+-------------------------------------
+function UI_ReadySceneNew_Deck.isDragonForAttrTower(doid)    
+    if (not g_attrTowerData) then
+        return true
+    end
+
+    if (not g_attrTowerData.m_selectAttr) then
+        return true
+    end
+
+    local selected_attr = g_attrTowerData.m_selectAttr
+    if (team_dragon_attr ~= selected_attr) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function convertSimpleDeck
 -- @brief 기존 1~9번의 index를 쓰던 것에서 1~5만 사용하는 것으로 변경
 -------------------------------------
@@ -613,6 +633,18 @@ end
 -- function setSlot
 -------------------------------------
 function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
+    -- 시험의 탑의 경우 같은 속성의 드래곤만 배치 가능
+    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        local attr = g_attrTowerData:getSelAttr()
+        if (attr) then
+            local is_same_attr = self.isDragonForAttrTower(doid)
+            if (not is_same_attr) then
+                return false
+            end
+        end
+    end
+    
+    
     do -- 갯수 체크
         local count = table.count(self.m_tDeckMap)
         if self.m_lDeckList[idx] then
