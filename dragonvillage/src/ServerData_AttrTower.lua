@@ -488,6 +488,29 @@ function ServerData_AttrTower:checkDragonAttr(l_deck)
 end
 
 -------------------------------------
+-- function checkDragonAttr
+-- @brief 드래곤 속성 체크
+-------------------------------------
+function ServerData_AttrTower:getAttrDragonDeck(t_deck)
+    if (not self.m_selectAttr) then
+        return t_deck
+    end
+
+    for i, v in pairs(t_deck) do
+        local doid = v['id'] or v
+        local dragon = g_dragonsData:getDragonDataFromUid(doid)
+        local did = dragon['did']
+        local attr = TableDragon:getDragonAttr(did)
+
+        if (attr ~= self.m_selectAttr) then
+            t_deck[tonumber(i)] = nil
+        end
+    end
+
+    return t_deck
+end
+
+-------------------------------------
 -- function getAttrMaxStageId
 -------------------------------------
 function ServerData_AttrTower:getAttrMaxStageId()

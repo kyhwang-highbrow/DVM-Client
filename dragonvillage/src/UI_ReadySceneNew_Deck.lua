@@ -633,18 +633,6 @@ end
 -- function setSlot
 -------------------------------------
 function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
-    -- 시험의 탑의 경우 같은 속성의 드래곤만 배치 가능
-    if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-        local attr = g_attrTowerData:getSelAttr()
-        if (attr) then
-            local is_same_attr = self.isDragonForAttrTower(doid)
-            if (not is_same_attr) then
-                return false
-            end
-        end
-    end
-    
-    
     do -- 갯수 체크
         local count = table.count(self.m_tDeckMap)
         if self.m_lDeckList[idx] then

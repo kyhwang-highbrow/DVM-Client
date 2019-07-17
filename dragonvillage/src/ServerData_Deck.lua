@@ -201,6 +201,11 @@ function ServerData_Deck:getDeck_core(deck_name)
             end
         end
         
+        -- 시험의 탑의 경우 속성에 따라 덱을 필터링
+        if (string.match(deck_name, 'attr_tower')) then
+            t_ret = g_attrTowerData:getAttrDragonDeck(t_ret)
+        end
+
         return t_ret, self:adjustFormationName(formation), deck_name, leader, tamer_id
     end
 
