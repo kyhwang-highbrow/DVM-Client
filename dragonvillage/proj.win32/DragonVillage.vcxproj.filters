@@ -4126,6 +4126,9 @@
     <None Include="..\src\UI_LinkAccountPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\AdWithoutPlayManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -44,6 +44,7 @@ local t_module = {
     'AdMobInterstitialAd',
     'AdMobManager',
     'UnityAdsManager',
+    'AdWithoutPlayManager',
     'XorCipher',
     'PackageManager',
     'FullPopupManager',

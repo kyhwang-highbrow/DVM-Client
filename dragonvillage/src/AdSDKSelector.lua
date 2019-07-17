@@ -13,7 +13,7 @@ AD_TYPE = {
 -------------------------------------
 AdSDKSelector = {
         m_isInit = false,
-        m_sdkName = 'string', -- 'admob' or 'unityads'
+        m_sdkName = 'string', -- 'admob' or 'unityads' or 'ad_without_play'
     }
 
 -------------------------------------
@@ -23,8 +23,11 @@ AdSDKSelector = {
 function AdSDKSelector:initAdSDKSelector()
     local appver_str = CppFunctionsClass:getAppVer()
 
+    if CppFunctionsClass:isAndroid() then
+        self.m_sdkName = 'ad_without_play'
+
     -- 최신 aos 빌드에서는 unityads 사용
-    if (CppFunctionsClass:isAndroid() and isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4')) then
+    elseif (CppFunctionsClass:isAndroid() and isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4')) then
         --self.m_sdkName = 'unityads'
         --UnityAdsManager:initAdSdk()
 
@@ -56,6 +59,11 @@ function AdSDKSelector:initRewardedVideoAd()
 
     elseif (self.m_sdkName == 'unityads') then
         return UnityAdsManager:initRewardedVideoAd()
+
+    elseif (self.m_sdkName == 'ad_without_play') then
+        -- 아무것도 진행하지 않음
+        return
+
     end
 end
 
@@ -75,6 +83,11 @@ function AdSDKSelector:adPreload(ad_type)
 
     elseif (self.m_sdkName == 'unityads') then
         return UnityAdsManager:adPreload(ad_type)
+
+    elseif (self.m_sdkName == 'ad_without_play') then
+        -- 아무것도 진행하지 않음
+        return
+
     end
 end
 
@@ -94,6 +107,10 @@ function AdSDKSelector:showByAdType(ad_type, result_cb)
 
     elseif (self.m_sdkName == 'unityads') then
         return UnityAdsManager:showByAdType(ad_type, result_cb)
+
+    elseif (self.m_sdkName == 'ad_without_play') then
+        return AdWithoutPlayManager:showByAdType(ad_type, result_cb)
+
     end
 end
 
@@ -118,6 +135,9 @@ function AdSDKSelector:showDailyAd(ad_type, result_cb)
 
     elseif (self.m_sdkName == 'unityads') then
         return UnityAdsManager:showDailyAd(ad_type, result_cb)
+
+    elseif (self.m_sdkName == 'ad_without_play') then
+        return AdWithoutPlayManager:showDailyAd(ad_type, result_cb)
     end
 end
 
