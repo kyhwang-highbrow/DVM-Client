@@ -168,7 +168,7 @@ function UI_LoginPopupWithoutFirebase:loginSuccess(info)
 
     local uid = t_info['fuid'] or t_info['uid']
     local push_token = t_info['pushToken'] or 'firebase' -- 'firebase'는 게스트 계정이라는 의미
-    local platform_id = t_info['providerId'] or ''
+    local platform_id = t_info['providerId'] or 'firebase'
     local account_info = t_info['name'] or 'Guest'
 
     cclog('# UI_LoginPopupWithoutFirebase:loginSuccess(info)')
