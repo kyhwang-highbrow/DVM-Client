@@ -409,13 +409,9 @@ function datetime.makeTimeDesc_timer_filledByZero(milliseconds, from_day)
     local millisec = milliseconds
 
     local str = ''
-    if (from_day) then
-        --str = string.format('%.2d:%.2d:%.2d:%.2d:%.3d', day, hour, min, sec, millisec)
-        str = string.format('%.2d:%.2d:%.2d:%.2d', day, hour, min, sec)
-    else
-        str = string.format('%.2d:%.2d:%.2d', hour, min, sec)
-    end
-
+    hour = day * 24 + hour
+    str = string.format('%.2d:%.2d:%.2d', hour, min, sec)
+    
     return str
 end
 
