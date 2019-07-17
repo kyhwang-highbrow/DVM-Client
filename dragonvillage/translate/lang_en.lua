@@ -110,7 +110,7 @@ return {['{1}발의 마법탄을 날려 적에게 피해를 줍니다.\n매 타�
 ['이 스킬은 매우 높은 재사용 시간을 가지고 있습니다.']='This skill has a very long cooldown.',
 ['드래곤 만나러 가기']='Go see the dragon',
 ['다음에 하기']='Do it later',
-['계정 연동']='Link the account',
+['계정 연동하기']='Link the account',
 ['현재 게스트 계정으로 게임을 진행 중입니다.\n계정 연동을 통해 게임 데이터를 안전하게 보호하세요.']='You are playing the game as a guest.\nPlease link your account to protect your game data.',
 ['나 좀 꺼내줘!']='Help me get out!',
 ['토파즈 드래곤 출시']='Topaz Dragon now available!',

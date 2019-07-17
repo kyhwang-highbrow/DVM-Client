@@ -110,7 +110,7 @@ return {['{1}발의 마법탄을 날려 적에게 피해를 줍니다.\n매 타�
 ['이 스킬은 매우 높은 재사용 시간을 가지고 있습니다.']='Este ataque tiene un Tiempo de Recarga muy alto.',
 ['드래곤 만나러 가기']='Ir a conocer dragones',
 ['다음에 하기']='Hacer la próxima vez',
-['계정 연동']='Cuenta vinculada',
+['계정 연동하기']='Cuenta vinculada',
 ['현재 게스트 계정으로 게임을 진행 중입니다.\n계정 연동을 통해 게임 데이터를 안전하게 보호하세요.']='El juego se está ejecutando como cuenta de invitado.\nProtege de forma segura los datos del juego vinculándolo a una cuenta.',
 ['나 좀 꺼내줘!']='¡Sácame de aquí!',
 ['토파즈 드래곤 출시']='Nuevo Dragón Topacio',
