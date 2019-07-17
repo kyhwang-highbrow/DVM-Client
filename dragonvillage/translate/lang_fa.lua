@@ -121,6 +121,7 @@ return {['{1}발의 마법탄을 날려 적에게 피해를 줍니다.\n매 타�
 ['고대/시험의 탑 추천']='Ancient Tower / Tower of Tests Special',
 ['초보자 추천']='Recommended for Newbies',
 ['고대유적 던전 추천']='Ancient Ruins Dungeon Special',
+['광고 시스템 점검 중입니다.\n점검 중에는 광고 재생 없이 보상 획득이 가능합니다.']='Advertisement System Maintenance In Progress.\nIt is possible to take rewards without advertisement.',
 [' 빛의 거목']='تست فارسی',
 ['\"{1}\" 진행하시겠습니까?']='تست فارسی',
 ['\"언어 설정\"은 준비 중입니다.']='تست فارسی',
