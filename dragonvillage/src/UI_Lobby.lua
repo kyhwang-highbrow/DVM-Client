@@ -225,6 +225,9 @@ function UI_Lobby:entryCoroutine()
 
                 -- table_event_list 에 있는 팝업들 조건 체크, 출력
                 g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_full_popup_func)
+				
+				-- 타이틀에서 로비 넘어온 플래그 초기화 
+                g_fullPopupManager:setTitleToLobby(false)
             end
             
 			-- 출석 보상 정보 (보상 존재할 경우 출력)

@@ -56,8 +56,6 @@ function FullPopupManager:show(type, show_func)
                 show_func(pid)
             end                
         end
-
-        self.m_title_to_lobby = false
   
     -- 출석 보상 있을 시 출석 팝업
     elseif (type == FULL_POPUP_TYPE.ATTENDANCE) then
@@ -137,8 +135,6 @@ function FullPopupManager:show(type, show_func)
                 show_func(popup_key)
             end
         end
-
-        self.m_title_to_lobby = false
     end
 end
 
