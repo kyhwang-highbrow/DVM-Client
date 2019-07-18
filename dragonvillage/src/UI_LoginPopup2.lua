@@ -63,6 +63,7 @@ function UI_LoginPopup2:alignButton()
 	--vars['googleBtn']:setVisible(true)
 	--vars['facebookBtn']:setVisible(true)
 	--vars['twitterBtn']:setVisible(true)
+    vars['guestBtn']:setVisible(false)
 	vars['gamecenterBtn']:setVisible(CppFunctions:isIos())
 
 	-- visible로 구분하여 활성화된 버튼을 찾아 정렬
