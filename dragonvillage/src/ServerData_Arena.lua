@@ -552,6 +552,12 @@ function ServerData_Arena:request_arenaFinish(is_win, play_time, finish_cb, fail
         local force_exit = self.m_tempLogData['force_exit'] or false
         ui_network:setParam('force_exit', force_exit)
         
+        -- 접속시간 저장
+        local save_time = g_accessTimeData:getSaveTime()
+        if (save_time) then
+            ui_network:setParam('access_time', save_time)
+        end
+
         -- 통신 후에는 삭제
         self.m_tempLogData = {}
     end
