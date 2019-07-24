@@ -148,3 +148,30 @@ function ServerData_ContentLock:getOpenContentNameWithLv(lv)
 
     return nil
 end
+
+-------------------------------------
+-- function getOpenContentDesc
+-------------------------------------
+function ServerData_ContentLock:getOpenContentDesc(content_name)
+    if (not content_name) then
+        return ''
+    end
+
+    if (content_name == '') then
+        return ''
+    end
+    
+    local table_content_lock = TABLE:get('table_content_lock')
+    local t_content_lock = table_content_lock[content_name]
+
+    if (not t_content_lock) then
+        return ''
+    end
+
+    local open_desc = t_content_lock['t_open_desc']
+    if (not open_desc) then
+        return ''
+    end
+
+    return open_desc
+end

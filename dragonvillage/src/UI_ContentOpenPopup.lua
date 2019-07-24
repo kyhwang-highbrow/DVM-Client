@@ -54,6 +54,9 @@ function UI_ContentOpenPopup:initUI()
     
     vars['contentsVisual']:changeAni('open_'..content_type, true)
     vars['contentsLabel']:setString(getContentName(content_type))
+
+    local open_desc = g_contentLockData:getOpenContentDesc(content_type)
+    vars['infoLabel']:setString(open_desc)
 end
 
 -------------------------------------
