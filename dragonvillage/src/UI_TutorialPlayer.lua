@@ -16,6 +16,7 @@ UI_TutorialPlayer = class(PARENT,{
 		m_isWaiting = 'boolean',
 
 		m_advUI = 'UI',
+        m_endUI = 'UI',
     })
 
 -------------------------------------
@@ -202,6 +203,12 @@ function UI_TutorialPlayer:applyEffect(effect)
 	elseif (effect == 'adv_close') then
 		self.m_advUI:close()
 
+    -- 튜토리얼 끝나고 튜토리얼 종료 팝업 보여주기 위해서 사용 
+	elseif (effect == 'end_popup_open') then
+		self.m_endUI = self:makeEndUI()
+
+	elseif (effect == 'end_popup_close') then
+		self.m_endUI:close()
     else
         cclog('정말 없는 effect : ' .. effect)
     end
@@ -382,4 +389,15 @@ function UI_TutorialPlayer:click_skip()
     if (g_gameScene) then
         g_gameScene:showSkipPopup()
     end
+end
+
+-------------------------------------
+-- function makeEndUI
+-------------------------------------
+function UI_TutorialPlayer:makeEndUI()
+    local ui = UI()
+    ui:load('tutorial_end_popup.ui')
+    UIManager:open(ui, UIManager.POPUP)
+    cclog('튜토 팝업 열기')
+    return ui
 end
