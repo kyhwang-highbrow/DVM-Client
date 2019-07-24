@@ -82,6 +82,33 @@ function UI_ContentOpenPopup:click_lickBtn()
     -- 시험의 탑 바로가기
     if (content_type == 'attr_tower') then
         UINavigator:goTo('attr_tower')
+    -- 거목 던전 바로가기
+    elseif (content_type == 'nest_tree') then
+        UINavigator:goTo('nest_tree')
+    -- 진화 던전 바로가기
+    elseif (content_type == 'nest_evo_stone') then
+        UINavigator:goTo('nest_evo_stone')
+    -- 고대의 탑 바로가기
+    elseif (content_type == 'ancient') then
+        UINavigator:goTo('ancient')
+    -- 콜로세움 바로가기
+    elseif (content_type == 'colosseum') then
+        UINavigatorDefinition:goTo('colosseum')
+    -- 악몽 던전 바로가기
+    elseif (content_type == 'nest_nightmare') then
+        UINavigator:goTo('nest_nightmare') 
+    -- 인연 던전 바로가기
+    elseif (content_type == 'secret_relation') then
+        UINavigator:goTo('secret_relation')
+    -- 클랜 바로가기
+    elseif (content_type == 'clan') then
+        UINavigatorDefinition:goTo('clan') 
+    -- 그림자의 신전 바로가기
+    elseif (content_type == 'challenge_mode') then
+        UINavigatorDefinition:goTo('challenge_mode')
+    -- 그랜드 콜로세움 바로가기
+    elseif (content_type == 'grand_arena') then
+        UINavigatorDefinition:goTo('grand_arena')
     end
 end
 
