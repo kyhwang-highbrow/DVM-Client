@@ -223,6 +223,10 @@ function UI_MasterRoadPopup:click_questLinkBtn()
     local clear_type = t_road['clear_type']
     local clear_cond = t_road['clear_value']
 
+    if (clear_type == 'clr_stg') and (clear_cond == 1110102) then
+        clear_type = 'stg_ready'
+    end
+    
     QuickLinkHelper.quickLink(clear_type, clear_cond)
 
     -- "바로 가기"버튼을 클릭했을 때 팝업이 자동으로 닫힐지 여부

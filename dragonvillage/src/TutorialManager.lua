@@ -244,7 +244,7 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 		-- 104 : 1-2 전투 시작
 		elseif (step == 104) then
 			stage_id = 1110102
-			UINavigator:goTo('adventure', stage_id)
+            UINavigatorDefinition:goTo('battle_ready', stage_id)
 			return
 
 		end

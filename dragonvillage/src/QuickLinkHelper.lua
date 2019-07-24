@@ -95,6 +95,11 @@ T_LINK_FUNC = {
         UINavigator:goTo('adventure', condition)
     end,
 
+    -- stage clear 인데 readyScene으로 보내주는 경우
+    ['stg_ready'] = function(condition)
+        UINavigatorDefinition:goTo('battle_ready', condition)
+    end,
+
     -- ancient clear / condition : stage_id
     ['clr_tower'] = function(condition)
         UINavigator:goTo('ancient', condition)

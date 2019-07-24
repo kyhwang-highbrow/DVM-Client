@@ -94,6 +94,11 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
     end
+
+    -- @ TUTORIAL : 1-1 end , 104
+	local tutorial_key = TUTORIAL.FIRST_END
+	local check_step = 104
+	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 end
 
 -------------------------------------
