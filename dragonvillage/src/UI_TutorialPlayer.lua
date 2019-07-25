@@ -16,7 +16,6 @@ UI_TutorialPlayer = class(PARENT,{
 		m_isWaiting = 'boolean',
 
 		m_advUI = 'UI',
-        m_endUI = 'UI',
     })
 
 -------------------------------------
@@ -204,11 +203,8 @@ function UI_TutorialPlayer:applyEffect(effect)
 		self.m_advUI:close()
 
     -- 튜토리얼 끝나고 튜토리얼 종료 팝업 보여주기 위해서 사용 
-	elseif (effect == 'end_popup_open') then
-		self.m_endUI = self:makeEndUI()
-
-	elseif (effect == 'end_popup_close') then
-		self.m_endUI:close()
+	elseif (effect == 'end_popup') then
+		self:makeEndUI()
     else
         cclog('정말 없는 effect : ' .. effect)
     end
@@ -396,8 +392,12 @@ end
 -------------------------------------
 function UI_TutorialPlayer:makeEndUI()
     local ui = UI()
-    ui:load('tutorial_end_popup.ui')
+    ui:load('popup_contents_open.ui')
+    ui.vars['descLabel']:setVisible(false)
+    ui.vars['contentsLabel']:setString(Str('튜토리얼이 종료되었습니다.'))
+    ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
     UIManager:open(ui, UIManager.POPUP)
-    cclog('튜토 팝업 열기')
-    return ui
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_TutorialEnd')
 end
