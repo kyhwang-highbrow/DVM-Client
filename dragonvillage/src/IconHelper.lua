@@ -455,8 +455,8 @@ function IconHelper:getAttributeIcon(attribute)
     end
     
     local res_name = string.format('res/ui/icons/attr/attr_%s_02.png', attribute)
-    local sprite = self:getIcon(res_name)
-    return sprite
+    local attr_button = self:makeImageBtn(res_name, 49, click_func)
+    return attr_button
 end
 
 -------------------------------------
@@ -465,18 +465,18 @@ end
 -------------------------------------
 function IconHelper:getRoleIcon(role)
     local res_name = string.format('res/ui/icons/book/role_%s.png', role)
-    local sprite = self:getIcon(res_name)
-    return sprite
+    local role_button = self:makeImageBtn(res_name, 78, click_func)
+    return role_button
 end
 
 -------------------------------------
 -- function getRarityIcon
 -- @brief 희귀도 아이콘
 -------------------------------------
-function IconHelper:getRarityIcon(role)
-    local res_name = string.format('res/ui/icons/rarity/gem_%s.png', role)
-    local sprite = self:getIcon(res_name)
-    return sprite
+function IconHelper:getRarityIcon(rare)
+    local res_name = string.format('res/ui/icons/rarity/gem_%s.png', rare)
+    local rare_button = self:makeImageBtn(res_name, 50, click_func)
+    return rare_button
 end
 
 -------------------------------------
@@ -499,16 +499,6 @@ function IconHelper:getStatusEffectIcon(status_effect_type)
         sprite = self:getIcon(res_name, 'res/ui/icons/noti_icon_0101.png' )    
     end
 	
-    return sprite
-end
-
--------------------------------------
--- function getRarityIcon
--- @brief 희귀도 아이콘
--------------------------------------
-function IconHelper:getRarityIcon(rarity)
-	local res = 'res/ui/icons/rarity/gem_' .. rarity .. '.png'
-    local sprite = self:getIcon(res, 'res/ui/icons/rarity/gem_common.png')
     return sprite
 end
 
@@ -678,4 +668,26 @@ function IconHelper:getClanBuffIcon(clan_buff_type)
 	end
 
 	return res and IconHelper:getIcon(res) or nil
+end
+
+-------------------------------------
+-- function makeImageBtn
+-- @brief 속성/역할/희귀도 아이콘을 sprite로 사용하다가 버튼으로 변경하려고 만든 함수
+-- @brief 파일이름을 받으면 그 이미지를 사용한 버튼을 만들어 반환
+-------------------------------------
+function IconHelper:makeImageBtn(file_name, size, func_click)
+    local menu = cc.Menu:create()
+
+    local btn = cc.MenuItemImage:create(file_name, nil, nil, 1)
+    btn:setContentSize(size, size)
+    btn:setDockPoint(cc.p(0.0, 0.0))
+    btn:setAnchorPoint(cc.p(0.0, 0.0))
+    btn:setNormalSize(size, size)
+
+    local uic_btn = UIC_Button(btn)
+    uic_btn:registerScriptTapHandler(func_click)
+
+    menu:addChild(btn)
+
+    return menu
 end
