@@ -1015,5 +1015,76 @@ function UI_DragonManageInfo:clickSubMenu(sub_menu)
     end
 end
 
+-------------------------------------
+-- function setDragonAttrBtn
+-- @brief
+-------------------------------------
+function UI_DragonManageInfo.setDragonAttrBtn(attr, node, label)
+    if (not attr) then
+        return
+    end
+
+    if (not node) then
+        return
+    end
+
+    local icon = IconHelper:getAttributeIcon(attr)
+    if (icon) then
+        node:addChild(icon)
+    end
+        
+    if (label) then
+        label:setString(dragonAttributeName(attr))
+    end
+
+end
+
+-------------------------------------
+-- function setDragonRoleBtn
+-- @brief
+-------------------------------------
+function UI_DragonManageInfo.setDragonRoleBtn(role, node, label)
+    if (not role) then
+        return
+    end
+
+    if (not node) then
+        return
+    end
+        
+    local icon = IconHelper:getRoleIcon(role)
+    if (icon) then
+        node:addChild(icon)
+    end
+        
+    if (label) then
+        label:setString(dragonRoleTypeName(role))
+    end
+
+end
+
+-------------------------------------
+-- function setDragonRarityBtn
+-- @brief
+-------------------------------------
+function UI_DragonManageInfo.setDragonRarityBtn(rarity, node, label)
+    if (not rarity) then
+        return
+    end
+
+    if (not node) then
+        return
+    end
+
+    local rarity_icon = IconHelper:getRarityIcon(rarity)     
+    if (rarity_icon) then
+        node:addChild(rarity_icon)
+    end
+        
+    if (label) then
+        label:setString(dragonRarityName(rarity))
+    end
+end
+
 --@CHECK
 UI:checkCompileError(UI_DragonManageInfo)

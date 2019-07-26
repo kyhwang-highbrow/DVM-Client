@@ -449,13 +449,15 @@ end
 -------------------------------------
 function IconHelper:getAttributeIcon(attribute)
     attribute = attributeNumToStr(attribute)
+    local icon_size = 46
 
     if (attribute == 'none') then
         attribute = 'all'
     end
     
     local res_name = string.format('res/ui/icons/attr/attr_%s_02.png', attribute)
-    local attr_button = self:makeImageBtn(res_name, 49, click_func)
+    local attr_button = self:makeImageBtn(res_name, icon_size, click_func)
+    
     return attr_button
 end
 
@@ -464,8 +466,10 @@ end
 -- @brief 역할 생성
 -------------------------------------
 function IconHelper:getRoleIcon(role)
+    local icon_size = 78
     local res_name = string.format('res/ui/icons/book/role_%s.png', role)
-    local role_button = self:makeImageBtn(res_name, 78, click_func)
+    local role_button = self:makeImageBtn(res_name, icon_size, click_func)
+    
     return role_button
 end
 
@@ -474,8 +478,10 @@ end
 -- @brief 희귀도 아이콘
 -------------------------------------
 function IconHelper:getRarityIcon(rare)
+    local icon_size = 50
     local res_name = string.format('res/ui/icons/rarity/gem_%s.png', rare)
-    local rare_button = self:makeImageBtn(res_name, 50, click_func)
+    local rare_button = self:makeImageBtn(res_name, icon_size, click_func)
+    
     return rare_button
 end
 

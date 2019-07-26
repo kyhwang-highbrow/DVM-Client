@@ -117,21 +117,13 @@ function UI_DragonSkillEnhance:refresh()
     do -- 드래곤 속성
         local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIcon(attr)
-        vars['attrNode']:addChild(icon)
-
-        -- 여기선 attrLabel이 없음
-        --vars['attrLabel']:setString(dragonAttributeName(attr))
+        UI_DragonManageInfo.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'])
     end
 
     do -- 드래곤 역할(role)
         local role_type = t_dragon_data:getRole()
-        -- 여기선 typeNode가 없음
-        --vars['typeNode']:removeAllChildren()
-        --local icon = IconHelper:getRoleIcon(role_type)
-        --vars['typeNode']:addChild(icon)
-
-        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
+        vars['typeNode']:removeAllChildren()
+        UI_DragonManageInfo.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'])
     end
 
     do -- 드래곤 현재 정보 카드

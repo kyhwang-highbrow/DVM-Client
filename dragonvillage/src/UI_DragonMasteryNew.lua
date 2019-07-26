@@ -188,13 +188,13 @@ function UI_DragonMasteryNew:refresh_dragonInfo()
     do -- 드래곤 속성
         local attr = dragon_obj:getAttr()
         vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIcon(attr)
-        vars['attrNode']:addChild(icon)
+        UI_DragonManageInfo.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'])
     end
 
     do -- 드래곤 역할(role)
         local role_type = dragon_obj:getRole()
-        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
+        vars['typeNode']:removeAllChildren()
+        UI_DragonManageInfo.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'])
     end
 
     do -- 드래곤 현재 정보 카드
