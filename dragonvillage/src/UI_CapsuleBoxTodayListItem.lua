@@ -30,19 +30,19 @@ function UI_CapsuleBoxTodayListItem:initUI()
     vars['nameLabel']:setString(Str(dragon_name))
     
     -- 속성 ex) dark
-    local attr = table_dragon:getAttr()
+    local attr = table_dragon:getDragonAttr(did)
     vars['attrNode']:removeAllChildren()
     UI_DragonManageInfo.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'])
 
     -- 역할 ex) healer
-    local role_type = table_dragon:getRole()
+    local role_type = table_dragon:getDragonRole(did)
     vars['typeNode']:removeAllChildren()
     UI_DragonManageInfo.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'])
 
     -- 희귀도 ex) legend
-    local rarity_type = table_dragon:getRarity()
+    local rarity_type = table_dragon:getDragonRarity(did)
     vars['rarityNode']:removeAllChildren()
-    UI_DragonManageInfo.setDragonRoleBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'])
+    UI_DragonManageInfo.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'])
 
     local dragon_animator = UIC_DragonAnimator()
     dragon_animator:setDragonAnimator(did, 3)
