@@ -3,6 +3,7 @@
 -- @brief 네이버 카페 SDK 매니져
 -------------------------------------
 NaverCafeManager = {
+    m_bDisableNaverSDK = false,
 }
 
 -------------------------------------
@@ -15,6 +16,11 @@ local function skip()
 
     return false
 end
+
+-- 네이버 카페 SDK 비활성화 (가능한 경우 웹브라우저로 카페 호출)
+-- 네이버 카페 SDK에서 웹뷰로 인한 비정상 종료가 발생됨이 의심됨
+-- 임시 방편으로 네이버 카페 SDK를 사용하지 않기로 함
+NaverCafeManager.m_bDisableNaverSDK = true
 
 -------------------------------------
 -- function naverCafeShowWidgetWhenUnloadSdk
@@ -36,14 +42,26 @@ function NaverCafeManager:naverCafeStartWidget()
         return
     end
 
+    -- 네이버 카페 SDK 비활성화인 경우 함수를 호출하더라도 위젯을 띄우지 않음
+    if (NaverCafeManager.m_bDisableNaverSDK == true) then
+        return
+    end
+
     PerpleSDK:naverCafeStartWidget()
 end
 
 -------------------------------------
 -- function naverCafeStart
+-- @param tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
 -------------------------------------
 function NaverCafeManager:naverCafeStart(tapNumber)
     if (skip()) then 
+        return
+    end
+
+    if (NaverCafeManager.m_bDisableNaverSDK == true) then
+        local plug_url = self:getUrlByChannel(nil) -- article_id
+        SDKManager:goToWeb(plug_url)
         return
     end
 
@@ -208,22 +226,41 @@ end
 -------------------------------------
 function NaverCafeManager:naverCafeStartWithArticle(article_id)
     if (CppFunctions:isWin32()) then
-        local plug_url
-        local channel_code = self:naverCafeGetChannelCode()
-        if (channel_code == 'ko') then
-            plug_url = 'http://cafe.naver.com/dragonvillagemobile/' .. article_id
-        elseif (channel_code == 'en') then
-            plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031345#/posts/' .. article_id
-        elseif (channel_code == 'ja') then
-            plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031352#/posts/' .. article_id
-        elseif (channel_code == 'zh') then
-            plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031353#/posts/' .. article_id
-        end
-
+        local plug_url = self:getUrlByChannel(article_id)
         SDKManager:goToWeb(plug_url)
+
+    elseif (NaverCafeManager.m_bDisableNaverSDK == true) then
+        local plug_url = self:getUrlByChannel(article_id) -- article_id
+        SDKManager:goToWeb(plug_url)
+        
     else
         PerpleSDK:naverCafeStartWithArticle(article_id)
     end
+end
+
+-------------------------------------
+-- function getUrlByChannel
+-------------------------------------
+function NaverCafeManager:getUrlByChannel(article_id)
+    local plug_url
+    local channel_code = self:naverCafeGetChannelCode()
+    if (channel_code == 'ko') then
+        plug_url = 'http://cafe.naver.com/dragonvillagemobile/'
+    elseif (channel_code == 'en') then
+        plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031345#/posts/'
+    elseif (channel_code == 'ja') then
+        plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031352#/posts/'
+    elseif (channel_code == 'zh') then
+        plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031353#/posts/'
+    else
+        plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031345#/posts/'
+    end
+
+    if article_id then
+        plug_url = plug_url .. article_id
+    end
+
+    return plug_url
 end
 
 -------------------------------------
