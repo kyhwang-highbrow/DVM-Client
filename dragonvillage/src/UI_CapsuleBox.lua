@@ -458,19 +458,24 @@ end
 -------------------------------------
 -- function makeRewardCell
 -------------------------------------
-function UI_CapsuleBox.makeRewardCell(box_key, struct_reward ,idx)
+function UI_CapsuleBox.makeRewardCell(box_key, struct_reward, idx, is_package_item)
 	local ui = UI()
-	
+	local ui_res = 'capsule_box_item_02.ui'
 	if (box_key == BOX_KEY_1) then
-		ui:load('capsule_box_item_02.ui')
+		ui_res = 'capsule_box_item_02.ui'
 	elseif (box_key == BOX_KEY_2) then
-		ui:load('capsule_box_item_01.ui')
+		ui_res = 'capsule_box_item_01.ui'
 	else
 		error('box key를 확인! : '.. box_key)
 	end
 
-	local vars = ui.vars
+    if (is_package_item) then
+        ui_res = 'package_capsule_coin_item.ui'
+    end
 
+    ui:load(ui_res)
+
+	local vars = ui.vars
 	local item_id = struct_reward['item_id']
 	local item_cnt = struct_reward['item_cnt']
 
@@ -508,6 +513,39 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward ,idx)
         UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)    -- param : did, grade, evolution scale, ispopup
     end
 	return ui
+end
+
+-------------------------------------
+-- function setCapsulePackageReward
+-------------------------------------
+function UI_CapsuleBox.setCapsulePackageReward(target_ui)
+    if (not target_ui) then
+        return
+    end
+
+    local vars = target_ui.vars
+    local box_key = BOX_KEY_1
+    local capsulebox_data = g_capsuleBoxData:getCapsuleBoxInfo()
+    if (not capsulebox_data) then
+        return
+    end
+
+    local struct_capsule_box = capsulebox_data[box_key]
+    local rank = 1
+    local l_reward = struct_capsule_box:getRankRewardList(rank) or {}
+
+    -- 캡슐 타이틀
+    local legend_title = capsulebox_data[box_key]:getCapsuleTitle() or ''
+    vars['rotationLabel']:setString(legend_title)
+
+    -- 대표 보상 표시
+    for i, struct_reward in ipairs(l_reward) do
+    	if (i <= 3) then
+    		local ui = UI_CapsuleBox.makeRewardCell(box_key, struct_reward, i, true) -- box_key, struct_reward, idx, is_package_item
+    		vars['itemNode' .. i]:removeAllChildren(true)
+    		vars['itemNode' .. i]:addChild(ui.root)
+    	end
+    end
 end
 
 --@CHECK

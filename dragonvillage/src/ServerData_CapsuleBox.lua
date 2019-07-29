@@ -301,31 +301,40 @@ function ServerData_CapsuleBox:openCapsuleBoxUI(show_reward_list)
 	end
 
 	-- ui open function
-	local function open_box()
-		self:request_capsuleBoxStatus(function()
-			local ui = UI_CapsuleBox()
-            
-            -- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
-			if (show_reward_list) then
-				ui:click_rewardBtn('first')
-			end
-            
-            -- 오늘의 전설 캡슐뽑기 보여주는 팝업 출력
-            self:openTodayCapsuleBoxDtagon()
-		end)
+	local function finish_cb()
+        local ui = UI_CapsuleBox()
+         
+         -- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
+        if (show_reward_list) then
+        	ui:click_rewardBtn('first')
+        end
+         
+         -- 오늘의 전설 캡슐뽑기 보여주는 팝업 출력
+         self:openTodayCapsuleBoxDtagon()
 	end
 
-	-- 종료시간과 비교하여 다음날 정보를 가져온다.
+    -- 캡슐 뽑기 갱신에 필요한 통신을 함
+    self:refreshCapsuleBoxStatus(finish_cb)
+	
+end
+
+-------------------------------------
+-- function refreshCapsuleBoxStatus
+-- @brief 캡슐 뽑기 갱신에 필요한 통신을 함
+-------------------------------------
+function ServerData_CapsuleBox:refreshCapsuleBoxStatus(finish_cb)
+    local status_request = function()
+        self:request_capsuleBoxStatus(finish_cb)
+    end
+    
+    -- 종료시간과 비교하여 다음날 정보를 가져온다.
 	if (self:checkReopen()) then
 		local msg = Str('캡슐 상품을 갱신합니다.')
 		UIManager:toastNotificationGreen(msg)
-		self:request_capsuleBoxInfo(open_box)
-		
-	-- 바로 오픈
+		self:request_capsuleBoxInfo(status_request)	
 	else
-		open_box()
-
-	end
+        status_request()
+    end
 end
 
 -------------------------------------

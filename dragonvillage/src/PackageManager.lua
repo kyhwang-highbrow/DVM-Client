@@ -55,6 +55,11 @@ function PackageManager:getTargetUI(package_name, is_popup)
     elseif (_package_name == 'package_global_anniversary') then
         target_ui = UI_Package_Bundle(_package_name, is_popup)
         target_ui.vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_SummonDrawInfo() end)
+    
+    -- 캡슐 코인 패키지
+    elseif (_package_name == 'package_capsule_coin') then
+        target_ui = UI_Package_Bundle(_package_name, is_popup)
+        self:setCapsulePackageReward(target_ui)
 
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
@@ -219,4 +224,16 @@ function PackageManager:isBuyable(package_name)
 
 	-- 모두 통과하면 구매 가능
 	return true
+end
+
+-------------------------------------
+-- function setCapsulePackageReward
+-------------------------------------
+function PackageManager:setCapsulePackageReward(target_ui)
+    local show_capule_reward = function()
+        UI_CapsuleBox.setCapsulePackageReward(target_ui)  
+    end
+    
+    -- 캡슐 보상 출력할 때, 그 시점의 캡슐뽑기 정보를 가져오기 위해 통신을 함
+    g_capsuleBoxData:refreshCapsuleBoxStatus(show_capule_reward)
 end
