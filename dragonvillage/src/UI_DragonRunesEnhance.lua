@@ -848,7 +848,7 @@ function UI_DragonRunesEnhance:showGrindPackagePopup()
         end
 
         -- 2019-07-30 룬 연마 상품 판매 촉진하는 팝업 쿨타임 7일
-        local next_cool_time = cur_time + datetime.dayToSecond(7)
+        local next_cool_time = cur_time + 120 --datetime.dayToSecond(7)
         -- 쿨 타임 만료시간 갱신
         g_settingData:setPromoteCoolTime('rune_grind_package', next_cool_time)
     end
