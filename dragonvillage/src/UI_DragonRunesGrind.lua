@@ -29,6 +29,8 @@ function UI_DragonRunesGrind:init(enhance_class)
     self:initButton()
     self:initOptionRadioBtn()
     self:refresh_grind()
+
+	self:showGrindPackagePopup()
 end
 
 -------------------------------------
@@ -61,18 +63,7 @@ function UI_DragonRunesGrind:setPackageGora()
         return
     end
 
-    -- product_id 하드코딩 : 룬 연마 패키지(옵션 유지권), 룬 연마 패키지(MAX 확정권)
-    -- 둘 중 하나라도 판매중이면 패키지 팝업을 열어줌
-	local l_pid = {110131, 110132}
-    for i, pid in ipairs(l_pid) do
-	    local struct_product = g_shopDataNew:getProduct('package', pid)
-        if (struct_product) then
-            if (struct_product:checkMaxBuyCount()) then
-                is_package_buyable = true
-                break
-            end
-        end
-    end
+    is_package_buyable = self:isBuyable()
 
     vars['buyBtn']:setVisible(is_package_buyable)
 end
@@ -82,6 +73,11 @@ end
 -------------------------------------
 function UI_DragonRunesGrind:click_buyBtn()
 	local ui = UI_Package_Bundle('package_rune_grind', true) -- is_popup
+
+    -- @UI_ACTION(룬 연마 풀팝업 scale 액션)
+    ui:doActionReset()
+    ui:doAction(nil, false)
+
 
 	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
 	-- 구매 후 간이 우편함 출력
@@ -549,4 +545,72 @@ function UI_DragonRunesGrind:showItemDsc(item_name)
     if (item_id) then
         UI_ItemInfoPopup(item_id, 1, nil)
     end
+end
+
+-------------------------------------
+-- function showGrindPackagePopup
+-- @brief 주간 판매하는 룬 연마 패키지를 주마다 과금 유저에게 보여줘서 상품 구매를 유도
+-- @jhakim 190730 연마 탭을 들어갈 때 마다 체크하여 보여주는 것이 맞지만, 그 정도로 정교할 필요는 없고 UI생성할 때만 체크해서 보여줘도 충분하다고 생각
+-------------------------------------
+function UI_DragonRunesGrind:showGrindPackagePopup()
+	-- 1.룬 연마 패키지를 구매 가능한가
+	do
+		if (not self:isBuyable()) then
+			return 
+		end
+	end
+
+	-- 2.누적 금액 50,000원 이상
+	do
+		local sum_money = g_shopDataNew:getSumMoney()
+		if (sum_money < 50000) then
+			return
+		end
+	end
+
+    -- 3.레벨 50 이상
+	do
+        local lv = g_userData:get('lv')
+        if (lv < 50) then
+            return
+        end
+    end
+
+    --4.쿨타임 7일 지났는지
+    do
+        local expired_time = g_settingData:getPromoteExpired('rune_grind_package')
+        local cur_time = Timer:getServerTime()
+        if (cur_time < expired_time) then
+            return
+        end
+
+        -- 2019-07-30 룬 연마 상품 판매 촉진하는 팝업 쿨타임 7일
+        local next_cool_time = cur_time + datetime.dayToSecond(7)
+        -- 쿨 타임 만료시간 갱신
+        g_settingData:setPromoteCoolTime('rune_grind_package', next_cool_time)
+    end
+    
+	-- 룬 연마 팝업 보여줌
+	self:click_buyBtn()
+end
+
+-------------------------------------
+-- function isBuyable
+-------------------------------------
+function UI_DragonRunesGrind:isBuyable()
+	local is_package_buyable = false
+	-- product_id 하드코딩 : 룬 연마 패키지(옵션 유지권), 룬 연마 패키지(MAX 확정권)
+    -- 둘 중 하나라도 판매중이면 패키지 팝업을 열어줌
+	local l_pid = {110131, 110132}
+    for i, pid in ipairs(l_pid) do
+	    local struct_product = g_shopDataNew:getProduct('package', pid)
+        if (struct_product) then
+            if (struct_product:checkMaxBuyCount()) then
+                is_package_buyable = true
+                break
+            end
+        end
+    end
+
+	return is_package_buyable
 end

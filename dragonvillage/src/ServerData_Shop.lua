@@ -9,6 +9,8 @@ ServerData_Shop = class({
         m_ret = 'server response',
         m_dicMarketPrice = '', -- 마켓에서 받은 가격 (통화까지 표시)
         m_bDirty = 'boolean',
+
+		m_sumMoney = 'number', -- 유저가 결제한 총 금액
     })
 
 -------------------------------------
@@ -539,6 +541,9 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
             Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
             --adjust 누적 금액
             Adjust:trackEventSumPrice(sum_money)
+
+			-- 누적 금액을 클라에 저장
+			self:setSumMoney(sum_money)
         end
         
         g_serverData:networkCommonRespone(ret)
@@ -974,4 +979,18 @@ function ServerData_Shop:checkDiaSale()
     end
 
     return false
+end
+
+-------------------------------------
+-- function setSumMoney
+-------------------------------------
+function ServerData_Shop:setSumMoney(sum_money)
+	self.m_sumMoney = sum_money
+end
+
+-------------------------------------
+-- function getSumMoney
+-------------------------------------
+function ServerData_Shop:getSumMoney()
+	return self.m_sumMoney or 0
 end

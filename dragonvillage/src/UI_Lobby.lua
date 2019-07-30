@@ -500,6 +500,13 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
             g_illusionDungeonData:setRewardPossible(false)
         end
 
+		cclog('# 총 결제 금액 정보 받는 중')
+        if (ret['sum_money']) then
+			g_shopDataNew:setSumMoney(ret['sum_money'])
+        else
+			g_shopDataNew:setSumMoney(0)
+		end
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)
