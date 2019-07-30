@@ -24,11 +24,67 @@ function TableLoadingGuide:getGuideList(guide_type)
 end
 
 -------------------------------------
+-- function getGuideListFilteredByLevel
+-------------------------------------
+function TableLoadingGuide:getGuideListFilteredByLevel(l_guide)
+	local l_guid_checked_level = {}
+	local default_max_level = 999
+	local default_min_level = 0
+	local user_level = g_userData:get('lv')
+
+	-- 레벨 조건에 맞는 로딩정보를 필터링
+	for i, v in pairs(l_guide) do
+        local min_level = v['min_level']
+		
+		-- 판단할 레벨 값 없을 경우 예외처리
+		if (not v['min_level']) or (not v['min_level']) then
+			table.insert(l_guid_checked_level, v)
+	    else
+            local min_level = tonumber(v['min_level'])
+			if (v['min_level'] == '') then
+				min_level = default_min_level
+			end
+
+			local max_level = tonumber(v['max_level'])
+			if (v['max_level'] == '') then
+				max_level = default_max_level
+			end
+            
+			if (user_level < max_level) and (user_level > min_level) then
+				table.insert(l_guid_checked_level, v)
+            end
+		end
+	end
+
+	return l_guid_checked_level
+end
+
+-------------------------------------
+-- function getFilteredGuidList
+-------------------------------------
+function TableLoadingGuide:getFilteredGuidList(guide_type)
+	local l_guide = self:getGuideList(guide_type)
+	-- 레벨로 필터링
+	l_guid = self:getGuideListFilteredByLevel(l_guide)
+
+	-- 그 외 다른 조건으로 필터링
+
+	return l_guid
+end
+
+-------------------------------------
 -- function getGuideDataByWeight
 -- @brief weight 반영한 getter
 -------------------------------------
 function TableLoadingGuide:getGuideDataByWeight(guide_type)
-	local l_guide = self:getGuideList(guide_type)
+	local l_guide = self:getFilteredGuidList(guide_type)
+
+	-- 조건에 맞는 로딩가이드가 하나도 없어 에러가 나면 안됨, 그런 경우, 조건 체크 안한 리스트 불러오도록 예외처리함
+	if (#l_guid == 0) then
+		l_guide = self:getGuideList(guide_type)
+		cclog('### error ### 조건에 맞는 로딩가이드가 없습니다. table_loading_guid.csv를 확인하세요')
+	end
+	
 	local weight_sum = 0
 
 	-- weight 의 합계를 구한다.
