@@ -498,6 +498,13 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
+
+    -- 20190703 sgkim UIC_ListExpansion 구현 확인용
+    if true then
+        UI_HelpDragonGuidePopup()
+        return
+    end
+
     if true then
         self:unityAdsTest01()
         return

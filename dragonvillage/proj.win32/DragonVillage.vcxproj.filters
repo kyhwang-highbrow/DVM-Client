@@ -4132,6 +4132,15 @@
     <None Include="..\src\ServerData_RemoteConfig.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UIC_ListExpansion.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\UIC_ListExpansionItem.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\UI_HelpDragonGuidePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

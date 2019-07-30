@@ -731,6 +731,8 @@ local t_module = {
 	'UIC_LobbyGuide',
     'UIC_AlarmClockIcon',
     'UIC_RankingList',
+    'UIC_ListExpansion',
+    'UIC_ListExpansionItem',
 	
     -- UI : CARD
     'UI_Card',
@@ -869,6 +871,7 @@ local t_module = {
     'UI_HelpClan',
     'UI_HelpRune',
     'UI_HelpGrandArena',
+    'UI_HelpDragonGuidePopup',
     'UI_GuidePopup_PurchasePoint',
     'UI_DragonGoodbyeResult',
     'UI_QuickPopupNew',

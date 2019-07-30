@@ -1001,6 +1001,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UIC_Factory.lua" />
     <None Include="..\src\UIC_IndivisualStats.lua" />
     <None Include="..\src\UIC_LabelTTF.lua" />
+    <None Include="..\src\UIC_ListExpansion.lua" />
+    <None Include="..\src\UIC_ListExpansionItem.lua" />
     <None Include="..\src\UIC_Node.lua" />
     <None Include="..\src\UIC_RadioButton.lua" />
     <None Include="..\src\UIC_RankingList.lua" />
@@ -1267,6 +1269,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_HelpClan.lua" />
     <None Include="..\src\UI_HelpClanDungeonReward.lua" />
     <None Include="..\src\UI_HelpClanDungeonSummary.lua" />
+    <None Include="..\src\UI_HelpDragonGuidePopup.lua" />
     <None Include="..\src\UI_HelpGrandArena.lua" />
     <None Include="..\src\UI_HelpRune.lua" />
     <None Include="..\src\UI_HelpStatus.lua" />
