@@ -449,16 +449,16 @@ end
 -------------------------------------
 function IconHelper:getAttributeIcon(attribute)
     attribute = attributeNumToStr(attribute)
-    local icon_size = 46
+
 
     if (attribute == 'none') then
         attribute = 'all'
     end
     
     local res_name = string.format('res/ui/icons/attr/attr_%s_02.png', attribute)
-    local attr_button = self:makeImageBtn(res_name, icon_size, click_func)
-    
-    return attr_button
+    local sprite = self:getIcon(res_name)
+    return sprite
+
 end
 
 -------------------------------------
@@ -466,23 +466,48 @@ end
 -- @brief 역할 생성
 -------------------------------------
 function IconHelper:getRoleIcon(role)
-    local icon_size = 78
+
     local res_name = string.format('res/ui/icons/book/role_%s.png', role)
-    local role_button = self:makeImageBtn(res_name, icon_size, click_func)
-    
-    return role_button
+    local sprite = self:getIcon(res_name)
+    return sprite
+
 end
 
 -------------------------------------
 -- function getRarityIcon
 -- @brief 희귀도 아이콘
 -------------------------------------
-function IconHelper:getRarityIcon(rare)
-    local icon_size = 50
-    local res_name = string.format('res/ui/icons/rarity/gem_%s.png', rare)
-    local rare_button = self:makeImageBtn(res_name, icon_size, click_func)
-    
-    return rare_button
+function IconHelper:getRarityIcon(role)
+    local res_name = string.format('res/ui/icons/rarity/gem_%s.png', role)
+    local sprite = self:getIcon(res_name)
+    return sprite
+end
+
+-------------------------------------
+-- function getAttributeButton
+-- @brief 속성아이콘 생성
+-------------------------------------
+function IconHelper:getAttributeButton(attribute, t_info)
+	local attr_button = DragonInfoIconHelper(attribute, t_info)
+    return attr_button
+end
+
+-------------------------------------
+-- function getRoleButton
+-- @brief 역할 생성
+-------------------------------------
+function IconHelper:getRoleButton(role, t_info)
+    local role_button = DragonInfoIconHelper.makeIconRoleBtn(role, t_info)
+    return role_button
+end
+
+-------------------------------------
+-- function getRarityIconButton
+-- @brief 희귀도 아이콘
+-------------------------------------
+function IconHelper:getRarityIconButton(rare, t_info)
+   local rarity_button = DragonInfoIconHelper.makeIconRarityBtn(rare, t_info)
+   return rarity_button
 end
 
 -------------------------------------
@@ -676,24 +701,3 @@ function IconHelper:getClanBuffIcon(clan_buff_type)
 	return res and IconHelper:getIcon(res) or nil
 end
 
--------------------------------------
--- function makeImageBtn
--- @brief 속성/역할/희귀도 아이콘을 sprite로 사용하다가 버튼으로 변경하려고 만든 함수
--- @brief 파일이름을 받으면 그 이미지를 사용한 버튼을 만들어 반환
--------------------------------------
-function IconHelper:makeImageBtn(file_name, size, func_click)
-    local menu = cc.Menu:create()
-
-    local btn = cc.MenuItemImage:create(file_name, nil, nil, 1)
-    btn:setContentSize(size, size)
-    btn:setDockPoint(cc.p(0.0, 0.0))
-    btn:setAnchorPoint(cc.p(0.0, 0.0))
-    btn:setNormalSize(size, size)
-
-    local uic_btn = UIC_Button(btn)
-    uic_btn:registerScriptTapHandler(func_click)
-
-    menu:addChild(btn)
-
-    return menu
-end

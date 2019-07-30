@@ -309,6 +309,7 @@ local t_module = {
     'QuickLinkHelper',
     'GoogleHelper',
     'MasteryHelper',
+	'DragonInfoIconHelper',
 
     'ChatClientSocket',
     'ChatManager',

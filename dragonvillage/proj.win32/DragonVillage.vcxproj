@@ -300,6 +300,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\DirectingCharacter.lua" />
     <None Include="..\src\DragonAutoSetHelperNew.lua" />
     <None Include="..\src\DragonGuideNavigator.lua" />
+    <None Include="..\src\DragonInfoIconHelper.lua" />
     <None Include="..\src\DragonSkillBonusHelper.lua" />
     <None Include="..\src\DragonSkillCore.lua" />
     <None Include="..\src\DragonSkillIndivisualInfo.lua" />
