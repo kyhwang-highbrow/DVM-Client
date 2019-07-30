@@ -510,7 +510,7 @@ function UI_ReadySceneNew:initUI()
 
                 for k, v in pairs(map_attr) do
                     -- 속성 아이콘
-                    local icon = IconHelper:getAttributeIcon(k)
+                    local icon = IconHelper:getAttributeIconButton(k)
                     local target_node = vars['bonusTipsNode']
                     target_node:addChild(icon)
                 end
@@ -527,7 +527,7 @@ function UI_ReadySceneNew:initUI()
                 for k, v in pairs(map_attr) do
                     idx = idx + 1
                     -- 속성 아이콘
-                    local icon = IconHelper:getAttributeIcon(k)
+                    local icon = IconHelper:getAttributeIconButton(k)
                     local target_node = (cnt == 1) and 
                                         vars['panaltyTipsNode'] or 
                                         vars['panaltyTipsNode'..idx]

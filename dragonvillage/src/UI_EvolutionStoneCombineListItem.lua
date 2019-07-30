@@ -33,7 +33,7 @@ function UI_EvolutionStoneCombineListItem:initUI()
     -- attr
     local attr = item_data['attr']
     if (attr) then
-        local icon = IconHelper:getAttributeIcon(attr)
+        local icon = IconHelper:getAttributeIconButton(attr)
         vars['attrNode']:addChild(icon)
     end
 

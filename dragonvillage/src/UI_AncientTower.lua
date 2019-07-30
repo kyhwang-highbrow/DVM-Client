@@ -373,7 +373,7 @@ function UI_AncientTower:changeFloorVisual(stage_id, ui)
         cca.uiReactionSlow(self.vars['attrMenu'])
         
         -- 속성 아이콘
-        local icon = IconHelper:getAttributeIcon(attr)
+        local icon = IconHelper:getAttributeIconButton(attr)
         self.vars['attrNode']:removeAllChildren()
         self.vars['attrNode']:addChild(icon)
         

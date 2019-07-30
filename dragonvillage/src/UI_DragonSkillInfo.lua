@@ -37,7 +37,7 @@ function UI_DragonSkillInfo:initUI()
     do -- 드래곤 속성
         local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIcon(attr)
+        local icon = IconHelper:getAttributeIconButton(attr)
         vars['attrNode']:addChild(icon)
     end
 

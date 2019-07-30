@@ -299,6 +299,7 @@ local t_module = {
 	'MultiDeckMgr',
     'MatchCardPlayer',
 
+	'DragonInfoIconHelper',
 	'IconHelper',
     'ResHelper',
     'AnimatorHelper',
@@ -309,7 +310,6 @@ local t_module = {
     'QuickLinkHelper',
     'GoogleHelper',
     'MasteryHelper',
-	'DragonInfoIconHelper',
 
     'ChatClientSocket',
     'ChatManager',

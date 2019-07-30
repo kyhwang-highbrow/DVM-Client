@@ -330,7 +330,7 @@ function UI_ClanRaidResult:show_boss_hp()
 
     -- 속성 아이콘
     local attr = struct_raid:getAttr()
-    local icon = IconHelper:getAttributeIcon(attr)
+    local icon = IconHelper:getAttributeIconButton(attr)
     vars['attrNode']:removeAllChildren()
     vars['attrNode']:addChild(icon)
 

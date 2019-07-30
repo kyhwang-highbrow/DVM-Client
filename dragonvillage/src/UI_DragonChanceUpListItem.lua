@@ -32,19 +32,19 @@ function UI_DragonChanceUpListItem:initUI()
 
     -- 희귀도
     local rarity = table_dragon:getValue(did, 'rarity')
-    local icon = IconHelper:getRarityIcon(rarity)
+    local icon = IconHelper:getRarityIconButton(rarity)
     vars['rarityNode']:addChild(icon)
     vars['rarityLabel']:setString(dragonRarityName(rarity))
 
     -- 역할
     local role = table_dragon:getDragonRole(did)
-    local icon = IconHelper:getRoleIcon(role)
+    local icon = IconHelper:getRoleIconButton(role)
     vars['typeNode']:addChild(icon)
     vars['typeLabel']:setString(dragonRoleTypeName(role))
     
     -- 속성
     local attr = table_dragon:getDragonAttr(did) 
-    local icon = IconHelper:getAttributeIcon(attr)
+    local icon = IconHelper:getAttributeIconButton(attr)
     vars['attrNode']:addChild(icon)
     vars['attrLabel']:setString(dragonAttributeName(attr))
     

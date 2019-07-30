@@ -187,7 +187,7 @@ function UI_Shop_Popup_Reinforce:refresh_dragonInfo()
     do -- 드래곤 속성
         local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIcon(attr)
+        local icon = IconHelper:getAttributeIconButton(attr)
         vars['attrNode']:addChild(icon)
     end
 

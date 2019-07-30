@@ -244,7 +244,7 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data)
     do -- 희귀도
         local rarity = t_dragon_data:getRarity()
         vars['rarityNode']:removeAllChildren()
-        local icon = IconHelper:getRarityIcon(rarity)
+        local icon = IconHelper:getRarityIconButton(rarity)
         vars['rarityNode']:addChild(icon)
 
         vars['rarityLabel']:setString(dragonRarityName(rarity))
@@ -253,7 +253,7 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data)
     do -- 드래곤 속성
         local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIcon(attr)
+        local icon = IconHelper:getAttributeIconButton(attr)
         vars['attrNode']:addChild(icon)
 
         vars['attrLabel']:setString(dragonAttributeName(attr))
@@ -262,7 +262,7 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data)
     do -- 드래곤 역할(role)
         local role_type = t_dragon_data:getRole()
         vars['typeNode']:removeAllChildren()
-        local icon = IconHelper:getRoleIcon(role_type)
+        local icon = IconHelper:getRoleIconButton(role_type)
         vars['typeNode']:addChild(icon)
 
         vars['typeLabel']:setString(dragonRoleTypeName(role_type))

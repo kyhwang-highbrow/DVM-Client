@@ -266,7 +266,7 @@ function UI_AdventureStageInfo:refresh()
                 -- 속성
                 local attr = TableMonster:getMonsterAttr(monster_id)
                 vars['bossAttrNode']:removeAllChildren()
-                local icon = IconHelper:getAttributeIcon(attr)
+                local icon = IconHelper:getAttributeIconButton(attr)
                 vars['bossAttrNode']:addChild(icon)
 
                 -- 위치 조정

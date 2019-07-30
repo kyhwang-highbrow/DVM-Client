@@ -3,7 +3,7 @@ DragonInfoIconHelper = {}
 -------------------------------------
 -- function makeIconBtn
 -------------------------------------
-function DragonInfoIconHelper.makeIconAttrBtn(attr, t_info)
+function DragonInfoIconHelper.makeAttrIconBtn(attr, t_info)
 	local click_func = function()
 		UI_HelpDragonGuidePopup('attr', t_info) -- param : focus_tab
 	end
@@ -31,7 +31,7 @@ function DragonInfoIconHelper.makeRoleIconBtn(role, click_func)
 	
 	local icon_size = 78
     local res_name = string.format('res/ui/icons/book/role_%s.png', role)
-    local role_button = self:makeImageBtn(res_name, icon_size, click_func)
+    local role_button = DragonInfoIconHelper.makeImageBtn(res_name, icon_size, click_func)
     
     return role_button
 end
@@ -45,8 +45,8 @@ function DragonInfoIconHelper.makeRarityIconBtn(rarity, click_func)
 	end
 
     local icon_size = 50
-    local res_name = string.format('res/ui/icons/rarity/gem_%s.png', rare)
-    local rare_button = self:makeImageBtn(res_name, icon_size, click_func)
+    local res_name = string.format('res/ui/icons/rarity/gem_%s.png', rarity)
+    local rare_button = DragonInfoIconHelper.makeImageBtn(res_name, icon_size, click_func)
     
     return rare_button
 end

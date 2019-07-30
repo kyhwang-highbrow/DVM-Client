@@ -271,7 +271,7 @@ end
 function UI_ClanRaidTrainingPopup:refreshBoss(attr)
     local vars = self.vars
     
-    local icon = IconHelper:getAttributeIcon(attr)
+    local icon = IconHelper:getAttributeIconButton(attr)
     vars['attrNode']:removeAllChildren()
     vars['attrNode']:addChild(icon)
 
@@ -305,7 +305,7 @@ function UI_ClanRaidTrainingPopup:refreshBoss(attr)
     local str, map_attr = struct_clan_raid:getBonusSynastryInfo()
     for k, v in pairs(map_attr) do
         -- 속성 아이콘
-        local icon = IconHelper:getAttributeIcon(k)
+        local icon = IconHelper:getAttributeIconButton(k)
         local target_node = vars['bonusTipsNode']
         target_node:removeAllChildren()
         target_node:addChild(icon)
@@ -323,7 +323,7 @@ function UI_ClanRaidTrainingPopup:refreshBoss(attr)
     for k, v in pairs(map_attr) do
         idx = idx + 1
         -- 속성 아이콘
-        local icon = IconHelper:getAttributeIcon(k)
+        local icon = IconHelper:getAttributeIconButton(k)
         local target_node = (cnt == 1) and 
                             vars['panaltyTipsNode'] or 
                             vars['panaltyTipsNode'..idx]

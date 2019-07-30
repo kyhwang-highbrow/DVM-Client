@@ -33,19 +33,19 @@ function UI_DragonInfoListItem:initUI()
     
     -- 속성 ex) dark
     local dragon_attr = table_dragon:getDragonAttr(did)
-    local attr_icon = IconHelper:getAttributeIcon(dragon_attr)
+    local attr_icon = IconHelper:getAttributeIconButton(dragon_attr)
     vars['attrNode']:addChild(attr_icon)
     vars['attrLabel']:setString(dragonAttributeName(dragon_attr))
 
     -- 역할 ex) healer
     local role_type = table_dragon:getDragonRole(did)
-    local role_icon = IconHelper:getRoleIcon(role_type)
+    local role_icon = IconHelper:getRoleIconButton(role_type)
     vars['typeNode']:addChild(role_icon)
     vars['typeLabel']:setString(dragonRoleTypeName(role_type))
 
     -- 희귀도 ex) legend
     local rarity_str = table_dragon:getDragonRarity(did)
-    local rarity_icon = IconHelper:getRarityIcon(rarity_str)
+    local rarity_icon = IconHelper:getRarityIconButton(rarity_str)
     vars['rarityNode']:addChild(rarity_icon)
     vars['rarityLabel']:setString(dragonRarityName(rarity_str))
 

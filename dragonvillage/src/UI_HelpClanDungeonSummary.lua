@@ -100,7 +100,7 @@ function UI_HelpClanDungeonSummary:initUI_info()
     vars['bgNode']:addChild(animator.m_node)
 
     -- 속성 아이콘
-    local icon = IconHelper:getAttributeIcon(attr)
+    local icon = IconHelper:getAttributeIconButton(attr)
     vars['attrNode']:addChild(icon)
 
     -- 최초 보스 선택으로 
@@ -127,7 +127,7 @@ function UI_HelpClanDungeonSummary:initUI_synastry()
 
     -- 보스 속성
     local attr = struct_raid:getAttr()
-    local icon = IconHelper:getAttributeIcon(attr)
+    local icon = IconHelper:getAttributeIconButton(attr)
     vars['bossAttrNode']:addChild(icon)
 
     local attr_name = dragonAttributeName(attr) 
@@ -141,7 +141,7 @@ function UI_HelpClanDungeonSummary:initUI_synastry()
 
         for k, v in pairs(map_attr) do
             -- 속성 아이콘
-            local icon = IconHelper:getAttributeIcon(k)
+            local icon = IconHelper:getAttributeIconButton(k)
             local target_node = vars['bonusAttrNode']
             target_node:addChild(icon)
 
@@ -164,7 +164,7 @@ function UI_HelpClanDungeonSummary:initUI_synastry()
         for k, v in pairs(map_attr) do
             idx = idx + 1
             -- 속성 아이콘
-            local icon = IconHelper:getAttributeIcon(k)
+            local icon = IconHelper:getAttributeIconButton(k)
             local target_node = (cnt == 1) and 
                                 vars['panaltyAttrNode'] or 
                                 vars['panaltyAttrNode'..idx]

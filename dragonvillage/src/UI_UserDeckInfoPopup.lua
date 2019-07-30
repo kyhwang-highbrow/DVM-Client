@@ -122,19 +122,19 @@ function UI_UserDeckInfoPopup:refresh_dragon(idx, t_dragon_data)
 
     do -- 드래곤 속성
         local attr = t_dragon['attr']
-        local icon = IconHelper:getAttributeIcon(attr)
+        local icon = IconHelper:getAttributeIconButton(attr)
         vars['attrNode' .. idx]:addChild(icon)
     end
 
     do -- 드래곤 역할
         local role_type = t_dragon['role']
-        local icon = IconHelper:getRoleIcon(role_type)
+        local icon = IconHelper:getRoleIconButton(role_type)
         vars['roleNode' .. idx]:addChild(icon)
     end
 
     do -- 드래곤 희귀도
         local rarity = t_dragon['rarity']
-        local icon = IconHelper:getRarityIcon(rarity)
+        local icon = IconHelper:getRarityIconButton(rarity)
         vars['rarityNode' .. idx]:addChild(icon)
         
     end

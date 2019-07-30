@@ -1028,7 +1028,7 @@ function UI_DragonManageInfo.setDragonAttrBtn(attr, node, label)
         return
     end
 
-    local icon = IconHelper:getAttributeIcon(attr)
+    local icon = IconHelper:getAttributeIconButton(attr)
     if (icon) then
         node:addChild(icon)
     end
@@ -1052,7 +1052,7 @@ function UI_DragonManageInfo.setDragonRoleBtn(role, node, label)
         return
     end
         
-    local icon = IconHelper:getRoleIcon(role)
+    local icon = IconHelper:getRoleIconButton(role)
     if (icon) then
         node:addChild(icon)
     end
@@ -1076,7 +1076,7 @@ function UI_DragonManageInfo.setDragonRarityBtn(rarity, node, label)
         return
     end
 
-    local rarity_icon = IconHelper:getRarityIcon(rarity)     
+    local rarity_icon = IconHelper:getRarityIconButton(rarity)     
     if (rarity_icon) then
         node:addChild(rarity_icon)
     end
