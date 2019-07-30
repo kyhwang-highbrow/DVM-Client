@@ -105,7 +105,7 @@ function UI_PackageRandomBoxInfo.makeCellUI(t_data)
     end
 
     -- 확률
-    vars['percentLabel']:setString(string.format('%.1f%%', rate))
+    vars['percentLabel']:setString(string.format('%d%%', math.floor(rate)))
 
     vars['itemBtn']:registerScriptTapHandler(function()
         UI_ItemInfoPopup(item_id, count, nil)
