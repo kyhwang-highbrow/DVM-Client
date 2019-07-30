@@ -5,7 +5,7 @@ DragonInfoIconHelper = {}
 -------------------------------------
 function DragonInfoIconHelper.makeAttrIconBtn(attr, t_info)
 	local click_func = function()
-		UI_HelpDragonGuidePopup('attr', t_info) -- param : focus_tab
+		UI_HelpDragonGuidePopup('attr', attr, t_info) -- param : focus_tab
 	end
 
 	attr = attributeNumToStr(attr)
@@ -26,7 +26,7 @@ end
 -------------------------------------
 function DragonInfoIconHelper.makeRoleIconBtn(role, click_func)
 	local click_func = function()
-		UI_HelpDragonGuidePopup('role', t_info) -- param : focus_tab
+		UI_HelpDragonGuidePopup('role', role, t_info) -- param : focus_tab
 	end
 	
 	local icon_size = 78
@@ -41,7 +41,7 @@ end
 -------------------------------------
 function DragonInfoIconHelper.makeRarityIconBtn(rarity, click_func)
 	local click_func = function()
-		UI_HelpDragonGuidePopup('rarity', t_info) -- param : focus_tab
+		UI_HelpDragonGuidePopup('rarity', rarity, t_info) -- param : type, focus_value, table = {'rarity' = 'legend', 'role' = 'defend', 'attr' = 'fire'}
 	end
 
     local icon_size = 50
