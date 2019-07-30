@@ -69,6 +69,8 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self:initButton()
     self:initTab()
     self:refresh_enhance()
+
+    self:showGrindPackagePopup()
 end
 
 -------------------------------------
@@ -807,4 +809,54 @@ function UI_DragonRunesEnhance:makeRuneEnhanceBlockPopup(cb_func)
     g_currScene:pushBackKeyListener(block_ui, function() block_ui:close() cb_func() end, 'UI_RuneEnhanceBlock')
 
     return block_ui
+end
+
+-------------------------------------
+-- function showGrindPackagePopup
+-- @brief 주간 판매하는 룬 연마 패키지를 주마다 과금 유저에게 보여줘서 상품 구매를 유도
+-------------------------------------
+function UI_DragonRunesEnhance:showGrindPackagePopup()
+	-- 1.룬 연마 패키지를 구매 가능한가
+	do
+		if (not UI_DragonRunesGrind.isBuyable()) then
+			return 
+		end
+	end
+
+	-- 2.누적 금액 50,000원 이상
+	do
+		local sum_money = g_shopDataNew:getSumMoney()
+		if (sum_money < 50000) then
+			return
+		end
+	end
+
+    -- 3.레벨 50 이상
+	do
+        local lv = g_userData:get('lv')
+        if (lv < 50) then
+            return
+        end
+    end
+
+    -- 4.쿨타임 7일 지났는지
+    do
+        local expired_time = g_settingData:getPromoteExpired('rune_grind_package')
+        local cur_time = Timer:getServerTime()
+        if (cur_time < expired_time) then
+            return
+        end
+
+        -- 2019-07-30 룬 연마 상품 판매 촉진하는 팝업 쿨타임 7일
+        local next_cool_time = cur_time + datetime.dayToSecond(7)
+        -- 쿨 타임 만료시간 갱신
+        g_settingData:setPromoteCoolTime('rune_grind_package', next_cool_time)
+    end
+    
+	-- 룬 연마 팝업 보여줌
+	local ui = UI_Package_Bundle('package_rune_grind', true) -- is_popup
+
+    -- @UI_ACTION(룬 연마 풀팝업 scale 액션)
+    ui:doActionReset()
+    ui:doAction(nil, false)
 end
