@@ -546,6 +546,14 @@ function UI_CapsuleBox.setCapsulePackageReward(target_ui)
     		vars['itemNode' .. i]:addChild(ui.root)
     	end
     end
+
+    vars['rotationLabel']:setVisible(true)
+    vars['rewardNode']:setVisible(true)
+
+    -- 커지면서 나타나는 액션
+    vars['rewardNode']:setScale(0)
+    local scale_action = cc.ScaleTo:create(0.2, 1, 1)
+    vars['rewardNode']:runAction(scale_action)
 end
 
 --@CHECK
