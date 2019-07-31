@@ -37,7 +37,7 @@ function TableLoadingGuide:getGuideListFilteredByLevel(l_guide)
         local min_level = v['min_level']
 		
 		-- 판단할 레벨 값 없을 경우 예외처리
-		if (not v['min_level']) or (not v['min_level']) then
+		if (not v['min_level']) or (not v['max_level']) then
 			table.insert(l_guid_checked_level, v)
 	    else
             local min_level = tonumber(v['min_level'])
