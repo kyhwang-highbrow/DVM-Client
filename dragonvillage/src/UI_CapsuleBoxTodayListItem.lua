@@ -25,24 +25,27 @@ function UI_CapsuleBoxTodayListItem:initUI()
     local vars = self.vars
     local table_dragon = TableDragon()
     local did = self.m_did
+
+    local attr = table_dragon:getDragonAttr(did)
+    local role_type = table_dragon:getDragonRole(did)
+    local rarity_type = table_dragon:getDragonRarity(did)
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+
     -- 이름
     local dragon_name = table_dragon:getDragonName(did)
     vars['nameLabel']:setString(Str(dragon_name))
     
     -- 속성 ex) dark
-    local attr = table_dragon:getDragonAttr(did)
     vars['attrNode']:removeAllChildren()
-    UI_DragonManageInfo.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'])
+    DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
 
     -- 역할 ex) healer
-    local role_type = table_dragon:getDragonRole(did)
     vars['typeNode']:removeAllChildren()
-    UI_DragonManageInfo.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'])
+    DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
 
     -- 희귀도 ex) legend
-    local rarity_type = table_dragon:getDragonRarity(did)
     vars['rarityNode']:removeAllChildren()
-    UI_DragonManageInfo.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'])
+    DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
 
     local dragon_animator = UIC_DragonAnimator()
     dragon_animator:setDragonAnimator(did, 3)

@@ -24,7 +24,7 @@ end
 -------------------------------------
 -- function makeRoleIconBtn
 -------------------------------------
-function DragonInfoIconHelper.makeRoleIconBtn(role, click_func)
+function DragonInfoIconHelper.makeRoleIconBtn(role, t_info)
 	local click_func = function()
 		UI_HelpDragonGuidePopup('role', role, t_info) -- param : focus_tab
 	end
@@ -39,7 +39,7 @@ end
 -------------------------------------
 -- function makeRarityIconBtn
 -------------------------------------
-function DragonInfoIconHelper.makeRarityIconBtn(rarity, click_func)
+function DragonInfoIconHelper.makeRarityIconBtn(rarity, t_info)
 	local click_func = function()
 		UI_HelpDragonGuidePopup('rarity', rarity, t_info) -- param : type, focus_value, table = {'rarity' = 'legend', 'role' = 'defend', 'attr' = 'fire'}
 	end
@@ -71,4 +71,88 @@ function DragonInfoIconHelper.makeImageBtn(file_name, size, func_click)
     menu:addChild(btn)
 
     return menu
+end
+
+-------------------------------------
+-- function makeInfoParamTable
+-------------------------------------
+function DragonInfoIconHelper.makeInfoParamTable(attr, role, rarity)
+    local t_info = {}
+    t_info['attr'] = attr
+    t_info['role'] = role
+    t_info['rarity'] = rarity
+
+    return t_info
+end
+
+
+-------------------------------------
+-- function setDragonAttrBtn
+-- @brief
+-------------------------------------
+function DragonInfoIconHelper.setDragonAttrBtn(attr, node, label, t_info)
+    if (not attr) then
+        return
+    end
+
+    if (not node) then
+        return
+    end
+
+    local icon = IconHelper:getAttributeIconButton(attr, t_info)
+    if (icon) then
+        node:addChild(icon)
+    end
+        
+    if (label) then
+        label:setString(dragonAttributeName(attr))
+    end
+
+end
+
+-------------------------------------
+-- function setDragonRoleBtn
+-- @brief
+-------------------------------------
+function DragonInfoIconHelper.setDragonRoleBtn(role, node, label, t_info)
+    if (not role) then
+        return
+    end
+
+    if (not node) then
+        return
+    end
+        
+    local icon = IconHelper:getRoleIconButton(role, t_info)
+    if (icon) then
+        node:addChild(icon)
+    end
+        
+    if (label) then
+        label:setString(dragonRoleTypeName(role))
+    end
+
+end
+
+-------------------------------------
+-- function setDragonRarityBtn
+-- @brief
+-------------------------------------
+function DragonInfoIconHelper.setDragonRarityBtn(rarity, node, label, t_info)
+    if (not rarity) then
+        return
+    end
+
+    if (not node) then
+        return
+    end
+
+    local rarity_icon = IconHelper:getRarityIconButton(rarity, t_info)     
+    if (rarity_icon) then
+        node:addChild(rarity_icon)
+    end
+        
+    if (label) then
+        label:setString(dragonRarityName(rarity))
+    end
 end

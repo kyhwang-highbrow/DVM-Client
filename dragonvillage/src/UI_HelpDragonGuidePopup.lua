@@ -1,5 +1,24 @@
 local PARENT = UI
 
+local L_ATTR = {}
+L_ATTR['earth'] = 1
+L_ATTR['water'] = 2
+L_ATTR['fire'] = 3
+L_ATTR['light'] = 4
+L_ATTR['dark'] = 5
+
+local L_ROLE = {}
+L_ROLE['dealer'] = 1
+L_ROLE['tanker'] = 2
+L_ROLE['supporter'] = 3
+L_ROLE['healer'] = 4
+
+local L_RARE = {}
+L_RARE['legend'] = 1
+L_RARE['hero'] = 2
+L_RARE['rare'] = 3
+L_RARE['common'] = 4
+
 -------------------------------------
 -- class UI_HelpDragonGuidePopup
 -------------------------------------
@@ -7,15 +26,9 @@ UI_HelpDragonGuidePopup = class(PARENT,{
 		m_focusType = 'string',
 		m_focusValue = 'string',
 		
-		m_tInfo = 'table',
-		--[[
-			{
-				['attr'] = 'fire',
-				['role'] = 'defend',
-				['rarity'] = 'legend',
-			}
-		
-		--]]
+		m_attr = 'string',
+        m_role = 'string',
+        m_rarity = 'string',
 	})
 
 -------------------------------------
@@ -27,7 +40,12 @@ function UI_HelpDragonGuidePopup:init(focus_type, focus_value, t_info)
 
 	self.m_focusType = focus_type
 	self.m_focusValue = focus_value
-	self.m_tInfo = t_info
+	
+    if (t_info) then
+        self.m_attr = t_info['attr']
+        self.m_role =  t_info['role']
+        self.m_rarity = t_info['rarity']
+    end
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HelpDragonGuidePopup')
@@ -82,27 +100,39 @@ end
 -- function setHighLight
 -------------------------------------
 function UI_HelpDragonGuidePopup:setHighLight()
-	local focus_type = self.m_focusType
+	local vars = self.vars
 
-	-- focus_value에 하이라이트
-	if (focus_type == 'attr') then
+    if (self.m_attr) then
+        local attr_num = L_ATTR[self.m_attr] or ''
+        if (vars['attrIconNode' .. attr_num]) then
+            vars['attrIconNode' .. attr_num]:setVisible(true)
+        end
 
-	elseif (focus_type == 'role') then
-	
-	elseif (focus_type == 'rarity') then
-	
+        if (vars['attrInfoNode' .. attr_num]) then
+            vars['attrIconNode' .. attr_num]:setVisible(true)
+        end
+	end
+
+    if (self.m_role) then
+	    local role_num = L_ROLE[self.m_role] or ''
+        if (vars['roleIconNode' .. role_num]) then
+            vars['roleIconNode' .. role_num]:setVisible(true)
+        end
+        
+        if (vars['roleInfoNode' .. role_num]) then
+            vars['roleInfoNode' .. role_num]:setVisible(true)
+        end
+	end
+
+    if (self.m_rarity) then
+        local rarity_num = L_RARE[self.m_rarity] or ''
+	    if (vars['rarityIconNode' .. rarity_num]) then
+            vars['rarityIconNode' .. rarity_num]:setVisible(true)
+        end
+
+	    if (vars['rarityInfoNode' .. rarity_num]) then
+            vars['rarityInfoNode' .. rarity_num]:setVisible(true)
+        end
 	end
 	
-	local t_info = self.m_tInfo
-	-- 나머지 정보가 존재한다면, 존재하는 정보에는 하이라이트
-	if (t_info) then
-		if (t_info['attr']) then
-		end
-
-		if (t_info['role']) then
-		end
-
-		if (t_info['rarity']) then
-		end
-	end
 end

@@ -172,6 +172,10 @@ function UI_DragonMasteryNew:refresh_dragonInfo()
     end
 
     local vars = self.vars
+    local attr = dragon_obj:getAttr()
+    local role_type = dragon_obj:getRole()
+    local rarity_type = nil
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
 
     -- 배경
     local attr = dragon_obj:getAttr()
@@ -186,15 +190,13 @@ function UI_DragonMasteryNew:refresh_dragonInfo()
     end
 
     do -- 드래곤 속성
-        local attr = dragon_obj:getAttr()
         vars['attrNode']:removeAllChildren()
-        UI_DragonManageInfo.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'])
+        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
     end
 
     do -- 드래곤 역할(role)
-        local role_type = dragon_obj:getRole()
         vars['typeNode']:removeAllChildren()
-        UI_DragonManageInfo.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'])
+        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
     end
 
     do -- 드래곤 현재 정보 카드

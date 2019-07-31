@@ -241,31 +241,24 @@ end
 function UI_DragonInfoBoard:refresh_icons(t_dragon_data)
     local vars = self.vars
 
-    do -- 희귀도
-        local rarity = t_dragon_data:getRarity()
-        vars['rarityNode']:removeAllChildren()
-        local icon = IconHelper:getRarityIconButton(rarity)
-        vars['rarityNode']:addChild(icon)
+    local attr = t_dragon_data:getAttr()
+    local role_type = t_dragon_data:getRole()
+    local rarity_type = t_dragon_data:getRarity()
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
 
-        vars['rarityLabel']:setString(dragonRarityName(rarity))
+    do -- 희귀도 
+        vars['rarityNode']:removeAllChildren()
+        DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
     end
 
     do -- 드래곤 속성
-        local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIconButton(attr)
-        vars['attrNode']:addChild(icon)
-
-        vars['attrLabel']:setString(dragonAttributeName(attr))
+        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
     end
 
     do -- 드래곤 역할(role)
-        local role_type = t_dragon_data:getRole()
         vars['typeNode']:removeAllChildren()
-        local icon = IconHelper:getRoleIconButton(role_type)
-        vars['typeNode']:addChild(icon)
-
-        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
+        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
     end
 end
 

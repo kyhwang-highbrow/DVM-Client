@@ -135,16 +135,21 @@ function UI_DragonTransformChange:refresh_currDragonInfo(struct_dragon_data)
     -- 드래곤 이름
     vars['dragonNameLabel']:setString(struct_dragon_data:getDragonNameWithEclv())
 
+    local attr = struct_dragon_data:getAttr()
+    local role_type = struct_dragon_data:getRole()
+    local rarity_type = nil
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+
     do -- 드래곤 속성
         local attr = struct_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
-        UI_DragonManageInfo.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'])
+        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
     end
 
     do -- 드래곤 역할(role)
         local role_type = struct_dragon_data:getRole()
         vars['typeNode']:removeAllChildren()
-        UI_DragonManageInfo.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'])
+        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
     end
 
     do -- 드래곤 아이콘
