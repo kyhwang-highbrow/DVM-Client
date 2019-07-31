@@ -41,6 +41,8 @@ return {['{@apricot}도움이 필요할 때는 {@default}마스터의 길{@apric
 ['전설의 알 확률 증가! (2% -> 5%)']='Increase Chance to get Legendary Egg! (2% -> 5%)',
 ['초월의 알 확률 증가! (5.5% -> 7%)']='Increase Chance to get Eternal Egg! (5.5% -> 7%)',
 ['전설의 알\n확률 증가!']='Increase Chance to get \nLegendary Egg!',
+['★4~5\n(한정 드래곤 포함)']='4-5★\n(Including Limited Dragons)',
+['★5\n(한정 드래곤 포함)']='5★\n(Including Limited Dragons)',
 ['정말 멋진 전투였습니다! 앞으로의 모험도 걱정 없겠군요!']='It was an amazing Battle! It\'s going to be smooth sailing from now on!',
 ['마지막으로 중요한 사실을 알려드릴게요!\n1챕터의 7스테이지를 완료하면 {@green}고급 뽑기 10+1회{@default}를 무료로 제공한다고 합니다!']='One last thing!\nIf you complete Stage 1-7, you\'ll be rewarded with {@green}10+1 Advanced Summons{@default} for free!',
 ['이 기회에 가장 희귀하다는 전설 등급 드래곤을 만나게 되면 얼마나 기쁠까요!']='While we\'re at it, think how great it\'d be to meet a Legendary Dragon, the rarest of them all!',
