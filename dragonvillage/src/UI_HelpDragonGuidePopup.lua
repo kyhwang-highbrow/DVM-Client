@@ -106,21 +106,17 @@ end
 function UI_HelpDragonGuidePopup:setHighLight()
 	local vars = self.vars
 
-    if (focus_type == 'attr') then
+    if (self.m_focusType == 'attr') then
         self.m_attr = self.m_focusValue
-    elseif (focus_type == 'role') then
+    elseif (self.m_focusType == 'role') then
         self.m_role = self.m_focusValue
-    elseif (focus_type == 'rarity') then
+    elseif (self.m_focusType == 'rarity') then
         self.m_rarity = self.m_focusValue
     end
 
     if (self.m_attr) then
         local attr_num = L_ATTR[self.m_attr] or ''
         if (vars['attrIconNode' .. attr_num]) then
-            vars['attrIconNode' .. attr_num]:setVisible(true)
-        end
-
-        if (vars['attrInfoNode' .. attr_num]) then
             vars['attrIconNode' .. attr_num]:setVisible(true)
         end
 	end
