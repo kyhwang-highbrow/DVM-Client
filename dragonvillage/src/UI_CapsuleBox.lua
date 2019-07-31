@@ -539,7 +539,7 @@ function UI_CapsuleBox.setCapsulePackageReward(target_ui)
     vars['rotationLabel']:setVisible(true)
     vars['rotationLabel']:setString(legend_title)
     if (not legend_title) or (legend_title  == '') then
-        vars['rotation']:setVisible(false)
+        vars['rotationSprite']:setVisible(false)
     end
 
     -- 대표 보상 표시
