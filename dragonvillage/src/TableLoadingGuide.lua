@@ -27,7 +27,7 @@ end
 -- function getGuideListFilteredByLevel
 -------------------------------------
 function TableLoadingGuide:getGuideListFilteredByLevel(l_guide)
-	local l_guid_checked_level = {}
+	local l_guide_checked_level = {}
 	local default_max_level = 999
 	local default_min_level = 0
 	local user_level = g_userData:get('lv')
@@ -41,7 +41,7 @@ function TableLoadingGuide:getGuideListFilteredByLevel(l_guide)
 		
 		-- 판단할 레벨 값 없을 경우 예외처리
 		if (not v['min_level']) or (not v['max_level']) then
-			table.insert(l_guid_checked_level, v)
+			table.insert(l_guide_checked_level, v)
 	    else
             local min_level = tonumber(v['min_level'])
 			if (v['min_level'] == '') then
@@ -54,12 +54,12 @@ function TableLoadingGuide:getGuideListFilteredByLevel(l_guide)
 			end
             
 			if (user_level < max_level) and (user_level > min_level) then
-				table.insert(l_guid_checked_level, v)
+				table.insert(l_guide_checked_level, v)
             end
 		end
 	end
 
-	return l_guid_checked_level
+	return l_guide_checked_level
 end
 
 -------------------------------------
@@ -68,7 +68,7 @@ end
 function TableLoadingGuide:getFilteredGuidList(guide_type)
 	local l_guide = self:getGuideList(guide_type)
 	-- 레벨로 필터링
-	l_guid = self:getGuideListFilteredByLevel(l_guide)
+	l_guide = self:getGuideListFilteredByLevel(l_guide)
 
 	-- 그 외 다른 조건으로 필터링
 
@@ -83,7 +83,7 @@ function TableLoadingGuide:getGuideDataByWeight(guide_type)
 	local l_guide = self:getFilteredGuidList(guide_type)
 
 	-- 조건에 맞는 로딩가이드가 하나도 없어 에러가 나면 안됨, 그런 경우, 조건 체크 안한 리스트 불러오도록 예외처리함
-	if (#l_guid == 0) then
+	if (#l_guide == 0) then
 		l_guide = self:getGuideList(guide_type)
 		cclog('### error ### 조건에 맞는 로딩가이드가 없습니다. table_loading_guid.csv를 확인하세요')
 	end
@@ -156,8 +156,8 @@ function TableLoadingGuide:getRandomStageGuid()
     if (self == THIS) then
         self = THIS()
     end
-
-    local l_guid_list = self:filterList('type', 'in_adventure')
+    
+    local l_guid_list = self:getFilteredGuidList('in_adventure')
     local idx = math_random(1, #l_guid_list)
     local str = Str(l_guid_list[idx]['t_desc'])
     return str
