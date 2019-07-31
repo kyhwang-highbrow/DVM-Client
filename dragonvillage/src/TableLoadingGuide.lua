@@ -31,6 +31,9 @@ function TableLoadingGuide:getGuideListFilteredByLevel(l_guide)
 	local default_max_level = 999
 	local default_min_level = 0
 	local user_level = g_userData:get('lv')
+    if (not user_level) then
+        user_level = 0
+    end
 
 	-- 레벨 조건에 맞는 로딩정보를 필터링
 	for i, v in pairs(l_guide) do
