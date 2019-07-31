@@ -185,7 +185,7 @@ function ErrorTracker:getUIStackForPayRoute()
 
     local max_count = 3
     local count = 1
-    for _, ui in pairs(table.reverse(UIManager.m_uiList)) do
+    for _, ui in pairs(UIManager.m_uiList) do
         if (ui.m_uiName == 'UI_BlockPopup') or (ui.m_uiName == 'UI_Network') or (ui.m_uiName == 'untitled') then
         else
             if (count > max_count) then
