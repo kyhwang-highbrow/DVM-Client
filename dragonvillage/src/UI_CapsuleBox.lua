@@ -535,6 +535,7 @@ function UI_CapsuleBox.setCapsulePackageReward(target_ui)
     local l_reward = struct_capsule_box:getRankRewardList(rank) or {}
 
     -- 캡슐 타이틀
+    g_capsuleBoxData:setTodaySchedule()
     local legend_title = capsulebox_data[box_key]:getCapsuleTitle() or ''
     vars['rotationLabel']:setVisible(true)
     vars['rotationLabel']:setString(legend_title)
