@@ -67,7 +67,8 @@ function UI_HelpDragonGuidePopup:initUI()
 
     local list_expansion = UIC_ListExpansion()
     local item_name_list = {'role', 'rarity', 'attr'}
-    list_expansion:configListExpansion(vars, item_name_list)
+    local item_list_interval = 10
+    list_expansion:configListExpansion(vars, item_name_list, item_list_interval)
 
     -- 처음부터 특정 아이템을 펼쳐진 상태로 하고싶을 경우
     list_expansion:setDefaultSelectedListItem(nil)
