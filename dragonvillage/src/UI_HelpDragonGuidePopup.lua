@@ -14,10 +14,10 @@ L_ROLE['supporter'] = 3
 L_ROLE['healer'] = 4
 
 local L_RARE = {}
-L_RARE['legend'] = 1
-L_RARE['hero'] = 2
-L_RARE['rare'] = 3
-L_RARE['common'] = 4
+L_RARE['legend'] = 4
+L_RARE['hero'] = 3
+L_RARE['rare'] = 2
+L_RARE['common'] = 1
 
 -------------------------------------
 -- class UI_HelpDragonGuidePopup
@@ -101,6 +101,14 @@ end
 -------------------------------------
 function UI_HelpDragonGuidePopup:setHighLight()
 	local vars = self.vars
+
+    if (focus_type == 'attr') then
+        self.m_attr = self.m_focusValue
+    elseif (focus_type == 'role') then
+        self.m_role = self.m_focusValue
+    elseif (focus_type == 'rarity') then
+        self.m_rarity = self.m_focusValue
+    end
 
     if (self.m_attr) then
         local attr_num = L_ATTR[self.m_attr] or ''

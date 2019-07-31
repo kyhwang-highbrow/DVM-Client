@@ -582,6 +582,12 @@ function UI_ReadySceneNew:initButton()
     -- 경험치 부스터 
     vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
 
+    -- 속성 도움말
+    vars['attrInfoBtn']:registerScriptTapHandler(function() self:click_attrInfoBtn() end)
+    if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then
+        vars['attrInfoBtn']:setVisible(false)
+    end
+
     -- 콜로세움일 경우
     if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
         vars['actingPowerNode']:setVisible(false)
@@ -1751,5 +1757,13 @@ function UI_ReadySceneNew:isClanRaidTrainingMode(stage_id)
     end
     return false
 end
+
+-------------------------------------
+-- function click_attrInfoBtn
+-------------------------------------
+function UI_ReadySceneNew:click_attrInfoBtn()
+    UI_HelpDragonGuidePopup('attr')
+end
+
 --@CHECK
 UI:checkCompileError(UI_ReadySceneNew)

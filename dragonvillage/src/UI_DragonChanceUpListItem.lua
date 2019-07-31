@@ -25,28 +25,23 @@ function UI_DragonChanceUpListItem:initUI()
     local vars = self.vars
     local did = self.m_did
     local table_dragon = TableDragon()
+    local attr = table_dragon:getDragonAttr(did)
+    local role_type = table_dragon:getDragonRole(did)
+    local rarity_type = table_dragon:getValue(did, 'rarity')
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
 
     -- 이름
     local name = table_dragon:getChanceUpDragonName(did)
     vars['nameLabel']:setString(name)
 
     -- 희귀도
-    local rarity = table_dragon:getValue(did, 'rarity')
-    local icon = IconHelper:getRarityIconButton(rarity)
-    vars['rarityNode']:addChild(icon)
-    vars['rarityLabel']:setString(dragonRarityName(rarity))
+    DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
 
     -- 역할
-    local role = table_dragon:getDragonRole(did)
-    local icon = IconHelper:getRoleIconButton(role)
-    vars['typeNode']:addChild(icon)
-    vars['typeLabel']:setString(dragonRoleTypeName(role))
+    DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
     
     -- 속성
-    local attr = table_dragon:getDragonAttr(did) 
-    local icon = IconHelper:getAttributeIconButton(attr)
-    vars['attrNode']:addChild(icon)
-    vars['attrLabel']:setString(dragonAttributeName(attr))
+    DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
     
     -- 드래곤
     local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, 3)

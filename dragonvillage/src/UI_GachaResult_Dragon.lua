@@ -309,35 +309,28 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
     local name = t_dragon_data:getDragonNameWithEclv()
     vars['nameLabel']:setString(name .. '-' .. evolutionName(evolution))
 
+    local attr = t_dragon_data:getAttr()
+    local role_type = t_dragon_data:getRole()
+    local rarity_type = t_dragon_data:getRarity()
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+
     do -- 능력치
         self:refresh_status(t_dragon_data)
     end
 
     do -- 희귀도
-        local rarity = t_dragon_data:getRarity()
         vars['rarityNode']:removeAllChildren()
-        local icon = IconHelper:getRarityIconButton(rarity)
-        vars['rarityNode']:addChild(icon)
-
-        vars['rarityLabel']:setString(dragonRarityName(rarity))
+        DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
     end
 
     do -- 드래곤 속성
-        local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIconButton(attr)
-        vars['attrNode']:addChild(icon)
-
-        vars['attrLabel']:setString(dragonAttributeName(attr))
+        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
     end
 
     do -- 드래곤 역할(role)
-        local role_type = t_dragon_data:getRole()
         vars['roleNode']:removeAllChildren()
-        local icon = IconHelper:getRoleIconButton(role_type)
-        vars['roleNode']:addChild(icon)
-
-        vars['roleLabel']:setString(dragonRoleTypeName(role_type))
+        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['roleNode'], vars['roleLabel'], t_info)
     end
 
     do -- 드래곤 실리소스

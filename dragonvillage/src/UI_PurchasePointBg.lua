@@ -152,26 +152,24 @@ function UI_PurchasePointBg:initUI_dragon()
     local did = TableItem:getDidByItemId(item_id)
     local table_dragon = TableDragon()
 
+    local attr = table_dragon:getDragonAttr(did)
+    local role_type = table_dragon:getDragonRole(did)
+    local rarity_type = 'legend'
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+
     -- 이름
     local dragon_name = table_dragon:getDragonName(did)
     vars['dragonNameLabel']:setString(Str(dragon_name))
     
     -- 속성 ex) dark
-    local dragon_attr = table_dragon:getDragonAttr(did)
-    local attr_icon = IconHelper:getAttributeIconButton(dragon_attr)
-    vars['attrNode']:addChild(attr_icon)
-    vars['attrLabel']:setString(dragonAttributeName(dragon_attr))
+    DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
 
     -- 역할 ex) healer
     local role_type = table_dragon:getDragonRole(did)
-    local role_icon = IconHelper:getRoleIconButton(role_type)
-    vars['typeNode']:addChild(role_icon)
-    vars['typeLabel']:setString(dragonRoleTypeName(role_type))
+    DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
 
     -- 희귀도 ex) legend
-    local rarity_icon = IconHelper:getRarityIconButton('legend')
-    vars['rarityNode']:addChild(rarity_icon)
-    vars['rarityLabel']:setString(dragonRarityName('legend'))
+    DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
 
     -- 진화도 by 별
     local res = string.format('res/ui/icons/star/star_%s_%02d%02d.png', 'yellow', 2, 5)

@@ -285,8 +285,12 @@ function UI_BookDetailPopup:onChangeDragon()
     -- 드래곤 이름
     vars['nameLabel']:setString(Str(t_dragon['t_name']))
 
-    -- 배경
     local attr = t_dragon['attr']
+    local role_type = t_dragon['role']
+    local rarity_type = t_dragon['rarity']
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+
+    -- 배경
     if self:checkVarsKey('bgNode', attr) then    
         vars['bgNode']:removeAllChildren()
         local animator = ResHelper:getUIDragonBG(attr, 'idle')
@@ -294,30 +298,18 @@ function UI_BookDetailPopup:onChangeDragon()
     end   
 
     do -- 희귀도
-        local rarity = t_dragon['rarity']
         vars['rarityNode']:removeAllChildren()
-        local icon = IconHelper:getRarityIconButton(rarity)
-        vars['rarityNode']:addChild(icon)
-
-        vars['rarityLabel']:setString(dragonRarityName(rarity))
+        DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
     end
 
     do -- 드래곤 속성
-        local attr = t_dragon['attr']
         vars['attrNode']:removeAllChildren()
-        local icon = IconHelper:getAttributeIconButton(attr)
-        vars['attrNode']:addChild(icon)
-
-        vars['attrLabel']:setString(dragonAttributeName(attr))
+        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
     end
 
     do -- 드래곤 역할(role)
-        local role_type = t_dragon['role']
         vars['typeNode']:removeAllChildren()
-        local icon = IconHelper:getRoleIconButton(role_type)
-        vars['typeNode']:addChild(icon)
-
-        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
+        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
     end    
 
     do -- 드래곤 스토리
