@@ -72,7 +72,7 @@ function TableLoadingGuide:getFilteredGuidList(guide_type)
 
 	-- 그 외 다른 조건으로 필터링
 
-	return l_guid
+	return l_guide
 end
 
 -------------------------------------
