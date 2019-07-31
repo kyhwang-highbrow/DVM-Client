@@ -582,7 +582,8 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     ui_network:setParam('sku', sku)
     ui_network:setParam('product_id', product_id)
     ui_network:setParam('iswin', iswin)
-	
+	ui_network:setParam('route', g_errorTracker:getUIStackForPayRoute())
+
     local market, os_ = GetMarketAndOS()
 
 	if (IS_LIVE_SERVER()) then
