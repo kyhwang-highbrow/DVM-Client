@@ -70,7 +70,11 @@ function UI_HelpDragonGuidePopup:initUI()
     list_expansion:configListExpansion(vars, item_name_list)
 
     -- 처음부터 특정 아이템을 펼쳐진 상태로 하고싶을 경우
-    list_expansion:setDefaultSelectedListItem(self.m_focusType)
+    list_expansion:setDefaultSelectedListItem(nil)
+    if self.m_focusType then
+        list_expansion:click_listItemBtn(self.m_focusType)
+    end
+    
 
 	-- 희귀도, 속성, 역할 중 해당하는 값에는 하이라이트
 	self:setHighLight()

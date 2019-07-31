@@ -65,7 +65,9 @@ end
 -- function setDefaultSelectedListItem
 -------------------------------------
 function UIC_ListExpansion:setDefaultSelectedListItem(item_name)
-    self.m_itemUIMap[item_name]:setExpansion(true, true) -- param : is_expanded, is_immediately
+    if (item_name) then
+        self.m_itemUIMap[item_name]:setExpansion(true, true) -- param : is_expanded, is_immediately
+    end
 
     -- 다른 아이템은 모두 닫아준다.
     for i,v in ipairs(self.m_itemUIList) do
