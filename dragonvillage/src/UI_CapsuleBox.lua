@@ -536,7 +536,11 @@ function UI_CapsuleBox.setCapsulePackageReward(target_ui)
 
     -- 캡슐 타이틀
     local legend_title = capsulebox_data[box_key]:getCapsuleTitle() or ''
+    vars['rotationLabel']:setVisible(true)
     vars['rotationLabel']:setString(legend_title)
+    if (not legend_title) or (legend_title  == '') then
+        vars['rotation']:setVisible(false)
+    end
 
     -- 대표 보상 표시
     for i, struct_reward in ipairs(l_reward) do
@@ -547,7 +551,6 @@ function UI_CapsuleBox.setCapsulePackageReward(target_ui)
     	end
     end
 
-    vars['rotationLabel']:setVisible(true)
     vars['rewardNode']:setVisible(true)
 
     -- 커지면서 나타나는 액션
