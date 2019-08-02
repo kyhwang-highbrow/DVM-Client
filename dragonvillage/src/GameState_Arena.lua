@@ -375,7 +375,10 @@ function GameState_Arena:processTimeOut()
     local hero_hp = inGameUi:getHeroHpGaugePercentage()
     local enemy_hp = inGameUi:getEnemyHpGaugePercentage()
 
-    if (hero_hp < enemy_hp) then
+    -- @sgkim 20190802 기존에는 체력이 같을 경우 아군이 승리
+    --                 스피드핵을 통해 1초만에 게임을 종료시키고 체력으로 이기는 어뷰징 발생
+    --                 스피드 핵은 서버에서 게임 시간을 별도로 체크하고 추가로 체력이 같으면 적군이 이기도록 변경
+    if (hero_hp <= enemy_hp) then
         self:changeState(GAME_STATE_FAILURE)
     else
         self:changeState(GAME_STATE_SUCCESS_WAIT)
