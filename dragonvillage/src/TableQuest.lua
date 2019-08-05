@@ -17,8 +17,29 @@ local THIS = TableQuest
 -------------------------------------
 function TableQuest:init()
     self.m_tableName = 'quest'
-    self.m_orgTable = TABLE:get(self.m_tableName)
+    self.m_orgTable = self:getfilteredOrgTable()
 	self:arrangeData()
+end
+
+-------------------------------------
+-- function getfilteredOrgTable
+-- @brief 조건에 맞추어 퀘스트를 걸러냄
+-- @20190805 active 조건 : active = 0 인 퀘스트는 orgTable에서 제외시킴
+-------------------------------------
+function TableQuest:getfilteredOrgTable()
+    local table_filtered = {}
+    local org_table = TABLE:get(self.m_tableName)
+    for key, data in pairs(org_table) do
+        if (data['active']) then
+            if (data['active'] == 0) then
+                -- active == 0 은 퀘스트 몰록에서 제외시킴
+            else
+                table_filtered[key] = data
+            end
+        end
+    end
+
+    return table_filtered
 end
 
 -------------------------------------
