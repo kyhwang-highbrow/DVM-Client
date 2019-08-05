@@ -113,6 +113,7 @@ function BroadcastMgr:update(dt)
         end
     end
 
+    --[[
     -- 일반 메세지가 활성화 되었을 경우
     if (self.m_bEnableMessage) then
         
@@ -155,6 +156,7 @@ function BroadcastMgr:update(dt)
             end
 		end
     end
+    --]]
 end
 
 -------------------------------------
