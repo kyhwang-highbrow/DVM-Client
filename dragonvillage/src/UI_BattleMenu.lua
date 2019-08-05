@@ -148,12 +148,14 @@ function UI_BattleMenu:update(dt)
             t_noti['dungeon'] = true
         end
 
+    --[[
         local event_data = g_eventGoldDungeonData
         -- 현재 입장권 개수
         local stamina_cnt = event_data:getStaminaCount()
         if (stamina_cnt > 0) then
             t_noti['dungeon'] = true
         end
+     --]]
     end
     UIHelper:autoNoti(t_noti, self.m_tNotiSprite, 'Btn', self.vars)
 end
