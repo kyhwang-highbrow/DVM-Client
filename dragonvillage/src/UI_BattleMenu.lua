@@ -303,6 +303,7 @@ function UI_BattleMenu:initDungeonTab()
     table.insert(l_item, 'nest_tree') -- 거목 던전
     table.insert(l_item, 'nest_evo_stone') -- 진화재료 던전
 
+    --[[
     if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
         -- 황금 던전
         table.insert(l_item, 'gold_dungeon') -- 황금 던전
@@ -313,7 +314,7 @@ function UI_BattleMenu:initDungeonTab()
         --     --table.insert(l_item, 'clan_raid') -- 클랜 던전
         -- end
     end
-
+    --]]
     -- 고대 유적 던전은 열린 경우에만 노출 (악몽던전 앞에)
     if (g_ancientRuinData:isOpenAncientRuin()) then
         table.insert(l_item, 'ancient_ruin') -- 고대 유적 던전

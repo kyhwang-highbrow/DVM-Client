@@ -69,12 +69,12 @@ function UI_QuickPopupNew:init_dungeonBtn()
     local l_content = {}
     table.insert(l_content, 'nest_tree')
     table.insert(l_content, 'nest_evo_stone')
-
+    --[[
     -- 황금 던전
     if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
         table.insert(l_content, 'gold_dungeon')
     end
-
+    --]]
     -- 고대 유적 던전은 열린 경우에만 노출 (악몽던전 앞에)
     if (g_ancientRuinData:isOpenAncientRuin()) then
         table.insert(l_content, 'ancient_ruin') 
