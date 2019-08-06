@@ -10,6 +10,8 @@ UI_SimpleDragonInfoPopup = class(PARENT, {
         m_idx = 'number',
         m_dragonInfoBoardUI = 'UI_DragonInfoBoard',
         m_dragonAnimator = 'UIC_DragonAnimator',
+
+        m_refreshCb = 'function',
      })
 
 -------------------------------------
@@ -68,6 +70,8 @@ function UI_SimpleDragonInfoPopup:initButton()
     vars['nextBtn']:setVisible(false)
     --vars['prevBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx - 1) end)
     --vars['nextBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx + 1) end)
+
+    vars['lockBtn']:registerScriptTapHandler(function() self:click_lock() end)
 end
 
 -------------------------------------
@@ -185,3 +189,90 @@ function UI_SimpleDragonInfoPopup:showIllusionLabel()
     self.vars['eventDungeonSprite']:setVisible(true)
 end
 
+-------------------------------------
+-- function setLockPossible
+-------------------------------------
+function UI_SimpleDragonInfoPopup:setLockPossible(is_possible)
+    -- 락 기능 제공하지 않는다면 버튼은 아예 보이지 않음
+    if (not is_possible) then
+        self.vars['lockBtn']:setVisible(false)
+        return
+    end
+
+    local t_dragon_data = self:getDragonData()
+    if (not t_dragon_data) then
+        return
+    end
+
+    self.vars['lockBtn']:setVisible(true)
+    self.vars['lockSprite']:setVisible(t_dragon_data:getLock())
+end
+
+-------------------------------------
+-- function setRefreshFunc
+-------------------------------------
+function UI_SimpleDragonInfoPopup:setRefreshFunc(refresh_cb)
+    self.m_refreshCb = refresh_cb
+end
+
+-------------------------------------
+-- function click_lock
+-------------------------------------
+function UI_SimpleDragonInfoPopup:click_lock()
+    local struct_dragon_data
+	local doids = ''
+	local soids = ''
+	
+    local t_dragon_data = self:getDragonData()
+    local is_slim = (t_dragon_data.m_objectType == 'slime')
+    
+    if (is_slim) then
+		soids = self.m_dragonObjectID
+		struct_dragon_data = g_slimesData:getSlimeObject(self.m_dragonObjectID)
+	else
+		doids = self.m_dragonObjectID
+		struct_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_dragonObjectID)
+	end
+
+	local lock = (not struct_dragon_data:getLock())
+
+    -- 드래곤 성장일지 (퀘스트 진행중이면 잠금 풀 수 없음)
+    local start_dragon_doid = g_userData:get('start_dragon')
+    if (start_dragon_doid) and (not g_dragonDiaryData:isClearAll()) then
+        
+        if (doids == start_dragon_doid) then
+            local msg = Str('육성 퀘스트가 진행중인 드래곤입니다.\n퀘스트를 모두 수행해야 잠금 해제가 가능합니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+        end
+    end
+
+	local function cb_func(ret)
+		-- 메인 잠금 표시 해제
+		self.vars['lockSprite']:setVisible(lock)
+		
+		-- 잠금 안내 팝업
+		local msg = lock and Str('잠금되었습니다.') or Str('잠금이 해제되었습니다.')
+		UIManager:toastNotificationGreen(msg)
+
+        -- 드래곤 정보 갱신
+        if (ret['modified_dragons']) then
+			for _, t_dragon in ipairs(ret['modified_dragons']) do
+				g_dragonsData:applyDragonData(t_dragon)
+			end
+		end
+		
+		if (ret['modified_slimes']) then
+			for _, t_slime in ipairs(ret['modified_slimes']) do
+				g_slimesData:applySlimeData(t_slime)
+			end
+		end
+
+		-- 개별 드래곤 갱신
+        if (self.m_refreshCb) then
+		    self:m_refreshCb()
+	    end
+    end
+
+	g_dragonsData:request_dragonLock(doids, soids, lock, cb_func)
+end

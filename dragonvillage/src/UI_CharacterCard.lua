@@ -651,7 +651,7 @@ end
 -------------------------------------
 -- function UI_DragonCard
 -------------------------------------
-function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop)
+function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop, click_func)
     if t_dragon_data and (not t_dragon_data.m_objectType) then
         t_dragon_data = StructDragonObject(t_dragon_data)
     end
@@ -662,6 +662,10 @@ function UI_DragonCard(t_dragon_data, struct_user_info, is_tooltop)
         if doid and (doid ~= '') then
             UI_SimpleDragonInfoPopup(t_dragon_data)
         end
+    end
+
+    if (click_func) then
+        func = click_func
     end
 
     local function tap_func()

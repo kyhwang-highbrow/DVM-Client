@@ -219,7 +219,9 @@ end
 -------------------------------------
 function UI_DragonManage_Base:refresh_dragonIndivisual(dragon_object_id)
     local item = self.m_tableViewExt.m_itemMap[dragon_object_id]
-
+    if (not item) then
+        return
+    end
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(dragon_object_id)
 
     -- 테이블뷰 리스트의 데이터 갱신
