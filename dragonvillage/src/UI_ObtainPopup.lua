@@ -301,6 +301,70 @@ function ItemObtainResult(t_ret, is_mail)
 end
 
 -------------------------------------
+-- function ItemObtainResult
+-- @brief 아이템 보여준 후 콜백이 필요할 경우 사용하는 팝업
+-- @param t_ret
+-------------------------------------
+function ItemObtainResult_hasCloseCb(t_ret, is_mail, close_cb)
+    if (not t_ret) then
+        return
+    end
+
+    local type = type or 'reward'
+
+    -- 우편함으로 전송
+    if (t_ret['new_mail'] == true) then
+        g_highlightData:setHighlightMail()
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+    end
+
+    -- 예외처리
+    local added_items = t_ret['added_items']
+    if (not added_items) then
+        return
+    end
+
+    local items_list = added_items['items_list']
+    if (not items_list) then
+        return
+    end
+
+    -- 아이템이 하나이고 룬일 경우
+    if (#items_list == 1) then
+        local item_id, count, t_sub_data = ServerData_Item:parseAddedItems_firstItem(added_items)
+        local item_type = TableItem:getItemType(item_id)
+
+        -- 기본 재화 구매는 결과를 보여주지 않음
+        if (TableItem:getItemIDFromItemType(item_type)) then
+            UIManager:toastNotificationGreen(Str('보상을 수령하였습니다.'))
+            close_cb()
+            return
+        end
+
+        -- 메일로 받은 아이템일경우 룬만 팝업을 표시
+        if (is_mail and (item_type ~= 'rune')) then
+            local toast_msg = Str('아이템을 지급받았습니다.')
+            local toast_ui = UI_ToastPopup(toast_msg)
+            toast_ui:setCloseCB(close_cb)
+            return
+        end
+
+        -- 아이템 정보창 띄움
+        local ui = UI_ItemInfoPopup(item_id, count, t_sub_data)
+        ui:showItemInfoPopupOkBtn() -- "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
+        ui:setCloseCB(close_cb)
+        return
+    end
+
+
+    local l_item = items_list
+    local msg = Str('보상 획득')
+    local ok_btn_cb = close_cb
+    UI_ObtainPopup(l_item, msg, ok_btn_cb)
+end
+
+-------------------------------------
 -- function ItemObtainResult_Mail
 -- @brief
 -- @param t_ret

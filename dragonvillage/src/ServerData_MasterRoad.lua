@@ -164,13 +164,16 @@ end
 -- @return bool, UI_Network
 -------------------------------------
 function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
+    UI_MasterRoadRewardPopup()
+    --[[
+    
     -- 클리어 체크
     if (self:checkFocusRoadClear(t_data)) then
         local function after_func()
             if (cb_func) then   
                 cb_func(true) -- UI_GameResultNew에서 클리어 여부를 받아간다
             else
-                UI_MasterRoadPopup_Link()
+                UI_MasterRoadRewardPopup()
             end
         end
         local ui_network = self:request_roadClear(self.m_focusRoad, after_func)
@@ -183,6 +186,7 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
 		return false, nil
 
     end
+    --]]
 end
 
 -------------------------------------
@@ -236,6 +240,14 @@ function ServerData_MasterRoad:checkFocusRoadClear(t_data)
     return is_clear
 end
 
+-------------------------------------
+-- function getFocusMasterRoadInfo
+-------------------------------------
+function ServerData_MasterRoad:getFocusMasterRoadInfo()
+    local rid = self.m_focusRoad
+    local t_road = TableMasterRoad():get(rid)
+    return t_road or {}
+end
 
 
 

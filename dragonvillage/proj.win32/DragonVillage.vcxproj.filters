@@ -4144,6 +4144,9 @@
     <None Include="..\src\DragonInfoIconHelper.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_MasterRoadRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

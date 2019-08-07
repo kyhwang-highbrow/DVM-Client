@@ -1303,6 +1303,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_LoginPopupWithoutFirebase.lua" />
     <None Include="..\src\UI_MailRewardPopup.lua" />
     <None Include="..\src\UI_MailSelectPopup.lua" />
+    <None Include="..\src\UI_MasterRoadRewardPopup.lua" />
     <None Include="..\src\UI_MatchReady.lua" />
     <None Include="..\src\UI_MatchReadyChallengeMode.lua" />
     <None Include="..\src\UI_MonsterCustomCard.lua" />

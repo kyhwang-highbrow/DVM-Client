@@ -842,6 +842,7 @@ local t_module = {
     'UI_QuestListItem',
 	'UI_MasterRoadPopup',
     'UI_MasterRoadPopup_Link',
+    'UI_MasterRoadRewardPopup',
     'UI_MailPopup',
     'UI_MailListItem',
     'UI_MailRewardPopup',
