@@ -165,7 +165,6 @@ end
 -------------------------------------
 function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
     UI_MasterRoadRewardPopup()
-    --[[
     
     -- 클리어 체크
     if (self:checkFocusRoadClear(t_data)) then
@@ -186,7 +185,6 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
 		return false, nil
 
     end
-    --]]
 end
 
 -------------------------------------
