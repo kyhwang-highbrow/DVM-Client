@@ -164,8 +164,6 @@ end
 -- @return bool, UI_Network
 -------------------------------------
 function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
-    UI_MasterRoadRewardPopup()
-    
     -- 클리어 체크
     if (self:checkFocusRoadClear(t_data)) then
         local function after_func()
