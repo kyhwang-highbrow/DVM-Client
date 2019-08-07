@@ -6,6 +6,8 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 UI_BookDragonCard_Bundle = class(PARENT,{
     	m_data = '',
         m_owner_ui = '',
+
+        m_lcardUI = 'List-UI',
     })
 
 -------------------------------------
@@ -15,6 +17,7 @@ function UI_BookDragonCard_Bundle:init(data, owner_ui)
     self:load('book_item.ui')
     self.m_data = data
     self.m_owner_ui = owner_ui
+    self.m_lcardUI = {}
 
     self:initUI()
     self:initButton()
@@ -69,6 +72,24 @@ function UI_BookDragonCard_Bundle:initUI()
 
     vars['dscLabel']:setString(desc)
 
+    self:refresh()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_BookDragonCard_Bundle:initButton()
+    local vars = self.vars
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_BookDragonCard_Bundle:refresh()
+	local vars = self.vars
+    local data = self.m_data
+
+
     -- 해치 정보만 받아온 상태에서 진화도만 수정하여 해츨링, 성룡 데이터 생성해줌
     local l_dragon = {}
 
@@ -89,26 +110,14 @@ function UI_BookDragonCard_Bundle:initUI()
     for i, _data in ipairs(l_dragon) do
         local node = vars['dragonNode'..i]
         if (node) then
+            node:removeAllChildren()
             local card = UI_BookDragonCard(_data)
             card.root:setSwallowTouch(false)
             UI_Book.cellCreateCB(card, _data, self.m_owner_ui)
+            table.insert(self.m_lcardUI, card)
             node:addChild(card.root)
         end
     end
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function UI_BookDragonCard_Bundle:initButton()
-    local vars = self.vars
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_BookDragonCard_Bundle:refresh()
-	local vars = self.vars
 end
 
 --@CHECK

@@ -105,6 +105,11 @@ function UI_Book:initButton()
         self.m_attrRadioButton = radio_button
     end
 
+    -- 모두 받기 버튼
+	vars['rewardAllBtn']:registerScriptTapHandler(function() self:click_rewardAll() end)
+    local has_reward = g_bookData:hasReward()
+	vars['rewardAllBtn']:setEnabled(has_reward)
+
     -- 최초에 한번 실행
     self:onChangeOption()
 end
@@ -259,6 +264,31 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 end
 
 -------------------------------------
+-- function click_rewardAll
+-------------------------------------
+function UI_Book:click_rewardAll()
+	-- 보상이 없다면
+	local has_reward = g_bookData:hasReward()
+	if (not has_reward) then
+		UIManager:toastNotificationRed(Str('획득할 보상이 없습니다'))
+		return
+	end
+
+	local pre_cash = g_userData:get('cash')
+	local function finish_cb(cash)
+		local reward_value = cash - pre_cash
+		local reward_str = Str('다이아 {1}개를 수령했습니다.', comma_value(reward_value))
+		UI_ToastPopup(reward_str)
+		self:refresh_noti()
+		self:setAllRewardReceieved()
+        
+        -- 더 이상 받을 보상이 없기 때문에 비활성화
+        self.vars['rewardAllBtn']:setEnabled(false)
+	end
+	g_bookData:request_bookRewardAll(finish_cb)			
+end
+
+-------------------------------------
 -- function click_bookPointBtn
 -- @brief 콜랙션 포인트 보상 확인 버튼
 -------------------------------------
@@ -282,6 +312,19 @@ function UI_Book:checkRefresh()
     if is_changed then
         self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
         self:refresh()
+    end
+end
+
+-------------------------------------
+-- function setAllRewardReceieved
+-- @brief 도감 보상의 리워드 표시 모두 비활성화(다 받았다는 표시)
+-------------------------------------
+function UI_Book:setAllRewardReceieved()
+    local l_card = self.m_tableViewTD.m_itemList
+    for i, t_data in ipairs(l_card) do
+        if (t_data['ui']) then
+            t_data['ui']:refresh()
+        end
     end
 end
 

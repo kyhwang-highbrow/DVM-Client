@@ -415,9 +415,65 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
     ui_network:request()
 end
 
+-------------------------------------
+-- function request_bookRewardAll
+-------------------------------------
+function ServerData_Book:request_bookRewardAll(finish_cb)
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+    -- 성공 콜백
+    local function success_cb(ret)
+		-- @analytics
+        -- Analytics:trackGetGoodsWithRet(ret, '도감 보상')
+        -- Analytics:firstTimeExperience('Book_Rewrad')
 
+		-- 들어온 재화 적용
+		g_serverData:networkCommonRespone(ret)
 
+        -- 보상 수령한 정보 처리
+        self:setBookRewardData(ret['reward_info'])
 
+		-- 시간 갱신        
+		self:setLastChangeTimeStamp()
+
+		-- 로비 노티 갱신
+		g_highlightData:setDirty(true)
+
+        if finish_cb then
+            finish_cb(ret['cash'])
+        end
+	end
+
+	-- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/book/reward_all')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function hasReward
+-- @brief 하나라도 보상받을 도감 드래곤이 있는지 확인
+-------------------------------------
+function ServerData_Book:hasReward()
+	local table_dragon = TableDragon()
+    local table_slime = TableSlime()
+
+	for did, t_info in pairs(self.m_tBookReward) do
+		-- did의 보상이 있는지 검사	
+		have_reward = false
+		for _, reward in pairs(t_info) do
+			if (reward == 1) then
+				return true
+			end
+		end
+	end
+
+	return false
+end
 
 -------------------------------------
 -- function getRelationPoint
