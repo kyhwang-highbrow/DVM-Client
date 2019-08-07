@@ -397,23 +397,45 @@ function UI_DragonUpgrade:createMtrlDragonCardCB(ui, data)
     local doid = self.m_selectDragonOID
     if (not g_dragonsData:possibleUpgradeable(doid)) then
         ui:setShadowSpriteVisible(true)
-        return
     end
 
     -- 재료 드래곤이 재료 가능한지 판별
     doid = data['id']
+    local is_shadow = false
     if (data:getObjectType() == 'dragon') then
         if (not g_dragonsData:possibleMaterialDragon(doid)) then
-            ui:setShadowSpriteVisible(true)
-            return
+            is_shadow = true
+        else
+            is_shadow = false
         end
 
     elseif (data:getObjectType() == 'slime') then
         if (not g_slimesData:possibleMaterialSlime(doid, 'upgrade')) then
-            ui:setShadowSpriteVisible(true)
-            return
+            is_shadow = true
+        else
+            is_shadow = false
         end
     end
+
+    ui:setShadowSpriteVisible(is_shadow)
+
+    -- 프레스 함수 세팅
+    local press_card_cb = function()
+        local doid = data['id']
+        if doid and (doid ~= '') then
+            local ui = UI_SimpleDragonInfoPopup(data)
+            ui:setLockPossible(true)
+            ui:setRefreshFunc(function()
+                self:refresh_dragonIndivisual(doid)          -- 하단의 드래곤 tableview
+                self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
+                
+                -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+                self.m_bChangeDragonList = true
+            end)
+        end
+    end
+
+    ui.vars['clickBtn']:registerScriptPressHandler(press_card_cb)
 end
 
 -------------------------------------
@@ -689,6 +711,31 @@ function UI_DragonUpgrade:isPackageBuyable()
 	self.m_updatePackageStruct = struct_product
 
 	return struct_product:checkMaxBuyCount()
+end
+
+
+-------------------------------------
+-- function refresh_dragonIndivisual_material
+-------------------------------------
+function UI_DragonUpgrade:refresh_dragonIndivisual_material(doid)
+    local item = self.m_mtrlTableViewTD.m_itemMap[doid]
+
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        t_dragon_data = g_slimesData:getSlimeObject(doid)
+    end
+
+    -- 테이블뷰 리스트의 데이터 갱신
+    item['data'] = t_dragon_data
+
+    -- UI card 버튼이 있을 경우 데이터 갱신
+    if item and item['ui'] then
+        local ui = item['ui']
+        ui.m_dragonData = t_dragon_data
+        ui:refreshDragonInfo()
+        self:createMtrlDragonCardCB(ui, t_dragon_data)
+    end
 end
 
 --@CHECK

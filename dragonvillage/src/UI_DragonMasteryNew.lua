@@ -500,7 +500,11 @@ function UI_DragonMasteryNew:refresh_dragonMaterialTableView()
     end
     
     local function make_func(object)
-        return self:makeDragonCard(object)
+        if (self:isMasteryMaterial(object['did'])) then
+            return UI_ItemCard(object['item_id'])
+        else
+            return UI_DragonCard(object)
+        end
     end
 
     -- 테이블뷰 생성
@@ -553,6 +557,24 @@ function UI_DragonMasteryNew:createMtrlDragonCardCB(ui, data)
         end
     end
     ui:setShadowSpriteVisible(is_shadow)
+
+    -- 프레스 함수 세팅
+    local press_card_cb = function()
+        local doid = data['id']
+        if doid and (doid ~= '') then
+            local ui = UI_SimpleDragonInfoPopup(data)
+            ui:setLockPossible(true)
+            ui:setRefreshFunc(function()
+                self:refresh_dragonIndivisual(doid)          -- 하단의 드래곤 tableview
+                self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
+                
+                -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+                self.m_bChangeDragonList = true
+            end)
+        end
+    end
+        
+    ui.vars['clickBtn']:registerScriptPressHandler(press_card_cb)
 end
 
 -------------------------------------
@@ -802,33 +824,6 @@ function UI_DragonMasteryNew:getMasteryItemIdForDragon(doid)
     local mastery_material_cnt = g_userData:get(material_name)
     local material_id = TableItem:getItemIDFromItemType(material_name)
     return material_id
-end
-
--------------------------------------
--- function makeDragonCard
--- @brief 드래곤 카드 생성
--------------------------------------
-function UI_DragonMasteryNew:makeDragonCard(object)
-    local click_card_cb = function()
-        local doid = object['id']
-        if doid and (doid ~= '') then
-            local ui = UI_SimpleDragonInfoPopup(object)
-            ui:setLockPossible(true)
-            ui:setRefreshFunc(function()
-                self:refresh_dragonIndivisual(doid)          -- 하단의 드래곤 tableview
-                self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
-                
-                -- 특성 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
-                self.m_bChangeDragonList = true
-            end)
-        end
-    end
-    
-    if (self:isMasteryMaterial(object['did'])) then
-        return UI_ItemCard(object['item_id'])
-    else
-        return UI_DragonCard(object, nil, nil, click_card_cb) -- param : t_dragon_data, struct_user_info, is_tooltop, click_func
-    end
 end
 
 -------------------------------------
