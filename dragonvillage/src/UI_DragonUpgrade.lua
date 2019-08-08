@@ -393,12 +393,6 @@ function UI_DragonUpgrade:createMtrlDragonCardCB(ui, data)
         return
     end
 
-    -- 선택한 드래곤이 승급 가능한지 판단
-    local doid = self.m_selectDragonOID
-    if (not g_dragonsData:possibleUpgradeable(doid)) then
-        ui:setShadowSpriteVisible(true)
-    end
-
     -- 재료 드래곤이 재료 가능한지 판별
     doid = data['id']
     local is_shadow = false
@@ -436,6 +430,12 @@ function UI_DragonUpgrade:createMtrlDragonCardCB(ui, data)
     end
 
     ui.vars['clickBtn']:registerScriptPressHandler(press_card_cb)
+
+    -- 선택한 드래곤이 승급 가능한지 판단
+    local doid = self.m_selectDragonOID
+    if (not g_dragonsData:possibleUpgradeable(doid)) then
+        ui:setShadowSpriteVisible(true)
+    end
 end
 
 -------------------------------------
