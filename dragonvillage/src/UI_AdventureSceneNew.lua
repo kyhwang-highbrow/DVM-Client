@@ -81,11 +81,6 @@ function UI_AdventureSceneNew:init(stage_id)
 
     -- @TODO 임시 처리 mskim
     self.m_uicSortList:setSelectSortType(self.m_currDifficulty)
-
-	-- @ TUTORIAL : 1-1 end , 104
-	local tutorial_key = TUTORIAL.FIRST_END
-	local check_step = 104
-	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 end
 
 

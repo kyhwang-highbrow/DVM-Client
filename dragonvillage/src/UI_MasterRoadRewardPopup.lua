@@ -24,6 +24,10 @@ function UI_MasterRoadRewardPopup:init(stage_id)
     -- '나중에 가기' 버튼이 action 끝나기 전에 눌리는 것을 방지
     -- vars['nextBtn']:setEnabled(false)
 
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() end, 'UI_MasterRoadRewardPopup')
+
+
 	self:initUI()
 	self:initButton()
 
