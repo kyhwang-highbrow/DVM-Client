@@ -147,8 +147,8 @@ function UI_RuneGuardianDungeonListItem:initUI()
     vars['mainMenu' .. direction_number]:setVisible(true)
 
     local reward_item_id = t_data['item_1_id']
-    local reward_sprite = IconHelper:getItemIcon(reward_item_id)
-    vars['rewardNode' .. direction_number]:addChild(reward_sprite)
+    local reward_card = UI_ItemCard(reward_item_id, 0)
+    vars['rewardNode' .. direction_number]:addChild(reward_card.root)
 
     local title = t_data['t_name']
     vars['titleLabel' .. direction_number]:setString(Str(title))
