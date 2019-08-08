@@ -108,7 +108,7 @@ function UI_Book:initButton()
     -- 모두 받기 버튼
 	vars['rewardAllBtn']:registerScriptTapHandler(function() self:click_rewardAll() end)
     local has_reward = g_bookData:hasReward()
-	vars['rewardAllBtn']:setEnabled(has_reward)
+    self:setRewardEnabled(has_reward)
 
     -- 최초에 한번 실행
     self:onChangeOption()
@@ -283,9 +283,24 @@ function UI_Book:click_rewardAll()
 		self:setAllRewardReceieved()
         
         -- 더 이상 받을 보상이 없기 때문에 비활성화
-        self.vars['rewardAllBtn']:setEnabled(false)
+        self:setRewardEnabled(false)
 	end
 	g_bookData:request_bookRewardAll(finish_cb)			
+end
+
+-------------------------------------
+-- function setRewardEnabled
+-- @brief 콜랙션 포인트 보상 확인 버튼
+-------------------------------------
+function UI_Book:setRewardEnabled(is_active)
+    local vars = self.vars
+    vars['rewardAllBtn']:setEnabled(is_active)
+
+    if (is_active) then
+        vars['rewardAllLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
+    else
+        vars['rewardAllLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+    end    
 end
 
 -------------------------------------
