@@ -24,7 +24,10 @@ function UI_MasterRoadRewardPopup:init(stage_id)
     -- '나중에 가기' 버튼이 action 끝나기 전에 눌리는 것을 방지
     -- vars['nextBtn']:setEnabled(false)
 
-	-- @UI_ACTION
+	self:initUI()
+	self:initButton()
+
+    -- @UI_ACTION
 	self:doActionReset()
 	self:doAction(function()
 		if (stage_id) then
@@ -47,9 +50,6 @@ function UI_MasterRoadRewardPopup:init(stage_id)
         -- vars['nextBtn']:setEnabled(true)
 
     end, false)
-
-	self:initUI()
-	self:initButton()
 end
 
 -------------------------------------
@@ -129,6 +129,9 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
         master_content_ui.root:runAction(cc.EaseIn:create(cc.MoveTo:create(0.2, cc.p(0, 0)), 1))
     end
      
+    self.vars['rewardBtn'] = master_content_ui.vars['rewardBtn']
+    self.vars['questLinkBtn'] = master_content_ui.vars['questLinkBtn']
+
     return master_content_ui
 end
 
