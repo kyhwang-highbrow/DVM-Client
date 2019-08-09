@@ -92,6 +92,15 @@ function UI_DragonLevelUpHelper:deleteMaterial(doid)
 end
 
 -------------------------------------
+-- function addExp
+-------------------------------------
+function UI_DragonLevelUpHelper:addExp(exp)
+    self.m_addExp = self.m_addExp + exp
+
+    self:clacChangedLevelAndExp()
+end
+
+-------------------------------------
 -- function getMaterialInfo
 -------------------------------------
 function UI_DragonLevelUpHelper:getMaterialInfo(oid)
