@@ -329,6 +329,7 @@ function GameWorld:createComponents()
         -- 6. 룬 수호자 던전
         elseif (self.m_gameMode == GAME_MODE_RUNE_GUARDIAN) then
             self.m_gameState = GameState_RuneGuardianDungeon(self)
+            self.m_mUnitGroup[PHYS.HERO]:getMana():setManaZero()
         end
 
         --self.m_inGameUI:init_timeUI(display_wave, display_time)

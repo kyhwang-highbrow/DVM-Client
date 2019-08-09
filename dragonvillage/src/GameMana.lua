@@ -25,6 +25,8 @@ GameMana = class(PARENT, {
 
         m_accelValue = 'number',
         m_accelDurationTimer = 'number',
+
+        m_isZero = 'boolean', -- true 라면 마나값을 set하지 않음 (0으로 고정)
     })
 
 -------------------------------------
@@ -134,6 +136,9 @@ end
 -- function setCurrMana
 -------------------------------------
 function GameMana:setCurrMana(value)
+    if (self.m_isZero) then
+        return
+    end
     self.m_value = value + security_key
 
     self:updateGauge(self.m_prevValue ~= math_floor(value))
@@ -197,4 +202,11 @@ end
 -------------------------------------
 function GameMana:setEnable(b)
     self.m_bEnable = b
+end
+
+-------------------------------------
+-- function setManaZero
+-------------------------------------
+function GameMana:setManaZero()
+    self.m_isZero = true
 end
