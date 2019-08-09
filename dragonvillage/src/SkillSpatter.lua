@@ -179,7 +179,7 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillSpatter:makeSkillInstance(owner, t_skill)
+function SkillSpatter:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
@@ -193,7 +193,7 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
     local skill = SkillSpatter(missile_res)
 
 	-- 2. 초기화 관련 함수
-	skill:setSkillParams(owner, t_skill, {})
+	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(motionstreak_res, count, target_range)
 	skill:initState()
 
