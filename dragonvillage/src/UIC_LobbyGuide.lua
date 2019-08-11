@@ -114,7 +114,7 @@ function UIC_LobbyGuide:onClick()
     end
 
     -- 마스터의 길
-    local ui = UI_MasterRoadPopup()
+    local ui = UI_MasterRoadPopup(false)
     local function close_cb()
         self.m_refreshDelegateFunc()
     end

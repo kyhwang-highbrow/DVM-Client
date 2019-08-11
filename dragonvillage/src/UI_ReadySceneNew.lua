@@ -1132,15 +1132,6 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_startBtn()
     local stage_id = self.m_stageID
-    
-    -- 1-1 end tutorial
-    -- @brief first_end 튜토리얼 종료 안해주는 경우가 있어서 여기서 체크하고 저장
-    if (stage_id == 1110102) then
-        local tutorial_key = TUTORIAL.FIRST_END
-        if (not g_tutorialData:isTutorialDone(tutorial_key)) then
-			g_tutorialData:request_tutorialSave(tutorial_key)
-		end
-    end
 
     -- 개발 스테이지
     if (stage_id == DEV_STAGE_ID) then

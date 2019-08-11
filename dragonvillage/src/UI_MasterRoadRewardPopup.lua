@@ -8,16 +8,18 @@ local PRE_POS_X = 800
 -- class UI_MasterRoadRewardPopup
 -------------------------------------
 UI_MasterRoadRewardPopup = class(PARENT, {
+		m_showCb = 'function',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_MasterRoadRewardPopup:init(stage_id)
+function UI_MasterRoadRewardPopup:init(stage_id, show_cb)
 	local vars = self:load('master_road_popup_simple.ui')
+	self.m_showCb = show_cb
 	UIManager:open(self, UIManager.POPUP)
-
-     -- UI 클래스명 지정
+	
+	-- UI 클래스명 지정
     self.m_uiName = 'UI_MasterRoadRewardPopup'
 
     -- @jhakim 190701 강제 튜토리얼 진행중에 나중에 가기 버튼이 (눌리지 않아야하는데)눌리면 오류남 
@@ -122,19 +124,42 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
 
     -- 내용물 UI 생성
     local master_content_ui = UI_MasterRoadRewardPopupItem(close_cb, reward_cb)
-    master_content_ui:refresh(cur_master_data)
+	-- 기존 UI에 튜토리얼에 필요한 요소 붙임
+	self.vars['rewardBtn'] = master_content_ui.vars['rewardBtn']
+	self.vars['rewardBtn']:setEnabled(false)
+
+    self.vars['questLinkBtn'] = master_content_ui.vars['questLinkBtn']
+	self.vars['questLinkBtn']:setEnabled(false)
+
+	master_content_ui:refresh(cur_master_data)
 	
     --클리핑 노드에 붙임
     self.vars['itemNode']:addChild(master_content_ui.root)
 
+	local finish_cb = function()
+		-- 튜토리얼에서 다음 페이지 진행시킴
+		if (TutorialManager.getInstance():isDoing()) then
+			TutorialManager.getInstance():nextIfPlayerWaiting()
+		end
+		self.vars['rewardBtn']:setEnabled(true)
+		self.vars['questLinkBtn']:setEnabled(true)
+		
+		if (self.m_showCb) then
+			self.m_showCb()
+		end
+	end
+
     -- 등장 시 액션
     if (is_start_with_move) then
         master_content_ui.root:setPositionX(900)
-        master_content_ui.root:runAction(cc.EaseIn:create(cc.MoveTo:create(0.2, cc.p(0, 0)), 1))
-    end
+		local move_action = cc.EaseIn:create(cc.MoveTo:create(0.2, cc.p(0, 0)), 0.5)
+		local finish_action = cc.CallFunc:create(finish_cb)
+        master_content_ui.root:runAction(cc.Sequence:create(move_action, finish_action))
+    else
+		finish_cb()
+	end
      
-    self.vars['rewardBtn'] = master_content_ui.vars['rewardBtn']
-    self.vars['questLinkBtn'] = master_content_ui.vars['questLinkBtn']
+
 
     return master_content_ui
 end
