@@ -158,15 +158,8 @@ function UI_HatcheryCombinePopup:init_TableView()
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(0.66)
-
-        -- 재료로 사용 불가능한 경우
-        if (not self:checkMaterial(data)) then
-            ui:setShadowSpriteVisible(true)
-        end
-
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
-    end
+		self:createMtrlDragonCardCB(ui, data)
+	end
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
@@ -406,6 +399,69 @@ end
 -------------------------------------
 function UI_HatcheryCombinePopup:isDirty()
 	return self.m_bDirty
+end
+
+-------------------------------------
+-- function createMtrlDragonCardCB
+-------------------------------------
+function UI_HatcheryCombinePopup:createMtrlDragonCardCB(ui, data)
+	ui.root:setScale(0.66)
+	
+	local is_shadow = false
+	-- 재료로 사용 불가능한 경우
+	if (not self:checkMaterial(data)) then
+		is_shadow = true
+	else
+		is_shadow = false
+	end
+	ui:setShadowSpriteVisible(is_shadow)
+	
+	-- 프레스 함수 세팅
+	local press_card_cb = function()
+		local doid = data['id']
+		if doid and (doid ~= '') then
+		    local ui = UI_SimpleDragonInfoPopup(data)
+			local is_selected = false
+			for did, data in pairs(self.m_selectedDragonCard) do
+				if (data['dragon_obj'] and data['dragon_obj']['id']) then
+					is_selected = (doid == data['dragon_obj']['id'])
+					break
+				end
+			end
+		    
+			ui:setLockPossible(true, is_selected)
+		    ui:setRefreshFunc(function()
+		        self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview
+		    end)
+		end
+	end
+	
+	ui.vars['clickBtn']:registerScriptPressHandler(press_card_cb)
+	ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(ui, data) end)
+end
+
+-------------------------------------
+-- function refresh_dragonIndivisual_material
+-------------------------------------
+function UI_HatcheryCombinePopup:refresh_dragonIndivisual_material(doid)
+    local item = self.m_tableViewTD.m_itemMap[doid]
+
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        t_dragon_data = g_slimesData:getSlimeObject(doid)
+    end
+
+    -- 테이블뷰 리스트의 데이터 갱신
+    item['data'] = t_dragon_data
+
+    -- UI card 버튼이 있을 경우 데이터 갱신
+    if item and item['ui'] then
+        local ui = item['ui']
+        ui.m_dragonData = t_dragon_data
+        ui:refreshDragonInfo()
+        self:createMtrlDragonCardCB(ui, t_dragon_data)
+    end	
 end
 
 --@CHECK
