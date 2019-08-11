@@ -547,7 +547,8 @@ function UI_DragonLevelUp:createMtrlDragonCardCB(ui, data)
         local doid = data['id']
         if doid and (doid ~= '') then
             local ui = UI_SimpleDragonInfoPopup(data)
-            ui:setLockPossible(true)
+			local is_selected = self.m_dragonLevelUpUIHelper:isSelectedDragon(doid)
+            ui:setLockPossible(true, is_selected)
             ui:setRefreshFunc(function()
                 self:refresh_dragonIndivisual(doid)          -- 하단의 드래곤 tableview
                 self:refresh_dragonIndivisual_material(doid) -- 특성 재료 tableview

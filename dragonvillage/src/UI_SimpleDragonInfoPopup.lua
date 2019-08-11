@@ -12,6 +12,7 @@ UI_SimpleDragonInfoPopup = class(PARENT, {
         m_dragonAnimator = 'UIC_DragonAnimator',
 
         m_refreshCb = 'function',
+		m_isSelected = 'boolean',
      })
 
 -------------------------------------
@@ -192,8 +193,10 @@ end
 -------------------------------------
 -- function setLockPossible
 -------------------------------------
-function UI_SimpleDragonInfoPopup:setLockPossible(is_possible)
-    -- 락 기능 제공하지 않는다면 버튼은 아예 보이지 않음
+function UI_SimpleDragonInfoPopup:setLockPossible(is_possible, is_selected)
+    self.m_isSelected = is_selected
+	
+	-- 락 기능 제공하지 않는다면 버튼은 아예 보이지 않음
     if (not is_possible) then
         self.vars['lockBtn']:setVisible(false)
         return
@@ -223,6 +226,13 @@ function UI_SimpleDragonInfoPopup:click_lock()
 	local doids = ''
 	local soids = ''
 	
+		
+	-- 재료로 사용중이라면 눌리지 않음
+	if (self.m_isSelected) then
+		UIManager:toastNotificationRed(Str('선택재료'))
+		return 
+	end
+
     local t_dragon_data = self:getDragonData()
     local is_slim = (t_dragon_data.m_objectType == 'slime')
     
