@@ -1156,3 +1156,40 @@ end
 -- isIgnoreTouch() 함수 안에서
 
 -- 수집된 SlideNode부모들의 영역안에 포함되어있지 않으면 터치를 하지 않게 처리함
+
+
+-------------------------------------
+-- function relocateContainerFromIndex 
+-- @brief container 중앙에 해당 idx가 위치하도록 함
+-------------------------------------
+function UIC_TableViewTD:relocateContainerFromIndex(idx, animated)
+    cclog(idx)
+	-- 세로 모드일 때만 사용
+	if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+		return
+	end
+	
+	-- 각 셸의 높이
+	local cell_size = self.m_cellSize
+	-- 전체 아이템 갯수
+	local cell_cnt = #self.m_itemList
+	-- 보여지는 뷰의 사이즈
+	local size = self.m_node:getContentSize()
+
+	-- 뷰의 사이즈에서 셀이 채워지다가 남는 부분 계산
+	local offset = size['height']
+
+	-- 셀이 초과하여 offset이 0 아래로 내려갈 때 : offset = 남는 길이
+	while (true) do
+		offset = offset - cell_size['height']
+		if (offset < 0) then
+			break
+		end
+	end
+	
+	-- 한 번에 보여지는 셀의 숫자
+	local showed_cnt = math.floor(size['height']/cell_size['height']) + 1
+	local top_pos_y  = offset + -cell_size['height'] * (cell_cnt/self.m_nItemPerCell - showed_cnt)
+    local pos_y = top_pos_y + cell_size['height'] * math.floor(idx/self.m_nItemPerCell)
+    self.m_scrollView:setContentOffset(cc.p(0, pos_y), false)
+end
