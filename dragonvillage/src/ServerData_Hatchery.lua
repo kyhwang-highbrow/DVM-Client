@@ -557,7 +557,8 @@ function ServerData_Hatchery:checkHighlight()
     t_highlight['incubate'] = false
     t_highlight['relation'] = false
     t_highlight['combine'] = false
-
+    --[[
+    -- @jhakim 소환/부화/인연 노티 제거
     do -- 소환
         if (self:getSummonFreeInfo()) then
             t_highlight['summon'] = true
@@ -580,7 +581,7 @@ function ServerData_Hatchery:checkHighlight()
             highlight = true
        end
     end
-
+    --]]
     do -- 조합
        local count = self:checkCombineHighlight()
        if (0 < count) then

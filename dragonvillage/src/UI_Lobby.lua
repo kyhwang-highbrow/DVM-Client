@@ -855,10 +855,6 @@ function UI_Lobby:refresh_userInfo()
     local exp_percentage = table_user_level:getUserLevelExpPercentage(lv, exp)
     vars['userExpLabel']:setString(Str('{1}%', exp_percentage))
     vars['userExpGg']:setPercentage(exp_percentage)
-
-    -- 닉네임 최초 1회 변경했는지 여부값 갱신        
-    local first_nick_change = g_userData:isFirstNickChange()
-    vars['changeNotiSprite']:setVisible(first_nick_change)
 end
 
 -------------------------------------
@@ -1699,15 +1695,22 @@ function UI_Lobby:update_rightButtons()
         vars['levelupBtn']:setVisible(false)
     end
 
-    -- 모험돌파 버튼
-    if g_adventureClearPackageData:isVisible_adventureClearPack() then
-        vars['adventureClearBtn']:setVisible(true)
-    else
-        vars['adventureClearBtn']:setVisible(false)
-    end
-        
     -- 일일상점 버튼
     vars['dailyShopBtn']:setVisible(true)
+
+    -- 모험돌파 버튼
+    do
+        -- 모험돌파 버튼
+        if g_adventureClearPackageData:isVisible_adventureClearPack() then
+            vars['adventureClearBtn']:setVisible(true)
+        else
+            vars['adventureClearBtn']:setVisible(false)
+        end
+           
+        -- 모험돌파 패키지 노티
+        local is_noti = g_adventureClearPackageData:isVisible_adventureClearPackNoti()
+        vars['adventureClearNotiSprite']:setVisible(is_noti)
+    end
 
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}

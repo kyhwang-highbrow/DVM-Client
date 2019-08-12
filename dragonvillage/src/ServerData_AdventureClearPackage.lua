@@ -114,6 +114,32 @@ function ServerData_AdventureClearPackage:isVisible_adventureClearPack()
 end
 
 -------------------------------------
+-- function isVisible_adventureClearPackNoti
+-- @brief 보상받을 수 있는 항목 있을 때에만 노티
+-------------------------------------
+function ServerData_AdventureClearPackage:isVisible_adventureClearPackNoti()
+    if (not self:isActive()) then
+        return false
+    end
+
+    local l_item_list = TABLE:get('table_package_stage')
+    for i,v in pairs(l_item_list) do
+        local stage_id = v['stage']
+        -- 보상 안 받은 항목들 중에서
+        if (self:isReceived(stage_id) == false) then
+            local stage_info = g_adventureData:getStageInfo(stage_id)
+            local star = stage_info:getNumberOfStars()
+            -- 보상 받을 수 있는 항목이 있음
+            if (star >= 3) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function request_adventureClearReward
 -------------------------------------
 function ServerData_AdventureClearPackage:request_adventureClearReward(stage, cb_func, fail_cb)
