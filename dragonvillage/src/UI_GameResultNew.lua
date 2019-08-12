@@ -298,19 +298,6 @@ function UI_GameResultNew:check_masterRoad()
         }
 		local function cb_func(b)
 			self.m_isClearMasterRoad = b or false
-			-- 마스터의 길 팝업이 열릴 예정이라면, 다른 걸 누르지 못하도록, 터치블록을 생성한다.
-			-- 마스터의 길 팝업 열린 후 해제
-			if (self.m_isClearMasterRoad) then		
-				local menu = cc.Menu:create()
-				local btn = cc.MenuItemImage:create(nil, nil, nil, 1)
-				btn:setContentSize(1280, 720)
-				btn:setDockPoint(cc.p(0.0, 0.0))
-				btn:setAnchorPoint(cc.p(0.0, 0.0))
-				btn:setNormalSize(1280, 720)
-				
-				self.root:addChild(menu)
-				self.vars['blockButton'] = menu
-			end
 			self:doNextWork()
 		end
         g_masterRoadData:updateMasterRoad(t_data, cb_func)
@@ -846,7 +833,6 @@ end
 -- function direction_masterRoad
 -------------------------------------
 function UI_GameResultNew:direction_masterRoad()
-	local is_touch_block_release_immediatly = true
 	-- 승리 시
 	if (self.m_bSuccess) then
 		-- @ TUTORIAL : 1-7 end start
@@ -857,13 +843,8 @@ function UI_GameResultNew:direction_masterRoad()
 
 		-- 마스터의 길 클리어했다면
 		elseif (self.m_isClearMasterRoad) then
-			is_touch_block_release_immediatly = false
-			local show_cb = function()
-				if (self.vars['blockButton']) then
-					self.vars['blockButton']:setVisible(false)
-				end
-			end
-			UI_MasterRoadRewardPopup(stage_id, show_cb)
+			UI_MasterRoadRewardPopup(stage_id)
+
 		end
 	end
 
@@ -877,13 +858,6 @@ function UI_GameResultNew:direction_masterRoad()
 
     -- 마스터 로드 기록 후 연속 전투 체크
     self:checkAutoPlay()
-
-	-- 마스터의 길 팝업 뜰 때 자연스럽게 해제되는 것인데, 만약의 경우를 위해 모든 경우에 터치 블록을 없애주는 걸로 함
-	if (is_touch_block_release_immediatly) then
-		if (self.vars['blockButton']) then
-			self.vars['blockButton']:setVisible(false)
-		end
-	end
 end
 
 -------------------------------------
@@ -1075,6 +1049,11 @@ function UI_GameResultNew:click_backBtn()
 	if (self:blockButtonUntilWorkDone()) then
 		return
 	end
+
+    if (self:checkIsTutorial()) then
+        return
+    end
+
     local game_mode = g_gameScene.m_gameMode
     local dungeon_mode = g_gameScene.m_dungeonMode
     local condition = self.m_stageID
@@ -1095,6 +1074,10 @@ function UI_GameResultNew:click_quickBtn()
 	if (self:blockButtonUntilWorkDone()) then
 		return
 	end
+
+    if (self:checkIsTutorial()) then
+        return
+    end
 
 	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
 	local quick_btn = self.vars['quickBtn']
@@ -1188,6 +1171,10 @@ function UI_GameResultNew:click_statsBtn()
 		return
 	end
 
+    if (self:checkIsTutorial()) then
+        return
+    end
+
 	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
 	UI_StatisticsPopup(g_gameScene.m_gameWorld)
 end
@@ -1199,7 +1186,11 @@ function UI_GameResultNew:click_homeBtn()
 	if (self:blockButtonUntilWorkDone()) then
 		return
 	end
-	
+    
+    if (self:checkIsTutorial()) then
+        return
+    end
+    	
 	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
 	local block_ui = UI_BlockPopup()
 
@@ -1216,6 +1207,10 @@ function UI_GameResultNew:click_againBtn()
 		return
 	end
 
+    if (self:checkIsTutorial()) then
+        return
+    end
+
     local stage_id = self.m_stageID
     local function close_cb()
         UINavigator:goTo('adventure', stage_id)
@@ -1228,6 +1223,10 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_GameResultNew:click_nextBtn()
+    if (self:checkIsTutorial()) then
+        return
+    end
+
     -- 다음 스테이지 ID 지정
     local stage_id = self.m_stageID
     local next_stage_id = g_stageData:getNextStage(stage_id)
@@ -1503,4 +1502,11 @@ function UI_GameResultNew:click_manageBtn()
         self:sceneFadeInAction(func)
     end
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function checkIsTutorial
+-------------------------------------
+function UI_GameResultNew:checkIsTutorial()
+    return false
 end

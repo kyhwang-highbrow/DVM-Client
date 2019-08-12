@@ -1,5 +1,7 @@
 local PARENT = UI_GameResultNew
 
+local TUTORIAL_STAGE_ID = 1110101
+
 -------------------------------------
 -- class UI_GameResult_Adventure
 -------------------------------------
@@ -47,4 +49,17 @@ function UI_GameResult_Adventure:setSuccessVisual()
         SoundMgr:playBGM('bgm_dungeon_lose', false)
         vars['successVisual']:changeAni('fail')
     end
+end
+
+-------------------------------------
+-- function checkIsTutorial
+-------------------------------------
+function UI_GameResult_Adventure:checkIsTutorial()
+    if (TutorialManager.getInstance():isDoing()) then
+        if (self.stageID == TUTORIAL_STAGE_ID) then
+            return true
+        end
+    end
+
+    return false
 end
