@@ -110,3 +110,12 @@ function UI_IngameDragonPanel:update(dt)
         v:update(dt, possible)
     end
 end
+
+-------------------------------------
+-- function setPanelInActive
+-------------------------------------
+function UI_IngameDragonPanel:setPanelInActive()
+    for i,v in ipairs(self.m_lPanelItemList) do
+        v:setPanelInActive()
+    end
+end

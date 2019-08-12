@@ -473,6 +473,12 @@ function UI_Game:init_panelUI()
     self.m_panelUI = panel
     self.root:addChild(panel.root)
 
+    -- 룬 수호자 던전은 패널 비활성화
+    local game_mode = self.m_gameScene.m_gameMode
+    if (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        self.m_panelUI:setPanelInActive()
+    end
+
 	-- 액션 등록
     self:addAction(panel.root, UI_ACTION_TYPE_BOTTOM, 0, 0.5)
     self:doActionReset()

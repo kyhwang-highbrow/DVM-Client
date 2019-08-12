@@ -99,3 +99,12 @@ function UI_Game:setMana(mana, updated_int, accel_value)
         end
     end
 end
+
+-------------------------------------
+-- function setManaZero
+-------------------------------------
+function UI_Game:setManaZero()
+	if (self.vars['manaNotSprite']) then
+    	self.vars['manaNotSprite']:setVisible(true)
+	end
+end

@@ -209,4 +209,5 @@ end
 -------------------------------------
 function GameMana:setManaZero()
     self.m_isZero = true
+    self.m_inGameUI:setManaZero()
 end

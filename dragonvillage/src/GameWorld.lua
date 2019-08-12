@@ -329,6 +329,8 @@ function GameWorld:createComponents()
         -- 6. 룬 수호자 던전
         elseif (self.m_gameMode == GAME_MODE_RUNE_GUARDIAN) then
             self.m_gameState = GameState_RuneGuardianDungeon(self)
+
+            -- 마나가 동작 하지 않음
             self.m_mUnitGroup[PHYS.HERO]:getMana():setManaZero()
         end
 

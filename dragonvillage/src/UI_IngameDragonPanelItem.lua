@@ -405,6 +405,11 @@ end
 function UI_IngameDragonPanelItem:onTouchBegan(t_event)
     local vars = self.vars
 
+    -- 스킬 사용이 안되면 터치도 안됨
+    if (not self.m_bHaveActive) then
+        return
+    end
+
     local location = t_event['location']
     local node = vars['topMenu']
 
@@ -416,4 +421,15 @@ function UI_IngameDragonPanelItem:onTouchBegan(t_event)
         t_event['touch'] = true
         cca.uiReactionSlow(self.root)
     end
+end
+
+-------------------------------------
+-- function setSkillGaugeInactive
+-- @brief
+-------------------------------------
+function UI_IngameDragonPanelItem:setPanelInActive()
+    self.m_bHaveActive = false
+	if (self.vars['dragNotSprite']) then
+    	self.vars['dragNotSprite']:setVisible(true)
+	end
 end
