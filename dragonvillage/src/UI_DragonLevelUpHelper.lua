@@ -236,3 +236,16 @@ function UI_DragonLevelUpHelper:getPlusLevel()
     return (self.m_changedLevel - self.m_dragonLevel)
 end
 
+-------------------------------------
+-- function resetMaterial
+-------------------------------------
+function UI_DragonLevelUpHelper:resetMaterial()
+    self.m_materialDoidMap = {}
+    self.m_materialCount = 0
+
+    self.m_addExp = 0
+    self.m_price = 0
+
+    self:clacChangedLevelAndExp()
+end
+

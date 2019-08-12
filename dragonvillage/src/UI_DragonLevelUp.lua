@@ -104,12 +104,18 @@ function UI_DragonLevelUp:initRadioButton()
         if (option_type == 'amethyst') then
             -- 펼침
             self:setAmethystMenu(true)
+
+            -- 기존 선택된 재료 리셋
+            self.m_dragonLevelUpUIHelper:resetMaterial() 
         else
             -- 접힘
             self:setAmethystMenu(false)
+
+            -- 기존 선택된 자수정 리셋
             self.m_amethystPackCnt = 0
             self:refreshAmethystMenu()
         end
+        self:refresh()
     end)
 
     do -- 일반/자수정 레벨업 버튼 등록
@@ -737,6 +743,7 @@ function UI_DragonLevelUp:refresh_dragonIndivisual_material(doid)
         self:setSelectDragonData(doid, true)
     end
 end
+
 
 -------------------------------------
 -- function countAmethyst
