@@ -52,7 +52,32 @@ function UI_RuneGuardianDungeonScene:initUI()
             vars['stageNode'..i]:addChild(ui_item.root)
         end
     end
-    
+	
+	self:setInfoPopupAction()
+end
+
+-------------------------------------
+-- function setInfoPopupAction
+-------------------------------------
+function UI_RuneGuardianDungeonScene:setInfoPopupAction()
+	local vars = self.vars
+
+	-- 0.5초 동안 color 블록으로 막았다가 바로 사라짐
+    local delay_time = 0.5 
+	local delay = cc.DelayTime:create(delay_time)
+	local scale_action = cc.ScaleTo:create(0, 0)
+	local seq_action = cc.Sequence:create(delay, scale_action)
+	vars['colorBlock']:runAction(seq_action)
+
+	-- 0.5초 동안 정보 보여주고 특정 사이즈까지 줄어들다가 사라짐
+    local delay = cc.DelayTime:create(delay_time)
+    local move_action = cc.EaseInOut:create(cc.MoveTo:create(delay_time, cc.p(target_pos_x, -178)), 2)
+    local scale_action = cc.EaseInOut:create(cc.ScaleTo:create(delay_time, 0.2, 0.4), 2)
+	local action_spawm = cc.Spawn:create(move_action, scale_action)
+    local disappear = cc.ScaleTo:create(0, 0)
+    local seq_action = cc.Sequence:create(delay, action_spawm, disappear)
+	vars['infoMenu']:setVisible(true)  
+	vars['infoMenu']:runAction(seq_action)
 end
 
 -------------------------------------
