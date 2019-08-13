@@ -194,12 +194,15 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 				return
 			end
 
+            --[[
             local function close_cb()
                 --UINavigatorDefinition:goTo('lobby')
             end
 
 			local scene = SceneCommon(UI_MasterRoadPopup, close_cb)
             scene:runScene()
+            --]]
+            UI_MasterRoadRewardPopup()
 			return
 
 		-- 102 : 튜토리얼 알 부화
@@ -214,14 +217,15 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 				local has_reward, rid = g_masterRoadData:hasRewardRoad()
 				if has_reward and (rid == 10002) then
 					g_tutorialData:setStep(tutorial_key, 103)
-					UI_MasterRoadPopup()
+					--UI_MasterRoadPopup()
+                    UI_MasterRoadRewardPopup()
 					return
 
 				-- 이도 저도 아니고 막 꼬인상태..?
 				else
 					g_tutorialData:setStep(tutorial_key, 104)
 					stage_id = 1110102
-					UINavigator:goTo('adventure', stage_id)
+					UINavigator:goTo('battle_ready', stage_id)
 					return
 				end
 			end
@@ -232,12 +236,13 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 			local has_reward, rid = g_masterRoadData:hasRewardRoad()
 			if has_reward and (rid == 10002) then
 				g_tutorialData:setStep(tutorial_key, 103)
-				UI_MasterRoadPopup()
+				--UI_MasterRoadPopup()
+                UI_MasterRoadRewardPopup()
 				return
 			else
 				g_tutorialData:setStep(tutorial_key, 104)
 				stage_id = 1110102
-				UINavigator:goTo('adventure', stage_id)
+				UINavigator:goTo('battle_ready', stage_id)
 				return
 			end
 

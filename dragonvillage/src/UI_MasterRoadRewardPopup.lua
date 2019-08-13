@@ -55,6 +55,18 @@ function UI_MasterRoadRewardPopup:init(stage_id, show_cb)
 		end
         -- vars['nextBtn']:setEnabled(true)
 
+        if (TutorialManager.getInstance():isDoing() == false) then
+            -- @ TUTORIAL : 1-1 end, 101
+            local tutorial_key = TUTORIAL.FIRST_END
+            local check_step = 101
+            TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
+
+            -- @ TUTORIAL : 1-1 end, 103
+            tutorial_key = TUTORIAL.FIRST_END
+            check_step = 103
+            TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
+        end
+
     end, false)
 end
 
