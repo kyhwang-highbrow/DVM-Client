@@ -17,6 +17,8 @@ UI_Book = class(PARENT, {
         m_sortManager = 'SortManager',
 
 		m_tNotiSpriteTable = 'List<Sprite>',
+
+        m_curDragonList = 'list',
      })
 
 -------------------------------------
@@ -37,6 +39,8 @@ end
 function UI_Book:init()
     local vars = self:load_keepZOrder('book.ui')
     UIManager:open(self, UIManager.SCENE)
+
+    self.m_curDragonList = {}
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Book')
@@ -118,6 +122,9 @@ end
 -- function refresh
 -------------------------------------
 function UI_Book:refresh()
+    -- 아주 처음 들어왔을 경우
+    self:focusDragonCardTab()
+    
 	-- 수집 현황
 	self:refresh_collect()
 
@@ -188,6 +195,9 @@ function UI_Book:onChangeOption()
     self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
 
 	self.m_preAttr = attr_option
+
+    -- 보상 있는 카드로 포커싱
+    self:focusDragonCard()
 end
 
 -------------------------------------
@@ -252,6 +262,7 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 				UI_ToastPopup(reward_str)
 				ui:setBookRewardVisual(false)
 				book_ui:refresh_noti()
+                book_ui:refresh()
 			end
 			g_bookData:request_bookReward(did, evolution, finish_cb)
 				
@@ -341,6 +352,84 @@ function UI_Book:setAllRewardReceieved()
             t_data['ui']:refresh()
         end
     end
+end
+
+-------------------------------------
+-- function focusDragonCard
+-- @brief 해당 탭에서 강조만 필요할 경우
+-------------------------------------
+function UI_Book:focusDragonCard()
+	-- 인연포인트가 모아진 곳에 포커싱
+	local l_item = self.m_tableViewTD.m_itemList
+    for idx, data in ipairs(l_item) do
+        did = data['data']['did']
+        for evolution = 1, 3 do
+            local has_reward = g_bookData:haveBookReward(tonumber(did), evolution)
+            if (has_reward) then
+                self.m_tableViewTD:update(0)
+                self.m_tableViewTD.m_bFirstLocation = false
+	            self.m_tableViewTD:relocateContainerFromIndex(idx, 4, 55) -- idx,_show_cnt, _offset, max_pos_
+                return        
+            end
+        end
+    end
+
+    self.m_tableViewTD:update(0)
+    self.m_tableViewTD.m_bFirstLocation = false
+    self.m_tableViewTD:relocateContainerFromIndex(0, 3) 
+end
+
+-------------------------------------
+-- function focusDragonCardTab
+-- @brief 인연포인트 완성된 탭을 찾아 탭 세팅
+-------------------------------------
+function UI_Book:focusDragonCardTab()
+	local focus_tab_name = self:getFocusTab()
+	if (not focus_tab_name) then
+        if (not self.m_tableViewTD) then
+            self.m_attrRadioButton:setSelectedButton(focus_tab_name)
+        end
+        self:onChangeOption()
+
+        self.m_tableViewTD:update(0)
+        self.m_tableViewTD.m_bFirstLocation = false
+		self.m_tableViewTD:relocateContainerFromIndex(0, 3)	
+		return
+	end
+    self.m_attrRadioButton:setSelectedButton(focus_tab_name)
+	self:onChangeOption()
+end
+
+-------------------------------------
+-- function getFocusTab
+-- @brief  
+-------------------------------------
+function UI_Book:getFocusTab()
+    local l_attr_tab = getAttrTextList()
+	-- 탭 각각 인연포인트 완성된 탭을 찾음
+	for i, attr_name in ipairs(l_attr_tab) do
+		local l_dragon = self:getCurDragonList(attr_name)
+		for did, data in pairs(l_dragon) do
+			local has_reward = g_bookData:haveBookReward(data['did'], data['evolution'])
+            if (has_reward) then
+            	return attr_name
+            end
+		end
+	end
+
+	return nil
+end
+
+-------------------------------------
+-- function getCurDragonList
+-- @brief  
+-------------------------------------
+function UI_Book:getCurDragonList(attr)
+    local role_option = self.m_roleRadioButton.m_selectedButton
+    local attr_option = attr
+
+    local l_item_list = g_bookData:getBookList(role_option, attr_option, true)
+    return l_item_list
 end
 
 --@CHECK

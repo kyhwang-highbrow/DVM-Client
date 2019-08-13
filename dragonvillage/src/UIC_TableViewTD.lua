@@ -1162,9 +1162,12 @@ end
 -- function relocateContainerFromIndex 
 -- @brief container 중앙에 해당 idx가 위치하도록 함
 -------------------------------------
-function UIC_TableViewTD:relocateContainerFromIndex(idx, animated)
-    cclog(idx)
-	-- 세로 모드일 때만 사용
+function UIC_TableViewTD:relocateContainerFromIndex(idx,_show_cnt, _offset, max_pos_)
+    if (idx>0) then
+        idx = idx - 1
+    end
+	
+    -- 세로 모드일 때만 사용
 	if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
 		return
 	end
@@ -1186,10 +1189,23 @@ function UIC_TableViewTD:relocateContainerFromIndex(idx, animated)
 			break
 		end
 	end
-	
+
 	-- 한 번에 보여지는 셀의 숫자
 	local showed_cnt = math.floor(size['height']/cell_size['height']) + 1
-	local top_pos_y  = offset + -cell_size['height'] * (cell_cnt/self.m_nItemPerCell - showed_cnt)
-    local pos_y = top_pos_y + cell_size['height'] * math.floor(idx/self.m_nItemPerCell)
+    
+    -- 하드 코딩
+    if (_show_cnt) then
+        showed_cnt = _show_cnt
+    end
+	
+    local top_pos_x, top_pos_y  = self:minContainerOffset()
+    
+    -- 하드코딩
+    if (not _offset) then
+        _offset = 0
+    end
+
+    local pos_y = top_pos_y + cell_size['height'] * math.floor(idx/self.m_nItemPerCell) + _offset
     self.m_scrollView:setContentOffset(cc.p(0, pos_y), false)
 end
+
