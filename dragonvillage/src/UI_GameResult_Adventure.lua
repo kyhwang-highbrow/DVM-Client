@@ -55,10 +55,13 @@ end
 -- function checkIsTutorial
 -------------------------------------
 function UI_GameResult_Adventure:checkIsTutorial()
-    if (TutorialManager.getInstance():isDoing()) then
-        if (self.stageID == TUTORIAL_STAGE_ID) then
-            return true
-        end
+    local tutorial_key = TUTORIAL.ADV_01_02_END
+    if (not g_tutorialData:isTutorialDone(tutorial_key)) then
+        return false
+    end
+
+    if (self.m_stageID == TUTORIAL_STAGE_ID) then
+        return true
     end
 
     return false

@@ -50,7 +50,7 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_content_open = content_open and content_open['open'] or false
     self.m_scoreCalc = score_calc
 
-    local vars = self:load('ingame_result.ui')
+    local vars = self:load('ingame_result.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
     UIManager:open(self, UIManager.POPUP)
 
     self:initUI()

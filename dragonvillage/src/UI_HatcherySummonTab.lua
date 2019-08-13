@@ -46,7 +46,7 @@ function UI_HatcherySummonTab:initUI()
 
     for i, t_data in pairs(g_hatcheryData:getGachaList()) do
         local btn = UI()
-        btn:load('hatchery_summon_item.ui')
+        btn:load('hatchery_summon_item.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
 
         -- addChild
         local ui_type = t_data['ui_type']
