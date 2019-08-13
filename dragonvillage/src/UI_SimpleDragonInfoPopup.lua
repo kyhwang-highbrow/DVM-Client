@@ -229,7 +229,7 @@ function UI_SimpleDragonInfoPopup:click_lock()
 		
 	-- 재료로 사용중이라면 눌리지 않음
 	if (self.m_isSelected) then
-		UIManager:toastNotificationRed(Str('선택재료'))
+		UIManager:toastNotificationRed(Str('선택된 재료입니다.'))
 		return 
 	end
 

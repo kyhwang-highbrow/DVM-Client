@@ -108,7 +108,7 @@ function UI_Game:setManaZero()
     	self.vars['manaNotSprite']:setVisible(true)
         self.vars['manaNotBtn']:setVisible(true)
         self.vars['manaNotBtn']:registerScriptTapHandler(function()
-            UIManager:toastNotificationRed(Str('룬 수호자의 던전에서는 마력의 흐름이 불안정해 드래그 스킬을 사용할 수 없습니다.'))
+            UIManager:toastNotificationRed(Str('드래그 스킬 사용 불가'))
         end)
 	end
 end
