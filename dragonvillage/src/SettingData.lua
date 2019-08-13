@@ -615,3 +615,16 @@ end
 function SettingData:setLinkAccountStep(t_link)
     self:applySettingData(t_link, 't_link_account_step') 
 end
+
+-------------------------------------
+-- function setIsShowedRunGuardianDungeonInfoPopup
+-------------------------------------
+function SettingData:setIsShowedRunGuardianDungeonInfoPopup(is_showed)
+    self:applySettingData(is_showed, 'is_showed_rune_guardian_info_popup') 
+end
+
+-------------------------------------
+-- function getIsShowedRunGuardianDungeonInfoPopup
+function SettingData:getIsShowedRunGuardianDungeonInfoPopup()
+    return self:get('is_showed_rune_guardian_info_popup') or false
+end

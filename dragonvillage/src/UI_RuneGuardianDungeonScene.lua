@@ -52,8 +52,11 @@ function UI_RuneGuardianDungeonScene:initUI()
             vars['stageNode'..i]:addChild(ui_item.root)
         end
     end
-	
-	self:setInfoPopupAction()
+
+    if (not g_settingData:getIsShowedRunGuardianDungeonInfoPopup()) then
+        vars['infoMenu']:setVisible(true)
+    end
+
 end
 
 -------------------------------------
@@ -62,21 +65,16 @@ end
 function UI_RuneGuardianDungeonScene:setInfoPopupAction()
 	local vars = self.vars
 
-	-- 0.5초 동안 color 블록으로 막았다가 바로 사라짐
-    local delay_time = 0.5 
-	local delay = cc.DelayTime:create(delay_time)
 	local scale_action = cc.ScaleTo:create(0, 0)
-	local seq_action = cc.Sequence:create(delay, scale_action)
-	vars['colorBlock']:runAction(seq_action)
+	vars['colorBlock']:runAction(scale_action)
 
-	-- 0.5초 동안 정보 보여주고 특정 사이즈까지 줄어들다가 사라짐
-    local delay = cc.DelayTime:create(delay_time)
-    local move_action = cc.EaseInOut:create(cc.MoveTo:create(delay_time, cc.p(target_pos_x, -178)), 2)
-    local scale_action = cc.EaseInOut:create(cc.ScaleTo:create(delay_time, 0.2, 0.4), 2)
+	-- 특정 사이즈까지 줄어들다가 사라짐
+    local move_action = cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(target_pos_x, -178)), 2)
+    local scale_action = cc.EaseInOut:create(cc.ScaleTo:create(0.3, 0.2, 0.4), 2)
 	local action_spawm = cc.Spawn:create(move_action, scale_action)
     local disappear = cc.ScaleTo:create(0, 0)
-    local seq_action = cc.Sequence:create(delay, action_spawm, disappear)
-	vars['infoMenu']:setVisible(true)  
+    local remove_action = cc.RemoveSelf:create()
+    local seq_action = cc.Sequence:create(action_spawm, disappear, remove_action)
 	vars['infoMenu']:runAction(seq_action)
 end
 
@@ -86,6 +84,11 @@ end
 function UI_RuneGuardianDungeonScene:initButton() 
     local vars = self.vars
     vars['infoBtn']:registerScriptTapHandler(function() self:click_runeInfo() end)
+    vars['closeBtn']:registerScriptTapHandler(function() 
+       self:setInfoPopupAction()
+       vars['npcSprite']:setVisible(false)
+       g_settingData:setIsShowedRunGuardianDungeonInfoPopup(true)
+    end)
 end
 
 -------------------------------------
