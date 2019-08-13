@@ -100,11 +100,11 @@ end
 -- @return  일일 퀘스트 보상에서 아이템별로 보상 갯수를 합산하여 [item_id] = count 형태의 맵 반환   
 -------------------------------------
 function UI_PromoteQuestDouble:addAllReward_dailyQuest()
-    local table_quest = TableQuest:getQuestTable()
+    local l_quest = g_questData:getDailyQuestList()
     local max_count_map = {}
-    for qid, v in pairs(table_quest) do
+    for _, v in ipairs(l_quest) do
         -- 퀘스트 중 type이 일일 보상인 경우
-        if (v['type'] == 'daily') then
+        if (v['reward']) then
             -- reward = '700001;1,700002;1'
             local reward = v['reward']
             local comma_split_list = plSplit(reward, ',') -- 아이템별로 리스트 생성
