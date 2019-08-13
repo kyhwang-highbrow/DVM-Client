@@ -53,7 +53,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
         self.m_bArena = true
     end
 
-    local vars = self:load('battle_ready_new.ui')
+    local vars = self:load('battle_ready_new.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
     UIManager:open(self, UIManager.SCENE)
 
     -- 레디씬 진입시 선택된 친구정보 초기화

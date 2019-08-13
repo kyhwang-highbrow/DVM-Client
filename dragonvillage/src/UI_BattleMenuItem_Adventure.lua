@@ -11,7 +11,7 @@ local THIS = UI_BattleMenuItem_Adventure
 -- function init
 -------------------------------------
 function UI_BattleMenuItem_Adventure:init(content_type)
-    local vars = self:load('battle_menu_adventure_item.ui')
+    local vars = self:load('battle_menu_adventure_item.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
 
     self:initUI()
     self:initButton()

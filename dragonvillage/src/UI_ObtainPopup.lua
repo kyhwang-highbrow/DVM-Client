@@ -14,7 +14,7 @@ UI_ObtainPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ObtainPopup:init(l_item, msg, ok_btn_cb, is_merge_all_item)
-    local vars = self:load('popup_obtain.ui')
+    local vars = self:load('popup_obtain.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
     UIManager:open(self, UIManager.POPUP)
 
 	self.m_uiName = 'UI_ObtainPopup'

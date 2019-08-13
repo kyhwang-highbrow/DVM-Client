@@ -12,7 +12,7 @@ UI_HatcheryIncubateTab = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_HatcheryIncubateTab:init(owner_ui, focus_id)
-    local vars = self:load('hatchery_incubate.ui')
+    local vars = self:load('hatchery_incubate.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
     self.m_focus_id = focus_id
 
 	-- @ TUTORIAL : 1-1 end, 102
