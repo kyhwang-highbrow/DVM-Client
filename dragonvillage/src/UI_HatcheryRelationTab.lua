@@ -8,8 +8,6 @@ UI_HatcheryRelationTab = class(PARENT,{
         m_tableViewTD = 'UIC_TableViewTD',
         m_selectedDid = '',
         m_selectedRarity = '',
-
-		m_sortedDragonList = 'list',
     })
 
 -- 탭 자동 등록을 위해 UI 네이밍과 맞춰줌  
@@ -18,15 +16,11 @@ UI_HatcheryRelationTab['HERO'] = 'hero'
 UI_HatcheryRelationTab['RARE'] = 'rare'
 UI_HatcheryRelationTab['COMMON'] = 'common'
 
-local l_tab = {'legend', 'hero', 'rare', 'common'}
-
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_HatcheryRelationTab:init(owner_ui)
     local vars = self:load('hatchery_relation.ui')
-
-     self.m_selectedRarity = UI_HatcheryRelationTab['LEGEND']
 end
 
 -------------------------------------
@@ -42,12 +36,15 @@ function UI_HatcheryRelationTab:onEnterTab(first)
     if first then
         self:initButton()
         self:initTab()
+        self:init_TableView()
         
-		self:init_TableView()
-		self.m_tableViewTD:update(0)
-		self:focusDragonCard() -- 인연 포인트 다 모인 드래곤에게 포커싱
-		
-		self:refresh()
+        -- 가장 첫 번째 인연포인트 클릭
+        local valid_did = self:getValidDragonId()
+        if (valid_did) then
+            self:click_dragonCard(valid_did)
+        else
+            self:refresh()
+        end
     end
 end
 
@@ -144,23 +141,16 @@ function UI_HatcheryRelationTab:init_TableView()
 
         return a_did > b_did
     end)
-
-	self.m_sortedDragonList = clone(table_view_td.m_itemList)
 end
 
 -------------------------------------
 -- function getDragonList
 -------------------------------------
-function UI_HatcheryRelationTab:getDragonList(_rarity)
-
+function UI_HatcheryRelationTab:getDragonList()
     local rarity = self.m_selectedRarity
     if (not rarity) then
         return
     end
-	
-	if (_rarity) then
-		rarity = _rarity
-	end
 
     local table_dragon = TableDragon()
 
@@ -363,8 +353,7 @@ function UI_HatcheryRelationTab:initTab()
     self:addTabAuto(UI_HatcheryRelationTab['COMMON'], vars)
     self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 
-    -- 아주 처음 들어왔을 경우
-    self:focusDragonCardTab()
+    self:setTab(UI_HatcheryRelationTab['LEGEND'])
 end
 
 -------------------------------------
@@ -373,7 +362,6 @@ end
 function UI_HatcheryRelationTab:onChangeTab(tab, first)
     self.m_selectedRarity = tab
     self:init_TableView()
-    self:focusDragonCard()
 end
 
 -------------------------------------
@@ -439,8 +427,6 @@ function UI_HatcheryRelationTab:click_summonBtn()
 
         -- 하일라이트 노티 갱신을 위해 호출
         self.m_ownerUI:refresh_highlight()
-
-        self:focusDragonCardTab()
     end
 
 	local function request_func()
@@ -448,80 +434,4 @@ function UI_HatcheryRelationTab:click_summonBtn()
 	end
 	local price = self:getPrice()
 	MakeSimplePopup_Confirm('gold', price, Str('소환하시겠습니까?'), request_func)
-end
-
--------------------------------------
--- function focusDragonCard
--- @brief 해당 탭에서 강조만 필요할 경우
--------------------------------------
-function UI_HatcheryRelationTab:focusDragonCard()
-	-- 인연포인트가 모아진 곳에 포커싱
-	local l_item = self.m_tableViewTD.m_itemList
-    for idx, data in ipairs(l_item) do
-        did = data['unique_id']
-        local req_rpoint = tonumber(TableDragon():getRelationPoint(did))
-        local cur_rpoint = tonumber(g_bookData:getRelationPoint(did))
-        if (req_rpoint) and (cur_rpoint) then
-            if (req_rpoint <= cur_rpoint) then
-                
-                self.m_tableViewTD:update(0)
-                self.m_tableViewTD.m_bFirstLocation = false
-                self.m_tableViewTD:relocateContainerFromIndex(idx)
-				self:click_dragonCard(did)
-                return true
-            end
-        end
-    end
-
-	local valid_did = self:getValidDragonId()
-	self:click_dragonCard(valid_did)
-
-    self.m_tableViewTD:update(0)
-    self.m_tableViewTD.m_bFirstLocation = false
-	self.m_tableViewTD:relocateContainerFromIndex(0)
-end
-
--------------------------------------
--- function focusDragonCardTab
--- @brief 인연포인트 완성된 탭을 찾아 탭 세
--------------------------------------
-function UI_HatcheryRelationTab:focusDragonCardTab()
-	local focus_tab_name = self:getFocusTab()
-	if (not focus_tab_name) then
-        if (not self.m_tableViewTD) then
-            self:setTab(UI_HatcheryRelationTab['LEGEND'])
-        else
-            self:setTab(focus_tab_name)
-        end
-
-		local valid_did = self:getValidDragonId()
-		self:click_dragonCard(valid_did)
-        self.m_tableViewTD:update(0)
-        self.m_tableViewTD.m_bFirstLocation = false
-		self.m_tableViewTD:relocateContainerFromIndex(0)	
-		return
-	end
-	self:setTab(focus_tab_name, true)
-end
-
--------------------------------------
--- function getFocusTab
--- @brief  
--------------------------------------
-function UI_HatcheryRelationTab:getFocusTab()
-	-- 탭 각각 인연포인트 완성된 탭을 찾음
-	for i, tab_name in ipairs(l_tab) do
-		local l_dragon = self:getDragonList(tab_name)
-		for did, data in pairs(l_dragon) do
-			local req_rpoint = tonumber(TableDragon():getRelationPoint(did))
-			local cur_rpoint = tonumber(g_bookData:getRelationPoint(did))
-			if (req_rpoint) and (cur_rpoint) then
-				if (req_rpoint <= cur_rpoint) then
-					return tab_name
-				end
-			end
-		end
-	end
-
-	return nil
 end

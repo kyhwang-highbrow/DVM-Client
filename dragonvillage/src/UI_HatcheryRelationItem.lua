@@ -58,10 +58,8 @@ function UI_HatcheryRelationItem:refresh()
 
     if (cur_rpoint < req_rpoint) then
         color = 'R'
-		vars['completeSprite']:setVisible(false)
     else
         color = 'G'
-		vars['completeSprite']:setVisible(true)
     end
 
     local str = Str('{@{1}}{2}{@w}/{3}', color, comma_value(cur_rpoint), comma_value(req_rpoint))
