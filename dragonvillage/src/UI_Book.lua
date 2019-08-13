@@ -360,7 +360,7 @@ function UI_Book:focusDragonCard()
             if (has_reward) then
                 self.m_tableViewTD:update(0)
                 self.m_tableViewTD.m_bFirstLocation = false
-	            self.m_tableViewTD:relocateContainerFromIndex(idx, 4, 55) -- idx,_show_cnt, _offset, max_pos_
+	            self.m_tableViewTD:relocateContainerFromIndex(idx) -- idx,_show_cnt, _offset, max_pos_
                 return        
             end
         end
@@ -368,7 +368,7 @@ function UI_Book:focusDragonCard()
 
     self.m_tableViewTD:update(0)
     self.m_tableViewTD.m_bFirstLocation = false
-    self.m_tableViewTD:relocateContainerFromIndex(0, 3) 
+    self.m_tableViewTD:relocateContainerFromIndex(0) 
 end
 
 -------------------------------------
@@ -385,7 +385,7 @@ function UI_Book:focusDragonCardTab()
 
         self.m_tableViewTD:update(0)
         self.m_tableViewTD.m_bFirstLocation = false
-		self.m_tableViewTD:relocateContainerFromIndex(0, 3)	
+		self.m_tableViewTD:relocateContainerFromIndex(0)	
 		return
 	end
     self.m_attrRadioButton:setSelectedButton(focus_tab_name)
@@ -402,10 +402,12 @@ function UI_Book:getFocusTab()
 	for i, attr_name in ipairs(l_attr_tab) do
 		local l_dragon = self:getCurDragonList(attr_name)
 		for did, data in pairs(l_dragon) do
-			local has_reward = g_bookData:haveBookReward(data['did'], data['evolution'])
-            if (has_reward) then
-            	return attr_name
-            end
+			for evolution = 1, 3 do
+				local has_reward = g_bookData:haveBookReward(data['did'], evolution)
+				if (has_reward) then
+            		return attr_name
+				end
+			end
 		end
 	end
 

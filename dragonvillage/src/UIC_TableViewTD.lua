@@ -1174,30 +1174,6 @@ function UIC_TableViewTD:relocateContainerFromIndex(idx,_show_cnt, _offset, max_
 	
 	-- 각 셸의 높이
 	local cell_size = self.m_cellSize
-	-- 전체 아이템 갯수
-	local cell_cnt = #self.m_itemList
-	-- 보여지는 뷰의 사이즈
-	local size = self.m_node:getContentSize()
-
-	-- 뷰의 사이즈에서 셀이 채워지다가 남는 부분 계산
-	local offset = size['height']
-
-	-- 셀이 초과하여 offset이 0 아래로 내려갈 때 : offset = 남는 길이
-	while (true) do
-		offset = offset - cell_size['height']
-		if (offset < 0) then
-			break
-		end
-	end
-
-	-- 한 번에 보여지는 셀의 숫자
-	local showed_cnt = math.floor(size['height']/cell_size['height']) + 1
-    
-    -- 하드 코딩
-    if (_show_cnt) then
-        showed_cnt = _show_cnt
-    end
-	
     local top_pos_x, top_pos_y  = self:minContainerOffset()
     
     -- 하드코딩
