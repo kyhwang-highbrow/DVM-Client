@@ -30,12 +30,9 @@ function TableQuest:getfilteredOrgTable()
     local table_filtered = {}
     local org_table = TABLE:get(self.m_tableName)
     for key, data in pairs(org_table) do
-        if (data['active']) then
-            if (data['active'] == 0) then
-                -- active == 0 은 퀘스트 몰록에서 제외시킴
-            else
-                table_filtered[key] = data
-            end
+        local is_active = ServerData_Event:checkEventTime(data['start_date'], data['end_date'])
+        if (is_active) then
+            table_filtered[key] = data
         end
     end
 
