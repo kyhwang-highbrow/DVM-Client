@@ -57,6 +57,8 @@ function UI_Book:init()
     self:refresh()
 
     self:sceneFadeInAction()
+
+    self:focusDragonCardTab()
 end
 
 -------------------------------------
@@ -110,9 +112,11 @@ function UI_Book:initButton()
     end
 
     -- 모두 받기 버튼
-	vars['rewardAllBtn']:registerScriptTapHandler(function() self:click_rewardAll() end)
+    -- 기능은 만들었으나 사용되지 않음
+	--vars['rewardAllBtn']:registerScriptTapHandler(function() self:click_rewardAll() end)
+    vars['rewardAllBtn']:setVisible(false)
     local has_reward = g_bookData:hasReward()
-    self:setRewardEnabled(has_reward)
+    
 
     -- 최초에 한번 실행
     self:onChangeOption()
@@ -122,9 +126,6 @@ end
 -- function refresh
 -------------------------------------
 function UI_Book:refresh()
-    -- 아주 처음 들어왔을 경우
-    self:focusDragonCardTab()
-    
 	-- 수집 현황
 	self:refresh_collect()
 
@@ -263,7 +264,10 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 				UI_ToastPopup(reward_str)
 				ui:setBookRewardVisual(false)
 				book_ui:refresh_noti()
-                book_ui:refresh()
+
+                -- 테이블 리셋
+                book_ui.m_tableViewTD:clearItemList()
+                book_ui:onChangeOption()
 			end
 			g_bookData:request_bookReward(did, evolution, finish_cb)
 				
@@ -272,6 +276,8 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 			local detail_ui = UI_BookDetailPopup(data)
 			detail_ui:setBookList(book_ui.m_tableViewTD.m_itemList)
 		end
+
+        
 	end)
 end
 
@@ -298,21 +304,6 @@ function UI_Book:click_rewardAll()
         self:setRewardEnabled(false)
 	end
 	g_bookData:request_bookRewardAll(finish_cb)			
-end
-
--------------------------------------
--- function setRewardEnabled
--- @brief 콜랙션 포인트 보상 확인 버튼
--------------------------------------
-function UI_Book:setRewardEnabled(is_active)
-    local vars = self.vars
-    vars['rewardAllBtn']:setEnabled(is_active)
-
-    if (is_active) then
-        vars['rewardAllLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
-    else
-        vars['rewardAllLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
-    end    
 end
 
 -------------------------------------
