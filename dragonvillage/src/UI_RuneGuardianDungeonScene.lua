@@ -55,6 +55,8 @@ function UI_RuneGuardianDungeonScene:initUI()
 
     if (not g_settingData:getIsShowedRunGuardianDungeonInfoPopup()) then
         vars['infoMenu']:setVisible(true)
+    else
+        vars['infoMenu']:setVisible(false)
     end
 
 end
