@@ -75,8 +75,10 @@ function UI_RuneGuardianDungeonScene:setInfoPopupAction()
     local scale_action = cc.EaseInOut:create(cc.ScaleTo:create(0.3, 0.2, 0.4), 2)
 	local action_spawm = cc.Spawn:create(move_action, scale_action)
     local disappear = cc.ScaleTo:create(0, 0)
-    local remove_action = cc.RemoveSelf:create()
-    local seq_action = cc.Sequence:create(action_spawm, disappear, remove_action)
+    local callback = cc.CallFunc:create(function()
+		vars['infoMenu']:setVisible(false)
+	end)
+    local seq_action = cc.Sequence:create(action_spawm, disappear, callback)
 	vars['infoMenu']:runAction(seq_action)
 end
 
