@@ -37,6 +37,7 @@ end
 function UI_ContentOpenPopup:initUI()
     local vars = self.vars
     local content_type = self.m_content_type
+    self.vars['descLabel']:setString(Str('신규 컨텐츠가 오픈되었습니다'))
 
     if (content_type == 'attr_tower') then
         self.vars['linkBtn']:setVisible(true)
