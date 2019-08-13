@@ -540,8 +540,11 @@ function WaveMgr:update(dt, no_regen)
         for regen_group_key, struct_group in pairs(self.m_mRegenGroup) do
             local regen_wave = struct_group:update(dt)
             if (regen_wave) then
-                struct_group:setInterval(g_constant:get('INGAME', 'REGEN_INTERVAL'))
-
+                if (self.m_world.m_gameMode  == GAME_MODE_RUNE_GUARDIAN) then
+                    struct_group:setInterval(g_constant:get('INGAME', 'REGEN_INTERVAL_RUNE_GUARDIAN_DUNGEON'))
+                else
+                    struct_group:setInterval(g_constant:get('INGAME', 'REGEN_INTERVAL'))
+                end
                 self:setDynamicWave(self.m_lDynamicWave, regen_wave, {regen_group_key = regen_group_key})
             end
         end
