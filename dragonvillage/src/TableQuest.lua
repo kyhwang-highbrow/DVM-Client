@@ -59,6 +59,31 @@ function TableQuest:arrangeData()
 	end
 end
 
+--[[
+    {
+             ['item_id']=700011;
+             ['count']='1,700002';
+     };
+     {
+             ['item_id']=700011;
+             ['count']='1,700002';
+     };
+--]]
+-------------------------------------
+-- function arrangeDataByStr
+-------------------------------------
+function TableQuest.arrangeDataByStr(reward_str)
+    local t_reward = plSplit(reward_str, ',')
+    local t_quest = {}
+    for i, each_reward in pairs(t_reward) do 
+    	reward_iv = plSplit(each_reward, ';')
+        item_id = TableItem:getItemIDFromItemType(reward_iv[1]) or tonumber(reward_iv[1])
+    	local t_data = {['item_id'] = item_id, ['count'] = reward_iv[2]}
+        table.insert(t_quest, t_data)
+    end
+    return t_quest
+end
+
 -------------------------------------
 -- function getQuestType
 -------------------------------------

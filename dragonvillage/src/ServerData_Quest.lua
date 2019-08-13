@@ -9,6 +9,7 @@ ServerData_Quest = class({
 
         m_dailyClearQuest = 'StructQuestData',
         m_dailyQuestSubscription = 'table',
+        m_lDailyQuest = 'table',
         --"daily_quest_subscription":{
         --    "max_day":14,
         --    "active":true,
@@ -31,6 +32,7 @@ function ServerData_Quest:init(server_data)
     self.m_serverData = server_data
 	self.m_tableQuest = TableQuest()
 	self.m_tQuestInfo = {}
+    self.m_lDailyQuest = {}
 end
 
 -------------------------------------
@@ -66,11 +68,11 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
 			local t_focus = t_daily['focus']
 			local l_reward = t_daily['reward']
 
-			-- 클라 데이터 생성 (테이블 기반)
+			-- 클라 데이터 생성 (일일퀘 서버에서 받음)
 			local l_quest = {}
-			local l_quest_list = self.m_tableQuest:filterList('type', quest_type)
+			local l_quest_list = self:getDailyQuestList()--self.m_tableQuest:filterList('type', quest_type)
 
-			for _, t_quest in pairs(l_quest_list) do
+			for _, t_quest in ipairs(l_quest_list) do
 				qid_n = tonumber(t_quest['qid'])
 				rawcnt = t_focus[tostring(qid_n)]
 				reward = table.find(l_reward, qid_n) and true or false
@@ -243,6 +245,11 @@ function ServerData_Quest:requestQuestInfo(cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        -- 일일퀘스트 정보만 받음
+        if ret['table_quest'] then
+            self:setDailyQuestList(ret['table_quest'])
+        end
+        
         if ret['quest_info'] then
             self:applyQuestInfo(ret['quest_info'])
         end
@@ -277,6 +284,10 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
 
     -- 성공 시 콜백
     local function success_cb(ret)
+        -- 일일퀘스트 정보만 받음
+        if ret['table_quest'] then
+            self:setDailyQuestList(ret['table_quest'])
+        end
 
 		-- 받은 정보 갱신 
         if (ret['quest_info']) then
@@ -351,5 +362,26 @@ function ServerData_Quest:subscriptionDayInfo()
     local cur_day = self.m_dailyQuestSubscription['cur_day'] or 0
     local max_day = self.m_dailyQuestSubscription['max_day'] or 0
     return cur_day, max_day
+end
+
+-------------------------------------
+-- function getDailyQuestList
+-------------------------------------
+function ServerData_Quest:getDailyQuestList()
+    return self.m_lDailyQuest or {}
+end
+
+-------------------------------------
+-- function setDailyQuestList
+-------------------------------------
+function ServerData_Quest:setDailyQuestList(l_daily_quest)
+    self.m_lDailyQuest = {}
+    for _, data in ipairs(l_daily_quest) do
+        local _data = data['table']
+        if (_data) then
+            _data['t_reward'] = TableQuest.arrangeDataByStr(_data['reward'])
+            table.insert(self.m_lDailyQuest, _data)
+        end
+    end
 end
 
