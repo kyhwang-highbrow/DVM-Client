@@ -63,6 +63,7 @@ end
 -------------------------------------
 function UI_MasterRoadRewardPopup:initUI()
     self:makeMasterRoadContent(false) -- is_start_with_move
+    self:setOpacityChildren(true) -- 보상 아이콘도 투명도가 적용되기 위한 코드
 end
 
 -------------------------------------
@@ -75,24 +76,6 @@ function UI_MasterRoadRewardPopup:refresh(b_force)
 
     -- 스페셜 목표 선택할 경우 프레임 이펙트
     vars['specialSprite']:setVisible(t_road['special'] == 1)
-
-    -- 클리어 마스터의 길일 경우 클리어 이펙트
-    local reward_state = g_masterRoadData:getRewardState(t_road['rid'])
-    self:clearVisualActive(reward_state == 'has_reward')
-end
-
--------------------------------------
--- function clearVisualActive
--------------------------------------
-function UI_MasterRoadRewardPopup:clearVisualActive(is_active)
-    local vars = self.vars
-    if (is_active) then
-        vars['clearVisual']:setScale(0)
-        vars['clearVisual']:runAction(cc.ScaleTo:create(0.2, 0.75))
-    else
-        vars['clearVisual']:setScale(0.75)
-        vars['clearVisual']:runAction(cc.ScaleTo:create(0.2, 0))
-    end
 end
 
 -------------------------------------
@@ -124,6 +107,7 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
 
     -- 내용물 UI 생성
     local master_content_ui = UI_MasterRoadRewardPopupItem(close_cb, reward_cb)
+    master_content_ui:setOpacityChildren(true) -- 보상 아이콘도 투명도가 적용되기 위한 코드
 	-- 기존 UI에 튜토리얼에 필요한 요소 붙임
 	self.vars['rewardBtn'] = master_content_ui.vars['rewardBtn']
 	self.vars['rewardBtn']:setEnabled(false)
@@ -152,7 +136,7 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
     -- 등장 시 액션
     if (is_start_with_move) then
         master_content_ui.root:setPositionX(900)
-		local move_action = cc.EaseIn:create(cc.MoveTo:create(0.2, cc.p(0, 0)), 0.5)
+		local move_action = cc.EaseInOut:create(cc.MoveTo:create(0.5, cc.p(0, 0)), 2)
 		local finish_action = cc.CallFunc:create(finish_cb)
         master_content_ui.root:runAction(cc.Sequence:create(move_action, finish_action))
     else
@@ -231,6 +215,9 @@ function UI_MasterRoadRewardPopupItem:initUI()
 	-- 보상 아이콘
 	vars['rewardNode']:removeAllChildren(true)
 	UI_MasterRoadPopup.makeRewardCard(vars['rewardNode'], t_data['t_reward'], false, 'center')
+
+    -- 보상 아이콘도 투명도가 적용되기 위한 코드
+    doAllChildren(vars['rewardNode'], function(node) node:setCascadeOpacityEnabled(true) end)
 
     -- 보상 상태에 따른 버튼 처리
     local reward_state = g_masterRoadData:getRewardState(t_data['rid'])

@@ -843,7 +843,8 @@ function UI_GameResultNew:direction_masterRoad()
 
 		-- 마스터의 길 클리어했다면
 		elseif (self.m_isClearMasterRoad) then
-			UI_MasterRoadRewardPopup(stage_id)
+			--UI_MasterRoadRewardPopup(stage_id)
+            OpenMasterRoadRewardPopup(stage_id)
 
 		end
 	end

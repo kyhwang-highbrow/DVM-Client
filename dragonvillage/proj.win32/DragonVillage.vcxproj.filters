@@ -4147,6 +4147,9 @@
     <None Include="..\src\UI_MasterRoadRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_MasterRoadRewardPopupNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

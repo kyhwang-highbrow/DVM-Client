@@ -170,7 +170,8 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
             if (cb_func) then   
                 cb_func(true) -- UI_GameResultNew에서 클리어 여부를 받아간다
             else
-                UI_MasterRoadRewardPopup()
+                --UI_MasterRoadRewardPopup()
+                OpenMasterRoadRewardPopup()
             end
         end
         local ui_network = self:request_roadClear(self.m_focusRoad, after_func)
@@ -480,4 +481,26 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data, raw_da
         end
     end
 
+end
+
+
+-------------------------------------
+-- function OpenMasterRoadRewardPopup
+-- @brief 마스터의 길 임무 수행 완료 시점에 띄울 팝업을 선별
+-------------------------------------
+function OpenMasterRoadRewardPopup(stage_id, show_cb)
+
+    -- 현재 진행 중인 road id (table_master_road.csv 테이블의 rid 값)
+    local focus_rid = g_masterRoadData.m_focusRoad
+
+    -- 10001 모험 1-1스테이지 클리어
+    -- 10002 드래곤 알 부화하기
+    -- 이 항목들은 강제 튜토리얼이 필요해서 다른 팝업을 사용함
+    if isExistValue(focus_rid, 10001, 10002) then
+        UI_MasterRoadRewardPopup(stage_id, show_cb)
+        return
+    end
+
+    -- 심플하게 변경한 보상 즉시 수령 팝업
+    UI_MasterRoadRewardPopupNew(stage_id, show_cb)
 end

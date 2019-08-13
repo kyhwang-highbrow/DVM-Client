@@ -611,7 +611,8 @@ function UI_GachaResult_Dragon:click_closeBtn()
         self:click_skipBtn()
     else
 		if (self.m_isClearMasterRoad) then 
-			UI_MasterRoadRewardPopup()
+			--UI_MasterRoadRewardPopup()
+            OpenMasterRoadRewardPopup()
 		end
         SoundMgr:playPrevBGM()
         self:close()

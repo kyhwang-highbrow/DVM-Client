@@ -843,6 +843,7 @@ local t_module = {
 	'UI_MasterRoadPopup',
     'UI_MasterRoadPopup_Link',
     'UI_MasterRoadRewardPopup',
+    'UI_MasterRoadRewardPopupNew',
     'UI_MailPopup',
     'UI_MailListItem',
     'UI_MailRewardPopup',
