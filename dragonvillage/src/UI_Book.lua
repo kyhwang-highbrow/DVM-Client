@@ -248,6 +248,7 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 	-- 보상 수령 가능하면 보상 아이콘 출력
 	if (g_bookData:haveBookReward(did, evolution)) then
 		ui:setBookRewardVisual(true)
+        ui:setNotiSpriteVisible(true)
 	end
 
 	-- 버튼 클릭시 상세 팝업
