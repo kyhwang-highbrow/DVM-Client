@@ -22,7 +22,7 @@ UI_AdventureStageInfo.ENEMY = 'enemyInfo'
 function UI_AdventureStageInfo:init(stage_id)
     self:init_MemberVariable(stage_id)
 
-    local vars = self:load('adventure_stage_info.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
+    local vars = self:load('adventure_stage_info.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- UI 클래스명 지정

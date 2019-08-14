@@ -15,7 +15,7 @@ UI_MasterRoadRewardPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_MasterRoadRewardPopup:init(stage_id, show_cb)
-	local vars = self:load('master_road_popup_simple.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
+	local vars = self:load('master_road_popup_simple.ui')
 	self.m_showCb = show_cb
 	UIManager:open(self, UIManager.POPUP)
 	

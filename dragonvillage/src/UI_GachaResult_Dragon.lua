@@ -79,7 +79,7 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_lGachaDragonListOrg = clone(self.m_lGachaDragonList)
 
     self.m_uiName = 'UI_GachaResult_Dragon'
-    local vars = self:load('dragon_summon_result.ui', nil, true) -- param : url, is_permanent, keep_z_order, use_sprite_frames
+    local vars = self:load('dragon_summon_result.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- @UI_ACTION
