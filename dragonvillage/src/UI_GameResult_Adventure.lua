@@ -56,7 +56,7 @@ end
 -------------------------------------
 function UI_GameResult_Adventure:checkIsTutorial()
     local tutorial_key = TUTORIAL.ADV_01_02_END
-    if (not g_tutorialData:isTutorialDone(tutorial_key)) then
+    if (g_tutorialData:isTutorialDone(tutorial_key)) then
         return false
     end
 
