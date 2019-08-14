@@ -1781,6 +1781,11 @@ function UINavigatorDefinition:goTo_gold_dungeon(...)
     local stage_id = args[1]
     local dungeon_type = args[2]
 
+    -- @jhakim 190814 황금 던전 닫음
+    if (true) then
+        return
+    end
+
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_GoldDungeonScene')
     if (is_opend == true) then
