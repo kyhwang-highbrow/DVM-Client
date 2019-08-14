@@ -154,7 +154,10 @@ if __name__ == '__main__':
     print '## validate_translate_file'
     makeIgnoreList()
     checkTranslateFile('lang_en.lua')
+    checkTranslateFile('lang_es.lua')
+    checkTranslateFile('lang_fa.lua')
     checkTranslateFile('lang_jp.lua')
+    checkTranslateFile('lang_th.lua')
     checkTranslateFile('lang_zhtw.lua')
     makeTxtFile()
     print '## success'
