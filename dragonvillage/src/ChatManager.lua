@@ -443,6 +443,7 @@ function ChatManager:chatContentQueue(chat_content)
         table.remove(self.m_lMessage, 1)
     end
 
+    --[[
     local is_broadcast = false
     -- 인게임에서도 추가 (먼저 검사, 한쪽만 방송해줘야함)
     if (g_currScene) then
@@ -457,7 +458,7 @@ function ChatManager:chatContentQueue(chat_content)
     if (g_topUserInfo) and (not is_broadcast) then
         g_topUserInfo:chatBroadcast(chat_content)
     end
-
+    --]]
     if self.m_chatPopup then
         self.m_chatPopup:msgQueueCB(chat_content)
     end
