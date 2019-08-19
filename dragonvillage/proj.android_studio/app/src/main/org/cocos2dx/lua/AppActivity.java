@@ -472,7 +472,12 @@ public class AppActivity extends Cocos2dxActivity{
         }
         return info;
     }
-
+    
+    private static String getAdvertisingID() {
+        String advertising_id = PerpleSDK.getInstance().getAdid();
+        return advertising_id;
+    }
+    
     public String getHostIpAddress() {
         WifiManager wifiMgr = (WifiManager)getApplicationContext().getSystemService(WIFI_SERVICE);
         WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
@@ -644,6 +649,11 @@ public class AppActivity extends Cocos2dxActivity{
 
                     String info = getDeviceInfo();
                     sdkEventResult(id, "success", info);
+                    
+                } else if (id.equals("advertising_id")) {
+
+                    String advertising_id = getAdvertisingID();
+                    sdkEventResult(id, "success", advertising_id);
 
                 } else if (id.equals("app_checkPermission")) {
 
