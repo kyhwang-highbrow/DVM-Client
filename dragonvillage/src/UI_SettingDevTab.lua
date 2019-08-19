@@ -499,6 +499,16 @@ end
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
 
+    -- 20190819 sgkim adid (광고 식별자 얻어오는 테스트)
+    if true then
+        local function cb_func(ret, advertising_id)
+            ccdisplay('# ret : ' .. ret)
+            ccdisplay('# advertising_id : ' .. advertising_id)
+        end
+        SDKManager:getAdvertisingID(cb_func)
+        return
+    end
+
     -- 20190703 sgkim UIC_ListExpansion 구현 확인용
     if true then
         UI_HelpDragonGuidePopup()

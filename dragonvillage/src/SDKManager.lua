@@ -27,6 +27,16 @@ function SDKManager:deviceInfo(cb_func)
     self:sendEvent('app_deviceInfo', '', '', cb_func)
 end
 
+-- 광고 식별자
+-------------------------------------
+-- function getAdvertisingID
+-- @brief 
+-- @param cb_func function(ret, advertising_id) end
+-------------------------------------
+function SDKManager:getAdvertisingID(cb_func)
+    self:sendEvent('advertising_id', '', '', cb_func)
+end
+
 
 
 -- 로컬푸시 관련
