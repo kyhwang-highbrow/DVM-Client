@@ -682,6 +682,13 @@ function TutorialManager:attachToTutorialNode(uic_node)
     -- tutorialNode에 붙여버린다.
     UIHelper:reattachNode(self.m_tutorialNode, node, 2)
 
+    -- 생성된 순서대로 z_order를 다시 설정해줌
+    -- removeFromChild하는 과정에서 orderOfArrival이 이상하게 세팅되어 아예 z-order를 설정해줌
+    local l_child = node:getChildren()
+    for i, _node in ipairs(l_child) do
+        _node:setLocalZOrder(i)
+    end
+
     uic_node:setPosition(world_pos['x'], world_pos['y'])
 end
 
