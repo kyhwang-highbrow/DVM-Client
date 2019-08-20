@@ -28,6 +28,8 @@ UIC_Button = class(PARENT, {
         m_bAutoShakeAction = 'boolean', -- 버튼을 흔드는 액션 사용 여부
 
 		m_blockMsg = 'str', -- button block 할 경우 팝업 메세지
+
+        m_pressCB = 'function', -- 버튼이 눌려 있는동안 callback하는 함수
     })
 
 UIC_Button.ACTION_TYPE_NORMAL = 1
@@ -214,6 +216,13 @@ function UIC_Button:onButtonStateChange(button_state)
 
         node:setRotation(0)
 
+        -- 눌리는 동안 콜백함수 있다면 액션하는 중간중간에 함수를 불러줌
+        local press_cb = cc.CallFunc:create(function() 
+            if (self.m_pressCB) then
+                self.m_pressCB()
+            end
+        end)
+
         -- 눌려진 액션
         local sequence
         if (math_random(1, 2) == 1) then
@@ -227,7 +236,9 @@ function UIC_Button:onButtonStateChange(button_state)
                 cc.MoveTo:create(0.05, cc.p(self.m_originPosX - 2, self.m_originPosY)),
                 cc.MoveTo:create(0.05, cc.p(self.m_originPosX, self.m_originPosY)))
         end
-        local action = cc.RepeatForever:create(sequence)
+
+        local sequence_with_cb = cc.Sequence:create(sequence, press_cb)
+        local action = cc.RepeatForever:create(sequence_with_cb)
         action:setTag(UIC_BUTTON_ACTION_TAG)
         node:runAction(action)
     
@@ -365,3 +376,11 @@ end
 function UIC_Button:setClickSoundName(sound_name)
     self.m_clickSoundName = sound_name
 end
+
+-------------------------------------
+-- function func_press
+-------------------------------------
+function UIC_Button:setPressedCB(func_press)
+    self.m_pressCB = func_press
+end
+

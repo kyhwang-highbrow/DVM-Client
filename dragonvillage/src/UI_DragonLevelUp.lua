@@ -140,10 +140,10 @@ function UI_DragonLevelUp:initDagonFoodMenu()
 
     local item_card = UI_ItemCard(700016) -- 드래곤 먹이 아이템
     vars['itemNode']:addChild(item_card.root)
-    --vars['expDescLabel']:setString(Str("먹이는 1개당 {1}의 경험치를 얻을 수 있습니다.", DRAGON_FOOD_EXP))
 
-    vars['plusBtn']:registerScriptPressHandler(function() self:countDagonFood(1) end)
-    vars['minusBtn']:registerScriptPressHandler(function() self:countDagonFood(-1) end)
+    -- 버튼 누르고 있을 때 먹이 증/감 하도록 
+    vars['plusBtn']:setPressedCB(function() self:countDagonFood(1) end)
+    vars['minusBtn']:setPressedCB(function() self:countDagonFood(-1) end)
 
     vars['plusBtn']:registerScriptTapHandler(function() self:countDagonFood(1) end)
     vars['minusBtn']:registerScriptTapHandler(function() self:countDagonFood(-1) end)
