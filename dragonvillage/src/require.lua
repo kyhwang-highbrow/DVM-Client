@@ -1248,6 +1248,7 @@ local t_module = {
 	-- UI : 출석 이벤트
     'UI_AttendanceBasicListItem',
     'UI_AttendanceSpecialListItem',
+    'UI_AttendanceSpecialListItem_1st',
 
 
     -- UI : 탐험(exploration)

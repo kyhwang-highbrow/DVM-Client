@@ -32,7 +32,8 @@ function UI_EventPopupTab_EventAttendance1st:initUI()
     local node = self.vars['listNode']
     local data = self.m_structAttendanceData
     local event_id = self.m_eventID
-    local list_ui = UI_AttendanceSpecialListItem(data, event_id)
+    local list_ui = UI_AttendanceSpecialListItem_1st(data, event_id)
+
     node:addChild(list_ui.root)
 end
 
