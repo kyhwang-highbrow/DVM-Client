@@ -1,7 +1,9 @@
 local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 local MAX_DRAGON_LEVELUP_MATERIAL_MAX = 30 -- 한 번에 사용 가능한 재료 수
 
-local USED_AMETHYST = 100
+local USED_DRAGON_FOOD = 100
+local DRAGON_FOOD_EXP = 9000
+
 local L_LEVELUP_MTL = {}
 L_LEVELUP_MTL.FOOD = 'food_lvup'
 L_LEVELUP_MTL.DRAGON = 'dragon_lvup'
@@ -12,7 +14,7 @@ L_LEVELUP_MTL.DRAGON = 'dragon_lvup'
 UI_DragonLevelUp = class(PARENT,{
         m_dragonLevelUpUIHelper = 'UI_DragonLevelUpHelper',
 
-        m_amethystPackCnt = 'number',
+        m_dragonFoodPackCnt = 'number',
     })
 
 -------------------------------------
@@ -26,7 +28,7 @@ function UI_DragonLevelUp:initParentVariable()
     self.m_titleStr = Str('드래곤 레벨업')
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
 
-    self.m_amethystPackCnt = 0
+    self.m_dragonFoodPackCnt = 0
 end
 
 -------------------------------------
@@ -52,7 +54,7 @@ function UI_DragonLevelUp:init(doid)
     self:init_dragonSortMgr()
 	self:init_mtrDragonSortMgr(true) -- slime_first
 
-    self:initAmethystMenu()
+    self:initDagonFoodMenu()
     self:initTab()
 end
 
@@ -123,44 +125,44 @@ function UI_DragonLevelUp:onChangeTab(tab, first)
         self:setFoodMenu(false)
         
         -- 기존 선택된 자수정 리셋
-        self.m_amethystPackCnt = 0
-        self:refreshAmethystMenu()
+        self.m_dragonFoodPackCnt = 0
+        self:refreshDagonFoodMenu()
     end
     
     self:refresh()
 end
 
 -------------------------------------
--- function initAmethystMenu
+-- function initDagonFoodMenu
 -------------------------------------
-function UI_DragonLevelUp:initAmethystMenu()
+function UI_DragonLevelUp:initDagonFoodMenu()
     local vars = self.vars
 
-    local item_card = UI_ItemCard(700007) -- 자수정 카드 아이템
+    local item_card = UI_ItemCard(700016) -- 드래곤 먹이 아이템
     vars['itemNode']:addChild(item_card.root)
+    --vars['expDescLabel']:setString(Str("먹이는 1개당 {1}의 경험치를 얻을 수 있습니다.", DRAGON_FOOD_EXP))
 
-    vars['plusBtn']:registerScriptPressHandler(function() self:countAmethyst(1) end)
-    vars['minusBtn']:registerScriptPressHandler(function() self:countAmethyst(-1) end)
+    vars['plusBtn']:registerScriptPressHandler(function() self:countDagonFood(1) end)
+    vars['minusBtn']:registerScriptPressHandler(function() self:countDagonFood(-1) end)
 
-    vars['plusBtn']:registerScriptTapHandler(function() self:countAmethyst(1) end)
-    vars['minusBtn']:registerScriptTapHandler(function() self:countAmethyst(-1) end)
+    vars['plusBtn']:registerScriptTapHandler(function() self:countDagonFood(1) end)
+    vars['minusBtn']:registerScriptTapHandler(function() self:countDagonFood(-1) end)
 
     vars['numLabel']:setString(0)
     vars['expLabel2']:setString('0 exp')
 end
 
 -------------------------------------
--- function refreshAmethystMenu
+-- function refreshDagonFoodMenu
 -------------------------------------
-function UI_DragonLevelUp:refreshAmethystMenu()
+function UI_DragonLevelUp:refreshDagonFoodMenu()
     local vars = self.vars
 
-    vars['numLabel']:setString(comma_value(self.m_amethystPackCnt))
-    --vars['priceLabel2']:setString(comma_value(self.m_amethystPackCnt * USED_AMETHYST))
+    vars['numLabel']:setString(comma_value(self.m_dragonFoodPackCnt))
 
     -- 100 자수정은 9000 exp
-    local amethyst_count = self.m_amethystPackCnt * 9000
-    local exp_str = comma_value(amethyst_count) .. ' exp'
+    local dragonFood_count = self.m_dragonFoodPackCnt * DRAGON_FOOD_EXP
+    local exp_str = comma_value(dragonFood_count) .. ' exp'
     vars['expLabel2']:setString(exp_str)
 end
 
@@ -172,7 +174,7 @@ function UI_DragonLevelUp:initButton()
     local vars = self.vars
     vars['levelupBtn']:registerScriptTapHandler(function() 
         if (self.m_currTab == L_LEVELUP_MTL.FOOD) then
-            self:click_amethystLevelupBtn()
+            self:click_dragonFoodLevelupBtn()
         else
             self:click_levelupBtn()
         end 
@@ -747,15 +749,16 @@ end
 
 
 -------------------------------------
--- function countAmethyst
+-- function countDagonFood
 -------------------------------------
-function UI_DragonLevelUp:countAmethyst(cnt)
-    local amethyst = g_userData:get('amethyst')
-    local used_amethyst = self.m_amethystPackCnt * USED_AMETHYST
+function UI_DragonLevelUp:countDagonFood(cnt)
+    local dragonFood = g_userData:get('amethyst')
+    local used_dragonFood = self.m_dragonFoodPackCnt * USED_DRAGON_FOOD
     local helper = self.m_dragonLevelUpUIHelper
 
     if (cnt > 0) then
-        if (used_amethyst + USED_AMETHYST > amethyst) then
+        if (used_dragonFood + USED_DRAGON_FOOD > dragonFood) then
+            UIManager:toastNotificationRed(Str('드래곤 먹이가 부족합니다.', MAX_DRAGON_LEVELUP_MATERIAL_MAX))
             return
         end
 
@@ -768,16 +771,16 @@ function UI_DragonLevelUp:countAmethyst(cnt)
     end
 
     if (cnt < 0) then 
-        if (used_amethyst == 0) then
+        if (used_dragonFood == 0) then
             return
         end
     end
 
 
-    self.m_amethystPackCnt = self.m_amethystPackCnt + cnt
-    self:refreshAmethystMenu()
+    self.m_dragonFoodPackCnt = self.m_dragonFoodPackCnt + cnt
+    self:refreshDagonFoodMenu()
 
-    helper:addExp(cnt * 9000)
+    helper:addExp(cnt * DRAGON_FOOD_EXP)
     self:refresh_selectedMaterial()
 end
 
@@ -796,10 +799,10 @@ function UI_DragonLevelUp:setFoodMenu(is_enable)
 end
 
 -------------------------------------
--- function click_amethystLevelupBtn
+-- function click_dragonFoodLevelupBtn
 -------------------------------------
-function UI_DragonLevelUp:click_amethystLevelupBtn()
-    if (self.m_amethystPackCnt == 0) then
+function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
+    if (self.m_dragonFoodPackCnt == 0) then
         return
     end
 
@@ -832,8 +835,8 @@ function UI_DragonLevelUp:click_amethystLevelupBtn()
             ui:setCloseCB(close_cb)
         end
 
-        self.m_amethystPackCnt = 0
-        self:refreshAmethystMenu()
+        self.m_dragonFoodPackCnt = 0
+        self:refreshDagonFoodMenu()
 
     end
 
@@ -842,13 +845,13 @@ function UI_DragonLevelUp:click_amethystLevelupBtn()
 
     local src_doids = ''
     local src_soids = ''
-    local amethyst = self.m_amethystPackCnt * USED_AMETHYST
+    local dragonFood = self.m_dragonFoodPackCnt * USED_DRAGON_FOOD
 
     local ui_network = UI_Network()
     ui_network:setUrl('/dragons/levelup')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
-    ui_network:setParam('amethyst', amethyst)
+    ui_network:setParam('amethyst', dragonFood)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
