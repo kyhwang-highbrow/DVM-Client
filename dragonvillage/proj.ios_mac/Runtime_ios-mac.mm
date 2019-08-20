@@ -13,6 +13,7 @@
 #import "AppController.h"
 #import "RootViewController.h"
 #import "DeviceDetector.h"
+#import <AdSupport/ASIdentifierManager.h>
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #import "SimulatorApp.h"
 #endif
@@ -199,6 +200,15 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
                                 @"systemVersion":systemVersion };
         NSString *info = [AppController getJSONStringFromNSDictionary:dict];
         sdkEventResult(id, "success", [info UTF8String]);
+
+    // 광고 식별자(IDFA)
+    } else if (strcmp(id, "advertising_id") == 0) {
+        NSString *advertising_id = @"";
+        if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
+            NSUUID *IDFA = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+            advertising_id = [IDFA UUIDString];
+        }
+        sdkEventResult(id, "success", [advertising_id UTF8String]);
     }
 #endif
 }
