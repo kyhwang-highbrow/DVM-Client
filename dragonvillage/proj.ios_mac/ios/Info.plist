@@ -104,14 +104,20 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Your media library will be used to deliver higher quality advertising experiences to you.</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Game Services may require to access calendar.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Some ad content may access camera to take picture.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>You can access your location information to improve your advertising experience.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>You can access your location information to improve your advertising experience.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Some ad content may require access to accelerometer for interactive ad experience.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires access to the photo library.</string>
+	<string>Your photo library will be used to deliver more personalized advertising experiences for you.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
