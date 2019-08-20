@@ -168,9 +168,7 @@ function UI_CapsuleBox:refresh()
 	vars['firstHaveLabel']:setString(comma_value(capsule_coin))
 
 	-- 캡슐 코인 구매 버튼 온오프
-	vars['firstCoinBtn']:setVisible(capsule_coin == 0)
-	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
-    vars['firstDrawBtn2']:setVisible(capsule_coin ~= 0)
+	self:refresh_firstDrawBtn()
 
     g_capsuleBoxData:setTodaySchedule()
     local legend_title = capsulebox_data['first']:getCapsuleTitle()
@@ -187,6 +185,20 @@ function UI_CapsuleBox:refresh()
     else
         vars['1stEventMenu']:setVisible(false)
     end
+end
+
+-------------------------------------
+-- function refresh_firstDrawBtn
+-- @brief 전설 뽑기 버튼 상태 갱신
+-------------------------------------
+function UI_CapsuleBox:refresh_firstDrawBtn()
+    local vars = self.vars
+
+    -- 캡슐 코인 구매 버튼 온오프
+    local capsule_coin = g_userData:get('capsule_coin')
+	vars['firstCoinBtn']:setVisible(capsule_coin == 0)
+	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
+    vars['firstDrawBtn2']:setVisible(capsule_coin ~= 0)
 end
 
 -------------------------------------
@@ -239,6 +251,9 @@ function UI_CapsuleBox:update(dt)
 		g_capsuleBoxData:request_capsuleBoxInfo(cb_func)
 		return	
 	end
+
+    -- 캡슐 코인 구매 버튼 온오프
+    self:refresh_firstDrawBtn()
 end
 
 -------------------------------------
