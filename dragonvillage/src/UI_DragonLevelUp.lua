@@ -158,11 +158,11 @@ end
 -------------------------------------
 function UI_DragonLevelUp:refreshDagonFoodMenu()
     local vars = self.vars
-
     vars['numLabel']:setString(comma_value(self.m_dragonFoodCnt))
 
     local dragon_food_cnt = g_userData:get('dragon_food')
-    local item_str = Str('드래곤 먹이') .. '\n' .. dragon_food_cnt
+    local use_food_cnt = dragon_food_cnt - self.m_dragonFoodCnt
+    local item_str = Str('{1}개', comma_value(use_food_cnt))
     vars['itemLabel']:setString(item_str)
 end
 
@@ -811,15 +811,10 @@ end
 function UI_DragonLevelUp:buyDragonFood()
     -- 드래곤 먹이 product_struct
     local product_struct = g_shopDataNew:getProduct('amethyst', 220026)
-
-    local ok_cb = function()
-        product_struct:buy(function(ret) 
-            ItemObtainResult_Shop(ret) 
-            self:refreshDagonFoodMenu()
-        end)
-        
-    end
-    UI_BundlePopup(product_struct, ok_cb)
+    product_struct:buy(function(ret)
+        ItemObtainResult_Shop(ret) 
+        self:refreshDagonFoodMenu()
+    end)
 end
 
 -------------------------------------
