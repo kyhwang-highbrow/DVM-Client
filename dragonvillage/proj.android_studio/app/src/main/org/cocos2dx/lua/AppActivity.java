@@ -564,15 +564,7 @@ public class AppActivity extends Cocos2dxActivity{
                 } else if (id.equals("localpush_register")) {
 
                     Intent intent = PerpleIntentFactory.makeIntentService(sActivity);
-					
-					// Android 8.0 오레오부터 백그라운드 실행 제한이 적용되어 예외처리 해야함
-					// https://developer.android.com/about/versions/oreo/android-8.0-changes#back-all
-					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-						//sActivity.startForegroundService(intent);
-						sActivity.startService(intent);
-					} else {
-						sActivity.startService(intent); 
-					}
+                    sActivity.startService(intent);
 
                 } else if (id.equals("localpush_cancel")) {
 

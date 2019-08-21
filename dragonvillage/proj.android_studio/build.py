@@ -10,17 +10,8 @@ import os
 
 ## google
 #os.system('gradlew assembleDevFullGoogleDebug assembleQaFullGoogleDebug assembleLiveqaFullGoogleDebug assembleLiveFullGoogleDebug assembleLiveMarketGoogleRelease')
-#os.system('gradlew assembleLiveFullGoogleRelease')
-#os.system('gradlew assembleLiveMarketGoogleRelease')
-#os.system('gradlew assembleDevFullGoogleDebug')
-#os.system('gradlew assembleLiveMarketGoogleDebug')
 
 ## xsolla
-#os.system('gradlew assembleDevFullXsollaDebug assembleQaFullXsollaDebug assembleLiveFullXsollaRelease')
-
-## cafe bazaar
-#os.system('gradlew assembleQaFullCafebazaarDebug')
-
-os.system('gradlew assembleQaFullGoogleDebug')
+os.system('gradlew assembleDevFullXsollaDebug assembleQaFullXsollaDebug assembleLiveFullXsollaRelease')
 
 os.system('pause')
