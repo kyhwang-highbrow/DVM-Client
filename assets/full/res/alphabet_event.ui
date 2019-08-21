@@ -35,84 +35,10 @@
 			{
 				[1] =
 				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
-						y = 52.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 930;
-						height = 100;
-						scale_x = 0.800000;
-						scale_y = 0.800000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/typo/ko/1st_anniversary_title.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[2] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.800000;
-						scale_y = 0.800000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/a2d/result/result.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;event_firework';
-						color = { 255; 255; 255; };
-						opacity = 255;
-					};
-					type = 'ClippingNode';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 1.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 930;
-					height = 173;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					stencil_type = 0;
-					stencil_img = '';
-					alpha_threshold = 1.000000;
-					is_invert = false;
-				};
-				[2] =
-				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -88.000000;
+					y = -67.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -126,33 +52,33 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 38;
-					text = '알파벳 이벤트';
+					font_size = 45;
+					text = '봄 맞이 알파벳 이벤트';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 0; };
+					color = { 255; 81; 81; };
 					opacity = 255;
 					dimension_width = 900;
 					dimension_height = 80;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 1.000000;
-					stroke_color = { 255; 104; 32; };
-					has_shadow = true;
-					shadow_color = { 255; 104; 32; };
+					stroke_color = { 94; 47; 0; };
+					has_shadow = false;
+					shadow_color = { 94; 47; 0; };
 					shadow_opacity = 200;
 					shadow_direction = 0;
-					shadow_distance = 3.000000;
+					shadow_distance = 5.000000;
 				};
-				[3] =
+				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -136.000000;
+					y = -114.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -170,12 +96,12 @@
 					text = '이벤트 종료까지 남은 시간';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 0; 255; 0; };
+					color = { 255; 81; 81; };
 					opacity = 255;
 					dimension_width = 850;
 					dimension_height = 55;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -187,12 +113,12 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[4] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = 9.000000;
+					x = 0.000000;
+					y = 20.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -227,7 +153,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[5] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
@@ -267,7 +193,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[6] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
@@ -307,7 +233,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[7] =
+				[6] =
 				{
 					[1] =
 					{
@@ -327,7 +253,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						color = { 0; 0; 0; };
+						color = { 255; 255; 255; };
 						opacity = 150;
 						src_blend = 770;
 						dest_blend = 771;
@@ -349,7 +275,7 @@
 					visible = true;
 					lua_name = 'itemNode';
 				};
-				[8] =
+				[7] =
 				{
 					[1] =
 					{
