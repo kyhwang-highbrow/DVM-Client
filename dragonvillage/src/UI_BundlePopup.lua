@@ -84,6 +84,9 @@ function UI_BundlePopup:initButton()
 	vars['quantityBtn1']:registerScriptTapHandler(function() self:click_quantityBtn(false) end)
 	vars['quantityBtn2']:registerScriptTapHandler(function() self:click_quantityBtn(true) end)
 
+    vars['quantityBtn1']:setPressedCB(function() self:click_quantityBtn(false) end)
+	vars['quantityBtn2']:setPressedCB(function() self:click_quantityBtn(true) end)
+
     vars['purchaseBtn']:registerScriptTapHandler(function() self:click_purchaseBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
