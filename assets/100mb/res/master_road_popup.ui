@@ -392,7 +392,7 @@
 				lua_name = 'rewardBtn';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0103.png';
-				selected = 'ui/buttons/base_btn_0102.png';
+				selected = 'ui/buttons/base_btn_0105.png';
 				disable = '';
 				image_type = 1;
 			};

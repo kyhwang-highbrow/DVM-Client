@@ -2256,7 +2256,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'devMenu';
 			};
 			[4] =
@@ -3698,13 +3698,13 @@
 					[1] =
 					{
 						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
+						ui_name = 'rich';
+						x = -135.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 154;
+						width = 280;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -3714,13 +3714,13 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '배경음악';
-						h_alignment = 0;
+						h_alignment = 2;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 154;
+						dimension_width = 280;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -3997,7 +3997,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'bgm';
-					x = 0.000000;
+					x = -38.000000;
 					y = 238.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -4017,13 +4017,13 @@
 					[1] =
 					{
 						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
+						ui_name = 'rich';
+						x = -135.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 154;
+						width = 280;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -4033,13 +4033,13 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '효과음';
-						h_alignment = 0;
+						h_alignment = 2;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 154;
+						dimension_width = 280;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -4316,7 +4316,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'effect';
-					x = 0.000000;
+					x = -38.000000;
 					y = 178.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -4336,13 +4336,13 @@
 					[1] =
 					{
 						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
+						ui_name = 'rich';
+						x = -135.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 154;
+						width = 280;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -4352,13 +4352,13 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '저사양 모드';
-						h_alignment = 0;
+						h_alignment = 2;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 154;
+						dimension_width = 280;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -4503,7 +4503,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'lowQual';
-					x = 0.000000;
+					x = -38.000000;
 					y = 118.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -4524,28 +4524,28 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 0.000000;
+						x = -50.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 207;
+						width = 260;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 24;
 						text = '화면 흔들림';
 						h_alignment = 0;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 207;
+						dimension_width = 260;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -4561,6 +4561,46 @@
 						shadow_distance = 2.000000;
 					};
 					[2] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = -135.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 280;
+						height = 52;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 26;
+						text = '화면 흔들림';
+						h_alignment = 2;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 280;
+						dimension_height = 52;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 69; 51; 63; };
+						has_shadow = false;
+						shadow_color = { 69; 51; 63; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					[3] =
 					{
 						[1] =
 						{
@@ -4624,7 +4664,7 @@
 						disable = 'ui/buttons/base_btn_0101.png';
 						image_type = 1;
 					};
-					[3] =
+					[4] =
 					{
 						[1] =
 						{
@@ -4690,7 +4730,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'shake';
-					x = 0.000000;
+					x = -38.000000;
 					y = 58.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -4711,28 +4751,28 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 0.000000;
+						x = -50.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 154;
+						width = 260;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '채팅';
 						h_alignment = 0;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 154;
+						dimension_width = 260;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -4748,6 +4788,46 @@
 						shadow_distance = 2.000000;
 					};
 					[2] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = -135.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 280;
+						height = 52;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 26;
+						text = '채팅';
+						h_alignment = 2;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 280;
+						dimension_height = 52;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 69; 51; 63; };
+						has_shadow = false;
+						shadow_color = { 69; 51; 63; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					[3] =
 					{
 						[1] =
 						{
@@ -4811,7 +4891,7 @@
 						disable = 'ui/buttons/base_btn_0101.png';
 						image_type = 1;
 					};
-					[3] =
+					[4] =
 					{
 						[1] =
 						{
@@ -4877,7 +4957,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'chat';
-					x = 0.000000;
+					x = -38.000000;
 					y = -2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -4898,28 +4978,28 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 0.000000;
+						x = -50.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 154;
+						width = 260;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '푸시 알림';
 						h_alignment = 0;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 154;
+						dimension_width = 260;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -4935,6 +5015,46 @@
 						shadow_distance = 2.000000;
 					};
 					[2] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = -135.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 280;
+						height = 52;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 26;
+						text = '푸시 알림';
+						h_alignment = 2;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 280;
+						dimension_height = 52;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 69; 51; 63; };
+						has_shadow = false;
+						shadow_color = { 69; 51; 63; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					[3] =
 					{
 						[1] =
 						{
@@ -4998,7 +5118,7 @@
 						disable = 'ui/buttons/base_btn_0101.png';
 						image_type = 1;
 					};
-					[3] =
+					[4] =
 					{
 						[1] =
 						{
@@ -5064,7 +5184,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'push';
-					x = 0.000000;
+					x = -38.000000;
 					y = -62.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -5085,28 +5205,28 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 0.000000;
+						x = -50.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 154;
+						width = 260;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '절전 모드';
 						h_alignment = 0;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 154;
+						dimension_width = 260;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -5122,6 +5242,46 @@
 						shadow_distance = 2.000000;
 					};
 					[2] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = -135.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 280;
+						height = 52;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 26;
+						text = '절전 모드';
+						h_alignment = 2;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 280;
+						dimension_height = 52;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 69; 51; 63; };
+						has_shadow = false;
+						shadow_color = { 69; 51; 63; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					[3] =
 					{
 						[1] =
 						{
@@ -5185,7 +5345,7 @@
 						disable = 'ui/buttons/base_btn_0101.png';
 						image_type = 1;
 					};
-					[3] =
+					[4] =
 					{
 						[1] =
 						{
@@ -5251,7 +5411,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'sleep';
-					x = 0.000000;
+					x = -38.000000;
 					y = -122.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -5272,28 +5432,28 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 0.000000;
+						x = -50.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 154;
+						width = 260;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '시나리오';
 						h_alignment = 0;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 154;
+						dimension_width = 260;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -5309,6 +5469,46 @@
 						shadow_distance = 2.000000;
 					};
 					[2] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = -135.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 280;
+						height = 52;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 26;
+						text = '시나리오';
+						h_alignment = 2;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 280;
+						dimension_height = 52;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 69; 51; 63; };
+						has_shadow = false;
+						shadow_color = { 69; 51; 63; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					[3] =
 					{
 						[1] =
 						{
@@ -5372,7 +5572,7 @@
 						disable = 'ui/buttons/base_btn_0102.png';
 						image_type = 1;
 					};
-					[3] =
+					[4] =
 					{
 						[1] =
 						{
@@ -5438,7 +5638,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'scenario';
-					x = 0.000000;
+					x = -38.000000;
 					y = -182.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -5625,7 +5825,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'direct';
-					x = 0.000000;
+					x = -38.000000;
 					y = 30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -5646,28 +5846,28 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 0.000000;
+						x = -50.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 154;
+						width = 260;
 						height = 52;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '언어';
 						h_alignment = 0;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 154;
+						dimension_width = 260;
 						dimension_height = 52;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -5683,6 +5883,46 @@
 						shadow_distance = 2.000000;
 					};
 					[2] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = -135.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 280;
+						height = 52;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 26;
+						text = '언어';
+						h_alignment = 2;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 280;
+						dimension_height = 52;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 69; 51; 63; };
+						has_shadow = false;
+						shadow_color = { 69; 51; 63; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					[3] =
 					{
 						[1] =
 						{
@@ -5748,7 +5988,7 @@
 					};
 					type = 'Menu';
 					ui_name = 'language';
-					x = 0.000000;
+					x = -38.000000;
 					y = -242.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -5777,7 +6017,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'gameMenu';
 			};
 			[7] =

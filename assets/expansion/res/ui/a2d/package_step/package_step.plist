@@ -30,9 +30,24 @@
                 <key>spriteSourceSize</key>
                 <string>{23,40}</string>
                 <key>textureRect</key>
-                <string>{{1,35},{23,40}}</string>
+                <string>{{50,1},{23,40}}</string>
                 <key>textureRotated</key>
                 <true/>
+            </dict>
+            <key>package_step_arrow_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{31,32}</string>
+                <key>spriteSourceSize</key>
+                <string>{31,32}</string>
+                <key>textureRect</key>
+                <string>{{92,1},{31,32}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -46,9 +61,9 @@
             <key>realTextureFileName</key>
             <string>package_step.png</string>
             <key>size</key>
-            <string>{49,59}</string>
+            <string>{124,34}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:fdd8ec7f24789d354fd4e426c817af6e:2bfbbd13e9c378a9916ceb4916cc3a43:3d585388f00db314d2fc82f2f4c4e2de$</string>
+            <string>$TexturePacker:SmartUpdate:fb0730f4e52347e53b24aa341a751280:a1d703296b65f0d8601375b7762a7c0e:3d585388f00db314d2fc82f2f4c4e2de$</string>
             <key>textureFileName</key>
             <string>package_step.png</string>
         </dict>

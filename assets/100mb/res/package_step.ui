@@ -408,7 +408,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'stepNode1';
-				file_name = 'ui/package/bg_step_05.png';
+				file_name = 'ui/package/bg_step_01.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -884,7 +884,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'stepNode2';
-				file_name = 'ui/package/bg_step_06.png';
+				file_name = 'ui/package/bg_step_02.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1425,7 +1425,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'stepNode3';
-				file_name = 'ui/package/bg_step_07.png';
+				file_name = 'ui/package/bg_step_03.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -1846,7 +1846,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'stepNode4';
-				file_name = 'ui/package/bg_step_08.png';
+				file_name = 'ui/package/bg_step_04.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

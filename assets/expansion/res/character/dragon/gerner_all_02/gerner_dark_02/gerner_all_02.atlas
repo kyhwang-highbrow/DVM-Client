@@ -1,0 +1,447 @@
+
+gerner_all_02.png
+size: 2033,1717
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+gerner_all_02_arm_01
+  rotate: true
+  xy: 1926, 135
+  size: 116, 98
+  orig: 116, 98
+  offset: 0, 0
+  index: -1
+gerner_all_02_arm_02
+  rotate: false
+  xy: 1936, 681
+  size: 83, 99
+  orig: 83, 99
+  offset: 0, 0
+  index: -1
+gerner_all_02_attack_02
+  rotate: false
+  xy: 848, 2
+  size: 84, 84
+  orig: 84, 84
+  offset: 0, 0
+  index: -1
+gerner_all_02_attack_03
+  rotate: false
+  xy: 708, 459
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+gerner_all_02_attack_04
+  rotate: true
+  xy: 1981, 27
+  size: 51, 48
+  orig: 51, 48
+  offset: 0, 0
+  index: -1
+gerner_all_02_attack_05
+  rotate: false
+  xy: 1967, 1061
+  size: 64, 67
+  orig: 64, 67
+  offset: 0, 0
+  index: -1
+gerner_all_02_attack_06
+  rotate: false
+  xy: 1967, 979
+  size: 61, 80
+  orig: 61, 80
+  offset: 0, 0
+  index: -1
+gerner_all_02_attack_07
+  rotate: true
+  xy: 1958, 586
+  size: 93, 73
+  orig: 93, 73
+  offset: 0, 0
+  index: -1
+gerner_all_02_attack_08
+  rotate: false
+  xy: 1573, 108
+  size: 125, 113
+  orig: 125, 113
+  offset: 0, 0
+  index: -1
+gerner_all_02_attack_09
+  rotate: false
+  xy: 1865, 15
+  size: 114, 116
+  orig: 114, 116
+  offset: 0, 0
+  index: -1
+gerner_all_02_ball_01
+  rotate: false
+  xy: 1753, 665
+  size: 181, 181
+  orig: 181, 181
+  offset: 0, 0
+  index: -1
+gerner_all_02_ball_02
+  rotate: false
+  xy: 1573, 676
+  size: 178, 178
+  orig: 178, 178
+  offset: 0, 0
+  index: -1
+gerner_all_02_body_01
+  rotate: false
+  xy: 1926, 253
+  size: 103, 142
+  orig: 103, 142
+  offset: 0, 0
+  index: -1
+gerner_all_02_body_02
+  rotate: false
+  xy: 1859, 1533
+  size: 172, 182
+  orig: 172, 182
+  offset: 0, 0
+  index: -1
+gerner_all_02_body_03
+  rotate: true
+  xy: 1754, 848
+  size: 280, 131
+  orig: 280, 131
+  offset: 0, 0
+  index: -1
+gerner_all_02_body_04
+  rotate: false
+  xy: 1331, 614
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+gerner_all_02_body_05
+  rotate: true
+  xy: 1569, 19
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+gerner_all_02_ear_01
+  rotate: false
+  xy: 1227, 16
+  size: 86, 55
+  orig: 86, 55
+  offset: 0, 0
+  index: -1
+gerner_all_02_ear_02
+  rotate: true
+  xy: 1409, 882
+  size: 40, 33
+  orig: 40, 33
+  offset: 0, 0
+  index: -1
+gerner_all_02_ear_03
+  rotate: false
+  xy: 651, 459
+  size: 55, 40
+  orig: 55, 40
+  offset: 0, 0
+  index: -1
+gerner_all_02_ear_04
+  rotate: false
+  xy: 1315, 11
+  size: 81, 60
+  orig: 81, 60
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_01
+  rotate: true
+  xy: 1142, 924
+  size: 204, 305
+  orig: 204, 305
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_02
+  rotate: true
+  xy: 656, 876
+  size: 270, 484
+  orig: 270, 484
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_03
+  rotate: false
+  xy: 651, 501
+  size: 372, 373
+  orig: 372, 373
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_04
+  rotate: false
+  xy: 1110, 172
+  size: 327, 327
+  orig: 327, 327
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_05
+  rotate: false
+  xy: 2, 22
+  size: 436, 430
+  orig: 436, 430
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_06
+  rotate: false
+  xy: 2, 1081
+  size: 652, 634
+  orig: 652, 634
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_07
+  rotate: true
+  xy: 1271, 1130
+  size: 585, 586
+  orig: 585, 586
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_08
+  rotate: false
+  xy: 2, 454
+  size: 647, 625
+  orig: 647, 625
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_09
+  rotate: true
+  xy: 1449, 856
+  size: 272, 303
+  orig: 272, 303
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_10
+  rotate: false
+  xy: 1859, 1130
+  size: 128, 127
+  orig: 128, 127
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_11
+  rotate: false
+  xy: 1776, 133
+  size: 148, 262
+  orig: 148, 262
+  offset: 0, 0
+  index: -1
+gerner_all_02_effect_12
+  rotate: false
+  xy: 848, 88
+  size: 260, 411
+  orig: 260, 411
+  offset: 0, 0
+  index: -1
+gerner_all_02_eye_01
+  rotate: false
+  xy: 750, 462
+  size: 34, 37
+  orig: 34, 37
+  offset: 0, 0
+  index: -1
+gerner_all_02_eye_02
+  rotate: false
+  xy: 1700, 108
+  size: 28, 30
+  orig: 28, 30
+  offset: 0, 0
+  index: -1
+gerner_all_02_eye_03
+  rotate: false
+  xy: 1183, 888
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+gerner_all_02_face_01
+  rotate: true
+  xy: 1660, 18
+  size: 88, 83
+  orig: 88, 83
+  offset: 0, 0
+  index: -1
+gerner_all_02_hand_01
+  rotate: true
+  xy: 1967, 915
+  size: 62, 57
+  orig: 62, 57
+  offset: 0, 0
+  index: -1
+gerner_all_02_hand_02
+  rotate: false
+  xy: 1700, 140
+  size: 70, 81
+  orig: 70, 81
+  offset: 0, 0
+  index: -1
+gerner_all_02_hand_04
+  rotate: true
+  xy: 1055, 2
+  size: 69, 83
+  orig: 69, 83
+  offset: 0, 0
+  index: -1
+gerner_all_02_hand_05
+  rotate: true
+  xy: 1981, 80
+  size: 53, 48
+  orig: 53, 48
+  offset: 0, 0
+  index: -1
+gerner_all_02_hand_06
+  rotate: true
+  xy: 1331, 862
+  size: 60, 76
+  orig: 60, 76
+  offset: 0, 0
+  index: -1
+gerner_all_02_hand_08
+  rotate: false
+  xy: 1140, 4
+  size: 85, 67
+  orig: 85, 67
+  offset: 0, 0
+  index: -1
+gerner_all_02_horn_02
+  rotate: false
+  xy: 1585, 532
+  size: 152, 142
+  orig: 152, 142
+  offset: 0, 0
+  index: -1
+gerner_all_02_horn_03
+  rotate: false
+  xy: 934, 2
+  size: 119, 69
+  orig: 119, 69
+  offset: 0, 0
+  index: -1
+gerner_all_02_horn_04
+  rotate: true
+  xy: 1958, 471
+  size: 113, 68
+  orig: 113, 68
+  offset: 0, 0
+  index: -1
+gerner_all_02_horn_05
+  rotate: true
+  xy: 1439, 85
+  size: 120, 128
+  orig: 120, 128
+  offset: 0, 0
+  index: -1
+gerner_all_02_mouth_01
+  rotate: false
+  xy: 1887, 854
+  size: 40, 48
+  orig: 40, 48
+  offset: 0, 0
+  index: -1
+gerner_all_02_stareffect_01
+  rotate: false
+  xy: 656, 1148
+  size: 613, 567
+  orig: 613, 567
+  offset: 0, 0
+  index: -1
+gerner_all_02_stareffect_02
+  rotate: false
+  xy: 1958, 408
+  size: 61, 61
+  orig: 61, 61
+  offset: 0, 0
+  index: -1
+gerner_all_02_starstar
+  rotate: false
+  xy: 440, 33
+  size: 406, 419
+  orig: 406, 419
+  offset: 0, 0
+  index: -1
+gerner_all_02_tooth_01
+  rotate: false
+  xy: 1142, 885
+  size: 39, 37
+  orig: 39, 37
+  offset: 0, 0
+  index: -1
+gerner_all_02_wing_01
+  rotate: false
+  xy: 1439, 207
+  size: 132, 292
+  orig: 132, 292
+  offset: 0, 0
+  index: -1
+gerner_all_02_wing_02
+  rotate: true
+  xy: 1331, 501
+  size: 111, 252
+  orig: 111, 252
+  offset: 0, 0
+  index: -1
+gerner_all_02_wing_03
+  rotate: true
+  xy: 1745, 18
+  size: 113, 118
+  orig: 113, 118
+  offset: 0, 0
+  index: -1
+gerner_all_02_wing_04
+  rotate: false
+  xy: 1573, 223
+  size: 201, 276
+  orig: 201, 276
+  offset: 0, 0
+  index: -1
+gerner_all_02_wing_05
+  rotate: true
+  xy: 1110, 73
+  size: 97, 294
+  orig: 97, 294
+  offset: 0, 0
+  index: -1
+gerner_all_02_wing_06
+  rotate: false
+  xy: 1887, 904
+  size: 78, 224
+  orig: 78, 224
+  offset: 0, 0
+  index: -1
+gerner_all_02_wing_07
+  rotate: false
+  xy: 1936, 782
+  size: 95, 120
+  orig: 95, 120
+  offset: 0, 0
+  index: -1
+gerner_all_02_wing_08
+  rotate: false
+  xy: 1776, 397
+  size: 180, 266
+  orig: 180, 266
+  offset: 0, 0
+  index: -1
+gerner_all_02_wingeffect_01
+  rotate: false
+  xy: 1859, 1259
+  size: 160, 272
+  orig: 160, 272
+  offset: 0, 0
+  index: -1
+gerner_all_02_wingeffect_dust
+  rotate: false
+  xy: 1025, 501
+  size: 304, 373
+  orig: 304, 373
+  offset: 0, 0
+  index: -1
+gerner_all_02_wingeffect_light
+  rotate: true
+  xy: 1398, 13
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1

@@ -4,6 +4,21 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>ingame_btn_arrow_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{28,24}</string>
+                <key>spriteSourceSize</key>
+                <string>{28,24}</string>
+                <key>textureRect</key>
+                <string>{{1516,214},{28,24}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>ingame_btn_auto_0101.png</key>
             <dict>
                 <key>aliases</key>
@@ -330,9 +345,9 @@
                 <key>spriteSourceSize</key>
                 <string>{10,18}</string>
                 <key>textureRect</key>
-                <string>{{1491,390},{10,16}}</string>
+                <string>{{1743,379},{10,16}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_btn_number_9.png</key>
             <dict>
@@ -345,7 +360,7 @@
                 <key>spriteSourceSize</key>
                 <string>{10,18}</string>
                 <key>textureRect</key>
-                <string>{{1743,379},{10,16}}</string>
+                <string>{{1743,397},{10,16}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -495,9 +510,9 @@
                 <key>spriteSourceSize</key>
                 <string>{27,19}</string>
                 <key>textureRect</key>
-                <string>{{1516,214},{27,19}}</string>
+                <string>{{1491,390},{27,19}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_clan_raid.png</key>
             <dict>
@@ -843,7 +858,7 @@
             <key>size</key>
             <string>{1769,414}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:f4beb1d629b3ec999c507bd52470e22f:cd8b4c777658d0469685a967d0c350c7:ce14db38d7e3885d010e29391a279102$</string>
+            <string>$TexturePacker:SmartUpdate:08ef06484619a2261ff05357f5f9d78b:8126a15b7a45631d4cd2b00de9a63332:ce14db38d7e3885d010e29391a279102$</string>
             <key>textureFileName</key>
             <string>ingame_btn.png</string>
         </dict>
