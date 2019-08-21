@@ -35,6 +35,121 @@
 			{
 				[1] =
 				{
+					[1] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						x = 0.000061;
+						y = -0.000061;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 0;
+						height = 0;
+						scale_x = 1.200000;
+						scale_y = 1.200000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'bg/ui/master_road/master_road.vrp';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;idle';
+						color = { 255; 255; 255; };
+						opacity = 255;
+					};
+					[2] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						x = 389.000000;
+						y = 201.999939;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 0;
+						height = 0;
+						scale_x = -0.800000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/a2d/package_montly_02/bg_montly_03.vrp';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;idle';
+						color = { 255; 255; 255; };
+						opacity = 255;
+					};
+					[3] =
+					{
+						type = 'LayerColor';
+						ui_name = '';
+						x = 0.000000;
+						y = -0.000031;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 2;
+						width = 0;
+						height = 640;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						color = { 0; 0; 0; };
+						opacity = 155;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'ClippingNode';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 1480;
+					height = 636;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
+				};
+				type = 'Menu';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1280;
+				height = 640;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+			};
+			[3] =
+			{
+				[1] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
@@ -61,7 +176,7 @@
 					dimension_width = 700;
 					dimension_height = 50;
 					letter_spacing = 0.000000;
-					has_stroke = true;
+					has_stroke = false;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -76,7 +191,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = 5.000000;
+				y = 9.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
@@ -95,7 +210,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[3] =
+			[4] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -119,7 +234,32 @@
 				disable = '';
 				image_type = 0;
 			};
-			[4] =
+			[5] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 0.000000;
+				y = 267.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 0.750000;
+				scale_y = 0.750000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/a2d/result/result.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'res;flare_idle';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -161,9 +301,9 @@
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
-				shadow_distance = 3.000000;
+				shadow_distance = 4.000000;
 			};
-			[5] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -207,7 +347,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[6] =
+			[8] =
 			{
 				[1] =
 				{
@@ -254,13 +394,13 @@
 					visible = true;
 					lua_name = '';
 					color = { 255; 255; 255; };
-					opacity = 255;
+					opacity = 200;
 					src_blend = 770;
 					dest_blend = 771;
 					start_color = { 45; 28; 16; };
 					end_color = { 0; 0; 0; };
-					start_opacity = 255;
-					end_opacity = 255;
+					start_opacity = 200;
+					end_opacity = 200;
 					angle = -90.000000;
 				};
 				[3] =
@@ -523,7 +663,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[7] =
+			[9] =
 			{
 				[1] =
 				{
@@ -570,13 +710,13 @@
 					visible = true;
 					lua_name = '';
 					color = { 255; 255; 255; };
-					opacity = 255;
+					opacity = 200;
 					src_blend = 770;
 					dest_blend = 771;
 					start_color = { 45; 28; 16; };
 					end_color = { 0; 0; 0; };
-					start_opacity = 255;
-					end_opacity = 255;
+					start_opacity = 200;
+					end_opacity = 200;
 					angle = -90.000000;
 				};
 				[3] =
@@ -839,7 +979,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[8] =
+			[10] =
 			{
 				[1] =
 				{
@@ -861,7 +1001,7 @@
 					lua_name = '';
 					file_name = 'ui/frames/base_frame_0101.png';
 					color = { 255; 255; 255; };
-					opacity = 255;
+					opacity = 230;
 					center_rect_x = 0;
 					center_rect_y = 0;
 					center_rect_width = 0;
@@ -1128,15 +1268,15 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 30.000000;
+					x = 17.000000;
 					y = 118.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
+					scale_x = 1.100000;
+					scale_y = 1.100000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -1154,21 +1294,47 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -30.000000;
+					x = -50.000000;
 					y = 80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
+					scale_x = 0.930000;
+					scale_y = 0.930000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
 					file_name = 'ui/icons/item/booster_gold.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[8] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 1.000000;
+					y = -1.000000;
+					dock_point = { 0.000000; 1.000000; };
+					anchor_point = { 0.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 120;
+					height = 80;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/typo/ko/badge_hot.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1193,7 +1359,7 @@
 				visible = true;
 				lua_name = '';
 			};
-			[9] =
+			[11] =
 			{
 				[1] =
 				{
@@ -1215,7 +1381,7 @@
 					lua_name = '';
 					file_name = 'ui/frames/base_frame_0101.png';
 					color = { 255; 255; 255; };
-					opacity = 255;
+					opacity = 230;
 					center_rect_x = 0;
 					center_rect_y = 0;
 					center_rect_width = 0;
@@ -1482,15 +1648,15 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 30.000000;
+					x = 17.000000;
 					y = 118.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
+					scale_x = 1.100000;
+					scale_y = 1.100000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -1508,21 +1674,47 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -30.000000;
+					x = -50.000000;
 					y = 80.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
+					scale_x = 0.900000;
+					scale_y = 0.900000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
 					file_name = 'ui/icons/item/booster_exp.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[8] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 1.000000;
+					y = -1.000000;
+					dock_point = { 0.000000; 1.000000; };
+					anchor_point = { 0.000000; 1.000000; };
+					relative_size_type = 0;
+					width = 120;
+					height = 80;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/typo/ko/badge_hot.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;

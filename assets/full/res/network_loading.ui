@@ -8,7 +8,7 @@
 			type = 'Visual';
 			ui_name = '';
 			x = 50.000000;
-			y = 60.000000;
+			y = 57.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -24,7 +24,7 @@
 			file_name = 'ui/a2d/loading/loading.vrp';
 			auto_play = true;
 			is_repeat = true;
-			visual_id = 'group;loading';
+			visual_id = 'group;loading_egg';
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
@@ -33,7 +33,7 @@
 			type = 'LabelTTF';
 			ui_name = '';
 			x = 0.000000;
-			y = -60.000000;
+			y = -88.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -113,7 +113,7 @@
 			type = 'Button';
 			ui_name = '';
 			x = 0.000000;
-			y = -124.000000;
+			y = -156.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;

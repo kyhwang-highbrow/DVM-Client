@@ -439,6 +439,56 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
+			[10] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 90;
+				height = 99;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'dragNotSprite';
+				file_name = 'ui/a2d/ingame_panel/ingame_panel_drag_mute_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[11] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 90;
+				height = 99;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'dragNotBtn';
+				enable = true;
+				normal = 'ui/a2d/ingame_panel/ingame_panel_drag_mute_0102.png';
+				selected = 'ui/a2d/ingame_panel/ingame_panel_drag_mute_0102.png';
+				disable = 'ui/a2d/ingame_panel/ingame_panel_drag_mute_0102.png';
+				image_type = 0;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -482,6 +532,16 @@
 			{
 				type = 'SocketNode';
 				socket_name = 'ingame_panel_mana_slot_5';
+			};
+			[6] =
+			{
+				type = 'SocketNode';
+				socket_name = 'ingame_panel_mana_slot_6';
+			};
+			[7] =
+			{
+				type = 'SocketNode';
+				socket_name = 'ingame_panel_mana_slot_7';
 			};
 			type = 'Visual';
 			ui_name = '';

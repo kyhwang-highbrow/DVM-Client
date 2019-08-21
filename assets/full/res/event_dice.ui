@@ -735,7 +735,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 336;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -745,13 +745,13 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 23;
 					text = '완주 누적 보상';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 235; 255; 190; };
 					opacity = 255;
-					dimension_width = 300;
+					dimension_width = 336;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -1488,12 +1488,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -60.000000;
+					x = -38.000000;
 					y = 60.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 320;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1509,7 +1509,7 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 300;
+					dimension_width = 320;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1528,12 +1528,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -60.000000;
+					x = -38.000000;
 					y = 30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 320;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1549,7 +1549,7 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 300;
+					dimension_width = 320;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1568,12 +1568,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -60.000000;
+					x = -38.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 320;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1589,7 +1589,7 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 300;
+					dimension_width = 320;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1608,12 +1608,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -60.000000;
+					x = -38.000000;
 					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 320;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1623,13 +1623,13 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 21;
 					text = '탐험 1회 완료';
 					h_alignment = 2;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 300;
+					dimension_width = 320;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1637,9 +1637,9 @@
 					stroke_detail_level = 0;
 					is_sharp_text = true;
 					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
+					stroke_color = { 40; 40; 40; };
 					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
+					shadow_color = { 40; 40; 40; };
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
@@ -1648,7 +1648,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -23.000000;
+					x = -6.000000;
 					y = 60.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -1688,7 +1688,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -23.000000;
+					x = -6.000000;
 					y = 30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -1728,7 +1728,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -23.000000;
+					x = -6.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -1768,7 +1768,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -23.000000;
+					x = -6.000000;
 					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -1808,12 +1808,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
-					x = 96.000000;
+					x = 113.000000;
 					y = 60.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 260;
+					width = 240;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1829,7 +1829,7 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 260;
+					dimension_width = 240;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1848,12 +1848,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
-					x = 96.000000;
+					x = 113.000000;
 					y = 30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 260;
+					width = 240;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1869,7 +1869,7 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 260;
+					dimension_width = 240;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1888,12 +1888,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
-					x = 96.000000;
+					x = 113.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 260;
+					width = 240;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1909,7 +1909,7 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 260;
+					dimension_width = 240;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -1928,12 +1928,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
-					x = 96.000000;
+					x = 113.000000;
 					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 260;
+					width = 240;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1949,7 +1949,7 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 260;
+					dimension_width = 240;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -2008,7 +2008,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -42.000000;
+					x = -22.000000;
 					y = 60.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -2034,7 +2034,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -42.000000;
+					x = -22.000000;
 					y = 30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -2060,7 +2060,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -42.000000;
+					x = -22.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -2086,7 +2086,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -42.000000;
+					x = -22.000000;
 					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };

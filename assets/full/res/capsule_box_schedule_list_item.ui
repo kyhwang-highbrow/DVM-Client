@@ -156,7 +156,7 @@
 				visible = true;
 				lua_name = 'titleLegendLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
+				font_size = 20;
 				text = 'titleLegendLabel';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -515,9 +515,9 @@
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 998;
-				height = 123;
+				relative_size_type = 3;
+				width = 0;
+				height = -2;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -537,7 +537,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1000;
+			width = 1020;
 			height = 125;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

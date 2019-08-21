@@ -1,0 +1,321 @@
+
+maldek_light_03.png
+size: 1857,194
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+maldek_light_arm_l
+  rotate: true
+  xy: 1061, 6
+  size: 53, 102
+  orig: 53, 102
+  offset: 0, 0
+  index: -1
+maldek_light_arm_l_deco
+  rotate: true
+  xy: 972, 4
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+maldek_light_arm_r
+  rotate: true
+  xy: 514, 2
+  size: 46, 105
+  orig: 46, 105
+  offset: 0, 0
+  index: -1
+maldek_light_arm_r_deco
+  rotate: false
+  xy: 1759, 108
+  size: 46, 35
+  orig: 46, 35
+  offset: 0, 0
+  index: -1
+maldek_light_body
+  rotate: true
+  xy: 503, 50
+  size: 142, 139
+  orig: 142, 139
+  offset: 0, 0
+  index: -1
+maldek_light_body_deco_01
+  rotate: true
+  xy: 1811, 113
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+maldek_light_body_deco_02
+  rotate: false
+  xy: 1021, 5
+  size: 38, 54
+  orig: 38, 54
+  offset: 0, 0
+  index: -1
+maldek_light_body_deco_03
+  rotate: true
+  xy: 375, 2
+  size: 23, 41
+  orig: 23, 41
+  offset: 0, 0
+  index: -1
+maldek_light_book_01
+  rotate: false
+  xy: 644, 61
+  size: 302, 131
+  orig: 302, 131
+  offset: 0, 0
+  index: -1
+maldek_light_book_02
+  rotate: true
+  xy: 1167, 67
+  size: 125, 67
+  orig: 125, 67
+  offset: 0, 0
+  index: -1
+maldek_light_book_03
+  rotate: false
+  xy: 375, 27
+  size: 126, 165
+  orig: 126, 165
+  offset: 0, 0
+  index: -1
+maldek_light_book_ef_01
+  rotate: false
+  xy: 1457, 84
+  size: 108, 108
+  orig: 108, 108
+  offset: 0, 0
+  index: -1
+maldek_light_book_ef_02
+  rotate: false
+  xy: 1565, 6
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+maldek_light_book_ef_03
+  rotate: false
+  xy: 1643, 7
+  size: 84, 89
+  orig: 84, 89
+  offset: 0, 0
+  index: -1
+maldek_light_book_ef_04
+  rotate: false
+  xy: 1263, 3
+  size: 70, 71
+  orig: 70, 71
+  offset: 0, 0
+  index: -1
+maldek_light_eye_01
+  rotate: false
+  xy: 418, 4
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_light_eye_02
+  rotate: false
+  xy: 450, 4
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_light_eye_03
+  rotate: false
+  xy: 482, 4
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_light_eye_04
+  rotate: false
+  xy: 1722, 107
+  size: 30, 20
+  orig: 30, 20
+  offset: 0, 0
+  index: -1
+maldek_light_hair
+  rotate: true
+  xy: 1759, 145
+  size: 47, 50
+  orig: 47, 50
+  offset: 0, 0
+  index: -1
+maldek_light_hand_l
+  rotate: false
+  xy: 1694, 129
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: -1
+maldek_light_hand_r
+  rotate: true
+  xy: 836, 4
+  size: 55, 77
+  orig: 55, 77
+  offset: 0, 0
+  index: -1
+maldek_light_head_01
+  rotate: true
+  xy: 1236, 76
+  size: 116, 107
+  orig: 116, 107
+  offset: 0, 0
+  index: -1
+maldek_light_head_02
+  rotate: false
+  xy: 1335, 5
+  size: 51, 69
+  orig: 51, 69
+  offset: 0, 0
+  index: -1
+maldek_light_head_deco
+  rotate: true
+  xy: 1811, 150
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+maldek_light_leg_l_01
+  rotate: true
+  xy: 1165, 6
+  size: 53, 96
+  orig: 53, 96
+  offset: 0, 0
+  index: -1
+maldek_light_leg_l_02
+  rotate: true
+  xy: 794, 2
+  size: 57, 40
+  orig: 57, 40
+  offset: 0, 0
+  index: -1
+maldek_light_leg_l_03
+  rotate: true
+  xy: 667, 2
+  size: 57, 82
+  orig: 57, 82
+  offset: 0, 0
+  index: -1
+maldek_light_leg_l_deco
+  rotate: false
+  xy: 1754, 64
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+maldek_light_leg_r_01
+  rotate: false
+  xy: 1516, 3
+  size: 47, 79
+  orig: 47, 79
+  offset: 0, 0
+  index: -1
+maldek_light_leg_r_02
+  rotate: false
+  xy: 1798, 44
+  size: 41, 33
+  orig: 41, 33
+  offset: 0, 0
+  index: -1
+maldek_light_leg_r_03
+  rotate: false
+  xy: 1467, 2
+  size: 47, 80
+  orig: 47, 80
+  offset: 0, 0
+  index: -1
+maldek_light_leg_r_deco
+  rotate: false
+  xy: 1729, 2
+  size: 35, 40
+  orig: 35, 40
+  offset: 0, 0
+  index: -1
+maldek_light_mouth
+  rotate: true
+  xy: 751, 2
+  size: 57, 41
+  orig: 57, 41
+  offset: 0, 0
+  index: -1
+maldek_light_tail
+  rotate: false
+  xy: 2, 3
+  size: 143, 189
+  orig: 143, 189
+  offset: 0, 0
+  index: -1
+maldek_light_tail_2
+  rotate: false
+  xy: 1694, 101
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+maldek_light_tail_deco
+  rotate: false
+  xy: 1567, 87
+  size: 29, 105
+  orig: 29, 105
+  offset: 0, 0
+  index: -1
+maldek_light_tail_deco_01
+  rotate: false
+  xy: 915, 4
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+maldek_light_tail_deco_02
+  rotate: false
+  xy: 1807, 79
+  size: 43, 32
+  orig: 43, 32
+  offset: 0, 0
+  index: -1
+maldek_light_tail_deco_03
+  rotate: false
+  xy: 621, 2
+  size: 44, 46
+  orig: 44, 46
+  offset: 0, 0
+  index: -1
+maldek_light_wing_ef_01
+  rotate: false
+  xy: 1345, 82
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
+maldek_light_wing_ef_02
+  rotate: false
+  xy: 1388, 2
+  size: 77, 78
+  orig: 77, 78
+  offset: 0, 0
+  index: -1
+maldek_light_wing_ef_03
+  rotate: false
+  xy: 1598, 98
+  size: 94, 94
+  orig: 94, 94
+  offset: 0, 0
+  index: -1
+maldek_light_wing_l
+  rotate: true
+  xy: 147, 6
+  size: 186, 226
+  orig: 186, 226
+  offset: 0, 0
+  index: -1
+maldek_light_wing_r
+  rotate: true
+  xy: 948, 61
+  size: 131, 217
+  orig: 131, 217
+  offset: 0, 0
+  index: -1

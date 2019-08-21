@@ -40,7 +40,7 @@
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 416;
+				width = 540;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -50,13 +50,13 @@
 				visible = true;
 				lua_name = 'questLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 21;
+				font_size = 20;
 				text = 'questLabel';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 416;
+				dimension_width = 540;
 				dimension_height = 60;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -577,7 +577,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 20;
 					text = '칭호 획득';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -617,7 +617,7 @@
 					visible = true;
 					lua_name = 'titleLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 22;
 					text = '바이델 외곽 숲의 구원자';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -640,12 +640,12 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 105.000000;
+				x = 163.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 420;
+				width = 300;
 				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;

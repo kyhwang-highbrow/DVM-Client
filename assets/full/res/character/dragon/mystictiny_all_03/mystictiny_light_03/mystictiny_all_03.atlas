@@ -1,0 +1,321 @@
+
+mystictiny_all_03.png
+size: 1856,453
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mystictiny_all_03_arm_01
+  rotate: true
+  xy: 1752, 61
+  size: 79, 53
+  orig: 79, 53
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_arm_02
+  rotate: false
+  xy: 626, 11
+  size: 48, 66
+  orig: 48, 66
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_arm_03
+  rotate: true
+  xy: 896, 87
+  size: 114, 68
+  orig: 114, 68
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_backeffect_01
+  rotate: false
+  xy: 2, 14
+  size: 437, 437
+  orig: 437, 437
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_backeffect_02
+  rotate: false
+  xy: 966, 218
+  size: 234, 233
+  orig: 234, 233
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_backeffect_03
+  rotate: false
+  xy: 441, 197
+  size: 257, 254
+  orig: 257, 254
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_body_01
+  rotate: true
+  xy: 1202, 241
+  size: 210, 270
+  orig: 210, 270
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_bug_01
+  rotate: true
+  xy: 1731, 175
+  size: 55, 64
+  orig: 55, 64
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_bug_02
+  rotate: false
+  xy: 1789, 296
+  size: 54, 64
+  orig: 54, 64
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_cape_01
+  rotate: true
+  xy: 700, 98
+  size: 103, 194
+  orig: 103, 194
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_cape_02
+  rotate: true
+  xy: 1474, 133
+  size: 318, 172
+  orig: 318, 172
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_ear_01
+  rotate: true
+  xy: 1648, 334
+  size: 117, 104
+  orig: 117, 104
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_ear_02
+  rotate: false
+  xy: 545, 11
+  size: 79, 66
+  orig: 79, 66
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_effect_01
+  rotate: true
+  xy: 1336, 11
+  size: 57, 106
+  orig: 57, 106
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_effect_02
+  rotate: false
+  xy: 441, 80
+  size: 121, 115
+  orig: 121, 115
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_effect_03
+  rotate: false
+  xy: 1197, 5
+  size: 76, 63
+  orig: 76, 63
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_01
+  rotate: true
+  xy: 1160, 84
+  size: 43, 36
+  orig: 43, 36
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_02
+  rotate: false
+  xy: 1160, 45
+  size: 35, 37
+  orig: 35, 37
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_03
+  rotate: true
+  xy: 1160, 129
+  size: 40, 39
+  orig: 40, 39
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_04
+  rotate: true
+  xy: 943, 2
+  size: 30, 36
+  orig: 30, 36
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_05
+  rotate: true
+  xy: 981, 2
+  size: 30, 31
+  orig: 30, 31
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_06
+  rotate: true
+  xy: 1731, 142
+  size: 31, 32
+  orig: 31, 32
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_07
+  rotate: false
+  xy: 1014, 3
+  size: 36, 29
+  orig: 36, 29
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_08
+  rotate: false
+  xy: 1444, 41
+  size: 25, 27
+  orig: 25, 27
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_act_01
+  rotate: false
+  xy: 1789, 241
+  size: 61, 53
+  orig: 61, 53
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_eye_act_02
+  rotate: true
+  xy: 1806, 2
+  size: 57, 47
+  orig: 57, 47
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_face_01
+  rotate: true
+  xy: 678, 3
+  size: 93, 104
+  orig: 93, 104
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_facelight_01
+  rotate: true
+  xy: 1752, 8
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_hat_01
+  rotate: false
+  xy: 1202, 70
+  size: 267, 169
+  orig: 267, 169
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_hat_02
+  rotate: false
+  xy: 1471, 5
+  size: 279, 126
+  orig: 279, 126
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_hatstar_01
+  rotate: false
+  xy: 1797, 187
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_lantern_01
+  rotate: false
+  xy: 784, 14
+  size: 101, 82
+  orig: 101, 82
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_lantern_02
+  rotate: true
+  xy: 1160, 171
+  size: 45, 39
+  orig: 45, 39
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_lantern_03
+  rotate: true
+  xy: 1807, 130
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_lantern_light_01
+  rotate: true
+  xy: 966, 34
+  size: 182, 192
+  orig: 182, 192
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_lantern_light_02
+  rotate: true
+  xy: 700, 203
+  size: 248, 264
+  orig: 248, 264
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_leg_01
+  rotate: true
+  xy: 1648, 232
+  size: 100, 139
+  orig: 100, 139
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_leg_02
+  rotate: false
+  xy: 564, 79
+  size: 112, 116
+  orig: 112, 116
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_mouth_01
+  rotate: false
+  xy: 1052, 4
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_mouth_02
+  rotate: false
+  xy: 1160, 10
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_shoulder_01
+  rotate: false
+  xy: 441, 2
+  size: 102, 76
+  orig: 102, 76
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_shoulder_02
+  rotate: false
+  xy: 1648, 149
+  size: 81, 81
+  orig: 81, 81
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_star_01
+  rotate: true
+  xy: 1754, 362
+  size: 89, 84
+  orig: 89, 84
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_star_02
+  rotate: false
+  xy: 1275, 9
+  size: 59, 59
+  orig: 59, 59
+  offset: 0, 0
+  index: -1
+mystictiny_all_03_sweat_01
+  rotate: true
+  xy: 887, 4
+  size: 81, 54
+  orig: 81, 54
+  offset: 0, 0
+  index: -1
