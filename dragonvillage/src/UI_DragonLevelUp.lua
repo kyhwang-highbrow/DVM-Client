@@ -161,8 +161,7 @@ function UI_DragonLevelUp:refreshDagonFoodMenu()
     vars['numLabel']:setString(comma_value(self.m_dragonFoodCnt))
 
     local dragon_food_cnt = g_userData:get('dragon_food')
-    local use_food_cnt = dragon_food_cnt - self.m_dragonFoodCnt
-    local item_str = Str('{1}개', comma_value(use_food_cnt))
+    local item_str = Str('{1}개', comma_value(dragon_food_cnt))
     vars['itemLabel']:setString(item_str)
 end
 
@@ -768,7 +767,7 @@ function UI_DragonLevelUp:countDagonFood(cnt)
     local helper = self.m_dragonLevelUpUIHelper
 
     if (cnt > 0) then
-        if (used_dragonFood > dragonFood) then
+        if (used_dragonFood + cnt > dragonFood) then
             UIManager:toastNotificationRed(Str('드래곤 먹이가 부족합니다.', MAX_DRAGON_LEVELUP_MATERIAL_MAX))
             return
         end
@@ -826,6 +825,12 @@ end
 -------------------------------------
 function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
     if (self.m_dragonFoodCnt == 0) then
+        return
+    end
+
+    local dragon_food_cnt = g_userData:get('dragon_food') 
+    if (self.m_dragonFoodCnt > dragon_food_cnt) then
+        UIManager:toastNotificationRed(Str('재료가 부족합니다.'))
         return
     end
 
