@@ -130,6 +130,20 @@ static AppDelegate s_sharedApplication;
 #else
     isDebug = false;
 #endif
+    
+    // Adjust의 Sandbox Mode설정 여부
+    // iOS Live빌드일 경우 Sadnbox Mode를 off하기 위해 adjust의 debug를 false로 설정한다.
+    // sgkim 20190821
+    BOOL isDebugAdjust;
+#ifdef TARGET_SERVER
+    if (TARGET_SERVER == SERVER_LIVE)
+        isDebugAdjust = false;
+    else
+        isDebugAdjust = isDebug;
+#else
+    isDebugAdjust = isDebug;
+#endif
+    
 
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID parentView:viewController];
@@ -141,7 +155,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
     [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID neoIdConsumerKey:NAVER_NEO_ID_CONSUMER_KEY communityId:NAVER_COMMUNITY_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
-    [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID secret:adjustSecretKey debug:isDebug];
+    [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID secret:adjustSecretKey debug:isDebugAdjust];
     [[PerpleSDK sharedInstance] initAdMobWithAppId:ADMOB_APP_ID];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     cocos2d::Application::getInstance()->run();
