@@ -514,6 +514,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['illusion_token_01'] then
             self:applyServerData(ret['illusion_token_01'], 'user', 'event_illusion')
         end
+
+        -- 드래곤의 먹이
+        if ret['dragon_food'] then
+            self:applyServerData(ret['dragon_food'], 'user', 'dragon_food')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -663,6 +668,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
    
     -- 전설 특성재료
     RefreshGoods(t_added_items, 'mastery_material_04')
+
+    -- 드래곤의 먹이
+    RefreshGoods(t_added_items, 'dragon_food')
    
 
     -- 드래곤 (추가)
