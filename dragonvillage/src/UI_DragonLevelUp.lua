@@ -185,10 +185,14 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonLevelUp:refresh()
+
     if self.m_selectDragonOID then
         self.m_dragonLevelUpUIHelper = UI_DragonLevelUpHelper(self.m_selectDragonOID, MAX_DRAGON_LEVELUP_MATERIAL_MAX)
     end
 
+    self.m_dragonFoodCnt = 0
+    self:refreshDagonFoodMenu()
+    
     self:refresh_dragonInfo()
     self:refresh_selectedMaterial()
     
