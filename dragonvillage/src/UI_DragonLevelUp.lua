@@ -836,6 +836,8 @@ function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
 
         if (prev_lv == curr_lv) then
             self:response_levelup(ret, bonus_rate)
+            self.m_dragonFoodCnt = 0
+            self:refreshDagonFoodMenu()
         else
             -- 드래곤 성장일지 : 드래곤 등급, 레벨 체크
             local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['modified_dragon'])
@@ -850,13 +852,11 @@ function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
             local ui = UI_DragonLevelupResult(StructDragonObject(ret['modified_dragon']), prev_lv, prev_exp, bonus_rate)
             local function close_cb()
                 self:response_levelup(ret)
+                self.m_dragonFoodCnt = 0
+                self:refreshDagonFoodMenu()
             end
             ui:setCloseCB(close_cb)
         end
-
-        self.m_dragonFoodCnt = 0
-        self:refreshDagonFoodMenu()
-
     end
 
     local uid = g_userData:get('uid')
