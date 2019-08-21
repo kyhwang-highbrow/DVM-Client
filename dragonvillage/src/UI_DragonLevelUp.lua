@@ -1,8 +1,8 @@
 local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 local MAX_DRAGON_LEVELUP_MATERIAL_MAX = 30 -- 한 번에 사용 가능한 재료 수
 
-local USED_DRAGON_FOOD = 100
-local DRAGON_FOOD_EXP = 9000
+local DRAGON_FOOD_EXP = 20000
+local DRAGON_FOOD_GOLD = 2500
 
 local L_LEVELUP_MTL = {}
 L_LEVELUP_MTL.FOOD = 'food_lvup'
@@ -14,7 +14,7 @@ L_LEVELUP_MTL.DRAGON = 'dragon_lvup'
 UI_DragonLevelUp = class(PARENT,{
         m_dragonLevelUpUIHelper = 'UI_DragonLevelUpHelper',
 
-        m_dragonFoodPackCnt = 'number',
+        m_dragonFoodCnt = 'number',
     })
 
 -------------------------------------
@@ -27,8 +27,6 @@ function UI_DragonLevelUp:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = Str('드래곤 레벨업')
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
-
-    self.m_dragonFoodPackCnt = 0
 end
 
 -------------------------------------
@@ -125,10 +123,10 @@ function UI_DragonLevelUp:onChangeTab(tab, first)
         self:setFoodMenu(false)
         
         -- 기존 선택된 자수정 리셋
-        self.m_dragonFoodPackCnt = 0
-        self:refreshDagonFoodMenu()
+        self.m_dragonFoodCnt = 0
     end
     
+    self:refreshDagonFoodMenu()
     self:refresh()
 end
 
@@ -137,7 +135,8 @@ end
 -------------------------------------
 function UI_DragonLevelUp:initDagonFoodMenu()
     local vars = self.vars
-
+    self.m_dragonFoodCnt = 0
+    
     local item_card = UI_ItemCard(700016) -- 드래곤 먹이 아이템
     vars['itemNode']:addChild(item_card.root)
 
@@ -148,8 +147,10 @@ function UI_DragonLevelUp:initDagonFoodMenu()
     vars['plusBtn']:registerScriptTapHandler(function() self:countDagonFood(1) end)
     vars['minusBtn']:registerScriptTapHandler(function() self:countDagonFood(-1) end)
 
+    vars['foodShopBtn']:registerScriptTapHandler(function() self:buyDragonFood() end)
+
     vars['numLabel']:setString(0)
-    vars['expLabel2']:setString('0 exp')
+    vars['expLabel2']:setVisible(false)
 end
 
 -------------------------------------
@@ -158,12 +159,11 @@ end
 function UI_DragonLevelUp:refreshDagonFoodMenu()
     local vars = self.vars
 
-    vars['numLabel']:setString(comma_value(self.m_dragonFoodPackCnt))
+    vars['numLabel']:setString(comma_value(self.m_dragonFoodCnt))
 
-    -- 100 자수정은 9000 exp
-    local dragonFood_count = self.m_dragonFoodPackCnt * DRAGON_FOOD_EXP
-    local exp_str = comma_value(dragonFood_count) .. ' exp'
-    vars['expLabel2']:setString(exp_str)
+    local dragon_food_cnt = g_userData:get('dragon_food')
+    local item_str = Str('드래곤 먹이') .. '\n' .. dragon_food_cnt
+    vars['itemLabel']:setString(item_str)
 end
 
 -------------------------------------
@@ -464,12 +464,19 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
     -- 레벨업 가능 여부에 따라 문구 변경
     local price = ''
     local info_str = ''
-    if (g_dragonsData:possibleDragonLevelUp(doid)) then
-        price = comma_value(helper.m_price)
-        info_str = Str('TIP. 대상 드래곤의 친밀도가 높으면 보너스 경험치 획득 확률이 높아져요')
+
+    -- 드래곤 먹이를 사용할 경우 소모 골드 표시
+    if (self.m_currTab == L_LEVELUP_MTL.FOOD) then
+        price = comma_value(self.m_dragonFoodCnt * DRAGON_FOOD_GOLD)
+        info_str = ''
     else
-        price = Str('불가')
-        info_str = Str('TIP. 승급을 하면 레벨을 올릴 수 있습니다.')
+        if (g_dragonsData:possibleDragonLevelUp(doid)) then
+            price = comma_value(helper.m_price)
+            info_str = Str('TIP. 대상 드래곤의 친밀도가 높으면 보너스 경험치 획득 확률이 높아져요')
+        else
+            price = Str('불가')
+            info_str = Str('TIP. 승급을 하면 레벨을 올릴 수 있습니다.')
+        end
     end
     vars['priceLabel']:setString(price)
     vars['infoLabel']:setString(info_str)
@@ -752,12 +759,12 @@ end
 -- function countDagonFood
 -------------------------------------
 function UI_DragonLevelUp:countDagonFood(cnt)
-    local dragonFood = g_userData:get('amethyst')
-    local used_dragonFood = self.m_dragonFoodPackCnt * USED_DRAGON_FOOD
+    local dragonFood = g_userData:get('dragon_food')
+    local used_dragonFood = self.m_dragonFoodCnt
     local helper = self.m_dragonLevelUpUIHelper
 
     if (cnt > 0) then
-        if (used_dragonFood + USED_DRAGON_FOOD > dragonFood) then
+        if (used_dragonFood > dragonFood) then
             UIManager:toastNotificationRed(Str('드래곤 먹이가 부족합니다.', MAX_DRAGON_LEVELUP_MATERIAL_MAX))
             return
         end
@@ -777,7 +784,7 @@ function UI_DragonLevelUp:countDagonFood(cnt)
     end
 
 
-    self.m_dragonFoodPackCnt = self.m_dragonFoodPackCnt + cnt
+    self.m_dragonFoodCnt = self.m_dragonFoodCnt + cnt
     self:refreshDagonFoodMenu()
 
     helper:addExp(cnt * DRAGON_FOOD_EXP)
@@ -799,10 +806,27 @@ function UI_DragonLevelUp:setFoodMenu(is_enable)
 end
 
 -------------------------------------
+-- function buyDragonFood
+-------------------------------------
+function UI_DragonLevelUp:buyDragonFood()
+    -- 드래곤 먹이 product_struct
+    local product_struct = g_shopDataNew:getProduct('amethyst', 220026)
+
+    local ok_cb = function()
+        product_struct:buy(function(ret) 
+            ItemObtainResult_Shop(ret) 
+            self:refreshDagonFoodMenu()
+        end)
+        
+    end
+    UI_BundlePopup(product_struct, ok_cb)
+end
+
+-------------------------------------
 -- function click_dragonFoodLevelupBtn
 -------------------------------------
 function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
-    if (self.m_dragonFoodPackCnt == 0) then
+    if (self.m_dragonFoodCnt == 0) then
         return
     end
 
@@ -835,7 +859,7 @@ function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
             ui:setCloseCB(close_cb)
         end
 
-        self.m_dragonFoodPackCnt = 0
+        self.m_dragonFoodCnt = 0
         self:refreshDagonFoodMenu()
 
     end
@@ -845,13 +869,13 @@ function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
 
     local src_doids = ''
     local src_soids = ''
-    local dragonFood = self.m_dragonFoodPackCnt * USED_DRAGON_FOOD
+    local dragon_food = self.m_dragonFoodCnt
 
     local ui_network = UI_Network()
     ui_network:setUrl('/dragons/levelup')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
-    ui_network:setParam('amethyst', dragonFood)
+    ui_network:setParam('food_cnt', dragon_food)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
