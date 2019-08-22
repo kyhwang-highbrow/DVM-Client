@@ -1608,12 +1608,8 @@ end
 function UI_Lobby:update_rightButtons()
     local vars = self.vars
     
-    -- 드빌 전용관은 한국서버에서만 노출
-    if g_localData:isShowHighbrowShop() then
-        vars['capsuleBtn']:setVisible(true)
-    else
-        vars['capsuleBtn']:setVisible(false)
-    end
+    -- 190822 @jhakim 로비 정리로 드빌전용관 노출 x
+    vars['capsuleBtn']:setVisible(false)
 
     -- 교환소 버튼 (수집 이벤트)
     if g_hotTimeData:isActiveEvent('event_exchange') then
@@ -1716,6 +1712,14 @@ function UI_Lobby:update_rightButtons()
         local is_noti = g_adventureClearPackageData:isVisible_adventureClearPackNoti()
         vars['adventureClearNotiSprite']:setVisible(is_noti)
     end
+
+    -- 마녀의 상점
+    local is_random_shop_open = g_contentLockData:isContentLock('random_shop')
+    vars['randomShopBtn']:setVisible(is_random_shop_opne)
+
+    -- 일일 상점
+    local is_daily_shop_open = g_contentLockData:isContentLock('daily_shop')
+    vars['dailyShopBtn']:setVisible(is_random_shop_opne)
 
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}
