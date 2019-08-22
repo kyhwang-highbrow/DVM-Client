@@ -203,8 +203,8 @@ function UI_QuestPopup:makeContentsQuest(tab, node)
 
         -- 퀘스트 정렬 기준
         local function sort_func(a, b)
-            local a_value = tonumber(a['req_stage_id']) or 0
-            local b_value = tonumber(b['req_stage_id']) or 0
+            local a_value = tonumber(a['id']) or 0
+            local b_value = tonumber(b['id']) or 0
             return a_value < b_value
         end
 

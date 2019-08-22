@@ -1780,9 +1780,12 @@ function UI_Lobby:update_bottomLeftButtons()
     local is_content_lock = g_contentLockData:isContentLock('forest')
     if (not is_content_lock) then
         table.insert(t_btn_name, 'forestBtn')
+        vars['forestBtn']:setVisible(true)
+    else
+        vars['forestBtn']:setVisible(false)
     end 
     table.insert(t_btn_name, 'tamerBtn')
-   table.insert(t_btn_name, 'dragonManageBtn')
+    table.insert(t_btn_name, 'dragonManageBtn')
     
     -- visible이 켜진 버튼들 리스트
     local l_btn_list = {}

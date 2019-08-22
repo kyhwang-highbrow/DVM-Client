@@ -56,9 +56,12 @@ function UI_QuestListItem_Contents:initUI()
 
     -- 컨텐츠 열리는 조건
     local req_stage_id = data['req_stage_id']
-    local difficulty, chapter, stage = parseAdventureID(req_stage_id)
-    local stage_name = chapter .. '-' .. stage
-    local condition_str = Str(data['t_desc'], stage_name, '') 
+    local condition_str = data['t_desc']
+    if (req_stage_id ~= '') then
+        local difficulty, chapter, stage = parseAdventureID(req_stage_id)
+        local stage_name = chapter .. '-' .. stage
+        condition_str = Str(data['t_desc'], stage_name, '') 
+    end
     vars['conditionLabel']:setString(Str(condition_str))
 
     -- 컨텐츠 이미지
@@ -164,6 +167,14 @@ end
 -- function isRewardable
 -------------------------------------
 function UI_QuestListItem_Contents.isRewardable(content_name, req_stage)
+    if (not req_stage) then
+        return false
+    end
+
+    if (req_stage == '') then
+        return false
+    end
+
     local is_available = g_adventureData:isClearStage(req_stage)
     local is_lock = g_contentLockData:isContentLock(content_name)
 
@@ -176,6 +187,14 @@ end
 -- function isRewardAfter
 -------------------------------------
 function UI_QuestListItem_Contents.isRewardAfter(content_name, req_stage)
+    if (not req_stage) then
+        return false
+    end
+
+    if (req_stage == '') then
+        return false
+    end
+
     local is_available = g_adventureData:isClearStage(req_stage)
     local is_lock = g_contentLockData:isContentLock(content_name)
 
@@ -188,6 +207,14 @@ end
 -- function isRewardBefore
 -------------------------------------
 function UI_QuestListItem_Contents.isRewardBefore(content_name, req_stage)
+    if (not req_stage) then
+        return false
+    end
+
+    if (req_stage == '') then
+        return false
+    end
+
     local is_available = g_adventureData:isClearStage(req_stage)
     local is_lock = g_contentLockData:isContentLock(content_name)
 
