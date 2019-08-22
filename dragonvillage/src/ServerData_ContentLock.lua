@@ -257,3 +257,39 @@ function ServerData_ContentLock:getOpenContentDesc(content_name)
 
     return open_desc
 end
+
+-------------------------------------
+-- function request_contentsOpenReward
+-------------------------------------
+function ServerData_ContentLock:request_contentsOpenReward(content_name, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        if (ret['content_unlock_list']) then
+            self:applyContentLockByStage(ret['content_unlock_list'])
+        end
+        
+        if (finish_cb) then
+            finish_cb()
+        end
+    end
+
+    -- 콜백 함수
+    local function fail_cb(ret)
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/content/unlock')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('content_name', content_name) -- adventrue(모험)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
