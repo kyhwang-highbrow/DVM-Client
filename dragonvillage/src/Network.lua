@@ -355,7 +355,7 @@ end
 -- function Network_login
 -- @breif 로그인
 -------------------------------------
-function Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
+function Network_login(uid, nickname, device_info_json, advertising_id, success_cb, fail_cb)
     -- 파라미터 셋팅
     local t_data = {}
     t_data['uid'] = uid
@@ -369,6 +369,7 @@ function Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
 
     t_data['os'] = os
 	t_data['market'] = market
+    t_data['adid'] = advertising_id -- 광고 식별자 idfa or gps_adid
 
     -- 단말 정보 추가
     for key,value in pairs(device_info_json) do

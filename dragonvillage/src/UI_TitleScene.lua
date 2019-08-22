@@ -820,6 +820,7 @@ function UI_TitleScene:workGameLogin()
     
     local naver_cafe_sync_uid   -- 네이버 카페(PLUG) uid 동기화
     local get_device_info       -- 기기 정보
+    local get_advertising_id    -- 광고 식별자 ADID, IDFA
     local login                 -- 로그인
     local login_new_user        -- 로그인 신규 유저
     local login_existing_user   -- 로그인 기존 유저
@@ -847,14 +848,25 @@ function UI_TitleScene:workGameLogin()
             local device_info_json = json_decode(info) or {}
 
             -- next
-            login(device_info_json)
+            get_advertising_id(device_info_json)
         end
 
         SDKManager:deviceInfo(cb)
     end
 
+    -- 광고 식별자 (adid, idfa)
+    get_advertising_id = function(device_info_json)
+        local function cb_func(ret, advertising_id)
+            cclog('# advertising_id ' .. tostring(advertising_id))
+
+            -- next
+            login(device_info_json, advertising_id)
+        end
+        SDKManager:getAdvertisingID(cb_func)
+    end
+
     -- 로그인
-    login = function(device_info_json)
+    login = function(device_info_json, advertising_id)
         -- @analytics
         Analytics:firstTimeExperience('Title_GameLogin_login')
 
@@ -873,7 +885,7 @@ function UI_TitleScene:workGameLogin()
 
         local uid = g_localData:get('local', 'uid')
         local nickname = nil -- @sgkim 2019-06-11 서버에서 사용하지 않는 값 확인
-        Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
+        Network_login(uid, nickname, device_info_json, advertising_id, success_cb, fail_cb)
     end
 
     -- 로그인 신규 유저
