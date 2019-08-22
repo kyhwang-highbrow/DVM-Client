@@ -5,6 +5,8 @@ ServerData_ContentLock = class({
         m_serverData = 'ServerData',
 
         m_tContentOpen = 'list',
+
+        m_isContentLockDirty = 'boolean', -- 콘텐츠 열렸을 때 로비 화면 갱신해주기 위해 사용
     })
 
 -------------------------------------
@@ -276,6 +278,8 @@ function ServerData_ContentLock:request_contentsOpenReward(content_name, finish_
 
     -- 콜백 함수
     local function success_cb(ret)
+        self:setContentLockDirty(true)        
+        
         if (ret['content_unlock_list']) then
             self:applyContentLockByStage(ret['content_unlock_list'])
         end
@@ -301,4 +305,18 @@ function ServerData_ContentLock:request_contentsOpenReward(content_name, finish_
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function isContentLockDirty
+-------------------------------------
+function ServerData_ContentLock:isContentLockDirty()
+    return self.m_isContentLockDirty
+end
+
+-------------------------------------
+-- function setContentLockDirty
+-------------------------------------
+function ServerData_ContentLock:setContentLockDirty(dirty)
+    self.m_isContentLockDirty = dirty
 end

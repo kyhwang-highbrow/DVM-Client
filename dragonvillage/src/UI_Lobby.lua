@@ -664,6 +664,7 @@ function UI_Lobby:refresh(is_hard_refresh)
     -- update()와 중복 : 강제 동작하되 또 실행되지 않도록 함
     g_eventData.m_bDirty = false
     self:update_rightButtons()
+    self:update_bottomLeftButtons()
 
     -- 오른쪽 배너 갱신
     self:refresh_rightBanner()
@@ -1555,6 +1556,13 @@ function UI_Lobby:onFocus(is_push)
 
     -- 상점에서 노티 상품 다 사고 돌아왔을 경우 정보 갱신을 위해
     self:setShopNoti()
+
+    -- 컨텐츠 열렸을 경우에만 갱신
+    if (g_contentLockData:isContentLockDirty()) then
+        self:update_bottomLeftButtons()
+        self:update_rightButtons()
+        g_contentLockData:setContentLockDirty(false)
+    end
 end
 
 -------------------------------------
@@ -1752,6 +1760,41 @@ function UI_Lobby:update_rightButtons()
 
     local pos_x = -60
     local interval = -90
+
+    -- 버튼들의 위치 지정
+    for i,v in ipairs(l_btn_list) do
+        local _pos_x = pos_x + ((i-1) * interval)
+        v:setPositionX(_pos_x)
+    end
+end
+
+-------------------------------------
+-- function update_bottomLeftButtons
+-- @brief 아래 버튼 정렬 (드래곤, 테이머, 드래곤의 숲, 퀘스트, 클랜, 상점, 부화소, 기타)
+-------------------------------------
+function UI_Lobby:update_bottomLeftButtons()
+    local vars = self.vars
+
+    local t_btn_name = {}
+    table.insert(t_btn_name, 'questBtn')
+    local is_content_lock = g_contentLockData:isContentLock('forest')
+    if (not is_content_lock) then
+        table.insert(t_btn_name, 'forestBtn')
+    end 
+    table.insert(t_btn_name, 'tamerBtn')
+   table.insert(t_btn_name, 'dragonManageBtn')
+    
+    -- visible이 켜진 버튼들 리스트
+    local l_btn_list = {}
+    for _,name in ipairs(t_btn_name) do
+        local btn = vars[name]
+        if (btn and btn:isVisible()) then
+            table.insert(l_btn_list, btn)
+        end
+    end
+
+    local pos_x = -139
+    local interval = -119
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
