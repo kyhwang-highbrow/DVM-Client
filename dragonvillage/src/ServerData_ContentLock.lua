@@ -115,9 +115,18 @@ end
 
 -------------------------------------
 -- function getContentsQuestList
+-- @breif 컨텐츠 퀘스트에서 필요한 리스트 반환
 -------------------------------------
 function ServerData_ContentLock:getContentsQuestList()
-    return TABLE:get('table_content_lock')
+    local t_content_lock = TABLE:get('table_content_lock')
+    local t_filter = {}
+    for content_name, data in pairs(t_content_lock) do
+        if (data['reward']) and (data['reward'] ~= '') then
+            t_filter[content_name] = data
+        end
+    end
+
+    return t_filter
 end
 
 -------------------------------------

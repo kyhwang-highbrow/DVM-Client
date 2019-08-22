@@ -85,6 +85,38 @@ end
 -- function initButton
 -------------------------------------
 function UI_QuestListItem_Contents:initButton()
+
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-------------------------------------
+function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
+    local data = self.m_data
+
+    local finish_cb = function()
+        -- 우편함으로 전송
+		local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+        
+        -- 갱신
+        self:refresh()
+        ui_quest_popup:refresh()
+        ui_quest_popup:setBlock(false)
+    end
+    g_contentLockData:request_contentsOpenReward(data['content_name'], finish_cb) 
+end
+
+-------------------------------------
+-- function click_questLinkBtn
+-------------------------------------
+function UI_QuestListItem_Contents:click_questLinkBtn()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_QuestListItem_Contents:refresh()
     local vars = self.vars
     local data = self.m_data
 
@@ -96,11 +128,8 @@ function UI_QuestListItem_Contents:initButton()
     local reward_able = is_available and is_lock
     local after_reward = is_available and not is_lock
     local before_reward = not is_available
-
-    vars['rewardBtn']:registerScriptTapHandler(function() g_contentLockData:request_contentsOpenReward(data['content_name']) end)
-    vars['questLinkBtn']:registerScriptTapHandler(function() g_contentLockData:request_contentsOpenReward(data['content_name']) end)
+    
     vars['lockBtn']:setEnabled(false)
-
     vars['rewardBtn']:setVisible(false)
     vars['questLinkBtn']:setVisible(false)
     vars['lockBtn']:setVisible(false)

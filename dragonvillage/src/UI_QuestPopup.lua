@@ -197,28 +197,25 @@ function UI_QuestPopup:makeContentsQuest(tab, node)
 
     do -- 테이블 뷰 생성
         node:removeAllChildren()
-         
-    local function sort_func(a, b)
+        
+        -- 퀘스트 팝업 자체를 각 아이템이 가지기 위한 생성 콜백
+		local create_cb_func = function(ui, data)
+            self:cellCreateCB_contents(ui, data)
+		end
+
+        -- 퀘스트 정렬 기준
+        local function sort_func(a, b)
             local a_data = a['data']
             local b_data = b['data']
 
-            if (a_data:isEnd() and not b_data:isEnd()) then
-                return false
-            elseif (not a_data:isEnd() and b_data:isEnd()) then
-                return true
-            elseif (a_data:hasReward() and not b_data:hasReward()) then
-                return true
-            elseif (not a_data:hasReward() and b_data:hasReward()) then
-                return false
-            else
-                return true
-                --return (a_data:getQid() < b_data:getQid())
-            end
+            local a_value = tonumber(a_data['req_stage_id']) or 0
+            local b_value = tonumber(b_data['req_stage_id']) or 0
+            return a_value > b_value
         end
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(1160 + 10, 80 + 20)
+        table_view.m_defaultCellSize = cc.size(1160 + 10, 100 + 10)
         table_view:setCellUIClass(UI_QuestListItem_Contents, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_quest)
@@ -290,6 +287,23 @@ function UI_QuestPopup:cellCreateCB(ui, data)
     if (t_quest['key'] == 'dq_clear') then
         self.m_allClearQuestCell = ui
     end
+end
+
+-------------------------------------
+-- function cellCreateCB_contents
+-------------------------------------
+function UI_QuestPopup:cellCreateCB_contents(ui, data)
+    -- 보상 받기 버튼
+	local function click_rewardBtn()
+		ui:click_rewardBtn(self)
+	end
+	ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
+
+    -- 바로가기 버튼
+	local function click_questLinkBtn()
+		ui:click_questLinkBtn(self)
+	end
+	ui.vars['questLinkBtn']:registerScriptTapHandler(click_questLinkBtn)
 end
 
 -------------------------------------
