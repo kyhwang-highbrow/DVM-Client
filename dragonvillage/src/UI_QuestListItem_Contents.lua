@@ -93,8 +93,10 @@ end
 -------------------------------------
 function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
     local data = self.m_data
-
+    local content_name = data['content_name']
     local finish_cb = function()
+        UI_ContentOpenPopup(content_name)
+        
         -- 우편함으로 전송
 		local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
@@ -104,7 +106,7 @@ function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
         ui_quest_popup:refresh()
         ui_quest_popup:setBlock(false)
     end
-    g_contentLockData:request_contentsOpenReward(data['content_name'], finish_cb) 
+    g_contentLockData:request_contentsOpenReward(content_name, finish_cb) 
 end
 
 -------------------------------------
