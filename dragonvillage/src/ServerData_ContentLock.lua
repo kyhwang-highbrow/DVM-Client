@@ -57,7 +57,7 @@ function ServerData_ContentLock:isContentLock(content_name)
         return (not is_open)
     end
 
-    return true
+    return false
     --return self:isContentLockByStage(content_name)
 end
 
