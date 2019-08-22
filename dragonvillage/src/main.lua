@@ -58,7 +58,8 @@ local BACKGROUND_TIME = 0
 -------------------------------------
 function applicationDidEnterBackground()
     cclog('applicationDidEnterBackground')
-	LocalPushMgr():applyLocalPush()
+    -- @sgkim 2019.08.22 Android 8 이상에서 서비스 사용시 오류로 인해 로컬 푸시 사용 중지. 추후에 Android에서 로컬 푸시를 다시 구현 후 사용 예정.
+	--LocalPushMgr():applyLocalPush()
 
     -- 백그라운드에서 30분간 있을 경우 재시작
     GAME_RESTART_TIME = os.time() + 1800
@@ -122,7 +123,8 @@ end
 -------------------------------------
 function closeApplication()
 	cclog('CloseApplication')
-    LocalPushMgr():applyLocalPush()
+    -- @sgkim 2019.08.22 Android 8 이상에서 서비스 사용시 오류로 인해 로컬 푸시 사용 중지. 추후에 Android에서 로컬 푸시를 다시 구현 후 사용 예정.
+    --LocalPushMgr():applyLocalPush()
     
     -- @perpelsdk
     if isAndroid() or isIos() then
