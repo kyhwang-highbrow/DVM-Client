@@ -12,8 +12,6 @@ UI_ItemCard = class(PARENT, {
         m_tSubData = 'number',
 
         m_itemName = 'string',
-
-        m_showZeroCount = 'boolean',
      })
 
 -------------------------------------
@@ -72,10 +70,7 @@ function UI_ItemCard:init_commonItem(t_item, t_sub_data)
     vars['stoneNode']:addChild(icon)
     vars['icon'] = icon
 
-    if (self.m_showZeroCount) then
-        local count = count or 0
-        vars['numberLabel']:setString(Str('{1}', comma_value(count)))
-    elseif (not count) or (count == 0) then
+    if (not count) or (count == 0) then
         vars['numberLabel']:setString('')
     else
         vars['numberLabel']:setString(Str('{1}', comma_value(count)))
@@ -360,7 +355,10 @@ end
 
 -------------------------------------
 -- function showZeroCount
+-- @brief 아이템 갯수가 0개일 경우 0이라고 표기, 원래 0개라면 아예 표기를 안함
 -------------------------------------
 function UI_ItemCard:showZeroCount()
-    self.m_showZeroCount = true
+    if (self.m_itemCount == 0) then
+        self.vars['numberLabel']:setString(0)
+    end
 end
