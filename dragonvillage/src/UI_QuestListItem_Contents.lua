@@ -110,7 +110,16 @@ end
 -------------------------------------
 -- function click_questLinkBtn
 -------------------------------------
-function UI_QuestListItem_Contents:click_questLinkBtn()
+function UI_QuestListItem_Contents:click_questLinkBtn(ui_quest_popup)
+    local data = self.m_data
+    
+    -- 바로가기
+    UINavigator:goTo(data['content_name'])
+
+    -- 퀘스트 팝업은 꺼버린다.
+    if (ui_quest_popup and ui_quest_popup.closed == false) then
+        ui_quest_popup:close()
+    end
 end
 
 -------------------------------------
