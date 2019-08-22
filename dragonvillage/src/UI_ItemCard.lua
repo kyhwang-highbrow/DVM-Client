@@ -12,6 +12,8 @@ UI_ItemCard = class(PARENT, {
         m_tSubData = 'number',
 
         m_itemName = 'string',
+
+        m_showZeroCount = 'boolean',
      })
 
 -------------------------------------
@@ -70,7 +72,10 @@ function UI_ItemCard:init_commonItem(t_item, t_sub_data)
     vars['stoneNode']:addChild(icon)
     vars['icon'] = icon
 
-    if (not count) or (count == 0) then
+    if (self.m_showZeroCount) then
+        local count = count or 0
+        vars['numberLabel']:setString(Str('{1}', comma_value(count)))
+    elseif (not count) or (count == 0) then
         vars['numberLabel']:setString('')
     else
         vars['numberLabel']:setString(Str('{1}', comma_value(count)))
@@ -351,4 +356,11 @@ function UI_ItemCard:setEventIllusionVisible(visible, is_bonus)
 
     animator:setPosition(44, 40)
     animator:setScale(0.5)
+end
+
+-------------------------------------
+-- function showZeroCount
+-------------------------------------
+function UI_ItemCard:showZeroCount()
+    self.m_showZeroCount = true
 end

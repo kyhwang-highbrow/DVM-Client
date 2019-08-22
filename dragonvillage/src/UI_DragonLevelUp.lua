@@ -126,7 +126,7 @@ function UI_DragonLevelUp:onChangeTab(tab, first)
         self.m_dragonFoodCnt = 0
     end
     
-    self:refreshDagonFoodMenu()
+    self:refreshDagonFoodMenu(true) -- is_refresh_card
     self:refresh()
 end
 
@@ -136,9 +136,6 @@ end
 function UI_DragonLevelUp:initDagonFoodMenu()
     local vars = self.vars
     self.m_dragonFoodCnt = 0
-    
-    local item_card = UI_ItemCard(700016) -- 드래곤 먹이 아이템
-    vars['itemNode']:addChild(item_card.root)
 
     -- 버튼 누르고 있을 때 먹이 증/감 하도록 
     vars['plusBtn']:setPressedCB(function() self:countDagonFood(1) end)
@@ -151,18 +148,23 @@ function UI_DragonLevelUp:initDagonFoodMenu()
 
     vars['numLabel']:setString(0)
     vars['expLabel2']:setVisible(false)
+    vars['itemLabel']:setVisible(false)
 end
 
 -------------------------------------
 -- function refreshDagonFoodMenu
 -------------------------------------
-function UI_DragonLevelUp:refreshDagonFoodMenu()
+function UI_DragonLevelUp:refreshDagonFoodMenu(is_refresh_card)
     local vars = self.vars
     vars['numLabel']:setString(comma_value(self.m_dragonFoodCnt))
 
-    local dragon_food_cnt = g_userData:get('dragon_food')
-    local item_str = Str('{1}개', comma_value(dragon_food_cnt))
-    vars['itemLabel']:setString(item_str)
+    if (is_refresh_card) then
+        local dragonFood = g_userData:get('dragon_food')
+        local item_card = UI_ItemCard(700016, dragonFood) -- 드래곤 먹이 아이템
+        item_card:showZeroCount()
+        vars['itemNode']:removeAllChildren()
+        vars['itemNode']:addChild(item_card.root)
+    end
 end
 
 -------------------------------------
@@ -816,7 +818,7 @@ function UI_DragonLevelUp:buyDragonFood()
     local product_struct = g_shopDataNew:getProduct('amethyst', 220026)
     product_struct:buy(function(ret)
         ItemObtainResult_Shop(ret) 
-        self:refreshDagonFoodMenu()
+        self:refreshDagonFoodMenu(true)
     end)
 end
 
@@ -846,7 +848,7 @@ function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
         if (prev_lv == curr_lv) then
             self:response_levelup(ret, bonus_rate)
             self.m_dragonFoodCnt = 0
-            self:refreshDagonFoodMenu()
+            self:refreshDagonFoodMenu(true) -- is_refresh_card
         else
             -- 드래곤 성장일지 : 드래곤 등급, 레벨 체크
             local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['modified_dragon'])
@@ -862,7 +864,7 @@ function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
             local function close_cb()
                 self:response_levelup(ret)
                 self.m_dragonFoodCnt = 0
-                self:refreshDagonFoodMenu()
+                self:refreshDagonFoodMenu(true) -- is_refresh_card
             end
             ui:setCloseCB(close_cb)
         end
