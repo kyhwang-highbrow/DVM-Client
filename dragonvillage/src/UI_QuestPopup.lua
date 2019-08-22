@@ -190,10 +190,8 @@ end
 -------------------------------------
 function UI_QuestPopup:makeContentsQuest(tab, node)
     -- 퀘스트 뭉치
-	local l_quest = g_contentLockData:getContentsQuestList()
-    for idx, v in pairs(l_quest) do
-        v['idx'] = idx
-    end
+	local t_quest = g_contentLockData:getContentsQuestList()
+    local l_quest = table.MapToList(t_quest)
 
     do -- 테이블 뷰 생성
         node:removeAllChildren()
@@ -205,13 +203,13 @@ function UI_QuestPopup:makeContentsQuest(tab, node)
 
         -- 퀘스트 정렬 기준
         local function sort_func(a, b)
-            local a_data = a['data']
-            local b_data = b['data']
-
-            local a_value = tonumber(a_data['req_stage_id']) or 0
-            local b_value = tonumber(b_data['req_stage_id']) or 0
-            return a_value > b_value
+            local a_value = tonumber(a['req_stage_id']) or 0
+            local b_value = tonumber(b['req_stage_id']) or 0
+            return a_value < b_value
         end
+
+        -- 정렬
+        table.sort(l_quest, sort_func)
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
@@ -219,7 +217,23 @@ function UI_QuestPopup:makeContentsQuest(tab, node)
         table_view:setCellUIClass(UI_QuestListItem_Contents, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_quest)
-        table_view:insertSortInfo('sort', sort_func)
+
+        -- 리워드 받을 위치에 포커싱
+        -- 다른 퀘스트들과는 다르게 정렬하지 않고 포커싱만 함
+        local focus_idx = 0
+        for idx, data in ipairs(l_quest) do
+            local content_name = data['content_name']
+            local req_stage = data['req_stage_id']
+            local is_reward = UI_QuestListItem_Contents.isRewardable(content_name, req_stage)
+            if (is_reward) then
+               focus_idx = idx
+               break
+            end
+        end
+
+        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        table_view:relocateContainerFromIndex(focus_idx+2)
+
         self.m_tableView = table_view
     end
 end

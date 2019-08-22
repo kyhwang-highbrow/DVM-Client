@@ -70,15 +70,13 @@ function UI_QuestListItem_Contents:initUI()
 
     -- 퀘스트 보상
     -- @jhakim 190822 컨텐츠 보상은 하나만 있는 상태
-    -- 2개이상 올 경우 대비해서 리스트 형식으로 보상을 출력
-    local l_reward_info = TableQuest.arrangeDataByStr(data['reward'])
-    local reward_idx = 1
-    for i, v in ipairs(l_reward_info) do
-        local reward_card = UI_ItemCard(v['item_id'], v['count'])
-        reward_card.root:setSwallowTouch(false)
-        vars['rewardNode']:addChild(reward_card.root)
-        reward_idx = reward_idx + 1
-    end
+    local t_item = plSplit(data['reward'], ';')
+    local item_id = tonumber(t_item[1])
+    local item_cnt = tonumber(t_item[2])
+    local reward_card = UI_ItemCard(item_id, item_cnt)
+    reward_card.root:setSwallowTouch(false)
+    vars['rewardNode']:addChild(reward_card.root)
+
 end
 
 -------------------------------------
@@ -95,16 +93,22 @@ function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
     local data = self.m_data
     local content_name = data['content_name']
     local finish_cb = function()
-        UI_ContentOpenPopup(content_name)
         
-        -- 우편함으로 전송
-		local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
+        local close_cb = function()
+            -- 우편함으로 전송
+            local t_item = plSplit(data['reward'], ';')
+            local t_data = {}
+            t_data['item_id'] = tonumber(t_item[1])
+            t_data['count'] = tonumber(t_item[2])
+            local reward_str = UIHelper:makeItemStr(t_data)
+            UI_ToastPopup(reward_str)
+        end
+        
+        local ui_open = UI_ContentOpenPopup(content_name)
+        ui_open:setCloseCB(close_cb)
         
         -- 갱신
         self:refresh()
-        ui_quest_popup:refresh()
-        ui_quest_popup:setBlock(false)
     end
     g_contentLockData:request_contentsOpenReward(content_name, finish_cb) 
 end
@@ -130,15 +134,14 @@ end
 function UI_QuestListItem_Contents:refresh()
     local vars = self.vars
     local data = self.m_data
-
+    local content_name = data['content_name']
     local req_stage = data['req_stage_id']
-    local is_available = g_adventureData:isClearStage(req_stage)
-    local is_lock = g_contentLockData:isContentLock(data['content_name'])
+
 
     -- 컨텐츠 조건 만족 상태, 컨텐츠 잠금 상태 조합해서 버튼 상태 설정
-    local reward_able = is_available and is_lock
-    local after_reward = is_available and not is_lock
-    local before_reward = not is_available
+    local is_reward = UI_QuestListItem_Contents.isRewardable(content_name, req_stage)
+    local after_reward = UI_QuestListItem_Contents.isRewardAfter(content_name, req_stage)
+    local before_reward = UI_QuestListItem_Contents.isRewardBefore(content_name, req_stage)
     
     vars['lockBtn']:setEnabled(false)
     vars['rewardBtn']:setVisible(false)
@@ -146,7 +149,7 @@ function UI_QuestListItem_Contents:refresh()
     vars['lockBtn']:setVisible(false)
 
     -- 보상 받기 가능, 바로가기 버튼, 잠금 버튼
-    if (reward_able) then
+    if (is_reward) then
         vars['rewardBtn']:setVisible(true)
     elseif (after_reward) then
         vars['questLinkBtn']:setVisible(true)
@@ -155,4 +158,41 @@ function UI_QuestListItem_Contents:refresh()
     else
         vars['lockBtn']:setVisible(true)
     end
+end
+
+-------------------------------------
+-- function isRewardable
+-------------------------------------
+function UI_QuestListItem_Contents.isRewardable(content_name, req_stage)
+    local is_available = g_adventureData:isClearStage(req_stage)
+    local is_lock = g_contentLockData:isContentLock(content_name)
+
+    -- 컨텐츠 조건 만족 상태, 컨텐츠 잠금 상태 조합해서 버튼 상태 설정
+    local reward_able = is_available and is_lock
+    return reward_able
+end
+
+-------------------------------------
+-- function isRewardAfter
+-------------------------------------
+function UI_QuestListItem_Contents.isRewardAfter(content_name, req_stage)
+    local is_available = g_adventureData:isClearStage(req_stage)
+    local is_lock = g_contentLockData:isContentLock(content_name)
+
+    -- 컨텐츠 조건 만족 상태, 컨텐츠 잠금 상태 조합해서 버튼 상태 설정
+    local after_reward = is_available and not is_lock
+    return after_reward
+end
+
+-------------------------------------
+-- function isRewardBefore
+-------------------------------------
+function UI_QuestListItem_Contents.isRewardBefore(content_name, req_stage)
+    local is_available = g_adventureData:isClearStage(req_stage)
+    local is_lock = g_contentLockData:isContentLock(content_name)
+
+    -- 컨텐츠 조건 만족 상태, 컨텐츠 잠금 상태 조합해서 버튼 상태 설정
+    local before_reward = not is_available
+
+    return before_reward
 end
