@@ -126,8 +126,10 @@ end
 -------------------------------------
 function ServerData_ContentLock:isContentLockByStage(content_name)
     local t_content = self.m_tContentOpen or {}
+    
+    -- 언락 리스트에 없다면 잠금 조건없이 원래 열려있어야 하는 컨텐츠
     if (not t_content[content_name]) then
-        return true
+        return false
     end
 
     -- 1이라면 lock이 false인 상태
