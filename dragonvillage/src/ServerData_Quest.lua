@@ -224,6 +224,11 @@ end
 function ServerData_Quest:hasRewardableQuest(quest_type)
     local is_exist = false
 
+    -- 다른 정보를 사용
+    if (quest_type == 'contents') then
+        return true
+    end
+
 	-- type에 해당하는 퀘스트 뽑아냄
 	for i, quest in pairs(self.m_tQuestInfo[quest_type]) do 
         -- 보상 수령 가능한 상태

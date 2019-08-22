@@ -507,6 +507,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 			g_shopDataNew:setSumMoney(0)
 		end
 
+        cclog('# 컨텐츠 오픈 정보 받는 중')
+        if (ret['content_unlock_list']) then
+			g_contentLockData:applyContentLockByStage(ret['content_unlock_list'])
+		end
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)

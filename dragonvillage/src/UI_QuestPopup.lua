@@ -69,6 +69,7 @@ function UI_QuestPopup:initTab()
     self:addTabAuto(TableQuest.DAILY, vars, vars['dailyTabMenu'])
 	self:addTabAuto(TableQuest.SPECIAL, vars, vars['specialTabMenu'])
     self:addTabAuto(TableQuest.CHALLENGE, vars, vars['challengeTabMenu'])
+    self:addTabAuto('contents', vars, vars['contentsTabMenu'])
     self:setTab(TableQuest.DAILY)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
@@ -116,11 +117,15 @@ function UI_QuestPopup:onChangeTab(tab, first)
 	local node = vars[tab .. 'ListNode']
 	
 	-- 최초 생성만 실행
-	if (first) then 
-		self:makeQuestTableView(tab, node)
-	    -- all clear 는 따로 보여준다
-	    self:setAllClearQuest(tab)
-	end
+	if (first) then
+        if (tab == 'contents') then
+            self:makeContentsQuest(tab, node)
+        else
+		    self:makeQuestTableView(tab, node)
+	        -- all clear 는 따로 보여준다
+	        self:setAllClearQuest(tab)
+	    end
+    end
 end
 
 -------------------------------------
@@ -173,6 +178,48 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(1160 + 10, 80 + 10)
         table_view:setCellUIClass(UI_QuestListItem, create_cb_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_quest)
+        table_view:insertSortInfo('sort', sort_func)
+        self.m_tableView = table_view
+    end
+end
+
+-------------------------------------
+-- function makeContentsQuest
+-------------------------------------
+function UI_QuestPopup:makeContentsQuest(tab, node)
+    -- 퀘스트 뭉치
+	local l_quest = g_contentLockData:getContentsQuestList()
+    for idx, v in pairs(l_quest) do
+        v['idx'] = idx
+    end
+
+    do -- 테이블 뷰 생성
+        node:removeAllChildren()
+         
+    local function sort_func(a, b)
+            local a_data = a['data']
+            local b_data = b['data']
+
+            if (a_data:isEnd() and not b_data:isEnd()) then
+                return false
+            elseif (not a_data:isEnd() and b_data:isEnd()) then
+                return true
+            elseif (a_data:hasReward() and not b_data:hasReward()) then
+                return true
+            elseif (not a_data:hasReward() and b_data:hasReward()) then
+                return false
+            else
+                return true
+                --return (a_data:getQid() < b_data:getQid())
+            end
+        end
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(1160 + 10, 80 + 20)
+        table_view:setCellUIClass(UI_QuestListItem_Contents, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_quest)
         table_view:insertSortInfo('sort', sort_func)

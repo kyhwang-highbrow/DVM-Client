@@ -840,6 +840,7 @@ local t_module = {
     'UI_BattleMenuItem_Clan',
 	'UI_QuestPopup',
     'UI_QuestListItem',
+    'UI_QuestListItem_Contents',
 	'UI_MasterRoadPopup',
     'UI_MasterRoadPopup_Link',
     'UI_MasterRoadRewardPopup',

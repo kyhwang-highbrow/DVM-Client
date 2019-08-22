@@ -4,7 +4,7 @@
 ServerData_ContentLock = class({
         m_serverData = 'ServerData',
 
-        m_lContentOpen = 'list',
+        m_tContentOpen = 'list',
     })
 
 -------------------------------------
@@ -31,7 +31,7 @@ end
 function ServerData_ContentLock:isContentLock(content_name)
     local table_content_lock = TABLE:get('table_content_lock')
     local t_content_lock = table_content_lock[content_name]
-
+    
     -- 지정되지 않은 콘텐츠 이름일 경우
     if (not t_content_lock) then
         --error('content_name : ' .. content_name)
@@ -57,8 +57,7 @@ function ServerData_ContentLock:isContentLock(content_name)
         return (not is_open)
     end
 
-    return false
-    --return self:isContentLockByStage(content_name)
+    return self:isContentLockByStage(content_name)
 end
 
 -------------------------------------
@@ -115,14 +114,35 @@ function ServerData_ContentLock:isContentLockByLevel(content_name)
 end
 
 -------------------------------------
+-- function getContentsQuestList
+-------------------------------------
+function ServerData_ContentLock:getContentsQuestList()
+    return TABLE:get('table_content_lock')
+end
+
+-------------------------------------
 -- function isContentLockByStage
 -- @param 로비통신에서 받는 콘텐츠 해금 여부
 -------------------------------------
 function ServerData_ContentLock:isContentLockByStage(content_name)
-    local l_content = self.m_lContentOpen
+    local t_content = self.m_tContentOpen or {}
+    if (not t_content[content_name]) then
+        return true
+    end
 
-    -- 해당 컨텐츠
-    return 
+    -- 1이라면 lock이 false인 상태
+    if (t_content[content_name] == 1) then
+        return false
+    else
+        return true
+    end
+end
+
+-------------------------------------
+-- function applyContentLock
+-------------------------------------
+function ServerData_ContentLock:applyContentLockByStage(l_content)
+    self.m_tContentOpen = l_content or {}
 end
 
 -------------------------------------
@@ -133,10 +153,6 @@ function ServerData_ContentLock:isContentBeta(content_name)
 
     -- 2017-09-15 ios정책에서 게임 내 beta/ demo / test / 체험판 / 타플랫폼 문구가 노출되지 않아야 합니다.
     if isIos() then
-        return false
-    end
-    
-    if true then
         return false
     end
 
