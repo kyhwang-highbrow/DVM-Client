@@ -3,6 +3,8 @@
 -------------------------------------
 ServerData_ContentLock = class({
         m_serverData = 'ServerData',
+
+        m_lContentOpen = 'list',
     })
 
 -------------------------------------
@@ -55,6 +57,53 @@ function ServerData_ContentLock:isContentLock(content_name)
         return (not is_open)
     end
 
+    return true
+    --return self:isContentLockByStage(content_name)
+end
+
+-------------------------------------
+-- function isContentLock
+-- @param content_name string
+-- table_content_lock.csv 2017-07-06 sgkim
+--        adventure      모험
+--        exploation	 탐험
+--        nest_tree	     [네스트] 거목 던전
+--        nest_evo_stone [네스트] 진화재료 던전
+--        ancient        고대의 탑
+--        attr_tower     시험의 탑
+--        colosseum	     콜로세움
+--        nest_nightmare [네스트] 악몽 던전
+--        ancient_ruin   [네스트] 고대 유적 던전
+-------------------------------------
+function ServerData_ContentLock:isContentLockByLevel(content_name)
+    local table_content_lock = TABLE:get('table_content_lock')
+    local t_content_lock = table_content_lock[content_name]
+
+    -- 지정되지 않은 콘텐츠 이름일 경우
+    if (not t_content_lock) then
+        --error('content_name : ' .. content_name)
+        return false
+    end
+
+    -- 시험의 탑 경우 유저 레벨이 아닌 다른 조건으로 검사
+    if (content_name == 'attr_tower') then
+        local attr_tower_open = g_attrTowerData:isContentOpen()
+        local is_lock = not attr_tower_open
+        return is_lock
+    end
+
+    -- 클랜던전의 경우 클랜 가입 여부로 검사
+    if (content_name == 'clan_raid') then
+        local is_guest = g_clanData:isClanGuest()
+        return is_guest
+    end
+
+    -- 고대 유적 던전의 경우 악몽 던전 클리어 여부로 검사
+    if (content_name == 'ancient_ruin') then
+        local is_open = g_ancientRuinData:isOpenAncientRuin()
+        return (not is_open)
+    end
+
     -- 필요 유저 레벨 지정
     local user_lv = g_userData:get('lv')
     local req_user_lv = t_content_lock['req_user_lv']
@@ -66,6 +115,17 @@ function ServerData_ContentLock:isContentLock(content_name)
 end
 
 -------------------------------------
+-- function isContentLockByStage
+-- @param 로비통신에서 받는 콘텐츠 해금 여부
+-------------------------------------
+function ServerData_ContentLock:isContentLockByStage(content_name)
+    local l_content = self.m_lContentOpen
+
+    -- 해당 컨텐츠
+    return 
+end
+
+-------------------------------------
 -- function isContentBeta
 -- @param content_name string
 -------------------------------------
@@ -73,6 +133,10 @@ function ServerData_ContentLock:isContentBeta(content_name)
 
     -- 2017-09-15 ios정책에서 게임 내 beta/ demo / test / 체험판 / 타플랫폼 문구가 노출되지 않아야 합니다.
     if isIos() then
+        return false
+    end
+    
+    if true then
         return false
     end
 
