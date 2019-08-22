@@ -112,7 +112,8 @@ function UI_UserLevelUp:initUI()
             end
 	    end)
 
-	    cca.runAction(self.root, cc.Sequence:create(delay1, check_open, delay2, check_auto))
+		--cca.runAction(self.root, cc.Sequence:create(delay1, check_open, delay2, check_auto))
+	    cca.runAction(self.root, cc.Sequence:create(delay2, check_auto))
     end
 end
 
