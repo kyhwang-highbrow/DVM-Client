@@ -1,4 +1,13 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
+local L_TAB = {'adventure', 'dungeon', 'competiton', 'clan'}
+
+local L_TAB_CONTENTS = {}
+L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration'}
+L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'secret_relation'}
+L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'colosseum', 'challenge_mode', 'grand_arena'}
+L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_gurdian'}
+
+
 
 -------------------------------------
 -- class UI_BattleMenu
@@ -10,6 +19,7 @@ UI_BattleMenu = class(PARENT, {
         m_lClanBtnUI = '',
 
         m_tNotiSprite = '',
+        m_menuName = 'string',
      })
 
 local THIS = UI_BattleMenu
@@ -63,41 +73,57 @@ end
 -- function initUI
 -------------------------------------
 function UI_BattleMenu:initUI()
+    local vars = self.vars
 
-    do -- 클랜 가입 여부에 따라 탭 갯수가 달라짐 (3~4)
-
-        local clan_exist = (not g_clanData:isClanGuest())
-
-        local btn_list = {}
-        table.insert(btn_list, 'adventureBtn')
-        table.insert(btn_list, 'dungeonBtn')
-        table.insert(btn_list, 'competitionBtn')
-        table.insert(btn_list, 'clanBtn')
-
-        local vars = self.vars
-        local is_short = false
-
-        -- 클랜 미가입 시
-        if g_clanData:isClanGuest() then
-            -- Tab이 3개인 경우 긴 버전을 사용
-            is_short = false
-            for i,v in pairs(btn_list) do
-                vars[v] = vars['long_' .. v]
-            end
-        else
-            -- Tab이 4개인 경우 짧은 버전을 사용
-            is_short = true
-            for i,v in pairs(btn_list) do
-                vars[v] = vars['short_' .. v]
-            end
+    local btn_list = {}
+    for _, tab_name in ipairs(L_TAB) do
+        local content_cnt = self:getContentCntByType(tab_name)
+        if (content_cnt > 0) then
+            table.insert(btn_list, tab_name .. "Btn")
         end
-
-        vars['longMenu']:setVisible(not is_short)
-        vars['shortMenu']:setVisible(is_short)
     end
 
+    vars['firstMenu']:setVisible(false)
+    vars['longMenu']:setVisible(false)
+    vars['shortMenu']:setVisible(false)
+
+    -- 탭 갯수에 따라 사용하는 메뉴가 다름
+    local menu_name = 'long'
+    if (#btn_list == 2) then
+        menu_name = 'first'
+    elseif (#btn_list == 3) then
+        menu_name = 'long'
+    elseif (#btn_list == 4) then
+        menu_name = 'short'
+    end
+
+    for i,v in pairs(btn_list) do
+        vars[v] = vars[menu_name .. v]
+    end
+        
+    vars[menu_name .. 'Menu']:setVisible(true)
+
+    self.m_menuName = menu_name
     -- 탭 초기화
-    self:initTab()
+    self:initTab(menu_name)
+end
+
+-------------------------------------
+-- function getContentCntByType
+-------------------------------------
+function UI_BattleMenu:getContentCntByType(content_name)
+    if (not L_TAB_CONTENTS[content_name]) then
+        return 0
+    end
+
+    local l_contens = L_TAB_CONTENTS[content_name]
+    local cnt = 0
+    for i, v in ipairs(l_contens) do
+        if (not g_contentLockData:isContentLock(content_name)) then
+            cnt = cnt + 1
+        end
+    end
+    return cnt
 end
 
 -------------------------------------
@@ -147,23 +173,16 @@ function UI_BattleMenu:update(dt)
         if (g_secretDungeonData:isSecretDungeonExist()) then
             t_noti['dungeon'] = true
         end
-
-    --[[
-        local event_data = g_eventGoldDungeonData
-        -- 현재 입장권 개수
-        local stamina_cnt = event_data:getStaminaCount()
-        if (stamina_cnt > 0) then
-            t_noti['dungeon'] = true
-        end
-     --]]
     end
-    UIHelper:autoNoti(t_noti, self.m_tNotiSprite, 'Btn', self.vars)
+
+    -- 노티관련 처리해야함***********************************
+    -- UIHelper:autoNoti(t_noti, self.m_tNotiSprite, 'Btn', self.vars)
 end
 
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_BattleMenu:initTab()
+function UI_BattleMenu:initTab(menu_name)
     local vars = self.vars
 
     -- 탭 별 배경 투명하게 처리
@@ -180,17 +199,20 @@ function UI_BattleMenu:initTab()
     vars['clanBg']:setScale(scr_size.width / 1280)
 
     -- 탭 초기화
-    self:addTab('adventure', vars['adventureBtn'], vars['adventureMenu'])
-    self:addTab('dungeon', vars['dungeonBtn'], vars['dungeonMenu'])
-    self:addTab('competition', vars['competitionBtn'], vars['competitionMenu'])
-
-    -- 클랜 버튼은 클랜 가입 여부에 따라 없을수도 있음
-    if vars['clanBtn'] then
-        self:addTab('clan', vars['clanBtn'], vars['clanMenu'])
+    self:addTab(menu_name .. '_adventure', vars[menu_name .. '_adventureBtn'], vars['adventureMenu'])
+    self:addTab(menu_name .. '_dungeon', vars[menu_name .. '_dungeonBtn'], vars['dungeonMenu'])
+    
+    if (menu_name == 'long') then
+        self:addTab(menu_name .. '_competition', vars[menu_name .. '_competitionBtn'], vars['competitionMenu'])
+    end
+    
+    if (menu_name == 'short') then
+        self:addTab(menu_name .. '_competition', vars[menu_name .. '_competitionBtn'], vars['competitionMenu'])
+        self:addTab(menu_name .. 'clan', vars[menu_name .. '_clanBtn'], vars['clanMenu'])
     end
 
     -- 최초 탭 설정
-    self:setTab('adventure')
+    self:setTab(menu_name .. '_adventure')
 end
 
 -------------------------------------
@@ -202,61 +224,66 @@ function UI_BattleMenu:onChangeTab(tab, first)
     local duration = 0.5
 
     local vars = self.vars
+    local menu_name = self.m_menuName .. '_'
 
-    -- 이전 탭의 배경 fade out
-    if self.m_prevTab and vars[self.m_prevTab .. 'Bg'] then
-        local node = vars[self.m_prevTab .. 'Bg']
-        node:stopAllActions()
-        local action = cc.Sequence:create(cc.FadeOut:create(duration), cc.Hide:create())
-        node:runAction(action)
-    end
+    if (self.m_prevTab) then
+        local menu = string.gsub(self.m_prevTab, menu_name, '')
 
-    -- 현태 탭의 배경 fade in
-    if tab and vars[tab .. 'Bg'] then
-        
-        local node = vars[tab .. 'Bg']
-        node:stopAllActions()
-        node:setVisible(true)
-
-        if (not self.m_prevTab) then
-            node:setOpacity(255)
-        else
-            local action = cc.FadeIn:create(duration)
+        -- 이전 탭의 배경 fade out
+        if self.m_prevTab and vars[menu .. 'Bg'] then      
+            local node = vars[menu .. 'Bg']
+            node:stopAllActions()
+            local action = cc.Sequence:create(cc.FadeOut:create(duration), cc.Hide:create())
             node:runAction(action)
         end
     end
 
+    if (tab) then
+        local menu = string.gsub(tab, menu_name, '')
+        -- 현태 탭의 배경 fade in
+        if tab and vars[tab .. 'Bg'] then     
+            local node = vars[tab .. 'Bg']
+            node:stopAllActions()
+            node:setVisible(true)
+
+            if (not self.m_prevTab) then
+                node:setOpacity(255)
+            else
+                local action = cc.FadeIn:create(duration)
+                node:runAction(action)
+            end
+        end
+    end
     -- 버튼들 초기화 (최초에만 실행)
     if first then
-        if (tab == 'adventure') then
+        if (string.match(tab, 'adventure')) then
             self:initAdventureTab() 
 
-        elseif (tab == 'dungeon') then
+        elseif (string.match(tab, 'dungeon')) then
             self:initDungeonTab() 
 
-        elseif (tab == 'competition') then
+        elseif (string.match(tab, 'competition')) then
             self:initCompetitionTab() 
         
-        elseif (tab == 'clan') then
+        elseif (string.match(tab, 'clan')) then
             self:initClanTab() 
         end
     end
 
-    if (tab == 'adventure') then
+    if (string.match(tab, 'adventure')) then
         -- tutorial 실행중이라면
         if (not TutorialManager.getInstance():isDoing()) then
             self:runBtnAppearAction(self.m_lAdventureBtnUI)
         end
 
-    elseif (tab == 'dungeon') then
+    elseif (string.match(tab, 'dungeon')) then
         self:runBtnAppearAction(self.m_lDungeonBtnUI)
 
-    elseif (tab == 'competition') then
+    elseif (string.match(tab, 'competition')) then
         self:runBtnAppearAction(self.m_lCompetitionBtnUI)
 
-    elseif (tab == 'clan') then
+    elseif (string.match(tab, 'clan')) then
         self:runBtnAppearAction(self.m_lClanBtnUI)
-
     end
 end
 
@@ -267,6 +294,8 @@ end
 -------------------------------------
 function UI_BattleMenu:initAdventureTab()
     local vars = self.vars
+    local menu_name = self.m_menuName
+
     -- 메뉴 아이템 x축 간격
     local interval_x = 208
     local l_btn_ui = {}
@@ -305,18 +334,6 @@ function UI_BattleMenu:initDungeonTab()
     table.insert(l_item, 'nest_tree') -- 거목 던전
     table.insert(l_item, 'nest_evo_stone') -- 진화재료 던전
 
-    --[[
-    if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
-        -- 황금 던전
-        table.insert(l_item, 'gold_dungeon') -- 황금 던전
-    else
-        -- 클랜 던전은 클랜 가입시에만 오픈
-        -- 클랜 던전은 클랜 탭에서 보여짐
-        -- if (not g_clanData:isClanGuest()) then
-        --     --table.insert(l_item, 'clan_raid') -- 클랜 던전
-        -- end
-    end
-    --]]
     -- 고대 유적 던전은 열린 경우에만 노출 (악몽던전 앞에)
     if (g_ancientRuinData:isOpenAncientRuin()) then
         table.insert(l_item, 'ancient_ruin') -- 고대 유적 던전
@@ -483,13 +500,13 @@ end
 -------------------------------------
 function UI_BattleMenu:resetButtonsPosition()
     local tab = self.m_currTab
-    if (tab == 'adventure') then
+    if (string.match(tab, 'adventure')) then
         self:runBtnAppearAction(self.m_lAdventureBtnUI, true) -- param : l_btn_ui, immediately
 
-    elseif (tab == 'dungeon') then
+    elseif (tstring.match(tab, 'dungeon')) then
         self:runBtnAppearAction(self.m_lDungeonBtnUI, true) -- param : l_btn_ui, immediately
 
-    elseif (tab == 'competition') then
+    elseif (string.match(tab, 'competition')) then
         self:runBtnAppearAction(self.m_lCompetitionBtnUI, true) -- param : l_btn_ui, immediately
     end
 end
