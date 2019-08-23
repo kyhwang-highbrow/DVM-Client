@@ -70,6 +70,8 @@ function UI_QuestListItem_Contents:initUI()
     local contents_icon = cc.Sprite:create(res)
     if (contents_icon) then
         vars['contentsNode']:addChild(contents_icon)
+        contents_icon:setPositionX(75)
+        contents_icon:setPositionY(75)
     end
 
     -- 퀘스트 보상
