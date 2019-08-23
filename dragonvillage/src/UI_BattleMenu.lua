@@ -288,24 +288,33 @@ function UI_BattleMenu:initAdventureTab()
 
     -- 메뉴 아이템 x축 간격
     local interval_x = 208
-    local l_btn_ui = {}
     local pos_y = 80
+    local l_content_str = {}
+
     -- 모험
-    local ui = UI_BattleMenuItem_Adventure('adventure')
-    ui.root:setPosition(-interval_x, -94)
-    vars['adventureMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=-interval_x, ['y']=-pos_y})
+    table.insert(l_content_str, 'adventure')
+
+    -- 탐험
+    if (g_contentLockData:isContentLock('exploation')) then
+        table.insert(l_content_str, 'exploation')
+    end
+
+    local l_btn_ui = {}
+    do -- 콘텐츠 리스트 UI 생성
+        local l_pos = getSortPosList(interval_x, table.count(l_content_str))
+        for i,v in ipairs(l_content_str) do
+            local ui = UI_BattleMenuItem_Adventure(v, list_count)
+            local pos_x = l_pos[i]
+            ui.root:setPosition(pos_x, pos_y)
+            vars['adventureMenu']:addChild(ui.root)
+            table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=pos_y})
+        end
+    end
 
     -- tutorial 실행중이라면
     if TutorialManager.getInstance():isDoing() then
         vars['tutorialAdventureBtn'] = ui.vars['enterBtn']
     end
-
-    -- 탐험
-    local ui = UI_BattleMenuItem_Adventure('exploation')
-    ui.root:setPosition(interval_x, -pos_y)
-    vars['adventureMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=interval_x, ['y']=-pos_y})
 
     self.m_lAdventureBtnUI = l_btn_ui
 end
@@ -321,16 +330,12 @@ function UI_BattleMenu:initDungeonTab()
 
     local l_btn_ui = {}
     local l_item = {}
-    table.insert(l_item, 'nest_tree') -- 거목 던전
-    table.insert(l_item, 'nest_evo_stone') -- 진화재료 던전
 
-    -- 고대 유적 던전은 열린 경우에만 노출 (악몽던전 앞에)
-    if (g_ancientRuinData:isOpenAncientRuin()) then
-        table.insert(l_item, 'ancient_ruin') -- 고대 유적 던전
-    end
-
-    table.insert(l_item, 'nest_nightmare') -- 악몽 던전
-    table.insert(l_item, 'secret_relation') -- 인연 던전
+    for _, dungeon_name in ipairs(L_TAB_CONTENTS['dungeon']) do
+        if (not g_contentLockData:isContentLock(dungeon_name)) then
+            table.insert(l_item, dungeon_name)
+        end
+    end 
 
     -- 스크롤 뷰로 변경됨
     -- 테이블 뷰로 생성할 경우 테이블 뷰 액션과 꼬임.
@@ -379,26 +384,11 @@ function UI_BattleMenu:initCompetitionTab()
     local pos_y = -80
 
     local l_content_str = {}
-    do -- 콘텐츠 리스트 생성
-        -- 고대의 탑
-        table.insert(l_content_str, 'ancient')
-
-        -- 시험의 탑
-        if g_attrTowerData:isContentOpen() then
-            table.insert(l_content_str, 'attr_tower') 
+    for _, dungeon_name in ipairs(L_TAB_CONTENTS['competition']) do
+        if (not g_contentLockData:isContentLock(dungeon_name)) then
+            table.insert(l_content_str, dungeon_name)
         end
-
-        -- 콜로세움
-        table.insert(l_content_str, 'colosseum')
-
-        -- 챌린지 모드 정규화
-        table.insert(l_content_str, 'challenge_mode') 
-
-        -- 그랜드 콜로세움 (이벤트 PvP 10대10)
-        if (g_grandArena:isActive_grandArena()) then
-            table.insert(l_content_str, 'grand_arena') 
-        end
-    end
+    end 
 
     -- 리스트 갯수에 따라 interval_x 간격 조절
     local list_count = table.count(l_content_str)
@@ -434,22 +424,16 @@ function UI_BattleMenu:initClanTab()
     local pos_y = -80
 
     local l_content_str = {}
-    do -- 콘텐츠 리스트 생성
+    for _, dungeon_name in ipairs(L_TAB_CONTENTS['competition']) do
         table.insert(l_content_str, 'clan_raid') -- 클랜 던전
         table.insert(l_content_str, 'rune_guardian') -- 룬 수호자 (세트별 룬 파밍 던전)
-    end
-
-    -- 3개 초과이면 얇은 모드
-    local is_thin = (3 < table.count(l_content_str))
-    if is_thin then
-        interval_x = 285
     end
 
     local l_btn_ui = {}
     do -- 콘텐츠 리스트 UI 생성
         local l_pos = getSortPosList(interval_x, table.count(l_content_str))
         for i,v in ipairs(l_content_str) do
-            local ui = UI_BattleMenuItem_Clan(v, is_thin)
+            local ui = UI_BattleMenuItem_Clan(v, false)
             local pos_x = l_pos[i]
             ui.root:setPosition(pos_x, pos_y)
             vars['clanMenu']:addChild(ui.root)
