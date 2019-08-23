@@ -61,7 +61,7 @@ function ServerData_ContentLock:isContentLock(content_name)
     if (content_name == 'grand_arena') then
         local is_acitive = g_grandArena:isActive_grandArena()
         if (is_acitive) then
-            return self:isContentLockByStage(content_name)
+            return self:isContentOepnByServer(content_name)
         end
     end
 
@@ -147,7 +147,7 @@ function ServerData_ContentLock:isContentOepnByServer(content_name)
     
     -- 언락 리스트에 없다면 잠금 조건없이 원래 열려있어야 하는 컨텐츠
     if (not t_content[content_name]) then
-        return false
+        return true
     end
 
     -- 0 이라면 lock이 걸린 상태
