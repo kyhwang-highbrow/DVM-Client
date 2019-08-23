@@ -308,12 +308,11 @@ function UI_BattleMenu:initAdventureTab()
             ui.root:setPosition(pos_x, pos_y)
             vars['adventureMenu']:addChild(ui.root)
             table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=pos_y})
+            -- tutorial 실행중이라면
+            if TutorialManager.getInstance():isDoing() then
+                vars['tutorialAdventureBtn'] = ui.vars['enterBtn']
+            end   
         end
-    end
-
-    -- tutorial 실행중이라면
-    if TutorialManager.getInstance():isDoing() then
-        vars['tutorialAdventureBtn'] = ui.vars['enterBtn']
     end
 
     self.m_lAdventureBtnUI = l_btn_ui
