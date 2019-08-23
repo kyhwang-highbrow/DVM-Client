@@ -91,7 +91,6 @@ function UI_QuickPopupNew:init_competitionBtn()
     local vars = self.vars
     local l_content = {}
 
-
     local l_competition = {'ancient', 'attr_tower', 'colosseum', 'clan_raid', 'rune_guardian', 'challenge_mode'}
     for i, competition_name in ipairs(l_competition) do
         if (not g_contentLockData:isContentLock(competition_name)) then
@@ -109,10 +108,17 @@ end
 function UI_QuickPopupNew:init_underBtn()
     local vars = self.vars
 
-     -- 하단 메뉴 잠금 처리
+     -- 하단 메뉴 잠금 처리 - 아예 안나옴 처리
+    local l_under = {'dragonManage', 'tamer', 'forest', 'quest', 'draw', 'shop', 'clan', 'inventory', 'book', 'setting'}
     local l_content = {}
-    table.insert(l_content, 'clan')
-    self:checkLockContent(l_content)
+    for i, under_name in ipairs(l_under) do
+        if (not g_contentLockData:isContentLock(under_name)) then
+            table.insert(l_content, vars[under_name .. 'Btn'])
+            vars[under_name .. 'Btn']:setVisible(true)
+        else
+            vars[under_name .. 'Btn']:setVisible(false)
+        end
+    end
 
     -- 드래곤 관리
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) 
@@ -125,6 +131,21 @@ function UI_QuickPopupNew:init_underBtn()
     vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
     vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end) -- 설정
+
+    -- 전체 몇 컨텐츠 중에 - 현재 활성화 된 컨텐츠
+    -- 기준 x위치에서 그 차이만큼 옆으로 이동한 다음 정렬시켜줌 
+    local max_cnt = 10
+    local cnt = #l_content
+    local start_pos_x = -495
+    local interval = 110
+    local dis_cnt = max_cnt - cnt
+    local pos_x = start_pos_x + dis_cnt * interval/2
+
+    -- 버튼들의 위치 지정
+    for i,v in ipairs(l_content) do
+        local _pos_x = pos_x + ((i-1) * interval)
+        v:setPositionX(_pos_x)
+    end
 end
 
 -------------------------------------

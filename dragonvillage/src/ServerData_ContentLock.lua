@@ -45,11 +45,18 @@ function ServerData_ContentLock:isContentLock(content_name)
         return is_lock
     end
 
+    -- 클랜이 열려있어야 하고
+    local is_clan_open = self:isContentOepnByServer('clan')
     -- 클랜던전, 룬 수호자 던전의 경우 클랜 가입 여부로 검사
     if (content_name == 'clan_raid' or content_name == 'rune_guardian') then
-        local is_guest = g_clanData:isClanGuest()
-        return is_guest
+        if (is_clan_open) then  
+            local is_guest = g_clanData:isClanGuest()
+            return is_guest
+        else
+            return true
+        end
     end
+
 
     -- 고대 유적 던전의 경우 악몽 던전 클리어 여부로 검사
     if (content_name == 'ancient_ruin') then

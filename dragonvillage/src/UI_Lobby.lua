@@ -632,6 +632,7 @@ function UI_Lobby:initButton()
     end
 
     do -- 클랜 버튼 잠금 상태 처리
+        --[[
         local is_content_lock, req_user_lv = g_contentLockData:isContentLock('clan')
         if is_content_lock then
             vars['clanBtn']:setEnabled(false)
@@ -641,6 +642,7 @@ function UI_Lobby:initButton()
             vars['clanBtn']:setEnabled(true)
             vars['clanLockNode']:setVisible(false)
         end
+        --]]
     end
 
     do -- 왼쪽 버튼 leftMenu
@@ -665,6 +667,7 @@ function UI_Lobby:refresh(is_hard_refresh)
     g_eventData.m_bDirty = false
     self:update_rightButtons()
     self:update_bottomLeftButtons()
+    self:update_bottomRightButtons()
 
     -- 오른쪽 배너 갱신
     self:refresh_rightBanner()
@@ -1763,22 +1766,23 @@ end
 
 -------------------------------------
 -- function update_bottomLeftButtons
--- @brief 아래 버튼 정렬 (드래곤, 테이머, 드래곤의 숲, 퀘스트, 클랜, 상점, 부화소, 기타)
+-- @brief 아래 버튼 정렬 (드래곤, 테이머, 드래곤의 숲, 퀘스트)
 -------------------------------------
 function UI_Lobby:update_bottomLeftButtons()
     local vars = self.vars
 
     local t_btn_name = {}
-    table.insert(t_btn_name, 'questBtn')
-    local is_content_lock = g_contentLockData:isContentLock('forest')
-    if (not is_content_lock) then
-        table.insert(t_btn_name, 'forestBtn')
-        vars['forestBtn']:setVisible(true)
-    else
-        vars['forestBtn']:setVisible(false)
-    end 
-    table.insert(t_btn_name, 'tamerBtn')
-    table.insert(t_btn_name, 'dragonManageBtn')
+    local l_content = {'quest', 'forest', 'tamer', 'dragonManage'}
+    for _, content_name in ipairs(l_content) do
+        local is_content_lock = g_contentLockData:isContentLock(content_name)
+        local btn_label = content_name .. 'Btn'
+        if (not is_content_lock) then
+            table.insert(t_btn_name, btn_label)
+            vars[btn_label]:setVisible(true)
+        else
+            vars[btn_label]:setVisible(false)
+        end
+    end
     
     -- visible이 켜진 버튼들 리스트
     local l_btn_list = {}
@@ -1791,6 +1795,45 @@ function UI_Lobby:update_bottomLeftButtons()
 
     local pos_x = -139
     local interval = -119
+
+    -- 버튼들의 위치 지정
+    for i,v in ipairs(l_btn_list) do
+        local _pos_x = pos_x + ((i-1) * interval)
+        v:setPositionX(_pos_x)
+    end
+end
+
+-------------------------------------
+-- function update_bottomRightButtons
+-- @brief 아래 버튼 정렬 (클랜, 상점, 부화소, 기타)
+-------------------------------------
+function UI_Lobby:update_bottomRightButtons()
+    local vars = self.vars
+
+    local t_btn_name = {}
+    local l_content = {'clan','shop', 'draw', 'etc'}
+    for _, content_name in ipairs(l_content) do
+        local is_content_lock = g_contentLockData:isContentLock(content_name)
+        local btn_label = content_name .. 'Btn'
+        if (not is_content_lock) then
+            table.insert(t_btn_name, btn_label)
+            vars[btn_label]:setVisible(true)
+        else
+            vars[btn_label]:setVisible(false)
+        end
+    end
+    
+    -- visible이 켜진 버튼들 리스트
+    local l_btn_list = {}
+    for _,name in ipairs(t_btn_name) do
+        local btn = vars[name]
+        if (btn and btn:isVisible()) then
+            table.insert(l_btn_list, btn)
+        end
+    end
+
+    local pos_x = 140
+    local interval = 119
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
