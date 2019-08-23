@@ -57,10 +57,11 @@ function UI_QuestListItem_Contents:initUI()
     -- 컨텐츠 열리는 조건
     local req_stage_id = data['req_stage_id']
     local condition_str = data['t_desc']
+    local t_diff = {Str('보통'), Str('어려움'), Str('지옥'), Str('불지옥')}
     if (req_stage_id ~= '') then
         local difficulty, chapter, stage = parseAdventureID(req_stage_id)
         local stage_name = chapter .. '-' .. stage
-        condition_str = Str(data['t_desc'], stage_name, '') 
+        condition_str = Str(data['t_desc'], t_diff[difficulty], stage_name) 
     end
     vars['conditionLabel']:setString(Str(condition_str))
 
@@ -170,14 +171,13 @@ end
 -- @return 2 : 보상 받음
 -------------------------------------
 function UI_QuestListItem_Contents.getRewardState(content_name)
-    local can_reward = g_contentLockData:isCanReward(content_name)
+    local reward_done = g_contentLockData:isRewardDone(content_name)
     local is_lock = g_contentLockData:isContentLock(content_name)
-    
     if (is_lock) then
         return 0
-    elseif (can_reward) then
+    elseif (not reward_done) then
         return 1
-    elseif (not can_reward) then
+    elseif (reward_done) then
         return 2
     else
         return 0

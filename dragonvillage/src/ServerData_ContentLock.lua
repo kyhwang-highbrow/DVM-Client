@@ -160,7 +160,7 @@ function ServerData_ContentLock:isContentOepnByServer(content_name)
     -- 0 이라면 lock이 걸린 상태
     -- 1 이라면 lock이 풀린 상태
     -- 2 이라면 보상을 받은 상태
-    if (t_content[content_name] == 1) then
+    if (t_content[content_name] >= 1) then
         return true
     else
         return false
@@ -168,10 +168,10 @@ function ServerData_ContentLock:isContentOepnByServer(content_name)
 end
 
 -------------------------------------
--- function isContentLockByStage
+-- function isRewardDone
 -- @param 로비통신에서 받는 콘텐츠 보상 받을 수 있는지 여부
 -------------------------------------
-function ServerData_ContentLock:isCanReward(content_name)
+function ServerData_ContentLock:isRewardDone(content_name)
     local t_content = self.m_tContentOpen or {}
     
     -- 언락 리스트에 없다면 보상 받은 상태로 둠
