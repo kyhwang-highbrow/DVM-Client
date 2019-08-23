@@ -359,7 +359,9 @@ function getContentName(content_type)
 
     elseif (content_type == 'grand_arena') then
         content_name = Str('그랜드 콜로세움')
-
+    
+    elseif (content_type == 'shop_random') then
+        content_name = Str('마녀의 상점')
     else
         error('content_type : ' .. content_type)
     end

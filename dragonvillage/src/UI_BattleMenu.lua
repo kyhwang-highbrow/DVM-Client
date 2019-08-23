@@ -199,20 +199,20 @@ function UI_BattleMenu:initTab(menu_name)
     vars['clanBg']:setScale(scr_size.width / 1280)
 
     -- 탭 초기화
-    self:addTab(menu_name .. '_adventure', vars[menu_name .. '_adventureBtn'], vars['adventureMenu'])
-    self:addTab(menu_name .. '_dungeon', vars[menu_name .. '_dungeonBtn'], vars['dungeonMenu'])
+    self:addTab('adventure', vars[menu_name .. '_adventureBtn'], vars['adventureMenu'])
+    self:addTab('dungeon', vars[menu_name .. '_dungeonBtn'], vars['dungeonMenu'])
     
     if (menu_name == 'long') then
-        self:addTab(menu_name .. '_competition', vars[menu_name .. '_competitionBtn'], vars['competitionMenu'])
+        self:addTab('competition', vars[menu_name .. '_competitionBtn'], vars['competitionMenu'])
     end
     
     if (menu_name == 'short') then
-        self:addTab(menu_name .. '_competition', vars[menu_name .. '_competitionBtn'], vars['competitionMenu'])
-        self:addTab(menu_name .. 'clan', vars[menu_name .. '_clanBtn'], vars['clanMenu'])
+        self:addTab('competition', vars[menu_name .. '_competitionBtn'], vars['competitionMenu'])
+        self:addTab('clan', vars[menu_name .. '_clanBtn'], vars['clanMenu'])
     end
 
     -- 최초 탭 설정
-    self:setTab(menu_name .. '_adventure')
+    self:setTab('adventure')
 end
 
 -------------------------------------
@@ -224,34 +224,25 @@ function UI_BattleMenu:onChangeTab(tab, first)
     local duration = 0.5
 
     local vars = self.vars
-    local menu_name = self.m_menuName .. '_'
 
-    if (self.m_prevTab) then
-        local menu = string.gsub(self.m_prevTab, menu_name, '')
-
-        -- 이전 탭의 배경 fade out
-        if self.m_prevTab and vars[menu .. 'Bg'] then      
-            local node = vars[menu .. 'Bg']
-            node:stopAllActions()
-            local action = cc.Sequence:create(cc.FadeOut:create(duration), cc.Hide:create())
-            node:runAction(action)
-        end
+    -- 이전 탭의 배경 fade out
+    if self.m_prevTab and vars[self.m_prevTab .. 'Bg'] then      
+        local node = vars[self.m_prevTab .. 'Bg']
+        node:stopAllActions()
+        local action = cc.Sequence:create(cc.FadeOut:create(duration), cc.Hide:create())
+        node:runAction(action)
     end
 
-    if (tab) then
-        local menu = string.gsub(tab, menu_name, '')
-        -- 현태 탭의 배경 fade in
-        if tab and vars[tab .. 'Bg'] then     
-            local node = vars[tab .. 'Bg']
-            node:stopAllActions()
-            node:setVisible(true)
+    if tab and vars[tab .. 'Bg'] then     
+        local node = vars[tab .. 'Bg']
+        node:stopAllActions()
+        node:setVisible(true)
 
-            if (not self.m_prevTab) then
-                node:setOpacity(255)
-            else
-                local action = cc.FadeIn:create(duration)
-                node:runAction(action)
-            end
+        if (not self.m_prevTab) then
+            node:setOpacity(255)
+        else
+            local action = cc.FadeIn:create(duration)
+            node:runAction(action)
         end
     end
     -- 버튼들 초기화 (최초에만 실행)
@@ -294,7 +285,6 @@ end
 -------------------------------------
 function UI_BattleMenu:initAdventureTab()
     local vars = self.vars
-    local menu_name = self.m_menuName
 
     -- 메뉴 아이템 x축 간격
     local interval_x = 208
