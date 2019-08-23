@@ -19,9 +19,8 @@ end
 -------------------------------------
 -- function isContentLock
 -- @param content_name string
--- table_content_lock.csv 2017-07-06 sgkim
 --        adventure      모험
---        exploation	 탐험
+--        exploration	 탐험
 --        nest_tree	     [네스트] 거목 던전
 --        nest_evo_stone [네스트] 진화재료 던전
 --        ancient        고대의 탑
@@ -29,6 +28,7 @@ end
 --        colosseum	     콜로세움
 --        nest_nightmare [네스트] 악몽 던전
 --        ancient_ruin   [네스트] 고대 유적 던전
+--        rune_guardian  룬 수호자의 던전
 -------------------------------------
 function ServerData_ContentLock:isContentLock(content_name)
     local table_content_lock = TABLE:get('table_content_lock')
@@ -47,8 +47,8 @@ function ServerData_ContentLock:isContentLock(content_name)
         return is_lock
     end
 
-    -- 클랜던전의 경우 클랜 가입 여부로 검사
-    if (content_name == 'clan_raid') then
+    -- 클랜던전, 룬 수호자 던전의 경우 클랜 가입 여부로 검사
+    if (content_name == 'clan_raid' or content_name == 'rune_guardian') then
         local is_guest = g_clanData:isClanGuest()
         return is_guest
     end

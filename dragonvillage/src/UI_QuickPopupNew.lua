@@ -56,7 +56,11 @@ function UI_QuickPopupNew:init_adventureBtn()
     local l_content = {}
     table.insert(l_content, 'home') -- 로비 버튼은 여기 추가
     table.insert(l_content, 'adventure')
-    table.insert(l_content, 'exploration')
+   
+    if (not g_contentLockData:isContentLock('exploration')) then
+        table.insert(l_content, 'exploration') 
+    end
+
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
 end
@@ -67,20 +71,14 @@ end
 function UI_QuickPopupNew:init_dungeonBtn()
     local vars = self.vars
     local l_content = {}
-    table.insert(l_content, 'nest_tree')
-    table.insert(l_content, 'nest_evo_stone')
-    --[[
-    -- 황금 던전
-    if (GOLD_DUNGEON_ALWAYS_OPEN == true) then
-        table.insert(l_content, 'gold_dungeon')
-    end
-    --]]
-    -- 고대 유적 던전은 열린 경우에만 노출 (악몽던전 앞에)
-    if (g_ancientRuinData:isOpenAncientRuin()) then
-        table.insert(l_content, 'ancient_ruin') 
+
+    local l_dungeon = {'ancient_ruin','nest_tree', 'nest_evo_stone', 'nest_nightmare'}
+    for i, dungeon_name in ipairs(l_dungeon) do
+        if (not g_contentLockData:isContentLock(dungeon_name)) then
+            table.insert(l_content, dungeon_name) 
+        end
     end
 
-    table.insert(l_content, 'nest_nightmare')
     table.insert(l_content, 'secret_relation')
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
@@ -92,21 +90,14 @@ end
 function UI_QuickPopupNew:init_competitionBtn()
     local vars = self.vars
     local l_content = {}
-    table.insert(l_content, 'ancient')
-    -- 시험의탑 오픈된 경우에만 노출
-    if (g_attrTowerData:isContentOpen()) then
-        table.insert(l_content, 'attr_tower')
-    end
-    table.insert(l_content, 'colosseum')
 
-    -- 클랜 가입시에만 오픈 (클랜 던전은, 룬 수호자 던전)
-    if (not g_clanData:isClanGuest()) then
-         table.insert(l_content, 'clan_raid')
-         table.insert(l_content, 'rune_guardian')
+
+    local l_competition = {'ancient', 'attr_tower', 'colosseum', 'clan_raid', 'rune_guardian', 'challenge_mode'}
+    for i, competition_name in ipairs(l_competition) do
+        if (not g_contentLockData:isContentLock(competition_name)) then
+            table.insert(l_content, competition_name) 
+        end
     end
-   
-    -- 그림자의 신전
-    table.insert(l_content, 'challenge_mode')
 
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
