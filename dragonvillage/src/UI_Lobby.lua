@@ -1556,13 +1556,6 @@ function UI_Lobby:onFocus(is_push)
 
     -- 상점에서 노티 상품 다 사고 돌아왔을 경우 정보 갱신을 위해
     self:setShopNoti()
-
-    -- 컨텐츠 열렸을 경우에만 갱신
-    if (g_contentLockData:isContentLockDirty()) then
-        self:update_bottomLeftButtons()
-        self:update_rightButtons()
-        g_contentLockData:setContentLockDirty(false)
-    end
 end
 
 -------------------------------------

@@ -5,8 +5,6 @@ ServerData_ContentLock = class({
         m_serverData = 'ServerData',
 
         m_tContentOpen = 'list',
-
-        m_isContentLockDirty = 'boolean', -- 콘텐츠 열렸을 때 로비 화면 갱신해주기 위해 사용
     })
 
 -------------------------------------
@@ -34,7 +32,7 @@ function ServerData_ContentLock:isContentLock(content_name)
     local table_content_lock = TABLE:get('table_content_lock')
     local t_content_lock = table_content_lock[content_name]
     
-    -- 지정되지 않은 콘텐츠 이름일 경우
+    -- 테이블에 없는 컨텐츠 이름은 다 풀어준다.
     if (not t_content_lock) then
         --error('content_name : ' .. content_name)
         return false
@@ -59,7 +57,15 @@ function ServerData_ContentLock:isContentLock(content_name)
         return (not is_open)
     end
 
-    return self:isContentLockByStage(content_name)
+    -- 그랜드 아레나 이벤트 오픈 여부& 스테이지 여부 검사
+    if (content_name == 'grand_arena') then
+        local is_acitive = g_grandArena:isActive_grandArena()
+        if (is_acitive) then
+            return self:isContentLockByStage(content_name)
+        end
+    end
+
+    return not self:isContentOepnByServer(content_name)
 end
 
 -------------------------------------
@@ -134,8 +140,9 @@ end
 -------------------------------------
 -- function isContentLockByStage
 -- @param 로비통신에서 받는 콘텐츠 해금 여부
+-- @brief 서버 값에만 의존한 결과, 종합적으로 판단한 콘텐츠 해금 여부는 isContentLock 함수를 사용해야함
 -------------------------------------
-function ServerData_ContentLock:isContentLockByStage(content_name)
+function ServerData_ContentLock:isContentOepnByServer(content_name)
     local t_content = self.m_tContentOpen or {}
     
     -- 언락 리스트에 없다면 잠금 조건없이 원래 열려있어야 하는 컨텐츠
@@ -143,13 +150,38 @@ function ServerData_ContentLock:isContentLockByStage(content_name)
         return false
     end
 
-    -- 1이라면 lock이 false인 상태
+    -- 0 이라면 lock이 걸린 상태
+    -- 1 이라면 lock이 풀린 상태
+    -- 2 이라면 보상을 받은 상태
     if (t_content[content_name] == 1) then
-        return false
-    else
         return true
+    else
+        return false
     end
 end
+
+-------------------------------------
+-- function isContentLockByStage
+-- @param 로비통신에서 받는 콘텐츠 보상 받을 수 있는지 여부
+-------------------------------------
+function ServerData_ContentLock:isCanReward(content_name)
+    local t_content = self.m_tContentOpen or {}
+    
+    -- 언락 리스트에 없다면 보상 받은 상태로 둠
+    if (not t_content[content_name]) then
+        return false
+    end
+
+    -- 0 이라면 lock이 걸린 상태
+    -- 1 이라면 lock이 풀린 상태
+    -- 2 이라면 보상을 받은 상태
+    if (t_content[content_name] == 2) then
+        return true
+    else
+        return false
+    end
+end
+
 
 -------------------------------------
 -- function applyContentLock
@@ -278,8 +310,6 @@ function ServerData_ContentLock:request_contentsOpenReward(content_name, finish_
 
     -- 콜백 함수
     local function success_cb(ret)
-        self:setContentLockDirty(true)        
-        
         if (ret['content_unlock_list']) then
             self:applyContentLockByStage(ret['content_unlock_list'])
         end
@@ -305,18 +335,4 @@ function ServerData_ContentLock:request_contentsOpenReward(content_name, finish_
     ui_network:request()
 
 	return ui_network
-end
-
--------------------------------------
--- function isContentLockDirty
--------------------------------------
-function ServerData_ContentLock:isContentLockDirty()
-    return self.m_isContentLockDirty
-end
-
--------------------------------------
--- function setContentLockDirty
--------------------------------------
-function ServerData_ContentLock:setContentLockDirty(dirty)
-    self.m_isContentLockDirty = dirty
 end

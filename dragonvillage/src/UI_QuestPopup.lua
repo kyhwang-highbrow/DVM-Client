@@ -224,8 +224,8 @@ function UI_QuestPopup:makeContentsQuest(tab, node)
         for idx, data in ipairs(l_quest) do
             local content_name = data['content_name']
             local req_stage = data['req_stage_id']
-            local is_reward = UI_QuestListItem_Contents.isRewardable(content_name, req_stage)
-            if (is_reward) then
+            local reward_state = UI_QuestListItem_Contents.getRewardState(content_name) -- 보상 가능일 때 1 리턴
+            if (reward_state == 1) then
                focus_idx = idx
                break
             end

@@ -139,87 +139,48 @@ function UI_QuestListItem_Contents:refresh()
     local data = self.m_data
     local content_name = data['content_name']
     local req_stage = data['req_stage_id']
-
-
-    -- 컨텐츠 조건 만족 상태, 컨텐츠 잠금 상태 조합해서 버튼 상태 설정
-    local is_reward = UI_QuestListItem_Contents.isRewardable(content_name, req_stage)
-    local after_reward = UI_QuestListItem_Contents.isRewardAfter(content_name, req_stage)
-    local before_reward = UI_QuestListItem_Contents.isRewardBefore(content_name, req_stage)
     
     vars['lockBtn']:setEnabled(false)
     vars['rewardBtn']:setVisible(false)
     vars['questLinkBtn']:setVisible(false)
     vars['lockBtn']:setVisible(false)
 
+
+    -- return 0 : 잠금
+    -- return 1 : 보상 가능
+    -- return 2 : 보상 받음
+    local reward_state = UI_QuestListItem_Contents.getRewardState(content_name)
+
     -- 보상 받기 가능, 바로가기 버튼, 잠금 버튼
-    if (is_reward) then
+    if (reward_state == 0) then
+        vars['lockBtn']:setVisible(true)
+    elseif (reward_state == 1) then
         vars['rewardBtn']:setVisible(true)
-    elseif (after_reward) then
+    elseif (reward_state == 2) then
         vars['questLinkBtn']:setVisible(true)
-    elseif (before_reward) then
-        vars['lockBtn']:setVisible(true)
     else
-        vars['lockBtn']:setVisible(true)
+        vars['questLinkBtn']:setVisible(true)
     end
 end
 
 -------------------------------------
 -- function isRewardable
+-- @return 0 : 잠금
+-- @return 1 : 보상 가능
+-- @return 2 : 보상 받음
 -------------------------------------
-function UI_QuestListItem_Contents.isRewardable(content_name, req_stage)
-    if (not req_stage) then
-        return false
-    end
-
-    if (req_stage == '') then
-        return false
-    end
-
-    local is_available = g_adventureData:isClearStage(req_stage)
+function UI_QuestListItem_Contents.getRewardState(content_name)
+    local can_reward = g_contentLockData:isCanReward(content_name)
     local is_lock = g_contentLockData:isContentLock(content_name)
-
-    -- 컨텐츠 조건 만족 상태, 컨텐츠 잠금 상태 조합해서 버튼 상태 설정
-    local reward_able = is_available and is_lock
-    return reward_able
+    
+    if (is_lock) then
+        return 0
+    elseif (can_reward) then
+        return 1
+    elseif (not can_reward) then
+        return 2
+    else
+        return 0
+    end
 end
 
--------------------------------------
--- function isRewardAfter
--------------------------------------
-function UI_QuestListItem_Contents.isRewardAfter(content_name, req_stage)
-    if (not req_stage) then
-        return false
-    end
-
-    if (req_stage == '') then
-        return false
-    end
-
-    local is_available = g_adventureData:isClearStage(req_stage)
-    local is_lock = g_contentLockData:isContentLock(content_name)
-
-    -- 컨텐츠 조건 만족 상태, 컨텐츠 잠금 상태 조합해서 버튼 상태 설정
-    local after_reward = is_available and not is_lock
-    return after_reward
-end
-
--------------------------------------
--- function isRewardBefore
--------------------------------------
-function UI_QuestListItem_Contents.isRewardBefore(content_name, req_stage)
-    if (not req_stage) then
-        return false
-    end
-
-    if (req_stage == '') then
-        return false
-    end
-
-    local is_available = g_adventureData:isClearStage(req_stage)
-    local is_lock = g_contentLockData:isContentLock(content_name)
-
-    -- 컨텐츠 조건 만족 상태, 컨텐츠 잠금 상태 조합해서 버튼 상태 설정
-    local before_reward = not is_available
-
-    return before_reward
-end
