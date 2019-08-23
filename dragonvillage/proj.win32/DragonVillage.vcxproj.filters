@@ -4156,6 +4156,9 @@
     <None Include="..\src\UI_QuestListItem_Contents.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventThankAnniversary.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

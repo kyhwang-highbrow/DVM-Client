@@ -277,6 +277,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 1주년 이벤트 : 복귀 유저 환영 이벤트
 	elseif (tab == 'event_1st_comeback') then
 		ui = UI_Event1stComeback()
+    
+    -- 2주년 이벤트 : 2주년 기념 감사 이벤트
+	elseif (tab == 'event_thanks_2nd_annivesary') then
+		ui = UI_EventThankAnniversary()
 
     -- 누적 결제 보상 이벤트 
     elseif pl.stringx.startswith(tab, 'purchase_point') then
