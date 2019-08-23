@@ -69,6 +69,8 @@ function ServerData_ContentLock:isContentLock(content_name)
         local is_acitive = g_grandArena:isActive_grandArena()
         if (is_acitive) then
             return self:isContentOepnByServer(content_name)
+        else
+            return true
         end
     end
 

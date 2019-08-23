@@ -1,11 +1,11 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
-local L_TAB = {'adventure', 'dungeon', 'competiton', 'clan'}
+local L_TAB = {'adventure', 'dungeon', 'competition', 'clan'}
 
 local L_TAB_CONTENTS = {}
 L_TAB_CONTENTS['adventure'] = {'adventure', 'exploration'}
 L_TAB_CONTENTS['dungeon'] = {'nest_tree', 'nest_evo_stone', 'ancient_ruin', 'nest_nightmare', 'secret_relation'}
 L_TAB_CONTENTS['competition'] = {'ancient', 'attr_tower', 'colosseum', 'challenge_mode', 'grand_arena'}
-L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_gurdian'}
+L_TAB_CONTENTS['clan'] = {'clan_raid', 'rune_guardian'}
 
 
 
@@ -111,14 +111,14 @@ end
 -------------------------------------
 -- function getContentCntByType
 -------------------------------------
-function UI_BattleMenu:getContentCntByType(content_name)
-    if (not L_TAB_CONTENTS[content_name]) then
+function UI_BattleMenu:getContentCntByType(tab_name)
+    if (not L_TAB_CONTENTS[tab_name]) then
         return 0
     end
 
-    local l_contens = L_TAB_CONTENTS[content_name]
+    local l_contens = L_TAB_CONTENTS[tab_name]
     local cnt = 0
-    for i, v in ipairs(l_contens) do
+    for i, content_name in ipairs(l_contens) do
         if (not g_contentLockData:isContentLock(content_name)) then
             cnt = cnt + 1
         end
@@ -288,7 +288,7 @@ function UI_BattleMenu:initAdventureTab()
 
     -- 메뉴 아이템 x축 간격
     local interval_x = 208
-    local pos_y = 80
+    local pos_y = -80
     local l_content_str = {}
 
     -- 모험
@@ -424,9 +424,8 @@ function UI_BattleMenu:initClanTab()
     local pos_y = -80
 
     local l_content_str = {}
-    for _, dungeon_name in ipairs(L_TAB_CONTENTS['competition']) do
-        table.insert(l_content_str, 'clan_raid') -- 클랜 던전
-        table.insert(l_content_str, 'rune_guardian') -- 룬 수호자 (세트별 룬 파밍 던전)
+    for _, dungeon_name in ipairs(L_TAB_CONTENTS['clan']) do
+        table.insert(l_content_str, dungeon_name)
     end
 
     local l_btn_ui = {}
@@ -477,7 +476,7 @@ function UI_BattleMenu:resetButtonsPosition()
     if (string.match(tab, 'adventure')) then
         self:runBtnAppearAction(self.m_lAdventureBtnUI, true) -- param : l_btn_ui, immediately
 
-    elseif (tstring.match(tab, 'dungeon')) then
+    elseif (string.match(tab, 'dungeon')) then
         self:runBtnAppearAction(self.m_lDungeonBtnUI, true) -- param : l_btn_ui, immediately
 
     elseif (string.match(tab, 'competition')) then
