@@ -303,7 +303,7 @@ function UI_BattleMenu:initAdventureTab()
     do -- 콘텐츠 리스트 UI 생성
         local l_pos = getSortPosList(interval_x, table.count(l_content_str))
         for i,v in ipairs(l_content_str) do
-            local ui = UI_BattleMenuItem_Adventure(v, list_count)
+            local ui = UI_BattleMenuItem_Adventure(v, #l_content_str)
             local pos_x = l_pos[i]
             ui.root:setPosition(pos_x, pos_y)
             vars['adventureMenu']:addChild(ui.root)
@@ -354,7 +354,7 @@ function UI_BattleMenu:initDungeonTab()
     -- 메뉴 아이템 시작점
     local pos_y = -6
     for idx, target in ipairs(l_item) do
-        local ui = UI_BattleMenuItem_Dungeon(target)
+        local ui = UI_BattleMenuItem_Dungeon(target, #l_item)
         local pos_x = -size.width/2 + interval_x * (idx - 1)
         ui.root:setPosition(pos_x, pos_y)
         ui.root:setSwallowTouch(false)
@@ -433,7 +433,7 @@ function UI_BattleMenu:initClanTab()
     do -- 콘텐츠 리스트 UI 생성
         local l_pos = getSortPosList(interval_x, table.count(l_content_str))
         for i,v in ipairs(l_content_str) do
-            local ui = UI_BattleMenuItem_Clan(v, false)
+            local ui = UI_BattleMenuItem_Clan(v, 2)
             local pos_x = l_pos[i]
             ui.root:setPosition(pos_x, pos_y)
             vars['clanMenu']:addChild(ui.root)

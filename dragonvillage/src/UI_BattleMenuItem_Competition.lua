@@ -51,15 +51,6 @@ function UI_BattleMenuItem_Competition:initUI()
 		self:initCompetitionRewardInfo(content_type)
 
 	end
-
-    if (self.m_menuListCnt == 4) then
-        vars['itemVisual']:changeAni(content_type .. '_list', true)
-    elseif (self.m_menuListCnt == 5) then
-        vars['itemVisual']:changeAni(content_type .. '_02', true)
-    else
-        vars['itemVisual']:changeAni(content_type, true)
-    end
-    
 end
 
 -------------------------------------

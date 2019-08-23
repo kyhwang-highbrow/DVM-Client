@@ -20,6 +20,7 @@ UI_BattleMenuItem = class(PARENT, {
         -- gold_dungeon 황금 던전
         
         m_notiIcon = 'cc.Sprite',
+        m_listCnt = 'number',
      })
 
 local THIS = UI_BattleMenuItem
@@ -27,8 +28,9 @@ local THIS = UI_BattleMenuItem
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BattleMenuItem:init(content_type)
+function UI_BattleMenuItem:init(content_type, list_cnt)
     self.m_contentType = content_type
+    self.m_listCnt = list_cnt or 1
     -- 컨텐츠 별 ui 파일 분리 - 파생 클래스에서 ui 로드
 end
 
@@ -67,8 +69,17 @@ function UI_BattleMenuItem:initUI()
         end
     end
 
-    -- 컨텐츠 타입별 지정
-    vars['itemVisual']:changeAni(content_type, true)
+    -- 컨텐츠 크기별로 애니메이션 지정
+    local ani_num = '_01'
+    if (self.m_listCnt <= 3) then
+        ani_num = '_01'
+    elseif (self.m_listCnt == 4) then
+        ani_num = '_02'   
+    elseif (self.m_listCnt == 5) then
+        ani_num = '_03'
+    end
+
+    vars['itemVisual']:changeAni(content_type .. ani_num, true)
     vars['titleLabel']:setString(getContentName(content_type))
 end
 
