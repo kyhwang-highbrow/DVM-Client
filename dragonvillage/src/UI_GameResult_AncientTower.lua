@@ -667,12 +667,12 @@ function UI_GameResult_AncientTower:direction_secretDungeon()
         local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)        
         g_attrTowerData:request_attrTowerInfo(attr, prev_stage_id, finish_cb)   
     end
-    
+    --[[
     -- 시험의 탑 컨텐츠 오픈 팝업
     if (self.m_content_open) then
        UI_ContentOpenPopup('attr_tower')
     end 
-
+	--]]
     self:doNextWork()
 end
 

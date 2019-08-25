@@ -448,7 +448,9 @@ function UI_BattleMenu:initClanTab()
 
     local l_content_str = {}
     for _, dungeon_name in ipairs(L_TAB_CONTENTS['clan']) do
-        table.insert(l_content_str, dungeon_name)
+        if (not g_contentLockData:isContentLock(dungeon_name)) then
+			table.insert(l_content_str, dungeon_name)
+		end
     end
 
     local l_btn_ui = {}

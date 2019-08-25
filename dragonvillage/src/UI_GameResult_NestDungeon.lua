@@ -97,11 +97,12 @@ end
 -------------------------------------
 function UI_GameResult_NestDungeon:direction_masterRoad()
      -- 고대 유적 던전 컨텐츠 오픈 팝업
+	 --[[
     if (self.m_content_open) then
         -- 오픈된 상태에서 네스트 던전 정보 다시 받아와야함
         g_nestDungeonData.m_bDirtyNestDungeonInfo = true
         UI_ContentOpenPopup('ancient_ruin')
     end 
-
+	--]]
     PARENT.direction_masterRoad(self)
 end

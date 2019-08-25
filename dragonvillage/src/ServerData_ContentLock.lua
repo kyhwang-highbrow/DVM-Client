@@ -66,7 +66,9 @@ function ServerData_ContentLock:isContentLock(content_name)
             local is_guest = g_clanData:isClanGuest()
             if (not is_guest) then
 				local is_open = g_ancientRuinData:isOpenAncientRuin() -- 고대유적 던전이랑 조건이 같음
-				return (not is_open)
+				if (is_open) then  -- 열려 있다면 false
+					return false
+				end
 			end
         end
 		return true

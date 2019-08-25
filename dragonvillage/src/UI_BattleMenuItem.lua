@@ -43,7 +43,7 @@ function UI_BattleMenuItem:initUI()
 
     self.root:setSwallowTouch(false)
     vars['swallowTouchMenu']:setSwallowTouch(false)
-    
+    --[[
     -- 버튼 잠금 상태 처리
     local is_content_lock, req_user_lv = g_contentLockData:isContentLock(content_type)
     if is_content_lock then
@@ -59,7 +59,7 @@ function UI_BattleMenuItem:initUI()
     else
         vars['lockSprite']:setVisible(false)
     end
-
+	--]]
     -- 베타 버튼 표시
     if vars['betaLabel'] then
         if g_contentLockData:isContentBeta(content_type) then
@@ -68,7 +68,7 @@ function UI_BattleMenuItem:initUI()
             vars['betaLabel']:setVisible(false)
         end
     end
-
+	
     -- 컨텐츠 크기별로 애니메이션 지정
     local ani_num = '_01'
     if (self.m_listCnt <= 3) then
