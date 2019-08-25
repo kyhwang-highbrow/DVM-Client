@@ -346,6 +346,9 @@ function ServerData_ContentLock:request_contentsOpenReward(content_name, finish_
             self:applyContentLockByStage(ret['content_unlock_list'])
         end
         
+		-- 로비에서 노티 갱신하도록
+		g_highlightData:setDirty(true)
+
         if (finish_cb) then
             finish_cb()
         end

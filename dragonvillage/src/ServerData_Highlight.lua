@@ -144,7 +144,17 @@ end
 -- function isHighlightQuest
 -------------------------------------
 function ServerData_Highlight:isHighlightQuest()
-    return (0 < self['quest_reward'])
+    -- 퀘스트 받을 보상이 있다면 노티
+	if (0 < self['quest_reward']) then
+		return true
+	end
+
+	-- 퀘스트 받을 보상이 없다면 컨텐츠 퀘스트 부분도 확인
+	if (g_contentLockData:isRewardableContentQuest()) then
+		return true
+	end
+
+	return false
 end
 
 -------------------------------------
