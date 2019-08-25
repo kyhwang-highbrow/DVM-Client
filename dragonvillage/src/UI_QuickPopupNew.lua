@@ -5,6 +5,8 @@ local PARENT = UI
 -------------------------------------
 UI_QuickPopupNew = class(PARENT, {
         m_loadingUI = 'UI_TitleSceneLoading',
+		
+		m_isTwoFloor = 'boolean',
      })
 
 -------------------------------------
@@ -39,9 +41,9 @@ end
 -------------------------------------
 function UI_QuickPopupNew:initButton()
     local vars = self.vars
+    self:init_competitionBtn()
     self:init_adventureBtn()
     self:init_dungeonBtn()
-    self:init_competitionBtn()
     self:init_underBtn()
 
     vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
@@ -61,8 +63,14 @@ function UI_QuickPopupNew:init_adventureBtn()
         table.insert(l_content, 'exploration') 
     end
 
+    -- 2층만 있을 경우 위치 조절 
+	local pos_y = nil
+	if (self.m_isTwoFloor == true) then
+		pos_y = 130
+	end
+
     self:checkLockContent(l_content)
-    self:adjustPosX(l_content)
+    self:adjustPosX(l_content, pos_y)
 end
 
 -------------------------------------
@@ -72,16 +80,21 @@ function UI_QuickPopupNew:init_dungeonBtn()
     local vars = self.vars
     local l_content = {}
 
-    local l_dungeon = {'ancient_ruin','nest_tree', 'nest_evo_stone', 'nest_nightmare'}
+    local l_dungeon = {'ancient_ruin','nest_tree', 'nest_evo_stone', 'nest_nightmare', 'secret_relation'}
     for i, dungeon_name in ipairs(l_dungeon) do
         if (not g_contentLockData:isContentLock(dungeon_name)) then
             table.insert(l_content, dungeon_name) 
         end
     end
+   
+    -- 2층만 있을 경우 위치 조절 
+	local pos_y = nil
+	if (self.m_isTwoFloor == true) then
+		pos_y = -80
+	end
 
-    table.insert(l_content, 'secret_relation')
-    self:checkLockContent(l_content)
-    self:adjustPosX(l_content)
+	self:checkLockContent(l_content)
+    self:adjustPosX(l_content, pos_y)
 end
 
 -------------------------------------
@@ -97,6 +110,11 @@ function UI_QuickPopupNew:init_competitionBtn()
             table.insert(l_content, competition_name) 
         end
     end
+	
+	-- 던전 컨텐츠가 없어서 3번째 줄이 비는 경우 위치를 조정해준다
+	if (#l_content == 0) then
+		self.m_isTwoFloor = true
+	end
 
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
@@ -156,6 +174,8 @@ function UI_QuickPopupNew:checkLockContent(l_content)
     for i, content in ipairs(l_content) do
         local is_content_lock, req_user_lv = g_contentLockData:isContentLock(content)
         if (is_content_lock) then
+			vars[content .. 'Btn']:setVisible(false)
+			--[[
             vars[content .. 'Btn']:setVisible(true)
             if (vars[content .. 'LockSprite']) then
                 vars[content .. 'LockSprite']:setVisible(true)
@@ -168,6 +188,7 @@ function UI_QuickPopupNew:checkLockContent(l_content)
             cca.reserveFunc(vars[content .. 'Btn'], 0.5, function()
                 vars[content .. 'Btn']:setEnabled(false)
             end)
+			--]]
         else
             vars[content .. 'Btn']:setVisible(true)
             vars[content .. 'Btn']:registerScriptTapHandler(function() 
@@ -184,21 +205,13 @@ function UI_QuickPopupNew:checkLockContent(l_content)
                 beta_label:setVisible(false)
             end
         end
-
-        -- 룬 수호자 던전 (악몽 10단계 클리어 못했을 경우)
-        if (content == 'rune_guardian') then
-            if (not g_nestDungeonData:isClearNightmare()) then
-                vars['rune_guardianBtn']:setEnabled(false)
-                vars['rune_guardianLockSprite']:setVisible(true)
-            end
-        end
     end
 end
 
 -------------------------------------
 -- function adjustPosX
 -------------------------------------
-function UI_QuickPopupNew:adjustPosX(l_content)
+function UI_QuickPopupNew:adjustPosX(l_content, pos_y)
     local vars = self.vars
     local padding_x = 184
     local total_cnt = #l_content
@@ -207,6 +220,9 @@ function UI_QuickPopupNew:adjustPosX(l_content)
     for i, content in ipairs(l_content) do
         local pos_x = start_x + (i - 1) * padding_x 
         vars[content .. 'Btn']:setPositionX(pos_x)
+		if (pos_y) then
+			vars[content .. 'Btn']:setPositionY(pos_y)
+		end
     end
 end
 
