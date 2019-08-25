@@ -171,7 +171,9 @@ end
 -- @param ui_key : category와 조합하여 noti 아이콘을 붙일 node를 찾음
 -------------------------------------
 function UIHelper:autoNoti(category_bool_map, noti_ui_table, ui_key, vars)
-    for _, spr in pairs(noti_ui_table) do
+	local noti_ui_table = noti_ui_table or {}
+	
+	for _, spr in pairs(noti_ui_table) do
 		spr:setVisible(false)
 	end
 

@@ -89,12 +89,15 @@ end
 -- function isOpen
 -------------------------------------
 function ServerData_CapsuleBox:isOpen()
-    if (self.m_open) then
-        -- 스테이지 조건 확인
-        return g_contentLockData:isContentLock('capsule')
-    else
-	    return false 
-    end
+    -- 스테이지 조건 확인
+	return g_contentLockData:isContentLock('capsule')
+end
+
+-------------------------------------
+-- function getIsOpen
+-------------------------------------
+function ServerData_CapsuleBox:getIsOpen()
+	return self.m_open
 end
 
 -------------------------------------

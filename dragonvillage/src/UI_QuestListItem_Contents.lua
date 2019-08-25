@@ -8,7 +8,7 @@ UI_QuestListItem_Contents = class(PARENT, {
         --{
         --        "t_desc_2":"자수정, 룬 획득 가능",
         --        "req_stage_id":1110107,
-        --        "content_name":"exploation",
+        --        "content_name":"exploration",
         --        "res":"res/ui/icons/content/dungeon_tree.png",
         --        "beta":"",
         --        "t_desc":"모험 {1}{2} 스테이지 클리어 필요",
@@ -25,7 +25,8 @@ function UI_QuestListItem_Contents:init(data)
 	self:load('quest_item_contents_open.ui')
     self.m_data = data
 
-
+	-- 컨텐츠 퀘스트 리스트에 보상이 없는 경우는 들어와서는 안됨
+	-- UI만들다가 오류나므로 return
     if (data['reward'] == '') then
         return
     end
@@ -54,15 +55,8 @@ function UI_QuestListItem_Contents:initUI()
     local desc = data['t_desc_2']
     vars['dscLabel']:setString(Str(desc))
 
-    -- 컨텐츠 열리는 조건
-    local req_stage_id = data['req_stage_id']
-    local condition_str = data['t_desc']
-    local t_diff = {Str('보통'), Str('어려움'), Str('지옥'), Str('불지옥')}
-    if (req_stage_id ~= '') then
-        local difficulty, chapter, stage = parseAdventureID(req_stage_id)
-        local stage_name = chapter .. '-' .. stage
-        condition_str = Str(data['t_desc'], t_diff[difficulty], stage_name) 
-    end
+    -- 컨텐츠 열리는 조건(스테이지)
+	local condition_str = UI_QuestListItem_Contents.makeConditionDesc(data['req_stage_id'], data['t_desc'])
     vars['conditionLabel']:setString(Str(condition_str))
 
     -- 컨텐츠 이미지
@@ -80,9 +74,10 @@ function UI_QuestListItem_Contents:initUI()
     local item_id = tonumber(t_item[1])
     local item_cnt = tonumber(t_item[2])
     local reward_card = UI_ItemCard(item_id, item_cnt)
-    reward_card.root:setSwallowTouch(false)
-    vars['rewardNode']:addChild(reward_card.root)
-
+	if (reward_card) then
+		reward_card.root:setSwallowTouch(false)
+		vars['rewardNode']:addChild(reward_card.root)
+	end
 end
 
 -------------------------------------
@@ -99,9 +94,8 @@ function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
     local data = self.m_data
     local content_name = data['content_name']
     local finish_cb = function()
-        
         local close_cb = function()
-            -- 우편함으로 전송
+            -- ~~아이템이 우편함으로 전송된다는 토스트 팝업
             local t_item = plSplit(data['reward'], ';')
             local t_data = {}
             t_data['item_id'] = tonumber(t_item[1])
@@ -115,6 +109,7 @@ function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
         
         -- 갱신
         self:refresh()
+		ui_quest_popup:refresh()
     end
     g_contentLockData:request_contentsOpenReward(content_name, finish_cb) 
 end
@@ -124,10 +119,16 @@ end
 -------------------------------------
 function UI_QuestListItem_Contents:click_questLinkBtn(ui_quest_popup)
     local data = self.m_data
-    
-    -- 바로가기
-    UINavigator:goTo(data['content_name'])
+    local content_name = data['content_name']
+	
+	if (content_name == 'daily_shop') then
+		UINavigator:goTo('shop_daily', true) -- content_name, is_popup
+	else
+		-- 바로가기
+		UINavigator:goTo(content_name)
+	end
 
+ 
     -- 퀘스트 팝업은 꺼버린다.
     if (ui_quest_popup and ui_quest_popup.closed == false) then
         ui_quest_popup:close()
@@ -175,7 +176,8 @@ end
 function UI_QuestListItem_Contents.getRewardState(content_name)
     local reward_done = g_contentLockData:isRewardDone(content_name)
     local is_lock = g_contentLockData:isContentLock(content_name)
-    if (is_lock) then
+    
+	if (is_lock) then
         return 0
     elseif (not reward_done) then
         return 1
@@ -186,3 +188,30 @@ function UI_QuestListItem_Contents.getRewardState(content_name)
     end
 end
 
+-------------------------------------
+-- function makeConditionDesc
+-- ex) 모험 보통 1-7 스테이지 클리어 필요/ 문구를 조합해서 만듬
+-------------------------------------
+function UI_QuestListItem_Contents.makeConditionDesc(req_stage_id, t_desc)
+	if (not req_stage_id) then
+		return ''
+	end
+
+	if (req_stage_id == '') then
+		return t_desc or ''
+	end
+
+	if (not t_desc) then
+		return ''
+	end
+
+    local req_stage_id = req_stage_id
+    local condition_str = t_desc
+    local t_diff = {Str('보통'), Str('어려움'), Str('지옥'), Str('불지옥')}
+	
+	local condition_str = ''
+    local difficulty, chapter, stage = parseAdventureID(req_stage_id)
+    local stage_name = chapter .. '-' .. stage
+    condition_str = Str(t_desc, t_diff[difficulty], stage_name) -- ex) 모험 보통 1-7 스테이지 클리어 필요/ 문구를 조합해서 만듬
+	return condition_str
+end

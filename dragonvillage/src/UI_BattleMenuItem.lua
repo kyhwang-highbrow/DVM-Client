@@ -105,7 +105,7 @@ function UI_BattleMenuItem:refresh()
         local visible = g_hotTimeData:isHighlightHotTime()
         self.vars['battleHotSprite']:setVisible(visible)
         
-    elseif (content_type == 'exploation') then
+    elseif (content_type == 'exploration') then
         has_noti = g_highlightData:isHighlightExploration()
         noti_pos = cc.p(190, -138)
 
@@ -157,7 +157,7 @@ function UI_BattleMenuItem:click_enterBtn()
         UINavigator:goTo('adventure')
 
     -- 탐험
-    elseif (content_type == 'exploation') then
+    elseif (content_type == 'exploration') then
         UINavigator:goTo('exploration')
 
     -- 고대의 탑
