@@ -362,6 +362,15 @@ function getContentName(content_type)
     
     elseif (content_type == 'shop_random') then
         content_name = Str('마녀의 상점')
+
+    elseif (content_type == 'forest') then
+        content_name = Str('드래곤의 숲')
+
+    elseif (content_type == 'capsule') then
+        content_name = Str('캡슐 뽑기')
+
+	elseif (content_type == 'daily_shop') or (content_type == 'shop_daily')then
+        content_name = Str('일일 상점')
     else
         error('content_type : ' .. content_type)
     end

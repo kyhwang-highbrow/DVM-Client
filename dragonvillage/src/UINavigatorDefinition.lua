@@ -1887,3 +1887,13 @@ function UINavigatorDefinition:closeUIList(idx, include_idx)
         end
     end
 end
+
+-------------------------------------
+-- function goTo_capsule
+-- @brief 캡슐 뽑기로 이동 
+-- @warning lobby에서 드빌전용관 이동할 때 이름도 capsuleBtn으로 사용함 주의!
+-- @usage UINavigatorDefinition:goTo('capsule')
+-------------------------------------
+function UINavigatorDefinition:goTo_capsule(...)
+	g_capsuleBoxData:openCapsuleBoxUI()
+end
