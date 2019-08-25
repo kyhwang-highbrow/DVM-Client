@@ -13,6 +13,9 @@ UI_EventThankAnniversary = class(PARENT, {
 function UI_EventThankAnniversary:init(content_type, list_cnt)
     local vars = self:load('event_thanks_anniversary.ui')
 
+	-- backkey 지정
+	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_QuestPopup')
+
     self:initUI()
     self:initButton()
     self:refresh()
@@ -43,8 +46,8 @@ end
 -------------------------------------
 function UI_EventThankAnniversary:initButton()
     local vars = self.vars
-    vars['rewardBtn1']:registerScriptTapHandler(function() self:click_rewardBtn(1) end)
-    vars['rewardBtn2']:registerScriptTapHandler(function() self:click_rewardBtn(2) end)
+    vars['rewardBtn1']:registerScriptTapHandler(function() self:click_chooseBtn(1) end)
+    vars['rewardBtn2']:registerScriptTapHandler(function() self:click_chooseBtn(2) end)
 end
 
 -------------------------------------
@@ -61,41 +64,9 @@ function UI_EventThankAnniversary:onEnterTab()
 end
 
 -------------------------------------
--- function click_rewardBtn
+-- function click_chooseBtn
 -------------------------------------
-function UI_EventThankAnniversary:click_rewardBtn(reward_num)
-    self:request_evnetThankReward(reward_num)
+function UI_EventThankAnniversary:click_chooseBtn(reward_num)
+	UI_EventThankAnniversary_showDetaillPopup(reward_num)
 end
 
--------------------------------------
--- function click_rewardBtn
--------------------------------------
-function UI_EventThankAnniversary:request_evnetThankReward(reward_num, finish_cb)  
-    -- 파라미터
-    local uid = g_userData:get('uid')
-
-    -- 콜백 함수
-    local function success_cb(ret)
-        
-        if (finish_cb) then
-            finish_cb()
-        end
-    end
-
-    -- 콜백 함수
-    local function fail_cb(ret)
-    end
-
-    -- 네트워크 통신 UI 생성
-    local ui_network = UI_Network()
-    ui_network:setUrl('/users/get_comeback_reward')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('choice', reward_num) -- adventrue(모험)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-
-	return ui_network
-end
