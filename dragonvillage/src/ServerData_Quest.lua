@@ -224,9 +224,10 @@ end
 function ServerData_Quest:hasRewardableQuest(quest_type)
     local is_exist = false
 
-    -- 다른 정보를 사용
+    -- 컨텐츠 퀘스트틑 serverdata_quest의 정보를 사용하지 않음
+	-- serverdata_contentlock에서 해금 퀘스트 관련 정보를 가지고 있음 
     if (quest_type == 'contents') then
-        return true
+        return g_contentLockData:isRewardableContentQuest()
     end
 
 	-- type에 해당하는 퀘스트 뽑아냄

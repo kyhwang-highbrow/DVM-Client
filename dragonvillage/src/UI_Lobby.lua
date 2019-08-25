@@ -1718,12 +1718,12 @@ function UI_Lobby:update_rightButtons()
     end
 
     -- 마녀의 상점
-    local is_random_shop_open = g_contentLockData:isContentLock('random_shop')
-    vars['randomShopBtn']:setVisible(is_random_shop_opne)
+    local is_random_shop_open = not g_contentLockData:isContentLock('shop_random')
+    vars['randomShopBtn']:setVisible(is_random_shop_open)
 
     -- 일일 상점
-    local is_daily_shop_open = g_contentLockData:isContentLock('daily_shop')
-    vars['dailyShopBtn']:setVisible(is_random_shop_opne)
+    local is_daily_shop_open = not g_contentLockData:isContentLock('daily_shop')
+    vars['dailyShopBtn']:setVisible(is_daily_shop_open)
 
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}

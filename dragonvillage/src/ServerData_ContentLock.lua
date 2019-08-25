@@ -12,6 +12,7 @@ ServerData_ContentLock = class({
 -------------------------------------
 function ServerData_ContentLock:init(server_data)
     self.m_serverData = server_data
+	self.m_tContentOpen = {}
 end
 
 -------------------------------------
@@ -38,40 +39,65 @@ function ServerData_ContentLock:isContentLock(content_name)
         return false
     end
 
-    -- 시험의 탑 경우 유저 레벨이 아닌 다른 조건으로 검사
+    -- [시험의 탑]
+	-- 유저 레벨이 아닌 고대의 탑 40층 기준으로 오픈
     if (content_name == 'attr_tower') then
         local attr_tower_open = g_attrTowerData:isContentOpen()
         local is_lock = not attr_tower_open
         return is_lock
     end
 
-    -- 클랜이 열려있어야 하고
+	-- [클랜 던전]
+	-- 1.클랜이 열려야 함 2.클랜에 가입되어 있어야함
     local is_clan_open = self:isContentOepnByServer('clan')
-    -- 클랜던전, 룬 수호자 던전의 경우 클랜 가입 여부로 검사
-    if (content_name == 'clan_raid' or content_name == 'rune_guardian') then
+    if (content_name == 'clan_raid') then
         if (is_clan_open) then  
             local is_guest = g_clanData:isClanGuest()
             return is_guest
-        else
-            return true
         end
+		return true
     end
 
+	-- [룬 수호자의 던전]
+	-- 1.클랜이 열려야 함 2.클랜에 가입되어 있어야함 3. 악몽던전 10을 깨야함
+    local is_clan_open = self:isContentOepnByServer('clan')
+    if (content_name == 'rune_guardian') then
+        if (is_clan_open) then  
+            local is_guest = g_clanData:isClanGuest()
+            if (not is_guest) then
+				local is_open = g_ancientRuinData:isOpenAncientRuin() -- 고대유적 던전이랑 조건이 같음
+				return (not is_open)
+			end
+        end
+		return true
+    end
 
-    -- 고대 유적 던전의 경우 악몽 던전 클리어 여부로 검사
+	-- [캡슐 뽑기]
+	-- 스테이지 조건에 맞아야하고, 캡슐뽑기 열렸을 때에만 오픈
+	if (content_name == 'capsule') then
+		if (self:isContentOepnByServer(content_name)) then
+			if (g_capsuleBoxData:getIsOpen()) then
+				return false
+			end	
+		end
+		return true
+	end
+
+    -- [고대 유적 던전]
+	-- 악몽 던전 클리어 여부로 검사
     if (content_name == 'ancient_ruin') then
         local is_open = g_ancientRuinData:isOpenAncientRuin()
         return (not is_open)
     end
 
-    -- 그랜드 아레나 이벤트 오픈 여부& 스테이지 여부 검사
+    -- [그랜드 아레나 이벤트]
+	-- 오픈 여부& 스테이지 여부 검사
     if (content_name == 'grand_arena') then
         local is_acitive = g_grandArena:isActive_grandArena()
         if (is_acitive) then
             return self:isContentOepnByServer(content_name)
-        else
-            return true
         end
+        return true
     end
 
     return not self:isContentOepnByServer(content_name)
@@ -132,11 +158,13 @@ end
 
 -------------------------------------
 -- function getContentsQuestList
--- @breif 컨텐츠 퀘스트에서 필요한 리스트 반환
+-- @brief 컨텐츠 퀘스트에서 필요한 리스트 반환
 -------------------------------------
 function ServerData_ContentLock:getContentsQuestList()
     local t_content_lock = TABLE:get('table_content_lock')
     local t_filter = {}
+
+	-- 리워드가 있는 것 == 컨텐츠 해금 퀘스트로 판단
     for content_name, data in pairs(t_content_lock) do
         if (data['reward']) and (data['reward'] ~= '') then
             t_filter[content_name] = data
@@ -244,15 +272,7 @@ function ServerData_ContentLock:checkContentLock(content_name, excute_func)
     local t_content_lock = table_content_lock[content_name]
 
     -- 잠금 안내
-    local user_lv = g_userData:get('lv')
-    local req_user_lv = t_content_lock['req_user_lv']
-    local desc = t_content_lock['t_desc']
-    local msg = Str(desc, req_user_lv) .. '\n' .. Str('{@R}(현재 유저 레벨은 {1}입니다)', user_lv)
-
-    -- 시험의 탑 경우 유저 레벨이 아님, 예외 처리
-    if (content_name == 'attr_tower') then
-        msg = Str(desc, ATTR_TOWER_OPEN_FLOOR)
-    end
+    local msg = UI_QuestListItem_Contents.makeConditionDesc(t_content_lock['req_stage_id'], t_content_lock['t_desc']) or ''
 
     MakeSimplePopup(POPUP_TYPE.OK, msg)
 
@@ -269,7 +289,11 @@ end
 -------------------------------------
 function ServerData_ContentLock:getOpenContentNameWithLv(lv)
     local table_content_lock = TABLE:get('table_content_lock')
-
+	if (true) then
+		return nil
+	end
+	-- @190825 컨텐츠 오픈 조건이 레벨->스테이지로 바뀌면서 필요없어진 함수
+	--[[
     for _, t_content_lock in pairs(table_content_lock) do
         local req_user_lv = t_content_lock['req_user_lv']
 
@@ -279,8 +303,7 @@ function ServerData_ContentLock:getOpenContentNameWithLv(lv)
             return t_content_lock['content_name']
         end
     end
-
-    return nil
+	--]]
 end
 
 -------------------------------------
@@ -344,4 +367,21 @@ function ServerData_ContentLock:request_contentsOpenReward(content_name, finish_
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function isRewardableContentQuest
+-- @brief 보상받을 컨텐츠 해금 퀘스트가 있는 지 확인
+-------------------------------------
+function ServerData_ContentLock:isRewardableContentQuest()
+	local t_quest = g_contentLockData:getContentsQuestList()
+    for idx, data in pairs(t_quest) do
+        local content_name = data['content_name']
+        local reward_state = UI_QuestListItem_Contents.getRewardState(content_name) -- 보상 가능일 때 1 리턴
+        if (reward_state == 1) then
+           return true
+        end
+    end
+
+	return false
 end
