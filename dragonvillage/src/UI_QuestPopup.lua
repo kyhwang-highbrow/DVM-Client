@@ -69,7 +69,7 @@ function UI_QuestPopup:initTab()
     self:addTabAuto(TableQuest.DAILY, vars, vars['dailyTabMenu'])
 	self:addTabAuto(TableQuest.SPECIAL, vars, vars['specialTabMenu'])
     self:addTabAuto(TableQuest.CHALLENGE, vars, vars['challengeTabMenu'])
-    self:addTabAuto('contents', vars, vars['contentsTabMenu'])
+    self:addTabAuto('contents', vars, vars['contentsTabMenu']) -- contents는 TableQuest가 아니라 serverrdata_contentlock에서 관리함
     self:setTab(TableQuest.DAILY)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
@@ -87,6 +87,11 @@ end
 function UI_QuestPopup:refresh(t_quest_data)
 	-- 받을수 있는 보상이 있는지 검사하여 UI에 표시
 	self:setNotiRewardable()
+	
+	-- 컨텐츠탭 갱신의 경우, UI노티 갱신만 필요함
+	if (self.m_currTab == 'contents') then
+		return
+	end
     
     -- 일일 보상 올클 갱신
     if (self.m_currTab == TableQuest.DAILY) then
