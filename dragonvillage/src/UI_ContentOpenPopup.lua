@@ -54,6 +54,12 @@ function UI_ContentOpenPopup:initUI()
     
     vars['contentsVisual']:changeAni('open_'..content_type, true)
     vars['contentsLabel']:setString(getContentName(content_type))
+
+
+    local table_contents = TABLE:get('table_content_help')
+    local t_contents = table_contents[content_type] or {}
+    local open_desc = t_contents['open_desc'] or ''
+    vars['infoLabel']:setString(Str(open_desc))
 end
 
 -------------------------------------

@@ -397,6 +397,8 @@ function UI_TutorialPlayer:makeEndUI()
     ui.vars['descLabel']:setString(Str('{@apricot}도움이 필요할 때는 {@default}마스터의 길{@apricot}을 따라가보세요!'))
     ui.vars['contentsLabel']:setString(Str('튜토리얼이 종료되었습니다.'))
     ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
+    ui.vars['tutorialMenu']:setVisible(true)
+    ui.vars['contentsMenu']:setVisible(false)
     UIManager:open(ui, UIManager.POPUP)
 
     -- backkey 지정
