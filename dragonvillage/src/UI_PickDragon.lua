@@ -20,17 +20,17 @@ UI_PickDragon = class(PARENT,{
 
 		m_dragonAnimator = 'UIC_DragonAnimator',
 
-		m_isDraw = 'boolean',
+		m_isInfo = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PickDragon:init(mid, item_id, cb_func, is_draw)
+function UI_PickDragon:init(mid, item_id, cb_func, is_info)
     local vars = self:load('popup_select_regend.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_PickDragon'
-	self.m_isDraw = is_draw
+	self.m_isInfo = is_info
 
     vars['titleLabel']:setString(TableItem:getItemName(item_id))
     
@@ -47,7 +47,7 @@ function UI_PickDragon:init(mid, item_id, cb_func, is_draw)
 	self.m_orgDragonList = TablePickDragon:getDragonList(item_id, g_dragonsData.m_mReleasedDragonsByDid)
 	self.m_isCustomPick = TablePickDragon:isCustomPick(item_id)
 
-    self:initUI()
+    self:initUI(item_id)
     self:initButton()
     --self:refresh()
 end
@@ -55,13 +55,18 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_PickDragon:initUI()
+function UI_PickDragon:initUI(item_id)
     local vars = self.vars
 
 	self.m_dragonAnimator = UIC_DragonAnimator()
     vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
-
-    self:initTableView()
+	-- 전설 드래곤 선택권(2주년 기념)
+	if (item_id == 700612) then
+		self:initTableView_special()
+	else
+		self:initTableView_normal()
+	end
+    
 	self:initSortManager()
 
 	-- did 지정 타입인 경우 별도로 처리
@@ -82,10 +87,10 @@ function UI_PickDragon:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 	vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end)
 	vars['summonBtn']:registerScriptTapHandler(function() self:click_summonBtn() end)
-	vars['summonBtn']:registerScriptTapHandler(function() self:close() end)
+	vars['okBtn']:registerScriptTapHandler(function() self:close() end)
 
-	vars['summonBtn']:setVisible(self.m_isDraw)
-	vars['okBtn']:setVisible(not self.m_isDraw)
+	vars['summonBtn']:setVisible(not self.m_isInfo)
+	vars['okBtn']:setVisible(self.m_isInfo)
 end
 
 -------------------------------------
@@ -182,7 +187,46 @@ end
 -------------------------------------
 -- function initTableView
 -------------------------------------
-function UI_PickDragon:initTableView()
+function UI_PickDragon:initTableView_special()
+    local node = self.vars['listNode']
+
+	-- did 지정 타입 선택권인 경우 길이 늘림 (다른 버튼을 숨기므로 허전)
+	if (self.m_isCustomPick) then
+		node:setContentSize(700, 550)	
+	end
+
+    local l_item_list = {}
+
+	-- cell_size 지정
+    local item_size = 120
+    local item_scale = 14/15
+    local cell_size = cc.size(item_size*item_scale + 0, item_size*item_scale + 0)
+
+    -- 리스트 아이템 생성 콜백
+    local function create_func(data)
+        local did = data['did']
+		local t_data = {['evolution'] = 1, ['grade'] = data['birthgrade']}
+		local ui = UI_PickDragonSpecailListItem(did, t_data)
+		ui.root:setScale(item_scale)
+        return ui
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view_td = UIC_TableViewTD(node)
+    table_view_td.m_cellSize = cc.size(125, 158)
+    table_view_td.m_nItemPerCell = 5
+	table_view_td:setCellUIClass(create_func)
+	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td:setItemList(l_item_list)
+
+    -- 정렬
+    self.m_tableViewTD = table_view_td
+end
+
+-------------------------------------
+-- function initTableView
+-------------------------------------
+function UI_PickDragon:initTableView_normal()
     local node = self.vars['listNode']
 
 	-- did 지정 타입 선택권인 경우 길이 늘림 (다른 버튼을 숨기므로 허전)
@@ -368,4 +412,49 @@ function UI_PickDragon:request_pick(mid, did)
     ui_network:request()
 
     return ui_network
+end
+
+
+
+
+
+local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+-------------------------------------
+-- class UI_PickDragon
+-- @desc 드래곤 선택권 UI -> table_pick_dragon 사용
+-------------------------------------
+UI_PickDragonSpecailListItem = class(PARENT,{
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_PickDragonSpecailListItem:init(did, t_data)
+    local vars = self:load('popup_select_regend_item.ui')
+
+	self:iniUI(did, t_data)
+end
+
+-------------------------------------
+-- function iniUI
+-------------------------------------
+function UI_PickDragonSpecailListItem:iniUI(did, t_data)
+	local vars = self.vars
+
+    if (is_rank) then
+		vars['rankMenu']:setVisible(is_rank)
+		vars['percentLabel1']:setString('1%')
+		local rank_sprite = cc.Sprite:create('res/ui/icons/rank/clan_raid_0201.png')
+		vars['rankNode']:addChild(rank_sprite)
+	else
+		vars['percentLabel2']:setString('1%')
+	end
+
+	local ui_dragon = MakeSimpleDragonCard(did, t_data)
+	vars['dragonNode']:addChild(ui_dragon.root)
+	-- 클릭
+	ui_dragon.vars['clickBtn']:registerScriptTapHandler(function()
+		self:refresh(data)
+	end)
 end

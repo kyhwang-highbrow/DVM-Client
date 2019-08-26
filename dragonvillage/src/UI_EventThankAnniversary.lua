@@ -87,7 +87,7 @@ end
 -------------------------------------
 function UI_EventThankAnniversary:click_infoBtn(select_num)
 	if (select_num == 1) then
-		UI_PickDragon(nil, 700612, nil, is_Draw)
+		UI_PickDragon(nil, 700612, nil, true) -- mid, item_id, , is_info
 	else
 		UI_ItemPickPopup(700701)
 	end
