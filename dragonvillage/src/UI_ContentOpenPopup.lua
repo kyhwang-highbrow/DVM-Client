@@ -39,11 +39,8 @@ function UI_ContentOpenPopup:initUI()
     local content_type = self.m_content_type
     self.vars['descLabel']:setString(Str('신규 컨텐츠가 오픈되었습니다'))
 
-    if (content_type == 'attr_tower') then
-        self.vars['linkBtn']:setVisible(true)
-    
     -- 시험의 탑 층 개방용 팝업
-    elseif (content_type == 'attr_tower_expend') then
+    if (content_type == 'attr_tower_expend') then
         self.vars['linkBtn']:setVisible(true)
         local expend_floor = g_attrTowerData:getAttrMaxStageId()%1000
         self.vars['descLabel']:setString(Str('전 속성 {1}층 개방', expend_floor))
@@ -51,6 +48,8 @@ function UI_ContentOpenPopup:initUI()
         -- 나머지는 시험의 탑과 동일하게 사용
         content_type = 'attr_tower'
         self.m_content_type = 'attr_tower'
+    else
+        self.vars['linkBtn']:setVisible(true)
     end
     
     vars['contentsVisual']:changeAni('open_'..content_type, true)
@@ -76,11 +75,15 @@ end
 -- function initButton
 -------------------------------------
 function UI_ContentOpenPopup:click_lickBtn()
-    local content_type = self.m_content_type
-    -- 시험의 탑 바로가기
-    if (content_type == 'attr_tower') then
-        UINavigator:goTo('attr_tower')
-    end
+    local content_name = self.m_content_type
+	if (content_name == 'daily_shop') then
+		UINavigator:goTo('shop_daily', true) -- content_name, is_popup
+	else
+		-- 바로가기
+		UINavigator:goTo(content_name)
+	end
+
+    self:close()
 end
 
 --@CHECK
