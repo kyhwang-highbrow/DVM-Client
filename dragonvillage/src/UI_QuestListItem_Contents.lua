@@ -9,10 +9,7 @@ UI_QuestListItem_Contents = class(PARENT, {
         --        "t_desc_2":"자수정, 룬 획득 가능",
         --        "req_stage_id":1110107,
         --        "content_name":"exploration",
-        --        "res":"res/ui/icons/content/dungeon_tree.png",
         --        "beta":"",
-        --        "t_desc":"모험 {1}{2} 스테이지 클리어 필요",
-        --        "open_desc":"",
         --        "t_name":"탐험",
         --        "reward":"700001;100"
         --}
@@ -46,21 +43,29 @@ end
 function UI_QuestListItem_Contents:initUI()
     local vars = self.vars
     local data = self.m_data
+    local content_name = data['content_name']
+
+    local table_contents = TABLE:get('table_content_help')
+    local t_contents = table_contents[content_name]
+
+    if (not t_contents) then
+        return
+    end
 
     -- 컨텐츠 이름
-    local content_name = data['t_name']
+    local content_name = t_contents['t_name']
     vars['contentsLabel']:setString(Str(content_name))
 
     -- 컨텐츠 설명
-    local desc = data['t_desc_2']
+    local desc = t_contents['t_desc_2']
     vars['dscLabel']:setString(Str(desc))
 
     -- 컨텐츠 열리는 조건(스테이지)
-	local condition_str = UI_QuestListItem_Contents.makeConditionDesc(data['req_stage_id'], data['t_desc'])
+	local condition_str = UI_QuestListItem_Contents.makeConditionDesc(t_contents['req_stage_id'], t_contents['t_desc'])
     vars['conditionLabel']:setString(Str(condition_str))
 
     -- 컨텐츠 이미지
-    local res = data['res']
+    local res = t_contents['res']
     local contents_icon = cc.Sprite:create(res)
     if (contents_icon) then
         vars['contentsNode']:addChild(contents_icon)
@@ -84,7 +89,10 @@ end
 -- function initButton
 -------------------------------------
 function UI_QuestListItem_Contents:initButton()
-
+    local vars = self.vars
+    local data = self.m_data
+    
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn(data['t_name']) end)
 end
 
 -------------------------------------
@@ -218,4 +226,13 @@ function UI_QuestListItem_Contents.makeConditionDesc(req_stage_id, t_desc)
     local stage_name = chapter .. '-' .. stage
     condition_str = Str(t_desc, t_diff[difficulty], stage_name) -- ex) 모험 보통 1-7 스테이지 클리어 필요/ 문구를 조합해서 만듬
 	return condition_str
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_QuestListItem_Contents:click_infoBtn()
+    local data = self.m_data
+    local content_name = data['content_name']
+    UI_HelpContents(content_name)
 end

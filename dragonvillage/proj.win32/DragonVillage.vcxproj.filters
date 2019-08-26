@@ -4165,6 +4165,12 @@
     <None Include="..\src\UI_EventThankAnniversary_rewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_HelpContents.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_HelpContentsListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

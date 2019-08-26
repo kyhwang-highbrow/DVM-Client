@@ -819,6 +819,8 @@ local t_module = {
     'UI_TabUI_AutoGeneration',
     'UI_HelpClanDungeonSummary',
     'UI_HelpClanDungeonReward',
+    'UI_HelpContentsListItem',
+    'UI_HelpContents',
     'UI_NestDungeonScene',
     'UI_NestDungeonListItem',
     'UI_NestDungeonStageListItem',

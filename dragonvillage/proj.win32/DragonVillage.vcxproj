@@ -1274,6 +1274,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_HelpClan.lua" />
     <None Include="..\src\UI_HelpClanDungeonReward.lua" />
     <None Include="..\src\UI_HelpClanDungeonSummary.lua" />
+    <None Include="..\src\UI_HelpContents.lua" />
+    <None Include="..\src\UI_HelpContentsListItem.lua" />
     <None Include="..\src\UI_HelpDragonGuidePopup.lua" />
     <None Include="..\src\UI_HelpGrandArena.lua" />
     <None Include="..\src\UI_HelpRune.lua" />

@@ -97,6 +97,8 @@ local TableInfo = {
 
         table_illusion = {'table_illusion', 'event_id', false}, -- 환상던전 이벤트 정보
         table_illusion_buff = {'table_illusion_buff', 'idx', false}, -- 환상던전 드래곤 버프 정보
+
+        table_content_help = {'table_content_help', 'content_name', false}, -- 컨텐츠 오픈 도움말 테이블
     }
 
 -------------------------------------
