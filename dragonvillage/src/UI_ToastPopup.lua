@@ -10,7 +10,7 @@ UI_ToastPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ToastPopup:init(toast_str)
+function UI_ToastPopup:init(toast_str, delay_time)
     local vars = self:load('popup_toast.ui')
     UIManager:open(self, UIManager.NORMAL)
 
@@ -26,7 +26,7 @@ function UI_ToastPopup:init(toast_str)
 
 	self.m_toastMsg = toast_str or Str('보상을 수령하였습니다')
 
-    self:initUI()
+    self:initUI(delay_time)
     self:initButton()
     self:refresh()
 end
@@ -34,7 +34,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ToastPopup:initUI()
+function UI_ToastPopup:initUI(_delay_time)
 	local cb_func = function()
 		self:closeWithAction()
         --UIManager.m_toastPopup = nil
@@ -42,10 +42,15 @@ function UI_ToastPopup:initUI()
 
 	SoundMgr:playEffect('UI', 'ui_out_item_get')
 
+    -- 애니메이션 지속 시간
+    local delay_time = 1.5
+    if (_delay_time) then
+        delay_time = _delay_time
+    end
 	self.root:runAction(
-		cc.Sequence:create(
-			cc.DelayTime:create(1.5),
-			cc.CallFunc:create(cb_func)
+		cc.Sequence:create( 
+			cc.DelayTime:create(delay_time),
+            cc.CallFunc:create(cb_func)
 		)
 	)
 end
