@@ -19,7 +19,7 @@ local DECO_TYPE = {
     ['HALLOWEEN'] = 'halloween',
     ['ANNIVERSARY_1ST'] = '1st_annivasary',
     ['ANNIVERSARY_1ST_GLOBAL'] = '1st_annivasary_global',
-    ['ANNIVERSARY_2ST'] = '2st_annivasary',
+    ['ANNIVERSARY_2ST'] = '2st_anniversary',
 }
 
 -- ## 장식 추가 스텝 ##
@@ -238,7 +238,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		end
     
     -- 2주년 기념 케이크 (민트 초코)
-	elseif (deco_type == '2st_annivasary') then
+	elseif (deco_type == '2st_anniversary') then
 		animator = MakeAnimator('res/lobby/lobby_layer_02_center_cake/lobby_layer_02_center_cake.vrp')
 		if (animator.m_node) then
 			animator:setPosition(0, 0)
