@@ -44,7 +44,9 @@ function UI_QuestListItem_Contents:initUI()
     local vars = self.vars
     local data = self.m_data
     local content_name = data['content_name']
-
+    
+    
+    -- table_conent_help.csv *********
     local table_contents = TABLE:get('table_content_help')
     local t_contents = table_contents[content_name]
 
@@ -60,10 +62,6 @@ function UI_QuestListItem_Contents:initUI()
     local desc = t_contents['t_desc_2']
     vars['dscLabel']:setString(Str(desc))
 
-    -- 컨텐츠 열리는 조건(스테이지)
-	local condition_str = UI_QuestListItem_Contents.makeConditionDesc(t_contents['req_stage_id'], t_contents['t_desc'])
-    vars['conditionLabel']:setString(Str(condition_str))
-
     -- 컨텐츠 이미지
     local res = t_contents['res']
     local contents_icon = cc.Sprite:create(res)
@@ -72,6 +70,13 @@ function UI_QuestListItem_Contents:initUI()
         contents_icon:setPositionX(75)
         contents_icon:setPositionY(75)
     end
+
+
+    -- table_conent_lock.csv ************
+
+    -- 컨텐츠 열리는 조건(스테이지)
+	local condition_str = UI_QuestListItem_Contents.makeConditionDesc(data['req_stage_id'], data['t_desc'])
+    vars['conditionLabel']:setString(Str(condition_str))
 
     -- 퀘스트 보상
     -- @jhakim 190822 컨텐츠 보상은 하나만 있는 상태
