@@ -29,7 +29,7 @@ function UI_EventThankAnniversary_rewardPopup:initUI()
     local vars = self.vars
     local m_rewardNum
     local create_func = function(t_data)
-        return UI_ObtainPopup.createListUI(t_data)
+        return UI_ObtainPopup.createMailListUI(t_data)
     end
     
     local item_str

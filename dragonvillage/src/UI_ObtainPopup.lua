@@ -190,7 +190,7 @@ end
 -------------------------------------
 -- function createListUI
 -------------------------------------
-function UI_ObtainPopup.createListUI(t_data)
+function UI_ObtainPopup.createMailListUI(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('obtain_item.ui')
 	local item_id = t_data['item_id']
