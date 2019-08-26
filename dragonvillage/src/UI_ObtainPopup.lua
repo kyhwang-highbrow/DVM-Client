@@ -188,6 +188,39 @@ function UI_ObtainPopup:createListUI(t_data)
 end
 
 -------------------------------------
+-- function createListUI
+-------------------------------------
+function UI_ObtainPopup.createListUI(t_data)
+	local ui = class(UI, ITableViewCell:getCloneTable())()
+	local vars = ui:load('obtain_item.ui')
+	local item_id = t_data['item_id']
+	local item_cnt = t_data['count']
+		
+	-- item icon
+	local item_card = UI_ItemCard(item_id, item_cnt)
+	if (item_card) then
+		vars['itemNode']:addChild(item_card.root)
+	end
+
+    local table_item = TableItem()
+
+	-- item label
+	local item_name = table_item:getItemName(item_id)
+    local item_desc = table_item:getItemDesc(item_id)
+
+    local item_str = ''
+    if item_desc then
+        item_str = Str('{@item_name}{1} : {@default}{2}', item_name, item_desc)
+    else
+        item_str = item_name
+    end
+
+	vars['countLabel']:setString(item_str)
+
+	return ui
+end
+
+-------------------------------------
 -- function ItemObtainResult_Shop
 -- @brief
 -- @param t_ret
