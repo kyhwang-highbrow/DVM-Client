@@ -32,7 +32,20 @@ end
 function ServerData_ContentLock:isContentLock(content_name)
     local table_content_lock = TABLE:get('table_content_lock')
     local t_content_lock = table_content_lock[content_name]
-    
+
+
+    -- 테이블에 없는데 조건 검사해야하는 던전들 =====================
+
+    -- [그랜드 아레나 이벤트]
+	-- 오픈 여부& 스테이지 여부 검사
+    if (content_name == 'grand_arena') then
+        local is_acitive = g_grandArena:isActive_grandArena()
+        return not is_acitive
+    end
+
+
+    -- 테이블에 있어서 조건 검사해야하는 던전들 =====================
+
     -- 테이블에 없는 컨텐츠 이름은 다 풀어준다.
     if (not t_content_lock) then
         --error('content_name : ' .. content_name)
@@ -90,16 +103,6 @@ function ServerData_ContentLock:isContentLock(content_name)
     if (content_name == 'ancient_ruin') then
         local is_open = g_ancientRuinData:isOpenAncientRuin()
         return (not is_open)
-    end
-
-    -- [그랜드 아레나 이벤트]
-	-- 오픈 여부& 스테이지 여부 검사
-    if (content_name == 'grand_arena') then
-        local is_acitive = g_grandArena:isActive_grandArena()
-        if (is_acitive) then
-            return self:isContentOepnByServer(content_name)
-        end
-        return true
     end
 
     return not self:isContentOepnByServer(content_name)
