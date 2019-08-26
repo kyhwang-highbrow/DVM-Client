@@ -247,7 +247,10 @@ function UI_MailPopup:check_readType(struct_mail, success_cb)
     -- 닉네임 변경권
     if (struct_mail:isChangeNick()) then
         struct_mail:readChangeNick(success_cb)
-
+	
+	-- 아이템 선택권
+	elseif (struct_mail:isPickItem()) then
+        struct_mail:readPickItem(success_cb)
     -- 드래곤 선택권
 	elseif (struct_mail:isPick()) then
         struct_mail:readPickDragon(success_cb)

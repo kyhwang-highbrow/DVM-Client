@@ -5,14 +5,17 @@ local PARENT = UI
 -------------------------------------
 UI_EventThankAnniversary_showDetaillPopup = class(PARENT, {
 	m_reward_num = 'number',
+
+	m_rewardCb = 'function',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventThankAnniversary_showDetaillPopup:init(reward_num)
+function UI_EventThankAnniversary_showDetaillPopup:init(reward_num, reward_cb)
     local vars = self:load('event_thanks_anniversary_popup_01.ui')
 	UIManager:open(self, UIManager.POPUP)	
+	self.m_rewardCb = reward_cb
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_QuestPopup')	
@@ -50,9 +53,8 @@ function UI_EventThankAnniversary_showDetaillPopup:initUI()
                 
         local item_list_str = TablePickDragon:getCustomList(700612)-- 드래곤 내용물
         l_item_str = pl.stringx.split(item_list_str, ',')
-        
-        vars['dragonInfoBtn']:setVisible(true) -- 드래곤 정보 팝업 노출
-
+		
+		vars['dragonInfoBtn']:setVisible(true)
     -- 기존 유저용 선물
     else
         reward_label = '배테랑 유저 추천!'
@@ -62,8 +64,10 @@ function UI_EventThankAnniversary_showDetaillPopup:initUI()
         item_label_2 = '성장 재료\n선택권'
         dsc_label = '위 아이템 중 하나를 선택해 받을 수 있습니다.'
 
-        local item_list_str = '760005;100,779255;4,741041;2,704900;200,700001;10000'-- 성장 재료 내용물
-        l_item_str = pl.stringx.split(item_list_str, ',')
+        local table_pick_item = TABLE:get('table_pick_item')
+		local t_pick_item = table_pick_item[700701]
+		local item_str = t_pick_item['item_id']
+        l_item_str = pl.stringx.split(item_str, ',')
     end
 
     -- 제목
@@ -131,6 +135,9 @@ function UI_EventThankAnniversary_showDetaillPopup:click_okBtn()
 	local finish_cb = function()
 		UI_EventThankAnniversary_rewardPopup(self.m_reward_num)
 		self:close()
+		if (self.m_rewardCb) then
+			self.m_rewardCb()
+		end
 	end
 	self:request_evnetThankReward(finish_cb)
 end
@@ -139,9 +146,8 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_EventThankAnniversary_showDetaillPopup:click_infoBtn()
-    UI_SummonDrawInfo(700612, false) -- item_id, is_draw
+	UI_SummonDrawInfo(700612, false) -- item_id, is_draw
 end
-
 -------------------------------------
 -- function click_rewardBtn
 -------------------------------------

@@ -49,18 +49,21 @@ function UI_EventThankAnniversary:initButton()
     vars['rewardBtn1']:registerScriptTapHandler(function() self:click_chooseBtn(1) end)
     vars['rewardBtn2']:registerScriptTapHandler(function() self:click_chooseBtn(2) end)
 
-    local is_reward_done = g_eventData:isEventUserRewardDone()
-    vars['rewardBtn1']:setVisible(not is_reward_done)
-    vars['rewardBtn2']:setVisible(not is_reward_done)
-    vars['dscLabel1']:setVisible(not is_reward_done) -- 보상 받기 전 라벨
-    vars['dscLabel2']:setVisible(is_reward_done) -- 보상 받은 후 라벨
+	vars['itemInfoBtn1']:registerScriptTapHandler(function() self:click_infoBtn(1) end)
+	vars['itemInfoBtn2']:registerScriptTapHandler(function() self:click_infoBtn(2) end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_EventThankAnniversary:refresh()
+    local vars = self.vars
 
+	local is_reward_done = g_eventData:isEventUserRewardDone()
+    vars['rewardBtn1']:setVisible(not is_reward_done)
+    vars['rewardBtn2']:setVisible(not is_reward_done)
+    vars['dscLabel1']:setVisible(not is_reward_done) -- 보상 받기 전 라벨
+    vars['dscLabel2']:setVisible(is_reward_done) -- 보상 받은 후 라벨
 end
 
 -------------------------------------
@@ -73,6 +76,20 @@ end
 -- function click_chooseBtn
 -------------------------------------
 function UI_EventThankAnniversary:click_chooseBtn(reward_num)
-	UI_EventThankAnniversary_showDetaillPopup(reward_num)
+	local reward_cb = function()
+		self:refresh()
+	end
+	UI_EventThankAnniversary_showDetaillPopup(reward_num, reward_cb)
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_EventThankAnniversary:click_infoBtn(select_num)
+	if (select_num == 1) then
+		UI_PickDragon(nil, 700612, nil, is_Draw)
+	else
+		UI_ItemPickPopup(700701)
+	end
 end
 

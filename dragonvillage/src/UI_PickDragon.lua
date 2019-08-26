@@ -19,15 +19,18 @@ UI_PickDragon = class(PARENT,{
         m_sortManager = 'SortManager',
 
 		m_dragonAnimator = 'UIC_DragonAnimator',
+
+		m_isDraw = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PickDragon:init(mid, item_id, cb_func)
+function UI_PickDragon:init(mid, item_id, cb_func, is_draw)
     local vars = self:load('popup_select_regend.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_PickDragon'
+	self.m_isDraw = is_draw
 
     vars['titleLabel']:setString(TableItem:getItemName(item_id))
     
@@ -79,6 +82,10 @@ function UI_PickDragon:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 	vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end)
 	vars['summonBtn']:registerScriptTapHandler(function() self:click_summonBtn() end)
+	vars['summonBtn']:registerScriptTapHandler(function() self:close() end)
+
+	vars['summonBtn']:setVisible(self.m_isDraw)
+	vars['okBtn']:setVisible(not self.m_isDraw)
 end
 
 -------------------------------------

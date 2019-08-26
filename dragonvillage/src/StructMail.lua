@@ -381,6 +381,18 @@ function StructMail:isPick()
 end
 
 -------------------------------------
+-- function isPickItem
+-- @brief 아이템 선택권 확인 
+-------------------------------------
+function StructMail:isPickItem()
+    if (not self:getItemList()[1]) then
+        return false
+    end
+    local item_id = self:getItemList()[1]['item_id']
+    return (item_id == 700701)
+end
+
+-------------------------------------
 -- function readPickDragon
 -- @brief 드래곤 선택권을 읽는다
 -------------------------------------
@@ -388,6 +400,16 @@ function StructMail:readPickDragon(cb_func)
 	local mid = self:getMid()
 	local item_id = self['items_list'][1]['item_id']
 	UI_PickDragon(mid, item_id, cb_func)
+end
+
+-------------------------------------
+-- function readPickItem
+-- @brief 드래곤 선택권을 읽는다
+-------------------------------------
+function StructMail:readPickItem(cb_func)
+	local mid = self:getMid()
+	local item_id = self['items_list'][1]['item_id']
+	UI_ItemPickPopup(item_id, cb_func)
 end
 
 -------------------------------------
