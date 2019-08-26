@@ -279,6 +279,8 @@ function UI_AttendanceSpecialListItem_1stItem:initUI()
     	local desc = TableItem:getItemDesc(item_id)
     	vars['dscLabel']:setString(desc)
     end
+
+    vars['dayLabel']:setString(Str('{1}일 차', t_item_data['step']))
 end
 
 -------------------------------------
