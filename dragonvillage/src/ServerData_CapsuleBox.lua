@@ -90,7 +90,7 @@ end
 -------------------------------------
 function ServerData_CapsuleBox:isOpen()
     -- 스테이지 조건 확인
-	return g_contentLockData:isContentLock('capsule')
+	return not g_contentLockData:isContentLock('capsule')
 end
 
 -------------------------------------

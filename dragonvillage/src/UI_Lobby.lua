@@ -1687,7 +1687,7 @@ function UI_Lobby:update_rightButtons()
     end
 
 	-- 캡슐 신전 버튼
-	if (g_capsuleBoxData:isOpen()) then
+	if (not g_contentLockData:isContentLock('capsule')) then
 		vars['capsuleBoxBtn']:setVisible(true)
 	else
 		vars['capsuleBoxBtn']:setVisible(false)
