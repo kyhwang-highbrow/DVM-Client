@@ -156,6 +156,10 @@ function UI_EventFullPopup:initUI()
 	elseif (popup_key == 'event_1st_comeback' or popup_key == 'event_global_1st_comeback') then
 		ui = UI_Event1stComeback()
 
+	-- 2주년 이벤트 : 2주년 기념 감사 이벤트
+	elseif (popup_key == 'event_thanks_2nd_anniversary') then
+		ui = UI_EventThankAnniversary()
+
     -- 누적 결제 보상 이벤트
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then
 		local l_str = plSplit(popup_key, ';')
