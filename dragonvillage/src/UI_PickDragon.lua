@@ -208,6 +208,13 @@ function UI_PickDragon:initTableView_special()
 		local t_data = {['evolution'] = 1, ['grade'] = data['birthgrade']}
 		local ui = UI_PickDragonSpecailListItem(did, t_data)
 		ui.root:setScale(item_scale)
+		
+		-- click 함수 등록
+		local ui_dragon = MakeSimpleDragonCard(did, t_data)
+		ui.vars['dragonNode']:addChild(ui_dragon.root)
+		ui_dragon.vars['clickBtn']:registerScriptTapHandler(function()
+			self:refresh(data)
+		end)
         return ui
     end
 
@@ -450,11 +457,4 @@ function UI_PickDragonSpecailListItem:iniUI(did, t_data)
 	else
 		vars['percentLabel2']:setString('1%')
 	end
-
-	local ui_dragon = MakeSimpleDragonCard(did, t_data)
-	vars['dragonNode']:addChild(ui_dragon.root)
-	-- 클릭
-	ui_dragon.vars['clickBtn']:registerScriptTapHandler(function()
-		self:refresh(data)
-	end)
 end
