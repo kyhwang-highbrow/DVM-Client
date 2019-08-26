@@ -1125,7 +1125,13 @@ function UI_TitleScene:workGetServerInfo()
 
 				if (ret['comeback_reward']) then
 					cclog('# 1주년 스페셜 복귀 유저 이벤트 정보')
-					g_eventData:setComebackUser_1st(ret['comeback_reward'])
+					-- g_eventData:setComebackUser_1st(ret['comeback_reward'])
+					g_eventData:setEventUserReward(ret['comeback_reward'])
+				end
+
+                if (ret['comeback_user_state']) then
+					cclog('# 1주년 스페셜 복귀 유저 정보')
+					g_eventData:setComebackUserState(ret['comeback_user_state'])
 				end
 
                 if (ret['remote_config']) then

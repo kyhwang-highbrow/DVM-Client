@@ -279,7 +279,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 		ui = UI_Event1stComeback()
     
     -- 2주년 이벤트 : 2주년 기념 감사 이벤트
-	elseif (tab == 'event_thanks_2nd_annivesary') then
+	elseif (tab == 'event_thanks_2nd_anniversary') then
 		ui = UI_EventThankAnniversary()
 
     -- 누적 결제 보상 이벤트 

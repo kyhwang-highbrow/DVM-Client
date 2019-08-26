@@ -6,7 +6,10 @@ ServerData_Event = class({
         m_eventList = 'list',
 
         m_mapChanceUpDragons = 'map',
-		m_isComebackUser_1st = 'bool',
+		
+        m_isComebackUser_1st = 'bool', -- 복귀유저 구분하는 데 사용 - 2주년 때에는 사용하지 않
+		m_isEventUserReward = 'bool', -- 복귀/신규 판단하여 n주년 기념 보상 받은 여부 판단
+        m_isUserState = 'number', -- 신규 1 복귀 2 기존 3
 
         m_bDirty = 'boolean',
         m_tLobbyDeco = 'table',
@@ -116,6 +119,9 @@ function ServerData_Event:getEventPopupTabList()
             
         elseif (event_type == 'event_1st_comeback') then
 		    visible = self:isComebackUser_1st()
+
+		elseif (event_type == 'event_thanks_2nd_anniversary') then
+		    visible = not (self:isEventUserRewardDone())
 
         -- 코스튬
         elseif (event_type == 'costume_event') then
@@ -249,8 +255,11 @@ function ServerData_Event:getEventFullPopupList()
 
 			elseif (event_type == 'event_1st_comeback') then
 				visible = self:isComebackUser_1st()
-
-            -- 한정 이벤트 리스트
+			
+			elseif (event_type == 'event_thanks_2nd_anniversary') then
+				visible = (not self:isEventUserRewardDone())
+            
+			-- 한정 이벤트 리스트
 			elseif (event_id == 'limited') then
 				visible = g_hotTimeData:isActiveEvent(event_type)
 
@@ -652,6 +661,66 @@ function ServerData_Event:getLobbyDeco_eventId()
     end
 
     return self.m_tLobbyDeco['event_id']
+end
+
+-------------------------------------
+-- function setEventUserReward
+-------------------------------------
+function ServerData_Event:setEventUserReward(n)
+	if (n == -1) then
+		self.m_isEventUserReward = false
+
+	elseif (n == 0) then
+		self.m_isEventUserReward = true -- 보상 받기 전
+
+	elseif (n == 1) then
+		self.m_isEventUserReward = false   -- 보상 받은 후
+
+	else
+		self.m_isEventUserReward = false
+	end
+end
+
+-------------------------------------
+-- function setComebackUserState
+-------------------------------------
+function ServerData_Event:setComebackUserState(user_state)
+    self.m_isUserState = user_state
+end
+
+-------------------------------------
+-- function isEventUserRewardDone
+-------------------------------------
+function ServerData_Event:isEventUserRewardDone()
+	return (not self.m_isEventUserReward) -- 보상 받을 것이 없다면, 보상 받은 후!
+end
+
+-------------------------------------
+-- function getComebackUserState
+-------------------------------------
+function ServerData_Event:isCombackUser()
+    return (self.m_isUserState == 2)
+end
+
+-------------------------------------
+-- function getComebackUserState
+-------------------------------------
+function ServerData_Event:isNewUser()
+    return (self.m_isUserState == 1)
+end
+
+-------------------------------------
+-- function isOldUser
+-------------------------------------
+function ServerData_Event:isOldUser()
+    return (self.m_isUserState == 3)
+end
+
+-------------------------------------
+-- function getEventUserState
+-------------------------------------
+function ServerData_Event:getEventUserState()
+    return self.m_isUserState or 3
 end
 
 -------------------------------------

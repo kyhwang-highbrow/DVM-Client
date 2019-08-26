@@ -151,7 +151,10 @@ function UI_EventThankAnniversary_showDetaillPopup:request_evnetThankReward(fini
 
     -- 콜백 함수
     local function success_cb(ret)
-        
+        if (ret['comeback_reward']) then
+            g_eventData:setEventUserReward(ret['comeback_reward'])    
+        end
+
         if (finish_cb) then
             finish_cb()
         end

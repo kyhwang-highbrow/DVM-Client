@@ -27,7 +27,7 @@ end
 -------------------------------------
 function UI_EventThankAnniversary:initUI()
     local vars = self.vars
-    local user_state = 1 -- 1: 신규 2 : 복귀 3: 기존
+    local user_state = g_eventData:getEventUserState()
     vars['userLabel1']:setVisible(false)
     vars['userLabel2']:setVisible(false)
     vars['userLabel3']:setVisible(false)
@@ -48,6 +48,12 @@ function UI_EventThankAnniversary:initButton()
     local vars = self.vars
     vars['rewardBtn1']:registerScriptTapHandler(function() self:click_chooseBtn(1) end)
     vars['rewardBtn2']:registerScriptTapHandler(function() self:click_chooseBtn(2) end)
+
+    local is_reward_done = g_eventData:isEventUserRewardDone()
+    vars['rewardBtn1']:setVisible(not is_reward_done)
+    vars['rewardBtn2']:setVisible(not is_reward_done)
+    vars['dscLabel1']:setVisible(not is_reward_done) -- 보상 받기 전 라벨
+    vars['dscLabel2']:setVisible(is_reward_done) -- 보상 받은 후 라벨
 end
 
 -------------------------------------
