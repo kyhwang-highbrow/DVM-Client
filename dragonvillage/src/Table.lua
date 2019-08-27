@@ -101,6 +101,7 @@ local TableInfo = {
         table_illusion_buff = {'table_illusion_buff', 'idx', false}, -- 환상던전 드래곤 버프 정보
 
         table_content_help = {'table_content_help', 'content_name', false}, -- 컨텐츠 오픈 도움말 테이블
+		table_halloffame_rank = {'table_halloffame_rank', 'rank_id', false}, -- 명예의 전당 도움말 테이블
     }
 
 -------------------------------------
