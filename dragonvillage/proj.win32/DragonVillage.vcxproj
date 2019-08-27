@@ -1270,6 +1270,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GrandArenaSceneRankingListItem.lua" />
     <None Include="..\src\UI_GuidePopup_PurchasePoint.lua" />
     <None Include="..\src\UI_GuidePopup_Rune.lua" />
+    <None Include="..\src\UI_HallOfFame.lua" />
+    <None Include="..\src\UI_HallOfFameHelp.lua" />
+    <None Include="..\src\UI_HallOfFameRank.lua" />
     <None Include="..\src\UI_Help.lua" />
     <None Include="..\src\UI_HelpClan.lua" />
     <None Include="..\src\UI_HelpClanDungeonReward.lua" />

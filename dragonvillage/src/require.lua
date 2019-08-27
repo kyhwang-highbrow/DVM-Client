@@ -1401,7 +1401,12 @@ local t_module = {
     'Network',
     'socket',
 
-    -- UI : Generated   
+    -- UI : Generated
+
+    -- 명예의 전당
+    'UI_HallOfFameHelp',
+    'UI_HallOfFame',
+    'UI_HallOfFameRank',
 }
 
 -------------------------------------

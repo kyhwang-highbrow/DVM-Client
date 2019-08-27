@@ -4171,6 +4171,15 @@
     <None Include="..\src\UI_HelpContentsListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_HallOfFameRank.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_HallOfFame.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_HallOfFameHelp.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

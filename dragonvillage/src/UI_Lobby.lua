@@ -1258,7 +1258,8 @@ end
 -- function click_rankingBtn
 -------------------------------------
 function UI_Lobby:click_rankingBtn()
-    UI_OverallRankingPopup()
+    --UI_OverallRankingPopup()
+    UINavigatorDefinition:goTo('hell_of_fame')
 end
 
 -------------------------------------

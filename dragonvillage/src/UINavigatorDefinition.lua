@@ -1833,7 +1833,35 @@ function UINavigatorDefinition:goTo_gold_dungeon(...)
     end
 end
 
+-------------------------------------
+-- function goTo_capsule
+-- @brief 캡슐 뽑기로 이동 
+-- @warning lobby에서 드빌전용관 이동할 때 이름도 capsuleBtn으로 사용함 주의!
+-- @usage UINavigatorDefinition:goTo('capsule')
+-------------------------------------
+function UINavigatorDefinition:goTo_capsule(...)
+	g_capsuleBoxData:openCapsuleBoxUI()
+end
 
+-------------------------------------
+-- function goTo_hell_of_fame
+-- @brief 명예의 전당으로 이동
+-- @usage UINavigatorDefinition:goTo('hell_of_fame')
+-------------------------------------
+function UINavigatorDefinition:goTo_hell_of_fame(...)
+  -- 명예의 전당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_HallOfFame')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    --local function cb_func()
+    --    UI_BlockPopup()
+        UI_HallOfFame()
+    --end
+    --ServerData_Forest:getInstance():request_myForestInfo(cb_func)
+end
 
 
 
@@ -1888,12 +1916,3 @@ function UINavigatorDefinition:closeUIList(idx, include_idx)
     end
 end
 
--------------------------------------
--- function goTo_capsule
--- @brief 캡슐 뽑기로 이동 
--- @warning lobby에서 드빌전용관 이동할 때 이름도 capsuleBtn으로 사용함 주의!
--- @usage UINavigatorDefinition:goTo('capsule')
--------------------------------------
-function UINavigatorDefinition:goTo_capsule(...)
-	g_capsuleBoxData:openCapsuleBoxUI()
-end
