@@ -641,13 +641,13 @@ function UI_TitleScene:workGetServerList()
 
             self:doNextWork()            
         else            
-            self:makeFailPopup(nil, ret)
+            self:retryCurrWork3Times(nil, ret)
         end
     end
 
     local fail_cb = function(ret)
         self.m_loadingUI:hideLoading()
-        self:makeFailPopup(nil, ret)
+        self:retryCurrWork3Times(nil, ret)
     end
 
     Network_platform_getServerList( success_cb, fail_cb )
@@ -758,13 +758,13 @@ function UI_TitleScene:workPlatformLogin()
             end
         else
             --local msg = luadump(ret)
-            self:makeFailPopup(nil, ret)
+            self:retryCurrWork3Times(nil, ret)
         end
     end
 
     local fail_cb = function(ret)
         self.m_loadingUI:hideLoading()
-        self:makeFailPopup(nil, ret)
+        self:retryCurrWork3Times(nil, ret)
     end
 
     local rcode = g_localData:get('local', 'recovery_code')
@@ -796,13 +796,13 @@ function UI_TitleScene:workPlatformNotiServer()
         if ret['state'] == 0 then
             self:doNextWork()
         else            
-            self:makeFailPopup(nil, ret)
+            self:retryCurrWork3Times(nil, ret)
         end
     end
 
     local fail_cb = function(ret)
         self.m_loadingUI:hideLoading()
-        self:makeFailPopup(nil, ret)
+        self:retryCurrWork3Times(nil, ret)
     end
 
     Network_platform_electionServer( success_cb, fail_cb )
@@ -880,7 +880,7 @@ function UI_TitleScene:workGameLogin()
         end
 
         local fail_cb = function(ret)
-            self:makeFailPopup(nil, ret)
+            self:retryCurrWork3Times(nil, ret)
         end
 
         local uid = g_localData:get('local', 'uid')
