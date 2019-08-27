@@ -404,12 +404,12 @@ end
 
 -------------------------------------
 -- function readPickItem
--- @brief 드래곤 선택권을 읽는다
+-- @brief 재료 선택권을 읽는다
 -------------------------------------
 function StructMail:readPickItem(cb_func)
 	local mid = self:getMid()
 	local item_id = self['items_list'][1]['item_id']
-	UI_ItemPickPopup(item_id, cb_func)
+	UI_ItemPickPopup(mid, item_id, true, cb_func) -- mid, item_id, is_draw
 end
 
 -------------------------------------

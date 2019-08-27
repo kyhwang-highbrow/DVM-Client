@@ -8,16 +8,19 @@ UI_ItemPickPopup = class(PARENT,{
 		m_itemList = 'table',
 		m_isDraw = 'boolan',
 
-		m_focusItemId = 'item_id'
+		m_focusItemId = 'item_id',
+        m_mid = 'string',
+        m_cbFunc = 'function',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ItemPickPopup:init(item_id, is_draw)
+function UI_ItemPickPopup:init(mid, item_id, is_draw, cb_func)
     self.m_itemId = item_id
 	self.m_isDraw = is_draw
-
+    self.m_mid = mid
+    self.m_cbFunc = cb_func
     local vars = self:load('popup_select_material.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -86,16 +89,35 @@ function UI_ItemPickPopup:click_select(item_id)
 	vars['itemNode']:removeAllChildren()
 	local item_card = UI_ItemCard(item_id)
 	vars['itemNode']:addChild(item_card.root)
+
+    -- 해당 안되는 아이템에는 select를 꺼줌
 	for i, v in ipairs(self.m_itemList) do
-		if (v['ui'].vars['checkSprite']) then
-			if (v['item_id'] == item_id) then	
-				v['ui'].vars['checkSprite']:setVisible(true)
-			else
-				v['ui'].vars['checkSprite']:setVisible(false)
-			end
-		end
+		if (v['item_id'] == item_id) then
+            self:setSelected(item_id, v['ui'], true)
+        else
+            self:setSelected(item_id, v['ui'], false)
+        end
 	end
 	self.m_focusItemId = item_id
+end
+
+-------------------------------------
+-- function setSelected
+-------------------------------------
+function UI_ItemPickPopup:setSelected(item_id, ui_card, is_selected)
+    local table_item = TableItem()
+    local t_item = table_item:get(item_id)
+
+    -- 없다면 select_sprite를 만듬
+    if (not ui_card.vars['selectSprite']) then
+        local selected_sprite = cc.Sprite:create('res/ui/a2d/card/card_cha_frame_select.png')
+        ui_card.vars['selectSprite'] = selected_sprite
+        ui_card.vars['selectSprite']:setDockPoint(CENTER_POINT)
+        ui_card.vars['selectSprite']:setAnchorPoint(CENTER_POINT)
+        ui_card.root:addChild(selected_sprite)
+    end
+
+    ui_card.vars['selectSprite']:setVisible(is_selected)
 end
 
 -------------------------------------
@@ -112,7 +134,18 @@ end
 -- function click_choiceBtn
 -------------------------------------
 function UI_ItemPickPopup:click_choiceBtn()
-    self:request_eventThankReward()
+	local item_id = self.m_focusItemId
+	local name = TableItem:getItemName(item_id)
+    local count = self:getItemCount(item_id)
+    name = name .. 'x' .. count
+
+	local msg = Str('[{1}](이)가 선택되었습니다.', name)
+	local function ok_btn_cb()
+		local mid = self.m_mid
+		self:request_eventThankReward()
+	end
+
+	MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb)
 end
 
 -------------------------------------
@@ -122,17 +155,28 @@ function UI_ItemPickPopup:request_eventThankReward()
     -- 파라미터
     local uid = g_userData:get('uid')
 	local item_id = self.m_focusItemId
-	local item_count = 0
-	for i, v in ipairs(self.m_itemList) do
-		if (v['item_id'] == item_id) then
-			item_count = v['count']
-		end
-	end
-	local mid = string.format('%d;%d', item_id, item_count)
-    
+
+    local item_count = self:getItemCount(item_id)
+	local item_str = string.format('%d;%d', item_id, item_count) -- 700001;100
+    local mid = self.m_mid
 	-- 콜백 함수
     local function success_cb(ret)
-		-- ObtainPopup
+		if (self.m_cbFunc) then
+            self.m_cbFunc()
+        end
+
+        -- 얻은 아이템 ObtainPopup으로 보여줌
+        if (ret['item_info']) and (ret['item_info']['item_id']) and (ret['item_info']['count']) then
+	        local l_item_list = {
+            {
+			    ['item_id'] = ret['item_info']['item_id'],
+			    ['count'] = ret['item_info']['count']
+	        }}
+            local msg = Str('보상이 우편함으로 전송되었습니다.', today_step)
+            local ok_btn_cb = nil
+            UI_ObtainPopup(l_item_list, msg, ok_btn_cb)
+        end
+
 		self:close()
 	end
 
@@ -144,8 +188,8 @@ function UI_ItemPickPopup:request_eventThankReward()
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/pick_item')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('mid', mid) -- 700001;100
-	ui_network:setParam('item_id', self.m_itemId)
+    ui_network:setParam('mid', mid) 
+	ui_network:setParam('item', item_str)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -153,4 +197,17 @@ function UI_ItemPickPopup:request_eventThankReward()
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function getItemCount
+-------------------------------------
+function UI_ItemPickPopup:getItemCount(item_id)
+    local item_count = 0
+	for i, v in ipairs(self.m_itemList) do
+		if (v['item_id'] == item_id) then
+			item_count = v['count']
+		end
+	end
+    return item_count
 end
