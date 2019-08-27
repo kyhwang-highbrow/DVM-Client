@@ -13,13 +13,9 @@ UI_EventThankAnniversary = class(PARENT, {
 function UI_EventThankAnniversary:init(content_type, list_cnt)
     local vars = self:load('event_thanks_anniversary.ui')
 
-	-- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_QuestPopup')
-
     self:initUI()
     self:initButton()
     self:refresh()
-
 end
 
 -------------------------------------
