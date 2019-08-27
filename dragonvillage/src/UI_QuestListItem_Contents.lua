@@ -194,12 +194,12 @@ function UI_QuestListItem_Contents.getRewardState(content_name)
     local reward_done = g_contentLockData:isRewardDone(content_name)
     local is_lock = g_contentLockData:isContentLock(content_name)
     
-	if (is_lock) then
+    if (reward_done) then
+        return 2
+    elseif (is_lock) then
         return 0
     elseif (not reward_done) then
         return 1
-    elseif (reward_done) then
-        return 2
     else
         return 0
     end

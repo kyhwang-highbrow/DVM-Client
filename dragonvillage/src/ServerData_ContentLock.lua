@@ -278,7 +278,7 @@ function ServerData_ContentLock:checkContentLock(content_name, excute_func)
 
     -- 잠금 안내
     local msg = UI_QuestListItem_Contents.makeConditionDesc(t_content_lock['req_stage_id'], t_content_lock['t_desc']) or ''
-
+    msg = string.format('[%s]\n\n%s', Str('입장 조건'), msg)
     MakeSimplePopup(POPUP_TYPE.OK, msg)
 
     -- 함수 실행
