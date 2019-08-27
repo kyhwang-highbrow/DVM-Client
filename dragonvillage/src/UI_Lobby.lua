@@ -683,6 +683,9 @@ function UI_Lobby:refresh(is_hard_refresh)
 
         GoogleHelper.setDirty(false)
         self:update_google()
+
+        -- 2주년 기념 전설 드래곤 확률 업 노티
+        self:setHatcheryChanceUpNoti()
     end
 end
 
@@ -1998,6 +2001,19 @@ function UI_Lobby:setShopNoti()
         vars['shopBonusNoti']:setVisible(false)
     end
 end
+
+-------------------------------------
+-- function setHatcheryChanceUpNoti
+-------------------------------------
+function UI_Lobby:setHatcheryChanceUpNoti()
+    local vars = self.vars
+    if (g_hotTimeData:isActiveEvent('event_legend_chance_up')) then
+        vars['chanceUpNoti']:setVisible(true)
+    else
+        vars['chanceUpNoti']:setVisible(false)
+    end
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_Lobby)
