@@ -75,7 +75,7 @@ function UI_TabUI_AutoGeneration:initScroll()
         -- [UI규정] Scroll 루아 변수명 ex) clanScrollNode, clanSrollMenu (접두어 동일)
         if (pl.stringx.endswith(lua_name, 'ScrollNode')) then        
             local scroll_name = pl.stringx.rpartition(lua_name,'ScrollNode')                        -- ex) clan + ScrollNode 로 접두어 분리
-            self:makeScroll(vars[scroll_name .. 'ScrollMenu'], vars[scroll_name .. 'ScrollNode'])   -- ex) clan + SrollMenu 가 있을 거라고 판단(규정상)
+            self:makeScroll(vars[scroll_name .. 'ScrollMenu'], vars[scroll_name .. 'ScrollNode'], scroll_name)   -- ex) clan + SrollMenu 가 있을 거라고 판단(규정상)
         end
     end
 end
@@ -83,7 +83,7 @@ end
 -------------------------------------
 -- function makeScroll
 -------------------------------------
-function UI_TabUI_AutoGeneration:makeScroll(scroll_menu, scroll_node)
+function UI_TabUI_AutoGeneration:makeScroll(scroll_menu, scroll_node, scroll_name)
     local vars = self.vars
    
     -- ScrollNode, ScrollMenu 둘 다 있어야 동작 가능
@@ -125,7 +125,9 @@ function UI_TabUI_AutoGeneration:makeScroll(scroll_menu, scroll_node)
         container_node:setPositionY(size_y)
         scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     end
-    
+
+    -- 외부에서 스크롤뷰 제어할 수 있도록 vars에 담아둠
+    vars[scroll_name .. 'ScrollView'] = scroll_view
 end
 
 -------------------------------------
