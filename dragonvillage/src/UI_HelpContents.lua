@@ -16,5 +16,5 @@ function UI_HelpContents(...)
 
     local ui = UI_TabUI_AutoGeneration('help_contents_open.ui', true, 1, struct_tab_ui) -- param ui_name, is_root, ui_depth, struct_tab_ui
     ui.vars['ScrollMenu']:setSwallowTouch(false)
-    ui.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
 end
