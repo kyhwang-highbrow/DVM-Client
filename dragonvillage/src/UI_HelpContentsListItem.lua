@@ -41,8 +41,7 @@ function UI_HelpContentsListItem:initUI()
 
     local table_contents =  TABLE:get('table_content_help')
     local t_contents = table_contents[content_name]
-    cclog(table_contents, self.m_contentName)
-    ccdump(content_name)
+
     -- ÄÁÅÙÃ÷ ÀÌ¸§
     local content_name = t_contents['t_name']
     vars['contentsLabel']:setString(Str(content_name))
