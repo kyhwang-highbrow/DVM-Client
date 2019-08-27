@@ -24,7 +24,7 @@ function UI_AttendanceSpecialListItem_1st:init(t_item_data, event_id)
     self:initButton()
     self:refresh()
 
-    if (event_id == '1st_event') then
+    if (event_id == '1st_event' or event_id == '2nd_event') then
         -- 성공 콜백
         local function success_cb(ret)
             self.m_lMessage = {}
