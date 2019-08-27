@@ -4180,6 +4180,9 @@
     <None Include="..\src\UI_HallOfFameHelp.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_PickDragonWithRate.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -146,7 +146,7 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_EventThankAnniversary_showDetaillPopup:click_infoBtn()
-    UI_PickDragon(nil, 700612, nil, true) -- mid, item_id, , is_info
+	UI_PickDragon.makePickDragon(nil, 700612, nil, true) -- mid, item_id, , is_info
 end
 -------------------------------------
 -- function click_rewardBtn

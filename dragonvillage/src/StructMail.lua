@@ -399,7 +399,7 @@ end
 function StructMail:readPickDragon(cb_func)
 	local mid = self:getMid()
 	local item_id = self['items_list'][1]['item_id']
-	UI_PickDragon(mid, item_id, cb_func)
+	UI_PickDragon.makePickDragon(mid, item_id, cb_func)
 end
 
 -------------------------------------

@@ -813,6 +813,7 @@ local t_module = {
     'UI_BannerIllusion',
 
     'UI_GachaResult_Dragon',
+	'UI_PickDragonWithRate',
 	'UI_PickDragon',
     'UI_DragonAppear',
     'UI_GuidePopup',
