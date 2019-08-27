@@ -201,6 +201,9 @@ function UI_EventPopup:makeEventPopupTab(tab)
         -- 1주년 스페셜 7일 출석
         elseif (event_id == '1st_event') then
             ui = UI_EventPopupTab_EventAttendance1st(event_id)
+        -- 2주년 스페셜 7일 출석
+        elseif (event_id == '2nd_event') then
+            ui = UI_EventPopupTab_EventAttendance1st(event_id)
 		end
 
     -- 접속시간 이벤트

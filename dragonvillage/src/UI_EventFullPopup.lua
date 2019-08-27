@@ -98,6 +98,9 @@ function UI_EventFullPopup:initUI()
         -- 1주년 스페셜 7일 출석
         elseif (key == '1st_event') then
             ui = UI_EventPopupTab_EventAttendance1st(key)
+        -- 2주년 스페셜 7일 출석
+        elseif (key == '2nd_event') then
+            ui = UI_EventPopupTab_EventAttendance1st(key)
         end
 
     -- 패키지 상품 
