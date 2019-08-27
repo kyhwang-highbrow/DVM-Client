@@ -33,10 +33,16 @@ function UI_HelpContentsListItem:initUI()
     local vars = self.vars
     local content_name = self.m_contentName -- adventure.ui
     content_name = string.gsub(content_name, '.ui', '') -- adventure
-    
+    -- 고대 유적 던전 잘못 짤려서 예외처리함
+    -- 후에 다시 처리해야함
+    if (content_name == 'ancient_n') then
+        content_name = 'ancient_ruin'
+    end
+
     local table_contents =  TABLE:get('table_content_help')
     local t_contents = table_contents[content_name]
-    
+    cclog(table_contents, self.m_contentName)
+    ccdump(content_name)
     -- 컨텐츠 이름
     local content_name = t_contents['t_name']
     vars['contentsLabel']:setString(Str(content_name))
