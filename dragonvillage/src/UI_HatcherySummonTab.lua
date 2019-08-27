@@ -29,6 +29,15 @@ function UI_HatcherySummonTab:onEnterTab(first)
     if (first == true) then
         self:initUI()
     end
+
+    -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
+    if (g_hotTimeData:isActiveEvent('event_legend_chance_up')) then
+        self.vars['eventNoti1']:setVisible(true)
+        self.vars['eventNoti2']:setVisible(true)
+    else
+        self.vars['eventNoti1']:setVisible(false)
+        self.vars['eventNoti2']:setVisible(false)
+    end
 end
 
 -------------------------------------

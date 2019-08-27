@@ -23,6 +23,8 @@
 
     buff_exp2x : 경험치 부스터 사용중
     buff_gold2x : 골드 부스터 사용중
+
+    event_legend_chance_up : 전설 드래곤 소환 확률 2배
 ]]
 
 -------------------------------------
@@ -362,6 +364,26 @@ function ServerData_HotTime:getEventRemainTimeText(event_name)
     end
 
     return nil
+end
+
+-------------------------------------
+-- function getEventRemainTimeTextDetail
+-- @brief event 항목의 남은 시간 텍스트
+-------------------------------------
+function ServerData_HotTime:getEventRemainTimeTextDetail(event_name)
+	self:refreshActiveList()
+
+    for _, t in pairs(self.m_activeEventList) do
+        if (t['event'] == event_name) then
+            local curr_time = Timer:getServerTime()
+            local end_time = t['enddate']/1000
+            local time = (end_time - curr_time)
+
+            return (time > 0) and Str('{1} 남음', datetime.makeTimeDesc(time, true, false)) or ''
+        end
+    end
+
+    return ''
 end
 
 -------------------------------------

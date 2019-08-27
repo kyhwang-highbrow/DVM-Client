@@ -78,6 +78,14 @@ end
 function UI_Hatchery:refresh()
     self:refresh_highlight()
     self:refresh_mileage()
+
+    -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
+    if (g_hotTimeData:isActiveEvent('event_legend_chance_up')) then
+        self.vars['eventInfoMenu']:setVisible(true)
+        self.vars['timeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_legend_chance_up'))
+    else
+        self.vars['eventInfoMenu']:setVisible(false)
+    end
 end
 
 -------------------------------------
