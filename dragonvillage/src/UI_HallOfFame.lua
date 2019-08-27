@@ -20,18 +20,20 @@ function UI_HallOfFame:init()
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
-    self:initButton()
+    --self:initUI()
+    self:request_temp()
+	self:initButton()
     --self:refresh()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_HallOfFame:initUI()
+function UI_HallOfFame:initUI(data)
     local vars = self.vars
     for i=1, 5 do
-        --vars['itemNode' .. i]:addChild
+        local ui = UI_HallOfFameListItem(data)
+		vars['itemNode' .. i]:addChild(ui.root)
     end
 end
 
@@ -57,4 +59,26 @@ end
 -------------------------------------
 function UI_HallOfFame:click_rankBtn()
     UI_HallOfFameRank()
+end
+
+-------------------------------------
+-- function request_temp
+-------------------------------------
+function UI_HallOfFame:request_temp(cb_func)
+
+	-- 임시 통신
+    local uid = g_userData:get('uid')
+	local peer_uid = peer_uid
+
+    local function success_cb(ret)
+		self:initUI(ret['user_info'])
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setRevocable(true)
+    ui_network:setUrl('/users/get/user_info')
+	ui_network:setParam('uid', uid)
+    ui_network:setParam('peer', 'test1')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
 end

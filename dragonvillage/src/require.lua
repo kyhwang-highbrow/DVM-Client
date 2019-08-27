@@ -1406,6 +1406,7 @@ local t_module = {
 
     -- 명예의 전당
     'UI_HallOfFameHelp',
+	'UI_HallOfFameListItem',
     'UI_HallOfFame',
     'UI_HallOfFameRank',
 }
