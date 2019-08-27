@@ -49,6 +49,20 @@ function UI_Package_Bundle:initUI()
     if (vars['allSpecVisual']) then
         vars['allSpecVisual']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
     end
+
+    -- 만원의 행복
+    if (self.m_package_name == 'package_lucky_box') then        
+        -- 랜덤 박스에 지난 가격을 출력하는 부분이 있음(지난 가격과 비교하기 위해)
+        if (self.vars['changeLabel']) then
+            local ori_struct_product = g_shopDataNew:getTargetProduct(119990)
+            if (ori_struct_product) then
+                local price = ori_struct_product:getPriceStr()
+                vars['changeLabel']:setString(price)
+            else
+                vars['changeLabel']:setString('')
+            end
+        end
+    end
 end
 
 -------------------------------------
