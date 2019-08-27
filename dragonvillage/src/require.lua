@@ -1408,6 +1408,7 @@ local t_module = {
     'UI_HallOfFameHelp',
 	'UI_HallOfFameListItem',
     'UI_HallOfFame',
+	'UI_HallOfFameRankListItem',
     'UI_HallOfFameRank',
 }
 
