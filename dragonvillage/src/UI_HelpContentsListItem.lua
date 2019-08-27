@@ -14,9 +14,6 @@ function UI_HelpContentsListItem:init(content_name)
     local vars = self:load('help_contents_open_item.ui')
     self.m_contentName = content_name
 
-    -- backkey ÁöÁ¤
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HelpContentsListItem')
-
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
