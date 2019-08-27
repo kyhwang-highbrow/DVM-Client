@@ -52,7 +52,7 @@ function UI_ContentOpenPopup:initUI()
         self.vars['linkBtn']:setVisible(true)
     end
     
-    vars['contentsVisual']:changeAni('open_'..content_type, true)
+    self:changeAni(content_type)
     vars['contentsLabel']:setString(getContentName(content_type))
 
 
@@ -90,6 +90,27 @@ function UI_ContentOpenPopup:click_lickBtn()
 	end
 
     self:close()
+end
+
+-------------------------------------
+-- function changeAni
+-------------------------------------
+function UI_ContentOpenPopup:changeAni(content_type)
+    local vars = self.vars
+    -- content_type과 애니메이션 다를 경우 예외처리
+    if (content_type == 'forest') then
+        content_type = 'dragon_forest'
+    end
+
+    if (content_type == 'exploration') then
+        content_type = 'exploation'
+    end
+
+    if (content_type == 'challenge_mode') then
+        content_type = 'challenge'
+    end
+
+    vars['contentsVisual']:changeAni('open_'..content_type, true)
 end
 
 --@CHECK
