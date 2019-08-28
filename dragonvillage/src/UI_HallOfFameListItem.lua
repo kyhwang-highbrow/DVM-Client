@@ -18,6 +18,10 @@ function UI_HallOfFameListItem:init(t_data)
     self:doActionReset()
     self:doAction(nil, false)
 
+    if (not self.m_tUserInfo) then
+        return
+    end
+
     self:initUI()
     self:initButton()
     --self:refresh()

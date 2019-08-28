@@ -18,6 +18,10 @@ function UI_HallOfFameRankListItem:init(data)
     self:doActionReset()
     self:doAction(nil, false)
 
+    if (not self.m_tRankInfo) then
+        return
+    end
+
     self:initUI()
     self:initButton()
     --self:refresh()
