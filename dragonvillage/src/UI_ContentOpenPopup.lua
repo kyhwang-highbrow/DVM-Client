@@ -37,7 +37,7 @@ end
 function UI_ContentOpenPopup:initUI()
     local vars = self.vars
     local content_type = self.m_content_type
-    self.vars['descLabel']:setString(Str('신규 컨텐츠가 오픈되었습니다'))
+    self.vars['descLabel']:setString(Str('신규 콘텐츠가 오픈되었습니다'))
 
     -- 시험의 탑 층 개방용 팝업
     if (content_type == 'attr_tower_expend') then
