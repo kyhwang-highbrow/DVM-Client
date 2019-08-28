@@ -1,6 +1,10 @@
 local PARENT = class(UI, ITabUI:getCloneTable())
 
 local RANK_OFFSET_GAP = 20
+local RANK_TYPE = {}
+RANK_TYPE['book'] = 4
+RANK_TYPE['quest'] = 2
+
 
 -------------------------------------
 -- class UI_HallOfFameRank
@@ -76,7 +80,9 @@ function UI_HallOfFameRank:onChangeTab(tab, first)
 			    self:makeTableViewRanking(tab)
 			    self:refresh()
 		    end
-		    g_rankData:request_getRank(tab, nil, cb_func)
+
+            local rank_type = RANK_TYPE[tab] or 2
+		    g_rankData:request_getRank(rank_type, nil, cb_func)
 	    end
     end
 end
@@ -87,7 +93,10 @@ end
 function UI_HallOfFameRank:makeTableViewRanking(tab)
 	local vars = self.vars
 	local node = vars[tab .. 'ListNode']
-	local l_rank = g_rankData:getRankData(tab)['rank']
+    
+    local rank_type = RANK_TYPE[tab] or 2
+
+	local l_rank = g_rankData:getRankData(rank_type)['rank']
 
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
@@ -105,7 +114,7 @@ function UI_HallOfFameRank:makeTableViewRanking(tab)
 
 	self['m_tableView_' .. tab] = table_view
 
-	local t_my_rank = g_rankData:getRankData(tab)['my_rank']
+	local t_my_rank = g_rankData:getRankData(rank_type)['my_rank']
 	local ui = UI_HallOfFameRankListItem(t_my_rank)
     ui:setNormalRank()
 	vars[tab .. 'MeNode']:addChild(ui.root)
