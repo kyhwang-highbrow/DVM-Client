@@ -116,9 +116,11 @@ end
 -------------------------------------
 function UI_HallOfFameRankListItem:initButton()
     local vars = self.vars
-	vars['clanBtn']:registerScriptTapHandler(function()
-		local struct_clan = StructClan(self.m_tRankInfo['clan_info'])
-        local clan_object_id = struct_clan:getClanObjectID()
-        g_clanData:requestClanInfoDetailPopup(clan_object_id)
-    end)
+    if (self.m_tRankInfo['clan_info']) then
+	    vars['clanBtn']:registerScriptTapHandler(function()
+		    local struct_clan = StructClan(self.m_tRankInfo['clan_info'])
+            local clan_object_id = struct_clan:getClanObjectID()
+            g_clanData:requestClanInfoDetailPopup(clan_object_id)
+        end)
+    end
 end
