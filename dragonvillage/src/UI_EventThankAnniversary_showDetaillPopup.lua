@@ -47,7 +47,7 @@ function UI_EventThankAnniversary_showDetaillPopup:initUI()
         reward_label = '신규 유저 추천!'
         item_card_1 = UI_ItemCard(700001, 5000)
         item_card_2 = UI_ItemCard(700612)
-        item_label_1 = string.format('%s %d개', Str('다이아'), 5000)
+        item_label_1 = Str('다이아 5,000개')
         item_label_2 = '전설 추천\n드래곤 선택권'
         dsc_label = '해당 드래곤 중 한 마리를 선택하여 소환할 수 있습니다.'
                 
@@ -60,7 +60,7 @@ function UI_EventThankAnniversary_showDetaillPopup:initUI()
         reward_label = '배테랑 유저 추천!'
         item_card_1 = UI_ItemCard(700001, 5000)
         item_card_2 = UI_ItemCard(700701)   -- 성장재료 선택권
-        item_label_1 = string.format('%s %d개', Str('다이아'), 5000)
+        item_label_1 = Str('다이아 5,000개')
         item_label_2 = '성장 재료\n선택권'
         dsc_label = '위 아이템 중 하나를 선택해 받을 수 있습니다.'
 
