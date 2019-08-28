@@ -3,6 +3,21 @@
 -------------------------------------
 ServerData_User = class({
         m_serverData = 'ServerData',
+        m_tDeviceInfo = 'table',
+        -- device_info_json은 android에서 아래와 같은 형태로 넘어옴
+        -- 2017-17-08-24 sgkim
+        --{
+        --    ['OS_VERSION']='3.10.61-11396000';
+        --    ['DISPLAY']='NRD90M.N920SKSU2DQE1';
+        --    ['MANUFACTURER']='samsung';
+        --    ['VERSION_SDK_INT']=24;
+        --    ['desc']='samsung SM-N920S(Android 7.0, API 24)';
+        --    ['VERSION_RELEASE']='7.0';
+        --    ['DEVICE']='noblelteskt';
+        --    ['BOARD']='universal7420';
+        --    ['VERSION_INCREMENTAL']='N920SKSU2DQE1';
+        --    ['BRAND']='samsung';
+        --}
     })
 
 -------------------------------------
@@ -505,4 +520,27 @@ end
 function ServerData_User:isFirstNickChange()
     local first_nick_change = g_serverData:get('user', 'first_nickchange')
     return (first_nick_change == 1)
+end
+
+-------------------------------------
+-- function setDeviceInfoTable
+-------------------------------------
+function ServerData_User:setDeviceInfoTable(t_data)
+    self.m_tDeviceInfo = t_data or {}
+end
+
+-------------------------------------
+-- function getDeviceInfoTable
+-------------------------------------
+function ServerData_User:getDeviceInfoTable()
+    return self.m_tDeviceInfo or {}
+end
+
+-------------------------------------
+-- function getDeviceInfoByKey
+-------------------------------------
+function ServerData_User:getDeviceInfoByKey(key)
+    local t_data = self:getDeviceInfoTable()
+
+    return t_data[key]
 end

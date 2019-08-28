@@ -30,7 +30,21 @@ function AdSDKSelector:initAdSDKSelector(skip_ad_play)
         if skip_ad_play then
             self.m_sdkName = 'ad_without_play'
         else
-            self.m_sdkName = 'admob'
+            -- Android 버전 체크
+            local version_sdk_int = tonumber(g_userData:getDeviceInfoByKey('VERSION_SDK_INT'))
+            -- https://developer.android.com/about/dashboards
+            -- API      Version Codename
+            -- 28       9.0     Pie
+            -- 27       8.1     Oreo
+            -- 26       8.0     Oreo
+            -- 25       7.1     Nougat
+            -- 24       7.0     Nougat      <-- 7.0이상부터 오류가 발생하고 있음
+            -- 23       6.0     Marshmallow
+            if (version_sdk_int and version_sdk_int < 24) then
+                self.m_sdkName = 'admob'
+            else
+                self.m_sdkName = 'ad_without_play'
+            end
         end
 
     -- 최신 aos 빌드에서는 unityads 사용

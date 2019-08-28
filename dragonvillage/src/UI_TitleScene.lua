@@ -846,6 +846,7 @@ function UI_TitleScene:workGameLogin()
         local function cb(ret, info)
             -- ret의 값에 상관없이 로그인 진행
             local device_info_json = json_decode(info) or {}
+            g_userData:setDeviceInfoTable(device_info_json)
 
             -- next
             get_advertising_id(device_info_json)
