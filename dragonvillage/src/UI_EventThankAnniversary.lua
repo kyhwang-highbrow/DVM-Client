@@ -58,8 +58,11 @@ function UI_EventThankAnniversary:refresh()
 	local is_reward_done = g_eventData:isEventUserRewardDone()
     vars['rewardBtn1']:setVisible(not is_reward_done)
     vars['rewardBtn2']:setVisible(not is_reward_done)
-    vars['dscLabel1']:setVisible(not is_reward_done) -- 보상 받기 전 라벨
-    vars['dscLabel2']:setVisible(is_reward_done) -- 보상 받은 후 라벨
+    if (not is_reward_done) then
+        vars['dscLabel1']:setString(Str('{@yellow}한 가지 선물만 선택이 가능{@default}하며 선택 후 되돌릴 수 없으니 신중하게 선택해주세요!'))
+    else
+        vars['dscLabel1']:setString(Str('보상이 우편함으로 전송되었습니다.'))
+    end
 end
 
 -------------------------------------
