@@ -192,6 +192,24 @@ function UI:addAction(node, type, delay, duration)
 end
 
 -------------------------------------
+-- function stopAllUIActions
+-- @brief 동작 중인 UI ACTION 모두 정지
+-------------------------------------
+function UI:stopAllUIActions()
+    if (not self.actions) then
+        return
+    end
+
+    for _,t_action_data in ipairs(self.actions) do
+        local node = t_action_data['node']
+        if node then
+            -- 동작 중인 UI ACTION 정지
+            node:stopActionByTag(UI_ACTION_TAG)
+        end
+    end
+end
+
+-------------------------------------
 -- function doActionReset
 -------------------------------------
 function UI:doActionReset()
