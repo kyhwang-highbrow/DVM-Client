@@ -238,8 +238,6 @@ function UI_QuestPopup:makeContentsQuest(tab, node)
 
         table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         table_view:relocateContainerFromIndex(focus_idx+2)
-
-        self.m_tableView = table_view
     end
 end
 
