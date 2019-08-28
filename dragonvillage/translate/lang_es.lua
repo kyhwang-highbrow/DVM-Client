@@ -140,6 +140,7 @@ return {['2주년 감사 이벤트']='Evento de Agradecimiento por el 2do Aniver
 ['악몽 던전 10단계 클리어']='Completar el Nivel 10 de la Mazmorra de las Pesadillas',
 ['신규 콘텐츠가 오픈되었습니다']='Hay nuevo contenido disponible.',
 ['확률UP 고급소환, 고급소환']='Convocación avanzada de alta probabilidad, Convocación avanzada',
+['2주년 스페셜 패키지']='Paquete Especial de 2do Aniversario',
 ['정말 멋진 전투였습니다! 앞으로의 모험도 걱정 없겠군요!']='¡Una batalla realmente increíble! ¡No hay que preocuparse por futuras aventuras!',
 ['마지막으로 중요한 사실을 알려드릴게요!\n1챕터의 7스테이지를 완료하면 {@green}고급 뽑기 10+1회{@default}를 무료로 제공한다고 합니다!']='¡Por último algo importante!\n¡Si has completado 7 etapas del capítulo 1, obtendrás {@green} 10+ 1 sorteos avanzados{@default} gratis!',
 ['이 기회에 가장 희귀하다는 전설 등급 드래곤을 만나게 되면 얼마나 기쁠까요!']='¡Qué felicidad encontrar en esta oportunidad a un dragón Legendario del más alto nivel de rareza!',
