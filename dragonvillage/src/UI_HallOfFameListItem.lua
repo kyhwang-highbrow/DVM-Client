@@ -5,15 +5,17 @@ local PARENT = UI
 -------------------------------------
 UI_HallOfFameListItem = class(PARENT,{
 		m_tUserInfo = 'table',
+        m_idx = 'number',
 	})
 
 -------------------------------------
 -- function initF
 -------------------------------------
-function UI_HallOfFameListItem:init(t_data)
+function UI_HallOfFameListItem:init(t_data, idx)
     local vars = self:load('hall_of_fame_scene_item.ui')
     self.m_tUserInfo = t_data
-
+    self.m_idx = idx or 1
+    
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
@@ -75,7 +77,7 @@ function UI_HallOfFameListItem:initUI()
     local dragon_node = vars['dragonNode']
     
     local rank = tonumber(rank)
-    if (rank%2 == 1) then
+    if (self.m_idx%2 == 1) then
         vars['tamerNode']:setScaleX(-0.9)
         dragon_node = vars['dragonNode2']
     end

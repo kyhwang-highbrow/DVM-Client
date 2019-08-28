@@ -37,7 +37,7 @@ function UI_HallOfFame:initUI()
     for idx = 1, 5 do
         if (self.m_tRank[idx]) then
             if (vars['itemNode' .. idx]) then
-                local ui = UI_HallOfFameListItem(self.m_tRank[idx])
+                local ui = UI_HallOfFameListItem(self.m_tRank[idx], idx)
 		        vars['itemNode' .. idx]:addChild(ui.root)
             end
         else
