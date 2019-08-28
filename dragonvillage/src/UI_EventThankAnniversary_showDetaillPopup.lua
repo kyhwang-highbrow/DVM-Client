@@ -57,7 +57,7 @@ function UI_EventThankAnniversary_showDetaillPopup:initUI()
 		vars['dragonInfoBtn']:setVisible(true)
     -- 기존 유저용 선물
     else
-        reward_label = '배테랑 유저 추천!'
+        reward_label = '베테랑 유저 추천!'
         item_card_1 = UI_ItemCard(700001, 5000)
         item_card_2 = UI_ItemCard(700701)   -- 성장재료 선택권
         item_label_1 = Str('다이아 5,000개')
