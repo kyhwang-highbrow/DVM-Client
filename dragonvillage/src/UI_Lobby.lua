@@ -1946,6 +1946,23 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
+    -- 명예의 전당 배너
+    local state = false
+    if (state) then
+        if (not vars['banner_hall_of_fame']) then
+            local banner = UI_BannerHallOfFame()
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(cc.p(1, 1))
+            banner.root:setAnchorPoint(cc.p(1, 1))
+            vars['banner_hall_of_fame'] = banner
+        end
+    else
+        if vars['banner_hall_of_fame'] then
+            vars['banner_hall_of_fame'].root:removeFromParent()
+            vars['banner_hall_of_fame'] = nil
+        end
+    end
+
     self:onRefresh_banner()
 end
 
@@ -1975,6 +1992,11 @@ function UI_Lobby:onRefresh_banner()
     -- 환상 던전
     if vars['banner_illusion'] then
         table.insert(l_node, vars['banner_illusion'].root)
+    end
+
+    -- 명예의 전당
+    if vars['banner_hall_of_fame'] then
+        table.insert(l_node, vars['banner_hall_of_fame'].root)
     end
 
     local pos_y = 0

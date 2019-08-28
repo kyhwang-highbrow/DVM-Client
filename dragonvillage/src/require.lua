@@ -811,6 +811,7 @@ local t_module = {
     'UI_BannerChallengeMode',
     'UI_BannerGrandArena',
     'UI_BannerIllusion',
+    'UI_BannerHallOfFame',
 
     'UI_GachaResult_Dragon',
 	'UI_PickDragonWithRate',
