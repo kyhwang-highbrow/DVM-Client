@@ -18,6 +18,9 @@ UI_Lobby = class(PARENT,{
 
         m_bDirtyLeftButtonMenu = 'bool',
         m_bUpdatingHighlights = 'bool',
+
+        -- 로비 진입 시 시작 코루틴에서 의미있는 동작이 모두 완료되었는지 구분
+        m_bDoneEntryCoroutine = 'bool',
     })
 
 -------------------------------------
@@ -34,6 +37,7 @@ function UI_Lobby:initParentVariable()
     self.m_uiBgm = 'bgm_lobby'
     self.m_bDirtyLeftButtonMenu = true
     self.m_bUpdatingHighlights = false
+    self.m_bDoneEntryCoroutine = false
 end
 
 -------------------------------------
@@ -93,6 +97,7 @@ end
 -------------------------------------
 function UI_Lobby:init_after()
     PARENT.init_after(self)
+    g_topUserInfo:stopAllUIActions()
     g_topUserInfo:doActionReset()
 end
 
@@ -278,6 +283,9 @@ function UI_Lobby:entryCoroutine()
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         if co:waitWork() then return end
+
+        -- 필수적인 항목이 모두 완료, UI등장 액션까지 실행된 후에 설정
+        self.m_bDoneEntryCoroutine = true
 
         if (1 < ENTRY_LOBBY_CNT) and (not TutorialManager.getInstance():checkFullPopupBlock()) then
 		    self:entryCoroutine_Escapable(co)
@@ -540,9 +548,12 @@ function UI_Lobby:initLobbyWorldAdapter()
 
         -- 이동하면 UI 노출
         lobby_map:setMoveStartCB(function()
-            parent_node:stopAllActions()
-            self:doAction(nil, nil, 0.5)
-            g_topUserInfo:doAction(nil, nil, 0.5)
+            -- 로비 진입 시 시작 코루틴에서 의미있는 동작이 모두 완료되었는지 구분하여 동작 (불필요한 시점에 이 코드때문에 UI가 등장함)
+            if (self.m_bDoneEntryCoroutine == true) then
+                parent_node:stopAllActions()
+                self:doAction(nil, nil, 0.5)
+                g_topUserInfo:doAction(nil, nil, 0.5)
+            end
         end)
 
         -- 정지 후 60초 후에 UI를 숨김 (튜토리얼 중에는 설정하지 않음)
