@@ -78,14 +78,6 @@ end
 function UI_Hatchery:refresh()
     self:refresh_highlight()
     self:refresh_mileage()
-
-    -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
-    if (g_hotTimeData:isActiveEvent('event_legend_chance_up')) then
-        self.vars['eventInfoMenu']:setVisible(true)
-        self.vars['timeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_legend_chance_up'))
-    else
-        self.vars['eventInfoMenu']:setVisible(false)
-    end
 end
 
 -------------------------------------
@@ -203,4 +195,14 @@ end
 -------------------------------------
 function UI_Hatchery:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
+
+    local is_summon_tab = (tab == 'summon')
+    local is_event_active = g_hotTimeData:isActiveEvent('event_legend_chance_up')
+    -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
+    if (is_summon_tab and is_event_active) then
+        self.vars['eventInfoMenu']:setVisible(true)
+        self.vars['timeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_legend_chance_up'))
+    else
+        self.vars['eventInfoMenu']:setVisible(false)
+    end
 end
