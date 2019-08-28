@@ -83,7 +83,7 @@ function UI_HallOfFameHelpListItem:initUI(data)
 	if (min == max) then
 		rank_str =  Str('{1}위', min)
 	else
-		rank_str = string.format('%s ~ %s', Str('{1}위', min), Str('{1}위', max))
+		rank_str = string.format('%d ~ %s', min, Str('{1}위', max))
 	end
 
 	vars['rankLabel']:setString(rank_str)
