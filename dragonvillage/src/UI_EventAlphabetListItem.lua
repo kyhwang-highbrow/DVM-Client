@@ -97,7 +97,7 @@ function UI_EventAlphabetListItem:refresh()
     end
 
     do -- 교환 가능 {1}/{2} 텍스트 표시
-        local exchange_cnt = t_word_data['exchange_cnt']
+        local exchange_cnt = tonumber(t_word_data['exchange_max']) - tonumber(t_word_data['exchange_cnt'])
         local exchange_max = t_word_data['exchange_max']
         local str = Str('교환 가능 {1}/{2}', exchange_cnt, exchange_max)
         vars['rewardNumberLabel']:setString(str)
