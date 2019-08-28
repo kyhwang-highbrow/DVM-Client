@@ -32,11 +32,13 @@ function UI_HallOfFameRankListItem:initUI()
 	-- 랭킹
     local rank = descBlank(self.m_tRankInfo['rank'])
 	vars['rankingLabel']:setString(rank)
-
-	-- 리더 드래곤 아이콘
-	local dragon_icon = UI_DragonCard(self.m_tRankInfo['leader'])
-	vars['profileNode']:addChild(dragon_icon.root)
-	dragon_icon.root:setSwallowTouch(false)
+    
+    if (self.m_tRankInfo['leader']) then
+	    -- 리더 드래곤 아이콘
+	    local dragon_icon = UI_DragonCard(self.m_tRankInfo['leader'])
+	    vars['profileNode']:addChild(dragon_icon.root)
+	    dragon_icon.root:setSwallowTouch(false)
+    end
 
 	-- 유저 이름
 	local user_name = self.m_tRankInfo['nick']
@@ -59,24 +61,54 @@ function UI_HallOfFameRankListItem:initUI()
     end
 
     vars['itemMenu']:setSwallowTouch(false)
-
+    
 	-- 스코어
-    local is_hall = true
-    if (not is_hall) then
-	    vars['scoreLabel'] = NumberLabel(vars['scoreLabel'], 0, COMMON_UI_ACTION_TIME)
-	    local score = self.m_tRankInfo['rp']
-	    vars['scoreLabel']:setNumber(score)
-        vars['hall_of_fameScoreMenu']:setVisible(false)
-    else
-        vars['hall_of_fameScoreMenu']:setVisible(true)
-        vars['challengeModeScoreLabel']:setString(Str('{1}점', 1000))
-        vars['sumScoreLabel']:setString(Str('{1}점', 1000))
-        vars['towerScoreLabel']:setString(Str('{1}점', 1000))
-        vars['arenaScoreLabel']:setString(Str('{1}점', 1000))
-        vars['scoreLabel']:setVisible(false)
-    end
+    local ancient_score = self:setScoreDesc(self.m_tRankInfo['ancient_score'])
+    local challenge_score = self:setScoreDesc(self.m_tRankInfo['challenge_score'])
+    local arena_score = self:setScoreDesc(self.m_tRankInfo['arena_score'])
+    local score = self:setScoreDesc(self.m_tRankInfo['score'])
+
+    -- 그림자, 콜로, 탑 점수 출력하는 것이 기본
+    vars['hall_of_fameScoreMenu']:setVisible(true)
+
+    vars['challengeModeScoreLabel']:setString(Str('{1}점', challenge_score))
+    vars['towerScoreLabel']:setString(Str('{1}점', ancient_score))
+    vars['arenaScoreLabel']:setString(Str('{1}점', arena_score))
+    
+    -- 총점 수 출력
+    vars['sumScoreLabel']:setString(Str('{1}점', score))
+    vars['scoreLabel']:setVisible(false)
 
 	vars['meSprite']:setVisible(false)
+end
+
+-------------------------------------
+-- function setNormalRank
+-------------------------------------
+function UI_HallOfFameRankListItem:setNormalRank()
+    local vars = self.vars
+    local score = self:setScoreDesc(self.m_tRankInfo['score'])
+
+    -- 도감, 퀘스트의 경우 점수라벨을 다른 것을 사용
+    vars['scoreLabel']:setString(score)
+    vars['hall_of_fameScoreMenu']:setVisible(false)
+    vars['scoreLabel']:setVisible(true)
+end
+
+-------------------------------------
+-- function setNormalRank
+-------------------------------------
+function UI_HallOfFameRankListItem:setScoreDesc(score)
+    local score = tonumber(score)
+    if (not score) then
+        return 0
+    end
+
+    if (score < 0) then
+        return 0
+    end
+
+    return score
 end
 
 -------------------------------------

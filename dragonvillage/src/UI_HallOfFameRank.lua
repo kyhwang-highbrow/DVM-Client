@@ -8,6 +8,7 @@ local RANK_OFFSET_GAP = 20
 UI_HallOfFameRank = class(PARENT,{
 	m_tableView_book = 'TableView',
 	m_tableView_quest = 'TableView',
+    m_tableView_hall_of_fame = 'TableView',
 
     m_rankOffset = 'number',
     m_rankType = 'string',
@@ -90,11 +91,14 @@ function UI_HallOfFameRank:makeTableViewRanking(tab)
 
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
+        local create_cb = function(ui, data)
+            ui:setNormalRank()
+        end
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(995, 55)
-        table_view:setCellUIClass(UI_HallOfFameRankListItem)
+        table_view:setCellUIClass(UI_HallOfFameRankListItem, create_cb)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank)
     end
@@ -103,6 +107,7 @@ function UI_HallOfFameRank:makeTableViewRanking(tab)
 
 	local t_my_rank = g_rankData:getRankData(tab)['my_rank']
 	local ui = UI_HallOfFameRankListItem(t_my_rank)
+    ui:setNormalRank()
 	vars[tab .. 'MeNode']:addChild(ui.root)
 	ui.vars['meSprite']:setVisible(true)
 end
@@ -162,15 +167,34 @@ function UI_HallOfFameRank:initFallofFameTableView(data)
         self:requestRank()
     end
 
+    local uid = g_userData:get('uid')
+    local create_cb = function(ui, data)
+        if (data['uid'] == uid) then
+            ui.vars['meSprite']:setVisible(true)
+        end
+    end
+    
     local rank_list = UIC_RankingList()
-    rank_list:setRankUIClass(UI_HallOfFameRankListItem)
+    rank_list:setRankUIClass(UI_HallOfFameRankListItem, create_cb)
     rank_list:setRankList(l_rank_list)
     rank_list:setEmptyStr('랭킹 정보가 없습니다')
     rank_list:setMyRank(make_my_rank_cb)
     rank_list:setOffset(self.m_rankOffset)
     rank_list:makeRankMoveBtn(click_prevBtn, click_nextBtn, RANK_OFFSET_GAP)
     rank_list:makeRankList(rank_node)
-    rank_list:setFocus('rank', rank_data['my_info']['rank'])
+    -- rank_list:setFocus('uid', uid)
+    self.m_tableView_hall_of_fame = rank_list.m_rankTableView
+    
+    local idx = 0
+    for i,v in pairs(l_rank_list) do
+         if (v['uid'] == uid) then
+             idx = i
+             break
+         end
+     end
+
+    self.m_tableView_hall_of_fame:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    self.m_tableView_hall_of_fame:relocateContainerFromIndex(idx)
 end
 
 -------------------------------------

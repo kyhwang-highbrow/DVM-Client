@@ -1857,7 +1857,7 @@ function UINavigatorDefinition:goTo_hell_of_fame(...)
     end
 
     local function cb_func(ret)
-        UI_HallOfFame(ret['my_info'])
+        UI_HallOfFame(ret['list'])
     end
 
     local type = 'world'

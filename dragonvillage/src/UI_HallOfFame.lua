@@ -32,9 +32,16 @@ end
 -------------------------------------
 function UI_HallOfFame:initUI()
     local vars = self.vars
-    for idx, data in ipairs(self.m_tRank) do
-        local ui = UI_HallOfFameListItem(data)
-		vars['itemNode' .. idx]:addChild(ui.root)
+    for idx = 1, 5 do
+        if (self.m_tRank[idx]) then
+            if (vars['itemNode' .. idx]) then
+                local ui = UI_HallOfFameListItem(self.m_tRank[idx])
+		        vars['itemNode' .. idx]:addChild(ui.root)
+            end
+        else
+            -- 랭킹 정보가 없다면 없다는 표시를 출력
+            local ui = UI_HallOfFameListItem(nil)
+        end
     end
 end
 

@@ -30,6 +30,11 @@ function UI_HallOfFameListItem:initUI()
     local vars = self.vars
     local data = self.m_tUserInfo
 
+    if (not data) then
+        vars['noRankMenu']:setVisible(true)
+        return
+    end
+
 	local score = descBlank(data['score'])
 
 	local user_name = data['nick']
@@ -67,7 +72,7 @@ function UI_HallOfFameListItem:initUI()
             vars['clanMarkNode']:addChild(icon)
         end
     else
-        vars['clanLabel']:setVisible(false)
+        vars['clanNameLabel']:setVisible(false)
     end
 end
 
