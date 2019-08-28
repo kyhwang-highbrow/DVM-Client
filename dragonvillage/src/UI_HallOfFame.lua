@@ -25,6 +25,8 @@ function UI_HallOfFame:init(t_rank)
     self:initUI(t_rank)
 	self:initButton()
     --self:refresh()
+
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
