@@ -94,9 +94,9 @@ function UI_Game:initUI()
     do
         local b = g_autoPlaySetting:get('quick_mode')
 
-        if (game_mode == GAME_MODE_INTRO) then
-            b = true
-        end
+        --if (game_mode == GAME_MODE_INTRO) then
+            --b = true
+        --end
         
         vars['speedVisual']:setVisible(b)
     end
@@ -769,7 +769,7 @@ end
 -------------------------------------
 function UI_Game:initIntroFight()
     local vars = self.vars
-    local off_list = {'autoStartButton', 'autoButton', --'speedButton', 
+    local off_list = {'autoStartButton', 'autoButton', 'speedButton', 
                       'hottimeNode', 'chatBtn', 'pauseButton',
                       'effectBtn', 'buffBtn', 'dpsInfoNode',
                       'autoVisual'}

@@ -59,7 +59,7 @@ function ServerData_AutoPlaySetting:setDefaultSetting(mode, t_auto_play_setting)
 	    -- 자동 모드 사용
         ['auto_mode'] = false,
         -- 빠른 모드 사용
-        ['quick_mode'] = true,
+        ['quick_mode'] = false,
         -- DPS 패널 사용
         ['dps_panel'] = true,
         -- 연출 스킵 모드 사용
