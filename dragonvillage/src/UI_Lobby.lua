@@ -1776,7 +1776,7 @@ function UI_Lobby:update_bottomLeftButtons()
     local vars = self.vars
 
     local t_btn_name = {}
-    local l_content = {'quest', 'forest', 'tamer', 'dragonManage'}
+    local l_content = {'forest', 'tamer', 'dragonManage'}
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
@@ -1797,7 +1797,7 @@ function UI_Lobby:update_bottomLeftButtons()
         end
     end
 
-    local pos_x = -139
+    local pos_x = -260
     local interval = -119
 
     -- 버튼들의 위치 지정
