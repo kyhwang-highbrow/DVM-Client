@@ -66,3 +66,35 @@ function ServerData_Ranking:request_getRank(rank_type, offset, cb_func)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function request_HallOfFameRank
+-------------------------------------
+function ServerData_Ranking:request_HallOfFameRank(type, limit, offset, cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+	local offset = offset or nil
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- @analytics
+        Analytics:firstTimeExperience('TotalRanking_Confirm')
+        --Analytics:firstTimeExperience('HallOfFameRanking_Confirm')
+
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/halloffame/rank')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('type', type)
+	ui_network:setParam('offset', offset)
+    ui_network:setParam('limit', rank_type)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

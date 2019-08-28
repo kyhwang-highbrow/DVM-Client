@@ -4,15 +4,17 @@ local PARENT = UI
 -- class UI_HallOfFame
 -------------------------------------
 UI_HallOfFame = class(PARENT,{
+        m_tRank = 'table', -- 상위 5위 정보
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_HallOfFame:init()
+function UI_HallOfFame:init(t_rank)
     local vars = self:load('hall_of_fame_scene.ui')
     UIManager:open(self, UIManager.SCENE)
-    
+    self.m_tRank = t_rank
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_HallOfFame')
 
@@ -20,8 +22,7 @@ function UI_HallOfFame:init()
     self:doActionReset()
     self:doAction(nil, false)
 
-    --self:initUI()
-    self:request_temp()
+    self:initUI(t_rank)
 	self:initButton()
     --self:refresh()
 end
@@ -29,11 +30,11 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_HallOfFame:initUI(data)
+function UI_HallOfFame:initUI()
     local vars = self.vars
-    for i=1, 5 do
+    for idx, data in ipairs(self.m_tRank) do
         local ui = UI_HallOfFameListItem(data)
-		vars['itemNode' .. i]:addChild(ui.root)
+		vars['itemNode' .. idx]:addChild(ui.root)
     end
 end
 
@@ -61,24 +62,3 @@ function UI_HallOfFame:click_rankBtn()
     UI_HallOfFameRank()
 end
 
--------------------------------------
--- function request_temp
--------------------------------------
-function UI_HallOfFame:request_temp(cb_func)
-
-	-- 임시 통신
-    local uid = g_userData:get('uid')
-	local peer_uid = peer_uid
-
-    local function success_cb(ret)
-		self:initUI(ret['user_info'])
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setRevocable(true)
-    ui_network:setUrl('/users/get/user_info')
-	ui_network:setParam('uid', uid)
-    ui_network:setParam('peer', 'test1')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:request()
-end

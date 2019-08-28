@@ -1856,11 +1856,14 @@ function UINavigatorDefinition:goTo_hell_of_fame(...)
         return
     end
 
-    --local function cb_func()
-    --    UI_BlockPopup()
-        UI_HallOfFame()
-    --end
-    --ServerData_Forest:getInstance():request_myForestInfo(cb_func)
+    local function cb_func(ret)
+        UI_HallOfFame(ret['my_info'])
+    end
+
+    local type = 'world'
+    local offset = 1 -- 상위 유저 기준
+    local limit = 5 -- 5개까지 랭킹 정보를 가져옴
+    g_rankData:request_HallOfFameRank(type, limit, offset, cb_func)
 end
 
 

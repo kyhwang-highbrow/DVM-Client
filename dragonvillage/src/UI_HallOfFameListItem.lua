@@ -28,18 +28,20 @@ end
 -------------------------------------
 function UI_HallOfFameListItem:initUI()
     local vars = self.vars
+    local data = self.m_tUserInfo
 
-	local score = 1000
-	local user_name = '명예의 전당 유저'
-	local rank = 1
+	local score = descBlank(data['score'])
+
+	local user_name = data['nick']
+	local rank = descBlank(data['rank'])
 
 	vars['scoreLabel']:setString(Str('{1}점', score))
 	vars['userNameLabel']:setString(Str(user_name))
 	vars['rankingLabel']:setString(rank)
 
 	-- 테이머 애니
-	local tamer_id = self.m_tUserInfo['tamer']
-    local tamer_info = self.m_tUserInfo['tamer_info']
+	local tamer_id = data['tamer']
+    local tamer_info = data['tamer_info']
     local costume_id = (tamer_info) and tamer_info['costume'] or nil
 
     local sd_res
@@ -53,14 +55,20 @@ function UI_HallOfFameListItem:initUI()
 	sd_animator:changeAni('idle', true)
 	vars['tamerNode']:addChild(sd_animator.m_node)
 
-	-- 클랜 마크
-    local t_clan_info = self.m_tUserInfo['clan_info']
-    local clan_name = t_clan_info['name']
-    vars['clanNameLabel']:setString(clan_name)
+    if (data['clan_info']) then
+	    -- 클랜 마크
+        local t_clan_info = data['clan_info']
+        local clan_name = t_clan_info['name']
+        vars['clanNameLabel']:setString(clan_name)
 
-    local clan_mark = StructClanMark:create(t_clan_info['mark'])
-    local icon = clan_mark:makeClanMarkIcon()
-    vars['clanMarkNode']:addChild(icon)
+        local clan_mark = StructClanMark:create(t_clan_info['mark'])
+        local icon = clan_mark:makeClanMarkIcon()
+        if (icon) then
+            vars['clanMarkNode']:addChild(icon)
+        end
+    else
+        vars['clanLabel']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -68,12 +76,12 @@ end
 -------------------------------------
 function UI_HallOfFameListItem:initButton()
     local vars = self.vars
-	--[[
+    --[[
 	vars['clanBtn']:registerScriptTapHandler(function()
 		local struct_clan = StructClan(self.m_tUserInfo['clan_info'])
         local clan_object_id = struct_clan:getClanObjectID()
         g_clanData:requestClanInfoDetailPopup(clan_object_id)
     end)
-	--]]
+    --]]
 end
 
