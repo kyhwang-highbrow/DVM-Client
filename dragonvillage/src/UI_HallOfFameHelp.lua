@@ -87,9 +87,9 @@ function UI_HallOfFameHelpListItem:initUI(data)
 	end
 
 	vars['rankLabel']:setString(rank_str)
-	vars['arenaScoreLabel']:setString(data['point_arena'])
-	vars['towerScoreLabel']:setString(data['point_ancient'])
-	vars['challengeScoreLabel']:setString(data['point_challenge'])
+	vars['arenaScoreLabel']:setString(tostring(data['point_arena']))
+	vars['towerScoreLabel']:setString(tostring(data['point_ancient']))
+	vars['challengeScoreLabel']:setString(tostring(data['point_challenge']))
 end
 
  
