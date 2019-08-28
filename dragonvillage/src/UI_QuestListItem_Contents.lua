@@ -208,6 +208,8 @@ end
 -- ex) 모험 보통 1-7 스테이지 클리어 필요/ 문구를 조합해서 만듬
 -------------------------------------
 function UI_QuestListItem_Contents.makeConditionDesc(req_stage_id, t_desc)
+    local t_desc = Str(t_desc)
+
 	if (not req_stage_id) then
 		return ''
 	end
