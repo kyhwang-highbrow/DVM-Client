@@ -99,6 +99,11 @@ function LobbyGuideAbstract:checkCondition()
     self.m_bActiveGuide = false
     local data = self.m_tData
 
+    -- 컨텐츠 오픈 체크
+    if (g_contentLockData:isContentLock(data['content_name'])) then
+        return
+    end
+
     -- 레벨 체크
     local lv = g_userData:get('lv')
     if (lv < data['lv']) then
