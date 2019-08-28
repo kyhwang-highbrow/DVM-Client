@@ -107,14 +107,13 @@ function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
     local data = self.m_data
     local content_name = data['content_name']
     local finish_cb = function()
-        local close_cb = function()
-            local ui_open = UI_ContentOpenPopup(content_name)
-            ui_quest_popup:setBlock(false)
-        end
         
         -- 갱신
         self:refresh()
 		ui_quest_popup:refresh()
+
+        -- 콘텐츠 오픈 팝업
+        local ui_open = UI_ContentOpenPopup(content_name)
 
         -- ~~아이템이 우편함으로 전송된다는 토스트 팝업
         --[[
@@ -124,9 +123,8 @@ function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
         t_data['count'] = tonumber(t_item[2])
         local reward_str = UIHelper:makeItemStr(t_data)
         --]]
-        local ui_toast = UI_ToastPopup(Str('보상이 우편함으로 전송되었습니다.'), 0.8)
-        ui_toast:setCloseCB(close_cb)
-        ui_quest_popup:setBlock(true)
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
     end
     g_contentLockData:request_contentsOpenReward(content_name, finish_cb) 
 end

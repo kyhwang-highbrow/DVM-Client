@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_ContentOpenPopup = class(PARENT,{
         m_content_type = 'string',
+        m_bIsDoneUIAction = 'bool',
 })
 
 -------------------------------------
@@ -12,19 +13,19 @@ UI_ContentOpenPopup = class(PARENT,{
 -------------------------------------
 function UI_ContentOpenPopup:init(content_type)
     self.m_content_type = content_type
+    self.m_bIsDoneUIAction = false
 
     local vars = self:load('popup_contents_open.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ContentOpenPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_close() end, 'UI_ContentOpenPopup')
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
-    self:doAction(nil, false)
+    self:doAction(function() self.m_bIsDoneUIAction = true end, false)
 
-    self:sceneFadeInAction()
 
     self:initUI()
     self:initButton()
@@ -67,7 +68,7 @@ end
 -------------------------------------
 function UI_ContentOpenPopup:initButton()
     local vars = self.vars
-    self.vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+    self.vars['okBtn']:registerScriptTapHandler(function() self:click_close() end)
     self.vars['linkBtn']:registerScriptTapHandler(function() self:click_lickBtn() end)
 end
 
@@ -78,7 +79,16 @@ function UI_ContentOpenPopup:refresh()
 end
 
 -------------------------------------
--- function initButton
+-- function click_close
+-------------------------------------
+function UI_ContentOpenPopup:click_close()
+    if (self.m_bIsDoneUIAction == true) then
+        self:close()
+    end
+end
+
+-------------------------------------
+-- function click_lickBtn
 -------------------------------------
 function UI_ContentOpenPopup:click_lickBtn()
     local content_name = self.m_content_type

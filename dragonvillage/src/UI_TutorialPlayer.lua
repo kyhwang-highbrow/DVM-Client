@@ -392,7 +392,7 @@ end
 -------------------------------------
 function UI_TutorialPlayer:makeEndUI()
     local ui = UI()
-    ui:load('popup_contents_open.ui')
+    ui:load('popup_contents_open_tutorial.ui')
     
     ui.vars['descLabel']:setString(Str('{@apricot}도움이 필요할 때는 {@default}마스터의 길{@apricot}을 따라가보세요!'))
     ui.vars['contentsLabel']:setString(Str('튜토리얼이 종료되었습니다.'))
