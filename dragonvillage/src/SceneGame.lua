@@ -781,6 +781,11 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref, is_success)
 
     -- 적용된 핫타임 항목 리스트 (모험 모드에서만 사용 170704)
     t_result_ref['hottime'] = ret['hottime'] or {}
+
+    -- 스테이지 클리어하면 잠금해제되는 컨텐츠 리스트 갱신
+    if (ret['content_unlock_list']) then
+        g_contentLockData:applyContentLockByStage(ret['content_unlock_list'])
+    end
 end
 
 -------------------------------------
