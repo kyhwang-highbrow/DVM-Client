@@ -18,10 +18,6 @@ function UI_HallOfFameListItem:init(t_data)
     self:doActionReset()
     self:doAction(nil, false)
 
-    if (not self.m_tUserInfo) then
-        return
-    end
-
     self:initUI()
     self:initButton()
     --self:refresh()
@@ -134,6 +130,10 @@ end
 -------------------------------------
 function UI_HallOfFameListItem:initButton()
     local vars = self.vars
+    if (not self.m_tUserInfo) then
+        return
+    end
+
     if (self.m_tUserInfo['clan_info']) then
 	    vars['clanBtn']:registerScriptTapHandler(function()
 		    local struct_clan = StructClan(self.m_tUserInfo['clan_info'])
