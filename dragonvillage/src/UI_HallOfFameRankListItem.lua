@@ -108,7 +108,7 @@ function UI_HallOfFameRankListItem:setScoreDesc(score)
         return 0
     end
 
-    return score
+    return comma_value(score)
 end
 
 -------------------------------------
