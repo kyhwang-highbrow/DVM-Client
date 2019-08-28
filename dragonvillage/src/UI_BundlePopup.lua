@@ -146,7 +146,7 @@ function UI_BundlePopup:click_quantityBtn(is_add)
 	-- 재화 부족 예외처리	
 	local price = struct_product:getPrice()
 	local price_type = struct_product:getPriceType()
-	if (not UIHelper:checkPrice(price_type, price * count)) then
+	if (not UIHelper:checkPrice_toastMessage(price_type, price * count)) then
 		return
 	end
 

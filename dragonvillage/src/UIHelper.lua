@@ -307,6 +307,116 @@ function UIHelper:checkPrice(price_type, price)
 end
 
 -------------------------------------
+-- function checkPrice_toastMessage
+-------------------------------------
+function UIHelper:checkPrice_toastMessage(price_type, price)
+    if (price_type == 'money') then
+		return true
+
+    -- 다이아몬드 확인
+    elseif (price_type == 'cash') then
+        local cash = g_userData:get('cash')
+        if (cash < price) then
+            UIManager:toastNotificationRed(Str('다이아몬드가 부족합니다.'))
+            return false
+        end
+
+    -- 자수정 확인
+    elseif (price_type == 'amethyst') then
+        local amethyst = g_userData:get('amethyst')
+        if (amethyst < price) then
+            UIManager:toastNotificationRed(Str('자수정이 부족합니다.'))
+            return false
+        end
+
+    -- 토파즈 확인
+    elseif (price_type == 'topaz') then
+        local topaz = g_userData:get('topaz')
+        if (topaz < price) then
+            UIManager:toastNotificationRed(Str('토파즈가 부족합니다.'))
+            return false
+        end
+
+    -- 마일리지 확인
+    elseif (price_type == 'mileage') then
+        local mileage = g_userData:get('mileage')
+        if (mileage < price) then
+            UIManager:toastNotificationRed(Str('마일리지가 부족합니다.'))
+            return false
+        end
+
+    -- 명예 확인
+    elseif (price_type == 'honor') then
+        local honor = g_userData:get('honor')
+        if (honor < price) then
+            UIManager:toastNotificationRed(Str('명예가 부족합니다.'))
+            return false
+        end
+
+    -- 캡슐 확인
+    elseif (price_type == 'capsule') then
+        local capsule = g_userData:get('capsule')
+        if (capsule < price) then
+            UIManager:toastNotificationRed(Str('캡슐이 부족합니다.'))
+            return false
+        end
+
+    -- 골드 확인
+    elseif (price_type == 'gold') then
+        local gold = g_userData:get('gold')
+        if (gold < price) then
+            UIManager:toastNotificationRed(Str('골드가 부족합니다.'))
+            return false
+        end
+
+    -- 우정 포인트 확인
+    elseif (price_type == 'fp') then
+        local fp = g_userData:get('fp')
+        if (fp < price) then
+            UIManager:toastNotificationRed(Str('우정포인트가 부족합니다.'))
+            return false
+        end
+
+    -- 고대주화 확인
+    elseif (price_type == 'ancient') then
+        local ancient = g_userData:get('ancient')
+        if (ancient < price) then
+            UIManager:toastNotificationRed(Str('고대주화가 부족합니다.'))
+            return false
+        end
+
+    -- 클랜코인 확인
+    elseif (price_type == 'clancoin') then
+        local clancoin = g_userData:get('clancoin')
+        if (clancoin < price) then
+            UIManager:toastNotificationRed(Str('클랜코인이 부족합니다.'))
+            return false
+        end
+
+	-- 캡슐코인 확인
+    elseif (price_type == 'capsule_coin') then
+        local capsule_coin = g_userData:get(price_type)
+        if (capsule_coin < price) then
+            UIManager:toastNotificationRed(Str('캡슐코인이 부족합니다.'))
+            return false
+        end
+
+    -- 용맹훈장 확인
+    elseif (price_type == 'valor') then
+        local valor = g_userData:get(price_type)
+        if (valor < price) then
+            UIManager:toastNotificationRed(Str('용맹훈장이 부족합니다.'))
+            return false
+        end
+
+    else
+        error('price_type : ' .. price_type)
+    end
+
+	return true
+end
+
+-------------------------------------
 -- function makeHighlightFrame
 -------------------------------------
 function UIHelper:makeHighlightFrame(node)
