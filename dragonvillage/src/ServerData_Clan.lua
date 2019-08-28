@@ -842,12 +842,15 @@ function ServerData_Clan:isCanJoinRequest(struct_clan)
     if self:isRequestedJoin(clan_object_id) then
         return false
     end
-
-    -- 유저가 클랜 가입 레벨이 안된다면?
+    
     local user_lv = g_userData:get('lv')
+    --[[
+    -- 유저가 클랜 가입 레벨이 안된다면?
+    
     if (user_lv < 15) then
         return false
     end
+    --]]
 
     -- 유저 가입 조건도 체크
     local join_lv = struct_clan:getJoinLv()
