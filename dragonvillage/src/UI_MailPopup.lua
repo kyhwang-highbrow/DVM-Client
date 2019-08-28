@@ -181,6 +181,27 @@ function UI_MailPopup:click_renewBtn()
 end
 
 -------------------------------------
+-- function click_renewBtn_force
+-- @brief 우편 갱신 통신까지 강제로
+-------------------------------------
+function UI_MailPopup:click_renewBtn_force()
+    local cb_func = function()
+    	for tab, table_view in pairs(self.m_mTableView) do 
+    		local t_item_list = g_mailData:getMailList(tab)
+    		table_view:setItemList(t_item_list)
+    		if (tab == 'notice') then
+    			g_mailData:sortNoticeList(table_view.m_itemList)
+    		else
+    			g_mailData:sortMailList(table_view.m_itemList)
+    		end
+    	end
+        self:refresh()
+    end
+    g_mailData:request_mailList(cb_func)
+    self.m_preRenewTime = Timer:getServerTime()	
+end
+
+-------------------------------------
 -- function click_rewardBtn
 -- @brief 단일 보상 수령
 -------------------------------------
@@ -192,7 +213,7 @@ function UI_MailPopup:click_rewardBtn(ui, struct_mail)
     end
     
     -- 읽고 난 후 콜백은 동일
-	local function success_cb()
+	local function success_cb(is_refresh) -- 우편함 갱신(통신 한번 더)
 		if (struct_mail:isNotice()) then
 			ui:refreshNotice()
 		else
@@ -204,6 +225,10 @@ function UI_MailPopup:click_rewardBtn(ui, struct_mail)
         self:refresh()
         -- 더티 처리
         self.m_dirty = true
+
+        if (is_refresh) then
+            self:click_renewBtn_force() -- is_force
+        end
     end
 
     self:check_readType(struct_mail, success_cb)

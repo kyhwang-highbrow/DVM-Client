@@ -162,7 +162,7 @@ function UI_ItemPickPopup:request_eventThankReward()
 	-- 콜백 함수
     local function success_cb(ret)
 		if (self.m_cbFunc) then
-            self.m_cbFunc()
+            self.m_cbFunc(true) -- 우편함 갱신
         end
 
         -- 얻은 아이템 ObtainPopup으로 보여줌
