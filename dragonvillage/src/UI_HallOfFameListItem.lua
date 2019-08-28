@@ -72,6 +72,13 @@ function UI_HallOfFameListItem:initUI()
 	local sd_animator = MakeAnimator(sd_res)
 	sd_animator:changeAni('idle', true)
 	vars['tamerNode']:addChild(sd_animator.m_node)
+    local dragon_node = vars['dragonNode']
+    
+    local rank = tonumber(rank)
+    if (rank%2 == 1) then
+        vars['tamerNode']:setScaleX(-0.9)
+        dragon_node = vars['dragonNode2']
+    end
 
     -- 대표 드래곤
     local t_leader = data['leader']
@@ -90,7 +97,7 @@ function UI_HallOfFameListItem:initUI()
         
         local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
         if (animator) then
-            vars['dragonNode']:addChild(animator.m_node)
+            dragon_node:addChild(animator.m_node)
         end
     end
 
