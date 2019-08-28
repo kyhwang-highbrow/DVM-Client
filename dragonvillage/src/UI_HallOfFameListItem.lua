@@ -81,6 +81,11 @@ function UI_HallOfFameListItem:initUI()
     else
         vars['clanNameLabel']:setVisible(false)
     end
+
+    if (not self.m_tUserInfo['clan_info']) then
+        vars['userNameLabel']:setPositionY(-68)
+        vars['rankingLabel']:setPositionY(-62)
+    end
 end
 
 -------------------------------------
