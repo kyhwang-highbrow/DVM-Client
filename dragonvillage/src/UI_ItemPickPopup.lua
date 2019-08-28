@@ -137,7 +137,7 @@ function UI_ItemPickPopup:click_choiceBtn()
 	local item_id = self.m_focusItemId
 	local name = TableItem:getItemName(item_id)
     local count = self:getItemCount(item_id)
-    name = name .. 'x' .. count
+    name = name .. 'x' .. comma_value(count)
 
 	local msg = Str('[{1}](이)가 선택되었습니다.', name)
 	local function ok_btn_cb()
