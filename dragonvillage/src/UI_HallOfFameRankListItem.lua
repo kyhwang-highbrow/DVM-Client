@@ -87,10 +87,10 @@ end
 -------------------------------------
 function UI_HallOfFameRankListItem:setNormalRank()
     local vars = self.vars
-    local score = self:setScoreDesc(self.m_tRankInfo['score'])
+    local score = self:setScoreDesc(self.m_tRankInfo['rp'])
 
     -- 도감, 퀘스트의 경우 점수라벨을 다른 것을 사용
-    vars['scoreLabel']:setString(score)
+    vars['scoreLabel']:setString(Str('{1}점', score))
     vars['hall_of_fameScoreMenu']:setVisible(false)
     vars['scoreLabel']:setVisible(true)
 end

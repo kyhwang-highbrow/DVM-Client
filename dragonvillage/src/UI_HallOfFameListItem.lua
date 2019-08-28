@@ -32,7 +32,14 @@ function UI_HallOfFameListItem:initUI()
 
     if (not data) then
         vars['noRankMenu']:setVisible(true)
-        return
+        vars['rankMenu']:setVisible(false)
+
+        local random_num = math_random(1, 3)
+        local no_tamer = cc.Sprite:create(string.format('res/ui/icons/tamer/hall_of_fame_no_rank_010%d.png', random_num))
+		if (no_tamer) then        
+			vars['noRankTamerNode']:addChild(no_tamer)
+        end
+		return
     end
 
 	local score = descBlank(data['score'])
