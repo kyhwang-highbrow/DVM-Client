@@ -185,7 +185,9 @@ end
 function ServerData_Tamer:isHighlightTamer()
 	local t_obtainable_tamer = self:getObtainableTamer()
 	if (table.count(t_obtainable_tamer) > 0) then
-		return true
+        -- @sgkim 2019.08.28 테이머를 골드로 구매 가능한 상태가 빨간 느낌표를 띄울 정도로 중요하지 않아서 비활성화 처리
+		--return true
+        return false
 	end
 
 	return false
