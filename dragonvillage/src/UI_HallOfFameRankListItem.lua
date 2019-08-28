@@ -34,8 +34,13 @@ function UI_HallOfFameRankListItem:initUI()
     local vars = self.vars
 
 	-- 랭킹
-    local rank = descBlank(self.m_tRankInfo['rank'])
-	vars['rankingLabel']:setString(rank)
+    local rank = self.m_tRankInfo['rank']
+    rank = tonumber(rank) or 0
+    if (rank < 1) then
+        vars['rankingLabel']:setString('-')
+    else
+        vars['rankingLabel']:setString(Str('{1}위', rank))
+    end
     
     if (self.m_tRankInfo['leader']) then
 	    -- 리더 드래곤 아이콘
