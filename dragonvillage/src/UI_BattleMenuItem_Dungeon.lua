@@ -10,8 +10,19 @@ local THIS = UI_BattleMenuItem_Dungeon
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BattleMenuItem_Dungeon:init(content_type)
-    local vars = self:load('battle_menu_dungeon_item.ui')
+function UI_BattleMenuItem_Dungeon:init(content_type, count)
+    local res = 'battle_menu_dungeon_item.ui'
+    if (count < 3) then
+        res = 'battle_menu_dungeon_item.ui'
+    elseif (count == 4)  then
+        res = 'battle_menu_dungeon_item_02.ui'
+    elseif (count >= 5) then
+        res = 'battle_menu_dungeon_item_03.ui'
+    else
+        res = 'battle_menu_dungeon_item_03.ui'
+    end
+
+    local vars = self:load(res)
 
     self:initUI()
     self:initButton()
