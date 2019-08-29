@@ -13,6 +13,9 @@ ServerData_Adventure = class({
 
         -- 챕터 달성도 테이블 정보(서버에서 던져줌)
         m_chapterAchiveDataTable = 'map',
+
+		-- 스테이지 정보 갱신 필요 여부(true일 경우 갱신 필요)
+        m_bDirtyStageList = 'bool',
     })
 
 -------------------------------------
@@ -20,12 +23,20 @@ ServerData_Adventure = class({
 -------------------------------------
 function ServerData_Adventure:init(server_data)
     self.m_serverData = server_data
+    self.m_bDirtyStageList = true
 end
 
 -------------------------------------
 -- function request_adventureInfo
 -------------------------------------
 function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)
+
+    -- 스테이지 정보 갱신이 필요하지 않은 경우
+    if (self.m_bDirtyStageList == false) then
+        finish_cb()
+        return
+    end
+
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -60,6 +71,17 @@ function ServerData_Adventure:response_adventureInfo(ret)
     self:organizeChapterAchieveInfoList(ret['chapter_list'])
     self:organizeChapterAchieveDataTable(ret['chapter_archievement'])
     g_adventureFirstRewardData:organizeFirstRewardDataTable(ret['first_reward_list'])
+
+    -- 정보가 갱신됨
+    self.m_bDirtyStageList = false
+end
+
+-------------------------------------
+-- function setDirtyStageList
+-- @brief 스테이지 정보 갱신이 필요한 경우
+-------------------------------------
+function ServerData_Adventure:setDirtyStageList()
+    self.m_bDirtyStageList = true
 end
 
 -------------------------------------

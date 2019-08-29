@@ -1044,6 +1044,9 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
     local stage_id = ret['stage']
 
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        -- 스테이지 정보 갱신이 필요한 경우 설정
+        g_adventureData:setDirtyStageList()
+
         if (stage_clear_info) then
             local stage_info = g_adventureData:getStageInfo(stage_id)
             stage_info:applyTableData(stage_clear_info)
