@@ -37,7 +37,17 @@ function UI_HallOfFameHelp:initUI()
 		idx = idx + 1
 	end
 
-	local l_rank = TABLE:get('table_halloffame_rank')
+	local t_rank = TABLE:get('table_halloffame_rank')
+    local l_rank = table.MapToList(t_rank)
+
+    local sort_func = function(a, b)
+        return a['rank_id'] < b['rank_id']
+    end
+
+    -- 테이블 정렬
+    table.sort(l_rank, sort_func)
+
+
 	-- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['scoreScrollNode'])
     table_view.m_defaultCellSize = cc.size(765, 45)
