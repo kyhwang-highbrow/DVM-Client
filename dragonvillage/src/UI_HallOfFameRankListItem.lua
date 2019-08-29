@@ -39,7 +39,7 @@ function UI_HallOfFameRankListItem:initUI()
     if (rank < 1) then
         vars['rankingLabel']:setString('-')
     else
-        vars['rankingLabel']:setString(Str('{1}위', rank))
+        vars['rankingLabel']:setString(Str('{1}위', comma_value(rank)))
     end
     
     if (self.m_tRankInfo['leader']) then
