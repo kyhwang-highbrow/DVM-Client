@@ -12,6 +12,8 @@ UI_Network = class(PARENT,{
         m_bHmac = 'boolean', -- false or true
         m_tData = 'table', -- request 파라미터
 
+        m_successCBDelayTime = 'number', -- 성공 통신 딜레이 타임 (개발 환경에서 통신 지연 테스트 용도로 사용)
+
         m_successCB = 'function',
         m_failCB = 'function',
         m_responseStatusCB = 'function',
@@ -139,6 +141,14 @@ function UI_Network:setLoadingMsg(msg)
 end
 
 -------------------------------------
+-- function setSuccessCBDelayTime
+-- @brief 성공 통신 딜레이 타임 (개발 환경에서 통신 지연 테스트 용도로 사용)
+-------------------------------------
+function UI_Network:setSuccessCBDelayTime(sec)
+    self.m_successCBDelayTime = sec
+end
+
+-------------------------------------
 -- function hideLoading
 -------------------------------------
 function UI_Network:hideLoading()
@@ -161,6 +171,30 @@ end
 -- function success
 -------------------------------------
 function UI_Network.success(self, ret)
+
+    -- 설정된 딜레이 타임이 있을 경우
+    local delay_time = tonumber(self.m_successCBDelayTime)
+    if (delay_time and 0 < delay_time) then
+        
+        local function reserve_func()
+            UI_Network.successCore(self, ret)
+        end
+
+        -- 지정된 시간 이후에 성공 콜백 호출
+        local node = cc.Node:create()
+        self.root:addChild(node)
+        cca.reserveFunc(node, delay_time, reserve_func)
+        return
+    end
+
+    -- 설정된 딜레이 타임이 없거나 0인 경우 즉시 호출
+    UI_Network.successCore(self, ret)
+end
+
+-------------------------------------
+-- function successCore
+-------------------------------------
+function UI_Network.successCore(self, ret)
     
     if self:statusHandler(ret) then
         return
