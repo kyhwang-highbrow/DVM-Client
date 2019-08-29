@@ -161,6 +161,15 @@ function UI_Network:hideLoading()
 end
 
 -------------------------------------
+-- function showLoadingAnimation
+-------------------------------------
+function UI_Network:showLoadingAnimation()
+    if self.vars['visual'] then
+        self.vars['visual']:setVisible(true)
+    end
+end
+
+-------------------------------------
 -- function hideBGLayerColor
 -------------------------------------
 function UI_Network:hideBGLayerColor()

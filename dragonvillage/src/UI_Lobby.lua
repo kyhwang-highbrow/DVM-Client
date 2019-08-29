@@ -192,6 +192,8 @@ function UI_Lobby:entryCoroutine()
         co:work('# 구독 상품 정보 받는 중')
         local ui_network = g_subscriptionData:request_subscriptionInfo(co.NEXT, co.ESCAPE)
         ui_network:hideBGLayerColor()
+        ui_network:showLoadingAnimation()
+        ui_network:setLoadingMsg(Str('네트워크 통신 중...'))
         if co:waitWork() then return end
         
         -- hard refresh
