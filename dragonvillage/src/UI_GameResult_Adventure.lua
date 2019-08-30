@@ -1,7 +1,7 @@
 local PARENT = UI_GameResultNew
 
-local TUTORIAL_STAGE_ID = 1110101
-
+local TUTORIAL_STAGE_ID_1 = 1110101
+local TUTORIAL_STAGE_ID_2 = 1110102
 -------------------------------------
 -- class UI_GameResult_Adventure
 -------------------------------------
@@ -55,14 +55,15 @@ end
 -- function checkIsTutorial
 -------------------------------------
 function UI_GameResult_Adventure:checkIsTutorial()
-    local tutorial_key = TUTORIAL.ADV_01_02_END
-    if (g_tutorialData:isTutorialDone(tutorial_key)) then
+    -- 1-2를 클리어 했다면 return false 버튼 막지 않음
+    if (g_adventureData:isClearStage(TUTORIAL_STAGE_ID_2)) then
         return false
     end
 
-    if (self.m_stageID == TUTORIAL_STAGE_ID) then
-        return true
+    -- 1-1 스테이지 아니라면 return false 버튼 막지 않음
+    if (self.m_stageID ~= TUTORIAL_STAGE_ID_1) then
+        return false
     end
 
-    return false
+    return true
 end
