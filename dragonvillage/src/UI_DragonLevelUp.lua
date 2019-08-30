@@ -836,6 +836,11 @@ function UI_DragonLevelUp:click_dragonFoodLevelupBtn()
         return
     end
 
+    -- 골드가 충분히 있는지 확인
+    if (not ConfirmPrice('gold', self.m_dragonFoodCnt * DRAGON_FOOD_GOLD)) then
+        return
+    end
+
     local function success_cb(ret)
         -- @analytics
         Analytics:trackUseGoodsWithRet(ret, '드래곤 레벨업')
