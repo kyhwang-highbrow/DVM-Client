@@ -42,6 +42,8 @@ function UI_HallOfFameListItem:initUI()
         local no_tamer = cc.Sprite:create(string.format('res/ui/icons/tamer/hall_of_fame_no_rank_010%d.png', random_num))
 		if (no_tamer) then        
 			vars['noRankTamerNode']:addChild(no_tamer)
+		    no_tamer:setAnchorPoint(cc.p(0.5, 0.5))
+            no_tamer:setDockPoint(cc.p(0.5, 0.5))
         end
 		return
     end
