@@ -38,6 +38,12 @@ function Translate:init()
 		else
 			self.m_gameLang = 'en'
 		end
+
+        -- Cafe Bazaar 빌드를 식별하기 위해 추가 (Cafe Bazaar빌드는 페르시아어가 기본 언어)
+        if (CppFunctions:isCafeBazaarBuild() == true) then
+            self.m_gameLang = 'fa'
+        end
+
 		g_localData:setLang(self.m_gameLang)
 	end
 
