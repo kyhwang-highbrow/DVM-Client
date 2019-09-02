@@ -222,18 +222,21 @@ function Network:SimpleRequest(t, do_decode)
 	local success = t['success'] or function(ret) end
 	local fail = t['fail'] or function(ret) end
 	local do_decode = do_decode or false
+    local skip_default_params = t['skip_default_params'] or false
 
 	-- 클라이언트에서는 모든 통신에 hmac을 전달하는 것으로 결정
 	-- 2017-08-23 sgkim (검증 여부는 서버에서 판단하기 때문)
     local check_hmac_md5 = t['check_hmac_md5'] or true
 
-    -- 모든 요청은 파라미터로 uid가 들어간다.
-    if self['uid'] then
-        data['uid'] = self['uid']
-    end
+    if (skip_default_params == false) then
+        -- 모든 요청은 파라미터로 uid가 들어간다.
+        if self['uid'] then
+            data['uid'] = self['uid']
+        end
 
-    -- 패치 정보 삽입
-    g_patchChecker:addPatchInfo(data)
+        -- 패치 정보 삽입
+        g_patchChecker:addPatchInfo(data)
+    end
 
     -- platform server 암호화
     local hmac_md5 = nil

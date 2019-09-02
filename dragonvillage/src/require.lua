@@ -1337,6 +1337,7 @@ local t_module = {
     'UI_RuneDevApiPopup',
     'UI_InvenDevApiPopup',
     'UI_EggSimulator',
+    'UI_TranslationViewer',
 
     -- UI : 클랜
     'UI_Clan',

@@ -32,6 +32,7 @@ function UI_Setting:init_devTab()
     vars['colosseumTestBtn']:registerScriptTapHandler(function() self:click_colosseumTestBtn() end)
     vars['dailyInitBtn']:registerScriptTapHandler(function() self:click_dailyInitBtn() end)
     vars['eggSimulBtn']:registerScriptTapHandler(function() self:click_eggSimulBtn() end)
+    vars['translationViewerBtn']:registerScriptTapHandler(function() self:click_translationViewerBtn() end)
     self:refresh_devTap()
 end
 
@@ -988,4 +989,11 @@ end
 -------------------------------------
 function UI_Setting:click_eggSimulBtn()
     UI_EggSimulator()
+end
+
+-------------------------------------
+-- function click_translationViewerBtn
+-------------------------------------
+function UI_Setting:click_translationViewerBtn()
+    UI_TranslationViewer()
 end
