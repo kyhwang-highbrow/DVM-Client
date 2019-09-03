@@ -7,10 +7,12 @@ UI_Network = class(PARENT,{
         m_bRevocable = 'boolean',   -- 취소 가능 여부
         m_bReuse = 'boolean', -- 재사용 가능 여부
 
-        m_url = 'string',
+        m_fullUrl = 'string', -- full url이 있을 경우 우선 사용
+        m_url = 'string', -- 지정된 게임 서버 url과 조합해서 사용
         m_method = 'string', -- 'GET' or 'POST'
         m_bHmac = 'boolean', -- false or true
         m_tData = 'table', -- request 파라미터
+        m_bSkipDefaultParams = 'boolean', -- uid, 버전 정보와 같은 기본 파라미터 추가 여부
 
         m_successCBDelayTime = 'number', -- 성공 통신 딜레이 타임 (개발 환경에서 통신 지연 테스트 용도로 사용)
 
@@ -42,13 +44,16 @@ function UI_Network:init_MemberVariable()
     self.m_bRevocable = false
     self.m_bReuse = false
 
+    self.m_fullUrl = nil
     self.m_url = nil
     self.m_method = 'POST' or 'GET'
 
-    -- 라이브 서버에서는 true, 그외에는 false
-    self.m_bHmac = false
+    -- 클라이언트에서는 모든 통신에 hmac을 전달하는 것으로 결정
+    -- 2017-08-23 sgkim (검증 여부는 서버에서 판단하기 때문)
+    self.m_bHmac = true
 
     self.m_tData = {}
+    self.m_bSkipDefaultParams = false
 
     self.m_successCB = nil
     self.m_failCB = nil
@@ -73,6 +78,13 @@ end
 -------------------------------------
 function UI_Network:setReuse(reuse)
     self.m_bReuse = reuse
+end
+
+-------------------------------------
+-- function setFullUrl
+-------------------------------------
+function UI_Network:setFullUrl(full_url)
+    self.m_fullUrl = full_url
 end
 
 -------------------------------------
@@ -131,6 +143,13 @@ end
 -------------------------------------
 function UI_Network:setParam(key, value)
     self.m_tData[key] = value
+end
+
+-------------------------------------
+-- function setSKipDefaultParams
+-------------------------------------
+function UI_Network:setSKipDefaultParams(skip_default_params)
+    self.m_bSkipDefaultParams = skip_default_params
 end
 
 -------------------------------------
@@ -492,9 +511,16 @@ end
 function UI_Network:request()
     local t_request = {}
 
-    t_request['url'] = self.m_url
+    -- full url이 있을 경우 우선 사용
+    if self.m_fullUrl then
+        t_request['full_url'] = self.m_fullUrl
+    else
+        t_request['url'] = self.m_url
+    end
+
     t_request['method'] = self.m_method
     t_request['data'] = self.m_tData
+    t_request['skip_default_params'] = self.m_bSkipDefaultParams
 
     t_request['success'] = function(ret) UI_Network.success(self, ret) end
     t_request['fail'] = function(ret) UI_Network.fail(self, ret) end
@@ -502,10 +528,7 @@ function UI_Network:request()
     if (self.m_bHmac == true) then
         Network:HMacRequest(t_request)
     else
-		-- 클라이언트에서는 모든 통신에 hmac을 전달하는 것으로 결정
-		-- 2017-08-23 sgkim (검증 여부는 서버에서 판단하기 때문)
-        Network:HMacRequest(t_request)
-        --Network:SimpleRequest(t_request)
+        Network:SimpleRequest(t_request)
     end
 
 	-- @E.T.

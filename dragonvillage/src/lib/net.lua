@@ -341,14 +341,17 @@ function Network:HMacRequest(t, do_decode)
 	local fail = t['fail'] or function(ret) end
 	local do_decode = do_decode or false
     local check_hmac_md5 = t['check_hmac_md5'] or false
+    local skip_default_params = t['skip_default_params'] or false
 
-    -- 모든 요청은 파라미터로 uid가 들어간다.
-    if self['uid'] then
-        data['uid'] = self['uid']
+    if (skip_default_params == false) then
+        -- 모든 요청은 파라미터로 uid가 들어간다.
+        if self['uid'] then
+            data['uid'] = self['uid']
+        end
+
+        -- 패치 정보 삽입
+        g_patchChecker:addPatchInfo(data)
     end
-
-    -- 패치 정보 삽입
-    g_patchChecker:addPatchInfo(data)
 
     -- 쿼리 문자열 생성
 	local query_str = self:makeQueryStr(data)
