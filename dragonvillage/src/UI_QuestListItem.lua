@@ -40,6 +40,8 @@ UI_QuestListItem = class(PARENT, {
         --        ['idx']=5;
         --        ['quest_type']='daily';
         --}
+
+        m_lRewardCardUI = 'list-ItemCard',
     })
 
 -------------------------------------
@@ -54,6 +56,9 @@ function UI_QuestListItem:init(t_data, isHighlight)
 		ui_name = 'quest_item.ui'
 	end
 	self:load(ui_name)
+
+
+    self.m_lRewardCardUI = {}
 
 	-- initialize
     self:initUI()
@@ -92,9 +97,9 @@ end
 function UI_QuestListItem:refresh(t_data)
     if (t_data) then
 	    self:setQuestData(t_data)
-	    self:setVarsVisible()
+	    self:setRewardCard() -- 보상 카드 만들기
+        self:setVarsVisible() -- 보상 수령 여부에 따른 상태 갱신(보상카드 상태도 바뀌므로 setRewardCard() 함수 다음에 수행되어야함)
 	    self:setQuestDescLabel()
-	    self:setRewardCard()
 	    self:setQuestProgress()
         self:setChallengeTitle()
     end
@@ -121,6 +126,21 @@ function UI_QuestListItem:setVarsVisible()
 
     -- 바로가기
     vars['questLinkBtn']:setVisible(not is_end and possible_link)
+    
+    -- 아이템 카드에 보상 받음 여부 표시(체크 표시)
+    -- 클랜 경험치UI에는 checkSprite가 없음, 없을 경우 이미지 생성
+    local reward_done = (not has_reward) and (is_end) 
+    for _, reward_item_card in ipairs(self.m_lRewardCardUI) do
+        if (not reward_item_card.vars['checkSprite']) then
+            local check_sprite = cc.Sprite:create('res/ui/a2d/card/card_cha_frame_select.png')
+            reward_item_card.vars['checkSprite'] = check_sprite
+            reward_item_card.vars['checkSprite']:setDockPoint(CENTER_POINT)
+            reward_item_card.vars['checkSprite']:setAnchorPoint(CENTER_POINT)
+            reward_item_card.root:addChild(check_sprite)
+        end
+
+        reward_item_card.vars['checkSprite']:setVisible(reward_done)
+    end
 end
 
 -------------------------------------
@@ -141,13 +161,20 @@ function UI_QuestListItem:setRewardCard()
     local vars = self.vars
 
     local l_reward_info = self.m_questData:getRewardInfoList()
+    local l_rewardCardUI = self.m_lRewardCardUI
 
     local reward_idx = 1
     for i, v in ipairs(l_reward_info) do
         local reward_card = UI_ItemCard(v['item_id'], v['count'])
         reward_card.root:setSwallowTouch(false)
-        vars['rewardNode' .. i]:addChild(reward_card.root)
-        reward_idx = reward_idx + 1
+        local reward_node = vars['rewardNode' .. i]
+        if (reward_node) then
+            if (reward_card) then
+                reward_node:addChild(reward_card.root)
+                reward_idx = reward_idx + 1
+                table.insert(l_rewardCardUI, reward_card)
+            end
+        end
     end
 
     -- 일일 퀘스트 보상 2배 적용 중일 경우
@@ -158,10 +185,13 @@ function UI_QuestListItem:setRewardCard()
             local reward_node = vars['rewardNode' .. reward_idx]
             reward_card.vars['bonusSprite']:setVisible(true)
             reward_card.vars['bonusLabel']:setString('')
-            if reward_node then
-                reward_node:addChild(reward_card.root)
+            if (reward_node) then
+                if (reward_card) then
+                    reward_node:addChild(reward_card.root)
+                    reward_idx = reward_idx + 1
+                    table.insert(l_rewardCardUI, reward_card)
+                end
             end
-			reward_idx = reward_idx + 1
         end
     end
 
@@ -173,8 +203,11 @@ function UI_QuestListItem:setRewardCard()
             clan_exp_card.root:setSwallowTouch(false)
 			local reward_node = vars['rewardNode' .. reward_idx]
 			if (reward_node) then
-				reward_node:addChild(clan_exp_card.root)
-			end
+                if (clan_exp_card) then
+				    reward_node:addChild(clan_exp_card.root)
+                    table.insert(l_rewardCardUI, clan_exp_card)
+                end
+            end
 		end
 	end
 end

@@ -13,6 +13,8 @@ UI_QuestListItem_Contents = class(PARENT, {
         --        "t_name":"탐험",
         --        "reward":"700001;100"
         --}
+
+        m_rewardUI = 'ItemCard',
     })
 
 -------------------------------------
@@ -87,7 +89,8 @@ function UI_QuestListItem_Contents:initUI()
 	if (reward_card) then
 		reward_card.root:setSwallowTouch(false)
 		vars['rewardNode']:addChild(reward_card.root)
-	end
+	    self.m_rewardUI = reward_card
+    end    
 end
 
 -------------------------------------
@@ -159,10 +162,14 @@ function UI_QuestListItem_Contents:refresh()
     local content_name = data['content_name']
     local req_stage = data['req_stage_id']
     
+    -- 버튼 상태 초기화
     vars['lockBtn']:setEnabled(false)
     vars['rewardBtn']:setVisible(false)
     vars['questLinkBtn']:setVisible(false)
     vars['lockBtn']:setVisible(false)
+
+    -- 아이템 카드 체크 표시 안 한 상태로 초기화
+    self.m_rewardUI:setCheckSpriteVisible(false)
 
 
     -- return 0 : 잠금
@@ -177,6 +184,7 @@ function UI_QuestListItem_Contents:refresh()
         vars['rewardBtn']:setVisible(true)
     elseif (reward_state == 2) then
         vars['questLinkBtn']:setVisible(true)
+        self.m_rewardUI:setCheckSpriteVisible(true)
     else
         vars['questLinkBtn']:setVisible(true)
     end
