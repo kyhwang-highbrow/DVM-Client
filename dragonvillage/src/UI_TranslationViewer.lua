@@ -5,7 +5,9 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -------------------------------------
 UI_TranslationViewer = class(PARENT, {
         m_values = 'table',
-        m_index = 1,
+        m_index = 'number',
+        m_bCheckFormatStr = 'bool',
+        m_tHeaderInfo = '',
      })
 
 -------------------------------------
@@ -34,6 +36,8 @@ function UI_TranslationViewer:initUI()
     local vars = self.vars
     self.m_index = 1
     self.m_values = {}
+    self.m_tHeaderInfo = {}
+    self.m_bCheckFormatStr = false
 end
 
 -------------------------------------
@@ -42,10 +46,43 @@ end
 function UI_TranslationViewer:initButton()
     local vars = self.vars
     
+    -- index입력하는 edit box
+    local function editBoxTextEventHandle(strEventName,pSender)
+        if (strEventName == "return") then
+            local msg = pSender:getText()
+            local num = tonumber(msg)
+            if (num == nil) then
+                UIManager:toastNotificationRed('Please enter an integer.')
+                vars['editBox']:setText(tostring(self.m_index))
+            else
+                self.m_index = num
+                self:refresh()
+            end
+        end
+    end
+    vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+
+    -- format
+    vars['formatBtn'] = UIC_CheckBox(vars['formatBtn'].m_node, vars['formatSprite'], self.m_bCheckFormatStr)
+    local function change_cb(checked)
+        self.m_bCheckFormatStr = checked
+        self:refresh()
+    end
+    vars['formatBtn']:setChangeCB(change_cb)
+
+
     vars['loadBtn']:registerScriptTapHandler(function() self:click_loadBtn() end)
     vars['minusBtn']:registerScriptTapHandler(function() self.m_index = self.m_index - 1; self:refresh() end)
     vars['plusBtn']:registerScriptTapHandler(function() self.m_index = self.m_index + 1; self:refresh() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+-------------------------------------
+-- function getHeaderIndex
+-------------------------------------
+function UI_TranslationViewer:getHeaderIndex(key)
+    local t_header_info = (self.m_tHeaderInfo or {})
+    return t_header_info[key] or 1
 end
 
 -------------------------------------
@@ -57,26 +94,31 @@ function UI_TranslationViewer:refresh()
     
     self.m_index = (self.m_index or 1)
 
+    local index_index = self:getHeaderIndex('index')
+    local index_en = self:getHeaderIndex('en')
+    local index_fa = self:getHeaderIndex('fa')
+
     local t_row = nil
     for i,v in ipairs(self.m_values) do
-        if self.m_index == tonumber(v[1]) then
+        if self.m_index == tonumber(v[index_index]) then
             t_row = v
         end
     end
-     ccdump(t_row)
     
     local en_str = ''
     local fa_str = ''
 
     if t_row then
-        en_str = self:makeUsable(t_row[2] or '')
-        fa_str = self:makeUsable(t_row[3] or '')
+        en_str = self:makeUsable(t_row[index_en] or '')
+        fa_str = self:makeUsable(t_row[index_fa] or '')
     else
-        UIManager:toastNotificationRed('invalid index! ' .. tostring(self.m_index))
+        local is_empty = (table.count(self.m_values) == 0)
+        if (not is_empty) then
+            UIManager:toastNotificationRed('invalid index! ' .. tostring(self.m_index))
+        end
     end
 
-
-    if true then
+    if (self.m_bCheckFormatStr == true) then
         en_str = formatMessage(en_str, 'fmt_text_01', 'fmt_text_02', 'fmt_text_03', 'fmt_text_04', 'fmt_text_05', 'fmt_text_06', 'fmt_text_07', 'fmt_text_08', 'fmt_text_09', 'fmt_text_10')
         fa_str = formatMessage(fa_str, 'fmt_text_01', 'fmt_text_02', 'fmt_text_03', 'fmt_text_04', 'fmt_text_05', 'fmt_text_06', 'fmt_text_07', 'fmt_text_08', 'fmt_text_09', 'fmt_text_10')
     end
@@ -94,41 +136,44 @@ end
 -- function click_loadBtn
 -------------------------------------
 function UI_TranslationViewer:click_loadBtn()
--- 파라미터 셋팅
-    local t_data = {}
 
     local sheet_id = '1pvv-j5YbZoVsMU8yNa5JOJpo4Ng3hStkZcM38Wbyrbs'
     local sheet_range = 'work'
     local api_key = 'AIzaSyBGQcRbLRzya2PcNFOGMOcdOxjQBMWd7OA'
     local api_url = formatMessage('https://sheets.googleapis.com/v4/spreadsheets/{1}/values/{2}?key={3}', sheet_id, sheet_range, api_key)
 
-    -- 요청 정보 설정
-    local t_request = {}
-    t_request['full_url'] = api_url
-    t_request['method'] = 'GET'
-    t_request['skip_default_params'] = true
-    t_request['data'] = t_data
-
-    local function success_func(ret)
-        --ccdump(ret)
-        --cclog(debug.traceback())
+    -- 성공 콜백
+    local function success_cb(ret)
+        UIManager:toastNotificationGreen('Translation sheet loaded.')
         self.m_values = ret['values']
+
+        self.m_tHeaderInfo = {}
+        if self.m_values[1] then
+            for i,v in pairs(self.m_values[1]) do
+                self.m_tHeaderInfo[v] = i
+            end
+        end
         self:refresh()
     end
 
-    local function fail_func(ret)        
+    -- 실패 콜백
+    local function fail_cb()
         ccdump(ret)
         cclog(debug.traceback())
     end
 
-    -- 성공 시 콜백 함수
-    t_request['success'] = success_func
-
-    -- 실패 시 콜백 함수
-    t_request['fail'] = fail_func
-
     -- 네트워크 통신
-    Network:SimpleRequest(t_request)
+    local ui_network = UI_Network()
+    ui_network:setFullUrl(api_url)
+    ui_network:setSuccessCB(success_cb)
+    --ui_network:setFailCB(fail_cb) -- 실패 콜백을 등록하지 않으면 기본 오류 팝업을 띄움
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:setMethod('GET')
+    ui_network:setSKipDefaultParams(true)
+    ui_network:setHmac(false)
+    --ui_network:hideLoading()
+    ui_network:request()
 end
 
 -------------------------------------
