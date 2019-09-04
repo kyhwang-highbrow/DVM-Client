@@ -203,9 +203,7 @@ end
 
 -------------------------------------
 -- function setFocus
--- @brief 포커싱과 하이라이트는 같이 있어야 할 기능이라 묶어버림, 추후에 필요하다면 매개변수 bool값 추가
--- @brief 인덱스로도 하이라이트 가능(UI_ChallengRankingPopup 참고), 이 경우에는 테이블 셸 UI들이 모두 생성된 상태여야함 -> table_view:setItemList(l_item, true) -- 아이템 UI를 미리 다 만듬
--- @brief 하지만 랭킹이 많을 경우, 퍼포먼스가 떨어지기 때문에 아이템을 미리 다 만들어 놓지 않는 것을 디폴트로 함
+-- @warning 동작 안함! 사용 안함!
 -------------------------------------
 function UIC_RankingList:setFocus(value_type, value)
     local l_item = self.m_itemList
@@ -254,9 +252,39 @@ end
 -- function click_prev
 -------------------------------------
 function UIC_RankingList:click_prev()
-    self.m_offset = math_max(self.m_offset - self.m_offsetGap, 1)
+     local l_item = self.m_itemList or {}
+     local list_cnt = #l_item
+
+     local offset_gap = self.m_offsetGap
+     local next_offset = self.m_offset
+     if (list_cnt <= 0) then
+         MakeSimplePopup(POPUP_TYPE.OK, Str('랭킹 정보가 없습니다'))
+         return       
+     end
+     
+     local rank_data = l_item[1]
+     if (not rank_data) then
+         MakeSimplePopup(POPUP_TYPE.OK, Str('랭킹 정보가 없습니다'))
+         return    
+     end
+     
+     local next_offset = rank_data['rank'] -- 첫 번째 랭킹 데이터의 rank 
+     if (not next_offset) then
+        return
+     end
+
+    -- 다음/이전 버튼은 rank의 값이 prev, next임
+    -- 첫 번째 대신, 두 번째 랭킹 데이터를 사용
+    if (type(next_offset) == 'string') then
+        next_offset = l_item[2]['rank']
+    end
+
+    next_offset = next_offset - offset_gap -- 가져온 랭킹의 가장 첫 번째 - OFFSET_GAP
+    next_offset = math_max(next_offset, 0) -- 계산된 offset을 저장
+    self.m_offset = next_offset or 1
+    
     if (self.m_prevCb) then
-        self.m_prevCb(self.m_offset)
+       self.m_prevCb(self.m_offset)
     end
 end
 
@@ -264,20 +292,35 @@ end
 -- function click_next
 -------------------------------------
 function UIC_RankingList:click_next()
-    local l_item = self.m_itemList
+    local l_item = self.m_itemList or {}
+    local list_cnt = #l_item
 
-    if (table.count(l_item) < self.m_offsetGap-1) then
+    local offset_gap = self.m_offsetGap
+    if (list_cnt < offset_gap) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
         return
     end
 
-    local next_rank = l_item[#l_item]['rank']
-    if (type(next_rank) == 'string') then
-        next_rank = l_item[#l_item-1]['rank']
+    local rank_data = l_item[list_cnt]
+    if (not rank_data) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('랭킹 정보가 없습니다'))
+        return       
     end
-    self.m_offset = next_rank + 1
+    
+    local next_offset = rank_data['rank'] -- 가져온 랭킹의 가장 마지막
+    if (not next_offset) then
+        return
+    end
 
+    -- 다음/이전 버튼은 rank의 값이 prev, next임
+    -- 마지막 대신, 마지막에서 두 번째 랭킹 데이터를 사용
+    if (type(next_offset) == 'string') then
+        next_offset = l_item[list_cnt-1]['rank']
+    end
+
+    self.m_offset = next_offset + 1
+    
     if (self.m_nextCb) then
-        self.m_nextCb(self.m_offset)
+       self.m_nextCb(self.m_offset)
     end
 end
