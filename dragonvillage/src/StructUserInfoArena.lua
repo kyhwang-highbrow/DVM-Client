@@ -321,9 +321,10 @@ function StructUserInfoArena:makeTierIcon(tier, type)
     end
 
     local icon = cc.Sprite:create(res)
-    icon:setDockPoint(cc.p(0.5, 0.5))
-    icon:setAnchorPoint(cc.p(0.5, 0.5))
-
+    if (icon) then
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        icon:setAnchorPoint(cc.p(0.5, 0.5))
+    end
     return icon
 end
 
@@ -333,6 +334,10 @@ end
 -------------------------------------
 function StructUserInfoArena:perseTier(tier_str)
     local tier_str = (tier_str or self.m_tier)
+    if (not tier_str) then
+        return
+    end
+
     local str_list = pl.stringx.split(tier_str, '_')
     local pure_tier = str_list[1]
     local tier_grade = tonumber(str_list[2]) or 0
@@ -439,6 +444,10 @@ function StructUserInfoArena:getRPText()
         return Str('기록 없음')
     end
 
+    local rp = self.m_rp
+    if (tonumber(self.m_rp) < 0) then
+        return '-'
+    end
     local text = Str('{1}점', comma_value(self.m_rp))
     return text
 end

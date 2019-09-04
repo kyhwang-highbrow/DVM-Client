@@ -4207,6 +4207,9 @@
     <None Include="..\src\UI_ArenaRankPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructRankReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

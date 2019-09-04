@@ -11,6 +11,7 @@ UI_ArenaRankPopup = class(PARENT,{
     m_rankType = 'string',
 
     m_rewardTableView = 'UIC_TableView',
+    m_structRankReward = 'StructRankReward',
 })
 
 -------------------------------------
@@ -123,8 +124,10 @@ function UI_ArenaRankPopup:requestRank(_offset) -- 다음/이전 버튼 눌렀�
         -- 랭킹 테이블 다시 만듬
         self:makeArenaRankTableView(ret)
 
-        -- 자신이 받을 보상에 포커싱
-        self:onFocusMyReward(ret)
+        if (ret['my_info']) then
+            -- 자신이 받을 보상에 포커싱
+            self:onFocusMyReward(ret['my_info'])
+        end
     end
 
     -- 랭킹 데이터 요청
@@ -147,21 +150,10 @@ function UI_ArenaRankPopup:makeRewardTableView(ret)
 
     -- 콜로세움 랭킹 보상 테이블
     local table_arena_rank = TABLE:get('table_arena_rank')
-    local l_arena_rank = {} 
-    
-    -- 주차값이 1인 값만 사용
-    for rank_id, t_data in pairs(table_arena_rank) do
-        if (t_data['week'] == 1) then
-            table.insert(l_arena_rank, t_data)
-        end
-    end
+    local struct_rank_reward = StructRankReward(table_arena_rank)
+    local l_arena_rank = struct_rank_reward:getRankRewardList()
+    self.m_structRankReward = struct_rank_reward
 
-    -- 테이블 정렬
-    l_arena_rank = table.MapToList(table_arena_rank)
-    local sort_func = function(a, b)
-        return a['rank_id'] < b['rank_id']
-    end
-    table.sort(l_arena_rank, sort_func)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
@@ -176,7 +168,17 @@ end
 -------------------------------------
 -- function onFocusMyReward
 -------------------------------------
-function UI_ArenaRankPopup:onFocusMyReward(ret)
+function UI_ArenaRankPopup:onFocusMyReward(my_info)
+    local my_data = my_info or {}
+
+    local my_rank = my_data['rank'] or 0
+    local my_ratio = my_data['rate'] or 0
+    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
+
+    if (reward_data) then
+        self.m_rewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        self.m_rewardTableView:relocateContainerFromIndex(ind)
+    end
 end
 
 -------------------------------------

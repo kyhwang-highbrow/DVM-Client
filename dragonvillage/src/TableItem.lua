@@ -49,6 +49,7 @@ ITEM_ID_MAP['clancoin'] = 700011
 ITEM_ID_MAP['capsule_coin'] = 700012
 ITEM_ID_MAP['amor'] = 700014
 ITEM_ID_MAP['oblivion'] = 700015
+ITEM_ID_MAP['valor'] = 700013
 
 ITEM_ID_MAP['stamina'] = 700101
 ITEM_ID_MAP['st'] = 700101

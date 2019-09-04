@@ -117,6 +117,7 @@ local t_module = {
     'StructAiSkillInfo',
     'StructDeck', -- 덱(팀) 정보를 관리하는 구조체
     'StructTabUI',
+    'StructRankReward',
 
 	-- ServerData
     'ServerData',
