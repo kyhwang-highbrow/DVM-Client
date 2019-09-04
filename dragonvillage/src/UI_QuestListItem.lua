@@ -126,21 +126,6 @@ function UI_QuestListItem:setVarsVisible()
 
     -- 바로가기
     vars['questLinkBtn']:setVisible(not is_end and possible_link)
-    
-    -- 아이템 카드에 보상 받음 여부 표시(체크 표시)
-    -- 클랜 경험치UI에는 checkSprite가 없음, 없을 경우 이미지 생성
-    local reward_done = (not has_reward) and (is_end) 
-    for _, reward_item_card in ipairs(self.m_lRewardCardUI) do
-        if (not reward_item_card.vars['checkSprite']) then
-            local check_sprite = cc.Sprite:create('res/ui/a2d/card/card_cha_frame_select.png')
-            reward_item_card.vars['checkSprite'] = check_sprite
-            reward_item_card.vars['checkSprite']:setDockPoint(CENTER_POINT)
-            reward_item_card.vars['checkSprite']:setAnchorPoint(CENTER_POINT)
-            reward_item_card.root:addChild(check_sprite)
-        end
-
-        reward_item_card.vars['checkSprite']:setVisible(reward_done)
-    end
 end
 
 -------------------------------------
@@ -170,6 +155,7 @@ function UI_QuestListItem:setRewardCard()
         local reward_node = vars['rewardNode' .. i]
         if (reward_node) then
             if (reward_card) then
+                reward_node:removeAllChildren()
                 reward_node:addChild(reward_card.root)
                 reward_idx = reward_idx + 1
                 table.insert(l_rewardCardUI, reward_card)
@@ -187,6 +173,7 @@ function UI_QuestListItem:setRewardCard()
             reward_card.vars['bonusLabel']:setString('')
             if (reward_node) then
                 if (reward_card) then
+                    reward_node:removeAllChildren()
                     reward_node:addChild(reward_card.root)
                     reward_idx = reward_idx + 1
                     table.insert(l_rewardCardUI, reward_card)
@@ -204,12 +191,43 @@ function UI_QuestListItem:setRewardCard()
 			local reward_node = vars['rewardNode' .. reward_idx]
 			if (reward_node) then
                 if (clan_exp_card) then
+                    reward_node:removeAllChildren()
 				    reward_node:addChild(clan_exp_card.root)
                     table.insert(l_rewardCardUI, clan_exp_card)
                 end
             end
 		end
 	end
+
+    -- 아이템 카드에 보상 받음 여부 표시(체크 표시)
+    for i = 1, reward_idx do
+        local reward_check_node = vars['checkNode' .. i]
+        if (reward_check_node) then
+            reward_check_node:removeAllChildren()
+            local check_sprite = cc.Sprite:create('res/ui/icons/check_icon_0103.png')
+            if (check_sprite) then
+                check_sprite:setDockPoint(CENTER_POINT)
+                check_sprite:setAnchorPoint(CENTER_POINT)
+                reward_check_node:addChild(check_sprite)
+
+                local is_reward_done = self:isRewardDone()
+                reward_check_node:setVisible(is_reward_done)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function isRewardDone
+-------------------------------------
+function UI_QuestListItem:isRewardDone()
+    local quest_data = self.m_questData
+
+    local has_reward = quest_data:hasReward()
+    local is_end = quest_data:isEnd()
+
+    local reward_done = (not has_reward) and (is_end)
+    return reward_done
 end
 
 -------------------------------------
