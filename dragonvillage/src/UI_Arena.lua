@@ -148,6 +148,9 @@ function UI_Arena:initButton()
 		vars['valorShopLabel']:setString(Str('용맹훈장') .. '\n' .. Str('상점'))
 	end
 
+    vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
+    vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
+
     -- 콜로세움 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'arena_help')
 end
@@ -232,6 +235,22 @@ end
 -------------------------------------
 function UI_Arena:click_startBtn()
     UI_ArenaDeckSettings(ARENA_STAGE_ID)
+end
+
+-------------------------------------
+-- function click_fameBtn
+-- @brief 명예의 전당으로 이동
+-------------------------------------
+function UI_Arena:click_fameBtn()
+    UINavigatorDefinition:goTo('hell_of_fame')
+end
+
+-------------------------------------
+-- function click_rankBtn
+-- @brief 랭킹으로 이동
+-------------------------------------
+function UI_Arena:click_rankBtn()
+    UI_ArenaRankPopup()
 end
 
 -------------------------------------

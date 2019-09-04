@@ -87,7 +87,7 @@ function UI_ArenaTabRank:request_rank()
         self:makeRankTableView()
     end
     local offset = self.m_rankOffset
-    g_arenaData:request_arenaRank(offset, finish_cb)
+    g_arenaData:request_arenaRank(offset, nil, finish_cb)
 end
 
 -------------------------------------

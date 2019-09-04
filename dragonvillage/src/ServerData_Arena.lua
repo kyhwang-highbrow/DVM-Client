@@ -574,7 +574,7 @@ end
 -------------------------------------
 -- function request_arenaRank
 -------------------------------------
-function ServerData_Arena:request_arenaRank(offset, finish_cb, fail_cb)
+function ServerData_Arena:request_arenaRank(offset, type, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
     local offset = offset or 0
@@ -594,12 +594,14 @@ function ServerData_Arena:request_arenaRank(offset, finish_cb, fail_cb)
             return finish_cb(ret)
         end
     end
+    local _type = type or 'world'
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/game/arena/ranking')
     ui_network:setParam('uid', uid)
     ui_network:setParam('offset', offset)
+    ui_network:setParam('type', _type)
     ui_network:setParam('limit', 30)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
