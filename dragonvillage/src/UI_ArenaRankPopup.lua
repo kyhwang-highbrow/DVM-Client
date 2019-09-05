@@ -56,6 +56,7 @@ end
 function UI_ArenaRankPopup:initButton()
     local vars = self.vars
 	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['valorShopBtn']:registerScriptTapHandler(function() UINavigator:goTo('shop', 'valor') end)
 end
 
 -------------------------------------

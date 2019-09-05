@@ -42,6 +42,7 @@ end
 -------------------------------------
 function UI_ArenaRankClanPopup:initButton()
     local vars = self.vars
+    vars['clancoinShopBtn']:registerScriptTapHandler(function() UINavigator:goTo('shop', 'clancoin') end)
 end
 
 -------------------------------------
