@@ -1312,7 +1312,7 @@ end
 function UINavigatorDefinition:goTo_clan_raid(...)
     -- 클랜 가입이 되지 않은 상태에서 진입시에
     if (g_clanData:isClanGuest()) then
-        local msg = Str('클랜이 존재하지 않습니다.')
+        local msg = Str('소속된 클랜이 없습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
@@ -1386,7 +1386,7 @@ end
 function UINavigatorDefinition:goTo_rune_guardian(...)
     -- 클랜 가입이 되지 않은 상태에서 진입시에
     if (g_clanData:isClanGuest()) then
-        local msg = Str('클랜이 존재하지 않습니다.')
+        local msg = Str('소속된 클랜이 없습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
