@@ -63,7 +63,48 @@ function UI_HelpContentsListItem:initUI()
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
         vars['screenNode']:addChild(sprite)
+        
+        -- 글자수에 따라 스크롤 메뉴 세로 크기를 늘림
+        local label_height = vars['infoLabel']:getStringHeight() * 1.5
+        local content_height = 360
+        local ori_size = vars['scrollMenu']:getContentSize()
+        ori_size['height'] = label_height + content_height
+        vars['scrollMenu']:setContentSize(ori_size)
     else
-        vars['infoLabel']:setPositionY(80)
+        vars['infoLabel']:setPositionY(154)
+        return
     end
+
+    -- 스크롤
+    -- ScrollNode, ScrollMenu 둘 다 있어야 동작 가능
+    local scroll_node = vars['scrollNode']
+    local scroll_menu = vars['scrollMenu']
+
+    -- ScrollView 사이즈 설정 (ScrollNode 사이즈)
+    local size = scroll_node:getContentSize()
+    local scroll_view = cc.ScrollView:create()
+    scroll_view:setNormalSize(size)
+    scroll_node:setSwallowTouch(false)
+    scroll_node:addChild(scroll_view)
+
+    -- ScrollView 에 달아놓을 컨텐츠 사이즈(ScrollMenu)
+    local target_size = scroll_menu:getContentSize()
+    scroll_view:setDockPoint(cc.p(0.5, 1.0))
+    scroll_view:setAnchorPoint(cc.p(0.5, 1.0))
+    scroll_view:setContentSize(target_size)
+    scroll_view:setPosition(ZERO_POINT)
+    scroll_view:setTouchEnabled(true)
+
+    -- ScrollMenu를 부모에서 분리하여 ScrollView에 연결
+    -- 분리할 부모가 없을 때 에러 없음
+    scroll_menu:removeFromParent()
+    scroll_view:addChild(scroll_menu)
+
+    local size_y = size.height - target_size.height
+    local container_node = scroll_view:getContainer()
+    -- 포커싱할 pos_y 늘린만큼 더 올려줌
+    size_y = size_y + vars['infoLabel']:getStringHeight() * 1.5 * 0.2
+    
+    container_node:setPositionY(size_y)
+    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 end
