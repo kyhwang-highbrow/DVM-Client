@@ -149,8 +149,9 @@ function UI_ArenaRankPopup:requestRank(_offset) -- 다음/이전 버튼 눌렀�
 
     -- 랭킹 데이터 요청
     local rank_type = self.m_rankType
-    local offset = _offset or self.m_rankOffset
-    g_arenaData:request_arenaRank(offset, rank_type, finish_cb, fail_cb)
+    self.m_rankOffset = _offset
+	local rank_cnt = 20
+    g_arenaData:request_arenaRank(self.m_rankOffset, rank_type, finish_cb, fail_cb, rank_cnt)
 end
 
 -------------------------------------
@@ -249,7 +250,7 @@ function UI_ArenaRankPopup:onChangeRankingType(type)
         self.m_rankOffset = 1
     end
 
-    self:requestRank()
+    self:requestRank(self.m_rankOffset)
 end
 
 -------------------------------------

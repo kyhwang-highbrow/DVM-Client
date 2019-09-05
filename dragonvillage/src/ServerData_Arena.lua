@@ -574,10 +574,11 @@ end
 -------------------------------------
 -- function request_arenaRank
 -------------------------------------
-function ServerData_Arena:request_arenaRank(offset, type, finish_cb, fail_cb)
+function ServerData_Arena:request_arenaRank(offset, type, finish_cb, fail_cb, _rank_cnt)
     -- 파라미터
     local uid = g_userData:get('uid')
     local offset = offset or 0
+	local rank_cnt = _rank_cnt or 30
 
     -- 콜백 함수
     local function success_cb(ret)
@@ -602,7 +603,7 @@ function ServerData_Arena:request_arenaRank(offset, type, finish_cb, fail_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('offset', offset)
     ui_network:setParam('type', _type)
-    ui_network:setParam('limit', 30)
+    ui_network:setParam('limit', rank_cnt)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

@@ -79,7 +79,7 @@ function UI_ArenaRankClanPopup:makeArenaRankTableView(data)
         self:requestRank(offset)
     end
 
-    -- 클랜이 없다면
+    -- 클랜이 있다면
     local struct_clan = g_clanData:getClanStruct()
     if (struct_clan) then
         local clan_id = struct_clan:getClanObjectID()
@@ -88,6 +88,7 @@ function UI_ArenaRankClanPopup:makeArenaRankTableView(data)
                 ui.vars['meSprite']:setVisible(true)
             end
         end
+	else
         make_my_rank_cb = nil
     end
 
@@ -129,8 +130,8 @@ function UI_ArenaRankClanPopup:requestRank(_offset) -- 다음/이전 버튼 눌�
 
     -- 랭킹 데이터 요청
     local rank_type = self.m_rankType
-    local offset = _offset or self.m_rankOffset
-    g_clanRankData:request_getRank('arena', offset, finish_cb)
+    self.m_rankOffset = _offset
+    g_clanRankData:request_getRank('arena', self.m_rankOffset, finish_cb)
 end
 
 -------------------------------------
@@ -256,7 +257,7 @@ function UI_ArenaRankClanPopup:onChangeRankingType(type)
         self.m_rankOffset = 1
     end
 
-    self:requestRank()
+    self:requestRank(self.m_rankOffset)
 end
 
 -------------------------------------
