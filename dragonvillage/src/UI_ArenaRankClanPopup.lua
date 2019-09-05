@@ -59,10 +59,12 @@ function UI_ArenaRankClanPopup:makeArenaRankTableView(data)
     local rank_data = data
 
     local make_my_rank_cb = function()
-        local my_data = g_clanRankData:getMyRankData(CLAN_RANK['AREN']) or {}
-        local me_rank = UI_AncientTowerClanRankListItem(my_data)
-        vars['clanMeNode']:addChild(me_rank.root)
-        me_rank.vars['meSprite']:setVisible(true)
+        local my_data = g_clanRankData:getMyRankData(CLAN_RANK['AREN'])
+        if (my_data) then
+            local me_rank = UI_AncientTowerClanRankListItem(my_data)
+            vars['clanMeNode']:addChild(me_rank.root)
+            me_rank.vars['meSprite']:setVisible(true)
+        end
     end
     
     local l_rank_list = g_clanRankData:getRankData(CLAN_RANK['AREN']) or {}
@@ -76,14 +78,18 @@ function UI_ArenaRankClanPopup:makeArenaRankTableView(data)
         self:requestRank(offset)
     end
 
-	local struct_clan = g_clanData:getClanStruct()
-    local clan_id = struct_clan:getClanObjectID()
-    local create_cb = function(ui, data)
-        if (data['id'] == clan_id) then
-            ui.vars['meSprite']:setVisible(true)
+    -- 클랜이 없다면
+    local struct_clan = g_clanData:getClanStruct()
+    if (struct_clan) then
+        local clan_id = struct_clan:getClanObjectID()
+        local create_cb = function(ui, data)
+            if (data['id'] == clan_id) then
+                ui.vars['meSprite']:setVisible(true)
+            end
         end
+        make_my_rank_cb = nil
     end
-    
+
     local rank_list = UIC_RankingList()
     rank_list:setRankUIClass(UI_AncientTowerClanRankListItem, create_cb)
     rank_list:setRankList(l_rank_list)
@@ -127,7 +133,7 @@ function UI_ArenaRankClanPopup:requestRank(_offset) -- 다음/이전 버튼 눌�
 end
 
 -------------------------------------
--- function makeRewardTableView
+-- function makeRewarTableView
 -------------------------------------
 function UI_ArenaRankClanPopup:makeRewardTableView(ret)
     local vars = self.vars
@@ -159,7 +165,7 @@ function UI_ArenaRankClanPopup:makeRewardTableView(ret)
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(500, 55 + 5)
-    table_view:setCellUIClass(UI_AncientTowerClanRewardListItem, create_func)
+    table_view:setCellUIClass(UI_ClanRankRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_arena_rank)
 

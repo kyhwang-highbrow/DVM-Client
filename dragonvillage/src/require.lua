@@ -1054,6 +1054,7 @@ local t_module = {
     'UI_ArenaReady',
     'UI_ArenaRankingListItem',
     'UI_ArenaRankingRewardListItem',
+    'UI_ArenaRankClanRewardListItem',
 	'UI_ArenaRankClanPopup',
     'UI_ArenaRankPopup',
     'UI_EventArenaResult',

@@ -54,6 +54,10 @@ function UI_AncientTowerClanRankListItem:refresh()
         return
     end
 
+	if (type(struct_clan_rank['rank']) == 'string') then
+        return
+    end
+
     -- 클랜 마크
     local icon = struct_clan_rank:makeClanMarkIcon()
     vars['markNode']:removeAllChildren()

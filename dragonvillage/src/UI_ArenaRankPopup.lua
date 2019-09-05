@@ -31,6 +31,13 @@ function UI_ArenaRankPopup:init()
     self:doActionReset()
     self:doAction(nil, false)
 
+	
+    self:addTabAuto('userRank', vars, vars['userRankTabMenu'])
+    self:addTabAuto('clanRank', vars, vars['clanRankTabMenu'])
+
+    self:setTab('userRank')
+    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+
     self:initUI()
     self:initButton()
     --self:refresh()
@@ -41,9 +48,6 @@ end
 -------------------------------------
 function UI_ArenaRankPopup:initUI()
     local vars = self.vars
-
-    self:make_UIC_SortList()
-    self:makeRewardTableView()
 end
 
 -------------------------------------
@@ -52,6 +56,17 @@ end
 function UI_ArenaRankPopup:initButton()
     local vars = self.vars
 	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ArenaRankPopup:onChangeTab(tab, first)
+	if (tab == 'userRank') and (first) then
+	    self:make_UIC_SortList()
+	elseif (tab == 'clanRank') and (first) then
+        UI_ArenaRankClanPopup(self.vars)
+    end
 end
 
 -------------------------------------
@@ -105,8 +120,8 @@ function UI_ArenaRankPopup:makeArenaRankTableView(data)
 
     
     local idx = 0
-    for i,v in pairs(l_rank_list) do
-         if (v['uid'] == uid) then
+    for i,v in ipairs(l_rank_list) do
+		 if (v['uid'] == uid) then
              idx = i
              break
          end
@@ -123,8 +138,9 @@ function UI_ArenaRankPopup:requestRank(_offset) -- 다음/이전 버튼 눌렀�
     local function finish_cb(ret)
         -- 랭킹 테이블 다시 만듬
         self:makeArenaRankTableView(ret)
-
-        if (ret['my_info']) then
+		self:makeRewardTableView(ret['my_info'])
+        
+		if (ret['my_info']) then
             -- 자신이 받을 보상에 포커싱
             self:onFocusMyReward(ret['my_info'])
         end
@@ -139,7 +155,7 @@ end
 -------------------------------------
 -- function makeRewarTableView
 -------------------------------------
-function UI_ArenaRankPopup:makeRewardTableView(ret)
+function UI_ArenaRankPopup:makeRewardTableView(my_info)
     local vars = self.vars
     local node = vars['userRewardNode']
     
@@ -154,6 +170,9 @@ function UI_ArenaRankPopup:makeRewardTableView(ret)
     local l_arena_rank = struct_rank_reward:getRankRewardList()
     self.m_structRankReward = struct_rank_reward
 
+	local create_func = function(ui, data)
+		self:createRewardFunc(ui, data, my_info)
+	end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
@@ -166,6 +185,24 @@ function UI_ArenaRankPopup:makeRewardTableView(ret)
 end
 
 -------------------------------------
+-- function createRewardFunc
+-------------------------------------
+function UI_ArenaRankPopup:createRewardFunc(ui, data, my_info)
+    local vars = ui.vars
+    local my_data = my_info or {}
+
+    local my_rank = my_data['rank'] or 0
+    local my_ratio = my_data['rate'] or 0
+
+    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
+    if (reward_data) then
+        if (data['rank_id'] == reward_data['rank_id']) then
+            vars['meSprite']:setVisible(true)
+        end
+    end
+end
+
+-------------------------------------
 -- function onFocusMyReward
 -------------------------------------
 function UI_ArenaRankPopup:onFocusMyReward(my_info)
@@ -175,7 +212,7 @@ function UI_ArenaRankPopup:onFocusMyReward(my_info)
     local my_ratio = my_data['rate'] or 0
     local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
 
-    if (reward_data) then
+    if (ind) then
         self.m_rewardTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         self.m_rewardTableView:relocateContainerFromIndex(ind)
     end

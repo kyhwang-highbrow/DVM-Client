@@ -4213,6 +4213,9 @@
     <None Include="..\src\UI_ArenaRankClanPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ArenaClanRankRewardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

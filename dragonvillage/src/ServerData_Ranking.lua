@@ -51,7 +51,7 @@ function ServerData_Ranking:request_getRank(rank_type, offset, cb_func)
 		self:setRankData(rank_type, ret)
 
 		if (cb_func) then
-			cb_func()
+			cb_func(ret)
 		end
     end
 
