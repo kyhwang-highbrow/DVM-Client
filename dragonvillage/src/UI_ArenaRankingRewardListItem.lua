@@ -27,15 +27,16 @@ function UI_ArenaRankingRewardListItem:initUI()
     local t_data = self.m_rewardInfo
     local l_reward = TableClass:seperate(t_data['reward'], ',', true)
 
-    for i = 1, 2 do
+    for i = 1, #l_reward do
         local l_str = seperate(l_reward[i], ';')
         local item_id = TableItem:getItemIDFromItemType(l_str[1]) -- 아이템 아이콘
         local icon = IconHelper:getItemIcon(item_id) 
-        
+
         local cnt = l_str[2] -- 아이콘 수량
         
         if (icon and cnt) then
-            vars['rewardLabel' .. i]:setString(comma_value(cnt))
+			icon:setScale(0.4)
+		    vars['rewardLabel' .. i]:setString(comma_value(cnt))
             vars['rewardNode' .. i]:addChild(icon)
         end
     end

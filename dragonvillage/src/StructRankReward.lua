@@ -62,9 +62,9 @@ function StructRankReward:getPossibleReward(my_rank, my_ratio)
     local my_rank_rate = tonumber(my_ratio)
     local l_rank_list = self.m_lRankRewardData
 
-    -- 한번도 플레이 하지 않은 경우
-    if (my_rank == -1) then
-        return nil
+    -- 한번도 플레이 하지 않은 경우, 최상위 보여줌
+    if (my_rank <= 0) then
+        return nil, 0
     end
     
     for i,data in ipairs(l_rank_list) do

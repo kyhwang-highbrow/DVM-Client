@@ -93,17 +93,6 @@ function UI_ArenaRankingListItem:initUI()
         end
         --vars['tierLabel']:setString(t_rank_info:getTierName())
     end
-    --[[
-    vars['tierNode']
-    vars['markNode']
-    vars['clanLabel']
-
-    vars['rankingLabel']
-    vars['scoreLabel']
-    vars['userLabel']
-    vars['profileNode']
---]]
-
 end
 
 -------------------------------------
