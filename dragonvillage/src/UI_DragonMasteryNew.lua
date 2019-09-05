@@ -304,11 +304,15 @@ function UI_DragonMasteryNew:checkSelectedDragonCondition(dragon_object)
 
     -- 드래곤이 아닌 경우
     if (dragon_object:getObjectType() ~= 'dragon') then
+        local msg = Str('슬라임은 선택할 수 없습니다.')
+        UIManager:toastNotificationRed(msg)
         return false
     end
 
     -- 최대 등급, 최대 레벨이 아닌 경우
     if (dragon_object:isMaxGradeAndLv() == false) then
+        local msg = Str('최대 등급, 최대 레벨이 아닙니다.')
+        UIManager:toastNotificationRed(msg)
         return false
     end
 

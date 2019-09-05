@@ -882,5 +882,25 @@ function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
 
 end
 
+-------------------------------------
+-- function checkSelectedDragonCondition
+-------------------------------------
+function UI_DragonReinforcement:checkSelectedDragonCondition(dragon_object)
+    if (not dragon_object) then
+        return false
+    end
+    -- StructSlimeObject는 soid (== id)
+    -- StructDragonObject는 doid (== id)
+    -- 두 클래스 모두 id에 값을 저장하고 있다
+    local doid = dragon_object['id']
+    local object_type = dragon_object:getObjectType()
+    local upgradeable, msg = g_dragonsData:impossibleReinforcementForever(doid)
+    if (upgradeable) then
+        UIManager:toastNotificationRed(msg)
+        return false
+    end
+    return true
+end
+
 --@CHECK
 UI:checkCompileError(UI_DragonReinforcement)
