@@ -55,4 +55,15 @@ function UI_HelpContentsListItem:initUI()
     -- ÄÁÅÙÃ÷ ¼³¸í
     local content_desc = t_contents['help_desc']
     vars['infoLabel']:setString(Str(content_desc))
+
+    -- ½ºÅ©¸° ¼¦
+    local screen_shot_res = t_contents['screenshot']
+    local sprite = cc.Sprite:create(screen_shot_res)
+    if (sprite) then
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+        vars['screenNode']:addChild(sprite)
+    else
+        vars['infoLabel']:setPositionY(80)
+    end
 end
