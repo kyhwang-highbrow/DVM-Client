@@ -284,12 +284,35 @@ function UI_DragonMasteryNew:getDragonList()
 
     -- 특성 조건이 되지 않는 드래곤 제거 (6성 60레벨)
     for oid, v in pairs(dragon_dic) do
-        if (self:checkSelectedDragonCondition(v) == false) then
+        if (self:isMasteryDragon(v) == false) then
             dragon_dic[oid] = nil
         end
     end
 
     return dragon_dic
+end
+
+-------------------------------------
+-- function isMasteryDragon
+-- @brief 선택된 드래곤이 특성 레벨업 가능한 지 확인
+-- @return boolean true면 가능
+-------------------------------------
+function UI_DragonMasteryNew:isMasteryDragon(dragon_object)
+    if (not dragon_object) then
+        return false
+    end
+
+    -- 드래곤이 아닌 경우
+    if (dragon_object:getObjectType() ~= 'dragon') then
+        return false
+    end
+
+    -- 최대 등급, 최대 레벨이 아닌 경우
+    if (dragon_object:isMaxGradeAndLv() == false) then
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------
