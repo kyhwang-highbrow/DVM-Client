@@ -314,3 +314,29 @@ function Translate:isSupportedLanguage(lang)
 
     return true
 end
+
+-------------------------------------
+-- function persianNumberConvert
+-- @brief 페르시아어 숫자 표기
+-------------------------------------
+function Translate:persianNumberConvert(str)
+    local ret_str = str
+
+    local t_persian_num = {}
+    t_persian_num['1'] = '۱'
+    t_persian_num['2'] = '۲'
+    t_persian_num['3'] = '۳'
+    t_persian_num['4'] = '۴'
+    t_persian_num['5'] = '۵'
+    t_persian_num['6'] = '۶'
+    t_persian_num['7'] = '۷'
+    t_persian_num['8'] = '۸'
+    t_persian_num['9'] = '۹'
+    t_persian_num['0'] = '۰'
+
+    for en_num, fa_num in pairs(t_persian_num) do
+        ret_str = string.gsub(ret_str, en_num, fa_num)
+    end
+
+    return ret_str
+end

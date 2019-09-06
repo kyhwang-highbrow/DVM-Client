@@ -88,6 +88,13 @@ end
 -- function setString
 -------------------------------------
 function UIC_LabelTTF:setString(str)
+    
+    -- 페르시아어(fa)의 경우 숫자를 페르시아 언어로 출력
+    local game_lang = Translate:getGameLang()
+    if (game_lang == 'fa') then
+        str = Translate:persianNumberConvert(str)
+    end
+
     self.m_node:setString(str)
 end
 
