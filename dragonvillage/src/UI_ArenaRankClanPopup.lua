@@ -166,7 +166,7 @@ function UI_ArenaRankClanPopup:makeRewardTableView(ret)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(500, 55 + 5)
+    table_view.m_defaultCellSize = cc.size(640, 50 + 5)
     table_view:setCellUIClass(UI_ArenaRankClanRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_arena_rank)
@@ -294,5 +294,5 @@ function UI_ArenaRankClanPopup:make_UIC_SortList()
     uic:addSortType('top', Str('최상위 클랜 랭킹'))
 
     uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
-    uic:setSelectSortType('top')
+    uic:setSelectSortType('my')
 end

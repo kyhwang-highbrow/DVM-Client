@@ -148,8 +148,13 @@ function UI_Arena:initButton()
 		vars['valorShopLabel']:setString(Str('용맹훈장') .. '\n' .. Str('상점'))
 	end
 
+    -- 명예의 전당으로 이동
     vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
+    vars['fameBtn']:setVisible(true)
+    
+    -- 랭킹 팝업으로 이동
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
+    vars['rankBtn']:setVisible(true)
 
     -- 콜로세움 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'arena_help')

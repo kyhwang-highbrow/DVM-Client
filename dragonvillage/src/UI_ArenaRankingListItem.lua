@@ -53,7 +53,7 @@ function UI_ArenaRankingListItem:init(t_rank_info)
     local vars = self:load('arena_rank_popup_item_user_ranking.ui')
 
     self:initUI()
-    --self:initButton()
+    self:initButton()
     --self:refresh()
 end
 
@@ -93,6 +93,24 @@ function UI_ArenaRankingListItem:initUI()
         end
         --vars['tierLabel']:setString(t_rank_info:getTierName())
     end
+
+
+    local struct_clan = t_rank_info:getStructClan()
+    if (struct_clan) then
+        -- 클랜 이름
+        local clan_name = struct_clan:getClanName()
+        vars['clanLabel']:setString(clan_name)
+        
+        -- 클랜 마크
+        local icon = struct_clan:makeClanMarkIcon()
+        if (icon) then
+            vars['markNode']:addChild(icon)
+        end
+    else
+        vars['clanLabel']:setVisible(false)
+    end
+
+    vars['itemMenu']:setSwallowTouch(false)
 end
 
 -------------------------------------
@@ -100,6 +118,14 @@ end
 -------------------------------------
 function UI_ArenaRankingListItem:initButton()
     local vars = self.vars
+    
+    local t_rank_info = self.m_rankInfo
+    local t_clan_info = t_rank_info['clan_info']
+    if (t_clan_info) then
+	    vars['clanBtn']:registerScriptTapHandler(function()
+            g_clanData:requestClanInfoDetailPopup(t_clan_info['id'])
+        end)
+    end
 end
 
 -------------------------------------
