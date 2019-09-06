@@ -59,21 +59,36 @@ function UI_HelpContentsListItem:initUI()
     -- 스크린 샷
     local screen_shot_res = t_contents['screenshot']
     local sprite = cc.Sprite:create(screen_shot_res)
+    local entire_content_height = 0
+    
+    -- 스크린 샷 있을 경우
     if (sprite) then
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
         vars['screenNode']:addChild(sprite)
         
         -- 글자수에 따라 스크롤 메뉴 세로 크기를 늘림
+        -- 전체 컨테이너 세로 길이는 스크린샷 + 글자 크기
         local label_height = vars['infoLabel']:getStringHeight() * 1.5
         local content_height = 360
-        local ori_size = vars['scrollMenu']:getContentSize()
-        ori_size['height'] = label_height + content_height
-        vars['scrollMenu']:setContentSize(ori_size)
+        entire_content_height = label_height + content_height
+        vars['infoLabel2']:setVisible(false)
+        vars['infoLabel']:setVisible(true)
+    
+    -- 스크린 샷 없을 경우
     else
-        vars['infoLabel']:setPositionY(154)
-        return
+        -- 글자수에 따라 스크롤 메뉴 세로 크기를 늘림
+        vars['infoLabel']:setVisible(false)
+        vars['infoLabel2']:setVisible(true)
+        vars['infoLabel2']:setString(Str(content_desc))
+        local label_height = vars['infoLabel2']:getStringHeight() * 1.5
+        entire_content_height = label_height
     end
+
+    -- 컨테이너에 세로크기 적용
+    local ori_size = vars['scrollMenu']:getContentSize()
+    ori_size['height'] = entire_content_height
+    vars['scrollMenu']:setContentSize(ori_size)
 
     -- 스크롤
     -- ScrollNode, ScrollMenu 둘 다 있어야 동작 가능
@@ -91,6 +106,7 @@ function UI_HelpContentsListItem:initUI()
     local target_size = scroll_menu:getContentSize()
     scroll_view:setDockPoint(cc.p(0.5, 1.0))
     scroll_view:setAnchorPoint(cc.p(0.5, 1.0))
+
     scroll_view:setContentSize(target_size)
     scroll_view:setPosition(ZERO_POINT)
     scroll_view:setTouchEnabled(true)
@@ -101,10 +117,12 @@ function UI_HelpContentsListItem:initUI()
     scroll_view:addChild(scroll_menu)
 
     local size_y = size.height - target_size.height
-    local container_node = scroll_view:getContainer()
-    -- 포커싱할 pos_y 늘린만큼 더 올려줌
-    size_y = size_y + vars['infoLabel']:getStringHeight() * 1.5 * 0.2
-    
-    container_node:setPositionY(size_y)
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
+
+    local container_node = scroll_view:getContainer()
+    local size_y = size.height - target_size.height
+    
+    -- 초기위치 설정 
+    container_node:setPositionY(size_y)
 end
