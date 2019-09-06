@@ -890,7 +890,7 @@ function ServerData_Dragons:possibleDragonLevelUp(doid)
     end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('슬라임은 레벨업 할 수 없습니다.')
+        return false, Str('슬라임은 레벨업할 수 없습니다.')
     end
 
     local lv = t_dragon_data['lv']
@@ -916,7 +916,7 @@ function ServerData_Dragons:impossibleLevelupForever(doid)
     end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return true, Str('슬라임은 레벨업 할 수 없습니다.')
+        return true, Str('슬라임은 레벨업할 수 없습니다.')
     end
 
     local lv = t_dragon_data['lv']
@@ -944,7 +944,7 @@ function ServerData_Dragons:possibleUpgradeable(doid)
     end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('슬라임은 승급 할 수 없습니다.')
+        return false, Str('슬라임은 승급할 수 없습니다.')
     end
 
     local grade = t_dragon_data['grade']
@@ -977,7 +977,7 @@ function ServerData_Dragons:impossibleUpgradeForever(doid)
     end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return true, Str('슬라임은 승급 할 수 없습니다.')
+        return true, Str('슬라임은 승급할 수 없습니다.')
     end
 
     local grade = t_dragon_data['grade']
@@ -1032,7 +1032,7 @@ function ServerData_Dragons:possibleDragonEvolution(doid)
 	end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('슬라임은 진화 할 수 없습니다.')
+        return false, Str('슬라임은 진화할 수 없습니다.')
     end
 
 	local grade = t_dragon_data:getGrade()
@@ -1074,7 +1074,7 @@ function ServerData_Dragons:impossibleEvolutionForever(doid)
 	end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return true, Str('슬라임은 진화 할 수 없습니다.')
+        return true, Str('슬라임은 진화할 수 없습니다.')
     end
 
 
@@ -1265,7 +1265,7 @@ function ServerData_Dragons:impossibleReinforcementForever(doid)
 	end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return true, Str('슬라임은 강화 할 수 없습니다.')
+        return true, Str('슬라임은 강화할 수 없습니다.')
     end
 
 	if (t_dragon_data:isMaxRlv()) then
