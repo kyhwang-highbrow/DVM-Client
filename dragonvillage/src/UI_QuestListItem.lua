@@ -193,14 +193,16 @@ function UI_QuestListItem:setRewardCard()
                 if (clan_exp_card) then
                     reward_node:removeAllChildren()
 				    reward_node:addChild(clan_exp_card.root)
+                    reward_idx = reward_idx + 1
                     table.insert(l_rewardCardUI, clan_exp_card)
                 end
             end
 		end
 	end
 
+    local max_reward = reward_idx - 1
     -- 아이템 카드에 보상 받음 여부 표시(체크 표시)
-    for i = 1, reward_idx do
+    for i = 1, max_reward do
         local reward_check_node = vars['checkNode' .. i]
         if (reward_check_node) then
             reward_check_node:removeAllChildren()
