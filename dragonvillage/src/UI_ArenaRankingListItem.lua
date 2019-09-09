@@ -91,7 +91,7 @@ function UI_ArenaRankingListItem:initUI()
         if (icon) then
             vars['tierNode']:addChild(icon)
         end
-        --vars['tierLabel']:setString(t_rank_info:getTierName())
+        vars['tierLabel']:setString(t_rank_info:getTierName())
     end
 
 
