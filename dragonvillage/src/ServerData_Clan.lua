@@ -832,6 +832,13 @@ end
 -- @brief clan_object_id클랜에 가입 신청이 가능한 상태인지 리턴
 -------------------------------------
 function ServerData_Clan:isCanJoinRequest(struct_clan)
+    
+    -- 클랜 컨텐츠가 열려있는 상태인지
+    local is_lock = g_contentLockData:isContentLock('clan')
+    if (is_lock) then
+        return false
+    end
+
     -- 이미 클랜에 소속되어 있는 경우 x
     if self.m_structClan then
         return false
