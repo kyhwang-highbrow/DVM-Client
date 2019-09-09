@@ -145,35 +145,13 @@ function UI_HallOfFameRank:initFallofFameTableView(data)
     local l_rank_list = rank_data['list'] or {}
     
     -- 이전 랭킹 보기
-    local function click_prevBtn()
-        local prev_ind 
-        if (#l_rank_list>0) then
-            prev_ind = l_rank_list[1]['rank']
-            if (type(prev_ind) == 'string') then
-                prev_ind = l_rank_list[2]['rank']
-            end
-            prev_ind = prev_ind - RANK_OFFSET_GAP -- 가져온 랭킹의 가장 첫 번째 - OFFSET_GAP
-        else
-            prev_ind = self.m_rankOffset - OFFSET_GAP
-        end
-        self.m_rankOffset = prev_ind
-        self.m_rankOffset = math_max(self.m_rankOffset, 0)
-        self:requestRank()
+    local function click_prevBtn(offset)
+        self:requestRank(offset)
     end
 
     -- 다음 랭킹 보기
-    local function click_nextBtn()
-        local next_ind = l_rank_list[#l_rank_list]['rank'] -- 가져온 랭킹의 가장 마지막 + 1
-        if (type(next_ind) == 'string') then
-            next_ind = l_rank_list[#l_rank_list-1]['rank']
-        end
-        if (#l_rank_list < RANK_OFFSET_GAP) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
-            return
-        end
-
-        self.m_rankOffset = next_ind + 1
-        self:requestRank()
+    local function click_nextBtn(offset)
+        self:requestRank(offset)
     end
 
     local uid = g_userData:get('uid')
@@ -209,13 +187,13 @@ end
 -------------------------------------
 -- function requestRank
 -------------------------------------
-function UI_HallOfFameRank:requestRank()
+function UI_HallOfFameRank:requestRank(_offset)
     local function finish_cb(ret)
         self:initFallofFameTableView(ret)
     end
     local rank_type = self.m_rankType
-    local offset = self.m_rankOffset
-    g_rankData:request_HallOfFameRank(rank_type, RANK_OFFSET_GAP, offset, finish_cb)
+    self.m_rankOffset = _offset
+    g_rankData:request_HallOfFameRank(rank_type, RANK_OFFSET_GAP, self.m_rankOffset, finish_cb)
 end
 
 -------------------------------------
@@ -248,7 +226,7 @@ function UI_HallOfFameRank:onChangeRankingType(type)
         self.m_rankOffset = 1
     end
 
-    self:requestRank()
+    self:requestRank(self.m_rankOffset)
 end
 
 -------------------------------------
