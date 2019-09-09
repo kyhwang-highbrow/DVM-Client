@@ -19,15 +19,14 @@ UIC_RankingList = class({
 
 -- UIC_RankingList 사용 예시(순서 지켜야함)
 
--- local rank_list = UIC_RankingList()                                  -- step0. (필수)랭킹 UI 컴포넌트 생성
--- rank_list:setRankUIClass(_UI_ClanRaidRankListItem, nil)              -- step1. (필수)셸 UI 설정 
--- rank_list:setRankList(l_rank_list)                                   -- step2. (필수)리스트 설정
--- rank_list:makeRankMoveBtn(click_func, click_func, CLAN_OFFSET_GAP)   -- step3. (선택)이전, 다음 버튼 추가할 것인가 (param : (이전)눌렀을 때 콜백 함수, (다음)눌렀을 때 콜백 함수, 이동할 갯수)
--- rank_list:setEmptyStr('')                                            -- step4. (선택)랭킹이 없을 때, 메세지 설정
--- rank_list:setOffset(offset)                                          -- step5. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터(내 랭킹 모를 때, 통신용))
--- rank_list:setOffset:setMyRank(make_my_rank_cb)                       -- step6. (선택)내 랭킹 만드는 콜백 함수
--- rank_list:setOffset:makeRankList(node)                               -- step7. (필수)실제로 랭킹 생성
--- rank_list:setFocus('id', focus_value)                                -- step8. (선택)해당 리스트에서 ex) id가  focus_value인 값에 포커싱 and 하이라이트(셀 UI에 vars['mySprite']가 있어야함)
+-- local rank_list = UIC_RankingList()                                 -- step0. (필수)랭킹 UI 컴포넌트 생성
+-- rank_list:setRankUIClass(UI_ArenaRankingListItem, create_cb)        -- step1. (필수)셸 UI 설정
+-- rank_list:setRankList(l_rank_list)                                  -- step2. (필수)리스트 설정
+-- rank_list:setEmptyStr('랭킹 정보가 없습니다')                       -- step3. (선택)랭킹이 없을 때, 메세지 설정
+-- rank_list:setMyRank(make_my_rank_cb)                                -- step4. (선택)내 랭킹 만드는 콜백 함수
+-- rank_list:setOffset(self.m_rankOffset)                              -- step5. (선택)몇 랭킹부터 보여줄 것인가 (1 이면 최상위 랭킹 부터, -1이면 내 랭킹 부터(내 랭킹 모를 때, 통신용))
+-- rank_list:makeRankMoveBtn(func_prev_cb, func_next_cb, RANK_OFFSET_GAP)-- step6. (선택)이전, 다음 버튼 추가할 것인가 (param : (이전)눌렀을 때 콜백 함수, (다음)눌렀을 때 콜백 함수, 이동할 갯수)
+-- rank_list:makeRankList(rank_node)                                   -- step7. (필수)실제로 랭킹 생성
 
 -------------------------------------------------------
 
