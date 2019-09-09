@@ -150,7 +150,7 @@ function UI_Arena:initButton()
 
     -- 명예의 전당으로 이동
     vars['fameBtn']:registerScriptTapHandler(function() self:click_fameBtn() end)
-    vars['fameBtn']:setVisible(true)
+    vars['fameBtn']:setVisible(false)
     
     -- 랭킹 팝업으로 이동
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
