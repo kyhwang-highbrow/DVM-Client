@@ -364,12 +364,14 @@ function UI_PickDragon:request_pick(mid, did)
 end
 
 function UI_PickDragon.makePickDragon(mid, item_id, cb_func, is_info)
-	local is_pick = TablePickDragon:isCustomPick(item_id)
-	if (not is_pick) then
+    
+    -- 기존 선택권 (2주년 기념 전설 추천 드래곤 선택권이 아닐 경우)
+    if (item_id ~= 700612) then
 		UI_PickDragon(mid, item_id, cb_func)
 		return
 	end
 	
+    -- 2주년 기념 전설 추천 드래곤 선택권일 경우, 각 드래곤들이 선택된 확률을 받아오는 통신을 하고 확률을 보여주는 UI를 출력함
 	local cb_func = function(ret)
 		local t_statics = ret['pick_statics'] or {}
 		UI_PickDragonWithRate(mid, item_id, cb_func, is_info, t_statics)
