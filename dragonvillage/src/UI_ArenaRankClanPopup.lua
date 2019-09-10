@@ -233,7 +233,7 @@ end
 -------------------------------------
 function UI_ArenaRankClanPopup:onChangeRankingType(type)
     if (g_clanData) then
-        if (type == 'clan' and g_clanData:isClanGuest()) then
+        if (type == 'my' and g_clanData:isClanGuest()) then
             local msg = Str('소속된 클랜이 없습니다.')
             UIManager:toastNotificationRed(msg)
             return
@@ -246,14 +246,6 @@ function UI_ArenaRankClanPopup:onChangeRankingType(type)
 
     elseif (type == 'top') then
         self.m_rankType = 'world'
-        self.m_rankOffset = 1
-
-    elseif (type == 'friend') then
-        self.m_rankType = 'friend'
-        self.m_rankOffset = 1
-
-    elseif (type == 'clan') then
-        self.m_rankType = 'clan'
         self.m_rankOffset = 1
     end
 
@@ -294,5 +286,15 @@ function UI_ArenaRankClanPopup:make_UIC_SortList()
     uic:addSortType('top', Str('최상위 클랜 랭킹'))
 
     uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
-    uic:setSelectSortType('my')
+	
+	-- 클랜에 가입되지 않은 경우 최상위 클랜 랭킹 선
+    local focus_tab = 'my'
+    if (g_clanData) then
+        if (g_clanData:isClanGuest()) then
+            focus_tab = 'top'
+            
+            vars['clanRankListBtn']:setEnabled(false)
+        end
+    end
+    uic:setSelectSortType(focus_tab)
 end

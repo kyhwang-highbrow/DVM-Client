@@ -161,7 +161,16 @@ function UI_AncientTowerRankNew:make_UIC_SortList()
     uic:addSortType('top', Str('최상위 클랜 랭킹'))
 
     uic:setSortChangeCB(function(sort_type) self:onChangeRankingType_Clan(sort_type) end)
-    uic:setSelectSortType('my')
+    
+	-- 클랜 가입하지 않은 상태라면 최상위 클랜 선
+	local focus_tab = 'my'
+    if (g_clanData) then
+        if (g_clanData:isClanGuest()) then 
+            focus_tab = 'top'
+            vars['clanRankListBtn']:setEnabled(false)
+        end
+    end
+    uic:setSelectSortType(focus_tab)
 end
 
 -------------------------------------
@@ -213,6 +222,15 @@ end
 -------------------------------------
 function UI_AncientTowerRankNew:onChangeRankingType_Clan(type)
     local l_attr = getAttrTextList() 
+
+    if (g_clanData) then
+        if (type == 'my' and g_clanData:isClanGuest()) then
+            local msg = Str('소속된 클랜이 없습니다.')
+            UIManager:toastNotificationRed(msg)
+            return
+        end
+    end
+    
     if (type == 'my') then
         for i,v in pairs(l_attr) do
             self.m_rankOffset = -1
