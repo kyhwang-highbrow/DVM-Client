@@ -120,11 +120,11 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
             end
 
             -- 2.랭킹이 없다면 하위로 정렬
-            if (a_data.rank == -1) then
+            if (a_data.rank <= 0) then
                 return false
             end
 
-            if (b_data.rank == -1) then
+            if (b_data.rank <= 0) then
                 return true
             end
 
