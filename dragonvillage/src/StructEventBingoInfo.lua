@@ -407,7 +407,7 @@ function StructEventBingoInfo:hasCntReward()
     local l_reward = self.m_lSortedCntReward
     for ind, data in ipairs(l_reward) do
         local reward_state = self:getBingoCntRewardState(ind)
-        local cnt_reward = self:getBingoLineCnt()
+        local cnt_reward = self:getBingoNumberCnt()
 
         if (data['reward_index'] <= cnt_reward) then
             if (reward_state == 0) then
