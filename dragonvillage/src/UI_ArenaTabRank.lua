@@ -32,7 +32,7 @@ function UI_ArenaTabRank:init(owner_ui)
     self.vars = owner_ui.vars
     self.m_rankOffset = 1
     self.m_clanRankOffset = 1
-    self.m_hasMyClan = false
+    self.m_hasMyClan = nil
 
     self:initUI()
 end
@@ -61,10 +61,16 @@ end
 -------------------------------------
 function UI_ArenaTabRank:onChangeTab(tab, first)
     local vars = self.vars
-
+    
     if (tab == UI_ArenaTabRank['CLAN']) then
         vars['myClanRankingListNode1']:setVisible(self.m_hasMyClan)
         vars['myClanRankingListNode2']:setVisible(not self.m_hasMyClan)
+
+        -- 처음 init 할 때, 다 꺼준다
+        if (self.m_hasMyClan == nil) then
+            vars['myClanRankingListNode1']:setVisible(false)
+            vars['myClanRankingListNode2']:setVisible(false)
+        end
     end
 
     if (not first) then
