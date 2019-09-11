@@ -129,7 +129,7 @@ function UI_ArenaRankPopup:makeArenaRankTableView(data)
      end
 
    -- 최상위 랭킹일 경우에는 포커싱을 1위에 함
-   if (self.m_rankOffset == 1) then
+   if (self.m_rankType == 'world') and (self.m_rankOffset == 1) then
         idx = 1
    end
 
