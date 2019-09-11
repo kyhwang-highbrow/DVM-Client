@@ -81,8 +81,9 @@ function UI_ArenaRankClanPopup:makeArenaRankTableView(data)
 
     -- 클랜이 있다면
     local struct_clan = g_clanData:getClanStruct()
+    local clan_id = nil
     if (struct_clan) then
-        local clan_id = struct_clan:getClanObjectID()
+        clan_id = struct_clan:getClanObjectID()
         local create_cb = function(ui, data)
             if (data['id'] == clan_id) then
                 ui.vars['meSprite']:setVisible(true)
@@ -104,10 +105,12 @@ function UI_ArenaRankClanPopup:makeArenaRankTableView(data)
     
     local idx = 0
     for i,v in ipairs(l_rank_list) do
-         if (v['id'] == clan_id) then
-             idx = i
-             break
-         end
+        if (v['id']) and (clan_id) then
+            if (v['id'] == clan_id) then
+                idx = i
+                break
+            end
+        end
     end
    
    -- 최상위 랭킹일 경우에는 포커싱을 1위에 함
