@@ -128,6 +128,11 @@ function UI_ArenaRankPopup:makeArenaRankTableView(data)
          end
      end
 
+   -- 최상위 랭킹일 경우에는 포커싱을 1위에 함
+   if (self.m_rankOffset == 1) then
+        idx = 1
+   end
+
    rank_list.m_rankTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
    rank_list.m_rankTableView:relocateContainerFromIndex(idx)
 end
