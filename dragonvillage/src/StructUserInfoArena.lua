@@ -308,11 +308,15 @@ end
 -------------------------------------
 -- function makeTierIcon
 -- @brief 티어 아이콘 생성
+-- @return icon cc.Sprite 경우에 따라 nil이 리턴될 수 있음
 -------------------------------------
 function StructUserInfoArena:makeTierIcon(tier, type)
     local tier = (tier or self.m_tier)
-
+    
     local pure_tier, tier_grade = self:perseTier(tier)
+    if (not pure_tier) then
+        return
+    end
 
     if (type == 'big') then
         res = string.format('res/ui/icons/pvp_tier/pvp_tier_%s.png', pure_tier)
