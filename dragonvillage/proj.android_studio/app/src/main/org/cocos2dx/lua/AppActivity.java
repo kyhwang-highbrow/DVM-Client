@@ -134,9 +134,6 @@ public class AppActivity extends Cocos2dxActivity{
             perpleSdkInstance.initTwitter(PerpleConfig.TWITTER_CONSUMER_KEY, PerpleConfig.TWITTER_CONSUMER_SECRET);
         }
 
-        // @adbrix
-        perpleSdkInstance.initAdbrix();
-
         // @tapjoy
         perpleSdkInstance.initTapjoy(PerpleConfig.TAPJOY_SDK_KEY, "", isDebug);
 
