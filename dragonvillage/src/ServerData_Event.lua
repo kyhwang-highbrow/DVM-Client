@@ -120,9 +120,12 @@ function ServerData_Event:getEventPopupTabList()
         elseif (event_type == 'event_1st_comeback') then
 		    visible = self:isComebackUser_1st()
 
+        -- 2주년 감사이벤트
 		elseif (event_type == 'event_thanks_2nd_anniversary') then
-		    visible = not (self:isEventUserRewardDone())
-
+            -- 앞의 조건들을 만족하였을 경우에만, 보상 수령 여부를 추가로 판단
+            if (visible) then
+		        visible = not (self:isEventUserRewardDone())
+            end
         -- 코스튬
         elseif (event_type == 'costume_event') then
             visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
