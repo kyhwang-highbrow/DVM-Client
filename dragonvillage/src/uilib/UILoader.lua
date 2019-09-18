@@ -396,6 +396,10 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     elseif type == 'Menu' then
         node = cc.Menu:create()
         setPropsForLayer(node, data)
+        if (data.ui_name == 'swallowMenu') then
+            node:setSwallowTouch(false)
+        end
+
     elseif type == 'LayerColor' then
         node = cc.LayerColor:create()
         setPropsForLayerColor(node, data)
