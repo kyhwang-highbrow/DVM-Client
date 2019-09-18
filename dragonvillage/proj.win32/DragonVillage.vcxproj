@@ -625,6 +625,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillIndicator_X.lua" />
     <None Include="..\src\SkillLaserBomb.lua" />
     <None Include="..\src\SkillLaser_Darknix.lua" />
+    <None Include="..\src\SkillLaser_New.lua" />
     <None Include="..\src\SkillLaser_Zet.lua" />
     <None Include="..\src\SkillLeap.lua" />
     <None Include="..\src\SkillMetamorphosis.lua" />

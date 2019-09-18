@@ -293,7 +293,12 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_laser') then
-				SkillLaser:makeSkillInstance(self, t_skill, t_data) 
+                -- 리소스 형식 신버젼/구버젼 구분
+                if (SkillHelper.isIntegratedRes(t_skill['res_1'])) then
+                    SkillLaser_New:makeSkillInstance(self, t_skill, t_data)
+                else
+                    SkillLaser:makeSkillInstance(self, t_skill, t_data)
+                end
 				return true
 
             elseif (skill_type == 'skill_laser_bomb') then
