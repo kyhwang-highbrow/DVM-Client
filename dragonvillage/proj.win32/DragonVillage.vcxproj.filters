@@ -4216,7 +4216,7 @@
     <None Include="..\src\UI_ArenaClanRankRewardListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\SkillLaser_New.lua">
+    <None Include="..\src\SkillLaser_Simple.lua">
       <Filter>lua\src</Filter>
     </None>
   </ItemGroup>

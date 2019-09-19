@@ -563,18 +563,3 @@ function SkillHelper:isAncientRuneSetSkill(skill_id)
     local key = math_floor(skill_id / 100000)
     return (key == 5)
 end
-
--------------------------------------
--- function isIntegratedRes
--- @jhakim
--- (구버젼)스킬 리소스에 속성구분이 있음 ex) skill_electriclaser_@.vrp,
--- (신버젼)스킬 리소스에 속성구분이 없음 ex) skill_electriclaser.vrp, 대신 애니메이션에 속성 구분이 붙음
--------------------------------------
-function SkillHelper.isIntegratedRes(res)
-    local res = res or ''
-    if (string.find(res, '@')) then
-        return false
-    else
-        return true
-    end
-end
