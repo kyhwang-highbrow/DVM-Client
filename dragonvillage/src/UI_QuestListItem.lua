@@ -374,7 +374,16 @@ end
 function UI_QuestListItem:click_questLinkBtn(ui_quest_popup)
     -- 바로가기
     local clear_type = self.m_questData:getQuestClearType()
-	QuickLinkHelper.quickLink(clear_type)
+	
+    -- 인연 던전일 경우 활성화된 던전이 있는지 체크
+    if (string.find(clear_type, 'ply_rel') or string.find(clear_type, 'fnd_rel')) then
+        if (not g_secretDungeonData:isSecretDungeonExist()) then
+            UIManager:toastNotificationRed(Str('발견한 인연던전이 없습니다.'))
+			return
+        end
+    end
+    
+    QuickLinkHelper.quickLink(clear_type)
 
     -- 퀘스트 팝업은 꺼버린다.
     if (ui_quest_popup and ui_quest_popup.closed == false) then

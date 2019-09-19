@@ -86,7 +86,7 @@ function UI_EventAlphabetInfoPopup:initButton()
 
     for i,v in pairs(l_content_list) do
         if vars[v .. 'Btn'] then
-            vars[v .. 'Btn']:registerScriptTapHandler(function() UINavigator:goTo(v) end)
+            vars[v .. 'Btn']:registerScriptTapHandler(function() self:click_goBtn(v) end)
         end
     end
     
@@ -96,6 +96,21 @@ end
 -- function refresh
 -------------------------------------
 function UI_EventAlphabetInfoPopup:refresh()
+end
+
+-------------------------------------
+-- function click_goBtn
+-------------------------------------
+function UI_EventAlphabetInfoPopup:click_goBtn(content_name)
+	-- 인연 던전일 경우 활성화된 던전이 있는지 먼저 확인
+	if (content_name == 'secret_relation') then
+		if (not g_secretDungeonData:isSecretDungeonExist()) then
+            UIManager:toastNotificationRed(Str('발견한 인연던전이 없습니다.'))
+			return
+        end
+	end
+
+	UINavigator:goTo(content_name)
 end
 
 --@CHECK
