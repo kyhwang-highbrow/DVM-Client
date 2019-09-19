@@ -359,6 +359,11 @@ end
 -- function userInfo
 -------------------------------------
 function Adbrix:userInfo(uid)
+    -- @sgkim 201919 adbrix정책 변경으로 사용하지 않게 됨
+    if true then
+        return
+    end
+
     if (not IS_ENABLE_ANALYTICS()) then return end
 
     local arg1 = tostring(uid)
@@ -372,6 +377,11 @@ end
 -- function buy
 -------------------------------------
 function Adbrix:buy(productId, price)
+    -- @sgkim 201919 adbrix정책 변경으로 사용하지 않게 됨
+    if true then
+        return
+    end
+
     local arg1 = tostring(productId)
     local arg2 = tostring(price)
 
@@ -389,6 +399,11 @@ end
 -- 3 : 인게임에서 자수정의 수
 -------------------------------------
 function Adbrix:customCohort(cohortNo, cohortDesc)
+    -- @sgkim 201919 adbrix정책 변경으로 사용하지 않게 됨
+    if true then
+        return
+    end
+
     local arg1 = 'COHORT_'..tostring(cohortNo)
     local arg2 = tostring(cohortDesc)
 
@@ -401,6 +416,11 @@ end
 -- function retention
 -------------------------------------
 function Adbrix:retention(arg1, arg2)
+    -- @sgkim 201919 adbrix정책 변경으로 사용하지 않게 됨
+    if true then
+        return
+    end
+
     local arg1 = tostring(arg1)
     local arg2 = arg2 or ''
 
@@ -473,6 +493,11 @@ end
 
 -------------------------------------
 function Adbrix:firstTimeExperience(arg1, arg2)
+    -- @sgkim 201919 adbrix정책 변경으로 사용하지 않게 됨
+    if true then
+        return
+    end
+
     local arg1 = tostring(arg1)
     local arg2 = arg2 or ''
 
