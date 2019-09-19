@@ -98,7 +98,6 @@
 @class PerpleGoogle;
 @class PerpleFacebook;
 @class PerpleTwitter;
-@class PerpleAdbrix;
 @class PerpleTapjoy;
 @class PerpleNaver;
 @class PerpleGameCenter;
@@ -120,7 +119,6 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleGoogle *mGoogle;
 @property (nonatomic, retain) PerpleFacebook *mFacebook;
 @property (nonatomic, retain) PerpleTwitter *mTwitter;
-@property (nonatomic, retain) PerpleAdbrix *mAdbrix;
 @property (nonatomic, retain) PerpleTapjoy *mTapjoy;
 @property (nonatomic, retain) PerpleNaver *mNaver;
 @property (nonatomic, retain) PerpleGameCenter *mGameCenter;
@@ -153,6 +151,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) loginWithTwitterWithCompletion:(PerpleSDKCallback)callback;
 - (void) loginWithGameCenter:(NSString *)param1 completion:(PerpleSDKCallback)callback;
 - (void) loginWithEmail:(NSString *)email password:(NSString *)password completion:(PerpleSDKCallback)callback;
+- (void) loginWithCustomToken:(NSString *)customToken completion:(PerpleSDKCallback)callback;
 
 - (void) linkWithGoogleWithCompletion:(PerpleSDKCallback)callback;
 - (void) linkWithFacebookWithCompletion:(PerpleSDKCallback)callback;
@@ -184,9 +183,6 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) twitterLoginWithCompletion:(PerpleSDKCallback)callback;
 - (void) twitterLogout;
 - (void) twitterComposeTweet:(NSString *)imageUri completion:(PerpleSDKCallback)callback;
-
-// @adbrix
-- (void) adbrixEvent:(NSString *)cmd param1:(NSString *)param1 param2:(NSString *)param2;
 
 // @tapjoy
 - (void) tapjoyEvent:(NSString *)cmd param1:(NSString *)param1 param2:(NSString *)param2;
@@ -283,7 +279,6 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initGoogleWithClientId:(NSString *)clientId parentView:(UIViewController *)parentView;
 - (BOOL) initFacebookWithParentView:(UIViewController *)parentView;
 - (BOOL) initTwitterWithCustomerKey:(NSString *)customerKey secret:(NSString *)customerSecret;
-- (BOOL) initAdbrixWithAppKey:(NSString *)appKey hashKey:(NSString *)hashKey logLevel:(int)logLevel;
 - (BOOL) initTapjoyWithAppKey:(NSString *)appKey usePush:(BOOL)isUsePush debug:(BOOL)isDebug;
 - (BOOL) initNaverWithParentView:(UIViewController *)parentView isLandspape:(BOOL)isLandscape clientId:(NSString *)clientId clientSecret:(NSString *)clientSecret cafeId:(NSInteger)cafeId neoIdConsumerKey:(NSString *)neoIdConsumerKey communityId:(NSInteger)communityId urlScheme:(NSString *)urlScheme;
 - (BOOL) initGameCenterWithParentView:(UIViewController *)parentView;
