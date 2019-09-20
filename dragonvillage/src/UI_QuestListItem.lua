@@ -286,14 +286,21 @@ end
 -------------------------------------
 -- function click_rewardBtn
 -------------------------------------
-function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
+function UI_QuestListItem:click_rewardBtn(ui_quest_popup, l_reward_item)
     
     ui_quest_popup:setBlock(true)
 	local cb_function = function(t_quest_data)
-		-- 우편함으로 전송
-		local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
 		
+        local is_mail = TableQuest:isRewardMailTypeQuest(self.m_questData['qid'])
+        if (not is_mail) then
+            local ui_obtain_toast_popup = UI_ObtainToastPopup.createObtainToastPopup(l_reward_item)
+            ToastManager:getInstance():addToastItem('daily_quest', ui_obtain_toast_popup, 1, 130)
+        else
+            -- 우편함으로 전송
+		    local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+            UI_ToastPopup(toast_msg)
+		end
+
         -- idx 교체 (테이블뷰의 아이템을 찾기위해 현재것으로 idx 지정)
         if (t_quest_data) then
             t_quest_data['idx'] = self.m_questData['idx']

@@ -179,3 +179,20 @@ function TableQuest:getQuestTable()
 
     return self.m_orgTable
 end
+
+------------------------------------
+-- function isRewardMailTypeQuest
+-- @brief 메일로 수령/즉시 수령 인지 판단, table_quest에서 mail_content에 보상 목록이 있다면 return true
+-------------------------------------
+function TableQuest:isRewardMailTypeQuest(qid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local mail_content = self:getValue(qid, 'mail_content')
+    if (mail_content == '' or mail_content == nil) then
+        return false
+    end
+
+    return true
+end

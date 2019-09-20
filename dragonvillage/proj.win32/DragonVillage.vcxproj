@@ -889,6 +889,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructTabUI.lua" />
     <None Include="..\src\StructTamerCostume.lua" />
     <None Include="..\src\StructTeamBonus.lua" />
+    <None Include="..\src\StructToast.lua" />
     <None Include="..\src\Structure.lua" />
     <None Include="..\src\StructUserInfo.lua" />
     <None Include="..\src\StructUserInfoAncientTower.lua" />
@@ -984,6 +985,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TeamBonusCardFactory.lua" />
     <None Include="..\src\TeamBonusHelper.lua" />
     <None Include="..\src\TimeLib.lua" />
+    <None Include="..\src\ToastManager.lua" />
     <None Include="..\src\TriggerHpPercent.lua" />
     <None Include="..\src\TriggerTime.lua" />
     <None Include="..\src\TutorialHelper.lua" />
@@ -1330,6 +1332,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_MonsterCustomCard.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_NightmareStageListItem.lua" />
+    <None Include="..\src\UI_ObtainToastPopup.lua" />
     <None Include="..\src\UI_PackagePopup.lua" />
     <None Include="..\src\UI_PackageRandomBoxInfo.lua" />
     <None Include="..\src\UI_PackageTabButton.lua" />
