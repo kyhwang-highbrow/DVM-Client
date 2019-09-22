@@ -286,10 +286,10 @@ end
 -------------------------------------
 -- function click_rewardBtn
 -------------------------------------
-function UI_QuestListItem:click_rewardBtn(ui_quest_popup, l_reward_item)
+function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
     
     ui_quest_popup:setBlock(true)
-	local cb_function = function(t_quest_data)
+	local cb_function = function(t_quest_data, l_reward_item)
 		
         local is_mail = TableQuest:isRewardMailTypeQuest(self.m_questData['qid'])
         if (not is_mail) then
