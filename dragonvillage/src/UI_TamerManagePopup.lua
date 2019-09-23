@@ -367,6 +367,12 @@ end
 -------------------------------------
 function UI_TamerManagePopup:refreshButtonState()
 	local vars = self.vars
+	-- 초기화
+	vars['useBtn']:setVisible(false)
+	vars['lockSprite']:setVisible(false)
+	vars['selectBtn']:setVisible(false)
+	vars['buyBtn']:setVisible(false)
+	vars['lockBtn']:setVisible(false)
 
 	-- 테이머 있음
 	if (self:_hasTamer(self.m_selectedTamerID)) then
@@ -409,19 +415,27 @@ function UI_TamerManagePopup:refreshButtonState()
                 buy_type = 'basic'
             end
 
-            local l_price_info = seperate(t_tamer['price_' .. buy_type], ';')
+			-- 오픈 조건이 있을 경우
+			if (is_clear_cond) then
+				local l_price_info = seperate(t_tamer['price_' .. buy_type], ';')
 
-	        -- 가격 아이콘
-            vars['priceNode']:removeAllChildren()
-            local icon = IconHelper:getPriceIcon(l_price_info[1])
-            vars['priceNode']:addChild(icon)
+				-- 가격 아이콘
+				vars['priceNode']:removeAllChildren()
+				local icon = IconHelper:getPriceIcon(l_price_info[1])
+				vars['priceNode']:addChild(icon)
 	
-            -- 가격
-	        local price = l_price_info[2]
-            vars['priceLabel']:setString(comma_value(price))
+				-- 가격
+				local price = l_price_info[2]
+				vars['priceLabel']:setString(comma_value(price))
 
-	        -- 가격 아이콘 및 라벨, 배경 조정
-	        UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
+				-- 가격 아이콘 및 라벨, 배경 조정
+				UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
+			
+			-- @jhakim 20190923 다이아로 코스튬 구매 사라짐, 대신 잠금 처리
+			else
+				vars['buyBtn']:setVisible(false)
+				vars['lockBtn']:setVisible(true)
+			end
         end
 	end
 end
