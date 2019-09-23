@@ -299,6 +299,8 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
         if finish_cb then
             finish_cb(ret_stuff, ret['item_info'])
         end
+
+        g_serverData:networkCommonRespone_addedItems(ret)
     end
 
     -- 네트워크 통신

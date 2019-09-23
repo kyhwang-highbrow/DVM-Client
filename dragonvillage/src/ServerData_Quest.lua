@@ -316,6 +316,8 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
             end
         end
 
+        g_serverData:networkCommonRespone_addedItems(ret)
+
 		-- 여기서 highlight 정보가 넘어오긴 하는데.. 어차피 로비에서 다시 통신하는 구조이므로
 		-- 노티 정보를 갱신하기 위해서 호출
 		g_highlightData:setDirty(true)
