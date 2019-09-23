@@ -289,11 +289,12 @@ end
 function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
     
     ui_quest_popup:setBlock(true)
-	local cb_function = function(t_quest_data, l_reward_item)
+	local cb_function = function(t_quest_data)
 		
         local is_mail = TableQuest:isRewardMailTypeQuest(self.m_questData['qid'])
+        local l_reward = self:makeRewardList()
         if (not is_mail) then
-            UI_ObtainToastPopup(l_reward_item)
+            UI_ObtainToastPopup(l_reward)
         else
             -- 우편함으로 전송
 		    local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
@@ -315,6 +316,43 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 	end
 
 	g_questData:requestQuestReward(self.m_questData, cb_function)
+end
+
+-------------------------------------
+-- function makeRewardList
+-------------------------------------
+function UI_QuestListItem:makeRewardList()
+    local l_total_reward = {}
+    local l_reward_info = self.m_questData:getRewardInfoList()
+    for _, v in ipairs(l_reward_info) do
+        table.insert(l_total_reward, v)
+    end
+    
+    -- 일퀘에만 적용
+    if (not self.m_questData:isDailyType()) then
+        return
+    end
+    
+    -- 구독 상품인 경우 상품 한 번 더 표시
+    if g_questData:isSubscriptionActive() then
+        for _, v in ipairs(l_reward_info) do
+            table.insert(l_total_reward, v)
+        end
+    end
+    
+    -- 클랜 경험치 표시
+    if (not g_clanData:isClanGuest()) then
+		local clan_exp = self.m_questData:getRewardClanExp()
+		if (clan_exp) then
+            local t_data = {}
+            t_data['item_id'] = 'clan_exp'
+            t_data['count'] = clan_exp
+            table.insert(l_total_reward, t_data)
+		end
+    end
+
+    l_total_reward = table.reverse(l_total_reward)
+    return l_total_reward
 end
 
 ------------------------------------

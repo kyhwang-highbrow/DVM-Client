@@ -33,9 +33,15 @@ function UI_ItemCard:setItemData()
     local t_item = table_item:get(self.m_itemID)
 
     if (not t_item) then
-        error('존재하지 않는 ID ' .. self.m_itemID)
+        -- 클랜 경험치는 table_item에 없음, 특이 케이스
+        if (self.m_itemID == 'clan_exp') then
+            self:init_clanExp(self.m_itemCount)
+            return
+        else
+            error('존재하지 않는 ID ' .. self.m_itemID)
+        end
     end
-	
+
     if (t_item['type'] == 'dragon') then
         self:init_dragonItem(t_item)
     elseif (t_item['type'] == 'slime') then
@@ -188,6 +194,16 @@ end
 -------------------------------------
 function UI_ItemCard:init_reinforcePoint(t_item, count)
     local card = UI_ReinforcePointCard(t_item, count)
+    self.root = card.root
+    self.vars = card.vars
+end
+
+-------------------------------------
+-- function init_clanExp
+-- @brief 클랜 경험치
+-------------------------------------
+function UI_ItemCard:init_clanExp(count)
+    local card = UI_ClanExpCard(count)
     self.root = card.root
     self.vars = card.vars
 end
