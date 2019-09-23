@@ -1,7 +1,7 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_ObtainPopup
+-- class UI_ObtainToastPopup
 -------------------------------------
 UI_ObtainToastPopup = class(PARENT, {
         m_lOtainItem = 'list',

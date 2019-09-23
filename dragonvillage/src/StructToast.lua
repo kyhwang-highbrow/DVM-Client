@@ -8,6 +8,7 @@ StructToast = class({
         m_toastLayer = 'cc.Layer',
         m_toastHeight = 'number',
         m_toastTime = 'number',
+        m_toastPosY = 'number',
 
         m_empty_cb = 'function',
     })
@@ -15,20 +16,23 @@ StructToast = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function StructToast:init(toast_type, ui_item, delay_time, height, empty_cb)
+function StructToast:init(toast_type, ui_item, delay_time, height, empty_cb, pos_y)
 
     -- 토스트 종류 구분하는 타입
     self.m_toastType = toast_type or ''
+    
+    -- 초기화
+    self.m_toastHeight = height
+    self.m_toastTime = delay_time
+    self.m_toastPosY = pos_y or 370
 
     -- 토스트 붙일 레이어
     self.m_toastLayer = cc.Node:create()
     self.m_toastLayer:setDockPoint(cc.p(0.5, 0.5))
     self.m_toastLayer:setAnchorPoint(cc.p(0.5, 0.5))
-    self.m_toastLayer:setPositionY(370)
+    self.m_toastLayer:setPositionY(self.m_toastPosY)
     UIManager.m_scene:addChild(self.m_toastLayer, SCENE_ZORDER.TOAST)
     
-    self.m_toastHeight = height
-    self.m_toastTime = delay_time
 
     -- 토스트 첫번째 아이템 등록
     self.m_toastList = {}

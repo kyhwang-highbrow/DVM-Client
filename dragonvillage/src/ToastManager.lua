@@ -31,7 +31,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function ToastManager:addToastItem(toast_type, ui_item, delay_time, height) -- toast_type, ui_item, delay_time, height
+function ToastManager:addToastItem(toast_type, ui_item, delay_time, height, pos_y) -- toast_type, ui_item, delay_time, height, pos_y
     
     local is_exist = false
     -- 이미 등록된 종류의 토스트아이템인지 확인
@@ -51,7 +51,7 @@ function ToastManager:addToastItem(toast_type, ui_item, delay_time, height) -- t
             self:removeType(toast_type)
         end
 
-        local struct_toast = StructToast(toast_type, ui_item, delay_time, height, empty_cb)
+        local struct_toast = StructToast(toast_type, ui_item, delay_time, height, empty_cb, pos_y)
         self.m_tToastItem[toast_type] = struct_toast
     end
 end

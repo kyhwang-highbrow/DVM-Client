@@ -622,9 +622,16 @@ function ServerData_Friend:response_friendCommon(ret)
         -- fp(우정포인트) 갱신
         g_serverData:networkCommonRespone(ret)
     end
-
+    
     -- 우정의 징표 2개 획득
-    ItemObtainResult(ret)
+    if (ret['added_items']) then
+        local l_reward = ret['added_items']['items_list']
+        local ui_obtain_toast_popup = UI_ObtainToastPopup.createObtainToastPopup(l_reward)
+        ToastManager:getInstance():addToastItem('fp_reward', ui_obtain_toast_popup, 1, 130) -- toast_type, ui_item, delay_time, height, empty_cb, pos_y
+    end
+    
+    -- 우정의 징표 2개 획득
+    --ItemObtainResult(ret)
 end
 
 -------------------------------------
