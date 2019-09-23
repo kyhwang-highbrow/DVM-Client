@@ -15,7 +15,7 @@ ServerData_Mail = class({
 -------------------------------------
 function ServerData_Mail:init(server_data)
     self.m_serverData = server_data
-	self.m_lCategory = {'goods', 'st', 'friend', 'item', 'notice'}
+	self.m_lCategory = {'goods', 'st', 'item', 'notice'} -- {'goods', 'st', 'friend', 'item', 'notice'} -- @jhakim 2019.09.23 업데이트에서 우정 탭 삭제 
     self.m_excludedNoticeCnt = 0
 end
 
