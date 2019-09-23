@@ -293,8 +293,7 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 		
         local is_mail = TableQuest:isRewardMailTypeQuest(self.m_questData['qid'])
         if (not is_mail) then
-            local ui_obtain_toast_popup = UI_ObtainToastPopup.createObtainToastPopup(l_reward_item)
-            ToastManager:getInstance():addToastItem('daily_quest', ui_obtain_toast_popup, 1, 130)
+            UI_ObtainToastPopup(l_reward_item)
         else
             -- 우편함으로 전송
 		    local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
