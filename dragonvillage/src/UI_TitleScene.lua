@@ -1244,6 +1244,12 @@ function UI_TitleScene:workBillingSetup()
 
     -- 영수증 검증 API 주소
     local url = GetPlatformApiUrl() .. '/payment/receiptValidation/'
+    
+    -- 카페 바자르 빌드에서만 동작
+    if (CppFunctions:isCafeBazaarBuild() == true) then
+        url = GetPlatformApiUrl() .. '/payment/receiptValidationForCafeBazaar/'
+    end
+
     PerpleSDK:billingSetup(url, call_back)
 
 	-- Xsolla 데이터 검증용 API 주소
