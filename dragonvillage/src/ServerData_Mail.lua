@@ -223,7 +223,11 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 		end
         -- mail struct로 생성
         if (is_mail) then
-            self.m_mMailMap[category][moid] = StructMail(t_mail)
+            if (self.m_mMailMap[category]) then
+                if (self.m_mMailMap[category][moid]) then
+                    self.m_mMailMap[category][moid] = StructMail(t_mail)
+                end
+            end
         end
 	end
 end
