@@ -1033,7 +1033,7 @@ function UI_Setting:testFunction_cafebazaarFontTest()
     local root = ui.root
     local text = '시스텐 폰트 테스트'
     text = 'زبان در حال حاضر در اماده سازی است'
-    local font = 'font/IRANSANS_BOLD.TTF'
+    local font = 'font/iran.ttf'
     local fontSize = 40
     local dimensions = cc.size(1000, 100)
     local hAlignment = cc.TEXT_ALIGNMENT_CENTER
@@ -1070,7 +1070,7 @@ function UI_Setting:testFunction_cafebazaarFontTest()
 
     -- 시스템 폰트 라벨 생성
     do
-        font = 'font/IRANSANS_BOLD.TTF'
+        font = 'font/iran.ttf'
         local idx = 3
         local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
         if label then
@@ -1111,7 +1111,7 @@ function UI_Setting:testFunction_cafebazaarFontTest()
 
     -- 시스템 폰트 라벨 생성
     do
-        font = 'font/IRANSANS_BOLD.TTF'
+        font = 'font/iran.ttf'
         local idx = 6
         local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
         if label then
@@ -1147,7 +1147,7 @@ function UI_Setting:testFunction_cafebazaarFontTest_TTF()
     local root = ui.root
     local text = '시스텐 폰트 테스트'
     text = 'زبان در حال حاضر در اماده سازی است'
-    local font = 'font/IRANSANS_BOLD.TTF'
+    local font = 'font/iran.ttf'
     local fontSize = 40
     local stroke_tickness = 0
     local dimensions = cc.size(1000, 100)
@@ -1185,7 +1185,7 @@ function UI_Setting:testFunction_cafebazaarFontTest_TTF()
 
     -- 시스템 폰트 라벨 생성
     do
-        font = 'font/IRANSANS_BOLD.TTF'
+        font = 'font/iran.ttf'
         local idx = 3
         local label = cc.Label:createWithTTF(text, font, fontSize, stroke_tickness, dimensions, hAlignment, vAlignment)
         if label then
@@ -1226,7 +1226,7 @@ function UI_Setting:testFunction_cafebazaarFontTest_TTF()
 
     -- 시스템 폰트 라벨 생성
     do
-        font = 'font/IRANSANS_BOLD.TTF'
+        font = 'font/iran.ttf'
         local idx = 6
         if label then
             label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))

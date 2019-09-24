@@ -218,7 +218,7 @@ function StructLanguage:create_fa()
     struct.m_displayName = 'فارسی'
     struct.m_bActive = false
     struct.m_translateFile = 'translate/lang_fa'
-    struct.m_fontRes = 'IRANSANS_BOLD.TTF'
+    struct.m_fontRes = 'iran.ttf'
     struct.m_fontSizeScale = 1
     struct.m_fontScaleRateX = 1
     struct.m_fontScaleRateY = 1
