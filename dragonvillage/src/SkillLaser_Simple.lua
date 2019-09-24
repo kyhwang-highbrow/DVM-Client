@@ -25,6 +25,68 @@ function SkillLaser_Simple:init_skill(missile_res, hit, thickness)
 end
 
 -------------------------------------
+-- function initState
+-------------------------------------
+function SkillLaser_Simple:initState()
+    PARENT.initState(self)
+    
+    self:addState('start', SkillLaser_Simple.st_appear, 'appear', false)
+    self:addState('idle', SkillLaser_Simple.st_idle, 'idle', false)
+    self:addState('disappear', SkillLaser_Simple.st_disappear, 'disappear', false)
+end
+
+-------------------------------------
+-- function st_appear
+-------------------------------------
+function SkillLaser_Simple.st_appear(owner, dt)
+    owner:changeState('idle')
+end
+
+-------------------------------------
+-- function st_idle
+-------------------------------------
+function SkillLaser_Simple.st_idle(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        local duration = owner.m_animator:getDuration()
+        
+        owner.m_multiHitTime = duration / owner.m_maxClearCount
+        owner.m_multiHitTimer = 0
+
+        owner.m_owner.m_animator:changeAni('skill_disappear', false)
+    end
+    
+    owner.m_multiHitTimer = owner.m_multiHitTimer + dt
+
+    if (owner.m_multiHitTimer >= owner.m_multiHitTime) then
+		owner:clearCollisionObjectList()
+        owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
+        owner.m_clearCount = owner.m_clearCount + 1
+
+        owner:runAttack()
+    end
+
+    if (owner.m_clearCount >= owner.m_maxClearCount) then
+        owner:changeState('disappear')
+    end
+end
+
+-------------------------------------
+-- function st_disappear
+-------------------------------------
+function SkillLaser_Simple.st_disappear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        local unit = owner.m_owner
+
+        unit.m_animator:setVisible(true)
+        unit.m_animator:addAniHandler(function()
+            owner:changeState('dying')
+        end)
+
+        owner.m_animator:setVisible(false)
+    end
+end
+
+-------------------------------------
 -- function makeSkillInstance
 -- @param missile_res 
 -------------------------------------
