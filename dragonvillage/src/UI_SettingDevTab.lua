@@ -499,6 +499,12 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
+    
+    -- @sgkim 2019.09.24
+    if true then
+        self:testFunction_cafebazaarFontTest()
+        return
+    end
 
     -- 20190819 sgkim adid (광고 식별자 얻어오는 테스트)
     if true then
@@ -996,4 +1002,72 @@ end
 -------------------------------------
 function UI_Setting:click_translationViewerBtn()
     UI_TranslationViewer()
+end
+
+
+-------------------------------------
+-- function testFunction_cafebazaarFontTest
+-- @brief 카페 바자(이란) 빌드에서 폰트 적용 확인
+-- @sgkim 2019.09.24
+-------------------------------------
+function UI_Setting:testFunction_cafebazaarFontTest()
+    ccdisplay('UI_Setting:testFunction_cafebazaarFontTest()')
+
+    local ui = UI()
+    ui:load('popup_01.ui')
+
+    local vars = ui.vars
+    vars['dscLabel']:setVisible(false)
+    vars['cancelBtn']:setVisible(false)
+    vars['okBtn']:setVisible(false)
+
+    vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+
+    local root = ui.root
+    local text = '시스텐 폰트 테스트'
+    text = 'زبان در حال حاضر در اماده سازی است'
+    local font = 'font/IRANSANS_BOLD.TTF'
+    local fontSize = 40
+    local dimensions = cc.size(500, 100)
+    local hAlignment = cc.TEXT_ALIGNMENT_CENTER
+    local vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
+
+    local start_pos_y = 60
+    local interval_pos_y = 50
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = ''
+        local idx = 1
+        local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
+        label:setPositionY(start_pos_y + ((idx - 1) * interval_pos_y))
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        root:addChild(label, 100)
+    end
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = 'font/common_font_01.ttf'
+        local idx = 2
+        local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
+        label:setPositionY(start_pos_y + ((idx - 1) * interval_pos_y))
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        root:addChild(label, 100)
+    end
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = 'font/IRANSANS_BOLD.TTF'
+        local idx = 3
+        local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
+        label:setPositionY(start_pos_y + ((idx - 1) * interval_pos_y))
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        root:addChild(label, 100)
+    end
+
+
+    UIManager:open(ui, UIManager.SCENE)
 end
