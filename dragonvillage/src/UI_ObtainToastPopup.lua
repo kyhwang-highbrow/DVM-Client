@@ -58,13 +58,13 @@ function UI_ObtainToastPopup:initUI()
 		local ui_item = UI_ItemCard(item_id, item_cnt)
 		ui_item.root:setPositionX(l_pos[i])
 
-		vars['rewardNode3']:addChild(ui_item.root)
+		vars['rewardNode']:addChild(ui_item.root)
         ui_item.root:setScale(0)
         ui_item.root:runAction(cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3))
 	end
 
 	-- 보상 아이콘도 투명도가 적용되기 위한 코드
-	doAllChildren(vars['rewardNode3'], function(node) node:setCascadeOpacityEnabled(true) end)
+	doAllChildren(vars['rewardNode'], function(node) node:setCascadeOpacityEnabled(true) end)
 end
 
 -------------------------------------

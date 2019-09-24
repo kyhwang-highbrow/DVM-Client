@@ -129,7 +129,8 @@ function ForestStuff:touchStuff()
 				local t_reward_item = {['item_id'] = item_id, ['count'] = item_cnt}
                 local l_reward_item = {}
                 table.insert(l_reward_item, t_reward_item)
-                UI_ObtainToastPopup(l_reward_item)
+                local ui_obtain = UI_ObtainToastPopup(l_reward_item)
+                ui_obtain.root:setPositionY(100)
                 --[[
                 
                 local parent_node = self.m_ui.root
