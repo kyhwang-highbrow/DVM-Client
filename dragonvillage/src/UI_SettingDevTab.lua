@@ -637,6 +637,13 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn2()
+    
+    -- @sgkim 2019.09.24
+    if true then
+        self:testFunction_cafebazaarFontTest_TTF()
+        return
+    end
+
     if true then
         self:unityAdsTest02()
         return
@@ -1028,11 +1035,11 @@ function UI_Setting:testFunction_cafebazaarFontTest()
     text = 'زبان در حال حاضر در اماده سازی است'
     local font = 'font/IRANSANS_BOLD.TTF'
     local fontSize = 40
-    local dimensions = cc.size(500, 100)
+    local dimensions = cc.size(1000, 100)
     local hAlignment = cc.TEXT_ALIGNMENT_CENTER
     local vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
 
-    local start_pos_y = 60
+    local start_pos_y = 150
     local interval_pos_y = 50
 
     -- 시스템 폰트 라벨 생성
@@ -1040,10 +1047,12 @@ function UI_Setting:testFunction_cafebazaarFontTest()
         font = ''
         local idx = 1
         local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
-        label:setPositionY(start_pos_y + ((idx - 1) * interval_pos_y))
-        label:setDockPoint(cc.p(0.5, 0.5))
-        label:setAnchorPoint(cc.p(0.5, 0.5))
-        root:addChild(label, 100)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
     end
 
     -- 시스템 폰트 라벨 생성
@@ -1051,10 +1060,12 @@ function UI_Setting:testFunction_cafebazaarFontTest()
         font = 'font/common_font_01.ttf'
         local idx = 2
         local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
-        label:setPositionY(start_pos_y + ((idx - 1) * interval_pos_y))
-        label:setDockPoint(cc.p(0.5, 0.5))
-        label:setAnchorPoint(cc.p(0.5, 0.5))
-        root:addChild(label, 100)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
     end
 
     -- 시스템 폰트 라벨 생성
@@ -1062,10 +1073,167 @@ function UI_Setting:testFunction_cafebazaarFontTest()
         font = 'font/IRANSANS_BOLD.TTF'
         local idx = 3
         local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
-        label:setPositionY(start_pos_y + ((idx - 1) * interval_pos_y))
-        label:setDockPoint(cc.p(0.5, 0.5))
-        label:setAnchorPoint(cc.p(0.5, 0.5))
-        root:addChild(label, 100)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+
+    text = '다람쥐 헌 쳇바퀴에 타고파. 12345'
+    -- 시스템 폰트 라벨 생성
+    do
+        font = ''
+        local idx = 4
+        local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = 'font/common_font_01.ttf'
+        local idx = 5
+        local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = 'font/IRANSANS_BOLD.TTF'
+        local idx = 6
+        local label = cc.Label:createWithSystemFont(text, font, fontSize, dimensions, hAlignment, vAlignment)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+
+    UIManager:open(ui, UIManager.SCENE)
+end
+
+-------------------------------------
+-- function testFunction_cafebazaarFontTest_TTF
+-- @brief 카페 바자(이란) 빌드에서 폰트 적용 확인
+-- @sgkim 2019.09.24
+-------------------------------------
+function UI_Setting:testFunction_cafebazaarFontTest_TTF()
+    ccdisplay('UI_Setting:testFunction_cafebazaarFontTest_TTF()')
+
+    local ui = UI()
+    ui:load('popup_01.ui')
+
+    local vars = ui.vars
+    vars['dscLabel']:setVisible(false)
+    vars['cancelBtn']:setVisible(false)
+    vars['okBtn']:setVisible(false)
+
+    vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+
+    local root = ui.root
+    local text = '시스텐 폰트 테스트'
+    text = 'زبان در حال حاضر در اماده سازی است'
+    local font = 'font/IRANSANS_BOLD.TTF'
+    local fontSize = 40
+    local stroke_tickness = 0
+    local dimensions = cc.size(1000, 100)
+    local hAlignment = cc.TEXT_ALIGNMENT_CENTER
+    local vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_CENTER
+
+    local start_pos_y = 150
+    local interval_pos_y = 50
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = ''
+        local idx = 1
+        local label = cc.Label:createWithTTF(text, font, fontSize, stroke_tickness, dimensions, hAlignment, vAlignment)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = 'font/common_font_01.ttf'
+        local idx = 2
+        local label = cc.Label:createWithTTF(text, font, fontSize, stroke_tickness, dimensions, hAlignment, vAlignment)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = 'font/IRANSANS_BOLD.TTF'
+        local idx = 3
+        local label = cc.Label:createWithTTF(text, font, fontSize, stroke_tickness, dimensions, hAlignment, vAlignment)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+
+    text = '다람쥐 헌 쳇바퀴에 타고파. 12345'
+    -- 시스템 폰트 라벨 생성
+    do
+        font = ''
+        local idx = 4
+        local label = cc.Label:createWithTTF(text, font, fontSize, stroke_tickness, dimensions, hAlignment, vAlignment)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = 'font/common_font_01.ttf'
+        local idx = 5
+        local label = cc.Label:createWithTTF(text, font, fontSize, stroke_tickness, dimensions, hAlignment, vAlignment)
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
+    end
+
+    -- 시스템 폰트 라벨 생성
+    do
+        font = 'font/IRANSANS_BOLD.TTF'
+        local idx = 6
+        if label then
+            label:setPositionY(start_pos_y - ((idx - 1) * interval_pos_y))
+            label:setDockPoint(cc.p(0.5, 0.5))
+            label:setAnchorPoint(cc.p(0.5, 0.5))
+            root:addChild(label, 100)
+        end
     end
 
 
