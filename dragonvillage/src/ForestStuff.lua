@@ -124,15 +124,6 @@ function ForestStuff:touchStuff()
                 -- 아이콘 표시
                 local item_id = t_item_info['item_id']
                 local item_cnt = t_item_info['count']
-
-				-- 아이템 획득 토스트 팝
-				local t_reward_item = {['item_id'] = item_id, ['count'] = item_cnt}
-                local l_reward_item = {}
-                table.insert(l_reward_item, t_reward_item)
-                local ui_obtain = UI_ObtainToastPopup(l_reward_item)
-                ui_obtain.root:setPositionY(100)
-                --[[
-                
                 local parent_node = self.m_ui.root
                 local t_param = {
                     ['pos_x'] = self.m_ui.vars['rewardVisual'].m_node:getPositionX(),
@@ -144,8 +135,6 @@ function ForestStuff:touchStuff()
                 -- 토스트 메세지
                 local reward_str = UIHelper:makeItemStr(t_item_info)
                 UI_ToastPopup(reward_str)
-                --]]
-                
             end
         end
         ServerData_Forest:getInstance():request_stuffReward(stuff_type, finish_cb)
