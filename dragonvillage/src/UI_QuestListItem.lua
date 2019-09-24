@@ -330,7 +330,8 @@ function UI_QuestListItem:makeRewardList()
     
     -- 일퀘에만 적용
     if (not self.m_questData:isDailyType()) then
-        return
+        l_total_reward = table.reverse(l_total_reward)
+        return l_total_reward
     end
     
     -- 구독 상품인 경우 상품 한 번 더 표시
