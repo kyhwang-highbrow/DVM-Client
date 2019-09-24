@@ -69,7 +69,7 @@ function UI_ConfirmPopup:refresh()
 ]]
 	local vars = self.vars
 
-	vars['titleLabel']:setString(self.m_msg or Str('다음 재화를 사용합니다.\n진행하시겠습니다?'))
+	vars['titleLabel']:setString(self.m_msg or Str('다음 재화를 사용합니다.\n진행하시겠습니까?'))
 	
     if (self.m_itemKey == 'money') then
         vars['moneyLabel']:setString(self.m_itemValue)
