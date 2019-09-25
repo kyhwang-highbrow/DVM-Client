@@ -658,7 +658,7 @@ function UI_GameResult_AncientTower:direction_secretDungeon()
         local finish_cb = function()     
             -- 시험의 탑 층별 개방 팝업
             if (g_attrTowerData:isAttrExpendedFirst()) then
-                UI_ContentOpenPopup('attr_tower_expend')
+                UI_ContentOpenPopup_AttrTower()
             end
         end
         

@@ -109,7 +109,7 @@ end
 function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
     local data = self.m_data
     local content_name = data['content_name']
-    local finish_cb = function()
+    local finish_cb = function(l_reward_item) -- added_items로 받은 보상
         
         -- 갱신
         self:refresh()
@@ -117,17 +117,7 @@ function UI_QuestListItem_Contents:click_rewardBtn(ui_quest_popup)
 
         -- 콘텐츠 오픈 팝업
         local ui_open = UI_ContentOpenPopup(content_name)
-
-        -- ~~아이템이 우편함으로 전송된다는 토스트 팝업
-        --[[
-        local t_item = plSplit(data['reward'], ';')
-        local t_data = {}
-        t_data['item_id'] = tonumber(t_item[1])
-        t_data['count'] = tonumber(t_item[2])
-        local reward_str = UIHelper:makeItemStr(t_data)
-        --]]
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
+        UI_ObtainToastPopup(l_reward_item)
     end
     g_contentLockData:request_contentsOpenReward(content_name, finish_cb) 
 end

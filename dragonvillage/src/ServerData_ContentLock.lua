@@ -354,8 +354,19 @@ function ServerData_ContentLock:request_contentsOpenReward(content_name, finish_
 		-- 로비에서 노티 갱신하도록
 		g_highlightData:setDirty(true)
 
+        -- 바로 지급되는 리워드의 경우 added_items로 들어옴 table_quest의 product_content, mail_content 참고
+        local l_reward_item = {}
+        if (ret['added_items']) then
+            if (ret['added_items']['items_list']) then
+                l_reward_item = ret['added_items']['items_list']
+            end
+        end
+	
+		-- 지급된 아이템 동기화
+        g_serverData:networkCommonRespone_addedItems(ret)		
+
         if (finish_cb) then
-            finish_cb()
+            finish_cb(l_reward_item)
         end
     end
 

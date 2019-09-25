@@ -123,5 +123,35 @@ function UI_ContentOpenPopup:changeAni(content_type)
     vars['contentsVisual']:changeAni('open_'..content_type, true)
 end
 
+
+-------------------------------------
+-- function UI_ContentOpenPopup_AttrTower
+-- @brief 시험의 탑 층 개방용 팝업
+-------------------------------------
+function UI_ContentOpenPopup_AttrTower()
+    local ui = UI()
+    ui:load('popup_contents_open_tutorial.ui')
+    local vars = ui.vars
+    UIManager:open(ui, UIManager.POPUP)
+    
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_ContentOpenPopup_AttrTower')
+
+    vars['linkBtn']:setVisible(true)
+    local expend_floor = g_attrTowerData:getAttrMaxStageId()%1000
+    vars['descLabel']:setString(Str('전 속성 {1}층 개방', expend_floor))
+
+
+    vars['contentsVisual']:changeAni('open_attr_tower')
+    vars['contentsLabel']:setString(getContentName('attr_tower'))
+    vars['infoLabel']:setString('')
+
+    vars['linkBtn']:registerScriptTapHandler(function()
+        UINavigator:goTo('attr_tower')
+        ui:close()
+    end)
+end
+
+
 --@CHECK
 UI:checkCompileError(UI_ContentOpenPopup)
