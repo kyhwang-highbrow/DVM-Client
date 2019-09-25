@@ -19,9 +19,6 @@ function UI_FriendPopupTabFriends:init(friend_popup_ui)
     vars['listLabel']:setString('')
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
     vars['sendAllBtn']:registerScriptTapHandler(function() self:click_sendAllBtn() end)
-    
-    -- 모두 보내기 버튼 상태 갱신
-	self:setSendAllBtnActive()
 end
 
 -------------------------------------
@@ -35,6 +32,9 @@ function UI_FriendPopupTabFriends:onEnterFriendPopupTab(first)
             local count = g_friendData:getFriendCount()
             local max = g_friendData:getMaxFriendCount()
             self.vars['listLabel']:setString(Str('{1} / {2}명', count, max))
+
+            -- 모두 보내기 버튼 상태 갱신
+	        self:setSendAllBtnActive()
         end
         local force = true
         g_friendData:request_friendList(finish_cb, force)
