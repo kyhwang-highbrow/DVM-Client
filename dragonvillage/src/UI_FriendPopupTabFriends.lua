@@ -19,6 +19,9 @@ function UI_FriendPopupTabFriends:init(friend_popup_ui)
     vars['listLabel']:setString('')
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
     vars['sendAllBtn']:registerScriptTapHandler(function() self:click_sendAllBtn() end)
+    
+    -- 모두 보내기 버튼 상태 갱신
+	self:setSendAllBtnActive()
 end
 
 -------------------------------------
@@ -184,6 +187,9 @@ function UI_FriendPopupTabFriends:click_sendAllBtn()
         end
         -- 추가로 보낼 친구가 없다면 노티 꺼줌
         self.m_friendPopup:refreshHighlightFriend(g_friendData:checkSendFp())
+
+        -- 모두 보내기 버튼 상태 갱신
+        self:setSendAllBtnActive(false)
     end
 
     g_friendData:request_sendFpAllFriends(finish_cb)
@@ -207,7 +213,28 @@ function UI_FriendPopupTabFriends:click_sendBtn(ui, data)
         end
         -- 추가로 보낼 친구가 없다면 노티 꺼줌
         self.m_friendPopup:refreshHighlightFriend(g_friendData:checkSendFp())
+        
+        -- 모두 보내기 버튼 상태 갱신
+        self:setSendAllBtnActive(false)
     end
 
+
+
     g_friendData:request_sendFp(frined_uid_list, finish_cb)
+end
+
+-------------------------------------
+-- function setSendAllBtnActive
+-- @brief 모두 보내기 버튼 활성화
+-------------------------------------
+function UI_FriendPopupTabFriends:setSendAllBtnActive(is_active)
+    local is_active = is_active or false
+    -- 보낼 대상자가 0명일 경우
+    if (not g_friendData:checkSendFp()) then
+        is_active = false
+    else
+        is_active = true
+    end
+
+    self.vars['sendAllNotiSprite']:setVisible(is_active)
 end
