@@ -247,6 +247,10 @@ function ServerData_Mail:request_mailList(finish_cb, fail_cb)
             -- 로비 노티 갱신
 		    g_highlightData:setDirty(true)
         end
+		
+		-- @jhakim 190925 우정 탭이 사라지면서 기존에 받은 우정 포인트 수령이 불가능해짐
+		-- 서버에서 기존 우정 포인트가 있을 경우 바로 획득했다고 보내줌 (added_items)
+        g_serverData:networkCommonRespone_addedItems(ret)
 
         if finish_cb then
             finish_cb(ret)
