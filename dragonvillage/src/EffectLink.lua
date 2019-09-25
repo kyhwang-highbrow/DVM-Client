@@ -15,7 +15,7 @@ EffectLink = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function EffectLink:init(res, bar_visual, start_visual, end_visual, width, height, is_repeat)
+function EffectLink:init(res, bar_visual, start_visual, end_visual, width, height, is_repeat, attr)
     local bar_visual = (bar_visual or 'bar_appear')
     local start_visual = (start_visual or 'start_appear')
     local end_visual = (end_visual or 'end_appear')
@@ -48,15 +48,15 @@ function EffectLink:init(res, bar_visual, start_visual, end_visual, width, heigh
     self.m_clippingNode:setStencil(self.m_stencil)
 
     -- effect
-    self.m_effectNode = self:createWithParent(self.m_clippingNode, 0, 0, 0, res, bar_visual, is_repeat)
+    self.m_effectNode = self:createWithParent(self.m_clippingNode, 0, 0, 0, res, bar_visual, is_repeat, attr)
     self.m_effectNode.m_node:setAnchorPoint(cc.p(0.5, 0))
 
     -- start
-    self.m_startPointNode = self:createWithParent(self.m_node, 0, 0, 0, res, start_visual, is_repeat)
+    self.m_startPointNode = self:createWithParent(self.m_node, 0, 0, 0, res, start_visual, is_repeat, attr)
     self.m_startPointNode.m_node:setAnchorPoint(cc.p(0.5, 0.5))
 
     -- end
-    self.m_endPointNode = self:createWithParent(self.m_node, 0, 0, 0, res, end_visual, is_repeat)
+    self.m_endPointNode = self:createWithParent(self.m_node, 0, 0, 0, res, end_visual, is_repeat, attr)
     self.m_endPointNode.m_node:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_endPointNode.m_node:setPositionY(height)
 
@@ -152,8 +152,9 @@ end
 -------------------------------------
 -- function createWithParent
 -------------------------------------
-function EffectLink:createWithParent(parent, x, y, z_order, res_name, visual_name, is_repeat)
+function EffectLink:createWithParent(parent, x, y, z_order, res_name, visual_name, is_repeat, attr)
     local animator = MakeAnimator(res_name)
+	animator:setAniAttr(attr)
     animator:changeAni(visual_name, is_repeat)
     animator.m_node:setPosition(x, y)
     parent:addChild(animator.m_node, z_order)

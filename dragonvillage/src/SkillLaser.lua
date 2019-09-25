@@ -78,7 +78,7 @@ end
 -- function makeLaserLinkEffect
 -------------------------------------
 function SkillLaser:makeLaserLinkEffect(file_name)
-    local link_effect = EffectLink(file_name)
+    local link_effect = EffectLink(file_name, nil, nil, nil, nil, nil, nil, self.m_owner:getAttribute()) 
 
     link_effect.m_bRotateEndEffect = false
 
