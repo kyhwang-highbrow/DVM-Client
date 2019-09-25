@@ -296,11 +296,17 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
         -- 보상 팝업
         -- self:showRewardResult(ret)
 
+        -- 지급된 아이템 동기화
+        g_serverData:networkCommonRespone_addedItems(ret)
+
         if finish_cb then
-            finish_cb(ret_stuff, ret['item_info'])
+            local l_item = {}
+            if (ret['added_items']) then
+                l_item = ret['added_items']['items_list'] or {}
+            end
+            finish_cb(ret_stuff, l_item[1])
         end
 
-        g_serverData:networkCommonRespone_addedItems(ret)
     end
 
     -- 네트워크 통신
