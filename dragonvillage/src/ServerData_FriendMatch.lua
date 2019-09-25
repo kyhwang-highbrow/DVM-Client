@@ -221,6 +221,9 @@ function ServerData_FriendMatch:request_arenaStart(mode, vsuid, finish_cb, fail_
         -- staminas, cash 동기화
         g_serverData:networkCommonRespone(ret)
 
+        -- 지급된 아이템 동기화
+        g_serverData:networkCommonRespone_addedItems(ret)
+
         self.m_gameKey = ret['gamekey']
 
         if finish_cb then
