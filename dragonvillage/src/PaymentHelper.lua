@@ -473,6 +473,12 @@ function PaymentHelper.handlingMissingPayments(l_payload, cb_func, finish_cb)
                     -- 이 함수를 호출하면 구글 결제 인벤토리에서 해당 Purchase 를 Consume 처리함.
                     if orderId then
                         PerpleSDK:billingConfirm(orderId)
+
+                        -- @sgkim 2019.09.25
+                        -- PerpleSDK:billingConfirm 함수에서 다른 쓰레드를 통해서 코드가 동작함
+                        -- 이 상황에서 즉시 다음 상품에 대한 코드가 동작하면 크래시가 나는 경우가 있어서
+                        -- 불가피하게 3초 딜레이를 주도록 함
+                        co:waitTime(3)
                     end
                 end
                 --------------------------------------------------------
