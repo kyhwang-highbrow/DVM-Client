@@ -185,7 +185,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
     
     -- 순위 양수/음수에 따라 화살표 방향 바꿈
     if (score_diff < 0) then
-        vars['arrowVisual1']:setScaleX(-1)
+        vars['arrowVisual4']:setScaleX(-1)
     end
 
 
@@ -203,7 +203,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
         
         -- 순위 양수/음수에 따라 화살표 방향 바꿈
         if (rank_diff < 0) then
-            vars['arrowVisual2']:setScaleX(-1)
+            vars['arrowVisual3']:setScaleX(-1)
         end
     else
         vars['rankDifferNode']:setVisible(false)
@@ -235,7 +235,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
         
         -- 순위 양수/음수에 따라 화살표 방향 바꿈
         if (reward_1_gap < 0) then
-            vars['arrowVisual3']:setScaleX(-1)
+            vars['arrowVisual2']:setScaleX(-1)
         end
     else
         vars['rewardNode1']:setVisible(false)
@@ -249,7 +249,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
         
         -- 순위 양수/음수에 따라 화살표 방향 바꿈
         if (reward_2_gap < 0) then
-            vars['arrowVisual4']:setScaleX(-1)
+            vars['arrowVisual1']:setScaleX(-1)
         end
     else
         vars['rewardNode2']:setVisible(false)
