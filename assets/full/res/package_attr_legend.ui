@@ -36,11 +36,11 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 57.000000;
+				y = -42.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 520;
+				width = 359;
 				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -54,19 +54,19 @@
 				text = '속성 전설의 알';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 255; 255; 0; };
 				opacity = 255;
-				dimension_width = 520;
+				dimension_width = 359;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -75,12 +75,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
-				y = 28.000000;
+				x = -270.000000;
+				y = -13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 520;
+				width = 230;
 				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -94,19 +94,19 @@
 				text = '다이아';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 175; 238; 238; };
 				opacity = 255;
-				dimension_width = 520;
+				dimension_width = 230;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -115,12 +115,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
-				y = -2.000000;
+				x = 279.000000;
+				y = -13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 520;
+				width = 230;
 				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -134,19 +134,19 @@
 				text = '토파즈';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 255; 173; 91; };
 				opacity = 255;
-				dimension_width = 520;
+				dimension_width = 230;
 				dimension_height = 50;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -211,7 +211,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
-					height = 260;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -229,7 +229,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 90.000000;
+					y = 77.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -271,7 +271,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -50.000000;
-						y = -32.000000;
+						y = -21.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -297,7 +297,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 41.000000;
-						y = -44.999969;
+						y = -33.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -322,8 +322,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 67.000031;
-						y = -75.000000;
+						x = 80.000000;
+						y = -60.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -349,7 +349,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -57.000000;
-						y = -49.000000;
+						y = -38.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -375,7 +375,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 60.000000;
-						y = -115.000000;
+						y = -94.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -400,8 +400,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 29.000000;
-						y = -122.000000;
+						x = 24.000000;
+						y = -103.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -453,7 +453,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -48.000000;
-						y = -92.000000;
+						y = -81.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -481,8 +481,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 156;
-					height = 266;
+					width = 150;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -498,12 +498,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = -366.000000;
-				y = -168.000000;
+				y = -189.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 170;
-				height = 280;
+				height = 240;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -577,7 +577,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
-					height = 260;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -595,7 +595,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 90.000000;
+					y = 77.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -637,7 +637,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -50.000000;
-						y = -32.000000;
+						y = -22.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -663,7 +663,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 41.000000;
-						y = -44.999969;
+						y = -34.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -689,7 +689,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -57.000000;
-						y = -49.000000;
+						y = -39.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -741,7 +741,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 76.000000;
-						y = -81.000000;
+						y = -61.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -767,7 +767,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 60.000000;
-						y = -115.000000;
+						y = -94.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -792,8 +792,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 29.000000;
-						y = -122.000000;
+						x = 24.000000;
+						y = -103.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -819,7 +819,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -48.000000;
-						y = -92.000000;
+						y = -80.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -847,8 +847,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 156;
-					height = 266;
+					width = 150;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -864,12 +864,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = -183.000000;
-				y = -168.000000;
+				y = -189.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 170;
-				height = 280;
+				height = 240;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -916,8 +916,8 @@
 					{
 						type = 'LayerColor';
 						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
+						x = 1.000000;
+						y = -1.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -943,7 +943,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
-					height = 260;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -961,7 +961,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 90.000000;
+					y = 77.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1003,7 +1003,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -50.000000;
-						y = -32.000000;
+						y = -22.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1029,7 +1029,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 41.000000;
-						y = -44.999969;
+						y = -34.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1055,7 +1055,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -57.000000;
-						y = -49.000000;
+						y = -39.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1107,7 +1107,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 76.000000;
-						y = -81.000000;
+						y = -61.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1133,7 +1133,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 60.000000;
-						y = -115.000000;
+						y = -94.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1158,8 +1158,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 29.000000;
-						y = -122.000000;
+						x = 24.000000;
+						y = -103.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1185,7 +1185,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = -48.000000;
-						y = -92.000000;
+						y = -82.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1213,8 +1213,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 156;
-					height = 266;
+					width = 150;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1230,12 +1230,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -168.000000;
+				y = -189.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 170;
-				height = 280;
+				height = 240;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1283,12 +1283,12 @@
 						type = 'LayerColor';
 						ui_name = '';
 						x = 0.000000;
-						y = 0.000000;
+						y = 4.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 170;
-						height = 360;
+						height = 242;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -1309,7 +1309,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
-					height = 260;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1327,7 +1327,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 90.000000;
+					y = 77.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1446,8 +1446,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
+						x = 2.000000;
+						y = 2.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1473,7 +1473,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 76.000000;
-						y = -81.000000;
+						y = -61.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1499,7 +1499,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 60.000000;
-						y = -115.000000;
+						y = -94.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1524,8 +1524,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 29.000000;
-						y = -122.000000;
+						x = 24.000000;
+						y = -103.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1550,8 +1550,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = -48.000000;
-						y = -92.000000;
+						x = -49.000000;
+						y = -82.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1579,8 +1579,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 156;
-					height = 266;
+					width = 150;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1596,12 +1596,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 183.000000;
-				y = -168.000000;
+				y = -188.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 170;
-				height = 280;
+				height = 240;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1675,7 +1675,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
-					height = 260;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1693,7 +1693,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = 90.000000;
+					y = 77.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1839,7 +1839,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 76.000000;
-						y = -81.000000;
+						y = -61.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1865,7 +1865,7 @@
 						type = 'Sprite';
 						ui_name = '';
 						x = 60.000000;
-						y = -115.000000;
+						y = -94.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1890,8 +1890,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 29.000000;
-						y = -122.000000;
+						x = 24.000000;
+						y = -103.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1916,8 +1916,8 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = -48.000000;
-						y = -92.000000;
+						x = -49.000000;
+						y = -82.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1945,8 +1945,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 156;
-					height = 266;
+					width = 150;
+					height = 220;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1962,12 +1962,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 366.000000;
-				y = -168.000000;
+				y = -189.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 170;
-				height = 280;
+				height = 240;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2014,15 +2014,15 @@
 				};
 				type = 'Visual';
 				ui_name = '';
-				x = -0.000122;
-				y = 174.999878;
+				x = 0.000000;
+				y = 72.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 0;
 				height = 0;
-				scale_x = 1.200000;
-				scale_y = 1.200000;
+				scale_x = 2.000000;
+				scale_y = 1.800000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -2037,199 +2037,17 @@
 			};
 			[12] =
 			{
-				type = 'Sprite';
-				ui_name = '';
-				x = -160.000000;
-				y = 122.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 0.500000;
-				scale_y = 0.500000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = -7.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/cash.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[13] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = -107.000000;
-				y = 139.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/shop_cash_04.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[14] =
-			{
-				type = 'Sprite';
-				ui_name = 'topaz';
-				x = 134.000000;
-				y = 143.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 0.450000;
-				scale_y = 0.450000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 5.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/topaz.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[15] =
-			{
-				type = 'Sprite';
-				ui_name = 'topaz';
-				x = 90.000000;
-				y = 144.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 0.600000;
-				scale_y = 0.600000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 10.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/topaz.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[16] =
-			{
-				type = 'Sprite';
-				ui_name = 'topaz';
-				x = 151.000000;
-				y = 109.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 0.450000;
-				scale_y = 0.450000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 15.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/topaz.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[17] =
-			{
-				type = 'Sprite';
-				ui_name = 'topaz';
-				x = 117.000122;
-				y = 112.999878;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 0.500000;
-				scale_y = 0.500000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 10.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/topaz.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[18] =
-			{
-				type = 'Sprite';
-				ui_name = 'topaz';
-				x = 78.000000;
-				y = 105.000122;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 150;
-				height = 150;
-				scale_x = 0.500000;
-				scale_y = 0.500000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 5.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/item/topaz.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[19] =
-			{
 				type = 'Visual';
 				ui_name = 'legend_egg';
 				x = 0.000000;
-				y = 152.000000;
+				y = 80.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 0;
 				height = 0;
-				scale_x = 0.350000;
-				scale_y = 0.350000;
+				scale_x = 0.480000;
+				scale_y = 0.480000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -2242,7 +2060,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[20] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -2265,7 +2083,7 @@
 				text = '속성 전설의 알 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 222; 38; 255; };
+				color = { 0; 246; 255; };
 				opacity = 255;
 				dimension_width = 821;
 				dimension_height = 120;
@@ -2276,13 +2094,13 @@
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
 				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
+				has_shadow = true;
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
-				shadow_distance = 3.000000;
+				shadow_distance = 2.000000;
 			};
-			[21] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -2322,7 +2140,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[22] =
+			[15] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -2346,6 +2164,136 @@
 				visual_id = 'group;yellow_5';
 				color = { 255; 255; 255; };
 				opacity = 255;
+			};
+			[16] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -105.000000;
+				y = 31.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icons/attr/attr_fire_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[17] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -53.000000;
+				y = 11.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icons/attr/attr_water_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[18] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 3.000000;
+				y = -3.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icons/attr/attr_earth_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[19] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 59.000000;
+				y = 7.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icons/attr/attr_light_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[20] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 111.000000;
+				y = 32.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 46;
+				height = 46;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icons/attr/attr_dark_02.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';

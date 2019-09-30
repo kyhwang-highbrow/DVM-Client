@@ -25,10 +25,10 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'itemVisual';
-					file_name = 'ui/a2d/adventrue_menu_new/adventrue_menu_new.vrp';
+					file_name = 'ui/a2d/battle_menu_competition/battle_menu_competition.vrp';
 					auto_play = true;
 					is_repeat = true;
-					visual_id = 'group;grand_arena';
+					visual_id = 'group;colosseum_01';
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};

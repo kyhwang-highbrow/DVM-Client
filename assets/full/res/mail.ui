@@ -123,7 +123,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 290.000000;
+				x = 119.000000;
 				y = -44.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -187,7 +187,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 90.000000;
+				x = -81.000000;
 				y = -44.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -263,7 +263,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'friendTabBtn';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0101.png';
@@ -315,7 +315,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -310.000000;
+				x = -281.000000;
 				y = -44.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -379,7 +379,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -510.000000;
+				x = -481.000000;
 				y = -44.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -633,7 +633,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'friendListNode';
 			};
 			[13] =

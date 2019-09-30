@@ -25,10 +25,10 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'itemVisual';
-					file_name = 'ui/a2d/adventrue_menu_new_02/adventure_menu_new_02.vrp';
+					file_name = 'ui/a2d/battle_menu_competition/battle_menu_competition.vrp';
 					auto_play = true;
 					is_repeat = true;
-					visual_id = 'group;grand_arena_02';
+					visual_id = 'group;ancient_03';
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};

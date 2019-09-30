@@ -387,7 +387,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '보상은 우편함으로 지급됩니다.';
+					text = '보상을 획득했습니다.';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 161; 125; 93; };
