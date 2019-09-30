@@ -84,6 +84,45 @@ function StructRandomShopItem:isRelationItem()
 end
 
 -------------------------------------
+-- function isEvolutionItem
+-------------------------------------
+function StructRandomShopItem:isEvolutionItem()
+    local item_id = self:getItemID()
+    local item_type = TableItem:getItemType(item_id)
+    if (item_type == 'evolution_stone') then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isFruitItem
+-------------------------------------
+function StructRandomShopItem:isFruitItem()
+    local item_id = self:getItemID()
+    local item_type = TableItem:getItemType(item_id)
+    if (item_type == 'fruit') then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isReinforcePoint
+-------------------------------------
+function StructRandomShopItem:isReinforcePoint()
+    local item_id = self:getItemID()
+    local item_type = TableItem:getItemType(item_id)
+    if (item_type == 'reinforce_point') then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function isSale
 -------------------------------------
 function StructRandomShopItem:isSale()

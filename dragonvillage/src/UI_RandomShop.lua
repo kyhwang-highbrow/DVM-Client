@@ -149,6 +149,7 @@ end
 function UI_RandomShop:refresh_itemInfo()
     local vars = self.vars
     local struct_item = self.m_selectItem
+    local item_id = struct_item:getItemID()
     vars['rightMenu']:setVisible(true)
 
     do -- 이름
@@ -196,7 +197,6 @@ function UI_RandomShop:refresh_itemInfo()
             
         -- 인연 포인트 갯수 출력
         if (struct_item:isRelationItem()) then     
-            local item_id = struct_item:getItemID()
             local did = TableItem:getDidByItemId(item_id)
             
             local req_rpoint = TableDragon():getRelationPoint(did)
@@ -212,6 +212,29 @@ function UI_RandomShop:refresh_itemInfo()
             vars['quantityLabel']:setString(string.format('%s%d/%d', str_color, cur_rpoint, req_rpoint))
         else
             vars['relationNode']:setVisible(false)
+        end
+
+        local item_count = nil
+        -- 진화 보석의 경우 보유량 출력
+        if (struct_item:isEvolutionItem()) then            
+            item_count = g_userData:get('evolution_stones', tostring(item_id)) or 0
+        end
+
+        -- 열매의 경우 보유량 출력
+        if (struct_item:isFruitItem()) then 
+            item_count = g_userData:getFruitCount(item_id) or 0
+        end
+
+        -- 강화 포인트의 경우 보유량 출력
+        if (struct_item:isReinforcePoint()) then 
+            item_count = g_userData:getReinforcePoint(item_id) or 0
+        end
+
+        -- 보유량있을 경우 출력
+        if (item_count) then
+            local msg = Str('현재 보유량') .. '\n{@apricot}' .. comma_value(item_count)
+            vars['itemDscLabel2']:setVisible(true)
+            vars['itemDscLabel2']:setString(msg)
         end
     end
 
