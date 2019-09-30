@@ -180,7 +180,14 @@ function UI_ResultLeaderBoard:setChangeInfo()
     -- 현재 점수 차이
     local score_diff_label = NumberLabel(vars['scoreDifferLabel'], 0, 2)
     score_diff_label:setTweenCallback(diff_tween_cb)
-    score_diff_label:setNumber(self.m_cur_score - self.m_before_score, false)
+    local score_diff = self.m_cur_score - self.m_before_score
+    score_diff_label:setNumber(score_diff, false)
+    
+    -- 순위 양수/음수에 따라 화살표 방향 바꿈
+    if (score_diff < 0) then
+        vars['arrowVisual1']:setScaleX(-1)
+    end
+
 
     -- 랭킹 없을 때
     if (self.m_before_rank == -1) then
@@ -189,9 +196,15 @@ function UI_ResultLeaderBoard:setChangeInfo()
     
     if (self.m_before_rank ~= self.m_cur_rank) then
         -- 현재 랭킹 차이
-        local score_diff_label = NumberLabel(vars['rankDifferLabel'], 0, 2)
-        score_diff_label:setTweenCallback(diff_tween_cb)
-        score_diff_label:setNumber(self.m_before_rank - self.m_cur_rank, false)
+        local rank_diff_label = NumberLabel(vars['rankDifferLabel'], 0, 2)
+        rank_diff_label:setTweenCallback(diff_tween_cb)
+        local rank_diff = self.m_before_rank - self.m_cur_rank
+        rank_diff_label:setNumber(rank_diff, false)
+        
+        -- 순위 양수/음수에 따라 화살표 방향 바꿈
+        if (rank_diff < 0) then
+            vars['arrowVisual2']:setScaleX(-1)
+        end
     else
         vars['rankDifferNode']:setVisible(false)
     end
@@ -218,7 +231,12 @@ function UI_ResultLeaderBoard:setChangeInfo()
         -- 현재 보상1 차이
         local score_diff_label = NumberLabel(vars['rewardLabel2'], 0, 2)
         score_diff_label:setTweenCallback(diff_tween_cb)
-        score_diff_label:setNumber(reward_1_gap, false)      
+        score_diff_label:setNumber(reward_1_gap, false)
+        
+        -- 순위 양수/음수에 따라 화살표 방향 바꿈
+        if (reward_1_gap < 0) then
+            vars['arrowVisual3']:setScaleX(-1)
+        end
     else
         vars['rewardNode1']:setVisible(false)
     end
@@ -227,7 +245,12 @@ function UI_ResultLeaderBoard:setChangeInfo()
         -- 현재 보상2 차이
         local score_diff_label = NumberLabel(vars['rewardLabel4'], 0, 2)
         score_diff_label:setTweenCallback(diff_tween_cb)
-        score_diff_label:setNumber(reward_2_gap, false) 
+        score_diff_label:setNumber(reward_2_gap, false)
+        
+        -- 순위 양수/음수에 따라 화살표 방향 바꿈
+        if (reward_2_gap < 0) then
+            vars['arrowVisual4']:setScaleX(-1)
+        end
     else
         vars['rewardNode2']:setVisible(false)
     end
