@@ -825,6 +825,127 @@
 				visible = false;
 				lua_name = 'questCompletNode';
 			};
+			[17] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 53;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icons/check_icon_0103.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
+				ui_name = '';
+				x = -219.999939;
+				y = 0.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.850000;
+				scale_y = 0.850000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'checkNode1';
+			};
+			[18] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -300.000000;
+				y = 0.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.850000;
+				scale_y = 0.850000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'checkNode2';
+			};
+			[19] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -380.000000;
+				y = 0.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.850000;
+				scale_y = 0.850000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'checkNode3';
+			};
+			[20] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -460.000000;
+				y = 0.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.850000;
+				scale_y = 0.850000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'checkNode4';
+			};
+			[21] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -540.000000;
+				y = 0.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 0.850000;
+				scale_y = 0.850000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'checkNode5';
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;

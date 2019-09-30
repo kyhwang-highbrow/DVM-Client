@@ -25,10 +25,10 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'itemVisual';
-					file_name = 'ui/a2d/adventrue_menu_new/adventrue_menu_new.vrp';
+					file_name = 'ui/a2d/battle_menu_dungeon/battle_menu_dungeon.vrp';
 					auto_play = true;
 					is_repeat = true;
-					visual_id = 'group;nest_tree';
+					visual_id = 'gruop;ancient_ruins_01';
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};
@@ -41,7 +41,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 200;
+					width = 400;
 					height = 56;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -57,7 +57,7 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 200;
+					dimension_width = 400;
 					dimension_height = 56;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -81,7 +81,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 200;
+					width = 400;
 					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -97,7 +97,7 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 200;
+					dimension_width = 400;
 					dimension_height = 70;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -133,7 +133,7 @@
 						visible = true;
 						lua_name = 'lockLabel';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 30;
+						font_size = 26;
 						text = '레벨 {1}';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -183,12 +183,12 @@
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 86.000000;
+					y = 85.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 198;
-					height = 339;
+					width = 396;
+					height = 338;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -196,7 +196,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'lockSprite';
-					file_name = 'ui/buttons/battle_menu_dungeon_lock.png';
+					file_name = 'ui/buttons/battle_menu_competition_lock.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -223,7 +223,7 @@
 					visible = false;
 					lua_name = 'betaLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 24;
 					text = '베타 서비스';
 					h_alignment = 1;
 					v_alignment = 1;

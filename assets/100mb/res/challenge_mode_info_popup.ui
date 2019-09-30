@@ -239,7 +239,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '그림자에게 도전 시 룬을 연마할 수 있는 {@yellow}연마석{@default}를 획득 할 수 있습니다.';
+					text = '그림자에게 도전 시 룬을 연마할 수 있는 {@yellow}룬 연마석{@default}를 획득 할 수 있습니다.';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -2562,7 +2562,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'difficultyInfoMenu';
 			};
 			[6] =
@@ -2707,12 +2707,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 70.000000;
+							x = 73.000000;
 							y = -60.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 160;
+							width = 143;
 							height = 85;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -2723,12 +2723,12 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 22;
-							text = '연마석 1개';
+							text = '룬 연마석 1개';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 127; 255; 212; };
 							opacity = 255;
-							dimension_width = 160;
+							dimension_width = 143;
 							dimension_height = 85;
 							letter_spacing = 0.000000;
 							has_stroke = true;
@@ -2879,12 +2879,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = -70.000000;
+							x = -76.000000;
 							y = -60.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 180;
+							width = 153;
 							height = 85;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -2900,7 +2900,7 @@
 							v_alignment = 1;
 							color = { 255; 215; 0; };
 							opacity = 255;
-							dimension_width = 180;
+							dimension_width = 153;
 							dimension_height = 85;
 							letter_spacing = 0.000000;
 							has_stroke = true;
@@ -2968,8 +2968,8 @@
 						{
 							type = 'Sprite';
 							ui_name = '';
-							x = -1.000000;
-							y = 2.000000;
+							x = 0.000000;
+							y = -3.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
@@ -3126,7 +3126,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'rewardInfoMenu';
 			};
 			[7] =

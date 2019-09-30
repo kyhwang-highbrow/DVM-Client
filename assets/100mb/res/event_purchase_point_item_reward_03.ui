@@ -28,8 +28,8 @@
 			{
 				type = 'LayerColor';
 				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
+				x = 8.000000;
+				y = -1.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -188,7 +188,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -30.000000;
+				y = -25.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -329,8 +329,8 @@
 				};
 				type = 'Node';
 				ui_name = '';
-				x = -98.000000;
-				y = -45.000000;
+				x = -160.000000;
+				y = 68.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -348,8 +348,8 @@
 			{
 				type = 'Visual';
 				ui_name = '';
-				x = -86.000000;
-				y = 13.000000;
+				x = -97.000000;
+				y = 75.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -373,8 +373,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 11.000000;
-				y = 16.000000;
+				x = 0.000000;
+				y = 79.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -390,8 +390,8 @@
 			};
 			type = 'Menu';
 			ui_name = '';
-			x = 1.000000;
-			y = 125.000000;
+			x = 9.000000;
+			y = 115.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -410,18 +410,18 @@
 			type = 'Visual';
 			ui_name = '';
 			x = 0.000000;
-			y = -43.000000;
+			y = -52.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 0;
 			height = 0;
-			scale_x = 0.600000;
-			scale_y = 0.600000;
+			scale_x = 0.400000;
+			scale_y = 0.400000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = 'starVisual';
 			file_name = 'ui/a2d/star/star.vrp';
 			auto_play = true;

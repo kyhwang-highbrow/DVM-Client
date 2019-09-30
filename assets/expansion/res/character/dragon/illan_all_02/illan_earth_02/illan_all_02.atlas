@@ -1,0 +1,398 @@
+
+illan_all_02.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+illan_all_02_acc_01
+  rotate: false
+  xy: 734, 5
+  size: 107, 65
+  orig: 107, 65
+  offset: 0, 0
+  index: -1
+illan_all_02_acc_02
+  rotate: false
+  xy: 190, 7
+  size: 109, 84
+  orig: 109, 84
+  offset: 0, 0
+  index: -1
+illan_all_02_all_03_explo
+  rotate: true
+  xy: 710, 354
+  size: 278, 281
+  orig: 278, 281
+  offset: 0, 0
+  index: -1
+illan_all_02_backstar
+  rotate: true
+  xy: 1666, 180
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+illan_all_02_body_01
+  rotate: false
+  xy: 2, 93
+  size: 338, 312
+  orig: 338, 312
+  offset: 0, 0
+  index: -1
+illan_all_02_body_02
+  rotate: false
+  xy: 1703, 378
+  size: 215, 206
+  orig: 215, 206
+  offset: 0, 0
+  index: -1
+illan_all_02_butterfly_01
+  rotate: false
+  xy: 710, 634
+  size: 378, 388
+  orig: 378, 388
+  offset: 0, 0
+  index: -1
+illan_all_02_butterfly_02
+  rotate: false
+  xy: 1090, 634
+  size: 378, 388
+  orig: 378, 388
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_01
+  rotate: false
+  xy: 348, 537
+  size: 360, 485
+  orig: 360, 485
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_03
+  rotate: false
+  xy: 2, 407
+  size: 344, 615
+  orig: 344, 615
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_04
+  rotate: false
+  xy: 1426, 432
+  size: 275, 152
+  orig: 275, 152
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_05
+  rotate: false
+  xy: 1470, 805
+  size: 444, 217
+  orig: 444, 217
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_06
+  rotate: true
+  xy: 348, 251
+  size: 284, 327
+  orig: 284, 327
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_07
+  rotate: false
+  xy: 1150, 2
+  size: 72, 85
+  orig: 72, 85
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_08
+  rotate: false
+  xy: 875, 63
+  size: 92, 167
+  orig: 92, 167
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_09
+  rotate: false
+  xy: 1916, 722
+  size: 126, 300
+  orig: 126, 300
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_10
+  rotate: false
+  xy: 969, 83
+  size: 179, 180
+  orig: 179, 180
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_11
+  rotate: false
+  xy: 1289, 120
+  size: 162, 167
+  orig: 162, 167
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_12
+  rotate: false
+  xy: 1453, 156
+  size: 139, 131
+  orig: 139, 131
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_13
+  rotate: true
+  xy: 620, 72
+  size: 158, 253
+  orig: 158, 253
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_14
+  rotate: false
+  xy: 1920, 387
+  size: 120, 202
+  orig: 120, 202
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_15
+  rotate: true
+  xy: 2, 18
+  size: 73, 186
+  orig: 73, 186
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_16
+  rotate: false
+  xy: 1868, 196
+  size: 178, 180
+  orig: 178, 180
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_17
+  rotate: false
+  xy: 1470, 586
+  size: 444, 217
+  orig: 444, 217
+  offset: 0, 0
+  index: -1
+illan_all_02_effect_lightdust
+  rotate: false
+  xy: 1289, 19
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+illan_all_02_eye_01
+  rotate: true
+  xy: 938, 252
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+illan_all_02_eye_02
+  rotate: false
+  xy: 1357, 289
+  size: 34, 26
+  orig: 34, 26
+  offset: 0, 0
+  index: -1
+illan_all_02_eye_03
+  rotate: false
+  xy: 677, 508
+  size: 31, 27
+  orig: 31, 27
+  offset: 0, 0
+  index: -1
+illan_all_02_grinding_01
+  rotate: false
+  xy: 993, 265
+  size: 193, 102
+  orig: 193, 102
+  offset: 0, 0
+  index: -1
+illan_all_02_grinding_03
+  rotate: false
+  xy: 1453, 46
+  size: 131, 108
+  orig: 131, 108
+  offset: 0, 0
+  index: -1
+illan_all_02_grinding_04
+  rotate: false
+  xy: 1594, 160
+  size: 67, 56
+  orig: 67, 56
+  offset: 0, 0
+  index: -1
+illan_all_02_hair_01
+  rotate: true
+  xy: 1790, 2
+  size: 56, 57
+  orig: 56, 57
+  offset: 0, 0
+  index: -1
+illan_all_02_head_01
+  rotate: false
+  xy: 1868, 27
+  size: 173, 167
+  orig: 173, 167
+  offset: 0, 0
+  index: -1
+illan_all_02_headfeathers_01
+  rotate: false
+  xy: 1666, 396
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+illan_all_02_headfeathers_02
+  rotate: false
+  xy: 1094, 36
+  size: 50, 45
+  orig: 50, 45
+  offset: 0, 0
+  index: -1
+illan_all_02_headfeathers_03
+  rotate: false
+  xy: 1224, 9
+  size: 63, 78
+  orig: 63, 78
+  offset: 0, 0
+  index: -1
+illan_all_02_headfeathers_04
+  rotate: false
+  xy: 1426, 586
+  size: 28, 46
+  orig: 28, 46
+  offset: 0, 0
+  index: -1
+illan_all_02_horn_01
+  rotate: false
+  xy: 1281, 292
+  size: 74, 87
+  orig: 74, 87
+  offset: 0, 0
+  index: -1
+illan_all_02_horn_02
+  rotate: true
+  xy: 1663, 57
+  size: 121, 125
+  orig: 121, 125
+  offset: 0, 0
+  index: -1
+illan_all_02_horn_03
+  rotate: false
+  xy: 938, 286
+  size: 53, 66
+  orig: 53, 66
+  offset: 0, 0
+  index: -1
+illan_all_02_leg_01
+  rotate: false
+  xy: 1916, 591
+  size: 130, 129
+  orig: 130, 129
+  offset: 0, 0
+  index: -1
+illan_all_02_leg_02
+  rotate: true
+  xy: 620, 10
+  size: 60, 112
+  orig: 60, 112
+  offset: 0, 0
+  index: -1
+illan_all_02_light
+  rotate: false
+  xy: 1034, 30
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+illan_all_02_mouth_01
+  rotate: false
+  xy: 1790, 115
+  size: 76, 63
+  orig: 76, 63
+  offset: 0, 0
+  index: -1
+illan_all_02_shoulderhair_01
+  rotate: false
+  xy: 1357, 317
+  size: 67, 62
+  orig: 67, 62
+  offset: 0, 0
+  index: -1
+illan_all_02_shoulderhair_02
+  rotate: false
+  xy: 843, 17
+  size: 48, 44
+  orig: 48, 44
+  offset: 0, 0
+  index: -1
+illan_all_02_shoulderhair_03
+  rotate: false
+  xy: 1790, 60
+  size: 61, 53
+  orig: 61, 53
+  offset: 0, 0
+  index: -1
+illan_all_02_shoulderhair_04
+  rotate: true
+  xy: 969, 31
+  size: 50, 63
+  orig: 50, 63
+  offset: 0, 0
+  index: -1
+illan_all_02_tailLeaf_01
+  rotate: true
+  xy: 1594, 218
+  size: 69, 70
+  orig: 69, 70
+  offset: 0, 0
+  index: -1
+illan_all_02_tailLeaf_02
+  rotate: true
+  xy: 1188, 274
+  size: 93, 91
+  orig: 93, 91
+  offset: 0, 0
+  index: -1
+illan_all_02_wing_01
+  rotate: false
+  xy: 993, 369
+  size: 231, 263
+  orig: 231, 263
+  offset: 0, 0
+  index: -1
+illan_all_02_wing_02
+  rotate: true
+  xy: 1226, 381
+  size: 251, 198
+  orig: 251, 198
+  offset: 0, 0
+  index: -1
+illan_all_02_wing_03
+  rotate: true
+  xy: 342, 44
+  size: 205, 276
+  orig: 205, 276
+  offset: 0, 0
+  index: -1
+illan_all_02_wing_04
+  rotate: true
+  xy: 1426, 289
+  size: 141, 238
+  orig: 141, 238
+  offset: 0, 0
+  index: -1
+illan_all_02_wing_05
+  rotate: false
+  xy: 1150, 89
+  size: 137, 174
+  orig: 137, 174
+  offset: 0, 0
+  index: -1
+illan_all_02_wing_06
+  rotate: true
+  xy: 677, 232
+  size: 120, 259
+  orig: 120, 259
+  offset: 0, 0
+  index: -1
