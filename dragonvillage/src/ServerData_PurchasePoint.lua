@@ -395,21 +395,26 @@ function ServerData_PurchasePoint:getPurchasePointTime(version)
         return 0
     end
 
-    local time_str = ''
-
     -- 업데이트 이후부터 시작 : 2/13 업데이트 이후 ~ 다음 안내시까지
     -- 지정한 시간 부터 시작 : 2/13 00:00 ~ 다음 안내시까지
     local is_after_update = purchase_point_info['is_start'] or 0
-    local start_time = purchase_point_info['start_day']
-    local start_month = string.sub(start_time, 5, 6)
-    local start_day = string.sub(start_time, 7, 8)
-    local start_str = Str('{1}/{2}', tonumber(start_month), tonumber(start_day))
+    local start_time = purchase_point_info['start_day'] or 0
+    local start_month = string.sub(start_time, 5, 6) or 0
+    local start_day = string.sub(start_time, 7, 8) or 0
+    local start_str = Str('{1}/{2} 00:00', tonumber(start_month), tonumber(start_day))
+    local end_str = ''
 
-    if (is_after_update == 1) then
-        time_str = Str('{1} 점검 후 ~ 다음 안내시까지', start_str)
-    else
-        time_str = Str('{1} ~ 다음 안내시까지', start_str .. ' 00:00')
-    end
+    -- 종료 날짜 정보 세팅
+	local date = pl.Date()
+    local end_time = purchase_point_info['end'] or 0
+    date:set(end_time/1000)
+    if (date['tab']) then
+        local month = date['tab']['month'] or 0
+        local day = date['tab']['day'] or 0
+    	end_str = Str('{1}/{2} 00:00', tonumber(month), tonumber(day))
+	end
+
+    local time_str = Str('{1} ~ {2}', start_str, end_str)
 
     return time_str
 end
