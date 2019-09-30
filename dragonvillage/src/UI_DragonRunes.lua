@@ -64,6 +64,9 @@ function UI_DragonRunes:init(doid, slot_idx)
 
     -- 룬 Tab 설정
     self:initUI_runeTab(slot_idx)
+
+    -- 선택한 드래곤에 포커싱
+    self:focusSelectedDragon(doid)
 end
 
 -------------------------------------

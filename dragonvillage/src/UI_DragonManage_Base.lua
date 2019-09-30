@@ -397,6 +397,28 @@ function UI_DragonManage_Base:apply_dragonSort()
 end
 
 -------------------------------------
+-- function focusSelectedDragon
+-- @brief 선택한 드래곤에 포커싱
+-------------------------------------
+function UI_DragonManage_Base:focusSelectedDragon(doid)
+    local doid = doid or self.m_selectDragonOID
+    
+    -- 선택한 드래곤 포커싱
+    local idx = 0
+    local l_dragon = self.m_tableViewExt.m_itemList
+    for i, data in ipairs(l_dragon) do
+        if (data['unique_id'] == doid) then
+            idx = i
+            break
+        end      
+    end
+
+    -- 선택한 드래곤 포커싱
+    self.m_tableViewExt:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    self.m_tableViewExt:relocateContainerFirstFromIndex(idx, nil, 50, nil) -- idx, animated, move_pos_x, move_pos_y
+end
+
+-------------------------------------
 -- function save_dragonSortInfo
 -- @brief 새로운 정렬 설정을 세이브 데이터에 적용
 -------------------------------------

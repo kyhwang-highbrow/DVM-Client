@@ -52,6 +52,9 @@ function UI_DragonLevelUp:init(doid)
     self:init_dragonSortMgr()
 	self:init_mtrDragonSortMgr(true) -- slime_first
 
+    -- 선택한 드래곤에 포커싱
+    self:focusSelectedDragon(doid)
+
     self:initDagonFoodMenu()
     self:initTab()
 end

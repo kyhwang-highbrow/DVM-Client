@@ -63,6 +63,9 @@ function UI_DragonUpgrade:init(doid)
     self:init_dragonSortMgr()
 	self:init_mtrDragonSortMgr(false) -- slime_first
 
+    -- 선택한 드래곤에 포커싱
+    self:focusSelectedDragon(doid)
+
     -- 마스터의 길 승급은 허들이 심해 입장만 시키도록 함
     -- @ MASTER ROAD
     local t_data = {clear_key = 'check_grup'}

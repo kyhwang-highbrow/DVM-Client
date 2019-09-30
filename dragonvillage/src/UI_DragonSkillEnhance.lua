@@ -47,6 +47,9 @@ function UI_DragonSkillEnhance:init(doid)
 	-- 정렬 도우미
     self:init_dragonSortMgr()
 	self:init_mtrDragonSortMgr(true) -- slime_first
+
+    -- 선택한 드래곤에 포커싱
+    self:focusSelectedDragon(doid)
 end
 
 -------------------------------------

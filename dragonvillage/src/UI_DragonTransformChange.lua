@@ -46,6 +46,9 @@ function UI_DragonTransformChange:init(doid)
 
     -- 첫 선택 드래곤 지정
     self:setDefaultSelectDragon(doid)
+
+    -- 선택한 드래곤에 포커싱
+    self:focusSelectedDragon(doid)
 end
 
 -------------------------------------

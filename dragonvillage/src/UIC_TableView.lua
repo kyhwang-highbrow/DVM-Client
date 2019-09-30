@@ -993,6 +993,37 @@ function UIC_TableView:relocateContainerFromIndex(idx, animated)
 end
 
 -------------------------------------
+-- function relocateContainerFirstFromIndex 
+-- @brief container 첫번째에 해당 idx가 위치하도록 함, move_pos로 위치 커스텀 가능
+-------------------------------------
+function UIC_TableView:relocateContainerFirstFromIndex(idx, animated, move_pos_x, move_pos_y)
+	local view_size = self.m_scrollView:getViewSize()
+	local offset = self:_offsetFromIndex(idx)
+	local min_x, min_y = self:minContainerOffset()
+	local max_x, max_y = self:maxContainerOffset()
+    local move_pos_x = move_pos_x or 0
+    local move_pos_y = move_pos_y or 0
+
+	local pos_x, pos_y = 0, 0
+
+    -- 가로
+    if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+        pos_x = -(offset['x'])
+		pos_x = math_max(pos_x, min_x)
+		pos_x = math_min(pos_x, max_x)
+
+    -- 세로
+    elseif (self._direction == cc.SCROLLVIEW_DIRECTION_VERTICAL) then
+		pos_y = -(offset['y'])
+		pos_y = math_max(pos_y, min_y)
+		pos_y = math_min(pos_y, max_y)
+
+    end
+
+    self.m_scrollView:setContentOffset(cc.p(pos_x + move_pos_x, pos_y + move_pos_y), animated)
+end
+
+-------------------------------------
 -- function clearItemList
 -------------------------------------
 function UIC_TableView:clearItemList()
