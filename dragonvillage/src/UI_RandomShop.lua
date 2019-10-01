@@ -232,9 +232,10 @@ function UI_RandomShop:refresh_itemInfo()
 
         -- 보유량있을 경우 출력
         if (item_count) then
-            local msg = Str('현재 보유량') .. '\n{@apricot}' .. comma_value(item_count)
-            vars['itemDscLabel2']:setVisible(true)
-            vars['itemDscLabel2']:setString(msg)
+            local msg = Str('{1}개', comma_value(item_count))
+            vars['itemDscNode2']:setVisible(false)
+            vars['itemNumNode']:setVisible(true)
+            vars['numberLabel']:setString(msg)
         end
     end
 
