@@ -1,0 +1,54 @@
+local PARENT = UI
+
+-------------------------------------
+-- class UI_InventoryBtn
+-------------------------------------
+UI_InventoryBtn = class(PARENT,{
+
+    })
+
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_InventoryBtn:init()
+    local vars = self:load('ui_item_inventory.ui')
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_InventoryBtn:initUI()
+    local vars = self.vars
+    
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_InventoryBtn:initButton()
+    local vars = self.vars
+    -- 팝업 닫을 때 정보 갱신
+    local cb_refresh = function()
+        self:refresh()
+    end
+
+    self.vars['moveBtn']:registerScriptTapHandler(function() 
+        ui_inven = UI_Inventory() 
+        ui_inven:setCloseCB(cb_refresh)
+    end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_InventoryBtn:refresh()
+    -- 보유 룬 수량
+    local inven_count = g_inventoryData:getCount('rune')
+    local max_count = g_inventoryData:getMaxCount('rune')
+    self.vars['NumberLabel']:setString(Str('{1}/{2}', inven_count, max_count))
+end

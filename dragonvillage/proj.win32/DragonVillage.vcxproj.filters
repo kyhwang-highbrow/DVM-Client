@@ -4228,6 +4228,9 @@
     <None Include="..\src\ToastManager.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_InventoryBtn.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

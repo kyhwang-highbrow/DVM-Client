@@ -217,6 +217,7 @@ end
 function UI_NestDungeonScene:initButton()
     local vars = self.vars
 	vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
+    local is_need_inven_btn = false
 
     -- 던전 드랍 정보 설명 버튼
     vars['infoBtn']:setVisible(false)
@@ -225,14 +226,21 @@ function UI_NestDungeonScene:initButton()
 		vars['infoBtn']:setVisible(true)
         vars['infoBtn']:setAutoShake(true)
         vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn('nightmare') end)
+        is_need_inven_btn = true
 
     -- 고대 유적 던전
     elseif (self.m_dungeonType == NEST_DUNGEON_ANCIENT_RUIN) then
 		vars['infoBtn']:setVisible(true)
         vars['infoBtn']:setAutoShake(true)
         vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn('ancient_ruin') end)
-	end
-    
+	    is_need_inven_btn = true
+    end
+
+    if (is_need_inven_btn) then
+        local ui_inventBtn = UI_InventoryBtn()
+        self.vars['inventoryNode']:addChild(ui_inventBtn.root)
+        self.vars['inventoryNode']:setVisible(true)
+    end
 end
 
 -------------------------------------

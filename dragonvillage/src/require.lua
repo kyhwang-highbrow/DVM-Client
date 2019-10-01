@@ -1172,6 +1172,7 @@ local t_module = {
     'UI_InventoryTabTransform',
     'UI_InventoryTabEgg',
     'UI_InventorySellItems',
+    'UI_InventoryBtn',
     'UI_RuneBulkSalePopup',
     'UI_EvolutionStoneCombine',
     'UI_EvolutionStoneCombineListItem',
