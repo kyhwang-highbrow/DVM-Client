@@ -1746,6 +1746,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMPRESS_PNG_FILES = NO;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1772,6 +1773,7 @@
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/NaverLogin-thirdPartyModule\"",
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0\"",
 				);
+				MARKETING_VERSION = 1.2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1797,6 +1799,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMPRESS_PNG_FILES = NO;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1822,6 +1825,7 @@
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/NaverLogin-thirdPartyModule\"",
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0\"",
 				);
+				MARKETING_VERSION = 1.2.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
