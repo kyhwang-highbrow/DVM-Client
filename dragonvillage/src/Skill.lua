@@ -762,6 +762,17 @@ function Skill:getDefaultTarget()
 end
 
 -------------------------------------
+-- function getDefaultTargetList
+-------------------------------------
+function Skill:getDefaultTargetList(idx)
+    if (self.m_targetChar) then return self.m_targetChar end
+
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
+	
+	return l_target or {}
+end
+
+-------------------------------------
 -- function getDefaultTargetPos
 -- @brief 디폴트 타겟의 좌표를 반환한다.
 -------------------------------------
@@ -986,4 +997,18 @@ end
 -- @brief 사용할 변수 정리 및 실제 스킬 인스턴스를 생성하고 월드에 등록하는 부분
 -------------------------------------
 function Skill:makeSkillInstance()
+end
+
+-------------------------------------
+-- function setTargetChar
+-------------------------------------
+function Skill:setTargetChar(char)
+	self.m_targetChar = char
+end
+
+-------------------------------------
+-- function getAttackPosition
+-------------------------------------
+function Skill:setTargetPos(_x, _y)
+    self.m_targetPos = {x = _x, y = _y}
 end

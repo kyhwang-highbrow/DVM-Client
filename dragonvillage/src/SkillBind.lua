@@ -162,23 +162,57 @@ function SkillBind:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	  -- 광역 스킬 리소스
+	local l_enemy = owner.m_world:getEnemyList() or {}
+	-- 적이 없을 경우 스킬 발동 x
+	if (#l_enemy == 0) then
+		return
+	end
 
-	-- 인스턴스 생성부
-	------------------------------------------------------
-	-- 1. 스킬 생성
-    local skill = SkillBind(missile_res)
+	-- 남은 적이 타겟수보다 적을 경우, 스킬 생성 갯수 = min(타겟 갯수, 남은 적 갯수)
+	local target_count = t_skill['target_count']
+	local count = math.min(target_count, #l_enemy)
 
-	-- 2. 초기화 관련 함수
-	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill()
-	skill:initState()
+	local l_target = nil
+	for idx = 1, count do -- 정해진 갯수 만큼 각 SkillBind 생성
+		-- 인스턴스 생성부
+		------------------------------------------------------
+		-- 1. 스킬 생성
+		local skill = SkillBind(missile_res)
 
-	-- 3. state 시작 
-    skill:changeState('delay')
+		-- 2. 초기화 관련 함수
+		skill:setSkillParams(owner, t_skill, t_data)
+		
+		do
+            -- 타겟 리스트는 한 번만 생성
+            if (not l_target) then
+            	l_target = skill:getDefaultTargetList()
+            end
+            
+            -- idx 순서대로 타겟 지정해줌
+            local target = l_target[idx]
+            skill:setTargetChar(target)
+            
+            -- 타겟 위치 지정
+            local x, y
+            if target then
+            	skill.m_targetChar = target
+            	x, y = target.pos.x, target.pos.y
+            else
+            	x, y = skill.m_owner.pos.x, skill.m_owner.pos.y
+            end
+            skill:setTargetPos(x, y)
+		end
 
-    -- 4. Physics, Node, GameMgr에 등록
-    local world = skill.m_owner.m_world
-    local missileNode = world:getMissileNode()
-    missileNode:addChild(skill.m_rootNode, 0)
-    world:addToSkillList(skill)
+		skill:init_skill()
+		skill:initState()
+
+		-- 3. state 시작 
+		skill:changeState('delay')
+
+		-- 4. Physics, Node, GameMgr에 등록
+		local world = skill.m_owner.m_world
+		local missileNode = world:getMissileNode()
+		missileNode:addChild(skill.m_rootNode, 0)
+		world:addToSkillList(skill)
+	end
 end
