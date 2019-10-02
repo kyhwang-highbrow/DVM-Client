@@ -197,6 +197,10 @@ function UI_AutoPlaySettingPopup:initUI()
             pos_y = pos_y - height
         end
     end
+
+    local ui_inven = UI_InventoryBtn()
+    vars['inventoryNode']:addChild(ui_inven.root)
+    vars['inventoryNode']:setVisible(true)
 end
 
 -------------------------------------
