@@ -119,16 +119,18 @@ function UI_EventPopupTab_PurchasePoint:refresh()
     -- 이벤트 종료까지 남은 시간
     local str = g_purchasePointData:getPurchasePointEventRemainTimeText(version)
     vars['timeLabel']:setString(str)
+    vars['timeLabel']:setVisible(true)
 
     -- 누적 결제 점수
     local purchase_point = g_purchasePointData:getPurchasePoint(version)
     local str = Str('누적 결제 점수: {1}점', comma_value(purchase_point))
     vars['scoreLabel']:setString(str)
 
+	--[[
     -- 누적 결제 시간 안내
     local time_str = g_purchasePointData:getPurchasePointTime(version)
     vars['timeLabel']:setString(time_str)
-    vars['timeLabel']:setVisible(true)
+	--]]
 
 
     -- 보상 수령 상태 안내 메세지
