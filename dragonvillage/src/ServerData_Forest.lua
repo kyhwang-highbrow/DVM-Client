@@ -250,6 +250,9 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
         end
 
         self.m_canHappy = true
+
+        -- 지급된 아이템 동기화
+        g_serverData:networkCommonRespone_addedItems(ret)
     end
 
     -- 실패 콜백
@@ -368,11 +371,20 @@ end
 -- function showRewardResult
 -------------------------------------
 function ServerData_Forest:showRewardResult(ret)
-    local item_info = ret['item_info']
+    if (not ret) then
+        return
+    end
+    
+    local t_added_items = ret['added_items']
+
+    if (not t_added_items) then
+        return
+    end
+    local item_info = t_added_items['items_list'] or {}
 
     -- 아이템 정보가 있다면 팝업 처리
-    if (item_info) then
-        UI_MailRewardPopup(item_info)
+    if (item_info[1]) then
+        UI_MailRewardPopup(item_info[1])
 
         SoundMgr:playEffect('UI', 'ui_out_item_get')
     end
