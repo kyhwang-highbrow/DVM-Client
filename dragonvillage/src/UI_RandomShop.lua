@@ -152,6 +152,11 @@ function UI_RandomShop:refresh_itemInfo()
     local item_id = struct_item:getItemID()
     vars['rightMenu']:setVisible(true)
 
+    -- 설명 부분 초기화
+    vars['relationNode']:setVisible(false)
+    vars['itemDscNode2']:setVisible(false)
+    vars['itemNumNode']:setVisible(false)
+
     do -- 이름
         local name = struct_item:getName()
         vars['itemNameLabel']:setString(name)
@@ -190,6 +195,7 @@ function UI_RandomShop:refresh_itemInfo()
             -- 룬 세트 설명 출력
             local str = _struct_rune_obj:makeRuneSetDescRichText() or ''
             vars['itemDscLabel2']:setString(str)
+            vars['itemDscNode2']:setVisible(true)
         else
             local desc = struct_item:getDesc()
             vars['itemDscLabel']:setString(desc)
