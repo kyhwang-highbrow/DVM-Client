@@ -149,8 +149,12 @@ function UI_AttendanceSpecialListItem_1st:rolling()
     local font_size = math_random(18, 35)
     local stroke_tickness = 1
     local dimension = cc.size(2000, 100)
-
-    local text = t_data['msg'] .. ' -' .. t_data['nickname'] .. '-'
+    local text = ''
+    if (t_data['nickname'] == '') then
+        text = t_data['msg']
+    else
+        text = t_data['msg'] .. ' -' .. t_data['nickname'] .. '-'
+    end
 
     local l_color = {}
     table.insert(l_color, cc.c4b(255,0,240, 255))
