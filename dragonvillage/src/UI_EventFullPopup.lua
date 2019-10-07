@@ -96,10 +96,7 @@ function UI_EventFullPopup:initUI()
 		elseif (key == 'open_event' or key == 'newbie' or key == 'comeback') then
 			ui = UI_EventPopupTab_EventAttendance(key)
         -- 1주년 스페셜 7일 출석
-        elseif (key == '1st_event') then
-            ui = UI_EventPopupTab_EventAttendance1st(key)
-        -- 2주년 스페셜 7일 출석
-        elseif (key == '2nd_event') then
+        elseif (key == '1st_event') or (key == '2nd_event') or (key == 'newbie_welcome') then
             ui = UI_EventPopupTab_EventAttendance1st(key)
         end
 

@@ -20,11 +20,11 @@ function UI_AttendanceSpecialListItem_1st:init(t_item_data, event_id)
 
     local vars = self:load('event_attendance_1st_anniversary.ui')
 
-    self:initUI()
+    self:initUI(event_id)
     self:initButton()
     self:refresh()
 
-    if (event_id == '1st_event' or event_id == '2nd_event') then
+    if (event_id == '1st_event' or event_id == '2nd_event' or event_id == 'newbie_welcome') then
         -- 성공 콜백
         local function success_cb(ret)
             self.m_lMessage = {}
@@ -49,16 +49,21 @@ function UI_AttendanceSpecialListItem_1st:init(t_item_data, event_id)
 
             self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         end
-        self:request_getCelebrateMsg(success_cb)
+        self:request_getCelebrateMsg(success_cb, event_id)
     end
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_AttendanceSpecialListItem_1st:initUI()
+function UI_AttendanceSpecialListItem_1st:initUI(event_id)
     local vars = self.vars
     local data = self.m_tItemData
+
+    if (event_id == 'newbie_welcome') then
+        vars['titleSprite']:setVisible(false)
+        vars['titleLabel']:setVisible(true)
+    end
 
     for i = 1,7 do
         if (vars['rewardNode' .. i]) then
@@ -131,6 +136,14 @@ function UI_AttendanceSpecialListItem_1st:rolling()
     local parent_height = 218
 
     local t_data = self.m_lMessage[self.m_messageIdx]
+    if (not t_data) then
+        return
+    end
+
+    t_data = t_data['table']
+    if (not t_data) then
+        return
+    end
 
     local font_name = Translate:getFontPath()
     local font_size = math_random(18, 35)
@@ -198,7 +211,7 @@ end
 -------------------------------------
 -- function request_getCelebrateMsg
 -------------------------------------
-function UI_AttendanceSpecialListItem_1st:request_getCelebrateMsg(success_cb)
+function UI_AttendanceSpecialListItem_1st:request_getCelebrateMsg(success_cb, event_id)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -207,6 +220,7 @@ function UI_AttendanceSpecialListItem_1st:request_getCelebrateMsg(success_cb)
     ui_network:setUrl('/users/get_celebrate_msg')
     ui_network:setParam('uid', uid)
     ui_network:setParam('size', 50)
+    ui_network:setParam('type', event_id)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
