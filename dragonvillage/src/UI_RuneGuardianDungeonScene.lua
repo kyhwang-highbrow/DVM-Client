@@ -59,8 +59,6 @@ function UI_RuneGuardianDungeonScene:initUI()
         vars['infoMenu']:setVisible(false)
     end
 
-    local ui_inventBtn = UI_InventoryBtn()
-    self.vars['inventoryNode']:addChild(ui_inventBtn.root)
 end
 
 -------------------------------------
