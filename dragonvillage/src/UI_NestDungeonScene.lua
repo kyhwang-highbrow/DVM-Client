@@ -183,18 +183,37 @@ function UI_NestDungeonScene:initSelectingUI()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(210 + 10, 660)
+        table_view.m_defaultCellSize = cc.size(210, 660)
         table_view:setAlignCenter(true) -- 리스트 내 개수 부족 시 가운데 정렬
 		table_view:setMakeLookingCellFirst(false) -- 눈에 보이는 셀 먼저 생성하지 않도록 함
         table_view:setCellUIClass(UI_NestDungeonSelectingListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         table_view:setItemList(t_dungeon)
 
-        -- 정렬
-        local function sort_func(a, b)
+        
+        local t_days = {}
+        t_days['mon'] = 1
+        t_days['tue'] = 2
+        t_days['wed'] = 3
+        t_days['thu'] = 4
+        t_days['fri'] = 5
+        t_days['sat'] = 6
+        t_days['sun'] = 7
+    
+        -- 정렬1 요일순
+        local function sort_func1(a, b)
+            local a_day = a['data']['major_day']
+            local b_day = b['data']['major_day']
+            return t_days[a_day] < t_days[b_day]
+        end
+
+        -- 정렬2 아이디순
+        local function sort_func2(a, b)
             return a['data']['mode_id'] < b['data']['mode_id']
         end
-        table.sort(table_view.m_itemList, sort_func)
+
+        table.sort(table_view.m_itemList, sort_func2)
+        table.sort(table_view.m_itemList, sort_func1)
         table_view:makeAllItemUI()
 
         self.m_tableView = table_view
