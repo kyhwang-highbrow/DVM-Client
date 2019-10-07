@@ -33,8 +33,14 @@ function UI_NestDungeonScene:init(stage_id, dungeon_type)
 	self.m_stageID = stage_id
 	self.m_dungeonType = dungeon_type
 
-    self:initUI()
-    self:initButton()
+	-- 던전 선택하는 스텝이 있는 경우
+	-- 거대용 던전, 거목 던전
+	if (self.m_dungeonType == NEST_DUNGEON_EVO_STONE or self.m_dungeonType == NEST_DUNGEON_TREE) then
+		self:initSelectingUI()
+	else
+		self:initUI()
+    end
+	self:initButton()
     self:refresh()
 
     self:sceneFadeInAction()
@@ -113,6 +119,79 @@ function UI_NestDungeonScene:initUI()
                 return false
             end
 
+            return a['data']['mode_id'] < b['data']['mode_id']
+        end
+        table.sort(table_view.m_itemList, sort_func)
+        table_view:makeAllItemUI()
+
+        self.m_tableView = table_view
+		self.m_isIsolation = table.count(t_dungeon) == 1
+    end
+
+
+
+    -- focus할 stage_id가 있을 경우 
+    if self.m_stageID then
+        local dungeon_id = g_nestDungeonData:getDungeonIDFromStateID(self.m_stageID)
+        for i,v in pairs(self.m_tableView.m_itemList) do
+            if (dungeon_id == v['data']['mode_id']) then
+                local ui = self.m_tableView:getCellUI(v['unique_id'])
+                self:click_dungeonBtn(ui, v['data'], v['unique_id'])
+                -- 테이블 뷰에서 연출을 하기 위해 스케일이 변경된 상태 (원상복구를 위해 액션)
+                local scale_to = cc.ScaleTo:create(0.5, 1)
+                local action = cc.EaseInOut:create(scale_to, 2)
+                ui.root:runAction(action)
+
+                break
+            end
+        end
+	-- @TODO 임시 처리
+	elseif (self.m_tempUI) then
+		self:click_dungeonBtn(self.m_tempUI, self.m_tempData)
+		self.m_tempUI.root:setScale(1)
+    end
+
+    -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
+    local scr_size = cc.Director:getInstance():getWinSize()
+    vars['bgVisual']:setScale(scr_size.width / 1280)
+end
+
+-------------------------------------
+-- function initSelectingUI
+-------------------------------------
+function UI_NestDungeonScene:initSelectingUI()
+	local vars = self.vars
+	self.m_tempUI = nil
+	self.m_tempData = nil
+
+    do -- 테이블 뷰 생성
+        local node = vars['tableViewNode']
+        node:removeAllChildren()
+
+		-- 리스트 선 생성
+		local t_dungeon = g_nestDungeonData:getNestDungeonAllMapForUIByType(self.m_dungeonType)
+        
+		-- 셀 아이템 생성 콜백
+		local create_func
+		local s_ui, s_data
+		
+		-- 여러개일때는 버튼 등록
+		create_func = function(ui, data)
+			ui.vars['enterButton']:registerScriptTapHandler(function() self:click_dungeonBtn(ui, data) end)
+		end
+
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(210 + 10, 660)
+        table_view:setAlignCenter(true) -- 리스트 내 개수 부족 시 가운데 정렬
+		table_view:setMakeLookingCellFirst(false) -- 눈에 보이는 셀 먼저 생성하지 않도록 함
+        table_view:setCellUIClass(UI_NestDungeonSelectingListItem, create_func)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+        table_view:setItemList(t_dungeon)
+
+        -- 정렬
+        local function sort_func(a, b)
             return a['data']['mode_id'] < b['data']['mode_id']
         end
         table.sort(table_view.m_itemList, sort_func)
@@ -294,6 +373,13 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
         self:closeSubMenu()
         return
     end
+
+	-- 닫혔을 경우 던전 열어주지 않고 남은 시간 출력
+	if (data['is_open'] == 0) then
+		local reamin_time_str = g_nestDungeonData:getNestDungeonRemainTimeText(data['mode_id'])
+		UIManager:toastNotificationRed(Str(reamin_time_str))
+		return
+	end
 
     local node = ui.root
     local node_pos = convertToAnoterParentSpace(node, self.root)

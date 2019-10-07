@@ -119,6 +119,25 @@ function ServerData_NestDungeon:getNestDungeonListForUIByType(d_type)
     return t_ret
 end
 
+-------------------------------------
+-- function getNestDungeonAllMapForUIByType
+-------------------------------------
+function ServerData_NestDungeon:getNestDungeonAllMapForUIByType(d_type)
+    local l_dungeon_list = self:getNestDungeonInfo()
+	local t_ret = {}
+	
+	for _, data in ipairs(l_dungeon_list) do
+		local mode_id = data['mode_id']
+		local t_dungeon = g_nestDungeonData:parseNestDungeonID(mode_id)
+		local dungeon_mode = t_dungeon['dungeon_mode']
+		if (dungeon_mode == d_type) then
+			t_ret[mode_id] = data
+		end
+	end
+
+	return t_ret
+end
+
 
 -------------------------------------
 -- function requestNestDungeonInfo
@@ -294,21 +313,24 @@ function ServerData_NestDungeon:updateNestDungeonTimer(dungeon_id)
 
     -- 서버상의 시간을 얻어옴
     local server_time = Timer:getServerTime()
+	
+	local _next_valid_at = t_dungeon_info['next_valid_at']
+	local _next_invalid_at = t_dungeon_info['next_invalid_at'] or 0 -- 닫혔을 경우 invaild 값을 주지 않음
 
     -- 1000분의 1초 -> 1초로 단위 변경
-    local next_valid_at = math_floor(t_dungeon_info['next_valid_at'] / 1000)
+    local next_valid_at = math_floor( _next_valid_at/ 1000)
     t_dungeon_info['remain_valid_time'] = (next_valid_at - server_time)
 
     -- 1000분의 1초 -> 1초로 단위 변경
-    local next_invalid_at = math_floor(t_dungeon_info['next_invalid_at'] / 1000)
+    local next_invalid_at = math_floor( _next_invalid_at/ 1000)
     t_dungeon_info['remain_invalid_time'] = (next_invalid_at - server_time)
 
     do -- 정보 갱신이 필요한지 여부 체크
         local time_stamp
         if (t_dungeon_info['is_open'] == 1) then
-            time_stamp = (t_dungeon_info['next_invalid_at'] / 1000)
+            time_stamp = next_invalid_at
         else
-            time_stamp = (t_dungeon_info['next_valid_at'] / 1000)
+            time_stamp = next_valid_at
         end
         
         if (time_stamp <= server_time) then

@@ -830,6 +830,7 @@ local t_module = {
     'UI_HelpContents',
     'UI_NestDungeonScene',
     'UI_NestDungeonListItem',
+	'UI_NestDungeonSelectingListItem',
     'UI_NestDungeonStageListItem',
     'UI_IllusionStageListItem',
     'UI_NightmareStageListItem',
