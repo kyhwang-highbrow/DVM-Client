@@ -52,3 +52,11 @@ function UI_InventoryBtn:refresh()
     local max_count = g_inventoryData:getMaxCount('rune')
     self.vars['NumberLabel']:setString(Str('{1}/{2}', inven_count, max_count))
 end
+
+-------------------------------------
+-- function setInGame
+-------------------------------------
+function UI_InventoryBtn:setInGame(is_ingame)
+    -- 인게임일 경우 이동 버튼 보이지 않음
+    self.vars['moveBtn']:setVisible(not is_ingame)
+end

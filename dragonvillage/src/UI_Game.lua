@@ -291,7 +291,7 @@ function UI_Game:click_autoStartButton()
         close_cb()
     else
 		local game_mode = self.m_gameScene.m_gameMode
-        local ui = UI_AutoPlaySettingPopup(game_mode)
+        local ui = UI_AutoPlaySettingPopup(game_mode, true) -- game_mode, is_ingame
         ui:setCloseCB(close_cb)
     end
 end
@@ -865,3 +865,4 @@ end
 function UI_Game:click_skip()
     g_gameScene:showSkipPopup()
 end
+

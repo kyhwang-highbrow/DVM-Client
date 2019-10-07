@@ -6,6 +6,9 @@ local PARENT = class(UI, ITabUI:getCloneTable(), IEventDispatcher:getCloneTable(
 UI_AutoPlaySettingPopup = class(PARENT, {
         m_gameMode = '',
         m_loadDeckCb = 'function',
+        
+        -- 인게임중 생성된 팝업인지 판단
+        m_isInGame = 'boolean',
     })
 
 UI_AutoPlaySettingPopup.TAB_SKILL = 1
@@ -14,7 +17,7 @@ UI_AutoPlaySettingPopup.TAB_CONTINUOUS_BATTLE = 2
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AutoPlaySettingPopup:init(game_mode)
+function UI_AutoPlaySettingPopup:init(game_mode, is_ingame)
     local vars = self:load('battle_ready_auto_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -27,7 +30,8 @@ function UI_AutoPlaySettingPopup:init(game_mode)
     self:doAction(nil, false)
 
 	self.m_gameMode = game_mode
-
+    self.m_isInGame = is_ingame
+    
     self:initUI()
     self:initButton()
     self:refresh()
@@ -201,6 +205,7 @@ function UI_AutoPlaySettingPopup:initUI()
     local ui_inven = UI_InventoryBtn()
     vars['inventoryNode']:addChild(ui_inven.root)
     vars['inventoryNode']:setVisible(true)
+    ui_inven:setInGame(self.m_isInGame)
 end
 
 -------------------------------------
