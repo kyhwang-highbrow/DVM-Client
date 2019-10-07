@@ -384,8 +384,8 @@ function ServerData_Forest:showRewardResult(ret)
 
     -- 아이템 정보가 있다면 팝업 처리
     if (item_info[1]) then
-        UI_MailRewardPopup(item_info[1])
-
+        local ui_popup = UI_MailRewardPopup(item_info[1])
+        ui_popup:removeMailMsg()
         SoundMgr:playEffect('UI', 'ui_out_item_get')
     end
 end

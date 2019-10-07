@@ -58,6 +58,15 @@ function UI_MailRewardPopup:initButton()
 end
 
 -------------------------------------
+-- function removeMailLabel
+-------------------------------------
+function UI_MailRewardPopup:removeMailMsg()
+    local vars = self.vars
+    vars['mailMenu']:setVisible(false)
+    vars['dragonForestMenu']:setVisible(true)
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_MailRewardPopup:refresh()
