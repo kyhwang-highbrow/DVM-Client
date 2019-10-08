@@ -6,7 +6,7 @@ return {['가방이 가득 찼습니다.\n가방 공간을 확보 후 전투를 
 ['빛의 천벌']='Divine Punishment of Light',
 ['서버 시간: (서버 이름/지역) {1}/{1}, {1}:{1}(UTC+{1})']='Server Time: (Server Name/Location) {1}/{1}, {1}:{1}(UTC+{1})',
 ['신규 유저 웰컴 이벤트']='New User Welcome Event',
-['일정 시간마다 적에게 피해를 줍니다.\n회복형 적을 우선으로 공격하며, 침묵 상태인 적에게는 {1}배의 피해를 줍니다.']='Every set duration, inflict damage to enemy.\nInflict x{1} damage to silenced enemy. (Prioritize Recovery Type)',
+['일정 시간마다 적에게 피해를 줍니다.\n회복형 적을 우선으로 공격하며, 침묵 상태인 적에게는 {1}배의 피해를 줍니다.']='Every set duration, inflict damage to enemy.\nInflict x{1} damage to silenced enemies. (Prioritize Recovery Type)',
 ['일정 시간마다 적을 사슬로 묶어 피해를 주고, {1}% 확률로 {2}초간 침묵시킵니다.\n회복형 적을 우선 순위로 발동됩니다.']='Every set duration, bind enemy with a chain to inflict damage, with {1}% chance to silence them for {2} sec.\nPrioritize Recovery Type enemies.',
 ['전설 토파즈 드래곤']='Legendary Topaz Dragon',
 ['전투에 참여한 드래곤들은 {@YELLOW}자동{@DEFAULT}으로 기본 탄환을 발사합니다.\n일반공격의 속도는 드래곤의 {@YELLOW}공격 속도{@DEFAULT}에 따라 달라지며,\n공격 속도는 룬을 착용해 더 빠르게 할 수도 있습니다.']='Dragons participating in battle use default bullets {@YELLOW}Automatically{@DEFAULT}.\nATK Speed of normal attack is determined by {@YELLOW}ATK Speed{@DEFAULT} of each dragon.\nATK Speed can be increased by equipping Runes on them.',
