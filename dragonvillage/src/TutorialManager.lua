@@ -121,8 +121,16 @@ function TutorialManager:isCanTutorial(tutorial_key)
 		return false
 	end
     --]]
-	-- 신규 유저
-	if (not g_dragonDiaryData:isEnable()) then
+    
+    --[[
+    	-- @jhakim 성장일지 제거	
+    	-- 신규 유저
+		if (not g_dragonDiaryData:isEnable()) then
+			return false
+		end
+    
+    --]]
+	if (g_dragonDiaryData:isOldNoneDiaryUser()) then
 		return false
 	end
 
@@ -354,9 +362,14 @@ function TutorialManager:checkStartFreeSummon11(stage_id)
 	if (stage_id ~= 1110107) then
 		return false
 	end
-
-	-- 올드 유저는 못함
-	if (not g_dragonDiaryData:isEnable()) then
+	--[[
+		-- @jhakim 성장일지 제거
+		-- 올드 유저는 못함
+		if (not g_dragonDiaryData:isEnable()) then
+			return false
+		end
+	--]]
+	if (g_dragonDiaryData:isOldNoneDiaryUser()) then
 		return false
 	end
 

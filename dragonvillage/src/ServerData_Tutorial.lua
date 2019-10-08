@@ -158,3 +158,11 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, step, finish_cb,
 
     return ui_network
 end
+
+-------------------------------------
+-- function isOldUser
+-------------------------------------
+function ServerData_Tutorial:isOldUser()
+	-- intro 튜토리얼있을 때 가입한 유저
+    return self:isTutorialDone(TUTORIAL.INTRO_FIGHT)
+end

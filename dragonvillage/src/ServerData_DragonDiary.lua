@@ -57,6 +57,7 @@ end
 -------------------------------------
 -- function isEnable
 -- @brief 활성화
+-- @brief 성장일지 컨텐츠 있을 때 계정 생성했는 지 여부
 -------------------------------------
 function ServerData_DragonDiary:isEnable()
 	return self.m_bEnable
@@ -264,6 +265,39 @@ function ServerData_DragonDiary:isClearAll()
     local focus_step = self.m_focusRid
 
     return (last_step < focus_step)
+end
+
+-------------------------------------
+-- function isSelectedDragonLock
+-------------------------------------
+function ServerData_DragonDiary:isSelectedDragonLock(doid)
+	-- 선택한 드래곤 정보가 있는 계정의 경우
+	-- 선택한 드래곤이 스타트 드래곤일 경우
+	-- 성장일지 끝나지 않았을 경우 잠금 처리
+	if (g_dragonDiaryData:isEnable()) then
+		local start_dragon_doid = g_userData:get('start_dragon') 
+		if (start_dragon_doid) then
+			if (not self:isClearAll()) then
+				if (start_dragon_doid == doid) then
+					return true
+				end
+			end
+		end
+
+		return false
+	end
+	
+	-- 성장일지 없을 때 만들어진 계정인 경우 태생보다 낮은 등급이라면 잠금처리
+	-- 3성을 작별했을 때 인연으로 5성 소환하는 것을 막기위해
+	local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+	local did = dragon_obj:getDid()
+	local birth_grade = TableDragon():getBirthGrade(did)
+	local grade = dragon_obj:getGrade() 
+	if (grade < birth_grade) then
+		return true
+	end
+
+	return false
 end
 
 -------------------------------------
@@ -537,4 +571,19 @@ function ServerData_DragonDiary.checkClear(rid, sub_data)
     end
 
     return false
+end
+
+-------------------------------------
+-- function isOldNoneDiaryUser
+-------------------------------------
+function ServerData_DragonDiary:isOldNoneDiaryUser()
+	-- g_dragonDiaryData:isEnable() : dragonDiary 있을 때 계정 생성했는 지 여부
+	-- @jhakim dragonDiary가 2019년 10월 10일 업데이트로 사라지면서 옛날 dragonDiary없을 때/지금 dragonDiary없어졌을 경우를 구분해야함
+	if (not g_dragonDiaryData:isEnable()) then
+		if (g_tutorialData:isOldUser()) then
+			return true
+		end
+	end
+
+	return false
 end
