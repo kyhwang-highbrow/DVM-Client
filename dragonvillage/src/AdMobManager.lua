@@ -70,7 +70,8 @@ function AdMobManager:initRewardedVideoAd()
         rewarded_video_ad:setResultCallback(ad_result_cb)
 
         -- sgkim 20190429 AdMob의 광고 로드가 비정상 종료에 영향을 준다고 판단하여 프리로드 하지 않도록 변경
-        --rewarded_video_ad:loadRequest(ADMOB_APP_AD_UNIT_ID)
+        -- @sgkim 2019.10.08 문제가 발생되는 aos 7.0이상에서는 광고를 재생하고 있지 않기 때문에 다시 프리로드를 하도록 변경
+        rewarded_video_ad:loadRequest(ADMOB_APP_AD_UNIT_ID)
     end
 end
 
@@ -297,7 +298,7 @@ end
 -- function showByAdType
 -------------------------------------
 function AdMobRewardedVideoAd:showByAdType(ad_type, result_cb)
-    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[ad_type]
+    local ad_unit_id = self:getAdUnitIdByAdType(ad_type)
     self:show(ad_unit_id, result_cb)
 end
 
@@ -306,7 +307,7 @@ end
 -- @breif 횟수 제한형 광고
 -------------------------------------
 function AdMobRewardedVideoAd:showDailyAd(ad_type, finish_cb)
-    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[ad_type]
+    local ad_unit_id = self:getAdUnitIdByAdType(ad_type)
     local function result_cb(ret, info)
         if (ret == 'finish') then
             g_advertisingData:request_dailyAdShow(ad_type, function()
@@ -332,6 +333,20 @@ end
 -- @usage AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE['FOREST'])
 -------------------------------------
 function AdMobRewardedVideoAd:adPreload(ad_type)
-    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[ad_type]
+    local ad_unit_id = self:getAdUnitIdByAdType(ad_type)
     self:loadRequest(ad_unit_id)
+end
+
+
+-------------------------------------
+-- function getAdUnitIdByAdType
+-------------------------------------
+function AdMobRewardedVideoAd:getAdUnitIdByAdType(ad_type)
+    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[ad_type]
+
+    -- @sgkim 2019.10.18 Admob의 모든 광고는 하나의 광고 단위로 재생한다.
+    --                   preload의 문제와 광고 크래시 안정화를 위해서이다.
+    ad_unit_id = ADMOB_APP_AD_UNIT_ID
+
+    return ad_unit_id
 end
