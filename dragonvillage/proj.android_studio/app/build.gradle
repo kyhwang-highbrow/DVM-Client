@@ -378,6 +378,7 @@ allprojects {
         implementation 'androidx.annotation:annotation:1.1.0'
         implementation 'com.google.ads.mediation:adcolony:3.3.11.0'
         implementation 'com.google.ads.mediation:unity:3.2.0.1'
+        implementation 'com.google.ads.mediation:tapjoy:12.3.3.0'
         // @adcolony
         implementation 'com.adcolony:sdk:3.3.5'
         // @unity-ads
