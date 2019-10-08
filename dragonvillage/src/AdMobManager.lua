@@ -33,7 +33,7 @@ elseif (CppFunctions:isIos()) then
         [AD_TYPE.FOREST] = 'ca-app-pub-9497777061019569/1816066243',
         [AD_TYPE.EXPLORE] = 'ca-app-pub-9497777061019569/1432922866',
         [AD_TYPE.FSUMMON] = 'ca-app-pub-9497777061019569/4989024494',
-        [AD_TYPE.TEST] = '',
+        [AD_TYPE.TEST] = 'ca-app-pub-9497777061019569/1610486021',
     }
 else
     ADMOB_AD_UNIT_ID_TABLE = {}
