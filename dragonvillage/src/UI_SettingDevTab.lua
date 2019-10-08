@@ -638,6 +638,12 @@ end
 -------------------------------------
 function UI_Setting:click_testCodeBtn2()
     
+    -- @sgkim 2019.10.08
+    if true then
+        self:testFunction_AdmobMediation()
+        return
+    end
+
     -- @sgkim 2019.09.24
     if true then
         self:testFunction_cafebazaarFontTest_TTF()
@@ -1238,4 +1244,33 @@ function UI_Setting:testFunction_cafebazaarFontTest_TTF()
 
 
     UIManager:open(ui, UIManager.SCENE)
+end
+
+
+-------------------------------------
+-- function testFunction_AdmobMediation
+-- @brief Admob Mediation에 Tapjoy 네트워크 추가 테스트
+-- @sgkim 2019.10.08
+-------------------------------------
+function UI_Setting:testFunction_AdmobMediation()
+    local ad_type = AD_TYPE['TEST']
+
+    local function result_cb(ret, info)
+        ccdisplay('ret : ' .. tostring(ret))
+        ccdisplay('info : ' .. tostring(info))
+
+        -- 광고 시청 완료 -> 보상 처리
+        if (ret == 'finish') then
+
+        -- 광고 시청 취소
+        elseif (ret == 'cancel') then
+
+        -- 광고 에러
+        elseif (ret == 'error') then
+
+        end
+    end
+
+    ccdisplay('UI_Setting:testFunction_AdmobMediation()')
+    AdSDKSelector:showByAdType(ad_type, result_cb)
 end
