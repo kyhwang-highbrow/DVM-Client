@@ -130,8 +130,14 @@ function TutorialManager:isCanTutorial(tutorial_key)
 		end
     
     --]]
-	if (g_dragonDiaryData:isOldNoneDiaryUser()) then
-		return false
+
+    -- 1. 성장일지 없을 때 생성한 계정
+    -- 2. 성장일지 제거 전 생성한 계정일 경우
+    -- 저장 안함
+	if (not g_dragonDiaryData:isEnable()) then
+		if (not g_dragonDiaryData:getIsAfterCloseDiaryUser()) then
+            return false
+        end
 	end
 
 	-- 임시방편 : 모험 튜토리얼은 렙 10이 넘어가는 경우 시작하지 않도록 함
@@ -369,8 +375,14 @@ function TutorialManager:checkStartFreeSummon11(stage_id)
 			return false
 		end
 	--]]
-	if (g_dragonDiaryData:isOldNoneDiaryUser()) then
-		return false
+
+    -- 1. 성장일지 없을 때 생성한 계정
+    -- 2. 성장일지 제거 전 생성한 계정일 경우
+    -- 저장 안함
+	if (not g_dragonDiaryData:isEnable()) then
+		if (not g_dragonDiaryData:getIsAfterCloseDiaryUser()) then
+            return false
+        end
 	end
 
 	-- 1-7 clear_cnt 가 1이어야 함 (최초 클리어)

@@ -9,6 +9,8 @@ ServerData_DragonDiary = class({
         m_bEnable = 'boolean',
 
         m_bDirty = 'boolean',
+
+        m_isAfterCloseDiary = 'boolean',
     })
 
 -------------------------------------
@@ -574,16 +576,17 @@ function ServerData_DragonDiary.checkClear(rid, sub_data)
 end
 
 -------------------------------------
--- function isOldNoneDiaryUser
+-- function applyIsAfterCloseDiaryUser
+-- @brief 191010 성장일지 제거한 후부터 계정 생성한 유저들은 true 값을 받음
 -------------------------------------
-function ServerData_DragonDiary:isOldNoneDiaryUser()
-	-- g_dragonDiaryData:isEnable() : dragonDiary 있을 때 계정 생성했는 지 여부
-	-- @jhakim dragonDiary가 2019년 10월 10일 업데이트로 사라지면서 옛날 dragonDiary없을 때/지금 dragonDiary없어졌을 경우를 구분해야함
-	if (not g_dragonDiaryData:isEnable()) then
-		if (g_tutorialData:isOldUser()) then
-			return true
-		end
-	end
-
-	return false
+function ServerData_DragonDiary:applyIsAfterCloseDiaryUser(is_close)
+    self.m_isAfterCloseDiary = is_close
 end
+
+-------------------------------------
+-- function getIsAfterCloseDiaryUser
+-------------------------------------
+function ServerData_DragonDiary:getIsAfterCloseDiaryUser()
+    return self.m_isAfterCloseDiary
+end
+

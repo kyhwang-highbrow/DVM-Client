@@ -1056,6 +1056,12 @@ function UI_TitleScene:workGetServerInfo()
                 if (ret['dragondiary_info']) then
                     cclog('# 드래곤의 길 정보')
                     g_dragonDiaryData:applyInfo(ret['dragondiary_info'])
+
+                    -- 드래곤 성장일지 제거 이후 생성 계정인지 정보를 서버에서 받
+                    if (ret['close_diary']) then
+                        local is_close_diary = ret['close_diary']
+                        g_dragonDiaryData:applyIsAfterCloseDiaryUser(is_close_diary)
+                    end
                 end
 
                 if (ret['book_info']) then
