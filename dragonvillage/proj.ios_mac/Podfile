@@ -28,9 +28,10 @@ target 'DragonVillageM iOS' do
 
     ## ADS
     # Pods for AdMob
-    pod 'Google-Mobile-Ads-SDK', '= 7.37.0'
-    pod 'GoogleMobileAdsMediationUnity', '= 3.0.0.0'
-    pod 'GoogleMobileAdsMediationAdColony', '= 3.3.6.0'
+    pod 'Google-Mobile-Ads-SDK'#, '= 7.37.0'
+    pod 'GoogleMobileAdsMediationUnity'#, '= 3.0.0.0'
+    pod 'GoogleMobileAdsMediationAdColony'#, '= 3.3.6.0'
+    pod 'GoogleMobileAdsMediationTapjoy'
     # Pods for UnityAds
     pod 'UnityAds', '= 3.0.0'
     # Pods for AdColony
@@ -45,7 +46,7 @@ target 'DragonVillageM iOS' do
     # @sgkim 20190919 adbrix 정책 변경으로 인해 더이상 사용하지 않게되어 제거
 
     # Pods for Tapjoy
-    pod 'TapjoySDK', '= 12.2.0'
+    pod 'TapjoySDK'#, '= 12.2.0'
     # Pods for Adjust
     pod 'Adjust', '= 4.17.1'
 end
