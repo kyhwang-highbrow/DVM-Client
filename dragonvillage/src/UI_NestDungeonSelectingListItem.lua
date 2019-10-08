@@ -1,12 +1,12 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 local T_DAY = {}
-T_DAY['mon'] = Str('월요일')
-T_DAY['tue'] = Str('화요일')
-T_DAY['wed'] = Str('수요일')
-T_DAY['thu'] = Str('목요일')
-T_DAY['fri'] = Str('금요일')
-T_DAY['sat'] = Str('토요일')
-T_DAY['sun'] = Str('일요일')
+T_DAY['mon'] = '월요일'
+T_DAY['tue'] = '화요일'
+T_DAY['wed'] = '수요일'
+T_DAY['thu'] = '목요일'
+T_DAY['fri'] = '금요일'
+T_DAY['sat'] = '토요일'
+T_DAY['sun'] = '일요일'
 
 -------------------------------------
 -- class UI_NestDungeonSelectingListItem
@@ -181,7 +181,7 @@ function UI_NestDungeonSelectingListItem:refresh_dayLabel(major_day, days, mode)
 
 	local day_str = ''
     for _, day in ipairs(l_days) do
-		day_str = day_str .. '\n' .. T_DAY[day]
+		day_str = day_str .. '\n' .. Str(T_DAY[day])
 	end
 
 	-- 던전 속성에 따라 라벨 색상 변경
