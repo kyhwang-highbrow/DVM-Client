@@ -22,6 +22,10 @@ UI_ZORDER = {
     TOP_POPUP = 512,
 }
 
+IGNORE_LOGGING_UI_RES_NAME = {}
+IGNORE_LOGGING_UI_RES_NAME['empty.ui'] = true
+IGNORE_LOGGING_UI_RES_NAME['network_loading.ui'] = true
+
 -------------------------------------
 -- class UIManager
 -------------------------------------
@@ -208,6 +212,13 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
 
     if self.m_cbUIOpen then
         self.m_cbUIOpen(ui)
+    end
+
+    -- Firebase Crashlytics에 UI 기록 로그 추가
+    if (IGNORE_LOGGING_UI_RES_NAME[tostring(ui.m_resName)] ~= true) then
+        local ui_str = 'UI : ' .. tostring(ui.m_uiName) .. ' / ' .. tostring(ui.m_resName)
+        --ccdisplay(ui_str)
+        PerpleSdkManager.getCrashlytics():setLog(ui_str)
     end
 end
 
