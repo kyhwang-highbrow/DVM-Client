@@ -297,6 +297,44 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 
 -------------------------------------
+-- function isSkipGetMarketInfo
+-- @brief 마켓(sku) 정보 받아오기 생략 여부
+-------------------------------------
+function UI_TitleScene:isSkipGetMarketInfo()
+    -- 1.2.0버전
+    if (getAppVer() ~= '1.2.0') then
+        return false
+    end
+            
+    -- ios일 경우
+    if (isIos() ~= true) then
+        return false
+    end
+
+    -- systemVersion의 값이 있을 경우 (ios 버전을 알기 위함)
+    local system_version = g_userData:getDeviceInfoByKey('systemVersion')
+    if (type(system_version) ~= 'string') then
+        return false
+    end
+
+    -- major버전을 얻어옴
+    cclog('systemVersion : ' .. system_version)
+    local l_version = pl.stringx.split(system_version, '.')
+    local major_version = tonumber(l_version[1])
+    if (major_version == nil) then
+        return false
+    end
+
+    -- ios 13이상인 경우
+    cclog('major_version : ' .. major_version)
+    if (major_version < 13) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function setWorkList
 -------------------------------------
 function UI_TitleScene:setWorkList()
@@ -318,7 +356,7 @@ function UI_TitleScene:setWorkList()
         table.insert(self.m_lWorkList, 'workInitAdSDKSelector') -- 광고 sdk 초기화    
         table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
         table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
-		table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
+        table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
         table.insert(self.m_lWorkList, 'workNetworkUserInfo') -- crash log에 정보 저장
         table.insert(self.m_lWorkList, 'workPrepareAd') -- 광고 초기화
     end
@@ -1273,6 +1311,11 @@ end
 function UI_TitleScene:workGetMarketInfo()
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
+    if self:isSkipGetMarketInfo() then
+        self:doNextWork()
+        return
+    end
+
     local function call_back(ret, info)
         if (ret == 'success') then
             local tRet = json_decode(info)
@@ -1305,6 +1348,11 @@ end
 -------------------------------------
 function UI_TitleScene:workGetMarketInfo_Monthly()
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
+
+    if self:isSkipGetMarketInfo() then
+        self:doNextWork()
+        return
+    end
 
     local function call_back(ret, info)
         if (ret == 'success') then
