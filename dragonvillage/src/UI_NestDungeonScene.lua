@@ -246,6 +246,8 @@ function UI_NestDungeonScene:initSelectingUI()
     -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
     local scr_size = cc.Director:getInstance():getWinSize()
     vars['bgVisual']:setScale(scr_size.width / 1280)
+
+	vars['bgVisual']:setLocalZOrder(-1)
 end
 
 -------------------------------------
