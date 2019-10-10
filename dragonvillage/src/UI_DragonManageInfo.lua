@@ -779,17 +779,21 @@ function UI_DragonManageInfo:click_lockBtn()
 	        end
 	    end
 	--]]
-    -- 드래곤 성장일지 (퀘스트 진행중이면 잠금 풀 수 없음)
-    if (g_dragonDiaryData:isSelectedDragonLock(doids)) then      
-        local msg = ''
-		if (not g_dragonDiaryData:isEnable()) then
-			msg = Str('함께 모험을 시작한 드래곤입니다.\n5성 달성 시 잠금 해제가 가능합니다')
-		else
-			msg = Str('육성 퀘스트가 진행중인 드래곤입니다.\n퀘스트를 모두 수행해야 잠금 해제가 가능합니다.')
-		end
-		
-		MakeSimplePopup(POPUP_TYPE.OK, msg)
-		return
+
+    -- 슬라임이 아닐 경우에만 드래곤 성장일지 잠금 체크
+    if (not self.m_bSlimeObject) then
+        -- 드래곤 성장일지 (퀘스트 진행중이면 잠금 풀 수 없음)
+        if (g_dragonDiaryData:isSelectedDragonLock(doids)) then
+            local msg = ''
+	    	if (not g_dragonDiaryData:isEnable()) then
+	    		msg = Str('함께 모험을 시작한 드래곤입니다.\n5성 달성 시 잠금 해제가 가능합니다')
+	    	else
+	    		msg = Str('육성 퀘스트가 진행중인 드래곤입니다.\n퀘스트를 모두 수행해야 잠금 해제가 가능합니다.')
+	    	end
+	    	
+	    	MakeSimplePopup(POPUP_TYPE.OK, msg)
+	    	return
+        end
     end
 
 	local function cb_func(ret)

@@ -273,7 +273,11 @@ end
 -- function isSelectedDragonLock
 -------------------------------------
 function ServerData_DragonDiary:isSelectedDragonLock(doid)
-	-- 선택한 드래곤 정보가 있는 계정의 경우
+	if (not doid) then
+        return false
+    end
+    
+    -- 선택한 드래곤 정보가 있는 계정의 경우
 	-- 선택한 드래곤이 스타트 드래곤일 경우
 	-- 성장일지 끝나지 않았을 경우 잠금 처리
 	if (g_dragonDiaryData:isEnable()) then
@@ -288,10 +292,14 @@ function ServerData_DragonDiary:isSelectedDragonLock(doid)
 
 		return false
 	end
-	
+
+	local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+    if (not dragon_obj) then
+        return false
+    end
+
 	-- 성장일지 없을 때 만들어진 계정인 경우 태생보다 낮은 등급이라면 잠금처리
 	-- 3성을 작별했을 때 인연으로 5성 소환하는 것을 막기위해
-	local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
 	local did = dragon_obj:getDid()
 	local birth_grade = TableDragon():getBirthGrade(did)
 	local grade = dragon_obj:getGrade() 
