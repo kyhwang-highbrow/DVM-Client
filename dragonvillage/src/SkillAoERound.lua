@@ -159,7 +159,8 @@ function SkillAoERound:doAoeEffect()
 
     -- 타겟별 리소스
     for _, collision in ipairs(collisions) do
-        self:makeEffect(self.m_aoeRes, collision:getPosX(), collision:getPosY())
+        local attr = self.m_owner:getAttributeForRes()
+        local effect = self:makeEffect(self.m_aoeRes, collision:getPosX(), collision:getPosY(), nil, nil, attr) -- res, x, y, ani_name, cb_function, attr
     end
 end
 

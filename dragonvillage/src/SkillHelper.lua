@@ -115,6 +115,47 @@ function SkillHelper:makeEffect(world, res, x, y, ani_name, cb_function)
 
     -- 이팩트 생성
     local effect = MakeAnimator(res)
+    if (not effect) then
+        return
+    end
+
+    effect:setPosition(x, y)
+	effect:changeAni(ani_name, false)
+
+    local missileNode = world:getMissileNode()
+    missileNode:addChild(effect.m_node, 0)
+
+	-- 1회 재생후 동작
+	local cb_ani = function() 
+		if (cb_function) then 
+			cb_function(effect)
+		end
+		effect.m_node:runAction(cc.RemoveSelf:create())
+	end
+	effect:addAniHandler(cb_ani)
+
+	return effect
+end
+
+-------------------------------------
+-- function makeEffect_new
+-- @breif 추가 이펙트 생성
+-- @breif 통합형 애니메이션의 경우 애니메이션에 속성이 붙어있음 (ex) earth_idle
+-- @breif 애니메이션중에 속성 애니메이션이 있다면 적용, 없다면 기본형을 적용
+-------------------------------------
+function SkillHelper:makeEffect_withAttrAni(world, res, x, y, ani_name, cb_function, attr)
+	-- 리소스 없을시 탈출
+	if (res == '') then return end
+	
+	local ani_name = ani_name or 'idle'
+
+    -- 이팩트 생성
+    local effect = MakeAnimator(res)
+    if (not effect) then
+        return
+    end
+
+    local ani_name = effect:getAniNameAttr(ani_name, attr)
     effect:setPosition(x, y)
 	effect:changeAni(ani_name, false)
 
