@@ -250,6 +250,11 @@ function UI_NestDungeonScene:initSelectingUI()
     vars['bgVisual']:setScale(scr_size.width / 1280)
 
 	vars['bgVisual']:setLocalZOrder(-1)
+
+    local timezone = Timer:getTimeZone()
+    local utc_desc = datetime.getTimeUTCDesc()
+    vars['serverTimeSprite']:setVisible(true)
+    vars['serverTimeLabel']:setString(Str('서버 시간 : ({1}) {2}', timezone, utc_desc))
 end
 
 -------------------------------------
