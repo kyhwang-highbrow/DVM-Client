@@ -19,10 +19,14 @@ target 'DragonVillageM iOS' do
     ## SOCIAL
     # Pods for Google
     pod 'GoogleSignIn', '= 4.4.0'
+    
     # Pods for Facebook
-    pod 'FBSDKCoreKit', '= 4.39.1'
-    pod 'FBSDKShareKit', '= 4.39.1'
-    pod 'FBSDKLoginKit', '= 4.39.1'
+    # https://developers.facebook.com/docs/ios/
+    # sgkim 2019.10.11 (4.39.1 -> 5.8.0)
+    pod 'FBSDKCoreKit', '= 5.8.0'
+    pod 'FBSDKShareKit', '= 5.8.0'
+    pod 'FBSDKLoginKit', '= 5.8.0'
+    
     # Pods for Twitter
     pod 'TwitterKit', '= 3.4.2'
 

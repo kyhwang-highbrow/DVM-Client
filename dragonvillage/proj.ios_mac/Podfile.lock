@@ -3,21 +3,23 @@ PODS:
   - Adjust (4.17.1):
     - Adjust/Core (= 4.17.1)
   - Adjust/Core (4.17.1)
-  - Bolts (1.9.0):
-    - Bolts/AppLinks (= 1.9.0)
-    - Bolts/Tasks (= 1.9.0)
-  - Bolts/AppLinks (1.9.0):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.0)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
   - Fabric (1.9.0)
-  - FBSDKCoreKit (4.39.1):
-    - Bolts (~> 1.9)
-  - FBSDKLoginKit (4.39.1):
-    - FBSDKCoreKit
-  - FBSDKShareKit (4.39.1):
-    - FBSDKCoreKit
+  - FBSDKCoreKit (5.8.0):
+    - FBSDKCoreKit/Basics (= 5.8.0)
+    - FBSDKCoreKit/Core (= 5.8.0)
+  - FBSDKCoreKit/Basics (5.8.0)
+  - FBSDKCoreKit/Core (5.8.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.8.0):
+    - FBSDKLoginKit/Login (= 5.8.0)
+  - FBSDKLoginKit/Login (5.8.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FBSDKShareKit (5.8.0):
+    - FBSDKShareKit/Share (= 5.8.0)
+  - FBSDKShareKit/Share (5.8.0):
+    - FBSDKCoreKit (~> 5.0)
   - Firebase/Auth (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.2.0)
@@ -122,9 +124,9 @@ DEPENDENCIES:
   - Adjust (= 4.17.1)
   - Crashlytics (= 3.12.0)
   - Fabric (= 1.9.0)
-  - FBSDKCoreKit (= 4.39.1)
-  - FBSDKLoginKit (= 4.39.1)
-  - FBSDKShareKit (= 4.39.1)
+  - FBSDKCoreKit (= 5.8.0)
+  - FBSDKLoginKit (= 5.8.0)
+  - FBSDKShareKit (= 5.8.0)
   - Firebase/Auth (= 5.15.0)
   - Firebase/Core (= 5.15.0)
   - Firebase/Messaging (= 5.15.0)
@@ -141,7 +143,6 @@ SPEC REPOS:
   trunk:
     - AdColony
     - Adjust
-    - Bolts
     - Crashlytics
     - Fabric
     - FBSDKCoreKit
@@ -174,12 +175,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AdColony: 68473450de30de67154675c3512353a55c8f97cc
   Adjust: b1f2b0e0b426fa991d69ed7fc9de806cf6dff5a6
-  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
-  FBSDKCoreKit: f442aa96179cc9b382bb4abeb7e340a47cca8f91
-  FBSDKLoginKit: c3079d9a4db27c492287b1eed7a4272b28cf8a59
-  FBSDKShareKit: 27d7b982e7b1f4638da2f2b1ab6eba5afc6b5888
+  FBSDKCoreKit: e7dcac0aabcfb09d0166998edd95fe3b05a0ce5d
+  FBSDKLoginKit: 1b0cf04df0370b37404213157b060d6666ede814
+  FBSDKShareKit: abc29e1bb4f9f59f679adf1ae191006d68455f96
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAnalyticsInterop: d48b6ab67bcf016a05e55b71fc39c61c0cb6b7f3
@@ -204,6 +204,6 @@ SPEC CHECKSUMS:
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   UnityAds: ff7c0f477873f40daccd7c0bd0b656cb6cf5a2e5
 
-PODFILE CHECKSUM: 976ffc7900d2a996b2755a062fe7c5779bb57a56
+PODFILE CHECKSUM: 102a0bc7ef62d33a3eb522ae861ac8dab6e41bce
 
 COCOAPODS: 1.8.3
