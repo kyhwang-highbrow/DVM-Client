@@ -894,8 +894,13 @@ end
 -- function makeEffect
 -- @breif 대상에게 생성되는 추가 이펙트 생성
 -------------------------------------
-function Skill:makeEffect(res, x, y, ani_name, cb_function)
-	local effect = SkillHelper:makeEffect(self.m_world, res, x, y, ani_name, cb_function)
+function Skill:makeEffect(res, x, y, ani_name, cb_function, attr)
+    local effect
+    if (attr) then
+        effect = SkillHelper:makeEffect_withAttrAni(self.m_world, res, x, y, ani_name, cb_function, attr)
+    else
+        effect = SkillHelper:makeEffect(self.m_world, res, x, y, ani_name, cb_function)
+    end
 	return effect
 end
 
