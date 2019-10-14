@@ -71,7 +71,8 @@ function AdMobManager:initRewardedVideoAd()
 
         -- sgkim 20190429 AdMob의 광고 로드가 비정상 종료에 영향을 준다고 판단하여 프리로드 하지 않도록 변경
         -- @sgkim 2019.10.08 문제가 발생되는 aos 7.0이상에서는 광고를 재생하고 있지 않기 때문에 다시 프리로드를 하도록 변경
-        rewarded_video_ad:loadRequest(ADMOB_APP_AD_UNIT_ID)
+        -- @sgkim 2019.10.14 광고 프리로드를 하니 aos 7.0 미만에서도 크래시가 나는 것 같아 다시 비활성화
+        --rewarded_video_ad:loadRequest(ADMOB_APP_AD_UNIT_ID)
     end
 end
 
