@@ -1,5 +1,5 @@
 PODS:
-  - AdColony (3.3.6)
+  - AdColony (4.1.1)
   - Adjust (4.17.1):
     - Adjust/Core (= 4.17.1)
   - Adjust/Core (4.17.1)
@@ -67,9 +67,6 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleMobileAdsMediationAdColony (3.3.6.1):
-    - AdColony (= 3.3.6)
-    - Google-Mobile-Ads-SDK (>= 7.41.0)
   - GoogleMobileAdsMediationTapjoy (12.2.0.0):
     - Google-Mobile-Ads-SDK (>= 7.10.1)
     - TapjoySDK (= 12.2.0)
@@ -120,7 +117,7 @@ PODS:
   - UnityAds (3.0.0)
 
 DEPENDENCIES:
-  - AdColony (= 3.3.6)
+  - AdColony (= 4.1.1)
   - Adjust (= 4.17.1)
   - Crashlytics (= 3.12.0)
   - Fabric (= 1.9.0)
@@ -131,7 +128,6 @@ DEPENDENCIES:
   - Firebase/Core (= 5.15.0)
   - Firebase/Messaging (= 5.15.0)
   - Google-Mobile-Ads-SDK
-  - GoogleMobileAdsMediationAdColony
   - GoogleMobileAdsMediationTapjoy
   - GoogleMobileAdsMediationUnity
   - GoogleSignIn (= 4.4.0)
@@ -158,7 +154,6 @@ SPEC REPOS:
     - FirebaseMessaging
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
-    - GoogleMobileAdsMediationAdColony
     - GoogleMobileAdsMediationTapjoy
     - GoogleMobileAdsMediationUnity
     - GoogleSignIn
@@ -173,7 +168,7 @@ SPEC REPOS:
     - UnityAds
 
 SPEC CHECKSUMS:
-  AdColony: 68473450de30de67154675c3512353a55c8f97cc
+  AdColony: bc18ed5b7cd138b547f602e9da1572b0140396ee
   Adjust: b1f2b0e0b426fa991d69ed7fc9de806cf6dff5a6
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
@@ -190,7 +185,6 @@ SPEC CHECKSUMS:
   FirebaseMessaging: b412996f6a09337d232bb3a6676ce4d1f353d024
   Google-Mobile-Ads-SDK: 101ce89b94fdf60ec64ba7b6e9b9d812dc765936
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
-  GoogleMobileAdsMediationAdColony: 956b663edf7b77d83780b71fc89a2b74f9b9b0ef
   GoogleMobileAdsMediationTapjoy: ccd3b1807929fd527235751faa6ff43dbf989289
   GoogleMobileAdsMediationUnity: aa6a9324d081f8447d27b94d1f1abc0351e43420
   GoogleSignIn: 7ff245e1a7b26d379099d3243a562f5747e23d39
@@ -204,6 +198,6 @@ SPEC CHECKSUMS:
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   UnityAds: ff7c0f477873f40daccd7c0bd0b656cb6cf5a2e5
 
-PODFILE CHECKSUM: 102a0bc7ef62d33a3eb522ae861ac8dab6e41bce
+PODFILE CHECKSUM: 7900d1d32d7b2b4bab8f093dd6c16e355ab93358
 
 COCOAPODS: 1.8.3

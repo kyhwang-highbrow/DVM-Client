@@ -34,12 +34,18 @@ target 'DragonVillageM iOS' do
     # Pods for AdMob
     pod 'Google-Mobile-Ads-SDK'#, '= 7.37.0'
     pod 'GoogleMobileAdsMediationUnity'#, '= 3.0.0.0'
-    pod 'GoogleMobileAdsMediationAdColony'#, '= 3.3.6.0'
+    #AdColony 4.1.1에 해당하는 AdMob SDK 버전이 없어서 미디에이션에서 제외
+    # https://cocoapods.org/pods/GoogleMobileAdsMediationAdColony
+    #pod 'GoogleMobileAdsMediationAdColony'#, '= 3.3.6.0'
     pod 'GoogleMobileAdsMediationTapjoy'
     # Pods for UnityAds
     pod 'UnityAds', '= 3.0.0'
+    
     # Pods for AdColony
-    pod 'AdColony', '= 3.3.6'
+    # https://github.com/AdColony/AdColony-iOS-SDK
+    # https://github.com/AdColony/AdColony-iOS-SDK/blob/master/CHANGELOG.md
+    # sgkim 2019.10.14 (3.3.6 -> 4.1.1)
+    pod 'AdColony', '= 4.1.1'
 
 
     ## STATISTIC
