@@ -4234,6 +4234,18 @@
     <None Include="..\src\UI_NestDungeonSelectingListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarListScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarLobby.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_MatchReadyClanWar.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

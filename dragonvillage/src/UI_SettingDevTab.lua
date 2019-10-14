@@ -1007,7 +1007,8 @@ end
 -- function click_eggSimulBtn
 -------------------------------------
 function UI_Setting:click_eggSimulBtn()
-    UI_EggSimulator()
+    --UI_EggSimulator()
+    UI_ClanWarLobby()
 end
 
 -------------------------------------

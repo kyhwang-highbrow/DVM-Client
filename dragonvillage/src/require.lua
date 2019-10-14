@@ -1424,6 +1424,12 @@ local t_module = {
     'UI_HallOfFame',
 	'UI_HallOfFameRankListItem',
     'UI_HallOfFameRank',
+
+	-- 클랜전
+	'UI_ClanWarListItem',
+	'UI_ClanWarListScene',
+	'UI_ClanWarLobby',
+	'UI_MatchReadyClanWar',
 }
 
 -------------------------------------
