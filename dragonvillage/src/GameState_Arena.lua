@@ -411,13 +411,18 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState_Arena:makeResultUI(is_win)
+    local world = self.m_world
+    local stage_id = world.m_stageID
+    
     if (self.m_world.m_bDevelopMode) then
         local t_data = { added_rp = 0, added_honor = 0 }
         UI_ArenaResult(is_win, t_data)
 
     elseif (self.m_world.m_bFriendMatch) then
         UI_FriendMatchResultArena(is_win)
-
+    
+    elseif (stage_id == CLAN_WAR_STAGE_ID) then
+        UI_GameResult_ClanWar(is_win)
     else
         -- 작업 함수들
         local func_network_game_finish

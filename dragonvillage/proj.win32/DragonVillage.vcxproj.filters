@@ -4246,6 +4246,15 @@
     <None Include="..\src\UI_ClanWarListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SceneGameClanWar.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameState_ClanWar.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_GameResult_ClanWar.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

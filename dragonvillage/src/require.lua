@@ -414,6 +414,7 @@ local t_module = {
     'SceneSecretDungeon',
     'SceneGameIllusion',
     'SceneRuneGuardianDungeon',
+    'SceneGameClanWar',
 
     -- Phys
 	'PhysWorld',
@@ -1430,6 +1431,8 @@ local t_module = {
 	'UI_ClanWarListScene',
 	'UI_ClanWarLobby',
 	'UI_MatchReadyClanWar',
+    'UI_GameResult_ClanWar',
+    'GameState_ClanWar',
 }
 
 -------------------------------------
