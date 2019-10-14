@@ -354,6 +354,15 @@ function ServerData_Event:checkEventTime(start_date, end_date)
     if (end_date ~= '' or end_date) then
         local parse_end_date = parser:parse(end_date)
         if (parse_end_date) then
+
+            -- @sgkim 2019.10.14 time값이 nil이 들어오는 경우가 있다.
+            --                   파악된 사항으로는 너무 큰 날짜가 들어올 경우 변수 타입이 오버플로우 되어 nil이 되는 경우가 있는 것 같다.
+            --                   현재 우리가 사용하는 값은 충분히 안전한 날짜임에도 nil이 되는 경우가 있어 불가피하게 예외처리를 한다.
+            if (parse_end_date['time'] == nil) then
+                -- 종료 날짜가 지정되었지만 해당 time(stamp)값을 알 수 없기 때문에 이 이벤트는 비활성화로 간주한다.
+                return false
+            end
+
             end_time = parse_end_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
         end
     end
