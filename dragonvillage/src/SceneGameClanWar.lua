@@ -77,7 +77,7 @@ end
 -- function makeGameState
 -- @brief
 -------------------------------------
-function SceneGameArena:makeGameState(game_world)
+function SceneGameClanWar:makeGameState(game_world)
     return GameState_ClanWar(game_world)
 end
 
