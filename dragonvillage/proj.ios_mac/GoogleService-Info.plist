@@ -11,7 +11,7 @@
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.983890984134-krrfuti1qgk3k09j87gobkq96322v48v</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>983890984134-bu6qcl70aldkj2tudkavoufae0sao0ot.apps.googleusercontent.com</string>
+	<string>983890984134-si8rumar1lgk3ehb9rpl160lcv320b6p.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBlkzvs8yz7s56tGQnSWBJMPjrinlDdgqE</string>
 	<key>GCM_SENDER_ID</key>
@@ -25,18 +25,20 @@
 	<key>STORAGE_BUCKET</key>
 	<string>dragonvillagem-36213842.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:983890984134:ios:b913a5f60540f02b</string>
 	<key>DATABASE_URL</key>
 	<string>https://dragonvillagem-36213842.firebaseio.com</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-9497777061019569~6778068791</string>
 </dict>
 </plist>

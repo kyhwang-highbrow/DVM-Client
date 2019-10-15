@@ -8,9 +8,9 @@ target 'DragonVillageM iOS' do
     # Pods for DragonVillageM iOS
     
     # Pods for Firebase
-    pod 'Firebase/Core', '= 5.15.0'
-    pod 'Firebase/Auth', '= 5.15.0'
-    pod 'Firebase/Messaging', '= 5.15.0'
+    pod 'Firebase/Core', '= 6.10.0'
+    pod 'Firebase/Auth', '= 6.10.0'
+    pod 'Firebase/Messaging', '= 6.10.0'
 
     # Pods for Crashlytics
     pod 'Fabric', '= 1.9.0'
@@ -32,12 +32,12 @@ target 'DragonVillageM iOS' do
 
     ## ADS
     # Pods for AdMob
-    pod 'Google-Mobile-Ads-SDK'#, '= 7.37.0'
-    pod 'GoogleMobileAdsMediationUnity'#, '= 3.0.0.0'
+    pod 'Google-Mobile-Ads-SDK'#, '= 7.50.0'
+    pod 'GoogleMobileAdsMediationUnity'#, '= 3.0.0.3'
     #AdColony 4.1.1에 해당하는 AdMob SDK 버전이 없어서 미디에이션에서 제외
     # https://cocoapods.org/pods/GoogleMobileAdsMediationAdColony
     #pod 'GoogleMobileAdsMediationAdColony'#, '= 3.3.6.0'
-    pod 'GoogleMobileAdsMediationTapjoy'
+    pod 'GoogleMobileAdsMediationTapjoy'#, '=12.3.3.0'
     # Pods for UnityAds
     pod 'UnityAds', '= 3.0.0'
     
@@ -56,7 +56,7 @@ target 'DragonVillageM iOS' do
     # @sgkim 20190919 adbrix 정책 변경으로 인해 더이상 사용하지 않게되어 제거
 
     # Pods for Tapjoy
-    pod 'TapjoySDK'#, '= 12.2.0'
+    pod 'TapjoySDK'#, '= 12.3.3'
     # Pods for Adjust
     pod 'Adjust', '= 4.17.1'
 end
