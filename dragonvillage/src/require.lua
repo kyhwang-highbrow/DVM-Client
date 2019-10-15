@@ -1433,6 +1433,9 @@ local t_module = {
 	'UI_MatchReadyClanWar',
     'UI_GameResult_ClanWar',
     'GameState_ClanWar',
+    'UI_ClanWarTournamentTree',
+    'UI_ClanWarTeamChart',
+    'Serverdata_ClanWar',
 }
 
 -------------------------------------

@@ -37,6 +37,7 @@ function UI_ClanWarLobby:initButton()
 	local vars = self.vars
 
 	vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['tournamentTreeBtn']:registerScriptTapHandler(function() self:click_tournamentTreeBtn() end)
 end
 
 -------------------------------------
@@ -44,4 +45,12 @@ end
 -------------------------------------
 function UI_ClanWarLobby:click_startBtn()
 	UI_ClanWarListScene()
+end
+
+-------------------------------------
+-- function click_tournamentTreeBtn
+-------------------------------------
+function UI_ClanWarLobby:click_tournamentTreeBtn()
+	UI_ClanWarTournamentTree()
+    --UI_ClanWarTeamChart()
 end
