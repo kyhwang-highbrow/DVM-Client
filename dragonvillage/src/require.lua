@@ -118,6 +118,7 @@ local t_module = {
     'StructDeck', -- 덱(팀) 정보를 관리하는 구조체
     'StructTabUI',
     'StructRankReward',
+    'StructClanWarLeague',
 
 	-- ServerData
     'ServerData',
@@ -195,6 +196,7 @@ local t_module = {
     'ServerData_EventAdvent', -- 깜짝 출현 이벤트
     'Serverdata_IllusionDungeon', -- 환상 던전 이벤트
     'ServerData_RemoteConfig', -- 원격 설정
+    'ServerData_ClanWar',
 
 
     -- Interface
@@ -460,6 +462,7 @@ local t_module = {
     'GameState_ChallengeMode',
     'GameState_RuneGuardianDungeon',
     'GameState_Illusion',
+    'GameState_ClanWar',
     'GameAuto',
     'GameAuto_Hero',
     'GameAuto_Enemy',
@@ -925,6 +928,7 @@ local t_module = {
     'UI_PurchasePointListItem',
     'UI_MatchReady',
     'UI_MatchReadyChallengeMode',
+    'UI_MatchReadyClanWar',
     'UI_RuneGuardianDungeonScene',
     'UI_AncientTowerBestDeckListItem',
     'UI_AncientTowerBestDeckPopup',
@@ -1110,6 +1114,7 @@ local t_module = {
     'UI_GameResult_AncientRuin',
     'UI_GameResult_RuneGuardianDungeon',
     'UI_GameResult_Illusion',
+    'UI_GameResult_ClanWar',
     'UI_GamePause',
     'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',
@@ -1385,6 +1390,13 @@ local t_module = {
     'UI_ClanBoardListItem',
     'UI_ClanBoardPopup_Write',
 
+    -- UI : 클랜전
+	'UI_ClanWarListItem',
+	'UI_ClanWarListScene',
+	'UI_ClanWarLobby',
+    'UI_ClanWarTournamentTree',
+    'UI_ClanWarTeamChart',
+
     -- Forest
     'SceneForest',
     'UI_Forest',
@@ -1425,17 +1437,6 @@ local t_module = {
     'UI_HallOfFame',
 	'UI_HallOfFameRankListItem',
     'UI_HallOfFameRank',
-
-	-- 클랜전
-	'UI_ClanWarListItem',
-	'UI_ClanWarListScene',
-	'UI_ClanWarLobby',
-	'UI_MatchReadyClanWar',
-    'UI_GameResult_ClanWar',
-    'GameState_ClanWar',
-    'UI_ClanWarTournamentTree',
-    'UI_ClanWarTeamChart',
-    'Serverdata_ClanWar',
 }
 
 -------------------------------------

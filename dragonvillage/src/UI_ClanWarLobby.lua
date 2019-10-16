@@ -51,6 +51,6 @@ end
 -- function click_tournamentTreeBtn
 -------------------------------------
 function UI_ClanWarLobby:click_tournamentTreeBtn()
-	UI_ClanWarTournamentTree()
-    --UI_ClanWarTeamChart()
+	--UI_ClanWarTournamentTree()
+    UI_ClanWarTeamChart()
 end

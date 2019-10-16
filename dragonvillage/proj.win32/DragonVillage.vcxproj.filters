@@ -4264,6 +4264,9 @@
     <None Include="..\src\Serverdata_ClanWar.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StructClanWarLeague.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
