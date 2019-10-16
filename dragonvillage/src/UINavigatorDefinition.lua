@@ -1866,8 +1866,83 @@ function UINavigatorDefinition:goTo_hell_of_fame(...)
     g_rankData:request_HallOfFameRank(type, limit, offset, cb_func)
 end
 
+-------------------------------------
+-- function goTo_clan_war
+-- @brief 클랜전으로 이동
+-- @usage UINavigatorDefinition:goTo('goTo_clan_war')
+-------------------------------------
+function UINavigatorDefinition:goTo_clan_war(...)
+    local args = {...}
+    local stage = args[1]
 
+	-- 클랜 가입이 되지 않은 상태에서 진입시에
+    if (g_clanData:isClanGuest()) then
+        local msg = Str('소속된 클랜이 없습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
 
+    -- 클랜전 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        ui:refresh(true)
+        return
+    end
+        
+    local function finish_cb()
+        -- 오픈 상태 여부 체크
+        if (not g_clanRaidData:isOpenClanRaid()) then
+            local msg = Str(g_clanRaidData:getClanRaidStatusText())
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+		end
+
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('clan') -- 전투 메뉴에서 tab의 이름이 'clan'이다.
+            ui:resetButtonsPosition()
+            UI_ClanWarLobby()
+            return
+        end
+
+        -- 클랜 UI가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            UI_ClanWarLobby()
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            UI_ClanWarLobby()
+            return
+        end
+
+        do-- Scene으로 클랜 던전 UI 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_ClanWarLobby, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 클랜 정보 요청
+    local stage_id = nil
+    --g_clanRaidData:request_info(stage_id, finish_cb, fail_cb)
+	finish_cb()
+end
 
 
 

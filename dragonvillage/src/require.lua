@@ -1396,7 +1396,7 @@ local t_module = {
 	'UI_ClanWarListScene',
 	'UI_ClanWarLobby',
     'UI_ClanWarTournamentTree',
-    'UI_ClanWarTeamChart',
+    'UI_ClanWarLeague',
 
     -- Forest
     'SceneForest',

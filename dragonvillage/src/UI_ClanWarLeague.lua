@@ -1,15 +1,15 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_ClanWarTeamChart
+-- class UI_ClanWarLeague
 -------------------------------------
-UI_ClanWarTeamChart = class(PARENT, {
+UI_ClanWarLeague = class(PARENT, {
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarTeamChart:init()
+function UI_ClanWarLeague:init()
     local vars = self:load('clan_war_tournament_tree.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -17,7 +17,7 @@ function UI_ClanWarTeamChart:init()
     self:sceneFadeInAction()
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarTeamChart')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeague')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -32,21 +32,21 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_ClanWarTeamChart:initButton()
+function UI_ClanWarLeague:initButton()
 	local vars = self.vars
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_ClanWarTeamChart:initUI()
+function UI_ClanWarLeague:initUI()
 	local vars = self.vars
 end
 
 -------------------------------------
 -- function setMatchList
 -------------------------------------
-function UI_ClanWarTeamChart:refresh(team)
+function UI_ClanWarLeague:refresh(team)
     local vars = self.vars
     local struct_clanwar_league = g_clanWarData:request_clanWarLeagueInfo(team)
 

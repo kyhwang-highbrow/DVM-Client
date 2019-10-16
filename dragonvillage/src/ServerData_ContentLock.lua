@@ -43,6 +43,16 @@ function ServerData_ContentLock:isContentLock(content_name)
         return not is_acitive
     end
 
+	-- [클랜전]
+	-- 1.클랜이 열려야 함 2.클랜에 가입되어 있어야함
+    local is_clan_open = self:isContentOepnByServer('clan')
+    if (content_name == 'clan_war') then
+        if (is_clan_open) then  
+            local is_guest = g_clanData:isClanGuest()
+            return is_guest
+        end
+		return true
+    end
 
     -- 테이블에 있어서 조건 검사해야하는 던전들 =====================
 

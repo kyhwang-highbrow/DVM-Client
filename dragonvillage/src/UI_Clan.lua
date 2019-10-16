@@ -176,6 +176,9 @@ function UI_Clan:initButton()
         vars['runeGuardianLockSprite']:setVisible(true)
     end
     vars['runeDungeonBtn']:registerScriptTapHandler(function() self:click_runeDungeonBtn() end)
+
+	-- 클랜전
+	vars['clanWarBtn']:registerScriptTapHandler(function() self:click_clanWarBtn() end)
 end
 
 -------------------------------------
@@ -690,6 +693,12 @@ function UI_Clan:onFocus(is_push)
     end
 end
 
+-------------------------------------
+-- function click_clanWarBtn
+-------------------------------------
+function UI_Clan:click_clanWarBtn()
+	UINavigatorDefinition:goTo('clan_war')
+end
 
 --@CHECK
 UI:checkCompileError(UI_Clan)

@@ -4255,9 +4255,6 @@
     <None Include="..\src\UI_GameResult_ClanWar.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ClanWarTeamChart.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ClanWarTournamentTree.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4269,6 +4266,9 @@
     </None>
     <None Include="..\src\StructClanWarTournament.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarLeague.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
