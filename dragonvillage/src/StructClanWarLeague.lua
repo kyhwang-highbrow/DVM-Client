@@ -10,8 +10,6 @@ StructClanWarLeague = class({
     m_nMyClanTeam = 'number', -- n조
 })
 
-local THIS = StructClanWarLeague
-
 -------------------------------------
 -- function init
 -------------------------------------

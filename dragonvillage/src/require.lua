@@ -119,6 +119,7 @@ local t_module = {
     'StructTabUI',
     'StructRankReward',
     'StructClanWarLeague',
+    'StructClanWarTournament',
 
 	-- ServerData
     'ServerData',

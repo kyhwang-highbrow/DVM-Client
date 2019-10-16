@@ -43,9 +43,9 @@ end
 function UI_ClanWarTournamentTree:initUI()
 	local vars = self.vars
     
-    -- 임시
-    for i = 1, 6 do
-        self:setTournament(i)
+	local l_round = {2, 4 ,8, 16, 32, 64}
+	for _, round in ipairs(l_round) do
+        self:setTournament(round)
     end
 end
 
@@ -79,12 +79,12 @@ function UI_ClanWarTournamentTree:setTournament(round)
 
     local size_y = size.height - target_size.height
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_BOTH)
-    local total_team = 64
-    
-    total_team = total_team/2^(round-1)
+    local struct_clanwar_tournament = g_clanWarData:request_clanWarTournamentTree()
+    local total_team = round
+    local l_tournament = struct_clanwar_tournament:getRoundInfo(round)
+
     -- 결승
-    for i = 1, total_team do
-        round = round
+    for i, data in ipairs(l_tournament) do
         local ui = UI()
         ui:load('clan_war_tournament_tree_item.ui')
         local pos_x = -500 + (round-1) * 150
