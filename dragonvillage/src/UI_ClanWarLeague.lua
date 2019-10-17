@@ -212,14 +212,18 @@ function UI_ClanWarLeagueMatchListItem:init(data)
 
     local struct_clan_rank_a = data['clanA']['clan_info']
     local struct_clan_rank_b = data['clanB']['clan_info']
+
     local clan_name_a = struct_clan_rank_a:getClanName()
     local clan_name_b = struct_clan_rank_b:getClanName()
 
+    -- 클랜 이름
     vars['clanNameLabel1']:setString(clan_name_a)
     vars['clanNameLabel2']:setString(clan_name_b)
 
+    -- N 경기
     vars['dayLabel']:setString('MATCH ' .. data['day'])
 
+    -- 클랜 마크
     local icon_a = struct_clan_rank_a:makeClanMarkIcon()
     local icon_b = struct_clan_rank_b:makeClanMarkIcon()
     vars['clanMarkNode1']:addChild(icon_a)

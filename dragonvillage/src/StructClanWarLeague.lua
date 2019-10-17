@@ -4,6 +4,7 @@
 -------------------------------------
 StructClanWarLeague = class({
 	m_tClanInfo = 'list',
+    m_clanCnt = 'number',
     --[[
        ['clan_id'] = {
                 ['league_info'] = {
@@ -45,6 +46,8 @@ function StructClanWarLeague:init(data)
 	    end
     end
 
+    self.m_clanCnt = #l_league_info
+
     -- 클랜 정보
     local l_clan_info = data['clan_info']
 	if (not l_clan_info) then
@@ -68,6 +71,7 @@ function StructClanWarLeague:getClanWarLeagueList(day) -- 1일차 2일차 등등
 
     local t_order = {['A'] = 1, ['B'] = 2, ['C'] = 3, ['D'] = 4, ['E'] = 5, ['F'] = 6, ['G'] = 7, ['H'] = 8}
     local l_group = self:getMatchGroup(day)
+
 	for _, data in ipairs(l_group) do
         local l_group = pl.stringx.split(data, ';')
         if (l_group) then
@@ -105,12 +109,16 @@ function StructClanWarLeague:getMatchGroup(day) -- 1일차 2일차 등등...
         {
     --]]
     local table_clanwar_group = TABLE:get('table_clanwar_group')
-    t_clanwar_group = table_clanwar_group[day]
+    local clan_cnt = self.m_clanCnt
     local l_match = {}
     for group_idx = 1, 3 do
-        local str_group = t_clanwar_group['group_' .. group_idx] -- 'B;F'
-        if (str_group) then
-            table.insert(l_match, str_group)
+        local idx = clan_cnt * 10 + day
+        t_clanwar_group = table_clanwar_group[idx]
+        if (t_clanwar_group) then
+            local str_group = t_clanwar_group['group_' .. group_idx] -- 'B;F'
+            if (str_group) and (str_group ~= '') then
+                table.insert(l_match, str_group)
+            end
         end
     end
 

@@ -105,7 +105,7 @@ local TableInfo = {
 
         table_arena_rank = {'table_arena_rank', 'rank_id', false}, -- 콜로세움 랭킹 보상
 
-        table_clanwar_group = {'table_clanwar_group', 'day', true}, -- 클랜전 조별리그 매치 방식
+        table_clanwar_group = {'table_clanwar_group', 'idx', true}, -- 클랜전 조별리그 매치 방식
     }
 
 -------------------------------------
