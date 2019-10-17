@@ -3,10 +3,20 @@
 -- class StructClanWarLeague
 -------------------------------------
 StructClanWarLeague = class({
-	m_lClanId = 'list',
-	m_lWinInfo = 'list',
-	m_lRank = 'list',
-
+	m_tClanInfo = 'list',
+    --[[
+       ['clan_id'] = {
+                ['league_info'] = {
+                    ['lose_cnt']=0;
+                    ['id']='5da81c22970c6206220884f7';
+                    ['win_cnt']=0;
+                    ['league']=1;
+                    ['clan_id']='5a02e73b019add152c890157';
+                    ['group_no']=1;
+                    }
+                ['clan_info'] = StructClanRank()
+            }
+    --]]
     m_nMyClanTeam = 'number', -- n조
 })
 
@@ -14,49 +24,38 @@ StructClanWarLeague = class({
 -- function init
 -------------------------------------
 function StructClanWarLeague:init(data)
-	self.m_lClanId = {}
-	self.m_lWinInfo = {}
-	self.m_lRank = {}
+	self.m_tClanInfo = {}
 	
 	if (not data) then
 		return
 	end
 
-	local t_clan_id = data['clan_id']
-	if (not t_clan_id) then
+	local l_league_info = data['league_info']
+	if (not l_league_info) then
 		return
 	end
 
-	-- 클랜 정보
-	-- self.m_lclanId = {[클랜 넘버] = 클랜 Id, ...)
-	for clan_id, clan_number in pairs(t_clan_id) do
-		self.m_lClanId[clan_number] = clan_id
+	-- 클랜 리그 정보
+	-- [클랜 아이디] = 리그결과
+	for _, t_clan in ipairs(l_league_info) do
+        local clan_id = t_clan['clan_id']
+        if (clan_id) then
+            self.m_tClanInfo[clan_id] = {}
+		    self.m_tClanInfo[clan_id]['league_info'] = t_clan
+	    end
+    end
+
+    -- 클랜 정보
+    local l_clan_info = data['clan_info']
+	if (not l_clan_info) then
+		return
 	end
 
-	-- 이긴 정보
-	-- self.m_lwinInfo = {[win1] = {1, 4, 6}, ...) -- n 경기 = 이긴 클랜 넘버
-	for idx = 1, 6 do
-		self.m_lWinInfo[idx] = data['win' .. idx]
-	end
-
-	-- 랭크 정보
-	-- self.m_rank[idx] = {['clan_number'] = 5, ['clan_score'] = 400}, ...
-	local l_rank = data['rank']
-	if (l_rank) then
-		for idx = 1, 6 do
-			local str_score = l_rank[idx] or ''
-			local l_rank_info = plSplit(str_score, ';') or {}
-			self.m_lRank[idx] = {
-				['clan_number'] = l_rank_info[1] or 999,
-				['clan_score'] = l_rank_info[2] or 0 
-			}
-		end
-	end
-
-	local sort_func = function(a, b)
-		return a['clan_score']  < b['clan_score']
-	end
-	table.sort(self.m_lRank, sort_func)
+	for _, t_clan in ipairs(l_clan_info) do
+        local struct_clan_rank = StructClanRank(t_clan)
+        local clan_id = struct_clan_rank:getClanObjectID()
+        self.m_tClanInfo[clan_id]['clan_info'] = struct_clan_rank
+    end
 end
 
 -------------------------------------
@@ -72,10 +71,10 @@ function StructClanWarLeague:getClanWarLeagueList(day) -- 1일차 2일차 등등
 	for _, data in ipairs(l_group) do
         local l_group = pl.stringx.split(data, ';')
         if (l_group) then
-            local clan_number_1 = t_order[l_group[1]]
-            local t_clan_info_1 = self:getClanId(clan_number_1)
-            local clan_number_2 = t_order[l_group[2]]
-            local t_clan_info_2 = self:getClanId(clan_number_2)
+            local group_number_1 = t_order[l_group[1]]
+            local t_clan_info_1 = self:getClanInfo_byGroupNumber(group_number_1)
+            local group_number_2 = t_order[l_group[2]]
+            local t_clan_info_2 = self:getClanInfo_byGroupNumber(group_number_2)
             local t_match = {}
             t_match['clanA'] = t_clan_info_1
             t_match['clanB'] = t_clan_info_2
@@ -127,15 +126,33 @@ end
 -- @brief 랭킹 정보
 -------------------------------------
 function StructClanWarLeague:getClanWarLeagueRankList()
-	return self.m_lRank
+	local t_clan_info = self.m_tClanInfo
+    local l_clan_info = table.MapToList(t_clan_info)
+    
+    local sort_func = function(a, b)
+        local struct_clan_rank = a['clan_info']
+        local a_score = struct_clan_rank:getClanScore()
+
+        local struct_clan_rank = b['clan_info']
+        local b_score = struct_clan_rank:getClanScore()
+
+        return a_score < b_score
+    end
+
+    table.sort(l_clan_info, sort_func)
+
+    return l_clan_info
 end
 
 -------------------------------------
--- function getClanId
+-- function getClanInfo_byGroupNumber
 -------------------------------------
-function StructClanWarLeague:getClanId(clan_number)
-	local clan_number = tonumber(clan_number)
-	return self.m_lClanId[clan_number] or ''
+function StructClanWarLeague:getClanInfo_byGroupNumber(group_number)
+    for _, data in pairs(self.m_tClanInfo) do
+        if (group_number == data['league_info']['group_no']) then
+            return data
+        end
+    end
 end
 
 -------------------------------------
@@ -143,26 +160,4 @@ end
 -------------------------------------
 function StructClanWarLeague:getMyClanTeam()
     return self.m_nMyClanTeam
-end
-
--------------------------------------
--- function makeDummy
--------------------------------------
-function StructClanWarLeague.makeDummy()
-	local ret =
-	{
-		['clan_id'] = 
-		{
-			['1_clanid'] = 1, -- 클랜 id =  클랜 넘버
-			['2_clanid'] = 2,
-			['3_clanid'] = 3,
-			['4_clanid'] = 4,
-			['5_clanid'] = 5,
-			['6_clanid'] = 6,
-		},
-		['wins_1'] = {1, 3, 5}, -- n 경기에 이긴 클랜 넘버
-		['rank'] = {'1;200', '4;180', '3;120', '2;100', '5;80', '6;50'} -- 클랜넘버;클랜 점수
-	}
-	
-	return ret	
 end

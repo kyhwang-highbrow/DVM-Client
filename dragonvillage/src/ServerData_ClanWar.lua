@@ -69,20 +69,16 @@ end
 -------------------------------------
 -- function request_clanWarLeagueInfo
 -------------------------------------
-function ServerData_ClanWar:request_clanWarLeagueInfo(team)
-	local ret = StructClanWarLeague.makeDummy()
-
-    --local success_cb = function(ret)
-		return StructClanWarLeague(ret)
-    --end
-	--[[
+function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
+    local league = team or 1
     -- 유저 ID
     local uid = g_userData:get('uid')
     
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/clan_war/league_info')
+    ui_network:setUrl('/clanwar/info')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('league', league)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -92,6 +88,5 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team)
     ui_network:request()
 
     return ui_network
-	--]]
 end
 

@@ -49,9 +49,6 @@ function UI_ClanWarLeague:setRankList()
 	
     -- 랭크 출력
 	local l_rank = struct_clanwar_league:getClanWarLeagueRankList()
-	for rank, data in ipairs(l_rank) do
-        table.insert(l_rank_item, {['clan_number'] =  data['clan_number'], ['rank'] = rank})
-	end
 
     vars['rankListNode']:removeAllChildren()
 
@@ -60,7 +57,7 @@ function UI_ClanWarLeague:setRankList()
     table_view:setCellUIClass(UI_ClanWarLeagueRankListItem)
     table_view.m_defaultCellSize = cc.size(460, 65)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_rank_item, false)
+    table_view:setItemList(l_rank, false)
 end
 
 -------------------------------------
@@ -76,6 +73,7 @@ function UI_ClanWarLeague:setMatchList()
         -- 경기 리스트 출력
 	    local l_league = struct_clanwar_league:getClanWarLeagueList(day)
 	    for _, data in ipairs(l_league) do
+            data['day'] = day
 	    	table.insert(l_match, data)
 	    end  
     end
@@ -124,13 +122,15 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_ClanWarLeague:refresh(team)
-    local struct_clanwar_league = g_clanWarData:request_clanWarLeagueInfo(team)
-    
-    self.m_structLeague = struct_clanwar_league
-    
-    self:setRankList()
-    self:setMatchList()
+function UI_ClanWarLeague:refresh(team)    
+    local success_cb = function(ret)
+        self.m_structLeague = StructClanWarLeague(ret)
+        
+        self:setRankList()
+        self:setMatchList()
+    end
+
+    g_clanWarData:request_clanWarLeagueInfo(team, success_cb)
 end
 
 
@@ -179,15 +179,18 @@ UI_ClanWarLeagueRankListItem = class(PARENT, {
 -------------------------------------
 function UI_ClanWarLeagueRankListItem:init(data)
     local vars = self:load('clan_war_lobby_item_rank.ui')
-    vars['winRoundLabel']:setString(1)
-    vars['clanNameLabel']:setString(data['clan_number'] .. '_clanid')
+    
 
-    vars['rankLabel']:setString(data['rank'])
+    local struct_clan_rank = data['clan_info']
+    local clan_name = struct_clan_rank:getClanName()
+    local clan_rank = struct_clan_rank:getClanRank()
+    local clan_score = struct_clan_rank:getClanScore()
+    vars['clanNameLabel']:setString(Str(clan_name))
+    vars['rankLabel']:setString(clan_rank)
+    vars['winRoundLabel']:setString(Str(clan_score))
 
-    --[[
-    vars['clanBtn']
-    vars['clanMarkNode']
-    --]]
+    local mark_icon = struct_clan_rank:makeClanMarkIcon()
+    vars['clanMarkNode']:addChild(mark_icon)
 end
 
 
@@ -206,6 +209,19 @@ UI_ClanWarLeagueMatchListItem = class(PARENT, {
 -------------------------------------
 function UI_ClanWarLeagueMatchListItem:init(data)
     local vars = self:load('clan_war_lobby_item_league.ui')
-    vars['clanNameLabel1']:setString(data['clanA'])
-    vars['clanNameLabel2']:setString(data['clanB'])
+
+    local struct_clan_rank_a = data['clanA']['clan_info']
+    local struct_clan_rank_b = data['clanB']['clan_info']
+    local clan_name_a = struct_clan_rank_a:getClanName()
+    local clan_name_b = struct_clan_rank_b:getClanName()
+
+    vars['clanNameLabel1']:setString(clan_name_a)
+    vars['clanNameLabel2']:setString(clan_name_b)
+
+    vars['dayLabel']:setString('MATCH ' .. data['day'])
+
+    local icon_a = struct_clan_rank_a:makeClanMarkIcon()
+    local icon_b = struct_clan_rank_b:makeClanMarkIcon()
+    vars['clanMarkNode1']:addChild(icon_a)
+    vars['clanMarkNode2']:addChild(icon_b)
 end
