@@ -248,7 +248,7 @@ function ServerData:getInstance()
     g_illusionDungeonData = Serverdata_IllusionDungeon()
 
     -- 클랜전
-    g_clanWarData = Serverdata_ClanWar()
+    g_clanWarData = ServerData_ClanWar()
 
     -- 원격 설정
     g_remoteConfig = ServerData_RemoteConfig()
