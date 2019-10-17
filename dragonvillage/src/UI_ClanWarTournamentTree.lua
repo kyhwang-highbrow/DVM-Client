@@ -43,16 +43,16 @@ end
 function UI_ClanWarTournamentTree:initUI()
 	local vars = self.vars
     
-	local l_round = {2, 4 ,8, 16, 32, 64}
-	for _, round in ipairs(l_round) do
-        self:setTournament(round)
+	local l_round = {64, 32, 16, 8, 4, 2}
+	for idx, round in ipairs(l_round) do
+        self:setTournament(idx, round)
     end
 end
 
 -------------------------------------
 -- function setTournament
 -------------------------------------
-function UI_ClanWarTournamentTree:setTournament(round)
+function UI_ClanWarTournamentTree:setTournament(idx, round)
     local scroll_node = self.vars['scrollNode']
     local scroll_menu = self.vars['scrollMenu']
 
@@ -82,20 +82,48 @@ function UI_ClanWarTournamentTree:setTournament(round)
     local struct_clanwar_tournament = g_clanWarData:request_clanWarTournamentTree()
     local total_team = round
     local l_tournament = struct_clanwar_tournament:getRoundInfo(round)
-
-    -- 결승
+    
     for i, data in ipairs(l_tournament) do
-        local ui = UI()
-        ui:load('clan_war_tournament_tree_item.ui')
-        local pos_x = -500 + (round-1) * 150
+        local ui = UI_ClanWarTournamentTreeListItem()
+        ui.vars['clanNameLabel1']:setString(data['1_clanid'])
+        ui.vars['clanNameLabel2']:setString(data['2_clanid'])
+        ui.vars['rankLabel']:setString(i)
+        local pos_x = -500 + (idx-1) * 300
         local pos_y = 750
         local idx_y = i
         if (i > total_team/2) then
-            pos_x = 350 + (350 - pos_x)
+            pos_x = 1150 + (1150 - pos_x)
             idx_y = i - total_team/2
         end
 
-        ui.root:setPosition(pos_x, pos_y - 50 * idx_y)
+        ui.root:setPosition(pos_x, pos_y - 100 * idx_y)
         scroll_menu:addChild(ui.root)
     end
+end
+
+
+
+
+
+
+local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+-------------------------------------
+-- class UI_ClanWarTournamentTreeListItem
+-------------------------------------
+UI_ClanWarTournamentTreeListItem = class(PARENT, {
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarTournamentTreeListItem:init(data)
+    local vars = self:load('clan_war_rank_tournament_item_01.ui')
+    if (not data) then
+        return
+    end
+    
+    vars['rankLabel']:setString(data['rank'])
+    vars['clanNameLabel1']:setString(data['clan_name1'])
+    vars['clanNameLabel2']:setString(data['clan_name2'])
 end
