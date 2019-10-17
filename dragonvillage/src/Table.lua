@@ -104,6 +104,8 @@ local TableInfo = {
 		table_halloffame_rank = {'table_halloffame_rank', 'rank_id', false}, -- 명예의 전당 도움말 테이블
 
         table_arena_rank = {'table_arena_rank', 'rank_id', false}, -- 콜로세움 랭킹 보상
+
+        table_clanwar_group = {'table_clanwar_group', 'day', true}, -- 클랜전 조별리그 매치 방식
     }
 
 -------------------------------------

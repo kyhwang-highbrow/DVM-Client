@@ -64,23 +64,62 @@ end
 -- @brief 날짜별 진행되는 경기 정보
 -------------------------------------
 function StructClanWarLeague:getClanWarLeagueList(day) -- 1일차 2일차 등등...
-	local l_clan = self.m_lClanId or {}
 	local l_match = {}
     local day = day or 1
 
-	for idx = 1, 6 do
-        local cur_idx = idx + day
-		local t_clan = {}
-		t_clan['clan_A'] = l_clan[cur_idx]
-		local next_idx = cur_idx + 1
-		if (next_idx > 6) then
-			next_idx = next_idx - 6
-		end
-		t_clan['clan_B'] = l_clan[next_idx]
-		table.insert(l_match, t_clan)
-	end
-
+    local t_order = {['A'] = 1, ['B'] = 2, ['C'] = 3, ['D'] = 4, ['E'] = 5, ['F'] = 6, ['G'] = 7, ['H'] = 8}
+    local l_group = self:getMatchGroup(day)
+	for _, data in ipairs(l_group) do
+        local l_group = pl.stringx.split(data, ';')
+        if (l_group) then
+            local clan_number_1 = t_order[l_group[1]]
+            local t_clan_info_1 = self:getClanId(clan_number_1)
+            local clan_number_2 = t_order[l_group[2]]
+            local t_clan_info_2 = self:getClanId(clan_number_2)
+            local t_match = {}
+            t_match['clanA'] = t_clan_info_1
+            t_match['clanB'] = t_clan_info_2
+            table.insert(l_match, t_match)
+        end
+    end
 	return l_match
+end
+
+-------------------------------------
+-- function getMatchGroup
+-- @brief 날짜별 진행되는 경기 정보
+-------------------------------------
+function StructClanWarLeague:getMatchGroup(day) -- 1일차 2일차 등등...
+    --[[
+        {
+                ['day']=1;
+                ['group_2']='C;D';
+                ['group_3']='E;F';
+                ['group_1']='A;B';
+        };
+        {
+                ['day']=2;
+                ['group_2']='B;F';
+                ['group_3']='D;E';
+                ['group_1']='A;C';
+        };
+        {
+    --]]
+    local table_clanwar_group = TABLE:get('table_clanwar_group')
+    t_clanwar_group = table_clanwar_group[day]
+    local l_match = {}
+    for group_idx = 1, 3 do
+        local str_group = t_clanwar_group['group_' .. group_idx] -- 'B;F'
+        if (str_group) then
+            table.insert(l_match, str_group)
+        end
+    end
+
+    --[[
+        -- @OUTPUT
+        {'A;B', 'E;F', 'C;D'}
+    --]]
+    return l_match
 end
 
 -------------------------------------
