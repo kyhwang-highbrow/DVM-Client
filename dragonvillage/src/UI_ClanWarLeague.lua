@@ -1,32 +1,22 @@
-local PARENT = UI
-
 -------------------------------------
 -- class UI_ClanWarLeague
 -------------------------------------
-UI_ClanWarLeague = class(PARENT, {
+UI_ClanWarLeague = class({
+        m_teamCnt = 'number',
+        vars = ''
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarLeague:init()
-    local vars = self:load('clan_war_tournament_tree.ui')
-    UIManager:open(self, UIManager.POPUP)
-
-    -- 씬 전환 효과
-    self:sceneFadeInAction()
-
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeague')
-
-    -- @UI_ACTION
-    self:doActionReset()
-    self:doAction(nil, false)
-
-	-- 초기화
+function UI_ClanWarLeague:init(vars)
+    self.vars = vars
+    self.m_teamCnt = 32 -- 임시
+	
+    -- 초기화
     self:initUI()
     self:initButton()
-    self:refresh()
+    --self:refresh()
 end
 
 -------------------------------------
@@ -41,6 +31,46 @@ end
 -------------------------------------
 function UI_ClanWarLeague:initUI()
 	local vars = self.vars
+    
+    self:setScrollButton()
+    self:setRankList()
+    self:setMatchList()
+end
+
+-------------------------------------
+-- function setRankList
+-------------------------------------
+function UI_ClanWarLeague:setRankList()
+    local vars = self.vars
+    --vars['rankListNode']
+end
+
+-------------------------------------
+-- function setMatchList
+-------------------------------------
+function UI_ClanWarLeague:setMatchList()
+    local vars = self.vars
+    --vars['rankListNode']
+end
+
+-------------------------------------
+-- function setScrollButton
+-------------------------------------
+function UI_ClanWarLeague:setScrollButton()
+    local vars = self.vars
+    local scroll_node = vars['tableViewNode']
+    local l_button = {}
+
+    for i = 1, self.m_teamCnt do
+        table.insert(l_button, {['idx'] = i})
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(scroll_node)
+    table_view:setCellUIClass(UI_ClanWarLeagueBtnListItem)
+    table_view.m_defaultCellSize = cc.size(110, 71)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setItemList(l_button, true)
 end
 
 -------------------------------------
@@ -73,4 +103,27 @@ function UI_ClanWarLeague:refresh(team)
 		str = str .. '\n'
 	end
 	vars['rankLabel']:setString(str)
+end
+
+
+
+
+
+
+
+
+local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+-------------------------------------
+-- class UI_ClanWarLobby
+-------------------------------------
+UI_ClanWarLeagueBtnListItem = class(PARENT, {
+     })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarLeagueBtnListItem:init(data)
+    local vars = self:load('clan_war_lobby_item_btn.ui')
+    vars['teamTabLabel']:setString(data['idx'] .. '조')
 end
