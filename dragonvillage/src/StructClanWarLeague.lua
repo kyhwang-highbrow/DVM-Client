@@ -181,3 +181,125 @@ end
 function StructClanWarLeague:getMyClanTeam()
     return self.m_nMyClanTeam
 end
+
+-------------------------------------
+-- function getMyClanTeamNumber
+-------------------------------------
+function StructClanWarLeague:getMyClanTeamNumber()
+    return self.m_nMyClanTeam or 1
+end
+
+-------------------------------------
+-- function isWin
+-- @return A가 B를 이겼다면 return true
+-------------------------------------189
+function StructClanWarLeague:isWin(a, b)
+    local league_info_a = StructClanWarLeague.getLeagueInfo(a)
+    local history_str = league_info_a['history']
+
+    if (not history_str) then
+        return -1
+    end
+
+    local league_info_b = StructClanWarLeague.getLeagueInfo(b)
+    local b_number = league_info_b['group_no']
+
+    local l_history = pl.stringx.split(history_str, ';')
+    for i, result_str in ipairs(l_history) do
+        l_data = pl.stringx.split(result_str, ',')
+        local memeber = l_data[1]
+        if (tostring(memeber) == tostring(b_number)) then
+            if (l_data[2] == '1') then
+                return 1
+            else
+                return 0
+            end
+        end 
+    end
+
+    return -1
+end
+
+-------------------------------------
+-- function getWinCount
+-------------------------------------
+function StructClanWarLeague.getWinCount(data)
+    local t_league = StructClanWarLeague.getLeagueInfo(data)
+    return t_league['win_cnt'] or 0
+end
+
+-------------------------------------
+-- function getLoseCount
+-------------------------------------
+function StructClanWarLeague.getLoseCount(data)
+    local t_league = StructClanWarLeague.getLeagueInfo(data)
+    return t_league['lose_cnt'] or 0
+end
+
+-------------------------------------
+-- function getLeagueInfo
+-------------------------------------
+function StructClanWarLeague.getLeagueInfo(data)
+    if (not data) then
+        return
+    end
+
+    if (not data['league_info']) then
+        return
+    end
+
+    return data['league_info']
+end
+
+-------------------------------------
+-- function getClanInfo
+-------------------------------------
+function StructClanWarLeague.getClanInfo(data)
+    if (not data) then
+        return
+    end
+
+    if (not data['clan_info']) then
+        return
+    end
+
+    return data['clan_info']
+end
+
+-------------------------------------
+-- function getClanId_byData
+-------------------------------------
+function StructClanWarLeague.getClanId_byData(data)
+    if (not data) then
+        return
+    end
+
+    if (not data['league_info']) then
+        return
+    end
+
+    if (not data['league_info']['clan_id']) then
+        return
+    end
+
+    return data['league_info']['clan_id']
+end
+
+-------------------------------------
+-- function getGroupNumber_byData
+-------------------------------------
+function StructClanWarLeague.getGroupNumber_byData(data)
+    if (not data) then
+        return
+    end
+
+    if (not data['league_info']) then
+        return
+    end
+
+    if (not data['league_info']['clan_id']) then
+        return
+    end
+
+    return data['league_info']['group_no']
+end

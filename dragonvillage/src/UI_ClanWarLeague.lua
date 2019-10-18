@@ -8,7 +8,8 @@ UI_ClanWarLeague = class({
         m_structLeague = 'StructClanWarLeague',
 
         m_selctedTeam = 'number',
-        m_scrollBtnTableView = 'TableView'
+        m_scrollBtnTableView = 'TableView',
+        m_todayMatch = 'number',
      })
 
 -------------------------------------
@@ -16,8 +17,9 @@ UI_ClanWarLeague = class({
 -------------------------------------
 function UI_ClanWarLeague:init(vars)
     self.vars = vars
-    self.m_teamCnt = 32 -- 임시
+    self.m_teamCnt = 16 -- 임시
 	self.m_selctedTeam = 1 -- 임시
+    self.m_todayMatch = 3
 
     -- 초기화
     self:initUI()
@@ -32,6 +34,7 @@ function UI_ClanWarLeague:initButton()
 	local vars = self.vars
 
     vars['startBtn']:registerScriptTapHandler(function() UI_MatchReadyClanWar() end)
+    vars['allRankTabBtn']:registerScriptTapHandler(function() self:click_allBtn() end)
 end
 
 -------------------------------------
@@ -45,10 +48,10 @@ end
 -------------------------------------
 -- function setRankList
 -------------------------------------
-function UI_ClanWarLeague:setRankList()
+function UI_ClanWarLeague:setRankList(struct_league)
     local vars = self.vars
     
-    local struct_clanwar_league = self.m_structLeague
+    local struct_clanwar_league = struct_league or self.m_structLeague
     local l_rank_item = {}
 	
     -- 랭크 출력
@@ -62,6 +65,7 @@ function UI_ClanWarLeague:setRankList()
     table_view.m_defaultCellSize = cc.size(460, 65)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank, false)
+    return table_view
 end
 
 -------------------------------------
@@ -83,7 +87,8 @@ function UI_ClanWarLeague:setMatchList()
     end
 
     local create_func = function(ui, data)
-        ui:setResult(1)
+        local is_win = struct_clanwar_league:isWin(ui.m_clanA, ui.m_clanB)
+        ui:setResult(is_win)
     end
 
     vars['leagueListNode']:removeAllChildren()
@@ -95,8 +100,10 @@ function UI_ClanWarLeague:setMatchList()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_match, false)
 
-    --table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-    --table_view:relocateContainerFromIndex(100)
+    local first_y = -446
+    local cnt_block = 3 * (self.m_todayMatch-1)
+    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    table_view.m_scrollView:setContentOffset(cc.p(0, first_y + 64*cnt_block), animated)
 end
 
 -------------------------------------
@@ -115,8 +122,8 @@ function UI_ClanWarLeague:setScrollButton()
         ui.vars['teamTabBtn']:getParent():setSwallowTouch(false)
         ui.vars['teamTabBtn']:registerScriptTapHandler(function()
             local team_idx = ui.m_idx
-            self:refresh(team_idx)
             self.m_selctedTeam = team_idx
+            self:refresh(team_idx)
         end)
     end
 
@@ -138,14 +145,65 @@ end
 function UI_ClanWarLeague:refresh(team)    
     local success_cb = function(ret)
         self.m_structLeague = StructClanWarLeague(ret)
+        --self.m_selctedTeam = self.m_structLeague:getMyClanTeamNumber()
+        self.m_todayMatch = ret['clanwar_day']
         
         self:setScrollButton()
         self:setRankList()
         self:setMatchList()
     end
 
-    g_clanWarData:request_clanWarLeagueInfo(team, success_cb)
+    g_clanWarData:request_clanWarLeagueInfo(team, success_cb) --team 을 nil로 요청하면 자신 클랜이 속한 조 정보가 내려옴
 end
+
+-------------------------------------
+-- function click_allBtn
+-------------------------------------
+function UI_ClanWarLeague:click_allBtn()
+    local success_cb = function(ret)
+        local l_struct_clan_war = {}
+        for _, data in ipairs(ret) do
+            table.insert(l_struct_clan_war,  StructClanWarLeague(data))
+        end
+        
+        self:setAllRank(l_struct_clan_war)
+    end    
+    g_clanWarData:request_clanWarLeagueInfo(99, success_cb) -- 모든 클랜 정보 요청
+end
+
+-------------------------------------
+-- function setAllRank
+-------------------------------------
+function UI_ClanWarLeague:setAllRank(l_struct_clan_war)
+    local vars = self.vars
+
+    vars['leagueListNode']:removeAllChildren()
+    vars['rankListNode']:removeAllChildren()
+
+    for i, struct_clan_war_league in ipairs(l_struct_clan_war) do
+        local table_view = self:setRankList(struct_clan_war_league)
+        table_view.m_node:setScale(0.5)
+        table_view.m_node:setPositionY(50)
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -201,10 +259,14 @@ function UI_ClanWarLeagueRankListItem:init(data)
     local struct_clan_rank = data['clan_info']
     local clan_name = struct_clan_rank:getClanName()
     local clan_rank = struct_clan_rank:getClanRank()
-    local clan_score = struct_clan_rank:getClanScore()
+
+    local clan_id = StructClanWarLeague.getClanId_byData(data)
+    local win_cnt = StructClanWarLeague.getWinCount(data)
+    local lose_cnt = StructClanWarLeague.getLoseCount(data)
+
     vars['clanNameLabel']:setString(Str(clan_name))
     vars['rankLabel']:setString(clan_rank)
-    vars['winRoundLabel']:setString(Str(clan_score))
+    vars['winRoundLabel']:setString(Str('{1} - {2}', win_cnt, lose_cnt))
 
     local mark_icon = struct_clan_rank:makeClanMarkIcon()
     vars['clanMarkNode']:addChild(mark_icon)
@@ -219,6 +281,8 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_ClanWarLeagueMatchListItem
 -------------------------------------
 UI_ClanWarLeagueMatchListItem = class(PARENT, {
+        m_clanA = '',
+        m_clanB = ''
      })
 
 -------------------------------------
@@ -241,7 +305,7 @@ end
 function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
      local vars = self.vars
      local clan_data = data['clan' .. idx]
-     
+
      local blank_clan = function()
         if (vars['clanNameLabel'..idx]) then
             vars['clanNameLabel'..idx]:setString('-')
@@ -274,6 +338,12 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
         if (vars['clanMarkNode'..idx]) then
             vars['clanMarkNode'..idx]:addChild(clan_icon)
         end
+    end
+
+    if (idx == 1) then
+        self.m_clanA = clan_data
+    else
+        self.m_clanB = clan_data
     end
 end
 
