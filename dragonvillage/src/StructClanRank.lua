@@ -142,6 +142,13 @@ function StructClanRank:getClanScore()
 end
 
 -------------------------------------
+-- function getClanScore_number
+-------------------------------------
+function StructClanRank:getClanScore_number()
+    return self['score'] or 0
+end
+
+-------------------------------------
 -- function getClanRate
 -------------------------------------
 function StructClanRank:getClanRate()

@@ -80,8 +80,8 @@ function StructClanWarLeague:getClanWarLeagueList(day) -- 1일차 2일차 등등
             local group_number_2 = t_order[l_group[2]]
             local t_clan_info_2 = self:getClanInfo_byGroupNumber(group_number_2)
             local t_match = {}
-            t_match['clanA'] = t_clan_info_1
-            t_match['clanB'] = t_clan_info_2
+            t_match['clan1'] = t_clan_info_1
+            t_match['clan2'] = t_clan_info_2
             table.insert(l_match, t_match)
         end
     end
@@ -134,15 +134,27 @@ end
 -- @brief 랭킹 정보
 -------------------------------------
 function StructClanWarLeague:getClanWarLeagueRankList()
-	local t_clan_info = self.m_tClanInfo
+	local t_clan_info = self.m_tClanInfo    
     local l_clan_info = table.MapToList(t_clan_info)
+
+    for idx, data in ipairs(l_clan_info) do
+        if (not data['clan_info']) then
+            table.remove(l_clan_info, idx)
+        end
+    end
     
     local sort_func = function(a, b)
         local struct_clan_rank = a['clan_info']
-        local a_score = struct_clan_rank:getClanScore()
+        local a_score = 0
+        if (struct_clan_rank) then
+            a_score = struct_clan_rank:getClanScore_number()
+        end
 
         local struct_clan_rank = b['clan_info']
-        local b_score = struct_clan_rank:getClanScore()
+        local b_score = 0
+        if (struct_clan_rank) then
+            b_score = struct_clan_rank:getClanScore_number()
+        end
 
         return a_score < b_score
     end
