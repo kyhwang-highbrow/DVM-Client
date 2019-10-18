@@ -8,9 +8,9 @@ target 'DragonVillageM iOS' do
     # Pods for DragonVillageM iOS
     
     # Pods for Firebase
-    pod 'Firebase/Core', '= 6.10.0'
-    pod 'Firebase/Auth', '= 6.10.0'
-    pod 'Firebase/Messaging', '= 6.10.0'
+    pod 'Firebase/Core'#, '= 6.10.0'
+    pod 'Firebase/Auth'#, '= 6.10.0'
+    pod 'Firebase/Messaging'#, '= 6.10.0'
 
     # Pods for Crashlytics
     pod 'Fabric', '= 1.9.0'
@@ -18,7 +18,7 @@ target 'DragonVillageM iOS' do
     
     ## SOCIAL
     # Pods for Google
-    pod 'GoogleSignIn', '= 4.4.0'
+    pod 'GoogleSignIn'#, '= 5.0.1'
     
     # Pods for Facebook
     # https://developers.facebook.com/docs/ios/
