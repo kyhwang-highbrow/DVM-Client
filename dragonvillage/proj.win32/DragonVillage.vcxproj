@@ -1008,6 +1008,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UIC_DragonAnimatorDirector_Summon.lua" />
     <None Include="..\src\UIC_EggPicker.lua" />
     <None Include="..\src\UIC_ExtendedUI.lua" />
+    <None Include="..\src\UIC_ExtendList.lua" />
     <None Include="..\src\UIC_Factory.lua" />
     <None Include="..\src\UIC_IndivisualStats.lua" />
     <None Include="..\src\UIC_LabelTTF.lua" />

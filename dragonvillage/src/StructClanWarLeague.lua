@@ -165,6 +165,48 @@ function StructClanWarLeague:getClanWarLeagueRankList()
 end
 
 -------------------------------------
+-- function getClanWarLeagueAllRankList
+-- @brief 랭킹 정보
+-------------------------------------
+function StructClanWarLeague:getClanWarLeagueAllRankList()
+	local t_clan_info = self.m_tClanInfo    
+    local t_rank_clan_info = {}
+	for _, data in pairs(t_clan_info) do
+		local league = StructClanWarLeague.getLeague(data)
+		if (not t_rank_clan_info[league]) then
+			t_rank_clan_info[league] = {}
+		end
+
+		if (data['clan_info']) then
+			table.insert(t_rank_clan_info[league], data)
+		end
+	end
+
+    
+    local sort_func = function(a, b)
+        local struct_clan_rank = a['clan_info']
+        local a_score = 0
+        if (struct_clan_rank) then
+            a_score = struct_clan_rank:getClanScore_number()
+        end
+
+        local struct_clan_rank = b['clan_info']
+        local b_score = 0
+        if (struct_clan_rank) then
+            b_score = struct_clan_rank:getClanScore_number()
+        end
+
+        return a_score < b_score
+    end
+
+	for _, l_data in pairs(t_rank_clan_info) do
+		table.sort(l_data, sort_func)
+	end
+
+    return t_rank_clan_info
+end
+
+-------------------------------------
 -- function getClanInfo_byGroupNumber
 -------------------------------------
 function StructClanWarLeague:getClanInfo_byGroupNumber(group_number)
@@ -192,7 +234,7 @@ end
 -------------------------------------
 -- function isWin
 -- @return A가 B를 이겼다면 return true
--------------------------------------189
+-------------------------------------
 function StructClanWarLeague:isWin(a, b)
     local league_info_a = StructClanWarLeague.getLeagueInfo(a)
     local history_str = league_info_a['history']
@@ -249,6 +291,18 @@ function StructClanWarLeague.getLeagueInfo(data)
     end
 
     return data['league_info']
+end
+
+-------------------------------------
+-- function getLeague
+-------------------------------------
+function StructClanWarLeague.getLeague(data)
+    local t_league = StructClanWarLeague.getLeagueInfo(data)
+	if (not t_league) then
+		return
+	end
+
+	return t_league['league']
 end
 
 -------------------------------------

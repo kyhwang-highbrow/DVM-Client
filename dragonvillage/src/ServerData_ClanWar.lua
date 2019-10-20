@@ -21,6 +21,8 @@ ServerData_ClanWar = class({
 
     -- ex)3조
     m_curClanTeam = 'number',
+
+	m_structClanWarLeague = 'StructClanWar', -- 추후 정리 예정
 })
 
 -------------------------------------
@@ -71,6 +73,13 @@ end
 -------------------------------------
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local league = team or 1
+	local finish_cb = function(ret)
+		if (league ~= 99) then 
+			self.m_structClanWarLeague = StructClanWarLeague(ret)
+		end
+		success_cb(ret)
+	end
+
     -- 유저 ID
     local uid = g_userData:get('uid')
     
@@ -80,7 +89,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('league', league)
     ui_network:setMethod('POST')
-    ui_network:setSuccessCB(success_cb)
+    ui_network:setSuccessCB(finish_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)

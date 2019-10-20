@@ -18,7 +18,7 @@ function UI_ClanWarLobby:init()
     self:sceneFadeInAction()
 
     -- backkey ÁöÁ¤
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLobby')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanWarLobby')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -37,4 +37,12 @@ function UI_ClanWarLobby:initUI()
     local vars = self.vars
     
     UI_ClanWarLeague(vars)
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_ClanWarLobby:click_exitBtn()
+    local scene = SceneLobby()
+    scene:runScene()
 end

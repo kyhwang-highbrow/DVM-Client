@@ -4270,6 +4270,9 @@
     <None Include="..\src\ServerData_ClanWar.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UIC_ExtendList.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

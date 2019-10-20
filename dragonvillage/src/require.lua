@@ -741,6 +741,7 @@ local t_module = {
     'UIC_RankingList',
     'UIC_ListExpansion',
     'UIC_ListExpansionItem',
+	'UIC_ExtendList',
 	
     -- UI : CARD
     'UI_Card',

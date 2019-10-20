@@ -50,13 +50,11 @@ end
 -------------------------------------
 function UI_ClanWarLeague:setRankList(struct_league)
     local vars = self.vars
-    
     local struct_clanwar_league = struct_league or self.m_structLeague
     local l_rank_item = {}
 	
     -- 랭크 출력
 	local l_rank = struct_clanwar_league:getClanWarLeagueRankList()
-
     vars['rankListNode']:removeAllChildren()
 
     -- 테이블 뷰 인스턴스 생성
@@ -74,36 +72,28 @@ end
 function UI_ClanWarLeague:setMatchList()
     local vars = self.vars
 
-    local struct_clanwar_league = self.m_structLeague
+	vars['leagueListNode2']:removeAllChildren()
 
+    local struct_clanwar_league = self.m_structLeague
+	local uic_extend_list_item = UIC_ExtendList()
     local l_match = {}
     for day = 1, 5 do
-        -- 경기 리스트 출력
-	    local l_league = struct_clanwar_league:getClanWarLeagueList(day)
-	    for _, data in ipairs(l_league) do
-            data['day'] = day
-	    	table.insert(l_match, data)
-	    end  
+        -- 주 버튼
+		uic_extend_list_item:addMainBtn(day, UI_ClanWarLeagueMatchListItem, day)
+		
+		-- 서브 버튼 리스트
+		local l_league = struct_clanwar_league:getClanWarLeagueList(day)
+	    uic_extend_list_item:addSubBtn(day, UI_ClanWarLeagueMatchListItem, l_league)		
     end
-
-    local create_func = function(ui, data)
-        local is_win = struct_clanwar_league:isWin(ui.m_clanA, ui.m_clanB)
-        ui:setResult(is_win)
-    end
-
-    vars['leagueListNode']:removeAllChildren()
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(vars['leagueListNode'])
-    table_view:setCellUIClass(UI_ClanWarLeagueMatchListItem, create_func)
-    table_view.m_defaultCellSize = cc.size(460, 65)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_match, false)
-
+	uic_extend_list_item:setMainBtnHeight(70)
+	uic_extend_list_item:setSubBtnHeight(70)
+	uic_extend_list_item:create(vars['leagueListNode2'], self.m_todayMatch)
+	--[[
     local first_y = -446
     local cnt_block = 3 * (self.m_todayMatch-1)
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view.m_scrollView:setContentOffset(cc.p(0, first_y + 64*cnt_block), animated)
+	--]]
 end
 
 -------------------------------------
@@ -124,6 +114,17 @@ function UI_ClanWarLeague:setScrollButton()
             local team_idx = ui.m_idx
             self.m_selctedTeam = team_idx
             self:refresh(team_idx)
+
+			local l_btn = self.m_scrollBtnTableView.m_itemList
+			for _, data in ipairs(l_btn) do
+				if (data['ui']) then
+					if (data['ui'].m_idx == self.m_selctedTeam) then
+						data['ui'].vars['teamTabBtn']:setEnabled(false)
+					else
+						data['ui'].vars['teamTabBtn']:setEnabled(true)
+					end
+				end
+			end
         end)
     end
 
@@ -137,18 +138,25 @@ function UI_ClanWarLeague:setScrollButton()
     table_view:setItemList(l_button, false)
 
     self.m_scrollBtnTableView = table_view
+	self.m_scrollBtnTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+	self.m_scrollBtnTableView:relocateContainerFromIndex(self.m_selctedTeam)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ClanWarLeague:refresh(team)    
-    local success_cb = function(ret)
-        self.m_structLeague = StructClanWarLeague(ret)
+    local vars = self.vars
+	
+	local success_cb = function(ret)
+		vars['leagueListNode2']:removeAllChildren()
+		vars['rankListNode']:removeAllChildren()
+		vars['allRankTabMenu']:removeAllChildren()
+        
+		self.m_structLeague = StructClanWarLeague(ret)
         --self.m_selctedTeam = self.m_structLeague:getMyClanTeamNumber()
         self.m_todayMatch = ret['clanwar_day']
-        
-        self:setScrollButton()
+
         self:setRankList()
         self:setMatchList()
     end
@@ -160,13 +168,14 @@ end
 -- function click_allBtn
 -------------------------------------
 function UI_ClanWarLeague:click_allBtn()
+	local vars = self.vars
     local success_cb = function(ret)
-        local l_struct_clan_war = {}
-        for _, data in ipairs(ret) do
-            table.insert(l_struct_clan_war,  StructClanWarLeague(data))
-        end
-        
-        self:setAllRank(l_struct_clan_war)
+		vars['leagueListNode2']:removeAllChildren()
+		vars['rankListNode']:removeAllChildren()
+		vars['allRankTabMenu']:removeAllChildren()
+
+        local struct_clan_war = StructClanWarLeague(ret)      
+        self:setAllRank(struct_clan_war)
     end    
     g_clanWarData:request_clanWarLeagueInfo(99, success_cb) -- 모든 클랜 정보 요청
 end
@@ -174,17 +183,25 @@ end
 -------------------------------------
 -- function setAllRank
 -------------------------------------
-function UI_ClanWarLeague:setAllRank(l_struct_clan_war)
+function UI_ClanWarLeague:setAllRank(struct_clan_war)
     local vars = self.vars
 
-    vars['leagueListNode']:removeAllChildren()
-    vars['rankListNode']:removeAllChildren()
-
-    for i, struct_clan_war_league in ipairs(l_struct_clan_war) do
-        local table_view = self:setRankList(struct_clan_war_league)
-        table_view.m_node:setScale(0.5)
-        table_view.m_node:setPositionY(50)
+	local l_team = struct_clan_war:getClanWarLeagueAllRankList()
+	
+	-- 테이블 뷰 인스턴스 생성
+    local table_view_td = UIC_TableViewTD(vars['allRankTabMenu'])
+    table_view_td.m_cellSize = cc.size(420, 316)
+    table_view_td.m_nItemPerCell = 3
+	table_view_td:setCellUIClass(UI_ClanWarAllRankListItem)
+	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td:setItemList(l_team)
+	--[[
+    for i, data in ipairs(l_team) do
+		local ui_item = UI_ClanWarAllRankListItem(i, data)
+		ui_item.root:setPositionX((i-1)* 400)
+		vars['allRankTabMenu']:addChild(ui_item.root)
     end
+	--]]
 end
 
 
@@ -232,10 +249,6 @@ function UI_ClanWarLeagueBtnListItem:init(data)
     
     self.m_idx = data['idx'] or ''
     vars['teamTabLabel']:setString(self.m_idx .. '조')
-    if (tonumber(self.m_idx) == tonumber(data['selected_team'])) then
-        vars['teamTabEnabledBtn']:setVisible(true)
-        vars['teamTabEnabledLabel']:setString(self.m_idx .. '조')
-    end
 end
 
 
@@ -281,8 +294,6 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_ClanWarLeagueMatchListItem
 -------------------------------------
 UI_ClanWarLeagueMatchListItem = class(PARENT, {
-        m_clanA = '',
-        m_clanB = ''
      })
 
 -------------------------------------
@@ -291,12 +302,18 @@ UI_ClanWarLeagueMatchListItem = class(PARENT, {
 function UI_ClanWarLeagueMatchListItem:init(data)
     local vars = self:load('clan_war_lobby_item_league.ui')
 
+	if (type(data) == 'number') then
+		vars['openBtn']:setVisible(true)
+		vars['dayLabel']:setString(Str('MATCH {1}', data))
+		return
+	end
+
     for idx = 1, 2 do
         self:setClanInfo(idx, data)
     end
 
-    -- N 일차 경기
-    vars['dayLabel']:setString('MATCH ' .. data['day'])
+	local is_win = g_clanWarData.m_structClanWarLeague:isWin(data['clan1'], data['clan2'])
+	self:setResult(is_win)
 end
 
 -------------------------------------
@@ -339,12 +356,6 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
             vars['clanMarkNode'..idx]:addChild(clan_icon)
         end
     end
-
-    if (idx == 1) then
-        self.m_clanA = clan_data
-    else
-        self.m_clanB = clan_data
-    end
 end
 
 -------------------------------------
@@ -357,4 +368,65 @@ function UI_ClanWarLeagueMatchListItem:setResult(result) -- A가 win : 1,  lose 
     elseif (result == 0) then
         vars['defeatSprite2']:setVisible(true)
     end
+end
+
+
+
+
+
+local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+-------------------------------------
+-- class UI_ClanWarAllRankListItem
+-------------------------------------
+UI_ClanWarAllRankListItem = class(PARENT, {
+     })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarAllRankListItem:init(data)
+    local vars = self:load('clan_war_lobby_item_all_rank_01.ui')
+
+	vars['teamLabel']:setString(Str('{1}조'))
+
+	for i, t_data in ipairs(data) do
+		if (vars['itemNode' .. i]) then
+			if (t_data) then
+				local ui_item = UI_ClanWarAllRankListItemOfItem(t_data)
+				vars['itemNode' .. i]:addChild(ui_item.root)
+			end
+		end
+	end
+end
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_ClanWarAllRankListItemOfItem
+-------------------------------------
+UI_ClanWarAllRankListItemOfItem = class(PARENT, {
+     })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarAllRankListItemOfItem:init(data)
+    local vars = self:load('clan_war_lobby_item_all_rank_02.ui')
+
+	local struct_clan_rank = data['clan_info']
+    local clan_name = struct_clan_rank:getClanName()
+    local clan_rank = struct_clan_rank:getClanRank()
+
+    local clan_id = StructClanWarLeague.getClanId_byData(data)
+    local win_cnt = StructClanWarLeague.getWinCount(data)
+    local lose_cnt = StructClanWarLeague.getLoseCount(data)
+
+    vars['clanNameLabel']:setString(Str(clan_name))
+    vars['rankLabel']:setString(clan_rank)
+    vars['scoreLabel']:setString(Str('{1}-{2}', win_cnt, lose_cnt))
 end
