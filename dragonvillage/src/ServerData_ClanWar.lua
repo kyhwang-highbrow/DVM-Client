@@ -72,7 +72,7 @@ end
 -- function request_clanWarLeagueInfo
 -------------------------------------
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
-    local league = team or 1
+    local league = team
 	local finish_cb = function(ret)
 		if (league ~= 99) then 
 			self.m_structClanWarLeague = StructClanWarLeague(ret)

@@ -192,3 +192,10 @@ function StructClanRank:applySetting(t_data)
         self.m_structClanMark = StructClanMark()
     end
 end
+
+-------------------------------------
+-- function getMaxMember
+-------------------------------------
+function StructClanRank:getMaxMember()
+    return self.member_max
+end

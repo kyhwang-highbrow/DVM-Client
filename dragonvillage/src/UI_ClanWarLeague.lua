@@ -42,7 +42,7 @@ end
 -------------------------------------
 function UI_ClanWarLeague:initUI()
 	local vars = self.vars
-    self:setScrollButton()
+    
 end
 
 -------------------------------------
@@ -101,6 +101,10 @@ end
 -------------------------------------
 function UI_ClanWarLeague:setScrollButton()
     local vars = self.vars
+    if (self.m_scrollBtnTableView) then
+        return
+    end
+    
     local scroll_node = vars['tableViewNode']
     local l_button = {}
 
@@ -120,15 +124,16 @@ function UI_ClanWarLeague:setScrollButton()
 				if (data['ui']) then
 					if (data['ui'].m_idx == self.m_selctedTeam) then
 						data['ui'].vars['teamTabBtn']:setEnabled(false)
+                        data['ui'].vars['teamTabLabel']:setColor(COLOR['BLACK'])
 					else
 						data['ui'].vars['teamTabBtn']:setEnabled(true)
+                        data['ui'].vars['teamTabLabel']:setColor(COLOR['WHITE'])
 					end
 				end
 			end
+            vars['allRankTabBtn']:setEnabled(true)
         end)
     end
-
-    scroll_node:removeAllChildren()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(scroll_node)
@@ -159,7 +164,8 @@ function UI_ClanWarLeague:refresh(team)
 
         self:setRankList()
         self:setMatchList()
-    end
+    	self:setScrollButton()
+	end
 
     g_clanWarData:request_clanWarLeagueInfo(team, success_cb) --team 을 nil로 요청하면 자신 클랜이 속한 조 정보가 내려옴
 end
@@ -173,6 +179,8 @@ function UI_ClanWarLeague:click_allBtn()
 		vars['leagueListNode2']:removeAllChildren()
 		vars['rankListNode']:removeAllChildren()
 		vars['allRankTabMenu']:removeAllChildren()
+        
+        vars['allRankTabBtn']:setEnabled(false)
 
         local struct_clan_war = StructClanWarLeague(ret)      
         self:setAllRank(struct_clan_war)
@@ -355,6 +363,15 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
         if (vars['clanMarkNode'..idx]) then
             vars['clanMarkNode'..idx]:addChild(clan_icon)
         end
+    end
+
+    local max_member = struct_clan_rank:getMaxMember()
+    if (idx == 1) then
+        vars['detailScoreLabel1']:setString(Str('클랜 수 : {1}', math.min(max_member, 20)))
+        vars['scoreLabel1']:setString('1')
+    else
+        vars['detailScoreLabel']:setString(Str('클랜 수 : {1}', math.min(max_member, 20)))
+        vars['scoreLabel3']:setString('1')
     end
 end
 

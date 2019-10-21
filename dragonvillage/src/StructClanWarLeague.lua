@@ -11,6 +11,8 @@ StructClanWarLeague = class({
                     ['lose_cnt']=0;
                     ['id']='5da81c22970c6206220884f7';
                     ['win_cnt']=0;
+                    ['total_score']=0;
+                    ['total_history']=0;
                     ['league']=1;
                     ['clan_id']='5a02e73b019add152c890157';
                     ['group_no']=1;
@@ -46,7 +48,11 @@ function StructClanWarLeague:init(data)
 	    end
     end
 
-    self.m_clanCnt = #l_league_info
+    local cnt = 0
+    for _, data in pairs(self.m_tClanInfo) do
+        cnt = cnt + 1
+    end
+    self.m_clanCnt = cnt
 
     -- 클랜 정보
     local l_clan_info = data['clan_info']
@@ -57,8 +63,12 @@ function StructClanWarLeague:init(data)
 	for _, t_clan in ipairs(l_clan_info) do
         local struct_clan_rank = StructClanRank(t_clan)
         local clan_id = struct_clan_rank:getClanObjectID()
-        self.m_tClanInfo[clan_id]['clan_info'] = struct_clan_rank
+        if (clan_id) then
+            self.m_tClanInfo[clan_id]['clan_info'] = struct_clan_rank
+        end
     end
+
+    self.m_nMyClanTeam = data['my_clan_id']
 end
 
 -------------------------------------
@@ -218,17 +228,15 @@ function StructClanWarLeague:getClanInfo_byGroupNumber(group_number)
 end
 
 -------------------------------------
--- function getMyClanTeam
--------------------------------------
-function StructClanWarLeague:getMyClanTeam()
-    return self.m_nMyClanTeam
-end
-
--------------------------------------
 -- function getMyClanTeamNumber
 -------------------------------------
 function StructClanWarLeague:getMyClanTeamNumber()
-    return self.m_nMyClanTeam or 1
+    if (not self.m_nMyClanTeam) then
+        return
+    end
+    local data = self.m_tClanInfo[self.m_nMyClanTeam]
+
+    return StructClanWarLeague.getLeague(data)
 end
 
 -------------------------------------
