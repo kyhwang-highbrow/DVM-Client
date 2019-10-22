@@ -102,7 +102,7 @@ end
 -------------------------------------
 -- function request_testSetWinLose
 -------------------------------------
-function ServerData_ClanWar:request_testSetWinLose(league, match, is_left, win, lose)
+function ServerData_ClanWar:request_testSetWinLose(league, match, is_left, win, lose, total_win)
     local league = team
 
     -- À¯Àú ID
@@ -113,10 +113,11 @@ function ServerData_ClanWar:request_testSetWinLose(league, match, is_left, win, 
     ui_network:setUrl('/manage/clanwar_setscore')
     ui_network:setParam('uid', uid)
     ui_network:setParam('league', league)
-    ui_network:setParam('match', league)
-    ui_network:setParam('is_left', league)
-    ui_network:setParam('win', league)
-    ui_network:setParam('lose', league)
+    ui_network:setParam('match', match)
+    ui_network:setParam('is_left', is_left)
+    ui_network:setParam('win', win)
+    ui_network:setParam('lose', lose)
+    ui_network:setParam('total_win', total_win)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(finish_cb)
     ui_network:setFailCB(fail_cb)

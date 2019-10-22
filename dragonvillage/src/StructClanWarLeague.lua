@@ -276,10 +276,10 @@ end
 -------------------------------------
 function StructClanWarLeague.getClanWarRank(data)
     local t_league = StructClanWarLeague.getLeagueInfo(data)
-    if (t_league['rank']  == 0) then
+    if (t_league['rank'] == 0) then
         return '-'
     end
-    return t_league['rank'] or '-'
+    return tostring(t_league['rank']) or '-'
 end
 
 -------------------------------------
@@ -399,12 +399,12 @@ function StructClanWarLeague:getMyClanInfo()
     local match_idx = 1
     for idx, data in ipairs(l_match) do
         if (data['clan1']['league_info']['clan_id'] == self.m_nMyClanId) then
-            is_left = true
+            is_left = 1
             match_idx = idx
         end
         
         if (data['clan2']['league_info']['clan_id'] == self.m_nMyClanId) then
-            is_left = false
+            is_left = 2
             match_idx = idx
         end
     end
@@ -443,7 +443,6 @@ function StructClanWarLeague:getTotalScore(clan_id)
             if (data['clan1']['league_info']['clan_id'] == clan_id) then
                 local data_1 = data['clan1']
                 local win, lose = StructClanWarLeague.getScoreHistoryNumber(data_1)
-                cclog(win_score, win)
                 if (win) then
                     win_score = win_score + win
                     lose_score = lose_score + lose
@@ -476,7 +475,14 @@ function StructClanWarLeague.getScoreHistoryNumber(data)
     if (not data['league_info']) then
         return
     end
-    local set_score_str = data['league_info']['score_history']
+    local set_score_str = data['league_info']['score_history'] or ''
+    
+    local is_list = string.find(set_score_str, ';')
+    if (is_list) then
+        local l_list = pl.stringx.split(set_score_str, ';')
+        set_score_str = l_list[1]
+    end
+
     local l_score = pl.stringx.split(set_score_str, '-')
     local win_score = tonumber(l_score[1]) or 0
     local lose_score = tonumber(l_score[2]) or 0

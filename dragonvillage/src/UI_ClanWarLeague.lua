@@ -64,6 +64,7 @@ function UI_ClanWarLeague:setRankList(struct_league)
         local total_win, total_lose = struct_clanwar_league:getTotalScore(clan_id)
         data['total_score_win'] = total_win
         data['total_score_lose'] = total_lose
+        data['my_clan_id'] = struct_clanwar_league.m_nMyClanId
 		uic_extend_list_item:addMainBtn(idx, UI_ClanWarLeagueRankListItem, data)
 	end
 	uic_extend_list_item:setMainBtnHeight(70)
@@ -87,6 +88,7 @@ function UI_ClanWarLeague:setMatchList()
     for day = 1, 5 do		
 		local l_league = struct_clanwar_league:getClanWarLeagueList(day)
         for idx, data in ipairs(l_league) do
+            data['my_clan_id'] = struct_clanwar_league.m_nMyClanId
 	        uic_extend_list_item:addMainBtn(day*10 + idx, UI_ClanWarLeagueMatchListItem, data)		
         end
     end
@@ -214,9 +216,27 @@ function UI_ClanWarLeague:refresh(team)
             is_myClanTeam = true
         end
 
-        vars['testWinBtn']:setVisible(is_myClanTeam)
-        vars['testLoseBtn']:setVisible(is_myClanTeam)
+        local cb_func = function(data)
+            local total_score = data['match'] or 0
+            local win = data['win'] or 0
+            local lose = data['lose'] or 0
+
+            local league, match, is_left = self.m_structLeague:getMyClanInfo()
+            if (not is_left) then
+                UIManager:toastNotificationRed('내 클랜 정보가 없음')
+                return
+            end
+            g_clanWarData:request_testSetWinLose(league, match, is_left, win, lose, total_score)
+            UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')
+        end
+
+        vars['testBtn']:setVisible(is_myClanTeam)
         vars['testTomorrowBtn']:setVisible(is_myClanTeam)
+        vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueTest(cb_func) end)
+        vars['testTomorrowBtn']:registerScriptTapHandler(function() 
+            g_clanWarData:request_testNextDay() 
+            UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')
+        end)
 
         --[[
         local league, match, is_left = self.m_structLeague:getMyClanInfo()
@@ -341,6 +361,16 @@ function UI_ClanWarLeagueRankListItem:init(data)
     local clan_name = struct_clan_rank:getClanName()
     local clan_rank = StructClanWarLeague.getClanWarRank(data)
 
+    if (tonumber(clan_rank)) then
+        if (tonumber(clan_rank) < 2) then
+            vars['finalSprite']:setVisible(true)
+            vars['finalSprite']:setVisible(true)
+        end
+    end
+    if (data['my_clan_id'] == struct_clan_war['clan_id']) then
+        vars['rankMeSprite']:setVisible(true)
+    end
+
     local clan_id = StructClanWarLeague.getClanId_byData(data)
     local lose_cnt = StructClanWarLeague.getLoseCount(data)
     local win_cnt = StructClanWarLeague.getWinCount(data)
@@ -438,17 +468,20 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
     end
 	
 	local score_history = clan_data['league_info']['score_history'] or ''
-    local l_score_history = pl.stringx.split(score_history, ';')
 	local win_cnt = StructClanWarLeague.getTotalWinCount(clan_data)
 	local clan_lv = struct_clan_rank:getClanLv() or ''
     local max_member = struct_clan_rank:getMaxMember() or ''
 	local clan_max_member = math.min(max_member, 20) or ''
-    vars['setScoreLabel' .. idx]:setString(l_score_history[1] or '')
+    vars['setScoreLabel' .. idx]:setString(score_history)
 	vars['partLabel' .. idx]:setString(tostring(clan_max_member))
 	vars['clanLvLabel' .. idx]:setString(string.format('Lv.%d', clan_lv)) 
 	vars['clanCreationLabel' .. idx]:setString('2019-01-01')
 
 	vars['scoreLabel' .. idx]:setString(win_cnt)
+
+    if (data['my_clan_id'] == clan_data['league_info']['clan_id']) then
+        vars['leagueMeNode']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -456,9 +489,11 @@ end
 -------------------------------------
 function UI_ClanWarLeagueMatchListItem:setResult(result) -- A가 win : 1,  lose : 0, none = -1
     local vars = self.vars
-    if (result == 1) then
+    if (result == 0) then
         vars['defeatSprite1']:setVisible(true)
-    elseif (result == 0) then
+        vars['defeatSprite2']:setVisible(false)
+    elseif (result == 1) then
+        vars['defeatSprite1']:setVisible(false)
         vars['defeatSprite2']:setVisible(true)
     end
 end
@@ -498,6 +533,9 @@ end
 
 
 
+
+
+
 local PARENT = UI
 
 -------------------------------------
@@ -524,3 +562,60 @@ function UI_ClanWarAllRankListItemOfItem:init(data)
     vars['rankLabel']:setString(clan_rank)
     vars['scoreLabel']:setString(Str('{1}-{2}', win_cnt, lose_cnt))
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_ClanWarLeagueTest
+-------------------------------------
+UI_ClanWarLeagueTest = class(PARENT, {
+        m_data = ''
+     })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarLeagueTest:init(cb_func)
+    local vars = self:load('clan_war_set_score_test.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    self.m_data = {}
+    self.m_data['match'] = 0
+    self.m_data['win'] = 0
+    self.m_data['lose'] = 0
+
+
+    local l_key = {'match', 'win', 'lose'}
+    for _, key in ipairs(l_key) do
+        vars[key .. 'NumberLabel']:setString(self.m_data[key])
+        vars[key .. 'DownBtn']:registerScriptTapHandler(function() self.m_data[key] = self.m_data[key] - 1 self:refresh() end)
+        vars[key .. 'UpBtn']:registerScriptTapHandler(function() self.m_data[key] = self.m_data[key] + 1 self:refresh() end)
+    end
+
+    vars['applyBtn']:registerScriptTapHandler(function() cb_func(self.m_data) self:close()  end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_ClanWarLeagueTest:refresh(data)
+    local vars = self.vars
+    local l_key = {'match', 'win', 'lose'}
+    for _, key in ipairs(l_key) do
+        vars[key .. 'NumberLabel']:setString(self.m_data[key])
+    end
+end
+
