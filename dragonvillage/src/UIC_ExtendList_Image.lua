@@ -63,13 +63,7 @@ end
 -------------------------------------
 function UIC_ExtendList_Image:setFocus(focus_key)
 	local l_main = self.m_lMainBtn
-	-- focus_key가 없으면 다 접는다.
-	if (not focus_key) then
-		self:setFoldAll()
-        self:moveMainBtn()
-		return
-	end
-	
+
 	if (self.m_tIsExtend[focus_key] ~= nil) then
 		-- Toggle
 		if (self.m_tIsExtend[focus_key] == true) then
@@ -88,6 +82,13 @@ function UIC_ExtendList_Image:setFocus(focus_key)
 		end
 	end
 
+	-- focus_key가 없으면 다 접는다.
+	if (not focus_key) then
+		self:setFoldAll()
+		self:moveMainBtn(true) -- no action
+		return
+	end
+
 	-- 2.펼쳐짐에 따라 다른 버튼들 이동
 	self:moveMainBtn()
 end
@@ -95,7 +96,7 @@ end
 -------------------------------------
 -- function moveMainBtn
 -------------------------------------
-function UIC_ExtendList_Image:moveMainBtn()
+function UIC_ExtendList_Image:moveMainBtn(no_action)
 	local l_main = self.m_lMainBtn
 	local l_move_y = {}
 	-- 펼쳐졌을 때 늘어난 y 위치
@@ -133,8 +134,13 @@ function UIC_ExtendList_Image:moveMainBtn()
 	for idx, t_main in ipairs(l_main) do
 		local ui = t_main['created_ui']
 		ui.root:stopAllActions()
-		local move_to = cc.MoveTo:create(0.2, cc.p(0, l_move_y[idx]))
-        cca.runAction(ui.root, cc.EaseInOut:create(move_to, 2))
+
+		if (no_action) then
+			ui.root:setPositionY(l_move_y[idx])
+		else
+			local move_to = cc.MoveTo:create(0.2, cc.p(0, l_move_y[idx]))
+			cca.runAction(ui.root, cc.EaseInOut:create(move_to, 2))
+		end
 	end
 end
 

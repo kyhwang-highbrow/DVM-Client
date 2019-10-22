@@ -43,6 +43,7 @@ end
 -------------------------------------
 function UI_ClanWarLeague:initUI()
 	local vars = self.vars
+	vars['timeLabel']:setString('{@yellow}2차 경기 진행중 {@green}다음 라운드까지 10시간 20분 남음')
 end
 
 -------------------------------------
@@ -160,6 +161,11 @@ function UI_ClanWarLeague:setScrollButton()
 
     local create_cb = function(ui, data)
         ui.vars['teamTabBtn']:getParent():setSwallowTouch(false)
+
+		if (self.m_selctedTeam == ui.m_idx) then
+			ui.vars['teamTabBtn']:setEnabled(false)
+			ui.vars['teamTabLabel']:setColor(COLOR['BLACK'])		
+		end
         ui.vars['teamTabBtn']:registerScriptTapHandler(function()
             local team_idx = ui.m_idx
             self.m_selctedTeam = team_idx
@@ -365,7 +371,7 @@ function UI_ClanWarLeagueRankListItem:init(data)
     local clan_rank = StructClanWarLeague.getClanWarRank(data)
 
     if (tonumber(clan_rank)) then
-        if (tonumber(clan_rank) < 2) then
+        if (tonumber(clan_rank) <= 2) then
             vars['finalSprite']:setVisible(true)
             vars['finalSprite']:setVisible(true)
         end
@@ -380,7 +386,7 @@ function UI_ClanWarLeagueRankListItem:init(data)
 
     vars['clanNameLabel']:setString(Str(clan_name))
     vars['rankLabel']:setString(clan_rank)
-    vars['winRoundLabel']:setString(Str('{1}-{2}', win_cnt, lose_cnt))
+    vars['winRoundLabel']:setString(Str('{@green}{1}{@apricot}-{@red}{2}', win_cnt, lose_cnt))
 
 
     local total_win_cnt = data['total_score_win']
@@ -434,18 +440,23 @@ function UI_ClanWarLeagueMatchListItem:init(data)
     local t_day = {'화', '수', '목', '금', '토', '일'}
     local t_eng_day = {'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'}
     local day = tonumber(data['day'])
-    if (day) then
-        vars['dateLabel']:setString(Str(t_day[day]))
-    end
+	local week_str = data['idx'] .. '차 경기(' .. Str(t_day[day]) .. ')'
+
 
     if (data['day'] == tonumber(data['match_day'])) then
         vars['todaySprite']:setVisible(true)
+		week_str = week_str .. ' - 경기 진행중'
+		vars['dateLabel']:setColor(COLOR['BLACK'])
     end
 
     if (data['idx'] == 1) then
         vars['dateMenu']:setVisible(true)
     else
         vars['dateMenu']:setVisible(false)   
+    end
+
+	if (day) then
+        vars['dateLabel']:setString(week_str)
     end
 end
 
@@ -497,8 +508,8 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
 	local clan_max_member = math.min(max_member, 20) or ''
     vars['setScoreLabel' .. idx]:setString(score_history)
 	vars['partLabel' .. idx]:setString(tostring(clan_max_member))
-	vars['clanLvLabel' .. idx]:setString(string.format('Lv.%d', clan_lv)) 
-	vars['clanCreationLabel' .. idx]:setString('2019-01-01')
+	vars['clanLvLabel' .. idx]:setString(string.format('Lv.%d (%.2f%%)', clan_lv, clan_data['clan_info']['exp']/1000)) 
+	vars['clanCreationLabel' .. idx]:setString(clan_data['clan_info']['create_date'])
 
 	vars['scoreLabel' .. idx]:setString(win_cnt)
 
