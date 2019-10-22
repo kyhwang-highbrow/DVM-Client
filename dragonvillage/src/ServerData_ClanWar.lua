@@ -99,3 +99,56 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     return ui_network
 end
 
+-------------------------------------
+-- function request_testSetWinLose
+-------------------------------------
+function ServerData_ClanWar:request_testSetWinLose(league, match, is_left, win, lose)
+    local league = team
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/clanwar_setscore')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('league', league)
+    ui_network:setParam('match', league)
+    ui_network:setParam('is_left', league)
+    ui_network:setParam('win', league)
+    ui_network:setParam('lose', league)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(finish_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_nextDay
+-------------------------------------
+function ServerData_ClanWar:request_testNextDay()
+    local league = team
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/clanwar_nextday')
+    ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(finish_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+

@@ -43,7 +43,6 @@ end
 -------------------------------------
 function UI_ClanWarLeague:initUI()
 	local vars = self.vars
-    
 end
 
 -------------------------------------
@@ -59,7 +58,12 @@ function UI_ClanWarLeague:setRankList(struct_league)
 
     local struct_clanwar_league = self.m_structLeague
 	local uic_extend_list_item = UIC_ExtendList_Image()
+    
 	for idx, data in ipairs(l_rank) do
+        local clan_id = data['league_info']['clan_id']
+        local total_win, total_lose = struct_clanwar_league:getTotalScore(clan_id)
+        data['total_score_win'] = total_win
+        data['total_score_lose'] = total_lose
 		uic_extend_list_item:addMainBtn(idx, UI_ClanWarLeagueRankListItem, data)
 	end
 	uic_extend_list_item:setMainBtnHeight(70)
@@ -89,6 +93,7 @@ function UI_ClanWarLeague:setMatchList()
 	uic_extend_list_item:setMainBtnHeight(70)
 	uic_extend_list_item:setSubBtnHeight(70)
 	uic_extend_list_item:setExtendHeight(100)
+    uic_extend_list_item:setGroup(3)
 	uic_extend_list_item:create(vars['leagueListNode'])
 
 
@@ -99,7 +104,7 @@ function UI_ClanWarLeague:setMatchList()
 		local all_height = uic_extend_list_item:getAllHeight()
 		-- 컨테이너에 세로크기 적용
 		local ori_size = scroll_menu:getContentSize()
-		ori_size['height'] = all_height
+		ori_size['height'] = all_height + 900 -- 임시로 여유분까지
 		scroll_menu:setContentSize(ori_size)
 
 		-- ScrollView 사이즈 설정 (ScrollNode 사이즈)
@@ -124,6 +129,9 @@ function UI_ClanWarLeague:setMatchList()
 		scroll_view:addChild(scroll_menu)
 
 		scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
+        local container_node = scroll_view:getContainer()
+        container_node:setPositionY(-1400)
 
 		self.m_matchListScrollMenu = scroll_menu
 	end
@@ -198,6 +206,24 @@ function UI_ClanWarLeague:refresh(team)
         self:setRankList()
         self:setMatchList()
     	self:setScrollButton()
+
+
+        -- Test용
+        local is_myClanTeam = false
+        if (self.m_structLeague:getMyClanTeamNumber()) then
+            is_myClanTeam = true
+        end
+
+        vars['testWinBtn']:setVisible(is_myClanTeam)
+        vars['testLoseBtn']:setVisible(is_myClanTeam)
+        vars['testTomorrowBtn']:setVisible(is_myClanTeam)
+
+        --[[
+        local league, match, is_left = self.m_structLeague:getMyClanInfo()
+        vars['testWinBtn']:registerScriptTapHandler(function() g_clanWarData:request_testSetWinLose(league, match, is_left) end)
+        vars['testLoseBtn']:registerScriptTapHandler(function() g_clanWarData:request_testSetWinLose(league, match, is_left) end)
+        vars['testTomorrowBtn']:registerScriptTapHandler(function() g_clanWarData:request_testNextDay() end)
+        --]]
 	end
 
     g_clanWarData:request_clanWarLeagueInfo(team, success_cb) --team 을 nil로 요청하면 자신 클랜이 속한 조 정보가 내려옴
@@ -311,28 +337,32 @@ function UI_ClanWarLeagueRankListItem:init(data)
     local vars = self:load('clan_war_lobby_item_rank.ui')
 
 	local struct_clan_rank = data['clan_info']
+    local struct_clan_war = data['league_info']
     local clan_name = struct_clan_rank:getClanName()
     local clan_rank = StructClanWarLeague.getClanWarRank(data)
 
     local clan_id = StructClanWarLeague.getClanId_byData(data)
-    local win_cnt = StructClanWarLeague.getTotalWinCount(data)
-    local lose_cnt = StructClanWarLeague.getTotalLoseCount(data)
+    local lose_cnt = StructClanWarLeague.getLoseCount(data)
+    local win_cnt = StructClanWarLeague.getWinCount(data)
 
     vars['clanNameLabel']:setString(Str(clan_name))
     vars['rankLabel']:setString(clan_rank)
     vars['winRoundLabel']:setString(Str('{1}-{2}', win_cnt, lose_cnt))
 
 
-	local score_history = data['league_info']['score_history']
-	local win_cnt = tostring(data['league_info']['win_cnt'])
-	local clan_lv = struct_clan_rank:getClanLv()
-    local max_member = struct_clan_rank:getMaxMember()
-	local clan_max_member = tostring(math.min(max_member, 20))
+    local total_win_cnt = data['total_score_win']
+    local total_lose_cnt = data['total_score_lose']
+	local score_history = total_win_cnt .. '-' .. total_lose_cnt
+	local win_cnt = tostring(data['league_info']['win_cnt']) or ''
+	local clan_lv = struct_clan_rank:getClanLv() or ''
+    local max_member = struct_clan_rank:getMaxMember() or ''
+	local clan_max_member = tostring(math.min(max_member, 20)) or ''
+
 	vars['clanCreationLabel']:setString('2019-01-01')
 	vars['clanLvLabel']:setString(string.format('Lv.%d', clan_lv))
 	vars['partLabel']:setString(clan_max_member)
 	vars['setScoreLabel']:setString(score_history)
-	vars['killLabel']:setString(win_cnt)
+	vars['killLabel']:setString(tostring(total_win_cnt))
 end
 
 
@@ -407,12 +437,13 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
         end
     end
 	
-	local score_history = clan_data['league_info']['score_history']
-	local win_cnt = tostring(clan_data['league_info']['win_cnt'])
-	local clan_lv = struct_clan_rank:getClanLv()
-    local max_member = struct_clan_rank:getMaxMember()
-	local clan_max_member = math.min(max_member, 20)
-    vars['setScoreLabel' .. idx]:setString(score_history)
+	local score_history = clan_data['league_info']['score_history'] or ''
+    local l_score_history = pl.stringx.split(score_history, ';')
+	local win_cnt = StructClanWarLeague.getTotalWinCount(clan_data)
+	local clan_lv = struct_clan_rank:getClanLv() or ''
+    local max_member = struct_clan_rank:getMaxMember() or ''
+	local clan_max_member = math.min(max_member, 20) or ''
+    vars['setScoreLabel' .. idx]:setString(l_score_history[1] or '')
 	vars['partLabel' .. idx]:setString(tostring(clan_max_member))
 	vars['clanLvLabel' .. idx]:setString(string.format('Lv.%d', clan_lv)) 
 	vars['clanCreationLabel' .. idx]:setString('2019-01-01')

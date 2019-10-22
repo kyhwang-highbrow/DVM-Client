@@ -20,7 +20,7 @@ StructClanWarLeague = class({
                 ['clan_info'] = StructClanRank()
             }
     --]]
-    m_nMyClanTeam = 'number', -- n조
+    m_nMyClanId = 'number',
 	m_matchDay = 'numnber',
 })
 
@@ -69,7 +69,7 @@ function StructClanWarLeague:init(data)
         end
     end
 
-    self.m_nMyClanTeam = data['my_clan_id']
+    self.m_nMyClanId = data['my_clan_id']
 
 	self.m_matchDay = data['clanwar_day']
 end
@@ -216,10 +216,10 @@ end
 -- function getMyClanTeamNumber
 -------------------------------------
 function StructClanWarLeague:getMyClanTeamNumber()
-    if (not self.m_nMyClanTeam) then
+    if (not self.m_nMyClanId) then
         return
     end
-    local data = self.m_tClanInfo[self.m_nMyClanTeam]
+    local data = self.m_tClanInfo[self.m_nMyClanId]
 
     return StructClanWarLeague.getLeague(data)
 end
@@ -276,7 +276,10 @@ end
 -------------------------------------
 function StructClanWarLeague.getClanWarRank(data)
     local t_league = StructClanWarLeague.getLeagueInfo(data)
-    return t_league['rank'] or 0
+    if (t_league['rank']  == 0) then
+        return '-'
+    end
+    return t_league['rank'] or '-'
 end
 
 -------------------------------------
@@ -284,7 +287,7 @@ end
 -------------------------------------
 function StructClanWarLeague.getTotalWinCount(data)
     local t_league = StructClanWarLeague.getLeagueInfo(data)
-    return t_league['total_win_cnt'] or 0
+    return tostring(t_league['total_win_cnt']) or '-'
 end
 
 -------------------------------------
@@ -375,4 +378,108 @@ function StructClanWarLeague.getGroupNumber_byData(data)
     end
 
     return data['league_info']['group_no']
+end
+
+-------------------------------------
+-- function getMyClanInfo
+-------------------------------------
+function StructClanWarLeague:getMyClanInfo()
+    local t_clan_info = self.m_tClanInfo   
+    if (not t_clan_info) then
+        return
+    end
+
+    if (not self.m_nMyClanId) then
+        return
+    end
+
+    local data = self.m_tClanInfo[self.m_nMyClanId]
+    local l_match = self:getClanWarLeagueList(self.m_matchDay)
+    local is_left = nil
+    local match_idx = 1
+    for idx, data in ipairs(l_match) do
+        if (data['clan1']['league_info']['clan_id'] == self.m_nMyClanId) then
+            is_left = true
+            match_idx = idx
+        end
+        
+        if (data['clan2']['league_info']['clan_id'] == self.m_nMyClanId) then
+            is_left = false
+            match_idx = idx
+        end
+    end
+
+    if (not is_left) then
+        return nil
+    end
+
+    local league = StructClanWarLeague.getLeague(data)
+    local match = match_idx
+    local is_left = is_left
+
+    return league, match, is_left
+end
+
+-------------------------------------
+-- function getTotalScore
+-------------------------------------
+function StructClanWarLeague:getTotalScore(clan_id)
+    local t_clan_info = self.m_tClanInfo   
+    if (not t_clan_info) then
+        return
+    end
+
+    local data = self.m_tClanInfo[clan_id]
+    if (not data) then
+        return
+    end
+
+    local win_score = 0
+    local lose_score = 0
+
+    for i = 1, 5 do
+        local l_match = self:getClanWarLeagueList(i)
+        for idx, data in ipairs(l_match) do
+            if (data['clan1']['league_info']['clan_id'] == clan_id) then
+                local data_1 = data['clan1']
+                local win, lose = StructClanWarLeague.getScoreHistoryNumber(data_1)
+                cclog(win_score, win)
+                if (win) then
+                    win_score = win_score + win
+                    lose_score = lose_score + lose
+                end
+            end
+
+            if (data['clan2']['league_info']['clan_id'] == clan_id) then
+                local data_2 = data['clan2']
+                local win, lose = StructClanWarLeague.getScoreHistoryNumber(data_2)
+                if (win) then
+                    win_score = win_score + win
+                    lose_score = lose_score + lose
+                end
+            end
+            
+        end
+    end
+
+    return win_score, lose_score
+end
+
+-------------------------------------
+-- function getScoreHistoryNumber
+-------------------------------------
+function StructClanWarLeague.getScoreHistoryNumber(data)
+    if (not data) then
+        return
+    end
+
+    if (not data['league_info']) then
+        return
+    end
+    local set_score_str = data['league_info']['score_history']
+    local l_score = pl.stringx.split(set_score_str, '-')
+    local win_score = tonumber(l_score[1]) or 0
+    local lose_score = tonumber(l_score[2]) or 0
+    
+    return win_score, lose_score
 end

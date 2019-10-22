@@ -6,6 +6,7 @@ local PARENT = UIC_ExtendList
 UIC_ExtendList_Image = class(PARENT, {
 		m_tIsExtend = 'table', -- {[key1] = 0, [key2] = 1}
 		m_cbClick = 'function',
+        m_group = 'number',
     })
 
 -------------------------------------
@@ -13,6 +14,7 @@ UIC_ExtendList_Image = class(PARENT, {
 -------------------------------------
 function UIC_ExtendList_Image:init()
 	self.m_tIsExtend = {}
+    self.m_group = nil
 end
 
 -------------------------------------
@@ -64,6 +66,7 @@ function UIC_ExtendList_Image:setFocus(focus_key)
 	-- focus_key가 없으면 다 접는다.
 	if (not focus_key) then
 		self:setFoldAll()
+        self:moveMainBtn()
 		return
 	end
 	
@@ -98,16 +101,33 @@ function UIC_ExtendList_Image:moveMainBtn()
 	-- 펼쳐졌을 때 늘어난 y 위치
 	local base_y = 0
 
+    local total_pos_y = 0
 	for idx, t_main in ipairs(l_main) do
 		local ui = t_main['created_ui']
-		local content_height = self.m_mainBtnHeight
-		local pos_y = (-content_height * (idx-1)) - base_y
-		table.insert(l_move_y, pos_y)
+		local content_height = 0
+        if (self.m_group) then
+            if (idx - 1) % self.m_group == 0 then
+                content_height = self.m_mainBtnHeight + 50
+            else
+                content_height = self.m_mainBtnHeight
+            end
+        else
+            content_height = self.m_mainBtnHeight
+        end
+
+        if (idx == 1) then
+            content_height = 0
+        end
+
+		total_pos_y = total_pos_y + (-content_height) - base_y
+		table.insert(l_move_y, total_pos_y)
 
 		local key = t_main['key']
 		if (self.m_tIsExtend[key]) then
-			base_y = base_y + self.m_extendHeight
-		end
+			base_y = self.m_extendHeight
+		else
+            base_y = 0
+        end
 	end
 
 	for idx, t_main in ipairs(l_main) do
@@ -202,4 +222,11 @@ end
 -------------------------------------
 function UIC_ExtendList_Image:setClickFunc(cb_func)
 	self.m_cbClick = cb_func
+end
+
+-------------------------------------
+-- function setGroup
+-------------------------------------
+function UIC_ExtendList_Image:setGroup(group)
+	self.m_group = group
 end
