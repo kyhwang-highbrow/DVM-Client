@@ -32,6 +32,9 @@ StructClanRank = class(PARENT, {
 
         -- 순위 등락 표시
         last_lank = 'number',
+
+        create_date = 'number',
+        exp = 'number',
     })
 
 local THIS = StructClanRank

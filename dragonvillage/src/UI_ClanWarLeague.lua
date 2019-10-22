@@ -89,6 +89,9 @@ function UI_ClanWarLeague:setMatchList()
 		local l_league = struct_clanwar_league:getClanWarLeagueList(day)
         for idx, data in ipairs(l_league) do
             data['my_clan_id'] = struct_clanwar_league.m_nMyClanId
+            data['day'] = day
+            data['idx'] = idx
+            data['match_day'] = struct_clanwar_league.m_matchDay
 	        uic_extend_list_item:addMainBtn(day*10 + idx, UI_ClanWarLeagueMatchListItem, data)		
         end
     end
@@ -424,6 +427,26 @@ function UI_ClanWarLeagueMatchListItem:init(data)
 
 	local is_win = g_clanWarData.m_structClanWarLeague:isWin(data['clan1'], data['clan2'])
 	self:setResult(is_win)
+
+
+    local cur_time = Timer:getServerTime()
+    local str_time = pl.Date():weekday_name(cur_time)
+    local t_day = {'월', '화', '수', '목', '금', '토', '일'}
+    local t_eng_day = {'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'}
+    local day = tonumber(data['day'])
+    if (day) then
+        vars['dateLabel']:setString(Str(t_day[day]))
+    end
+
+    if (data['day'] == tonumber(data['match_day'])) then
+        vars['todaySprite']:setVisible(true)
+    end
+
+    if (data['idx'] == 1) then
+        vars['dateMenu']:setVisible(true)
+    else
+        vars['dateMenu']:setVisible(false)   
+    end
 end
 
 -------------------------------------
