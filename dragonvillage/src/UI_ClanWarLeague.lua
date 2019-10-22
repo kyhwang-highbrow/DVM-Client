@@ -431,7 +431,7 @@ function UI_ClanWarLeagueMatchListItem:init(data)
 
     local cur_time = Timer:getServerTime()
     local str_time = pl.Date():weekday_name(cur_time)
-    local t_day = {'월', '화', '수', '목', '금', '토', '일'}
+    local t_day = {'화', '수', '목', '금', '토', '일'}
     local t_eng_day = {'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'}
     local day = tonumber(data['day'])
     if (day) then

@@ -82,19 +82,17 @@ function StructClanWarLeague:getClanWarLeagueList(day) -- 1일차 2일차 등등
 	local l_match = {}
     local day = day or 1
 
-    local t_order = {['A'] = 1, ['B'] = 2, ['C'] = 3, ['D'] = 4, ['E'] = 5, ['F'] = 6, ['G'] = 7, ['H'] = 8}
     local l_group = self:getMatchGroup(day)
-
 	for _, data in ipairs(l_group) do
         local l_group = pl.stringx.split(data, ';')
         if (l_group) then
-            local group_number_1 = t_order[l_group[1]]
+            local group_number_1 = tonumber(l_group[1])
             local t_clan_info_1 = self:getClanInfo_byGroupNumber(group_number_1)
-            local group_number_2 = t_order[l_group[2]]
+            local group_number_2 = tonumber(l_group[2])
             local t_clan_info_2 = self:getClanInfo_byGroupNumber(group_number_2)
             local t_match = {}
-            t_match['clan1'] = t_clan_info_1
-            t_match['clan2'] = t_clan_info_2
+            t_match['clan1'] = t_clan_info_1 or {}
+            t_match['clan2'] = t_clan_info_2 or {}
             table.insert(l_match, t_match)
         end
     end
@@ -125,7 +123,7 @@ function StructClanWarLeague:getMatchGroup(day) -- 1일차 2일차 등등...
     local clan_cnt = self.m_clanCnt
     local l_match = {}
     for group_idx = 1, 3 do
-        local idx = clan_cnt * 10 + day
+        local idx = clan_cnt * 10 + day + 100000
         t_clanwar_group = table_clanwar_group[idx]
         if (t_clanwar_group) then
             local str_group = t_clanwar_group['group_' .. group_idx] -- 'B;F'
