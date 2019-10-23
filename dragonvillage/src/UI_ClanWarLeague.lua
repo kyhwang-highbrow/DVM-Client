@@ -110,7 +110,7 @@ function UI_ClanWarLeague:setMatchList()
 		local all_height = uic_extend_list_item:getAllHeight()
 		-- 컨테이너에 세로크기 적용
 		local ori_size = scroll_menu:getContentSize()
-		ori_size['height'] = all_height + 900 -- 임시로 여유분까지
+		ori_size['height'] = all_height + 1900 -- 임시로 여유분까지
 		scroll_menu:setContentSize(ori_size)
 
 		-- ScrollView 사이즈 설정 (ScrollNode 사이즈)
@@ -440,7 +440,7 @@ function UI_ClanWarLeagueMatchListItem:init(data)
     local t_day = {'화', '수', '목', '금', '토', '일'}
     local t_eng_day = {'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'}
     local day = tonumber(data['day'])
-	local week_str = data['idx'] .. '차 경기(' .. Str(t_day[day]) .. ')'
+	local week_str = day .. '차 경기(' .. Str(t_day[day]) .. ')'
 
 
     if (data['day'] == tonumber(data['match_day'])) then
