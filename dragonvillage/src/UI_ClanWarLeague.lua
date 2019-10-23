@@ -143,7 +143,6 @@ function UI_ClanWarLeague:setMatchList()
         local container_node = scroll_view:getContainer()
         local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
         container_node:setPositionY(-2400 + 255 * (match_day-2))
-        cclog(-2400 + 255 * (struct_clanwar_league.m_matchDay-2), match_day)
 
 		self.m_matchListScrollMenu = scroll_menu
 	end
@@ -231,13 +230,19 @@ function UI_ClanWarLeague:refresh(team)
         -- 랭크, 일정, 버튼 정보 갱신
         self:setRankList()
         self:setMatchList()
+
+        -- 처음 들어왔을 때에는 자신의 조로 버튼을 세팅
+        if (not team) then
+            self.m_selctedTeam = self.m_structLeague:getMyClanTeamNumber()
+        end
     	self:setScrollButton()
 
 
         -- Test용
         -- 내 클랜이 속한 화면일 때에만 활성화
         local is_myClanTeam = false
-        if (self.m_structLeague:getMyClanTeamNumber()) then
+        local my_clan_id = g_clanWarData:getMyClanId()
+        if (self.m_structLeague:isContainClan(my_clan_id)) then
             is_myClanTeam = true
         end
 

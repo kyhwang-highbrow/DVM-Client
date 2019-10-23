@@ -23,6 +23,7 @@ ServerData_ClanWar = class({
     m_curClanTeam = 'number',
 
 	m_structClanWarLeague = 'StructClanWar', -- 추후 정리 예정
+    m_myClanId = 'string',
 })
 
 -------------------------------------
@@ -76,6 +77,9 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 	local finish_cb = function(ret)
 		if (league ~= 99) then 
 			self.m_structClanWarLeague = StructClanWarLeague(ret)
+            if (ret['my_clan_id']) then
+                self:setMyClanId(ret['my_clan_id'])
+            end
 		end
 		success_cb(ret)
 	end
@@ -151,5 +155,20 @@ function ServerData_ClanWar:request_testNextDay()
     ui_network:request()
 
     return ui_network
+end
+
+
+-------------------------------------
+-- function setMyClanId
+-------------------------------------
+function ServerData_ClanWar:setMyClanId(clan_id)
+   self.m_myClanId =  clan_id
+end
+
+-------------------------------------
+-- function getMyClanId
+-------------------------------------
+function ServerData_ClanWar:getMyClanId(clan_id)
+   return self.m_myClanId or ''
 end
 

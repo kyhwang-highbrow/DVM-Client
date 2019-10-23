@@ -485,7 +485,7 @@ function StructClanWarLeague.isMatchWin(day, data)
     if (not t_data) or (t_data == {}) then
         return false
     end
-    ccdump(t_data)
+
     local is_win = t_data['isWin']
     return (is_win == '1')
 end
@@ -508,4 +508,11 @@ function StructClanWarLeague.getMatchWinCnt(day, data)
 
     local score = t_data['win']
     return tonumber(score) or 0
+end
+
+-------------------------------------
+-- function isContainClan
+-------------------------------------
+function StructClanWarLeague:isContainClan(clan_id)
+    return self.m_tClanInfo[clan_id]
 end
