@@ -377,17 +377,6 @@ function UI_ClanWarLeagueRankListItem:init(data)
 	local struct_clan_rank = data['clan_info']
     local struct_clan_war = data['league_info']
 
-    -- 1, 2등은 토너먼트 진출 가능 표시
-    if (tonumber(clan_rank)) then
-        if (tonumber(clan_rank) <= 2) then
-            vars['finalSprite']:setVisible(true)
-            vars['finalSprite']:setVisible(true)
-        end
-    end
-    if (data['my_clan_id'] == struct_clan_war['clan_id']) then
-        vars['rankMeSprite']:setVisible(true)
-    end
-
     -- 전체 5일동안 이루어진 경기에서 얼마나 이겼는지
     local clan_id = StructClanWarLeague.getClanId_byData(data)
     local lose_cnt = StructClanWarLeague.getLoseCount(data)
@@ -421,6 +410,18 @@ function UI_ClanWarLeagueRankListItem:init(data)
     
     local create_at = struct_clan_rank['create_date'] or '-'
 	vars['clanCreationLabel']:setString(create_at)
+
+
+    -- 1, 2등은 토너먼트 진출 가능 표시
+    if (tonumber(clan_rank)) then
+        if (tonumber(clan_rank) <= 2) then
+            vars['finalSprite']:setVisible(true)
+            vars['finalSprite']:setVisible(true)
+        end
+    end
+    if (data['my_clan_id'] == struct_clan_war['clan_id']) then
+        vars['rankMeSprite']:setVisible(true)
+    end
 end
 
 
