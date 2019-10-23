@@ -20,7 +20,6 @@ StructClanWarLeague = class({
                 ['clan_info'] = StructClanRank()
             }
     --]]
-    m_nMyClanId = 'number',
 	m_matchDay = 'numnber',
 })
 
@@ -68,8 +67,6 @@ function StructClanWarLeague:init(data)
             self.m_tClanInfo[clan_id]['clan_info'] = struct_clan_rank
         end
     end
-
-    self.m_nMyClanId = data['my_clan_id']
 
 	self.m_matchDay = data['clanwar_day']
 end
@@ -216,10 +213,12 @@ end
 -- function getMyClanTeamNumber
 -------------------------------------
 function StructClanWarLeague:getMyClanTeamNumber()
-    if (not self.m_nMyClanId) then
+    local my_clan_id = g_clanWarData:getMyClanId()
+
+    if (not my_clan_id) then
         return
     end
-    local data = self.m_tClanInfo[self.m_nMyClanId]
+    local data = self.m_tClanInfo[my_clan_id]
 
     return StructClanWarLeague.getLeague(data)
 end
@@ -358,13 +357,13 @@ function StructClanWarLeague:getMyClanInfo(day)
         return
     end
 
-    if (not self.m_nMyClanId) then
+    local my_clan_id = g_clanWarData:getMyClanId()
+    if (not my_clan_id) then
         return
     end
 
-    local data = self.m_tClanInfo[self.m_nMyClanId]
+    local data = self.m_tClanInfo[my_clan_id]
     local my_group_no = tonumber(data['league_info']['group_no'])
-
     local is_left = nil
     local match_idx = 1
     local l_group = self:getMatchGroup(tonumber(day))

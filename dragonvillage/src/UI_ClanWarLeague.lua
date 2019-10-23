@@ -66,7 +66,7 @@ function UI_ClanWarLeague:setRankList(struct_league)
         local total_win, total_lose = struct_clanwar_league:getTotalScore(clan_id)
         data['total_score_win'] = total_win
         data['total_score_lose'] = total_lose
-        data['my_clan_id'] = struct_clanwar_league.m_nMyClanId
+        data['my_clan_id'] = g_clanWarData:getMyClanId()
 		uic_extend_list_item:addMainBtn(idx, UI_ClanWarLeagueRankListItem, data)
 	end
 	uic_extend_list_item:setMainBtnHeight(70)
@@ -91,7 +91,7 @@ function UI_ClanWarLeague:setMatchList()
     for day = 1, 5 do		
 		local l_league = struct_clanwar_league:getClanWarLeagueList(day + 1)
         for idx, data in ipairs(l_league) do
-            data['my_clan_id'] = struct_clanwar_league.m_nMyClanId
+            data['my_clan_id'] = g_clanWarData:getMyClanId()
             data['day'] = day 
             data['idx'] = idx
             data['match_day'] = struct_clanwar_league.m_matchDay
