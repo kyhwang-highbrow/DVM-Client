@@ -416,11 +416,10 @@ function UI_ClanWarLeagueRankListItem:init(data)
     local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
     vars['clanLvLabel']:setString(clan_lv_exp)
 
-    local max_member = struct_clan_rank:getMaxMember() or ''
-	local clan_max_member = tostring(math.min(max_member, 20)) or ''
-    vars['partLabel']:setString(clan_max_member)
+    local max_member = struct_clan_war['play_member_cnt'] or '-'
+    vars['partLabel']:setString(tostring(max_member))
     
-    local create_at = struct_clan_rank['create_date'] or ''
+    local create_at = struct_clan_rank['create_date'] or '-'
 	vars['clanCreationLabel']:setString(create_at)
 end
 
@@ -538,9 +537,8 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
     -- 클랜 정보 (레벨, 경험치, 참여인원)
     local clan_lv = struct_clan_rank:getClanLv() or ''
     local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, clan_data['clan_info']['exp']/10000)
-    local max_member = struct_clan_rank:getMaxMember() or ''
-	local clan_max_member = math.min(max_member, 20) or ''
-	vars['partLabel' .. idx]:setString(tostring(clan_max_member))
+    local max_member = clan_data['league_info']['play_member_cnt'] or '-'
+	vars['partLabel' .. idx]:setString(tostring(max_member))
 	vars['clanLvLabel' .. idx]:setString(clan_lv_exp) 
 	vars['clanCreationLabel' .. idx]:setString(clan_data['clan_info']['create_date'])
 
