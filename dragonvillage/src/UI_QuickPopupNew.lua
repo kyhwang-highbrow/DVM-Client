@@ -104,13 +104,7 @@ function UI_QuickPopupNew:init_competitionBtn()
     local vars = self.vars
     local l_content = {}
 
-    local l_competition
-    if CppFunctions:isWin32() or CppFunctionsClass:isTestMode() then
-        l_competition = {'ancient', 'attr_tower', 'colosseum', 'clan_war', 'clan_raid', 'rune_guardian', 'challenge_mode'}
-    else
-        l_competition = {'ancient', 'attr_tower', 'colosseum', 'clan_raid', 'rune_guardian', 'challenge_mode'}
-    end
-
+    local l_competition = {'ancient', 'attr_tower', 'colosseum', 'clan_raid', 'rune_guardian', 'challenge_mode'}
     for i, competition_name in ipairs(l_competition) do
         if (not g_contentLockData:isContentLock(competition_name)) then
             table.insert(l_content, competition_name) 
