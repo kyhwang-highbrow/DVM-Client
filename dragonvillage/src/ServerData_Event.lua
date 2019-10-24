@@ -62,7 +62,7 @@ function ServerData_Event:getEventPopupTabList()
 
         -- 날짜 조건
         if (visible) and ((start_date ~= '') or (end_date ~= '')) then
-            visible = self:checkEventTime(start_date, end_date)
+            visible = self:checkEventTime(start_date, end_date, v)
         end
         
         -- ui_priority가 없는 것은 등록하지 않는다.
@@ -206,7 +206,7 @@ function ServerData_Event:getEventFullPopupList()
 
             -- 날짜 조건
             if (visible) and ((start_date ~= '') or (end_date ~= '')) then
-                visible = self:checkEventTime(start_date, end_date)
+                visible = self:checkEventTime(start_date, end_date, v)
             end
 
             -- 단일 상품인 경우 (type:shop) event_id로 등록
@@ -328,7 +328,7 @@ end
 -- function checkEventTime
 -- @brief true : 활성화, false : 비활성화
 -------------------------------------
-function ServerData_Event:checkEventTime(start_date, end_date)
+function ServerData_Event:checkEventTime(start_date, end_date, optional_data)
     local start_time
     local end_time
     local cur_time = Timer:getServerTime()
@@ -347,6 +347,17 @@ function ServerData_Event:checkEventTime(start_date, end_date)
     if (start_date ~= '' or start_date) then
         local parse_start_date = parser:parse(start_date)
         if (parse_start_date) then
+            -- @sgkim 2019.10.24 time값이 nil이 들어오는 경우가 있다.
+            --                   파악된 사항으로는 너무 큰 날짜가 들어올 경우 변수 타입이 오버플로우 되어 nil이 되는 경우가 있는 것 같다.
+            --                   현재 우리가 사용하는 값은 충분히 안전한 날짜임에도 nil이 되는 경우가 있어 불가피하게 예외처리를 한다.
+            if (parse_start_date['time'] == nil) then
+                -- 시작 날짜가 지정되었지만 해당 time(stamp)값을 알 수 없기 때문에 이 이벤트는 비활성화로 간주한다.
+
+                -- 오류 로그 전송
+                self:sendErrorLog_checkEventTime(optional_data)
+                return false
+            end
+
             start_time = parse_start_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
         end
     end
@@ -360,6 +371,9 @@ function ServerData_Event:checkEventTime(start_date, end_date)
             --                   현재 우리가 사용하는 값은 충분히 안전한 날짜임에도 nil이 되는 경우가 있어 불가피하게 예외처리를 한다.
             if (parse_end_date['time'] == nil) then
                 -- 종료 날짜가 지정되었지만 해당 time(stamp)값을 알 수 없기 때문에 이 이벤트는 비활성화로 간주한다.
+
+                -- 오류 로그 전송
+                self:sendErrorLog_checkEventTime(optional_data)
                 return false
             end
 
@@ -641,7 +655,7 @@ function ServerData_Event:setLobbyDecoData(table_lobbydeco)
     local start_date = table_lobbydeco['start_date']
     local end_date = table_lobbydeco['end_date']
 
-    if (self:checkEventTime(start_date, end_date)) then
+    if (self:checkEventTime(start_date, end_date, table_lobbydeco)) then
         self.m_tLobbyDeco = table_lobbydeco
     end
 end
@@ -759,4 +773,19 @@ end
 -------------------------------------
 function ServerData_Event:isComebackUser_1st()
     return self.m_isComebackUser_1st
+end
+
+-------------------------------------
+-- function sendErrorLog_checkEventTime
+-- @brief 시간처리 관련 오류 원인파악을 위해 서버에 로그 전송
+-------------------------------------
+function ServerData_Event:sendErrorLog_checkEventTime(t_data)
+
+    -- luadump는 nil을 허용하고 무조건 string을 리턴한다.
+    local dump_str = luadump(t_data)
+    --cclog(dump)
+
+    -- "\n"으로 구분된 첫 줄은 error_stack_header로 사용하기 위해 추가한다.
+    local msg = 'ServerData_Event:checkEventTime Error' .. '\n' .. dump_str
+    g_errorTracker:sendErrorLog(msg, nil) -- param : msg, success_cb
 end
