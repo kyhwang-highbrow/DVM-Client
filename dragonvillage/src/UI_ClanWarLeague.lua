@@ -111,7 +111,7 @@ function UI_ClanWarLeague:setMatchList()
 		local all_height = uic_extend_list_item:getAllHeight()
 		-- 컨테이너에 세로크기 적용
 		local ori_size = scroll_menu:getContentSize()
-		ori_size['height'] = all_height + 1900 -- 임시로 여유분까지
+		--ori_size['height'] = all_height + 1900 -- 임시로 여유분까지
 		scroll_menu:setContentSize(ori_size)
 
 		-- ScrollView 사이즈 설정 (ScrollNode 사이즈)
@@ -142,7 +142,7 @@ function UI_ClanWarLeague:setMatchList()
         -- 현재 진행중인 경기에 포커싱
         local container_node = scroll_view:getContainer()
         local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
-        container_node:setPositionY(-2400 + 255 * (match_day-2))
+        --container_node:setPositionY(-2400) -- + 255 * (match_day-2))
 
 		self.m_matchListScrollMenu = scroll_menu
 	end
