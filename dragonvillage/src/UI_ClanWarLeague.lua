@@ -10,7 +10,12 @@ UI_ClanWarLeague = class({
         m_selctedTeam = 'number',
         m_scrollBtnTableView = 'TableView',
         m_todayMatch = 'number',
-		m_matchListScrollMenu = 'ScrollMenu',
+
+		m_matchListScrollView = 'ScrollView',
+		m_matchListNode = 'Node',
+
+		m_rankListScrollView = 'ScrollView',
+		m_rankListNode = 'Node',
      })
 
 -------------------------------------
@@ -44,6 +49,8 @@ end
 function UI_ClanWarLeague:initUI()
 	local vars = self.vars
 	vars['timeLabel']:setString('{@yellow}2차 경기 진행중 {@green}다음 라운드까지 10시간 20분 남음')
+	self:initMatchScroll()
+	self:initRankScroll()
 end
 
 -------------------------------------
@@ -52,14 +59,12 @@ end
 function UI_ClanWarLeague:setRankList(struct_league)
     local vars = self.vars
     local struct_clanwar_league = struct_league or self.m_structLeague
+	local uic_extend_list_item = UIC_ExtendList_Image()
 	
     -- 랭크 출력
 	local l_rank = struct_clanwar_league:getClanWarLeagueRankList()
-	vars['rankNode']:removeAllChildren()
-
-    local struct_clanwar_league = self.m_structLeague
 	local uic_extend_list_item = UIC_ExtendList_Image()
-    
+
     -- 각 클랜 랭킹을 UIC_ExtendList_Image로 추가
 	for idx, data in ipairs(l_rank) do
         local clan_id = data['league_info']['clan_id']
@@ -69,10 +74,55 @@ function UI_ClanWarLeague:setRankList(struct_league)
         data['my_clan_id'] = g_clanWarData:getMyClanId()
 		uic_extend_list_item:addMainBtn(idx, UI_ClanWarLeagueRankListItem, data)
 	end
+
 	uic_extend_list_item:setMainBtnHeight(70)
 	uic_extend_list_item:setExtendHeight(130)
-	uic_extend_list_item:create(vars['rankNode'])
+	self.m_rankListNode:removeAllChildren()
+	uic_extend_list_item:create(self.m_rankListNode)
+	self.m_rankListNode:setPosition(230, 50)	
 
+	local func = function()
+		local ori_size = {}
+		local height = uic_extend_list_item:getAllHeight()
+		ori_size['width'] = 690
+		ori_size['height'] = 200 + height
+		self.m_rankListScrollView:setContentSize(ori_size)
+		self.m_rankListScrollView:setUpdateChildrenTransform()
+	end
+	uic_extend_list_item:setClickFunc(func)
+
+	-- 스크롤뷰 사이즈 초기화
+	local ori_size = {}
+	local height = uic_extend_list_item:getAllHeight()
+	ori_size['width'] = 690
+	ori_size['height'] = 500
+	self.m_rankListScrollView:setContentSize(ori_size)
+
+	-- 컨테이너 위치 초기화
+	local container_node = self.m_rankListScrollView:getContainer()
+	container_node:setPositionY(0)
+end
+
+-------------------------------------
+-- function initMatchScroll
+-------------------------------------
+function UI_ClanWarLeague:initMatchScroll()
+	local vars = self.vars
+
+	local node, scroll_view = UIC_ExtendList_Image.initScroll(self.vars['leagueListScrollNode'], self.vars['leagueListScrollMenu'])
+	self.m_matchListScrollView = scroll_view
+	self.m_matchListNode = node
+end
+
+-------------------------------------
+-- function initRankScroll
+-------------------------------------
+function UI_ClanWarLeague:initRankScroll()
+	local vars = self.vars
+
+	local node, scroll_view = UIC_ExtendList_Image.initScroll(self.vars['rankListScrollNode'], self.vars['rankListScrollMenu'])
+	self.m_rankListScrollView = scroll_view
+	self.m_rankListNode = node
 end
 
 -------------------------------------
@@ -80,13 +130,10 @@ end
 -------------------------------------
 function UI_ClanWarLeague:setMatchList()
     local vars = self.vars
-	local is_first = false
-	vars['leagueListNode']:removeAllChildren()
-
-    local struct_clanwar_league = self.m_structLeague
 	local uic_extend_list_item = UIC_ExtendList_Image()
-    local l_match = {}
-
+	
+	local l_match = {}
+	local struct_clanwar_league = self.m_structLeague
     -- 5일동안 3경기씩 하는 메인메뉴 버튼 생성
     for day = 1, 5 do		
 		local l_league = struct_clanwar_league:getClanWarLeagueList(day + 1)
@@ -101,51 +148,33 @@ function UI_ClanWarLeague:setMatchList()
 	uic_extend_list_item:setMainBtnHeight(70) -- 접는 버튼 높이
 	uic_extend_list_item:setExtendHeight(100) -- 늘어난 컨텐츠 높이
     uic_extend_list_item:setGroup(3) -- 몇개씩 묶어서 보여줄 것인가
-	uic_extend_list_item:create(vars['leagueListNode'])
 
+	self.m_matchListNode:removeAllChildren()
+	uic_extend_list_item:create(self.m_matchListNode)
+	self.m_matchListNode:setPosition(350, 70)	
 
-	if (not self.m_matchListScrollMenu) then
-		local scroll_node = self.vars['leagueListScrollNode']
-		local scroll_menu = self.vars['leagueListScrollMenu']
-
-		local all_height = uic_extend_list_item:getAllHeight()
-		-- 컨테이너에 세로크기 적용
-		local ori_size = scroll_menu:getContentSize()
-		--ori_size['height'] = all_height + 1900 -- 임시로 여유분까지
-		scroll_menu:setContentSize(ori_size)
-
-		-- ScrollView 사이즈 설정 (ScrollNode 사이즈)
-		local size = scroll_node:getContentSize()
-		local scroll_view = cc.ScrollView:create()
-		scroll_view:setNormalSize(size)
-		scroll_node:setSwallowTouch(false)
-		scroll_node:addChild(scroll_view)
-
-		-- ScrollView 에 달아놓을 컨텐츠 사이즈(ScrollMenu)
-		local target_size = scroll_menu:getContentSize()
-		scroll_view:setDockPoint(cc.p(0.5, 1.0))
-		scroll_view:setAnchorPoint(cc.p(0.5, 1.0))
-
-		scroll_view:setContentSize(target_size)
-		scroll_view:setPosition(ZERO_POINT)
-		scroll_view:setTouchEnabled(true)
-
-		-- ScrollMenu를 부모에서 분리하여 ScrollView에 연결
-		-- 분리할 부모가 없을 때 에러 없음
-        scroll_menu:retain()
-		scroll_menu:removeFromParent()
-		scroll_view:addChild(scroll_menu)
-        scroll_menu:release()
-
-		scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-
-        -- 현재 진행중인 경기에 포커싱
-        local container_node = scroll_view:getContainer()
-        local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
-        --container_node:setPositionY(-2400) -- + 255 * (match_day-2))
-
-		self.m_matchListScrollMenu = scroll_menu
+	local func = function()
+		local ori_size = {}
+		local height = uic_extend_list_item:getAllHeight()
+		ori_size['width'] = 690
+		ori_size['height'] = 350 + height
+		self.m_matchListScrollView:setContentSize(ori_size)
+		self.m_matchListScrollView:setUpdateChildrenTransform()
 	end
+	
+	uic_extend_list_item:setClickFunc(func)
+
+	-- 현재 진행중인 경기에 포커싱
+    local container_node = self.m_matchListScrollView:getContainer()
+    local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
+    container_node:setPositionY(-256 * (match_day-2))
+
+	-- 스크롤뷰 사이즈 초기화
+	local ori_size = {}
+	local height = uic_extend_list_item:getAllHeight()
+	ori_size['width'] = 690
+	ori_size['height'] = 1300
+	self.m_matchListScrollView:setContentSize(ori_size)
 end
 
 -------------------------------------
@@ -220,8 +249,8 @@ function UI_ClanWarLeague:refresh(team)
 	
 	local success_cb = function(ret)
         -- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
-		vars['leagueListNode']:removeAllChildren()
-		vars['rankNode']:removeAllChildren()
+		self.m_matchListNode:removeAllChildren()
+		self.m_rankListNode:removeAllChildren()
 		vars['allRankTabMenu']:removeAllChildren()
         
 		self.m_structLeague = StructClanWarLeague(ret)
@@ -280,8 +309,8 @@ function UI_ClanWarLeague:click_allBtn()
 	local vars = self.vars
     local success_cb = function(ret)
         -- 랭킹, 일정에 만든 아이템들 모두 삭제
-		vars['leagueListNode']:removeAllChildren()
-		vars['rankNode']:removeAllChildren()
+		self.m_matchListNode:removeAllChildren()
+		self.m_rankListNode:removeAllChildren()
 		vars['allRankTabMenu']:removeAllChildren()
         
         vars['allRankTabBtn']:setEnabled(false)
