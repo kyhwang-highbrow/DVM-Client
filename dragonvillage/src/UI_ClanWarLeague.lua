@@ -149,6 +149,14 @@ function UI_ClanWarLeague:setMatchList()
 	uic_extend_list_item:setExtendHeight(100) -- 늘어난 컨텐츠 높이
     uic_extend_list_item:setGroup(3) -- 몇개씩 묶어서 보여줄 것인가
 
+	-- 현재 진행중인 경기에 포커싱
+    local container_node = self.m_matchListScrollView:getContainer()
+    local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
+    container_node:setPositionY(-256 * (match_day-1))
+
+	local focus_idx = 1 + (match_day-2) * 3
+	uic_extend_list_item:setFocusIdx(focus_idx)
+
 	self.m_matchListNode:removeAllChildren()
 	uic_extend_list_item:create(self.m_matchListNode)
 	self.m_matchListNode:setPosition(350, 70)	
@@ -163,11 +171,6 @@ function UI_ClanWarLeague:setMatchList()
 	end
 	
 	uic_extend_list_item:setClickFunc(func)
-
-	-- 현재 진행중인 경기에 포커싱
-    local container_node = self.m_matchListScrollView:getContainer()
-    local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
-    container_node:setPositionY(-256 * (match_day-2))
 
 	-- 스크롤뷰 사이즈 초기화
 	local ori_size = {}
@@ -496,7 +499,7 @@ function UI_ClanWarLeagueMatchListItem:init(data)
 	local week_str = (tostring(match_number) - 1) .. '차 경기(' .. Str(t_day[tonumber(match_number)]) .. ')' -- 2차 경기 (수요일)
 
     -- n번째 날짜의 경기
-    if (match_number == tonumber(data['match_day'])) then
+    if (data['day'] == tonumber(data['match_day'])) then
         vars['todaySprite']:setVisible(true)
 		week_str = week_str .. ' - 경기 진행중'
 		vars['dateLabel']:setColor(COLOR['BLACK'])

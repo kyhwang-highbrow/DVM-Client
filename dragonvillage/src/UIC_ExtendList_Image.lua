@@ -12,7 +12,8 @@ UIC_ExtendList_Image = class(PARENT, {
 		-- 순차적으로 생성하는 데 필요한 변수
 		m_isCreateDone = 'boolean',
 		m_makeTimer = 'number',
-		m_createIdx = 'number'
+		m_createIdx = 'number',
+		m_focusIdx = 'number',
     })
 
 -------------------------------------
@@ -24,6 +25,7 @@ function UIC_ExtendList_Image:init()
 	self.m_isCreateDone = false
 	self.m_makeTimer = 0
 	self.m_createIdx = 1
+	self.m_focusIdx = 1
 end
 
 -------------------------------------
@@ -63,9 +65,14 @@ end
 function UIC_ExtendList_Image:createItemUI()
 	local node = self.m_node
 	local l_main = self.m_lMainBtn
-	local create_idx = self.m_createIdx
 
-	local t_main = l_main[create_idx]
+	local focus_idx = self.m_focusIdx + (self.m_createIdx - 1)
+	local total_cnt = #l_main
+	if (focus_idx > total_cnt) then
+		focus_idx = focus_idx - total_cnt
+	end
+
+	local t_main = l_main[focus_idx]
 	if (not t_main) then
 		return
 	end
@@ -83,16 +90,16 @@ function UIC_ExtendList_Image:createItemUI()
 		
 		local scale = ui_main.root:getScale()
         ui_main.root:setScale(scale * 0.2)
-        local scale_to = cc.ScaleTo:create(0.25, scale)
+        local scale_to = cc.ScaleTo:create(0.15, scale)
         local action = cc.EaseInOut:create(scale_to, 2)
         ui_main.root:runAction(action)
 	end
 
 	local ui = t_main['created_ui']
-	local content_height = self:getDefaultHeightByIdx(create_idx)
+	local content_height = self:getDefaultHeightByIdx(focus_idx)
 	ui.root:setPositionY(content_height)
 
-	self.m_createIdx = create_idx + 1
+	self.m_createIdx = self.m_createIdx + 1
 end
 
 -------------------------------------
@@ -350,4 +357,11 @@ function UIC_ExtendList_Image:getDefaultHeightByIdx(idx)
     end
 
 	return content_height * (-1)
+end
+
+-------------------------------------
+-- function setFocusIdx
+-------------------------------------
+function UIC_ExtendList_Image:setFocusIdx(idx)
+	self.m_focusIdx = idx or 1
 end
