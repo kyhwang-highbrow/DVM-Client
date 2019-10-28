@@ -35,8 +35,22 @@ end
 -------------------------------------
 function UI_ClanWarLobby:initUI()
     local vars = self.vars
-    
-    UI_ClanWarLeague(vars)
+
+    local is_tournament = false
+    local success_cb = function(ret)
+        if ret['league_info'] then
+            local ui_clen_war_league = UI_ClanWarLeague(vars)
+            ui_clen_war_league:setLeagueData(ret)
+            is_tournament = false
+        else
+            UI_ClanWarTournamentTree(vars)
+            is_tournament = true
+        end
+        
+        vars['tournamentMenu']:setVisible(is_tournament)
+        vars['leagueMenu']:setVisible(not is_tournament)
+    end
+    g_clanWarData:request_clanWarLeagueInfo(nil, success_cb)
 end
 
 -------------------------------------

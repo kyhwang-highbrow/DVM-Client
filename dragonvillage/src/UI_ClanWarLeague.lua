@@ -251,58 +251,67 @@ function UI_ClanWarLeague:refresh(team)
     local vars = self.vars
 	
 	local success_cb = function(ret)
-        -- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
-		self.m_matchListNode:removeAllChildren()
-		self.m_rankListNode:removeAllChildren()
-		vars['allRankTabMenu']:removeAllChildren()
-        
-		self.m_structLeague = StructClanWarLeague(ret)
-        self.m_todayMatch = ret['clanwar_day']
-
-        -- 랭크, 일정, 버튼 정보 갱신
-        self:setRankList()
-        self:setMatchList()
-
-        -- 처음 들어왔을 때에는 자신의 조로 버튼을 세팅
-        if (not team) then
-            self.m_selctedTeam = self.m_structLeague:getMyClanTeamNumber()
-        end
-    	self:setScrollButton()
-
-
-        -- Test용
-        -- 내 클랜이 속한 화면일 때에만 활성화
-        local is_myClanTeam = false
-        local my_clan_id = g_clanWarData:getMyClanId()
-        if (self.m_structLeague:isContainClan(my_clan_id)) then
-            is_myClanTeam = true
-        end
-
-        local cb_func = function(data)
-            local total_score = data['match'] or 0
-            local win = data['win'] or 0
-            local lose = data['lose'] or 0
-
-            local league, match, is_left = self.m_structLeague:getMyClanInfo(self.m_todayMatch)
-            if (not is_left) then
-                UIManager:toastNotificationRed('내 클랜 정보가 없음')
-                return
-            end
-            g_clanWarData:request_testSetWinLose(league, match, is_left, win, lose, total_score)
-            UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')
-        end
-
-        -- 점수 조작 관련 정보 입력하는 팝업 여는 버튼
-        vars['testBtn']:setVisible(is_myClanTeam)
-        vars['testTomorrowBtn']:setVisible(is_myClanTeam)
-        vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueTest(cb_func) end)
-        vars['testTomorrowBtn']:registerScriptTapHandler(function() 
-            g_clanWarData:request_testNextDay() 
-            UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')
-        end)
+        self:setLeagueData(ret)
 	end
 
     g_clanWarData:request_clanWarLeagueInfo(team, success_cb) --team 을 nil로 요청하면 자신 클랜이 속한 조 정보가 내려옴
+end
+
+-------------------------------------
+-- function setLeagueData
+-------------------------------------
+function UI_ClanWarLeague:setLeagueData(ret)
+    local vars = self.vars
+
+    -- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
+	self.m_matchListNode:removeAllChildren()
+	self.m_rankListNode:removeAllChildren()
+	vars['allRankTabMenu']:removeAllChildren()
+    
+	self.m_structLeague = StructClanWarLeague(ret)
+    self.m_todayMatch = ret['clanwar_day']
+
+    -- 랭크, 일정, 버튼 정보 갱신
+    self:setRankList()
+    self:setMatchList()
+
+    -- 처음 들어왔을 때에는 자신의 조로 버튼을 세팅
+    if (not team) then
+        self.m_selctedTeam = self.m_structLeague:getMyClanTeamNumber()
+    end
+    self:setScrollButton()
+
+
+    -- Test용
+    -- 내 클랜이 속한 화면일 때에만 활성화
+    local is_myClanTeam = false
+    local my_clan_id = g_clanWarData:getMyClanId()
+    if (self.m_structLeague:isContainClan(my_clan_id)) then
+        is_myClanTeam = true
+    end
+
+    local cb_func = function(data)
+        local total_score = data['match'] or 0
+        local win = data['win'] or 0
+        local lose = data['lose'] or 0
+
+        local league, match, is_left = self.m_structLeague:getMyClanInfo(self.m_todayMatch)
+        if (not is_left) then
+            UIManager:toastNotificationRed('내 클랜 정보가 없음')
+            return
+        end
+        g_clanWarData:request_testSetWinLose(league, match, is_left, win, lose, total_score)
+        UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')
+    end
+
+    -- 점수 조작 관련 정보 입력하는 팝업 여는 버튼
+    vars['testBtn']:setVisible(is_myClanTeam)
+    vars['testTomorrowBtn']:setVisible(is_myClanTeam)
+    vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueTest(cb_func) end)
+    vars['testTomorrowBtn']:registerScriptTapHandler(function() 
+        g_clanWarData:request_testNextDay() 
+        UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')
+    end)  
 end
 
 -------------------------------------

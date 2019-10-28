@@ -3,8 +3,9 @@
 -- class StructClanWarTournament
 -------------------------------------
 StructClanWarTournament = class({
-	m_lRoundInfo = 'list',
-    m_tMyClanInfo = 'table',
+	m_tClanInfo = 'table',
+    m_tTournamentInfo = 'table'
+
 })
 
 local L_ROUND = {64, 32, 16, 8, 4, 2}
@@ -13,20 +14,22 @@ local L_ROUND = {64, 32, 16, 8, 4, 2}
 -- function init
 -------------------------------------
 function StructClanWarTournament:init(data)
-	self.m_lRoundInfo = {}
+	self.m_tTournamentInfo = {}
 
     if (not data) then
 		return
 	end
 
-    -- n강 마다 정보 수령
-    for _, round in ipairs(L_ROUND) do
-        local round_key = 'round_' .. round
-        self.m_lRoundInfo[round] = data[round_key]
+    if (data['tounament_info']) then
+        self:makeTournamentData()
     end
+end
 
-    if (data['my_clan']) then
-        self.m_tMyClanInfo = data['my_clan']
+-------------------------------------
+-- function makeTournamentData
+-------------------------------------
+function StructClanWarTournament:makeTournamentData(l_tournament)
+    for idx, data in ipairs(l_tournament) do
     end
 end
 
@@ -85,6 +88,4 @@ end
 -- function getRoundInfo
 -------------------------------------
 function StructClanWarTournament:getRoundInfo(round)
-    local round = tonumber(round)
-    return self.m_lRoundInfo[round]
 end
