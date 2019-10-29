@@ -43,6 +43,10 @@ function UI_ClanWarLobby:initUI()
             ui_clen_war_league:setLeagueData(ret)
             is_tournament = false
         else
+            if (#ret['tournament_info'] == 0) then
+                return
+            end
+            
             local ui_clan_war_tournament = UI_ClanWarTournamentTree(vars)
             ui_clan_war_tournament:setTournamentData(ret)
             is_tournament = true

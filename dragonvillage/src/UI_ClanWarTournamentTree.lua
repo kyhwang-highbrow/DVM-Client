@@ -224,6 +224,17 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     end
     ui.vars['clanNameLabel2']:setString(clan_name2)
 
+	local clan_1_is_win = StructClanWarTournament.isWin(clan1)
+	local clan_2_is_win = StructClanWarTournament.isWin(clan2)
+	ui.vars['defeatSprite1']:setVisible(not clan_1_is_win)
+	ui.vars['defeatSprite2']:setVisible(not clan_2_is_win)
+
+	local today_round = struct_clan_war_tournament:getTodayRound()
+	if (today_round >= round) then
+		ui.vars['defeatSprite1']:setVisible(false)
+		ui.vars['defeatSprite2']:setVisible(false)		
+	end
+
     local pos_y = 0
     -- 첫 경기일 경우
     if (round == self.m_maxRound) then

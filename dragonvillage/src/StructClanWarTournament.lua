@@ -16,7 +16,7 @@ local L_ROUND = {64, 32, 16, 8, 4, 2, 1}
 -------------------------------------
 function StructClanWarTournament:init(data)
 	self.m_tTournamentInfo = {}
-    self.m_clanWarDay = 0
+    self.m_clanWarDay = 1
     self.m_tClanInfo = {}
 
     for i, round in ipairs(L_ROUND) do
@@ -48,7 +48,9 @@ function StructClanWarTournament:makeTournamentData(l_tournament)
         local group_stage = data['group_stage']
         for _, round in ipairs(L_ROUND) do
             if (group_stage <= round) then
-                table.insert(self.m_tTournamentInfo[round], data)
+				local _data = clone(data)
+				_data['is_win'] = (group_stage ~= round)
+                table.insert(self.m_tTournamentInfo[round], _data)
             end
         end
     end
@@ -151,4 +153,28 @@ end
 -------------------------------------
 function StructClanWarTournament:getClanInfo(clan_id)
     return self.m_tClanInfo[clan_id]
+end
+
+-------------------------------------
+-- function isWin
+-------------------------------------
+function StructClanWarTournament.isWin(tournament_data)
+	if (not tournament_data) then
+		return false
+	end
+
+	if (not tournament_data['is_win']) then
+		return false
+	end
+
+	return tournament_data['is_win']
+end
+
+-------------------------------------
+-- function getTodayRound
+-------------------------------------
+function StructClanWarTournament:getTodayRound()
+	-- 8일차에 64강, 7일차에 32강 ...
+	local t_day = {[8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+	return t_day[self.m_clanWarDay]
 end

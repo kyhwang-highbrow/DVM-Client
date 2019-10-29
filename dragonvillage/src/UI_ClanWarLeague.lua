@@ -152,7 +152,7 @@ function UI_ClanWarLeague:setMatchList()
 	-- 현재 진행중인 경기에 포커싱
     local container_node = self.m_matchListScrollView:getContainer()
     local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
-    container_node:setPositionY(-256 * (match_day-1))
+    container_node:setPositionY(-256 * (match_day-2))
 
 	local focus_idx = 1 + (match_day-2) * 3
 	uic_extend_list_item:setFocusIdx(focus_idx)
@@ -508,7 +508,7 @@ function UI_ClanWarLeagueMatchListItem:init(data)
 	local week_str = (tostring(match_number) - 1) .. '차 경기(' .. Str(t_day[tonumber(match_number)]) .. ')' -- 2차 경기 (수요일)
 
     -- n번째 날짜의 경기
-    if (data['day'] == tonumber(data['match_day'])) then
+    if (match_number == tonumber(data['match_day'])) then
         vars['todaySprite']:setVisible(true)
 		week_str = week_str .. ' - 경기 진행중'
 		vars['dateLabel']:setColor(COLOR['BLACK'])
