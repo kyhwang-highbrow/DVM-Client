@@ -211,6 +211,25 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
 		return pos_x
 	end
 
+    local func_get_is_valid = function(idx)
+		local is_valid_item = false
+        if (is_right) then
+            if (idx > (#l_list)/2) then
+                is_valid_item = true
+            else
+                is_valid_item = false
+            end
+        else
+            if (idx <= (#l_list)/2) then
+                is_valid_item = true
+            else
+                is_valid_item = false
+            end        
+        end
+
+		return is_valid_item
+	end
+
 	-- N강 치르는 개별 클랜 리스트 = l_list
     for idx, data in ipairs(l_list) do
         if (idx%2 == 1) then
@@ -219,7 +238,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
             clan2 = data
 
             -- 클랜 2개를 묶어서 하나의 아이템 생성 (토너먼트 트리 잎)
-            if (idx <= (#l_list)/2) then
+            if (func_get_is_valid(idx)) then
                 local ui = self:makeTournamentLeaf(round, item_idx, clan1, clan2)
                 if (ui) then
 					local pos_x = func_get_pos_x(round_idx, leaf_width)
@@ -282,6 +301,8 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 	local today_round = struct_clan_war_tournament:getTodayRound()
 	if (today_round == round) then
 		ui.vars['leftHorizontalSprite']:setColor(win_color)
+        ui.vars['defeatSprite1']:setVisible(false)
+		ui.vars['defeatSprite2']:setVisible(false)	
 	
 	elseif (today_round >= round) then
 		ui.vars['defeatSprite1']:setVisible(false)
