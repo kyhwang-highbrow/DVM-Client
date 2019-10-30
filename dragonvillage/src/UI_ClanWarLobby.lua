@@ -57,8 +57,6 @@ function UI_ClanWarLobby:initUI()
     end
     g_clanWarData:request_clanWarLeagueInfo(nil, success_cb)
 
-    
-    vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueTest(cb_func) end)
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
         g_clanWarData:request_testNextDay() 
         UIManager:toastNotificationRed('다음날이 되었습니다. ESC로 나갔다가 다시 진입해주세요')

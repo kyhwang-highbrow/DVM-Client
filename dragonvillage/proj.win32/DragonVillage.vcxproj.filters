@@ -4276,6 +4276,9 @@
     <None Include="..\src\UIC_ExtendList_Image.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarTest.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

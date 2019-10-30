@@ -40,6 +40,7 @@ function UI_ClanWarTournamentTree:initButton()
 	local vars = self.vars
 	vars['rightMoveBtn']:registerScriptTapHandler(function() self:click_moveBtn(1) end)
 	vars['leftMoveBtn']:registerScriptTapHandler(function() self:click_moveBtn(-1) end)
+    vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
 end
 
 -------------------------------------
@@ -56,6 +57,11 @@ end
 function UI_ClanWarTournamentTree:setTournamentData(ret)
 	local vars = self.vars
 	self.m_structTournament = StructClanWarTournament(ret)
+    
+    -- Test Mode에서 내 클랜 승리시키기 위해 필요한 코드
+    local is_my_clan_left = self.m_structTournament:getMyClanLeft()
+    g_clanWarData:setIsMyClanLeft(is_my_clan_left)
+    
     self:showPage()
 end
 
@@ -310,7 +316,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 	
 	else
 		ui.vars['leftHorizontalSprite']:setColor(win_color)
-		ui.vars['defeatSprite1']:setColor(win_color)
+		ui.vars['defeatSprite1']:setColor(clan_1_is_win)
 		ui:setWinLineColor(clan_1_is_win)
 	end
 

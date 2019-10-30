@@ -175,6 +175,38 @@ end
 -------------------------------------
 function StructClanWarTournament:getTodayRound()
 	-- 8일차에 64강, 7일차에 32강 ...
-	local t_day = {[8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+	local t_day = {[7] = 128, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
 	return t_day[self.m_clanWarDay]
+end
+
+-------------------------------------
+-- function getMyClanLeft
+-- @brief 내 클랜 없다면 무조건 오른쪽 반환, 테스트 용이라 그래도 됨
+-------------------------------------
+function StructClanWarTournament:getMyClanLeft()
+	if (not self.m_tTournamentInfo) then
+        return false
+    end
+    
+    local my_clan_id = g_clanWarData:getMyClanId()
+    if (not my_clan_id) then
+        return false
+    end
+
+    local today_round = self:getTodayRound()
+    -- 돌면서 나의 클랜을 찾는다.
+    local t_data = self.m_tTournamentInfo[today_round]
+    if (not t_data) then
+        return false
+    end
+
+    local idx = 1
+	for _, data in ipairs(t_data) do
+        if (my_clan_id == data['clan_id']) then
+            return (idx%2 == 1)
+        end
+        idx = idx + 1
+    end
+
+   return false
 end

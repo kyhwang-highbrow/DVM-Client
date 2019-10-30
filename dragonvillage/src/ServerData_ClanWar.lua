@@ -3,27 +3,7 @@
 -- @instance g_clanWarData
 -------------------------------------
 ServerData_ClanWar = class({
-    -- 오픈/종료 시간
-    m_startTime = 'number',
-    m_endTime = 'number',
-
-    m_myClan = 'StructClanWar',
-    m_opponentClan = 'StructClanWar',
-
-    -- 방어덱
-    m_myDefenceDeck = 'list',
-
-    -- ex)32강
-    m_curRound = 'number',
-    
-    -- ex)3경기
-    m_curPlay = 'number',
-
-    -- ex)3조
-    m_curClanTeam = 'number',
-
-	m_structClanWarLeague = 'StructClanWar', -- 추후 정리 예정
-    m_myClanId = 'string',
+    m_isMyClanLeft = 'boolean', -- Test API에서만 사용되는 값
 })
 
 -------------------------------------
@@ -41,32 +21,17 @@ function ServerData_ClanWar:request_clanWarInfo()
 end
 
 -------------------------------------
--- function request_clanWarTournamentTree
+-- function request_myClanResult
 -------------------------------------
-function ServerData_ClanWar:request_clanWarTournamentTree()
+function ServerData_ClanWar:request_myClanResult(is_left)
+    local tournament_left_win = 1
+    if (is_left) then
+        is_left = 1
+    else
+        is_left = 0
+    end
 
-	local ret = StructClanWarTournament.makeDummy()
-    --local success_cb = function(ret)
-		return StructClanWarTournament(ret)
-    --end
-	--[[
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-    
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/clan_war/league_info')
-    ui_network:setParam('uid', uid)
-    ui_network:setMethod('POST')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-
-    return ui_network
-	--]]
+    g_clanWarData:request_testNextDay(is_left)
 end
 
 -------------------------------------
@@ -75,12 +40,6 @@ end
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local league = team
 	local finish_cb = function(ret)
-		if (league ~= 99) then 
-			self.m_structClanWarLeague = StructClanWarLeague(ret)
-            if (ret['my_clan_id']) then
-                self:setMyClanId(ret['my_clan_id'])
-            end
-		end
 		success_cb(ret)
 	end
 
@@ -136,9 +95,9 @@ end
 -------------------------------------
 -- function request_nextDay
 -------------------------------------
-function ServerData_ClanWar:request_testNextDay()
+function ServerData_ClanWar:request_testNextDay(is_left)
     local league = team
-
+    local _is_left = is_left or 1
     -- 유저 ID
     local uid = g_userData:get('uid')
     
@@ -146,7 +105,7 @@ function ServerData_ClanWar:request_testNextDay()
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/clanwar_nextday')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('tournament_left_win', 1)
+    ui_network:setParam('tournament_left_win', _is_left)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(finish_cb)
     ui_network:setFailCB(fail_cb)
@@ -158,18 +117,28 @@ function ServerData_ClanWar:request_testNextDay()
     return ui_network
 end
 
-
--------------------------------------
--- function setMyClanId
--------------------------------------
-function ServerData_ClanWar:setMyClanId(clan_id)
-   self.m_myClanId =  clan_id
-end
-
 -------------------------------------
 -- function getMyClanId
 -------------------------------------
 function ServerData_ClanWar:getMyClanId(clan_id)
-   return self.m_myClanId or ''
+   local struct_clan = g_clanData:getClanStruct()
+   if (struct_clan) then
+        return struct_clan:getClanObjectID()
+   end
+
+   return nil
 end
 
+-------------------------------------
+-- function setIsMyClanLeft
+-------------------------------------
+function ServerData_ClanWar:setIsMyClanLeft(is_left)
+    self.m_isMyClanLeft = is_left
+end
+
+-------------------------------------
+-- function getIsMyClanLeft
+-------------------------------------
+function ServerData_ClanWar:getIsMyClanLeft()
+    return self.m_isMyClanLeft
+end

@@ -306,8 +306,8 @@ function UI_ClanWarLeague:setLeagueData(ret)
 
     -- 점수 조작 관련 정보 입력하는 팝업 여는 버튼
     vars['testBtn']:setVisible(is_myClanTeam)
+    vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, true) end)
     vars['testTomorrowBtn']:setVisible(is_myClanTeam)
-    vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueTest(cb_func) end)
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
         g_clanWarData:request_testNextDay() 
         UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')
@@ -670,64 +670,3 @@ function UI_ClanWarAllRankListItemOfItem:init(data)
     local lose_cnt = StructClanWarLeague.getLoseCount(data)
     vars['scoreLabel']:setString(Str('{1}-{2}', win_cnt, lose_cnt))
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-local PARENT = UI
-
--------------------------------------
--- class UI_ClanWarLeagueTest
--------------------------------------
-UI_ClanWarLeagueTest = class(PARENT, {
-        m_data = ''
-     })
-
--------------------------------------
--- function init
--------------------------------------
-function UI_ClanWarLeagueTest:init(cb_func)
-    local vars = self:load('clan_war_set_score_test.ui')
-    UIManager:open(self, UIManager.POPUP)
-
-    self.m_data = {}
-    self.m_data['match'] = 0
-    self.m_data['win'] = 0
-    self.m_data['lose'] = 0
-
-
-    local l_key = {'match', 'win', 'lose'}
-    for _, key in ipairs(l_key) do
-        vars[key .. 'NumberLabel']:setString(self.m_data[key])
-        vars[key .. 'DownBtn']:registerScriptTapHandler(function() self.m_data[key] = self.m_data[key] - 1 self:refresh() end)
-        vars[key .. 'UpBtn']:registerScriptTapHandler(function() self.m_data[key] = self.m_data[key] + 1 self:refresh() end)
-    end
-
-    vars['applyBtn']:registerScriptTapHandler(function() cb_func(self.m_data) self:close()  end)
-    vars['closeBtn']:registerScriptTapHandler(function() self:close()  end)
-
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueTest')
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_ClanWarLeagueTest:refresh(data)
-    local vars = self.vars
-    local l_key = {'match', 'win', 'lose'}
-    for _, key in ipairs(l_key) do
-        vars[key .. 'NumberLabel']:setString(self.m_data[key])
-    end
-end
-
