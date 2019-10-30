@@ -995,3 +995,26 @@ end
 function ServerData_Shop:getSumMoney()
 	return self.m_sumMoney or 0
 end
+
+-------------------------------------
+-- function isBuyablePackage
+-- @brief 패키지 중 하나라도 구매 가능이이라면 true를 리
+-------------------------------------
+function ServerData_Shop:isBuyablePackage(l_pid)
+	local is_package_buyable = false
+	if (not l_pid) then
+		return false
+	end
+
+    for i, pid in ipairs(l_pid) do
+	    local struct_product = g_shopDataNew:getProduct('package', pid)
+        if (struct_product) then
+            if (struct_product:checkMaxBuyCount()) then
+                is_package_buyable = true
+                break
+            end
+        end
+    end
+
+	return is_package_buyable
+end

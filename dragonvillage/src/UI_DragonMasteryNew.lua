@@ -107,6 +107,14 @@ end
 -------------------------------------
 function UI_DragonMasteryNew:onChangeTab(tab, first)
     local vars = self.vars
+	
+	-- 특성 레벨업 탭 진입 시 조건에 충족하면 구매 촉진 팝업
+	if (tab == UI_DragonMasteryNew.TAB_LVUP) then
+		local amor_cnt = g_userData:get('amor')
+		if (amor_cnt < 100) then
+			self:showAmorPackagePopup()
+		end
+	end
 end
 
 -------------------------------------
@@ -667,8 +675,16 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
         self:refresh_dragonIndivisual(doid)
         
         -- 결과 팝업
-        UI_DragonMasteryLevelUp_Result(self:getSelectDragonObj())
-    end
+        local ui_result = UI_DragonMasteryLevelUp_Result(self:getSelectDragonObj())
+		
+		-- 특성 레벨업 이후 조건에 충족하면 구매 촉진 팝업
+		ui_result:setCloseCB(function() 
+			local amor_cnt = g_userData:get('amor')
+			if (amor_cnt < 50) then
+				self:showAmorPackagePopup()
+			end
+		end)
+	end
     
     local function fail_cb()
     end
@@ -880,6 +896,58 @@ function UI_DragonMasteryNew:refresh_dragonIndivisual_material(doid)
         self:setSelectDragonData(doid, true)
     end
 end
+
+-------------------------------------
+-- function showAmorPackagePopup
+-- @brief 아모르의 서 패키지를  유저에게 보여줘서 상품 구매를 유도
+-------------------------------------
+function UI_DragonMasteryNew:showAmorPackagePopup()
+	
+	-- 1.아모르의 서 패키지를 구매 가능한가
+	do
+		local is_buyable = g_shopDataNew:isBuyablePackage({110251})
+		if (not is_buyable) then
+			return 
+		end
+	end
+
+    -- 2.쿨타임 7일 지났는지
+    do
+        local expired_time = g_settingData:getPromoteExpired('package_amor')
+        local cur_time = Timer:getServerTime()
+        if (cur_time < expired_time) then
+            return
+        end
+
+        -- 아모르의 서 판매 촉진하는 팝업 쿨타임 7일
+        local next_cool_time = cur_time + datetime.dayToSecond(7)
+        -- 쿨 타임 만료시간 갱신
+        g_settingData:setPromoteCoolTime('package_amor', next_cool_time)
+    end
+    
+	-- 룬 연마 팝업 보여줌
+	local ui = UI_Package_Bundle('package_amor', true) -- is_popup
+
+    -- @UI_ACTION(룬 연마 풀팝업 scale 액션)
+    ui:doActionReset()
+    ui:doAction(nil, false)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
