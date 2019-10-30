@@ -316,7 +316,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 	
 	else
 		ui.vars['leftHorizontalSprite']:setColor(win_color)
-		ui.vars['defeatSprite1']:setColor(clan_1_is_win)
+		ui.vars['defeatSprite1']:setVisible(clan_1_is_win)
 		ui:setWinLineColor(clan_1_is_win)
 	end
 
