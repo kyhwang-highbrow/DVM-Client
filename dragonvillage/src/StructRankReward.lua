@@ -59,7 +59,8 @@ end
 -------------------------------------
 function StructRankReward:getPossibleReward(my_rank, my_ratio)
     local my_rank = tonumber(my_rank)
-    local my_rank_rate = tonumber(my_ratio)
+    local my_rank_rate = tonumber(my_ratio) * 100
+
     local l_rank_list = self.m_lRankRewardData
 
     -- 한번도 플레이 하지 않은 경우, 최상위 보여줌
