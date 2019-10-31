@@ -5,6 +5,8 @@
 UI_ClanWarTournamentTree = class({
         vars = 'vars',
         m_scrollMenu = 'ScrollMenu',
+        m_scrollView = 'ScrollView',
+
         m_lPosY = 'list',
 
         m_structTournament = 'StructClanWarTournament',
@@ -91,6 +93,10 @@ function UI_ClanWarTournamentTree:showPage()
 	vars['listItemNode']:removeAllChildren()
 	self.m_scrollMenu:removeAllChildren()
 
+    -- 컨테이너 위치 초기화
+	local container_node = self.m_scrollView:getContainer()
+	container_node:setPositionY(-600)
+
 	if (page_number == 1) then
 		self:showSidePage(false)
 	elseif (page_number == 2) then
@@ -144,54 +150,38 @@ end
 -- function setFinal
 -------------------------------------
 function UI_ClanWarTournamentTree:setFinal()
-    
-    local y = (self.m_lPosY[1] + self.m_lPosY[2])/2
-    local pos_y = { y , y , y}
-    local pos_x = {-250,  -250 + leaf_width*2, -250 + leaf_width}
+    local vars = self.vars
+
+    local ui = UI()
+    ui:load('clan_war_tournament_final_item.ui')
+    vars['listItemNode']:addChild(ui.root)
+
+    self:makeFinalItemByRound(ui, 8)
+    self:makeFinalItemByRound(ui, 4)
+    self:makeFinalItemByRound(ui, 2)
+end
+
+-------------------------------------
+-- function makeFinalItemByRound
+-------------------------------------
+function UI_ClanWarTournamentTree:makeFinalItemByRound(ui_final, round)
     local vars = self.vars
     local struct_clan_war_tournament = self.m_structTournament
-
-    local l_list = struct_clan_war_tournament:getTournamentListByRound(4)
-    local total_y = 300
-    local term = 0
-    
-    local clan1 = {}
-    local clan2 = {}
-    local item_idx = 1
+        
+    local l_list = struct_clan_war_tournament:getTournamentListByRound(round)
     for idx, data in ipairs(l_list) do
         if (idx%2 == 1) then
             clan1 = data
         else
             clan2 = data
-            local ui = self:makeTournamentLeaf(4, item_idx, clan1, clan2)
-            if (ui) then
-                ui.root:setPosition(pos_x[item_idx], pos_y[item_idx])
-                self.m_scrollMenu:addChild(ui.root)
-                item_idx = item_idx + 1
-            end
-        end
-    end
 
-    local l_list = struct_clan_war_tournament:getTournamentListByRound(2)
-    local total_y = 300
-    local term = 0
-    
-    local clan1 = {}
-    local clan2 = {}
-    local item_idx = 1
-    for idx, data in ipairs(l_list) do
-        if (idx%2 == 1) then
-            clan1 = data
-        else
-            clan2 = data
-            local ui = self:makeTournamentLeaf(2, item_idx, clan1, clan2)
-            if (ui) then
-                ui.root:setPosition(pos_x[3], pos_y[3])
-                self.m_scrollMenu:addChild(ui.root)
-                item_idx = item_idx + 1
-            end
+            -- 클랜 2개를 묶어서 하나의 아이템 생성 (토너먼트 트리 잎)
+            local ui = self:makeTournamentLeaf(round, idx/2, clan1, clan2)
+            ui.root:setPositionY(0)
+            ui.vars['lineMenu']:setVisible(false)
+            ui_final.vars['round' .. round .. '_' .. idx/2 .. 'Node']:addChild(ui.root)
         end
-    end
+    end    
 end
 
 -------------------------------------
@@ -305,18 +295,26 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     ui:setWin(clan_1_is_win, clan_2_is_win)
 
 	local today_round = struct_clan_war_tournament:getTodayRound()
-	if (today_round == round) then
+	
+    -- 현재 진행중인 라운드의 경우
+    -- 승패 표시 안함, 뒷 막대기 표시
+    if (today_round == round) then
 		ui.vars['leftHorizontalSprite']:setColor(win_color)
         ui.vars['defeatSprite1']:setVisible(false)
 		ui.vars['defeatSprite2']:setVisible(false)	
 	
+    -- 진행 안한 라운드의 경우
+    -- 승패 표시 안함, 뒷 막대기 표시 안함
 	elseif (today_round >= round) then
 		ui.vars['defeatSprite1']:setVisible(false)
-		ui.vars['defeatSprite2']:setVisible(false)		
+		ui.vars['defeatSprite2']:setVisible(false)
 	
+    -- 지나간 라운드의 경우
+    -- 승패 표시함, 뒷 막대기 표시
 	else
 		ui.vars['leftHorizontalSprite']:setColor(win_color)
 		ui.vars['defeatSprite1']:setVisible(clan_1_is_win)
+        ui.vars['defeatSprite1']:setVisible(not clan_1_is_win)
 		ui:setWinLineColor(clan_1_is_win)
 	end
 
@@ -373,6 +371,7 @@ function UI_ClanWarTournamentTree:initScroll()
     scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     self.m_scrollMenu = scroll_menu
+    self.m_scrollView = scroll_view
 end
 
 
