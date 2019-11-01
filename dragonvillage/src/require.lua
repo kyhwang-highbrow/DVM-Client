@@ -120,6 +120,7 @@ local t_module = {
     'StructRankReward',
     'StructClanWarLeague',
     'StructClanWarTournament',
+    'StructClanWarMatch',
 
 	-- ServerData
     'ServerData',
@@ -1400,6 +1401,9 @@ local t_module = {
     'UI_ClanWarTournamentTree',
     'UI_ClanWarLeague',
     'UI_ClanWarTest',
+    'UI_ClanWarMatchingSceneListItem',
+    'UI_ClanWarMatchingScene',
+    
 
     -- Forest
     'SceneForest',

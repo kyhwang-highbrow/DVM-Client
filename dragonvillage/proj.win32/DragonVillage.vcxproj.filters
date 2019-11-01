@@ -4279,6 +4279,15 @@
     <None Include="..\src\UI_ClanWarTest.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarMatchingScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarMatchingSceneListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructClanWarMatch.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

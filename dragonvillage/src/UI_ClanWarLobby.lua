@@ -70,3 +70,23 @@ function UI_ClanWarLobby:click_exitBtn()
     local scene = SceneLobby()
     scene:runScene()
 end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ClanWarLobby:initButton()
+    local vars = self.vars
+
+    vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
+end
+
+-------------------------------------
+-- function click_gotoMatch
+-------------------------------------
+function UI_ClanWarLobby:click_gotoMatch()
+    local success_cb = function(struct_match_my_clan, struct_match_enemy_clan)
+        local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match_my_clan, struct_match_enemy_clan)
+    end
+
+    g_clanWarData:request_clanWarMatchInfo(success_cb)
+end

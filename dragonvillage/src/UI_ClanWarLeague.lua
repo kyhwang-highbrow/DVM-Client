@@ -39,7 +39,6 @@ end
 function UI_ClanWarLeague:initButton()
 	local vars = self.vars
 
-    vars['startBtn']:registerScriptTapHandler(function() UI_MatchReadyClanWar() end)
     vars['allRankTabBtn']:registerScriptTapHandler(function() self:click_allBtn() end)
 end
 

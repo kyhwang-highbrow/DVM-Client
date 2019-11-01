@@ -142,3 +142,35 @@ end
 function ServerData_ClanWar:getIsMyClanLeft()
     return self.m_isMyClanLeft
 end
+
+-------------------------------------
+-- function request_clanWarMatchInfo
+-------------------------------------
+function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)    
+    
+    local finish_cb = function(ret)
+        local struct_matching_my_clan = StructClanWarMatch(ret['clanwar_match_info'])
+        local struct_matching_enemy_clan = StructClanWarMatch(ret['clanwar_match_info_enemy'])
+
+        return success_cb(struct_matching_my_clan, struct_matching_enemy_clan)
+    end
+    
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local clan_id = self:getMyClanId()
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clanwar/match_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(finish_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
