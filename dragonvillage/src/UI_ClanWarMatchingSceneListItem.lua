@@ -15,6 +15,13 @@ function UI_ClanWarMatchingSceneListItem:initButton()
 end
 
 -------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanWarMatchingSceneListItem:initUI()
+    vars['userNameLabel']:setString('')
+end
+
+-------------------------------------
 -- function setClanMemberInfo
 -------------------------------------
 function UI_ClanWarMatchingSceneListItem:setClanMemberInfo(struct_user_info_clan)
@@ -27,6 +34,9 @@ end
 -------------------------------------
 function UI_ClanWarMatchingSceneListItem:refresh()
     local vars = self.vars
+    if (not self.m_structUserInfoClan) then
+        return
+    end
 
     local nick_name = self.m_structUserInfoClan:getNickname() or ''
     vars['userNameLabel']:setString(nick_name)

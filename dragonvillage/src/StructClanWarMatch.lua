@@ -10,7 +10,7 @@ StructClanWarMatch = class({
     play_member_cnt = 'number',
     win_cnt = 'number',
     enemy_clan_id = 'number',
-    clan_id = 'number',
+    clan_id = 'string',
     score = 'number',
 })
 
@@ -84,5 +84,19 @@ end
 -- function getClanMembersInfo
 -------------------------------------
 function StructClanWarMatch:getClanMembersInfo(uid)
-    return self.m_tMemberInfo[uid] or {}
+    return self.m_tMemberInfo[uid]
+end
+
+-------------------------------------
+-- function getClanId
+-------------------------------------
+function StructClanWarMatch:getClanId()
+    return self['clan_id']
+end
+
+-------------------------------------
+-- function getWinCnt
+-------------------------------------
+function StructClanWarMatch:getWinCnt()
+    return self['win_cnt']
 end

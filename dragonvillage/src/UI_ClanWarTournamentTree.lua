@@ -132,7 +132,7 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
 		ui_title_item.root:setPositionX(pos_x)
 		vars['listItemNode']:addChild(ui_title_item.root)
 
-		local today_round = self.m_structTournament:getTodayRound()
+		local today_round = g_clanWarData:getTodayRound()
 		if (round == today_round) then
 			ui_title_item:setInProgress()
 		end
@@ -294,7 +294,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 	ui.vars['defeatSprite2']:setVisible(not clan_2_is_win)
     ui:setWin(clan_1_is_win, clan_2_is_win)
 
-	local today_round = struct_clan_war_tournament:getTodayRound()
+	local today_round = g_clanWarData:getTodayRound()
 	
     -- 현재 진행중인 라운드의 경우
     -- 승패 표시 안함, 뒷 막대기 표시

@@ -4,13 +4,18 @@
 -------------------------------------
 ServerData_ClanWar = class({
     m_isMyClanLeft = 'boolean', -- Test API에서만 사용되는 값
+
+    m_tClanInfo = 'table - StructClanRank',
+
+    m_clanWarDay = 'number',
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_ClanWar:init()
-
+    self.m_tClanInfo = {}
+    self.m_clanWarDay = 0
 end
 
 -------------------------------------
@@ -43,7 +48,11 @@ end
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local league = team
 	local finish_cb = function(ret)
-		success_cb(ret)
+        -- 공동으로 ServerData_ClanWar에 저장되는 정보들
+		g_clanWarData:setClanInfo(ret['clan_info'])
+        self.m_clanWarDay = ret['clanwar_day']
+        
+        success_cb(ret)
 	end
 
     -- 유저 ID
@@ -63,6 +72,37 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function getTodayRound
+-------------------------------------
+function ServerData_ClanWar:getTodayRound()
+	-- 8일차에 64강, 7일차에 32강 ...
+	local t_day = {[7] = 128, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+	return t_day[self.m_clanWarDay] or 0
+end
+
+-------------------------------------
+-- function setClanInfo
+-------------------------------------
+function ServerData_ClanWar:setClanInfo(l_clan_info)
+    if (not l_clan_info) then
+        return
+    end
+
+    self.m_tClanInfo = {}
+    for _, data in ipairs(l_clan_info) do
+        local clan_id = data['id']
+        self.m_tClanInfo[clan_id] = StructClanRank(data)
+    end
+end
+
+-------------------------------------
+-- function getClanInfo
+-------------------------------------
+function ServerData_ClanWar:getClanInfo(clan_id)
+    return self.m_tClanInfo[clan_id]
 end
 
 -------------------------------------

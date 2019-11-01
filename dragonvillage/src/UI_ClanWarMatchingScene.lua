@@ -32,12 +32,74 @@ end
 function UI_ClanWarMatchingScene:initUI()
     local vars = self.vars
 
+    local round = g_clanWarData:getTodayRound()
+    vars['roundLabel']:setString(Str('{1}강', round))
+    vars['stateLabel']:setString(Str('진행중'))
+    vars['timeLabel']:setString(Str('{1}남음', '10시간 10분'))
+
+    self:setClanInfoUI()
+    self:setMemberTableView()
+end
+
+-------------------------------------
+-- function setClanInfoUI
+-------------------------------------
+function UI_ClanWarMatchingScene:setClanInfoUI()
+    local vars = self.vars
+
+    local struct_clan_match
+
+    for idx = 1, 2 do
+        if (idx == 1) then
+            struct_clan_match = self.m_myClanStructMatch
+        else
+            struct_clan_match = self.m_enemyClanStructMatch              
+        end
+
+        local clan_id = struct_clan_match:getClanId()
+        local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
+        if (struct_clan_rank) then
+            -- 클랜 이름
+            local clan_name = struct_clan_rank:getClanName()
+            vars['clanNameLabel'..idx]:setString(clan_name)
+
+            -- 클랜 마크
+            local clan_icon = struct_clan_rank:makeClanMarkIcon()
+            if (clan_icon) then
+                if (vars['clanMarkNode'..idx]) then
+                    vars['clanMarkNode'..idx]:addChild(clan_icon)
+                end
+            end
+
+            -- 클랜 레벨
+            local clan_lv = struct_clan_rank:getClanLv() or ''
+            local level_text = string.format('Lv.%d', clan_lv)
+            vars['clanlLevelLabel'..idx]:setString(level_text)
+
+            -- 처치 수
+            local win_cnt = struct_clan_match:getWinCnt()
+            vars['clanScoreLabel'..idx]:setString(win_cnt)
+
+            -- 세트 스코어
+            vars['matchNumLabel'..idx]:setString('10/10')
+        end
+    end
+end
+
+-------------------------------------
+-- function setMemberTableView
+-------------------------------------
+function UI_ClanWarMatchingScene:setMemberTableView()
+    local vars = self.vars
+
     -- 내 클랜(왼쪽 클랜 테이블 뷰)
     local struct_my_clan_match = self.m_myClanStructMatch
     local my_create_func = function(ui, data)
         local clan_member_uid = data['uid']
         local struct_clan_member_info = struct_my_clan_match:getClanMembersInfo(clan_member_uid)
-        ui:setClanMemberInfo(struct_clan_member_info)
+        if (struct_clan_member_info) then
+            ui:setClanMemberInfo(struct_clan_member_info)
+        end
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -56,7 +118,9 @@ function UI_ClanWarMatchingScene:initUI()
     local enemy_create_func = function(ui, data)
         local clan_member_uid = data['uid']
         local struct_clan_member_info = struct_enemy_clan_match:getClanMembersInfo(clan_member_uid)
-        ui:setClanMemberInfo(struct_clan_member_info)
+        if (struct_clan_member_info) then
+            ui:setClanMemberInfo(struct_clan_member_info)
+        end
     end
 
     -- 테이블 뷰 인스턴스 생성
