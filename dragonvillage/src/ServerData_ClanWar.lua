@@ -23,15 +23,18 @@ end
 -------------------------------------
 -- function request_myClanResult
 -------------------------------------
-function ServerData_ClanWar:request_myClanResult(is_left)
-    local tournament_left_win = 1
-    if (is_left) then
-        is_left = 1
+function ServerData_ClanWar:request_myClanResult(my_clan_is_left)
+    local left_score, right_score = 0, 0 
+    -- 내 클랜이 승리하도록 점수 세팅
+    if (my_clan_is_left) then
+        left_score = 1
+        right_score = 0
     else
-        is_left = 0
+        left_score = 0
+        right_score = 1
     end
 
-    g_clanWarData:request_testNextDay(is_left)
+    g_clanWarData:request_clanWarTournamentSetScore(left_score, right_score)
 end
 
 -------------------------------------
@@ -95,9 +98,7 @@ end
 -------------------------------------
 -- function request_nextDay
 -------------------------------------
-function ServerData_ClanWar:request_testNextDay(is_left)
-    local league = team
-    local _is_left = is_left or 1
+function ServerData_ClanWar:request_testNextDay()
     -- 유저 ID
     local uid = g_userData:get('uid')
     
@@ -105,7 +106,6 @@ function ServerData_ClanWar:request_testNextDay(is_left)
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/clanwar_nextday')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('tournament_left_win', _is_left)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(finish_cb)
     ui_network:setFailCB(fail_cb)
@@ -164,6 +164,36 @@ function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)
     ui_network:setUrl('/clanwar/match_info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('clan_id', clan_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(finish_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+
+
+-------------------------------------
+-- function request_clanWarTournamentSetScore
+-------------------------------------
+function ServerData_ClanWar:request_clanWarTournamentSetScore(left_score, right_score)    
+    local finish_cb = function()
+        self:request_testNextDay()
+    end
+    
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/clanwar_tournament_score_set')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('left_score', left_score)
+    ui_network:setParam('right_score', right_score)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(finish_cb)
     ui_network:setFailCB(fail_cb)
