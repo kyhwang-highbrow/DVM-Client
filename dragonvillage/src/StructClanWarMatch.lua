@@ -3,8 +3,9 @@
 -- class StructClanWarMatch
 -------------------------------------
 StructClanWarMatch = class({
-    m_lAttackMembers = 'table', -- 방어하는 클랜원 정보
-    m_lDefendMembers = 'table', -- 공격하는 클랜원 정보
+    m_lAttackMembers = 'list', -- 방어하는 클랜원 정보
+    m_lDefendMembers = 'list', -- 공격하는 클랜원 정보
+    m_tMemberInfo = 'table',
 
     play_member_cnt = 'number',
     win_cnt = 'number',
@@ -23,9 +24,13 @@ function StructClanWarMatch:init(data)
 
     self.m_lAttackMembers = {}
     self.m_lDefendMembers = {}
+    self.m_tMemberInfo = {}
 
-    self:makeAttackMemberList(data['a_members'])
-    self:makeDefendMemberList(data['d_members'])   
+    self:setAttackMemberMatchInfo(data['a_members'])
+    self:setDefendMemberMatchInfo(data['d_members'])
+
+    self:setClanMemberInfo(data['a_member_infos'])
+    self:setClanMemberInfo(data['d_member_infos'])  
 
     self['play_member_cnt'] = data['play_member_cnt']    
     self['win_cnt'] = data['win_cnt']
@@ -35,13 +40,11 @@ function StructClanWarMatch:init(data)
 end
 
 -------------------------------------
--- function makeAttackMemberList
+-- function setAttackMemberMatchInfo
 -------------------------------------
-function StructClanWarMatch:makeAttackMemberList(data)
-    cclog('makeAttackMemberList')
+function StructClanWarMatch:setAttackMemberMatchInfo(data)
 	for uid, attack_cnt in pairs(data) do
         local t_data = {}
-        cclog(uid)
         t_data['uid'] = uid
         t_data['attack_cnt'] = attack_cnt
         table.insert(self.m_lAttackMembers, t_data)
@@ -49,13 +52,11 @@ function StructClanWarMatch:makeAttackMemberList(data)
 end
 
 -------------------------------------
--- function makeDefendMemberList
+-- function setDefendMemberMatchInfo
 -------------------------------------
-function StructClanWarMatch:makeDefendMemberList(data)
-    cclog('makeDefendMemberList')
+function StructClanWarMatch:setDefendMemberMatchInfo(data)
 	for uid, is_defeat in pairs(data) do
         local t_data = {}
-        cclog(uid)
         t_data['uid'] = uid
         t_data['is_defeat'] = is_defeat
         table.insert(self.m_lDefendMembers, t_data)
@@ -63,8 +64,25 @@ function StructClanWarMatch:makeDefendMemberList(data)
 end
 
 -------------------------------------
+-- function setClanMemberInfo
+-------------------------------------
+function StructClanWarMatch:setClanMemberInfo(l_member)
+	for idx, t_data in pairs(l_member) do
+        local uid = t_data['uid']
+        self.m_tMemberInfo[uid] = StructUserInfoClan:create(t_data)
+    end	
+end
+
+-------------------------------------
 -- function getDefendMembers
 -------------------------------------
-function StructClanWarMatch:getDefendMembers(data)
+function StructClanWarMatch:getDefendMembers()
     return self.m_lDefendMembers or {}
+end
+
+-------------------------------------
+-- function getClanMembersInfo
+-------------------------------------
+function StructClanWarMatch:getClanMembersInfo(uid)
+    return self.m_tMemberInfo[uid] or {}
 end
