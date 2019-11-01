@@ -191,6 +191,10 @@ function UI_HatcherySummonTab:setChanceUpDragons()
             vars['dragonNode'..idx]:setPositionX(130)
         end
     end
+
+    -- 확률업 남은 시간 표기
+    local remain_time = g_hatcheryData:getChanceUpEndDate() or ''
+    vars['timeLabel']:setString(Str(remain_time))
 end
 
 -------------------------------------

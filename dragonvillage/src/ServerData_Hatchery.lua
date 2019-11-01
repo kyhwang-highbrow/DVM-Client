@@ -408,6 +408,12 @@ function ServerData_Hatchery:setHacheryInfoTable(t_data)
 	--    },
 	--    "status": 0,
 	--    "message": "success"
+    --    "chance_up_enddate":{
+    --        "chance_up_1_enddate":20191115
+    --     }
+    --    "chance_up":{
+    --      "chance_up_1":121002
+    --  },
     --}
 
     
@@ -777,4 +783,44 @@ function ServerData_Hatchery:request_dragonCombine(did, doids, finish_cb, fail_c
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function getChanceUpEndDate
+-- @breif 다음 확률업까지 남은 시간
+-------------------------------------
+function ServerData_Hatchery:getChanceUpEndDate()
+    if (not self.m_hatcheryInfo) then
+        return 
+    end
+
+    if (not self.m_hatcheryInfo['chance_up_enddate']) then
+        return 
+    end
+
+    if (not self.m_hatcheryInfo['chance_up_enddate']['chance_up_1_enddate']) then
+        return
+    end
+
+    local chance_up_end_date = self.m_hatcheryInfo['chance_up_enddate']['chance_up_1_enddate']
+    local date_format = 'yyyymmdd HH:MM:SS'
+    local parser = pl.Date.Format(date_format)
+    chance_up_end_date = chance_up_end_date .. ' 23:59:59'
+
+    local end_date = parser:parse(chance_up_end_date)
+    if (not end_date) then
+        return
+    end
+
+    if (not end_date['time']) then
+        return
+    end
+
+    local end_time = end_date['time']
+    local curr_time = Timer:getServerTime()
+    if (end_time > curr_time) then
+        local remain_time = end_time - curr_time
+        local time_text = datetime.makeTimeDesc(remain_time, true)
+        return Str('{1} 남음', time_text)
+    end
 end
