@@ -18,7 +18,7 @@ function UI_ClanWarLobby:init()
     self:sceneFadeInAction()
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanWarLobby')
+    g_currScene:pushBackKeyListener(self, function() self:closeUI() end, 'UI_ClanWarLobby')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -38,11 +38,15 @@ function UI_ClanWarLobby:initUI()
 
     local is_tournament = false
     local success_cb = function(ret)
-        if ret['league_info'] then
+        -- 1~7일차에는 리그 화면
+		if ret['league_info'] then
             local ui_clen_war_league = UI_ClanWarLeague(vars)
-            ui_clen_war_league:setLeagueData(ret)
+            ui_clen_war_league:refreshUI(nil, ret)
             is_tournament = false
-        else
+
+			ui_clen_war_league.m_closeCB = self.closeUI
+        -- 8~14일차에는 토너먼트 화면
+		else
             if (#ret['tournament_info'] == 0) then
                 return
             end
@@ -57,6 +61,7 @@ function UI_ClanWarLobby:initUI()
     end
     g_clanWarData:request_clanWarLeagueInfo(nil, success_cb)
 
+	-- 테스트용 버튼
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
         g_clanWarData:request_testNextDay() 
         UIManager:toastNotificationRed('다음날이 되었습니다. ESC로 나갔다가 다시 진입해주세요')
@@ -64,11 +69,10 @@ function UI_ClanWarLobby:initUI()
 end
 
 -------------------------------------
--- function click_exitBtn
+-- function closeUI
 -------------------------------------
-function UI_ClanWarLobby:click_exitBtn()
-    local scene = SceneLobby()
-    scene:runScene()
+function UI_ClanWarLobby:closeUI()
+    self:close()
 end
 
 -------------------------------------

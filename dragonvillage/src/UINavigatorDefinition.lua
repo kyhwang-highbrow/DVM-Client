@@ -1908,23 +1908,15 @@ function UINavigatorDefinition:goTo_clan_war(...)
             return
         end
 
-        -- 클랜 UI가 열려있을 경우
-        local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
+		-- 클랜 UI가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Clan')
         if (is_opend == true) then
             self:closeUIList(idx)
             UI_ClanWarLobby()
             return
         end
 
-        -- 로비가 열려있을 경우
-        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
-        if (is_opend == true) then
-            self:closeUIList(idx)
-            UI_ClanWarLobby()
-            return
-        end
-
-        do-- Scene으로 클랜 던전 UI 동작
+        do-- Scene으로 클랜전 UI 동작
             local function close_cb()
                 UINavigatorDefinition:goTo('lobby')
             end

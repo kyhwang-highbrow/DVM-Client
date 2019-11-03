@@ -860,6 +860,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructClanRaid.lua" />
     <None Include="..\src\StructClanRank.lua" />
     <None Include="..\src\StructClanWarLeague.lua" />
+    <None Include="..\src\StructClanWarLeagueItem.lua" />
     <None Include="..\src\StructClanWarMatch.lua" />
     <None Include="..\src\StructClanWarTournament.lua" />
     <None Include="..\src\StructCollisionData.lua" />
@@ -1170,7 +1171,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ClanTabInfo.lua" />
     <None Include="..\src\UI_ClanTabMember.lua" />
     <None Include="..\src\UI_ClanTabRank.lua" />
+    <None Include="..\src\UI_ClanWarAllRankListItem.lua" />
     <None Include="..\src\UI_ClanWarLeague.lua" />
+    <None Include="..\src\UI_ClanWarLeagueMatchListItem.lua" />
+    <None Include="..\src\UI_ClanWarLeagueRankListItem.lua" />
     <None Include="..\src\UI_ClanWarListItem.lua" />
     <None Include="..\src\UI_ClanWarListScene.lua" />
     <None Include="..\src\UI_ClanWarLobby.lua" />

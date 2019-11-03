@@ -52,6 +52,8 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 		g_clanWarData:setClanInfo(ret['clan_info'])
         self.m_clanWarDay = ret['clanwar_day']
         
+		-- 1 ~ 7일까지는 StructClanWarLeague
+		-- 8 ~ 14일까지는 StructClanWarTournament 형태로 사용함
         success_cb(ret)
 	end
 

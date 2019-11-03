@@ -118,6 +118,7 @@ local t_module = {
     'StructDeck', -- 덱(팀) 정보를 관리하는 구조체
     'StructTabUI',
     'StructRankReward',
+	'StructClanWarLeagueItem',
     'StructClanWarLeague',
     'StructClanWarTournament',
     'StructClanWarMatch',
@@ -1399,6 +1400,9 @@ local t_module = {
 	'UI_ClanWarListScene',
 	'UI_ClanWarLobby',
     'UI_ClanWarTournamentTree',
+	'UI_ClanWarAllRankListItem',
+	'UI_ClanWarLeagueRankListItem',
+	'UI_ClanWarLeagueMatchListItem',
     'UI_ClanWarLeague',
     'UI_ClanWarTest',
     'UI_ClanWarMatchingSceneListItem',

@@ -4207,9 +4207,6 @@
     <None Include="..\src\UI_ArenaRankPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\StructRankReward.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ArenaRankClanPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4286,6 +4283,21 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\StructClanWarMatch.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarLeagueRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarLeagueMatchListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarAllRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructRankReward.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructClanWarLeagueItem.lua">
       <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
