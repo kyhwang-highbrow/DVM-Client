@@ -10,7 +10,7 @@ SceneGameClanWar = class(PARENT, {
 -- function init
 -------------------------------------
 function SceneGameClanWar:init(game_key, stage_id, stage_name, develop_mode, friend_match)
-    self.m_stageName = 'stage_colosseum'
+    self.m_stageName = 'stage_clanwar'
     self.m_bDevelopMode = develop_mode
     self.m_bFriendMatch = friend_match or false
 
