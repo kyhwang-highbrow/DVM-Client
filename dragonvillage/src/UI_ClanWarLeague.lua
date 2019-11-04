@@ -294,8 +294,8 @@ function UI_ClanWarLeague:refreshUI(team, ret)
 		return
 	end
 	
-	-- 클랜수가 6개 보다 많다는 것은 전체 랭킹이 내려왔다는 의미
-	if (#l_clan_info > 6) then
+	-- 한 번에 12이상 내려왔을 경우 전체가 내려온 것으로 판단
+	if (#l_clan_info > 12) then -- 임시
 		self:refreshAllLeagueUI(ret)
 	else
 		self:refreshLeagueUI(team, ret)
