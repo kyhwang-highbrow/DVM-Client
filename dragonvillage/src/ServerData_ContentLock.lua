@@ -39,8 +39,7 @@ function ServerData_ContentLock:isContentLock(content_name)
     -- [그랜드 아레나 이벤트]
 	-- 오픈 여부& 스테이지 여부 검사
     if (content_name == 'grand_arena') then
-        local is_acitive = g_grandArena:isActive_grandArena()
-        return not is_acitive
+        return false
     end
 
 	-- [클랜전]
