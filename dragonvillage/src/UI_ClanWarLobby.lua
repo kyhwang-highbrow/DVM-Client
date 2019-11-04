@@ -9,7 +9,7 @@ UI_ClanWarLobby = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarLobby:init()
+function UI_ClanWarLobby:init(ret)
     local vars = self:load('clan_war_lobby.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -25,7 +25,7 @@ function UI_ClanWarLobby:init()
     self:doAction(nil, false)
 
 	-- 초기화
-    self:initUI()
+    self:initUI(ret)
     self:initButton()
     self:refresh()
 end
@@ -33,33 +33,31 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ClanWarLobby:initUI()
+function UI_ClanWarLobby:initUI(ret)
     local vars = self.vars
 
     local is_tournament = false
-    local success_cb = function(ret)
-        -- 1~7일차에는 리그 화면
-		if ret['league_info'] then
-            local ui_clen_war_league = UI_ClanWarLeague(vars)
-            ui_clen_war_league:refreshUI(nil, ret)
-            is_tournament = false
 
-			ui_clen_war_league.m_closeCB = self.closeUI
-        -- 8~14일차에는 토너먼트 화면
-		else
-            if (#ret['tournament_info'] == 0) then
-                return
-            end
-            
-            local ui_clan_war_tournament = UI_ClanWarTournamentTree(vars)
-            ui_clan_war_tournament:setTournamentData(ret)
-            is_tournament = true
+    -- 1~7일차에는 리그 화면
+	if ret['league_info'] then
+        local ui_clen_war_league = UI_ClanWarLeague(vars)
+        ui_clen_war_league:refreshUI(nil, ret)
+        is_tournament = false
+
+		ui_clen_war_league.m_closeCB = self.closeUI
+    -- 8~14일차에는 토너먼트 화면
+	else
+        if (#ret['tournament_info'] == 0) then
+            return
         end
         
-        vars['tournamentMenu']:setVisible(is_tournament)
-        vars['leagueMenu']:setVisible(not is_tournament)
+        local ui_clan_war_tournament = UI_ClanWarTournamentTree(vars)
+        ui_clan_war_tournament:setTournamentData(ret)
+        is_tournament = true
     end
-    g_clanWarData:request_clanWarLeagueInfo(nil, success_cb)
+    
+    vars['tournamentMenu']:setVisible(is_tournament)
+    vars['leagueMenu']:setVisible(not is_tournament)
 
 	-- 테스트용 버튼
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 

@@ -1890,7 +1890,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
         return
     end
         
-    local function finish_cb()
+    local function finish_cb(ret)
         ---- 오픈 상태 여부 체크
         --if (not g_clanRaidData:isOpenClanRaid()) then
         --    local msg = Str(g_clanRaidData:getClanRaidStatusText())
@@ -1904,7 +1904,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
             self:closeUIList(idx)
             ui:setTab('clan') -- 전투 메뉴에서 tab의 이름이 'clan'이다.
             ui:resetButtonsPosition()
-            UI_ClanWarLobby()
+            UI_ClanWarLobby(ret)
             return
         end
 
@@ -1912,7 +1912,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
         local is_opend, idx, ui = self:findOpendUI('UI_Clan')
         if (is_opend == true) then
             self:closeUIList(idx)
-            UI_ClanWarLobby()
+            UI_ClanWarLobby(ret)
             return
         end
 
@@ -1921,7 +1921,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_ClanWarLobby, close_cb)
+            local scene = SceneCommon(UI_ClanWarLobby, close_cb, ret)
             scene:runScene()
         end
     end
@@ -1930,10 +1930,8 @@ function UINavigatorDefinition:goTo_clan_war(...)
 
     end
 
-    -- 클랜 정보 요청
-    local stage_id = nil
-    --g_clanRaidData:request_info(stage_id, finish_cb, fail_cb)
-	finish_cb()
+    -- 클랜전 정보 요
+    g_clanWarData:request_clanWarLeagueInfo(nil, finish_cb)
 end
 
 

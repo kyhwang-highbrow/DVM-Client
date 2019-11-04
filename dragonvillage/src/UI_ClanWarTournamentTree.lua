@@ -26,7 +26,7 @@ local L_ROUND = {64, 32, 16, 8, 4, 2}
 -------------------------------------
 function UI_ClanWarTournamentTree:init(vars)
     self.vars = vars
-    self.m_maxRound = 32
+    self.m_maxRound = 0
     self.m_page = 1
     self.m_lPosY = {}
 	
@@ -111,6 +111,7 @@ end
 -------------------------------------
 function UI_ClanWarTournamentTree:showSidePage(is_right)
 	local vars = self.vars
+	local struct_clan_war_tournament = self.m_structTournament
 
 	local func_get_pos_x = function(round_idx, leaf_width)
 		local pos_x = 0
@@ -123,6 +124,10 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
 	end
 
 	local l_round = {32, 16, 8}
+	if (struct_clan_war_tournament:getMaxRound() == 64) then
+		l_round = {64, 32, 16, 8}
+	end
+	
 	for round_idx, round in ipairs(l_round) do
         self:setTournament(round_idx, round, is_right)
 		
@@ -190,6 +195,7 @@ end
 function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     local vars = self.vars
     local struct_clan_war_tournament = self.m_structTournament
+	self.m_maxRound = struct_clan_war_tournament:getMaxRound()
 
     local l_list = struct_clan_war_tournament:getTournamentListByRound(round)
     

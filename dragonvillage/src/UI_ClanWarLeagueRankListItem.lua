@@ -35,6 +35,10 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
     local clan_name = struct_clan_rank:getClanName()
     local clan_rank = struct_league_item:getLeagueRank()
     vars['clanNameLabel']:setString(Str(clan_name))
+
+	if (clan_rank == 0) then
+		clan_rank = '-'
+	end
     vars['rankLabel']:setString(tostring(clan_rank))
 
     -- 클랜 정보 (레벨, 경험치, 참여 인원, 생성일)
@@ -50,8 +54,8 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
 
 
     -- 1, 2등은 토너먼트 진출 가능 표시
-    if (tonumber(clan_rank)) then
-        if (tonumber(clan_rank) <= 2) then
+    if (clan_rank) then
+        if (clan_rank == 2) or (clan_rank == 1) then
             vars['finalSprite']:setVisible(true)
             vars['finalSprite']:setVisible(true)
         end

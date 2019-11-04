@@ -7,6 +7,7 @@ StructClanWarTournament = class({
     m_tTournamentInfo = 'table',
     m_clanWarDay = 'number',
 
+	m_maxRound = 'round', -- 몇 강부터 시작하는지, ex) 64
 })
 
 local L_ROUND = {64, 32, 16, 8, 4, 2, 1}
@@ -18,6 +19,7 @@ function StructClanWarTournament:init(data)
 	self.m_tTournamentInfo = {}
     self.m_clanWarDay = 1
     self.m_tClanInfo = {}
+	self.m_maxRound = 0
 
     for i, round in ipairs(L_ROUND) do
         self.m_tTournamentInfo[round] = {}
@@ -44,15 +46,19 @@ end
 -- function makeTournamentData
 -------------------------------------
 function StructClanWarTournament:makeTournamentData(l_tournament)
-    for idx, data in ipairs(l_tournament) do
+	for idx, data in ipairs(l_tournament) do
         local group_stage = data['group_stage']
         for _, round in ipairs(L_ROUND) do
             if (group_stage <= round) then
 				local _data = clone(data)
 				_data['is_win'] = (group_stage ~= round)
-                table.insert(self.m_tTournamentInfo[round], _data)
-            end
+                table.insert(self.m_tTournamentInfo[round], _data)		
+            end	
         end
+
+		if (self.m_maxRound < group_stage) then
+			self.m_maxRound = group_stage
+		end
     end
 
     -- N강 마다 group_stage_no 순으로 정렬
@@ -200,4 +206,11 @@ function StructClanWarTournament:getMyClanLeft()
     end
 
    return false
+end
+
+-------------------------------------
+-- function getMaxRound
+-------------------------------------
+function StructClanWarTournament:getMaxRound()
+	return self.m_maxRound
 end

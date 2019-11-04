@@ -32,9 +32,9 @@ UI_ClanWarLeague = class({
 -------------------------------------
 function UI_ClanWarLeague:init(vars)
     self.vars = vars
-    self.m_teamCnt = 16 -- 임시
 	self.m_selctedTeam = 1
     self.m_todayMatch = 1
+	self.m_teamCnt = 0
 
     -- 초기화
     self:initUI()
@@ -281,6 +281,7 @@ function UI_ClanWarLeague:refreshUI(team, ret)
 
 	self.m_structLeague = StructClanWarLeague(ret)
     self.m_todayMatch = ret['clanwar_day']
+	self.m_teamCnt = self.m_structLeague:getEntireGroupCnt()
 
 	-- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
 	self.m_matchListNode:pause()

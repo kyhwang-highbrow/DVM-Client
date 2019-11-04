@@ -4,13 +4,23 @@
 -------------------------------------
 StructClanWarLeague = class({
 	m_tClanInfo = 'list',
-    m_clanCnt = 'number',
     --[[
        ['clan_id'] = {
                 StructClanWarLeagueItem()
             }
     --]]
 	m_matchDay = 'numnber',
+	m_tDate = 'table',
+	--[[
+	"clan_data":{
+		"table":{
+			"server":"dev",
+			"day_9":1,
+			"id":100001,
+			"day_14":"",
+			"day_3":1,
+			"group_clan":6,
+	--]]
 })
 
 -------------------------------------
@@ -38,12 +48,6 @@ function StructClanWarLeague:init(data)
 	    end
     end
 
-    local cnt = 0
-    for _, data in pairs(self.m_tClanInfo) do
-        cnt = cnt + 1
-    end
-    self.m_clanCnt = cnt
-
     -- 클랜 정보
     local l_clan_info = data['clan_info']
 	if (not l_clan_info) then
@@ -59,6 +63,8 @@ function StructClanWarLeague:init(data)
     end
 
 	self.m_matchDay = data['clanwar_day']
+
+	self.m_tDate = data['clan_data']
 end
 
 -------------------------------------
@@ -110,7 +116,7 @@ function StructClanWarLeague:getMatchGroup(day) -- 1일차 2일차 등등...
 
     day = tonumber(day)
     local table_clanwar_group = TABLE:get('table_clanwar_group')
-    local clan_cnt = self.m_clanCnt
+    local clan_cnt = self:getEntireGroupClanCnt()
     local l_match = {}
     for group_idx = 1, 3 do
         local idx = clan_cnt * 10 + day + 100000 -- 테이블 인덱스
@@ -216,10 +222,9 @@ function StructClanWarLeague:getMyClanTeamNumber()
     local my_clan_id = g_clanWarData:getMyClanId()
 
     if (not my_clan_id) then
-        return
+        return 0
     end
-    local struct_league_item = StructClanWarLeagueItem(self.m_tClanInfo[my_clan_id])
-
+    local struct_league_item = self.m_tClanInfo[my_clan_id]
     return struct_league_item:getLeague()
 end
 
@@ -238,7 +243,7 @@ function StructClanWarLeague:getMyClanInfo(day)
         return
     end
 
-    local struct_league_item = StructClanWarLeagueItem(self.m_tClanInfo[my_clan_id])
+    local struct_league_item = self.m_tClanInfo[my_clan_id]
     local my_group_no = struct_league_item:getGroupNumber()
     local is_left = nil
     local match_idx = 1
@@ -283,7 +288,7 @@ function StructClanWarLeague:getTotalScore(clan_id)
         return
     end
 
-    local struct_league_item = StructClanWarLeagueItem(self.m_tClanInfo[clan_id])
+    local struct_league_item = self.m_tClanInfo[clan_id]
     if (not struct_league_item) then
         return
     end
@@ -305,4 +310,35 @@ end
 -------------------------------------
 function StructClanWarLeague:isContainClan(clan_id)
     return self.m_tClanInfo[clan_id]
+end
+
+-------------------------------------
+-- function getEntireGroupCnt
+-------------------------------------
+function StructClanWarLeague:getEntireGroupCnt()
+    if (not self.m_tDate) then
+		return 0
+	end    
+	
+	if (not self.m_tDate['table']) then
+		return 0
+	end
+
+	return self.m_tDate['table']['group'] or 0
+end
+
+-------------------------------------
+-- function getEntireGroupClanCnt
+-- @brief 한 그룹에 클랜 몇 개씩 있는지
+-------------------------------------
+function StructClanWarLeague:getEntireGroupClanCnt()
+    if (not self.m_tDate) then
+		return 0
+	end    
+	
+	if (not self.m_tDate['table']) then
+		return 0
+	end
+
+	return self.m_tDate['table']['group_clan'] or 0
 end
