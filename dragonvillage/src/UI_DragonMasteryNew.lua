@@ -113,6 +113,7 @@ function UI_DragonMasteryNew:onChangeTab(tab, first)
 		local amor_cnt = g_userData:get('amor')
 		if (amor_cnt < 100) then
 			self:showAmorPackagePopup()
+            self:setPackageGora(100)
 		end
 	end
 end
@@ -136,6 +137,13 @@ function UI_DragonMasteryNew:initButton()
 
     -- 특성 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'mastery_help')
+
+    -- 만드라고라 버튼
+    vars['buyBtn1']:registerScriptTapHandler(function() self:click_promotePackageBtn() end)
+    vars['buyBtn1']:setVisible(false)
+    vars['buyBtn1']:setLocalZOrder(1)
+    cca.pickMePickMe(vars['buyBtn1'], 10)
+
 end
 
 -------------------------------------
@@ -682,6 +690,7 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
 			local amor_cnt = g_userData:get('amor')
 			if (amor_cnt < 50) then
 				self:showAmorPackagePopup()
+                self:setPackageGora(50)
 			end
 		end)
 	end
@@ -934,11 +943,48 @@ function UI_DragonMasteryNew:showAmorPackagePopup()
 end
 
 
+-------------------------------------
+-- function setPackageGora
+-- @brief 아모르의 서 패키지를  유저에게 보여줘서 상품 구매를 유도
+-------------------------------------
+function UI_DragonMasteryNew:setPackageGora(cnt)
+    local vars = self.vars
+
+    local amor_cnt = g_userData:get('amor')
+	if (amor_cnt >= cnt) then
+        return
+    end
+    
+    local is_buyable = g_shopDataNew:isBuyablePackage({110251})
+	if (not is_buyable) then
+		return 
+	end
+
+    vars['buyBtn1']:setVisible(is_buyable)
+end
+
+-------------------------------------
+-- function click_promotePackageBtn
+-------------------------------------
+function UI_DragonMasteryNew:click_promotePackageBtn()
+    local ui = UI_Package_Bundle('package_amor', true) -- is_popup
+
+    -- @UI_ACTION(룬 연마 풀팝업 scale 액션)
+    ui:doActionReset()
+    ui:doAction(nil, false)
 
 
-
-
-
+	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
+	-- 구매 후 간이 우편함 출력
+	-- 간이 우편함 닫을 때 패키지UI 닫고 룬UI 갱신
+	ui:setBuyCB(function() 
+		UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS, function()
+			self:refresh_masteryInfo()
+            self.vars['buyBtn1']:setVisible(false)
+            ui:close()		
+		end)
+	end)
+end
 
 
 
