@@ -1407,6 +1407,7 @@ local t_module = {
     'UI_ClanWarTest',
     'UI_ClanWarMatchingSceneListItem',
     'UI_ClanWarMatchingScene',
+    'UI_ClanWarSelectScene',
     
 
     -- Forest

@@ -22,6 +22,8 @@ function UI_ClanWarMatchingScene:init(struct_match_my_clan, struct_match_enemy_c
     self:setMatchingData(struct_match_my_clan, struct_match_enemy_clan)
 
     self:initUI()
+    self:initButton()
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarMatchingScene')
 end
@@ -140,6 +142,7 @@ end
 -------------------------------------
 function UI_ClanWarMatchingScene:initButton()
     local vars = self.vars
+    vars['battleBtn']:registerScriptTapHandler(function() UI_ClanWarSelectScene(self.m_myClanStructMatch, self.m_enemyClanStructMatch) end)
 end
 
 -------------------------------------
