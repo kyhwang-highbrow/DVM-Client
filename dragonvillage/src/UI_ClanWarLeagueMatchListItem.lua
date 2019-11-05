@@ -27,8 +27,10 @@ function UI_ClanWarLeagueMatchListItem:init(data)
     if (match_number < tonumber(data['match_day'])) then
         -- 왼쪽, 오른쪽 클랜중 어느쪽 클랜이 이겼는지 표시
 		local struct_league_item = data['clan1']
-	    local is_win = struct_league_item:isMatchWin(match_number) -- 첫 번째 클랜 기준
-	    self:setResult(is_win)
+        if (struct_league_item['clan_info']) then
+	        local is_win = struct_league_item:isMatchWin(match_number) -- 첫 번째 클랜 기준
+	        self:setResult(is_win)
+        end
     end
 
     -- 현재 날짜, N번째 경기 정보 표기
@@ -73,13 +75,25 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
         if (vars['defeatSprite'..idx]) then
             vars['defeatSprite'..idx]:setVisible(true)
         end
+
+        if (vars['scoreLabel' .. idx]) then
+            vars['scoreLabel' .. idx]:setString('0')
+        end
      end
      
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
      if (not struct_league_item) then
         blank_clan()
         return
      end
 
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
+     if (not struct_league_item['clan_info']) then
+        blank_clan()
+        return
+     end
+     
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
      local struct_clan_rank = struct_league_item:getClanInfo()
      if (not struct_clan_rank) then
         blank_clan()
