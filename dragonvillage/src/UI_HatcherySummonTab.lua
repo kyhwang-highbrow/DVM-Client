@@ -186,10 +186,6 @@ function UI_HatcherySummonTab:setChanceUpDragons()
         -- 드래곤 애니메이션
         local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, 3)
         vars['dragonNode'..idx]:addChild(animator.m_node)
-
-        if (total_cnt == 1) then
-            vars['dragonNode'..idx]:setPositionX(130)
-        end
     end
 
     -- 확률업 남은 시간 표기
