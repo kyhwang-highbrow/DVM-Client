@@ -20,7 +20,7 @@ function UI_MatchReadyClanWar:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_MatchReadyClanWar'
     self.m_bVisible = true
-    self.m_titleStr = Str('쿨랜전')
+    self.m_titleStr = Str('클랜전')
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'honor'
     self.m_addSubCurrency = 'valor'
@@ -37,7 +37,7 @@ end
 function UI_MatchReadyClanWar:click_deckBtn()
     local vars = self.vars 
     local deck_change_mode = true
-    local ui = UI_ReadySceneNew(CHALLENGE_MODE_STAGE_ID, true)
+    local ui = UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true)
     local function close_cb()
         self:initUI()
     end

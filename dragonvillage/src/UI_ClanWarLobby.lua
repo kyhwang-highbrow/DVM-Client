@@ -86,9 +86,9 @@ end
 -- function click_gotoMatch
 -------------------------------------
 function UI_ClanWarLobby:click_gotoMatch()
-    local success_cb = function(struct_match_my_clan, struct_match_enemy_clan)
+    --local success_cb = function(struct_match_my_clan, struct_match_enemy_clan)
         local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match_my_clan, struct_match_enemy_clan)
-    end
+    --end
 
-    g_clanWarData:request_clanWarMatchInfo(success_cb)
+    --g_clanWarData:request_clanWarMatchInfo(success_cb)
 end

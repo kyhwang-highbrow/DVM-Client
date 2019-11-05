@@ -49,7 +49,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     -- 아레나모드 (콜로세움 진입, 친구대전 진입시)
     self.m_bArena = false
     --if (stage_id == ARENA_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID) then
-    if isExistValue(stage_id, ARENA_STAGE_ID, FRIEND_MATCH_STAGE_ID, CHALLENGE_MODE_STAGE_ID, GRAND_ARENA_STAGE_ID) then
+    if isExistValue(stage_id, ARENA_STAGE_ID, FRIEND_MATCH_STAGE_ID, CHALLENGE_MODE_STAGE_ID, GRAND_ARENA_STAGE_ID, CLAN_WAR_STAGE_ID) then
         self.m_bArena = true
     end
 
@@ -192,6 +192,12 @@ function UI_ReadySceneNew:checkDeckProper()
     -- 챌린지 모드 별도 처리
     if (self.m_stageID == CHALLENGE_MODE_STAGE_ID) then
         g_deckData:setSelectedDeck(DECK_CHALLENGE_MODE)
+        return
+    end
+
+	    -- 클랜전
+    if (self.m_stageID == CLAN_WAR_STAGE_ID) then
+        g_deckData:setSelectedDeck('arena')
         return
     end
 
@@ -589,7 +595,7 @@ function UI_ReadySceneNew:initButton()
     end
 
     -- 콜로세움일 경우
-    if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
+    if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID or self.m_stageID == CLAN_WAR_STAGE_ID) then
         vars['actingPowerNode']:setVisible(false)
         vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
         vars['startBtnLabel']:setPositionX(0)
@@ -650,6 +656,10 @@ function UI_ReadySceneNew:refresh()
         -- 클랜던전 연습모드의 경우
         elseif (self:isClanRaidTrainingMode(stage_id)) then         
             str = Str('클랜 던전 연습 전투')
+
+		-- 클랜전
+        elseif (stage_id == CLAN_WAR_STAGE_ID) then         
+            str = Str('클랜전')
         end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
@@ -710,7 +720,7 @@ function UI_ReadySceneNew:refresh_combatPower()
     local stage_id = self.m_stageID
     local game_mode = self.m_gameMode
 
-	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID or stage_id == ARENA_STAGE_ID) then
+	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID or stage_id == ARENA_STAGE_ID or stage_id == CLAN_WAR_STAGE_ID) then
 		vars['cp_Label']:setString('')
         vars['cp_Label2']:setString('')
 

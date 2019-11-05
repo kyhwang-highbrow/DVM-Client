@@ -19,9 +19,9 @@ function UI_ClanWarMatchingScene:init(struct_match_my_clan, struct_match_enemy_c
     local vars = self:load('clan_war_match_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    self:setMatchingData(struct_match_my_clan, struct_match_enemy_clan)
+    --self:setMatchingData(struct_match_my_clan, struct_match_enemy_clan)
 
-    self:initUI()
+    --self:initUI()
     self:initButton()
 
     -- backkey 지정

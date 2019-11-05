@@ -70,7 +70,7 @@ end
 -- @brief scene전환 중 로딩화면 생성
 -------------------------------------
 function SceneGameClanWar:makeLoadingUI()
-    return UI_LoadingArena(self)
+    return UI_LoadingClanWar(self)
 end
 
 -------------------------------------

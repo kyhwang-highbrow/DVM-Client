@@ -76,6 +76,11 @@ function TableDrop:getStageStaminaType(stage_id)
     -- 그랜드 콜로세움 (이벤트 PvP 10대10)
     elseif (stage_id == GRAND_ARENA_STAGE_ID) then
         return 'grand_arena', 1
+
+	-- 클랜전 임시
+    elseif (stage_id == CLAN_WAR_STAGE_ID) then
+        return 'arena', 1
+
     end
 
     local stamina_type = self:getValue(stage_id, 'cost_type')
