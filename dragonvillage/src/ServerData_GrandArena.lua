@@ -75,6 +75,8 @@ function ServerData_GrandArena:getGrandArenaState()
 
     -- 연습전
     elseif (g_hotTimeData:isActiveEvent('event_grand_arena_preseason')) then
+        return ServerData_GrandArena.STATE['PRESEASON']
+        --[[
         -- 레벨 체크
 		if (g_contentLockData:isContentLock('grand_arena')) then
 			return ServerData_GrandArena.STATE['LOCK']
@@ -82,10 +84,11 @@ function ServerData_GrandArena:getGrandArenaState()
 		else
 			return ServerData_GrandArena.STATE['PRESEASON']
 		end
-
+        --]]
 	-- 이벤트 기간
 	elseif (g_hotTimeData:isActiveEvent('event_grand_arena')) then
-		
+		return ServerData_GrandArena.STATE['OPEN']
+        --[[
 		-- 레벨 체크
 		if (g_contentLockData:isContentLock('grand_arena')) then
 			return ServerData_GrandArena.STATE['LOCK']
@@ -93,10 +96,18 @@ function ServerData_GrandArena:getGrandArenaState()
 		else
 			return ServerData_GrandArena.STATE['OPEN']
 		end
-
+        -]]
 	-- 보상 수령 기간
 	elseif (g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
-		
+		if (self.m_seasonRewardStatus == 0) then
+			return ServerData_GrandArena.STATE['REWARD']
+
+		-- 보상 수령 후 (1 -> 이번 시즌 보상 받음, 2 -> 이번 시즌 보상 받을게 없음)
+		elseif (self.m_seasonRewardStatus == 1) or (self.m_seasonRewardStatus == 2) then
+			return ServerData_GrandArena.STATE['DONE']
+        end
+        
+        --[[
 		-- 레벨 체크
 		if (g_contentLockData:isContentLock('grand_arena')) then
 			return ServerData_GrandArena.STATE['LOCK']
@@ -110,7 +121,7 @@ function ServerData_GrandArena:getGrandArenaState()
 			return ServerData_GrandArena.STATE['DONE']
 
 		end
-
+        --]]
 	end
 
 	-- 해당 없으면 비활성화
