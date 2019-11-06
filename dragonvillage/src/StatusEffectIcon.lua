@@ -31,7 +31,9 @@ function StatusEffectIcon:init(parent_node, status_effect)
 
 	self.m_icon:setScale(0.375)
 
-    self.m_parentNode:addChild(self.m_icon, 1)
+    if (self.m_parentNode) then
+        self.m_parentNode:addChild(self.m_icon, 1)
+    end
 end
 
 -------------------------------------
