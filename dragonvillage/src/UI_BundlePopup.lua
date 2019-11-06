@@ -99,7 +99,7 @@ function UI_BundlePopup:refresh()
     local struct_product = self.m_structProduct
 
 	-- 수량
-	vars['quantityLabel']:setString(self.m_count)
+	vars['quantityLabel']:setString(comma_value(self.m_count))
 
 	-- 가격
 	local price = struct_product:getPrice()
