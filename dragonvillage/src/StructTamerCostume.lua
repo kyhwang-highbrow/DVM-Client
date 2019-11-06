@@ -119,6 +119,10 @@ function StructTamerCostume:isSale()
         local end_date = parser:parse(shop_info['sale_end_date'])
         local cur_time =  Timer:getServerTime()
         local end_time = end_date['time']
+        
+        if (end_time == nil) then
+            return false, ''
+        end
         local time = (end_time - cur_time)
         msg = Str('할인 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
 

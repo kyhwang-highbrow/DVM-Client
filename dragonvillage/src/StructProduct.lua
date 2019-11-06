@@ -133,6 +133,10 @@ function StructProduct:getEndDateStr(new_line)
 
     local cur_time =  Timer:getServerTime()
     local end_time = end_date['time']
+
+    if (end_time == nil) then
+        return ''
+    end
     local time = (end_time - cur_time)
 
     local msg
@@ -767,6 +771,10 @@ function StructProduct:checkIsSale()
 
     local cur_time =  Timer:getServerTime()
     local end_time = end_date['time']
+    if (end_time == nil) then
+		return false
+    end
+
     local time = (end_time - cur_time)
     if (time < 0) then
         return false
