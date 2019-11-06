@@ -23,6 +23,7 @@ MAIL_SELECT_TYPE = {
 	EVOLUTION_PACK = 7,	-- 진화 패키지 구매 시
     UPDATE_PACK = 8,    -- 승급 패키지 구매 시
     ITEM_GOOD = 9,      -- 패키지 상품 구성이 아이템+재화 일 때
+    GOODS_WITH_CLOSE_CB = 10,
 }
 
 -------------------------------------
@@ -72,6 +73,13 @@ function UI_MailSelectPopup:initUI()
         title = Str('우편함')
         self:setItemByMailType('goods')
         self.m_currTab = 'goods' -- 탭이 지정되면 모두 받기 가능
+    
+    elseif (type == MAIL_SELECT_TYPE.GOODS_WITH_CLOSE_CB) then
+
+        title = Str('우편함')
+        self:setItemByMailType('goods')
+        self.m_currTab = 'goods' -- 탭이 지정되면 모두 받기 가능
+        self.m_dirty = true
 
     elseif (type == MAIL_SELECT_TYPE.CAPSULE_COIN) then
         title = Str('우편함')

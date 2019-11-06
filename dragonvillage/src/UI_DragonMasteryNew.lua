@@ -934,14 +934,8 @@ function UI_DragonMasteryNew:showAmorPackagePopup()
         g_settingData:setPromoteCoolTime('package_amor', next_cool_time)
     end
     
-	-- 룬 연마 팝업 보여줌
-	local ui = UI_Package_Bundle('package_amor', true) -- is_popup
-
-    -- @UI_ACTION(룬 연마 풀팝업 scale 액션)
-    ui:doActionReset()
-    ui:doAction(nil, false)
+	self:showAmorPackagePopup()
 end
-
 
 -------------------------------------
 -- function setPackageGora
@@ -973,12 +967,8 @@ function UI_DragonMasteryNew:click_promotePackageBtn()
     ui:doActionReset()
     ui:doAction(nil, false)
 
-
-	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
-	-- 구매 후 간이 우편함 출력
-	-- 간이 우편함 닫을 때 패키지UI 닫고 룬UI 갱신
 	ui:setBuyCB(function() 
-		UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS, function()
+		UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS_WITH_CLOSE_CB, function()
 			self:refresh_masteryInfo()
             self.vars['buyBtn1']:setVisible(false)
             ui:close()		
