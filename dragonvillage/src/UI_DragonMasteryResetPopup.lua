@@ -65,7 +65,7 @@ function UI_DragonMasteryResetPopup:refresh()
     local dragon_obj = self.m_dragonObject
     local req_count = MasteryHelper:getMasteryResetPrice(dragon_obj)
     local own_count = g_userData:get('oblivion') or 0
-    local str = Str('{1} / {2}', own_count, req_count)
+    local str = Str('{1} / {2}', comma_value(own_count), req_count)
     if (req_count <= own_count) then
         str = '{@possible}' .. str
     else
