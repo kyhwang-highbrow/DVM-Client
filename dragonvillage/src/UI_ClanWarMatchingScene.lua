@@ -7,21 +7,22 @@ UI_ClanWarMatchingScene = class(PARENT,{
         m_myTableView = 'UIC_TableView',
         m_enemyTableView = 'UIC_TableView',
 
-        m_myClanStructMatch = 'StructClanWarMatching',
-        m_enemyClanStructMatch = 'StructClanWarMatching',
+        m_tMyStructMatch = 'StructClanWarMatching',
+        m_tEnemyStructMatch = 'StructClanWarMatching',
     })
 
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarMatchingScene:init(struct_match_my_clan, struct_match_enemy_clan)
+function UI_ClanWarMatchingScene:init(t_my_struct_match, t_enemy_struct_match)
     local vars = self:load('clan_war_match_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    --self:setMatchingData(struct_match_my_clan, struct_match_enemy_clan)
+    self.m_tMyStructMatch = t_my_struct_match or {}
+    self.m_tEnemyStructMatch = t_enemy_struct_match or {}
 
-    --self:initUI()
+    self:initUI()
     self:initButton()
 
     -- backkey 지정
@@ -52,10 +53,17 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
     local struct_clan_match
 
     for idx = 1, 2 do
+        local l_clan = {}
         if (idx == 1) then
-            struct_clan_match = self.m_myClanStructMatch
+            l_clan = self.m_tMyStructMatch
         else
-            struct_clan_match = self.m_enemyClanStructMatch              
+            l_clan = self.m_tEnemyStructMatch            
+        end
+        
+        
+        for _, struct_match in pairs(l_clan) do
+            struct_clan_match = struct_match
+            break
         end
 
         local clan_id = struct_clan_match:getClanId()
@@ -79,8 +87,8 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
             vars['clanlLevelLabel'..idx]:setString(level_text)
 
             -- 처치 수
-            local win_cnt = struct_clan_match:getWinCnt()
-            vars['clanScoreLabel'..idx]:setString(win_cnt)
+            --local win_cnt = struct_clan_match:getWinCnt()
+            --vars['clanScoreLabel'..idx]:setString(win_cnt)
 
             -- 세트 스코어
             vars['matchNumLabel'..idx]:setString('10/10')
@@ -94,44 +102,31 @@ end
 function UI_ClanWarMatchingScene:setMemberTableView()
     local vars = self.vars
 
-    -- 내 클랜(왼쪽 클랜 테이블 뷰)
-    local struct_my_clan_match = self.m_myClanStructMatch
-    local my_create_func = function(ui, data)
-        local clan_member_uid = data['uid']
-        local struct_clan_member_info = struct_my_clan_match:getClanMembersInfo(clan_member_uid)
-        if (struct_clan_member_info) then
-            ui:setClanMemberInfo(struct_clan_member_info)
-        end
+    local create_func = function(ui, struct_match)
+        local nick_name = struct_match:getNameTextWithEnemy()
+        local attack_state = struct_match:getAttackState()
+        local attack_state_text = struct_match:getAttackStateText()
+
+        ui.vars['userNameLabel']:setString(nick_name .. ' - ' .. attack_state_text)
     end
 
     -- 테이블 뷰 인스턴스 생성
-    local l_myClan = struct_my_clan_match:getDefendMembers()
+    local l_myClan = self.m_tMyStructMatch
     
     self.m_myTableView = UIC_TableView(vars['meClanListNode'])
     self.m_myTableView.m_defaultCellSize = cc.size(548, 80 + 5)
     self.m_myTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    self.m_myTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem_My, my_create_func)
+    self.m_myTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func)
     self.m_myTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     self.m_myTableView:setItemList(l_myClan)
 
-
-    -- 상대 클랜(오른쪽 클랜 테이블 뷰)
-    local struct_enemy_clan_match = self.m_enemyClanStructMatch
-    local enemy_create_func = function(ui, data)
-        local clan_member_uid = data['uid']
-        local struct_clan_member_info = struct_enemy_clan_match:getClanMembersInfo(clan_member_uid)
-        if (struct_clan_member_info) then
-            ui:setClanMemberInfo(struct_clan_member_info)
-        end
-    end
-
     -- 테이블 뷰 인스턴스 생성
-    local l_enemyClan = self.m_enemyClanStructMatch:getDefendMembers()
+    local l_enemyClan = self.m_tEnemyStructMatch
 
     self.m_enemyTableView = UIC_TableView(vars['rivalClanMenu'])
     self.m_enemyTableView.m_defaultCellSize = cc.size(548, 80 + 5)
     self.m_enemyTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    self.m_enemyTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem_Enemy, enemy_create_func)
+    self.m_enemyTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func)
     self.m_enemyTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     self.m_enemyTableView:setItemList(l_enemyClan)
 end
@@ -142,19 +137,11 @@ end
 -------------------------------------
 function UI_ClanWarMatchingScene:initButton()
     local vars = self.vars
-    vars['battleBtn']:registerScriptTapHandler(function() UI_ClanWarSelectScene(self.m_myClanStructMatch, self.m_enemyClanStructMatch) end)
+    vars['battleBtn']:registerScriptTapHandler(function() UI_ClanWarSelectScene(self.m_tMyStructMatch, self.m_tEnemyStructMatch) end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ClanWarMatchingScene:refresh()
-end
-
--------------------------------------
--- function setMatchingData
--------------------------------------
-function UI_ClanWarMatchingScene:setMatchingData(struct_match_my_clan, struct_match_enemy_clan)
-    self.m_myClanStructMatch = struct_match_my_clan
-    self.m_enemyClanStructMatch = struct_match_enemy_clan
 end

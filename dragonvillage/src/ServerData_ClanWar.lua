@@ -191,10 +191,16 @@ end
 function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)    
     
     local finish_cb = function(ret)
-        local struct_matching_my_clan = StructClanWarMatch(ret['clanwar_match_info'])
-        local struct_matching_enemy_clan = StructClanWarMatch(ret['clanwar_match_info_enemy'])
+        local l_matching_my_clan = ret['clanwar_match_info']
+        local l_matching_enemy_clan = ret['clanwar_match_info_enemy']
 
-        return success_cb(struct_matching_my_clan, struct_matching_enemy_clan)
+        local t_matching_my_clan = self:responseClanwarMatchInfo(l_matching_my_clan)
+        local t_matching_enemy_clan = self:responseClanwarMatchInfo(l_matching_enemy_clan)
+
+        -- 공격 정보 기반으로 방어 정보까지 채워줌
+        local _t_matching_my_clan = StructClanWarMatch.makeDefendInfo(t_matching_my_clan, t_matching_enemy_clan)
+        local _t_matching_enemy_clan = StructClanWarMatch.makeDefendInfo(t_matching_enemy_clan, t_matching_my_clan)
+        return success_cb(_t_matching_my_clan, _t_matching_enemy_clan)
     end
     
     -- 유저 ID
@@ -215,6 +221,21 @@ function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function responseClanwarMatchInfo
+-------------------------------------
+function ServerData_ClanWar:responseClanwarMatchInfo(l_data)
+    local t_struct_match = {}
+    for i, data in ipairs(l_data) do
+        local uid = data['uid']
+        if (uid) then
+            t_struct_match[uid] = StructClanWarMatch(data)            
+        end
+    end
+
+    return t_struct_match
 end
 
 

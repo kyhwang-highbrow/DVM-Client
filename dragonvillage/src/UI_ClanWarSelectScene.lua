@@ -4,17 +4,17 @@ local PARENT = UI
 -- class UI_ClanWarSelectScene
 -------------------------------------
 UI_ClanWarSelectScene = class(PARENT,{
-        m_structMatchMy = 'table',
-        m_structMatchEnemy = 'table',
+        m_tStructMatchMy = 'table',
+        m_tStructMatchEnemy = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarSelectScene:init(struct_match_my, struct_match_enemy)
+function UI_ClanWarSelectScene:init(t_my_struct_match, t_enemy_struct_match)
     local vars = self:load('challenge_mode_scene.ui')
-    self.m_structMatchMy = struct_match_my
-    self.m_structMatchEnemy = struct_match_enemy
+    self.m_tStructMatchMy = t_my_struct_match or {}
+    self.m_tStructMatchEnemy = t_enemy_struct_match or {}
 
     UIManager:open(self, UIManager.POPUP)
 
@@ -29,27 +29,22 @@ end
 -------------------------------------
 function UI_ClanWarSelectScene:initUI()
     local vars = self.vars
-    local struct_my_clan_match = self.m_structMatchEnemy
-
-    local my_create_func = function(ui, data)
-        local clan_member_uid = data['uid']
-        local struct_clan_member_info = struct_my_clan_match:getClanMembersInfo(clan_member_uid)
-        if (struct_clan_member_info) then
-            ui:setClanMemberInfo(struct_clan_member_info)
-        end
-        
-        ui.vars['resultSprite']:setVisible(false)
-    end
-	--[[
-    -- 테이블 뷰 인스턴스 생성
-    local l_myClan = struct_my_clan_match:getDefendMembers()
+    local l_enemy = self.m_tStructMatchEnemy
     
+    local create_func = function(ui, struct_match)
+        local nick_name = struct_match:getNameTextWithEnemy()
+        local defend_state = struct_match:getDefendState()
+        local defend_state_text = struct_match:getDefendStateText()
+
+        ui.vars['userNameLabel']:setString(nick_name ..  ' - ' .. defend_state_text)
+    end
+
     table_view = UIC_TableView(vars['floorNode'])
     table_view.m_defaultCellSize = cc.size(548, 80 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    table_view:setCellUIClass(UI_ClanWarMatchingSceneListItem_My, my_create_func)
+    table_view:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_myClan)
-	--]]
+    table_view:setItemList(l_enemy)
+
 	vars['startBtn']:registerScriptTapHandler(function() UI_MatchReadyClanWar() end)
 end
