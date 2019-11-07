@@ -933,8 +933,8 @@ function UI_DragonMasteryNew:showAmorPackagePopup()
         -- 쿨 타임 만료시간 갱신
         g_settingData:setPromoteCoolTime('package_amor', next_cool_time)
     end
-    
-	self:showAmorPackagePopup()
+
+	self:click_promotePackageBtn()
 end
 
 -------------------------------------
