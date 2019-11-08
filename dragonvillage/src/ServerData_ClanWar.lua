@@ -8,7 +8,10 @@ ServerData_ClanWar = class({
     m_tClanInfo = 'table - StructClanRank',
 
     m_clanWarDay = 'number',
+
+    -- 클랜전으로 맞붙는 플레이어/상대 플레이어 정보 저장
     m_playerUserInfo = 'StructArenaUserInfo',
+    m_OpponentUserInfo = 'StructArenaUserInfo',
 })
 
 -------------------------------------
@@ -323,4 +326,82 @@ function ServerData_ClanWar:getStructUserInfo_Player()
     
     local struct_user_info = g_clanWarData:getPlayerUserInfo()
     return struct_user_info
+end
+
+-------------------------------------
+-- function request_arenaStart
+-------------------------------------
+function ServerData_ClanWar:request_arenaStart(enemy_uid, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 공격자의 콜로세움 전투력 저장
+    local combat_power = g_clanWarData.m_playerUserInfo:getDeckCombatPower(true)
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+
+        self.m_gameKey = ret['gamekey']
+        --vs_dragons
+        --vs_runes
+        --vs_deck
+        --vs_info
+
+        -- 실제 플레이 시간 로그를 위해 체크 타임 보냄
+        g_accessTimeData:startCheckTimer()
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clanwar/start')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('token', self:makeDragonToken())
+    ui_network:setParam('enemy_uid', enemy_uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function makeDragonToken
+-------------------------------------
+function ServerData_ClanWar:makeDragonToken()
+    local token = ''
+
+    local l_deck = self.m_playerUserInfo:getDeck_dragonList(true)
+
+    for i = 1, 5 do
+        local t_dragon_data
+        local doid = l_deck[i]
+        if (doid) then
+            t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        end
+
+        if (t_dragon_data) then
+            token = token .. t_dragon_data:getStringData() 
+        else
+            token = token .. '0'
+        end
+
+        if (i < 5) then
+            token = token .. ','
+        end
+    end
+
+    --cclog('token = ' .. token)
+
+    token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
+    
+    return token
 end

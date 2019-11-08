@@ -7,7 +7,7 @@ StructClanWarMatch = class({
     uid = 'string',
     is_defense = 'boolean',          --: 1 or 0 방어덱 배치 여부
     attack_win = 'boolean',          --: 1 or 0 공격 승리 여부
-    userInfo = 'table',
+    user_info = 'table',
 
     -- 공격하면 생기는 값들
     attack_uid = 'string',          --: 공격한 상대방 uid, attack_uid 값이 있으면 공격 시작한 것으로 판단
@@ -73,8 +73,8 @@ function StructClanWarMatch:init(data)
         self['attack_game_history'] = data['attack_game_history']
     end
 
-    if (data['userInfo']) then
-        self['userInfo'] = StructUserInfoClan:create(data['userInfo'])
+    if (data['user_info']) then
+        self['user_info'] = StructUserInfoClan:create(data['user_info'])
     end
 end
 
@@ -110,7 +110,7 @@ end
 -- function getUserInfo
 -------------------------------------
 function StructClanWarMatch:getUserInfo()
-    return self['userInfo']
+    return self['user_info']
 end
 
 -------------------------------------
@@ -260,6 +260,9 @@ end
 -------------------------------------
 function StructClanWarMatch:getNameTextWithEnemy(enemy_uid, enemy_attack_state)
     local struct_user_info_clan = self:getUserInfo()
+    if (not struct_user_info_clan) then
+        return
+    end
 
     local user_nick_name = struct_user_info_clan:getNickname() or ''
     local enemy_info = self:getEnemyInfo() -- StructUserInfoClan

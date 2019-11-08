@@ -155,3 +155,63 @@ function SceneGameClanWar:getStructUserInfo_Player()
     local user_info = g_clanWarData:getStructUserInfo_Player()
     return user_info
 end
+
+-------------------------------------
+-- function networkGameFinish
+-- @breif
+-------------------------------------
+function SceneGameClanWar:networkGameFinish(t_param, t_result_ref, next_func)
+    if (self.m_stageID == DEV_STAGE_ID) then
+        if next_func then
+            next_func()
+        end
+        return
+    end
+
+    local uid = g_userData:get('uid')
+    local oid
+    local send_score = false
+    local attr
+    local multi_deck_mgr -- 멀티덱 모드
+    local auto -- 온전한 연속 전투인지 판단
+
+    local function success_cb(ret)
+        -- 클리어 타입은 서버에서 안줌
+        local is_success = (t_param['clear_type'] == 1) and true or false
+        self:networkGameFinish_response(ret, t_result_ref, is_success)
+
+        if next_func then
+            next_func()
+        end
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+        return false
+    end
+
+    -- 모드별 API 주소 분기처리
+    local api_url = '/clanwar/finish'
+    local game_mode = self.m_gameMod
+
+
+    local ui_network = UI_Network()
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setParam('clear_time', t_param['clear_time'])
+    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+    ui_network:setParam('is_win', is_win)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end

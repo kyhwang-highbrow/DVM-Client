@@ -22,6 +22,6 @@ end
 -------------------------------------
 function UI_ClanWarMatchingSceneListItem:initUI()
     local vars = self.vars
-    local nick_with_enemy = self.m_structMatch:getNameTextWithEnemy()
+    local nick_with_enemy = self.m_structMatch:getNameTextWithEnemy() or ''
     vars['userNameLabel']:setString(nick_with_enemy)
 end
