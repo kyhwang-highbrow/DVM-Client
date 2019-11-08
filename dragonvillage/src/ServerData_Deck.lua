@@ -418,3 +418,36 @@ function ServerData_Deck:request_setDeckPvpCollection(deckname, formation, leade
 
     return ui_network
 end
+
+-------------------------------------
+-- function request_getDeck
+-------------------------------------
+function ServerData_Deck:request_getDeck(uid, deckname, finish_cb)
+    local _deckname = deckname
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_deckData:setDeck(_deckname, ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/get_deck')
+    ui_network:setParam('uid', uid)
+
+    ui_network:setParam('deckname', _deckname)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end

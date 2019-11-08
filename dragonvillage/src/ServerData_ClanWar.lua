@@ -8,6 +8,7 @@ ServerData_ClanWar = class({
     m_tClanInfo = 'table - StructClanRank',
 
     m_clanWarDay = 'number',
+    m_playerUserInfo = 'StructArenaUserInfo',
 })
 
 -------------------------------------
@@ -266,4 +267,60 @@ function ServerData_ClanWar:request_clanWarTournamentSetScore(left_score, right_
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function refresh_playerUserInfo
+-- @brief 플레이어 정보 갱신
+-------------------------------------
+function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
+	if (not self.m_playerUserInfo) then
+		local struct_user_info = StructUserInfoArena()
+    
+		struct_user_info.m_uid = g_userData:get('uid')
+		struct_user_info.m_lv = g_userData:get('lv')
+		struct_user_info.m_nickname = g_userData:get('nick')
+		
+		-- 클랜
+		local struct_clan = g_clanData:getClanStruct()
+		if (struct_clan) then
+			struct_user_info.m_userData = struct_clan:getClanName()
+		else
+			struct_user_info.m_userData = ''
+		end
+
+		local t_deck_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
+		struct_user_info:applyPvpDeckData(t_deck_data)
+
+		self.m_playerUserInfo = struct_user_info
+	end
+
+    -- 덱 설정
+    if t_deck then
+        self.m_playerUserInfo:applyPvpDeckData(t_deck)
+    end
+end
+
+-------------------------------------
+-- function getUserInfo
+-- @brief 플레이어 정보 갱신
+-------------------------------------
+function ServerData_ClanWar:getPlayerUserInfo()   
+    return self.m_playerUserInfo
+end
+
+-------------------------------------
+-- function getStructUserInfo_Player
+-------------------------------------
+function ServerData_ClanWar:getStructUserInfo_Player()
+    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck('clan_war')
+    local t_data = {}
+    t_data['formation'] = formation
+    t_data['leader'] = leader
+    t_data['tamer'] = tamer_id
+    t_data['deck'] = l_deck
+    g_clanWarData:refresh_playerUserInfo(t_data)
+    
+    local struct_user_info = g_clanWarData:getPlayerUserInfo()
+    return struct_user_info
 end

@@ -138,6 +138,7 @@ end
 function UI_ClanWarMatchingScene:initButton()
     local vars = self.vars
     vars['battleBtn']:registerScriptTapHandler(function() UI_ClanWarSelectScene(self.m_tMyStructMatch, self.m_tEnemyStructMatch) end)
+    vars['setDeckBtn']:registerScriptTapHandler(function() self:click_myDeck() end)
 end
 
 -------------------------------------
@@ -145,3 +146,11 @@ end
 -------------------------------------
 function UI_ClanWarMatchingScene:refresh()
 end
+
+-------------------------------------
+-- function click_myDeck
+-------------------------------------
+function UI_ClanWarMatchingScene:click_myDeck()
+    UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true)
+end
+

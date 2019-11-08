@@ -197,7 +197,7 @@ function UI_ReadySceneNew:checkDeckProper()
 
 	    -- 클랜전
     if (self.m_stageID == CLAN_WAR_STAGE_ID) then
-        g_deckData:setSelectedDeck('arena')
+        g_deckData:setSelectedDeck('clan_war')
         return
     end
 

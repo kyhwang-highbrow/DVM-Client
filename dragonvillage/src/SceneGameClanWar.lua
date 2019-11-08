@@ -152,6 +152,6 @@ end
 -- @return StructUserInfo
 -------------------------------------
 function SceneGameClanWar:getStructUserInfo_Player()
-    local user_info = g_arenaData:getPlayerArenaUserInfo() -- 임의로 자기자신
+    local user_info = g_clanWarData:getStructUserInfo_Player()
     return user_info
 end

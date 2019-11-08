@@ -57,7 +57,7 @@ end
 -- function getStructUserInfo_Player
 -------------------------------------
 function UI_MatchReadyClanWar:getStructUserInfo_Player()
-    local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
+    local struct_user_info = g_clanWarData:getStructUserInfo_Player()
     return struct_user_info
 end
 

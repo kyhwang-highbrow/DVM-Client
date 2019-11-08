@@ -26,7 +26,7 @@ function UI_LoadingClanWar:initUI()
 
 	-- 플레이어
     do
-		local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
+		local struct_user_info = g_clanWarData:getPlayerUserInfo()
 		if (struct_user_info) then
 			-- 덱
 			local l_dragon_obj = struct_user_info:getDeck_dragonList()
