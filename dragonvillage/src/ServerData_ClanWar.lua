@@ -10,10 +10,10 @@ ServerData_ClanWar = class({
     m_clanWarDay = 'number',
 
     -- 클랜전으로 맞붙는 플레이어/상대 플레이어 정보 저장
-    m_playerUserInfo = 'StructArenaUserInfo',
-    m_OpponentUserInfo = 'StructArenaUserInfo',
+    m_playerUserInfo = 'StructUserInfoClanWar',
+    m_OpponentUserInfo = 'StructUserInfoClanWar',
 
-    m_gameKey = 'string', -- 테스트용
+    m_gameKey = 'string',
 })
 
 -------------------------------------
@@ -271,12 +271,13 @@ end
 -------------------------------------
 function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 	if (not self.m_playerUserInfo) then
-		local struct_user_info = StructUserInfoArena()
+		local struct_user_info = StructUserInfoClanWar()
     
 		struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info.m_lv = g_userData:get('lv')
 		struct_user_info.m_nickname = g_userData:get('nick')
-		
+		struct_user_info.m_tamerID = t_deck['tamer']
+
 		-- 클랜
 		local struct_clan = g_clanData:getClanStruct()
 		if (struct_clan) then
@@ -285,16 +286,11 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 			struct_user_info.m_userData = ''
 		end
 
-		local t_deck_data = g_deckData:getDeck_lowData(DECK_CHALLENGE_MODE)
+		local t_deck_data = g_deckData:getDeck_lowData('clanwar')
 		struct_user_info:applyPvpDeckData(t_deck_data)
 
 		self.m_playerUserInfo = struct_user_info
 	end
-
-    -- 덱 설정
-    if t_deck then
-        self.m_playerUserInfo:applyPvpDeckData(t_deck)
-    end
 end
 
 -------------------------------------
@@ -306,6 +302,57 @@ function ServerData_ClanWar:getPlayerUserInfo()
 end
 
 -------------------------------------
+-- function refresh_EnemyUserInfo
+-- @brief 플레이어 정보 갱신
+-------------------------------------
+function ServerData_ClanWar:refresh_EnemyUserInfo(t_deck)
+	if (not self.m_OpponentUserInfo) then
+		local struct_user_info = StructUserInfoClanWar()
+    
+		struct_user_info.m_uid = g_userData:get('uid')
+		struct_user_info.m_lv = g_userData:get('lv')
+		struct_user_info.m_nickname = g_userData:get('nick')
+		struct_user_info.m_tamerID = t_deck['tamer']
+
+		-- 클랜
+		local struct_clan = g_clanData:getClanStruct()
+		if (struct_clan) then
+			struct_user_info.m_userData = struct_clan:getClanName()
+		else
+			struct_user_info.m_userData = ''
+		end
+
+		local t_deck_data = g_deckData:getDeck_lowData('clanwar')
+		struct_user_info:applyPvpDeckData(t_deck_data)
+
+		self.m_OpponentUserInfo = struct_user_info
+	end
+end
+
+-------------------------------------
+-- function getEnemyUserInfo
+-- @brief 플레이어 정보 갱신
+-------------------------------------
+function ServerData_ClanWar:getEnemyUserInfo()   
+    return self.m_OpponentUserInfo
+end
+
+-------------------------------------
+-- function getStructUserInfo_Enemy
+-------------------------------------
+function ServerData_ClanWar:getStructUserInfo_Enemy()
+    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck('clanwar')
+    local t_data = {}
+    t_data['formation'] = formation
+    t_data['leader'] = leader
+    t_data['deck'] = l_deck
+    g_clanWarData:refresh_EnemyUserInfo(t_data)
+    
+    local struct_user_info = g_clanWarData:getEnemyUserInfo()
+    return struct_user_info
+end
+
+-------------------------------------
 -- function getStructUserInfo_Player
 -------------------------------------
 function ServerData_ClanWar:getStructUserInfo_Player()
@@ -313,11 +360,10 @@ function ServerData_ClanWar:getStructUserInfo_Player()
     local t_data = {}
     t_data['formation'] = formation
     t_data['leader'] = leader
-    t_data['tamer'] = tamer_id
     t_data['deck'] = l_deck
     g_clanWarData:refresh_playerUserInfo(t_data)
     
-    local struct_user_info = g_clanWarData:getPlayerUserInfo()
+    local struct_user_info = g_clanWarData:getPlayerUserInfo(t_data)
     return struct_user_info
 end
 
@@ -396,7 +442,7 @@ end
 -- function request_clanWarFinish
 -- @breif
 -------------------------------------
-function ServerData_ClanWar:request_clanWarFinish(is_win, next_func)
+function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
@@ -432,7 +478,7 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, next_func)
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
     ui_network:setParam('gamekey', self.m_gameKey)
-    ui_network:setParam('clear_time', 1)
+    ui_network:setParam('clear_time', play_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('is_win', _is_win)
     ui_network:setResponseStatusCB(response_status_cb)

@@ -289,5 +289,19 @@ function StructClanWarMatchItem:getMyNickName()
     return text_lv .. user_nick_name
 end
 
+-------------------------------------
+-- function getDefendEnemyUid
+-------------------------------------
+function StructClanWarMatchItem:setGameResult(is_win)
+    local game_result = self['attack_game_history'] or ''
+	if (is_win) then
+		game_result = game_result .. ';1'
+	else
+		game_result = game_result .. ';0'
+	end
+
+	self['attack_game_history'] = game_result
+end
+
 
 

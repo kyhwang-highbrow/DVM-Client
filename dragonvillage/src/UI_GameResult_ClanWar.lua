@@ -11,11 +11,12 @@ UI_GameResult_ClanWar = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GameResult_ClanWar:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open, score_calc)
-    local vars = self:load('event_illusion_result.ui')
+function UI_GameResult_ClanWar:init(is_success)
+    local vars = self:load('arena_result.ui')
     UIManager:open(self, UIManager.POPUP)
     
-	self:initUI()
+	self:initUI(is_success)
+	self:initButton()
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_homeBtn() end, 'UI_GameResult_ClanWar')
@@ -24,22 +25,60 @@ end
 -------------------------------------
 -- function click_homeBtn
 -------------------------------------
-function UI_GameResult_ClanWar:initUI()
+function UI_GameResult_ClanWar:initUI(is_success)
 	local vars = self.vars
-	vars['resultMenu']:setVisible(true)
-	vars['resultMenu']:setPositionY(420)
+	vars['clanWarMenu']:setVisible(true)
 
-	vars['illusionBtn']:registerScriptTapHandler(function() UINavigatorDefinition:goTo('clan_war') end)
+	local struct_user_info = g_clanWarData:getStructUserInfo_Enemy()
+	local nick_name = struct_user_info:getNickname()
+	vars['userNameLabel']:setString(Str('대전 상대 : {1}', nick_name))
+	
+
+	local struct_user_info = g_clanWarData:getStructUserInfo_Player()
+	local struct_clan_war_match_item = struct_user_info:getClanWarStructMatchItem()
+	struct_clan_war_match_item:setGameResult(is_success)
+	-- 승/패/승 세팅
+    local l_game_result = struct_clan_war_match_item:getGameResult()
+
+    for i, result in ipairs(l_game_result) do
+        local color
+        if (result == '0') then
+            color = StructClanWarMatch.STATE_COLOR['LOSE']
+        else
+            color = StructClanWarMatch.STATE_COLOR['WIN']
+        end
+        if (vars['setResult'..i]) then
+            vars['setResult'..i]:setColor(color)
+        end
+    end
+
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_GameResult_ClanWar:initButton()
+	local vars = self.vars
+
 	vars['homeBtn']:registerScriptTapHandler(function() UINavigatorDefinition:goTo('lobby') end)
-	vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn(true) end)
-	vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn(true) end)
+	vars['okBtn']:registerScriptTapHandler(function() self:click_againBtn(true) end)
+	--vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn(true) end)
+	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn(true) end)
 end
 
 -------------------------------------
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_ClanWar:click_againBtn()
-   UI_MatchReadyClanWar()
+     UINavigatorDefinition:goTo('goTo_clan_war', true)
+end
+
+-------------------------------------
+-- function click_statsBtn
+-------------------------------------
+function UI_GameResult_ClanWar:click_statsBtn()
+	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
+	UI_StatisticsPopup(g_gameScene.m_gameWorld)
 end
 
 -------------------------------------

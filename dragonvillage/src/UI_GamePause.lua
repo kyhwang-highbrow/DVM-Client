@@ -121,7 +121,10 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
             else
                 vars['contentsLabel']:setString(Str('고대의 탑'))
             end
-        else
+	    elseif (stage_id == CLAN_WAR_STAGE_ID) then
+            vars['contentsLabel']:setString(Str('클랜전'))
+
+		else
             local table_drop = TableDrop()
             local t_drop = table_drop:get(stage_id)
             vars['contentsLabel']:setString(Str(t_drop['t_name']))

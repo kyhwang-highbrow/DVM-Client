@@ -142,7 +142,7 @@ end
 -- @return StructUserInfo
 -------------------------------------
 function SceneGameClanWar:getStructUserInfo_Opponent()
-    local user_info = g_arenaData:getPlayerArenaUserInfo() -- 임의로 자기자신과 결투
+    local user_info = g_clanWarData:getStructUserInfo_Enemy()
     return user_info
 end
 
@@ -160,45 +160,30 @@ end
 -- function networkGameFinish
 -- @breif
 -------------------------------------
-function SceneGameClanWar:networkGameFinish(t_param, t_result_ref, next_func)
+function SceneGameColosseum:networkGameFinish(t_param, t_result_ref, next_func)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
-        -- 클리어 타입은 서버에서 안줌
-        local is_success = (t_param['clear_type'] == 1) and true or false
-        self:networkGameFinish_response(ret, t_result_ref, is_success)
+        self:networkGameFinish_response(ret, t_result_ref)
 
         if next_func then
             next_func()
         end
     end
 
-    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
-    local function response_status_cb(ret)
-        -- invalid season
-        if (ret['status'] == -1364) then
-            -- 로비로 이동
-            local function ok_cb()
-                UINavigator:goTo('lobby')
-            end 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
-            return true
-        end
-        return false
-    end
-
-    -- 모드별 API 주소 분기처리
-    local api_url = '/clanwar/finish'
-
-
+    local api_url = '/game/colosseum/finish'
+    
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', self.m_stageID)
+    ui_network:setParam('clear_type', t_param['clear_type'])
+    ui_network:setParam('exp_rate', t_param['exp_rate'])
+    ui_network:setParam('clear_mission_1', t_param['clear_mission_1'])
+    ui_network:setParam('clear_mission_2', t_param['clear_mission_2'])
+    ui_network:setParam('clear_mission_3', t_param['clear_mission_3'])
+    ui_network:setParam('gold', t_param['gold'])
     ui_network:setParam('gamekey', self.m_gameKey)
-    ui_network:setParam('clear_time', t_param['clear_time'])
-    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
-    ui_network:setParam('is_win', is_win)
-    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end

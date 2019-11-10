@@ -1873,7 +1873,7 @@ end
 -------------------------------------
 function UINavigatorDefinition:goTo_clan_war(...)
     local args = {...}
-    local stage = args[1]
+    local open_by_scene = args[1]
 
 	-- 클랜 가입이 되지 않은 상태에서 진입시에
     if (g_clanData:isClanGuest()) then
@@ -1881,10 +1881,10 @@ function UINavigatorDefinition:goTo_clan_war(...)
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
-
+	
     -- 클랜전 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
-    if (is_opend == true) then
+    if (is_opend == true) and (open_by_scene == false) then
         self:closeUIList(idx)
         ui:refresh(true)
         return
@@ -1900,7 +1900,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
 
         -- 전투 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
-        if (is_opend == true) then
+        if (is_opend == true) and (open_by_scene == false) then
             self:closeUIList(idx)
             ui:setTab('clan') -- 전투 메뉴에서 tab의 이름이 'clan'이다.
             ui:resetButtonsPosition()
@@ -1910,7 +1910,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
 
 		-- 클랜 UI가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_Clan')
-        if (is_opend == true) then
+        if (is_opend == true) and (open_by_scene == false) then
             self:closeUIList(idx)
             UI_ClanWarLobby(ret)
             return

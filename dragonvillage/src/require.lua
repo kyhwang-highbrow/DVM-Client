@@ -88,6 +88,7 @@ local t_module = {
     'StructUserInfoClan',
     'StructUserInfoClanRaid',
     'StructUserInfoArena',
+	'StructUserInfoClanWar',
     'StructWaveRegenGroup',
     'StructCollisionData',
 	'StructBookData',

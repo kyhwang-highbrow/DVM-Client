@@ -4312,6 +4312,9 @@
     <None Include="..\src\StructClanWarMatchItem.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StructUserInfoClanWar.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
