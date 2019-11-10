@@ -87,8 +87,8 @@ end
 -------------------------------------
 function ServerData_ClanWar:getTodayRound()
 	-- 8일차에 64강, 7일차에 32강 ...
-	local t_day = {[7] = 128, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
-	return t_day[self.m_clanWarDay] or 0
+	local t_day = {[8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+	return t_day[self.m_clanWarDay]
 end
 
 -------------------------------------

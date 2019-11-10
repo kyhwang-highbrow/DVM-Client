@@ -111,3 +111,44 @@ function StructClanWarMatch:getDefendEnemyNickName(struct_match_item)
 
     return 'VS' .. enemy_nick or ''
 end
+
+-------------------------------------
+-- function getAttackMemberCnt
+-------------------------------------
+function StructClanWarMatch:getAttackMemberCnt(t_clanwar)
+    if (not t_clanwar) then
+        return 0, 0
+    end
+
+    local max_cnt = 0
+    local attack_cnt = 0
+    for i, struct_match_item in pairs(t_clanwar) do
+        if (struct_match_item:getAttackingUid()) then
+            attack_cnt = attack_cnt + 1
+        end
+        max_cnt = max_cnt + 1
+    end
+
+    return attack_cnt, max_cnt
+end
+
+-------------------------------------
+-- function getStateMemberCnt
+-- @breif 해당 공격타입에 해당하는 맴버가 몇명인지
+-------------------------------------
+function StructClanWarMatch:getStateMemberCnt(t_clanwar, state)
+    if (not t_clanwar) then
+        return 0, 0
+    end
+
+    local max_cnt = 0
+    local attack_cnt = 0
+    for i, struct_match_item in pairs(t_clanwar) do
+        if (struct_match_item:getAttackState() == state) then
+            attack_cnt = attack_cnt + 1
+        end
+        max_cnt = max_cnt + 1
+    end
+
+    return attack_cnt, max_cnt
+end

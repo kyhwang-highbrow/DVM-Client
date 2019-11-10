@@ -21,14 +21,22 @@ end
 -------------------------------------
 function UI_ClanWarMatchingSceneListItem:initUI()
     local vars = self.vars
-    local attack_state = self.m_structMatch:getAttackState()
+    local struct_match_item = self.m_structMatch
+
+    -- ½Â/ÆÐ Ç¥½Ã
+    local attack_state = struct_match_item:getAttackState()
+    vars['winSprite']:setVisible(false)
+
     if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_SUCCESS']) then
         vars['winSprite']:setVisible(true)
-        return
     elseif (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
         vars['loseSprite']:setVisible(true)
-        return
     end
 
-    vars['winSprite']:setVisible(false)
+    -- µå·¡°ï ÃÊ»óÈ­
+    local struct_clan_info = struct_match_item:getUserInfo()
+    local dragon_icon = struct_clan_info:getLeaderDragonCard()
+    if (dragon_icon) then
+        vars['dragonNode']:addChild(dragon_icon.root)
+    end   
 end
