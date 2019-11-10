@@ -862,6 +862,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructClanWarLeague.lua" />
     <None Include="..\src\StructClanWarLeagueItem.lua" />
     <None Include="..\src\StructClanWarMatch.lua" />
+    <None Include="..\src\StructClanWarMatchItem.lua" />
     <None Include="..\src\StructClanWarTournament.lua" />
     <None Include="..\src\StructCollisionData.lua" />
     <None Include="..\src\StructDailyMission.lua" />
@@ -1181,6 +1182,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ClanWarMatchingScene.lua" />
     <None Include="..\src\UI_ClanWarMatchingSceneListItem.lua" />
     <None Include="..\src\UI_ClanWarSelectScene.lua" />
+    <None Include="..\src\UI_ClanWarSelectSceneListItem.lua" />
     <None Include="..\src\UI_ClanWarTest.lua" />
     <None Include="..\src\UI_ClanWarTournamentTree.lua" />
     <None Include="..\src\UI_ColosseumClanRankListItem.lua" />

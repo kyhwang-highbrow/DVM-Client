@@ -4306,6 +4306,12 @@
     <None Include="..\src\UI_LoadingClanWar.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarSelectSceneListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructClanWarMatchItem.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

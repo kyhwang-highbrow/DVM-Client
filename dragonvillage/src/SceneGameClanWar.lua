@@ -161,19 +161,7 @@ end
 -- @breif
 -------------------------------------
 function SceneGameClanWar:networkGameFinish(t_param, t_result_ref, next_func)
-    if (self.m_stageID == DEV_STAGE_ID) then
-        if next_func then
-            next_func()
-        end
-        return
-    end
-
     local uid = g_userData:get('uid')
-    local oid
-    local send_score = false
-    local attr
-    local multi_deck_mgr -- 멀티덱 모드
-    local auto -- 온전한 연속 전투인지 판단
 
     local function success_cb(ret)
         -- 클리어 타입은 서버에서 안줌
@@ -201,7 +189,6 @@ function SceneGameClanWar:networkGameFinish(t_param, t_result_ref, next_func)
 
     -- 모드별 API 주소 분기처리
     local api_url = '/clanwar/finish'
-    local game_mode = self.m_gameMod
 
 
     local ui_network = UI_Network()

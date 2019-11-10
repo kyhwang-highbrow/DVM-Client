@@ -121,6 +121,7 @@ local t_module = {
 	'StructClanWarLeagueItem',
     'StructClanWarLeague',
     'StructClanWarTournament',
+    'StructClanWarMatchItem',
     'StructClanWarMatch',
 
 	-- ServerData
@@ -1407,6 +1408,7 @@ local t_module = {
     'UI_ClanWarTest',
     'UI_ClanWarMatchingSceneListItem',
     'UI_ClanWarMatchingScene',
+    'UI_ClanWarSelectSceneListItem',
     'UI_ClanWarSelectScene',
 	'UI_LoadingClanWar',
     

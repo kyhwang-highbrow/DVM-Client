@@ -12,6 +12,8 @@ ServerData_ClanWar = class({
     -- 클랜전으로 맞붙는 플레이어/상대 플레이어 정보 저장
     m_playerUserInfo = 'StructArenaUserInfo',
     m_OpponentUserInfo = 'StructArenaUserInfo',
+
+    m_gameKey = 'string', -- 테스트용
 })
 
 -------------------------------------
@@ -195,16 +197,7 @@ end
 function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)    
     
     local finish_cb = function(ret)
-        local l_matching_my_clan = ret['clanwar_match_info']
-        local l_matching_enemy_clan = ret['clanwar_match_info_enemy']
-
-        local t_matching_my_clan = self:responseClanwarMatchInfo(l_matching_my_clan)
-        local t_matching_enemy_clan = self:responseClanwarMatchInfo(l_matching_enemy_clan)
-
-        -- 공격 정보 기반으로 방어 정보까지 채워줌
-        local _t_matching_my_clan = StructClanWarMatch.makeDefendInfo(t_matching_my_clan, t_matching_enemy_clan)
-        local _t_matching_enemy_clan = StructClanWarMatch.makeDefendInfo(t_matching_enemy_clan, t_matching_my_clan)
-        return success_cb(_t_matching_my_clan, _t_matching_enemy_clan)
+        return success_cb(StructClanWarMatch(ret))
     end
     
     -- 유저 ID
@@ -316,7 +309,7 @@ end
 -- function getStructUserInfo_Player
 -------------------------------------
 function ServerData_ClanWar:getStructUserInfo_Player()
-    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck('clan_war')
+    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck('clanwar')
     local t_data = {}
     t_data['formation'] = formation
     t_data['leader'] = leader
@@ -329,14 +322,11 @@ function ServerData_ClanWar:getStructUserInfo_Player()
 end
 
 -------------------------------------
--- function request_arenaStart
+-- function request_clanWarStart
 -------------------------------------
-function ServerData_ClanWar:request_arenaStart(enemy_uid, finish_cb)
+function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
-
-    -- 공격자의 콜로세움 전투력 저장
-    local combat_power = g_clanWarData.m_playerUserInfo:getDeckCombatPower(true)
     
     -- 성공 콜백
     local function success_cb(ret)
@@ -345,10 +335,6 @@ function ServerData_ClanWar:request_arenaStart(enemy_uid, finish_cb)
         g_serverData:networkCommonRespone(ret)
 
         self.m_gameKey = ret['gamekey']
-        --vs_dragons
-        --vs_runes
-        --vs_deck
-        --vs_info
 
         -- 실제 플레이 시간 로그를 위해 체크 타임 보냄
         g_accessTimeData:startCheckTimer()
@@ -379,7 +365,7 @@ end
 function ServerData_ClanWar:makeDragonToken()
     local token = ''
 
-    local l_deck = self.m_playerUserInfo:getDeck_dragonList(true)
+    local l_deck =  g_deckData:getDeck('clanwar')
 
     for i = 1, 5 do
         local t_dragon_data
@@ -404,4 +390,52 @@ function ServerData_ClanWar:makeDragonToken()
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
     
     return token
+end
+
+-------------------------------------
+-- function request_clanWarFinish
+-- @breif
+-------------------------------------
+function ServerData_ClanWar:request_clanWarFinish(is_win, next_func)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if next_func then
+            next_func()
+        end
+    end
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+        return false
+    end
+
+    -- 모드별 API 주소 분기처리
+    local api_url = '/clanwar/finish'
+
+    local _is_win
+    if (is_win) then
+        _is_win = 1
+    else
+        _is_win = 0
+    end
+    local ui_network = UI_Network()
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setParam('clear_time', 1)
+    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+    ui_network:setParam('is_win', _is_win)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
 end
