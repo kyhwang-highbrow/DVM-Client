@@ -191,7 +191,7 @@ function StructClanWarMatchItem:getGameResult(history_number)
 
     -- ex) 101 - 승패승
     local l_result = pl.stringx.split(_history_number, ';')
-    return l_result
+    return l_result or {}
 end
 
 -------------------------------------
@@ -283,9 +283,10 @@ function StructClanWarMatchItem:getMyNickName()
     if (not struct_user_info_clan) then
         return
     end
-
+    local lv = struct_user_info_clan:getLv() or ''
+    local text_lv = 'Lv.' .. lv .. ' '
     local user_nick_name = struct_user_info_clan:getNickname() or ''
-    return user_nick_name
+    return text_lv .. user_nick_name
 end
 
 
