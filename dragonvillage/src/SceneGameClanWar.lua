@@ -16,7 +16,7 @@ function SceneGameClanWar:init(game_key, stage_id, stage_name, develop_mode, fri
 
     self.m_sceneName = 'SceneGameClanWar'
 
-    g_deckData:setSelectedDeck('clan_war')
+    g_deckData:setSelectedDeck('clanwar')
 end
 
 -------------------------------------
@@ -142,7 +142,7 @@ end
 -- @return StructUserInfo
 -------------------------------------
 function SceneGameClanWar:getStructUserInfo_Opponent()
-    local user_info = g_clanWarData:getStructUserInfo_Enemy()
+    local user_info = g_clanWarData:getEnemyUserInfo()
     return user_info
 end
 

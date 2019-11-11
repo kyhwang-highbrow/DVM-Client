@@ -129,7 +129,7 @@ end
 -- function getStructUserInfo_Opponent
 -------------------------------------
 function UI_MatchReadyClanWar:getStructUserInfo_Opponent()
-    local struct_user_info = g_clanWarData:getStructUserInfo_Enemy()
+    local struct_user_info = g_clanWarData:getEnemyUserInfo()
     return struct_user_info
 end
 

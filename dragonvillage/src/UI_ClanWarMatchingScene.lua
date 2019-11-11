@@ -69,6 +69,9 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
             break
         end
 
+        if (not struct_match_item) then
+            return
+        end
         local clan_id = struct_match_item:getClanId()
         local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
         if (struct_clan_rank) then
@@ -137,8 +140,24 @@ end
 -------------------------------------
 function UI_ClanWarMatchingScene:initButton()
     local vars = self.vars
-    vars['battleBtn']:registerScriptTapHandler(function() UI_ClanWarSelectScene(self.m_structMatch) end)
+    vars['battleBtn']:registerScriptTapHandler(function() self:click_gotoBattle() end)
     vars['setDeckBtn']:registerScriptTapHandler(function() self:click_myDeck() end)
+end
+
+-------------------------------------
+-- function click_gotoBattle
+-------------------------------------
+function UI_ClanWarMatchingScene:click_gotoBattle()
+    local uid = g_userData:get('uid')
+    local my_struct_match_item = self.m_structMatch:getMatchMemberDataByUid(uid)
+    
+    local attacking_uid = my_struct_match_item:getAttackingUid()
+    if (attacking_uid) then
+        local struct_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)
+        UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
+    else
+        UI_ClanWarSelectScene(self.m_structMatch)
+    end
 end
 
 -------------------------------------

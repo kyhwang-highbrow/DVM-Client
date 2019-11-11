@@ -29,7 +29,7 @@ function UI_GameResult_ClanWar:initUI(is_success)
 	local vars = self.vars
 	vars['clanWarMenu']:setVisible(true)
 
-	local struct_user_info = g_clanWarData:getStructUserInfo_Enemy()
+	local struct_user_info = g_clanWarData:getEnemyUserInfo()
 	local nick_name = struct_user_info:getNickname()
 	vars['userNameLabel']:setString(Str('대전 상대 : {1}', nick_name))
 	
@@ -156,7 +156,7 @@ end
 -------------------------------------
 function UI_GameResult_ClanWar:startGame()
     local stage_id = CLAN_WAR_STAGE_ID
-	local deck_name = 'clan_war'
+	local deck_name = 'clanwar'
     local combat_power = g_deckData:getDeckCombatPower(deck_name)
 	local scene = SceneGameClanWar()
     scene:runScene()

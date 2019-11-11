@@ -240,12 +240,69 @@ end
 -- @brief
 -------------------------------------
 function UI_ClanWarSelectScene:refreshFocusUserInfo()
-    local vars = self.vars
-    local struct_match = self.m_tStructMatch
     local struct_match_item = self.m_curSelectEnemyStructMatch
+    
     if (not struct_match_item) then
         return
     end
+
+    local finish_cb = function(data)
+        self:makeEnemyUserInfo(data)
+        self:refreshCenterUI()
+    end
+    g_clanWarData:request_clanWarUserDeck(struct_match_item['uid'], finish_cb)
+
+end
+
+-------------------------------------
+-- function refreshFocusUserInfo
+-- @brief
+-------------------------------------
+function UI_ClanWarSelectScene:makeEnemyUserInfo(data)
+    if not (data) then
+        return
+    end
+    
+    local struct_user_info = StructUserInfoArena()
+
+    -- 기본 유저 정보
+    struct_user_info.m_uid = data['uid']
+    struct_user_info.m_nickname = data['nick']
+    struct_user_info.m_lv = data['lv']
+    struct_user_info.m_tamerID = data['tamer']
+    struct_user_info.m_leaderDragonObject = StructDragonObject(data['leader'])
+    struct_user_info.m_tier = data['tier']
+    struct_user_info.m_rank = data['rank']
+    struct_user_info.m_rankPercent = data['rate']
+    
+    -- 콜로세움 유저 정보
+    struct_user_info.m_rp = data['rp']
+    struct_user_info.m_matchResult = data['match']
+    
+    struct_user_info:applyRunesDataList(data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
+    struct_user_info:applyDragonsDataList(data['dragons'])
+    
+    -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
+    struct_user_info:applyPvpDeckData(data['deck'])
+    
+    -- 클랜
+    if (data['clan_info']) then
+        local struct_clan = StructClan({})
+        struct_clan:applySimple(data['clan_info'])
+        struct_user_info:setStructClan(struct_clan)
+    end
+    
+    g_clanWarData:setEnemyUserInfo(struct_user_info)
+end
+
+-------------------------------------
+-- function refreshCenterUI
+-- @brief
+-------------------------------------
+function UI_ClanWarSelectScene:refreshCenterUI()
+    local vars = self.vars
+    local struct_match = self.m_tStructMatch
+    local struct_match_item = self.m_curSelectEnemyStructMatch
 
     local enemy_nick = struct_match_item:getMyNickName() or ''
     vars['userNameLabel']:setString(enemy_nick)
@@ -258,6 +315,35 @@ function UI_ClanWarSelectScene:refreshFocusUserInfo()
         vars['dragonNode']:setScale(0.5)
     end
     
+    local struct_user_info = g_clanWarData:getEnemyUserInfo()
+    if (not struct_user_info) then
+        return
+    end
+    local l_dragon_obj = struct_user_info:getDeck_dragonList()
+    local leader = struct_user_info.m_pvpDeck['leader']
+    local formation = struct_user_info.m_pvpDeck['formation']
+
+    vars['dragonDeckNode']:removeAllChildren()
+    local player_2d_deck = UI_2DDeck(true, true)
+    player_2d_deck:setDirection('right')
+    vars['dragonDeckNode']:addChild(player_2d_deck.root)
+    player_2d_deck:initUI()
+
+    -- 드래곤 생성 (리더도 함께)
+    player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
+        
+    -- 진형 설정
+    player_2d_deck:setFormation(formation)
+    player_2d_deck:runAction()
+
+    -- 테이머
+    vars['tamerNode']:removeAllChildren()
+    local animator = struct_user_info:getDeckTamerSDAnimator()
+    vars['tamerNode']:addChild(animator.m_node)
+
+    local comebat_power = struct_user_info:getDeckCombatPower()
+    vars['powerLabel']:setString(tostring(comebat_power))
+
     local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
     local struct_enemy_match_item = struct_match:getMatchMemberDataByUid(defend_enemy_uid)
     if (not struct_enemy_match_item) then
@@ -277,13 +363,4 @@ function UI_ClanWarSelectScene:refreshFocusUserInfo()
             vars['setResult'..i]:setColor(color)
         end
     end
-
-    --]]
-
-    --[[
-    vars['dragonDeckNode
-    vars['powerLabel']
-    vars['tamerNode
-    --]]
-    
 end

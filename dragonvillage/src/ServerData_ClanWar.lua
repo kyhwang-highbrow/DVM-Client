@@ -302,34 +302,6 @@ function ServerData_ClanWar:getPlayerUserInfo()
 end
 
 -------------------------------------
--- function refresh_EnemyUserInfo
--- @brief 플레이어 정보 갱신
--------------------------------------
-function ServerData_ClanWar:refresh_EnemyUserInfo(t_deck)
-	if (not self.m_OpponentUserInfo) then
-		local struct_user_info = StructUserInfoClanWar()
-    
-		struct_user_info.m_uid = g_userData:get('uid')
-		struct_user_info.m_lv = g_userData:get('lv')
-		struct_user_info.m_nickname = g_userData:get('nick')
-		struct_user_info.m_tamerID = t_deck['tamer']
-
-		-- 클랜
-		local struct_clan = g_clanData:getClanStruct()
-		if (struct_clan) then
-			struct_user_info.m_userData = struct_clan:getClanName()
-		else
-			struct_user_info.m_userData = ''
-		end
-
-		local t_deck_data = g_deckData:getDeck_lowData('clanwar')
-		struct_user_info:applyPvpDeckData(t_deck_data)
-
-		self.m_OpponentUserInfo = struct_user_info
-	end
-end
-
--------------------------------------
 -- function getEnemyUserInfo
 -- @brief 플레이어 정보 갱신
 -------------------------------------
@@ -338,18 +310,11 @@ function ServerData_ClanWar:getEnemyUserInfo()
 end
 
 -------------------------------------
--- function getStructUserInfo_Enemy
+-- function setEnemyUserInfo
+-- @brief 플레이어 정보 갱신
 -------------------------------------
-function ServerData_ClanWar:getStructUserInfo_Enemy()
-    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck('clanwar')
-    local t_data = {}
-    t_data['formation'] = formation
-    t_data['leader'] = leader
-    t_data['deck'] = l_deck
-    g_clanWarData:refresh_EnemyUserInfo(t_data)
-    
-    local struct_user_info = g_clanWarData:getEnemyUserInfo()
-    return struct_user_info
+function ServerData_ClanWar:setEnemyUserInfo(opponent_info)   
+    self.m_OpponentUserInfo = opponent_info
 end
 
 -------------------------------------
@@ -483,5 +448,33 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     ui_network:setParam('is_win', _is_win)
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_clanWarUserDeck
+-------------------------------------
+function ServerData_ClanWar:request_clanWarUserDeck(uid, finish_cb)
+
+    -- 유저 ID
+    local _uid = uid or g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+        if (finish_cb) then
+            finish_cb(ret['deck_info'])
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/get_deck_clanwar')
+    ui_network:setParam('uid', _uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
     ui_network:request()
 end
