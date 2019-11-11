@@ -195,6 +195,14 @@ function StructClanWarMatchItem:getGameResult(history_number)
 end
 
 -------------------------------------
+-- function isDoAllGame
+-------------------------------------
+function StructClanWarMatchItem:isDoAllGame()
+    local l_result = self:getGameResult()
+    return (#l_result == 3)
+end
+
+-------------------------------------
 -- function getAttackState
 -------------------------------------
 function StructClanWarMatchItem:getAttackState()
@@ -209,17 +217,18 @@ end
 -- function getDefendStateText
 -------------------------------------
 function StructClanWarMatchItem:getDefendStateText(defend_state)
-    if (defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
-        return '보통'
-    elseif (defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFEND_FAIL']) then
+    local _defend_state = defend_state or self:getDefendState()
+    if (_defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
+        return ''
+    elseif (_defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFEND_FAIL']) then
         return '패배'
-    elseif (defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFENDING']) then
+    elseif (_defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFENDING']) then
         return '전투 중'
-    elseif (defend_state == StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']) then
+    elseif (_defend_state == StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']) then
         return '열외'
     end
 
-    return '보통'
+    return ''
 end
 
 -------------------------------------
@@ -294,9 +303,8 @@ end
 -------------------------------------
 function StructClanWarMatchItem:setGameResult(is_win)
     local game_result = ''
-
     if (self['attack_game_history']) then
-        game_result = game_result .. ';'
+        game_result = self['attack_game_history'] .. ';'
     end
 
 	if (is_win) then

@@ -12,6 +12,7 @@ UI_LoadingClanWar = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_LoadingClanWar:init(curr_scene)
+    self:selectAuto(true)
 end
 
 -------------------------------------
@@ -60,5 +61,48 @@ function UI_LoadingClanWar:initUI()
     
         vars['btnNode']:setVisible(not is_autoplay)
         vars['loadingNode']:setVisible(is_autoplay)
+    end
+end
+
+-------------------------------------
+-- function initUserInfo
+-------------------------------------
+function UI_LoadingArena:initUserInfo(direction, struct_user_info)
+	local vars = self.vars
+    local struct_clan = struct_user_info:getStructClan()
+    local icon
+
+	local idx
+    if (direction == 'left') then
+        idx = 1
+    elseif (direction == 'right') then
+        idx = 2
+    end
+
+    -- 티어
+
+    -- 랭킹
+    vars['rankLabel' .. idx]:setString('')
+
+    -- 레벨, 닉네임
+    vars['userLabel' .. idx]:setString(struct_user_info:getUserText())
+
+    -- 클랜
+    local clan_name = struct_clan and struct_clan:getClanName() or ''
+    vars['clanLabel' .. idx]:setString(clan_name)
+
+    icon = struct_clan and struct_clan:makeClanMarkIcon()
+    if (icon) then
+        vars['markNode' .. idx]:addChild(icon)
+    end
+
+    -- 전투력
+    local str = struct_user_info:getDeckCombatPower()
+    vars['powerLabel' .. idx]:setString(Str('전투력 : {1}', str))
+
+    -- 아이콘
+    icon = struct_user_info:getDeckTamerIcon()
+    if (icon) then
+        vars['tamerNode' .. idx]:addChild(icon)
     end
 end

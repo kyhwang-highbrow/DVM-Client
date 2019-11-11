@@ -4,8 +4,9 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_ClanWarSelectSceneListItem
 -------------------------------------
 UI_ClanWarSelectSceneListItem = class(PARENT,{
-        m_structMatch = 'StructClanWarMatch',
+        m_structMatchItem = 'StructClanWarMatch',
         m_endTime = 'number',
+        m_structMatch = 'number',
     })
 
 -------------------------------------
@@ -13,7 +14,7 @@ UI_ClanWarSelectSceneListItem = class(PARENT,{
 -------------------------------------
 function UI_ClanWarSelectSceneListItem:init(data)
     local vars = self:load('clan_war_match_select_scene_item.ui')
-    self.m_structMatch = data
+    self.m_structMatchItem = data
 
     self:initUI()
 
@@ -25,6 +26,9 @@ end
 -------------------------------------
 function UI_ClanWarSelectSceneListItem:initUI()
     local vars = self.vars
+    local struct_match_item = self.m_structMatchItem
+
+
 end
 
 -------------------------------------
@@ -38,16 +42,66 @@ function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
     --[[
         {'1', '0', '1'}
     --]]
+
+    for i = 1,3 do
+        if (vars['setResult'..i]) then
+            vars['setResult'..i]:setColor(StructClanWarMatch.STATE_COLOR['DEFAULT'])
+            vars['setResult'..i]:setVisible(true)
+        end
+    end
+
     for i, result in ipairs(l_result) do
         local color
-        if (result == '0') then
+        if (result == '1') then
             color = StructClanWarMatch.STATE_COLOR['LOSE']
         else
             color = StructClanWarMatch.STATE_COLOR['WIN']
         end
         if (vars['setResult'..i]) then
             vars['setResult'..i]:setColor(color)
+            vars['setResult'..i]:setVisible(true)
         end
+    end
+end
+
+
+-------------------------------------
+-- function setStructMatch
+-------------------------------------
+function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
+    local vars = self.vars
+    self.m_structMatch = struct_match
+    local struct_match_item = self.m_structMatchItem
+
+    -- 상대편이 있을 경우 상대 닉네임
+    -- 상대편 정보는 StructClanWar에서 들고 있기 때문에 여기서 세팅해준다.
+    local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
+
+    if (defend_enemy_uid) then
+        local struct_enemy_match_item = self.m_structMatch:getMatchMemberDataByUid(defend_enemy_uid)
+        local enemy_nick = 'VS ' .. struct_enemy_match_item:getMyNickName() or ''
+        vars['userNameLabel2']:setString(enemy_nick)
+        vars['userNameLabel2']:setVisible(true)
+
+        -- 승/패/승 세팅
+        local l_game_result = struct_enemy_match_item:getGameResult()
+        self:setGameResult(l_game_result, is_my_clan)
+
+        -- 남은 시간 세팅
+        local end_date = struct_enemy_match_item:getEndDate()
+        self:setEndTime(end_date)        
+    
+
+        -- 나의 닉네임
+        local my_nick = struct_match_item:getMyNickName()
+        local defend_state = struct_match_item:getDefendState(struct_enemy_match_item:getAttackState())
+        local defend_state_text = struct_match_item:getDefendStateText(defend_state)
+        vars['userNameLabel1']:setString(my_nick .. '    ' ..defend_state_text)
+    
+    else
+        local my_nick = struct_match_item:getMyNickName()
+        vars['userNameLabel1']:setString(my_nick)
+        vars['userNameLabel2']:setString('')
     end
 end
 

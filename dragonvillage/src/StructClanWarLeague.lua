@@ -225,6 +225,10 @@ function StructClanWarLeague:getMyClanTeamNumber()
         return 0
     end
     local struct_league_item = self.m_tClanInfo[my_clan_id]
+
+    if (not struct_league_item) then
+        return 0
+    end
     return struct_league_item:getLeague()
 end
 

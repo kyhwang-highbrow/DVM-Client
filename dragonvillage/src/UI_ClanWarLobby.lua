@@ -61,7 +61,7 @@ function UI_ClanWarLobby:initUI(ret)
 
 	-- 테스트용 버튼
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
-        g_clanWarData:request_testNextDay() 
+        --g_clanWarData:request_testNextDay() 
         UIManager:toastNotificationRed('다음날이 되었습니다. ESC로 나갔다가 다시 진입해주세요')
     end)  
 end

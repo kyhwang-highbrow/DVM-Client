@@ -109,8 +109,14 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     local struct_match = self.m_structMatch 
 
     local create_func = function(ui, struct_match_item)
-        local nick_text = struct_match:getNickNameWithAttackingEnemy(struct_match_item)
-        ui.vars['userNameLabel']:setString(nick_text)
+        local my_nick, enemy_nick = struct_match:getNickNameWithAttackingEnemy(struct_match_item)
+        ui.vars['userNameLabel1']:setString(my_nick)
+
+        if (enemy_nick) then
+            ui.vars['userNameLabel2']:setVisible(true)
+            ui.vars['userNameLabel2']:setString(enemy_nick)
+            ui.vars['arrowSprite']:setVisible(true)
+        end
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -151,12 +157,19 @@ function UI_ClanWarMatchingScene:click_gotoBattle()
     local uid = g_userData:get('uid')
     local my_struct_match_item = self.m_structMatch:getMatchMemberDataByUid(uid)
     
+    local is_do_all_game = my_struct_match_item:isDoAllGame()
+    if (is_do_all_game) then
+        UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
+        return
+    end
+
+
     local attacking_uid = my_struct_match_item:getAttackingUid()
     -- 이미 공격한 상대가 있는 경우
     if (attacking_uid) then
-        local finish_cb = function(data)
-            if (not data) then
-                UIManager:toastNotificationGreen(Str('방어덱이 없는 상대 클랜원입니다.'))
+        local finish_cb = function()
+            if (not g_clanWarData:getEnemyUserInfo()) then
+                UIManager:toastNotificationRed(Str('설정된 덱이 없는 상대 클랜원입니다.'))
                 return
             end
             local struct_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)

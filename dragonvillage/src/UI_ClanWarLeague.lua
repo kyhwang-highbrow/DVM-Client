@@ -350,7 +350,7 @@ function UI_ClanWarLeague:refreshLeagueUI(ret)
     -- 점수 조작 관련 정보 입력하는 팝업 여는 버튼
     vars['testBtn']:setVisible(is_myClanTeam)
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, true) end)
-    vars['testTomorrowBtn']:setVisible(is_myClanTeam)
+    vars['testTomorrowBtn']:setVisible(false)
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
         g_clanWarData:request_testNextDay() 
         UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')

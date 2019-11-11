@@ -17,6 +17,57 @@ function UI_MatchReadyClanWar:init(struct_match_item, my_struct_match_item)
 
 	self:getStructUserInfo_Opponent() -- 적 정보 초기화
 	self:getStructUserInfo_Player()
+
+    self:initResult()
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function initResult
+-------------------------------------
+function UI_MatchReadyClanWar:initResult()
+    local vars = self.vars
+    vars['clanWarMenu']:setVisible(true)
+
+    -- 승/패/승 세팅
+    local l_game_result = self.m_myStructMatchItem:getGameResult()
+    
+    for i, result in ipairs(l_game_result) do
+        local color
+        if (result == '0') then
+            color = StructClanWarMatch.STATE_COLOR['LOSE']
+        else
+            color = StructClanWarMatch.STATE_COLOR['WIN']
+        end
+        if (vars['setResult'..i]) then
+            vars['setResult'..i]:setColor(color)
+        end
+    end
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_MatchReadyClanWar:update()
+    local vars = self.vars
+    local end_time = self.m_myStructMatchItem:getEndDate()
+
+    if (not end_time) then
+        vars['lastTimeLabel']:setString('')
+        return
+    end
+
+    -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
+    local cur_time = Timer:getServerTime_Milliseconds()
+    local remain_time = (end_time - cur_time)/1000
+    if (remain_time > 0) then
+        local hour = math.floor(remain_time / 3600)
+        local min = math.floor(remain_time / 60) % 60
+        vars['lastTimeLabel']:setString(hour .. ':' .. min)
+    else
+        vars['lastTimeLabel']:setString('')
+    end
 end
 
 -------------------------------------

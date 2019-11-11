@@ -284,6 +284,7 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 		else
 			struct_user_info.m_userData = ''
 		end
+        struct_user_info:setStructClan(struct_clan)
 		self.m_playerUserInfo = struct_user_info
 	end
 
@@ -327,6 +328,7 @@ end
 -------------------------------------
 function ServerData_ClanWar:makeEnemyUserInfo(data)
     if not (data) then
+        g_clanWarData:setEnemyUserInfo(nil)
         return
     end
     

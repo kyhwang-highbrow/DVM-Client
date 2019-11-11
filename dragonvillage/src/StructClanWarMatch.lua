@@ -9,7 +9,8 @@ StructClanWarMatch = class({
 
 StructClanWarMatch.STATE_COLOR = {
     ['WIN'] = cc.c3b(0, 255, 0),
-    ['LOSE'] = cc.c3b(255, 34, 34)
+    ['LOSE'] = cc.c3b(255, 34, 34),
+    ['DEFAULT'] = cc.c3b(0, 0, 0),
 }
 
 -------------------------------------
@@ -99,7 +100,7 @@ function StructClanWarMatch:getNickNameWithAttackingEnemy(struct_match_item)
 
     local enemy_nick = struct_enemy_match_item:getMyNickName() or ''
 
-     return my_nick .. ' VS ' .. enemy_nick
+     return my_nick, enemy_nick
 end
 
 -------------------------------------

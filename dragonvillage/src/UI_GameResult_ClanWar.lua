@@ -61,7 +61,7 @@ function UI_GameResult_ClanWar:initButton()
 	local vars = self.vars
 
 	vars['homeBtn']:registerScriptTapHandler(function() UINavigatorDefinition:goTo('lobby') end)
-	vars['okBtn']:registerScriptTapHandler(function() self:click_againBtn(true) end)
+	vars['okBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
 	--vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn(true) end)
 	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn(true) end)
 end
@@ -70,7 +70,7 @@ end
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_ClanWar:click_againBtn()
-     UINavigatorDefinition:goTo('goTo_clan_war', true)
+     UINavigatorDefinition:goTo('clan_war', true)
 end
 
 -------------------------------------
