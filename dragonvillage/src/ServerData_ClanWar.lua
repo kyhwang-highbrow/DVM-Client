@@ -275,8 +275,7 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
     
 		struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info.m_lv = g_userData:get('lv')
-		struct_user_info.m_nickname = g_userData:get('nick')
-		struct_user_info.m_tamerID = t_deck['tamer']
+		struct_user_info.m_nickname = g_userData:get('nick')	
 
 		-- 클랜
 		local struct_clan = g_clanData:getClanStruct()
@@ -375,14 +374,10 @@ end
 -- function getStructUserInfo_Player
 -------------------------------------
 function ServerData_ClanWar:getStructUserInfo_Player()
-    local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck('clanwar')
-    local t_data = {}
-    t_data['formation'] = formation
-    t_data['leader'] = leader
-    t_data['deck'] = l_deck
-    g_clanWarData:refresh_playerUserInfo(t_data)
-    
-    local struct_user_info = g_clanWarData:getPlayerUserInfo(t_data)
+    local t_data = g_deckData:getDeck_lowData('clanwar')
+    self:refresh_playerUserInfo(t_data)
+
+    local struct_user_info = g_clanWarData:getPlayerUserInfo()
     return struct_user_info
 end
 
@@ -545,8 +540,8 @@ function ServerData_ClanWar:request_setDeck(deckname, formation, leader, l_edoid
     -- 성공 콜백
     local function success_cb(ret)
         local t_data = nil
-        local l_deck = ret['deck']
-        self:refresh_playerUserInfo(l_deck)
+        local t_deck = ret['deck']
+        self:refresh_playerUserInfo(t_deck)
         g_deckData:setDeck_usedDeckPvp('clan_war', l_deck)
 
         if finish_cb then
