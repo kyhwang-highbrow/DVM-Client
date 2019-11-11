@@ -148,7 +148,7 @@ end
 function StructClanWarMatchItem:getPlayState(history_number, end_date)
     local _history_number = history_number or self['attack_game_history'] or ''
     local cur_time =  Timer:getServerTime_Milliseconds()
-    local end_time = end_date or self:getEndDate()
+    local end_time = end_date or self:getEndDate() or 0
     local l_number = {}
     
     local l_result = pl.stringx.split(_history_number, ';')
