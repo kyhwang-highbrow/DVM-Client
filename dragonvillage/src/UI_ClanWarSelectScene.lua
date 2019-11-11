@@ -215,6 +215,10 @@ end
 function UI_ClanWarSelectScene:click_readyBtn()
 	local struct_match = self.m_tStructMatch
 	
+    if (not g_clanWarData:getEnemyUserInfo()) then
+        UIManager:toastNotificationGreen(Str('방어덱이 없는 상대 클랜원입니다.'))
+        return
+    end
 	local my_uid = g_userData:get('uid')
 	local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
 	UI_MatchReadyClanWar(self.m_curSelectEnemyStructMatch, my_struct_match_item)

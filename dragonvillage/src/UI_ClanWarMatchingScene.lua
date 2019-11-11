@@ -155,6 +155,10 @@ function UI_ClanWarMatchingScene:click_gotoBattle()
     -- 이미 공격한 상대가 있는 경우
     if (attacking_uid) then
         local finish_cb = function(data)
+            if (not data) then
+                UIManager:toastNotificationGreen(Str('방어덱이 없는 상대 클랜원입니다.'))
+                return
+            end
             local struct_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)
             UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
         end

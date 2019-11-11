@@ -227,6 +227,11 @@ function ServerData_Deck:isUsedDeckPvpDB(deck_name)
         return true
     end
 
+
+    if (deck_name == 'clanwar') then
+        return true
+    end
+
     return false
 end
 

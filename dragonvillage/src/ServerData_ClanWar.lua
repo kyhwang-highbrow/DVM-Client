@@ -285,12 +285,12 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 		else
 			struct_user_info.m_userData = ''
 		end
-
-		local t_deck_data = g_deckData:getDeck_lowData('clanwar')
-		struct_user_info:applyPvpDeckData(t_deck_data)
-
 		self.m_playerUserInfo = struct_user_info
 	end
+
+    if (t_deck) then
+	    self.m_playerUserInfo:applyPvpDeckData(t_deck)
+    end
 end
 
 -------------------------------------
@@ -531,4 +531,50 @@ function ServerData_ClanWar:request_clanWarUserDeck(uid, finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function request_setDeck
+-------------------------------------
+function ServerData_ClanWar:request_setDeck(deckname, formation, leader, l_edoid, tamer, finish_cb, fail_cb)
+    local _deckname = deckname
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        local t_data = nil
+        local l_deck = ret['deck']
+        self:refresh_playerUserInfo(l_deck)
+        g_deckData:setDeck_usedDeckPvp('clan_war', l_deck)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/pvp/set_deck')
+    ui_network:setParam('uid', uid)
+
+    ui_network:setParam('deckname', _deckname)
+    ui_network:setParam('formation', formation)
+    ui_network:setParam('leader', leader)
+    ui_network:setParam('tamer', tamer)
+    
+
+    for i,doid in pairs(l_edoid) do
+        ui_network:setParam('edoid' .. i, doid)
+    end
+
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end

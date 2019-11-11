@@ -843,7 +843,18 @@ function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
             g_friendMatchData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
-
+        
+        -- 클랜전 전용 덱 처리
+        elseif (deckname == 'clanwar') then
+             local l_edoid = {}
+            l_edoid[1] = self.m_lDeckList[1]
+            l_edoid[2] = self.m_lDeckList[2]
+            l_edoid[3] = self.m_lDeckList[3]
+            l_edoid[4] = self.m_lDeckList[4]
+            l_edoid[5] = self.m_lDeckList[5]
+            local tamer_id = self.m_uiReadyScene:getCurrTamerID()
+            local fail_cb = nil
+            g_clanWarData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)           
         else
             local uid = g_userData:get('uid')
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()

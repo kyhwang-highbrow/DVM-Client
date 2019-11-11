@@ -663,7 +663,7 @@ end
 function StructUserInfoArena:getDeck(type)
     local tamer_id = g_tamerData:getCurrTamerID()
     -- 공격덱
-    if (type == 'fpvp_atk' or type == 'arena') then
+    if (type == 'fpvp_atk' or type == 'arena' or type == 'clanwar') then
         local l_doid = self:getDeck_dragonList(true)
         local formation = 'attack'
         local leader = 0
