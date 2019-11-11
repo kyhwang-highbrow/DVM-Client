@@ -92,6 +92,11 @@ function StructClanWarMatch:getNickNameWithAttackingEnemy(struct_match_item)
     end
 
     local struct_enemy_match_item = self:getMatchMemberDataByUid(attcking_uid)
+
+    if (not struct_enemy_match_item) then
+        return my_nick
+    end
+
     local enemy_nick = struct_enemy_match_item:getMyNickName() or ''
 
      return my_nick .. ' VS ' .. enemy_nick

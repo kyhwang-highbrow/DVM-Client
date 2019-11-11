@@ -293,11 +293,16 @@ end
 -- function getDefendEnemyUid
 -------------------------------------
 function StructClanWarMatchItem:setGameResult(is_win)
-    local game_result = self['attack_game_history'] or ''
+    local game_result = ''
+
+    if (self['attack_game_history']) then
+        game_result = game_result .. ';'
+    end
+
 	if (is_win) then
-		game_result = game_result .. ';1'
+		game_result = game_result .. '1'
 	else
-		game_result = game_result .. ';0'
+		game_result = game_result .. '0'
 	end
 
 	self['attack_game_history'] = game_result
