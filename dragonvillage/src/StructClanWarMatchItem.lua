@@ -18,6 +18,7 @@ StructClanWarMatchItem = class({
     -- 방어하면 생기는 값들
     defend_enemy_uid = 'string',     -- 날 공격한 유저
     defend_enemy_attack_state = 'StructClanWarMatchItem.DEFEND_STATE', -- 방어 상태
+	defend_cnt = 'number',
 })
 
 -- 나의 공격 상태
@@ -76,6 +77,8 @@ function StructClanWarMatchItem:init(data)
     if (data['user_info']) then
         self['user_info'] = StructUserInfoClan:create(data['user_info'])
     end
+
+	self['defend_cnt'] = 0
 end
 
 -------------------------------------
@@ -232,6 +235,24 @@ function StructClanWarMatchItem:getDefendStateText(defend_state)
 end
 
 -------------------------------------
+-- function getDefendStateNotiText
+-------------------------------------
+function StructClanWarMatchItem:getDefendStateNotiText(defend_state)
+    local _defend_state = defend_state or self:getDefendState()
+    if (_defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
+        return ''
+    elseif (_defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFEND_FAIL']) then
+        return '이미 패배한 클랜원입니다.'
+    elseif (_defend_state == StructClanWarMatchItem.DEFEND_STATE['DEFENDING']) then
+        return '전투 중인 클랜원입니다.'
+    elseif (_defend_state == StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']) then
+        return '열외 클랜원은 공격할 수 없습니다.'
+    end
+
+    return ''
+end
+
+-------------------------------------
 -- function getAttackStateText
 -------------------------------------
 function StructClanWarMatchItem:getAttackStateText(attack_state)
@@ -314,6 +335,20 @@ function StructClanWarMatchItem:setGameResult(is_win)
 	end
 
 	self['attack_game_history'] = game_result
+end
+
+-------------------------------------
+-- function addDefendCount
+-------------------------------------
+function StructClanWarMatchItem:addDefendCount()
+    self['defend_cnt'] = self['defend_cnt'] + 1
+end
+
+-------------------------------------
+-- function getDefendCount
+-------------------------------------
+function StructClanWarMatchItem:getDefendCount()
+    return self['defend_cnt']
 end
 
 

@@ -52,7 +52,7 @@ function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
 
     for i, result in ipairs(l_result) do
         local color
-        if (result == '1') then
+        if (result == '0') then
             color = StructClanWarMatch.STATE_COLOR['LOSE']
         else
             color = StructClanWarMatch.STATE_COLOR['WIN']
@@ -62,6 +62,8 @@ function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
             vars['setResult'..i]:setVisible(true)
         end
     end
+
+	vars['setMenu']:setVisible(true)
 end
 
 
@@ -76,31 +78,41 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
     -- 상대편이 있을 경우 상대 닉네임
     -- 상대편 정보는 StructClanWar에서 들고 있기 때문에 여기서 세팅해준다.
     local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
-
+	local defend_state_text = ''
+	
     if (defend_enemy_uid) then
+		-- 방어 상태
         local struct_enemy_match_item = self.m_structMatch:getMatchMemberDataByUid(defend_enemy_uid)
-        local enemy_nick = 'VS ' .. struct_enemy_match_item:getMyNickName() or ''
+		local defend_state = struct_match_item:getDefendState(struct_enemy_match_item:getAttackState())
+        defend_state_text = '    ' .. struct_match_item:getDefendStateText(defend_state)
+
+		local defend_cnt = struct_match_item:getDefendCount()
+		if (defend_cnt > 0) then
+			vars['defenseNoti']:setVisible(true)
+			vars['defenseLabel']:setString(tostring(defend_cnt))
+		end
+	end
+
+	-- 나의 닉네임
+    local my_nick = struct_match_item:getMyNickName()
+    vars['userNameLabel1']:setString(my_nick .. defend_state_text)
+
+	local attacking_uid = struct_match_item:getAttackingUid()
+	local struct_attack_enemy_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)
+	if (struct_attack_enemy_match_item) then
+        local enemy_nick = 'VS ' .. struct_attack_enemy_match_item:getMyNickName() or ''
         vars['userNameLabel2']:setString(enemy_nick)
         vars['userNameLabel2']:setVisible(true)
 
         -- 승/패/승 세팅
-        local l_game_result = struct_enemy_match_item:getGameResult()
+        local l_game_result = struct_match_item:getGameResult()
         self:setGameResult(l_game_result, is_my_clan)
 
         -- 남은 시간 세팅
-        local end_date = struct_enemy_match_item:getEndDate()
+        local end_date = struct_match_item:getEndDate()
         self:setEndTime(end_date)        
-    
-
-        -- 나의 닉네임
-        local my_nick = struct_match_item:getMyNickName()
-        local defend_state = struct_match_item:getDefendState(struct_enemy_match_item:getAttackState())
-        local defend_state_text = struct_match_item:getDefendStateText(defend_state)
-        vars['userNameLabel1']:setString(my_nick .. '    ' ..defend_state_text)
-    
     else
         local my_nick = struct_match_item:getMyNickName()
-        vars['userNameLabel1']:setString(my_nick)
         vars['userNameLabel2']:setString('')
     end
 end
@@ -117,6 +129,8 @@ function UI_ClanWarSelectSceneListItem:update(dt)
         return
     end
 
+
+	vars['lastTimeLabel1']:setVisible(true)
     -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
     local cur_time = Timer:getServerTime_Milliseconds()
     local remain_time = (end_time - cur_time)/1000

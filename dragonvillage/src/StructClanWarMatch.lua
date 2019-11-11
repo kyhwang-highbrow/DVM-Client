@@ -75,8 +75,14 @@ function StructClanWarMatch:makeDefendInfo(t_my_struct_match, t_enemy_struct_mat
         if (enemy_uid) then
             local enemy_struct_match_item = t_enemy_struct_match[enemy_uid]
             if (enemy_struct_match_item) then
-                local attacked_by_uid_state = enemy_struct_match_item:getAttackState() -- 공격정보 반대로 하면 방어 정보가 됨
-                enemy_struct_match_item:setDefendInfo(uid, attacked_by_uid_state)
+				local attack_state = struct_match_item:getAttackState()
+				if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) or (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_SUCCESS']) then
+					enemy_struct_match_item:setDefendInfo(uid, attack_state)
+				end
+
+				if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
+					enemy_struct_match_item:addDefendCount()
+				end
             end
         end
     end

@@ -123,6 +123,18 @@ function UI_ClanWarSelectScene:click_readyBtn()
         UIManager:toastNotificationGreen(Str('설정된 덱이 없는 상대 클랜원입니다.'))
         return
     end
+
+	local struct_match_item = self.m_curSelectEnemyStructMatch
+	local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
+	local struct_enemy_match_item = struct_match:getMatchMemberDataByUid(defend_enemy_uid)
+	if (struct_enemy_match_item) then
+		local defend_state = struct_match_item:getDefendState(struct_enemy_match_item:getAttackState())
+		local defend_state_text = struct_match_item:getDefendStateNotiText(defend_state)
+		if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
+			UIManager:toastNotificationGreen(Str(defend_state_text))
+			return
+		end
+    end
 	local my_uid = g_userData:get('uid')
 	local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
 	UI_MatchReadyClanWar(self.m_curSelectEnemyStructMatch, my_struct_match_item)
@@ -140,7 +152,7 @@ function UI_ClanWarSelectScene:click_testBtn(is_win)
         end 
         g_clanWarData:request_clanWarFinish(is_win, finish_cb)
     end
-    g_clanWarData:request_clanWarStart(select_enemy_uid, start_cb)
+    g_clanWarData:request_clanWarStart(select_enemy_uid, nil, start_cb)
 end
 
 -------------------------------------
@@ -180,13 +192,8 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
         vars['dragonNode']:addChild(dragon_icon.root)
         vars['dragonNode']:setScale(0.5)
     end
-    
-    -- 방어덱이 없을 경우 공격 불가능
-    local is_ready = true
-    if (struct_match_item:getDefendState() == StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']) then
-        is_ready = false
-    end
 
+	local is_ready = true
     -- 내 클랜원일 경우 공격 불가능
     if (not is_enemy) then
         is_ready = false
@@ -202,6 +209,21 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
             vars['setResult'..i]:setVisible(true)
         end
     end
+	
+	-- 승/패/승 세팅
+    local l_game_result = struct_match_item:getGameResult()
+    for i, result in ipairs(l_game_result) do
+        local color
+        if (result == '0') then
+            color = StructClanWarMatch.STATE_COLOR['LOSE']
+        else
+            color = StructClanWarMatch.STATE_COLOR['WIN']
+        end
+        if (vars['setResult'..i]) then
+            vars['setResult'..i]:setColor(color)
+        end
+    end
+
 
     local struct_user_info = g_clanWarData:getEnemyUserInfo()
     if (not struct_user_info) then
@@ -232,23 +254,4 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     vars['powerLabel']:setString(tostring(comebat_power))
 
     local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
-    local struct_enemy_match_item = struct_match:getMatchMemberDataByUid(defend_enemy_uid)
-    if (not struct_enemy_match_item) then
-        return
-    end
-
-
-    -- 승/패/승 세팅
-    local l_game_result = struct_enemy_match_item:getGameResult()
-    for i, result in ipairs(l_game_result) do
-        local color
-        if (result == '0') then
-            color = StructClanWarMatch.STATE_COLOR['LOSE']
-        else
-            color = StructClanWarMatch.STATE_COLOR['WIN']
-        end
-        if (vars['setResult'..i]) then
-            vars['setResult'..i]:setColor(color)
-        end
-    end
 end

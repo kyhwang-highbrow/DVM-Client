@@ -460,7 +460,7 @@ end
 -------------------------------------
 function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     local uid = g_userData:get('uid')
-
+	local _play_time = play_time or 0
     local function success_cb(ret)
         if next_func then
             next_func()
@@ -490,11 +490,12 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     else
         _is_win = 0
     end
+
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
     ui_network:setParam('gamekey', self.m_gameKey)
-    ui_network:setParam('clear_time', play_time)
+    ui_network:setParam('clear_time', _play_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('is_win', _is_win)
     ui_network:setResponseStatusCB(response_status_cb)
