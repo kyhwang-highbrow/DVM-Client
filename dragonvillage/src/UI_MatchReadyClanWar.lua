@@ -42,6 +42,7 @@ function UI_MatchReadyClanWar:initResult()
         end
         if (vars['setResult'..i]) then
             vars['setResult'..i]:setColor(color)
+            vars['setResult'..i]:setVisible(true)
         end
     end
 end
@@ -189,4 +190,17 @@ end
 -------------------------------------
 function UI_MatchReadyClanWar:initStaminaInfo()
     local vars = self.vars
+    --[[
+    -- 스태미나 아이콘
+    local stamina_type = TableDrop:getStageStaminaType(CHALLENGE_MODE_STAGE_ID)
+    local icon = IconHelper:getStaminaInboxIcon(stamina_type)
+
+    vars['staminaNode']:removeAllChildren()
+    vars['staminaNode']:addChild(icon)
+
+    -- 스태미나 갯수
+    local stage = g_challengeMode:getSelectedStage()
+    local cost = g_challengeMode:getChallengeMode_staminaCost(stage)
+    --]]
+    vars['actingPowerLabel']:setString(tostring(10))
 end

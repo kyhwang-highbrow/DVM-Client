@@ -49,6 +49,7 @@ function UI_GameResult_ClanWar:initUI(is_success)
         end
         if (vars['setResult'..i]) then
             vars['setResult'..i]:setColor(color)
+            vars['setResult'..i]:setVisible(true)
         end
     end
 

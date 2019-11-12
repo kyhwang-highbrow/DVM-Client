@@ -80,17 +80,23 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
     local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
 	local defend_state_text = ''
 	
+    if (not struct_match_item:isDefenseUser()) then
+        defend_state = StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']
+        defend_state_text = '    ' .. struct_match_item:getDefendStateText(defend_state)
+    end
+
     if (defend_enemy_uid) then
 		-- 방어 상태
         local struct_enemy_match_item = self.m_structMatch:getMatchMemberDataByUid(defend_enemy_uid)
 		local defend_state = struct_match_item:getDefendState(struct_enemy_match_item:getAttackState())
+        
         defend_state_text = '    ' .. struct_match_item:getDefendStateText(defend_state)
+	end
 
-		local defend_cnt = struct_match_item:getDefendCount()
-		if (defend_cnt > 0) then
-			vars['defenseNoti']:setVisible(true)
-			vars['defenseLabel']:setString(tostring(defend_cnt))
-		end
+    local defend_cnt = struct_match_item:getDefendCount()
+	if (defend_cnt > 0) then
+		vars['defenseNoti']:setVisible(true)
+		vars['defenseLabel']:setString(tostring(defend_cnt))
 	end
 
 	-- 나의 닉네임
@@ -148,5 +154,12 @@ end
 -------------------------------------
 function UI_ClanWarSelectSceneListItem:setEndTime(end_time)
     self.m_endTime = end_time or 0
+end
+
+-------------------------------------
+-- function setSelected
+-------------------------------------
+function UI_ClanWarSelectSceneListItem:setSelected(is_selected)
+    self.vars['selectNode']:setVisible(is_selected)
 end
 

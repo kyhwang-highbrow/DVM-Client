@@ -7,6 +7,9 @@ UI_ClanWarSelectScene = class(PARENT,{
         m_tStructMatch = 'StructClanWarMatch',
 
         m_curSelectEnemyStructMatch = 'StructClanWarMatchItem',
+
+        m_myTableView = '',
+        m_enemyTableView = '',
 })
 
 -------------------------------------
@@ -52,7 +55,8 @@ function UI_ClanWarSelectScene:initEnemyTableView()
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 
             self.m_curSelectEnemyStructMatch = struct_match_item 
-            self:refreshFocusUserInfo(true) 
+            self:refreshFocusUserInfo(true)
+            self:selectItem()
         end)
         ui.vars['rivalClanNode']:setVisible(true)
 		ui.vars['meClanNode']:setVisible(false)
@@ -66,6 +70,8 @@ function UI_ClanWarSelectScene:initEnemyTableView()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(t_enemy)
 
+    self.m_enemyTableView = table_view
+
     local l_data = table_view.m_itemList
     for i, data in ipairs(l_data) do
         if (i == 1) then
@@ -75,6 +81,7 @@ function UI_ClanWarSelectScene:initEnemyTableView()
     end
 
     self:refreshFocusUserInfo(true)
+    self:selectItem()
 end
 
 -------------------------------------
@@ -89,7 +96,8 @@ function UI_ClanWarSelectScene:initMyTableView()
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 
             self.m_curSelectEnemyStructMatch = struct_match_item 
-            self:refreshFocusUserInfo() 
+            self:refreshFocusUserInfo()
+            self:selectItem()
         end)
 
 		ui.vars['rivalClanNode']:setVisible(false)
@@ -103,6 +111,35 @@ function UI_ClanWarSelectScene:initMyTableView()
     table_view:setCellUIClass(UI_ClanWarSelectSceneListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(t_my)
+
+    self.m_myTableView = table_view
+end
+
+-------------------------------------
+-- function selectItem
+-------------------------------------
+function UI_ClanWarSelectScene:selectItem()
+    local selected_uid = self.m_curSelectEnemyStructMatch['uid']
+
+    if (self.m_enemyTableView) then
+        local l_enemy = self.m_enemyTableView.m_itemList
+	    for _, data in ipairs(l_enemy) do
+	    	if (data['ui']) then
+	    		local is_selected = (data['ui'].m_structMatchItem['uid'] == selected_uid)
+                data['ui']:setSelected(is_selected)
+            end
+        end
+    end
+
+    if (self.m_myTableView) then
+        local l_my = self.m_myTableView.m_itemList
+	    for _, data in ipairs(l_my) do
+	    	if (data['ui']) then
+	    		local is_selected = (data['ui'].m_structMatchItem['uid'] == selected_uid)
+                data['ui']:setSelected(is_selected)
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -118,15 +155,18 @@ end
 -------------------------------------
 function UI_ClanWarSelectScene:click_readyBtn()
 	local struct_match = self.m_tStructMatch
-	
-    if (not g_clanWarData:getEnemyUserInfo()) then
-        UIManager:toastNotificationGreen(Str('설정된 덱이 없는 상대 클랜원입니다.'))
-        return
-    end
 
 	local struct_match_item = self.m_curSelectEnemyStructMatch
 	local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
 	local struct_enemy_match_item = struct_match:getMatchMemberDataByUid(defend_enemy_uid)
+    
+    if (not struct_match_item:isDefenseUser()) then
+        defend_state = StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']
+        local defend_state_text = struct_match_item:getDefendStateNotiText(defend_state)
+        UIManager:toastNotificationGreen(Str(defend_state_text))
+	    return
+    end
+
 	if (struct_enemy_match_item) then
 		local defend_state = struct_match_item:getDefendState(struct_enemy_match_item:getAttackState())
 		local defend_state_text = struct_match_item:getDefendStateNotiText(defend_state)
@@ -135,6 +175,12 @@ function UI_ClanWarSelectScene:click_readyBtn()
 			return
 		end
     end
+
+    if (not g_clanWarData:getEnemyUserInfo()) then
+        UIManager:toastNotificationGreen(Str('설정된 덱이 없는 상대 클랜원입니다.'))
+        return
+    end
+
 	local my_uid = g_userData:get('uid')
 	local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
 	UI_MatchReadyClanWar(self.m_curSelectEnemyStructMatch, my_struct_match_item)
