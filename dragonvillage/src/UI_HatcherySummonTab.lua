@@ -183,9 +183,18 @@ function UI_HatcherySummonTab:setChanceUpDragons()
             vars['dragonCard'..desc_idx]:addChild(dragon_card.root)
         end
 
+
         -- 드래곤 애니메이션
         local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, 3)
-        vars['dragonNode'..idx]:addChild(animator.m_node)
+        -- 한 마리일 때 1 사용
+        if (total_cnt == 1) then
+            vars['dragonNode1']:addChild(animator.m_node)
+        else
+            -- 두 마리 일 때 2,3 사용
+            if (vars['dragonNode' .. idx + 1]) then
+                vars['dragonNode' .. idx + 1]:addChild(animator.m_node)
+            end
+        end
     end
 
     -- 확률업 남은 시간 표기
