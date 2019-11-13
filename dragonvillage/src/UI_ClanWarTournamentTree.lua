@@ -43,6 +43,7 @@ function UI_ClanWarTournamentTree:initButton()
 	vars['rightMoveBtn']:registerScriptTapHandler(function() self:click_moveBtn(1) end)
 	vars['leftMoveBtn']:registerScriptTapHandler(function() self:click_moveBtn(-1) end)
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
+    vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
 end
 
 -------------------------------------
@@ -379,6 +380,28 @@ function UI_ClanWarTournamentTree:initScroll()
     self.m_scrollMenu = scroll_menu
     self.m_scrollView = scroll_view
 end
+
+-------------------------------------
+-- function click_gotoMatch
+-------------------------------------
+function UI_ClanWarTournamentTree:click_gotoMatch()    
+    local struct_clan_war_tournament = self.m_structTournament
+    local my_win_cnt, enemy_win_cnt = struct_clan_war_tournament:getMyClanMatchScore()
+    
+	local success_cb = function(t_my_struct_match, t_enemy_struct_match)
+        local ui_clan_war_matching = UI_ClanWarMatchingScene(t_my_struct_match, t_enemy_struct_match)
+        ui_clan_war_matching:setScore(my_win_cnt, enemy_win_cnt)
+    end
+
+    g_clanWarData:request_clanWarMatchInfo(success_cb)
+end
+
+
+
+
+
+
+
 
 
 

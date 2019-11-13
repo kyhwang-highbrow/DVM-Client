@@ -98,7 +98,7 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
     end
     
     -- 처치수
-    self:setClanWarScore(struct_match:getMyMatchData(), struct_match:getEnemyMatchData())    
+    -- self:setClanWarScore(struct_match:getMyMatchData(), struct_match:getEnemyMatchData())    
 end
 
 -------------------------------------
@@ -214,19 +214,13 @@ function UI_ClanWarMatchingScene:setClanWarScore(my_clanwar, enemy_clanwar)
     end
 
     vars['clanScoreLabel1']:setString(my_win_cnt)
-    vars['clanScoreLabel2']:setString(enemy_win_cnt)
+    vars['clanScoreLabel2']:setString(enemy_win_cnt)       
+end
 
-    --[[
-    for idx = 1, 2 do
-        -- 처치수
-        if (self.m_todayMyMatchData) then
-            local struct_league_item = self.m_todayMyMatchData['clan'..idx]
-            if (struct_league_item) then
-                local win_cnt = struct_league_item:getMatchWinCnt()
-                vars['clanScoreLabel'..idx]:setString(win_cnt)
-            end
-        end
-    end
-    --]]
-        
+-------------------------------------
+-- function setScore
+-------------------------------------
+function UI_ClanWarMatchingScene:setScore(my_win_cnt, enemy_win_cnt)
+    self.vars['clanScoreLabel1']:setString(my_win_cnt)
+    self.vars['clanScoreLabel2']:setString(enemy_win_cnt)  
 end

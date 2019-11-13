@@ -78,17 +78,4 @@ end
 -------------------------------------
 function UI_ClanWarLobby:initButton()
     local vars = self.vars
-
-    vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
-end
-
--------------------------------------
--- function click_gotoMatch
--------------------------------------
-function UI_ClanWarLobby:click_gotoMatch()    
-	local success_cb = function(t_my_struct_match, t_enemy_struct_match)
-        local ui_clan_war_matching = UI_ClanWarMatchingScene(t_my_struct_match, t_enemy_struct_match)
-    end
-
-    g_clanWarData:request_clanWarMatchInfo(success_cb)
 end

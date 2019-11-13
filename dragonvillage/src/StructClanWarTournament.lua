@@ -214,3 +214,29 @@ end
 function StructClanWarTournament:getMaxRound()
 	return self.m_maxRound
 end
+
+-------------------------------------
+-- function getMyClanMatchScore
+-------------------------------------
+function StructClanWarTournament:getMyClanMatchScore()
+    local cur_round =  g_clanWarData:getTodayRound()
+    local l_tournament = self.m_tTournamentInfo[cur_round]
+    local my_clan_id = g_clanWarData:getMyClanId()
+    local enemy_clan_id
+    local my_win_cnt = 0
+    local enemy_win_cnt = 0
+    for _, data in ipairs(l_tournament) do
+        if (data['clan_id'] == my_clan_id) then
+            my_win_cnt = data['member_win_cnt']
+            enemy_clan_id = data['enemy_clan_id']
+        end
+    end
+
+    for _, data in ipairs(l_tournament) do
+        if (data['clan_id'] == enemy_clan_id) then
+            enemy_win_cnt = data['member_win_cnt']
+        end
+    end
+
+    return my_win_cnt, enemy_win_cnt
+end

@@ -252,6 +252,7 @@ function StructClanWarLeague:getMyClanInfo(day)
     local is_left = nil
     local match_idx = 1
     local l_group = self:getMatchGroup(tonumber(day))
+    local enemy_group_no
 
 	-- 1;2, 2;3 ... 조 매치 정보 가져와서 자신의 조가 A인지 B인지 판별
 	for idx, data in ipairs(l_group) do
@@ -260,6 +261,7 @@ function StructClanWarLeague:getMyClanInfo(day)
             local group_number_left = tonumber(l_group[1])
             if (group_number_left == my_group_no) then
                 is_left = 1
+                enemy_group_no = tonumber(l_group[2])
                 match_idx = idx
                 break
             end
@@ -267,6 +269,7 @@ function StructClanWarLeague:getMyClanInfo(day)
             if (group_number_right == my_group_no) then
                 is_left = 2
                 match_idx = idx
+                enemy_group_no = tonumber(l_group[1])
                 break
             end
         end
@@ -280,7 +283,7 @@ function StructClanWarLeague:getMyClanInfo(day)
     local match = match_idx
     local is_left = is_left
 
-    return league, match, is_left
+    return league, match, is_left, enemy_group_no
 end
 
 -------------------------------------
@@ -307,6 +310,23 @@ function StructClanWarLeague:getTotalScore(clan_id)
     
 
     return total_win_score, total_lose_score
+end
+
+-------------------------------------
+-- function getWinCnt
+-------------------------------------
+function StructClanWarLeague:getTotalWinCount(clan_id)
+    local t_clan_info = self.m_tClanInfo   
+    if (not t_clan_info) then
+        return
+    end
+
+    local struct_league_item = self.m_tClanInfo[clan_id]
+    if (not struct_league_item) then
+        return
+    end
+
+    return struct_league_item:getTotalWinCount() or 0
 end
 
 -------------------------------------
@@ -345,4 +365,27 @@ function StructClanWarLeague:getEntireGroupClanCnt()
 	end
 
 	return self.m_tDate['table']['group_clan'] or 0
+end
+
+-------------------------------------
+-- function getMyClanMatchScore
+-------------------------------------
+function StructClanWarLeague:getMyClanMatchScore(_day)
+    local day = _day or self.m_matchDay 
+
+    local league, match, is_left, enemy_group_no = self:getMyClanInfo(day)
+    local my_clan_id = g_clanWarData:getMyClanId() 
+    local enemy_struct_league_item = self:getClanInfo_byGroupNumber(enemy_group_no)
+    local my_struct_league_item = self.m_tClanInfo[my_clan_id]
+
+    local my_win_cnt = 0
+    local enemy_win_cnt = 0
+    if (my_struct_league_item) then
+        my_win_cnt = my_struct_league_item:getMatchWinCnt(day)
+    end
+
+    if (enemy_struct_league_item) then
+        enemy_win_cnt = enemy_struct_league_item:getMatchWinCnt(day)
+    end
+    return my_win_cnt, enemy_win_cnt
 end

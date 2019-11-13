@@ -49,6 +49,7 @@ function UI_ClanWarLeague:initButton()
 	local vars = self.vars
 
     vars['allRankTabBtn']:registerScriptTapHandler(function() self:click_allBtn() end)
+    vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
 end
 
 -------------------------------------
@@ -411,7 +412,20 @@ function UI_ClanWarLeague:closeUI()
 	self.m_closeCB()
 end
 
+-------------------------------------
+-- function click_gotoMatch
+-------------------------------------
+function UI_ClanWarLeague:click_gotoMatch()    
+	local struct_league = self.m_structLeague
+    local my_win_cnt, enemy_win_cnt = struct_league:getMyClanMatchScore()
 
+    local success_cb = function(t_my_struct_match, t_enemy_struct_match)
+        local ui_clan_war_matching = UI_ClanWarMatchingScene(t_my_struct_match, t_enemy_struct_match)
+        ui_clan_war_matching:setScore(my_win_cnt, enemy_win_cnt)
+    end
+
+    g_clanWarData:request_clanWarMatchInfo(success_cb)
+end
 
 
 
