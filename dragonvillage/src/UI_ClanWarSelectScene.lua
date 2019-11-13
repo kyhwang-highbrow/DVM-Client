@@ -50,7 +50,15 @@ function UI_ClanWarSelectScene:initEnemyTableView()
     local vars = self.vars
     local struct_match = self.m_tStructMatch
     local t_enemy = struct_match:getEnemyMatchData()
+    local _t_enemy = {}
 
+    for _, struct_match_item in pairs(t_enemy) do       
+        local defend_state = struct_match_item:getDefendState()
+        if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']) and (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_FAIL']) then
+            table.insert(_t_enemy, struct_match_item)
+        end
+    end
+    
     local create_func = function(ui, struct_match_item)
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 
@@ -68,7 +76,7 @@ function UI_ClanWarSelectScene:initEnemyTableView()
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
     table_view:setCellUIClass(UI_ClanWarSelectSceneListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(t_enemy)
+    table_view:setItemList(_t_enemy)
 
     self.m_enemyTableView = table_view
 
@@ -91,6 +99,13 @@ function UI_ClanWarSelectScene:initMyTableView()
     local vars = self.vars
     local struct_match = self.m_tStructMatch
     local t_my = struct_match:getMyMatchData()
+    local _t_my = {}
+
+    for _, struct_match_item in pairs(t_my) do
+        if (struct_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) or (struct_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACK_POSSIBLE']) then
+            table.insert(_t_my, struct_match_item)
+        end
+    end
 
     local create_func = function(ui, struct_match_item)
         -- 클릭했을 때 
@@ -110,7 +125,7 @@ function UI_ClanWarSelectScene:initMyTableView()
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
     table_view:setCellUIClass(UI_ClanWarSelectSceneListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(t_my)
+    table_view:setItemList(_t_my)
 
     self.m_myTableView = table_view
 end
@@ -156,34 +171,31 @@ end
 function UI_ClanWarSelectScene:click_readyBtn()
 	local struct_match = self.m_tStructMatch
 
-	local struct_match_item = self.m_curSelectEnemyStructMatch
-	local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
-	local struct_enemy_match_item = struct_match:getMatchMemberDataByUid(defend_enemy_uid)
-    
-    if (not struct_match_item:isDefenseUser()) then
-        defend_state = StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']
-        local defend_state_text = struct_match_item:getDefendStateNotiText(defend_state)
-        UIManager:toastNotificationGreen(Str(defend_state_text))
-	    return
-    end
-
-	if (struct_enemy_match_item) then
-		local defend_state = struct_match_item:getDefendState(struct_enemy_match_item:getAttackState())
-		local defend_state_text = struct_match_item:getDefendStateNotiText(defend_state)
-		if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
-			UIManager:toastNotificationGreen(Str(defend_state_text))
-			return
-		end
-    end
+    local struct_match_item = self.m_curSelectEnemyStructMatch
+	local defend_state = struct_match_item:getDefendState()
+	local defend_state_text = struct_match_item:getDefendStateNotiText()
+	if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
+		UIManager:toastNotificationGreen(Str(defend_state_text))
+		return
+	end
 
     if (not g_clanWarData:getEnemyUserInfo()) then
         UIManager:toastNotificationGreen(Str('설정된 덱이 없는 상대 클랜원입니다.'))
         return
     end
 
-	local my_uid = g_userData:get('uid')
-	local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
-	UI_MatchReadyClanWar(self.m_curSelectEnemyStructMatch, my_struct_match_item)
+    local ok_btn_cb = function()
+	    local my_uid = g_userData:get('uid')
+	    local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
+	    UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
+    end
+
+    local msg = Str('선택한 대상을 공격 하시겠습니까?\n한 번 선택한 대상은 도중에 변경할 수 없습니다.')
+    local lv = struct_match_item:getUserInfo():getLv() or ''
+    local nick_name = struct_match_item:getMyNickName()
+    local nick_str = 'Lv.' .. lv .. ' ' .. nick_name
+    local submsg = Str('대상 : {1}', nick_str)
+    UI_SimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
 -------------------------------------
@@ -227,37 +239,42 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     local vars = self.vars
     local struct_match = self.m_tStructMatch
     local struct_match_item = self.m_curSelectEnemyStructMatch
+
+    local ui_idx = 2
+    local ui_result_str = 'rivlaSetResult'
+
+    if (not is_enemy) then
+        ui_idx = 1
+        ui_result_str = 'setResult'
+    end    
+    vars['meClanMenu']:setVisible(not is_enemy)
+    vars['rivalClanMenu']:setVisible(is_enemy)
     
+    -- 내 클랜원일 경우 공격 불가능
+    vars['readyBtn']:setEnabled(is_enemy)
+
     -- 리더 드래곤
     local struct_clan_info = struct_match_item:getUserInfo()
     local dragon_icon = struct_clan_info:getLeaderDragonCard()
     if (dragon_icon) then
-        vars['dragonNode']:addChild(dragon_icon.root)
-        vars['dragonNode']:setScale(0.5)
+        vars['dragonNode' .. ui_idx]:addChild(dragon_icon.root)
+        vars['dragonNode' .. ui_idx]:setScale(0.5)
     end
 
     local enemy_nick = struct_match_item:getMyNickName() or ''
     local enemy_lv = struct_clan_info:getLv() or ''
     local str_nick = 'Lv.' .. enemy_lv .. ' ' .. enemy_nick
-    vars['userNameLabel']:setString(str_nick)
-
-	local is_ready = true
-    -- 내 클랜원일 경우 공격 불가능
-    if (not is_enemy) then
-        is_ready = false
-    end
-    vars['readyBtn']:setEnabled(is_ready)
-
+    vars['userNameLabel' .. ui_idx]:setString(str_nick)
     vars['dragonDeckNode']:removeAllChildren()
     vars['tamerNode']:removeAllChildren()
 
     for i = 1,3 do
-        if (vars['setResult'..i]) then
-            vars['setResult'..i]:setColor(StructClanWarMatch.STATE_COLOR['DEFAULT'])
-            vars['setResult'..i]:setVisible(true)
+        if (vars[ui_result_str..i]) then
+            vars[ui_result_str..i]:setColor(StructClanWarMatch.STATE_COLOR['DEFAULT'])
+            vars[ui_result_str..i]:setVisible(true)
         end
     end
-	
+
 	-- 승/패/승 세팅
     local l_game_result = struct_match_item:getGameResult()
     for i, result in ipairs(l_game_result) do
@@ -299,7 +316,5 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     vars['tamerNode']:addChild(animator.m_node)
 
     local comebat_power = struct_user_info:getDeckCombatPower()
-    vars['powerLabel']:setString(tostring(comebat_power))
-
-    local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
+    vars['powerLabel' .. ui_idx]:setString(tostring(comebat_power))
 end

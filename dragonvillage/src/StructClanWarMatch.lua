@@ -70,21 +70,24 @@ end
 -- @breif 공격 정보 추적하여 방어 정보 세팅
 -------------------------------------
 function StructClanWarMatch:makeDefendInfo(t_my_struct_match, t_enemy_struct_match)  
+    local t_defend_history = {}
     for uid, struct_match_item in pairs(t_my_struct_match) do
         local enemy_uid = struct_match_item:getAttackingUid() -- 공격중인 상대방
         if (enemy_uid) then
             local enemy_struct_match_item = t_enemy_struct_match[enemy_uid]
             if (enemy_struct_match_item) then
 				local attack_state = struct_match_item:getAttackState()
-				if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) or (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_SUCCESS']) then
-					enemy_struct_match_item:setDefendInfo(uid, attack_state)
-				end
-
-				if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
-					enemy_struct_match_item:addDefendCount()
-				end
+                if (not t_defend_history[enemy_uid]) then
+                    t_defend_history[enemy_uid] = {}
+                end 
+                table.insert(t_defend_history[enemy_uid], struct_match_item)
             end
         end
+    end
+
+    for uid, l_data in pairs(t_defend_history) do
+        local struct_match_item = self:getMatchMemberDataByUid(uid)
+        struct_match_item:setDefendHistory(l_defend_history)
     end
 end
 
@@ -113,12 +116,11 @@ end
 -- function getDefendEnemyNickName
 -------------------------------------
 function StructClanWarMatch:getDefendEnemyNickName(struct_match_item)
-    local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
-    if (not defend_enemy_uid) then
+    local struct_enemy_match_item = struct_match_item:getLastDefender()
+    if (not struct_enemy_match_item) then
         return ''
     end
 
-    local struct_enemy_match_item = self:getMatchMemberDataByUid(defend_enemy_uid)
     local enemy_nick = struct_enemy_match_item:getMyNickName() or ''
 
     return 'VS' .. enemy_nick or ''

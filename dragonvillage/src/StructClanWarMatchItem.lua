@@ -16,9 +16,7 @@ StructClanWarMatchItem = class({
     attack_game_history = 'string', --: 110 등으로 기록(1:승리, 0:패배)
 
     -- 방어하면 생기는 값들
-    defend_enemy_uid = 'string',     -- 날 공격한 유저
-    defend_enemy_attack_state = 'StructClanWarMatchItem.DEFEND_STATE', -- 방어 상태
-	defend_cnt = 'number',
+    m_lDefendHistory = 'list - StructClanWarMatchItem',
 })
 
 -- 나의 공격 상태
@@ -78,7 +76,7 @@ function StructClanWarMatchItem:init(data)
         self['user_info'] = StructUserInfoClan:create(data['user_info'])
     end
 
-	self['defend_cnt'] = 0
+    self.m_lDefendHistory = {}
 end
 
 -------------------------------------
@@ -274,9 +272,19 @@ end
 -- function getDefendState
 -------------------------------------
 function StructClanWarMatchItem:getDefendState(enemy_attack_state)
-    local _enemy_attack_state =  enemy_attack_state or self['defend_enemy_attack_state']
     if (not self:isDefenseUser()) then
         return StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']
+    end
+
+    local _enemy_attack_state =  enemy_attack_state 
+
+    if (not _enemy_attack_state) then
+        local struct_match_item = self:getLastDefender()
+        if (struct_match_item) then
+            _enemy_attack_state = struct_match_item:getAttackState()
+        else
+            return StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']
+        end
     end
     
     if (enemy_attack_state) then
@@ -288,21 +296,6 @@ function StructClanWarMatchItem:getDefendState(enemy_attack_state)
     end
 
     return StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']
-end
-
--------------------------------------
--- function setDefendInfo
--------------------------------------
-function StructClanWarMatchItem:setDefendInfo(defend_enemy_uid, defend_enemy_attack_state)
-    self['defend_enemy_uid'] = defend_enemy_uid
-    self['defend_enemy_attack_state'] = defend_enemy_attack_state
-end
-
--------------------------------------
--- function getDefendEnemyUid
--------------------------------------
-function StructClanWarMatchItem:getDefendEnemyUid()
-    return self['defend_enemy_uid']
 end
 
 -------------------------------------
@@ -319,7 +312,7 @@ function StructClanWarMatchItem:getMyNickName()
 end
 
 -------------------------------------
--- function getDefendEnemyUid
+-- function setGameResult
 -------------------------------------
 function StructClanWarMatchItem:setGameResult(is_win)
     local game_result = ''
@@ -337,18 +330,53 @@ function StructClanWarMatchItem:setGameResult(is_win)
 end
 
 -------------------------------------
--- function addDefendCount
--------------------------------------
-function StructClanWarMatchItem:addDefendCount()
-    self['defend_cnt'] = self['defend_cnt'] + 1
-end
-
--------------------------------------
 -- function getDefendCount
 -------------------------------------
 function StructClanWarMatchItem:getDefendCount()
-    return self['defend_cnt']
+    local l_defend = self:getDefendHistoryList()
+    local defend_cnt = 0
+    for _, struct_match_item in ipairs(l_defend) do
+        local attack_state = struct_match_item:getAttackState()
+        if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_SUCCESS']) then
+            defend_cnt = defend_cnt + 1
+        end
+    end
+    return defend_cnt
 end
 
+
+-------------------------------------
+-- function setDefendHistory
+-------------------------------------
+function StructClanWarMatchItem:setDefendHistory(l_defend_enemy_struct_match_item)
+    local sort_func = function(sturct_match_item_a, struct_match_item_b)
+        if (not sturct_match_item_a:getEndDate()) then
+            return false
+        end
+
+        if (not sturct_match_item_b:getEndDate()) then
+            return true
+        end
+        return sturct_match_item_a:getEndDate() < sturct_match_item_b:getEndDate()
+    end
+
+    table.sort(self.m_lDefendHistory, sort_func)
+    self.m_lDefendHistory = l_defend_enemy_struct_match_item
+end
+
+-------------------------------------
+-- function getDefendHistoryList
+-------------------------------------
+function StructClanWarMatchItem:getDefendHistoryList()
+     return self.m_lDefendHistory
+end
+
+-------------------------------------
+-- function getLastDefender
+-------------------------------------
+function StructClanWarMatchItem:getLastDefender()
+    local last_idx = #self.m_lDefendHistory
+    return self.m_lDefendHistory[last_idx]
+end
 
 

@@ -75,23 +75,8 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
     self.m_structMatch = struct_match
     local struct_match_item = self.m_structMatchItem
 
-    -- 상대편이 있을 경우 상대 닉네임
-    -- 상대편 정보는 StructClanWar에서 들고 있기 때문에 여기서 세팅해준다.
-    local defend_enemy_uid = struct_match_item:getDefendEnemyUid()
-	local defend_state_text = ''
-	
-    if (not struct_match_item:isDefenseUser()) then
-        defend_state = StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']
-        defend_state_text = '    ' .. struct_match_item:getDefendStateText(defend_state)
-    end
-
-    if (defend_enemy_uid) then
-		-- 방어 상태
-        local struct_enemy_match_item = self.m_structMatch:getMatchMemberDataByUid(defend_enemy_uid)
-		local defend_state = struct_match_item:getDefendState(struct_enemy_match_item:getAttackState())
-        
-        defend_state_text = '    ' .. struct_match_item:getDefendStateText(defend_state)
-	end
+	-- 방어 상태
+    local defend_state_text = '    ' .. struct_match_item:getDefendStateText()
 
     local defend_cnt = struct_match_item:getDefendCount()
 	if (defend_cnt > 0) then
