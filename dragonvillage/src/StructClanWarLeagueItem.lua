@@ -140,11 +140,11 @@ end
 function StructClanWarLeagueItem:getTotalWinCount()
 	local league_info = self:getLeagueInfo()
 	
-	if (not league_info['total_win_cnt']) then
+	if (not league_info['game_win']) then
 		return '-'
 	end
 
-	return tostring(league_info['total_win_cnt']) or '-'
+	return tostring(league_info['game_win']) or '-'
 end
 
 -------------------------------------
