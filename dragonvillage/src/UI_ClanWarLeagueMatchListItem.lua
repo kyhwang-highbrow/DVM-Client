@@ -116,21 +116,23 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
     
     local set_history
     local win, lose
+    local win_cnt 
     if (match_number == tonumber(data['match_day'])) then
  	    lose = struct_league_item:getGameLose(match_number)
         win = struct_league_item:getGameWin(match_number)
-        set_history = tostring(win) .. '-' .. tostring(lose)       
+        set_history = tostring(win) .. '-' .. tostring(lose)
+        -- 그 경기를 몇 처치로 이겼는지
+        win_cnt = struct_league_item:getMatchWinCnt(match_number)       
     else
         -- 해당 경기 세트 스코어
 	    win, lose = struct_league_item:getMatchSetScore(match_number)
         set_history = tostring(win) .. '-' .. tostring(lose)
-	    
+	    win_cnt = struct_league_item:isGameWin_Past(match_number)
     end
-    vars['setScoreLabel' .. idx]:setString(set_history)
 
-    -- 그 경기를 몇 처치로 이겼는지
-    local win_cnt = struct_league_item:getMatchWinCnt(match_number)
+    vars['setScoreLabel' .. idx]:setString(set_history)
 	vars['scoreLabel' .. idx]:setString(tostring(win_cnt))
+
 
     -- 클랜 정보 (레벨, 경험치, 참여인원)
     local clan_lv = struct_clan_rank:getClanLv() or ''

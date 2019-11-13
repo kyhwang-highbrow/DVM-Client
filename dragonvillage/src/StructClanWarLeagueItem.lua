@@ -246,6 +246,22 @@ function StructClanWarLeagueItem:isMatchWin(day)
 end
 
 -------------------------------------
+-- function isGameWin_Past
+-------------------------------------
+function StructClanWarLeagueItem:isGameWin_Past(day)
+    local t_clanwar_day = self:getClanWarDayInfo()
+
+    -- 해당 경기의 정보
+    -- 없다면 아직 진행되지 않은 경기
+    local t_data = t_clanwar_day[tostring(day)]
+    if (not t_data) or (t_data == {}) then
+        return 0
+    end
+
+    return t_data['member_win'] or 0
+end
+
+-------------------------------------
 -- function StructClanWarLeagueItem
 -------------------------------------
 function StructClanWarLeagueItem:getMatchSetScore(day)
