@@ -202,15 +202,29 @@ end
 -- function getMatchWinCnt
 -------------------------------------
 function StructClanWarLeagueItem:getMatchWinCnt(day)
-    local t_clanwar_day = self:getClanWarDayInfo()
-    -- 해당 경기의 정보
-    -- 없다면 아직 진행되지 않은 경기
-    local t_data = t_clanwar_day[tostring(day)]
-    if (not t_data) or (t_data == {}) then
-        return 0
-    end
+    local t_data = self:getLeagueInfo()
 
-    local score = t_data['member_win']
+    local score = t_data['member_win_cnt']
+    return tonumber(score) or 0
+end
+
+-------------------------------------
+-- function getGameWin
+-------------------------------------
+function StructClanWarLeagueItem:getGameWin(day)
+    local t_data = self:getLeagueInfo()
+
+    local score = t_data['game_win']
+    return tonumber(score) or 0
+end
+
+-------------------------------------
+-- function getGameLose
+-------------------------------------
+function StructClanWarLeagueItem:getGameLose(day)
+    local t_data = self:getLeagueInfo()
+
+    local score = t_data['game_lose']
     return tonumber(score) or 0
 end
 

@@ -350,6 +350,14 @@ end
 -------------------------------------
 function StructClanWarMatchItem:setDefendHistory(l_defend_enemy_struct_match_item)
     local sort_func = function(sturct_match_item_a, struct_match_item_b)
+        if (not sturct_match_item_a) then
+            return false
+        end
+
+        if (not sturct_match_item_b) then
+            return true
+        end
+        
         if (not sturct_match_item_a:getEndDate()) then
             return false
         end

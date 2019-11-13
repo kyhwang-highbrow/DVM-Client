@@ -113,11 +113,20 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
             vars['clanMarkNode'..idx]:addChild(clan_icon)
         end
     end
-	
-    -- 해당 경기 세트 스코어
-	local win, lose = struct_league_item:getMatchSetScore(match_number)
-    local set_history = tostring(win) .. '-' .. tostring(lose)
-	vars['setScoreLabel' .. idx]:setString(set_history)
+    
+    local set_history
+    local win, lose
+    if (match_number == tonumber(data['match_day'])) then
+ 	    lose = struct_league_item:getGameLose(match_number)
+        win = struct_league_item:getGameWin(match_number)
+        set_history = tostring(win) .. '-' .. tostring(lose)       
+    else
+        -- 해당 경기 세트 스코어
+	    win, lose = struct_league_item:getMatchSetScore(match_number)
+        set_history = tostring(win) .. '-' .. tostring(lose)
+	    
+    end
+    vars['setScoreLabel' .. idx]:setString(set_history)
 
     -- 그 경기를 몇 처치로 이겼는지
     local win_cnt = struct_league_item:getMatchWinCnt(match_number)
