@@ -87,7 +87,7 @@ function StructClanWarMatch:makeDefendInfo(t_my_struct_match, t_enemy_struct_mat
 
     for uid, l_data in pairs(t_defend_history) do
         local struct_match_item = self:getMatchMemberDataByUid(uid)
-        struct_match_item:setDefendHistory(l_defend_history)
+        struct_match_item:setDefendHistory(l_data)
     end
 end
 

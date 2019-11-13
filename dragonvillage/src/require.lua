@@ -1410,6 +1410,7 @@ local t_module = {
     'UI_ClanWarMatchingSceneListItem',
     'UI_ClanWarMatchingScene',
     'UI_ClanWarSelectSceneListItem',
+    'UI_ClanWarSelectSceneDefendHistoryItem',
     'UI_ClanWarSelectScene',
 	'UI_LoadingClanWar',
     

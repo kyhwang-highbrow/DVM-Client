@@ -360,7 +360,7 @@ function StructClanWarMatchItem:setDefendHistory(l_defend_enemy_struct_match_ite
         return sturct_match_item_a:getEndDate() < sturct_match_item_b:getEndDate()
     end
 
-    table.sort(self.m_lDefendHistory, sort_func)
+    table.sort(l_defend_enemy_struct_match_item, sort_func)
     self.m_lDefendHistory = l_defend_enemy_struct_match_item
 end
 

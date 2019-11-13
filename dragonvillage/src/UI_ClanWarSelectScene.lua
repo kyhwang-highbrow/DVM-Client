@@ -41,6 +41,33 @@ function UI_ClanWarSelectScene:initUI()
         vars['testWinBtn']:registerScriptTapHandler(function() self:click_testBtn(true) end)
         vars['testLoseBtn']:registerScriptTapHandler(function() self:click_testBtn(false) end)
     end
+
+    self:setDefendHistoryTableView()
+end
+
+-------------------------------------
+-- function setDefendHistoryTableView
+-------------------------------------
+function UI_ClanWarSelectScene:setDefendHistoryTableView()
+    local vars = self.vars
+    local cur_struct_match = self.m_curSelectEnemyStructMatch
+    local l_history = cur_struct_match:getDefendHistoryList()
+
+    local idx = 1
+    local create_func = function(ui, data)
+        local is_odd = idx/2 ~= 0
+        ui.vars['itemSprite1']:setVisible(is_odd)
+        ui.vars['itemSprite1']:setVisible(not is_odd)
+        idx = idx + 1
+    end
+
+    vars['defenseListNode']:removeAllChildren()
+    local table_view = UIC_TableView(vars['defenseListNode'])
+    table_view.m_defaultCellSize = cc.size(445, 35)
+    table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
+    table_view:setCellUIClass(UI_ClanWarSelectSceneDefendHistoryItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_history)
 end
 
 -------------------------------------
@@ -228,7 +255,7 @@ function UI_ClanWarSelectScene:refreshFocusUserInfo(is_enemy)
         self:refreshCenterUI(is_enemy)
     end
     g_clanWarData:requestEnemyUserInfo(struct_match_item['uid'], finish_cb)
-
+    self:setDefendHistoryTableView()
 end
 
 -------------------------------------
