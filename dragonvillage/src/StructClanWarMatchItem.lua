@@ -276,17 +276,15 @@ function StructClanWarMatchItem:getDefendState(enemy_attack_state)
         return StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']
     end
 
-    local _enemy_attack_state =  enemy_attack_state 
-
-    if (not _enemy_attack_state) then
+    if (not enemy_attack_state) then
         local struct_match_item = self:getLastDefender()
         if (struct_match_item) then
-            _enemy_attack_state = struct_match_item:getAttackState()
+            enemy_attack_state = struct_match_item:getAttackState()
         else
             return StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']
         end
     end
-    
+
     if (enemy_attack_state) then
         if (enemy_attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) then
             return StructClanWarMatchItem.DEFEND_STATE['DEFENDING']
@@ -337,7 +335,7 @@ function StructClanWarMatchItem:getDefendCount()
     local defend_cnt = 0
     for _, struct_match_item in ipairs(l_defend) do
         local attack_state = struct_match_item:getAttackState()
-        if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_SUCCESS']) then
+        if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
             defend_cnt = defend_cnt + 1
         end
     end

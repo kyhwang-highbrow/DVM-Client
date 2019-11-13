@@ -13,7 +13,7 @@ UI_ClanWarSelectSceneListItem = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ClanWarSelectSceneListItem:init(data)
-    local vars = self:load('clan_war_match_select_scene_item.ui')
+    local vars = self:load('clan_war_match_select_item_rival.ui')
     self.m_structMatchItem = data
 
     self:initUI()
@@ -46,7 +46,7 @@ function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
     for i = 1,3 do
         if (vars['setResult'..i]) then
             vars['setResult'..i]:setColor(StructClanWarMatch.STATE_COLOR['DEFAULT'])
-            vars['setResult'..i]:setVisible(true)
+            vars['setResult'..i]:setVisible(false)
         end
     end
 
@@ -63,7 +63,7 @@ function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
         end
     end
 
-	vars['setMenu']:setVisible(true)
+	vars['gameScoreSprite']:setVisible(false)
 end
 
 
@@ -75,9 +75,6 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
     self.m_structMatch = struct_match
     local struct_match_item = self.m_structMatchItem
 
-	-- 방어 상태
-    local defend_state_text = '    ' .. struct_match_item:getDefendStateText()
-
     local defend_cnt = struct_match_item:getDefendCount()
 	if (defend_cnt > 0) then
 		vars['defenseNoti']:setVisible(true)
@@ -86,25 +83,27 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
 
 	-- 나의 닉네임
     local my_nick = struct_match_item:getMyNickName()
-    vars['userNameLabel1']:setString(my_nick .. defend_state_text)
+    vars['defenseNameLabel']:setString(my_nick)
+	vars['defenseNameLabel']:setVisible(true)
 
-	local attacking_uid = struct_match_item:getAttackingUid()
-	local struct_attack_enemy_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)
+	local struct_attack_enemy_match_item = struct_match_item:getLastDefender()
 	if (struct_attack_enemy_match_item) then
-        local enemy_nick = 'VS ' .. struct_attack_enemy_match_item:getMyNickName() or ''
-        vars['userNameLabel2']:setString(enemy_nick)
-        vars['userNameLabel2']:setVisible(true)
+        local enemy_nick = struct_attack_enemy_match_item:getMyNickName() or ''
+        vars['attackNameLabel']:setString(enemy_nick)
+        vars['attackNameLabel']:setVisible(true)
 
+		vars['arrowSprite']:setVisible(true)
         -- 승/패/승 세팅
-        local l_game_result = struct_match_item:getGameResult()
+        local l_game_result = struct_attack_enemy_match_item:getGameResult()
         self:setGameResult(l_game_result, is_my_clan)
 
         -- 남은 시간 세팅
         local end_date = struct_match_item:getEndDate()
-        self:setEndTime(end_date)        
+        self:setEndTime(end_date)
     else
         local my_nick = struct_match_item:getMyNickName()
-        vars['userNameLabel2']:setString('')
+        vars['attackNameLabel']:setString('')
+		vars['defenseNameLabel']:setPositionX(-125)
     end
 end
 
@@ -116,21 +115,20 @@ function UI_ClanWarSelectSceneListItem:update(dt)
     local end_time = self.m_endTime
 
     if (not end_time) then
-        vars['lastTimeLabel1']:setString('')
+        --vars['lastTimeLabel1']:setString('')
         return
     end
 
-
-	vars['lastTimeLabel1']:setVisible(true)
+	--vars['lastTimeLabel1']:setVisible(true)
     -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
     local cur_time = Timer:getServerTime_Milliseconds()
     local remain_time = (end_time - cur_time)/1000
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
-        vars['lastTimeLabel1']:setString(hour .. ':' .. min)
+        --vars['lastTimeLabel1']:setString(hour .. ':' .. min)
     else
-        vars['lastTimeLabel1']:setString('')
+        --vars['lastTimeLabel1']:setString('')
     end
 end
 
@@ -145,6 +143,48 @@ end
 -- function setSelected
 -------------------------------------
 function UI_ClanWarSelectSceneListItem:setSelected(is_selected)
-    self.vars['selectNode']:setVisible(is_selected)
+	local struct_match_item = self.m_structMatchItem
+	local struct_attack_enemy_match_item = struct_match_item:getLastDefender()
+	if (struct_attack_enemy_match_item) then
+		self.vars['selectNode2']:setVisible(is_selected)
+	else
+		self.vars['selectNode1']:setVisible(is_selected)
+	end
+end
+
+
+local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+-------------------------------------
+-- class UI_ClanWarSelectSceneListItem_Me
+-------------------------------------
+UI_ClanWarSelectSceneListItem_Me = class(PARENT,{
+        m_structMatchItem = 'StructClanWarMatch',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarSelectSceneListItem_Me:init(data)
+    local vars = self:load('clan_war_match_select_item_me.ui')
+    self.m_structMatchItem = data
+
+    -- 나의 닉네임
+    local my_nick = self.m_structMatchItem:getMyNickName()
+    vars['userNameLabel']:setString(my_nick)
+	if (self.m_structMatchItem:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) then
+		local icon = cc.Sprite:create('res/ui/icons/clan_war_icon_attack.png')
+		if (icon) then
+			vars['attackIconNode']:addChild(icon)
+			vars['attackIconNode']:setVisible(true)
+		end
+	end
+end
+
+-------------------------------------
+-- function setSelected
+-------------------------------------
+function UI_ClanWarSelectSceneListItem_Me:setSelected(is_selected)
+	self.vars['selectNode']:setVisible(is_selected)
 end
 

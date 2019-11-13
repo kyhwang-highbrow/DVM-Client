@@ -93,8 +93,6 @@ function UI_ClanWarSelectScene:initEnemyTableView()
             self:refreshFocusUserInfo(true)
             self:selectItem()
         end)
-        ui.vars['rivalClanNode']:setVisible(true)
-		ui.vars['meClanNode']:setVisible(false)
         ui:setStructMatch(struct_match, false)
     end
 
@@ -141,16 +139,12 @@ function UI_ClanWarSelectScene:initMyTableView()
             self:refreshFocusUserInfo()
             self:selectItem()
         end)
-
-		ui.vars['rivalClanNode']:setVisible(false)
-		ui.vars['meClanNode']:setVisible(true)
-        ui:setStructMatch(struct_match, true)
     end
 
     local table_view = UIC_TableView(vars['myClanListNode'])
     table_view.m_defaultCellSize = cc.size(548, 80 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    table_view:setCellUIClass(UI_ClanWarSelectSceneListItem, create_func)
+    table_view:setCellUIClass(UI_ClanWarSelectSceneListItem_Me, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(_t_my)
 
