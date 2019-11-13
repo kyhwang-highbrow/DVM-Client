@@ -313,10 +313,9 @@ function StructClanWarMatchItem:getMyNickName()
     if (not struct_user_info_clan) then
         return
     end
-    local lv = struct_user_info_clan:getLv() or ''
-    local text_lv = 'Lv.' .. lv .. ' '
+
     local user_nick_name = struct_user_info_clan:getNickname() or ''
-    return text_lv .. user_nick_name
+    return user_nick_name
 end
 
 -------------------------------------

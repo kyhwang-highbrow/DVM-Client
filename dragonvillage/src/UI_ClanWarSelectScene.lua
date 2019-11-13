@@ -227,9 +227,6 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     local vars = self.vars
     local struct_match = self.m_tStructMatch
     local struct_match_item = self.m_curSelectEnemyStructMatch
-
-    local enemy_nick = struct_match_item:getMyNickName() or ''
-    vars['userNameLabel']:setString(enemy_nick)
     
     -- 리더 드래곤
     local struct_clan_info = struct_match_item:getUserInfo()
@@ -238,6 +235,11 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
         vars['dragonNode']:addChild(dragon_icon.root)
         vars['dragonNode']:setScale(0.5)
     end
+
+    local enemy_nick = struct_match_item:getMyNickName() or ''
+    local enemy_lv = struct_clan_info:getLv() or ''
+    local str_nick = 'Lv.' .. enemy_lv .. ' ' .. enemy_nick
+    vars['userNameLabel']:setString(str_nick)
 
 	local is_ready = true
     -- 내 클랜원일 경우 공격 불가능
