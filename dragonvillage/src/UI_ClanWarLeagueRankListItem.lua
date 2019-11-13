@@ -22,8 +22,7 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
 
 
     -- 세트 스코어 모두 더한 값
-    local total_set_win_cnt = struct_league_item['total_score_win']
-    local total_set_lose_cnt = struct_league_item['total_score_lose']
+    local total_set_win_cnt, total_set_lose_cnt = struct_league_item:getTotalGameCount()
     local score_history = total_set_win_cnt .. '-' .. total_set_lose_cnt
     vars['setScoreLabel']:setString(score_history)
 

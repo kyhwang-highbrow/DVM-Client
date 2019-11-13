@@ -127,7 +127,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
         -- 해당 경기 세트 스코어
 	    win, lose = struct_league_item:getMatchSetScore(match_number)
         set_history = tostring(win) .. '-' .. tostring(lose)
-	    win_cnt = struct_league_item:isGameWin_Past(match_number)
+	    win_cnt = struct_league_item:isMatchWin_Past(match_number)
     end
 
     vars['setScoreLabel' .. idx]:setString(set_history)

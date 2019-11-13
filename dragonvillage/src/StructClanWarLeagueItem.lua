@@ -138,13 +138,28 @@ end
 -- function getTotalWinCount
 -------------------------------------
 function StructClanWarLeagueItem:getTotalWinCount()
-	local league_info = self:getLeagueInfo()
-	
-	if (not league_info['member_win_cnt']) then
-		return '-'
-	end
+	local total_win = 0
+    for i=1,6 do
+        total_win = total_win + self:getMatchWinCnt(i)
+        total_win = total_win + self:isMatchWin_Past(i)
+    end
 
-	return tostring(league_info['member_win_cnt']) or '-'
+	return total_win
+end
+
+-------------------------------------
+-- function getTotalGameCount
+-------------------------------------
+function StructClanWarLeagueItem:getTotalGameCount()
+	local total_win = 0
+    local total_lose = 0
+    for i=1,6 do
+        local win, lose = self:getMatchSetScore(i)
+        total_lose = total_lose + lose
+        total_win = total_win + win
+    end
+
+	return total_win, total_lose
 end
 
 -------------------------------------
@@ -246,9 +261,9 @@ function StructClanWarLeagueItem:isMatchWin(day)
 end
 
 -------------------------------------
--- function isGameWin_Past
+-- function isMatchWin_Past
 -------------------------------------
-function StructClanWarLeagueItem:isGameWin_Past(day)
+function StructClanWarLeagueItem:isMatchWin_Past(day)
     local t_clanwar_day = self:getClanWarDayInfo()
 
     -- 해당 경기의 정보
