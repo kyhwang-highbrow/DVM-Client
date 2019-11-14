@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_ClanWarSelectScene
@@ -11,6 +11,28 @@ UI_ClanWarSelectScene = class(PARENT,{
         m_myTableView = '',
         m_enemyTableView = '',
 })
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_ClanWarSelectScene:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_ClanWarSelectScene'
+    self.m_titleStr = Str('클랜전')
+	--self.m_staminaType = 'pvp'
+    self.m_bVisible = true
+    self.m_bUseExitBtn = true
+    self.m_subCurrency = 'clancoin'
+    self.m_uiBgm = 'bgm_lobby'
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_ClanWarSelectScene:click_exitBtn()
+    self:close()
+end
 
 -------------------------------------
 -- function init

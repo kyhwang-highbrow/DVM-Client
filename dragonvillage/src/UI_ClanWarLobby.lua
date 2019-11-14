@@ -1,10 +1,31 @@
-local PARENT = UI
-
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 -- class UI_ClanWarLobby
 -------------------------------------
 UI_ClanWarLobby = class(PARENT, {
      })
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_ClanWarLobby:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_ClanWarLobby'
+    self.m_titleStr = Str('클랜전')
+	--self.m_staminaType = 'pvp'
+    self.m_bVisible = true
+    self.m_bUseExitBtn = true
+    self.m_subCurrency = 'clancoin'
+    self.m_uiBgm = 'bgm_lobby'
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_ClanWarLobby:click_exitBtn()
+    self:close()
+end
 
 -------------------------------------
 -- function init
