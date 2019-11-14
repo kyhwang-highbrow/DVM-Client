@@ -19,17 +19,7 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
     local lose_cnt = struct_league_item:getLoseCount()
     local win_cnt = struct_league_item:getWinCount()
     vars['winRoundLabel']:setString(Str('{@green}{1}{@apricot}-{@red}{2}', win_cnt, lose_cnt))
-
-
-    -- 세트 스코어 모두 더한 값
-    local total_set_win_cnt, total_set_lose_cnt = struct_league_item:getTotalGameCount()
-    local score_history = total_set_win_cnt .. '-' .. total_set_lose_cnt
-    vars['setScoreLabel']:setString(score_history)
-
-    -- 전체 처치수
-    local total_kill_cnt = struct_league_item:getTotalWinCount()
-    vars['killLabel']:setString(tostring(total_kill_cnt))
-	
+    
     -- 클랜 정보 (이름 랭크)
     local clan_name = struct_clan_rank:getClanName()
     local clan_rank = struct_league_item:getLeagueRank()
@@ -39,6 +29,25 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
 		clan_rank = '-'
 	end
     vars['rankLabel']:setString(tostring(clan_rank))
+
+
+    vars['finalSprite']:setVisible(false)
+    -- 1, 2등은 토너먼트 진출 가능 표시
+    if (clan_rank) then
+        if (clan_rank == 2) or (clan_rank == 1) then
+            vars['finalSprite']:setVisible(true)
+        end
+    end
+
+	-- 내 클랜은 강조 표시
+    local my_clan_id = g_clanWarData:getMyClanId()
+    vars['rankMeSprite']:setVisible(my_clan_id == clan_id)
+
+    --[[
+    -- 세트 스코어 모두 더한 값
+    local total_set_win_cnt, total_set_lose_cnt = struct_league_item:getTotalGameCount()
+    local score_history = total_set_win_cnt .. '-' .. total_set_lose_cnt
+    vars['setScoreLabel']:setString(score_history)
 
     -- 클랜 정보 (레벨, 경험치, 참여 인원, 생성일)
 	local clan_lv = struct_clan_rank:getClanLv() or ''
@@ -50,18 +59,8 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
     
     local create_at = struct_clan_rank['create_date'] or '-'
 	vars['clanCreationLabel']:setString(create_at)
-
-
-    -- 1, 2등은 토너먼트 진출 가능 표시
-    if (clan_rank) then
-        if (clan_rank == 2) or (clan_rank == 1) then
-            vars['finalSprite']:setVisible(true)
-            vars['finalSprite']:setVisible(true)
-        end
-    end
-
-	-- 내 클랜은 강조 표시
-    if (struct_league_item['my_clan_id'] == clan_id) then
-        vars['rankMeSprite']:setVisible(true)
-    end
+    -- 전체 처치수
+    local total_kill_cnt = struct_league_item:getTotalWinCount()
+    vars['killLabel']:setString(tostring(total_kill_cnt))
+    --]]
 end

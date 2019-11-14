@@ -15,6 +15,12 @@ function UI_ClanWarLeagueMatchListItem:init(data)
     if (not data) then
         return
     end
+    
+    -- 날짜 사이마다 간격이 있는 것 처럼 보여주기위해  더미 UI를 하나 찍음
+    if (data['my_clan_id'] == 'blank') then
+        vars['entireMenu']:setVisible(false)
+        return
+    end
 
     -- 클랜 상세 정보 입력
     for idx = 1, 2 do
@@ -130,10 +136,15 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
 	    win_cnt = struct_league_item:isMatchWin_Past(match_number)
     end
 
+    vars['scoreLabel' .. idx]:setString(tostring(win_cnt))
+
+    -- 내 클랜 표시
+    if (data['my_clan_id'] == struct_league_item:getClanId()) then
+        vars['leagueMeNode']:setVisible(true)
+    end
+
+    --[[
     vars['setScoreLabel' .. idx]:setString(set_history)
-	vars['scoreLabel' .. idx]:setString(tostring(win_cnt))
-
-
     -- 클랜 정보 (레벨, 경험치, 참여인원)
     local clan_lv = struct_clan_rank:getClanLv() or ''
     local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
@@ -141,11 +152,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
 	vars['partLabel' .. idx]:setString(max_member)
 	vars['clanLvLabel' .. idx]:setString(clan_lv_exp) 
 	vars['clanCreationLabel' .. idx]:setString(struct_clan_rank['create_date'])
-
-    -- 내 클랜 표시
-    if (data['my_clan_id'] == struct_league_item:getClanId()) then
-        vars['leagueMeNode']:setVisible(true)
-    end
+    --]]
 end
 
 -------------------------------------
