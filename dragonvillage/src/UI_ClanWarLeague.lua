@@ -109,6 +109,7 @@ function UI_ClanWarLeague:setMatchList()
     -- 일단 하드코딩
     local l_pos_y = {-754, -510, -264, -30, -30}
     local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
+    match_day = math.min(match_day, 6)
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view.m_scrollView:setContentOffset(cc.p(0, l_pos_y[match_day - 1]), animated)
 end
@@ -146,7 +147,8 @@ function UI_ClanWarLeague:setScrollButton()
             local team_idx = ui.m_idx
             self.m_selctedTeam = team_idx
             self:refresh(team_idx)
-            
+            vars['teamTabMenu']:setVisible(true)
+
             -- 선택한 버튼 표시
 			-- 선택 안된 버튼들은 다 꺼줌
 			local l_btn = self.m_scrollBtnTableView.m_itemList

@@ -124,15 +124,9 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
     local win, lose
     local win_cnt 
     if (match_number == tonumber(data['match_day'])) then
- 	    lose = struct_league_item:getGameLose(match_number)
-        win = struct_league_item:getGameWin(match_number)
-        set_history = tostring(win) .. '-' .. tostring(lose)
         -- 그 경기를 몇 처치로 이겼는지
         win_cnt = struct_league_item:getMatchWinCnt(match_number)       
     else
-        -- 해당 경기 세트 스코어
-	    win, lose = struct_league_item:getMatchSetScore(match_number)
-        set_history = tostring(win) .. '-' .. tostring(lose)
 	    win_cnt = struct_league_item:isMatchWin_Past(match_number)
     end
 
@@ -143,16 +137,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
         vars['leagueMeNode']:setVisible(true)
     end
 
-    --[[
-    vars['setScoreLabel' .. idx]:setString(set_history)
-    -- 클랜 정보 (레벨, 경험치, 참여인원)
-    local clan_lv = struct_clan_rank:getClanLv() or ''
-    local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
-    local max_member = struct_league_item:getPlayMemberCnt()
-	vars['partLabel' .. idx]:setString(max_member)
-	vars['clanLvLabel' .. idx]:setString(clan_lv_exp) 
-	vars['clanCreationLabel' .. idx]:setString(struct_clan_rank['create_date'])
-    --]]
+    vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueMatchInfoPopup(data) end)
 end
 
 -------------------------------------
@@ -160,11 +145,154 @@ end
 -------------------------------------
 function UI_ClanWarLeagueMatchListItem:setResult(result) -- A가 win : true,  lose : false
     local vars = self.vars
-    if (result) then
-        vars['defeatSprite1']:setVisible(false)
-        vars['defeatSprite2']:setVisible(true)
+
+    vars['defeatSprite1']:setVisible(not result)
+    vars['defeatSprite2']:setVisible(result)
+    vars['winSprite2']:setVisible(not result)
+    vars['winSprite1']:setVisible(result)
+end
+
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_ClanWarLeagueMatchInfoPopup
+-------------------------------------
+UI_ClanWarLeagueMatchInfoPopup = class(PARENT, {
+     })
+
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarLeagueMatchInfoPopup:init(data)
+    local vars = self:load('clan_war_tournament_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+    for i = 1, 2 do
+        self:setClanInfoPopup(i, data)
+    end
+
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueMatchInfoPopup')
+
+    self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+-------------------------------------
+-- function setClanInfoPopup
+-------------------------------------
+function UI_ClanWarLeagueMatchInfoPopup:setClanInfoPopup(idx, data)
+     local vars = self.vars
+     local struct_league_item = data['clan' .. idx]
+
+     local match_number = data['day'] + 1
+     local blank_clan = function()
+        if (vars['clanNameLabel'..idx]) then
+            vars['clanNameLabel'..idx]:setString('-')
+        end
+
+        local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
+        for i, label in ipairs(l_label) do
+            if (vars[label .. idx]) then
+                vars[label .. idx]:setString('-')
+            end
+        end
+     end
+     
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
+     if (not struct_league_item) then
+        blank_clan()
+        return
+     end
+
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
+     if (not struct_league_item['clan_info']) then
+        blank_clan()
+        return
+     end
+     
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
+     local struct_clan_rank = struct_league_item:getClanInfo()
+     if (not struct_clan_rank) then
+        blank_clan()
+        return
+     end
+
+     -- 클랜 이름
+     local clan_name = struct_clan_rank:getClanName() or ''
+     if (vars['clanNameLabel'..idx]) then
+        vars['clanNameLabel'..idx]:setString(clan_name)
+     end
+
+     -- 클랜 마크
+     local clan_icon = struct_clan_rank:makeClanMarkIcon()
+     if (clan_icon) then
+        if (vars['clanMarkNode'..idx]) then
+            vars['clanMarkNode'..idx]:addChild(clan_icon)
+        end
+    end
+    
+    local set_history
+    local win, lose
+    local win_cnt 
+    if (match_number == tonumber(data['match_day'])) then
+        -- 그 경기를 몇 처치로 이겼는지
+        win_cnt = struct_league_item:getMatchWinCnt(match_number)
+        lose = struct_league_item:getGameLose(match_number)
+        win = struct_league_item:getGameWin(match_number)
+        set_history = tostring(win) .. '-' .. tostring(lose)     
     else
-        vars['defeatSprite1']:setVisible(true)
-        vars['defeatSprite2']:setVisible(false)
+	    win_cnt = struct_league_item:isMatchWin_Past(match_number)
+    	win, lose = struct_league_item:getMatchSetScore(match_number)
+        set_history = tostring(win) .. '-' .. tostring(lose)
+    end
+
+    vars['victoryLabel' .. idx]:setString(tostring(win_cnt))
+    vars['resultScore' .. idx]:setString(tostring(win_cnt))
+    vars['setScoreLabel' .. idx]:setString(set_history)
+    
+    -- 클랜 정보 (레벨, 경험치, 참여인원)
+    local clan_lv = struct_clan_rank:getClanLv() or ''
+    local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
+    local max_member = struct_league_item:getPlayMemberCnt()
+	vars['matchNumLabel' .. idx]:setString(max_member)
+	vars['clanLvExpLabel' .. idx]:setString(clan_lv_exp) 
+	vars['creationLabel' .. idx]:setString(struct_clan_rank['create_date'])
+
+
+    -- 끝난 경기만 승/패 표시
+    if (match_number < tonumber(data['match_day'])) then
+        -- 왼쪽, 오른쪽 클랜중 어느쪽 클랜이 이겼는지 표시
+		local struct_league_item = data['clan1']
+        if (struct_league_item['clan_info']) then
+	        local is_win = struct_league_item:isMatchWin(match_number) -- 첫 번째 클랜 기준
+            local left_icon
+            local right_icon
+            if (is_win) then
+                left_icon = cc.Sprite:create('res/ui/icons/clan_War_flag_0102.png')
+                right_icon = cc.Sprite:create('res/ui/icons/clan_War_flag_0103.png')
+            else
+                right_icon = cc.Sprite:create('res/ui/icons/clan_War_flag_0102.png')
+                left_icon = cc.Sprite:create('res/ui/icons/clan_War_flag_0103.png')
+            end
+            
+            if (right_icon) and (left_icon) then
+                vars['resultNode1']:addChild(left_icon)
+                vars['resultNode2']:addChild(right_icon)
+            end	        
+        end
+    end
+
+
+    local round = g_clanWarData:getTodayRound()
+    if (round) then
+        vars['roundLabel']:setString(Str('{1}강', round))
+    else
+        vars['roundLabel']:setString(Str('조별리그'))
     end
 end
+
