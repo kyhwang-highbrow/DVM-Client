@@ -3,19 +3,20 @@
 -- @instance g_clanWarData
 -------------------------------------
 ServerData_ClanWar = class({
-    m_isMyClanLeft = 'boolean', -- Test API¿¡¼­¸¸ »ç¿ëµÇ´Â °ª
+    m_isMyClanLeft = 'boolean', -- Test API?ç™’?í£ç­Œ??????ë¡«ë®‰ æ¶?
 
     m_tClanInfo = 'table - StructClanRank',
 
     m_clanWarDay = 'number',
+	m_clanWarDayData = 'table',
 
-    -- Å¬·£ÀüÀ¸·Î ¸ÂºÙ´Â ÇÃ·¹ÀÌ¾î/»ó´ë ÇÃ·¹ÀÌ¾î Á¤º¸ ÀúÀå
+    -- ??Â€??è¢â‘¹ëªµåš¥?ç­Œë¿ì‰¶??????ìŸ¿??ê³·ì„ /?æ€¨? ???ìŸ¿??ê³·ì„  ?ï§ï½‹ê¶– ????
     m_playerUserInfo = 'StructUserInfoClanWar',
     m_OpponentUserInfo = 'StructUserInfoClanWar',
 
     m_gameKey = 'string',
 
-	m_myMatchInfo = 'StructClanWarMatchItem', -- ·Îºñ Åë½Å¿¡¼­ ¹Ş´Â Á¤º¸, ¹è³Ê ¶ç¿ï ¶§ ÇÊ¿ä
+	m_myMatchInfo = 'StructClanWarMatchItem', -- åš¥â‰ªë®†?????ë»¿?ç™’?í£ ç„ì†ë£†???ï§ï½‹ê¶–, ç„ì„í€¡ç‘—??è¢â‘¹ë’» ???è¢â‘¹ë’„
 
     today_end_time = 'number',
     today_start_time = 'number' ,
@@ -29,6 +30,153 @@ ServerData_ClanWar = class({
 function ServerData_ClanWar:init()
     self.m_tClanInfo = {}
     self.m_clanWarDay = 0
+
+	self.today_end_time = 0
+    self.today_start_time = 0
+    self.season_start_time = 0
+    self.open = false
+end
+
+ServerData_ClanWar.CLANWAR_STATE = {
+	['DONE'] = 1,
+	['OPEN'] = 2,
+    ['BREAK'] = 3,
+}
+
+-------------------------------------
+-- function getClanWarState
+-------------------------------------
+function ServerData_ClanWar:getClanWarState()
+	local cur_time = Timer:getServerTime_Milliseconds()
+	local state
+	
+	-- ??ë½°ã‚µ???ãƒ«êµï§?æ€¨ë°´ë¬¶?ï§? (??ë½°ì‚‚ ?é†«ë¡®?æ¶ì›Â€ æ²ƒì„ì±¶??ï§?)
+	if (cur_time < self.season_start_time) then
+		return ServerData_ClanWar.CLANWAR_STATE['DONE']
+	end
+
+	-- ??Â€è­°?éº? (?ç™’?ì Ÿ?ë´”Â€???è¢â‘¸ìµŸç¹¹ë¨®ìŠ£? é‡ê»ŠìŠ£????? ??ë†ë²‰(?ï§ã…ºí…¦ ç–«ê¿¸í€—è€Œ?)
+	if (self.open) then
+		return ServerData_ClanWar.CLANWAR_STATE['OPEN']
+	else
+		return ServerData_ClanWar.CLANWAR_STATE['BREAK']
+	end
+end
+
+-------------------------------------
+-- function getRemainSeasonTime
+-- @brief ??ì‡±ë²‰ ??ë½°ã‚µç¹¹ë¨®ìŠ£? ??? ??ë³¦í¢
+-------------------------------------
+function ServerData_ClanWar:getRemainSeasonTime()
+	local cur_time = Timer:getServerTime_Milliseconds()
+	local remain_time = self.season_start_time - cur_time
+
+	if (remain_time < 0) then
+		remain_time = 0
+	end
+	return remain_time/1000
+end
+
+-------------------------------------
+-- function getRemainGameTime
+-- @brief ??ë©¸ëŒç–«?ç¹¹ë¨®ìŠ£? ??? ??ë³¦í¢
+-------------------------------------
+function ServerData_ClanWar:getRemainGameTime()
+	local cur_time = Timer:getServerTime_Milliseconds()
+	local remain_time = self.today_end_time - cur_time
+
+	if (remain_time < 0) then
+		remain_time = 0
+	end
+	return remain_time/1000
+end
+
+-------------------------------------
+-- function getRemainStartGameTime
+-- @brief ??ë½°ì‚‚??ë¾â”›ç¹¹ë¨®ìŠ£? ??? ??ë³¦í¢
+-------------------------------------
+function ServerData_ClanWar:getRemainStartGameTime()
+	local cur_time = Timer:getServerTime_Milliseconds()
+	local remain_time = self.today_start_time - cur_time
+	
+	if (remain_time < 0) then
+		remain_time = 0
+	end	
+	return remain_time/1000	
+end
+
+-------------------------------------
+-- function checkClanWarState
+-------------------------------------
+function ServerData_ClanWar:checkClanWarState()
+	local clanwar_state = g_clanWarData:getClanWarState()
+	local msg = ''
+	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+		return true, msg
+	end
+end
+
+-------------------------------------
+-- function checkClanWarState_Tournament
+-------------------------------------
+function ServerData_ClanWar:checkClanWarState_Tournament()
+	local is_open, msg = self:checkClanWarState()
+
+	if (is_open) then
+		return true, msg
+	end
+
+	if (self.m_clanWarDay == 7) then
+		msg = Str('í† ë„ˆë¨¼íŠ¸ë¥¼ ì¤€ë¹„ì¤‘ì…ë‹ˆë‹¤. \n í† ë„ˆë¨¼íŠ¸ ì‹œì‘ê¹Œì§€ {1} ë‚¨ìŒ')
+	end
+
+	if (self.m_clanWarDay == 14) then
+		local remain_time = g_clanWarData:getRemainSeasonTime()
+		msg = Str('í´ëœì „ ì‹œì¦Œì´ ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. \n ë‹¤ìŒ í´ëœì „ê¹Œì§€ {1} ë‚¨ìŒ', datetime.makeTimeDesc(remain_time))
+	end
+
+	local clanwar_state = g_clanWarData:getClanWarState()
+	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['BREAK']) then
+		msg = Str('ì „íˆ¬ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤. \n ë‹¤ìŒ ì „íˆ¬ê¹Œì§€ {1} ë‚¨ìŒ')
+	end
+
+	return false, msg
+end
+
+-------------------------------------
+-- function checkClanWarState_League
+-------------------------------------
+function ServerData_ClanWar:checkClanWarState_League()
+	local is_open, msg = self:checkClanWarState()
+
+	if (is_open) then
+		return true, ''
+	end
+	
+	if (not g_clanWarData:isMatchDay()) then
+		msg = Str('ì „íˆ¬ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤. \n ë‹¤ìŒ ì „íˆ¬ê¹Œì§€ {1} ë‚¨ìŒ')
+	end
+
+	local clanwar_state = g_clanWarData:getClanWarState()
+	local cur_time = Timer:getServerTime()
+	local date = pl.Date()
+	date:set(cur_time)
+	local hour = date:hour()
+	if (self.m_clanWarDay == 1) and (hour < 10) then
+		msg = Str('í´ëœì „ ì‹œì¦Œì´ ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. \n ë‹¤ìŒ í´ëœì „ê¹Œì§€ {1} ë‚¨ìŒ')
+	else
+		msg = Str('ì¡°ë³„ë¦¬ê·¸ë¥¼ ì¤€ë¹„ì¤‘ì…ë‹ˆë‹¤. \n í† ë„ˆë¨¼íŠ¸ ê¹Œì§€ {1} ë‚¨ì•˜ìŠµë‹ˆë‹¤.')		
+	end
+
+	if (self.m_clanWarDay == 7) then
+		msg = Str('ì¡°ë³„ë¦¬ê·¸ê°€ ì¢…ë£Œ ë˜ì—ˆìŠµë‹ˆë‹¤. \n í† ë„ˆë¨¼íŠ¸ ê¹Œì§€ {1} ë‚¨ì•˜ìŠµë‹ˆë‹¤.')	
+	end
+	
+	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['BREAK']) then
+		msg = Str('ì „íˆ¬ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤. \n ë‹¤ìŒ ì „íˆ¬ê¹Œì§€ {1} ë‚¨ìŒ')
+	end
+
+	return false, msg
 end
 
 -------------------------------------
@@ -50,11 +198,11 @@ function ServerData_ClanWar:applyClanWarInfo(ret)
     end
 
     if (ret['season_start_time']) then
-        self.today_end_time = ret['season_start_time']      -- ÇöÀçº¸´Ù ÀÛÀ¸¸é ½ÃÁğ ÁøÇàÁß, Å©¸é ½ÃÁğ ½ÃÀÛÀü
+        self.season_start_time = ret['season_start_time']      -- ?è¢â‘¹ì‚ºç™°ê·£????è‡¾ë¯ªëªµç­Œ???ë½°ã‚µ ç­ŒìšŠì‘µï§‘ì–Œë¹³? ??????ë½°ã‚µ ??ë½°ì‚‚??
     end
 
     if (ret['today_start_time']) then
-        self.today_end_time = ret['today_start_time']      -- 10:00
+        self.today_start_time = ret['today_start_time']      -- 10:00
     end
 
 end
@@ -64,7 +212,7 @@ end
 -------------------------------------
 function ServerData_ClanWar:request_myClanResult(my_clan_is_left)
     local left_score, right_score = 0, 0 
-    -- ³» Å¬·£ÀÌ ½Â¸®ÇÏµµ·Ï Á¡¼ö ¼¼ÆÃ
+    -- ????Â€????è«›ë©¤ë´º??ë¡«ì¦²åš¥??ç™’?ë•¾ ?ï§ë‚…ìƒ’
     if (my_clan_is_left) then
         left_score = 1
         right_score = 0
@@ -82,19 +230,20 @@ end
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local league = team
 	local finish_cb = function(ret)
-        -- °øµ¿À¸·Î ServerData_ClanWar¿¡ ÀúÀåµÇ´Â Á¤º¸µé
+        -- ?â‘¤ë²‰çŒ·??ê³—ì¨® ServerData_ClanWar?????è²«ç”±???ï§ï½‹ê¶–??
 		g_clanWarData:setClanInfo(ret['clan_info'])
         self.m_clanWarDay = ret['clanwar_day']
+		self.m_clanWarDayData = ret['clan_data']
         
-		-- 1 ~ 7ÀÏ±îÁö´Â StructClanWarLeague
-		-- 8 ~ 14ÀÏ±îÁö´Â StructClanWarTournament ÇüÅÂ·Î »ç¿ëÇÔ
+		-- 1 ~ 7??â‘¦ë±ç­Œì™–Â€??StructClanWarLeague
+		-- 8 ~ 14??â‘¦ë±ç­Œì™–Â€??StructClanWarTournament ?ï§Îºë¬¶åš¥??????
         success_cb(ret)
 	end
 
-    -- À¯Àú ID
+    -- ?é†«? ID
     local uid = g_userData:get('uid')
     
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/info')
     ui_network:setParam('uid', uid)
@@ -111,10 +260,28 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 end
 
 -------------------------------------
+-- function isMatchDay
+-------------------------------------
+function ServerData_ClanWar:isMatchDay()
+	if (not self.m_clanWarDayData) then
+		return false
+	end
+
+	if (not self.m_clanWarDayData['table']) then
+		return false
+	end
+
+	local day = self.m_clanWarDay
+	if (self.m_clanWarDayData['table']['day_' .. day]) then
+		return (self.m_clanWarDayData['table']['day_' .. day] == 1)
+	end
+end
+
+-------------------------------------
 -- function getTodayRound
 -------------------------------------
 function ServerData_ClanWar:getTodayRound()
-	-- 8ÀÏÂ÷¿¡ 64°­, 7ÀÏÂ÷¿¡ 32°­ ...
+	-- 8??ê¹ƒì»§??64æ¶? 7??ê¹ƒì»§??32æ¶?...
 	local t_day = {[8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
 	return t_day[self.m_clanWarDay]
 end
@@ -147,10 +314,10 @@ end
 function ServerData_ClanWar:request_testSetWinLose(league, match, is_left, win, lose, total_win)
     local league = team
 
-    -- À¯Àú ID
+    -- ?é†«? ID
     local uid = g_userData:get('uid')
     
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/clanwar_setscore')
     ui_network:setParam('uid', uid)
@@ -175,10 +342,10 @@ end
 -- function request_nextDay
 -------------------------------------
 function ServerData_ClanWar:request_testNextDay()
-    -- À¯Àú ID
+    -- ?é†«? ID
     local uid = g_userData:get('uid')
     
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/clanwar_nextday')
     ui_network:setParam('uid', uid)
@@ -228,11 +395,11 @@ function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)
         return success_cb(StructClanWarMatch(ret))
     end
     
-    -- À¯Àú ID
+    -- ?é†«? ID
     local uid = g_userData:get('uid')
     local clan_id = self:getMyClanId()
     
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/match_info')
     ui_network:setParam('uid', uid)
@@ -273,10 +440,10 @@ function ServerData_ClanWar:request_clanWarTournamentSetScore(left_score, right_
         self:request_testNextDay()
     end
     
-    -- À¯Àú ID
+    -- ?é†«? ID
     local uid = g_userData:get('uid')
     
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/clanwar_tournament_score_set')
     ui_network:setParam('uid', uid)
@@ -295,7 +462,7 @@ end
 
 -------------------------------------
 -- function refresh_playerUserInfo
--- @brief ÇÃ·¹ÀÌ¾î Á¤º¸ °»½Å
+-- @brief ???ìŸ¿??ê³·ì„  ?ï§ï½‹ê¶– æ¶ì„í‰®??
 -------------------------------------
 function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 	if (not self.m_playerUserInfo) then
@@ -305,7 +472,7 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 		struct_user_info.m_lv = g_userData:get('lv')
 		struct_user_info.m_nickname = g_userData:get('nick')	
 
-		-- Å¬·£
+		-- ??Â€??
 		local struct_clan = g_clanData:getClanStruct()
 		if (struct_clan) then
 			struct_user_info.m_userData = struct_clan:getClanName()
@@ -323,7 +490,7 @@ end
 
 -------------------------------------
 -- function getUserInfo
--- @brief ÇÃ·¹ÀÌ¾î Á¤º¸ °»½Å
+-- @brief ???ìŸ¿??ê³·ì„  ?ï§ï½‹ê¶– æ¶ì„í‰®??
 -------------------------------------
 function ServerData_ClanWar:getPlayerUserInfo()   
     return self.m_playerUserInfo
@@ -362,7 +529,7 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
     
     local struct_user_info = StructUserInfoArena()
 
-    -- ±âº» À¯Àú Á¤º¸
+    -- ç–«ê¿¸í€¡???é†«? ?ï§ï½‹ê¶–
     struct_user_info.m_uid = data['uid']
     struct_user_info.m_nickname = data['nick']
     struct_user_info.m_lv = data['lv']
@@ -372,17 +539,17 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
     
-    -- Äİ·Î¼¼¿ò À¯Àú Á¤º¸
+    -- ?ê¾©ë®†ä»¥?ï§? ?é†«? ?ï§ï½‹ê¶–
     struct_user_info.m_rp = data['rp']
     struct_user_info.m_matchResult = data['match']
     
-    struct_user_info:applyRunesDataList(data['runes']) --¹İµå½Ã µå·¡°ï ¼³Á¤ Àü¿¡ ·éÀ» ¼³Á¤ÇØ¾ßÇÔ
+    struct_user_info:applyRunesDataList(data['runes']) --ç„ì†ê¼¶è«­????ëº¤ì‚‹????ì‡±ì Ÿ ?è¢â‘¸í“  ?ë¡¤ë”†ë±½ ??ì‡±ì Ÿ??ê³·íŠŠ??
     struct_user_info:applyDragonsDataList(data['dragons'])
     
-    -- µ¦ Á¤º¸ (¸ÅÄ¡¸®½ºÆ®¿¡ ³Ñ¾î¿À´Â µ¦Àº ÇØ´ç À¯ÀúÀÇ ¹æ¾îµ¦)
+    -- ???ï§ï½‹ê¶– (ç­Œë²ë‰?ê·ëµ³???ï§ê¾¨í“  ??ë¤¿ì„ ??ì‚³ë®‰ ?æº? ??Â€???é†«???ç„ì»ë«—å ‰??
     struct_user_info:applyPvpDeckData(data['deck'])
     
-    -- Å¬·£
+    -- ??Â€??
     if (data['clan_info']) then
         local struct_clan = StructClan({})
         struct_clan:applySimple(data['clan_info'])
@@ -394,7 +561,7 @@ end
 
 -------------------------------------
 -- function setEnemyUserInfo
--- @brief ÇÃ·¹ÀÌ¾î Á¤º¸ °»½Å
+-- @brief ???ìŸ¿??ê³·ì„  ?ï§ï½‹ê¶– æ¶ì„í‰®??
 -------------------------------------
 function ServerData_ClanWar:setEnemyUserInfo(opponent_info)   
     self.m_OpponentUserInfo = opponent_info
@@ -415,18 +582,18 @@ end
 -- function request_clanWarStart
 -------------------------------------
 function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
-    -- À¯Àú ID
+    -- ?é†«? ID
     local uid = g_userData:get('uid')
     
-    -- ¼º°ø Äİ¹é
+    -- ?æºê»Šê¶— ?ê¾©ë®†åª›?
     local function success_cb(ret)
 
-        -- staminas, cash µ¿±âÈ­
+        -- staminas, cash ??ë…¿â”›??
         g_serverData:networkCommonRespone(ret)
 
         self.m_gameKey = ret['gamekey']
 
-        -- ½ÇÁ¦ ÇÃ·¹ÀÌ ½Ã°£ ·Î±×¸¦ À§ÇØ Ã¼Å© Å¸ÀÓ º¸³¿
+        -- ??ì‡±ì « ???ìŸ¿????ë³¦í¢ åš¥â‰ªë®„?ë‰’ëª´??è¢ã‚‹í‰¸ ç­Œï½‹ë˜¾å¯ƒ?????ç™°ê·£?æº?
         g_accessTimeData:startCheckTimer()
 
         if finish_cb then
@@ -434,7 +601,7 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/start')
     ui_network:setParam('uid', uid)
@@ -495,21 +662,21 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
         end
     end
 
-    -- true¸¦ ¸®ÅÏÇÏ¸é ÀÚÃ¼ÀûÀ¸·Î Ã³¸®¸¦ ¿Ï·áÇß´Ù´Â ¶æ
+    -- true???ê·ë—ªì‰˜??ë¡¢ëŠº ?ç™’?í¥?æ€¨ëª„ëªµåš¥?ç­Œï½Œê¼¶?ê³­ëª´??è¢â‘¥â”·??ëˆë¼„????
     local function response_status_cb(ret)
         -- invalid season
         if (ret['status'] == -1364) then
-            -- ·Îºñ·Î ÀÌµ¿
+            -- åš¥â‰ªë®†?Ñ„ì—???Â€çŒ·?
             local function ok_cb()
                 UINavigator:goTo('lobby')
             end 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('½ÃÁğÀÌ Á¾·áµÇ¾ú½À´Ï´Ù.'), ok_cb)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('??ë½°ã‚µ???ãƒ«êµï§??ë¤¿???Ñ‰ë¹??'), ok_cb)
             return true
         end
         return false
     end
 
-    -- ¸ğµåº° API ÁÖ¼Ò ºĞ±âÃ³¸®
+    -- ç­Œë¤´ë«€è«­ëˆí‰ª?API é›…ëš¯ëˆ˜???ë¸Œì‘¨ç”±ê³¤ã—?ë¡¡ë´º
     local api_url = '/clanwar/finish'
 
     local _is_win
@@ -536,17 +703,17 @@ end
 -------------------------------------
 function ServerData_ClanWar:request_clanWarUserDeck(uid, finish_cb)
 
-    -- À¯Àú ID
+    -- ?é†«? ID
     local _uid = uid or g_userData:get('uid')
     
-    -- ¼º°ø Äİ¹é
+    -- ?æºê»Šê¶— ?ê¾©ë®†åª›?
     local function success_cb(ret)
         if (finish_cb) then
             finish_cb(ret['deck_info'])
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/users/get_deck_clanwar')
     ui_network:setParam('uid', _uid)
@@ -565,10 +732,10 @@ end
 function ServerData_ClanWar:request_setDeck(deckname, formation, leader, l_edoid, tamer, finish_cb, fail_cb)
     local _deckname = deckname
 
-    -- À¯Àú ID
+    -- ?é†«? ID
     local uid = g_userData:get('uid')
 
-    -- ¼º°ø Äİ¹é
+    -- ?æºê»Šê¶— ?ê¾©ë®†åª›?
     local function success_cb(ret)
         local t_data = nil
         local t_deck = ret['deck']
@@ -580,7 +747,7 @@ function ServerData_ClanWar:request_setDeck(deckname, formation, leader, l_edoid
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/game/pvp/set_deck')
     ui_network:setParam('uid', uid)
@@ -610,10 +777,10 @@ end
 -------------------------------------
 function ServerData_ClanWar:request_clanWarMyMatchInfo(finish_cb)
 
-    -- À¯Àú ID
+    -- ?é†«? ID
     local _uid = uid or g_userData:get('uid')
     
-    -- ¼º°ø Äİ¹é
+    -- ?æºê»Šê¶— ?ê¾©ë®†åª›?
     local function success_cb(ret)
         self.m_myMatchInfo = StructClanWarMatchItem(ret['my_match_info'])
 		if (finish_cb) then
@@ -621,7 +788,7 @@ function ServerData_ClanWar:request_clanWarMyMatchInfo(finish_cb)
 		end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ??ìˆë±œ??ê³Œì¾¿ ???ë»¿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/my_match_info')
     ui_network:setParam('uid', _uid)
@@ -636,8 +803,8 @@ end
 
 -------------------------------------
 -- function isMyClanWarMatchAttackingState_byLobby
--- @warning! ·Îºñ¿¡¼­ Åë½ÅÇÒ ¶§¸¸ °»½ÅµÇ´Â Á¤º¸ÀÓ
--- @brief ¹è³Ê Âï´Âµ¥ ÇÊ¿äÇÑ Á¤º¸ ¸®ÅÏ
+-- @warning! åš¥â‰ªë®†??ç™’?í£ ???ë»¿?????ì¶¸ æ¶ì„í‰®???ë¡«ë®‰ ?ï§ï½‹ê¶–??
+-- @brief ç„ì„í€¡ç‘—?ç­Œã€“ì”­????è¢â‘¹ë’„???ï§ï½‹ê¶– ?ê·ë—ªì‰˜
 -------------------------------------
 function ServerData_ClanWar:isMyClanWarMatchAttackingState_byLobby()
 	if (self.m_myMatchInfo) then

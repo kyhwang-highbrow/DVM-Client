@@ -44,6 +44,10 @@ function UI_ClanWarTournamentTree:initButton()
 	vars['leftMoveBtn']:registerScriptTapHandler(function() self:click_moveBtn(-1) end)
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
+
+	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
+		vars['startBtn']:setVisible(false)
+	end
 end
 
 -------------------------------------
@@ -385,7 +389,13 @@ end
 -- function click_gotoMatch
 -------------------------------------
 function UI_ClanWarTournamentTree:click_gotoMatch()    
-    local struct_clan_war_tournament = self.m_structTournament
+    local is_open, msg = g_clanWarData:checkClanWarStateTournament()
+	if (not is_open) then
+		MakeSimplePopup(POPUP_TYPE.OK, msg)
+		return
+	end
+	
+	local struct_clan_war_tournament = self.m_structTournament
     local my_win_cnt, enemy_win_cnt = struct_clan_war_tournament:getMyClanMatchScore()
     
 	local success_cb = function(t_my_struct_match, t_enemy_struct_match)

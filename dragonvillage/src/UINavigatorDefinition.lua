@@ -1875,6 +1875,13 @@ function UINavigatorDefinition:goTo_clan_war(...)
     local args = {...}
     local open_by_scene = args[1]
 
+	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
+		local remain_time = g_clanWarData:getRemainSeasonTime()
+		local msg = Str('클랜전 시즌이 종료되었습니다. \n 다음 클랜전까지 {1} 남음', datetime.makeTimeDesc(remain_time))
+		MakeSimplePopup(POPUP_TYPE.OK, msg)
+		return
+	end
+
 	-- 클랜 가입이 되지 않은 상태에서 진입시에
     if (g_clanData:isClanGuest()) then
         local msg = Str('소속된 클랜이 없습니다.')
