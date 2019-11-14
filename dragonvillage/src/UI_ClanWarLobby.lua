@@ -99,4 +99,5 @@ end
 -------------------------------------
 function UI_ClanWarLobby:initButton()
     local vars = self.vars
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup() end)
 end
