@@ -63,6 +63,7 @@ function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
         end
 
         vars['setMenu']:setVisible(true)
+        vars['gameScoreSprite']:setVisible(true)
     end
 end
 
@@ -109,6 +110,7 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
         local my_nick = struct_match_item:getMyNickName()
         vars['attackNameLabel']:setString('')
 		vars['defenseNameLabel']:setPositionX(-125)
+        vars['arrowSprite']:setVisible(false)
     end
 end
 
@@ -120,7 +122,7 @@ function UI_ClanWarSelectSceneListItem:update(dt)
     local end_time = self.m_endTime
 
     if (not end_time) then
-        --vars['lastTimeLabel1']:setString('')
+        vars['lastTimeLabel']:setString('')
         return
     end
 
@@ -131,9 +133,9 @@ function UI_ClanWarSelectSceneListItem:update(dt)
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
-        --vars['lastTimeLabel1']:setString(hour .. ':' .. min)
+        vars['lastTimeLabel']:setString(hour .. ':' .. min)
     else
-        --vars['lastTimeLabel1']:setString('')
+        vars['lastTimeLabel']:setString('')
     end
 end
 
