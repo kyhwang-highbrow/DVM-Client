@@ -47,6 +47,12 @@ function UI_ClanWarMatchingSceneListItem:initUI()
         vars['arrowSprite']:setPositionY(5)
         vars['lastTimeLabel']:setVisible(true)
     end
+
+	local struct_user_info_clan = struct_match_item:getUserInfo()
+	local icon = struct_user_info_clan:getLastTierIcon('big')
+	if (icon) then
+		vars['tierIconNode']:addChild(icon)
+	end
 end
 
 -------------------------------------

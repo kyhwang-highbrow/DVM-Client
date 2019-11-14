@@ -73,7 +73,12 @@ function StructClanWarMatchItem:init(data)
     end
 
     if (data['user_info']) then
-        self['user_info'] = StructUserInfoClan:create(data['user_info'])
+        self['user_info'] = StructUserInfoClanWar:createUserInfo(data['user_info'])
+		if (data['user_info']['info']) then
+			if (data['user_info']['info']['last_tier']) then
+				self['user_info']:setLastTier(data['user_info']['info']['last_tier'])
+			end
+		end 
     end
 
     self.m_lDefendHistory = {}
