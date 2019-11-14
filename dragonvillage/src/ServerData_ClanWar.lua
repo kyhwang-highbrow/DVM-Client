@@ -16,6 +16,11 @@ ServerData_ClanWar = class({
     m_gameKey = 'string',
 
 	m_myMatchInfo = 'StructClanWarMatchItem', -- 로비 통신에서 받는 정보, 배너 띄울 때 필요
+
+    today_end_time = 'number',
+    today_start_time = 'number' ,
+    season_start_time = 'number',
+    open = 'boolean',
 })
 
 -------------------------------------
@@ -27,9 +32,30 @@ function ServerData_ClanWar:init()
 end
 
 -------------------------------------
--- function request_clanWarInfo
+-- function applyClanWarInfo
 -------------------------------------
-function ServerData_ClanWar:request_clanWarInfo()
+function ServerData_ClanWar:applyClanWarInfo(ret)
+    if (ret['my_match_info']) then
+        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_match_info'])
+    else
+        self.m_myMatchInfo = nil
+    end
+
+    if (ret['today_end_time']) then
+        self.today_end_time = ret['today_end_time']      -- 24:00
+    end
+
+    if (ret['open']) then
+        self.today_end_time = ret['open']      -- 10:00 ~ 24:00
+    end
+
+    if (ret['season_start_time']) then
+        self.today_end_time = ret['season_start_time']      -- 현재보다 작으면 시즌 진행중, 크면 시즌 시작전
+    end
+
+    if (ret['today_start_time']) then
+        self.today_end_time = ret['today_start_time']      -- 10:00
+    end
 
 end
 

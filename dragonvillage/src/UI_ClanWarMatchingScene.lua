@@ -150,6 +150,21 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     self.m_myTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     self.m_myTableView:setItemList(t_myClan)
 
+    -- 내 uid에 포커싱
+    local my_uid = g_userData:get('uid')
+    local idx = 1
+    local i = 1
+    for _, data in pairs(t_myClan) do
+        if (data['uid'] == my_uid) then
+            idx = i
+        end
+        i = i + 1
+    end
+
+    self.m_myTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    self.m_myTableView:relocateContainerFromIndex(idx)
+
+
     -- 테이블 뷰 인스턴스 생성
     local t_enemyClan = struct_match:getEnemyMatchData()
 

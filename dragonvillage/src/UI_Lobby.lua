@@ -181,11 +181,6 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-		-- 클랜전
-        g_clanWarData:request_clanWarMyMatchInfo(co.NEXT)
-		co:work('# 클랜전 정보 받는 중')
-		if co:waitWork() then return end
-
         -- 네스트 던전 정보 갱신이 필요한 경우 (고대 유적 던전 오픈과 같은 케이스)
         -- requestNestDungeonInfo 내부에서 m_bDirtyNestDungeonInfo가 false인 경우는 통신하지 않으므로 추가
         co:work('# 네스트 정보 갱신 중')
@@ -524,6 +519,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
         cclog('# 컨텐츠 오픈 정보 받는 중')
         if (ret['content_unlock_list']) then
 			g_contentLockData:applyContentLockByStage(ret['content_unlock_list'])
+		end
+
+        cclog('# 클랜전 정보 받는 중')
+        if (ret['clanwar_info']) then
+			g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		end
 
 		co.NEXT()
