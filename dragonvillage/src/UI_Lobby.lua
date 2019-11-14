@@ -181,6 +181,10 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+		-- 클랜전
+        g_clanWarData:request_clanWarMyMatchInfo(co.NEXT)
+		co:work('# 클랜전 정보 받는 중')
+		if co:waitWork() then return end
 
         -- 네스트 던전 정보 갱신이 필요한 경우 (고대 유적 던전 오픈과 같은 케이스)
         -- requestNestDungeonInfo 내부에서 m_bDirtyNestDungeonInfo가 false인 경우는 통신하지 않으므로 추가
@@ -1964,6 +1968,23 @@ function UI_Lobby:refresh_rightBanner()
     if (state) then
         if (not vars['banner_hall_of_fame']) then
             local banner = UI_BannerHallOfFame()
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(cc.p(1, 1))
+            banner.root:setAnchorPoint(cc.p(1, 1))
+            vars['banner_hall_of_fame'] = banner
+        end
+    else
+        if vars['banner_hall_of_fame'] then
+            vars['banner_hall_of_fame'].root:removeFromParent()
+            vars['banner_hall_of_fame'] = nil
+        end
+    end
+
+	--클랜전 배너
+    local state, attacking_uid, end_date = g_clanWarData:isMyClanWarMatchAttackingState_byLobby()
+    if (state) then
+        if (not vars['banner_hall_of_fame']) then
+            local banner = UI_BannerClanWarAttacking(attacking_uid, end_date)
             vars['bannerMenu']:addChild(banner.root)
             banner.root:setDockPoint(cc.p(1, 1))
             banner.root:setAnchorPoint(cc.p(1, 1))

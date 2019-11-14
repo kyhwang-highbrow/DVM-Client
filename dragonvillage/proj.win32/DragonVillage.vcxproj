@@ -1101,6 +1101,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AutoItemPickResultPopup.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BannerChallengeMode.lua" />
+    <None Include="..\src\UI_BannerClanWarAttacking.lua" />
     <None Include="..\src\UI_BannerGrandArena.lua" />
     <None Include="..\src\UI_BannerHallOfFame.lua" />
     <None Include="..\src\UI_BannerIllusion.lua" />

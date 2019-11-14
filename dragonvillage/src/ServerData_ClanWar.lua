@@ -14,6 +14,8 @@ ServerData_ClanWar = class({
     m_OpponentUserInfo = 'StructUserInfoClanWar',
 
     m_gameKey = 'string',
+
+	m_myMatchInfo = 'StructClanWarMatchItem', -- 로비 통신에서 받는 정보, 배너 띄울 때 필요
 })
 
 -------------------------------------
@@ -575,4 +577,47 @@ function ServerData_ClanWar:request_setDeck(deckname, formation, leader, l_edoid
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function request_clanWarMyMatchInfo
+-------------------------------------
+function ServerData_ClanWar:request_clanWarMyMatchInfo(finish_cb)
+
+    -- 유저 ID
+    local _uid = uid or g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_match_info'])
+		if (finish_cb) then
+			finish_cb()
+		end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clanwar/my_match_info')
+    ui_network:setParam('uid', _uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function isMyClanWarMatchAttackingState_byLobby
+-- @warning! 로비에서 통신할 때만 갱신되는 정보임
+-- @brief 배너 찍는데 필요한 정보 리턴
+-------------------------------------
+function ServerData_ClanWar:isMyClanWarMatchAttackingState_byLobby()
+	if (self.m_myMatchInfo) then
+		local is_attacking = (self.m_myMatchInfo:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING'])
+		local attack_uid = self.m_myMatchInfo:getAttackingUid()
+		local end_date = self.m_myMatchInfo:getEndDate() or ''
+		return is_attacking, attack_uid, end_date
+	end
 end

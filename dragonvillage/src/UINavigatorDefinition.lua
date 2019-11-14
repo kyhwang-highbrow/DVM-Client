@@ -1869,7 +1869,7 @@ end
 -------------------------------------
 -- function goTo_clan_war
 -- @brief 클랜전으로 이동
--- @usage UINavigatorDefinition:goTo('goTo_clan_war')
+-- @usage UINavigatorDefinition:goTo('clan_war')
 -------------------------------------
 function UINavigatorDefinition:goTo_clan_war(...)
     local args = {...}

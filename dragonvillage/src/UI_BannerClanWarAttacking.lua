@@ -1,0 +1,80 @@
+local PARENT = UI
+
+-------------------------------------
+-- class UI_BannerClanWarAttacking
+-------------------------------------
+UI_BannerClanWarAttacking = class(PARENT,{
+		m_attack_uid = 'string',
+		m_enddate = 'string',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_BannerClanWarAttacking:init(attacking_uid, end_date)
+    self.m_uiName = 'UI_BannerClanWarAttacking'
+    local vars = self:load('lobby_banner_clan_war.ui')
+
+	self.m_attack_uid = attacking_uid
+	self.m_enddate = end_date
+
+    -- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+
+	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_BannerClanWarAttacking:initUI()
+    local vars = self.vars
+	vars['attackLabel']:setString(Str('공격 중'))
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_BannerClanWarAttacking:initButton()
+    local vars = self.vars
+    vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_BannerClanWarAttacking:update()
+	local vars = self.vars
+	local end_time = self.m_enddate
+
+    if (not end_time) then
+        vars['timeLabel']:setString('')
+        return
+    end
+
+    -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
+    local cur_time = Timer:getServerTime_Milliseconds()
+    local remain_time = (end_time - cur_time)/1000
+    if (remain_time > 0) then
+        local hour = math.floor(remain_time / 3600)
+        local min = math.floor(remain_time / 60) % 60
+		local text = hour .. ':' .. min
+        vars['timeLabel']:setString(Str('{1} 남음', text))
+    else
+        vars['timeLabel']:setString('')
+    end
+end
+
+
+-------------------------------------
+-- function click_bannerBtn
+-------------------------------------
+function UI_BannerClanWarAttacking:click_bannerBtn()
+    UINavigatorDefinition:goTo('clan_war')
+end
+
