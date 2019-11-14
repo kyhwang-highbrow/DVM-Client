@@ -104,7 +104,7 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
         self:setGameResult(l_game_result, is_my_clan)
 
         -- 남은 시간 세팅
-        local end_date = struct_match_item:getEndDate()
+        local end_date = struct_attack_enemy_match_item:getEndDate()
         self:setEndTime(end_date)
     else
         local my_nick = struct_match_item:getMyNickName()
@@ -126,7 +126,6 @@ function UI_ClanWarSelectSceneListItem:update(dt)
         return
     end
 
-	--vars['lastTimeLabel1']:setVisible(true)
     -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
     local cur_time = Timer:getServerTime_Milliseconds()
     local remain_time = (end_time - cur_time)/1000
@@ -134,6 +133,7 @@ function UI_ClanWarSelectSceneListItem:update(dt)
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
         vars['lastTimeLabel']:setString(hour .. ':' .. min)
+        vars['lastTimeLabel']:setVisible(true)
     else
         vars['lastTimeLabel']:setString('')
     end
