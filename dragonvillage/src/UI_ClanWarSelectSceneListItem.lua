@@ -61,9 +61,9 @@ function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
             vars['setResult'..i]:setColor(color)
             vars['setResult'..i]:setVisible(true)
         end
-    end
 
-	vars['gameScoreSprite']:setVisible(false)
+        vars['setMenu']:setVisible(true)
+    end
 end
 
 
@@ -76,15 +76,20 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
     local struct_match_item = self.m_structMatchItem
 
     local defend_cnt = struct_match_item:getDefendCount()
+    vars['defenseNoti']:setVisible(false)
+
 	if (defend_cnt > 0) then
 		vars['defenseNoti']:setVisible(true)
 		vars['defenseLabel']:setString(tostring(defend_cnt))
-	end
+    end
 
 	-- 나의 닉네임
     local my_nick = struct_match_item:getMyNickName()
     vars['defenseNameLabel']:setString(my_nick)
 	vars['defenseNameLabel']:setVisible(true)
+
+	vars['gameScoreSprite']:setVisible(false)
+    vars['setMenu']:setVisible(false)
 
 	local struct_attack_enemy_match_item = struct_match_item:getLastDefender()
 	if (struct_attack_enemy_match_item) then
