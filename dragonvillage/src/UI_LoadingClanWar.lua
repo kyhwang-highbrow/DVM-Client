@@ -67,7 +67,7 @@ end
 -------------------------------------
 -- function initUserInfo
 -------------------------------------
-function UI_LoadingArena:initUserInfo(direction, struct_user_info)
+function UI_LoadingClanWar:initUserInfo(direction, struct_user_info)
 	local vars = self.vars
     local struct_clan = struct_user_info:getStructClan()
     local icon
