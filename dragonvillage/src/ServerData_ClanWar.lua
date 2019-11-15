@@ -278,6 +278,37 @@ function ServerData_ClanWar:isMatchDay()
 end
 
 -------------------------------------
+-- function getMaxRound
+-------------------------------------
+function ServerData_ClanWar:getMaxRound()
+	if (not self.m_clanWarDayData) then
+		return 0
+	end
+
+	if (not self.m_clanWarDayData['table']) then
+		return 0
+	end
+
+	local total_match = self.m_clanWarDayData['table']['group'] or 0
+    return total_match * 2
+end
+
+-------------------------------------
+-- function getMaxGroup
+-------------------------------------
+function ServerData_ClanWar:getMaxGroup()
+	if (not self.m_clanWarDayData) then
+		return 0
+	end
+
+	if (not self.m_clanWarDayData['table']) then
+		return 0
+	end
+
+	return self.m_clanWarDayData['table']['group_clan'] or 0
+end
+
+-------------------------------------
 -- function getTodayRound
 -------------------------------------
 function ServerData_ClanWar:getTodayRound()

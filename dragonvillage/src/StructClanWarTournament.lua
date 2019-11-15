@@ -19,7 +19,7 @@ function StructClanWarTournament:init(data)
 	self.m_tTournamentInfo = {}
     self.m_clanWarDay = 1
     self.m_tClanInfo = {}
-	self.m_maxRound = 0
+	self.m_maxRound = g_clanWarData:getMaxRound()
 
     for i, round in ipairs(L_ROUND) do
         self.m_tTournamentInfo[round] = {}
@@ -55,11 +55,8 @@ function StructClanWarTournament:makeTournamentData(l_tournament)
                 table.insert(self.m_tTournamentInfo[round], _data)		
             end	
         end
-
-		if (self.m_maxRound < group_stage) then
-			self.m_maxRound = group_stage
-		end
     end
+
 
     -- N강 마다 group_stage_no 순으로 정렬
     local sort_func = function(a, b)

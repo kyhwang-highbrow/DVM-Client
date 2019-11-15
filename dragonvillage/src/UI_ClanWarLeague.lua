@@ -30,8 +30,7 @@ function UI_ClanWarLeague:init(vars)
 
     -- 초기화
     self:initUI()
-    self:initButton()
-    self:refresh()
+    self:refresh() -- 여기서 m_structLeague을 받음
 end
 
 -------------------------------------
@@ -189,6 +188,7 @@ function UI_ClanWarLeague:refresh(team)
 	
 	local success_cb = function(ret)
 		self:refreshUI(team, ret)
+        self:setRewardBtn()
 	end
 
 	-- param team을 nil로 보냈을 때, 자신의 클랜이 경기 중일 때는 자신 클랜의 리그, 없다면 전체 랭크를 보내준다.
@@ -350,6 +350,26 @@ function UI_ClanWarLeague:click_gotoMatch()
     g_clanWarData:request_clanWarMatchInfo(success_cb)
 end
 
+-------------------------------------
+-- function setRewardBtn
+-------------------------------------
+function UI_ClanWarLeague:setRewardBtn()
+    local vars = self.vars
+    local my_rank = nil
+
+    local struct_clanwar_league = self.m_structLeague
+	local l_rank = struct_clanwar_league:getClanWarLeagueRankList()
+    for _, struct_league_item in ipairs(l_rank) do
+       local my_clan_id = g_clanWarData:getMyClanId()
+       local clan_id = struct_league_item:getClanId()
+       if (my_clan_id == clan_id) then
+            my_rank = struct_league_item:getLeagueRank()
+            break
+       end
+    end
+    
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_rank) end)
+end
 
 
 
