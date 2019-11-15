@@ -96,7 +96,7 @@ end
 function UI_ClanWarTournamentTree:showPage()
 	local page_number = self.m_page
 	local vars = self.vars
-	vars['listItemNode']:removeAllChildren()
+	vars['finalNode']:removeAllChildren()
 	self.m_scrollMenu:removeAllChildren()
 
     -- 컨테이너 위치 초기화
@@ -119,19 +119,9 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
 	local vars = self.vars
 	local struct_clan_war_tournament = self.m_structTournament
 
-	local func_get_pos_x = function(round_idx, leaf_width)
-		local pos_x = 0
-		if (is_right) then
-			pos_x = 160 - (round_idx-1) * (leaf_width)
-		else
-			pos_x = -200 + (round_idx-1) * (leaf_width)
-		end
-		return pos_x
-	end
-
 	local l_round = {32, 16, 8}
 	if (struct_clan_war_tournament:getMaxRound() == 64) then
-		l_round = {64, 32, 16, 8}
+		l_round = {64, 32, 16}
 	end
 	
 	for round_idx, round in ipairs(l_round) do
@@ -139,9 +129,18 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
 		
 		-- N강 표시하는 타이틀
 		local ui_title_item = UI_ClanWarTournamentTreeListItem(round)
-		local pos_x = func_get_pos_x(round_idx, leaf_width)
-		ui_title_item.root:setPositionX(pos_x)
-		vars['listItemNode']:addChild(ui_title_item.root)
+
+        if (not is_right) then
+            if (vars['titleItemNode'..round_idx]) then
+                vars['titleItemNode'..round_idx]:removeAllChildren()
+		        vars['titleItemNode'..round_idx]:addChild(ui_title_item.root)
+            end
+        else
+            if (vars['titleItemNode'..4-round_idx]) then
+                vars['titleItemNode'..4-round_idx]:removeAllChildren()
+		        vars['titleItemNode'..4-round_idx]:addChild(ui_title_item.root)
+            end
+        end
 
 		local today_round = g_clanWarData:getTodayRound()
 		if (round == today_round) then
@@ -212,9 +211,9 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
 	local func_get_pos_x = function(round_idx, leaf_width)
 		local pos_x = 0
 		if (is_right) then
-			pos_x = 150 - (round_idx-1) * (leaf_width)
+			pos_x = vars['leafItemNode' .. 4-round_idx]:getPositionX()
 		else
-			pos_x = -200 + (round_idx-1) * leaf_width
+			pos_x = vars['leafItemNode' .. round_idx]:getPositionX()
 		end
 		return pos_x
 	end
