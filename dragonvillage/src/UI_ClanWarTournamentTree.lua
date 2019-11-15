@@ -70,6 +70,7 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
     g_clanWarData:setIsMyClanLeft(is_my_clan_left)
     
     self:showPage()
+    self:setRewardBtn()
 end
 
 -------------------------------------
@@ -406,7 +407,22 @@ function UI_ClanWarTournamentTree:click_gotoMatch()
     g_clanWarData:request_clanWarMatchInfo(success_cb)
 end
 
+-------------------------------------
+-- function setRewardBtn
+-------------------------------------
+function UI_ClanWarTournamentTree:setRewardBtn()
+    local vars = self.vars
+    local my_rank = nil
 
+    local my_clan_id = g_clanWarData:getMyClanId()
+    local struct_tournament = self.m_structTournament
+    local t_tournament = struct_tournament:getTournamentInfoByClanId(my_clan_id)
+    if (t_tournament) then
+        my_rank = t_tournament['group_stage'] or 0
+    end
+
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank) end)
+end
 
 
 

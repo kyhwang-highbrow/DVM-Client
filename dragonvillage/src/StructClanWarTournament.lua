@@ -5,6 +5,8 @@
 StructClanWarTournament = class({
 	m_tClanInfo = 'table',
     m_tTournamentInfo = 'table',
+    m_tTournament = 'table',
+
     m_clanWarDay = 'number',
 
 	m_maxRound = 'round', -- 몇 강부터 시작하는지, ex) 64
@@ -19,6 +21,7 @@ function StructClanWarTournament:init(data)
 	self.m_tTournamentInfo = {}
     self.m_clanWarDay = 1
     self.m_tClanInfo = {}
+    self.m_tTournament = {}
 	self.m_maxRound = g_clanWarData:getMaxRound()
 
     for i, round in ipairs(L_ROUND) do
@@ -33,6 +36,10 @@ function StructClanWarTournament:init(data)
         self:makeTournamentData(data['tournament_info'])
     end
 
+    if (data['tournament_info']) then
+        self:makeTournamentTable(data['tournament_info'])
+    end
+
     if (data['clan_info']) then
         self:makeClanInfo(data['clan_info'])
     end
@@ -40,6 +47,23 @@ function StructClanWarTournament:init(data)
     if (data['clanwar_day']) then
         self.m_clanWarDay = data['clanwar_day']
     end
+end
+
+-------------------------------------
+-- function makeTournamentTable -- makeTournamentData랑 통합 필요
+-------------------------------------
+function StructClanWarTournament:makeTournamentTable(l_tournament)
+    for idx, data in ipairs(l_tournament) do
+        local clan_id = data['id'] -- N강
+        self.m_tTournament[clan_id] = data
+    end
+end
+
+-------------------------------------
+-- function makeTournamentTable -- makeTournamentData랑 통합 필요
+-------------------------------------
+function StructClanWarTournament:getTournamentInfoByClanId(clan_id)
+    return self.m_tTournament[clan_id]
 end
 
 -------------------------------------
