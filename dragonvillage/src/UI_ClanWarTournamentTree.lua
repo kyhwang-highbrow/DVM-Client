@@ -389,7 +389,7 @@ end
 -- function click_gotoMatch
 -------------------------------------
 function UI_ClanWarTournamentTree:click_gotoMatch()    
-    local is_open, msg = g_clanWarData:checkClanWarStateTournament()
+    local is_open, msg = g_clanWarData:checkClanWarState_Tournament()
 	if (not is_open) then
 		MakeSimplePopup(POPUP_TYPE.OK, msg)
 		return
