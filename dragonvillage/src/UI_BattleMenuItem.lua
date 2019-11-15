@@ -211,7 +211,11 @@ function UI_BattleMenuItem:click_enterBtn()
     -- 그랜드 콜로세움 (이벤트 PvP 10대10)
     elseif (content_type == 'grand_arena') then
         UINavigator:goTo('grand_arena')
-
+    
+    -- 그랜드 콜로세움 (이벤트 PvP 10대10)
+    elseif (content_type == 'clan_war') then
+        UINavigator:goTo('clan_war')
+    
     else
         error('content_type : ' .. content_type)
     end

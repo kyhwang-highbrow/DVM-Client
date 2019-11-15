@@ -371,6 +371,9 @@ function getContentName(content_type)
 
 	elseif (content_type == 'daily_shop') or (content_type == 'shop_daily')then
         content_name = Str('일일 상점')
+
+    elseif (content_type == 'clan_war') then
+        content_name = Str('클랜전')
     else
         error('content_type : ' .. content_type)
     end
