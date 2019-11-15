@@ -93,3 +93,13 @@ end
 function UI_ClanWarLobby:closeUI()
     self:close()
 end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ClanWarLobby:initButton()
+    local vars = self.vars
+    vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
+end
+
+
