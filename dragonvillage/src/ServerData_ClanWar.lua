@@ -194,7 +194,7 @@ function ServerData_ClanWar:applyClanWarInfo(ret)
     end
 
     if (ret['open']) then
-        self.today_end_time = ret['open']      -- 10:00 ~ 24:00
+        self.open = ret['open']      -- 10:00 ~ 24:00
     end
 
     if (ret['season_start_time']) then

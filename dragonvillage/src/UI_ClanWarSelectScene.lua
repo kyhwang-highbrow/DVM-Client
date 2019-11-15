@@ -117,7 +117,7 @@ function UI_ClanWarSelectScene:initEnemyTableView()
         end)
         ui:setStructMatch(struct_match, false)
     end
-
+    --[[
 	local sort_func = function(a,b)
 		a_user = a:getUserInfo()
 		b_user = b:getUserINfo()
@@ -134,7 +134,7 @@ function UI_ClanWarSelectScene:initEnemyTableView()
 	end
 
 	table.sort(_t_enemy, sort_func)
-
+    --]]
     local table_view = UIC_TableView(vars['rivalClanListNode'])
     table_view.m_defaultCellSize = cc.size(548, 80 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
