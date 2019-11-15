@@ -165,7 +165,7 @@ function UI_ClanWarTournamentTree:setFinal()
 
     local ui = UI()
     ui:load('clan_war_tournament_final_item.ui')
-    vars['listItemNode']:addChild(ui.root)
+    vars['finalNode']:addChild(ui.root)
 
     self:makeFinalItemByRound(ui, 8)
     self:makeFinalItemByRound(ui, 4)
