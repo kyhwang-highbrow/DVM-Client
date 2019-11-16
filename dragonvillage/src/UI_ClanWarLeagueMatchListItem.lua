@@ -11,7 +11,6 @@ UI_ClanWarLeagueMatchListItem = class(PARENT, {
 -------------------------------------
 function UI_ClanWarLeagueMatchListItem:init(data)
     local vars = self:load('clan_war_lobby_item_league.ui')
-    
     if (not data) then
         return
     end
@@ -27,7 +26,7 @@ function UI_ClanWarLeagueMatchListItem:init(data)
         self:setClanInfo(idx, data)
     end
 
-    local match_number = data['day'] + 1
+    local match_number = data['day']
 
     -- 끝난 경기만 승/패 표시
     if (match_number < tonumber(data['match_day'])) then
@@ -39,29 +38,40 @@ function UI_ClanWarLeagueMatchListItem:init(data)
         end
     end
 
-    -- 현재 날짜, N번째 경기 정보 표기
-    local cur_time = Timer:getServerTime()
-    local t_day = {'월', '화', '수', '목', '금', '토', '일'}
+	local clan_group_cnt = 4
+	if (g_clanWarData:getGroupCnt() == 4) then
+		clan_group_cnt = 3
+	end
 
-    -- 총 5개를 찍어주는데 월요일은 경기를 안해서 화요일 부터 찍어야함
-	local week_str = (tostring(match_number) - 1) .. '차 경기(' .. Str(t_day[tonumber(match_number)]) .. ')' -- 2차 경기 (수요일)
+	local idx = data['idx']
+	-- 하루에 치뤄지는 3개의 경기 중 첫번째 경기에만 날짜 정보 표시하는 menu 활성화
+	if (((idx - 1)%clan_group_cnt) == 0) then
+		vars['dateMenu']:setVisible(true)
+	else
+		vars['dateMenu']:setVisible(false)   
+		return
+	end
+	local day_idx = (idx - 1)/clan_group_cnt + 1
 
-    -- n번째 날짜의 경기
-    if (match_number == tonumber(data['match_day'])) then
-        vars['todaySprite']:setVisible(true)
-		week_str = week_str .. ' - 경기 진행중'
+	-- 현재 날짜, N번째 경기 정보 표기
+	local cur_time = Timer:getServerTime()
+	local t_day = {'월', '화', '수', '목', '금', '토', '일'}
+
+	-- 총 5개를 찍어주는데 월요일은 경기를 안해서 화요일 부터 찍어야함
+	local week_str = (tostring(day_idx)) .. '차 경기(' .. Str(t_day[tonumber(match_number)]) .. ')' -- 2차 경기 (수요일)
+
+	-- n번째 날짜의 경기
+	if (g_clanWarData.m_clanWarDay == tonumber(data['day'])) then
+	    vars['todaySprite']:setVisible(true)
+		if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+			week_str = week_str .. ' - 경기 진행중'
+		end
 		vars['dateLabel']:setColor(COLOR['BLACK'])
-    end
+	end
+	-- 날짜 정보 라벨 세팅
+	vars['dateLabel']:setString(week_str)
 
-    -- 하루에 치뤄지는 3개의 경기 중 첫번째 경기에만 날짜 정보 표시하는 menu 활성화
-    if (data['idx'] == 1) then
-        vars['dateMenu']:setVisible(true)
-    else
-        vars['dateMenu']:setVisible(false)   
-    end
-
-    -- 날짜 정보 라벨 세팅
-    vars['dateLabel']:setString(week_str)
+	day_idx = day_idx + 1
 end
 
 -------------------------------------

@@ -24,7 +24,7 @@ local L_ROUND = {64, 32, 16, 8, 4, 2}
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarTournamentTree:init(vars)
+function UI_ClanWarTournamentTree:init(vars, root)
     self.vars = vars
     self.m_maxRound = 0
     self.m_page = 1
@@ -33,6 +33,8 @@ function UI_ClanWarTournamentTree:init(vars)
     -- 초기화
     self:initUI()
 	self:initButton()
+
+	root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -432,6 +434,17 @@ function UI_ClanWarTournamentTree:setRewardBtn()
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, struct_clan_rank, my_rank) end)
 end
 
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ClanWarTournamentTree:update()
+	local vars = self.vars
+
+	local open, text = g_clanWarData:getCurStateText_Tournament()
+	vars['timeLabel']:setString(text)
+end
+
+
 
 
 
@@ -533,6 +546,8 @@ function UI_ClanWarTournamentTreeListItem:setInProgress()
 	local vars = self.vars
 
 	local round_text = vars['roundLabel']:getString()
-	round_text = round_text .. ' - ' .. Str('진행중')
+	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+		round_text = round_text .. ' - ' .. Str('진행중')
+	end
 	vars['roundLabel']:setString(round_text)
 end

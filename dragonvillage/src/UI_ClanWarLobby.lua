@@ -61,24 +61,25 @@ function UI_ClanWarLobby:initUI(ret)
 
     -- 1~7일차에는 리그 화면
 	if ret['league_info'] then
-        local ui_clen_war_league = UI_ClanWarLeague(vars)
+        local ui_clen_war_league = UI_ClanWarLeague(vars, self.root)
         ui_clen_war_league:refreshUI(nil, ret)
-        is_tournament = false
 
 		ui_clen_war_league.m_closeCB = self.closeUI
+
+		g_clanWarData:setIsLeague(true)
     -- 8~14일차에는 토너먼트 화면
 	else
         if (#ret['tournament_info'] == 0) then
             return
         end
         
-        local ui_clan_war_tournament = UI_ClanWarTournamentTree(vars)
+        local ui_clan_war_tournament = UI_ClanWarTournamentTree(vars, self.root)
         ui_clan_war_tournament:setTournamentData(ret)
-        is_tournament = true
+		g_clanWarData:setIsLeague(false)
     end
     
-    vars['tournamentMenu']:setVisible(is_tournament)
-    vars['leagueMenu']:setVisible(not is_tournament)
+    vars['tournamentMenu']:setVisible(g_clanWarData:getIsLeague())
+    vars['leagueMenu']:setVisible(not g_clanWarData:getIsLeague())
 
 	-- 테스트용 버튼
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 

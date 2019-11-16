@@ -116,7 +116,7 @@ function StructClanWarLeague:getMatchGroup(day) -- 1일차 2일차 등등...
 
     day = tonumber(day)
     local table_clanwar_group = TABLE:get('table_clanwar_group')
-    local clan_cnt = self:getEntireGroupClanCnt()
+    local clan_cnt = g_clanWarData:getGroupCnt()
     local l_match = {}
     for group_idx = 1, 3 do
         local idx = clan_cnt * 10 + day + 100000 -- 테이블 인덱스
@@ -339,32 +339,8 @@ end
 -------------------------------------
 -- function getEntireGroupCnt
 -------------------------------------
-function StructClanWarLeague:getEntireGroupCnt()
-    if (not self.m_tDate) then
-		return 0
-	end    
-	
-	if (not self.m_tDate['table']) then
-		return 0
-	end
-
-	return self.m_tDate['table']['group'] or 0
-end
-
--------------------------------------
--- function getEntireGroupClanCnt
--- @brief 한 그룹에 클랜 몇 개씩 있는지
--------------------------------------
-function StructClanWarLeague:getEntireGroupClanCnt()
-    if (not self.m_tDate) then
-		return 0
-	end    
-	
-	if (not self.m_tDate['table']) then
-		return 0
-	end
-
-	return self.m_tDate['table']['group_clan'] or 0
+function StructClanWarLeague:getGroupCnt()
+   return g_clanWarData:getGroupCnt()
 end
 
 -------------------------------------

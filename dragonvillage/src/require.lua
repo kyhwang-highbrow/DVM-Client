@@ -202,6 +202,7 @@ local t_module = {
     'Serverdata_IllusionDungeon', -- 환상 던전 이벤트
     'ServerData_RemoteConfig', -- 원격 설정
     'ServerData_ClanWar',
+	'ServerData_ClanWar_Date',
 
 
     -- Interface

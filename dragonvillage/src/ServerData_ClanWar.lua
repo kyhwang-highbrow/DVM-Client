@@ -4,6 +4,7 @@
 -------------------------------------
 ServerData_ClanWar = class({
     m_isMyClanLeft = 'boolean', -- Test API?癒?퐣筌??????롫뮉 揶?
+	m_isLeague = 'boolean',
 
     m_tClanInfo = 'table - StructClanRank',
 
@@ -44,179 +45,6 @@ ServerData_ClanWar.CLANWAR_STATE = {
 }
 
 -------------------------------------
--- function getClanWarState
--------------------------------------
-function ServerData_ClanWar:getClanWarState()
-	local cur_time = Timer:getServerTime_Milliseconds()
-	local state
-	
-	-- ??뽰サ???ル굝利?怨밴묶?硫? (??뽰삂 ?醫롮?揶쎛 沃섎챶??硫?)
-	if (cur_time < self.season_start_time) then
-		return ServerData_ClanWar.CLANWAR_STATE['DONE']
-	end
-
-	-- ??議?遺? (?癒?젟?봔???袁⑸쵟繹먮슣? 野껊슣????? ??놁벉(?類ㅺ텦 疫꿸퀗而?)
-	if (self.open) then
-		return ServerData_ClanWar.CLANWAR_STATE['OPEN']
-	else
-		return ServerData_ClanWar.CLANWAR_STATE['BREAK']
-	end
-end
-
--------------------------------------
--- function getRemainSeasonTime
--- @brief ??쇱벉 ??뽰サ繹먮슣? ??? ??볦퍢
--------------------------------------
-function ServerData_ClanWar:getRemainSeasonTime()
-	local cur_time = Timer:getServerTime_Milliseconds()
-	local remain_time = self.season_start_time - cur_time
-
-	if (remain_time < 0) then
-		remain_time = 0
-	end
-	return remain_time/1000
-end
-
--------------------------------------
--- function getRemainGameTime
--- @brief ??멸돌疫?繹먮슣? ??? ??볦퍢
--------------------------------------
-function ServerData_ClanWar:getRemainGameTime()
-	local cur_time = Timer:getServerTime_Milliseconds()
-	local remain_time = self.today_end_time - cur_time
-
-	if (remain_time < 0) then
-		remain_time = 0
-	end
-	return remain_time/1000
-end
-
--------------------------------------
--- function getRemainStartGameTime
--- @brief ??뽰삂??띾┛繹먮슣? ??? ??볦퍢
--------------------------------------
-function ServerData_ClanWar:getRemainStartGameTime()
-	local cur_time = Timer:getServerTime_Milliseconds()
-	local remain_time = self.today_start_time - cur_time
-	
-	if (remain_time < 0) then
-		remain_time = 0
-	end	
-	return remain_time/1000	
-end
-
--------------------------------------
--- function checkClanWarState
--------------------------------------
-function ServerData_ClanWar:checkClanWarState()
-	local clanwar_state = g_clanWarData:getClanWarState()
-	local msg = ''
-	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-		return true, msg
-	end
-end
-
--------------------------------------
--- function checkClanWarState_Tournament
--------------------------------------
-function ServerData_ClanWar:checkClanWarState_Tournament()
-	local is_open, msg = self:checkClanWarState()
-
-	if (is_open) then
-		return true, msg
-	end
-
-	if (self.m_clanWarDay == 7) then
-		msg = Str('토너먼트를 준비중입니다.')
-		return false, msg
-	end
-
-	if (self.m_clanWarDay == 14) then
-		local remain_time = g_clanWarData:getRemainSeasonTime()
-		msg = Str('클랜전 시즌이 종료되었습니다.', datetime.makeTimeDesc(remain_time))
-		return false, msg
-	end
-
-	local clanwar_state = g_clanWarData:getClanWarState()
-	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['BREAK']) then
-		msg = Str('전투 시간이 아닙니다.')
-		return false, msg
-	end
-
-	return false, ''
-end
-
--------------------------------------
--- function checkClanWarState_League
--------------------------------------
-function ServerData_ClanWar:checkClanWarState_League()
-	local is_open, msg = self:checkClanWarState()
-
-	if (is_open) then
-		return true, ''
-	end
-	
-	if (not g_clanWarData:isMatchDay()) then
-		msg = Str('전투 시간이 아닙니다. \n 다음 전투까지 {1} 남음')
-	end
-
-	local clanwar_state = g_clanWarData:getClanWarState()
-	local cur_time = Timer:getServerTime()
-	local date = pl.Date()
-	date:set(cur_time)
-	local hour = date:hour()
-	if (self.m_clanWarDay == 1) and (hour < 10) then
-		msg = Str('클랜전 시즌이 종료되었습니다.')
-		return false, msg
-	else
-		msg = Str('조별리그를 준비중입니다.')
-		return false, msg	
-	end
-
-	if (self.m_clanWarDay == 7) then
-		msg = Str('조별리그가 종료 되었습니다.')	
-		return false, msg
-	end
-	
-	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['BREAK']) then
-		msg = Str('전투 시간이 아닙니다.')
-		return false, msg
-	end
-
-	return false, ''
-end
-
--------------------------------------
--- function applyClanWarInfo
--------------------------------------
-function ServerData_ClanWar:applyClanWarInfo(ret)
-    if (ret['my_match_info']) then
-        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_match_info'])
-    else
-        self.m_myMatchInfo = nil
-    end
-
-    if (ret['today_end_time']) then
-        self.today_end_time = ret['today_end_time']      -- 24:00
-    end
-
-    if (ret['open']) then
-        self.open = ret['open']      -- 10:00 ~ 24:00
-    else
-		self.open = false
-	end
-
-    if (ret['season_start_time']) then
-        self.season_start_time = ret['season_start_time']      -- ?袁⑹삺癰귣????臾믪몵筌???뽰サ 筌욊쑵六얌빳? ??????뽰サ ??뽰삂??
-    end
-
-    if (ret['today_start_time']) then
-        self.today_start_time = ret['today_start_time']      -- 10:00
-    end
-
-end
-
--------------------------------------
 -- function request_myClanResult
 -------------------------------------
 function ServerData_ClanWar:request_myClanResult(my_clan_is_left)
@@ -241,7 +69,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 	local finish_cb = function(ret)
         -- ?⑤벉猷??곗쨮 ServerData_ClanWar?????貫由???類ｋ궖??
 		g_clanWarData:setClanInfo(ret['clan_info'])
-        self.m_clanWarDay = ret['clanwar_day']
+        self.m_clanWarDay = ret['clanwar_day'] or 0
 		self.m_clanWarDayData = ret['clan_data']
 		g_clanWarData:applyClanWarInfo(ret)
         
@@ -267,64 +95,6 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     ui_network:request()
 
     return ui_network
-end
-
--------------------------------------
--- function isMatchDay
--------------------------------------
-function ServerData_ClanWar:isMatchDay()
-	if (not self.m_clanWarDayData) then
-		return false
-	end
-
-	if (not self.m_clanWarDayData['table']) then
-		return false
-	end
-
-	local day = self.m_clanWarDay
-	if (self.m_clanWarDayData['table']['day_' .. day]) then
-		return (self.m_clanWarDayData['table']['day_' .. day] == 1)
-	end
-end
-
--------------------------------------
--- function getMaxRound
--------------------------------------
-function ServerData_ClanWar:getMaxRound()
-	if (not self.m_clanWarDayData) then
-		return 0
-	end
-
-	if (not self.m_clanWarDayData['table']) then
-		return 0
-	end
-
-	local total_match = self.m_clanWarDayData['table']['group'] or 0
-    return total_match * 2
-end
-
--------------------------------------
--- function getMaxGroup
--------------------------------------
-function ServerData_ClanWar:getMaxGroup()
-	if (not self.m_clanWarDayData) then
-		return 0
-	end
-
-	if (not self.m_clanWarDayData['table']) then
-		return 0
-	end
-
-	return self.m_clanWarDayData['table']['group_clan'] or 0
-end
-
--------------------------------------
--- function getTodayRound
--------------------------------------
-function ServerData_ClanWar:getTodayRound()
-	-- 8??깃컧??64揶? 7??깃컧??32揶?...
-	local t_day = {[8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
-	return t_day[self.m_clanWarDay]
 end
 
 -------------------------------------
@@ -711,7 +481,7 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
             local function ok_cb()
                 UINavigator:goTo('lobby')
             end 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('??뽰サ???ル굝利??뤿???щ빍??'), ok_cb)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('클랜전 시즌이 종료되었습니다.'), ok_cb)
             return true
         end
         return false

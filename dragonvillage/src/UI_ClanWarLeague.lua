@@ -22,7 +22,7 @@ UI_ClanWarLeague = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarLeague:init(vars)
+function UI_ClanWarLeague:init(vars, root)
     self.vars = vars
 	self.m_selctedTeam = 1
     self.m_todayMatch = 1
@@ -32,6 +32,8 @@ function UI_ClanWarLeague:init(vars)
     self:initUI()
     self:refresh() -- 여기서 m_structLeague을 받음
 	self:initButton()
+
+	root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -49,7 +51,6 @@ end
 -------------------------------------
 function UI_ClanWarLeague:initUI()
 	local vars = self.vars
-	vars['timeLabel']:setString('{@yellow}2차 경기 진행중 {@green}다음 라운드까지 10시간 20분 남음')
     vars['teamTabMenu']:setVisible(true)
 end
 
@@ -82,19 +83,26 @@ function UI_ClanWarLeague:setMatchList()
     vars['leagueListScrollNode']:removeAllChildren()
 
     local struct_clanwar_league = self.m_structLeague
-    local l_list = {}
-    for day = 1, 5 do		
-		local l_league = struct_clanwar_league:getClanWarLeagueList(day + 1)
+    local l_day_list = g_clanWarData:getVaildDate()
+	local l_list = {}
+	local list_idx = 1
+    for i, day in ipairs(l_day_list) do
+		if (day > 7) then
+			break
+		end
+		local l_league = struct_clanwar_league:getClanWarLeagueList(day)
         for idx, data in ipairs(l_league) do
             data['my_clan_id'] = g_clanWarData:getMyClanId()
             data['day'] = day 
-            data['idx'] = idx
+            data['idx'] = list_idx
             data['match_day'] = struct_clanwar_league.m_matchDay
 	        table.insert(l_list, data)
+			list_idx = list_idx + 1
         end
         
         -- 날짜 사이마다 간격이 있는 것 처럼 보여주기위해  더미 UI를 하나 찍음
         table.insert(l_list, {['my_clan_id'] = 'blank'})
+		list_idx = list_idx + 1
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -204,7 +212,7 @@ function UI_ClanWarLeague:refreshUI(team, ret)
 
 	self.m_structLeague = StructClanWarLeague(ret)
     self.m_todayMatch = ret['clanwar_day']
-	self.m_teamCnt = self.m_structLeague:getEntireGroupCnt()
+	self.m_teamCnt = g_clanWarData:getEntireGroupCnt()
 
 	-- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
 	vars['allRankTabMenu']:removeAllChildren()
@@ -373,7 +381,14 @@ function UI_ClanWarLeague:setRewardBtn()
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_struct_league_item:getClanInfo(), my_rank) end)
 end
 
-
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ClanWarLeague:update()
+	local vars = self.vars
+	local open, text = g_clanWarData:getCurStateText_League()
+	vars['timeLabel']:setString(text)
+end
 
 
 
