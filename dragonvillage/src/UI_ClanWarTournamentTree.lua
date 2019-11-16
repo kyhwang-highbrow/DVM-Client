@@ -32,7 +32,7 @@ function UI_ClanWarTournamentTree:init(vars)
 	
     -- 초기화
     self:initUI()
-    self:initButton()
+	self:initButton()
 end
 
 -------------------------------------
@@ -45,6 +45,7 @@ function UI_ClanWarTournamentTree:initButton()
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
 
+	-- 시즌이 끝났을 경우, 전투시작 버튼 보여주지 않음
 	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
 		vars['startBtn']:setVisible(false)
 	end
@@ -71,6 +72,13 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
     
     self:showPage()
     self:setRewardBtn()
+
+	-- 내 클랜이 토너먼트 진출하지 못했을 경우, 전투시작 버튼 보여주지 않음
+	local my_clan_id = g_clanWarData:getMyClanId()
+    local t_tournament = self.m_structTournament:getTournamentInfoByClanId(my_clan_id)
+	if (not t_tournament) then
+		vars['startBtn']:setVisible(false)
+	end
 end
 
 -------------------------------------
@@ -390,12 +398,12 @@ end
 -------------------------------------
 function UI_ClanWarTournamentTree:click_gotoMatch()    
     local is_open, msg = g_clanWarData:checkClanWarState_Tournament()
-	if (not is_open) then
+	if (not is_open) then	
 		MakeSimplePopup(POPUP_TYPE.OK, msg)
 		return
 	end
-	
-	local struct_clan_war_tournament = self.m_structTournament
+
+	local struct_clan_war_tournament = self.m_structTournament	
     local my_win_cnt, enemy_win_cnt = struct_clan_war_tournament:getMyClanMatchScore()
     
 	local success_cb = function(t_my_struct_match, t_enemy_struct_match)
@@ -415,12 +423,13 @@ function UI_ClanWarTournamentTree:setRewardBtn()
 
     local my_clan_id = g_clanWarData:getMyClanId()
     local struct_tournament = self.m_structTournament
+	local struct_clan_rank = struct_tournament:getClanInfo(clan1_id)
     local t_tournament = struct_tournament:getTournamentInfoByClanId(my_clan_id)
     if (t_tournament) then
         my_rank = t_tournament['group_stage'] or 0
     end
 
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank) end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, struct_clan_rank, my_rank) end)
 end
 
 

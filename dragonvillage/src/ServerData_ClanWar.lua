@@ -127,20 +127,23 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 	end
 
 	if (self.m_clanWarDay == 7) then
-		msg = Str('토너먼트를 준비중입니다. \n 토너먼트 시작까지 {1} 남음')
+		msg = Str('토너먼트를 준비중입니다.')
+		return false, msg
 	end
 
 	if (self.m_clanWarDay == 14) then
 		local remain_time = g_clanWarData:getRemainSeasonTime()
-		msg = Str('클랜전 시즌이 종료되었습니다. \n 다음 클랜전까지 {1} 남음', datetime.makeTimeDesc(remain_time))
+		msg = Str('클랜전 시즌이 종료되었습니다.', datetime.makeTimeDesc(remain_time))
+		return false, msg
 	end
 
 	local clanwar_state = g_clanWarData:getClanWarState()
 	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['BREAK']) then
-		msg = Str('전투 시간이 아닙니다. \n 다음 전투까지 {1} 남음')
+		msg = Str('전투 시간이 아닙니다.')
+		return false, msg
 	end
 
-	return false, msg
+	return false, ''
 end
 
 -------------------------------------
@@ -163,20 +166,24 @@ function ServerData_ClanWar:checkClanWarState_League()
 	date:set(cur_time)
 	local hour = date:hour()
 	if (self.m_clanWarDay == 1) and (hour < 10) then
-		msg = Str('클랜전 시즌이 종료되었습니다. \n 다음 클랜전까지 {1} 남음')
+		msg = Str('클랜전 시즌이 종료되었습니다.')
+		return false, msg
 	else
-		msg = Str('조별리그를 준비중입니다. \n 토너먼트 까지 {1} 남았습니다.')		
+		msg = Str('조별리그를 준비중입니다.')
+		return false, msg	
 	end
 
 	if (self.m_clanWarDay == 7) then
-		msg = Str('조별리그가 종료 되었습니다. \n 토너먼트 까지 {1} 남았습니다.')	
+		msg = Str('조별리그가 종료 되었습니다.')	
+		return false, msg
 	end
 	
 	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['BREAK']) then
-		msg = Str('전투 시간이 아닙니다. \n 다음 전투까지 {1} 남음')
+		msg = Str('전투 시간이 아닙니다.')
+		return false, msg
 	end
 
-	return false, msg
+	return false, ''
 end
 
 -------------------------------------
@@ -195,7 +202,9 @@ function ServerData_ClanWar:applyClanWarInfo(ret)
 
     if (ret['open']) then
         self.open = ret['open']      -- 10:00 ~ 24:00
-    end
+    else
+		self.open = false
+	end
 
     if (ret['season_start_time']) then
         self.season_start_time = ret['season_start_time']      -- ?袁⑹삺癰귣????臾믪몵筌???뽰サ 筌욊쑵六얌빳? ??????뽰サ ??뽰삂??
@@ -234,6 +243,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 		g_clanWarData:setClanInfo(ret['clan_info'])
         self.m_clanWarDay = ret['clanwar_day']
 		self.m_clanWarDayData = ret['clan_data']
+		g_clanWarData:applyClanWarInfo(ret)
         
 		-- 1 ~ 7??⑦돱筌왖??StructClanWarLeague
 		-- 8 ~ 14??⑦돱筌왖??StructClanWarTournament ?類κ묶嚥??????

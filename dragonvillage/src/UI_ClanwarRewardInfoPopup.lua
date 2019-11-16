@@ -9,11 +9,14 @@ UI_ClanwarRewardInfoPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanwarRewardInfoPopup:init(is_league, my_rank)
+function UI_ClanwarRewardInfoPopup:init(is_league, struct_clan_rank, _my_rank)
     local vars = self:load('clan_war_reward_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
+	local my_rank = _my_rank or 0
+
 	self:initUI(is_league, my_rank)
+	self:initMyRankInfo(is_league, struct_clan_rank, my_rank)
 	self:initButton()
 
     -- 백키 지정
@@ -63,14 +66,16 @@ function UI_ClanwarRewardInfoPopup:initUI(is_league, _my_rank)
 
     local create_func = function(ui, data)
         if (data['category'] == category) then
-            ui.vars['meSprite']:setVisible(true)
+			if (data['rank_max'] >= my_rank) and (data['rank_min'] <= my_rank) then
+				ui.vars['meSprite']:setVisible(true)
+			end
         end
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['listNode'])
     table_view.m_defaultCellSize = cc.size(550, 52 + 5)
-	table_view:setCellUIClass(UI_ClanwarRewardInfoPopupList)
+	table_view:setCellUIClass(UI_ClanwarRewardInfoPopupList, create_func)
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
 
@@ -91,8 +96,53 @@ function UI_ClanwarRewardInfoPopup:initUI(is_league, _my_rank)
 end
 
 
+-------------------------------------
+-- function initMyRankInfo
+-------------------------------------
+function UI_ClanwarRewardInfoPopup:initMyRankInfo(is_league, struct_clan_rank, my_rank)
+    local vars = self.vars
+	local struct_clan = g_clanData:getClanStruct()
 
+	-- 클랜 이름
+	local clan_name = struct_clan:getClanName()
+	vars['clanNameLabel']:setString(clan_name)
 
+    -- 클랜 마스터 닉네임
+    local clan_master = struct_clan:getMasterNick()
+    vars['masterNameLabel']:setString(clan_master)
+	
+	-- 클랜 마크 
+	local clan_icon = struct_clan:makeClanMarkIcon()
+	if (clan_icon) then
+		vars['clanMarkNode']:addChild(clan_icon)
+	end
+
+	--맴버 수
+    local member_cnt = struct_clan.member_cnt or 0
+	local member_max = struct_clan.member_max or 0
+    vars['clanNumLabel']:setString(member_cnt .. '/' .. member_max)
+
+	local my_rank_text = ''
+	if (my_rank == 0) then
+		my_rank_text = '-'
+	else
+		my_rank_text = Str('조별리그') .. ' ' .. Str('{1}위', my_rank)
+	end
+
+	-- 조별리그 순위
+	vars['leagueRankLabel']:setString(my_rank_text)
+
+	-- 토너먼트 순위
+	if (is_league) then
+		vars['tournamentRankLabel']:setString('-')
+	else
+		if (my_rank == 0) then
+			vars['tournamentRankLabel']:setString('-')
+		else
+			vars['tournamentRankLabel']:setString(Str('{1}강', my_rank))
+		end
+	end
+end
 
 
 

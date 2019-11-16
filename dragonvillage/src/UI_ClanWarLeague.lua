@@ -31,6 +31,7 @@ function UI_ClanWarLeague:init(vars)
     -- 초기화
     self:initUI()
     self:refresh() -- 여기서 m_structLeague을 받음
+	self:initButton()
 end
 
 -------------------------------------
@@ -355,20 +356,21 @@ end
 -------------------------------------
 function UI_ClanWarLeague:setRewardBtn()
     local vars = self.vars
-    local my_rank = nil
-
+    local my_struct_league_item = nil
+	local my_rank = nil
     local struct_clanwar_league = self.m_structLeague
 	local l_rank = struct_clanwar_league:getClanWarLeagueRankList()
     for _, struct_league_item in ipairs(l_rank) do
        local my_clan_id = g_clanWarData:getMyClanId()
        local clan_id = struct_league_item:getClanId()
        if (my_clan_id == clan_id) then
-            my_rank = struct_league_item:getLeagueRank()
+            my_struct_league_item = struct_league_item
+			my_rank = struct_league_item:getLeagueRank()
             break
        end
     end
-    
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_rank) end)
+
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_struct_league_item:getClanInfo(), my_rank) end)
 end
 
 
