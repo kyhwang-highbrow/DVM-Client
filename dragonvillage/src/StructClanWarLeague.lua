@@ -49,7 +49,7 @@ function StructClanWarLeague:init(data)
     end
 
     -- 클랜 정보
-    local l_clan_info = data['clan_info']
+    local l_clan_info = data['league_clan_info']
 	if (not l_clan_info) then
 		return
 	end

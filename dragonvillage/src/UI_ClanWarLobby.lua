@@ -67,14 +67,15 @@ function UI_ClanWarLobby:initUI(ret)
 
     local is_tournament = false
 
+    local cur_match_day = g_clanWarData.m_clanWarDay
+
     -- 1~7일차에는 리그 화면
-	if ret['league_info'] then
+	if cur_match_day < 7 then
         local ui_clen_war_league = UI_ClanWarLeague(vars, self.root)
         ui_clen_war_league:refreshUI(nil, ret)
-
 		ui_clen_war_league.m_closeCB = self.closeUI
-
 		g_clanWarData:setIsLeague(true)
+
     -- 8~14일차에는 토너먼트 화면
 	else
         if (#ret['tournament_info'] == 0) then

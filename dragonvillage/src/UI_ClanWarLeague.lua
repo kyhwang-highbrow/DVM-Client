@@ -163,9 +163,6 @@ function UI_ClanWarLeague:setScrollButton()
 					if (data['ui'].m_idx == self.m_selctedTeam) then
 						data['ui'].vars['teamTabBtn']:setEnabled(false)
                         data['ui'].vars['teamTabLabel']:setColor(COLOR['BLACK'])
-					else
-						data['ui'].vars['teamTabBtn']:setEnabled(true)
-                        data['ui'].vars['teamTabLabel']:setColor(COLOR['WHITE'])
 					end
 				end
 			end
@@ -212,7 +209,7 @@ function UI_ClanWarLeague:refreshUI(team, ret)
 	-- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
 	vars['allRankTabMenu']:removeAllChildren()
 	
-	local l_clan_info = ret['clan_info'] 
+	local l_clan_info = ret['league_clan_info'] 
 	if (not l_clan_info) then
 		return
 	end
@@ -233,6 +230,23 @@ function UI_ClanWarLeague:refreshUI(team, ret)
     vars['allRankTabBtn']:setEnabled(not is_all)
 	vars['allRankTabSprite2']:setVisible(is_all)
     vars['allRankTabSprite1']:setVisible(not is_all)
+
+    if (is_all) then
+        vars['allRankTabLabel']:setColor(COLOR['WHITE'])
+    else
+        vars['allRankTabLabel']:setColor(COLOR['BLACK'])       
+    end
+
+    if (self.m_scrollBtnTableView) then
+        -- 선택했던 버튼들 초기화
+	    local l_btn = self.m_scrollBtnTableView.m_itemList
+	    for _, data in ipairs(l_btn) do
+		    if (data['ui']) then
+		        data['ui'].vars['teamTabBtn']:setEnabled(true)
+                data['ui'].vars['teamTabLabel']:setColor(COLOR['WHITE'])
+		    end
+	    end
+    end
     self:refreshButtonList(team)
 end
 -------------------------------------
@@ -279,6 +293,7 @@ function UI_ClanWarLeague:refreshLeagueUI(ret)
     end
 
     -- 점수 조작 관련 정보 입력하는 팝업 여는 버튼
+    vars['startBtn']:setVisible(is_myClanTeam)
     vars['testBtn']:setVisible(is_myClanTeam)
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, true) end)
     vars['testTomorrowBtn']:setVisible(true)
@@ -307,15 +322,6 @@ function UI_ClanWarLeague:click_allBtn()
     local success_cb = function(ret)
         self:refreshUI(nil, ret)
     end
-
-    -- 선택했던 버튼들 초기화
-	local l_btn = self.m_scrollBtnTableView.m_itemList
-	for _, data in ipairs(l_btn) do
-		if (data['ui']) then
-		    data['ui'].vars['teamTabBtn']:setEnabled(true)
-            data['ui'].vars['teamTabLabel']:setColor(COLOR['WHITE'])
-		end
-	end
 
     g_clanWarData:request_clanWarLeagueInfo(99, success_cb) -- param 99, 모든 클랜 정보 요청
 end

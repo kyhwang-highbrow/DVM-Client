@@ -4,7 +4,7 @@
 -------------------------------------
 StructClanWarLeagueItem = class({
 	league_info = 'table',
-    clan_info = 'table',
+    league_clan_info = 'table',
     --[[
                 ['league_info'] = {
                     ['lose_cnt']=0;
@@ -166,18 +166,18 @@ end
 -- function setClanInfo
 -------------------------------------
 function StructClanWarLeagueItem:setClanInfo(data)
-	self['clan_info'] = StructClanRank(data)
+	self['league_clan_info'] = StructClanRank(data)
 end
 
 -------------------------------------
--- function setCLanInfo
+-- function getClanInfo
 -------------------------------------
 function StructClanWarLeagueItem:getClanInfo()
-	if (not self['clan_info']) then
+	if (not self['league_clan_info']) then
 		return
 	end
 	
-	return self['clan_info'] -- StructClanRank
+	return self['league_clan_info'] -- StructClanRank
 end
 
 -------------------------------------

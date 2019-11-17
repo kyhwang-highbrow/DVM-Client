@@ -32,7 +32,7 @@ function UI_ClanWarLeagueMatchListItem:init(data)
     if (match_number < tonumber(data['match_day'])) then
         -- 왼쪽, 오른쪽 클랜중 어느쪽 클랜이 이겼는지 표시
 		local struct_league_item = data['clan1']
-        if (struct_league_item['clan_info']) then
+        if (struct_league_item['league_clan_info']) then
 	        local is_win = struct_league_item:isMatchWin(match_number) -- 첫 번째 클랜 기준
 	        self:setResult(is_win)
         end
@@ -104,7 +104,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
      end
 
      -- 서버에서 임의로 추가한 유령 클랜의 경우
-     if (not struct_league_item['clan_info']) then
+     if (not struct_league_item['league_clan_info']) then
         blank_clan()
         return
      end
@@ -147,7 +147,15 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
         vars['leagueMeNode']:setVisible(true)
     end
 
-    vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueMatchInfoPopup(data) end)
+
+    -- 미래 경기는 팝업 보여주지 않음
+    if (match_number - 1 <= tonumber(data['match_day'])) then
+        vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueMatchInfoPopup(data) end)
+    else
+        vars['popupBtn']:registerScriptTapHandler(function() MakeSimplePopup(POPUP_TYPE.OK, Str('공격전 기록이 없습니다.')) end)
+        vars['scoreLabel1']:setString('')
+        vars['scoreLabel2']:setString('')
+    end
 end
 
 -------------------------------------
@@ -280,21 +288,17 @@ function UI_ClanWarLeagueMatchInfoPopup:setClanInfoPopup(idx, data)
 		local struct_league_item = data['clan1']
         if (struct_league_item['clan_info']) then
 	        local is_win = struct_league_item:isMatchWin(match_number) -- 첫 번째 클랜 기준
-            local left_icon
-            local right_icon
-            if (is_win) then
-                left_icon = cc.Sprite:create('res/ui/icons/clan_War_flag_0102.png')
-                right_icon = cc.Sprite:create('res/ui/icons/clan_War_flag_0103.png')
-            else
-                right_icon = cc.Sprite:create('res/ui/icons/clan_War_flag_0102.png')
-                left_icon = cc.Sprite:create('res/ui/icons/clan_War_flag_0103.png')
-            end
-            
-            if (right_icon) and (left_icon) then
-                vars['resultNode1']:addChild(left_icon)
-                vars['resultNode2']:addChild(right_icon)
+            local pos_x_1 = vars['resultNode1']:getPositionX()
+            local pos_x_2 = vars['resultNode2']:getPositionX()
+            cclog(pos_x_1, pos_x_2, is_win)
+            if (not is_win) then
+                vars['resultNode1']:setPositionX(pos_x_2)
+                vars['resultNode2']:setPositionX(pos_x_1)
             end	        
         end
+    else
+        vars['resultNode1']:setVisible(false)
+        vars['resultNode2']:setVisible(false)
     end
 
 

@@ -40,8 +40,8 @@ function StructClanWarTournament:init(data)
         self:makeTournamentTable(data['tournament_info'])
     end
 
-    if (data['clan_info']) then
-        self:makeClanInfo(data['clan_info'])
+    if (data['tournament_clan_info']) then
+        self:makeClanInfo(data['tournament_clan_info'])
     end
 
     if (data['clanwar_day']) then
@@ -224,6 +224,35 @@ function StructClanWarTournament:getMyClanLeft()
             return (idx%2 == 1)
         end
         idx = idx + 1
+    end
+
+   return false
+end
+
+-------------------------------------
+-- function isContainClan
+-------------------------------------
+function StructClanWarTournament:isContainClan(clan_id)
+	if (not self.m_tTournamentInfo) then
+        return false
+    end
+    
+    if (not clan_id) then
+        return false
+    end
+
+    local today_round = g_clanWarData:getTodayRound()
+    -- 돌면서 나의 클랜을 찾는다.
+    local t_data = self.m_tTournamentInfo[today_round]
+    if (not t_data) then
+        return false
+    end
+
+    local idx = 1
+	for _, data in ipairs(t_data) do
+        if (clan_id == data['clan_id']) then
+            return true
+        end
     end
 
    return false

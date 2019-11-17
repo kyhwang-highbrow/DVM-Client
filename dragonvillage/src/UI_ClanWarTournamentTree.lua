@@ -29,12 +29,12 @@ function UI_ClanWarTournamentTree:init(vars, root)
     self.m_maxRound = 0
     self.m_page = 1
     self.m_lPosY = {}
-	
+
+	root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
     -- 초기화
     self:initUI()
 	self:initButton()
-
-	root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -47,7 +47,7 @@ function UI_ClanWarTournamentTree:initButton()
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
 
-	-- 시즌이 끝났을 경우, 전투시작 버튼 보여주지 않음
+    -- 시즌이 끝났을 경우, 전투시작 버튼 보여주지 않음
 	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
 		vars['startBtn']:setVisible(false)
 	end
@@ -81,6 +81,11 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
 	if (not t_tournament) then
 		vars['startBtn']:setVisible(false)
 	end
+    
+    local my_clan_id = g_clanWarData:getMyClanId()
+    local has_my_clan = self.m_structTournament:isContainClan(my_clan_id)
+    -- 내 클랜이 진출하지 않았을 경우, 전투시작 버튼 보여주지 않음
+    vars['startBtn']:setVisible(has_my_clan)
 end
 
 -------------------------------------

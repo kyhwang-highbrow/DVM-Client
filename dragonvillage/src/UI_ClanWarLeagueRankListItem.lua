@@ -30,6 +30,13 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
 	end
     vars['rankLabel']:setString(tostring(clan_rank))
 
+    -- 클랜 마크
+     local clan_icon = struct_clan_rank:makeClanMarkIcon()
+     if (clan_icon) then
+        if (vars['clanMarkNode']) then
+            vars['clanMarkNode']:addChild(clan_icon)
+        end
+    end
 
     vars['finalSprite']:setVisible(false)
     -- 1, 2등은 토너먼트 진출 가능 표시
@@ -42,8 +49,49 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
 	-- 내 클랜은 강조 표시
     local my_clan_id = g_clanWarData:getMyClanId()
     vars['rankMeSprite']:setVisible(my_clan_id == clan_id)
+    if (clan_rank ~= '-') then
+        vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueRankInfoPopup(struct_league_item) end)
+    else
+        vars['popupBtn']:registerScriptTapHandler(function() MakeSimplePopup(POPUP_TYPE.OK, Str('공격전 기록이 없습니다.')) end)
+    end
+end
 
-    --[[
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_ClanWarLeagueRankInfoPopup
+-------------------------------------
+UI_ClanWarLeagueRankInfoPopup = class(PARENT, {
+     })
+
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarLeagueRankInfoPopup:init(struct_league_item)
+    local vars = self:load('clan_war_league_rank_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+    self:initUI(struct_league_item)
+
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueMatchInfoPopup')
+
+    self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
+    local vars = self.vars
+    local struct_clan_rank = struct_league_item:getClanInfo()
+
+    local ui = UI_ClanWarLeagueRankListItem(struct_league_item)
+    vars['rankItemNode']:addChild(ui.root)
+
     -- 세트 스코어 모두 더한 값
     local total_set_win_cnt, total_set_lose_cnt = struct_league_item:getTotalGameCount()
     local score_history = total_set_win_cnt .. '-' .. total_set_lose_cnt
@@ -52,15 +100,19 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
     -- 클랜 정보 (레벨, 경험치, 참여 인원, 생성일)
 	local clan_lv = struct_clan_rank:getClanLv() or ''
     local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
-    vars['clanLvLabel']:setString(clan_lv_exp)
+    vars['clanLvExpLabel']:setString(clan_lv_exp)
 
     local max_member = struct_league_item:getPlayMemberCnt()
-    vars['partLabel']:setString(max_member)
+    vars['matchNumLabel']:setString(max_member)
     
     local create_at = struct_clan_rank['create_date'] or '-'
-	vars['clanCreationLabel']:setString(create_at)
-    -- 전체 처치수
-    local total_kill_cnt = struct_league_item:getTotalWinCount()
-    vars['killLabel']:setString(tostring(total_kill_cnt))
-    --]]
+	vars['creationLabel']:setString(create_at)
+
+    local round = g_clanWarData:getTodayRound()
+    if (round) then
+        vars['roundLabel']:setString(Str('{1}강', round))
+    else
+        vars['roundLabel']:setString(Str('조별리그'))
+    end
 end
+
