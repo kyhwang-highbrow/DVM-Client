@@ -228,7 +228,7 @@ function UI_ClanWarLeagueMatchInfoPopup:setClanInfoPopup(idx, data)
      end
 
      -- 서버에서 임의로 추가한 유령 클랜의 경우
-     if (not struct_league_item['clan_info']) then
+     if (not struct_league_item['league_clan_info']) then
         blank_clan()
         return
      end

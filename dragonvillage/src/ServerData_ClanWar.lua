@@ -23,6 +23,8 @@ ServerData_ClanWar = class({
     today_start_time = 'number' ,
     season_start_time = 'number',
     open = 'boolean',
+
+	m_tSeasonRewardInfo = 'table', -- 시즌보상
 })
 
 -------------------------------------
@@ -62,6 +64,24 @@ function ServerData_ClanWar:request_myClanResult(my_clan_is_left)
 end
 
 -------------------------------------
+-- function applyClanWarReward
+-------------------------------------
+function ServerData_ClanWar:applyClanWarReward(ret)
+	if (ret['reward_clan_info']) then
+		
+		self.seasonRewardInfo = {}
+		self.seasonRewardInfo['reward_clan_info'] = ret['reward_clan_info']
+		if (ret['is_tournament']) then
+			self.seasonRewardInfo['is_tournament'] = ret['is_tournament']
+		end
+
+		if (ret['last_clanwar_rank']) then
+			self.seasonRewardInfo['last_clanwar_rank'] = ret['last_clanwar_rank']
+		end
+	end
+end
+
+-------------------------------------
 -- function request_clanWarLeagueInfo
 -------------------------------------
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
@@ -73,6 +93,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 		self.m_clanWarDayData = ret['clan_data']
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
         
+		g_clanWarData:applyClanWarReward(ret)
 		-- 1 ~ 7??⑦돱筌왖??StructClanWarLeague
 		-- 8 ~ 14??⑦돱筌왖??StructClanWarTournament ?類κ묶嚥??????
         success_cb(ret)

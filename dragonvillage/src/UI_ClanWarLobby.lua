@@ -56,6 +56,14 @@ function UI_ClanWarLobby:init(ret)
         if (is_attacking) then
             g_clanWarData:showPromoteGameStartPopup()
         end
+
+		-- 시즌 보상 팝업 (보상이 있다면)
+		if (g_clanWarData.m_tSeasonRewardInfo) then
+		    local t_info = g_clanWarData.m_tSeasonRewardInfo
+		    UI_ClanWarRewardPopup(t_info)
+		    
+		    g_clanWarData.m_tSeasonRewardInfo = nil
+		end
     end)
 end
 

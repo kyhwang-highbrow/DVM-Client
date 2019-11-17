@@ -19,6 +19,11 @@ function UI_ClanwarRewardInfoPopup:init(is_league, _my_rank)
 	self:initMyRankInfo(is_league, my_rank)
 	self:initButton()
 
+	-- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanwarRewardInfoPopup')
 end

@@ -4327,6 +4327,9 @@
     <None Include="..\src\ServerData_ClanWar_Date.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarRewardPopup.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
