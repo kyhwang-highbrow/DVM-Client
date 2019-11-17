@@ -271,16 +271,16 @@ end
 -- function getIsLeague
 -- @brief 조별리그 기간인지, 토너먼트 기간인지
 -------------------------------------
-function ServerData_ClanWar:getIsLeague(is_league)
-	self.m_isLeague = is_league
+function ServerData_ClanWar:getIsLeague()
+	return self.m_isLeague
 end
 
 -------------------------------------
 -- function setIsLeague
 -- @brief 조별리그 기간인지, 토너먼트 기간인지
 -------------------------------------
-function ServerData_ClanWar:setIsLeague()
-	return self.m_isLeague
+function ServerData_ClanWar:setIsLeague(is_league)
+	self.m_isLeague = is_league
 end
 
 -------------------------------------

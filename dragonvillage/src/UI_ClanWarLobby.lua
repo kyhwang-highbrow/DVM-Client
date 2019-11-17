@@ -85,9 +85,9 @@ function UI_ClanWarLobby:initUI(ret)
         ui_clan_war_tournament:setTournamentData(ret)
 		g_clanWarData:setIsLeague(false)
     end
-    
-    vars['tournamentMenu']:setVisible(g_clanWarData:getIsLeague())
-    vars['leagueMenu']:setVisible(not g_clanWarData:getIsLeague())
+
+    vars['tournamentMenu']:setVisible(not g_clanWarData:getIsLeague())
+    vars['leagueMenu']:setVisible(g_clanWarData:getIsLeague())
 
 	-- 테스트용 버튼
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 

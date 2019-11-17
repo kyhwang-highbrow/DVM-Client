@@ -51,7 +51,6 @@ end
 -------------------------------------
 function UI_ClanWarLeague:initUI()
 	local vars = self.vars
-    vars['teamTabMenu']:setVisible(true)
 end
 
 -------------------------------------
@@ -155,7 +154,6 @@ function UI_ClanWarLeague:setScrollButton()
             local team_idx = ui.m_idx
             self.m_selctedTeam = team_idx
             self:refresh(team_idx)
-            vars['teamTabMenu']:setVisible(true)
 
             -- 선택한 버튼 표시
 			-- 선택 안된 버튼들은 다 꺼줌
@@ -171,9 +169,6 @@ function UI_ClanWarLeague:setScrollButton()
 					end
 				end
 			end
-
-            -- 모든 랭킹 보여주기 버튼 활성화
-            vars['allRankTabBtn']:setEnabled(true)
         end)
     end
 
@@ -223,13 +218,22 @@ function UI_ClanWarLeague:refreshUI(team, ret)
 	end
 	
 	-- 한 번에 12이상 내려왔을 경우 전체가 내려온 것으로 판단
+    local is_all = false
 	if (#l_clan_info > 12) then -- 임시
 		self:refreshAllLeagueUI(ret)
+        is_all = true
 	else
 		self:refreshLeagueUI(team, ret)
 	end
 
-	self:refreshButtonList(team)
+    vars['allRankTabMenu']:setVisible(is_all)
+    vars['teamTabMenu']:setVisible(not is_all)
+    
+    -- 모든 랭킹 보여주기 버튼 활성화
+    vars['allRankTabBtn']:setEnabled(not is_all)
+	vars['allRankTabSprite2']:setVisible(is_all)
+    vars['allRankTabSprite1']:setVisible(not is_all)
+    self:refreshButtonList(team)
 end
 -------------------------------------
 -- function refreshButtonList
@@ -291,7 +295,6 @@ end
 function UI_ClanWarLeague:refreshAllLeagueUI(ret)
 	local vars = self.vars
 	vars['allRankTabMenu']:removeAllChildren()
-	vars['allRankTabBtn']:setEnabled(false)
 	  
 	self:setAllRank(struct_clan_war)  
 end
@@ -305,7 +308,15 @@ function UI_ClanWarLeague:click_allBtn()
         self:refreshUI(nil, ret)
     end
 
-    vars['teamTabMenu']:setVisible(false)
+    -- 선택했던 버튼들 초기화
+	local l_btn = self.m_scrollBtnTableView.m_itemList
+	for _, data in ipairs(l_btn) do
+		if (data['ui']) then
+		    data['ui'].vars['teamTabBtn']:setEnabled(true)
+            data['ui'].vars['teamTabLabel']:setColor(COLOR['WHITE'])
+		end
+	end
+
     g_clanWarData:request_clanWarLeagueInfo(99, success_cb) -- param 99, 모든 클랜 정보 요청
 end
 
@@ -332,9 +343,6 @@ end
 -------------------------------------
 function UI_ClanWarLeague:closeUI()
 	local vars = self.vars
-
-	vars['allRankTabMenu']:pause()
-
 	self.m_closeCB()
 end
 
