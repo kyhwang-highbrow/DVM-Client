@@ -57,7 +57,7 @@ function UI_ClanwarRewardInfoPopup:initUI(is_league, _my_rank)
     -- 조별리그 1-2등은 토너먼트 랭크에 포커싱
     local category = 'clanwar_tournament'
     if (is_league) then
-        if (my_rank <= 2) then
+        if (my_rank <= 2) and (my_rank ~= 0)then
             my_rank = max_round
         else
             category = 'clanwar_league'
