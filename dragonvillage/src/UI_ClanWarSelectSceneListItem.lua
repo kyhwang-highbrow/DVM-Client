@@ -132,7 +132,7 @@ function UI_ClanWarSelectSceneListItem:update(dt)
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
-        vars['lastTimeLabel']:setString(hour .. ':' .. min)
+        vars['lastTimeLabel']:setString(Str('남은 공격 시간 {1}:{2} 남음', hour, min))
         vars['lastTimeLabel']:setVisible(true)
     else
         vars['lastTimeLabel']:setString('')

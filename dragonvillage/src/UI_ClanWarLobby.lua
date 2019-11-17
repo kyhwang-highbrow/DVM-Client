@@ -49,6 +49,14 @@ function UI_ClanWarLobby:init(ret)
     self:initUI(ret)
     self:initButton()
     self:refresh()
+
+
+    self:sceneFadeInAction(function()
+        local is_attacking, attacking_uid, end_date = g_clanWarData:isMyClanWarMatchAttackingState()
+        if (is_attacking) then
+            g_clanWarData:showPromoteGameStartPopup()
+        end
+    end)
 end
 
 -------------------------------------

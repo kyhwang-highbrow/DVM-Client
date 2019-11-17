@@ -63,8 +63,7 @@ function UI_BannerClanWarAttacking:update()
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
-		local text = hour .. ':' .. min
-        vars['timeLabel']:setString(Str('{1} 남음', text))
+        vars['timeLabel']:setString(Str('남은 공격 시간 {1}:{2} 남음', hour, min))
     else
         vars['timeLabel']:setString('')
     end

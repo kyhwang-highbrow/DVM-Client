@@ -254,7 +254,7 @@ function UI_ClanWarSelectScene:click_readyBtn()
     local lv = struct_match_item:getUserInfo():getLv() or ''
     local nick_name = struct_match_item:getMyNickName()
     local nick_str = 'Lv.' .. lv .. ' ' .. nick_name
-    local submsg = Str('대상 : {1}', nick_str)
+    local submsg = Str('선택 대상: {1}', nick_str)
     UI_SimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 

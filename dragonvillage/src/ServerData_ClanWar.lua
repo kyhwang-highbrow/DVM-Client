@@ -613,15 +613,101 @@ function ServerData_ClanWar:request_clanWarMyMatchInfo(finish_cb)
 end
 
 -------------------------------------
--- function isMyClanWarMatchAttackingState_byLobby
+-- function isMyClanWarMatchAttackingState
 -- @warning! 嚥≪뮆??癒?퐣 ???뻿?????춸 揶쏄퉮???롫뮉 ?類ｋ궖??
 -- @brief 獄쏄퀡瑗?筌〓씭????袁⑹뒄???類ｋ궖 ?귐뗪쉘
 -------------------------------------
-function ServerData_ClanWar:isMyClanWarMatchAttackingState_byLobby()
+function ServerData_ClanWar:isMyClanWarMatchAttackingState()
 	if (self.m_myMatchInfo) then
 		local is_attacking = (self.m_myMatchInfo:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING'])
 		local attack_uid = self.m_myMatchInfo:getAttackingUid()
 		local end_date = self.m_myMatchInfo:getEndDate() or ''
 		return is_attacking, attack_uid, end_date
 	end
+end
+
+-------------------------------------
+-- function readyMatch
+-------------------------------------
+function ServerData_ClanWar:readyMatch(finish_cb)
+    local success_cb = function(struct_match)
+        if (finish_cb) then
+            finish_cb(struct_match)
+        end
+    end
+
+    g_clanWarData:request_clanWarMatchInfo(success_cb)
+end
+
+-------------------------------------
+-- function click_gotoBattle
+-------------------------------------
+function ServerData_ClanWar:click_gotoBattle(my_struct_match_item, opponent_struct_match_item, goto_select_scene_cb)
+    local is_do_all_game = my_struct_match_item:isDoAllGame()
+    if (is_do_all_game) then
+        UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
+        return
+    end
+
+    local attacking_uid = my_struct_match_item:getAttackingUid()
+    -- 이미 공격한 상대가 있는 경우
+    if (attacking_uid) then
+        local finish_cb = function()
+            if (not g_clanWarData:getEnemyUserInfo()) then
+                UIManager:toastNotificationRed(Str('설정된 덱이 없는 상대 클랜원입니다.'))
+                return
+            end
+            UI_MatchReadyClanWar(opponent_struct_match_item, my_struct_match_item)
+        end
+
+        g_clanWarData:requestEnemyUserInfo(attacking_uid, finish_cb)
+    else
+        if (goto_select_scene_cb) then
+            goto_select_scene_cb()
+        end
+    end
+end
+
+-------------------------------------
+-- function showPromoteGameStartPopup
+-------------------------------------
+function ServerData_ClanWar:showPromoteGameStartPopup()    
+    local success_cb = function(struct_match)
+        local my_uid = g_userData:get('uid')
+        local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
+        local attack_uid = my_struct_match_item:getAttackingUid()
+
+        local ui =  UI()
+        ui:load('clan_war_popup_rival.ui')
+        UIManager:open(ui, UIManager.POPUP)
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeague')
+
+	    local attacking_struct_match = struct_match:getMatchMemberDataByUid(attack_uid)
+        
+        local ui_item = UI_ClanWarSelectSceneListItem(attacking_struct_match)
+        ui_item:setStructMatch(struct_match)
+        ui.vars['rivalItemNode']:addChild(ui_item.root)
+
+        local end_time = my_struct_match_item:getEndDate()
+        local cur_time = Timer:getServerTime_Milliseconds()
+        local remain_time = (end_time - cur_time)/1000
+        local hour = math.floor(remain_time / 3600)
+        local min = math.floor(remain_time / 60) % 60
+        if (remain_time > 0) then
+            ui.vars['timeLabel']:setString(Str('남은 공격 시간 {1}:{2} 남음', hour, min))    
+        else
+            ui.vars['timeLabel']:setString('')
+        end
+
+        ui.vars['okBtn']:registerScriptTapHandler(function() 
+            local goto_select_scene_cb = function()
+                UI_ClanWarSelectScene(struct_match)
+            end
+
+            g_clanWarData:click_gotoBattle(my_struct_match_item, attacking_struct_match, goto_select_scene_cb)
+        end)
+        ui.vars['cancelBtn']:registerScriptTapHandler(function() ui:close() end)
+    end
+
+    g_clanWarData:readyMatch(success_cb)
 end

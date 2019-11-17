@@ -1981,8 +1981,8 @@ function UI_Lobby:refresh_rightBanner()
     end
 
 	--클랜전 배너
-    local state, attacking_uid, end_date = g_clanWarData:isMyClanWarMatchAttackingState_byLobby()
-    if (state) then
+    local is_attacking, attacking_uid, end_date = g_clanWarData:isMyClanWarMatchAttackingState()
+    if (is_attacking) then
         if (not vars['banner_hall_of_fame']) then
             local banner = UI_BannerClanWarAttacking(attacking_uid, end_date)
             vars['bannerMenu']:addChild(banner.root)

@@ -200,22 +200,13 @@ function UI_ClanWarMatchingScene:click_gotoBattle()
     end
 
 
-    local attacking_uid = my_struct_match_item:getAttackingUid()
-    -- 이미 공격한 상대가 있는 경우
-    if (attacking_uid) then
-        local finish_cb = function()
-            if (not g_clanWarData:getEnemyUserInfo()) then
-                UIManager:toastNotificationRed(Str('설정된 덱이 없는 상대 클랜원입니다.'))
-                return
-            end
-            local struct_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)
-            UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
-        end
-
-        g_clanWarData:requestEnemyUserInfo(attacking_uid, finish_cb)
-    else
+    local goto_select_scene_cb = function()
         UI_ClanWarSelectScene(self.m_structMatch)
     end
+
+    local attacking_uid = my_struct_match_item:getAttackingUid()
+    opponent_struct_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)
+    g_clanWarData:click_gotoBattle(my_struct_match_item, opponent_struct_match_item, goto_select_scene_cb)
 end
 
 -------------------------------------
