@@ -55,6 +55,10 @@ function UI_ClanWarAllRankListItemOfItem:init(struct_league_item)
     local clan_name = struct_clan_rank:getClanName()
     local clan_rank = tostring(struct_league_item:getLeagueRank())
     vars['clanNameLabel']:setString(Str(clan_name))
+
+	if (clan_rank == '0') then
+		clan_rank = '-'
+	end
     vars['rankLabel']:setString(clan_rank)
 
 	-- 전체 5일동안 이루어진 경기에서 얼마나 이겼는지
@@ -62,4 +66,7 @@ function UI_ClanWarAllRankListItemOfItem:init(struct_league_item)
     local lose_cnt = struct_league_item:getLoseCount()
     local win_cnt = struct_league_item:getWinCount()
     vars['scoreLabel']:setString(Str('{1}-{2}', win_cnt, lose_cnt))
+
+	local my_clan_id = g_clanWarData:getMyClanId()
+	vars['meSprite']:setVisible(clan_id == my_clan_id)
 end

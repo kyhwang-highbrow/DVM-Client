@@ -154,18 +154,6 @@ function UI_ClanWarLeague:setScrollButton()
             local team_idx = ui.m_idx
             self.m_selctedTeam = team_idx
             self:refresh(team_idx)
-
-            -- 선택한 버튼 표시
-			-- 선택 안된 버튼들은 다 꺼줌
-			local l_btn = self.m_scrollBtnTableView.m_itemList
-			for _, data in ipairs(l_btn) do
-				if (data['ui']) then
-					if (data['ui'].m_idx == self.m_selctedTeam) then
-						data['ui'].vars['teamTabBtn']:setEnabled(false)
-                        data['ui'].vars['teamTabLabel']:setColor(COLOR['BLACK'])
-					end
-				end
-			end
         end)
     end
 
@@ -231,7 +219,7 @@ function UI_ClanWarLeague:refreshUI(team, ret)
 	vars['allRankTabSprite2']:setVisible(is_all)
     vars['allRankTabSprite1']:setVisible(not is_all)
 
-    if (is_all) then
+    if (not is_all) then
         vars['allRankTabLabel']:setColor(COLOR['WHITE'])
     else
         vars['allRankTabLabel']:setColor(COLOR['BLACK'])       
@@ -242,9 +230,14 @@ function UI_ClanWarLeague:refreshUI(team, ret)
 	    local l_btn = self.m_scrollBtnTableView.m_itemList
 	    for _, data in ipairs(l_btn) do
 		    if (data['ui']) then
-		        data['ui'].vars['teamTabBtn']:setEnabled(true)
-                data['ui'].vars['teamTabLabel']:setColor(COLOR['WHITE'])
-		    end
+				if (data['ui'].m_idx == self.m_selctedTeam) and (not is_all) then
+					data['ui'].vars['teamTabBtn']:setEnabled(false)
+                    data['ui'].vars['teamTabLabel']:setColor(COLOR['BLACK'])
+				else
+					data['ui'].vars['teamTabBtn']:setEnabled(true)
+					data['ui'].vars['teamTabLabel']:setColor(COLOR['WHITE'])
+				end
+			end
 	    end
     end
     self:refreshButtonList(team)
