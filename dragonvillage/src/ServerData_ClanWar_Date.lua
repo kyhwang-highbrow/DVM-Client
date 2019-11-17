@@ -127,7 +127,7 @@ function ServerData_ClanWar:checkClanWarState_League()
 		msg = Str('클랜전 시즌이 종료되었습니다.') .. ' {@green}' .. Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
 		return false, msg
 	elseif (self.m_clanWarDay == 1) and (hour >= 10) then
-		msg = Str('조별리그를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
+		msg = Str('조별리그를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainTimeForNextGame())
 		return false, msg	
 	end
 
@@ -166,7 +166,7 @@ function ServerData_ClanWar:getCurStateText_League()
 		end
 	end
 	local game_name = Str('조별리그') .. ' ' .. Str('{1}차 경기', match_cnt)
-	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainTimeForGameEnd())
+	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainTimeForNextGameEnd())
 	return open, msg
 end
 
@@ -181,7 +181,7 @@ function ServerData_ClanWar:getCurStateText_Tournament()
 
 	local today_round = g_clanWarData:getTodayRound()
 	local game_name = Str('토너먼트') .. ' ' .. Str('{1}강', today_round)
-	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainTimeForGameEnd())
+	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainTimeForNextGameEnd())
 	return open, msg
 end
 
@@ -205,11 +205,32 @@ function ServerData_ClanWar:getRemainTimeForNextGame()
 	local cur_time = Timer:getServerTime()
 	local date = pl.Date()
 	date:set(cur_time)
-	date:hour(10)
+	date:hour(9)
+    date:hour(59)
 	local time = date['time']
 	local remain_time = 0
 	if (time) then
-        remain_time = time - cur_time + match_start_day * 60*60*24
+        remain_time = (time - cur_time) + match_start_day * 60*60*24
+		return datetime.makeTimeDesc(remain_time)
+	else
+		return '-'
+	end
+end
+
+-------------------------------------
+-- function getRemainTimeForNextGameEnd
+-------------------------------------
+function ServerData_ClanWar:getRemainTimeForNextGameEnd()
+	-- 클라에서 노가다로 계산한 것
+	local cur_time = Timer:getServerTime()
+	local date = pl.Date()
+	date:set(cur_time)
+	date:hour(23)
+    date:min(59)
+	local time = date['time']
+	local remain_time = 0
+	if (time) then
+        remain_time = (time - cur_time)
 		return datetime.makeTimeDesc(remain_time)
 	else
 		return '-'
