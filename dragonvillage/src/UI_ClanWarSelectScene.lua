@@ -65,6 +65,11 @@ function UI_ClanWarSelectScene:initUI()
     end
 
     self:setDefendHistoryTableView()
+
+	for i=1,2 do
+		vars['userNameLabel' .. i]:setString('')
+		vars['powerLabel' .. i]:setString('')
+	end
 end
 
 -------------------------------------
@@ -90,6 +95,8 @@ function UI_ClanWarSelectScene:setDefendHistoryTableView()
     table_view:setCellUIClass(UI_ClanWarSelectSceneDefendHistoryItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_history)
+
+	vars['notHistoryLabel']:setVisible(#l_history == 0)
 end
 
 -------------------------------------
@@ -108,6 +115,7 @@ function UI_ClanWarSelectScene:initEnemyTableView()
         end
     end
     
+	vars['defenseNumLavel']:setString(Str('방어인원 {1}', #_t_enemy))
     local create_func = function(ui, struct_match_item)
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 
@@ -171,6 +179,7 @@ function UI_ClanWarSelectScene:initMyTableView()
         end
     end
 
+	vars['attackNumLavel']:setString(Str('방어인원 {1}', #_t_my))
     local create_func = function(ui, struct_match_item)
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 
@@ -311,14 +320,19 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     vars['rivalClanMenu']:setVisible(is_enemy)
     
     -- 내 클랜원일 경우 공격 불가능
-    vars['readyBtn']:setEnabled(is_enemy)
-
+    vars['readyBtn']:setVisible(is_enemy)
+	local struct_clan_info = struct_match_item:getUserInfo()
     -- 리더 드래곤
-    local struct_clan_info = struct_match_item:getUserInfo()
+	--[[
     local dragon_icon = struct_clan_info:getLeaderDragonCard()
     if (dragon_icon) then
         vars['dragonNode' .. ui_idx]:addChild(dragon_icon.root)
         vars['dragonNode' .. ui_idx]:setScale(0.5)
+    end
+	--]]
+	local icon = struct_clan_info:getLastTierIcon()  
+    if (icon) then
+        vars['tierIconNode' .. ui_idx]:addChild(icon)
     end
 
     local enemy_nick = struct_match_item:getMyNickName() or ''

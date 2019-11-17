@@ -45,8 +45,17 @@ function UI_ClanWarMatchingScene:init(struct_match)
     self:initUI()
     self:initButton()
 
+	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarMatchingScene')
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ClanWarMatchingScene:update()
+	self.vars['timeLabel']:setString(Str('{1} 남음', g_clanWarData:getRemainGameTime()))
 end
 
 -------------------------------------
@@ -62,7 +71,6 @@ function UI_ClanWarMatchingScene:initUI()
         vars['roundLabel']:setString(Str('조별리그'))
     end
     vars['stateLabel']:setString(Str('진행중'))
-    vars['timeLabel']:setString(Str('{1} 남음', '10시간 10분'))
 
     self:setClanInfoUI()
     self:setMemberTableView()
@@ -129,15 +137,34 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     local vars = self.vars
     local struct_match = self.m_structMatch 
 
-    local create_func = function(ui, struct_match_item)
+    local create_func_common = function(ui, struct_match_item)
         local my_nick, enemy_nick = struct_match:getNickNameWithAttackingEnemy(struct_match_item)
-        ui.vars['userNameLabel1']:setString(my_nick)
+		local struct_user_info_clan = struct_match_item:getUserInfo()
+		local icon = struct_user_info_clan:getLastTierIcon('big')       
 
         if (enemy_nick) then
+			ui.vars['userNameLabel1']:setVisible(true)
             ui.vars['userNameLabel2']:setVisible(true)
+			ui.vars['arrowSprite']:setVisible(true)
+
+			ui.vars['userNameLabel1']:setString(my_nick)
             ui.vars['userNameLabel2']:setString(enemy_nick)
-            ui.vars['arrowSprite']:setVisible(true)
-        end
+
+			ui.vars['tierIconNode']:addChild(icon)
+        else
+			ui.vars['arrowSprite']:setVisible(false)
+			ui.vars['userNameLabel1']:setVisible(false)
+			ui.vars['noRivalNode']:setVisible(true)
+
+			ui.vars['tierIconNode3']:addChild(icon)
+			ui.vars['userNameLabel3']:setString(my_nick)
+		end
+	end
+
+	local create_func_me = function(ui, struct_match_item)
+		create_func_common(ui, struct_match_item)
+		ui.vars['rivalFrameSprite']:setVisible(false)
+		ui.vars['meFrameSprite']:setVisible(true)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -146,7 +173,7 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     self.m_myTableView = UIC_TableView(vars['meClanListNode'])
     self.m_myTableView.m_defaultCellSize = cc.size(548, 80 + 5)
     self.m_myTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    self.m_myTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func)
+    self.m_myTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func_me)
     self.m_myTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     self.m_myTableView:setItemList(t_myClan)
 
@@ -165,13 +192,19 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     self.m_myTableView:relocateContainerFromIndex(idx)
 
 
+	local create_func_rival = function(ui, struct_match_item)
+		create_func_common(ui, struct_match_item)
+
+		ui.vars['rivalFrameSprite']:setVisible(true)
+		ui.vars['meFrameSprite']:setVisible(false)
+    end
     -- 테이블 뷰 인스턴스 생성
     local t_enemyClan = struct_match:getEnemyMatchData()
 
     self.m_enemyTableView = UIC_TableView(vars['rivalClanMenu'])
     self.m_enemyTableView.m_defaultCellSize = cc.size(548, 80 + 5)
     self.m_enemyTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    self.m_enemyTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func)
+    self.m_enemyTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func_rival)
     self.m_enemyTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     self.m_enemyTableView:setItemList(t_enemyClan)
 end

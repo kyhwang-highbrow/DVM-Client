@@ -181,7 +181,7 @@ function ServerData_ClanWar:getCurStateText_Tournament()
 
 	local today_round = g_clanWarData:getTodayRound()
 	local game_name = Str('토너먼트') .. ' ' .. Str('{1}강', today_round)
-	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainGameTime())
+	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainTimeForNextGameEnd())
 	return open, msg
 end
 

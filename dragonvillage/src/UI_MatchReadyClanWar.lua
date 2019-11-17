@@ -45,6 +45,10 @@ function UI_MatchReadyClanWar:initResult()
             vars['setResult'..i]:setVisible(true)
         end
     end
+
+	local no_time = (#l_game_result == 0)
+	vars['lastTimeLabel']:setVisible(not no_time)
+	vars['noTimeSprite']:setVisible(no_time)
 end
 
 -------------------------------------

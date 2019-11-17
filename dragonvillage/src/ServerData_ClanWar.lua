@@ -88,14 +88,17 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local league = team
 	local finish_cb = function(ret)
         -- ?⑤벉猷??곗쨮 ServerData_ClanWar?????貫由???類ｋ궖??
-		g_clanWarData:setClanInfo(ret['clan_info'])
+		
         self.m_clanWarDay = ret['clanwar_day'] or 0
 		self.m_clanWarDayData = ret['clan_data']
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
-        
 		g_clanWarData:applyClanWarReward(ret)
-		-- 1 ~ 7??⑦돱筌왖??StructClanWarLeague
-		-- 8 ~ 14??⑦돱筌왖??StructClanWarTournament ?類κ묶嚥??????
+
+		if (self.m_clanWarDay < 7) then
+			g_clanWarData:setClanInfo(ret['league_clan_info'])
+		else
+			g_clanWarData:setClanInfo(ret['tournament_clan_info'])
+		end
         success_cb(ret)
 	end
 
