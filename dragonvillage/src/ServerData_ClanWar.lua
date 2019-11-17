@@ -680,7 +680,7 @@ function ServerData_ClanWar:showPromoteGameStartPopup()
         local ui =  UI()
         ui:load('clan_war_popup_rival.ui')
         UIManager:open(ui, UIManager.POPUP)
-        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeague')
+        g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'clan_war_popup_rival')
 
 	    local attacking_struct_match = struct_match:getMatchMemberDataByUid(attack_uid)
         

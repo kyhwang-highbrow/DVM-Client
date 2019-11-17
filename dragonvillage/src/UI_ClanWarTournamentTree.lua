@@ -431,7 +431,7 @@ function UI_ClanWarTournamentTree:setRewardBtn()
         my_rank = t_tournament['group_stage'] or 0
     end
 
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, struct_clan_rank, my_rank) end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank) end)
 end
 
 -------------------------------------

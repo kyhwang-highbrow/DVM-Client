@@ -386,7 +386,7 @@ function UI_ClanWarLeague:setRewardBtn()
        end
     end
 
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_struct_league_item:getClanInfo(), my_rank) end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_rank) end)
 end
 
 -------------------------------------

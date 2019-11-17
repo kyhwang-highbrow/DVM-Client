@@ -9,14 +9,14 @@ UI_ClanwarRewardInfoPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanwarRewardInfoPopup:init(is_league, struct_clan_rank, _my_rank)
+function UI_ClanwarRewardInfoPopup:init(is_league, _my_rank)
     local vars = self:load('clan_war_reward_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
 	local my_rank = _my_rank or 0
 
 	self:initUI(is_league, my_rank)
-	self:initMyRankInfo(is_league, struct_clan_rank, my_rank)
+	self:initMyRankInfo(is_league, my_rank)
 	self:initButton()
 
     -- 백키 지정
@@ -99,7 +99,7 @@ end
 -------------------------------------
 -- function initMyRankInfo
 -------------------------------------
-function UI_ClanwarRewardInfoPopup:initMyRankInfo(is_league, struct_clan_rank, my_rank)
+function UI_ClanwarRewardInfoPopup:initMyRankInfo(is_league, my_rank)
     local vars = self.vars
 	local struct_clan = g_clanData:getClanStruct()
 
