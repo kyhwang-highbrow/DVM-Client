@@ -50,6 +50,17 @@ UI_ClanWarAllRankListItemOfItem = class(PARENT, {
 function UI_ClanWarAllRankListItemOfItem:init(struct_league_item)
     local vars = self:load('clan_war_lobby_item_all_rank_02.ui')
 
+    if (not struct_league_item) then
+        return
+    end
+
+    if (struct_league_item['league_info']['clan_id'] == 'loser') then
+        vars['clanNameLabel']:setString('')
+        vars['rankLabel']:setString('')
+        vars['scoreLabel']:setString('')
+        return
+    end
+
     -- 클랜 정보
 	local struct_clan_rank = struct_league_item:getClanInfo()
     local clan_name = struct_clan_rank:getClanName()
