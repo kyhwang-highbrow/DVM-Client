@@ -23,7 +23,7 @@ function UI_ClanWarMatchingSceneListItem:initUI()
     local vars = self.vars
     local struct_match_item = self.m_structMatchItem
 
-    -- ½Â/ÆĞ Ç¥½Ã
+    -- ìŠ¹/íŒ¨ í‘œì‹œ
     local attack_state = struct_match_item:getAttackState()
     vars['winSprite']:setVisible(false)
 
@@ -33,7 +33,7 @@ function UI_ClanWarMatchingSceneListItem:initUI()
         vars['loseSprite']:setVisible(true)
     end
 
-    -- µå·¡°ï ÃÊ»óÈ­
+    -- ë“œë˜ê³¤ ì´ˆìƒí™”
     local struct_clan_info = struct_match_item:getUserInfo()
     local dragon_icon = struct_clan_info:getLeaderDragonCard()
     if (dragon_icon) then
@@ -63,13 +63,13 @@ function UI_ClanWarMatchingSceneListItem:update()
         return
     end
 
-    -- °ø°İ ³¡³¯ ¶§ ±îÁö ³²Àº ½Ã°£ = °ø°İ ½ÃÀÛ ½Ã°£ + 1½Ã°£
+    -- ê³µê²© ëë‚  ë•Œ ê¹Œì§€ ë‚¨ì€ ì‹œê°„ = ê³µê²© ì‹œì‘ ì‹œê°„ + 1ì‹œê°„
     local cur_time = Timer:getServerTime_Milliseconds()
     local remain_time = (end_time - cur_time)/1000
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
-        vars['lastTimeLabel']:setString(Str('³²Àº °ø°İ ½Ã°£ {1}:{2} ³²À½', hour, min))
+        vars['lastTimeLabel']:setString(Str('ë‚¨ì€ ê³µê²© ì‹œê°„ {1}:{2} ë‚¨ìŒ', hour, min))
     else
         vars['lastTimeLabel']:setString('')
     end 

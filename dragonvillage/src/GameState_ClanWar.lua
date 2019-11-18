@@ -20,7 +20,7 @@ function GameState_ClanWar:makeResultUI(is_win)
 		UI_GameResult_ClanWar(is_win)
 	end
 
-	-- 1. ³×Æ®¿öÅ© Åë½Å
+	-- 1. ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local func_network_game_finish = function()
         g_clanWarData:request_clanWarFinish(is_win, self.m_fightTimer, finish_cb)
     end

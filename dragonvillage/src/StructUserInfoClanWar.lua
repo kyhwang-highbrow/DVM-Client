@@ -88,7 +88,7 @@ end
 
 -------------------------------------
 -- function perseTier
--- @brief Æ¼¾î ±¸ºĞ (bronze_3 -> bronze, 3)
+-- @brief í‹°ì–´ êµ¬ë¶„ (bronze_3 -> bronze, 3)
 -------------------------------------
 function StructUserInfoClanWar.perseTier(tier_str)
     if (not tier_str) then
@@ -103,7 +103,7 @@ end
 
 -------------------------------------
 -- function createUserInfo
--- @brief Äİ·Î¼¼¿ò À¯Àú ÀÎÆ÷
+-- @brief ì½œë¡œì„¸ì›€ ìœ ì € ì¸í¬
 -------------------------------------
 function StructUserInfoClanWar:createUserInfo(t_data)
     local user_info = StructUserInfoClanWar()
@@ -117,10 +117,10 @@ function StructUserInfoClanWar:createUserInfo(t_data)
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     
-    -- ·é & µå·¡°ï ¸®½ºÆ® ÀúÀå
-    user_info:applyRunesDataList(t_data['runes']) --¹İµå½Ã µå·¡°ï ¼³Á¤ Àü¿¡ ·éÀ» ¼³Á¤ÇØ¾ßÇÔ
+    -- ë£¬ & ë“œë˜ê³¤ ë¦¬ìŠ¤íŠ¸ ì €ì¥
+    user_info:applyRunesDataList(t_data['runes']) --ë°˜ë“œì‹œ ë“œë˜ê³¤ ì„¤ì • ì „ì— ë£¬ì„ ì„¤ì •í•´ì•¼í•¨
     user_info:applyDragonsDataList(t_data['dragons'])
-    -- µ¦ ÀúÀå
+    -- ë± ì €ì¥
     user_info:applyPvpDeckData(t_data['deck'])
 
     return user_info

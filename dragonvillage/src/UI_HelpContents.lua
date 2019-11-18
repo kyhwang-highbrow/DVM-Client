@@ -17,11 +17,11 @@ function UI_HelpContents(...)
 
     local ui = UI_TabUI_AutoGeneration('help_contents_open.ui', true, 1, struct_tab_ui) -- param ui_name, is_root, ui_depth, struct_tab_ui
 
-    -- help_contents_open.ui ÀÇ function initUI()
+    -- help_contents_open.ui ì˜ function initUI()
     ui.vars['ScrollMenu']:setSwallowTouch(false)
     ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
 
-    -- ¼±ÅÃÇÑ ÅÇÀ» ¹Ù·Î º¸¿©ÁÖµµ·Ï Æ÷Ä¿½Ì
+    -- ì„ íƒí•œ íƒ­ì„ ë°”ë¡œ ë³´ì—¬ì£¼ë„ë¡ í¬ì»¤ì‹±
     local container_node = ui.vars['ScrollView']:getContainer()
     local ori_pos_y = container_node:getPositionY()
     local l_content = {'adventure', 'secret_relation', 'exploration', 'nest_tree', 'nest_evo_stone', 'daily_shop', 'ancient', 'shop_random', 'colosseum', 'capsule', 'nest_nightmare',  'forest', 'clan', 'challenge_mode', 'attr_tower', 'ancient_ruin', 'rune_guardian', 'clan_raid'}
@@ -31,7 +31,7 @@ function UI_HelpContents(...)
             focus_idx = i
             break
         end
-        -- °¡Àå 11¹øÂ°ºÎÅÍ´Â Æ÷Ä¿½Ì ´õ ³»¸®Áö ¾ÊÀ½
+        -- ê°€ì¥ 11ë²ˆì§¸ë¶€í„°ëŠ” í¬ì»¤ì‹± ë” ë‚´ë¦¬ì§€ ì•ŠìŒ
         if (i > 10) then
             focus_idx = i
             break
@@ -39,7 +39,7 @@ function UI_HelpContents(...)
 
     end
 
-    -- ¼±ÅÃµÈ ÅÇ ¸¸Å­ Æ÷Ä¿½Ì À§Ä¡¸¦ ³»·ÁÁÜ
+    -- ì„ íƒëœ íƒ­ ë§Œí¼ í¬ì»¤ì‹± ìœ„ì¹˜ë¥¼ ë‚´ë ¤ì¤Œ
     local pos_y = ori_pos_y + (focus_idx-1) * 65
     container_node:setPositionY(pos_y)
 end

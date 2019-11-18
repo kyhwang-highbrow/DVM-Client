@@ -84,7 +84,7 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
 		vars['defenseLabel']:setString(tostring(defend_cnt))
     end
 
-	-- ³ªÀÇ ´Ğ³×ÀÓ
+	-- ë‚˜ì˜ ë‹‰ë„¤ì„
     local my_nick = struct_match_item:getMyNickName()
     vars['defenseNameLabel']:setString(my_nick)
 	vars['defenseNameLabel']:setVisible(true)
@@ -99,11 +99,11 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
         vars['attackNameLabel']:setVisible(true)
 
 		vars['arrowSprite']:setVisible(true)
-        -- ½Â/ÆĞ/½Â ¼¼ÆÃ
+        -- ìŠ¹/íŒ¨/ìŠ¹ ì„¸íŒ…
         local l_game_result = struct_attack_enemy_match_item:getGameResult()
         self:setGameResult(l_game_result, is_my_clan)
 
-        -- ³²Àº ½Ã°£ ¼¼ÆÃ
+        -- ë‚¨ì€ ì‹œê°„ ì„¸íŒ…
         local end_date = struct_attack_enemy_match_item:getEndDate()
         self:setEndTime(end_date)
     else
@@ -126,13 +126,13 @@ function UI_ClanWarSelectSceneListItem:update(dt)
         return
     end
 
-    -- °ø°İ ³¡³¯ ¶§ ±îÁö ³²Àº ½Ã°£ = °ø°İ ½ÃÀÛ ½Ã°£ + 1½Ã°£
+    -- ê³µê²© ëë‚  ë•Œ ê¹Œì§€ ë‚¨ì€ ì‹œê°„ = ê³µê²© ì‹œì‘ ì‹œê°„ + 1ì‹œê°„
     local cur_time = Timer:getServerTime_Milliseconds()
     local remain_time = (end_time - cur_time)/1000
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
-        vars['lastTimeLabel']:setString(Str('³²Àº °ø°İ ½Ã°£ {1}:{2} ³²À½', hour, min))
+        vars['lastTimeLabel']:setString(Str('ë‚¨ì€ ê³µê²© ì‹œê°„ {1}:{2} ë‚¨ìŒ', hour, min))
         vars['lastTimeLabel']:setVisible(true)
     else
         vars['lastTimeLabel']:setString('')
@@ -176,7 +176,7 @@ function UI_ClanWarSelectSceneListItem_Me:init(data)
     local vars = self:load('clan_war_match_select_item_me.ui')
     self.m_structMatchItem = data
 
-    -- ³ªÀÇ ´Ğ³×ÀÓ
+    -- ë‚˜ì˜ ë‹‰ë„¤ì„
     local my_nick = self.m_structMatchItem:getMyNickName()
     vars['userNameLabel']:setString(my_nick)
 	if (self.m_structMatchItem:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) then

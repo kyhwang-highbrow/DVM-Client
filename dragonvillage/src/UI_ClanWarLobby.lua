@@ -7,12 +7,12 @@ UI_ClanWarLobby = class(PARENT, {
 
 -------------------------------------
 -- function initParentVariable
--- @brief ÀÚ½Ä Å¬·¡½º¿¡¼­ ¹İµå½Ã ±¸ÇöÇÒ °Í
+-- @brief ìì‹ í´ë˜ìŠ¤ì—ì„œ ë°˜ë“œì‹œ êµ¬í˜„í•  ê²ƒ
 -------------------------------------
 function UI_ClanWarLobby:initParentVariable()
-    -- ITopUserInfo_EventListenerÀÇ ¸É¹ö º¯¼öµé ¼³Á¤
+    -- ITopUserInfo_EventListenerì˜ ë§´ë²„ ë³€ìˆ˜ë“¤ ì„¤ì •
     self.m_uiName = 'UI_ClanWarLobby'
-    self.m_titleStr = Str('Å¬·£Àü')
+    self.m_titleStr = Str('í´ëœì „')
 	--self.m_staminaType = 'pvp'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
@@ -35,17 +35,17 @@ function UI_ClanWarLobby:init(ret)
     UIManager:open(self, UIManager.SCENE)
 
 
-    -- ¾À ÀüÈ¯ È¿°ú
+    -- ì”¬ ì „í™˜ íš¨ê³¼
     self:sceneFadeInAction()
 
-    -- backkey ÁöÁ¤
+    -- backkey ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:closeUI() end, 'UI_ClanWarLobby')
 
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
 
-	-- ÃÊ±âÈ­
+	-- ì´ˆê¸°í™”
     self:initUI(ret)
     self:initButton()
     self:refresh()
@@ -57,7 +57,7 @@ function UI_ClanWarLobby:init(ret)
             g_clanWarData:showPromoteGameStartPopup()
         end
 
-		-- ½ÃÁğ º¸»ó ÆË¾÷ (º¸»óÀÌ ÀÖ´Ù¸é)
+		-- ì‹œì¦Œ ë³´ìƒ íŒì—… (ë³´ìƒì´ ìˆë‹¤ë©´)
 		if (g_clanWarData.m_tSeasonRewardInfo) then
 		    local t_info = g_clanWarData.m_tSeasonRewardInfo
 		    UI_ClanWarRewardPopup(t_info)
@@ -77,14 +77,14 @@ function UI_ClanWarLobby:initUI(ret)
 
     local cur_match_day = g_clanWarData.m_clanWarDay
 
-    -- 1~7ÀÏÂ÷¿¡´Â ¸®±× È­¸é
+    -- 1~7ì¼ì°¨ì—ëŠ” ë¦¬ê·¸ í™”ë©´
 	if cur_match_day < 7 then
         local ui_clen_war_league = UI_ClanWarLeague(vars, self.root)
         ui_clen_war_league:refreshUI(nil, ret)
 		ui_clen_war_league.m_closeCB = self.closeUI
 		g_clanWarData:setIsLeague(true)
 
-    -- 8~14ÀÏÂ÷¿¡´Â Åä³Ê¸ÕÆ® È­¸é
+    -- 8~14ì¼ì°¨ì—ëŠ” í† ë„ˆë¨¼íŠ¸ í™”ë©´
 	else
         if (#ret['tournament_info'] == 0) then
             return
@@ -98,10 +98,10 @@ function UI_ClanWarLobby:initUI(ret)
     vars['tournamentMenu']:setVisible(not g_clanWarData:getIsLeague())
     vars['leagueMenu']:setVisible(g_clanWarData:getIsLeague())
 
-	-- Å×½ºÆ®¿ë ¹öÆ°
+	-- í…ŒìŠ¤íŠ¸ìš© ë²„íŠ¼
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
         g_clanWarData:request_testNextDay() 
-        UIManager:toastNotificationRed('´ÙÀ½³¯ÀÌ µÇ¾ú½À´Ï´Ù. ESC·Î ³ª°¬´Ù°¡ ´Ù½Ã ÁøÀÔÇØÁÖ¼¼¿ä')
+        UIManager:toastNotificationRed('ë‹¤ìŒë‚ ì´ ë˜ì—ˆìŠµë‹ˆë‹¤. ESCë¡œ ë‚˜ê°”ë‹¤ê°€ ë‹¤ì‹œ ì§„ì…í•´ì£¼ì„¸ìš”')
     end)  
 end
 

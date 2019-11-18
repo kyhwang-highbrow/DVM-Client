@@ -19,7 +19,7 @@ function UI_ClanWarRewardPopup:init(data)
     self:doActionReset()
     self:doAction(nil, false)
 
-	-- ¹éÅ° ÁöÁ¤
+	-- ë°±í‚¤ ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarRewardPopup')
 end
 
@@ -31,15 +31,15 @@ function UI_ClanWarRewardPopup:initUI(data)
 
 	local struct_clan = g_clanData:getClanStruct()
 
-	-- Å¬·£ ÀÌ¸§
+	-- í´ëœ ì´ë¦„
 	local clan_name = struct_clan:getClanName()
 	vars['clanNameLabel']:setString(clan_name)
 
-    -- Å¬·£ ¸¶½ºÅÍ ´Ğ³×ÀÓ
+    -- í´ëœ ë§ˆìŠ¤í„° ë‹‰ë„¤ì„
     local clan_master = struct_clan:getMasterNick()
     vars['masterNameLabel']:setString(clan_master)
 	
-	-- Å¬·£ ¸¶Å© 
+	-- í´ëœ ë§ˆí¬ 
 	local clan_icon = struct_clan:makeClanMarkIcon()
 	if (clan_icon) then
 		vars['clanMarkNode']:addChild(clan_icon)

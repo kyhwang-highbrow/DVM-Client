@@ -67,12 +67,12 @@ end
 
 -------------------------------------
 -- function makeDefendInfo
--- @breif °ø°İ Á¤º¸ ÃßÀûÇÏ¿© ¹æ¾î Á¤º¸ ¼¼ÆÃ
+-- @breif ê³µê²© ì •ë³´ ì¶”ì í•˜ì—¬ ë°©ì–´ ì •ë³´ ì„¸íŒ…
 -------------------------------------
 function StructClanWarMatch:makeDefendInfo(t_my_struct_match, t_enemy_struct_match)  
     local t_defend_history = {}
     for uid, struct_match_item in pairs(t_my_struct_match) do
-        local enemy_uid = struct_match_item:getAttackingUid() -- °ø°İÁßÀÎ »ó´ë¹æ
+        local enemy_uid = struct_match_item:getAttackingUid() -- ê³µê²©ì¤‘ì¸ ìƒëŒ€ë°©
         if (enemy_uid) then
             local enemy_struct_match_item = t_enemy_struct_match[enemy_uid]
             if (enemy_struct_match_item) then
@@ -148,7 +148,7 @@ end
 
 -------------------------------------
 -- function getStateMemberCnt
--- @breif ÇØ´ç °ø°İÅ¸ÀÔ¿¡ ÇØ´çÇÏ´Â ¸É¹ö°¡ ¸î¸íÀÎÁö
+-- @breif í•´ë‹¹ ê³µê²©íƒ€ì…ì— í•´ë‹¹í•˜ëŠ” ë§´ë²„ê°€ ëª‡ëª…ì¸ì§€
 -------------------------------------
 function StructClanWarMatch:getStateMemberCnt(t_clanwar, state)
     if (not t_clanwar) then

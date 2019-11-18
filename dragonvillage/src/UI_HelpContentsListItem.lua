@@ -30,8 +30,8 @@ function UI_HelpContentsListItem:initUI()
     local vars = self.vars
     local content_name = self.m_contentName -- adventure.ui
     content_name = string.gsub(content_name, '.ui', '') -- adventure
-    -- °í´ë À¯Àû ´øÀü Àß¸ø Â©·Á¼­ ¿¹¿ÜÃ³¸®ÇÔ
-    -- ÈÄ¿¡ ´Ù½Ã Ã³¸®ÇØ¾ßÇÔ
+    -- ê³ ëŒ€ ìœ ì  ë˜ì „ ì˜ëª» ì§¤ë ¤ì„œ ì˜ˆì™¸ì²˜ë¦¬í•¨
+    -- í›„ì— ë‹¤ì‹œ ì²˜ë¦¬í•´ì•¼í•¨
     if (content_name == 'ancient_n') then
         content_name = 'ancient_ruin'
     end
@@ -39,11 +39,11 @@ function UI_HelpContentsListItem:initUI()
     local table_contents =  TABLE:get('table_content_help')
     local t_contents = table_contents[content_name]
 
-    -- ÄÁÅÙÃ÷ ÀÌ¸§
+    -- ì»¨í…ì¸  ì´ë¦„
     local content_name = t_contents['t_name']
     vars['contentsLabel']:setString(Str(content_name))
 
-    -- ÄÁÅÙÃ÷ ÀÌ¹ÌÁö
+    -- ì»¨í…ì¸  ì´ë¯¸ì§€
     local res = t_contents['res']
     local contents_icon = cc.Sprite:create(res)
     if (contents_icon) then
@@ -52,32 +52,32 @@ function UI_HelpContentsListItem:initUI()
         contents_icon:setPositionY(75)
     end
 
-    -- ÄÁÅÙÃ÷ ¼³¸í
+    -- ì»¨í…ì¸  ì„¤ëª…
     local content_desc = t_contents['help_desc']
     vars['infoLabel']:setString(Str(content_desc))
 
-    -- ½ºÅ©¸° ¼¦
+    -- ìŠ¤í¬ë¦° ìƒ·
     local screen_shot_res = t_contents['screenshot']
     local sprite = cc.Sprite:create(screen_shot_res)
     local entire_content_height = 0
     
-    -- ½ºÅ©¸° ¼¦ ÀÖÀ» °æ¿ì
+    -- ìŠ¤í¬ë¦° ìƒ· ìˆì„ ê²½ìš°
     if (sprite) then
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
         vars['screenNode']:addChild(sprite)
         
-        -- ±ÛÀÚ¼ö¿¡ µû¶ó ½ºÅ©·Ñ ¸Ş´º ¼¼·Î Å©±â¸¦ ´Ã¸²
-        -- ÀüÃ¼ ÄÁÅ×ÀÌ³Ê ¼¼·Î ±æÀÌ´Â ½ºÅ©¸°¼¦ + ±ÛÀÚ Å©±â
+        -- ê¸€ììˆ˜ì— ë”°ë¼ ìŠ¤í¬ë¡¤ ë©”ë‰´ ì„¸ë¡œ í¬ê¸°ë¥¼ ëŠ˜ë¦¼
+        -- ì „ì²´ ì»¨í…Œì´ë„ˆ ì„¸ë¡œ ê¸¸ì´ëŠ” ìŠ¤í¬ë¦°ìƒ· + ê¸€ì í¬ê¸°
         local label_height = vars['infoLabel']:getStringHeight() * 1.5
         local content_height = 360
         entire_content_height = label_height + content_height
         vars['infoLabel2']:setVisible(false)
         vars['infoLabel']:setVisible(true)
     
-    -- ½ºÅ©¸° ¼¦ ¾øÀ» °æ¿ì
+    -- ìŠ¤í¬ë¦° ìƒ· ì—†ì„ ê²½ìš°
     else
-        -- ±ÛÀÚ¼ö¿¡ µû¶ó ½ºÅ©·Ñ ¸Ş´º ¼¼·Î Å©±â¸¦ ´Ã¸²
+        -- ê¸€ììˆ˜ì— ë”°ë¼ ìŠ¤í¬ë¡¤ ë©”ë‰´ ì„¸ë¡œ í¬ê¸°ë¥¼ ëŠ˜ë¦¼
         vars['infoLabel']:setVisible(false)
         vars['infoLabel2']:setVisible(true)
         vars['infoLabel2']:setString(Str(content_desc))
@@ -85,24 +85,24 @@ function UI_HelpContentsListItem:initUI()
         entire_content_height = label_height
     end
 
-    -- ÄÁÅ×ÀÌ³Ê¿¡ ¼¼·ÎÅ©±â Àû¿ë
+    -- ì»¨í…Œì´ë„ˆì— ì„¸ë¡œí¬ê¸° ì ìš©
     local ori_size = vars['scrollMenu']:getContentSize()
     ori_size['height'] = entire_content_height
     vars['scrollMenu']:setContentSize(ori_size)
 
-    -- ½ºÅ©·Ñ
-    -- ScrollNode, ScrollMenu µÑ ´Ù ÀÖ¾î¾ß µ¿ÀÛ °¡´É
+    -- ìŠ¤í¬ë¡¤
+    -- ScrollNode, ScrollMenu ë‘˜ ë‹¤ ìˆì–´ì•¼ ë™ì‘ ê°€ëŠ¥
     local scroll_node = vars['scrollNode']
     local scroll_menu = vars['scrollMenu']
 
-    -- ScrollView »çÀÌÁî ¼³Á¤ (ScrollNode »çÀÌÁî)
+    -- ScrollView ì‚¬ì´ì¦ˆ ì„¤ì • (ScrollNode ì‚¬ì´ì¦ˆ)
     local size = scroll_node:getContentSize()
     local scroll_view = cc.ScrollView:create()
     scroll_view:setNormalSize(size)
     scroll_node:setSwallowTouch(false)
     scroll_node:addChild(scroll_view)
 
-    -- ScrollView ¿¡ ´Ş¾Æ³õÀ» ÄÁÅÙÃ÷ »çÀÌÁî(ScrollMenu)
+    -- ScrollView ì— ë‹¬ì•„ë†“ì„ ì»¨í…ì¸  ì‚¬ì´ì¦ˆ(ScrollMenu)
     local target_size = scroll_menu:getContentSize()
     scroll_view:setDockPoint(cc.p(0.5, 1.0))
     scroll_view:setAnchorPoint(cc.p(0.5, 1.0))
@@ -111,8 +111,8 @@ function UI_HelpContentsListItem:initUI()
     scroll_view:setPosition(ZERO_POINT)
     scroll_view:setTouchEnabled(true)
 
-    -- ScrollMenu¸¦ ºÎ¸ğ¿¡¼­ ºĞ¸®ÇÏ¿© ScrollView¿¡ ¿¬°á
-    -- ºĞ¸®ÇÒ ºÎ¸ğ°¡ ¾øÀ» ¶§ ¿¡·¯ ¾øÀ½
+    -- ScrollMenuë¥¼ ë¶€ëª¨ì—ì„œ ë¶„ë¦¬í•˜ì—¬ ScrollViewì— ì—°ê²°
+    -- ë¶„ë¦¬í•  ë¶€ëª¨ê°€ ì—†ì„ ë•Œ ì—ëŸ¬ ì—†ìŒ
     scroll_menu:removeFromParent()
     scroll_view:addChild(scroll_menu)
 
@@ -123,6 +123,6 @@ function UI_HelpContentsListItem:initUI()
     local container_node = scroll_view:getContainer()
     local size_y = size.height - target_size.height
     
-    -- ÃÊ±âÀ§Ä¡ ¼³Á¤ 
+    -- ì´ˆê¸°ìœ„ì¹˜ ì„¤ì • 
     container_node:setPositionY(size_y)
 end

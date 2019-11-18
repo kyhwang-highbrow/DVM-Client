@@ -33,6 +33,6 @@ function UI_ClanWarListItem:click_startBtn()
     local finish_cb = function()
         UI_MatchReadyClanWar()
     end
-    -- ÀÓ½Ã·Î ¾Æ·¹³ª Åë½Å »ç¿ë
+    -- ìž„ì‹œë¡œ ì•„ë ˆë‚˜ í†µì‹  ì‚¬ìš©
     g_arenaData:request_arenaInfo(finish_cb)
 end

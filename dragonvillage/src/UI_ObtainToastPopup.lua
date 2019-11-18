@@ -24,7 +24,7 @@ function UI_ObtainToastPopup:init(l_item)
     UIManager:open(self, UIManager.NORMAL)
 	self.m_uiName = 'UI_ObtainToastPopup'
 
-    -- µîÀå ¾×¼Ç ÁöÁ¤
+    -- ë“±ì¥ ì•¡ì…˜ ì§€ì •
     self.root:setOpacity(0)
     self.root:runAction(cc.Sequence:create(cc.FadeTo:create(0.3, 255), cc.DelayTime:create(0.6), cc.FadeTo:create(0.5, 0)))
 
@@ -63,7 +63,7 @@ function UI_ObtainToastPopup:initUI()
         ui_item.root:runAction(cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3))
 	end
 
-	-- º¸»ó ¾ÆÀÌÄÜµµ Åõ¸íµµ°¡ Àû¿ëµÇ±â À§ÇÑ ÄÚµå
+	-- ë³´ìƒ ì•„ì´ì½˜ë„ íˆ¬ëª…ë„ê°€ ì ìš©ë˜ê¸° ìœ„í•œ ì½”ë“œ
 	doAllChildren(vars['rewardNode'], function(node) node:setCascadeOpacityEnabled(true) end)
 end
 

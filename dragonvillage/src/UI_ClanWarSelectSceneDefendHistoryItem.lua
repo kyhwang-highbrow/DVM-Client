@@ -12,7 +12,7 @@ UI_ClanWarSelectSceneDefendHistoryItem = class(PARENT, {
 function UI_ClanWarSelectSceneDefendHistoryItem:init(data)
     local vars = self:load('clan_war_match_select_defense_item.ui')
 
-	-- ÃÊ±âÈ­
+	-- ì´ˆê¸°í™”
     self:initUI(data)
     self:initButton()
     self:refresh()
@@ -51,7 +51,7 @@ function UI_ClanWarSelectSceneDefendHistoryItem:initUI(data)
 			local date = pl.Date()
 			date:set(end_date/1000)
 
-			-- ³¯Â¥ Æ÷¸Ë ¼¼ÆÃ
+			-- ë‚ ì§œ í¬ë§· ì„¸íŒ…
 			local date_format = pl.Date.Format('HH:MM:SS')
 			local time_str = date_format:tostring(date)
 			vars['timeLogLabel']:setString(time_str)
