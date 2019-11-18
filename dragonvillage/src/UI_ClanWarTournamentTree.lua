@@ -315,12 +315,14 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     end)
 
     if (struct_clan_rank_1) then
-        clan_name1 = struct_clan_rank_1:getClanName() .. clan1['group_stage_no']
+        local clan_name = struct_clan_rank_1:getClanName() or ''
+        clan_name1 = clan_name .. clan1['group_stage_no']
     end
     ui.vars['clanNameLabel1']:setString(clan_name1)
     
     if (struct_clan_rank_2) then
-        clan_name2 = struct_clan_rank_2:getClanName().. clan2['group_stage_no']
+        local clan_name = struct_clan_rank_2:getClanName() or ''
+        clan_name2 = clan_name.. clan2['group_stage_no']
     end
     ui.vars['clanNameLabel2']:setString(clan_name2)
 
@@ -436,17 +438,21 @@ end
 -------------------------------------
 function UI_ClanWarTournamentTree:setRewardBtn()
     local vars = self.vars
-    local my_rank = nil
+    local my_rank = 0
 
     local my_clan_id = g_clanWarData:getMyClanId()
     local struct_tournament = self.m_structTournament
 	local struct_clan_rank = struct_tournament:getClanInfo(clan1_id)
     local t_tournament = struct_tournament:getTournamentInfoByClanId(my_clan_id)
     if (t_tournament) then
-        my_rank = t_tournament['group_stage'] or 0
+        tournament_rank = t_tournament['group_stage'] or 0
     end
+    
+    local my_rank = 0
+    local struct_clanwar_league = self.m_structTournament:getStructClanWarLeague()
+	my_rank = struct_clanwar_league:getMyLeagueRank()
 
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank) end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank, tournament_rank) end)
 end
 
 -------------------------------------
@@ -559,10 +565,13 @@ end
 -------------------------------------
 function UI_ClanWarTournamentTreeListItem:setInProgress()
 	local vars = self.vars
+    vars['todaySprite']:setVisible(false)
 
 	local round_text = vars['roundLabel']:getString()
 	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
 		round_text = round_text .. ' - ' .. Str('진행중')
+        vars['todaySprite']:setVisible(true)
+        vars['roundLabel']:setColor(COLOR['black'])
 	end
 	vars['roundLabel']:setString(round_text)
 end

@@ -10,6 +10,8 @@ StructClanWarTournament = class({
     m_clanWarDay = 'number',
 
 	m_maxRound = 'round', -- 몇 강부터 시작하는지, ex) 64
+
+    m_structClanWarLeague = 'StructClanWarLeague',
 })
 
 local L_ROUND = {64, 32, 16, 8, 4, 2, 1}
@@ -47,6 +49,8 @@ function StructClanWarTournament:init(data)
     if (data['clanwar_day']) then
         self.m_clanWarDay = data['clanwar_day']
     end
+
+    self.m_structClanWarLeague = StructClanWarLeague(data)
 end
 
 -------------------------------------
@@ -289,4 +293,11 @@ function StructClanWarTournament:getMyClanMatchScore()
     end
 
     return my_win_cnt, enemy_win_cnt
+end
+
+-------------------------------------
+-- function getStructClanWarLeague
+-------------------------------------
+function StructClanWarTournament:getStructClanWarLeague()
+    return self.m_structClanWarLeague
 end

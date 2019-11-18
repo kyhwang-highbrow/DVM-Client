@@ -391,18 +391,8 @@ end
 function UI_ClanWarLeague:setRewardBtn()
     local vars = self.vars
     local my_struct_league_item = nil
-	local my_rank = nil
     local struct_clanwar_league = self.m_structLeague
-	local l_rank = struct_clanwar_league:getClanWarLeagueRankList()
-    for _, struct_league_item in ipairs(l_rank) do
-       local my_clan_id = g_clanWarData:getMyClanId()
-       local clan_id = struct_league_item:getClanId()
-       if (my_clan_id == clan_id) then
-            my_struct_league_item = struct_league_item
-			my_rank = struct_league_item:getLeagueRank()
-            break
-       end
-    end
+	local my_rank = struct_clanwar_league:getMyLeagueRank()
 
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_rank) end)
 end

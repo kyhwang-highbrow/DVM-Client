@@ -367,3 +367,21 @@ function StructClanWarLeague:getMyClanMatchScore(_day)
     end
     return my_win_cnt, enemy_win_cnt
 end
+
+-------------------------------------
+-- function getMyLeagueRank
+-------------------------------------
+function StructClanWarLeague:getMyLeagueRank()
+    local l_rank = self:getClanWarLeagueRankList()
+    for _, struct_league_item in ipairs(l_rank) do
+       local my_clan_id = g_clanWarData:getMyClanId()
+       local clan_id = struct_league_item:getClanId()
+       if (my_clan_id == clan_id) then
+            my_struct_league_item = struct_league_item
+			my_rank = struct_league_item:getLeagueRank()
+            break
+       end
+    end
+
+    return my_rank or 0
+end

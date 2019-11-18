@@ -9,14 +9,15 @@ UI_ClanwarRewardInfoPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanwarRewardInfoPopup:init(is_league, _my_rank)
+function UI_ClanwarRewardInfoPopup:init(is_league, _my_rank, _tournament_rank)
     local vars = self:load('clan_war_reward_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
 	local my_rank = _my_rank or 0
+    local tournament_rank = _tournament_rank or 0
 
-	self:initUI(is_league, my_rank)
-	self:initMyRankInfo(is_league, my_rank)
+	self:initUI(is_league, my_rank, tournament_rank)
+	self:initMyRankInfo(is_league, my_rank, tournament_rank)
 	self:initButton()
 
 	-- @UI_ACTION
@@ -31,9 +32,14 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ClanwarRewardInfoPopup:initUI(is_league, _my_rank)
+function UI_ClanwarRewardInfoPopup:initUI(is_league, my_rank, tournament_rank)
     local vars = self.vars
-    local my_rank = _my_rank or 0
+
+    if (not is_league) then
+        if (tournament_rank == 0) then
+            is_league = true
+        end
+    end
 
     -- 클랜전 보상 정보만
     -- 32부터라면, 32강까지만, 그룹 보상이 4위부터면 4위까지만
@@ -104,7 +110,7 @@ end
 -------------------------------------
 -- function initMyRankInfo
 -------------------------------------
-function UI_ClanwarRewardInfoPopup:initMyRankInfo(is_league, my_rank)
+function UI_ClanwarRewardInfoPopup:initMyRankInfo(is_league, my_rank, tournament_rank)
     local vars = self.vars
 	local struct_clan = g_clanData:getClanStruct()
 
@@ -136,15 +142,14 @@ function UI_ClanwarRewardInfoPopup:initMyRankInfo(is_league, my_rank)
 
 	-- 조별리그 순위
 	vars['leagueRankLabel']:setString(my_rank_text)
-
 	-- 토너먼트 순위
 	if (is_league) then
 		vars['tournamentRankLabel']:setString('-')
 	else
-		if (my_rank == 0) then
+		if (tournament_rank == 0) then
 			vars['tournamentRankLabel']:setString('-')
 		else
-			vars['tournamentRankLabel']:setString(Str('{1}강', my_rank))
+			vars['tournamentRankLabel']:setString(Str('{1}강', tournament_rank))
 		end
 	end
 end

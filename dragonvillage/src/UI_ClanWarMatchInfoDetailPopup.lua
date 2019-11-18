@@ -57,6 +57,13 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
      local vars = self.vars
      local struct_league_item = data['clan' .. idx]
 
+     local round = g_clanWarData:getTodayRound()
+     if (round) then
+         vars['roundLabel']:setString(Str('{1}강', round))
+     else
+         vars['roundLabel']:setString(Str('조별리그'))
+     end
+
      local blank_clan = function()
         if (vars['clanNameLabel'..idx]) then
             vars['clanNameLabel'..idx]:setString('-')
@@ -115,13 +122,6 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
 	vars['matchNumLabel' .. idx]:setString(max_member)
 	vars['clanLvExpLabel' .. idx]:setString(clan_lv_exp) 
 	vars['creationLabel' .. idx]:setString(struct_clan_rank['create_date'] or '')
-    
-    local round = g_clanWarData:getTodayRound()
-    if (round) then
-        vars['roundLabel']:setString(Str('{1}강', round))
-    else
-        vars['roundLabel']:setString(Str('조별리그'))
-    end
 end
 
 -------------------------------------
@@ -131,11 +131,10 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
     local vars = self.vars
     local struct_league_item = data['clan' .. idx]
     
-
-     -- 서버에서 임의로 추가한 유령 클랜의 경우
-     if (not struct_league_item['league_clan_info']) then
-        return
-     end
+    -- 서버에서 임의로 추가한 유령 클랜의 경우
+    if (not struct_league_item['league_clan_info']) then
+       return
+    end
 
     if (struct_league_item:isGoastClan()) then
        return
@@ -146,7 +145,7 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
     local set_history
     local win, lose
     local win_cnt 
-    if (match_number == tonumber(data['match_day'])) then
+    if (match_number - 1 <= tonumber(data['match_day'])) then
         -- 그 경기를 몇 처치로 이겼는지
         win_cnt = struct_league_item:getMatchWinCnt(match_number)
         lose = struct_league_item:getGameLose(match_number)

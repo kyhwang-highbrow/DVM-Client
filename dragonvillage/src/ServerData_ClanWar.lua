@@ -98,6 +98,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 			g_clanWarData:setClanInfo(ret['league_clan_info'])
 		else
 			g_clanWarData:setClanInfo(ret['tournament_clan_info'])
+            g_clanWarData:setClanInfo(ret['league_clan_info'])
 		end
         success_cb(ret)
 	end

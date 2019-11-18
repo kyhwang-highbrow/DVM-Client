@@ -8,6 +8,7 @@ StructClanWarMatchItem = class({
     is_defense = 'boolean',          --: 1 or 0 방어덱 배치 여부
     attack_win = 'boolean',          --: 1 or 0 공격 승리 여부
     user_info = 'table',
+    is_end = 'boolean',
 
     -- 공격하면 생기는 값들
     attack_uid = 'string',          --: 공격한 상대방 uid, attack_uid 값이 있으면 공격 시작한 것으로 판단
@@ -81,6 +82,10 @@ function StructClanWarMatchItem:init(data)
 		end 
     end
 
+    if (data['end']) then
+        is_end = data['end']
+    end
+    
     self.m_lDefendHistory = {}
 end
 
@@ -204,8 +209,7 @@ end
 -- function isDoAllGame
 -------------------------------------
 function StructClanWarMatchItem:isDoAllGame()
-    local l_result = self:getGameResult()
-    return (#l_result == 3)
+    return self['is_end']
 end
 
 -------------------------------------
@@ -389,5 +393,6 @@ function StructClanWarMatchItem:getLastDefender()
     local last_idx = #self.m_lDefendHistory
     return self.m_lDefendHistory[last_idx]
 end
+
 
 
