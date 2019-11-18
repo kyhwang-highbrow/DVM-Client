@@ -131,6 +131,16 @@ function UI_Arena:initUI()
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
     self:initTab()
+
+    if (g_arenaData:isWithOutClanInfo()) then
+        vars['clanRankingTabBtn']:setVisible(true)
+        vars['personalRankingTabBtn']:setVisible(true)
+        vars['rankingListNode']:setPositionY(-50)
+        vars['myRankingListNode']:setPositionY(-164)
+    else
+        vars['clanRankingTabBtn']:setVisible(false)
+        vars['personalRankingTabBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------

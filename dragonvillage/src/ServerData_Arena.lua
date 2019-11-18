@@ -729,6 +729,22 @@ function ServerData_Arena:response_playerArenaDeck(l_deck)
 end
 
 -------------------------------------
+-- function isWithOutClanInfo
+-------------------------------------
+function ServerData_Arena:isWithOutClanInfo()
+    local date = pl.Date()
+    date:year(2019)
+    date:month(11)
+    date:day(24)
+    date:hour(23)
+    date:min(59)
+
+    local timestamp = date['time']
+    local cur_time =  Timer:getServerTime()
+    return cur_time > timestamp
+end
+
+-------------------------------------
 -- function makeDragonToken
 -------------------------------------
 function ServerData_Arena:makeDragonToken()
