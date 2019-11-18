@@ -196,6 +196,10 @@ function StructUserInfoClan:makeDungeonInfo(data)
 	-- 클랜 기여도
 	t_dungeon['contribute_exp'] = data['contribute_exp'] or 0
 
+	-- 클랜전 기여도
+	t_dungeon['clanwar_play_cnt'] = data['clanwar_play_cnt'] or 0
+    t_dungeon['clanwar_win_cnt'] = data['clanwar_win_cnt'] or 0
+
     return t_dungeon
 end
 
@@ -289,12 +293,26 @@ function StructUserInfoClan:getClanContribution()
 end
 
 -------------------------------------
+-- function getClanWarText
+-------------------------------------
+function StructUserInfoClan:getClanWarText()
+    local t_dungeon = self.m_dungeonInfo
+    if (not t_dungeon) then 
+        return ''
+    end
+
+    local clanwar_play_cnt = t_dungeon['clanwar_play_cnt'] or 0
+    local clanwar_win_cnt = t_dungeon['clanwar_win_cnt'] or 0
+    return Str('{@dark_brown}클랜전 : {@apricot}{1}회 참가 / {2} 승리', clanwar_play_cnt, clanwar_win_cnt) 
+end
+
+-------------------------------------
 -- function getDungeonPlayText
 -------------------------------------
 function StructUserInfoClan:getDungeonPlayText()
     local param_1 = self:getClanDungeonPlayText()
     local param_2 = self:getAncientPlayText()
-    local param_3 = self:getArenaPlayText()
+    local param_3 = self:getClanWarText()--self:getArenaPlayText()
 	local param_4 = self:getClanContribution()
 
     return string.format('%s\n%s\n%s\n%s', param_1, param_2, param_3, param_4)
