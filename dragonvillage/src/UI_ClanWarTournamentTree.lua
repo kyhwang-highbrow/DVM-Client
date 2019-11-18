@@ -173,13 +173,24 @@ function UI_ClanWarTournamentTree:showPage()
 	local container_node = self.m_scrollView:getContainer()
 	container_node:setPositionY(-600)
 
+	local has_right
+	local has_left
 	if (page_number == 1) then
 		self:showSidePage(false)
+		has_right = true
+		has_left = false
 	elseif (page_number == 2) then
 		self:showCenterPage()
+		has_right = true
+		has_left = true
 	else
 		self:showSidePage(true)
+		has_right = false
+		has_left = true
 	end
+
+	vars['rightMoveBtn']:setVisible(has_right)
+	vars['leftMoveBtn']:setVisible(has_left)
 end
 
 -------------------------------------
@@ -235,6 +246,7 @@ function UI_ClanWarTournamentTree:setFinal()
     local ui = UI()
     ui:load('clan_war_tournament_final_item.ui')
     vars['finalNode']:addChild(ui.root)
+	vars['listItemNode']:setVisible(false)
 
     self:makeFinalItemByRound(ui, 8)
     self:makeFinalItemByRound(ui, 4)
@@ -360,8 +372,10 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     local clan_name2 = ''
     
     local data = {}
-    clan1['tournament_clan_info'] = struct_clan_war_tournament:getTournamentInfoByClanId(clan1_id)
-    clan2['tournament_clan_info'] = struct_clan_war_tournament:getTournamentInfoByClanId(clan2_id)
+    clan1['tournament_clan_info'] = struct_clan_war_tournament:getClanInfo(clan1_id)
+	clan1['round'] = round
+	clan2['round'] = round
+    clan2['tournament_clan_info'] = struct_clan_war_tournament:getClanInfo(clan2_id)
     data['clan1'] = clan1
     data['clan2'] = clan2
     ui.vars['detailBtn']:registerScriptTapHandler(function() 

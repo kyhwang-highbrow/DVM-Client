@@ -80,6 +80,10 @@ function UI_ClanWarLeagueRankInfoPopup:init(struct_league_item)
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueMatchInfoPopup')
 
     self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
 end
 
 -------------------------------------

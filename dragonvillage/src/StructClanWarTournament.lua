@@ -317,3 +317,64 @@ function StructClanWarTournament:isPlayingGame()
 
 	return false
 end
+
+-------------------------------------
+-- function getMemberWinCnt
+-------------------------------------
+function StructClanWarTournament.getMemberWinCnt(struct_tournament_item)
+	if (not struct_tournament_item) then
+		return 0
+	end
+    return struct_tournament_item['member_win_cnt'] or 0
+end
+
+-------------------------------------
+-- function getMemberWinCnt_history
+-------------------------------------
+function StructClanWarTournament.getMemberWinCnt_history(struct_tournament_item, round)
+	if (not struct_tournament_item) then
+		return 0
+	end
+
+    local l_history = struct_tournament_item['win_history'] or {}
+	local max_round = g_clanWarData:getMaxRound()
+	if (max_round == round) then
+		return StructClanWarTournament.getMemberWinCnt(struct_tournament_item)
+	end
+
+	local idx = 1
+	for i = 1,6 do
+		if (max_round == round) then
+			idx = i
+			break
+		end
+		max_round = max_round/2
+	end
+
+	return l_history[idx] or 0
+end
+
+-------------------------------------
+-- function getMemberWinCnt_history
+-------------------------------------
+function StructClanWarTournament.getScore_history(struct_tournament_item, round)
+	if (not struct_tournament_item) then
+		return 0
+	end
+    local l_history = struct_tournament_item['score_history'] or {}
+	local max_round = g_clanWarData:getMaxRound()
+	if (max_round == round) then
+		return struct_tournament_item['score'] or 0
+	end
+	
+	local idx = 1
+	for i = 1,6 do
+		if (max_round == round) then
+			idx = i
+			break
+		end
+		max_round = max_round/2
+	end
+
+	return l_history[idx] or 0
+end

@@ -713,6 +713,11 @@ function ServerData_ClanWar:showPromoteGameStartPopup()
         UIManager:open(ui, UIManager.POPUP)
         g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'clan_war_popup_rival')
 
+		
+		-- @UI_ACTION
+		ui:doActionReset()
+		ui:doAction(nil, false)
+
 	    local attacking_struct_match = struct_match:getMatchMemberDataByUid(attack_uid)
         
         local ui_item = UI_ClanWarSelectSceneListItem(attacking_struct_match)

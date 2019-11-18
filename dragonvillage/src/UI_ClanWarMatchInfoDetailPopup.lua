@@ -19,6 +19,10 @@ function UI_ClanWarMatchInfoDetailPopup:init(data, is_league)
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueMatchInfoPopup')
 
     self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
 end
 
 ------------------------------------
@@ -27,21 +31,23 @@ end
 function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_league)
     local vars = self.vars
 
+	local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
+    for idx, label in ipairs(l_label) do
+        if (vars[label .. '1']) then
+            vars[label .. '1']:setString('-')
+        end
+		if (vars[label .. '2']) then
+            vars[label .. '2']:setString('-')
+        end
+    end
+
     for i = 1, 2 do    
         -- 초기화
         if (vars['clanNameLabel'..i]) then
             vars['clanNameLabel'..i]:setString('-')
         end
 
-        local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
-        for idx, label in ipairs(l_label) do
-            if (vars[label .. idx]) then
-                vars[label .. idx]:setString('-')
-            end
-        end
-
-
-        self:setClanInfoPopup(i, data, is_league)
+		self:setClanInfoPopup(i, data, is_league)
         if (is_league) then
             self:setClanInfoPopup_league(i, data)
         else
@@ -55,7 +61,7 @@ end
 -------------------------------------
 function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
      local vars = self.vars
-     local struct_league_item = data['clan' .. idx]
+     local struct_item = data['clan' .. idx]
 
      local round = g_clanWarData:getTodayRound()
      if (round) then
@@ -68,38 +74,26 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
         if (vars['clanNameLabel'..idx]) then
             vars['clanNameLabel'..idx]:setString('-')
         end
-
-        local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
-        for i, label in ipairs(l_label) do
-            if (vars[label .. idx]) then
-                vars[label .. idx]:setString('-')
-            end
-        end
      end
      
      -- 서버에서 임의로 추가한 유령 클랜의 경우
-     if (not struct_league_item) then
+     if (not struct_item) then
         blank_clan()
         return
      end
 
+	 local struct_clan_rank
      local key = 'league_clan_info'
      if (not is_league) then
-        key = 'tournament_clan_info'
-     end
+        struct_clan_rank = struct_item['tournament_clan_info']
+ 		local max_member = tostring(struct_item['play_member_cnt']) or ''
+		vars['matchNumLabel' .. idx]:setString(max_member)
+     else
+		struct_clan_rank = struct_item:getClanInfo()
+		local max_member = tostring(struct_item:getPlayMemberCnt()) or ''
+		vars['matchNumLabel' .. idx]:setString(max_member)
+	 end
 
-     -- 서버에서 임의로 추가한 유령 클랜의 경우
-     if (not struct_league_item[key]) then
-        blank_clan()
-        return
-     end
-     
-     -- 서버에서 임의로 추가한 유령 클랜의 경우
-     local struct_clan_rank = struct_league_item:getClanInfo()
-     if (not struct_clan_rank) then
-        blank_clan()
-        return
-     end
 
      -- 클랜 이름
      local clan_name = struct_clan_rank:getClanName() or ''
@@ -118,8 +112,6 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
     -- 클랜 정보 (레벨, 경험치, 참여인원)
     local clan_lv = struct_clan_rank:getClanLv() or ''
     local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
-    local max_member = struct_league_item:getPlayMemberCnt()
-	vars['matchNumLabel' .. idx]:setString(max_member)
 	vars['clanLvExpLabel' .. idx]:setString(clan_lv_exp) 
 	vars['creationLabel' .. idx]:setString(struct_clan_rank['create_date'] or '')
 end
@@ -175,6 +167,8 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
                 vars['resultNode2']:setPositionX(pos_x_1)
             end	        
         end
+        vars['resultNode1']:setVisible(true)
+        vars['resultNode2']:setVisible(true)
     else
         vars['resultNode1']:setVisible(false)
         vars['resultNode2']:setVisible(false)
@@ -186,51 +180,34 @@ end
 -------------------------------------
 function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_tournament(idx, data)
     local vars = self.vars
-    local struct_league_item = data['clan' .. idx]
+    local struct_item = data['clan' .. idx]
+	local round = struct_item['round']
+    vars['roundLabel']:setString(Str('{1}강', round))
+	
+	local win_cnt
+	if (round == g_clanWarData:getTodayRound()) then
+		win_cnt = StructClanWarTournament.getMemberWinCnt(struct_item)
+	else
+		win_cnt = StructClanWarTournament.getMemberWinCnt_history(struct_item, round)
+	end
 
-     local blank_clan = function()
-        if (vars['clanNameLabel'..idx]) then
-            vars['clanNameLabel'..idx]:setString('-')
-        end
+	vars['resultScore'..idx]:setString(tostring(win_cnt))
 
-        local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
-        for i, label in ipairs(l_label) do
-            if (vars[label .. idx]) then
-                vars[label .. idx]:setString('-')
-            end
-        end
-     end
-     
-     -- 서버에서 임의로 추가한 유령 클랜의 경우
-     if (not struct_league_item) then
-        blank_clan()
-        return
-     end
+	local set_score = StructClanWarTournament.getScore_history(struct_item, round)
+	vars['setScoreLabel'..idx]:setString(tostring(set_score))
 
-     -- 서버에서 임의로 추가한 유령 클랜의 경우
-     if (not struct_league_item['tournament_clan_info']) then
-        blank_clan()
-        return
-     end
-     
-     -- 서버에서 임의로 추가한 유령 클랜의 경우
-     local struct_clan_rank = struct_league_item:getClanInfo()
-     if (not struct_clan_rank) then
-        blank_clan()
-        return
-     end
 
-     -- 클랜 이름
-     local clan_name = struct_clan_rank:getClanName() or ''
-     if (vars['clanNameLabel'..idx]) then
-        vars['clanNameLabel'..idx]:setString(clan_name)
-     end
+	if (struct_item['is_win'] ~= nil) then
+		local is_win = struct_item['is_win']
+		local pos_x_1 = vars['resultNode1']:getPositionX()
+        local pos_x_2 = vars['resultNode2']:getPositionX()
 
-     -- 클랜 마크
-     local clan_icon = struct_clan_rank:makeClanMarkIcon()
-     if (clan_icon) then
-        if (vars['clanMarkNode'..idx]) then
-            vars['clanMarkNode'..idx]:addChild(clan_icon)
-        end
-    end
+        if (is_win) and (idx == 2) then
+            vars['resultNode1']:setPositionX(pos_x_2)
+            vars['resultNode2']:setPositionX(pos_x_1)
+        end	 
+	else
+		 vars['resultNode1']:setVisible(false)
+         vars['resultNode2']:setVisible(false)
+	end
 end
