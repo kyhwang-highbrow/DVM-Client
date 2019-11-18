@@ -14,6 +14,8 @@ function UI_ClanWarMatchingSceneListItem:init(data)
     local vars = self:load('clan_war_match_scene_item.ui')
     self.m_structMatchItem = data
     self:initUI()
+    
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -24,13 +26,17 @@ function UI_ClanWarMatchingSceneListItem:initUI()
     local struct_match_item = self.m_structMatchItem
 
     -- 승/패 표시
-    local attack_state = struct_match_item:getAttackState()
+    vars['resultSprite']:setVisible(true)
     vars['winSprite']:setVisible(false)
-
+    vars['loseSprite']:setVisible(false)
+    
+    local attack_state = struct_match_item:getAttackState()
     if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_SUCCESS']) then
         vars['winSprite']:setVisible(true)
     elseif (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
         vars['loseSprite']:setVisible(true)
+    else
+        vars['resultSprite']:setVisible(false)
     end
 
     -- 드래곤 초상화
@@ -42,7 +48,6 @@ function UI_ClanWarMatchingSceneListItem:initUI()
     
     local my_uid = g_userData:get('uid')
     if (my_uid == struct_match_item['uid']) then
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         vars['meSprite']:setVisible(true)
         vars['arrowSprite']:setPositionY(5)
         vars['lastTimeLabel']:setVisible(true)
@@ -57,6 +62,11 @@ function UI_ClanWarMatchingSceneListItem:update()
     local vars = self.vars
     local struct_match_item = self.m_structMatchItem
     
+    local my_uid = g_userData:get('uid')
+    if (my_uid ~= struct_match_item['uid']) then
+        return
+    end
+
     local end_time = struct_match_item:getEndDate()
     if (not end_time) then
         vars['lastTimeLabel']:setString('')
@@ -69,7 +79,7 @@ function UI_ClanWarMatchingSceneListItem:update()
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
-        vars['lastTimeLabel']:setString(Str('남은 공격 시간 {1}:{2} 남음', hour, min))
+        vars['lastTimeLabel']:setString(Str('{1}:{2}', hour, min))
     else
         vars['lastTimeLabel']:setString('')
     end 

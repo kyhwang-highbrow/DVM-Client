@@ -7,6 +7,8 @@ UI_ClanWarSelectSceneListItem = class(PARENT,{
         m_structMatchItem = 'StructClanWarMatch',
         m_endTime = 'number',
         m_structMatch = 'number',
+
+        m_noTime = 'boolean',
     })
 
 -------------------------------------
@@ -27,8 +29,13 @@ end
 function UI_ClanWarSelectSceneListItem:initUI()
     local vars = self.vars
     local struct_match_item = self.m_structMatchItem
+end
 
-
+-------------------------------------
+-- function setNoTime
+-------------------------------------
+function UI_ClanWarSelectSceneListItem:setNoTime()
+    self.m_noTime = true
 end
 
 -------------------------------------
@@ -121,6 +128,11 @@ function UI_ClanWarSelectSceneListItem:update(dt)
     local vars = self.vars
     local end_time = self.m_endTime
 
+    if (self.m_noTime) then
+        vars['lastTimeLabel']:setString('')
+        return
+    end
+
     if (not end_time) then
         vars['lastTimeLabel']:setString('')
         return
@@ -132,7 +144,7 @@ function UI_ClanWarSelectSceneListItem:update(dt)
     if (remain_time > 0) then
         local hour = math.floor(remain_time / 3600)
         local min = math.floor(remain_time / 60) % 60
-        vars['lastTimeLabel']:setString(Str('남은 공격 시간 {1}:{2} 남음', hour, min))
+        vars['lastTimeLabel']:setString(Str('{1}:{2}', hour, min))
         vars['lastTimeLabel']:setVisible(true)
     else
         vars['lastTimeLabel']:setString('')

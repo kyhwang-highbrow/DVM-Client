@@ -179,7 +179,7 @@ function UI_ClanWarSelectScene:initMyTableView()
         end
     end
 
-	vars['attackNumLavel']:setString(Str('방어인원 {1}', #_t_my))
+	vars['attackNumLavel']:setString(Str('공격인원 {1}', #_t_my))
     local create_func = function(ui, struct_match_item)
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 

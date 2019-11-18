@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_GameResult_ClanWar
 -------------------------------------
 UI_GameResult_ClanWar = class(PARENT, {
+        m_endDate = 'number',
      })
 
 -------------------------------------
@@ -18,6 +19,8 @@ function UI_GameResult_ClanWar:init(is_success)
 	self:initUI(is_success)
 	self:initButton()
 
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_homeBtn() end, 'UI_GameResult_ClanWar')
 end
@@ -28,6 +31,7 @@ end
 function UI_GameResult_ClanWar:initUI(is_success)
 	local vars = self.vars
 	vars['clanWarMenu']:setVisible(true)
+    vars['normalBtnMenu']:setVisible(false)
 
 	local struct_user_info = g_clanWarData:getEnemyUserInfo()
 	local nick_name = struct_user_info:getNickname()
@@ -37,6 +41,13 @@ function UI_GameResult_ClanWar:initUI(is_success)
 	local struct_user_info = g_clanWarData:getStructUserInfo_Player()
 	local struct_clan_war_match_item = struct_user_info:getClanWarStructMatchItem()
 	struct_clan_war_match_item:setGameResult(is_success)
+    -- 처음에는 통신으로 endDate 받지 않기 때문에 하드코딩
+    if (not self.m_endDate) then
+        local cur_time = Timer:getServerTime_Milliseconds()
+        self.m_endDate = cur_time + 60*60*2*1000
+    end
+
+
 	-- 승/패/승 세팅
     local l_game_result = struct_clan_war_match_item:getGameResult()
 
@@ -53,6 +64,37 @@ function UI_GameResult_ClanWar:initUI(is_success)
         end
     end
 
+    if (is_success) then
+		vars['resultVisual']:changeAni('victory_appear', false)
+		vars['resultVisual']:addAniHandler(function()
+		    vars['resultVisual']:changeAni('victory_idle', true)
+		end)
+	else
+		vars['resultVisual']:changeAni('defeat_appear', false)
+		vars['resultVisual']:addAniHandler(function()
+		    vars['resultVisual']:changeAni('defeat_idle', true)
+		end)		
+	end
+
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_GameResult_ClanWar:update()
+
+    local end_time = self.m_endDate or 0
+
+    local cur_time = Timer:getServerTime_Milliseconds()
+    local remain_time = (end_time - cur_time)/1000
+    if (remain_time > 0) then
+        local hour = math.floor(remain_time / 3600)
+        local min = math.floor(remain_time / 60) % 60
+		self.vars['lastTimeLabel']:setString(Str('남은 공격 시간 {1}:{2}', hour, min))
+	else
+		self.vars['lastTimeLabel']:setString('')
+	end
+	
 end
 
 -------------------------------------
@@ -61,16 +103,55 @@ end
 function UI_GameResult_ClanWar:initButton()
 	local vars = self.vars
 
-	vars['homeBtn']:registerScriptTapHandler(function() UINavigatorDefinition:goTo('lobby') end)
-	vars['okBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
-	--vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn(true) end)
-	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn(true) end)
+	vars['lobbyBtn']:registerScriptTapHandler(function() UINavigatorDefinition:goTo('lobby') end)
+	vars['quickStartBtn']:registerScriptTapHandler(function() self:click_quickBtn(true) end)
+	vars['statsBtn2']:registerScriptTapHandler(function() self:click_statsBtn(true) end)
+	vars['clanWarLobbyBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
+	vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+end
+
+-------------------------------------
+-- function click_readyBtn
+-------------------------------------
+function UI_GameResult_ClanWar:click_readyBtn()
+     local is_possible = self:checkAttackCnt()
+     if (not is_possible) then
+        return
+     end
+
+     local success_cb = function(struct_match)
+		local my_uid = g_userData:get('uid')
+        local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
+		local attack_uid = my_struct_match_item:getAttackingUid()
+		local attacking_struct_match = struct_match:getMatchMemberDataByUid(attack_uid)
+
+		g_clanWarData:click_gotoBattle(my_struct_match_item, attacking_struct_match, goto_select_scene_cb)
+	 end
+
+	 g_clanWarData:readyMatch(success_cb)
+end
+
+-------------------------------------
+-- function checkAttackCnt
+-------------------------------------
+function UI_GameResult_ClanWar:checkAttackCnt()
+     local l_game_result = struct_clan_war_match_item:getGameResult()
+     if (#l_game_result == 3) then
+        UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
+        return false
+     end
+
+     return true
 end
 
 -------------------------------------
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_ClanWar:click_againBtn()
+     local is_possible = self:checkAttackCnt()
+     if (not is_possible) then
+        return
+     end     
      UINavigatorDefinition:goTo('clan_war', true)
 end
 
@@ -86,9 +167,12 @@ end
 -- function click_quickBtn
 -------------------------------------
 function UI_GameResult_ClanWar:click_quickBtn()
-
+     local is_possible = self:checkAttackCnt()
+     if (not is_possible) then
+        return
+     end
 	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
-	local quick_btn = self.vars['quickBtn']
+	local quick_btn = self.vars['quickStartBtn']
 	quick_btn:setEnabled(false)
 
 	-- 게임 시작 실패시 동작

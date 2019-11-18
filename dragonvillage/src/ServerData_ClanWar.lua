@@ -709,6 +709,7 @@ function ServerData_ClanWar:showPromoteGameStartPopup()
 	    local attacking_struct_match = struct_match:getMatchMemberDataByUid(attack_uid)
         
         local ui_item = UI_ClanWarSelectSceneListItem(attacking_struct_match)
+        ui_item:setNoTime()
         ui_item:setStructMatch(struct_match)
         ui.vars['rivalItemNode']:addChild(ui_item.root)
 
