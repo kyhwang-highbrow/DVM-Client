@@ -1882,15 +1882,8 @@ function UINavigatorDefinition:goTo_clan_war(...)
         return
     end
 
-    -- 12 ~ 10시 정산중
     if (g_clanWarData:isLockTime()) then
-        local msg = '시즌이 종료되었습니다.'
-        if (2 <= g_clanWarData.m_clanWarDay) and (g_clanWarData.m_clanWarDay <= 6) then
-            msg = Str('조별리그를 준비중입니다.')
-        elseif (7 <= g_clanWarData.m_clanWarDay) and (g_clanWarData.m_clanWarDay <= 14) then
-            msg = Str('토너먼트를 준비중입니다.')
-        end
-
+        local msg = Str('클랜전 시즌이 종료되었습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return       
     end

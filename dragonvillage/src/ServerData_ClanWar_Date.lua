@@ -81,7 +81,7 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 		return true, msg
 	end
 
-	if (self.m_clanWarDay == 14) then
+	if (self.m_clanWarDay == 1) then
 		local remain_time = g_clanWarData:getRemainSeasonTime()
 		msg = Str('클랜전 시즌이 종료되었습니다.') .. '{@green}' .. Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainStartGameTime()) -- 14일째 시즌 시자가 시간이 이상하게 내려온다
 		return false, msg
@@ -434,20 +434,24 @@ end
 -- function isLockTime
 -------------------------------------
 function ServerData_ClanWar:isLockTime()
-    if (g_clanWarData:getClanWarState() ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-        local cur_time = Timer:getServerTime()
-	    local date = pl.Date()
-	    date:set(cur_time)
-	    date:hour(9)
-        date:min(59)
-        local calculate_start_time = date['time'] or 0
-        
-        date:hour(23)
-        local calculate_end_time = date['time'] or 0
 
-        if (calculate_start_time < cur_time) and (calculate_end_time > cur_time) then
-            return true
-        end
+    if (g_clanWarData:getClanWarState() ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        if (g_clanWarData.m_clanWarDay == 1) then
+			local cur_time = Timer:getServerTime()
+			local date = pl.Date()
+			date:set(cur_time)
+			date:hour(0)
+			date:min(1)
+			local calculate_start_time = date['time'] or 0
+			date:hour(9)
+			date:min(59)
+			local calculate_end_time = date['time'] or 0
+			if (calculate_start_time < cur_time) and (calculate_end_time > cur_time) then
+			    return true
+			end
+		end
+
+		return true
     end
 
     return false
