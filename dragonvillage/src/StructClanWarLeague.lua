@@ -143,11 +143,13 @@ end
 function StructClanWarLeague:getClanWarLeagueRankList()
 	local t_clan_info = self.m_tClanInfo    
     local l_clan_info = table.MapToList(t_clan_info)
-
+    
 	-- 클랜정보가 없는 클랜은 유령클랜으로, 리스트에서 제거
     for idx, struct_league_item in ipairs(l_clan_info) do
         local clan_info = struct_league_item:getClanInfo()
 		if (not clan_info) then
+            table.remove(l_clan_info, idx)
+        elseif (clan_info['id'] == 'loser') then
             table.remove(l_clan_info, idx)
         end
     end

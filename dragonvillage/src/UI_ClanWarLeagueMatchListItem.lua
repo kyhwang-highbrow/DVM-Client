@@ -93,7 +93,21 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
         end
 
         if (vars['scoreLabel' .. idx]) then
-            vars['scoreLabel' .. idx]:setString('0')
+            vars['scoreLabel' .. idx]:setString('')
+        end
+
+        if (idx == 1) then
+            vars['defeatSprite1']:setVisible(true)
+            vars['winSprite2']:setVisible(true)
+        else
+            vars['defeatSprite2']:setVisible(true)
+            vars['winSprite1']:setVisible(true)
+        end
+
+        -- 둘 다 유령 클랜일 경우 다 진 것으로 표기
+        if (vars['defeatSprite1']:isVisible() and vars['defeatSprite2']:isVisible()) then
+            vars['winSprite1']:setVisible(false)
+            vars['winSprite2']:setVisible(false)
         end
      end
      
@@ -105,6 +119,12 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
 
      -- 서버에서 임의로 추가한 유령 클랜의 경우
      if (not struct_league_item['league_clan_info']) then
+        blank_clan()
+        return
+     end
+
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
+     if (not struct_league_item['league_clan_info']['id'] == 'loser') then
         blank_clan()
         return
      end
@@ -150,7 +170,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
 
     -- 미래 경기는 팝업 보여주지 않음
     if (match_number - 1 <= tonumber(data['match_day'])) then
-        vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarMatchInfoDetailPopup(data) end)
+        vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarMatchInfoDetailPopup(data, true) end)
     else
         vars['popupBtn']:registerScriptTapHandler(function() MakeSimplePopup(POPUP_TYPE.OK, Str('공격전 기록이 없습니다.')) end)
         vars['scoreLabel1']:setString('')

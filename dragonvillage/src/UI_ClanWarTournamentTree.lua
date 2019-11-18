@@ -306,6 +306,8 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     local clan_name2 = ''
     
     local data = {}
+    clan1['tournament_clan_info'] = struct_clan_war_tournament:getTournamentInfoByClanId(clan1_id)
+    clan2['tournament_clan_info'] = struct_clan_war_tournament:getTournamentInfoByClanId(clan2_id)
     data['clan1'] = clan1
     data['clan2'] = clan2
     ui.vars['detailBtn']:registerScriptTapHandler(function() 
