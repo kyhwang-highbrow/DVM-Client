@@ -435,6 +435,12 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
             finish_cb(ret)
         end
     end
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-72] = Str('이미 클랜 던전에 입장한 유저가 있습니다.'),
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+
 
     -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
