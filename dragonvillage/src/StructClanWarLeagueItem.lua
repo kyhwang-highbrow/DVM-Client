@@ -294,3 +294,19 @@ function StructClanWarLeagueItem:getMatchSetScore(day)
     local win, lose = l_score[1], l_score[2]
     return tonumber(win) or 0, tonumber(lose) or 0
 end
+
+-------------------------------------
+-- function isGoastClan
+-------------------------------------
+function StructClanWarLeagueItem:isGoastClan()
+    local clan_id = self:getClanId()
+    if (clan_id == 'loser') then
+        return true
+    end
+
+    if (not clan_id) then
+        return true
+    end
+
+    return false
+end

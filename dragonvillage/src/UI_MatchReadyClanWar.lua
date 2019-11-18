@@ -29,6 +29,9 @@ end
 function UI_MatchReadyClanWar:initResult()
     local vars = self.vars
     vars['clanWarMenu']:setVisible(true)
+    vars['startBtn']:setVisible(false)
+    vars['clanWarStartBtn']:setVisible(true)
+    vars['clanWarStartBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 
     -- 승/패/승 세팅
     local l_game_result = self.m_myStructMatchItem:getGameResult()

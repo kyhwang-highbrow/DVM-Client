@@ -12,7 +12,35 @@ UI_ClanWarMatchInfoDetailPopup = class(PARENT, {
 function UI_ClanWarMatchInfoDetailPopup:init(data, is_league)
     local vars = self:load('clan_war_tournament_popup.ui')
     UIManager:open(self, UIManager.POPUP)
-    for i = 1, 2 do
+    
+    self:initUI(data, is_league)
+
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueMatchInfoPopup')
+
+    self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+end
+
+------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_league)
+    local vars = self.vars
+
+    for i = 1, 2 do    
+        -- 초기화
+        if (vars['clanNameLabel'..i]) then
+            vars['clanNameLabel'..i]:setString('-')
+        end
+
+        local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
+        for idx, label in ipairs(l_label) do
+            if (vars[label .. idx]) then
+                vars[label .. idx]:setString('-')
+            end
+        end
+
+
         self:setClanInfoPopup(i, data, is_league)
         if (is_league) then
             self:setClanInfoPopup_league(i, data)
@@ -20,11 +48,6 @@ function UI_ClanWarMatchInfoDetailPopup:init(data, is_league)
             self:setClanInfoPopup_tournament(i, data)
         end
     end
-
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueMatchInfoPopup')
-
-    self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
@@ -33,6 +56,7 @@ end
 function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
      local vars = self.vars
      local struct_league_item = data['clan' .. idx]
+
      local blank_clan = function()
         if (vars['clanNameLabel'..idx]) then
             vars['clanNameLabel'..idx]:setString('-')
@@ -90,7 +114,7 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
     local max_member = struct_league_item:getPlayMemberCnt()
 	vars['matchNumLabel' .. idx]:setString(max_member)
 	vars['clanLvExpLabel' .. idx]:setString(clan_lv_exp) 
-	vars['creationLabel' .. idx]:setString(struct_clan_rank['create_date'])
+	vars['creationLabel' .. idx]:setString(struct_clan_rank['create_date'] or '')
     
     local round = g_clanWarData:getTodayRound()
     if (round) then
@@ -104,10 +128,20 @@ end
 -- function setClanInfoPopup_league
 -------------------------------------
 function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
-     local vars = self.vars
-     local struct_league_item = data['clan' .. idx]
+    local vars = self.vars
+    local struct_league_item = data['clan' .. idx]
+    
 
-     local match_number = data['day'] + 1
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
+     if (not struct_league_item['league_clan_info']) then
+        return
+     end
+
+    if (struct_league_item:isGoastClan()) then
+       return
+    end
+
+    local match_number = data['day'] + 1
     
     local set_history
     local win, lose
