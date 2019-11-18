@@ -40,6 +40,8 @@ function UI_ClanWarLobby:init(ret)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:closeUI() end, 'UI_ClanWarLobby')
+	
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     -- @UI_ACTION
     self:doActionReset()
@@ -49,7 +51,6 @@ function UI_ClanWarLobby:init(ret)
     self:initUI(ret)
     self:initButton()
     self:refresh()
-
 
     self:sceneFadeInAction(function()
         local is_attacking, attacking_uid, end_date = g_clanWarData:isMyClanWarMatchAttackingState()
@@ -77,8 +78,11 @@ function UI_ClanWarLobby:initUI(ret)
 
     local cur_match_day = g_clanWarData.m_clanWarDay
 
+    if (g_clanWarData:getClanWarState() ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        self:setWaitingRoom()
+
     -- 1~7일차에는 리그 화면
-	if cur_match_day < 7 then
+	elseif cur_match_day < 7 then
         local ui_clen_war_league = UI_ClanWarLeague(vars, self.root)
         ui_clen_war_league:refreshUI(nil, ret)
 		ui_clen_war_league.m_closeCB = self.closeUI
@@ -103,6 +107,31 @@ function UI_ClanWarLobby:initUI(ret)
         g_clanWarData:request_testNextDay() 
         UIManager:toastNotificationRed('다음날이 되었습니다. ESC로 나갔다가 다시 진입해주세요')
     end)  
+end
+
+-------------------------------------
+-- function setWaitingRoom
+-------------------------------------
+function UI_ClanWarLobby:setWaitingRoom()
+    local vars = self.vars
+    vars['calculateMenu']:setVisible(true)
+    vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ClanWarLobby:update()
+	local vars = self.vars
+    local open, text = g_clanWarData:getCurStateText_League()
+
+    if (g_clanWarData:getIsLeague()) then
+	    open, text = g_clanWarData:getCurStateText_League()
+    else
+	    open, text = g_clanWarData:getCurStateText_Tournament()
+    end
+	vars['timeLabel']:setString(text)
+    vars['dscLabel']:setString(text)
 end
 
 -------------------------------------

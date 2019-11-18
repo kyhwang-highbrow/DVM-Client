@@ -32,8 +32,6 @@ function UI_ClanWarLeague:init(vars, root)
     self:initUI()
     self:refresh() -- 여기서 m_structLeague을 받음
 	self:initButton()
-
-	root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -397,14 +395,6 @@ function UI_ClanWarLeague:setRewardBtn()
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_rank) end)
 end
 
--------------------------------------
--- function update
--------------------------------------
-function UI_ClanWarLeague:update()
-	local vars = self.vars
-	local open, text = g_clanWarData:getCurStateText_League()
-	vars['timeLabel']:setString(text)
-end
 
 
 

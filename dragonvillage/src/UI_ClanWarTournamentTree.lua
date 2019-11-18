@@ -30,8 +30,6 @@ function UI_ClanWarTournamentTree:init(vars, root)
     self.m_page = 1
     self.m_lPosY = {}
 
-	root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-
     -- 초기화
     self:initUI()
 	self:initButton()
@@ -453,16 +451,6 @@ function UI_ClanWarTournamentTree:setRewardBtn()
 	my_rank = struct_clanwar_league:getMyLeagueRank()
 
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank, tournament_rank) end)
-end
-
--------------------------------------
--- function update
--------------------------------------
-function UI_ClanWarTournamentTree:update()
-	local vars = self.vars
-
-	local open, text = g_clanWarData:getCurStateText_Tournament()
-	vars['timeLabel']:setString(text)
 end
 
 
