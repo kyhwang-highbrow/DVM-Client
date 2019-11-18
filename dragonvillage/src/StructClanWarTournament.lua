@@ -58,7 +58,7 @@ end
 -------------------------------------
 function StructClanWarTournament:makeTournamentTable(l_tournament)
     for idx, data in ipairs(l_tournament) do
-        local clan_id = data['id'] -- N강
+        local clan_id = data['clan_id'] -- N강
         self.m_tTournament[clan_id] = data
     end
 end

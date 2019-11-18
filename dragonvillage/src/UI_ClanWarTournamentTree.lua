@@ -13,6 +13,8 @@ UI_ClanWarTournamentTree = class({
         m_maxRound = 'number',
 
 		m_page = 'number',
+        m_isLeagueMode = 'boolean',
+		m_makeLastLeague = 'boolean',
      })
 
 local leaf_width = 260 + 45
@@ -29,6 +31,7 @@ function UI_ClanWarTournamentTree:init(vars, root)
     self.m_maxRound = 0
     self.m_page = 1
     self.m_lPosY = {}
+    self.m_isLeagueMode = false
 
     -- 초기화
     self:initUI()
@@ -44,7 +47,7 @@ function UI_ClanWarTournamentTree:initButton()
 	vars['leftMoveBtn']:registerScriptTapHandler(function() self:click_moveBtn(-1) end)
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
-
+    vars['matchTypeBtn']:registerScriptTapHandler(function() self:showLastLeague() end)
 
     -- 시즌이 끝났을 경우, 전투시작 버튼 보여주지 않음
 	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
@@ -58,6 +61,50 @@ end
 function UI_ClanWarTournamentTree:initUI()
 	local vars = self.vars
     self:initScroll()
+
+    vars['matchTypeBtn']:setVisible(true)
+end
+
+-------------------------------------
+-- function showLastLeague
+-------------------------------------
+function UI_ClanWarTournamentTree:showLastLeague()
+	local vars = self.vars
+    
+    if (self.m_isLeagueMode) then
+        self.m_isLeagueMode = false
+    else
+        self.m_isLeagueMode = true
+    end 
+
+    vars['leagueMenu']:setVisible(self.m_isLeagueMode)
+	vars['tournamentMenu']:setVisible(not self.m_isLeagueMode)
+	vars['startBtn']:setVisible(not self.m_isLeagueMode)
+	vars['myClanSprite']:setVisible(self.m_isLeagueMode)
+
+	local struct_league = self.m_structTournament:getStructClanWarLeague()
+	local team_number = struct_league:getMyClanTeamNumber()
+	vars['myClanLabel']:setString(Str('{1}조', team_number))
+	
+	if (self.m_isLeagueMode) then
+		vars['matchTypeLabel']:setString(Str('조별리그'))
+	else
+		vars['matchTypeLabel']:setString(Str('토너먼트'))
+	end
+
+	-- 한 번 만들었다면 더 이상 만들지 않는다.
+	if (self.m_makeLastLeague) then
+		return
+	end
+    
+    if (struct_league) then
+        ui = UI_ClanWarLeague(vars)
+        ui:refreshUI(nil, struct_league, true)
+        ui:showOnlyMyLeague()
+		vars['startBtn']:setVisible(not self.m_isLeagueMode)
+    end
+
+	self.m_makeLastLeague = true
 end
 
 -------------------------------------

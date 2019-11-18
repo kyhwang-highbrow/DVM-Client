@@ -111,9 +111,16 @@ function UI_ClanWarLeague:setMatchList()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_list, false)
 
+	-- 6일째 후는 토너먼트, 토너먼트에서 리그를 호출했다는 것은 지난 리그 정보 보여주기 위함
+	-- 맨 위를 포커싱해줌
+	local day = struct_clanwar_league.m_matchDay
+	if (day > 6) then
+		day = 1
+	end
+
     -- 일단 하드코딩
     local l_pos_y = {-754, -510, -264, -30, -30}
-    local match_day = math.max(struct_clanwar_league.m_matchDay, 2)
+    local match_day = math.max(day, 2)
     match_day = math.min(match_day, 6)
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view.m_scrollView:setContentOffset(cc.p(0, l_pos_y[match_day - 1]), animated)
@@ -185,28 +192,40 @@ end
 -------------------------------------
 -- function refreshUI
 -------------------------------------
-function UI_ClanWarLeague:refreshUI(team, ret)
+function UI_ClanWarLeague:refreshUI(team, ret, show_only_my_league)
 	local vars = self.vars
 
-	self.m_structLeague = StructClanWarLeague(ret)
-    self.m_todayMatch = ret['clanwar_day']
+	if (show_only_my_league) then
+		self.m_structLeague = ret
+    else
+		self.m_structLeague = StructClanWarLeague(ret)
+	end
+	self.m_todayMatch = g_clanWarData.m_clanWarDay
 	self.m_teamCnt = g_clanWarData:getEntireGroupCnt()
 
 	-- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
 	vars['allRankTabMenu']:removeAllChildren()
 	
-	local l_clan_info = ret['league_clan_info'] 
-	if (not l_clan_info) then
-		return
-	end
-	
-	-- 한 번에 12이상 내려왔을 경우 전체가 내려온 것으로 판단
-    local is_all = false
-	if (#l_clan_info > 12) then -- 임시
-		self:refreshAllLeagueUI(ret)
-        is_all = true
+	local is_all = false
+	if (not show_only_my_league) then
+		local l_clan_info = ret['league_clan_info'] 
+		if (not l_clan_info) then
+			return
+		end
+		
+		-- 한 번에 12이상 내려왔을 경우 전체가 내려온 것으로 판단
+		is_all = false
+		if (#l_clan_info > 12) then -- 임시
+		    is_all = true
+		end
 	else
-		self:refreshLeagueUI(team, ret)
+		is_all = false
+	end
+
+	if (is_all) then
+		self:refreshAllLeagueUI()
+	else
+		self:refreshLeagueUI()
 	end
 
     vars['allRankTabMenu']:setVisible(is_all)
@@ -254,7 +273,7 @@ end
 -------------------------------------
 -- function refreshLeagueUI
 -------------------------------------
-function UI_ClanWarLeague:refreshLeagueUI(ret)
+function UI_ClanWarLeague:refreshLeagueUI()
 	local vars = self.vars
 
     -- 랭크, 일정, 버튼 정보 갱신
@@ -298,7 +317,7 @@ end
 -------------------------------------
 -- function refreshAllLeagueUI
 -------------------------------------
-function UI_ClanWarLeague:refreshAllLeagueUI(ret)
+function UI_ClanWarLeague:refreshAllLeagueUI()
 	local vars = self.vars
 	vars['allRankTabMenu']:removeAllChildren()
 	  
@@ -394,6 +413,17 @@ function UI_ClanWarLeague:setRewardBtn()
 
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_rank) end)
 end
+
+-------------------------------------
+-- function showOnlyMyLeague
+-------------------------------------
+function UI_ClanWarLeague:showOnlyMyLeague()
+    local vars = self.vars
+    vars['allRankTabBtn']:setVisible(false)
+    vars['leagueBtnMenu']:setVisible(false)
+    vars['startBtn']:setVisible(false)
+end
+
 
 
 

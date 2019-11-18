@@ -38,7 +38,9 @@ function UI_ClanwarRewardInfoPopup:initUI(is_league, my_rank, tournament_rank)
     if (not is_league) then
         if (tournament_rank == 0) then
             is_league = true
-        end
+        else
+			my_rank = tournament_rank
+		end
     end
 
     -- 클랜전 보상 정보만
