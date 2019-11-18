@@ -153,7 +153,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
     local set_history
     local win, lose
     local win_cnt
-    if (match_number == tonumber(data['match_day'])) then
+    if (match_number - 1 == tonumber(data['match_day'])) then
         -- 그 경기를 몇 처치로 이겼는지
         win_cnt = struct_league_item:getMatchWinCnt(match_number)       
     else
