@@ -362,7 +362,7 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
         return
     end
     
-    local struct_user_info = StructUserInfoArena()
+    local struct_user_info = StructUserInfoClanWar()
 
     -- 疫꿸퀡???醫? ?類ｋ궖
     struct_user_info.m_uid = data['uid']

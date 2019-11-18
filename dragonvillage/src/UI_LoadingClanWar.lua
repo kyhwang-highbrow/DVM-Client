@@ -24,6 +24,7 @@ function UI_LoadingClanWar:initUI()
 
 	vars['arenaVisual']:setVisible(true)
 	vars['challengeModeVisual']:setVisible(false)
+    vars['clanWarBgSprite']:setVisible(true)
 
 	-- 플레이어
     do
@@ -70,7 +71,6 @@ end
 function UI_LoadingClanWar:initUserInfo(direction, struct_user_info)
 	local vars = self.vars
     local struct_clan = struct_user_info:getStructClan()
-    local icon
 
 	local idx
     if (direction == 'left') then
@@ -79,7 +79,12 @@ function UI_LoadingClanWar:initUserInfo(direction, struct_user_info)
         idx = 2
     end
 
+    
     -- 티어
+	local icon = struct_user_info:getLastTierIcon()
+	if (icon) then
+		vars['tierNode' .. idx]:addChild(icon)
+	end
 
     -- 랭킹
     vars['rankLabel' .. idx]:setString('')
@@ -91,7 +96,7 @@ function UI_LoadingClanWar:initUserInfo(direction, struct_user_info)
     local clan_name = struct_clan and struct_clan:getClanName() or ''
     vars['clanLabel' .. idx]:setString(clan_name)
 
-    icon = struct_clan and struct_clan:makeClanMarkIcon()
+    local icon = struct_clan and struct_clan:makeClanMarkIcon()
     if (icon) then
         vars['markNode' .. idx]:addChild(icon)
     end

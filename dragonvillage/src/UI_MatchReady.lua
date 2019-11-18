@@ -51,6 +51,7 @@ end
 -------------------------------------
 function UI_MatchReady:initUI()
     local vars = self.vars
+    vars['clanWarBgSprite']:setVisible(true)
 
     self:initStaminaInfo()
 
