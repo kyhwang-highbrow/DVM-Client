@@ -135,6 +135,8 @@ end
 -- function checkAttackCnt
 -------------------------------------
 function UI_GameResult_ClanWar:checkAttackCnt()
+     local struct_user_info = g_clanWarData:getStructUserInfo_Player()
+	 local struct_clan_war_match_item = struct_user_info:getClanWarStructMatchItem()
      local l_game_result = struct_clan_war_match_item:getGameResult()
      if (#l_game_result == 3) then
         UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
