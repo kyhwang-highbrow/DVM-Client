@@ -63,6 +63,7 @@ function UI_ClanWarTournamentTree:initUI()
     self:initScroll()
 
     vars['matchTypeBtn']:setVisible(true)
+	vars['matchTypeLabel']:setString(Str('토너먼트'))
 end
 
 -------------------------------------
@@ -80,6 +81,7 @@ function UI_ClanWarTournamentTree:showLastLeague()
     vars['leagueMenu']:setVisible(self.m_isLeagueMode)
 	vars['tournamentMenu']:setVisible(not self.m_isLeagueMode)
 	vars['startBtn']:setVisible(not self.m_isLeagueMode)
+	self:checkStartBtn()
 	vars['myClanSprite']:setVisible(self.m_isLeagueMode)
 
 	local struct_league = self.m_structTournament:getStructClanWarLeague()
@@ -101,7 +103,6 @@ function UI_ClanWarTournamentTree:showLastLeague()
         ui = UI_ClanWarLeague(vars)
         ui:refreshUI(nil, struct_league, true)
         ui:showOnlyMyLeague()
-		vars['startBtn']:setVisible(not self.m_isLeagueMode)
     end
 
 	self.m_makeLastLeague = true
@@ -120,6 +121,14 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
     
     self:showPage()
     self:setRewardBtn()
+	self:checkStartBtn()
+end
+
+-------------------------------------
+-- function checkStartBtn
+-------------------------------------
+function UI_ClanWarTournamentTree:checkStartBtn()
+	local vars = self.vars
 
 	-- 내 클랜이 토너먼트 진출하지 못했을 경우, 전투시작 버튼 보여주지 않음
 	local my_clan_id = g_clanWarData:getMyClanId()
@@ -129,9 +138,9 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
 	end
     
     local my_clan_id = g_clanWarData:getMyClanId()
-    local has_my_clan = self.m_structTournament:isContainClan(my_clan_id)
+    local is_playing = self.m_structTournament:isPlayingGame(my_clan_id)
     -- 내 클랜이 진출하지 않았을 경우, 전투시작 버튼 보여주지 않음
-    vars['startBtn']:setVisible(has_my_clan)
+    vars['startBtn']:setVisible(is_playing)
 end
 
 -------------------------------------
