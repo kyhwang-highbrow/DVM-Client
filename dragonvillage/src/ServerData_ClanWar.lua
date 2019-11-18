@@ -69,14 +69,14 @@ end
 function ServerData_ClanWar:applyClanWarReward(ret)
 	if (ret['reward_clan_info']) then
 		
-		self.seasonRewardInfo = {}
-		self.seasonRewardInfo['reward_clan_info'] = ret['reward_clan_info']
+		self.m_tSeasonRewardInfo = {}
+		self.m_tSeasonRewardInfo['reward_clan_info'] = ret['reward_clan_info']
 		if (ret['is_tournament']) then
-			self.seasonRewardInfo['is_tournament'] = ret['is_tournament']
+			self.m_tSeasonRewardInfo['is_tournament'] = ret['is_tournament']
 		end
 
 		if (ret['last_clanwar_rank']) then
-			self.seasonRewardInfo['last_clanwar_rank'] = ret['last_clanwar_rank']
+			self.m_tSeasonRewardInfo['last_clanwar_rank'] = ret['last_clanwar_rank']
 		end
 	end
 end

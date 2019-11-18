@@ -45,18 +45,19 @@ function UI_ClanWarRewardPopup:initUI(data)
 		vars['clanMarkNode']:addChild(clan_icon)
 	end
 	
-	local l_reward = g_claWarData.seasonRewardInfo['reward_clan_info']
+	local l_reward = g_clanWarData.m_tSeasonRewardInfo['reward_clan_info']
 	for i, data in ipairs(l_reward) do
 		local item_id = data['item_id']
 		local item_cnt = data['count']
 
-		local ui = UI_ItemCard(item_id, 0)
+		local ui = UI_ItemCard(item_id, item_cnt)
+        ui.root:setScale(0.7)
 		vars['rewardNode'..i]:addChild(ui.root)
-		vars['rewardLabel'..i]:setString(tostring(item_cnt))
+		vars['rewardLabel'..i]:setString('')
 	end
 
-	local is_tournament = g_claWarData.seasonRewardInfo['is_tournament']
-	local last_clanwar_rank = g_claWarData.seasonRewardInfo['last_clanwar_rank']
+	local is_tournament = g_clanWarData.m_tSeasonRewardInfo['is_tournament']
+	local last_clanwar_rank = g_clanWarData.m_tSeasonRewardInfo['last_clanwar_rank']
 	local category = 'clanwar_league'
 	if (is_tournament) then
 		category = 'clanwar_tournament'
@@ -76,7 +77,8 @@ function UI_ClanWarRewardPopup:initUI(data)
 	vars['rankLabel']:setString(Str(last_rank_name))
 	local exp_cnt = t_cur_reward['clan_exp'] or 0
 	local ui = UI_ItemCard('clan_exp', exp_cnt)
+    ui.root:setScale(0.7)
 	vars['rewardNode2']:addChild(ui.root)
-	vars['rewardLabel2']:setString(last_rank_name)
+	vars['rewardLabel2']:setString('')
 	vars['okBtn']:registerScriptTapHandler(function() self:close() end)
 end
