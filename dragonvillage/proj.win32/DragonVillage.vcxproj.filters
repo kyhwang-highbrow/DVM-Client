@@ -4330,6 +4330,9 @@
     <None Include="..\src\UI_ClanWarRewardPopup.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarMatchInfoDetailPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

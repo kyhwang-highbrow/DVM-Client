@@ -1411,6 +1411,7 @@ local t_module = {
 	'UI_ClanWarLeagueMatchListItem',
     'UI_ClanWarLeague',
     'UI_ClanWarTest',
+    'UI_ClanWarMatchInfoDetailPopup',
     'UI_ClanWarMatchingSceneListItem',
     'UI_ClanWarMatchingScene',
     'UI_ClanWarSelectSceneListItem',

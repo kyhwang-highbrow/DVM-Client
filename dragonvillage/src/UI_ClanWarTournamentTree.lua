@@ -47,6 +47,7 @@ function UI_ClanWarTournamentTree:initButton()
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
 
+
     -- 시즌이 끝났을 경우, 전투시작 버튼 보여주지 않음
 	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
 		vars['startBtn']:setVisible(false)
@@ -304,6 +305,13 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     local clan_name1 = ''
     local clan_name2 = ''
     
+    local data = {}
+    data['clan1'] = clan1
+    data['clan2'] = clan2
+    ui.vars['detailBtn']:registerScriptTapHandler(function() 
+        UI_ClanWarMatchInfoDetailPopup(data) 
+    end)
+
     if (struct_clan_rank_1) then
         clan_name1 = struct_clan_rank_1:getClanName() .. clan1['group_stage_no']
     end
