@@ -429,3 +429,39 @@ function ServerData_ClanWar:getTodayRound(next_day)
 	local t_day = {[7] = 64, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
 	return t_day[day]
 end
+
+-------------------------------------
+-- function isLockTime
+-------------------------------------
+function ServerData_ClanWar:isLockTime()
+    if (g_clanWarData:getClanWarState() ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        local cur_time = Timer:getServerTime()
+	    local date = pl.Date()
+	    date:set(cur_time)
+	    date:hour(9)
+        date:min(59)
+        local calculate_start_time = date['time'] or 0
+        
+        date:hour(23)
+        local calculate_end_time = date['time'] or 0
+
+        if (calculate_start_time < cur_time) and (calculate_end_time > cur_time) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isWaitingTime
+-------------------------------------
+function ServerData_ClanWar:isWaitingTime()
+    if (g_clanWarData:getClanWarState() ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        if (not g_clanWarData:isLockTime()) then
+            return true
+        end
+    end
+
+    return false
+end
