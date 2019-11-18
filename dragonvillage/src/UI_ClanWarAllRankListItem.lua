@@ -51,11 +51,14 @@ function UI_ClanWarAllRankListItemOfItem:init(struct_league_item)
     local vars = self:load('clan_war_lobby_item_all_rank_02.ui')
 
     if (not struct_league_item) then
+        vars['clanNameLabel']:setString(Str('대전 상대 없음'))
+        vars['rankLabel']:setString('')
+        vars['scoreLabel']:setString('')
         return
     end
 
     if (struct_league_item['league_info']['clan_id'] == 'loser') then
-        vars['clanNameLabel']:setString('')
+        vars['clanNameLabel']:setString(Str('대전 상대 없음'))
         vars['rankLabel']:setString('')
         vars['scoreLabel']:setString('')
         return

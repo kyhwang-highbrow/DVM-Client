@@ -84,7 +84,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
      local match_number = data['day'] + 1
      local blank_clan = function()
         if (vars['clanNameLabel'..idx]) then
-            vars['clanNameLabel'..idx]:setString('-')
+            vars['clanNameLabel'..idx]:setString(Str('대전 상대 없음'))
         end
 
 		-- 정보가 없다면 유령 클랜으로 패배 처리
