@@ -243,25 +243,18 @@ end
 -------------------------------------
 function UI_GameResult_ClanWar:startGame()
     local stage_id = CLAN_WAR_STAGE_ID
-	local deck_name = 'clanwar'
+	local deck_name = g_deckData:getSelectedDeckName()
     local combat_power = g_deckData:getDeckCombatPower(deck_name)
-	local scene = SceneGameClanWar()
-    scene:runScene()
-	--[[
-	local function finish_cb(game_key)
-		-- 연속 전투일 경우 횟수 증가
-		if (g_autoPlaySetting:isAutoPlay()) then
-			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
-		end
 
+	local function finish_cb(ret)
 		local stage_name = 'stage_' .. stage_id
-		local scene = SceneGame(game_key, stage_id, stage_name, false)
+		local scene = SceneGameClanWar(ret['gamekey'], stage_id, stage_name, false)
 		scene:runScene()
 	end
 
-    local game_mode = g_stageData:getGameMode(stage_id)
+    local enemy_user_info = g_clanWarData:getEnemyUserInfo()
+    local enemy_uid = enemy_user_info:getUid()
 
-    g_stageData:requestGameStart(stage_id, deck_name, combat_power, finish_cb, fail_cb)
-	--]]
+    ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
 end
 

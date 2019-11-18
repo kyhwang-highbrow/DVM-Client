@@ -358,8 +358,27 @@ function UI_ClanWarLeague:click_gotoMatch()
 	local struct_league = self.m_structLeague
     local my_win_cnt, enemy_win_cnt = struct_league:getMyClanMatchScore()
 
-    local success_cb = function(t_my_struct_match, t_enemy_struct_match)
-        local ui_clan_war_matching = UI_ClanWarMatchingScene(t_my_struct_match, t_enemy_struct_match)
+    local success_cb = function(t_my_struct_match)
+        local t_clan = t_my_struct_match:getEnemyMatchData()
+        for _, v in pairs(t_clan) do
+            struct_match_item = v
+            break
+        end
+
+        if (not struct_match_item) then
+            return
+        end
+
+        local clan_id = struct_match_item:getClanId()
+        if (not clan_id) then
+            return
+        end
+
+        if (clan_id == 'loser') then
+            return
+        end
+
+        local ui_clan_war_matching = UI_ClanWarMatchingScene(t_my_struct_match)
         ui_clan_war_matching:setScore(my_win_cnt, enemy_win_cnt)
     end
 

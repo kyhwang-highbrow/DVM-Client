@@ -13,6 +13,7 @@ function SceneGameClanWar:init(game_key, stage_id, stage_name, develop_mode, fri
     self.m_stageName = 'stage_clanwar'
     self.m_bDevelopMode = develop_mode
     self.m_bFriendMatch = friend_match or false
+    self.m_gameKey = game_key
 
     self.m_sceneName = 'SceneGameClanWar'
 
