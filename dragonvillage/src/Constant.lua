@@ -89,6 +89,7 @@ EMPTY_PNG = 'res/common/empty.png'
 EMPTY_TABLE = {}
 ZERO_POINT = cc.p(0, 0)
 CENTER_POINT = cc.p(0.5, 0.5)
+TOP_CENTER = cc.p(0.5, 1.0)
 ONE_POINT = cc.p(1, 1)
 
 EQUATION_FUNC = {}

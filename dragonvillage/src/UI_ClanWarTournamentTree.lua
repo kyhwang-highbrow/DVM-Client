@@ -28,7 +28,7 @@ local L_ROUND = {64, 32, 16, 8, 4, 2}
 -------------------------------------
 function UI_ClanWarTournamentTree:init(vars, root)
     self.vars = vars
-    self.m_maxRound = 0
+    self.m_maxRound = g_clanWarData:getMaxRound()
     self.m_page = 1
     self.m_lPosY = {}
     self.m_isLeagueMode = false
@@ -119,6 +119,27 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
     local is_my_clan_left = self.m_structTournament:getMyClanLeft()
     g_clanWarData:setIsMyClanLeft(is_my_clan_left)
     
+	-- 현재 라운드에 포커싱
+    -- 현재 라운드에 내가 있다면 포커싱
+    local today_round = g_clanWarData:getTodayRound()
+    if (today_round <= 8) then
+        self.m_page = 2
+    else
+        -- 오른쪽/왼쪽 페이지인지 판별
+        -- 인덱스가 절반보다 클 경우 오른쪽
+        local l_list = self.m_structTournament:getTournamentListByRound(today_round)
+        local my_clan_id = g_clanWarData:getMyClanId()
+        for idx, data in ipairs(l_list) do
+            if (my_clan_id == data['clan_id']) then
+                if (idx > (#l_list)/2) then
+                    self.m_page = 3
+                else
+                    self.m_page = 1
+                end
+            end
+        end
+    end
+
     self:showPage()
     self:setRewardBtn()
 	self:checkStartBtn()
@@ -169,10 +190,6 @@ function UI_ClanWarTournamentTree:showPage()
 	vars['finalNode']:removeAllChildren()
 	self.m_scrollMenu:removeAllChildren()
     vars['listItemNode']:setVisible(true)
-
-    -- 컨테이너 위치 초기화
-	local container_node = self.m_scrollView:getContainer()
-	container_node:setPositionY(-600)
 
 	local has_right
 	local has_left
@@ -283,8 +300,6 @@ end
 function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     local vars = self.vars
     local struct_clan_war_tournament = self.m_structTournament
-	self.m_maxRound = struct_clan_war_tournament:getMaxRound()
-
     local l_list = struct_clan_war_tournament:getTournamentListByRound(round)
     
     local clan1 = {}
@@ -330,9 +345,11 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
             -- 클랜 2개를 묶어서 하나의 아이템 생성 (토너먼트 트리 잎)
             if (func_get_is_valid(idx)) then
                 local ui = self:makeTournamentLeaf(round, item_idx, clan1, clan2)
+
                 if (ui) then
 					local pos_x = func_get_pos_x(round_idx, leaf_width)
-                    ui.root:setPositionX(pos_x)
+                    ui.root:setDockPoint(TOP_CENTER)
+					ui.root:setPositionX(pos_x)
                     self.m_scrollMenu:addChild(ui.root)
                     item_idx = item_idx + 1
 
@@ -351,6 +368,22 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
             end
         end
     end
+
+	local today_round = g_clanWarData:getTodayRound()
+	if (round ~= today_round) then
+		return
+	end
+
+	local container_node = self.m_scrollView:getContainer()
+	local my_clan_id = g_clanWarData:getMyClanId()
+	for idx, data in ipairs(l_list) do
+	    -- 내 클랜에 포커싱
+	    if (data['clan_id'] == my_clan_id) then
+	        local pos_y = self.m_lPosY[math.floor(idx/2)] or 0
+	        container_node:setPositionY(pos_y - 200)
+	        return
+	    end
+	end
 end
 
 -------------------------------------
@@ -372,6 +405,11 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     local clan_name1 = ''
     local clan_name2 = ''
     
+	local my_clan_id = g_clanWarData:getMyClanId()
+    if (clan1_id == my_clan_id) or (clan2_id == my_clan_id) then
+        ui.vars['meClanSprite']:setVisible(true)
+    end
+
     local data = {}
     clan1['tournament_clan_info'] = struct_clan_war_tournament:getClanInfo(clan1_id)
 	clan1['round'] = round
@@ -432,9 +470,10 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 	end
 
     local pos_y = 0
+	local first_pos = -60
     -- 첫 경기일 경우
     if (round == self.m_maxRound) then
-        pos_y = 400 + -math.ceil(item_idx/2 - 1) * term + -(item_idx - 1) * width  
+        pos_y = first_pos + -math.ceil(item_idx/2 - 1) * term + -(item_idx - 1) * width  
         self.m_lPosY[item_idx] = pos_y
         ui.root:setPositionY(pos_y)
         return ui
@@ -456,6 +495,14 @@ function UI_ClanWarTournamentTree:initScroll()
     local vars = self.vars
     local scroll_node = self.vars['tournamentScrollNode']
     local scroll_menu = self.vars['tournamentScrollMenu']
+	
+	local ori_size = scroll_menu:getContentSize()
+	if (self.m_maxRound == 64) then
+		ori_size['height'] = 2000
+    else
+		ori_size['height'] = 1000
+	end
+	scroll_menu:setContentSize(ori_size)
 
     -- ScrollView 사이즈 설정 (ScrollNode 사이즈)
     local size = scroll_node:getContentSize()
@@ -485,6 +532,13 @@ function UI_ClanWarTournamentTree:initScroll()
 
     self.m_scrollMenu = scroll_menu
     self.m_scrollView = scroll_view
+
+	local container_node = self.m_scrollView:getContainer()
+	if (self.m_maxRound == 64) then
+		container_node:setPositionY(-1500)
+	else
+		container_node:setPositionY(-500)		
+	end
 end
 
 -------------------------------------
