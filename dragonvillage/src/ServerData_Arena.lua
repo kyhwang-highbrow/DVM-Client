@@ -729,9 +729,9 @@ function ServerData_Arena:response_playerArenaDeck(l_deck)
 end
 
 -------------------------------------
--- function isWithOutClanInfo
+-- function removeClanData
 -------------------------------------
-function ServerData_Arena:isWithOutClanInfo()
+function ServerData_Arena:removeClanData()
     local date = pl.Date()
     date:year(2019)
     date:month(11)

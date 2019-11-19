@@ -41,8 +41,13 @@ end
 function UI_Arena:init(sub_data)
     self.m_rankOffset = 1 -- 최상위 랭크를 받겠다는 뜻
     self.m_bClosedTag = false
+    
+    local ui_res = 'arena_scene.ui'
+    if (g_arenaData:removeClanData()) then
+        ui_res = 'arena_scene_new.ui'
+    end
 
-    local vars = self:load_keepZOrder('arena_scene.ui')
+    local vars = self:load_keepZOrder(ui_res)
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_Arena'
@@ -131,16 +136,6 @@ function UI_Arena:initUI()
     end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
     self:initTab()
-
-    if (g_arenaData:isWithOutClanInfo()) then
-        vars['clanRankingTabBtn']:setVisible(true)
-        vars['personalRankingTabBtn']:setVisible(true)
-        vars['rankingListNode']:setPositionY(-50)
-        vars['myRankingListNode']:setPositionY(-164)
-    else
-        vars['clanRankingTabBtn']:setVisible(false)
-        vars['personalRankingTabBtn']:setVisible(false)
-    end
 end
 
 -------------------------------------

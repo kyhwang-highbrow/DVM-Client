@@ -168,6 +168,7 @@ function UI_ClanWarTournamentTree:showPage()
 	local vars = self.vars
 	vars['finalNode']:removeAllChildren()
 	self.m_scrollMenu:removeAllChildren()
+    vars['listItemNode']:setVisible(true)
 
     -- 컨테이너 위치 초기화
 	local container_node = self.m_scrollView:getContainer()
@@ -180,7 +181,8 @@ function UI_ClanWarTournamentTree:showPage()
 		has_right = true
 		has_left = false
 	elseif (page_number == 2) then
-		self:showCenterPage()
+		vars['listItemNode']:setVisible(true)
+        self:showCenterPage()
 		has_right = true
 		has_left = true
 	else
@@ -246,7 +248,6 @@ function UI_ClanWarTournamentTree:setFinal()
     local ui = UI()
     ui:load('clan_war_tournament_final_item.ui')
     vars['finalNode']:addChild(ui.root)
-	vars['listItemNode']:setVisible(false)
 
     self:makeFinalItemByRound(ui, 8)
     self:makeFinalItemByRound(ui, 4)

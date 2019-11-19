@@ -14,7 +14,12 @@ UI_ArenaRewardInfoPopup.CLAN = 'clanReward'
 -- function init
 -------------------------------------
 function UI_ArenaRewardInfoPopup:init()
-    local vars = self:load('arena_reward_popup.ui')
+    local ui_res = 'arena_reward_popup.ui'
+    if (g_arenaData:removeClanData()) then
+        ui_res = 'arena_reward_popup_new.ui'
+    end
+    local vars = self:load(ui_res)
+    
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

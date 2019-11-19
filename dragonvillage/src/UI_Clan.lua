@@ -29,7 +29,12 @@ end
 -- function init
 -------------------------------------
 function UI_Clan:init()
-    local vars = self:load_keepZOrder('clan_02.ui')
+    local ui_res = 'clan_02.ui'
+    if (g_arenaData:removeClanData()) then
+        ui_res = 'clan_03.ui'
+    end
+
+    local vars = self:load_keepZOrder(ui_res)
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_Clan'
