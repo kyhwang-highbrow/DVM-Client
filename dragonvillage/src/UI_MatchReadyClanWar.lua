@@ -119,6 +119,17 @@ function UI_MatchReadyClanWar:click_startBtn()
     local check_item_inven
     local start_game
 
+    local struct_user_info = g_clanWarData:getStructUserInfo_Player()
+	local struct_clan_war_match_item = struct_user_info:getClanWarStructMatchItem()
+    if (not struct_clan_war_match_item) then
+       UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
+       return
+    end
+
+    if (struct_clan_war_match_item:isDoAllGame()) then
+       UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
+       return
+    end
 
     -- 콜로세움 공격 덱이 설정되었는지 여부 체크
     local l_dragon_list = self:getStructUserInfo_Player():getDeck_dragonList()

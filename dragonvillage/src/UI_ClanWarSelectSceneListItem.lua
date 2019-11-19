@@ -83,6 +83,10 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
     self.m_structMatch = struct_match
     local struct_match_item = self.m_structMatchItem
 
+    if (not struct_match_item) then
+        return
+    end
+
     local defend_cnt = struct_match_item:getDefendCount()
     vars['defenseNoti']:setVisible(false)
 

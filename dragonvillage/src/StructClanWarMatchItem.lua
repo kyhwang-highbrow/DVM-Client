@@ -213,6 +213,27 @@ function StructClanWarMatchItem:isDoAllGame()
 end
 
 -------------------------------------
+-- function setIsEnd
+-------------------------------------
+function StructClanWarMatchItem:setIsEnd(is_end)
+    self['is_end'] = is_end
+end
+
+-------------------------------------
+-- function setAttackHistory
+-------------------------------------
+function StructClanWarMatchItem:setAttackHistory(history)
+    self['attack_game_history'] = history
+end
+
+-------------------------------------
+-- function setEndDate
+-------------------------------------
+function StructClanWarMatchItem:setEndDate(attack_enddate)
+    self['attack_enddate'] = attack_enddate
+end
+
+-------------------------------------
 -- function getAttackState
 -------------------------------------
 function StructClanWarMatchItem:getAttackState()

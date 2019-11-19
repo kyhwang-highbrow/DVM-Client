@@ -40,13 +40,7 @@ function UI_GameResult_ClanWar:initUI(is_success)
 
 	local struct_user_info = g_clanWarData:getStructUserInfo_Player()
 	local struct_clan_war_match_item = struct_user_info:getClanWarStructMatchItem()
-	struct_clan_war_match_item:setGameResult(is_success)
-    -- 처음에는 통신으로 endDate 받지 않기 때문에 하드코딩
-    if (not self.m_endDate) then
-        local cur_time = Timer:getServerTime_Milliseconds()
-        self.m_endDate = cur_time + 60*60*2*1000
-    end
-
+    self.m_endDate = struct_clan_war_match_item:getEndDate()
 
 	-- 승/패/승 세팅
     local l_game_result = struct_clan_war_match_item:getGameResult()
@@ -137,12 +131,16 @@ end
 function UI_GameResult_ClanWar:checkAttackCnt()
      local struct_user_info = g_clanWarData:getStructUserInfo_Player()
 	 local struct_clan_war_match_item = struct_user_info:getClanWarStructMatchItem()
-     local l_game_result = struct_clan_war_match_item:getGameResult()
-     if (#l_game_result == 3) then
+     if (not struct_clan_war_match_item) then
         UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
         return false
      end
 
+     if (struct_clan_war_match_item:isDoAllGame()) then
+        UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
+        return false
+     end
+     
      return true
 end
 

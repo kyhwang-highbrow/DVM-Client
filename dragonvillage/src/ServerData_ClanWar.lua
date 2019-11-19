@@ -505,6 +505,23 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     local uid = g_userData:get('uid')
 	local _play_time = play_time or 0
     local function success_cb(ret)
+        -- 전투 후 공격자 기록 갱신
+        local struct_user_info = g_clanWarData:getStructUserInfo_Player()
+        local struct_match_item = struct_user_info:getClanWarStructMatchItem()
+        local struct_match_info = ret['clanwar_member_info']
+
+        if (struct_match_info) then
+            if (struct_match_info['attack_game_history']) then
+                struct_match_item:setAttackHistory(struct_match_info['attack_game_history'])
+            end
+            if (struct_match_info['attack_enddate']) then
+                struct_match_item:setEndDate(struct_match_info['attack_enddate'])
+            end
+            if (struct_match_info['end']) then
+                struct_match_item:setIsEnd(struct_match_info['end'])
+            end
+        end
+        
         if next_func then
             next_func()
         end
