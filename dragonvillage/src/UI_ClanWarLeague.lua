@@ -305,7 +305,7 @@ function UI_ClanWarLeague:refreshLeagueUI()
     -- 내 클랜일 경우에만 start 가능
     -- 조별리그 기간에만 start 가능
     vars['startBtn']:setVisible(is_myClanTeam)
-    if (g_clanWarData:getIsLeague()) then
+    if (not g_clanWarData:getIsLeague()) then
         vars['startBtn']:setVisible(false)
     end
 
