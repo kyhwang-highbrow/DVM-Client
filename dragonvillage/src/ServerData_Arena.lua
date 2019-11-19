@@ -739,9 +739,9 @@ function ServerData_Arena:removeClanData()
     date:hour(23)
     date:min(59)
 
-    local timestamp = date['time']
+    local remove_time = date['time'] or 0
     local cur_time =  Timer:getServerTime()
-    return cur_time > timestamp
+    return cur_time > remove_time
 end
 
 -------------------------------------

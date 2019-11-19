@@ -71,11 +71,11 @@ function UI_ArenaRewardInfoPopup:initTab()
 
         self:setTab(UI_ArenaRewardInfoPopup.RANK)
     else
-        self:addTabAuto(UI_ArenaRewardInfoPopup.RANK, vars, vars['rankRewardNode'])
-        self:addTabAuto(UI_ArenaRewardInfoPopup.MATCH, vars, vars['matchRewardNode'])
+        --self:addTabAuto(UI_ArenaRewardInfoPopup.RANK, vars, vars['rankRewardNode'])
+        --self:addTabAuto(UI_ArenaRewardInfoPopup.MATCH, vars, vars['matchRewardNode'])
         --self:addTabAuto(UI_ArenaRewardInfoPopup.CLAN, vars, vars['clanRewardNode'])
 
-        self:setTab(UI_ArenaRewardInfoPopup.RANK)       
+        --self:setTab(UI_ArenaRewardInfoPopup.MATCH)       
     end
 end
 
