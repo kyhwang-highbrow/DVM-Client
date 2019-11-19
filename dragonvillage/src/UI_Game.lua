@@ -866,3 +866,14 @@ function UI_Game:click_skip()
     g_gameScene:showSkipPopup()
 end
 
+-------------------------------------
+-- function offAutoStart
+-------------------------------------
+function UI_Game:offAutoStart()
+    local vars = self.vars
+    vars['autoStartButton']:setVisible(false)
+    vars['autoStartNode']:setVisible(false)
+    vars['autoStartNumberLabel']:setVisible(false)
+    vars['autoStartVisual']:setVisible(false)
+end
+

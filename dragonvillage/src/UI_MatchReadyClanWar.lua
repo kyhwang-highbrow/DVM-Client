@@ -119,6 +119,15 @@ function UI_MatchReadyClanWar:click_startBtn()
     local check_item_inven
     local start_game
 
+
+    -- 콜로세움 공격 덱이 설정되었는지 여부 체크
+    local l_dragon_list = self:getStructUserInfo_Player():getDeck_dragonList()
+    if (table.count(l_dragon_list) <= 0) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('최소 1명 이상은 출전시켜야 합니다.'))
+        return
+    end
+
+
     -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
     check_dragon_inven = function()
         local function manage_func()
@@ -152,24 +161,7 @@ function UI_MatchReadyClanWar:click_startBtn()
             -- self.m_historyID이 nil이 아닌 경우 재도전, 복수전
             g_clanWarData:request_clanWarStart(enemy_uid, cb)
         end
-
-        -- 기본 입장권 부족시
-        if (not g_staminasData:checkStageStamina(ARENA_STAGE_ID)) then
-            -- 유료 입장권 체크
-            local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_ext', 1)
-            if (is_enough) then
-                is_cash = true
-                local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', NEED_CASH)
-                MakeSimplePopup_Confirm('cash', NEED_CASH, msg, request)
-
-            -- 유료 입장권 부족시 입장 불가 
-            else
-                -- 스케쥴러에서 버튼 비활성화로 막음
-            end
-        else
-            is_cash = false
-            request()
-        end
+        request()
     end
 
     check_dragon_inven()

@@ -126,6 +126,7 @@ function SceneGameClanWar:prepare()
 
 		self.m_inGameUI:init_dpsUI()
 		self.m_inGameUI:init_panelUI()
+        self.m_inGameUI:offAutoStart()
     end)
 end
 

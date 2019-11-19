@@ -472,6 +472,11 @@ function UI_ReadySceneNew:initUI()
         end
 	end
 
+    if (self.m_stageID == CLAN_WAR_STAGE_ID) then
+        vars['clanWarBgMenu']:setVisible(true)
+        set_autobtn_off()
+    end
+    
     -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
     local multi_deck_mgr = self.m_multiDeckMgr
     if (multi_deck_mgr) then
