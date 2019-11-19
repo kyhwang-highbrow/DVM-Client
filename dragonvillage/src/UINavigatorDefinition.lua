@@ -1881,13 +1881,13 @@ function UINavigatorDefinition:goTo_clan_war(...)
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
-
+    --[[
     if (g_clanWarData:isLockTime()) then
         local msg = Str('클랜전 시즌이 종료되었습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return       
     end
-
+    --]]
     -- 클랜전 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
     if (is_opend == true) and (open_by_scene == false) then
