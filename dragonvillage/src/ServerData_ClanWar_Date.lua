@@ -425,8 +425,9 @@ end
 -------------------------------------
 function ServerData_ClanWar:getTodayRound(next_day)
 	local day = self.m_clanWarDay + (next_day or 0)
+    local max_round = g_clanWarData:getMaxRound()
 	-- 8??깃컧??64揶? 7??깃컧??32揶?...
-	local t_day = {[7] = 64, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+	local t_day = { [6] = max_round, [7] = max_round, [8] = max_round, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
 	return t_day[day]
 end
 
