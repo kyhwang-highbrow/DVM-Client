@@ -308,7 +308,11 @@ end
 function StructClanWarTournament:isPlayingGame()
     local cur_round = g_clanWarData:getTodayRound()
 	local l_tournament = self.m_tTournamentInfo[cur_round]
-	local my_clan_id = g_clanWarData:getMyClanId()
+    if (not l_tournament) then
+        return
+    end
+	
+    local my_clan_id = g_clanWarData:getMyClanId()
     for _, data in ipairs(l_tournament) do
 		if (data['clan_id'] == my_clan_id) then
 			return true
