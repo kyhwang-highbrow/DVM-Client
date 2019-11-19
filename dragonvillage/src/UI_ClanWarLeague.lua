@@ -114,12 +114,12 @@ function UI_ClanWarLeague:setMatchList()
 	-- 6일째 후는 토너먼트, 토너먼트에서 리그를 호출했다는 것은 지난 리그 정보 보여주기 위함
 	-- 맨 위를 포커싱해줌
 	local day = struct_clanwar_league.m_matchDay
-	if (day > 6) then
+	if (not g_clanWarData:getIsLeague()) then
 		day = 1
 	end
 
     -- 일단 하드코딩
-    local l_pos_y = {-754, -510, -264, -30, -30}
+    local l_pos_y = {-774, -530, -284, -40, -40}
     local match_day = math.max(day, 2)
     match_day = math.min(match_day, 6)
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
@@ -302,8 +302,14 @@ function UI_ClanWarLeague:refreshLeagueUI()
         UIManager:toastNotificationRed('점수 반영이 완료되었습니다. ESC로 나갔다가 다시 진입해주세요')
     end
 
-    -- 점수 조작 관련 정보 입력하는 팝업 여는 버튼
+    -- 내 클랜일 경우에만 start 가능
+    -- 조별리그 기간에만 start 가능
     vars['startBtn']:setVisible(is_myClanTeam)
+    if (g_clanWarData:getIsLeague()) then
+        vars['startBtn']:setVisible(false)
+    end
+
+    -- 점수 조작 관련 정보 입력하는 팝업 여는 버튼
     vars['testBtn']:setVisible(is_myClanTeam)
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, true) end)
     vars['testTomorrowBtn']:setVisible(true)

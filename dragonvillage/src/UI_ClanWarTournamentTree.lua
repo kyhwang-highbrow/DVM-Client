@@ -88,7 +88,7 @@ function UI_ClanWarTournamentTree:showLastLeague()
 	local team_number = struct_league:getMyClanTeamNumber()
 	vars['myClanLabel']:setString(Str('{1}조', team_number))
 	
-	if (self.m_isLeagueMode) then
+	if (not self.m_isLeagueMode) then
 		vars['matchTypeLabel']:setString(Str('조별리그'))
 	else
 		vars['matchTypeLabel']:setString(Str('토너먼트'))
@@ -181,7 +181,7 @@ function UI_ClanWarTournamentTree:showPage()
 		has_right = true
 		has_left = false
 	elseif (page_number == 2) then
-		vars['listItemNode']:setVisible(true)
+		vars['listItemNode']:setVisible(false)
         self:showCenterPage()
 		has_right = true
 		has_left = true
@@ -382,7 +382,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     local today_round = g_clanWarData:getTodayRound()
     ui.vars['detailBtn']:registerScriptTapHandler(function()
         if (round < today_round) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('공격전 기록이 없습니다.'))
+            UIManager:toastNotificationRed(Str('기록 없음'))
         else
             UI_ClanWarMatchInfoDetailPopup(data) 
         end
@@ -390,13 +390,13 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 
     if (struct_clan_rank_1) then
         local clan_name = struct_clan_rank_1:getClanName() or ''
-        clan_name1 = clan_name .. clan1['group_stage_no']
+        clan_name1 = clan_name
     end
     ui.vars['clanNameLabel1']:setString(clan_name1)
     
     if (struct_clan_rank_2) then
         local clan_name = struct_clan_rank_2:getClanName() or ''
-        clan_name2 = clan_name.. clan2['group_stage_no']
+        clan_name2 = clan_name
     end
     ui.vars['clanNameLabel2']:setString(clan_name2)
 
@@ -418,7 +418,10 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 	elseif (today_round >= round) then
 		ui.vars['defeatSprite1']:setVisible(false)
 		ui.vars['defeatSprite2']:setVisible(false)
-	
+	    
+        local last_round = round*2
+        ui.vars['clanNameLabel1']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
+        ui.vars['clanNameLabel2']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
     -- 지나간 라운드의 경우
     -- 승패 표시함, 뒷 막대기 표시
 	else

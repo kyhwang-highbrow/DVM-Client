@@ -52,7 +52,7 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
     if (clan_rank ~= '-') then
         vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueRankInfoPopup(struct_league_item) end)
     else
-        vars['popupBtn']:registerScriptTapHandler(function() MakeSimplePopup(POPUP_TYPE.OK, Str('공격전 기록이 없습니다.')) end)
+        vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('기록 없음')) end)
     end
 end
 

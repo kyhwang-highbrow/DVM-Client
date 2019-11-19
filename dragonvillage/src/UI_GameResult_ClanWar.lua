@@ -149,11 +149,7 @@ end
 -------------------------------------
 -- function click_againBtn
 -------------------------------------
-function UI_GameResult_ClanWar:click_againBtn()
-     local is_possible = self:checkAttackCnt()
-     if (not is_possible) then
-        return
-     end     
+function UI_GameResult_ClanWar:click_againBtn() 
      UINavigatorDefinition:goTo('clan_war', true)
 end
 

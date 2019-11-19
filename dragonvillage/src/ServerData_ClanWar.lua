@@ -436,11 +436,17 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
             finish_cb(ret)
         end
     end
+
+    -- 이미 전투 시작한 유저가 있다면 정보 갱신을 위해 밖으로 보내줌
+    local ok_cb = function()
+        UINavigatorDefinition:goTo('clan_war', true)
+    end
+    
     -- 응답 상태 처리 함수
     local t_error = {
         [-72] = Str('이미 클랜 던전에 입장한 유저가 있습니다.'),
     }
-    local response_status_cb = MakeResponseCB(t_error)
+    local response_status_cb = MakeResponseCB(t_error, ok_cb)
 
 
     -- ??쎈뱜??곌쾿 ???뻿

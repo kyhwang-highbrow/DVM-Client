@@ -172,7 +172,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
     if (match_number - 1 <= tonumber(data['match_day'])) then
         vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarMatchInfoDetailPopup(data, true) end)
     else
-        vars['popupBtn']:registerScriptTapHandler(function() MakeSimplePopup(POPUP_TYPE.OK, Str('공격전 기록이 없습니다.')) end)
+        vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('기록 없음')) end)
         vars['scoreLabel1']:setString('')
         vars['scoreLabel2']:setString('')
     end

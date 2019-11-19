@@ -172,7 +172,7 @@ function UI_ClanWarLobby:setRewardBtn(ret)
         end
         
         local my_rank = 0
-        local struct_clanwar_league = self.m_structTournament:getStructClanWarLeague()
+        local struct_clanwar_league = struct_tournament:getStructClanWarLeague()
 	    my_rank = struct_clanwar_league:getMyLeagueRank()
 
         vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank, tournament_rank) end)
