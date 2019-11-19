@@ -77,6 +77,10 @@ end
 -------------------------------------
 function UI_ClanWarSelectScene:setDefendHistoryTableView()
     local vars = self.vars
+    if (not self.m_curSelectEnemyStructMatch) then
+        return
+    end
+
     local cur_struct_match = self.m_curSelectEnemyStructMatch
     local l_history = cur_struct_match:getDefendHistoryList()
 
@@ -203,6 +207,10 @@ end
 -- function selectItem
 -------------------------------------
 function UI_ClanWarSelectScene:selectItem()
+    if (not self.m_curSelectEnemyStructMatch) then
+        return
+    end
+
     local selected_uid = self.m_curSelectEnemyStructMatch['uid']
 
     if (self.m_enemyTableView) then
@@ -239,6 +247,10 @@ end
 -------------------------------------
 function UI_ClanWarSelectScene:click_readyBtn()
 	local struct_match = self.m_tStructMatch
+    if (not self.m_curSelectEnemyStructMatch) then
+        return
+    end
+
 
     local struct_match_item = self.m_curSelectEnemyStructMatch
 	local defend_state = struct_match_item:getDefendState()

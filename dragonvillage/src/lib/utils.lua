@@ -1269,3 +1269,14 @@ function descChangedValue(number)
 
     return desc
 end
+
+-------------------------------------
+-- function descTimeByTimeStemp
+-------------------------------------
+function descTimeByTimeStemp(timestemp)
+    local date = pl.Date()
+    date:set(timestemp)
+    local date_format = pl.Date.Format('yyyy.mm.dd.HH.MM')
+	local text_time = date_format:tostring(date)
+    return text_time
+end
