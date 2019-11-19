@@ -92,17 +92,27 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
             t_clan = struct_match:getEnemyMatchData()        
         end
         
-        
         for _, v in pairs(t_clan) do
             struct_match_item = v
             break
         end
 
         if (not struct_match_item) then
+            vars['clanNameLabel'..idx]:setString('')
+            vars['clanlLevelLabel'..idx]:setString('')
+            vars['matchNumLabel'..idx]:setString('')
             return
         end
         local clan_id = struct_match_item:getClanId()
         local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
+
+        if (not struct_clan_rank) then
+            vars['clanNameLabel'..idx]:setString('')
+            vars['clanlLevelLabel'..idx]:setString('')
+            vars['matchNumLabel'..idx]:setString('')
+            return        
+        end
+        
         if (struct_clan_rank) then
             -- 클랜 이름
             local clan_name = struct_clan_rank:getClanName()

@@ -378,8 +378,13 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     clan2['tournament_clan_info'] = struct_clan_war_tournament:getClanInfo(clan2_id)
     data['clan1'] = clan1
     data['clan2'] = clan2
-    ui.vars['detailBtn']:registerScriptTapHandler(function() 
-        UI_ClanWarMatchInfoDetailPopup(data) 
+    local today_round = g_clanWarData:getTodayRound()
+    ui.vars['detailBtn']:registerScriptTapHandler(function()
+        if (round < today_round) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('공격전 기록이 없습니다.'))
+        else
+            UI_ClanWarMatchInfoDetailPopup(data) 
+        end
     end)
 
     if (struct_clan_rank_1) then
@@ -399,8 +404,6 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 	ui.vars['defeatSprite1']:setVisible(not clan_1_is_win)
 	ui.vars['defeatSprite2']:setVisible(not clan_2_is_win)
     ui:setWin(clan_1_is_win, clan_2_is_win)
-
-	local today_round = g_clanWarData:getTodayRound()
 	
     -- 현재 진행중인 라운드의 경우
     -- 승패 표시 안함, 뒷 막대기 표시
