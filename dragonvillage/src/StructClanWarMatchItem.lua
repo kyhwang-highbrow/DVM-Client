@@ -83,7 +83,7 @@ function StructClanWarMatchItem:init(data)
     end
 
     if (data['end']) then
-        is_end = data['end']
+        self['is_end'] = data['end']
     end
     
     self.m_lDefendHistory = {}

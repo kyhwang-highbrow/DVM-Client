@@ -199,6 +199,8 @@ function UI_ClanWarSelectSceneListItem_Me:init(data)
 		local icon = cc.Sprite:create('res/ui/icons/clan_war_icon_attack.png')
 		if (icon) then
 			vars['attackIconNode']:addChild(icon)
+            vars['attackIconNode']:setDockPoint(CENTER_POINT)
+            vars['attackIconNode']:setAnchorPoint(CENTER_POINT)
 			vars['attackIconNode']:setVisible(true)
 		end
 	end

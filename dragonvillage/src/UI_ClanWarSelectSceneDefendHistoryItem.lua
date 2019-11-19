@@ -39,6 +39,8 @@ function UI_ClanWarSelectSceneDefendHistoryItem:initUI(data)
         if (vars['resultIconNode'..i]) then
 			if (icon) then
 				vars['resultIconNode'..i]:addChild(icon)
+                vars['resultIconNode'..i]:setDockPoint(CENTER_POINT)
+                vars['resultIconNode'..i]:setAnchorPoint(CENTER_POINT)
 			end
 		end
     end
