@@ -50,10 +50,14 @@ end
 function UI_ArenaTabRank:initTab()
     local vars = self.vars
 
-    self:addTabAuto(UI_ArenaTabRank['PRSN'], vars, vars['rankNode'])
-    self:addTabAuto(UI_ArenaTabRank['CLAN'], vars, vars['clanRankNode'])
-    
-    self:setTab(UI_ArenaTabRank['PRSN'])
+    if (not g_arenaData:removeClanData()) then
+        self:addTabAuto(UI_ArenaTabRank['PRSN'], vars, vars['rankNode'])
+        self:addTabAuto(UI_ArenaTabRank['CLAN'], vars, vars['clanRankNode'])
+        
+        self:setTab(UI_ArenaTabRank['PRSN'])
+    else
+        self:request_rank()
+    end
 end
 
 -------------------------------------
