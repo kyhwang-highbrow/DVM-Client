@@ -31,6 +31,7 @@ end
 function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_league)
     local vars = self.vars
 
+	-- 초기화
 	local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
     for idx, label in ipairs(l_label) do
         if (vars[label .. '1']) then
@@ -42,17 +43,14 @@ function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_league)
     end
 
     for i = 1, 2 do    
-        -- 초기화
-        if (vars['clanNameLabel'..i]) then
-            vars['clanNameLabel'..i]:setString('-')
-        end
-
-		self:setClanInfoPopup(i, data, is_league)
-        if (is_league) then
-            self:setClanInfoPopup_league(i, data)
-        else
-            self:setClanInfoPopup_tournament(i, data)
-        end
+		local is_valid_clan = self:setClanInfoPopup(i, data, is_league)
+        if (is_valid_clan) then
+			if (is_league) then
+			    self:setClanInfoPopup_league(i, data)
+			else
+			    self:setClanInfoPopup_tournament(i, data)
+			end
+		end
     end
 end
 
@@ -61,8 +59,6 @@ end
 -------------------------------------
 function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
      local vars = self.vars
-     local struct_item = data['clan' .. idx]
-
      local round = g_clanWarData:getTodayRound()
      if (round) then
          vars['roundLabel']:setString(Str('{1}강', round))
@@ -70,30 +66,35 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
          vars['roundLabel']:setString(Str('조별리그'))
      end
 
+	 local prefix = 'a_'
+	 if (idx == 2) then
+		prefix = 'b_'
+	 end
+
      local blank_clan = function()
         if (vars['clanNameLabel'..idx]) then
             vars['clanNameLabel'..idx]:setString('-')
         end
      end
      
-     -- 서버에서 임의로 추가한 유령 클랜의 경우
-     if (not struct_item) then
+ 	 local clan_id = data[prefix .. 'clan_id']
+     if (not clan_id) then
         blank_clan()
         return
      end
 
-	 local struct_clan_rank
-     local key = 'league_clan_info'
-     if (not is_league) then
-        struct_clan_rank = struct_item['tournament_clan_info']
- 		local max_member = tostring(struct_item['play_member_cnt']) or ''
-		vars['matchNumLabel' .. idx]:setString(max_member)
-     else
-		struct_clan_rank = struct_item:getClanInfo()
-		local max_member = tostring(struct_item:getPlayMemberCnt()) or ''
-		vars['matchNumLabel' .. idx]:setString(max_member)
-	 end
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
+     if (clan_id == 'loser') then
+        blank_clan()
+        return
+     end
 
+	 local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
+     -- 서버에서 임의로 추가한 유령 클랜의 경우
+     if (not struct_clan_rank) then
+        blank_clan()
+        return
+     end
 
      -- 클랜 이름
      local clan_name = struct_clan_rank:getClanName() or ''
@@ -114,6 +115,8 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
     local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
 	vars['clanLvExpLabel' .. idx]:setString(clan_lv_exp) 
 	vars['creationLabel' .. idx]:setString(struct_clan_rank['create_date'] or '')
+
+	return true
 end
 
 -------------------------------------
@@ -122,57 +125,44 @@ end
 function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
     local vars = self.vars
     local struct_league_item = data['clan' .. idx]
-    
-    -- 서버에서 임의로 추가한 유령 클랜의 경우
-    if (not struct_league_item['league_clan_info']) then
-       return
-    end
+ 	
+	local prefix = 'a_'
+	if (idx == 2) then
+		prefix = 'b_'
+	end   
 
-    if (struct_league_item:isGoastClan()) then
-       return
-    end
-
-    local match_number = data['day'] + 1
-    
-    local set_history
-    local win, lose
-    local win_cnt 
-    if (match_number - 1 <= tonumber(data['match_day'])) then
-        -- 그 경기를 몇 처치로 이겼는지
-        win_cnt = struct_league_item:getMatchWinCnt(match_number)
-        lose = struct_league_item:getGameLose(match_number)
-        win = struct_league_item:getGameWin(match_number)
-        set_history = tostring(win) .. '-' .. tostring(lose)     
-    else
-	    win_cnt = struct_league_item:isMatchWin_Past(match_number)
-    	win, lose = struct_league_item:getMatchSetScore(match_number)
-        set_history = tostring(win) .. '-' .. tostring(lose)
-    end
+    local match_number = data['day'] or 1
+	-- 게임 스코어
+    local win, lose = data[prefix .. 'win_cnt'] or 0, data[prefix .. 'lose_cnt'] or 0
+    local set_history = tostring(win) .. '-' .. tostring(lose) 
+	
+	-- 세트 스코어
+	local win_cnt = data[prefix .. 'member_win_cnt'] or 0
 
     vars['victoryLabel' .. idx]:setString(tostring(win_cnt))
     vars['resultScore' .. idx]:setString(tostring(win_cnt))
     vars['setScoreLabel' .. idx]:setString(set_history)
 
-    -- 끝난 경기만 승/패 표시
-    if (match_number < tonumber(data['match_day'])) then
-        -- 왼쪽, 오른쪽 클랜중 어느쪽 클랜이 이겼는지 표시
-		local struct_league_item = data['clan1']
-        if (struct_league_item['league_clan_info']) then
-	        local is_win = struct_league_item:isMatchWin(match_number) -- 첫 번째 클랜 기준
-            local pos_x_1 = vars['resultNode1']:getPositionX()
-            local pos_x_2 = vars['resultNode2']:getPositionX()
 
-            if (not is_win) then
-                vars['resultNode1']:setPositionX(pos_x_2)
-                vars['resultNode2']:setPositionX(pos_x_1)
-            end	        
-        end
-        vars['resultNode1']:setVisible(true)
+	-- 끝난 경기만 승/패 표시
+	vars['resultNode1']:setVisible(false)
+    vars['resultNode2']:setVisible(false)
+    if (match_number < g_clanWarData.m_clanWarDay) then
+        -- 어느쪽 클랜이 이겼는지 표시
+		local win_clan_id = data['win_clan']
+		if (win_clan_id) then
+			local is_win = (win_clan_id == data['a_clan_id'])
+			local pos_x_1 = vars['resultNode1']:getPositionX()
+			local pos_x_2 = vars['resultNode2']:getPositionX()
+
+			if (not is_win) then
+			    vars['resultNode1']:setPositionX(pos_x_2)
+			    vars['resultNode2']:setPositionX(pos_x_1)
+			end
+		end
+		vars['resultNode1']:setVisible(true)
         vars['resultNode2']:setVisible(true)
-    else
-        vars['resultNode1']:setVisible(false)
-        vars['resultNode2']:setVisible(false)
-    end
+	end
 end
 
 -------------------------------------

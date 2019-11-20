@@ -47,23 +47,6 @@ ServerData_ClanWar.CLANWAR_STATE = {
 }
 
 -------------------------------------
--- function request_myClanResult
--------------------------------------
-function ServerData_ClanWar:request_myClanResult(my_clan_is_left)
-    local left_score, right_score = 0, 0 
-    -- ????????諛멤봺??롫즲嚥??癒?땾 ?紐낅샒
-    if (my_clan_is_left) then
-        left_score = 1
-        right_score = 0
-    else
-        left_score = 0
-        right_score = 1
-    end
-
-    g_clanWarData:request_clanWarTournamentSetScore(left_score, right_score)
-end
-
--------------------------------------
 -- function applyClanWarReward
 -------------------------------------
 function ServerData_ClanWar:applyClanWarReward(ret)
@@ -87,13 +70,12 @@ end
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local league = team
 	local finish_cb = function(ret)
-        -- ?⑤벉猷??곗쨮 ServerData_ClanWar?????貫由???類ｋ궖??
-		
         self.m_clanWarDay = ret['clanwar_day'] or 0
 		self.m_clanWarDayData = ret['clan_data']
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		g_clanWarData:applyClanWarReward(ret)
 
+        -- 7일 이전은 조별리그
 		if (self.m_clanWarDay < 7) then
 			g_clanWarData:setClanInfo(ret['league_clan_info'])
 		else
@@ -103,14 +85,12 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
         success_cb(ret)
 	end
 
-    -- ?醫? ID
     local uid = g_userData:get('uid')
     
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/info')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('league', league)
+    ui_network:setParam('league', 1) -- 서버에서 처리가 안되어 있어서 임시로 고정
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(finish_cb)
     ui_network:setFailCB(fail_cb)
@@ -442,7 +422,7 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
     
     -- 응답 상태 처리 함수
     local t_error = {
-        [-3871] = Str('이미 클랜 던전에 입장한 유저가 있습니다.'),
+        [-3871] = Str('시간이 초과되어 패배하였습니다.'),
     }
     local response_status_cb = MakeResponseCB(t_error, ok_cb)
 

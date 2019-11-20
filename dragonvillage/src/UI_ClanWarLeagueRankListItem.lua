@@ -12,7 +12,11 @@ UI_ClanWarLeagueRankListItem = class(PARENT, {
 function UI_ClanWarLeagueRankListItem:init(struct_league_item)
     local vars = self:load('clan_war_lobby_item_rank.ui')
 
-	local struct_clan_rank = struct_league_item:getClanInfo()
+	local clan_id = struct_league_item:getClanId()
+	local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
+	if (not struct_clan_rank) then
+		return
+	end
 
     -- 전체 5일동안 이루어진 경기에서 얼마나 이겼는지
     local clan_id = struct_league_item:getClanId()
@@ -91,13 +95,15 @@ end
 -------------------------------------
 function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
     local vars = self.vars
-    local struct_clan_rank = struct_league_item:getClanInfo()
+
+	local clan_id = struct_league_item:getClanId()
+    local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
 
     local ui = UI_ClanWarLeagueRankListItem(struct_league_item)
     vars['rankItemNode']:addChild(ui.root)
 
     -- 세트 스코어 모두 더한 값
-    local total_set_win_cnt, total_set_lose_cnt = struct_league_item:getTotalGameCount()
+    local total_set_win_cnt, total_set_lose_cnt = struct_league_item:getGameWin(), struct_league_item:getGameLose()
     local score_history = total_set_win_cnt .. '-' .. total_set_lose_cnt
     vars['setScoreLabel']:setString(score_history)
 

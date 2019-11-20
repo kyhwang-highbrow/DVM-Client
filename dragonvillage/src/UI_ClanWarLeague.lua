@@ -13,9 +13,6 @@ UI_ClanWarLeague = class({
 		-- 1조 ~ N조까지 누르는 테이블뷰
 		m_scrollBtnTableView = 'UIC_TableView',
 
-		-- N일차 경기
-		m_todayMatch = 'number',
-
 		m_closeCB = 'function',
      })
 
@@ -25,8 +22,7 @@ UI_ClanWarLeague = class({
 function UI_ClanWarLeague:init(vars, root)
     self.vars = vars
 	self.m_selctedTeam = 1
-    self.m_todayMatch = 1
-	self.m_teamCnt = 0
+	self.m_teamCnt = g_clanWarData:getEntireGroupCnt()
 
     -- 초기화
     self:initUI()
@@ -66,7 +62,7 @@ function UI_ClanWarLeague:setRankList(struct_league)
     local table_view = UIC_TableView(vars['rankListScrollNode'])
     table_view.m_defaultCellSize = cc.size(660, 60 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    table_view:setCellUIClass(UI_ClanWarLeagueRankListItem, create_func)
+    table_view:setCellUIClass(UI_ClanWarLeagueRankListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank, false)
 end
@@ -80,26 +76,19 @@ function UI_ClanWarLeague:setMatchList()
     vars['leagueListScrollNode']:removeAllChildren()
 
     local struct_clanwar_league = self.m_structLeague
-    local l_day_list = g_clanWarData:getVaildDate()
+    local l_league = struct_clanwar_league:getClanWarLeagueMatchList()
+    local group_cnt = g_clanWarData:getGroupCnt()/2
+    local list_idx = 1
 	local l_list = {}
-	local list_idx = 1
-    for i, day in ipairs(l_day_list) do
-		if (day > 7) then
-			break
-		end
-		local l_league = struct_clanwar_league:getClanWarLeagueList(day)
-        for idx, data in ipairs(l_league) do
-            data['my_clan_id'] = g_clanWarData:getMyClanId()
-            data['day'] = day 
-            data['idx'] = list_idx
-            data['match_day'] = struct_clanwar_league.m_matchDay
-	        table.insert(l_list, data)
-			list_idx = list_idx + 1
-        end
-        
+    for idx, data in ipairs(l_league) do
+        data['idx'] = list_idx
+        table.insert(l_list, data)
+        list_idx = list_idx + 1
         -- 날짜 사이마다 간격이 있는 것 처럼 보여주기위해  더미 UI를 하나 찍음
-        table.insert(l_list, {['my_clan_id'] = 'blank'})
-		list_idx = list_idx + 1
+        if (idx%group_cnt == 0) then
+            table.insert(l_list, {['my_clan_id'] = 'blank'})
+            list_idx = list_idx + 1
+        end
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -113,7 +102,7 @@ function UI_ClanWarLeague:setMatchList()
 
 	-- 6일째 후는 토너먼트, 토너먼트에서 리그를 호출했다는 것은 지난 리그 정보 보여주기 위함
 	-- 맨 위를 포커싱해줌
-	local day = struct_clanwar_league.m_matchDay
+	local day = g_clanWarData.m_clanWarDay
 	if (not g_clanWarData:getIsLeague()) then
 		day = 1
 	end
@@ -147,6 +136,12 @@ function UI_ClanWarLeague:setScrollButton()
 
     local create_cb = function(ui, data)
         ui.vars['teamTabBtn']:getParent():setSwallowTouch(false)
+		local struct_league_item = self.m_structLeague:getLeagueInfo()
+		if (struct_league_item) then
+			if (struct_league_item:getLeague() == ui.m_idx) then
+				ui.vars['myClanSprite']:setVisible(true)
+			end
+		end
 
         -- 선택된 버튼 표시
 		if (self.m_selctedTeam == ui.m_idx) then
@@ -200,8 +195,6 @@ function UI_ClanWarLeague:refreshUI(team, ret, show_only_my_league)
     else
 		self.m_structLeague = StructClanWarLeague(ret)
 	end
-	self.m_todayMatch = g_clanWarData.m_clanWarDay
-	self.m_teamCnt = g_clanWarData:getEntireGroupCnt()
 
 	-- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
 	vars['allRankTabMenu']:removeAllChildren()
@@ -265,7 +258,10 @@ end
 function UI_ClanWarLeague:refreshButtonList(team)
 	-- 처음 들어왔을 때에는 자신의 조로 버튼을 세팅
     if (not team) then
-        self.m_selctedTeam = self.m_structLeague:getMyClanTeamNumber()
+		local struct_league_item = self.m_structLeague:getLeagueInfo()
+		if (struct_league_item) then
+			self.m_selctedTeam = struct_league_item:getLeague()
+		end
     end
     self:setScrollButton()
 end
@@ -293,7 +289,7 @@ function UI_ClanWarLeague:refreshLeagueUI()
         local win = data['win'] or 0
         local lose = data['lose'] or 0
 
-        local league, match, is_left = self.m_structLeague:getMyClanInfo(self.m_todayMatch)
+        local league, match, is_left = self.m_structLeague:getMyClanInfo(g_clanWarData.m_clanWarDay)
         if (not is_left) then
             UIManager:toastNotificationRed('내 클랜 정보가 없음')
             return
@@ -373,11 +369,12 @@ end
 -------------------------------------
 function UI_ClanWarLeague:click_gotoMatch()    
 	local is_open, msg = g_clanWarData:checkClanWarState_League()
+	--[[
 	if (not is_open) then
 		MakeSimplePopup(POPUP_TYPE.OK, msg)
 		return
 	end
-
+	--]]
 	local struct_league = self.m_structLeague
     local my_win_cnt, enemy_win_cnt = struct_league:getMyClanMatchScore()
 

@@ -1,298 +1,146 @@
+local PARENT = Structure
 
 -------------------------------------
 -- class StructClanWarLeagueItem
 -------------------------------------
-StructClanWarLeagueItem = class({
-	league_info = 'table',
-    league_clan_info = 'table',
-    --[[
-                ['league_info'] = {
-                    ['lose_cnt']=0;
-                    ['id']='5da81c22970c6206220884f7';
-                    ['win_cnt']=0;
-                    ['total_score']=0;
-                    ['total_history']=0;
-                    ['league']=1;
-                    ['clan_id']='5a02e73b019add152c890157';
-                    ['group_no']=1;
-                    }
-                ['clan_info'] = StructClanRank()
-            }
-    --]]
-
-	-- 편의를 위하여 동적으로 할당되는 값
-	-- 랭킹 테이블 뷰 만들 때에만 사용
-	total_score_win = 'number',
-	total_score_lose = 'number',
-	my_clan_id = 'number',
+StructClanWarLeagueItem = class(PARENT, {
+	id = 'string',
+    season = 'number',
+    league = 'number',
+    group_no = 'number',
+    clan_id = 'string',
+    win_cnt = 'number',
+    lose_cnt = 'number',
+    game_win = 'number',
+    game_lose = 'number',
+    member_win_cnt = 'number',
+    rank = 'number',
+    play_member_cnt = 'number',
+    day = 'number',
 })
 
+local THIS = StructClanWarLeagueItem
+
 -------------------------------------
--- function setLeagueInfo
+-- function getClassName
 -------------------------------------
-function StructClanWarLeagueItem:setLeagueInfo(data)
-	self['league_info'] = data
+function StructClanWarLeagueItem:getClassName()
+    return 'StructClanWarLeagueItem'
 end
 
 -------------------------------------
--- function getLeagueInfo
+-- function getDay
 -------------------------------------
-function StructClanWarLeagueItem:getLeagueInfo(data)
-	if (not self['league_info']) then
-		return {}
-	end
+function StructClanWarLeagueItem:getDay()
+    return tonumber(self['day']) or 0
+end
 
-	return self['league_info']
+-------------------------------------
+-- function getThis
+-------------------------------------
+function StructClanWarLeagueItem:getThis()
+    return THIS
 end
 
 -------------------------------------
 -- function setLeaguInfo
 -------------------------------------
 function StructClanWarLeagueItem:getLeagueRank()
-	local league_info = self:getLeagueInfo()
-	
-	if (not league_info['rank']) then
-		return 999
-	end
+	return tonumber(self['rank']) or 0
+end
 
-	return tonumber(league_info['rank'])
+-------------------------------------
+-- function getMatchNumber
+-------------------------------------
+function StructClanWarLeagueItem:getMatchNumber()
+	return tonumber(self['match_no']) or 0
 end
 
 -------------------------------------
 -- function getLeague
 -------------------------------------
 function StructClanWarLeagueItem:getLeague()
-	local league_info = self:getLeagueInfo()
-	
-	if (not league_info['league']) then
-		return 0
-	end
-
-	return tonumber(league_info['league'])
+	return tonumber(self['league']) or 0
 end
 
 -------------------------------------
 -- function getGroupNumber
 -------------------------------------
 function StructClanWarLeagueItem:getGroupNumber()
-	local league_info = self:getLeagueInfo()
-	
-	if (not league_info['group_no']) then
-		return 0
-	end
-
-	return tonumber(league_info['group_no'])
+	return tonumber(self['group_no']) or 0
 end
 
 -------------------------------------
 -- function getPlayMemberCnt
 -------------------------------------
 function StructClanWarLeagueItem:getPlayMemberCnt()
-	local league_info = self:getLeagueInfo()
-	
-	if (not league_info['play_member_cnt']) then
-		return 0
-	end
-
-	return tostring(league_info['play_member_cnt']) or '-'
+	return tonumber(self['play_member_cnt']) or 0
 end
 
 -------------------------------------
 -- function getWinCount
 -------------------------------------
 function StructClanWarLeagueItem:getWinCount()
-	local league_info = self:getLeagueInfo()
-	
-	if (not league_info['win_cnt']) then
-		return 0
-	end
-
-	return tonumber(league_info['win_cnt'])
+	return tonumber(self['win_cnt']) or 0
 end
 
 -------------------------------------
 -- function getLoseCount
 -------------------------------------
 function StructClanWarLeagueItem:getLoseCount()
-	local league_info = self:getLeagueInfo()
-	
-	if (not league_info['lose_cnt']) then
-		return 0
-	end
-
-	return tonumber(league_info['lose_cnt'])
+	return tonumber(self['lose_cnt']) or 0
 end
 
 -------------------------------------
 -- function getClanWarRankText
 -------------------------------------
 function StructClanWarLeagueItem:getClanWarRankText()
-    local t_league = self:getLeagueInfo()
-    if (t_league['rank'] == 0) then
+    local rank = self:getLeagueRank()
+
+    if (rank == 0) then
         return '-'
     end
-    return tostring(Str('{1}위', t_league['rank'])) or '-'
+    return Str('{1}위', rank)
 end
 
 -------------------------------------
 -- function getTotalWinCount
 -------------------------------------
 function StructClanWarLeagueItem:getTotalWinCount()
-	local total_win = 0
-    for i=1,6 do
-        total_win = total_win + self:getMatchWinCnt(i)
-        total_win = total_win + self:isMatchWin_Past(i)
-    end
-
-	return total_win
 end
 
 -------------------------------------
 -- function getTotalGameCount
 -------------------------------------
 function StructClanWarLeagueItem:getTotalGameCount()
-	local total_win = 0
-    local total_lose = 0
-    for i=1,6 do
-        local win, lose = self:getMatchSetScore(i)
-        total_lose = total_lose + lose
-        total_win = total_win + win
-    end
-
-	return total_win, total_lose
-end
-
--------------------------------------
--- function setClanInfo
--------------------------------------
-function StructClanWarLeagueItem:setClanInfo(data)
-	self['league_clan_info'] = StructClanRank(data)
-end
-
--------------------------------------
--- function getClanInfo
--------------------------------------
-function StructClanWarLeagueItem:getClanInfo()
-	if (not self['league_clan_info']) then
-		return
-	end
-	
-	return self['league_clan_info'] -- StructClanRank
 end
 
 -------------------------------------
 -- function getClanId
 -------------------------------------
 function StructClanWarLeagueItem:getClanId()
-	local league_info = self:getLeagueInfo()
-	
-	if (not league_info['clan_id']) then
-		return
-	end
-
-	return tostring(league_info['clan_id'])
+	return tostring(self['clan_id'])
 end
 
 -------------------------------------
--- function getClanWarDayInfo
+-- function getMemberWinCnt
 -------------------------------------
-function StructClanWarLeagueItem:getClanWarDayInfo()
-    local league_info = self:getLeagueInfo()
-	
-	if (not league_info['clanwarDayInfo']) then
-		return {}
-	end
-
-    --[[
-     [2] = {
-            ["win"] = "23",
-            ["isWin"] = "1",
-            ["score"] = "1-1"
-        },
-    --]]
-    return league_info['clanwarDayInfo'] or {}
-end
-
--------------------------------------
--- function getMatchWinCnt
--------------------------------------
-function StructClanWarLeagueItem:getMatchWinCnt(day)
-    local t_data = self:getLeagueInfo()
-
-    local score = t_data['member_win_cnt']
-    return tonumber(score) or 0
+function StructClanWarLeagueItem:getMemberWinCnt()
+	return tonumber(self['member_win_cnt'])
 end
 
 -------------------------------------
 -- function getGameWin
 -------------------------------------
-function StructClanWarLeagueItem:getGameWin(day)
-    local t_data = self:getLeagueInfo()
-
-    local score = t_data['game_win']
-    return tonumber(score) or 0
+function StructClanWarLeagueItem:getGameWin()
+	return tonumber(self['game_win'])
 end
 
 -------------------------------------
 -- function getGameLose
 -------------------------------------
-function StructClanWarLeagueItem:getGameLose(day)
-    local t_data = self:getLeagueInfo()
-
-    local score = t_data['game_lose']
-    return tonumber(score) or 0
-end
-
--------------------------------------
--- function isMatchWin
--------------------------------------
-function StructClanWarLeagueItem:isMatchWin(day)
-    local t_clanwar_day = self:getClanWarDayInfo()
-
-    -- 해당 경기의 정보
-    -- 없다면 아직 진행되지 않은 경기
-    local t_data = t_clanwar_day[tostring(day)]
-    if (not t_data) or (t_data == {}) then
-        return false
-    end
-
-    local is_win = t_data['isWin']
-    return (is_win == '1')
-end
-
--------------------------------------
--- function isMatchWin_Past
--------------------------------------
-function StructClanWarLeagueItem:isMatchWin_Past(day)
-    local t_clanwar_day = self:getClanWarDayInfo()
-
-    -- 해당 경기의 정보
-    -- 없다면 아직 진행되지 않은 경기
-    local t_data = t_clanwar_day[tostring(day)]
-    if (not t_data) or (t_data == {}) then
-        return 0
-    end
-
-    return t_data['member_win'] or 0
-end
-
--------------------------------------
--- function StructClanWarLeagueItem
--------------------------------------
-function StructClanWarLeagueItem:getMatchSetScore(day)
-    local t_clanwar_day = self:getClanWarDayInfo()
-
-    -- 해당 경기의 정보
-    -- 없다면 아직 진행되지 않은 경기
-    local t_data = t_clanwar_day[tostring(day)]
-    if (not t_data) or (t_data == {}) then
-        return 0, 0
-    end
-
-    local score_str = t_data['score'] or ''
-    local l_score = pl.stringx.split(score_str, '-')
-    local win, lose = l_score[1], l_score[2]
-    return tonumber(win) or 0, tonumber(lose) or 0
+function StructClanWarLeagueItem:getGameLose()
+	return tonumber(self['game_lose'])
 end
 
 -------------------------------------
