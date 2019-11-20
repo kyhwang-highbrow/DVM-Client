@@ -67,8 +67,15 @@ function ServerData_ClanWar:checkClanWarState()
 	local clanwar_state = g_clanWarData:getClanWarState()
 	local msg = ''
 	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-		return true, msg
+        return true, msg
 	end
+
+    -- 마지막날 닫혀있어도, 경기 결과 보는 날은 열어줌
+    if (self.m_clanWarDay == 14) then
+        return true, msg
+    end
+
+    return false, msg
 end
 
 -------------------------------------
@@ -81,7 +88,7 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 		return true, msg
 	end
 
-	if (self.m_clanWarDay == 1) or (self.m_clanWarDay == 14) then
+	if (self.m_clanWarDay == 1) then
 		local remain_time = g_clanWarData:getRemainSeasonTime()
 		msg = Str('클랜전 시즌이 종료되었습니다.') .. '{@green}' .. Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainSeasonTime()) -- 14일째 시즌 시자가 시간이 이상하게 내려온다
 		return false, msg
@@ -427,7 +434,7 @@ function ServerData_ClanWar:getTodayRound(next_day)
 	local day = self.m_clanWarDay + (next_day or 0)
     local max_round = g_clanWarData:getMaxRound()
 	-- 8??깃컧??64揶? 7??깃컧??32揶?...
-	local t_day = { [6] = max_round, [7] = max_round, [8] = max_round, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+	local t_day = { [6] = max_round, [7] = max_round, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
 	return t_day[day]
 end
 
@@ -463,7 +470,7 @@ end
 -- function isWaitingTime
 -------------------------------------
 function ServerData_ClanWar:isWaitingTime()
-    if (g_clanWarData:getClanWarState() ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+    if (not g_clanWarData:checkClanWarState()) then
         if (not g_clanWarData:isLockTime()) then
             return true
         end

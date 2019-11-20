@@ -272,15 +272,62 @@ function UI_ClanWarTournamentTree:setFinal()
 
     local today_round = g_clanWarData:getTodayRound()
     local round_text = Str('결승전')
+
+    if (today_round <= 8) then
+        ui.vars['round8LineSprite1']:setColor(win_color)
+        ui.vars['round8LineSprite2']:setColor(win_color)
+    end
+
+    if (today_round <= 4) then
+        ui.vars['round4LineSprite']:setColor(win_color)
+    end
+
     if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
 	    if (today_round == 2) then
 	        round_text = round_text .. ' - ' .. Str('진행중')
             ui.vars['todaySprite']:setVisible(true)
             ui.vars['roundLabel']:setColor(COLOR['black'])
-	    end 
+            ui.vars['attackVisual']:setVisible(true)
+	    else
+            ui.vars['normalIconSprite']:setVisible(true)
+        end 
     end
 
     ui.vars['roundLabel']:setString(round_text)
+    if (today_round > 2) then
+        ui.vars['finalClanLabel1']:setString(Str('{1}강', 4) .. ' ' .. Str('승리 클랜'))
+        ui.vars['finalClanLabel2']:setString(Str('{1}강', 4) .. ' ' .. Str('승리 클랜'))
+        ui.vars['finalClanLabel1']:setColor(COLOR['gray'])
+        ui.vars['finalClanLabel2']:setColor(COLOR['gray'])
+    else
+        local l_list = self.m_structTournament:getTournamentListByRound(2)
+        local struct_clan_rank_1 = self.m_structTournament:getClanInfo(l_list[1]['clan_id'])
+        local struct_clan_rank_2 = self.m_structTournament:getClanInfo(l_list[2]['clan_id'])
+        local final_name_1 = struct_clan_rank_1:getClanName()
+        local final_name_2 = struct_clan_rank_2:getClanName()
+        ui.vars['finalClanLabel1']:setString(final_name_1)
+        ui.vars['finalClanLabel2']:setString(final_name_2)
+
+        if (today_round == 1) then
+            ui.vars['winVisual']:setVisible(true)
+            ui.vars['clanMarkNode']:setVisible(true)
+            local clan_win_1 = StructClanWarTournament.isWin(l_list[1])
+            ui.vars['winMenu1']:setVisible(clan_win_1)
+            ui.vars['winMenu2']:setVisible(not clan_win_1)
+            ui.vars['defeatSprite1']:setVisible(not clan_win_1)
+            ui.vars['defeatSprite2']:setVisible(clan_win_1)
+
+            local mark_icon = nil
+            if (clan_win_1) then
+                mark_icon = struct_clan_rank_1:makeClanMarkIcon()
+            else
+                mark_icon = struct_clan_rank_2:makeClanMarkIcon()
+            end
+            if (mark_icon) then
+                ui.vars['clanMarkNode']:addChild(mark_icon)
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -482,6 +529,8 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
         local last_round = round*2
         ui.vars['clanNameLabel1']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
         ui.vars['clanNameLabel2']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
+        ui.vars['clanNameLabel1']:setColor(COLOR['gray'])
+        ui.vars['clanNameLabel2']:setColor(COLOR['gray'])
     -- 지나간 라운드의 경우
     -- 승패 표시함, 뒷 막대기 표시
 	else
