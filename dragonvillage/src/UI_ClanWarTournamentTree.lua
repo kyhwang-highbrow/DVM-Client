@@ -267,9 +267,20 @@ function UI_ClanWarTournamentTree:setFinal()
     ui:load('clan_war_tournament_final_item.ui')
     vars['finalNode']:addChild(ui.root)
 
-    self:makeFinalItemByRound(ui, 8)
-    self:makeFinalItemByRound(ui, 4)
-    self:makeFinalItemByRound(ui, 2)
+    self:makeFinalItemByRound(ui, 8, true) -- is_round_menu
+    self:makeFinalItemByRound(ui, 4, true)
+
+    local today_round = g_clanWarData:getTodayRound()
+    local round_text = Str('결승전')
+    if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+	    if (today_round == 2) then
+	        round_text = round_text .. ' - ' .. Str('진행중')
+            ui.vars['todaySprite']:setVisible(true)
+            ui.vars['roundLabel']:setColor(COLOR['black'])
+	    end 
+    end
+
+    ui.vars['roundLabel']:setString(round_text)
 end
 
 -------------------------------------
@@ -290,6 +301,19 @@ function UI_ClanWarTournamentTree:makeFinalItemByRound(ui_final, round)
             local ui = self:makeTournamentLeaf(round, idx/2, clan1, clan2)
             ui.root:setPositionY(0)
             ui.vars['lineMenu']:setVisible(false)
+            ui.vars['roundMenu']:setVisible(true)
+
+            local round_text = (Str('{1}강전', round))
+            if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+                local today_round = g_clanWarData:getTodayRound()
+		        if (round == today_round) then
+			        round_text = round_text .. ' - ' .. Str('진행중')
+                    ui.vars['todaySprite']:setVisible(true)
+                    ui.vars['roundLabel']:setColor(COLOR['black'])
+		        end 
+            end
+
+            ui.vars['roundLabel']:setString(round_text)
             ui_final.vars['round' .. round .. '_' .. idx/2 .. 'Node']:addChild(ui.root)
         end
     end    
