@@ -190,6 +190,7 @@ function UI_ClanWarTournamentTree:showPage()
 	vars['finalNode']:removeAllChildren()
 	self.m_scrollMenu:removeAllChildren()
     vars['listItemNode']:setVisible(true)
+    self:initTableViewFocus()
 
 	local has_right
 	local has_left
@@ -374,11 +375,6 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
         end
     end
 
-	local today_round = g_clanWarData:getTodayRound()
-	if (round ~= today_round) then
-		return
-	end
-
     local first_pos_y = -1500
     if (self.m_maxRound == 32) then
         first_pos_y = -500
@@ -474,6 +470,11 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 		ui:setWinLineColor(clan_1_is_win)
 	end
 
+    -- 중앙 페이지에는 위치 세팅할 필요가 없음
+    if (self.m_page == 2) then
+        return ui
+    end
+
     local pos_y = 0
 	local first_pos = -60
     -- 첫 경기일 경우
@@ -538,12 +539,21 @@ function UI_ClanWarTournamentTree:initScroll()
     self.m_scrollMenu = scroll_menu
     self.m_scrollView = scroll_view
 
-	local container_node = self.m_scrollView:getContainer()
-	if (self.m_maxRound == 64) then
-		container_node:setPositionY(-1500)
-	else
-		container_node:setPositionY(-500)		
-	end
+	self:initTableViewFocus()
+end
+
+-------------------------------------
+-- function initTableViewFocus
+-------------------------------------
+function UI_ClanWarTournamentTree:initTableViewFocus()
+    if (self.m_scrollView) then
+	    local container_node = self.m_scrollView:getContainer()
+	    if (self.m_maxRound == 64) then
+	    	container_node:setPositionY(-1500)
+	    else
+	    	container_node:setPositionY(-500)		
+	    end
+    end
 end
 
 -------------------------------------
