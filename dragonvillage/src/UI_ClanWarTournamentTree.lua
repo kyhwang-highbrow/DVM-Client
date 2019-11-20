@@ -301,7 +301,9 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     local vars = self.vars
     local struct_clan_war_tournament = self.m_structTournament
     local l_list = struct_clan_war_tournament:getTournamentListByRound(round)
-    
+    local my_clan_idx = nil
+    local my_clan_id = g_clanWarData:getMyClanId()
+
     local clan1 = {}
     local clan2 = {}
     local item_idx = 1
@@ -345,7 +347,10 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
             -- 클랜 2개를 묶어서 하나의 아이템 생성 (토너먼트 트리 잎)
             if (func_get_is_valid(idx)) then
                 local ui = self:makeTournamentLeaf(round, item_idx, clan1, clan2)
-
+                if (clan1['clan_id'] == my_clan_id) or (clan2['clan_id'] == my_clan_id) then
+                    my_clan_idx = idx/2
+                end
+                
                 if (ui) then
 					local pos_x = func_get_pos_x(round_idx, leaf_width)
                     ui.root:setDockPoint(TOP_CENTER)
@@ -374,16 +379,16 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
 		return
 	end
 
-	local container_node = self.m_scrollView:getContainer()
-	local my_clan_id = g_clanWarData:getMyClanId()
-	for idx, data in ipairs(l_list) do
-	    -- 내 클랜에 포커싱
-	    if (data['clan_id'] == my_clan_id) then
-	        local pos_y = self.m_lPosY[math.floor(idx/2)] or 0
-	        container_node:setPositionY(pos_y - 200)
-	        return
-	    end
-	end
+    local first_pos_y = -1500
+    if (self.m_maxRound == 32) then
+        first_pos_y = -500
+    end
+
+    if (my_clan_idx) then
+	    local container_node = self.m_scrollView:getContainer()
+	    local pos_y = self.m_lPosY[my_clan_idx] or 0
+	    container_node:setPositionY(first_pos_y - (pos_y) + -110)
+    end
 end
 
 -------------------------------------
