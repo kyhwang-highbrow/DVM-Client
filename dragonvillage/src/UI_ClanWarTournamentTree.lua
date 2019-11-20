@@ -441,23 +441,20 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
 
 	local clan_1_is_win = StructClanWarTournament.isWin(clan1)
 	local clan_2_is_win = StructClanWarTournament.isWin(clan2)
-	ui.vars['defeatSprite1']:setVisible(not clan_1_is_win)
-	ui.vars['defeatSprite2']:setVisible(not clan_2_is_win)
+	ui.vars['defeatSprite1']:setVisible(false)
+	ui.vars['defeatSprite2']:setVisible(false)
+	ui.vars['winSprite1']:setVisible(false)
+	ui.vars['winSprite2']:setVisible(false)
     ui:setWin(clan_1_is_win, clan_2_is_win)
 	
     -- 현재 진행중인 라운드의 경우
     -- 승패 표시 안함, 뒷 막대기 표시
     if (today_round == round) then
 		ui.vars['leftHorizontalSprite']:setColor(win_color)
-        ui.vars['defeatSprite1']:setVisible(false)
-		ui.vars['defeatSprite2']:setVisible(false)	
-	
     -- 진행 안한 라운드의 경우
     -- 승패 표시 안함, 뒷 막대기 표시 안함
 	elseif (today_round >= round) then
-		ui.vars['defeatSprite1']:setVisible(false)
-		ui.vars['defeatSprite2']:setVisible(false)
-	    
+		    
         local last_round = round*2
         ui.vars['clanNameLabel1']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
         ui.vars['clanNameLabel2']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
@@ -465,8 +462,10 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, clan1, cla
     -- 승패 표시함, 뒷 막대기 표시
 	else
 		ui.vars['leftHorizontalSprite']:setColor(win_color)
-		ui.vars['defeatSprite1']:setVisible(clan_1_is_win)
-        ui.vars['defeatSprite2']:setVisible(not clan_1_is_win)
+		ui.vars['defeatSprite1']:setVisible(not clan_1_is_win)
+        ui.vars['defeatSprite2']:setVisible(not clan_2_is_win)
+	    ui.vars['winSprite1']:setVisible(clan_1_is_win)
+	    ui.vars['winSprite2']:setVisible(clan_2_is_win)
 		ui:setWinLineColor(clan_1_is_win)
 	end
 
