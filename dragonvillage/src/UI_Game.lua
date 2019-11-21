@@ -877,3 +877,20 @@ function UI_Game:offAutoStart()
     vars['autoStartVisual']:setVisible(false)
 end
 
+-------------------------------------
+-- function lockAutoButton
+-------------------------------------
+function UI_Game:lockAutoButton()
+    local vars = self.vars
+
+	local is_auto_mode = false
+    
+	vars['autoButton']:setEnabled(false)
+    vars['autoButton']:setVisible(true)
+    vars['autoVisual']:setVisible(false)
+    vars['autoLockSprite']:setVisible(true)
+
+    -- 연속 전투 UI off
+    vars['autoStartButton']:setVisible(false)
+end
+

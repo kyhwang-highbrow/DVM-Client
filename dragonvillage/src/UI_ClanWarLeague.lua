@@ -12,6 +12,7 @@ UI_ClanWarLeague = class({
         
 		-- 1조 ~ N조까지 누르는 테이블뷰
 		m_scrollBtnTableView = 'UIC_TableView',
+        m_myLeagueNumber = 'number',
 
 		m_closeCB = 'function',
      })
@@ -21,7 +22,7 @@ UI_ClanWarLeague = class({
 -------------------------------------
 function UI_ClanWarLeague:init(vars, root)
     self.vars = vars
-	self.m_selctedTeam = 1
+	self.m_selctedTeam = nil
 	self.m_teamCnt = g_clanWarData:getEntireGroupCnt()
 
     -- 초기화
@@ -161,6 +162,8 @@ function UI_ClanWarLeague:setScrollButton()
             self.m_selctedTeam = team_idx
             self:refresh(team_idx)
         end)
+        -- 자신의 조 버튼 표시
+        ui.vars['myClanSprite']:setVisible(ui.m_idx == self.m_myLeagueNumber)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -272,9 +275,11 @@ end
 function UI_ClanWarLeague:refreshButtonList(team)
 	-- 처음 들어왔을 때에는 자신의 조로 버튼을 세팅
     if (not team) then
-		local struct_league_item = self.m_structLeague:getLeagueInfo()
+        local my_clan_id = g_clanWarData:getMyClanId()
+		local struct_league_item = self.m_structLeague:getLeagueInfo(my_clan_id)
 		if (struct_league_item) then
 			self.m_selctedTeam = struct_league_item:getLeague()
+            self.m_myLeagueNumber = self.m_selctedTeam
 		end
     end
     self:setScrollButton()

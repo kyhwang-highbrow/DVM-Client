@@ -110,29 +110,19 @@ function UI_ClanWarSelectScene:initEnemyTableView()
     local vars = self.vars
     local struct_match = self.m_tStructMatch
     local t_enemy = struct_match:getEnemyMatchData()
-    local _t_enemy = {}
+    local l_enemy = {}
 
+    -- 공격 가능한 리스트 추출 (방어덱 없는 유저x, 방어 실패한 유저x)
     for _, struct_match_item in pairs(t_enemy) do       
         local defend_state = struct_match_item:getDefendState()
         if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']) and (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_FAIL']) then
-            table.insert(_t_enemy, struct_match_item)
+            table.insert(l_enemy, struct_match_item)
         end
     end
     
-	vars['defenseNumLavel']:setString(Str('방어인원 {1}', #_t_enemy))
-    local create_func = function(ui, struct_match_item)
-        -- 클릭했을 때 
-        ui.vars['selectBtn']:registerScriptTapHandler(function() 
-            self.m_curSelectEnemyStructMatch = struct_match_item 
-            self:refreshFocusUserInfo(true)
-            self:selectItem()
-        end)
-        ui:setStructMatch(struct_match, false)
-    end
-    --[[
-	local sort_func = function(a,b)
+    local sort_func = function(a,b)
 		a_user = a:getUserInfo()
-		b_user = b:getUserINfo()
+		b_user = b:getUserInfo()
 
 		if (not a_user) then
 			return false
@@ -142,27 +132,39 @@ function UI_ClanWarSelectScene:initEnemyTableView()
 			return true
 		end
 
-		return a_user:getTierOrder() < b_user:getTierOrder()
+		return a_user:getTierOrder() > b_user:getTierOrder()
 	end
 
-	table.sort(_t_enemy, sort_func)
-    --]]
+	table.sort(l_enemy, sort_func)
+    for i, data in ipairs(l_enemy) do
+        if (i == 1) then
+            self.m_curSelectEnemyStructMatch = data
+            break
+        end 
+    end
+
+
+	vars['defenseNumLavel']:setString(Str('방어인원 {1}', #l_enemy))
+    local create_func = function(ui, struct_match_item)
+        -- 클릭했을 때 
+        ui.vars['selectBtn']:registerScriptTapHandler(function() 
+            self.m_curSelectEnemyStructMatch = struct_match_item 
+            self:refreshFocusUserInfo(true)
+            self:selectItem()
+        end)
+        ui:setStructMatch(struct_match, false)
+        if (self.m_curSelectEnemyStructMatch['uid'] == struct_match_item['uid']) then
+            ui:setSelected(true)
+        end
+    end
+
     local table_view = UIC_TableView(vars['rivalClanListNode'])
     table_view.m_defaultCellSize = cc.size(548, 80 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
     table_view:setCellUIClass(UI_ClanWarSelectSceneListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(_t_enemy)
-
+    table_view:setItemList(l_enemy)
     self.m_enemyTableView = table_view
-
-    local l_data = table_view.m_itemList
-    for i, data in ipairs(l_data) do
-        if (i == 1) then
-            self.m_curSelectEnemyStructMatch = data['data']
-            break
-        end 
-    end
 
     self:refreshFocusUserInfo(true)
     self:selectItem()
@@ -175,15 +177,15 @@ function UI_ClanWarSelectScene:initMyTableView()
     local vars = self.vars
     local struct_match = self.m_tStructMatch
     local t_my = struct_match:getMyMatchData()
-    local _t_my = {}
+    local l_my = {}
 
     for _, struct_match_item in pairs(t_my) do
         if (struct_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) or (struct_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACK_POSSIBLE']) then
-            table.insert(_t_my, struct_match_item)
+            table.insert(l_my, struct_match_item)
         end
     end
 
-	vars['attackNumLavel']:setString(Str('공격인원 {1}', #_t_my))
+	vars['attackNumLavel']:setString(Str('공격인원 {1}', #l_my))
     local create_func = function(ui, struct_match_item)
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 
@@ -193,14 +195,32 @@ function UI_ClanWarSelectScene:initMyTableView()
         end)
     end
 
+    local sort_func = function(a,b)
+		a_user = a:getUserInfo()
+		b_user = b:getUserInfo()
+
+		if (not a_user) then
+			return false
+		end
+
+		if (not b_user) then
+			return true
+		end
+
+		return a_user:getTierOrder() > b_user:getTierOrder()
+	end
+
+	table.sort(l_my, sort_func)
+
     local table_view = UIC_TableView(vars['myClanListNode'])
     table_view.m_defaultCellSize = cc.size(548, 80 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
     table_view:setCellUIClass(UI_ClanWarSelectSceneListItem_Me, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(_t_my)
+    table_view:setItemList(l_my)
 
     self.m_myTableView = table_view
+    self:selectItem()
 end
 
 -------------------------------------
@@ -212,7 +232,6 @@ function UI_ClanWarSelectScene:selectItem()
     end
 
     local selected_uid = self.m_curSelectEnemyStructMatch['uid']
-
     if (self.m_enemyTableView) then
         local l_enemy = self.m_enemyTableView.m_itemList
 	    for _, data in ipairs(l_enemy) do

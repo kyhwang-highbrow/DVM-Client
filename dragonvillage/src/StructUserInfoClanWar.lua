@@ -77,7 +77,7 @@ function StructUserInfoClanWar:getTierOrder(_tier)
         return 0
     end
 
-	if (L_TIER[pure_tier]) then
+	if (not L_TIER[pure_tier]) then
 		return 0
 	end
 

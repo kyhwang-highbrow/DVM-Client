@@ -29,6 +29,9 @@ function GameWorldArena:init(game_mode, stage_id, world_node, game_node1, game_n
     end
 
     ui:lockButton()
+    if (stage_id == CLAN_WAR_STAGE_ID) then
+        ui:lockAutoButton()
+    end
 end
 
 -------------------------------------

@@ -177,15 +177,30 @@ function UI_ClanWarMatchingScene:setMemberTableView()
 		ui.vars['meFrameSprite']:setVisible(true)
     end
 
-    -- 테이블 뷰 인스턴스 생성
     local t_myClan = struct_match:getMyMatchData()
+    local l_myClan = table.MapToList(t_myClan)
+    local sort_func = function(a,b)
+		a_user = a:getUserInfo()
+		b_user = b:getUserInfo()
+		if (not a_user) then
+			return false
+		end
+
+		if (not b_user) then
+			return true
+		end
+		return a_user:getTierOrder() > b_user:getTierOrder()
+	end
+
+    table.sort(l_myClan, sort_func)
     
+    -- 테이블 뷰 인스턴스 생성    
     self.m_myTableView = UIC_TableView(vars['meClanListNode'])
     self.m_myTableView.m_defaultCellSize = cc.size(548, 80 + 5)
     self.m_myTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
     self.m_myTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func_me)
     self.m_myTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    self.m_myTableView:setItemList(t_myClan)
+    self.m_myTableView:setItemList(l_myClan)
 
     -- 내 uid에 포커싱
     local my_uid = g_userData:get('uid')
@@ -210,13 +225,15 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     end
     -- 테이블 뷰 인스턴스 생성
     local t_enemyClan = struct_match:getEnemyMatchData()
+    local l_enemyClan = table.MapToList(t_enemyClan)
+    table.sort(l_enemyClan, sort_func)
 
     self.m_enemyTableView = UIC_TableView(vars['rivalClanMenu'])
     self.m_enemyTableView.m_defaultCellSize = cc.size(548, 80 + 5)
     self.m_enemyTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
     self.m_enemyTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func_rival)
     self.m_enemyTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    self.m_enemyTableView:setItemList(t_enemyClan)
+    self.m_enemyTableView:setItemList(l_enemyClan)
 end
 
 -------------------------------------
