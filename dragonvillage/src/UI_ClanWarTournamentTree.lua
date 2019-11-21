@@ -101,7 +101,7 @@ function UI_ClanWarTournamentTree:showLastLeague()
     
     if (struct_league) then
         ui = UI_ClanWarLeague(vars)
-        ui:refreshUI(nil, struct_league, true)
+        ui:refreshUI_fromTournament(struct_league)
         ui:showOnlyMyLeague()
     end
 

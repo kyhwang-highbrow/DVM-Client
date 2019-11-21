@@ -193,32 +193,23 @@ end
 -------------------------------------
 -- function refreshUI
 -------------------------------------
-function UI_ClanWarLeague:refreshUI(team, ret, show_only_my_league)
+function UI_ClanWarLeague:refreshUI(team, ret)
 	local vars = self.vars
-
-	if (show_only_my_league) then
-		self.m_structLeague = ret
-    else
-		self.m_structLeague = StructClanWarLeague(ret)
-	end
+	self.m_structLeague = StructClanWarLeague(ret)
 
 	-- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
 	vars['allRankTabMenu']:removeAllChildren()
 	
 	local is_all = false
-	if (not show_only_my_league) then
-		local l_clan_info = ret['league_clan_info'] 
-		if (not l_clan_info) then
-			return
-		end
-		
-		-- 한 번에 12이상 내려왔을 경우 전체가 내려온 것으로 판단
-		is_all = false
-		if (#l_clan_info > 12) then -- 임시
-		    is_all = true
-		end
-	else
-		is_all = false
+	local l_clan_info = ret['league_clan_info']
+	if (not l_clan_info) then
+		return
+	end
+	
+	-- 한 번에 12이상 내려왔을 경우 전체가 내려온 것으로 판단
+	is_all = false
+	if (#l_clan_info > 12) then -- 임시
+	    is_all = true
 	end
 
 	if (is_all) then
@@ -258,6 +249,23 @@ function UI_ClanWarLeague:refreshUI(team, ret, show_only_my_league)
     end
     self:refreshButtonList(team)
 end
+
+-------------------------------------
+-- function refreshUI_fromTournament
+-------------------------------------
+function UI_ClanWarLeague:refreshUI_fromTournament(struct_league)
+	local vars = self.vars
+
+	self.m_structLeague = struct_league
+
+	-- 새로운 조 정보 받을 때마다 아이템들 모두 삭제
+	vars['allRankTabMenu']:removeAllChildren()
+	self:refreshLeagueUI()
+
+    vars['allRankTabMenu']:setVisible(is_all)
+    vars['teamTabMenu']:setVisible(not is_all)
+end
+
 -------------------------------------
 -- function refreshButtonList
 -------------------------------------
