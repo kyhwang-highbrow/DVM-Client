@@ -25,7 +25,7 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
     vars['winRoundLabel']:setString(Str('{@green}{1}{@apricot}-{@red}{2}', win_cnt, lose_cnt))
     
     -- 클랜 정보 (이름 랭크)
-    local clan_name = struct_clan_rank:getClanName()
+    local clan_name = struct_clan_rank:getClanName() or ''
     local clan_rank = struct_league_item:getLeagueRank()
     vars['clanNameLabel']:setString(Str(clan_name))
 
