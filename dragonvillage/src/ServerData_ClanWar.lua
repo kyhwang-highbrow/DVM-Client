@@ -90,7 +90,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/info')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('league', 1) -- 서버에서 처리가 안되어 있어서 임시로 고정
+    ui_network:setParam('league', team) -- 서버에서 처리가 안되어 있어서 임시로 고정
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(finish_cb)
     ui_network:setFailCB(fail_cb)

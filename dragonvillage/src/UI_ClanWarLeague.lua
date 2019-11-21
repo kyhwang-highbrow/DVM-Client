@@ -359,7 +359,7 @@ function UI_ClanWarLeague:setAllRank()
     local vars = self.vars
 	local struct_clan_war = self.m_structLeague
 
-	local l_team = struct_clan_war:getClanWarLeagueAllRankList()
+	local l_team = struct_clan_war:getAllClanWarLeagueRankList()
 	
 	-- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(vars['allRankTabMenu'])

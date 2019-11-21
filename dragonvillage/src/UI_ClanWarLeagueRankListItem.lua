@@ -119,7 +119,7 @@ function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
     local max_member = struct_league_item:getPlayMemberCnt()
     vars['matchNumLabel']:setString(tostring(max_member))
 
-    local create_at = struct_clan_rank['create_date'] or '-'
+    local create_at = struct_clan_rank:getCreateAtText()
 	vars['creationLabel']:setString(create_at)
 
     local round = g_clanWarData:getTodayRound()

@@ -114,7 +114,7 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
     local clan_lv = struct_clan_rank:getClanLv() or ''
     local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
 	vars['clanLvExpLabel' .. idx]:setString(clan_lv_exp) 
-	vars['creationLabel' .. idx]:setString(struct_clan_rank['create_date'] or '')
+	vars['creationLabel' .. idx]:setString(struct_clan_rank:getCreateAtText())
 
 	return true
 end

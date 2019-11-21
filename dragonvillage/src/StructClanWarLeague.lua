@@ -18,6 +18,23 @@ function StructClanWarLeague:init(data)
 		return
 	end
 
+	--[[
+	  "a_win_cnt":0,
+      "b_play_member_cnt":0,
+      "id":"5dd56886e8919372e1f01248",
+      "b_member_win_cnt":0,
+      "b_lose_cnt":0,
+      "a_clan_id":"5ad9519fe891932d9abe6940",
+      "a_member_win_cnt":0,
+      "day":2,
+      "league":1,
+      "b_win_cnt":0,
+      "season":201947,
+      "a_lose_cnt":0,
+      "a_play_member_cnt":0,
+      "match_no":1,
+      "b_clan_id":"5a167756e891934ac612c399"
+	--]]
     -- 각 경기마다 정보
     do
         local l_league_match = {}
@@ -38,23 +55,34 @@ function StructClanWarLeague:init(data)
 
     -- 토탈 조별 리그 정보 (랭킹 정보)
     do
-	--[[
-	  "a_win_cnt":0,
-      "b_play_member_cnt":0,
-      "id":"5dd56886e8919372e1f01248",
-      "b_member_win_cnt":0,
-      "b_lose_cnt":0,
-      "a_clan_id":"5ad9519fe891932d9abe6940",
-      "a_member_win_cnt":0,
-      "day":2,
+
+    --[[
+      "win_cnt":0,
+      "rank":0,
+      "id":"5dd6034a970c6204b0f7e7a3",
+      "member_win_cnt":0,
+      "game_lose":0,
+      "play_member_cnt":0,
+      "game_win":0,
       "league":1,
-      "b_win_cnt":0,
       "season":201947,
-      "a_lose_cnt":0,
-      "a_play_member_cnt":0,
-      "match_no":1,
-      "b_clan_id":"5a167756e891934ac612c399"
-	--]]
+      "clan_id":"5ad9519fe891932d9abe6940",
+      "group_no":1
+    },{
+      "lose_cnt":0,
+      "win_cnt":0,
+      "rank":0,
+      "id":"5dd6034a970c6204b0f7e7a4",
+      "member_win_cnt":0,
+      "game_lose":0,
+      "play_member_cnt":0,
+      "game_win":0,
+      "league":1,
+      "season":201947,
+      "clan_id":"5a167756e891934ac612c399",
+      "group_no":2
+    },{
+    --]]
         local l_total_league = {}
         if (data['league_info']) then
 	        l_total_league = data['league_info']
@@ -166,4 +194,41 @@ function StructClanWarLeague:getTotalSetScore(clan_id)
 	end
 
     return total_win_cnt
+end
+
+-------------------------------------
+-- function getAllClanWarLeagueRankList
+-------------------------------------
+function StructClanWarLeague:getAllClanWarLeagueRankList(clan_id)
+    local l_clan = self:getClanWarLeagueRankList()    
+    local t_rank_clan_info = {}
+
+	-- 전체 랭킹 출력하기 위해서
+	-- 각 조 이름을 key로 만든 맵으로 변환
+	for _, struct_league_item in pairs(l_clan) do
+		local league = struct_league_item:getLeague()
+		if (not t_rank_clan_info[league]) then
+			t_rank_clan_info[league] = {}
+		end
+
+        local clan_id = struct_league_item:getClanId()
+		local clan_info = g_clanWarData:getClanInfo(clan_id)
+		if (clan_info) then
+			table.insert(t_rank_clan_info[league], struct_league_item)
+		end
+	end
+
+    -- 랭킹 순서로 정렬
+    local sort_func = function(a, b)
+        local rank_a = a:getLeagueRank()
+        local rank_b = b:getLeagueRank()
+        
+        return rank_a < rank_b
+    end
+
+	for _, l_data in pairs(t_rank_clan_info) do
+		table.sort(l_data, sort_func)
+	end
+
+    return t_rank_clan_info
 end

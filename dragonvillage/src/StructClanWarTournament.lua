@@ -3,13 +3,8 @@
 -- class StructClanWarTournament
 -------------------------------------
 StructClanWarTournament = class({
-	m_tClanInfo = 'table',
     m_tTournamentInfo = 'table',
     m_tTournament = 'table',
-
-    m_clanWarDay = 'number',
-
-	m_maxRound = 'round', -- 몇 강부터 시작하는지, ex) 64
 
     m_structClanWarLeague = 'StructClanWarLeague',
 })
@@ -21,10 +16,7 @@ local L_ROUND = {64, 32, 16, 8, 4, 2, 1}
 -------------------------------------
 function StructClanWarTournament:init(data)
 	self.m_tTournamentInfo = {}
-    self.m_clanWarDay = 1
-    self.m_tClanInfo = {}
     self.m_tTournament = {}
-	self.m_maxRound = g_clanWarData:getMaxRound()
 
     for i, round in ipairs(L_ROUND) do
         self.m_tTournamentInfo[round] = {}
@@ -40,14 +32,6 @@ function StructClanWarTournament:init(data)
 
     if (data['tournament_info']) then
         self:makeTournamentTable(data['tournament_info'])
-    end
-
-    if (data['tournament_clan_info']) then
-        self:makeClanInfo(data['tournament_clan_info'])
-    end
-
-    if (data['clanwar_day']) then
-        self.m_clanWarDay = data['clanwar_day']
     end
 
     self.m_structClanWarLeague = StructClanWarLeague(data)
@@ -95,16 +79,6 @@ function StructClanWarTournament:makeTournamentData(l_tournament)
         table.sort(self.m_tTournamentInfo[round], sort_func)
     end
 end 
-
--------------------------------------
--- function makeClanInfo
--------------------------------------
-function StructClanWarTournament:makeClanInfo(l_clan)
-    for idx, data in ipairs(l_clan) do
-        local clan_id = data['id'] -- N강
-        self.m_tClanInfo[clan_id] = StructClanRank(data)
-    end
-end
 
 -------------------------------------
 -- function getTournamentListByRound

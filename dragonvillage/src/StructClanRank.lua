@@ -202,3 +202,18 @@ end
 function StructClanRank:getMaxMember()
     return self.member_max
 end
+
+-------------------------------------
+-- function getCreateAtText
+-------------------------------------
+function StructClanRank:getCreateAtText()
+    if (not self.create_date) then
+        return '-'
+    end
+
+    local create_str = tostring(self.create_date)
+    local year = string.sub(create_str,1,4)
+    local month = string.sub(create_str,5,6)
+    local day = string.sub(create_str,7,8)
+    return Str('{1}-{2}-{3}', year, month, day)
+end

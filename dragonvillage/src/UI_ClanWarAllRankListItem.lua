@@ -57,7 +57,7 @@ function UI_ClanWarAllRankListItemOfItem:init(struct_league_item)
         return
     end
 
-    if (struct_league_item['league_info']['clan_id'] == 'loser') then
+    if (struct_league_item:isGoastClan()) then
         vars['clanNameLabel']:setString(Str('대전 상대 없음'))
         vars['rankLabel']:setString('')
         vars['scoreLabel']:setString('')
@@ -65,7 +65,8 @@ function UI_ClanWarAllRankListItemOfItem:init(struct_league_item)
     end
 
     -- 클랜 정보
-	local struct_clan_rank = struct_league_item:getClanInfo()
+    local clan_id = struct_league_item:getClanId()
+	local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
     local clan_name = struct_clan_rank:getClanName()
     local clan_rank = tostring(struct_league_item:getLeagueRank())
     vars['clanNameLabel']:setString(Str(clan_name))
