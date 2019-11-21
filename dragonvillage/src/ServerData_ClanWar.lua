@@ -110,7 +110,6 @@ function ServerData_ClanWar:setClanInfo(l_clan_info)
         return
     end
 
-    self.m_tClanInfo = {}
     for _, data in ipairs(l_clan_info) do
         local clan_id = data['id']
         self.m_tClanInfo[clan_id] = StructClanRank(data)

@@ -45,11 +45,7 @@ function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_league)
     for i = 1, 2 do    
 		local is_valid_clan = self:setClanInfoPopup(i, data, is_league)
         if (is_valid_clan) then
-			if (is_league) then
-			    self:setClanInfoPopup_league(i, data)
-			else
-			    self:setClanInfoPopup_tournament(i, data)
-			end
+		    self:setClanInfoPopup_league(i, data)
 		end
     end
 end
