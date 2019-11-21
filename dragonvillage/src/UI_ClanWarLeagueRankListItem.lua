@@ -102,10 +102,14 @@ function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
     local ui = UI_ClanWarLeagueRankListItem(struct_league_item)
     vars['rankItemNode']:addChild(ui.root)
 
-    -- 세트 스코어 모두 더한 값
+    -- 게임 스코어 모두 더한 값
     local total_set_win_cnt, total_set_lose_cnt = struct_league_item:getGameWin(), struct_league_item:getGameLose()
     local score_history = total_set_win_cnt .. '-' .. total_set_lose_cnt
     vars['setScoreLabel']:setString(score_history)
+
+    -- 세트 스코어 모두 더한 값
+    local total_set_score = struct_league_item['total_win_cnt']
+    vars['victoryLabel']:setString(tostring(total_set_score))
 
     -- 클랜 정보 (레벨, 경험치, 참여 인원, 생성일)
 	local clan_lv = struct_clan_rank:getClanLv() or ''
@@ -113,8 +117,8 @@ function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
     vars['clanLvExpLabel']:setString(clan_lv_exp)
 
     local max_member = struct_league_item:getPlayMemberCnt()
-    vars['matchNumLabel']:setString(max_member)
-    
+    vars['matchNumLabel']:setString(tostring(max_member))
+
     local create_at = struct_clan_rank['create_date'] or '-'
 	vars['creationLabel']:setString(create_at)
 

@@ -150,3 +150,20 @@ function StructClanWarLeague:getMyClanMatchScore()
 		end
 	end
 end
+
+-------------------------------------
+-- function getTotalSetScore
+-------------------------------------
+function StructClanWarLeague:getTotalSetScore(clan_id)
+    local total_win_cnt = 0
+	for _, data in ipairs(self.m_lLeagueMatch) do
+		if (data['a_clan_id'] == clan_id) then
+		    total_win_cnt = total_win_cnt + data['a_member_win_cnt']
+		end
+		if (data['b_clan_id'] == clan_id) then
+			total_win_cnt = total_win_cnt + data['b_member_win_cnt']
+		end
+	end
+
+    return total_win_cnt
+end

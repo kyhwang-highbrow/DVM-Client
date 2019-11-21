@@ -17,6 +17,9 @@ StructClanWarLeagueItem = class(PARENT, {
     rank = 'number',
     play_member_cnt = 'number',
     day = 'number',
+
+    -- 서버에서 받는 값이 아니라 중간에 가공하는 값
+    total_win_cnt = 'number'
 })
 
 local THIS = StructClanWarLeagueItem
