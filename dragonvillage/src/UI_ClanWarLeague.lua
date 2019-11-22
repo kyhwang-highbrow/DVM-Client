@@ -323,10 +323,11 @@ function UI_ClanWarLeague:refreshLeagueUI()
     if (not g_clanWarData:getIsLeague()) then
         vars['startBtn']:setVisible(false)
     end
-
+    --[[
     -- 점수 조작 관련 정보 입력하는 팝업 여는 버튼
     vars['testBtn']:setVisible(is_myClanTeam)
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, true) end)
+    --]]
     vars['testTomorrowBtn']:setVisible(true)
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
         g_clanWarData:request_testNextDay() 

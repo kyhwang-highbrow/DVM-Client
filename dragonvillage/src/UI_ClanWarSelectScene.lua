@@ -59,9 +59,11 @@ function UI_ClanWarSelectScene:initUI()
 	self:initMyTableView()
 
     if (IS_TEST_MODE()) then
+        --[[
         vars['testMenu']:setVisible(true)
         vars['testWinBtn']:registerScriptTapHandler(function() self:click_testBtn(true) end)
         vars['testLoseBtn']:registerScriptTapHandler(function() self:click_testBtn(false) end)
+        --]]
     end
 
     self:setDefendHistoryTableView()
