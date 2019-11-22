@@ -68,7 +68,7 @@ function StructClanWarTournament:getTournamentListByRound(round)
 
     local l_tournament = t_tournament[round]
     if (#l_tournament == 0) then
-        for i = 1, round do
+        for i = 1, round/2 do
             table.insert(l_tournament, {})
         end
     end
