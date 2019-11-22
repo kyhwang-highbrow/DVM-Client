@@ -35,14 +35,6 @@ end
 function UI_ClanwarRewardInfoPopup:initUI(is_league, my_rank, tournament_rank)
     local vars = self.vars
 
-    if (not is_league) then
-        if (tournament_rank == 0) then
-            is_league = true
-        else
-			my_rank = tournament_rank
-		end
-    end
-
     -- 클랜전 보상 정보만
     -- 32부터라면, 32강까지만, 그룹 보상이 4위부터면 4위까지만
     local max_round = g_clanWarData:getMaxRound()
@@ -75,6 +67,14 @@ function UI_ClanwarRewardInfoPopup:initUI(is_league, my_rank, tournament_rank)
         else
             category = 'clanwar_league'
         end
+    end
+    
+    if (not is_league) then
+        if (tournament_rank == 0) then
+            is_league = true
+        else
+			my_rank = tournament_rank
+		end
     end
 
     local create_func = function(ui, data)
