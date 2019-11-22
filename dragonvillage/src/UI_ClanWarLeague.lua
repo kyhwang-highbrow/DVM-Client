@@ -54,7 +54,7 @@ end
 function UI_ClanWarLeague:setRankList(struct_league)
     local vars = self.vars
 
-    vars['rankListScrollNode']:removeAllChildren()
+    vars['rankListNode']:removeAllChildren()
 
     local struct_clanwar_league = struct_league or self.m_structLeague
 	local l_rank = struct_clanwar_league:getClanWarLeagueRankList()
@@ -66,7 +66,7 @@ function UI_ClanWarLeague:setRankList(struct_league)
     end
 
     -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(vars['rankListScrollNode'])
+    local table_view = UIC_TableView(vars['rankListNode'])
     table_view.m_defaultCellSize = cc.size(660, 60 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
     table_view:setCellUIClass(UI_ClanWarLeagueRankListItem)
