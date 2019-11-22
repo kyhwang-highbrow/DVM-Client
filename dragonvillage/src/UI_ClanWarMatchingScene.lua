@@ -206,7 +206,7 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     local my_uid = g_userData:get('uid')
     local idx = 1
     local i = 1
-    for _, data in pairs(t_myClan) do
+    for _, data in pairs(l_myClan) do
         if (data['uid'] == my_uid) then
             idx = i
         end

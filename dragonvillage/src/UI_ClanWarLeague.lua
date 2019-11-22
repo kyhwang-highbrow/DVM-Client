@@ -388,12 +388,11 @@ end
 -------------------------------------
 function UI_ClanWarLeague:click_gotoMatch()    
 	local is_open, msg = g_clanWarData:checkClanWarState_League()
-	--[[
 	if (not is_open) then
 		MakeSimplePopup(POPUP_TYPE.OK, msg)
 		return
 	end
-	--]]
+
 	local struct_league = self.m_structLeague
     local my_win_cnt, enemy_win_cnt = struct_league:getMyClanMatchScore()
 

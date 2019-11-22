@@ -128,7 +128,7 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
 		prefix = 'b_'
 	end   
 
-    local match_number = data['day'] or 1
+    local match_number = data['day'] or data['group_stage'] or 0
 	-- 게임 스코어
     local win, lose = data[prefix .. 'win_cnt'] or 0, data[prefix .. 'lose_cnt'] or 0
     local set_history = tostring(win) .. '-' .. tostring(lose) 
