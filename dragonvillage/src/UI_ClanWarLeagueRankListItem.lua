@@ -122,9 +122,9 @@ function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
     local create_at = struct_clan_rank:getCreateAtText()
 	vars['creationLabel']:setString(create_at)
 
-    local round = g_clanWarData:getTodayRound()
+    local round = g_clanWarData:getTodayRoundText()
     if (round) then
-        vars['roundLabel']:setString(Str('{1}강', round))
+        vars['roundLabel']:setString(round)
     else
         vars['roundLabel']:setString(Str('조별리그'))
     end

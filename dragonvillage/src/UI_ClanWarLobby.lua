@@ -78,7 +78,7 @@ function UI_ClanWarLobby:initUI(ret)
 
     local cur_match_day = g_clanWarData.m_clanWarDay
 
-    if (false) then
+    if (g_clanWarData:isLockTime()) then
         self:setWaitingRoom()
         self:setRewardBtn(ret)
 

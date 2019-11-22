@@ -151,8 +151,12 @@ function UI_ClanwarRewardInfoPopup:initMyRankInfo(is_league, my_rank, tournament
 		if (tournament_rank == 0) then
 			vars['tournamentRankLabel']:setString('-')
 		else
-			vars['tournamentRankLabel']:setString(Str('{1}강', tournament_rank))
-		end
+            if (tournament_rank <= 2) then
+                vars['tournamentRankLabel']:setString(Str('결승전'))
+            else
+			    vars['tournamentRankLabel']:setString(Str('{1}강', tournament_rank))
+		    end
+        end
 	end
 end
 

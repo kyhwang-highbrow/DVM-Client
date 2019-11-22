@@ -64,9 +64,9 @@ end
 function UI_ClanWarMatchingScene:initUI()
     local vars = self.vars
 
-    local round = g_clanWarData:getTodayRound()
+    local round_text = g_clanWarData:getTodayRoundText()
     if (round) then
-        vars['roundLabel']:setString(Str('{1}강', round))
+        vars['roundLabel']:setString(round_text)
     else
         vars['roundLabel']:setString(Str('조별리그'))
     end

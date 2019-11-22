@@ -110,30 +110,30 @@ end
 -------------------------------------
 -- function isContainClan
 -------------------------------------
-function StructClanWarTournament:isContainClan(clan_id)
+function StructClanWarTournament:getTournamentInfo(clan_id)
 	if (not self.m_tTournamentInfo) then
-        return false
+        return 
     end
     
     if (not clan_id) then
-        return false
+        return 
     end
 
     local today_round = g_clanWarData:getTodayRound()
     -- 돌면서 나의 클랜을 찾는다.
     local t_data = self.m_tTournamentInfo[today_round]
     if (not t_data) then
-        return false
+        return 
     end
 
     local idx = 1
 	for _, data in ipairs(t_data) do
-        if (clan_id == data['clan_id']) then
-            return true
+        if (clan_id == data['a_clan_id']) or (clan_id == data['b_clan_id']) then
+            return data
         end
     end
 
-   return false
+   return 
 end
 
 -------------------------------------
@@ -155,7 +155,7 @@ function StructClanWarTournament:getMyInfoInCurRound()
 	
     local my_clan_id = g_clanWarData:getMyClanId()
     for idx, data in ipairs(l_tournament) do
-		if (data['clan_id'] == my_clan_id) then
+		if (data['a_clan_id'] == my_clan_id) or  (data['b_clan_id'] == my_clan_id) then
 			return data, idx
 		end
 	end

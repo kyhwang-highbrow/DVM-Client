@@ -96,9 +96,9 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 
 	-- 토너먼트 진행 안 하는 날 : 일본 서버의 경우 이틀 뒤 시작한다
 	if (not g_clanWarData:isMatchDay(self.m_clanWarDay)) then
-		local round = g_clanWarData:getTodayRound(1)
+		local round = g_clanWarData:getTodayRoundText(1)
         local time = g_clanWarData:getRemainStartGameTime()
-        local game_name = Str('{1}강', round)
+        local game_name = round
 		msg = game_name .. ' ' .. Str('토너먼트를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', time)
 		return false, msg
 	end
@@ -106,8 +106,8 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 	-- 자정 ~ 10시
 	local clanwar_state = g_clanWarData:getClanWarState()
 	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['BREAK']) then
-		local round = g_clanWarData:getTodayRound()
-		local game_name = Str('{1}강', round)
+		local round = g_clanWarData:getTodayRoundText()
+		local game_name = round
         msg = game_name .. ' ' ..Str('토너먼트를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
 		return false, msg
 	end
@@ -186,8 +186,8 @@ function ServerData_ClanWar:getCurStateText_Tournament()
 		return g_clanWarData:checkClanWarState_Tournament()
 	end
 
-	local today_round = g_clanWarData:getTodayRound()
-	local game_name = Str('토너먼트') .. ' ' .. Str('{1}강', today_round)
+	local today_round = g_clanWarData:getTodayRoundText()
+	local game_name = Str('토너먼트') .. ' ' .. today_round
 	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainTimeForNextGameEnd())
 	return open, msg
 end
@@ -433,9 +433,33 @@ end
 function ServerData_ClanWar:getTodayRound(next_day)
 	local day = self.m_clanWarDay + (next_day or 0)
     local max_round = g_clanWarData:getMaxRound()
-	-- 8??깃컧??64揶? 7??깃컧??32揶?...
 	local t_day = { [6] = max_round, [7] = max_round, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
 	return t_day[day]
+end
+
+-------------------------------------
+-- function getTodayRound
+-------------------------------------
+function ServerData_ClanWar:getTodayRoundText()
+	local round = g_clanWarData:getTodayRound(next_day)
+    if (not round) then
+        return Str('조별리그')
+    elseif (round <= 2) then
+        return Str('결승전')
+    else
+        return Str('{1}강', round)
+    end
+end
+
+-------------------------------------
+-- function getRoundText
+-------------------------------------
+function ServerData_ClanWar:getRoundText(round)
+    if (round <= 2) then
+        return Str('결승전')
+    else
+        return Str('{1}강', round)
+    end
 end
 
 -------------------------------------

@@ -61,7 +61,7 @@ function UI_ClanWarTournamentTree:initUI()
     self:initScroll()
 
     vars['matchTypeBtn']:setVisible(true)
-	vars['matchTypeLabel']:setString(Str('토너먼트'))
+	vars['matchTypeLabel']:setString(Str('조별리그'))
 end
 
 -------------------------------------
@@ -83,8 +83,10 @@ function UI_ClanWarTournamentTree:showLastLeague()
 
 	self:checkStartBtn()
 	
-	local struct_league = self.m_structTournament:getStructClanWarLeague()
-	local team_number = struct_league:getMyClanTeamNumber()
+	local my_clan_id = g_clanWarData:getMyClanId()
+    local struct_league = self.m_structTournament:getStructClanWarLeague()    
+	local struct_league_item = struct_league:getLeagueInfo(my_clan_id)
+	local team_number = struct_league_item:getLeague()
 	vars['myClanLabel']:setString(Str('{1}조', team_number))
 	
 	if (not self.m_isLeagueMode) then
@@ -127,9 +129,8 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
         -- 오른쪽/왼쪽 페이지인지 판별
         -- 인덱스가 절반보다 클 경우 오른쪽
         local data, idx = self.m_structTournament:getMyInfoInCurRound(today_round)
-        local max_round = g_clanWarData:getMaxRound()
         if (idx) then
-            if (idx > max_round/4) then
+            if (idx > today_round/4) then
                 self.m_page = 3
             else
                 self.m_page = 1
@@ -150,16 +151,10 @@ function UI_ClanWarTournamentTree:checkStartBtn()
 
 	-- 내 클랜이 토너먼트 진출하지 못했을 경우, 전투시작 버튼 보여주지 않음
     local today_round = g_clanWarData:getTodayRound()
-	local my_clan_id = g_clanWarData:getMyClanId()
-
-	if (not t_tournament) then
+    local data, idx = self.m_structTournament:getMyInfoInCurRound(today_round)
+	if (not data) then
 		vars['startBtn']:setVisible(false)
 	end
-    
-    local my_clan_id = g_clanWarData:getMyClanId()
-    local data, idx = self.m_structTournament:getMyInfoInCurRound()
-    -- 내 클랜이 진출하지 않았을 경우, 전투시작 버튼 보여주지 않음
-    vars['startBtn']:setVisible(data ~= nil)
 end
 
 -------------------------------------
@@ -299,8 +294,12 @@ function UI_ClanWarTournamentTree:setFinal()
         ui.vars['finalClanLabel2']:setColor(COLOR['gray'])
     else
         local l_list = self.m_structTournament:getTournamentListByRound(2)
-        local struct_clan_rank_1 = g_clanWarData:getClanInfo(l_list[1]['a_clan_id'])
-        local struct_clan_rank_2 = g_clanWarData:getClanInfo(l_list[1]['b_clan_id'])
+        local final_data = l_list[1]
+        if (not final_data) then
+            return
+        end
+        local struct_clan_rank_1 = g_clanWarData:getClanInfo(final_data['a_clan_id'])
+        local struct_clan_rank_2 = g_clanWarData:getClanInfo(final_data['b_clan_id'])
         if (not struct_clan_rank_1) then
             struct_clan_rank_1 = StructClanRank()
         end
@@ -319,8 +318,8 @@ function UI_ClanWarTournamentTree:setFinal()
             ui.vars['clanMarkNode']:setVisible(true)
 
             local is_clan_1_win = false
-            if (data['win_clan']) then
-                if (data['win_clan'] == clan1_id) then
+            if (final_data['win_clan']) then
+                if (final_data['win_clan'] == clan1_id) then
                     is_clan_1_win = true
                 end
             end
@@ -357,7 +356,7 @@ function UI_ClanWarTournamentTree:makeFinalItemByRound(ui_final, round)
         ui.vars['lineMenu']:setVisible(false)
         ui.vars['roundMenu']:setVisible(true)
 
-        local round_text = (Str('{1}강전', round))
+        local round_text = g_clanWarData:getRoundText(round)
         if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
             local today_round = g_clanWarData:getTodayRound()
 	        if (round == today_round) then
@@ -399,13 +398,13 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     local func_get_is_valid = function(idx)
 		local is_valid_item = false
         if (is_right) then
-            if (idx > (#l_list)/4) then
+            if (idx > (#l_list)/2) then
                 is_valid_item = true
             else
                 is_valid_item = false
             end
         else
-            if (idx <= (#l_list)/4) then
+            if (idx <= (#l_list)/2) then
                 is_valid_item = true
             else
                 is_valid_item = false
@@ -419,7 +418,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     for idx, data in ipairs(l_list) do
         if (func_get_is_valid(idx)) then
             local ui = self:makeTournamentLeaf(round, idx, data, is_right)
-            if (clan1['clan_id'] == my_clan_id) or (clan2['clan_id'] == my_clan_id) then
+            if (data['a_clan_id'] == my_clan_id) or (data['b_clan_id'] == my_clan_id) then
                 my_clan_idx = idx
             end
             
@@ -450,9 +449,15 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     end
 
     if (my_clan_idx) then
+        if (is_right) then
+            my_clan_idx = my_clan_idx - round/4
+        end
 	    local container_node = self.m_scrollView:getContainer()
 	    local pos_y = self.m_lPosY[my_clan_idx] or 0
-	    container_node:setPositionY(first_pos_y - (pos_y) + -110)
+        local focus_y = first_pos_y - (pos_y) + -210
+        focus_y = math.max(focus_y, first_pos_y)
+        container_node:setPositionY(focus_y)
+	    --container_node:setPositionY(first_pos_y - (pos_y) + -110)
     end
 end
 
@@ -545,7 +550,10 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 
     local pos_y = 0
 	local first_pos = -60
-    
+    if (is_right) then
+        item_idx = item_idx - round/4
+    end
+
     -- 첫 경기일 경우
     if (round == g_clanWarData:getMaxRound()) then
         pos_y = first_pos + -math.ceil(item_idx/2 - 1) * term + -(item_idx - 1) * width  
@@ -635,8 +643,14 @@ function UI_ClanWarTournamentTree:click_gotoMatch()
 		return
 	end
 
-	local struct_clan_war_tournament = self.m_structTournament	
-    local my_win_cnt, enemy_win_cnt = struct_clan_war_tournament:getMyClanMatchScore()
+	local struct_clan_war_tournament = self.m_structTournament
+    local my_clan_id = g_clanWarData:getMyClanId()
+    local data = struct_clan_war_tournament:getTournamentInfo(my_clan_id)
+    if (not data) then
+        return
+    end
+    
+    local my_win_cnt, enemy_win_cnt = data['a_member_win_cnt'], data['b_member_win_cnt']
     
 	local success_cb = function(t_my_struct_match, t_enemy_struct_match)
         local ui_clan_war_matching = UI_ClanWarMatchingScene(t_my_struct_match, t_enemy_struct_match)
