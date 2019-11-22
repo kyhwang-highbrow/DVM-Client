@@ -781,11 +781,12 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode
         local l_add_status, l_multi_status = t_dragon_data:getRuneStatus()
         for stat_type,value in pairs(l_add_status) do
             local indivisual_status = status_calc.m_lStatusList[stat_type]
-
-            if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
-                indivisual_status:setRuneMulti(value)
-            else
-                indivisual_status:setRuneAdd(value)
+            if (indivisual_status) then
+                if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+                    indivisual_status:setRuneMulti(value)
+                else
+                    indivisual_status:setRuneAdd(value)
+                end
             end
         end
 
