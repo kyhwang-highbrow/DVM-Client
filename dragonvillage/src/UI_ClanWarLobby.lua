@@ -85,7 +85,7 @@ function UI_ClanWarLobby:initUI(ret)
     -- 1~7일차에는 리그 화면
 	elseif cur_match_day < 7 then
         local ui_clen_war_league = UI_ClanWarLeague(vars, self.root)
-        ui_clen_war_league:refreshUI(nil, ret)
+        ui_clen_war_league:refreshUI(nil, ret, true)
 		ui_clen_war_league.m_closeCB = self.closeUI
 		g_clanWarData:setIsLeague(true)
 

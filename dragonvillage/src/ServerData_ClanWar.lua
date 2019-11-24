@@ -69,7 +69,12 @@ end
 -------------------------------------
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local league = team
+
+
+    -- 통신 전, 블럭 팝업 생성
+    local block_ui = UI_BlockPopup()
 	local finish_cb = function(ret)
+        block_ui:close()
         self.m_clanWarDay = ret['clanwar_day'] or 0
 		self.m_clanWarDayData = ret['clan_data']
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
@@ -203,8 +208,9 @@ end
 -- function request_clanWarMatchInfo
 -------------------------------------
 function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)    
-    
+    local block_ui = UI_BlockPopup()
     local finish_cb = function(ret)
+        block_ui:close()
         return success_cb(StructClanWarMatch(ret))
     end
     
@@ -548,8 +554,10 @@ function ServerData_ClanWar:request_clanWarUserDeck(uid, finish_cb)
     -- ?醫? ID
     local _uid = uid or g_userData:get('uid')
     
+    local block_ui = UI_BlockPopup()
     -- ?源껊궗 ?꾩뮆媛?
     local function success_cb(ret)
+        block_ui:close()
         if (finish_cb) then
             finish_cb(ret['deck_info'])
         end

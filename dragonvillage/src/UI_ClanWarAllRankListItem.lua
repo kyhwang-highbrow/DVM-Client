@@ -4,6 +4,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_ClanWarAllRankListItem
 -------------------------------------
 UI_ClanWarAllRankListItem = class(PARENT, {
+        m_leagueNumber = 'number',
      })
 
 -------------------------------------
@@ -15,6 +16,7 @@ function UI_ClanWarAllRankListItem:init(data)
 	-- 첫 번째 클랜의 조 이름을 가져옴
 	local struct_league_item = data[1]
 	local league = struct_league_item:getLeague()
+    self.m_leagueNumber = league
 	vars['teamLabel']:setString(Str('{1}조', league))
 
     -- 각 조마다 랭킹 정보 입력
