@@ -628,3 +628,17 @@ end
 function SettingData:getIsShowedRunGuardianDungeonInfoPopup()
     return self:get('is_showed_rune_guardian_info_popup') or false
 end
+
+-------------------------------------
+-- function setClanWarLastRecordPopup
+-------------------------------------
+function SettingData:setClanWarLastRecordPopup(day)
+    self:applySettingData(day, 'clan_war_last_record_day') 
+end
+
+-------------------------------------
+-- function getClanWarLastRecordPopup
+-------------------------------------
+function SettingData:getClanWarLastRecordPopup()
+    return self:get('clan_war_last_record_day')
+end

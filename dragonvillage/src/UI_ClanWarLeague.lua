@@ -219,7 +219,6 @@ function UI_ClanWarLeague:refreshUI(team, ret, first_request)
     end
 
     -- param team을 nil로 보냈을 때, 자신의 클랜이 경기 중일 때는 자신 클랜의 리그, 없다면 전체 랭킹를 보내준다.
-    -- team 이 nil로 왔을 경우 전체 랭킹
     local is_all = false
     if (first_request) then
 	    if (not self.m_structLeague:getMyLeagueRank()) then
@@ -272,6 +271,8 @@ function UI_ClanWarLeague:refreshUI(team, ret, first_request)
             self:setScrollButton()
         end
     end
+	
+	self:showLastRankPopup()
 end
 
 -------------------------------------
@@ -521,6 +522,34 @@ function UI_ClanWarLeague:getMyLeagueNumber()
     end
 
     return self.m_myLeagueInfo:getLeague()
+end
+
+-------------------------------------
+-- function showLastRankPopup
+-------------------------------------
+function UI_ClanWarLeague:showLastRankPopup()
+	local day = g_settingData:getClanWarLastRecordPopup()
+	if (day == g_clanWarData.m_clanWarDay) then
+		return
+	end
+
+	local my_clan_id = g_clanWarData:getMyClanId()
+	local l_league = self.m_structLeague:getClanWarLeagueMatchList()
+	local last_match_data = nil
+	for i, data in ipairs(l_league) do
+		if (data['day'] == g_clanWarData.m_clanWarDay - 1) then
+			if (data['a_clan_id'] == my_clan_id) or (data['b_clan_id'] == my_clan_id) then
+				last_match_data = data
+				break
+			end
+		end
+	end
+
+	if (not last_match_data) then
+		return
+	end
+	UI_ClanWarMatchInfoDetailPopup(last_match_data, true)
+	g_settingData:setClanWarLastRecordPopup(g_clanWarData.m_clanWarDay)
 end
 
 
