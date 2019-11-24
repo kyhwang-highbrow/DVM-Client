@@ -484,18 +484,15 @@ function UI_ClanWarLeague:isGhostClan(t_clan)
     end
 
     if (not struct_match_item) then
-        MakeSimplePopup(POPUP_TYPE.OK, ghost_msg)
         return true
     end
 
     local clan_id = struct_match_item:getClanId()
     if (not clan_id) then
-        MakeSimplePopup(POPUP_TYPE.OK, ghost_msg)
         return true
     end
 
     if (clan_id == 'loser') then
-        MakeSimplePopup(POPUP_TYPE.OK, ghost_msg)
         return true
     end
 

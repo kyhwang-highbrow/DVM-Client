@@ -148,6 +148,15 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     local struct_match = self.m_structMatch 
 
     local create_func_common = function(ui, struct_match_item)
+		if (struct_match_item['clan_id'] == 'defeat') then
+			ui.vars['arrowSprite']:setVisible(false)
+			ui.vars['userNameLabel1']:setVisible(false)
+			ui.vars['noRivalNode']:setVisible(true)
+			ui.vars['lastTimeLabel']:setString('')
+			ui.vars['userNameLabel3']:setString(Str('부전패'))
+			return
+		end
+		
         local my_nick, enemy_nick = struct_match:getNickNameWithAttackingEnemy(struct_match_item)
 		local struct_user_info_clan = struct_match_item:getUserInfo()
 		local icon = struct_user_info_clan:getLastTierIcon('big')       
@@ -194,6 +203,13 @@ function UI_ClanWarMatchingScene:setMemberTableView()
 
     table.sort(l_myClan, sort_func)
     
+	local defeat_member = 10 - #l_myClan
+	if (defeat_member>0) then
+		for i=1, defeat_member do
+			table.insert(l_myClan, {['clan_id'] = 'defeat'})
+		end
+	end
+
     -- 테이블 뷰 인스턴스 생성    
     self.m_myTableView = UIC_TableView(vars['meClanListNode'])
     self.m_myTableView.m_defaultCellSize = cc.size(548, 80 + 5)
@@ -227,6 +243,13 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     local t_enemyClan = struct_match:getEnemyMatchData()
     local l_enemyClan = table.MapToList(t_enemyClan)
     table.sort(l_enemyClan, sort_func)
+
+	local defeat_member = 10 - #l_enemyClan
+	if (defeat_member>0) then
+		for i=1, defeat_member do
+			table.insert(l_enemyClan, {['clan_id'] = 'defeat'})
+		end
+	end
 
     self.m_enemyTableView = UIC_TableView(vars['rivalClanMenu'])
     self.m_enemyTableView.m_defaultCellSize = cc.size(548, 80 + 5)

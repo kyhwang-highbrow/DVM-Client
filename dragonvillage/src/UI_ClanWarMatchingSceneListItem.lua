@@ -13,6 +13,10 @@ UI_ClanWarMatchingSceneListItem = class(PARENT,{
 function UI_ClanWarMatchingSceneListItem:init(data)
     local vars = self:load('clan_war_match_scene_item.ui')
     self.m_structMatchItem = data
+
+	if (data['clan_id'] == 'defeat') then
+		return
+	end
     self:initUI()
     
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
