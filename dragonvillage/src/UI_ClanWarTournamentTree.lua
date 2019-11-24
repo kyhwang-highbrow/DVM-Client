@@ -129,8 +129,13 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
         -- 오른쪽/왼쪽 페이지인지 판별
         -- 인덱스가 절반보다 클 경우 오른쪽
         local data, idx = self.m_structTournament:getMyInfoInCurRound(today_round)
+        -- 경기 안하고 있을 때에도 포커싱 해주어야함 32강이 최대일 때 앞에서 한 번 더 찾음
+        if (not idx) then
+            data, idx = self.m_structTournament:getMyInfoInCurRound(today_round/2)
+        end
+
         if (idx) then
-            if (idx > today_round/4) then
+            if (idx >= today_round/4) then
                 self.m_page = 3
             else
                 self.m_page = 1
@@ -525,17 +530,26 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 	ui.vars['winSprite2']:setVisible(false)
     ui:setWin(is_clan_1_win, not is_clan_1_win)
 	
+
+
     -- 현재 진행중인 라운드의 경우
     -- 승패 표시 안함, 뒷 막대기 표시
     if (today_round == round) then
 		ui.vars['leftHorizontalSprite']:setColor(win_color)
+        -- 최대 32강일 경우 8강이 파이널 페이지에도 있기 떄문에 색칠해줌
+        if (g_clanWarData:getMaxRound() == 32) then
+            ui:setWinLineColor(is_clan_1_win)
+        end
+
     -- 진행 안한 라운드의 경우
     -- 승패 표시 안함, 뒷 막대기 표시 안함
 	elseif (today_round >= round) then
-		    
-        local last_round = round*2
-        ui.vars['clanNameLabel1']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
-        ui.vars['clanNameLabel2']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
+		-- 마지막 라운드는 항상 닉네임만 세팅된 상태
+        if (round ~= g_clanWarData:getMaxRound()) then
+            local last_round = round*2
+            ui.vars['clanNameLabel1']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
+            ui.vars['clanNameLabel2']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
+        end    
         ui.vars['clanNameLabel1']:setColor(COLOR['gray'])
         ui.vars['clanNameLabel2']:setColor(COLOR['gray'])
     -- 지나간 라운드의 경우

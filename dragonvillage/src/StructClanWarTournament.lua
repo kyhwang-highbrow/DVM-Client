@@ -178,8 +178,8 @@ end
 -------------------------------------
 -- function getMyInfoInCurRound
 -------------------------------------
-function StructClanWarTournament:getMyInfoInCurRound()
-    local cur_round = g_clanWarData:getTodayRound()
+function StructClanWarTournament:getMyInfoInCurRound(today_round)
+    local cur_round = today_round or g_clanWarData:getTodayRound() 
 	local l_tournament = self.m_tTournamentInfo[cur_round]
     if (not l_tournament) then
         
