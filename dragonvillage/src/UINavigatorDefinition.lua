@@ -1881,32 +1881,26 @@ function UINavigatorDefinition:goTo_clan_war(...)
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
-    --[[
-    if (g_clanWarData:isLockTime()) then
-        local msg = Str('클랜전 시즌이 종료되었습니다.')
-        MakeSimplePopup(POPUP_TYPE.OK, msg)
-        return       
-    end
-    --]]
+
     -- 클랜전 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
-    if (is_opend == true) and (open_by_scene == false) then
+    if (is_opend == true) then
         self:closeUIList(idx)
-        ui:refresh(true)
+        --ui:refresh(true)
         return
     end
         
     local function finish_cb(ret)
-        ---- 오픈 상태 여부 체크
-        --if (not g_clanRaidData:isOpenClanRaid()) then
-        --    local msg = Str(g_clanRaidData:getClanRaidStatusText())
-        --    MakeSimplePopup(POPUP_TYPE.OK, msg)
-        --    return
-		--end
+        -- 오픈 상태 여부 체크
+        if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
+            local msg = Str('클랜전 시즌이 종료되었습니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return       
+        end
 
         -- 전투 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
-        if (is_opend == true) and (open_by_scene == false) then
+        if (is_opend == true) then
             self:closeUIList(idx)
             ui:setTab('clan') -- 전투 메뉴에서 tab의 이름이 'clan'이다.
             ui:resetButtonsPosition()
@@ -1916,7 +1910,15 @@ function UINavigatorDefinition:goTo_clan_war(...)
 
 		-- 클랜 UI가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_Clan')
-        if (is_opend == true) and (open_by_scene == false) then
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            UI_ClanWarLobby(ret)
+            return
+        end
+
+        -- 로비 UI가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
             self:closeUIList(idx)
             UI_ClanWarLobby(ret)
             return
@@ -1936,7 +1938,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
 
     end
 
-    -- 클랜전 정보 요
+    -- 클랜전 정보 요청
     g_clanWarData:request_clanWarLeagueInfo(nil, finish_cb)
 end
 

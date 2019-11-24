@@ -72,7 +72,7 @@ function ServerData_ClanWar:checkClanWarState()
 
     -- 마지막날 닫혀있어도, 경기 결과 보는 날은 열어줌
     if (self.m_clanWarDay == 14) then
-        return true, msg
+        return true, Str('클랜전 시즌이 종료되었습니다.') .. '{@green}' .. Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainSeasonTime())
     end
 
     return false, msg

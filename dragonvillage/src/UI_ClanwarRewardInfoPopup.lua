@@ -121,7 +121,7 @@ function UI_ClanwarRewardInfoPopup:initMyRankInfo(is_league, my_rank, tournament
 	vars['clanNameLabel']:setString(clan_name)
 
     -- 클랜 마스터 닉네임
-    local clan_master = struct_clan:getMasterNick() or ''
+    local clan_master = struct_clan:getMasterNick()
     vars['masterNameLabel']:setString(clan_master)
 	
 	-- 클랜 마크 
