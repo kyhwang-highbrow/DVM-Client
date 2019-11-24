@@ -85,6 +85,7 @@ function UI_ClanWarSelectScene:setDefendHistoryTableView()
 
     local cur_struct_match = self.m_curSelectEnemyStructMatch
     local l_history = cur_struct_match:getDefendHistoryList()
+    l_history = table.reverse(l_history)
 
     local idx = 1
     local create_func = function(ui, data)
@@ -211,7 +212,18 @@ function UI_ClanWarSelectScene:initMyTableView()
     table_view:setCellUIClass(UI_ClanWarSelectSceneListItem_Me, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_my)
+    
+    local my_uid = g_userData:get('uid')
+    local idx = 0
+    for i, data in ipairs(l_my) do
+        if (data['uid'] == my_uid) then
+            idx = i
+            break
+        end
+    end
 
+    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+    table_view:relocateContainerFromIndex(idx)
     self.m_myTableView = table_view
     self:selectItem()
 end
@@ -263,7 +275,6 @@ function UI_ClanWarSelectScene:click_readyBtn()
         return
     end
 
-
     local struct_match_item = self.m_curSelectEnemyStructMatch
 	local defend_state = struct_match_item:getDefendState()
 	local defend_state_text = struct_match_item:getDefendStateNotiText()
@@ -277,18 +288,9 @@ function UI_ClanWarSelectScene:click_readyBtn()
         return
     end
 
-    local ok_btn_cb = function()
-	    local my_uid = g_userData:get('uid')
-	    local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
-	    UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
-    end
-
-    local msg = Str('선택한 대상을 공격 하시겠습니까?\n한 번 선택한 대상은 도중에 변경할 수 없습니다.')
-    local lv = struct_match_item:getUserInfo():getLv() or ''
-    local nick_name = struct_match_item:getMyNickName()
-    local nick_str = 'Lv.' .. lv .. ' ' .. nick_name
-    local submsg = Str('선택 대상: {1}', nick_str)
-    UI_SimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
+	local my_uid = g_userData:get('uid')
+	local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
+	UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
 end
 
 -------------------------------------

@@ -64,17 +64,18 @@ function UI_ClanwarRewardInfoPopup:setLeague(league_rank)
         return tonumber(a['rank_id']) < tonumber(b['rank_id'])
     end)
 
+    local my_rank = league_rank
     -- 조별리그 1-2등은 토너먼트 랭크에 포커싱
     local category = 'clanwar_tournament'
     if (league_rank <= 2) and (league_rank ~= 0)then
-        league_rank = max_round
+        my_rank = max_round
     else
         category = 'clanwar_league'
     end
 
     local create_func = function(ui, data)
         if (data['category'] == category) then
-			if (data['rank_max'] >= league_rank) and (data['rank_min'] <= league_rank) then
+			if (data['rank_max'] >= my_rank) and (data['rank_min'] <= my_rank) then
 				ui.vars['meSprite']:setVisible(true)
 			end
         end
@@ -90,7 +91,7 @@ function UI_ClanwarRewardInfoPopup:setLeague(league_rank)
     local focus_idx = 0
     for i, t_data in ipairs(l_item_list) do
         if (t_data['category'] == category) then
-            if (t_data['rank_min'] <= league_rank) and (t_data['rank_max'] >= league_rank) then
+            if (t_data['rank_min'] <= my_rank) and (t_data['rank_max'] >= my_rank) then
                 focus_idx = i
                 break
             end
@@ -101,7 +102,7 @@ function UI_ClanwarRewardInfoPopup:setLeague(league_rank)
     table_view:relocateContainerFromIndex(focus_idx)
 
     local my_rank_text = ''
-	if (my_rank == 0) then
+	if (league_rank == 0) then
 		my_rank_text = '-'
 	else
 		my_rank_text = Str('조별리그') .. ' ' .. Str('{1}위', league_rank)

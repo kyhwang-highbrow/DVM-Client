@@ -730,7 +730,7 @@ function ServerData_ClanWar:showPromoteGameStartPopup()
         
         local ui_item = UI_ClanWarSelectSceneListItem(attacking_struct_match)
         ui_item:setNoTime()
-        ui_item:setStructMatch(struct_match)
+        ui_item:setStructMatch()
         ui.vars['rivalItemNode']:addChild(ui_item.root)
 
         local end_time = my_struct_match_item:getEndDate()

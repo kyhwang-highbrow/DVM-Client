@@ -443,7 +443,7 @@ end
 function ServerData_ClanWar:getDayByRound(round)
 	local max_round = g_clanWarData:getMaxRound()
     local t_day = { [6] = max_round, [7] = max_round, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
-	for day, data in ipairs(t_day) do
+	for day, data in pairs(t_day) do
         if (data == round) then
             return day
         end

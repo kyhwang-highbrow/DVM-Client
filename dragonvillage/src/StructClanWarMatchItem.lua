@@ -377,23 +377,10 @@ end
 -- function setDefendHistory
 -------------------------------------
 function StructClanWarMatchItem:setDefendHistory(l_defend_enemy_struct_match_item)
-    local sort_func = function(sturct_match_item_a, struct_match_item_b)
-        if (not sturct_match_item_a) then
-            return false
-        end
-
-        if (not sturct_match_item_b) then
-            return true
-        end
-        
-        if (not sturct_match_item_a:getEndDate()) then
-            return false
-        end
-
-        if (not sturct_match_item_b:getEndDate()) then
-            return true
-        end
-        return sturct_match_item_a:getEndDate() < sturct_match_item_b:getEndDate()
+    local sort_func = function(a, b)
+        local a_end_date = a['attack_enddate'] or 0
+        local b_end_date = b['attack_enddate'] or 0
+        return a_end_date < b_end_date
     end
 
     table.sort(l_defend_enemy_struct_match_item, sort_func)
@@ -414,6 +401,4 @@ function StructClanWarMatchItem:getLastDefender()
     local last_idx = #self.m_lDefendHistory
     return self.m_lDefendHistory[last_idx]
 end
-
-
 

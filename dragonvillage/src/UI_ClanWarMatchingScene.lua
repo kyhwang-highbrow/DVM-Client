@@ -262,7 +262,7 @@ function UI_ClanWarMatchingScene:click_gotoBattle()
 
     -- 2. 상대팀에 공격할 수 있는 방어 인원이 있는 지 체크
     local l_data = self.m_structMatch:getAttackableEnemyData()
-    if (not l_data) then
+    if (#l_data == 0) then
         UIManager:toastNotificationRed(Str('공격 상대가 없습니다.'))
         return
     end

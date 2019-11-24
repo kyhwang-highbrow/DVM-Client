@@ -265,19 +265,19 @@ function UI_ClanWarTournamentTree:setFinal()
     local today_round = g_clanWarData:getTodayRound()
     local round_text = Str('결승전')
 
-    if (today_round <= 16) then
+    if (today_round <= 8) then
         ui.vars['round16LineSprite1']:setColor(win_color)
         ui.vars['round16LineSprite2']:setColor(win_color)
         ui.vars['round16LineSprite3']:setColor(win_color)
         ui.vars['round16LineSprite4']:setColor(win_color)
     end
 
-    if (today_round <= 8) then
+    if (today_round <= 4) then
         ui.vars['round8LineSprite1']:setColor(win_color)
         ui.vars['round8LineSprite2']:setColor(win_color)
     end
 
-    if (today_round <= 4) then
+    if (today_round <= 2) then
         ui.vars['round4LineSprite']:setColor(win_color)
     end
 

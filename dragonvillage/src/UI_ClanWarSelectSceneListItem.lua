@@ -6,7 +6,6 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 UI_ClanWarSelectSceneListItem = class(PARENT,{
         m_structMatchItem = 'StructClanWarMatch',
         m_endTime = 'number',
-        m_structMatch = 'number',
 
         m_noTime = 'boolean',
     })
@@ -78,9 +77,8 @@ end
 -------------------------------------
 -- function setStructMatch
 -------------------------------------
-function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
+function UI_ClanWarSelectSceneListItem:setStructMatch(is_my_clan)
     local vars = self.vars
-    self.m_structMatch = struct_match
     local struct_match_item = self.m_structMatchItem
 
     if (not struct_match_item) then
@@ -103,7 +101,14 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(struct_match, is_my_clan)
 	vars['gameScoreSprite']:setVisible(false)
     vars['setMenu']:setVisible(false)
 
+    -- 진 경우 공격 상대 표시하지 않는다
 	local struct_attack_enemy_match_item = struct_match_item:getLastDefender()
+    if (struct_attack_enemy_match_item) then
+        if (struct_attack_enemy_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
+            struct_attack_enemy_match_item = nil
+        end
+    end
+
 	if (struct_attack_enemy_match_item) then
         local enemy_nick = struct_attack_enemy_match_item:getMyNickName() or ''
         vars['attackNameLabel']:setString(enemy_nick)
@@ -168,6 +173,15 @@ end
 function UI_ClanWarSelectSceneListItem:setSelected(is_selected)
 	local struct_match_item = self.m_structMatchItem
 	local struct_attack_enemy_match_item = struct_match_item:getLastDefender()
+
+    if (not struct_attack_enemy_match_item) then
+        self.vars['selectNode1']:setVisible(is_selected)
+    end
+
+    if (struct_attack_enemy_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
+        struct_attack_enemy_match_item = nil
+    end
+
 	if (struct_attack_enemy_match_item) then
 		self.vars['selectNode2']:setVisible(is_selected)
 	else
@@ -197,13 +211,16 @@ function UI_ClanWarSelectSceneListItem_Me:init(data)
     vars['userNameLabel']:setString(my_nick)
 	if (self.m_structMatchItem:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) then
 		local icon = cc.Sprite:create('res/ui/icons/clan_war_icon_attack.png')
-		if (icon) then
+		if (icon) and (vars['attackIconNode']) then
 			vars['attackIconNode']:addChild(icon)
             vars['attackIconNode']:setDockPoint(CENTER_POINT)
             vars['attackIconNode']:setAnchorPoint(CENTER_POINT)
 			vars['attackIconNode']:setVisible(true)
 		end
 	end
+
+    local my_uid = g_userData:get('uid')
+    vars['meNode']:setVisible(my_uid == self.m_structMatchItem['uid'])
 end
 
 -------------------------------------
