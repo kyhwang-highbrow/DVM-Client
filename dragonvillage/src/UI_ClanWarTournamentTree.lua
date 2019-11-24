@@ -139,7 +139,6 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
     end
 
     self:showPage()
-    self:setRewardBtn()
 	self:checkStartBtn()
 end
 
@@ -265,6 +264,13 @@ function UI_ClanWarTournamentTree:setFinal()
 
     local today_round = g_clanWarData:getTodayRound()
     local round_text = Str('결승전')
+
+    if (today_round <= 16) then
+        ui.vars['round16LineSprite1']:setColor(win_color)
+        ui.vars['round16LineSprite2']:setColor(win_color)
+        ui.vars['round16LineSprite3']:setColor(win_color)
+        ui.vars['round16LineSprite4']:setColor(win_color)
+    end
 
     if (today_round <= 8) then
         ui.vars['round8LineSprite1']:setColor(win_color)
@@ -659,36 +665,6 @@ function UI_ClanWarTournamentTree:click_gotoMatch()
 
     g_clanWarData:request_clanWarMatchInfo(success_cb)
 end
-
--------------------------------------
--- function setRewardBtn
--------------------------------------
-function UI_ClanWarTournamentTree:setRewardBtn()
-    local vars = self.vars
-    local my_rank = 0
-
-    local my_clan_id = g_clanWarData:getMyClanId()
-    local struct_tournament = self.m_structTournament
-    local tournament_rank = 0
-	local round = g_clanWarData:getTodayRound()
-    local l_tournament = struct_tournament:getTournamentListByRound(round)
-    for i, data in ipairs(l_tournament) do
-        if (data['a_clan_id'] == my_clan_id) then
-            tournament_rank = round
-        end
-
-        if (data['b_clan_id'] == my_clan_id) then
-            tournament_rank = round
-        end
-    end
-    
-    local my_rank = 0
-    local struct_clanwar_league = self.m_structTournament:getStructClanWarLeague()
-	my_rank = struct_clanwar_league:getMyLeagueRank()
-
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank, tournament_rank) end)
-end
-
 
 
 

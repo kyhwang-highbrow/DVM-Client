@@ -111,16 +111,7 @@ end
 function UI_ClanWarSelectScene:initEnemyTableView()
     local vars = self.vars
     local struct_match = self.m_tStructMatch
-    local t_enemy = struct_match:getEnemyMatchData()
-    local l_enemy = {}
-
-    -- 공격 가능한 리스트 추출 (방어덱 없는 유저x, 방어 실패한 유저x)
-    for _, struct_match_item in pairs(t_enemy) do       
-        local defend_state = struct_match_item:getDefendState()
-        if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']) and (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_FAIL']) then
-            table.insert(l_enemy, struct_match_item)
-        end
-    end
+    local l_enemy = struct_match:getAttackableEnemyData()
     
     local sort_func = function(a,b)
 		a_user = a:getUserInfo()
@@ -365,6 +356,7 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
 	--]]
 	local icon = struct_clan_info:getLastTierIcon()  
     if (icon) then
+        vars['tierIconNode' .. ui_idx]:removeAllChildren()
         vars['tierIconNode' .. ui_idx]:addChild(icon)
     end
 

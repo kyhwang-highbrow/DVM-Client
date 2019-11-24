@@ -45,11 +45,7 @@ function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_league)
     for i = 1, 2 do    
 		local is_valid_clan = self:setClanInfoPopup(i, data, is_league)
         if (is_valid_clan) then
-            if (is_league) then
-		        self:setClanInfoPopup_league(i, data)
-		    else
-                self:setClanInfoPopup_tournament(i, data)
-            end
+		    self:setDetail(i, data)
         end
     end
 end
@@ -125,21 +121,27 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
 end
 
 -------------------------------------
--- function setClanInfoPopup_league
+-- function setDetail
 -------------------------------------
-function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
+function UI_ClanWarMatchInfoDetailPopup:setDetail(idx, data)
     local vars = self.vars
-    local struct_league_item = data['clan' .. idx]
  	
 	local prefix = 'a_'
 	if (idx == 2) then
 		prefix = 'b_'
 	end   
 
-    local match_number = data['day'] or 0
+    local match_number
+    if (data['day']) then
+        match_number = data['day'] or 0
+    else
+        local round = data['group_stage']
+        match_number = g_clanWarData:getDayByRound(round)
+    end
+
 	-- 게임 스코어
     local win, lose = data[prefix .. 'win_cnt'] or 0, data[prefix .. 'lose_cnt'] or 0
-    local set_history = tostring(win) .. '-' .. tostring(lose) 
+    local set_history = tostring(win)
 	
 	-- 세트 스코어
 	local win_cnt = data[prefix .. 'member_win_cnt'] or 0
@@ -148,11 +150,14 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
     vars['resultScore' .. idx]:setString(tostring(win_cnt))
     vars['setScoreLabel' .. idx]:setString(set_history)
 
+    if (idx == 1) then
+        return
+    end
 
 	-- 끝난 경기만 승/패 표시
 	vars['resultNode1']:setVisible(false)
     vars['resultNode2']:setVisible(false)
-    if (false) then
+    if (match_number < g_clanWarData.m_clanWarDay) then
         -- 어느쪽 클랜이 이겼는지 표시
 		local win_clan_id = data['win_clan']
 		if (win_clan_id) then
@@ -161,56 +166,8 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_league(idx, data)
 			local pos_x_2 = vars['resultNode2']:getPositionX()
 
 			if (not is_win) then
-			    vars['resultNode1']:setPositionX(pos_x_2)
-			    vars['resultNode2']:setPositionX(pos_x_1)
-			end
-		end
-		vars['resultNode1']:setVisible(true)
-        vars['resultNode2']:setVisible(true)
-	end
-end
-
--------------------------------------
--- function setClanInfoPopup_tournament
--------------------------------------
-function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup_tournament(idx, data)
-    local vars = self.vars
-    local struct_league_item = data['clan' .. idx]
- 	
-	local prefix = 'a_'
-	if (idx == 2) then
-		prefix = 'b_'
-	end   
-
-    local round = data['group_stage'] or 0
-    local match_number = g_clanWarData:getDayByRound(round)
-
-	-- 게임 스코어
-    local win, lose = data[prefix .. 'win_cnt'] or 0, data[prefix .. 'lose_cnt'] or 0
-    local set_history = tostring(win) .. '-' .. tostring(lose) 
-	
-	-- 세트 스코어
-	local win_cnt = data[prefix .. 'member_win_cnt'] or 0
-
-    vars['victoryLabel' .. idx]:setString(tostring(win_cnt))
-    vars['resultScore' .. idx]:setString(tostring(win_cnt))
-    vars['setScoreLabel' .. idx]:setString(set_history)
-
-
-	-- 끝난 경기만 승/패 표시
-	vars['resultNode1']:setVisible(false)
-    vars['resultNode2']:setVisible(false)
-    if (false) then
-        -- 어느쪽 클랜이 이겼는지 표시
-		local win_clan_id = data['win_clan']
-		if (win_clan_id) then
-			local is_win = (win_clan_id == data['a_clan_id'])
-			local pos_x_1 = vars['resultNode1']:getPositionX()
-			local pos_x_2 = vars['resultNode2']:getPositionX()
-
-			if (not is_win) then
-			    vars['resultNode1']:setPositionX(pos_x_2)
-			    vars['resultNode2']:setPositionX(pos_x_1)
+			    vars['resultNode1']:setPositionX(pos_x_1 + 600)
+			    vars['resultNode2']:setPositionX(pos_x_2 - 600)
 			end
 		end
 		vars['resultNode1']:setVisible(true)

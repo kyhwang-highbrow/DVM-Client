@@ -166,3 +166,22 @@ function StructClanWarMatch:getStateMemberCnt(t_clanwar, state)
 
     return attack_cnt, max_cnt
 end
+
+-------------------------------------
+-- function getAttackableEnemyData
+-- @breif 상대 클랜에 공격 가능한 인원이 없을 경우
+-------------------------------------
+function StructClanWarMatch:getAttackableEnemyData()
+   local t_enemy = self:getEnemyMatchData()
+   local l_enemy = {}
+
+   -- 공격 가능한 리스트 추출 (방어덱 없는 유저x, 방어 실패한 유저x)
+   for _, struct_match_item in pairs(t_enemy) do       
+       local defend_state = struct_match_item:getDefendState()
+       if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['NO_DEFEND']) and (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_FAIL']) then
+           table.insert(l_enemy, struct_match_item)
+       end
+   end
+
+   return l_enemy or {}
+end

@@ -206,8 +206,18 @@ end
 function UI_ClanWarLeague:refreshUI(team, ret, first_request)
 	local vars = self.vars
 	self.m_structLeague = StructClanWarLeague(ret)
-    self:setRewardBtn() -- structClanWarLeague 정보가 필요해서 여기서 세팅함
 	
+    -- 처음 들어왔을 때에는 자신의 조로 버튼을 세팅
+    -- team 이 nil로 들어오는 경우 첫 화면/전체 랭킹
+    if (not team) then
+        local my_clan_id = g_clanWarData:getMyClanId()
+		local struct_league_item = self.m_structLeague:getLeagueInfo(my_clan_id)
+		if (struct_league_item) then
+			self.m_selctedTeam = struct_league_item:getLeague()
+            self.m_myLeagueInfo = struct_league_item
+		end
+    end
+
     -- param team을 nil로 보냈을 때, 자신의 클랜이 경기 중일 때는 자신 클랜의 리그, 없다면 전체 랭킹를 보내준다.
     -- team 이 nil로 왔을 경우 전체 랭킹
     local is_all = false
@@ -243,6 +253,7 @@ function UI_ClanWarLeague:refreshUI(team, ret, first_request)
             vars['allRankTabLabel']:setColor(COLOR['BLACK'])       
         end
 
+        -- 버튼 한 번만 생성 or 초기화
         if (self.m_scrollBtnTableView) then
             -- 선택했던 버튼들 초기화
 	        local l_btn = self.m_scrollBtnTableView.m_itemList
@@ -257,26 +268,10 @@ function UI_ClanWarLeague:refreshUI(team, ret, first_request)
 	    			end
 	    		end
 	        end
+        else
+            self:setScrollButton()
         end
-        self:refreshButtonList(team)
     end
-end
-
--------------------------------------
--- function refreshButtonList
--------------------------------------
-function UI_ClanWarLeague:refreshButtonList(team)
-	-- 처음 들어왔을 때에는 자신의 조로 버튼을 세팅
-    -- team 이 nil로 들어오는 경우 첫 화면/전체 랭킹
-    if (not team) then
-        local my_clan_id = g_clanWarData:getMyClanId()
-		local struct_league_item = self.m_structLeague:getLeagueInfo(my_clan_id)
-		if (struct_league_item) then
-			self.m_selctedTeam = struct_league_item:getLeague()
-            self.m_myLeagueInfo = struct_league_item
-		end
-    end
-    self:setScrollButton()
 end
 
 -------------------------------------
@@ -504,19 +499,6 @@ function UI_ClanWarLeague:isGhostClan(t_clan)
     end
 
     return false
-end
-
--------------------------------------
--- function setRewardBtn
--------------------------------------
-function UI_ClanWarLeague:setRewardBtn()
-    local vars = self.vars
-    local struct_clanwar_league = self.m_myLeagueInfo
-    local my_rank = nil
-    if (struct_clanwar_league) then
-	    my_rank = struct_clanwar_league:getLeagueRank()
-    end
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_rank) end)
 end
 
 -------------------------------------

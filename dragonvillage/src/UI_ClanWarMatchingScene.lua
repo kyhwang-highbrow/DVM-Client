@@ -253,12 +253,19 @@ function UI_ClanWarMatchingScene:click_gotoBattle()
     local uid = g_userData:get('uid')
     local my_struct_match_item = self.m_structMatch:getMatchMemberDataByUid(uid)
     
+    -- 1. 공격 기회 체크
     local is_do_all_game = my_struct_match_item:isDoAllGame()
     if (is_do_all_game) then
         UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
         return
     end
 
+    -- 2. 상대팀에 공격할 수 있는 방어 인원이 있는 지 체크
+    local l_data = self.m_structMatch:getAttackableEnemyData()
+    if (not l_data) then
+        UIManager:toastNotificationRed(Str('공격 상대가 없습니다.'))
+        return
+    end
 
     local goto_select_scene_cb = function()
         UI_ClanWarSelectScene(self.m_structMatch)

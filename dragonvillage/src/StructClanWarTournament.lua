@@ -137,6 +137,38 @@ function StructClanWarTournament:getTournamentInfo(clan_id)
 end
 
 -------------------------------------
+-- function getTournamentRank
+-------------------------------------
+function StructClanWarTournament:getTournamentRank(clan_id)
+	if (not self.m_tTournamentInfo) then
+        return 
+    end
+    
+    if (not clan_id) then
+        return 
+    end
+
+    local L_ROUND = {64, 32, 16, 8, 4, 2, 1}
+    local my_rank = nil
+    for idx, round in ipairs(L_ROUND) do
+        -- 돌면서 나의 클랜을 찾는다.
+        local t_data = self.m_tTournamentInfo[round]
+        if (not t_data) then
+            break 
+        end
+
+        local idx = 1
+	    for _, data in ipairs(t_data) do
+            if (clan_id == data['a_clan_id']) or (clan_id == data['b_clan_id']) then
+                my_rank = round
+            end
+        end
+    end
+
+   return my_rank
+end
+
+-------------------------------------
 -- function getStructClanWarLeague
 -------------------------------------
 function StructClanWarTournament:getStructClanWarLeague()

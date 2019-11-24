@@ -80,25 +80,25 @@ function UI_ClanWarLobby:initUI(ret)
 
     if (g_clanWarData:isLockTime()) then
         self:setWaitingRoom()
-        self:setRewardBtn(ret)
 
     -- 1~7일차에는 리그 화면
 	elseif cur_match_day < 7 then
+        g_clanWarData:setIsLeague(true)
         local ui_clen_war_league = UI_ClanWarLeague(vars, self.root)
         ui_clen_war_league:refreshUI(nil, ret, true)
 		ui_clen_war_league.m_closeCB = self.closeUI
-		g_clanWarData:setIsLeague(true)
 
     -- 8~14일차에는 토너먼트 화면
 	else
         if (#ret['tournament_info'] == 0) then
             return
         end
-        
+        g_clanWarData:setIsLeague(false)
         local ui_clan_war_tournament = UI_ClanWarTournamentTree(vars, self.root)
         ui_clan_war_tournament:setTournamentData(ret)
-		g_clanWarData:setIsLeague(false)
     end
+
+    self:setRewardBtn(ret)
 
     vars['tournamentMenu']:setVisible(not g_clanWarData:getIsLeague())
     vars['leagueMenu']:setVisible(g_clanWarData:getIsLeague())
@@ -165,23 +165,19 @@ function UI_ClanWarLobby:setRewardBtn(ret)
     if (not is_league) then
         local struct_tournament = StructClanWarTournament(ret)
         local my_clan_id = g_clanWarData:getMyClanId()
-	    local struct_clan_rank = struct_tournament:getClanInfo(clan1_id)
-        local t_tournament = struct_tournament:getTournamentInfoByClanId(my_clan_id)
-        if (t_tournament) then
-            tournament_rank = t_tournament['group_stage'] or 0
-        end
+        local tournament_rank = struct_tournament:getTournamentRank(my_clan_id)
         
-        local my_rank = 0
+        local league_rank = 0
         local struct_clanwar_league = struct_tournament:getStructClanWarLeague()
-	    my_rank = struct_clanwar_league:getMyLeagueRank()
+	    league_rank = struct_clanwar_league:getMyLeagueRank()
 
-        vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, my_rank, tournament_rank) end)
+        vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, league_rank, tournament_rank) end)
     else
         local my_struct_league_item = nil
         local struct_clanwar_league = StructClanWarLeague(ret)
-	    local my_rank = struct_clanwar_league:getMyLeagueRank()
+	    local league_rank = struct_clanwar_league:getMyLeagueRank()
 
-        vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, my_rank) end)    
+        vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(true, league_rank) end)    
     end
 end
 
