@@ -57,10 +57,11 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
      local vars = self.vars
      local round = g_clanWarData:getTodayRound()
      local round_text = g_clanWarData:getTodayRoundText()
+     if (not data) then
+        return
+     end
+     
      if (round) then
-        if (not data) then
-            return
-        end
         if (data['group_stage']) then
             vars['roundLabel']:setString(Str('{1}강', data['group_stage']))
         else

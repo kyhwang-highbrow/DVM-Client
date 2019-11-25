@@ -734,6 +734,10 @@ function UI_ClanWarTournamentTree:showLastRankPopup()
 		return
 	end
 
+    if (not last_match_data) then
+        return
+    end
+
 	UI_ClanWarMatchInfoDetailPopup(last_match_data, true)
 	g_settingData:setClanWarLastRecordPopup(g_clanWarData.m_clanWarDay)
 end
