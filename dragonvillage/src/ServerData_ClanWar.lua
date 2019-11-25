@@ -24,6 +24,8 @@ ServerData_ClanWar = class({
     season_start_time = 'number',
     open = 'boolean',
 
+	m_season = 'number', -- 시즌 정보
+
 	m_tSeasonRewardInfo = 'table', -- 시즌보상
 })
 
@@ -75,6 +77,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 	local finish_cb = function(ret)
         self.m_clanWarDay = ret['clanwar_day'] or 0
 		self.m_clanWarDayData = ret['clan_data']
+		self.m_season = ret['clanwar_season']
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		g_clanWarData:applyClanWarReward(ret)
 
@@ -214,10 +217,16 @@ function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)
     local uid = g_userData:get('uid')
     local clan_id = self:getMyClanId()
     
+	local response_status_cb = function(ret)
+		return g_clanWarData:responseStatusCB(ret)		
+	end
+
     -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/match_info')
-    ui_network:setParam('uid', uid)
+    ui_network:setParam('day', self.m_clanWarDay)
+	ui_network:setParam('season', self.m_season)
+	ui_network:setParam('uid', uid)
     ui_network:setParam('clan_id', clan_id)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(finish_cb)
@@ -421,17 +430,16 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
         UINavigatorDefinition:goTo('clan_war', true)
     end
     
-    -- 응답 상태 처리 함수
-    local t_error = {
-        [-3871] = Str('시간이 초과되어 패배하였습니다.'),
-    }
-    local response_status_cb = MakeResponseCB(t_error, ok_cb)
-
+	local response_status_cb = function(ret)
+		return g_clanWarData:responseStatusCB(ret)		
+	end
 
     -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/start')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('day', self.m_clanWarDay)
+	ui_network:setParam('season', self.m_season)
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setParam('enemy_uid', enemy_uid)
     ui_network:setMethod('POST')
@@ -506,19 +514,9 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
         end
     end
 
-    -- true???귐뗪쉘??롢늺 ?癒?퍥?怨몄몵嚥?筌ｌ꼶?곭몴??袁⑥┷??덈뼄????
-    local function response_status_cb(ret)
-        -- invalid season
-        if (ret['status'] == -1364) then
-            -- 嚥≪뮆?ф에???猷?
-            local function ok_cb()
-                UINavigator:goTo('lobby')
-            end 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('클랜전 시즌이 종료되었습니다.'), ok_cb)
-            return true
-        end
-        return false
-    end
+	local response_status_cb = function(ret)
+		return g_clanWarData:responseStatusCB(ret, 'finish')
+	end
 
     -- 筌뤴뫀諭띈퉪?API 雅뚯눘???브쑨由곤㎗?롡봺
     local api_url = '/clanwar/finish'
@@ -533,6 +531,8 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
+	ui_network:setParam('day', self.m_clanWarDay)
+	ui_network:setParam('season', self.m_season)
     ui_network:setParam('gamekey', g_gameScene.m_gameKey)
     ui_network:setParam('clear_time', _play_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
@@ -750,3 +750,48 @@ function ServerData_ClanWar:showPromoteGameStartPopup()
 
     g_clanWarData:readyMatch(success_cb)
 end
+
+-------------------------------------
+-- function responseStatusCB
+-- @return true를 리턴하면 처리를 직접 했다는 뜻, false 라면 기존 에러메세지 처리 방법을 따름
+-------------------------------------
+function ServerData_ClanWar:responseStatusCB(ret, api_name)
+    local ok_cb = function()
+        UINavigatorDefinition:goTo('clan_war')
+    end
+
+    local invald_season_code = -1364
+    local invald_day_code = -1351
+
+    if (api_name == 'finish') then
+        local msg = Str('제한 시간 초과로 패배하였습니다.')
+        local sub_msg = Str('공격 제한 시간 2시간을 초과하거나, 날짜가 변경된 후 게임이 종료되면 패배로 처리됩니다.')
+        if (ret['status'] == invald_day_code) then
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, ok_cb)
+            return true
+        end
+
+        if (ret['status'] == invald_season_code) then
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, ok_cb)
+            return true
+        end
+
+        return false
+    end
+    
+    if (ret['status'] == invald_day_code) then
+        local msg = Str('날짜가 변경되었습니다.')
+        local sub_msg = Str('클랜전 정보가 갱신됩니다.')
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, ok_cb)
+        return true
+    end
+
+    if (ret['status'] == invald_season_code) then
+        local msg = Str('시즌이 종료되었습니다.')
+        local sub_msg = Str('클랜전 정보가 갱신됩니다.')
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, ok_cb)
+        return true
+    end
+
+    return false
+end 
