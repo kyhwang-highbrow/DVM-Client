@@ -12,6 +12,7 @@ UI_LoadingClanWar = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_LoadingClanWar:init(curr_scene)
+    g_autoPlaySetting:setMode(AUTO_CLAN_WAR)
     self:selectAuto(true)
 end
 
@@ -55,14 +56,6 @@ function UI_LoadingClanWar:initUI()
 			self:initUserInfo('right', struct_user_info)
 		end
     end
-
-    -- 연속 전투 상태 여부에 따라 버튼이나 로딩 게이지 표시
-    do
-        local is_autoplay = g_autoPlaySetting:isAutoPlay()
-    
-        vars['btnNode']:setVisible(not is_autoplay)
-        vars['loadingNode']:setVisible(is_autoplay)
-    end
 end
 
 -------------------------------------
@@ -78,7 +71,6 @@ function UI_LoadingClanWar:initUserInfo(direction, struct_user_info)
     elseif (direction == 'right') then
         idx = 2
     end
-
     
     -- 티어
 	local icon = struct_user_info:getLastTierIcon()

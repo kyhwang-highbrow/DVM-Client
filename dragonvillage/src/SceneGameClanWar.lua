@@ -42,7 +42,7 @@ function SceneGameClanWar:onEnter()
 
     SoundMgr:playBGM(self.m_bgmName)
     
-    g_autoPlaySetting:setMode(AUTO_COLOSSEUM)
+    g_autoPlaySetting:setMode(AUTO_CLAN_WAR)
 
     if (IS_ARENA_AUTOPLAY()) then -- 테스트 모드에서 연속전투 활성화
     else
@@ -126,7 +126,6 @@ function SceneGameClanWar:prepare()
 
 		self.m_inGameUI:init_dpsUI()
 		self.m_inGameUI:init_panelUI()
-        self.m_inGameUI:offAutoStart()
     end)
 end
 
