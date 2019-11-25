@@ -1881,14 +1881,6 @@ function UINavigatorDefinition:goTo_clan_war(...)
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
-
-    -- 클랜전 UI가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
-    if (is_opend == true) then
-        self:closeUIList(idx)
-        --ui:refresh(true)
-        return
-    end
         
     local function finish_cb(ret)
         -- 오픈 상태 여부 체크
@@ -1897,6 +1889,14 @@ function UINavigatorDefinition:goTo_clan_war(...)
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return       
         end
+
+		-- 클랜전 UI가 열려있을 경우
+		local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
+		if (is_opend == true) then
+			self:closeUIList(idx)
+			UI_ClanWarLobby(ret)
+			return
+		end
 
         -- 전투 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
