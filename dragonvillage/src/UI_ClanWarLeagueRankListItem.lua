@@ -103,12 +103,11 @@ function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
     vars['rankItemNode']:addChild(ui.root)
 
     -- 게임 스코어 모두 더한 값
-    local total_set_win_cnt, total_set_lose_cnt = struct_league_item:getGameWin(), struct_league_item:getGameLose()
-    local score_history = total_set_win_cnt .. '-' .. total_set_lose_cnt
-    vars['setScoreLabel']:setString(score_history)
+    local total_set_win_cnt = struct_league_item:getGameWin()
+    vars['setScoreLabel']:setString(tostring(total_set_win_cnt))
 
     -- 세트 스코어 모두 더한 값
-    local total_set_score = struct_league_item['total_win_cnt']
+    local total_set_score = struct_league_item['member_win_cnt']
     vars['victoryLabel']:setString(tostring(total_set_score))
 
     -- 클랜 정보 (레벨, 경험치, 참여 인원, 생성일)

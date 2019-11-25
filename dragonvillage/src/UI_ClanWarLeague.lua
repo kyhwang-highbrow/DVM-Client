@@ -57,12 +57,6 @@ function UI_ClanWarLeague:setRankList(struct_league)
 
     local struct_clanwar_league = struct_league or self.m_structLeague
 	local l_rank = struct_clanwar_league:getClanWarLeagueRankList()
-    
-    -- 세트 점수는 더해서  struct_league에 강제로 넣어줌
-    for i, data in ipairs(l_rank) do
-        local clan_id = data['clan_id']
-        data['total_win_cnt'] = struct_clanwar_league:getTotalSetScore(clan_id) or 0
-    end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['rankListNode'])
