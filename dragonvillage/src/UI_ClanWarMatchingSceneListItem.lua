@@ -42,13 +42,14 @@ function UI_ClanWarMatchingSceneListItem:initUI()
     else
         vars['resultSprite']:setVisible(false)
     end
-
+    --[[
     -- 드래곤 초상화
     local struct_clan_info = struct_match_item:getUserInfo()
     local dragon_icon = struct_clan_info:getLeaderDragonCard()
     if (dragon_icon) then
         vars['dragonNode']:addChild(dragon_icon.root)
     end
+    --]]
     
     local my_uid = g_userData:get('uid')
     if (my_uid == struct_match_item['uid']) then

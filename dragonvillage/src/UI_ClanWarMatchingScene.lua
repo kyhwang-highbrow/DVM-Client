@@ -159,8 +159,10 @@ function UI_ClanWarMatchingScene:setMemberTableView()
 		
         local my_nick, enemy_nick = struct_match:getNickNameWithAttackingEnemy(struct_match_item)
 		local struct_user_info_clan = struct_match_item:getUserInfo()
-		local icon = struct_user_info_clan:getLastTierIcon('big')       
-
+        local icon
+        if (struct_user_info_clan) then
+		    icon = struct_user_info_clan:getLastTierIcon('big')       
+        end
         if (enemy_nick) then
 			ui.vars['userNameLabel1']:setVisible(true)
             ui.vars['userNameLabel2']:setVisible(true)
@@ -169,14 +171,18 @@ function UI_ClanWarMatchingScene:setMemberTableView()
 			ui.vars['userNameLabel1']:setString(my_nick)
             ui.vars['userNameLabel2']:setString(enemy_nick)
 
-			ui.vars['tierIconNode']:addChild(icon)
+            if (icon) then
+			    ui.vars['tierIconNode']:addChild(icon)
+            end
         else
 			ui.vars['arrowSprite']:setVisible(false)
 			ui.vars['userNameLabel1']:setVisible(false)
 			ui.vars['noRivalNode']:setVisible(true)
 
-			ui.vars['tierIconNode3']:addChild(icon)
-			ui.vars['userNameLabel3']:setString(my_nick)
+            if (icon) then
+			    ui.vars['tierIconNode3']:addChild(icon)
+			end
+            ui.vars['userNameLabel3']:setString(my_nick)
 		end
 	end
 

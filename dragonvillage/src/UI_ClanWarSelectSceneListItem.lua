@@ -94,7 +94,7 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(is_my_clan)
     end
 
 	-- 나의 닉네임
-    local my_nick = struct_match_item:getMyNickName()
+    local my_nick = struct_match_item:getMyNickName() or ''
     vars['defenseNameLabel']:setString(my_nick)
 	vars['defenseNameLabel']:setVisible(true)
 
@@ -123,7 +123,7 @@ function UI_ClanWarSelectSceneListItem:setStructMatch(is_my_clan)
         local end_date = struct_attack_enemy_match_item:getEndDate()
         self:setEndTime(end_date)
     else
-        local my_nick = struct_match_item:getMyNickName()
+        local my_nick = struct_match_item:getMyNickName() or ''
         vars['attackNameLabel']:setString('')
 		vars['defenseNameLabel']:setPositionX(-125)
         vars['arrowSprite']:setVisible(false)
