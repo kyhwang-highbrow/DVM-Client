@@ -416,6 +416,8 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     local animator = struct_user_info:getDeckTamerSDAnimator()
     vars['tamerNode']:addChild(animator.m_node)
 
+    -- 전투력
     local comebat_power = struct_user_info:getDeckCombatPower()
+    comebat_power = comma_value(comebat_power)
     vars['powerLabel' .. ui_idx]:setString(tostring(comebat_power))
 end

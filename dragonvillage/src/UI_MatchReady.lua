@@ -116,6 +116,7 @@ function UI_MatchReady:initUI_userInfo()
 
         -- 전투력
         local str = user_info:getDeckCombatPower(true)
+        str = comma_value(str)
         vars['powerLabel1']:setString(Str('전투력 : {1}', str))
 
         -- 아이콘

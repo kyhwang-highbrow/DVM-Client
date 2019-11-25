@@ -178,7 +178,7 @@ function UI_ClanWarLeague:setScrollButton()
 	self.m_scrollBtnTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
 
     local idx = self:getMyLeagueNumber() or 0
-	self.m_scrollBtnTableView:relocateContainerFromIndex(0)
+	self.m_scrollBtnTableView:relocateContainerFromIndex(idx)
 end
 
 -------------------------------------

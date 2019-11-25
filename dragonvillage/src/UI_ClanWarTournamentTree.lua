@@ -708,31 +708,29 @@ function UI_ClanWarTournamentTree:showLastRankPopup()
 		end
 	end
 
-	if (not last_match_data) then
-		if (day ~= 7) and (day ~= 8) then
-			-- 전 날 경기가 없는 토너먼트는 마지막 리그 정보를 보여줌
-			local struct_league = self.m_structTournament:getStructClanWarLeague()
-			if (not struct_league) then
-				return
-			end
-			
-			local l_rank = struct_league:getClanWarLeagueRankList()
-			local my_clan_match_data = nil
-			for i, data in ipairs(l_rank) do
-				if (data['clan_id'] == g_clanWarData:getMyClanId()) then
-					my_clan_match_data = data
-					break
-				end
-			end
-
-			if (not my_clan_match_data) then
-				return
-			end
-
-			local ui = UI_ClanWarLeagueResultPopup(struct_league)
-			ui:initDetailRankUI(my_clan_match_data)
-			g_settingData:setClanWarLastRecordPopup(g_clanWarData.m_clanWarDay)
+	if (g_clanWarData.m_clanWarDay == 7) or (g_clanWarData.m_clanWarDay == 8) then
+		-- 전 날 경기가 없는 토너먼트는 마지막 리그 정보를 보여줌
+		local struct_league = self.m_structTournament:getStructClanWarLeague()
+		if (not struct_league) then
+			return
 		end
+		
+		local l_rank = struct_league:getClanWarLeagueRankList()
+		local my_clan_match_data = nil
+		for i, data in ipairs(l_rank) do
+			if (data['clan_id'] == g_clanWarData:getMyClanId()) then
+				my_clan_match_data = data
+				break
+			end
+		end
+
+		if (not my_clan_match_data) then
+			return
+		end
+
+		local ui = UI_ClanWarLeagueResultPopup(struct_league)
+		ui:initDetailRankUI(my_clan_match_data)
+		g_settingData:setClanWarLastRecordPopup(g_clanWarData.m_clanWarDay)
 		return
 	end
 

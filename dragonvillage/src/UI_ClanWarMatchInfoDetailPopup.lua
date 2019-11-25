@@ -117,6 +117,10 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
 	vars['clanLvExpLabel' .. idx]:setString(clan_lv_exp) 
 	vars['creationLabel' .. idx]:setString(struct_clan_rank:getCreateAtText())
 
+    -- 참여 클랜원 수
+    local member_cnt = data[prefix .. 'play_member_cnt']
+    vars['matchNumLabel' .. idx]:setString(tostring(member_cnt))
+
 	return true
 end
 

@@ -176,10 +176,11 @@ function UI_ClanWarSelectSceneListItem:setSelected(is_selected)
 
     if (not struct_attack_enemy_match_item) then
         self.vars['selectNode1']:setVisible(is_selected)
-    end
-
-    if (struct_attack_enemy_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
-        struct_attack_enemy_match_item = nil
+        return
+    else
+        if (struct_attack_enemy_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
+            struct_attack_enemy_match_item = nil
+        end
     end
 
 	if (struct_attack_enemy_match_item) then
