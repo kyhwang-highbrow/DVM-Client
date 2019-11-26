@@ -1883,6 +1883,14 @@ function UINavigatorDefinition:goTo_clan_war(...)
     end
         
     local function finish_cb(ret)
+        -- 정비 상태 여부 체크
+        if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['LOCK']) then
+            local msg = Str('클랜전을 정비 중입니다.')
+            local sub_msg = Str('경기 준비 시간 00:00 ~ 10:00') .. '\n' .. Str('경기 진행 시간 10:00 ~ 24:00')
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+            return       
+        end
+
         -- 오픈 상태 여부 체크
         if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
             local msg = Str('클랜전 시즌이 종료되었습니다.')

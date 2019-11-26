@@ -630,15 +630,29 @@ function SettingData:getIsShowedRunGuardianDungeonInfoPopup()
 end
 
 -------------------------------------
--- function setClanWarLastRecordPopup
+-- function setClanWarDay
 -------------------------------------
-function SettingData:setClanWarLastRecordPopup(day)
-    self:applySettingData(day, 'clan_war_last_record_day') 
+function SettingData:setClanWarDay(day)
+    self:applySettingData(day, 'clan_war', 'day') 
 end
 
 -------------------------------------
--- function getClanWarLastRecordPopup
+-- function getClanWarDay
 -------------------------------------
-function SettingData:getClanWarLastRecordPopup()
-    return self:get('clan_war_last_record_day')
+function SettingData:getClanWarDay()
+    return self:get('clan_war', 'day')
+end
+
+-------------------------------------
+-- function setClanWarSeason
+-------------------------------------
+function SettingData:setClanWarSeason(season)
+    self:applySettingData(season, 'clan_war', 'season') 
+end
+
+-------------------------------------
+-- function getClanWarSeason
+-------------------------------------
+function SettingData:getClanWarSeason()
+    return self:get('clan_war', 'season')
 end

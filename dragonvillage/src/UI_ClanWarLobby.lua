@@ -78,11 +78,8 @@ function UI_ClanWarLobby:initUI(ret)
 
     local cur_match_day = g_clanWarData.m_clanWarDay
 
-    if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['LOCK']) then
-        self:setWaitingRoom()
-
     -- 1~7일차에는 리그 화면
-	elseif cur_match_day < 7 then
+	if cur_match_day < 7 then
         g_clanWarData:setIsLeague(true)
         local ui_clen_war_league = UI_ClanWarLeague(vars, self.root)
         ui_clen_war_league:refreshUI(nil, ret, true)
