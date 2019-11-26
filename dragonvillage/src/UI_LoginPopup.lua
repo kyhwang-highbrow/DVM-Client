@@ -191,7 +191,13 @@ end
 function UI_LoginPopup:click_gamecenterBtn()
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
+    local is_first_call = true
     PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
+        if (is_first_call == false) then
+            return
+        end
+        is_first_call = false
+
         self.m_loadingUI:hideLoading()
 
         if ret == 'success' then
