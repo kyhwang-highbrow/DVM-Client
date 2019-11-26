@@ -748,6 +748,7 @@ local t_module = {
     'UIC_ListExpansionItem',
 	'UIC_ExtendList',
 	'UIC_ExtendList_Image',
+    'UIC_IconAndName',
 	
     -- UI : CARD
     'UI_Card',

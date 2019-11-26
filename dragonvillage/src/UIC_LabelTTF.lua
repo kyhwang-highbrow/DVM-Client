@@ -275,6 +275,12 @@ end
 
 -------------------------------------
 -- function setAlignment
+-- cc.TEXT_ALIGNMENT_CENTER = 0x1
+-- cc.TEXT_ALIGNMENT_LEFT = 0x0
+-- cc.TEXT_ALIGNMENT_RIGHT = 0x2
+-- cc.VERTICAL_TEXT_ALIGNMENT_BOTTOM = 0x2
+-- cc.VERTICAL_TEXT_ALIGNMENT_CENTER = 0x1
+-- cc.VERTICAL_TEXT_ALIGNMENT_TOP = 0x0
 -------------------------------------
 function UIC_LabelTTF:setAlignment(text_alignment_h, text_alignment_v)
     return self.m_node:setAlignment(text_alignment_h, text_alignment_v)
