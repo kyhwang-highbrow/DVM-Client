@@ -67,6 +67,44 @@ function SceneGameClanWar:onExit()
 end
 
 -------------------------------------
+-- function networkGamePlayStart
+-- @brief 로딩 끝난 후 요청
+-- @brief 기회 차감은 start가 아니라 play에서함 (비정상 종료 판단을 위해)
+-------------------------------------
+function SceneGameClanWar:networkGamePlayStart(next_func)
+    -- 백그라운드로 한번만 요청하면서 다음 스텝으로 진행시킴
+    local function success_cb(ret)
+        if (ret['status'] ~= 0) then return end
+        self.m_gameKey = ret['gamekey']
+        self:networkGamePlayStart_response(ret)
+    end
+
+    local enemy_struct_info = g_clanWarData:getEnemyUserInfo()
+    local enemy_uid = enemy_struct_info.m_uid
+
+    local t_param = {}
+    t_param['uid'] = g_userData:get('uid')
+    t_param['enemy_uid'] = enemy_uid
+    t_param['day'] = g_clanWarData.m_clanWarDay
+    t_param['season'] = g_clanWarData.m_season
+
+    local t_request = {}
+    t_request['url'] = '/clanwar/play'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_param
+    t_request['success'] = success_cb
+    
+    Network:HMacRequest(t_request)
+
+    -- @E.T.
+	g_errorTracker:appendAPI(t_request['url'])
+
+    if (next_func) then
+        next_func()
+    end
+end
+
+-------------------------------------
 -- function makeLoadingUI
 -- @brief scene전환 중 로딩화면 생성
 -------------------------------------
@@ -133,8 +171,19 @@ end
 -- function prepareAfter
 -------------------------------------
 function SceneGameClanWar:prepareAfter()
-    -- 콜로세움은 어뷰징 이슈로 playstart 요청을 하지 않음
-    return true
+    if (not self.m_bSuccessNetForPlayStart) then
+        if (self.m_bDevelopMode) then
+            self.m_bSuccessNetForPlayStart = true
+
+        else
+            -- play 통신에서 기회를 차감
+            self:networkGamePlayStart(function()
+                self.m_bSuccessNetForPlayStart = true
+            end)
+        end
+    end
+
+    return self.m_bSuccessNetForPlayStart
 end
 
 -------------------------------------

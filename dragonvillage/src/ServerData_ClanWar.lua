@@ -75,14 +75,14 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 
     -- 통신 전, 블럭 팝업 생성
 	local finish_cb = function(ret)
-        self.m_clanWarDay = ret['clanwar_day'] or 0
-		self.m_clanWarDayData = ret['clan_data']
-		self.m_season = ret['clanwar_season']
+        g_clanWarData.m_clanWarDay = ret['clanwar_day'] or 0
+		g_clanWarData.m_clanWarDayData = ret['clan_data']
+		g_clanWarData.m_season = ret['clanwar_season']
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		g_clanWarData:applyClanWarReward(ret)
 
         -- 7일 이전은 조별리그
-		if (self.m_clanWarDay < 7) then
+		if (g_clanWarData.m_clanWarDay < 7) then
 			g_clanWarData:setClanInfo(ret['league_clan_info'])
 		else
 			g_clanWarData:setClanInfo(ret['tournament_clan_info'])
@@ -224,8 +224,8 @@ function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)
     -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/match_info')
-    ui_network:setParam('day', self.m_clanWarDay)
-	ui_network:setParam('season', self.m_season)
+    ui_network:setParam('day', g_clanWarData.m_clanWarDay)
+	ui_network:setParam('season', g_clanWarData.m_season)
 	ui_network:setParam('uid', uid)
     ui_network:setParam('clan_id', clan_id)
     ui_network:setMethod('POST')
@@ -438,8 +438,8 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/start')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('day', self.m_clanWarDay)
-	ui_network:setParam('season', self.m_season)
+    ui_network:setParam('day', g_clanWarData.m_clanWarDay)
+	ui_network:setParam('season', g_clanWarData.m_season)
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setParam('enemy_uid', enemy_uid)
     ui_network:setMethod('POST')
@@ -482,6 +482,36 @@ function ServerData_ClanWar:makeDragonToken()
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
     
     return token
+end
+
+-------------------------------------
+-- function request_clanWarSelect
+-- @breif
+-------------------------------------
+function ServerData_ClanWar:request_clanWarSelect(enemy_uid, finish_cb)
+    local success_cb = function(ret)
+        if (finish_cb) then
+            finish_cb()
+        end
+    end
+
+    local response_status_cb = function(ret)
+		if (ret['status'] == -3871) then
+            local msg = '이미 전투 중인 대상입니다.'
+            MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
+        end
+	end
+
+    local uid = g_userData:get('uid')
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clanwar/select')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('enemy_uid', enemy_uid)
+	ui_network:setParam('day', g_clanWarData.m_clanWarDay)
+    ui_network:setParam('season', g_clanWarData.m_season)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
 end
 
 -------------------------------------
@@ -531,8 +561,8 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
-	ui_network:setParam('day', self.m_clanWarDay)
-	ui_network:setParam('season', self.m_season)
+	ui_network:setParam('day', g_clanWarData.m_clanWarDay)
+	ui_network:setParam('season', g_clanWarData.m_season)
     ui_network:setParam('gamekey', g_gameScene.m_gameKey)
     ui_network:setParam('clear_time', _play_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())

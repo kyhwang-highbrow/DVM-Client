@@ -288,9 +288,13 @@ function UI_ClanWarSelectScene:click_readyBtn()
         return
     end
 
-	local my_uid = g_userData:get('uid')
-	local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
-	UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
+    local finish_cb = function()
+	    local my_uid = g_userData:get('uid')
+    	local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
+	    UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
+    end
+
+    g_clanWarData:request_clanWarSelect(self.m_curSelectEnemyStructMatch['uid'], finish_cb)
 end
 
 -------------------------------------
