@@ -4339,6 +4339,12 @@
     <None Include="..\src\UIC_IconAndName.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_TestDevelopmentListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TestDevelopment.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

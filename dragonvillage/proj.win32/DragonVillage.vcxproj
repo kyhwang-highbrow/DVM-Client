@@ -1613,6 +1613,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_TeamBonus_Dragon.lua" />
     <None Include="..\src\UI_TeamBonus_Total.lua" />
     <None Include="..\src\UI_TermsPopup.lua" />
+    <None Include="..\src\UI_TestDevelopment.lua" />
+    <None Include="..\src\UI_TestDevelopmentListItem.lua" />
     <None Include="..\src\UI_ToastPopup.lua" />
     <None Include="..\src\UI_RuneBulkSalePopup.lua" />
     <None Include="..\src\UI_RuneCard.lua" />

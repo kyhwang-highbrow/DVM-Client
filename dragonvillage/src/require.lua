@@ -943,6 +943,8 @@ local t_module = {
     'UI_AncientTowerBestDeckListItem',
     'UI_AncientTowerBestDeckPopup',
     'UI_LinkAccountPopup',
+    'UI_TestDevelopment',
+    'UI_TestDevelopmentListItem',
 
     -- UI : 환상 던전
     'UI_EventScene_Illusion',

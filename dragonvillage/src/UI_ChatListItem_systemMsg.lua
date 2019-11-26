@@ -25,6 +25,8 @@ function UI_ChatListItem_systemMsg:init(chat_content)
             local start_ch, end_ch = self:getBroadcastChannelRange(channel)
             message = Str('{@C}{1}번 채널{@default}에 입장하였습니다.\n{@C}{2}~{3}번 채널{@default}의 유저와 대화를 나눌 수 있습니다.', channel, start_ch, end_ch)
         end
+    else
+        message = chat_content:getMessage()
     end
 
     -- 메세지
