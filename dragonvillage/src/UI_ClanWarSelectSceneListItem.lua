@@ -8,6 +8,7 @@ UI_ClanWarSelectSceneListItem = class(PARENT,{
         m_endTime = 'number',
 
         m_noTime = 'boolean',
+        m_hasResult = 'boolean',
     })
 
 -------------------------------------
@@ -70,6 +71,7 @@ function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
 
         vars['setMenu']:setVisible(true)
         vars['gameScoreSprite']:setVisible(true)
+        self.m_hasResult = true
     end
 end
 
@@ -184,10 +186,15 @@ function UI_ClanWarSelectSceneListItem:setSelected(is_selected)
     end
 
 	if (struct_attack_enemy_match_item) then
-		self.vars['selectNode2']:setVisible(is_selected)
-	else
-		self.vars['selectNode1']:setVisible(is_selected)
+        if (self.m_hasResult) then
+	        self.vars['selectNode2']:setVisible(is_selected)
+        else
+            self.vars['selectNode1']:setVisible(is_selected)
+        end
+		return
 	end
+
+    self.vars['selectNode1']:setVisible(is_selected)
 end
 
 

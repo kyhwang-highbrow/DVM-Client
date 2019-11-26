@@ -35,6 +35,13 @@ function UI_ClanWarSelectScene:click_exitBtn()
 end
 
 -------------------------------------
+-- function onFocus
+-------------------------------------
+function UI_ClanWarSelectScene:onFocus()
+    self:refresh()
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_ClanWarSelectScene:init(struct_match)
@@ -58,20 +65,28 @@ function UI_ClanWarSelectScene:initUI()
 	self:initEnemyTableView()
 	self:initMyTableView()
 
-    if (IS_TEST_MODE()) then
-        --[[
-        vars['testMenu']:setVisible(true)
-        vars['testWinBtn']:registerScriptTapHandler(function() self:click_testBtn(true) end)
-        vars['testLoseBtn']:registerScriptTapHandler(function() self:click_testBtn(false) end)
-        --]]
-    end
-
     self:setDefendHistoryTableView()
 
 	for i=1,2 do
 		vars['userNameLabel' .. i]:setString('')
 		vars['powerLabel' .. i]:setString('')
 	end
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_ClanWarSelectScene:refresh()
+    local finish_cb = function(struct_match)
+        self.m_tStructMatch = struct_match
+        
+        self:initEnemyTableView()
+	    self:initMyTableView()
+
+        self:setDefendHistoryTableView()
+    end
+    
+    g_clanWarData:readyMatch(finish_cb)
 end
 
 -------------------------------------
@@ -152,6 +167,7 @@ function UI_ClanWarSelectScene:initEnemyTableView()
         end
     end
 
+    vars['rivalClanListNode']:removeAllChildren()
     local table_view = UIC_TableView(vars['rivalClanListNode'])
     table_view.m_defaultCellSize = cc.size(548, 80 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
@@ -206,6 +222,7 @@ function UI_ClanWarSelectScene:initMyTableView()
 
 	table.sort(l_my, sort_func)
 
+    vars['myClanListNode']:removeAllChildren()
     local table_view = UIC_TableView(vars['myClanListNode'])
     table_view.m_defaultCellSize = cc.size(548, 80 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
@@ -275,26 +292,50 @@ function UI_ClanWarSelectScene:click_readyBtn()
         return
     end
 
-    local struct_match_item = self.m_curSelectEnemyStructMatch
-	local defend_state = struct_match_item:getDefendState()
-	local defend_state_text = struct_match_item:getDefendStateNotiText()
+    -- 1.공격 가능한 상대가 아니라면 return
+    local select_struct_match_item = self.m_curSelectEnemyStructMatch
+	local defend_state = select_struct_match_item:getDefendState()
+	local defend_state_text = select_struct_match_item:getDefendStateNotiText()
 	if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
 		UIManager:toastNotificationGreen(Str(defend_state_text))
 		return
 	end
 
+    -- 2.아예 유저 정보가 없는 상대라면 return
     if (not g_clanWarData:getEnemyUserInfo()) then
         UIManager:toastNotificationGreen(Str('설정된 덱이 없는 상대 클랜원입니다.'))
         return
     end
 
+    local ok_cb = function()
+        self:requestSelect()
+    end
+
+    local my_uid = g_userData:get('uid')
+    local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
+    
+    UI_ClanWarShowSelectInfo(select_struct_match_item, my_struct_match_item, ok_cb)
+end
+
+-------------------------------------
+-- function requestSelect
+-------------------------------------
+function UI_ClanWarSelectScene:requestSelect()
+    local select_struct_match_item = self.m_curSelectEnemyStructMatch
+    local struct_match = self.m_tStructMatch
+
     local finish_cb = function()
 	    local my_uid = g_userData:get('uid')
     	local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
-	    UI_MatchReadyClanWar(struct_match_item, my_struct_match_item)
+	    UI_MatchReadyClanWar(select_struct_match_item, my_struct_match_item)
     end
 
-    g_clanWarData:request_clanWarSelect(self.m_curSelectEnemyStructMatch['uid'], finish_cb)
+    -- select 통신했는데 이미 전투 중인 상대였다면 선택하지 않고 화면 갱신 처리
+    local refresh_cb = function()
+        self:refresh()
+    end
+    
+    g_clanWarData:request_clanWarSelect(select_struct_match_item['uid'], finish_cb, refresh_cb)
 end
 
 -------------------------------------
@@ -424,4 +465,63 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     local comebat_power = struct_user_info:getDeckCombatPower()
     comebat_power = comma_value(comebat_power)
     vars['powerLabel' .. ui_idx]:setString(tostring(comebat_power))
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_ClanWarShowSelectInfo
+-------------------------------------
+UI_ClanWarShowSelectInfo = class(PARENT, {
+     })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarShowSelectInfo:init(my_data, enemy_data, ok_cb)
+    local vars = self:load('clan_war_popup_battle_info.ui')
+    UIManager:open(self, UIManager.POPUP)
+    g_currScene:pushBackKeyListener(ui, function() self:close() end, 'clan_war_popup_rival')
+	
+   	-- @UI_ACTION
+	self:doActionReset()
+	self:doAction(nil, false) 
+    
+    self:initUI(my_data, enemy_data, ok_cb)
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanWarShowSelectInfo:initUI(my_data, enemy_data, ok_cb)
+    local attacking_struct_match = enemy_data
+    local ui_item = UI_ClanWarSelectSceneListItem(attacking_struct_match)
+    ui_item:setNoTime()
+    ui_item:setStructMatch()
+    ui_item:setGameResult({})
+
+    ui_item.vars['selectNode2']:setVisible(true)
+    ui_item.vars['setMenu']:setVisible(true)
+    ui_item.vars['gameScoreSprite']:setVisible(true)
+    self.vars['rivalItemNode']:addChild(ui_item.root)
+    self.vars['timeLabel']:setString(Str('남은 공격 시간 {1} 남음', '2:00'))
+    
+    self.vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
+    self.vars['okBtn']:registerScriptTapHandler(function() self:close() ok_cb()  end)
+    self.vars['closBtn']:registerScriptTapHandler(function() self:close() end)
 end

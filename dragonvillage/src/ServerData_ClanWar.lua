@@ -488,7 +488,7 @@ end
 -- function request_clanWarSelect
 -- @breif
 -------------------------------------
-function ServerData_ClanWar:request_clanWarSelect(enemy_uid, finish_cb)
+function ServerData_ClanWar:request_clanWarSelect(enemy_uid, finish_cb, refresh_cb)
     local success_cb = function(ret)
         if (finish_cb) then
             finish_cb()
@@ -498,8 +498,14 @@ function ServerData_ClanWar:request_clanWarSelect(enemy_uid, finish_cb)
     local response_status_cb = function(ret)
 		if (ret['status'] == -3871) then
             local msg = '이미 전투 중인 대상입니다.'
-            MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
+            MakeSimplePopup(POPUP_TYPE.OK, msg, function() 
+                if (refresh_cb) then
+                    refresh_cb() 
+                end
+            end)
+            return true
         end
+        return false
 	end
 
     local uid = g_userData:get('uid')

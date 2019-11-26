@@ -200,12 +200,7 @@ function UI_MatchReadyClanWar:click_startBtn()
         check_dragon_inven()
     end
 
-    -- 선택하기 전에 게임 룰 설명하는 팝업
-    if (not self.m_myStructMatchItem:getAttackingUid()) then
-        UI_ClanWarShowSelectInfo(self.m_myStructMatchItem, self.m_curEnemyStructMatchItem, ok_cb)
-    else
-        ok_cb()
-    end
+    ok_cb()
 end
 
 -------------------------------------
@@ -247,50 +242,3 @@ end
 
 
 
-
-
-
-
-local PARENT = UI
-
--------------------------------------
--- class UI_ClanWarShowSelectInfo
--------------------------------------
-UI_ClanWarShowSelectInfo = class(PARENT, {
-     })
-
--------------------------------------
--- function init
--------------------------------------
-function UI_ClanWarShowSelectInfo:init(my_data, enemy_data, ok_cb)
-    local vars = self:load('clan_war_popup_battle_info.ui')
-    UIManager:open(self, UIManager.POPUP)
-    g_currScene:pushBackKeyListener(ui, function() self:close() end, 'clan_war_popup_rival')
-	
-   	-- @UI_ACTION
-	self:doActionReset()
-	self:doAction(nil, false) 
-    
-    self:initUI(my_data, enemy_data, ok_cb)
-end
-
--------------------------------------
--- function initUI
--------------------------------------
-function UI_ClanWarShowSelectInfo:initUI(my_data, enemy_data, ok_cb)
-    local attacking_struct_match = enemy_data
-    local ui_item = UI_ClanWarSelectSceneListItem(attacking_struct_match)
-    ui_item:setNoTime()
-    ui_item:setStructMatch()
-    ui_item:setGameResult({})
-
-    ui_item.vars['selectNode2']:setVisible(true)
-    ui_item.vars['setMenu']:setVisible(true)
-    ui_item.vars['gameScoreSprite']:setVisible(true)
-    self.vars['rivalItemNode']:addChild(ui_item.root)
-    self.vars['timeLabel']:setString(Str('남은 공격 시간 {1} 남음', '2:00'))
-    
-    self.vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
-    self.vars['okBtn']:registerScriptTapHandler(function() ok_cb() end)
-    self.vars['closBtn']:registerScriptTapHandler(function() self:close() end)
-end
