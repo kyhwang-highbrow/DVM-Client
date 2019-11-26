@@ -188,7 +188,7 @@ function StructClanWarTournament:getMyInfoInCurRound(today_round)
     local cur_round = today_round or g_clanWarData:getTodayRound() 
 	local l_tournament = self.m_tTournamentInfo[cur_round]
     if (not l_tournament) then
-        
+        return
     end
 	
     local my_clan_id = g_clanWarData:getMyClanId()

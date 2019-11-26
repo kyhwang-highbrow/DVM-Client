@@ -306,7 +306,7 @@ function UI_ClanWarLeague:refreshLeagueUI()
         vars['startBtn']:setVisible(true)
         -- 1.내 클랜일 경우에만 start 가능
         if (is_myClanTeam) then
-            vars['startBtnLabel']:setString(Str('전투준비'))
+            vars['startBtnLabel']:setString(Str('전투 준비'))
         else
             vars['startBtnLabel']:setString(Str('내 클랜 보기'))
         end
