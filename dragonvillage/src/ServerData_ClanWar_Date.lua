@@ -1,3 +1,5 @@
+local TABLE_DAY_ROUND = { [6] = 256, [7] = 128, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+
 -------------------------------------
 -- function getClanWarState
 -------------------------------------
@@ -442,9 +444,26 @@ end
 -------------------------------------
 function ServerData_ClanWar:getTodayRound(next_day)
 	local day = self.m_clanWarDay + (next_day or 0)
-    local max_round = g_clanWarData:getMaxRound()
-	local t_day = { [6] = max_round, [7] = max_round, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+    local t_day = g_clanWarData:getTableDayRound()
+	
 	return t_day[day]
+end
+
+-------------------------------------
+-- function getTableDayRound
+-------------------------------------
+function ServerData_ClanWar:getTableDayRound()
+    local max_round = g_clanWarData:getMaxRound()
+    local table_day = clone(TABLE_DAY_ROUND)
+    for day, round in ipairs(TABLE_DAY_ROUND) do -- { [6] = max_round, [7] = max_round, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+        if (day >= 8) then
+            table_day[day] = max_round
+        else
+            table_day[day] = round
+        end
+    end
+
+    return table_day
 end
 
 -------------------------------------
@@ -452,14 +471,18 @@ end
 -------------------------------------
 function ServerData_ClanWar:getDayByRound(round)
 	local max_round = g_clanWarData:getMaxRound()
-    local t_day = { [6] = max_round, [7] = max_round, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
+    local t_day = g_clanWarData:getTableDayRound()
+
+    local last_day = 0
 	for day, data in pairs(t_day) do
         if (data == round) then
-            return day
+            if (last_day < day) then
+                last_day = day
+            end
         end
     end
     
-    return 0
+    return last_day
 end
 
 -------------------------------------

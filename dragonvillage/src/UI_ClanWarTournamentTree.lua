@@ -531,7 +531,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     local today_round = g_clanWarData:getTodayRound()
     ui.vars['detailBtn']:registerScriptTapHandler(function()
         if (round < today_round) then
-            UIManager:toastNotificationRed(Str('기록 없음'))
+            UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.'))
         else
             UI_ClanWarMatchInfoDetailPopup(data) 
         end

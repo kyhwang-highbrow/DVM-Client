@@ -56,7 +56,7 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
     if (clan_rank ~= '-') then
         vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueRankInfoPopup(struct_league_item) end)
     else
-        vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('기록 없음')) end)
+        vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.')) end)
     end
 end
 
