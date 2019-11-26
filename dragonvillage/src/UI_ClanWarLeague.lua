@@ -519,7 +519,7 @@ end
 -- function showLastRankPopup
 -------------------------------------
 function UI_ClanWarLeague:showLastRankPopup()
-	local day = g_settingData:getClanWarLastRecordPopup()
+	local day = g_settingData:getClanWarDay()
 	if (day == g_clanWarData.m_clanWarDay) then
 		return
 	end
@@ -540,7 +540,7 @@ function UI_ClanWarLeague:showLastRankPopup()
 		return
 	end
 	UI_ClanWarMatchInfoDetailPopup(last_match_data, true)
-	g_settingData:setClanWarLastRecordPopup(g_clanWarData.m_clanWarDay)
+	g_settingData:setClanWarDay(g_clanWarData.m_clanWarDay)
 end
 
 
