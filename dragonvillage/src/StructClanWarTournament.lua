@@ -17,6 +17,7 @@ local L_ROUND = {64, 32, 16, 8, 4, 2, 1}
 function StructClanWarTournament:init(data)
 	self.m_tTournamentInfo = {}
     self.m_tTournament = {}
+    self.m_structClanWarLeague = nil
 
     for i, round in ipairs(L_ROUND) do
         self.m_tTournamentInfo[round] = {}
@@ -30,7 +31,12 @@ function StructClanWarTournament:init(data)
         self:makeTournamentData(data['tournament_info'])
     end
 
-    self.m_structClanWarLeague = StructClanWarLeague(data)
+    if (data['league_info']) then
+        -- 조별리그에 진출하지 않았을 경우 leauge_info에 빈 리스트로 온다
+        if (#data['league_info'] > 0) then
+            self.m_structClanWarLeague = StructClanWarLeague(data)
+        end
+    end
 end
 
 -------------------------------------

@@ -261,11 +261,12 @@ function UI_ClanwarRewardInfoPopupList:initUI(data)
     -- 보상1
     local reward = data['reward']
     local l_reward = pl.stringx.split(reward, ';')
-    if (l_reward[2]) then
-        vars['rewardLabel1']:setString(l_reward[2])
+    local reward = l_reward[2]
+    if (reward) then
+        vars['rewardLabel1']:setString(comma_value(reward))
     end
 
     -- 보상2
     local clan_exp = data['clan_exp']
-    vars['rewardLabel2']:setString(clan_exp)
+    vars['rewardLabel2']:setString(comma_value(clan_exp))
 end

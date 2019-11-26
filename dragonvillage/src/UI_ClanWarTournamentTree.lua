@@ -146,6 +146,10 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
     self:showPage()
 	self:checkStartBtn()
 	self:showLastRankPopup()
+
+    if (not self.m_structTournament:getStructClanWarLeague()) then
+        vars['matchTypeBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------

@@ -297,13 +297,13 @@ function UI_ClanWarSelectScene:click_readyBtn()
 	local defend_state = select_struct_match_item:getDefendState()
 	local defend_state_text = select_struct_match_item:getDefendStateNotiText()
 	if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
-		UIManager:toastNotificationGreen(Str(defend_state_text))
+		UIManager:toastNotificationRed(Str(defend_state_text))
 		return
 	end
 
     -- 2.아예 유저 정보가 없는 상대라면 return
     if (not g_clanWarData:getEnemyUserInfo()) then
-        UIManager:toastNotificationGreen(Str('설정된 덱이 없는 상대 클랜원입니다.'))
+        UIManager:toastNotificationRed(Str('설정된 덱이 없는 상대 클랜원입니다.'))
         return
     end
 
