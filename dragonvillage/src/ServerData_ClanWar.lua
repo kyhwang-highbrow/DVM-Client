@@ -22,6 +22,7 @@ ServerData_ClanWar = class({
     today_end_time = 'number',
     today_start_time = 'number' ,
     season_start_time = 'number',
+    today_calc_end_time = 'number',
     open = 'boolean',
 
 	m_season = 'number', -- 시즌 정보
@@ -46,6 +47,7 @@ ServerData_ClanWar.CLANWAR_STATE = {
 	['DONE'] = 1,
 	['OPEN'] = 2,
     ['BREAK'] = 3,
+    ['LOCK'] = 4,
 }
 
 -------------------------------------

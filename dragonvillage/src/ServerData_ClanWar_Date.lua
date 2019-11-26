@@ -14,7 +14,14 @@ function ServerData_ClanWar:getClanWarState()
 	if (self.open) then
 		return ServerData_ClanWar.CLANWAR_STATE['OPEN']
 	else
-		return ServerData_ClanWar.CLANWAR_STATE['BREAK']
+        -- 경기는 종료되었는데 정산 시간일 경우 아예 막아둠
+		if (cur_time < self.today_calc_end_time) then
+            return ServerData_ClanWar.CLANWAR_STATE['LOCK']
+        -- 경기 종료되었는데 정산 시간 끝난 경우 경기 화면은 보여줌
+        else
+            return ServerData_ClanWar.CLANWAR_STATE['BREAK']
+        end
+        
 	end
 end
 
@@ -100,7 +107,7 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 
 	-- 자정 ~ 10시
 	local clanwar_state = g_clanWarData:getClanWarState()
-	if (clanwar_state == ServerData_ClanWar.CLANWAR_STATE['BREAK']) then
+	if (clanwar_state ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
 		local round = g_clanWarData:getTodayRoundText()
 		local game_name = round
         msg = game_name .. ' ' ..Str('토너먼트를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
@@ -375,7 +382,10 @@ function ServerData_ClanWar:applyClanWarInfo(ret)
     if (ret['today_start_time']) then
         self.today_start_time = ret['today_start_time']      -- 10:00
     end
-
+    
+    if (ret['today_calc_end_time']) then
+        self.today_calc_end_time = ret['today_calc_end_time']   -- 00:00 ~ 10:00
+    end
 end
 
 -------------------------------------
@@ -477,45 +487,4 @@ function ServerData_ClanWar:getRoundText(round)
     else
         return Str('{1}강', round)
     end
-end
-
--------------------------------------
--- function isLockTime
--------------------------------------
-function ServerData_ClanWar:isLockTime()
-
-    if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
-        --[[
-        if (g_clanWarData.m_clanWarDay == 1) then
-			local cur_time = Timer:getServerTime()
-			local date = pl.Date()
-			date:set(cur_time)
-			date:hour(0)
-			date:min(1)
-			local calculate_start_time = date['time'] or 0
-			date:hour(9)
-			date:min(59)
-			local calculate_end_time = date['time'] or 0
-			if (calculate_start_time < cur_time) and (calculate_end_time > cur_time) then
-			    return true
-			end
-		end
-        --]]
-		return true
-    end
-
-    return false
-end
-
--------------------------------------
--- function isWaitingTime
--------------------------------------
-function ServerData_ClanWar:isWaitingTime()
-    if (not g_clanWarData:checkClanWarState()) then
-        if (not g_clanWarData:isLockTime()) then
-            return true
-        end
-    end
-
-    return false
 end
