@@ -71,9 +71,12 @@ function UI_LoadingClanWar:initUserInfo(direction, struct_user_info)
     elseif (direction == 'right') then
         idx = 2
     end
+
+    local struct_match_item = struct_user_info:getClanWarStructMatchItem()
+    local struct_user_info_sub = struct_match_item:getUserInfo()
     
     -- 티어
-	local icon = struct_user_info:getLastTierIcon()
+	local icon = struct_user_info_sub:getLastTierIcon()
 	if (icon) then
 		vars['tierNode' .. idx]:addChild(icon)
 	end
