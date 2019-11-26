@@ -73,6 +73,10 @@ function UI_FriendMatchReadyArena:initUI()
     local vars = self.vars
     local mode = self.m_mode
 
+	-- 클랜전 메뉴 초기화
+    vars['clanWarMenu']:setVisible(false)
+    vars['clanWarBgSprite']:setVisible(false)
+
     -- 스태미나 아이콘 설정
     local map_staimina_icon = {}
     map_staimina_icon[FRIEND_MATCH_MODE.FRIEND] = 'res/ui/icons/inbox/inbox_staminas_fpvp.png'

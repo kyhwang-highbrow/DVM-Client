@@ -67,6 +67,10 @@ end
 function UI_ArenaReady:initUI()
     local vars = self.vars
 
+	-- 클랜전 메뉴 초기화
+    vars['clanWarMenu']:setVisible(false)
+    vars['clanWarBgSprite']:setVisible(false)
+
     -- 스태미나 아이콘
     local stamina = TableDrop:getStageStaminaType(ARENA_STAGE_ID)
     local icon = IconHelper:getStaminaInboxIcon(stamina)

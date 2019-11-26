@@ -51,7 +51,10 @@ end
 -------------------------------------
 function UI_MatchReady:initUI()
     local vars = self.vars
-    vars['clanWarBgSprite']:setVisible(true)
+    
+	-- 클랜전 메뉴 초기화
+	vars['clanWarMenu']:setVisible(false)
+    vars['clanWarBgSprite']:setVisible(false)
 
     self:initStaminaInfo()
 

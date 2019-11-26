@@ -45,7 +45,11 @@ end
 -------------------------------------
 function UI_MatchReadyClanWar:initResult()
     local vars = self.vars
+
+	-- 클랜전 메뉴 켜줌
     vars['clanWarMenu']:setVisible(true)
+    vars['clanWarBgSprite']:setVisible(true)
+
     vars['startBtn']:setVisible(false)
     vars['clanWarStartBtn']:setVisible(true)
     vars['clanWarStartBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
