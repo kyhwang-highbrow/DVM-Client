@@ -307,6 +307,8 @@ local t_module = {
     'IllusionScoreCalc',
 	'MultiDeckMgr',
     'MatchCardPlayer',
+    'WorkListHelper',
+    'WorkUnit',
 
 	'DragonInfoIconHelper',
 	'IconHelper',
@@ -945,6 +947,7 @@ local t_module = {
     'UI_LinkAccountPopup',
     'UI_TestDevelopment',
     'UI_TestDevelopmentListItem',
+    'UI_StartingTamer',
 
     -- UI : 환상 던전
     'UI_EventScene_Illusion',

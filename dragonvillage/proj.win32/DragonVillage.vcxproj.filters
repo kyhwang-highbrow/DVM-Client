@@ -4345,6 +4345,15 @@
     <None Include="..\src\UI_TestDevelopment.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_StartingTamer.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\WorkListHelper.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\WorkUnit.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

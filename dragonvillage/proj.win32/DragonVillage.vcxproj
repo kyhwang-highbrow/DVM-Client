@@ -1551,6 +1551,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SimplePopup3.lua" />
     <None Include="..\src\UI_SkillEnhance.lua" />
     <None Include="..\src\UI_StaminaInfo.lua" />
+    <None Include="..\src\UI_StartingTamer.lua" />
     <None Include="..\src\UI_StatisticsListItem.lua" />
     <None Include="..\src\UI_StatisticsPopup.lua" />
     <None Include="..\src\UI_IngameBossInfo.lua" />
@@ -1656,6 +1657,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\WaveMgr_ClanRaid.lua" />
     <None Include="..\src\WaveMgr_Colosseum.lua" />
     <None Include="..\src\WaveMgr_SecretRelation.lua" />
+    <None Include="..\src\WorkListHelper.lua" />
+    <None Include="..\src\WorkUnit.lua" />
     <None Include="..\src\XorCipher.lua" />
     <None Include="..\src_tool\AssetMaker.lua" />
     <None Include="..\src_tool\AssetMaker_ApkExpansion.lua" />
