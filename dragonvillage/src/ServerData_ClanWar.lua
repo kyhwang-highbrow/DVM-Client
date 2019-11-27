@@ -105,9 +105,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 
         -- 내가 속한 그룹 저장
         local my_clan_oid = g_clanData:getMyClanObjectID()
-        cclog(' my_clan_oid : ' .. tostring(my_clan_oid))
         for _, t_clan_data in pairs(ret['league_info']) do
-            ccdump(t_clan_data)
             if (my_clan_oid == t_clan_data['clan_id']) then
                 self.m_myClanGroup = t_clan_data['league']
                 break
