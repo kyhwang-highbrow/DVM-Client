@@ -86,6 +86,7 @@ function SceneGameClanWar:networkGamePlayStart(next_func)
     t_param['enemy_uid'] = enemy_uid
     t_param['day'] = g_clanWarData.m_clanWarDay
     t_param['season'] = g_clanWarData.m_season
+    t_param['gamekey'] = g_clanWarData.m_gameKey
 
     local t_request = {}
     t_request['url'] = '/clanwar/play'
@@ -203,36 +204,4 @@ end
 function SceneGameClanWar:getStructUserInfo_Player()
     local user_info = g_clanWarData:getStructUserInfo_Player()
     return user_info
-end
-
--------------------------------------
--- function networkGameFinish
--- @breif
--------------------------------------
-function SceneGameColosseum:networkGameFinish(t_param, t_result_ref, next_func)
-    local uid = g_userData:get('uid')
-
-    local function success_cb(ret)
-        self:networkGameFinish_response(ret, t_result_ref)
-
-        if next_func then
-            next_func()
-        end
-    end
-
-    local api_url = '/game/colosseum/finish'
-    
-    local ui_network = UI_Network()
-    ui_network:setUrl(api_url)
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', self.m_stageID)
-    ui_network:setParam('clear_type', t_param['clear_type'])
-    ui_network:setParam('exp_rate', t_param['exp_rate'])
-    ui_network:setParam('clear_mission_1', t_param['clear_mission_1'])
-    ui_network:setParam('clear_mission_2', t_param['clear_mission_2'])
-    ui_network:setParam('clear_mission_3', t_param['clear_mission_3'])
-    ui_network:setParam('gold', t_param['gold'])
-    ui_network:setParam('gamekey', self.m_gameKey)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:request()
 end
