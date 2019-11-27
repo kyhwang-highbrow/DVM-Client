@@ -426,7 +426,20 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
     end
     
 	local response_status_cb = function(ret)
-		return g_clanWarData:responseStatusCB(ret)		
+		return g_clanWarData:responseStatusCB(ret)
+
+		-- 가입한 당일 유저 select 통신 요청했을 경우 
+        if (ret['status'] == -1108) then
+            local msg = '매치 시작 이후 클랜에 가입한 유저는 해당 매치에 참여할 수 없습니다.'
+            MakeSimplePopup(POPUP_TYPE.OK, msg, function() 
+                if (refresh_cb) then
+                    refresh_cb()
+                end
+            end)
+            return true
+        end
+
+		return false		
 	end
 
     local ui_network = UI_Network()
@@ -495,6 +508,17 @@ function ServerData_ClanWar:request_clanWarSelect(enemy_uid, finish_cb, refresh_
             MakeSimplePopup(POPUP_TYPE.OK, msg, function() 
                 if (refresh_cb) then
                     refresh_cb() 
+                end
+            end)
+            return true
+        end
+		
+		-- 가입한 당일 유저 select 통신 요청했을 경우 
+        if (ret['status'] == -1108) then
+            local msg = '매치 시작 이후 클랜에 가입한 유저는 해당 매치에 참여할 수 없습니다.'
+            MakeSimplePopup(POPUP_TYPE.OK, msg, function() 
+                if (refresh_cb) then
+                    refresh_cb()
                 end
             end)
             return true
@@ -732,7 +756,15 @@ function ServerData_ClanWar:showPromoteGameStartPopup()
     local success_cb = function(struct_match)
         local my_uid = g_userData:get('uid')
         local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
+        if (not my_struct_match_item) then
+            return
+        end
+        
         local attack_uid = my_struct_match_item:getAttackingUid()
+        
+        if (not attack_uid) then
+            return
+        end
 
         local ui =  UI()
         ui:load('clan_war_popup_rival.ui')

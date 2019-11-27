@@ -52,7 +52,8 @@ function UI_ClanWarMatchingSceneListItem:initUI()
     --]]
     
     local my_uid = g_userData:get('uid')
-    if (my_uid == struct_match_item['uid']) then
+    local my_clan_id = g_clanWarData:getMyClanId()
+    if (my_uid == struct_match_item['uid']) and (my_clan_id == struct_match_item['clan_id']) then
         vars['meSprite']:setVisible(true)
         vars['arrowSprite']:setPositionY(5)
         vars['lastTimeLabel']:setVisible(true)
