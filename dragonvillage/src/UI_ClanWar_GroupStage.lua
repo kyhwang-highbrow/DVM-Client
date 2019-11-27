@@ -7,7 +7,7 @@ UI_ClanWar_GroupStage = class(PARENT, {
         m_groupCount = 'number',    -- 조별리그 조의 수 (32개조, 64개조 ...)
         m_structLeague = 'StructClanWarLeague',
         m_structLeaguecache = 'table[group] = struct',
-
+        m_focusGroup = '',
 
         -- 8개 조를 1개의 페이지로 묶어서 탭으로 동작
         m_groupPaging = 'UI_ClanWar_GroupPaging',
@@ -44,6 +44,7 @@ function UI_ClanWar_GroupStage:initVariable()
 
     self.m_structLeague = nil
     self.m_structLeaguecache = {}
+    self.m_focusGroup = nil
 end
 
 -------------------------------------
@@ -56,7 +57,7 @@ function UI_ClanWar_GroupStage:init(ret)
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:closeUI() end, 'UI_ClanWar_GroupStage')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanWar_GroupStage')
 	
     --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
@@ -69,9 +70,8 @@ function UI_ClanWar_GroupStage:init(ret)
     self:initButton()
     self:refresh()
 
-    -- 씬 전환 효과
+    -- 씬 전환 효과 (sgkim 리팩토링 하자)
     self:sceneFadeInAction(function()
-        --[[
         local is_attacking, attacking_uid, end_date = g_clanWarData:isMyClanWarMatchAttackingState()
         if (is_attacking) then
             g_clanWarData:showPromoteGameStartPopup()
@@ -84,7 +84,6 @@ function UI_ClanWar_GroupStage:init(ret)
 		    
 		    g_clanWarData.m_tSeasonRewardInfo = nil
 		end
-        --]]
     end)
 end
 
@@ -94,55 +93,13 @@ end
 function UI_ClanWar_GroupStage:initUI(ret)
     local vars = self.vars
 
-    local function group_change_callback(group)
-        -- 전체 보기의 경우
-        if (group == 'all') then
-            group = 99
-        end
-
-        self:getStructClanWarLeague(group, function(struct)
-            self.m_structLeague = struct
-
-            -- 모든 리스트 삭제
-            vars['rankListNode']:removeAllChildren() -- 1개의 조에서 클랜 순위
-            vars['leagueListScrollNode']:removeAllChildren() -- 1개의 조에서 경기 일정/결과
-            vars['allRankTabMenu']:removeAllChildren() -- 전체 보기에서 모든 클랜
-
-            if (group == 99) then
-                -- 전체 보기 (모든 그룹 순위)
-                self:setAllGroupRankList()
-            else
-                -- 조별 순위 리스트
-                self:setGroupRankList()
-
-                -- 조별 경기(일정) 리스트
-                self:setGroupMatchList()
-            end
-            
-        end)
-    end
-
-    require('UI_ClanWar_GroupPaging')
     self.m_groupPaging = UI_ClanWar_GroupPaging(vars, self.m_groupCount)
-    self.m_groupPaging:setGroupChangeCB(group_change_callback)
+    self.m_groupPaging:setGroupChangeCB(function(group) self:onGroupChange(group) end)
 
     -- 처음에 포커싱될 그룹 지정
-    --self.m_groupPaging:setPage(3)
-    self.m_groupPaging:setGroup(1)
-
-
-    -- 처음 들어왔을 때에는 자신의 조로 버튼을 세팅
-    -- team 이 nil로 들어오는 경우 첫 화면/전체 랭킹
-    --[[
-    if (not team) then
-        local my_clan_id = g_clanWarData:getMyClanId()
-		local struct_league_item = self.m_structLeague:getLeagueInfo(my_clan_id)
-		if (struct_league_item) then
-			self.m_selctedTeam = struct_league_item:getLeague()
-            self.m_myLeagueInfo = struct_league_item
-		end
-    end
-    --]]
+    --self.m_groupPaging:setPage(1)
+    local group = (g_clanWarData:getMyClanGroup() or 1)
+    self.m_groupPaging:setGroup(group)
 end
 
 -------------------------------------
@@ -150,6 +107,17 @@ end
 -------------------------------------
 function UI_ClanWar_GroupStage:initButton()
     local vars = self.vars
+
+    vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
+    --vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, league_rank, tournament_rank) end)
+    vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
+    vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+
+    -- 테스트용 버튼
+    vars['testTomorrowBtn']:registerScriptTapHandler(function() 
+        g_clanWarData:request_testNextDay() 
+        UIManager:toastNotificationRed('다음날이 되었습니다. ESC로 나갔다가 다시 진입해주세요')
+    end) 
 end
 
 -------------------------------------
@@ -157,6 +125,41 @@ end
 -------------------------------------
 function UI_ClanWar_GroupStage:refresh()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function onGroupChange
+-- @brief 선택된 그룹이 변경된 경우
+-------------------------------------
+function UI_ClanWar_GroupStage:onGroupChange(group)
+    local vars = self.vars
+    self.m_focusGroup = group
+
+    -- 전체 보기의 경우
+    if (group == 'all') then
+        group = 99
+    end
+
+    self:getStructClanWarLeague(group, function(struct)
+        self.m_structLeague = struct
+
+        -- 모든 리스트 삭제
+        vars['rankListNode']:removeAllChildren() -- 1개의 조에서 클랜 순위
+        vars['leagueListScrollNode']:removeAllChildren() -- 1개의 조에서 경기 일정/결과
+        vars['allRankTabMenu']:removeAllChildren() -- 전체 보기에서 모든 클랜
+
+        if (group == 99) then
+            -- 전체 보기 (모든 그룹 순위)
+            self:setAllGroupRankList()
+        else
+            -- 조별 순위 리스트
+            self:setGroupRankList()
+
+            -- 조별 경기(일정) 리스트
+            self:setGroupMatchList()
+        end
+            
+    end)
 end
 
 -------------------------------------
@@ -280,4 +283,58 @@ function UI_ClanWar_GroupStage:setAllGroupRankList()
 	table_view_td:setCellUIClass(UI_ClanWarAllRankListItem, create_cb)
 	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td:setItemList(l_team)
+end
+
+-------------------------------------
+-- function click_startBtn
+-------------------------------------
+function UI_ClanWar_GroupStage:click_startBtn()
+    if (g_clanWarData:getMyClanGroup() ~= self.m_focusGroup) then
+        local group = g_clanWarData:getMyClanGroup()
+        if group then
+            self.m_groupPaging:setGroup(group)
+        else
+            UIManager:toastNotificationRed('임시 텍스트, 클래전에 참여중이지 않은 유저')
+        end
+        return
+    end
+    --[[
+    -- 다른 팀 버튼을 누르고 있을 경우 내 팀으로 돌아옴
+    if (self.m_selctedTeam ~= self:getMyLeagueNumber()) then
+        local my_clan_id = g_clanWarData:getMyClanId()
+        local my_clan_league_info = self.m_structLeague:getLeagueInfo(my_clan_id)
+        if (not my_clan_league_info) then
+            self:click_teamWithFocusBtn(self:getMyLeagueNumber())
+            return
+        end
+    end
+    --]]
+    
+    -- 1.오픈 여부 확인
+	local is_open, msg = g_clanWarData:checkClanWarState_League()
+	if (not is_open) then
+		MakeSimplePopup(POPUP_TYPE.OK, msg)
+		return
+	end
+
+    local success_cb = function(struct_match)
+        --local t_clan = struct_match:getEnemyMatchData()
+        -- 2.상대 클랜이 유령 클랜일 경우 확인
+        --local is_ghost = self:isGhostClan(t_clan)
+        local is_ghost = struct_match:isGhostClan()
+        if (is_ghost) then
+            local ghost_msg = Str('대전 상대가 없어 부전승 처리 되었습니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, ghost_msg)
+            return
+        end
+
+        local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match)
+
+        -- 리그 통신에서 들고 있더 클랜 세트 승리수 전달
+        local struct_league = self.m_structLeague
+        local my_win_cnt, enemy_win_cnt = struct_league:getMyClanMatchScore()
+        ui_clan_war_matching:setScore(my_win_cnt, enemy_win_cnt)
+    end
+
+    g_clanWarData:request_clanWarMatchInfo(success_cb)
 end

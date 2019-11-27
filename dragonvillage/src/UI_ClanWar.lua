@@ -258,20 +258,3 @@ function UI_ClanWar:setAllGroupRankList()
 	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td:setItemList(l_team)
 end
-
-
--------------------------------------
--- function getMyClanGroup()
--- @brief 내 클랜의 조별리그 그룹. nil이 리턴될 경우 조별리그에 참여하지 못한 클랜.
--- @return group number or nil
--------------------------------------
-function UI_ClanWar:getMyClanGroup()
-    local my_clan_id = g_clanWarData:getMyClanId()
-	local struct_league_item = self.m_structLeague:getLeagueInfo(my_clan_id)
-	if (struct_league_item) then
-		self.m_selctedTeam = struct_league_item:getLeague()
-        self.m_myLeagueInfo = struct_league_item
-	else
-        return nil
-    end
-end

@@ -10,6 +10,8 @@ ServerData_ClanWar = class({
 
     m_clanWarDay = 'number',
 	m_clanWarDayData = 'table',
+    m_clanWarRountType = 'ServerData_ClanWar.ROUNT_TYPE',
+    m_myClanGroup = 'number', -- 내 클랜 그룹
 
     -- 실제 전투하는 나의/상대 유저 정보+덱
     m_playerUserInfo = 'StructUserInfoClanWar',
@@ -28,6 +30,11 @@ ServerData_ClanWar = class({
 	m_tSeasonRewardInfo = 'table', -- 시즌보상
     m_gameKey = 'number',
 })
+
+
+ServerData_ClanWar.ROUNT_TYPE = {}
+ServerData_ClanWar.ROUNT_TYPE['GROUPSTAGE'] = 1
+ServerData_ClanWar.ROUNT_TYPE['TOURNAMENT'] = 2
 
 -------------------------------------
 -- function init
@@ -86,13 +93,27 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		g_clanWarData:applyClanWarReward(ret)
 
-        -- 7일 이전은 조별리그
-		if (g_clanWarData.m_clanWarDay < 7) then
+        -- 1~7일은 조별리그 (8~14일은 토너먼트)
+		if (g_clanWarData.m_clanWarDay <= 7) then
 			g_clanWarData:setClanInfo(ret['league_clan_info'])
+            self.m_clanWarRountType = ServerData_ClanWar.ROUNT_TYPE['GROUPSTAGE']
 		else
 			g_clanWarData:setClanInfo(ret['tournament_clan_info'])
             g_clanWarData:setClanInfo(ret['league_clan_info'])
+            self.m_clanWarRountType = ServerData_ClanWar.ROUNT_TYPE['TOURNAMENT']
 		end
+
+        -- 내가 속한 그룹 저장
+        local my_clan_oid = g_clanData:getMyClanObjectID()
+        cclog(' my_clan_oid : ' .. tostring(my_clan_oid))
+        for _, t_clan_data in pairs(ret['league_info']) do
+            ccdump(t_clan_data)
+            if (my_clan_oid == t_clan_data['clan_id']) then
+                self.m_myClanGroup = t_clan_data['league']
+                break
+            end
+        end
+
         success_cb(ret)
 	end
 
@@ -800,3 +821,31 @@ function ServerData_ClanWar:responseStatusCB(ret, api_name)
 
     return false
 end 
+
+
+-------------------------------------
+-- function getRountType
+-- @brief 조별리그, 토너먼트 어떤 기간인지 리턴
+-- @return ServerData_ClanWar.ROUNT_TYPE
+-------------------------------------
+function ServerData_ClanWar:getRountType()
+    return self.m_clanWarRountType
+end
+
+-------------------------------------
+-- function isGroupStage
+-- @brief 조별리그 기간인지 여부
+-- @return boolean
+-------------------------------------
+function ServerData_ClanWar:isGroupStage()
+    return (self.m_clanWarRountType == ServerData_ClanWar.ROUNT_TYPE['GROUPSTAGE'])
+end
+
+-------------------------------------
+-- function getMyClanGroup
+-- @brief 내 클랜의 그룹
+-- @return number 시점에 따라 nil이 리턴될 수 있다.
+-------------------------------------
+function ServerData_ClanWar:getMyClanGroup()
+    return self.m_myClanGroup
+end

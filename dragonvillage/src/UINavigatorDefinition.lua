@@ -1898,12 +1898,26 @@ function UINavigatorDefinition:goTo_clan_war(...)
             return       
         end
 
+        -- 클랜전 UI 생성 함수
+        local function create_clan_war_ui(...)
+            if true then
+                UI_ClanWarLobby(...)
+                return
+            end
+
+            if g_clanWarData:isGroupStage() then
+                UI_ClanWar_GroupStage(...)
+            else
+                UI_ClanWarLobby(...)
+            end
+        end
+
 		-- 클랜전 UI가 열려있을 경우
         -- 기존처럼 UI 갱신이 아니라 클랜전 로비를 다시 만들어 줄 것이기 때문에 idx-1까지 UI닫고 생성함
 		local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
 		if (is_opend == true) then
 			self:closeUIList(idx-1)
-			UI_ClanWarLobby(ret)
+			create_clan_war_ui(ret)
 			return
 		end
 
@@ -1913,7 +1927,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
             self:closeUIList(idx)
             ui:setTab('clan') -- 전투 메뉴에서 tab의 이름이 'clan'이다.
             ui:resetButtonsPosition()
-            UI_ClanWarLobby(ret)
+            create_clan_war_ui(ret)
             return
         end
 
@@ -1921,7 +1935,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
         local is_opend, idx, ui = self:findOpendUI('UI_Clan')
         if (is_opend == true) then
             self:closeUIList(idx)
-            UI_ClanWarLobby(ret)
+            create_clan_war_ui(ret)
             return
         end
 
@@ -1929,7 +1943,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
         local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
         if (is_opend == true) then
             self:closeUIList(idx)
-            UI_ClanWarLobby(ret)
+            create_clan_war_ui(ret)
             return
         end
 
@@ -1938,7 +1952,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_ClanWarLobby, close_cb, ret)
+            local scene = SceneCommon(create_clan_war_ui, close_cb, ret)
             scene:runScene()
         end
     end

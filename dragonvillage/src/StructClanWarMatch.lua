@@ -53,6 +53,32 @@ function StructClanWarMatch:getEnemyMatchData()
 end
 
 -------------------------------------
+-- function isGhostClan
+-------------------------------------
+function StructClanWarMatch:isGhostClan(t_clan)
+    local struct_match_item
+    for _, v in pairs(self:getEnemyMatchData()) do
+        struct_match_item = v
+        break
+    end
+
+    if (not struct_match_item) then
+        return true
+    end
+
+    local clan_id = struct_match_item:getClanId()
+    if (not clan_id) then
+        return true
+    end
+
+    if (clan_id == 'loser') then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function getMatchMemberDataByUid
 -------------------------------------
 function StructClanWarMatch:getMatchMemberDataByUid(uid)

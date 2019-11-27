@@ -1311,3 +1311,17 @@ function ServerData_Clan:getCurSeasonBossAttr()
     
     return self.m_cur_season_boss_attr
 end
+
+-------------------------------------
+-- function getMyClanObjectID
+-- @brief 내 클랜의 고유 ID
+-- @return string object id
+-------------------------------------
+function ServerData_Clan:getMyClanObjectID()
+    if (self.m_structClan == nil) then
+        return nil
+    end
+
+    local clan_object_id = self.m_structClan:getClanObjectID()
+    return clan_object_id
+end
