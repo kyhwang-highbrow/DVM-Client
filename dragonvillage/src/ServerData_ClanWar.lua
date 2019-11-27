@@ -3,7 +3,7 @@
 -- @instance g_clanWarData
 -------------------------------------
 ServerData_ClanWar = class({
-    m_isMyClanLeft = 'boolean', -- Test API?癒?퐣筌??????롫뮉 揶?
+    m_isMyClanLeft = 'boolean', -- Test API에서만 사용
 	m_isLeague = 'boolean',
 
     m_tClanInfo = 'table - StructClanRank',
@@ -11,17 +11,17 @@ ServerData_ClanWar = class({
     m_clanWarDay = 'number',
 	m_clanWarDayData = 'table',
 
-    -- ????袁⑹몵嚥?筌띿쉶??????쟿??곷선/?怨? ???쟿??곷선 ?類ｋ궖 ????
+    -- 실제 전투하는 나의/상대 유저 정보+덱
     m_playerUserInfo = 'StructUserInfoClanWar',
     m_OpponentUserInfo = 'StructUserInfoClanWar',
 
-	m_myMatchInfo = 'StructClanWarMatchItem', -- 嚥≪뮆?????뻿?癒?퐣 獄쏆룆???類ｋ궖, 獄쏄퀡瑗??袁⑹뒻 ???袁⑹뒄
+	m_myMatchInfo = 'StructClanWarMatchItem', -- lobby통신에서 받는 내 유저 정보(로비 배너에 사용)
 
-    today_end_time = 'number',
+    today_end_time = 'number',          -- 오늘 경기 끝나는 시간
     today_start_time = 'number' ,
-    season_start_time = 'number',
-    today_calc_end_time = 'number',
-    open = 'boolean',
+    season_start_time = 'number',       -- 시즌 시작하는 시간
+    today_calc_end_time = 'number',     -- 정산 끝나는 시간
+    open = 'boolean',                   -- 경기 시작 가능 여부
 
 	m_season = 'number', -- 시즌 정보
 
@@ -43,21 +43,25 @@ function ServerData_ClanWar:init()
 end
 
 ServerData_ClanWar.CLANWAR_STATE = {
-	['DONE'] = 1,
-	['OPEN'] = 2,
-    ['BREAK'] = 3,
-    ['LOCK'] = 4,
+	['DONE'] = 1,   -- 시즌 종료
+	['OPEN'] = 2,   -- 전투 가능
+    ['BREAK'] = 3,  -- 전투 불가능, 클랜전 화면에 접근 가능
+    ['LOCK'] = 4,   -- 전투 불가능, 클랜전 화면에 접근 불가능 
 }
 
 -------------------------------------
 -- function applyClanWarReward
+-- @brief 보상 정보
 -------------------------------------
 function ServerData_ClanWar:applyClanWarReward(ret)
-	if (ret['reward_clan_info']) then
+	-- 보상이 있다면 들어오는 값
+    if (ret['reward_clan_info']) then
 		
 		self.m_tSeasonRewardInfo = {}
 		self.m_tSeasonRewardInfo['reward_clan_info'] = ret['reward_clan_info']
-		if (ret['is_tournament']) then
+		
+        -- 내려온 rank값이 조별리그 값인지 토너먼트 값인지 ex) 4위 : 토너먼트 4강 or 조별리그 4위
+        if (ret['is_tournament']) then
 			self.m_tSeasonRewardInfo['is_tournament'] = ret['is_tournament']
 		end
 
@@ -69,16 +73,16 @@ end
 
 -------------------------------------
 -- function request_clanWarLeagueInfo
+-- @brief 클랜전 첫 통신 (토너먼트 or 조별리그 정보 받음)
 -------------------------------------
 function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
     local league = team
 
-
-    -- 통신 전, 블럭 팝업 생성
 	local finish_cb = function(ret)
         g_clanWarData.m_clanWarDay = ret['clanwar_day'] or 0
 		g_clanWarData.m_clanWarDayData = ret['clan_data']
 		g_clanWarData.m_season = ret['clanwar_season']
+
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		g_clanWarData:applyClanWarReward(ret)
 
@@ -132,14 +136,13 @@ end
 
 -------------------------------------
 -- function request_testSetWinLose
+-- @brief 조별리그 점수 세팅하는 TestAPI
 -------------------------------------
 function ServerData_ClanWar:request_testSetWinLose(league, match, is_left, win, lose, total_win)
     local league = team
 
-    -- ?醫? ID
     local uid = g_userData:get('uid')
     
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/clanwar_setscore')
     ui_network:setParam('uid', uid)
@@ -159,12 +162,11 @@ end
 
 -------------------------------------
 -- function request_nextDay
+-- @brief 다음날로 이동
 -------------------------------------
 function ServerData_ClanWar:request_testNextDay()
-    -- ?醫? ID
     local uid = g_userData:get('uid')
     
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/clanwar_nextday')
     ui_network:setParam('uid', uid)
@@ -194,6 +196,7 @@ end
 
 -------------------------------------
 -- function setIsMyClanLeft
+-- @brief TestAPI에서 내 클랜이 왼쪽/오른쪽인지 판단 - 이제 사용 안함
 -------------------------------------
 function ServerData_ClanWar:setIsMyClanLeft(is_left)
     self.m_isMyClanLeft = is_left
@@ -201,6 +204,7 @@ end
 
 -------------------------------------
 -- function getIsMyClanLeft
+-- @brief TestAPI에서 내 클랜이 왼쪽/오른쪽인지 판단 - 이제 사용 안함
 -------------------------------------
 function ServerData_ClanWar:getIsMyClanLeft()
     return self.m_isMyClanLeft
@@ -208,13 +212,13 @@ end
 
 -------------------------------------
 -- function request_clanWarMatchInfo
+-- @brief 전투하는 두 클랜의 유저 정보
 -------------------------------------
 function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)    
     local finish_cb = function(ret)
         return success_cb(StructClanWarMatch(ret))
     end
     
-    -- ?醫? ID
     local uid = g_userData:get('uid')
     local clan_id = self:getMyClanId()
     
@@ -241,23 +245,6 @@ function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)
 end
 
 -------------------------------------
--- function responseClanwarMatchInfo
--------------------------------------
-function ServerData_ClanWar:responseClanwarMatchInfo(l_data)
-    local t_struct_match = {}
-    for i, data in ipairs(l_data) do
-        local uid = data['uid']
-        if (uid) then
-            t_struct_match[uid] = StructClanWarMatch(data)            
-        end
-    end
-
-    return t_struct_match
-end
-
-
-
--------------------------------------
 -- function request_clanWarTournamentSetScore
 -------------------------------------
 function ServerData_ClanWar:request_clanWarTournamentSetScore(left_score, right_score)    
@@ -265,10 +252,8 @@ function ServerData_ClanWar:request_clanWarTournamentSetScore(left_score, right_
         self:request_testNextDay()
     end
     
-    -- ?醫? ID
     local uid = g_userData:get('uid')
     
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/clanwar_tournament_score_set')
     ui_network:setParam('uid', uid)
@@ -287,7 +272,7 @@ end
 
 -------------------------------------
 -- function refresh_playerUserInfo
--- @brief ???쟿??곷선 ?類ｋ궖 揶쏄퉮??
+-- @brief 유저 정보 갱신
 -------------------------------------
 function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 	if (not self.m_playerUserInfo) then
@@ -297,7 +282,6 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 		struct_user_info.m_lv = g_userData:get('lv')
 		struct_user_info.m_nickname = g_userData:get('nick')	
 
-		-- ????
 		local struct_clan = g_clanData:getClanStruct()
 		if (struct_clan) then
 			struct_user_info.m_userData = struct_clan:getClanName()
@@ -315,7 +299,6 @@ end
 
 -------------------------------------
 -- function getUserInfo
--- @brief ???쟿??곷선 ?類ｋ궖 揶쏄퉮??
 -------------------------------------
 function ServerData_ClanWar:getPlayerUserInfo()   
     return self.m_playerUserInfo
@@ -323,6 +306,7 @@ end
 
 -------------------------------------
 -- function requestEnemyUserInfo
+-- @brief 전투 상대 유저 정보
 -------------------------------------
 function ServerData_ClanWar:requestEnemyUserInfo(uid, finish_cb)
     local finish_cb = function(data)
@@ -353,8 +337,6 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
     end
     
     local struct_user_info = StructUserInfoClanWar()
-
-    -- 疫꿸퀡???醫? ?類ｋ궖
     struct_user_info.m_uid = data['uid']
     struct_user_info.m_nickname = data['nick']
     struct_user_info.m_lv = data['lv']
@@ -363,18 +345,16 @@ function ServerData_ClanWar:makeEnemyUserInfo(data)
     struct_user_info.m_tier = data['tier']
     struct_user_info.m_rank = data['rank']
     struct_user_info.m_rankPercent = data['rate']
-    
-    -- ?꾩뮆以?紐? ?醫? ?類ｋ궖
+
     struct_user_info.m_rp = data['rp']
     struct_user_info.m_matchResult = data['match']
     
-    struct_user_info:applyRunesDataList(data['runes']) --獄쏆꼶諭????뺤삋????쇱젟 ?袁⑸퓠 ?롤딆뱽 ??쇱젟??곷튊??
+    struct_user_info:applyRunesDataList(data['runes'])
     struct_user_info:applyDragonsDataList(data['dragons'])
     
-    -- ???類ｋ궖 (筌띲끉?귞뵳???紐꾨퓠 ??뤿선??삳뮉 ?源? ?????醫???獄쎻뫗堉??
+    -- 덱 정보
     struct_user_info:applyPvpDeckData(data['deck'])
     
-    -- ????
     if (data['clan_info']) then
         local struct_clan = StructClan({})
         struct_clan:applySimple(data['clan_info'])
@@ -386,7 +366,6 @@ end
 
 -------------------------------------
 -- function setEnemyUserInfo
--- @brief ???쟿??곷선 ?類ｋ궖 揶쏄퉮??
 -------------------------------------
 function ServerData_ClanWar:setEnemyUserInfo(opponent_info)   
     self.m_OpponentUserInfo = opponent_info
@@ -397,7 +376,7 @@ end
 -------------------------------------
 function ServerData_ClanWar:getStructUserInfo_Player()
     local t_data = g_deckData:getDeck_lowData('clanwar')
-    self:refresh_playerUserInfo(t_data)
+    self:refresh_playerUserInfo(t_data) -- m_playerUserInfo 없으면 만드는 단계, 있다면 덱 갱신
 
     local struct_user_info = g_clanWarData:getPlayerUserInfo()
     return struct_user_info
@@ -407,18 +386,14 @@ end
 -- function request_clanWarStart
 -------------------------------------
 function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
-    -- ?醫? ID
     local uid = g_userData:get('uid')
     
-    -- ?源껊궗 ?꾩뮆媛?
     local function success_cb(ret)
-
-        -- staminas, cash ??녿┛??
+        -- 재화 갱신
         g_serverData:networkCommonRespone(ret)
-
-        -- ??쇱젫 ???쟿????볦퍢 嚥≪뮄?뉒몴??袁る퉸 筌ｋ똾寃?????癰귣?源?
         g_accessTimeData:startCheckTimer()
 
+        -- 게임키 저장
         g_clanWarData.m_gameKey = ret['gamekey']
 
         if finish_cb then
@@ -435,7 +410,6 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
 		return g_clanWarData:responseStatusCB(ret)		
 	end
 
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/start')
     ui_network:setParam('uid', uid)
@@ -529,7 +503,7 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     local uid = g_userData:get('uid')
 	local _play_time = play_time or 0
     local function success_cb(ret)
-        -- 전투 후 공격자 기록 갱신
+        -- 전투 후 공격자 기록 갱신 (전투 결과, 남은 시간 등등)
         local struct_user_info = g_clanWarData:getStructUserInfo_Player()
         local struct_match_item = struct_user_info:getClanWarStructMatchItem()
         local struct_match_info = ret['clanwar_member_info']
@@ -555,7 +529,6 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
 		return g_clanWarData:responseStatusCB(ret, 'finish')
 	end
 
-    -- 筌뤴뫀諭띈퉪?API 雅뚯눘???브쑨由곤㎗?롡봺
     local api_url = '/clanwar/finish'
 
     local _is_win
@@ -583,18 +556,14 @@ end
 -- function request_clanWarUserDeck
 -------------------------------------
 function ServerData_ClanWar:request_clanWarUserDeck(uid, finish_cb)
-
-    -- ?醫? ID
     local _uid = uid or g_userData:get('uid')
     
-    -- ?源껊궗 ?꾩뮆媛?
     local function success_cb(ret)
         if (finish_cb) then
             finish_cb(ret['deck_info'])
         end
     end
 
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/users/get_deck_clanwar')
     ui_network:setParam('uid', _uid)
@@ -613,10 +582,8 @@ end
 function ServerData_ClanWar:request_setDeck(deckname, formation, leader, l_edoid, tamer, finish_cb, fail_cb)
     local _deckname = deckname
 
-    -- ?醫? ID
     local uid = g_userData:get('uid')
 
-    -- ?源껊궗 ?꾩뮆媛?
     local function success_cb(ret)
         local t_data = nil
         local t_deck = ret['deck']
@@ -628,7 +595,6 @@ function ServerData_ClanWar:request_setDeck(deckname, formation, leader, l_edoid
         end
     end
 
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/game/pvp/set_deck')
     ui_network:setParam('uid', uid)
@@ -655,13 +621,11 @@ end
 
 -------------------------------------
 -- function request_clanWarMyMatchInfo
+-- @brief 나의 StructClanWarMatchItem 를 받음 - 해당 값은 로비에서 받고 따로 요청하는 통신은 사용 안하고 있음
 -------------------------------------
 function ServerData_ClanWar:request_clanWarMyMatchInfo(finish_cb)
-
-    -- ?醫? ID
     local _uid = uid or g_userData:get('uid')
     
-    -- ?源껊궗 ?꾩뮆媛?
     local function success_cb(ret)
         self.m_myMatchInfo = StructClanWarMatchItem(ret['my_match_info'])
 		if (finish_cb) then
@@ -669,7 +633,6 @@ function ServerData_ClanWar:request_clanWarMyMatchInfo(finish_cb)
 		end
     end
 
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/my_match_info')
     ui_network:setParam('uid', _uid)
@@ -684,8 +647,7 @@ end
 
 -------------------------------------
 -- function isMyClanWarMatchAttackingState
--- @warning! 嚥≪뮆??癒?퐣 ???뻿?????춸 揶쏄퉮???롫뮉 ?類ｋ궖??
--- @brief 獄쏄퀡瑗?筌〓씭????袁⑹뒄???類ｋ궖 ?귐뗪쉘
+-- @brief 나의 현재 공격 상태 (로비에서 배너 찍을 때 사용)
 -------------------------------------
 function ServerData_ClanWar:isMyClanWarMatchAttackingState()
 	if (self.m_myMatchInfo) then
@@ -698,6 +660,7 @@ end
 
 -------------------------------------
 -- function readyMatch
+-- @brief MatchInfo 통신
 -------------------------------------
 function ServerData_ClanWar:readyMatch(finish_cb)
     local success_cb = function(struct_match)
@@ -711,6 +674,7 @@ end
 
 -------------------------------------
 -- function click_gotoBattle
+-- @brief 클랜전 로비에서 전투 시작하기 눌렀을 때 1.매칭씬으로 이동 2. 선택씬으로 이동
 -------------------------------------
 function ServerData_ClanWar:click_gotoBattle(my_struct_match_item, opponent_struct_match_item, goto_select_scene_cb)
     local is_do_all_game = my_struct_match_item:isDoAllGame()
@@ -721,6 +685,7 @@ function ServerData_ClanWar:click_gotoBattle(my_struct_match_item, opponent_stru
 
     local attacking_uid = my_struct_match_item:getAttackingUid()
     -- 이미 공격한 상대가 있는 경우
+    -- 2. 선택씬으로 이동
     if (attacking_uid) then
         local finish_cb = function()
             if (not g_clanWarData:getEnemyUserInfo()) then
@@ -731,6 +696,8 @@ function ServerData_ClanWar:click_gotoBattle(my_struct_match_item, opponent_stru
         end
 
         g_clanWarData:requestEnemyUserInfo(attacking_uid, finish_cb)
+    
+    -- 1.매칭씬으로 이동
     else
         if (goto_select_scene_cb) then
             goto_select_scene_cb()
@@ -740,6 +707,7 @@ end
 
 -------------------------------------
 -- function showPromoteGameStartPopup
+-- @brief 전투 상대가 정해졌을 경우 클랜전 화면에서 MatchReay까지 보내주는 팝업
 -------------------------------------
 function ServerData_ClanWar:showPromoteGameStartPopup()    
     local success_cb = function(struct_match)

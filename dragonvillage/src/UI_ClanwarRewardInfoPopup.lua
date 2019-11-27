@@ -43,7 +43,7 @@ function UI_ClanwarRewardInfoPopup:setLeague(league_rank)
     -- 클랜전 보상 정보만
     -- 32부터라면, 32강까지만, 그룹 보상이 4위부터면 4위까지만
     local max_round = g_clanWarData:getMaxRound()
-    local max_clan_group = g_clanWarData:getMaxGroup()
+    local max_clan_group = g_clanWarData:getGroupCnt()
     local l_item_list = {}
     for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do
         if (t_data['category'] == 'clanwar_league') then
@@ -123,7 +123,7 @@ function UI_ClanwarRewardInfoPopup:setTournament(league_rank, tournament_rank)
     -- 클랜전 보상 정보만
     -- 32부터라면, 32강까지만, 그룹 보상이 4위부터면 4위까지만
     local max_round = g_clanWarData:getMaxRound()
-    local max_clan_group = g_clanWarData:getMaxGroup()
+    local max_clan_group = g_clanWarData:getGroupCnt()
     local l_item_list = {}
     for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do
         if (t_data['category'] == 'clanwar_league') then

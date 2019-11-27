@@ -7,12 +7,12 @@ function ServerData_ClanWar:getClanWarState()
 	local cur_time = Timer:getServerTime_Milliseconds()
 	local state
 
-	-- ??뽰サ???ル굝利?怨밴묶?硫? (??뽰삂 ?醫롮?揶쎛 沃섎챶??硫?)
+	-- 클랜전 시즌 시작전이라면 시즌 종료 처리 (self.season_start_time - 다음 시즌까지 남은 시간)
 	if (cur_time < self.season_start_time) then
 		return ServerData_ClanWar.CLANWAR_STATE['DONE']
 	end
 
-	-- ??議?遺? (?癒?젟?봔???袁⑸쵟繹먮슣? 野껊슣????? ??놁벉(?類ㅺ텦 疫꿸퀗而?)
+	-- 경기 시작이 가능한지
 	if (self.open) then
 		return ServerData_ClanWar.CLANWAR_STATE['OPEN']
 	else
@@ -29,7 +29,7 @@ end
 
 -------------------------------------
 -- function getRemainSeasonTime
--- @brief ??쇱벉 ??뽰サ繹먮슣? ??? ??볦퍢
+-- @brief 다음 시즌까지 남은 시간
 -------------------------------------
 function ServerData_ClanWar:getRemainSeasonTime()
 	local cur_time = Timer:getServerTime_Milliseconds()
@@ -43,7 +43,7 @@ end
 
 -------------------------------------
 -- function getRemainGameTime
--- @brief ??멸돌疫?繹먮슣? ??? ??볦퍢
+-- @brief 오늘 경기 끝나기까지 남은 시간
 -------------------------------------
 function ServerData_ClanWar:getRemainGameTime()
 	local cur_time = Timer:getServerTime_Milliseconds()
@@ -57,7 +57,7 @@ end
 
 -------------------------------------
 -- function getRemainStartGameTime
--- @brief ??뽰삂??띾┛繹먮슣? ??? ??볦퍢
+-- @brief 오늘 경기 시작까지 남은 시간
 -------------------------------------
 function ServerData_ClanWar:getRemainStartGameTime()
 	local cur_time = Timer:getServerTime_Milliseconds()
@@ -84,6 +84,7 @@ end
 
 -------------------------------------
 -- function checkClanWarState_Tournament
+-- @return 현재 토너먼트 open 상태, 상태 메세지, 남은 시간 
 -------------------------------------
 function ServerData_ClanWar:checkClanWarState_Tournament()
 	local is_open, msg = self:checkClanWarState()
@@ -107,7 +108,7 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 		return false, msg
 	end
 
-	-- 자정 ~ 10시
+	-- 경기 중이 아닐 경우
 	local clanwar_state = g_clanWarData:getClanWarState()
 	if (clanwar_state ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
 		local round = g_clanWarData:getTodayRoundText()
@@ -121,6 +122,7 @@ end
 
 -------------------------------------
 -- function checkClanWarState_League
+-- @return 현재 조별리그 open 상태, 상태 메세지, 남은 시간
 -------------------------------------
 function ServerData_ClanWar:checkClanWarState_League()
 	local is_open, msg = self:checkClanWarState()
@@ -129,28 +131,8 @@ function ServerData_ClanWar:checkClanWarState_League()
 		return true, ''
 	end
 
-	local clanwar_state = g_clanWarData:getClanWarState()
-	local cur_time = Timer:getServerTime()
-	local date = pl.Date()
-	date:set(cur_time)
-	local hour = date:hour()
-	if (self.m_clanWarDay == 1) and (hour < 10) then
-		msg = Str('클랜전 시즌이 종료되었습니다.') .. ' {@green}' .. Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainSeasonTime())
-		return false, msg
-	elseif (self.m_clanWarDay == 1) and (hour >= 10) then
-		msg = Str('조별리그를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
-		return false, msg	
-	end
-
 	if (self.m_clanWarDay == 7) then
 		msg = Str('조별리그가 종료 되었습니다.') .. ' {@green}' .. Str('토너먼트 시작까지 {1} 남음', g_clanWarData:getRemainStartGameTime())	
-		return false, msg
-	end
-
-    -- 조별리그 진행 안 하는 날 : 일본 서버의 경우 이틀 뒤 시작한다
-	if (not g_clanWarData:isMatchDay(self.m_clanWarDay)) then
-        local time = g_clanWarData:getRemainTimeForNextGame()
-		msg = Str('조별리그를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
 		return false, msg
 	end
 	
@@ -167,6 +149,7 @@ function ServerData_ClanWar:getCurStateText_League()
 		return g_clanWarData:checkClanWarState_League()
 	end
 	
+    -- 경기 안하는 날도 있기 때문에 오늘 경기가 몇 번째인지 테이블 참조해서 계산
 	local match_day = g_clanWarData.m_clanWarDay
 	local l_list = g_clanWarData:getVaildDate()
 	local cur_match_day = g_clanWarData.m_clanWarDay
@@ -185,7 +168,6 @@ end
 -- function getCurStateText_Tournament
 -------------------------------------
 function ServerData_ClanWar:getCurStateText_Tournament()
-	-- 마지막날 닫혀있어도, 경기 결과 보는 날은 열어줌
     if (self.m_clanWarDay == 14) then
         return true, Str('클랜전 시즌이 종료되었습니다.') .. '{@green}' .. Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainSeasonTime())
     end	
@@ -205,7 +187,8 @@ end
 -- function getRemainTimeForNextGame
 -------------------------------------
 function ServerData_ClanWar:getRemainTimeForNextGame()
-	-- 클라에서 노가다로 계산한 것
+	-- 클라에서 노가다로 계산한 것 
+    -- 현재 사용 안함
 	local cur_match_day = g_clanWarData.m_clanWarDay
 	local l_day = g_clanWarData:getVaildDate()
 
@@ -238,6 +221,7 @@ end
 -------------------------------------
 function ServerData_ClanWar:getRemainTimeForNextGameEnd()
 	-- 클라에서 노가다로 계산한 것
+    -- 현재 사용안함
 	local cur_time = Timer:getServerTime()
 	local date = pl.Date()
 	date:set(cur_time)
@@ -344,6 +328,7 @@ end
 
 -------------------------------------
 -- function getEntireGroupCnt
+-- @brief 전체 몇개 조에서 시작하는지
 -------------------------------------
 function ServerData_ClanWar:getEntireGroupCnt()
     if (not self.m_clanWarDayData) then
@@ -368,7 +353,7 @@ function ServerData_ClanWar:applyClanWarInfo(ret)
     end
 
     if (ret['today_end_time']) then
-        self.today_end_time = ret['today_end_time']      -- 24:00
+        self.today_end_time = ret['today_end_time']      -- ~ 24:00
     end
 
     if (ret['open']) then
@@ -378,11 +363,11 @@ function ServerData_ClanWar:applyClanWarInfo(ret)
 	end
 
     if (ret['season_start_time']) then
-        self.season_start_time = ret['season_start_time']      -- ?袁⑹삺癰귣????臾믪몵筌???뽰サ 筌욊쑵六얌빳? ??????뽰サ ??뽰삂??
+        self.season_start_time = ret['season_start_time']
     end
 
     if (ret['today_start_time']) then
-        self.today_start_time = ret['today_start_time']      -- 10:00
+        self.today_start_time = ret['today_start_time']      -- 10:00 ~
     end
     
     if (ret['today_calc_end_time']) then
@@ -410,6 +395,7 @@ end
 
 -------------------------------------
 -- function getMaxRound
+-- @brief 시작하는 라운드 (64 or 32)
 -------------------------------------
 function ServerData_ClanWar:getMaxRound()
 	if (not self.m_clanWarDayData) then
@@ -422,21 +408,6 @@ function ServerData_ClanWar:getMaxRound()
 
 	local total_match = self.m_clanWarDayData['table']['group'] or 0
     return total_match * 2
-end
-
--------------------------------------
--- function getMaxGroup
--------------------------------------
-function ServerData_ClanWar:getMaxGroup()
-	if (not self.m_clanWarDayData) then
-		return 0
-	end
-
-	if (not self.m_clanWarDayData['table']) then
-		return 0
-	end
-
-	return self.m_clanWarDayData['table']['group_clan'] or 0
 end
 
 -------------------------------------
