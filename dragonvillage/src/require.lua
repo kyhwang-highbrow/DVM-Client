@@ -1406,6 +1406,9 @@ local t_module = {
     'UI_ClanBoardPopup_Write',
 
     -- UI : 클랜전
+    'UI_ClanWar',
+    'UI_ClanWar_GroupStage',
+    'UI_ClanWar_GroupPaging',
 	'UI_ClanWarLeagueResultPopup',
 	'UI_ClanWarRewardPopup',
     'UI_ClanwarRewardInfoPopup',
