@@ -734,8 +734,8 @@ end
 function ServerData_Arena:removeClanData()
     local date = pl.Date()
     date:year(2019)
-    date:month(11)
-    date:day(24)
+    date:month(12)
+    date:day(1)
     date:hour(23)
     date:min(59)
 

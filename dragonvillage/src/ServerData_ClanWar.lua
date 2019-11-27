@@ -341,7 +341,7 @@ end
 -------------------------------------
 -- function getEnemyUserInfo
 -------------------------------------
-function ServerData_ClanWar:getEnemyUserInfo(uid, finish_cb)
+function ServerData_ClanWar:getEnemyUserInfo()
     return self.m_OpponentUserInfo
 end
 

@@ -5,6 +5,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -------------------------------------
 UI_StatisticsPopup = class(PARENT, {
 		m_mode = 'GAME_MODE',
+		m_stageId = 'number',
 
 		m_isPvp = 'boolean',
 		m_bFriendMatch = 'boolean',
@@ -37,6 +38,7 @@ function UI_StatisticsPopup:init(world)
 
 	-- 멤버 변수 초기화
 	self.m_mode = world.m_gameMode
+	self.m_stageId = world.m_stageID
     self.m_isPvp = isExistValue(world.m_gameMode, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_CHALLENGE_MODE, GAME_MODE_EVENT_ARENA)
     self.m_bFriendMatch = (self.m_isPvp) and world.m_bFriendMatch or false
 
@@ -93,7 +95,11 @@ function UI_StatisticsPopup:initUserInfo()
     local my_tamer_info
     local enemy_tamer_info
 
-	if (self.m_bFriendMatch) then
+	if (self.m_stageId == CLAN_WAR_STAGE_ID) then
+		my_struct_user_info = g_clanWarData:getPlayerUserInfo()
+		enemy_struct_user_info = g_clanWarData:getEnemyUserInfo()
+				
+	elseif (self.m_bFriendMatch) then
 		my_struct_user_info = g_friendMatchData.m_playerUserInfo
 		enemy_struct_user_info = g_friendMatchData.m_matchInfo
 
