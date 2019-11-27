@@ -179,7 +179,7 @@ function UI_ClanWarLeagueMatchListItem:setClanInfo(idx, data)
 
     -- 미래 경기는 상세 팝업 보여주지 않음
     if (match_number <= tonumber(g_clanWarData.m_clanWarDay)) then
-        vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarMatchInfoDetailPopup(data, true) end)
+        vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarMatchInfoDetailPopup(data) end)
     else
         vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.')) end)
         vars['scoreLabel1']:setString('')

@@ -9,11 +9,11 @@ UI_ClanWarMatchInfoDetailPopup = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarMatchInfoDetailPopup:init(data, is_league)
+function UI_ClanWarMatchInfoDetailPopup:init(data, is_yesterday_result)
     local vars = self:load('clan_war_tournament_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
-    self:initUI(data, is_league)
+    self:initUI(data, is_yesterday_result)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueMatchInfoPopup')
@@ -28,7 +28,7 @@ end
 ------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_league)
+function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_yesterday_result)
     local vars = self.vars
 
 	-- 초기화
@@ -43,9 +43,13 @@ function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_league)
     end
 
     for i = 1, 2 do    
-		local is_valid_clan = self:setClanInfoPopup(i, data, is_league)
+		local is_valid_clan = self:setClanInfoPopup(i, data)
         if (is_valid_clan) then
 		    self:setDetail(i, data)
+
+            if (is_yesterday_result) then
+                self:setDetailForYesterday(data)
+            end
         end
     end
 end
@@ -53,7 +57,7 @@ end
 -------------------------------------
 -- function setClanInfoPopup
 -------------------------------------
-function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
+function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data)
      local vars = self.vars
      local round = g_clanWarData:getTodayRound()
      local round_text = g_clanWarData:getTodayRoundText()
@@ -129,6 +133,46 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data, is_league)
 end
 
 -------------------------------------
+-- function setDetailForYesterday
+-------------------------------------
+function UI_ClanWarMatchInfoDetailPopup:setDetailForYesterday(data)
+    local vars = self.vars
+    vars['roundLabel']:setString(Str('어제의 경기 결과'))
+
+    -- 승리한 조건 설명
+    local win_condition = data['win_condition'] or 'member_win_cnt'
+    local table_win_condition = {['member_win_cnt'] = 1, ['win_cnt'] = 2, ['play_member_cnt'] = 3, ['clan_lv'] = 4, ['clan_created_date'] = 5}
+    local win_condition_idx = table_win_condition[win_condition]
+
+
+    local win_condition_text = self:getWinConditionText(win_condition_idx)
+
+    local win_clan_id = data['win_clan']
+    local struct_clan_rank = g_clanWarData:getClanInfo(win_clan_id)
+    local win_clan_name = struct_clan_rank:getClanName()
+    win_condition_text = Str(win_condition_text, win_clan_name)
+
+    if (not win_condition_text) then
+        win_condition_text = Str('{@yellow}세트 스코어{@default}가 동점일 경우 아래의 조건을 순서대로 비교해 승리 클랜을 결정합니다.')
+    end
+
+    if (vars['winConditionLabel'])then
+        vars['winConditionLabel']:setString(win_condition_text)
+    end
+
+    for i = 1, 5 do
+        if (win_condition_idx == i) then
+            if (vars['conditionLabel' .. i]) then
+                vars['conditionLabel' .. i]:setColor(COLOR['yellow'])
+            end
+        end
+    end
+
+    local my_clan_id = g_clanWarData:getMyClanId()
+    vars['winNode']:setVisible(win_clan_id == my_clan_id)
+end
+
+-------------------------------------
 -- function setDetail
 -------------------------------------
 function UI_ClanWarMatchInfoDetailPopup:setDetail(idx, data)
@@ -181,4 +225,26 @@ function UI_ClanWarMatchInfoDetailPopup:setDetail(idx, data)
 		vars['resultNode1']:setVisible(true)
         vars['resultNode2']:setVisible(true)
 	end
+end
+
+-------------------------------------
+-- function getWinConditionText
+-------------------------------------
+function UI_ClanWarMatchInfoDetailPopup:getWinConditionText(win_condition)
+    -- 세트 승리
+    if (win_condition == 1) then
+        return nil
+    -- 게임 승리
+    elseif(win_condition == 2) then
+        return Str('{1} 클랜이 더 많은 게임을 획득하여 승리하였습니다.')
+    -- 클랜원이 더 많음
+    elseif(win_condition == 3) then
+        return Str('{1} 클랜이 더 많은 클랜원이 참여하여 승리하였습니다.')
+    -- 클랜 레벨/경험치가 더 많음 
+	elseif(win_condition == 4) then
+        return Str('{1} 클랜이 승리하였습니다. (클랜 레벨 기준)')
+    -- 생성일이 더 빠름
+    else
+        return Str('{1} 클랜이 승리하였습니다. (클랜 생성일 기준)')
+    end
 end
