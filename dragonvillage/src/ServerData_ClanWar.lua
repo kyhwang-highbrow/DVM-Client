@@ -26,6 +26,7 @@ ServerData_ClanWar = class({
 	m_season = 'number', -- 시즌 정보
 
 	m_tSeasonRewardInfo = 'table', -- 시즌보상
+    m_gameKey = 'number',
 })
 
 -------------------------------------
@@ -418,6 +419,8 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
         -- ??쇱젫 ???쟿????볦퍢 嚥≪뮄?뉒몴??袁る퉸 筌ｋ똾寃?????癰귣?源?
         g_accessTimeData:startCheckTimer()
 
+        g_clanWarData.m_gameKey = ret['gamekey']
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -567,7 +570,7 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     ui_network:setParam('uid', uid)
 	ui_network:setParam('day', g_clanWarData.m_clanWarDay)
 	ui_network:setParam('season', g_clanWarData.m_season)
-    ui_network:setParam('gamekey', g_gameScene.m_gameKey)
+    ui_network:setParam('gamekey', g_clanWarData.m_gameKey)
     ui_network:setParam('clear_time', _play_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('is_win', _is_win)

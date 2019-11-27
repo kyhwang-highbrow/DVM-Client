@@ -75,7 +75,6 @@ function SceneGameClanWar:networkGamePlayStart(next_func)
     -- 백그라운드로 한번만 요청하면서 다음 스텝으로 진행시킴
     local function success_cb(ret)
         if (ret['status'] ~= 0) then return end
-        self.m_gameKey = ret['gamekey']
         self:networkGamePlayStart_response(ret)
     end
 
