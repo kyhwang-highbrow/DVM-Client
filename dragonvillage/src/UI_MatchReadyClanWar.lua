@@ -21,6 +21,9 @@ function UI_MatchReadyClanWar:init(struct_match_item, my_struct_match_item)
     self:initResult()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
+    g_currScene:removeBackKeyListener(self)
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_MatchReadyClanWar')
 end
 
 -------------------------------------
@@ -239,6 +242,21 @@ function UI_MatchReadyClanWar:initStaminaInfo()
     local cost = g_challengeMode:getChallengeMode_staminaCost(stage)
     --]]
     vars['actingPowerLabel']:setString(tostring(10))
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_MatchReadyClanWar:click_exitBtn()
+    -- 한 번
+    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ClanWarSelectScene')
+    if (is_opend) then
+        ui:close()
+        local is_opend, idx, select_ui = UINavigatorDefinition:findOpendUI('UI_ClanWarMatchingScene')
+        select_ui:refresh()
+    end
+
+    self:close()
 end
 
 

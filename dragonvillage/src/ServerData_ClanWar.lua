@@ -715,18 +715,21 @@ end
 
 -------------------------------------
 -- function click_gotoBattle
--- @brief 클랜전 로비에서 전투 시작하기 눌렀을 때 1.매칭씬으로 이동 2. 선택씬으로 이동
+-- @brief 클랜전 로비에서 전투 시작하기 눌렀을 때 1.매치 레디 씬으로 이동  2. 선택씬으로 이동
 -------------------------------------
 function ServerData_ClanWar:click_gotoBattle(my_struct_match_item, opponent_struct_match_item, goto_select_scene_cb)
-    local is_do_all_game = my_struct_match_item:isDoAllGame()
-    if (is_do_all_game) then
-        UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
-        return
+    local attacking_uid = nil
+    if (my_struct_match_item) then
+        local is_do_all_game = my_struct_match_item:isDoAllGame()
+        if (is_do_all_game) then
+            UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
+            return
+        end
+        attacking_uid = my_struct_match_item:getAttackingUid()
     end
-
-    local attacking_uid = my_struct_match_item:getAttackingUid()
+    
     -- 이미 공격한 상대가 있는 경우
-    -- 2. 선택씬으로 이동
+    -- 1. 매치 레디 씬으로 이동 
     if (attacking_uid) then
         local finish_cb = function()
             if (not g_clanWarData:getEnemyUserInfo()) then
@@ -738,7 +741,7 @@ function ServerData_ClanWar:click_gotoBattle(my_struct_match_item, opponent_stru
 
         g_clanWarData:requestEnemyUserInfo(attacking_uid, finish_cb)
     
-    -- 1.매칭씬으로 이동
+    -- 2.선택씬으로 이동
     else
         if (goto_select_scene_cb) then
             goto_select_scene_cb()

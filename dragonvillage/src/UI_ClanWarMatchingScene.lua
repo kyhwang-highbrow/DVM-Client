@@ -216,6 +216,7 @@ function UI_ClanWarMatchingScene:setMemberTableView()
 		end
 	end
 
+    vars['meClanListNode']:removeAllChildren()
     -- 테이블 뷰 인스턴스 생성    
     self.m_myTableView = UIC_TableView(vars['meClanListNode'])
     self.m_myTableView.m_defaultCellSize = cc.size(548, 80 + 5)
@@ -257,6 +258,7 @@ function UI_ClanWarMatchingScene:setMemberTableView()
 		end
 	end
 
+    vars['rivalClanMenu']:removeAllChildren()
     self.m_enemyTableView = UIC_TableView(vars['rivalClanMenu'])
     self.m_enemyTableView.m_defaultCellSize = cc.size(548, 80 + 5)
     self.m_enemyTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
@@ -281,27 +283,31 @@ end
 function UI_ClanWarMatchingScene:click_gotoBattle()
     local uid = g_userData:get('uid')
     local my_struct_match_item = self.m_structMatch:getMatchMemberDataByUid(uid)
-    
-    -- 1. 공격 기회 체크
-    local is_do_all_game = my_struct_match_item:isDoAllGame()
-    if (is_do_all_game) then
-        UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
-        return
-    end
+    local opponent_struct_match_item = nil
 
-    -- 2. 상대팀에 공격할 수 있는 방어 인원이 있는 지 체크
-    local l_data = self.m_structMatch:getAttackableEnemyData()
-    if (#l_data == 0) then
-        UIManager:toastNotificationRed(Str('공격 상대가 없습니다.'))
-        return
+    if (my_struct_match_item) then
+        -- 1. 공격 기회 체크
+        local is_do_all_game = my_struct_match_item:isDoAllGame()
+        if (is_do_all_game) then
+            UIManager:toastNotificationRed(Str('공격 기회를 모두 사용하였습니다.'))
+            return
+        end
+
+        -- 2. 상대팀에 공격할 수 있는 방어 인원이 있는 지 체크
+        local l_data = self.m_structMatch:getAttackableEnemyData()
+        if (#l_data == 0) then
+            UIManager:toastNotificationRed(Str('공격 상대가 없습니다.'))
+            return
+        end
+
+        local attacking_uid = my_struct_match_item:getAttackingUid()
+        opponent_struct_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)
     end
 
     local goto_select_scene_cb = function()
         UI_ClanWarSelectScene(self.m_structMatch)
     end
 
-    local attacking_uid = my_struct_match_item:getAttackingUid()
-    opponent_struct_match_item = self.m_structMatch:getMatchMemberDataByUid(attacking_uid)
     g_clanWarData:click_gotoBattle(my_struct_match_item, opponent_struct_match_item, goto_select_scene_cb)
 end
 
@@ -309,6 +315,12 @@ end
 -- function refresh
 -------------------------------------
 function UI_ClanWarMatchingScene:refresh()
+    local success_cb = function(struct_match)
+        self.m_structMatch = struct_match
+        self:initUI()
+    end
+
+    g_clanWarData:request_clanWarMatchInfo(success_cb)
 end
 
 -------------------------------------
