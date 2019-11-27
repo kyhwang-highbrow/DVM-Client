@@ -426,8 +426,6 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
     end
     
 	local response_status_cb = function(ret)
-		return g_clanWarData:responseStatusCB(ret)
-
 		-- 가입한 당일 유저 select 통신 요청했을 경우 
         if (ret['status'] == -1108) then
             local msg = '매치 시작 이후 클랜에 가입한 유저는 해당 매치에 참여할 수 없습니다.'
@@ -439,7 +437,7 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
             return true
         end
 
-		return false		
+		return g_clanWarData:responseStatusCB(ret)		
 	end
 
     local ui_network = UI_Network()
