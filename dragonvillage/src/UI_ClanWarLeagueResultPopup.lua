@@ -29,6 +29,9 @@ function UI_ClanWarLeagueResultPopup:initRankUI(struct_league)
 	local vars = self.vars
 
 	local l_rank = struct_league:getClanWarLeagueRankList()
+    local create_func = function(ui, data)
+        ui:setClickEnabled(false)
+    end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['listNode'])
@@ -50,6 +53,7 @@ function UI_ClanWarLeagueResultPopup:initDetailRankUI(struct_league_item)
 	vars['titleLabel']:setString(Str('{@yellow}{1}조{@default} 순위', struct_league_item:getLeague()))
 
     local ui = UI_ClanWarLeagueRankListItem(struct_league_item)
+    ui:setClickEnabled(false)
     vars['rankItemNode']:addChild(ui.root)
 
     -- 게임 스코어 모두 더한 값

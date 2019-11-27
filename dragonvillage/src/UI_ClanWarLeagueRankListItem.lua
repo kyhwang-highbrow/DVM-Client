@@ -61,6 +61,15 @@ function UI_ClanWarLeagueRankListItem:init(struct_league_item)
 end
 
 
+-------------------------------------
+-- function setClickEnabled
+-------------------------------------
+function UI_ClanWarLeagueRankListItem:setClickEnabled(enabled)
+    local vars = self.vars
+    vars['popupBtn']:setEnabled(enabled)
+end
+
+
 
 local PARENT = UI
 
@@ -100,6 +109,7 @@ function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
     local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
 
     local ui = UI_ClanWarLeagueRankListItem(struct_league_item)
+    ui:setClickEnabled(false)
     vars['rankItemNode']:addChild(ui.root)
 
     -- 게임 스코어 모두 더한 값
