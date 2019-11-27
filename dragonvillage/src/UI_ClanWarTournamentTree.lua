@@ -727,6 +727,9 @@ function UI_ClanWarTournamentTree:showLastRankPopup()
 	end
 
 	local l_list = self.m_structTournament:getTournamentListByRound(round)
+    if (not l_list) then
+        return
+    end
 
 	local my_clan_id = g_clanWarData:getMyClanId()
 	local last_match_data = nil

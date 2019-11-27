@@ -1899,9 +1899,10 @@ function UINavigatorDefinition:goTo_clan_war(...)
         end
 
 		-- 클랜전 UI가 열려있을 경우
+        -- 기존처럼 UI 갱신이 아니라 클랜전 로비를 다시 만들어 줄 것이기 때문에 idx-1까지 UI닫고 생성함
 		local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
 		if (is_opend == true) then
-			self:closeUIList(idx)
+			self:closeUIList(idx-1)
 			UI_ClanWarLobby(ret)
 			return
 		end
