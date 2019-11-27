@@ -1893,7 +1893,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
 
         -- 오픈 상태 여부 체크
         if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
-            local msg = Str('클랜전 시즌이 종료되었습니다.')
+            local msg = Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainSeasonTime())
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return       
         end

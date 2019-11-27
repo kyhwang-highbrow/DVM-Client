@@ -93,12 +93,6 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 		return true, msg
 	end
 
-	if (self.m_clanWarDay == 1) then
-		local remain_time = g_clanWarData:getRemainSeasonTime()
-		msg = Str('클랜전 시즌이 종료되었습니다.') .. '{@green}' .. Str('다음 클랜전까지 {1} 남음', g_clanWarData:getRemainSeasonTime()) -- 14일째 시즌 시자가 시간이 이상하게 내려온다
-		return false, msg
-	end
-
 	-- 토너먼트 진행 안 하는 날 : 일본 서버의 경우 이틀 뒤 시작한다
 	if (not g_clanWarData:isMatchDay(self.m_clanWarDay)) then
 		local round = g_clanWarData:getTodayRoundText(1)
