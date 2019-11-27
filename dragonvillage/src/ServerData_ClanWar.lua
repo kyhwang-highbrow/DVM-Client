@@ -15,8 +15,6 @@ ServerData_ClanWar = class({
     m_playerUserInfo = 'StructUserInfoClanWar',
     m_OpponentUserInfo = 'StructUserInfoClanWar',
 
-    m_gameKey = 'string',
-
 	m_myMatchInfo = 'StructClanWarMatchItem', -- 嚥≪뮆?????뻿?癒?퐣 獄쏆룆???類ｋ궖, 獄쏄퀡瑗??袁⑹뒻 ???袁⑹뒄
 
     today_end_time = 'number',
@@ -416,8 +414,6 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
 
         -- staminas, cash ??녿┛??
         g_serverData:networkCommonRespone(ret)
-
-        self.m_gameKey = ret['gamekey']
 
         -- ??쇱젫 ???쟿????볦퍢 嚥≪뮄?뉒몴??袁る퉸 筌ｋ똾寃?????癰귣?源?
         g_accessTimeData:startCheckTimer()
