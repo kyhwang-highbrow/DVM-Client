@@ -349,7 +349,7 @@ UI_ListItem_ClanWarGroupStageRankInGroup = class(PARENT, {
 
                 -- 매치 패배 수
                 local lose_cnt = struct_league_item:getLoseCount()
-                vars['loseRoundLabel']:setString(font_color_tag .. tostring(win_cnt))
+                vars['loseRoundLabel']:setString(font_color_tag .. tostring(lose_cnt))
 
                 -- 세트 승리 수
                 local set_score = struct_league_item:getSetScore()
