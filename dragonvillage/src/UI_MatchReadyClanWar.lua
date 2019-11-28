@@ -130,6 +130,8 @@ function UI_MatchReadyClanWar:click_deckBtn()
     local ui = UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true)
     local function close_cb()
         self:initUI()
+        vars['clanWarMenu']:setVisible(true)
+        vars['clanWarBgSprite']:setVisible(true)
     end
     ui:setCloseCB(close_cb)
 end
