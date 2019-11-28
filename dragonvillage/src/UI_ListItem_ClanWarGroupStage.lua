@@ -123,8 +123,8 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
             if (data['my_clan_id'] == 'blank') then
                 vars['entireMenu']:setVisible(false)
 
-                -- blak셀은 높이를 조정 80->30
-		        self:setCellSize(cc.size(0, 30))
+                -- blak셀은 높이를 조정 80->20
+		        self:setCellSize(cc.size(0, 20))
                 return
             end
 
@@ -212,10 +212,10 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
 		        -- 유령클랜 부전승 처리
                 if (idx == 1) then
                     vars['defeatSprite1']:setVisible(true)
-                    vars['winSprite2']:setVisible(true)
+                    --vars['winSprite2']:setVisible(true)
                 else
                     vars['defeatSprite2']:setVisible(true)
-                    vars['winSprite1']:setVisible(true)
+                    --vars['winSprite1']:setVisible(true)
                 end
 
                 -- 둘 다 유령 클랜일 경우 다 진 것으로 표기
@@ -290,8 +290,8 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
 
             vars['defeatSprite1']:setVisible(not result)
             vars['defeatSprite2']:setVisible(result)
-            vars['winSprite2']:setVisible(not result)
-            vars['winSprite1']:setVisible(result)
+            --vars['winSprite2']:setVisible(not result)
+            --vars['winSprite1']:setVisible(result)
         end
 
 
@@ -322,6 +322,10 @@ UI_ListItem_ClanWarGroupStageRankInGroup = class(PARENT, {
             -- 전체 5일동안 이루어진 경기에서 얼마나 이겼는지
             local clan_id = struct_league_item:getClanId()
 
+            -- 클랜 순위 (조 내에서)
+            local clan_rank = struct_league_item:getLeagueRank()
+            local is_pass = (1 <= clan_rank) and (clan_rank <= 2) -- 조별리그 통과 여부
+
             do -- 승, 패, 세트, 게임
                 -- 매치 승리 수
                 local win_cnt = struct_league_item:getWinCount()
@@ -342,8 +346,11 @@ UI_ListItem_ClanWarGroupStageRankInGroup = class(PARENT, {
 
             -- 클랜 정보 (이름 랭크)
             local clan_name = struct_clan_rank:getClanName() or ''
-            local clan_rank = struct_league_item:getLeagueRank()
-            vars['clanNameLabel']:setString(Str(clan_name))
+            if is_pass then
+                vars['clanNameLabel']:setString('{@MUSTARD}' .. clan_name)
+            else
+                vars['clanNameLabel']:setString(clan_name)
+            end
 
 	        if (clan_rank == 0) then
 		        clan_rank = '-'
@@ -358,13 +365,8 @@ UI_ListItem_ClanWarGroupStageRankInGroup = class(PARENT, {
                 end
             end
 
-            vars['finalSprite']:setVisible(false)
-            -- 1, 2등은 토너먼트 진출 가능 표시
-            if (clan_rank) then
-                if (clan_rank == 2) or (clan_rank == 1) then
-                    vars['finalSprite']:setVisible(true)
-                end
-            end
+            -- 토너먼트 진출 가능 표시
+            vars['finalSprite']:setVisible(is_pass)
 
 	        -- 내 클랜은 강조 표시
             local my_clan_id = g_clanWarData:getMyClanId()
