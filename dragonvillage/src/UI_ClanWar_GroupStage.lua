@@ -451,7 +451,6 @@ function UI_ClanWar_GroupStage:click_startBtn()
         -- 리그 통신에서 들고 있더 클랜 세트 승리수 전달
         local struct_league = self.m_structLeague
         local my_win_cnt, enemy_win_cnt = struct_league:getMyClanMatchScore()
-        ui_clan_war_matching:setScore(my_win_cnt, enemy_win_cnt)
     end
 
     g_clanWarData:request_clanWarMatchInfo(success_cb)

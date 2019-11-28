@@ -54,7 +54,32 @@ end
 -- function update
 -------------------------------------
 function UI_ClanWarMatchingScene:update()
-	self.vars['timeLabel']:setString(Str('{1} 남음', g_clanWarData:getRemainGameTime()))
+    local vars = self.vars
+    local str = '-'
+
+    -- 경기 진행 중 (경기 종료까지 남은 시간 표시)
+    if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        local cur_time = Timer:getServerTime_Milliseconds()
+        local milliseconds = (g_clanWarData.today_end_time - cur_time)
+
+        local hour = math.floor(milliseconds / 3600000)
+        milliseconds = milliseconds - (hour * 3600000)
+
+        local min = math.floor(milliseconds / 60000)
+        milliseconds = milliseconds - (min * 60000)
+
+        local sec = math.floor(milliseconds / 1000)
+        milliseconds = milliseconds - (sec * 1000)
+
+        str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+    end
+    
+    -- 중상단에 타이머
+    --self.vars['timeLabel']:setString(Str('{1} 남음', g_clanWarData:getRemainGameTime()))
+    vars['timeLabel']:setString(str)
+
+    -- 공격 하기 버튼에 타이머    
+    vars['btnTimeLabel']:setString(str) 
 end
 
 -------------------------------------
