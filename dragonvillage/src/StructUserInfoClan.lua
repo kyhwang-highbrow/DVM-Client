@@ -312,8 +312,13 @@ end
 function StructUserInfoClan:getDungeonPlayText()
     local param_1 = self:getClanDungeonPlayText()
     local param_2 = self:getAncientPlayText()
-    local param_3 = self:getClanWarText()--self:getArenaPlayText()
-	local param_4 = self:getClanContribution()
+    local param_3 = ''
+    if (g_arenaData:removeClanData()) then
+        param_3 = self:getClanWarText()
+    else
+        param_3 = self:getArenaPlayText()
+	end
+    local param_4 = self:getClanContribution()
 
     return string.format('%s\n%s\n%s\n%s', param_1, param_2, param_3, param_4)
 end

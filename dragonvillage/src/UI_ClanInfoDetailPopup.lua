@@ -91,6 +91,7 @@ function UI_ClanInfoDetailPopup:initUI()
     vars['noticeBtn']:setVisible(false) -- 공지사항 작성 버튼 숨김
     vars['boardBtn']:setVisible(false) -- 게시판 작성 버튼 숨김
     vars['settingBtn']:setVisible(false) -- 클랜 관리 버튼 숨김
+    vars['clanWarBtn']:setVisible(false) -- 클랜전 버튼 숨김
     vars['rankTabBtn']:setVisible(false) -- 랭킹 탭 숨김
     vars['requestMenu']:setVisible(false) -- 가입 승인 UI 숨김
     vars['requestNode']:setVisible(true) -- 가입 요청 노드
