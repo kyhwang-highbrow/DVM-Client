@@ -385,6 +385,17 @@ end
 -- function click_startBtn
 -------------------------------------
 function UI_ClanWar_GroupStage:click_startBtn()
+
+    -- 클랜전에 참여중이지 않은 유저 (조별리그에서는 참여를 했는데 탈락하는 경우는 없다)
+    --if (g_clanWarData:getMyClanState() == ServerData_ClanWar.CLANWAR_CLAN_STATE['NOT_PARTICIPATING']) then
+    if true then
+        local msg = Str('소속된 클랜이 클랜전에 참가하지 못했습니다.')
+        local sub_msg = Str('각종 클랜 활동 기록으로 참가 클랜이 결정됩니다.\n꾸준한 클랜 활동을 이어가 주시기 바랍니다.')
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+        return
+    end
+
+    -- 내 클랜이 포함되지 않은 조를 보고있을 경우
     if (g_clanWarData:getMyClanGroup() ~= self.m_focusGroup) then
         local group = g_clanWarData:getMyClanGroup()
         if group then
@@ -394,17 +405,6 @@ function UI_ClanWar_GroupStage:click_startBtn()
         end
         return
     end
-    --[[
-    -- 다른 팀 버튼을 누르고 있을 경우 내 팀으로 돌아옴
-    if (self.m_selctedTeam ~= self:getMyLeagueNumber()) then
-        local my_clan_id = g_clanWarData:getMyClanId()
-        local my_clan_league_info = self.m_structLeague:getLeagueInfo(my_clan_id)
-        if (not my_clan_league_info) then
-            self:click_teamWithFocusBtn(self:getMyLeagueNumber())
-            return
-        end
-    end
-    --]]
     
     -- 1.오픈 여부 확인
 	local is_open, msg = g_clanWarData:checkClanWarState_League()
