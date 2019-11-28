@@ -80,6 +80,7 @@ function UI_ClanWarMatchingScene:update()
 
     -- 공격 하기 버튼에 타이머    
     vars['btnTimeLabel']:setString(str) 
+    vars['btnTimeLabel2']:setString(str)
 end
 
 -------------------------------------
@@ -103,6 +104,7 @@ function UI_ClanWarMatchingScene:initUI()
 
     self:setClanInfoUI()
     self:setMemberTableView()
+    self:refreshStartBtn()
 end
 
 -------------------------------------
@@ -264,6 +266,7 @@ end
 function UI_ClanWarMatchingScene:initButton()
     local vars = self.vars
     vars['battleBtn']:registerScriptTapHandler(function() self:click_gotoBattle() end)
+    vars['battleBtn2']:registerScriptTapHandler(function() self:click_gotoBattle() end)
     vars['setDeckBtn']:registerScriptTapHandler(function() self:click_myDeck() end)
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
@@ -361,4 +364,36 @@ function UI_ClanWarMatchingScene:click_infoBtn()
     local struct_match = self.m_structMatch
     local today_match_info = struct_match:getMatchInfo()
     UI_ClanWarMatchInfoDetailMiniPopup(today_match_info, nil, close_cb)
+end
+
+
+-------------------------------------
+-- function refreshStartBtn
+-- @brief 시작 버튼 상태 갱신
+-------------------------------------
+function UI_ClanWarMatchingScene:refreshStartBtn()
+    local vars = self.vars
+    local use_primary_btn = true
+
+    local uid = g_userData:get('uid')
+    local my_struct_match_item = self.m_structMatch:getMatchMemberDataByUid(uid)
+
+    if (my_struct_match_item) then
+        -- 1. 공격 기회 체크
+        local is_do_all_game = my_struct_match_item:isDoAllGame()
+        if (is_do_all_game) then
+            use_primary_btn = false
+        end
+
+        -- 2. 상대팀에 공격할 수 있는 방어 인원이 있는 지 체크
+        local l_data = self.m_structMatch:getAttackableEnemyData()
+        if (#l_data == 0) then
+            use_primary_btn = false
+        end
+    end
+
+    do -- 사용하는 버튼 설정
+        vars['battleBtn']:setVisible(use_primary_btn)
+        vars['battleBtn2']:setVisible(not use_primary_btn)
+    end
 end
