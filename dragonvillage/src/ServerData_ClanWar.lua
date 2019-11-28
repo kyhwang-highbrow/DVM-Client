@@ -95,6 +95,11 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		g_clanWarData:applyClanWarReward(ret)
 
+        if (g_clanWarData.m_clanWarDay <= 7) then
+            g_clanWarData:setIsLeague(true)
+        else
+            g_clanWarData:setIsLeague(false)
+        end
 
         -- 내 클랜 정보
         do
