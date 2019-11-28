@@ -880,3 +880,22 @@ end
 function ServerData_ClanWar:getMyClanGroup()
     return self.m_myClanGroup
 end
+
+-------------------------------------
+-- function getDayOfWeekString
+-- @brief 클랜전에서 사용하는 day로 무슨 요일인지 리턴
+-- @param day 1~14 (클랜전 진행 기간)
+-- @return string '월요일' ... '일요일'
+-------------------------------------
+function ServerData_ClanWar:getDayOfWeekString(day)
+    local _day = (day % 7)
+    if     (_day == 1) then return Str('월요일')
+    elseif (_day == 2) then return Str('화요일')
+    elseif (_day == 3) then return Str('수요일')
+    elseif (_day == 4) then return Str('목요일')
+    elseif (_day == 5) then return Str('금요일')
+    elseif (_day == 6) then return Str('토요일')
+    elseif (_day == 7) then return Str('일요일')
+    else return ''
+    end
+end

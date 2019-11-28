@@ -126,6 +126,14 @@ function StructClanWarLeagueItem:getClanId()
 end
 
 -------------------------------------
+-- function getSetScore
+-- @brief 승리한 세트 수 (누적)
+-------------------------------------
+function StructClanWarLeagueItem:getSetScore()
+	return tonumber(self['member_win_cnt'])
+end
+
+-------------------------------------
 -- function getMemberWinCnt
 -------------------------------------
 function StructClanWarLeagueItem:getMemberWinCnt()

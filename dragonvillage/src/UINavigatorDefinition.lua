@@ -1899,16 +1899,19 @@ function UINavigatorDefinition:goTo_clan_war(...)
         end
 
         -- 클랜전 UI 생성 함수
-        local function create_clan_war_ui(...)
-            if true then
-                UI_ClanWarLobby(...)
-                return
-            end
-
+        local function create_clan_war_ui(ret)
             if g_clanWarData:isGroupStage() then
-                UI_ClanWar_GroupStage(...)
+                local function yes()
+                    UI_ClanWarLobby(ret) 
+                end
+
+                local function no()
+                    UI_ClanWar_GroupStage()
+                end
+                MakeSimplePopup(POPUP_TYPE.YES_NO, '개발 중인 조별리그 UI를 확인하시려면\n"취소"를 클릭하세요', yes, no)
+                --UI_ClanWar_GroupStage(...)
             else
-                UI_ClanWarLobby(...)
+                UI_ClanWarLobby(ret)
             end
         end
 

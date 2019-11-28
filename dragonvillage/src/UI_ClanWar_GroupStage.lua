@@ -1,3 +1,5 @@
+require('UI_ListItem_ClanWarGroupStage')
+
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 -- class UI_ClanWar_GroupStage
@@ -11,6 +13,11 @@ UI_ClanWar_GroupStage = class(PARENT, {
 
         -- 8개 조를 1개의 페이지로 묶어서 탭으로 동작
         m_groupPaging = 'UI_ClanWar_GroupPaging',
+
+
+        m_tableViewAllGroupRank = '',
+        m_tableViewGroupRank = '',
+        m_tableViewGroupMatch = '',
      })
 
 -------------------------------------
@@ -57,7 +64,7 @@ function UI_ClanWar_GroupStage:init(ret)
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanWar_GroupStage')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWar_GroupStage')
 	
     --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
@@ -143,10 +150,17 @@ function UI_ClanWar_GroupStage:onGroupChange(group)
     self:getStructClanWarLeague(group, function(struct)
         self.m_structLeague = struct
 
-        -- 모든 리스트 삭제
-        vars['rankListNode']:removeAllChildren() -- 1개의 조에서 클랜 순위
-        vars['leagueListScrollNode']:removeAllChildren() -- 1개의 조에서 경기 일정/결과
-        vars['allRankTabMenu']:removeAllChildren() -- 전체 보기에서 모든 클랜
+        do-- 모든 리스트 삭제
+            if self.m_tableViewAllGroupRank then
+                self.m_tableViewAllGroupRank:clearItemList()
+            end
+            if self.m_tableViewGroupRank then
+                self.m_tableViewGroupRank:clearItemList()
+            end
+            if self.m_tableViewGroupMatch then
+                self.m_tableViewGroupMatch:clearItemList()
+            end
+        end
 
         if (group == 99) then
             -- 전체 보기 (모든 그룹 순위)
@@ -203,11 +217,13 @@ function UI_ClanWar_GroupStage:setGroupRankList(struct_league)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['rankListNode'])
-    table_view.m_defaultCellSize = cc.size(660, 60 + 5)
+    table_view.m_defaultCellSize = cc.size(620, 75 + 0)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    table_view:setCellUIClass(UI_ClanWarLeagueRankListItem)
+    table_view:setCellUIClass(UI_ListItem_ClanWarGroupStageRankInGroup)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank, false)
+
+    self.m_tableViewGroupRank = table_view
 end
 
 -------------------------------------
@@ -224,13 +240,14 @@ function UI_ClanWar_GroupStage:setGroupMatchList()
     local group_cnt = g_clanWarData:getGroupCnt()/2
     local list_idx = 1
 	local l_list = {}
+    local match_count = table.count(l_league)
     for idx, data in ipairs(l_league) do
         data['idx'] = list_idx
         table.insert(l_list, data)
         list_idx = list_idx + 1
 
         -- 날짜 사이마다 간격이 있는 것 처럼 보여주기위해  더미 UI를 하나 찍음
-        if (idx%group_cnt == 0) then
+        if (idx ~= match_count) and (idx % group_cnt == 0) then
             table.insert(l_list, {['my_clan_id'] = 'blank'})
             list_idx = list_idx + 1
         end
@@ -239,25 +256,32 @@ function UI_ClanWar_GroupStage:setGroupMatchList()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['leagueListScrollNode'])
     --self.m_tableView:setUseVariableSize(true)
-    table_view.m_defaultCellSize = cc.size(660, 55 + 5)
+    --table_view.m_defaultCellSize = cc.size(660, 55 + 5)
+    table_view:setUseVariableSize(true)    -- 가변 사이즈를 쓰기 위해서 선언
+    table_view.m_defaultCellSize = cc.size(660, 50)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    table_view:setCellUIClass(UI_ClanWarLeagueMatchListItem, create_func)
+    table_view:setCellUIClass(UI_ListItem_ClanWarGroupStageMatch, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_list, false)
 
 	-- 6일째 후는 토너먼트, 토너먼트에서 리그를 호출했다는 것은 지난 리그 정보 보여주기 위함
 	-- 맨 위를 포커싱해줌
-	local day = g_clanWarData.m_clanWarDay
-	if (not g_clanWarData:getIsLeague()) then
-		day = 1
-	end
+	local day_of_group_stage = nil
+	if (g_clanWarData:isGroupStage()) then
+		day_of_group_stage = g_clanWarData.m_clanWarDay
+    end
 
-    -- 일단 하드코딩
-    local l_pos_y = {-774, -530, -284, -40, -40}
-    local match_day = math.max(day, 2)
-    match_day = math.min(match_day, 6)
-    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-    table_view.m_scrollView:setContentOffset(cc.p(0, l_pos_y[match_day - 1]), animated)
+    if day_of_group_stage then
+        -- 리스트 아이템 중 day가 같은 첫번째 아이템을 찾아서 포커싱 한다.
+        for idx, match_data in ipairs(l_list) do
+            if (match_data['day'] == day_of_group_stage) then
+                table_view:relocateContainerFromIndex(idx)
+                break
+            end
+        end
+    end
+
+    self.m_tableViewGroupMatch = table_view
 end
 
 -------------------------------------
@@ -280,9 +304,11 @@ function UI_ClanWar_GroupStage:setAllGroupRankList()
     local table_view_td = UIC_TableViewTD(vars['allRankTabMenu'])
     table_view_td.m_cellSize = cc.size(420, 316)
     table_view_td.m_nItemPerCell = 3
-	table_view_td:setCellUIClass(UI_ClanWarAllRankListItem, create_cb)
+	table_view_td:setCellUIClass(UI_ListItem_ClanWarGroupStageRankInAll, create_cb)
 	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td:setItemList(l_team)
+
+    self.m_tableViewAllGroupRank = table_view_td
 end
 
 -------------------------------------
