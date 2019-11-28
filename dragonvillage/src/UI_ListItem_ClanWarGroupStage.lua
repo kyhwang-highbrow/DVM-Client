@@ -57,20 +57,35 @@ UI_ListItem_ClanWarGroupStageRankInAll = class(PARENT, {
             -- 클랜 정보
             local clan_id = struct_league_item:getClanId()
 	        local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
-            local clan_name = struct_clan_rank:getClanName()
-            local clan_rank = tostring(struct_league_item:getLeagueRank())
-            vars['clanNameLabel']:setString(Str(clan_name))
+            local clan_name = struct_clan_rank:getClanName() or ''
+            local clan_rank = struct_league_item:getLeagueRank() -- 클랜 순위 (조 내에서)
+            local is_pass = (1 <= clan_rank) and (clan_rank <= 2) -- 조별리그 통과 여부
+            local font_color_tag = conditionalOperator(is_pass, '{@MUSTARD}', '')
 
-	        if (clan_rank == '0') then
+            -- 클랜 정보 (이름 랭크)
+            vars['clanNameLabel']:setString(font_color_tag .. clan_name)
+
+            -- 클랜 마크
+             local clan_icon = struct_clan_rank:makeClanMarkIcon()
+             if (clan_icon) then
+                if (vars['clanMarkNode']) then
+                    vars['clanMarkNode']:addChild(clan_icon)
+                end
+            end
+
+	        if (clan_rank == 0) then
 		        clan_rank = '-'
 	        end
-            vars['rankLabel']:setString(clan_rank)
+            vars['rankLabel']:setString(font_color_tag .. tostring(clan_rank))
+
+            -- 토너먼트 진출 가능 표시
+            vars['resultNode']:setVisible(is_pass)
 
 	        -- 전체 5일동안 이루어진 경기에서 얼마나 이겼는지
             local clan_id = struct_league_item:getClanId()
             local lose_cnt = struct_league_item:getLoseCount()
             local win_cnt = struct_league_item:getWinCount()
-            vars['scoreLabel']:setString(Str('{1}-{2}', win_cnt, lose_cnt))
+            vars['scoreLabel']:setString(font_color_tag .. Str('{1}-{2}', win_cnt, lose_cnt))
 
 	        local my_clan_id = g_clanWarData:getMyClanId()
 	        vars['meSprite']:setVisible(clan_id == my_clan_id)

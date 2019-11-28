@@ -142,8 +142,10 @@ function UI_ClanWar_GroupStage:onGroupChange(group)
     local vars = self.vars
     self.m_focusGroup = group
 
+    local is_all = (group == 'all')
+
     -- 전체 보기의 경우
-    if (group == 'all') then
+    if (is_all) then
         group = 99
     end
 
@@ -162,7 +164,11 @@ function UI_ClanWar_GroupStage:onGroupChange(group)
             end
         end
 
-        if (group == 99) then
+        -- 선택된 탭에 따라 menu on/off
+        vars['allRankTabMenu']:setVisible(is_all)
+        vars['teamTabMenu']:setVisible(not is_all)
+
+        if (is_all) then
             -- 전체 보기 (모든 그룹 순위)
             self:setAllGroupRankList()
         else
