@@ -98,7 +98,7 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 		local round = g_clanWarData:getTodayRoundText(1)
         local time = g_clanWarData:getRemainStartGameTime()
         local game_name = round
-		msg = game_name .. ' ' .. Str('토너먼트를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', time)
+		msg = game_name .. ' ' .. Str('토너먼트를 준비중입니다.') .. '\n{@green}' .. Str('다음 전투까지 {1} 남음', time)
 		return false, msg
 	end
 
@@ -107,7 +107,7 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 	if (clanwar_state ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
 		local round = g_clanWarData:getTodayRoundText()
 		local game_name = round
-        msg = game_name .. ' ' ..Str('토너먼트를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
+        msg = game_name .. ' ' ..Str('토너먼트를 준비중입니다.') .. '\n{@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
 		return false, msg
 	end
 
@@ -126,11 +126,11 @@ function ServerData_ClanWar:checkClanWarState_League()
 	end
 
 	if (self.m_clanWarDay == 7) then
-		msg = Str('조별리그가 종료 되었습니다.') .. ' {@green}' .. Str('토너먼트 시작까지 {1} 남음', g_clanWarData:getRemainStartGameTime())	
+		msg = Str('조별리그가 종료 되었습니다.') .. '\n{@green}' .. Str('토너먼트 시작까지 {1} 남음', g_clanWarData:getRemainStartGameTime())	
 		return false, msg
 	end
 	
-	msg = Str('조별리그를 준비중입니다.') .. ' {@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
+	msg = Str('조별리그를 준비중입니다.') .. '\n{@green}' .. Str('다음 전투까지 {1} 남음', g_clanWarData:getRemainStartGameTime())
 	return false, msg
 end
 
@@ -154,7 +154,7 @@ function ServerData_ClanWar:getCurStateText_League()
 		end
 	end
 	local game_name = Str('조별리그') .. ' ' .. Str('{1}차 경기', match_cnt)
-	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainGameTime())
+	msg = game_name .. ' ' .. Str('진행중') .. '\n{@green}' .. Str('{1} 남음', g_clanWarData:getRemainGameTime())
 	return open, msg
 end
 
@@ -173,7 +173,7 @@ function ServerData_ClanWar:getCurStateText_Tournament()
 
 	local today_round = g_clanWarData:getTodayRoundText()
 	local game_name = Str('토너먼트') .. ' ' .. today_round
-	msg = game_name .. ' ' .. Str('진행중') .. ' {@green}' .. Str('{1} 남음', g_clanWarData:getRemainTimeForNextGameEnd())
+	msg = game_name .. ' ' .. Str('진행중') .. '\n{@green}' .. Str('{1} 남음', g_clanWarData:getRemainTimeForNextGameEnd())
 	return open, msg
 end
 
@@ -451,7 +451,7 @@ function ServerData_ClanWar:getDayByRound(round)
 end
 
 -------------------------------------
--- function getTodayRound
+-- function getTodayRoundText
 -------------------------------------
 function ServerData_ClanWar:getTodayRoundText()
 	local round = g_clanWarData:getTodayRound(next_day)
