@@ -429,6 +429,7 @@ end
 -- function click_gotoMatch
 -------------------------------------
 function UI_ClanWarLeague:click_gotoMatch()
+    local struct_league = self.m_structLeague
     -- 다른 팀 버튼을 누르고 있을 경우 내 팀으로 돌아옴
     if (self.m_selctedTeam ~= self:getMyLeagueNumber()) then
         local my_clan_id = g_clanWarData:getMyClanId()
@@ -438,7 +439,7 @@ function UI_ClanWarLeague:click_gotoMatch()
             return
         end
     end
-    
+
     -- 1.오픈 여부 확인
 	local is_open, msg = g_clanWarData:checkClanWarState_League()
 	if (not is_open) then
@@ -457,9 +458,10 @@ function UI_ClanWarLeague:click_gotoMatch()
         end
 
         local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match)
+        local data = struct_league:getTodayMyMatchInfo()
+        ui_clan_war_matching:setMatchDetail(data)
 
         -- 리그 통신에서 들고 있더 클랜 세트 승리수 전달
-        local struct_league = self.m_structLeague
         local my_win_cnt, enemy_win_cnt = struct_league:getMyClanMatchScore()
         ui_clan_war_matching:setScore(my_win_cnt, enemy_win_cnt)
     end

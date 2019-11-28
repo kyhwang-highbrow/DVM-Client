@@ -118,6 +118,44 @@ function StructClanWarLeague:getClanWarLeagueMatchList()
 end
 
 -------------------------------------
+-- function getTodayMyMatchInfo
+-------------------------------------
+function StructClanWarLeague:getTodayMyMatchInfo()
+    --[[
+        data['a_win_cnt'] = 0
+        data['id'] = '5ddf34c6e8919372e1f618bb'
+        data['b_lose_cnt'] = 9
+        data['a_member_win_cnt'] = 0
+        data['b_play_member_cnt'] = 0
+        data['b_member_win_cnt'] = 0
+        data['win_clan'] = 0
+        data['league'] = 0
+        data['a_clan_id'] = 0
+        data['day'] = 0
+        data['win_condition'] = 0
+        data['b_win_cnt'] = 0
+        data['season'] = 0
+        data['b_clan_id'] = '5ddb4947970c6204bef38cf7'
+        data['a_play_member_cnt'] = 0
+        data['match_no'] = 0
+        data['a_lose_cnt'] = 0
+    --]]
+    local l_league = self.m_lLeagueMatch
+    local my_clan_id = g_clanWarData:getMyClanId()
+	local cur_day = g_clanWarData.m_clanWarDay
+	for _, data in ipairs(l_league) do
+		if (data['day'] == cur_day) then
+			if (data['a_clan_id'] == my_clan_id) then
+				return data
+			end
+			if (data['b_clan_id'] == my_clan_id) then
+				return data
+			end
+		end
+	end
+end
+
+-------------------------------------
 -- function getClanWarLeagueMatchList
 -- @brief 조별 리그 일정
 -------------------------------------

@@ -43,9 +43,9 @@ function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_yesterday_result)
     end
 
     for i = 1, 2 do    
-		local is_valid_clan = self:setClanInfoPopup(i, data)
+		local is_valid_clan = self.setClanInfoPopup(vars, i, data)
         if (is_valid_clan) then
-		    self:setDetail(i, data)
+		    self.setDetail(vars, i, data)
 
             if (is_yesterday_result) then
                 self:setDetailForYesterday(data)
@@ -57,22 +57,23 @@ end
 -------------------------------------
 -- function setClanInfoPopup
 -------------------------------------
-function UI_ClanWarMatchInfoDetailPopup:setClanInfoPopup(idx, data)
-     local vars = self.vars
+function UI_ClanWarMatchInfoDetailPopup.setClanInfoPopup(vars, idx, data)
      local round = g_clanWarData:getTodayRound()
      local round_text = g_clanWarData:getTodayRoundText()
      if (not data) then
         return
      end
      
-     if (round) then
-        if (data['group_stage']) then
-            vars['roundLabel']:setString(Str('{1}강', data['group_stage']))
+     if (vars['roundLabel']) then
+        if (round) then
+            if (data['group_stage']) then
+                vars['roundLabel']:setString(Str('{1}강', data['group_stage']))
+            else
+                vars['roundLabel']:setString(Str('조별리그'))
+            end
         else
             vars['roundLabel']:setString(Str('조별리그'))
         end
-     else
-         vars['roundLabel']:setString(Str('조별리그'))
      end
 
 	 local prefix = 'a_'
@@ -179,8 +180,7 @@ end
 -------------------------------------
 -- function setDetail
 -------------------------------------
-function UI_ClanWarMatchInfoDetailPopup:setDetail(idx, data)
-    local vars = self.vars
+function UI_ClanWarMatchInfoDetailPopup.setDetail(vars, idx, data)
  	
 	local prefix = 'a_'
 	if (idx == 2) then
@@ -210,6 +210,9 @@ function UI_ClanWarMatchInfoDetailPopup:setDetail(idx, data)
         return
     end
 
+    if (not vars['resultNode1']) or (not vars['resultNode2']) then
+        return
+    end
 	-- 끝난 경기만 승/패 표시
 	vars['resultNode1']:setVisible(false)
     vars['resultNode2']:setVisible(false)
@@ -250,5 +253,73 @@ function UI_ClanWarMatchInfoDetailPopup:getWinConditionText(win_condition)
     -- 생성일이 더 빠름
     else
         return Str('{1} 클랜이 승리하였습니다. (클랜 생성일 기준)')
+    end
+end
+
+
+
+
+
+
+local PARENT = UI
+
+-------------------------------------
+-- class UI_ClanWarMatchInfoDetailMiniPopup
+-------------------------------------
+UI_ClanWarMatchInfoDetailMiniPopup = class(PARENT, {
+     })
+
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanWarMatchInfoDetailMiniPopup:init(data, is_yesterday_result, close_cb)
+    local vars = self:load('clan_war_match_scene_mini_popup.ui')
+    UIManager:open(self, UIManager.POPUP)
+    self:initUI(data)
+
+    -- 백키 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn(close_cb) end, 'UI_ClanWarMatchInfoDetailMiniPopup')
+
+    self.vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn(close_cb) end)
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_ClanWarMatchInfoDetailMiniPopup:click_closeBtn(close_cb)
+    if (close_cb) then
+        close_cb()
+    end
+    
+    self:close()
+end
+
+------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanWarMatchInfoDetailMiniPopup:initUI(data)
+    local vars = self.vars
+
+	-- 초기화
+	local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
+    for idx, label in ipairs(l_label) do
+        if (vars[label .. '1']) then
+            vars[label .. '1']:setString('-')
+        end
+		if (vars[label .. '2']) then
+            vars[label .. '2']:setString('-')
+        end
+    end
+
+    for i = 1, 2 do    
+		local is_valid_clan = UI_ClanWarMatchInfoDetailPopup.setClanInfoPopup(vars, i, data)
+        if (is_valid_clan) then
+		    UI_ClanWarMatchInfoDetailPopup.setDetail(vars, i, data)
+        end
     end
 end
