@@ -14,6 +14,33 @@ ServerData_ClanWar = class({
     m_myClanGroup = 'number', -- 내 클랜 그룹
 
     m_myClanGroupStageInfo = 'table', -- info API에서 내 클랜의 조별리그 정보를 매번 받는다.
+    --"my_clan_league_info":{
+    --"lose_cnt":0,
+    --"win_cnt":5,
+    --"rank":1,
+    --"id":"5ddf34c6e8919372e1f61804",
+    --"member_win_cnt":1,
+    --"game_lose":0,
+    --"play_member_cnt":2,
+    --"game_win":2,
+    --"league":26,
+    --"season":2,
+    --"clan_id":"59fc0797019add5c7aa0f5ea",
+    --"group_no":1
+    --}
+    m_myClanTournamentInfo = 'table', -- info API에서 내 클랜의 토너먼트 정보를 매번 받는다.
+    --"my_clan_tournament_info":{
+    --"game_lose":0,
+    --"member_win_cnt":0,
+    --"season":2,
+    --"group_stage":64,
+    --"play_member_cnt":0,
+    --"game_win":0,
+    --"group_stage_no":49,
+    --"enemy_clan_id":"5ddb49a7970c6204bef3aef0",
+    --"clan_id":"59fc0797019add5c7aa0f5ea",
+    --"id":"5ddf8371e8919372e1f64569"
+    --}
 
     -- 실제 전투하는 나의/상대 유저 정보+덱
     m_playerUserInfo = 'StructUserInfoClanWar',
@@ -56,6 +83,12 @@ ServerData_ClanWar.CLANWAR_STATE = {
 	['OPEN'] = 2,   -- 전투 가능
     ['BREAK'] = 3,  -- 전투 불가능, 클랜전 화면에 접근 가능
     ['LOCK'] = 4,   -- 전투 불가능, 클랜전 화면에 접근 불가능 
+}
+
+ServerData_ClanWar.CLANWAR_CLAN_STATE = {
+	['NOT_PARTICIPATING'] = -1, -- 미참가
+	['PARTICIPATING'] = 1, -- 참가 중
+    ['LEAVING_OUT'] = 2, -- 탈락
 }
 
 -------------------------------------
@@ -104,10 +137,10 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
         -- 내 클랜 정보
         do
             -- 그룹 스테이지 정보
-            self.m_myClanGroupStageInfo = ret['my_clan_league_info'] or {}
+            self.m_myClanGroupStageInfo = ret['my_clan_league_info'] or nil
 
             -- 토너먼트 정보
-            --ret['my_clan_tournament_info']
+            self.m_myClanTournamentInfo= ret['my_clan_tournament_info'] or nil
         end
 
         -- 1~7일은 조별리그 (8~14일은 토너먼트)
@@ -890,6 +923,15 @@ function ServerData_ClanWar:isGroupStage()
 end
 
 -------------------------------------
+-- function isTournament
+-- @brief 토너먼트 기간인지 여부
+-- @return boolean
+-------------------------------------
+function ServerData_ClanWar:isTournament()
+    return (self.m_clanWarRountType == ServerData_ClanWar.ROUNT_TYPE['TOURNAMENT'])
+end
+
+-------------------------------------
 -- function getMyClanGroup
 -- @brief 내 클랜의 그룹
 -- @return number 시점에 따라 nil이 리턴될 수 있다.
@@ -915,4 +957,38 @@ function ServerData_ClanWar:getDayOfWeekString(day)
     elseif (_day == 7) then return Str('일요일')
     else return ''
     end
+end
+
+
+-------------------------------------
+-- function getMyClanState
+-- @brief 내가 소속된 클랜의 클랜전 상태
+-- @return ServerData_ClanWar.CLANWAR_CLAN_STATE
+--
+-------------------------------------
+function ServerData_ClanWar:getMyClanState()
+    -- 1. 조별리그 정보가 없으면 미참가 클랜
+    if (self.m_myClanGroupStageInfo == nil) then
+        return ServerData_ClanWar.CLANWAR_CLAN_STATE['NOT_PARTICIPATING']
+    end
+
+    -- 2. 토너먼트 정보가 없거나, 토너먼트 진행 라운드보다 내 클랜의 진행 정도가 낮으면 탈락
+    if (self:isTournament() == true) then
+        -- 토너먼트 데이터가 없으면 탈락으로 같주
+        if (self.m_myClanTournamentInfo == nil) then
+            return ServerData_ClanWar.CLANWAR_CLAN_STATE['LEAVING_OUT']
+        end
+
+        -- 오늘 진행되는 라운드 (128강, 64강 등)
+        local today_round = self:getTodayRound() -- 오늘 32강이라고 가정
+        local my_clan_round = self.m_myClanTournamentInfo['group_stage'] -- 내 클랜은 64강이라고 가정
+
+        -- 오늘 32강인데 내 클랜은 64강이면 탈락
+        if (today_round < my_clan_round) then
+            return ServerData_ClanWar.CLANWAR_CLAN_STATE['LEAVING_OUT']
+        end
+    end
+
+    -- 위의 조건에 해당하지 않은 경우 참가 중
+    return ServerData_ClanWar.CLANWAR_CLAN_STATE['PARTICIPATING']
 end

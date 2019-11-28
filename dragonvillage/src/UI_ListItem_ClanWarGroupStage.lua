@@ -171,12 +171,12 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
 		        vars['dateMenu']:setVisible(true)
 
                 -- 해더 셀은 size를 달리 사용
-		        self:setCellSize(cc.size(0, 80))
+		        self:setCellSize(cc.size(0, 67))
 	        else
 		        vars['dateMenu']:setVisible(false)
 
                 -- 해더가 아닌 셀은 해더 영역이 off되므로 세로정렬을 다시 해줌
-                vars['entireMenu']:setPositionY(30/2)
+                vars['entireMenu']:setPositionY(25/2)
 		        return
 	        end
 
