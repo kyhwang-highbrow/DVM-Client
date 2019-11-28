@@ -149,6 +149,10 @@ function UI_ClanWarMatchInfoDetailPopup:setDetailForYesterday(data)
 
     local win_clan_id = data['win_clan']
     local struct_clan_rank = g_clanWarData:getClanInfo(win_clan_id)
+    if (not struct_clan_rank) then
+        return
+    end
+
     local win_clan_name = struct_clan_rank:getClanName()
     win_condition_text = Str(win_condition_text, win_clan_name)
 
