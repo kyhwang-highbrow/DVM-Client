@@ -193,7 +193,7 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
 		        if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
 			        week_str = week_str .. ' - ' .. Str('오늘의 경기')
 		        end
-		        vars['dateLabel']:setColor(COLOR['BLACK'])
+		        --vars['dateLabel']:setColor(COLOR['BLACK'])
 	        end
 	        -- 날짜 정보 라벨 세팅
 	        vars['dateLabel']:setString(week_str)
