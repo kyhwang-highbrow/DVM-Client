@@ -464,7 +464,7 @@ function UI_ClanWar_GroupStage:showLastRankPopup()
     -- 기록된 클랜전 day가 같을 경우 오늘 이미 보았다는 가정
 	local day = g_settingData:getClanWarDay()
 	if (day == g_clanWarData.m_clanWarDay) then
-		--return
+		return
 	end
 
     -- sgkim 구조가 매우 이상하지만...
