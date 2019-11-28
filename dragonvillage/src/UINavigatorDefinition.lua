@@ -1955,7 +1955,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(create_clan_war_ui, close_cb, ret)
+            local scene = SceneCommon(UI_ClanWarLobby, close_cb, ret)
             scene:runScene()
         end
     end

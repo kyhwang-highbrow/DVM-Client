@@ -402,3 +402,21 @@ function StructClanWarMatchItem:getLastDefender()
     return self.m_lDefendHistory[last_idx]
 end
 
+-------------------------------------
+-- function getRemainEndTimeText
+-------------------------------------
+function StructClanWarMatchItem:getRemainEndTimeText()
+    local cur_time = Timer:getServerTime_Milliseconds()
+    local end_time = self:getEndDate()
+    if (not end_time) then
+        return ''
+    end
+    
+    local remain_time = (end_time - cur_time)
+    if (remain_time > 0) then
+        return datetime.makeTimeDesc_timer_filledByZero(remain_time)
+    end 
+
+    return ''
+end
+

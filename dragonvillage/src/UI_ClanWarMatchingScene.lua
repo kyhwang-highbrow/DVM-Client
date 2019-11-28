@@ -145,55 +145,9 @@ end
 -------------------------------------
 function UI_ClanWarMatchingScene:setMemberTableView()
     local vars = self.vars
-    local struct_match = self.m_structMatch 
+    local struct_match = self.m_structMatch
 
-    local create_func_common = function(ui, struct_match_item)
-		if (struct_match_item['clan_id'] == 'defeat') then
-			ui.vars['arrowSprite']:setVisible(false)
-			ui.vars['userNameLabel1']:setVisible(false)
-			ui.vars['noRivalNode']:setVisible(true)
-			ui.vars['lastTimeLabel']:setString('')
-			ui.vars['userNameLabel3']:setString(Str('부전패'))
-			return
-		end
-		
-        local my_nick, enemy_nick = struct_match:getNickNameWithAttackingEnemy(struct_match_item)
-		local struct_user_info_clan = struct_match_item:getUserInfo()
-        local icon
-        if (struct_user_info_clan) then
-		    icon = struct_user_info_clan:getLastTierIcon('big')       
-        end
-        if (enemy_nick) then
-			ui.vars['userNameLabel1']:setVisible(true)
-            ui.vars['userNameLabel2']:setVisible(true)
-			ui.vars['arrowSprite']:setVisible(true)
-
-			ui.vars['userNameLabel1']:setString(my_nick)
-            ui.vars['userNameLabel2']:setString(enemy_nick)
-
-            if (icon) then
-			    ui.vars['tierIconNode']:addChild(icon)
-            end
-        else
-			ui.vars['arrowSprite']:setVisible(false)
-			ui.vars['userNameLabel1']:setVisible(false)
-			ui.vars['noRivalNode']:setVisible(true)
-
-            if (icon) then
-			    ui.vars['tierIconNode3']:addChild(icon)
-			end
-            ui.vars['userNameLabel3']:setString(my_nick)
-		end
-	end
-
-	local create_func_me = function(ui, struct_match_item)
-		create_func_common(ui, struct_match_item)
-		ui.vars['rivalFrameSprite']:setVisible(false)
-		ui.vars['meFrameSprite']:setVisible(true)
-    end
-
-    local t_myClan = struct_match:getMyMatchData()
-    local l_myClan = table.MapToList(t_myClan)
+    -- 티어 순으로 정렬 함수
     local sort_func = function(a,b)
 		a_user = a:getUserInfo()
 		b_user = b:getUserInfo()
@@ -207,64 +161,71 @@ function UI_ClanWarMatchingScene:setMemberTableView()
 		return a_user:getTierOrder() > b_user:getTierOrder()
 	end
 
-    table.sort(l_myClan, sort_func)
-    
-	local defeat_member = 10 - #l_myClan
-	if (defeat_member>0) then
-		for i=1, defeat_member do
-			table.insert(l_myClan, {['clan_id'] = 'defeat'})
-		end
-	end
+    -- 나와 상대방 정보 세팅하는 생성 함수
+    local create_func = function(ui, data)
+        local uid = data['uid']
+        local attack_uid = data['attack_uid']
 
-    vars['meClanListNode']:removeAllChildren()
-    -- 테이블 뷰 인스턴스 생성    
-    self.m_myTableView = UIC_TableView(vars['meClanListNode'])
-    self.m_myTableView.m_defaultCellSize = cc.size(548, 80 + 5)
-    self.m_myTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    self.m_myTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func_me)
-    self.m_myTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    self.m_myTableView:setItemList(l_myClan)
+        local my_struct_match_item = struct_match:getMatchMemberDataByUid(uid)
+        local enemy_struct_match_item = struct_match:getMatchMemberDataByUid(attack_uid)
+        
+        ui:setStructMatchItem(my_struct_match_item, enemy_struct_match_item)
+    end
 
-    -- 내 uid에 포커싱
-    local my_uid = g_userData:get('uid')
-    local idx = 1
-    local i = 1
-    for _, data in pairs(l_myClan) do
-        if (data['uid'] == my_uid) then
-            idx = i
+    -- 나의 클랜원 테이블 아이템
+    do
+        local t_myClan = struct_match:getMyMatchData()
+        local l_myClan = table.MapToList(t_myClan)
+        table.sort(l_myClan, sort_func)
+
+        vars['meClanListNode']:removeAllChildren()
+        -- 테이블 뷰 인스턴스 생성    
+        self.m_myTableView = UIC_TableView(vars['meClanListNode'])
+        self.m_myTableView.m_defaultCellSize = cc.size(548, 80 + 5)
+        self.m_myTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
+        self.m_myTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func)
+        self.m_myTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        self.m_myTableView:setItemList(l_myClan)
+
+        -- 내 uid에 포커싱
+        local my_uid = g_userData:get('uid')
+        local idx = 1
+        local i = 1
+        for _, data in pairs(l_myClan) do
+            if (data['uid'] == my_uid) then
+                idx = i
+            end
+            i = i + 1
         end
-        i = i + 1
+
+        self.m_myTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        self.m_myTableView:relocateContainerFromIndex(idx)
     end
 
-    self.m_myTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-    self.m_myTableView:relocateContainerFromIndex(idx)
 
+    -- 상대방 클랜원 테이블 아이템    
+    do
+        local t_enemyClan = struct_match:getEnemyMatchData()
+        local l_enemyClan = table.MapToList(t_enemyClan)
+        table.sort(l_enemyClan, sort_func)
+	    
+        local defeat_member = 10 - #l_enemyClan
+	    if (defeat_member>0) then
+	    	for i=1, defeat_member do
+	    		table.insert(l_enemyClan, {['clan_id'] = 'defeat'})
+	    	end
+	    end
 
-	local create_func_rival = function(ui, struct_match_item)
-		create_func_common(ui, struct_match_item)
-
-		ui.vars['rivalFrameSprite']:setVisible(true)
-		ui.vars['meFrameSprite']:setVisible(false)
+        vars['rivalClanMenu']:removeAllChildren()
+        
+        -- 테이블 뷰 인스턴스 생성
+        self.m_enemyTableView = UIC_TableView(vars['rivalClanMenu'])
+        self.m_enemyTableView.m_defaultCellSize = cc.size(548, 80 + 5)
+        self.m_enemyTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
+        self.m_enemyTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem_enemy, create_func)
+        self.m_enemyTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        self.m_enemyTableView:setItemList(l_enemyClan)
     end
-    -- 테이블 뷰 인스턴스 생성
-    local t_enemyClan = struct_match:getEnemyMatchData()
-    local l_enemyClan = table.MapToList(t_enemyClan)
-    table.sort(l_enemyClan, sort_func)
-
-	local defeat_member = 10 - #l_enemyClan
-	if (defeat_member>0) then
-		for i=1, defeat_member do
-			table.insert(l_enemyClan, {['clan_id'] = 'defeat'})
-		end
-	end
-
-    vars['rivalClanMenu']:removeAllChildren()
-    self.m_enemyTableView = UIC_TableView(vars['rivalClanMenu'])
-    self.m_enemyTableView.m_defaultCellSize = cc.size(548, 80 + 5)
-    self.m_enemyTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    self.m_enemyTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func_rival)
-    self.m_enemyTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    self.m_enemyTableView:setItemList(l_enemyClan)
 end
 
 -------------------------------------
