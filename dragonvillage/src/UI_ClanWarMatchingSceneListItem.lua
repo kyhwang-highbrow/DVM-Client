@@ -73,8 +73,8 @@ function UI_ClanWarMatchingSceneListItem:setStructMatchItem(my_struct_match_item
     if (not self.m_enemyStructMatchItem) then
         self:setUserInfo(self.m_myStructMatchItem, true) -- param : struct_match_item, is_my
     else
-        self:setUserInfo(self.m_enemyStructMatchItem, true) -- param : struct_match_item, is_my
-        self:setUserInfo(self.m_myStructMatchItem, false) -- param : struct_match_item, is_my
+        self:setUserInfo(self.m_enemyStructMatchItem, false) -- param : struct_match_item, is_my
+        self:setUserInfo(self.m_myStructMatchItem, true) -- param : struct_match_item, is_my
     end
 
     self:setResult()

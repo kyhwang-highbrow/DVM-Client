@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_ClanwarRewardInfoPopup
 -------------------------------------
 UI_ClanwarRewardInfoPopup = class(PARENT, {
+        m_tableView = 'UIC_TableView'
      })
 
 -------------------------------------
@@ -29,6 +30,8 @@ function UI_ClanwarRewardInfoPopup:init(is_league, _league_rank, _tournament_ran
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanwarRewardInfoPopup')
@@ -83,11 +86,12 @@ function UI_ClanwarRewardInfoPopup:setLeague(league_rank)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['listNode'])
-    table_view.m_defaultCellSize = cc.size(550, 52 + 5)
+    table_view.m_defaultCellSize = cc.size(550, 45 + 5)
 	table_view:setCellUIClass(UI_ClanwarRewardInfoPopupList, create_func)
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
-
+   
+    self.m_tableView = table_view
     local focus_idx = 0
     for i, t_data in ipairs(l_item_list) do
         if (t_data['category'] == category) then
@@ -97,9 +101,6 @@ function UI_ClanwarRewardInfoPopup:setLeague(league_rank)
             end
         end
     end
-
-    table_view:update(0)
-    table_view:relocateContainerFromIndex(focus_idx)
 
     local my_rank_text = ''
 	if (league_rank == 0) then
@@ -112,6 +113,15 @@ function UI_ClanwarRewardInfoPopup:setLeague(league_rank)
 	vars['leagueRankLabel']:setString(my_rank_text)
 	vars['tournamentRankLabel']:setString('-')
 	
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ClanwarRewardInfoPopup:update()
+    if (self.m_tableView) then
+        self.m_tableView.m_scrollView:setTouchEnabled(false)
+    end
 end
 
 -------------------------------------
@@ -161,10 +171,11 @@ function UI_ClanwarRewardInfoPopup:setTournament(league_rank, tournament_rank)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['listNode'])
-    table_view.m_defaultCellSize = cc.size(550, 52 + 5)
+    table_view.m_defaultCellSize = cc.size(550, 45 + 5)
 	table_view:setCellUIClass(UI_ClanwarRewardInfoPopupList, create_func)
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
+    self.m_tableView = table_view
 
     local focus_idx = 0
     for i, t_data in ipairs(l_item_list) do
@@ -175,9 +186,6 @@ function UI_ClanwarRewardInfoPopup:setTournament(league_rank, tournament_rank)
             end
         end
     end
-
-    table_view:update(0)
-    table_view:relocateContainerFromIndex(focus_idx)
 
     local my_rank_text = ''
 	if (league_rank == 0) then
