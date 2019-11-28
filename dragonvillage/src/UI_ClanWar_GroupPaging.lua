@@ -153,6 +153,7 @@ end
 
 -------------------------------------
 -- function setPage
+-- @return boolean 페이지가 변경된 여부
 -------------------------------------
 function UI_ClanWar_GroupPaging:setPage(page)
     local NUM_PER_PAGE = UI_ClanWar_GroupPaging['NUM_PER_PAGE']
@@ -176,7 +177,10 @@ function UI_ClanWar_GroupPaging:setPage(page)
             btn:setScale(0)
             btn:runAction(cc.Sequence:create(cc.DelayTime:create((i-1) * 0.025), cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.8)))
         end
+        return true
     end
+
+    return false
 end
 
 -------------------------------------
@@ -239,7 +243,7 @@ function UI_ClanWar_GroupPaging:setGroup(group_idx)
 
     -- 조가 속한 페이지를 계산하고 설정한다.
     local page = self:getPageFromGroupIdx(group_idx)
-    self:setPage(page)
+    local changed = self:setPage(page)
 
     -- 페이지 내에서 해당 조의 idx를 계산한다.
     local NUM_PER_PAGE = UI_ClanWar_GroupPaging['NUM_PER_PAGE']
@@ -247,7 +251,7 @@ function UI_ClanWar_GroupPaging:setGroup(group_idx)
 
     -- 페이지 내의 idx를 통해 tab_name을 조합하고 탭을 설정한다.
     local tab_name = ('0' .. idx_at_page)
-    self:changeTab(tab_name)
+    self:changeTab(tab_name, changed)
 end
 
 
