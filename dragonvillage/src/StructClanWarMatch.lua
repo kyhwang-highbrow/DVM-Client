@@ -3,6 +3,8 @@
 -- class StructClanWarMatch
 -------------------------------------
 StructClanWarMatch = class({
+    m_matchInfo = 'table',
+
     m_tMyMatch = 'table',
     m_tEnemyMatch = 'table',
 })
@@ -19,6 +21,7 @@ StructClanWarMatch.STATE_COLOR = {
 function StructClanWarMatch:init(ret)
     self.m_tMyMatch = {}
     self.m_tEnemyMatch = {}
+    self.m_matchInfo = {}
 
     if (ret['clanwar_match_info']) then
         for i, data in ipairs(ret['clanwar_match_info']) do
@@ -32,6 +35,10 @@ function StructClanWarMatch:init(ret)
             local uid = data['uid']
             self.m_tEnemyMatch[uid] = StructClanWarMatchItem(data)
         end
+    end
+
+    if (ret['match_info']) then
+        self.m_matchInfo = ret['match_info']
     end
 
     self:makeDefendInfo(self.m_tMyMatch, self.m_tEnemyMatch)
@@ -210,4 +217,26 @@ function StructClanWarMatch:getAttackableEnemyData()
    end
 
    return l_enemy or {}
+end
+
+-------------------------------------
+-- function getMatchInfo
+-------------------------------------
+function StructClanWarMatch:getMatchInfo()
+    return self.m_matchInfo
+end
+
+-------------------------------------
+-- function getSetScore
+-- @return my_set_score, enemy_set_score
+-------------------------------------
+function StructClanWarMatch:getSetScore()
+    local data = self.m_matchInfo
+    local my_clan_id = g_clanWarData:getMyClanId()
+    
+    if (data['a_clan_id'] == my_clan_id) then
+        return data['a_member_win_cnt'] or 0, data['b_member_win_cnt'] or 0
+    else
+        return data['b_member_win_cnt'] or 0, data['a_member_win_cnt'] or 0
+    end
 end

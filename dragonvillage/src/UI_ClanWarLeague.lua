@@ -457,13 +457,7 @@ function UI_ClanWarLeague:click_gotoMatch()
             return
         end
 
-        local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match)
-        local data = struct_league:getTodayMyMatchInfo()
-        ui_clan_war_matching:setMatchDetail(data)
-
-        -- 리그 통신에서 들고 있더 클랜 세트 승리수 전달
-        local my_win_cnt, enemy_win_cnt = struct_league:getMyClanMatchScore()
-        ui_clan_war_matching:setScore(my_win_cnt, enemy_win_cnt)
+        UI_ClanWarMatchingScene(struct_match)
     end
 
     g_clanWarData:request_clanWarMatchInfo(success_cb)

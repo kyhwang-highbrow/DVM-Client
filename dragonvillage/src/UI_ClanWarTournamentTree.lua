@@ -702,11 +702,8 @@ function UI_ClanWarTournamentTree:click_gotoMatch()
         return
     end
     
-    local my_win_cnt, enemy_win_cnt = data['a_member_win_cnt'], data['b_member_win_cnt']
-    
 	local success_cb = function(t_my_struct_match, t_enemy_struct_match)
-        local ui_clan_war_matching = UI_ClanWarMatchingScene(t_my_struct_match, t_enemy_struct_match)
-        ui_clan_war_matching:setScore(my_win_cnt, enemy_win_cnt)
+        UI_ClanWarMatchingScene(t_my_struct_match, t_enemy_struct_match)
     end
 
     g_clanWarData:request_clanWarMatchInfo(success_cb)

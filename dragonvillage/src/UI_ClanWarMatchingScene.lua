@@ -8,7 +8,6 @@ UI_ClanWarMatchingScene = class(PARENT,{
         m_enemyTableView = 'UIC_TableView',
 
         m_structMatch = 'StructClanWarMatch',
-        m_todayMyMatchData = 'data',
     })
 
 -------------------------------------
@@ -63,6 +62,11 @@ end
 -------------------------------------
 function UI_ClanWarMatchingScene:initUI()
     local vars = self.vars
+
+    local struct_match = self.m_structMatch
+    local my_score, enemy_score = struct_match:getSetScore()
+    vars['clanScoreLabel1']:setString(tostring(my_score))
+    vars['clanScoreLabel2']:setString(tostring(enemy_score))
 
     local round_text = g_clanWarData:getTodayRoundText()
     if (round) then
@@ -237,7 +241,7 @@ function UI_ClanWarMatchingScene:initButton()
     vars['battleBtn']:registerScriptTapHandler(function() self:click_gotoBattle() end)
     vars['setDeckBtn']:registerScriptTapHandler(function() self:click_myDeck() end)
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
-    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
@@ -317,25 +321,6 @@ function UI_ClanWarMatchingScene:setClanWarScore(my_clanwar, enemy_clanwar)
 end
 
 -------------------------------------
--- function setScore
--------------------------------------
-function UI_ClanWarMatchingScene:setScore(my_win_cnt, enemy_win_cnt)
-    self.vars['clanScoreLabel1']:setString(my_win_cnt)
-    self.vars['clanScoreLabel2']:setString(enemy_win_cnt)  
-end
-
--------------------------------------
--- function click_rewardBtn
--------------------------------------
-function UI_ClanWarMatchingScene:click_rewardBtn()
-    local data = g_clanWarData.m_myClanGroupStageInfo
-    local rank = data['rank'] or 0
-
-    -- @warning 20191128 토너먼트는 아직 처리 안된 상태
-    UI_ClanwarRewardInfoPopup(true, rank, nil) -- is_league, league_rank, tournament_rank
-end
-
--------------------------------------
 -- function click_infoBtn
 -------------------------------------
 function UI_ClanWarMatchingScene:click_infoBtn()
@@ -347,12 +332,8 @@ function UI_ClanWarMatchingScene:click_infoBtn()
         vars['infoBtn']:setVisible(true)
         vars['infoBtn']:setEnabled(true)
     end
-    UI_ClanWarMatchInfoDetailMiniPopup(self.m_todayMyMatchData, nil, close_cb)
-end
 
--------------------------------------
--- function setMatchDetail
--------------------------------------
-function UI_ClanWarMatchingScene:setMatchDetail(data)
-    self.m_todayMyMatchData = data
+    local struct_match = self.m_structMatch
+    local today_match_info = struct_match:getMatchInfo()
+    UI_ClanWarMatchInfoDetailMiniPopup(today_match_info, nil, close_cb)
 end
