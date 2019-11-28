@@ -286,7 +286,13 @@ end
 -------------------------------------
 function UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo()
     local is_group_stage = g_clanWarData:isGroupStage()
-    local group_stage_rank = (g_clanWarData.m_myClanGroupStageInfo['rank'] or 0)
+
+    -- 조별리그 순위 (클랜전에 참여하지 않은 유저일 수도 있다)
+    local group_stage_rank = 0
+    if g_clanWarData.m_myClanGroupStageInfo then
+        group_stage_rank = (g_clanWarData.m_myClanGroupStageInfo['rank'] or 0)
+    end
+
     local tournament_rank = 0
     UI_ClanwarRewardInfoPopup(is_group_stage, group_stage_rank, tournament_rank) -- param : is_league, _league_rank, _tournament_rank
 end
