@@ -94,12 +94,14 @@ function UI_ClanWarMatchingScene:initUI()
     vars['clanScoreLabel1']:setString(tostring(my_score))
     vars['clanScoreLabel2']:setString(tostring(enemy_score))
 
-    local round_text = g_clanWarData:getTodayRoundText()
-    if (round) then
-        vars['roundLabel']:setString(round_text)
-    else
+    -- 조별리그, 토너먼트(64강, 32강, 16강, 8강, 4강, 결승전) 표기
+    if (g_clanWarData:isGroupStage()) then
         vars['roundLabel']:setString(Str('조별리그'))
+    else
+        local round_text = g_clanWarData:getTodayRoundText()
+        vars['roundLabel']:setString(round_text)
     end
+        
     vars['stateLabel']:setString(Str('진행중'))
 
     self:setClanInfoUI()
@@ -243,7 +245,7 @@ function UI_ClanWarMatchingScene:setMemberTableView()
         local defeat_member = 10 - #l_enemyClan
 	    if (defeat_member>0) then
 	    	for i=1, defeat_member do
-	    		table.insert(l_enemyClan, {['clan_id'] = 'defeat'})
+	    		table.insert(l_enemyClan, {['clan_id'] = 'defeat', ['idx'] = i})
 	    	end
 	    end
 

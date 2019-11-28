@@ -33,8 +33,25 @@ function UI_ClanWarMatchingSceneListItem:initUI(data)
     local attack_uid = data['attack_uid']
     self.m_hasEnemy = (attack_uid ~= nil)
 
+    -- 부전승 표시
     if (data['clan_id'] == 'defeat') then
-		vars['meNameLabel']:setString(Str('부전패'))
+    --if vars['unearnedWinDescLabel'] then -- <- 테스트용 코드
+        local idx = data['idx']
+        --local idx = 1 -- <-- 테스트용 코드
+        vars['meNameLabel']:setVisible(false)
+        vars['unearnedWinDescLabel']:setVisible(true)
+
+        local str = Str('부전패')
+        if idx then
+            str = (str .. ' ' .. idx)
+
+            -- 첫 번째 부전승에만 설명 추가
+            if (idx == 1) then
+                -- 번역이 되어있지 않아서 사용 불가
+                --str = str .. '\n{@MUSTARD}' .. Str('클랜원이 10명 이하일 경우 부족한 수 만큼 상대방 클랜이 세트 승점을 획득합니다.')
+            end
+        end
+        vars['unearnedWinDescLabel']:setString(str)
         self.m_isDefeat = true
         return 
 	end
