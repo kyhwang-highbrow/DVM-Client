@@ -108,7 +108,8 @@ function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
 	local clan_id = struct_league_item:getClanId()
     local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
 
-    local ui = UI_ClanWarLeagueRankListItem(struct_league_item)
+    --local ui = UI_ClanWarLeagueRankListItem(struct_league_item)
+    local ui = UI_ListItem_ClanWarGroupStageRankInGroup(struct_league_item)
     ui:setClickEnabled(false)
     vars['rankItemNode']:addChild(ui.root)
 
