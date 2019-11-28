@@ -387,8 +387,7 @@ end
 function UI_ClanWar_GroupStage:click_startBtn()
 
     -- 클랜전에 참여중이지 않은 유저 (조별리그에서는 참여를 했는데 탈락하는 경우는 없다)
-    --if (g_clanWarData:getMyClanState() == ServerData_ClanWar.CLANWAR_CLAN_STATE['NOT_PARTICIPATING']) then
-    if true then
+    if (g_clanWarData:getMyClanState() == ServerData_ClanWar.CLANWAR_CLAN_STATE['NOT_PARTICIPATING']) then
         local msg = Str('소속된 클랜이 클랜전에 참가하지 못했습니다.')
         local sub_msg = Str('각종 클랜 활동 기록으로 참가 클랜이 결정됩니다.\n꾸준한 클랜 활동을 이어가 주시기 바랍니다.')
         MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
