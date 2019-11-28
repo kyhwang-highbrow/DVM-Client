@@ -236,6 +236,7 @@ function UI_ClanWarMatchingScene:initButton()
     local vars = self.vars
     vars['battleBtn']:registerScriptTapHandler(function() self:click_gotoBattle() end)
     vars['setDeckBtn']:registerScriptTapHandler(function() self:click_myDeck() end)
+    vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
 end
 
 -------------------------------------
