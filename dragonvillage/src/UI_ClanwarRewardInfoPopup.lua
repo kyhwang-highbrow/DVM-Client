@@ -278,3 +278,15 @@ function UI_ClanwarRewardInfoPopupList:initUI(data)
     local clan_exp = data['clan_exp']
     vars['rewardLabel2']:setString(comma_value(clan_exp))
 end
+
+
+-------------------------------------
+-- function OpneWiwthMyClanInfo
+-- @brief 클랜전 보상 팝업을 연다. (내 클랜의 현재 순위를 반영해서)
+-------------------------------------
+function UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo()
+    local is_group_stage = g_clanWarData:isGroupStage()
+    local group_stage_rank = (g_clanWarData.m_myClanGroupStageInfo['rank'] or 0)
+    local tournament_rank = 0
+    UI_ClanwarRewardInfoPopup(is_group_stage, group_stage_rank, tournament_rank) -- param : is_league, _league_rank, _tournament_rank
+end

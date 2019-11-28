@@ -13,6 +13,8 @@ ServerData_ClanWar = class({
     m_clanWarRountType = 'ServerData_ClanWar.ROUNT_TYPE',
     m_myClanGroup = 'number', -- 내 클랜 그룹
 
+    m_myClanGroupStageInfo = 'table', -- info API에서 내 클랜의 조별리그 정보를 매번 받는다.
+
     -- 실제 전투하는 나의/상대 유저 정보+덱
     m_playerUserInfo = 'StructUserInfoClanWar',
     m_OpponentUserInfo = 'StructUserInfoClanWar',
@@ -92,6 +94,16 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		g_clanWarData:applyClanWarReward(ret)
+
+
+        -- 내 클랜 정보
+        do
+            -- 그룹 스테이지 정보
+            self.m_myClanGroupStageInfo = ret['my_clan_league_info'] or {}
+
+            -- 토너먼트 정보
+            --ret['my_clan_tournament_info']
+        end
 
         -- 1~7일은 조별리그 (8~14일은 토너먼트)
 		if (g_clanWarData.m_clanWarDay <= 7) then

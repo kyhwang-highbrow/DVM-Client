@@ -66,7 +66,7 @@ function UI_ClanWar_GroupStage:init(ret)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWar_GroupStage')
 	
-    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     -- @UI_ACTION
     self:doActionReset()
@@ -116,7 +116,7 @@ function UI_ClanWar_GroupStage:initButton()
     local vars = self.vars
 
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
-    --vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup(false, league_rank, tournament_rank) end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
     vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 
@@ -132,6 +132,23 @@ end
 -------------------------------------
 function UI_ClanWar_GroupStage:refresh()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ClanWar_GroupStage:update()
+	local vars = self.vars
+    local open, text = g_clanWarData:getCurStateText_League()
+
+    if (g_clanWarData:getIsLeague()) then
+	    open, text = g_clanWarData:getCurStateText_League()
+    else
+	    open, text = g_clanWarData:getCurStateText_Tournament()
+    end
+    vars['timeLabel']:setString('-')
+	--vars['timeLabel']:setString(text)
+    --vars['dscLabel']:setString(text)
 end
 
 -------------------------------------
@@ -178,8 +195,27 @@ function UI_ClanWar_GroupStage:onGroupChange(group)
             -- 조별 경기(일정) 리스트
             self:setGroupMatchList()
         end
-            
+
+        -- 시작 버튼 상태 갱신
+        self:refreshStartBtn()
+        
+        -- 어제의 경기 결과 팝업
+        self:showLastRankPopup()    
     end)
+end
+
+-------------------------------------
+-- function refreshStartBtn
+-- @brief 시작 버튼 상태 갱신
+-------------------------------------
+function UI_ClanWar_GroupStage:refreshStartBtn()
+    local vars = self.vars
+
+    if (g_clanWarData:getMyClanGroup() == self.m_focusGroup) then
+        vars['startBtnLabel']:setString(Str('오늘의 경기'))
+    else
+        vars['startBtnLabel']:setString(Str('내 클랜 보기'))
+    end
 end
 
 -------------------------------------
@@ -369,4 +405,37 @@ function UI_ClanWar_GroupStage:click_startBtn()
     end
 
     g_clanWarData:request_clanWarMatchInfo(success_cb)
+end
+
+-------------------------------------
+-- function showLastRankPopup
+-------------------------------------
+function UI_ClanWar_GroupStage:showLastRankPopup()
+
+    -- 기록된 클랜전 day가 같을 경우 오늘 이미 보았다는 가정
+	local day = g_settingData:getClanWarDay()
+	if (day == g_clanWarData.m_clanWarDay) then
+		--return
+	end
+
+    -- sgkim 구조가 매우 이상하지만...
+    -- self.m_structLeague에서 day가 어제인 날을 찾아서 내 클랜 경기가 있는지 찾는다.
+	local my_clan_id = g_clanWarData:getMyClanId()
+	local l_league = self.m_structLeague:getClanWarLeagueMatchList()
+	local last_match_data = nil
+	for i, data in ipairs(l_league) do
+		if (data['day'] == g_clanWarData.m_clanWarDay - 1) then
+			if (data['a_clan_id'] == my_clan_id) or (data['b_clan_id'] == my_clan_id) then
+				last_match_data = data
+				break
+			end
+		end
+	end
+
+    -- 어제의 경기 데이터가 없으면 pass
+	if (not last_match_data) then
+		return
+	end
+	UI_ClanWarMatchInfoDetailPopup(last_match_data, true) -- param : data, is_yesterday_result
+	g_settingData:setClanWarDay(g_clanWarData.m_clanWarDay)
 end

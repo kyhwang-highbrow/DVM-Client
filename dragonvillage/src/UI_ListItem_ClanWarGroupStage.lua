@@ -340,37 +340,34 @@ UI_ListItem_ClanWarGroupStageRankInGroup = class(PARENT, {
             -- 클랜 순위 (조 내에서)
             local clan_rank = struct_league_item:getLeagueRank()
             local is_pass = (1 <= clan_rank) and (clan_rank <= 2) -- 조별리그 통과 여부
+            local font_color_tag = conditionalOperator(is_pass, '{@MUSTARD}', '')
 
             do -- 승, 패, 세트, 게임
                 -- 매치 승리 수
                 local win_cnt = struct_league_item:getWinCount()
-                vars['winRoundLabel']:setString(tostring(win_cnt))
+                vars['winRoundLabel']:setString(font_color_tag .. tostring(win_cnt))
 
                 -- 매치 패배 수
                 local lose_cnt = struct_league_item:getLoseCount()
-                vars['loseRoundLabel']:setString(tostring(win_cnt))
+                vars['loseRoundLabel']:setString(font_color_tag .. tostring(win_cnt))
 
                 -- 세트 승리 수
                 local set_score = struct_league_item:getSetScore()
-                vars['setScoreLabel']:setString(tostring(set_score))
+                vars['setScoreLabel']:setString(font_color_tag .. tostring(set_score))
 
                 -- 게임 승리 수
                 local game_score = struct_league_item:getGameWin()
-                vars['gameScoreLabel']:setString(tostring(game_score))
+                vars['gameScoreLabel']:setString(font_color_tag .. tostring(game_score))
             end
 
             -- 클랜 정보 (이름 랭크)
             local clan_name = struct_clan_rank:getClanName() or ''
-            if is_pass then
-                vars['clanNameLabel']:setString('{@MUSTARD}' .. clan_name)
-            else
-                vars['clanNameLabel']:setString(clan_name)
-            end
+            vars['clanNameLabel']:setString(font_color_tag .. clan_name)
 
 	        if (clan_rank == 0) then
 		        clan_rank = '-'
 	        end
-            vars['rankLabel']:setString(tostring(clan_rank))
+            vars['rankLabel']:setString(font_color_tag .. tostring(clan_rank))
 
             -- 클랜 마크
              local clan_icon = struct_clan_rank:makeClanMarkIcon()
