@@ -210,6 +210,9 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
 		        prefix = 'b_'
 	         end
 
+             local match_number = data['day'] or 1
+             local is_today = (match_number == g_clanWarData.m_clanWarDay)
+
              local blank_clan = function()
                 if (vars['clanNameLabel'..idx]) then
                     vars['clanNameLabel'..idx]:setString(Str('대전 상대 없음'))
@@ -252,11 +255,15 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
                 return
              end
 
-	         -- 내 클랜 표시 (UI가 복잡해 보여서 내 클랜 표기 X)
-	         local my_clan_id = g_clanWarData:getMyClanId()
-             if (my_clan_id == clan_id) then
-                 --vars['leagueMeNode']:setVisible(true)
+	         -- 내 클랜 표시 (오늘 경기만)
+	         local my_clan_id = g_clanWarData:getMyClanId()    
+             if (my_clan_id == clan_id) and (is_today == true) then
+                vars['leagueMeNode']:setVisible(true)
              end
+
+             -- 오늘 경기 강조
+             vars['attackVisual']:setVisible(is_today)
+             vars['normalIconNode']:setVisible(not is_today)
 
 	         local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
              -- 서버에서 임의로 추가한 유령 클랜의 경우
@@ -281,7 +288,6 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
                 end
             end
 
-            local match_number = data['day'] or 1
             local win, lose = data[prefix .. 'win_cnt'] or 0, data[prefix .. 'lose_cnt'] or 0
             local win_cnt = data[prefix .. 'member_win_cnt'] or 0
 
