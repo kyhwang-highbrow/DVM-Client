@@ -119,6 +119,7 @@ function UI_ClanWar_GroupStage:initButton()
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
     vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['startBtn2']:registerScriptTapHandler(function() self:click_startBtn() end)
 
     -- 테스트용 버튼
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
@@ -164,6 +165,7 @@ function UI_ClanWar_GroupStage:update()
 
     local str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
     vars['timeLabel']:setString(str)
+    vars['timeLabel2']:setString(str)
 
     --[[
     local open, text = g_clanWarData:getCurStateText_League()
@@ -239,10 +241,31 @@ end
 function UI_ClanWar_GroupStage:refreshStartBtn()
     local vars = self.vars
 
+    local use_primary_btn = true
+    -- 1. 클랜전에 참여 중이 아닌 경우
+    if (g_clanWarData:getMyClanState() ~= ServerData_ClanWar.CLANWAR_CLAN_STATE['PARTICIPATING']) then
+        use_primary_btn = false
+
+    -- 2. 클랜전이 오픈 상태가 아닌 경우
+    elseif (g_clanWarData:getClanWarState() ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        use_primary_btn = false
+
+    -- 3. 내가 속한 그룹을 보고있지 않은 경우
+    elseif (g_clanWarData:getMyClanGroup() ~= self.m_focusGroup) then
+        use_primary_btn = false
+    end
+
+    do -- 사용하는 버튼 설정
+        vars['startBtn']:setVisible(use_primary_btn)
+        vars['startBtn2']:setVisible(not use_primary_btn)
+    end
+
     if (g_clanWarData:getMyClanGroup() == self.m_focusGroup) then
         vars['startBtnLabel']:setString(Str('오늘의 경기'))
+        vars['startBtnLabel2']:setString(Str('오늘의 경기'))
     else
         vars['startBtnLabel']:setString(Str('내 클랜 보기'))
+        vars['startBtnLabel2']:setString(Str('내 클랜 보기'))
     end
 end
 
