@@ -153,7 +153,7 @@ function UI_ClanWarMatchingSceneListItem:setResult()
     local attack_state = struct_match_item:getAttackState()
     if (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_SUCCESS']) then
         vars['winSprite']:setVisible(true)
-        vars['loseSprite']:setVisible(true)
+        vars['loseSprite']:setVisible(false)
     elseif (attack_state == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
         vars['winSprite']:setVisible(false)
         vars['loseSprite']:setVisible(true)
