@@ -324,6 +324,8 @@ function UI_ClanWarSelectScene:initButton()
         end
     end
     vars['myClanBtn']:setChangeCB(on_change_cb)
+
+    self:refreshStartBtn()
 end
 
 -------------------------------------
@@ -551,6 +553,9 @@ function UI_ClanWarSelectScene:setSelectStructMatch(struct_match_item, is_enemy)
     local is_selected = (self.m_curSelectEnemyStructMatch ~= nil)
     vars['selectMenu']:setVisible(is_selected)
     vars['noSelectMenu']:setVisible(not is_selected)
+
+    -- 선택 대상에 따라 버튼 상태 갱신
+    self:refreshStartBtn()
 end
 
 -------------------------------------
@@ -585,6 +590,35 @@ function UI_ClanWarSelectScene:update(dt)
     vars['timeLabel2']:setString(str)
 end
 
+-------------------------------------
+-- function refreshStartBtn
+-- @brief 시작 버튼 상태 갱신
+-------------------------------------
+function UI_ClanWarSelectScene:refreshStartBtn()
+    local vars = self.vars
+    local use_primary_btn = true
+
+    -- 선택한 대상이 없으면
+	local struct_match = self.m_tStructMatch
+    if (not self.m_curSelectEnemyStructMatch) then
+        use_primary_btn = false
+    end
+
+    -- 공격 가능한 상대가 아니라면 return
+    if (self.m_curSelectEnemyStructMatch) then
+        local select_struct_match_item = self.m_curSelectEnemyStructMatch
+	    local defend_state = select_struct_match_item:getDefendState()
+	    local defend_state_text = select_struct_match_item:getDefendStateNotiText()
+	    if (defend_state ~= StructClanWarMatchItem.DEFEND_STATE['DEFEND_POSSIBLE']) then
+		    use_primary_btn = false
+	    end
+    end
+
+    do -- 사용하는 버튼 설정
+        vars['startBtn']:setVisible(use_primary_btn)
+        vars['startBtn2']:setVisible(not use_primary_btn)
+    end
+end
 
 
 
