@@ -43,7 +43,7 @@ function UI_Arena:init(sub_data)
     self.m_bClosedTag = false
     
     local ui_res = 'arena_scene.ui'
-    if (g_arenaData:removeClanData()) then
+    if (g_arenaData:isStartClanWarContents()) then
         ui_res = 'arena_scene_new.ui'
     end
 

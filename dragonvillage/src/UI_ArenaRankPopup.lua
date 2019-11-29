@@ -20,7 +20,7 @@ UI_ArenaRankPopup = class(PARENT,{
 function UI_ArenaRankPopup:init()
     local vars = self:load('arena_rank_popup.ui')
     local ui_res = 'arena_rank_popup.ui'
-    if (g_arenaData:removeClanData()) then
+    if (g_arenaData:isStartClanWarContents()) then
         ui_res = 'arena_rank_popup_new.ui'
     end
     local vars = self:load(ui_res)

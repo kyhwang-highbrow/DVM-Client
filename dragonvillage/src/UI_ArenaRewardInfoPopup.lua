@@ -15,7 +15,7 @@ UI_ArenaRewardInfoPopup.CLAN = 'clanReward'
 -------------------------------------
 function UI_ArenaRewardInfoPopup:init()
     local ui_res = 'arena_reward_popup.ui'
-    if (g_arenaData:removeClanData()) then
+    if (g_arenaData:isStartClanWarContents()) then
         ui_res = 'arena_reward_popup_new.ui'
     end
     local vars = self:load(ui_res)
@@ -64,7 +64,7 @@ end
 function UI_ArenaRewardInfoPopup:initTab()
     local vars = self.vars
 
-    if (not g_arenaData:removeClanData()) then
+    if (not g_arenaData:isStartClanWarContents()) then
         self:addTabAuto(UI_ArenaRewardInfoPopup.RANK, vars, vars['rankRewardNode'])
         self:addTabAuto(UI_ArenaRewardInfoPopup.MATCH, vars, vars['matchRewardNode'])
         self:addTabAuto(UI_ArenaRewardInfoPopup.CLAN, vars, vars['clanRewardNode'])

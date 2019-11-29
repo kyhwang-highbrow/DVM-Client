@@ -43,7 +43,7 @@ function UI_GameResult_ClanWar:initUI(is_success)
     self.m_endDate = struct_clan_war_match_item:getEndDate()
 
 	-- 승/패/승 세팅
-    local l_result = struct_clan_war_match_item:getGameResult()
+    local l_result = struct_match_item:getGameResult()
     for i, result in ipairs(l_result) do
         local color
         local sprite
@@ -52,15 +52,22 @@ function UI_GameResult_ClanWar:initUI(is_success)
         elseif (result == '1') then
             color = StructClanWarMatch.STATE_COLOR['WIN']
         elseif (result == '-1') then
-            if (vars['noResultNode' .. i]) then
-                vars['noResultNode' .. i]:setVisible(true)
-            end
+            sprite = cc.Sprite:create('res/ui/icons/clan_war_score_no_game.png')
+            sprite:setAnchorPoint(CENTER_POINT)
+            sprite:setDockPoint(CENTER_POINT)
+            sprite:setRotation(-45)
         end
 
         if (vars['setResult'..i]) then
             if (color) then
                 vars['setResult'..i]:setVisible(true)
                 vars['setResult'..i]:setColor(color)
+            end
+
+            if (sprite) then
+                vars['setResult'..i]:setVisible(true)
+                vars['setResult'..i]:setOpacity(0)
+                vars['setResult'..i]:addChild(sprite)
             end
         end
     end

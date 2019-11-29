@@ -57,7 +57,7 @@ function UI_ClanTabRank:initTab()
     local vars = self.vars
     
     local tab_list = {CLAN_RANK['ANCT'], CLAN_RANK['CLSM'], CLAN_RANK['RAID'], CLAN_RANK['LEVEL']}
-    if (g_arenaData:removeClanData()) then
+    if (g_arenaData:isStartClanWarContents()) then
         tab_list = {CLAN_RANK['ANCT'], CLAN_RANK['RAID'], CLAN_RANK['LEVEL']}
     end
     for i, tab in ipairs(tab_list) do

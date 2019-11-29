@@ -25,7 +25,11 @@ end
 -- function init
 -------------------------------------
 function UI_ClanGuest:init()
-    local vars = self:load_keepZOrder('clan_01.ui')
+    local res = 'clan_01.ui'
+    if (g_arenaData:isStartClanWarContents()) then
+        res = 'clan_01_new.ui'
+    end
+    local vars = self:load_keepZOrder(res)
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_ClanGuest'

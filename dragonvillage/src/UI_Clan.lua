@@ -30,7 +30,7 @@ end
 -------------------------------------
 function UI_Clan:init()
     local ui_res = 'clan_02.ui'
-    if (g_arenaData:removeClanData()) then
+    if (g_arenaData:isStartClanWarContents()) then
         ui_res = 'clan_03.ui'
     end
 

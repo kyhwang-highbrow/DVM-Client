@@ -313,7 +313,7 @@ function StructUserInfoClan:getDungeonPlayText()
     local param_1 = self:getClanDungeonPlayText()
     local param_2 = self:getAncientPlayText()
     local param_3 = ''
-    if (g_arenaData:removeClanData()) then
+    if (g_arenaData:isStartClanWarContents()) then
         param_3 = self:getClanWarText()
     else
         param_3 = self:getArenaPlayText()
