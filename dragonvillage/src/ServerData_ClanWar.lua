@@ -675,9 +675,12 @@ function ServerData_ClanWar:request_clanWarUserDeck(uid, finish_cb)
         end
     end
 
+    local my_uid = g_userData:get('uid')
+
     local ui_network = UI_Network()
     ui_network:setUrl('/users/get_deck_clanwar')
-    ui_network:setParam('uid', _uid)
+    ui_network:setParam('uid', my_uid)
+    ui_network:setParam('search_uid', _uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(response_status_cb)
