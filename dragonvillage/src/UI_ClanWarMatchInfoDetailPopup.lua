@@ -31,6 +31,8 @@ end
 function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_yesterday_result)
     local vars = self.vars
 
+    vars['resultNode']:setVisible(false)
+
 	-- 초기화
 	local l_label = {'resultScore', 'creationLabel', 'clanLvExpLabel', 'matchNumLabel', 'setScoreLabel', 'victoryLabel'}
     for idx, label in ipairs(l_label) do

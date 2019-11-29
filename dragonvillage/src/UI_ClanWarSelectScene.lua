@@ -665,15 +665,9 @@ end
 -------------------------------------
 function UI_ClanWarShowSelectInfo:initUI(enemy_data, ok_cb)
     local attacking_struct_match = enemy_data
-    local ui_item = UI_ClanWarSelectSceneListItem(attacking_struct_match)
-    ui_item:setNoTime()
-    ui_item:setStructMatch()
-    ui_item:setGameResult({})
 
-    ui_item.vars['selectNode2']:setVisible(true)
-    ui_item.vars['setMenu']:setVisible(true)
-    ui_item.vars['gameScoreSprite']:setVisible(true)
-    self.vars['rivalItemNode']:addChild(ui_item.root)
+    local nick_name = attacking_struct_match:getMyNickName() or ''
+    self.vars['userNameLabel']:setString(nick_name)
     self.vars['timeLabel']:setString('02:00:00')
     
     self.vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)

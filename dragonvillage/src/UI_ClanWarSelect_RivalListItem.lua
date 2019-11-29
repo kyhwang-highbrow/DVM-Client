@@ -46,6 +46,10 @@ function UI_ClanWarSelect_RivalListItem:setStructMatch(is_my_clan)
     local vars = self.vars
     local struct_match_item = self.m_structMatchItem
 
+    vars['defenderMenu']:setVisible(true)
+    vars['noSelectMenu']:setVisible(false)
+    vars['attackerMenu']:setVisible(false)
+
     if (not struct_match_item) then
         return
     end
@@ -63,7 +67,7 @@ function UI_ClanWarSelect_RivalListItem:setStructMatch(is_my_clan)
 	            icon = struct_user_info_clan:getLastTierIcon('big')       
             end
             if (icon) then
-                vars['clanMarkNode2']:addChild(icon)
+                vars['tierNode2']:addChild(icon)
             end
         end
 
@@ -78,34 +82,45 @@ function UI_ClanWarSelect_RivalListItem:setStructMatch(is_my_clan)
         end
     end
 
-    --[[
+
     do -- 공격자 정보 (이 리스트 아이템의 주인이 방어자)
         -- 진 경우 공격 상대 표시하지 않는다
 	    local struct_attack_enemy_match_item = struct_match_item:getLastDefender()
         if (struct_attack_enemy_match_item) then
+            -- 마지막 상대가 공격 실패했다는 것은 방어 성공했다는 의미
             if (struct_attack_enemy_match_item:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACK_FAIL']) then
-                struct_attack_enemy_match_item = nil
+                vars['noSelectMenu']:setVisible(true)
+                return
             end
         end
 
 	    if (struct_attack_enemy_match_item) then
             local enemy_nick = struct_attack_enemy_match_item:getMyNickName() or ''
             vars['attackNameLabel']:setString(enemy_nick)
-		    vars['arrowSprite']:setVisible(true)
             -- 승/패/승 세팅
             local l_game_result = struct_attack_enemy_match_item:getGameResult()
             self:setGameResult(l_game_result, is_my_clan)
 
+            -- 티어
+            local struct_user_info_clan = struct_attack_enemy_match_item:getUserInfo()
+            local icon
+            if (struct_user_info_clan) then
+	            icon = struct_user_info_clan:getLastTierIcon('big')       
+            end
+            if (icon) then
+                vars['tierNode1']:addChild(icon)
+            end
+
             -- 남은 시간 세팅
             local end_date = struct_attack_enemy_match_item:getEndDate()
             self:setEndTime(end_date)
+            vars['attackerMenu']:setVisible(true)
+
+        -- 상대가 없다면 미정
         else
-            local my_nick = struct_match_item:getMyNickName() or ''
-            vars['attackNameLabel']:setString(Str('미정'))
-            --vars['arrowSprite']:setVisible(false)
+            vars['noSelectMenu']:setVisible(true)
         end
     end
-    --]]
 end
 
 -------------------------------------
@@ -167,27 +182,18 @@ function UI_ClanWarSelect_RivalListItem:update(dt)
     local vars = self.vars
     local end_time = self.m_endTime
 
-    if (self.m_noTime) then
-        vars['lastTimeLabel']:setString('')
-        return
-    end
-
     if (not end_time) then
         vars['lastTimeLabel']:setString('')
         return
     end
-
-    -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
+    
     local cur_time = Timer:getServerTime_Milliseconds()
-    local remain_time = (end_time - cur_time)/1000
+    local remain_time = (end_time - cur_time)
     if (remain_time > 0) then
-        local hour = math.floor(remain_time / 3600)
-        local min = math.floor(remain_time / 60) % 60
-        vars['lastTimeLabel']:setString(Str('{1}:{2}', hour, min))
-        vars['lastTimeLabel']:setVisible(true)
+        vars['lastTimeLabel']:setString(datetime.makeTimeDesc_timer_filledByZero(remain_time))
     else
         vars['lastTimeLabel']:setString('')
-    end
+    end 
 end
 
 -------------------------------------
