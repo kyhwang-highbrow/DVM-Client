@@ -185,7 +185,10 @@ function UI_ClanWarMatchInfoDetailPopup:setDetailForYesterday(data)
     end
 
     local my_clan_id = g_clanWarData:getMyClanId()
-    vars['winNode']:setVisible(win_clan_id == my_clan_id)
+    local my_clan_win = (win_clan_id == my_clan_id)
+    vars['winNode']:setVisible(my_clan_win)
+    vars['defeatNode']:setVisible(not my_clan_win)
+    vars['resultNode']:setVisible(true)
 end
 
 -------------------------------------

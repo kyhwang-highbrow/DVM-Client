@@ -202,6 +202,16 @@ function StructClanWarMatchItem:getGameResult(history_number)
 
     -- ex) 101 - 승패승
     local l_result = pl.stringx.split(_history_number, ';')
+    -- 경기 결과가 나왔을 경우, 남은 공격 기회는 공격 불가 처리 = -1
+    -- ex) 1,1,-1 (승리했고 마지막은 공격 불가)
+    if (self:isDoAllGame()) then
+        for i = 1, 3 do 
+            if (not l_result[i]) then
+                l_result[i] = '-1'
+            end
+        end    
+    end
+
     return l_result or {}
 end
 

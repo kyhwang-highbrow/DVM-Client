@@ -1,5 +1,6 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
+local FIRST_ENTRANCE = true
 -------------------------------------
 -- class UI_ClanWarSelectScene
 -------------------------------------
@@ -38,7 +39,11 @@ end
 -- function onFocus
 -------------------------------------
 function UI_ClanWarSelectScene:onFocus()
-    self:refresh()
+    if (not FIRST_ENTRANCE) then
+        self:refresh()
+    end
+
+    FIRST_ENTRANCE = false
 end
 
 -------------------------------------
@@ -314,7 +319,7 @@ function UI_ClanWarSelectScene:click_readyBtn()
     local my_uid = g_userData:get('uid')
     local my_struct_match_item = struct_match:getMatchMemberDataByUid(my_uid)
     
-    UI_ClanWarShowSelectInfo(select_struct_match_item, my_struct_match_item, ok_cb)
+    UI_ClanWarShowSelectInfo(select_struct_match_item, ok_cb)
 end
 
 -------------------------------------
@@ -422,16 +427,32 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     end
 
 	-- 승/패/승 세팅
-    local l_game_result = struct_match_item:getGameResult()
-    for i, result in ipairs(l_game_result) do
+    local l_result = struct_match_item:getGameResult()
+    for i, result in ipairs(l_result) do
         local color
+        local sprite
         if (result == '0') then
             color = StructClanWarMatch.STATE_COLOR['LOSE']
-        else
+        elseif (result == '1') then
             color = StructClanWarMatch.STATE_COLOR['WIN']
+        elseif (result == '-1') then
+            sprite = cc.Sprite:create('res/ui/icons/clan_war_score_no_game.png')
+            sprite:setAnchorPoint(CENTER_POINT)
+            sprite:setDockPoint(CENTER_POINT)
+            sprite:setRotation(-45)
         end
+
         if (vars['setResult'..i]) then
-            vars['setResult'..i]:setColor(color)
+            if (color) then
+                vars['setResult'..i]:setVisible(true)
+                vars['setResult'..i]:setColor(color)
+            end
+
+            if (sprite) then
+                vars['setResult'..i]:setVisible(true)
+                vars['setResult'..i]:setOpacity(0)
+                vars['setResult'..i]:addChild(sprite)
+            end
         end
     end
 
@@ -493,7 +514,7 @@ UI_ClanWarShowSelectInfo = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWarShowSelectInfo:init(my_data, enemy_data, ok_cb)
+function UI_ClanWarShowSelectInfo:init(enemy_data, ok_cb)
     local vars = self:load('clan_war_popup_battle_info.ui')
     UIManager:open(self, UIManager.POPUP)
     g_currScene:pushBackKeyListener(ui, function() self:close() end, 'clan_war_popup_rival')
@@ -502,13 +523,13 @@ function UI_ClanWarShowSelectInfo:init(my_data, enemy_data, ok_cb)
 	self:doActionReset()
 	self:doAction(nil, false) 
     
-    self:initUI(my_data, enemy_data, ok_cb)
+    self:initUI(enemy_data, ok_cb)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ClanWarShowSelectInfo:initUI(my_data, enemy_data, ok_cb)
+function UI_ClanWarShowSelectInfo:initUI(enemy_data, ok_cb)
     local attacking_struct_match = enemy_data
     local ui_item = UI_ClanWarSelectSceneListItem(attacking_struct_match)
     ui_item:setNoTime()
@@ -519,7 +540,7 @@ function UI_ClanWarShowSelectInfo:initUI(my_data, enemy_data, ok_cb)
     ui_item.vars['setMenu']:setVisible(true)
     ui_item.vars['gameScoreSprite']:setVisible(true)
     self.vars['rivalItemNode']:addChild(ui_item.root)
-    self.vars['timeLabel']:setString(Str('남은 공격 시간 {1} 남음', '2:00'))
+    self.vars['timeLabel']:setString('02:00:00')
     
     self.vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
     self.vars['okBtn']:registerScriptTapHandler(function() self:close() ok_cb()  end)

@@ -33,7 +33,7 @@ function UI_ClanWarSelectSceneDefendHistoryItem:initUI(data)
         local icon
         if (result == '0') then
             icon = cc.Sprite:create('res/ui/icons/clan_war_icon_defense_0101.png')
-        else
+        elseif (result == '1') then
             icon = cc.Sprite:create('res/ui/icons/clan_war_icon_defense_0102.png')
         end
         if (vars['resultIconNode'..i]) then

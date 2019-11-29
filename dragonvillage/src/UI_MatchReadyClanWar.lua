@@ -58,22 +58,26 @@ function UI_MatchReadyClanWar:initResult()
     vars['clanWarStartBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 
     -- 승/패/승 세팅
-    local l_game_result = self.m_myStructMatchItem:getGameResult()
-    
-    for i, result in ipairs(l_game_result) do
+    local l_result = self.m_myStructMatchItem:getGameResult()
+    for i, result in ipairs(l_result) do
         local color
         if (result == '0') then
             color = StructClanWarMatch.STATE_COLOR['LOSE']
-        else
+        elseif (result == '1') then
             color = StructClanWarMatch.STATE_COLOR['WIN']
+        elseif (result == '-1') then
+
         end
+
         if (vars['setResult'..i]) then
-            vars['setResult'..i]:setColor(color)
-            vars['setResult'..i]:setVisible(true)
+            if (color) then
+                vars['setResult'..i]:setVisible(true)
+                vars['setResult'..i]:setColor(color)
+            end
         end
     end
 
-	local no_time = (#l_game_result == 0)
+	local no_time = (#l_result == 0) -- 매치화면에 들어왔다는 것은 이미 시간 어택 시작했다는 의미
 	vars['lastTimeLabel']:setVisible(not no_time)
 	vars['noTimeSprite']:setVisible(no_time)
 end
@@ -83,23 +87,8 @@ end
 -------------------------------------
 function UI_MatchReadyClanWar:update()
     local vars = self.vars
-    local end_time = self.m_myStructMatchItem:getEndDate()
-
-    if (not end_time) then
-        vars['lastTimeLabel']:setString('')
-        return
-    end
-
-    -- 공격 끝날 때 까지 남은 시간 = 공격 시작 시간 + 1시간
-    local cur_time = Timer:getServerTime_Milliseconds()
-    local remain_time = (end_time - cur_time)/1000
-    if (remain_time > 0) then
-        local hour = math.floor(remain_time / 3600)
-        local min = math.floor(remain_time / 60) % 60
-        vars['lastTimeLabel']:setString(Str('남은 공격 시간 {1}:{2} 남음', hour, min))
-    else
-        vars['lastTimeLabel']:setString('')
-    end
+    local remain_text = self.m_myStructMatchItem:getRemainEndTimeText()
+    vars['lastTimeLabel']:setString(remain_text)
 end
 
 -------------------------------------

@@ -189,14 +189,29 @@ function UI_ClanWarMatchingSceneListItem:setResult()
     local l_result = struct_match_item:getGameResult()
     for i, result in ipairs(l_result) do
         local color
+        local sprite
         if (result == '0') then
             color = StructClanWarMatch.STATE_COLOR['LOSE']
-        else
+        elseif (result == '1') then
             color = StructClanWarMatch.STATE_COLOR['WIN']
+        elseif (result == '-1') then
+            sprite = cc.Sprite:create('res/ui/icons/clan_war_score_no_game.png')
+            sprite:setAnchorPoint(CENTER_POINT)
+            sprite:setDockPoint(CENTER_POINT)
+            sprite:setRotation(-45)
         end
+        
         if (vars['setResult'..i]) then
-            vars['setResult'..i]:setColor(color)
-            vars['setResult'..i]:setVisible(true)
+            if (color) then
+                vars['setResult'..i]:setVisible(true)
+                vars['setResult'..i]:setColor(color)
+            end
+
+            if (sprite) then
+                vars['setResult'..i]:setVisible(true)
+                vars['setResult'..i]:setOpacity(0)
+                vars['setResult'..i]:addChild(sprite)
+            end
         end
     end
 end
