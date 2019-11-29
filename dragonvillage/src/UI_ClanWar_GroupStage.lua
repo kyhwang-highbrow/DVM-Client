@@ -107,6 +107,9 @@ function UI_ClanWar_GroupStage:initUI(ret)
     --self.m_groupPaging:setPage(1)
     local group = (g_clanWarData:getMyClanGroup() or 1)
     self.m_groupPaging:setGroup(group)
+
+    -- 개발용 UI off
+    vars['testMenu']:setVisible(false)
 end
 
 -------------------------------------
@@ -122,10 +125,12 @@ function UI_ClanWar_GroupStage:initButton()
     vars['startBtn2']:registerScriptTapHandler(function() self:click_startBtn() end)
 
     -- 테스트용 버튼
+    --[[
     vars['testTomorrowBtn']:registerScriptTapHandler(function() 
         g_clanWarData:request_testNextDay() 
         UIManager:toastNotificationRed('다음날이 되었습니다. ESC로 나갔다가 다시 진입해주세요')
-    end) 
+    end)
+    --]] 
 end
 
 -------------------------------------

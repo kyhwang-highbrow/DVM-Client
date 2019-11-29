@@ -83,6 +83,9 @@ function UI_ClanWarSelectScene:initUI()
 	end
 
     --vars['myClanListNode']:setVisible(true)
+
+    -- 개발용 UI off
+    vars['testMenu']:setVisible(false)
 end
 
 -------------------------------------
