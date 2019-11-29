@@ -670,6 +670,11 @@ function UI_ClanWarShowSelectInfo:initUI(enemy_data, ok_cb)
     self.vars['userNameLabel']:setString(nick_name)
     self.vars['timeLabel']:setString('02:00:00')
     
+    local struct_user_info_clan = attacking_struct_match:getUserInfo()
+    local icon = struct_user_info_clan:getLastTierIcon() 
+    if (icon) then
+        self.vars['tierNode']:addChild(icon)
+    end
     self.vars['cancelBtn']:registerScriptTapHandler(function() self:close() end)
     self.vars['okBtn']:registerScriptTapHandler(function() self:close() ok_cb()  end)
     self.vars['closBtn']:registerScriptTapHandler(function() self:close() end)
