@@ -1,6 +1,5 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
-local FIRST_ENTRANCE = true
 -------------------------------------
 -- class UI_ClanWarSelectScene
 -------------------------------------
@@ -11,6 +10,7 @@ UI_ClanWarSelectScene = class(PARENT,{
 
         m_myTableView = '',
         m_enemyTableView = '',
+        m_bFirstEntrance = 'boolean', -- UI생성 후 첫번째 진입인지 여부
 })
 
 -------------------------------------
@@ -26,6 +26,9 @@ function UI_ClanWarSelectScene:initParentVariable()
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'clancoin'
     self.m_uiBgm = 'bgm_lobby'
+
+
+    self.m_bFirstEntrance = true
 end
 
 -------------------------------------
@@ -39,11 +42,11 @@ end
 -- function onFocus
 -------------------------------------
 function UI_ClanWarSelectScene:onFocus()
-    if (not FIRST_ENTRANCE) then
+    if (not self.m_bFirstEntrance) then
         self:refresh()
     end
 
-    FIRST_ENTRANCE = false
+    self.m_bFirstEntrance = false
 end
 
 -------------------------------------
