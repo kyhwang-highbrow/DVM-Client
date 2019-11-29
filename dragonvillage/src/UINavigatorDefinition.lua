@@ -1882,13 +1882,6 @@ function UINavigatorDefinition:goTo_clan_war(...)
         return
     end
 
-	-- 클랜전 UI가 열려있을 경우
-	local is_opend, idx, ui = self:findOpendUI('UI_ClanWar_GroupStage')
-	if (is_opend == true) then
-		self:closeUIList(idx)
-		return
-	end
-
     local function finish_cb(ret)
         -- 정비 상태 여부 체크
         if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['LOCK']) then
@@ -1904,6 +1897,15 @@ function UINavigatorDefinition:goTo_clan_war(...)
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return       
         end
+        
+		-- 클랜전 UI가 열려있을 경우
+        -- 기존처럼 UI 갱신이 아니라 클랜전 로비를 다시 만들어 줄 것이기 때문에 idx-1까지 UI닫고 생성함
+		local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
+		if (is_opend == true) then
+			self:closeUIList(idx-1)
+			create_clan_war_ui(ret)
+			return
+		end
 
         -- 클랜전 UI 생성 함수
         local function create_clan_war_ui(ret)

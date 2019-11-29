@@ -331,6 +331,7 @@ function UI_ClanWarMatchInfoDetailMiniPopup:initUI(data)
     end
 
     local my_clan_is_b = false
+    local my_clan_id = g_clanWarData:getMyClanId()
     if (data['b_clan_id'] == my_clan_id) then
         my_clan_is_b = true
     end
