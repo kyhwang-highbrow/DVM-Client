@@ -174,6 +174,61 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
 end
 
 -------------------------------------
+-- function memberListSort
+-- @brief
+-- 1. 경기 중
+-- 2. 경기 완료
+-- 3. 티어 순
+-- @param user_a StructUserInfoClanWar
+-- @param user_b StructUserInfoClanWar
+-- @return boolean
+-------------------------------------
+function UI_ClanWarMatchingScene:memberListSort(user_a, user_b)
+    local struct_match = self.m_structMatch
+
+    -- 0. 유저 정보가 없는 경우 (부전패
+    local a_user = user_a:getUserInfo()
+    local b_user = user_b:getUserInfo()
+    if (not a_user) then
+	    return false
+    end
+    if (not b_user) then
+	    return true
+    end
+
+    -- 1. 경기 중인지 여부
+    local struct_match_item_a = struct_match:getMatchMemberDataByUid(user_a['uid'])
+    local struct_match_item_b = struct_match:getMatchMemberDataByUid(user_b['uid'])
+    local attack_state_a = struct_match_item_a:getAttackState()
+    local attack_state_b = struct_match_item_b:getAttackState()
+    if (attack_state_a ~= attack_state_b) then
+        if (attack_state_a == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) then
+            -- a만 공격 중이니까
+            return true
+        elseif (attack_state_b == StructClanWarMatchItem.ATTACK_STATE['ATTACKING']) then
+            -- b만 공격 중이니까
+            return false
+        end
+    end
+
+
+    -- 2. 경기 종료 여부
+    if (attack_state_a ~= attack_state_b) then
+        if (attack_state_b == StructClanWarMatchItem.ATTACK_STATE['ATTACK_POSSIBLE']) then
+            -- b는 공격 전, a는 공격 후(승 or 패)
+            return true
+        elseif (attack_state_a == StructClanWarMatchItem.ATTACK_STATE['ATTACK_POSSIBLE']) then
+            -- a는 공격 전, a는 공격 후(승 or 패)
+            return false
+        end
+    end
+
+    
+    -- 3. 티어
+    return a_user:getTierOrder() > b_user:getTierOrder()
+end
+
+-------------------------------------
 -- function setMemberTableView
 -------------------------------------
 function UI_ClanWarMatchingScene:setMemberTableView()
@@ -181,17 +236,8 @@ function UI_ClanWarMatchingScene:setMemberTableView()
     local struct_match = self.m_structMatch
 
     -- 티어 순으로 정렬 함수
-    local sort_func = function(a,b)
-		a_user = a:getUserInfo()
-		b_user = b:getUserInfo()
-		if (not a_user) then
-			return false
-		end
-
-		if (not b_user) then
-			return true
-		end
-		return a_user:getTierOrder() > b_user:getTierOrder()
+    local sort_func = function(user_a, user_b)
+        return self:memberListSort(user_a, user_b)
 	end
 
     -- 나와 상대방 정보 세팅하는 생성 함수
