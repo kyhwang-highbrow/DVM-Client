@@ -61,6 +61,8 @@ function UI_ClanWarSelectScene:init(struct_match)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarSelectScene')
 
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
     self:initUI()
 	self:initButton()
 end
@@ -300,6 +302,9 @@ end
 -------------------------------------
 function UI_ClanWarSelectScene:initButton()
 	local vars = self.vars
+    vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
+    vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
 	vars['startBtn']:registerScriptTapHandler(function() self:click_readyBtn(true) end)
 
     -- 아군 리스트 표시 여부
@@ -548,6 +553,37 @@ function UI_ClanWarSelectScene:setSelectStructMatch(struct_match_item, is_enemy)
     vars['noSelectMenu']:setVisible(not is_selected)
 end
 
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ClanWarSelectScene:update(dt)
+	local vars = self.vars
+
+    local cur_time = Timer:getServerTime_Milliseconds()
+    local str = '-'
+    -- 경기 진행 중 (경기 종료까지 남은 시간 표시)
+    if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        local milliseconds = (g_clanWarData.today_end_time - cur_time)
+
+        local hour = math.floor(milliseconds / 3600000)
+        milliseconds = milliseconds - (hour * 3600000)
+
+        local min = math.floor(milliseconds / 60000)
+        milliseconds = milliseconds - (min * 60000)
+
+        local sec = math.floor(milliseconds / 1000)
+        milliseconds = milliseconds - (sec * 1000)
+
+        str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+        
+    -- 경기 진행 중이 아닌 경우 (시간을 표기하지 않음)
+    else
+        str = '-'
+    end
+
+    vars['timeLabel']:setString(str)
+    vars['timeLabel2']:setString(str)
+end
 
 
 
