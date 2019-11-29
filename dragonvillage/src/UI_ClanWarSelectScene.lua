@@ -306,6 +306,7 @@ function UI_ClanWarSelectScene:initButton()
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
     vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
 	vars['startBtn']:registerScriptTapHandler(function() self:click_readyBtn(true) end)
+    vars['startBtn2']:registerScriptTapHandler(function() self:click_readyBtn(true) end)
 
     -- 아군 리스트 표시 여부
     vars['myClanBtn'] = UIC_CheckBox(vars['myClanBtn'].m_node, vars['myClanCheckSprite'], false)
@@ -334,6 +335,7 @@ end
 function UI_ClanWarSelectScene:click_readyBtn()
 	local struct_match = self.m_tStructMatch
     if (not self.m_curSelectEnemyStructMatch) then
+        UIManager:toastNotificationRed(Str('공격할 대상을 선택하세요.'))
         return
     end
 
