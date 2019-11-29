@@ -18,6 +18,7 @@ L_TIER['legend']= 9
 StructUserInfoClanWar = class(PARENT, {
 	m_structMatchItem = 'StructClanWarMatchItem',
 	m_lastTier = 'string',
+    m_lastRank = 'number',
 })
 
 -------------------------------------
@@ -39,6 +40,27 @@ end
 -------------------------------------
 function StructUserInfoClanWar:setLastTier(last_tier)
 	self.m_lastTier = last_tier
+end
+
+-------------------------------------
+-- function setLastRank
+-- @brief 콜로세움 지난 시즌 랭킹
+-------------------------------------
+function StructUserInfoClanWar:setLastRank(last_rank)
+	self.m_lastRank = last_rank
+end
+
+-------------------------------------
+-- function getLastRank
+-- @brief 콜로세움 지난 시즌 랭킹
+-------------------------------------
+function StructUserInfoClanWar:getLastRank()
+    -- 값이 없을 경우 우선순위를 낮추기 위해 낮은 숫자로 지정
+	if (self.m_lastRank == nil) or (self.m_lastRank <= 0) then
+        return 999999
+    end
+
+    return self.m_lastRank
 end
 
 -------------------------------------

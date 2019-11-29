@@ -223,9 +223,13 @@ function UI_ClanWarMatchingScene:memberListSort(user_a, user_b)
         end
     end
 
-    
     -- 3. 티어
-    return a_user:getTierOrder() > b_user:getTierOrder()
+    if (a_user:getTierOrder() ~= b_user:getTierOrder()) then
+        return a_user:getTierOrder() > b_user:getTierOrder()
+    end
+
+    -- 4. 순위
+    return a_user:getLastRank() < b_user:getLastRank()
 end
 
 -------------------------------------

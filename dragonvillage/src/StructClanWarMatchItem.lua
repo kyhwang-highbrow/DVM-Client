@@ -79,6 +79,10 @@ function StructClanWarMatchItem:init(data)
 			if (data['user_info']['info']['last_tier']) then
 				self['user_info']:setLastTier(data['user_info']['info']['last_tier'])
 			end
+
+            if (data['user_info']['info']['last_rank']) then
+				self['user_info']:setLastRank(data['user_info']['info']['last_rank'])
+			end
 		end 
     end
 

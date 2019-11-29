@@ -156,7 +156,13 @@ function UI_ClanWarSelectScene:initEnemyTableView()
 			return true
 		end
 
-		return a_user:getTierOrder() > b_user:getTierOrder()
+        -- 1. 티어
+        if (a_user:getTierOrder() ~= b_user:getTierOrder()) then
+            return a_user:getTierOrder() > b_user:getTierOrder()
+        end
+
+		-- 2. 순위
+        return a_user:getLastRank() < b_user:getLastRank()
 	end
 
 	table.sort(l_enemy, sort_func)
