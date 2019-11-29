@@ -477,7 +477,7 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
     
 	local response_status_cb = function(ret)
 		-- 가입한 당일 유저 select 통신 요청했을 경우 
-        if (ret['status'] == -1108) then
+        if (ret['status'] == -1138) then
             local msg = '매치 시작 이후 클랜에 가입한 유저는 해당 매치에 참여할 수 없습니다.'
             MakeSimplePopup(POPUP_TYPE.OK, msg, function() 
                 if (refresh_cb) then
@@ -487,6 +487,16 @@ function ServerData_ClanWar:request_clanWarStart(enemy_uid, finish_cb)
             return true
         end
 
+        if (ret['status'] == -1108) then
+            local msg = '잘못된 요청입니다.'
+            MakeSimplePopup(POPUP_TYPE.OK, msg, function() 
+                if (refresh_cb) then
+                    refresh_cb()
+                end
+            end)
+            return true
+        end
+        
 		return g_clanWarData:responseStatusCB(ret)		
 	end
 
@@ -562,8 +572,18 @@ function ServerData_ClanWar:request_clanWarSelect(enemy_uid, finish_cb, refresh_
         end
 		
 		-- 가입한 당일 유저 select 통신 요청했을 경우 
-        if (ret['status'] == -1108) then
+        if (ret['status'] == -1138) then
             local msg = '매치 시작 이후 클랜에 가입한 유저는 해당 매치에 참여할 수 없습니다.'
+            MakeSimplePopup(POPUP_TYPE.OK, msg, function() 
+                if (refresh_cb) then
+                    refresh_cb()
+                end
+            end)
+            return true
+        end
+
+        if (ret['status'] == -1108) then
+            local msg = '잘못된 요청입니다.'
             MakeSimplePopup(POPUP_TYPE.OK, msg, function() 
                 if (refresh_cb) then
                     refresh_cb()
