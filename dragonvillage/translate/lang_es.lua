@@ -73,7 +73,7 @@ return {['{@yellow}세트 스코어{@default}가 동점일 경우 아래의 조�
 ['아군이 공격중인 대상은 동시에 공격할 수는 없습니다.\n(단, 공격중이던 아군이 공격에 실패할 경우에는 공격할 수 있습니다.)']='Mientras un oponente esté atacando a un aliado tú no puedes atacar.\n(Sin embargo, si ese ataque a tu aliado es fallido, tú puedes atacar).',
 ['어제의 경기 결과']='Resultados de los Partidos de ayer',
 ['미정']='Indeterminado',
-['공격 하기']='Atacar',
+['공격하기']='Atacar',
 ['게임은 {@YELLOW}콜로세움{@DEFAULT}과 같은 규칙으로 진행됩니다.']='Los Juegos se rigen con las mismas reglas que el {@YELLOW}Coliseo{@DEFAULT}.',
 ['{@YELLOW}리더 스킬, 테이머 스킬{@DEFAULT} 등도 콜로세움과 같은 조건으로 사용할 수 있습니다.']='{@YELLOW} Las Habilidades del Líder, las Habilidades del Domador{@DEFAULT} así como otras habilidades, pueden usar las condiciones que se usan en el Coliseo.',
 ['{@YELLOW}매치{@DEFAULT}(클랜간의 경기)에서 각 클랜원은 상대방 클랜원 중 1명을 선택하여 {@YELLOW}세트{@DEFAULT}(3판 2선승제의 전투)를 진행합니다.']='En los {@YELLOW}Encuentros{@DEFAULT} (Partidos de cada Clan), cada miembro del Clan selecciona a un miembro del Clan oponente para los {@YELLOW}Combate 1 a 1{@DEFAULT} (las batallas son de 3 juegos para ganar 2).',
