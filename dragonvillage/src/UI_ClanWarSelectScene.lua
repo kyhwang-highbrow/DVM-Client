@@ -53,7 +53,7 @@ end
 -- function init
 -------------------------------------
 function UI_ClanWarSelectScene:init(struct_match)
-    local vars = self:load('clan_war_match_select_scene.ui')
+    local vars = self:load('clan_war_match_select_scene_new.ui')
     self.m_tStructMatch = struct_match or {}
 
     UIManager:open(self, UIManager.SCENE)
@@ -79,6 +79,8 @@ function UI_ClanWarSelectScene:initUI()
 		vars['userNameLabel' .. i]:setString('')
 		vars['powerLabel' .. i]:setString('')
 	end
+
+    --vars['myClanListNode']:setVisible(true)
 end
 
 -------------------------------------
@@ -153,25 +155,30 @@ function UI_ClanWarSelectScene:initEnemyTableView()
 	end
 
 	table.sort(l_enemy, sort_func)
+
+    -- 첫 상대를 선택
+    --[[
     for i, data in ipairs(l_enemy) do
         if (i == 1) then
             self.m_curSelectEnemyStructMatch = data
             break
         end 
     end
+    --]]
 
 
 	vars['defenseNumLavel']:setString(Str('방어인원 {1}', #l_enemy))
     local create_func = function(ui, struct_match_item)
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 
-            self.m_curSelectEnemyStructMatch = struct_match_item 
-            self:refreshFocusUserInfo(true)
-            self:selectItem()
+            self:setSelectStructMatch(struct_match_item, true) -- param : struct_match_item, is_enemy
+
         end)
         ui:setStructMatch(struct_match, false)
-        if (self.m_curSelectEnemyStructMatch['uid'] == struct_match_item['uid']) then
-            ui:setSelected(true)
+        if self.m_curSelectEnemyStructMatch then
+            if (self.m_curSelectEnemyStructMatch['uid'] == struct_match_item['uid']) then
+                ui:setSelected(true)
+            end
         end
     end
 
@@ -179,7 +186,7 @@ function UI_ClanWarSelectScene:initEnemyTableView()
     local table_view = UIC_TableView(vars['rivalClanListNode'])
     table_view.m_defaultCellSize = cc.size(548, 80 + 5)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    table_view:setCellUIClass(UI_ClanWarSelectSceneListItem, create_func)
+    table_view:setCellUIClass(UI_ClanWarSelect_RivalListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_enemy)
     self.m_enemyTableView = table_view
@@ -207,9 +214,7 @@ function UI_ClanWarSelectScene:initMyTableView()
     local create_func = function(ui, struct_match_item)
         -- 클릭했을 때 
         ui.vars['selectBtn']:registerScriptTapHandler(function() 
-            self.m_curSelectEnemyStructMatch = struct_match_item 
-            self:refreshFocusUserInfo()
-            self:selectItem()
+            self:setSelectStructMatch(struct_match_item, false) -- param : struct_match_item, is_enemy
         end)
     end
 
@@ -255,13 +260,20 @@ end
 
 -------------------------------------
 -- function selectItem
+-- @param deselect_all boolean true일 경우 모든 리스트 아이템을 미선택으로 처리
 -------------------------------------
-function UI_ClanWarSelectScene:selectItem()
-    if (not self.m_curSelectEnemyStructMatch) then
-        return
+function UI_ClanWarSelectScene:selectItem(deselect_all)
+    local selected_uid
+    if (deselect_all == true) then
+        selected_uid = nil
+    else
+        if self.m_curSelectEnemyStructMatch then
+            selected_uid = self.m_curSelectEnemyStructMatch['uid']
+        else
+            return
+        end
     end
 
-    local selected_uid = self.m_curSelectEnemyStructMatch['uid']
     if (self.m_enemyTableView) then
         local l_enemy = self.m_enemyTableView.m_itemList
 	    for _, data in ipairs(l_enemy) do
@@ -288,7 +300,25 @@ end
 -------------------------------------
 function UI_ClanWarSelectScene:initButton()
 	local vars = self.vars
-	vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn(true) end)
+	vars['startBtn']:registerScriptTapHandler(function() self:click_readyBtn(true) end)
+
+    -- 아군 리스트 표시 여부
+    vars['myClanBtn'] = UIC_CheckBox(vars['myClanBtn'].m_node, vars['myClanCheckSprite'], false)
+    --vars['myClanBtn']:setChecked(false)
+    local function on_change_cb(checked)
+        vars['myClanListNode']:setVisible(checked)
+
+        vars['middleInfoMenu']:stopAllActions()
+        vars['rivalClanListNode']:stopAllActions()
+        if checked then
+            vars['middleInfoMenu']:runAction(cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(120, 0)), 2))
+            vars['rivalClanListNode']:runAction(cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(396, 92)), 2))
+        else
+            vars['middleInfoMenu']:runAction(cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(0, 0)), 2))
+            vars['rivalClanListNode']:runAction(cc.EaseInOut:create(cc.MoveTo:create(0.3, cc.p(276, 92)), 2))
+        end
+    end
+    vars['myClanBtn']:setChangeCB(on_change_cb)
 end
 
 -------------------------------------
@@ -399,7 +429,7 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     vars['rivalClanMenu']:setVisible(is_enemy)
     
     -- 내 클랜원일 경우 공격 불가능
-    vars['readyBtn']:setVisible(is_enemy)
+    vars['startBtn']:setVisible(is_enemy)
 	local struct_clan_info = struct_match_item:getUserInfo()
     -- 리더 드래곤
 	--[[
@@ -491,6 +521,32 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     vars['powerLabel' .. ui_idx]:setString(tostring(comebat_power))
 end
 
+-------------------------------------
+-- function setSelectStructMatch
+-- @brief 왼쪽 아군 리스트, 오른쪽 적군 리스트 중 하나를 선택했을 때
+-- @param struct_match_item StructClanWarMatchItem
+-- @param is_enemy boolean 
+-------------------------------------
+function UI_ClanWarSelectScene:setSelectStructMatch(struct_match_item, is_enemy)
+
+    local deselect_all = false
+
+    -- 같은 것을 선택했을 때에는 선택 해제로 처리
+    if (self.m_curSelectEnemyStructMatch == struct_match_item) then
+        struct_match_item = nil
+        deselect_all = true
+    end
+
+    self.m_curSelectEnemyStructMatch = struct_match_item
+    self:refreshFocusUserInfo(is_enemy)
+    self:selectItem(deselect_all)
+
+    -- 선택 상태에 따라 정보 표시 변경
+    local vars = self.vars
+    local is_selected = (self.m_curSelectEnemyStructMatch ~= nil)
+    vars['selectMenu']:setVisible(is_selected)
+    vars['noSelectMenu']:setVisible(not is_selected)
+end
 
 
 
