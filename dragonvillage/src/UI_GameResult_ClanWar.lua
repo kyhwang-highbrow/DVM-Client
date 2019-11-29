@@ -43,7 +43,7 @@ function UI_GameResult_ClanWar:initUI(is_success)
     self.m_endDate = struct_clan_war_match_item:getEndDate()
 
 	-- 승/패/승 세팅
-    local l_result = struct_match_item:getGameResult()
+    local l_result = struct_clan_war_match_item:getGameResult()
     for i, result in ipairs(l_result) do
         local color
         local sprite
