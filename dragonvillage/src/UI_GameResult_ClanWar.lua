@@ -94,15 +94,11 @@ function UI_GameResult_ClanWar:update()
     local end_time = self.m_endDate or 0
 
     local cur_time = Timer:getServerTime_Milliseconds()
-    local remain_time = (end_time - cur_time)/1000
+    local remain_time = (end_time - cur_time)
     if (remain_time > 0) then
-        local hour = math.floor(remain_time / 3600)
-        local min = math.floor(remain_time / 60) % 60
-		self.vars['lastTimeLabel']:setString(Str('남은 공격 시간 {1}:{2}', hour, min))
-	else
-		self.vars['lastTimeLabel']:setString('')
-	end
-	
+        local text = datetime.makeTimeDesc_timer_filledByZero(remain_time)
+		self.vars['lastTimeLabel']:setString(text)
+    end 
 end
 
 -------------------------------------

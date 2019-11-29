@@ -834,16 +834,8 @@ function ServerData_ClanWar:showPromoteGameStartPopup()
         ui_item:setStructMatch()
         ui.vars['rivalItemNode']:addChild(ui_item.root)
 
-        local end_time = my_struct_match_item:getEndDate()
-        local cur_time = Timer:getServerTime_Milliseconds()
-        local remain_time = (end_time - cur_time)/1000
-        local hour = math.floor(remain_time / 3600)
-        local min = math.floor(remain_time / 60) % 60
-        if (remain_time > 0) then
-            ui.vars['timeLabel']:setString(Str('남은 공격 시간 {1}:{2} 남음', hour, min))    
-        else
-            ui.vars['timeLabel']:setString('')
-        end
+        local end_time_text = my_struct_match_item:getRemainEndTimeText()
+        ui.vars['timeLabel']:setString(end_time_text)
 
         ui.vars['okBtn']:registerScriptTapHandler(function() 
             local goto_select_scene_cb = function()

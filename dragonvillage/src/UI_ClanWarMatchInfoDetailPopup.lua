@@ -53,9 +53,11 @@ function UI_ClanWarMatchInfoDetailPopup:initUI(data, is_yesterday_result)
         end
     end
 
+    -- rich, lua 있어서 번역 안들어 가는 부분
     local win_condition_text = Str('{@yellow}세트 스코어{@default}가 동점일 경우 아래의 조건을 순서대로 비교해 승리 클랜을 결정합니다.')
-    vars['winConditionLabel']:setString(win_condition_text)
-
+    if (vars['winConditionLabel']) then
+        vars['winConditionLabel']:setString(win_condition_text)
+    end
     local l_win_condition = {'승리한 게임 수', '참여 클랜원 수', '클랜 레벨(경험치)', '클랜 생성일'}
     for i, label in ipairs(l_win_condition) do
         if (vars['conditionLabel' .. i+1]) then
