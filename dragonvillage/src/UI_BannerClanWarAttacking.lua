@@ -62,6 +62,8 @@ function UI_BannerClanWarAttacking:update()
     local remain_time = (end_time - cur_time)
     if (remain_time > 0) then
         vars['timeLabel']:setString(datetime.makeTimeDesc_timer_filledByZero(remain_time))
+    else
+        vars['timeLabel']:setString('')
     end
 end
 

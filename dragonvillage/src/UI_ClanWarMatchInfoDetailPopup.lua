@@ -206,12 +206,22 @@ end
 -------------------------------------
 -- function setDetail
 -------------------------------------
-function UI_ClanWarMatchInfoDetailPopup.setDetail(vars, idx, data)
- 	
+function UI_ClanWarMatchInfoDetailPopup.setDetail(vars, idx, data, my_clan_is_b)
 	local prefix = 'a_'
-	if (idx == 2) then
-		prefix = 'b_'
-	end   
+     -- a_my_clan_id 가 내 클랜일 경우/아닐 경우 유아이 반대로 찍어야함
+     if (not my_clan_is_b) then
+        if (idx == 1) then
+            prefix = 'a_'
+        else
+            prefix = 'b_'
+        end
+     else
+        if (idx == 1) then
+            prefix = 'b_'
+        else
+            prefix = 'a_'
+        end	 
+     end   
 
     local match_number
     if (data['day']) then
@@ -351,7 +361,7 @@ function UI_ClanWarMatchInfoDetailMiniPopup:initUI(data)
     for i = 1, 2 do    
 		local is_valid_clan = UI_ClanWarMatchInfoDetailPopup.setClanInfoPopup(vars, i, data, my_clan_is_b)
         if (is_valid_clan) then
-		    UI_ClanWarMatchInfoDetailPopup.setDetail(vars, i, data)
+		    UI_ClanWarMatchInfoDetailPopup.setDetail(vars, i, data, my_clan_is_b)
         end
     end
 end
