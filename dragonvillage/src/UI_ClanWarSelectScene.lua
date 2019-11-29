@@ -436,7 +436,7 @@ function UI_ClanWarSelectScene:refreshCenterUI(is_enemy)
     vars['rivalClanMenu']:setVisible(is_enemy)
     
     -- 내 클랜원일 경우 공격 불가능
-    vars['startBtn']:setVisible(is_enemy)
+    --vars['startBtn']:setVisible(is_enemy)
 	local struct_clan_info = struct_match_item:getUserInfo()
     -- 리더 드래곤
 	--[[
