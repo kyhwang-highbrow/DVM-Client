@@ -163,14 +163,26 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
             local clan_lv = struct_clan_rank:getClanLv() or ''
             local level_text = string.format('Lv.%d', clan_lv)
             vars['clanlLevelLabel'..idx]:setString(level_text)
-            
-            local attack_memeber_cnt, max_clan_member_cnt = struct_match:getAttackMemberCnt(t_clan)
-            vars['matchNumLabel'..idx]:setString(Str('{1}/{2}', attack_memeber_cnt, max_clan_member_cnt))
         end
     end
+
+    local a_clan = struct_match:getMyMatchData()
+    local b_clan = struct_match:getEnemyMatchData()    
+    local a_member_cnt, a_max_clan_member_cnt = struct_match:getAttackMemberCnt(a_clan)
+    local b_member_cnt, b_max_clan_member_cnt = struct_match:getAttackMemberCnt(b_clan)
+
+    local match_info = struct_match:getMatchInfo()
+    local my_clan_id = g_clanWarData:getMyClanId()
+    if (match_info['a_clan_id'] == my_clan_id) then
+        a_member_cnt = match_info['a_play_member_cnt']
+        b_member_cnt = match_info['b_play_member_cnt']
+    else
+        a_member_cnt = match_info['b_play_member_cnt']
+        b_member_cnt = match_info['a_play_member_cnt']               
+    end
     
-    -- 처치수
-    -- self:setClanWarScore(struct_match:getMyMatchData(), struct_match:getEnemyMatchData())    
+    vars['matchNumLabel1']:setString(Str('{1}/{2}', a_member_cnt, a_max_clan_member_cnt)) 
+    vars['matchNumLabel2']:setString(Str('{1}/{2}', b_member_cnt, b_max_clan_member_cnt))  
 end
 
 -------------------------------------
