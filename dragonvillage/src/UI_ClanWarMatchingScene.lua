@@ -266,6 +266,9 @@ function UI_ClanWarMatchingScene:setMemberTableView()
         self.m_myTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         self.m_myTableView:setItemList(l_myClan)
 
+        -- 경기(매치) 화면에서는 진행 중인 경기가 상단에 표시되므로 내 위치를 보여주는 것보다
+        -- 상단을 보여주는 것이 낫다고 판단되어 제거
+        --[[
         -- 내 uid에 포커싱
         local my_uid = g_userData:get('uid')
         local idx = 1
@@ -279,6 +282,7 @@ function UI_ClanWarMatchingScene:setMemberTableView()
 
         self.m_myTableView:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         self.m_myTableView:relocateContainerFromIndex(idx)
+        --]]
     end
 
 
