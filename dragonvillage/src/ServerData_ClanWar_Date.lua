@@ -1,5 +1,3 @@
-local TABLE_DAY_ROUND = { [6] = 256, [7] = 128, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
-
 -------------------------------------
 -- function getClanWarState
 -------------------------------------
@@ -91,15 +89,6 @@ function ServerData_ClanWar:checkClanWarState_Tournament()
 
 	if (is_open) then
 		return true, msg
-	end
-
-	-- 토너먼트 진행 안 하는 날 : 일본 서버의 경우 이틀 뒤 시작한다
-	if (not g_clanWarData:isMatchDay(self.m_clanWarDay)) then
-		local round = g_clanWarData:getTodayRoundText(1)
-        local time = g_clanWarData:getRemainStartGameTime()
-        local game_name = round
-		msg = game_name .. ' ' .. Str('토너먼트를 준비중입니다.') .. '\n{@green}' .. Str('다음 전투까지 {1} 남음', time)
-		return false, msg
 	end
 
 	-- 경기 중이 아닐 경우
@@ -407,47 +396,8 @@ end
 -------------------------------------
 -- function getTodayRound
 -------------------------------------
-function ServerData_ClanWar:getTodayRound(next_day)
-	local day = self.m_clanWarDay + (next_day or 0)
-    local t_day = g_clanWarData:getTableDayRound()
-	
-	return t_day[day]
-end
-
--------------------------------------
--- function getTableDayRound
--------------------------------------
-function ServerData_ClanWar:getTableDayRound()
-    local max_round = g_clanWarData:getMaxRound()
-    local table_day = clone(TABLE_DAY_ROUND)
-    for day, round in ipairs(TABLE_DAY_ROUND) do -- { [6] = max_round, [7] = max_round, [8] = 64, [9] = 32, [10] = 16, [11] = 8, [12] = 4, [13] = 2, [14] = 1}
-        if (day >= 8) then
-            table_day[day] = max_round
-        else
-            table_day[day] = round
-        end
-    end
-
-    return table_day
-end
-
--------------------------------------
--- function getDayByRound
--------------------------------------
-function ServerData_ClanWar:getDayByRound(round)
-	local max_round = g_clanWarData:getMaxRound()
-    local t_day = g_clanWarData:getTableDayRound()
-
-    local last_day = 0
-	for day, data in pairs(t_day) do
-        if (data == round) then
-            if (last_day < day) then
-                last_day = day
-            end
-        end
-    end
-    
-    return last_day
+function ServerData_ClanWar:getTodayRound()
+    return self.m_clanWarTodayRound
 end
 
 -------------------------------------

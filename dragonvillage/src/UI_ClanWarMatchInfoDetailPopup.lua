@@ -287,17 +287,6 @@ end
 -------------------------------------
 function UI_ClanWarMatchInfoDetailPopup:setDetail(ui_idx, clan_match_info)
     local vars = self.vars
-    
-    local match_info = self.m_tMatchInfo
-	
-    --day 정보가 있다면 조별리그, group_stage 정보가 있다면 토너먼트 
-    local match_number
-    if (match_info['day']) then
-        match_number = match_info['day'] or 0
-    else
-        local round = match_info['group_stage']
-        match_number = g_clanWarData:getDayByRound(round)
-    end
 
 	-- 게임 스코어
     local win, lose = clan_match_info['win_cnt'] or 0, clan_match_info['lose_cnt'] or 0
@@ -322,16 +311,18 @@ function UI_ClanWarMatchInfoDetailPopup:setResult() -- 왼쪽 클랜 기준으�
 	vars['rightWinNode']:setVisible(false)
 	
 	local match_info = self.m_tMatchInfo
-	local match_number
+	local is_end_match = false
     if (match_info['day']) then
-        match_number = match_info['day'] or 0
+        local match_number = match_info['day'] or 0
+        is_end_match = (match_number < g_clanWarData.m_clanWarDay)
     else
         local round = match_info['group_stage']
-        match_number = g_clanWarData:getDayByRound(round)
+        local cur_round = g_clanWarData:getTodayRound() or 0
+        is_end_match = (round > cur_round)
     end
 	
 	-- 끝난 경기만 승/패 표시
-    if (match_number < g_clanWarData.m_clanWarDay) then
+    if (is_end_match) then
         -- 어느쪽 클랜이 이겼는지 표시
 		local win_clan_id = match_info['win_clan']
 		if (win_clan_id) then
@@ -378,6 +369,10 @@ end
 function UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data, ui_res, set_my_clan_left)
     local ui_res = nil -- clan_war_match_info_popup.ui
 	
+    if (not data) then
+        return
+    end
+
 	local clan_match_info_left = {}
     clan_match_info_left['clan_id'] = data['a_clan_id']
     clan_match_info_left['member_win_cnt'] = data['a_member_win_cnt']

@@ -57,7 +57,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanWar_GroupStage:init(ret)
+function UI_ClanWar_GroupStage:init()
     self:initVariable()
 
     local vars = self:load('clan_war_group_stage.ui')
@@ -73,7 +73,7 @@ function UI_ClanWar_GroupStage:init(ret)
     self:doAction(nil, false)
 
 	-- 초기화
-    self:initUI(ret)
+    self:initUI()
     self:initButton()
     self:refresh()
 

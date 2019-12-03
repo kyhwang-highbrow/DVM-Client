@@ -1897,24 +1897,38 @@ function UINavigatorDefinition:goTo_clan_war(...)
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return       
         end
-        
+
+        -- 클랜전 UI 생성 함수
+        local function create_clan_war_ui(ret)
+        	-- 조별리그    
+			if g_clanWarData:isGroupStage() then
+                return UI_ClanWar_GroupStage()
+	        
+			-- 토너먼트    
+			else
+                local ui_tournament = UI_ClanWarTournamentTree()
+                ui_tournament:setTournamentData(ret)
+                return ui_tournament
+            end
+        end
+
 		-- 클랜전 UI가 열려있을 경우
         -- 기존처럼 UI 갱신이 아니라 클랜전 로비를 다시 만들어 줄 것이기 때문에 idx-1까지 UI닫고 생성함
-		local is_opend, idx, ui = self:findOpendUI('UI_ClanWarLobby')
+		local is_opend, idx, ui = self:findOpendUI('UI_ClanWar_GroupStage')
 		if (is_opend == true) then
 			self:closeUIList(idx-1)
 			create_clan_war_ui(ret)
 			return
 		end
 
-        -- 클랜전 UI 생성 함수
-        local function create_clan_war_ui(ret)
-            if g_clanWarData:isGroupStage() then
-                return UI_ClanWar_GroupStage()
-            else
-                return UI_ClanWarLobby(ret)
-            end
-        end
+		-- 클랜전 UI가 열려있을 경우
+        -- 기존처럼 UI 갱신이 아니라 클랜전 로비를 다시 만들어 줄 것이기 때문에 idx-1까지 UI닫고 생성함
+		local is_opend, idx, ui = self:findOpendUI('UI_ClanWarTournamentTree')
+		if (is_opend == true) then
+			self:closeUIList(idx-1)
+			create_clan_war_ui(ret)
+			return
+		end
 
         -- 전투 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')

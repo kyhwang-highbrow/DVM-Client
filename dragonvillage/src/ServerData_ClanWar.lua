@@ -9,6 +9,8 @@ ServerData_ClanWar = class({
     m_tClanInfo = 'table - StructClanRank',
 
     m_clanWarDay = 'number',
+    m_clanWarTodayRound = 'number', -- 토너먼트 기간일 경우 : 현재 N강
+
 	m_clanWarDayData = 'table',
     m_clanWarRountType = 'ServerData_ClanWar.ROUNT_TYPE',
     m_myClanGroup = 'number', -- 내 클랜 그룹
@@ -122,6 +124,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 
 	local finish_cb = function(ret)
         g_clanWarData.m_clanWarDay = ret['clanwar_day'] or 0
+        g_clanWarData.m_clanWarTodayRound = ret['clanwar_today_groupstage']
 		g_clanWarData.m_clanWarDayData = ret['clan_data']
 		g_clanWarData.m_season = ret['clanwar_season']
 

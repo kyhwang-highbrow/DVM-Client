@@ -4234,9 +4234,6 @@
     <None Include="..\src\UI_ClanWarListScene.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ClanWarLobby.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_MatchReadyClanWar.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4260,9 +4257,6 @@
     </None>
     <None Include="..\src\StructClanWarTournament.lua">
       <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_ClanWarLeague.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\ServerData_ClanWar.lua">
       <Filter>lua\src</Filter>

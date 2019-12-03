@@ -1,5 +1,5 @@
 -------------------------------------
--- class UI_ClanWarLeague
+-- class UI_ClanWarLeagueResultPopup
 -------------------------------------
 UI_ClanWarLeagueResultPopup = class(UI,{
      })
