@@ -16,12 +16,24 @@ UI_ClanWarTournamentTree = class(PARENT, {
         m_isMakeFinalUI = 'boolean',
      })
 
-local LEAF_WIDTH = 260 + 45
+-- 가지 세로 길이
 local BRUNCH_HEIGHT = 100
+-- 가지 세로 길이 간격
 local BRUNCH_HEIGHT_TERM = 30
+
+-- 잎 세로길이
 local LEAF_HEIGHT = 72
+-- 잎 세로 길이 간격
 local LEAF_HEIGHT_TERM = 10
+
 local WIN_COLOR = cc.c3b(127, 255, 212)
+
+local SCROLL_MENU_HEIGHT = 1250 -- 64강일 때 스크롤 사이즈
+
+local FOCUS_POS_Y_64 = -740 -- 맨 위에 포커스 하는 y 위치
+local FOCUS_POS_Y_32 = FOCUS_POS_Y_64 + SCROLL_MENU_HEIGHT/2 -- 스크롤 늘린 만큼 밑으로 내려준다. bottom_center라서 어쩔 수 없음
+
+
 
 local L_ROUND = {64, 32, 16, 8, 4, 2}
 -------------------------------------
@@ -115,8 +127,8 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
     local is_my_clan_left = self.m_structTournament:getMyClanLeft()
     g_clanWarData:setIsMyClanLeft(is_my_clan_left)
     
-	-- 현재 라운드에 포커싱
-    -- 현재 라운드에 내가 있다면 포커싱
+	-- 현재 라운드에 포커싱 or 현재 라운드에 내가 있다면 포커싱
+    -- 8강 이하는 무조건 결승전 페이지에 포커싱
     local today_round = g_clanWarData:getTodayRound()
     if (today_round <= 8) then
         self.m_page = 2
@@ -238,10 +250,10 @@ function UI_ClanWarTournamentTree:showPage()
 	local has_right
 	local has_left
 	if (page_number == 1) then
-		self:showSidePage(true)
+		self:showSidePage(false)
 		has_right = true
 		has_left = false
-        vars['rightScrollMenu']:setVisible(true)
+        vars['leftScrollMenu']:setVisible(true)
 	elseif (page_number == 2) then
         self:showCenterPage()
 		has_right = true
@@ -249,10 +261,10 @@ function UI_ClanWarTournamentTree:showPage()
         vars['finalNode']:setVisible(true)
         vars['tournamentTitle']:setVisible(false)
 	else
-		self:showSidePage(false)
+		self:showSidePage(true)
 		has_right = false
 		has_left = true
-        vars['leftScrollMenu']:setVisible(true)
+        vars['rightScrollMenu']:setVisible(true)
 	end
 
 	vars['moveBtn1']:setVisible(has_left)
@@ -267,7 +279,7 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
 	local vars = self.vars
 	local struct_clan_war_tournament = self.m_structTournament
     local max_round = g_clanWarData:getMaxRound()
-	local l_round = {32, 16, 8}
+	local l_round = {32, 16}
 	if (g_clanWarData:getMaxRound() == 64) then
 		l_round = {64, 32, 16}
 	end
@@ -277,22 +289,20 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
 		
 		-- N강 표시하는 타이틀
 		local ui_title_item = UI_ClanWarTournamentTreeListItem(round)
-
-        -- 64_01TitleMenu
-        -- round .. '_0' .. idx .. 'TitleMenu'
-        -- max_round .. '_0' .. idx .. 'TitleMenu'
-        
+        local max_idx = #l_round + 1
         if (is_right) then
+            local title_lua_name = max_round .. '_0' .. max_idx-round_idx .. 'TitleMenu'
+            if (vars[title_lua_name]) then
+                vars[title_lua_name]:removeAllChildren()
+		        vars[title_lua_name]:addChild(ui_title_item.root)
+                vars[title_lua_name]:setVisible(true)
+            end
+        else
             local title_lua_name = max_round .. '_0' .. round_idx .. 'TitleMenu'
             if (vars[title_lua_name]) then
                 vars[title_lua_name]:removeAllChildren()
 		        vars[title_lua_name]:addChild(ui_title_item.root)
-            end
-        else
-            local title_lua_name = max_round .. '_0' .. 4-round_idx .. 'TitleMenu'
-            if (vars[title_lua_name]) then
-                vars[title_lua_name]:removeAllChildren()
-		        vars[title_lua_name]:addChild(ui_title_item.root)
+                vars[title_lua_name]:setVisible(true)
             end
         end
 
@@ -457,15 +467,19 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     local clan2 = {}
     local item_idx = 1
     local max_round = g_clanWarData:getMaxRound()
+    local max_idx = 4
+    if (max_round == 32) then
+        max_idx = 3
+    end
 
-	local func_get_pos_x = function(round_idx, LEAF_WIDTH)
+	local func_get_pos_x = function(round_idx)
 		local pos_x = 0
 		if (is_right) then
-            local title_lua_name = max_round .. '_0' .. round_idx .. 'TitleMenu'
+            local title_lua_name = max_round .. '_0' .. max_idx-round_idx .. 'TitleMenu'
 			pos_x = vars[title_lua_name]:getPositionX()
 		else
-            local title_lua_name = max_round .. '_0' .. 4-round_idx .. 'TitleMenu'
-			pos_x = vars[title_lua_name]:getPositionX()
+            local title_lua_name = max_round .. '_0' .. round_idx .. 'TitleMenu'
+            pos_x = vars[title_lua_name]:getPositionX()
 		end
 		return pos_x
 	end
@@ -498,7 +512,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
             end
             
             if (ui) then
-	    		local pos_x = func_get_pos_x(round_idx, LEAF_WIDTH)
+	    		local pos_x = func_get_pos_x(round_idx)
                 ui.root:setDockPoint(TOP_CENTER)
 	    		ui.root:setPositionX(pos_x)
                 if (is_right) then
@@ -510,7 +524,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
                 ui:setLine(g_clanWarData:getMaxRound() == round) -- is_both 마지막 라운드만 왼쪽에 가로 선이 없음
 
 	    		-- 왼쪽 페이지 기준으로 만든 가지를 X축 기준으로 뒤집음
-	    		if (not is_right) then
+	    		if (is_right) then
 	    			ui.vars['lineMenu']:setScaleX(-1)
 	    		end
 
@@ -521,9 +535,13 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
         end
     end
 
-    local first_pos_y = -680
+    if (not my_clan_idx) then
+        return
+    end
+
+    local first_pos_y = FOCUS_POS_Y_64
     if (g_clanWarData:getMaxRound() == 32) then
-        first_pos_y = -340
+        first_pos_y = FOCUS_POS_Y_32
     end
 
     local container_node = self.m_scrollView:getContainer()
@@ -532,11 +550,12 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
             my_clan_idx = my_clan_idx - round/4
         end
 	    local pos_y = self.m_lPosY[my_clan_idx] or 0
-        local focus_y = first_pos_y - (pos_y) + -210
+
+        -- 기준 y 위치에서 얼마나 내려온 값인지 distance 구함
+        local dist = self:getFirstPosY() - pos_y
+        local focus_y = first_pos_y + dist - 100 -- 중간에 위치시키기 위해 100 빼줌
         focus_y = math.max(focus_y, first_pos_y)
         container_node:setPositionY(focus_y)
-    else
-        container_node:setPositionY(first_pos_y)
     end
 end
 
@@ -627,7 +646,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     end
 
     local pos_y = 0
-	local first_pos = vars['scrollPosY']:getPositionY()
+	local first_pos = self:getFirstPosY()
     if (is_right) then
         item_idx = item_idx - round/4
     end
@@ -648,6 +667,18 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     return ui
 end
 
+-------------------------------------
+-- function getFirstPosY
+-------------------------------------
+function UI_ClanWarTournamentTree:getFirstPosY()
+    local vars = self.vars
+    local first_pos = vars['scrollPosY']:getPositionY()
+
+    if (g_clanWarData:getMaxRound() == 32) then
+        first_pos = first_pos - SCROLL_MENU_HEIGHT/2
+    end
+    return first_pos
+end
 
 -------------------------------------
 -- function initScroll
@@ -659,9 +690,9 @@ function UI_ClanWarTournamentTree:initScroll()
 	
 	local ori_size = scroll_menu:getContentSize()
 	if (g_clanWarData:getMaxRound() == 64) then
-		ori_size['height'] = 1250
+		ori_size['height'] = SCROLL_MENU_HEIGHT
     else
-		ori_size['height'] = 600
+		ori_size['height'] = SCROLL_MENU_HEIGHT/2
 	end
 	scroll_menu:setContentSize(ori_size)
 
@@ -704,9 +735,9 @@ function UI_ClanWarTournamentTree:initTableViewFocus()
     if (self.m_scrollView) then
 	    local container_node = self.m_scrollView:getContainer()
 	    if (g_clanWarData:getMaxRound() == 64) then
-	    	container_node:setPositionY(-1500)
+	    	container_node:setPositionY(FOCUS_POS_Y_64)
 	    else
-	    	container_node:setPositionY(-500)		
+	    	container_node:setPositionY(FOCUS_POS_Y_32)		
 	    end
     end
 end
