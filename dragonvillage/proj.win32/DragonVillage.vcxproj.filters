@@ -4363,6 +4363,9 @@
     <None Include="..\src\UI_ClanWarSelect_RivalListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarLastGroupStagePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

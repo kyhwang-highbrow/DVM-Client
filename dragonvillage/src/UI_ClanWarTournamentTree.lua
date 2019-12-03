@@ -19,7 +19,7 @@ UI_ClanWarTournamentTree = class(PARENT, {
 local LEAF_WIDTH = 260 + 45
 local BRUNCH_HEIGHT = 100
 local BRUNCH_HEIGHT_TERM = 30
-local LEAF_HEIGHT = 70
+local LEAF_HEIGHT = 72
 local LEAF_HEIGHT_TERM = 10
 local WIN_COLOR = cc.c3b(127, 255, 212)
 
@@ -37,6 +37,19 @@ function UI_ClanWarTournamentTree:init()
     -- 초기화
     self:initUI()
 	self:initButton()
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+end
+
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_ClanWarTournamentTree:update()
+    local vars = self.vars
+    local remain_time_text = g_clanWarData:getRemainTimeText()
+    vars['timeLabel']:setString(remain_time_text)
+    vars['timeLabel2']:setString(remain_time_text)
 end
 
 -------------------------------------
@@ -70,12 +83,17 @@ function UI_ClanWarTournamentTree:initButton()
 	vars['moveBtn2']:registerScriptTapHandler(function() self:click_moveBtn(1) end)
     vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
-    vars['matchTypeBtn']:registerScriptTapHandler(function() end) --self:showLastLeague() end)
+    vars['startBtn2']:registerScriptTapHandler(function() self:click_gotoMatch() end)
+    vars['matchTypeBtn']:registerScriptTapHandler(function() self:showGroupStagePopup() end)
 
     -- 시즌이 끝났을 경우, 전투시작 버튼 보여주지 않음
 	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['DONE']) then
 		vars['startBtn']:setVisible(false)
 	end
+
+    vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
+    vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
 end
 
 -------------------------------------
@@ -158,12 +176,27 @@ end
 function UI_ClanWarTournamentTree:checkStartBtn()
 	local vars = self.vars
 
-	-- 내 클랜이 토너먼트 진출하지 못했을 경우, 전투시작 버튼 보여주지 않음
+    local use_primary_btn = true
+    -- 1. 클랜전에 참여 중이 아닌 경우
+    if (g_clanWarData:getMyClanState() ~= ServerData_ClanWar.CLANWAR_CLAN_STATE['PARTICIPATING']) then
+        use_primary_btn = false
+
+    -- 2. 클랜전이 오픈 상태가 아닌 경우
+    elseif (g_clanWarData:getClanWarState() ~= ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        use_primary_btn = false
+    end
+
+    -- 3. 내 클랜이 토너먼트 진출하지 못했을 경우, 전투시작 버튼 보여주지 않음
     local today_round = g_clanWarData:getTodayRound()
     local data, idx = self.m_structTournament:getMyInfoInCurRound(today_round)
 	if (not data) then
-		vars['startBtn']:setVisible(false)
-	end
+        use_primary_btn = false
+    end
+
+    do -- 사용하는 버튼 설정
+        vars['startBtn']:setVisible(use_primary_btn)
+        vars['startBtn2']:setVisible(not use_primary_btn)
+    end
 end
 
 -------------------------------------
@@ -559,8 +592,6 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 
 	ui.vars['defeatSprite1']:setVisible(false)
 	ui.vars['defeatSprite2']:setVisible(false)
-	ui.vars['winSprite1']:setVisible(false)
-	ui.vars['winSprite2']:setVisible(false)
     ui:setWin(is_clan_1_win, not is_clan_1_win)
 	
 
@@ -587,8 +618,6 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 		ui.vars['leftHorizontalSprite']:setColor(WIN_COLOR)
 		ui.vars['defeatSprite1']:setVisible(not is_clan_1_win)
         ui.vars['defeatSprite2']:setVisible(is_clan_1_win)
-	    ui.vars['winSprite1']:setVisible(is_clan_1_win)
-	    ui.vars['winSprite2']:setVisible(not is_clan_1_win)
 		ui:setWinLineColor(is_clan_1_win)
 	end
 
@@ -780,6 +809,12 @@ function UI_ClanWarTournamentTree:showLeagueResultPopup(close_cb)
     return
 end
 
+-------------------------------------
+-- function showGroupStagePopup
+-------------------------------------
+function UI_ClanWarTournamentTree:showGroupStagePopup()
+    UI_ClanWarLastGroupStagePopup()
+end
 
 
 
@@ -829,9 +864,10 @@ function UI_ClanWarTournamentTreetLeafItem:setRightHeightLine(idx, height)
     local vars = self.vars
 
     if (idx%2 == 0) then
-        vars['rightLine2']:setScale(1, -1)
+	    vars['rightLine2']:setScaleY(-1)
     end
-    vars['rightLine2']:setNormalSize(2, height)
+    local width, _ = vars['rightLine2']:getNormalSize()
+    vars['rightLine2']:setNormalSize(width, height)
 end
 
 -------------------------------------

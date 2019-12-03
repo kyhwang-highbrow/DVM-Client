@@ -276,7 +276,7 @@ function UI_ClanWarMatchingScene:setMemberTableView()
         vars['meClanListNode']:removeAllChildren()
         -- 테이블 뷰 인스턴스 생성    
         self.m_myTableView = UIC_TableView(vars['meClanListNode'])
-        self.m_myTableView.m_defaultCellSize = cc.size(548, 80 + 5)
+        self.m_myTableView.m_defaultCellSize = cc.size(548, 70 + 5)
         self.m_myTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
         self.m_myTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem, create_func)
         self.m_myTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
@@ -319,7 +319,7 @@ function UI_ClanWarMatchingScene:setMemberTableView()
         
         -- 테이블 뷰 인스턴스 생성
         self.m_enemyTableView = UIC_TableView(vars['rivalClanMenu'])
-        self.m_enemyTableView.m_defaultCellSize = cc.size(548, 80 + 5)
+        self.m_enemyTableView.m_defaultCellSize = cc.size(548, 70 + 5)
         self.m_enemyTableView:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
         self.m_enemyTableView:setCellUIClass(UI_ClanWarMatchingSceneListItem_enemy, create_func)
         self.m_enemyTableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)

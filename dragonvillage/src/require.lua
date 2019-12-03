@@ -1414,6 +1414,7 @@ local t_module = {
     'UI_ClanwarRewardInfoPopup',
 	'UI_ClanWarListItem',
 	'UI_ClanWarListScene',
+    'UI_ClanWarLastGroupStagePopup',
     'UI_ClanWarTournamentTree',
 	'UI_ClanWarAllRankListItem',
 	'UI_ClanWarLeagueRankListItem',

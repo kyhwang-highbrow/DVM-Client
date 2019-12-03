@@ -426,3 +426,33 @@ function ServerData_ClanWar:getRoundText(round)
         return Str('{1}강', round)
     end
 end
+
+-------------------------------------
+-- function getRemainTimeText
+-------------------------------------
+function ServerData_ClanWar:getRemainTimeText()
+    local cur_time = Timer:getServerTime_Milliseconds()
+    local milliseconds
+
+    -- 경기 진행 중 (경기 종료까지 남은 시간 표시)
+    if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+        milliseconds = (g_clanWarData.today_end_time - cur_time)
+
+    -- 경기 진행 중이 아닌 경우 (다음 경기 시작까지 남은 시간 표시)
+    else
+        milliseconds = (g_clanWarData.today_start_time - cur_time)
+    end
+
+
+    local hour = math.floor(milliseconds / 3600000)
+    milliseconds = milliseconds - (hour * 3600000)
+
+    local min = math.floor(milliseconds / 60000)
+    milliseconds = milliseconds - (min * 60000)
+
+    local sec = math.floor(milliseconds / 1000)
+    milliseconds = milliseconds - (sec * 1000)
+
+    local str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+    return str
+end
