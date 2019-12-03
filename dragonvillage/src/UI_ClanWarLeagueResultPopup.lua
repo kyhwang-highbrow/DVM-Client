@@ -51,11 +51,5 @@ function UI_ClanWarLeagueResultPopup:initDetailRankUI(struct_league_item)
     local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
 
 	vars['teamLabel']:setString(Str('{1}조', struct_league_item:getLeague()))
-
-    local ui = UI_ListItem_ClanWarGroupStageRankInGroup(struct_league_item)
-    ui:setClickEnabled(false)
-    vars['rankItemNode']:addChild(ui.root)
-
-
 	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end

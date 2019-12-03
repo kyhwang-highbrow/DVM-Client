@@ -4369,6 +4369,9 @@
     <None Include="..\src\UI_ClanWarTournamentTreeLeaf.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarTournamentTreeFinalItem.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

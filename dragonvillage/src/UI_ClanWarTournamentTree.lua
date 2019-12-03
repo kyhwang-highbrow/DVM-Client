@@ -27,11 +27,8 @@ local LEAF_HEIGHT = 72
 local LEAF_HEIGHT_TERM = 10
 
 local WIN_COLOR = cc.c3b(127, 255, 212)
-
 local SCROLL_MENU_HEIGHT = 1250 -- 64강일 때 스크롤 사이즈
-
-local FOCUS_POS_Y_64 = 0
-local FOCUS_POS_Y_32 = 0
+local FOCUS_POS_Y = 0 -- 스크롤메뉴 사이즈가 가변적이라서 함수에서 정의
 
 
 
@@ -54,8 +51,7 @@ function UI_ClanWarTournamentTree:init()
     self:doActionReset()
     self:doAction(nil, false)
 
-	self:sceneFadeInAction()
-
+	self:sceneFadeInAction(function() self:showResultPopup() end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
@@ -129,10 +125,6 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
 	local vars = self.vars
 	self.m_structTournament = StructClanWarTournament(ret)
     
-    -- Test Mode에서 내 클랜 승리시키기 위해 필요한 코드
-    local is_my_clan_left = self.m_structTournament:getMyClanLeft()
-    g_clanWarData:setIsMyClanLeft(is_my_clan_left)
-    
 	-- 현재 라운드에 포커싱 or 현재 라운드에 내가 있다면 포커싱
     -- 8강 이하는 무조건 결승전 페이지에 포커싱
     local today_round = g_clanWarData:getTodayRound()
@@ -142,11 +134,6 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
         -- 오른쪽/왼쪽 페이지인지 판별
         -- 인덱스가 절반보다 클 경우 오른쪽
         local data, idx = self.m_structTournament:getMyInfoInCurRound(today_round)
-        -- 경기 안하고 있을 때에도 포커싱 해주어야함 32강이 최대일 때 앞에서 한 번 더 찾음
-        if (not idx) then
-            data, idx = self.m_structTournament:getMyInfoInCurRound(today_round/2)
-        end
-
         if (idx) then
             if (idx >= today_round/4) then
                 self.m_page = 3
@@ -158,9 +145,6 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
 
     self:showPage()
 	self:checkStartBtn()
-    
-    -- 지난 결과 팝업
-    self:showResultPopup()
 end
 
 -------------------------------------
@@ -247,19 +231,23 @@ function UI_ClanWarTournamentTree:showPage()
     vars['leftScrollMenu']:setVisible(false)
     vars['tournamentTitle']:setVisible(true)
 
+	-- 페이지 표시하는 동그라미 스프라이트 초기화
     vars['01_PageSelectSprite']:setVisible(false)
     vars['02_PageSelectSprite']:setVisible(false)
     vars['03_PageSelectSprite']:setVisible(false)
 
+	-- 포커싱 초기화(맨 위)
     self:initTableViewFocus()
 
 	local has_right
 	local has_left
 	if (page_number == 1) then
-		self:showSidePage(false)
+		self:showSidePage()
 		has_right = true
 		has_left = false
         vars['leftScrollMenu']:setVisible(true)
+	
+	-- 결승전 페이지
 	elseif (page_number == 2) then
         self:showCenterPage()
 		has_right = true
@@ -267,7 +255,7 @@ function UI_ClanWarTournamentTree:showPage()
         vars['finalNode']:setVisible(true)
         vars['tournamentTitle']:setVisible(false)
 	else
-		self:showSidePage(true)
+		self:showSidePage()
 		has_right = false
 		has_left = true
         vars['rightScrollMenu']:setVisible(true)
@@ -275,17 +263,20 @@ function UI_ClanWarTournamentTree:showPage()
 
 	vars['moveBtn1']:setVisible(has_left)
 	vars['moveBtn2']:setVisible(has_right)
+
+	-- 해당 페이지 표시
     vars['0' .. page_number .. '_PageSelectSprite']:setVisible(true)
 end
 
 -------------------------------------
 -- function showSidePage
 -------------------------------------
-function UI_ClanWarTournamentTree:showSidePage(is_right)
+function UI_ClanWarTournamentTree:showSidePage()
 	local vars = self.vars
 	local struct_clan_war_tournament = self.m_structTournament
     local max_round = g_clanWarData:getMaxRound()
-	
+	local is_right = (self.m_page == 3) -- 페이지 넘버가 3이라면 오른쪽 페이지라고 판단
+
     -- 32강 부터 시작한다면 1,3 페이지에 32, 16강을 찍는다.
     local l_round = {32, 16}
 
@@ -294,13 +285,14 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
 		l_round = {64, 32, 16}
 	end
 	
-    -- 라운드에 해당하는 매치를 생성
 	for round_idx, round in ipairs(l_round) do
-        self:setTournament(round_idx, round, is_right)
+        -- 라운드에 해당하는 매치 잎들을 생성
+		self:setTournament(round_idx, round) -- param : ex) 1,64/ 2,32/ 3,16
 		
 		-- N강 표시하는 타이틀
 		local ui_title_item = UI_ClanWarTournamentTreeListItem(round)
         local max_idx = #l_round + 1
+
         if (is_right) then
             local title_lua_name = max_round .. '_0' .. max_idx-round_idx .. 'TitleMenu'
             if (vars[title_lua_name]) then
@@ -317,6 +309,7 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
             end
         end
 
+		-- 현재 진행중인 타이틀에 표시
 		local today_round = g_clanWarData:getTodayRound()
 		if (round == today_round) then
 			ui_title_item:setInProgress()
@@ -341,112 +334,11 @@ end
 -------------------------------------
 function UI_ClanWarTournamentTree:setFinal()
     local vars = self.vars
-    local ui = UI()
-    ui:load('clan_war_tournament_final_item.ui')
+    local ui = UI_ClanWarTournamentTreeFinalItem(self.m_structTournament)
     vars['finalNode']:addChild(ui.root)
 
     self:makeFinalItemByRound(ui, 8, true) -- 8강 아이템들 생성
     self:makeFinalItemByRound(ui, 4, true) -- 4강 아이템들 생성
-
-    local today_round = g_clanWarData:getTodayRound()
-    local round_text = Str('결승전')
-
-    -- 이긴 가지 sprite 켜줌
-    -- ex) 지금 8강일 때에는 16강 가지 까지 켜쥼
-    if (today_round <= 8) then
-        ui.vars['round16LineSprite1']:setColor(WIN_COLOR)
-        ui.vars['round16LineSprite2']:setColor(WIN_COLOR)
-        ui.vars['round16LineSprite3']:setColor(WIN_COLOR)
-        ui.vars['round16LineSprite4']:setColor(WIN_COLOR)
-    end
-
-    if (today_round <= 4) then
-        ui.vars['round8LineSprite1']:setColor(WIN_COLOR)
-        ui.vars['round8LineSprite2']:setColor(WIN_COLOR)
-    end
-
-    if (today_round <= 2) then
-        ui.vars['round4LineSprite']:setColor(WIN_COLOR)
-    end
-
-    -- 진행중인 라운드에 표기
-    if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-	    if (today_round == 2) then
-	        round_text = round_text .. ' - ' .. Str('진행중')
-            ui.vars['todaySprite']:setVisible(true)
-            ui.vars['roundLabel']:setColor(COLOR['black'])
-            ui.vars['attackVisual']:setVisible(true)
-	    else
-            ui.vars['normalIconSprite']:setVisible(true)
-        end 
-    end
-
-    -- 아직 진행하지 않은 곳(값이 없는)의 클랜 이름은 = {1}강 승리 클랜
-    ui.vars['roundLabel']:setString(round_text)
-    if (today_round > 2) then
-        ui.vars['finalClanLabel1']:setString(Str('{1}강', 4) .. ' ' .. Str('승리 클랜'))
-        ui.vars['finalClanLabel2']:setString(Str('{1}강', 4) .. ' ' .. Str('승리 클랜'))
-        ui.vars['finalClanLabel1']:setColor(COLOR['gray'])
-        ui.vars['finalClanLabel2']:setColor(COLOR['gray'])
-    else
-        -- 결승전 생성
-        local l_list = self.m_structTournament:getTournamentListByRound(2)
-        local final_data = l_list[1]
-        if (not final_data) then
-            return
-        end
-        local struct_clan_rank_1 = g_clanWarData:getClanInfo(final_data['a_clan_id'])
-        local struct_clan_rank_2 = g_clanWarData:getClanInfo(final_data['b_clan_id'])
-        if (not struct_clan_rank_1) then
-            struct_clan_rank_1 = StructClanRank()
-        end
-
-        if (not struct_clan_rank_2) then
-            struct_clan_rank_2 = StructClanRank()
-        end
-
-        -- 이름, 이긴 클랜, 등등 세팅
-		local round_text = Str('결승전')
-        local final_name_1 = struct_clan_rank_1:getClanName()
-        local final_name_2 = struct_clan_rank_2:getClanName()
-        ui.vars['finalClanLabel1']:setString(final_name_1)
-        ui.vars['finalClanLabel2']:setString(final_name_2)
-
-        if (today_round == 1) then
-			round_text = round_text .. '-' .. Str('진행중')
-			local label = 'round2_1TodaySprite'
-			if (ui.vars[label]) then
-				ui.vars[label]:setVisible(true)
-			end
-            ui.vars['winVisual']:setVisible(true)
-            ui.vars['clanMarkNode']:setVisible(true)
-
-            local is_clan_1_win = false
-            if (final_data['win_clan']) then
-                if (final_data['win_clan'] == clan1_id) then
-                    is_clan_1_win = true
-                end
-            end
-            local clan_win_1 = is_clan_1_win
-            ui.vars['defeatSprite1']:setVisible(not clan_win_1)
-            ui.vars['defeatSprite2']:setVisible(clan_win_1)
-
-            local mark_icon = nil
-            if (clan_win_1) then
-                mark_icon = struct_clan_rank_1:makeClanMarkIcon()
-            else
-                mark_icon = struct_clan_rank_2:makeClanMarkIcon()
-            end
-            if (mark_icon) then
-                ui.vars['clanMarkNode']:addChild(mark_icon)
-            end
-        end
-    end
-
-	local label_lua_name = 'round2_1Label'
-	if (ui.vars[label_lua_name]) then
-		ui.vars[label_lua_name]:setString(round_text)
-	end
 
     self.m_isMakeFinalUI = true
 end
@@ -464,36 +356,23 @@ function UI_ClanWarTournamentTree:makeFinalItemByRound(ui_final, round)
         local ui = self:makeTournamentLeaf(round, idx, data)
         ui.root:setPositionY(0)
         ui.vars['lineMenu']:setVisible(false)
-
-        local round_text = g_clanWarData:getRoundText(round)
-        if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-            local today_round = g_clanWarData:getTodayRound()
-	        if (round == today_round) then
-		        round_text = round_text .. ' - ' .. Str('진행중')
-				local label = 'round' .. round ..'_' .. idx .. 'TodaySprite'
-				if (ui_final.vars[label]) then
-					ui_final.vars[label]:setVisible(true)
-				end
-			end
-        end
-		local label_lua_name = 'round' .. round ..'_' .. idx .. 'Label'
-		if (ui_final.vars[label_lua_name]) then
-			ui_final.vars[label_lua_name]:setString(round_text)
-        end
-
+		
 		local node_lua_name = 'round' .. round .. '_' .. idx .. 'Node'
 		if (ui_final.vars[node_lua_name]) then
 			ui_final.vars[node_lua_name]:addChild(ui.root)
 		end
-	end    
+	end
+  
 end
 
 -------------------------------------
 -- function setTournament
 -- @brief 해당 라운드의 매치들을 생성
 -------------------------------------
-function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
+function UI_ClanWarTournamentTree:setTournament(round_idx, round)
     local vars = self.vars
+
+	local is_right = (self.m_page == 3)
     local struct_clan_war_tournament = self.m_structTournament
     local l_list = struct_clan_war_tournament:getTournamentListByRound(round)
     local my_clan_idx = nil
@@ -505,7 +384,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     local max_round = g_clanWarData:getMaxRound()
 
     -- title 1,2,3,4 -> title 4,3,2,1
-    -- 반대로 찍어야 해서 하드코딩..
+    -- 오른쪽 페이지는 반대로 찍어야 해서 하드코딩..
     local max_idx = 4
     if (max_round == 32) then
         max_idx = 3
@@ -550,7 +429,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
 
             -- 매치 잎 생성
             local ui = self:makeTournamentLeaf(round, idx, data, is_right)
-            -- 내 클랜이 몇 번째 매치 잎에 있는지 계산
+            -- 내 클랜이 몇 번째 매치 잎에 있는지 계산 - 포커싱에 사용
             if (data['a_clan_id'] == my_clan_id) or (data['b_clan_id'] == my_clan_id) then
                 my_clan_idx = idx
             end
@@ -565,7 +444,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
                     vars['leftScrollMenu']:addChild(ui.root)
                 end
                 -- 가지 세팅 : 가로
-                ui:setLine(g_clanWarData:getMaxRound() == round) -- is_both 마지막 라운드만 왼쪽에 가로 선이 없음
+                ui:setLine(g_clanWarData:getMaxRound() == round) -- param : is_both, 마지막 라운드만 왼쪽에 가로 선이 없음
 
 	    		-- 오른쪽 페이지의 경우, 왼쪽 페이지 기준으로 만든 가지를 X축 기준으로 뒤집음
 	    		if (is_right) then
@@ -580,29 +459,29 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     end
 
     -- 내 클랜이 있다면 포커싱, 없다면 해주지 않음
-    if (not my_clan_idx) then
-        return
+    if (my_clan_idx) then
+        self:focusMyClan(my_clan_idx)
     end
 
-    local first_pos_y = FOCUS_POS_Y_64
-    if (g_clanWarData:getMaxRound() == 32) then
-        first_pos_y = FOCUS_POS_Y_32
-    end
+end
+
+-------------------------------------
+-- function focusMyClan
+-------------------------------------
+function UI_ClanWarTournamentTree:focusMyClan(my_clan_idx)
+    local first_pos_y = FOCUS_POS_Y
 
     local container_node = self.m_scrollView:getContainer()
-    if (my_clan_idx) then
-        if (is_right) then
-            my_clan_idx = my_clan_idx - round/4
-        end
-	    local pos_y = self.m_lPosY[my_clan_idx] or 0
-
-        -- 기준 y 위치에서 얼마나 내려온 값인지 distance 구함
-        local dist = self:getFirstPosY() - pos_y
-        local focus_y = first_pos_y + dist - 100 -- 중간에 위치시키기 위해 100 빼줌
-        focus_y = math.max(focus_y, first_pos_y)
-		focus_y = math.min(focus_y, 0)
-        container_node:setPositionY(focus_y)
+    if (is_right) then
+        my_clan_idx = my_clan_idx - round/4
     end
+	local pos_y = self.m_lPosY[my_clan_idx] or 0
+
+    -- 기준 y 위치에서 얼마나 내려온 값인지 distance 구함
+    local dist = self:getFirstPosY() - pos_y
+    local focus_y = first_pos_y + dist - 100 -- 중간에 위치시키기 위해 100 빼줌
+    focus_y = math.max(focus_y, first_pos_y)
+    container_node:setPositionY(focus_y)
 end
 
 -------------------------------------
@@ -631,7 +510,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     -- 매치 아이템 눌렀을 때 상세 팝업
     local today_round = g_clanWarData:getTodayRound()
     ui.vars['detailBtn']:registerScriptTapHandler(function()
-        if (round < today_round) then
+		if (round < today_round) then
             UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.'))
         else
             UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data)
@@ -661,7 +540,6 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 	ui.vars['defeatSprite1']:setVisible(false)
 	ui.vars['defeatSprite2']:setVisible(false)
     ui:setWin(is_clan_1_win, not is_clan_1_win)
-
 
     -- 현재 진행중인 라운드의 경우
     -- 승패 표시 안함, 뒷 막대기 표시
@@ -695,11 +573,14 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 
     local pos_y = 0
 	local first_pos = self:getFirstPosY()
+	-- 오른쪽 페이지의 매치 잎들은 64강의 경우 17, 18, 19 .. 절반보다 높은 인덱스 부터 시작함, 
+	-- 높이 함수는 왼쪽 페이지와 같은 것을 사용하기 때문에 item_idx = (item_idx - 16) 해줌
     if (is_right) then
         item_idx = item_idx - round/4
     end
 
     -- 첫 경기일 경우
+	-- 2개 생성하고 간격 + 아이템 높이
     if (round == g_clanWarData:getMaxRound()) then
         pos_y = first_pos + -math.ceil(item_idx/2 - 1) * LEAF_HEIGHT_TERM + -(item_idx - 1) * LEAF_HEIGHT  
         self.m_lPosY[item_idx] = pos_y
@@ -708,7 +589,8 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     end
 	
     -- 그 다음 경기 부터는 첫 경기에 만들어진 y 위치 기반으로 위치를 계산
-    local idx = item_idx * 2
+    -- 이전 경기 2개의 중앙값
+	local idx = item_idx * 2
     pos_y = (self.m_lPosY[idx] + self.m_lPosY[idx - 1])/2
 
     self.m_lPosY[item_idx] = pos_y
@@ -779,8 +661,7 @@ function UI_ClanWarTournamentTree:initScroll()
     local x = viewSize['width'] - size['width']
     local y = viewSize['height'] - size['height']
 
-	FOCUS_POS_Y_32 = y + -50
-	FOCUS_POS_Y_64 = y + -50
+	FOCUS_POS_Y = y + -50
 end
 
 -------------------------------------
@@ -789,11 +670,7 @@ end
 function UI_ClanWarTournamentTree:initTableViewFocus()
     if (self.m_scrollView) then
 	    local container_node = self.m_scrollView:getContainer()
-	    if (g_clanWarData:getMaxRound() == 64) then
-	    	container_node:setPositionY(FOCUS_POS_Y_64)
-	    else
-	    	container_node:setPositionY(FOCUS_POS_Y_32)		
-	    end
+	    container_node:setPositionY(FOCUS_POS_Y)
     end
 end
 
@@ -801,12 +678,14 @@ end
 -- function click_gotoMatch
 -------------------------------------
 function UI_ClanWarTournamentTree:click_gotoMatch()    
-    local is_open, msg = g_clanWarData:checkClanWarState_Tournament()
+    -- 열려있는지 확인
+	local is_open, msg = g_clanWarData:checkClanWarState_Tournament()
 	if (not is_open) then	
 		MakeSimplePopup(POPUP_TYPE.OK, msg)
 		return
 	end
 
+	-- 매치에 내 클랜 정보가 있는지 확인
 	local struct_clan_war_tournament = self.m_structTournament
     local my_clan_id = g_clanWarData:getMyClanId()
     local data = struct_clan_war_tournament:getTournamentInfo(my_clan_id)
@@ -825,22 +704,26 @@ end
 -- function showLastRankPopup
 -------------------------------------
 function UI_ClanWarTournamentTree:showLastRankPopup()
+	-- 1.이미 기록된 day라면 return
 	local day = g_settingData:getClanWarDay()
 	if (day == g_clanWarData.m_clanWarDay) then
 		return
 	end
 
+	-- 2.라운드 정보가 없다면 return
 	local round = g_clanWarData:getTodayRound()
 	if (not round) then
 		return
 	end
 
+	-- 3.이전날 경기 정보가 없다면 return
     local last_round = round * 2
 	local l_list = self.m_structTournament:getTournamentListByRound(last_round)
     if (not l_list) then
         return
     end
 
+	-- 4.이전날 내 경기 정보가 없다면 return
 	local my_clan_id = g_clanWarData:getMyClanId()
 	local last_match_data = nil
 	for i, data in ipairs(l_list) do

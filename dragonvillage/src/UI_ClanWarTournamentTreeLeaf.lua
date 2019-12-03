@@ -6,6 +6,7 @@ UI_ClanWarTournamentTreeLeaf = class(UI, {
     m_clan2Win = 'boolean',
 })
 
+local WIN_COLOR = cc.c3b(127, 255, 212)
 -------------------------------------
 -- function init
 -------------------------------------
