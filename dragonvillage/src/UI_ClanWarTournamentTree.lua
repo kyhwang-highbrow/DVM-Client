@@ -50,6 +50,12 @@ function UI_ClanWarTournamentTree:init()
     self:initUI()
 	self:initButton()
 
+	-- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+	self:sceneFadeInAction()
+
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 

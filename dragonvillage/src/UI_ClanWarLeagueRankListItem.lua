@@ -93,6 +93,13 @@ function UI_ClanWarLeagueRankInfoPopup:init(struct_league_item)
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarLeagueMatchInfoPopup')
 
     self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+	
+	-- 클랜 정보
+	self.vars['clanBtn']:registerScriptTapHandler(function()
+		local clan_id = struct_league_item['clan_id']
+		g_clanData:requestClanInfoDetailPopup(clan_id)
+    end)
+
 
     -- @UI_ACTION
     self:doActionReset()

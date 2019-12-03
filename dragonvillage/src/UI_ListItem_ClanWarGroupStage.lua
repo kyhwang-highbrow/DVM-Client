@@ -391,11 +391,7 @@ UI_ListItem_ClanWarGroupStageRankInGroup = class(PARENT, {
 	        -- 내 클랜은 강조 표시
             local my_clan_id = g_clanWarData:getMyClanId()
             vars['rankMeSprite']:setVisible(my_clan_id == clan_id)
-            if (clan_rank ~= '-') then
-                vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueRankInfoPopup(struct_league_item) end)
-            else
-                vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.')) end)
-            end
+            vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarLeagueRankInfoPopup(struct_league_item) end)
         end
 
 

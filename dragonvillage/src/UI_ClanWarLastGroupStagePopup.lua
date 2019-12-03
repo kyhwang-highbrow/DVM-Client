@@ -69,6 +69,10 @@ function UI_ClanWarLastGroupStagePopup:setAllGroupRankList()
 	local l_team = struct_clan_war:getAllClanWarLeagueRankList()
     vars['listNode']:removeAllChildren()
 
+	local create_cb = function(ui, data)
+		ui.vars['teamLabel']:setColor(COLOR['white'])
+	end
+	
 	-- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(vars['listNode'])
     table_view_td.m_cellSize = cc.size(420, 316)

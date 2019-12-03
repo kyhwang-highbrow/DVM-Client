@@ -35,9 +35,9 @@ function UI_ClanWarLeagueResultPopup:initRankUI(struct_league)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['listNode'])
-    table_view.m_defaultCellSize = cc.size(660, 60 + 5)
+    table_view.m_defaultCellSize = cc.size(660, 75 + 0)
     table_view:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
-    table_view:setCellUIClass(UI_ClanWarLeagueRankListItem)
+    table_view:setCellUIClass(UI_ListItem_ClanWarGroupStageRankInGroup)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank, false)
 end
@@ -50,27 +50,12 @@ function UI_ClanWarLeagueResultPopup:initDetailRankUI(struct_league_item)
 	local clan_id = struct_league_item:getClanId()
     local struct_clan_rank = g_clanWarData:getClanInfo(clan_id)
 
-	vars['titleLabel']:setString(Str('{@yellow}{1}조{@default} 순위', struct_league_item:getLeague()))
+	vars['teamLabel']:setString(Str('{1}조', struct_league_item:getLeague()))
 
-    local ui = UI_ClanWarLeagueRankListItem(struct_league_item)
+    local ui = UI_ListItem_ClanWarGroupStageRankInGroup(struct_league_item)
     ui:setClickEnabled(false)
     vars['rankItemNode']:addChild(ui.root)
 
-    -- 게임 스코어 모두 더한 값
-    local total_set_win_cnt = struct_league_item:getGameWin() or 0
-    vars['setScoreLabel']:setString(tostring(total_set_win_cnt))
-
-    -- 세트 스코어 모두 더한 값
-    local total_set_score = struct_league_item['member_win_cnt'] or 0
-    vars['victoryLabel']:setString(tostring(total_set_score))
-
-    -- 클랜 정보 (레벨, 경험치, 참여 인원, 생성일)
-	local clan_lv = struct_clan_rank:getClanLv() or ''
-    local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
-    vars['clanLvExpLabel']:setString(clan_lv_exp)
-
-    local create_at = struct_clan_rank:getCreateAtText()
-	vars['creationLabel']:setString(create_at)
 
 	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end

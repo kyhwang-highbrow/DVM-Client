@@ -339,6 +339,14 @@ function UI_ClanWarMatchingScene:initButton()
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+	vars['matchTypeBtn']:registerScriptTapHandler(function() UI_ClanWarLastGroupStagePopup() end)
+
+	-- 토너먼트 일 때에만 켜준다
+	if (not g_clanWarData:isGroupStage()) then
+		vars['matchTypeBtn']:setVisible(true)
+	else
+		vars['matchTypeBtn']:setVisible(false)
+	end
 end
 
 -------------------------------------

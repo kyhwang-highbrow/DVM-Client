@@ -359,7 +359,8 @@ function UI_ClanWar_GroupStage:setAllGroupRankList()
 	
     local create_cb = function(ui, data)
         ui.vars['moveBtn']:registerScriptTapHandler(function() self.m_groupPaging:setGroup(ui.m_leagueNumber) end)
-    end
+		ui.vars['teamLabel']:setColor(cc.c3b(40, 40, 40))
+	end
     
     vars['allRankTabMenu']:removeAllChildren()
 
