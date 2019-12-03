@@ -30,8 +30,8 @@ local WIN_COLOR = cc.c3b(127, 255, 212)
 
 local SCROLL_MENU_HEIGHT = 1250 -- 64강일 때 스크롤 사이즈
 
-local FOCUS_POS_Y_64 = -740 -- 맨 위에 포커스 하는 y 위치
-local FOCUS_POS_Y_32 = FOCUS_POS_Y_64 + SCROLL_MENU_HEIGHT/2 -- 스크롤 늘린 만큼 밑으로 내려준다. bottom_center라서 어쩔 수 없음
+local FOCUS_POS_Y_64 = 0
+local FOCUS_POS_Y_32 = 0
 
 
 
@@ -400,12 +400,18 @@ function UI_ClanWarTournamentTree:setFinal()
         end
 
         -- 이름, 이긴 클랜, 등등 세팅
+		local round_text = Str('결승전')
         local final_name_1 = struct_clan_rank_1:getClanName()
         local final_name_2 = struct_clan_rank_2:getClanName()
         ui.vars['finalClanLabel1']:setString(final_name_1)
         ui.vars['finalClanLabel2']:setString(final_name_2)
 
         if (today_round == 1) then
+			round_text = round_text .. '-' .. Str('진행중')
+			local label = 'round2_1TodaySprite'
+			if (ui.vars[label]) then
+				ui.vars[label]:setVisible(true)
+			end
             ui.vars['winVisual']:setVisible(true)
             ui.vars['clanMarkNode']:setVisible(true)
 
@@ -431,6 +437,11 @@ function UI_ClanWarTournamentTree:setFinal()
         end
     end
 
+	local label_lua_name = 'round2_1Label'
+	if (ui.vars[label_lua_name]) then
+		ui.vars[label_lua_name]:setString(round_text)
+	end
+
     self.m_isMakeFinalUI = true
 end
 
@@ -447,21 +458,28 @@ function UI_ClanWarTournamentTree:makeFinalItemByRound(ui_final, round)
         local ui = self:makeTournamentLeaf(round, idx, data)
         ui.root:setPositionY(0)
         ui.vars['lineMenu']:setVisible(false)
-        ui.vars['roundMenu']:setVisible(true)
 
         local round_text = g_clanWarData:getRoundText(round)
         if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
             local today_round = g_clanWarData:getTodayRound()
 	        if (round == today_round) then
 		        round_text = round_text .. ' - ' .. Str('진행중')
-                ui.vars['todaySprite']:setVisible(true)
-                ui.vars['roundLabel']:setColor(COLOR['black'])
-	        end 
+				local label = 'round' .. round ..'_' .. idx .. 'TodaySprite'
+				if (ui_final.vars[label]) then
+					ui_final.vars[label]:setVisible(true)
+				end
+			end
+        end
+		local label_lua_name = 'round' .. round ..'_' .. idx .. 'Label'
+		if (ui_final.vars[label_lua_name]) then
+			ui_final.vars[label_lua_name]:setString(round_text)
         end
 
-        ui.vars['roundLabel']:setString(round_text)
-        ui_final.vars['round' .. round .. '_' .. idx .. 'Node']:addChild(ui.root)
-    end    
+		local node_lua_name = 'round' .. round .. '_' .. idx .. 'Node'
+		if (ui_final.vars[node_lua_name]) then
+			ui_final.vars[node_lua_name]:addChild(ui.root)
+		end
+	end    
 end
 
 -------------------------------------
@@ -576,6 +594,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
         local dist = self:getFirstPosY() - pos_y
         local focus_y = first_pos_y + dist - 100 -- 중간에 위치시키기 위해 100 빼줌
         focus_y = math.max(focus_y, first_pos_y)
+		focus_y = math.min(focus_y, 0)
         container_node:setPositionY(focus_y)
     end
 end
@@ -593,7 +612,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     local struct_clan_rank_1 = g_clanWarData:getClanInfo(clan1_id)
     local struct_clan_rank_2 = g_clanWarData:getClanInfo(clan2_id)
 
-    local ui = UI_ClanWarTournamentTreetLeafItem()
+    local ui = UI_ClanWarTournamentTreeLeaf()
     local clan_name1 = ''
     local clan_name2 = ''
     
@@ -697,10 +716,6 @@ end
 function UI_ClanWarTournamentTree:getFirstPosY()
     local vars = self.vars
     local first_pos = vars['scrollPosY']:getPositionY()
-
-    if (g_clanWarData:getMaxRound() == 32) then
-        first_pos = first_pos - SCROLL_MENU_HEIGHT/2
-    end
     return first_pos
 end
 
@@ -750,6 +765,16 @@ function UI_ClanWarTournamentTree:initScroll()
     self.m_scrollView = scroll_view
 
 	self:initTableViewFocus()
+
+	local _container = scroll_view:getContainer()
+    local size = _container:getContentSize()
+
+	local viewSize = scroll_view:getViewSize()
+    local x = viewSize['width'] - size['width']
+    local y = viewSize['height'] - size['height']
+
+	FOCUS_POS_Y_32 = y + -50
+	FOCUS_POS_Y_64 = y + -50
 end
 
 -------------------------------------
@@ -878,118 +903,4 @@ end
 
 
 
--------------------------------------
--- class UI_ClanWarTournamentTreetLeafItem
--------------------------------------
-UI_ClanWarTournamentTreetLeafItem = class(UI, {
-    m_clan1Win = 'boolean',
-    m_clan2Win = 'boolean',
-})
 
--------------------------------------
--- function init
--------------------------------------
-function UI_ClanWarTournamentTreetLeafItem:init()
-    local vars = self:load('clan_war_tournament_item_leaf.ui')
-    
-	vars['lineMenu']:setVisible(true)
-end
-
--------------------------------------
--- function setWin
--------------------------------------
-function UI_ClanWarTournamentTreetLeafItem:setWin(is_clan1_win, is_clan2_win)
-    self.m_clan1Win = is_clan1_win
-    self.m_clan2Win = is_clan2_win
-end
-
--------------------------------------
--- function setLine
--------------------------------------
-function UI_ClanWarTournamentTreetLeafItem:setLine(is_both)
-    local vars = self.vars
-
-    vars['leftHorizontalSprite']:setVisible(not is_both)
-end
-
--------------------------------------
--- function setRightHeightLine
--------------------------------------
-function UI_ClanWarTournamentTreetLeafItem:setRightHeightLine(idx, height)
-    local vars = self.vars
-
-    if (idx%2 == 0) then
-	    vars['rightLine2']:setScaleY(-1)
-    end
-    local width, _ = vars['rightLine2']:getNormalSize()
-    vars['rightLine2']:setNormalSize(width, height)
-end
-
--------------------------------------
--- function setWinLineColor
--------------------------------------
-function UI_ClanWarTournamentTreetLeafItem:setWinLineColor(is_up_win)
-    local vars = self.vars
-
-	if (is_up_win) then
-		vars['topClanLine1']:setColor(WIN_COLOR)
-		vars['topClanLine2']:setColor(WIN_COLOR)
-	else
-		vars['bottomClanLine1']:setColor(WIN_COLOR)
-		vars['bottomClanLine2']:setColor(WIN_COLOR)		
-	end
-    vars['rightLine1']:setColor(WIN_COLOR)
-	vars['rightLine2']:setColor(WIN_COLOR)
-end
-
--------------------------------------
--- function getMyInfoInCurRound
--------------------------------------
-function UI_ClanWarTournamentTreetLeafItem:getMyInfoInCurRound(today_round)
-    local l_list = self.m_structTournament:getTournamentListByRound(today_round)
-    local my_clan_id = g_clanWarData:getMyClanId()
-    for idx, data in ipairs(l_list) do
-        if (my_clan_id == data['clan_id']) then
-            return data, idx
-        end
-    end
-    return nil
-end
-
-
-
-
-
-
-
-
-
--------------------------------------
--- class UI_ClanWarTournamentTreeListItem
--------------------------------------
-UI_ClanWarTournamentTreeListItem = class(UI, {
-})
-
--------------------------------------
--- function init
--------------------------------------
-function UI_ClanWarTournamentTreeListItem:init(round)
-    local vars = self:load('clan_war_tournament_item_title.ui')
-    vars['roundLabel']:setString(Str('{1}강전', round))
-end
-
--------------------------------------
--- function setInProgress
--------------------------------------
-function UI_ClanWarTournamentTreeListItem:setInProgress()
-	local vars = self.vars
-    vars['todaySprite']:setVisible(false)
-
-	local round_text = vars['roundLabel']:getString()
-	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-		round_text = round_text .. ' - ' .. Str('진행중')
-        vars['todaySprite']:setVisible(true)
-        vars['roundLabel']:setColor(COLOR['black'])
-	end
-	vars['roundLabel']:setString(round_text)
-end
