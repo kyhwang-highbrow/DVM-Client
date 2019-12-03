@@ -279,11 +279,16 @@ function UI_ClanWarTournamentTree:showSidePage(is_right)
 	local vars = self.vars
 	local struct_clan_war_tournament = self.m_structTournament
     local max_round = g_clanWarData:getMaxRound()
-	local l_round = {32, 16}
+	
+    -- 32강 부터 시작한다면 1,3 페이지에 32, 16강을 찍는다.
+    local l_round = {32, 16}
+
+    -- 64강 부터 시작한다면 1,3 페이지에 64, 32, 16강을 찍는다.
 	if (g_clanWarData:getMaxRound() == 64) then
 		l_round = {64, 32, 16}
 	end
 	
+    -- 라운드에 해당하는 매치를 생성
 	for round_idx, round in ipairs(l_round) do
         self:setTournament(round_idx, round, is_right)
 		
@@ -317,7 +322,8 @@ end
 -- function showCenterPage
 -------------------------------------
 function UI_ClanWarTournamentTree:showCenterPage()
-	if (self.m_isMakeFinalUI) then
+	-- 한번 만들었다면 또 만들지 않는다
+    if (self.m_isMakeFinalUI) then
         return
     end
     
@@ -333,12 +339,14 @@ function UI_ClanWarTournamentTree:setFinal()
     ui:load('clan_war_tournament_final_item.ui')
     vars['finalNode']:addChild(ui.root)
 
-    self:makeFinalItemByRound(ui, 8, true) -- is_round_menu
-    self:makeFinalItemByRound(ui, 4, true)
+    self:makeFinalItemByRound(ui, 8, true) -- 8강 아이템들 생성
+    self:makeFinalItemByRound(ui, 4, true) -- 4강 아이템들 생성
 
     local today_round = g_clanWarData:getTodayRound()
     local round_text = Str('결승전')
 
+    -- 이긴 가지 sprite 켜줌
+    -- ex) 지금 8강일 때에는 16강 가지 까지 켜쥼
     if (today_round <= 8) then
         ui.vars['round16LineSprite1']:setColor(WIN_COLOR)
         ui.vars['round16LineSprite2']:setColor(WIN_COLOR)
@@ -355,6 +363,7 @@ function UI_ClanWarTournamentTree:setFinal()
         ui.vars['round4LineSprite']:setColor(WIN_COLOR)
     end
 
+    -- 진행중인 라운드에 표기
     if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
 	    if (today_round == 2) then
 	        round_text = round_text .. ' - ' .. Str('진행중')
@@ -366,6 +375,7 @@ function UI_ClanWarTournamentTree:setFinal()
         end 
     end
 
+    -- 아직 진행하지 않은 곳(값이 없는)의 클랜 이름은 = {1}강 승리 클랜
     ui.vars['roundLabel']:setString(round_text)
     if (today_round > 2) then
         ui.vars['finalClanLabel1']:setString(Str('{1}강', 4) .. ' ' .. Str('승리 클랜'))
@@ -373,6 +383,7 @@ function UI_ClanWarTournamentTree:setFinal()
         ui.vars['finalClanLabel1']:setColor(COLOR['gray'])
         ui.vars['finalClanLabel2']:setColor(COLOR['gray'])
     else
+        -- 결승전 생성
         local l_list = self.m_structTournament:getTournamentListByRound(2)
         local final_data = l_list[1]
         if (not final_data) then
@@ -388,6 +399,7 @@ function UI_ClanWarTournamentTree:setFinal()
             struct_clan_rank_2 = StructClanRank()
         end
 
+        -- 이름, 이긴 클랜, 등등 세팅
         local final_name_1 = struct_clan_rank_1:getClanName()
         local final_name_2 = struct_clan_rank_2:getClanName()
         ui.vars['finalClanLabel1']:setString(final_name_1)
@@ -404,8 +416,6 @@ function UI_ClanWarTournamentTree:setFinal()
                 end
             end
             local clan_win_1 = is_clan_1_win
-            ui.vars['winMenu1']:setVisible(clan_win_1)
-            ui.vars['winMenu2']:setVisible(not clan_win_1)
             ui.vars['defeatSprite1']:setVisible(not clan_win_1)
             ui.vars['defeatSprite2']:setVisible(clan_win_1)
 
@@ -426,6 +436,7 @@ end
 
 -------------------------------------
 -- function makeFinalItemByRound
+-- @brief 파이널은 위치가 박혀있기 때문에 따로 y 위치를 계산하지 않는다. 그래서 분리
 -------------------------------------
 function UI_ClanWarTournamentTree:makeFinalItemByRound(ui_final, round)
     local vars = self.vars
@@ -455,6 +466,7 @@ end
 
 -------------------------------------
 -- function setTournament
+-- @brief 해당 라운드의 매치들을 생성
 -------------------------------------
 function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     local vars = self.vars
@@ -467,11 +479,15 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
     local clan2 = {}
     local item_idx = 1
     local max_round = g_clanWarData:getMaxRound()
+
+    -- title 1,2,3,4 -> title 4,3,2,1
+    -- 반대로 찍어야 해서 하드코딩..
     local max_idx = 4
     if (max_round == 32) then
         max_idx = 3
     end
 
+    -- 타이틀이 posX를 각 매치 잎을의 posX로 사용
 	local func_get_pos_x = function(round_idx)
 		local pos_x = 0
 		if (is_right) then
@@ -484,6 +500,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
 		return pos_x
 	end
 
+    -- 오른쪽 페이지의 경우 매치 넘버가 절반보다 높은 아이템들만 생성
     local func_get_is_valid = function(idx)
 		local is_valid_item = false
         if (is_right) then
@@ -506,7 +523,10 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
 	-- N강 치르는 개별 클랜 리스트 = l_list
     for idx, data in ipairs(l_list) do
         if (func_get_is_valid(idx)) then
+
+            -- 매치 잎 생성
             local ui = self:makeTournamentLeaf(round, idx, data, is_right)
+            -- 내 클랜이 몇 번째 매치 잎에 있는지 계산
             if (data['a_clan_id'] == my_clan_id) or (data['b_clan_id'] == my_clan_id) then
                 my_clan_idx = idx
             end
@@ -523,18 +543,19 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round, is_right)
                 -- 가지 세팅 : 가로
                 ui:setLine(g_clanWarData:getMaxRound() == round) -- is_both 마지막 라운드만 왼쪽에 가로 선이 없음
 
-	    		-- 왼쪽 페이지 기준으로 만든 가지를 X축 기준으로 뒤집음
+	    		-- 오른쪽 페이지의 경우, 왼쪽 페이지 기준으로 만든 가지를 X축 기준으로 뒤집음
 	    		if (is_right) then
 	    			ui.vars['lineMenu']:setScaleX(-1)
 	    		end
 
-                -- 세로 길이
+                -- 가지의 세로 길이
                 local line_height = BRUNCH_HEIGHT * round_idx + math.floor(round_idx/3) * BRUNCH_HEIGHT + BRUNCH_HEIGHT_TERM * (round_idx-1) --100, 230, 460
                 ui:setRightHeightLine(idx, line_height/2)
             end
         end
     end
 
+    -- 내 클랜이 있다면 포커싱, 없다면 해주지 않음
     if (not my_clan_idx) then
         return
     end
@@ -576,11 +597,13 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     local clan_name1 = ''
     local clan_name2 = ''
     
+    -- 내 클랜 강조
 	local my_clan_id = g_clanWarData:getMyClanId()
     if (clan1_id == my_clan_id) or (clan2_id == my_clan_id) then
         ui.vars['meClanSprite']:setVisible(true)
     end
 
+    -- 매치 아이템 눌렀을 때 상세 팝업
     local today_round = g_clanWarData:getTodayRound()
     ui.vars['detailBtn']:registerScriptTapHandler(function()
         if (round < today_round) then
@@ -590,6 +613,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
         end
     end)
 
+    -- 이름, 승리 여부 등등
     if (struct_clan_rank_1) then
         local clan_name = struct_clan_rank_1:getClanName() or ''
         clan_name1 = clan_name
@@ -612,7 +636,6 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 	ui.vars['defeatSprite1']:setVisible(false)
 	ui.vars['defeatSprite2']:setVisible(false)
     ui:setWin(is_clan_1_win, not is_clan_1_win)
-	
 
 
     -- 현재 진행중인 라운드의 경우
@@ -659,6 +682,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
         return ui
     end
 	
+    -- 그 다음 경기 부터는 첫 경기에 만들어진 y 위치 기반으로 위치를 계산
     local idx = item_idx * 2
     pos_y = (self.m_lPosY[idx] + self.m_lPosY[idx - 1])/2
 
