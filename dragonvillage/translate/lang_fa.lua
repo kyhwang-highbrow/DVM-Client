@@ -82,6 +82,7 @@ return {['{@yellow}세트 스코어{@default}가 동점일 경우 아래의 조�
 ['단, 공격중이던 아군이 공격에 실패할 경우에는 공격할 수 있습니다.']='Unless other members failed to attack them.',
 ['승']='WIN',
 ['패']='LOSE',
+['겨울 드래곤']='Winter Dragon',
 ['정말 멋진 전투였습니다! 앞으로의 모험도 걱정 없겠군요!']='It was an amazing Battle! It\'s going to be smooth sailing from now on!',
 ['마지막으로 중요한 사실을 알려드릴게요!\n1챕터의 7스테이지를 완료하면 {@yellow}고급 뽑기 10+1회{@default}를 무료로 제공한다고 합니다!']='One last thing!\nIf you complete Stage 1-7, you\'ll be rewarded with {@yellow}10+1 Advanced Summons{@default} for free!',
 ['이 기회에 가장 희귀하다는 전설 등급 드래곤을 만나게 되면 얼마나 기쁠까요!']='While we\'re at it, think how great it\'d be to meet a Legendary Dragon, the rarest of them all!',
