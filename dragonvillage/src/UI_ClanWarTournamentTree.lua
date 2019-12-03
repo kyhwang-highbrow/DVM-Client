@@ -533,7 +533,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
         if (round < today_round) then
             UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.'))
         else
-            UI_ClanWarMatchInfoDetailPopup(data) 
+            UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data)
         end
     end)
 
@@ -743,7 +743,7 @@ function UI_ClanWarTournamentTree:showLastRankPopup()
         return
     end
 
-	UI_ClanWarMatchInfoDetailPopup(last_match_data, true)
+	UI_ClanWarMatchInfoDetailPopup.createYesterdayResultPopup(last_match_data)
 	g_settingData:setClanWarDay(g_clanWarData.m_clanWarDay)
 end
 

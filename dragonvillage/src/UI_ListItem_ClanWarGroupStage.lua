@@ -295,7 +295,9 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
 
             -- 미래 경기는 상세 팝업 보여주지 않음
             if (match_number <= tonumber(g_clanWarData.m_clanWarDay)) then
-                vars['popupBtn']:registerScriptTapHandler(function() UI_ClanWarMatchInfoDetailPopup(data) end)
+                vars['popupBtn']:registerScriptTapHandler(function() 
+					UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data) -- data, ui_res, set_my_clan_left 
+				end)
             else
                 vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.')) end)
                 vars['scoreLabel1']:setString('')

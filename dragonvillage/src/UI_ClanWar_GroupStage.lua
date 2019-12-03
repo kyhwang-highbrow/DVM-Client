@@ -490,6 +490,7 @@ function UI_ClanWar_GroupStage:showLastRankPopup()
 	if (not last_match_data) then
 		return
 	end
-	UI_ClanWarMatchInfoDetailPopup(last_match_data, true) -- param : data, is_yesterday_result
+
+	UI_ClanWarMatchInfoDetailPopup.createYesterdayResultPopup(last_match_data)
 	g_settingData:setClanWarDay(g_clanWarData.m_clanWarDay)
 end
