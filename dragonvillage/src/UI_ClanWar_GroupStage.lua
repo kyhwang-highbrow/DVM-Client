@@ -149,6 +149,11 @@ function UI_ClanWar_GroupStage:update()
     local remain_time_text = g_clanWarData:getRemainTimeText()
     vars['timeLabel']:setString(remain_time_text)
     vars['timeLabel2']:setString(remain_time_text)
+
+    -- 스크롤 방지
+    if (self.m_tableViewGroupRank) then
+        self.m_tableViewGroupRank.m_scrollView:setTouchEnabled(false)
+    end
 end
 
 -------------------------------------
