@@ -96,7 +96,7 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
 
         local my_clan_id = g_clanWarData:getMyClanId()
         -- 내 클랜이 있다면 강조
-        if (final_data['a_clan_id'] == my_clan_id) or (final_data['a_clan_id'] == my_clan_id) then
+        if (final_data['a_clan_id'] == my_clan_id) or (final_data['b_clan_id'] == my_clan_id) then
             vars['meNode']:setVisible(true)
         end
 
