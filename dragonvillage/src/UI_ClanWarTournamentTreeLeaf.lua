@@ -14,6 +14,13 @@ function UI_ClanWarTournamentTreeLeaf:init()
     local vars = self:load('clan_war_tournament_item_leaf.ui')
     
 	vars['lineMenu']:setVisible(true)
+
+    local _, height = vars['leftHorizontalSprite']:getNormalSize()
+    if (g_clanWarData:getMaxRound() == 64) then
+        vars['leftHorizontalSprite']:setNormalSize(110, height)
+    else
+        vars['leftHorizontalSprite']:setNormalSize(170, height)
+    end
 end
 
 -------------------------------------
@@ -75,6 +82,20 @@ function UI_ClanWarTournamentTreeLeaf:getMyInfoInCurRound(today_round)
         end
     end
     return nil
+end
+
+-------------------------------------
+-- function setLineConnectedToFinal
+-------------------------------------
+function UI_ClanWarTournamentTreeLeaf:setLineConnectedToFinal()
+    self.vars['rightHorizontalSprite']:setVisible(true)
+end
+
+-------------------------------------
+-- function setColorConnectedToFinal
+-------------------------------------
+function UI_ClanWarTournamentTreeLeaf:setColorConnectedToFinal()
+    self.vars['rightHorizontalSprite']:setColor(WIN_COLOR)
 end
 
 

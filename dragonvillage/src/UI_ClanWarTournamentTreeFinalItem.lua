@@ -54,16 +54,19 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
     end
 
     -- 진행중인 라운드에 표기
-    if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-	    if (today_round == 2) then
-	        round_text = round_text .. ' - ' .. Str('진행중')
-            vars['todaySprite']:setVisible(true)
-            vars['roundLabel']:setColor(COLOR['black'])
+	if (today_round == 2) then
+	    vars['todaySprite']:setVisible(true)
+        vars['roundLabel']:setColor(COLOR['black'])
+        if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+            round_text = round_text .. ' - ' .. Str('진행중')
             vars['attackVisual']:setVisible(true)
-	    else
-            vars['normalIconSprite']:setVisible(true)
-        end 
-    end
+            vars['normalIconSprite']:setVisible(false)
+        end
+	else
+        vars['normalIconSprite']:setVisible(true)
+        vars['attackVisual']:setVisible(false)
+    end 
+
 
     -- 아직 진행하지 않은 곳(값이 없는)의 클랜 이름은 = {1}강 승리 클랜
     vars['roundLabel']:setString(round_text)
@@ -96,8 +99,22 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
         vars['finalClanLabel1']:setString(final_name_1)
         vars['finalClanLabel2']:setString(final_name_2)
 
+ 
+        local clan_node1 = struct_clan_rank_1:makeClanMarkIcon()
+        if (clan_node1) then
+            vars['clanMarkNode1']:addChild(clan_node1)
+        end
+
+        local clan_node2 = struct_clan_rank_2:makeClanMarkIcon()
+        if (clan_node2) then
+            vars['clanMarkNode2']:addChild(clan_node2)
+        end
+
+
         if (today_round == 1) then
-			round_text = round_text .. '-' .. Str('진행중')
+            if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
+			    round_text = round_text .. '-' .. Str('진행중')
+            end
 			local label = 'round2_1TodaySprite'
 			if (vars[label]) then
 				vars[label]:setVisible(true)

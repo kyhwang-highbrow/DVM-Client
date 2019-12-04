@@ -17,9 +17,9 @@ UI_ClanWarTournamentTree = class(PARENT, {
      })
 
 -- 가지 세로 길이
-local BRUNCH_HEIGHT = 100
+local BRUNCH_HEIGHT = 72
 -- 가지 세로 길이 간격
-local BRUNCH_HEIGHT_TERM = 30
+local BRUNCH_HEIGHT_TERM = 10
 
 -- 잎 세로길이
 local LEAF_HEIGHT = 72
@@ -357,12 +357,31 @@ function UI_ClanWarTournamentTree:makeFinalItemByRound(ui_final, round)
         ui.root:setPositionY(0)
         ui.vars['lineMenu']:setVisible(false)
 		
+        -- final UI에 아이템을 붙인다
 		local node_lua_name = 'round' .. round .. '_' .. idx .. 'Node'
 		if (ui_final.vars[node_lua_name]) then
 			ui_final.vars[node_lua_name]:addChild(ui.root)
 		end
-	end
-  
+
+        -- 이긴 클랜 가지에 색상 표시
+        local is_clan_1_win = false
+        if (data['win_clan']) then
+            if (data['win_clan'] == data['a_clan_id']) then
+                is_clan_1_win = true
+            end
+
+            -- 8강 2번째 아이템의 첫번째가 이겼을 경우 2*2 -1 3번째가지에 이긴 색상 표시
+            local win_idx = idx*2
+            if (is_clan_1_win) then
+                win_idx = idx*2 -1
+            end
+
+            local lua_name = 'round' .. round .. '_' .. win_idx
+            if (ui_final.vars[lua_name]) then
+                ui_final.vars[lua_name]:setVisible(true)
+            end
+        end   
+    end
 end
 
 -------------------------------------
@@ -395,11 +414,15 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round)
 		local pos_x = 0
 		if (is_right) then
             local title_lua_name = max_round .. '_0' .. max_idx-round_idx .. 'TitleMenu'
-			pos_x = vars[title_lua_name]:getPositionX()
-		else
+			if (vars[title_lua_name]) then
+                pos_x = vars[title_lua_name]:getPositionX()
+		    end
+        else
             local title_lua_name = max_round .. '_0' .. round_idx .. 'TitleMenu'
-            pos_x = vars[title_lua_name]:getPositionX()
-		end
+            if (vars[title_lua_name]) then
+                pos_x = vars[title_lua_name]:getPositionX()
+		    end
+        end
 		return pos_x
 	end
 
@@ -517,18 +540,38 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
         end
     end)
 
-    -- 이름, 승리 여부 등등
-    if (struct_clan_rank_1) then
-        local clan_name = struct_clan_rank_1:getClanName() or ''
-        clan_name1 = clan_name
+    local get_clan_node_pos_x = function(label)
+        local string_width = label:getStringWidth()
+        local pos_x = -(string_width / 2)
+        return pos_x - 20
     end
-    ui.vars['clanNameLabel1']:setString(clan_name1)
-    
-    if (struct_clan_rank_2) then
-        local clan_name = struct_clan_rank_2:getClanName() or ''
-        clan_name2 = clan_name
+
+    -- 이름, 클랜 마크
+    do
+        if (struct_clan_rank_1) then
+            local clan_name = struct_clan_rank_1:getClanName() or ''
+            clan_name1 = clan_name
+            clan_node1 = struct_clan_rank_1:makeClanMarkIcon()
+        end
+        ui.vars['clanNameLabel1']:setString(clan_name1)
+        if (clan_node1) then
+            ui.vars['clanMarkNode1']:addChild(clan_node1)
+            local pos_x = get_clan_node_pos_x(ui.vars['clanNameLabel1'])
+            ui.vars['clanMarkNode1']:setPositionX(pos_x)
+        end
+         
+        if (struct_clan_rank_2) then
+            local clan_name = struct_clan_rank_2:getClanName() or ''
+            clan_name2 = clan_name
+            clan_node2 = struct_clan_rank_2:makeClanMarkIcon()
+        end
+        ui.vars['clanNameLabel2']:setString(clan_name2)
+        if (clan_node2) then
+            ui.vars['clanMarkNode2']:addChild(clan_node2)
+            local pos_x = get_clan_node_pos_x(ui.vars['clanNameLabel2'])
+            ui.vars['clanMarkNode2']:setPositionX(pos_x)
+        end
     end
-    ui.vars['clanNameLabel2']:setString(clan_name2)
 
     local is_clan_1_win = false
     if (data['win_clan']) then
@@ -579,6 +622,14 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
         item_idx = item_idx - round/4
     end
 
+    -- 결승전으로 이어지는 오른쪽 라인 생성
+    if (round == 16) then
+        ui:setLineConnectedToFinal()
+        if (today_round < round) then
+            ui:setColorConnectedToFinal()
+        end
+    end
+
     -- 첫 경기일 경우
 	-- 2개 생성하고 간격 + 아이템 높이
     if (round == g_clanWarData:getMaxRound()) then
@@ -591,7 +642,9 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     -- 그 다음 경기 부터는 첫 경기에 만들어진 y 위치 기반으로 위치를 계산
     -- 이전 경기 2개의 중앙값
 	local idx = item_idx * 2
-    pos_y = (self.m_lPosY[idx] + self.m_lPosY[idx - 1])/2
+    local pos_1 = self.m_lPosY[idx] or 0
+    local pos_2 = self.m_lPosY[idx - 1] or 0
+    pos_y = (pos_1 + pos_2)/2
 
     self.m_lPosY[item_idx] = pos_y
     ui.root:setPositionY(pos_y)    
