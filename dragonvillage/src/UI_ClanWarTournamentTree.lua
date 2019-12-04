@@ -59,6 +59,11 @@ function UI_ClanWarTournamentTree:init()
 	self:sceneFadeInAction(function()
         self:showResultPopup()
 
+        local is_attacking, attacking_uid, end_date = g_clanWarData:isMyClanWarMatchAttackingState()
+        if (is_attacking) then
+            g_clanWarData:showPromoteGameStartPopup()
+        end
+
         -- 시즌 보상 팝업 (보상이 있다면)
 		if (g_clanWarData.m_tSeasonRewardInfo) then
 		    local t_info = g_clanWarData.m_tSeasonRewardInfo
