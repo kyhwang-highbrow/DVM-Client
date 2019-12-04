@@ -539,6 +539,7 @@ function UI_ClanWarTournamentTree:focusMyClan(my_clan_idx, is_right, round)
     local dist = self:getFirstPosY() - pos_y
     local focus_y = first_pos_y + dist - 100 -- 중간에 위치시키기 위해 100 빼줌
     focus_y = math.max(focus_y, first_pos_y)
+    focus_y = math.min(focus_y, 0)
     container_node:setPositionY(focus_y)
 end
 
