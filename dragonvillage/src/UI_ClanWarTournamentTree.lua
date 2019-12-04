@@ -493,7 +493,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round)
 
     -- 내 클랜이 있다면 포커싱, 없다면 해주지 않음
     if (my_clan_idx) then
-        self:focusMyClan(my_clan_idx)
+        self:focusMyClan(my_clan_idx, is_right, round)
     end
 
 end
@@ -501,7 +501,7 @@ end
 -------------------------------------
 -- function focusMyClan
 -------------------------------------
-function UI_ClanWarTournamentTree:focusMyClan(my_clan_idx)
+function UI_ClanWarTournamentTree:focusMyClan(my_clan_idx, is_right, round)
     local first_pos_y = FOCUS_POS_Y
 
     local container_node = self.m_scrollView:getContainer()
