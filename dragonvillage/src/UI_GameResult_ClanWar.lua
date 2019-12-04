@@ -31,7 +31,7 @@ end
 function UI_GameResult_ClanWar:initUI(is_success)
 	local vars = self.vars
 	vars['clanWarMenu']:setVisible(true)
-    vars['normalBtnMenu']:setVisible(false)
+    vars['normalBtnMenu']:setVisible(true)
 
 	local struct_user_info = g_clanWarData:getEnemyUserInfo()
 	local nick_name = struct_user_info:getNickname()
@@ -112,11 +112,11 @@ end
 function UI_GameResult_ClanWar:initButton()
 	local vars = self.vars
 
-	vars['lobbyBtn']:registerScriptTapHandler(function() UINavigatorDefinition:goTo('lobby') end)
-	vars['quickStartBtn']:registerScriptTapHandler(function() self:click_quickBtn(true) end)
-	vars['statsBtn2']:registerScriptTapHandler(function() self:click_statsBtn(true) end)
-	vars['clanWarLobbyBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
-	vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+	vars['homeBtn']:registerScriptTapHandler(function() UINavigatorDefinition:goTo('lobby') end)
+	--vars['quickStartBtn']:registerScriptTapHandler(function() self:click_quickBtn(true) end)
+	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn(true) end)
+	vars['okBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
+	--vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
 end
 
 -------------------------------------
