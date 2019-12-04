@@ -121,7 +121,7 @@ UI_ClanWarTournamentTreeListItem = class(UI, {
 -------------------------------------
 function UI_ClanWarTournamentTreeListItem:init(round)
     local vars = self:load('clan_war_tournament_item_title.ui')
-    vars['roundLabel']:setString(Str('{1}강', round))
+    vars['roundLabel']:setString(Str('{1}강', round) .. Str('({1})', g_clanWarData:getRoundOfWeekString(round)))
 end
 
 -------------------------------------
@@ -133,7 +133,6 @@ function UI_ClanWarTournamentTreeListItem:setInProgress()
 
 	local round_text = vars['roundLabel']:getString()
 	if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-		round_text = round_text .. ' - ' .. Str('진행중')
         vars['todaySprite']:setVisible(true)
         vars['roundLabel']:setColor(COLOR['black'])
 	end

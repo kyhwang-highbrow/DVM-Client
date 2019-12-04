@@ -199,6 +199,12 @@ function UI_ClanwarRewardInfoPopup:setTournament(league_rank, tournament_rank)
 
     -- 토너먼트 순위
     local tournament_rank_str = g_clanWarData:getRoundText(tournament_rank)
+    if (tournament_rank == 2) then
+        tournament_rank_str = Str('준우승')
+    end
+    if (tournament_rank == 1) then
+        tournament_rank_str = Str('우승')
+    end
     vars['tournamentRankLabel']:setString(tournament_rank_str)
 end
 
@@ -281,10 +287,10 @@ end
 
 
 -------------------------------------
--- function OpneWiwthMyClanInfo
+-- function OpneWithMyClanInfo
 -- @brief 클랜전 보상 팝업을 연다. (내 클랜의 현재 순위를 반영해서)
 -------------------------------------
-function UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo()
+function UI_ClanwarRewardInfoPopup:OpneWithMyClanInfo()
     local is_group_stage = g_clanWarData:isGroupStage()
 
     -- 조별리그 순위 (클랜전에 참여하지 않은 유저일 수도 있다)
@@ -294,5 +300,9 @@ function UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo()
     end
 
     local tournament_rank = 0
+    if g_clanWarData.m_myClanTournamentInfo then
+        tournament_rank = (g_clanWarData.m_myClanTournamentInfo['group_stage'] or 0)
+    end
+
     UI_ClanwarRewardInfoPopup(is_group_stage, group_stage_rank, tournament_rank) -- param : is_league, _league_rank, _tournament_rank
 end

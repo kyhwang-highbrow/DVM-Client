@@ -977,6 +977,24 @@ function ServerData_ClanWar:getDayOfWeekString(day)
     end
 end
 
+-------------------------------------
+-- function getRoundOfWeekString
+-- @brief 클랜전에서 사용하는 round로 무슨 요일인지 리턴
+-- @param round 64 ~ 1 (클랜전 토너먼트 진행 기간)
+-- @return string '월' ... '일'
+-------------------------------------
+function ServerData_ClanWar:getRoundOfWeekString(round)
+    if     (round >= 64) then return Str('월')
+    elseif (round == 32) then return Str('화')
+    elseif (round == 16) then return Str('수')
+    elseif (round == 8) then return Str('목')
+    elseif (round == 4) then return Str('금')
+    elseif (round == 2) then return Str('토')
+    elseif (round == 1) then return Str('일')
+    else return ''
+    end
+end
+
 
 -------------------------------------
 -- function getMyClanState

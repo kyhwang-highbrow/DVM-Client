@@ -107,7 +107,7 @@ function UI_ClanWarTournamentTree:initButton()
 
     vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWithMyClanInfo() end)
 end
 
 -------------------------------------
@@ -242,11 +242,11 @@ function UI_ClanWarTournamentTree:showPage()
 	local has_right
 	local has_left
 	if (page_number == 1) then
+		self:showSidePage()
 		has_right = true
 		has_left = false
-        vars['leftScrollMenu']:removeAllChildren()
-		vars['leftScrollMenu']:setVisible(true)
-		self:showSidePage()
+        vars['leftScrollMenu']:setVisible(true)
+	
 	-- 결승전 페이지
 	elseif (page_number == 2) then
         self:showCenterPage()
@@ -254,12 +254,11 @@ function UI_ClanWarTournamentTree:showPage()
 		has_left = true
         vars['finalNode']:setVisible(true)
         vars['tournamentTitle']:setVisible(false)
-	else	
+	else
+		self:showSidePage()
 		has_right = false
 		has_left = true
-        vars['rightScrollMenu']:removeAllChildren(true)
-		vars['rightScrollMenu']:setVisible(true)
-		self:showSidePage()
+        vars['rightScrollMenu']:setVisible(true)
 	end
 
 	vars['moveBtn1']:setVisible(has_left)
@@ -589,6 +588,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     -- 승패 표시 안함, 뒷 막대기 표시
     if (today_round == round) then
 		ui.vars['leftHorizontalSprite']:setColor(WIN_COLOR)
+        ui.vars['todayVisual']:setVisible(true)
 
     -- 진행 안한 라운드의 경우
     -- 승패 표시 안함, 뒷 막대기 표시 안함

@@ -337,7 +337,7 @@ function UI_ClanWarMatchingScene:initButton()
     vars['battleBtn2']:registerScriptTapHandler(function() self:click_gotoBattle() end)
     vars['setDeckBtn']:registerScriptTapHandler(function() self:click_myDeck() end)
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
-    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWiwthMyClanInfo() end)
+    vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWithMyClanInfo() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 	vars['matchTypeBtn']:registerScriptTapHandler(function() UI_ClanWarLastGroupStagePopup() end)
 

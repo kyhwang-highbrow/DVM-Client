@@ -58,9 +58,9 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
 	    vars['todaySprite']:setVisible(true)
         vars['roundLabel']:setColor(COLOR['black'])
         if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-            round_text = round_text .. ' - ' .. Str('진행중')
             vars['attackVisual']:setVisible(true)
             vars['normalIconSprite']:setVisible(false)
+            vars['todayVisual']:setVisible(true)
         end
 	else
         vars['normalIconSprite']:setVisible(true)
@@ -94,6 +94,12 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
             struct_clan_rank_2 = StructClanRank()
         end
 
+        local my_clan_id = g_clanWarData:getMyClanId()
+        -- 내 클랜이 있다면 강조
+        if (final_data['a_clan_id'] == my_clan_id) or (final_data['a_clan_id'] == my_clan_id) then
+            vars['meNode']:setVisible(true)
+        end
+
         -- 이름, 이긴 클랜, 등등 세팅
 		local round_text = Str('결승전')
         local final_name_1 = struct_clan_rank_1:getClanName()
@@ -117,9 +123,6 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
         end
 
         if (today_round == 1) then
-            if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
-			    round_text = round_text .. '-' .. Str('진행중')
-            end
 			local label = 'round2_1TodaySprite'
 			if (vars[label]) then
 				vars[label]:setVisible(true)
@@ -166,12 +169,11 @@ function UI_ClanWarTournamentTreeFinalItem:setTitle()
 	local vars = self.vars
 
 	for i, round in ipairs(L_ROUND) do
-		for idx = 1,2 do
-			local round_text = g_clanWarData:getRoundText(round)
+		for idx = 1,2 do 
+			local round_text = g_clanWarData:getRoundText(round) .. Str('({1})', g_clanWarData:getRoundOfWeekString(round))
 			if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
 			    local today_round = g_clanWarData:getTodayRound()
 			    if (round == today_round) then
-			        round_text = round_text .. ' - ' .. Str('진행중')
 					local label = 'round' .. round ..'_' .. idx .. 'TodaySprite'
 					if (vars[label]) then
 						vars[label]:setVisible(true)
