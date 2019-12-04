@@ -149,7 +149,7 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
 				win_clan_id = struct_clan_rank_1['id']
             else
                 mark_icon = struct_clan_rank_2:makeClanMarkIcon()
-				win_clan_id = struct_clan_rank_1['id']
+				win_clan_id = struct_clan_rank_2['id']
             end
             if (mark_icon) then
                 vars['clanMarkNode']:addChild(mark_icon)
