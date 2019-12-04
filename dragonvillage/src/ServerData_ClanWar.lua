@@ -10,6 +10,7 @@ ServerData_ClanWar = class({
 
     m_clanWarDay = 'number',
     m_clanWarTodayRound = 'number', -- 토너먼트 기간일 경우 : 현재 N강
+    m_tournamentStartDay = 'number', -- 토너먼트 시작하는 날짜 
 
 	m_clanWarDayData = 'table',
     m_clanWarRountType = 'ServerData_ClanWar.ROUNT_TYPE',
@@ -92,7 +93,8 @@ ServerData_ClanWar.CLANWAR_STATE = {
 ServerData_ClanWar.CLANWAR_CLAN_STATE = {
 	['NOT_PARTICIPATING'] = -1, -- 미참가
 	['PARTICIPATING'] = 1, -- 참가 중
-    ['LEAVING_OUT'] = 2, -- 탈락
+    ['LEAVING_OUT'] = 2, -- 토너먼트 진출 못함
+    ['DEFEAT_IN_TOURNAMENT'] = 3, -- 토너먼트 도중 탈락
 }
 
 -------------------------------------
@@ -126,6 +128,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 
 	local finish_cb = function(ret)
         g_clanWarData.m_clanWarDay = ret['clanwar_day'] or 0
+        g_clanWarData.m_tournamentStartDay = ret['tournament_start_day'] or 0
         g_clanWarData.m_clanWarTodayRound = ret['clanwar_today_groupstage']
 		g_clanWarData.m_clanWarDayData = ret['clan_data']
 		g_clanWarData.m_season = ret['clanwar_season']
@@ -133,7 +136,7 @@ function ServerData_ClanWar:request_clanWarLeagueInfo(team, success_cb)
 		g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		g_clanWarData:applyClanWarReward(ret)
 
-        if (g_clanWarData.m_clanWarDay <= 7) then
+        if (g_clanWarData.m_clanWarDay < self.m_tournamentStartDay) then
             g_clanWarData:setIsLeague(true)
         else
             g_clanWarData:setIsLeague(false)
@@ -1023,7 +1026,7 @@ function ServerData_ClanWar:getMyClanState()
 
         -- 오늘 32강인데 내 클랜은 64강이면 탈락
         if (today_round < my_clan_round) then
-            return ServerData_ClanWar.CLANWAR_CLAN_STATE['LEAVING_OUT']
+            return ServerData_ClanWar.CLANWAR_CLAN_STATE['DEFEAT_IN_TOURNAMENT']
         end
     end
 

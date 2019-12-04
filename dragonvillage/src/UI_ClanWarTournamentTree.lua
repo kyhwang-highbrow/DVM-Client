@@ -758,7 +758,30 @@ function UI_ClanWarTournamentTree:click_gotoMatch()
 		return
 	end
 
-	-- 매치에 내 클랜 정보가 있는지 확인
+    --1.클랜전 미참가
+    if (g_clanWarData:getMyClanState() == ServerData_ClanWar.CLANWAR_CLAN_STATE['NOT_PARTICIPATING']) then
+        local msg = Str('소속된 클랜이 클랜전에 참가하지 못했습니다.')
+        local sub_msg = Str('각종 클랜 활동 기록으로 참가 클랜이 결정됩니다.\n꾸준한 클랜 활동을 이어가 주시기 바랍니다.')
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+        return
+    end
+    
+    --2.토너먼트 진출 실패
+    if (g_clanWarData:getMyClanState() == ServerData_ClanWar.CLANWAR_CLAN_STATE['LEAVING_OUT']) then
+        local msg = Str('토너먼트에서 탈락했습니다.')
+        local sub_msg = Str('다음 시즌에서 더 높은 순위를 노려보세요.')
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+        return
+    end
+    
+    --3.토너먼트 중 탈락
+    if (g_clanWarData:getMyClanState() == ServerData_ClanWar.CLANWAR_CLAN_STATE['DEFEAT_IN_TOURNAMENT']) then
+        local msg = Str('소속된 클랜이 다음 라운드에 진출하지 못했습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+	
+    -- 매치에 내 클랜 정보가 있는지 확인
 	local struct_clan_war_tournament = self.m_structTournament
     local my_clan_id = g_clanWarData:getMyClanId()
     local data = struct_clan_war_tournament:getTournamentInfo(my_clan_id)
