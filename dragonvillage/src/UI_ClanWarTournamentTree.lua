@@ -64,6 +64,11 @@ function UI_ClanWarTournamentTree:update()
     local remain_time_text = g_clanWarData:getRemainTimeText()
     vars['timeLabel']:setString(remain_time_text)
     vars['timeLabel2']:setString(remain_time_text)
+
+    if (g_clanWarData.m_clanWarDay == 14) then
+        vars['timeLabel']:setString('-')
+        vars['timeLabel2']:setString('-')      
+    end
 end
 
 -------------------------------------
@@ -198,6 +203,11 @@ function UI_ClanWarTournamentTree:checkStartBtn()
     do -- 사용하는 버튼 설정
         vars['startBtn']:setVisible(use_primary_btn)
         vars['startBtn2']:setVisible(not use_primary_btn)
+    end
+
+    if (g_clanWarData.m_clanWarDay == 14) then
+        vars['startBtnLabel']:setString(Str('시즌 종료'))
+        vars['startBtnLabel2']:setString(Str('시즌 종료'))
     end
 end
 
@@ -523,7 +533,9 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     local ui = UI_ClanWarTournamentTreeLeaf()
     local clan_name1 = ''
     local clan_name2 = ''
-    
+    local clan_node1
+    local clan_node2
+
     -- 내 클랜 강조
 	local my_clan_id = g_clanWarData:getMyClanId()
     if (clan1_id == my_clan_id) or (clan2_id == my_clan_id) then
@@ -732,6 +744,13 @@ end
 -- function click_gotoMatch
 -------------------------------------
 function UI_ClanWarTournamentTree:click_gotoMatch()    
+    -- 마지막 날의 경우
+    if (g_clanWarData.m_clanWarDay == 14) then
+        local msg = Str('다음 시즌 오픈까지 {1}', g_clanWarData:getRemainNextSeasonTime())
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+    
     -- 열려있는지 확인
 	local is_open, msg = g_clanWarData:checkClanWarState_Tournament()
 	if (not is_open) then	

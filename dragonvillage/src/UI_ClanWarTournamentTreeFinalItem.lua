@@ -139,6 +139,8 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
             local clan_win_1 = is_clan_1_win
             vars['defeatSprite1']:setVisible(not clan_win_1)
             vars['defeatSprite2']:setVisible(clan_win_1)
+            vars['winMenu1']:setVisible(clan_win_1)
+            vars['winMenu2']:setVisible(not clan_win_1)
 
             local mark_icon = nil
 			local win_clan_id

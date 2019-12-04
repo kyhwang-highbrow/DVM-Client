@@ -40,6 +40,21 @@ function ServerData_ClanWar:getRemainSeasonTime()
 end
 
 -------------------------------------
+-- function getRemainNextSeasonTime
+-- @brief 다다음 시즌까지 남은 시간
+-- @brief 14일 째의 경우 현재 시즌은 끝나지 않았는데 다음 시즌 시작 시간이 필요함
+-------------------------------------
+function ServerData_ClanWar:getRemainNextSeasonTime()
+	local cur_time = Timer:getServerTime_Milliseconds()
+	local remain_time = self.next_season_start_time - cur_time
+
+	if (remain_time < 0) then
+		remain_time = 1
+	end
+	return datetime.makeTimeDesc(remain_time/1000)
+end
+
+-------------------------------------
 -- function getRemainGameTime
 -- @brief 오늘 경기 끝나기까지 남은 시간
 -------------------------------------
@@ -347,6 +362,10 @@ function ServerData_ClanWar:applyClanWarInfo(ret)
 
     if (ret['season_start_time']) then
         self.season_start_time = ret['season_start_time']
+    end
+
+    if (ret['next_season_start_time']) then
+        self.next_season_start_time = ret['next_season_start_time']
     end
 
     if (ret['today_start_time']) then

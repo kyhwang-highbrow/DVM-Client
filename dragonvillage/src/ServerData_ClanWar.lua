@@ -53,6 +53,7 @@ ServerData_ClanWar = class({
     today_end_time = 'number',          -- 오늘 경기 끝나는 시간
     today_start_time = 'number' ,
     season_start_time = 'number',       -- 시즌 시작하는 시간
+    next_season_start_time = 'number',  -- 다 시즌 시작하는 시간
     today_calc_end_time = 'number',     -- 정산 끝나는 시간
     open = 'boolean',                   -- 경기 시작 가능 여부
 
@@ -77,6 +78,7 @@ function ServerData_ClanWar:init()
 	self.today_end_time = 0
     self.today_start_time = 0
     self.season_start_time = 0
+    self.next_season_start_time = 0
     self.open = false
 end
 
