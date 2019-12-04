@@ -135,7 +135,7 @@ function UI_ClanWarTournamentTree:setTournamentData(ret)
         -- 인덱스가 절반보다 클 경우 오른쪽
         local data, idx = self.m_structTournament:getMyInfoInCurRound(today_round)
         if (idx) then
-            if (idx >= today_round/4) then
+            if (idx > today_round/4) then
                 self.m_page = 3
             else
                 self.m_page = 1
