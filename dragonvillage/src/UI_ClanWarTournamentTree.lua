@@ -55,7 +55,18 @@ function UI_ClanWarTournamentTree:init()
     self:doActionReset()
     self:doAction(nil, false)
 
-	self:sceneFadeInAction(function() self:showResultPopup() end)
+    -- 시즌 보상 팝업, 결과 화면은 동시에 뜸, 순차적으로 뜨게 만들어야함
+	self:sceneFadeInAction(function()
+        self:showResultPopup()
+
+        -- 시즌 보상 팝업 (보상이 있다면)
+		if (g_clanWarData.m_tSeasonRewardInfo) then
+		    local t_info = g_clanWarData.m_tSeasonRewardInfo
+		    UI_ClanWarRewardPopup(t_info)
+		    
+		    g_clanWarData.m_tSeasonRewardInfo = nil
+		end
+    end)
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
