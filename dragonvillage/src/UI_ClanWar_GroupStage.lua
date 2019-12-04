@@ -261,6 +261,12 @@ function UI_ClanWar_GroupStage:getStructClanWarLeague(group, cb)
 
     -- 캐싱되어 있는 데이터가 없을 경우
 	local success_cb = function(ret)
+
+        -- UI가 닫힌 상황에서는 동작하지 않음
+        if (self:isClosed() == true) then
+            return
+        end
+
 		local struct_clan_war_league = StructClanWarLeague(ret)
         self.m_structLeaguecache[group] = struct_clan_war_league
 
