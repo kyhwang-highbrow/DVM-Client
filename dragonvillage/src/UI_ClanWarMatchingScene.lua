@@ -163,6 +163,9 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
             local clan_lv = struct_clan_rank:getClanLv() or ''
             local level_text = string.format('Lv.%d', clan_lv)
             vars['clanlLevelLabel'..idx]:setString(level_text)
+
+            -- 클랜 상세 정보 팝업
+            vars['clanBtn'..idx]:registerScriptTapHandler(function() g_clanData:requestClanInfoDetailPopup(clan_id) end)
         end
     end
 
