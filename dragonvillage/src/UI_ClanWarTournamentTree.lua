@@ -753,7 +753,7 @@ function UI_ClanWarTournamentTree:initScroll()
     local x = viewSize['width'] - size['width']
     local y = viewSize['height'] - size['height']
 
-	FOCUS_POS_Y = y + -50
+	FOCUS_POS_Y = y
 end
 
 -------------------------------------
