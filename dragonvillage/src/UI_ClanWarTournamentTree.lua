@@ -14,6 +14,8 @@ UI_ClanWarTournamentTree = class(PARENT, {
 		m_page = 'number',
 
         m_isMakeFinalUI = 'boolean',
+        m_isMakeRightUI = 'boolean',
+        m_isMakeLeftUI = 'boolean',
      })
 
 -- 가지 세로 길이
@@ -42,6 +44,8 @@ function UI_ClanWarTournamentTree:init()
     
     self.m_page = 1
     self.m_lPosY = {}
+    self.m_isMakeRightUI = false
+    self.m_isMakeLeftUI = false
 
     -- 초기화
     self:initUI()
@@ -252,11 +256,13 @@ function UI_ClanWarTournamentTree:showPage()
 	local has_right
 	local has_left
 	if (page_number == 1) then
-		self:showSidePage()
 		has_right = true
 		has_left = false
         vars['leftScrollMenu']:setVisible(true)
-	
+	    if (not self.m_isMakeLeftUI) then
+            self:showSidePage()
+            self.m_isMakeLeftUI = true
+        end
 	-- 결승전 페이지
 	elseif (page_number == 2) then
         self:showCenterPage()
@@ -265,10 +271,13 @@ function UI_ClanWarTournamentTree:showPage()
         vars['finalNode']:setVisible(true)
         vars['tournamentTitle']:setVisible(false)
 	else
-		self:showSidePage()
 		has_right = false
 		has_left = true
         vars['rightScrollMenu']:setVisible(true)
+        if (not self.m_isMakeRightUI) then
+            self:showSidePage()
+            self.m_isMakeRightUI = true
+        end
 	end
 
 	vars['moveBtn1']:setVisible(has_left)

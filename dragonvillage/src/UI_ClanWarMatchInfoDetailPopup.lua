@@ -239,7 +239,7 @@ function UI_ClanWarMatchInfoDetailPopup:highLightWinCondition()
 	
 	-- 이긴 조건에 하이라이트
     -- [value] = 'lua_name'
-    local t_label = {['member_win_cnt'] = 'resultScore', ['win_game'] = 'gameWin', ['play_member_cnt'] = 'playMemberCnt', ['clan_lv'] = 'clanLvExp', ['clan_created_date'] = 'creation'}
+    local t_label = {['member_win_cnt'] = 'resultScore', ['win_cnt'] = 'gameWin', ['play_member_cnt'] = 'playMemberCnt', ['clan_lv'] = 'clanLvExp', ['clan_created_date'] = 'creation'}
 	for condition, lua_name in pairs(t_label) do
         if (condition == win_condition_str) then
             if (vars[lua_name ..'ConditionLabel']) then
