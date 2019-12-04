@@ -242,11 +242,11 @@ function UI_ClanWarTournamentTree:showPage()
 	local has_right
 	local has_left
 	if (page_number == 1) then
-		self:showSidePage()
 		has_right = true
 		has_left = false
-        vars['leftScrollMenu']:setVisible(true)
-	
+        vars['leftScrollMenu']:removeAllChildren()
+		vars['leftScrollMenu']:setVisible(true)
+		self:showSidePage()
 	-- 결승전 페이지
 	elseif (page_number == 2) then
         self:showCenterPage()
@@ -254,11 +254,12 @@ function UI_ClanWarTournamentTree:showPage()
 		has_left = true
         vars['finalNode']:setVisible(true)
         vars['tournamentTitle']:setVisible(false)
-	else
-		self:showSidePage()
+	else	
 		has_right = false
 		has_left = true
-        vars['rightScrollMenu']:setVisible(true)
+        vars['rightScrollMenu']:removeAllChildren(true)
+		vars['rightScrollMenu']:setVisible(true)
+		self:showSidePage()
 	end
 
 	vars['moveBtn1']:setVisible(has_left)

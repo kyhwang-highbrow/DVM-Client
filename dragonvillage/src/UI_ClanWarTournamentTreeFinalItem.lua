@@ -75,6 +75,8 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
         vars['finalClanLabel2']:setString(Str('{1}강', 4) .. ' ' .. Str('승리 클랜'))
         vars['finalClanLabel1']:setColor(COLOR['gray'])
         vars['finalClanLabel2']:setColor(COLOR['gray'])
+        
+		vars['finalInfoBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.')) end)
     else
         -- 결승전 생성
         local l_list = self.m_structTournament:getTournamentListByRound(2)
@@ -110,6 +112,9 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
             vars['clanMarkNode2']:addChild(clan_node2)
         end
 
+        if (vars['finalInfoBtn']) then
+            vars['finalInfoBtn']:registerScriptTapHandler(function() UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(final_data) end)
+        end
 
         if (today_round == 1) then
             if (g_clanWarData:getClanWarState() == ServerData_ClanWar.CLANWAR_STATE['OPEN']) then
@@ -151,14 +156,6 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
 	local label_lua_name = 'round2_1Label'
 	if (vars[label_lua_name]) then
 		vars[label_lua_name]:setString(round_text)
-	end
-
-	if (today_round <= 2) then
-		if (vars['finalInfoBtn']) then
-			vars['finalInfoBtn']:registerScriptTapHandler(function() UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(final_data) end)
-		end
-	else
-		UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.'))
 	end
 end
 
