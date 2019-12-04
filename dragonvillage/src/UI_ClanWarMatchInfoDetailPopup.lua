@@ -183,6 +183,10 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfo(ui_idx, clan_match_info)
         if (vars['clanMarkNode'..ui_idx]) then
             vars['clanMarkNode'..ui_idx]:addChild(clan_icon)
         end
+
+        if (vars['clanBtn' .. ui_idx]) then
+            vars['clanBtn' .. ui_idx]:registerScriptTapHandler(function() g_clanData:requestClanInfoDetailPopup(clan_id) end)
+        end
     end
 
     -- 클랜 정보 (레벨, 경험치, 참여인원)
@@ -420,7 +424,8 @@ end
 -------------------------------------
 function UI_ClanWarMatchInfoDetailPopup.createMatchInfoMini(data)
 	local ui_res = 'clan_war_match_scene_mini_popup.ui'
-	UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data, ui_res, true) -- param : data, ui_res, set_my_clan_left
+	local ui = UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data, ui_res, true) -- param : data, ui_res, set_my_clan_left
+    return ui
 end
 
 ---------------------------------------
@@ -430,4 +435,5 @@ function UI_ClanWarMatchInfoDetailPopup.createYesterdayResultPopup(data)
 	local ui_res = nil -- clan_war_match_info_popup.ui
 	local ui = UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data, ui_res) -- param : data, ui_res, set_my_clan_left
 	ui:setYesterdayWinResult()
+    return ui
 end

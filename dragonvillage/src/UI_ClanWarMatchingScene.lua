@@ -439,7 +439,8 @@ function UI_ClanWarMatchingScene:click_infoBtn()
 
     local struct_match = self.m_structMatch
     local today_match_info = struct_match:getMatchInfo()
-    UI_ClanWarMatchInfoDetailPopup.createMatchInfoMini(today_match_info)
+    local ui = UI_ClanWarMatchInfoDetailPopup.createMatchInfoMini(today_match_info)
+    ui:setCloseCB(close_cb)
 end
 
 

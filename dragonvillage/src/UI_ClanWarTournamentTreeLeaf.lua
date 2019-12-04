@@ -14,6 +14,10 @@ function UI_ClanWarTournamentTreeLeaf:init()
     local vars = self:load('clan_war_tournament_item_leaf.ui')
     
 	vars['lineMenu']:setVisible(true)
+    
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
 
     local _, height = vars['leftHorizontalSprite']:getNormalSize()
     if (g_clanWarData:getMaxRound() == 64) then
@@ -117,7 +121,7 @@ UI_ClanWarTournamentTreeListItem = class(UI, {
 -------------------------------------
 function UI_ClanWarTournamentTreeListItem:init(round)
     local vars = self:load('clan_war_tournament_item_title.ui')
-    vars['roundLabel']:setString(Str('{1}강전', round))
+    vars['roundLabel']:setString(Str('{1}강', round))
 end
 
 -------------------------------------
