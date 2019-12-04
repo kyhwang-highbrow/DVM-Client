@@ -617,8 +617,8 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 		-- 마지막 라운드는 항상 닉네임만 세팅된 상태
         if (round ~= g_clanWarData:getMaxRound()) then
             local last_round = round*2
-            ui.vars['clanNameLabel1']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
-            ui.vars['clanNameLabel2']:setString(Str('{1}강', last_round) .. ' ' .. Str('승리 클랜'))
+            ui.vars['clanNameLabel1']:setString(Str('미정'))
+            ui.vars['clanNameLabel2']:setString(Str('미정'))
         end    
         ui.vars['clanNameLabel1']:setColor(COLOR['gray'])
         ui.vars['clanNameLabel2']:setColor(COLOR['gray'])

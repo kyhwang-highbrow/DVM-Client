@@ -71,8 +71,8 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
     -- 아직 진행하지 않은 곳(값이 없는)의 클랜 이름은 = {1}강 승리 클랜
     vars['roundLabel']:setString(round_text)
     if (today_round > 2) then
-        vars['finalClanLabel1']:setString(Str('{1}강', 4) .. ' ' .. Str('승리 클랜'))
-        vars['finalClanLabel2']:setString(Str('{1}강', 4) .. ' ' .. Str('승리 클랜'))
+        vars['finalClanLabel1']:setString(Str('미정'))
+        vars['finalClanLabel2']:setString(Str('미정'))
         vars['finalClanLabel1']:setColor(COLOR['gray'])
         vars['finalClanLabel2']:setColor(COLOR['gray'])
         
