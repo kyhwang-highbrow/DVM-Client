@@ -17,7 +17,7 @@ function UI_ClanWarLastGroupStagePopup:init(struct_league)
     -- 초기화
     self:initUI()
     self:initButton()
-    self:refresh()
+    --self:refresh()
 
 	-- @UI_ACTION
     self:doActionReset()
@@ -80,4 +80,21 @@ function UI_ClanWarLastGroupStagePopup:setAllGroupRankList()
 	table_view_td:setCellUIClass(UI_ListItem_ClanWarGroupStageRankInAll, create_cb)
 	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td:setItemList(l_team)
+end
+
+-------------------------------------
+-- function open
+-------------------------------------
+function UI_ClanWarLastGroupStagePopup.open()
+    local group = 99 --'all'
+
+     -- 전체 랭킹만 받아서 출력
+	local success_cb = function(ret)
+        local ui = UI_ClanWarLastGroupStagePopup()
+		local struct_clan_war_league = StructClanWarLeague(ret)
+        ui.m_structLeaguecache[group] = struct_clan_war_league
+        ui:setAllGroupRankList()
+	end
+
+    g_clanWarData:request_clanWarLeagueInfo(group, success_cb)
 end

@@ -887,7 +887,7 @@ end
 -- function showGroupStagePopup
 -------------------------------------
 function UI_ClanWarTournamentTree:showGroupStagePopup()
-    UI_ClanWarLastGroupStagePopup()
+    UI_ClanWarLastGroupStagePopup.open()
 end
 
 
