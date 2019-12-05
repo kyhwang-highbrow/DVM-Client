@@ -123,7 +123,6 @@ function UI_ClanWarTournamentTree:initButton()
 	local vars = self.vars
 	vars['moveBtn1']:registerScriptTapHandler(function() self:click_moveBtn(-1) end)
 	vars['moveBtn2']:registerScriptTapHandler(function() self:click_moveBtn(1) end)
-    vars['testBtn']:registerScriptTapHandler(function() UI_ClanWarTest(cb_func, false) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_gotoMatch() end)
     vars['startBtn2']:registerScriptTapHandler(function() self:click_gotoMatch() end)
     vars['matchTypeBtn']:registerScriptTapHandler(function() self:showGroupStagePopup() end)

@@ -288,7 +288,7 @@ end
 -------------------------------------
 function UI_ClanWar_GroupPaging:sampleCode()
     local ui = UI()
-    ui:load('clan_war_lobby.ui')
+    ui:load('clan_war_group_stage.ui')
     UIManager:open(ui, UIManager.SCENE)
 
     local vars = ui.vars

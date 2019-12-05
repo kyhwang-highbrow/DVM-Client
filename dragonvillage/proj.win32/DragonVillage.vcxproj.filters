@@ -4231,13 +4231,7 @@
     <None Include="..\src\UI_NestDungeonSelectingListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ClanWarListScene.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_MatchReadyClanWar.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ClanWarListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\SceneGameClanWar.lua">
@@ -4267,9 +4261,6 @@
     <None Include="..\src\UIC_ExtendList_Image.lua">
       <Filter>lua\UIC</Filter>
     </None>
-    <None Include="..\src\UI_ClanWarTest.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ClanWarMatchingScene.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4278,12 +4269,6 @@
     </None>
     <None Include="..\src\StructClanWarMatch.lua">
       <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_ClanWarLeagueRankListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ClanWarLeagueMatchListItem.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ClanWarAllRankListItem.lua">
       <Filter>lua\UI</Filter>
@@ -4298,9 +4283,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_LoadingClanWar.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ClanWarSelectSceneListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\StructClanWarMatchItem.lua">
@@ -4348,9 +4330,6 @@
     <None Include="..\src\WorkUnit.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_ClanWar.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ClanWar_GroupPaging.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4371,6 +4350,9 @@
     </None>
     <None Include="..\src\UI_ClanWarTournamentTreeFinalItem.lua">
       <Filter>lua\UIC</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarSelectSceneListItem.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

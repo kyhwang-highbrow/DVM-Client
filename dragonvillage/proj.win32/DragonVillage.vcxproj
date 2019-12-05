@@ -1176,14 +1176,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ClanTabInfo.lua" />
     <None Include="..\src\UI_ClanTabMember.lua" />
     <None Include="..\src\UI_ClanTabRank.lua" />
-    <None Include="..\src\UI_ClanWar.lua" />
     <None Include="..\src\UI_ClanWarAllRankListItem.lua" />
     <None Include="..\src\UI_ClanWarLastGroupStagePopup.lua" />
-    <None Include="..\src\UI_ClanWarLeagueMatchListItem.lua" />
-    <None Include="..\src\UI_ClanWarLeagueRankListItem.lua" />
     <None Include="..\src\UI_ClanWarLeagueResultPopup.lua" />
-    <None Include="..\src\UI_ClanWarListItem.lua" />
-    <None Include="..\src\UI_ClanWarListScene.lua" />
     <None Include="..\src\UI_ClanWarMatchInfoDetailPopup.lua" />
     <None Include="..\src\UI_ClanWarMatchingScene.lua" />
     <None Include="..\src\UI_ClanWarMatchingSceneListItem.lua" />
@@ -1193,7 +1188,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ClanWarSelectSceneDefendHistoryItem.lua" />
     <None Include="..\src\UI_ClanWarSelectSceneListItem.lua" />
     <None Include="..\src\UI_ClanWarSelect_RivalListItem.lua" />
-    <None Include="..\src\UI_ClanWarTest.lua" />
     <None Include="..\src\UI_ClanWarTournamentTree.lua" />
     <None Include="..\src\UI_ClanWarTournamentTreeFinalItem.lua" />
     <None Include="..\src\UI_ClanWarTournamentTreeLeaf.lua" />
