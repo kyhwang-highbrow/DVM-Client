@@ -55,6 +55,9 @@ function UI_ClanWarTournamentTree:init()
     self:doActionReset()
     self:doAction(nil, false)
 
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWarTournamentTree')
+
     -- 시즌 보상 팝업, 결과 화면은 동시에 뜸, 순차적으로 뜨게 만들어야함
 	self:sceneFadeInAction(function()
         self:showResultPopup()
