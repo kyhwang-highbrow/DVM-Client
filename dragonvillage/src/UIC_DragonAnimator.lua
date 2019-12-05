@@ -28,7 +28,7 @@ function UIC_DragonAnimator:init()
 
     self.vars['dragonButton']:registerScriptTapHandler(function() self:click_dragonButton() end)
     self.vars['dragonButton']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
-    self.vars['talkSprite']:setVisible(false)
+    self.vars['talkMenu']:setVisible(false)
 	self.vars['touchNode']:setVisible(false)
 
     self.m_bTalkEnable = true
@@ -77,7 +77,7 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     end
 
     self.m_timeStamp = nil
-    self.vars['talkSprite']:setVisible(false)
+    self.vars['talkMenu']:setVisible(false)
 
     local idle_motion = true
     self:click_dragonButton(idle_motion)
@@ -168,14 +168,34 @@ function UIC_DragonAnimator:click_dragonButton(idle_motion)
     ani_handler()
 
     if self.m_bTalkEnable then
-        self.vars['talkSprite']:setVisible(true)
-        self.vars['talkSprite']:stopAllActions()
+        self.vars['talkMenu']:setVisible(true)
+        self.vars['talkMenu']:stopAllActions()
         self.vars['talkLabel']:setString(self:getDragonSpeech(self.m_did, self.m_friendshipLv))
-
-        self.vars['talkSprite']:runAction(cc.Sequence:create(cc.DelayTime:create(3), cc.Hide:create()))
+        
+        -- 라벨 늘어난 세로 길이에 따라 말풍선 세로 길이 조절
+        local sprite_height = self:getTalkSpriteHeightByLabel(self.vars['talkLabel'])
+        local sprite_width = self.vars['talkSprite']:getNormalSize()
+        self.vars['talkMenu']:runAction(cc.Sequence:create(cc.DelayTime:create(3), cc.Hide:create()))
+        self.vars['talkSprite']:setNormalSize(sprite_width, sprite_height)
     end
 
     self.m_animator.m_node:stopAllActions()
+end
+
+-------------------------------------
+-- function getTalkSpriteHeightByLabel
+-- @brief (말풍선 세로 길이 계산을 위해)라벨 세로 길이 계산
+-------------------------------------
+function UIC_DragonAnimator:getTalkSpriteHeightByLabel(label)
+    local ori_height = 70
+    if (not label) then
+        return ori_height
+    end
+    
+    local sprite_height = label:getStringHeight() * 1.5
+    -- 원래 스프라이트 세로 길이보다 짧아지지 않도록
+    sprite_height = math.max(ori_height, sprite_height)
+    return sprite_height
 end
 
 -------------------------------------
@@ -194,7 +214,7 @@ function UIC_DragonAnimator:setTalkEnable(enable)
     
     self.m_bTalkEnable = enable
     if (not self.m_bTalkEnable) then
-        vars['talkSprite']:setVisible(false)
+        vars['talkMenu']:setVisible(false)
     end
 end
 
