@@ -502,6 +502,17 @@ function UI_Game:initTamerUI(tamer)
 end
 
 -------------------------------------
+-- function setSnowParticle
+-- @brief 게임 배경에 눈 내리는 파티클 추가
+-------------------------------------
+function UI_Game:setSnowParticle()
+	local particle = cc.ParticleSystemQuad:create('res/ui/particle/dv_snow.plist')
+	particle:setAnchorPoint(CENTER_POINT)
+	particle:setDockPoint(CENTER_POINT)
+	self.root:addChild(particle)
+end
+
+-------------------------------------
 -- function init_debugUI
 -- @brief 인게임에서 실시간으로 각종 설정을 할 수 있도록 하는 UI생성
 --        모든 기능은 UI_GameDebug안에서 구현

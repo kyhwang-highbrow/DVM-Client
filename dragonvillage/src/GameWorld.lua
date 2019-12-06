@@ -333,6 +333,11 @@ function GameWorld:createComponents()
             -- 마나가 동작 하지 않음
             self.m_mUnitGroup[PHYS.HERO]:getMana():setManaZero()
         end
+        
+        -- 7. 깜짝 출현 던전
+        if (isAdventStageID(self.m_stageID)) then
+            self.m_inGameUI:setSnowParticle()
+        end
 
         --self.m_inGameUI:init_timeUI(display_wave, display_time)
         self.m_inGameUI:init_timeUI(display_wave, 0)
