@@ -984,6 +984,7 @@ local t_module = {
 	'UI_Package',
     'UI_Package_Bundle',
     'UI_Package_LevelUp',
+    'UI_Package_LevelUp_02',
     'UI_Package_LevelUpListItem',
     'UI_Package_AdventureClear',
     'UI_Package_AdventureClearListItem',

@@ -4357,6 +4357,9 @@
     <None Include="..\src\UI_ClanWarLeagueRankInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Package_LevelUp_02.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

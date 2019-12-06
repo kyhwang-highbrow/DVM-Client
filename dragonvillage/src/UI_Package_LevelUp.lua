@@ -14,24 +14,32 @@ function UI_Package_LevelUp:init(struct_product, is_popup)
         return
     end
 
+    -- 매개변수 초기화
     self.m_isPopup = is_popup or false
 
-    local vars = self:load('package_levelup.ui')
-    if (is_popup) then
-        UIManager:open(self, UIManager.POPUP)
-        -- 백키 지정
-        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_LevelUp')
-    end
+    -- UI 세팅
+    self:initUISetting()
 	
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
-
-    self:initUI()
-	self:initButton(is_popup)
-    self:refresh()
 end
 
+-------------------------------------
+-- function initUISetting
+-------------------------------------
+function UI_Package_LevelUp:initUISetting()
+    local vars = self:load('package_levelup.ui')
+    if (self.m_isPopup) then
+        UIManager:open(self, UIManager.POPUP)
+        -- 백키 지정
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_LevelUp')
+    end
+
+    self:initUI()
+	self:initButton(self.m_isPopup)
+    self:refresh()
+end
 
 -------------------------------------
 -- function refresh
