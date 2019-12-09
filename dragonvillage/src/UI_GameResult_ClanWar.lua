@@ -94,6 +94,7 @@ function UI_GameResult_ClanWar:update()
     local end_time = self.m_endDate
     if (not end_time) then
         self.vars['lastTimeLabel']:setString('')
+        return
     end
 
     local cur_time = Timer:getServerTime_Milliseconds()
