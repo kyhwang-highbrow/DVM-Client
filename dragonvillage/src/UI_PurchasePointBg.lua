@@ -46,10 +46,16 @@ end
 -------------------------------------
 function UI_PurchasePointBg:getUrl(bg_type)
     local url = 'event_purchase_point_item_reward_03.ui'
+    
+    -- 드래곤
     if (bg_type == 'dragon') then
         url = 'event_purchase_point_item_reward_02.ui'
+    
+    -- 드래곤 뽑기권
     elseif (bg_type == 'dragon_ticket') then
         url = 'event_purchase_point_item_reward_01.ui'
+    
+    -- 슬라임, 아이템
     else
         url = 'event_purchase_point_item_reward_03.ui'
     end
@@ -132,10 +138,18 @@ end
 -- function initButton_dragonTicket
 -------------------------------------
 function UI_PurchasePointBg:initButton_dragonTicket()
-   local vars = self.vars
-   local item_id = self.m_item_id
-   
-   vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_SummonDrawInfo(item_id, false) end)
+    local vars = self.vars
+    local item_id = self.m_item_id
+
+    local item_full_type = TableItem:getItemFullType(self.m_item_id)
+
+    -- 선택권
+    if (item_full_type == 'pick_dragon') then
+        vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_PickDragon(nil, item_id, nil, true) end)
+    -- 뽑기권
+    else
+        vars['dragonInfoBtn']:registerScriptTapHandler(function() UI_SummonDrawInfo(item_id, false) end)
+    end
 end
 
 
@@ -316,36 +330,51 @@ function UI_PurchasePointBg:setItem()
     vars['itemLabel']:setString(string.format('%s X %d', item_name, item_count))
 
     -- 아이템 Visual 세팅
-    local animator = self:getItemVisual(item_id)
-    if (animator) then
-        vars['eggNode']:addChild(animator.m_node)
-    end
+    self:setItemRes(item_id)
 
     -- 배경 visual 세팅
     local animator = MakeAnimator('res/bg/ui/dragon_bg_earth/dragon_bg_earth.vrp')
     vars['bgNode']:addChild(animator.m_node)
 end
 
+-------------------------------------
+-- function setItemRes
+-------------------------------------
+function UI_PurchasePointBg:setItemRes(_item_id)
+    local vars = self.vars
+    local item_id = tonumber(_item_id)
+    local item_full_type = TableItem:getItemFullType(item_id)
+    -- 알의 경우 해당 비주얼을 가져온다
+	if (string.match(item_full_type, 'egg')) then
+        local animator = self:getEggVisual(item_id)
+        if (animator) then
+            vars['eggNode']:addChild(animator)
+        end
+	-- 아이템의 경우 아이템 카드 출력
+    else
+        local ui_card = UI_ItemCard(item_id)
+        if (ui_card) then
+            vars['itemNode']:addChild(ui_card.root)
+        end
+    end
+
+end
 
 
 
 
 -------------------------------------
--- function getItemVisual
--- @breif ItemVisual 세팅
+-- function getEggVisual
+-- @breif 알 비주얼 세팅
 -------------------------------------
-function UI_PurchasePointBg:getItemVisual(item_id)
+function UI_PurchasePointBg:getEggVisual(item_id)
     local animator
     local item_full_type = TableItem:getItemFullType(tonumber(item_id))
 
     -- 아이템이 알 종류일 경우 (파일 이름에 규칙이 있다고 가정)
-    if (string.match(item_full_type, 'egg')) then
-        animator = MakeAnimator(string.format('res/item/egg/%s/%s.vrp', item_full_type, item_full_type)) -- ex) res/item/egg/egg_super_myth/egg_super_myth.vrp
-        if (animator) then
-            animator:changeAni('egg_move', true)
-        end
-    else
-        animator = nil
+    local animator = MakeAnimator(string.format('res/item/egg/%s/%s.vrp', item_full_type, item_full_type)) -- ex) res/item/egg/egg_super_myth/egg_super_myth.vrp
+    if (animator) then
+        animator:changeAni('egg_move', true)
     end
 
     return animator

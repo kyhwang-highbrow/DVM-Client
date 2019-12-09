@@ -19,16 +19,17 @@ UI_PickDragon = class(PARENT,{
         m_sortManager = 'SortManager',
 
 		m_dragonAnimator = 'UIC_DragonAnimator',
+        m_onlyInfo = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PickDragon:init(mid, item_id, cb_func)
+function UI_PickDragon:init(mid, item_id, cb_func, only_info)
     local vars = self:load('popup_select_regend.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_PickDragon'
-
+    self.m_onlyInfo = only_info
     vars['titleLabel']:setString(TableItem:getItemName(item_id))
     
     -- backkey 지정
@@ -79,6 +80,10 @@ function UI_PickDragon:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 	vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end)
 	vars['summonBtn']:registerScriptTapHandler(function() self:click_summonBtn() end)
+
+    if (self.m_onlyInfo) then
+        vars['summonBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -301,7 +306,7 @@ function UI_PickDragon:click_bookBtn()
 	local did = t_dragon['did']
     local grade = t_dragon['grade']
     local evolution = t_dragon['evolution']
-	local is_pick = true
+	local is_pick = (self.m_onlyInfo == false)
 	local pick_cb = function() self:click_summonBtn() end
 
     UI_BookDetailPopup.open(did, grade, evolution, is_pick, pick_cb)
