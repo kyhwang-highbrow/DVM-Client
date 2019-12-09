@@ -131,6 +131,9 @@ function UI_AdventureStageButton:init_advent(parent_ui, stage_id, vars)
             vars['easySprite']:setVisible(false)
             vars['hardSprite']:setVisible(true)
 
+        elseif (difficulty == 4) then
+            vars['easySprite']:setVisible(false)
+            vars['hellFireSprite']:setVisible(true)
         else
             error('difficulty : ' .. difficulty)
         end
