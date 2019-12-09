@@ -262,6 +262,8 @@ function UI_ClanWarTournamentTree:showPage()
 	vars['rightScrollMenu']:setVisible(false)
     vars['leftScrollMenu']:setVisible(false)
     vars['tournamentTitle']:setVisible(true)
+    vars['rightTitleNode']:setVisible(false)
+    vars['leftTitleNode']:setVisible(false)
 
 	-- 페이지 표시하는 동그라미 스프라이트 초기화
     vars['01_PageSelectSprite']:setVisible(false)
@@ -277,6 +279,7 @@ function UI_ClanWarTournamentTree:showPage()
 		has_right = true
 		has_left = false
         vars['leftScrollMenu']:setVisible(true)
+        vars['leftTitleNode']:setVisible(true)
 	    if (not self.m_isMakeLeftUI) then
             self:showSidePage()
             self.m_isMakeLeftUI = true
@@ -292,6 +295,7 @@ function UI_ClanWarTournamentTree:showPage()
 		has_right = false
 		has_left = true
         vars['rightScrollMenu']:setVisible(true)
+        vars['rightTitleNode']:setVisible(true)
         if (not self.m_isMakeRightUI) then
             self:showSidePage()
             self.m_isMakeRightUI = true
@@ -311,46 +315,54 @@ end
 function UI_ClanWarTournamentTree:showSidePage()
 	local vars = self.vars
 	local struct_clan_war_tournament = self.m_structTournament
-    local max_round = g_clanWarData:getMaxRound()
 	local is_right = (self.m_page == 3) -- 페이지 넘버가 3이라면 오른쪽 페이지라고 판단
 
-    -- 32강 부터 시작한다면 1,3 페이지에 32, 16강을 찍는다.
-    local l_round = {32, 16}
-
-    -- 64강 부터 시작한다면 1,3 페이지에 64, 32, 16강을 찍는다.
+    
+    local l_round = {}
 	if (g_clanWarData:getMaxRound() == 64) then
-		l_round = {64, 32, 16}
-	end
+		l_round = {64, 32, 16} -- 64강 부터 시작한다면 1,3 페이지에 64, 32, 16강을 찍는다.
+	else
+        l_round = {32, 16} -- 32강 부터 시작한다면 1,3 페이지에 32, 16강을 찍는다.
+    end
 	
+    local max_idx = #l_round + 1
 	for round_idx, round in ipairs(l_round) do
         -- 라운드에 해당하는 매치 잎들을 생성
 		self:setTournament(round_idx, round) -- param : ex) 1,64/ 2,32/ 3,16
-		
 		-- N강 표시하는 타이틀
-		local ui_title_item = UI_ClanWarTournamentTreeListItem(round)
-        local max_idx = #l_round + 1
+        self:makeTitleItem(round_idx, round, max_idx)
+    end
+end
 
-        if (is_right) then
-            local title_lua_name = max_round .. '_0' .. max_idx-round_idx .. 'TitleMenu'
-            if (vars[title_lua_name]) then
-                vars[title_lua_name]:removeAllChildren()
-		        vars[title_lua_name]:addChild(ui_title_item.root)
-                vars[title_lua_name]:setVisible(true)
-            end
-        else
-            local title_lua_name = max_round .. '_0' .. round_idx .. 'TitleMenu'
-            if (vars[title_lua_name]) then
-                vars[title_lua_name]:removeAllChildren()
-		        vars[title_lua_name]:addChild(ui_title_item.root)
-                vars[title_lua_name]:setVisible(true)
-            end
+-------------------------------------
+-- function makeTitleItem
+-------------------------------------
+function UI_ClanWarTournamentTree:makeTitleItem(round_idx, round, max_idx)
+    local vars = self.vars
+    local ui_title_item = UI_ClanWarTournamentTreeListItem(round)
+    local max_round = g_clanWarData:getMaxRound()
+    local is_right = (self.m_page == 3) -- 페이지 넘버가 3이라면 오른쪽 페이지라고 판단
+
+    if (is_right) then
+        local title_lua_name = max_round .. '_0' .. max_idx-round_idx .. 'TitleMenu'
+        if (vars[title_lua_name]) then
+            local pos_x = vars[title_lua_name]:getPositionX()
+            ui_title_item.root:setPositionX(pos_x)
+            vars['rightTitleNode']:addChild(ui_title_item.root)
         end
-
-		-- 현재 진행중인 타이틀에 표시
-		local today_round = g_clanWarData:getTodayRound()
-		if (round == today_round) then
-			ui_title_item:setInProgress()
-		end
+    else
+        local title_lua_name = max_round .. '_0' .. round_idx .. 'TitleMenu'
+        if (vars[title_lua_name]) then
+            local pos_x = vars[title_lua_name]:getPositionX()
+            ui_title_item.root:setPositionX(pos_x)
+            vars['leftTitleNode']:addChild(ui_title_item.root)
+        end
+    end
+    
+    -- 현재 진행중인 타이틀에 표시
+    local today_round = g_clanWarData:getTodayRound()
+    if (round == today_round) then
+    	ui_title_item:setInProgress()
     end
 end
 
