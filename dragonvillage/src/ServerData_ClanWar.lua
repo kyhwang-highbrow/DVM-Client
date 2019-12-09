@@ -639,6 +639,9 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
             end
         end
         
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+
         if next_func then
             next_func()
         end
@@ -658,6 +661,10 @@ function ServerData_ClanWar:request_clanWarFinish(is_win, play_time, next_func)
     end
 
     local ui_network = UI_Network()
+    local save_time = g_accessTimeData:getSaveTime()
+    if (save_time) then
+        ui_network:setParam('access_time', save_time)
+    end
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
 	ui_network:setParam('day', g_clanWarData.m_clanWarDay)
