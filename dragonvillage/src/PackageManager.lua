@@ -26,12 +26,22 @@ function PackageManager:getTargetUI(package_name, is_popup)
     if (_package_name == 'package_levelup') then
         local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
         target_ui = UI_Package_LevelUp(_struct_product, is_popup)
+    
+    -- 레벨업 패키지2 UI
+    elseif (_package_name == 'package_levelup_02') then
+        local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
+        target_ui = UI_Package_LevelUp_02(_struct_product, is_popup)
 
     -- 모험돌파 패키지 UI
     elseif (_package_name == 'package_adventure_clear') then
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
         target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
- 
+    
+    -- 모험돌파 패키지2 UI
+    elseif (_package_name == 'package_adventure_clear_02') then
+        local _struct_product = g_shopDataNew:getAdventureClearProduct()
+        target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
+
     -- 기간제 단계별 패키지 UI
     elseif (_package_name ==  'package_step_period') then
         target_ui = UI_Package_Step02(_package_name, is_popup)

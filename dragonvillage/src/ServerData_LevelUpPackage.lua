@@ -70,6 +70,9 @@ function ServerData_LevelUpPackage:request_lvuppackInfo(cb_func, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/lvuppack_info')
     ui_network:setParam('uid', uid)
+    -- 기존 레벨업 패키지 product_id : 90037, 
+    -- 20191210 업데이트 이후 추가된 레벨업 패키지2 product_id : 110271
+    ui_network:setParam('product_id', 90037) 
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -81,6 +84,7 @@ end
 
 -------------------------------------
 -- function response_lvuppackInfo
+-- @brief 타이틀에서도 정보 받고 있음
 -------------------------------------
 function ServerData_LevelUpPackage:response_lvuppackInfo(ret)
     self.m_bActive = ret['active'] or false
@@ -134,6 +138,9 @@ function ServerData_LevelUpPackage:request_lvuppackReward(lv, cb_func, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/lvuppack_reward')
     ui_network:setParam('uid', uid)
+    -- 기존 레벨업 패키지 product_id : 90037, 
+    -- 20191210 업데이트 이후 추가된 레벨업 패키지2 product_id : 110271
+    ui_network:setParam('product_id', 90037) 
     ui_network:setParam('lv', lv)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
