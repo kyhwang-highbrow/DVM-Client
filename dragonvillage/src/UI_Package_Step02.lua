@@ -6,6 +6,7 @@ local PARENT = UI_Package_Bundle
 UI_Package_Step02 = class(PARENT,{
         m_curr_step = 'number',
         m_lStepPids = 'list',
+        m_pacakgeName = 'string',
     })
 
 
@@ -13,7 +14,8 @@ UI_Package_Step02 = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Package_Step02:init(package_name, is_popup)
-    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList('package_step_02')
+    self.m_pacakgeName = package_name
+    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList(self.m_pacakgeName)
     self:setCurrentStep()
     self:refresh(self.m_curr_step)
 
@@ -26,7 +28,7 @@ end
 -------------------------------------
 function UI_Package_Step02:initButton()
     local vars = self.vars
-    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList('package_step_02')
+    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList(self.m_pacakgeName)
     for idx = 1, #self.m_lStepPids do
         vars['stepBtn'..idx]:registerScriptTapHandler(function() self:click_stepBtn(idx) end)
         
