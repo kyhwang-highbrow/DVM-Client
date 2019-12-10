@@ -22,10 +22,6 @@ function UI_Package_LevelUp_02:initUISetting()
         -- 백키 지정
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_LevelUp')
     end
-
-    self:initUI()
-	self:initButton(self.m_isPopup)
-    self:refresh()
 end
 
 -------------------------------------

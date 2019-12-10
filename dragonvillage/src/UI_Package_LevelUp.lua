@@ -10,10 +10,6 @@ UI_Package_LevelUp = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Package_LevelUp:init(struct_product, is_popup)
-    if (struct_product) then
-        return
-    end
-
     -- 매개변수 초기화
     self.m_isPopup = is_popup or false
 
@@ -23,6 +19,14 @@ function UI_Package_LevelUp:init(struct_product, is_popup)
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
+    
+    if (not struct_product) then
+        return
+    end
+
+    self:initUI()
+	self:initButton(self.m_isPopup)
+    self:refresh()
 end
 
 -------------------------------------
@@ -35,10 +39,6 @@ function UI_Package_LevelUp:initUISetting()
         -- 백키 지정
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_LevelUp')
     end
-
-    self:initUI()
-	self:initButton(self.m_isPopup)
-    self:refresh()
 end
 
 -------------------------------------
