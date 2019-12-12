@@ -159,10 +159,11 @@ function ServerData_Shop:getProductList_(l_product)
     for i,v in pairs(l_product) do
         local product_id = v['product_id']
 
-        -- 노출 가능한 상품만 추가
-        if v:isDisplayed() then
-            product_map[product_id] = v
-        end
+		-- 노출 가능한 상품만 추가
+		local is_display = self:checkIsDisplay(v)
+		if (is_display) then
+			product_map[product_id] = v
+		end
     end
 
     -- 의존성 검사
@@ -191,6 +192,31 @@ function ServerData_Shop:getProductList_(l_product)
     end
 
     return product_map
+end
+
+-------------------------------------
+-- function checkIsDisplay
+-------------------------------------
+function ServerData_Shop:checkIsDisplay(struct_product)
+	if (not struct_product) then
+		return false
+	end
+
+	-- Role1 : weekly, montly 등 기간이 있으면 구매해도 무조건 display 해줌
+	-- Role2 : permenent 상품의 경우 한 번 사면 display를 해주지 않음
+	if struct_product:isDisplayed() then
+	    
+		-- Role1 을 따르지 않는 예외처리
+		-- @jhakim 20191212 한정 단계별 패키지가 생김
+		-- 한정 단계별 패키지의 경우 monthly라는 제한이 있지만 한 번 사면 display 해주지 말아야함
+		if (struct_product['product_id'] >= 110291) and (struct_product['product_id'] <= 110293) then
+			return struct_product:isItBuyable()
+		end
+		
+		return true
+	end
+
+	return false
 end
 
 -------------------------------------

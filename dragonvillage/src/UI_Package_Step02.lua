@@ -4,7 +4,7 @@ local BUTTON_STATE = {}
 BUTTON_STATE.NORMAL = 'normal'
 BUTTON_STATE.SELECT = 'selected'
 BUTTON_STATE.SOLDOUT = 'soldout'
-BUTTON_STATE.SOLDOUT_SELECT = 'soldout_select'
+BUTTON_STATE.SOLDOUT_SELECT = 'soldout_selected'
 
 -------------------------------------
 -- class UI_Package_Step02
@@ -164,22 +164,10 @@ end
 function UI_Package_Step02:setBuutonState(clicked_step)
     local vars = self.vars
     for idx = 1, #self.m_lStepPids do
-        local state_name = self:getButtonState(idx, clicked_step)
-        local is_sold_out_selected = (state_name == BUTTON_STATE.SOLDOUT_SELECT)
-        
-        if (vars['stepVisual' .. idx]) then    
-            -- 구매한 걸 선택한 상태가 아니라면 상황별 visual을 틀어준다
-            if (not is_sold_out_selected) then
-                local ani_name = string.format('btn_step%d_%s', idx, state_name)
-                vars['stepVisual' .. idx]:changeAni(ani_name)
-            end
-
-            vars['stepVisual' .. idx]:setVisible(not is_sold_out_selected)
-        end
-
-        -- 구매한 걸 선택한 경우
-        if (vars['soldoutSelectBtn' .. idx]) then
-            vars['soldoutSelectBtn' .. idx]:setVisible(is_sold_out_selected)
+        local state_name = self:getButtonState(idx, clicked_step)     
+        if (vars['stepBtnVisual' .. idx]) then    
+			local ani_name = string.format('btn_step%d_%s', idx, state_name)
+			vars['stepBtnVisual' .. idx]:changeAni(ani_name)
         end
     end
 end
