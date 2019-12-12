@@ -1154,7 +1154,7 @@ function UI_TitleScene:workGetServerInfo()
 
                 if (ret['lvuppack_info']) then
                     cclog('# 레벨업 패키지 정보')
-                    g_levelUpPackageData:response_lvuppackInfo(ret['lvuppack_info'])
+                    g_levelUpPackageData:response_lvuppackInfoByTitle(ret['lvuppack_info'])
                 end
 
                 if (ret['stagepack_info']) then
