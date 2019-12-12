@@ -1,5 +1,11 @@
 local PARENT = UI_Package_Bundle
 
+local BUTTON_STATE = {}
+BUTTON_STATE.NORMAL = 'normal'
+BUTTON_STATE.SELECT = 'selected'
+BUTTON_STATE.SOLDOUT = 'soldout'
+BUTTON_STATE.SOLDOUT_SELECT = 'soldout_select'
+
 -------------------------------------
 -- class UI_Package_Step02
 -------------------------------------
@@ -7,6 +13,7 @@ UI_Package_Step02 = class(PARENT,{
         m_curr_step = 'number',
         m_lStepPids = 'list',
         m_pacakgeName = 'string',
+        m_isAllSoldOut = 'boolean',
     })
 
 
@@ -16,11 +23,23 @@ UI_Package_Step02 = class(PARENT,{
 function UI_Package_Step02:init(package_name, is_popup)
     self.m_pacakgeName = package_name
     self.m_lStepPids = g_shopDataNew:getPakcageStepPidList(self.m_pacakgeName)
+    self:initStep(package_name)
+end
+
+-------------------------------------
+-- function initStep
+-------------------------------------
+function UI_Package_Step02:initStep(package_name)
+    local vars = self.vars
+    for idx = 1, #self.m_lStepPids do
+        vars['stepBtn'..idx]:registerScriptTapHandler(function() self:click_stepBtn(idx) end)       
+    end
+    
     self:setCurrentStep()
     self:refresh(self.m_curr_step)
 
     -- 종료 임박 출력(하드코딩)
-    self.vars['limitNode']:setVisible(false)
+    vars['limitNode']:setVisible(false)
 end
 
 -------------------------------------
@@ -28,11 +47,7 @@ end
 -------------------------------------
 function UI_Package_Step02:initButton()
     local vars = self.vars
-    self.m_lStepPids = g_shopDataNew:getPakcageStepPidList(self.m_pacakgeName)
-    for idx = 1, #self.m_lStepPids do
-        vars['stepBtn'..idx]:registerScriptTapHandler(function() self:click_stepBtn(idx) end)
-        
-    end
+    
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
@@ -43,12 +58,20 @@ end
 -- @breif 구매내역으로 현재 스텝 체크
 -------------------------------------
 function UI_Package_Step02:setCurrentStep()
+    local sum_buy_cnt = 0
     for idx, pid in ipairs(self.m_lStepPids) do
         local buy_cnt = g_shopDataNew:getBuyCount(pid)
         if (buy_cnt == 0) then
             self.m_curr_step = idx
             break
         end
+        sum_buy_cnt = sum_buy_cnt + buy_cnt
+    end
+
+    -- 단계별 상품은 한 번씩만 살 수 있는 상태
+    -- 상품 갯수와 구매횟수가 같다면 모두 구매했다고 판단
+    if (sum_buy_cnt == #self.m_lStepPids) then
+        self.m_isAllSoldOut = true
     end
 
     if (not self.m_curr_step) then
@@ -130,6 +153,66 @@ function UI_Package_Step02:refresh(step)
 
     -- 구매 완료된 상품에 노티
     self:setNoti()
+
+    -- 버튼 상태 갱신
+    self:setBuutonState(step) -- 클릭한 스텝
+end
+
+-------------------------------------
+-- function setBuutonState
+-------------------------------------
+function UI_Package_Step02:setBuutonState(clicked_step)
+    local vars = self.vars
+    for idx = 1, #self.m_lStepPids do
+        local state_name = self:getButtonState(idx, clicked_step)
+        local is_sold_out_selected = (state_name == BUTTON_STATE.SOLDOUT_SELECT)
+        
+        if (vars['stepVisual' .. idx]) then    
+            -- 구매한 걸 선택한 상태가 아니라면 상황별 visual을 틀어준다
+            if (not is_sold_out_selected) then
+                local ani_name = string.format('btn_step%d_%s', idx, state_name)
+                vars['stepVisual' .. idx]:changeAni(ani_name)
+            end
+
+            vars['stepVisual' .. idx]:setVisible(not is_sold_out_selected)
+        end
+
+        -- 구매한 걸 선택한 경우
+        if (vars['soldoutSelectBtn' .. idx]) then
+            vars['soldoutSelectBtn' .. idx]:setVisible(is_sold_out_selected)
+        end
+    end
+end
+
+-------------------------------------
+-- function getButtonState
+-- @brief 구매 안한 상태, 선택한 상태, 구매한 상태, 구매한 걸 선택한 상태 
+-------------------------------------
+function UI_Package_Step02:getButtonState(target_step, clicked_step)
+    -- 모든 단계를 구매한 경우
+    if (self.m_isAllSoldOut) then
+        if (target_step == clicked_step) then
+            return BUTTON_STATE.SOLDOUT_SELECT
+        else
+            return BUTTON_STATE.SOLDOUT
+        end       
+    end
+    
+    -- 구매 스텝보다 낮다면 구매한 상태
+    if (target_step < self.m_curr_step) then
+        if (target_step == clicked_step) then
+            return BUTTON_STATE.SOLDOUT_SELECT
+        else
+            return BUTTON_STATE.SOLDOUT
+        end
+    -- 구매 스텝보다 높다면 아직 구매 안한 상태
+    elseif (target_step >= self.m_curr_step) then
+        if (target_step == clicked_step) then
+            return BUTTON_STATE.SELECT
+        else
+            return BUTTON_STATE.NORMAL
+        end
+    end
 end
 
 -------------------------------------
