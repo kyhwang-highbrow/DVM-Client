@@ -786,6 +786,11 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref, is_success)
     if (ret['content_unlock_list']) then
         g_contentLockData:applyContentLockByStage(ret['content_unlock_list'])
     end
+
+	-- 깜짝 출현 이벤트에서만 사용
+	if (ret['xmas_daily_egg_info']) then
+        g_eventAdventData:responseDailyAdventEggInfo(ret['xmas_daily_egg_info'])
+    end
 end
 
 -------------------------------------

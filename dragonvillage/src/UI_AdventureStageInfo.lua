@@ -100,6 +100,9 @@ function UI_AdventureStageInfo:refresh()
     local stage_id = self.m_stageID
     local game_mode = g_stageData:getGameMode(stage_id)
 
+	-- 초기화
+	vars['speechSprite']:setVisible(false)
+
     do -- 스테이지 이름
         local stage_name = g_stageData:getStageName(stage_id)
         vars['titleLabel']:setString(stage_name)
@@ -185,6 +188,7 @@ function UI_AdventureStageInfo:refresh()
         -- 깜짝 출현 챕터
         if (chapter == SPECIAL_CHAPTER.ADVENT) then
             vars['starButton']:setVisible(false)
+			vars['speechSprite']:setVisible(true)
         else
             local stage_info = g_adventureData:getStageInfo(stage_id)
             local num_of_stars = stage_info:getNumberOfStars()
@@ -361,17 +365,22 @@ function UI_AdventureStageInfo:refresh_rewardInfo()
     local node = self.vars['dropListNode']
     node:removeAllChildren()
 
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui.root:setScale(0.6)
-    end
-
-    -- stage_id로 드랍정보를 얻어옴
+	-- stage_id로 드랍정보를 얻어옴
     local stage_id = self.m_stageID
     local drop_helper = DropHelper(stage_id)
     local l_item_list = drop_helper:getDisplayItemList()
 
+    -- 생성 콜백
+    local function create_func(ui, item_id)
+        ui.root:setScale(0.6)
+
+		-- @jhakim 20191212 깜짝 출현 스테이지의 경우, 5-6등급 룬에는 이벤트 표시
+		if (isAdventStageID(stage_id)) then
+			if (g_eventAdventData:isAdventEventItem(item_id)) then
+				ui.vars['eventSprite']:setVisible(true)
+			end
+		end
+    end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)

@@ -48,6 +48,11 @@ function UI_EventAdvent:initUI()
         end
         self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
     end
+
+	local daily_egg_max = g_eventAdventData:getDailyAdventEggMax()
+	local daily_egg_get = g_eventAdventData:getDailyAdventEggGet()
+	local obtain_text = Str('일일 최대 {1}/{2}개 획득 가능', daily_egg_get, daily_egg_max)
+	vars['obtainLabel']:setString(obtain_text)
 end
 
 -------------------------------------
@@ -56,6 +61,7 @@ end
 function UI_EventAdvent:initButton()
     local vars = self.vars
     vars['stageMoveBtn']:registerScriptTapHandler(function() self:click_stageMoveBtn() end)
+	vars['infoBtn']:registerScriptTapHandler(function() UI_EventAdvent.createAdventInfoPopup() end)
 end
 
 -------------------------------------
@@ -79,4 +85,43 @@ end
 function UI_EventAdvent:click_stageMoveBtn()
     local advent_default_stage_id = 1119901
     UINavigator:goTo('adventure', advent_default_stage_id)
+end
+
+-------------------------------------
+-- function createAdventPopup
+-- @brief 팝업 형태로 열기
+-------------------------------------
+function UI_EventAdvent.createAdventPopup()
+    local ui = UI_EventAdvent()
+	UIManager:open(ui, UIManager.POPUP)
+	
+	-- @UI_ACTION
+    ui:doActionReset()
+    ui:doAction(nil, false)
+
+	-- 백키 지정
+    g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventAdventInfoPopup')
+
+	ui.vars['okBtn']:setVisible(true)
+	ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
+	ui.vars['closeBtn']:setVisible(true)
+	ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+end
+
+-------------------------------------
+-- function createAdventInfoPopup
+-- @brief 깜짝 출현 도움말 팝업
+-------------------------------------
+function UI_EventAdvent.createAdventInfoPopup()
+	local ui = UI()
+	ui:load('event_advent_info_popup.ui')
+	UIManager:open(ui, UIManager.POPUP)
+	ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+
+	-- @UI_ACTION
+    ui:doActionReset()
+    ui:doAction(nil, false)
+	
+	-- 백키 지정
+    g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_EventAdventInfoPopup')
 end

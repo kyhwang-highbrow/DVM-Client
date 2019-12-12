@@ -568,6 +568,10 @@ function UI_AdventureSceneNew:refreshChapter_advent(chapter, difficulty, stage)
         vars['adventBtnVisual']:setVisible(false)
         vars['adventureBtn']:setVisible(true)
 
+		-- 깜짝 출현 로비 팝업
+		vars['popupInfoBtn']:setVisible(true)
+		vars['popupInfoBtn']:registerScriptTapHandler(function() UI_EventAdvent.createAdventPopup() end)
+
         -- 눈 파티클 추가
         if (self.m_particle == nil) then
             local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist")
