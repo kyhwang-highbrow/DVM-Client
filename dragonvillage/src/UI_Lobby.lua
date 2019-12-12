@@ -631,6 +631,7 @@ function UI_Lobby:initButton()
     vars['mandragoraBtn']:registerScriptTapHandler(function() self:click_mandragoraBtn() end) -- 만드라고라의 모험 이벤트
     vars['adventBtn']:registerScriptTapHandler(function() self:click_adventBtn() end) -- 깜짝 출현 이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
+    vars['levelupBtn2']:registerScriptTapHandler(function() self:click_lvUpPackBtn2() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
@@ -1256,6 +1257,14 @@ function UI_Lobby:click_lvUpPackBtn()
 end
 
 -------------------------------------
+-- function click_lvUpPackBtn2
+-- @brief 레벨업 패키지2 버튼
+-------------------------------------
+function UI_Lobby:click_lvUpPackBtn2()
+    UI_Package_LevelUp_02(nil, true) -- param : struct_product, is_popup
+end
+
+-------------------------------------
 -- function click_adventureClearBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
@@ -1420,6 +1429,12 @@ function UI_Lobby:update(dt)
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
         self:update_rightButtons()
+    end
+
+    -- 레벨업 패키지, 모험돌파 패키지 등 상품 구매했을 경우, 오른쪽 버튼들 갱신
+    if (g_levelUpPackageData:getBuyLevelUpPackageDirty()) then
+        self:update_rightButtons()
+        g_levelUpPackageData:resetBuyLevelUpPackageDirty()
     end
 
     -- 로비 출석 D-day 표시
@@ -1713,12 +1728,29 @@ function UI_Lobby:update_rightButtons()
 	else
 		vars['capsuleBoxBtn']:setVisible(false)
 	end
+    
+    do
+        -- 레벨업 패키지 버튼
+        if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_PRODUCT_ID) then
+            vars['levelupBtn']:setVisible(true)
+        else
+            vars['levelupBtn']:setVisible(false)
+        end
 
-    -- 레벨업 패키지 버튼
-    if g_levelUpPackageData:isVisible_lvUpPack() then
-        vars['levelupBtn']:setVisible(true)
-    else
-        vars['levelupBtn']:setVisible(false)
+        -- 레벨업 패키지2 버튼
+        if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_2_PRODUCT_ID) then
+            vars['levelupBtn2']:setVisible(true)
+        else
+            vars['levelupBtn2']:setVisible(false)
+        end
+
+        -- 레벨업 패키지 노티
+        local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_PRODUCT_ID)
+        vars['levelupNotiSprite']:setVisible(is_noti)
+        
+        -- 레벨업 패키지2 노티
+        local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_2_PRODUCT_ID)
+        vars['levelupNotiSprite2']:setVisible(is_noti)
     end
 
     -- 일일상점 버튼
@@ -1756,6 +1788,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'diceBtn')
     table.insert(t_btn_name, 'alphabetBtn')
     table.insert(t_btn_name, 'levelupBtn')
+    table.insert(t_btn_name, 'levelupBtn2')
     table.insert(t_btn_name, 'adventureClearBtn')
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')

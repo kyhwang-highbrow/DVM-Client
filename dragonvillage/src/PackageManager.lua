@@ -24,12 +24,12 @@ function PackageManager:getTargetUI(package_name, is_popup)
 
     -- 레벨업 패키지 UI
     if (_package_name == 'package_levelup') then
-        local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
+        local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_PRODUCT_ID)
         target_ui = UI_Package_LevelUp(_struct_product, is_popup)
     
     -- 레벨업 패키지2 UI
     elseif (_package_name == 'package_levelup_02') then
-        local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
+        local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_2_PRODUCT_ID)
         target_ui = UI_Package_LevelUp_02(_struct_product, is_popup)
 
     -- 모험돌파 패키지 UI
@@ -116,13 +116,12 @@ end
 function PackageManager:isExist(package_name)
     -- 레벨업 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-10-25
     if (package_name == 'package_levelup') then
-        local is_active = g_levelUpPackageData:isActive()
-        local is_visible = g_levelUpPackageData:isVisible_lvUpPack()
-        if (is_active and (is_visible == false)) then
-            return false
-        else
-            return true
-        end
+        return g_levelUpPackageData:isVisibleAtPackageShop(LEVELUP_PACKAGE_PRODUCT_ID)
+    end
+
+    -- 레벨업 패키지2는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-10-25
+    if (package_name == 'package_levelup_02') then
+        return g_levelUpPackageData:isVisibleAtPackageShop(LEVELUP_PACKAGE_2_PRODUCT_ID)
     end
 
     -- 모험돌파 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-12-18

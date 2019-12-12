@@ -215,7 +215,13 @@ function ServerData_Event:getEventFullPopupList()
 
             -- 레벨업 패키지인 경우 구매했을 경우 노출시키지 않음.
             elseif (event_type == 'package_levelup') then
-                if (g_levelUpPackageData:isActive()) then
+                if (g_levelUpPackageData:isActive(LEVELUP_PACKAGE_PRODUCT_ID)) then
+                    visible = false
+                end
+            
+            -- 레벨업 패키지2인 경우 구매했을 경우 노출시키지 않음.
+            elseif (event_type == 'package_levelup_02') then
+                if (g_levelUpPackageData:isActive(LEVELUP_PACKAGE_2_PRODUCT_ID)) then
                     visible = false
                 end
 

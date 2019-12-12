@@ -4,6 +4,7 @@ local PARENT = UI_Package
 -- class UI_Package_LevelUp
 -------------------------------------
 UI_Package_LevelUp = class(PARENT,{
+        m_productId = 'number'
     })
 
 -------------------------------------
@@ -19,10 +20,6 @@ function UI_Package_LevelUp:init(struct_product, is_popup)
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
-    
-    if (not struct_product) then
-        return
-    end
 
     self:initUI()
 	self:initButton(self.m_isPopup)
@@ -39,6 +36,8 @@ function UI_Package_LevelUp:initUISetting()
         -- 백키 지정
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_LevelUp')
     end
+
+    self.m_productId = LEVELUP_PACKAGE_PRODUCT_ID
 end
 
 -------------------------------------
@@ -50,7 +49,7 @@ function UI_Package_LevelUp:refresh()
     self:init_tableView()
 
     local vars = self.vars
-    if g_levelUpPackageData:isActive() then
+    if g_levelUpPackageData:isActive(self.m_productId) then
         vars['completeNode']:setVisible(true)
         vars['contractBtn']:setVisible(false)
         vars['buyBtn']:setVisible(false)
@@ -69,7 +68,7 @@ function UI_Package_LevelUp:init_tableView()
     vars['productNodeLong']:removeAllChildren()
 
     local node = vars['productNode']
-    if g_levelUpPackageData:isActive() then
+    if g_levelUpPackageData:isActive(self.m_productId) then
         node = vars['productNodeLong']
         vars['productNode']:setVisible(false)
         vars['productNodeLong']:setVisible(true)
@@ -79,15 +78,14 @@ function UI_Package_LevelUp:init_tableView()
     end
 
     -- 리스트 아이템 생성 콜백
-    local function create_func(ui, data)
-        --ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
-        --ccdump(data)
+    local function create_func(data)
+        return UI_Package_LevelUpListItem.createItem(data, self.m_productId)
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(440, 80+5)
-    table_view:setCellUIClass(UI_Package_LevelUpListItem, create_func)
+    table_view:setCellUIClass(create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
 
@@ -95,7 +93,7 @@ function UI_Package_LevelUp:init_tableView()
     table_view:makeDefaultEmptyDescLabel('')
 
     -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_item_list = TABLE:get('table_package_levelup')
+    local l_item_list = g_levelUpPackageData:getLevelUpPackageTable(self.m_productId)
     table_view:setItemList(l_item_list)
 
     do -- 정렬
@@ -109,7 +107,7 @@ function UI_Package_LevelUp:init_tableView()
     end
 
     -- 보상 받기 가능한 idx로 이동
-    local lv, idx = g_levelUpPackageData:getFocusRewardLevel()
+    local lv, idx = g_levelUpPackageData:getFocusRewardLevel(self.m_productId)
     if lv then
         table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         table_view:relocateContainerFromIndex(idx, false)
@@ -134,8 +132,13 @@ function UI_Package_LevelUp:click_buyBtn()
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
 
+
+        local finish_func = function()
+            -- 구매하면 바로 로비에서 노출되도록 dirty 처리
+            g_levelUpPackageData:setDirty(self.m_productId, true)
+        end
         -- 갱신
-        self:request_serverInfo()
+        self:request_serverInfo(finish_func)
 	end
 
 	struct_product:buy(cb_func)
@@ -144,10 +147,13 @@ end
 -------------------------------------
 -- function request_serverInfo
 -------------------------------------
-function UI_Package_LevelUp:request_serverInfo()
+function UI_Package_LevelUp:request_serverInfo(finish_func)
     local function cb_func()
         self:refresh()
+        if (finish_func) then
+            finish_func()
+        end
     end
 
-    g_levelUpPackageData:request_lvuppackInfo(cb_func)
+    g_levelUpPackageData:request_lvuppackInfo(cb_func, nil, self.m_productId)
 end

@@ -5,14 +5,16 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_Package_LevelUpListItem = class(PARENT, {
         m_data = '',
+        m_productId = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_LevelUpListItem:init(data)
+function UI_Package_LevelUpListItem:init(ui_res, data, product_id)
     self.m_data = data
-    local vars = self:load('package_levelup_item.ui')
+    self.m_productId = product_id
+    local vars = self:load(ui_res)
 
     self:initUI()
     self:initButton()
@@ -63,9 +65,9 @@ function UI_Package_LevelUpListItem:refresh()
     local vars = self.vars
     local data = self.m_data
 
-    if g_levelUpPackageData:isActive() then
+    if g_levelUpPackageData:isActive(self.m_productId) then
         local level = data['level']
-        if g_levelUpPackageData:isReceived(level) then
+        if g_levelUpPackageData:isReceived(self.m_productId, level) then
             vars['receiveSprite']:setVisible(true)
             vars['rewardBtn']:setVisible(false)
         else
@@ -113,5 +115,17 @@ function UI_Package_LevelUpListItem:click_rewardBtn()
         ItemObtainResult_Shop(ret)
     end
 
-    g_levelUpPackageData:request_lvuppackReward(lv, cb_func)
+    g_levelUpPackageData:request_lvuppackReward(lv, cb_func, nil, self.m_productId)
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_Package_LevelUpListItem.createItem(data, product_id)
+    if (product_id == LEVELUP_PACKAGE_PRODUCT_ID) then
+        return UI_Package_LevelUpListItem('package_levelup_item.ui', data, product_id)
+    else
+        return UI_Package_LevelUpListItem('package_levelup_item_02.ui', data, product_id)
+    end
+    
 end

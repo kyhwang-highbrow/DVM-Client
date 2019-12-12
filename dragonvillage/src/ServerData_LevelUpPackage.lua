@@ -3,15 +3,18 @@
 -- table_shop_lsit
 -- table_shop_cash
 
+LEVELUP_PACKAGE_PRODUCT_ID = 90037
+LEVELUP_PACKAGE_2_PRODUCT_ID = 110271
+
 -------------------------------------
 -- class ServerData_LevelUpPackage
 -- @breif 레벨업 패키지 관리
+-- @instance g_levelUpPackageData
 -------------------------------------
 ServerData_LevelUpPackage = class({
         m_serverData = 'ServerData',
-        m_bActive = 'boolean',
-        m_receivedList = 'list',
-        m_bDirty = 'bool',
+        
+        m_tPackage = 'map - StructPackageState',
     })
 
 -------------------------------------
@@ -19,49 +22,77 @@ ServerData_LevelUpPackage = class({
 -------------------------------------
 function ServerData_LevelUpPackage:init(server_data)
     self.m_serverData = server_data
-    self.m_bActive = false
-    self.m_receivedList = {}
+    self.m_tPackage = {}
 end
 
 -------------------------------------
--- function ckechDirty
+-- function getProductState
 -------------------------------------
-function ServerData_LevelUpPackage:ckechDirty()
-    if self.m_bDirty then
-        return
-    end
-
-    -- 만료 시간 체크 할 것!
-    --self.m_expirationData
-    self:setDirty()
+function ServerData_LevelUpPackage:getProductState(_product_id)
+    local product_id = tostring(_product_id)
+    return self.m_tPackage[product_id]
 end
 
 -------------------------------------
 -- function setDirty
 -------------------------------------
-function ServerData_LevelUpPackage:setDirty()
-    self.m_bDirty = true
+function ServerData_LevelUpPackage:setDirty(product_id, dirty)
+    local struct_product_state = self:getProductState(product_id)
+    if (not struct_product_state) then
+        return
+    end
+
+    struct_product_state:setDirty(dirty)
 end
 
 -------------------------------------
 -- function isDirty
 -------------------------------------
-function ServerData_LevelUpPackage:isDirty()
-    return self.m_bDirty
+function ServerData_LevelUpPackage:isDirty(product_id)
+    local struct_product_state = self:getProductState(product_id)
+    if (not struct_product_state) then
+        return
+    end
+    return struct_product_state:getDirty()
+end
+
+-------------------------------------
+-- function getBuyLevelUpPackageDirty
+-- @brief 구매했을 경우, 모두 받았을 경우 더티 처리 한번 해준다 (로비에서 더티 = true 일경우 바로 레벨업 패키지 아이콘 보여줌)
+-------------------------------------
+function ServerData_LevelUpPackage:getBuyLevelUpPackageDirty()
+    if (self:isDirty(LEVELUP_PACKAGE_PRODUCT_ID)) then
+        return true
+    end
+    
+    if (self:isDirty(LEVELUP_PACKAGE_2_PRODUCT_ID)) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function resetBuyLevelUpPackageDirty
+-- @brief 더티 처리 리셋
+-------------------------------------
+function ServerData_LevelUpPackage:resetBuyLevelUpPackageDirty()
+    self:setDirty(LEVELUP_PACKAGE_PRODUCT_ID, false)
+    self:setDirty(LEVELUP_PACKAGE_2_PRODUCT_ID, false)
 end
 
 -------------------------------------
 -- function request_lvuppackInfo
 -------------------------------------
-function ServerData_LevelUpPackage:request_lvuppackInfo(cb_func, fail_cb)
+function ServerData_LevelUpPackage:request_lvuppackInfo(cb_func, fail_cb, product_id)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
-        self:response_lvuppackInfo(ret)
-
-		if (cb_func) then
+        local _product_id = tostring(product_id)
+        self.m_tPackage[_product_id] = StructPackageState(ret)
+        if (cb_func) then
 			cb_func(ret)
 		end
     end
@@ -72,7 +103,7 @@ function ServerData_LevelUpPackage:request_lvuppackInfo(cb_func, fail_cb)
     ui_network:setParam('uid', uid)
     -- 기존 레벨업 패키지 product_id : 90037, 
     -- 20191210 업데이트 이후 추가된 레벨업 패키지2 product_id : 110271
-    ui_network:setParam('product_id', 90037) 
+    ui_network:setParam('product_id', product_id) 
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -83,33 +114,51 @@ function ServerData_LevelUpPackage:request_lvuppackInfo(cb_func, fail_cb)
 end
 
 -------------------------------------
--- function response_lvuppackInfo
+-- function response_lvuppackInfoByTitle
 -- @brief 타이틀에서도 정보 받고 있음
 -------------------------------------
-function ServerData_LevelUpPackage:response_lvuppackInfo(ret)
-    self.m_bActive = ret['active'] or false
-    self.m_receivedList = ret['received_list'] or {}
+function ServerData_LevelUpPackage:response_lvuppackInfoByTitle(ret)
+    --[[
+        "lvuppack_info" = 
+        {
+            [1011010] = 
+            {
+                ['active'] = true
+                ['received_list'] = {1,2,3,4,5}
+            },
+        }
+    --]]
+    for product_id, data in pairs(ret) do
+        if (type(data) == 'table') then
+            local _product_id = tostring(product_id)
+            self.m_tPackage[_product_id] = StructPackageState(data)
+        end
+    end
 end
 
 -------------------------------------
 -- function isActive
 -------------------------------------
-function ServerData_LevelUpPackage:isActive()
-    return self.m_bActive
+function ServerData_LevelUpPackage:isActive(product_id)
+    local struct_product_state = self:getProductState(product_id)
+    if (not struct_product_state) then
+        return
+    end
+    return struct_product_state:isActive()
 end
 
 -------------------------------------
 -- function isVisible_lvUpPack
 -------------------------------------
-function ServerData_LevelUpPackage:isVisible_lvUpPack()
-    if (not self:isActive()) then
+function ServerData_LevelUpPackage:isVisible_lvUpPack(product_id)
+    if (not self:isActive(product_id)) then
         return false
     end
-
-    local l_item_list = TABLE:get('table_package_levelup')
-    for i,v in pairs(l_item_list) do
+    
+    local table_package_levelup = self:getLevelUpPackageTable(product_id)
+    for i,v in pairs(table_package_levelup) do
         local lv = v['level']
-        if (self:isReceived(lv) == false) then
+        if (self:isReceived(product_id, lv) == false) then
             return true
         end
     end
@@ -118,16 +167,58 @@ function ServerData_LevelUpPackage:isVisible_lvUpPack()
 end
 
 -------------------------------------
+-- function isVisibleAtPackageShop
+-- @brief 패키지 상점에서는 구매를 한 후에도 노출됨, 상품을 다 받으면 노출 안됨
+-------------------------------------
+function ServerData_LevelUpPackage:isVisibleAtPackageShop(product_id)
+    local is_active = g_levelUpPackageData:isActive(product_id)
+    local is_visible = g_levelUpPackageData:isVisible_lvUpPack(product_id)
+    if (is_active and (is_visible == false)) then
+        return false
+    else
+        return true
+    end    
+end
+
+-------------------------------------
+-- function isVisible_levelUpPackNoti
+-------------------------------------
+function ServerData_LevelUpPackage:isVisible_levelUpPackNoti(product_id)
+local table_package_levelup = self:getLevelUpPackageTable(product_id)
+    local list = table.MapToList(table_package_levelup)
+
+    local function sort_func(a, b)
+        return a['level'] < b['level']
+    end
+    table.sort(list, sort_func)
+    
+    local user_level = g_userData:get('lv')
+
+    for i,v in ipairs(list) do
+        local lv = v['level']
+        if (lv <= user_level) and (not self:isReceived(product_id, lv)) then
+            return true
+        end
+    end
+
+    return false    
+end
+
+-------------------------------------
 -- function request_lvuppackReward
 -------------------------------------
-function ServerData_LevelUpPackage:request_lvuppackReward(lv, cb_func, fail_cb)
+function ServerData_LevelUpPackage:request_lvuppackReward(lv, cb_func, fail_cb, product_id)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
-        
-        self.m_receivedList = ret['received_list']
+        if (ret['received_list']) then
+            local struct_package_state = self:getProductState(product_id)
+            if (struct_package_state) then
+                struct_package_state:setReceievedList(ret['received_list'])
+            end
+        end
 
 		if (cb_func) then
 			cb_func(ret)
@@ -140,7 +231,7 @@ function ServerData_LevelUpPackage:request_lvuppackReward(lv, cb_func, fail_cb)
     ui_network:setParam('uid', uid)
     -- 기존 레벨업 패키지 product_id : 90037, 
     -- 20191210 업데이트 이후 추가된 레벨업 패키지2 product_id : 110271
-    ui_network:setParam('product_id', 90037) 
+    ui_network:setParam('product_id', product_id) 
     ui_network:setParam('lv', lv)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -154,14 +245,12 @@ end
 -------------------------------------
 -- function isReceived
 -------------------------------------
-function ServerData_LevelUpPackage:isReceived(lv)
-    for i,v in pairs(self.m_receivedList) do
-        if (v == lv) then
-            return true
-        end
+function ServerData_LevelUpPackage:isReceived(product_id, lv)
+    local struct_product_state = self:getProductState(product_id)
+    if (not struct_product_state) then
+        return
     end
-
-    return false
+    return struct_product_state:isReceived(lv)
 end
 
 
@@ -169,9 +258,9 @@ end
 -- function getFocusRewardLevel
 -- @brief 보상 수령이 가능한 레벨 리턴
 -------------------------------------
-function ServerData_LevelUpPackage:getFocusRewardLevel()
-    local map = TABLE:get('table_package_levelup')
-    local list = table.MapToList(map)
+function ServerData_LevelUpPackage:getFocusRewardLevel(product_id)
+    local table_package_levelup = self:getLevelUpPackageTable(product_id)
+    local list = table.MapToList(table_package_levelup)
 
     local function sort_func(a, b)
         return a['level'] < b['level']
@@ -188,4 +277,17 @@ function ServerData_LevelUpPackage:getFocusRewardLevel()
     end
 
     return nil
+end
+
+-------------------------------------
+-- function getLevelUpPackageTable
+-------------------------------------
+function ServerData_LevelUpPackage:getLevelUpPackageTable(product_id)
+    local table_package_levelup
+    if (product_id == LEVELUP_PACKAGE_PRODUCT_ID) then
+        table_package_levelup = TABLE:get('table_package_levelup')
+    else
+        table_package_levelup = TABLE:get('table_package_levelup_02')
+    end 
+    return table_package_levelup
 end

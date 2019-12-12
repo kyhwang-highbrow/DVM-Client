@@ -124,6 +124,7 @@ local t_module = {
     'StructClanWarTournament',
     'StructClanWarMatchItem',
     'StructClanWarMatch',
+    'StructPackageState',
 
 	-- ServerData
     'ServerData',
