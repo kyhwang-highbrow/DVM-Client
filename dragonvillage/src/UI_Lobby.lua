@@ -804,10 +804,12 @@ function UI_Lobby:update_highlight()
 
             if g_hotTimeData:isActiveEvent('event_bingo') then
                 local struct_bingo = g_eventBingoData:getStructEventBingo()
-                if struct_bingo:isHighlightRed_ex() then
-                    vars['bingoNotiRed']:setVisible(true)
-                elseif struct_bingo:isHighlightYellow_ex() then
-                    vars['bingoNotiYellow']:setVisible(true)
+                if (struct_bingo) then
+                    if struct_bingo:isHighlightRed_ex() then
+                        vars['bingoNotiRed']:setVisible(true)
+                    elseif struct_bingo:isHighlightYellow_ex() then
+                        vars['bingoNotiYellow']:setVisible(true)
+                    end
                 end
             end
         end
