@@ -90,6 +90,9 @@ function UI_Package_Step02:refresh(step)
     self:setCurrentStep()
 
     local vars = self.vars
+    if (vars['timeLabel']) then
+		vars['timeLabel']:setString('') -- 타임 라벨 초기화
+	end    
     local l_item_list = g_shopDataNew:getProductList('package')
 
     for idx = 1, #self.m_lStepPids do
