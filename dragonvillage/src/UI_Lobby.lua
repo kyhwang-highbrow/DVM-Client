@@ -1788,18 +1788,23 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'capsuleBtn')
     table.insert(t_btn_name, 'itemAutoBtn')
     table.insert(t_btn_name, 'giftBoxBtn')
+
+    -- 이벤트
+    table.insert(t_btn_name, 'matchCardBtn')
+    table.insert(t_btn_name, 'mandragoraBtn')
     table.insert(t_btn_name, 'bingoBtn')
     table.insert(t_btn_name, 'diceBtn')
     table.insert(t_btn_name, 'alphabetBtn')
     table.insert(t_btn_name, 'exchangeBtn')
     table.insert(t_btn_name, 'adventBtn')
-    table.insert(t_btn_name, 'levelupBtn')
+    
+    -- 패키지
     table.insert(t_btn_name, 'levelupBtn2')
+    table.insert(t_btn_name, 'levelupBtn')
     table.insert(t_btn_name, 'adventureClearBtn')
+    
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')
-    table.insert(t_btn_name, 'matchCardBtn')
-    table.insert(t_btn_name, 'mandragoraBtn')
     table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'randomShopBtn')
     table.insert(t_btn_name, 'eventBtn')
