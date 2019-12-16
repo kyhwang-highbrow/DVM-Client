@@ -339,6 +339,10 @@ function UI_Network:statusHandler(ret)
         return false
     end
 
+    if (type(status) == 'table') and (status['retcode'] == 0) then
+        return false
+    end
+
     if (status == 0) then
         return false
     end
