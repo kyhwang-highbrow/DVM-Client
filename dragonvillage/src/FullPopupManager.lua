@@ -11,6 +11,8 @@ FULL_POPUP_TYPE = {
 	ATTR_TOWER = 'attr_tower', -- 시험의 탑 안내
     SHOP_DAILY = 'shop_daily',
 
+    EVENT_WELCOME_NEWBIE = 'event_welcome_newbie',
+
     LOBBY_BY_CONDITION = 5, -- 코드로 조건 체크하는 로비 풀팝업, table_lobby_popup 에 있는 항목들
 }
 -------------------------------------
@@ -134,6 +136,13 @@ function FullPopupManager:show(type, show_func)
             if (popup_key) then
                 show_func(popup_key)
             end
+        end
+
+    -- 신규 유저 환영 이벤트
+    elseif (type == FULL_POPUP_TYPE.EVENT_WELCOME_NEWBIE) then
+         -- 리워드 받을 수 있는 경우에만 풀 팝업 노출
+        if (g_eventData:isPossibleToGetWelcomeNewbieReward()) then
+            show_func(FULL_POPUP_TYPE.EVENT_WELCOME_NEWBIE)
         end
     end
 end

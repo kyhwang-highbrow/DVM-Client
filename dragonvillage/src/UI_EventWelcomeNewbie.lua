@@ -92,3 +92,10 @@ function UI_EventWelcomeNewbie:click_rewardBtn()
     g_eventData:request_eventWelcomeNewbieReward(finish_cb)
 end
 
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventWelcomeNewbie:onEnterTab()
+end
+

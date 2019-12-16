@@ -32,6 +32,7 @@ local LIMITED_EVENT_LIST = {
 function ServerData_Event:init(server_data)
     self.m_serverData = server_data
     self.m_bDirty = false
+    self.m_isRewardTake = true
 end
 
 -------------------------------------
@@ -305,6 +306,11 @@ function ServerData_Event:getEventFullPopupList()
             elseif (event_type == 'costume_event') then
                 visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
 
+                   
+            -- 신규 유저 환영 이벤트
+			-- 다른 함수에서 풀팝업 띄워움 UI_Lobby - g_fullPopupManager:show(FULL_POPUP_TYPE.EVENT_WELCOME_NEWBIE, show_func) 
+            elseif (event_type == 'event_welcome_newbie') then
+		        visible = false
             end
 
             if (visible) then
@@ -816,9 +822,9 @@ function ServerData_Event:response_eventWelcomeNewbie(ret)
 
    -- 대상이 아니거나 보상을 이미 받았을 경우
    -- ret['event_welcome_newbie_info'] 값이 들어오지 않는다.
-   -- 보상 받음 처리, isRewardTake = false 처리
+   -- 보상 받음 처리, isRewardTake = true 처리
     if (not t_info) then
-        self.m_isRewardTake = false
+        self.m_isRewardTake = true
         return
     end
 
