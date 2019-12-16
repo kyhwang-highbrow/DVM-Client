@@ -14,6 +14,10 @@ UI_EventWelcomeNewbie = class(PARENT, {
 function UI_EventWelcomeNewbie:init()
     local vars = self:load('event_welcome_newbie.ui')
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self:initUI()
     self:initButton()
     self:refresh()
@@ -24,6 +28,11 @@ end
 -------------------------------------
 function UI_EventWelcomeNewbie:initUI()
     local vars = self.vars
+
+    local can_reward_take = g_eventData:isPossibleToGetWelcomeNewbieReward()
+    vars['rewardBtn']:setVisible(can_reward_take)
+    vars['completeNode']:setVisible(not can_reward_take)
+
     local reward_str = g_eventData:getWelcomeNewbieRewardString()
     if (not reward_str) then
         return
@@ -87,7 +96,10 @@ end
 function UI_EventWelcomeNewbie:click_rewardBtn()
     local vars = self.vars
     local finish_cb = function(ret)
-        vars['rewardBtn']:setEnabled(false)
+        local can_reward_take = g_eventData:isPossibleToGetWelcomeNewbieReward()
+        vars['rewardBtn']:setVisible(can_reward_take)
+        vars['rewardBtn']:setEnabled(can_reward_take)
+        vars['completeNode']:setVisible(not can_reward_take)
     end
     g_eventData:request_eventWelcomeNewbieReward(finish_cb)
 end
