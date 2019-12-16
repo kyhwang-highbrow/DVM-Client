@@ -160,6 +160,13 @@ function UI_EventFullPopup:initUI()
 	elseif (popup_key == 'event_thanks_2nd_anniversary') then
 		ui = UI_EventThankAnniversary()
 
+    -- 신규 유저 환영 이벤트
+	elseif (popup_key == 'event_welcome_newbie') then
+        -- 리워드 받을 수 있는 경우에만 풀 팝업 노출
+        if (g_eventData:isPossibleToGetWelcomeNewbieReward()) then
+		    ui = UI_EventWelcomeNewbie()
+        end
+
     -- 누적 결제 보상 이벤트
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then
 		local l_str = plSplit(popup_key, ';')

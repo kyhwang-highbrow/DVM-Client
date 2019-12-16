@@ -526,10 +526,13 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 			g_contentLockData:applyContentLockByStage(ret['content_unlock_list'])
 		end
 
-        cclog('# 클랜전 정보 받는 중')
+        cclog('# 클랜전 정보 받는 중') -- 데이터 크기가 작음
         if (ret['clanwar_info']) then
 			g_clanWarData:applyClanWarInfo(ret['clanwar_info'])
 		end
+
+		cclog('# 신규 유저 환영 이벤트')
+		g_eventData:response_eventWelcomeNewbie(ret)
 
 		co.NEXT()
 	end)

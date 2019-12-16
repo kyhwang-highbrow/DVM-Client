@@ -282,6 +282,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
 	elseif (tab == 'event_thanks_2nd_anniversary') then
 		ui = UI_EventThankAnniversary()
 
+    -- 신규 유저 환영 이벤트
+	elseif (tab == 'event_welcome_newbie') then
+		ui = UI_EventWelcomeNewbie()
+
     -- 누적 결제 보상 이벤트 
     elseif pl.stringx.startswith(tab, 'purchase_point') then
         local event_version = struct_event_popup_tab.m_eventData['version'] or struct_event_popup_tab.m_eventData['event_id']

@@ -19,7 +19,9 @@ UI_PickDragon = class(PARENT,{
         m_sortManager = 'SortManager',
 
 		m_dragonAnimator = 'UIC_DragonAnimator',
-        m_onlyInfo = 'boolean',
+        m_onlyInfo = 'boolean', -- 정보만 보여주기
+
+        m_tDragonData = 'table', -- lv, grade 등등 커스텀 용
     })
 
 -------------------------------------
@@ -32,6 +34,15 @@ function UI_PickDragon:init(mid, item_id, cb_func, only_info)
     self.m_onlyInfo = only_info
     vars['titleLabel']:setString(TableItem:getItemName(item_id))
     
+    -- @brief 700617 전설 추천 드래곤 선택권
+    -- @brief 이 선택권은 성룡 60레벨인 상태로 지급
+    if (item_id == 700617) then
+        self.m_tDragonData = {}
+        self.m_tDragonData['lv'] = 60
+        self.m_tDragonData['grade'] = 6
+        self.m_tDragonData['evolution'] = 3
+    end
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_PickDragon')
 
@@ -199,7 +210,14 @@ function UI_PickDragon:initTableView()
     local function create_func(data)
         local did = data['did']
 		local t_data = {['evolution'] = 1, ['grade'] = data['birthgrade']}
-		local ui = MakeSimpleDragonCard(did, t_data)
+        
+        -- 드래곤 성장 커스텀 되어 있다면 그 정보를 사용
+        -- ex) 성룡 60레벨
+        if (self.m_tDragonData) then
+            t_data = self.m_tDragonData
+        end
+		
+        local ui = MakeSimpleDragonCard(did, t_data)
 		ui.root:setScale(item_scale)
 
 		-- 클릭
@@ -246,6 +264,11 @@ function UI_PickDragon:refresh(t_dragon)
 
 	-- 드래곤
 	local evolution = 1
+    -- 드래곤 성장 커스텀 되어 있다면 그 정보를 사용
+    -- ex) 성룡 60레벨
+    if (self.m_tDragonData) then
+        evolution = self.m_tDragonData['evolution']
+    end
 	self.m_dragonAnimator:setDragonAnimator(t_dragon['did'], evolution)
 
 	-- 이름
@@ -254,6 +277,13 @@ function UI_PickDragon:refresh(t_dragon)
 	-- 등급
 	vars['starNode']:removeAllChildren()
 	local dummy_dragon_data = {['did'] = t_dragon['did'], ['grade'] = t_dragon['birthgrade'], ['evolution'] = evolution}
+    
+    -- 드래곤 성장 커스텀 되어 있다면 그 정보를 사용
+    -- ex) 성룡 60레벨
+    if (self.m_tDragonData) then
+        dummy_dragon_data = self.m_tDragonData
+    end
+    
     local star_icon = IconHelper:getDragonGradeIcon(dummy_dragon_data, 2)
     vars['starNode']:addChild(star_icon)
 
@@ -304,12 +334,22 @@ function UI_PickDragon:click_bookBtn()
     local t_dragon = self.m_currDragonData
 
 	local did = t_dragon['did']
-    local grade = t_dragon['grade']
-    local evolution = t_dragon['evolution']
+    
+    local t_data = {}
+    t_data['grade'] = t_dragon['grade']
+    t_data['evolution'] = t_dragon['evolution']
+    t_data['lv'] = 1
+
+    -- 드래곤 성장 커스텀 되어 있다면 그 정보를 사용
+    -- ex) 성룡 60레벨
+    if (self.m_tDragonData) then
+        t_data = self.m_tDragonData
+    end
+
 	local is_pick = (self.m_onlyInfo == false)
 	local pick_cb = function() self:click_summonBtn() end
 
-    UI_BookDetailPopup.open(did, grade, evolution, is_pick, pick_cb)
+    UI_BookDetailPopup.open(did, t_data, is_pick, pick_cb)
 end
 
 -------------------------------------
@@ -368,6 +408,10 @@ function UI_PickDragon:request_pick(mid, did)
     return ui_network
 end
 
+
+-------------------------------------
+-- function makePickDragon
+-------------------------------------
 function UI_PickDragon.makePickDragon(mid, item_id, cb_func, is_info)
     
     -- 기존 선택권 (2주년 기념 전설 추천 드래곤 선택권이 아닐 경우)

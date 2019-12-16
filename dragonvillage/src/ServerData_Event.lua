@@ -7,9 +7,15 @@ ServerData_Event = class({
 
         m_mapChanceUpDragons = 'map',
 		
+        -- 2주년 감사 이벤트
         m_isComebackUser_1st = 'bool', -- 복귀유저 구분하는 데 사용 - 2주년 때에는 사용하지 않
 		m_isEventUserReward = 'bool', -- 복귀/신규 판단하여 n주년 기념 보상 받은 여부 판단
         m_isUserState = 'number', -- 신규 1 복귀 2 기존 3
+
+
+        -- 신규 유저 환영 이벤트
+        m_sRewardItem = '70001;2, ...',
+        m_isRewardTake = 'boolean',
 
         m_bDirty = 'boolean',
         m_tLobbyDeco = 'table',
@@ -126,6 +132,11 @@ function ServerData_Event:getEventPopupTabList()
             if (visible) then
 		        visible = not (self:isEventUserRewardDone())
             end
+       
+       -- 신규 유저 환영 이벤트
+       elseif (event_type == 'event_welcome_newbie') then
+		    visible = self:isPossibleToGetWelcomeNewbieReward()
+
         -- 코스튬
         elseif (event_type == 'costume_event') then
             visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
@@ -794,4 +805,80 @@ function ServerData_Event:sendErrorLog_checkEventTime(t_data)
     -- "\n"으로 구분된 첫 줄은 error_stack_header로 사용하기 위해 추가한다.
     local msg = 'ServerData_Event:checkEventTime Error' .. '\n' .. dump_str
     g_errorTracker:sendErrorLog(msg, nil) -- param : msg, success_cb
+end
+
+-------------------------------------
+-- function response_eventWelcomeNewbie
+-- @brief 신규 유저 환영 이벤트 : 로비, users/get_welcome_newbie_reward 통신에서 값을 받아 저장
+-------------------------------------
+function ServerData_Event:response_eventWelcomeNewbie(ret)
+    local t_info = ret['event_welcome_newbie_info']
+
+   -- 대상이 아니거나 보상을 이미 받았을 경우
+   -- ret['event_welcome_newbie_info'] 값이 들어오지 않는다.
+   -- 보상 받음 처리, isRewardTake = false 처리
+    if (not t_info) then
+        self.m_isRewardTake = false
+        return
+    end
+
+    self.m_isRewardTake = t_info['take_reward']
+    self.m_sRewardItem = t_info['reward']
+end
+
+-------------------------------------
+-- function request_eventWelcomeNewbieReward
+-- @brief 신규 유저 환영 이벤트 (보상 받기 통신)
+-------------------------------------
+function ServerData_Event:request_eventWelcomeNewbieReward(finish_cb)  
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_eventWelcomeNewbie(ret)
+
+        if (ret['new_mail']) then
+            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+            UI_ToastPopup(toast_msg)
+
+            g_highlightData:setHighlightMail()
+        end
+
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    -- 콜백 함수
+    local function fail_cb(ret)
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/get_welcome_newbie_reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
+
+-------------------------------------
+-- function getWelcomeNewbieRewardString
+-- @return 7001;2,
+-------------------------------------
+function ServerData_Event:getWelcomeNewbieRewardString()
+    return self.m_sRewardItem
+end
+
+-------------------------------------
+-- function isPossibleToGetWelcomeNewbieReward
+-- @brief 보상 받을 수 있는 경우 true 리턴
+-------------------------------------
+function ServerData_Event:isPossibleToGetWelcomeNewbieReward()
+    return not self.m_isRewardTake
 end
