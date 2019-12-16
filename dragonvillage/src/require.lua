@@ -1410,6 +1410,7 @@ local t_module = {
     -- UI : 클랜전
     'UI_ClanWar_GroupStage',
     'UI_ClanWar_GroupPaging',
+    'UI_ClanWarDeckSettings',
     'UI_ClanWarLeagueRankInfoPopup',
 	'UI_ClanWarLeagueResultPopup',
 	'UI_ClanWarRewardPopup',

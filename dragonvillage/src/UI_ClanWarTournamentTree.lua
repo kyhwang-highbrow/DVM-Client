@@ -132,7 +132,7 @@ function UI_ClanWarTournamentTree:initButton()
 		vars['startBtn']:setVisible(false)
 	end
 
-    vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
+    vars['setDeckBtn']:registerScriptTapHandler(function() UI_ClanWarDeckSettings(CLAN_WAR_STAGE_ID) end)
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWithMyClanInfo() end)
 end

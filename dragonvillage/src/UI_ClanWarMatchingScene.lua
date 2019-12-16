@@ -402,7 +402,7 @@ end
 -- function click_myDeck
 -------------------------------------
 function UI_ClanWarMatchingScene:click_myDeck()
-    UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true)
+    UI_ClanWarDeckSettings(CLAN_WAR_STAGE_ID)
 end
 
 -------------------------------------

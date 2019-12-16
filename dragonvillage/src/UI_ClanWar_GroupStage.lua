@@ -120,7 +120,7 @@ function UI_ClanWar_GroupStage:initButton()
 
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWithMyClanInfo() end)
-    vars['setDeckBtn']:registerScriptTapHandler(function() UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true) end)
+    vars['setDeckBtn']:registerScriptTapHandler(function() UI_ClanWarDeckSettings(CLAN_WAR_STAGE_ID) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     vars['startBtn2']:registerScriptTapHandler(function() self:click_startBtn() end)
 

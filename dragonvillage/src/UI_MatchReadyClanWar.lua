@@ -116,7 +116,7 @@ end
 function UI_MatchReadyClanWar:click_deckBtn()
     local vars = self.vars 
     local deck_change_mode = true
-    local ui = UI_ReadySceneNew(CLAN_WAR_STAGE_ID, true)
+    local ui = UI_ClanWarDeckSettings(CLAN_WAR_STAGE_ID)
     local function close_cb()
         self:initUI()
         vars['clanWarMenu']:setVisible(true)
