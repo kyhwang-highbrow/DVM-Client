@@ -1343,6 +1343,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_InventoryBtn.lua" />
     <None Include="..\src\UI_InventoryTabEgg.lua" />
     <None Include="..\src\UI_InventoryTabTransform.lua" />
+    <None Include="..\src\UI_IranEmailLoginPopup.lua" />
+    <None Include="..\src\UI_IranEmailRegistrationPopup.lua" />
+    <None Include="..\src\UI_IranLoginPopup.lua" />
     <None Include="..\src\UI_ItemPickPopup.lua" />
     <None Include="..\src\UI_LinkAccountPopup.lua" />
     <None Include="..\src\UI_ListItem_ClanWarGroupStage.lua" />

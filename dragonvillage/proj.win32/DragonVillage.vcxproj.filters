@@ -4369,6 +4369,15 @@
     <None Include="..\src\UI_EventWelcomeNewbie.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_IranLoginPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_IranEmailRegistrationPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_IranEmailLoginPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

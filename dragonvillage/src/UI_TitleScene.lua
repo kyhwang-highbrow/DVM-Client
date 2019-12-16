@@ -549,6 +549,7 @@ function UI_TitleScene:workCheckUserID()
     -- 카페 바자르 빌드에서는 이란 제재로 firebase 서비스 불가
     if (CppFunctions:isCafeBazaarBuild() == true) then
         not_available_firebase = true
+        return self:workCheckUserID_CafeBazaarBuild()
     end
 
     -- Firebase Authentication으로 로그인 처리가 불가능할 경우
@@ -656,6 +657,27 @@ function UI_TitleScene:workCheckUserID()
             fail_cb()
         end
     end)
+
+end
+
+-------------------------------------
+-- function workCheckUserID_CafeBazaarBuild
+-- @breif 이란 빌드 전용
+-------------------------------------
+function UI_TitleScene:workCheckUserID_CafeBazaarBuild()
+    cclog('workCheckUserID_CafeBazaarBuild()')
+
+    local uid = g_localData:get('local', 'uid')
+    if uid then
+        self:doNextWork()
+    else
+        require('UI_IranLoginPopup')
+        local ui = UI_IranLoginPopup()
+        local function close_cb()
+            self:doNextWork()
+        end
+        ui:setCloseCB(close_cb)
+    end
 
 end
 
