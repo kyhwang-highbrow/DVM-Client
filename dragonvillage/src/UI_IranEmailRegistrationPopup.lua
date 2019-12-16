@@ -128,7 +128,22 @@ function UI_IranEmailRegistrationPopup:click_confirmBtn()
         return
     end
 
+    -- 마지막 확인 팝업
+    require('UI_IranEmailConfirmPopup')
+    local ui = UI_IranEmailConfirmPopup(email, pw)
+    local function close_cb()
+        if (ui.m_bConfirm == true) then
+            self:requestEmailRegistration(email, pw)
+        end
+    end
+    ui:setCloseCB(close_cb)
+end
 
+-------------------------------------
+-- function requestEmailRegistration
+-- @brief
+-------------------------------------
+function UI_IranEmailRegistrationPopup:requestEmailRegistration(email, pw)
     local os = 0 -- ( 0 : Android / 1 : iOS )
     if (isAndroid() == true) then
         os = 0
