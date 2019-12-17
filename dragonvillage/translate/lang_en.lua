@@ -4726,7 +4726,7 @@ return {['{@yellow}세트 스코어{@default}가 동점일 경우 아래의 조�
 ['알 부화를 준비 중...']='Preparing to hatch eggs...',
 ['알 수 없는 문자들이 적혀 있는 오래된 종이. 또 다른 세계의 테이머들이 사용하면 대단한 선물을 받을 수 있다고 한다.']='An old paper with some unknown language written on it. It is said that if Tamers from other worlds use this, they will receive a magnificent gift.',
 ['알 수 없는 오류가 발생했다고라...']='An unknown error occurred...',
-['알겠지? 치는 것보다 떼는 게 더 중요하다고! ']='Got it? Sometimes pasting is more important than copying!',
+['알겠지? 치는 것보다 떼는 게 더 중요하다고!']='Got it? Sometimes releasing is more important than striking!',
 ['알고 보면 나도 무섭다니깐!']='I have a scary side, too!',
 ['알까기!']='Missed by an inch!',
 ['알량하구나!']='Pathetic!',
