@@ -12,6 +12,9 @@ UI_SkillEnhance = class(PARENT, {
 		m_maxSkillLevel = 'num',
      })
 
+--@jhakiim 20191219 업데이트에서 테이머 레벨 99 확장, but 진형 테이머 스킬 레벨은 70으로 제한
+local MAX_LEVEL = 70
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -31,7 +34,9 @@ function UI_SkillEnhance:init(t_tamer, skill_indivisual_info, skill_idx)
     self.m_skillIndividualInfo = skill_indivisual_info
 	self.m_skillIdx = skill_idx
 	self.m_enhanceLevel = skill_indivisual_info:getSkillLevel() + 1
-	self.m_maxSkillLevel = g_userData:get('lv')
+
+    local user_lv = g_userData:get('lv')
+    self.m_maxSkillLevel = math.min(user_lv, MAX_LEVEL)
 	if (self.m_enhanceLevel > self.m_maxSkillLevel) then
 		self.m_enhanceLevel = self.m_maxSkillLevel
 	end
@@ -39,7 +44,6 @@ function UI_SkillEnhance:init(t_tamer, skill_indivisual_info, skill_idx)
     self:initUI()
     self:initButton()
     self:refresh()
-
     self:setOpacityChildren(true)
 end
 
@@ -140,7 +144,7 @@ end
 -------------------------------------
 function UI_SkillEnhance:click_enhanceBtn()
 	if (self.m_skillIndividualInfo:getSkillLevel() == self.m_maxSkillLevel) then
-		UIManager:toastNotificationGreen(Str('강화 레벨을 지정하셔야 합니다.'))
+		UIManager:toastNotificationRed(Str('강화 레벨을 지정하셔야 합니다.'))
 		return
 	end
 
@@ -189,8 +193,15 @@ function UI_SkillEnhance:click_levelBtn2()
 	
 	if (self.m_enhanceLevel > self.m_maxSkillLevel) then
 		self.m_enhanceLevel = self.m_maxSkillLevel
-		UIManager:toastNotificationGreen(Str('유저 레벨 이상 레벨업 하실 수 없습니다.'))
-		return
+		
+        local msg = ''
+        if (self.m_enhanceLevel == MAX_LEVEL) then
+            msg = Str('더 이상 레벨업할 수 없습니다.')
+        else
+            msg = Str('유저 레벨 이상 레벨업 하실 수 없습니다.')
+		end
+        UIManager:toastNotificationRed(msg)
+        return
 	end
 
 	self:refresh()
@@ -200,8 +211,18 @@ end
 -- function click_maxBtn
 -------------------------------------
 function UI_SkillEnhance:click_maxBtn()
-	self.m_enhanceLevel = self.m_maxSkillLevel
+    if (self.m_enhanceLevel == self.m_maxSkillLevel) then
+        local msg = ''
+        if (self.m_enhanceLevel == MAX_LEVEL) then
+            msg = Str('더 이상 레벨업할 수 없습니다.')
+        else
+            msg = Str('유저 레벨 이상 레벨업 하실 수 없습니다.')
+		end
+        UIManager:toastNotificationRed(msg)
+        return
+    end
 
+    self.m_enhanceLevel = self.m_maxSkillLevel
 	self:refresh()
 end
 

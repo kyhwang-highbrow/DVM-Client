@@ -2,13 +2,17 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 local COMMON_UI_ACTION_TIME = 0.3
 
+--@jhakiim 20191219 업데이트에서 테이머 레벨 99 확장, but 진형 테이머 스킬 레벨은 70으로 제한
+local MAX_LEVEL = 70
 -------------------------------------
 -- class UI_FormationListItem
 -------------------------------------
 UI_FormationListItem = class(PARENT,{
 		m_tFormationInfo = '',
 		m_formation = 'str',
-		m_isActivated = 'boolean'
+		m_isActivated = 'boolean',
+
+        m_maxLevel = 'number',
     })
 
 -------------------------------------
@@ -29,6 +33,7 @@ end
 -------------------------------------
 function UI_FormationListItem:initUI()
     local vars = self.vars
+    self.m_maxLevel = math.min(g_userData:get('lv'), MAX_LEVEL)
 end
 
 -------------------------------------
@@ -74,7 +79,7 @@ function UI_FormationListItem:refresh()
 	vars['enhanceBtn']:setVisible(false)
 	
 	-- 최대 레벨
-	if (g_userData:get('lv') <= formation_lv and g_userData:get('lv') >= 70) then
+	if (formation_lv >= self.m_maxLevel and g_userData:get('lv') >= 70) then
 		vars['maxSprite']:setVisible(true)
 
 	-- 강화가 가능한 상태

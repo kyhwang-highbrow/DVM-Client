@@ -10,6 +10,9 @@ UI_SkillDetailPopupListItem_Tamer = class(PARENT, {
 		m_maxSkillLevel = 'num',
      })
 
+--@jhakiim 20191219 업데이트에서 테이머 레벨 99 확장, but 진형 테이머 스킬 레벨은 70으로 제한
+local MAX_LEVEL = 70
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -19,7 +22,7 @@ function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx)
 	self.m_tableTamer = t_tamer
     self.m_skillMgr = skill_mgr
     self.m_skillIdx = skill_idx
-	self.m_maxSkillLevel = g_userData:get('lv')
+	self.m_maxSkillLevel = math.min(g_userData:get('lv'), MAX_LEVEL)
 
     self:initUI()
     self:initButton()

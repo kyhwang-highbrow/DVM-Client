@@ -9,9 +9,11 @@ UI_FormationDetailPopup = class(PARENT, {
 
         m_formationLevel = 'number',
         m_enhanceLevel = 'number',
+        m_maxEnhanceLevel = 'number',
      })
 
-local USER_MAX_LV = 70 -- 유저 맥스 레벨 정보는 어디서?
+--@jhakiim 20191219 업데이트에서 테이머 레벨 99 확장, but 진형 테이머 스킬 레벨은 70으로 제한
+local USER_MAX_LV = 70
 
 -------------------------------------
 -- function init
@@ -24,6 +26,9 @@ function UI_FormationDetailPopup:init(t_data)
     self.m_formationLevel = t_data['formation_lv']
     self.m_enhanceLevel = self.m_formationLevel + 1
     self.m_isActivated = false
+
+    local user_lv = g_userData:get('lv')
+    self.m_maxEnhanceLevel = math.min(USER_MAX_LV, user_lv)
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_FormationDetailPopup')
@@ -128,11 +133,24 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_FormationDetailPopup:click_enhanceBtn()
-    local curr_lv = self.m_formationLevel
-    local user_lv = g_userData:get('lv')
+    local enhance_lv = self.m_enhanceLevel
 
-    if (curr_lv >= USER_MAX_LV) or (curr_lv >= user_lv) then
-        UIManager:toastNotificationGreen(Str('유저 레벨 이상 강화 하실 수 없습니다.'))
+
+	if (self.m_formationLevel == self.m_maxEnhanceLevel) then
+		UIManager:toastNotificationRed(Str('강화 레벨을 지정하셔야 합니다.'))
+		return
+	end
+
+    if (enhance_lv > self.m_maxEnhanceLevel) then
+        enhance_lv = self.m_maxEnhanceLevel
+
+        local msg = ''
+        if (self.m_enhanceLevel == USER_MAX_LV) then
+            msg = Str('더 이상 레벨업할 수 없습니다.')
+        else
+            msg = Str('유저 레벨 이상 레벨업 하실 수 없습니다.')
+		end
+        UIManager:toastNotificationRed(msg)
         return
     end
 
@@ -172,15 +190,19 @@ end
 -- function click_levelBtn2
 -------------------------------------
 function UI_FormationDetailPopup:click_levelBtn2()
-	self.m_enhanceLevel = self.m_enhanceLevel + 1
-	
-    local max_lv = g_userData:get('lv')
+    self.m_enhanceLevel = self.m_enhanceLevel + 1
+	if (self.m_enhanceLevel > self.m_maxEnhanceLevel) then
+        self.m_enhanceLevel = self.m_maxEnhanceLevel
 
-	if (self.m_enhanceLevel > max_lv) then
-		self.m_enhanceLevel = max_lv
-		UIManager:toastNotificationGreen(Str('유저 레벨 이상 강화 하실 수 없습니다.'))
-		return
-	end
+        local msg = ''
+        if (self.m_enhanceLevel == USER_MAX_LV) then
+            msg = Str('더 이상 레벨업할 수 없습니다.')
+        else
+            msg = Str('유저 레벨 이상 레벨업 하실 수 없습니다.')
+		end
+        UIManager:toastNotificationRed(msg)
+        return
+    end
 
 	self:refresh()
 end
@@ -189,13 +211,18 @@ end
 -- function click_maxBtn
 -------------------------------------
 function UI_FormationDetailPopup:click_maxBtn()
-    local max_lv = g_userData:get('lv')
-    if (max_lv == self.m_formationLevel) then
-        UIManager:toastNotificationGreen(Str('유저 레벨 이상 강화 하실 수 없습니다.'))
+    if (self.m_enhanceLevel == self.m_maxEnhanceLevel) then
+        local msg = ''
+        if (self.m_enhanceLevel == USER_MAX_LV) then
+            msg = Str('더 이상 레벨업할 수 없습니다.')
+        else
+            msg = Str('유저 레벨 이상 레벨업 하실 수 없습니다.')
+		end
+        UIManager:toastNotificationRed(msg)
         return
     end
 
-	self.m_enhanceLevel = max_lv
+    self.m_enhanceLevel = self.m_maxEnhanceLevel
 	self:refresh()
 end
 
