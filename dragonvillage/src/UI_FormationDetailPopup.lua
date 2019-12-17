@@ -29,6 +29,7 @@ function UI_FormationDetailPopup:init(t_data)
 
     local user_lv = g_userData:get('lv')
     self.m_maxEnhanceLevel = math.min(USER_MAX_LV, user_lv)
+    self.m_enhanceLevel = math.min(self.m_enhanceLevel, self.m_maxEnhanceLevel)
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_FormationDetailPopup')
@@ -158,7 +159,7 @@ function UI_FormationDetailPopup:click_enhanceBtn()
         self.m_isActivated = true
         local new_data = g_formationData:getFormationInfo(self.m_formation)
         self.m_formationLevel = new_data['formation_lv']
-        self.m_enhanceLevel = (self.m_formationLevel == USER_MAX_LV) and USER_MAX_LV or self.m_formationLevel + 1
+        self.m_enhanceLevel = (self.m_formationLevel == self.m_maxEnhanceLevel) and self.m_maxEnhanceLevel or self.m_formationLevel + 1
         self:refresh()
 
         -- 이펙트 추가
