@@ -90,7 +90,15 @@ function StructClanWarLeague:init(data)
 
 	    for _, _data in ipairs(l_total_league) do
             local struct_league_item = StructClanWarLeagueItem(_data)
-            table.insert(self.m_lLeagueTotalMatch, struct_league_item)
+            local clan_id = _data['clan_id']
+            
+            -- 1. 클랜 정보가 있어야
+            -- 2. 유령 클랜이 아닐 경우에만 리스트에 추가해줌
+            if (g_clanWarData:getClanInfo(clan_id)) then
+                if (not struct_league_item:isGoastClan()) then
+                    table.insert(self.m_lLeagueTotalMatch, struct_league_item)
+                end
+            end
         end
 
         -- 그룹 오더 순으로 정렬
@@ -251,9 +259,14 @@ function StructClanWarLeague:getAllClanWarLeagueRankList(clan_id)
 
         local clan_id = struct_league_item:getClanId()
 		local clan_info = g_clanWarData:getClanInfo(clan_id)
-		if (clan_info) then
-			table.insert(t_rank_clan_info[league], struct_league_item)
-		end
+		-- 1. 클랜 정보가 있어야
+        -- 2. 유령 클랜이 아닐 경우에만 리스트에 추가해줌
+        if (clan_info) then
+            if (not struct_league_item:isGoastClan()) then
+                table.insert(t_rank_clan_info[league], struct_league_item)
+            end
+        end
+		
 	end
 
     -- 랭킹 순서로 정렬
