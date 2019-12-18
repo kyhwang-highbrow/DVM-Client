@@ -765,6 +765,7 @@ function UI_AdventureSceneNew:click_adventChapterBtn(isToAdvent)
         end
     end
 
+    self.vars['popupInfoBtn']:setVisible(isToAdvent)
     self:refreshChapter(chapter, difficulty, stage)
     self.m_uicSortList:setSelectSortType(difficulty)
 end
