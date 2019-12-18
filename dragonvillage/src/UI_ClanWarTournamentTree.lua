@@ -599,12 +599,19 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     end
 
     -- 이름, 클랜 마크
-    do
-        if (struct_clan_rank_1) then
+    do      
+        if (clan1_id == 'loser') then
+            clan_name1 = Str('대전 상대가 없음')
+            ui.vars['clanNameLabel1']:setColor(COLOR['gray'])
+        elseif (struct_clan_rank_1) then
             local clan_name = struct_clan_rank_1:getClanName() or ''
             clan_name1 = clan_name
             clan_node1 = struct_clan_rank_1:makeClanMarkIcon()
+        else
+            clan_name1 = Str('대전 상대가 없음')
+            ui.vars['clanNameLabel1']:setColor(COLOR['gray'])
         end
+
         ui.vars['clanNameLabel1']:setString(clan_name1)
         if (clan_node1) then
             ui.vars['clanMarkNode1']:addChild(clan_node1)
@@ -612,10 +619,16 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
             ui.vars['clanMarkNode1']:setPositionX(pos_x)
         end
          
-        if (struct_clan_rank_2) then
+        if (clan2_id == 'loser') then
+            clan_name2 = Str('대전 상대가 없음')
+            ui.vars['clanNameLabel2']:setColor(COLOR['gray'])
+        elseif (struct_clan_rank_2) then
             local clan_name = struct_clan_rank_2:getClanName() or ''
             clan_name2 = clan_name
             clan_node2 = struct_clan_rank_2:makeClanMarkIcon()
+        else
+            clan_name2 = Str('대전 상대가 없음')
+            ui.vars['clanNameLabel2']:setColor(COLOR['gray'])
         end
         ui.vars['clanNameLabel2']:setString(clan_name2)
         if (clan_node2) then
@@ -862,7 +875,7 @@ function UI_ClanWarTournamentTree:click_gotoMatch()
             end
         end
         
-        UI_ClanWarMatchingScene(t_my_struct_match)
+        UI_ClanWarMatchingScene(struct_match)
     end
 
     g_clanWarData:request_clanWarMatchInfo(success_cb)
