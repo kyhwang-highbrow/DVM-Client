@@ -417,15 +417,37 @@ function UI_ClanWar_GroupStage:click_startBtn()
 		return
 	end
 
-    local success_cb = function(struct_match)
-        --local t_clan = struct_match:getEnemyMatchData()
-        -- 2.상대 클랜이 유령 클랜일 경우 확인
-        --local is_ghost = self:isGhostClan(t_clan)
-        local is_ghost = struct_match:isGhostClan()
-        if (is_ghost) then
-            local ghost_msg = Str('대전 상대가 없어 부전승 처리 되었습니다.')
-            MakeSimplePopup(POPUP_TYPE.OK, ghost_msg)
-            return
+    local success_cb = function(struct_match, match_info)
+        -- 상대가 유령클랜이거나 클랜정보가 없는 경우
+		if (match_info) then
+            local no_clan_func = function()
+                local msg = Str('대전 상대가 없어 부전승 처리되었습니다.')
+                MakeSimplePopup(POPUP_TYPE.OK, msg)
+            end
+            
+            local clan_id_a = match_info['a_clan_id']
+            local clan_id_b = match_info['b_clan_id']
+            if (clan_id_a == 'loser') then
+                 no_clan_func()
+                return               
+            end
+            
+            if (clan_id_b == 'loser') then
+                 no_clan_func()
+                return               
+            end
+
+            local my_clan_info = g_clanWarData:getClanInfo(clan_id_a)
+            if (not my_clan_info) then         
+                no_clan_func()
+                return
+            end
+
+            local enemy_clan_info = g_clanWarData:getClanInfo(clan_id_b)
+            if (not enemy_clan_info) then
+                no_clan_func()
+                return
+            end
         end
 
         local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match)

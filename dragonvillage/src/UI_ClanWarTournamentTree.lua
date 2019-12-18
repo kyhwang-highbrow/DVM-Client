@@ -829,8 +829,40 @@ function UI_ClanWarTournamentTree:click_gotoMatch()
         return
     end
     
-	local success_cb = function(t_my_struct_match, t_enemy_struct_match)
-        UI_ClanWarMatchingScene(t_my_struct_match, t_enemy_struct_match)
+	local success_cb = function(struct_match, match_info)
+        -- 상대가 유령클랜이거나 클랜 정보가 없을 경
+		if (match_info) then
+            local no_clan_func = function()
+                local msg = Str('대전 상대가 없어 부전승 처리되었습니다.')
+                MakeSimplePopup(POPUP_TYPE.OK, msg)
+            end
+            
+            local clan_id_a = match_info['a_clan_id']
+            local clan_id_b = match_info['b_clan_id']
+            if (clan_id_a == 'loser') then
+                 no_clan_func()
+                return               
+            end
+            
+            if (clan_id_b == 'loser') then
+                 no_clan_func()
+                return               
+            end
+
+            local my_clan_info = g_clanWarData:getClanInfo(clan_id_a)
+            if (not my_clan_info) then         
+                no_clan_func()
+                return
+            end
+
+            local enemy_clan_info = g_clanWarData:getClanInfo(clan_id_b)
+            if (not enemy_clan_info) then
+                no_clan_func()
+                return
+            end
+        end
+        
+        UI_ClanWarMatchingScene(t_my_struct_match)
     end
 
     g_clanWarData:request_clanWarMatchInfo(success_cb)

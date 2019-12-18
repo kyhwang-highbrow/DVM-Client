@@ -208,6 +208,9 @@ end
 -- function getClanInfo
 -------------------------------------
 function ServerData_ClanWar:getClanInfo(clan_id)
+    if (not clan_id) then
+        return
+    end
     return self.m_tClanInfo[clan_id]
 end
 
@@ -293,7 +296,7 @@ end
 -------------------------------------
 function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)    
     local finish_cb = function(ret)
-        return success_cb(StructClanWarMatch(ret))
+        return success_cb(StructClanWarMatch(ret), ret['match_info'])
     end
     
     local uid = g_userData:get('uid')
