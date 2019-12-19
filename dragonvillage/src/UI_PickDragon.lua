@@ -349,7 +349,7 @@ function UI_PickDragon:click_bookBtn()
 	local is_pick = (self.m_onlyInfo == false)
 	local pick_cb = function() self:click_summonBtn() end
 
-    UI_BookDetailPopup.open(did, t_data, is_pick, pick_cb)
+    UI_BookDetailPopup.openWithCostume(did, t_data, is_pick, pick_cb)
 end
 
 -------------------------------------
