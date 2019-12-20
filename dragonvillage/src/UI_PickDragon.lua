@@ -270,6 +270,7 @@ function UI_PickDragon:refresh(t_dragon)
         evolution = self.m_tDragonData['evolution']
     end
 	self.m_dragonAnimator:setDragonAnimator(t_dragon['did'], evolution)
+    vars['infoLabel']:setVisible(evolution==1)
 
 	-- 이름
 	vars['dragonNameLabel']:setString(Str(t_dragon['t_name']))
