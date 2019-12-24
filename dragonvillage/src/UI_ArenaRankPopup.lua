@@ -183,7 +183,18 @@ function UI_ArenaRankPopup:makeRewardTableView(my_info)
     local l_arena_rank = struct_rank_reward:getRankRewardList()
     self.m_structRankReward = struct_rank_reward
 
+
+    local table_arena = TABLE:get('table_arena')
 	local create_func = function(ui, data)
+        -- 티어 아이콘
+		local tier_id = data['tier_id']
+        if (tier_id) then
+            local tier = table_arena[tier_id]['tier']
+            local tier_icon = StructUserInfoArena:makeTierIcon(tier)
+            if (tier_icon) then
+                ui.vars['tierNode']:addChild(tier_icon)
+            end
+        end
 		self:createRewardFunc(ui, data, my_info)
 	end
 
