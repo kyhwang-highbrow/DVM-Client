@@ -186,11 +186,13 @@ function UI_ArenaRankPopup:makeRewardTableView(my_info)
 
     local table_arena = TABLE:get('table_arena')
 	local create_func = function(ui, data)
-        -- 티어 아이콘
+        -- 티어 아이콘/ 티어 이름
 		local tier_id = data['tier_id']
         if (tier_id) then
             local tier = table_arena[tier_id]['tier']
             local tier_icon = StructUserInfoArena:makeTierIcon(tier)
+            local tier_name = StructUserInfoArena:getTierName(tier) or ''
+            ui.vars['tierLabel']:setString(tier_name)
             if (tier_icon) then
                 ui.vars['tierNode']:addChild(tier_icon)
             end
