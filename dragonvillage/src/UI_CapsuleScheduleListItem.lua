@@ -45,17 +45,20 @@ end
 -------------------------------------
 function UI_CapsuleScheduleListItem:initUI()
     local vars = self.vars
-    
+
+    -- 리스트 마지막에 추가하는 테이블 아이템
+    -- 캡슐 정보가 아닌 '업데이트 예정'이라는 라벨만 찍기위한 용도
+    if (self:isAdvanceNotice()) then
+        vars['timeLabel']:setString(self.m_scheduleData['advance_notice'])
+        vars['titleLegendLabel']:setString('')
+        return
+    end
+
     -- 캡슐 타이틀 설정
     vars['titleLegendLabel']:setString(self:getCapsuleBoxTitle('legend'))
-    
-    -- 캡슐 일정 설정  
-    if (self.m_scheduleData['advance_notice']) then
-        vars['timeLabel']:setString(self.m_scheduleData['advance_notice'])
-    else
-        local date_str = self:getScheduleTime()
-        vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
-    end
+
+    local date_str = self:getScheduleTime()
+    vars['timeLabel']:setString(date_str)-- yyyy년 mm월 dd일
 
     -- 캡슐 아이템 세팅
     -- 공통적으로 사용하는 first_1, second_1 이용해서 노드 이름, 아이템 정보 알아냄 
@@ -89,7 +92,7 @@ function UI_CapsuleScheduleListItem:initUI()
         return
     end
 
-    local cur_date = tonumber(g_capsuleBoxData:getScheduleDay())
+    local cur_date = tonumber(g_capsuleBoxData:getCurScheduleDay())
     if (self.m_scheduleData['day']) then
         local capsule_date = tonumber(self.m_scheduleData['day'])
         if (cur_date == capsule_date) then                              -- 오늘 상품은 하이라이트 표시
@@ -99,6 +102,19 @@ function UI_CapsuleScheduleListItem:initUI()
         end
     end
 
+end
+
+-------------------------------------
+-- function isAdvanceNotice
+-------------------------------------
+function UI_CapsuleScheduleListItem:isAdvanceNotice()
+    for key, v in pairs(self.m_scheduleData) do
+        if (key ~= 'advance_notice') then
+            return false
+        else
+            return true
+        end
+    end
 end
 
 -------------------------------------
@@ -229,10 +245,11 @@ function UI_CapsuleScheduleListItem:makeItemCard(reward_name, node_name)
 
     -- 출시 예정 드래곤 or 잘못된 id의 경우 아이템 카드는 적합하지 않음 (물음표 표시)
     local is_valid_item = self:isValidItem(reward_name, capsule_item_id)
-    
-    -- 마지막에 추가되는 일정 예고 아이템 (물음표 표시)
-    if (self.m_scheduleData['advance_notice']) then
-        return
+    if (is_valid_item) then
+        -- 공개 안함 지정 했을 경우, 언제부터 보여줄지 체크
+        if (not self.m_scheduleData:isHiddenOpen()) then
+            is_valid_item = false
+        end
     end
 
 

@@ -177,10 +177,17 @@ function UI_CapsuleBox:refresh()
     -- 캡슐 코인 5+1 패키지 갱신
     self:refresh_dailyCapsulePackage()
 
+    self:setCapsuleBoxNoti()
+end
 
-    -- 2주년 스페셜 절대적인전설의 알 출현 이벤트 (11/1~11/2 양일간)
-    local day = g_capsuleBoxData:getScheduleDay()
-    if (day == 20191101) or (day == 20191102) then
+-------------------------------------
+-- function setCapsuleBoxNoti
+-- @brief 특정날짜에 노티를 띄워줘야 하는 경우 (ex) 글로벌 2주년 기념 절전알 출현 기념 노티
+-------------------------------------
+function UI_CapsuleBox:setCapsuleBoxNoti()
+    local vars = self.vars
+
+    if (StructCapsuleBoxSchedule.isNoti_globalAnniversary()) then
         vars['1stEventMenu']:setVisible(true)
     else
         vars['1stEventMenu']:setVisible(false)

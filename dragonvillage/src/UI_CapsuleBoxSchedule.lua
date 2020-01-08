@@ -40,21 +40,11 @@ function UI_CapsuleBoxSchedule:initUI()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(vars['scrollNode'])
-    table_view:setCellUIClass(UI_CapsuleScheduleListItem, nil)
+    table_view:setCellUIClass(UI_CapsuleScheduleListItem)
     table_view.m_defaultCellSize = cc.size(900, 130)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    local l_item_list = table.MapToList(g_capsuleBoxData.m_scheduleTable)
-    
-    -- 캡슐 판매일 오래된 것부터 출력되도록 정렬
-    local function sort_func(a, b)
-        local a_time = a['day']
-        local b_time = b['day']
-
-        return a_time < b_time
-    end
-    table.sort(l_item_list, sort_func)
-
+    local l_item_list = g_capsuleBoxData:getCapsuleBoxScheduleList()
     local table_index = 0
     for i,v in ipairs(l_item_list) do
         if (v['day'] == g_capsuleBoxData.m_day) then
@@ -63,16 +53,15 @@ function UI_CapsuleBoxSchedule:initUI()
         end
     end
 
-    -- 마지막에 추가하는 테이블 아이템
-    local advance_notice_item = { advance_notice = '{@ORANGE}' .. Str('업데이트 예정')}
-    l_item_list['advance_notice'] = advance_notice_item
-
     -- 현재 판매중인 캡슐 상품 정보
     table_view:setItemList(l_item_list)
     
     table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
     table_view:relocateContainerFromIndex(table_index)
 
+    -- 마지막에 추가하는 테이블 아이템
+    local advance_notice_item = { ['advance_notice'] = '{@ORANGE}' .. Str('업데이트 예정')}
+    table_view:addItem('advance_notice', advance_notice_item)
 end
 
 -------------------------------------

@@ -855,6 +855,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructCalendarDay.lua" />
     <None Include="..\src\StructCapsuleBox.lua" />
     <None Include="..\src\StructCapsuleBoxReward.lua" />
+    <None Include="..\src\StructCapsuleBoxSchedule.lua" />
     <None Include="..\src\StructClan.lua" />
     <None Include="..\src\StructClanBuff.lua" />
     <None Include="..\src\StructClanMark.lua" />

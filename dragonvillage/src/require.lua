@@ -111,6 +111,7 @@ local t_module = {
 	'StructDailyMission',
 	'StructCapsuleBox',
 	'StructCapsuleBoxReward',
+    'StructCapsuleBoxSchedule',
     'StructTeamBonus',
     'StructRandomShopItem',
     'StructEventMatchCard',

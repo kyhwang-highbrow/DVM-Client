@@ -165,13 +165,34 @@ end
 -- @brief 리스트 중에서 오늘 판매하는 상품 정보 반환
 -------------------------------------
 function ServerData_CapsuleBox:getTodaySchedule()
-    local cur_day = self:getScheduleDay()
+    local cur_day = self:getCurScheduleDay()
     local scheduleTable = self.m_scheduleTable
     if (not scheduleTable) then
         return
     end
 
     return scheduleTable[cur_day]
+end
+
+-------------------------------------
+-- function getCapsuleBoxScheduleList
+-------------------------------------
+function ServerData_CapsuleBox:getCapsuleBoxScheduleList()
+    if (not self.m_scheduleTable) then
+        return {}
+    end
+
+    local l_schedule = table.MapToList(self.m_scheduleTable)
+    -- 캡슐 판매일 오래된 것부터 출력되도록 정렬
+    local function sort_func(a, b)
+        local a_time = a['day']
+        local b_time = b['day']
+
+        return a_time < b_time
+    end
+    table.sort(l_schedule, sort_func)
+
+    return l_schedule
 end
 
 -------------------------------------
@@ -248,7 +269,7 @@ function ServerData_CapsuleBox:makeScheduleMap(t_capsule_schedule)
     for _,v in ipairs(t_capsule_schedule) do
         if (v['table'] and v['table']['day']) then
             local day_key = v['table']['day']
-            map_schedule[day_key] = v['table']
+            map_schedule[day_key] = StructCapsuleBoxSchedule(v['table'])
         end
     end
     return map_schedule
@@ -406,10 +427,10 @@ function ServerData_CapsuleBox:getRemainTimeText()
 end
 
 -------------------------------------
--- function getScheduleDay
+-- function getCurScheduleDay
 -- @brief table_capsule_box_schedule테이블에서 day값
 -------------------------------------
-function ServerData_CapsuleBox:getScheduleDay()
+function ServerData_CapsuleBox:getCurScheduleDay()
     local day = self.m_day
 
     -- 테스트를 위해 임시값 추가 (서버에서 실제로 값이 오면 동작하지 않을 코드)
