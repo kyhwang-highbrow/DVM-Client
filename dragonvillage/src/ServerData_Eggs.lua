@@ -21,6 +21,18 @@ function ServerData_Eggs:request_incubate(egg_id, cnt, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
     local cnt = cnt or 1
 
+    local function response_status_cb(ret)
+        -- (미중복알 특성상) 도감에 있는 드래곤을 다 뽑아서 더 이상 뽑을 수 없는 경우
+        if (ret['status']) then
+            if (ret['status'] == -1702) then
+                local msg1 = Str('더 이상 부화할 수 없습니다.') .. '\n' .. Str('도감에 비활성화 된 드래곤이 없습니다.')
+                local msg2 = Str('신규 드래곤이 추가되면 다시 사용할 수 있습니다..')
+                MakeSimplePopup2(POPUP_TYPE.OK, msg1, msg2)
+                return true           
+            end
+        end
+    end
+
     -- 성공 콜백
     local function success_cb(ret)
         -- @analytics
@@ -46,6 +58,7 @@ function ServerData_Eggs:request_incubate(egg_id, cnt, finish_cb, fail_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('eggid', egg_id)
     ui_network:setParam('cnt', cnt)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -122,15 +135,20 @@ end
 function ServerData_Eggs:getEggListForUI()
     local egg_list = self.m_serverData:getRef('user', 'eggs')
     local table_item = TableItem()
-
     local t_ret = {}
 
     -- 리스트 생성
     for i,v in pairs(egg_list) do
         local egg_id = i
         local count = v
+
         -- 20180415 @jhakim 모든 알 10개 꾸러미로 부화 가능하도록 수정
-        if (0 < count) then
+        -- 20200109 @jhakim 미중복알은 10개 꾸러미 안됨
+        if (self:isUndulpicateEgg(egg_id)) then
+            for _i=1, count do
+                table.insert(t_ret, {['egg_id']=egg_id, ['count']=1})
+            end
+        elseif (0 < count) then
             local full_type = table_item:getValue(tonumber(egg_id), 'full_type')
             
             local bundle_cnt = math_floor(count / 10)
@@ -150,6 +168,23 @@ function ServerData_Eggs:getEggListForUI()
     table.sort(t_ret, function(a, b) return self:sort_egg(a, b) end)
 
     return t_ret
+end
+
+-------------------------------------
+-- function isUndulpicateEgg
+-------------------------------------
+function ServerData_Eggs:isUndulpicateEgg(item_id)
+    if (not item_id) then
+        return false
+    end
+
+    local table_gacha_probability = TABLE:get('table_gacha_probability')
+    t_gacha_probability = table_gacha_probability[tonumber(item_id)]
+    if (not t_gacha_probability) then
+        return false
+    end
+
+    return (t_gacha_probability['unduplicate'] == 1)
 end
 
 -------------------------------------
