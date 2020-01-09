@@ -371,36 +371,27 @@ function ServerData_Event:checkEventTime(start_date, end_date, optional_data)
         local parse_start_date = parser:parse(start_date)
         if (parse_start_date) then
             -- @sgkim 2019.10.24 time값이 nil이 들어오는 경우가 있다.
-            --                   파악된 사항으로는 너무 큰 날짜가 들어올 경우 변수 타입이 오버플로우 되어 nil이 되는 경우가 있는 것 같다.
-            --                   현재 우리가 사용하는 값은 충분히 안전한 날짜임에도 nil이 되는 경우가 있어 불가피하게 예외처리를 한다.
             if (parse_start_date['time'] == nil) then
-                -- 시작 날짜가 지정되었지만 해당 time(stamp)값을 알 수 없기 때문에 이 이벤트는 비활성화로 간주한다.
-
-                -- 오류 로그 전송
-                self:sendErrorLog_checkEventTime(optional_data)
-                return false
+                if (optional_data) then
+                    start_time = self:getEventTimeInException(optional_data['start_date_timestamp'], optional_data)
+                end
+            else
+                start_time = parse_start_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
             end
-
-            start_time = parse_start_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
         end
     end
 
     if (end_date ~= '' or end_date) then
         local parse_end_date = parser:parse(end_date)
         if (parse_end_date) then
-
-            -- @sgkim 2019.10.14 time값이 nil이 들어오는 경우가 있다.
-            --                   파악된 사항으로는 너무 큰 날짜가 들어올 경우 변수 타입이 오버플로우 되어 nil이 되는 경우가 있는 것 같다.
-            --                   현재 우리가 사용하는 값은 충분히 안전한 날짜임에도 nil이 되는 경우가 있어 불가피하게 예외처리를 한다.
+            -- @sgkim 2019.10.24 time값이 nil이 들어오는 경우가 있다.
             if (parse_end_date['time'] == nil) then
-                -- 종료 날짜가 지정되었지만 해당 time(stamp)값을 알 수 없기 때문에 이 이벤트는 비활성화로 간주한다.
-
-                -- 오류 로그 전송
-                self:sendErrorLog_checkEventTime(optional_data)
-                return false
+                if (optional_data) then
+                    end_time = self:getEventTimeInException(optional_data['end_date_timestamp'], optional_data)
+                end
+            else
+                end_time = parse_end_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
             end
-
-            end_time = parse_end_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
         end
     end
 
@@ -431,6 +422,21 @@ function ServerData_Event:getTargetEventFullPopupRes(feature)
 		end
 	end
 	return nil
+end
+
+-------------------------------------
+-- function getEventTimeInException
+-- @brief table_event_list 의 ex) 2019-10-22 을 타임스템프로 변환하는 과정에서 nil이 발생하는 경우가 있음
+-- @brief 그런 경우 서버에서 보내준 timestamp값을 사용, 그래도 값을 알수 없다면 오류로그 전송
+-------------------------------------
+function ServerData_Event:getEventTimeInException(timestamp, optional_data)
+    if (not timestamp) then
+        -- 오류 로그 전송
+        self:sendErrorLog_checkEventTime(optional_data)
+        return
+    end
+
+    return timestamp/1000
 end
 
 -------------------------------------
