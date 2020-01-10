@@ -41,7 +41,11 @@ function UI_GameDPSPopup:init(world)
 
     --- 초기화
     self.m_lDisplayType = {'damage', 'heal', 'exp'}
-    self.m_currIdx = 1
+    self.m_currIdx = 1 -- 기본은 damage 패널
+    -- 쫄작 중인 경우 exp 패널이 기본이 되도록 함
+    if g_autoPlaySetting:isAutoPlay() and g_autoPlaySetting:get('stop_condition_dragon_lv_max') then
+        self.m_currIdx = 3
+    end
     self.m_currType = self.m_lDisplayType[self.m_currIdx]
 
 	-- UI 초기화
