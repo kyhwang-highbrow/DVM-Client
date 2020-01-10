@@ -12,6 +12,9 @@ import os
 #os.system('gradlew assembleDevFullGoogleDebug assembleQaFullGoogleDebug assembleLiveqaFullGoogleDebug assembleLiveFullGoogleDebug assembleLiveMarketGoogleRelease')
 
 ## xsolla
-os.system('gradlew assembleDevFullXsollaDebug assembleQaFullXsollaDebug assembleLiveFullXsollaRelease')
+#os.system('gradlew assembleDevFullXsollaDebug assembleQaFullXsollaDebug assembleLiveFullXsollaRelease')
+
+##Onestore
+os.system('gradlew assembleDevFullOnestoreDebug)
 
 os.system('pause')
