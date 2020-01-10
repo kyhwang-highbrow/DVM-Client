@@ -619,6 +619,24 @@ function Dragon:getGrade()
 end
 
 -------------------------------------
+-- function getLevel
+-------------------------------------
+function Dragon:getLevel()
+    if (not self.m_tDragonInfo) then return 1 end
+
+	return self.m_tDragonInfo['lv']
+end
+
+-------------------------------------
+-- function getExp
+-------------------------------------
+function Dragon:getExp()
+    if (not self.m_tDragonInfo) then return 0 end
+
+	return self.m_tDragonInfo['exp']
+end
+
+-------------------------------------
 -- function isFarmer
 -------------------------------------
 function Dragon:isFarmer()

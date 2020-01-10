@@ -5,12 +5,16 @@ local PARENT = UI
 -------------------------------------
 UI_GameDPSPopup = class(PARENT, {
 		m_world = 'GameWorld',
-		m_charList = 'list',
+		m_charList = 'list', -- Dragon클래스(Dragon.lua)를 리스트로 가지고 있다.
 		m_tableView = 'tableView',
 		
 		m_bShow = 'bool',
-		m_bDPS = 'bool',
-		m_logKey = 'str',
+
+        -------------------------------------
+        m_lDisplayType = 'list', -- {'damage', 'heal', 'exp'}
+        m_currIdx = 'number',
+        m_currType = 'string',
+        -------------------------------------
 
 		m_rootHeight = 'num',
 
@@ -32,10 +36,13 @@ function UI_GameDPSPopup:init(world)
 	self.m_world = world
 	self.m_charList = world.m_myDragons
 	self.m_bShow = true
-	self.m_bDPS = true
-	self.m_logKey = 'damage'
 	self.m_dpsTimer = 0
 	self.m_interval = g_constant:get('INGAME', 'DPS_INTERVAL')
+
+    --- 초기화
+    self.m_lDisplayType = {'damage', 'heal', 'exp'}
+    self.m_currIdx = 1
+    self.m_currType = self.m_lDisplayType[self.m_currIdx]
 
 	-- UI 초기화
     self:initUI()
@@ -82,7 +89,7 @@ function UI_GameDPSPopup:initUI()
 	self.m_tableView = self:makeTableView(self.m_charList, node)
 
 	-- 최초 UI 출력위해 호출
-	self:setDpsOrHps()
+    self:refreshDisplay()
 
 	-- 자체적으로 업데이트를 돌린다.
 	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
@@ -115,7 +122,7 @@ function UI_GameDPSPopup:update(dt)
 	self.m_dpsTimer = self.m_dpsTimer + dt
 	if (self.m_dpsTimer > self.m_interval) then
 		self.m_dpsTimer = self.m_dpsTimer - self.m_interval
-		self:refreshTableView(self.m_tableView, self.m_logKey)
+		self:refreshTableView(self.m_tableView, self.m_currType)
 	end
 end
 
@@ -147,7 +154,7 @@ function UI_GameDPSPopup:refreshTableView(table_view, log_key)
 	-- dps 계산을 위한 플레이 시간
 	local lap_time = self.m_world.m_gameState.m_fightTimer
 	-- 해당 키로 정렬한다.
-	BattleStatisticsHelper:sortByValueForTable(l_item, log_key)
+	self:sortDragonListItem(l_item, log_key)
 
 	-- ui에 적용시킨다.
 	for i, item in pairs(l_item) do
@@ -164,37 +171,87 @@ function UI_GameDPSPopup:refreshTableView(table_view, log_key)
 end
 
 -------------------------------------
--- function setDpsOrHps
--- @breif dps/hps 전환
+-- function sortDragonListItem
+-- @brief 해당 키로 정렬한다.
 -------------------------------------
-function UI_GameDPSPopup:setDpsOrHps()
+function UI_GameDPSPopup:sortDragonListItem(l_item, log_key)
+    if (log_key == 'exp') then
+        self:sortDragonListItem_exp(l_item)
+
+    else -- 'damage', 'heal'
+	    BattleStatisticsHelper:sortByValueForTable(l_item, log_key)
+    end
+end
+
+-------------------------------------
+-- function sortDragonListItem_exp
+-- @brief 경험치일 경우 정렬
+-------------------------------------
+function UI_GameDPSPopup:sortDragonListItem_exp(l_item)
+	table.sort(l_item, function(a, b)
+		local a_dragon = a['data'] -- Dragon 클래스 (Dragon.lua)
+		local b_dragon = b['data'] -- Dragon 클래스 (Dragon.lua)
+		
+        -- 등급이 더 높은 드래곤 우선
+        local a_grade = a_dragon:getGrade()
+        local b_grade = b_dragon:getGrade()
+        if (a_grade ~= b_grade) then
+            return a_grade > b_grade
+        end
+
+        -- 레벨이 더 높은 드래곤 우선
+        local a_lv = a_dragon:getLevel()
+        local b_lv = b_dragon:getLevel()
+        if (a_lv ~= b_lv) then
+            return a_lv > b_lv
+        end
+
+        -- 경험치가 더 높은 드래곤 우선 (등급과 레벨이 같은 상태)
+        local a_exp = a_dragon:getExp()
+        local b_exp = b_dragon:getExp()
+        if (a_exp ~= b_exp) then
+            return a_exp > b_exp
+        end
+
+        -- 리스트에 삽입된 순서로 정렬 
+        return a['idx'] < b['idx']
+	end)
+end
+
+-------------------------------------
+-- function refreshDisplay
+-- @breif
+-------------------------------------
+function UI_GameDPSPopup:refreshDisplay()
 	local vars = self.vars
 
-	local title_str
-	local res
+	local res = nil
 
-	-- dps hps인지에 따라 리소스 및 타이틀 결정
-	if (self.m_bDPS) then
-		title_str = 'DPS'
+	-- 타입에 따라 리소스 및 타이틀 결정
+	if (self.m_currType == 'damage') then
 		res = 'ingame_info_dps.png'
-		self.m_logKey = 'damage'
-	else
-		title_str = 'HPS'
+
+	elseif (self.m_currType == 'heal') then
 		res = 'ingame_info_hps.png'
-		self.m_logKey = 'heal'
+	
+    elseif (self.m_currType == 'exp[') then
+		res = 'ingame_info_exp.png'
 	end
 
 	-- 리소스 아이콘으로 박음
 	vars['dpsToggleNode']:removeAllChildren(true)
 	
-    local sprite = cc.Sprite:createWithSpriteFrameName(res)
+    local sprite = nil
+    if res then
+        sprite = cc.Sprite:createWithSpriteFrameName(res)
+    end
+
     if (sprite) then
         sprite:setDockPoint(CENTER_POINT)
         sprite:setAnchorPoint(CENTER_POINT)
 	    vars['dpsToggleNode']:addChild(sprite)
     end
 end
-
 
 
 
@@ -245,13 +302,22 @@ end
 -- function click_dpsToggleBtn
 -------------------------------------
 function UI_GameDPSPopup:click_dpsToggleBtn()
-	local vars = self.vars
-	-- dps hps 여부 변경
-	self.m_bDPS = not self.m_bDPS
-	-- UI 세팅 변경
-	self:setDpsOrHps()
-	-- 변경된 설정에 맞춰 값 다시 출력
-	self:refreshTableView(self.m_tableView, self.m_logKey)
+    local vars = self.vars
+
+    -- 리스트에 있는 순서대로 디스플레이 타입 변경
+    local new_idx = (self.m_currIdx  + 1)
+    local max_idx = table.count(self.m_lDisplayType)
+    if (max_idx < new_idx) then
+        new_idx = 1
+    end
+    self.m_currIdx = new_idx
+    self.m_currType = self.m_lDisplayType[self.m_currIdx]
+    
+    -- UI 세팅 변경
+    self:refreshDisplay()
+
+    -- 변경된 설정에 맞춰 값 다시 출력
+	self:refreshTableView(self.m_tableView, self.m_currType)
 end
 
 --@CHECK
