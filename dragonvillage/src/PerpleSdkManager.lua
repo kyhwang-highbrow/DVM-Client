@@ -92,6 +92,22 @@ function PerpleSdkManager:xsollaIsAvailable()
 end
 
 -------------------------------------
+-- function onestoreIsAvailable
+-- onestore build와 시점 차이로 인하여 예외처리
+-------------------------------------
+function PerpleSdkManager:onestoreIsAvailable()
+	if (CppFunctions:isAndroid()) then
+		if (PerpleSDK.onestoreIsAvailable) then
+			if (PerpleSDK:onestoreIsAvailable()) then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
+-------------------------------------
 -- function makeErrorPopup
 -- perpleSdk에서 반환한 에러 정보를 팝업으로 출력
 -------------------------------------

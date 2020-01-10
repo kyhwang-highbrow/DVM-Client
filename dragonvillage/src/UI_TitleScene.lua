@@ -356,7 +356,15 @@ function UI_TitleScene:setWorkList()
         table.insert(self.m_lWorkList, 'workInitAdSDKSelector') -- 광고 sdk 초기화    
         table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
         table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
-        table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
+        
+        -- market : Onestore or Google
+        if (PerpleSdkManager:onestoreIsAvailable()) then
+            table.insert(self.m_lWorkList, 'workGetMarketInfoForOnestore') -- perple sdk  
+        else
+            table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
+            table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
+        end
+        
         table.insert(self.m_lWorkList, 'workNetworkUserInfo') -- crash log에 정보 저장
         table.insert(self.m_lWorkList, 'workPrepareAd') -- 광고 초기화
     end
@@ -1365,6 +1373,35 @@ function UI_TitleScene:workGetMarketInfo()
 
     PerpleSDK:billingGetItemList(skuList, call_back)
 end
+
+-------------------------------------
+-- function workGetMarketInfoForOnestore
+-- @brief 마켓 정보 초기화
+-------------------------------------
+function UI_TitleScene:workGetMarketInfoForOnestore()
+    self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
+
+    if self:isSkipGetMarketInfo() then
+        self:doNextWork()
+        return
+    end
+
+    local function call_back(ret, info)
+        ccdump(ret)
+        ccdump(info)
+
+        self:doNextWork()
+    end
+
+    local skuList = g_shopDataNew:getSkuList()
+    if skuList == nil then
+        self:doNextWork()
+        return
+    end
+
+    PerpleSDK:billingGetItemListForOnestore(skuList, call_back)
+end
+
 function UI_TitleScene:workGetMarketInfo_click()
 end
 

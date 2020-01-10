@@ -160,6 +160,152 @@ function PaymentHelper.payment(struct_product, cb_func)
 end
 
 -------------------------------------
+-- function payment_onestore
+-- @brief 결제 상품 처리
+-------------------------------------
+function PaymentHelper.payment_onestore(struct_product, cb_func)
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        -- 중간에 에러가 발생했을 경우 처리 (코루틴이 종료되는 시점에 무조건 호출되는 함수)
+        local error_msg, error_info = nil
+        local function coroutine_finidh_cb()
+			-- error msg가 있으면 단순 팝업 출력
+            if error_msg then
+                MakeSimplePopup(POPUP_TYPE.OK, error_msg)
+			-- error info가 있으면 공용 오류처리 팝업 출력
+			elseif (error_info) then
+				PerpleSdkManager:makeErrorPopup(error_info)
+            end
+        end
+        co:setCloseCB(coroutine_finidh_cb)
+
+        local sku = struct_product['sku']
+        local product_id = struct_product['product_id']
+        local price = struct_product['price'] -- struct_product:getPrice()
+        local validation_key = nil
+        local orderId = nil
+
+        --------------------------------------------------------
+        cclog('#1. validation_key 발행')
+        do -- purchase token(validation_key) 발행
+            co:work()
+            local function cb_func(ret)
+                validation_key = ret['validation_key']
+                co.NEXT()
+            end
+            local function fail_cb(ret)
+                error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
+                co.ESCAPE()
+            end
+            g_shopDataNew:request_purchaseToken(cb_func, fail_cb)
+            if co:waitWork() then return end
+        end
+        --------------------------------------------------------
+
+        --------------------------------------------------------
+        cclog('#2. 결제 실행')
+        do -- 일반형 상품 구매
+            co:work()
+
+            -- 페이로드 생성
+            local payload_table = {}
+            payload_table['uid'] = g_userData:get('uid')
+            payload_table['validation_key'] = validation_key
+            payload_table['product_id'] = product_id
+            payload_table['price'] = price
+            payload_table['sku'] = sku
+            local payload = dkjson.encode(payload_table)
+
+            cclog('## sku : ' .. sku)
+            cclog('## payload : ' .. payload)
+
+            -- @sku : 상품 아이디
+            -- @payload : 영수증 검증에 필요한 부가 정보
+            local function result_func(ret, info)
+                cclog('#### ret : ')
+                ccdump(ret)
+
+                -- {"orderId":"GPA.3373-5309-9610-83371","payload":"{\"validation_key\":\"22e088cd-53df-435e-a263-0540ae5c3870\",\"price\":55000,\"uid\":\"8ZxuT9Mt9OebL6gQ22gzjVu8d1g2\",\"product_id\":81005}"}
+                cclog('#### info : ')
+                ccdump(info)
+
+                if (ret == 'success') then
+                    cclog('## 결제 성공')                    
+					local info_json = dkjson.decode(info)
+                    orderId = info_json and info_json['orderId']
+                    co.NEXT()
+
+                elseif (ret == 'fail') then
+                    cclog('## 결제 실패')
+                    error_info = info
+                    co.ESCAPE()
+
+                elseif (ret == 'cancel') then
+                    cclog('## 결제 취소')
+                    error_msg = Str('결제를 취소하였습니다.')
+                    co.ESCAPE()
+
+                else
+                    cclog('## 결제 결과 (예외) : ' .. ret)
+                    error_info = info
+                    co.ESCAPE()
+                end
+            end
+
+            PerpleSDK:billingPurchaseForOnestore(sku, payload, result_func)
+            if co:waitWork() then return end
+        end
+        --------------------------------------------------------
+
+        --------------------------------------------------------
+        cclog('#3. 영수증 확인 & 상품 지급')
+        do -- 영수증 확인, 상품 지급
+            co:work()
+            local function finish_cb(ret)
+                cclog('#### ret : ')
+                ccdump(ret)
+
+				local msg = Str('결제에 성공하였습니다.')
+				MakeSimplePopup(POPUP_TYPE.OK, msg, function()
+						cb_func(ret)
+						co.NEXT()
+					end)
+            end
+
+            local function fail_cb(ret)
+                ccdump(ret)
+                error_msg = Str('영수증 확인에 실패하였습니다.')
+                co.ESCAPE()
+            end
+
+            
+            -- 특정 리턴값 처리
+            local function response_status_cb(ret)
+                -- -3161 : already use receipt, -1161 : not exist receipt
+                if (ret['status'] == -3161) or (ret['status'] == -1161) then
+                    cclog('#### ret : ')
+                    ccdump(ret)
+                    cb_func(ret)
+                    co.NEXT()
+                    return true
+                end
+            end
+
+            local iswin = false
+            g_shopDataNew:request_checkReceiptValidation(struct_product, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
+            if co:waitWork() then return end
+        end
+        
+        co:close()
+    end
+
+
+    Coroutine(coroutine_function, '#PAYMENT 코루틴')
+end
+
+-------------------------------------
 -- function payment_xsolla
 -- @brief 엑솔라 결제
 -------------------------------------

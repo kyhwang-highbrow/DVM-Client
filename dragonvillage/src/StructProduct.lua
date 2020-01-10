@@ -563,10 +563,12 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
             if isWin32() then
                 self:payment_win(finish_cb)
 			else
-				-- 엑솔라 사용 가능하면 엑솔라 결제 이용
+				-- 엑솔라 or 원스토어 or 구글
 				if (PerpleSdkManager:xsollaIsAvailable()) then
 					self:payment_xsolla(finish_cb)
-				else
+				elseif (PerpleSdkManager:onestoreIsAvailable()) then
+                    self:payment_onestore(finish_cb)
+                else
 					self:payment(finish_cb)
 				end
             end
@@ -863,6 +865,14 @@ end
 -------------------------------------
 function StructProduct:payment_xsolla(cb_func)
 	PaymentHelper.payment_xsolla(self, cb_func)
+end
+
+-------------------------------------
+-- function payment_onestore
+-- @brief 결제 상품 처리 (원스토어)
+-------------------------------------
+function StructProduct:payment_onestore(cb_func)
+    PaymentHelper.payment_onestore(self, cb_func)
 end
 
 -------------------------------------
