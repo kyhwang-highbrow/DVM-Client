@@ -153,6 +153,11 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @crashlytics
         perpleSdkInstance.initCrashlytics();
+
+        // @onestore
+        if (BuildConfig.FLAVOR_platform == "onestore") {
+            perpleSdkInstance.initOnestore();
+        }
     }
 
     @Override

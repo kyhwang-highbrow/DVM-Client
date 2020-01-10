@@ -103,6 +103,11 @@
             android:name="android.app.lib_name"
             android:value="cocos2dlua" />
 
+        <!-- @Onestore IAP -->
+        <meta-data
+            android:name="iap:api_version"
+            android:value="5" />
+
         <!-- PerpleIntentService -->
         <service
             android:name="org.cocos2dx.lua.PerpleIntentService" />
