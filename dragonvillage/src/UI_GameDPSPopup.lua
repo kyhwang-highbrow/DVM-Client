@@ -238,7 +238,7 @@ function UI_GameDPSPopup:refreshDisplay()
 	elseif (self.m_currType == 'heal') then
 		res = 'ingame_info_hps.png'
 	
-    elseif (self.m_currType == 'exp[') then
+    elseif (self.m_currType == 'exp') then
 		res = 'ingame_info_exp.png'
 	end
 

@@ -108,7 +108,7 @@ function UI_GameDPSListItem:refresh_exp()
     local is_max_level = (lv >= max_level)
 
     -- 등급, 레벨 표시
-    local grade_and_level_str = '★' .. tostring(grade) .. ' Lv.' .. tostring(lv)
+    local grade_and_level_str = tostring(grade) .. ' Lv.' .. tostring(lv)
     vars['expLevelLabel']:setString(grade_and_level_str)
 
     -- 경험치 비율 or MAX 표시
