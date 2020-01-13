@@ -44,7 +44,10 @@ function UI_GameDPSPopup:init(world)
     self.m_currIdx = 1 -- 기본은 damage 패널
     -- 쫄작 중인 경우 exp 패널이 기본이 되도록 함
     if g_autoPlaySetting:isAutoPlay() and g_autoPlaySetting:get('stop_condition_dragon_lv_max') then
-        self.m_currIdx = 3
+        -- stop_condition_dragon_lv_max <- 이 설정을 사용하지 않는 모드 제거
+        if (not isExistValue(world.m_gameMode, GAME_MODE_ARENA, GAME_MODE_EVENT_ARENA, GAME_MODE_EVENT_ILLUSION_DUNSEON)) then
+            self.m_currIdx = 3
+        end
     end
     self.m_currType = self.m_lDisplayType[self.m_currIdx]
 
