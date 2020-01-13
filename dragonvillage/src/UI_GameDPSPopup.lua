@@ -85,7 +85,7 @@ function UI_GameDPSPopup:initUI()
         vars['dpsBtn']:setPositionY(vars['dpsBtn']:getPositionY() + self.m_rootHeight/multi)
         vars['dpsToggleNode']:setPositionY(vars['dpsToggleNode']:getPositionY() + self.m_rootHeight/multi)
 
-        vars['dpsToggleBtn']:setContentSize(cc.size(size.width, self.m_rootHeight))
+        vars['dpsToggleBtn']:setContentSize(cc.size(size.width, self.m_rootHeight + 45)) -- 45는 리스트 위쪽에 텍스트 영역도 클릭이 되어야 하기 때문이다.
     else
         self.m_rootHeight = node:getContentSize()['height']
     end
