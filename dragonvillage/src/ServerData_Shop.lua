@@ -908,6 +908,15 @@ function ServerData_Shop:setMarketPrice(market_data)
     end
 end
 
+-------------------------------------
+-- function setMarketPriceForOnestore
+-- @brief 마켓에서 받은 가격 string
+-------------------------------------
+function ServerData_Shop:setMarketPriceForOnestore(market_data)
+    for sku, price in pairs(market_data) do
+        self.m_dicMarketPrice[sku] = price
+    end
+end
 
 -------------------------------------
 -- function getValidStepPackage

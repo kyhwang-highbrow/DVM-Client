@@ -1387,11 +1387,14 @@ function UI_TitleScene:workGetMarketInfoForOnestore()
     end
 
     local function call_back(ret, info)
-        ccdump(ret)
-        ccdump(info)
-
-        self:doNextWork()
-    end
+		if (ret == 'success') then
+         	local tRet = json_decode(info)
+		 	g_shopDataNew:setMarketPriceForOnestore(tRet)
+		else		
+			cclog('#### billingItemInfo failed - info : ')
+    	end
+		self:doNextWork()
+	end
 
     local skuList = g_shopDataNew:getSkuList()
     if skuList == nil then
