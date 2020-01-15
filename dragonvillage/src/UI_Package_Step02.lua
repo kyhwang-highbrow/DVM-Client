@@ -51,6 +51,11 @@ function UI_Package_Step02:initButton()
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function()   
+        local msg1 = Str("'미중복' 알은") .. '\n' .. Str('도감을 기준으로 수집한 적이 없는 드래곤 중 하나를 무작위로 획득합니다.')
+        local msg2 = Str('모든 드래곤을 수집했을 경우에는 사용할 수 없습니다.') .. '\n' .. Str('신규 드래곤이 추가 되면 다시 사용할 수 있습니다.')
+        MakeSimplePopup2(POPUP_TYPE.OK, msg1, msg2)
+    end)
 end
 
 -------------------------------------
