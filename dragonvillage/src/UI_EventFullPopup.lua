@@ -96,7 +96,7 @@ function UI_EventFullPopup:initUI()
 		elseif (key == 'open_event' or key == 'newbie' or key == 'comeback') then
 			ui = UI_EventPopupTab_EventAttendance(key)
         -- 1주년 스페셜 7일 출석
-        elseif (key == '1st_event') or (key == '2nd_event') or (key == 'newbie_welcome') then
+        elseif (key == '1st_event') or (key == '2nd_event') or (key == 'newbie_welcome') or (key == 'global_2nd_event') then
             ui = UI_EventPopupTab_EventAttendance1st(key)
         end
 
@@ -157,7 +157,7 @@ function UI_EventFullPopup:initUI()
 		ui = UI_Event1stComeback()
 
 	-- 2주년 이벤트 : 2주년 기념 감사 이벤트
-	elseif (popup_key == 'event_thanks_2nd_anniversary') then
+	elseif (string.find(popup_key, 'event_thanks_anniversary')) then
 		ui = UI_EventThankAnniversary()
 
     -- 신규 유저 환영 이벤트

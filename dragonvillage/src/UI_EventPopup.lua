@@ -199,7 +199,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 		elseif (event_id == 'open_event' or event_id == 'newbie' or event_id == 'comeback') then
 			ui = UI_EventPopupTab_EventAttendance(event_id)
         -- 스페셜 7일 출석(1주년, 2주년, 스페셜)
-        elseif (event_id == '1st_event') or (event_id == '2nd_event') or (event_id == 'newbie_welcome') then
+        elseif (event_id == '1st_event') or (event_id == '2nd_event') or (event_id == 'newbie_welcome') or (event_id == 'global_2nd_event')then
             ui = UI_EventPopupTab_EventAttendance1st(event_id)
 		end
 
@@ -279,7 +279,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 		ui = UI_Event1stComeback()
     
     -- 2주년 이벤트 : 2주년 기념 감사 이벤트
-	elseif (tab == 'event_thanks_2nd_anniversary') then
+	elseif (string.find(tab, 'event_thanks_anniversary')) then
 		ui = UI_EventThankAnniversary()
 
     -- 신규 유저 환영 이벤트

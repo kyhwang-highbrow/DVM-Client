@@ -128,7 +128,7 @@ function ServerData_Event:getEventPopupTabList()
 		    visible = self:isComebackUser_1st()
 
         -- 2주년 감사이벤트
-		elseif (event_type == 'event_thanks_2nd_anniversary') then
+		elseif (string.find(event_type, 'event_thanks_anniversary')) then
             -- 앞의 조건들을 만족하였을 경우에만, 보상 수령 여부를 추가로 판단
             if (visible) then
 		        visible = not (self:isEventUserRewardDone())
@@ -277,7 +277,7 @@ function ServerData_Event:getEventFullPopupList()
 			elseif (event_type == 'event_1st_comeback') then
 				visible = self:isComebackUser_1st()
 			
-			elseif (event_type == 'event_thanks_2nd_anniversary') then
+			elseif (string.find(event_type, 'event_thanks_anniversary')) then
 				visible = (not self:isEventUserRewardDone())
             
 			-- 한정 이벤트 리스트
