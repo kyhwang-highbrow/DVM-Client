@@ -25,8 +25,8 @@ function ServerData_Eggs:request_incubate(egg_id, cnt, finish_cb, fail_cb)
         -- (미중복알 특성상) 도감에 있는 드래곤을 다 뽑아서 더 이상 뽑을 수 없는 경우
         if (ret['status']) then
             if (ret['status'] == -1702) then
-                local msg1 = Str('더 이상 부화할 수 없습니다.') .. '\n' .. Str('도감에 비활성화 된 드래곤이 없습니다.')
-                local msg2 = Str('신규 드래곤이 추가되면 다시 사용할 수 있습니다..')
+                local msg1 = Str('더 이상 부화할 수 없습니다.') .. '\n' .. Str('(도감에 있는 모든 드래곤을 획득했습니다.)')
+                local msg2 = Str('신규 드래곤이 추가되면 부화할 수 있습니다.')
                 MakeSimplePopup2(POPUP_TYPE.OK, msg1, msg2)
                 return true           
             end
