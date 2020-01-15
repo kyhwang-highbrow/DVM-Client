@@ -61,7 +61,7 @@ function LobbyMapFactory:setDeco(lobby_map)
     local lobby_map = lobby_map
 
     -- 이벤트 장식 타입
-    local deco_type = self.getDecoType()
+    local deco_type = self.getDecoType() or ''
 
 	-- 할로윈
     if (deco_type == DECO_TYPE.HALLOWEEN) then
