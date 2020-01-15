@@ -17,9 +17,10 @@ local DECO_TYPE = {
     ['X_MAS'] = 'christmas',
     ['BLOSSOM'] = 'blossom',
     ['HALLOWEEN'] = 'halloween',
-    ['ANNIVERSARY_1ST'] = '1st_annivasary',
-    ['ANNIVERSARY_1ST_GLOBAL'] = '1st_annivasary_global',
+    ['ANNIVERSARY_1ST'] = '1st_anniversary',
+    ['ANNIVERSARY_1ST_GLOBAL'] = '1st_anniversary_global',
     ['ANNIVERSARY_2ST'] = '2st_anniversary',
+    ['ANNIVERSARY_2ST_GLOBAL'] = '2st_anniversary_global',
 }
 
 -- ## 장식 추가 스텝 ##
@@ -77,16 +78,8 @@ function LobbyMapFactory:setDeco(lobby_map)
 	    lobby_map:addLayer(self:makeLobbyDecoLayer(deco_type), 1) -- 벚꽃 나무 레이어
         self:makeLobbyParticle(ui_lobby, deco_type) -- 벚꽃 파티클
     
-    -- 1주년 기념(케이크)
-    elseif (deco_type == DECO_TYPE.ANNIVERSARY_1ST) then
-        self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
-
-    -- 글로벌 1주년 기념(민트초코 케이크)
-    elseif (deco_type == DECO_TYPE.ANNIVERSARY_1ST_GLOBAL) then
-        self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
-    
-    -- 글로벌 2주년 기념(민트초코 케이크)
-    elseif (deco_type == DECO_TYPE.ANNIVERSARY_2ST) then
+    -- 기념(케이크)
+    elseif (string.find(deco_type, 'anniversary')) then
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
     end
 
@@ -221,7 +214,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		end
 		
 	-- 1주년 기념
-	elseif (deco_type == '1st_annivasary') then
+	elseif (deco_type == DECO_TYPE.ANNIVERSARY_1ST) then
 		animator = MakeAnimator('res/lobby/lobby_layer_01_center_cake/lobby_layer_01_center_cake.vrp')
 		if (animator.m_node) then
 			animator:setPosition(0, 0)
@@ -229,7 +222,7 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 			node:addChild(animator.m_node, 1)
 		end
     -- 1주년 기념 케이크 (민트 초코)
-	elseif (deco_type == '1st_annivasary_global') then
+	elseif (deco_type == DECO_TYPE.ANNIVERSARY_1ST_GLOBAL) then
 		animator = MakeAnimator('res/lobby/lobby_layer_01_center_cake2/lobby_layer_01_center_cake2.vrp')
 		if (animator.m_node) then
 			animator:setPosition(0, 0)
@@ -238,8 +231,17 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		end
     
     -- 2주년 기념 케이크 (민트 초코)
-	elseif (deco_type == '2st_anniversary') then
+	elseif (deco_type == DECO_TYPE.ANNIVERSARY_2ST) then
 		animator = MakeAnimator('res/lobby/lobby_layer_02_center_cake/lobby_layer_02_center_cake.vrp')
+		if (animator.m_node) then
+			animator:setPosition(0, 0)
+			animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
+			node:addChild(animator.m_node, 1)
+		end
+    
+    -- 2주년 글로벌 기념 케이크 (민트 초코)
+	elseif (deco_type == DECO_TYPE.ANNIVERSARY_2ST_GLOBAL) then
+		animator = MakeAnimator('res/lobby/lobby_layer_02_center_cake2/lobby_layer_02_center_cake2.vrp')
 		if (animator.m_node) then
 			animator:setPosition(0, 0)
 			animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
