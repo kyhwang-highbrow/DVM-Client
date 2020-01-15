@@ -355,11 +355,10 @@ function UI_TitleScene:setWorkList()
     if (isAndroid() or isIos()) then
         table.insert(self.m_lWorkList, 'workInitAdSDKSelector') -- 광고 sdk 초기화    
         table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
-        table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
         
         -- market : Onestore or Google
         if (PerpleSdkManager:onestoreIsAvailable()) then
-            table.insert(self.m_lWorkList, 'workGetMarketInfoForOnestore') -- perple sdk  
+            table.insert(self.m_lWorkList, 'workGetMarketInfoForOnestore') -- perple sdk
         else
             table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
             table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
