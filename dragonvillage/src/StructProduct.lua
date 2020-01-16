@@ -446,6 +446,9 @@ function StructProduct:getPriceStr()
 			-- 엑솔라 가격
 			if (PerpleSdkManager:xsollaIsAvailable()) then
 				return '$' .. comma_value(self['xsolla_price_dollar'])
+            -- 원스토어 가격
+            elseif (PerpleSdkManager:onestoreIsAvailable()) then
+                return '\\' .. comma_value(dicMarketPrice[sku])
             -- 마켓에서 받은 가격이 있다면 표시
             elseif (sku) and (dicMarketPrice[sku]) then
                 return dicMarketPrice[sku]

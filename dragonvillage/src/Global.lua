@@ -350,7 +350,9 @@ function GetMarketAndOS()
 			market = 'xsolla'
         elseif (CppFunctions:isCafeBazaarBuild() == true) then
             market = 'cafebazaar'
-		else
+		elseif (PerpleSdkManager:onestoreIsAvailable()) then
+			market = 'onestore'
+        else
 			market = 'google'
 		end
     elseif CppFunctions:isIos() then
