@@ -350,7 +350,16 @@ function UI_PurchasePointBg:setItemRes(_item_id)
         if (animator) then
             vars['eggNode']:addChild(animator)
         end
-	-- 아이템의 경우 아이템 카드 출력
+
+	-- 전설 선택권
+    elseif (string.match(item_full_type, 'pick_dragon')) then
+        local animator = MakeAnimator('res/item/egg/egg_high_legend/egg_high_legend.vrp')
+        if (animator) then
+            animator:changeAni('egg_02_move', true)
+            vars['ticketChoiceNode']:addChild(animator.m_node)
+        end
+
+    -- 아이템의 경우 아이템 카드 출력
     else
         local ui_card = UI_ItemCard(item_id)
         if (ui_card) then
