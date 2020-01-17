@@ -142,15 +142,7 @@ function UI_Package_Step02:refresh(step)
         end
     end
 
-    -- 구매 단계에 따라 전설드래곤 메세지 출력
-    local str = ''
-    if (step < #self.m_lStepPids) then
-        str = Str('{1}단계 후 전설 드래곤 선택권 획득 가능!', #self.m_lStepPids - step)
-    else
-        str = Str('전설 드래곤 선택권 획득 가능!')
-    end
-    vars['infoLabel']:setString(str)
-
+    self:setLastRewardLabel(step)
 
     -- 정보가 눈에 띄도록 흔들어줌
     local action = cca.buttonShakeAction(0.8, 1) -- shake_level, delay_time
@@ -167,6 +159,50 @@ function UI_Package_Step02:refresh(step)
 
     -- 버튼 상태 갱신
     self:setBuutonState(step) -- 클릭한 스텝
+end
+
+-------------------------------------
+-- function setLastRewardLabel
+-------------------------------------
+function UI_Package_Step02:setLastRewardLabel(step)
+    local vars= self.vars
+    
+    vars['infoLabel']:setString('')
+
+    -- 구매 단계에 따라 전설드래곤 메세지 출력
+    local str = ''
+    local l_item_list = g_shopDataNew:getProductList('package')
+    local last_pid = self.m_lStepPids[#self.m_lStepPids]
+    if (not last_pid) then
+        return
+    end
+
+    local last_struct_product = l_item_list[last_pid]
+    if (not last_struct_product) then
+        return
+    end
+
+    -- product_content = 70001;2, 70002;1
+    local product_content = last_struct_product['mail_content']
+    if (not product_content) then
+        return
+    end
+    
+    -- last_item = 70001;2
+    local item = pl.stringx.split(product_content, ',')
+    local last_item = item[1]
+    if (not last_item) then
+        return
+    end
+
+    local _item = pl.stringx.split(last_item, ';')
+    local item_name = TableItem:getItemName(tonumber(_item[1])) or ''
+    if (step < #self.m_lStepPids) then
+        str = Str('{1}단계 후 {2} 획득 가능!', #self.m_lStepPids - step, Str(item_name))
+    else
+        str = Str('{1} 획득 가능!', Str(item_name))
+    end
+    vars['infoLabel']:setString(str)
 end
 
 -------------------------------------
