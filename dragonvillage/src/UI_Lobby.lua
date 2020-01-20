@@ -741,12 +741,20 @@ end
 function UI_Lobby:refreshSpecialOffer()
     local vars = self.vars
 
+    -- 모든 특별 할인 상품 visible을 꺼준다.
+    for i=1, 10 do
+        local btn = vars['specialOfferBtn' .. i]
+        if btn then
+            btn:setVisible(false)
+        end
+    end
+
     -- 상점에서 특별 할인 상품을 받아온다.
-    local struct_product = g_shopDataNew:getSpecialOfferProduct()
+    local struct_product, idx = g_shopDataNew:getSpecialOfferProduct()
 
     -- UI가 없을 경우
-    local button = vars['specialOfferBtn']
-    local time_label = vars['specialOfferLabel']
+    local button = vars['specialOfferBtn' .. idx]
+    local time_label = vars['specialOfferLabel' .. idx]
     if (not button) or (not time_label) then
         return
     end

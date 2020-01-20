@@ -833,11 +833,11 @@ function ServerData_Shop:getSpecialOfferProduct()
         if struct_product and
             struct_product:checkIsSale() and -- 판매중인 상품인지 확인
             struct_product:isItBuyable() then -- 구매 횟수 제한 확인
-            return struct_product
+            return struct_product, i
         end
     end
     
-    return nil
+    return nil, 0
 end
 
 -------------------------------------
