@@ -149,9 +149,11 @@ function UI_EventThankAnniversary_showDetaillPopup:click_infoBtn()
 	UI_PickDragon.makePickDragon(nil, 700612, nil, true) -- mid, item_id, , is_info
 end
 -------------------------------------
--- function click_rewardBtn
+-- function request_evnetThankReward
 -------------------------------------
-function UI_EventThankAnniversary_showDetaillPopup:request_evnetThankReward(finish_cb)  
+function UI_EventThankAnniversary_showDetaillPopup:request_evnetThankReward(finish_cb, _reward_num)
+    local reward_num = _reward_num or self.m_reward_num
+  
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -174,7 +176,7 @@ function UI_EventThankAnniversary_showDetaillPopup:request_evnetThankReward(fini
     local ui_network = UI_Network()
     ui_network:setUrl('/users/get_comeback_reward')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('choice', self.m_reward_num) -- 1: 신규 2 : 복귀
+    ui_network:setParam('choice', reward_num) -- 1: 신규 2 : 복귀
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

@@ -158,7 +158,7 @@ function UI_EventFullPopup:initUI()
 
 	-- 2주년 이벤트 : 2주년 기념 감사 이벤트
 	elseif (string.find(popup_key, 'event_thanks_anniversary')) then
-		ui = UI_EventThankAnniversary()
+		ui = UI_EventThankAnniversaryNoChoice()--UI_EventThankAnniversary()
 
     -- 신규 유저 환영 이벤트
 	elseif (popup_key == 'event_welcome_newbie') then

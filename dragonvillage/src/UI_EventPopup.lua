@@ -280,7 +280,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     
     -- 2주년 이벤트 : 2주년 기념 감사 이벤트
 	elseif (string.find(tab, 'event_thanks_anniversary')) then
-		ui = UI_EventThankAnniversary()
+		ui = UI_EventThankAnniversaryNoChoice()--UI_EventThankAnniversary()
 
     -- 신규 유저 환영 이벤트
 	elseif (tab == 'event_welcome_newbie') then

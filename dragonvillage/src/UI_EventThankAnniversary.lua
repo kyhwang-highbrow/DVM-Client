@@ -1,5 +1,14 @@
 local PARENT = UI
 
+-- UI_EventThankAnniversary
+-- @jhakim 20190829 2주년 기념 이벤트, 감사이벤트 상품 2개중 한 개 고를 떄 사용하던 클래스
+-- @jhakim   "  사용하던 UI rev 108995
+
+-- UI_EventThankAnniversaryNoChoice
+-- @jhakim 200120 글로벌 2주년 기념 이벤트, 고르지 않고 상품만 받는 경우
+-- @jhakim 통신, UI 모두 같은 것을 사용/ 클래스만 새로 만듬
+-- @Todo 선택/그냥 수령 버젼으로 정리 필요
+
 -------------------------------------
 -- class UI_EventThankAnniversary
 -------------------------------------
