@@ -750,7 +750,7 @@ function UI_Lobby:refreshSpecialOffer()
     end
 
     -- 상점에서 특별 할인 상품을 받아온다.
-    local struct_product, idx = g_shopDataNew:getSpecialOfferProduct()
+    local struct_product, idx, bonus_num = g_shopDataNew:getSpecialOfferProduct()
 
     -- UI가 없을 경우
     local button = vars['specialOfferBtn' .. idx]
@@ -768,6 +768,22 @@ function UI_Lobby:refreshSpecialOffer()
             local pid = struct_product['product_id']
             local package_name = TablePackageBundle:getPackageNameWithPid(pid)   
             local ui = UI_Package_Bundle(package_name, true)
+
+            -- 혜택률 표시
+            if ui.vars['bonusLabel'] then
+                ui.vars['bonusLabel']:setString(Str('{1}%', bonus_num)) -- '800% 이상의 혜택!'
+            end
+
+            -- 서버에 따라 보여지는 UI 달리함 (한국은 설날, 글로벌은 2주년)
+            local is_korea_server = g_localData:isKoreaServer()
+            if ui.vars['koreaMenu'] then
+                ui.vars['koreaMenu']:setVisible(is_korea_server)
+            end
+            if ui.vars['globalMenu'] then
+                ui.vars['globalMenu']:setVisible(not is_korea_server)
+            end
+
+            ui:doAction()
 
             -- 팝업이 닫히면 정보 다시 갱신
             ui:setCloseCB(function() self:refreshSpecialOffer() end)

@@ -94,11 +94,31 @@ function UI_Package_Bundle:initButton()
 end
 
 -------------------------------------
+-- function getProductList
+-- @brief bundle형태는 package카테고리의 상품을 사용하다가 etc 카테고리 상품도 추가함
+-------------------------------------
+function UI_Package_Bundle:getProductList()    
+    local l_item_list = {}
+    local l_item_list_package = g_shopDataNew:getProductList('package')
+    local l_item_list_etc = g_shopDataNew:getProductList('etc')
+
+    for producdt_id, struct_product in pairs(l_item_list_package) do
+        l_item_list[producdt_id] = struct_product
+    end
+
+    for producdt_id, struct_product in pairs(l_item_list_etc) do
+        l_item_list[producdt_id] = struct_product
+    end
+
+    return l_item_list
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Package_Bundle:refresh()
     local vars = self.vars
-    local l_item_list = g_shopDataNew:getProductList('package')
+    local l_item_list = self:getProductList()
     local target_product = self.m_pids
     if (not target_product) then
         return
