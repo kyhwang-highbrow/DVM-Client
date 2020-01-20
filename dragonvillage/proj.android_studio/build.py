@@ -15,6 +15,6 @@ import os
 #os.system('gradlew assembleDevFullXsollaDebug assembleQaFullXsollaDebug assembleLiveFullXsollaRelease')
 
 ##Onestore
-os.system('gradlew assembleDevFullOnestoreDebug)
+os.system('gradlew assembleLiveFullOnestoreRelease')
 
 os.system('pause')
