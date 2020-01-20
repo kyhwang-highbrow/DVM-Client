@@ -434,7 +434,11 @@ public class AppActivity extends Cocos2dxActivity{
         try {
             sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appId)));
         } catch (android.content.ActivityNotFoundException anfe) {
-            sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appId)));
+            if (BuildConfig.FLAVOR_platform == "onestore"){
+                sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.onestore.co.kr/userpoc/game/view?pid=" + appId)));
+            }else{
+                sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appId)));
+            }
         }
     }
 
