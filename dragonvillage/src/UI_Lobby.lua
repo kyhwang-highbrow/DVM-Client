@@ -713,6 +713,9 @@ function UI_Lobby:refresh(is_hard_refresh)
     -- 오른쪽 배너 갱신
     self:refresh_rightBanner()
 
+    -- 특별 할인 상품 설정
+    self:refreshSpecialOffer()
+
     -- hard refresh
     if (is_hard_refresh) then
         -- update()와 중복
@@ -727,6 +730,67 @@ function UI_Lobby:refresh(is_hard_refresh)
 
         -- 2주년 기념 전설 드래곤 확률 업 노티
         self:setHatcheryChanceUpNoti()
+    end
+end
+
+-------------------------------------
+-- function refreshSpecialOffer
+-- @brief 특별 할인 상품 설정
+--        로비에서 우편함 아래쪽에 특별 할인 상품 버튼 정보 갱신
+-------------------------------------
+function UI_Lobby:refreshSpecialOffer()
+    local vars = self.vars
+
+    -- 상점에서 특별 할인 상품을 받아온다.
+    local struct_product = g_shopDataNew:getSpecialOfferProduct()
+
+    -- UI가 없을 경우
+    local button = vars['specialOfferBtn']
+    local time_label = vars['specialOfferLabel']
+    if (not button) or (not time_label) then
+        return
+    end
+
+    -- 특별 할인 상품 유무에 따라서 초기화
+    if struct_product then
+        button:setVisible(true)
+
+        -- 상품 클릭 시 패키지 팝업
+        button:registerScriptTapHandler(function()
+            local pid = struct_product['product_id']
+            local package_name = TablePackageBundle:getPackageNameWithPid(pid)   
+            local ui = UI_Package_Bundle(package_name, true)
+
+            -- 팝업이 닫히면 정보 다시 갱신
+            ui:setCloseCB(function() self:refreshSpecialOffer() end)
+        end)
+
+        -- 매 프레임 남은 시간을 표기한다.
+        local function update(dt)
+            local time_sec = struct_product:getTimeRemainingForEndOfSale()
+            local time_millisec = (time_sec * 1000)
+            local str = datetime.makeTimeDesc_timer(time_millisec)
+            time_label:setString(str)
+        end
+        update(0) -- 최초 1번 호출
+        time_label.m_node:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+        
+    else
+        button:setVisible(false)
+        time_label.m_node:unscheduleUpdate()
+    end
+
+    -- 깜짝 할인 상품의 버튼 위치와 동일하다.
+    -- 특별 할인 상품이 활성화 될 경우 깜짝 할인 상품 버튼을 오른쪽으로 이동한다.
+    -- 개발 시간상의 이유로 우선 하드코딩한다.
+    if (not struct_product) then
+        vars['spotSaleBtn1']:setPositionX(56)
+        vars['spotSaleBtn2']:setPositionX(56)
+        vars['spotSaleBtn3']:setPositionX(56)
+    else
+        vars['spotSaleBtn1']:setPositionX(56 + 85)
+        vars['spotSaleBtn2']:setPositionX(56 + 85)
+        vars['spotSaleBtn3']:setPositionX(56 + 85)
     end
 end
 
