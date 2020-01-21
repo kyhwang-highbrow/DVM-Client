@@ -1,4 +1,4 @@
-return {['\'미중복\' 알은']='Unduplicated\' Eggs',
+return {['\'미중복\' 알은']='\'Unduplicated\' Eggs',
 ['(도감에 있는 모든 드래곤을 획득했습니다.)']='(Collected all the dragons in the Book.)',
 ['{@YELLOW}전설 드래곤{@DEFAULT} 중에서 {@YELLOW}도감에 수집한적 없는 드래곤{@DEFAULT} 하나를 무작위로 얻을 수 있다.']='You can get 1 random {@YELLOW}Legendary Dragon{@DEFAULT}  {@YELLOW}that you do not have in your Book{@DEFAULT}.',
 ['{@YELLOW}한정 전설 드래곤{@DEFAULT} 중에서 {@YELLOW}도감에 수집한적 없는 드래곤{@DEFAULT} 하나를 무작위로 얻을 수 있다.']='You can get 1 random {@YELLOW}Limited Legendary Dragon{@DEFAULT}  {@YELLOW}that you do not have in your Book{@DEFAULT}.',
