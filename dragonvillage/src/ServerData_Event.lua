@@ -278,8 +278,10 @@ function ServerData_Event:getEventFullPopupList()
 				visible = self:isComebackUser_1st()
 			
 			elseif (string.find(event_type, 'event_thanks_anniversary')) then
-				visible = (not self:isEventUserRewardDone())
-            
+                if (visible) then
+				    visible = (not self:isEventUserRewardDone())
+                end
+
 			-- 한정 이벤트 리스트
 			elseif (event_id == 'limited') then
 				visible = g_hotTimeData:isActiveEvent(event_type)
