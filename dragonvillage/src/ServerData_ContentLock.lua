@@ -5,6 +5,7 @@ ServerData_ContentLock = class({
         m_serverData = 'ServerData',
 
         m_tContentOpen = 'list',
+        m_bContentOpenDirty = 'boolean',
     })
 
 -------------------------------------
@@ -13,6 +14,7 @@ ServerData_ContentLock = class({
 function ServerData_ContentLock:init(server_data)
     self.m_serverData = server_data
 	self.m_tContentOpen = {}
+    self.m_bContentOpenDirty = true
 end
 
 -------------------------------------
@@ -238,7 +240,22 @@ end
 -- function applyContentLock
 -------------------------------------
 function ServerData_ContentLock:applyContentLockByStage(l_content)
+    self:setIsContentLockDirty(true)
     self.m_tContentOpen = l_content or {}
+end
+
+-------------------------------------
+-- function getIsContentLockDirty
+-------------------------------------
+function ServerData_ContentLock:getIsContentLockDirty()
+    return self.m_bContentOpenDirty
+end
+
+-------------------------------------
+-- function setIsContentLockDirty
+-------------------------------------
+function ServerData_ContentLock:setIsContentLockDirty(is_dirty)
+    self.m_bContentOpenDirty = is_dirty
 end
 
 -------------------------------------
