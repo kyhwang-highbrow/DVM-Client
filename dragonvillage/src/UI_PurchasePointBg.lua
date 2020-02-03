@@ -348,7 +348,7 @@ function UI_PurchasePointBg:setItemRes(_item_id)
 	if (string.match(item_full_type, 'egg')) then
         local animator = self:getEggVisual(item_id)
         if (animator) then
-            vars['eggNode']:addChild(animator)
+            vars['eggNode']:addChild(animator.m_node)
         end
 
 	-- 전설 선택권
