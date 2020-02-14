@@ -202,6 +202,9 @@ function ServerData:getInstance()
     -- 모험돌파 패키지
     g_adventureClearPackageData = ServerData_AdventureClearPackage(g_serverData)
 
+    -- 모험돌파 패키지 (신규)
+    g_adventureClearPackageData02 = ServerData_AdventureClearPackage02(g_serverData)
+
     -- 클랜
     g_clanData = ServerData_Clan(g_serverData)
     

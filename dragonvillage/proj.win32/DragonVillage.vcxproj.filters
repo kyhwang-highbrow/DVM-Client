@@ -4393,6 +4393,15 @@
     <None Include="..\src\UI_EventPopupTab_PurchaseDaily.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Package_AdventureClear02.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_AdventureClearPackage02.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_Package_AdventureClearListItem02.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

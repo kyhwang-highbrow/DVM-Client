@@ -185,6 +185,7 @@ local t_module = {
     'ServerData_ClanRaid',
     'ServerData_LevelUpPackage',
     'ServerData_AdventureClearPackage',
+    'ServerData_AdventureClearPackage02',
 	'ServerData_DailyMission',
 	'ServerData_CapsuleBox',
 	'ServerData_AttrTower',

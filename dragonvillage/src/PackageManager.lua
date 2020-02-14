@@ -39,8 +39,9 @@ function PackageManager:getTargetUI(package_name, is_popup)
     
     -- 모험돌파 패키지2 UI
     elseif (_package_name == 'package_adventure_clear_02') then
-        local _struct_product = g_shopDataNew:getAdventureClearProduct()
-        target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
+        local _struct_product = g_shopDataNew:getAdventureClearProduct02()
+        require('UI_Package_AdventureClear02')
+        target_ui = UI_Package_AdventureClear02(_struct_product, is_popup)
 
     -- 기간제 단계별 패키지 UI
     elseif (_package_name ==  'package_step_period') then
@@ -128,6 +129,17 @@ function PackageManager:isExist(package_name)
     if (package_name == 'package_adventure_clear') then
         local is_active = g_adventureClearPackageData:isActive()
         local is_visible = g_adventureClearPackageData:isVisible_adventureClearPack()
+        if (is_active and (is_visible == false)) then
+            return false
+        else
+            return true
+        end
+    end
+
+    -- 모험돌파 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요)
+    if (package_name == 'package_adventure_clear_02') then
+        local is_active = g_adventureClearPackageData02:isActive()
+        local is_visible = g_adventureClearPackageData02:isVisible_adventureClearPack()
         if (is_active and (is_visible == false)) then
             return false
         else

@@ -1186,9 +1186,14 @@ function UI_TitleScene:workGetServerInfo()
                     g_levelUpPackageData:response_lvuppackInfoByTitle(ret['lvuppack_info'])
                 end
 
-                if (ret['stagepack_info']) then
+                if (ret['stagepack_info'] and ret['stagepack_info']['90057']) then
                     cclog('# 모험 패키지 정보')
-                    g_adventureClearPackageData:response_adventureClearInfo(ret['stagepack_info'])
+                    g_adventureClearPackageData:response_adventureClearInfo(ret['stagepack_info']['90057'])
+                end
+
+                if (ret['stagepack_info'] and ret['stagepack_info']['110281']) then
+                    cclog('# 모험 패키지 정보')
+                    g_adventureClearPackageData02:response_adventureClearInfo(ret['stagepack_info']['110281'])
                 end
 
                 if (ret['capsulebox_info']) then

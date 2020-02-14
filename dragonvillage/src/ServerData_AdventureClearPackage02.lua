@@ -4,10 +4,10 @@
 -- table_shop_cash
 
 -------------------------------------
--- class ServerData_AdventureClearPackage
+-- class ServerData_AdventureClearPackage02
 -- @breif 모험돌파 패키지 관리
 -------------------------------------
-ServerData_AdventureClearPackage = class({
+ServerData_AdventureClearPackage02 = class({
         m_serverData = 'ServerData',
         m_bActive = 'boolean',
         m_receivedList = 'list',
@@ -18,17 +18,17 @@ ServerData_AdventureClearPackage = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_AdventureClearPackage:init(server_data)
+function ServerData_AdventureClearPackage02:init(server_data)
     self.m_serverData = server_data
     self.m_bActive = false
     self.m_receivedList = {}
-    self.m_productID = 90057
+    self.m_productID = 110281
 end
 
 -------------------------------------
 -- function ckechDirty
 -------------------------------------
-function ServerData_AdventureClearPackage:ckechDirty()
+function ServerData_AdventureClearPackage02:ckechDirty()
     if self.m_bDirty then
         return
     end
@@ -41,21 +41,21 @@ end
 -------------------------------------
 -- function setDirty
 -------------------------------------
-function ServerData_AdventureClearPackage:setDirty()
+function ServerData_AdventureClearPackage02:setDirty()
     self.m_bDirty = true
 end
 
 -------------------------------------
 -- function isDirty
 -------------------------------------
-function ServerData_AdventureClearPackage:isDirty()
+function ServerData_AdventureClearPackage02:isDirty()
     return self.m_bDirty
 end
 
 -------------------------------------
 -- function request_adventureClearInfo
 -------------------------------------
-function ServerData_AdventureClearPackage:request_adventureClearInfo(cb_func, fail_cb)
+function ServerData_AdventureClearPackage02:request_adventureClearInfo(cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -71,8 +71,8 @@ function ServerData_AdventureClearPackage:request_adventureClearInfo(cb_func, fa
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/stagepack_info')
-    ui_network:setParam('uid', uid)
     ui_network:setParam('product_id', self.m_productID)
+    ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -85,7 +85,7 @@ end
 -------------------------------------
 -- function response_adventureClearInfo
 -------------------------------------
-function ServerData_AdventureClearPackage:response_adventureClearInfo(ret)
+function ServerData_AdventureClearPackage02:response_adventureClearInfo(ret)
     self.m_bActive = ret['active'] or false
     self.m_receivedList = ret['received_list'] or {}
 end
@@ -93,19 +93,19 @@ end
 -------------------------------------
 -- function isActive
 -------------------------------------
-function ServerData_AdventureClearPackage:isActive()
+function ServerData_AdventureClearPackage02:isActive()
     return self.m_bActive
 end
 
 -------------------------------------
 -- function isVisible_adventureClearPack
 -------------------------------------
-function ServerData_AdventureClearPackage:isVisible_adventureClearPack()
+function ServerData_AdventureClearPackage02:isVisible_adventureClearPack()
     if (not self:isActive()) then
         return false
     end
 
-    local l_item_list = TABLE:get('table_package_stage')
+    local l_item_list = TABLE:get('table_package_stage_02')
     for i,v in pairs(l_item_list) do
         local stage_id = v['stage']
         if (self:isReceived(stage_id) == false) then
@@ -120,12 +120,12 @@ end
 -- function isVisible_adventureClearPackNoti
 -- @brief 보상받을 수 있는 항목 있을 때에만 노티
 -------------------------------------
-function ServerData_AdventureClearPackage:isVisible_adventureClearPackNoti()
+function ServerData_AdventureClearPackage02:isVisible_adventureClearPackNoti()
     if (not self:isActive()) then
         return false
     end
 
-    local l_item_list = TABLE:get('table_package_stage')
+    local l_item_list = TABLE:get('table_package_stage_02')
     for i,v in pairs(l_item_list) do
         local stage_id = v['stage']
         -- 보상 안 받은 항목들 중에서
@@ -145,7 +145,7 @@ end
 -------------------------------------
 -- function request_adventureClearReward
 -------------------------------------
-function ServerData_AdventureClearPackage:request_adventureClearReward(stage, cb_func, fail_cb)
+function ServerData_AdventureClearPackage02:request_adventureClearReward(stage, cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -162,8 +162,8 @@ function ServerData_AdventureClearPackage:request_adventureClearReward(stage, cb
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/stagepack_reward')
-    ui_network:setParam('uid', uid)
     ui_network:setParam('product_id', self.m_productID)
+    ui_network:setParam('uid', uid)
     ui_network:setParam('stage', stage)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -177,7 +177,7 @@ end
 -------------------------------------
 -- function isReceived
 -------------------------------------
-function ServerData_AdventureClearPackage:isReceived(stage_id)
+function ServerData_AdventureClearPackage02:isReceived(stage_id)
     for i,v in pairs(self.m_receivedList) do
         if (v == stage_id) then
             return true
@@ -192,8 +192,8 @@ end
 -- function getFocusRewardStage
 -- @brief 보상 받기 가능한 idx로 이동
 -------------------------------------
-function ServerData_AdventureClearPackage:getFocusRewardStage()
-    local map = TABLE:get('table_package_stage')
+function ServerData_AdventureClearPackage02:getFocusRewardStage()
+    local map = TABLE:get('table_package_stage_02')
     local list = table.MapToList(map)
 
     local function sort_func(a, b)

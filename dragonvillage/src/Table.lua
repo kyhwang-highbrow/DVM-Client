@@ -155,6 +155,7 @@ local TableInfo_fromServer = {
         ['table_package_levelup'] = {'table_package_levelup', 'level'}, 
         ['table_package_levelup_02'] = {'table_package_levelup_02', 'level'}, 
         ['table_package_stage'] = {'table_package_stage', 'stage'}, 
+        ['table_package_stage_02'] = {'table_package_stage_02', 'stage'}, 
 
 		-- 드래곤 강화
 		['table_dragon_reinforce'] = {'table_dragon_reinforce', 'id'},

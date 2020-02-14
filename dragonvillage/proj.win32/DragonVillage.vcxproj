@@ -500,6 +500,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_AccessTime.lua" />
     <None Include="..\src\ServerData_Adventure.lua" />
     <None Include="..\src\ServerData_AdventureClearPackage.lua" />
+    <None Include="..\src\ServerData_AdventureClearPackage02.lua" />
     <None Include="..\src\ServerData_AdventureFirstReward.lua" />
     <None Include="..\src\ServerData_Advertising.lua" />
     <None Include="..\src\ServerData_AncientRuin.lua" />
@@ -1386,7 +1387,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_PackageRandomBoxInfo.lua" />
     <None Include="..\src\UI_PackageTabButton.lua" />
     <None Include="..\src\UI_Package_AdventureClear.lua" />
+    <None Include="..\src\UI_Package_AdventureClear02.lua" />
     <None Include="..\src\UI_Package_AdventureClearListItem.lua" />
+    <None Include="..\src\UI_Package_AdventureClearListItem02.lua" />
     <None Include="..\src\UI_Package_Bundle.lua" />
     <None Include="..\src\UI_Package_LevelUp.lua" />
     <None Include="..\src\UI_Package_LevelUpListItem.lua" />

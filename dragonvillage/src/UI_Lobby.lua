@@ -661,6 +661,7 @@ function UI_Lobby:initButton()
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['levelupBtn2']:registerScriptTapHandler(function() self:click_lvUpPackBtn2() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
+    vars['adventureClearBtn02']:registerScriptTapHandler(function() self:click_adventureClearBtn02() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
     vars['dailyShopBtn']:registerScriptTapHandler(function() self:click_dailyShopBtn() end) -- 일일 상점
@@ -1396,6 +1397,15 @@ function UI_Lobby:click_adventureClearBtn()
 end
 
 -------------------------------------
+-- function click_adventureClearBtn02
+-- @brief 레벨업 패키지 버튼
+-------------------------------------
+function UI_Lobby:click_adventureClearBtn02()
+    require('UI_Package_AdventureClear02')
+    UI_Package_AdventureClear02(nil, true) -- param : struct_product, is_popup
+end
+
+-------------------------------------
 -- function click_settingBtn
 -- @설정
 -------------------------------------
@@ -1893,6 +1903,20 @@ function UI_Lobby:update_rightButtons()
         vars['adventureClearNotiSprite']:setVisible(is_noti)
     end
 
+    -- 모험돌파 버튼
+    do
+        -- 모험돌파 버튼
+        if g_adventureClearPackageData02:isVisible_adventureClearPack() then
+            vars['adventureClearBtn02']:setVisible(true)
+        else
+            vars['adventureClearBtn02']:setVisible(false)
+        end
+           
+        -- 모험돌파 패키지 노티
+        local is_noti = g_adventureClearPackageData02:isVisible_adventureClearPackNoti()
+        vars['adventureClearNotiSprite02']:setVisible(is_noti)
+    end
+
     -- 마녀의 상점
     local is_random_shop_open = not g_contentLockData:isContentLock('shop_random')
     vars['randomShopBtn']:setVisible(is_random_shop_open)
@@ -1920,6 +1944,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'levelupBtn2')
     table.insert(t_btn_name, 'levelupBtn')
     table.insert(t_btn_name, 'adventureClearBtn')
+    table.insert(t_btn_name, 'adventureClearBtn02')
     
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')

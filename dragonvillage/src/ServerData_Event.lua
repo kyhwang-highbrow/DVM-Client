@@ -242,6 +242,12 @@ function ServerData_Event:getEventFullPopupList()
                 if (g_adventureClearPackageData:isActive()) then
                     visible = false
                 end
+
+            -- 모험돌파 패키지인 경우 구매했을 경우 노출시키지 않음.
+            elseif (event_type == 'package_adventure_clear_02') then
+                if (g_adventureClearPackageData02:isActive()) then
+                    visible = false
+                end
                 
             -- 패키지인 경우 구매 불가한 경우 노출시키지 않음.
             elseif (string.find(event_type, 'package')) then
