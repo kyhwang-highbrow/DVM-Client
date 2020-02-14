@@ -497,6 +497,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
         if (ret['purchase_point_info']) then
             g_purchasePointData:applyPurchasePointInfo(ret['purchase_point_info'])
         end
+
+        cclog('# 일일 결제 보상 정보 확인 중')
+        if (ret['purchase_daily_info']) then
+            g_purchaseDailyData:applyPurchaseDailyInfo(ret['purchase_daily_info'])
+        end
 				
         cclog('# 스킬 이전 가격 정보 받는 중')
         g_dragonsData:setSkillMovePrice(ret)

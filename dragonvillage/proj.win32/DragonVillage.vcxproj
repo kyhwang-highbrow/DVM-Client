@@ -553,6 +553,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_MasterRoad.lua" />
     <None Include="..\src\ServerData_NaverEvent.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
+    <None Include="..\src\ServerData_PurchaseDaily.lua" />
     <None Include="..\src\ServerData_PurchasePoint.lua" />
     <None Include="..\src\ServerData_Quest.lua" />
     <None Include="..\src\ServerData_RandomShop.lua" />
@@ -1261,6 +1262,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
     <None Include="..\src\UI_EventPopupTab_Package.lua" />
     <None Include="..\src\UI_EventPopupTab_PackageGrowth.lua" />
+    <None Include="..\src\UI_EventPopupTab_PurchaseDaily.lua" />
     <None Include="..\src\UI_EventPopupTab_PurchasePoint.lua" />
     <None Include="..\src\UI_EventPopupTab_Scroll.lua" />
     <None Include="..\src\UI_EventScene_Illusion.lua" />

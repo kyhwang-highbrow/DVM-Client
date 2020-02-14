@@ -290,6 +290,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif pl.stringx.startswith(tab, 'purchase_point') then
         local event_version = struct_event_popup_tab.m_eventData['version'] or struct_event_popup_tab.m_eventData['event_id']
         ui = UI_EventPopupTab_PurchasePoint(event_version)
+
+    -- 일일 결제 보상 이벤트 
+    elseif pl.stringx.startswith(tab, 'purchase_daily') then
+        local event_version = struct_event_popup_tab.m_eventData['version'] or struct_event_popup_tab.m_eventData['event_id']
+        ui = UI_EventPopupTab_PurchaseDaily(event_version)
         
     -- 깜짝 출현 이벤트
     elseif (tab =='event_advent') then
@@ -391,6 +396,15 @@ function UI_EventPopup:getEventPopupTabList()
     -- map형태의 탭 리스트를 merge
     for key,value in pairs(l_item_list_purchase_point) do
         l_item_list[key] = value
+    end
+
+    do-- purchase_daily
+        local l_item_list_purchase_daily = g_purchaseDailyData:getEventPopupTabList()
+
+            -- map형태의 탭 리스트를 merge
+        for key,value in pairs(l_item_list_purchase_daily) do
+            l_item_list[key] = value
+        end
     end
 
     return l_item_list

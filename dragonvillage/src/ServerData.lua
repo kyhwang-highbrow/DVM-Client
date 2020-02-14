@@ -103,6 +103,9 @@ function ServerData:getInstance()
     -- 누적 결제 보상
     g_purchasePointData = ServerData_PurchasePoint(g_serverData)
 
+    -- 일일 결제 보상
+    g_purchaseDailyData = ServerData_PurchaseDaily(g_serverData)
+
     -- 이벤트 교환소
     g_exchangeData = ServerData_Exchange(g_serverData)
 
