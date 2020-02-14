@@ -59,6 +59,8 @@ function UI_AttrTowerMenuScene:initUI()
             need_floor = ATTR_TOWER_EXTEND_OPEN_FLOOR
         elseif (max_stage_id == ServerData_AttrTower.MAXSTAGEID['EXTEND_100']) then
             need_floor = ATTR_TOWER_EXTEND_OPEN_FLOOR_150    
+        elseif (max_stage_id == ServerData_AttrTower.MAXSTAGEID['EXTEND_150']) then
+            need_floor = ATTR_TOWER_EXTEND_OPEN_FLOOR_200
         else
             need_floor = 0
         end
