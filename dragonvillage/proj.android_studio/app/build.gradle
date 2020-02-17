@@ -28,7 +28,7 @@ android {
         multiDexEnabled true
 
         // buildConfig.java에 저장할 초기값 세팅
-        buildConfigField "String", "PUBLIC_KEY", ""
+        buildConfigField "String", "PUBLIC_KEY", "\"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCps9StRMqg4wDFchmRLqFdbc7d0xnBJrG4hrrJvwMu3GZIMsfi+wQV4z744sTu6KoD+QihdJwkS3fgHfF7QDcBFYM72JvG1+//5AXcAZtETuszP78ODXPiVrfjzfDSD6Zyy7Nvnb0XvGsZSg+EfIyYHerdFAU6tATSgFg6AXQZswIDAQAB\""
 
         externalNativeBuild {
             ndkBuild {
