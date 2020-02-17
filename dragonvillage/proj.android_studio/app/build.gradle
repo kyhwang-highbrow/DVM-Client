@@ -350,49 +350,49 @@ allprojects {
         implementation 'com.navercorp.volleyextensions:volleyer:2.0.1', {
             exclude group: 'com.mcxiaoke.volley', module: 'library'
         }
-        implementation 'com.google.code.gson:gson:2.8.5'
-        implementation 'com.github.bumptech.glide:glide:4.9.0'
+        implementation 'com.google.code.gson:gson:2.8.6'
+        implementation 'com.github.bumptech.glide:glide:4.11.0'
         implementation 'com.squareup:otto:1.3.8'
 
         // @firebase
-        implementation 'com.google.firebase:firebase-analytics:17.2.0'
-        implementation 'com.google.firebase:firebase-auth:19.0.0'
-        implementation 'com.google.firebase:firebase-messaging:20.0.0'
+        implementation 'com.google.firebase:firebase-analytics:17.2.2'
+        implementation 'com.google.firebase:firebase-auth:19.2.0'
+        implementation 'com.google.firebase:firebase-messaging:20.1.0'
 
         // @crashlytics
         implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
-        implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.0'
+        implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.1'
 
         // @google
         implementation 'com.google.android.gms:play-services-auth:17.0.0'
-        implementation 'com.google.android.gms:play-services-games:18.0.1'
+        implementation 'com.google.android.gms:play-services-games:19.0.0'
         implementation 'com.google.android.gms:play-services-analytics:17.0.0'
 
         // @facebook
-        implementation 'com.facebook.android:facebook-android-sdk:5.5.1'
+        implementation 'com.facebook.android:facebook-android-sdk:6.1.0'
 
         // @twitter
         implementation 'com.twitter.sdk.android:twitter:3.3.0'
 
         // @igawCommon
-        implementation 'com.android.installreferrer:installreferrer:1.0'
+        implementation 'com.android.installreferrer:installreferrer:1.1.1'
 
         // @tapjoy https://dev.tapjoy.com/ko/sdk-integration/
         implementation 'com.tapjoy:tapjoy-android-sdk:12.4.2'
 
         // @adjust
-        implementation 'com.adjust.sdk:adjust-android:4.18.1'
+        implementation 'com.adjust.sdk:adjust-android:4.20.0'
 
         // @admob
-        implementation 'com.google.firebase:firebase-ads:18.2.0'
+        implementation 'com.google.firebase:firebase-ads:18.3.0'
         implementation 'androidx.annotation:annotation:1.1.0'
         implementation 'com.google.ads.mediation:adcolony:3.3.11.0'
         implementation 'com.google.ads.mediation:unity:3.2.0.1'
         implementation 'com.google.ads.mediation:tapjoy:12.4.2.0'
         // @adcolony
-        implementation 'com.adcolony:sdk:3.3.5'
+        implementation 'com.adcolony:sdk:3.3.11'
         // @unity-ads
-        implementation 'com.unity3d.ads:unity-ads:2.3.0'
+        implementation 'com.unity3d.ads:unity-ads:3.2.0'
     }
 }
 // @firebase
