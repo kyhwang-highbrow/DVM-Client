@@ -1,0 +1,209 @@
+
+muddragon_all_03.png
+size: 663,538
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+muddragon_all_03_arm_01
+  rotate: false
+  xy: 575, 429
+  size: 86, 107
+  orig: 86, 107
+  offset: 0, 0
+  index: -1
+muddragon_all_03_arm_02
+  rotate: true
+  xy: 353, 223
+  size: 72, 120
+  orig: 72, 120
+  offset: 0, 0
+  index: -1
+muddragon_all_03_attack_01_01
+  rotate: false
+  xy: 560, 127
+  size: 73, 52
+  orig: 73, 52
+  offset: 0, 0
+  index: -1
+muddragon_all_03_attack_02
+  rotate: true
+  xy: 328, 8
+  size: 104, 52
+  orig: 104, 52
+  offset: 0, 0
+  index: -1
+muddragon_all_03_attack_03
+  rotate: false
+  xy: 582, 251
+  size: 69, 59
+  orig: 69, 59
+  offset: 0, 0
+  index: -1
+muddragon_all_03_attack_04
+  rotate: false
+  xy: 508, 277
+  size: 72, 115
+  orig: 72, 115
+  offset: 0, 0
+  index: -1
+muddragon_all_03_body
+  rotate: false
+  xy: 204, 242
+  size: 147, 138
+  orig: 147, 138
+  offset: 0, 0
+  index: -1
+muddragon_all_03_eye
+  rotate: true
+  xy: 617, 77
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1
+muddragon_all_03_eye_02
+  rotate: false
+  xy: 560, 37
+  size: 48, 42
+  orig: 48, 42
+  offset: 0, 0
+  index: -1
+muddragon_all_03_head_01
+  rotate: false
+  xy: 190, 3
+  size: 136, 109
+  orig: 136, 109
+  offset: 0, 0
+  index: -1
+muddragon_all_03_head_01_02
+  rotate: false
+  xy: 610, 34
+  size: 45, 41
+  orig: 45, 41
+  offset: 0, 0
+  index: -1
+muddragon_all_03_head_02
+  rotate: true
+  xy: 462, 132
+  size: 72, 96
+  orig: 72, 96
+  offset: 0, 0
+  index: -1
+muddragon_all_03_head_03
+  rotate: true
+  xy: 451, 57
+  size: 67, 54
+  orig: 67, 54
+  offset: 0, 0
+  index: -1
+muddragon_all_03_leg_01
+  rotate: false
+  xy: 352, 126
+  size: 108, 95
+  orig: 108, 95
+  offset: 0, 0
+  index: -1
+muddragon_all_03_leg_02
+  rotate: true
+  xy: 365, 297
+  size: 95, 141
+  orig: 95, 141
+  offset: 0, 0
+  index: -1
+muddragon_all_03_light
+  rotate: true
+  xy: 507, 72
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+muddragon_all_03_mud_01
+  rotate: true
+  xy: 451, 22
+  size: 33, 51
+  orig: 33, 51
+  offset: 0, 0
+  index: -1
+muddragon_all_03_mud_02
+  rotate: true
+  xy: 559, 2
+  size: 33, 38
+  orig: 33, 38
+  offset: 0, 0
+  index: -1
+muddragon_all_03_note_01
+  rotate: true
+  xy: 560, 81
+  size: 44, 55
+  orig: 44, 55
+  offset: 0, 0
+  index: -1
+muddragon_all_03_note_02
+  rotate: true
+  xy: 507, 25
+  size: 45, 50
+  orig: 45, 50
+  offset: 0, 0
+  index: -1
+muddragon_all_03_splash_01_01
+  rotate: true
+  xy: 582, 312
+  size: 115, 68
+  orig: 115, 68
+  offset: 0, 0
+  index: -1
+muddragon_all_03_splash_01_02
+  rotate: true
+  xy: 382, 22
+  size: 102, 67
+  orig: 102, 67
+  offset: 0, 0
+  index: -1
+muddragon_all_03_splash_02_01
+  rotate: false
+  xy: 576, 181
+  size: 74, 68
+  orig: 74, 68
+  offset: 0, 0
+  index: -1
+muddragon_all_03_splash_02_02
+  rotate: false
+  xy: 475, 206
+  size: 99, 69
+  orig: 99, 69
+  offset: 0, 0
+  index: -1
+muddragon_all_03_splash_03
+  rotate: false
+  xy: 2, 382
+  size: 361, 154
+  orig: 361, 154
+  offset: 0, 0
+  index: -1
+muddragon_all_03_splash_04
+  rotate: true
+  xy: 2, 6
+  size: 175, 186
+  orig: 175, 186
+  offset: 0, 0
+  index: -1
+muddragon_all_03_tail
+  rotate: true
+  xy: 204, 114
+  size: 126, 146
+  orig: 126, 146
+  offset: 0, 0
+  index: -1
+muddragon_all_03_wing_01
+  rotate: false
+  xy: 2, 183
+  size: 200, 197
+  orig: 200, 197
+  offset: 0, 0
+  index: -1
+muddragon_all_03_wing_02
+  rotate: true
+  xy: 365, 394
+  size: 142, 208
+  orig: 142, 208
+  offset: 0, 0
+  index: -1

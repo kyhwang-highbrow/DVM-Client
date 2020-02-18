@@ -24,7 +24,7 @@
 				visible = true;
 				lua_name = '';
 				file_name = 'ui/frames/base_frame_0101.png';
-				color = { 214; 145; 255; };
+				color = { 0; 147; 0; };
 				opacity = 255;
 				center_rect_x = 0;
 				center_rect_y = 0;

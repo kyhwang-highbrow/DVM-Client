@@ -443,7 +443,7 @@
 							skew_y = 0.000000;
 							rotation = -90.000000;
 							visible = true;
-							lua_name = '';
+							lua_name = 'arrowVisual4';
 							file_name = 'ui/a2d/hatchery/hatchery.vrp';
 							auto_play = true;
 							is_repeat = true;
@@ -588,7 +588,7 @@
 								skew_y = 0.000000;
 								rotation = -90.000000;
 								visible = true;
-								lua_name = '';
+								lua_name = 'arrowVisual3';
 								file_name = 'ui/a2d/hatchery/hatchery.vrp';
 								auto_play = true;
 								is_repeat = true;
@@ -776,7 +776,7 @@
 								skew_y = 0.000000;
 								rotation = -90.000000;
 								visible = true;
-								lua_name = '';
+								lua_name = 'arrowVisual2';
 								file_name = 'ui/a2d/hatchery/hatchery.vrp';
 								auto_play = true;
 								is_repeat = true;
@@ -964,7 +964,7 @@
 								skew_y = 0.000000;
 								rotation = -90.000000;
 								visible = true;
-								lua_name = '';
+								lua_name = 'arrowVisual1';
 								file_name = 'ui/a2d/hatchery/hatchery.vrp';
 								auto_play = true;
 								is_repeat = true;

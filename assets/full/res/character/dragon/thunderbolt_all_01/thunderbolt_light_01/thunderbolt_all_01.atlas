@@ -1,0 +1,335 @@
+
+thunderbolt_all_01.png
+size: 2033,1352
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+thunderbolt_all_01_attack_01
+  rotate: true
+  xy: 1941, 141
+  size: 97, 90
+  orig: 97, 90
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_attack_02_01
+  rotate: false
+  xy: 1959, 635
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_attack_02_02
+  rotate: false
+  xy: 1971, 6
+  size: 55, 67
+  orig: 55, 67
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_bg_01
+  rotate: false
+  xy: 2, 868
+  size: 739, 482
+  orig: 739, 482
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_bg_02
+  rotate: false
+  xy: 2, 392
+  size: 528, 474
+  orig: 528, 474
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_bg_03
+  rotate: false
+  xy: 743, 882
+  size: 515, 468
+  orig: 515, 468
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_bg_04
+  rotate: false
+  xy: 1260, 864
+  size: 492, 486
+  orig: 492, 486
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_bg_05
+  rotate: false
+  xy: 1452, 418
+  size: 422, 444
+  orig: 422, 444
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_bg_06
+  rotate: true
+  xy: 532, 389
+  size: 477, 443
+  orig: 477, 443
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_body_01
+  rotate: false
+  xy: 1816, 91
+  size: 123, 147
+  orig: 123, 147
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_body_02
+  rotate: true
+  xy: 1816, 240
+  size: 176, 127
+  orig: 176, 127
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_01
+  rotate: false
+  xy: 1975, 1043
+  size: 55, 65
+  orig: 55, 65
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_02
+  rotate: false
+  xy: 1306, 32
+  size: 47, 70
+  orig: 47, 70
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_03
+  rotate: false
+  xy: 1975, 1275
+  size: 56, 75
+  orig: 56, 75
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_04
+  rotate: false
+  xy: 807, 27
+  size: 200, 360
+  orig: 200, 360
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_body_01_01
+  rotate: true
+  xy: 1215, 40
+  size: 62, 89
+  orig: 62, 89
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_body_01_02
+  rotate: true
+  xy: 1116, 32
+  size: 70, 97
+  orig: 70, 97
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_body_02_01
+  rotate: false
+  xy: 1975, 1192
+  size: 53, 81
+  orig: 53, 81
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_body_02_02
+  rotate: false
+  xy: 1876, 534
+  size: 61, 89
+  orig: 61, 89
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_body_03_01
+  rotate: false
+  xy: 1975, 1110
+  size: 54, 80
+  orig: 54, 80
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_electric_body_03_02
+  rotate: true
+  xy: 1941, 75
+  size: 64, 90
+  orig: 64, 90
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_eye_01_01
+  rotate: false
+  xy: 1990, 712
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_eye_01_02
+  rotate: false
+  xy: 1975, 1004
+  size: 49, 37
+  orig: 49, 37
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_eye_01_03
+  rotate: false
+  xy: 1982, 432
+  size: 32, 40
+  orig: 32, 40
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_eye_01_04
+  rotate: true
+  xy: 1990, 754
+  size: 42, 34
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_eye_01_05
+  rotate: true
+  xy: 1990, 798
+  size: 45, 34
+  orig: 45, 34
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_eye_02_01
+  rotate: false
+  xy: 807, 2
+  size: 27, 23
+  orig: 27, 23
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_eye_02_02
+  rotate: true
+  xy: 2, 2
+  size: 26, 34
+  orig: 26, 34
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_eyebrow
+  rotate: false
+  xy: 977, 413
+  size: 30, 27
+  orig: 30, 27
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_gem
+  rotate: false
+  xy: 1938, 430
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_gem_light
+  rotate: false
+  xy: 1939, 474
+  size: 64, 68
+  orig: 64, 68
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_head_01_01
+  rotate: true
+  xy: 1907, 845
+  size: 129, 115
+  orig: 129, 115
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_head_01_02
+  rotate: false
+  xy: 1876, 710
+  size: 112, 133
+  orig: 112, 133
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_head_02_01
+  rotate: true
+  xy: 1871, 2
+  size: 71, 98
+  orig: 71, 98
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_head_02_02
+  rotate: false
+  xy: 1754, 871
+  size: 72, 103
+  orig: 72, 103
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_leg_01_01
+  rotate: false
+  xy: 1828, 877
+  size: 77, 97
+  orig: 77, 97
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_leg_01_02
+  rotate: true
+  xy: 1009, 35
+  size: 67, 105
+  orig: 67, 105
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_leg_02
+  rotate: true
+  xy: 1816, 2
+  size: 87, 53
+  orig: 87, 53
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_light
+  rotate: false
+  xy: 422, 12
+  size: 383, 375
+  orig: 383, 375
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_ruffle_01_01
+  rotate: false
+  xy: 1876, 625
+  size: 81, 83
+  orig: 81, 83
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_ruffle_01_02
+  rotate: false
+  xy: 1939, 544
+  size: 62, 79
+  orig: 62, 79
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_ruffle_01_03
+  rotate: true
+  xy: 1876, 442
+  size: 90, 60
+  orig: 90, 60
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_spark_01
+  rotate: false
+  xy: 1009, 104
+  size: 354, 336
+  orig: 354, 336
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_spark_02
+  rotate: false
+  xy: 2, 30
+  size: 418, 360
+  orig: 418, 360
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_spark_03
+  rotate: false
+  xy: 1365, 20
+  size: 449, 396
+  orig: 449, 396
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_spark_04
+  rotate: false
+  xy: 977, 442
+  size: 473, 420
+  orig: 473, 420
+  offset: 0, 0
+  index: -1
+thunderbolt_all_01_spark_off
+  rotate: true
+  xy: 1754, 976
+  size: 374, 219
+  orig: 374, 219
+  offset: 0, 0
+  index: -1

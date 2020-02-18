@@ -255,7 +255,7 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 22;
-						text = '클랜원들이 {@yellow}고대의 탑, 콜로세움, 클랜 던전{@default}에 참여하면 성적에 따라 클랜 랭킹이 집계되고 시즌마다 {@yellow}클랜 코인{@default} 보상을 받을 수 있습니다.';
+						text = '클랜원들이 {@yellow}고대의 탑, 클랜전, 클랜 던전{@default}에 참여하면 성적에 따라 클랜 랭킹이 집계되고 시즌마다 {@yellow}클랜 코인{@default} 보상을 받을 수 있습니다.';
 						h_alignment = 0;
 						v_alignment = 1;
 						color = { 255; 255; 255; };

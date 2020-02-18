@@ -67,7 +67,7 @@
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
 					width = 700;
-					height = 50;
+					height = 47;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -83,7 +83,7 @@
 					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 700;
-					dimension_height = 50;
+					dimension_height = 47;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -191,8 +191,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -295.000000;
-				y = -225.000000;
+				x = -194.000000;
+				y = -222.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -283,8 +283,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
-				y = -225.000000;
+				x = 195.000000;
+				y = -222.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -387,7 +387,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'buyBtn3';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0103.png';
@@ -399,12 +399,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -295.000000;
-				y = -107.000000;
+				x = -194.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 285;
+				width = 316;
 				height = 150;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -420,7 +420,7 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 285;
+				dimension_width = 316;
 				dimension_height = 150;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -439,12 +439,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
-				y = -107.000000;
+				x = 194.000000;
+				y = -112.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 285;
+				width = 316;
 				height = 150;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -460,7 +460,7 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 285;
+				dimension_width = 316;
 				dimension_height = 150;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -491,7 +491,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'itemLabel3';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 21;
@@ -559,8 +559,8 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = -295.000000;
-				y = -225.000000;
+				x = -194.000000;
+				y = -223.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -625,8 +625,8 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 0.000000;
-				y = -225.000000;
+				x = 195.000000;
+				y = -223.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -758,7 +758,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = -27.000000;
-				y = -135.000000;
+				y = -132.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -772,7 +772,7 @@
 				visible = true;
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 23;
+				font_size = 22;
 				text = 'timeLabel';
 				h_alignment = 0;
 				v_alignment = 1;

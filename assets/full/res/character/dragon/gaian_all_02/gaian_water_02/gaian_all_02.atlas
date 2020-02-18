@@ -1,0 +1,300 @@
+
+gaian_all_02.png
+size: 1906,1672
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_09
+  rotate: true
+  xy: 671, 329
+  size: 500, 375
+  orig: 500, 375
+  offset: 0, 0
+  index: -1
+effect_10
+  rotate: true
+  xy: 728, 847
+  size: 248, 204
+  orig: 248, 204
+  offset: 0, 0
+  index: -1
+effect_111_smoke_17
+  rotate: true
+  xy: 2, 39
+  size: 787, 301
+  orig: 787, 301
+  offset: 0, 0
+  index: -1
+effect_111_smoke_back5
+  rotate: true
+  xy: 305, 212
+  size: 614, 364
+  orig: 614, 364
+  offset: 0, 0
+  index: -1
+effect_116_groud6
+  rotate: true
+  xy: 2, 828
+  size: 842, 380
+  orig: 842, 380
+  offset: 0, 0
+  index: -1
+gaian_all_02_bit_01
+  rotate: false
+  xy: 909, 2
+  size: 219, 218
+  orig: 219, 218
+  offset: 0, 0
+  index: -1
+gaian_all_02_bit_02
+  rotate: false
+  xy: 1511, 709
+  size: 388, 388
+  orig: 388, 388
+  offset: 0, 0
+  index: -1
+gaian_all_02_body_01
+  rotate: true
+  xy: 1121, 1454
+  size: 216, 300
+  orig: 216, 300
+  offset: 0, 0
+  index: -1
+gaian_all_02_chest_01
+  rotate: true
+  xy: 1409, 654
+  size: 60, 93
+  orig: 60, 93
+  offset: 0, 0
+  index: -1
+gaian_all_02_dust
+  rotate: false
+  xy: 1130, 4
+  size: 304, 373
+  orig: 304, 373
+  offset: 0, 0
+  index: -1
+gaian_all_02_ear_01
+  rotate: false
+  xy: 1257, 1247
+  size: 78, 41
+  orig: 78, 41
+  offset: 0, 0
+  index: -1
+gaian_all_02_ear_02
+  rotate: false
+  xy: 810, 222
+  size: 122, 105
+  orig: 122, 105
+  offset: 0, 0
+  index: -1
+gaian_all_02_effect_01
+  rotate: true
+  xy: 1614, 207
+  size: 223, 277
+  orig: 223, 277
+  offset: 0, 0
+  index: -1
+gaian_all_02_effect_02
+  rotate: false
+  xy: 1048, 379
+  size: 359, 468
+  orig: 359, 468
+  offset: 0, 0
+  index: -1
+gaian_all_02_effect_04
+  rotate: false
+  xy: 1614, 432
+  size: 277, 275
+  orig: 277, 275
+  offset: 0, 0
+  index: -1
+gaian_all_02_effect_05
+  rotate: true
+  xy: 1070, 268
+  size: 56, 57
+  orig: 56, 57
+  offset: 0, 0
+  index: -1
+gaian_all_02_effect_06
+  rotate: false
+  xy: 934, 849
+  size: 162, 246
+  orig: 162, 246
+  offset: 0, 0
+  index: -1
+gaian_all_02_effect_07
+  rotate: true
+  xy: 671, 214
+  size: 113, 137
+  orig: 113, 137
+  offset: 0, 0
+  index: -1
+gaian_all_02_effect_attack
+  rotate: true
+  xy: 384, 831
+  size: 255, 342
+  orig: 255, 342
+  offset: 0, 0
+  index: -1
+gaian_all_02_face_01
+  rotate: true
+  xy: 489, 3
+  size: 207, 129
+  orig: 207, 129
+  offset: 0, 0
+  index: -1
+gaian_all_02_face_02
+  rotate: false
+  xy: 1436, 763
+  size: 73, 91
+  orig: 73, 91
+  offset: 0, 0
+  index: -1
+gaian_all_02_hand_01
+  rotate: false
+  xy: 1409, 417
+  size: 203, 235
+  orig: 203, 235
+  offset: 0, 0
+  index: -1
+gaian_all_02_hand_02
+  rotate: true
+  xy: 1827, 123
+  size: 82, 77
+  orig: 82, 77
+  offset: 0, 0
+  index: -1
+gaian_all_02_hand_03
+  rotate: true
+  xy: 1436, 716
+  size: 45, 70
+  orig: 45, 70
+  offset: 0, 0
+  index: -1
+gaian_all_02_hand_04
+  rotate: false
+  xy: 1436, 6
+  size: 157, 199
+  orig: 157, 199
+  offset: 0, 0
+  index: -1
+gaian_all_02_hand_05
+  rotate: true
+  xy: 1257, 1290
+  size: 162, 176
+  orig: 162, 176
+  offset: 0, 0
+  index: -1
+gaian_all_02_leg_01
+  rotate: false
+  xy: 620, 3
+  size: 117, 207
+  orig: 117, 207
+  offset: 0, 0
+  index: -1
+gaian_all_02_leg_02
+  rotate: true
+  xy: 1582, 1112
+  size: 117, 184
+  orig: 117, 184
+  offset: 0, 0
+  index: -1
+gaian_all_02_light_01
+  rotate: false
+  xy: 1070, 326
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+gaian_all_02_magicwon_01
+  rotate: true
+  xy: 384, 1088
+  size: 582, 223
+  orig: 582, 223
+  offset: 0, 0
+  index: -1
+gaian_all_02_neck_01
+  rotate: false
+  xy: 934, 224
+  size: 134, 103
+  orig: 134, 103
+  offset: 0, 0
+  index: -1
+gaian_all_02_shoulder_01
+  rotate: false
+  xy: 305, 2
+  size: 182, 208
+  orig: 182, 208
+  offset: 0, 0
+  index: -1
+gaian_all_02_shoulder_02
+  rotate: false
+  xy: 739, 3
+  size: 168, 209
+  orig: 168, 209
+  offset: 0, 0
+  index: -1
+gaian_all_02_shoulder_03
+  rotate: false
+  xy: 1768, 1138
+  size: 83, 91
+  orig: 83, 91
+  offset: 0, 0
+  index: -1
+gaian_all_02_steam
+  rotate: true
+  xy: 609, 1097
+  size: 573, 510
+  orig: 573, 510
+  offset: 0, 0
+  index: -1
+gaian_all_02_stone_01
+  rotate: true
+  xy: 1377, 856
+  size: 239, 132
+  orig: 239, 132
+  offset: 0, 0
+  index: -1
+gaian_all_02_stone_02
+  rotate: false
+  xy: 1121, 1097
+  size: 276, 132
+  orig: 276, 132
+  offset: 0, 0
+  index: -1
+gaian_all_02_tail_01
+  rotate: true
+  xy: 1098, 852
+  size: 243, 277
+  orig: 243, 277
+  offset: 0, 0
+  index: -1
+gaian_all_02_wing_01
+  rotate: false
+  xy: 1595, 14
+  size: 230, 191
+  orig: 230, 191
+  offset: 0, 0
+  index: -1
+gaian_all_02_wing_02
+  rotate: false
+  xy: 1399, 1099
+  size: 181, 130
+  orig: 181, 130
+  offset: 0, 0
+  index: -1
+gaian_all_02_wing_03
+  rotate: true
+  xy: 1121, 1246
+  size: 206, 134
+  orig: 206, 134
+  offset: 0, 0
+  index: -1
+hit_effect_18
+  rotate: false
+  xy: 1436, 1231
+  size: 449, 439
+  orig: 449, 439
+  offset: 0, 0
+  index: -1

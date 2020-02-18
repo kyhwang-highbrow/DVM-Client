@@ -5,17 +5,69 @@
 	{
 		[1] =
 		{
+			type = 'Scale9Sprite';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 930;
+			height = 640;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'ui/frames/base_frame_0501.png';
+			color = { 72; 0; 72; };
+			opacity = 255;
+			center_rect_x = 0;
+			center_rect_y = 0;
+			center_rect_width = 0;
+			center_rect_height = 0;
+		};
+		[2] =
+		{
 			[1] =
 			{
-				type = 'Sprite';
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 930;
+					height = 640;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/package/bg_lucky_box.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'ClippingNode';
 				ui_name = '';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 930;
-				height = 640;
+				width = 926;
+				height = 636;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -23,13 +75,10 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/package/bg_lucky_box.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
 			};
 			[2] =
 			{
@@ -107,12 +156,38 @@
 			};
 			[4] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 254.000000;
+				y = -183.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 120;
+				height = 120;
+				scale_x = 1.400000;
+				scale_y = 1.400000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = '';
+				file_name = 'ui/frames/sale_0104.png';
+				color = { 223; 0; 0; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[5] =
+			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
+					x = -14.000000;
+					y = -4.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -130,7 +205,7 @@
 					text = '본 상품은 구매 후 즉시 사용되며, 청약철회가 불가능합니다.';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 255; 228; 225; };
 					opacity = 255;
 					dimension_width = 630;
 					dimension_height = 40;
@@ -169,7 +244,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[5] =
+			[6] =
 			{
 				[1] =
 				{
@@ -194,8 +269,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = 'rich';
-					x = 2.000000;
-					y = -2.000000;
+					x = 3.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
@@ -260,8 +335,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 91.000000;
-				y = -249.000000;
+				x = 89.000000;
+				y = -255.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -280,7 +355,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[6] =
+			[7] =
 			{
 				[1] =
 				{
@@ -325,7 +400,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 91.000000;
-				y = -249.000000;
+				y = -255.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -346,7 +421,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[7] =
+			[8] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -370,11 +445,11 @@
 				disable = '';
 				image_type = 0;
 			};
-			[8] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -8.000000;
+				x = 0.000000;
 				y = 182.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -389,28 +464,28 @@
 				visible = true;
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 18;
 				text = '판매 종료까지 23일 7시간 남음';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 680;
 				dimension_height = 54;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 139; 0; 0; };
-				has_shadow = true;
-				shadow_color = { 139; 0; 0; };
+				is_sharp_text = false;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 1.000000;
 			};
-			[9] =
+			[10] =
 			{
 				[1] =
 				{
@@ -480,8 +555,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -123.000000;
-				y = -249.000000;
+				x = -128.000000;
+				y = -255.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -500,7 +575,7 @@
 				disable = '';
 				image_type = 1;
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -526,7 +601,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[11] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -566,7 +641,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[12] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -606,7 +681,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[13] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -646,7 +721,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[14] =
+			[15] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -686,7 +761,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[15] =
+			[16] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -726,7 +801,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[16] =
+			[17] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -766,12 +841,12 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[17] =
+			[18] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -3.000000;
-				y = -99.000000;
+				x = 0.000000;
+				y = -93.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -785,11 +860,11 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 45;
+				font_size = 52;
 				text = '랜덤 박스';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 255; 255; 0; };
 				opacity = 255;
 				dimension_width = 814;
 				dimension_height = 72;
@@ -799,14 +874,14 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 165; 42; 0; };
-				has_shadow = true;
-				shadow_color = { 165; 42; 0; };
+				stroke_color = { 103; 33; 87; };
+				has_shadow = false;
+				shadow_color = { 103; 33; 87; };
 				shadow_opacity = 170;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[18] =
+			[19] =
 			{
 				type = 'Visual';
 				ui_name = 'next_arrow';
@@ -831,14 +906,14 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[19] =
+			[20] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 1.000000;
-					y = 35.000000;
+					y = 18.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -878,7 +953,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -30.000000;
+					y = -47.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -918,7 +993,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = -3.000000;
-					y = -8.000000;
+					y = -25.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -957,13 +1032,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -3.000000;
-					y = 13.000000;
+					x = -4.000000;
+					y = -4.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 81;
-					height = 23;
+					width = 89;
+					height = 32;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -978,8 +1053,8 @@
 					v_alignment = 1;
 					color = { 127; 255; 212; };
 					opacity = 255;
-					dimension_width = 81;
-					dimension_height = 23;
+					dimension_width = 89;
+					dimension_height = 32;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -995,7 +1070,7 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = -363.000000;
+				x = -362.000000;
 				y = -136.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1010,14 +1085,14 @@
 				visible = true;
 				lua_name = '';
 			};
-			[20] =
+			[21] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = 34.000000;
+					x = -1.000000;
+					y = 19.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1056,8 +1131,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = -29.000000;
+					x = -1.000000;
+					y = -44.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1096,8 +1171,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = -7.000000;
+					x = -4.000000;
+					y = -22.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1136,8 +1211,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = 14.000000;
+					x = -3.000000;
+					y = -1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1174,7 +1249,7 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = -220.000000;
+				x = -224.000000;
 				y = -22.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1189,14 +1264,14 @@
 				visible = true;
 				lua_name = '';
 			};
-			[21] =
+			[22] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -2.000000;
-					y = 34.000000;
+					x = -17.000000;
+					y = 21.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1235,8 +1310,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = -15.000000;
+					x = -16.000000;
+					y = -28.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1275,8 +1350,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -2.000000;
-					y = 10.000000;
+					x = -18.000000;
+					y = -3.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1313,7 +1388,7 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = 223.000000;
+				x = 232.000000;
 				y = -28.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1328,14 +1403,14 @@
 				visible = true;
 				lua_name = '';
 			};
-			[22] =
+			[23] =
 			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 3.000000;
-					y = 25.000000;
+					x = -3.000000;
+					y = 24.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1374,8 +1449,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = -14.000000;
+					x = -4.000000;
+					y = -15.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1412,7 +1487,7 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = 370.000000;
+				x = 378.000000;
 				y = -144.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1427,12 +1502,12 @@
 				visible = true;
 				lua_name = '';
 			};
-			[23] =
+			[24] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 252.000000;
-				y = 115.000000;
+				x = 263.000000;
+				y = 95.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1446,7 +1521,7 @@
 				visible = true;
 				lua_name = 'changeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 33;
+				font_size = 36;
 				text = '9900';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -1461,23 +1536,23 @@
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
 				stroke_color = { 139; 0; 0; };
-				has_shadow = true;
+				has_shadow = false;
 				shadow_color = { 139; 0; 0; };
 				shadow_opacity = 200;
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[24] =
+			[25] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 257.000000;
-				y = -156.000000;
+				x = 265.000000;
+				y = -171.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 127;
-				height = 79;
+				width = 155;
+				height = 120;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1486,14 +1561,14 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
-				text = '2주년 기념\n특별 세일';
+				font_size = 21;
+				text = '글로벌 2주년 기념\n특별 세일';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 0; };
 				opacity = 255;
-				dimension_width = 127;
-				dimension_height = 79;
+				dimension_width = 155;
+				dimension_height = 120;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -1501,13 +1576,13 @@
 				is_sharp_text = false;
 				stroke_tickness = 1.000000;
 				stroke_color = { 139; 0; 0; };
-				has_shadow = true;
+				has_shadow = false;
 				shadow_color = { 139; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[25] =
+			[26] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -1523,7 +1598,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'anniversarySprite';
 				file_name = 'ui/typo/ko/1st_anniversary_title.png';
 				color = { 255; 255; 255; };
@@ -1533,12 +1608,12 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[26] =
+			[27] =
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 258.000000;
-				y = -220.000000;
+				x = 259.000000;
+				y = -242.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1552,6 +1627,32 @@
 				visible = true;
 				lua_name = '';
 				file_name = 'ui/frames/arrow.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[28] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 284.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 900;
+				height = 85;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

@@ -1,0 +1,300 @@
+
+chaos_all_02.png
+size: 1695,779
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chaos_all_02_arm_01
+  rotate: false
+  xy: 613, 4
+  size: 105, 106
+  orig: 105, 106
+  offset: 0, 0
+  index: -1
+chaos_all_02_arm_02
+  rotate: false
+  xy: 1508, 484
+  size: 182, 197
+  orig: 182, 197
+  offset: 0, 0
+  index: -1
+chaos_all_02_arm_03
+  rotate: true
+  xy: 1135, 402
+  size: 136, 185
+  orig: 136, 185
+  offset: 0, 0
+  index: -1
+chaos_all_02_body_01
+  rotate: true
+  xy: 239, 375
+  size: 402, 272
+  orig: 402, 272
+  offset: 0, 0
+  index: -1
+chaos_all_02_bodyacc_01
+  rotate: false
+  xy: 1556, 20
+  size: 110, 111
+  orig: 110, 111
+  offset: 0, 0
+  index: -1
+chaos_all_02_corn_01
+  rotate: false
+  xy: 1058, 172
+  size: 138, 228
+  orig: 138, 228
+  offset: 0, 0
+  index: -1
+chaos_all_02_corn_02
+  rotate: true
+  xy: 1370, 38
+  size: 140, 82
+  orig: 140, 82
+  offset: 0, 0
+  index: -1
+chaos_all_02_corn_03
+  rotate: true
+  xy: 1508, 683
+  size: 94, 185
+  orig: 94, 185
+  offset: 0, 0
+  index: -1
+chaos_all_02_eye_01
+  rotate: false
+  xy: 71, 4
+  size: 12, 19
+  orig: 12, 19
+  offset: 0, 0
+  index: -1
+chaos_all_02_eye_02
+  rotate: false
+  xy: 428, 33
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+chaos_all_02_eye_03
+  rotate: true
+  xy: 239, 349
+  size: 24, 35
+  orig: 24, 35
+  offset: 0, 0
+  index: -1
+chaos_all_02_head_01
+  rotate: true
+  xy: 1401, 406
+  size: 76, 85
+  orig: 76, 85
+  offset: 0, 0
+  index: -1
+chaos_all_02_leg_01
+  rotate: true
+  xy: 1488, 348
+  size: 134, 178
+  orig: 134, 178
+  offset: 0, 0
+  index: -1
+chaos_all_02_leg_02
+  rotate: true
+  xy: 1560, 133
+  size: 112, 126
+  orig: 112, 126
+  offset: 0, 0
+  index: -1
+chaos_all_02_wing_01
+  rotate: false
+  xy: 1285, 3
+  size: 83, 175
+  orig: 83, 175
+  offset: 0, 0
+  index: -1
+chaos_all_02_wing_02
+  rotate: false
+  xy: 908, 8
+  size: 81, 152
+  orig: 81, 152
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_bodyeff_01
+  rotate: true
+  xy: 991, 17
+  size: 143, 129
+  orig: 143, 129
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_01
+  rotate: true
+  xy: 1438, 209
+  size: 137, 120
+  orig: 137, 120
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_02
+  rotate: true
+  xy: 1274, 180
+  size: 220, 162
+  orig: 220, 162
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_03
+  rotate: false
+  xy: 658, 397
+  size: 118, 117
+  orig: 118, 117
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_04
+  rotate: true
+  xy: 2, 8
+  size: 339, 67
+  orig: 339, 67
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_05
+  rotate: true
+  xy: 658, 516
+  size: 261, 194
+  orig: 261, 194
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_06
+  rotate: true
+  xy: 613, 112
+  size: 283, 214
+  orig: 283, 214
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_07
+  rotate: false
+  xy: 1122, 7
+  size: 161, 163
+  orig: 161, 163
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_08
+  rotate: true
+  xy: 2, 349
+  size: 428, 235
+  orig: 428, 235
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_bit
+  rotate: true
+  xy: 513, 397
+  size: 380, 143
+  orig: 380, 143
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_light
+  rotate: true
+  xy: 1322, 403
+  size: 79, 77
+  orig: 79, 77
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_sal_01
+  rotate: true
+  xy: 1198, 172
+  size: 228, 74
+  orig: 228, 74
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_sal_02
+  rotate: false
+  xy: 720, 8
+  size: 85, 102
+  orig: 85, 102
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_eff_won
+  rotate: true
+  xy: 333, 2
+  size: 65, 93
+  orig: 65, 93
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhand_01
+  rotate: false
+  xy: 333, 69
+  size: 278, 304
+  orig: 278, 304
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhand_02
+  rotate: false
+  xy: 948, 402
+  size: 185, 134
+  orig: 185, 134
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhand_03
+  rotate: false
+  xy: 829, 162
+  size: 227, 238
+  orig: 227, 238
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhand_04
+  rotate: false
+  xy: 854, 538
+  size: 228, 239
+  orig: 228, 239
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhand_05
+  rotate: false
+  xy: 778, 402
+  size: 168, 112
+  orig: 168, 112
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhand_06
+  rotate: false
+  xy: 807, 10
+  size: 99, 100
+  orig: 99, 100
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhand_07
+  rotate: true
+  xy: 1454, 108
+  size: 99, 100
+  orig: 99, 100
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhand_08
+  rotate: false
+  xy: 1454, 6
+  size: 99, 100
+  orig: 99, 100
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhorn_01
+  rotate: true
+  xy: 71, 25
+  size: 322, 260
+  orig: 322, 260
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_effhorn_02
+  rotate: true
+  xy: 1320, 580
+  size: 197, 186
+  orig: 197, 186
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_kk
+  rotate: false
+  xy: 1084, 540
+  size: 234, 237
+  orig: 234, 237
+  offset: 0, 0
+  index: -1
+effect_chaos_all_02_lightdust
+  rotate: false
+  xy: 1560, 247
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1

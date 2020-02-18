@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_high_legend_ud_src.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,19}</string>
+                <key>spriteSize</key>
+                <string>{644,638}</string>
+                <key>spriteSourceSize</key>
+                <string>{644,810}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{644,638}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_high_legend_ud.png</string>
+            <key>size</key>
+            <string>{646,640}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:0cedbc4fa95dde7493302dbdca7988fe:2946e9da7822251159cf03753452d503:8c44191e312886021877372f9621f10a$</string>
+            <key>textureFileName</key>
+            <string>egg_high_legend_ud.png</string>
+        </dict>
+    </dict>
+</plist>

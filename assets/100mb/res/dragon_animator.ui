@@ -195,12 +195,57 @@
 		};
 		[6] =
 		{
+			type = 'Node';
+			ui_name = '';
+			x = 0.000000;
+			y = 210.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 100;
+			height = 100;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'rarityNode';
+		};
+		[7] =
+		{
 			[1] =
+			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 250.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 378;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'talkSprite';
+				file_name = 'ui/icons/mandragora/mandragora_talk_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[2] =
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 0.000000;
-				y = 9.000000;
+				y = 259.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -215,7 +260,7 @@
 				lua_name = 'talkLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = 'New Label TTF';
+				text = 'asfdsf asfsdf';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 0; 0; };
@@ -235,36 +280,10 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			type = 'Scale9Sprite';
+			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = 250.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 378;
-			height = 72;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'talkSprite';
-			file_name = 'ui/icons/mandragora/mandragora_talk_0101.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			center_rect_x = 0;
-			center_rect_y = 0;
-			center_rect_width = 0;
-			center_rect_height = 0;
-		};
-		[7] =
-		{
-			type = 'Node';
-			ui_name = '';
-			x = 0.000000;
-			y = 210.000000;
+			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -276,7 +295,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = 'rarityNode';
+			lua_name = 'talkMenu';
 		};
 		type = 'Menu';
 		ui_name = '';

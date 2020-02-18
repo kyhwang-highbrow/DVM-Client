@@ -80,6 +80,122 @@
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -50.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1924;
+				height = 1604;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'bgSprite';
+				file_name = 'bg/ui/clan_war/bg_clan_war.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'bg/ui/clan_war/bg_clan_war_inner_shadow.png';
+				color = { 255; 255; 255; };
+				opacity = 150;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[3] =
+			{
+				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.000000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/summon_black.png';
+					color = { 255; 255; 255; };
+					opacity = 60;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				type = 'Menu';
+				ui_name = 'gradient';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+			};
+			type = 'Menu';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'clanWarBgSprite';
+		};
+		[5] =
+		{
+			[1] =
+			{
 				type = 'Menu';
 				ui_name = 'fomation';
 				x = 340.000000;
@@ -320,7 +436,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 26;
+						font_size = 20;
 						text = '출전 덱 변경';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -679,6 +795,70 @@
 				};
 				[8] =
 				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 360;
+						height = 74;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 28;
+						text = '전투 시작';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 360;
+						dimension_height = 74;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 17; 76; 39; };
+						has_shadow = false;
+						shadow_color = { 17; 76; 39; };
+						shadow_opacity = 150;
+						shadow_direction = 0;
+						shadow_distance = 3.000000;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = 0.000000;
+					y = 43.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 360;
+					height = 70;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'clanWarStartBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0102.png';
+					image_type = 1;
+				};
+				[9] =
+				{
 					type = 'Sprite';
 					ui_name = '';
 					x = 0.000000;
@@ -703,7 +883,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[9] =
+				[10] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -743,7 +923,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[10] =
+				[11] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -783,7 +963,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[11] =
+				[12] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -823,7 +1003,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[12] =
+				[13] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -863,7 +1043,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[13] =
+				[14] =
 				{
 					[1] =
 					{
@@ -988,7 +1168,7 @@
 					visible = false;
 					lua_name = 'friendshipNode';
 				};
-				[14] =
+				[15] =
 				{
 					[1] =
 					{
@@ -1242,6 +1422,213 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'challengeModeMenu';
+				};
+				[16] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 18.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 500;
+						height = 35;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						action_type = 5;
+						action_delay_1 = 0.000000;
+						action_delay_2 = 0.100000;
+						action_duration = 0.300000;
+						lua_name = 'lastTimeLabel';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 20;
+						text = '남은 공격 시간 {1}:{1}남음';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 191; 0; };
+						opacity = 255;
+						dimension_width = 500;
+						dimension_height = 35;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 1.000000;
+						stroke_color = { 255; 255; 255; };
+						has_shadow = false;
+						shadow_color = { 255; 255; 255; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = 20.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 100;
+						scale_x = 0.300000;
+						scale_y = 0.300000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						action_type = 5;
+						action_delay_1 = 0.000000;
+						action_delay_2 = 0.100000;
+						action_duration = 0.300000;
+						lua_name = 'noTimeSprite';
+						file_name = 'ui/icons/clan_war_icon_attack.png';
+						color = { 197; 157; 103; };
+						opacity = 230;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						[1] =
+						{
+							[1] =
+							{
+								type = 'LayerColor';
+								ui_name = '';
+								x = -21.000000;
+								y = 0.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 12;
+								height = 12;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 45.000000;
+								visible = false;
+								lua_name = 'setResult1';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								src_blend = 770;
+								dest_blend = 771;
+							};
+							[2] =
+							{
+								type = 'LayerColor';
+								ui_name = '';
+								x = 0.000000;
+								y = 0.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 12;
+								height = 12;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 45.000000;
+								visible = false;
+								lua_name = 'setResult2';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								src_blend = 770;
+								dest_blend = 771;
+							};
+							[3] =
+							{
+								type = 'LayerColor';
+								ui_name = '';
+								x = 21.000000;
+								y = 0.000000;
+								dock_point = { 0.500000; 0.500000; };
+								anchor_point = { 0.500000; 0.500000; };
+								relative_size_type = 0;
+								width = 12;
+								height = 12;
+								scale_x = 1.000000;
+								scale_y = 1.000000;
+								skew_x = 0.000000;
+								skew_y = 0.000000;
+								rotation = 45.000000;
+								visible = false;
+								lua_name = 'setResult3';
+								color = { 255; 255; 255; };
+								opacity = 255;
+								src_blend = 770;
+								dest_blend = 771;
+							};
+							type = 'Sprite';
+							ui_name = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 68;
+							height = 26;
+							scale_x = 1.350000;
+							scale_y = 1.350000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/frames/clan_war_game_score_0102.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Menu';
+						ui_name = 'set';
+						x = 0.000000;
+						y = -14.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 115;
+						height = 40;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+					};
+					type = 'Menu';
+					ui_name = '';
+					x = 0.000000;
+					y = 23.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 880;
+					height = 70;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'clanWarMenu';
 				};
 				type = 'Menu';
 				ui_name = '';

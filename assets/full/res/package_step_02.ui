@@ -433,7 +433,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/a2d/package_step/package_step.vrp';
 					auto_play = true;
@@ -1733,14 +1733,39 @@
 			};
 			[9] =
 			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 5.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'stepBtnVisual1';
+					file_name = 'ui/a2d/package_step/package_step.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;btn_step1_normal';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
 				type = 'Button';
 				ui_name = '';
-				x = -71.000000;
-				y = -142.000000;
+				x = -88.000000;
+				y = -140.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 130;
+				width = 150;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1757,14 +1782,39 @@
 			};
 			[10] =
 			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = -7.000000;
+					y = 5.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'stepBtnVisual2';
+					file_name = 'ui/a2d/package_step/package_step.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;btn_step2_normal';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
 				type = 'Button';
 				ui_name = '';
-				x = 82.000000;
-				y = -142.000000;
+				x = 72.000000;
+				y = -140.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 130;
+				width = 150;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1781,14 +1831,39 @@
 			};
 			[11] =
 			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = -5.000000;
+					y = 5.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'stepBtnVisual3';
+					file_name = 'ui/a2d/package_step/package_step.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;btn_step3_normal';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
 				type = 'Button';
 				ui_name = '';
-				x = 243.000000;
-				y = -142.000000;
+				x = 231.000000;
+				y = -140.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 130;
+				width = 150;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1805,14 +1880,39 @@
 			};
 			[12] =
 			{
+				[1] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = 5.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'stepBtnVisual4';
+					file_name = 'ui/a2d/package_step/package_step.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;btn_step4_normal';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
 				type = 'Button';
 				ui_name = '';
-				x = 379.000000;
-				y = -142.000000;
+				x = 390.000000;
+				y = -140.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 130;
+				width = 150;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -2067,7 +2167,7 @@
 				};
 				type = 'Node';
 				ui_name = '';
-				x = -120.000000;
+				x = -125.000000;
 				y = 160.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };

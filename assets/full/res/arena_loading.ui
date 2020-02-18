@@ -80,6 +80,127 @@
 		{
 			[1] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -50.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 1924;
+				height = 1604;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'bgSprite';
+				file_name = 'bg/ui/clan_war/bg_clan_war.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[2] =
+			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frames/summon_black.png';
+				color = { 255; 255; 255; };
+				opacity = 60;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[3] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 425.000000;
+				y = -300.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = -0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/a2d/clan_war/clan_war.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;light_01';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[4] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = -425.000000;
+				y = -299.999969;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/a2d/clan_war/clan_war.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;light_01';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			type = 'Menu';
+			ui_name = '';
+			x = 0.000000;
+			y = -3.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'clanWarBgSprite';
+		};
+		[5] =
+		{
+			[1] =
+			{
 				type = 'Menu';
 				ui_name = 'fomation';
 				x = 268.000000;

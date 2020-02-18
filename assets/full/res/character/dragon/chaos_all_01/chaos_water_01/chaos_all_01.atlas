@@ -1,0 +1,237 @@
+
+chaos_all_01.png
+size: 1366,525
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chaos_all_01_arm_01
+  rotate: false
+  xy: 740, 3
+  size: 46, 66
+  orig: 46, 66
+  offset: 0, 0
+  index: -1
+chaos_all_01_arm_02
+  rotate: true
+  xy: 788, 8
+  size: 62, 46
+  orig: 62, 46
+  offset: 0, 0
+  index: -1
+chaos_all_01_body_01
+  rotate: true
+  xy: 201, 2
+  size: 146, 233
+  orig: 146, 233
+  offset: 0, 0
+  index: -1
+chaos_all_01_eye_01
+  rotate: true
+  xy: 1229, 295
+  size: 41, 28
+  orig: 41, 28
+  offset: 0, 0
+  index: -1
+chaos_all_01_horn_01
+  rotate: true
+  xy: 1161, 188
+  size: 105, 98
+  orig: 105, 98
+  offset: 0, 0
+  index: -1
+chaos_all_01_leg_01
+  rotate: false
+  xy: 377, 190
+  size: 57, 71
+  orig: 57, 71
+  offset: 0, 0
+  index: -1
+chaos_all_01_leg_02
+  rotate: true
+  xy: 201, 150
+  size: 67, 78
+  orig: 67, 78
+  offset: 0, 0
+  index: -1
+chaos_all_01_mouth
+  rotate: false
+  xy: 922, 295
+  size: 26, 17
+  orig: 26, 17
+  offset: 0, 0
+  index: -1
+chaos_all_01_wing_01
+  rotate: true
+  xy: 281, 152
+  size: 42, 45
+  orig: 42, 45
+  offset: 0, 0
+  index: -1
+chaos_dark_01_horn_02
+  rotate: true
+  xy: 1161, 13
+  size: 71, 90
+  orig: 71, 90
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_eff_bit
+  rotate: false
+  xy: 606, 380
+  size: 380, 143
+  orig: 380, 143
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_eff_light
+  rotate: false
+  xy: 765, 72
+  size: 79, 77
+  orig: 79, 77
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_eff_sal_01
+  rotate: true
+  xy: 846, 150
+  size: 228, 74
+  orig: 228, 74
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_eff_sal_02
+  rotate: true
+  xy: 1262, 47
+  size: 85, 102
+  orig: 85, 102
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_eff_won
+  rotate: true
+  xy: 282, 196
+  size: 65, 93
+  orig: 65, 93
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhand_01
+  rotate: false
+  xy: 2, 219
+  size: 278, 304
+  orig: 278, 304
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhand_02
+  rotate: true
+  xy: 1229, 338
+  size: 185, 134
+  orig: 185, 134
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhand_03
+  rotate: true
+  xy: 606, 151
+  size: 227, 238
+  orig: 227, 238
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhand_04
+  rotate: true
+  xy: 988, 295
+  size: 228, 239
+  orig: 228, 239
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhand_05
+  rotate: false
+  xy: 436, 149
+  size: 168, 112
+  orig: 168, 112
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhand_06
+  rotate: false
+  xy: 1161, 86
+  size: 99, 100
+  orig: 99, 100
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhand_07
+  rotate: false
+  xy: 1261, 236
+  size: 99, 100
+  orig: 99, 100
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhand_08
+  rotate: false
+  xy: 1262, 134
+  size: 99, 100
+  orig: 99, 100
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhorn_01
+  rotate: false
+  xy: 282, 263
+  size: 322, 260
+  orig: 322, 260
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_effhorn_02
+  rotate: false
+  xy: 2, 31
+  size: 197, 186
+  orig: 197, 186
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_eyreff_01
+  rotate: false
+  xy: 328, 156
+  size: 39, 38
+  orig: 39, 38
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_kk
+  rotate: true
+  xy: 922, 59
+  size: 234, 237
+  orig: 234, 237
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_lightdust
+  rotate: true
+  xy: 535, 20
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_wingeff_01
+  rotate: false
+  xy: 922, 314
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_wingeff_02
+  rotate: false
+  xy: 436, 9
+  size: 97, 138
+  orig: 97, 138
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_wingeff_03
+  rotate: false
+  xy: 636, 7
+  size: 102, 62
+  orig: 102, 62
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_wingeff_04
+  rotate: false
+  xy: 636, 71
+  size: 127, 78
+  orig: 127, 78
+  offset: 0, 0
+  index: -1
+effect_chaos_all_01_wingeff_05
+  rotate: true
+  xy: 846, 62
+  size: 86, 73
+  orig: 86, 73
+  offset: 0, 0
+  index: -1
