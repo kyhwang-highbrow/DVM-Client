@@ -13,8 +13,8 @@ target 'DragonVillageM iOS' do
     pod 'Firebase/Messaging'#, '= 6.10.0'
 
     # Pods for Crashlytics
-    pod 'Fabric', '= 1.9.0'
-    pod 'Crashlytics', '= 3.12.0'
+    pod 'Fabric'#, '= 1.9.0'
+    pod 'Crashlytics'#, '= 3.12.0'
     
     ## SOCIAL
     # Pods for Google
@@ -23,12 +23,12 @@ target 'DragonVillageM iOS' do
     # Pods for Facebook
     # https://developers.facebook.com/docs/ios/
     # sgkim 2019.10.11 (4.39.1 -> 5.8.0)
-    pod 'FBSDKCoreKit', '= 5.8.0'
-    pod 'FBSDKShareKit', '= 5.8.0'
-    pod 'FBSDKLoginKit', '= 5.8.0'
+    pod 'FBSDKCoreKit'#, '= 5.8.0'
+    pod 'FBSDKShareKit'#, '= 5.8.0'
+    pod 'FBSDKLoginKit'#, '= 5.8.0'
     
     # Pods for Twitter
-    pod 'TwitterKit', '= 3.4.2'
+    pod 'TwitterKit'#, '= 3.4.2'
 
     ## ADS
     # Pods for AdMob
@@ -39,13 +39,13 @@ target 'DragonVillageM iOS' do
     #pod 'GoogleMobileAdsMediationAdColony'#, '= 3.3.6.0'
     pod 'GoogleMobileAdsMediationTapjoy'#, '=12.3.3.0'
     # Pods for UnityAds
-    pod 'UnityAds', '= 3.0.0'
+    pod 'UnityAds'#, '= 3.0.0'
     
     # Pods for AdColony
     # https://github.com/AdColony/AdColony-iOS-SDK
     # https://github.com/AdColony/AdColony-iOS-SDK/blob/master/CHANGELOG.md
     # sgkim 2019.10.14 (3.3.6 -> 4.1.1)
-    pod 'AdColony', '= 4.1.1'
+    pod 'AdColony'#, '= 4.1.1'
 
 
     ## STATISTIC
@@ -58,7 +58,7 @@ target 'DragonVillageM iOS' do
     # Pods for Tapjoy
     pod 'TapjoySDK'#, '= 12.3.3'
     # Pods for Adjust
-    pod 'Adjust', '= 4.17.1'
+    pod 'Adjust'#, '= 4.17.1'
 end
 
 target 'DragonVillageM Mac' do
