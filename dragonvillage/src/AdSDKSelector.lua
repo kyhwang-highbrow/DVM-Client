@@ -20,44 +20,42 @@ AdSDKSelector = {
 -------------------------------------
 -- function initAdSDKSelector
 -- @brief 광고 SDK 선택자 초기화
--- @param skip_ad_play(boolean) 광고 재생 생략 여부 (true일 경우 안드로이드에서 광고 재생 생략)
+-- @param skip_ad_play(boolean) 광고 재생 생략 여부
+-- @param skip_ad_aos_7_later(boolean) 안드로이드 7 이상에서 광고 재생 스킵 여부
 -------------------------------------
-function AdSDKSelector:initAdSDKSelector(skip_ad_play)
-    local appver_str = CppFunctionsClass:getAppVer()
+function AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later)
+    
+    -- 앱 버전별로 처리할 필요가 있을 경우에 사용하는 코드
+    --local appver_str = CppFunctionsClass:getAppVer()
+    --isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4')
 
-    if CppFunctionsClass:isAndroid() then
+    -- 모든 광고 재생 스킵
+    if (skip_ad_play == true) then
+        self.m_sdkName = 'ad_without_play'
 
-        -- 광고 재생 생략 여부 (true일 경우 안드로이드에서 광고 재생 생략)
-        if skip_ad_play then
-            self.m_sdkName = 'ad_without_play'
-        else
-            -- Android 버전 체크
-            local version_sdk_int = tonumber(g_userData:getDeviceInfoByKey('VERSION_SDK_INT'))
-            -- https://developer.android.com/about/dashboards
-            -- API      Version Codename
-            -- 28       9.0     Pie
-            -- 27       8.1     Oreo
-            -- 26       8.0     Oreo
-            -- 25       7.1     Nougat
-            -- 24       7.0     Nougat      <-- 7.0이상부터 오류가 발생하고 있음
-            -- 23       6.0     Marshmallow
-            if (version_sdk_int and version_sdk_int < 24) then
-                self.m_sdkName = 'admob'
-            else
-                self.m_sdkName = 'ad_without_play'
+    else
+        -- 기본 광고 sdk는 admob
+        self.m_sdkName = 'admob'
+
+        -- 안드로이드 7 이상에서 skip일 경우
+        if (CppFunctionsClass:isAndroid() == true) then
+            if (skip_ad_aos_7_later == true) then
+                -- Android 버전 체크
+                local version_sdk_int = tonumber(g_userData:getDeviceInfoByKey('VERSION_SDK_INT'))
+                -- https://developer.android.com/about/dashboards
+                -- API      Version Codename
+                -- 29       10.0    10
+                -- 28       9.0     Pie
+                -- 27       8.1     Oreo
+                -- 26       8.0     Oreo
+                -- 25       7.1     Nougat
+                -- 24       7.0     Nougat      <-- 7.0이상부터 오류가 발생하고 있음
+                -- 23       6.0     Marshmallow
+                if (version_sdk_int and (24 <= version_sdk_int)) then
+                    self.m_sdkName = 'ad_without_play'
+                end
             end
         end
-
-    -- 최신 aos 빌드에서는 unityads 사용
-    elseif (CppFunctionsClass:isAndroid() and isExistValue(appver_str, '1.1.7', '0.6.3', '0.6.4')) then
-        --self.m_sdkName = 'unityads'
-        --UnityAdsManager:initAdSdk()
-
-        -- @sgkim 20190703 구글의 Webview 오류 수정이 되었다는 연락을 받음
-        -- 따라서 수익률이 높은 admob으로 다시 변경
-        self.m_sdkName = 'admob'
-    else
-        self.m_sdkName = 'admob'
     end
 
     self:log('call initAdSDKSelector() ' .. tostring(self.m_sdkName))
