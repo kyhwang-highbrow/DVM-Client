@@ -715,11 +715,11 @@ function UI_Lobby:refresh(is_hard_refresh)
     self:update_rightButtons()
     
 	-- 서버에서 받는 컨텐츠 오픈 정보 갱신될 때만 update
-    if (g_contentLockData:getIsContentLockDirty()) then
+    --if (g_contentLockData:getIsContentLockDirty()) then
         self:update_bottomLeftButtons()
         self:update_bottomRightButtons()
-        g_contentLockData:setIsContentLockDirty(false)
-    end
+        --g_contentLockData:setIsContentLockDirty(false)
+    --end
     
     -- 오른쪽 배너 갱신
     self:refresh_rightBanner()
@@ -1977,7 +1977,6 @@ end
 -------------------------------------
 function UI_Lobby:update_bottomLeftButtons()
     local vars = self.vars
-    --[[
     local t_btn_name = {}
     local l_content = {'forest', 'tamer', 'dragonManage'}
     for _, content_name in ipairs(l_content) do
@@ -2008,7 +2007,6 @@ function UI_Lobby:update_bottomLeftButtons()
         local _pos_x = pos_x + ((i-1) * interval)
         v:setPositionX(_pos_x)
     end
-    --]]
 end
 
 -------------------------------------
@@ -2017,7 +2015,6 @@ end
 -------------------------------------
 function UI_Lobby:update_bottomRightButtons()
     local vars = self.vars
-    --[[
     local t_btn_name = {}
     local l_content = {'clan','shop', 'draw', 'etc'}
     for _, content_name in ipairs(l_content) do
@@ -2048,7 +2045,6 @@ function UI_Lobby:update_bottomRightButtons()
         local _pos_x = pos_x + ((i-1) * interval)
         v:setPositionX(_pos_x)
     end
-    --]]
 end
 
 -------------------------------------
