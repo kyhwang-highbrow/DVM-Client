@@ -715,11 +715,8 @@ function UI_Lobby:refresh(is_hard_refresh)
     self:update_rightButtons()
     
 	-- 서버에서 받는 컨텐츠 오픈 정보 갱신될 때만 update
-    --if (g_contentLockData:getIsContentLockDirty()) then
-        self:update_bottomLeftButtons()
-        self:update_bottomRightButtons()
-        --g_contentLockData:setIsContentLockDirty(false)
-    --end
+    self:update_bottomLeftButtons()
+    self:update_bottomRightButtons()
     
     -- 오른쪽 배너 갱신
     self:refresh_rightBanner()
@@ -2005,7 +2002,9 @@ function UI_Lobby:update_bottomLeftButtons()
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
         local _pos_x = pos_x + ((i-1) * interval)
-        v:setPositionX(_pos_x)
+        if (v:getPositionX() ~= _pos_x) then
+            v:setPositionX(_pos_x)
+        end
     end
 end
 
@@ -2043,7 +2042,9 @@ function UI_Lobby:update_bottomRightButtons()
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
         local _pos_x = pos_x + ((i-1) * interval)
-        v:setPositionX(_pos_x)
+        if (v:getPositionX() ~= _pos_x) then
+            v:setPositionX(_pos_x)
+        end
     end
 end
 
