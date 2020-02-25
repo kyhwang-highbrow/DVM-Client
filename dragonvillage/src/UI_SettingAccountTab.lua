@@ -50,74 +50,91 @@ function UI_Setting:click_gamecenterBtn()
 
     local old_fuid = g_localData:get('local', 'uid')
 
-    PerpleSDK:gameCenterLogin(function(ret, info)
+    -- Func. PerpleSDK 게임센터 간이 로그인 : 게임센터 계정 id를 가져오기 위함
+    PerpleSDK:gameCenterLogin(function(ret1, info)
 
-        if ret == 'success' then
+        if ret1 == 'success' then
             cclog('GameCenter login was successful.')
             self.m_loadingUI:hideLoading()
 
             local fuid = info
 
             -- fuid를 플랫폼 서버에 조회 신규/기존 판단
-            local result_cb = function(ret)
-                ccdump(ret)
+            local result_cb = function(ret2)
+                ccdump(ret2)
 
-                local function ok_btn_cb()
-                    PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
-                        if ret == 'success' then
+                -- Func. PerpleSDK 게임센터 로그인
+                local function ok_btn_cb(need_update)
+                    PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret3, info_str)
+                        if ret3 == 'success' then
                             cclog('Firebase GameCenter login was successful.')
 
-                            self:loginSuccess(info)
+                            -- Func. 로그인 성공 후 처리 및 앱 재시작
+                            local function success_cb()
+                                self:loginSuccess(info_str)
+                                MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다. 앱을 다시 시작합니다.'), function()
+                                    -- 앱 재시작
+                                    CppFunctions:restart()
+                                end)
+                            end
 
-                            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다. 앱을 다시 시작합니다.'), function()
-                                -- 앱 재시작
-                                CppFunctions:restart()
-                            end)
+                            -- 최초로 연동하는 계정 (게스트 계정 -> 게임 센터 연동)
+                            if need_update then
+                                -- Func. 플롯폼 계정 정보 업데이트 실패           
+                                local function fail_cb(_ret)
+                                    local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:{1})', _ret['status'])
+                                    MakeSimplePopup(POPUP_TYPE.OK, msg)
+                                end
+                                
+                                -- Request. 플랫폼 계정 정보 업데이트
+                                local t_info = dkjson.decode(info_str)
+                                local account_info = t_info.name
+                                Network_platform_updateId(fuid, 'gamecenter', account_info, success_cb, fail_cb)
 
-                        elseif ret == 'fail' then
+                            -- 기연동 유저
+                            else
+                                success_cb()
+                            end
+
+                        elseif ret3 == 'fail' then
                             cclog('Firebase GameCenter login failed.')
-                            UI_LoginPopup:loginFail(info)
+                            UI_LoginPopup:loginFail(t_info)
 
-                        elseif ret == 'cancel' then
+                        elseif ret3 == 'cancel' then
                             cclog('Firebase GameCenter login canceled.')
 							UI_LoginPopup:loginCancel()
-                            -- no nothing
+
                         end
                     end)
                 end
 
+                -- Func. nil
                 local cancel_btn_cb = nil
 
-                local checkUserUid = ret['userInfo'] and ret['userInfo']['fuid']
+                -- uid 존재 여부 확인
+                local checkUserUid = ret2['userInfo'] and ret2['userInfo']['fuid']
 
+                -- 최초로 연동하는 계정 (게스트 계정 -> 게임 센터 연동)
                 if checkUserUid == nil then
-                    -- 신규 유저
-                    local function success_cb()
-                        ok_btn_cb();
-                    end
+                    ok_btn_cb(true);
 
-                    local function fail_cb(ret)
-                        local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:{1})', ret['status'])
-                        MakeSimplePopup(POPUP_TYPE.OK, msg)
-                    end
-
-                    Network_platform_updateId(fuid, 'gamecenter', old_fuid, success_cb, fail_cb)
+                -- 기연동 유저
                 else
-                    -- 기존 유저
                     local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
                     local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
                     MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
                 end
             end
 
+            -- Request. 플랫폼 계정 정보 확인 : 초 연동 여부 판별을 위함
             Network_platform_getUserByUid(fuid, result_cb, result_cb)
 
-        elseif ret == 'fail' then
+        elseif ret1 == 'fail' then
             cclog('GameCenter login failed.')
 			UI_LoginPopup:loginFail(info)
             self.m_loadingUI:hideLoading()
 
-        elseif ret == 'cancel' then
+        elseif ret1 == 'cancel' then
             cclog('GameCenter login canceled.')
 			UI_LoginPopup:loginCancel()
             self.m_loadingUI:hideLoading()
