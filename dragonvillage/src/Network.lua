@@ -212,20 +212,20 @@ end
 function Network_platform_changeByPlayerID(old_uid, new_uid, success_cb, fail_cb)
     -- 파라미터 셋팅
     local t_data = {}
-    t_data[‘game_id’] = 1003
-    t_data[‘pre_playerid’] = old_uid
-    t_data[‘cur_playerid’] = new_uid
+    t_data['game_id'] = 1003
+    t_data['pre_playerid'] = old_uid
+    t_data['cur_playerid'] = new_uid
     -- 요청 정보 설정
     local t_request = {}
-    t_request[‘full_url’] = GetPlatformApiUrl() .. ‘/user/changeByPlayerID’
-    t_request[‘method’] = ‘POST’
-    t_request[‘data’] = t_data
-    t_request[‘check_hmac_md5’] = false
+    t_request['full_url'] = GetPlatformApiUrl() .. '/user/changeByPlayerID'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+    t_request['check_hmac_md5'] = false
     -- 성공 시 콜백 함수
-    t_request[‘success’] = success_cb
+    t_request['success'] = success_cb
     -- 실패 시 콜백 함수
-    t_request[‘fail’] = fail_cb
-    
+    t_request['fail'] = fail_cb
+
     -- 네트워크 통신
     Network:SimpleRequest(t_request)
 end
