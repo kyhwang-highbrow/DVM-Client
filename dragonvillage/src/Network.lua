@@ -201,6 +201,36 @@ function Network_platform_updateId(fuid, platform_id, account_info, success_cb, 
 end
 
 -------------------------------------
+-- function Network_platform_changeByPlayerID
+-- @breif   플랫폼 서버 uid forwarding
+-- @param
+--          pre_playerid: 살리려는 계정 uid
+--          cur_playerid : 현재 로그인하는 계정 uid
+-- @return
+--          uid
+-------------------------------------
+function Network_platform_changeByPlayerID(old_uid, new_uid, success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data[‘game_id’] = 1003
+    t_data[‘pre_playerid’] = old_uid
+    t_data[‘cur_playerid’] = new_uid
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request[‘full_url’] = GetPlatformApiUrl() .. ‘/user/changeByPlayerID’
+    t_request[‘method’] = ‘POST’
+    t_request[‘data’] = t_data
+    t_request[‘check_hmac_md5’] = false
+    -- 성공 시 콜백 함수
+    t_request[‘success’] = success_cb
+    -- 실패 시 콜백 함수
+    t_request[‘fail’] = fail_cb
+    
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
 -- function Network_platform_getUserByUid
 -- @breif   플랫폼 서버에 유저 아이디 검색
 -- @param
@@ -216,6 +246,37 @@ function Network_platform_getUserByUid(uid, success_cb, fail_cb)
     -- 요청 정보 설정
     local t_request = {}
     t_request['full_url'] = GetPlatformApiUrl() .. '/user/getUserByUid'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    t_request['check_hmac_md5'] = false
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function Network_platform_getUidByApple
+-- @breif   플랫폼 서버에 apple id를 통해서 uid를 받아옴
+-- @param
+--          account_info : t_info.name
+-------------------------------------
+function Network_platform_getUidByApple(account_info, success_cb, fail_cb)
+
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data['game_id'] = 1003
+    t_data['apple_id'] = account_info
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = GetPlatformApiUrl() .. '/user/getUidByApple'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 

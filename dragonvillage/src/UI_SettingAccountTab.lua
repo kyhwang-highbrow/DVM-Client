@@ -80,16 +80,38 @@ function UI_Setting:click_gamecenterBtn()
 
                             -- 최초로 연동하는 계정 (게스트 계정 -> 게임 센터 연동)
                             if need_update then
-                                -- Func. 플롯폼 계정 정보 업데이트 실패           
+                                
+                                -- Func. 플롯폼, 계정 정보 업데이트 실패           
                                 local function fail_cb(_ret)
                                     local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:{1})', _ret['status'])
                                     MakeSimplePopup(POPUP_TYPE.OK, msg)
                                 end
+
+                                -- Request. 플랫폼, 변경된 UID의 포워딩 설정
+                                local function request_forwarding_uid_cb(ret_cb)
+                                    --[[ 
+                                        perpleSDK에서 gamecenter 로그인한 경우 gamecenter의 id를 fuid로 리턴함
+                                        그에 따라 게스트 계정 (실제 fuid 사용)에서 gamecenter로 로그인한 경우
+                                        fuid가 gamecenter_id로 바뀌어 uid가 변경된 셈이 된다.
+                                        따라서 이 경우 플랫폼 서버에서 gamecenter_id를 uid로 받으면 게스트 계정의 fuid를 포워딩 하도록 설정한다.
+                                        2020.02.26 @mskim
+                                    ]]
+                                    local function retcode_handle_cb(ret_cb2)
+                                        ccdump(ret_cb2)
+                                        if (ret_cb2['status'] and ret_cb2['status']['retcode'] == 0) then
+                                            success_cb()
+                                        else
+                                            fail_cb()
+                                        end
+                                    end
+                                    Network_platform_changeByPlayerID(old_fuid, fuid, retcode_handle_cb)
+                                end
                                 
-                                -- Request. 플랫폼 계정 정보 업데이트
+                                -- Request. 플랫폼, 계정 정보 업데이트
                                 local t_info = dkjson.decode(info_str)
+                                local gamecenter_id = t_info.fuid
                                 local account_info = t_info.name
-                                Network_platform_updateId(fuid, 'gamecenter', account_info, success_cb, fail_cb)
+                                Network_platform_updateId(fuid, 'gamecenter', account_info, request_forwarding_uid_cb, fail_cb)
 
                             -- 기연동 유저
                             else
@@ -588,11 +610,12 @@ function UI_Setting:loginSuccess(info)
     local push_token = t_info.pushToken
     local platform_id = t_info.providerId
     local account_info = t_info.name
-	
-    cclog('fuid: ' .. tostring(fuid))
-    cclog('push_token: ' .. tostring(push_token))
-    cclog('platform_id:' .. tostring(platform_id))
-    cclog('account_info:' .. tostring(account_info))
+    
+    ccdump(info)
+    -- cclog('fuid: ' .. tostring(fuid))
+    -- cclog('push_token: ' .. tostring(push_token))
+    -- cclog('platform_id:' .. tostring(platform_id))
+    -- cclog('account_info:' .. tostring(account_info))
 	
     g_localData:applyLocalData(fuid, 'local', 'uid')
     g_localData:applyLocalData(push_token, 'local', 'push_token')
