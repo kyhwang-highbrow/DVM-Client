@@ -8,6 +8,7 @@ UI_ClanWarMatchingScene = class(PARENT,{
         m_enemyTableView = 'UIC_TableView',
 
         m_structMatch = 'StructClanWarMatch',
+        m_preRefreshTime = 'time', -- 새로고침 쿨타임 체크용
     })
 
 -------------------------------------
@@ -40,6 +41,7 @@ function UI_ClanWarMatchingScene:init(struct_match)
     UIManager:open(self, UIManager.SCENE)
 
     self.m_structMatch = struct_match
+    self.m_preRefreshTime = 0
 
     self:initUI()
     self:initButton()
@@ -155,6 +157,7 @@ function UI_ClanWarMatchingScene:setClanInfoUI()
             local clan_icon = struct_clan_rank:makeClanMarkIcon()
             if (clan_icon) then
                 if (vars['clanMarkNode'..idx]) then
+                    vars['clanMarkNode'..idx]:removeAllChildren()
                     vars['clanMarkNode'..idx]:addChild(clan_icon)
                 end
             end
@@ -343,6 +346,8 @@ function UI_ClanWarMatchingScene:initButton()
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWithMyClanInfo() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 	vars['matchTypeBtn']:registerScriptTapHandler(function() UI_ClanWarLastGroupStagePopup.open() end)
+    vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    vars['refreshBtn']:setVisible(true) -- 추가된 버튼으로 ui파일에서 visible이 false로 설정되어 있을 수 있다.
 
 	-- 토너먼트 일 때에만 켜준다
 	if (not g_clanWarData:isGroupStage()) then
@@ -446,6 +451,80 @@ function UI_ClanWarMatchingScene:click_infoBtn()
     ui:setCloseCB(close_cb)
 end
 
+-------------------------------------
+-- function click_refreshBtn
+-- @brief 현재 화면을 최신으로 갱신
+-------------------------------------
+function UI_ClanWarMatchingScene:click_refreshBtn()
+    local func_check_cooldown -- 1. 쿨타임 체크
+    local func_request_info -- 2. 통신
+    local func_refresh -- 3. 갱신 (현재 페이지를 갱신)
+
+    -- 1. 쿨타임 체크
+    func_check_cooldown = function()
+        -- 갱신 가능 시간인지 체크한다
+	    local curr_time = Timer:getServerTime()
+        local RENEW_INTERVAL = 10
+	    if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
+		    self.m_preRefreshTime = curr_time
+		    -- 일반적인 갱신
+		    func_request_info()
+	
+	    -- 시간이 되지 않았다면 몇초 남았는지 토스트 메세지를 띄운다
+	    else
+		    local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRefreshTime) + 1)
+		    UIManager:toastNotificationRed(Str('{1}초 후에 갱신 가능합니다.', ramain_time))
+	    end
+    end
+
+    -- 2. 통신
+    func_request_info = function()
+        g_clanWarData:request_clanWarMatchInfo(func_refresh)
+    end
+
+    -- 3. 갱신 (현재 페이지를 갱신)
+    func_refresh = function(struct_match, match_info)
+        -- 상대가 유령클랜이거나 클랜 정보가 없을 경
+		if (match_info) then
+            local no_clan_func = function()
+                local msg = Str('대전 상대가 없어 부전승 처리되었습니다.')
+                MakeSimplePopup(POPUP_TYPE.OK, msg)
+            end
+            
+            local clan_id_a = match_info['a_clan_id']
+            local clan_id_b = match_info['b_clan_id']
+            if (clan_id_a == 'loser') then
+                 no_clan_func()
+                return               
+            end
+            
+            if (clan_id_b == 'loser') then
+                 no_clan_func()
+                return               
+            end
+
+            local my_clan_info = g_clanWarData:getClanInfo(clan_id_a)
+            if (not my_clan_info) then         
+                no_clan_func()
+                return
+            end
+
+            local enemy_clan_info = g_clanWarData:getClanInfo(clan_id_b)
+            if (not enemy_clan_info) then
+                no_clan_func()
+                return
+            end
+        end
+        
+        --UI_ClanWarMatchingScene(struct_match)
+        self.m_structMatch = struct_match
+        self:initUI()
+    end
+
+
+    -- 시작 함수 호출
+    func_check_cooldown()
+end
 
 -------------------------------------
 -- function refreshStartBtn
