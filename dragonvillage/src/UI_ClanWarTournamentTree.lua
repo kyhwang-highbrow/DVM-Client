@@ -16,6 +16,8 @@ UI_ClanWarTournamentTree = class(PARENT, {
         m_isMakeFinalUI = 'boolean',
         m_isMakeRightUI = 'boolean',
         m_isMakeLeftUI = 'boolean',
+
+        m_preRefreshTime = 'time', -- 새로고침 쿨타임 체크용
      })
 
 -- 가지 세로 길이
@@ -46,6 +48,7 @@ function UI_ClanWarTournamentTree:init()
     self.m_lPosY = {}
     self.m_isMakeRightUI = false
     self.m_isMakeLeftUI = false
+    self.m_preRefreshTime = 0
 
     -- 초기화
     self:initUI()
@@ -135,6 +138,8 @@ function UI_ClanWarTournamentTree:initButton()
     vars['setDeckBtn']:registerScriptTapHandler(function() UI_ClanWarDeckSettings(CLAN_WAR_STAGE_ID) end)
     vars['helpBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_war') end)
     vars['rewardBtn']:registerScriptTapHandler(function() UI_ClanwarRewardInfoPopup:OpneWithMyClanInfo() end)
+    vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    vars['refreshBtn']:setVisible(true) -- 추가된 버튼으로 ui파일에서 visible이 false로 설정되어 있을 수 있다.
 end
 
 -------------------------------------
@@ -252,8 +257,9 @@ end
 
 -------------------------------------
 -- function showPage
+-- @param skip_focus_reset(boolean) 상하 스크롤 위치 리셋 여부
 -------------------------------------
-function UI_ClanWarTournamentTree:showPage()
+function UI_ClanWarTournamentTree:showPage(skip_focus_reset)
 	local page_number = self.m_page
 	local vars = self.vars
 
@@ -271,7 +277,9 @@ function UI_ClanWarTournamentTree:showPage()
     vars['03_PageSelectSprite']:setVisible(false)
 
 	-- 포커싱 초기화(맨 위)
-    self:initTableViewFocus()
+    if (not skip_focus_reset) then
+        self:initTableViewFocus()
+    end
 
 	local has_right
 	local has_left
@@ -281,7 +289,7 @@ function UI_ClanWarTournamentTree:showPage()
         vars['leftScrollMenu']:setVisible(true)
         vars['leftTitleNode']:setVisible(true)
 	    if (not self.m_isMakeLeftUI) then
-            self:showSidePage()
+            self:showSidePage(skip_focus_reset)
             self.m_isMakeLeftUI = true
         end
 	-- 결승전 페이지
@@ -297,7 +305,7 @@ function UI_ClanWarTournamentTree:showPage()
         vars['rightScrollMenu']:setVisible(true)
         vars['rightTitleNode']:setVisible(true)
         if (not self.m_isMakeRightUI) then
-            self:showSidePage()
+            self:showSidePage(skip_focus_reset)
             self.m_isMakeRightUI = true
         end
 	end
@@ -311,12 +319,22 @@ end
 
 -------------------------------------
 -- function showSidePage
+-- @param skip_focus_reset(boolean) 상하 스크롤 위치 리셋 여부
 -------------------------------------
-function UI_ClanWarTournamentTree:showSidePage()
+function UI_ClanWarTournamentTree:showSidePage(skip_focus_reset)
 	local vars = self.vars
+
 	local struct_clan_war_tournament = self.m_structTournament
 	local is_right = (self.m_page == 3) -- 페이지 넘버가 3이라면 오른쪽 페이지라고 판단
 
+    -- 기존에 생성되어 있을 수 있는 UI 제거
+    if (is_right == true) then
+        vars['rightTitleNode']:removeAllChildren()
+        vars['rightScrollMenu']:removeAllChildren()
+    else--if (is_right == false) then
+        vars['leftTitleNode']:removeAllChildren()
+        vars['leftScrollMenu']:removeAllChildren()
+    end
     
     local l_round = {}
 	if (g_clanWarData:getMaxRound() == 64) then
@@ -328,7 +346,7 @@ function UI_ClanWarTournamentTree:showSidePage()
     local max_idx = #l_round + 1
 	for round_idx, round in ipairs(l_round) do
         -- 라운드에 해당하는 매치 잎들을 생성
-		self:setTournament(round_idx, round) -- param : ex) 1,64/ 2,32/ 3,16
+		self:setTournament(round_idx, round, skip_focus_reset) -- param : ex) 1,64/ 2,32/ 3,16
 		-- N강 표시하는 타이틀
         self:makeTitleItem(round_idx, round, max_idx)
     end
@@ -384,6 +402,7 @@ end
 function UI_ClanWarTournamentTree:setFinal()
     local vars = self.vars
     local ui = UI_ClanWarTournamentTreeFinalItem(self.m_structTournament)
+    vars['finalNode']:removeAllChildren()
     vars['finalNode']:addChild(ui.root)
 
     self:makeFinalItemByRound(ui, 8, true) -- 8강 아이템들 생성
@@ -436,8 +455,9 @@ end
 -------------------------------------
 -- function setTournament
 -- @brief 해당 라운드의 매치들을 생성
+-- @param skip_focus_reset(boolean) 상하 스크롤 위치 리셋 여부
 -------------------------------------
-function UI_ClanWarTournamentTree:setTournament(round_idx, round)
+function UI_ClanWarTournamentTree:setTournament(round_idx, round, skip_focus_reset)
     local vars = self.vars
 
 	local is_right = (self.m_page == 3)
@@ -531,7 +551,7 @@ function UI_ClanWarTournamentTree:setTournament(round_idx, round)
     end
 
     -- 내 클랜이 있다면 포커싱, 없다면 해주지 않음
-    if (my_clan_idx) then
+    if (not skip_focus_reset) and (my_clan_idx) then
         self:focusMyClan(my_clan_idx, is_right, round)
     end
 
@@ -968,6 +988,56 @@ end
 -------------------------------------
 function UI_ClanWarTournamentTree:showGroupStagePopup()
     UI_ClanWarLastGroupStagePopup.open()
+end
+
+-------------------------------------
+-- function click_refreshBtn
+-- @brief 현재 화면을 최신으로 갱신
+-------------------------------------
+function UI_ClanWarTournamentTree:click_refreshBtn()
+    local func_check_cooldown -- 1. 쿨타임 체크
+    local func_request_info -- 2. 통신
+    local func_refresh -- 3. 갱신 (현재 페이지를 갱신)
+
+    -- 1. 쿨타임 체크
+    func_check_cooldown = function()
+        -- 갱신 가능 시간인지 체크한다
+	    local curr_time = Timer:getServerTime()
+        local RENEW_INTERVAL = 10
+	    if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
+		    self.m_preRefreshTime = curr_time
+		    -- 일반적인 갱신
+		    func_request_info()
+	
+	    -- 시간이 되지 않았다면 몇초 남았는지 토스트 메세지를 띄운다
+	    else
+		    local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRefreshTime) + 1)
+		    UIManager:toastNotificationRed(Str('{1}초 후에 갱신 가능합니다.', ramain_time))
+	    end
+    end
+
+    -- 2. 통신
+    func_request_info = function()
+        g_clanWarData:request_clanWarLeagueInfo(nil, func_refresh) -- param : team, success_cb
+    end
+
+    -- 3. 갱신 (현재 페이지를 갱신)
+    func_refresh = function(ret)
+        --self:setTournamentData(ret)
+        self.m_structTournament = StructClanWarTournament(ret)
+
+        -- 페이지별 UI를 다시 생성하기 위해 초기화
+        self.m_isMakeFinalUI = false
+        self.m_isMakeRightUI = false
+        self.m_isMakeLeftUI = false
+
+        self:showPage(true) -- param : skip_focus_reset
+	    self:checkStartBtn()
+    end
+
+
+    -- 시작 함수 호출
+    func_check_cooldown()
 end
 
 

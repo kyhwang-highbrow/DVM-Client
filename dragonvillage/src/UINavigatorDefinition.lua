@@ -1966,7 +1966,7 @@ function UINavigatorDefinition:goTo_clan_war(...)
     end
 
     -- 클랜전 정보 요청
-    g_clanWarData:request_clanWarLeagueInfo(nil, finish_cb)
+    g_clanWarData:request_clanWarLeagueInfo(nil, finish_cb) -- param : team, success_cb
 end
 
 
