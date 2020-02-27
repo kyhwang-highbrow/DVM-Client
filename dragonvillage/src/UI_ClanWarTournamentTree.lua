@@ -567,6 +567,10 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     local clan1_id = data['a_clan_id']
     local clan2_id = data['b_clan_id']
 
+    -- 세트 스코어
+    local clan1_set_score = tonumber(data['a_member_win_cnt']) or 0
+    local clan2_set_score = tonumber(data['b_member_win_cnt']) or 0
+
     local struct_clan_rank_1 = g_clanWarData:getClanInfo(clan1_id)
     local struct_clan_rank_2 = g_clanWarData:getClanInfo(clan2_id)
 
@@ -605,7 +609,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
             ui.vars['clanNameLabel1']:setColor(COLOR['gray'])
         elseif (struct_clan_rank_1) then
             local clan_name = struct_clan_rank_1:getClanName() or ''
-            clan_name1 = clan_name
+            clan_name1 = clan_name .. '  ' .. tostring(clan1_set_score)
             clan_node1 = struct_clan_rank_1:makeClanMarkIcon()
         else
             clan_name1 = Str('대전 상대가 없음')
@@ -624,7 +628,7 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
             ui.vars['clanNameLabel2']:setColor(COLOR['gray'])
         elseif (struct_clan_rank_2) then
             local clan_name = struct_clan_rank_2:getClanName() or ''
-            clan_name2 = clan_name
+            clan_name2 = clan_name .. '  ' .. tostring(clan2_set_score)
             clan_node2 = struct_clan_rank_2:makeClanMarkIcon()
         else
             clan_name2 = Str('대전 상대가 없음')

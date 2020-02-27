@@ -104,8 +104,11 @@ function UI_ClanWarTournamentTreeFinalItem:initUI(data)
 		local round_text = Str('결승전')
         local final_name_1 = struct_clan_rank_1:getClanName()
         local final_name_2 = struct_clan_rank_2:getClanName()
-        vars['finalClanLabel1']:setString(final_name_1)
-        vars['finalClanLabel2']:setString(final_name_2)
+        -- 세트 스코어
+        local clan1_set_score = tonumber(final_data['a_member_win_cnt']) or 0
+        local clan2_set_score = tonumber(final_data['b_member_win_cnt']) or 0
+        vars['finalClanLabel1']:setString(final_name_1 .. '  ' .. tostring(clan1_set_score))
+        vars['finalClanLabel2']:setString(tostring(clan2_set_score) .. '  ' .. final_name_2)
 
  
         local clan_node1 = struct_clan_rank_1:makeClanMarkIcon()
