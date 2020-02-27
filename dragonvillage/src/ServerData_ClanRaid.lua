@@ -429,7 +429,7 @@ function ServerData_ClanRaid:selectEnterWayPopup(cb_func, stage_id)
     -- 다이아 이용해 입장할 경우
     local click_useDiaBtn = function(cb_func)
         if (not self:checkRequireCash()) then
-            UIManager:toastNotificationRed(Str('{1}가 부족합니다.', Str('골드')))
+            UIManager:toastNotificationRed(Str('다이아몬드가 부족합니다.'))
         else
             ui:close()
             cb_func(true) -- is_cash
