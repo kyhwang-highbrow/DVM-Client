@@ -18,6 +18,8 @@ UI_ClanWar_GroupStage = class(PARENT, {
         m_tableViewAllGroupRank = '',
         m_tableViewGroupRank = '',
         m_tableViewGroupMatch = '',
+
+        m_preRefreshTime = 'time', -- 새로고침 쿨타임 체크용
      })
 
 -------------------------------------
@@ -62,6 +64,7 @@ function UI_ClanWar_GroupStage:init()
 
     local vars = self:load('clan_war_group_stage.ui')
     UIManager:open(self, UIManager.SCENE)
+    self.m_preRefreshTime = 0
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanWar_GroupStage')
@@ -123,6 +126,8 @@ function UI_ClanWar_GroupStage:initButton()
     vars['setDeckBtn']:registerScriptTapHandler(function() UI_ClanWarDeckSettings(CLAN_WAR_STAGE_ID) end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     vars['startBtn2']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    vars['refreshBtn']:setVisible(true) -- 추가된 버튼으로 ui파일에서 visible이 false로 설정되어 있을 수 있다.
 
     -- 테스트용 버튼
     --[[
@@ -164,7 +169,7 @@ function UI_ClanWar_GroupStage:onGroupChange(group)
     local vars = self.vars
     self.m_focusGroup = group
 
-    local is_all = (group == 'all')
+    local is_all = (group == 'all') or (group == 99)
 
     -- 전체 보기의 경우
     if (is_all) then
@@ -458,6 +463,42 @@ function UI_ClanWar_GroupStage:click_startBtn()
     end
 
     g_clanWarData:request_clanWarMatchInfo(success_cb)
+end
+
+-------------------------------------
+-- function click_refreshBtn
+-- @brief 현재 화면을 최신으로 갱신
+-------------------------------------
+function UI_ClanWar_GroupStage:click_refreshBtn()
+    local func_check_cooldown -- 1. 쿨타임 체크
+    local func_refresh -- 2. 갱신 (현재 페이지를 갱신)
+
+    -- 1. 쿨타임 체크
+    func_check_cooldown = function()
+        -- 갱신 가능 시간인지 체크한다
+	    local curr_time = Timer:getServerTime()
+        local RENEW_INTERVAL = 10
+	    if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
+		    self.m_preRefreshTime = curr_time
+		    -- 일반적인 갱신
+		    func_refresh()
+	
+	    -- 시간이 되지 않았다면 몇초 남았는지 토스트 메세지를 띄운다
+	    else
+		    local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRefreshTime) + 1)
+		    UIManager:toastNotificationRed(Str('{1}초 후에 갱신 가능합니다.', ramain_time))
+	    end
+    end
+
+    -- 2. 갱신 (현재 페이지를 갱신)
+    func_refresh = function(struct_match, match_info)
+        self.m_structLeaguecache = {} -- 캐싱된 데이터를 초기화
+        self:onGroupChange(self.m_focusGroup)
+    end
+
+
+    -- 시작 함수 호출
+    func_check_cooldown()
 end
 
 -------------------------------------
