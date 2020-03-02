@@ -39,12 +39,12 @@ ServerData_Clan = class({
         m_cur_season_boss_attr = 'string',
     })
 
--- 클랜 필수 참여 카테고리 (서버와 통일한 값)
+-- 클랜 필수 참여 카테고리 (서버에서는 string으로 저장함)
 CLAN_NECESSARY_CATEGORY = {}
 CLAN_NECESSARY_CATEGORY['attendance'] = 1
 CLAN_NECESSARY_CATEGORY['clandungeon'] = 2
 CLAN_NECESSARY_CATEGORY['ancient'] = 3
-CLAN_NECESSARY_CATEGORY['arena'] = 4
+CLAN_NECESSARY_CATEGORY['clanwar'] = 4
 
 -------------------------------------
 -- function init
@@ -302,6 +302,7 @@ end
 
 -------------------------------------
 -- function getNeedCategryIdxWithName
+-- @return number or nil (경우에 따라 nil이 리턴될 수 있다)
 -------------------------------------
 function ServerData_Clan:getNeedCategryIdxWithName(name)
     for _name, v in pairs(CLAN_NECESSARY_CATEGORY) do

@@ -24,6 +24,8 @@ AdSDKSelector = {
 -- @param skip_ad_aos_7_later(boolean) 안드로이드 7 이상에서 광고 재생 스킵 여부
 -------------------------------------
 function AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later)
+    cclog('# skip_ad_play : ' .. tostring(skip_ad_play))
+    cclog('# skip_ad_aos_7_later : ' .. tostring(skip_ad_aos_7_later))
     
     -- 앱 버전별로 처리할 필요가 있을 경우에 사용하는 코드
     --local appver_str = CppFunctionsClass:getAppVer()

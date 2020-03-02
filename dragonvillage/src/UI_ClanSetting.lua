@@ -163,8 +163,12 @@ function UI_ClanSetting:initNecessaryContents()
     local l_category = struct_clan['category']
     for i, v in ipairs(l_category) do
         local idx = g_clanData:getNeedCategryIdxWithName(v)
-        local sprite = vars['contentSprite'..idx]
-        sprite:setVisible(true)
+        if idx then
+            local sprite = vars['contentSprite'..idx]
+            if sprite then
+                sprite:setVisible(true)
+            end
+        end
     end
 end
 

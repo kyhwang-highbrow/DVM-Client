@@ -64,10 +64,14 @@ function UI_ClanListItem:initUI()
     local l_category = struct_clan['category']
     for idx, v in ipairs(l_category) do
         local idx = g_clanData:getNeedCategryIdxWithName(v)
-        local label = vars['contentLabel'..idx]
+        if idx then
+            local label = vars['contentLabel'..idx]
 
-        -- 선택된 필수 참여 컨텐츠
-        label:setColor(COLOR['GOLD'])
+            if label then
+                -- 선택된 필수 참여 컨텐츠
+                label:setColor(COLOR['GOLD'])
+            end
+        end
     end
 end
 
