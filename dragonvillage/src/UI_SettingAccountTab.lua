@@ -101,7 +101,7 @@ function UI_Setting:click_gamecenterBtn()
                                         if (ret_cb2['status'] and ret_cb2['status']['retcode'] == 0) then
                                             success_cb()
                                         else
-                                            fail_cb()
+                                            fail_cb(ret_cb2)
                                         end
                                     end
                                     Network_platform_changeByPlayerID(old_fuid, fuid, retcode_handle_cb)
