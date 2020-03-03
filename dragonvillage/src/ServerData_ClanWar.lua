@@ -1067,6 +1067,23 @@ function ServerData_ClanWar:getRoundOfWeekString(round)
 end
 
 -------------------------------------
+-- function getClancoinRewardCount_atGroupStage
+-- @brief 클랜전 조별리그에서 순위별 보상
+-- @param rank 1~6
+-- @return string '100' ... '350'
+-------------------------------------
+function ServerData_ClanWar:getClancoinRewardCount_atGroupStage(rank)
+    if     (rank >= 5) then return Str('100')
+    elseif (rank == 4) then return Str('110')
+    elseif (rank == 3) then return Str('120')
+    elseif (rank == 2) then return Str('180')
+    elseif (rank == 1) then return Str('180')
+    elseif (rank == 0) then return '-'
+    else return ''
+    end
+end
+
+-------------------------------------
 -- function getClancoinRewardCount
 -- @brief 클랜전에서 라운드별 보상
 -- @param round 64 ~ 1 (클랜전 토너먼트 진행 기간)
