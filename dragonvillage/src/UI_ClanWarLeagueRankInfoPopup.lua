@@ -57,7 +57,8 @@ function UI_ClanWarLeagueRankInfoPopup:initUI(struct_league_item)
 
     -- 클랜 정보 (레벨, 경험치, 참여 인원, 생성일)
 	local clan_lv = struct_clan_rank:getClanLv() or ''
-    local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
+    local exp_rate = struct_clan_rank:getClanExpRatio() * 100
+    local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, exp_rate)
     vars['clanLvExpLabel']:setString(clan_lv_exp)
 
     local max_member = struct_league_item:getPlayMemberCnt()

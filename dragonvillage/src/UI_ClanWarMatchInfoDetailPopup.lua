@@ -191,7 +191,8 @@ function UI_ClanWarMatchInfoDetailPopup:setClanInfo(ui_idx, clan_match_info)
 
     -- 클랜 정보 (레벨, 경험치, 참여인원)
     local clan_lv = struct_clan_rank:getClanLv() or ''
-    local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, struct_clan_rank['exp']/10000)
+    local exp_rate = struct_clan_rank:getClanExpRatio() * 100
+    local clan_lv_exp = string.format('Lv.%d (%.2f%%)', clan_lv, exp_rate)
 	vars['clanLvExpLabel' .. ui_idx]:setString(clan_lv_exp) 
 	vars['creationLabel' .. ui_idx]:setString(struct_clan_rank:getCreateAtText())
 

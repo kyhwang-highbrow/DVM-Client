@@ -35,6 +35,7 @@ StructClanRank = class(PARENT, {
 
         create_date = 'number',
         exp = 'number',
+        required_exp = 'number',
     })
 
 local THIS = StructClanRank
@@ -216,4 +217,15 @@ function StructClanRank:getCreateAtText()
     local month = string.sub(create_str,5,6)
     local day = string.sub(create_str,7,8)
     return Str('{1}-{2}-{3}', year, month, day)
+end
+
+-------------------------------------
+-- function getClanExpRatio
+-------------------------------------
+function StructClanRank:getClanExpRatio()
+	if (self['required_exp'] <= 0) then
+		return 0
+	end
+
+	return (self['exp'] / self['required_exp'])
 end
