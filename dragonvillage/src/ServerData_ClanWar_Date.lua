@@ -344,10 +344,16 @@ end
 -- function applyClanWarInfo
 -------------------------------------
 function ServerData_ClanWar:applyClanWarInfo(ret)
-    if (ret['my_set_info']) then
-        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_set_info'])
+    if (ret['my_match_info']) then
+        self.m_myMatchInfo = ret['my_match_info']
     else
         self.m_myMatchInfo = nil
+    end
+
+    if (ret['my_set_info']) then
+        self.m_mySetInfo = StructClanWarMatchItem(ret['my_set_info'])
+    else
+        self.m_mySetInfo = nil
     end
 
     if (ret['today_end_time']) then

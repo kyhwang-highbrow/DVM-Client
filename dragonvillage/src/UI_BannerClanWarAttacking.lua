@@ -35,6 +35,15 @@ end
 function UI_BannerClanWarAttacking:initUI()
     local vars = self.vars
 	vars['attackLabel']:setString(Str('공격 중'))
+
+    -- 배너 UI가 여러 상태일 수 있다. 각 상태에 맞는 menu만 활성화 시킨다.
+    local curr_state = 1
+    for i=1, 10 do
+        local menu = vars['stateMenu' .. i]
+        if menu then
+            menu:setVisible(i == curr_state)
+        end
+    end
 end
 
 -------------------------------------

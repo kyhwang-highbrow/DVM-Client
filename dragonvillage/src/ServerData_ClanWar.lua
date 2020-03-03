@@ -49,7 +49,19 @@ ServerData_ClanWar = class({
     m_playerUserInfo = 'StructUserInfoClanWar',
     m_OpponentUserInfo = 'StructUserInfoClanWar',
 
-	m_myMatchInfo = 'StructClanWarMatchItem', -- lobby통신에서 받는 내 유저 정보(로비 배너에 사용)
+    m_myMatchInfo = 'table', -- 현재 진행 중인 내 클랜의 매치 정보(간단한 정보. 로비 배너에 사용)
+    --"my_match_info":{
+    --  "clan_b":{
+    --    "mark":"",
+    --    "set_score":0
+    --  },
+    --  "clan_a":{
+    --    "mark":"30;25;2;2",
+    --    "set_score":0
+    --  },
+    --  "my_attack_status":0
+    --}
+	m_mySetInfo = 'StructClanWarMatchItem', -- lobby통신에서 받는 내 유저 정보(로비 배너에 사용)
 
     today_end_time = 'number',          -- 오늘 경기 끝나는 시간
     today_start_time = 'number' ,
@@ -752,14 +764,14 @@ function ServerData_ClanWar:request_setDeck(deckname, formation, leader, l_edoid
 end
 
 -------------------------------------
--- function request_clanWarMyMatchInfo
+-- function request_clanWarMySetInfo
 -- @brief 나의 StructClanWarMatchItem 를 받음 - 해당 값은 로비에서 받고 따로 요청하는 통신은 사용 안하고 있음
 -------------------------------------
-function ServerData_ClanWar:request_clanWarMyMatchInfo(finish_cb)
+function ServerData_ClanWar:request_clanWarMySetInfo(finish_cb)
     local _uid = uid or g_userData:get('uid')
     
     local function success_cb(ret)
-        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_set_info'])
+        self.m_mySetInfo = StructClanWarMatchItem(ret['my_set_info'])
 		if (finish_cb) then
 			finish_cb()
 		end
@@ -782,13 +794,57 @@ end
 -- @brief 나의 현재 공격 상태 (로비에서 배너 찍을 때 사용)
 -------------------------------------
 function ServerData_ClanWar:isMyClanWarMatchAttackingState()
-	if (self.m_myMatchInfo) then
-		local is_attacking = (self.m_myMatchInfo:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING'])
-		local attack_uid = self.m_myMatchInfo:getAttackingUid()
-		local end_date = self.m_myMatchInfo:getEndDate() or ''
+	if (self.m_mySetInfo) then
+		local is_attacking = (self.m_mySetInfo:getAttackState() == StructClanWarMatchItem.ATTACK_STATE['ATTACKING'])
+		local attack_uid = self.m_mySetInfo:getAttackingUid()
+		local end_date = self.m_mySetInfo:getEndDate() or ''
 		return is_attacking, attack_uid, end_date
 	end
 end
+
+-------------------------------------
+-- function isShowLobbyBanner
+-- @brief 마을(Lobby)에서 클랜전 배너 노출 여부
+-------------------------------------
+function ServerData_ClanWar:isShowLobbyBanner()
+    if (not self.m_myMatchInfo) then
+        return false
+    end
+
+    -- https://perplelab.atlassian.net/wiki/x/aAA3QQ
+
+    --"my_match_info":{
+    --  "clan_b":{
+    --    "mark":"",
+    --    "set_score":0
+    --  },
+    --  "clan_a":{
+    --    "mark":"30;25;2;2",
+    --    "set_score":0
+    --  },
+    --  "my_attack_status":0
+    --}
+
+    -- 서버에서 매치를 진행 중인 경우만 my_match_info데이터를 보내준다.
+    -- 따라서 오픈 시간 등의 조건은 클라이언트에서 추가로 검사하지 않는다.
+
+    -- 공격 상태 (0:공격 가능, 1:공격 중, 9:공격 완료)
+    local my_attack_status = self.m_myMatchInfo['my_attack_status']
+    if (my_attack_status == 0) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function getMyClanMatchInfoForBanner
+-- @brief 마을(Lobby)에서 클랜전 배너 노출에 필요한 정보 리턴
+-------------------------------------
+function ServerData_ClanWar:getMyClanMatchInfoForBanner()
+    return self.m_myMatchInfo or {}
+end
+
 
 -------------------------------------
 -- function readyMatch

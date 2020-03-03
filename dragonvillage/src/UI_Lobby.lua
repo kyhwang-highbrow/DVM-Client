@@ -2165,20 +2165,42 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
-	--클랜전 배너
+    --클랜전 배너
+    if (g_clanWarData:isShowLobbyBanner() == true) then
+        local t_data = g_clanWarData:getMyClanMatchInfoForBanner() -- my_match_info
+        local end_date = g_clanWarData.today_end_time
+
+        if (not vars['banner_clanwar']) then
+            require('UI_BannerClanWar')
+            local banner = UI_BannerClanWar(t_data, end_date)
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(cc.p(1, 1))
+            banner.root:setAnchorPoint(cc.p(1, 1))
+            vars['banner_clanwar'] = banner
+        else
+            vars['banner_clanwar']:initUI(t_data, end_date)
+        end
+    else
+        if vars['banner_clanwar'] then
+            vars['banner_clanwar'].root:removeFromParent()
+            vars['banner_clanwar'] = nil
+        end
+    end
+
+	--클랜전 배너 (공격 중)
     local is_attacking, attacking_uid, end_date = g_clanWarData:isMyClanWarMatchAttackingState()
     if (is_attacking) then
-        if (not vars['banner_hall_of_fame']) then
+        if (not vars['banner_clanwar_attack']) then
             local banner = UI_BannerClanWarAttacking(attacking_uid, end_date)
             vars['bannerMenu']:addChild(banner.root)
             banner.root:setDockPoint(cc.p(1, 1))
             banner.root:setAnchorPoint(cc.p(1, 1))
-            vars['banner_hall_of_fame'] = banner
+            vars['banner_clanwar_attack'] = banner
         end
     else
-        if vars['banner_hall_of_fame'] then
-            vars['banner_hall_of_fame'].root:removeFromParent()
-            vars['banner_hall_of_fame'] = nil
+        if vars['banner_clanwar_attack'] then
+            vars['banner_clanwar_attack'].root:removeFromParent()
+            vars['banner_clanwar_attack'] = nil
         end
     end
 
@@ -2216,6 +2238,16 @@ function UI_Lobby:onRefresh_banner()
     -- 명예의 전당
     if vars['banner_hall_of_fame'] then
         table.insert(l_node, vars['banner_hall_of_fame'].root)
+    end
+
+    -- 클랜전
+    if vars['banner_clanwar'] then
+        table.insert(l_node, vars['banner_clanwar'].root)
+    end
+
+    -- 클랜전 공격 중
+    if vars['banner_clanwar_attack'] then
+        table.insert(l_node, vars['banner_clanwar_attack'].root)
     end
 
     local pos_y = 0
