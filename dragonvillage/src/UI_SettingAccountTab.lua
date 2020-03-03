@@ -134,7 +134,7 @@ function UI_Setting:click_gamecenterBtn()
                 local cancel_btn_cb = nil
 
                 -- uid 존재 여부 확인
-                local checkUserUid = ret2['userInfo'] and ret2['userInfo']['fuid']
+                local checkUserUid = ret2['userInfo'] and ret2['userInfo']['uid']
 
                 -- 최초로 연동하는 계정 (게스트 계정 -> 게임 센터 연동)
                 if checkUserUid == nil then
