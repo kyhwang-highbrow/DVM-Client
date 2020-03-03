@@ -344,8 +344,8 @@ end
 -- function applyClanWarInfo
 -------------------------------------
 function ServerData_ClanWar:applyClanWarInfo(ret)
-    if (ret['my_match_info']) then
-        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_match_info'])
+    if (ret['my_set_info']) then
+        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_set_info'])
     else
         self.m_myMatchInfo = nil
     end

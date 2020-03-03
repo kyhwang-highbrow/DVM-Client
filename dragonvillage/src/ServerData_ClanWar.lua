@@ -759,14 +759,14 @@ function ServerData_ClanWar:request_clanWarMyMatchInfo(finish_cb)
     local _uid = uid or g_userData:get('uid')
     
     local function success_cb(ret)
-        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_match_info'])
+        self.m_myMatchInfo = StructClanWarMatchItem(ret['my_set_info'])
 		if (finish_cb) then
 			finish_cb()
 		end
     end
 
     local ui_network = UI_Network()
-    ui_network:setUrl('/clanwar/my_match_info')
+    ui_network:setUrl('/clanwar/my_set_info')
     ui_network:setParam('uid', _uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
