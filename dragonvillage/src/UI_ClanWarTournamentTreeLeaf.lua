@@ -122,6 +122,12 @@ UI_ClanWarTournamentTreeListItem = class(UI, {
 function UI_ClanWarTournamentTreeListItem:init(round)
     local vars = self:load('clan_war_tournament_item_title.ui')
     vars['roundLabel']:setString(Str('{1}강', round) .. Str('({1})', g_clanWarData:getRoundOfWeekString(round)))
+
+    -- 클랜전 라운드별 보상 표기
+    local clancoin_str = g_clanWarData:getClancoinRewardCount(round)
+    if vars['clanCoinLabel'] then
+        vars['clanCoinLabel']:setString(clancoin_str or '')
+    end
 end
 
 -------------------------------------
