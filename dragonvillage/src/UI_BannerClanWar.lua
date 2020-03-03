@@ -79,6 +79,7 @@ end
 -------------------------------------
 function UI_BannerClanWar:initButton()
     local vars = self.vars
+    vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
 end
 
 -------------------------------------
