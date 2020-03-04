@@ -447,6 +447,31 @@ end
 -------------------------------------
 function UI_ClanWarMatchingWatching.OPEN(clan_id)
     
+    -- 마지막 날의 경우
+    if (g_clanWarData.m_clanWarDay == 14) then
+        local msg = Str('다음 시즌 오픈까지 {1}', g_clanWarData:getRemainNextSeasonTime())
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+    
+    -- 오픈 여부 확인(조별리그)
+    if (g_clanWarData:isGroupStage() == true) then
+	    local is_open, msg = g_clanWarData:checkClanWarState_League()
+	    if (not is_open) then
+		    MakeSimplePopup(POPUP_TYPE.OK, msg)
+		    return
+	    end
+    end
+
+    -- 오픈 여부 확인(토너먼트)
+    if (g_clanWarData:isTournament() == true) then
+	    local is_open, msg = g_clanWarData:checkClanWarState_Tournament()
+	    if (not is_open) then	
+		    MakeSimplePopup(POPUP_TYPE.OK, msg)
+		    return
+	    end
+    end
+
     local success_cb = function(struct_match, match_info)
         UI_ClanWarMatchingWatching(struct_match)
     end
