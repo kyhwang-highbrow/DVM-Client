@@ -20,7 +20,7 @@ return {['일정 시간마다 무작위 적을 공격합니다.\n물 속성 적�
 ['클랜전 참여보상을 획득했습니다.']='You\'ve got Clan War Participation Rewards.',
 ['상세보기']='Detailed Info',
 ['지난 클랜 랭킹']='Previous Clan Ranking',
-['인기 드래곤 선택권 (어둠)']='Popular Dragon Selection Ticket (Dark)',
+['인기 드래곤 선택권(어둠)']='Popular Dragon Selection Ticket (Dark)',
 ['전설 특성 재료 패키지']='Legendary Mastery Material Package',
 ['현재 시즌']='Current Season',
 ['지난 시즌 결과']='Previous Season Results',
