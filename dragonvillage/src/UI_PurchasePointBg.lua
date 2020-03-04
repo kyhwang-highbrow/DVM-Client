@@ -144,7 +144,7 @@ function UI_PurchasePointBg:initUI_dragonTicket()
 
                     -- 애니메이션 재생이 너무 정신없어서 배속을 조정할 목적
                     if dragon_animator.m_animator then
-                        dragon_animator.m_animator:setTimeScale(1)
+                        dragon_animator.m_animator:setTimeScale(0.65)
                     end
 
                     dragon_node:addChild(dragon_animator.m_node)
