@@ -602,8 +602,10 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
 
     -- 내 클랜 강조
 	local my_clan_id = g_clanWarData:getMyClanId()
+    local include_my_clan = false
     if (clan1_id == my_clan_id) or (clan2_id == my_clan_id) then
         ui.vars['meClanSprite']:setVisible(true)
+        include_my_clan = true
     end
 
     -- 매치 아이템 눌렀을 때 상세 팝업
@@ -611,6 +613,13 @@ function UI_ClanWarTournamentTree:makeTournamentLeaf(round, item_idx, data, is_r
     ui.vars['detailBtn']:registerScriptTapHandler(function()
 		if (round < today_round) then
             UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.'))
+        elseif (round == today_round) then
+            if include_my_clan then
+                self:click_gotoMatch()
+            else
+                require('UI_ClanWarMatchingWatching')
+                UI_ClanWarMatchingWatching.OPEN(clan1_id)                
+            end
         else
             UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data)
         end

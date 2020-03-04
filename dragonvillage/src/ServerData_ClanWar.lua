@@ -305,20 +305,20 @@ end
 -------------------------------------
 -- function request_clanWarMatchInfo
 -- @brief 전투하는 두 클랜의 유저 정보
+-- @param clan_id
 -------------------------------------
-function ServerData_ClanWar:request_clanWarMatchInfo(success_cb)    
+function ServerData_ClanWar:request_clanWarMatchInfo(success_cb, clan_id)
     local finish_cb = function(ret)
         return success_cb(StructClanWarMatch(ret), ret['match_info'])
     end
     
     local uid = g_userData:get('uid')
-    local clan_id = self:getMyClanId()
+    local clan_id = (clan_id or self:getMyClanId())
     
 	local response_status_cb = function(ret)
 		return g_clanWarData:responseStatusCB(ret)		
 	end
 
-    -- ??쎈뱜??곌쾿 ???뻿
     local ui_network = UI_Network()
     ui_network:setUrl('/clanwar/match_info')
     ui_network:setParam('day', g_clanWarData.m_clanWarDay)

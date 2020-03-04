@@ -4405,6 +4405,9 @@
     <None Include="..\src\UI_BannerClanWar.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanWarMatchingWatching.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

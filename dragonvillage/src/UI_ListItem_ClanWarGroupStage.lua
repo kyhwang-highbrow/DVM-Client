@@ -150,6 +150,37 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
 
             local match_number = data['day'] or 1
 
+            do -- 버튼 처리
+                local clan1_id = data['a_clan_id']
+                local clan2_id = data['b_clan_id']
+                local my_clan_id = g_clanWarData:getMyClanId()
+                local include_my_clan = false
+                if (clan1_id == my_clan_id) or (clan2_id == my_clan_id) then
+                    include_my_clan = true
+                end
+
+                -- 미래 경기는 상세 팝업 보여주지 않음
+                local today_match_number = tonumber(g_clanWarData.m_clanWarDay)
+                if (today_match_number < match_number) then
+                    vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.')) end)
+                    vars['scoreLabel1']:setString('')
+                    vars['scoreLabel2']:setString('')
+                elseif (today_match_number == match_number) then
+                    vars['popupBtn']:registerScriptTapHandler(function() 
+                        if include_my_clan then
+                            self:click_gotoMatch()
+                        else
+                            require('UI_ClanWarMatchingWatching')
+                            UI_ClanWarMatchingWatching.OPEN(clan1_id)                
+                        end
+                    end)
+                else
+                    vars['popupBtn']:registerScriptTapHandler(function() 
+				        UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data) -- data, ui_res, set_my_clan_left 
+			        end)
+                end
+            end
+
             -- 끝난 경기만 승/패 표시
             if (match_number < g_clanWarData.m_clanWarDay) then
                 -- 어느쪽 클랜이 이겼는지 표시
@@ -292,17 +323,6 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
             local win_cnt = data[prefix .. 'member_win_cnt'] or 0
 
             vars['scoreLabel' .. idx]:setString(tostring(win_cnt))
-
-            -- 미래 경기는 상세 팝업 보여주지 않음
-            if (match_number <= tonumber(g_clanWarData.m_clanWarDay)) then
-                vars['popupBtn']:registerScriptTapHandler(function() 
-					UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(data) -- data, ui_res, set_my_clan_left 
-				end)
-            else
-                vars['popupBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.')) end)
-                vars['scoreLabel1']:setString('')
-                vars['scoreLabel2']:setString('')
-            end
         end
 
         -------------------------------------
@@ -315,6 +335,65 @@ UI_ListItem_ClanWarGroupStageMatch = class(PARENT, {
             vars['defeatSprite2']:setVisible(result)
             --vars['winSprite2']:setVisible(not result)
             --vars['winSprite1']:setVisible(result)
+        end
+
+        -------------------------------------
+        -- function click_gotoMatch
+        -------------------------------------
+        function UI_ListItem_ClanWarGroupStageMatch:click_gotoMatch()
+
+            -- 클랜전에 참여중이지 않은 유저 (조별리그에서는 참여를 했는데 탈락하는 경우는 없다)
+            if (g_clanWarData:getMyClanState() == ServerData_ClanWar.CLANWAR_CLAN_STATE['NOT_PARTICIPATING']) then
+                local msg = Str('소속된 클랜이 클랜전에 참가하지 못했습니다.')
+                local sub_msg = Str('각종 클랜 활동 기록으로 참가 클랜이 결정됩니다.\n꾸준한 클랜 활동을 이어가 주시기 바랍니다.')
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+                return
+            end
+    
+            -- 1.오픈 여부 확인
+	        local is_open, msg = g_clanWarData:checkClanWarState_League()
+	        if (not is_open) then
+		        MakeSimplePopup(POPUP_TYPE.OK, msg)
+		        return
+	        end
+
+            local success_cb = function(struct_match, match_info)
+                -- 상대가 유령클랜이거나 클랜정보가 없는 경우
+		        if (match_info) then
+                    local no_clan_func = function()
+                        local msg = Str('대전 상대가 없어 부전승 처리되었습니다.')
+                        MakeSimplePopup(POPUP_TYPE.OK, msg)
+                    end
+            
+                    local clan_id_a = match_info['a_clan_id']
+                    local clan_id_b = match_info['b_clan_id']
+                    if (clan_id_a == 'loser') then
+                         no_clan_func()
+                        return               
+                    end
+            
+                    if (clan_id_b == 'loser') then
+                         no_clan_func()
+                        return               
+                    end
+
+                    local my_clan_info = g_clanWarData:getClanInfo(clan_id_a)
+                    if (not my_clan_info) then         
+                        no_clan_func()
+                        return
+                    end
+
+                    local enemy_clan_info = g_clanWarData:getClanInfo(clan_id_b)
+                    if (not enemy_clan_info) then
+                        no_clan_func()
+                        return
+                    end
+                end
+
+                local ui_clan_war_matching = UI_ClanWarMatchingScene(struct_match)
+            end
+
+            g_clanWarData:request_clanWarMatchInfo(success_cb)
         end
 
 
