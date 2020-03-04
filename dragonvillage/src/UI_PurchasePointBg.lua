@@ -113,18 +113,43 @@ function UI_PurchasePointBg:initUI_dragonTicket()
     local dragon_list_str = TablePickDragon:getCustomList(item_id)
     local dragon_list = plSplit(dragon_list_str, ',')
 
-    for i, dragon_id in ipairs(dragon_list) do
-        local dragon_animator = UIC_DragonAnimator()
-        dragon_animator:setDragonAnimator(tonumber(dragon_id), 3)
-        dragon_animator:setTalkEnable(false)
-        
-        -- 2,3 번째 드래곤은 바라보는 방향이 다름        
-        if (i >= 2) then
-            dragon_animator.m_animator:setFlip(true)
+    -- 드래곤 수로 case_num 설정
+    local case_num = table.count(dragon_list)
+
+    -- 드래곤 뽑기권의 드래곤이 최소 2, 최대 10마리까지 있다고 가정
+    for case_i = 2, 10 do
+
+        -- 현재 케이스만 visible true로 설정
+        -- ex) case4Menu, case5Menu
+        local case_menu_lua_name = ('case' .. case_i .. 'Menu')
+        local case_menu = vars[case_menu_lua_name]
+        if case_menu then
+            local visible = (case_i == case_num)
+            case_menu:setVisible(visible)
         end
 
-        if (vars['dragonNode'.. i]) then
-            vars['dragonNode'.. i]:addChild(dragon_animator.m_node)
+        -- 현재 케이스
+        if (case_i == case_num) then
+            -- 개별 드래곤 리소스 생성
+            for i, dragon_id in ipairs(dragon_list) do
+
+                -- ex) case4_dragonNode1, case4_dragonNode2, case4_dragonNode3, case4_dragonNode4
+                --     case5_dragonNode1, case5_dragonNode2, case5_dragonNode3, case5_dragonNode4, case5_dragonNode5
+                local dragon_node_lua_name = ('case' .. case_num .. '_dragonNode'.. i)
+                local dragon_node = vars[dragon_node_lua_name]
+                if (dragon_node) then
+                    local dragon_animator = UIC_DragonAnimator()
+                    dragon_animator:setDragonAnimator(tonumber(dragon_id), 3)
+                    dragon_animator:setTalkEnable(false)
+
+                    -- 애니메이션 재생이 너무 정신없어서 배속을 조정할 목적
+                    if dragon_animator.m_animator then
+                        dragon_animator.m_animator:setTimeScale(1)
+                    end
+
+                    dragon_node:addChild(dragon_animator.m_node)
+                end
+            end
         end
     end
 
