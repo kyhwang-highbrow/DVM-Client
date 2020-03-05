@@ -66,9 +66,14 @@ function UI_ClanWarMatchingWatching:initUI()
     local vars = self.vars
 
     local struct_match = self.m_structMatch
-    local my_score, enemy_score = struct_match:getSetScore()
-    vars['clanScoreLabel1']:setString(tostring(my_score))
-    vars['clanScoreLabel2']:setString(tostring(enemy_score))
+    --local my_score, enemy_score = struct_match:getSetScore()
+    --vars['clanScoreLabel1']:setString(tostring(my_score))
+    --vars['clanScoreLabel2']:setString(tostring(enemy_score))
+    local match_info = struct_match:getMatchInfo()
+    local set_score_a = match_info['a_member_win_cnt']
+    local set_score_b = match_info['b_member_win_cnt']
+    vars['clanScoreLabel1']:setString(tostring(set_score_a))
+    vars['clanScoreLabel2']:setString(tostring(set_score_b))
 
     -- 조별리그, 토너먼트(64강, 32강, 16강, 8강, 4강, 결승전) 표기
     if (g_clanWarData:isGroupStage()) then
@@ -151,14 +156,8 @@ function UI_ClanWarMatchingWatching:setClanInfoUI()
     local b_member_cnt, b_max_clan_member_cnt = struct_match:getAttackMemberCnt(b_clan)
 
     local match_info = struct_match:getMatchInfo()
-    local my_clan_id = g_clanWarData:getMyClanId()
-    if (match_info['a_clan_id'] == my_clan_id) then
-        a_member_cnt = match_info['a_play_member_cnt']
-        b_member_cnt = match_info['b_play_member_cnt']
-    else
-        a_member_cnt = match_info['b_play_member_cnt']
-        b_member_cnt = match_info['a_play_member_cnt']               
-    end
+    a_member_cnt = match_info['a_play_member_cnt']
+    b_member_cnt = match_info['b_play_member_cnt']
     
     vars['matchNumLabel1']:setString(Str('{1}/{2}', a_member_cnt, a_max_clan_member_cnt)) 
     vars['matchNumLabel2']:setString(Str('{1}/{2}', b_member_cnt, b_max_clan_member_cnt))  
