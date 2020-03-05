@@ -326,7 +326,10 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
         end
     end
 
-    self.m_dicBuyCnt = ret['buycnt']
+    -- 상품별 구매 횟수 정보 갱신
+    if (ret['buycnt']) then
+        self.m_dicBuyCnt = ret['buycnt']
+    end
 
     self.m_bDirty = false
 
@@ -492,6 +495,11 @@ function ServerData_Shop:request_buy(struct_product, count, finish_cb, fail_cb)
             end
         end
 
+        -- 상품별 구매 횟수 정보 갱신
+        if (ret['buycnt']) then
+            self.m_dicBuyCnt = ret['buycnt']
+        end
+
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
@@ -593,6 +601,11 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
             if (self:isContainCostume(ret['added_items'])) then
                 g_tamerCostumeData.m_bDirtyCostumeInfo = true
             end
+        end
+
+        -- 상품별 구매 횟수 정보 갱신
+        if (ret['buycnt']) then
+            self.m_dicBuyCnt = ret['buycnt']
         end
 
 		if (cb_func) then
