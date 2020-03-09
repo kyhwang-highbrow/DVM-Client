@@ -409,6 +409,43 @@ function UI_ClanWarTournamentTree:setFinal()
     self:makeFinalItemByRound(ui, 4, true) -- 4강 아이템들 생성
 
     self.m_isMakeFinalUI = true
+
+    do -- 버튼 동작을 다른 라운드와 동일하게 UI_ClanWarTournamentTree 클래스에서 관리하도록 변경
+        local struct_clan_war_tournament = self.m_structTournament
+        local l_list = struct_clan_war_tournament:getTournamentListByRound(2)
+        local final_data = l_list[1]
+        if (not final_data) then
+            return
+        end
+
+        local clan1_id = final_data['a_clan_id']
+        local clan2_id = final_data['b_clan_id']
+
+        -- 내 클랜 강조
+	    local my_clan_id = g_clanWarData:getMyClanId()
+        local include_my_clan = false
+        if (clan1_id == my_clan_id) or (clan2_id == my_clan_id) then
+            include_my_clan = true
+        end
+
+        -- 매치 아이템 눌렀을 때 상세 팝업
+        local today_round = g_clanWarData:getTodayRound()
+        local round = 2 -- final이기 때문에 하드코딩
+        ui.vars['finalInfoBtn']:registerScriptTapHandler(function()
+		    if (round < today_round) then
+                UIManager:toastNotificationRed(Str('아직 진행되지 않은 경기입니다.'))
+            elseif (round == today_round) then
+                if include_my_clan then
+                    self:click_gotoMatch()
+                else
+                    require('UI_ClanWarMatchingWatching')
+                    UI_ClanWarMatchingWatching.OPEN(clan1_id)                
+                end
+            else
+                UI_ClanWarMatchInfoDetailPopup.createMatchInfoPopup(final_data)
+            end
+        end)
+    end
 end
 
 -------------------------------------
