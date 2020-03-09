@@ -127,7 +127,7 @@ function UI_QuickPopupNew:init_underBtn()
     local vars = self.vars
 
      -- 하단 메뉴 잠금 처리 - 아예 안나옴 처리
-    local l_under = {'dragonManage', 'tamer', 'forest', 'quest', 'draw', 'shop', 'clan', 'inventory', 'book', 'setting'}
+    local l_under = {'dragonManage', 'tamer', 'forest', 'quest', 'clan', 'shop', 'draw', 'inventory', 'book', 'setting'}
     local l_content = {}
     for i, under_name in ipairs(l_under) do
         if (not g_contentLockData:isContentLock(under_name)) then
