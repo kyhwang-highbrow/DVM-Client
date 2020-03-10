@@ -943,6 +943,13 @@ function UI_TitleScene:workGameLogin()
         Analytics:firstTimeExperience('Title_GameLogin_login')
 
         local success_cb = function(ret)
+
+            -- 원격 설정 초기화
+            if (ret['remote_config']) then
+                --cclog('# 원격 설정(remote config)')
+                g_remoteConfig:applyRemoteConfig(ret['remote_config'])
+            end
+
             -- next
             if ret['newuser'] then
                 login_new_user(ret)
@@ -1629,9 +1636,13 @@ function UI_TitleScene.createAccount()
         Analytics:firstTimeExperience('Prologue_Start')
 
         local scenario_name = 'scenario_prologue'
-        local prologue = UI_ScenarioPlayer(scenario_name)
-        prologue:setCloseCB(play_intro_start)
-        prologue:next()
+        local prologue = UI_ScenarioPlayer:playAfterCheckCondition(scenario_name)
+        if ui then
+            prologue:setCloseCB(play_intro_start)
+            prologue:next()
+        else
+            play_intro_start()
+        end
     end
 
 	-- 인트로 시작 시나리오
@@ -1640,9 +1651,13 @@ function UI_TitleScene.createAccount()
         Analytics:firstTimeExperience('Tutorial_Intro_Start')
 
         -- 시나리오는 조건 체크하지 않고 바로 생성
-        local ui = UI_ScenarioPlayer('scenario_intro_start_goni')
-        ui:setReplaceSceneCB(play_intro_fight)
-        ui:next()
+        local ui = UI_ScenarioPlayer:playAfterCheckCondition('scenario_intro_start_goni')
+        if ui then
+            ui:setReplaceSceneCB(play_intro_fight)
+            ui:next()
+        else
+            play_intro_fight()
+        end
     end
 
 	-- 인트로 전투
@@ -1654,9 +1669,13 @@ function UI_TitleScene.createAccount()
 
 	-- 인트로 종료 시나리오
 	play_intro_end = function()
-        local ui = UI_ScenarioPlayer('scenario_intro_finish')
-        ui:setCloseCB(tamer_sel_func)
-        ui:next()
+        local ui = UI_ScenarioPlayer:playAfterCheckCondition('scenario_intro_finish')
+        if ui then
+            ui:setCloseCB(tamer_sel_func)
+            ui:next()
+        else
+            tamer_sel_func()
+        end
     end
 
 	-- 계정 생성
