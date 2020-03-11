@@ -516,10 +516,10 @@ function UI_Setting:click_testCodeBtn()
         end
         
         local currency_code = 'KRW'
-        local currency_price = '999999'
+        local currency_price = 999999
 
         -- StructMarketProduct
-        local struct_market_product = g_shopDataNew:getStructMarketProduct(sku)
+        local struct_market_product = g_shopDataNew:getStructMarketProduct(sample_sku)
         if struct_market_product then
             local _currency_code = struct_market_product:getCurrencyCode()
             local _currency_price = struct_market_product:getCurrencyPrice()
