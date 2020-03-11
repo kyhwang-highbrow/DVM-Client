@@ -503,6 +503,7 @@ function UI_Setting:click_testCodeBtn()
     -- @sgkim 2020.03.11
     if true then
         --MakeSimplePopup()
+        local sample_sku = nil
         for sku, struct_market_product in pairs(g_shopDataNew.m_dicStructMarketProduct) do
             cclog('### sku ' .. sku)
             local currency_code = struct_market_product:getCurrencyCode()
@@ -510,8 +511,34 @@ function UI_Setting:click_testCodeBtn()
             local currency_price = struct_market_product:getCurrencyPrice()
             cclog('@ currency price : ' .. tostring(currency_price), type(currency_price))
             ccdump(struct_market_product.m_rowData)
+
+            sample_sku = sku
         end
         
+        local currency_code = 'KRW'
+        local currency_price = '999999'
+
+        -- StructMarketProduct
+        local struct_market_product = g_shopDataNew:getStructMarketProduct(sku)
+        if struct_market_product then
+            local _currency_code = struct_market_product:getCurrencyCode()
+            local _currency_price = struct_market_product:getCurrencyPrice()
+            
+            -- currency_code, currency_price의 변수 타입이나 적절치 않은 값일 경우 무시
+            if (type(_currency_code) ~= 'string') then
+            elseif (_currency_code == '') then
+            elseif (type(_currency_price) ~= 'number') then
+            elseif (_currency_price <= 0) then
+            else
+                -- 타입과 값이 온전할 경우에만 사용
+                currency_code = _currency_code
+                currency_price = _currency_price
+            end
+        end
+        cclog('##########!!')
+        cclog('# currency_code : ' .. tostring(currency_code))
+        cclog('# currency_price : ' .. tostring(currency_price))
+
         return
     end
     

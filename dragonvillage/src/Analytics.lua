@@ -212,27 +212,44 @@ end
 -------------------------------------
 -- function purchase
 -------------------------------------
-function Analytics:purchase(productId, productName, price_krw, price_usd, first_buy)
+function Analytics:purchase(productId, sku, price_krw, price_usd, first_buy)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
+    local currency_code = 'KRW'
+    local currency_price = price_krw
+
+    -- StructMarketProduct
+    local struct_market_product = g_shopDataNew:getStructMarketProduct(sku)
+    if struct_market_product then
+        local _currency_code = struct_market_product:getCurrencyCode()
+        local _currency_price = struct_market_product:getCurrencyPrice()
+            
+        -- currency_code, currency_price의 변수 타입이나 적절치 않은 값일 경우 무시
+        if (type(_currency_code) ~= 'string') then
+        elseif (_currency_code == '') then
+        elseif (type(_currency_price) ~= 'number') then
+        elseif (_currency_price <= 0) then
+        else
+            -- 타입과 값이 온전할 경우에만 사용
+            currency_code = _currency_code
+            currency_price = _currency_price
+        end
+    end
+
     -- @adbrix
-    Adbrix:buy(productId, price)
+    Adbrix:buy(productId, price_krw)
 
     -- @tapjoy
-    Tapjoy:trackPurchase(productName, currency_code_krw, price_krw)
+    Tapjoy:trackPurchase(sku, 'KRW', price_krw)
 
     -- @adjust
     do
-    -- 첫 구매는 event로 지표를 남김 (token : vooktq)
-    if first_buy then
-        Adjust:trackEvent(Adjust.EVENT.FIRST_PURCHASE)
-    end
-        -- payment event 는 revenue를 통합 관리하므로 동일한 것을 2개 이상 보내면 안된다.
-        -- dvm_purchase (token : 33qpix)
-        -- Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, 'KRW', price_krw)
+        -- 첫 구매는 event
+        if first_buy then
+            Adjust:trackEvent(Adjust.EVENT.FIRST_PURCHASE)
+        end
 
-        -- dvm_purchase_us (token : 2a7wxs)
-        Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE_USD, 'USD', price_usd)
+        Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, currency_code, currency_price)
     end
 end
 
@@ -609,9 +626,9 @@ end
 -------------------------------------
 function Adjust:adjustTrackPayment(eventKey, currency, price )
     if (not IS_ENABLE_ANALYTICS()) then return end
-    --cclog('Adjust:adjustTrackPayment : ' .. eventKey)
-    --cclog('Adjust:adjustTrackPayment : ' .. currency)
-    --cclog('Adjust:adjustTrackPayment : ' .. price)
+    cclog('Adjust:adjustTrackPayment : ' .. eventKey)
+    cclog('Adjust:adjustTrackPayment : ' .. currency)
+    cclog('Adjust:adjustTrackPayment : ' .. price)
 
     currency = currency or "KRW"
 

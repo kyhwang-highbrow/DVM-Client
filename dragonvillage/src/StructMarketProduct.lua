@@ -44,7 +44,7 @@ function StructMarketProduct:getCurrencyPrice()
         price = (self.m_rowData['price_amount_micros'] / 1000000)
 
     elseif (self.m_market == 'apple') then
-        -- price가 '₩37000', '¥3680'형태로 넘어온다.
+        -- PerpleSDK에서 apple의 경우 price가 '₩37000', '¥3680'형태로 넘어온다.
         local work_str = self.m_rowData['price']
 
         -- 1000단위 구분자 콤마(,) 제거
