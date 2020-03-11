@@ -499,6 +499,18 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
+
+    -- @sgkim 2020.03.11
+    if true then
+        ccdump(g_shopDataNew.m_dicMarketProduct)
+        --MakeSimplePopup()
+        for i,v in pairs(g_shopDataNew.m_dicMarketProduct) do
+            MakeSimplePopup(POPUP_TYPE.OK, luadump(v))
+            break
+        end
+        
+        return
+    end
     
     -- @sgkim 2019.09.24
     if true then
