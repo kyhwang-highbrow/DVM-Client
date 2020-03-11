@@ -952,6 +952,13 @@ function UI_TitleScene:workGameLogin()
 
             -- next
             if ret['newuser'] then
+                -- 신규 유저의 경우에만 remote config값에 따라 시나리오 재생 생략 여부를 위해 설정값을 조정한다.
+                -- scenario_playback_rules설정은 'first', 'always', 'off' 세가지 상태가 있으며, 기본값은 'first'이다.
+                local skip_scenario_playback = g_remoteConfig:isSkipScenarioPlayback()
+                if (skip_scenario_playback == true) then
+                    g_settingData:applySettingData('off', 'scenario_playback_rules')
+                end
+
                 login_new_user(ret)
             else
                 login_existing_user(ret)
@@ -1635,13 +1642,12 @@ function UI_TitleScene.createAccount()
         -- @analytics
         Analytics:firstTimeExperience('Prologue_Start')
 
-        local scenario_name = 'scenario_prologue'
-        local prologue = UI_ScenarioPlayer:playAfterCheckCondition(scenario_name)
-        if ui then
-            prologue:setCloseCB(play_intro_start)
-            prologue:next()
-        else
+        if (g_settingData:get('scenario_playback_rules') == 'off') then
             play_intro_start()
+        else
+            local ui = UI_ScenarioPlayer('scenario_prologue')
+            ui:setCloseCB(play_intro_start)
+            ui:next()
         end
     end
 
@@ -1650,13 +1656,12 @@ function UI_TitleScene.createAccount()
         -- @analytics
         Analytics:firstTimeExperience('Tutorial_Intro_Start')
 
-        -- 시나리오는 조건 체크하지 않고 바로 생성
-        local ui = UI_ScenarioPlayer:playAfterCheckCondition('scenario_intro_start_goni')
-        if ui then
-            ui:setReplaceSceneCB(play_intro_fight)
-            ui:next()
-        else
+        if (g_settingData:get('scenario_playback_rules') == 'off') then
             play_intro_fight()
+        else
+            local ui = UI_ScenarioPlayer('scenario_intro_start_goni')
+            ui:setCloseCB(play_intro_fight)
+            ui:next()
         end
     end
 
@@ -1669,12 +1674,12 @@ function UI_TitleScene.createAccount()
 
 	-- 인트로 종료 시나리오
 	play_intro_end = function()
-        local ui = UI_ScenarioPlayer:playAfterCheckCondition('scenario_intro_finish')
-        if ui then
+        if (g_settingData:get('scenario_playback_rules') == 'off') then
+            tamer_sel_func()
+        else
+            local ui = UI_ScenarioPlayer('scenario_intro_finish')
             ui:setCloseCB(tamer_sel_func)
             ui:next()
-        else
-            tamer_sel_func()
         end
     end
 

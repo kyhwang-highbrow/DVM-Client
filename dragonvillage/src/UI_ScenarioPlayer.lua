@@ -357,26 +357,3 @@ function UI_ScenarioPlayer:onClose()
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData()
 end
-
-
--------------------------------------
--- static function playAfterCheckCondition
--- @brief 시나리오 재생 (원격 설정에서 재생 생략 여부 체크 후 재생)
--- @param scenario_name (string)
--- @return ui (UI_ScenarioPlayer)
--------------------------------------
-function UI_ScenarioPlayer:playAfterCheckCondition(scenario_name)
-
-    -- 재생 생략 여부
-    local skip_scenario_playback = false
-    if g_remoteConfig then
-        skip_scenario_playback = g_remoteConfig:isSkipScenarioPlayback()
-    end
-
-    if (skip_scenario_playback == true) then
-        return nil
-    else
-        local ui = UI_ScenarioPlayer(scenario_name)
-        return ui
-    end
-end

@@ -133,14 +133,8 @@ function ScenarioViewingHistory:playScenario(scenario_name)
     -- 시청 기록에 등록
     self:addViewed(scenario_name)
 
-    -- 재생 생략 여부
-    local skip_scenario_playback = false
-    if g_remoteConfig then
-        skip_scenario_playback = g_remoteConfig:isSkipScenarioPlayback()
-    end
-
     -- 재생
-    if play and (skip_scenario_playback == false) then
+    if play then
         local ui = UI_ScenarioPlayer(scenario_name)
         return ui
     end
