@@ -502,11 +502,14 @@ function UI_Setting:click_testCodeBtn()
 
     -- @sgkim 2020.03.11
     if true then
-        ccdump(g_shopDataNew.m_dicMarketProduct)
         --MakeSimplePopup()
-        for i,v in pairs(g_shopDataNew.m_dicMarketProduct) do
-            MakeSimplePopup(POPUP_TYPE.OK, luadump(v))
-            break
+        for sku, struct_market_product in pairs(g_shopDataNew.m_dicStructMarketProduct) do
+            cclog('### sku ' .. sku)
+            local currency_code = struct_market_product:getCurrencyCode()
+            cclog('@ currency code : ' .. tostring(currency_code), type(currency_code ))
+            local currency_price = struct_market_product:getCurrencyPrice()
+            cclog('@ currency price : ' .. tostring(currency_price), type(currency_price))
+            ccdump(struct_market_product.m_rowData)
         end
         
         return

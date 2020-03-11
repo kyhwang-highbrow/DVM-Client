@@ -8,7 +8,7 @@ ServerData_Shop = class({
         m_dicBuyCnt = '[product_id][count]', -- 구매 횟수
         m_ret = 'server response',
         m_dicMarketPrice = '', -- 마켓에서 받은 가격 (통화까지 표시)
-        m_dicMarketProduct = '', -- 마켓에서 받은 상품 정보
+        m_dicStructMarketProduct = '[sku][StructMarketProduct]', -- 마켓에서 받은 상품 정보
         m_bDirty = 'boolean',
 
 		m_sumMoney = 'number', -- 유저가 결제한 총 금액
@@ -41,7 +41,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['etc'] = {}
     self.m_dicBuyCnt = {}
     self.m_dicMarketPrice = {}
-    self.m_dicMarketProduct = {}
+    self.m_dicStructMarketProduct = {}
 
     self:setDirty()
 end
@@ -931,6 +931,15 @@ function ServerData_Shop:getPricingMatrix()
 end
 
 -------------------------------------
+-- function getStructMarketProduct
+-- @param sku (string)
+-- @return StructMarketProduct
+-------------------------------------
+function ServerData_Shop:getStructMarketProduct(sku)
+    return self.m_dicStructMarketProduct[sku]
+end
+
+-------------------------------------
 -- function getPriceStrBySku
 -------------------------------------
 function ServerData_Shop:getPriceStrBySku(sku)
@@ -959,7 +968,7 @@ function ServerData_Shop:setMarketPrice(market_data)
         local price = v.price
 
         self.m_dicMarketPrice[sku] = price
-        self.m_dicMarketProduct[sku] = clone(v)
+        self.m_dicStructMarketProduct[sku] = StructMarketProduct(clone(v))
     end
 end
 
