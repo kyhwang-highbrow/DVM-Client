@@ -856,6 +856,12 @@ function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
             end
         end
     end
+
+    -- 레벨이 변경되었을 경우 Tapjoy유저 레벨 정보를 갱신하기 위해 호출
+    if (user_levelup_data['prev_lv'] ~= user_levelup_data['curr_lv']) then
+        -- @analytics (Tapjoy)
+        Analytics:userInfo()
+    end
 end
 
 -------------------------------------
