@@ -4411,6 +4411,9 @@
     <None Include="..\src\StructMarketProduct.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_Package_DragonChoiceHero.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

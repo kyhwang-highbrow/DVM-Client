@@ -76,6 +76,11 @@ function PackageManager:getTargetUI(package_name, is_popup)
         target_ui = UI_Package_Bundle(_package_name, is_popup)
         self:setCapsulePackageReward(target_ui)
 
+    -- 영웅 드래곤 선택권 패키지
+    elseif (_package_name == 'package_dragon_choice_hero') then
+        require('UI_Package_DragonChoiceHero')
+        target_ui = UI_Package_DragonChoiceHero(_package_name, is_popup)
+
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(_package_name)) then

@@ -1394,6 +1394,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Package_AdventureClearListItem.lua" />
     <None Include="..\src\UI_Package_AdventureClearListItem02.lua" />
     <None Include="..\src\UI_Package_Bundle.lua" />
+    <None Include="..\src\UI_Package_DragonChoiceHero.lua" />
     <None Include="..\src\UI_Package_LevelUp.lua" />
     <None Include="..\src\UI_Package_LevelUpListItem.lua" />
     <None Include="..\src\UI_Package_LevelUp_02.lua" />
