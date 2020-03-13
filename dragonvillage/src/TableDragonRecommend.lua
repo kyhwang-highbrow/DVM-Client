@@ -24,6 +24,10 @@ function TableDragonRecommend:getRecommendHeroDragonData()
         self = THIS()
     end
 
+    if true then
+        return self:getRandomRow()
+    end
+
     -- 한 번도 획득하지 않은 드래곤 중 인연포인트를 수집하고 있는 드래곤 우선
     local t_data = self:getRecommendHeroDragonData_needsDragon()
     if t_data then
@@ -110,19 +114,30 @@ function TableDragonRecommend:getRecommedText(did)
         return ''
     end
 
-    local ret_str = ''
+    
+    local l_tag = {}
     for key, value in pairs(t_data) do
         if pl.stringx.startswith(key, 'tag_') then
-            if value and (value~=nil) then
+            local value_number = tonumber(value)
+            if value_number then
                 local content_str = string.gsub(key, 'tag_', '')
-
-                local str = getContentName(content_str)
-                if (ret_str == '') then
-                    ret_str = str
-                else
-                    ret_str = ret_str .. ', ' .. str
-                end
+                table.insert(l_tag, {priority=value_number, content=content_str})
             end
+        end
+    end
+
+
+    table.sort(l_tag, function(a, b)
+        return a['priority'] > b['priority']
+    end)
+
+    local ret_str = ''
+    for i, t_tag in ipairs(l_tag) do
+        local str = getContentName(t_tag['content'])
+        if (ret_str == '') then
+            ret_str = str
+        else
+            ret_str = ret_str .. ', ' .. str
         end
     end
 
