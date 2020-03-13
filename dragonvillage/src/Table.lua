@@ -71,6 +71,7 @@ local TableInfo = {
         enemy_move          = {'table_enemy_move',           'type',         true},
         table_rune_set      = {'table_rune_set',             'set_id',       false},
         table_dragon_phrase = {'table_dragon_phrase',        'did',          false},
+        table_dragon_recommend = {'table_dragon_recommend',  'did',          false},
 
         scenario_resource   = {'scenario/scenario_resource', 'key',         false},
 

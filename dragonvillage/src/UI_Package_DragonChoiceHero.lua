@@ -19,9 +19,7 @@ function UI_Package_DragonChoiceHero:init(package_name, is_popup)
     self:createRecommendUI()
 
     local vars = self.vars
-    cclog('call!!!!!!!!!! 1')
     if vars['infoBtn'] then
-        cclog('call!!!!!!!!!! 2')
         vars['infoBtn']:registerScriptTapHandler(function() self:createRecommendUI() end)
     end
 end
@@ -40,7 +38,12 @@ function UI_Package_DragonChoiceHero:createRecommendUI()
     local vars = self.m_recommendUI.vars
 
     do
-        local did = 120395
+        require('TableDragonRecommend')
+        local t_dragon_recommend = TableDragonRecommend:getRecommendHeroDragonData()
+        if (not t_dragon_recommend) then
+            return
+        end
+        local did = t_dragon_recommend['did']
         local dragon_animator = UIC_DragonAnimator()
 
         dragon_animator:setDragonAnimator(did, 3) -- did, evolution, flv
@@ -78,7 +81,7 @@ function UI_Package_DragonChoiceHero:createRecommendUI()
 
         -- 드래곤 설명
         if vars['characterdLabel'] then
-            vars['characterdLabel']:setString('desc')
+            vars['characterdLabel']:setString(Str(t_dragon_recommend['t_desc']))
         end
     end
 
