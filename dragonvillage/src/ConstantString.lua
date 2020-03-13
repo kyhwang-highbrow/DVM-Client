@@ -345,6 +345,12 @@ function getContentName(content_type)
     elseif (content_type == 'clan_raid') then
         content_name = Str('클랜 던전')
 
+    elseif (content_type == 'clan_raid_1') then
+        content_name = Str('클랜던전(1공격대)')
+
+    elseif (content_type == 'clan_raid_2') then
+        content_name = Str('클랜던전(2공격대)')
+
     elseif (content_type == 'ancient_ruin') then
         content_name = Str('고대 유적 던전')
 

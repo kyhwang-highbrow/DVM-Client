@@ -96,3 +96,35 @@ function TableDragonRecommend:getRecommendHeroDragonData_needsDragon()
 
     return nil
 end
+
+-------------------------------------
+-- function getRecommedText
+-------------------------------------
+function TableDragonRecommend:getRecommedText(did)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_data = self:get(did)
+    if (not t_data) then
+        return ''
+    end
+
+    local ret_str = ''
+    for key, value in pairs(t_data) do
+        if pl.stringx.startswith(key, 'tag_') then
+            if value and (value~=nil) then
+                local content_str = string.gsub(key, 'tag_', '')
+
+                local str = getContentName(content_str)
+                if (ret_str == '') then
+                    ret_str = str
+                else
+                    ret_str = ret_str .. ', ' .. str
+                end
+            end
+        end
+    end
+
+    return ret_str
+end

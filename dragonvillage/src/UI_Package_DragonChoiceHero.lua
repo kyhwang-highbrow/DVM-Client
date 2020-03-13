@@ -83,6 +83,19 @@ function UI_Package_DragonChoiceHero:createRecommendUI()
         if vars['characterdLabel'] then
             vars['characterdLabel']:setString(Str(t_dragon_recommend['t_desc']))
         end
+
+        -- 추천 콘텐츠
+        if vars['recommendLabel'] then
+            local str = TableDragonRecommend:getRecommedText(did)
+            vars['recommendLabel']:setString(str)
+        end
+
+        -- 배경
+        if vars['attrBgNode'] then
+            vars['attrBgNode']:removeAllChildren()
+            local animator = ResHelper:getUIDragonBG(attr, 'idle')
+            vars['attrBgNode']:addChild(animator.m_node)
+        end
     end
 
     local function func_close()

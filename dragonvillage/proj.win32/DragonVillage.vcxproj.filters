@@ -4414,6 +4414,9 @@
     <None Include="..\src\UI_Package_DragonChoiceHero.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableDragonRecommend.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
