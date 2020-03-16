@@ -37,6 +37,38 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
     if (link_btn) then
         link_btn:registerScriptTapHandler(function() self:click_bannerBtn() end)
     end
+    
+    self:init_customUI()
+end
+
+-------------------------------------
+-- function init_customUI
+-------------------------------------
+function UI_EventPopupTab_Banner:init_customUI()
+    local vars = self.vars
+    local struct_banner_data = self.m_structBannerData
+
+
+    local banner = struct_banner_data['banner']
+
+    -- 드래곤 히어로즈 택틱스 크로스 프로모션
+    if (banner == 'event_dht_promotion.ui') then
+
+        -- 공지로 이동
+        if vars['noticeLinkBtn'] then
+            vars['noticeLinkBtn']:registerScriptTapHandler(function()
+                    local article_key = 'event_dht_promotion'
+                    NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
+                end)
+        end
+        
+        -- 게임으로 이동 (구글 플레이 or 앱스토어)
+        if vars['gameLinkBtn'] then
+            vars['gameLinkBtn']:registerScriptTapHandler(function()
+                    SDKManager:goToWeb('https://perplelab.sng.link/Don2b/v08o')
+                end)
+        end
+    end
 end
 
 -------------------------------------
