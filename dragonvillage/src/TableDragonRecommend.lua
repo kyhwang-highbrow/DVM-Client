@@ -24,10 +24,6 @@ function TableDragonRecommend:getRecommendHeroDragonData()
         self = THIS()
     end
 
-    if true then
-        return self:getRandomRow()
-    end
-
     -- 한 번도 획득하지 않은 드래곤 중 인연포인트를 수집하고 있는 드래곤 우선
     local t_data = self:getRecommendHeroDragonData_needsDragon()
     if t_data then
