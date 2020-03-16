@@ -22,6 +22,16 @@ function UI_Package_DragonChoiceHero:init(package_name, is_popup)
     if vars['infoBtn'] then
         vars['infoBtn']:registerScriptTapHandler(function() self:createRecommendUI() end)
     end
+
+    -- 제품 수량에 대한 시스템에 차이로 같은 문장이 다르게 번역됨. 우선 통일을 위해 클라이언트에서 하드코딩
+    -- '영웅 드래곤 선택권 1개'                               -> '1 Hero Dragon Selection Ticket'
+    -- Str('{1} {2}개', '영웅 드래곤 선택권', comma_value(1)) -> 'Hero Dragon Selection Ticket X1'
+    if vars['heroTicketLabel'] then
+        local item_name = Str('영웅 드래곤 선택권')
+        local item_cnt = 1
+        local str =  Str('{1} {2}개', item_name, comma_value(item_cnt))
+        vars['heroTicketLabel']:setString(str)
+    end
 end
 
 -------------------------------------
