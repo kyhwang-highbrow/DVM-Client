@@ -109,14 +109,14 @@ function UI_EventFullPopup:initUI()
         if (not ui) then
             -- 이벤트 프로덕트 정보 없을 경우 비활성화라고 생각하고 닫아줌 (주말 패키지)
             self:close()
-        end
-
-        -- 영웅 드래곤 선택권 패키지에서는 내부 ui의 closeBtn을 사용하도록 한다.
-        if (popup_key == 'package_dragon_choice_hero') and ui.vars['closeBtn'] then
-            ui.vars['closeBtn']:setVisible(true)
-            ui.vars['closeBtn']:setEnabled(true)
-            ui.vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-            vars['closeBtn']:setVisible(false)
+        else
+            -- 영웅 드래곤 선택권 패키지에서는 내부 ui의 closeBtn을 사용하도록 한다.
+            if (popup_key == 'package_dragon_choice_hero') and ui.vars['closeBtn'] then
+                ui.vars['closeBtn']:setVisible(true)
+                ui.vars['closeBtn']:setEnabled(true)
+                ui.vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+                vars['closeBtn']:setVisible(false)
+            end
         end
 
     -- 다이아 할인 상품 풀팝업

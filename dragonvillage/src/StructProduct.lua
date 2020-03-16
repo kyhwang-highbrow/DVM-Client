@@ -229,6 +229,13 @@ end
 function StructProduct:isDisplayed()
     local max_buy_term = self['max_buy_term']
 
+    -- 내부적으로 월간 상품이어도 유저에게 계정당 구매 제한으로 보였으면 하는 경우가 있다.
+    -- 유저에게 상품을 노출하는 기준은 내부적인 구매 제한보다 display기준을 따르는 것이 맞다.
+    -- max_buy_diplay값을 우선하도록 변경한다.
+    if (self['max_buy_display'] and (self['max_buy_display'] ~= '')) then
+        max_buy_term = self['max_buy_display']
+    end
+
     if (max_buy_term == 'weekly') then
         return true
 
