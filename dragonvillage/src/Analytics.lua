@@ -33,6 +33,33 @@ if (PerpleSdkManager:xsollaIsAvailable()) then
 			TAMER_LV_15 = 'eqqxkc',
 		}
 	}
+elseif (PerpleSdkManager:onestoreIsAvailable()) then
+	Adjust = {
+		EVENT = {
+			FIRST_PURCHASE = 'wejpab',              --첫구매
+			PURCHASE = '9vhez3',                    --구매 통합
+			PURCHASE_USD = 'nxwz7u',                --구매 (달러)
+
+			CREATE_NICKNAME = '40e5qw',             --닉네임 생성
+			CREATE_NICKNAME_REPEAT = 'zewa3w',      --닉네임 생성 unique아닌거(리세마라 체크용)
+			TUTORIAL_FINISH_INTRO = 'k8qdlb',       --인트로 전투 끝
+			TUTORIAL_FINISH_1_2 = 'ifqx0i',         --1-2스테이지 끝
+			STAGE_FINISH_1_7 = '8cxrfm',            --1-7 스테이지 끝
+			TAMER_LV_4 = 'wn5h73',                  --테이머 레벨4
+			TAMER_LV_6 = 'rgldp1',                  --테이머 레벨6
+			TAMER_LV_8 = 'yd9c2u',                  --테이머 레벨8
+			TAMER_LV_10 = '7r8v3q',                 --테이머 레벨10
+			TAMER_LV_12 = '62thni',                 --테이머 레벨12
+			TAMER_LV_15 = 'mbx4qz',                 --테이머 레벨15
+			DRAGON_ENVOLVE = 'w6uyo9',              --드래곤 진화
+			DRAGON_RANKUP = 'tkoo5d',               --드래곤 승급
+			DRAGON_MAKE_6GRADE = '9qt8m6',          --6성드래곤 만듬
+			RUNE_EQUIP = '551loq',                  --6성 룬 장비
+			PURCHASE_10_US = '3rsefo',              --누적 결제금액 1만원 이상
+			PURCHASE_100_US = '547z21',             --누적 결제금액 10만원 이상
+			PURCHASE_1000_US = 'wun3fo',            --누적 결제금액 100만원 이상
+		}
+    }
 else
 	Adjust = {
 		EVENT = {
