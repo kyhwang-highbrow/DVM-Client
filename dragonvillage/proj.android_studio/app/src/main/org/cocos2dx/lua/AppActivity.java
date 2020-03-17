@@ -156,7 +156,7 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @onestore
         if (BuildConfig.FLAVOR_platform == "onestore") {
-            perpleSdkInstance.initOnestore(BuildConfig.PUBLIC_KEY);
+            perpleSdkInstance.initOnestore(PerpleConfig.ONESTORE_PURBLIC_KEY);
         }
     }
 

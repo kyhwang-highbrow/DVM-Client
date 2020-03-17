@@ -37,4 +37,7 @@ public class PerpleConfig {
     public static final String XSOLLA_API_KEY = "tP3xsMG3ZXasBD52";
     public static final int XSOLLA_PROJECT_ID = BuildConfig.DEBUG ? 37373 : 35264;
     public static final String XSOLLA_SECRET_KEY = "5CxonpyaUmJxbWdz";
+	
+	// @onestore
+	public static final String ONESTORE_PURBLIC_KEY = "";
 }

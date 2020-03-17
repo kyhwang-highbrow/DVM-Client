@@ -27,9 +27,6 @@ android {
 
         multiDexEnabled true
 
-        // buildConfig.java에 저장할 초기값 세팅
-        buildConfigField "String", "PUBLIC_KEY", "\"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCps9StRMqg4wDFchmRLqFdbc7d0xnBJrG4hrrJvwMu3GZIMsfi+wQV4z744sTu6KoD+QihdJwkS3fgHfF7QDcBFYM72JvG1+//5AXcAZtETuszP78ODXPiVrfjzfDSD6Zyy7Nvnb0XvGsZSg+EfIyYHerdFAU6tATSgFg6AXQZswIDAQAB\""
-
         externalNativeBuild {
             ndkBuild {
                 if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
@@ -100,7 +97,7 @@ android {
             java.srcDirs = ["src/main", "src/cafebazaar"]
         }
         onestore {
-            java.srcDirs = ["src/main", "src/google"]
+            java.srcDirs = ["src/main", "src/onestore"]
         }
 
 
@@ -147,7 +144,7 @@ android {
     // when Gradle merges variant sources and configurations. You must assign
     // each product flavor you configure to one of the flavor dimensions.
 
-    flavorDimensions "server", "asset", "platform"
+    flavorDimensions "platform", "server", "asset"
 
     /**
     * The productFlavors {} block is where you can configure multiple product
@@ -156,11 +153,34 @@ android {
     * optional, and the build system does not create them by default.
     */
     productFlavors {
+        // demension platform
+        google {
+            dimension "platform"
+            applicationIdSuffix ".kr"
+        }
+        xsolla {
+            dimension "platform"
+            applicationIdSuffix ".kr"
+        }
+        cafebazaar {
+            dimension "platform"
+            applicationIdSuffix ".kr"
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DIS_CAFE_BAZAAR_BUILD=true")
+                }
+            }
+        }
+        onestore {
+            dimension "platform"
+            applicationIdSuffix ".onestore"
+        }
+
         // dimension server
         dev{
             dimension "server"
             versionName PROP_APPVER_DEV
-            applicationIdSuffix ".dev"
+            //applicationIdSuffix ".dev"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -176,7 +196,7 @@ android {
         qa{
             dimension "server"
             versionName PROP_APPVER_QA
-            applicationIdSuffix ".kr"
+            //applicationIdSuffix ".kr"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -192,7 +212,7 @@ android {
         liveqa{
             dimension "server"
             versionName PROP_APPVER_LIVE
-            applicationIdSuffix ".qa"
+            //applicationIdSuffix ".qa"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -208,7 +228,7 @@ android {
         live{
             dimension "server"
             versionName PROP_APPVER_LIVE
-            applicationIdSuffix ".kr"
+            //applicationIdSuffix ".kr"
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
@@ -241,28 +261,7 @@ android {
                     cppFlags.add("-DUSE_OBB=false")
                 }
             }
-        }
-
-        // platform
-        google {
-            dimension "platform"
-        }
-        xsolla {
-            dimension "platform"
-        }
-        cafebazaar {
-            dimension "platform"
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DIS_CAFE_BAZAAR_BUILD=true")
-                }
-            }
-        }
-        onestore {
-            dimension "platform"
-            buildConfigField "String", "PUBLIC_KEY", "\"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCps9StRMqg4wDFchmRLqFdbc7d0xnBJrG4hrrJvwMu3GZIMsfi+wQV4z744sTu6KoD+QihdJwkS3fgHfF7QDcBFYM72JvG1+//5AXcAZtETuszP78ODXPiVrfjzfDSD6Zyy7Nvnb0XvGsZSg+EfIyYHerdFAU6tATSgFg6AXQZswIDAQAB\""
-        }
-        
+        }        
     }
 
     buildTypes {
@@ -305,18 +304,20 @@ android {
     }
     
     // apk 이름 변경 : "dvm_version_vc00_server_asset_buildtype.apk
+    // apk 이름 변경 : "dvm_google_1.2.3_vc43_live_full_release.apk
     applicationVariants.all { variant ->
         variant.outputs.all {
             def flavors = variant.productFlavors
 
-            def server_flavor = flavors[0].name // 여기서 0은 dimension 순서를 의미
-            def asset_flavor = flavors[1].name // market or full
-            def platform_flavor = flavors[2].name // google or xsolla or cafebazaar or onestore
+            // 여기서 index는 dimension 순서를 의미
+            def platform_flavor = flavors[0].name // google or xsolla or cafebazaar or onestore
+            def server_flavor = flavors[1].name  // live or dev or qa
+            def asset_flavor = flavors[2].name // market or full
             def version = variant.versionName
             def versionCode = defaultConfig.versionCode
             def buildType = variant.variantData.variantConfiguration.buildType.name
 
-            outputFileName = "dvm_${version}_vc${versionCode}_${server_flavor}_${asset_flavor}_${platform_flavor}_${buildType}.apk"
+            outputFileName = "dvm_${platform_flavor}_${version}_vc${versionCode}_${server_flavor}_${asset_flavor}_${buildType}.apk"
         }
     }
 } // end:android
