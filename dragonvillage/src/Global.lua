@@ -69,7 +69,8 @@ function IS_ENABLE_ANALYTICS()
         return false
     end
 
-    return IS_LIVE_SERVER() and Analytics:getEnable()
+    --return IS_LIVE_SERVER() and Analytics:getEnable()
+    return true
 end
 
 -------------------------------------
