@@ -66,38 +66,57 @@ android {
     // productFlavors or buildType 에 따른 개별적인 source 설정 가능
     // favors + buildType 가능
     sourceSets{
-        dev {
-            res.srcDirs = ["res/common", "res/dev"]
-        }
-        qa {
-            res.srcDirs = ["res/common", "res/qa"]
-        }
-        liveqa {
-            res.srcDirs = ["res/common", "res/liveqa"]
-        }
-        live {
+
+        // demension platform
+        google {
+            java.srcDirs = ["src/main", "src/google"]
             res.srcDirs = ["res/common", "res/live"]
         }
-        
+        googledev {
+            java.srcDirs = ["src/main", "src/google"]
+            res.srcDirs = ["res/common", "res/dev"]
+        }
+        googleqa {
+            java.srcDirs = ["src/main", "src/google"]
+            res.srcDirs = ["res/common", "res/qa"]
+        }
+        googleliveqa {
+            java.srcDirs = ["src/main", "src/google"]
+            res.srcDirs = ["res/common", "res/liveqa"]
+        }
+        xsolla { 
+            java.srcDirs = ["src/main", "src/xsolla"]
+            res.srcDirs = ["res/common", "res/live"]
+        }
+        cafebazaar { 
+            java.srcDirs = ["src/main", "src/cafebazaar"]
+            res.srcDirs = ["res/common", "res/live"]
+        }
+        onestore {
+            java.srcDirs = ["src/main", "src/onestore"]
+            res.srcDirs = ["res/common", "res/onestore"]
+        }
 
+        // demension server
+        dev {
+            //res.srcDirs = ["res/common", "res/dev"]
+        }
+        qa {
+            //res.srcDirs = ["res/common", "res/qa"]
+        }
+        liveqa {
+            //res.srcDirs = ["res/common", "res/liveqa"]
+        }
+        live {
+            //res.srcDirs = ["res/common", "res/live"]
+        }
+
+        // demension asset
         market {
             assets.srcDir "../../../assets/100mb"
         }
         full {
             assets.srcDir "../../../assets/full"
-        }
-
-        google {
-            java.srcDirs = ["src/main", "src/google"]
-        }
-        xsolla { 
-            java.srcDirs = ["src/main", "src/xsolla"]
-        }
-        cafebazaar { 
-            java.srcDirs = ["src/main", "src/cafebazaar"]
-        }
-        onestore {
-            java.srcDirs = ["src/main", "src/onestore"]
         }
 
 
@@ -155,6 +174,18 @@ android {
     productFlavors {
         // demension platform
         google {
+            dimension "platform"
+            applicationIdSuffix ".kr"
+        }
+        googledev {
+            dimension "platform"
+            applicationIdSuffix ".kr"
+        }
+        googleqa {
+            dimension "platform"
+            applicationIdSuffix ".kr"
+        }
+        googleliveqa {
             dimension "platform"
             applicationIdSuffix ".kr"
         }
