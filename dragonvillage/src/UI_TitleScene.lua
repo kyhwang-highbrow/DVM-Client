@@ -436,7 +436,6 @@ end
 -------------------------------------
 function UI_TitleScene:workTitleAni()
     -- @analytics
-    Analytics:init()
     Analytics:firstTimeExperience('Title_TitleAni')
 
     -- @UI_ACTION
