@@ -500,6 +500,17 @@ end
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
 
+    -- @sgkim 2020.03.18
+    -- 원스토어 마켓으로 이동 테스트
+    if true then
+        MakeSimplePopup(POPUP_TYPE.OK, 'goToWeb으로 테스트')
+        --SDKManager:goToWeb(URL['DVM_ONESTORE_DOWNLOAD'])
+        -- 드빌M이 아직 출시 전이라서 드빌1으로 테스트 https://onesto.re/0000285367
+        local url = 'https://onesto.re/0000285367'
+        SDKManager:goToWeb(url)
+        return
+    end
+
     -- @sgkim 2020.03.11
     if true then
         --MakeSimplePopup()
@@ -680,6 +691,16 @@ end
 -------------------------------------
 function UI_Setting:click_testCodeBtn2()
     
+    -- @sgkim 2020.03.18
+    -- 원스토어 마켓으로 이동 테스트
+    if true then
+        MakeSimplePopup(POPUP_TYPE.OK, 'sendEvent, app_gotoStore로 테스트')
+        -- 드빌M이 아직 출시 전이라서 드빌1으로 테스트 https://onesto.re/0000285367
+        local pid = '0000285367'
+        SDKManager:sendEvent('app_gotoStore', pid)
+        return
+    end
+
     -- @sgkim 2019.10.08
     if true then
         self:testFunction_AdmobMediation()
