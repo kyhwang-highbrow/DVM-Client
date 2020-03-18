@@ -1092,7 +1092,10 @@ end
 function UI_Lobby:update_google()
     local vars = self.vars
 
-	if (not CppFunctions:isAndroid()) then
+    local market, os = GetMarketAndOS()
+
+    -- 마켓이 구글인 경우에만 노출
+	if (market ~= 'google') then
 		vars['googleGameBtn']:setVisible(false)
 	elseif (g_localData:isGoogleLogin()) then
         vars['googleGameBtn']:setVisible(true)
