@@ -435,7 +435,9 @@ public class AppActivity extends Cocos2dxActivity{
             sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appId)));
         } catch (android.content.ActivityNotFoundException anfe) {
             if (BuildConfig.FLAVOR_platform == "onestore"){
-                sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.onestore.co.kr/userpoc/game/view?pid=" + appId)));
+                // 참고 링크 : https://github.com/ONE-store/inapp-sdk/wiki/Tools-Developer-Guide
+                //sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.onestore.co.kr/userpoc/game/view?pid=" + appId)));
+                sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://onesto.re/" + appId)));
             }else{
                 sActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appId)));
             }

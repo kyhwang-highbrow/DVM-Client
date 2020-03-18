@@ -130,6 +130,9 @@ URL['DVM_CS_XSOLLA'] = 'http://ask.dvm.perplelab.com/index_xsolla.html'
 URL['DVM_CS_XSOLLA_EN'] = 'http://ask.dvm.perplelab.com/index_xsolla_en.html'
 URL['DVM_XSOLLA_DOWNLOAD'] = 'http://dvmx.perplelab.com'
 
+-- 원스토어(ONEstore)
+URL['DVM_ONESTORE_DOWNLOAD'] = 'https://onesto.re/0000746979'
+
 function GetCSUrl(server)
     if server == SERVER_NAME.KOREA then
         return PerpleSdkManager:xsollaIsAvailable() and URL['DVM_CS_XSOLLA'] or URL['DVM_CS']

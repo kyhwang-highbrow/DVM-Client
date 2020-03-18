@@ -139,8 +139,21 @@ end
 -- @brief 
 -------------------------------------
 function SDKManager:goToAppStore()
+    -- xsolla
     if (PerpleSdkManager:xsollaIsAvailable()) then
         self:goToWeb(URL['DVM_XSOLLA_DOWNLOAD'])
+
+    -- onestore
+    elseif (PerpleSdkManager:onestoreIsAvailable()) then
+        -- 참고 링크 : https://github.com/ONE-store/inapp-sdk/wiki/Tools-Developer-Guide
+        -- https://www.onestore.co.kr/userpoc/game/view?pid=0000746979
+        -- https://onesto.re/0000746979
+        self:goToWeb(URL['DVM_ONESTORE_DOWNLOAD'])
+
+        -- local pid = '0000746979'
+        -- self:sendEvent('app_gotoStore', pid)
+
+    -- google, apple
     else
         local appId = 'com.perplelab.dragonvillagem.kr'
         if isIos() then
