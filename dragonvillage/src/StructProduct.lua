@@ -227,6 +227,23 @@ end
 -- @brief 상품 노출 여부
 -------------------------------------
 function StructProduct:isDisplayed()
+    local sku = self['sku']
+
+    -- 원스토어에서만 노출되어야 하는 상품 필터
+    -- 개발의 용이성을 위해 windows에서는 상품 노출
+    if (PerpleSdkManager:onestoreIsAvailable() == false) and (CppFunctions:isWin32() == false) then
+        local l_check_sku = {}
+        table.insert(l_check_sku, 'dvm_ost_launch_10k')
+        table.insert(l_check_sku, 'dvm_ost_launch_100k')
+
+        for i,v in ipairs(l_check_sku) do
+            if (sku == v) then
+                return false
+            end
+        end
+    end
+    
+
     local max_buy_term = self['max_buy_term']
 
     -- 내부적으로 월간 상품이어도 유저에게 계정당 구매 제한으로 보였으면 하는 경우가 있다.
