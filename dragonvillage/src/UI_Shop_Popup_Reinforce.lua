@@ -237,7 +237,6 @@ function UI_Shop_Popup_Reinforce:refresh_reinforceInfo()
 	if (t_dragon_data:isMaxRlv()) then
 		vars['expGauge']:setPercentage(100)
 		vars['expLabel']:setString('MAX')
-		vars['priceLabel']:setString('-')
 		return
 	end
 
