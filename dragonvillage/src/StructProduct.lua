@@ -475,7 +475,7 @@ function StructProduct:getPriceStr()
                 if (sku) and (dicMarketPrice[sku]) then
                     return '￦' .. comma_value(dicMarketPrice[sku])
                 else
-                    return '$ ' .. comma_value(self['price_dollar'])
+                    return '￦ ' .. comma_value(self:getPrice())
                 end
             -- 마켓에서 받은 가격이 있다면 표시
             elseif (sku) and (dicMarketPrice[sku]) then
