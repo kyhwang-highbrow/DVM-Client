@@ -239,7 +239,7 @@ end
 -------------------------------------
 -- function purchase
 -------------------------------------
-function Analytics:purchase(productId, sku, price_krw, price_usd, first_buy)
+function Analytics:purchase(product_id, sku, price_krw, price_usd, first_buy)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
     local currency_code = 'KRW'
@@ -264,10 +264,10 @@ function Analytics:purchase(productId, sku, price_krw, price_usd, first_buy)
     end
 
     -- @adbrix
-    Adbrix:buy(productId, price_krw)
+    Adbrix:buy(product_id, price_krw)
 
     -- @tapjoy
-    Tapjoy:trackPurchase(sku, 'KRW', price_krw)
+    Tapjoy:trackPurchase(product_id, currency_code, currency_price)
 
     -- @adjust
     do
