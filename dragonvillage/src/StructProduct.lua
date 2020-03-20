@@ -482,8 +482,11 @@ function StructProduct:getPriceStr()
                 return dicMarketPrice[sku]
             -- 없다면 기본 달러 표시
             else
+                -- 윈도우에서는 원화로 표시
+                if (CppFunctions:isWin32()) then
+                    return '￦ ' .. comma_value(self:getPrice())
                 -- 원스토어 빌드에서는 원화로 표시
-                if (PerpleSdkManager:onestoreIsAvailable()) then
+                elseif (PerpleSdkManager:onestoreIsAvailable()) then
                     return '￦ ' .. comma_value(self:getPrice())
                 else
                     return '$ ' .. comma_value(self['price_dollar'])
