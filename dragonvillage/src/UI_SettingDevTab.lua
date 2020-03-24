@@ -516,7 +516,8 @@ function UI_Setting:click_testCodeBtn()
             local function finish_cb()
                 cclog('## PaymentHelper.handlingMissingPayments_onestore 종료!!!')
             end
-            PaymentHelper.handlingMissingPayments_onestore(info_json, nil, finish_cb)
+            local l_payload = table.MapToList(info_json)
+            PaymentHelper.handlingMissingPayments_onestore(l_payload, nil, finish_cb)
         end
 
         PerpleSDK:onestoreRequestPurchases(callback)
