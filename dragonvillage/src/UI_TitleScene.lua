@@ -1279,6 +1279,15 @@ end
 function UI_TitleScene:workBillingSetup()
     self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
 
+    -- onestore
+    if (PerpleSdkManager:onestoreIsAvailable()) then
+        if PerpleSDK.onestoreSetUid then
+            local uid = g_localData:get('local', 'uid')
+            cclog('# UI_TitleScene:workBillingSetup() PerpleSDK.onestoreSetUid : ' .. uid)
+            PerpleSDK.onestoreSetUid(uid)
+        end
+    end
+
     local l_payload = {}
     local function call_back(ret, info)
         cclog('# UI_TitleScene:workBillingSetup() result : ' .. tostring(ret))
