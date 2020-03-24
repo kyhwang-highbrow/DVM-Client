@@ -565,8 +565,12 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     -- 콜백 함수
     local function success_cb(ret)
         
+        -- 누락된 지급건을 처리하는 경우 struct_product가 nil일 수 있다. 이 경우 product_id로 조회한다.
+        if (struct_product == nil) then
+            struct_product = self:getTargetProduct(tonumber(product_id))
+        end
+
         -- @analytics
-        -- 탭조이 매출은 모두 krw 가격으로 보냄
         if (struct_product) then
             local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
             local usd_price = struct_product['price_dollar']
@@ -778,6 +782,8 @@ end
 
 -------------------------------------
 -- function getTargetProduct
+-- @brief product_id를 통해 StructProduct를 획득한다.
+-- @param product_id (number)
 -------------------------------------
 function ServerData_Shop:getTargetProduct(product_id)
     if (not self.m_dicProduct) then

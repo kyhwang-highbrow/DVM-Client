@@ -358,6 +358,7 @@ function UI_TitleScene:setWorkList()
         
         -- market : Onestore or Google
         if (PerpleSdkManager:onestoreIsAvailable()) then
+            table.insert(self.m_lWorkList, 'workBillingSetupForOnestore') -- perple sdk
             table.insert(self.m_lWorkList, 'workGetMarketInfoForOnestore') -- perple sdk
         else
             table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
@@ -1279,15 +1280,6 @@ end
 function UI_TitleScene:workBillingSetup()
     self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
 
-    -- onestore
-    if (PerpleSdkManager:onestoreIsAvailable()) then
-        if PerpleSDK.onestoreSetUid then
-            local uid = g_localData:get('local', 'uid')
-            cclog('# UI_TitleScene:workBillingSetup() PerpleSDK.onestoreSetUid : ' .. uid)
-            PerpleSDK:onestoreSetUid(uid)
-        end
-    end
-
     local l_payload = {}
     local function call_back(ret, info)
         cclog('# UI_TitleScene:workBillingSetup() result : ' .. tostring(ret))
@@ -1400,6 +1392,53 @@ function UI_TitleScene:workGetMarketInfo()
     end
 
     PerpleSDK:billingGetItemList(skuList, call_back)
+end
+
+
+-------------------------------------
+-- function workBillingSetupForOnestore
+-- @brief 마켓 정보 초기화
+--        이 함수는 원스토어 빌드일 경우에만 호출된다.
+-------------------------------------
+function UI_TitleScene:workBillingSetupForOnestore()
+    self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
+
+    -- 원스토어(ONEstore) 결제 시 사용될 uid 설정
+    if PerpleSDK.onestoreSetUid then
+        local uid = g_localData:get('local', 'uid')
+        cclog('# UI_TitleScene:workBillingSetupForOnestore() PerpleSDK.onestoreSetUid : ' .. uid)
+        PerpleSDK:onestoreSetUid(uid)
+    end
+
+    -- 결제 진행 후 consume되지 않은 결제건 조회
+    if PerpleSDK.onestoreRequestPurchases then
+        local function finish_cb()
+            cclog('## PaymentHelper.handlingMissingPayments_onestore 종료!!!')
+            self:doNextWork()
+        end
+
+        local function callback(ret, info)
+            cclog('## PerpleSDK:onestoreRequestPurchases() callback!!')
+            cclog('## ret : ' .. tostring(ret))
+            cclog('## info : ' .. info)
+
+            local info_json = dkjson.decode(info)
+            local l_payload = table.MapToList(info_json)
+
+            -- 페이로드로 누락된 지급 처리
+            PaymentHelper.handlingMissingPayments_onestore(l_payload, nil, finish_cb)
+        end
+
+        cclog('## PerpleSDK:onestoreRequestPurchases() call!!')
+        PerpleSDK:onestoreRequestPurchases(callback)
+
+        return
+    end
+
+    self:doNextWork()
+end
+
+function UI_TitleScene:workBillingSetupForOnestore_click()
 end
 
 -------------------------------------
