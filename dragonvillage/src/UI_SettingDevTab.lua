@@ -507,6 +507,11 @@ function UI_Setting:click_testCodeBtn()
             cclog('## PerpleSDK:onestoreRequestPurchases(callback) call!! ')
             cclog('## ret : ' .. tostring(ret))
             cclog('## info : ' .. info)
+
+            local info_json = dkjson.decode(info)
+            for order_id, t_data in pairs(info_json) do
+                ccdump(t_data)
+            end
         end
 
         PerpleSDK:onestoreRequestPurchases(callback)
