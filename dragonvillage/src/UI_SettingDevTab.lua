@@ -512,6 +512,11 @@ function UI_Setting:click_testCodeBtn()
             for order_id, t_data in pairs(info_json) do
                 ccdump(t_data)
             end
+
+            local function finish_cb()
+                cclog('## PaymentHelper.handlingMissingPayments_onestore 종료!!!')
+            end
+            PaymentHelper.handlingMissingPayments_onestore(info_json, nil, finish_cb)
         end
 
         PerpleSDK:onestoreRequestPurchases(callback)
