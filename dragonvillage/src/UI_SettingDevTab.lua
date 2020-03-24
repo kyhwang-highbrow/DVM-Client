@@ -500,6 +500,20 @@ end
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
 
+    -- @sgkim 2020.03.24
+    -- 원스토어 구매하고 컴슘되지 않은 상품 리스트 받아오기 테스트
+    if true then
+        local function callback(ret, info)
+            cclog('## PerpleSDK:onestoreRequestPurchases(callback) call!! ')
+            cclog('## ret : ' .. tostring(ret))
+            cclog('## info : ' .. info)
+        end
+
+        PerpleSDK:onestoreRequestPurchases(callback)
+        cclog('## PerpleSDK:onestoreRequestPurchases(callback) call!! ')
+        return
+    end
+
     -- @sgkim 2020.03.18
     -- 원스토어 마켓으로 이동 테스트
     if true then
