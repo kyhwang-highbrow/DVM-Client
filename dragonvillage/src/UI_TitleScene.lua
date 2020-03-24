@@ -1284,7 +1284,7 @@ function UI_TitleScene:workBillingSetup()
         if PerpleSDK.onestoreSetUid then
             local uid = g_localData:get('local', 'uid')
             cclog('# UI_TitleScene:workBillingSetup() PerpleSDK.onestoreSetUid : ' .. uid)
-            PerpleSDK.onestoreSetUid(uid)
+            PerpleSDK:onestoreSetUid(uid)
         end
     end
 
