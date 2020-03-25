@@ -1420,9 +1420,9 @@ function UI_TitleScene:workBillingSetupForOnestore()
         local function callback(ret, info)
             cclog('## PerpleSDK:onestoreRequestPurchases() callback!!')
             cclog('## ret : ' .. tostring(ret))
-            cclog('## info : ' .. info)
+            cclog('## info : ' .. tostring(info))
 
-            local info_json = dkjson.decode(info)
+            local info_json = dkjson.decode(info) or {}
             local l_payload = table.MapToList(info_json)
 
             -- 페이로드로 누락된 지급 처리
