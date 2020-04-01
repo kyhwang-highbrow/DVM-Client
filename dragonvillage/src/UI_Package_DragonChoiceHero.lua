@@ -2,6 +2,7 @@ local PARENT = UI_Package_Bundle
 
 -------------------------------------
 -- class UI_Package_DragonChoiceHero
+-- @brief 영웅 드래곤 선택권 패키지
 -------------------------------------
 UI_Package_DragonChoiceHero = class(PARENT,{
         m_recommendUI = '',
@@ -31,6 +32,31 @@ function UI_Package_DragonChoiceHero:init(package_name, is_popup)
         local item_cnt = 1
         local str =  Str('{1} {2}개', item_name, comma_value(item_cnt))
         vars['heroTicketLabel']:setString(str)
+    end
+
+    do -- 할인 전의 가격을 표시(정가를 표시)
+        -- list price : 정가
+        local l_list_price = {} -- {luanem, product_id}
+        table.insert(l_list_price, {'changeLabel1', 80014}) -- 80014는 다이아 33,000원 상품
+        table.insert(l_list_price, {'changeLabel2', 80015}) -- 80015는 다이아 55,000원 상품
+
+        -- 할진 정의 정가를 얻어와서 표시
+        for _,v in ipairs(l_list_price) do
+            local luaname = v[1]
+            local product_id = v[2]
+            
+            local node = vars[luaname]
+            local struct_product = g_shopDataNew:getTargetProduct(product_id)
+            local price_str = ''
+
+            if struct_product then
+                price_str = struct_product:getPriceStr()
+            end
+
+            if node then
+                node:setString(price_str)
+            end
+        end
     end
 end
 
