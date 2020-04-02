@@ -37,8 +37,8 @@ function UI_Package_DragonChoiceHero:init(package_name, is_popup)
     do -- 할인 전의 가격을 표시(정가를 표시)
         -- list price : 정가
         local l_list_price = {} -- {luanem, product_id}
-        table.insert(l_list_price, {'changeLabel1', 80014}) -- 80014는 다이아 33,000원 상품
-        table.insert(l_list_price, {'changeLabel2', 80015}) -- 80015는 다이아 55,000원 상품
+        table.insert(l_list_price, {'changeLabel1', 110361}) -- 110361는 할인 전 상품 (33,000원)
+        table.insert(l_list_price, {'changeLabel2', 110362}) -- 110362는 할인 전 상품 (55,000원)
 
         -- 할진 정의 정가를 얻어와서 표시
         for _,v in ipairs(l_list_price) do
