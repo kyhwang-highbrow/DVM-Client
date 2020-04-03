@@ -68,6 +68,25 @@ function UI_EventPopupTab_Banner:init_customUI()
                     SDKManager:goToWeb('https://perplelab.sng.link/Don2b/v08o')
                 end)
         end
+
+        do -- 종료까지 남은 시간 실시간으로 표시
+            -- 업데이트 스케줄러
+            self.root:scheduleUpdateWithPriorityLua(function(dt)
+                    local end_date = struct_banner_data['end_date_timestamp'] / 1000
+                    local curr_time = Timer:getServerTime()
+                
+                    local time_label = vars['timeLabel']
+                    if time_label then
+                        if (0 < end_date) and (curr_time < end_date) then
+                            local time = (end_date - curr_time)
+                            local str = Str('{1} 남음', datetime.makeTimeDesc(time, false))    
+                            time_label:setString(str)
+                        else
+                            time_label:setString('')
+                        end
+                    end
+                end, 0)
+        end
     end
 end
 
