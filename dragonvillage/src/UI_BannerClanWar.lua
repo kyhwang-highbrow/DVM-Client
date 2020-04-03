@@ -17,7 +17,7 @@ function UI_BannerClanWar:init(t_data, end_date)
 
 	self.m_attack_uid = attacking_uid
 	self.m_enddate = end_date
-    cclog('# self.m_enddate : ' .. tostring(self.m_enddate))
+    --cclog('# self.m_enddate : ' .. tostring(self.m_enddate))
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
