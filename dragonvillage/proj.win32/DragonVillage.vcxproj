@@ -536,6 +536,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Exchange.lua" />
     <None Include="..\src\ServerData_ExchangeEvent.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />
+    <None Include="..\src\ServerData_FirstPurchaseEvent.lua" />
     <None Include="..\src\ServerData_Forest.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
     <None Include="..\src\ServerData_FormationArena.lua" />
@@ -1127,6 +1128,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_BookEggListItem.lua" />
     <None Include="..\src\UI_BundlePopup.lua" />
     <None Include="..\src\UI_BundlePopupNew.lua" />
+    <None Include="..\src\UI_ButtonFirstPurchaseReward.lua" />
+    <None Include="..\src\UI_ButtonSpecialOfferProduct.lua" />
+    <None Include="..\src\UI_ButtonSpotSale.lua" />
     <None Include="..\src\UI_CapsuleBox.lua" />
     <None Include="..\src\UI_CapsuleBoxResultPopup.lua" />
     <None Include="..\src\UI_CapsuleBoxRewardList.lua" />
@@ -1371,12 +1375,14 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_LobbyGuideAttrTower.lua" />
     <None Include="..\src\UI_LobbyGuideColosseum.lua" />
     <None Include="..\src\UI_LobbyGuideWeeklyShop.lua" />
+    <None Include="..\src\UI_LobbyLeftTopBtnManager.lua" />
     <None Include="..\src\UI_LobbySpotSaleBtn.lua" />
     <None Include="..\src\UI_LoginIntegratePopup.lua" />
     <None Include="..\src\UI_LoginPopup2.lua" />
     <None Include="..\src\UI_LoginPopupWithoutFirebase.lua" />
     <None Include="..\src\UI_MailRewardPopup.lua" />
     <None Include="..\src\UI_MailSelectPopup.lua" />
+    <None Include="..\src\UI_ManagedButton.lua" />
     <None Include="..\src\UI_MasterRoadRewardPopup.lua" />
     <None Include="..\src\UI_MasterRoadRewardPopupNew.lua" />
     <None Include="..\src\UI_MatchReady.lua" />

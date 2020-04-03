@@ -10,6 +10,7 @@ UI_Lobby = class(PARENT,{
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
         m_etcExpendedUI = 'UIC_ExtendedUI',
 		m_lobbyGuide = 'UIC_LobbyGuide',
+        m_lobbyLeftTopBtnManager = 'UI_LobbyLeftTopBtnManager',
         m_lobbySpotSaleBtn = 'UI_LobbySpotSaleBtn',
 
         -- 버튼 상태
@@ -88,8 +89,12 @@ function UI_Lobby:initUI()
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
 
+
+    -- 좌상단 버튼 관리 매니저 생성
+    self.m_lobbyLeftTopBtnManager = UI_LobbyLeftTopBtnManager(self)
+
     -- 깜짝 할인 상품 버튼 관리 클래스 생성
-    self.m_lobbySpotSaleBtn = UI_LobbySpotSaleBtn(self)
+    --self.m_lobbySpotSaleBtn = UI_LobbySpotSaleBtn(self)
 end
 
 -------------------------------------
@@ -554,6 +559,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 		cclog('# 신규 유저 환영 이벤트')
 		g_eventData:response_eventWelcomeNewbie(ret)
 
+        cclog('# 첫 충전 선물(첫 결제 보상)')
+        if ret['first_purchase_event_info'] then
+		    g_firstPurchaseEventData:applyFirstPurchaseEvent(ret['first_purchase_event_info'])
+        end
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)
@@ -722,7 +732,12 @@ function UI_Lobby:refresh(is_hard_refresh)
     self:refresh_rightBanner()
 
     -- 특별 할인 상품 설정
-    self:refreshSpecialOffer()
+    --self:refreshSpecialOffer()
+
+    -- 좌상단 버튼들 상태 갱신
+    if self.m_lobbyLeftTopBtnManager then
+        self.m_lobbyLeftTopBtnManager:setDirtyButtonsStatus()
+    end
 
     -- hard refresh
     if (is_hard_refresh) then

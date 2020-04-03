@@ -4417,6 +4417,24 @@
     <None Include="..\src\TableDragonRecommend.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_FirstPurchaseEvent.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_LobbyLeftTopBtnManager.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ManagedButton.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ButtonSpotSale.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ButtonFirstPurchaseReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ButtonSpecialOfferProduct.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -614,6 +614,12 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
             self.m_dicBuyCnt = ret['buycnt']
         end
 
+        -- 첫 충전 선물(첫 결제 보상)
+        if ret['first_purchase_event_info'] then
+            g_firstPurchaseEventData:applyFirstPurchaseEvent(ret['first_purchase_event_info'])
+        end
+        
+
 		if (cb_func) then
 			cb_func(ret)
 		end
