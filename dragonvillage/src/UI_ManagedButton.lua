@@ -6,6 +6,8 @@ local PARENT = UI
 -- @used_at UI_Lobby, UI_ButtonFirstPurchaseReward, UI_ButtonSpotSale
 -------------------------------------
 UI_ManagedButton = class(PARENT, {
+        m_uniqueKey = 'string',
+        m_bMarkDelete = 'boolean',
         m_priority = 'number',
         m_cbSetDirtyStatus = 'function',
         m_cbSetDirtyPosition = 'function',
