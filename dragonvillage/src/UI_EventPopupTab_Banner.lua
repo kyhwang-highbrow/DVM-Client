@@ -72,7 +72,7 @@ function UI_EventPopupTab_Banner:init_customUI()
         do -- 종료까지 남은 시간 실시간으로 표시
             -- 업데이트 스케줄러
             self.root:scheduleUpdateWithPriorityLua(function(dt)
-                    local end_date = struct_banner_data['end_date_timestamp'] / 1000
+                    local end_date = (struct_banner_data['end_date_timestamp'] or 0) / 1000
                     local curr_time = Timer:getServerTime()
                 
                     local time_label = vars['timeLabel']
