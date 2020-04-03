@@ -88,6 +88,9 @@ end
 function UI_ButtonFirstPurchaseReward:click_btn()
     self.m_bFirstOpen = false
 
+    require('UI_FirstPurchaseRewardPopup')
+    local ui = UI_FirstPurchaseRewardPopup(self.m_eventId)
+
     -- 이하 개발을 위한 코드
     --local t_info = g_firstPurchaseEventData:getFirstPurchaseEventInfoByEventId(self.m_eventId)
     --t_info['status'] = 1

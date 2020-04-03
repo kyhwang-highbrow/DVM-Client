@@ -37,8 +37,8 @@ function ServerData_FirstPurchaseEvent:applyFirstPurchaseEvent(t_data)
     end
 
     self.m_tFirstPurchaseEventInfo = t_data
-    cclog('## ServerData_FirstPurchaseEvent:applyFirstPurchaseEvent(t_data)')
-    ccdump(self.m_tFirstPurchaseEventInfo)
+    --cclog('## ServerData_FirstPurchaseEvent:applyFirstPurchaseEvent(t_data)')
+    --ccdump(self.m_tFirstPurchaseEventInfo)
 end
 
 -------------------------------------
