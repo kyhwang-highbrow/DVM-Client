@@ -12,6 +12,7 @@ ServerData_RemoteConfig = class({
         -- skip_ad_play             boolean         광고 재생 생략 여부
         -- skip_ad_aos_7_later      boolean         aos 7 이상에서 광고 생략 여부
         -- skip_scenario_playback   boolean         시나리오 재생 생략 여부
+        -- hide_coupon_btn_in_ios   boolean         ios에서 쿠폰 입력 버튼 숨김
         ------------------------------------------------------------------------------------------------------
     })
 
@@ -57,4 +58,34 @@ function ServerData_RemoteConfig:isSkipScenarioPlayback()
     else
         return false
     end
+end
+
+
+-------------------------------------
+-- function hideCouponBtn
+-- @brief 쿠폰 입력 버튼 숨김 여부
+--        ios의 경우 apple의 정책상 버튼을 숨겨야 해서 remote config로 관리한다.
+-- @return boolean
+-------------------------------------
+function ServerData_RemoteConfig:hideCouponBtn()
+
+    if CppFunctions:isIos() then
+        local hide_coupon_btn_in_ios = g_remoteConfig:getRemoteConfig('hide_coupon_btn_in_ios')
+        
+        -- 값이 false일 경우에만 hide하지 않음
+        if (hide_coupon_btn_in_ios == false) then
+            return false
+
+        -- 명시적으로 true로 설정된 경우
+        elseif (hide_coupon_btn_in_ios == true) then
+            return true
+
+        -- 값이 설정되지 않아서 nil이거나 비 정상적인 값일 경우에도 숨김
+        else--if (hide_coupon_btn_in_ios == nil) then
+            return true
+        end
+    end
+
+
+    return false
 end

@@ -15,10 +15,11 @@ function UI_Setting:init_infoTab()
     vars['serviceBtn']:registerScriptTapHandler(function() self:click_serviceBtn() end) 
     vars['communityBtn']:registerScriptTapHandler(function() self:click_communityBtn() end) 
 
-    -- ios 정책 강화로 ios에선 무조건 보이지 않게 설정
-    if CppFunctions:isIos() then
-        -- @sgkim 2020.04.06 드히택(DHT) 크로스 프로모션 시점에 ios에서도 쿠폰 버튼 노출
-        --vars['couponBtn']:setVisible(false)
+    -- ios 정책 강화로 ios에선 쿠폰 입력 버튼을 숨겨야 하는 경우가 있다.
+    if (g_remoteConfig:hideCouponBtn() == true) then
+        vars['couponBtn']:setVisible(false)
+    else
+        vars['couponBtn']:setVisible(true)
     end
 
     -- 표준시간 표시
