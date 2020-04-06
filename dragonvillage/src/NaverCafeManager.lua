@@ -252,6 +252,8 @@ function NaverCafeManager:getUrlByChannel(article_id)
         plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031352#/posts/'
     elseif (channel_code == 'zh') then
         plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031353#/posts/'
+    elseif (channel_code == 'zh_TW') then
+        plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031353#/posts/'
     else
         plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031345#/posts/'
     end
