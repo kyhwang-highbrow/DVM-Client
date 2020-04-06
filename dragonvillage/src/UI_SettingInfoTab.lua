@@ -17,7 +17,8 @@ function UI_Setting:init_infoTab()
 
     -- ios 정책 강화로 ios에선 무조건 보이지 않게 설정
     if CppFunctions:isIos() then
-        vars['couponBtn']:setVisible(false)
+        -- @sgkim 2020.04.06 드히택(DHT) 크로스 프로모션 시점에 ios에서도 쿠폰 버튼 노출
+        --vars['couponBtn']:setVisible(false)
     end
 
     -- 표준시간 표시
