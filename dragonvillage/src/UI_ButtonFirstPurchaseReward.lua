@@ -7,15 +7,16 @@ local PARENT = UI_ManagedButton
 -------------------------------------
 UI_ButtonFirstPurchaseReward = class(PARENT, {
         m_eventId = 'string', -- '10102'
-        m_bFirstOpen = 'boolean', -- 최초 1번은 노티를 보여주기 위함
     })
+
+-- 최초 1번은 노티를 보여주기 위함
+UI_ButtonFirstPurchaseReward.s_bFirstOpen = true
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ButtonFirstPurchaseReward:init(event_id)
     self.m_eventId = event_id
-    self.m_bFirstOpen = true
 
     -- 서버에서 받은 버튼 ui로 생성한다.
     local ui_res = self:getDataByKey('btn_ui') or 'button_first_purchase_reward.ui'
@@ -86,7 +87,7 @@ end
 -- @brief 버튼 클릭
 -------------------------------------
 function UI_ButtonFirstPurchaseReward:click_btn()
-    self.m_bFirstOpen = false
+    UI_ButtonFirstPurchaseReward.s_bFirstOpen = false
 
     require('UI_FirstPurchaseRewardPopup')
     local ui = UI_FirstPurchaseRewardPopup(self.m_eventId)
@@ -123,7 +124,7 @@ function UI_ButtonFirstPurchaseReward:update(dt)
     local noti_sprite = vars['notiSprite']
     if noti_sprite then
         -- 앱 실행 후 최초 1회는 노출
-        if (self.m_bFirstOpen == true) then
+        if (UI_ButtonFirstPurchaseReward.s_bFirstOpen == true) then
             noti_sprite:setVisible(true)
         
         -- 획득 가능한 보상이 있을 경우 노출
