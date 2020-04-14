@@ -55,6 +55,7 @@ function ServerData_Event:getEventPopupTabList()
         local start_date = v['start_date']
         local end_date = v['end_date']
         local target_server = v['target_server'] or ''
+        local banner = v['banner']
 
         -- 유저 레벨 조건 (걸려있는 레벨 이상인 유저에게만 노출)
         if (user_lv ~= '') then
@@ -142,6 +143,11 @@ function ServerData_Event:getEventPopupTabList()
         elseif (event_type == 'costume_event') then
             visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
 
+        -- 원스토어 30% 캐시백 프로모션 (원스토어 빌드에만 노출)
+        elseif (banner == 'event_promotion_onestore_cashback.ui') then
+            if (PerpleSdkManager:onestoreIsAvailable() == false) then
+                visible = false
+            end
         end
 
         if (visible) then
@@ -189,6 +195,7 @@ function ServerData_Event:getEventFullPopupList()
             local start_date = v['start_date']
             local end_date = v['end_date']
             local target_server = v['target_server'] or ''
+            local banner = v['banner']
 
 			-- feature 조건 체크
 			do
@@ -258,6 +265,13 @@ function ServerData_Event:getEventFullPopupList()
             -- banner type인 경우 resource, url까지 등록
             elseif (event_type == 'banner') then
                 event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
+
+                -- 원스토어 30% 캐시백 프로모션 (원스토어 빌드에만 노출)
+                if (banner == 'event_promotion_onestore_cashback.ui') then
+                    if (PerpleSdkManager:onestoreIsAvailable() == false) then
+                        visible = false
+                    end
+                end
 			
 			-- Daily Mission
 			elseif (event_type == 'daily_mission') then
