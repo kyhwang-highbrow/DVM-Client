@@ -408,6 +408,7 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 	local uid = g_userData:get('uid')
 	local time = g_accessTimeData:getTime()
 	local combat_power = g_dragonsData:getBestCombatPower()
+    local pushToken = g_localData:get('local', 'push_token') -- fcm 푸시 토큰
 
 	-- ui_network
 	local ui_network = UI_Network()
@@ -415,6 +416,7 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 	ui_network:setParam('uid', uid)
 	ui_network:setParam('access_time', time)
 	ui_network:setParam('dragon_power', combat_power)
+    ui_network:setParam('push_token', pushToken)
 	ui_network:setRevocable(true)
 	ui_network:setSuccessCB(function(ret)
 

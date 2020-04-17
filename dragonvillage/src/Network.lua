@@ -434,6 +434,7 @@ function Network_login(uid, nickname, device_info_json, advertising_id, success_
     t_data['auth'] = g_localData:getAuth() or '' -- google.com, facebook.com, twitter.com firebase
     t_data['glang'] = Translate:getGameLang() or '' -- ko, ja, en, zh ...
     t_data['dlang'] = Translate:getDeviceLang() or '' -- ko, ja, en, zh ...
+    t_data['push_token'] = g_localData:get('local', 'push_token')
 
     -- 단말 정보 추가
     for key,value in pairs(device_info_json) do
