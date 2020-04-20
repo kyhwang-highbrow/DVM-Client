@@ -14,6 +14,8 @@ SettingData = class({
 
         m_nLockCnt = 'number',
         m_bDirtyDataTable = 'boolean',
+
+        m_cloudRootTable = 'table', -- 게임 서버에서 관리하는 설정값
     })
 
 -------------------------------------
@@ -24,6 +26,7 @@ function SettingData:init()
     self.m_rootTableDefault = nil
     self.m_nLockCnt = 0
     self.m_bDirtyDataTable = false
+    self.m_cloudRootTable = {}
 end
 
 -------------------------------------
@@ -655,4 +658,63 @@ end
 -------------------------------------
 function SettingData:getClanWarSeason()
     return self:get('clan_war', 'season')
+end
+
+-------------------------------------
+-- function getCloudSetting
+-- @brief
+-- @param key string
+-------------------------------------
+function SettingData:getCloudSetting(key)
+    if (not self.m_cloudRootTable) then
+        return nil
+    end
+
+    local ret = self.m_cloudRootTable[key]
+    return ret
+end
+
+-------------------------------------
+-- function applyCloudSettings
+-- @brief
+-- @param t_data table
+-------------------------------------
+function SettingData:applyCloudSettings(t_data)
+    self.m_cloudRootTable = t_data or {}
+end
+
+-------------------------------------
+-- function request_setSetting
+-- @breif
+-- @param push_all boolean
+-------------------------------------
+function SettingData:request_setSetting(push_all, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        
+        if ret['settings'] then
+            self:applyCloudSettings(ret['settings'])
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/set_setting')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('push_all', push_all)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end

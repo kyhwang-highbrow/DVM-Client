@@ -951,6 +951,11 @@ function UI_TitleScene:workGameLogin()
                 g_remoteConfig:applyRemoteConfig(ret['remote_config'])
             end
 
+            -- 게임 서버에서 관리하는 설정값 초기화
+            if (ret['user'] and ret['user']['settings']) then
+                g_settingData:applyCloudSettings(ret['user']['settings'])
+            end
+
             -- next
             if ret['newuser'] then
                 -- 신규 유저의 경우에만 remote config값에 따라 시나리오 재생 생략 여부를 위해 설정값을 조정한다.

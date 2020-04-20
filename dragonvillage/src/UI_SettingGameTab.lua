@@ -195,20 +195,34 @@ function UI_Setting:init_notification()
     radio_button:addButton('on', vars['pushOnBtn'])
     radio_button:addButton('off', vars['pushOffBtn'])
 
-    local push_state = g_localData:get('push_state') or 1
-    if push_state == 1 then
+    local push_all = g_settingData:getCloudSetting('push_all')
+    if (push_all == true) then
         radio_button:setSelectedButton('on')
     else
         radio_button:setSelectedButton('off')
     end
 
+    --local push_state = g_localData:get('push_state') or 1
+    --if push_state == 1 then
+    --    radio_button:setSelectedButton('on')
+    --else
+    --    radio_button:setSelectedButton('off')
+    --end
+
     local function change_cb(selected)
         local pushToken = g_localData:get('local', 'push_token')
-        local game_push = 1 -- 1(on) or 0(off)
+        --local game_push = 1 -- 1(on) or 0(off)
+        --if (selected == 'off') then
+        --    game_push = 0
+        --end
+        local game_push = 1
+        local push_all = true
         if (selected == 'off') then
+            push_all = false
             game_push = 0
         end
         Network_platform_registerToken(game_push, pushToken)
+        g_settingData:request_setSetting(push_all)
         g_localData:applyLocalData(game_push, 'push_state')
     end
 
