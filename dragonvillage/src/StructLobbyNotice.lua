@@ -12,6 +12,8 @@ StructLobbyNotice = class(PARENT, {
         reward_list = 'list',
         expired_at = 'time',
         msg = 'string',
+        receive_reward = 'boolean', -- 보상 수령 여부
+        read = 'number', -- 읽음여부, 0:읽지않음, 1:읽음
 
         -- 클라에서 편의를 위해 생성하는 데이터
         expire_remain_time = 'time',
@@ -124,12 +126,14 @@ function StructLobbyNotice:openLobbyNoticePopup(finish_cb)
     local type = self:getType()
 
     if (type == 'push_newbie') then
-        require('UI_LobbyNoticePopup')
-        local ui = UI_LobbyNoticePopup(self)
-        ui:setCloseCB(finish_cb)
-
-        -- 테스트 코드
-        --MakeSimplePopup(POPUP_TYPE.OK, self.msg or '', finish_cb)
+        -- 보상이 존재하고 아직 수령하지 않은 경우에만 팝업 생성
+        if self:hasReward() and (self['receive_reward'] == false) then
+            require('UI_LobbyNoticePopup')
+            local ui = UI_LobbyNoticePopup(self)
+            ui:setCloseCB(finish_cb)
+        else
+            finish_cb()
+        end
     else
         finish_cb()
     end

@@ -99,6 +99,7 @@ function ServerData_LobbyNotice:request_getLobbyNoticeReward(lobby_notice_id, fi
     ui_network:setUrl('/users/get_lobby_notice_reward')
     ui_network:setParam('uid', uid)
     ui_network:setParam('notice_id', lobby_notice_id)
+    ui_network:setParam('is_delete', true) -- 보상 수령과 동시에 삭제하라는 의미
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setResponseStatusCB(response_status_cb)
