@@ -551,6 +551,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Inventory.lua" />
     <None Include="..\src\ServerData_Item.lua" />
     <None Include="..\src\ServerData_LevelUpPackage.lua" />
+    <None Include="..\src\ServerData_LobbyNotice.lua" />
     <None Include="..\src\ServerData_Mail.lua" />
     <None Include="..\src\ServerData_MasterRoad.lua" />
     <None Include="..\src\ServerData_NaverEvent.lua" />
@@ -886,6 +887,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructHighbrowProduct.lua" />
     <None Include="..\src\StructIndividualStatus.lua" />
     <None Include="..\src\StructLanguage.lua" />
+    <None Include="..\src\StructLobbyNotice.lua" />
     <None Include="..\src\StructMail.lua" />
     <None Include="..\src\PaymentHelper.lua" />
     <None Include="..\src\StructMarketProduct.lua" />
@@ -1377,6 +1379,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_LobbyGuideColosseum.lua" />
     <None Include="..\src\UI_LobbyGuideWeeklyShop.lua" />
     <None Include="..\src\UI_LobbyLeftTopBtnManager.lua" />
+    <None Include="..\src\UI_LobbyNoticePopup.lua" />
     <None Include="..\src\UI_LobbySpotSaleBtn.lua" />
     <None Include="..\src\UI_LoginIntegratePopup.lua" />
     <None Include="..\src\UI_LoginPopup2.lua" />

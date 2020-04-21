@@ -91,6 +91,9 @@ function ServerData:getInstance()
     -- 구독형 상품
     g_subscriptionData = ServerData_Subscription(g_serverData)
 
+    -- 마을 알림 (lobby_notice)
+    g_lobbyNoticeData = ServerData_LobbyNotice(g_serverData)
+
     -- 우편함
     g_mailData = ServerData_Mail(g_serverData)
 

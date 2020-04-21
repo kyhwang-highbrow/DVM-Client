@@ -206,6 +206,18 @@ function UI_Lobby:entryCoroutine()
 
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
+
+            -- =============================================
+            -- 로비 알림(lobby_notice)
+            local l_struct_lobby_notice = g_lobbyNoticeData:getStructLobbyNoticeList()
+            for i,v in ipairs(l_struct_lobby_notice) do
+                co:work()
+                v:openLobbyNoticePopup(co.NEXT)
+                if co:waitWork() then return end
+            end
+            -- =============================================
+
+
             -- 풀팝업 출력 함수
             local function show_func(pid) 
                 co:work()
@@ -564,6 +576,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
         cclog('# 첫 충전 선물(첫 결제 보상)')
         if ret['first_purchase_event_info'] then
 		    g_firstPurchaseEventData:applyFirstPurchaseEvent(ret['first_purchase_event_info'])
+        end
+
+        cclog('# 마을 알림 (lobby_notice)')
+        if ret['lobby_notice_list'] then
+            g_lobbyNoticeData:applyLobbyNoticeListData(ret['lobby_notice_list'])
         end
 
 		co.NEXT()

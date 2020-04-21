@@ -4438,6 +4438,15 @@
     <None Include="..\src\UI_FirstPurchaseRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_LobbyNotice.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructLobbyNotice.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_LobbyNoticePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
