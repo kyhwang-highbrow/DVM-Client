@@ -11,6 +11,8 @@ StructAttendanceData = class({
         received = 'boolean', -- false인 경우 출석 보상을 지금 받았다는 뜻(연출을 보여줘야함)
 		desc = 'string',
         category = 'string',
+        ui = 'string',
+        item_ui = 'string',
     })
 
 -------------------------------------
