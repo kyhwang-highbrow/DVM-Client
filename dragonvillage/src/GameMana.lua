@@ -44,6 +44,8 @@ function GameMana:init(world, group_key)
         self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL_COLOSSEUM')
     elseif (self.m_world.m_gameMode == GAME_MODE_ARENA ) then
         self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL_COLOSSEUM')
+    elseif (self.m_world.m_gameMode == GAME_MODE_EVENT_ARENA ) then
+        self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL_COLOSSEUM')
     elseif (self.m_world.m_gameMode == GAME_MODE_CHALLENGE_MODE ) then
         self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL_COLOSSEUM')
     elseif (self.m_world.m_gameMode == GAME_MODE_EVENT_GOLD ) then
