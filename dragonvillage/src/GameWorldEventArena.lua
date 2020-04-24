@@ -94,8 +94,13 @@ function GameWorldEventArena:initGame(stage_name)
     self:makeEnemyDeck()
 
     -- 초기 쿨타임 설정
-    self:initActiveSkillCool(self:getDragonList())
-    self:initActiveSkillCool(self:getEnemyList())
+    --self:initActiveSkillCool(self:getDragonList())
+    self:initActiveSkillCool(self.m_mUnitGroup[self:getPCGroup()]:getSurvivorList())
+    self:initActiveSkillCool(self.m_mUnitGroup[self:getNPCGroup()]:getSurvivorList())
+    
+    --self:initActiveSkillCool(self:getEnemyList())
+    self:initActiveSkillCool(self.m_mUnitGroup[self:getOpponentPCGroup()]:getSurvivorList())
+    self:initActiveSkillCool(self.m_mUnitGroup[self:getOpponentNPCGroup()]:getSurvivorList())
 
     -- 초기 마나 설정
     self.m_mUnitGroup[self:getPCGroup()]:getMana():addMana(START_MANA_COLOSSEUM)

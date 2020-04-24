@@ -137,7 +137,9 @@ function GameWorldForDoubleTeam:initGame(stage_name)
     self:makeHeroDeck()
 
     -- 초기 쿨타임 설정
-    self:initActiveSkillCool(self:getDragonList())
+    --self:initActiveSkillCool(self:getDragonList())
+    self:initActiveSkillCool(self.m_mUnitGroup[self:getPCGroup()]:getSurvivorList())
+    self:initActiveSkillCool(self.m_mUnitGroup[self:getNPCGroup()]:getSurvivorList())
 
     -- 초기 마나 설정
     self.m_mUnitGroup[self:getPCGroup()]:getMana():addMana(START_MANA)
