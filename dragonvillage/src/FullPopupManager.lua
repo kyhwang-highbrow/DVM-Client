@@ -65,7 +65,8 @@ function FullPopupManager:show(type, show_func)
 			if (v:hasReward()) then
 				local atdc_type = v.attendance_type
                 local atdc_category = v.category
-				show_func('attendance_'..atdc_type..';'..atdc_category)
+                local atdc_id = v.atd_id
+				show_func('attendance_'..atdc_type..';'..atdc_category .. ';' .. atdc_id)
 			end
 		end
 

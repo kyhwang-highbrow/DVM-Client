@@ -108,8 +108,19 @@ function ServerData_Event:getEventPopupTabList()
 
 		-- 출석
 		elseif (string.find(event_type, 'attendance')) then
-			if (not g_attendanceData:getAttendanceData(event_id)) then
-				visible = false
+            -- table_attendance_event_list에서 event_type, event_id
+            local category = event_id
+            local atd_id = event_id
+
+            -- event_id를 atd_id로 사용하는 것이 우선이다.
+            if g_attendanceData:getAttendanceDataByAtdId(atd_id) then
+
+            -- event_id를 category으로 사용하는 경우를 체크
+			elseif g_attendanceData:getAttendanceData(category) then
+
+            -- 그 외 경우는 false
+            else
+                visible = false
             end
 
         -- Cafe Plug Event

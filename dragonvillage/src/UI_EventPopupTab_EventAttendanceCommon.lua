@@ -1,0 +1,79 @@
+local PARENT = UI
+
+-------------------------------------
+-- class UI_EventPopupTab_EventAttendanceCommon
+-------------------------------------
+UI_EventPopupTab_EventAttendanceCommon = class(PARENT,{
+        m_structAttendanceData = 'StructAttendanceData',
+        m_eventID = 'string',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_EventPopupTab_EventAttendanceCommon:init(atd_id)
+    -- 비어있는 껍데이 UI
+    local vars = self:load('event_attendance_special.ui')
+    self.m_structAttendanceData = g_attendanceData:getAttendanceDataByAtdId(atd_id)
+    self.m_eventID = self.m_structAttendanceData.category
+    self:initUI()
+
+    -- 오늘 보상을 보여주는 팝업
+	local ui = UI_BlockPopup()
+	cca.reserveFunc(self.root, 0.5, function() 
+		self:checkTodayRewardPopup() 
+		ui:close()
+	end)
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_EventPopupTab_EventAttendanceCommon:initUI()
+    local node = self.vars['listNode']
+    local struct_attendance_data = self.m_structAttendanceData -- StructAttendanceData
+    
+    require('UI_AttendanceSpecialListItem_Common')
+    local list_ui = UI_AttendanceSpecialListItem_Common(struct_attendance_data)
+
+    node:addChild(list_ui.root)
+end
+
+-------------------------------------
+-- function checkTodayRewardPopup
+-- @brief 오늘 획득한 보상 팝업
+-------------------------------------
+function UI_EventPopupTab_EventAttendanceCommon:checkTodayRewardPopup()
+    local vars = self.vars
+
+    local struct_attendance_data = self.m_structAttendanceData
+    local step_list = struct_attendance_data['step_list']
+    local today_step = struct_attendance_data['today_step']
+
+    if (not struct_attendance_data:hasReward()) then
+        return
+    end
+    struct_attendance_data:setReceived()
+
+	local t_item = step_list[today_step]
+	local l_item_list = {
+		{
+			['item_id'] = t_item['item_id'],
+			['count'] = t_item['value']
+		}
+	}
+    local msg = struct_attendance_data:getDesc()
+    local ok_btn_cb = nil
+    UI_ObtainPopup(l_item_list, msg, ok_btn_cb)
+
+    -- 로비 출석 D-day 표시를 위해 갱신 true
+    g_attendanceData.m_bDirtyAttendanceInfo = true
+end
+
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventPopupTab_EventAttendanceCommon:onEnterTab()
+    local vars = self.vars
+end

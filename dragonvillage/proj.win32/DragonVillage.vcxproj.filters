@@ -4447,6 +4447,12 @@
     <None Include="..\src\UI_LobbyNoticePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventPopupTab_EventAttendanceCommon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttendanceSpecialListItem_Common.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

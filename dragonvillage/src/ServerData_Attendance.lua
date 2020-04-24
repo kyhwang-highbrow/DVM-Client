@@ -141,6 +141,24 @@ function ServerData_Attendance:getAttendanceData(atdc_type)
 end
 
 -------------------------------------
+-- function getAttendanceDataByAtdId
+-- @param atd_id number table_attendance_event_list의 atd_id
+-------------------------------------
+function ServerData_Attendance:getAttendanceDataByAtdId(_atd_id)
+    local atd_id = tonumber(_atd_id)
+
+    if (self.m_structAttendanceDataList) then
+        for i,v in pairs(self.m_structAttendanceDataList) do
+            if (v.atd_id == atd_id) then
+                return v
+            end
+        end
+    end
+    
+    return nil
+end
+
+-------------------------------------
 -- function getBasicAttendance
 -------------------------------------
 function ServerData_Attendance:getBasicAttendance()

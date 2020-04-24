@@ -191,7 +191,9 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
 	-- 출석 (일반)
     if string.find(tab, 'attendance') then
+        local event_type = struct_event_popup_tab.m_eventData['event_type']
 		local event_id = struct_event_popup_tab.m_eventData['event_id']
+        local atd_id = tonumber(event_id)
         -- 기본 출석
 		if (event_id == 'normal') then
 			ui = UI_EventPopupTab_Attendance()
@@ -201,6 +203,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
         -- 스페셜 7일 출석(1주년, 2주년, 스페셜)
         elseif (event_id == '1st_event') or (event_id == '2nd_event') or (event_id == 'newbie_welcome') or (event_id == 'global_2nd_event')then
             ui = UI_EventPopupTab_EventAttendance1st(event_id)
+        -- 이벤트 공통 UI
+        elseif (event_type == 'attendance_event') then
+            require('UI_EventPopupTab_EventAttendanceCommon')
+            ui = UI_EventPopupTab_EventAttendanceCommon(atd_id)
 		end
 
     -- 접속시간 이벤트

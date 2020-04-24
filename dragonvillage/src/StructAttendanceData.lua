@@ -72,3 +72,29 @@ function StructAttendanceData:getDesc()
 		return Str(desc)
 	end
 end
+
+-------------------------------------
+-- function getUIRes
+-- @brief
+-- @return ui_res
+-------------------------------------
+function StructAttendanceData:getUIRes()
+    if (self.ui ~= nil) and (self.ui ~= '') then
+        return self.ui
+    else
+        return 'event_attendance_children.ui'
+    end
+end
+
+-------------------------------------
+-- function getItemUIRes
+-- @brief
+-- @return item_ui_res
+-------------------------------------
+function StructAttendanceData:getItemUIRes()
+    if (self.item_ui ~= nil) and (self.item_ui ~= '') then
+        return self.item_ui
+    else
+        return 'event_attendance_children_item.ui'
+    end
+end
