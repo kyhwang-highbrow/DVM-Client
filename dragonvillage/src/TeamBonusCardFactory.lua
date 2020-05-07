@@ -227,14 +227,15 @@ end
 
 -------------------------------------
 -- function getExistFirstDid
--- @brief 존재하는 속성 did 반환
+-- @brief 존재하는 속성 did 반환, 출시된 드래곤만 포함됨
 -------------------------------------
 function TeamBonusCardFactory:getExistFirstDid(start_did)
     local table_dragon = TableDragon()
     local exist_did 
     for i = 0, 5 do
         local did = start_did + i
-        if (table_dragon:exists(did)) then
+        -- isReleasedDragon함수에서 출시 여부 체크
+        if (table_dragon:exists(did) and g_dragonsData:isReleasedDragon(did)) then
             exist_did = did
             break
         end
