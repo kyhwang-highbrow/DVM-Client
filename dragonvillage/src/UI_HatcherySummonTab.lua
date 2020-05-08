@@ -200,8 +200,8 @@ function UI_HatcherySummonTab:setChanceUpDragons()
 
         if dragon_node then
             dragon_node:addChild(animator.m_node)
-            dragon_node:setPosition(t_data['x'], t_data['y'])
-            dragon_node:setScale(t_data['scale'])
+            animator.m_node:setPosition(t_data['x'], t_data['y'])
+            animator.m_node:setScale(t_data['scale'])
         end
     end
 
