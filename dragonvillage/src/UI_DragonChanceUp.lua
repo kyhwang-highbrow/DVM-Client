@@ -58,7 +58,8 @@ function UI_DragonChanceUp:initUI()
     local idx = 0
     local width = 455
 
-    for k, did in pairs(map_target_dragons) do
+    for k, t_data in pairs(map_target_dragons) do
+        local did = t_data['did']
         idx = idx + 1
         local ui = UI_DragonChanceUpListItem(did)
         local pos_x = UIHelper:getNodePosXWithScale(total_cnt, idx, width)

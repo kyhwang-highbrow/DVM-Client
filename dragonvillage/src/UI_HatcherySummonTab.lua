@@ -150,7 +150,8 @@ function UI_HatcherySummonTab:setChanceUpDragons()
         vars['summonAttrMenu2']:setVisible(false)        
     end
 
-    for k, did in pairs(map_target_dragons) do
+    for k, t_data in pairs(map_target_dragons) do
+        local did = t_data['did']
         idx = idx + 1
         desc_idx = idx
         if (total_cnt == 2) then
@@ -187,13 +188,20 @@ function UI_HatcherySummonTab:setChanceUpDragons()
         -- 드래곤 애니메이션
         local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, 3)
         -- 한 마리일 때 1 사용
+        local dragon_node = nil
         if (total_cnt == 1) then
-            vars['dragonNode1']:addChild(animator.m_node)
+            dragon_node = vars['dragonNode1']
         else
             -- 두 마리 일 때 2,3 사용
             if (vars['dragonNode' .. idx + 1]) then
-                vars['dragonNode' .. idx + 1]:addChild(animator.m_node)
+                dragon_node = vars['dragonNode' .. idx + 1]
             end
+        end
+
+        if dragon_node then
+            dragon_node:addChild(animator.m_node)
+            dragon_node:setPosition(t_data['x'], t_data['y'])
+            dragon_node:setScale(t_data['scale'])
         end
     end
 

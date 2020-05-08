@@ -728,8 +728,40 @@ end
 -------------------------------------
 function ServerData_Event:applyChanceUpDragons(ret)
     if (ret['chance_up']) then
+        --self.m_mapChanceUpDragons = {}
+        --self.m_mapChanceUpDragons = ret['chance_up']
+
         self.m_mapChanceUpDragons = {}
-        self.m_mapChanceUpDragons = ret['chance_up']
+        local t_chance_up = ret['chance_up']
+        
+        -- 확률업은 1~2개이지만 10개까지 확인.
+        for i=1, 10 do
+            local key = ('chance_up_' .. i)
+            if (t_chance_up[key]) then
+                local t_data = {}
+                t_data['did'] = t_chance_up[key]
+                t_data['x'] = 0
+                t_data['y'] = 0
+                t_data['scale'] = 1
+
+                -- key가 'chance_up_1_pos', 'chance_up_2_pos'의 형태이다.
+                -- 값은 '0;0;1'의 형태로 x;y;scale값이다.
+                local pos_str = t_chance_up[key .. '_pos']
+                if pos_str then
+
+                    -- 공백 제거
+                    pos_str = string.gsub(pos_str, ' ', '')
+
+                    -- ';'로 분리
+                    local l_str = pl.stringx.split(pos_str, ';') 
+                    t_data['x'] = tonumber(l_str[1]) or 0
+                    t_data['y'] = tonumber(l_str[2]) or 0
+                    t_data['scale'] = tonumber(l_str[3]) or 1
+                end
+
+                self.m_mapChanceUpDragons[key] = t_data
+            end
+        end
     end
 end
 
