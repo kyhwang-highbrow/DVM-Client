@@ -1135,6 +1135,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ButtonFirstPurchaseReward.lua" />
     <None Include="..\src\UI_ButtonSpecialOfferProduct.lua" />
     <None Include="..\src\UI_ButtonSpotSale.lua" />
+    <None Include="..\src\UI_ButtonSupplyDepot.lua" />
     <None Include="..\src\UI_CapsuleBox.lua" />
     <None Include="..\src\UI_CapsuleBoxResultPopup.lua" />
     <None Include="..\src\UI_CapsuleBoxRewardList.lua" />
@@ -1634,6 +1635,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SubscriptionPopupNew_Ing.lua" />
     <None Include="..\src\UI_SubscriptionPopup_Ing.lua" />
     <None Include="..\src\UI_SummonDrawInfo.lua" />
+    <None Include="..\src\UI_SupplyDepot.lua" />
     <None Include="..\src\UI_TabUI_AutoGeneration.lua" />
     <None Include="..\src\UI_TamerCostumeConfirmPopup.lua" />
     <None Include="..\src\UI_TamerCostumeListItem.lua" />

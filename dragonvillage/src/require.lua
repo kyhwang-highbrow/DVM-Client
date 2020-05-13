@@ -792,6 +792,7 @@ local t_module = {
     'UI_ButtonFirstPurchaseReward',
     'UI_ButtonSpotSale',
     'UI_ButtonSpecialOfferProduct',
+    'UI_ButtonSupplyDepot',
     'UI_DragonInfoListItem',
     'LobbyMapSpotMgr',
     'LobbyMap',

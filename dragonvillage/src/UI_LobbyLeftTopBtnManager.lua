@@ -1,6 +1,7 @@
 -------------------------------------
 -- class UI_LobbyLeftTopBtnManager
 -- @brief 마을(Lobby)에서 좌상단의 상품 버튼들 관리 클래스
+--        UI_ManagedButton을 상속받은 버튼들을 관리
 -------------------------------------
 UI_LobbyLeftTopBtnManager = class({
         vars = '',
@@ -8,7 +9,7 @@ UI_LobbyLeftTopBtnManager = class({
         m_bDirtyButtonsStatus = 'boolean',
         m_bDirtyButtonsPos = 'boolean',
 
-        m_lManagedButtonUI = 'list',
+        m_lManagedButtonUI = 'list[UI_ManagedButton]',
         m_interval = 'number',
 
         PRIORITY = 'table',
@@ -27,12 +28,14 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.PRIORITY.FIRST_PURCHASE_REWARD = 900
     self.PRIORITY.SPECIAL_OFFER_PRODUCT = 800
     self.PRIORITY.SPOT_SALE_PRODUCT = 700
+    self.PRIORITY.SUPPLY_DEPOT = 600
 
     vars['productBtnMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     local l_managed_button_info = {}
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProduct}) -- 특별 할인 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPOT_SALE_PRODUCT, UI_ButtonSpotSale}) -- 깜짝 할인 상품
+    table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
     
     for i,v in ipairs(l_managed_button_info) do
         local priority = v[1]
