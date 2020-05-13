@@ -38,8 +38,8 @@ function UI_EventWelcomeNewbie:initUI()
         return
     end
 
-    -- ½Å±Ô À¯Àú À£ÄÄ ÀÌº¥Æ® º¸»óÀÌ ¼±ÅÃ±ÇÀÌ¶ó°í °¡Á¤
-    -- @brief 20191216 ½Å±Ô À¯Àú À£ÄÄ ÀÌº¥Æ® º¸»óÀÌ Àü¼³ ÃßÃµ µå·¡°ï ¼±ÅÃ±Ç 2ÀåÀÌ¶ó¼­ Ã¹ ¹øÂ° º¸»ó »ç¿ë
+    -- ì‹ ê·œ ìœ ì € ì›°ì»´ ì´ë²¤íŠ¸ ë³´ìƒì´ ì„ íƒê¶Œì´ë¼ê³  ê°€ì •
+    -- @brief 20191216 ì‹ ê·œ ìœ ì € ì›°ì»´ ì´ë²¤íŠ¸ ë³´ìƒì´ ì „ì„¤ ì¶”ì²œ ë“œë˜ê³¤ ì„ íƒê¶Œ 2ì¥ì´ë¼ì„œ ì²« ë²ˆì§¸ ë³´ìƒ ì‚¬ìš©
     local l_reward = pl.stringx.split(reward_str, ',')
     local first_reward = l_reward[1]
     if (not first_reward) then
@@ -53,12 +53,12 @@ function UI_EventWelcomeNewbie:initUI()
         return
     end
 
-    -- µå·¡°ï Ä«µå »ı¼º Äİ¹é
+    -- ë“œë˜ê³¤ ì¹´ë“œ ìƒì„± ì½œë°±
     local function create_func(data)
         local did = data['did']
         local t_data = {['evolution'] = 3, ['grade'] = 6, ['lv'] = 60}
         local ui = MakeSimpleDragonCard(did, t_data)
-        -- Å¬¸¯
+        -- í´ë¦­
 		ui.vars['clickBtn']:registerScriptTapHandler(function()
 			UI_BookDetailPopup.openWithFrame(did, 6, 3, 0.8, true)    -- param : did, grade, evolution, scale, ispopup
 		end)
@@ -66,7 +66,7 @@ function UI_EventWelcomeNewbie:initUI()
         return ui
     end
 
-    -- µå·¡°ï ¼±ÅÃ±Ç ¸ñ·Ï µå·¡°ïµéÀ» µå·¡°ï Ä«µå·Î Ãâ·Â
+    -- ë“œë˜ê³¤ ì„ íƒê¶Œ ëª©ë¡ ë“œë˜ê³¤ë“¤ì„ ë“œë˜ê³¤ ì¹´ë“œë¡œ ì¶œë ¥
     local l_dragon = TablePickDragon:getDragonList(item_id, g_dragonsData.m_mReleasedDragonsByDid)
     for i, t_dragon in ipairs(l_dragon) do
         local ui = create_func(t_dragon)

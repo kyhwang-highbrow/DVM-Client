@@ -22,7 +22,7 @@ end
 
 -------------------------------------
 -- function initUI
--- @param t_data table_supply¿¡¼­ ÇÑ Çà
+-- @param t_data table_supplyì—ì„œ í•œ í–‰
 -------------------------------------
 function UI_SupplyProductListItem:initUI(t_data)
     local vars = self.vars
@@ -37,7 +37,7 @@ function UI_SupplyProductListItem:initUI(t_data)
     vars['totalRewardLabel']:setString(Str(desc))
 
     local period = t_data['period']
-    local str = Str('À¯È¿ ±â°£ : {1}', period)
+    local str = Str('ìœ íš¨ ê¸°ê°„ : {1}ì¼', period)
     vars['periodLabel']:setString(str)
 
 
