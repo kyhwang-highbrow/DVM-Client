@@ -188,7 +188,8 @@ local TableInfo_fromServer = {
 
         ['table_capsule_box_schedule'] = {'table_capsule_box_schedule', 'day'}, -- 캡슐 뽑기 스케쥴,
 
-        ['table_rune_opt_status'] = {'table_rune_opt_status', 'key'} -- 옵션 최대치
+        ['table_rune_opt_status'] = {'table_rune_opt_status', 'key'}, -- 옵션 최대치
+        ['table_supply'] = {'table_supply', 'supply_id'}, -- 보급소(정액제)
     }
 
 -------------------------------------

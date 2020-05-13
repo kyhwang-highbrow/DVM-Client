@@ -412,6 +412,7 @@ local t_module = {
     'TableMastery', -- 특성 테이블
     'TableAlphabetEvent', -- 알파벳 이벤트
     'TableSpotSale',
+    'TableSupply',
 
     -- Scene
     'SceneCommon',

@@ -4453,6 +4453,9 @@
     <None Include="..\src\UI_AttendanceSpecialListItem_Common.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableSupply.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
