@@ -16,6 +16,19 @@ function TableSupply:init()
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
+-------------------------------------
+-- function getSupplyProductList
+-------------------------------------
+function TableSupply:getSupplyProductList()
+    local l_ret = self:cloneOrgTable()
+
+    table.sort(l_ret, function(a, b)
+        return a['ui_priority'] < b['ui_priority']
+    end)
+
+    return l_ret or {}
+end
+
 
 --{
 --    "supply_id":1001,

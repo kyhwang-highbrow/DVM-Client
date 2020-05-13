@@ -1242,6 +1242,9 @@ function UI_TitleScene:workGetServerInfo()
                     g_remoteConfig:applyRemoteConfig(ret['remote_config'])
                 end
 
+                cclog('# 보급소(정액제)(supply_list config)')
+                g_supply:applySupplyList_fromRet(ret)
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)

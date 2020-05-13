@@ -39,6 +39,21 @@ end
 -- function initUI
 -------------------------------------
 function UI_SupplyDepot:initUI()
+    local table_supply = TableSupply()
+    local l_supply_product = table_supply:getSupplyProductList()
+
+    local vars = self.vars
+    local node = vars['listNode']
+
+    require('UI_SupplyProductListItem')
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(245 + 20, 405)
+    table_view:setCellUIClass(UI_SupplyProductListItem)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setItemList(l_supply_product)
+    --self.m_tableView = table_view
 end
 
 -------------------------------------

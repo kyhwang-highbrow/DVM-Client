@@ -4459,6 +4459,12 @@
     <None Include="..\src\UI_SupplyDepot.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_Supply.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_SupplyProductListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -573,6 +573,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ResPreloadMgr.lua" />
     <None Include="..\src\ServerData_StartTamer.lua" />
     <None Include="..\src\ServerData_Subscription.lua" />
+    <None Include="..\src\ServerData_Supply.lua" />
     <None Include="..\src\ServerData_Tamer.lua" />
     <None Include="..\src\ServerData_TamerCostume.lua" />
     <None Include="..\src\ServerData_Tutorial.lua" />
@@ -1636,6 +1637,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SubscriptionPopup_Ing.lua" />
     <None Include="..\src\UI_SummonDrawInfo.lua" />
     <None Include="..\src\UI_SupplyDepot.lua" />
+    <None Include="..\src\UI_SupplyProductListItem.lua" />
     <None Include="..\src\UI_TabUI_AutoGeneration.lua" />
     <None Include="..\src\UI_TamerCostumeConfirmPopup.lua" />
     <None Include="..\src\UI_TamerCostumeListItem.lua" />

@@ -211,6 +211,7 @@ local t_module = {
     'ServerData_RemoteConfig', -- 원격 설정
     'ServerData_ClanWar',
 	'ServerData_ClanWar_Date',
+    'ServerData_Supply',
 
 
     -- Interface

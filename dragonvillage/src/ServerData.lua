@@ -265,6 +265,9 @@ function ServerData:getInstance()
     -- 원격 설정
     g_remoteConfig = ServerData_RemoteConfig()
 
+    -- 보급소(정액제)
+    g_supply = ServerData_Supply()
+
     return g_serverData
 end
 
