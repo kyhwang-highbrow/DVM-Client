@@ -59,6 +59,14 @@ end
 -- function getSupplyInfoByType
 -- @brief
 -- @param supply_type string
+-- @return supply_info table
+-- {
+--  "type":"daily_cash", // 30일 다이아 상품
+--  "start":1587976361007,
+--  "end":1587976361584,
+--  "update":1587976361007,
+--  "reward":1 // 수령 완료 상태 sample
+-- }
 -------------------------------------
 function ServerData_Supply:getSupplyInfoByType(supply_type)
     if (self.m_tSupplyMap == nil) then

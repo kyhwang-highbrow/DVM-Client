@@ -618,6 +618,9 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
         if ret['first_purchase_event_info'] then
             g_firstPurchaseEventData:applyFirstPurchaseEvent(ret['first_purchase_event_info'])
         end
+
+        -- 보급소(정액제)
+        g_supply:applySupplyList_fromRet(ret)
         
 
 		if (cb_func) then

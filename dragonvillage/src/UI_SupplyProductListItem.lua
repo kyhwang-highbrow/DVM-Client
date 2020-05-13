@@ -4,44 +4,78 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_SupplyProductListItem
 -------------------------------------
 UI_SupplyProductListItem = class(PARENT, {
+        m_tSupplyData = 'tabel', -- table_supply테이블에서 한 행
+        --{
+        --    ['supply_id']=1004;
+        --    ['period']=14;
+        --    ['daily_content']='gold;1000000';
+        --    ['t_name']='14일 골드 보급';
+        --    ['product_content']='cash;1590';
+        --    ['t_desc']='';
+        --    ['type']='daily_gold';
+        --    ['product_id']=120104;
+        --    ['ui_priority']=40;
+        --    ['period_option']=1;
+        --}
+
+        m_bActive = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_SupplyProductListItem:init(t_data)
+    self.m_tSupplyData = t_data
+ 
 	-- UI load
 	local ui_name = 'supply_product_list_item.ui' 
 	self:load(ui_name)
 
 	-- initialize
-    self:initUI(t_data)
+    self:initUI()
     self:initButton()
-    self:refresh(t_data)
+    self:refresh()
 end
 
 -------------------------------------
 -- function initUI
 -- @param t_data table_supply에서 한 행
 -------------------------------------
-function UI_SupplyProductListItem:initUI(t_data)
+function UI_SupplyProductListItem:initUI()
     local vars = self.vars
+    local t_data = self.m_tSupplyData
 
+    do -- 상품명
+        vars['itemLabel']:setString(Str(t_data['t_name']))
+    end    
+
+    do -- 유효 기간 (보급 기간)
+        local period = t_data['period'] or 0
+        local str = Str('유효 기간 : {1}일', period)
+        vars['periodLabel']:setString(str)
+    end
+
+    do -- 즉시 획득 (기획 의도상 즉시 지급하는 다이아만 표기하고 있다)
+        local package_item_str = t_data['product_content']
+        local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_CASH)
+        local str = ''
+        if (0 < count) then
+            str = Str('즉시 획득 {1}', comma_value(count))
+        end
+        vars['obtainLabel']:setString(str)
+    end
 
     -- StructProduct
-    local struct_product = g_shopDataNew:getTargetProduct(t_data['product_id'])
-    local desc = struct_product:getDesc()
-    
+    local struct_product = self:getStructProduct()
+    if struct_product then
+        -- 가격
+        vars['priceLabel']:setString(struct_product:getPriceStr())
 
-    vars['itemLabel']:setString(Str(t_data['t_name']))
-    vars['totalRewardLabel']:setString(Str(desc))
+        -- 상품 설명
+        vars['totalRewardLabel']:setString(Str(struct_product:getDesc()))
+    end
 
-    local period = t_data['period']
-    local str = Str('유효 기간 : {1}일', period)
-    vars['periodLabel']:setString(str)
-
-
-    vars['priceLabel']:setString(struct_product:getPriceStr())
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -49,10 +83,149 @@ end
 -------------------------------------
 function UI_SupplyProductListItem:initButton()
     local vars = self.vars
+
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    vars['renewalBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_SupplyProductListItem:refresh(t_data)
+function UI_SupplyProductListItem:refresh()
+    local vars = self.vars
+    local t_data = self.m_tSupplyData
+
+    local supply_type = t_data['type']
+    local t_supply_info = g_supply:getSupplyInfoByType(supply_type)
+    
+    -- 상태 체크 -1:비활성, 0:일일 보상 수령 가능, 1:일일 보상 수령 완료
+    local reward_status = -1
+
+    if t_supply_info then
+        local curr_time = Timer:getServerTime()
+        local end_time = (t_supply_info['end'] / 1000)
+        
+        if (end_time < curr_time) then
+            reward_status = -1
+        elseif (t_supply_info['reward'] == 0) then
+            -- 일일 지급품이 있는지 확인
+            local package_item_str = t_data['daily_content']
+            local l_item_list = ServerData_Item:parsePackageItemStr(package_item_str)
+            if (0 < #l_item_list) then
+                reward_status = 0
+            else
+                reward_status = 1
+            end
+        else
+            reward_status = t_supply_info['reward'] -- 1이어야 한다.
+        end
+    end
+
+
+    -- 비활성 상태
+    if (reward_status == -1) then
+        vars['buyBtn']:setVisible(true)
+        vars['receiveBtn']:setVisible(false)
+        vars['renewalBtn']:setVisible(false)
+        self.m_bActive = false
+
+    -- 활성 상태에서 일일 보상을 받을 수 있는 상태
+    elseif (reward_status == 0) then
+        vars['buyBtn']:setVisible(false)
+        vars['receiveBtn']:setVisible(true)
+        vars['renewalBtn']:setVisible(false)
+        self.m_bActive = true
+
+    -- 활성 상태에서 일일 보상을 받은 후
+    elseif (reward_status == 1) then
+        vars['buyBtn']:setVisible(false)
+        vars['receiveBtn']:setVisible(false)
+        vars['renewalBtn']:setVisible(true)
+        self.m_bActive = true
+    end
+
+
+    -- 시간 표시
+    if (self.m_bActive == true) then
+        if t_supply_info then
+            local curr_time = Timer:getServerTime_Milliseconds()
+            local end_time = t_supply_info['end']
+            local time_millisec = math_max(end_time - curr_time, 0)
+            local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special
+            local str = Str('남은 시간 : {1}', time_str)
+            vars['periodLabel']:setString(str)
+        else
+            vars['periodLabel']:setString('')
+        end
+    else
+        -- 유효 기간 (보급 기간)
+        local period = t_data['period'] or 0
+        local str = Str('유효 기간 : {1}일', period)
+        vars['periodLabel']:setString(str)
+    end
+end
+
+-------------------------------------
+-- function update
+-- @brief 매 프레임 호출됨
+-------------------------------------
+function UI_SupplyProductListItem:update(dt)
+    if (self.m_bActive == true) then
+        self:refresh()
+    end
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_SupplyProductListItem:click_buyBtn()
+	local function cb_func(ret)
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+        self:refresh()
+
+        --[[
+        if (self.m_cbBuy) then
+            self.m_cbBuy(ret)
+        end
+
+        -- 만원의 행복은 구입 즉시 지급되므로 기본재화들도 결과 보여줌
+        local show_all = false
+        if (self.m_package_name == 'package_lucky_box') then
+            show_all = true
+        end
+
+        -- 캡슐 코인 패키지 상품 구매시 우편함 팝업 출력
+        if (self.m_package_name == 'package_capsule_coin') then
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.GOODS)
+        else
+            -- 아이템 획득 결과창
+            ItemObtainResult_Shop(ret, show_all)
+        end
+
+        -- 갱신이 필요한 상태일 경우
+        if ret['need_refresh'] then
+            self:refresh()
+            g_eventData.m_bDirty = true
+
+        elseif (self.m_isPopup == true) then
+            self:close()
+		end
+        --]]
+	end
+
+    -- StructProduct
+    local struct_product = self:getStructProduct()
+	struct_product:buy(cb_func)
+end
+
+
+-------------------------------------
+-- function getStructProduct
+-- @return StructProduct
+-------------------------------------
+function UI_SupplyProductListItem:getStructProduct()
+    local t_data = self.m_tSupplyData
+    local struct_product = g_shopDataNew:getTargetProduct(t_data['product_id'])
+    return struct_product
 end
