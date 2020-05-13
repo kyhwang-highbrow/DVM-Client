@@ -21,12 +21,7 @@ end
 -------------------------------------
 function TableSupply:getSupplyProductList()
     local l_ret = self:cloneOrgTable()
-
-    table.sort(l_ret, function(a, b)
-        return a['ui_priority'] < b['ui_priority']
-    end)
-
-    return l_ret or {}
+    return l_ret
 end
 
 

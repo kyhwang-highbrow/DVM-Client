@@ -53,7 +53,19 @@ function UI_SupplyDepot:initUI()
     table_view:setCellUIClass(UI_SupplyProductListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_supply_product)
-    --self.m_tableView = table_view
+    
+    -- ui_priority로 정렬
+    local function sort_func(a, b)
+        local a_data = a['data']
+        local b_data = b['data']
+
+        -- table_supply의 ui_priority로 정렬
+        local a_match = a_data['ui_priority'] or 0
+        local b_match = b_data['ui_priority'] or 0
+
+        return a_match < b_match
+    end
+    table.sort(table_view.m_itemList, sort_func)
 end
 
 -------------------------------------
