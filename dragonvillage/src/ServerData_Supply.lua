@@ -32,6 +32,10 @@ function ServerData_Supply:applySupplyList_fromRet(ret)
         return
     end
 
+    if (ret['supply_list'] == false) then
+        return
+    end
+
     self:applySupplyList(ret['supply_list'])
 end
 

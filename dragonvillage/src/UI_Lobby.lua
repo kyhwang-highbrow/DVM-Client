@@ -579,6 +579,9 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
             g_lobbyNoticeData:applyLobbyNoticeListData(ret['lobby_notice_list'])
         end
 
+        cclog('# 보급소(정액제)(supply_list config)')
+        g_supply:applySupplyList_fromRet(ret)
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)
