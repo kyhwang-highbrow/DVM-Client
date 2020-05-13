@@ -3826,9 +3826,6 @@
     <None Include="..\src\TableSpotSale.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_LobbySpotSaleBtn.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_BattleMenuItem_Clan.lua">
       <Filter>lua\UI</Filter>
     </None>

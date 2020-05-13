@@ -11,7 +11,6 @@ UI_Lobby = class(PARENT,{
         m_etcExpendedUI = 'UIC_ExtendedUI',
 		m_lobbyGuide = 'UIC_LobbyGuide',
         m_lobbyLeftTopBtnManager = 'UI_LobbyLeftTopBtnManager',
-        m_lobbySpotSaleBtn = 'UI_LobbySpotSaleBtn',
 
         -- 버튼 상태
         m_bItemAutoEnabled = 'bool',
@@ -92,9 +91,6 @@ function UI_Lobby:initUI()
 
     -- 좌상단 버튼 관리 매니저 생성
     self.m_lobbyLeftTopBtnManager = UI_LobbyLeftTopBtnManager(self)
-
-    -- 깜짝 할인 상품 버튼 관리 클래스 생성
-    --self.m_lobbySpotSaleBtn = UI_LobbySpotSaleBtn(self)
 end
 
 -------------------------------------
@@ -1697,11 +1693,6 @@ function UI_Lobby:update(dt)
                 label:setString(remain_text)
             end
         end
-    end
-
-	-- 깜짝 할인 상품 버튼 상태 갱신
-    if self.m_lobbySpotSaleBtn then
-        self.m_lobbySpotSaleBtn:update()
     end
 
     -- 왼쪽 버튼 리스트 업데이트

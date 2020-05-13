@@ -788,7 +788,6 @@ local t_module = {
     'UI_LoadingArena',
     'UI_Lobby',
     'UI_LobbyLeftTopBtnManager',
-    'UI_LobbySpotSaleBtn',
     'UI_ManagedButton',
     'UI_ButtonFirstPurchaseReward',
     'UI_ButtonSpotSale',

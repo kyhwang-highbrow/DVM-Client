@@ -990,6 +990,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableStatus.lua" />
     <None Include="..\src\TableStatusEffect.lua" />
     <None Include="..\src\TableSummonGacha.lua" />
+    <None Include="..\src\TableSupply.lua" />
     <None Include="..\src\TableTamer.lua" />
     <None Include="..\src\TableTamerCostume.lua" />
     <None Include="..\src\TableTamerSkill.lua" />
@@ -1382,7 +1383,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_LobbyGuideWeeklyShop.lua" />
     <None Include="..\src\UI_LobbyLeftTopBtnManager.lua" />
     <None Include="..\src\UI_LobbyNoticePopup.lua" />
-    <None Include="..\src\UI_LobbySpotSaleBtn.lua" />
     <None Include="..\src\UI_LoginIntegratePopup.lua" />
     <None Include="..\src\UI_LoginPopup2.lua" />
     <None Include="..\src\UI_LoginPopupWithoutFirebase.lua" />
