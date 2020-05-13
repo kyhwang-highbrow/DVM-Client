@@ -85,6 +85,7 @@ function UI_SupplyProductListItem:initButton()
     local vars = self.vars
 
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn() end)
     vars['renewalBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
@@ -183,41 +184,28 @@ function UI_SupplyProductListItem:click_buyBtn()
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret, true) -- param : ret, show_all
         self:refresh()
-
-        --[[
-        if (self.m_cbBuy) then
-            self.m_cbBuy(ret)
-        end
-
-        -- 만원의 행복은 구입 즉시 지급되므로 기본재화들도 결과 보여줌
-        local show_all = false
-        if (self.m_package_name == 'package_lucky_box') then
-            show_all = true
-        end
-
-        -- 캡슐 코인 패키지 상품 구매시 우편함 팝업 출력
-        if (self.m_package_name == 'package_capsule_coin') then
-            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.GOODS)
-        else
-            -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret, show_all)
-        end
-
-        -- 갱신이 필요한 상태일 경우
-        if ret['need_refresh'] then
-            self:refresh()
-            g_eventData.m_bDirty = true
-
-        elseif (self.m_isPopup == true) then
-            self:close()
-		end
-        --]]
 	end
 
     -- StructProduct
     local struct_product = self:getStructProduct()
 	struct_product:buy(cb_func)
 end
+
+-------------------------------------
+-- function click_receiveBtn
+-------------------------------------
+function UI_SupplyProductListItem:click_receiveBtn()
+    local function cb_func(ret)
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+        self:refresh()
+	end
+
+    local t_data = self.m_tSupplyData
+    local supply_type = t_data['type']
+    g_supply:request_supplyReward(supply_type, cb_func)
+end
+
 
 
 -------------------------------------

@@ -75,3 +75,35 @@ function ServerData_Supply:getSupplyInfoByType(supply_type)
 
     return self.m_tSupplyMap[supply_type]
 end
+
+-------------------------------------
+-- function request_supplyReward
+-- @brief 보급소(정액제) 일일 보상
+-- @api /users/supply/reward
+-------------------------------------
+function ServerData_Supply:request_supplyReward(supply_type, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+       self:applySupplyList_fromRet(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/supply/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', supply_type)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
