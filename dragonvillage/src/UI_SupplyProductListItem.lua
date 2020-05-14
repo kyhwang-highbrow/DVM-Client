@@ -156,7 +156,7 @@ function UI_SupplyProductListItem:refresh()
             local end_time = t_supply_info['end']
             local time_millisec = math_max(end_time - curr_time, 0)
             local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special
-            local str = Str('남은 시간 : {1}', time_str)
+            local str = Str('남은 시간 : {1}', '{@green}' .. time_str)
             vars['periodLabel']:setString(str)
         else
             vars['periodLabel']:setString('')
@@ -164,7 +164,7 @@ function UI_SupplyProductListItem:refresh()
     else
         -- 유효 기간 (보급 기간)
         local period = t_data['period'] or 0
-        local str = Str('유효 기간 : {1}일', period)
+        local str = Str('유효 기간 : {@DESC}{1}일', period)
         vars['periodLabel']:setString(str)
     end
 end

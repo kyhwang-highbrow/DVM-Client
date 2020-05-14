@@ -375,9 +375,11 @@ function datetime.makeTimeDesc_timer(milliseconds, day_special)
         --str = string.format('%.2d:%.2d:%.2d:%.2d:%.3d', day, hour, min, sec, millisec)
         str = string.format('%.2d:%.2d:%.2d:%.2d', day, hour, min, sec)
         if day_special then
-            local day_str = Str('{1}일', day)
-            local hour_min_sec_str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
-            str = Str('{1} {2}', day_str, hour_min_sec_str)
+            --local day_str = Str('{1}일', day)
+            --local hour_min_sec_str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+            --str = Str('{1} {2}', day_str, hour_min_sec_str)
+
+            str = Str('{1}일 {2}:{3}:{4}', day, string.format('%.2d',  hour), string.format('%.2d',  min), string.format('%.2d',  sec))
         end
 
     elseif (0 < hour) then
