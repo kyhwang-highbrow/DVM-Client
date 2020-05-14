@@ -408,6 +408,7 @@ function UI_QuestPopup:click_subscriptionBuyBtn()
         local function cb_func(ret)
             -- 아이템 획득 결과창
             ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+            self.m_mTabData[self.m_currTab]['first'] = true
             self:refreshCurrTab()
             self:refreshSubscriptionUI()
 	    end

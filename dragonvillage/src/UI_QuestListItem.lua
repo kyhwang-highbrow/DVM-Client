@@ -395,15 +395,24 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
     local func_refresh 
     -- 2. 퀘스트 2배 상품 소개 팝업
     func_show_popup = function()
-        UI_PromoteQuestDouble(func_refresh, true) -- param : cb_func, is_promote
+        --UI_PromoteQuestDouble(func_refresh, true) -- param : cb_func, is_promote
+        require('UI_SupplyProductInfoPopup_QuestDouble')
+        UI_SupplyProductInfoPopup_QuestDouble(true, func_refresh) -- param : is_promote, cb_func
     end
 
     -- 3. 퀘스트 UI 갱신 (2배 상품 적용)
     func_refresh = function(ret)
+        --[[
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
         ui_quest_popup:close()
         UI_QuestPopup()
+        --]]
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+        ui_quest_popup.m_mTabData[ui_quest_popup.m_currTab]['first'] = true
+        ui_quest_popup:refreshCurrTab()
+        ui_quest_popup:refreshSubscriptionUI()
 	end
     func_show_popup()
 
