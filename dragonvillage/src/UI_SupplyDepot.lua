@@ -76,6 +76,10 @@ function UI_SupplyDepot:initButton()
     if vars['closeBtn'] then
         vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     end
+
+    if vars['contractBtn'] then
+        vars['contractBtn']:registerScriptTapHandler(function() self:click_contractBtn() end)
+    end
 end
 
 -------------------------------------
@@ -97,6 +101,13 @@ function UI_SupplyDepot:update(dt)
     local sec = string.format('%.2d', t.sec)
     local str = Str('서버 시간 : {1}시 {2}분 {3}초 ({4})', hour, min, sec, time_zone_str)
     vars['serverTimeLabel']:setString(str)
+end
+
+-------------------------------------
+-- function click_contractBtn
+-------------------------------------
+function UI_SupplyDepot:click_contractBtn()
+    GoToAgreeMentUrl()
 end
 
 --@CHECK
