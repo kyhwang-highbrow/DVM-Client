@@ -210,6 +210,9 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
         g_serverData:networkCommonRespone_addedItems(ret)
         self:networkCommonRespone(ret)
         self:showRewardResult(ret)
+
+        -- 보급소(정액제)
+        g_supply:applySupplyList_fromRet(ret)
         
 		g_highlightData:setDirty(true)
 

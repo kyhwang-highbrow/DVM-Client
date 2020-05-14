@@ -125,6 +125,9 @@ function ServerData_Subscription:request_useAutoPickItem(cb_func, fail_cb)
         -- 인게임 드랍 정보 갱신
         self:response_ingameDropInfo(ret)
 
+        -- 보급소(정액제)
+        g_supply:applySupplyList_fromRet(ret)
+
 		if (cb_func) then
 			cb_func(ret)
 		end
