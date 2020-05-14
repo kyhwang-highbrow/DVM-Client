@@ -86,6 +86,7 @@ end
 function UI_SupplyProductListItem:initButton()
     local vars = self.vars
 
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn() end)
     vars['renewalBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
@@ -176,6 +177,14 @@ function UI_SupplyProductListItem:update(dt)
     if (self.m_bActive == true) then
         self:refresh()
     end
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_SupplyProductListItem:click_infoBtn()
+    require('UI_SupplyProductInfoPopup')
+    UI_SupplyProductInfoPopup(self.m_tSupplyData)
 end
 
 -------------------------------------
