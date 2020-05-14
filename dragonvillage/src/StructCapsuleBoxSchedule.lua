@@ -56,6 +56,8 @@ StructCapsuleBoxSchedule = class(PARENT, {
     badge_first_2 = '',
     start_date = '',
     second_3 = '',
+    chance_up_1_pos = '',
+    chance_up_2_pos = '',
 })
 
 local THIS = StructCapsuleBoxSchedule
