@@ -138,7 +138,7 @@ function UI_SupplyProductListItem:refresh()
         self.m_bActive = true
 
     -- 활성 상태에서 일일 보상을 받은 후
-    elseif (reward_status == 1) then
+    elseif (reward_status == 1) or (reward_status == 9) then
         vars['buyBtn']:setVisible(false)
         vars['receiveBtn']:setVisible(false)
         vars['renewalBtn']:setVisible(true)

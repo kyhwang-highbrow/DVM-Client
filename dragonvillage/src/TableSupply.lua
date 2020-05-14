@@ -20,6 +20,10 @@ end
 -- function getSupplyProductList
 -------------------------------------
 function TableSupply:getSupplyProductList()
+    if (self == THIS) then
+        self = THIS()
+    end
+
     local l_ret = self:cloneOrgTable()
     return l_ret
 end

@@ -107,3 +107,37 @@ function ServerData_Supply:request_supplyReward(supply_type, finish_cb, fail_cb)
 
     return ui_network
 end
+
+-------------------------------------
+-- function isHighlightSupply
+-------------------------------------
+function ServerData_Supply:isHighlightSupply()
+    local reward_supply_cnt = 0
+
+    local l_supply_product = TableSupply:getSupplyProductList()
+
+    for _, t_data in pairs(l_supply_product) do
+        local supply_type = t_data['type']
+        local t_supply_info = self:getSupplyInfoByType(supply_type)
+
+        if t_supply_info then
+            local curr_time = Timer:getServerTime()
+            local end_time = (t_supply_info['end'] / 1000)
+
+            -- 시간 확인
+            if (curr_time < end_time) then
+                if (t_supply_info['reward'] == 0) then
+                    -- 일일 지급품이 있는지 확인
+                    local package_item_str = t_data['daily_content']
+                    local l_item_list = ServerData_Item:parsePackageItemStr(package_item_str)
+                    if (0 < #l_item_list) then
+                        -- ## 모든 조건 충족 시 증가
+                        reward_supply_cnt = (reward_supply_cnt + 1)
+                    end
+                end
+            end
+        end
+    end
+
+    return (0 < reward_supply_cnt), reward_supply_cnt
+end

@@ -36,4 +36,20 @@ function UI_ButtonSupplyDepot:click_btn()
     require('UI_SupplyDepot')
     local ui = UI_SupplyDepot()
 
+    local function close_cb()
+        -- 보급소 내에서 상품 상태 변경 시 notiSprite상태 갱신을 위해 호출
+        self:callDirtyStatusCB()
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function updateButtonStatus
+-------------------------------------
+function UI_ButtonSupplyDepot:updateButtonStatus()
+    -- callDirtyStatusCB을 통해 갱신 요청이 오면 notiSprite상태 갱신
+    local vars = self.vars
+    local is_highlight, cnt = g_supply:isHighlightSupply()
+    vars['notiSprite']:setVisible(is_highlight)
 end
