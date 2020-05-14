@@ -28,7 +28,9 @@ function UI_SupplyProductListItem:init(t_data)
     self.m_tSupplyData = t_data
  
 	-- UI load
-	local ui_name = 'supply_product_list_item.ui' 
+    local supply_id = t_data['supply_id']
+    -- 'supply_product_list_item.ui' -> 'supply_product_list_item_1001.ui' 형태로 변경
+	local ui_name = 'supply_product_list_item_' .. supply_id .. '.ui' 
 	self:load(ui_name)
 
 	-- initialize
