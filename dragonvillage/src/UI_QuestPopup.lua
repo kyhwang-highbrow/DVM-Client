@@ -38,6 +38,8 @@ function UI_QuestPopup:init()
 		self:refresh()
 	end 
 	g_questData:requestQuestInfo(cb_func)
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -351,6 +353,8 @@ function UI_QuestPopup:initSubscriptionUI()
 
     -- 상품 구매
     vars['buyBtn']:registerScriptTapHandler(function() self:click_subscriptionBuyBtn() end)
+    vars['renewalBtn']:registerScriptTapHandler(function() self:click_subscriptionBuyBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -360,13 +364,24 @@ end
 function UI_QuestPopup:refreshSubscriptionUI()
     local vars = self.vars
 
-    local is_subscription_active = g_questData:isSubscriptionActive()
+    local is_subscription_active = g_supply:isActiveSupply_dailyQuest()
     vars['buyBtn']:setVisible(not is_subscription_active)
+    vars['renewalBtn']:setVisible(is_subscription_active)
+
+    --[[
     vars['doingSprite']:setVisible(is_subscription_active)
     if is_subscription_active then
         local cur_day, max_day = g_questData:subscriptionDayInfo()
         local str = Str('적용 중\n{1}/{2} 일', cur_day, max_day)
         vars['doingLabel']:setString(str)
+    end
+    --]]
+
+    do -- 다이아 즉시 획득량
+        local t_supply = TableSupply:getSupplyData_dailyQuest()
+        local package_item_str = t_supply['product_content']
+        local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_CASH)
+        vars['obtainLabel']:setString(comma_value(count))
     end
 end
 
@@ -375,6 +390,7 @@ end
 -- @brief 일일 퀘스트 보상 2배 상품 구매 버튼 클릭
 -------------------------------------
 function UI_QuestPopup:click_subscriptionBuyBtn()
+    --[[
     local function cb_func(ret)
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
@@ -382,6 +398,42 @@ function UI_QuestPopup:click_subscriptionBuyBtn()
         UI_QuestPopup()
     end
     UI_PromoteQuestDouble(cb_func, false) -- param : cb_func, is_promote
+    --]]
+
+    local t_supply = TableSupply:getSupplyData_dailyQuest()
+    local product_id = t_supply['product_id']
+    local struct_product = g_shopDataNew:getTargetProduct(product_id) -- StructProduct
+
+    if struct_product then
+        local function cb_func(ret)
+            -- 아이템 획득 결과창
+            ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+            self:refreshCurrTab()
+            self:refreshSubscriptionUI()
+	    end
+
+	    struct_product:buy(cb_func)
+    end
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief 일일 퀘스트 보상 2배 상품 설명 버튼 클릭
+-------------------------------------
+function UI_QuestPopup:click_infoBtn()
+    require('UI_SupplyProductInfoPopup_QuestDouble')
+    UI_SupplyProductInfoPopup_QuestDouble()
+end
+
+-------------------------------------
+-- function update
+-- @brief 매 프레임 호출됨
+-------------------------------------
+function UI_QuestPopup:update(dt)
+    local vars = self.vars
+
+    local str = g_supply:getSupplyTimeRemainingString_dailyQuest()
+    vars['periodLabel']:setString(str)
 end
 
 --@CHECK

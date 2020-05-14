@@ -4,27 +4,12 @@ local PARENT = UI
 -- class UI_SupplyProductInfoPopup_QuestDouble
 -------------------------------------
 UI_SupplyProductInfoPopup_QuestDouble = class(PARENT,{
-        m_tSupplyData = 'number',
-        --{
-        --    ['supply_id']=1004;
-        --    ['period']=14;
-        --    ['daily_content']='gold;1000000';
-        --    ['t_name']='14일 골드 보급';
-        --    ['product_content']='cash;1590';
-        --    ['t_desc']='';
-        --    ['type']='daily_gold';
-        --    ['product_id']=120104;
-        --    ['ui_priority']=40;
-        --    ['period_option']=1;
-        --}
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SupplyProductInfoPopup_QuestDouble:init(t_data)
-    self.m_tSupplyData = t_data
-
+function UI_SupplyProductInfoPopup_QuestDouble:init()
     local vars = self:load('supply_product_info_popup_quest_double.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -47,8 +32,6 @@ end
 -------------------------------------
 function UI_SupplyProductInfoPopup_QuestDouble:initUI()
     local vars = self.vars
-    
-    local t_data = self.m_tSupplyData
 end
 
 -------------------------------------

@@ -188,9 +188,9 @@ function UI_SupplyProductListItem:click_infoBtn()
     local supply_id = t_data['supply_id']
 
     -- 일일 퀘스트 2배 보상(type : daily_quest)
-    if (supply_id == 1003) then
+    if (supply_id == TableSupply.SUPPLY_ID_DAILY_QUEST) then
         require('UI_SupplyProductInfoPopup_QuestDouble')
-        UI_SupplyProductInfoPopup_QuestDouble(self.m_tSupplyData)
+        UI_SupplyProductInfoPopup_QuestDouble()
     else
         require('UI_SupplyProductInfoPopup')
         UI_SupplyProductInfoPopup(self.m_tSupplyData)

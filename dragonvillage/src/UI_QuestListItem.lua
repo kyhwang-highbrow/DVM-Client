@@ -164,7 +164,7 @@ function UI_QuestListItem:setRewardCard()
     end
 
     -- 일일 퀘스트 보상 2배 적용 중일 경우
-    if self.m_questData:isDailyType() and g_questData:isSubscriptionActive() then
+    if self.m_questData:isDailyType() and g_supply:isActiveSupply_dailyQuest() then
         for i, v in ipairs(l_reward_info) do
             local reward_card = UI_ItemCard(v['item_id'], v['count'])
             reward_card.root:setSwallowTouch(false)
@@ -335,7 +335,7 @@ function UI_QuestListItem:makeRewardList()
     end
     
     -- 구독 상품인 경우 상품 한 번 더 표시
-    if g_questData:isSubscriptionActive() then
+    if g_supply:isActiveSupply_dailyQuest() then
         for _, v in ipairs(l_reward_info) do
             table.insert(l_total_reward, v)
         end
@@ -381,7 +381,7 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
         return
     end
 
-    if (g_questData:isSubscriptionActive()) then
+    if (g_supply:isActiveSupply_dailyQuest()) then
         return
     end
 

@@ -6,6 +6,8 @@ local PARENT = TableClass
 TableSupply = class(PARENT, {
     })
 
+TableSupply.SUPPLY_ID_DAILY_QUEST = 1003
+
 local THIS = TableSupply
 
 -------------------------------------
@@ -26,6 +28,19 @@ function TableSupply:getSupplyProductList()
 
     local l_ret = self:cloneOrgTable()
     return l_ret
+end
+
+-------------------------------------
+-- function getSupplyData_dailyQuest
+-------------------------------------
+function TableSupply:getSupplyData_dailyQuest()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local supply_id = TableSupply.SUPPLY_ID_DAILY_QUEST
+    local ret = self:get(supply_id)
+    return ret
 end
 
 

@@ -141,3 +141,76 @@ function ServerData_Supply:isHighlightSupply()
 
     return (0 < reward_supply_cnt), reward_supply_cnt
 end
+
+
+-------------------------------------
+-- function isActiveSupply
+-- @brief 보급소(정액제)에서 supply_type에 해당하는 보급이 활성 중인지
+-- @return boolean
+-------------------------------------
+function ServerData_Supply:isActiveSupply(supply_type)
+    local t_supply_info = self:getSupplyInfoByType(supply_type)
+    if (t_supply_info == nil) then
+        return false
+    end
+
+    local curr_time = Timer:getServerTime()
+    local end_time = (t_supply_info['end'] / 1000)
+
+    if (curr_time < end_time) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function getSupplyTimeRemainingString
+-- @brief 보급소(정액제)에서 supply_type에 해당하는 보급의 남은 시간 문자열
+-- @return string
+-------------------------------------
+function ServerData_Supply:getSupplyTimeRemainingString(supply_type)
+    local t_supply_info = self:getSupplyInfoByType(supply_type)
+    if (t_supply_info == nil) then
+        return ''
+    end
+
+    local curr_time = Timer:getServerTime()
+    local end_time = (t_supply_info['end'] / 1000)
+
+    if (curr_time < end_time) then
+        local _curr_time = Timer:getServerTime_Milliseconds()
+        local _end_time = t_supply_info['end']
+        local time_millisec = math_max(_end_time - _curr_time, 0)
+        local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special
+        local str = Str('남은 시간 : {1}', '{@green}' .. time_str)
+        return str
+    else
+        return ''
+    end
+end
+
+
+
+
+-------------------------------------
+-- function isActiveSupply_dailyQuest
+-- @brief 보급소(정액제)에서 일일 퀘스트 보상 2배가 활성화 중인지
+-- @return boolean
+-------------------------------------
+function ServerData_Supply:isActiveSupply_dailyQuest()
+    local supply_type = 'daily_quest'
+    local ret = self:isActiveSupply(supply_type)
+    return ret
+end
+
+-------------------------------------
+-- function getSupplyTimeRemainingString_dailyQuest
+-- @brief 보급소(정액제)에서 일일 퀘스트 보상 2배의 남은 시간 문자열
+-- @return string
+-------------------------------------
+function ServerData_Supply:getSupplyTimeRemainingString_dailyQuest()
+    local supply_type = 'daily_quest'
+    local ret = self:getSupplyTimeRemainingString(supply_type)
+    return ret
+end
