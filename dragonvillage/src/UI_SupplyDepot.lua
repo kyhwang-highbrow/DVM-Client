@@ -88,6 +88,15 @@ end
 -- function update
 -------------------------------------
 function UI_SupplyDepot:update(dt)
+    local vars = self.vars
+
+    -- 서버 시간 표시
+    local time_zone_str, t = datetime.getTimeUTCHourStr()
+    local hour = string.format('%.2d', t.hour)
+    local min = string.format('%.2d', t.min)
+    local sec = string.format('%.2d', t.sec)
+    local str = Str('서버 시간 : {1}시 {2}분 {3}초 ({4})', hour, min, sec, time_zone_str)
+    vars['serverTimeLabel']:setString(str)
 end
 
 --@CHECK

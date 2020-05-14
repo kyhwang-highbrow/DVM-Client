@@ -435,6 +435,32 @@ function datetime.strformat(t)
     return os.date('%Y-%m-%d %H:%M', t)
 end
 
+function datetime.getTimeUTCHourStr()
+    -- h : UTC 기준 시각 (UTC+h)
+	local h = Timer:getUTCHour()
+    local utc = ''
+    if h >= 0 then
+        utc = Str('UTC+{1}', h)
+    else
+        utc = Str('UTC{1}', h)
+    end
+
+    -- t : 현재시간
+    local utc_time = Timer:getServerTime() - datetime.getTimeZoneOffset() 
+    local hour = Timer:getUTCHour()
+    local t = os.date('*t', utc_time + (hour * 60 * 60))
+
+	local function unit(value)
+		if value < 10 then
+			return  '0' .. tostring(value)
+		else
+			return tostring(value)
+		end
+	end
+
+    return utc, t
+end
+
 function datetime.getTimeUTCDesc()
     -- h : UTC 기준 시각 (UTC+h)
 	local h = Timer:getUTCHour()
