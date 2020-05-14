@@ -62,7 +62,7 @@ function UI_SupplyProductInfoPopup:initUI()
 
     do -- n일간 매일 수령
         local period = t_data['period']
-        local str = Str('& {1}일간 매일 수령', period)
+        local str = Str('{1}일간 매일 수령', period)
         vars['periodLabel']:setString(str)
     end
 
