@@ -1,0 +1,76 @@
+local PARENT = UI
+
+-------------------------------------
+-- class UI_SupplyProductInfoPopup_QuestDouble
+-------------------------------------
+UI_SupplyProductInfoPopup_QuestDouble = class(PARENT,{
+        m_tSupplyData = 'number',
+        --{
+        --    ['supply_id']=1004;
+        --    ['period']=14;
+        --    ['daily_content']='gold;1000000';
+        --    ['t_name']='14일 골드 보급';
+        --    ['product_content']='cash;1590';
+        --    ['t_desc']='';
+        --    ['type']='daily_gold';
+        --    ['product_id']=120104;
+        --    ['ui_priority']=40;
+        --    ['period_option']=1;
+        --}
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_SupplyProductInfoPopup_QuestDouble:init(t_data)
+    self.m_tSupplyData = t_data
+
+    local vars = self:load('supply_product_info_popup_quest_double.ui')
+    UIManager:open(self, UIManager.POPUP)
+
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_SupplyProductInfoPopup_QuestDouble')
+
+    -- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_SupplyProductInfoPopup_QuestDouble:initUI()
+    local vars = self.vars
+    
+    local t_data = self.m_tSupplyData
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_SupplyProductInfoPopup_QuestDouble:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_SupplyProductInfoPopup_QuestDouble:refresh()
+end
+
+-------------------------------------
+-- function click_cancelBtn
+-------------------------------------
+function UI_SupplyProductInfoPopup_QuestDouble:click_closeBtn()
+    self:close()
+end
+
+--@CHECK
+UI:checkCompileError(UI_SupplyProductInfoPopup_QuestDouble)

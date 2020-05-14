@@ -183,8 +183,18 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_SupplyProductListItem:click_infoBtn()
-    require('UI_SupplyProductInfoPopup')
-    UI_SupplyProductInfoPopup(self.m_tSupplyData)
+    local t_data = self.m_tSupplyData
+
+    local supply_id = t_data['supply_id']
+
+    -- 일일 퀘스트 2배 보상(type : daily_quest)
+    if (supply_id == 1003) then
+        require('UI_SupplyProductInfoPopup_QuestDouble')
+        UI_SupplyProductInfoPopup_QuestDouble(self.m_tSupplyData)
+    else
+        require('UI_SupplyProductInfoPopup')
+        UI_SupplyProductInfoPopup(self.m_tSupplyData)
+    end 
 end
 
 -------------------------------------
