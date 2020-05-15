@@ -128,7 +128,7 @@ end
 function UI_SupplyProductInfoPopup_AutoPickup:update(dt)
     local vars = self.vars
 
-    local str = g_supply:getSupplyTimeRemainingString_dailyQuest()
+    local str = g_supply:getSupplyTimeRemainingString_autoPickup()
     if (str == '') then
         str = Str('남은 시간 : {1}', '0')
     end
