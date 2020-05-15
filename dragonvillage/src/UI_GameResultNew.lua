@@ -430,17 +430,16 @@ function UI_GameResultNew:direction_start()
         label:setVisible(true)
 
         local function update(dt)
-            local msg, enable = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
+            local msg = g_supply:getSupplyTimeRemainingSimpleStringAutoPickup()
             label:setString(msg)
-            --btn:setEnabled(enable) -- 매일매일 다이아 ui를 띄우는 것으로 변경함 (항상 enabled로!) 2017-09-21 sgkim
 
-            if (g_autoItemPickData:isActiveAutoItemPick()) then
+            if (g_supply:isActiveSupply_autoPickup()) then
                 btn:stopAllActions()
             end
         end
         self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
         
-        if (not g_autoItemPickData:isActiveAutoItemPick()) then
+        if (not g_supply:isActiveSupply_autoPickup()) then
             btn:setAutoShake(true)
         end        
     end
@@ -1256,7 +1255,8 @@ function UI_GameResultNew:click_itemAutoBtn()
     if (self:checkAutoPlayRelease()) then return end
     -- 2017-09-21 sgkim 매일매일 다이아를 자동 줍기에 더 비중을 두어 변경
     --g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
-    g_subscriptionData:openSubscriptionPopup()
+    local buy_cb_func = nil
+    g_supply:openAutoPickupPopup(buy_cb_func)
 end
 
 -------------------------------------
