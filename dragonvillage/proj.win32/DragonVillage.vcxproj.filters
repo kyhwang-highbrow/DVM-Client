@@ -2379,17 +2379,11 @@
     <None Include="..\src\StructProductSubscription.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_SubscriptionPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\StructSubscribedInfo.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StatusEffect_ConditionalModify.lua">
       <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_SubscriptionPopup_Ing.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_SubscriptionDayListItem.lua">
       <Filter>lua\UI</Filter>

@@ -1011,8 +1011,6 @@ local t_module = {
     'UI_Package_SpotSale',
     'UI_Package_New_DragonBg',
     'UI_Package_New_Dragon',
-    'UI_SubscriptionPopup',
-    'UI_SubscriptionPopup_Ing',
     'UI_SubscriptionPopupNew',
     'UI_SubscriptionPopupNew_Ing',
     'UI_AutoItemPickPopup',

@@ -45,12 +45,8 @@ function ServerData_Subscription:openSubscriptionPopup()
         local auto_pick_item = g_userData:get('auto_root')
         local is_used_item = g_autoItemPickData:isActiveAutoItemPickWithType('auto_root')
 
-        -- 프리미엄 상품은 삭제 (but 구독중인 유저들까지는 기존 UI 노출)
-        if (subscribed_info) and (subscribed_info['category'] == 'premium') then
-            UI_SubscriptionPopup_Ing()
-
         -- 구독중 (새로운 UI)
-        elseif (subscribed_info) then
+        if (subscribed_info) then
             UI_SubscriptionPopupNew_Ing()
         
         -- 자동줍기 이용권 사용중
