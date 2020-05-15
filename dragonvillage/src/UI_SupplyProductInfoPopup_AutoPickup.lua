@@ -11,7 +11,7 @@ UI_SupplyProductInfoPopup_AutoPickup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SupplyProductInfoPopup_AutoPickup:init(cb_func)
+function UI_SupplyProductInfoPopup_AutoPickup:init(cb_func, hide_ad)
     local vars = self:load('supply_product_info_popup_auto_pickup.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_SupplyProductInfoPopup_AutoPickup'
@@ -29,7 +29,7 @@ function UI_SupplyProductInfoPopup_AutoPickup:init(cb_func)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
+    self:initUI(hide_ad)
     self:initButton()
     self:refresh()
 
@@ -39,10 +39,15 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_SupplyProductInfoPopup_AutoPickup:initUI()
+function UI_SupplyProductInfoPopup_AutoPickup:initUI(hide_ad)
     local vars = self.vars
 
-    vars['productMenu']:setPositionX(0)
+    -- 광고 시청 버튼을 숨김설정이거나 자동 줍기가 활성화인 경우
+    if (hide_ad == true) or (g_supply:isActiveSupply_autoPickup() == true) then
+        vars['productMenu']:setPositionX(0)
+        vars['adMenu']:setVisible(false)
+    end
+    
     if vars['priceLabel'] then
         vars['priceLabel']:setString(self.m_structProduct:getPriceStr())
     end
@@ -61,6 +66,7 @@ end
 -------------------------------------
 function UI_SupplyProductInfoPopup_AutoPickup:initButton()
     local vars = self.vars
+    vars['adBtn']:registerScriptTapHandler(function() self:click_adBtn() end)
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
@@ -90,6 +96,33 @@ function UI_SupplyProductInfoPopup_AutoPickup:refresh()
 
     -- 자수정
     vars['itemLabel3']:setString(Str('{1}개', comma_value(amethyst_cnt)))
+end
+
+-------------------------------------
+-- function click_adBtn
+-------------------------------------
+function UI_SupplyProductInfoPopup_AutoPickup:click_adBtn()
+	-- 광고 비활성화 시
+	if (AdSDKSelector:isAdInactive()) then
+		AdSDKSelector:makePopupAdInactive()
+		return
+	end
+
+    -- 광고 프리로드 요청
+    AdSDKSelector:adPreload(AD_TYPE['AUTO_ITEM_PICK'])
+
+    -- 광고 안내 팝업
+    local function ok_cb()
+        local function finish_cb()
+            self:close()
+        end
+
+        g_advertisingData:showAd(AD_TYPE['AUTO_ITEM_PICK'], finish_cb)
+    end
+
+    local msg = Str("동영상 광고를 보시면 자동줍기가 적용됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+    local submsg = Str("자동줍기는 20분간 유지됩니다.")
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
 end
 
 -------------------------------------

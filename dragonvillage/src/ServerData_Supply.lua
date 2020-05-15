@@ -265,7 +265,9 @@ end
 -------------------------------------
 function ServerData_Supply:openAutoPickupPopupAtSupplyDepot(buy_cb_func)
     require('UI_SupplyProductInfoPopup_AutoPickup')
-    UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func)
+    -- 보급소에서는 광고 시청을 못하게 함 (결제 유도를 위해)
+    local hide_ad = true
+    UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func, hide_ad)
 end
 
 -------------------------------------
@@ -281,7 +283,8 @@ function ServerData_Supply:openAutoPickupPopup(buy_cb_func)
         UI_AutoItemPickPopup()
     else
         require('UI_SupplyProductInfoPopup_AutoPickup')
-        UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func)
+        local hide_ad = false
+        UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func, hide_ad)
     end
 end
 
