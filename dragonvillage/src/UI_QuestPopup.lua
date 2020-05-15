@@ -28,6 +28,7 @@ function UI_QuestPopup:init()
     vars['priceLabel']:setString('')
 	vars['dailyQuestLabel']:setString('')
 	vars['dailyQuestLabel2']:setString('')
+    vars['periodLabel']:setString('')
 
 	-- 통신 후 UI 출력
 	local cb_func = function()
@@ -381,7 +382,8 @@ function UI_QuestPopup:refreshSubscriptionUI()
         local t_supply = TableSupply:getSupplyData_dailyQuest()
         local package_item_str = t_supply['product_content']
         local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_CASH)
-        vars['obtainLabel']:setString(comma_value(count))
+        local str = Str('즉시 획득')  .. ' ' .. comma_value(count)
+        vars['obtainLabel']:setString(str)
     end
 end
 
@@ -405,12 +407,9 @@ function UI_QuestPopup:click_subscriptionBuyBtn()
     local struct_product = g_shopDataNew:getTargetProduct(product_id) -- StructProduct
 
     if struct_product then
+        -- 일일 퀘스트 보상 2배 상품 구매 후 콜백
         local function cb_func(ret)
-            -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret, true) -- param : ret, show_all
-            self.m_mTabData[self.m_currTab]['first'] = true
-            self:refreshCurrTab()
-            self:refreshSubscriptionUI()
+            self:questDoubleBuySuccessCB(ret)
 	    end
 
 	    struct_product:buy(cb_func)
@@ -423,8 +422,27 @@ end
 -------------------------------------
 function UI_QuestPopup:click_infoBtn()
     require('UI_SupplyProductInfoPopup_QuestDouble')
-    UI_SupplyProductInfoPopup_QuestDouble()
+
+    -- 일일 퀘스트 보상 2배 상품 구매 후 콜백
+    local function cb_func(ret)
+        self:questDoubleBuySuccessCB(ret)
+	end
+
+    UI_SupplyProductInfoPopup_QuestDouble(false, cb_func)
 end
+
+-------------------------------------
+-- function questDoubleBuySuccessCB
+-- @brief 일일 퀘스트 보상 2배 상품 구매 후 콜백
+-------------------------------------
+function UI_QuestPopup:questDoubleBuySuccessCB(ret)
+    -- 아이템 획득 결과창
+    ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+    self.m_mTabData[self.m_currTab]['first'] = true
+    self:refreshCurrTab()
+    self:refreshSubscriptionUI()
+end
+
 
 -------------------------------------
 -- function update

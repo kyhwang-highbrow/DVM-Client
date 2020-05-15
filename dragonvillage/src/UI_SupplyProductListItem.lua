@@ -62,7 +62,8 @@ function UI_SupplyProductListItem:initUI()
         local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_CASH)
         local str = ''
         if (0 < count) then
-            str = Str('즉시 획득 {1}', comma_value(count))
+            --str = Str('즉시 획득 {1}', comma_value(count))
+            str = comma_value(count)
         end
         vars['obtainLabel']:setString(str)
     end
@@ -190,7 +191,13 @@ function UI_SupplyProductListItem:click_infoBtn()
     -- 일일 퀘스트 2배 보상(type : daily_quest)
     if (supply_id == TableSupply.SUPPLY_ID_DAILY_QUEST) then
         require('UI_SupplyProductInfoPopup_QuestDouble')
-        UI_SupplyProductInfoPopup_QuestDouble()
+
+        -- 상품 구매 후 콜백
+        local function cb_func(ret)
+            self:questDoubleBuySuccessCB(ret)
+        end
+
+        UI_SupplyProductInfoPopup_QuestDouble(false, cb_func)
     else
         require('UI_SupplyProductInfoPopup')
         UI_SupplyProductInfoPopup(self.m_tSupplyData)
@@ -201,10 +208,9 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_SupplyProductListItem:click_buyBtn()
-	local function cb_func(ret)
-        -- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret, true) -- param : ret, show_all
-        self:refresh()
+    -- 상품 구매 후 콜백
+    local function cb_func(ret)
+        self:questDoubleBuySuccessCB(ret)
 	end
 
     -- StructProduct
@@ -216,16 +222,26 @@ end
 -- function click_receiveBtn
 -------------------------------------
 function UI_SupplyProductListItem:click_receiveBtn()
+    -- 상품 구매 후 콜백
     local function cb_func(ret)
-        -- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret, true) -- param : ret, show_all
-        self:refresh()
+        self:questDoubleBuySuccessCB(ret)
 	end
 
     local t_data = self.m_tSupplyData
     local supply_type = t_data['type']
     g_supply:request_supplyReward(supply_type, cb_func)
 end
+
+-------------------------------------
+-- function buySuccessCB
+-- @brief 상품 구매 후 콜백
+-------------------------------------
+function UI_SupplyProductListItem:questDoubleBuySuccessCB(ret)
+    -- 아이템 획득 결과창
+    ItemObtainResult_Shop(ret, true) -- param : ret, show_all
+    self:refresh()
+end
+
 
 
 

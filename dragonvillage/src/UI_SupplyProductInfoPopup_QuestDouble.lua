@@ -46,10 +46,6 @@ function UI_SupplyProductInfoPopup_QuestDouble:initUI()
         vars['priceLabel']:setString(self.m_structProduct:getPriceStr())
     end
 
-    vars['buyBtn']:setVisible(self.m_isPromote)
-    vars['closeBtn']:setVisible(self.m_isPromote)
-    vars['cancelBtn']:setVisible(not self.m_isPromote)
-
     -- 단순 구매팝업의 경우 타이틀에 상품명만 출력
     -- 판매촉진의 경우 이 팝업이 왜 갑자기 나왔는지 설명 필요 : ex) 상품명+목적(소개)
     if (self.m_isPromote) then
@@ -62,7 +58,18 @@ function UI_SupplyProductInfoPopup_QuestDouble:initUI()
         local t_supply = TableSupply:getSupplyData_dailyQuest()
         local package_item_str = t_supply['product_content']
         local count = ServerData_Item:getItemCountFromPackageItemString(package_item_str, ITEM_ID_CASH)
-        vars['obtainLabel']:setString(comma_value(count))
+        local str = Str('즉시 획득') .. ' ' .. comma_value(count)
+        vars['obtainLabel']:setString(str)
+    end
+
+
+    do -- 초기 값 설정 (퀘스트 정보를 받아오지 못한 경우 대비)
+        vars['goldLabel']:setString(Str('골드') .. '\n' .. Str('{1}개', '5,320,000'))
+        vars['amethystLabel']:setString(Str('자수정') .. '\n' .. Str('{1}개', '2,800'))
+        vars['staminas_stLabel']:setString(Str('날개') .. '\n' .. Str('{1}개', '700'))
+        vars['cashLabel']:setString(Str('다이아') .. '\n' .. Str('{1}개', '10,500'))
+        vars['fpLabel']:setString(Str('우정의 징표') .. '\n' .. Str('{1}개', '1,120'))
+        vars['clancoinLabel']:setString(Str('클랜코인') .. '\n' .. Str('{1}개', '14'))
     end
 
     -- 일일 퀘스트 보상 개수(아이템별) 합산한 맵 
@@ -96,7 +103,6 @@ function UI_SupplyProductInfoPopup_QuestDouble:initButton()
     local vars = self.vars
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['cancelBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------

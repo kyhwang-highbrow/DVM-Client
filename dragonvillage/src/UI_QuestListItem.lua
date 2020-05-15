@@ -408,11 +408,9 @@ function UI_QuestListItem:checkPromoteQuestDouble(ui_quest_popup)
         ui_quest_popup:close()
         UI_QuestPopup()
         --]]
-        -- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret, true) -- param : ret, show_all
-        ui_quest_popup.m_mTabData[ui_quest_popup.m_currTab]['first'] = true
-        ui_quest_popup:refreshCurrTab()
-        ui_quest_popup:refreshSubscriptionUI()
+        
+        -- 일일 퀘스트 보상 2배 상품 구매 후 콜백
+        ui_quest_popup:questDoubleBuySuccessCB(ret)
 	end
     func_show_popup()
 
