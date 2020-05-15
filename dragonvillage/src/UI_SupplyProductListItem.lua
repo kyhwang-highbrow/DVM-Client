@@ -205,7 +205,7 @@ function UI_SupplyProductListItem:click_infoBtn()
             self:questDoubleBuySuccessCB(ret)
         end
 
-        g_supply:openAutoPickupPopup(buy_cb_func)
+        g_supply:openAutoPickupPopupAtSupplyDepot(buy_cb_func)
 
     else
         require('UI_SupplyProductInfoPopup')

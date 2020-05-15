@@ -260,12 +260,29 @@ function ServerData_Supply:getSupplyTimeRemainingString_autoPickup()
 end
 
 -------------------------------------
+-- function openAutoPickupPopupAtSupplyDepot
+-- @brief 보급소에서 자동 줍기 UI 오픈
+-------------------------------------
+function ServerData_Supply:openAutoPickupPopupAtSupplyDepot(buy_cb_func)
+    require('UI_SupplyProductInfoPopup_AutoPickup')
+    UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func)
+end
+
+-------------------------------------
 -- function openAutoPickupPopup
 -- @brief 자동 줍기 UI 오픈
 -------------------------------------
 function ServerData_Supply:openAutoPickupPopup(buy_cb_func)
-    require('UI_SupplyProductInfoPopup_AutoPickup')
-    UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func)
+
+    local auto_pick_item = g_userData:get('auto_root')
+    
+    -- 정액제 비활성상태에서 자동 줍기 아이템 보유했을 경우
+    if (self:isActiveSupply_autoPickup() == false) and (auto_pick_item) and (auto_pick_item > 0) then
+        UI_AutoItemPickPopup()
+    else
+        require('UI_SupplyProductInfoPopup_AutoPickup')
+        UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func)
+    end
 end
 
 -------------------------------------
