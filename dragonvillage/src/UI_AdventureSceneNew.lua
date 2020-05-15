@@ -858,7 +858,7 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
     vars['hotTimeStBtn']:setVisible(false)    
 
     -- 아이템 자동 줍기
-    if g_autoItemPickData:isActiveAutoItemPick() then
+    if g_supply:isActiveSupply_autoPickup() then
         table.insert(l_active_hot, 'hotTimeMarbleBtn')
     end
 

@@ -478,12 +478,6 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 			g_secretDungeonData:setSecretDungeonExist(ret['secret_dungeon_cnt'] > 0)
 		end
 
-        cclog('# 자동줍기 결과 확인 중')
-        if (ret['hours'] and ret['ingame_drop_stats']) then
-            g_serverData:networkCommonRespone(ret) -- expired 갱신
-			UI_AutoItemPickResultPopup(ret['hours'], ret['ingame_drop_stats'])
-		end
-
 		cclog('# 퀘스트 확인 중')
 		if (ret['quest_info']) then
 			g_questData:applyQuestInfo(ret['quest_info'])
