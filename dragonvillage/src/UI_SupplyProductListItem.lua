@@ -201,12 +201,11 @@ function UI_SupplyProductListItem:click_infoBtn()
     -- 자동 줍기
     elseif (supply_id == TableSupply.SUPPLY_ID_AUTO_PICKUP) then
         -- 상품 구매 후 콜백
-        local function cb_func(ret)
+        local function buy_cb_func(ret)
             self:questDoubleBuySuccessCB(ret)
         end
 
-        require('UI_SupplyProductInfoPopup_AutoPickup')
-        UI_SupplyProductInfoPopup_AutoPickup(cb_func)
+        g_supply:openAutoPickupPopup(buy_cb_func)
 
     else
         require('UI_SupplyProductInfoPopup')

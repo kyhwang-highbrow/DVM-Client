@@ -167,26 +167,47 @@ end
 -------------------------------------
 -- function getSupplyTimeRemainingString
 -- @brief 보급소(정액제)에서 supply_type에 해당하는 보급의 남은 시간 문자열
+-- @param is_simple boolean
 -- @return string
 -------------------------------------
-function ServerData_Supply:getSupplyTimeRemainingString(supply_type)
+function ServerData_Supply:getSupplyTimeRemainingString(supply_type, is_simple)
     local t_supply_info = self:getSupplyInfoByType(supply_type)
-    if (t_supply_info == nil) then
-        return ''
-    end
 
-    local curr_time = Timer:getServerTime()
-    local end_time = (t_supply_info['end'] / 1000)
+    if (not is_simple) then    
+        if (t_supply_info == nil) then
+            return ''
+        end
 
-    if (curr_time < end_time) then
-        local _curr_time = Timer:getServerTime_Milliseconds()
-        local _end_time = t_supply_info['end']
-        local time_millisec = math_max(_end_time - _curr_time, 0)
-        local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special
-        local str = Str('남은 시간 : {1}', '{@green}' .. time_str)
-        return str
-    else
-        return ''
+        local curr_time = Timer:getServerTime()
+        local end_time = (t_supply_info['end'] / 1000)
+
+        if (curr_time < end_time) then
+            local _curr_time = Timer:getServerTime_Milliseconds()
+            local _end_time = t_supply_info['end']
+            local time_millisec = math_max(_end_time - _curr_time, 0)
+            local time_str = datetime.makeTimeDesc_timer(time_millisec, true) -- param : milliseconds, day_special
+            local str = Str('남은 시간 : {1}', '{@green}' .. time_str)
+            return str
+        else
+            return ''
+        end
+    else -- (is_simple == true)
+        if (t_supply_info == nil) then
+            return '획득 가능'
+        end
+
+        local curr_time = Timer:getServerTime()
+        local end_time = (t_supply_info['end'] / 1000)
+
+        if (curr_time < end_time) then
+            local time = (end_time - curr_time)
+            local show_second = true
+            local first_only = true
+            local str = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
+            return str
+        else
+            return '획득 가능'
+        end
     end
 end
 
@@ -236,4 +257,26 @@ function ServerData_Supply:getSupplyTimeRemainingString_autoPickup()
     local supply_type = 'auto_pickup'
     local ret = self:getSupplyTimeRemainingString(supply_type)
     return ret
+end
+
+-------------------------------------
+-- function openAutoPickupPopup
+-- @brief 자동 줍기 UI 오픈
+-------------------------------------
+function ServerData_Supply:openAutoPickupPopup(buy_cb_func)
+    require('UI_SupplyProductInfoPopup_AutoPickup')
+    UI_SupplyProductInfoPopup_AutoPickup(buy_cb_func)
+end
+
+-------------------------------------
+-- function getSupplyTimeRemainingSimpleStringAutoPickup
+-- @brief 자동 줍기 UI 남은 시간 간단 문자열
+-- @return string
+-------------------------------------
+function ServerData_Supply:getSupplyTimeRemainingSimpleStringAutoPickup()
+    local supply_type = 'auto_pickup'
+    local is_simple = true
+
+    local str = self:getSupplyTimeRemainingString(supply_type, is_simple)
+    return str
 end

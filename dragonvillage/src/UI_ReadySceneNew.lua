@@ -911,11 +911,9 @@ function UI_ReadySceneNew:update_item(dt)
 
     -- 광고보기 (추가)
     do
-        local str, active = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
+        local str = g_supply:getSupplyTimeRemainingSimpleStringAutoPickup()
         vars['itemAutoLabel']:setString(str)
-        -- 구독 상품 남은기간 3일 이내면 노티 출력
-        local is_auto_3day = g_autoItemPickData:checkSubsAlarm('subscription', 3) -- param : auto_type, day
-        vars['notiSprite']:setVisible(is_auto_3day)
+        vars['notiSprite']:setVisible(false)
     end
 
     -- 경험치 부스터
@@ -1195,7 +1193,7 @@ function UI_ReadySceneNew:checkPromoteAutoPick(stage_id)
     end
 
     -- 현재 자동줍기 활성화 상태인지 확인
-    local is_used = g_autoItemPickData:isActiveAutoItemPick()
+    local is_used = g_supply:isActiveSupply_autoPickup()
     if (is_used) then
         return false 
     end
@@ -1217,7 +1215,7 @@ function UI_ReadySceneNew:checkPromoteAutoPick(stage_id)
 
     -- 2. 자동 줍기 구매 팝업
     func_show_autopick_popup = function()
-        g_subscriptionData:openSubscriptionPopup()
+        g_supply:openAutoPickupPopup()
     end
     func_show_popup()
 
@@ -1457,7 +1455,8 @@ end
 -- @breif 광고 보기
 -------------------------------------
 function UI_ReadySceneNew:click_itemAutoBtn()
-    g_subscriptionData:openSubscriptionPopup()
+    local buy_cb_func = nil
+    g_supply:openAutoPickupPopup(buy_cb_func)
 end
 
 -------------------------------------
