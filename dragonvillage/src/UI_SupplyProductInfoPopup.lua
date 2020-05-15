@@ -50,6 +50,10 @@ function UI_SupplyProductInfoPopup:initUI()
     
     local t_data = self.m_tSupplyData
 
+    do -- 이름
+        vars['titleLabel']:setString(Str(t_data['t_name']))
+    end
+
     do -- 설명
         vars['descLabel']:setString(Str('지금 바로 구매하고 획득'))
     end
