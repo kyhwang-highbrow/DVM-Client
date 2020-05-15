@@ -1245,6 +1245,9 @@ function UI_TitleScene:workGetServerInfo()
                 cclog('# 보급소(정액제)(supply_list config)')
                 g_supply:applySupplyList_fromRet(ret)
 
+                cclog('# 자동 줍기으로 획득한 누적 아이템 수량 갱신')
+                g_subscriptionData:response_ingameDropInfo(ret)
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)

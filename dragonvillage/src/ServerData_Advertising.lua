@@ -213,6 +213,9 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
 
         -- 보급소(정액제)
         g_supply:applySupplyList_fromRet(ret)
+
+        -- 자동 줍기으로 획득한 누적 아이템 수량 갱신
+        g_subscriptionData:response_ingameDropInfo(ret)
         
 		g_highlightData:setDirty(true)
 

@@ -23,6 +23,7 @@ function ServerData_Subscription:init(server_data)
     self.m_serverData = server_data
 
     self.m_dicProduct = {}
+    self.m_ingameDropInfoMap = {}
 end
 
 -------------------------------------
@@ -184,7 +185,6 @@ end
 -------------------------------------
 function ServerData_Subscription:response_ingameDropInfo(ret)
     -- 인게임 드랍 정보
-    self.m_ingameDropInfoMap = {}
     if (ret['ingame_drop_stats']) then
         self.m_ingameDropInfoMap = ret['ingame_drop_stats']
     end

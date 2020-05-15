@@ -622,6 +622,8 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
         -- 보급소(정액제)
         g_supply:applySupplyList_fromRet(ret)
         
+        -- 자동 줍기으로 획득한 누적 아이템 수량 갱신
+        g_subscriptionData:response_ingameDropInfo(ret)
 
 		if (cb_func) then
 			cb_func(ret)
