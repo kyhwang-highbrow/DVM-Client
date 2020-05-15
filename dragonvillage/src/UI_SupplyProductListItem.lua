@@ -190,14 +190,24 @@ function UI_SupplyProductListItem:click_infoBtn()
 
     -- 일일 퀘스트 2배 보상(type : daily_quest)
     if (supply_id == TableSupply.SUPPLY_ID_DAILY_QUEST) then
-        require('UI_SupplyProductInfoPopup_QuestDouble')
-
         -- 상품 구매 후 콜백
         local function cb_func(ret)
             self:questDoubleBuySuccessCB(ret)
         end
 
+        require('UI_SupplyProductInfoPopup_QuestDouble')
         UI_SupplyProductInfoPopup_QuestDouble(false, cb_func)
+
+    -- 자동 줍기
+    elseif (supply_id == TableSupply.SUPPLY_ID_AUTO_PICKUP) then
+        -- 상품 구매 후 콜백
+        local function cb_func(ret)
+            self:questDoubleBuySuccessCB(ret)
+        end
+
+        require('UI_SupplyProductInfoPopup_AutoPickup')
+        UI_SupplyProductInfoPopup_AutoPickup(cb_func)
+
     else
         require('UI_SupplyProductInfoPopup')
         UI_SupplyProductInfoPopup(self.m_tSupplyData)

@@ -6,6 +6,7 @@ local PARENT = TableClass
 TableSupply = class(PARENT, {
     })
 
+TableSupply.SUPPLY_ID_AUTO_PICKUP = 1002
 TableSupply.SUPPLY_ID_DAILY_QUEST = 1003
 
 local THIS = TableSupply
@@ -32,6 +33,7 @@ end
 
 -------------------------------------
 -- function getSupplyData_dailyQuest
+-- @breif 일일 퀘스트 보상 2배 데이터 리턴
 -------------------------------------
 function TableSupply:getSupplyData_dailyQuest()
     if (self == THIS) then
@@ -39,6 +41,20 @@ function TableSupply:getSupplyData_dailyQuest()
     end
 
     local supply_id = TableSupply.SUPPLY_ID_DAILY_QUEST
+    local ret = self:get(supply_id)
+    return ret
+end
+
+-------------------------------------
+-- function getSupplyData_autoPickup
+-- @breif 자동 줍기 데이터 리턴
+-------------------------------------
+function TableSupply:getSupplyData_autoPickup()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local supply_id = TableSupply.SUPPLY_ID_AUTO_PICKUP
     local ret = self:get(supply_id)
     return ret
 end

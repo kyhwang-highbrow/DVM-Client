@@ -214,3 +214,26 @@ function ServerData_Supply:getSupplyTimeRemainingString_dailyQuest()
     local ret = self:getSupplyTimeRemainingString(supply_type)
     return ret
 end
+
+
+-------------------------------------
+-- function isActiveSupply_autoPickup
+-- @brief 보급소(정액제)에서 자동 줍기가 활성화 중인지
+-- @return boolean
+-------------------------------------
+function ServerData_Supply:isActiveSupply_autoPickup()
+    local supply_type = 'auto_pickup'
+    local ret = self:isActiveSupply(supply_type)
+    return ret
+end
+
+-------------------------------------
+-- function getSupplyTimeRemainingString_autoPickup
+-- @brief 보급소(정액제)에서 자동 줍기 남은 시간 문자열
+-- @return string
+-------------------------------------
+function ServerData_Supply:getSupplyTimeRemainingString_autoPickup()
+    local supply_type = 'auto_pickup'
+    local ret = self:getSupplyTimeRemainingString(supply_type)
+    return ret
+end

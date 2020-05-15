@@ -4471,6 +4471,9 @@
     <None Include="..\src\UI_SupplyProductInfoPopup_QuestDouble.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_SupplyProductInfoPopup_AutoPickup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
