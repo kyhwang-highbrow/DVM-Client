@@ -27,7 +27,14 @@ function TableSupply:getSupplyProductList()
         self = THIS()
     end
 
-    local l_ret = self:cloneOrgTable()
+    local l_ret ={}
+
+    -- ui_priority가 -1인 항목은 보급소 UI에서 노출하지 않음
+    for key,value in pairs(self.m_orgTable) do
+        if (value['ui_priority'] ~= -1) then
+            l_ret[key] = clone(value)
+        end
+    end
     return l_ret
 end
 
