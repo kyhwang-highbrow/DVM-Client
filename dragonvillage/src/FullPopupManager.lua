@@ -76,16 +76,15 @@ function FullPopupManager:show(type, show_func)
         local lv = g_userData:get('lv')
         local need_lv = 10
         local save_key = 'auto_pick'
-        local function cb_func()
-            if not (g_subscriptionData:getSubscribedInfo()) then
-                g_subscriptionData:openSubscriptionPopup()
-                g_settingData:applySettingData(true, 'event_full_popup', save_key)
-            end
-        end
 
         local is_view = g_settingData:get('event_full_popup', save_key) or false
         if (lv >= need_lv) and (not is_view) then 
-            g_subscriptionData:request_subscriptionInfo(cb_func)
+            -- 자동 줍기 비활성화 상태일 경우
+            if (g_supply:isActiveSupply_autoPickup() == false) then
+                local buy_cb_func = nil
+                g_supply:openAutoPickupPopup(buy_cb_func)
+                g_settingData:applySettingData(true, 'event_full_popup', save_key)
+            end
         end
 
     -- 일일상점 (상점 진입시)
