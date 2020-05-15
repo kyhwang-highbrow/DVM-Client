@@ -25,7 +25,7 @@ function DropItemMgr:init(world)
 	self.m_world = world
 
     -- 자동 줍기
-    self.m_bActiveAutoItemPick = g_autoItemPickData:isActiveAutoItemPick()
+    self.m_bActiveAutoItemPick = g_supply:isActiveSupply_autoPickup()
 
     self.m_touchNode = self:makeTouchNode()
     self:makeTouchLayer(self.m_touchNode)
