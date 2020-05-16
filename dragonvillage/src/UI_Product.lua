@@ -1,7 +1,12 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
+-- UI_Product를 상속 받는 클래스들
+--   UI_ProductSmall
+--   UI_ProductNewcomerShop
+
 -------------------------------------
 -- class UI_Product
+
 -------------------------------------
 UI_Product = class(PARENT, {
         m_structProduct = 'StructProduct',

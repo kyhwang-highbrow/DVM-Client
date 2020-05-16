@@ -4474,6 +4474,12 @@
     <None Include="..\src\UI_NewcomerShop.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableNewcomerShop.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ProductNewcomerShop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
