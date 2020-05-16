@@ -101,3 +101,21 @@ function ServerData_NewcomerShop:isActiveNewcomerShop(ncm_id)
         return false
     end
 end
+
+
+-------------------------------------
+-- function openNewcomerShop
+-- @brief
+-- @return ui UI
+-------------------------------------
+function ServerData_NewcomerShop:openNewcomerShop()
+    for ncm_id,v in pairs(self.m_tNewcomerShopEndInfo) do
+        if (self:isActiveNewcomerShop(ncm_id) == true) then
+            require('UI_NewcomerShop')
+            local ui = UI_NewcomerShop(ncm_id)
+            return ui
+        end
+    end
+    
+    return nil
+end

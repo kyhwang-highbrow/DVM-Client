@@ -91,3 +91,35 @@ function ServerData_FirstPurchaseEvent:getFirstPurchaseEventInfoByEventId(event_
 
     return self.m_tFirstPurchaseEventInfo[event_id]
 end
+
+-------------------------------------
+-- function isActiveAnnyFirstPurchaseEvent
+-- @brief
+-------------------------------------
+function ServerData_FirstPurchaseEvent:isActiveAnnyFirstPurchaseEvent()
+    if (self.m_tFirstPurchaseEventInfo == nil) then
+        return false
+    end
+
+    for i,v in pairs(self.m_tFirstPurchaseEventInfo) do
+        local status = v['status']
+        -- 초기상태
+        if (status == -1) then
+            return true
+
+        -- 결제 완료 ( 보상 수령 가능 
+        elseif (status == 0) then
+            return true
+
+        -- 보상 수령 완료
+        elseif (status == 1) then
+            return false
+    
+        -- 그 외 모든 상황
+        else
+            return false
+        end
+    end
+
+    return false
+end

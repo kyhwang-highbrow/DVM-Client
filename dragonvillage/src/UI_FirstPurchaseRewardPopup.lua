@@ -128,6 +128,13 @@ end
 -------------------------------------
 function UI_FirstPurchaseRewardPopup:click_shopBtn()
     self:close()
+
+    -- 초보자 선물 상점이 활성화일 경우
+    local ui = g_newcomerShop:openNewcomerShop()
+    if (ui ~= nil) then
+        return
+    end
+
     g_shopDataNew:openShopPopup()
 end
 

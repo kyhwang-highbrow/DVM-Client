@@ -180,7 +180,8 @@ function UI_LobbyLeftTopBtnManager:updateButtonsPosition()
     local action_tag = 1917 -- 해당 액션만 재생하고 정지하기 위해 고유한 아무 값이나 사용
     local duration = 0.2
     for i,v in ipairs(self.m_lManagedButtonUI) do
-        if (v:isActive() == true) then
+        local is_active = v:isActive()
+        if (is_active == true) then
             local width = v:getWidth()
             
             -- 액션으로 이동
@@ -196,6 +197,8 @@ function UI_LobbyLeftTopBtnManager:updateButtonsPosition()
             -- 다음 위치 계산
             pos_x = (pos_x + width + self.m_interval)
         end
+
+        v.root:setVisible(is_active)
     end
 
     self.m_bDirtyButtonsPos = false

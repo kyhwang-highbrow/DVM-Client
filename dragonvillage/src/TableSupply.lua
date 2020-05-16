@@ -66,6 +66,23 @@ function TableSupply:getSupplyData_autoPickup()
     return ret
 end
 
+-------------------------------------
+-- function getAutoPickupDataByProductID
+-- @breif
+-------------------------------------
+function TableSupply:getAutoPickupDataByProductID(product_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    for i,v in pairs(self.m_orgTable) do
+        if (v['product_id'] == product_id) and (v['type'] == 'auto_pickup') then
+            return v['period']
+        end
+    end
+
+    return 0
+end
 
 --{
 --    "supply_id":1001,

@@ -33,7 +33,11 @@ end
 -- function isActive
 -------------------------------------
 function UI_ButtonNewcomerShop:isActive()
-    return true
+    return true -- 무조건 노출일 경우
+
+    -- 첫 충전 선물이 활성화일 경우 숨김
+    --local ret = g_firstPurchaseEventData:isActiveAnnyFirstPurchaseEvent()
+    --return (not ret)
 end
 
 -------------------------------------
@@ -78,15 +82,6 @@ end
 -------------------------------------
 function UI_ButtonNewcomerShop:updateButtonStatus()
 
-end
-
--------------------------------------
--- function isActive
--- virtual 버튼이 보여질지 여부
--------------------------------------
-function UI_ButtonNewcomerShop:isActive()
-    -- TODO : 첫 충전 선물이 활성화일 경우에는 노출하지 않아야 한다. 개발 완료 후 수정할 것!
-    return true
 end
 
 -------------------------------------
