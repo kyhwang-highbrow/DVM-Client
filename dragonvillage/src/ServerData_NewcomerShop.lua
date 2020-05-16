@@ -29,8 +29,9 @@ function ServerData_NewcomerShop:applyNewcomderShopEndInfo_fromRet(ret)
     -- 개발용 테스트 코드
     if true then
         ret['newcomer_shop_end_info'] = {}
-        ret['newcomer_shop_end_info']['10001'] = ((Timer:getServerTime() + 2409) * 1000)
-        ret['newcomer_shop_end_info']['10002'] = ((Timer:getServerTime() + 10) * 1000)
+        ret['newcomer_shop_end_info']['10001'] = ((Timer:getServerTime() + 1209600) * 1000)
+        ret['newcomer_shop_end_info']['10002'] = ((Timer:getServerTime() + 60) * 1000)
+        ret['newcomer_shop_end_info']['10003'] = ((Timer:getServerTime() + 8640) * 1000)
     end
 
     if (ret['newcomer_shop_end_info'] == nil) then

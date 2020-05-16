@@ -97,6 +97,23 @@ end
 -------------------------------------
 function UI_NewcomerShop:update(dt)
     local vars = self.vars
+
+    local end_date = (g_newcomerShop:getNewcomerShopEndTimestamp(self.m_ncmId) or 0) / 1000 -- timestamp 1585839600000
+    local curr_time = Timer:getServerTime()
+
+    -- 1. 남은 시간 표시 (기간제일 경우에만)
+    local time_label = vars['timeLabel']
+    if time_label then
+        if (0 < end_date) and (curr_time < end_date) then
+            --local time_millisec = (end_date - curr_time) * 1000
+            --local str = datetime.makeTimeDesc_timer(time_millisec)
+            local time = (end_date - curr_time)
+            local str = Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+            time_label:setString(str)
+        else
+            time_label:setString('')
+        end
+    end
 end
 
 -------------------------------------
