@@ -1134,6 +1134,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_BundlePopup.lua" />
     <None Include="..\src\UI_BundlePopupNew.lua" />
     <None Include="..\src\UI_ButtonFirstPurchaseReward.lua" />
+    <None Include="..\src\UI_ButtonNewcomerShop.lua" />
     <None Include="..\src\UI_ButtonSpecialOfferProduct.lua" />
     <None Include="..\src\UI_ButtonSpotSale.lua" />
     <None Include="..\src\UI_ButtonSupplyDepot.lua" />
@@ -1399,6 +1400,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_MonsterCustomCard.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_NestDungeonSelectingListItem.lua" />
+    <None Include="..\src\UI_NewcomerShop.lua" />
     <None Include="..\src\UI_NightmareStageListItem.lua" />
     <None Include="..\src\UI_ObtainToastPopup.lua" />
     <None Include="..\src\UI_PackagePopup.lua" />

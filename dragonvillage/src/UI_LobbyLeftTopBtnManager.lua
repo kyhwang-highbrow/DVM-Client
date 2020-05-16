@@ -26,6 +26,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.m_interval = 10
     self.PRIORITY = {}
     self.PRIORITY.FIRST_PURCHASE_REWARD = 900
+    self.PRIORITY.NEWCOMER_SHOP = 900
     self.PRIORITY.SPECIAL_OFFER_PRODUCT = 800
     self.PRIORITY.SPOT_SALE_PRODUCT = 700
     self.PRIORITY.SUPPLY_DEPOT = 600
@@ -102,10 +103,11 @@ end
 function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
 
     do -- 추가될 버튼 확인
+        -- 첫 충전 선물 버튼 생성
         for event_id,v in pairs(g_firstPurchaseEventData.m_tFirstPurchaseEventInfo) do
             local unique_key = ('first_purchase_reward_' .. event_id)
 
-            -- 존재하지 않으면 생성 (삭제는 managed button에서 알아서 진행
+            -- 존재하지 않으면 생성 (삭제는 managed button에서 알아서 진행)
             if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
                 -- status가 1이면 보상을 수령한 상태
                 if (v['status'] ~= 1) then
@@ -115,6 +117,20 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
                     managed_button:setPriority(priority)
                     managed_button.m_uniqueKey = unique_key
                 end
+            end
+        end
+
+        do -- 초보자 선물 버튼 생성
+            -- 초보자 선물 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
+            local unique_key = 'newcomer_shop_1001'
+
+            -- 존재하지 않으면 생성 (삭제는 managed button에서 알아서 진행)
+            if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
+                local class_ = UI_ButtonNewcomerShop
+                local priority = self.PRIORITY.NEWCOMER_SHOP
+                local managed_button = self:makeManagedButton(class_, event_id)
+                managed_button:setPriority(priority)
+                managed_button.m_uniqueKey = unique_key
             end
         end
     end
