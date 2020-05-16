@@ -121,16 +121,22 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
         end
 
         do -- 초보자 선물 버튼 생성
-            -- 초보자 선물 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
-            local unique_key = 'newcomer_shop_1001'
+            local t_newcomer_shop_map = g_newcomerShop:getNewcomerShopList()
 
-            -- 존재하지 않으면 생성 (삭제는 managed button에서 알아서 진행)
-            if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
-                local class_ = UI_ButtonNewcomerShop
-                local priority = self.PRIORITY.NEWCOMER_SHOP
-                local managed_button = self:makeManagedButton(class_, event_id)
-                managed_button:setPriority(priority)
-                managed_button.m_uniqueKey = unique_key
+            for ncm_id, _ in pairs(t_newcomer_shop_map) do
+                if (g_newcomerShop:isActiveNewcomerShop(ncm_id) == true) then
+                    -- 초보자 선물 데이터가 있고, 종료 시간이 지나지 않은 경우 생성
+                    local unique_key = ('newcomer_shop' .. ncm_id)
+
+                    -- 존재하지 않으면 생성 (삭제는 managed button에서 알아서 진행)
+                    if (self:getManagedButtonByUniqueKey(unique_key) == nil) then
+                        local class_ = UI_ButtonNewcomerShop
+                        local priority = self.PRIORITY.NEWCOMER_SHOP
+                        local managed_button = self:makeManagedButton(class_, ncm_id)
+                        managed_button:setPriority(priority)
+                        managed_button.m_uniqueKey = unique_key
+                    end
+                end
             end
         end
     end
@@ -148,7 +154,7 @@ function UI_LobbyLeftTopBtnManager:updateButtonsStatus()
 
     -- 삭제
     for i,v in ipairs(l_remove_idx) do
-        local ui = self.m_lManagedButtonUI[i]
+        local ui = self.m_lManagedButtonUI[v]
         if ui.root then
             ui.root:removeFromParent()
         end

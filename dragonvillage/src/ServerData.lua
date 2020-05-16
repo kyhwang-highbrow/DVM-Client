@@ -268,6 +268,9 @@ function ServerData:getInstance()
     -- 보급소(정액제)
     g_supply = ServerData_Supply()
 
+    -- 초보자 선물(신규 유저 전용 상점)
+    g_newcomerShop = ServerData_NewcomerShop()
+
     return g_serverData
 end
 

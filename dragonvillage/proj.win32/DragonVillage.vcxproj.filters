@@ -4480,6 +4480,9 @@
     <None Include="..\src\UI_ProductNewcomerShop.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_NewcomerShop.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -5,12 +5,14 @@ local PARENT = UI
 -- @brief 초보자 선물 (신규 유저 전용 상점)
 -------------------------------------
 UI_NewcomerShop = class(PARENT,{
+        m_ncmId = 'number',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_NewcomerShop:init()
+function UI_NewcomerShop:init(ncm_id)
+    self.m_ncmId = ncm_id
     self.m_uiName = 'UI_NewcomerShop'
     
     local ui_res = 'newcomer_shop.ui'
@@ -38,9 +40,9 @@ end
 function UI_NewcomerShop:initUI()
     local vars = self.vars
 
-    -- 상품 리스트 받아옴 (TODO: 실제 적용된 ncm_id로 수정할 것)
+    -- 상품 리스트 받아옴
     require('TableNewcomerShop')
-    local l_product_id = TableNewcomerShop:getNewcomerShopProductList(10001)
+    local l_product_id = TableNewcomerShop:getNewcomerShopProductList(self.m_ncmId)
 
     -- 개별 상품 생성
     for i,product_id in ipairs(l_product_id) do
