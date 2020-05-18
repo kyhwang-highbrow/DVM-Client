@@ -19,6 +19,30 @@ function UI_ButtonNewcomerShop:init(ncm_id)
     self.m_ncmId = ncm_id
     self:load('button_newcomer_shop.ui')
 
+    do -- 모든 상품 구매한 유저 체크
+        -- 상품 리스트 받아옴
+        require('TableNewcomerShop')
+        local l_product_id = TableNewcomerShop:getNewcomerShopProductList(self.m_ncmId)
+
+        local available_cnt = 0
+
+        -- 개별 상품 생성
+        for i,product_id in ipairs(l_product_id) do
+            local struct_product = g_shopDataNew:getTargetProduct(product_id)
+            if struct_product then
+                if (struct_product:checkMaxBuyCount() == true) then
+                    available_cnt = (available_cnt + 1)
+                end
+            end
+        end
+
+        -- 모든 상품을 구매한 유저는 오픈 cnt를 늘려서 noti가 뜨지 않도록 처리함
+        if (available_cnt <= 0) then
+            self:incOpenCnt()
+        end
+
+    end
+
     -- 업데이트 스케줄러
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
