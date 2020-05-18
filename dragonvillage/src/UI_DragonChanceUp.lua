@@ -77,8 +77,8 @@ function UI_DragonChanceUp:initUI_OnlyOne()
     local map_target_dragons = self.m_map_target_dragons
 
     local did = nil
-    for _, did_ in pairs(map_target_dragons) do
-        did = did_
+    for _, data in pairs(map_target_dragons) do
+        did = data['did']
         break
     end
 
