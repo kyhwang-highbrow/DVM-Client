@@ -87,6 +87,9 @@ function ServerData_Supply:request_supplyReward(supply_type, finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- 지급된 아이템 동기화
+        g_serverData:networkCommonRespone_addedItems(ret)
+
        self:applySupplyList_fromRet(ret)
 
         if finish_cb then
