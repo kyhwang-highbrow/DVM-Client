@@ -671,6 +671,7 @@ function UI_Lobby:initButton()
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
+    vars['itemAutoBtn']:setVisible(false)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트

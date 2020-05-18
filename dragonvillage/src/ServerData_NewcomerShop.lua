@@ -27,7 +27,7 @@ function ServerData_NewcomerShop:applyNewcomderShopEndInfo_fromRet(ret)
     end
 
     -- 개발용 테스트 코드
-    if true then
+    if false then
         ret['newcomer_shop_end_info'] = {}
         ret['newcomer_shop_end_info']['10001'] = ((Timer:getServerTime() + 1209600) * 1000)
         ret['newcomer_shop_end_info']['10002'] = ((Timer:getServerTime() + 60) * 1000)
