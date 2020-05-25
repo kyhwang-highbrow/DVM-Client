@@ -42,6 +42,27 @@ function ServerData_NewcomerShop:applyNewcomderShopEndInfo_fromRet(ret)
         return
     end
 
+    -- 초보자 선물은 2020년 5월 19일에 추가된 상점.
+    -- 업데이트 후 생성된 신규계정에만 노출되는 것이 혜택으로 볼 수 있었다.
+    -- 기존 유저들에게도 일정 기간동안은 구매를 할 수 있게 하기 위해 하드코딩함.
+    if (ret['newcomer_shop_end_info']['10001'] == nil) then
+        local date_format = 'yyyy-mm-dd HH:MM:SS'
+        local parser = pl.Date.Format(date_format)
+
+        -- 단말기(local)의 타임존 (단위 : 초)
+        local timezone_local = datetime.getTimeZoneOffset()
+
+        -- 서버(server)의 타임존 (단위 : 초)
+        local timezone_server = Timer:getServerTimeZoneOffset()
+        local offset = (timezone_local - timezone_server)
+
+        local parse_start_date = parser:parse('2020-06-07 23:59:59')
+        if (parse_start_date and parse_start_date['time']) then
+            local end_timestamp = parse_start_date['time'] + offset
+            ret['newcomer_shop_end_info']['10001'] = (end_timestamp * 1000)
+        end
+    end
+
     self:applyNewcomderShopEndInfo(ret['newcomer_shop_end_info'])
 end
 
