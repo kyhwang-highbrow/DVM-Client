@@ -93,6 +93,16 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' return GET_ALLY_MIN_HP_RATE(owner)' ..
         ' end' ..
 
+        -- 변신 상태 체크 함수(아이리스 변신 확인. isMetamorphosis이 함수는 Character클래스에 정의되어 있다.)
+        ' local TARGET_METAMORPHOSIS_RATE = function()' ..
+        '     if target then' ..
+        '         if (target:isMetamorphosis() == true) then' ..
+        '             return 1' ..
+        '         end' ..
+        '     end' ..
+        '     return 0' ..
+        ' end' ..
+
         -- 외부 환경 정보
         ' local hit_target_count = 0' ..
         ' local boss_rarity = 5' ..
