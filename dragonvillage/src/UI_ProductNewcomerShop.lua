@@ -55,20 +55,46 @@ function UI_ProductNewcomerShop:makeAllItemIconList()
     local struct_product = self.m_structProduct
 
     local l_item_card = {}
+    local l_merge_item_list = {}
+    local l_sum_item_list = {}
 
     -- 즉시 지급되는 상품
     local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['product_content'])
-    for i,v in ipairs(l_item_list) do
+    table.addList(l_merge_item_list, l_item_list)
+
+    -- 메일로 지급되는 상품
+    local l_mail_item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
+    table.addList(l_merge_item_list, l_mail_item_list)
+    
+    -- item_id가 같은 것끼리 묶음
+    for i,v in ipairs(l_merge_item_list) do
+        local item_id = v['item_id']
+        local count = v['count']
+        if (l_sum_item_list[item_id] == nil) then
+            local t_data = {}
+            t_data['item_id'] = item_id
+            t_data['count'] = 0
+            t_data['idx'] = i
+            l_sum_item_list[item_id] = t_data
+        end
+
+        local t_data = l_sum_item_list[item_id]
+        t_data['count'] = t_data['count'] + count
+    end
+
+    -- ui파일 생성
+    local l_sum_item_list_ = {}
+    for i,v in pairs(l_sum_item_list) do
+        table.insert(l_sum_item_list_, v)
+    end
+    table.sort(l_sum_item_list_, function(a, b)
+        return a['idx'] < b['idx']
+    end)
+    for i,v in ipairs(l_sum_item_list_) do
         local ui = UI_ItemCard(v['item_id'], v['count'])
         table.insert(l_item_card, ui)
     end
 
-    -- 메일로 지급되는 상품
-    local l_mail_item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
-    for i,v in ipairs(l_mail_item_list) do
-        local ui = UI_ItemCard(v['item_id'], v['count'])
-        table.insert(l_item_card, ui)
-    end
     
     do -- 자동 줍기
         local product_id = struct_product['product_id']
