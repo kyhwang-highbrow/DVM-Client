@@ -56,7 +56,7 @@ function UI_NewcomerShop:initUI()
 
         local node = vars['listNode']
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(245 + 15, 400)
+        table_view.m_defaultCellSize = cc.size(265 + 10, 405)
         require('UI_ProductNewcomerShop')
         table_view:setCellUIClass(UI_ProductNewcomerShop)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
