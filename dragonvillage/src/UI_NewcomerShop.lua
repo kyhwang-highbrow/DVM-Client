@@ -44,32 +44,46 @@ function UI_NewcomerShop:initUI()
     require('TableNewcomerShop')
     local l_product_id = TableNewcomerShop:getNewcomerShopProductList(self.m_ncmId)
 
-    -- 개별 상품 생성
-    for i,product_id in ipairs(l_product_id) do
-        local node = vars['itemNode' .. i]
-        self:makeNewcomerShopProductUI(node, product_id)
-    end
-end
 
--------------------------------------
--- function makeNewcomerShopProductUI
--- @brief 초보자 선물 개별 상품 UI 생성
--------------------------------------
-function UI_NewcomerShop:makeNewcomerShopProductUI(parent_node, product_id)
-    if (not parent_node) then
-        return
-    end
-    parent_node:removeAllChildren()
+    do -- 테이블 뷰 생성
+        local l_struct_product = {}
+        for _,product_id in pairs(l_product_id) do
+            local struct_product = g_shopDataNew:getTargetProduct(product_id)
+            if (struct_product) then
+                l_struct_product[product_id] = struct_product
+            end
+        end
 
-    local struct_product = g_shopDataNew:getTargetProduct(product_id)
-    if (not struct_product) then
-        return
-    end
+        local node = vars['listNode']
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(245 + 15, 400)
+        require('UI_ProductNewcomerShop')
+        table_view:setCellUIClass(UI_ProductNewcomerShop)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+        table_view:setItemList(l_struct_product)
+    
+        -- ui_priority로 정렬
+        local function sort_func(a, b)
+            -- 1. 구매 가능한 상품 우선
+            -- 2. product_id가 작으면 우선
+            local a_struct_product = a['data']
+            local b_struct_product = b['data']
 
-    require('UI_ProductNewcomerShop')
-    local ui = UI_ProductNewcomerShop(struct_product)
-    ui:setBuyCB(function() self:makeNewcomerShopProductUI(parent_node, product_id) end) -- 상품 구매 후 콜백. 구매 제한 내용 갱신을 위해 UI 다시 생성
-    parent_node:addChild(ui.root)
+            local a_is_buy_all = a_struct_product:isBuyAll()
+            local b_is_buy_all = b_struct_product:isBuyAll()
+
+            if (a_is_buy_all == b_is_buy_all) then
+                local a_product_id = a_struct_product['product_id']
+                local b_product_id = b_struct_product['product_id']
+                return a_product_id < b_product_id
+            elseif (a_is_buy_all == false) then
+                return true
+            else--if (b_is_buy_all == false) then
+                return false
+            end
+        end
+        table.sort(table_view.m_itemList, sort_func)
+    end
 end
 
 -------------------------------------

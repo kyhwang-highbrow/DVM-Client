@@ -1,4 +1,4 @@
-local PARENT = UI_Product
+local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_ProductNewcomerShop
@@ -6,7 +6,6 @@ local PARENT = UI_Product
 -------------------------------------
 UI_ProductNewcomerShop = class(PARENT, {
         m_structProduct = 'StructProduct',
-        m_cbBuy = 'function',
      })
 
 -------------------------------------
@@ -17,103 +16,86 @@ function UI_ProductNewcomerShop:init(struct_product)
 
     self.m_structProduct = struct_product
     
-    self:initItemNodePos()
-
     self:initUI()
 	self:initButton()
 	self:refresh()
-
-    self:makeAllItemIconList()
-end
-
--------------------------------------
--- function adjustLayout
--- @brief 상품명, 설명 등의 위치와 크기 조정
--------------------------------------
-function UI_ProductNewcomerShop:adjustLayout()
-    local vars = self.vars
-
-    do -- 상품 이름 (시스템 폰트)
-        local width = 330
-        local str_width = vars['itemLabel']:getStringWidth()
-        if (width < str_width) then
-            local scale = (width / str_width)
-            vars['itemLabel']:setScale(scale)
-        end
-    end
 end
 
 
 -------------------------------------
--- function makeAllItemIconList
+-- function initUI
 -- @brief
 -------------------------------------
-function UI_ProductNewcomerShop:makeAllItemIconList()
+function UI_ProductNewcomerShop:initUI()
     local vars = self.vars
-    
-    -- 자동 줍기 (보급소 상품)
     local struct_product = self.m_structProduct
 
-    local l_item_card = {}
-    local l_merge_item_list = {}
-    local l_sum_item_list = {}
+	-- 상품 이름
+	local product_name = Str(struct_product['t_name'])
+    vars['itemLabel']:setString(product_name)
 
-    -- 즉시 지급되는 상품
-    local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['product_content'])
-    table.addList(l_merge_item_list, l_item_list)
+    -- 상품 아이콘
+	local icon = struct_product:makeProductIcon()
+	if (icon) then
+		vars['itemNode']:addChild(icon)
+	end
 
-    -- 메일로 지급되는 상품
-    local l_mail_item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
-    table.addList(l_merge_item_list, l_mail_item_list)
-    
-    -- item_id가 같은 것끼리 묶음
-    for i,v in ipairs(l_merge_item_list) do
-        local item_id = v['item_id']
-        local count = v['count']
-        if (l_sum_item_list[item_id] == nil) then
-            local t_data = {}
-            t_data['item_id'] = item_id
-            t_data['count'] = 0
-            t_data['idx'] = i
-            l_sum_item_list[item_id] = t_data
+    -- 상품 설명
+    local product_desc = struct_product:getDesc()
+    vars['dscLabel']:setString(product_desc)
+
+    -- 상품 가격
+    local price = struct_product:getPriceStr()
+    vars['moneyLabel']:setString(price)
+end
+
+-------------------------------------
+-- function initButton
+-- @brief
+-------------------------------------
+function UI_ProductNewcomerShop:initButton()
+    local vars = self.vars
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+end
+
+-------------------------------------
+-- function refresh
+-- @brief
+-------------------------------------
+function UI_ProductNewcomerShop:refresh()
+    local vars = self.vars
+    local struct_product = self.m_structProduct
+    local is_buy_all = struct_product:isBuyAll()
+
+    do-- 구매 제한 텍스트
+        local buy_term_str = struct_product:getMaxBuyTermStr()
+        if buy_term_str and (buy_term_str ~= '') then
+
+            -- 구매 가능/불가능 텍스트 컬러 변경
+            local color_key = is_buy_all and '{@impossible}' or '{@available}'
+
+            buy_term_str = color_key .. buy_term_str
         end
-
-        local t_data = l_sum_item_list[item_id]
-        t_data['count'] = t_data['count'] + count
+        vars['maxBuyTermLabel']:setString(buy_term_str)
     end
 
-    -- ui파일 생성
-    local l_sum_item_list_ = {}
-    for i,v in pairs(l_sum_item_list) do
-        table.insert(l_sum_item_list_, v)
-    end
-    table.sort(l_sum_item_list_, function(a, b)
-        return a['idx'] < b['idx']
-    end)
-    for i,v in ipairs(l_sum_item_list_) do
-        local ui = UI_ItemCard(v['item_id'], v['count'])
-        table.insert(l_item_card, ui)
-    end
+    -- 구매 완료 여부
+    vars['completeNode']:setVisible(is_buy_all)
+    vars['buyBtn']:setEnabled(not is_buy_all)  
+end
 
-    
-    do -- 자동 줍기
-        local product_id = struct_product['product_id']
-        local day = TableSupply:getAutoPickupDataByProductID(product_id)
-        if (0 < day) then
-            local ui = UI_ItemCard(ITEM_ID_AUTO_PICK, day)
-            ui:setNumberLabel(comma_value(day))
-            ui.m_itemName = Str('{1}일 자동 줍기', day)
-            table.insert(l_item_card, ui)    
-        end
+-------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_ProductNewcomerShop:click_buyBtn()
+	local struct_product = self.m_structProduct    
+
+    local function cb_func(ret)
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+        
+        self:refresh()
     end
-
-    vars['itemNode']:removeAllChildren()
-
-    local l_pos = getSortPosList(150 + 5, #l_item_card)
-    for i,ui in ipairs(l_item_card) do
-        ui.root:setSwallowTouch(false)
-        vars['itemNode']:addChild(ui.root)
-        ui.root:setPositionX(l_pos[i])
-    end
-
+        
+	struct_product:buy(cb_func)
 end
