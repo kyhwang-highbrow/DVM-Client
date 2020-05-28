@@ -56,6 +56,7 @@ end
 function UI_ProductNewcomerShop:initButton()
     local vars = self.vars
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -88,7 +89,7 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_ProductNewcomerShop:click_buyBtn()
-	local struct_product = self.m_structProduct    
+	local struct_product = self.m_structProduct
 
     local function cb_func(ret)
         -- 아이템 획득 결과창
@@ -98,4 +99,18 @@ function UI_ProductNewcomerShop:click_buyBtn()
     end
         
 	struct_product:buy(cb_func)
+end
+
+-------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_ProductNewcomerShop:click_infoBtn()
+    local struct_product = self.m_structProduct
+    local str = struct_product:getToolTipStr()
+    local tooltip = UI_Tooltip_Skill(0, 0, str)
+    local btn = self.vars['infoBtn']
+
+    if (tooltip and btn) then
+        tooltip:autoPositioning(btn)
+    end
 end

@@ -2,9 +2,9 @@ local PARENT = UI
 
 local FONT_SIZE = 20
 local MIN_WIDTH = 20
-local MAX_WIDTH = 600
+local MAX_WIDTH = 700
 local MIN_HEIGHT = 70
-local MAX_HEIGHT = 200
+local MAX_HEIGHT = 300
 
 -------------------------------------
 -- class UI_Tooltip_Skill

@@ -883,6 +883,67 @@ function StructProduct:getMaxBuyCount()
 end
 
 
+-------------------------------------
+-- function getToolTipStr
+-- @brief 
+-- @return string
+-------------------------------------
+function StructProduct:getToolTipStr()
+	local l_item_list_product = ServerData_Item:parsePackageItemStr(self['product_content'])
+    local l_item_list_mail = ServerData_Item:parsePackageItemStr(self['mail_content'])
+
+    local l_item_list = {}
+    table.addList(l_item_list, l_item_list_product)
+    table.addList(l_item_list, l_item_list_mail)
+    
+    -- 보급소 자동 줍기 아이템 확인
+    local product_id = self:getProductID()
+    local autopick_days = TableSupply:getAutoPickupDataByProductID(product_id)
+    if (0 < autopick_days) then
+        table.insert(l_item_list, {item_id=ITEM_ID_AUTO_PICK, count=autopick_days *24})
+    end
+
+    local item_id_map = {}
+    for i,v in pairs(l_item_list) do
+        local item_id = v['item_id']
+        local count = v['count']
+        if (item_id_map[item_id] == nil) then
+            local t_data = {}
+            t_data['item_id'] = item_id
+            t_data['count'] = 0
+            t_data['idx'] = i
+            item_id_map[item_id]  = t_data
+        end
+
+        local t_data = item_id_map[item_id]
+        t_data['count'] = (t_data['count'] + count)
+    end
+
+    local new_item_list = table.MapToList(item_id_map)
+    table.sort(new_item_list, function(a, b)
+        return a['idx'] < b['idx']
+    end)
+
+    local ret_str = ''
+    for i,v in ipairs(new_item_list) do
+        local item_id = v['item_id']
+        local table_item = TABLE:get('item')
+        local t_item = table_item[item_id]
+        if t_item then
+            local name = t_item['t_name']
+            local desc = t_item['t_desc']
+            local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str(name), Str(desc))
+            if (ret_str == '') then
+                ret_str = str
+            else
+                ret_str = ret_str .. '\n\n' .. str
+            end
+        end
+    end
+
+    return ret_str
+end
+
 
 
 
