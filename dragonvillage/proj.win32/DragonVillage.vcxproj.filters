@@ -4483,6 +4483,27 @@
     <None Include="..\src\ServerData_NewcomerShop.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ButtonPaymentShop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ButtonPayment.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_PaymentShop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_PaymentShopTabButton.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructPaymentShopTab.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_1030X640_FirstPurchaseReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_1030X640_NewcomerShop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -25,6 +25,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     self.m_lManagedButtonUI = {}
     self.m_interval = 10
     self.PRIORITY = {}
+    self.PRIORITY.PAYMENT_SHOP = 1000
     self.PRIORITY.FIRST_PURCHASE_REWARD = 900
     self.PRIORITY.NEWCOMER_SHOP = 900
     self.PRIORITY.SPECIAL_OFFER_PRODUCT = 800
@@ -34,6 +35,8 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
     vars['productBtnMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     local l_managed_button_info = {}
+    
+    table.insert(l_managed_button_info, {self.PRIORITY.PAYMENT_SHOP, UI_ButtonPaymentShop}) -- 현금 결제 상품 상점
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProduct}) -- 특별 할인 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPOT_SALE_PRODUCT, UI_ButtonSpotSale}) -- 깜짝 할인 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)

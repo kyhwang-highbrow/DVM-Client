@@ -791,6 +791,7 @@ local t_module = {
     'UI_Lobby',
     'UI_LobbyLeftTopBtnManager',
     'UI_ManagedButton',
+    'UI_ButtonPaymentShop',
     'UI_ButtonFirstPurchaseReward',
     'UI_ButtonSpotSale',
     'UI_ButtonSpecialOfferProduct',
@@ -996,6 +997,7 @@ local t_module = {
     'UI_ScenarioReplayListItem',
 
 	-- UI : 상점 관련
+    'UI_PaymentShop',
 	'UI_Shop',
     'UI_ShopTab',
     'UI_Product',
