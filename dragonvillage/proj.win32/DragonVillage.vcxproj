@@ -1058,8 +1058,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\uilib\UIManager.lua" />
     <None Include="..\src\UINavigator.lua" />
     <None Include="..\src\UINavigatorDefinition.lua" />
+    <None Include="..\src\UI_1030X640_DiaShop.lua" />
     <None Include="..\src\UI_1030X640_FirstPurchaseReward.lua" />
     <None Include="..\src\UI_1030X640_NewcomerShop.lua" />
+    <None Include="..\src\UI_1030X640_SupplyDepot.lua" />
     <None Include="..\src\UI_2DDeck.lua" />
     <None Include="..\src\UI_3DDeck.lua" />
     <None Include="..\src\UI_AccessTimeDataListItem.lua" />

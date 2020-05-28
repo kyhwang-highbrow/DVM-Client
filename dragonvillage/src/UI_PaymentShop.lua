@@ -138,7 +138,11 @@ function UI_PaymentShop:getPaymentShopTabList()
         local ui_priority = 800
         local icon_res = ''
         local func_get_badge_count = function() return 0 end
-        local func_make_tab_content = function() return nil end
+        local func_make_tab_content = function()
+            require('UI_1030X640_DiaShop')
+            local ui = UI_1030X640_DiaShop()
+            return ui
+        end
         local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
         l_tab[unique_key] = struct
     end
@@ -149,7 +153,11 @@ function UI_PaymentShop:getPaymentShopTabList()
         local ui_priority = 700
         local icon_res = ''
         local func_get_badge_count = function() return 0 end
-        local func_make_tab_content = function() return nil end
+        local func_make_tab_content = function()
+            require('UI_1030X640_SupplyDepot')
+            local ui = UI_1030X640_SupplyDepot()
+            return ui
+        end
         local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
         l_tab[unique_key] = struct
     end
