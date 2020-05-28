@@ -74,7 +74,6 @@ end
 -------------------------------------
 function UI_PaymentShop:initButton()
     local vars = self.vars 
-    vars['packageTabBtn']:registerScriptTapHandler(function() self:click_packageTabBtn() end)
 end
 
 -------------------------------------
@@ -160,6 +159,39 @@ function UI_PaymentShop:getPaymentShopTabList()
         end
         local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
         l_tab[unique_key] = struct
+    end
+
+    do -- 패키지
+        local l_item_list = TablePackageBundle():getTableViewMap()
+        for i,v in pairs(l_item_list) do
+            ---[[
+            local tab = i
+            local struct_product = v
+            local unique_key = 'pakcage..' .. struct_product.product_id
+            local display_name = ''
+            do
+                -- 버튼 이름 (패키지 번들 참조)
+                local pid = struct_product['product_id']
+                local desc = TablePackageBundle:getPackageDescWithPid(pid)
+                if (desc) then
+                    display_name = desc
+                end
+            end
+            local ui_priority = 0
+            local icon_res = ''
+            local func_get_badge_count = function() return 0 end
+            local func_make_tab_content = function()
+                local ui = nil
+                local package_name = TablePackageBundle:getPackageNameWithPid(tab)
+                if (TablePackageBundle:checkBundleWithName(package_name)) then
+                    ui = UI_EventPopupTab_Package(package_name)
+                end
+                return ui
+            end
+            local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
+            l_tab[unique_key] = struct
+            --]]
+        end
     end
 
     return l_tab
@@ -267,141 +299,6 @@ function UI_PaymentShop:onChangeTab(tab, first)
 end
 
 -------------------------------------
--- function makeEventPopupTab
--------------------------------------
-function UI_PaymentShop:makeEventPopupTab(tab)
-    if (not self.m_mTabUI) then
-        self.m_mTabUI = {}
-    end
-
-    local ui = nil
-    local item = self.m_tableView:getItem(tab)
-    local struct_event_popup_tab = item['data']
-
-	-- 출석 (일반)
-    if string.find(tab, 'attendance') then
-        local event_type = struct_event_popup_tab.m_eventData['event_type']
-		local event_id = struct_event_popup_tab.m_eventData['event_id']
-        local atd_id = tonumber(event_id)
-        -- 기본 출석
-		if (event_id == 'normal') then
-			ui = UI_PaymentShopTab_Attendance()
-        -- 이벤트 출석 (오픈, 신규, 복귀)
-		elseif (event_id == 'open_event' or event_id == 'newbie' or event_id == 'comeback') then
-			ui = UI_PaymentShopTab_EventAttendance(event_id)
-        -- 스페셜 7일 출석(1주년, 2주년, 스페셜)
-        elseif (event_id == '1st_event') or (event_id == '2nd_event') or (event_id == 'newbie_welcome') or (event_id == 'global_2nd_event')then
-            ui = UI_PaymentShopTab_EventAttendance1st(event_id)
-        -- 이벤트 공통 UI
-        elseif (event_type == 'attendance_event') then
-            require('UI_PaymentShopTab_EventAttendanceCommon')
-            ui = UI_PaymentShopTab_EventAttendanceCommon(atd_id)
-		end
-
-    -- 접속시간 이벤트
-    elseif (tab == 'access_time') then
-        ui = UI_PaymentShopTab_AccessTime(self)
-
-    -- 하이브로 상점
-    elseif (tab == 'highbrow_shop') then
-        ui = UI_PaymentShopTab_HBShop()
-        self:addNodeToTabNodeList(tab, ui.m_webView)
-
-    -- 배너
-    elseif (string.find(tab, 'banner')) then
-        ui = UI_PaymentShopTab_Banner(self, struct_event_popup_tab)
-
-    -- 소환 확률업
-    elseif (tab == 'dragon_chance_up') then
-        ui = UI_DragonChanceUp()
-
-    -- 코스튬
-    elseif (tab == 'costume_event') then
-        ui = UI_CostumeEventPopup()
-
-    -- 업데이트 공지 
-    elseif (tab == 'notice') then
-        ui = UI_PaymentShopTab_Notice(self, struct_event_popup_tab)
-        self:addNodeToTabNodeList(tab, ui.m_webView)
-
-    -- 수집 교환 이벤트
-    elseif (tab =='event_exchange') then
-        local inner_ui = UI_ExchangeEvent()
-        ui = UI_PaymentShopTab_Scroll(self, struct_event_popup_tab, inner_ui)
-    -- 빙고 이벤트
-    elseif (tab =='event_bingo') then
-        local inner_ui = UI_EventBingo()
-        ui = UI_PaymentShopTab_Scroll(self, struct_event_popup_tab, inner_ui)
-    -- 주사위 이벤트
-    elseif (tab =='event_dice') then
-        local inner_ui = UI_DiceEvent()
-        ui = UI_PaymentShopTab_Scroll(self, struct_event_popup_tab, inner_ui)
-
-    -- 황금던전 이벤트
-    elseif (tab =='event_gold_dungeon') then
-        local inner_ui = UI_EventGoldDungeon()
-        ui = UI_PaymentShopTab_Scroll(self, struct_event_popup_tab, inner_ui)
-
-    -- 알파벳 이벤트
-    elseif (tab =='event_alphabet') then
-        local inner_ui = UI_EventAlphabet()
-        ui = UI_PaymentShopTab_Scroll(self, struct_event_popup_tab, inner_ui)
-
-    -- 카드 짝 맞추기 이벤트
-    elseif (tab =='event_match_card') then
-        local inner_ui = UI_EventMatchCard()
-        ui = UI_PaymentShopTab_Scroll(self, struct_event_popup_tab, inner_ui)
-
-    -- 만드라고라의 모험 이벤트
-    elseif (tab =='event_mandraquest') then
-        local inner_ui = UI_EventMandragoraQuest()
-        ui = UI_PaymentShopTab_Scroll(self, struct_event_popup_tab, inner_ui)
-
-	-- Daily Mission
-	elseif (tab == 'daily_mission') then
-		local key = struct_event_popup_tab.m_eventData['event_id']
-		-- 클랜 출석 이벤트
-		if (key == 'clan') then
-			ui = UI_DailyMisson_Clan()
-		end
-
-    -- 카페플러그 이벤트 (banner와 똑같지만 노출 처리 조건 때문에 타입 추가)
-    elseif (tab =='event_cafe') then
-        ui = UI_PaymentShopTab_Banner(self, struct_event_popup_tab)
-
-    -- 1주년 이벤트 : 복귀 유저 환영 이벤트
-	elseif (tab == 'event_1st_comeback') then
-		ui = UI_Event1stComeback()
-    
-    -- 2주년 이벤트 : 2주년 기념 감사 이벤트
-	elseif (string.find(tab, 'event_thanks_anniversary')) then
-		ui = UI_EventThankAnniversaryNoChoice()--UI_EventThankAnniversary()
-
-    -- 신규 유저 환영 이벤트
-	elseif (tab == 'event_welcome_newbie') then
-		ui = UI_EventWelcomeNewbie()
-
-    -- 누적 결제 보상 이벤트 
-    elseif pl.stringx.startswith(tab, 'purchase_point') then
-        local event_version = struct_event_popup_tab.m_eventData['version'] or struct_event_popup_tab.m_eventData['event_id']
-        ui = UI_PaymentShopTab_PurchasePoint(event_version)
-
-    -- 일일 결제 보상 이벤트 
-    elseif pl.stringx.startswith(tab, 'purchase_daily') then
-        local event_version = struct_event_popup_tab.m_eventData['version'] or struct_event_popup_tab.m_eventData['event_id']
-        ui = UI_PaymentShopTab_PurchaseDaily(event_version)
-        
-    -- 깜짝 출현 이벤트
-    elseif (tab =='event_advent') then
-        ui = UI_EventAdvent()
-
-    end
-
-    self.m_mTabUI[tab] = ui
-    return ui
-end
-
--------------------------------------
 -- function onFocus
 -------------------------------------
 function UI_PaymentShop:onFocus()
@@ -438,21 +335,6 @@ function UI_PaymentShop:click_exitBtn()
 end
 
 -------------------------------------
--- function click_packageTabBtn
--------------------------------------
-function UI_PaymentShop:click_packageTabBtn()
-	-- 하이브로... 웹뷰가 남아있는 케이스가 있어 제거
-	if (self.m_currTab == 'highbrow_shop') then
-		local ui = self.m_mTabUI[self.m_currTab]
-		local webview = ui.m_webView
-		if (webview) then
-			webview:setVisible(false)
-		end
-	end
-    UINavigator:goTo('package_shop')
-end
-
--------------------------------------
 -- function checkNotiList
 -------------------------------------
 function UI_PaymentShop:checkNotiList()
@@ -477,32 +359,6 @@ function UI_PaymentShop:checkNotiList()
     end
 
     return false
-end
-
--------------------------------------
--- function getEventPopupTabList
--------------------------------------
-function UI_PaymentShop:getEventPopupTabList()
-    local l_item_list = g_eventData:getEventPopupTabList()
-
-    -- purchase
-    local l_item_list_purchase_point = g_purchasePointData:getEventPopupTabList()
-
-    -- map형태의 탭 리스트를 merge
-    for key,value in pairs(l_item_list_purchase_point) do
-        l_item_list[key] = value
-    end
-
-    do-- purchase_daily
-        local l_item_list_purchase_daily = g_purchaseDailyData:getEventPopupTabList()
-
-            -- map형태의 탭 리스트를 merge
-        for key,value in pairs(l_item_list_purchase_daily) do
-            l_item_list[key] = value
-        end
-    end
-
-    return l_item_list
 end
 
 --@CHECK
