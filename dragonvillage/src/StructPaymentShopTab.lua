@@ -5,6 +5,7 @@
 StructPaymentShopTab = class({
         m_uniqueKey = 'string',
         m_displayName = 'string',
+        m_uiCategoryPriority = 'number',
         m_uiPriority = 'number',
         m_iconRes = 'string',
         m_funcGetBadgeCount = 'number function()',
@@ -20,6 +21,7 @@ StructPaymentShopTab = class({
 -- function init
 -------------------------------------
 function StructPaymentShopTab:init()
+    self.m_uiCategoryPriority = 0
 end
 
 -------------------------------------
@@ -54,6 +56,13 @@ function StructPaymentShopTab:getBadgeCount()
     end
 
     return count
+end
+
+-------------------------------------
+-- function getCategoryPriority
+-------------------------------------
+function StructPaymentShopTab:getCategoryPriority()
+    return self.m_uiCategoryPriority
 end
 
 -------------------------------------

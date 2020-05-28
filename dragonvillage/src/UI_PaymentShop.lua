@@ -105,6 +105,7 @@ function UI_PaymentShop:getPaymentShopTabList()
                 return ui
             end
             local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
+            struct.m_uiCategoryPriority = 100
             l_tab[unique_key] = struct
         end
     end
@@ -126,6 +127,7 @@ function UI_PaymentShop:getPaymentShopTabList()
                     return ui
                 end
                 local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
+                struct.m_uiCategoryPriority = 100
                 l_tab[unique_key] = struct
             end
         end
@@ -143,6 +145,7 @@ function UI_PaymentShop:getPaymentShopTabList()
             return ui
         end
         local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
+        struct.m_uiCategoryPriority = 100
         l_tab[unique_key] = struct
     end
 
@@ -158,13 +161,13 @@ function UI_PaymentShop:getPaymentShopTabList()
             return ui
         end
         local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
+        struct.m_uiCategoryPriority = 100
         l_tab[unique_key] = struct
     end
 
     do -- 패키지
         local l_item_list = TablePackageBundle():getTableViewMap()
         for i,v in pairs(l_item_list) do
-            ---[[
             local tab = i
             local struct_product = v
             local unique_key = 'pakcage..' .. struct_product.product_id
@@ -177,7 +180,7 @@ function UI_PaymentShop:getPaymentShopTabList()
                     display_name = desc
                 end
             end
-            local ui_priority = 0
+            local ui_priority = struct_product.m_uiPriority
             local icon_res = ''
             local func_get_badge_count = function() return 0 end
             local func_make_tab_content = function()
@@ -190,7 +193,6 @@ function UI_PaymentShop:getPaymentShopTabList()
             end
             local struct = StructPaymentShopTab:Create(unique_key, display_name, ui_priority, icon_res, func_get_badge_count, func_make_tab_content)
             l_tab[unique_key] = struct
-            --]]
         end
     end
 
@@ -220,7 +222,14 @@ function UI_PaymentShop:init_tableView()
             local a_struct = a['data']
             local b_struct = b['data']
 
-            return a_struct:getUIPriority() > b_struct:getUIPriority()
+            local a_category_priority = a_struct:getCategoryPriority()
+            local b_category_priority = b_struct:getCategoryPriority()
+
+            if (a_category_priority == b_category_priority) then
+                return a_struct:getUIPriority() > b_struct:getUIPriority()
+            else
+                return a_category_priority > b_category_priority 
+            end
         end)
     end
     table_view:setItemList3(l_item_list, sort_func)
