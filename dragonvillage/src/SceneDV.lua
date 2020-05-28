@@ -26,8 +26,103 @@ end
 function SceneDV:onEnter()
     PerpleScene.onEnter(self)
     g_currScene:addKeyKeyListener(self)
+
+    if true then
+        local str = '$1,009.99$$$0107.008'
+        work_str = str
+
+        -- 100단위 구분자 콤마(,) 제거
+        local work_str = string.gsub(work_str, ',', '')
+
+        -- 숫자만 추출
+        -- 소수점을 포함한 실수 형태 고려
+        -- 문자열 내에 숫자가 여러개 있을 경우 마지막 숫자를 가져옴
+        local last_number = 0
+        for v in string.gmatch(work_str, '[0-9]+.[0-9]+') do
+            local v_number = tonumber(v)
+            if v_number then
+                last_number = v_number
+            end
+        end
+        cclog(type(last_number), last_number)
+
+        return
+    end
+
+    if true then
+        require('UI_ClanWar_GroupPaging')
+        UI_ClanWar_GroupPaging:sampleCode()
+        return
+    end
+
+    if true then
+        require('UI_StartingTamer')
+        local ui = UI_StartingTamer()
+        return
+    end
+
+    if true then
+        --UIC_IconAndName:sampleCode()
+        --return
+    end
+
+    if true then
+        require('UI_TestDevelopment')
+        UI_TestDevelopment:sampleCode()
+        return
+    end
+
+    if true then
+        local start_date = '2019-11-03 00:00:00'
+
+        local date_format = 'yyyy-mm-dd HH:MM:SS'
+        local parser = pl.Date.Format(date_format)
+
+        local parse_start_date = parser:parse(start_date)
+        ccdump(parse_start_date)
+
+        local timestamp = os.time(parse_start_date.tab)
+        ccdump(timestamp)
+
+        return
+    end
+
+    if true then
+        require('UI_StartingTamer')
+        local ui = UI_StartingTamer()
+        --[[
+        local play_intro_end
+        local tamer_sel_func
     
-    self:controlSliderTest()
+        -- 인트로 종료 시나리오
+	    play_intro_end = function()
+            local ui = UI_ScenarioPlayer('scenario_intro_finish')
+            ui:setCloseCB(tamer_sel_func)
+            ui:next()
+        end
+
+	    -- 계정 생성
+        tamer_sel_func = function()
+            -- @analytics
+            Analytics:firstTimeExperience('Prologue_Finish')
+
+		    -- 스타팅 드래곤 선택 -> 닉네임 입력 : 콜백 계속 전달하여 닉네임 입력후 실행
+            UI_SelectStartingDragon(comeback_title_fucn)
+        end
+
+        play_intro_end()
+        --]]
+        return
+    end
+    
+        
+    --self:controlSliderTest()
+    local date_format = 'yyyy-mm-dd HH:MM:SS'
+    local parser = pl.Date.Format(date_format)
+    local end_date = '2119-10-14 00:00:00'
+    local parse_end_date = parser:parse(end_date)
+
+    ccdump(parse_end_date)
 end
 
 -------------------------------------
