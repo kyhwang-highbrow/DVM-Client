@@ -29,8 +29,16 @@ function UI_PaymentShopTabButton:initUI()
     local vars = self.vars
     local struct = self.m_struct
 
-    -- 탭 버튼 이름
-    vars['nameLabel']:setString(struct:getDisplayName())
+    do-- 탭 버튼 이름
+        vars['nameLabel']:setString(struct:getDisplayName())
+        local string_width = vars['nameLabel']:getStringWidth()
+        local label_width = vars['nameLabelNode']:getContentSize()['width']
+        local scale = 1
+        if (label_width < string_width) then
+            scale = (label_width / string_width)
+        end
+        vars['nameLabel']:setScale(scale)
+    end
 
     -- 아이콘 생성
     local animator = struct:getTabIcon()
