@@ -123,6 +123,7 @@ function ServerData:getInstance()
 
     -- 핫타임
     g_hotTimeData = ServerData_HotTime(g_serverData)
+    g_fevertimeData = ServerData_Fevertime(g_serverData)
 
     -- 도감
     g_bookData = ServerData_Book(g_serverData)

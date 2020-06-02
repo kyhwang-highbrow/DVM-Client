@@ -536,6 +536,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Exchange.lua" />
     <None Include="..\src\ServerData_ExchangeEvent.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />
+    <None Include="..\src\ServerData_Fevertime.lua" />
     <None Include="..\src\ServerData_FirstPurchaseEvent.lua" />
     <None Include="..\src\ServerData_Forest.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
@@ -1302,6 +1303,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ExchangeEvent.lua" />
     <None Include="..\src\UI_ExchangeEventListItem.lua" />
     <None Include="..\src\UI_Fevertime.lua" />
+    <None Include="..\src\UI_FevertimeListItem.lua" />
     <None Include="..\src\UI_FirstPurchaseRewardPopup.lua" />
     <None Include="..\src\UI_Forest.lua" />
     <None Include="..\src\UI_Forest_ChangePopup.lua" />

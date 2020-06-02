@@ -4513,6 +4513,12 @@
     <None Include="..\src\UI_Fevertime.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_Fevertime.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_FevertimeListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -162,6 +162,7 @@ local t_module = {
     'ServerData_EventBingo',
     'ServerData_Exploration',
     'ServerData_HotTime',
+    'ServerData_Fevertime',
     'ServerData_Event',
     'ServerData_EventDice',
     'ServerData_ExchangeEvent',
