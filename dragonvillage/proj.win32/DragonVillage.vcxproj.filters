@@ -4510,6 +4510,9 @@
     <None Include="..\src\UI_1030X640_DiaShop.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Fevertime.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

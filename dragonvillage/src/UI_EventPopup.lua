@@ -226,6 +226,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'dragon_chance_up') then
         ui = UI_DragonChanceUp()
 
+    -- 핫타임
+    elseif (tab == 'fevertime') then
+        require('UI_Fevertime')
+        ui = UI_Fevertime()
+
     -- 코스튬
     elseif (tab == 'costume_event') then
         ui = UI_CostumeEventPopup()
