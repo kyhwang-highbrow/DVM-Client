@@ -29,7 +29,7 @@ function UI_PaymentShopTabButton:initUI()
     local vars = self.vars
     local struct = self.m_struct
 
-    do-- ÅÇ ¹öÆ° ÀÌ¸§
+    do-- íƒ­ ë²„íŠ¼ ì´ë¦„
         vars['nameLabel']:setString(struct:getDisplayName())
         local string_width = vars['nameLabel']:getStringWidth()
         local label_width = vars['nameLabelNode']:getContentSize()['width']
@@ -40,7 +40,7 @@ function UI_PaymentShopTabButton:initUI()
         vars['nameLabel']:setScale(scale)
     end
 
-    -- ¾ÆÀÌÄÜ »ı¼º
+    -- ì•„ì´ì½˜ ìƒì„±
     local animator = struct:getTabIcon()
     if (animator and animator.m_node) then
         vars['iconNode']:addChild(animator.m_node)
