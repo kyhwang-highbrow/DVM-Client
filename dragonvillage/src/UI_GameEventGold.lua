@@ -44,7 +44,7 @@ function UI_GameEventGold:init_timeUI(display_wave, time)
 end
 
 -------------------------------------
--- function setAutoPlayUI
+-- function setTotalDamage
 -- @brief 총 피해량 표시
 -------------------------------------
 function UI_GameEventGold:setTotalDamage(total_damage)

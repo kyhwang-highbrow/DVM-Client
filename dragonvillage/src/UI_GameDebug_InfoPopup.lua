@@ -33,7 +33,7 @@ function UI_GameDebug_InfoPopup:init(str, end_cb)
 end
 
 -------------------------------------
--- function initDebugLayer
+-- function initUI
 -------------------------------------
 function UI_GameDebug_InfoPopup:initUI()
 	local scr_size = cc.Director:getInstance():getWinSize()

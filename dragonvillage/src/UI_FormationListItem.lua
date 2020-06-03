@@ -102,7 +102,7 @@ end
 
 
 -------------------------------------
--- function click_detailBtn
+-- function makeDataPretty
 -------------------------------------
 function UI_FormationListItem:makeDataPretty(t_data)
 	self.m_tFormationInfo = t_data

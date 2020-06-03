@@ -119,7 +119,7 @@ function UI_Forest_StuffLevelupPopup:refresh()
 end
 
 -------------------------------------
--- function click_exitBtn
+-- function click_closeBtn
 -------------------------------------
 function UI_Forest_StuffLevelupPopup:click_closeBtn()
     self:close()

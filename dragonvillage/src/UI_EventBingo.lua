@@ -382,8 +382,9 @@ end
 
 -------------------------------------
 -- function getLinePos
+-- param 의미 : 가로 3 번 째줄, 세로 1 번 째줄
 -------------------------------------
-function UI_EventBingo:getLinePos(bingo_type, line) -- param 의미 : 가로 3 번 째줄, 세로 1 번 째줄
+function UI_EventBingo:getLinePos(bingo_type, line)
     local vars = self.vars
 
     local pos_x, pos_y = 0, 0
@@ -777,7 +778,7 @@ function UI_EventBingo:showNewNumberGora()
 end
 
 -------------------------------------
--- function showAnimation
+-- function showGoraAnimation
 -- @brief 만드라 고라 나타났다가, 일정 시간 후 다시 들어감
 -------------------------------------
 function UI_EventBingo:showGoraAnimation(node)

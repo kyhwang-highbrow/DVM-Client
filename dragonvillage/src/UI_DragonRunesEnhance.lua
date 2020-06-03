@@ -552,7 +552,7 @@ function UI_DragonRunesEnhance:request_bless(cb_func)
 end
 
 -------------------------------------
--- function getRuneObject
+-- function calcReqGoldForBless
 -- @brief 현재 강화레벨 ~  MAX강화까지 소모되는 골드 모두 합산
 -------------------------------------
 function UI_DragonRunesEnhance:calcReqGoldForBless()
@@ -670,7 +670,7 @@ function UI_DragonRunesEnhance:refresh_common()
 end
 
 -------------------------------------
--- function showChangeLabelEffect 
+-- function showChangeLabelEffect
 -- @brief 변경된 옵션 라벨에 애니메이션 효과
 -------------------------------------
 function UI_DragonRunesEnhance:showChangeLabelEffect(change_list)
@@ -687,7 +687,7 @@ function UI_DragonRunesEnhance:showChangeLabelEffect(change_list)
 end
 
 -------------------------------------
--- function showLabelEffect 
+-- function showLabelEffect
 -- @brief 라벨 애니메이션 효과(빙글 도는)
 -------------------------------------
 function UI_DragonRunesEnhance:showLabelEffect(label)
@@ -774,7 +774,7 @@ end
 
 
 -------------------------------------
--- function setBlessItemState
+-- function setBlessRadioBtnState
 -- @brief 룬 축복서 갯수가 모자르다면 버튼을 죽인다
 -------------------------------------
 function UI_DragonRunesEnhance:setBlessRadioBtnState()

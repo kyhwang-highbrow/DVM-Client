@@ -72,7 +72,7 @@ function UI_DragonGuidePopup:refresh()
 end
 
 -------------------------------------
--- function click_dpsToggleBtn
+-- function click_closeBtn
 -------------------------------------
 function UI_DragonGuidePopup:click_closeBtn()
     self:close()

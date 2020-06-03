@@ -109,7 +109,7 @@ function UI_GameClanRaid:setAutoPlayUI()
 end
 
 -------------------------------------
--- function setAutoPlayUI
+-- function setTotalDamage
 -- @brief 총 피해량 표시
 -------------------------------------
 function UI_GameClanRaid:setTotalDamage(total_damage)

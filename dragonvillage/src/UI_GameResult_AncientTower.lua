@@ -13,7 +13,7 @@ UI_GameResult_AncientTower = class(PARENT, {
 })
 
 -------------------------------------
--- function click_againBtn
+-- function init
 -------------------------------------
 function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open, score_calc, ex_score)
     self.m_staminaType = 'tower'
@@ -39,7 +39,7 @@ function UI_GameResult_AncientTower:init_difficultyIcon(stage_id)
 end
 
 -------------------------------------
--- function makeAnimationData
+-- function setAnimationData
 -- @brief 애니메이션에 필요한 노드 리스트로 관리
 -------------------------------------
 function UI_GameResult_AncientTower:setAnimationData()
@@ -349,7 +349,7 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
 end
 
 -------------------------------------
--- function runScoreAction
+-- function runScoreAction_Attr
 -------------------------------------
 function UI_GameResult_AncientTower:runScoreAction_Attr(idx, node)
     local score_list    = self.m_scoreList

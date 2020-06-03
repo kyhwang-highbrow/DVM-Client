@@ -75,7 +75,7 @@ function UI_EventThankAnniversary:refresh()
 end
 
 -------------------------------------
--- function refresh
+-- function onEnterTab
 -------------------------------------
 function UI_EventThankAnniversary:onEnterTab()
 end

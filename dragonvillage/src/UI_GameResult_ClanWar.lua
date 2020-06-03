@@ -26,7 +26,7 @@ function UI_GameResult_ClanWar:init(is_success)
 end
 
 -------------------------------------
--- function click_homeBtn
+-- function initUI
 -------------------------------------
 function UI_GameResult_ClanWar:initUI(is_success)
 	local vars = self.vars

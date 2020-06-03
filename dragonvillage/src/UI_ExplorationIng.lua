@@ -119,7 +119,7 @@ function UI_ExplorationIng:initUI()
 end
 
 -------------------------------------
--- function refresh_tamer
+-- function init_tamer
 -------------------------------------
 function UI_ExplorationIng:init_tamer()
     local vars = self.vars

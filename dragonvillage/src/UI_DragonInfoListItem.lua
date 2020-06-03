@@ -51,7 +51,7 @@ function UI_DragonInfoListItem:initUI()
 end
 
 -------------------------------------
--- function initItemCard
+-- function initButton
 -------------------------------------
 function UI_DragonInfoListItem:initButton()
 end

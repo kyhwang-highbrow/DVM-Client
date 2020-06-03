@@ -48,7 +48,7 @@ function UI_EventThankAnniversaryNoChoice:refresh()
 end
 
 -------------------------------------
--- function refresh
+-- function onEnterTab
 -------------------------------------
 function UI_EventThankAnniversaryNoChoice:onEnterTab()
 end

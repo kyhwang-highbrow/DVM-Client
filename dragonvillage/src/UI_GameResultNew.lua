@@ -662,7 +662,7 @@ function UI_GameResultNew:direction_dropItem()
 end
 
 -------------------------------------
--- function direction_dropItem
+-- function direction_dropItem_click
 -- @brief
 -------------------------------------
 function UI_GameResultNew:direction_dropItem_click()
@@ -1260,7 +1260,7 @@ function UI_GameResultNew:click_itemAutoBtn()
 end
 
 -------------------------------------
--- function click_nextBtn
+-- function click_prevBtn
 -------------------------------------
 function UI_GameResultNew:click_prevBtn()
     -- 이전 스테이지 ID 지정

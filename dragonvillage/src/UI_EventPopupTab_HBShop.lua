@@ -168,7 +168,7 @@ function UI_EventPopupTab_HBShop:click_couponBtn()
 end
 
 -------------------------------------
--- function click_couponBtn
+-- function click_codeBtn
 -------------------------------------
 function UI_EventPopupTab_HBShop:click_codeBtn()
     UI_CouponPopup('highbrow')

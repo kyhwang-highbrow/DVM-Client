@@ -73,7 +73,7 @@ function UI_EventMatchCardResult:initUI()
 end
 
 -------------------------------------
--- function setItmeCardRarity()
+-- function setItemCardRarity
 -------------------------------------
 function UI_EventMatchCardResult:setItemCardRarity(item_card, grade)
     local grade = tonumber(grade)

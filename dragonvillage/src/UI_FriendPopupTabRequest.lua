@@ -117,7 +117,7 @@ function UI_FriendPopupTabRequest:init_tableView()
 end
 
 -------------------------------------
--- function click_inviteAcceptBtn
+-- function click_inviteRequestCancelBtn
 -- @brief 친구 요청 취소
 -------------------------------------
 function UI_FriendPopupTabRequest:click_inviteRequestCancelBtn(data)

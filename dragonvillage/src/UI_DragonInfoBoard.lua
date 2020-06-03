@@ -484,7 +484,7 @@ function UI_DragonInfoBoard:click_runeBtn(slot_idx)
 end
 
 -------------------------------------
--- function isClickRuneInfoPopup
+-- function showClickRuneInfoPopup
 -------------------------------------
 function UI_DragonInfoBoard:showClickRuneInfoPopup(show_popup)
     self.m_bRuneInfoPopup = show_popup

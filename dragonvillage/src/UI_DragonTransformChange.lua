@@ -332,7 +332,7 @@ function UI_DragonTransformChange:click_transformBtn()
 end
 
 -------------------------------------
--- function click_transformBtn
+-- function request_transform_change
 -- @brief 외형 변환
 -------------------------------------
 function UI_DragonTransformChange:request_transform_change()

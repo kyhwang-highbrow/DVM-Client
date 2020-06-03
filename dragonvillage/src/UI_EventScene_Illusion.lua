@@ -46,7 +46,7 @@ function UI_EventScene_Illusion:appearDone()
 end
 
 -------------------------------------
--- function initButton
+-- function initUI
 -------------------------------------
 function UI_EventScene_Illusion:initUI()
     local vars = self.vars

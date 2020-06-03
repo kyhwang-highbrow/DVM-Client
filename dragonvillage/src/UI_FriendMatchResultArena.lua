@@ -137,7 +137,7 @@ function UI_FriendMatchResultArena:direction_end()
 end
 
 -------------------------------------
--- function direction_end
+-- function direction_end_click
 -------------------------------------
 function UI_FriendMatchResultArena:direction_end_click()
 end

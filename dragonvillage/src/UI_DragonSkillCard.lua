@@ -150,7 +150,7 @@ function UI_DragonSkillCard:setSimple()
 end
 
 -------------------------------------
--- function setSkillTypeText
+-- function setTypeText
 -- @brief skill_type
 -------------------------------------
 function UI_DragonSkillCard:setTypeText(char_type, skill_type)

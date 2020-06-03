@@ -31,7 +31,7 @@ function UI_ErrorPopup:init(str)
 end
 
 -------------------------------------
--- function initDebugLayer
+-- function initUI
 -------------------------------------
 function UI_ErrorPopup:initUI(str)
 	local scr_size = cc.Director:getInstance():getWinSize()

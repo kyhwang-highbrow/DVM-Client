@@ -206,7 +206,7 @@ function UI_ColosseumTabRank:request_clanRank()
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function makeMyClanRankNode
 -------------------------------------
 function UI_ColosseumTabRank:makeMyClanRankNode()
     local vars = self.vars
@@ -237,7 +237,7 @@ function UI_ColosseumTabRank:makeMyClanRankNode()
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function makeClanRankTableView
 -------------------------------------
 function UI_ColosseumTabRank:makeClanRankTableView()
     local vars = self.vars

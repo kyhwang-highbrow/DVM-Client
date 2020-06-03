@@ -85,7 +85,7 @@ function UI_GameResult_Illusion:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function initButton
 -------------------------------------
 function UI_GameResult_Illusion:initButton()
     local vars = self.vars
@@ -196,7 +196,7 @@ function UI_GameResult_Illusion:direction_delay()
     self.root:runAction(action)
 end
 -------------------------------------
--- function makeAnimationData
+-- function setAnimationData
 -- @brief 애니메이션에 필요한 노드 리스트로 관리
 -------------------------------------
 function UI_GameResult_Illusion:setAnimationData()

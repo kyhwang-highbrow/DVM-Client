@@ -174,7 +174,7 @@ function UI_EventArenaResult:direction_end()
 end
 
 -------------------------------------
--- function direction_end
+-- function direction_end_click
 -------------------------------------
 function UI_EventArenaResult:direction_end_click()
 end

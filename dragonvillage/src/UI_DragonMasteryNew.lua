@@ -527,7 +527,7 @@ function UI_DragonMasteryNew:createDragonCardCB(ui, data)
 end
 
 -------------------------------------
--- function UI_DragonMasteryNew
+-- function refresh_dragonMaterialTableView
 -- @brief 특성 재료 테이블 뷰 갱신
 -------------------------------------
 function UI_DragonMasteryNew:refresh_dragonMaterialTableView()

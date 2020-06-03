@@ -554,7 +554,7 @@ function UI_DragonManage_Base:getDragonSkillMoveList(doid)
 end
 
 -------------------------------------
--- function click_dragonUpgradeMaterial
+-- function click_dragonMaterial
 -------------------------------------
 function UI_DragonManage_Base:click_dragonMaterial(data)
 	error('미정의된 함수 click_dragonMaterial')
