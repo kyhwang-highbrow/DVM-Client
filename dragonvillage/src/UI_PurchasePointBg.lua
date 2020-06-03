@@ -257,7 +257,7 @@ end
 
 
 -------------------------------------
--- function initUI_reinforce
+-- function initUI_Item
 -- @breif 누적결제 최종 상품이 아이템일 경우 세팅
 -------------------------------------
 function UI_PurchasePointBg:initUI_Item()
@@ -322,7 +322,7 @@ function UI_PurchasePointBg:setReinforce()
 end
 
 -------------------------------------
--- function initUI_skillSlime
+-- function setSkillSlime
 -- @breif 누적결제 최종 상품이 [스킬 슬라임]일 경우 세팅
 -------------------------------------
 function UI_PurchasePointBg:setSkillSlime()
@@ -342,7 +342,7 @@ function UI_PurchasePointBg:setSkillSlime()
 end
 
 -------------------------------------
--- function initUI_Item
+-- function setItem
 -- @breif 누적결제 최종 상품이 [아이템]일 경우 세팅 (ex) 신화의 알.. 등등 여기서 하드코딩
 -------------------------------------
 function UI_PurchasePointBg:setItem()

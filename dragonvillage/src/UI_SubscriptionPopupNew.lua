@@ -72,7 +72,7 @@ function UI_SubscriptionPopupNew:update(dt)
 end
 
 -------------------------------------
--- function click_infoBtn
+-- function click_contractBtn
 -------------------------------------
 function UI_SubscriptionPopupNew:click_contractBtn()
     GoToAgreeMentUrl()

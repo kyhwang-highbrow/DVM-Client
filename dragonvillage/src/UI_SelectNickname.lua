@@ -96,7 +96,7 @@ function UI_SelectNickname:click_createBtn()
 end
 
 -------------------------------------
--- function click_createBtn
+-- function click_changeNickBtn
 -- @brief 닉네임 변경
 -------------------------------------
 function UI_SelectNickname:click_changeNickBtn()

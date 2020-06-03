@@ -142,7 +142,7 @@ function UI_PromoteQuestDouble:click_okay()
 end
 
 -------------------------------------
--- function click_okay
+-- function click_cancle
 -------------------------------------
 function UI_PromoteQuestDouble:click_cancle()
     self:close()

@@ -159,7 +159,7 @@ function UI_RuneGuardianDungeonListItem:init(stage_id)
 end
 
 -------------------------------------
--- function init
+-- function initUI
 -------------------------------------
 function UI_RuneGuardianDungeonListItem:initUI()
     local vars = self.vars
@@ -189,13 +189,13 @@ function UI_RuneGuardianDungeonListItem:initUI()
 end
 
 -------------------------------------
--- function init
+-- function initButton
 -------------------------------------
 function UI_RuneGuardianDungeonListItem:initButton()
 end
 
 -------------------------------------
--- function init
+-- function refresh
 -------------------------------------
 function UI_RuneGuardianDungeonListItem:refresh()
 

@@ -94,7 +94,7 @@ function UI_SelectLanguagePopup:onChangeOption()
 end
 
 -------------------------------------
--- function click_closeBtn
+-- function click_okBtn
 -------------------------------------
 function UI_SelectLanguagePopup:click_okBtn()
 	local lang = self.m_radioButton.m_selectedButton

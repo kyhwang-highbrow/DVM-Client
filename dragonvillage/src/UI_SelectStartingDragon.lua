@@ -75,7 +75,7 @@ end
 
 local L_STARTING_DATA = nil
 -------------------------------------
--- function setDragonAni
+-- function getStartingData
 -- @static
 -------------------------------------
 function UI_SelectStartingDragon.getStartingData()

@@ -84,7 +84,7 @@ function UI_StatisticsListItem:refresh()
 end
 
 -------------------------------------
--- function getGaugeNode
+-- function initGauge
 -------------------------------------
 function UI_StatisticsListItem:initGauge()
 	local vars = self.vars

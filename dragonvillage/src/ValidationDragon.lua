@@ -6,7 +6,7 @@ ValidationDragon = class({
     })
 
 -------------------------------------
--- function ValidationDragon
+-- function init
 -- @brief 드래곤이 정상적으로 동작할 수 있는 테이블, 리소스, 구현이 되어있는지 확인
 -- @param dragon_id
 -------------------------------------

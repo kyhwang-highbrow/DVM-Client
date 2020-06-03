@@ -99,7 +99,7 @@ function UI_SupplyProductInfoPopup:refresh()
 end
 
 -------------------------------------
--- function click_cancelBtn
+-- function click_closeBtn
 -------------------------------------
 function UI_SupplyProductInfoPopup:click_closeBtn()
     self:close()

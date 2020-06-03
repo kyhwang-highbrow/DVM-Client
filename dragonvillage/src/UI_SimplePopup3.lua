@@ -100,7 +100,7 @@ function UI_SimplePopup3:click_cancelBtn()
     end
 end
 -------------------------------------
--- function click_cancelBtn
+-- function close
 -------------------------------------
 function UI_SimplePopup3:close()
     if (self.m_layer) then

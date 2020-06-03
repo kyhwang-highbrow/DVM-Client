@@ -1460,7 +1460,7 @@ function UI_ReadySceneNew:click_itemAutoBtn()
 end
 
 -------------------------------------
--- function click_goldBoosterBtn 
+-- function click_goldBoosterBtn
 -- @breif 골드 부스터
 -------------------------------------
 function UI_ReadySceneNew:click_goldBoosterBtn()
@@ -1485,7 +1485,7 @@ function UI_ReadySceneNew:click_goldBoosterBtn()
 end
 
 -------------------------------------
--- function click_expBoosterBtn 
+-- function click_expBoosterBtn
 -- @breif 경험치 부스터
 -------------------------------------
 function UI_ReadySceneNew:click_expBoosterBtn()

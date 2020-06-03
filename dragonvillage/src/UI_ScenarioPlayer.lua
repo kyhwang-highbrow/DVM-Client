@@ -328,7 +328,7 @@ function UI_ScenarioPlayer:setReplaceSceneCB(scene_cb)
 end
 
 -------------------------------------
--- function checkClose
+-- function _close
 -------------------------------------
 function UI_ScenarioPlayer:_close()
     if (self.m_sceneCB) then

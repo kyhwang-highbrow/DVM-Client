@@ -104,7 +104,7 @@ function UI_SelectStartingDragon_Detail:setTamerAni(idx, tid)
 end
 
 -------------------------------------
--- function setSkillIcon
+-- function click_skillBtn
 -------------------------------------
 function UI_SelectStartingDragon_Detail:click_skillBtn(did, j, btn)
 	local t_data = {

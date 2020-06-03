@@ -199,7 +199,7 @@ function UI_ScenarioReplay:click_replayBtn(scenario_name)
 end
 
 -------------------------------------
--- function click_closeBtn
+-- function click_exitBtn
 -------------------------------------
 function UI_ScenarioReplay:click_exitBtn()
     cc.SpriteFrameCache:getInstance():removeSpriteFrameByName(PLIST_PATH)

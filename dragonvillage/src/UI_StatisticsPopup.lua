@@ -81,7 +81,7 @@ function UI_StatisticsPopup:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function initUserInfo
 -------------------------------------
 function UI_StatisticsPopup:initUserInfo()
 	local vars = self.vars
@@ -308,7 +308,7 @@ end
 
 
 -------------------------------------
--- function click_exitBtn
+-- function click_closeBtn
 -------------------------------------
 function UI_StatisticsPopup:click_closeBtn()
     local function finish_cb()

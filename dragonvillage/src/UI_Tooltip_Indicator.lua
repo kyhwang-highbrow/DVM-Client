@@ -69,7 +69,7 @@ function UI_Tooltip_Indicator:init_data(char)
 end
 
 -------------------------------------
--- function displayData
+-- function refresh
 -- @brief public으로 사용
 -------------------------------------
 function UI_Tooltip_Indicator:refresh()

@@ -324,7 +324,7 @@ function UI_ScenarioPlayer:changeBg(bg_name)
 end
 
 -------------------------------------
--- function fadeLayer
+-- function fadeWholeLayer
 -------------------------------------
 function UI_ScenarioPlayer:fadeWholeLayer(color, start_rate, end_rate)
     local vars = self.vars
@@ -371,7 +371,7 @@ function UI_ScenarioPlayer:scratch(dir)
 end
 
 -------------------------------------
--- function scratch
+-- function bomb
 -------------------------------------
 function UI_ScenarioPlayer:bomb()
     local vars = self.vars

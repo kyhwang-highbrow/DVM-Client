@@ -181,7 +181,7 @@ function UI_QuestListItem_Contents:refresh()
 end
 
 -------------------------------------
--- function isRewardable
+-- function getRewardState
 -- @return 0 : 잠금
 -- @return 1 : 보상 가능
 -- @return 2 : 보상 받음

@@ -308,7 +308,7 @@ function UI_UserInfoDetailPopup:setVisitMode(is_visit)
 end
 
 -------------------------------------
--- function makeHistroyText
+-- function init_historyView
 -------------------------------------
 function UI_UserInfoDetailPopup:init_historyView()
 	local vars = self.vars
@@ -342,7 +342,7 @@ function UI_UserInfoDetailPopup:init_historyView()
 end
 
 -------------------------------------
--- function makeHistroyText
+-- function makeHistoryList
 -------------------------------------
 function UI_UserInfoDetailPopup:makeHistoryList()
 	local t_info = self.m_tUserInfo['info'] or {}
@@ -499,7 +499,7 @@ function UI_UserInfoDetailPopup:click_titleChangeBtn()
 end
 
 -------------------------------------
--- function click_clanBtn
+-- function click_dragonInfoBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_dragonInfoBtn()
     local dragon_object = StructDragonObject(self.m_tUserInfo['leader'])

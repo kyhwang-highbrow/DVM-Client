@@ -370,7 +370,7 @@ function UI_TutorialPlayer:nextIfWaiting()
 end
 
 -------------------------------------
--- function blackLayerOnOff
+-- function touchBlockOnOff
 -- @brief 튜토리얼 하위 UI 터치 on/off
 -------------------------------------
 function UI_TutorialPlayer:touchBlockOnOff(cmd)

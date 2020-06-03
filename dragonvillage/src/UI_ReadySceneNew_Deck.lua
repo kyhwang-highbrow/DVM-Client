@@ -351,7 +351,7 @@ function UI_ReadySceneNew_Deck:refreshLeader()
 end
 
 -------------------------------------
--- function refreshLeader
+-- function refreshLeaderSprite
 -- @brief 리더 위치에 다시 붙여준다.
 -------------------------------------
 function UI_ReadySceneNew_Deck:refreshLeaderSprite(tar_idx)
@@ -481,7 +481,7 @@ function UI_ReadySceneNew_Deck:setDeck(l_deck, formation, deckname, leader, tame
 end
 
 -------------------------------------
--- function getDeckForAttrTower
+-- function isDragonForAttrTower
 -------------------------------------
 function UI_ReadySceneNew_Deck.isDragonForAttrTower(doid)    
     if (not g_attrTowerData) then
@@ -1046,7 +1046,7 @@ function UI_ReadySceneNew_Deck:getRotatedPosList(formation)
 end
 
 -------------------------------------
--- function makeTouchLayer
+-- function makeTouchLayer_formation
 -- @brief 터치 레이어 생성
 -------------------------------------
 function UI_ReadySceneNew_Deck:makeTouchLayer_formation(target_node)

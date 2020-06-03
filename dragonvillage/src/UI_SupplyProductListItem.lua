@@ -242,7 +242,7 @@ function UI_SupplyProductListItem:click_receiveBtn()
 end
 
 -------------------------------------
--- function buySuccessCB
+-- function questDoubleBuySuccessCB
 -- @brief 상품 구매 후 콜백
 -------------------------------------
 function UI_SupplyProductListItem:questDoubleBuySuccessCB(ret)

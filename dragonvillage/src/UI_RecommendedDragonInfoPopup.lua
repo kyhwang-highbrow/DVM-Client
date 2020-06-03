@@ -343,7 +343,7 @@ function UI_RecommendedDragonInfoPopup:getStageServerInfo(cb_func)
 end
 
 -------------------------------------
--- function getStageServerInfo
+-- function makeDataPretty
 -- @brief 서버로부터 가져온 정보를 사용하기 좋게 가공한다.
 -------------------------------------
 function UI_RecommendedDragonInfoPopup:makeDataPretty(ret)

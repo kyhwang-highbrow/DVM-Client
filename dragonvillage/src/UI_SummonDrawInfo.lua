@@ -81,7 +81,7 @@ function UI_SummonDrawInfo:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function setDrawCb
 -------------------------------------
 function UI_SummonDrawInfo:setDrawCb(draw_cb)
 	self.m_draw_cb = draw_cb

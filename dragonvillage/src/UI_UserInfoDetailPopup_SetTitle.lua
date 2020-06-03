@@ -94,7 +94,7 @@ function UI_UserInfoDetailPopup_SetTitle:makeTableView()
 end
 
 -------------------------------------
--- function makeTableView
+-- function makeSortedTitleList
 -------------------------------------
 function UI_UserInfoDetailPopup_SetTitle:makeSortedTitleList()
     local table_tamer_id = TableTamerTitle()

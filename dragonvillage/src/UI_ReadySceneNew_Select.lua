@@ -40,7 +40,7 @@ function UI_ReadySceneNew_Select:initButton()
 end
 
 -------------------------------------
--- function onEnterDragonTab
+-- function onEnterDragonTableView
 -------------------------------------
 function UI_ReadySceneNew_Select:onEnterDragonTableView()
     if (not self.m_bFriend) and (not self.m_tableViewExtMine) then

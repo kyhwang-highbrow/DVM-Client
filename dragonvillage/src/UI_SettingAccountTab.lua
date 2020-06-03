@@ -1,5 +1,5 @@
 -------------------------------------
--- function init_accounteTab
+-- function init_accountTab
 -------------------------------------
 function UI_Setting:init_accountTab()
     local vars = self.vars

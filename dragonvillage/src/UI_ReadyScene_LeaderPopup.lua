@@ -59,7 +59,7 @@ function UI_ReadyScene_LeaderPopup:refresh()
 end
 
 -------------------------------------
--- function makeTableViewFormation
+-- function makeTableView
 -------------------------------------
 function UI_ReadyScene_LeaderPopup:makeTableView()
 	local vars = self.vars
@@ -103,7 +103,7 @@ function UI_ReadyScene_LeaderPopup:makeTableView()
 end
 
 -------------------------------------
--- function makeLeaderCellUI
+-- function selectLeaderCellUI
 -- @brief 테이블 셀 생성
 -------------------------------------
 function UI_ReadyScene_LeaderPopup:selectLeaderCellUI(ui, data)

@@ -491,7 +491,7 @@ function UI_TopUserInfo:hide()
 end
 
 -------------------------------------
--- function hide
+-- function show
 -------------------------------------
 function UI_TopUserInfo:show()
 	self.root:runAction(cc.MoveTo:create(0.5, cc.p(0, 0)))

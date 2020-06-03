@@ -354,7 +354,7 @@ function UI_StartingTamer:setTamerAni(idx, tid)
 end
 
 -------------------------------------
--- function setSkillIcon
+-- function click_skillBtn
 -------------------------------------
 function UI_StartingTamer:click_skillBtn(did, j, btn)
 	local t_data = {
