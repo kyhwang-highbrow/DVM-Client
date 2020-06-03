@@ -394,7 +394,7 @@ function WaveMgr:getRarity(enemy_id, enemy_lv)
 end
 
 -------------------------------------
--- function checkToHighestRarity
+-- function checkToDieHighestRariry
 -- @brief 현재 웨이브에서 최고 Rariry의 적이 죽었는지 체크
 -------------------------------------
 function WaveMgr:checkToDieHighestRariry()

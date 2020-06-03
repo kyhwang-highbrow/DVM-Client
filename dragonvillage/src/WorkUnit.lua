@@ -55,7 +55,7 @@ function WorkUnit:registerWorkHandler(func)
 end
 
 -------------------------------------
--- function registerOnExitHandler
+-- function registerExitHandler
 -------------------------------------
 function WorkUnit:registerExitHandler(func)
     self:log('registerExitHandler')
