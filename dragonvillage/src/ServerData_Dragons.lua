@@ -1249,7 +1249,7 @@ function ServerData_Dragons:isSkillEnhanced(doid)
 end
 
 -------------------------------------
--- function impossibleReinforcement
+-- function impossibleReinforcementForever
 -- @brief 드래곤 강화
 -------------------------------------
 function ServerData_Dragons:impossibleReinforcementForever(doid)

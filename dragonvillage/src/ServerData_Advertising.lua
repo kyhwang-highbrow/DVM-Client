@@ -114,7 +114,7 @@ function ServerData_Advertising:showAd(ad_type, finish_cb)
 end
 
 -------------------------------------
--- function getEnableShopAdv()
+-- function getEnableShopAdv
 -------------------------------------
 function ServerData_Advertising:getEnableShopAdv()
     -- 서버상의 시간을 얻어옴

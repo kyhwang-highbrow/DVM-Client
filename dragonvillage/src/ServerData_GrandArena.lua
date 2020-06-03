@@ -716,7 +716,7 @@ function ServerData_GrandArena:getTierGroupByTierId(tier_id)
 end
 
 -------------------------------------
--- function getTierNameTierId
+-- function getTierNameByTierId
 -------------------------------------
 function ServerData_GrandArena:getTierNameByTierId(tier_id)
     if (not self.m_grandArenaRankingInfoTable[tier_id]) then

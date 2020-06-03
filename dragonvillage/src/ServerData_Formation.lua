@@ -28,7 +28,7 @@ function ServerData_Formation:initFormation()
 end
 
 -------------------------------------
--- function getFormationLVList
+-- function getFormationInfoList
 -------------------------------------
 function ServerData_Formation:getFormationInfoList()
 	local l_formation_lv = self.m_serverData:get('user','formation_lv')
@@ -38,7 +38,7 @@ function ServerData_Formation:getFormationInfoList()
 end
 
 -------------------------------------
--- function getFormationLVList
+-- function getFormationInfo
 -------------------------------------
 function ServerData_Formation:getFormationInfo(formation_type)
 	local l_formation_lv = self.m_serverData:get('user','formation_lv')

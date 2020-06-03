@@ -461,7 +461,7 @@ function ServerData_SecretDungeon:getSelectedSecretDungeonInfo()
 end
 
 -------------------------------------
--- function isSecretDungeonExist
+-- function setSecretDungeonExist
 -------------------------------------
 function ServerData_SecretDungeon:setSecretDungeonExist(b)
 	self.m_bSecretDungeonExist = b

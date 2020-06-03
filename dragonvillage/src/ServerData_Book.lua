@@ -131,7 +131,7 @@ function ServerData_Book:getSameTypeSlimeList(slime_id)
 end
 
 -------------------------------------
--- function request_BookInfo
+-- function request_bookInfo
 -------------------------------------
 function ServerData_Book:request_bookInfo(finish_cb)
     -- 유저 ID

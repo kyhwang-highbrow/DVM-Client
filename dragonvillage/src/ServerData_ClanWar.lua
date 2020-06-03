@@ -253,7 +253,7 @@ function ServerData_ClanWar:request_testSetWinLose(league, match, is_left, win, 
 end
 
 -------------------------------------
--- function request_nextDay
+-- function request_testNextDay
 -- @brief 다음날로 이동
 -------------------------------------
 function ServerData_ClanWar:request_testNextDay()
@@ -390,7 +390,7 @@ function ServerData_ClanWar:refresh_playerUserInfo(t_deck)
 end
 
 -------------------------------------
--- function getUserInfo
+-- function getPlayerUserInfo
 -------------------------------------
 function ServerData_ClanWar:getPlayerUserInfo()   
     return self.m_playerUserInfo
@@ -419,7 +419,7 @@ function ServerData_ClanWar:getEnemyUserInfo()
 end
 
 -------------------------------------
--- function refreshFocusUserInfo
+-- function makeEnemyUserInfo
 -- @brief
 -------------------------------------
 function ServerData_ClanWar:makeEnemyUserInfo(data)

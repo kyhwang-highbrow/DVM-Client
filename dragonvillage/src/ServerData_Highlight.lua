@@ -223,7 +223,7 @@ function ServerData_Highlight:isHighlightRune()
 end
 
 -------------------------------------
--- function isHighlightRune
+-- function getNewRuneSlotTable
 -------------------------------------
 function ServerData_Highlight:getNewRuneSlotTable()
 	if (not self.m_newOidMap[NEW_OID_TYPE_RUNE]) then

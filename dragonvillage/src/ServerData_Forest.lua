@@ -37,7 +37,7 @@ function ServerData_Forest:init()
 end
 
 -------------------------------------
--- function makeMyUserInfo
+-- function getMyUserInfo
 -------------------------------------
 function ServerData_Forest:getMyUserInfo()
     local t_user_info = 
@@ -459,7 +459,7 @@ function ServerData_Forest:isHighlightForest()
 end
 
 -------------------------------------
--- function isHighlightForest
+-- function isHighlightForest_lv
 -- @brief 숲 레벨업이 가능한지 여부
 -------------------------------------
 function ServerData_Forest:isHighlightForest_lv()

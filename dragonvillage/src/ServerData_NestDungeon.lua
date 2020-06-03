@@ -344,7 +344,7 @@ function ServerData_NestDungeon:updateNestDungeonTimer(dungeon_id)
 end
 
 -------------------------------------
--- function checkNeedUpdateNestDungeonInfo
+-- function checkNestDungeonOpen
 -- @brief 네스트 던전 항목을 갱신해야 하는지 확인하는 함수
 -------------------------------------
 function ServerData_NestDungeon:checkNestDungeonOpen(stage_id)

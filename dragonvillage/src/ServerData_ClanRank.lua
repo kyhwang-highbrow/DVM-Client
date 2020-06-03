@@ -85,7 +85,7 @@ function ServerData_ClanRank:getOffset(rank_type)
 end
 
 -------------------------------------
--- function getOffset
+-- function isSettlingDown
 -------------------------------------
 function ServerData_ClanRank:isSettlingDown()
     return self.m_isSettlingDown

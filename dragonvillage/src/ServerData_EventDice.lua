@@ -38,7 +38,7 @@ function ServerData_EventDice:getLapList()
 end
 
 -------------------------------------
--- function getDiceInfo
+-- function makePrettyCellList
 -------------------------------------
 function ServerData_EventDice:makePrettyCellList(t_data)
     local l_ret = {}

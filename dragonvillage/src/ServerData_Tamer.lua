@@ -15,7 +15,7 @@ function ServerData_Tamer:init(server_data)
 end
 
 -------------------------------------
--- function getRef
+-- function getTamerList
 -------------------------------------
 function ServerData_Tamer:getTamerList()
     return self.m_serverData:getRef('tamers')

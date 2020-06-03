@@ -493,7 +493,7 @@ function ServerData_AttrTower:checkDragonAttr(l_deck)
 end
 
 -------------------------------------
--- function checkDragonAttr
+-- function getAttrDragonDeck
 -- @brief 드래곤 속성 체크
 -------------------------------------
 function ServerData_AttrTower:getAttrDragonDeck(t_deck)

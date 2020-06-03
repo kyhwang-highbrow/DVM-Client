@@ -30,7 +30,7 @@ function ServerData_FormationArena:initFormation()
 end
 
 -------------------------------------
--- function getFormationLVList
+-- function getFormationInfoList
 -------------------------------------
 function ServerData_FormationArena:getFormationInfoList()
 	self:makeDataPretty()

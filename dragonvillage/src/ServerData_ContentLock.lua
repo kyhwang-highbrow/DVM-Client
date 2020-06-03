@@ -191,7 +191,7 @@ function ServerData_ContentLock:getContentsQuestList()
 end
 
 -------------------------------------
--- function isContentLockByStage
+-- function isContentOepnByServer
 -- @param 로비통신에서 받는 콘텐츠 해금 여부
 -- @brief 서버 값에만 의존한 결과, 종합적으로 판단한 콘텐츠 해금 여부는 isContentLock 함수를 사용해야함
 -------------------------------------
@@ -237,7 +237,7 @@ end
 
 
 -------------------------------------
--- function applyContentLock
+-- function applyContentLockByStage
 -------------------------------------
 function ServerData_ContentLock:applyContentLockByStage(l_content)
     self:setIsContentLockDirty(true)

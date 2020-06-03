@@ -69,14 +69,14 @@ function ServerListData:initWithData(tdata)
 end
 
 -------------------------------------
--- function getServerList()
+-- function getServerList
 -------------------------------------
 function ServerListData:getServerList()
     return self.m_tservers
 end
 
 -------------------------------------
--- function getSelectServer()
+-- function getSelectServer
 -------------------------------------
 function ServerListData:getSelectServer()
     return self.m_selectServerName

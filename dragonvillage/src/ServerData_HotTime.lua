@@ -487,7 +487,7 @@ function ServerData_HotTime:getActiveBonusValue(bonus_type)
 end
 
 -------------------------------------
--- function getHottimeValue
+-- function getHottimeInfo
 -------------------------------------
 function ServerData_HotTime:getHottimeInfo(hottime_type)
 	if (not self.m_hotTimeType[hottime_type]) then

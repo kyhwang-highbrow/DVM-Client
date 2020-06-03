@@ -671,7 +671,7 @@ end
 
 
 -------------------------------------
--- function isCostume
+-- function isContainCostume
 -- @breif 구매한 제품 중 아이템이 하나라도 코스튬이면 true 반환
 -------------------------------------
 function ServerData_Shop:isContainCostume(added_items)
@@ -1069,8 +1069,9 @@ end
 -------------------------------------
 -- function getPakcageStepPidList
 -- @brief 단계별 패키지 product_id list
+-- package_step_name : 'package_step_02', 'package_step'
 -------------------------------------
-function ServerData_Shop:getPakcageStepPidList(package_step_name) -- package_step_name : 'package_step_02', 'package_step'
+function ServerData_Shop:getPakcageStepPidList(package_step_name)
     local l_pids = TablePackageBundle:getPidsWithName(package_step_name)
     if (not l_pids) then
         l_pids = {}

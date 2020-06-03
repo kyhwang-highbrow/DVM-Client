@@ -84,7 +84,7 @@ function ServerData_Eggs:isExistEgg(egg_id)
 end
 
 -------------------------------------
--- function isExistEgg
+-- function isExistTutorialEgg
 -- @brief 해당 알 존재 여부
 -------------------------------------
 function ServerData_Eggs:isExistTutorialEgg()

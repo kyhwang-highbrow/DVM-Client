@@ -370,7 +370,7 @@ function ServerData_PurchasePoint:getLastRewardDesc(version)
 end
 
 -------------------------------------
--- function getLastRewardDesc
+-- function isGetLastReward
 -- @breif 최종 보상 받았는지 확인
 -------------------------------------
 function ServerData_PurchasePoint:isGetLastReward(version)
@@ -386,7 +386,7 @@ function ServerData_PurchasePoint:isGetLastReward(version)
 end
 
 -------------------------------------
--- function getPurchasePoint_stepCount
+-- function getPurchasePointTime
 -- @breif 해당 버전의 시간 정보 리턴
 -------------------------------------
 function ServerData_PurchasePoint:getPurchasePointTime(version)

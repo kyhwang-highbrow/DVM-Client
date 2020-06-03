@@ -191,7 +191,7 @@ function ServerData_RandomShop:request_refreshInfo(cb_func, fail_cb)
 end
 
 -------------------------------------
--- function request_refreshInfo
+-- function request_buy
 -------------------------------------
 function ServerData_RandomShop:request_buy(index, price_type , cb_func, fail_cb)
     -- 파라미터

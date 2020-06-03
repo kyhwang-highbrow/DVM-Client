@@ -715,7 +715,7 @@ function ServerData_Event:response_eventList(ret, finish_cb)
 end
 
 -------------------------------------
--- function setLobbyDecoTable
+-- function setLobbyDecoData
 -- @brief (이벤트 기간이) 유효한 로비 데이터 저장
 -------------------------------------
 function ServerData_Event:setLobbyDecoData(table_lobbydeco)
@@ -821,14 +821,14 @@ function ServerData_Event:isEventUserRewardDone()
 end
 
 -------------------------------------
--- function getComebackUserState
+-- function isCombackUser
 -------------------------------------
 function ServerData_Event:isCombackUser()
     return (self.m_isUserState == 2)
 end
 
 -------------------------------------
--- function getComebackUserState
+-- function isNewUser
 -------------------------------------
 function ServerData_Event:isNewUser()
     return (self.m_isUserState == 1)

@@ -15,7 +15,7 @@ function ServerData_Ranking:init(server_data)
 end
 
 -------------------------------------
--- function init
+-- function getRankData
 -------------------------------------
 function ServerData_Ranking:getRankData(rank_type)
 	local rank_type = rank_type or 0
@@ -26,7 +26,7 @@ function ServerData_Ranking:getRankData(rank_type)
 end
 
 -------------------------------------
--- function init
+-- function setRankData
 -------------------------------------
 function ServerData_Ranking:setRankData(rank_type, rank_data)
 	local rank_type = rank_type or 0

@@ -21,7 +21,7 @@ function ServerData_TamerCostume:init(server_data)
 end
 
 -------------------------------------
--- function getCostumeID 
+-- function getCostumeID
 -- @brief 코스튬 ID 반환
 -------------------------------------
 function ServerData_TamerCostume:getCostumeID(tamer_id)
@@ -39,7 +39,7 @@ function ServerData_TamerCostume:getCostumeID(tamer_id)
 end
 
 -------------------------------------
--- function getCostumeDataWithTamerID 
+-- function getCostumeDataWithTamerID
 -- @brief 코스튬 정보 반환
 -------------------------------------
 function ServerData_TamerCostume:getCostumeDataWithTamerID(tamer_id)
@@ -52,7 +52,7 @@ function ServerData_TamerCostume:getCostumeDataWithTamerID(tamer_id)
 end
 
 -------------------------------------
--- function getCostumeDataWithCostumeID 
+-- function getCostumeDataWithCostumeID
 -- @brief 코스튬 정보 반환
 -------------------------------------
 function ServerData_TamerCostume:getCostumeDataWithCostumeID(costume_id)

@@ -78,7 +78,7 @@ function ServerData_EventBingo:request_bingoInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_bingoInfo
+-- function request_DrawNumber
 -------------------------------------
 function ServerData_EventBingo:request_DrawNumber(finish_cb, pick_number)
     -- 유저 ID

@@ -380,7 +380,7 @@ function SettingData:getExplorationDec(epr_id)
 end
 
 -------------------------------------
--- function setExplorationDeck
+-- function setExplorationDec
 -- @breif
 -------------------------------------
 function SettingData:setExplorationDec(epr_id, l_doid)
@@ -593,20 +593,22 @@ end
 
 -------------------------------------
 -- function getIllusionBestScore
+-- key : event_illusion
 -------------------------------------
-function SettingData:getIllusionBestScore() -- key : event_illusion
+function SettingData:getIllusionBestScore()
     return self:get('event_illusion') or 0
 end
 
 -------------------------------------
 -- function setIllusionBestScore
+-- key : event_illusion
 -------------------------------------
 function SettingData:setIllusionBestScore(t_score_data) -- key : event_illusion
     self:applySettingData(t_score_data, 'event_illusion') 
 end
 
 -------------------------------------
--- function getLinkLoginStep
+-- function getLinkAccountStep
 -------------------------------------
 function SettingData:getLinkAccountStep()
     return self:get('t_link_account_step') or {}

@@ -401,7 +401,7 @@ function ServerData_ChallengeMode:getChallengeModeStagePoint(stage)
 end
 
 -------------------------------------
--- function getChallengeModeStagePoint
+-- function getChallengeModeVictoryModePoint
 -- @brief 승리모드 별로 정렬하기 위해 스테이지 점수 반환 (잠긴 상태 9999점, 승리 없음 0점)
 -- @brief (최상위)잠긴 상태 → 어려움 자동 승리→ 어려움 수동 승리 → ... →쉬움 수동 승리 → 승리 없음
 -------------------------------------

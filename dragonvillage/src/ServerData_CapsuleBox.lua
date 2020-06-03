@@ -161,7 +161,7 @@ function ServerData_CapsuleBox:setTodaySchedule()
 end
 
 -------------------------------------
--- function findTodaySchedule
+-- function getTodaySchedule
 -- @brief 리스트 중에서 오늘 판매하는 상품 정보 반환
 -------------------------------------
 function ServerData_CapsuleBox:getTodaySchedule()

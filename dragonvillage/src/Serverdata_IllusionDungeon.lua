@@ -141,7 +141,7 @@ function Serverdata_IllusionDungeon:getIllusionExchanageStatusText()
 end
 
 -------------------------------------
--- function isActive_grandArena
+-- function isActive_illusion
 -------------------------------------
 function Serverdata_IllusionDungeon:isActive_illusion()
     return (self:getIllusionState() ~= Serverdata_IllusionDungeon.STATE['INACTIVE'])
@@ -175,7 +175,7 @@ function Serverdata_IllusionDungeon:parseStageID(stage_id)
 end
 
 -------------------------------------
--- function parseStageID
+-- function getNextStage
 -- @brief 환상 던전 스테이지 ID 분석
 -------------------------------------
 function Serverdata_IllusionDungeon:getNextStage(stage_id)
@@ -240,7 +240,7 @@ function Serverdata_IllusionDungeon:setDragonsSortData(doid)
 end
 
 -------------------------------------
--- function setDragonDeck
+-- function getDragonDeck
 -------------------------------------
 function Serverdata_IllusionDungeon:getDragonDeck() -- 서버에 저장하는 대신 로컬에 저장된 걸 들고옴
     local l_deck = g_settingDeckData:getLocalDeck('illusion')
@@ -426,7 +426,7 @@ function Serverdata_IllusionDungeon:getBestScoreByDiff(diff)
 end
 
 -------------------------------------
- -- function getBestScoreByDiff
+-- function setBestScoreByDiff
  -- @brief 난이도별 최고점수 세팅
 -------------------------------------
 function Serverdata_IllusionDungeon:setBestScoreByDiff(diff, score)
@@ -804,7 +804,7 @@ function Serverdata_IllusionDungeon:request_illusionShopInfo(finish_cb)
 end
 
 -------------------------------------
- -- function request_illusionShopInfo
+-- function request_illusionExchange
 -------------------------------------
 function Serverdata_IllusionDungeon:request_illusionExchange(prodeuct_id, count, finish_cb)
     -- 파라미터
