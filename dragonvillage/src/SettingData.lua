@@ -601,9 +601,10 @@ end
 
 -------------------------------------
 -- function setIllusionBestScore
+
 -- key : event_illusion
 -------------------------------------
-function SettingData:setIllusionBestScore(t_score_data) -- key : event_illusion
+function SettingData:setIllusionBestScore(t_score_data)
     self:applySettingData(t_score_data, 'event_illusion') 
 end
 

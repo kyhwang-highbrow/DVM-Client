@@ -16,7 +16,7 @@ function StatusEffect_AttributeChange:init(file_name, body)
 end
 
 -------------------------------------
--- function init_skill
+-- function init_statusEffect
 -------------------------------------
 function StatusEffect_AttributeChange:init_statusEffect(char)
 	self.m_owner = char

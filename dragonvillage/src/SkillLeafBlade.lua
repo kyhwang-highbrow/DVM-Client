@@ -20,7 +20,7 @@ function SkillLeafBlade:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_SkillLeafBlade
+-- function init_skill
 -------------------------------------
 function SkillLeafBlade:init_skill(missile_res, motionstreak_res, target_count, body_size, isPass)
 	PARENT.init_skill(self)

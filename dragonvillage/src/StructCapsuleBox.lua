@@ -160,7 +160,7 @@ function StructCapsuleBox:setCapsuleTitle(title_str)
 end
 
 -------------------------------------
--- function getLegendCapsuleTitle
+-- function getCapsuleTitle
 -------------------------------------
 function StructCapsuleBox:getCapsuleTitle()
     local title_str = self['title']

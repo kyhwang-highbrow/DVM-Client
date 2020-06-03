@@ -72,7 +72,7 @@ function StatusEffect_Dispell:onEnd()
 end
 
 -------------------------------------
--- function onStart
+-- function onApplyOverlab
 -------------------------------------
 function StatusEffect_Dispell:onApplyOverlab(unit)
     local b = false

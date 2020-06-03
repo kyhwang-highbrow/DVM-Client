@@ -16,7 +16,7 @@ function SkillSummon:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_SkillSummon
+-- function init_skill
 -------------------------------------
 function SkillSummon:init_skill(summon_idx)
 	PARENT.init_skill(self)

@@ -126,7 +126,7 @@ end
 ------------------------------------------------------------------
 
 -------------------------------------
--- function makeDefaultSettingData_Deck
+-- function makeDefaultSettingData
 -------------------------------------
 function SettingData_Deck:makeDefaultSettingData()
     local root_table = {}
@@ -193,7 +193,7 @@ function SettingData_Deck:getAncientStageScore(stage_id)
 end
 
 -------------------------------------
--- function getDeckAncient
+-- function getDeckAllAncient
 -- @brief 로컬 파일에서 덱 정보 읽어서 리턴, 베스트 팀 팝업 출력할 때 사용
 -------------------------------------
 function SettingData_Deck:getDeckAllAncient()

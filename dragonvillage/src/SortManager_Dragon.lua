@@ -486,7 +486,7 @@ function SortManager_Dragon:sort_created_at(a, b, ascending)
 end
 
 -------------------------------------
--- function sort_exclude_material
+-- function sort_with_material
 -- @brief 특성 재료를 맨 앞으로 정렬
 -------------------------------------
 function SortManager_Dragon:sort_with_material(a, b, ascending)

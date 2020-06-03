@@ -32,7 +32,7 @@ function SkillEnumrate:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_SkillEnumrate
+-- function init_skill
 -------------------------------------
 function SkillEnumrate:init_skill(missile_res, motionstreak_res, line_num, pos_type, target_type)
 	PARENT.init_skill(self)
@@ -109,7 +109,7 @@ function SkillEnumrate:fireMissile()
 end
 
 -------------------------------------
--- function fireMissile
+-- function getSkillTargetList
 -- @brief Public / 공격 대상 리스트 가져옴
 -------------------------------------
 function SkillEnumrate:getSkillTargetList()

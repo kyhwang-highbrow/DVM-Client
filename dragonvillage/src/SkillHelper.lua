@@ -138,7 +138,7 @@ function SkillHelper:makeEffect(world, res, x, y, ani_name, cb_function)
 end
 
 -------------------------------------
--- function makeEffect_new
+-- function makeEffect_withAttrAni
 -- @breif 추가 이펙트 생성
 -- @breif 통합형 애니메이션의 경우 애니메이션에 속성이 붙어있음 (ex) earth_idle
 -- @breif 애니메이션중에 속성 애니메이션이 있다면 적용, 없다면 기본형을 적용
@@ -175,7 +175,7 @@ function SkillHelper:makeEffect_withAttrAni(world, res, x, y, ani_name, cb_funct
 end
 
 -------------------------------------
--- function makeEffect
+-- function makeEffectOnView
 -- @breif 좌표값에 영향을 안받는 레이어 수준에 이텍트 생성
 -------------------------------------
 function SkillHelper:makeEffectOnView(res, ani_name, cb_function)

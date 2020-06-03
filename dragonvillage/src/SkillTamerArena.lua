@@ -85,7 +85,7 @@ end
 
 
 -------------------------------------
--- function st_attack
+-- function st_move
 -------------------------------------
 function SkillTamerArena.st_move(owner, dt)
     if (owner.m_stateTimer == 0) then

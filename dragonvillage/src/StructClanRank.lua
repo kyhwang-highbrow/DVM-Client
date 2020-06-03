@@ -120,7 +120,7 @@ function StructClanRank:getLastRank()
 end
 
 -------------------------------------
--- function getMasterNick
+-- function getClanRank
 -------------------------------------
 function StructClanRank:getClanRank()
     local rank = self['rank']
@@ -133,7 +133,7 @@ function StructClanRank:getClanRank()
 end
 
 -------------------------------------
--- function getMasterNick
+-- function getClanScore
 -------------------------------------
 function StructClanRank:getClanScore()
     local score = self['score']

@@ -9,7 +9,7 @@ SkillAoEWedge = class(PARENT, {
      })
 
 -------------------------------------
--- function init 
+-- function init
 -- @param file_name
 -- @param body
 -------------------------------------

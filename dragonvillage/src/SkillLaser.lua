@@ -27,7 +27,7 @@ SkillLaser = class(PARENT, {
      })
 
 -------------------------------------
--- function initc
+-- function init
 -- @param file_name
 -- @param body
 -------------------------------------

@@ -126,7 +126,7 @@ end
 
 
 -------------------------------------
--- function doLoopAttack
+-- function initLoopAttack
 -- @breif 반복공격을 실행한다
 -------------------------------------
 function SkillVoltesX:initLoopAttack()

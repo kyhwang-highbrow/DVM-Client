@@ -29,7 +29,7 @@ function StatusEffectUnit_Dot_Heal:doDot()
 end
 
 -------------------------------------
--- function calculateDotDmg
+-- function calculateDotHeal
 -------------------------------------
 function StatusEffectUnit_Dot_Heal:calculateDotHeal()
     local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)

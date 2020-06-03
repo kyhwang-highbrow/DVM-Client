@@ -269,7 +269,7 @@ function StatusCalculator:getFinalStatDisplay(stat_type, use_percent)
 end
 
 -------------------------------------
--- function make_pretty_percentage_action
+-- function makePrettyPercentage
 -- @brief 능력치 퍼센트를 예쁘게 계산한 프로그레스 액션 생성
 -------------------------------------
 function StatusCalculator:makePrettyPercentage(key)

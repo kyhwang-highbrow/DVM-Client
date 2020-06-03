@@ -1012,7 +1012,7 @@ function Skill:setTargetChar(char)
 end
 
 -------------------------------------
--- function getAttackPosition
+-- function setTargetPos
 -------------------------------------
 function Skill:setTargetPos(_x, _y)
     self.m_targetPos = {x = _x, y = _y}

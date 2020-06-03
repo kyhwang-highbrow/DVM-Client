@@ -24,7 +24,7 @@ function SkillRapidShot:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_SkillRapidShot
+-- function init_skill
 -------------------------------------
 function SkillRapidShot:init_skill(missile_res, motionstreak_res, target_count)
 	PARENT.init_skill(self)

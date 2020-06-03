@@ -338,7 +338,7 @@ function StatusEffect.st_idle(owner, dt)
 end
 
 -------------------------------------
--- function st_end 
+-- function st_end
 -------------------------------------
 function StatusEffect.st_end(owner, dt)
     if (owner.m_stateTimer == 0) then
@@ -1002,7 +1002,7 @@ function StatusEffect:dispatchEvent_statChange()
 end
 
 -------------------------------------
--- function setOffset
+-- function setOffsetPos
 -------------------------------------
 function StatusEffect:setOffsetPos(pos)
     self.m_offsetPos = pos

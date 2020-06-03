@@ -107,7 +107,7 @@ function StructCapsuleBoxSchedule:isHiddenOpen()
 end
 
 -------------------------------------
--- function init
+-- function getThis
 -------------------------------------
 function StructCapsuleBoxSchedule:getThis(data)
     return THIS

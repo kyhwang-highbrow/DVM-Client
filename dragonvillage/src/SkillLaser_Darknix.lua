@@ -6,7 +6,7 @@ local PARENT = SkillLaser
 SkillLaser_Darknix = class(PARENT, {})
 
 -------------------------------------
--- function initc
+-- function init
 -- @param file_name
 -- @param body
 -------------------------------------

@@ -510,7 +510,7 @@ function StatusEffectHelper:checkStatus(caster, target_char)
 end
 
 -------------------------------------
--- function releaseStatusEffect
+-- function releaseStatusEffectByType
 -- @brief 특정 타입의 상태효과 해제
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectByType(char, status_effect_type)

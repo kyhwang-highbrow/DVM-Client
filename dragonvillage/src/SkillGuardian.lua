@@ -116,7 +116,7 @@ function SkillGuardian.st_end(owner, dt)
 end
 
 -------------------------------------
--- function checkDurablity
+-- function checkDurability
 -------------------------------------
 function SkillGuardian:checkDurability(dt)
 	-- 시전자나 대상이 죽으면 중지
@@ -334,7 +334,7 @@ function SkillGuardian:release()
 end
 
 -------------------------------------
--- function makeSkillInstance
+-- function playDisappearEffect
 -- @brief   effect_owner에 붙어있는 배리어와 사슬의 disappear 이펙트를 실행한다.
 -- @param   effect_owner    Character    :   key로써 사용되며, Character object이다.
 -------------------------------------

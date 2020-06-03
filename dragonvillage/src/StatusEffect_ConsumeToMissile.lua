@@ -44,7 +44,7 @@ function StatusEffect_ConsumeToMissile:initFromTable(t_status_effect, target_cha
 end
 
 -------------------------------------
--- function initFromTable
+-- function initMissile
 -------------------------------------
 function StatusEffect_ConsumeToMissile:initMissile(t_status_effect)
     self.m_resMotionStreak = t_status_effect['res_2']

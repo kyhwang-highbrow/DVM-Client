@@ -6,7 +6,7 @@ local PARENT = SkillLaser
 SkillLaser_Zet = class(PARENT, {})
 
 -------------------------------------
--- function initc
+-- function init
 -- @param file_name
 -- @param body
 -------------------------------------
@@ -54,7 +54,7 @@ function SkillLaser_Zet:initState()
 end
 
 -------------------------------------
--- function st_idle
+-- function st_appear
 -------------------------------------
 function SkillLaser_Zet.st_appear(owner, dt)
     if (owner.m_stateTimer == 0) then

@@ -16,7 +16,7 @@ function SkillEnumrate_Curve:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_SkillEnumrate_Curve
+-- function init_skill
 -------------------------------------
 function SkillEnumrate_Curve:init_skill(missile_res, motionstreak_res, line_num, pos_type, target_type)
 	PARENT.init_skill(self, missile_res, motionstreak_res, line_num, pos_type, target_type)
