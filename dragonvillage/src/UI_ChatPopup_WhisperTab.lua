@@ -34,7 +34,7 @@ function UI_ChatPopup_WhisperTab:init(ui)
 end
 
 -------------------------------------
--- function onChangeTab
+-- function onEnterTab
 -------------------------------------
 function UI_ChatPopup_WhisperTab:onEnterTab(first)
     local vars = self.vars

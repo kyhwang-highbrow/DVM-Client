@@ -34,7 +34,7 @@ function UI_ColosseumMatchRewardItem:init(t_data)
 end
 
 -------------------------------------
--- function getHonorCount
+-- function getCashCount
 -------------------------------------
 function UI_ColosseumMatchRewardItem:getCashCount(package_item_str)
     local l_item_list = ServerData_Item:parsePackageItemStr(package_item_str)

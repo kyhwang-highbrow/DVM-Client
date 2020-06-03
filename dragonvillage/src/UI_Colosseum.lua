@@ -315,7 +315,7 @@ function UI_Colosseum:onChangeTab(tab, first)
 end
 
 -------------------------------------
--- function init_weekRankTableView
+-- function init_atkTab
 -------------------------------------
 function UI_Colosseum:init_atkTab()
     local node = self.vars['atkListNode']

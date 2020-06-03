@@ -108,7 +108,7 @@ function UI_ClanRaidLastRankingTab:onChangeRankingType(type)
 end
 
 -------------------------------------
--- function request_clanRank
+-- function request_clanAttrRank
 -------------------------------------
 function UI_ClanRaidLastRankingTab:request_clanAttrRank(selected_attr)
     local attr_type = selected_attr

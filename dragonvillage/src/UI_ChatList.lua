@@ -260,7 +260,7 @@ function UI_ChatList:onTouchBegan(touche, event)
 end
 
 -------------------------------------
--- function onTouchBegan
+-- function onTouchMoved
 -------------------------------------
 function UI_ChatList:onTouchMoved(touch, event)
     local diff = touch:getDelta()

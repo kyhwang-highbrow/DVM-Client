@@ -277,7 +277,7 @@ function UI_ClanRaidResult:show_item_reward(reward_menu)
 end
 
 -------------------------------------
--- function setItmeCardRarity()
+-- function setItemCardRarity
 -------------------------------------
 function UI_ClanRaidResult:setItemCardRarity(item_card, grade)
 	if (grade > 3) then

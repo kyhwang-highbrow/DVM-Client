@@ -30,7 +30,7 @@ function UI_ChatPopup_ClanTab:init(ui)
 end
 
 -------------------------------------
--- function onChangeTab
+-- function onEnterTab
 -------------------------------------
 function UI_ChatPopup_ClanTab:onEnterTab(first)
     local vars = self.vars

@@ -78,7 +78,7 @@ function UI_ClanGuestTabJoin:init_TableView()
 end
 
 -------------------------------------
--- function update_topRankTableView
+-- function update_tableView
 -------------------------------------
 function UI_ClanGuestTabJoin:update_tableView(target_offset)
     local function finish_cb(ret, rank_list)

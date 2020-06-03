@@ -113,7 +113,7 @@ function UI_ClanTabRank:request_clanRank(first)
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function makeRankTableview
 -------------------------------------
 function UI_ClanTabRank:makeRankTableview(tab)
 	local t_tab_data = self.m_mTabData[tab]

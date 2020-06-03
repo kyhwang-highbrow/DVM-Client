@@ -98,7 +98,7 @@ end
 
 
 -------------------------------------
--- function closeBtn
+-- function click_closeBtn
 -------------------------------------
 function UI_ChatPopup:click_closeBtn()
     self:close()

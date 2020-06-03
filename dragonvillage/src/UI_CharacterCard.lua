@@ -401,7 +401,7 @@ function UI_CharacterCard:setEventIllusionVisibleForDeck(visible, is_bonus)
 end
 
 -------------------------------------
--- function setEventIllusionVisible
+-- function setEventIllusionFrameVisible
 -- @brief 이벤트 표시
 -- @brief spriteframe에 없는 아이콘이므로, 이 아이콘만 생성함
 -------------------------------------

@@ -73,7 +73,7 @@ function UI_ClanRaidRankingPopup:onChangeTab(tab, first)
 end
 
 -------------------------------------
--- function initTableView
+-- function initRank
 -------------------------------------
 function UI_ClanRaidRankingPopup:initRank()
     local vars = self.vars
@@ -370,7 +370,7 @@ function _UI_ClanRaidRewardListItem:init(data)
 end
 
 -------------------------------------
--- function _UI_ClanRaidRewardListItem
+-- function initUI
 -------------------------------------
 function _UI_ClanRaidRewardListItem:initUI()
     local vars = self.vars
@@ -474,7 +474,7 @@ function _UI_ClanRaidRankListItem:init(data)
 end
 
 -------------------------------------
--- function _UI_ClanRaidRankListItem
+-- function initUI
 -------------------------------------
 function _UI_ClanRaidRankListItem:initUI()
     local data = self.m_data

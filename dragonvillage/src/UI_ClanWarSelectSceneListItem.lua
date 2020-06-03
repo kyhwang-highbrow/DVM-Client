@@ -39,7 +39,7 @@ function UI_ClanWarSelectSceneListItem:setNoTime()
 end
 
 -------------------------------------
--- function initUI
+-- function setGameResult
 -------------------------------------
 function UI_ClanWarSelectSceneListItem:setGameResult(l_result)
     local vars = self.vars
@@ -178,7 +178,7 @@ function UI_ClanWarSelectSceneListItem:update(dt)
 end
 
 -------------------------------------
--- function setEndDate
+-- function setEndTime
 -------------------------------------
 function UI_ClanWarSelectSceneListItem:setEndTime(end_time)
     self.m_endTime = end_time or 0

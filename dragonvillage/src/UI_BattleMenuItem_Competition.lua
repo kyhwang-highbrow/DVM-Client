@@ -384,7 +384,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo_grandArena()
 end
 
 -------------------------------------
--- function updateChallengeMode
+-- function startUpdateChallengeMode
 -- @brief 이벤트 그림자의 신전
 -------------------------------------
 function UI_BattleMenuItem_Competition:startUpdateChallengeMode(timer_key, has_reward, param_title, param_msg)

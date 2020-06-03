@@ -23,7 +23,7 @@ function UI_ClanWarLeagueResultPopup:init(struct_league)
 end
 
 -------------------------------------
--- function initUI
+-- function initRankUI
 -------------------------------------
 function UI_ClanWarLeagueResultPopup:initRankUI(struct_league)
 	local vars = self.vars
@@ -43,7 +43,7 @@ function UI_ClanWarLeagueResultPopup:initRankUI(struct_league)
 end
 
 -------------------------------------
--- function initUI
+-- function initDetailRankUI
 -------------------------------------
 function UI_ClanWarLeagueResultPopup:initDetailRankUI(struct_league_item)
 	local vars = self.vars

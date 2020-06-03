@@ -94,7 +94,7 @@ function UI_ChapterSelect:setRefreshClose(stage_id)
 end
 
 -------------------------------------
--- function click_exitBtn
+-- function click_closeBtn
 -------------------------------------
 function UI_ChapterSelect:click_closeBtn()
     self:close()

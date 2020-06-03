@@ -60,7 +60,7 @@ function UI_ClanWarMatchingSceneListItem:initUI(data)
 end
 
 -------------------------------------
--- function initUI
+-- function update
 -------------------------------------
 function UI_ClanWarMatchingSceneListItem:update()
     local vars = self.vars

@@ -263,7 +263,7 @@ function UI_ClanwarRewardInfoPopupList:init(data)
 end
 
 -------------------------------------
--- function init
+-- function initUI
 -------------------------------------
 function UI_ClanwarRewardInfoPopupList:initUI(data)
     local vars = self.vars

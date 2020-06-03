@@ -55,7 +55,7 @@ function UI_CapsuleBoxTodayListItem:initUI()
 end
 
 -------------------------------------
--- function initItemCard
+-- function initButton
 -------------------------------------
 function UI_CapsuleBoxTodayListItem:initButton()
 end

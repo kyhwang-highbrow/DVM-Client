@@ -35,7 +35,7 @@ function UI_ClanWarLastGroupStagePopup:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function initButton
 -------------------------------------
 function UI_ClanWarLastGroupStagePopup:initButton()
 	local vars = self.vars

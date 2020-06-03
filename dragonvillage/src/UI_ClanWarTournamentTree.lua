@@ -143,7 +143,7 @@ function UI_ClanWarTournamentTree:initButton()
 end
 
 -------------------------------------
--- function initButton
+-- function initUI
 -------------------------------------
 function UI_ClanWarTournamentTree:initUI()
 	local vars = self.vars

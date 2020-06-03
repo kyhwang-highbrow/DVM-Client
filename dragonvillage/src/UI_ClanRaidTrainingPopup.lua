@@ -85,7 +85,7 @@ function UI_ClanRaidTrainingPopup:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function onChangeTab
 -------------------------------------
 function UI_ClanRaidTrainingPopup:onChangeTab(tab, first)
     local vars = self.vars
@@ -142,7 +142,7 @@ function UI_ClanRaidTrainingPopup:onTouchBegan(touch, event)
 end
 
 -------------------------------------
--- function onTouchBegan
+-- function onTouchMoved
 -------------------------------------
 function UI_ClanRaidTrainingPopup:onTouchMoved(touch, event)
     local vars = self.vars

@@ -116,7 +116,7 @@ function UI_Card:setSpriteVisible(lua_name, res, visible)
 end
 
 -------------------------------------
--- function makeAnimator
+-- function makeVisual
 -- @brief animator사용
 -- @comment 여기 res는 사실상 필요없는데...
 -------------------------------------
@@ -151,7 +151,7 @@ function UI_Card:setAnimatorVisible(lua_name, res, ani, visible)
 end
 
 -------------------------------------
--- function setAnimatorVisible
+-- function setAnimatorVisible_IgnoreLowMode
 -- @brief visible 관리하고 없다면 만든다.
 -------------------------------------
 function UI_Card:setAnimatorVisible_IgnoreLowMode(lua_name, res, ani, visible)

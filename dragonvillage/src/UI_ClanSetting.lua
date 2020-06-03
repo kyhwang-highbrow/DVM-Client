@@ -229,7 +229,7 @@ function UI_ClanSetting:onTouchBegan(touch, event)
 end
 
 -------------------------------------
--- function onTouchBegan
+-- function onTouchMoved
 -------------------------------------
 function UI_ClanSetting:onTouchMoved(touch, event)
     local vars = self.vars

@@ -134,7 +134,7 @@ function UI_CapsuleBoxRewardList:click_closeBtn()
 end
 
 -------------------------------------
--- function click_exitBtn
+-- function makeRewardCell
 -------------------------------------
 function UI_CapsuleBoxRewardList.makeRewardCell(struct_reward)
 	local ui = class(UI, ITableViewCell:getCloneTable())()

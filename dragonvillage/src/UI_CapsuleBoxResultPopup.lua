@@ -66,7 +66,7 @@ function UI_CapsuleBoxResultPopup:initUI()
 end
 
 -------------------------------------
--- function setItmeCardRarity()
+-- function setItemCardRarity
 -------------------------------------
 function UI_CapsuleBoxResultPopup:setItemCardRarity(item_card, grade)
 	if (not grade) then
@@ -87,7 +87,7 @@ function UI_CapsuleBoxResultPopup:setItemCardRarity(item_card, grade)
 end
 
 -------------------------------------
--- function getRarity()
+-- function getRarity
 -- @brief 1,2등급인지 판단
 -------------------------------------
 function UI_CapsuleBoxResultPopup:getRarity(item_id)

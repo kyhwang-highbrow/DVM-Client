@@ -91,7 +91,7 @@ function UI_ClanTabInfo:init_TableView()
 end
 
 -------------------------------------
--- function update_topRankTableView
+-- function update_tableView
 -------------------------------------
 function UI_ClanTabInfo:update_tableView(target_offset)
     local function finish_cb(ret, rank_list)

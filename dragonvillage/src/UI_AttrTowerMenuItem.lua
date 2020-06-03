@@ -75,7 +75,7 @@ function UI_AttrTowerMenuItem:refresh()
 end
 
 -------------------------------------
--- function refresh
+-- function show_gauge_effect
 -------------------------------------
 function UI_AttrTowerMenuItem:show_gauge_effect()
     local vars = self.vars

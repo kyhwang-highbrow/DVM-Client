@@ -197,7 +197,7 @@ function UI_ClanWarSelect_RivalListItem:update(dt)
 end
 
 -------------------------------------
--- function setEndDate
+-- function setEndTime
 -------------------------------------
 function UI_ClanWarSelect_RivalListItem:setEndTime(end_time)
     self.m_endTime = end_time or 0

@@ -194,7 +194,7 @@ function UI_ClanMemberListItem:click_banishBtn()
 end
 
 -------------------------------------
--- function click_friendlyBattleBtn 
+-- function click_friendlyBattleBtn
 -- @brief 클랜원 친선전
 -------------------------------------
 function UI_ClanMemberListItem:click_friendlyBattleBtn()

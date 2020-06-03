@@ -260,7 +260,7 @@ function UI_ColosseumResult:direction_end()
 end
 
 -------------------------------------
--- function direction_end
+-- function direction_end_click
 -------------------------------------
 function UI_ColosseumResult:direction_end_click()
 end
@@ -320,7 +320,7 @@ function UI_ColosseumResult:direction_winReward()
 	ui:setCloseCB(function() self:doNextWork() end)
 end
 -------------------------------------
--- function direction_winReward
+-- function direction_winReward_click
 -------------------------------------
 function UI_ColosseumResult:direction_winReward_click()
 end
