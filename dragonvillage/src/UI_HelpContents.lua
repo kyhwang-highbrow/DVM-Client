@@ -6,7 +6,7 @@ local make_child_menu = function(self, ui_name, ui_depth)
 end
 
 -------------------------------------
--- function UI_HelpClan
+-- function UI_HelpContents
 -------------------------------------
 function UI_HelpContents(...)
     local defualt_tab = ...

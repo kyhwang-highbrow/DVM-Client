@@ -1379,7 +1379,7 @@ function UI_Lobby:click_matchCardBtn()
 end
 
 -------------------------------------
--- function click_mandragoraBtn 
+-- function click_mandragoraBtn
 -- @brief 만드라고라의 모험 이벤트
 -------------------------------------
 function UI_Lobby:click_mandragoraBtn()
@@ -1390,7 +1390,7 @@ function UI_Lobby:click_mandragoraBtn()
 end
 
 -------------------------------------
--- function click_adventBtn 
+-- function click_adventBtn
 -- @brief 깜짝 출현 이벤트
 -------------------------------------
 function UI_Lobby:click_adventBtn()

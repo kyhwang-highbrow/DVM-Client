@@ -105,7 +105,7 @@ function UI_HallOfFameRankListItem:setNormalRank()
 end
 
 -------------------------------------
--- function setNormalRank
+-- function setScoreDesc
 -------------------------------------
 function UI_HallOfFameRankListItem:setScoreDesc(score)
     local score = tonumber(score)

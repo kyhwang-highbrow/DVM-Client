@@ -130,7 +130,7 @@ function UI_LoginPopupWithoutFirebase:click_guestBtn()
 end
 
 -------------------------------------
--- function click_changeServer()
+-- function click_changeServer
 -- @brief 서버 변경
 -------------------------------------
 function UI_LoginPopupWithoutFirebase:click_changeServer()

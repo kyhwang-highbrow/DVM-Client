@@ -149,7 +149,7 @@ function UI_ItemPickPopup:click_choiceBtn()
 end
 
 -------------------------------------
--- function click_rewardBtn
+-- function request_eventThankReward
 -------------------------------------
 function UI_ItemPickPopup:request_eventThankReward()  
     -- 파라미터

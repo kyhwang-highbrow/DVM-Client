@@ -51,7 +51,7 @@ function UI_Help:refresh()
 end
 
 -------------------------------------
--- function refresh
+-- function click_closeBtn
 -------------------------------------
 function UI_Help:click_closeBtn()
     self:close()

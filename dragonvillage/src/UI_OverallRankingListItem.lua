@@ -83,7 +83,7 @@ function UI_OverallRankingListItem:refresh()
 end
 
 -------------------------------------
--- function click_detailBtn
+-- function makeDataPretty
 -------------------------------------
 function UI_OverallRankingListItem:makeDataPretty(t_data)
 	self.m_tRankInfo = t_data

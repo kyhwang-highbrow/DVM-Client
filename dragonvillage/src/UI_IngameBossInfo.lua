@@ -64,7 +64,7 @@ function UI_IngameBossInfo:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function makeSkillButton
 -------------------------------------
 function UI_IngameBossInfo:makeSkillButton(skill_id)
     local vars = self.vars

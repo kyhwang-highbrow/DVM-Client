@@ -36,7 +36,7 @@ local set_after = function(ui_name, ui)
 end
 
 -------------------------------------
--- function UI_HelpRune
+-- function UI_HelpGrandArena
 -- @brief UI 자동 생성
 -------------------------------------
 function UI_HelpGrandArena(...)

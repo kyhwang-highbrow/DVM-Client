@@ -168,7 +168,7 @@ function UI_InventorySellItems:onTouchBegan(touch, event)
 end
 
 -------------------------------------
--- function onTouchBegan
+-- function onTouchMoved
 -------------------------------------
 function UI_InventorySellItems:onTouchMoved(touch, event)
     local vars = self.vars

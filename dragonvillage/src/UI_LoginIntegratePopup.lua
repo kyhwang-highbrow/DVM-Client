@@ -33,7 +33,7 @@ function UI_LoginIntegratePopup:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function close
 -------------------------------------
 function UI_LoginIntegratePopup:close()
     local vars = self.vars
@@ -122,7 +122,7 @@ function UI_LoginIntegratePopup:refresh()
 end
 
 -------------------------------------
--- function UI_LoginIntegratePopup
+-- function loginSuccess
 -------------------------------------
 function UI_LoginIntegratePopup:loginSuccess(info)
     local t_info = dkjson.decode(info)

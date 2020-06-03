@@ -284,7 +284,7 @@ end
 
 
 -------------------------------------
--- function getSkillDescStr
+-- function getToolTipDesc
 -------------------------------------
 function UI_ItemCard:getToolTipDesc()
     local item_id = self.m_itemID

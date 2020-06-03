@@ -161,7 +161,7 @@ function UI_MasterRoadRewardPopup:makeMasterRoadContent(is_start_with_move)
 end
 
 -------------------------------------
--- function makeMasterRoadContent
+-- function showNext
 -------------------------------------
 function UI_MasterRoadRewardPopup:showNext()
     self:makeMasterRoadContent(true) -- is_start_with_move
@@ -199,7 +199,7 @@ function UI_MasterRoadRewardPopupItem:init(close_cb, reward_cb)
 end
 
 -------------------------------------
--- function initUI
+-- function initButton
 -------------------------------------
 function UI_MasterRoadRewardPopupItem:initButton()
     local vars = self.vars

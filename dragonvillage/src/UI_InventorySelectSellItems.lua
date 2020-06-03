@@ -90,7 +90,7 @@ function UI_InventorySelectSellItems:setActive(active)
 end
 
 -------------------------------------
--- function setActive
+-- function setSelectedItem
 -------------------------------------
 function UI_InventorySelectSellItems:setSelectedItem(ui, data)
     if (not self.m_bActive) then

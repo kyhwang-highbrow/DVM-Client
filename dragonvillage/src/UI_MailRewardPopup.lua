@@ -58,7 +58,7 @@ function UI_MailRewardPopup:initButton()
 end
 
 -------------------------------------
--- function removeMailLabel
+-- function removeMailMsg
 -------------------------------------
 function UI_MailRewardPopup:removeMailMsg()
     local vars = self.vars

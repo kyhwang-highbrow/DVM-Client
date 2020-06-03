@@ -424,7 +424,7 @@ function UI_IngameDragonPanelItem:onTouchBegan(t_event)
 end
 
 -------------------------------------
--- function setSkillGaugeInactive
+-- function setPanelInActive
 -- @brief
 -------------------------------------
 function UI_IngameDragonPanelItem:setPanelInActive()

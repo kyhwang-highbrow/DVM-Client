@@ -142,7 +142,7 @@ function UI_IngameTamerPanelItem:onTouchBegan(t_event)
 end
 
 -------------------------------------
--- function onTouchBegan
+-- function onTouchEnded
 -- @brief
 -------------------------------------
 function UI_IngameTamerPanelItem:onTouchEnded(t_event)

@@ -84,7 +84,7 @@ function UI_LoadingGuide_Patch:getNextGuideTable(idx)
 end
 
 -------------------------------------
--- function showDragonInfo
+-- function setCleanMenu
 -------------------------------------
 function UI_LoadingGuide_Patch:setCleanMenu()
     local vars = self.vars

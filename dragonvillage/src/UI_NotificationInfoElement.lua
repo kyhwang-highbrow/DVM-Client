@@ -141,7 +141,7 @@ end
 
 
 -------------------------------------
--- function setDescText
+-- function sampleCode
 -------------------------------------
 function UI_NotificationInfoElement:sampleCode(self)
 

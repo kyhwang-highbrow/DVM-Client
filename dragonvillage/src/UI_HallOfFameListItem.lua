@@ -9,7 +9,7 @@ UI_HallOfFameListItem = class(PARENT,{
 	})
 
 -------------------------------------
--- function initF
+-- function init
 -------------------------------------
 function UI_HallOfFameListItem:init(t_data, idx)
     local vars = self:load('hall_of_fame_scene_item.ui')

@@ -124,7 +124,7 @@ function UI_IllusionShop:click_exitBtn()
 end
 
 -------------------------------------
--- function click_exitBtn
+-- function getProductCnt
 -------------------------------------
 function UI_IllusionShop:getProductCnt(target_product_id)
     local target_product_id = tostring(target_product_id)
@@ -202,7 +202,7 @@ function UI_IllusionShopListItem:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function initButton
 -------------------------------------
 function UI_IllusionShopListItem:initButton()
     local vars = self.vars
@@ -210,7 +210,7 @@ function UI_IllusionShopListItem:initButton()
 end
 
 -------------------------------------
--- function initUI
+-- function setBuyCnt
 -------------------------------------
 function UI_IllusionShopListItem:setBuyCnt(buy_cnt)
     local data = self.m_data

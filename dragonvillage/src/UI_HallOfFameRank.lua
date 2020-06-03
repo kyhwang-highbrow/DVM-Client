@@ -65,7 +65,7 @@ function UI_HallOfFameRank:initButton()
 end
 
 -------------------------------------
--- function initUI
+-- function onChangeTab
 -------------------------------------
 function UI_HallOfFameRank:onChangeTab(tab, first)
 	if (tab == 'hall_of_fame') then

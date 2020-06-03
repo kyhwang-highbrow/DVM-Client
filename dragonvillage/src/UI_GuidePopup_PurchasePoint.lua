@@ -57,7 +57,7 @@ function UI_GuidePopup_PurchasePoint:refresh()
 end
 
 -------------------------------------
--- function refresh
+-- function click_closeBtn
 -------------------------------------
 function UI_GuidePopup_PurchasePoint:click_closeBtn()
     self:close()

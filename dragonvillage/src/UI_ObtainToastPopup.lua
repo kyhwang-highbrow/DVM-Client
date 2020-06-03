@@ -35,7 +35,7 @@ function UI_ObtainToastPopup:init(l_item)
 end
 
 -------------------------------------
--- function setReward
+-- function setObtainList
 -------------------------------------
 function UI_ObtainToastPopup:setObtainList(l_item)
     self.m_lOtainItem = l_item

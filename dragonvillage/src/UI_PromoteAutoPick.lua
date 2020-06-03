@@ -61,7 +61,7 @@ function UI_PromoteAutoPick:click_okay()
 end
 
 -------------------------------------
--- function click_okay
+-- function click_cancle
 -------------------------------------
 function UI_PromoteAutoPick:click_cancle()
     self:close()

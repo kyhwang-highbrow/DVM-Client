@@ -119,7 +119,7 @@ function UI_Package_LevelUpListItem:click_rewardBtn()
 end
 
 -------------------------------------
--- function init
+-- function createItem
 -------------------------------------
 function UI_Package_LevelUpListItem.createItem(data, product_id)
     if (product_id == LEVELUP_PACKAGE_PRODUCT_ID) then

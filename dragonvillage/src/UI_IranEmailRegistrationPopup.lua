@@ -105,7 +105,7 @@ function UI_IranEmailRegistrationPopup:validpw(pw, pw2)
 end
 
 -------------------------------------
--- function click_emailLoginBtn
+-- function click_confirmBtn
 -- @brief 확인 버튼
 -------------------------------------
 function UI_IranEmailRegistrationPopup:click_confirmBtn()

@@ -155,7 +155,7 @@ function UI_ObtainPopup:click_okBtn()
 end
 
 -------------------------------------
--- function click_okBtn
+-- function createListUI
 -------------------------------------
 function UI_ObtainPopup:createListUI(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
@@ -188,7 +188,7 @@ function UI_ObtainPopup:createListUI(t_data)
 end
 
 -------------------------------------
--- function createListUI
+-- function createMailListUI
 -------------------------------------
 function UI_ObtainPopup.createMailListUI(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
@@ -334,7 +334,7 @@ function ItemObtainResult(t_ret, is_mail)
 end
 
 -------------------------------------
--- function ItemObtainResult
+-- function ItemObtainResult_hasCloseCb
 -- @brief 아이템 보여준 후 콜백이 필요할 경우 사용하는 팝업
 -- @param t_ret
 -------------------------------------

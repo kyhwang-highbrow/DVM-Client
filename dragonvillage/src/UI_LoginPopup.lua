@@ -261,7 +261,7 @@ function UI_LoginPopup:click_guestBtn()
 end
 
 -------------------------------------
--- function click_changeServer()
+-- function click_changeServer
 -------------------------------------
 function UI_LoginPopup:click_changeServer()
     local function onFinish( name )        

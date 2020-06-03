@@ -235,7 +235,7 @@ function UI_MailPopup:click_rewardBtn(ui, struct_mail)
 end
 
 -------------------------------------
--- function canNotBuy
+-- function canNotReward
 -------------------------------------
 function UI_MailPopup:canNotReward(struct_mail)
     if (not struct_mail) then
