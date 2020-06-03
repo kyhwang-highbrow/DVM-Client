@@ -1159,7 +1159,7 @@ end
 
 
 -------------------------------------
--- function relocateContainerFromIndex 
+-- function relocateContainerFromIndex
 -- @brief container 중앙에 해당 idx가 위치하도록 함
 -------------------------------------
 function UIC_TableViewTD:relocateContainerFromIndex(idx,_show_cnt, _offset, max_pos_)

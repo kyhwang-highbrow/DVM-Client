@@ -75,7 +75,7 @@ end
 -- function makeEventDidList
  -- param : 120301, 120302, 120303, 120304, 120305
 -------------------------------------
-function StructEventIllusion:makeEventDidList(event_did_str) -- param : 120301, 120302, 120303, 120304, 120305
+function StructEventIllusion:makeEventDidList(event_did_str)
     local l_did = plSplit(event_did_str, ',')
     return l_did or {}
 end

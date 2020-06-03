@@ -168,7 +168,7 @@ function UI_2DDeck:setFormation(formation, force_arena)
 end
 
 -------------------------------------
--- function refreshLeader
+-- function refreshLeaderSprite
 -- @brief 리더 위치에 다시 붙여준다.
 -------------------------------------
 function UI_2DDeck:refreshLeaderSprite(tar_idx)

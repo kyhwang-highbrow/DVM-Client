@@ -217,7 +217,7 @@ function UI_AncientTowerRankNew:onChangeRankingType(type)
 end
 
 -------------------------------------
--- function onChangeRankingType
+-- function onChangeRankingType_Clan
 -- @brief
 -------------------------------------
 function UI_AncientTowerRankNew:onChangeRankingType_Clan(type)
@@ -445,7 +445,7 @@ function UI_AncientTowerRankNew:makeClanRank()
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function makeMyClanRankNode
 -------------------------------------
 function UI_AncientTowerRankNew:makeMyClanRankNode()
     local vars = self.vars

@@ -203,7 +203,7 @@ function UI_ArenaTabRank:request_clanRank()
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function makeMyClanRankNode
 -------------------------------------
 function UI_ArenaTabRank:makeMyClanRankNode()
     local vars = self.vars
@@ -234,7 +234,7 @@ function UI_ArenaTabRank:makeMyClanRankNode()
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function makeClanRankTableView
 -------------------------------------
 function UI_ArenaTabRank:makeClanRankTableView()
     local vars = self.vars

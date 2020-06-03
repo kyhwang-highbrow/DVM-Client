@@ -59,7 +59,7 @@ function UI_AdventureStageInfo:initUI()
 end
 
 -------------------------------------
--- function initUI
+-- function initTab
 -------------------------------------
 function UI_AdventureStageInfo:initTab()
     local vars = self.vars
@@ -416,7 +416,7 @@ function UI_AdventureStageInfo:click_enterBtn()
 end
 
 -------------------------------------
--- function click_tabBtn
+-- function onChangeTab
 -- @brief '획득 가능 보상', '출현 정보'
 -------------------------------------
 function UI_AdventureStageInfo:onChangeTab(tab, first)

@@ -24,7 +24,7 @@ function TableSlimeExp:makeExpID(grade, lv)
 end
 
 -------------------------------------
--- function getDragonMaxExpmax_exp
+-- function getDragonMaxExp
 -- @breif 드래곤의 등급, 레벨에 따른 최대 경험치
 -------------------------------------
 function TableSlimeExp:getDragonMaxExp(grade, lv)

@@ -133,7 +133,7 @@ function UI_ArenaHistoryListItem:click_retryBtn()
 end
 
 -------------------------------------
--- function click_friendlyBattleBtn 
+-- function click_friendlyBattleBtn
 -- @brief 복수전, 재도전에 대한 친선전
 -------------------------------------
 function UI_ArenaHistoryListItem:click_friendlyBattleBtn()

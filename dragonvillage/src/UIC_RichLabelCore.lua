@@ -64,7 +64,7 @@ function UIC_RichLabel:makeContentData(key, text)
 end
 
 -------------------------------------
--- function splitRichText
+-- function parseRichText
 -- @brief 
 -------------------------------------
 function UIC_RichLabel:parseRichText(text)

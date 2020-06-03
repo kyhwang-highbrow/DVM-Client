@@ -29,7 +29,7 @@ function ToastManager:getInstance()
 end
 
 -------------------------------------
--- function init
+-- function addToastItem
 -------------------------------------
 function ToastManager:addToastItem(toast_type, ui_item, delay_time, height, pos_y) -- toast_type, ui_item, delay_time, height, pos_y
     

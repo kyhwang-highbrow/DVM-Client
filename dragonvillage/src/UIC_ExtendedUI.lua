@@ -80,7 +80,7 @@ function UIC_ExtendedUI:create(ui_res)
 end
 
 -------------------------------------
--- function ToggleVisibility
+-- function toggleVisibility
 -------------------------------------
 function UIC_ExtendedUI:toggleVisibility()
     if self.m_bShow then

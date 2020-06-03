@@ -270,7 +270,7 @@ function UI_ArenaResult:direction_end()
 end
 
 -------------------------------------
--- function direction_end
+-- function direction_end_click
 -------------------------------------
 function UI_ArenaResult:direction_end_click()
 end
@@ -336,7 +336,7 @@ function UI_ArenaResult:direction_winReward()
     end
 end
 -------------------------------------
--- function direction_winReward
+-- function direction_winReward_click
 -------------------------------------
 function UI_ArenaResult:direction_winReward_click()
 end

@@ -658,7 +658,7 @@ function MakeUICSortList_teamList(button, label, type)
 end
 
 -------------------------------------
--- function MakeUICSortList_scenarioPlayerStting
+-- function MakeUICSortList_scenarioPlayerSetting
 -- @brief 시나리오 재생 설정
 --        1. 최초 1회만 보기
 --        2. 항상 보기

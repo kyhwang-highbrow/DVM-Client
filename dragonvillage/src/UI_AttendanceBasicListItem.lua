@@ -73,7 +73,7 @@ function UI_AttendanceBasicListItem:click_clickBtn()
 end
 
 -------------------------------------
--- function getSkillDescStr
+-- function getToolTipDesc
 -------------------------------------
 function UI_AttendanceBasicListItem:getToolTipDesc()
     local item_id = self.m_tItemData['item_id']

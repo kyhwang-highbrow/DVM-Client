@@ -143,7 +143,7 @@ function UIC_RankingList:makeRankMoveBtn(prev_cb, next_cb, offset_gap)
 end
 
 -------------------------------------
--- function setRankList
+-- function makeRankList
 -------------------------------------
 function UIC_RankingList:makeRankList(node)
     local l_item = self.m_itemList
@@ -241,7 +241,7 @@ function UIC_RankingList:setFocus(value_type, value)
 end
 
 -------------------------------------
--- function makeMyRank
+-- function setMyRank
 -------------------------------------
 function UIC_RankingList:setMyRank(make_my_rank_cb)
     self.m_makeMyRankCb = make_my_rank_cb

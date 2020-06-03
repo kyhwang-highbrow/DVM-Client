@@ -354,7 +354,7 @@ function UINavigatorDefinition:goTo_colosseum(...)
 end
 
 -------------------------------------
--- function goTo_colosseum
+-- function goTo_colosseum_old
 -- @brief 콜로세움으로 이동
 -- @usage UINavigatorDefinition:goTo('colosseum_old')
 -------------------------------------

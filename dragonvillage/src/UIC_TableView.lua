@@ -964,7 +964,7 @@ function UIC_TableView:relocateContainerDefault(animated)
 end
 
 -------------------------------------
--- function relocateContainerFromIndex 
+-- function relocateContainerFromIndex
 -- @brief container 중앙에 해당 idx가 위치하도록 함
 -------------------------------------
 function UIC_TableView:relocateContainerFromIndex(idx, animated)
@@ -993,7 +993,7 @@ function UIC_TableView:relocateContainerFromIndex(idx, animated)
 end
 
 -------------------------------------
--- function relocateContainerFirstFromIndex 
+-- function relocateContainerFirstFromIndex
 -- @brief container 첫번째에 해당 idx가 위치하도록 함, move_pos로 위치 커스텀 가능
 -------------------------------------
 function UIC_TableView:relocateContainerFirstFromIndex(idx, animated, move_pos_x, move_pos_y)
@@ -1278,7 +1278,7 @@ function UIC_TableView:getItemCount()
 end
 
 -------------------------------------
--- function mergeItemList
+-- function addItemList
 -- @breif
 -------------------------------------
 function UIC_TableView:addItemList(list)
@@ -1493,7 +1493,7 @@ function UIC_TableView:setDirection(direction)
 end
 
 -------------------------------------
--- function setScrollEndLock
+-- function setScrollLock
 -------------------------------------
 function UIC_TableView:setScrollLock(b)
 	self.m_scrollView:setTouchEnabled(not b)

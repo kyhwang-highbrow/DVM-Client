@@ -143,7 +143,7 @@ function UI_ArenaRankClanPopup:requestRank(_offset) -- 다음/이전 버튼 눌�
 end
 
 -------------------------------------
--- function makeRewarTableView
+-- function makeRewardTableView
 -------------------------------------
 function UI_ArenaRankClanPopup:makeRewardTableView(ret)
     local vars = self.vars

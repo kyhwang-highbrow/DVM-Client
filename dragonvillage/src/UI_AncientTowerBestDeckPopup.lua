@@ -105,7 +105,7 @@ function UI_AncientTowerBestDeckPopup:refresh()
 end
 
 -------------------------------------
--- function setMoveBtnFunc
+-- function setFuncMove
 -------------------------------------
 function UI_AncientTowerBestDeckPopup:setFuncMove(func_move)
     self.m_moveCb = func_move

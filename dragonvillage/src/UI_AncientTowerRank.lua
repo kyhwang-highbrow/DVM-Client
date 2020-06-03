@@ -268,7 +268,7 @@ function UI_AncientTowerRank:init_rewardTableView()
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function makeMyClanRankNode
 -------------------------------------
 function UI_AncientTowerRank:makeMyClanRankNode()
     local vars = self.m_uiScene.vars

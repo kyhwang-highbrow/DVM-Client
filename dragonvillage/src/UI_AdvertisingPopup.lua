@@ -73,7 +73,7 @@ function UI_AdvertisingPopup:refresh()
 end
 
 -------------------------------------
--- function showRewardList
+-- function setRewardList
 -------------------------------------
 function UI_AdvertisingPopup:setRewardList()
     local node = self.vars['itemNode']
@@ -129,7 +129,7 @@ function UI_AdvertisingPopup:click_okBtn()
 end
 
 -------------------------------------
--- function click_cancelBtn
+-- function click_closeBtn
 -------------------------------------
 function UI_AdvertisingPopup:click_closeBtn()
     self:close()

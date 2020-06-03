@@ -58,7 +58,7 @@ function TutorialManager:init(is_singleton)
 end
 
 -------------------------------------
--- private function __startTutorial
+-- function _startTutorial
 -------------------------------------
 local function _startTutorial(tutorial_mgr, tutorial_key, tar_ui)
     -- 튜토리얼 실행 : UI세팅
@@ -718,7 +718,7 @@ function TutorialManager:attachToTutorialNode(uic_node)
 end
 
 -------------------------------------
--- function revertTutorialBtn
+-- function revertNode
 -- @brief m_tutorialNode에 붙여놓은 uic_node를 되돌린다.
 -------------------------------------
 function TutorialManager:revertNode(uic_node)
@@ -832,7 +832,7 @@ function TutorialManager:isDoing()
 end
 
 -------------------------------------
--- function isDoing
+-- function forcedClose
 -- @brief 튜토리얼 실행중 여부
 -------------------------------------
 function TutorialManager:forcedClose()
@@ -844,7 +844,7 @@ function TutorialManager:forcedClose()
 end
 
 -------------------------------------
--- function isFirstTutorialDone
+-- function beforeFirstTutorialDone
 -- @comment 첫 번째 튜토리얼 시작 전이라면 return true
 -------------------------------------
 function TutorialManager:beforeFirstTutorialDone()

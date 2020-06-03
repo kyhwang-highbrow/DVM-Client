@@ -144,7 +144,7 @@ function TablePackageBundle:getPackageDescWithPid(pid)
 end
 
 -------------------------------------
--- function getPids
+-- function getPidsWithName
 -------------------------------------
 function TablePackageBundle:getPidsWithName(package_name)
     if (self == THIS) then

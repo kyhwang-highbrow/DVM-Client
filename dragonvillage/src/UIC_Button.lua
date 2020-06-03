@@ -297,7 +297,7 @@ function UIC_Button:setPositionY(y)
 end
 
 -------------------------------------
--- function isSelected
+-- function isEnabled
 -- @brief
 -------------------------------------
 function UIC_Button:isEnabled()
@@ -378,7 +378,7 @@ function UIC_Button:setClickSoundName(sound_name)
 end
 
 -------------------------------------
--- function func_press
+-- function setPressedCB
 -------------------------------------
 function UIC_Button:setPressedCB(func_press)
     self.m_pressCB = func_press

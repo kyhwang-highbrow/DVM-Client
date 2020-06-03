@@ -22,7 +22,7 @@ function Tamer.st_skillAppear(owner, dt)
 end
 
 -------------------------------------
--- function st_skillAppear
+-- function st_skillIdle
 -------------------------------------
 function Tamer.st_skillIdle(owner, dt)
     if (owner.m_stateTimer == 0) then

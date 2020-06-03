@@ -124,7 +124,7 @@ function UI_AdventureSceneNew:initButton()
 end
 
 -------------------------------------
--- function initButton
+-- function makeUICSortList
 -- @brief
 -------------------------------------
 function UI_AdventureSceneNew:makeUICSortList()

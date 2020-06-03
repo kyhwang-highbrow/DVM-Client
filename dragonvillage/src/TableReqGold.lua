@@ -43,7 +43,7 @@ function TableReqGold:getDragonSkillEnhanceReqGold(skill_lv)
 end
 
 -------------------------------------
--- function getDragonSkillEnhanceReqGold
+-- function getReqGold
 -------------------------------------
 function TableReqGold:getReqGold(key, skill_lv)
     if (self == THIS) then

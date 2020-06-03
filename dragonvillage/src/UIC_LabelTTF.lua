@@ -69,7 +69,7 @@ function UIC_LabelTTF:initGLNode()
 end
 
 -------------------------------------
--- function primitivesDraw.
+-- function primitivesDraw
 -------------------------------------
 function UIC_LabelTTF:primitivesDraw(transform, transformUpdated)
     kmGLPushMatrix()
@@ -361,7 +361,7 @@ function UIC_LabelTTF:getTotalHeight()
 end
 
 -------------------------------------
--- function setDimension
+-- function setDimensions
 -- @brief
 -------------------------------------
 function UIC_LabelTTF:setDimensions(width, height)

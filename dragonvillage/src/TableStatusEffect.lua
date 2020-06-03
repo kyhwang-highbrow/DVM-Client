@@ -76,7 +76,7 @@ function TableStatusEffect:getRes(key, attr)
 end
 
 -------------------------------------
--- function getRes
+-- function getRes2
 -------------------------------------
 function TableStatusEffect:getRes2(key, attr)
     local t_table = self:get(key)

@@ -72,7 +72,7 @@ function TableSecretDungeon:getRandomDragonList(stage_id)
 end
 
 -------------------------------------
--- function getRandomDragonList
+-- function getObtainableDragonList
 -------------------------------------
 function TableSecretDungeon:getObtainableDragonList()
     if (self == THIS) then
