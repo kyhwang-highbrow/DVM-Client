@@ -299,7 +299,7 @@ end
 
 local T_RUNE_STAT_NAME
 -------------------------------------
--- function getRecommendRune
+-- function getRecommendRuneInfo
 -- @brief 추천 룬 정보 반환
 -------------------------------------
 function TableDragon:getRecommendRuneInfo(did)
@@ -383,7 +383,7 @@ function TableDragon:getChanceUpDragonName(did)
 end
 
 -------------------------------------
--- function getChanceUpDragonName
+-- function getChanceUpDragonName2
 -------------------------------------
 function TableDragon:getChanceUpDragonName2(did)
     if (self == THIS) then

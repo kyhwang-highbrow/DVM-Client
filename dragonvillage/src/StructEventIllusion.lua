@@ -73,6 +73,7 @@ end
 
 -------------------------------------
 -- function makeEventDidList
+ -- param : 120301, 120302, 120303, 120304, 120305
 -------------------------------------
 function StructEventIllusion:makeEventDidList(event_did_str) -- param : 120301, 120302, 120303, 120304, 120305
     local l_did = plSplit(event_did_str, ',')
@@ -91,14 +92,14 @@ end
 
 
 -------------------------------------
--- function getIllusionStageId
+-- function getCurIllusionStageId
 -------------------------------------
 function StructEventIllusion:getCurIllusionStageId()
     return self.m_curStageId
 end
 
 -------------------------------------
--- function getIllusionStageId
+-- function setCurIllusionStageId
 -------------------------------------
 function StructEventIllusion:setCurIllusionStageId(stage_id)
     self.m_curStageId = stage_id

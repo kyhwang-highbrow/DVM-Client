@@ -959,7 +959,7 @@ function StructProduct:getPrice()
 end
 
 -------------------------------------
--- function getPrice
+-- function getPriceType
 -------------------------------------
 function StructProduct:getPriceType()
 	return self['price_type']

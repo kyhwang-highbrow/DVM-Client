@@ -90,7 +90,7 @@ function TableDragonPhrase:getDragonShout(did, flv)
 end
 
 -------------------------------------
--- function getDragonPhrase
+-- function addPhraseByFlv
 -------------------------------------
 function TableDragonPhrase:addPhraseByFlv(sum_random, flv)
     if (flv <= 2) then
@@ -109,7 +109,7 @@ function TableDragonPhrase:addPhraseByFlv(sum_random, flv)
 end
 
 -------------------------------------
--- function getDragonPhrase
+-- function addShotByFlv
 -------------------------------------
 function TableDragonPhrase:addShotByFlv(sum_random, flv)
     if (flv <= 2) then

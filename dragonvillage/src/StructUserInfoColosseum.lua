@@ -130,7 +130,7 @@ function StructUserInfoColosseum:create_forHistory(t_data)
 end
 
 -------------------------------------
--- function create_forHistory
+-- function create
 -- @brief 전투 기록
 -------------------------------------
 function StructUserInfoColosseum:create(t_data, deck_type)

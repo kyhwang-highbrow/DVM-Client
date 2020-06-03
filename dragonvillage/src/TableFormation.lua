@@ -207,7 +207,7 @@ function TableFormation:getFormationName(formation)
 end
 
 -------------------------------------
--- function getFormationNameAndDesc
+-- function getFormatioDesc
 -- @breif UI에서 사용되는 진형 이름, 버프 내용
 -------------------------------------
 function TableFormation:getFormatioDesc(formation, formation_lv)
@@ -280,7 +280,7 @@ function TableFormation:getFormationNameAndDesc(formation)
 end
 
 -------------------------------------
--- function 
+-- function temp
 -- @TODO
 -------------------------------------
 function TableFormation:temp(formation)

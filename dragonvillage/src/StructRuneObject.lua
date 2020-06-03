@@ -342,7 +342,7 @@ function StructRuneObject:getRuneGrindReqGold()
 end
 
 -------------------------------------
--- function getRuneEnhanceReqGrindstone
+-- function getRuneGrindReqGrindstone
 -------------------------------------
 function StructRuneObject:getRuneGrindReqGrindstone()
     local rarity = self:getRarity()
@@ -607,7 +607,7 @@ function StructRuneObject:getGrade()
 end
 
 -------------------------------------
--- function getIcono
+-- function getIcon
 -------------------------------------
 function StructRuneObject:getIcon(opt_type)
     local option_type = self[opt_type]
@@ -725,7 +725,7 @@ function StructRuneObject:getGrindedOption()
 end
 
 -------------------------------------
--- function getGrindedOption
+-- function setGrindedOption
 -------------------------------------
 function StructRuneObject:setGrindedOption(opt_name)
      self.grind_opt = opt_name

@@ -99,7 +99,7 @@ end
 
 
 -------------------------------------
--- function getRuneObject
+-- function setRuneObjects
 -- @breif
 -------------------------------------
 function StructDragonObject:setRuneObjects(list)

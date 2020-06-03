@@ -26,7 +26,7 @@ StructUserInfoFriend = class(PARENT, {
     })
 
 -------------------------------------
--- function create_forRanking
+-- function create
 -- @brief 랭킹 유저 정보
 -------------------------------------
 function StructUserInfoFriend:create(t_data)

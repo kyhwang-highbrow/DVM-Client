@@ -299,7 +299,7 @@ function TableItem:getItemDesc(item_id)
 end
 
 -------------------------------------
--- function getItemName
+-- function getToolTipDesc
 -- @brief
 -------------------------------------
 function TableItem:getToolTipDesc(item_id)

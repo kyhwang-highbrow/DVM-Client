@@ -55,7 +55,7 @@ function StructRankReward:getRankRewardList()
 end
 
 -------------------------------------
--- function init
+-- function getPossibleReward
 -------------------------------------
 function StructRankReward:getPossibleReward(my_rank, my_ratio)
     local my_rank = tonumber(my_rank)

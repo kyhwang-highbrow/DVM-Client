@@ -265,7 +265,7 @@ function StructUserInfoClan:getAncientPlayText()
 end
 
 -------------------------------------
--- function getClanContribution
+-- function getClanContributionExp
 -------------------------------------
 function StructUserInfoClan:getClanContributionExp()
 	local t_dungeon = self.m_dungeonInfo

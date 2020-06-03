@@ -53,7 +53,7 @@ function StructTeamBonus:setFromDragonObjectList(l_dragon_data)
 end
 
 -------------------------------------
--- function findFromSatisfiedList
+-- function findDidFromSatisfiedList
 -- @brief 파라미터의 드래곤이 팀보너스를 만족시킨 대상에 들어가는지 확인
 -------------------------------------
 function StructTeamBonus:findDidFromSatisfiedList(did)

@@ -23,7 +23,7 @@ function TableForestStuffLevelInfo:init()
 end
 
 -------------------------------------
--- function init
+-- function makeFilteredTable
 -------------------------------------
 function TableForestStuffLevelInfo:makeFilteredTable()
     local l_key = {'nest', 'chest', 'table', 'well', 'bookshelf', 'extension'}

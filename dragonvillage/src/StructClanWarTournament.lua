@@ -114,7 +114,7 @@ function StructClanWarTournament:getMyClanLeft()
 end
 
 -------------------------------------
--- function isContainClan
+-- function getTournamentInfo
 -------------------------------------
 function StructClanWarTournament:getTournamentInfo(clan_id)
 	if (not self.m_tTournamentInfo) then

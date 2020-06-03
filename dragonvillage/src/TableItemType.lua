@@ -66,7 +66,7 @@ function TableItemType:isMailStaminas(item_id)
 end
 
 -------------------------------------
--- function isMailFP
+-- function isMailFp
 -- @brief 우편함의 '우정' 탭 아이템인지 여부
 -------------------------------------
 function TableItemType:isMailFp(item_id)

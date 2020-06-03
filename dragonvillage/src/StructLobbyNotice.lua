@@ -118,7 +118,7 @@ function StructLobbyNotice:getType()
 end
 
 -------------------------------------
--- function openPopup
+-- function openLobbyNoticePopup
 -- @brief
 -- @param finish_cb function
 -------------------------------------

@@ -27,7 +27,7 @@ function TableMasterySkill:getName(key)
 end
 
 -------------------------------------
--- function getRuneSetStatus
+-- function getMasterySkillStatus
 --
 -------------------------------------
 function TableMasterySkill:getMasterySkillStatus(mastery_id, lv)

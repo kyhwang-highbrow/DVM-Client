@@ -48,7 +48,7 @@ function StructEventMandragoraQuest:apply(t_data)
 end
 
 -------------------------------------
--- function isCurrentQuest
+-- function getCurrentQuestID
 -------------------------------------
 function StructEventMandragoraQuest:getCurrentQuestID()
     local curr_quest_info = g_mandragoraQuest.m_currentQuestInfo

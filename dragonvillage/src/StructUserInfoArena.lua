@@ -682,7 +682,7 @@ function StructUserInfoArena:getDeck(type)
 end
 
 -------------------------------------
--- function getPvpAtkDeck
+-- function getPvpDeck
 -- @brief 공격덱 정보 리턴
 -- @return table
 -- {

@@ -29,7 +29,7 @@ function StructUserInfoClanWar:setClanWarStructMatchItem(struct_match_item)
 end
 
 -------------------------------------
--- function setClanWarStructMatchItem
+-- function getClanWarStructMatchItem
 -------------------------------------
 function StructUserInfoClanWar:getClanWarStructMatchItem()
 	return self.m_structMatchItem

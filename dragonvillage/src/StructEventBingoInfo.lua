@@ -324,7 +324,7 @@ function StructEventBingoInfo:getBingoCntRewardState(ind)
 end
 
 -------------------------------------
--- function getBingoLineReward
+-- function getBingoLineRewardState
 -------------------------------------
 function StructEventBingoInfo:getBingoLineRewardState(ind)
     local t_line = self['bingo_line']

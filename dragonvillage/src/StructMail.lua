@@ -446,7 +446,7 @@ function StructMail:isNotice()
 end
 
 -------------------------------------
--- function isNoticeHasReward
+-- function isNoticeRead
 -------------------------------------
 function StructMail:isNoticeRead()
     return (self:isNotice() and (self['custom']['received'] == true))

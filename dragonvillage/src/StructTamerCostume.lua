@@ -240,7 +240,7 @@ function StructTamerCostume:getCid()
 end
 
 -------------------------------------
--- function getLv
+-- function getName
 -------------------------------------
 function StructTamerCostume:getName()
     return Str(self.m_name)

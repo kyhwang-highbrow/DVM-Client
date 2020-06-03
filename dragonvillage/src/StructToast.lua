@@ -43,7 +43,7 @@ function StructToast:init(toast_type, ui_item, delay_time, height, empty_cb, pos
 end
 
 -------------------------------------
--- function toastNotification
+-- function addToastItem
 -- @brief 
 -------------------------------------
 function StructToast:addToastItem(ui_item)

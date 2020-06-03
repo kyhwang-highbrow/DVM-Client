@@ -164,7 +164,7 @@ function StructClanWarLeague:getTodayMyMatchInfo()
 end
 
 -------------------------------------
--- function getClanWarLeagueMatchList
+-- function getMyLeagueRank
 -- @brief 조별 리그 일정
 -------------------------------------
 function StructClanWarLeague:getMyLeagueRank()

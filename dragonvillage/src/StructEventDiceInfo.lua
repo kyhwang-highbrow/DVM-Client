@@ -114,7 +114,7 @@ function StructEventDiceInfo:getAddDice()
 end
 
 -------------------------------------
--- function getAddDice
+-- function useAllAddDice
 -------------------------------------
 function StructEventDiceInfo:useAllAddDice()
     return (self['add_max'] <= self['add_dice'])

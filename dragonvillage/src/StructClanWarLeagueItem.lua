@@ -46,7 +46,7 @@ function StructClanWarLeagueItem:getThis()
 end
 
 -------------------------------------
--- function setLeaguInfo
+-- function getLeagueRank
 -------------------------------------
 function StructClanWarLeagueItem:getLeagueRank()
 	return tonumber(self['rank']) or 0
