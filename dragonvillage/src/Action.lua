@@ -322,7 +322,7 @@ function cca.pickMeBig(node, move_y, ori_y)
 end
 
 -------------------------------------
--- function brrrAction
+-- function getBrrrAction
 -- @brief 부르르르 떠는 액션
 -------------------------------------
 function cca.getBrrrAction(cnt)

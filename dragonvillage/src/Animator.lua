@@ -472,7 +472,7 @@ function Animator:setScale(scale)
 end
 
 -------------------------------------
--- function setScale
+-- function setScaleX
 -------------------------------------
 function Animator:setScaleX(scale)
     if (not self.m_node) then
@@ -485,7 +485,7 @@ function Animator:setScaleX(scale)
 end
 
 -------------------------------------
--- function setScale
+-- function setScaleY
 -------------------------------------
 function Animator:setScaleY(scale)
     if (not self.m_node) then

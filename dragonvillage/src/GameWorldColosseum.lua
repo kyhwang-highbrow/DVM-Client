@@ -21,7 +21,7 @@ function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, ga
 end
 
 -------------------------------------
--- function createComponent
+-- function createComponents
 -------------------------------------
 function GameWorldColosseum:createComponents()
     PARENT.createComponents(self)

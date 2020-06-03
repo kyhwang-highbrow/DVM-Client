@@ -375,7 +375,7 @@ function ScrollMap:setBg(res, attr)
 end
 
 -------------------------------------
--- function setBg
+-- function makeLayer
 -------------------------------------
 function ScrollMap:makeLayer(tParam, bFixedLayer)
     local map_layer

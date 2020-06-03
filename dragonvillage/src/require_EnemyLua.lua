@@ -299,7 +299,7 @@ function getWorldEnemyPos(enemy, key)
 end
 
 -------------------------------------
--- function getRandomEnemyPos
+-- function getRandomWorldEnemyPos
 -- @brief 적군의 상대 위치(현재 월드의 scale을 반영)
 -------------------------------------
 function getRandomWorldEnemyPos(enemy)

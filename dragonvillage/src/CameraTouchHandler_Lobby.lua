@@ -137,7 +137,7 @@ function CameraTouchHandler_Lobby:onTouchBegan(touches, event)
 end
 
 -------------------------------------
--- function onTouchBegan
+-- function onTouchMoved
 -------------------------------------
 function CameraTouchHandler_Lobby:onTouchMoved(touches, event)
     --cclog('CameraTouchHandler_Lobby:onTouchMoved')
@@ -314,7 +314,7 @@ function CameraTouchHandler_Lobby:onKeyPressed(keyCode, event)
 end
 
 -------------------------------------
--- function onKeyPressed
+-- function onKeyReleased
 -------------------------------------
 function CameraTouchHandler_Lobby:onKeyReleased(keyCode, event)
     self.m_tPressedKey[keyCode] = false

@@ -37,7 +37,7 @@ function GameTimeScale:init(world)
 end
 
 -------------------------------------
--- function init
+-- function update
 -------------------------------------
 function GameTimeScale:update(dt)
     if self.m_remainKeepTime > 0 then

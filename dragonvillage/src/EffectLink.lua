@@ -71,14 +71,14 @@ function EffectLink:setVisible(visible)
 end
 
 -------------------------------------
--- function setVisible
+-- function setScale
 -------------------------------------
 function EffectLink:setScale(scale)
     self.m_node:setScale(scale)
 end
 
 -------------------------------------
--- function rotate
+-- function EffectLink_setRotation
 -------------------------------------
 function EffectLink_setRotation(self, degree)
     local rotation = (-(degree - 90))
@@ -95,7 +95,7 @@ function EffectLink_setRotation(self, degree)
 end
 
 -------------------------------------
--- function ignoreLowEndMode
+-- function setIgnoreLowEndMode
 -------------------------------------
 function EffectLink:setIgnoreLowEndMode(ignore)
     self.m_startPointNode:setIgnoreLowEndMode(ignore)
@@ -104,14 +104,14 @@ function EffectLink:setIgnoreLowEndMode(ignore)
 end
 
 -------------------------------------
--- function setPosition
+-- function EffectLink_setPosition
 -------------------------------------
 function EffectLink_setPosition(self, x, y)
     self.m_node:setPosition(x, y)
 end
 
 -------------------------------------
--- function setHeight
+-- function EffectLink_setHeight
 -------------------------------------
 function EffectLink_setHeight(self, height)
     local width = self.m_width
@@ -138,7 +138,7 @@ function EffectLink:refreshAction()
 end
 
 -------------------------------------
--- function refresh
+-- function EffectLink_refresh
 -------------------------------------
 function EffectLink_refresh(self, start_x, start_y, end_x, end_y)
     local degree = getDegree(start_x, start_y, end_x, end_y)

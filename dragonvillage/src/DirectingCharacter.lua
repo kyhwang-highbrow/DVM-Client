@@ -85,7 +85,7 @@ function DirectingCharacter:setOpacityChildren(b)
 end
 
 -------------------------------------
--- function initShadow
+-- function setPosition
 -------------------------------------
 function DirectingCharacter:setPosition(x, y)
 	self.m_rootNode:setPosition(x, y)

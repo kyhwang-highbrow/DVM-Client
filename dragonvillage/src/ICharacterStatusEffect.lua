@@ -99,7 +99,7 @@ end
 
 
 -------------------------------------
--- function makeHPGauge
+-- function makeStatusIconNode
 -------------------------------------
 function ICharacterStatusEffect:makeStatusIconNode(icon_node)
     if (icon_node) then
@@ -426,14 +426,14 @@ function ICharacterStatusEffect:setZombie(b)
 end
 
 -------------------------------------
--- function setProtection
+-- function setProtected
 -------------------------------------
 function ICharacterStatusEffect:setProtected(b)
     self.m_isProtected = b
 end
 
 -------------------------------------
--- function setImmuneSE
+-- function setImmune
 -------------------------------------
 function ICharacterStatusEffect:setImmune(b)
 	self.m_isImmune = b
@@ -501,7 +501,7 @@ function ICharacterStatusEffect:hasStatusEffectToResurrect()
 end
 
 -------------------------------------
--- function setSilence
+-- function checkSpecialImmune
 -- @brief 특정 상태효과 면역 체크
 -------------------------------------
 function ICharacterStatusEffect:checkSpecialImmune(t_status_effect)

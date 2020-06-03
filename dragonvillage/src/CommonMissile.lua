@@ -151,7 +151,7 @@ function CommonMissile:initState()
 end
 
 -------------------------------------
--- function getRandomTargetByRule()
+-- function getRandomTargetByRule
 -- @brief 테이블 target_type 에 따른 랜덤한 타겟 선택 
 -------------------------------------
 function CommonMissile:getRandomTargetByRule()
@@ -166,7 +166,7 @@ function CommonMissile:getRandomTargetByRule()
 end
 
 -------------------------------------
--- function getDir()
+-- function getDir
 -------------------------------------
 function CommonMissile:getDir(target)
 	if (not self.m_target) then 
@@ -178,7 +178,7 @@ function CommonMissile:getDir(target)
 end
 
 -------------------------------------
--- function getDefaultDir()
+-- function getDefaultDir
 -- @brief 타겟을 못가져왔을 때 
 -------------------------------------
 function CommonMissile:getDefaultDir()
@@ -191,7 +191,7 @@ function CommonMissile:getDefaultDir()
 end
 
 -------------------------------------
--- function initAttackPosOffset
+-- function initAttackPos
 -- @brief 캐릭터의 중심을 기준으로 실제 공격이 시작 지점 설정
 -------------------------------------
 function CommonMissile:initAttackPos()

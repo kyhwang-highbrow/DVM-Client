@@ -7,7 +7,7 @@ GameState_NestDungeon = class(PARENT, {
     })
 
 -------------------------------------
--- function initState
+-- function init
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
 function GameState_NestDungeon:init()

@@ -209,7 +209,7 @@ function ServerData_AccessTime:getTime(is_minute)
 end
 
 -------------------------------------
--- function checkSaveTime
+-- function getSaveTime
 -- @brief 로컬에 저장된 시간이 지정된 시간 이상이면 저장
 -------------------------------------
 function ServerData_AccessTime:getSaveTime()

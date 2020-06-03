@@ -118,7 +118,7 @@ function GameMana:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
--- function init
+-- function bindUI
 -------------------------------------
 function GameMana:bindUI(ui)
     self.m_inGameUI = ui

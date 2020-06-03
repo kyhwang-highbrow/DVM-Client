@@ -18,7 +18,7 @@ function ISkillSound:init(sid)
 end
 
 -------------------------------------
--- function init
+-- function initSkillSound
 -------------------------------------
 function ISkillSound:initSkillSound(sid)
     local t_info = TableSkillSound():get(sid)

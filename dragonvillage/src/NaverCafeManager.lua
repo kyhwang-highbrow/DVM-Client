@@ -405,7 +405,7 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
 end
 
 -------------------------------------
--- function naverInitGlobalPlug(server, lang, isSaved)
+-- function naverInitGlobalPlug
 -- @brief 네이버 글로벌 플러그 init
 -------------------------------------
 function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)

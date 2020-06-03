@@ -18,7 +18,7 @@ end
 
 
 -------------------------------------
--- function createComponent
+-- function createComponents
 -------------------------------------
 function GameWorldIntro:createComponents()
     PARENT.createComponents(self)

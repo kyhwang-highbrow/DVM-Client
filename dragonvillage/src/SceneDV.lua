@@ -279,7 +279,7 @@ function SceneDV:bezierTest()
 end
 
 -------------------------------------
--- function updateUnit
+-- function update
 -- @param dt
 -------------------------------------
 function SceneDV:update(dt)
@@ -569,7 +569,7 @@ function SceneDV:shaderTest_blur()
 end
 
 -------------------------------------
--- function shaderTest_sample
+-- function shaderTest_gray
 -------------------------------------
 function SceneDV:shaderTest_gray()
 	local shader = ShaderCache:getShader(SHADER_GRAY)
@@ -579,7 +579,7 @@ function SceneDV:shaderTest_gray()
 end
 
 -------------------------------------
--- function shaderTest
+-- function shaderTest_a2d
 -------------------------------------
 function SceneDV:shaderTest_a2d()
 	for i, ani in pairs(self.m_lSpineAni) do 

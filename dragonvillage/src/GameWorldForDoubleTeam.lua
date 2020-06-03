@@ -45,7 +45,7 @@ function GameWorldForDoubleTeam:init()
 end
 
 -------------------------------------
--- function createComponent
+-- function createComponents
 -------------------------------------
 function GameWorldForDoubleTeam:createComponents()
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)

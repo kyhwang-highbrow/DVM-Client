@@ -419,7 +419,7 @@ function EnemyAppear.NestTree(owner, luaValue1, luaValue2, luaValue3)
 end
 
 -------------------------------------
--- function RelationGold
+-- function SecretGold
 -- @param value1 = 출발 위치
 -- @param value2 = 도착 위치
 -- @prarm value3 = 등장 시간(duration)

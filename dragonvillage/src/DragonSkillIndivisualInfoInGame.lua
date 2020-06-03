@@ -239,7 +239,7 @@ function DragonSkillIndivisualInfoInGame:isEndCoolTime()
 end
 
 -------------------------------------
--- function getCoolTime
+-- function getCoolTimeForGauge
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:getCoolTimeForGauge()
     local cooldown = tonumber(self.m_tSkill['cooldown'])
@@ -268,7 +268,7 @@ function DragonSkillIndivisualInfoInGame:resetCoolTime()
 end
 
 -------------------------------------
--- function resetCoolTime
+-- function setCoolTime
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:setCoolTime(sec)
     self.m_cooldownTimer = sec
@@ -375,7 +375,7 @@ function DragonSkillIndivisualInfoInGame:setEnabled(b)
 end
 
 -------------------------------------
--- function setEnabled
+-- function isEnabled
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:isEnabled()
     return self.m_bEnabled

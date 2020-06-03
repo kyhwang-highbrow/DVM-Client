@@ -23,7 +23,7 @@ function GoogleHelper.isAvailable()
 end
 
 -------------------------------------
--- function showAchievement
+-- function loginPlayServices
 -------------------------------------
 function GoogleHelper.loginPlayServices()
 	PerpleSDK:googlePlayServiceLogin(function(ret, info)
@@ -52,7 +52,7 @@ function GoogleHelper.updateAchievement(t_data)
 end
 
 -------------------------------------
--- function checkClear
+-- function checkAchievementClear
 -------------------------------------
 function GoogleHelper.checkAchievementClear(t_data)
     -- 업적의 키를 구해온다.
@@ -133,7 +133,7 @@ function GoogleHelper.showAchievement()
 end
 
 -------------------------------------
--- function checkClear
+-- function makeIngameModeKey
 -------------------------------------
 function GoogleHelper.makeIngameModeKey(t_data)
     local achv_key = t_data['clear_key']

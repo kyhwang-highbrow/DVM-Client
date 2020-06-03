@@ -300,7 +300,7 @@ function convertToListFrom2DArray(array)
 end
 
 -------------------------------------
--- function convertToListFrom2DArray
+-- function mergeCollisionLists
 -- @brief lists내의 충돌 리스트들을 중복정보가 들어가지 않도록 merge
 -------------------------------------
 function mergeCollisionLists(lists)

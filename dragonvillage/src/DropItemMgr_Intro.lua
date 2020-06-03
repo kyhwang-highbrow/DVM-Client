@@ -103,7 +103,7 @@ function DropItemMgr_Intro:onTouchBegan(touch, event)
 end
 
 -------------------------------------
--- function onTouchBegan
+-- function onTouchBeganForIntro
 -------------------------------------
 function DropItemMgr_Intro:onTouchBeganForIntro(touch, event)
     -- 월드상의 터치 위치 얻어옴

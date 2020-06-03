@@ -129,7 +129,7 @@ function GameState_ClanRaid.update_fight(self, dt)
 end
 
 -------------------------------------
--- function update_success
+-- function update_success_wait
 -------------------------------------
 function GameState_ClanRaid.update_success_wait(self, dt)
     if (self.m_stateTimer == 0) then

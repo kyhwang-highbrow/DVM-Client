@@ -35,7 +35,7 @@ function GameWorldArena:init(game_mode, stage_id, world_node, game_node1, game_n
 end
 
 -------------------------------------
--- function createComponent
+-- function createComponents
 -------------------------------------
 function GameWorldArena:createComponents()
     PARENT.createComponents(self)

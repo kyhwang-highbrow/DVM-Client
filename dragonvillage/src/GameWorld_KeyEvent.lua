@@ -412,7 +412,7 @@ function GameWorld:print_missile_range()
 end
 
 -------------------------------------
--- function camera_move_ooo
+-- function camera_move_left
 -- @brief 카메라 이동 상하좌우
 -------------------------------------
 function GameWorld:camera_move_left()
@@ -453,7 +453,7 @@ function GameWorld:camera_move_down()
 end
 
 -------------------------------------
--- function game_speed_oo
+-- function game_speed_up
 -- @brief 게임 속도 제어
 -------------------------------------
 function GameWorld:game_speed_up()

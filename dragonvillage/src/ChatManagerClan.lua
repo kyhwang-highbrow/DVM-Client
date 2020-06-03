@@ -24,7 +24,7 @@ ChatManagerClan = class(PARENT, {
     })
 
 -------------------------------------
--- function initInstance
+-- function getInstance
 -- @brief
 -------------------------------------
 function ChatManagerClan:getInstance()

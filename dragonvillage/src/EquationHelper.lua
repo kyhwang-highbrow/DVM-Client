@@ -9,7 +9,7 @@ EV_DIED_ALLY_COUNT = 'died_ally_count'
 EV_SKILL_DAMAGE = 'skill_damage'
 
 -------------------------------------
--- function addFunctionsForEquation
+-- function addEquationFromTable
 -- @breif 파라미터의 수식(source)을 함수로 만들어서 저장
 -------------------------------------
 function EquationHelper:addEquationFromTable(table_name, key, column, source)

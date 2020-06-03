@@ -84,7 +84,7 @@ end
 
 -- APK EXPANSION
 -------------------------------------
--- function apkExpansionStart
+-- function apkExpansionCheck
 -- @brief 
 -------------------------------------
 function SDKManager:apkExpansionCheck(param_str, md5, cb_func)

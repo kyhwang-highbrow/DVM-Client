@@ -37,7 +37,7 @@ function EffectGuard:init(world, res, defender, guarder)
 end
 
 -------------------------------------
--- function release()
+-- function release
 -------------------------------------
 function EffectGuard:release()
     self.m_rootNode:unscheduleUpdate()
@@ -48,7 +48,7 @@ end
 
 
 -------------------------------------
--- function MakeEffectGuard()
+-- function MakeEffectGuard
 -------------------------------------
 function MakeEffectGuard(world, defender, guarder)
     local effect = EffectGuard(world, 'res/effect/effect_damage_reflect/effect_damage_reflect.vrp', defender, guarder)

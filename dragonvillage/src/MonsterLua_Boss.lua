@@ -450,7 +450,7 @@ function MonsterLua_Boss:printBossPattern(pattern, type, value_1)
 end
 
 -------------------------------------
--- function printBossPattern
+-- function printCurBossPatternList
 -------------------------------------
 function MonsterLua_Boss:printCurBossPatternList()
     cclog('##############################################################')
@@ -461,7 +461,7 @@ function MonsterLua_Boss:printCurBossPatternList()
 end
 
 -------------------------------------
--- function printBossPattern
+-- function printCurBossPatternList
 -------------------------------------
 function MonsterLua_Boss:printCurBossPatternList()
 end

@@ -17,7 +17,7 @@ function SecurityNumberClass:init(v, b)
 end
 
 -------------------------------------
--- function init
+-- function get
 -------------------------------------
 function SecurityNumberClass:get()
     -- crc가 다르면 값을 지워버리고 0을 리턴

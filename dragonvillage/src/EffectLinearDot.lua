@@ -100,7 +100,7 @@ function EffectLinearDot:changeAni(ani_name, loop, cb)
 end
 
 -------------------------------------
--- function changeAni
+-- function setColor
 -------------------------------------
 function EffectLinearDot:setColor(color)
     for i, animator in pairs(self.m_lEffectAnimator) do

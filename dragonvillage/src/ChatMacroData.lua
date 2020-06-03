@@ -225,7 +225,7 @@ function ChatMacroData:setMacro(idx, macro)
 end
 
 -------------------------------------
--- function getLang
+-- function getMacroTable
 -- @breif
 -------------------------------------
 function ChatMacroData:getMacroTable()

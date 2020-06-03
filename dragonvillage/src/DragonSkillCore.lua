@@ -7,7 +7,7 @@ DragonSkillCore = {}
 local THIS = DragonSkillCore
 
 -------------------------------------
--- function ApplySkillLevel
+-- function applySkillLevel
 -- @brief skill level에 따른 능력치를 계산하여 적용
 -- @comment 실질적으론 DragonSkillIndivisual 에서 사용한다. Helper처럼 사용중
 -------------------------------------
@@ -243,7 +243,7 @@ function DragonSkillCore.getRichTemplateEnhance(desc)
     end
 end
 -------------------------------------
--- function getRichTemplate
+-- function getRichTemplateMod
 -------------------------------------
 function DragonSkillCore.getRichTemplateMod(desc)
     if (desc) then

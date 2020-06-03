@@ -12,7 +12,7 @@ ISkillMultiAttack = {
      }
 
 -------------------------------------
--- function init 
+-- function init
 -------------------------------------
 function ISkillMultiAttack:init()
     self.m_attackCount = 0

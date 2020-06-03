@@ -128,7 +128,7 @@ function GameDragonSkill:initState()
 end
 
 -------------------------------------
--- function update_play_drag_skill
+-- function st_playDragSkill
 -------------------------------------
 function GameDragonSkill.st_playDragSkill(self, dt)
     local world = self.m_world

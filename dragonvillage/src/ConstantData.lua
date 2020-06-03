@@ -61,7 +61,7 @@ function ConstantData:get(...)
 end
 
 -------------------------------------
--- function sets
+-- function set
 -------------------------------------
 function ConstantData:set(set_data, ...)
 	local set_data = set_data

@@ -228,7 +228,7 @@ function Analytics:firstTimeExperience(arg1, arg2)
 end
 
 -------------------------------------
--- function purchase
+-- function trackEvent
 -------------------------------------
 function Analytics:trackEvent(category, event, value, param1)
     if (not IS_ENABLE_ANALYTICS()) then return end

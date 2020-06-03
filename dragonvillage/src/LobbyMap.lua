@@ -913,7 +913,7 @@ function LobbyMap:refreshUserTamer()
 end
 
 -------------------------------------
--- function refreshUserLobbyDragon
+-- function refreshUserDragon
 -------------------------------------
 function LobbyMap:refreshUserDragon()
 	local lobby_dragon = self.m_lobbyTamerUser.m_dragon

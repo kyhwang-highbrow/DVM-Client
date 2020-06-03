@@ -117,7 +117,7 @@ function Monster_AncientRuinDragonBodyPart:removeTargetEffect(k)
 end
 
 -------------------------------------
--- function isExistTargetEffect
+-- function isExistNonTargetEffect
 -------------------------------------
 function Monster_AncientRuinDragonBodyPart:isExistNonTargetEffect(k)
     local unit = self

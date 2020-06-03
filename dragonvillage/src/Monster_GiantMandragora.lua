@@ -16,7 +16,7 @@ Monster_GiantMandragora = class(PARENT, {
      })
 
 -------------------------------------
--- function init
+-- function init_monster
 -- @param file_name
 -- @param body
 -------------------------------------

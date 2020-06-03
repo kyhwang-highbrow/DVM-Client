@@ -34,7 +34,7 @@ function ForestStuffUI:init(forest_stuff)
 end
 
 -------------------------------------
--- function init
+-- function initUI
 -------------------------------------
 function ForestStuffUI:initUI()
 end

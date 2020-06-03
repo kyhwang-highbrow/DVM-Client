@@ -303,7 +303,7 @@ function Character:setDead()
 end
 
 -------------------------------------
--- function getTargetList
+-- function getTargetListByTable
 -- @brief skill table을 인자로 받는 경우..
 -------------------------------------
 function Character:getTargetListByTable(t_skill, t_data)
@@ -2228,7 +2228,7 @@ function Character:changeHomePos(x, y, speed, order)
 end
 
 -------------------------------------
--- function changeHomePos
+-- function changeHomePosByTime
 -------------------------------------
 function Character:changeHomePosByTime(x, y, time, order)
     local order = order or 0
@@ -2333,7 +2333,7 @@ function Character:removeTargetEffect(k)
 end
 
 -------------------------------------
--- function isExistTargetEffect
+-- function isExistNonTargetEffect
 -------------------------------------
 function Character:isExistNonTargetEffect(k)
     if (self.m_mNonTargetEffect[k]) then
@@ -2999,7 +2999,7 @@ function Character:setGuard(skill)
 end
 
 -------------------------------------
--- function getGuardSkill
+-- function getGuard
 -------------------------------------
 function Character:getGuard()
 	return self.m_guard
@@ -3210,7 +3210,7 @@ function Character:getPosForFormation()
 end
 
 -------------------------------------
--- function setSilence
+-- function checkSpecialImmune
 -- @brief 특정 상태효과 면역 체크
 -------------------------------------
 function Character:checkSpecialImmune(t_status_effect)

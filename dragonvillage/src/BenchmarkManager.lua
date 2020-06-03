@@ -244,7 +244,7 @@ end
 
 
 -------------------------------------
--- function saveCsv
+-- function benchmark
 -------------------------------------
 function BenchmarkManager:benchmark(table_info)
 

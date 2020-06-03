@@ -223,7 +223,7 @@ function DropItemMgr:getItemList()
 end
 
 -------------------------------------
--- function getItemCount()
+-- function getItemCount
 -------------------------------------
 function DropItemMgr:getItemCount()
     local item_count = table.count(self.m_lItemlist)
@@ -231,7 +231,7 @@ function DropItemMgr:getItemCount()
 end
 
 -------------------------------------
--- function setImmediatelyObtainsetImmediatelyObtain
+-- function setImmediatelyObtain
 -------------------------------------
 function DropItemMgr:setImmediatelyObtain()
     self.m_bImmediatelyObtain = true

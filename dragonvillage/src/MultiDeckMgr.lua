@@ -303,7 +303,7 @@ function MultiDeckMgr:checkDeckCondition()
 end
 
 -------------------------------------
--- function checkMultiDeckWithName
+-- function CheckMultiDeckWithName
 -- @brief 덱네임으로 멀티덱인지 검사
 -------------------------------------
 function CheckMultiDeckWithName(deck_name)

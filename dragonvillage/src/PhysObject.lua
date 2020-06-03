@@ -135,7 +135,7 @@ function PhysObject:getCenterPos()
 end
 
 -------------------------------------
--- function getPossition
+-- function getPosition
 -- @return x, y
 -------------------------------------
 function PhysObject:getPosition()

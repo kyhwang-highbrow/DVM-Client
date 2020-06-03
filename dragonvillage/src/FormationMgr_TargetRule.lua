@@ -125,7 +125,7 @@ function TargetRule_getTargetList_none(org_list)
 end
 
 -------------------------------------
--- function TargetRule_getTargetList_none
+-- function TargetRule_getTargetList_self
 -- @brief 자기 자신이 1번인 아군 리스트
 -------------------------------------
 function TargetRule_getTargetList_self(org_list, t_data)
@@ -745,7 +745,7 @@ function TargetRule_getTargetList_status_effect(org_list, raw_str)
 end
 
 -------------------------------------
--- function TargetRule_getTargetList_buff 
+-- function TargetRule_getTargetList_buff
 -- @brief 특정 상태효과에 따른 구분
 -------------------------------------
 function TargetRule_getTargetList_buff(org_list)
@@ -770,7 +770,7 @@ function TargetRule_getTargetList_buff(org_list)
 end
 
 -------------------------------------
--- function TargetRule_getTargetList_debuff 
+-- function TargetRule_getTargetList_debuff
 -- @brief 특정 상태효과에 따른 구분
 -------------------------------------
 function TargetRule_getTargetList_debuff(org_list, keyword)

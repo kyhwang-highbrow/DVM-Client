@@ -71,7 +71,7 @@ function GameWorld_Illusion:makeHeroDeck()
 end
 
 -------------------------------------
--- function createComponent
+-- function createComponents
 -- @brief 구성 요소들을 생성
 -------------------------------------
 function GameWorld_Illusion:createComponents()

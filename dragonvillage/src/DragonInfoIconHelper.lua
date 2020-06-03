@@ -1,7 +1,7 @@
 DragonInfoIconHelper = {}
 
 -------------------------------------
--- function makeIconBtn
+-- function makeAttrIconBtn
 -------------------------------------
 function DragonInfoIconHelper.makeAttrIconBtn(attr, t_info)
 	local click_func = function()

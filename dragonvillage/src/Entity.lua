@@ -338,7 +338,7 @@ function Entity:blockMatchingSlotShader(str)
 end
 
 -------------------------------------
--- function blockMatchingSlotShader
+-- function setMatchingSlotShader
 -- @brief 특정 네이밍 패턴을 가지는 슬롯들의 쉐이더를 설정
 -------------------------------------
 function Entity:setMatchingSlotShader(str, shaderKey)
@@ -360,7 +360,7 @@ function Entity:setMatchingSlotShader(str, shaderKey)
 end
 
 -------------------------------------
--- function blockMatchingSlotShader
+-- function setVisibleSlot
 -- @brief 특정 네이밍 패턴을 가지는 슬롯들의 visible 설정
 -------------------------------------
 function Entity:setVisibleSlot(str, b)

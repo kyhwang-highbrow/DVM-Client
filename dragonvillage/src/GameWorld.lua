@@ -236,7 +236,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 end
 
 -------------------------------------
--- function createComponent
+-- function createComponents
 -- @brief 구성 요소들을 생성
 -------------------------------------
 function GameWorld:createComponents()
@@ -807,7 +807,7 @@ function GameWorld:addSkillSpeech(char, str)
 end
 
 -------------------------------------
--- function 
+-- function addDestructibleMissile
 -------------------------------------
 function GameWorld:addDestructibleMissile(missile)
 	self:addToSpecailMissileList(missile)

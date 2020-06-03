@@ -169,7 +169,7 @@ end
 
 
 -------------------------------------
--- function getDragonExpList
+-- function getDragonMaxLv
 -- @brief Max 레벨 반환
 -------------------------------------
 function DragonGuideNavigator:getDragonMaxLv(grade)

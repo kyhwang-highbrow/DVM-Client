@@ -338,7 +338,7 @@ function getAppVerNum()
 end
 
 -------------------------------------
--- function getMarketAndOS
+-- function GetMarketAndOS
 -- @return market(string), os(string)
 -------------------------------------
 function GetMarketAndOS()
