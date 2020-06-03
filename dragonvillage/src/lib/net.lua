@@ -394,7 +394,7 @@ function Network:HMacRequest(t, do_decode)
 end
 
 -------------------------------------
--- function Network_saveDump
+-- function saveDump
 -- @breif 
 -------------------------------------
 function Network:saveDump(t_request, ret)

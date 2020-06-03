@@ -92,7 +92,7 @@ function UI:setCloseCB(func)
 end
 
 -------------------------------------
--- function close
+-- function isClosed
 -------------------------------------
 function UI:isClosed()
     return self.closed
@@ -118,7 +118,7 @@ function UI:close()
 end
 
 -------------------------------------
--- function close
+-- function closeWithoutCB
 -------------------------------------
 function UI:closeWithoutCB()
 	self.m_closeCB = nil

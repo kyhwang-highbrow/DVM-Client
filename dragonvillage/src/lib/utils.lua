@@ -74,7 +74,7 @@ function iterTwo(t, i)
 end
 
 -------------------------------------
--- function table.clone
+-- function clone
 -- @brief 테이블을 복사하되 내부 객체들은 복사하지 않는다.
 -------------------------------------
 function table.clone(t_org)
@@ -1045,7 +1045,7 @@ function getPosXForCenterSortting(background_width, start_pos, count, list_item_
 end
 
 -------------------------------------
--- function printMemory
+-- function PrintMemory
 -- @brief 보기 좋게 현재 메모리 출력
 -------------------------------------
 function PrintMemory(str)

@@ -125,7 +125,7 @@ function TableView:removeData(idx)
 end
 
 -------------------------------------
--- function removeItem
+-- function clear
 -------------------------------------
 function TableView:clear()
     self.m_cellDatas = {}
@@ -139,7 +139,7 @@ function TableView:update()
 end
 
 -------------------------------------
--- function TableView.extend
+-- function extend
 -------------------------------------
 function TableView.extend(target)
     local t = tolua.getpeer(target)
@@ -152,7 +152,7 @@ function TableView.extend(target)
 end
 
 -------------------------------------
--- function TableView.create
+-- function create
 -------------------------------------
 function TableView.create(ccTableView)
     local tableView = TableView.extend(ccTableView)
@@ -207,7 +207,7 @@ function TableViewCellData:setEnterFunc(onEnterFunc)
 end
 
 -------------------------------------
--- function setTouchedFunc
+-- function setTouchFunc
 -------------------------------------
 function TableViewCellData:setTouchFunc(onTouchFunc)
     if not onTouchFunc then return end

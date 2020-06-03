@@ -51,7 +51,7 @@ function getRotationDegree(curr, dest, rotation)
 end
 
 -------------------------------------
--- function getDeg
+-- function getDegree
 -- @brief curr에서 dest를 바라보는 degree를 리턴
 -- @param curr_x
 -- @param curr_y

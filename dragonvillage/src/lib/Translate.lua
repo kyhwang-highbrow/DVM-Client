@@ -249,7 +249,7 @@ function Translate:getFontScaleRate()
 end
 
 -------------------------------------
--- function getFontScaleRate
+-- function getFontSizeScale
 -------------------------------------
 function Translate:getFontSizeScale()
     local struct_language = self:getStructLanguage()
