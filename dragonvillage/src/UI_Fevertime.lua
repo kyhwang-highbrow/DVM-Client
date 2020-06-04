@@ -35,7 +35,13 @@ end
 function UI_Fevertime:initButton()
     local vars = self.vars
 
-    local l_item_list = g_fevertimeData.m_lFevertimeScheduleData
+    local l_item_list = g_fevertimeData:getAllStructFevertimeList()
+
+    local function sort_func(a, b)
+        local struct_a = a['data']
+        local struct_b = b['data']
+        return StructFevertime.sortFunc(struct_a, struct_b)
+    end
 
     local node = vars['listNode']
     -- 테이블 뷰 인스턴스 생성
@@ -45,15 +51,9 @@ function UI_Fevertime:initButton()
     table_view:setCellUIClass(UI_FevertimeListItem)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
-    --table_view:insertSortInfo('sort', sort_func)
+    table_view:insertSortInfo('sort', sort_func)
+    table_view:sortImmediately('sort')
     --self.m_tableView = table_view
-
-    -- 정렬 조건
-    -- 1. 활성화 중인게 우선
-    -- 2. 시작 시간이 빠른 것이 우선
-    -- 3. 종료 시간이 빠른 것이 우선
-    -- 4. 타입별 정렬
-    -- 5. oid별 정렬
 end
 
 -------------------------------------

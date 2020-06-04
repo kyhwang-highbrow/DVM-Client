@@ -6,8 +6,9 @@
 -------------------------------------
 ServerData_Fevertime = class({
         m_serverData = 'ServerData',
-        m_lFevertimeData = 'table',
-        m_lFevertimeScheduleData = 'table',
+        m_lFevertime = 'table',
+        m_lFevertimeSchedule = 'table',
+        m_lFevertimeGlobal = 'table',
     })
 
 -------------------------------------
@@ -15,8 +16,9 @@ ServerData_Fevertime = class({
 -------------------------------------
 function ServerData_Fevertime:init(server_data)
     self.m_serverData = server_data
-    self.m_lFevertimeData = {}
-    self.m_lFevertimeScheduleData = {}
+    self.m_lFevertime = {}
+    self.m_lFevertimeSchedule = {}
+    self.m_lFevertimeGlobal = {}
 end
 
 
@@ -31,7 +33,7 @@ function ServerData_Fevertime:request_fevertimeInfo(finish_cb, fail_cb)
     local function success_cb(ret)
 
         self:applyFevertimeData(ret['fevertime'])
-        self:applyFevertimeScheduleData(ret['fevertime_schedule'])
+        self:applyFevertimeSchedule(ret['fevertime_schedule'])
 
         if finish_cb then
             finish_cb(ret)
@@ -60,16 +62,53 @@ function ServerData_Fevertime:applyFevertimeData(t_data)
         return
     end
 
-    self.m_lFevertimeData = t_data
+    self.m_lFevertime = {}
+    for i,v in pairs(t_data) do
+        local struct_fevertime = StructFevertime:create_forFevertime(v)
+        table.insert(self.m_lFevertime, struct_fevertime)
+    end
+
 end
 
 -------------------------------------
--- function applyFevertimeScheduleData
+-- function applyFevertimeSchedule
 -------------------------------------
-function ServerData_Fevertime:applyFevertimeScheduleData(t_data)
+function ServerData_Fevertime:applyFevertimeSchedule(t_data)
     if (t_data == nil) then
         return
     end
 
-    self.m_lFevertimeScheduleData = t_data
+    self.m_lFevertimeSchedule = {}
+    for i,v in pairs(t_data) do
+        local struct_fevertime = StructFevertime:create_forFevertimeSchedule(v)
+        table.insert(self.m_lFevertimeSchedule, struct_fevertime)
+    end
+end
+
+-------------------------------------
+-- function applyFevertimeGlobal
+-------------------------------------
+function ServerData_Fevertime:applyFevertimeGlobal(t_data)
+    if (t_data == nil) then
+        return
+    end
+
+    self.self.m_lFevertimeGlobal = {}
+    for i,v in pairs(t_data) do
+        local struct_fevertime = StructFevertime:create_forFevertimeGlobal(v)
+        table.insert(self.self.m_lFevertimeGlobal, struct_fevertime)
+    end
+end
+
+-------------------------------------
+-- function getAllStructFevertimeList
+-------------------------------------
+function ServerData_Fevertime:getAllStructFevertimeList()
+    local l_ret = {}
+
+    table.addList(l_ret, self.m_lFevertime)
+    table.addList(l_ret, self.m_lFevertimeSchedule)
+    table.addList(l_ret, self.m_lFevertimeGlobal)
+
+    return l_ret
 end

@@ -263,3 +263,41 @@ function TimeLib:getServerTimeZoneOffset()
     local offset = utc_hour * 60 * 60
     return offset
 end
+
+
+-------------------------------------
+-- function convertToServerTimestamp
+-- @param timestamtp (단위 : 초)
+-- @brief 
+-- @return timestamp
+-------------------------------------
+function TimeLib:convertToServerTimestamp(local_timestamp)
+    -- 단말기(local)의 타임존 (단위 : 초)
+    local timezone_local = datetime.getTimeZoneOffset()
+
+    -- 서버(server)의 타임존 (단위 : 초)
+    local timezone_server = Timer:getServerTimeZoneOffset()
+    local offset = (timezone_local - timezone_server)
+
+    local server_timestamp = (local_timestamp + offset)
+    return server_timestamp
+end
+
+-------------------------------------
+-- function convertToServerDate
+-- @brief
+-- @param timestamtp (단위 : 초)
+-- @return pl.Date
+-------------------------------------
+function TimeLib:convertToServerDate(server_timestamp)
+    -- 단말기(local)의 타임존 (단위 : 초)
+    local timezone_local = datetime.getTimeZoneOffset()
+
+    -- 서버(server)의 타임존 (단위 : 초)
+    local timezone_server = Timer:getServerTimeZoneOffset()
+    local offset = (timezone_server - timezone_local)
+
+    local local_timestamp = (server_timestamp + offset)
+    local date = pl.Date(local_timestamp):toLocal()
+    return date
+end

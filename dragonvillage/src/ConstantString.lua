@@ -532,3 +532,27 @@ function getItemNameWithStar(item_id)
     end
     return item_name
 end
+
+-------------------------------------
+-- function getWeekdayName
+-- @brief
+-------------------------------------
+function getWeekdayName(weekday_name)
+    local weekday_name_lower = weekday_name:lower()
+
+    if (weekday_name_lower == 'mon') then
+        return Str('월요일')
+    elseif (weekday_name_lower == 'tue') then
+        return Str('화요일')
+    elseif (weekday_name_lower == 'wed') then
+        return Str('수요일')
+    elseif (weekday_name_lower == 'thu') then
+        return Str('목요일')
+    elseif (weekday_name_lower == 'fri') then
+        return Str('금요일')
+    elseif (weekday_name_lower == 'sat') then
+        return Str('토요일')
+    elseif (weekday_name_lower == 'sun') then
+        return Str('일요일')
+    end
+end

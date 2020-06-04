@@ -99,6 +99,7 @@ local t_module = {
     'StructMarketProduct',
     'StructLobbyNotice',
     'StructMail',
+    'StructFevertime',
     'StructSubscribedInfo',
     'StructHighbrowProduct',
     'StructTamerCostume',
