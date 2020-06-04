@@ -4522,6 +4522,9 @@
     <None Include="..\src\StructFevertime.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableFevertime.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

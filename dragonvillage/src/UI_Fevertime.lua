@@ -27,6 +27,17 @@ end
 -------------------------------------
 function UI_Fevertime:initUI()
     local vars = self.vars
+
+    vars['hotTimeExpLabel']:setString('')
+    vars['hotTimeGoldLabel']:setString('')
+
+    -- 서버 시간 표시
+    local time_zone_str, t = datetime.getTimeUTCHourStr()
+    local hour = string.format('%.2d', t.hour)
+    local min = string.format('%.2d', t.min)
+    local sec = string.format('%.2d', t.sec)
+    local str = Str('서버 시간 : {1}시 {2}분 {3}초 ({4})', hour, min, sec, time_zone_str)
+    vars['serverTimeLabel']:setString(str)
 end
 
 -------------------------------------
@@ -54,6 +65,22 @@ function UI_Fevertime:initButton()
     table_view:insertSortInfo('sort', sort_func)
     table_view:sortImmediately('sort')
     --self.m_tableView = table_view
+
+    do -- 포커싱
+        local idx = 0
+        local l_struct_fevertime = table_view.m_itemList
+        for i, v in ipairs(l_struct_fevertime) do
+            local struct = v['data']
+            if (struct:isAfterStartDate() == true) and (struct:isFevertimeExpired() == false) then
+                idx = i
+                break
+            end
+        end
+        idx = math_min(idx + 1, #l_struct_fevertime)
+
+        table_view:relocateContainerFromIndex(idx, false)
+    end
+
 end
 
 -------------------------------------

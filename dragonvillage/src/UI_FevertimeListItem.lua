@@ -15,6 +15,9 @@ function UI_FevertimeListItem:init(struct_fevertime)
 
 	-- UI load
 	local ui_name = 'event_fevertime_list_item.ui' 
+    if (struct_fevertime:isGlobalHottime() == true) then
+        ui_name = 'event_fevertime_list_item_special.ui' 
+    end
 	self:load(ui_name)
 
 	-- initialize
@@ -40,6 +43,36 @@ function UI_FevertimeListItem:initUI()
         str = '{@light_red}' .. str
     end
     vars['dayLabel']:setString(str)
+
+    do -- 이름
+        local str = struct_fevertime:getFevertimeName()
+        vars['titleLabel']:setString(str)
+    end
+
+    do -- 설명
+        local str = struct_fevertime:getFevertimeDesc()
+        vars['infoLabel']:setString(str)
+    end
+
+    do -- 만료되었는가 (핫타임 시간이 지났건, 일일 핫타임 날짜가 넘어간 경우)
+        --local expired = struct_fevertime:isFevertimeExpired()
+        --vars['CompletMenu']:setVisible(expired)
+
+        vars['CompletMenu']:setVisible(false)
+        vars['nextdayMenu']:setVisible(false)
+
+        if struct_fevertime:isFevertimeExpired() then
+            vars['CompletMenu']:setVisible(true)
+        elseif struct_fevertime:isBeforeStartDate() then
+            vars['nextdayMenu']:setVisible(true)
+        end
+    end
+
+    do -- 시간
+        local str = struct_fevertime:getTimeLabelStr()
+        vars['timeLabel']:setString(str)
+    end
+    
 end
 
 -------------------------------------
@@ -47,6 +80,10 @@ end
 -------------------------------------
 function UI_FevertimeListItem:initButton()
     local vars = self.vars
+    vars['startBtn']:setVisible(false)
+    vars['nextdayBtn']:setVisible(false)
+    vars['CompletBtn']:setVisible(false)
+    vars['questLinkBtn']:setVisible(false)
 end
 
 -------------------------------------

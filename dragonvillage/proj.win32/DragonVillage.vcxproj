@@ -947,6 +947,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableEvolutionItemCombine.lua" />
     <None Include="..\src\TableExchange.lua" />
     <None Include="..\src\TableExplorationList.lua" />
+    <None Include="..\src\TableFevertime.lua" />
     <None Include="..\src\TableForestStuffLevelInfo.lua" />
     <None Include="..\src\TableForestStuffType.lua" />
     <None Include="..\src\TableFormationArena.lua" />

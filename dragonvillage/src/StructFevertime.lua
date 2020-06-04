@@ -9,6 +9,7 @@ StructFevertime = class(PARENT, {
         type = 'string', -- 핫타임의 타입
         value = 'number', -- 핫타임의 적용 수치
         date = 'number', -- 일일 핫타임의 날짜 20200603
+        hour = 'number',
         start_date = 'number', -- timestamp
         end_date = 'number', -- timestamp
 
@@ -18,12 +19,14 @@ StructFevertime = class(PARENT, {
     })
 
 StructFevertime.KEY = {}
-StructFevertime.KEY.DAILY_HOTTIME = 'daily_hottime'
 StructFevertime.KEY.GLOBAL_HOTTIME = 'global_hottime'
+StructFevertime.KEY.DAILY_HOTTIME_SCHEDULE = 'daily_hottime_schedule'
+StructFevertime.KEY.DAILY_HOTTIME = 'daily_hottime'
 
 StructFevertime.KEY_IDX = {}
-StructFevertime.KEY_IDX[StructFevertime.KEY.DAILY_HOTTIME] = 1000
-StructFevertime.KEY_IDX[StructFevertime.KEY.GLOBAL_HOTTIME] = 900
+StructFevertime.KEY_IDX[StructFevertime.KEY.GLOBAL_HOTTIME] = 1000
+StructFevertime.KEY_IDX[StructFevertime.KEY.DAILY_HOTTIME_SCHEDULE] = 900
+StructFevertime.KEY_IDX[StructFevertime.KEY.DAILY_HOTTIME] = 800
 
 local THIS = StructFevertime
 
@@ -71,6 +74,48 @@ function StructFevertime:isActiveFevertime()
     return true
 end
 
+-------------------------------------
+-- function isFevertimeExpired
+-------------------------------------
+function StructFevertime:isFevertimeExpired()
+    local end_date = self:getEndDateForSort()
+
+    local cur_time = Timer:getServerTime_Milliseconds()
+    if (end_date < cur_time) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function isAfterStartDate
+-------------------------------------
+function StructFevertime:isAfterStartDate()
+    local start_date = self:getStartDateForSort()
+
+    local cur_time = Timer:getServerTime_Milliseconds()
+    if (start_date < cur_time) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function isBeforeStartDate
+-------------------------------------
+function StructFevertime:isBeforeStartDate()
+    local start_date = self:getStartDateForSort()
+
+    local cur_time = Timer:getServerTime_Milliseconds()
+    if (cur_time < start_date) then
+        return true
+    else
+        return false
+    end
+end
+
 
 -------------------------------------
 -- function getStartDateForSort
@@ -111,7 +156,8 @@ function StructFevertime:getEndDateForSort()
         elseif self['date'] then
             local date_format = 'yyyymmdd'
             local parser = pl.Date.Format(date_format)
-            local date = parser:parse(self['date'])
+            local date_str = tostring(self['date'])
+            local date = parser:parse(date_str)
             local local_timestamp = date['time'] + (24 * 60 * 60) -- 1일을 더해준다.
             local server_timestamp = TimeLib:convertToServerTimestamp(local_timestamp)
             self['end_date_for_sort'] = (server_timestamp * 1000)
@@ -138,8 +184,72 @@ end
 -- function getFtoid
 -------------------------------------
 function StructFevertime:getFtoid()
+    if (self['id'] == nil) then
+        self['id'] = math_random(1, 9999999)
+    end
     return self['id']
 end
+
+-------------------------------------
+-- function getFevertimeName
+-------------------------------------
+function StructFevertime:getFevertimeName()
+    return TableFevertime:getFevertimeName(self['type'])
+end
+
+-------------------------------------
+-- function getFevertimeDesc
+-------------------------------------
+function StructFevertime:getFevertimeDesc()
+    local desc = TableFevertime:getFevertimeDesc(self['type'])
+    local value = self['value'] * 100
+    local ret_desc = Str(desc, value)
+    return ret_desc
+end
+
+-------------------------------------
+-- function getTimeLabelStr
+-------------------------------------
+function StructFevertime:getTimeLabelStr()
+    if (self:isDailyHottimeSchedule() == true) then
+        local milliseconds = self['hour'] * 60 * 60 * 1000
+        local time_str = datetime.makeTimeDesc_timer(milliseconds, false) -- param : milliseconds, day_special
+        local str = Str('남은 시간 : {1}', time_str)
+        return str
+    else
+        local cur_time = Timer:getServerTime_Milliseconds()
+        -- 시작 전
+        if (cur_time < self['start_date']) then
+            local milliseconds = self['end_date'] - self['start_date']
+            local time_str = datetime.makeTimeDesc_timer(milliseconds, false) -- param : milliseconds, day_special
+            local str = Str('남은 시간 : {1}', time_str)
+            return str
+        -- 시작 후
+        else
+            local milliseconds = math_max(self['end_date'] - cur_time, 0)
+            local time_str = datetime.makeTimeDesc_timer(milliseconds, false) -- param : milliseconds, day_special
+            local str = Str('남은 시간 : {1}', time_str)
+            return str
+        end
+    end
+end
+
+-------------------------------------
+-- function isDailyHottimeSchedule
+-------------------------------------
+function StructFevertime:isDailyHottimeSchedule()
+    return self['key'] == StructFevertime.KEY.DAILY_HOTTIME_SCHEDULE
+end
+
+
+-------------------------------------
+-- function isGlobalHottime
+-------------------------------------
+function StructFevertime:isGlobalHottime()
+    return self['key'] == StructFevertime.KEY.GLOBAL_HOTTIME
+end
+
+
 
 -------------------------------------
 -- function sortFunc
@@ -148,7 +258,7 @@ function StructFevertime.sortFunc(struct_a, struct_b)
 
     -- 1. 활성화 중인게 우선
     if (struct_a:isActiveFevertime() ~= struct_b:isActiveFevertime()) then
-        return struct_a:isActiveFevertime()
+        --return struct_a:isActiveFevertime()
     end
 
     -- 2. 시작 시간이 빠른 것이 우선
@@ -186,6 +296,7 @@ function StructFevertime:create_forFevertime(t_data)
     struct_fevertime['type'] = t_data['type']
     struct_fevertime['value'] = t_data['value']
     struct_fevertime['date'] = nil
+    struct_fevertime['hour'] = nil
     struct_fevertime['start_date'] = t_data['start']
     struct_fevertime['end_date'] = t_data['end']
     return struct_fevertime
@@ -197,10 +308,11 @@ end
 function StructFevertime:create_forFevertimeSchedule(t_data)
     local struct_fevertime = StructFevertime()
     struct_fevertime['id'] = t_data['id']
-    struct_fevertime['key'] = StructFevertime.KEY.DAILY_HOTTIME
+    struct_fevertime['key'] = StructFevertime.KEY.DAILY_HOTTIME_SCHEDULE
     struct_fevertime['type'] = t_data['type']
     struct_fevertime['value'] = t_data['value']
     struct_fevertime['date'] = t_data['date']
+    struct_fevertime['hour'] = t_data['hour']
     struct_fevertime['start_date'] = nil
     struct_fevertime['end_date'] = nil
     return struct_fevertime
@@ -216,6 +328,7 @@ function StructFevertime:create_forFevertimeGlobal(t_data)
     struct_fevertime['type'] = t_data['type']
     struct_fevertime['value'] = t_data['value']
     struct_fevertime['date'] = nil
+    struct_fevertime['hour'] = nil
     struct_fevertime['start_date'] = t_data['start']
     struct_fevertime['end_date'] = t_data['end']
     return struct_fevertime

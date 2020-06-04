@@ -34,6 +34,7 @@ function ServerData_Fevertime:request_fevertimeInfo(finish_cb, fail_cb)
 
         self:applyFevertimeData(ret['fevertime'])
         self:applyFevertimeSchedule(ret['fevertime_schedule'])
+        self:applyFevertimeGlobal(ret['fevertime_global'])
 
         if finish_cb then
             finish_cb(ret)
@@ -93,10 +94,10 @@ function ServerData_Fevertime:applyFevertimeGlobal(t_data)
         return
     end
 
-    self.self.m_lFevertimeGlobal = {}
+    self.m_lFevertimeGlobal = {}
     for i,v in pairs(t_data) do
         local struct_fevertime = StructFevertime:create_forFevertimeGlobal(v)
-        table.insert(self.self.m_lFevertimeGlobal, struct_fevertime)
+        table.insert(self.m_lFevertimeGlobal, struct_fevertime)
     end
 end
 

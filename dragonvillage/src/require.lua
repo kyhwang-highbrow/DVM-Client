@@ -417,6 +417,7 @@ local t_module = {
     'TableAlphabetEvent', -- 알파벳 이벤트
     'TableSpotSale',
     'TableSupply',
+    'TableFevertime', -- 핫타임
 
     -- Scene
     'SceneCommon',
