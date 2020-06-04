@@ -59,6 +59,7 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         elseif (difficulty == 3) then
             vars['difficultyLabel']:setColor(COLOR['diff_hell'])
             vars['difficultyLabel']:setString(Str('지옥'))
+        
         elseif (difficulty == 4) then
             vars['difficultyLabel']:setColor(COLOR['diff_hellfire'])
             vars['difficultyLabel']:setString(Str('불지옥'))
@@ -260,6 +261,9 @@ function UI_GamePause:confirmExit(exit_cb)
     local msg = Str('지금 퇴장하면 {@RED}패배로 처리{@default}됩니다.\n그래도 나가시겠습니까?')
 
     local function ok_cb()
+        -- 게임 도중 나기기 버튼 클릭시 오토플레이 종료
+        g_autoPlaySetting:setAutoPlay(false)
+
         -- 아레나인 경우 강제 종료 로그 남김
         if (self.m_stageID == ARENA_STAGE_ID) then
             g_arenaData.m_tempLogData['force_exit'] = true
