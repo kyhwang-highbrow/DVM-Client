@@ -162,6 +162,7 @@ return {['14일간 {@mustard}일일 퀘스트 보상을\n2배{@default}로 받�
 ['출석 보상을 획득했습니다.']='Has recibido la recompensa de Confirmación de Asistencia.',
 ['오늘의 출석 보상을 이미 획득했습니다.']='Ya has recibido la recompensa de Confirmación de Asistencia del día de hoy.',
 ['시작 시 아군의 {@yellow}드래그 스킬 재사용 시간을 감소{@default}시켜 드래그 스킬을 빠르게 사용할 수 있게 해 줍니다.\n고대의 탑에서 클리어 시간을 단축시킬 수 있습니다.']='Al comenzar reduce el {@yellow}tiempo de recarga de la habilidad de arrastre{@default} de un aliado, por lo que podrá usar la habilidad más rápido.\nPuedes acortar el tiempo al completar la Torre Antigua.',
+['서버 시간 : {1}']='Hora del servidor: {1}',
 ['정말 멋진 전투였습니다! 앞으로의 모험도 걱정 없겠군요!']='¡Una batalla realmente increíble! ¡No hay que preocuparse por futuras aventuras!',
 ['마지막으로 중요한 사실을 알려드릴게요!\n1챕터의 7스테이지를 완료하면 {@yellow}고급 뽑기 10+1회{@default}를 무료로 제공한다고 합니다!']='¡Por último algo importante!\n¡Si has completado 7 etapas del capítulo 1, obtendrás {@yellow} 10+ 1 sorteos avanzados{@default} gratis!',
 ['이 기회에 가장 희귀하다는 전설 등급 드래곤을 만나게 되면 얼마나 기쁠까요!']='¡Qué felicidad encontrar en esta oportunidad a un dragón Legendario del más alto nivel de rareza!',
