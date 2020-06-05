@@ -208,6 +208,36 @@ function StructFevertime:getFevertimeDesc()
 end
 
 -------------------------------------
+-- function getPeriodStr
+-- @breif 기간 문자열
+-- @return string
+-------------------------------------
+function StructFevertime:getPeriodStr()
+    if (self:isDailyHottimeSchedule() == true) then
+        return ''
+    end
+
+    local start_str = ''
+    do
+        local server_timestamp = self['start_date'] / 1000
+        local date = TimeLib:convertToServerDate(server_timestamp)
+        local wday_str = getWeekdayName(date:weekday_name())
+        start_str = string.format('%d.%d %s %.2d:%.2d', date:month(), date:day(), wday_str, date:hour(), date:min())
+    end
+
+    local end_str = ''
+    do
+        local server_timestamp = self['end_date'] / 1000
+        local date = TimeLib:convertToServerDate(server_timestamp)
+        local wday_str = getWeekdayName(date:weekday_name())
+        end_str = string.format('%d.%d %s %.2d:%.2d', date:month(), date:day(), wday_str, date:hour(), date:min())
+    end
+
+    local str = start_str .. ' ~ ' .. end_str
+    return str
+end
+
+-------------------------------------
 -- function getTimeLabelStr
 -------------------------------------
 function StructFevertime:getTimeLabelStr()
@@ -255,6 +285,11 @@ end
 -- function sortFunc
 -------------------------------------
 function StructFevertime.sortFunc(struct_a, struct_b)
+
+    -- 0. 만료된 것이 우선
+    if (struct_a:isFevertimeExpired() ~= struct_b:isFevertimeExpired()) then
+        return struct_a:isFevertimeExpired()
+    end
 
     -- 1. 활성화 중인게 우선
     if (struct_a:isActiveFevertime() ~= struct_b:isActiveFevertime()) then

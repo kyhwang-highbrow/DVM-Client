@@ -555,4 +555,6 @@ function getWeekdayName(weekday_name)
     elseif (weekday_name_lower == 'sun') then
         return Str('일요일')
     end
+
+    return ''
 end

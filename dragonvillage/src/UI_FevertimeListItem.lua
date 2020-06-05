@@ -69,7 +69,10 @@ function UI_FevertimeListItem:initUI()
     end
 
     do -- 시간
-        local str = struct_fevertime:getTimeLabelStr()
+        local str = struct_fevertime:getPeriodStr()
+        if (str == '') then
+            str = struct_fevertime:getTimeLabelStr()
+        end
         vars['timeLabel']:setString(str)
     end
     
