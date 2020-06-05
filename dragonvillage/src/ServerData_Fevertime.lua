@@ -9,6 +9,8 @@ ServerData_Fevertime = class({
         m_lFevertime = 'table',
         m_lFevertimeSchedule = 'table',
         m_lFevertimeGlobal = 'table',
+
+        m_expirationTimestamp = 'timestamp',
     })
 
 -------------------------------------
@@ -26,15 +28,19 @@ end
 -- function request_fevertimeInfo
 -------------------------------------
 function ServerData_Fevertime:request_fevertimeInfo(finish_cb, fail_cb)
--- 유저 ID
+    -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
     local function success_cb(ret)
 
+        -- server_info 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+
         self:applyFevertimeData(ret['fevertime'])
         self:applyFevertimeSchedule(ret['fevertime_schedule'])
         self:applyFevertimeGlobal(ret['fevertime_global'])
+        self:setExpirationTimestamp()
 
         if finish_cb then
             finish_cb(ret)
@@ -66,9 +72,13 @@ function ServerData_Fevertime:request_fevertimeActive(id, finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)
 
+        -- server_info 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+
         self:applyFevertimeData(ret['fevertime'])
         self:applyFevertimeSchedule(ret['fevertime_schedule'])
         self:applyFevertimeGlobal(ret['fevertime_global'])
+        self:setExpirationTimestamp()
 
         if finish_cb then
             finish_cb(ret)
@@ -88,6 +98,16 @@ function ServerData_Fevertime:request_fevertimeActive(id, finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function applyFevertimeAtTitleAPI
+-------------------------------------
+function ServerData_Fevertime:applyFevertimeAtTitleAPI(ret)
+    self:applyFevertimeData(ret['fevertime'])
+    self:applyFevertimeSchedule(ret['fevertime_schedule'])
+    self:applyFevertimeGlobal(ret['fevertime_global'])
+    self:setExpirationTimestamp()
 end
 
 -------------------------------------
@@ -173,4 +193,53 @@ function ServerData_Fevertime:isActiveDailyFevertimeByType(type)
     end
 
     return false
+end
+
+-------------------------------------
+-- function setExpirationTimestamp
+-------------------------------------
+function ServerData_Fevertime:setExpirationTimestamp()
+    if (self.m_expirationTimestamp == nil) then
+        local curr_time = Timer:getServerTime_Milliseconds()
+        self.m_expirationTimestamp = curr_time
+    end
+    
+
+    -- 오늘 자정
+    local midnight = Timer:getServerTime_midnight() * 1000
+    local expiration_timestamp = self.m_expirationTimestamp
+
+    -- 핫타임 중 시작, 종료 시간 중 빠른 시간으로
+    local l_list = self:getAllStructFevertimeList()
+    local _time = nil
+    for i, struct_fevertime in pairs(l_list) do
+        local start_date = struct_fevertime:getStartDateForSort()
+        if start_date and (start_date ~= 0) and (expiration_timestamp < start_date) then
+            if (_time == nil) or (start_date < _time) then
+                _time = start_date
+            end
+        end
+
+        local end_date = struct_fevertime:getEndDateForSort()
+        if end_date and (end_date ~= 0) and (expiration_timestamp < end_date) then
+            if (_time == nil) or (end_date < _time) then
+                _time = end_date
+            end
+        end
+    end
+
+    self.m_expirationTimestamp = math_min(midnight, _time)
+end
+
+-------------------------------------
+-- function needToUpdateFevertimeInfo
+-------------------------------------
+function ServerData_Fevertime:needToUpdateFevertimeInfo()
+    local curr_time = Timer:getServerTime_Milliseconds()
+
+    if (self.m_expirationTimestamp < curr_time) then
+        return true
+    else
+        return false
+    end
 end

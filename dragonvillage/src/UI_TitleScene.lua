@@ -1113,6 +1113,9 @@ function UI_TitleScene:workGetServerInfo()
 			ui_network:setRevocable(true)
             ui_network:setSuccessCB(function(ret)
 				
+                -- server_info 정보를 갱신
+                g_serverData:networkCommonRespone(ret)
+
 				 -- 클랜 정보 (클랜 로비가 들어가면서 추가)
                 if (ret['clan']) then
                     cclog('# 클랜 정보')
@@ -1241,6 +1244,12 @@ function UI_TitleScene:workGetServerInfo()
                     cclog('# 원격 설정(remote config)')
                     g_remoteConfig:applyRemoteConfig(ret['remote_config'])
                 end
+
+                do 
+                    cclog('# 핫타임 설정(fevertime)')
+                    g_fevertimeData:applyFevertimeAtTitleAPI(ret)
+                end
+
 
                 cclog('# 보급소(정액제)(supply_list)')
                 g_supply:applySupplyList_fromRet(ret)

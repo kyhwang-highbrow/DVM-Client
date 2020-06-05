@@ -6,6 +6,7 @@ local PARENT = UI
 -------------------------------------
 UI_Fevertime = class(PARENT,{
         m_bDirty = 'boolean',
+        m_bRequested = 'boolean',
     })
 
 -------------------------------------
@@ -21,6 +22,9 @@ function UI_Fevertime:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    self.m_bDirty = false
+    self.m_bRequested = false
 end
 
 -------------------------------------
@@ -135,6 +139,19 @@ function UI_Fevertime:update(dt)
         local str = string.format('%d.%d %s %.2d:%.2d', date:month(), date:day(), wday_str, date:hour(), date:min())
 
         vars['serverTimeLabel']:setString(Str('서버 시간 : {1}', str .. ' (' .. utc .. ')'))
+    end
+
+    -- 데이터 갱신이 필요할 경우
+    if (self.m_bRequested == false) and (g_fevertimeData:needToUpdateFevertimeInfo() == true) then
+        local function cb()
+            self.m_bRequested = false
+            if (self.closed == true) then
+                return
+            end
+            self:refresh()    
+        end
+        self.m_bRequested = true
+        g_fevertimeData:request_fevertimeInfo(cb, cb)
     end
 
     if (self.m_bDirty == true) then

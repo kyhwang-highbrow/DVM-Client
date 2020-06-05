@@ -619,9 +619,13 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
 
-        co:work('# 핫타임(fevertime) 정보 요청 중')
-        g_fevertimeData:request_fevertimeInfo(co.NEXT, co.ESCAPE)
-        if co:waitWork() then return end
+        
+        co:work('# 핫타임(fevertime) 정보 요청 여부 확인')
+        if (g_fevertimeData:needToUpdateFevertimeInfo() == true) then
+            co:work('# 핫타임(fevertime) 정보 요청 중')
+            g_fevertimeData:request_fevertimeInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
 
 
         co:work('# 접속시간 저장 중')
