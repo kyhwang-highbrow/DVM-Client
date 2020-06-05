@@ -129,11 +129,6 @@ end
 -- @brief 일일 핫타임 활성화 (사용)
 -------------------------------------
 function UI_FevertimeListItem:click_startBtn()
-    if self.m_cbChangeData then
-        self.m_cbChangeData()
-        return
-    end
-
     -- 일일 핫타임 스케쥴이고, 오늘 날짜에 포함되었을 경우
     local struct_fevertime = self.m_structFevertime
     if (struct_fevertime:isTodayDailyHottime() == false) then
