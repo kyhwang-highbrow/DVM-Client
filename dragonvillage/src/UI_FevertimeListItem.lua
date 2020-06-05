@@ -132,15 +132,17 @@ function UI_FevertimeListItem:click_startBtn()
     -- 일일 핫타임 스케쥴이고, 오늘 날짜에 포함되었을 경우
     local struct_fevertime = self.m_structFevertime
     if (struct_fevertime:isTodayDailyHottime() == false) then
-        local msg = Str('일일 핫타임은 당일에만 사용할 수 있습니다.')
-        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        --local msg = Str('일일 핫타임은 당일에만 사용할 수 있습니다.')
+        --MakeSimplePopup(POPUP_TYPE.OK, msg)
+        UIManager:toastNotificationRed(Str('일일 핫타임은 당일에만 사용할 수 있습니다.'))
         return
     end
 
     local type = struct_fevertime:getFevertimeType()
     if (g_fevertimeData:isActiveDailyFevertimeByType(type) == true) then
-        local msg = Str('같은 종류의 일일 핫타임은 동시에 사용할 수 없습니다.')
-        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        --local msg = Str('같은 종류의 일일 핫타임은 동시에 사용할 수 없습니다.')
+        --MakeSimplePopup(POPUP_TYPE.OK, msg)
+        UIManager:toastNotificationRed(Str('같은 종류의 일일 핫타임은 동시에 사용할 수 없습니다.'))
         return
     end
 
