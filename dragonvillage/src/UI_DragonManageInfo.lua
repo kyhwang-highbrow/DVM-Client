@@ -504,6 +504,32 @@ end
 -- @brief 특성 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_masteryBtn()
+    local doid = self.m_selectDragonOID
+    local did = self.m_selectDragonData['did']
+
+    -- 슬라임
+    if (self.m_bSlimeObject == true) then
+        return
+    end
+
+    -- 몬스터 (1~2성)
+    if (TableDragon:isUnderling(did) == true) then
+        return
+    end
+
+    local dragon_obj = self:getSelectDragonObj()
+
+    -- 드래곤 정보 없음
+    if (not dragon_obj) then    
+        return
+    end
+
+    -- 최대 등급, 최대 레벨 아님
+    if (dragon_obj:isMaxGradeAndLv() == false) then
+        return
+    end
+
+    -- 위의 모든 문제점이 없을 때 특성 UI 진입
     self:openSubManageUI(UI_DragonMasteryNew)
 end
 
