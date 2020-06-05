@@ -208,6 +208,14 @@ function StructFevertime:getFevertimeDesc()
 end
 
 -------------------------------------
+-- function getFevertimeLinkType
+-------------------------------------
+function StructFevertime:getFevertimeLinkType()
+    local link_type = TableFevertime:getLinkType(self['type'])
+    return link_type
+end
+
+-------------------------------------
 -- function getPeriodStr
 -- @breif 기간 문자열
 -- @return string
@@ -293,7 +301,7 @@ function StructFevertime.sortFunc(struct_a, struct_b)
 
     -- 1. 활성화 중인게 우선
     if (struct_a:isActiveFevertime() ~= struct_b:isActiveFevertime()) then
-        --return struct_a:isActiveFevertime()
+        return struct_a:isActiveFevertime()
     end
 
     -- 2. 시작 시간이 빠른 것이 우선

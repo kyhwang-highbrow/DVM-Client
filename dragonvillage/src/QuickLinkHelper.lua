@@ -100,6 +100,11 @@ T_LINK_FUNC = {
         UINavigatorDefinition:goTo('battle_ready', condition)
     end,
 
+    -- 던전으로 이동
+    ['link_dungeon'] = function()
+        UINavigator:goTo('battle_menu', 'dungeon')
+    end,
+
     -- ancient clear / condition : stage_id
     ['clr_tower'] = function(condition)
         UINavigator:goTo('ancient', condition)
@@ -400,6 +405,11 @@ T_LINK_FUNC = {
     ['fr_lvup'] = function()
         local start_dragon = g_userData:get('start_dragon')
         UINavigator:goTo('dragon_manage', 'friendship', start_dragon)
+    end,
+
+    -- 드래곤 특성
+    ['link_dragon_mastery'] = function()
+        UINavigator:goTo('dragon_manage', 'mastery')
     end,
 
     -- 작별

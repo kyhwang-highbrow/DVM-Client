@@ -86,11 +86,22 @@ function UI_FevertimeListItem:initButton()
     vars['startBtn']:setVisible(false)
     vars['nextdayBtn']:setVisible(false)
     vars['CompletBtn']:setVisible(false)
-    vars['questLinkBtn']:setVisible(false)
+    vars['questLinkBtn']:setVisible(true)
+    vars['questLinkBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_FevertimeListItem:refresh()
+end
+
+-------------------------------------
+-- function click_linkBtn
+-- @brief 바로가기
+-------------------------------------
+function UI_FevertimeListItem:click_linkBtn()
+    local struct_fevertime = self.m_structFevertime
+    local link_type = struct_fevertime:getFevertimeLinkType()
+    QuickLinkHelper.quickLink(link_type)
 end

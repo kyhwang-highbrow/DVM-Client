@@ -1030,6 +1030,9 @@ function UI_DragonManageInfo:clickSubMenu(sub_menu)
     elseif (sub_menu == 'reinforce') then
         self:click_reinforceBtn()
 
+    elseif (sub_menu == 'mastery') then
+        self:click_masteryBtn()
+
     end
 end
 

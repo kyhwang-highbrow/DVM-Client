@@ -38,3 +38,14 @@ function TableFevertime:getFevertimeDesc(type)
     
     return self:getValue(type, 't_desc')
 end
+
+-------------------------------------
+-- function getLinkType
+-------------------------------------
+function TableFevertime:getLinkType(type)
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    return self:getValue(type, 'link_type')
+end
