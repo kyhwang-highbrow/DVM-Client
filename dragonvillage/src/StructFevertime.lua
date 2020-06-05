@@ -75,6 +75,24 @@ function StructFevertime:isActiveFevertime()
 end
 
 -------------------------------------
+-- function isTodayDailyHottime
+-------------------------------------
+function StructFevertime:isTodayDailyHottime()
+    if (self['date'] == nil) then
+        return false
+    end
+
+    local server_timestamp = Timer:getServerTime()
+    local date = TimeLib:convertToServerDate(server_timestamp)
+    local server_date = (date:year() * 10000) + (date:month() * 100) + (date:day())
+   
+
+    -- number타입, YYYYMMDD형태의 값. ex) 20200605
+    local is_today = (self['date'] == server_date)
+    return is_today
+end
+
+-------------------------------------
 -- function isFevertimeExpired
 -------------------------------------
 function StructFevertime:isFevertimeExpired()
@@ -273,6 +291,13 @@ function StructFevertime:getTimeLabelStr()
 end
 
 -------------------------------------
+-- function isDailyHottime
+-------------------------------------
+function StructFevertime:isDailyHottime()
+    return self['key'] == StructFevertime.KEY.DAILY_HOTTIME
+end
+
+-------------------------------------
 -- function isDailyHottimeSchedule
 -------------------------------------
 function StructFevertime:isDailyHottimeSchedule()
@@ -287,6 +312,19 @@ function StructFevertime:isGlobalHottime()
     return self['key'] == StructFevertime.KEY.GLOBAL_HOTTIME
 end
 
+-------------------------------------
+-- function getFevertimeType
+-------------------------------------
+function StructFevertime:getFevertimeType()
+    return self['type']
+end
+
+-------------------------------------
+-- function getFevertimeID
+-------------------------------------
+function StructFevertime:getFevertimeID()
+    return self['id']
+end
 
 
 -------------------------------------
