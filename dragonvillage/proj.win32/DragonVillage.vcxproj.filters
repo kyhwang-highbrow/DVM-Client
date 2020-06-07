@@ -4486,9 +4486,6 @@
     <None Include="..\src\UI_ButtonPaymentShop.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ButtonPayment.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_PaymentShop.lua">
       <Filter>lua\UI</Filter>
     </None>

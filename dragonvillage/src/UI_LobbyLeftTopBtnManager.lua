@@ -36,7 +36,7 @@ function UI_LobbyLeftTopBtnManager:init(ui_lobby)
 
     local l_managed_button_info = {}
     
-    table.insert(l_managed_button_info, {self.PRIORITY.PAYMENT_SHOP, UI_ButtonPaymentShop}) -- 현금 결제 상품 상점
+    --table.insert(l_managed_button_info, {self.PRIORITY.PAYMENT_SHOP, UI_ButtonPaymentShop}) -- 현금 결제 상품 상점
     table.insert(l_managed_button_info, {self.PRIORITY.SPECIAL_OFFER_PRODUCT, UI_ButtonSpecialOfferProduct}) -- 특별 할인 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SPOT_SALE_PRODUCT, UI_ButtonSpotSale}) -- 깜짝 할인 상품
     table.insert(l_managed_button_info, {self.PRIORITY.SUPPLY_DEPOT, UI_ButtonSupplyDepot}) -- 보급소(정액제)
