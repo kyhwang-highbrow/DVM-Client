@@ -243,3 +243,36 @@ function ServerData_Fevertime:needToUpdateFevertimeInfo()
         return false
     end
 end
+
+-------------------------------------
+-- function isHighlightFevertime
+-- @brief 알림표시가 필요한 항목이 몇개인지 체크해서 1개 이상이면 true 리턴
+--        마을에서 핫타임 버튼에 표시
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isHighlightFevertime()
+    local noti_count = 0
+
+    -- 일일 핫타임 활성화 가능한 경우
+    for i,struct_fevertime in pairs(self.m_lFevertimeSchedule) do
+        if (struct_fevertime:isTodayDailyHottime() == true) then
+            noti_count = (noti_count + 1)
+        end
+    end
+    
+    -- 핫타임(활성화된 일일 핫타임)
+    for i,struct_fevertime in pairs(self.m_lFevertime) do
+        if (struct_fevertime:isActiveFevertime() == true) then
+            noti_count = (noti_count + 1)
+        end
+    end
+
+    -- 글로벌 핫타임
+    for i,struct_fevertime in pairs(self.m_lFevertimeGlobal) do
+        if (struct_fevertime:isActiveFevertime() == true) then
+            noti_count = (noti_count + 1)
+        end
+    end
+
+    return (0 < noti_count)
+end

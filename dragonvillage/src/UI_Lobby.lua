@@ -669,6 +669,7 @@ function UI_Lobby:initButton()
 
     -- 우측 UI
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
+    vars['fevertimeBtn']:registerScriptTapHandler(function() self:click_fevertimeBtn() end) -- 핫타임 버튼 
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['itemAutoBtn']:setVisible(false)
@@ -965,6 +966,10 @@ function UI_Lobby:update_highlight()
             elseif g_eventAlphabetData:isHighlightYellow_alphabet() then
                 vars['alphabetNotiYellow']:setVisible(true)
             end
+        end
+
+        do -- 핫타임
+            vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isHighlightFevertime())
         end
 
         self.m_bUpdatingHighlights = false
@@ -1292,6 +1297,13 @@ end
 -------------------------------------
 function UI_Lobby:click_eventBtn()
     g_eventData:openEventPopup()
+end
+
+-------------------------------------
+-- function click_fevertimeBtn
+-------------------------------------
+function UI_Lobby:click_fevertimeBtn()
+    g_eventData:openEventPopup('fevertime')
 end
 
 -------------------------------------
@@ -1948,6 +1960,16 @@ function UI_Lobby:update_rightButtons()
     local is_daily_shop_open = not g_contentLockData:isContentLock('daily_shop')
     vars['dailyShopBtn']:setVisible(is_daily_shop_open)
 
+    do -- 핫타임
+        if (g_fevertimeData:isHighlightFevertime() == true) then
+            vars['fevertimeBtn']:setVisible(true)
+            vars['fevertimeNotiSprite']:setVisible(true)
+        else
+            vars['fevertimeBtn']:setVisible(false)
+            vars['fevertimeNotiSprite']:setVisible(false)
+        end
+    end
+
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}
     table.insert(t_btn_name, 'capsuleBtn')
@@ -1973,6 +1995,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'goldDungeonBtn')
     table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'randomShopBtn')
+    table.insert(t_btn_name, 'fevertimeBtn')
     table.insert(t_btn_name, 'eventBtn')
     
     -- visible이 켜진 버튼들 리스트

@@ -104,6 +104,12 @@ function UI_FevertimeListItem:initButton()
             vars['questLinkBtn']:setVisible(false)
             vars['startBtn']:setVisible(true)
         --end
+
+        if (struct_fevertime:isTodayDailyHottime() == true) then
+            vars['startBtnNotiSprite']:setVisible(true)
+        else
+            vars['startBtnNotiSprite']:setVisible(false)
+        end
     end
     
 end
