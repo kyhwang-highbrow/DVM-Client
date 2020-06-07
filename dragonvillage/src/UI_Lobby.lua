@@ -872,8 +872,10 @@ function UI_Lobby:update_highlight()
         -- 전투 메뉴
         vars['battleNotiSprite']:setVisible(g_highlightData:isHighlightExploration() or g_secretDungeonData:isSecretDungeonExist())
 
-        -- 핫타임
-        vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+        do -- 핫타임
+            local visible = g_hotTimeData:isHighlightHotTime() or g_fevertimeData:isHighlightHotTime_adventure()
+            vars['battleHotSprite']:setVisible(visible)
+        end
 
         -- 퀘스트
         vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
@@ -1773,7 +1775,8 @@ function UI_Lobby:refresh_hottime()
 	local vars = self.vars
 
     -- 핫타임 정보 갱신
-    vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+    local visible = g_hotTimeData:isHighlightHotTime() or g_fevertimeData:isHighlightHotTime_adventure()
+    vars['battleHotSprite']:setVisible(visible)
 	
 	-- 할인 이벤트
 	local l_dc_event = g_hotTimeData:getDiscountEventList()

@@ -320,6 +320,13 @@ function StructFevertime:getFevertimeType()
 end
 
 -------------------------------------
+-- function getFevertimeValue
+-------------------------------------
+function StructFevertime:getFevertimeValue()
+    return self['value']
+end
+
+-------------------------------------
 -- function getFevertimeID
 -------------------------------------
 function StructFevertime:getFevertimeID()

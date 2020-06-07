@@ -276,3 +276,42 @@ function ServerData_Fevertime:isHighlightFevertime()
 
     return (0 < noti_count)
 end
+
+
+-------------------------------------
+-- function isActiveFevertimeByType
+-- @brief 해당 타입의 핫타임이 활성화 여부, 값, StructFevertime리스트
+-- @return bool, number, table(list)
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertimeByType(type)
+    
+    local is_active = false
+    local value = 0
+    local l_ret = {}
+
+    local l_list = self:getAllStructFevertimeList()
+    for i, struct_fevertime in pairs(l_list) do
+        if (struct_fevertime:getFevertimeType() == type) then
+            if (struct_fevertime:isActiveFevertime() == true) then
+                is_active = true
+                value = (value + struct_fevertime:getFevertimeValue())
+                table.insert(l_ret, clone(struct_fevertime))
+            end
+        end
+    end
+
+    return is_active, value, l_ret
+end
+
+-------------------------------------
+-- function isHighlightHotTime_adventure
+-- @brief 모험모드 핫타임
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isHighlightHotTime_adventure()
+    local is_active_exp_up = self:isActiveFevertimeByType('exp_up') -- 모험 드래곤 경험치 증가
+    local is_active_gold_up = self:isActiveFevertimeByType('gold_up') -- 모험 골드 증가
+    local is_active_ad_st_dc = self:isActiveFevertimeByType('ad_st_dc') -- 모험 날개 할인
+
+    return is_active_exp_up or is_active_gold_up or is_active_ad_st_dc
+end

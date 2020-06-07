@@ -102,7 +102,7 @@ function UI_BattleMenuItem:refresh()
     local noti_pos 
 
     if (content_type == 'adventure') then
-        local visible = g_hotTimeData:isHighlightHotTime()
+        local visible = g_hotTimeData:isHighlightHotTime() or g_fevertimeData:isHighlightHotTime_adventure()
         self.vars['battleHotSprite']:setVisible(visible)
         
     elseif (content_type == 'exploration') then
