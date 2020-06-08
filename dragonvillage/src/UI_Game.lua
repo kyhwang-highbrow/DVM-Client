@@ -160,20 +160,54 @@ function UI_Game:initHotTimeUI()
 		['stamina'] = 0,
 	}
 
-	-- start 통신에서 받아온 따끈한 핫타임 정보로 활성화 버프 수치 계산
-    for i, hot_key in pairs(l_hottime) do
-        local t_info = g_hotTimeData:getHottimeInfo(hot_key)
-		if (t_info) then
-			t_hottime_calc_value[t_info['type']] = t_hottime_calc_value[t_info['type']] + t_info['value']
-		end
+
+    do -- 골드
+        local type = 'gold'
+        local is_active, value = g_hotTimeData:getActiveHotTimeInfo_gold()
+        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
+
+        -- fevertime
+        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(type)
+        local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
+        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + (_value * 100))
     end
+
+    do -- 경험치
+        local type = 'exp'
+        local is_active, value = g_hotTimeData:getActiveHotTimeInfo_exp()
+        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
+
+        -- fevertime
+        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(type)
+        local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
+        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + (_value * 100))
+    end
+
+    do -- 입장권
+        local type = 'stamina'
+        local is_active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
+        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
+
+        -- fevertime
+        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(type)
+        local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
+        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + (_value * 100))
+    end
+
+	-- start 통신에서 받아온 따끈한 핫타임 정보로 활성화 버프 수치 계산
+    --for i, hot_key in pairs(l_hottime) do
+    --    local t_info = g_hotTimeData:getHottimeInfo(hot_key)
+	--	if (t_info) then
+	--		t_hottime_calc_value[t_info['type']] = t_hottime_calc_value[t_info['type']] + t_info['value']
+	--	end
+    --end
 
 	-- 계산한 버프 수치에 클랜 버프 추가하고 UI 처리하기 위한 데이터 생성
 	for hottime_type, value in pairs(t_hottime_calc_value) do
-		-- 클랜 버프 추가
-		if (not g_clanData:isClanGuest()) then
-			value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE[hottime_type:upper()])
-		end
+		-- 클랜 버프 추가 -- 위쪽 코드에서 포함되도록 수정 20200608
+		--if (not g_clanData:isClanGuest()) then
+		--	value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE[hottime_type:upper()])
+		--end
 
 		-- UI 처리용 데이터
 		if (value > 0) then
@@ -188,6 +222,7 @@ function UI_Game:initHotTimeUI()
 			table.insert(l_item_ui, 1, btn_name)
 		end
 	end
+
     
     self:arrangeItemUI(l_item_ui)
 end
