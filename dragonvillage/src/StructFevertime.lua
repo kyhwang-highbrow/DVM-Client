@@ -212,7 +212,8 @@ end
 -- function getFevertimeName
 -------------------------------------
 function StructFevertime:getFevertimeName()
-    return TableFevertime:getFevertimeName(self['type'])
+    local name = TableFevertime:getFevertimeName(self['type'])
+    return Str(name)
 end
 
 -------------------------------------
