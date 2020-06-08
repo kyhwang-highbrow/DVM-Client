@@ -154,7 +154,7 @@ return {['14일간 {@mustard}일일 퀘스트 보상을\n2배{@default}로 받�
 ['보상을 수령하시겠습니까?']='Accept reward?',
 ['보상을 수령했습니다.\n수령한 보상은 우편함으로 전송되었습니다.']='Accepted the reward.\nIt\'s been sent to your Inbox.',
 ['◆ 마지막 보상은 준비된 {@YELLOW}아이템 중 하나를 선택해서{@DEFAULT} 받을 수 있습니다.\n선택한 보상은 변경할 수 없으니 주의하시기 바랍니다.']='◆ For your last reward, you can {@YELLOW}select one of the preselected items{@DEFAULT}.\nPlease note that a reward, once selected, can\'t be changed.',
-['◆ 특정 보상은 준비된 {@YELLOW}아이템 중 하나를 선택해서{@DEFAULT} 받을 수 있습니다.\n선택한 보상은 변경할 수 없으니 주의하시기 바랍니다.']='◆ For certain rewards, you can {@YELLOW}select them from the preselected items{@DEFAULT}.\nPlease note that a reward, once selected, can\'t be changed.',
+['◆ 특정 보상은 준비된 {@YELLOW}아이템 중 하나를 선택해서{@DEFAULT} 받을 수 있습니다.\n선택한 보상은 변경할 수 없으니 주의하시기 바랍니다.']='◆ For certain rewards, you can {@YELLOW}select them from the preselected items{@DEFAULT}. Please note that a reward, once selected, can\'t be changed.',
 ['선택하시겠습니까?']='Select?',
 ['출석 보상']='Check-in Reward',
 ['터치해서 출석 보상을 받아주세요.']='Tap and get your Check-in reward.',
