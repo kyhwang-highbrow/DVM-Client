@@ -165,33 +165,18 @@ function UI_Game:initHotTimeUI()
         local type = 'gold'
         local is_active, value = g_hotTimeData:getActiveHotTimeInfo_gold()
         t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
-
-        -- fevertime
-        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(type)
-        local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
-        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + (_value * 100))
     end
 
     do -- 경험치
         local type = 'exp'
         local is_active, value = g_hotTimeData:getActiveHotTimeInfo_exp()
         t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
-
-        -- fevertime
-        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(type)
-        local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
-        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + (_value * 100))
     end
 
     do -- 입장권
         local type = 'stamina'
         local is_active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
         t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
-
-        -- fevertime
-        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(type)
-        local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
-        t_hottime_calc_value[type] = (t_hottime_calc_value[type] + (_value * 100))
     end
 
 	-- start 통신에서 받아온 따끈한 핫타임 정보로 활성화 버프 수치 계산
