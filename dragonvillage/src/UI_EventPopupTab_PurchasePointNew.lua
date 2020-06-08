@@ -271,6 +271,14 @@ end
 -- @brief
 -------------------------------------
 function UI_EventPopupTab_PurchasePointNew:click_receiveBtn(reward_step)
+
+    if (reward_step == 4) then
+        require('UI_PurchasePointRewardSelectPopup')
+        local ui = UI_PurchasePointRewardSelectPopup(self.m_eventVersion)
+        ui:setCloseCB(function() self:refresh() end)
+        return
+    end
+
     local version = self.m_eventVersion
 
     local function cb_func(ret)
@@ -324,6 +332,7 @@ function UI_EventPopupTab_PurchasePointNew:click_lastRewardIdx(reward_idx)
         ui_frame:load('event_purchase_point_item_new_01.ui')
         ui_frame.vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
         item_node:addChild(ui_frame.root)
+        self.m_rewardBoxUIList[step] = ui_frame
             
         local item_id, count = self:getRewardInfoByStep(version, step, reward_idx)
 
@@ -333,6 +342,8 @@ function UI_EventPopupTab_PurchasePointNew:click_lastRewardIdx(reward_idx)
         ui_frame.root:setScale(1.2)
         ui_card.root:setScale(0.7)
     end
+
+    self:refresh_rewardBoxUIList()
 end
 
 --@CHECK
