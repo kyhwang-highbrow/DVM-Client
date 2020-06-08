@@ -695,11 +695,12 @@ end
 -------------------------------------
 function ServerData_HotTime:refreshActivatedDiscountEvent()
     local curr_time = Timer:getServerTime()
+    local active_dc_event_table = (self.m_activeDcEventTable or {})
 
 	-- 종료된 이벤트 삭제
-    for key, v in pairs(self.m_activeDcEventTable) do
+    for key, v in pairs(active_dc_event_table) do
         if ((v['enddate'] / 1000) < curr_time) then
-            self.m_activeDcEventTable[key] = nil
+            active_dc_event_table[key] = nil
         end
     end
 
@@ -713,7 +714,8 @@ function ServerData_HotTime:refreshActivatedDiscountEvent()
 
     -- 활성화된 항목 추출
     self.m_activeDcEventTable = {}
-	for i, v in pairs(self.m_hotTimeInfoList) do
+    local hottime_info_list = (self.m_hotTimeInfoList or {})
+	for i, v in pairs(hottime_info_list) do
 
 		local name = v['event']
 		local begin_at = v['begindate']
@@ -784,17 +786,20 @@ end
 -- function getDiscountEventValue
 -------------------------------------
 function ServerData_HotTime:getDiscountEventValue(dc_target)
-	if (not self.m_activeDcEventTable) then
-		return
-	end
-
 	local dc_value = 0
-	for target, v in pairs(self.m_activeDcEventTable) do
+    local active_dc_event_table = (self.m_activeDcEventTable or {})
+	for target, v in pairs(active_dc_event_table) do
 		if (target == dc_target) then
 			dc_value = v['value']
 			break
 		end
 	end
+
+    -- fevertime 추가
+    local hottime_type = dc_target
+    local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(hottime_type)
+    local is_active, value, l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
+    dc_value = dc_value + (value * 100) -- fevertime의 정보를 가져온다. fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
 
 	return dc_value
 end
@@ -908,23 +913,12 @@ end
 -- function getDiscountEventList
 -------------------------------------
 function ServerData_HotTime:getDiscountEventList()
-	-- 통신 아직 안 했을 경우
-	if (not self.m_hotTimeInfoList) then
-		return {}
-	end
-
 	self:refreshActivatedDiscountEvent()
 
     local l_dc_event = {}
     for k, v in pairs(HOTTIME_SALE_EVENT) do
         local dc_target = v
         local dc_value = self:getDiscountEventValue(dc_target)
-
-        -- fevertime 추가
-        local hottime_type = v
-        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(hottime_type)
-        local is_active, value, l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
-        dc_value = dc_value + (value * 100) -- fevertime의 정보를 가져온다. fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
 
         if (dc_value > 0) then
             table.insert(l_dc_event, dc_target)
