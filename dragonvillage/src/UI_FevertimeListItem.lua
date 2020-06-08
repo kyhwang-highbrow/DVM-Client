@@ -64,7 +64,6 @@ function UI_FevertimeListItem:initUI()
         vars['CompletMenu']:setVisible(false)
         vars['nextdayMenu']:setVisible(false)
         vars['activeSprite']:setVisible(struct_fevertime:isActiveFevertime())
-        vars['inactiveSprite']:setVisible(not struct_fevertime:isActiveFevertime())
 
         local is_shaded = false
 
