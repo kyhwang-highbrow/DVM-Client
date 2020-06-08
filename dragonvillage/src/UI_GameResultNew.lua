@@ -1054,6 +1054,10 @@ function UI_GameResultNew:click_backBtn()
         return
     end
 
+    if (self:checkAutoPlayRelease()) then
+        return
+    end
+
     local game_mode = g_gameScene.m_gameMode
     local dungeon_mode = g_gameScene.m_dungeonMode
     local condition = self.m_stageID
@@ -1064,19 +1068,29 @@ end
 -- function click_statusInfoBtn
 -------------------------------------
 function UI_GameResultNew:click_statusInfoBtn()
+    if (self:checkAutoPlayRelease()) then
+        return
+    end
+
     UI_HelpStatus()
 end
 
 -------------------------------------
 -- function click_quickBtn
 -------------------------------------
-function UI_GameResultNew:click_quickBtn()
+function UI_GameResultNew:click_quickBtn(skip_check_auto_play_release)
 	if (self:blockButtonUntilWorkDone()) then
 		return
 	end
 
     if (self:checkIsTutorial()) then
         return
+    end
+
+    if (skip_check_auto_play_release == nil) or (skip_check_auto_play_release == false) then
+        if (self:checkAutoPlayRelease()) then
+            return
+        end
     end
 
 	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
@@ -1178,6 +1192,10 @@ function UI_GameResultNew:click_statsBtn()
         return
     end
 
+    if (self:checkAutoPlayRelease()) then
+        return
+    end
+
 	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
 	UI_StatisticsPopup(g_gameScene.m_gameWorld)
 end
@@ -1191,6 +1209,10 @@ function UI_GameResultNew:click_homeBtn()
 	end
     
     if (self:checkIsTutorial()) then
+        return
+    end
+
+    if (self:checkAutoPlayRelease()) then
         return
     end
     	
@@ -1214,6 +1236,10 @@ function UI_GameResultNew:click_againBtn()
         return
     end
 
+    if (self:checkAutoPlayRelease()) then
+        return
+    end
+
     local stage_id = self.m_stageID
     local function close_cb()
         UINavigator:goTo('adventure', stage_id)
@@ -1227,6 +1253,10 @@ end
 -------------------------------------
 function UI_GameResultNew:click_nextBtn()
     if (self:checkIsTutorial()) then
+        return
+    end
+
+    if (self:checkAutoPlayRelease()) then
         return
     end
 
@@ -1266,6 +1296,10 @@ end
 -- function click_prevBtn
 -------------------------------------
 function UI_GameResultNew:click_prevBtn()
+    if (self:checkAutoPlayRelease()) then
+        return
+    end
+
     -- 이전 스테이지 ID 지정
     local stage_id = self.m_stageID
     prev_stage_id = getPrevStageID(stage_id)
@@ -1470,7 +1504,7 @@ function UI_GameResultNew:countAutoPlay()
         local act1 = cc.DelayTime:create(count_num * count_time)
         local act2 = cc.CallFunc:create(function()
             node:setVisible(false) 
-            self:click_quickBtn() 
+            self:click_quickBtn(true) -- params : skip_check_auto_play_release
         end)
         self.root:runAction(cc.Sequence:create(act1, act2))
     end

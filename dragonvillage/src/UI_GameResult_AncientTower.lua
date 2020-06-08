@@ -521,6 +521,10 @@ end
 -- @brief 다시하기
 -------------------------------------
 function UI_GameResult_AncientTower:click_againBtn()
+    if (self:checkAutoPlayRelease()) then
+        return
+    end
+
     local stage_id = self.m_stageID    
     local function close_cb()
         g_ancientTowerData:checkAttrTowerAndGoStage(stage_id)
@@ -533,6 +537,10 @@ end
 -- function click_nextBtn
 -------------------------------------
 function UI_GameResult_AncientTower:click_nextBtn()
+    if (self:checkAutoPlayRelease()) then
+        return
+    end
+
     local attr = g_attrTowerData:getSelAttr()
     local stage_id = self.m_stageID
     local max_stage_id = ''
@@ -584,6 +592,10 @@ end
 -- function click_prevBtn
 -------------------------------------
 function UI_GameResult_AncientTower:click_prevBtn()
+    if (self:checkAutoPlayRelease()) then
+        return
+    end
+
     local stage_id = self.m_stageID
     local use_scene = true
     local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
