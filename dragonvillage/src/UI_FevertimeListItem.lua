@@ -64,10 +64,20 @@ function UI_FevertimeListItem:initUI()
         vars['CompletMenu']:setVisible(false)
         vars['nextdayMenu']:setVisible(false)
 
+        local is_shaded = false
+
         if struct_fevertime:isFevertimeExpired() then
             vars['CompletMenu']:setVisible(true)
+            is_shaded = true
         elseif struct_fevertime:isBeforeStartDate() then
             vars['nextdayMenu']:setVisible(true)
+            is_shaded = true
+        end
+
+        if (is_shaded == true) then
+            vars['titleLabel']:setTextColor(cc.c4b(180, 180, 180, 255))
+            vars['infoLabel']:setDefualtColor(cc.c3b(180, 180, 180))
+            vars['timeLabel']:setDefualtColor(cc.c3b(180, 180, 180))
         end
     end
 
