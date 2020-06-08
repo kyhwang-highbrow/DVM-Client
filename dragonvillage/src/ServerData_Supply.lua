@@ -196,7 +196,7 @@ function ServerData_Supply:getSupplyTimeRemainingString(supply_type, is_simple)
         end
     else -- (is_simple == true)
         if (t_supply_info == nil) then
-            return '획득 가능'
+            return Str('획득 가능')
         end
 
         local curr_time = Timer:getServerTime()
@@ -209,7 +209,7 @@ function ServerData_Supply:getSupplyTimeRemainingString(supply_type, is_simple)
             local str = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
             return str
         else
-            return '획득 가능'
+            return Str('획득 가능')
         end
     end
 end
