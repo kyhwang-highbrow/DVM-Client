@@ -4,12 +4,15 @@ local PARENT = UI
 -- class UI_PurchasePointRewardSelectPopup
 -------------------------------------
 UI_PurchasePointRewardSelectPopup = class(PARENT,{
+        m_eventVersion = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PurchasePointRewardSelectPopup:init(event_version, reward_idx)
+function UI_PurchasePointRewardSelectPopup:init(event_version)
+    self.m_eventVersion = event_version
+
     local vars = self:load('event_purchase_point_popup_receive_01.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -100,7 +103,15 @@ end
 -- function click_selectRewardIdx
 -------------------------------------
 function UI_PurchasePointRewardSelectPopup:click_selectRewardIdx(reward_idx)
+    local event_version = self.m_eventVersion
 
+    require('UI_PurchasePointRewardReceivePopup')
+    local ui = UI_PurchasePointRewardReceivePopup(event_version, reward_idx)
+    ui:setCloseCB(function()
+        if (ui.m_bReceived == true) then
+            self:close()
+        end
+    end)
 end
 
 --@CHECK

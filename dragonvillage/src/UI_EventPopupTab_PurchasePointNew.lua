@@ -288,7 +288,7 @@ function UI_EventPopupTab_PurchasePointNew:click_receiveBtn(reward_step)
         self:refresh()
     end
 
-    g_purchasePointData:request_purchasePointReward(version, reward_step, cb_func)
+    g_purchasePointData:request_purchasePointReward(version, reward_step, 1, cb_func)
 end
 
 -------------------------------------

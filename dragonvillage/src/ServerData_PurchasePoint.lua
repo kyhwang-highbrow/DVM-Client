@@ -93,7 +93,7 @@ end
 -------------------------------------
 -- function request_purchasePointReward
 -------------------------------------
-function ServerData_PurchasePoint:request_purchasePointReward(version, reward_step, finish_cb, fail_cb)
+function ServerData_PurchasePoint:request_purchasePointReward(version, reward_step, reward_idx, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -114,6 +114,7 @@ function ServerData_PurchasePoint:request_purchasePointReward(version, reward_st
     ui_network:setParam('uid', uid)
     ui_network:setParam('version', version)
     ui_network:setParam('reward_step', reward_step)
+    ui_network:setParam('select_no', reward_idx)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
