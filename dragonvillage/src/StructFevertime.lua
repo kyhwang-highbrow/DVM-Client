@@ -12,6 +12,7 @@ StructFevertime = class(PARENT, {
         hour = 'number',
         start_date = 'number', -- timestamp
         end_date = 'number', -- timestamp
+        badge = 'string',
 
         --------------------------------------------------
         start_date_for_sort = 'number',
@@ -343,6 +344,12 @@ function StructFevertime:getFevertimeID()
     return self['id']
 end
 
+-------------------------------------
+-- function getBadgeStr
+-------------------------------------
+function StructFevertime:getBadgeStr()
+    return self['badge']
+end
 
 -------------------------------------
 -- function sortFunc
@@ -397,6 +404,7 @@ function StructFevertime:create_forFevertime(t_data)
     struct_fevertime['hour'] = nil
     struct_fevertime['start_date'] = t_data['start']
     struct_fevertime['end_date'] = t_data['end']
+    struct_fevertime['badge'] = t_data['badge']
     return struct_fevertime
 end
 
@@ -413,6 +421,8 @@ function StructFevertime:create_forFevertimeSchedule(t_data)
     struct_fevertime['hour'] = t_data['hour']
     struct_fevertime['start_date'] = nil
     struct_fevertime['end_date'] = nil
+    struct_fevertime['badge'] = t_data['badge']
+    
     return struct_fevertime
 end
 
@@ -429,5 +439,7 @@ function StructFevertime:create_forFevertimeGlobal(t_data)
     struct_fevertime['hour'] = nil
     struct_fevertime['start_date'] = t_data['start']
     struct_fevertime['end_date'] = t_data['end']
+    struct_fevertime['badge'] = t_data['badge']
+
     return struct_fevertime
 end

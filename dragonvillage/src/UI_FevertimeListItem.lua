@@ -63,6 +63,8 @@ function UI_FevertimeListItem:initUI()
 
         vars['CompletMenu']:setVisible(false)
         vars['nextdayMenu']:setVisible(false)
+        vars['activeSprite']:setVisible(struct_fevertime:isActiveFevertime())
+        vars['inactiveSprite']:setVisible(not struct_fevertime:isActiveFevertime())
 
         local is_shaded = false
 
@@ -90,6 +92,15 @@ function UI_FevertimeListItem:initUI()
         vars['timeLabel']:setString(str)
     end
     
+    do -- 뱃지 확인
+        local badge_str = struct_fevertime:getBadgeStr()
+        if (badge_str ~= nil) and (badge_str ~= '') then
+            local node = vars[badge_str .. 'Sprite'] -- bonusSprite
+            if (node) then
+                node:setVisible(true)
+            end
+        end
+    end
 end
 
 -------------------------------------
