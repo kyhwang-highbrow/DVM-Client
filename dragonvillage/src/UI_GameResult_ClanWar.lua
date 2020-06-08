@@ -243,6 +243,9 @@ end
 -- function click_homeBtn
 -------------------------------------
 function UI_GameResult_ClanWar:click_homeBtn()
+    -- 씬 전환을 두번 호출 하지 않도록 하기 위함
+    local block_ui = UI_BlockPopup()
+
 	local is_use_loading = true
     local scene = SceneLobby(is_use_loading)
     scene:runScene()
@@ -257,6 +260,9 @@ function UI_GameResult_ClanWar:startGame()
     local combat_power = g_deckData:getDeckCombatPower(deck_name)
 
 	local function finish_cb(ret)
+        -- 씬 전환을 두번 호출 하지 않도록 하기 위함
+	    local block_ui = UI_BlockPopup()
+
 		local stage_name = 'stage_' .. stage_id
 		local scene = SceneGameClanWar(ret['gamekey'], stage_id, stage_name, false)
 		scene:runScene()

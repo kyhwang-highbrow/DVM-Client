@@ -349,6 +349,9 @@ function UI_GameResult_Illusion:startGame()
 	local deck_name = 'illusion'
 
 	local function finish_cb(game_key)
+        -- 씬 전환을 두번 호출 하지 않도록 하기 위함
+	    local block_ui = UI_BlockPopup()
+
 		-- 연속 전투일 경우 횟수 증가
 		if (g_autoPlaySetting:isAutoPlay()) then
 			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
