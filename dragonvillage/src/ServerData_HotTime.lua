@@ -441,7 +441,13 @@ function ServerData_HotTime:getActiveHotTimeInfo_stamina()
         return true, 50
     end
 
-    return false
+    local value = 0
+
+    -- fevertime의 정보를 가져온다. fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+    local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType('ad_st_dc')
+    value = (value + (_value * 100))
+
+    return (value > 0), value
 end
 
 -------------------------------------
@@ -449,6 +455,11 @@ end
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo_gold()
     local value = self:getActiveBonusValue('gold')
+
+    -- fevertime의 정보를 가져온다. fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+    local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType('gold_up')
+    value = (value + (_value * 100))
+
     return (value > 0), value
 end
 
@@ -457,6 +468,11 @@ end
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo_exp()
     local value = self:getActiveBonusValue('exp')
+
+    -- fevertime의 정보를 가져온다. fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+    local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType('exp_up')
+    value = (value + (_value * 100))
+
     return (value > 0), value
 end
 
@@ -567,6 +583,21 @@ end
 -------------------------------------
 function ServerData_HotTime:makeHotTimeToolTip(hottime_type, btn)
     local str = ''
+
+    do -- fevertime 핫타임 버프 정보
+        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(hottime_type)
+        local is_active, value, l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
+
+        -- StructFevertime
+        for k, struct_fevertime in pairs(l_ret) do
+		    local title = struct_fevertime:getFevertimeName()
+            local desc = struct_fevertime:getFevertimeDesc()
+            desc = string.gsub(desc, '{@default}', '{@SKILL_DESC}')
+
+			local _str = string.format('{@SKILL_NAME} %s\n  {@SKILL_DESC} %s', title, desc)
+            str = (str == '') and  (_str) or (str .. '\n\n' .. _str)
+        end
+    end
 
 	-- 핫타임 버프 정보
     for k, v in pairs(self.m_hotTimeType) do
@@ -888,6 +919,13 @@ function ServerData_HotTime:getDiscountEventList()
     for k, v in pairs(HOTTIME_SALE_EVENT) do
         local dc_target = v
         local dc_value = self:getDiscountEventValue(dc_target)
+
+        -- fevertime 추가
+        local hottime_type = v
+        local fevertime_type = g_fevertimeData:convertType_hottimeToFevertime(hottime_type)
+        local is_active, value, l_ret = g_fevertimeData:isActiveFevertimeByType(fevertime_type)
+        dc_value = dc_value + (value * 100) -- fevertime의 정보를 가져온다. fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+
         if (dc_value > 0) then
             table.insert(l_dc_event, dc_target)
         end

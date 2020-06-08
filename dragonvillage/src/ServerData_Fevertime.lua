@@ -315,3 +315,40 @@ function ServerData_Fevertime:isHighlightHotTime_adventure()
 
     return is_active_exp_up or is_active_gold_up or is_active_ad_st_dc
 end
+
+-------------------------------------
+-- function convertType_hottimeToFevertime
+-- @brief
+-------------------------------------
+function ServerData_Fevertime:convertType_hottimeToFevertime(hottime_type)
+    -- 모험 드래곤 경험치 증가
+    if (hottime_type == 'exp') then
+        return 'exp_up'
+
+    -- 모험 골드 증가
+    elseif (hottime_type == 'gold') then
+        return 'gold_up'
+
+    -- 모험 날개 할인
+    elseif (hottime_type == 'stamina') then
+        return 'ad_st_dc'
+
+    -- 룬 해제 비용 할인
+    elseif (hottime_type == 'rune') then
+        return 'rune_dc'
+
+    -- 룬 강화 비용 할인
+    elseif (hottime_type == 'runelvup') then
+        return 'rune_lvup_dc'
+
+    -- 드래곤 스킬 이전
+    elseif (hottime_type == 'skillmove') then
+        return 'skill_move_dc'
+
+    -- 드래곤 강화
+    elseif (hottime_type == 'reinforce') then
+        return 'reinforce_dc'
+    end
+
+    return hottime_type
+end
