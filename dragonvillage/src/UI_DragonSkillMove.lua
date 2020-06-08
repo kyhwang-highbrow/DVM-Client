@@ -108,7 +108,8 @@ function UI_DragonSkillMove:getSkillMovePrice()
     local dc_value = g_hotTimeData:getDiscountEventValue(HOTTIME_SALE_EVENT.SKILL_MOVE)
     local dc_rate = (100 - dc_value)/100
 
-	return math_floor(price * dc_rate)
+    -- *와 floor함수 과정에서 1값이 버려지는 경우가 있어서 100을 곱했다가 나누도록 임시로 처리함
+	return math_floor(price * 100 * dc_rate / 100)
 end
 
 -------------------------------------
