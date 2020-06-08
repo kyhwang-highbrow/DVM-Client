@@ -346,10 +346,14 @@ end
 -- function getLastRewardType
 -- @breif 최종 보상 타입 반환
 -------------------------------------
-function ServerData_PurchasePoint:getLastRewardType(version)
+function ServerData_PurchasePoint:getLastRewardType(version, reward_idx)
+    local reward_idx = (reward_idx or 1)
     local last_step = self:getPurchasePoint_stepCount(version)
     local t_last_reward = self:getPurchasePoint_rewardStepInfo(version, last_step)
     local reward_type = t_last_reward['reward_type']
+    if (reward_idx ~= 1) then
+        reward_type = t_last_reward['reward_type_' .. reward_idx]
+    end
     return reward_type
 end
 
@@ -527,4 +531,38 @@ function ServerData_PurchasePoint:getEndTime(version)
     end_time = end_time/1000
     
     return end_time
+end
+
+-------------------------------------
+-- function isNewTypePurchasePointEvent
+-- @breif 4단계 보상이 3개 중 1개를 선택하는 새로운 형태의 이벤트인지 확인
+-------------------------------------
+function ServerData_PurchasePoint:isNewTypePurchasePointEvent(version)
+    if (not version) then
+        return false
+    end
+
+    local purchase_point_info = g_purchasePointData:getPurchasePointInfo(version)
+    if (not purchase_point_info) then
+        return false
+    end
+
+    if (purchase_point_info['step_list'] == nil) then
+        return false
+    end
+
+    local t_step_4 = purchase_point_info['step_list']['4']
+    if (t_step_4 == nil) then
+        return false
+    end
+
+    if (t_step_4['item_2'] == nil) or (t_step_4['item_2'] == '') then
+        return false
+    end
+    
+    if (t_step_4['item_3'] == nil) or (t_step_4['item_3'] == '') then
+        return false
+    end
+
+    return true
 end

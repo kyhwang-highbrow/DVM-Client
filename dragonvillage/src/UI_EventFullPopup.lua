@@ -185,7 +185,12 @@ function UI_EventFullPopup:initUI()
     elseif pl.stringx.startswith(popup_key, 'purchase_point') then
 		local l_str = plSplit(popup_key, ';')
         local event_version = l_str[2]
-        ui = UI_EventPopupTab_PurchasePoint(event_version)
+        if (g_purchasePointData:isNewTypePurchasePointEvent(event_version) == true) then
+            require('UI_EventPopupTab_PurchasePointNew')
+            ui = UI_EventPopupTab_PurchasePointNew(event_version)
+        else
+            ui = UI_EventPopupTab_PurchasePoint(event_version)
+        end
     elseif (self.m_targetUI) then
         ui = self.m_targetUI
     end
