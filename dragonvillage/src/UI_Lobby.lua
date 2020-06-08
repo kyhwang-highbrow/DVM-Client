@@ -2333,7 +2333,7 @@ end
 -------------------------------------
 function UI_Lobby:setHatcheryChanceUpNoti()
     local vars = self.vars
-    if (g_hotTimeData:isActiveEvent('event_legend_chance_up')) then
+    if (g_hotTimeData:isActiveEvent('event_legend_chance_up') or  g_fevertimeData:isActiveFevertime_smLegendUp()) then
         vars['chanceUpNoti']:setVisible(true)
     else
         vars['chanceUpNoti']:setVisible(false)

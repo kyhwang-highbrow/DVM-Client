@@ -196,13 +196,25 @@ end
 function UI_Hatchery:onChangeTab(tab, first)
     PARENT.onChangeTab(self, tab, first)
 
+    self.vars['eventInfoMenu']:setVisible(false)
+
     local is_summon_tab = (tab == 'summon')
-    local is_event_active = g_hotTimeData:isActiveEvent('event_legend_chance_up')
     -- 전설 확률 2배 이벤트일 경우 해당 메뉴를 켜준다
-    if (is_summon_tab and is_event_active) then
-        self.vars['eventInfoMenu']:setVisible(true)
-        self.vars['timeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_legend_chance_up'))
-    else
-        self.vars['eventInfoMenu']:setVisible(false)
+    if (is_summon_tab == true) then
+        -- 기존 핫타임
+        local is_event_active = g_hotTimeData:isActiveEvent('event_legend_chance_up')
+        if (is_event_active == true) then
+            self.vars['eventInfoMenu']:setVisible(true)
+            self.vars['timeLabel']:setString(g_hotTimeData:getEventRemainTimeTextDetail('event_legend_chance_up'))
+            return
+        end
+
+        -- 핫타임(fevertime)
+        local is_active = g_fevertimeData:isActiveFevertime_smLegendUp()
+        if (is_active == true) then
+            self.vars['eventInfoMenu']:setVisible(true)
+            self.vars['timeLabel']:setString(g_fevertimeData:getRemainTimeTextDetail_smLegendUp())
+            return
+        end
     end
 end

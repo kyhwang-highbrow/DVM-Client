@@ -234,6 +234,15 @@ function StructFevertime:getFevertimeLinkType()
 end
 
 -------------------------------------
+-- function getFevertimeEnddate
+-- @return number timestapm(1000분의 1초)
+-------------------------------------
+function StructFevertime:getFevertimeEnddate()
+    return self['end_date']
+end
+
+
+-------------------------------------
 -- function getPeriodStr
 -- @breif 기간 문자열
 -- @return string

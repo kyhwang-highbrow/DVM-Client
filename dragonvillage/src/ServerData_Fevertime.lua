@@ -317,6 +317,60 @@ function ServerData_Fevertime:isActiveFevertime_adventure()
 end
 
 -------------------------------------
+-- function isActiveFevertime_smLegendUp
+-- @brief 전설 드래곤 소환 확률 증가 (sm_legend_up)
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_smLegendUp()
+    local is_active, value, l_ret = self:isActiveFevertimeByType('sm_legend_up')
+    return is_active
+end
+
+-------------------------------------
+-- function getRemainTimeTextDetail
+-- @brief 남은 시간
+-- @return str
+-------------------------------------
+function ServerData_Fevertime:getRemainTimeTextDetail(type)
+    local is_active, value, l_ret = self:isActiveFevertimeByType(type)
+    if (is_active == false) then
+        return ''
+    end
+
+    -- 가장 빠른 end_date
+    local end_date = nil
+    for i, struct_fevertime in pairs(l_ret) do
+        local _end_date = struct_fevertime:getFevertimeEnddate()
+        if (_end_date ~= nil) and (0 < _end_date) then
+            if (end_date == nil) then
+                end_date = _end_date
+            elseif (_end_date < end_date) then
+                end_date = _end_date
+            end
+        end
+    end
+
+    if (end_date == nil) then
+        return ''
+    end
+
+    local curr_time = Timer:getServerTime()
+    local end_date = end_date / 1000
+    local time = math_max((end_date - curr_time), 0)
+
+    return Str('{1} 남음', datetime.makeTimeDesc(time, true, false)) -- params : sec, showSeconds, firstOnly, timeOnly
+end
+
+-------------------------------------
+-- function getRemainTimeTextDetail_smLegendUp
+-- @brief 남은 시간
+-- @return str
+-------------------------------------
+function ServerData_Fevertime:getRemainTimeTextDetail_smLegendUp()
+    return self:getRemainTimeTextDetail('sm_legend_up')
+end
+
+-------------------------------------
 -- function convertType_hottimeToFevertime
 -- @brief
 -------------------------------------
