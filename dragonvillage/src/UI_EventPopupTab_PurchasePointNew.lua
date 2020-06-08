@@ -291,6 +291,7 @@ function UI_EventPopupTab_PurchasePointNew:click_lastRewardIdx(reward_idx)
     if (self.m_selectedLastRewardIdx == reward_idx) then
         return
     end
+    self.m_selectedLastRewardIdx = reward_idx
 
     local vars = self.vars
 
