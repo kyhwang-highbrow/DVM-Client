@@ -76,7 +76,7 @@ function UI_FevertimeListItem:initUI()
         end
 
         if (is_shaded == true) then
-            vars['titleLabel']:setTextColor(cc.c4b(180, 180, 180, 255))
+            vars['titleLabel']:setDefualtColor(cc.c3b(180, 180, 180))
             vars['infoLabel']:setDefualtColor(cc.c3b(180, 180, 180))
             vars['timeLabel']:setDefualtColor(cc.c3b(180, 180, 180))
         end
