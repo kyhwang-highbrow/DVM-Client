@@ -304,11 +304,11 @@ function ServerData_Fevertime:isActiveFevertimeByType(type)
 end
 
 -------------------------------------
--- function isHighlightHotTime_adventure
+-- function isActiveFevertime_adventure
 -- @brief 모험모드 핫타임
 -- @return boolean
 -------------------------------------
-function ServerData_Fevertime:isHighlightHotTime_adventure()
+function ServerData_Fevertime:isActiveFevertime_adventure()
     local is_active_exp_up = self:isActiveFevertimeByType('exp_up') -- 모험 드래곤 경험치 증가
     local is_active_gold_up = self:isActiveFevertimeByType('gold_up') -- 모험 골드 증가
     local is_active_ad_st_dc = self:isActiveFevertimeByType('ad_st_dc') -- 모험 날개 할인

@@ -145,9 +145,9 @@ function StructFevertime:getStartDateForSort()
             self['start_date_for_sort'] = self['start_date']
 
         elseif self['date'] then
-            local date_format = 'yyyymmdd'
+            local date_format = 'yyyymmddHHMMSS'
             local parser = pl.Date.Format(date_format)
-            local date_str = tostring(self['date'])
+            local date_str = tostring(self['date']) .. '000000' -- 시, 분, 초를 넣지 않았을 때 0시 0분 0초로 설정되지 않는 이슈가 있었다.
             local date = parser:parse(date_str)
             local local_timestamp = date['time']
             local server_timestamp = TimeLib:convertToServerTimestamp(local_timestamp)
@@ -172,9 +172,9 @@ function StructFevertime:getEndDateForSort()
             self['end_date_for_sort'] = self['end_date']
 
         elseif self['date'] then
-            local date_format = 'yyyymmdd'
+            local date_format = 'yyyymmddHHMMSS'
             local parser = pl.Date.Format(date_format)
-            local date_str = tostring(self['date'])
+            local date_str = tostring(self['date']) .. '000000' -- 시, 분, 초를 넣지 않았을 때 0시 0분 0초로 설정되지 않는 이슈가 있었다.
             local date = parser:parse(date_str)
             local local_timestamp = date['time'] + (24 * 60 * 60) -- 1일을 더해준다.
             local server_timestamp = TimeLib:convertToServerTimestamp(local_timestamp)
