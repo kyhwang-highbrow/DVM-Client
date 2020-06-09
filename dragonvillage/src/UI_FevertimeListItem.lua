@@ -6,6 +6,10 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 UI_FevertimeListItem = class(PARENT, {
         m_structFevertime = 'StructFevertime',
         m_cbChangeData = 'function',
+
+        m_defaultColorTitle = 'cc.c3b',
+        m_defaultColorInfo = 'cc.c3b',
+        m_defaultColorTime = 'cc.c3b',
     })
 
 -------------------------------------
@@ -57,6 +61,12 @@ function UI_FevertimeListItem:initUI()
         vars['infoLabel']:setString(str)
     end
 
+    do -- 기본 색상 저장
+        self.m_defaultColorTitle = vars['titleLabel'].m_defaultColor
+        self.m_defaultColorInfo = vars['infoLabel'].m_defaultColor
+        self.m_defaultColorTime = vars['timeLabel'].m_defaultColor
+    end
+
     do -- 만료되었는가 (핫타임 시간이 지났건, 일일 핫타임 날짜가 넘어간 경우)
         --local expired = struct_fevertime:isFevertimeExpired()
         --vars['CompletMenu']:setVisible(expired)
@@ -79,6 +89,10 @@ function UI_FevertimeListItem:initUI()
             vars['titleLabel']:setDefualtColor(cc.c3b(180, 180, 180))
             vars['infoLabel']:setDefualtColor(cc.c3b(180, 180, 180))
             vars['timeLabel']:setDefualtColor(cc.c3b(180, 180, 180))
+        else
+            vars['titleLabel']:setDefualtColor(self.m_defaultColorTitle)
+            vars['infoLabel']:setDefualtColor(self.m_defaultColorInfo)
+            vars['timeLabel']:setDefualtColor(self.m_defaultColorTime)
         end
     end
 
@@ -202,5 +216,34 @@ function UI_FevertimeListItem:update(dt)
     if (struct_fevertime:isDailyHottime() == true) then
         str = struct_fevertime:getTimeLabelStr()
         vars['timeLabel']:setString(str)
+    end
+
+    do -- 만료되었는가 (핫타임 시간이 지났건, 일일 핫타임 날짜가 넘어간 경우)
+        --local expired = struct_fevertime:isFevertimeExpired()
+        --vars['CompletMenu']:setVisible(expired)
+
+        vars['CompletMenu']:setVisible(false)
+        vars['nextdayMenu']:setVisible(false)
+        vars['activeSprite']:setVisible(struct_fevertime:isActiveFevertime())
+
+        local is_shaded = false
+
+        if struct_fevertime:isFevertimeExpired() then
+            vars['CompletMenu']:setVisible(true)
+            is_shaded = true
+        elseif struct_fevertime:isBeforeStartDate() then
+            vars['nextdayMenu']:setVisible(true)
+            is_shaded = true
+        end
+
+        if (is_shaded == true) then
+            vars['titleLabel']:setDefualtColor(cc.c3b(180, 180, 180))
+            vars['infoLabel']:setDefualtColor(cc.c3b(180, 180, 180))
+            vars['timeLabel']:setDefualtColor(cc.c3b(180, 180, 180))
+        else
+            vars['titleLabel']:setDefualtColor(self.m_defaultColorTitle)
+            vars['infoLabel']:setDefualtColor(self.m_defaultColorInfo)
+            vars['timeLabel']:setDefualtColor(self.m_defaultColorTime)
+        end
     end
 end
