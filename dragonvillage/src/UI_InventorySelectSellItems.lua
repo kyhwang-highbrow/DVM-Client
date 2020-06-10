@@ -7,6 +7,11 @@ UI_InventorySelectSellItems = class({
         vars = 'table',
         m_bActive = 'boolean',
         m_selectedItemUIMap = '',
+
+        m_runeList = 'StructRuneObject',
+        m_evolutionList = 'Item',
+        m_fruitList = 'Item',
+        m_transformList = 'Item',
      })
 
 -------------------------------------
@@ -138,6 +143,74 @@ end
 function UI_InventorySelectSellItems:click_sellBtn()
     local count = table.count(self.m_selectedItemUIMap)
 
+    -- 선택된 아이템을 list_m_item_id에 저장
+    list_m_item_id = {}
+    for key, value in pairs(self.m_selectedItemUIMap) do
+        for k, v in pairs(value) do
+            for ke, va in pairs(v) do
+                if(ke == 'm_itemID') then
+                    table.insert(list_m_item_id, va)
+                end
+            end
+        end
+    end
+
+    -- 모든 아이템 정보 획득
+    self.m_runeList = g_runesData:getUnequippedRuneList(slot_idx)
+    self.m_evolutionList = g_evolutionStoneData:getEvolutionStoneList(is_all)
+    self.m_fruitList = g_userData:getFruitList(is_all)
+    self.m_transformList = g_userData:getTransformList(is_all)
+
+    -- 이용할 정보. new_itemList과 new_runeList
+    temp_runeList = {}
+    new_runeList_roid = {}
+    new_runeList = {}
+    new_itemList = {}
+
+    -- 룬 정보 획득
+    for k, v in pairs(self.m_runeList) do
+        for index, value in pairs(list_m_item_id) do
+            if(v['rid'] == value) then
+                temp_t = {}
+                temp_t[k] = v
+                table.insert(temp_runeList, temp_t)
+            end
+        end
+    end
+
+    -- 아이템 정보 획득 (진화 재료, 친밀도 열매, 외형 변환 재료)
+    for k, v in pairs(self.m_evolutionList) do
+        for index, value in pairs(list_m_item_id) do
+            if(k == value) then
+                temp_t = {}
+                temp_t[k] = v
+                table.insert(new_itemList, temp_t)
+            end
+        end
+    end
+
+    for k, v in pairs(self.m_fruitList) do
+        for index, value in pairs(list_m_item_id) do
+            if(v['fid'] == value) then
+                temp_t = {}
+                table.insert(temp_t, v)
+                table.insert(new_itemList, temp_t)
+            end
+        end
+    end
+
+    for k, v in pairs(self.m_transformList) do
+        for index, value in pairs(list_m_item_id) do
+            if(v['mid'] == value) then
+                temp_t = {}
+                table.insert(temp_t, v)
+                table.insert(new_itemList, temp_t)
+            end
+        end
+    end
+    
+
+
     if (count <= 0) then
         UIManager:toastNotificationRed(Str('선택된 아이템이 없습니다.'))
         return
@@ -161,6 +234,7 @@ function UI_InventorySelectSellItems:click_sellBtn()
         -- 룬 판매
         if (item_type == 'rune') then
             local roid = i
+            table.insert(new_runeList_roid, roid) -- rune roid 저장
             if (not rune_oids) then
                 rune_oids = roid
             else
@@ -181,6 +255,19 @@ function UI_InventorySelectSellItems:click_sellBtn()
         total_price = total_price + (price * item_count)
     end
 
+    -- 사용하지 않는 룬 제거 new_runeList를 생성하여 사용함.
+    for k, v in pairs(temp_runeList) do
+        for ke, va in pairs(v) do
+            
+            for key, value in pairs(new_runeList_roid) do
+                if(ke == value) then
+                    new_runeList[ke] = va
+                end
+            end
+        end
+    end
+
+
     -- 선택된 룬이 판매되었으니 선택 해제
     local function cb(ret)
         self.m_inventoryUI:response_itemSell(ret)
@@ -194,6 +281,9 @@ function UI_InventorySelectSellItems:click_sellBtn()
         g_inventoryData:request_itemSell(rune_oids, items, cb)
     end
 
-    local msg = Str('{1}개의 아이템을 {2}골드에 판매하시겠습니까?', count, comma_value(total_price))
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
+    UI_ItemBulkSalePopup(new_runeList, new_itemList, comma_value(total_price), request_item_sell)
+
+
+    --local msg = Str('{1}개의 아이템을 {2}골드에 판매하시겠습니까?', count, comma_value(total_price))
+    --MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
 end
