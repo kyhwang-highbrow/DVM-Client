@@ -1209,7 +1209,6 @@ local t_module = {
 
 	-- UI : 가방
     'UI_Inventory',
-    'UI_ItemBulkSalePopup',
     'UI_InventorySelectSellItems',
     'UI_InventoryTab',
     'UI_InventoryTabRune',
