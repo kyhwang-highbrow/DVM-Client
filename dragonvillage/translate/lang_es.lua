@@ -61,6 +61,7 @@ return {['가치 없는 것들의 용도를 만드는 것 또한 나의 자비�
 ['선택한 룬']='Runa seleccionada',
 ['선택한 아이템을 {1}골드에 판매하시겠습니까?']='¿Deseas vender artículo seleccionado en X{1} de Oro?',
 ['선택한 룬이 없습니다.']='No tienes Runas seleccionadas.',
+['기간 : 6/22 00:00 ~ 6/23 23:59']='Fecha: 22 de julio 00:00-23 de julio 23:59',
 ['정말 멋진 전투였습니다! 앞으로의 모험도 걱정 없겠군요!']='¡Una batalla realmente increíble! ¡No hay que preocuparse por futuras aventuras!',
 ['마지막으로 중요한 사실을 알려드릴게요!\n1챕터의 7스테이지를 완료하면 {@yellow}고급 뽑기 10+1회{@default}를 무료로 제공한다고 합니다!']='¡Por último algo importante!\n¡Si has completado 7 etapas del capítulo 1, obtendrás {@yellow} 10+ 1 sorteos avanzados{@default} gratis!',
 ['이 기회에 가장 희귀하다는 전설 등급 드래곤을 만나게 되면 얼마나 기쁠까요!']='¡Qué felicidad encontrar en esta oportunidad a un dragón Legendario del más alto nivel de rareza!',
