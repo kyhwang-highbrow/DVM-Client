@@ -1,0 +1,216 @@
+
+yurion_all_01.png
+size: 1508,202
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+yurion_all_01_bead_01
+  rotate: false
+  xy: 938, 2
+  size: 76, 75
+  orig: 76, 75
+  offset: 0, 0
+  index: -1
+yurion_all_01_body_01
+  rotate: false
+  xy: 578, 63
+  size: 123, 137
+  orig: 123, 137
+  offset: 0, 0
+  index: -1
+yurion_all_01_ear_01
+  rotate: false
+  xy: 1112, 85
+  size: 90, 115
+  orig: 90, 115
+  offset: 0, 0
+  index: -1
+yurion_all_01_ear_02
+  rotate: true
+  xy: 625, 3
+  size: 58, 105
+  orig: 58, 105
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_01
+  rotate: true
+  xy: 1138, 4
+  size: 79, 78
+  orig: 79, 78
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_02
+  rotate: false
+  xy: 1204, 88
+  size: 112, 112
+  orig: 112, 112
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_03
+  rotate: true
+  xy: 1318, 96
+  size: 104, 103
+  orig: 104, 103
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_04
+  rotate: false
+  xy: 800, 75
+  size: 106, 125
+  orig: 106, 125
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_05
+  rotate: true
+  xy: 268, 29
+  size: 171, 165
+  orig: 171, 165
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_06
+  rotate: true
+  xy: 2, 3
+  size: 197, 189
+  orig: 197, 189
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_07
+  rotate: false
+  xy: 1470, 90
+  size: 36, 41
+  orig: 36, 41
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_08
+  rotate: false
+  xy: 435, 56
+  size: 141, 144
+  orig: 141, 144
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_09
+  rotate: true
+  xy: 908, 79
+  size: 121, 202
+  orig: 121, 202
+  offset: 0, 0
+  index: -1
+yurion_all_01_effect_10
+  rotate: false
+  xy: 193, 14
+  size: 73, 186
+  orig: 73, 186
+  offset: 0, 0
+  index: -1
+yurion_all_01_eye_01
+  rotate: false
+  xy: 1423, 90
+  size: 45, 41
+  orig: 45, 41
+  offset: 0, 0
+  index: -1
+yurion_all_01_eye_02
+  rotate: true
+  xy: 1407, 43
+  size: 45, 41
+  orig: 45, 41
+  offset: 0, 0
+  index: -1
+yurion_all_01_eye_03
+  rotate: true
+  xy: 1450, 47
+  size: 41, 43
+  orig: 41, 43
+  offset: 0, 0
+  index: -1
+yurion_all_01_fur_01
+  rotate: true
+  xy: 1423, 133
+  size: 67, 76
+  orig: 67, 76
+  offset: 0, 0
+  index: -1
+yurion_all_01_head_01
+  rotate: false
+  xy: 1320, 2
+  size: 85, 92
+  orig: 85, 92
+  offset: 0, 0
+  index: -1
+yurion_all_01_horn_01
+  rotate: false
+  xy: 435, 6
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1
+yurion_all_01_leg_01
+  rotate: true
+  xy: 546, 8
+  size: 46, 77
+  orig: 46, 77
+  offset: 0, 0
+  index: -1
+yurion_all_01_leg_02
+  rotate: true
+  xy: 1082, 5
+  size: 72, 54
+  orig: 72, 54
+  offset: 0, 0
+  index: -1
+yurion_all_01_leg_03
+  rotate: false
+  xy: 478, 7
+  size: 66, 47
+  orig: 66, 47
+  offset: 0, 0
+  index: -1
+yurion_all_01_leg_04
+  rotate: true
+  xy: 858, 5
+  size: 68, 78
+  orig: 68, 78
+  offset: 0, 0
+  index: -1
+yurion_all_01_leg_05
+  rotate: true
+  xy: 732, 5
+  size: 60, 46
+  orig: 60, 46
+  offset: 0, 0
+  index: -1
+yurion_all_01_leg_06
+  rotate: true
+  xy: 1016, 5
+  size: 72, 64
+  orig: 72, 64
+  offset: 0, 0
+  index: -1
+yurion_all_01_mouth_01
+  rotate: true
+  xy: 1407, 12
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+yurion_all_01_tail_01
+  rotate: true
+  xy: 703, 67
+  size: 133, 95
+  orig: 133, 95
+  offset: 0, 0
+  index: -1
+yurion_all_01_wing_01
+  rotate: true
+  xy: 1218, 9
+  size: 77, 100
+  orig: 77, 100
+  offset: 0, 0
+  index: -1
+yurion_all_01_wing_02
+  rotate: true
+  xy: 780, 10
+  size: 55, 76
+  orig: 55, 76
+  offset: 0, 0
+  index: -1

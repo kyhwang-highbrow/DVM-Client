@@ -1,0 +1,342 @@
+
+lemures_all_02.png
+size: 1923,1225
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_lemures_all_02_fog
+  rotate: true
+  xy: 1353, 575
+  size: 263, 248
+  orig: 263, 248
+  offset: 0, 0
+  index: -1
+lemures_all_02_arm_01
+  rotate: false
+  xy: 1773, 426
+  size: 134, 118
+  orig: 134, 118
+  offset: 0, 0
+  index: -1
+lemures_all_02_arm_02
+  rotate: false
+  xy: 1333, 342
+  size: 173, 136
+  orig: 173, 136
+  offset: 0, 0
+  index: -1
+lemures_all_02_arm_03
+  rotate: false
+  xy: 1611, 807
+  size: 295, 285
+  orig: 295, 285
+  offset: 0, 0
+  index: -1
+lemures_all_02_b_arm_01
+  rotate: true
+  xy: 1075, 840
+  size: 118, 360
+  orig: 118, 360
+  offset: 0, 0
+  index: -1
+lemures_all_02_b_arm_02
+  rotate: true
+  xy: 875, 4
+  size: 273, 385
+  orig: 273, 385
+  offset: 0, 0
+  index: -1
+lemures_all_02_b_belt
+  rotate: false
+  xy: 1865, 549
+  size: 56, 42
+  orig: 56, 42
+  offset: 0, 0
+  index: -1
+lemures_all_02_b_finger_01
+  rotate: false
+  xy: 1865, 593
+  size: 53, 101
+  orig: 53, 101
+  offset: 0, 0
+  index: -1
+lemures_all_02_b_horn
+  rotate: false
+  xy: 1508, 369
+  size: 78, 109
+  orig: 78, 109
+  offset: 0, 0
+  index: -1
+lemures_all_02_b_leg
+  rotate: true
+  xy: 1353, 480
+  size: 93, 236
+  orig: 93, 236
+  offset: 0, 0
+  index: -1
+lemures_all_02_back
+  rotate: true
+  xy: 1020, 432
+  size: 216, 248
+  orig: 216, 248
+  offset: 0, 0
+  index: -1
+lemures_all_02_belt_01
+  rotate: true
+  xy: 1751, 318
+  size: 106, 152
+  orig: 106, 152
+  offset: 0, 0
+  index: -1
+lemures_all_02_belt_02
+  rotate: true
+  xy: 1333, 292
+  size: 48, 156
+  orig: 48, 156
+  offset: 0, 0
+  index: -1
+lemures_all_02_belt_03
+  rotate: false
+  xy: 1865, 696
+  size: 42, 109
+  orig: 42, 109
+  offset: 0, 0
+  index: -1
+lemures_all_02_body
+  rotate: true
+  xy: 1081, 290
+  size: 140, 250
+  orig: 140, 250
+  offset: 0, 0
+  index: -1
+lemures_all_02_chain
+  rotate: false
+  xy: 1492, 2
+  size: 45, 43
+  orig: 45, 43
+  offset: 0, 0
+  index: -1
+lemures_all_02_eff_01
+  rotate: false
+  xy: 530, 953
+  size: 543, 270
+  orig: 543, 270
+  offset: 0, 0
+  index: -1
+lemures_all_02_eff_02
+  rotate: false
+  xy: 1075, 960
+  size: 534, 263
+  orig: 534, 263
+  offset: 0, 0
+  index: -1
+lemures_all_02_eff_03
+  rotate: false
+  xy: 530, 691
+  size: 535, 260
+  orig: 535, 260
+  offset: 0, 0
+  index: -1
+lemures_all_02_eff_splash
+  rotate: false
+  xy: 485, 428
+  size: 533, 261
+  orig: 533, 261
+  offset: 0, 0
+  index: -1
+lemures_all_02_eff_won
+  rotate: false
+  xy: 2, 704
+  size: 526, 519
+  orig: 526, 519
+  offset: 0, 0
+  index: -1
+lemures_all_02_effect_atk_l
+  rotate: false
+  xy: 1492, 199
+  size: 138, 140
+  orig: 138, 140
+  offset: 0, 0
+  index: -1
+lemures_all_02_effect_eye
+  rotate: true
+  xy: 1697, 71
+  size: 90, 58
+  orig: 90, 58
+  offset: 0, 0
+  index: -1
+lemures_all_02_effect_l
+  rotate: false
+  xy: 1747, 193
+  size: 123, 123
+  orig: 123, 123
+  offset: 0, 0
+  index: -1
+lemures_all_02_effect_m_circle
+  rotate: false
+  xy: 485, 279
+  size: 594, 147
+  orig: 594, 147
+  offset: 0, 0
+  index: -1
+lemures_all_02_effect_s_l
+  rotate: false
+  xy: 1632, 238
+  size: 113, 101
+  orig: 113, 101
+  offset: 0, 0
+  index: -1
+lemures_all_02_eye
+  rotate: false
+  xy: 1020, 661
+  size: 34, 28
+  orig: 34, 28
+  offset: 0, 0
+  index: -1
+lemures_all_02_f_finger_01
+  rotate: true
+  xy: 1839, 111
+  size: 80, 67
+  orig: 80, 67
+  offset: 0, 0
+  index: -1
+lemures_all_02_f_finger_02
+  rotate: true
+  xy: 1270, 432
+  size: 76, 60
+  orig: 76, 60
+  offset: 0, 0
+  index: -1
+lemures_all_02_head_01
+  rotate: false
+  xy: 1591, 430
+  size: 180, 114
+  orig: 180, 114
+  offset: 0, 0
+  index: -1
+lemures_all_02_head_02
+  rotate: true
+  xy: 1872, 235
+  size: 81, 49
+  orig: 81, 49
+  offset: 0, 0
+  index: -1
+lemures_all_02_head_03
+  rotate: true
+  xy: 448, 173
+  size: 65, 34
+  orig: 65, 34
+  offset: 0, 0
+  index: -1
+lemures_all_02_leg_01
+  rotate: false
+  xy: 1270, 510
+  size: 81, 138
+  orig: 81, 138
+  offset: 0, 0
+  index: -1
+lemures_all_02_leg_02
+  rotate: true
+  xy: 1437, 874
+  size: 84, 172
+  orig: 84, 172
+  offset: 0, 0
+  index: -1
+lemures_all_02_m_explo
+  rotate: false
+  xy: 2, 240
+  size: 481, 462
+  orig: 481, 462
+  offset: 0, 0
+  index: -1
+lemures_all_02_mask
+  rotate: true
+  xy: 1605, 8
+  size: 66, 68
+  orig: 66, 68
+  offset: 0, 0
+  index: -1
+lemures_all_02_neckless
+  rotate: false
+  xy: 1632, 163
+  size: 100, 73
+  orig: 100, 73
+  offset: 0, 0
+  index: -1
+lemures_all_02_p_arm_01
+  rotate: false
+  xy: 2, 13
+  size: 301, 225
+  orig: 301, 225
+  offset: 0, 0
+  index: -1
+lemures_all_02_p_arm_02
+  rotate: false
+  xy: 485, 9
+  size: 388, 268
+  orig: 388, 268
+  offset: 0, 0
+  index: -1
+lemures_all_02_p_finger
+  rotate: false
+  xy: 1757, 100
+  size: 80, 91
+  orig: 80, 91
+  offset: 0, 0
+  index: -1
+lemures_all_02_shadow
+  rotate: false
+  xy: 1603, 546
+  size: 260, 259
+  orig: 260, 259
+  offset: 0, 0
+  index: -1
+lemures_all_02_staff_01
+  rotate: false
+  xy: 1605, 76
+  size: 90, 85
+  orig: 90, 85
+  offset: 0, 0
+  index: -1
+lemures_all_02_staff_02
+  rotate: true
+  xy: 1611, 1094
+  size: 129, 310
+  orig: 129, 310
+  offset: 0, 0
+  index: -1
+lemures_all_02_suit_01
+  rotate: false
+  xy: 1492, 47
+  size: 111, 150
+  orig: 111, 150
+  offset: 0, 0
+  index: -1
+lemures_all_02_suit_02
+  rotate: true
+  xy: 1588, 341
+  size: 87, 161
+  orig: 87, 161
+  offset: 0, 0
+  index: -1
+lemures_all_02_suit_03
+  rotate: true
+  xy: 305, 26
+  size: 212, 141
+  orig: 212, 141
+  offset: 0, 0
+  index: -1
+lemures_all_02_swing
+  rotate: false
+  xy: 1067, 650
+  size: 284, 188
+  orig: 284, 188
+  offset: 0, 0
+  index: -1
+lemures_all_02_tail
+  rotate: false
+  xy: 1262, 11
+  size: 228, 277
+  orig: 228, 277
+  offset: 0, 0
+  index: -1

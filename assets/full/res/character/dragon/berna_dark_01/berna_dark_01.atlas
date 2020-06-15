@@ -1,0 +1,216 @@
+
+berna_dark_01.png
+size: 1122,126
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+berna_dark_01_arm_01
+  rotate: true
+  xy: 776, 68
+  size: 56, 39
+  orig: 56, 39
+  offset: 0, 0
+  index: -1
+berna_dark_01_arm_02
+  rotate: false
+  xy: 1009, 4
+  size: 56, 39
+  orig: 56, 39
+  offset: 0, 0
+  index: -1
+berna_dark_01_body_01
+  rotate: true
+  xy: 817, 4
+  size: 120, 77
+  orig: 120, 77
+  offset: 0, 0
+  index: -1
+berna_dark_01_effect_02
+  rotate: false
+  xy: 123, 4
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+berna_dark_01_effect_light
+  rotate: false
+  xy: 705, 4
+  size: 65, 56
+  orig: 65, 56
+  offset: 0, 0
+  index: -1
+berna_dark_01_effect_lightdust
+  rotate: false
+  xy: 245, 25
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+berna_dark_01_effect_red
+  rotate: false
+  xy: 896, 30
+  size: 91, 94
+  orig: 91, 94
+  offset: 0, 0
+  index: -1
+berna_dark_01_eye_01
+  rotate: false
+  xy: 287, 4
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
+berna_dark_01_eye_02
+  rotate: true
+  xy: 1089, 64
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+berna_dark_01_eye_03
+  rotate: false
+  xy: 316, 3
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+berna_dark_01_eye_04
+  rotate: true
+  xy: 972, 2
+  size: 26, 22
+  orig: 26, 22
+  offset: 0, 0
+  index: -1
+berna_dark_01_eyeacc_01
+  rotate: false
+  xy: 245, 3
+  size: 40, 20
+  orig: 40, 20
+  offset: 0, 0
+  index: -1
+berna_dark_01_eyeacc_02
+  rotate: true
+  xy: 989, 30
+  size: 13, 18
+  orig: 13, 18
+  offset: 0, 0
+  index: -1
+berna_dark_01_eyeacc_03
+  rotate: false
+  xy: 1089, 80
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
+berna_dark_01_hair_01
+  rotate: true
+  xy: 772, 3
+  size: 57, 43
+  orig: 57, 43
+  offset: 0, 0
+  index: -1
+berna_dark_01_hair_02
+  rotate: false
+  xy: 470, 8
+  size: 94, 42
+  orig: 94, 42
+  offset: 0, 0
+  index: -1
+berna_dark_01_hair_03
+  rotate: false
+  xy: 1067, 4
+  size: 31, 39
+  orig: 31, 39
+  offset: 0, 0
+  index: -1
+berna_dark_01_hair_04
+  rotate: true
+  xy: 896, 6
+  size: 22, 45
+  orig: 22, 45
+  offset: 0, 0
+  index: -1
+berna_dark_01_hair_05
+  rotate: true
+  xy: 1089, 95
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+berna_dark_01_hair_06
+  rotate: true
+  xy: 695, 62
+  size: 62, 79
+  orig: 62, 79
+  offset: 0, 0
+  index: -1
+berna_dark_01_head_01
+  rotate: false
+  xy: 989, 45
+  size: 98, 79
+  orig: 98, 79
+  offset: 0, 0
+  index: -1
+berna_dark_01_horn_01
+  rotate: false
+  xy: 943, 5
+  size: 27, 23
+  orig: 27, 23
+  offset: 0, 0
+  index: -1
+berna_dark_01_horn_02
+  rotate: false
+  xy: 338, 6
+  size: 16, 17
+  orig: 16, 17
+  offset: 0, 0
+  index: -1
+berna_dark_01_leg_01
+  rotate: true
+  xy: 633, 3
+  size: 53, 70
+  orig: 53, 70
+  offset: 0, 0
+  index: -1
+berna_dark_01_leg_02
+  rotate: true
+  xy: 566, 4
+  size: 46, 65
+  orig: 46, 65
+  offset: 0, 0
+  index: -1
+berna_dark_01_lightning
+  rotate: true
+  xy: 470, 52
+  size: 72, 134
+  orig: 72, 134
+  offset: 0, 0
+  index: -1
+berna_dark_01_mouth_01
+  rotate: true
+  xy: 356, 6
+  size: 17, 16
+  orig: 17, 16
+  offset: 0, 0
+  index: -1
+berna_dark_01_wing_01
+  rotate: true
+  xy: 2, 2
+  size: 122, 119
+  orig: 122, 119
+  offset: 0, 0
+  index: -1
+berna_dark_01_wing_02
+  rotate: false
+  xy: 606, 58
+  size: 87, 66
+  orig: 87, 66
+  offset: 0, 0
+  index: -1
+berna_dark_01_wing_03
+  rotate: true
+  xy: 374, 10
+  size: 114, 94
+  orig: 114, 94
+  offset: 0, 0
+  index: -1

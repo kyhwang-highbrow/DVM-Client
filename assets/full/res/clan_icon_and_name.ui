@@ -98,7 +98,7 @@
 				[2] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = '짧으면??';
 					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -115,7 +115,7 @@
 					lua_name = 'clan_name_label';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '짧으면??';
+					text = '';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };

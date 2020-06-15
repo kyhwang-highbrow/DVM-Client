@@ -1,0 +1,293 @@
+
+stra_all_03.png
+size: 675,1037
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+stra_all_03_arm_01
+  rotate: true
+  xy: 554, 153
+  size: 105, 69
+  orig: 105, 69
+  offset: 0, 0
+  index: -1
+stra_all_03_arm_02
+  rotate: true
+  xy: 588, 657
+  size: 113, 85
+  orig: 113, 85
+  offset: 0, 0
+  index: -1
+stra_all_03_atk_arm
+  rotate: true
+  xy: 600, 844
+  size: 108, 62
+  orig: 108, 62
+  offset: 0, 0
+  index: -1
+stra_all_03_atk_eye
+  rotate: false
+  xy: 500, 258
+  size: 51, 43
+  orig: 51, 43
+  offset: 0, 0
+  index: -1
+stra_all_03_atk_hand
+  rotate: false
+  xy: 434, 3
+  size: 101, 78
+  orig: 101, 78
+  offset: 0, 0
+  index: -1
+stra_all_03_b_arm_01
+  rotate: false
+  xy: 615, 264
+  size: 57, 65
+  orig: 57, 65
+  offset: 0, 0
+  index: -1
+stra_all_03_b_arm_02
+  rotate: false
+  xy: 554, 85
+  size: 100, 66
+  orig: 100, 66
+  offset: 0, 0
+  index: -1
+stra_all_03_b_ear
+  rotate: true
+  xy: 537, 9
+  size: 72, 109
+  orig: 72, 109
+  offset: 0, 0
+  index: -1
+stra_all_03_b_eyebrow
+  rotate: false
+  xy: 584, 303
+  size: 29, 26
+  orig: 29, 26
+  offset: 0, 0
+  index: -1
+stra_all_03_b_finger_01
+  rotate: true
+  xy: 621, 448
+  size: 38, 35
+  orig: 38, 35
+  offset: 0, 0
+  index: -1
+stra_all_03_b_finger_02
+  rotate: false
+  xy: 625, 227
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+stra_all_03_b_finger_03
+  rotate: false
+  xy: 625, 191
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+stra_all_03_b_hand
+  rotate: true
+  xy: 621, 488
+  size: 55, 50
+  orig: 55, 50
+  offset: 0, 0
+  index: -1
+stra_all_03_b_leg
+  rotate: false
+  xy: 503, 526
+  size: 114, 119
+  orig: 114, 119
+  offset: 0, 0
+  index: -1
+stra_all_03_b_wing
+  rotate: true
+  xy: 407, 647
+  size: 123, 179
+  orig: 123, 179
+  offset: 0, 0
+  index: -1
+stra_all_03_b_wing_ac
+  rotate: false
+  xy: 619, 545
+  size: 49, 110
+  orig: 49, 110
+  offset: 0, 0
+  index: -1
+stra_all_03_body
+  rotate: false
+  xy: 306, 419
+  size: 195, 211
+  orig: 195, 211
+  offset: 0, 0
+  index: -1
+stra_all_03_book_01
+  rotate: true
+  xy: 451, 303
+  size: 114, 131
+  orig: 114, 131
+  offset: 0, 0
+  index: -1
+stra_all_03_book_02
+  rotate: true
+  xy: 436, 83
+  size: 172, 116
+  orig: 172, 116
+  offset: 0, 0
+  index: -1
+stra_all_03_book_03
+  rotate: false
+  xy: 2, 2
+  size: 106, 87
+  orig: 106, 87
+  offset: 0, 0
+  index: -1
+stra_all_03_c_eye
+  rotate: false
+  xy: 451, 257
+  size: 47, 44
+  orig: 47, 44
+  offset: 0, 0
+  index: -1
+stra_all_03_chest
+  rotate: false
+  xy: 584, 331
+  size: 82, 98
+  orig: 82, 98
+  offset: 0, 0
+  index: -1
+stra_all_03_ear_01
+  rotate: false
+  xy: 279, 5
+  size: 153, 99
+  orig: 153, 99
+  offset: 0, 0
+  index: -1
+stra_all_03_ear_02
+  rotate: false
+  xy: 156, 21
+  size: 121, 91
+  orig: 121, 91
+  offset: 0, 0
+  index: -1
+stra_all_03_effect_atk_01
+  rotate: false
+  xy: 289, 257
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+stra_all_03_effect_atk_02
+  rotate: false
+  xy: 2, 256
+  size: 160, 166
+  orig: 160, 166
+  offset: 0, 0
+  index: -1
+stra_all_03_effect_p_l_01
+  rotate: true
+  xy: 2, 91
+  size: 163, 152
+  orig: 163, 152
+  offset: 0, 0
+  index: -1
+stra_all_03_effect_p_l_02
+  rotate: false
+  xy: 285, 106
+  size: 149, 149
+  orig: 149, 149
+  offset: 0, 0
+  index: -1
+stra_all_03_effect_p_l_main
+  rotate: false
+  xy: 2, 632
+  size: 403, 403
+  orig: 403, 403
+  offset: 0, 0
+  index: -1
+stra_all_03_eye_01
+  rotate: true
+  xy: 110, 38
+  size: 51, 44
+  orig: 51, 44
+  offset: 0, 0
+  index: -1
+stra_all_03_eye_02
+  rotate: false
+  xy: 640, 804
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: -1
+stra_all_03_eye_03
+  rotate: false
+  xy: 553, 260
+  size: 46, 41
+  orig: 46, 41
+  offset: 0, 0
+  index: -1
+stra_all_03_finger_01
+  rotate: false
+  xy: 110, 2
+  size: 44, 34
+  orig: 44, 34
+  offset: 0, 0
+  index: -1
+stra_all_03_finger_02
+  rotate: true
+  xy: 600, 808
+  size: 34, 38
+  orig: 34, 38
+  offset: 0, 0
+  index: -1
+stra_all_03_head_01
+  rotate: false
+  xy: 164, 114
+  size: 119, 156
+  orig: 119, 156
+  offset: 0, 0
+  index: -1
+stra_all_03_head_02
+  rotate: false
+  xy: 600, 776
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+stra_all_03_mand
+  rotate: false
+  xy: 600, 954
+  size: 69, 81
+  orig: 69, 81
+  offset: 0, 0
+  index: -1
+stra_all_03_page
+  rotate: true
+  xy: 164, 272
+  size: 150, 123
+  orig: 150, 123
+  offset: 0, 0
+  index: -1
+stra_all_03_tail
+  rotate: false
+  xy: 2, 424
+  size: 302, 206
+  orig: 302, 206
+  offset: 0, 0
+  index: -1
+stra_all_03_wing
+  rotate: true
+  xy: 407, 772
+  size: 263, 191
+  orig: 263, 191
+  offset: 0, 0
+  index: -1
+stra_all_03_wing_ac
+  rotate: true
+  xy: 503, 431
+  size: 93, 116
+  orig: 93, 116
+  offset: 0, 0
+  index: -1

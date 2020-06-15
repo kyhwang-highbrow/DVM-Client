@@ -643,7 +643,7 @@
 									lua_name = 'contentLabel4';
 									font_name = 'font/common_font_01.ttf';
 									font_size = 16;
-									text = '콜로세움';
+									text = '클랜전';
 									h_alignment = 1;
 									v_alignment = 1;
 									color = { 255; 255; 255; };
@@ -2187,6 +2187,32 @@
 						selected = 'ui/buttons/base_btn_0101.png';
 						disable = 'ui/buttons/base_btn_0101.png';
 						image_type = 1;
+					};
+					[8] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -165.000000;
+						y = -408.000000;
+						dock_point = { 1.000000; 1.000000; };
+						anchor_point = { 1.000000; 1.000000; };
+						relative_size_type = 0;
+						width = 28;
+						height = 28;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'clanNotiSprite';
+						file_name = 'ui/icons/noti_icon_0101.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
 					};
 					type = 'Menu';
 					ui_name = 'left';

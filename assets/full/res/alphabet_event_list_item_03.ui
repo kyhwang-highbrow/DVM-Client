@@ -276,7 +276,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -170.000000;
+					x = -220.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -295,7 +295,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -110.000000;
+					x = -160.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -314,7 +314,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -50.000000;
+					x = -100.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -333,7 +333,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 10.000000;
+					x = -40.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -352,7 +352,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 70.000000;
+					x = 20.000000;
 					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -371,8 +371,8 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -251.000000;
-					y = -35.000000;
+					x = 80.000000;
+					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -390,8 +390,8 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -191.000000;
-					y = -35.000000;
+					x = 140.000000;
+					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -409,8 +409,8 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -131.000000;
-					y = -35.000000;
+					x = 200.000000;
+					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -428,7 +428,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -61.000000;
+					x = -159.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -447,7 +447,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -1.000000;
+					x = -99.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -466,7 +466,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 59.000000;
+					x = -39.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -485,7 +485,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 119.000000;
+					x = 21.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -504,7 +504,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 179.000000;
+					x = 81.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -523,7 +523,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 222.000000;
+					x = 137.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -542,7 +542,7 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 244.000000;
+					x = 187.000000;
 					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -760,7 +760,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/event/exchange_ribbon0102.png';
 					color = { 255; 255; 255; };
@@ -786,7 +786,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
@@ -810,8 +810,33 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
+				[3] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = -5.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.070000;
+					scale_y = 1.070000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'lastRewardVisual';
+					file_name = 'ui/a2d/card_summon/card_summon.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;summon_regend_2';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
 				type = 'Node';
-				ui_name = '';
+				ui_name = '띠지, 이펙트';
 				x = 185.000000;
 				y = 6.000000;
 				dock_point = { 0.500000; 0.500000; };

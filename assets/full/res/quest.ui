@@ -381,7 +381,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = 'doingSprite';
 						file_name = 'ui/buttons/base_btn_0103.png';
 						color = { 255; 255; 255; };
@@ -392,6 +392,70 @@
 						center_rect_height = 0;
 					};
 					[4] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.000000; };
+							anchor_point = { 0.500000; 0.000000; };
+							relative_size_type = 0;
+							width = 160;
+							height = 70;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'renewalLabel';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 23;
+							text = '갱신';
+							h_alignment = 1;
+							v_alignment = 1;
+							color = { 0; 0; 0; };
+							opacity = 255;
+							dimension_width = 160;
+							dimension_height = 70;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = false;
+							stroke_tickness = 2.000000;
+							stroke_color = { 0; 0; 0; };
+							has_shadow = false;
+							shadow_color = { 0; 0; 0; };
+							shadow_opacity = 150;
+							shadow_direction = 0;
+							shadow_distance = 3.000000;
+						};
+						type = 'Button';
+						ui_name = '갱신';
+						x = -91.000000;
+						y = 0.000000;
+						dock_point = { 1.000000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 160;
+						height = 70;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'renewalBtn';
+						enable = true;
+						normal = 'ui/buttons/base_btn_0103.png';
+						selected = 'ui/buttons/base_btn_0105.png';
+						disable = 'ui/buttons/base_btn_0105.png';
+						image_type = 1;
+					};
+					[5] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -431,7 +495,7 @@
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
 					};
-					[5] =
+					[6] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -471,7 +535,7 @@
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
 					};
-					[6] =
+					[7] =
 					{
 						type = 'Sprite';
 						ui_name = '';
@@ -496,6 +560,155 @@
 						flip_y = false;
 						src_blend = 770;
 						dest_blend = 771;
+					};
+					[8] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = -270.000000;
+						y = -17.000000;
+						dock_point = { 1.000000; 0.500000; };
+						anchor_point = { 1.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 385;
+						height = 60;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'periodLabel';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 21;
+						text = '남은 시간 : {@DESC}{1}일{@default}';
+						h_alignment = 2;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 385;
+						dimension_height = 60;
+						letter_spacing = 0.000000;
+						has_stroke = true;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = false;
+						stroke_tickness = 2.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 150;
+						shadow_direction = 0;
+						shadow_distance = 3.000000;
+					};
+					[9] =
+					{
+						[1] =
+						{
+							type = 'LabelTTF';
+							ui_name = '';
+							x = -47.000000;
+							y = 0.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 1.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 250;
+							height = 51;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = 'obtainLabel';
+							font_name = 'font/common_font_01.ttf';
+							font_size = 21;
+							text = 'obtainLabel';
+							h_alignment = 2;
+							v_alignment = 1;
+							color = { 255; 255; 255; };
+							opacity = 255;
+							dimension_width = 250;
+							dimension_height = 51;
+							letter_spacing = 0.000000;
+							has_stroke = false;
+							stroke_type = 0;
+							stroke_detail_level = 0;
+							is_sharp_text = false;
+							stroke_tickness = 2.000000;
+							stroke_color = { 0; 0; 0; };
+							has_shadow = false;
+							shadow_color = { 0; 0; 0; };
+							shadow_opacity = 150;
+							shadow_direction = 0;
+							shadow_distance = 3.000000;
+						};
+						[2] =
+						{
+							type = 'Sprite';
+							ui_name = '다이아 아이콘';
+							x = 0.000000;
+							y = 2.000000;
+							dock_point = { 1.000000; 0.500000; };
+							anchor_point = { 1.000000; 0.500000; };
+							relative_size_type = 0;
+							width = 60;
+							height = 60;
+							scale_x = 0.700000;
+							scale_y = 0.700000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							file_name = 'ui/icons/inbox/inbox_cash.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
+						type = 'Menu';
+						ui_name = '즉시획득';
+						x = -270.000000;
+						y = 15.000000;
+						dock_point = { 1.000000; 0.500000; };
+						anchor_point = { 1.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 222;
+						height = 80;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+					};
+					[10] =
+					{
+						type = 'Button';
+						ui_name = '';
+						x = 369.000000;
+						y = 13.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 42;
+						height = 42;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'infoBtn';
+						enable = true;
+						normal = 'ui/buttons/42_info_btn_0101.png';
+						selected = 'ui/buttons/42_info_btn_0102.png';
+						disable = '';
+						image_type = 0;
 					};
 					type = 'Menu';
 					ui_name = '';

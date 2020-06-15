@@ -1,0 +1,356 @@
+
+spirit_all_02.png
+size: 2033,380
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spirit_all_02_Finger_01
+  rotate: false
+  xy: 751, 4
+  size: 40, 49
+  orig: 40, 49
+  offset: 0, 0
+  index: -1
+spirit_all_02_Finger_02
+  rotate: false
+  xy: 751, 55
+  size: 42, 58
+  orig: 42, 58
+  offset: 0, 0
+  index: -1
+spirit_all_02_Finger_03
+  rotate: false
+  xy: 1781, 100
+  size: 45, 34
+  orig: 45, 34
+  offset: 0, 0
+  index: -1
+spirit_all_02_Finger_04
+  rotate: false
+  xy: 1978, 225
+  size: 47, 36
+  orig: 47, 36
+  offset: 0, 0
+  index: -1
+spirit_all_02_Finger_05
+  rotate: true
+  xy: 1846, 91
+  size: 43, 36
+  orig: 43, 36
+  offset: 0, 0
+  index: -1
+spirit_all_02_arm_01
+  rotate: false
+  xy: 2, 4
+  size: 215, 98
+  orig: 215, 98
+  offset: 0, 0
+  index: -1
+spirit_all_02_arm_02
+  rotate: true
+  xy: 1622, 2
+  size: 119, 72
+  orig: 119, 72
+  offset: 0, 0
+  index: -1
+spirit_all_02_arm_03
+  rotate: false
+  xy: 1529, 66
+  size: 54, 55
+  orig: 54, 55
+  offset: 0, 0
+  index: -1
+spirit_all_02_arm_04
+  rotate: false
+  xy: 1254, 190
+  size: 96, 188
+  orig: 96, 188
+  offset: 0, 0
+  index: -1
+spirit_all_02_body_01
+  rotate: true
+  xy: 876, 179
+  size: 199, 192
+  orig: 199, 192
+  offset: 0, 0
+  index: -1
+spirit_all_02_ear_01
+  rotate: false
+  xy: 1639, 254
+  size: 91, 124
+  orig: 91, 124
+  offset: 0, 0
+  index: -1
+spirit_all_02_ear_02
+  rotate: true
+  xy: 1414, 2
+  size: 62, 101
+  orig: 62, 101
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_01
+  rotate: true
+  xy: 795, 3
+  size: 161, 149
+  orig: 161, 149
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_02
+  rotate: false
+  xy: 1529, 123
+  size: 124, 124
+  orig: 124, 124
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_03
+  rotate: true
+  xy: 1352, 222
+  size: 156, 154
+  orig: 156, 154
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_04
+  rotate: true
+  xy: 1927, 22
+  size: 70, 63
+  orig: 70, 63
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_05
+  rotate: false
+  xy: 1508, 249
+  size: 129, 129
+  orig: 129, 129
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_06
+  rotate: false
+  xy: 1884, 178
+  size: 85, 81
+  orig: 85, 81
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_07
+  rotate: false
+  xy: 677, 8
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_08
+  rotate: false
+  xy: 1801, 287
+  size: 86, 91
+  orig: 86, 91
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_09
+  rotate: false
+  xy: 1257, 29
+  size: 155, 159
+  orig: 155, 159
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_10
+  rotate: true
+  xy: 1979, 263
+  size: 65, 49
+  orig: 65, 49
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_11
+  rotate: false
+  xy: 1846, 9
+  size: 79, 80
+  orig: 79, 80
+  offset: 0, 0
+  index: -1
+spirit_all_02_effect_12
+  rotate: false
+  xy: 1979, 330
+  size: 51, 48
+  orig: 51, 48
+  offset: 0, 0
+  index: -1
+spirit_all_02_eye_01
+  rotate: false
+  xy: 1992, 131
+  size: 34, 34
+  orig: 34, 34
+  offset: 0, 0
+  index: -1
+spirit_all_02_eye_02
+  rotate: false
+  xy: 1585, 86
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+spirit_all_02_fur_01
+  rotate: true
+  xy: 1889, 261
+  size: 59, 87
+  orig: 59, 87
+  offset: 0, 0
+  index: -1
+spirit_all_02_fur_02
+  rotate: false
+  xy: 1747, 152
+  size: 63, 102
+  orig: 63, 102
+  offset: 0, 0
+  index: -1
+spirit_all_02_fur_03
+  rotate: false
+  xy: 1781, 9
+  size: 63, 83
+  orig: 63, 83
+  offset: 0, 0
+  index: -1
+spirit_all_02_hair_01
+  rotate: true
+  xy: 1889, 322
+  size: 56, 88
+  orig: 56, 88
+  offset: 0, 0
+  index: -1
+spirit_all_02_hair_02
+  rotate: true
+  xy: 1884, 94
+  size: 82, 84
+  orig: 82, 84
+  offset: 0, 0
+  index: -1
+spirit_all_02_hair_03
+  rotate: true
+  xy: 1971, 167
+  size: 56, 60
+  orig: 56, 60
+  offset: 0, 0
+  index: -1
+spirit_all_02_hair_04
+  rotate: true
+  xy: 1696, 9
+  size: 117, 83
+  orig: 117, 83
+  offset: 0, 0
+  index: -1
+spirit_all_02_hair_05
+  rotate: true
+  xy: 1655, 128
+  size: 124, 90
+  orig: 124, 90
+  offset: 0, 0
+  index: -1
+spirit_all_02_hair_06
+  rotate: true
+  xy: 1812, 206
+  size: 79, 70
+  orig: 79, 70
+  offset: 0, 0
+  index: -1
+spirit_all_02_head_01
+  rotate: false
+  xy: 1812, 136
+  size: 70, 68
+  orig: 70, 68
+  offset: 0, 0
+  index: -1
+spirit_all_02_head_02
+  rotate: false
+  xy: 557, 3
+  size: 118, 110
+  orig: 118, 110
+  offset: 0, 0
+  index: -1
+spirit_all_02_leg_01
+  rotate: false
+  xy: 1732, 256
+  size: 67, 122
+  orig: 67, 122
+  offset: 0, 0
+  index: -1
+spirit_all_02_leg_02
+  rotate: false
+  xy: 219, 4
+  size: 109, 98
+  orig: 109, 98
+  offset: 0, 0
+  index: -1
+spirit_all_02_leg_03
+  rotate: false
+  xy: 946, 5
+  size: 122, 172
+  orig: 122, 172
+  offset: 0, 0
+  index: -1
+spirit_all_02_spirit_01
+  rotate: true
+  xy: 1517, 4
+  size: 60, 103
+  orig: 60, 103
+  offset: 0, 0
+  index: -1
+spirit_all_02_spirit_01-1
+  rotate: false
+  xy: 453, 115
+  size: 263, 263
+  orig: 263, 263
+  offset: 0, 0
+  index: -1
+spirit_all_02_spirit_01-2
+  rotate: true
+  xy: 718, 115
+  size: 49, 75
+  orig: 49, 75
+  offset: 0, 0
+  index: -1
+spirit_all_02_tail_01
+  rotate: true
+  xy: 1414, 66
+  size: 154, 113
+  orig: 154, 113
+  offset: 0, 0
+  index: -1
+spirit_all_02_tail_02
+  rotate: true
+  xy: 221, 111
+  size: 267, 230
+  orig: 267, 230
+  offset: 0, 0
+  index: -1
+spirit_all_02_wing_01
+  rotate: false
+  xy: 330, 2
+  size: 225, 107
+  orig: 225, 107
+  offset: 0, 0
+  index: -1
+spirit_all_02_wing_02
+  rotate: false
+  xy: 718, 166
+  size: 156, 212
+  orig: 156, 212
+  offset: 0, 0
+  index: -1
+spirit_all_02_wing_03
+  rotate: true
+  xy: 1070, 12
+  size: 171, 185
+  orig: 171, 185
+  offset: 0, 0
+  index: -1
+spirit_all_02_wing_04
+  rotate: true
+  xy: 2, 104
+  size: 274, 217
+  orig: 274, 217
+  offset: 0, 0
+  index: -1
+spirit_all_02_wing_05
+  rotate: true
+  xy: 1070, 185
+  size: 193, 182
+  orig: 193, 182
+  offset: 0, 0
+  index: -1

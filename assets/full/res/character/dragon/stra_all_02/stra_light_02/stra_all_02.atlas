@@ -1,0 +1,272 @@
+
+stra_all_02.png
+size: 1258,532
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+stra_all_02_arm_01
+  rotate: true
+  xy: 1163, 105
+  size: 105, 68
+  orig: 105, 68
+  offset: 0, 0
+  index: -1
+stra_all_02_arm_02
+  rotate: true
+  xy: 699, 35
+  size: 113, 85
+  orig: 113, 85
+  offset: 0, 0
+  index: -1
+stra_all_02_atk_arm
+  rotate: false
+  xy: 790, 106
+  size: 108, 62
+  orig: 108, 62
+  offset: 0, 0
+  index: -1
+stra_all_02_atk_eye
+  rotate: true
+  xy: 1205, 52
+  size: 51, 43
+  orig: 51, 43
+  offset: 0, 0
+  index: -1
+stra_all_02_atk_hand
+  rotate: true
+  xy: 786, 2
+  size: 101, 78
+  orig: 101, 78
+  offset: 0, 0
+  index: -1
+stra_all_02_b_arm_01
+  rotate: false
+  xy: 1089, 56
+  size: 57, 65
+  orig: 57, 65
+  offset: 0, 0
+  index: -1
+stra_all_02_b_arm_02
+  rotate: true
+  xy: 866, 4
+  size: 100, 66
+  orig: 100, 66
+  offset: 0, 0
+  index: -1
+stra_all_02_b_ear
+  rotate: true
+  xy: 944, 139
+  size: 72, 109
+  orig: 72, 109
+  offset: 0, 0
+  index: -1
+stra_all_02_b_eyebrow
+  rotate: false
+  xy: 428, 2
+  size: 29, 26
+  orig: 29, 26
+  offset: 0, 0
+  index: -1
+stra_all_02_b_finger_01
+  rotate: false
+  xy: 934, 2
+  size: 38, 35
+  orig: 38, 35
+  offset: 0, 0
+  index: -1
+stra_all_02_b_finger_02
+  rotate: false
+  xy: 974, 2
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+stra_all_02_b_finger_03
+  rotate: false
+  xy: 1191, 16
+  size: 32, 34
+  orig: 32, 34
+  offset: 0, 0
+  index: -1
+stra_all_02_b_hand
+  rotate: false
+  xy: 1148, 53
+  size: 55, 50
+  orig: 55, 50
+  offset: 0, 0
+  index: -1
+stra_all_02_b_leg
+  rotate: false
+  xy: 583, 10
+  size: 114, 119
+  orig: 114, 119
+  offset: 0, 0
+  index: -1
+stra_all_02_b_wing
+  rotate: true
+  xy: 2, 2
+  size: 123, 179
+  orig: 123, 179
+  offset: 0, 0
+  index: -1
+stra_all_02_body
+  rotate: true
+  xy: 711, 335
+  size: 195, 211
+  orig: 195, 211
+  offset: 0, 0
+  index: -1
+stra_all_02_book_02
+  rotate: true
+  xy: 672, 150
+  size: 172, 116
+  orig: 172, 116
+  offset: 0, 0
+  index: -1
+stra_all_02_book_03
+  rotate: false
+  xy: 1055, 123
+  size: 106, 87
+  orig: 106, 87
+  offset: 0, 0
+  index: -1
+stra_all_02_c_eye
+  rotate: false
+  xy: 1142, 7
+  size: 47, 44
+  orig: 47, 44
+  offset: 0, 0
+  index: -1
+stra_all_02_chest
+  rotate: false
+  xy: 934, 39
+  size: 82, 98
+  orig: 82, 98
+  offset: 0, 0
+  index: -1
+stra_all_02_ear_01
+  rotate: false
+  xy: 428, 30
+  size: 153, 99
+  orig: 153, 99
+  offset: 0, 0
+  index: -1
+stra_all_02_ear_02
+  rotate: true
+  xy: 335, 4
+  size: 121, 91
+  orig: 121, 91
+  offset: 0, 0
+  index: -1
+stra_all_02_effect_atk_01
+  rotate: false
+  xy: 1086, 370
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+stra_all_02_effect_atk_02
+  rotate: false
+  xy: 924, 364
+  size: 160, 166
+  orig: 160, 166
+  offset: 0, 0
+  index: -1
+stra_all_02_effect_p_l_01
+  rotate: true
+  xy: 790, 170
+  size: 163, 152
+  orig: 163, 152
+  offset: 0, 0
+  index: -1
+stra_all_02_effect_p_l_02
+  rotate: false
+  xy: 944, 213
+  size: 149, 149
+  orig: 149, 149
+  offset: 0, 0
+  index: -1
+stra_all_02_effect_p_l_main
+  rotate: false
+  xy: 2, 127
+  size: 403, 403
+  orig: 403, 403
+  offset: 0, 0
+  index: -1
+stra_all_02_eye_01
+  rotate: false
+  xy: 1089, 10
+  size: 51, 44
+  orig: 51, 44
+  offset: 0, 0
+  index: -1
+stra_all_02_eye_02
+  rotate: false
+  xy: 900, 130
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: -1
+stra_all_02_eye_03
+  rotate: true
+  xy: 1215, 322
+  size: 46, 41
+  orig: 46, 41
+  offset: 0, 0
+  index: -1
+stra_all_02_finger_01
+  rotate: true
+  xy: 1215, 276
+  size: 44, 34
+  orig: 44, 34
+  offset: 0, 0
+  index: -1
+stra_all_02_finger_02
+  rotate: false
+  xy: 1215, 236
+  size: 34, 38
+  orig: 34, 38
+  offset: 0, 0
+  index: -1
+stra_all_02_head_01
+  rotate: false
+  xy: 1095, 212
+  size: 118, 156
+  orig: 118, 156
+  offset: 0, 0
+  index: -1
+stra_all_02_head_02
+  rotate: false
+  xy: 699, 3
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
+stra_all_02_mand
+  rotate: false
+  xy: 1018, 40
+  size: 69, 81
+  orig: 69, 81
+  offset: 0, 0
+  index: -1
+stra_all_02_page
+  rotate: false
+  xy: 183, 2
+  size: 150, 123
+  orig: 150, 123
+  offset: 0, 0
+  index: -1
+stra_all_02_tail
+  rotate: false
+  xy: 407, 324
+  size: 302, 206
+  orig: 302, 206
+  offset: 0, 0
+  index: -1
+stra_all_02_wing
+  rotate: false
+  xy: 407, 131
+  size: 263, 191
+  orig: 263, 191
+  offset: 0, 0
+  index: -1

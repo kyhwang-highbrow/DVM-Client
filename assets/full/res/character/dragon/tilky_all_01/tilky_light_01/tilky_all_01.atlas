@@ -1,0 +1,286 @@
+
+tilky_all_01.png
+size: 705,533
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tilky_all_01_atk_01
+  rotate: true
+  xy: 412, 440
+  size: 91, 248
+  orig: 91, 248
+  offset: 0, 0
+  index: -1
+tilky_all_01_atk_02
+  rotate: true
+  xy: 412, 321
+  size: 117, 209
+  orig: 117, 209
+  offset: 0, 0
+  index: -1
+tilky_all_01_b_arm
+  rotate: true
+  xy: 393, 2
+  size: 47, 69
+  orig: 47, 69
+  offset: 0, 0
+  index: -1
+tilky_all_01_b_ear
+  rotate: false
+  xy: 645, 147
+  size: 57, 66
+  orig: 57, 66
+  offset: 0, 0
+  index: -1
+tilky_all_01_b_eye_01
+  rotate: true
+  xy: 645, 115
+  size: 30, 38
+  orig: 30, 38
+  offset: 0, 0
+  index: -1
+tilky_all_01_b_eye_02
+  rotate: true
+  xy: 2, 2
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+tilky_all_01_b_eye_03
+  rotate: true
+  xy: 635, 84
+  size: 29, 37
+  orig: 29, 37
+  offset: 0, 0
+  index: -1
+tilky_all_01_b_finger
+  rotate: false
+  xy: 38, 2
+  size: 26, 27
+  orig: 26, 27
+  offset: 0, 0
+  index: -1
+tilky_all_01_b_foot
+  rotate: true
+  xy: 546, 2
+  size: 40, 37
+  orig: 40, 37
+  offset: 0, 0
+  index: -1
+tilky_all_01_body_01
+  rotate: true
+  xy: 478, 71
+  size: 63, 46
+  orig: 63, 46
+  offset: 0, 0
+  index: -1
+tilky_all_01_body_02
+  rotate: true
+  xy: 576, 160
+  size: 85, 67
+  orig: 85, 67
+  offset: 0, 0
+  index: -1
+tilky_all_01_body_03
+  rotate: false
+  xy: 404, 136
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: -1
+tilky_all_01_c_eye
+  rotate: false
+  xy: 580, 125
+  size: 63, 33
+  orig: 63, 33
+  offset: 0, 0
+  index: -1
+tilky_all_01_crown_01
+  rotate: true
+  xy: 250, 173
+  size: 130, 152
+  orig: 130, 152
+  offset: 0, 0
+  index: -1
+tilky_all_01_crown_02
+  rotate: true
+  xy: 511, 149
+  size: 92, 63
+  orig: 92, 63
+  offset: 0, 0
+  index: -1
+tilky_all_01_ear
+  rotate: true
+  xy: 623, 353
+  size: 85, 77
+  orig: 85, 77
+  offset: 0, 0
+  index: -1
+tilky_all_01_eye_01
+  rotate: false
+  xy: 662, 493
+  size: 41, 38
+  orig: 41, 38
+  offset: 0, 0
+  index: -1
+tilky_all_01_eye_02
+  rotate: false
+  xy: 585, 6
+  size: 34, 38
+  orig: 34, 38
+  offset: 0, 0
+  index: -1
+tilky_all_01_eye_03
+  rotate: false
+  xy: 502, 2
+  size: 42, 40
+  orig: 42, 40
+  offset: 0, 0
+  index: -1
+tilky_all_01_f_arm
+  rotate: false
+  xy: 580, 86
+  size: 53, 37
+  orig: 53, 37
+  offset: 0, 0
+  index: -1
+tilky_all_01_f_foot
+  rotate: false
+  xy: 577, 46
+  size: 44, 38
+  orig: 44, 38
+  offset: 0, 0
+  index: -1
+tilky_all_01_gan
+  rotate: false
+  xy: 2, 31
+  size: 243, 246
+  orig: 243, 246
+  offset: 0, 0
+  index: -1
+tilky_all_01_hair
+  rotate: true
+  xy: 662, 456
+  size: 35, 41
+  orig: 35, 41
+  offset: 0, 0
+  index: -1
+tilky_all_01_head
+  rotate: true
+  xy: 629, 268
+  size: 83, 71
+  orig: 83, 71
+  offset: 0, 0
+  index: -1
+tilky_all_01_hit_01
+  rotate: false
+  xy: 560, 247
+  size: 67, 72
+  orig: 67, 72
+  offset: 0, 0
+  index: -1
+tilky_all_01_key_01
+  rotate: false
+  xy: 250, 305
+  size: 160, 226
+  orig: 160, 226
+  offset: 0, 0
+  index: -1
+tilky_all_01_key_02
+  rotate: true
+  xy: 526, 94
+  size: 53, 52
+  orig: 53, 52
+  offset: 0, 0
+  index: -1
+tilky_all_01_key_03
+  rotate: true
+  xy: 412, 243
+  size: 76, 146
+  orig: 76, 146
+  offset: 0, 0
+  index: -1
+tilky_all_01_key_flash
+  rotate: false
+  xy: 2, 279
+  size: 246, 252
+  orig: 246, 252
+  offset: 0, 0
+  index: -1
+tilky_all_01_key_light_01
+  rotate: false
+  xy: 526, 44
+  size: 49, 48
+  orig: 49, 48
+  offset: 0, 0
+  index: -1
+tilky_all_01_key_light_02
+  rotate: false
+  xy: 674, 78
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+tilky_all_01_key_sparkle
+  rotate: false
+  xy: 247, 32
+  size: 144, 139
+  orig: 144, 139
+  offset: 0, 0
+  index: -1
+tilky_all_01_light
+  rotate: false
+  xy: 645, 215
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+tilky_all_01_mark_01
+  rotate: false
+  xy: 623, 46
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+tilky_all_01_mark_02
+  rotate: true
+  xy: 660, 42
+  size: 34, 35
+  orig: 34, 35
+  offset: 0, 0
+  index: -1
+tilky_all_01_mark_03
+  rotate: false
+  xy: 621, 8
+  size: 35, 36
+  orig: 35, 36
+  offset: 0, 0
+  index: -1
+tilky_all_01_mouth_01
+  rotate: false
+  xy: 658, 7
+  size: 35, 33
+  orig: 35, 33
+  offset: 0, 0
+  index: -1
+tilky_all_01_mouth_02
+  rotate: true
+  xy: 247, 2
+  size: 28, 30
+  orig: 28, 30
+  offset: 0, 0
+  index: -1
+tilky_all_01_tail_01
+  rotate: false
+  xy: 464, 2
+  size: 36, 47
+  orig: 36, 47
+  offset: 0, 0
+  index: -1
+tilky_all_01_tail_02
+  rotate: false
+  xy: 393, 51
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1

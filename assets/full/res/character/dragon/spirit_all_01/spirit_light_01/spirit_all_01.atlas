@@ -1,0 +1,244 @@
+
+spirit_all_01.png
+size: 694,544
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spirit_all_01_arm_01
+  rotate: true
+  xy: 606, 178
+  size: 88, 57
+  orig: 88, 57
+  offset: 0, 0
+  index: -1
+spirit_all_01_arm_02
+  rotate: true
+  xy: 624, 106
+  size: 70, 68
+  orig: 70, 68
+  offset: 0, 0
+  index: -1
+spirit_all_01_body_01
+  rotate: false
+  xy: 588, 412
+  size: 88, 130
+  orig: 88, 130
+  offset: 0, 0
+  index: -1
+spirit_all_01_ear_01
+  rotate: false
+  xy: 2, 2
+  size: 103, 114
+  orig: 103, 114
+  offset: 0, 0
+  index: -1
+spirit_all_01_ear_02
+  rotate: false
+  xy: 477, 156
+  size: 53, 104
+  orig: 53, 104
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_01
+  rotate: false
+  xy: 267, 393
+  size: 161, 149
+  orig: 161, 149
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_02
+  rotate: false
+  xy: 398, 262
+  size: 124, 124
+  orig: 124, 124
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_03
+  rotate: false
+  xy: 430, 388
+  size: 156, 154
+  orig: 156, 154
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_04
+  rotate: false
+  xy: 400, 12
+  size: 70, 63
+  orig: 70, 63
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_05
+  rotate: false
+  xy: 267, 262
+  size: 129, 129
+  orig: 129, 129
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_06
+  rotate: true
+  xy: 181, 26
+  size: 85, 81
+  orig: 85, 81
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_07
+  rotate: false
+  xy: 107, 11
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_08
+  rotate: false
+  xy: 590, 319
+  size: 86, 91
+  orig: 86, 91
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_09
+  rotate: false
+  xy: 2, 118
+  size: 155, 159
+  orig: 155, 159
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_10
+  rotate: false
+  xy: 264, 10
+  size: 65, 49
+  orig: 65, 49
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_11
+  rotate: false
+  xy: 472, 74
+  size: 79, 80
+  orig: 79, 80
+  offset: 0, 0
+  index: -1
+spirit_all_01_effect_12
+  rotate: true
+  xy: 204, 113
+  size: 51, 48
+  orig: 51, 48
+  offset: 0, 0
+  index: -1
+spirit_all_01_eye_01
+  rotate: false
+  xy: 624, 62
+  size: 45, 42
+  orig: 45, 42
+  offset: 0, 0
+  index: -1
+spirit_all_01_eye_02
+  rotate: false
+  xy: 620, 18
+  size: 43, 42
+  orig: 43, 42
+  offset: 0, 0
+  index: -1
+spirit_all_01_eye_03
+  rotate: false
+  xy: 159, 118
+  size: 43, 46
+  orig: 43, 46
+  offset: 0, 0
+  index: -1
+spirit_all_01_eyebrow_01
+  rotate: true
+  xy: 331, 13
+  size: 41, 49
+  orig: 41, 49
+  offset: 0, 0
+  index: -1
+spirit_all_01_fur_01
+  rotate: false
+  xy: 553, 37
+  size: 65, 54
+  orig: 65, 54
+  offset: 0, 0
+  index: -1
+spirit_all_01_hair_01
+  rotate: false
+  xy: 254, 145
+  size: 124, 115
+  orig: 124, 115
+  offset: 0, 0
+  index: -1
+spirit_all_01_head_01
+  rotate: false
+  xy: 553, 93
+  size: 69, 77
+  orig: 69, 77
+  offset: 0, 0
+  index: -1
+spirit_all_01_head_02
+  rotate: false
+  xy: 380, 158
+  size: 95, 102
+  orig: 95, 102
+  offset: 0, 0
+  index: -1
+spirit_all_01_leg_01
+  rotate: true
+  xy: 400, 77
+  size: 79, 70
+  orig: 79, 70
+  offset: 0, 0
+  index: -1
+spirit_all_01_leg_02
+  rotate: true
+  xy: 472, 9
+  size: 63, 66
+  orig: 63, 66
+  offset: 0, 0
+  index: -1
+spirit_all_01_leg_03
+  rotate: true
+  xy: 532, 172
+  size: 94, 72
+  orig: 94, 72
+  offset: 0, 0
+  index: -1
+spirit_all_01_spirit_01
+  rotate: false
+  xy: 346, 56
+  size: 52, 87
+  orig: 52, 87
+  offset: 0, 0
+  index: -1
+spirit_all_01_spirit_01-1
+  rotate: false
+  xy: 2, 279
+  size: 263, 263
+  orig: 263, 263
+  offset: 0, 0
+  index: -1
+spirit_all_01_spirit_01-2
+  rotate: true
+  xy: 590, 268
+  size: 49, 75
+  orig: 49, 75
+  offset: 0, 0
+  index: -1
+spirit_all_01_tail_01
+  rotate: true
+  xy: 159, 166
+  size: 111, 93
+  orig: 111, 93
+  offset: 0, 0
+  index: -1
+spirit_all_01_wing_01
+  rotate: true
+  xy: 524, 268
+  size: 118, 64
+  orig: 118, 64
+  offset: 0, 0
+  index: -1
+spirit_all_01_wing_02
+  rotate: false
+  xy: 264, 61
+  size: 80, 82
+  orig: 80, 82
+  offset: 0, 0
+  index: -1
