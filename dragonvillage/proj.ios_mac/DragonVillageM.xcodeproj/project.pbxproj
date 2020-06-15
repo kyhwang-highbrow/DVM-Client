@@ -84,7 +84,6 @@
 		3772F40A1FF4ECC300A9EF7A /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F61FF4ECC000A9EF7A /* SDWebImageDownloaderOperation.m */; };
 		3772F40B1FF4ECC300A9EF7A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F81FF4ECC100A9EF7A /* SDImageCache.m */; };
 		3772F40C1FF4ECC300A9EF7A /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3FA1FF4ECC100A9EF7A /* SDWebImageDownloader.m */; };
-		3773CD1A21E8668800B22F35 /* libPerpleSDK_simulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F9997520B07B7E00048AC7 /* libPerpleSDK_simulator.a */; };
 		3773CD1E21E88B1900B22F35 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 3773CD1B21E88B1900B22F35 /* data_dat */; };
 		3773CD2021E88B1900B22F35 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3773CD1D21E88B1900B22F35 /* res */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -599,7 +598,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3773CD1A21E8668800B22F35 /* libPerpleSDK_simulator.a in Frameworks */,
 				373AE52F211889800033B453 /* libPerpleSDK.a in Frameworks */,
 				3706F1781F680EAC00777433 /* NaverCafeSDK.framework in Frameworks */,
 				375E097A1F4498B10085A2FE /* UnityAds.framework in Frameworks */,
