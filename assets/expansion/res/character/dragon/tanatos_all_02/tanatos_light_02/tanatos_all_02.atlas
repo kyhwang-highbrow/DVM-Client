@@ -1,0 +1,426 @@
+
+tanatos_all_02.png
+size: 1985,741
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tanatos_all_02_acc_01
+  rotate: true
+  xy: 155, 3
+  size: 29, 55
+  orig: 29, 55
+  offset: 0, 0
+  index: -1
+tanatos_all_02_acc_02
+  rotate: true
+  xy: 1118, 5
+  size: 46, 54
+  orig: 46, 54
+  offset: 0, 0
+  index: -1
+tanatos_all_02_acc_03
+  rotate: true
+  xy: 1174, 5
+  size: 46, 54
+  orig: 46, 54
+  offset: 0, 0
+  index: -1
+tanatos_all_02_acc_04
+  rotate: true
+  xy: 269, 5
+  size: 60, 68
+  orig: 60, 68
+  offset: 0, 0
+  index: -1
+tanatos_all_02_arm_01
+  rotate: false
+  xy: 1013, 259
+  size: 114, 174
+  orig: 114, 174
+  offset: 0, 0
+  index: -1
+tanatos_all_02_arm_02
+  rotate: false
+  xy: 1482, 10
+  size: 82, 55
+  orig: 82, 55
+  offset: 0, 0
+  index: -1
+tanatos_all_02_arm_03
+  rotate: false
+  xy: 1896, 521
+  size: 76, 108
+  orig: 76, 108
+  offset: 0, 0
+  index: -1
+tanatos_all_02_body_01
+  rotate: false
+  xy: 402, 23
+  size: 220, 405
+  orig: 220, 405
+  offset: 0, 0
+  index: -1
+tanatos_all_02_clothes_01
+  rotate: false
+  xy: 1317, 367
+  size: 183, 186
+  orig: 183, 186
+  offset: 0, 0
+  index: -1
+tanatos_all_02_clothes_02
+  rotate: false
+  xy: 1317, 5
+  size: 104, 75
+  orig: 104, 75
+  offset: 0, 0
+  index: -1
+tanatos_all_02_clothes_02-1
+  rotate: false
+  xy: 1230, 5
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+tanatos_all_02_clothes_03
+  rotate: true
+  xy: 1817, 391
+  size: 73, 158
+  orig: 73, 158
+  offset: 0, 0
+  index: -1
+tanatos_all_02_clothes_04
+  rotate: true
+  xy: 1002, 8
+  size: 81, 114
+  orig: 81, 114
+  offset: 0, 0
+  index: -1
+tanatos_all_02_clothes_05
+  rotate: false
+  xy: 1873, 276
+  size: 71, 113
+  orig: 71, 113
+  offset: 0, 0
+  index: -1
+tanatos_all_02_dust
+  rotate: true
+  xy: 756, 435
+  size: 304, 373
+  orig: 304, 373
+  offset: 0, 0
+  index: -1
+tanatos_all_02_ear_01
+  rotate: true
+  xy: 675, 3
+  size: 46, 61
+  orig: 46, 61
+  offset: 0, 0
+  index: -1
+tanatos_all_02_effect_attack
+  rotate: false
+  xy: 756, 91
+  size: 255, 342
+  orig: 255, 342
+  offset: 0, 0
+  index: -1
+tanatos_all_02_finger_00
+  rotate: true
+  xy: 1946, 343
+  size: 46, 32
+  orig: 46, 32
+  offset: 0, 0
+  index: -1
+tanatos_all_02_finger_01
+  rotate: true
+  xy: 1632, 17
+  size: 34, 53
+  orig: 34, 53
+  offset: 0, 0
+  index: -1
+tanatos_all_02_finger_03
+  rotate: false
+  xy: 624, 2
+  size: 49, 47
+  orig: 49, 47
+  offset: 0, 0
+  index: -1
+tanatos_all_02_finger_04
+  rotate: false
+  xy: 1278, 6
+  size: 34, 45
+  orig: 34, 45
+  offset: 0, 0
+  index: -1
+tanatos_all_02_finger_05
+  rotate: false
+  xy: 1423, 2
+  size: 57, 78
+  orig: 57, 78
+  offset: 0, 0
+  index: -1
+tanatos_all_02_fur_02
+  rotate: true
+  xy: 1873, 207
+  size: 67, 68
+  orig: 67, 68
+  offset: 0, 0
+  index: -1
+tanatos_all_02_fur_03
+  rotate: false
+  xy: 914, 5
+  size: 86, 84
+  orig: 86, 84
+  offset: 0, 0
+  index: -1
+tanatos_all_02_fur_04
+  rotate: false
+  xy: 1013, 100
+  size: 113, 157
+  orig: 113, 157
+  offset: 0, 0
+  index: -1
+tanatos_all_02_fur_05
+  rotate: true
+  xy: 155, 34
+  size: 118, 112
+  orig: 118, 112
+  offset: 0, 0
+  index: -1
+tanatos_all_02_head_01
+  rotate: false
+  xy: 1632, 53
+  size: 58, 65
+  orig: 58, 65
+  offset: 0, 0
+  index: -1
+tanatos_all_02_head_02
+  rotate: false
+  xy: 1939, 136
+  size: 44, 69
+  orig: 44, 69
+  offset: 0, 0
+  index: -1
+tanatos_all_02_head_03
+  rotate: false
+  xy: 1943, 228
+  size: 33, 46
+  orig: 33, 46
+  offset: 0, 0
+  index: -1
+tanatos_all_02_horn_01
+  rotate: true
+  xy: 1566, 26
+  size: 39, 64
+  orig: 39, 64
+  offset: 0, 0
+  index: -1
+tanatos_all_02_horn_03
+  rotate: false
+  xy: 273, 197
+  size: 127, 160
+  orig: 127, 160
+  offset: 0, 0
+  index: -1
+tanatos_all_02_horn_04
+  rotate: true
+  xy: 756, 2
+  size: 87, 156
+  orig: 87, 156
+  offset: 0, 0
+  index: -1
+tanatos_all_02_leg_01
+  rotate: true
+  xy: 1317, 82
+  size: 138, 173
+  orig: 138, 173
+  offset: 0, 0
+  index: -1
+tanatos_all_02_leg_02
+  rotate: false
+  xy: 1896, 631
+  size: 78, 108
+  orig: 78, 108
+  offset: 0, 0
+  index: -1
+tanatos_all_02_leg_03
+  rotate: true
+  xy: 1692, 4
+  size: 73, 101
+  orig: 73, 101
+  offset: 0, 0
+  index: -1
+tanatos_all_02_light_01
+  rotate: false
+  xy: 1896, 468
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+tanatos_all_02_neck_01
+  rotate: true
+  xy: 273, 67
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+tanatos_all_02_wing_01
+  rotate: true
+  xy: 2, 154
+  size: 203, 269
+  orig: 203, 269
+  offset: 0, 0
+  index: -1
+tanatos_all_02_wing_03
+  rotate: false
+  xy: 1699, 79
+  size: 131, 109
+  orig: 131, 109
+  offset: 0, 0
+  index: -1
+tanatos_all_02_wing_04
+  rotate: false
+  xy: 624, 216
+  size: 126, 212
+  orig: 126, 212
+  offset: 0, 0
+  index: -1
+tanatos_effect_02
+  rotate: false
+  xy: 1939, 93
+  size: 40, 41
+  orig: 40, 41
+  offset: 0, 0
+  index: -1
+tanatos_effect_03
+  rotate: true
+  xy: 2, 7
+  size: 145, 151
+  orig: 145, 151
+  offset: 0, 0
+  index: -1
+tanatos_effect_04
+  rotate: false
+  xy: 1633, 466
+  size: 261, 273
+  orig: 261, 273
+  offset: 0, 0
+  index: -1
+tanatos_effect_05
+  rotate: false
+  xy: 1625, 368
+  size: 98, 96
+  orig: 98, 96
+  offset: 0, 0
+  index: -1
+tanatos_effect_06
+  rotate: false
+  xy: 1502, 428
+  size: 121, 125
+  orig: 121, 125
+  offset: 0, 0
+  index: -1
+tanatos_effect_07
+  rotate: false
+  xy: 1832, 74
+  size: 105, 114
+  orig: 105, 114
+  offset: 0, 0
+  index: -1
+tanatos_effect_08
+  rotate: true
+  xy: 2, 359
+  size: 380, 398
+  orig: 380, 398
+  offset: 0, 0
+  index: -1
+tanatos_effect_09
+  rotate: false
+  xy: 1502, 367
+  size: 92, 59
+  orig: 92, 59
+  offset: 0, 0
+  index: -1
+tanatos_effect_10
+  rotate: true
+  xy: 1632, 120
+  size: 100, 65
+  orig: 100, 65
+  offset: 0, 0
+  index: -1
+tanatos_effect_11
+  rotate: false
+  xy: 402, 430
+  size: 352, 309
+  orig: 352, 309
+  offset: 0, 0
+  index: -1
+tanatos_effect_12
+  rotate: false
+  xy: 1699, 190
+  size: 172, 176
+  orig: 172, 176
+  offset: 0, 0
+  index: -1
+tanatos_effect_13
+  rotate: false
+  xy: 624, 51
+  size: 130, 163
+  orig: 130, 163
+  offset: 0, 0
+  index: -1
+tanatos_effect_14
+  rotate: true
+  xy: 1492, 67
+  size: 153, 138
+  orig: 153, 138
+  offset: 0, 0
+  index: -1
+tanatos_effect_15
+  rotate: true
+  xy: 339, 6
+  size: 59, 56
+  orig: 59, 56
+  offset: 0, 0
+  index: -1
+tanatos_effect_16
+  rotate: false
+  xy: 1725, 374
+  size: 90, 90
+  orig: 90, 90
+  offset: 0, 0
+  index: -1
+tanatos_effect_17
+  rotate: false
+  xy: 1795, 2
+  size: 88, 70
+  orig: 88, 70
+  offset: 0, 0
+  index: -1
+tanatos_effect_18
+  rotate: false
+  xy: 1131, 555
+  size: 500, 184
+  orig: 500, 184
+  offset: 0, 0
+  index: -1
+tanatos_effect_19
+  rotate: true
+  xy: 1131, 53
+  size: 500, 184
+  orig: 500, 184
+  offset: 0, 0
+  index: -1
+tanatos_effect_20
+  rotate: false
+  xy: 1317, 222
+  size: 380, 143
+  orig: 380, 143
+  offset: 0, 0
+  index: -1
+tanatos_effect_21
+  rotate: true
+  xy: 1885, 28
+  size: 44, 98
+  orig: 44, 98
+  offset: 0, 0
+  index: -1
