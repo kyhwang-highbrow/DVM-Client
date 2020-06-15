@@ -85,10 +85,59 @@
 			{
 				[1] =
 				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -65.000000;
+						y = 11.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 220;
+						height = 200;
+						scale_x = 0.800000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/typo/ko/event_gold_dungeon_0101.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'ClippingNode';
+					ui_name = '';
+					x = -233.000000;
+					y = 59.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 288;
+					height = 255;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
+				};
+				[2] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -109.500000;
+					y = -117.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -123,17 +172,17 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[2] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = -47.500000;
+					x = 7.000000;
+					y = -46.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 820;
-					height = 74;
+					width = 601;
+					height = 109;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -142,14 +191,14 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 45;
+					font_size = 35;
 					text = '황금 던전 이벤트';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 252; 230; };
 					opacity = 255;
-					dimension_width = 820;
-					dimension_height = 74;
+					dimension_width = 601;
+					dimension_height = 109;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -398,6 +447,32 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
+			};
+			[5] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -343.000000;
+				y = 158.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 259;
+				height = 256;
+				scale_x = -1.050000;
+				scale_y = 1.050000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = '';
+				file_name = 'ui/icons/mandragora/mandragora_0501.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';

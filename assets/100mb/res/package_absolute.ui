@@ -40,8 +40,33 @@
 				{
 					type = 'Visual';
 					ui_name = '';
-					x = -0.000122;
-					y = -97.000000;
+					x = 0.000000;
+					y = 218.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/package_effect/package_effect.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;pack_idle_title';
+					color = { 255; 255; 224; };
+					opacity = 150;
+				};
+				[3] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = -81.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -61,7 +86,7 @@
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};
-				[3] =
+				[4] =
 				{
 					[1] =
 					{
@@ -118,12 +143,12 @@
 					type = 'Scale9Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 142.000000;
+					y = 146.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 375;
-					height = 205;
+					height = 196;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -139,7 +164,7 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[4] =
+				[5] =
 				{
 					[1] =
 					{
@@ -180,57 +205,12 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
+					visible = true;
 					lua_name = '';
 					stencil_type = 0;
 					stencil_img = '';
 					alpha_threshold = 1.000000;
 					is_invert = false;
-				};
-				[5] =
-				{
-					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = -1.000000;
-						y = -7.000000;
-						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 1.000000; };
-						relative_size_type = 0;
-						width = 594;
-						height = 166;
-						scale_x = 0.700000;
-						scale_y = 0.700000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = '';
-						file_name = 'ui/typo/ko/new_year_title.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					type = 'Menu';
-					ui_name = '';
-					x = 0.000000;
-					y = -4.000000;
-					dock_point = { 0.500000; 1.000000; };
-					anchor_point = { 0.500000; 1.000000; };
-					relative_size_type = 0;
-					width = 716;
-					height = 178;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
 				};
 				type = 'Sprite';
 				ui_name = '';
@@ -263,7 +243,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -3.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
@@ -281,11 +261,11 @@
 					action_duration = 0.000000;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 16;
+					font_size = 18;
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 224; };
+					color = { 127; 127; 127; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -456,7 +436,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -247.000000;
+				y = -237.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -520,7 +500,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -247.000000;
+				y = -237.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -570,7 +550,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -133.000000;
+				y = -135.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -607,71 +587,6 @@
 			};
 			[8] =
 			{
-				type = 'Visual';
-				ui_name = '';
-				x = 0.000000;
-				y = 212.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 0.700000;
-				scale_y = 0.700000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = '';
-				file_name = 'ui/a2d/package_effect/package_effect.vrp';
-				auto_play = true;
-				is_repeat = true;
-				visual_id = 'group;pack_idle_title';
-				color = { 255; 255; 255; };
-				opacity = 255;
-			};
-			[9] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = -103.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 750;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 25;
-				text = '한정 드래곤 획득 기회!!';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 215; 0; };
-				opacity = 255;
-				dimension_width = 750;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = false;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = false;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 2.000000;
-			};
-			[10] =
-			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 2.000000;
@@ -686,7 +601,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
@@ -709,6 +624,72 @@
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
+			};
+			[9] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = -5.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 1.000000; };
+				relative_size_type = 0;
+				width = 594;
+				height = 166;
+				scale_x = 0.750000;
+				scale_y = 0.750000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/typo/ko/new_year_title.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[10] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -103.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 750;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 25;
+				text = '한정 드래곤 획득 기회!!';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 0; };
+				opacity = 255;
+				dimension_width = 750;
+				dimension_height = 50;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = false;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 2.000000;
 			};
 			type = 'Menu';
 			ui_name = '';

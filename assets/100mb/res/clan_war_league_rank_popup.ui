@@ -722,7 +722,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 40.000000;
+						x = -2.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -737,7 +737,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 19;
+						font_size = 18;
 						text = '승';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -762,7 +762,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 109.000000;
+						x = 54.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -777,7 +777,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 19;
+						font_size = 18;
 						text = '패';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -802,7 +802,7 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 179.000000;
+						x = 113.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -817,7 +817,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 19;
+						font_size = 18;
 						text = '세트';
 						h_alignment = 1;
 						v_alignment = 1;
@@ -842,6 +842,46 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
+						x = 171.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 100;
+						height = 45;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 18;
+						text = '게임';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 227; 227; 227; };
+						opacity = 255;
+						dimension_width = 100;
+						dimension_height = 45;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 1.000000;
+						stroke_color = { 255; 255; 255; };
+						has_shadow = false;
+						shadow_color = { 255; 255; 255; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 5.000000;
+					};
+					[6] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
 						x = 250.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
@@ -857,8 +897,8 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 19;
-						text = '게임';
+						font_size = 18;
+						text = '보상';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 227; 227; 227; };

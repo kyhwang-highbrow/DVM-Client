@@ -33,31 +33,6 @@
 			};
 			[2] =
 			{
-				type = 'Visual';
-				ui_name = '';
-				x = 175.000000;
-				y = 40.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 0;
-				height = 0;
-				scale_x = 0.630000;
-				scale_y = 0.630000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'item/egg/egg_super_absolute/egg_super_absolute.vrp';
-				auto_play = true;
-				is_repeat = true;
-				visual_id = 'group;egg';
-				color = { 255; 255; 255; };
-				opacity = 255;
-			};
-			[3] =
-			{
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -82,17 +57,17 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[4] =
+			[3] =
 			{
 				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
+				ui_name = 'rich';
+				x = 300.000000;
+				y = 162.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 930;
-				height = 61;
+				width = 443;
+				height = 88;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -101,28 +76,28 @@
 				visible = false;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '시험의 탑\n100층 개방!';
+				font_size = 22;
+				text = '모든 속성 클리어 시\n{@yellow}미중복 절대적인 전설의 알{@default} 지급';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 930;
-				dimension_height = 61;
+				dimension_width = 443;
+				dimension_height = 88;
 				letter_spacing = 0.000000;
-				has_stroke = false;
+				has_stroke = true;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
-				stroke_tickness = 1.000000;
-				stroke_color = { 255; 255; 255; };
+				stroke_tickness = 2.000000;
+				stroke_color = { 100; 0; 0; };
 				has_shadow = false;
-				shadow_color = { 255; 255; 255; };
+				shadow_color = { 100; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[5] =
+			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -162,7 +137,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[6] =
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';

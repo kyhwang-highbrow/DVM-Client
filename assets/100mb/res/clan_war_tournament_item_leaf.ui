@@ -324,7 +324,7 @@
 						};
 						type = 'Menu';
 						ui_name = '';
-						x = 0.000000;
+						x = 5.000000;
 						y = -17.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -425,7 +425,7 @@
 						};
 						type = 'Menu';
 						ui_name = '';
-						x = 0.000000;
+						x = 5.000000;
 						y = 17.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -460,7 +460,7 @@
 						lua_name = 'defeatSprite2';
 						file_name = 'ui/frames/clan_War_leaf_frame_0103.png';
 						color = { 255; 255; 255; };
-						opacity = 235;
+						opacity = 200;
 						flip_x = false;
 						flip_y = false;
 						src_blend = 770;
@@ -486,7 +486,7 @@
 						lua_name = 'defeatSprite1';
 						file_name = 'ui/frames/clan_War_leaf_frame_0103.png';
 						color = { 255; 255; 255; };
-						opacity = 235;
+						opacity = 200;
 						flip_x = false;
 						flip_y = false;
 						src_blend = 770;

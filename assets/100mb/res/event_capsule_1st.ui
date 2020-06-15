@@ -14,7 +14,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 930;
+				width = 1030;
 				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -32,32 +32,6 @@
 				dest_blend = 771;
 			};
 			[2] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = -11.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
-				relative_size_type = 0;
-				width = 900;
-				height = 85;
-				scale_x = 0.800000;
-				scale_y = 0.800000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[3] =
 			{
 				[1] =
 				{
@@ -91,7 +65,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 930;
+				width = 1030;
 				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -105,12 +79,12 @@
 				alpha_threshold = 1.000000;
 				is_invert = false;
 			};
-			[4] =
+			[3] =
 			{
 				type = 'Visual';
 				ui_name = '';
-				x = -0.000122;
-				y = -51.000000;
+				x = 0.000000;
+				y = -49.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -130,19 +104,19 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[5] =
+			[4] =
 			{
 				type = 'Visual';
 				ui_name = '';
 				x = 0.000000;
-				y = -141.000031;
+				y = -134.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 0;
 				height = 0;
-				scale_x = 0.670000;
-				scale_y = 0.670000;
+				scale_x = 0.680000;
+				scale_y = 0.680000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -155,17 +129,43 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
+			[5] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 253.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 594;
+				height = 166;
+				scale_x = 0.750000;
+				scale_y = 0.750000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/typo/ko/new_year_title.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
 			[6] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = -3.000000;
-				y = 26.000000;
+				y = 15.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 400;
-				height = 90;
+				width = 450;
+				height = 110;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -226,7 +226,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 164.000000;
+				y = 166.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -240,7 +240,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 23;
 				text = '한정 드래곤 획득 기회를 놓치지 마세요!';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -266,7 +266,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -235.000000;
+				y = -234.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -280,7 +280,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 25;
 				text = '★5 전설 한정 드래곤 부화';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -306,7 +306,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -265.000000;
+				y = -270.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -360,7 +360,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 45;
+				font_size = 42;
 				text = '캡슐 뽑기 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -386,7 +386,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 132.000000;
+				y = 135.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -400,11 +400,11 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
-				text = '기간 : 2/1 00:00 ~ 2/2 23:59';
+				font_size = 20;
+				text = '기간 : 6/22 00:00 ~ 6/23 23:59';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 0; 255; 0; };
 				opacity = 255;
 				dimension_width = 844;
 				dimension_height = 45;
@@ -428,7 +428,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 930;
+			width = 1030;
 			height = 640;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

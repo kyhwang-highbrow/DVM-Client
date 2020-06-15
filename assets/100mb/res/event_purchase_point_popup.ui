@@ -955,7 +955,7 @@
 						type = 'LabelTTF';
 						ui_name = 'rich';
 						x = 0.000000;
-						y = 150.000000;
+						y = 161.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -969,7 +969,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 20;
+						font_size = 18;
 						text = '◆ 이벤트 기간 동안 {@mustard}누적 결제 금액{@default}에 따라 점수를 얻고, 얻은 점수가 일정 수치에 도달하면 아이템을 받으실 수 있습니다. ';
 						h_alignment = 0;
 						v_alignment = 0;
@@ -995,7 +995,7 @@
 						type = 'LabelTTF';
 						ui_name = 'rich';
 						x = 0.000000;
-						y = 72.000000;
+						y = 99.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1009,7 +1009,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 20;
+						font_size = 18;
 						text = '◆ 이벤트 보상은 {@mustard}보상 받기 {@default}버튼을 누르면 우편함으로 즉시 지급 됩니다.';
 						h_alignment = 0;
 						v_alignment = 0;
@@ -1035,7 +1035,7 @@
 						type = 'LabelTTF';
 						ui_name = 'rich';
 						x = 0.000000;
-						y = 0.000000;
+						y = 39.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1049,8 +1049,8 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 20;
-						text = '◆ 이벤트 기간 내에 받기 버튼으로 아이템을 받지 못할 경우 {@mustard}복구가 불가능 {@default}하니 주의하시기 바랍니다.';
+						font_size = 18;
+						text = '◆ 특정 보상은 준비된 {@MUSTARD}아이템 중 하나를 선택해서{@DEFAULT} 받을 수 있습니다.\n선택한 보상은 변경할 수 없으니 주의하시기 바랍니다.';
 						h_alignment = 0;
 						v_alignment = 0;
 						color = { 255; 243; 217; };
@@ -1073,9 +1073,49 @@
 					[4] =
 					{
 						type = 'LabelTTF';
-						ui_name = '';
+						ui_name = 'rich';
 						x = 0.000000;
-						y = -58.000000;
+						y = -35.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 510;
+						height = 90;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 18;
+						text = '◆ 이벤트 기간 내에 받기 버튼으로 아이템을 받지 못할 경우 {@mustard}복구가 불가능 {@default}하니 주의하시기 바랍니다.';
+						h_alignment = 0;
+						v_alignment = 0;
+						color = { 255; 243; 217; };
+						opacity = 255;
+						dimension_width = 510;
+						dimension_height = 90;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 3.000000;
+					};
+					[5] =
+					{
+						type = 'LabelTTF';
+						ui_name = 'rich';
+						x = 0.000000;
+						y = -75.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1089,7 +1129,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 20;
+						font_size = 18;
 						text = '◆ 누적 점수는 환율에 상관없이 게임 내 상품에 따라 정해집니다. ';
 						h_alignment = 0;
 						v_alignment = 0;
@@ -1110,12 +1150,12 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[5] =
+					[6] =
 					{
 						type = 'LabelTTF';
-						ui_name = '';
+						ui_name = 'rich';
 						x = 0.000000;
-						y = -113.000000;
+						y = -132.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1129,7 +1169,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 20;
+						font_size = 18;
 						text = '◆ 이벤트 기간이 종료되면 누적된 결제 점수는 초기화 됩니다.';
 						h_alignment = 0;
 						v_alignment = 0;
@@ -1150,7 +1190,7 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[6] =
+					[7] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
