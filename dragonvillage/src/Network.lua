@@ -221,13 +221,30 @@ function Network_platform_changeByPlayerID(old_uid, new_uid, success_cb, fail_cb
     t_request['method'] = 'POST'
     t_request['data'] = t_data
     t_request['check_hmac_md5'] = false
+
+    cclog('# Network_platform_changeByPlayerID - request')
+    ccdump(t_data)
+
     -- 성공 시 콜백 함수
-    t_request['success'] = success_cb
+    t_request['success'] = function(ret)
+        cclog('# Network_platform_changeByPlayerID - success')
+        ccdump(ret)
+        if success_cb then
+            success_cb(ret)
+        end
+    end
     -- 실패 시 콜백 함수
-    t_request['fail'] = fail_cb
+    t_request['fail'] = function(ret)
+        cclog('# Network_platform_changeByPlayerID - fail')
+        ccdump(ret)
+        if fail_cb then
+            fail_cb(ret)
+        end
+    end
 
     -- 네트워크 통신
     Network:SimpleRequest(t_request)
+    
 end
 
 -------------------------------------
@@ -251,11 +268,27 @@ function Network_platform_getUserByUid(uid, success_cb, fail_cb)
 
     t_request['check_hmac_md5'] = false
 
+    cclog('# Network_platform_getUserByUid - request')
+    ccdump(t_data)
+
     -- 성공 시 콜백 함수
-    t_request['success'] = success_cb
+    t_request['success'] = function(ret)
+        cclog('# Network_platform_getUserByUid - success')
+        ccdump(ret)
+
+        if success_cb then
+            success_cb(ret)
+        end
+    end
 
     -- 실패 시 콜백 함수
-    t_request['fail'] = fail_cb
+    t_request['fail'] = function(ret)
+        cclog('# Network_platform_getUserByUid - fail')
+        ccdump(ret)
+        if fail_cb then
+            fail_cb(ret)
+        end
+    end
 
     -- 네트워크 통신
     Network:SimpleRequest(t_request)
