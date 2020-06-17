@@ -54,13 +54,34 @@ function UI_Setting:click_gamecenterBtn()
 
         if ret == 'success' then
             cclog('GameCenter login was successful.')
+            cclog('# ret :')
+            ccdump(ret)
+            cclog('# info :')
+            ccdump(info)
+
             self.m_loadingUI:hideLoading()
 
             local fuid = info
 
             -- fuid를 플랫폼 서버에 조회 신규/기존 판단
             local result_cb = function(ret)
+                cclog('# Network_platform_getUserByUid -> result_cb')
                 ccdump(ret)
+                --데이터 예시
+                --{
+	            --    ['status']={
+		        --        ['message']='success';
+		        --        ['retcode']=0;
+	            --    };
+	            --    ['userInfo']={
+		        --        ['uid']='G:1175721028';
+		        --        ['create_date']='2019-06-19T08:11:11.000Z';
+		        --        ['last_login_date']='2020-06-17T07:45:12.000Z';
+		        --        ['push_token']='ei0KuKuedJk:APA91bHJ5UFyYQV5V5lhX6Z5zfMZ2r_r_Lgdj6ep_-eg7Qf5fGwIOqktn7fIh5oDKW3jhKyOHe5I3KiASmUKaKZPypHcBKyAPtRNcnU8o20-NLzq8UgShrezgWIfCSo6Ztur3bk5W2Gl';
+		        --        ['os']=1;
+		        --        ['rcode']='6fbee047-d675-4815-87da-f102566aeac8';
+	            --    };
+                --}
 
                 local function ok_btn_cb()
                     PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
@@ -88,7 +109,7 @@ function UI_Setting:click_gamecenterBtn()
 
                 local cancel_btn_cb = nil
 
-                local checkUserUid = ret['userInfo'] and ret['userInfo']['fuid']
+                local checkUserUid = ret['userInfo'] and ret['userInfo']['uid']
 
                 if checkUserUid == nil then
                     -- 신규 유저
