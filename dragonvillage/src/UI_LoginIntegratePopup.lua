@@ -11,6 +11,7 @@ UI_LoginIntegratePopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_LoginIntegratePopup:init(owner_ui)
+    -- uifile : title.ui
     self.vars = owner_ui.vars
 
     self:initUI()

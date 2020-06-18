@@ -2,6 +2,7 @@ local PARENT = UI
 
 -------------------------------------
 -- class UI_LoginPopup
+-- @brief 타이틀 화면에서 계정 생성 or 로그인을 할 때 사용
 -------------------------------------
 UI_LoginPopup = class(PARENT,{
         m_loadingUI = 'UI_TitleSceneLoading',                

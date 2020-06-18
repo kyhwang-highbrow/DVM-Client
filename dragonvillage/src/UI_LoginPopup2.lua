@@ -112,81 +112,168 @@ function UI_LoginPopup2:click_gamecenterBtn()
 
     self.m_loadingUI:showLoading(Str('계정 연동 중...'))
 
-    local old_fuid = g_localData:get('local', 'uid')
 
-    PerpleSDK:gameCenterLogin(function(ret, info)
+    local old_uid = g_localData:get('local', 'uid')
+    local game_center_uid = nil
 
-        if ret == 'success' then
-            cclog('GameCenter login was successful.')
-            self.m_loadingUI:hideLoading()
+    -- 순차적으로 호출될 함수
+    -- 1. 게임센터 계정 정보 확인
+    local func_gamecenter_login
+    -- 2. gamecenter uid를 플랫폼 서버에 조회
+    local func_check_gamecenter_uid_on_platform_server
+    -- 2-1. gamecenter uid계정이 존재하지 않아서 연동하는 경우
+    local func_new_account
+    -- 2-2. gamecenter uid계정이 이미 존재하는 경우
+    local func_existing_account
+    -- 3. gamecenter uid로 파이어베이스 로그인
+    local func_login_with_gamecenter
 
-            local fuid = info
 
-            -- fuid를 플랫폼 서버에 조회 신규/기존 판단
-            local result_cb = function(ret)
-                ccdump(ret)
+    -- 1. 게임센터 계정 정보 확인
+    func_gamecenter_login = function()
+        cclog('## func_gamecenter_login')
+        PerpleSDK:gameCenterLogin(function(ret, info) -- info는 gamecenter의 playerId(fuid로 사용되기 때문에 uid라고 보면 됨)
+            if (ret == 'success') then
+                cclog('GameCenter login was successful.')
+                self.m_loadingUI:hideLoading()
+                game_center_uid = info
 
-                local function ok_btn_cb()
-                    PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase GameCenter login was successful.')
+                -- 다음 함수 호출
+                func_check_gamecenter_uid_on_platform_server()
 
-                            self:loginSuccess(info)
+            elseif (ret == 'fail') then
+                cclog('GameCenter login failed.')
+			    UI_LoginPopup:loginFail(info)
+                self.m_loadingUI:hideLoading()
 
-                            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다. 앱을 다시 시작합니다.'), function()
-                                -- 앱 재시작
-                                CppFunctions:restart()
-                            end)
+            elseif (ret == 'cancel') then
+                cclog('GameCenter login canceled.')
+			    UI_LoginPopup:loginCancel()
+                self.m_loadingUI:hideLoading()
+            end
+        end)
+    end
 
-                        elseif ret == 'fail' then
-                            cclog('Firebase GameCenter login failed.')
-                            UI_LoginPopup:loginFail(info)
+    -- 2. gamecenter uid를 플랫폼 서버에 조회
+    func_check_gamecenter_uid_on_platform_server = function()
+        cclog('## func_check_gamecenter_uid_on_platform_server')
+        local function result_cb(ret)
+            -- ret의 데이터 예시
+            --{
+	        --    ['status']={
+		    --        ['message']='success';
+		    --        ['retcode']=0;
+	        --    };
+	        --    ['userInfo']={
+		    --        ['uid']='G:1175721028';
+		    --        ['create_date']='2019-06-19T08:11:11.000Z';
+		    --        ['last_login_date']='2020-06-17T07:45:12.000Z';
+		    --        ['push_token']='ei0KuKuedJk:APA91bHJ5UFyYQV5V5lhX6Z5zfMZ2r_r_Lgdj6ep_-eg7Qf5fGwIOqktn7fIh5oDKW3jhKyOHe5I3KiASmUKaKZPypHcBKyAPtRNcnU8o20-NLzq8UgShrezgWIfCSo6Ztur3bk5W2Gl';
+		    --        ['os']=1;
+		    --        ['rcode']='6fbee047-d675-4815-87da-f102566aeac8';
+	        --    };
+            --}
 
-                        elseif ret == 'cancel' then
-                            cclog('Firebase GameCenter login canceled.')
-							UI_LoginPopup:loginCancel()
-                            -- no nothing
-                        end
-                    end)
-                end
-
-                local cancel_btn_cb = nil
-
-                local checkUserUid = ret['userInfo'] and ret['userInfo']['fuid']
-
-                if checkUserUid == nil then
-                    -- 신규 유저
-                    local function success_cb()
-                        ok_btn_cb();
-                    end
-
-                    local function fail_cb(ret)
-                        local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:{1})', ret['status'])
-                        MakeSimplePopup(POPUP_TYPE.OK, msg)
-                    end
-
-                    Network_platform_updateId(fuid, 'gamecenter', old_fuid, success_cb, fail_cb)
-                else
-                    -- 기존 유저
-                    local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
-                    local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
-                    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
+            -- 리턴값으로 기존 계정인지 신규 계정인지 확인
+            local is_new_account = true
+            if (ret['status'] and ret['status']['retcode'] == 0) then
+                if (ret['userInfo'] and ret['userInfo']['uid']) then
+                    is_new_account = false
                 end
             end
-
-            Network_platform_getUserByUid(fuid, result_cb, result_cb)
-
-        elseif ret == 'fail' then
-            cclog('GameCenter login failed.')
-			UI_LoginPopup:loginFail(info)
-            self.m_loadingUI:hideLoading()
-
-        elseif ret == 'cancel' then
-            cclog('GameCenter login canceled.')
-			UI_LoginPopup:loginCancel()
-            self.m_loadingUI:hideLoading()
+            
+            -- 신규 계정인지, 기존 계정인지
+            if (is_new_account == true) then
+                func_new_account() -- 다음 함수 호출
+            else--if (is_new_account == false) then
+                func_existing_account() -- 다음 함수 호출
+            end
         end
-    end)
+
+        Network_platform_getUserByUid(game_center_uid, result_cb, result_cb) -- params : uid, success_cb, fail_cb)
+    end
+
+    -- 2-1. gamecenter uid계정이 존재하지 않아서 연동하는 경우
+    func_new_account = function()
+        cclog('## func_new_account')
+        local function fail_cb(ret)
+            local error_str = ''
+            if ret['status'] and ret['status']['retcode'] then
+                error_str = tostring(ret['status']['retcode'])
+            end
+            if ret['status'] and ret['status']['message'] then
+                if (error_str ~= '') then
+                    error_str = (error_str .. '-')
+                end
+                error_str = (error_str .. tostring(ret['status']['message']))
+            end
+
+            local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:{1})', error_str)
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+        end
+
+        local function success_cb(ret)
+            if ret['status'] and (ret['status']['retcode'] == 0) then
+                -- 플랫폼 서버에서 이 정보를 업데이트 해서 사용하고있지 않다고 판단되어 호출하지 않는다. sgkim 20200617
+                --Network_platform_updateId(game_center_uid, 'gamecenter', game_center_uid)
+
+                -- 다음 함수 호출
+                func_login_with_gamecenter(true) -- params : is_new_account
+            else
+                fail_cb(ret)
+            end
+        end
+
+        Network_platform_changeByPlayerID(old_uid, game_center_uid, success_cb, fail_cb) -- old_uid, new_uid, success_cb, fail_cb)
+    end
+
+    -- 2-2. gamecenter uid계정이 이미 존재하는 경우
+    func_existing_account = function()
+        cclog('## func_existing_account')
+        local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
+        local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
+
+        local ok_btn_cb = function()
+            -- 다음 함수 호출
+            func_login_with_gamecenter(false) -- params : is_new_account
+        end
+        local cancel_btn_cb = nil
+
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
+    end
+
+    -- 3. gamecenter uid로 파이어베이스 로그인
+    func_login_with_gamecenter = function(is_new_account)
+        cclog('## func_existing_account. is_new_account : ' .. tostring(is_new_account))
+        PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
+            if (ret == 'success') then
+                cclog('Firebase GameCenter login was successful.')
+                self:loginSuccess(info)
+
+                -- 신규 계정인 경우 안내
+                if (is_new_account == true) then
+                    MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다. 앱을 다시 시작합니다.'), function()
+                        -- 앱 재시작
+                        CppFunctions:restart()
+                    end)
+                else
+                    -- 앱 재시작
+                    CppFunctions:restart()
+                end
+
+            elseif (ret == 'fail') then
+                cclog('Firebase GameCenter login failed.')
+                UI_LoginPopup:loginFail(info)
+
+            elseif (ret == 'cancel') then
+                cclog('Firebase GameCenter login canceled.')
+				UI_LoginPopup:loginCancel()
+            end
+        end)
+    end
+
+    -- 함수 시작
+    func_gamecenter_login()
 end
 
 -------------------------------------
