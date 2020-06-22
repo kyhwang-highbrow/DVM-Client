@@ -27,15 +27,15 @@ end
 -- function MakeGameServerUid
 -- @breif firebase uid와 게임 서버 이름으로 uid 생성
 -------------------------------------
-function MakeGameServerUid()
+function MakeGameServerUid(_uid)
     -- 세이브파일에 저장된 uid를 불러옴
-    local uid = g_localData:get('local', 'uid')
+    local uid = _uid or g_localData:get('local', 'uid')
 
     -- 연결할 게임 서버명 얻어옴
     local server_name = g_localData:getServerName()
 
     -- 개발 서버는 그대로 리턴
-    if (server_name == 'DEV') or (server_name == 'QA') then
+    if (server_name == 'Korea') or (server_name == 'DEV') or (server_name == 'QA') then
         -- DEV(개발), QA 서버에서는 라이브 서버의 계정을 복사해서 사용하는 경우가 있기때문에
         -- 클라이언트에서 저장된 그대로의 uid를 사용
         return uid

@@ -182,7 +182,7 @@ function UI_Setting:click_gamecenterBtn_New2()
             if (ret == 'success') then
                 cclog('GameCenter login was successful.')
                 self.m_loadingUI:hideLoading()
-                game_center_uid = info
+                game_center_uid = MakeGameServerUid(info)
 
                 -- 다음 함수 호출
                 func_check_gamecenter_uid_on_platform_server()
