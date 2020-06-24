@@ -638,13 +638,17 @@ function StructProduct:buy(cb_func, sub_msg, no_popup)
 		local price = (self['price_type'] == 'money') and self:getPriceStr() or self:getPrice()
 		local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
 
-		local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
-		if (platform_id == 'firebase') then
-			if ui and ui.vars and ui.vars['subLabel'] then
-				ui.vars['subLabel']:setString('{@sub_msg}' .. Str('(게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.)'))
-			    ui.vars['guestBtn']:setVisible(true)
-            end
-		end
+        -- @sgkim 2020.06.24 게스트 계정으로 구매 시도 시 경고 문구와, 계정 연동 안내 버튼이 구매 심리를 축소한다고 판단하여 제거함.
+        --                   드빌M 출시 전에 큐로드 QA팀으로부터 ios정책상 문제가 될 수 있으니 게스트 계정의 경우 경고 문구를 띄우라는 권고를 받았었다.
+        --                   조사를 해본 결과 해당 정책 문서를 찾을 수 없었고 최근 서비스 되고 있는 게임들에서 이를 적용하지 않고있었다.
+		--local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+		--if (platform_id == 'firebase') then
+		--	if ui and ui.vars and ui.vars['subLabel'] then
+        --      -- 여기서 해당하는 ui는 popup_confirm.ui 이다.
+		--		ui.vars['subLabel']:setString('{@sub_msg}' .. Str('(게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.)'))
+		--	    ui.vars['guestBtn']:setVisible(true)
+        --    end
+		--end
 	end
 end
 
