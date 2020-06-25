@@ -160,6 +160,7 @@ end
 
 -------------------------------------
 -- function initSelectingUI
+-- @brief 던전 종류 중 거목 던전 또는 거대용 던전 선택시에만 호출. 거목 또는 거대용 종류 선택
 -------------------------------------
 function UI_NestDungeonScene:initSelectingUI()
 	local vars = self.vars
