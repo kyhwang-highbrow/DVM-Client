@@ -253,7 +253,8 @@ function UI_NestDungeonScene:initSelectingUI()
 
     local timezone = Timer:getTimeZone()
     local utc_desc = datetime.getTimeUTCDesc()
-    vars['serverTimeSprite']:setVisible(true)
+    -- @jsbae 2020.06.25 거목 던전, 거대용 던전 요일 제한 해제로 서버 시간 표기 불필요
+    -- vars['serverTimeSprite']:setVisible(true)
     vars['serverTimeLabel']:setString(Str('서버 시간 : ({1}) {2}', timezone, utc_desc))
 end
 
@@ -354,6 +355,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_NestDungeonScene:refresh()
+
 end
 
 -------------------------------------
