@@ -338,11 +338,11 @@ function ServerData_Fevertime:isActiveFevertime_dungeonGtUp()
 end
 
 -------------------------------------
--- function isActiveFevertime_smLegendUp
+-- function isActiveFevertime_summonLegendUp
 -- @brief 전설 드래곤 소환 확률 증가 (sm_legend_up)
 -- @return boolean
 -------------------------------------
-function ServerData_Fevertime:isActiveFevertime_smLegendUp()
+function ServerData_Fevertime:isActiveFevertime_summonLegendUp()
     local is_active, value, l_ret = self:isActiveFevertimeByType('sm_legend_up')
     return is_active
 end
@@ -383,11 +383,11 @@ function ServerData_Fevertime:getRemainTimeTextDetail(type)
 end
 
 -------------------------------------
--- function getRemainTimeTextDetail_smLegendUp
+-- function getRemainTimeTextDetail_summonLegendUp
 -- @brief 남은 시간
 -- @return str
 -------------------------------------
-function ServerData_Fevertime:getRemainTimeTextDetail_smLegendUp()
+function ServerData_Fevertime:getRemainTimeTextDetail_summonLegendUp()
     return self:getRemainTimeTextDetail('sm_legend_up')
 end
 

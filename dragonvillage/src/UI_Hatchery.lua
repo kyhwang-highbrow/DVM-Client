@@ -210,10 +210,10 @@ function UI_Hatchery:onChangeTab(tab, first)
         end
 
         -- 핫타임(fevertime)
-        local is_active = g_fevertimeData:isActiveFevertime_smLegendUp()
+        local is_active = g_fevertimeData:isActiveFevertime_summonLegendUp()
         if (is_active == true) then
             self.vars['eventInfoMenu']:setVisible(true)
-            self.vars['timeLabel']:setString(g_fevertimeData:getRemainTimeTextDetail_smLegendUp())
+            self.vars['timeLabel']:setString(g_fevertimeData:getRemainTimeTextDetail_summonLegendUp())
             return
         end
     end
