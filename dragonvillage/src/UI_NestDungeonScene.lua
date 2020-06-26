@@ -192,7 +192,6 @@ function UI_NestDungeonScene:initSelectingUI()
         table_view:setCellUIClass(UI_NestDungeonSelectingListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         table_view:setItemList(t_dungeon)
-
         
         local t_days = {}
         t_days['mon'] = 1
@@ -245,7 +244,8 @@ function UI_NestDungeonScene:initSelectingUI()
 		self:click_dungeonBtn(self.m_tempUI, self.m_tempData)
 		self.m_tempUI.root:setScale(1)
     end
-
+    vars['infoMenu']:setVisible(true)
+	
     -- 리소스가 1280길이로 제작되어 보정 (더 와이드한 해상도)
     local scr_size = cc.Director:getInstance():getWinSize()
     vars['bgVisual']:setScale(scr_size.width / 1280)
@@ -278,6 +278,7 @@ function UI_NestDungeonScene:makeNestModeTableView()
 
     local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(nest_dungeon_id)
     local dungeon_mode = t_dungeon_id_info['dungeon_mode']
+
 
 
     -- 테이블 뷰 인스턴스 생성
@@ -424,6 +425,7 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     ui:cellMoveTo(0.5, target_pos)
 
     vars['tableViewNode']:setVisible(false)
+    vars['infoMenu']:setVisible(false)
 
     self.m_selectNestDungeonInfo = {ui=ui, key=key, data=data}
 
@@ -485,7 +487,8 @@ function UI_NestDungeonScene:closeSubMenu()
     local data = t_item['data']
 
     self.m_tableView:setDirtyItemList()
-
+    
+    vars['infoMenu']:setVisible(true)
     vars['tableViewNode']:setVisible(true)
 
 	vars['dragonInfoBtn']:stopAllActions()
