@@ -299,7 +299,6 @@ function ServerData_Fevertime:isActiveFevertimeByType(type)
             end
         end
     end
-
     return is_active, value, l_ret
 end
 
@@ -314,6 +313,28 @@ function ServerData_Fevertime:isActiveFevertime_adventure()
     local is_active_ad_st_dc = self:isActiveFevertimeByType('ad_st_dc') -- 모험 날개 할인
 
     return is_active_exp_up or is_active_gold_up or is_active_ad_st_dc
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonGdUp
+-- @brief 거대용 던전 핫타임
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonGdUp()
+    local is_active_dg_gd_item_up = self:isActiveFevertimeByType('dg_gd_item_up') -- 거대용 던전 진화 재료 증가
+
+    return is_active_dg_gd_item_up
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonGtUp
+-- @brief 거목 던전 핫타임
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonGtUp()
+    local is_active_dg_gt_item_up = self:isActiveFevertimeByType('dg_gt_item_up') -- 거목 던전 친밀도 열매 증가
+
+    return is_active_dg_gt_item_up
 end
 
 -------------------------------------
@@ -372,7 +393,8 @@ end
 
 -------------------------------------
 -- function convertType_hottimeToFevertime
--- @brief
+-- @brief 2020.06.26 이후 이곳에 코드를 추가하지 않아도 작동함. 대신 hottime_type을 그대로 리턴하여 사용
+-- @return string
 -------------------------------------
 function ServerData_Fevertime:convertType_hottimeToFevertime(hottime_type)
     -- 모험 드래곤 경험치 증가

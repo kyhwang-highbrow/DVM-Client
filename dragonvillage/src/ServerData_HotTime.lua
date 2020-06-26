@@ -130,7 +130,6 @@ function ServerData_HotTime:init_hotTimeType()
 			['tool_tip'] =  Str('드래곤 경험치 획득량 {1}% 증가', 100),
 			['value'] = 100,
 		},
-
 		['stamina_50p'] = {
 			['key'] = 'stamina_50p',
 			['type'] = 'stamina',
@@ -452,6 +451,7 @@ end
 
 -------------------------------------
 -- function getActiveHotTimeInfo_gold
+-- @brief value 값은 getActiveBonusValue 호출로 서버에서 불러온다.
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo_gold()
     local value = self:getActiveBonusValue('gold')
@@ -465,6 +465,7 @@ end
 
 -------------------------------------
 -- function getActiveHotTimeInfo_exp
+-- @brief value 값은 getActiveBonusValue 호출로 서버에서 불러온다.
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo_exp()
     local value = self:getActiveBonusValue('exp')
@@ -477,9 +478,37 @@ function ServerData_HotTime:getActiveHotTimeInfo_exp()
 end
 
 -------------------------------------
+-- function getActiveHotTimeInfo_dungeonGdItemUp
+-- @brief value 값은 getActiveBonusValue 호출로 서버에서 불러온다.
+-------------------------------------
+function ServerData_HotTime:getActiveHotTimeInfo_dungeonGdItemUp()
+    local value = self:getActiveBonusValue('dg_gd_item_up')
+
+    -- fevertime의 정보를 가져온다. fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+    local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType('dg_gd_item_up')
+    value = (value + (_value * 100))
+
+    return (value > 0), value
+end
+
+-------------------------------------
+-- function getActiveHotTimeInfo_dungeonGtItemUp
+-- @brief value 값은 getActiveBonusValue 호출로 서버에서 불러온다.
+-------------------------------------
+function ServerData_HotTime:getActiveHotTimeInfo_dungeonGtItemUp()
+    local value = self:getActiveBonusValue('dg_gd_item_up')
+
+    -- fevertime의 정보를 가져온다. fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+    local _is_active, _value, _l_ret = g_fevertimeData:isActiveFevertimeByType('dg_gt_item_up')
+    value = (value + (_value * 100))
+
+    return (value > 0), value
+end
+
+-------------------------------------
 -- function getActiveBonusValue
 -- @brief 받은 타입의 활성화된 보너스 수치 리턴
--- @param bonus_type : gold, exp, stamina
+-- @param bonus_type : gold, exp, stamina, dg_gd_item_up, dg_gt_item_up
 -- @comment hottime, buff, clan_buff의 통칭은 bonus로 충분할까요?
 -------------------------------------
 function ServerData_HotTime:getActiveBonusValue(bonus_type)

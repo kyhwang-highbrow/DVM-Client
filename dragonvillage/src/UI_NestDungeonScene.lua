@@ -357,7 +357,45 @@ end
 -- function refresh
 -------------------------------------
 function UI_NestDungeonScene:refresh()
+    self:refreshHotTimeInfo()
+end
 
+-------------------------------------
+-- function refreshHotTimeInfo
+-- @breif 핫타임 정보 갱신
+-------------------------------------
+function UI_NestDungeonScene:refreshHotTimeInfo()
+    local vars = self.vars
+    local l_active_hot = {}
+    
+    vars['hotTimeGtBtn']:setVisible(false)
+    vars['hotTimeGdBtn']:setVisible(false) 
+    
+    if(self.m_dungeonType == NEST_DUNGEON_EVO_STONE) then
+        -- 진화 재료 핫타임
+        local active, value = g_hotTimeData:getActiveHotTimeInfo_dungeonGdItemUp()
+        if active then
+            table.insert(l_active_hot, 'hotTimeGdBtn')
+            local str = string.format('+%d%%', value)
+            vars['hotTimeGdLabel']:setString(str)
+            vars['hotTimeGdBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('dg_gd_item_up', vars['hotTimeGdBtn']) end)
+        end
+    elseif(self.m_dungeonType == NEST_DUNGEON_TREE) then
+        -- 친밀도 열매 핫타임
+        local active, value = g_hotTimeData:getActiveHotTimeInfo_dungeonGtItemUp()
+        if active then
+            table.insert(l_active_hot, 'hotTimeGtBtn')
+            local str = string.format('+%d%%', value)
+            vars['hotTimeGtLabel']:setString(str)
+            vars['hotTimeGtBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('dg_gt_item_up', vars['hotTimeGtBtn']) end)
+        end
+    end
+    
+    for i,v in ipairs(l_active_hot) do
+        vars[v]:setVisible(true)
+        --local x = -108 + ((i-1) * 72)
+        --vars[v]:setPositionX(x)
+    end
 end
 
 -------------------------------------

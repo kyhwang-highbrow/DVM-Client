@@ -113,6 +113,7 @@ function UI_Game:initUI()
     self:initHotTimeUI()
 end
 
+-- @jsbae 2020.06.26부터 HOTTIME_UI_INFO의 키는 Fevertime의 핫타임 타입으로 설정한다.
 local HOTTIME_UI_INFO = {
 	['gold'] = {
 		['button'] = 'hotTimeGoldBtn',
@@ -128,7 +129,18 @@ local HOTTIME_UI_INFO = {
 		['button'] = 'hotTimeStBtn',
 		['label'] = 'hotTimeStLabel',
 		['format'] = '1/2',
-	}
+	},
+    ['dg_gd_item_up'] = {
+        ['button'] = 'hotTimeGdBtn',
+		['label'] = 'hotTimeGdLabel',
+		['format'] = '+%s%%',
+    },
+    ['dg_gt_item_up'] = {
+        ['button'] = 'hotTimeGtBtn',
+		['label'] = 'hotTimeGtLabel',
+		['format'] = '+%s%%',
+    },
+
 }
 -------------------------------------
 -- function initHotTimeUI
@@ -142,42 +154,64 @@ function UI_Game:initHotTimeUI()
     vars['hotTimeStBtn']:setVisible(false)
     vars['hotTimeGoldBtn']:setVisible(false)
     vars['hotTimeExpBtn']:setVisible(false)
+    vars['hotTimeGdBtn']:setVisible(false)
+    vars['hotTimeGtBtn']:setVisible(false)
     vars['hotTimeMarbleBtn']:setVisible(false)
     vars['hotTimeStLabel']:setString('')
     vars['hotTimeGoldLabel']:setString('')
     vars['hotTimeExpLabel']:setString('')
+    vars['hotTimeGdLabel']:setString('')
+    vars['hotTimeGtLabel']:setString('')
 
-	-- 모험 모드가 아니면 버프 계산하지 않음
-	if (game_mode ~= GAME_MODE_ADVENTURE) then
-		return
-	end
-
-	local l_item_ui = {}
+    local l_item_ui = {}
     local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key) or {}
-	local t_hottime_calc_value = {
+    local t_hottime_calc_value = {
 		['gold'] = 0,
 		['exp'] = 0,
 		['stamina'] = 0,
+		['dg_gd_item_up'] = 0,
+		['dg_gt_item_up'] = 0,
 	}
-
-
-    do -- 골드
+	-- 모험 모드, 거목 던전, 거대용 던전에서 핫타임 계산
+    -- 입장권 핫타임(날개 핫타임)은 모험, 거목 던전, 거대용 던전 각각임. 추후 추가될 악몽 던전, 고대 유적 던전, 룬 수호자 던전도 모두 각각임
+    -- 모험 모드
+	if (game_mode == GAME_MODE_ADVENTURE) then
+		-- 골드
         local type = 'gold'
         local is_active, value = g_hotTimeData:getActiveHotTimeInfo_gold()
         t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
-    end
-
-    do -- 경험치
+        
+        -- 경험치
         local type = 'exp'
         local is_active, value = g_hotTimeData:getActiveHotTimeInfo_exp()
         t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
-    end
 
-    do -- 입장권
+        -- 입장권
         local type = 'stamina'
         local is_active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
         t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
-    end
+    -- 거대용, 거목 던전
+    elseif(game_mode == GAME_MODE_NEST_DUNGEON) then
+        -- 거대용 던전
+        if(g_gameScene.m_dungeonMode == NEST_DUNGEON_EVO_STONE) then
+            -- 진화 재료
+            local type = 'dg_gd_item_up'
+            local is_active, value = g_hotTimeData:getActiveHotTimeInfo_dungeonGdItemUp()
+            t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
+        -- 거목 던전
+        elseif(g_gameScene.m_dungeonMode == NEST_DUNGEON_TREE) then
+            -- 친밀도 열매
+            local type = 'dg_gt_item_up'
+            local is_active, value = g_hotTimeData:getActiveHotTimeInfo_dungeonGtItemUp()
+            t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
+        end
+    else
+        return
+	end
+
+    
+
+    
 
 	-- start 통신에서 받아온 따끈한 핫타임 정보로 활성화 버프 수치 계산
     --for i, hot_key in pairs(l_hottime) do
@@ -847,6 +881,14 @@ function UI_Game:showAutoItemPickUI()
 
     if vars['hotTimeStBtn']:isVisible() then
         table.insert(l_hottime, 'hotTimeStBtn')
+    end
+
+    if vars['hotTimeGdBtn']:isVisible() then
+        table.insert(l_hottime, 'hotTimeGdBtn')
+    end
+
+    if vars['hotTimeGtBtn']:isVisible() then
+        table.insert(l_hottime, 'hotTimeGtBtn')
     end
 
     table.insert(l_hottime, 'hotTimeMarbleBtn')

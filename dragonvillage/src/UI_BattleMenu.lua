@@ -174,7 +174,7 @@ function UI_BattleMenu:update(dt)
         end
     end
     if (not t_noti[menu_name .. '_dungeon']) then
-        if (g_secretDungeonData:isSecretDungeonExist()) then
+        if (g_secretDungeonData:isSecretDungeonExist() or g_fevertimeData:isActiveFevertime_dungeonGdUp() or g_fevertimeData:isActiveFevertime_dungeonGtUp()) then
             t_noti[menu_name .. '_dungeon'] = true
         end
     end
