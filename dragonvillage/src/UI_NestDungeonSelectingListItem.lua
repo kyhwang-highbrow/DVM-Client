@@ -109,6 +109,10 @@ function UI_NestDungeonSelectingListItem:setDropItemCard(dungeon_id)
 		end
 		
 		local ui_card = UI_ItemCard(item_id, item_count)
+        -- @jsbae 2020.06.26 거목 던전, 거대용 던전 내 진화 재료, 친밀도 열매 클릭 막기
+        ui_card.vars['clickBtn']:setEnabled(false)
+        ui_card.vars['dungeonListSprite']:setVisible(true)
+        
 		ui_card:showZeroCount()
 		vars['rewardNode' .. idx]:addChild(ui_card.root)
 	end
