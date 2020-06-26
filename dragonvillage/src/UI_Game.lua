@@ -196,13 +196,15 @@ function UI_Game:initHotTimeUI()
         if(g_gameScene.m_dungeonMode == NEST_DUNGEON_EVO_STONE) then
             -- 진화 재료
             local type = 'dg_gd_item_up'
-            local is_active, value = g_hotTimeData:getActiveHotTimeInfo_dungeonGdItemUp()
+            local is_active, value = g_fevertimeData:isActiveFevertimeByType(type)
+            value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
             t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
         -- 거목 던전
         elseif(g_gameScene.m_dungeonMode == NEST_DUNGEON_TREE) then
             -- 친밀도 열매
             local type = 'dg_gt_item_up'
-            local is_active, value = g_hotTimeData:getActiveHotTimeInfo_dungeonGtItemUp()
+            local is_active, value = g_fevertimeData:isActiveFevertimeByType(type)
+            value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
             t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
         end
     else

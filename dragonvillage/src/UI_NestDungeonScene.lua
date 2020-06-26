@@ -373,8 +373,9 @@ function UI_NestDungeonScene:refreshHotTimeInfo()
     
     if(self.m_dungeonType == NEST_DUNGEON_EVO_STONE) then
         -- 진화 재료 핫타임
-        local active, value = g_hotTimeData:getActiveHotTimeInfo_dungeonGdItemUp()
+        local active, value = g_fevertimeData:isActiveFevertimeByType('dg_gd_item_up')
         if active then
+            value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
             table.insert(l_active_hot, 'hotTimeGdBtn')
             local str = string.format('+%d%%', value)
             vars['hotTimeGdLabel']:setString(str)
@@ -382,8 +383,9 @@ function UI_NestDungeonScene:refreshHotTimeInfo()
         end
     elseif(self.m_dungeonType == NEST_DUNGEON_TREE) then
         -- 친밀도 열매 핫타임
-        local active, value = g_hotTimeData:getActiveHotTimeInfo_dungeonGtItemUp()
+        local active, value = g_fevertimeData:isActiveFevertimeByType('dg_gt_item_up')
         if active then
+            value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
             table.insert(l_active_hot, 'hotTimeGtBtn')
             local str = string.format('+%d%%', value)
             vars['hotTimeGtLabel']:setString(str)
