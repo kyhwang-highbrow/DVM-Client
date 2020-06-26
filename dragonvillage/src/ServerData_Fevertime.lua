@@ -316,22 +316,22 @@ function ServerData_Fevertime:isActiveFevertime_adventure()
 end
 
 -------------------------------------
--- function isActiveFevertime_dungeonGdUp
+-- function isActiveFevertime_dungeonGdItemUp
 -- @brief 거대용 던전 핫타임
 -- @return boolean
 -------------------------------------
-function ServerData_Fevertime:isActiveFevertime_dungeonGdUp()
+function ServerData_Fevertime:isActiveFevertime_dungeonGdItemUp()
     local is_active_dg_gd_item_up = self:isActiveFevertimeByType('dg_gd_item_up') -- 거대용 던전 진화 재료 증가
 
     return is_active_dg_gd_item_up
 end
 
 -------------------------------------
--- function isActiveFevertime_dungeonGtUp
+-- function isActiveFevertime_dungeonGtItemUp
 -- @brief 거목 던전 핫타임
 -- @return boolean
 -------------------------------------
-function ServerData_Fevertime:isActiveFevertime_dungeonGtUp()
+function ServerData_Fevertime:isActiveFevertime_dungeonGtItemUp()
     local is_active_dg_gt_item_up = self:isActiveFevertimeByType('dg_gt_item_up') -- 거목 던전 친밀도 열매 증가
 
     return is_active_dg_gt_item_up

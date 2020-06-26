@@ -106,11 +106,11 @@ function UI_BattleMenuItem:refresh()
         self.vars['battleHotSprite']:setVisible(visible)
 
     elseif (content_type == 'nest_evo_stone') then
-        local visible = g_fevertimeData:isActiveFevertime_dungeonGdUp()
+        local visible = g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
         self.vars['HotSprite']:setVisible(visible)
 
     elseif (content_type == 'nest_tree') then
-        local visible = g_fevertimeData:isActiveFevertime_dungeonGtUp()
+        local visible = g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
         self.vars['HotSprite']:setVisible(visible)
         
     elseif (content_type == 'exploration') then
