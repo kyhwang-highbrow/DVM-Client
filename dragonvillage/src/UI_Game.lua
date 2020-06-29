@@ -151,27 +151,29 @@ function UI_Game:initHotTimeUI()
     local game_key = self.m_gameScene.m_gameKey
 	local game_mode = self.m_gameScene.m_gameMode
 
-    vars['hotTimeStBtn']:setVisible(false)
-    vars['hotTimeGoldBtn']:setVisible(false)
-    vars['hotTimeExpBtn']:setVisible(false)
-    vars['hotTimeGdBtn']:setVisible(false)
-    vars['hotTimeGtBtn']:setVisible(false)
-    vars['hotTimeMarbleBtn']:setVisible(false)
-    vars['hotTimeStLabel']:setString('')
-    vars['hotTimeGoldLabel']:setString('')
-    vars['hotTimeExpLabel']:setString('')
-    vars['hotTimeGdLabel']:setString('')
-    vars['hotTimeGtLabel']:setString('')
+    for i,v in pairs(HOTTIME_UI_INFO) do
+        -- 핫타임 종류별 버튼 초기화
+        local btn_luaname = v['button']
+        local btn = vars[btn_luaname]
+        if (btn) then
+            btn:setVisible(false)
+        end
+
+        -- 핫타임 종류별 라벨 초기화
+        local label_luaname = v['label']
+        local label = vars[label_luaname]
+        if (label) then
+            label:setString('')
+        end
+    end
 
     local l_item_ui = {}
     local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key) or {}
-    local t_hottime_calc_value = {
-		['gold'] = 0,
-		['exp'] = 0,
-		['stamina'] = 0,
-		['dg_gd_item_up'] = 0,
-		['dg_gt_item_up'] = 0,
-	}
+    local t_hottime_calc_value = {}
+    for key,_ in pairs(HOTTIME_UI_INFO) do
+        t_hottime_calc_value[key] = 0
+    end
+
 	-- 모험 모드, 거목 던전, 거대용 던전에서 핫타임 계산
     -- 입장권 핫타임(날개 핫타임)은 모험, 거목 던전, 거대용 던전 각각임. 추후 추가될 악몽 던전, 고대 유적 던전, 룬 수호자 던전도 모두 각각임
     -- 모험 모드
@@ -207,13 +209,8 @@ function UI_Game:initHotTimeUI()
             value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
             t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
         end
-    else
-        return
 	end
 
-    
-
-    
 
 	-- start 통신에서 받아온 따끈한 핫타임 정보로 활성화 버프 수치 계산
     --for i, hot_key in pairs(l_hottime) do
@@ -244,8 +241,14 @@ function UI_Game:initHotTimeUI()
 		end
 	end
 
-    
+    -- 자동 줍기 버튼은 가장 오른쪽에 배치하고 visible을 off로 설정 showAutoItemPickUI() 함수를 통해 visible을 켠다.
+    table.insert(l_item_ui, 'hotTimeMarbleBtn')
+
+    -- 버튼 정렬
     self:arrangeItemUI(l_item_ui)
+
+    -- visible을 off로 설정 showAutoItemPickUI() 함수를 통해 visible을 켠다.
+    vars['hotTimeMarbleBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -869,32 +872,7 @@ function UI_Game:showAutoItemPickUI()
         end
     end
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)
-    
-    -- 핫타임 UI들과의 정렬
-    local l_hottime = {}
-
-    if vars['hotTimeExpBtn']:isVisible() then
-        table.insert(l_hottime, 'hotTimeExpBtn')
-    end
-
-    if vars['hotTimeGoldBtn']:isVisible() then
-        table.insert(l_hottime, 'hotTimeGoldBtn')
-    end
-
-    if vars['hotTimeStBtn']:isVisible() then
-        table.insert(l_hottime, 'hotTimeStBtn')
-    end
-
-    if vars['hotTimeGdBtn']:isVisible() then
-        table.insert(l_hottime, 'hotTimeGdBtn')
-    end
-
-    if vars['hotTimeGtBtn']:isVisible() then
-        table.insert(l_hottime, 'hotTimeGtBtn')
-    end
-
-    table.insert(l_hottime, 'hotTimeMarbleBtn')
-    self:arrangeItemUI(l_hottime)
+    vars['hotTimeMarbleBtn']:setVisible(true)
 end
 
 -------------------------------------
