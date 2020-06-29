@@ -9,6 +9,14 @@ UI_GameArena = class(PARENT, {
         m_orgEnemyTamerGaugeScaleX = 'number'
     })
 
+-- @jsbae 2020.06.26부터 HOTTIME_UI_INFO의 키는 Fevertime의 핫타임 타입으로 설정한다.
+local HOTTIME_UI_INFO = {
+	['pvp_honor_up'] = {
+		['button'] = 'hotTimeHonorBtn',
+		['label'] = 'hotTimeHonorLabel',
+		['format'] = '+%s%%',
+	},
+}
 -------------------------------------
 -- function getUIFileName
 -------------------------------------
@@ -63,7 +71,71 @@ function UI_GameArena:initUI()
     vars['panelBgSprite']:setLocalZOrder(-1)
 
     self:initManaUI()
+    self:initHotTimeUI()
 end
+
+
+-------------------------------------
+-- function initHotTimeUI
+-- @brief 적용된 핫타임
+-------------------------------------
+function UI_GameArena:initHotTimeUI()
+    local vars = self.vars
+    local game_key = self.m_gameScene.m_gameKey
+	local game_mode = self.m_gameScene.m_gameMode
+
+    vars['hotTimeHonorBtn']:setVisible(false)
+    vars['hotTimeHonorLabel']:setString('')
+
+    local l_item_ui = {}
+    local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key) or {}
+    local t_hottime_calc_value = {
+		['pvp_honor_up'] = 0,
+	}
+
+    local type = 'pvp_honor_up'
+    local is_active, value = g_fevertimeData:isActiveFevertimeByType(type)
+    value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+    t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
+    
+    -- 계산한 버프 수치에 클랜 버프 추가하고 UI 처리하기 위한 데이터 생성
+	for hottime_type, value in pairs(t_hottime_calc_value) do
+		-- 클랜 버프 추가 -- 위쪽 코드에서 포함되도록 수정 20200608
+		--if (not g_clanData:isClanGuest()) then
+		--	value = value + g_clanData:getClanStruct():getClanBuffByType(CLAN_BUFF_TYPE[hottime_type:upper()])
+		--end
+
+		-- UI 처리용 데이터
+		if (value > 0) then
+			local t_ui_info = HOTTIME_UI_INFO[hottime_type]
+			
+			local btn_name = t_ui_info['button']
+			vars[btn_name]:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(hottime_type, vars[btn_name]) end)
+			
+			local label_name = t_ui_info['label']
+			vars[label_name]:setString(string.format(t_ui_info['format'], value))
+			
+			table.insert(l_item_ui, 1, btn_name)
+		end
+	end
+
+    self:arrangeItemUI(l_item_ui)
+end
+
+-------------------------------------
+-- function arrangeItemUI
+-- @brief itemUI들을 정렬한다!
+-------------------------------------
+function UI_GameArena:arrangeItemUI(l_hottime)
+    for i, ui_name in pairs(l_hottime) do
+        local ui = self.vars[ui_name]
+
+        ui:setVisible(true)
+        local pos_x = 10 + ((i-1) * 72)
+        ui:setPositionX(pos_x)
+    end
+end
+
 
 -------------------------------------
 -- function initTamerUI
