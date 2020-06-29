@@ -63,6 +63,7 @@ function UI_GameArena:initUI()
     vars['panelBgSprite']:setLocalZOrder(-1)
 
     self:initManaUI()
+    self:initHotTimeUI()
 end
 
 -------------------------------------

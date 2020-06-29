@@ -140,6 +140,11 @@ local HOTTIME_UI_INFO = {
 		['label'] = 'hotTimeGtLabel',
 		['format'] = '+%s%%',
     },
+	['pvp_honor_up'] = {
+		['button'] = 'hotTimeHonorBtn',
+		['label'] = 'hotTimeHonorLabel',
+		['format'] = '+%s%%',
+	},
 
 }
 -------------------------------------
@@ -209,7 +214,20 @@ function UI_Game:initHotTimeUI()
             value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
             t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
         end
-	end
+    -- 콜로세움
+	elseif(game_mode == GAME_MODE_ARENA) then
+        -- 친선전 등 game_mode를 GAME_MODE_ARENA로 공유하는 모드가 많아서 stage_id까지 체크해야 한다.
+        local stage_id = self.m_gameScene.m_stageID
+        if (stage_id == ARENA_STAGE_ID) then
+            -- 친선전 체크
+            if (self.m_gameScene.m_bFriendMatch == false) then
+                local type = 'pvp_honor_up'
+                local is_active, value = g_fevertimeData:isActiveFevertimeByType(type)
+                value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+                t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
+            end
+        end
+    end
 
 
 	-- start 통신에서 받아온 따끈한 핫타임 정보로 활성화 버프 수치 계산
@@ -248,7 +266,9 @@ function UI_Game:initHotTimeUI()
     self:arrangeItemUI(l_item_ui)
 
     -- visible을 off로 설정 showAutoItemPickUI() 함수를 통해 visible을 켠다.
-    vars['hotTimeMarbleBtn']:setVisible(false)
+    if vars['hotTimeMarbleBtn'] then
+        vars['hotTimeMarbleBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -882,10 +902,11 @@ end
 function UI_Game:arrangeItemUI(l_hottime)
     for i, ui_name in pairs(l_hottime) do
         local ui = self.vars[ui_name]
-
-        ui:setVisible(true)
-        local pos_x = 10 + ((i-1) * 72)
-        ui:setPositionX(pos_x)
+        if (ui ~= nil) then
+            ui:setVisible(true)
+            local pos_x = 10 + ((i-1) * 72)
+            ui:setPositionX(pos_x)
+        end
     end
 end
 
