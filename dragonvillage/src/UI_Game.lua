@@ -906,7 +906,7 @@ function UI_Game:arrangeItemUI(l_hottime)
         local ui = self.vars[ui_name]
 
         ui:setVisible(true)
-        local pos_x = -108 + ((i-1) * 72)
+        local pos_x = 10 + ((i-1) * 72)
         ui:setPositionX(pos_x)
     end
 end
