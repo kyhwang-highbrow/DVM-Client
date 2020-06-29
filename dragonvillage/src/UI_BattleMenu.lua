@@ -169,19 +169,30 @@ function UI_BattleMenu:update(dt)
 
     -- tab noti (없을 경우에만 한번 더 검사)
     if (not t_noti[menu_name .. '_adventure']) then
-        if (g_highlightData:isHighlightExploration() or g_hotTimeData:isHighlightHotTime() or g_fevertimeData:isActiveFevertime_adventure() or g_hotTimeData:isActiveEvent('event_advent')) then
+        local cond1 = g_highlightData:isHighlightExploration()
+        local cond2 = g_hotTimeData:isHighlightHotTime()
+        local cond3 = g_fevertimeData:isActiveFevertime_adventure()
+        local cond4 = g_hotTimeData:isActiveEvent('event_advent')
+        local visible = cond1 or cond2 or cond3 or cond4
+        if (visible) then
             t_noti[menu_name .. '_adventure'] = true
         end
     end
     if (not t_noti[menu_name .. '_dungeon']) then
-        if (g_secretDungeonData:isSecretDungeonExist() or g_fevertimeData:isActiveFevertime_dungeonGdItemUp() or g_fevertimeData:isActiveFevertime_dungeonGtItemUp()) then
+        local cond1 = g_secretDungeonData:isSecretDungeonExist()
+        local cond2 = g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
+        local cond3 = g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
+        local visible = cond1 or cond2 or cond3
+        if (visible) then
             t_noti[menu_name .. '_dungeon'] = true
         end
     end
     -- noti 표시할 때 주의사항 : 아직 열리지 않은 탭의 경우 노티를 표시하면 안 된다.
     if(menu_name ~= 'first') then
         if (not t_noti[menu_name .. '_competition']) then
-            if (g_fevertimeData:isActiveFevertime_pvpHonorUp()) then
+            local cond1 = g_fevertimeData:isActiveFevertime_pvpHonorUp()
+            local visible = cond1
+            if (visible) then
                 t_noti[menu_name .. '_competition'] = true
             end
         end

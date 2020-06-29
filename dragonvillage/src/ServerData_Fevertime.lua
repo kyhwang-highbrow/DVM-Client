@@ -352,7 +352,7 @@ end
 
 -------------------------------------
 -- function isActiveFevertime_pvpHonorUp
--- @brief 거목 던전 핫타임
+-- @brief 콜로세움 명예 핫타임
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_pvpHonorUp()
