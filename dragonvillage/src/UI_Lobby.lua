@@ -397,7 +397,7 @@ end
 
 -------------------------------------
 -- function entryCoroutine_Escapable
--- @brief 코루틴 탈출되어도 상관없는 코루틴 함수 
+-- @brief 코루틴 탈출되어도 상관없는 코루틴 함수
 -------------------------------------
 function UI_Lobby:entryCoroutine_Escapable(co)
     self:entryCoroutine_spotSale(co)

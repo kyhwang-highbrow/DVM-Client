@@ -164,6 +164,7 @@ function UI_BattleMenuItem:click_enterBtn()
         return
     end
 
+
     -- 모험
     if (content_type == 'adventure') then
         UINavigator:goTo('adventure')

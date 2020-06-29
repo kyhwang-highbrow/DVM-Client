@@ -131,7 +131,7 @@ end
 -- function setHeroHpGauge
 -------------------------------------
 function UI_GameArena:setHeroHpGauge(percentage)
-    self.vars['hpGauge1']:runAction(cc.ProgressTo:create(0.2, percentage)) 
+    self.vars['hpGauge1']:runAction(cc.ProgressTo:create(0.2, percentage))
 end
 
 -------------------------------------

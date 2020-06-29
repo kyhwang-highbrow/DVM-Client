@@ -15,7 +15,7 @@ UI_Arena = class(PARENT, {
         m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
      })
 
--- 탭 자동 등록을 위해 UI 네이밍과 맞춰줌  
+-- 탭 자동 등록을 위해 UI 네이밍과 맞춰줌
 UI_Arena['RANK'] = 'ranking'
 UI_Arena['HISTORY'] = 'history'
 

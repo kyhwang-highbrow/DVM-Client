@@ -302,6 +302,7 @@ function ServerData_Fevertime:isActiveFevertimeByType(type)
             end
         end
     end
+
     return is_active, value, l_ret
 end
 

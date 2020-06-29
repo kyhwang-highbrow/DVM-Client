@@ -279,7 +279,7 @@ function UI_BattleMenu:onChangeTab(tab, first)
     -- 버튼들 초기화 (최초에만 실행)
     if first then
         if (tab == 'adventure') then
-            self:initAdventureTab() 
+            self:initAdventureTab()
 
         elseif (tab == 'dungeon') then
             self:initDungeonTab() 
