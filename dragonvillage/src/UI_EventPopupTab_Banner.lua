@@ -71,16 +71,47 @@ function UI_EventPopupTab_Banner:init_customUI()
 
     -- 거대용 던전, 거목 던전 요일 입장 제한 해제 기념 핫타임
     elseif (banner == 'event_fevertime_notice_01.ui') then
-        local label = vars['infoLabel1']
+        do -- 거목 던전 (친밀도 열매)
+            local label = vars['infoLabel1']
+            if label then
+                local str = Str('거목 던전에서 친밀도 열매 획득량이 {@yellow}{1}% 증가{@default}합니다.', 100)
+                label:setString(str)
+            end
+
+            local label = vars['timeLabel1']
+            if label then
+                label:setString('6/30 00:00 ~ 7/2 23:59')
+            end
+        end
+
+        do -- 거대용 던전 (진화 재료)
+            local label = vars['infoLabel2']
+            if label then
+                local str = Str('거대용 던전에서 진화재료 획득량이 {@yellow}{1}% 증가{@default}합니다.', 100)
+                label:setString(str)
+            end
+
+            local label = vars['timeLabel2']
+            if label then
+                label:setString('7/3 00:00 ~ 7/5 23:59')
+            end
+        end
+
+    -- 콜로세움 명예 획득량 증가 핫타임
+    elseif (banner == 'event_fevertime_notice_02.ui') then
+        local label = vars['infoLabel']
         if label then
-            local str = Str('거대용 던전에서 진화재료 획득량이 {@yellow}{1}% 증가{@default}합니다.', 100)
+            local str = Str('콜로세움에서 획득하는 명예 획득량이 {@yellow}{1}% 증가{@default}합니다.', 100)
             label:setString(str)
         end
 
-        local label = vars['infoLabel2']
+        local label = vars['timeLabel']
         if label then
-            local str = Str('거목 던전에서 친밀도 열매 획득량이 {@yellow}{1}% 증가{@default}합니다.', 100)
-            label:setString(str)
+            if (g_localData:isAmericaServer() == true) then
+                label:setString('6/29 00:00 ~ 7/5 23:59')
+            else
+                label:setString('6/30 00:00 ~ 7/5 23:59')
+            end
         end
     end
 end
