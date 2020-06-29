@@ -112,6 +112,10 @@ function UI_BattleMenuItem:refresh()
     elseif (content_type == 'nest_tree') then
         local visible = g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
         self.vars['HotSprite']:setVisible(visible)
+
+    elseif (content_type == 'colosseum') then
+        local visible = g_fevertimeData:isActiveFevertime_pvpHonorUp()
+        self.vars['HotSprite']:setVisible(visible)
         
     elseif (content_type == 'exploration') then
         has_noti = g_highlightData:isHighlightExploration()

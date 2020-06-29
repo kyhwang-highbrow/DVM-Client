@@ -178,6 +178,14 @@ function UI_BattleMenu:update(dt)
             t_noti[menu_name .. '_dungeon'] = true
         end
     end
+    -- noti 표시할 때 주의사항 : 아직 열리지 않은 탭의 경우 노티를 표시하면 안 된다.
+    if(menu_name ~= 'first') then
+        if (not t_noti[menu_name .. '_competition']) then
+            if (g_fevertimeData:isActiveFevertime_pvpHonorUp()) then
+                t_noti[menu_name .. '_competition'] = true
+            end
+        end
+    end
 
     UIHelper:autoNoti(t_noti, self.m_tNotiSprite, 'Btn', self.vars)
 end

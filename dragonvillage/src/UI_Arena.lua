@@ -198,6 +198,33 @@ function UI_Arena:refresh()
 		temp = math_floor(curr_cnt/5)
 	end
 	vars['rewardVisual']:changeAni('reward_' .. temp, true)
+
+    self:refreshHotTimeInfo()
+end
+
+-------------------------------------
+-- function refreshHotTimeInfo
+-- @breif 핫타임 정보 갱신
+-------------------------------------
+function UI_Arena:refreshHotTimeInfo()
+    local vars = self.vars
+    local l_active_hot = {}
+    
+    vars['hotTimeHonorBtn']:setVisible(false)
+    
+    -- 콜로세움 pvp 명예 핫타임
+    local active, value = g_fevertimeData:isActiveFevertimeByType('pvp_honor_up')
+    if active then
+        value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+        table.insert(l_active_hot, 'hotTimeHonorBtn')
+        local str = string.format('+%d%%', value)
+        vars['hotTimeHonorLabel']:setString(str)
+        vars['hotTimeHonorBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('pvp_honor_up', vars['hotTimeHonorBtn']) end)
+    end
+    
+    for i,v in ipairs(l_active_hot) do
+        vars[v]:setVisible(true)
+    end
 end
 
 -------------------------------------
