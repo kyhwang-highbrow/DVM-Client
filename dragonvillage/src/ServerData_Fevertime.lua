@@ -112,6 +112,7 @@ end
 
 -------------------------------------
 -- function applyFevertimeData
+-- @brief 활성화된 피버타임 적용
 -------------------------------------
 function ServerData_Fevertime:applyFevertimeData(t_data)
     if (t_data == nil) then
@@ -128,6 +129,7 @@ end
 
 -------------------------------------
 -- function applyFevertimeSchedule
+-- @brief (활성화 가능한 + 활성화 중인 + 활성화 끝난) 피버타임 스케쥴
 -------------------------------------
 function ServerData_Fevertime:applyFevertimeSchedule(t_data)
     if (t_data == nil) then
@@ -145,6 +147,7 @@ end
 
 -------------------------------------
 -- function applyFevertimeGlobal
+-- @brief 모든 유저에게 글로벌 피버타임 적용
 -------------------------------------
 function ServerData_Fevertime:applyFevertimeGlobal(t_data)
     if (t_data == nil) then
@@ -348,8 +351,19 @@ function ServerData_Fevertime:isActiveFevertime_summonLegendUp()
 end
 
 -------------------------------------
+-- function isActiveFevertime_pvpHonorUp
+-- @brief 거목 던전 핫타임
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_pvpHonorUp()
+    local is_active_pvp_honor_up = self:isActiveFevertimeByType('pvp_honor_up') -- pvp 콜로세움 명예 획득량 증가
+
+    return is_active_pvp_honor_up
+end
+
+-------------------------------------
 -- function getRemainTimeTextDetail
--- @brief 남은 시간
+-- @brief 현재 걸려있는 핫타임 중 가장 짧게 남은 핫타임의 남은 시간
 -- @return str
 -------------------------------------
 function ServerData_Fevertime:getRemainTimeTextDetail(type)
