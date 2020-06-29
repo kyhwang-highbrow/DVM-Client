@@ -4534,6 +4534,9 @@
     <None Include="..\src\UI_PurchasePointRewardReceivePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_FevertimeInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -45,6 +45,10 @@ end
 -------------------------------------
 function UI_Fevertime:initButton()
     local vars = self.vars
+    if vars['infoBtn'] then
+        vars['infoBtn']:setVisible(true)
+        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    end
 end
 
 -------------------------------------
@@ -158,6 +162,16 @@ function UI_Fevertime:update(dt)
         self:refresh()
     end
 end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief
+-------------------------------------
+function UI_Fevertime:click_infoBtn()
+    require('UI_FevertimeInfoPopup')
+    UI_FevertimeInfoPopup()
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_Fevertime)
