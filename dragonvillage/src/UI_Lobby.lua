@@ -873,13 +873,15 @@ function UI_Lobby:update_highlight()
         vars['battleNotiSprite']:setVisible(g_highlightData:isHighlightExploration() or g_secretDungeonData:isSecretDungeonExist())
 
         do -- 핫타임
-            local cond1 = g_hotTimeData:isHighlightHotTime()
-            local cond2 = g_fevertimeData:isActiveFevertime_adventure()
-            local cond3 = g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
-            local cond4 = g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
-            local cond5 = g_fevertimeData:isActiveFevertime_pvpHonorUp()
-            local visible = cond1 or cond2 or cond3 or cond4 or cond5
-            vars['battleHotSprite']:setVisible(visible)
+            if (
+                g_hotTimeData:isHighlightHotTime()
+                or g_fevertimeData:isActiveFevertime_adventure()
+                or g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
+                or g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
+                or g_fevertimeData:isActiveFevertime_pvpHonorUp()
+            ) then
+                vars['battleHotSprite']:setVisible(true)
+            end
         end
 
         -- 퀘스트
@@ -1780,13 +1782,15 @@ function UI_Lobby:refresh_hottime()
 	local vars = self.vars
 
     -- 핫타임 정보 갱신
-    local cond1 = g_hotTimeData:isHighlightHotTime()
-    local cond2 = g_fevertimeData:isActiveFevertime_adventure()
-    local cond3 = g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
-    local cond4 = g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
-    local cond5 = g_fevertimeData:isActiveFevertime_pvpHonorUp()
-    local visible = cond1 or cond2 or cond3 or cond4 or cond5
-    vars['battleHotSprite']:setVisible(visible)
+    if (
+        g_hotTimeData:isHighlightHotTime()
+        or g_fevertimeData:isActiveFevertime_adventure()
+        or g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
+        or g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
+        or g_fevertimeData:isActiveFevertime_pvpHonorUp()
+    ) then
+        vars['battleHotSprite']:setVisible(true)
+    end
 	
 	-- 할인 이벤트
 	local l_dc_event = g_hotTimeData:getDiscountEventList()
