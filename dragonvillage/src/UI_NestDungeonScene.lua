@@ -372,7 +372,7 @@ function UI_NestDungeonScene:refreshHotTimeInfo()
     vars['hotTimeGtBtn']:setVisible(false)
     vars['hotTimeGdBtn']:setVisible(false) 
     
-    if(self.m_dungeonType == NEST_DUNGEON_EVO_STONE) then
+    if (self.m_dungeonType == NEST_DUNGEON_EVO_STONE) then
         -- 진화 재료 핫타임
         local active, value = g_fevertimeData:isActiveFevertimeByType('dg_gd_item_up')
         if active then
@@ -382,7 +382,7 @@ function UI_NestDungeonScene:refreshHotTimeInfo()
             vars['hotTimeGdLabel']:setString(str)
             vars['hotTimeGdBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('dg_gd_item_up', vars['hotTimeGdBtn']) end)
         end
-    elseif(self.m_dungeonType == NEST_DUNGEON_TREE) then
+    elseif (self.m_dungeonType == NEST_DUNGEON_TREE) then
         -- 친밀도 열매 핫타임
         local active, value = g_fevertimeData:isActiveFevertimeByType('dg_gt_item_up')
         if active then

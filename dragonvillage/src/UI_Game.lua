@@ -140,7 +140,7 @@ local HOTTIME_UI_INFO = {
 		['label'] = 'hotTimeGtLabel',
 		['format'] = '+%s%%',
     },
-	['pvp_honor_up'] = {
+    ['pvp_honor_up'] = {
 		['button'] = 'hotTimeHonorBtn',
 		['label'] = 'hotTimeHonorLabel',
 		['format'] = '+%s%%',
