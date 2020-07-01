@@ -198,16 +198,16 @@ function UI_Game:initHotTimeUI()
         local is_active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
         t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
     -- 거대용, 거목 던전
-    elseif(game_mode == GAME_MODE_NEST_DUNGEON) then
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         -- 거대용 던전
-        if(g_gameScene.m_dungeonMode == NEST_DUNGEON_EVO_STONE) then
+        if (g_gameScene.m_dungeonMode == NEST_DUNGEON_EVO_STONE) then
             -- 진화 재료
             local type = 'dg_gd_item_up'
             local is_active, value = g_fevertimeData:isActiveFevertimeByType(type)
             value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
             t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
         -- 거목 던전
-        elseif(g_gameScene.m_dungeonMode == NEST_DUNGEON_TREE) then
+        elseif (g_gameScene.m_dungeonMode == NEST_DUNGEON_TREE) then
             -- 친밀도 열매
             local type = 'dg_gt_item_up'
             local is_active, value = g_fevertimeData:isActiveFevertimeByType(type)
@@ -215,7 +215,7 @@ function UI_Game:initHotTimeUI()
             t_hottime_calc_value[type] = (t_hottime_calc_value[type] + value)
         end
     -- 콜로세움
-	elseif(game_mode == GAME_MODE_ARENA) then
+	elseif (game_mode == GAME_MODE_ARENA) then
         -- 친선전 등 game_mode를 GAME_MODE_ARENA로 공유하는 모드가 많아서 stage_id까지 체크해야 한다.
         local stage_id = self.m_gameScene.m_stageID
         if (stage_id == ARENA_STAGE_ID) then
