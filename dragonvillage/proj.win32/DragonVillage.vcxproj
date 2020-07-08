@@ -376,6 +376,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ISkillSound.lua" />
     <None Include="..\src\IStateHelper.lua" />
     <None Include="..\src\ITabUI.lua" />
+    <None Include="..\src\jsonFileProcessor.lua" />
     <None Include="..\src\LobbyChangeMgr.lua" />
     <None Include="..\src\LobbyCharacter.lua" />
     <None Include="..\src\LobbyDragon.lua" />
@@ -668,6 +669,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SortManager_TeamBonus.lua" />
     <None Include="..\src\SortManager_Transform.lua" />
     <None Include="..\src\SpineCacheManager.lua" />
+    <None Include="..\src\sss.lua" />
     <None Include="..\src\StageMissionMgr.lua" />
     <None Include="..\src\ICharacterStatusEffect.lua" />
     <None Include="..\src\StatusEffectEdgeDirector.lua" />
@@ -1114,6 +1116,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AttendanceSpecialListItem.lua" />
     <None Include="..\src\UI_AttendanceSpecialListItem_1st.lua" />
     <None Include="..\src\UI_AttendanceSpecialListItem_Common.lua" />
+    <None Include="..\src\UI_AttendanceSpecialListItem_GoogleFeatured.lua" />
     <None Include="..\src\UI_AttrTower.lua" />
     <None Include="..\src\UI_AttrTowerFloorInfo.lua" />
     <None Include="..\src\UI_AttrTowerListItem.lua" />
@@ -1286,6 +1289,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventMatchCardTimeListItem.lua" />
     <None Include="..\src\UI_EventPopupTab_EventAttendance1st.lua" />
     <None Include="..\src\UI_EventPopupTab_EventAttendanceCommon.lua" />
+    <None Include="..\src\UI_EventPopupTab_EventAttendanceGoogleFeatured.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
     <None Include="..\src\UI_EventPopupTab_Package.lua" />
@@ -1305,6 +1309,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ExchangeEvent.lua" />
     <None Include="..\src\UI_ExchangeEventListItem.lua" />
     <None Include="..\src\UI_Fevertime.lua" />
+    <None Include="..\src\UI_FevertimeConfirmPopup.lua" />
     <None Include="..\src\UI_FevertimeInfoPopup.lua" />
     <None Include="..\src\UI_FevertimeListItem.lua" />
     <None Include="..\src\UI_FirstPurchaseRewardPopup.lua" />
@@ -1384,7 +1389,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IranEmailLoginPopup.lua" />
     <None Include="..\src\UI_IranEmailRegistrationPopup.lua" />
     <None Include="..\src\UI_IranLoginPopup.lua" />
+    <None Include="..\src\UI_ItemBulkSalePopup.lua" />
     <None Include="..\src\UI_ItemPickPopup.lua" />
+    <None Include="..\src\UI_ItemUnit.lua" />
     <None Include="..\src\UI_LinkAccountPopup.lua" />
     <None Include="..\src\UI_ListItem_ClanWarGroupStage.lua" />
     <None Include="..\src\UI_Loading.lua" />
@@ -1582,6 +1589,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RuneDevApiPopup.lua" />
     <None Include="..\src\UI_RuneGuardianDungeonScene.lua" />
     <None Include="..\src\UI_RuneSetFilter.lua" />
+    <None Include="..\src\UI_RuneUnit.lua" />
     <None Include="..\src\UI_ScenarioPlayer_util.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Narrate.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Talk.lua" />

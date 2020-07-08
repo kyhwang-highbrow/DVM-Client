@@ -203,6 +203,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
         -- 스페셜 7일 출석(1주년, 2주년, 스페셜)
         elseif (event_id == '1st_event') or (event_id == '2nd_event') or (event_id == 'newbie_welcome') or (event_id == 'global_2nd_event')then
             ui = UI_EventPopupTab_EventAttendance1st(event_id)
+        -- 구글 피쳐드 이벤트
+        elseif (tab == 'attendance_event50010') then
+            require('UI_EventPopupTab_EventAttendanceGoogleFeatured')
+            ui = UI_EventPopupTab_EventAttendanceGoogleFeatured(atd_id)
         -- 이벤트 공통 UI
         elseif (event_type == 'attendance_event') then
             require('UI_EventPopupTab_EventAttendanceCommon')

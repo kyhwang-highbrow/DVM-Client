@@ -4537,6 +4537,20 @@
     <None Include="..\src\UI_FevertimeInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\jsonFileProcessor.lua" />
+    <None Include="..\src\sss.lua" />
+    <None Include="..\src\UI_ItemBulkSalePopup.lua" />
+    <None Include="..\src\UI_ItemUnit.lua" />
+    <None Include="..\src\UI_RuneUnit.lua" />
+    <None Include="..\src\UI_FevertimeConfirmPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_EventAttendanceGoogleFeatured.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttendanceSpecialListItem_GoogleFeatured.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
