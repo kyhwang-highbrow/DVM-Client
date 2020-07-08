@@ -16,7 +16,6 @@ function UI_AttendanceSpecialListItem_GoogleFeatured:init(struct_attendance_data
     local ui_res = struct_attendance_data:getUIRes() -- event_attendance_children.ui, event_attendance_1st_anniversary.ui
     local vars = self:load(ui_res)
     self:changeTitleSprite(vars)
-    print('camehere')
 
     self:initUI()
     self:initButton()
@@ -123,6 +122,13 @@ function UI_AttendanceSpecialListItem_GoogleFeaturedItem:initUI()
     end
 
     vars['dayLabel']:setString(Str('{1}일 차', t_item_data['step']))
+
+    -- 터치시 툴팁
+    vars['clickBtn']:registerScriptTapHandler(function()
+        local desc = TableItem:getToolTipDesc(item_id)
+        local tool_tip = UI_Tooltip_Skill(70, -145, desc)
+        tool_tip:autoPositioning(vars['clickBtn'])
+    end)
 end
 
 -------------------------------------
