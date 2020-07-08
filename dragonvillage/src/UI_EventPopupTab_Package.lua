@@ -46,6 +46,26 @@ function UI_EventPopupTab_Package:setAfter(ui)
     if (package_name == 'package_adventure_clear') then
         ui:setInfoPopup(true)
     end
+
+    if (package_name == 'package_absolute') then
+        self:changeTitleSprite(ui.vars)
+    end
+end
+
+-------------------------------------
+-- function changeTitleSprite
+-- @brief 구글 피쳐드 선정 기념. 구글 apk -> '구글 피처드 선정 기념 ~', 아니면 '피처드 선정 기념 ~'
+-------------------------------------
+function UI_EventPopupTab_Package:changeTitleSprite(ui)
+    if (ui['otherMarketSprite'] and ui['otherMarketSprite']) then
+        ui['googleSprite']:setVisible(false)
+        ui['otherMarketSprite']:setVisible(false)
+        if (market ~= 'google') then
+            ui['otherMarketSprite']:setVisible(true)
+        else
+            ui['googleSprite']:setVisible(true)
+        end
+    end
 end
 
 -------------------------------------
