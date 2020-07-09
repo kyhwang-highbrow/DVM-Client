@@ -31,10 +31,10 @@ function UI_AttendanceSpecialListItem_GoogleFeatured:changeTitleSprite(ui)
         local market, os = GetMarketAndOS()
         ui['googleSprite']:setVisible(false)
         ui['otherMarketSprite']:setVisible(false)
-        if (market ~= 'google') then
-            ui['otherMarketSprite']:setVisible(true)
-        else
+        if (market == 'google' or market == 'windows') then
             ui['googleSprite']:setVisible(true)
+        else
+            ui['otherMarketSprite']:setVisible(true)
         end
     end
 end
