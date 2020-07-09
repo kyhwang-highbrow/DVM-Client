@@ -100,6 +100,10 @@ function UI_EventFullPopup:initUI()
         -- 1주년 스페셜 7일 출석
         elseif (key == '1st_event') or (key == '2nd_event') or (key == 'newbie_welcome') or (key == 'global_2nd_event') then
             ui = UI_EventPopupTab_EventAttendance1st(key)
+        -- 구글 피처드. 이미지 바꿔야 해서 따로 처리
+        elseif (atd_id == '50010') then
+            require('UI_EventPopupTab_EventAttendanceGoogleFeatured')
+            ui = UI_EventPopupTab_EventAttendanceGoogleFeatured(atd_id)
         -- 이벤트 공통 UI
         elseif (category == 'event') then
             require('UI_EventPopupTab_EventAttendanceCommon')

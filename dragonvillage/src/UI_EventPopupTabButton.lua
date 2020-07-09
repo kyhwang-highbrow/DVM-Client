@@ -45,5 +45,24 @@ function UI_EventPopupTabButton:refresh()
     local struct_event_popup_tab = self.m_structEventPopupTab
     local type = struct_event_popup_tab.m_type
     local tab_btn_name = struct_event_popup_tab:getTabButtonName()
+    tab_btn_name = self:labelForGoogleFeatured(tab_btn_name)
     vars['eventLabel']:setString(tab_btn_name)
+end
+
+-------------------------------------
+-- function labelForGoogleFeatured
+-------------------------------------
+function UI_EventPopupTabButton:labelForGoogleFeatured(tab_btn_name)
+    
+    if (not string.find(tostring(tab_btn_name), '구글 피처드')) then
+        return tab_btn_name
+    end
+
+    local market, os = GetMarketAndOS()
+
+    if(market == 'google') then
+        return tab_btn_name
+    else
+        return Str('피처드 선정 \n기념 출석 이벤트') -- 번역 텍스트 필요
+    end
 end

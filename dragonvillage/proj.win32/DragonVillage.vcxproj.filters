@@ -516,9 +516,6 @@
     <None Include="..\src\UI_EventPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_EventPopupTabButton.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_AdventureStageMissionInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4549,6 +4546,9 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_AttendanceSpecialListItem_GoogleFeatured.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTabButton.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
