@@ -54,7 +54,6 @@ function UI_FevertimeListItem:initUI()
     do -- 아이콘
         local fevertime_type = struct_fevertime:getFevertimeType()
         local icon_sprite = self:makeFevertimeIcon(fevertime_type)
-        icon_sprite:setScale(2)
         vars['iconNode']:addChild(icon_sprite, -1)
 
         local fevertime_value = tostring(struct_fevertime:getFevertimeValue() * 100) .. '%'
