@@ -971,6 +971,7 @@ local t_module = {
     'UI_TestDevelopment',
     'UI_TestDevelopmentListItem',
     'UI_StartingTamer',
+    'UI_FevertimeConfirmPopup',
 
     -- UI : 환상 던전
     'UI_EventScene_Illusion',
