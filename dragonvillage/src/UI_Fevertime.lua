@@ -84,7 +84,7 @@ function UI_Fevertime:refresh()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(900, 100 + 10)
+        table_view.m_defaultCellSize = cc.size(900, 100 + 50)
         require('UI_FevertimeListItem')
         table_view:setCellUIClass(UI_FevertimeListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
