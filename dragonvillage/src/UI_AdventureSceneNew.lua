@@ -884,7 +884,7 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
     local active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
     if active then
         table.insert(l_active_hot, 'hotTimeStBtn')
-        local str = '1/2'
+        local str = string.format('-%d%%', value)
         vars['hotTimeStLabel']:setString(str)
         vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('stamina', vars['hotTimeStBtn']) end)
     end

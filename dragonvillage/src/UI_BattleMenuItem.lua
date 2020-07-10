@@ -106,11 +106,19 @@ function UI_BattleMenuItem:refresh()
         self.vars['battleHotSprite']:setVisible(visible)
 
     elseif (content_type == 'nest_evo_stone') then
-        local visible = g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
+        local visible = g_fevertimeData:isActiveFevertime_dungeonGdItemUp() or g_fevertimeData:isActiveFevertime_dungeonGdStDc() 
         self.vars['HotSprite']:setVisible(visible)
 
     elseif (content_type == 'nest_tree') then
-        local visible = g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
+        local visible = g_fevertimeData:isActiveFevertime_dungeonGtItemUp() or g_fevertimeData:isActiveFevertime_dungeonGtStDc() 
+        self.vars['HotSprite']:setVisible(visible)
+
+    elseif (content_type == 'ancient_ruin') then
+        local visible = g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp() or g_fevertimeData:isActiveFevertime_dungeonRuneUp() or g_fevertimeData:isActiveFevertime_dungeonArStDc() 
+        self.vars['HotSprite']:setVisible(visible)
+
+    elseif (content_type == 'nest_nightmare') then
+        local visible = g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp() or g_fevertimeData:isActiveFevertime_dungeonRuneUp() or  g_fevertimeData:isActiveFevertime_dungeonNmStDc()
         self.vars['HotSprite']:setVisible(visible)
 
     elseif (content_type == 'colosseum') then

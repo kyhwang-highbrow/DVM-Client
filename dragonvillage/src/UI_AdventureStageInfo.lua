@@ -129,7 +129,7 @@ function UI_AdventureStageInfo:refresh()
         if active then
             local table_drop = TABLE:get('drop')
             local t_drop = table_drop[stage_id]
-            local cost_value = math_floor(t_drop['cost_value'] / 2)
+            local cost_value = math_floor(t_drop['cost_value'] * (1 - value / 100))
             vars['actingPowerLabel']:setString(cost_value)
             vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
             vars['hotTimeSprite']:setVisible(true)
@@ -140,6 +140,48 @@ function UI_AdventureStageInfo:refresh()
             vars['hotTimeSprite']:setVisible(false)
             vars['staminaNode']:setVisible(true)
         end
+    end
+
+    -- 거목 던전 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+        local dungeonMode = t_dungeon['dungeon_mode']
+        if (dungeonMode == NEST_DUNGEON_TREE) then
+            local type = 'dg_gt_st_dc'
+            self:initStaminaFevertimeUI(type)
+        end
+    end
+
+    -- 거대용 던전 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+        local dungeonMode = t_dungeon['dungeon_mode']
+        if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
+            local type = 'dg_gd_st_dc'
+            self:initStaminaFevertimeUI(type)
+        end
+    end
+
+    -- 악몽 던전 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+        local dungeonMode = t_dungeon['dungeon_mode']
+        if (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
+            local type = 'dg_nm_st_dc'
+            self:initStaminaFevertimeUI(type)
+        end
+    end
+
+    -- 고대 유적 던전 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_ANCIENT_RUIN) then
+        local type = 'dg_ar_st_dc'
+        self:initStaminaFevertimeUI(type)
+    end
+
+    -- 룬 수호자 던전 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        local type = 'dg_rg_st_dc'
+        self:initStaminaFevertimeUI(type)
     end
 
     local table_stage_desc = TableStageDesc()
@@ -284,6 +326,31 @@ function UI_AdventureStageInfo:refresh()
                 vars['bossNameLabel']:setPositionX(start_x + w + (str_width/2))
             end
         end
+    end
+end
+
+-------------------------------------
+-- function initStaminaFevertimeUI
+-- @brief 날개 피버타임 UI 설정
+-------------------------------------
+function UI_AdventureStageInfo:initStaminaFevertimeUI(type)
+    local vars = self.vars
+    local stage_id = self.m_stageID
+    local active, value = g_fevertimeData:isActiveFevertimeByType(type)
+    if active then
+        local table_drop = TABLE:get('drop')
+        local t_drop = table_drop[stage_id]
+        local cost_value = math_floor(t_drop['cost_value'] * (1 - value))
+        local str = string.format('-%d%%', value * 100)
+        vars['actingPowerLabel']:setString(cost_value)
+        vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
+        vars['hotTimeSprite']:setVisible(true)
+        vars['hotTimeStLabel']:setString(str)
+        vars['staminaNode']:setVisible(false)
+    else
+        vars['actingPowerLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+        vars['hotTimeSprite']:setVisible(false)
+        vars['staminaNode']:setVisible(true)
     end
 end
 

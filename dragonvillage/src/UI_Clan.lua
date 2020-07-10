@@ -176,14 +176,39 @@ function UI_Clan:initButton()
     
 
 
-    -- 룬 수호자 던전
+    self:runeGuardianNoti()
+    -- 룬 수호자 던전 미오픈
     if (not g_nestDungeonData:isClearNightmare()) then
         vars['runeGuardianLockSprite']:setVisible(true)
+
+        self:runeGuardianNoti()
     end
     vars['runeDungeonBtn']:registerScriptTapHandler(function() self:click_runeDungeonBtn() end)
 
 	-- 클랜전
 	vars['clanWarBtn']:registerScriptTapHandler(function() self:click_clanWarBtn() end)
+end
+
+-------------------------------------
+-- function runeGuardianNoti
+-------------------------------------
+function UI_Clan:runeGuardianNoti()
+    local vars = self.vars
+    -- 룬 수호자 던전 핫타임
+    if (
+        g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
+        or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
+        or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
+    ) then
+        local t_noti = {}
+        t_noti['runeDungeonBtn'] = true
+        UIHelper:autoNoti(t_noti, {}, '', self.vars)
+        if (vars['runeGuardianLockSprite']:isVisible()) then
+            local t_noti = {}
+            t_noti['runeGuardianLockSprite'] = true
+            UIHelper:autoNoti(t_noti, {}, '', self.vars)
+        end
+    end
 end
 
 -------------------------------------

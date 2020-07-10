@@ -321,22 +321,22 @@ end
 
 -------------------------------------
 -- function isActiveFevertime_dungeonGdItemUp
--- @brief 거대용 던전 핫타임
+-- @brief 거대용 던전 보상 획득량 증가
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonGdItemUp()
-    local is_active_dg_gd_item_up = self:isActiveFevertimeByType('dg_gd_item_up') -- 거대용 던전 진화 재료 증가
+    local is_active_dg_gd_item_up = self:isActiveFevertimeByType('dg_gd_item_up')
 
     return is_active_dg_gd_item_up
 end
 
 -------------------------------------
 -- function isActiveFevertime_dungeonGtItemUp
--- @brief 거목 던전 핫타임
+-- @brief 거목 던전 보상 획득량 증가
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonGtItemUp()
-    local is_active_dg_gt_item_up = self:isActiveFevertimeByType('dg_gt_item_up') -- 거목 던전 친밀도 열매 증가
+    local is_active_dg_gt_item_up = self:isActiveFevertimeByType('dg_gt_item_up')
 
     return is_active_dg_gt_item_up
 end
@@ -353,13 +353,101 @@ end
 
 -------------------------------------
 -- function isActiveFevertime_pvpHonorUp
--- @brief 콜로세움 명예 핫타임
+-- @brief 명예 획득량 증가
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_pvpHonorUp()
-    local is_active_pvp_honor_up = self:isActiveFevertimeByType('pvp_honor_up') -- pvp 콜로세움 명예 획득량 증가
+    local is_active_pvp_honor_up = self:isActiveFevertimeByType('pvp_honor_up')
 
     return is_active_pvp_honor_up
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonRuneLegendUp
+-- @brief 전설 등급 룬 확률 증가
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonRuneLegendUp()
+    local is_active_dg_rune_legend_up = self:isActiveFevertimeByType('dg_rune_legend_up')
+
+    return is_active_dg_rune_legend_up
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonRuneUp
+-- @brief 룬 추가 획득
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonRuneUp()
+    local is_active_dg_rune_up = self:isActiveFevertimeByType('dg_rune_up')
+
+    return is_active_dg_rune_up
+end
+
+-------------------------------------
+-- function isActiveFevertime_masteryDc
+-- @brief 특성 레벨업 비용 할인
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_masteryDc()
+    local is_active_mastery_dc = self:isActiveFevertimeByType('mastery_dc')
+
+    return is_active_mastery_dc
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonGtStDc
+-- @brief 거목 던전 날개 할인
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonGtStDc()
+    local is_active_dg_gt_st_dc = self:isActiveFevertimeByType('dg_gt_st_dc')
+
+    return is_active_dg_gt_st_dc
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonGdStDc
+-- @brief 거대용 던전 날개 할인
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonGdStDc()
+    local is_active_dg_gd_st_dc = self:isActiveFevertimeByType('dg_gd_st_dc')
+
+    return is_active_dg_gd_st_dc
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonNmStDc
+-- @brief 악몽 던전 날개 할인
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonNmStDc()
+    local is_active_dg_nm_st_dc = self:isActiveFevertimeByType('dg_nm_st_dc')
+
+    return is_active_dg_nm_st_dc
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonArStDc
+-- @brief 고대 유적 던전 날개 할인
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonArStDc()
+    local is_active_dg_ar_st_dc = self:isActiveFevertimeByType('dg_ar_st_dc')
+
+    return is_active_dg_ar_st_dc
+end
+
+-------------------------------------
+-- function isActiveFevertime_dungeonRgStDc
+-- @brief 룬 수호자 던전 날개 할인
+-- @return boolean
+-------------------------------------
+function ServerData_Fevertime:isActiveFevertime_dungeonRgStDc()
+    local is_active_dg_rg_st_dc = self:isActiveFevertimeByType('dg_rg_st_dc')
+
+    return is_active_dg_rg_st_dc
 end
 
 -------------------------------------

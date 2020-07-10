@@ -183,6 +183,12 @@ function UI_BattleMenu:update(dt)
             g_secretDungeonData:isSecretDungeonExist()
             or g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
             or g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
+            or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
+            or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
+            or g_fevertimeData:isActiveFevertime_dungeonArStDc()
+            or g_fevertimeData:isActiveFevertime_dungeonNmStDc()
+            or g_fevertimeData:isActiveFevertime_dungeonGtStDc()
+            or g_fevertimeData:isActiveFevertime_dungeonGdStDc()
         ) then
             t_noti[menu_name .. '_dungeon'] = true
         end

@@ -879,6 +879,12 @@ function UI_Lobby:update_highlight()
                 or g_fevertimeData:isActiveFevertime_dungeonGdItemUp()
                 or g_fevertimeData:isActiveFevertime_dungeonGtItemUp()
                 or g_fevertimeData:isActiveFevertime_pvpHonorUp()
+                or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
+                or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
+                or g_fevertimeData:isActiveFevertime_dungeonArStDc()
+                or g_fevertimeData:isActiveFevertime_dungeonNmStDc()
+                or g_fevertimeData:isActiveFevertime_dungeonGtStDc()
+                or g_fevertimeData:isActiveFevertime_dungeonGdStDc()
             ) then
                 vars['battleHotSprite']:setVisible(true)
             end
@@ -924,7 +930,12 @@ function UI_Lobby:update_highlight()
 		vars['etcNotiSprite']:setVisible(is_etc_noti)
 
 		-- 클랜
-		vars['clanNotiSprite']:setVisible(g_clanData:isHighlightClan())
+		vars['clanNotiSprite']:setVisible(
+            g_clanData:isHighlightClan()
+            or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
+            or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
+            or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
+        )
 
         do -- 황금 던전
             vars['goldDungeonNotiRed']:setVisible(false)

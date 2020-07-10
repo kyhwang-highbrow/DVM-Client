@@ -52,6 +52,8 @@ end
 -------------------------------------
 function UI_NestDungeonStageListItem:refresh(t_data)
     local vars = self.vars
+    local game_mode = g_stageData:getGameMode(t_data['stage'])
+    local stage_id = self.m_stageTable['stage']
 
     do -- 스테이지 이름
         local name = Str(self.m_stageTable['t_name'])
@@ -72,6 +74,26 @@ function UI_NestDungeonStageListItem:refresh(t_data)
         vars['actingPowerLabel']:setString(comma_value(cost_value))
     end
 
+    -- 거목 던전 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(stage_id)
+        local dungeonMode = t_dungeon['dungeon_mode']
+        if (dungeonMode == NEST_DUNGEON_TREE) then
+            local type = 'dg_gt_st_dc'
+            self:initStaminaFevertimeUI(type)
+        end
+    end
+
+    -- 거대용 던전 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(stage_id)
+        local dungeonMode = t_dungeon['dungeon_mode']
+        if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
+            local type = 'dg_gd_st_dc'
+            self:initStaminaFevertimeUI(type)
+        end
+    end
+
     do -- 오픈 여부
         local stage_id = self.m_stageTable['stage']
         local is_open = g_stageData:isOpenStage(stage_id)
@@ -90,6 +112,31 @@ function UI_NestDungeonStageListItem:refresh(t_data)
 
     -- 드랍 아이템 표시
     self:refresh_dropItem(t_data)
+end
+
+-------------------------------------
+-- function initStaminaFevertimeUI
+-- @brief 날개 피버타임 UI 설정
+-------------------------------------
+function UI_NestDungeonStageListItem:initStaminaFevertimeUI(type)
+    local vars = self.vars
+    local stage_id = self.m_stageTable['stage']
+    local active, value = g_fevertimeData:isActiveFevertimeByType(type)
+    if active then
+        local table_drop = TABLE:get('drop')
+        local t_drop = table_drop[stage_id]
+        local cost_value = math_floor(t_drop['cost_value'] * (1 - value))
+        local str = string.format('-%d%%', value * 100)
+        vars['actingPowerLabel']:setString(cost_value)
+        vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
+        vars['hotTimeSprite']:setVisible(true)
+        vars['hotTimeStLabel']:setString(str)
+        vars['staminaNode']:setVisible(false)
+    else
+        vars['actingPowerLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+        vars['hotTimeSprite']:setVisible(false)
+        vars['staminaNode']:setVisible(true)
+    end
 end
 
 -------------------------------------

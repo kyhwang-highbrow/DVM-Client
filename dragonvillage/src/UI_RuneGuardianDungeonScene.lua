@@ -99,6 +99,60 @@ end
 -- function refresh
 -------------------------------------
 function UI_RuneGuardianDungeonScene:refresh()
+    local vars = self.vars
+    local l_active_hot = {}
+    do -- 전설 등급 룬 확률 증가 핫타임
+        local type = 'dg_rune_legend_up'
+        local name = 'RuneLegend'
+        self:initFevertimeUI(type, name, '+', l_active_hot)
+    end
+
+    do -- 룬 추가 획득 핫타임
+        local type = 'dg_rune_up'
+        local name = 'Rune'
+        self:initFevertimeUI(type, name, '+', l_active_hot)
+    end
+
+    do -- 룬 수호자 던전 날개 할인
+        local type = 'dg_rg_st_dc'
+        local name = 'DgRgSt'
+        self:initFevertimeUI(type, name, '-', l_active_hot)
+    end
+
+    self:arrangeItemUI(l_active_hot)
+end
+
+-------------------------------------
+-- function arrangeItemUI
+-- @brief itemUI들을 정렬한다!
+-------------------------------------
+function UI_RuneGuardianDungeonScene:arrangeItemUI(l_hottime)
+    for i, ui_name in pairs(l_hottime) do
+        local ui = self.vars[ui_name]
+        if (ui ~= nil) then
+            ui:setVisible(true)
+            local pos_x = (i-1) * 64
+            ui:setPositionX(pos_x)
+        end
+    end
+end
+
+-------------------------------------
+-- function initFevertimeUI
+-------------------------------------
+function UI_RuneGuardianDungeonScene:initFevertimeUI(type, name, sign, l_active_hot)
+    local vars = self.vars
+    local label_name = 'hotTime' .. name .. 'Label'
+    local btn_name = 'hotTime' .. name .. 'Btn'
+    local active, value = g_fevertimeData:isActiveFevertimeByType(type)
+    if active then
+        value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
+        table.insert(l_active_hot, btn_name)
+        local str = string.format(sign .. '%d%%', value)
+        vars[label_name]:setString(str)
+        vars[btn_name]:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(type, vars[btn_name])
+        vars[btn_name]:setVisible(true) end)
+    end
 end
 
 -------------------------------------
@@ -186,6 +240,35 @@ function UI_RuneGuardianDungeonListItem:initUI()
     vars['titleLabel' .. direction_number]:setString(Str(title))
 
     vars['startBtn' .. direction_number]:registerScriptTapHandler(function() self:click_stageBtn(stage_id) end)
+
+    
+
+    -- 고대 유적 던전 소비 활동력 핫타임 관련
+    local type = 'dg_rg_st_dc'
+    local active, value = g_fevertimeData:isActiveFevertimeByType(type)
+    if active then
+        local table_drop = TABLE:get('drop')
+        local t_drop = table_drop[stage_id]
+        local cost_value = math_floor(t_drop['cost_value'] * (1 - value))
+        local str = string.format('-%d%%', value * 100)
+        vars['actingPowerLabel']:setString(cost_value)
+        vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
+        vars['hotTimeSprite']:setVisible(true)
+        vars['hotTimeStLabel']:setString(str)
+        vars['staminaSprite']:setVisible(false)
+        vars['actingPowerLabel2']:setString(cost_value)
+        vars['actingPowerLabel2']:setTextColor(cc.c4b(0, 255, 255, 255))
+        vars['hotTimeSprite2']:setVisible(true)
+        vars['hotTimeStLabel2']:setString(str)
+        vars['staminaSprite2']:setVisible(false)
+    else
+        vars['actingPowerLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+        vars['hotTimeSprite']:setVisible(false)
+        vars['staminaSprite']:setVisible(true)
+        vars['actingPowerLabel2']:setTextColor(cc.c4b(240, 215, 159, 255))
+        vars['hotTimeSprite2']:setVisible(false)
+        vars['staminaSprite2']:setVisible(true)
+    end
 end
 
 -------------------------------------

@@ -20,6 +20,7 @@ end
 function UI_NightmareStageListItem:refresh_dropItem(t_data)
     local vars = self.vars
     local stage_id = self.m_stageTable['stage']
+    local game_mode = g_stageData:getGameMode(t_data['stage'])
 
     local t_dungeon = g_nestDungeonData:parseNestDungeonID(stage_id)
 
@@ -84,5 +85,29 @@ function UI_NightmareStageListItem:refresh_dropItem(t_data)
             vars['rewardNode' .. i]:addChild(frame)
         end
         
+    end
+
+    -- 악몽 던전 소비 활동력 핫타임 관련
+    if (game_mode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(stage_id)
+        local dungeonMode = t_dungeon['dungeon_mode']
+        if (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
+            local type = 'dg_nm_st_dc'
+            local active, value = g_fevertimeData:isActiveFevertimeByType(type)
+            if active then
+                local initial_cost_value = self.m_stageTable['cost_value']
+                local cost_value = math_floor(initial_cost_value * (1 - value))
+                local str = string.format('-%d%%', value * 100)
+                vars['actingPowerLabel']:setString(cost_value)
+                vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
+                vars['hotTimeSprite']:setVisible(true)
+                vars['hotTimeStLabel']:setString(str)
+                vars['staminaNode']:setVisible(false)
+            else
+                vars['actingPowerLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+                vars['hotTimeSprite']:setVisible(false)
+                vars['staminaNode']:setVisible(true)
+            end
+        end
     end
 end
