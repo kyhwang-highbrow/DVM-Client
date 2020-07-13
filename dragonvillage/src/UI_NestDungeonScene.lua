@@ -439,7 +439,7 @@ function UI_NestDungeonScene:arrangeItemUI(l_hottime)
         local ui = self.vars[ui_name]
         if (ui ~= nil) then
             ui:setVisible(true)
-            local pos_x = (i-1) * 64
+            local pos_x = (i-1) * 72
             ui:setPositionX(pos_x)
         end
     end
