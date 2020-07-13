@@ -44,7 +44,7 @@ function UI_FevertimeListItem:initUI()
     
     local date = TimeLib:convertToServerDate(server_timestamp)
     local wday_str = getWeekdayName(date:weekday_name())
-    local str = Str('{1}.{2}\n{3}', date:month(), date:day(), wday_str)
+    local str = Str('{1}.{2} {3}', date:month(), date:day(), wday_str)
 
     if (date:is_weekend() == true) then
         str = '{@light_red}' .. str
