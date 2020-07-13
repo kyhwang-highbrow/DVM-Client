@@ -195,20 +195,12 @@ end
 function UI_Clan:runeGuardianNoti()
     local vars = self.vars
     -- 룬 수호자 던전 핫타임
-    if (
-        g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
+    local rune_guardian_visible = g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
         or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
         or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
-    ) then
-        local t_noti = {}
-        t_noti['runeDungeonBtn'] = true
-        UIHelper:autoNoti(t_noti, {}, '', self.vars)
-        if (vars['runeGuardianLockSprite']:isVisible()) then
-            local t_noti = {}
-            t_noti['runeGuardianLockSprite'] = true
-            UIHelper:autoNoti(t_noti, {}, '', self.vars)
-        end
-    end
+
+    vars['runeDungeonHotSprite']:setVisible(rune_guardian_visible)
+    
 end
 
 -------------------------------------
