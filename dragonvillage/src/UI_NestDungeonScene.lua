@@ -1,4 +1,5 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+require('UI_FevertimeUIHelper')
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), UI_FevertimeUIHelper:getCloneTable())
 
 -------------------------------------
 -- class UI_NestDungeonScene
@@ -42,7 +43,6 @@ function UI_NestDungeonScene:init(stage_id, dungeon_type)
     end
 	self:initButton()
     self:refresh()
-
     self:sceneFadeInAction()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
@@ -376,55 +376,55 @@ function UI_NestDungeonScene:refreshHotTimeInfo()
         -- 진화 재료 핫타임
         local type = 'dg_gd_item_up'
         local name = 'Gd'
-        self:initFevertimeUI(type, name, '+', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '+', l_active_hot)
 
         -- 거대용 던전 날개 할인
         local type = 'dg_gd_st_dc'
         local name = 'DgGdSt'
-        self:initFevertimeUI(type, name, '-', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '-', l_active_hot)
 
     elseif (self.m_dungeonType == NEST_DUNGEON_TREE) then
         -- 친밀도 열매 핫타임
         local type = 'dg_gt_item_up'
         local name = 'Gt'
-        self:initFevertimeUI(type, name, '+', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '+', l_active_hot)
 
         -- 거목 던전 날개 할인
         local type = 'dg_gt_st_dc'
         local name = 'DgGtSt'
-        self:initFevertimeUI(type, name, '-', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '-', l_active_hot)
 
     elseif (self.m_dungeonType == NEST_DUNGEON_ANCIENT_RUIN) then
         -- 전설 등급 룬 확률 증가 핫타임
         local type = 'dg_rune_legend_up'
         local name = 'RuneLegend'
-        self:initFevertimeUI(type, name, '+', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '+', l_active_hot)
 
         -- 룬 추가 획득
         local type = 'dg_rune_up'
         local name = 'Rune'
-        self:initFevertimeUI(type, name, '+', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '+', l_active_hot)
 
         -- 고대 유적 던전 날개 할인
         local type = 'dg_ar_st_dc'
         local name = 'DgArSt'
-        self:initFevertimeUI(type, name, '-', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '-', l_active_hot)
 
     elseif (self.m_dungeonType == NEST_DUNGEON_NIGHTMARE) then
         -- 전설 등급 룬 확률 증가 핫타임
         local type = 'dg_rune_legend_up'
         local name = 'RuneLegend'
-        self:initFevertimeUI(type, name, '+', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '+', l_active_hot)
 
         -- 룬 추가 획득
         local type = 'dg_rune_up'
         local name = 'Rune'
-        self:initFevertimeUI(type, name, '+', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '+', l_active_hot)
 
         -- 악몽 던전 날개 할인
         local type = 'dg_nm_st_dc'
         local name = 'DgNmSt'
-        self:initFevertimeUI(type, name, '-', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '-', l_active_hot)
     end
     
     self:arrangeItemUI(l_active_hot)
@@ -443,32 +443,6 @@ function UI_NestDungeonScene:arrangeItemUI(l_hottime)
             ui:setPositionX(pos_x)
         end
     end
-end
-
--------------------------------------
--- function initFevertimeUI
--------------------------------------
-function UI_NestDungeonScene:initFevertimeUI(type, name, sign, l_active_hot)
-    local vars = self.vars
-    local label_name = 'hotTime' .. name .. 'Label'
-    local btn_name = 'hotTime' .. name .. 'Btn'
-    local active, value = g_fevertimeData:isActiveFevertimeByType(type)
-    if active then
-        value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
-        table.insert(l_active_hot, btn_name)
-        local str = string.format(sign .. '%d%%', value)
-        vars[label_name]:setString(str)
-        vars[btn_name]:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(type, vars[btn_name]) end)
-    end
-    ---- 악몽 던전 날개 할인 // 원본
-    --local active, value = g_fevertimeData:isActiveFevertimeByType('dg_nm_st_dc')
-    --if active then
-        --value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
-        --table.insert(l_active_hot, 'hotTimeDgNmStBtn')
-        --local str = string.format('-%d%%', value)
-        --vars['hotTimeDgNmStLabel']:setString(str)
-        --vars['hotTimeDgNmStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('dg_nm_st_dc', vars['hotTimeDgNmStBtn']) end)
-    --end
 end
 
 -------------------------------------

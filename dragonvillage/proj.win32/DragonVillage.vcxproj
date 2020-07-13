@@ -1313,6 +1313,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_FevertimeConfirmPopup.lua" />
     <None Include="..\src\UI_FevertimeInfoPopup.lua" />
     <None Include="..\src\UI_FevertimeListItem.lua" />
+    <None Include="..\src\UI_FevertimeUIHelper.lua" />
     <None Include="..\src\UI_FirstPurchaseRewardPopup.lua" />
     <None Include="..\src\UI_Forest.lua" />
     <None Include="..\src\UI_Forest_ChangePopup.lua" />

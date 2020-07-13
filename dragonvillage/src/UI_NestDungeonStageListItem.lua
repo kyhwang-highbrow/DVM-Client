@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITableViewCell:getCloneTable())
+local PARENT = class(UI, ITableViewCell:getCloneTable(), UI_FevertimeUIHelper:getCloneTable())
 
 -------------------------------------
 -- class UI_NestDungeonStageListItem
@@ -80,7 +80,7 @@ function UI_NestDungeonStageListItem:refresh(t_data)
         local dungeonMode = t_dungeon['dungeon_mode']
         if (dungeonMode == NEST_DUNGEON_TREE) then
             local type = 'dg_gt_st_dc'
-            self:initStaminaFevertimeUI(type)
+            self:initStaminaFevertimeUI(vars, stage_id, type)
         end
     end
 
@@ -90,7 +90,7 @@ function UI_NestDungeonStageListItem:refresh(t_data)
         local dungeonMode = t_dungeon['dungeon_mode']
         if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
             local type = 'dg_gd_st_dc'
-            self:initStaminaFevertimeUI(type)
+            self:initStaminaFevertimeUI(vars, stage_id, type)
         end
     end
 
@@ -112,31 +112,6 @@ function UI_NestDungeonStageListItem:refresh(t_data)
 
     -- 드랍 아이템 표시
     self:refresh_dropItem(t_data)
-end
-
--------------------------------------
--- function initStaminaFevertimeUI
--- @brief 날개 피버타임 UI 설정
--------------------------------------
-function UI_NestDungeonStageListItem:initStaminaFevertimeUI(type)
-    local vars = self.vars
-    local stage_id = self.m_stageTable['stage']
-    local active, value = g_fevertimeData:isActiveFevertimeByType(type)
-    if active then
-        local table_drop = TABLE:get('drop')
-        local t_drop = table_drop[stage_id]
-        local cost_value = math_floor(t_drop['cost_value'] * (1 - value))
-        local str = string.format('-%d%%', value * 100)
-        vars['actingPowerLabel']:setString(cost_value)
-        vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
-        vars['hotTimeSprite']:setVisible(true)
-        vars['hotTimeStLabel']:setString(str)
-        vars['staminaNode']:setVisible(false)
-    else
-        vars['actingPowerLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
-        vars['hotTimeSprite']:setVisible(false)
-        vars['staminaNode']:setVisible(true)
-    end
 end
 
 -------------------------------------

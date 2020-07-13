@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), UI_FevertimeUIHelper:getCloneTable())
 
 local L_STAGE_ID = {1700011, 1700012, 1700013, 1700014, 1700015, 1700016}
 
@@ -104,19 +104,19 @@ function UI_RuneGuardianDungeonScene:refresh()
     do -- 전설 등급 룬 확률 증가 핫타임
         local type = 'dg_rune_legend_up'
         local name = 'RuneLegend'
-        self:initFevertimeUI(type, name, '+', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '+', l_active_hot)
     end
 
     do -- 룬 추가 획득 핫타임
         local type = 'dg_rune_up'
         local name = 'Rune'
-        self:initFevertimeUI(type, name, '+', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '+', l_active_hot)
     end
 
     do -- 룬 수호자 던전 날개 할인
         local type = 'dg_rg_st_dc'
         local name = 'DgRgSt'
-        self:initFevertimeUI(type, name, '-', l_active_hot)
+        self:initFevertimeUI(vars, type, name, '-', l_active_hot)
     end
 
     self:arrangeItemUI(l_active_hot)
@@ -134,24 +134,6 @@ function UI_RuneGuardianDungeonScene:arrangeItemUI(l_hottime)
             local pos_x = (i-1) * 64
             ui:setPositionX(pos_x)
         end
-    end
-end
-
--------------------------------------
--- function initFevertimeUI
--------------------------------------
-function UI_RuneGuardianDungeonScene:initFevertimeUI(type, name, sign, l_active_hot)
-    local vars = self.vars
-    local label_name = 'hotTime' .. name .. 'Label'
-    local btn_name = 'hotTime' .. name .. 'Btn'
-    local active, value = g_fevertimeData:isActiveFevertimeByType(type)
-    if active then
-        value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
-        table.insert(l_active_hot, btn_name)
-        local str = string.format(sign .. '%d%%', value)
-        vars[label_name]:setString(str)
-        vars[btn_name]:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(type, vars[btn_name])
-        vars[btn_name]:setVisible(true) end)
     end
 end
 

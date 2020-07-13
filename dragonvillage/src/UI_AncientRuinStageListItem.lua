@@ -71,21 +71,7 @@ function UI_AncientRuinStageListItem:refresh_dropItem(t_data)
     -- 고대 유적 던전 소비 활동력 핫타임 관련
     if (game_mode == GAME_MODE_ANCIENT_RUIN) then
         local type = 'dg_ar_st_dc'
-        local active, value = g_fevertimeData:isActiveFevertimeByType(type)
-        if active then
-            local initial_cost_value = self.m_stageTable['cost_value']
-            local cost_value = math_floor(initial_cost_value * (1 - value))
-            local str = string.format('-%d%%', value * 100)
-            vars['actingPowerLabel']:setString(cost_value)
-            vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
-            vars['hotTimeSprite']:setVisible(true)
-            vars['hotTimeStLabel']:setString(str)
-            vars['staminaNode']:setVisible(false)
-        else
-            vars['actingPowerLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
-            vars['hotTimeSprite']:setVisible(false)
-            vars['staminaNode']:setVisible(true)
-        end
+        self:initStaminaFevertimeUI(vars, stage_id, type)
     end
 
     -- 별이 맨 앞으로 가도록 정렬

@@ -4551,6 +4551,9 @@
     <None Include="..\src\UI_EventPopupTabButton.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_FevertimeUIHelper.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
