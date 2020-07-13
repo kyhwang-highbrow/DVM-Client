@@ -121,6 +121,10 @@ function UI_BattleMenuItem:refresh()
         local visible = g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp() or g_fevertimeData:isActiveFevertime_dungeonRuneUp() or  g_fevertimeData:isActiveFevertime_dungeonNmStDc()
         self.vars['HotSprite']:setVisible(visible)
 
+    elseif (content_type == 'rune_guardian') then
+        local visible = g_fevertimeData:isActiveFevertime_dungeonRgStDc()
+        self.vars['HotSprite']:setVisible(visible)
+
     elseif (content_type == 'colosseum') then
         local visible = g_fevertimeData:isActiveFevertime_pvpHonorUp()
         self.vars['HotSprite']:setVisible(visible)

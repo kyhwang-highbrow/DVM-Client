@@ -885,6 +885,7 @@ function UI_Lobby:update_highlight()
                 or g_fevertimeData:isActiveFevertime_dungeonNmStDc()
                 or g_fevertimeData:isActiveFevertime_dungeonGtStDc()
                 or g_fevertimeData:isActiveFevertime_dungeonGdStDc()
+                or g_fevertimeData:isActiveFevertime_dungeonRgStDc()
             ) then
                 vars['battleHotSprite']:setVisible(true)
             end
