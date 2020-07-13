@@ -990,7 +990,7 @@ function UI_Lobby:update_highlight()
         end
 
         do -- 핫타임
-            vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isHighlightFevertime())
+            vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isNotUsedFevertimeExist())
         end
 
         self.m_bUpdatingHighlights = false

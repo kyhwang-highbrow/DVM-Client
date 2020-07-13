@@ -280,6 +280,23 @@ function ServerData_Fevertime:isHighlightFevertime()
     return (0 < noti_count)
 end
 
+-------------------------------------
+-- function isNotUsedFevertimeExist()
+-- @brief 사용되지 않은 핫타임이 존재하는가
+-------------------------------------
+function ServerData_Fevertime:isNotUsedFevertimeExist()
+    local noti_count = 0
+
+    -- 일일 핫타임 활성화 가능한 경우
+    for i,struct_fevertime in pairs(self.m_lFevertimeSchedule) do
+        if (struct_fevertime:isTodayDailyHottime() == true) then
+            return true
+        end
+    end
+
+    return false
+end
+
 
 -------------------------------------
 -- function isActiveFevertimeByType
