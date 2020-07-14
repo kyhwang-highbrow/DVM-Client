@@ -271,6 +271,7 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
         local _, value = g_fevertimeData:isActiveFevertimeByType('mastery_dc')
         local str = Str('{1}% 할인', value * 100)
         vars['masteryEventLabel']:setString(str)
+        vars['masteryLvUp_priceLabel']:setString(comma_value(req_gold * value))
     end
 end
 
