@@ -206,7 +206,11 @@ function UI_BattleMenu:update(dt)
 
     if (menu_name == 'short') then
         if (not t_noti[menu_name .. '_clan']) then
-            if (g_fevertimeData:isActiveFevertime_dungeonRgStDc()) then
+            if (
+                g_fevertimeData:isActiveFevertime_dungeonRgStDc()
+                or g_fevertimeData:isActiveFevertime_dungeonRuneLegendUp()
+                or g_fevertimeData:isActiveFevertime_dungeonRuneUp()
+            ) then
                 t_noti[menu_name .. '_clan'] = true
             end
         end
