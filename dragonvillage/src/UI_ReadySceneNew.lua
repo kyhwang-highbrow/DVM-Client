@@ -597,6 +597,9 @@ function UI_ReadySceneNew:initButton()
     -- 경험치 부스터 
     vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
 
+    -- 일일 핫타임
+    vars['fevertimeBtn']:registerScriptTapHandler(function() self:click_fevertimeBtn() end)
+
     -- 속성 도움말
     vars['attrInfoBtn']:registerScriptTapHandler(function() self:click_attrInfoBtn() end)
     if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then
@@ -631,6 +634,14 @@ function UI_ReadySceneNew:initButton()
             vars['loadLabel']:setString(Str('{1}층 베스트 팀 불러오기', g_ancientTowerData:getFloorFromStageID(self.m_stageID)))
             vars['loadBtn']:registerScriptTapHandler(function() self:click_loadBestTeam() end)
             vars['saveBtn']:registerScriptTapHandler(function() self:click_saveBestTeam() end)
+        end
+    end
+
+    -- 핫타임
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        local not_used_fevertime_list = g_fevertimeData:getNotUsedDailyFevertime_adventure()
+        if (table.count(not_used_fevertime_list) > 0) then
+            vars['fevertimeBtn']:setVisible(true)
         end
     end
 
@@ -1190,41 +1201,117 @@ function UI_ReadySceneNew:changeTeam(deck_name)
 end
 
 -------------------------------------
+-- function isFevertimePopupPopped
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:isFevertimePopupPoppedToday()
+    return false
+end
+
+-------------------------------------
+-- function getNotUsedDailyFevertime
+-- @breif 
+-- @return 리턴 false면 게임 시작 안함
+-------------------------------------
+function UI_ReadySceneNew:getNotUsedDailyFevertime()
+    local game_mode = self.m_gameMode
+
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        return g_fevertimeData:getNotUsedDailyFevertime_adventure()
+    end
+
+    return {}
+end
+
+-------------------------------------
+-- function FevertimePopup
+-- @breif 
+-- @return 리턴 false면 게임 시작 안함
+-------------------------------------
+function UI_ReadySceneNew:FevertimePopup()
+
+    if (not self:isFevertimePopupPoppedToday()) then
+        local usable_fevertime = self:getNotUsedDailyFevertime()
+
+        if (#usable_fevertime == 0) then
+            return true
+        elseif (#usable_fevertime == 1) then
+            self:FevertimeConfirmPopup(usable_fevertime[1])
+            return false
+        else
+            UI_FevertimeConfirmPopupList()
+            return false
+        end
+    end
+end
+
+-------------------------------------
+-- function FevertimeConfirmPopup
+-- @brief
+-------------------------------------
+function UI_ReadySceneNew:FevertimeConfirmPopup(struct_fevertime)
+    local id = struct_fevertime:getFevertimeID()
+
+    local function finish_cb(ret)
+    end
+
+    local function okBtn()
+        g_fevertimeData:request_fevertimeActive(id, finish_cb)
+    end
+
+    local fevertime_name = struct_fevertime:getFevertimeName()
+    local fevertime_description = struct_fevertime:getFevertimeDesc()
+    local fevertime_period = struct_fevertime:getPeriodStr()
+    local fevertime_value = struct_fevertime:getFevertimeValue()
+    local fevertime_type = struct_fevertime:getFevertimeType()
+
+    if (fevertime_period == '') or (struct_fevertime:isDailyHottime() == true) then
+        fevertime_period = struct_fevertime:getTimeLabelStr()
+    end
+    UI_FevertimeConfirmPopup(fevertime_name, fevertime_period, fevertime_description, fevertime_value, fevertime_type, okBtn)
+end
+
+-------------------------------------
 -- function click_startBtn
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_startBtn()
     local stage_id = self.m_stageID
+    local can_start_game = true
 
-    -- 개발 스테이지
-    if (stage_id == DEV_STAGE_ID) then
-        self:checkChangeDeck(function()
-            --local scene = SceneGame(nil, stage_id, 'stage_dev', true)
-            --local scene = SceneGame(nil, EVENT_GOLD_STAGE_ID, 'stage_' .. EVENT_GOLD_STAGE_ID, true)
-            local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
-            --local scene = SceneGameIntro()
-            scene:runScene()
-        end)
-        return
-    end
+    can_start_game = self:FevertimePopup()
 
-    if (not self:check_startCondition(stage_id)) then    
-		return
-    end
+    if (can_start_game) then
+        -- 개발 스테이지
+        if (stage_id == DEV_STAGE_ID) then
+            self:checkChangeDeck(function()
+                --local scene = SceneGame(nil, stage_id, 'stage_dev', true)
+                --local scene = SceneGame(nil, EVENT_GOLD_STAGE_ID, 'stage_' .. EVENT_GOLD_STAGE_ID, true)
+                local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
+                --local scene = SceneGameIntro()
+                scene:runScene()
+            end)
+            return
+        end
 
-	-- 던전 진입 전에 광고할 것이 있는지 확인
-	local is_promote = self:checkPromoteAutoPick(stage_id)
-	if (is_promote) then
-		return
-	end
+        if (not self:check_startCondition(stage_id)) then    
+		    return
+        end
+
+	    -- 던전 진입 전에 광고할 것이 있는지 확인
+	    local is_promote = self:checkPromoteAutoPick(stage_id)
+	    if (is_promote) then
+		    return
+	    end
 	
-    -- 클랜던전 연습모드의 경우
-    if (self:isClanRaidTrainingMode(self.m_stageID)) then           
-        self:startGame_clanRaidTraining()
-        return
-    end
+        -- 클랜던전 연습모드의 경우
+        if (self:isClanRaidTrainingMode(self.m_stageID)) then           
+            self:startGame_clanRaidTraining()
+            return
+        end
 	
-    self:startGame(stage_id)	
+        self:startGame(stage_id)	
+    end
 end
 
 -------------------------------------
@@ -1653,6 +1740,13 @@ function UI_ReadySceneNew:click_saveBestTeam()
     
     local msg = Str('현재 팀을 {1}층 베스트 팀으로 저장합니다.\n{1}층 팀 최고 점수는 초기화 됩니다.', cur_stage_id%1000)
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
+end
+
+-------------------------------------
+-- function click_fevertimeBtn
+-------------------------------------
+function UI_ReadySceneNew:click_fevertimeBtn()
+    g_eventData:openEventPopup('fevertime')
 end
 
 -------------------------------------

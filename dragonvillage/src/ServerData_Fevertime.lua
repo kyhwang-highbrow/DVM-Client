@@ -285,12 +285,10 @@ function ServerData_Fevertime:isHighlightFevertime()
 end
 
 -------------------------------------
--- function isNotUsedFevertimeExist()
+-- function isNotUsedFevertimeExist
 -- @brief 사용되지 않은 핫타임이 존재하는가
 -------------------------------------
 function ServerData_Fevertime:isNotUsedFevertimeExist()
-    local noti_count = 0
-
     -- 일일 핫타임 활성화 가능한 경우
     for i,struct_fevertime in pairs(self.m_lFevertimeSchedule) do
         if (struct_fevertime:isTodayDailyHottime() == true) then
@@ -301,6 +299,22 @@ function ServerData_Fevertime:isNotUsedFevertimeExist()
     return false
 end
 
+-------------------------------------
+-- function getNotUsedFevertimesTypes
+-- @brief 사용되지 않은 핫타임의 type을 가져온다.
+-------------------------------------
+function ServerData_Fevertime:getNotUsedFevertimesTypes(type)
+
+    local today_fevertime_list = {}
+    -- 일일 핫타임 활성화 가능한 경우
+    for i,struct_fevertime in pairs(self.m_lFevertimeSchedule) do
+        if (struct_fevertime:isTodayDailyHottime() == true) then
+            table.insert(today_fevertime_list, struct_fevertime)
+        end
+    end
+
+    return today_fevertime_list
+end
 
 -------------------------------------
 -- function isActiveFevertimeByType
@@ -614,11 +628,7 @@ function ServerData_Fevertime:getDiscountEventText_Value(dc_target, only_value)
 end
 
 -------------------------------------
--- function ServerData_Fevertime
--- @param : dc_target - HOTTIME_SALE_EVENT key
--- @param : vars - ui vars
--- @param : lua_name - sprite lua_name
--- @param : only_value - full text or value text
+-- function setDiscountEventNode
 -------------------------------------
 function ServerData_Fevertime:setDiscountEventNode(dc_target, vars, lua_name, only_value)
     if (dc_target == 'rune' or dc_target == 'runelvup' or dc_target == 'skillmove' or dc_target == 'reinforce') then
@@ -671,3 +681,42 @@ function ServerData_Fevertime:getDiscountEventList()
 	
 	return l_dc_event
 end
+
+-------------------------------------
+-- function getNotUsedDailyFevertime
+-- @breif 
+-- @return
+-------------------------------------
+function ServerData_Fevertime:getNotUsedDailyFevertime(l_type)
+    local today_fevertime_list = self:getNotUsedFevertimesTypes()
+    local usable_fevertime_list = {}
+
+    for i, struct_fevertime in pairs(today_fevertime_list) do
+        local type = struct_fevertime['type']
+
+        local exist = false
+        for _, _type in pairs(l_type) do
+            if (type == _type) then
+                exist = true
+            end 
+        end
+        
+        if (exist == true) then
+            table.insert(usable_fevertime_list, struct_fevertime)
+        end
+    end
+
+    return usable_fevertime_list
+end
+
+-------------------------------------
+-- function getNotUsedDailyFevertime_adventure
+-- @breif 
+-- @return
+-------------------------------------
+function ServerData_Fevertime:getNotUsedDailyFevertime_adventure()
+    local l_type = {'exp_up', 'gold_up', 'ad_st_dc'}
+    return self:getNotUsedDailyFevertime(l_type)
+end
+
+
