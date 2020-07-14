@@ -150,6 +150,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonMasteryNew:refresh()
+    local vars = self.vars
     local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
 
     if (not dragon_obj) then
@@ -176,6 +177,11 @@ function UI_DragonMasteryNew:refresh()
         local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
         self.m_masteryBoardUI:refresh(dragon_obj)
     end
+
+    -- 할인 이벤트
+    local only_value = true
+    g_hotTimeData:setDiscountEventNode(FEVERTIME_SALE_EVENT.MASTERY_DC, vars, 'masteryEventSprite1', only_value)
+    g_hotTimeData:setDiscountEventNode(FEVERTIME_SALE_EVENT.MASTERY_DC, vars, 'masteryEventSprite2', only_value)
 end
 
 -------------------------------------

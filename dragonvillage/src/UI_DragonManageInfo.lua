@@ -286,7 +286,7 @@ function UI_DragonManageInfo:refresh_buttonState()
     end
 
 	-- 할인 이벤트
-	local l_dc_event = g_hotTimeData:getDiscountEventList()
+	local l_dc_event = g_fevertimeData:getDiscountEventList()
     for i, dc_target in ipairs(l_dc_event) do
         local name 
         if (dc_target == HOTTIME_SALE_EVENT.RUNE_RELEASE) then
@@ -302,10 +302,13 @@ function UI_DragonManageInfo:refresh_buttonState()
         elseif (dc_target == HOTTIME_SALE_EVENT.DRAGON_REINFORCE) then
             name = 'reinforceEventSprite'
 
+        elseif (dc_target == FEVERTIME_SALE_EVENT.MASTERY_DC) then
+            name = 'masteryEventSprite'
+
         end
 
         if (name) then
-           g_hotTimeData:setDiscountEventNode(dc_target, vars, name)
+           g_fevertimeData:setDiscountEventNode(dc_target, vars, name)
         end
     end
 	
