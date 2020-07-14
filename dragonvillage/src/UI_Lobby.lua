@@ -1992,7 +1992,7 @@ function UI_Lobby:update_rightButtons()
     do -- 핫타임
         if (g_fevertimeData:isHighlightFevertime() == true) then
             vars['fevertimeBtn']:setVisible(true)
-            vars['fevertimeNotiSprite']:setVisible(true)
+            vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isNotUsedFevertimeExist())
         else
             vars['fevertimeBtn']:setVisible(false)
             vars['fevertimeNotiSprite']:setVisible(false)
