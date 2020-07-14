@@ -1805,9 +1805,9 @@ function UI_Lobby:refresh_hottime()
     end
 	
 	-- 할인 이벤트
-	local l_dc_event = g_hotTimeData:getDiscountEventList()
+	local l_dc_event = g_fevertimeData:getDiscountEventList()
     for i, dc_target in ipairs(l_dc_event) do
-        g_hotTimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
+        g_fevertimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
     end
 	
     -- 할인 이벤트에 따라 마스터로드, 성장일지 올려줌

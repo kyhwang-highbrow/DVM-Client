@@ -342,6 +342,11 @@ function UI_DragonManageInfo:refresh_buttonState_masteryBtn()
 
     vars['masteryBtn']:setVisible(masteryBtn_visible)
     vars['levelupBtn']:setVisible(levelupBtn_visible)
+
+    -- 마스터리 할인 피버타임 적용
+    if (g_fevertimeData:isActiveFevertime_masteryDc()) then
+        vars['masteryEventSprite']:setVisible(true)
+    end
 end
 
 -------------------------------------

@@ -263,6 +263,15 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
     local is_max_level = (mastery_level == 10)
     vars['lockSprite']:setVisible(is_max_level)
     vars['masteryLvUpBtn']:setEnabled(not is_max_level)
+
+    -- 마스터리 할인 피버타임 적용
+    if (g_fevertimeData:isActiveFevertime_masteryDc()) then
+        vars['masteryEventSprite1']:setVisible(true)
+        vars['masteryEventSprite2']:setVisible(true)
+        local _, value = g_fevertimeData:isActiveFevertimeByType('mastery_dc')
+        local str = Str('{1}% 할인', value * 100)
+        vars['masteryEventLabel']:setString(str)
+    end
 end
 
 -------------------------------------

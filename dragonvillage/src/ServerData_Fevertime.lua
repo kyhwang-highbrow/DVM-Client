@@ -13,6 +13,11 @@ ServerData_Fevertime = class({
         m_expirationTimestamp = 'timestamp',
     })
 
+-- 할인 이벤트
+FEVERTIME_SALE_EVENT = {
+    MASTERY_DC = 'mastery_dc', -- 룬 해제 할인
+}
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -124,7 +129,6 @@ function ServerData_Fevertime:applyFevertimeData(t_data)
         local struct_fevertime = StructFevertime:create_forFevertime(v)
         table.insert(self.m_lFevertime, struct_fevertime)
     end
-
 end
 
 -------------------------------------
@@ -547,4 +551,123 @@ function ServerData_Fevertime:convertType_hottimeToFevertime(hottime_type)
     end
 
     return hottime_type
+end
+
+-------------------------------------
+-- function getDiscountEventValue
+-------------------------------------
+function ServerData_Fevertime:getDiscountEventValue(dc_target)
+    local is_active, dc_value = self:isActiveFevertimeByType(dc_target)
+    dc_value = dc_value * 100
+
+	return dc_value
+end
+
+-------------------------------------
+-- function ServerData_Fevertime
+-------------------------------------
+function ServerData_Fevertime:getDiscountEventText(dc_target, only_value)
+	local dc_value = self:getDiscountEventValue(dc_target)
+	local dc_text
+	if (dc_value == 0) then
+	    -- nothing to do
+	elseif (dc_value == 100) then
+		dc_text = self:getDiscountEventText_Free(dc_target, only_value)
+	else
+		dc_text = self:getDiscountEventText_Value(dc_target, only_value)
+	end
+	
+	return dc_text
+end
+
+-------------------------------------
+-- function getDiscountEventText_Free
+-------------------------------------
+function ServerData_Fevertime:getDiscountEventText_Free(dc_target, only_value)
+    local dc_text = ''
+
+    if (only_value) then
+        dc_text = Str('무료')
+
+    elseif (dc_target == FEVERTIME_SALE_EVENT.MASTERY_DC) then
+        dc_text = Str('특성 레벨업 비용 무료')
+    end
+
+    return dc_text
+end
+
+-------------------------------------
+-- function getDiscountEventText_Value
+-------------------------------------
+function ServerData_Fevertime:getDiscountEventText_Value(dc_target, only_value)
+    local dc_value = self:getDiscountEventValue(dc_target)
+    local dc_text = ''
+
+    if (only_value) then
+        dc_text = Str('{1}% 할인', dc_value)
+
+    elseif (dc_target == FEVERTIME_SALE_EVENT.MASTERY_DC) then
+        dc_text = Str('특성 레벨업 비용 {1}% 할인', dc_value)
+    end
+
+    return dc_text
+end
+
+-------------------------------------
+-- function ServerData_Fevertime
+-- @param : dc_target - HOTTIME_SALE_EVENT key
+-- @param : vars - ui vars
+-- @param : lua_name - sprite lua_name
+-- @param : only_value - full text or value text
+-------------------------------------
+function ServerData_Fevertime:setDiscountEventNode(dc_target, vars, lua_name, only_value)
+    if (dc_target == 'rune' or dc_target == 'runelvup' or dc_target == 'skillmove' or dc_target == 'reinforce') then
+        g_hotTimeData:setDiscountEventNode(dc_target, vars, lua_name)
+    else
+        local dc_value = self:getDiscountEventValue(dc_target)
+        if (not dc_value) or (dc_value == 0) then
+            return
+        end
+
+        local sprite = vars[lua_name]
+        local action_tag = 99
+        if (sprite) then
+            sprite:setVisible(true)
+            -- 액션이 없는 경우에만 추가
+            local is_play = sprite:getActionByTag(action_tag)
+            if (not is_play) then
+                -- 흔들림 액션 추가
+                local action = cca.buttonShakeAction(1, 2)
+                action:setTag(action_tag)
+                sprite:runAction(action)
+            end
+        end
+
+        -- 라벨이 있는 경우 텍스트 표기
+        local _lua_name = string.gsub(lua_name, 'Sprite', 'Label')
+        local text = self:getDiscountEventText(dc_target, only_value)
+        local label = vars[_lua_name]
+        if (label) then
+            label:setString(text)
+        end
+    end
+end
+
+-------------------------------------
+-- function getDiscountEventList
+-------------------------------------
+function ServerData_Fevertime:getDiscountEventList()
+    local l_dc_event = {}
+    l_dc_event = g_hotTimeData:getDiscountEventList()
+
+    for k, v in pairs(FEVERTIME_SALE_EVENT) do
+        local dc_target = v
+        local is_active, dc_value = self:isActiveFevertimeByType(dc_target)
+
+        if (dc_value > 0) then
+            table.insert(l_dc_event, dc_target)
+        end
+    end
+	
+	return l_dc_event
 end
