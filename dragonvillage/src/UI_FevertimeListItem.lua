@@ -56,8 +56,8 @@ function UI_FevertimeListItem:initUI()
         local icon_sprite = self:makeFevertimeIcon(fevertime_type)
         vars['iconNode']:addChild(icon_sprite, -1)
 
-        local fevertime_value = tostring(struct_fevertime:getFevertimeValue() * 100) .. '%'
-        vars['hotTimePerLabel']:setString(fevertime_value)
+        local fevertime_str = self:getFevertimeStr(struct_fevertime)
+        vars['hotTimePerLabel']:setString(fevertime_str)
 
     end
 
@@ -128,6 +128,41 @@ function UI_FevertimeListItem:initUI()
             end
         end
     end
+end
+
+-------------------------------------
+-- function getFevertimeStr
+-- @ brief 피버타임 Label에 사용할 String 생성
+-------------------------------------
+function UI_FevertimeListItem:getFevertimeStr(struct_fevertime)
+    local result_str = ''
+    local fevertime_value = tostring(struct_fevertime:getFevertimeValue() * 100)
+    local fevertime_type = struct_fevertime:getFevertimeType()
+
+    if (self:isFevertimeDc(fevertime_type)) then
+        result_str = '-' .. fevertime_value .. '%'
+    else
+        result_str = '+' .. fevertime_value .. '%'
+    end
+    
+    return result_str
+end
+
+-------------------------------------
+-- function isFevertimeDc
+-- @ brief 할인 피버타임인가?
+-------------------------------------
+function UI_FevertimeListItem:isFevertimeDc(fevertime_type)
+    print(fevertime_type)
+
+    if (fevertime_type == 'ad_st_dc' or fevertime_type == 'rune_lvup_dc' or fevertime_type == 'rune_dc' or fevertime_type == 'reinforce_dc'
+        or fevertime_type == 'skill_move_dc' or fevertime_type == 'mastery_dc' or fevertime_type == 'dg_gt_st_dc' or fevertime_type == 'dg_gd_st_dc'
+        or fevertime_type == 'dg_nm_st_dc' or fevertime_type == 'dg_ar_st_dc' or fevertime_type == 'dg_rg_st_dc'
+    ) then
+        return true
+    end
+    
+    return false
 end
 
 -------------------------------------
