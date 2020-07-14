@@ -671,19 +671,3 @@ function ServerData_Fevertime:getDiscountEventList()
 	
 	return l_dc_event
 end
-
--------------------------------------
--- function getFevertimeTitle
--- @brief 피버타임 타이틀 불러오기
--------------------------------------
-function ServerData_Fevertime:getFevertimeTitle(struct_fevertime)
-    if (struct_fevertime == nil) then
-        return
-    end
-
-    if (struct_fevertime:isTodayDailyHottime()) then
-        
-    elseif (struct_fevertime:isActiveFevertime()) then
-
-    end
-end
