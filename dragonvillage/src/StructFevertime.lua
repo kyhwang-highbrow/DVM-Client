@@ -280,9 +280,9 @@ end
 -------------------------------------
 function StructFevertime:getTimeLabelStr()
     if (self:isDailyHottimeSchedule() == true) then
-        local milliseconds = self['hour'] * 60 * 60 * 1000
-        local time_str = datetime.makeTimeDesc_timer(milliseconds, false) -- param : milliseconds, day_special
-        local str = Str('남은 시간 : {1}', time_str)
+        local seconds = self['hour'] * 60 * 60
+        local time_str = datetime.makeTimeDesc(seconds, false) -- param : milliseconds, day_special
+        local str = Str('{1}', time_str)
         return str
     else
         local cur_time = Timer:getServerTime_Milliseconds()
