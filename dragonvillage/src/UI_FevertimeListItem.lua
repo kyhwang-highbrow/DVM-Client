@@ -175,6 +175,8 @@ function UI_FevertimeListItem:initButton()
 
     vars['questLinkBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['inactivestartBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['inactivequestLinkBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
     
 
     -- 일일 핫타임 스케쥴이고, 오늘 날짜에 포함되었을 경우
@@ -233,12 +235,22 @@ function UI_FevertimeListItem:click_startBtn()
         return
     end
 
+    self:FevertimeConfirmPopup(struct_fevertime)
+end
+
+-------------------------------------
+-- function FevertimeConfirmPopup
+-- @brief
+-------------------------------------
+function UI_FevertimeListItem:FevertimeConfirmPopup(struct_fevertime)
     local id = struct_fevertime:getFevertimeID()
+
     local function finish_cb(ret)
         if self.m_cbChangeData then
             self.m_cbChangeData()
         end
     end
+
     local function okBtn()
         g_fevertimeData:request_fevertimeActive(id, finish_cb)
     end
@@ -361,13 +373,28 @@ function UI_FevertimeListItem:update(dt)
         vars['activeSprite']:setVisible(struct_fevertime:isActiveFevertime())
 
         local is_shaded = false
-
         if struct_fevertime:isFevertimeExpired() then
             vars['CompletMenu']:setVisible(true)
             is_shaded = true
+
+            if (struct_fevertime:isDailyHottimeSchedule() == true) then
+                vars['inactivestartBtn']:setVisible(true)
+            elseif (struct_fevertime:isDailyHottime() == true) then
+                vars['inactivequestLinkBtn']:setVisible(true)
+            elseif (struct_fevertime:isGlobalHottime() == true) then
+                vars['inactivequestLinkBtn']:setVisible(true)
+            end
         elseif struct_fevertime:isBeforeStartDate() then
             vars['nextdayMenu']:setVisible(true)
             is_shaded = true
+
+            if (struct_fevertime:isDailyHottimeSchedule() == true) then
+                vars['inactivestartBtn']:setVisible(true)
+            elseif (struct_fevertime:isDailyHottime() == true) then
+                vars['inactivestartBtn']:setVisible(true)
+            elseif (struct_fevertime:isGlobalHottime() == true) then
+                vars['inactivequestLinkBtn']:setVisible(true)
+            end
         end
 
         if (is_shaded == true) then
