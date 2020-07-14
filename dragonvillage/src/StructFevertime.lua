@@ -450,7 +450,7 @@ function StructFevertime:create_forFevertimeGlobal(t_data)
     struct_fevertime['start_date'] = t_data['start']
     struct_fevertime['end_date'] = t_data['end']
     struct_fevertime['badge'] = t_data['badge']
-    struct_fevertime['title'] = t_data['desc'] or '이벤트 핫타임'
+    struct_fevertime['title'] = t_data['desc'] or '스페셜 핫타임'
 
     return struct_fevertime
 end
