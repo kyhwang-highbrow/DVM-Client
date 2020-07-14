@@ -590,7 +590,7 @@ function ServerData_Fevertime:getDiscountEventText_Free(dc_target, only_value)
         dc_text = Str('무료')
 
     elseif (dc_target == FEVERTIME_SALE_EVENT.MASTERY_DC) then
-        dc_text = Str('특성 레벨업 비용 무료')
+        dc_text = Str('특성 레벨업 무료')
     end
 
     return dc_text
@@ -607,7 +607,7 @@ function ServerData_Fevertime:getDiscountEventText_Value(dc_target, only_value)
         dc_text = Str('{1}% 할인', dc_value)
 
     elseif (dc_target == FEVERTIME_SALE_EVENT.MASTERY_DC) then
-        dc_text = Str('특성 레벨업 비용 {1}% 할인', dc_value)
+        dc_text = Str('특성 레벨업 {1}% 할인', dc_value)
     end
 
     return dc_text
