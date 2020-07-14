@@ -13,6 +13,7 @@ StructFevertime = class(PARENT, {
         start_date = 'number', -- timestamp
         end_date = 'number', -- timestamp
         badge = 'string',
+        title = 'string', -- title
 
         --------------------------------------------------
         start_date_for_sort = 'number',
@@ -352,6 +353,13 @@ function StructFevertime:getBadgeStr()
 end
 
 -------------------------------------
+-- function getBadgeStr
+-------------------------------------
+function StructFevertime:getTitleStr()
+    return self['title']
+end
+
+-------------------------------------
 -- function sortFunc
 -------------------------------------
 function StructFevertime.sortFunc(struct_a, struct_b)
@@ -405,6 +413,7 @@ function StructFevertime:create_forFevertime(t_data)
     struct_fevertime['start_date'] = t_data['start']
     struct_fevertime['end_date'] = t_data['end']
     struct_fevertime['badge'] = t_data['badge']
+    struct_fevertime['title'] = t_data['desc'] or '일일 핫타임'
     return struct_fevertime
 end
 
@@ -422,6 +431,7 @@ function StructFevertime:create_forFevertimeSchedule(t_data)
     struct_fevertime['start_date'] = nil
     struct_fevertime['end_date'] = nil
     struct_fevertime['badge'] = t_data['badge']
+    struct_fevertime['title'] = t_data['desc'] or '일일 핫타임'
     
     return struct_fevertime
 end
@@ -440,6 +450,7 @@ function StructFevertime:create_forFevertimeGlobal(t_data)
     struct_fevertime['start_date'] = t_data['start']
     struct_fevertime['end_date'] = t_data['end']
     struct_fevertime['badge'] = t_data['badge']
+    struct_fevertime['title'] = t_data['desc'] or '이벤트 핫타임'
 
     return struct_fevertime
 end

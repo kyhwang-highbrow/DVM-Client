@@ -62,7 +62,7 @@ function UI_FevertimeListItem:initUI()
     end
 
     do -- 이름
-        local str = struct_fevertime:getFevertimeName()
+        local str = '[' .. struct_fevertime:getTitleStr() .. ']'
         vars['titleLabel']:setString(str)
     end
 
