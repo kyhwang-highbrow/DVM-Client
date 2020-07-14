@@ -99,19 +99,23 @@ function UI_EventPopupTab_Banner:init_customUI()
 
     -- 콜로세움 명예 획득량 증가 핫타임
     elseif (banner == 'event_fevertime_notice_02.ui') then
-        local label = vars['infoLabel']
-        if label then
-            local str = Str('콜로세움에서 획득하는 명예 획득량이 {@yellow}{1}% 증가{@default}합니다.', 100)
-            label:setString(str)
-        end
+        self:changeTitleSprite(vars)
+    end
+end
 
-        local label = vars['timeLabel']
-        if label then
-            if (g_localData:isAmericaServer() == true) then
-                label:setString('6/29 00:00 ~ 7/5 23:59')
-            else
-                label:setString('6/30 00:00 ~ 7/5 23:59')
-            end
+-------------------------------------
+-- function changeTitleSprite
+-- @brief 구글 피쳐드 선정 기념. 구글 market -> '구글 피처드 선정 기념 ~', 아니면 '피처드 선정 기념 ~'
+-------------------------------------
+function UI_EventPopupTab_Banner:changeTitleSprite(ui)
+    if (ui['otherMarketSprite'] and ui['otherMarketSprite']) then
+        local market, os = GetMarketAndOS()
+        ui['googleSprite']:setVisible(false)
+        ui['otherMarketSprite']:setVisible(false)
+        if (market == 'google' or market == 'windows') then
+            ui['googleSprite']:setVisible(true)
+        else
+            ui['otherMarketSprite']:setVisible(true)
         end
     end
 end
