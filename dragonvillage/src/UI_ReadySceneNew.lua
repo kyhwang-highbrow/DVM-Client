@@ -1236,7 +1236,7 @@ function UI_ReadySceneNew:checkFevertimePopupCondition()
 
     -- 튜토리얼 진행 중이라면
     if (TutorialManager.getInstance():isDoing()) then
-        --return false
+        return false
     end
 
     -- 핫타임 팝업이 1번 이상 열렸을 경우
@@ -1246,7 +1246,12 @@ function UI_ReadySceneNew:checkFevertimePopupCondition()
 
     -- 해당하는 핫타임이 없음. 게임 시작 가능
     if (usable_fevertime_count == 0) then
-        --return false
+        return false
+    end
+
+    -- 모험모드 1-7까지 클리어 체크
+    if (not g_adventureData:isClearStage(1110107)) then
+        return false
     end
 
     return true, usable_fevertime_count
