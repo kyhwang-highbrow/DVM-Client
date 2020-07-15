@@ -388,6 +388,8 @@ function UI_FevertimeListItem:update(dt)
 
         vars['CompletMenu']:setVisible(false)
         vars['nextdayMenu']:setVisible(false)
+        vars['inactivestartBtn']:setVisible(false)
+        vars['inactivequestLinkBtn']:setVisible(false)
         vars['activeSprite']:setVisible(struct_fevertime:isActiveFevertime())
 
         local is_shaded = false
