@@ -6,7 +6,7 @@ public class PerpleConfig {
     public static final String BASE64_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2AOyhy0owSekR+QEpAUb2fV/wBtRmuD8UNEsku6iGM+Qx5o7iBMlGlcb7kjCJ86hMAu6g+1cdGFTQGCGTKrDZS6AfTv8NDB5EFwxvLa8Rn9aUU0nkaLFGNQvEo+gplP1PZQZLd30RMmJy/uYkzA2+vCdGaOQRTckwbczDBQyKWtQ5k5aj/1HQ/X8XxZneaKAM2JyFgFcjSYtlep9/XOQ6K2aR0VLoMse2rGkaFJQAFOBgNlNbvC3cbvaZe1hnZ4ypjadsPzw83ZpQYaMRTUF1k/TpB6CuSIX4L2ykUkEDyWn0RECpO3jR1fJ1Lb2ddYTpb8gORou9mhIK9Nfr8Cn4wIDAQAB";
 
     // @tapjoy
-    public static final String TAPJOY_SDK_KEY = "VtVvich_QeatbeyDSIr6dwEC5AAFh95jdytHE0zquLPS2_6z7iipyrSnMqWg";
+    public static final String TAPJOY_SDK_KEY = "MZ5hVosGT1eLIW00UXCPvgEC7RNJdi2ZS0Kjtpd7IgoRLXg6N96edKY8h5cA";
 
     // @twitter
     public static final String TWITTER_CONSUMER_KEY = "VCJ9gb6EjeIQO74rAbUl9B6aj";
@@ -20,8 +20,8 @@ public class PerpleConfig {
     public static final int NAVER_COMMUNITY_ID = 0;
 
     // @adjust
-    public static final String ADJUST_TOKKEN_ID = "5hctjoc4p2bk";
-    public static final long[] ADJUST_SECRET_KEY = {1, 1523262969, 988300786, 567273097, 724638624};
+    public static final String ADJUST_TOKKEN_ID = "esjmkti8vim8";
+    public static final long[] ADJUST_SECRET_KEY = {1, 562501988, 1877997235, 662395286, 1781468312};
 
     // @admob
     public static final String ADMOB_APP_ID = "ca-app-pub-9497777061019569~9623723983";
