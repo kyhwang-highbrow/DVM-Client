@@ -765,7 +765,7 @@ function UI_GameResultNew:set_modeButton()
             -- 다음 스테이지가 열려있을 경우
             local stage_id = self.m_stageID
             local next_stage_id = g_stageData:getNextStage(stage_id)
-            if (g_stageData:isOpenStage(next_stage_id) == true) then
+            if (next_stage_id ~= nil) and (g_stageData:isOpenStage(next_stage_id) == true) then
                 -- 다음 스테이지를 한번도 클리어하지 못한 경우
                 if (g_adventureData:isClearStage(next_stage_id) == false) then
                     -- 다음 버튼에 흔들림 추가
