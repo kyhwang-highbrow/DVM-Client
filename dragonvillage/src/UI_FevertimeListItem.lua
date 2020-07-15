@@ -10,6 +10,8 @@ UI_FevertimeListItem = class(PARENT, {
         m_defaultColorTitle = 'cc.c3b',
         m_defaultColorInfo = 'cc.c3b',
         m_defaultColorTime = 'cc.c3b',
+
+        m_bEnabledLinkBtn = 'boolean', -- 바로가기 버튼 사용 가능 여부
     })
 
 -------------------------------------
@@ -17,6 +19,7 @@ UI_FevertimeListItem = class(PARENT, {
 -------------------------------------
 function UI_FevertimeListItem:init(struct_fevertime)
     self.m_structFevertime = struct_fevertime
+    self.m_bEnabledLinkBtn = true
 
 	-- UI load
 	local ui_name = 'event_fevertime_list_item.ui' 
@@ -198,6 +201,15 @@ function UI_FevertimeListItem:initButton()
 end
 
 -------------------------------------
+-- function setEnabled_linkBtn
+-- @brief 바로가기 버튼이 동작하지 않아야 될 경우 사용
+-- @param enabled boolean
+-------------------------------------
+function UI_FevertimeListItem:setEnabled_linkBtn(enabled)
+    self.m_bEnabledLinkBtn = enabled
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_FevertimeListItem:refresh()
@@ -208,6 +220,12 @@ end
 -- @brief 바로가기
 -------------------------------------
 function UI_FevertimeListItem:click_linkBtn()
+    if (self.m_bEnabledLinkBtn == false) then
+        local msg = Str('지금 화면에서는 바로가기를 사용할 수 없습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
     local struct_fevertime = self.m_structFevertime
     local link_type = struct_fevertime:getFevertimeLinkType()
     QuickLinkHelper.quickLink(link_type)

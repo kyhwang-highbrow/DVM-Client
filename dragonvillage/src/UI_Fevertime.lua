@@ -7,12 +7,21 @@ local PARENT = UI
 UI_Fevertime = class(PARENT,{
         m_bDirty = 'boolean',
         m_bRequested = 'boolean',
+        m_bEnabledLinkBtn = 'boolean', -- 바로가기 버튼 사용 가능 여부
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Fevertime:init()
+function UI_Fevertime:init(enabled_link_btn)
+
+    -- enabled_link_btn값이 nil이면 무시, nil이 아닐 경우 설정
+    -- 기본값은 true
+    self.m_bEnabledLinkBtn = true
+    if (enabled_link_btn ~= nil) then
+        self.m_bEnabledLinkBtn = enabled_link_btn
+    end
+
     local ui_name = 'event_fevertime.ui'
     self:load(ui_name)
 
@@ -38,6 +47,29 @@ function UI_Fevertime:initUI()
     vars['hotTimeGoldLabel']:setString('')
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function openPopup
+-------------------------------------
+function UI_Fevertime:openPopup()
+    UIManager:open(self, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Fevertime')
+
+    -- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    -- 우상단에 닫기 버튼 활성화
+    local vars = self.vars
+    local close_btn = vars['closeBtn']
+    if close_btn then
+        close_btn:setVisible(true)
+        close_btn:registerScriptTapHandler(function() self:close() end)
+    end
 end
 
 -------------------------------------
@@ -79,6 +111,9 @@ function UI_Fevertime:refresh()
 
         local function create_func(ui, data)
             ui:setChangeDataCB(function() self.m_bDirty = true end)
+
+            -- 바로가기 버튼 사용 가능 여부
+            ui:setEnabled_linkBtn(self.m_bEnabledLinkBtn)
         end
         
 

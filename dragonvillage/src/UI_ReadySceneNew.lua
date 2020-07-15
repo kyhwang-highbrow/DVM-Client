@@ -26,6 +26,7 @@ UI_ReadySceneNew = class(PARENT,{
 
         -- 멀티덱 사용하는 경우 (클랜 던전, 고대 유적 던전)
         m_multiDeckMgr = 'MultiDeckMgr',
+        m_numOfFevertimePopupOpened = 'number', -- 핫타임 팝업이 열린 횟수
     })
 
 -------------------------------------
@@ -36,6 +37,7 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     SpineCacheManager:getInstance():purgeSpineCacheData()
     self.m_gameMode = g_stageData:getGameMode(stage_id)
     self.m_subInfo = sub_info
+    self.m_numOfFevertimePopupOpened = 0
 	
     if (not stage_id) then
 		stage_id = COLOSSEUM_STAGE_ID
@@ -598,7 +600,7 @@ function UI_ReadySceneNew:initButton()
     vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
 
     -- 일일 핫타임
-    vars['fevertimeBtn']:registerScriptTapHandler(function() self:click_fevertimeBtn() end)
+    vars['fevertimeBtn']:registerScriptTapHandler(function() self:openFevertimePopup() end)
 
     -- 속성 도움말
     vars['attrInfoBtn']:registerScriptTapHandler(function() self:click_attrInfoBtn() end)
@@ -637,11 +639,18 @@ function UI_ReadySceneNew:initButton()
         end
     end
 
-    -- 핫타임
-    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-        local not_used_fevertime_list = g_fevertimeData:getNotUsedDailyFevertime_adventure()
-        if (table.count(not_used_fevertime_list) > 0) then
+    do -- 핫타임 팝업 버튼
+        vars['fevertimeBtn']:setVisible(false) -- 기본값
+        vars['fevertimeNotiSprite']:setVisible(false) -- 기본값
+
+        -- 핫타임 팝업 노출 조건 체크
+        local ret, usable_fevertime_count = self:checkFevertimePopupCondition()
+        if (self:checkFevertimePopupCondition() == true) then
             vars['fevertimeBtn']:setVisible(true)
+
+            if (1 <= usable_fevertime_count) then
+                vars['fevertimeNotiSprite']:setVisible(true)
+            end
         end
     end
 
@@ -1201,17 +1210,9 @@ function UI_ReadySceneNew:changeTeam(deck_name)
 end
 
 -------------------------------------
--- function isFevertimePopupPopped
--- @breif
--------------------------------------
-function UI_ReadySceneNew:isFevertimePopupPoppedToday()
-    return false
-end
-
--------------------------------------
 -- function getNotUsedDailyFevertime
 -- @breif 
--- @return 리턴 false면 게임 시작 안함
+-- @return table(list)
 -------------------------------------
 function UI_ReadySceneNew:getNotUsedDailyFevertime()
     local game_mode = self.m_gameMode
@@ -1224,25 +1225,31 @@ function UI_ReadySceneNew:getNotUsedDailyFevertime()
 end
 
 -------------------------------------
--- function FevertimePopup
+-- function checkFevertimePopupCondition
 -- @breif 
--- @return 리턴 false면 게임 시작 안함
+-- @return boolean true일 경우 전투 시작 시 핫타임 팝업을 띄운다.
+-- @return number usable_fevertime_count
 -------------------------------------
-function UI_ReadySceneNew:FevertimePopup()
+function UI_ReadySceneNew:checkFevertimePopupCondition()
+    local usable_fevertime_list = self:getNotUsedDailyFevertime()
+    local usable_fevertime_count = table.count(usable_fevertime_list)
 
-    if (not self:isFevertimePopupPoppedToday()) then
-        local usable_fevertime = self:getNotUsedDailyFevertime()
-
-        if (#usable_fevertime == 0) then
-            return true
-        elseif (#usable_fevertime == 1) then
-            self:FevertimeConfirmPopup(usable_fevertime[1])
-            return false
-        else
-            UI_FevertimeConfirmPopupList()
-            return false
-        end
+    -- 튜토리얼 진행 중이라면
+    if (TutorialManager.getInstance():isDoing()) then
+        --return false
     end
+
+    -- 핫타임 팝업이 1번 이상 열렸을 경우
+    if (1 <= self.m_numOfFevertimePopupOpened) then
+        return false
+    end
+
+    -- 해당하는 핫타임이 없음. 게임 시작 가능
+    if (usable_fevertime_count == 0) then
+        --return false
+    end
+
+    return true, usable_fevertime_count
 end
 
 -------------------------------------
@@ -1279,39 +1286,49 @@ function UI_ReadySceneNew:click_startBtn()
     local stage_id = self.m_stageID
     local can_start_game = true
 
-    can_start_game = self:FevertimePopup()
 
-    if (can_start_game) then
-        -- 개발 스테이지
-        if (stage_id == DEV_STAGE_ID) then
-            self:checkChangeDeck(function()
-                --local scene = SceneGame(nil, stage_id, 'stage_dev', true)
-                --local scene = SceneGame(nil, EVENT_GOLD_STAGE_ID, 'stage_' .. EVENT_GOLD_STAGE_ID, true)
-                local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
-                --local scene = SceneGameIntro()
-                scene:runScene()
-            end)
-            return
-        end
-
-        if (not self:check_startCondition(stage_id)) then    
-		    return
-        end
-
-	    -- 던전 진입 전에 광고할 것이 있는지 확인
-	    local is_promote = self:checkPromoteAutoPick(stage_id)
-	    if (is_promote) then
-		    return
-	    end
-	
-        -- 클랜던전 연습모드의 경우
-        if (self:isClanRaidTrainingMode(self.m_stageID)) then           
-            self:startGame_clanRaidTraining()
-            return
-        end
-	
-        self:startGame(stage_id)	
+    -- 핫타임 팝업 확인
+    if (self:checkFevertimePopupCondition() == true) then
+        -- 핫타임 팝업
+        self:openFevertimePopup()
+    
+        -- 안내 팝업
+        local msg = Str('일일 핫타임 사용 안내')
+        local submsg = Str('아직 사용하지 않은 일일 핫타임이 있습니다.')
+        local ok_cb = nil
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, nil)
+        return
     end
+
+    -- 개발 스테이지
+    if (stage_id == DEV_STAGE_ID) then
+        self:checkChangeDeck(function()
+            --local scene = SceneGame(nil, stage_id, 'stage_dev', true)
+            --local scene = SceneGame(nil, EVENT_GOLD_STAGE_ID, 'stage_' .. EVENT_GOLD_STAGE_ID, true)
+            local scene = SceneGameEventArena(nil, ARENA_STAGE_ID, 'stage_colosseum', true)
+            --local scene = SceneGameIntro()
+            scene:runScene()
+        end)
+        return
+    end
+
+    if (not self:check_startCondition(stage_id)) then    
+		return
+    end
+
+	-- 던전 진입 전에 광고할 것이 있는지 확인
+	local is_promote = self:checkPromoteAutoPick(stage_id)
+	if (is_promote) then
+		return
+	end
+	
+    -- 클랜던전 연습모드의 경우
+    if (self:isClanRaidTrainingMode(self.m_stageID)) then           
+        self:startGame_clanRaidTraining()
+        return
+    end
+	
+    self:startGame(stage_id)
 end
 
 -------------------------------------
@@ -1743,10 +1760,30 @@ function UI_ReadySceneNew:click_saveBestTeam()
 end
 
 -------------------------------------
--- function click_fevertimeBtn
+-- function openFevertimePopup
 -------------------------------------
-function UI_ReadySceneNew:click_fevertimeBtn()
-    g_eventData:openEventPopup('fevertime')
+function UI_ReadySceneNew:openFevertimePopup()
+
+    -- 핫타임 팝업이 열린 횟수 증가
+    self.m_numOfFevertimePopupOpened = (self.m_numOfFevertimePopupOpened + 1)
+
+    -- 핫타임 팝업 띄움 (바로가기 버튼 사용 불가하게 설정)
+    require('UI_Fevertime')
+    local ui = UI_Fevertime(false) -- param : enabled_link_btn
+    ui:openPopup()
+
+    local function close_cb()
+        local vars = self.vars
+        local usable_fevertime_list = self:getNotUsedDailyFevertime()
+        if (1 <= table.count(usable_fevertime_list)) then
+            vars['fevertimeNotiSprite']:setVisible(true)
+        else
+            vars['fevertimeNotiSprite']:setVisible(false)
+        end
+    end
+    ui:setCloseCB(close_cb)
+
+    return ui
 end
 
 -------------------------------------
