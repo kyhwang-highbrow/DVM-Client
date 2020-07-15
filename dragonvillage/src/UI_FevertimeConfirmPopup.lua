@@ -68,7 +68,7 @@ function UI_FevertimeConfirmPopup:refresh()
     -- 시간과 InfoLabel을 따로 표기했었는데, InfoLabel에 시간을 추가하여 표기함.
     -- vars['timeLabel']:setString(self.m_fevertimePeriod) 
 
-    local str = self.m_fevertimeInfo .. '\n{@green}' .. self.m_fevertimePeriod
+    local str = self.m_fevertimeInfo .. ' \n' .. '{@green}' .. self.m_fevertimePeriod
     vars['hotTimeInfoLabel']:setString(str)
     
     vars['hotTimeNameLabel']:setString(self.m_fevertimeName)
