@@ -75,6 +75,8 @@ return {['고귀하고 당당한 풍채를 지닌 물의 드래곤. 차디찬 �
 ['일일 핫타임 사용 안내']='Daily Hot Time Use Info',
 ['아직 사용하지 않은 일일 핫타임이 있습니다.']='Unused Daily Hot Time exists.',
 ['지금 사용하시겠습니까?']='Use now?',
+['모험에서 날개 소비량이 {@yellow}50% 할인{@default}됩니다.']='Spend {@yellow}50% fewer{@default} Wings in Adventure mode.',
+['지금 화면에서는 바로가기를 사용할 수 없습니다.']='Go button is not available on this screen.',
 ['게임을 진행하다 보면, 이런  {@yellow}마스터의 길{@default} 알림 메시지를 받게 됩니다.']='게임을 진행하다 보면, 이런  {@yellow}마스터의 길{@default} 알림 메시지를 받게 됩니다.',
 ['마스터의 길 임무를 클리어 하면 다양한 보수를 얻을 수 있다고 합니다.']='마스터의 길 임무를 클리어 하면 다양한 보수를 얻을 수 있다고 합니다.',
 ['이번엔 영웅의 알을 보수로 준다고 하네요!']='이번엔 영웅의 알을 보수로 준다고 하네요!',
