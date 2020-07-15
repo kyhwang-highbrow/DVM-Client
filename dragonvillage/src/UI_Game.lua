@@ -128,7 +128,7 @@ local HOTTIME_UI_INFO = {
 	['stamina'] = {
 		['button'] = 'hotTimeStBtn',
 		['label'] = 'hotTimeStLabel',
-		['format'] = '1/2',
+		['format'] = '-%s%%',
 	},
     ['dg_gd_item_up'] = {
         ['button'] = 'hotTimeGdBtn',
@@ -357,6 +357,9 @@ end
 
 -------------------------------------
 -- function applyFevertime
+-- @param type 피버타임 타입
+-- @param store_table 저장할 테이블
+-- @brief 피버타임 type에 해당하는 값을 % 형식으로 store_table에 저장한다. -- ServerData_Fevertime으로 옮겨서 추후 커밋
 -------------------------------------
 function UI_Game:applyFevertime(type, store_table)
     local is_active, value = g_fevertimeData:isActiveFevertimeByType(type)

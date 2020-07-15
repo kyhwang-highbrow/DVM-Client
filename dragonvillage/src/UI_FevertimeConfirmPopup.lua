@@ -74,7 +74,7 @@ function UI_FevertimeConfirmPopup:refresh()
     local value = tostring(self.m_fevertimeValue * 100) .. '%'
     vars['hotTimePerLabel']:setString(value)
 
-    local sprite = self:makeFevertimeIcon(self.m_structFevertime)
+    local sprite = self:makeFevertimeIconSprite(self.m_structFevertime)
     vars['hotTimeIconNode']:addChild(sprite, -1)
 end
 
@@ -87,9 +87,9 @@ end
 
 -------------------------------------
 -- function setFevertimeIcon
+-- @brief 피버타임 아이콘 sprite 생성
 -------------------------------------
-function UI_FevertimeConfirmPopup:makeFevertimeIcon(struct_fevertime)
-    local vars = self.vars
+function UI_FevertimeConfirmPopup:makeFevertimeIconSprite(struct_fevertime)
     local path = struct_fevertime:getFevertimeIcon()
 
     local sprite = cc.Sprite:create(path)
@@ -121,13 +121,6 @@ function UI_FevertimeConfirmPopup:click_cancelBtn()
     end
 
     self:close()
-end
-
--------------------------------------
--- function click_linkBtn
--------------------------------------
-function UI_FevertimeConfirmPopup:click_linkBtn()
-    UI_LoginPopup2()
 end
 
 --@CHECK

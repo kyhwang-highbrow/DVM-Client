@@ -569,6 +569,7 @@ end
 
 -------------------------------------
 -- function getDiscountEventValue
+-- @brief ServerData_HotTime에서 가져온걸 ServerData_Fevertime용으로 변경
 -------------------------------------
 function ServerData_Fevertime:getDiscountEventValue(dc_target)
     local is_active, dc_value = self:isActiveFevertimeByType(dc_target)
@@ -579,6 +580,7 @@ end
 
 -------------------------------------
 -- function ServerData_Fevertime
+-- @brief ServerData_HotTime에서 가져온걸 ServerData_Fevertime용으로 변경
 -------------------------------------
 function ServerData_Fevertime:getDiscountEventText(dc_target, only_value)
 	local dc_value = self:getDiscountEventValue(dc_target)
@@ -596,6 +598,7 @@ end
 
 -------------------------------------
 -- function getDiscountEventText_Free
+-- @brief ServerData_HotTime에서 가져온걸 ServerData_Fevertime용으로 변경
 -------------------------------------
 function ServerData_Fevertime:getDiscountEventText_Free(dc_target, only_value)
     local dc_text = ''
@@ -612,6 +615,7 @@ end
 
 -------------------------------------
 -- function getDiscountEventText_Value
+-- @brief ServerData_HotTime에서 가져온걸 ServerData_Fevertime용으로 변경
 -------------------------------------
 function ServerData_Fevertime:getDiscountEventText_Value(dc_target, only_value)
     local dc_value = self:getDiscountEventValue(dc_target)
@@ -629,6 +633,7 @@ end
 
 -------------------------------------
 -- function setDiscountEventNode
+-- @brief ServerData_HotTime에서 가져온걸 ServerData_Fevertime용으로 변경
 -------------------------------------
 function ServerData_Fevertime:setDiscountEventNode(dc_target, vars, lua_name, only_value)
     if (dc_target == 'rune' or dc_target == 'runelvup' or dc_target == 'skillmove' or dc_target == 'reinforce') then
@@ -665,6 +670,7 @@ end
 
 -------------------------------------
 -- function getDiscountEventList
+-- @brief ServerData_HotTime에서 가져온걸 ServerData_Fevertime용으로 변경
 -------------------------------------
 function ServerData_Fevertime:getDiscountEventList()
     local l_dc_event = {}
@@ -684,8 +690,9 @@ end
 
 -------------------------------------
 -- function getNotUsedDailyFevertime
--- @breif 
--- @return
+-- @param l_type 피버타임 type 리스트
+-- @breif l_type에 해당하는 피버타임 중 사용하지 않은 피버타임 리스트를 반환한다.
+-- @return usable_fevertime_list 사용하지 않은 피버타임 list
 -------------------------------------
 function ServerData_Fevertime:getNotUsedDailyFevertime(l_type)
     local today_fevertime_list = self:getNotUsedFevertimesTypes()
@@ -711,12 +718,10 @@ end
 
 -------------------------------------
 -- function getNotUsedDailyFevertime_adventure
--- @breif 
--- @return
+-- @breif 모험 모드 피버타임 중 사용 가능한 피버타임을 반환한다.
+-- @return self:getNotUsedDailyFevertime(l_type) table
 -------------------------------------
 function ServerData_Fevertime:getNotUsedDailyFevertime_adventure()
     local l_type = {'exp_up', 'gold_up', 'ad_st_dc'}
     return self:getNotUsedDailyFevertime(l_type)
 end
-
-

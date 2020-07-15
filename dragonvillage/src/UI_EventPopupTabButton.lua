@@ -51,6 +51,7 @@ end
 
 -------------------------------------
 -- function labelForGoogleFeatured
+-- @brief UI_GoogleFeaturedContentChange를 상속받아 위치를 정리한다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
 -------------------------------------
 function UI_EventPopupTabButton:labelForGoogleFeatured(tab_btn_name)
     

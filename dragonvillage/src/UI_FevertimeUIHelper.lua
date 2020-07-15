@@ -31,6 +31,7 @@ end
 
 -------------------------------------
 -- function initFevertimeUI
+-- @brief 피버타임 UI 설정 +xx% 또는 -xx%표시
 -------------------------------------
 function UI_FevertimeUIHelper:initFevertimeUI(vars, type, name, sign, l_active_hot)
     local vars = self.vars

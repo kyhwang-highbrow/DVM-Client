@@ -191,6 +191,7 @@ end
 
 -------------------------------------
 -- function runeGuardianNoti
+-- @brief 룬 수호자 던전 핫타임 스프라이트 표시
 -------------------------------------
 function UI_Clan:runeGuardianNoti()
     local vars = self.vars

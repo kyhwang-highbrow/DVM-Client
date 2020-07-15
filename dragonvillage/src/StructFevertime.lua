@@ -362,7 +362,7 @@ function StructFevertime:getBadgeStr()
 end
 
 -------------------------------------
--- function getBadgeStr
+-- function getTitleStr
 -------------------------------------
 function StructFevertime:getTitleStr()
     return self['title']

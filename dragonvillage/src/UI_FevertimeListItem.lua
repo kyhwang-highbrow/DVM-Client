@@ -258,7 +258,7 @@ end
 
 -------------------------------------
 -- function FevertimeConfirmPopup
--- @brief
+-- @brief 피버타임 사용 결정을 하는 확인 팝업을 띄워준다.
 -------------------------------------
 function UI_FevertimeListItem:FevertimeConfirmPopup(struct_fevertime)
     local id = struct_fevertime:getFevertimeID()
@@ -285,7 +285,8 @@ function UI_FevertimeListItem:setChangeDataCB(func)
 end
 
 -------------------------------------
--- function setFevertimeIcon
+-- function makeFevertimeIcon
+-- @brief 피버타임 아이콘 sprite 생성
 -------------------------------------
 function UI_FevertimeListItem:makeFevertimeIcon(struct_fevertime)
     local path = struct_fevertime:getFevertimeIcon()
