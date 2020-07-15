@@ -760,6 +760,20 @@ function UI_GameResultNew:set_modeButton()
     else
         vars['mapBtn']:setVisible(true)
 
+        -- 클리어 시
+        if (self.m_bSuccess == true) then
+            -- 다음 스테이지가 열려있을 경우
+            local stage_id = self.m_stageID
+            local next_stage_id = g_stageData:getNextStage(stage_id)
+            if (g_stageData:isOpenStage(next_stage_id) == true) then
+                -- 다음 스테이지를 한번도 클리어하지 못한 경우
+                if (g_adventureData:isClearStage(next_stage_id) == false) then
+                    -- 다음 버튼에 흔들림 추가
+                    local action = cca.buttonShakeAction(2, 0.8) -- params : level, delay_time
+                    vars['nextBtn']:runAction(action)
+                end
+            end
+        end
     end
 end
 
