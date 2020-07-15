@@ -1311,7 +1311,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ExchangeEventListItem.lua" />
     <None Include="..\src\UI_Fevertime.lua" />
     <None Include="..\src\UI_FevertimeConfirmPopup.lua" />
-    <None Include="..\src\UI_FevertimeConfirmPopupList.lua" />
     <None Include="..\src\UI_FevertimeInfoPopup.lua" />
     <None Include="..\src\UI_FevertimeListItem.lua" />
     <None Include="..\src\UI_FevertimeUIHelper.lua" />
@@ -1349,6 +1348,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_GoldDungeonScene.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />
+    <None Include="..\src\UI_GoogleFeaturedContentChange.lua" />
     <None Include="..\src\UI_GrandArena.lua" />
     <None Include="..\src\UI_GrandArenaDeckSettings.lua" />
     <None Include="..\src\UI_GrandArenaHistoryListItem.lua" />

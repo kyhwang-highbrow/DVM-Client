@@ -4554,7 +4554,7 @@
     <None Include="..\src\UI_FevertimeUIHelper.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_FevertimeConfirmPopupList.lua">
+    <None Include="..\src\UI_GoogleFeaturedContentChange.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
