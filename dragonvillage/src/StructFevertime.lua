@@ -237,6 +237,15 @@ function StructFevertime:getFevertimeLinkType()
 end
 
 -------------------------------------
+-- function getFevertimeIcon
+-- @brief 아이콘의 경로를 가져온다.
+-------------------------------------
+function StructFevertime:getFevertimeIcon()
+    local icon = TableFevertime:getIcon(self['type'])
+    return icon
+end
+
+-------------------------------------
 -- function getFevertimeEnddate
 -- @return number timestapm(1000분의 1초)
 -------------------------------------

@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_ConfirmPopup
 -------------------------------------
 UI_FevertimeConfirmPopup = class(PARENT,{
+        m_structFevertime = 'StructFevertime',
 		m_fevertimeName = 'string',
 		m_fevertimePeriod = 'string',
         m_fevertimeInfo = 'string',
@@ -16,14 +17,20 @@ UI_FevertimeConfirmPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_FevertimeConfirmPopup:init(fevertime_name, fevertime_period, fevertime_info, fevertime_value, fevertime_type, ok_btn_cb, cancel_btn_cb)
-	self.m_fevertimeName = fevertime_name
-	self.m_fevertimePeriod = fevertime_period
-    self.m_fevertimeInfo = fevertime_info
-    self.m_fevertimeValue = fevertime_value
-    self.m_fevertimeType = fevertime_type
+function UI_FevertimeConfirmPopup:init(struct_fevertime, ok_btn_cb, cancel_btn_cb)
+
+    self.m_structFevertime = struct_fevertime
     self.m_cbOKBtn = ok_btn_cb
     self.m_cbCancelBtn = cancel_btn_cb
+    self.m_fevertimeName = struct_fevertime:getFevertimeName()
+    self.m_fevertimeInfo = struct_fevertime:getFevertimeDesc()
+    self.m_fevertimePeriod = struct_fevertime:getPeriodStr()
+    self.m_fevertimeValue = struct_fevertime:getFevertimeValue()
+    self.m_fevertimeType = struct_fevertime:getFevertimeType()
+
+    if (self.m_fevertimePeriod == '') or (struct_fevertime:isDailyHottime() == true) then
+        self.m_fevertimePeriod = struct_fevertime:getTimeLabelStr()
+    end
 
     local vars = self:load('event_fevertime_confirm_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -67,7 +74,7 @@ function UI_FevertimeConfirmPopup:refresh()
     local value = tostring(self.m_fevertimeValue * 100) .. '%'
     vars['hotTimePerLabel']:setString(value)
 
-    local sprite = self:makeFevertimeIcon(self.m_fevertimeType)
+    local sprite = self:makeFevertimeIcon(self.m_structFevertime)
     vars['hotTimeIconNode']:addChild(sprite, -1)
 end
 
@@ -81,69 +88,9 @@ end
 -------------------------------------
 -- function setFevertimeIcon
 -------------------------------------
-function UI_FevertimeConfirmPopup:makeFevertimeIcon(fevertime_type)
+function UI_FevertimeConfirmPopup:makeFevertimeIcon(struct_fevertime)
     local vars = self.vars
-    local path = 'res/ui/icons/hot_time/'
-
-    if(fevertime_type == 'exp_up') then
-        path = path .. 'hot_time_exp_up.png'
-
-    elseif(fevertime_type == 'gold_up') then
-        path = path .. 'hot_time_gold_up.png'
-
-    elseif(fevertime_type == 'rune_lvup_dc') then
-        path = path .. 'hot_time_rune_lvup_dc.png'
-
-    elseif(fevertime_type == 'rune_dc') then
-        path = path .. 'hot_time_rune_dc.png'
-
-    elseif(fevertime_type == 'reinforce_dc') then
-        path = path .. 'hot_time_reinforce_dc.png'
-
-    elseif(fevertime_type == 'skill_move_dc') then
-        path = path .. 'hot_time_skill_move_dc.png'
-
-    elseif(fevertime_type == 'sm_legend_up') then
-        path = path .. 'hot_time_sm_legend_up.png'
-
-    elseif(fevertime_type == 'dg_rune_legend_up') then
-        path = path .. 'hot_time_dg_rune_legend_up.png'
-
-    elseif(fevertime_type == 'pvp_honor_up') then
-        path = path .. 'hot_time_pvp_honor_up.png'
-
-    elseif(fevertime_type == 'dg_rune_up') then
-        path = path .. 'hot_time_dg_rune_up.png'
-
-    elseif(fevertime_type == 'dg_gt_item_up') then
-        path = path .. 'dg_gt_item_up.png'
-
-    elseif(fevertime_type == 'dg_gd_item_up') then
-        path = path .. 'dg_gd_item_up.png'
-
-    elseif(fevertime_type == 'mastery_dc') then
-        path = path .. 'hot_time_mastery_dc.png'
-
-    elseif(fevertime_type == 'ad_st_dc') then
-        path = path .. 'hot_time_ad_st_dc.png'
-
-    elseif(fevertime_type == 'dg_gt_st_dc') then
-        path = path .. 'hot_time_dg_gt_st_dc.png'
-
-    elseif(fevertime_type == 'dg_gd_st_dc') then
-        path = path .. 'hot_time_dg_gd_st_dc.png'
-
-    elseif(fevertime_type == 'dg_nm_st_dc') then
-        path = path .. 'hot_time_dg_nm_st_dc.png'
-
-    elseif(fevertime_type == 'dg_ar_st_dc') then
-        path = path .. 'hot_time_dg_ar_st_dc.png'
-
-    elseif(fevertime_type == 'dg_rg_st_dc') then
-        path = path .. 'hot_time_dg_rg_st_dc.png'
-    else
-        path = path .. 'hot_time_noti.png'
-    end
+    local path = struct_fevertime:getFevertimeIcon()
 
     local sprite = cc.Sprite:create(path)
     sprite:setDockPoint(cc.p(0.5, 0.5))

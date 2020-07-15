@@ -49,3 +49,14 @@ function TableFevertime:getLinkType(type)
     
     return self:getValue(type, 'link_type')
 end
+
+-------------------------------------
+-- function getIcon
+-------------------------------------
+function TableFevertime:getIcon(type)
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    return self:getValue(type, 'icon')
+end
