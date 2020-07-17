@@ -64,6 +64,6 @@ function UI_EventPopupTabButton:labelForGoogleFeatured(tab_btn_name)
     if(market == 'google' or market == 'windows') then
         return tab_btn_name
     else
-        return Str('피처드 선정\n기념 출석 이벤트') -- 번역 텍스트 필요
+        return Str('피처드 선정 기념\n출석 이벤트')
     end
 end
