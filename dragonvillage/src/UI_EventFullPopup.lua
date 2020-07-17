@@ -308,16 +308,11 @@ end
 -- @brief UI_GoogleFeaturedContentChange를 상속받아 함수의 중복을 없앤다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
 -------------------------------------
 function UI_EventFullPopup:changeTitleSprite(ui)
-    if (ui['otherMarketSprite'] and ui['otherMarketSprite']) then
+    if (ui['otherMarketSprite'] and ui['googleSprite']) then
         local market, os = GetMarketAndOS()
-        print(market)
-        ui['googleSprite']:setVisible(false)
-        ui['otherMarketSprite']:setVisible(false)
-        if (market == 'google') then
-            ui['googleSprite']:setVisible(true)
-        else
-            ui['otherMarketSprite']:setVisible(true)
-        end
+        local is_google = (market == 'google')
+        ui['googleSprite']:setVisible(is_google)
+        ui['otherMarketSprite']:setVisible(not is_google)
     end
 end
 
