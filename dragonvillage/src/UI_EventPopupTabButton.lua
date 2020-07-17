@@ -45,14 +45,5 @@ function UI_EventPopupTabButton:refresh()
     local struct_event_popup_tab = self.m_structEventPopupTab
     local type = struct_event_popup_tab.m_type
     local tab_btn_name = struct_event_popup_tab:getTabButtonName()
-    tab_btn_name = self:labelForGoogleFeatured(tab_btn_name)
     vars['eventLabel']:setString(tab_btn_name)
-end
-
--------------------------------------
--- function labelForGoogleFeatured
--- @brief UI_GoogleFeaturedContentChange를 상속받아 위치를 정리한다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
--------------------------------------
-function UI_EventPopupTabButton:labelForGoogleFeatured(tab_btn_name)
-    return tab_btn_name
 end
