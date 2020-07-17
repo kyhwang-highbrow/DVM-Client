@@ -54,16 +54,5 @@ end
 -- @brief UI_GoogleFeaturedContentChange를 상속받아 위치를 정리한다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
 -------------------------------------
 function UI_EventPopupTabButton:labelForGoogleFeatured(tab_btn_name)
-    
-    if (not string.find(tostring(tab_btn_name), '구글 피처드')) then
-        return tab_btn_name
-    end
-
-    local market, os = GetMarketAndOS()
-
-    if(market == 'google' or market == 'windows') then
-        return tab_btn_name
-    else
-        return Str('피처드 선정 기념\n출석 이벤트')
-    end
+    return tab_btn_name
 end
