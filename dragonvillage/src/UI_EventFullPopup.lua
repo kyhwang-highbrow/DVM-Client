@@ -127,6 +127,11 @@ function UI_EventFullPopup:initUI()
                 ui.vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
                 vars['closeBtn']:setVisible(false)
             end
+
+            -- 절전알 패키지 구글 피처드 수정
+            if (popup_key == 'package_absolute') then
+                self:changeTitleSprite(ui.vars)
+            end
         end
 
     -- 다이아 할인 상품 풀팝업
@@ -295,6 +300,25 @@ end
 -------------------------------------
 function UI_EventFullPopup:click_closeBtn()
     self:close()
+end
+
+-------------------------------------
+-- function changeTitleSprite
+-- @brief 구글 피쳐드 선정 기념. 구글 market -> '구글 피처드 선정 기념 ~', 아니면 '피처드 선정 기념 ~'
+-- @brief UI_GoogleFeaturedContentChange를 상속받아 함수의 중복을 없앤다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
+-------------------------------------
+function UI_EventFullPopup:changeTitleSprite(ui)
+    if (ui['otherMarketSprite'] and ui['otherMarketSprite']) then
+        local market, os = GetMarketAndOS()
+        print(market)
+        ui['googleSprite']:setVisible(false)
+        ui['otherMarketSprite']:setVisible(false)
+        if (market == 'google') then
+            ui['googleSprite']:setVisible(true)
+        else
+            ui['otherMarketSprite']:setVisible(true)
+        end
+    end
 end
 
 --@CHECK
