@@ -69,6 +69,20 @@ function UI_EventPopupTab_Banner:init_customUI()
                 end)
         end
 
+    elseif (banner == 'event_balance.ui') then
+        local item_id = 790743
+        local table_item = TableItem()
+        local did = table_item:getDidByItemId(item_id)
+
+        local item_card = UI_ItemCard(item_id, 1)
+	    vars['itemNode']:addChild(item_card.root)
+
+        -- 드래곤이면 도감버젼으로 Info팝업 띄우는 함수 등록
+        local func_tap_dragon_card = function()
+            UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true)    -- param : did, grade, evolution scale, ispopup
+        end
+        item_card.vars['clickBtn']:registerScriptTapHandler(function() func_tap_dragon_card() end)
+
     -- 거대용 던전, 거목 던전 요일 입장 제한 해제 기념 핫타임
     elseif (banner == 'event_fevertime_notice_01.ui') then
         do -- 거목 던전 (친밀도 열매)
