@@ -70,7 +70,7 @@ function UI_EventPopupTab_Banner:init_customUI()
         end
 
     elseif (banner == 'event_balance.ui') then
-        local item_id = 790743
+        local item_id = 770743
         local table_item = TableItem()
         local did = table_item:getDidByItemId(item_id)
 
