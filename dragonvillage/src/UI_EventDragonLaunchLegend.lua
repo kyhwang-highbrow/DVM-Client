@@ -1,5 +1,3 @@
--- 확률업
-
 local PARENT = UI
 
 -------------------------------------
@@ -60,23 +58,6 @@ function UI_EventDragonLaunchLegend:initUI()
 
     self:addSameTypeDragon()
 
-    do -- 확률업
-        local is_chance_up = false
-        local chance_up = g_eventData:getChanceUpDragons()
-        for _, v in pairs(chance_up) do
-            for _, did in pairs(self.m_newDragonList) do
-                if (v['did'] == did) then
-                    is_chance_up = true
-                end
-            end
-        end
-        if (is_chance_up == true) then
-            self.vars['summonLabel']:setVisible(true)
-        else
-            self.vars['summonLabel']:setVisible(false)
-        end
-    end
-
     do -- 기본 드래곤 표시
         local attr = ''
         if (self.m_newDragonAttrList[1] == 1) then
@@ -99,13 +80,13 @@ end
 -- @param attr 드래곤 속성
 -------------------------------------
 function UI_EventDragonLaunchLegend:clickAttrBtn(attr)
-    if (attr == 'earth' or attr == 1) then
+    if (attr == 'earth') then
         self:click_earthBtn()
-    elseif (attr == 'water' or attr == 2) then
+    elseif (attr == 'water') then
         self:click_waterBtn()
-    elseif (attr == 'fire' or attr == 3) then
+    elseif (attr == 'fire') then
         self:click_fireBtn()
-    elseif (attr == 'light' or attr == 4) then
+    elseif (attr == 'light') then
         self:click_lightBtn()
     else
         self:click_darkBtn()
@@ -130,40 +111,76 @@ end
 -- function click_earthBtn
 -------------------------------------
 function UI_EventDragonLaunchLegend:click_earthBtn()
-    local did = tonumber(self.m_commonFirstFiveDragonCode .. 1)
-    self:setDragon(did, 1)
+    
+    local did = self:getDidFromAttr(1)
+    self:setDragon(did)
+    self:summonUp(did)
 end
 
 -------------------------------------
 -- function click_waterBtn
 -------------------------------------
 function UI_EventDragonLaunchLegend:click_waterBtn()
-    local did = tonumber(self.m_commonFirstFiveDragonCode .. 2)
-    self:setDragon(did, 2)
+    local did = self:getDidFromAttr(2)
+    self:setDragon(did)
+    self:summonUp(did)
 end
 
 -------------------------------------
 -- function click_fireBtn
 -------------------------------------
 function UI_EventDragonLaunchLegend:click_fireBtn()
-    local did = tonumber(self.m_commonFirstFiveDragonCode .. 3)
-    self:setDragon(did, 3)
+    local did = self:getDidFromAttr(3)
+    self:setDragon(did)
+    self:summonUp(did)
 end
 
 -------------------------------------
 -- function click_lightBtn
 -------------------------------------
 function UI_EventDragonLaunchLegend:click_lightBtn()
-    local did = tonumber(self.m_commonFirstFiveDragonCode .. 4)
-    self:setDragon(did, 4)
+    local did = self:getDidFromAttr(4)
+    self:setDragon(did)
+    self:summonUp(did)
 end
 
 -------------------------------------
 -- function click_darkBtn
 -------------------------------------
 function UI_EventDragonLaunchLegend:click_darkBtn()
-    local did = tonumber(self.m_commonFirstFiveDragonCode .. 5)
-    self:setDragon(did, 5)
+    local did = self:getDidFromAttr(5)
+    self:setDragon(did)
+    self:summonUp(did)
+end
+
+-------------------------------------
+-- function summonUp
+-------------------------------------
+function UI_EventDragonLaunchLegend:summonUp(did)
+    local is_chance_up = false
+    local chance_up = g_eventData:getChanceUpDragons()
+    for _, v in pairs(chance_up) do
+        if (v['did'] == did) then
+            is_chance_up = true
+        end
+    end
+    if (is_chance_up == true) then
+        self.vars['summonLabel']:setVisible(true)
+    else
+        self.vars['summonLabel']:setVisible(false)
+    end
+end
+    
+-------------------------------------
+-- function getDidFromAttr
+-------------------------------------
+function UI_EventDragonLaunchLegend:getDidFromAttr(target_attr)
+    for _, did in pairs(self.m_newDragonList) do
+        local attr = string.sub(did, 6, 6)
+        if (tonumber(attr) == target_attr) then
+            return did
+        end
+    end
 end
 
 -------------------------------------
