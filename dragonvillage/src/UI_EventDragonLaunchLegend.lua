@@ -170,13 +170,6 @@ end
 -- function initButton
 -------------------------------------
 function UI_EventDragonLaunchLegend:initButton()
-    local vars = self.vars
-    
-    vars['earthBtn']:registerScriptTapHandler(function() self:click_earthBtn() end)
-    vars['waterBtn']:registerScriptTapHandler(function() self:click_waterBtn() end)
-    vars['fireBtn']:registerScriptTapHandler(function() self:click_fireBtn() end)
-    vars['lightBtn']:registerScriptTapHandler(function() self:click_lightBtn() end)
-    vars['darkBtn']:registerScriptTapHandler(function() self:click_darkBtn() end)
 end
 
 -------------------------------------
