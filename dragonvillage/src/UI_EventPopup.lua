@@ -320,6 +320,12 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab =='event_advent') then
         ui = UI_EventAdvent()
 
+    -- 신규 유저 환영 이벤트
+	elseif (tab == 'event_dragon_launch_legend') then
+        require('UI_EventDragonLaunchLegend')
+        local event_type = struct_event_popup_tab.m_eventData['event_type']
+		local event_id = struct_event_popup_tab.m_eventData['event_id']
+		ui = UI_EventDragonLaunchLegend(event_type .. ';' .. event_id)
     end
 
     self.m_mTabUI[tab] = ui

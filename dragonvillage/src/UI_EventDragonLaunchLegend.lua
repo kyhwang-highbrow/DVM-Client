@@ -38,9 +38,6 @@ function UI_EventDragonLaunchLegend:init(popup_key)
     self:initButton()
     self:refresh()
     self:initUI()
-
-    
-
 end
 
 -------------------------------------
@@ -73,6 +70,13 @@ function UI_EventDragonLaunchLegend:initUI()
         end
         self:clickAttrBtn(attr)
     end
+end
+
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventDragonLaunchLegend:onEnterTab()
 end
 
 -------------------------------------
