@@ -339,6 +339,10 @@ function ServerData_Event:getEventFullPopupList()
             elseif (event_type == 'costume_event') then
                 visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()
 
+            -- 신규 드래곤 출시
+            elseif (event_type == 'event_dragon_launch_legend') then
+                event_type = event_type .. ';' .. event_id
+
                    
             -- 신규 유저 환영 이벤트
 			-- 다른 함수에서 풀팝업 띄워움 UI_Lobby - g_fullPopupManager:show(FULL_POPUP_TYPE.EVENT_WELCOME_NEWBIE, show_func) 

@@ -376,7 +376,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ISkillSound.lua" />
     <None Include="..\src\IStateHelper.lua" />
     <None Include="..\src\ITabUI.lua" />
-    <None Include="..\src\jsonFileProcessor.lua" />
     <None Include="..\src\LobbyChangeMgr.lua" />
     <None Include="..\src\LobbyCharacter.lua" />
     <None Include="..\src\LobbyDragon.lua" />
@@ -1274,6 +1273,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventBingo.lua" />
     <None Include="..\src\UI_EventBingoListItem.lua" />
     <None Include="..\src\UI_EventBingoRewardListItem.lua" />
+    <None Include="..\src\UI_EventDragonLaunchLegend.lua" />
     <None Include="..\src\UI_EventDungeon.lua" />
     <None Include="..\src\UI_EventFullPopup.lua" />
     <None Include="..\src\UI_EventGoldDungeon.lua" />
@@ -1348,7 +1348,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_GoldDungeonScene.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />
-    <None Include="..\src\UI_GoogleFeaturedContentChange.lua" />
     <None Include="..\src\UI_GrandArena.lua" />
     <None Include="..\src\UI_GrandArenaDeckSettings.lua" />
     <None Include="..\src\UI_GrandArenaHistoryListItem.lua" />
@@ -1382,6 +1381,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IllusionScene.lua" />
     <None Include="..\src\UI_IllusionShop.lua" />
     <None Include="..\src\UI_IllusionStageListItem.lua" />
+    <None Include="..\src\UI_ImageQuizEvent.lua" />
     <None Include="..\src\UI_IngameBossHp.lua" />
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UIC_LobbyGuide.lua" />

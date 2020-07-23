@@ -51,6 +51,7 @@ function UI_EventFullPopup:initUI()
 	local ui
     local is_btn_lock = true
 
+
     -- 이벤트 배너
     if (string.find(popup_key, 'banner')) then
         local l_str = plSplit(popup_key, ';')
@@ -72,6 +73,11 @@ function UI_EventFullPopup:initUI()
     -- 확률업 드래곤 배너
     elseif (popup_key == 'dragon_chance_up') then
         ui = UI_DragonChanceUp()
+
+    -- 신규 드래곤 출시
+    elseif (string.find(popup_key, 'event_dragon_launch_legend')) then
+        require('UI_EventDragonLaunchLegend')
+        ui = UI_EventDragonLaunchLegend(popup_key)
 
     -- 코스튬
     elseif (popup_key == 'costume_event') then
