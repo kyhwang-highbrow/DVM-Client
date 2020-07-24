@@ -1030,6 +1030,29 @@ function getSortPosList(interval, count)
 end
 
 -------------------------------------
+-- function getSortPosListReverse
+-- @brief 리스트를 가운데 정렬 시킬 때 사용
+-------------------------------------
+function getSortPosListReverse(interval, count)
+
+    local start_pos = 0
+
+    if ((count % 2) == 0) then
+        start_pos = ((count / 2) - 0.5) * interval
+    else
+        start_pos = ((count - 1) / 2) * interval
+    end
+
+    local l_pos = {}
+    for i=1, count do
+        table.insert(l_pos, start_pos)
+        start_pos = start_pos - interval
+    end
+
+    return l_pos
+end
+
+-------------------------------------
 -- function getPosXForCenterSortting
 -- @brief 리스트를 background 크기 내에서 가운데로 정렬한 (x_pos) 리스트 반환
 -------------------------------------
