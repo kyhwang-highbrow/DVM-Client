@@ -95,7 +95,8 @@ function UI_EventDragonLaunchLegend:clickAttrBtn(attr)
     else
         self:click_darkBtn()
     end
-    self:setSelectSprite(attr)
+    self:setSelectSprite(attr) -- 속성 노드 정상/어둡게
+    self:setBgNode(attr)
 end
 
 -------------------------------------
@@ -158,7 +159,25 @@ function UI_EventDragonLaunchLegend:click_darkBtn()
 end
 
 -------------------------------------
+-- function setBgNode
+-- @brief 신규 드래곤 팝업의 배경을 설정한다.
+-------------------------------------
+function UI_EventDragonLaunchLegend:setBgNode(attr)
+    local vars = self.vars
+
+    if vars['bgNode'] then
+        local frame_res = 'res/ui/event/bg_dragon_launch_legend_' .. attr .. '.png'
+        vars['bgNode']:removeAllChildren()
+        local frame = cc.Scale9Sprite:create(frame_res)
+        frame:setDockPoint(CENTER_POINT)
+	    frame:setAnchorPoint(CENTER_POINT)
+        vars['bgNode']:addChild(frame)
+    end
+end
+
+-------------------------------------
 -- function summonUp
+-- @brief 확률업이 걸렸을 때 라벨 표시
 -------------------------------------
 function UI_EventDragonLaunchLegend:summonUp(did)
     local is_chance_up = false
@@ -215,11 +234,7 @@ function UI_EventDragonLaunchLegend:setDragon(did)
     self.m_dragonAnimator:setTalkEnable(false)
 
     -- 배경
-    if vars['bgNode'] then
-        vars['bgNode']:removeAllChildren()
-        local animator = ResHelper:getUIDragonBG(attr, 'idle')
-        vars['bgNode']:addChild(animator.m_node)
-    end
+    -- 배경은 기존 배경을 사용하지 않고 setBgNode 함수에서 새로운 배경 사용
 
     local table_dragon = TableDragon()
 
