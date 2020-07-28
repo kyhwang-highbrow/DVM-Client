@@ -12,19 +12,15 @@ UI_EventImageQuiz = class(PARENT,{
         m_difficulty = 'number', -- 난이도
         m_answerCount = 'number',
         m_wrongAnswerCount = 'number',
-        m_answerBtnLayer1 = 'layerColor',
-        m_answerBtnLayer2 = 'layerColor',
-        m_answerBtnLayer3 = 'layerColor',
         m_dragonNodeOriginalPositionX = 'number',
         m_dragonNodeOriginalPositionY = 'number',
-        m_spotlightAction = 'action',
-        m_blindButtonAction = 'action',
-        m_blindTileAction = 'action',
-        m_blindTileTable = '',
+        m_blindTileTable = 'table',
         m_button1PositionX = 'number',
         m_button2PositionX = 'number',
         m_button3PositionX = 'number',
         m_buttonPositionY = 'number', -- Y좌표는 모두 같음
+        m_todayEndTime = 'timer',
+        m_isGameEnd = 'boolean',
         devBtn1 = 'boolean', -- 개발용 버튼
         devBtn2 = 'boolean',
         devBtn3 = 'boolean',
@@ -64,6 +60,10 @@ function UI_EventImageQuiz:init()
     self.m_button2PositionX = vars['answerBtn2']:getPositionX()
     self.m_button3PositionX = vars['answerBtn3']:getPositionX()
     self.m_buttonPositionY = vars['answerBtn1']:getPositionY()
+    -- 게임 타이머
+    local second = 90
+    self.m_todayEndTime = Timer:getServerTime_Milliseconds() + second * 1000 
+    self.m_isGameEnd = false
 
     -- 드래곤 실리소스
     if vars['dragonNode'] then
@@ -71,7 +71,8 @@ function UI_EventImageQuiz:init()
         vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
 
-    self:startGame()
+    self:setGame()
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -130,7 +131,7 @@ end
 
 -------------------------------------
 -- function makeProblem
--- @brief 90개의 문제를 만든다.
+-- @brief problem_limit개의 문제를 만든다.
 -- @return problem_number_list 문제 목록 리스트
 -------------------------------------
 function UI_EventImageQuiz:makeProblem()
@@ -159,29 +160,19 @@ function UI_EventImageQuiz:makeProblem()
 end
 
 -------------------------------------
--- function startGame
--- @param 퀴즈 게임 시작
--------------------------------------
-function UI_EventImageQuiz:startGame()
-    local dragon_info_list = self.m_dragonInfoList
-    local problem_list = self.m_problemList
-
-    self:setGame(self.m_difficulty)
-end
-
--------------------------------------
 -- function setGame
--- @param 퀴즈 게임 한 단계
+-- @brief 사실상 main 함수
 -------------------------------------
 function UI_EventImageQuiz:setGame()
     local vars = self.vars
     local max_problem_number = table.count(self.m_problemList)
     self:resetGameSetting()
-    self:setAnswerCountLabel()
+    self:setScoreLabel()
     self:setDifficulty()
 
-    if (self.m_currentProblemNumber - 1 == max_problem_number) then
-        UIManager:toastNotificationGreen('게임 끝.')
+    if (self.m_currentProblemNumber - 1 == max_problem_number or self.m_isGameEnd) then
+        local msg = Str('게임 끝')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
     else
         vars['answerBtn1']:setVisible(true)
         vars['answerBtn2']:setVisible(true)
@@ -194,13 +185,15 @@ function UI_EventImageQuiz:setGame()
         self.m_dragonAnimator:setTalkEnable(false)
         
         self:devStartGame()
+
+        -- 주석 해제시 게임 모드 실행됨
         --self:blindImage()
         --self:blindTile()
         --self:spotlightScaleUp()
         --self:spotlightScan()
         --self:dragonSlide()
         --self:dragonIcon() -- 사용하지 않음
-        --self:DragonScaleUp()
+        --self:dragonScaleUp()
         --self:setButtonColor(false) -- fake_color
         --self:setButtonColor(true) -- true_color
         --self:setAnswerButtonBlind()
@@ -320,7 +313,7 @@ end
 
 -------------------------------------
 -- function getRandomButtonColor
--- @brief 랜덤한 색깔 반환
+-- @brief 랜덤한 버튼 색깔 반환
 -------------------------------------
 function UI_EventImageQuiz:getRandomButtonColor()
     local rand = math_random(5)
@@ -343,7 +336,6 @@ end
 
 -------------------------------------
 -- function moveButtons
--- @brief 랜덤한 버튼 위치. 버튼이 가운데로 움직이기 때문에 잘 작동하지 않음.
 -------------------------------------
 function UI_EventImageQuiz:moveButtons(button_name)
     self:moveButton('answerBtn1')
@@ -383,13 +375,14 @@ end
 
 -------------------------------------
 -- function spotlightScan
--- @brief 스포트라이트 효과
+-- @brief 스포트라이트 움직이다 커지는 효과
 -------------------------------------
 function UI_EventImageQuiz:spotlightScan()
     local vars = self.vars
     local duration = 0.5
+    local scale = 5
     
-    vars['spotlight']:stopAction(self.m_spotlightAction)
+    vars['spotlight']:stopAllActions()
     vars['spotlight']:setScale(1)
     vars['spotlight']:setVisible(true)
     local l_location = {}
@@ -400,10 +393,8 @@ function UI_EventImageQuiz:spotlightScan()
     for i = 1, 3 do
         table.insert(l_action, cc.Sequence:create(cc.MoveTo:create(duration, cc.p(l_location[i * 2 - 1], l_location[i * 2]))))
     end
-    local action_scale = cc.ScaleTo:create(duration, 5)
+    local action_scale = cc.ScaleTo:create(duration, scale)
     local sequence = cc.Sequence:create(l_action[1], l_action[2], l_action[3], action_scale)
-    self.m_spotlightAction = sequence
-
     vars['spotlight']:runAction(sequence)
 end
 
@@ -426,7 +417,7 @@ end
 
 -------------------------------------
 -- function blindTile
--- @brief 타일 효과
+-- @brief 타일 블라인드 효과
 -------------------------------------
 function UI_EventImageQuiz:blindTile()
     local vars = self.vars
@@ -453,7 +444,7 @@ function UI_EventImageQuiz:blindTile()
 end
 -------------------------------------
 -- function removeBlindTileUnit
--- @brief 타일 한 개 한 개 지우기
+-- @brief 타일 하나씩 지우기
 -------------------------------------
 function UI_EventImageQuiz:removeBlindTileUnit()
     local vars = self.vars
@@ -471,16 +462,15 @@ function UI_EventImageQuiz:removeBlindTileUnit()
             self:removeBlindTileUnit()
         end
         local blind_tile_action = cc.Sequence:create(cc.DelayTime:create(0.015), cc.CallFunc:create(removeBlindTileUnit))
-        self.m_blindTileAction = blind_tile_action
         node:runAction(blind_tile_action)
     end
 end
 
 -------------------------------------
--- function DragonScaleUp
+-- function dragonScaleUp
 -- @brief 드래곤 확대
 -------------------------------------
-function UI_EventImageQuiz:DragonScaleUp(from)
+function UI_EventImageQuiz:dragonScaleUp(from)
     local vars = self.vars
     local from = from or 0.1
     vars['dragonNode']:setScale(from)
@@ -496,8 +486,7 @@ end
 
 -------------------------------------
 -- function dragonSlide
--- @brief 화면의 상/하/좌/우에서 나타남
--- @param from 1:위, 2:아래, 3:왼쪽, 4:오른쪽 (상하좌우)
+-- @brief 화면의 상/하/좌/우에서 랜덤하게 나타남
 -------------------------------------
 function UI_EventImageQuiz:dragonSlide()
     local vars = self.vars
@@ -535,10 +524,9 @@ end
 
 -------------------------------------
 -- function blindImage
--- @brief 커튼 이미지에 가려 있다가 커튼이 좌/우로 이동하며 등장
--- @param to 1:왼쪽으로, 2:오른쪽으로
+-- @brief 커튼 이미지에 가려 있다가 커튼이 좌/우로 랜덤하게 이동하며 등장
 -------------------------------------
-function UI_EventImageQuiz:blindImage(to)
+function UI_EventImageQuiz:blindImage()
     local vars = self.vars
     local to = math_random(2)
     local curtain = vars['curtain']
@@ -610,12 +598,12 @@ function UI_EventImageQuiz:setAnswerButton(wrong_answer_list)
 end
 -------------------------------------
 -- function setAnswerButtonBlind
--- @brief 랜덤한 색깔 반환
+-- @brief 정답 선택 버튼 가리기
 -------------------------------------
 function UI_EventImageQuiz:setAnswerButtonBlind()
     local vars = self.vars
     local node = vars['tempNodeForBlockLayerColor']
-    node:stopAction(self.m_blindButtonAction)
+    node:stopAllActions()
     local random_color = math_random(3)
 
     if (random_color == 1) then
@@ -633,7 +621,6 @@ function UI_EventImageQuiz:setAnswerButtonBlind()
     end
 
     local blind_button_action = cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(clearBlind))
-    self.m_blindButtonAction = blind_button_action
     node:runAction(blind_button_action)
 end
 
@@ -666,65 +653,116 @@ end
 -- function click_answerBtn1
 -------------------------------------
 function UI_EventImageQuiz:click_answerBtn1()
-    self:isRightAnswer(1)
+    self:AnswerResult(1)
 end
 
 -------------------------------------
 -- function click_answerBtn2
 -------------------------------------
 function UI_EventImageQuiz:click_answerBtn2()
-    self:isRightAnswer(2)
+    self:AnswerResult(2)
 end
 
 -------------------------------------
 -- function click_answerBtn3
 -------------------------------------
 function UI_EventImageQuiz:click_answerBtn3()
-    self:isRightAnswer(3)
+    self:AnswerResult(3)
 end
 
 -------------------------------------
--- function isRightAnswer
--- @brief 정답인지 확인
+-- function AnswerResult
+-- @brief 정답 확인
+-- @return 없음. 함수 내에서 처리하는게 더 깔끔함.
 -------------------------------------
-function UI_EventImageQuiz:isRightAnswer(answer)
-    local is_right_answer = false
+function UI_EventImageQuiz:AnswerResult(answer)
+    local vars = self.vars
 
     if (self.m_currentAnswer == answer) then
         UIManager:toastNotificationGreen('정답입니다.')
         self.m_answerCount = self.m_answerCount + 1
-        is_right_answer = true
+        self:setGame()
     else
         UIManager:toastNotificationGreen('바부...')
         self.m_wrongAnswerCount = self.m_wrongAnswerCount + 1
-        is_right_answer = false
-    end
-
-    self:successOrFail(is_right_answer, answer)
-end
-
--------------------------------------
--- function successOrFail
--- @brief 성공 -> 다음 게임 / 실패 -> 버튼 invisible
--------------------------------------
-function UI_EventImageQuiz:successOrFail(is_right_answer, number)
-    local vars = self.vars
-
-    if (is_right_answer) then
-        self:setGame()
-    else
-        vars['answerBtn' .. number]:setVisible(false)
+        vars['answerBtn' .. answer]:setVisible(false)
     end
 end
 
 -------------------------------------
--- function setAnswerCountLabel
--- @brief 정답인지 확인
+-- function setScoreLabel
+-- @brief 점수 표시
 -------------------------------------
-function UI_EventImageQuiz:setAnswerCountLabel()
+function UI_EventImageQuiz:setScoreLabel()
     local vars = self.vars
     vars['scoreLabel']:setString('정답 갯수 : ' .. tostring(self.m_answerCount) .. ' 오답 갯수 : ' .. tostring(self.m_wrongAnswerCount))
 end
+
+-------------------------------------
+-- function setDifficulty
+-- @brief 난이도 설정
+-------------------------------------
+function UI_EventImageQuiz:setDifficulty()
+    local problem_number = self.m_currentProblemNumber
+    if (problem_number < 10) then
+        self.m_difficulty = 1
+    elseif (problem_number < 20) then
+        self.m_difficulty = 2
+    elseif (problem_number < 40) then
+        self.m_difficulty = 3
+    elseif (problem_number < 60) then
+        self.m_difficulty = 4
+    else
+        self.m_difficulty = 5
+    end
+end
+
+-------------------------------------
+-- function update
+-- @brief 남은 시간 표시
+-------------------------------------
+function UI_EventImageQuiz:update()
+    local vars = self.vars
+    local str = '-'
+    local cur_time = Timer:getServerTime_Milliseconds()
+    local milliseconds = (self.m_todayEndTime - cur_time)
+
+    -- 게임 진행 중 (게임 종료까지 남은 시간 표시)
+    if (milliseconds > 0) then
+
+        local hour = math.floor(milliseconds / 3600000)
+        milliseconds = milliseconds - (hour * 3600000)
+
+        local min = math.floor(milliseconds / 60000)
+        milliseconds = milliseconds - (min * 60000)
+
+        local sec = math.floor(milliseconds / 1000)
+        milliseconds = milliseconds - (sec * 1000)
+
+        str = string.format('%.2d:%.2d:%.2d',  hour, min, sec)
+    elseif (milliseconds <= 0 and not self.m_isGameEnd) then
+        self.m_isGameEnd = true
+        local msg = Str('게임 끝')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+    end
+    
+    -- 중상단에 타이머
+    vars['timeLabel']:setString(str)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function devSetButton
@@ -754,7 +792,7 @@ end
 
 -------------------------------------
 -- function click_devBtn
--- @brief 개발용 버튼 누를 때
+-- @brief 개발용 버튼 클릭
 -------------------------------------
 function UI_EventImageQuiz:click_devBtn(num)
     local vars = self.vars
@@ -790,7 +828,7 @@ end
 
 -------------------------------------
 -- function devStartGame
--- @brief 개발용 버튼 설정에 따른 게임 시작
+-- @brief 개발용 버튼 클릭에 따른 게임 모드 변경
 -------------------------------------
 function UI_EventImageQuiz:devStartGame()
     if (self.devBtn1) then
@@ -809,7 +847,7 @@ function UI_EventImageQuiz:devStartGame()
         self:dragonSlide()
     end
     if (self.devBtn6) then
-        self:DragonScaleUp()
+        self:dragonScaleUp()
     end
     if (self.devBtn7) then
         self:setButtonColor(false)
@@ -821,35 +859,5 @@ function UI_EventImageQuiz:devStartGame()
     end
     if (self.devBtn9) then
         self:moveButtons()
-    end
-    --self:blindImage()
-    --self:blindTile()
-    --self:spotlightScaleUp()
-    --self:spotlightScan()
-    --self:dragonSlide()
-    --self:dragonIcon() -- 사용하지 않음
-    --self:DragonScaleUp()
-    --self:setButtonColor(false) -- fake_color
-    --self:setButtonColor(true) -- true_color
-    --self:setAnswerButtonBlind()
-    --self:moveButtons()
-end
-
--------------------------------------
--- function setDifficulty
--- @brief 정답인지 확인
--------------------------------------
-function UI_EventImageQuiz:setDifficulty()
-    local problem_number = self.m_currentProblemNumber
-    if (problem_number < 10) then
-        self.m_difficulty = 1
-    elseif (problem_number < 20) then
-        self.m_difficulty = 2
-    elseif (problem_number < 40) then
-        self.m_difficulty = 3
-    elseif (problem_number < 60) then
-        self.m_difficulty = 4
-    else
-        self.m_difficulty = 5
     end
 end
