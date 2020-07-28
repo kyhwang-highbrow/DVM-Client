@@ -4553,10 +4553,10 @@
     <None Include="..\src\UI_FevertimeUIHelper.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ImageQuizEvent.lua">
+    <None Include="..\src\UI_EventDragonLaunchLegend.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_EventDragonLaunchLegend.lua">
+    <None Include="..\src\UI_EventImageQuiz.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
