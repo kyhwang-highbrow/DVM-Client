@@ -248,12 +248,15 @@ function UI_EventDragonLaunchLegend:setDragon(did)
     vars['nameLabel']:setString(name)
 
     -- 희귀도
+    vars['rarityNode']:removeAllChildren()
     DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
 
     -- 역할
+    vars['typeNode']:removeAllChildren()
     DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'], t_info)
     
     -- 속성
+    vars['attrNode']:removeAllChildren()
     DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
 end
 
