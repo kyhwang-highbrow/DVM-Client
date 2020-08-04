@@ -45,15 +45,6 @@ function UI_FevertimeUIHelper:initFevertimeUI(vars, type, name, sign, l_active_h
         vars[label_name]:setString(str)
         vars[btn_name]:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(type, vars[btn_name]) end)
     end
-    ---- 악몽 던전 날개 할인 // 원본
-    --local active, value = g_fevertimeData:isActiveFevertimeByType('dg_nm_st_dc')
-    --if active then
-        --value = value * 100 -- fevertime에서는 1이 100%이기 때문에 100을 곱해준다.
-        --table.insert(l_active_hot, 'hotTimeDgNmStBtn')
-        --local str = string.format('-%d%%', value)
-        --vars['hotTimeDgNmStLabel']:setString(str)
-        --vars['hotTimeDgNmStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('dg_nm_st_dc', vars['hotTimeDgNmStBtn']) end)
-    --end
 end
 
 -------------------------------------
