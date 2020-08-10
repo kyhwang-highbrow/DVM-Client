@@ -77,6 +77,10 @@ def init_global_var():
     global SERVER_PATH
     global TOOL_SERVER_PATH
     global PLATFORM_SERVER_PATH
+
+    global LOCAL_MACHINE_PASSWD
+    global LOCAL_MACHINE_ID
+    global LOCAL_MACHINE_DOMAIN
 	
     # TODO 경로들은 추후에 파라미터로 받을 것!
     # 소스 경로 (개발 폴더 혹은 에뮬레이터 경로)
@@ -88,7 +92,7 @@ def init_global_var():
     patch_work_path = os.path.abspath(patch_work_path)
     
     # 패치 .zip파일을 생성하여 카피하는 경로
-    dest_path = os.path.join(r'\\', 'HighbrowData_JS', 'DVM', 'patch', 'dv_test')
+    dest_path = os.path.join(r'\\', '192.168.0.219', 'dvm', 'patch', 'dv_test')
     
     # 패치 타겟 서버
     TARGET_SERVER = sys.argv[1]
@@ -105,6 +109,10 @@ def init_global_var():
         PLATFORM_SERVER_PATH = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
         
     TOOL_SERVER_PATH = 'http://192.168.0.211:7777/maintenance'
+
+    LOCAL_MACHINE_DOMAIN = 'dragonvillagem'
+    LOCAL_MACHINE_ID = 'dvm'
+    LOCAL_MACHINE_PASSWD = 'Perple!1'
 
     # 패치를 진행할 앱 버전
     app_ver = sys.argv[2]
@@ -181,7 +189,7 @@ def patch_files_copy_and_zip(source_path, patch_work_path, app_ver, latest_patch
     if (os.path.isdir(dst_base_dir) == True):
         shutil.rmtree(dst_base_dir)
     
-    print('\t copy ...')
+    print('\t copy plg ...')
     for key in sorted(new_plg_hash):
         src = os.path.join(source_path, key)
         dst = os.path.join(dst_base_dir, key)
@@ -197,8 +205,11 @@ def patch_files_copy_and_zip(source_path, patch_work_path, app_ver, latest_patch
 def copy(src_file, dst_dir):
     file_name = os.path.basename(src_file)
     dst_file = os.path.join(dst_dir, file_name)
-    print('# copy ...' + dst_file)
+    print('# copy patch zip ...')
+    os.system(r"NET USE P: %s %s /USER:%s\%s" % (dst_dir, LOCAL_MACHINE_PASSWD, LOCAL_MACHINE_DOMAIN, LOCAL_MACHINE_ID))
+    print(os.path.isdir(dst_dir))
     shutil.copy(src_file, dst_file)
+    os.system(r"NET USE P: /DELETE")
     
 # 메인 함수
 def main():
@@ -241,27 +252,27 @@ def main():
     dst_dir = os.path.join(dest_path, dst_forder)
     copy(zip_file, dst_dir)
     
-    # # 운영툴 패치 정보 업데이트
-    # print('# [tool] update_patch_dv')
-    # r = requests.get(TOOL_SERVER_PATH + '/update_patch_dv')
-    # print('# [tool] upload_patch_dv')
-    # r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
+    # 운영툴 패치 정보 업데이트
+    print('# [tool] update_patch_dv')
+    r = requests.get(TOOL_SERVER_PATH + '/update_patch_dv')
+    print('# [tool] upload_patch_dv')
+    r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
     
-    # # 플랫폼 서버에 패치 정보 전달
-    # print('# [platform] add patch info')
-    # zip_path = '%s/patch_%d.zip' % (dst_forder, new_patch_ver)
-    # zip_md5 = md5_log_maker.file2md5(zip_file)
-    # zip_size = os.path.getsize(zip_file)
-    # data = {
-    #     'app_ver': app_ver,
-    #     'version' : new_patch_ver,
-    #     'name' : zip_path,
-    #     'md5' : zip_md5,
-    #     'size' : zip_size
-    # }
-    # print data
-    # r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
-    # print r.text
+    # 플랫폼 서버에 패치 정보 전달
+    print('# [platform] add patch info')
+    zip_path = '%s/patch_%d.zip' % (dst_forder, new_patch_ver)
+    zip_md5 = md5_log_maker.file2md5(zip_file)
+    zip_size = os.path.getsize(zip_file)
+    data = {
+        'app_ver': app_ver,
+        'version' : new_patch_ver,
+        'name' : zip_path,
+        'md5' : zip_md5,
+        'size' : zip_size
+    }
+    print data
+    r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
+    print r.text
 
     print "###################################"
     print "done"
