@@ -60,6 +60,8 @@ return {['{1}회 공격마다 {2}초간 아군의 공격력을 증가시킵니�
 ['상대 유저의 등급에 따라 보상 차등 지급!']='¡Pago automático de recompensas de acuerdo al rango del adversario!',
 ['개편 안내']='Guía de Reforma',
 ['그랜드 콜로세움 개편 안내']='Guía de Reforma del Gran Coliseo',
+['최대 특성 레벨 달성 가능!']='¡Consigue el máximo nivel Especial!',
+['전설 특성 재료 5 + 5개\n골드 5,000,000개\n토파즈 30개']='Material Heroico Especializado X5 + X5\nOro X5.000.000\nTopacio X30',
 [' 빛의 거목']='Gran Árbol de Luz',
 ['\"{1}\" 진행하시겠습니까?']='\"{1}\" ¿Desea continuar?',
 ['\"언어 설정\"은 준비 중입니다.']='La configuración de lenguajes se encuentra en preparación.',

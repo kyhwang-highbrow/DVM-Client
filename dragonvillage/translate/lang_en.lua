@@ -60,6 +60,8 @@ return {['{1}회 공격마다 {2}초간 아군의 공격력을 증가시킵니�
 ['상대 유저의 등급에 따라 보상 차등 지급!']='You can get a different reward, depending on your opponent\'s grade!',
 ['개편 안내']='Update Notice',
 ['그랜드 콜로세움 개편 안내']='Grand Colosseum Update Notice',
+['최대 특성 레벨 달성 가능!']='Get maximum Mastery Level at once',
+['전설 특성 재료 5 + 5개\n골드 5,000,000개\n토파즈 30개']='5 + 5 Legendary Mastery Materials\n5,000,000 Gold\nTopaz x30',
 [' 빛의 거목']='Massive Light Tree',
 ['\"{1}\" 진행하시겠습니까?']='{1} Continue?',
 ['\"언어 설정\"은 준비 중입니다.']='“Languages” is currently in preparation.',
