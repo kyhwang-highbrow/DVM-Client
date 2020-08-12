@@ -112,7 +112,7 @@ def init_global_var():
 
     LOCAL_MACHINE_DOMAIN = 'dragonvillagem'
     LOCAL_MACHINE_ID = 'dvm'
-    LOCAL_MACHINE_PASSWD = 'Perple!1'
+    LOCAL_MACHINE_PASSWD = 'perple!1'
 
     # 패치를 진행할 앱 버전
     app_ver = sys.argv[2]
