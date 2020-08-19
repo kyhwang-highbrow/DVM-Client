@@ -1,0 +1,403 @@
+local PARENT = UI
+
+-------------------------------------
+-- class UI_SettingTestCode
+-- @brief UI_SettingDevTab은 본래 개발 및 테스트 상의 편의를 위한 기능 (모든 드래곤 추가 등..)을 구현한 곳으로 앱이 고도화 됨에 따라
+-- 다양한 테스트 코드가 필요해져 감당하기 힘들어졌다.
+-- 따라서 새로운 UI를 추가하여 조금은 편하게 테스트 코드를 추가 할 수 있도록 한다.
+-------------------------------------
+UI_SettingTestCode = class(PARENT, {
+        m_menu = 'cc.Menu',
+        m_buttonForCopy = 'cc.Button',
+        m_buttonIdx = 'number',
+
+        -- 버튼 정보
+        m_btnInfoTable = 'table',
+     })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_SettingTestCode:init()
+    local vars = self:load('setting_code_test.ui')
+    UIManager:open(self, UIManager.POPUP)
+	
+    self.m_uiName = 'UI_SettingTestCode'
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_SettingTestCode')
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    -- self:refresh()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_SettingTestCode:initUI()
+    m_buttonForCopy = self.vars['testCodeBtn']
+    m_menu = m_buttonForCopy:getParent()
+    m_buttonIdx = 0
+
+    local width, height = m_buttonForCopy:getNormalSize()
+    m_btnInfoTable = {
+        ['width'] = width,
+        ['height'] = height,
+        ['img01'] = 'res/ui/buttons/64_base_btn_0101.png', 
+        ['img02'] = 'res/ui/buttons/64_base_btn_0102.png',
+    }
+    m_buttonForCopy:setVisible(false)
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_SettingTestCode:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    
+    self:makeButtonAutomatic('testCode01', self.click_testCodeBtn)
+    self:makeButtonAutomatic('testCode02', self.click_testCodeBtn2)
+
+    self:makeButtonAutomatic('unityAdsTest00', self.unityAdsTest00)
+    self:makeButtonAutomatic('unityAdsTest01', self.unityAdsTest01)
+    self:makeButtonAutomatic('unityAdsTest02', self.unityAdsTest02)
+
+    self:makeButtonAutomatic('admob init', self.admob_init)
+    self:makeButtonAutomatic('admob preload', self.admob_preload)
+    self:makeButtonAutomatic('admob showAd', self.admob_showAd)
+end
+
+-------------------------------------
+-- function makeButtonAutomatic
+-------------------------------------
+function UI_SettingTestCode:makeButtonAutomatic(label_str, click_func)
+    -- cc.MenuItemImage
+    local menu_item = cc.MenuItemImage:create(m_btnInfoTable['img01'], m_btnInfoTable['img02'], 1)
+    menu_item:setAnchorPoint(TOP_LEFT)
+    menu_item:setDockPoint(TOP_LEFT)
+    menu_item:setContentSize(m_btnInfoTable['width'], m_btnInfoTable['height'])
+    
+    -- 좌표 계산 (열 우선 정렬)
+    local column_idx = math_floor(m_buttonIdx / 9)
+    menu_item:setPosition(cc.p(
+        column_idx * (m_btnInfoTable['width'] + 5), 
+        - (m_buttonIdx - (column_idx * 9)) * (m_btnInfoTable['height'] + 5)))
+
+    -- UIC_Button
+    local uic_button = UIC_Button(menu_item)
+    uic_button:registerScriptTapHandler(function()
+        click_func()
+    end)
+    m_menu:addChild(menu_item)
+
+    -- cc.Label
+    do 
+        local label = cc.Label:createWithTTF(label_str, Translate:getFontPath(), 16, 2, cc.size(m_btnInfoTable['width'], m_btnInfoTable['height']), 1, 1)
+        label:setDockPoint(CENTER_POINT)
+        label:setAnchorPoint(CENTER_POINT)
+        label:setPosition(ZERO_POINT)
+        menu_item:addChild(label)
+    end
+
+    m_buttonIdx = m_buttonIdx + 1
+end
+
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_SettingTestCode:refresh()
+end
+
+
+
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_SettingTestCode:click_closeBtn()
+    self:close()
+end
+
+-------------------------------------
+-- function click_testCodeBtn
+-- @brief 테스트 코드
+-------------------------------------
+function UI_SettingTestCode:click_testCodeBtn()
+
+    -- @sgkim 2020.03.24
+    -- 원스토어 구매하고 컴슘되지 않은 상품 리스트 받아오기 테스트
+    if true then
+        local function callback(ret, info)
+            cclog('## PerpleSDK:onestoreRequestPurchases(callback) call!! ')
+            cclog('## ret : ' .. tostring(ret))
+            cclog('## info : ' .. info)
+
+            local info_json = dkjson.decode(info)
+            for order_id, t_data in pairs(info_json) do
+                ccdump(t_data)
+            end
+
+            local function finish_cb()
+                cclog('## PaymentHelper.handlingMissingPayments_onestore 종료!!!')
+            end
+            local l_payload = table.MapToList(info_json)
+            PaymentHelper.handlingMissingPayments_onestore(l_payload, nil, finish_cb)
+        end
+
+        PerpleSDK:onestoreRequestPurchases(callback)
+        cclog('## PerpleSDK:onestoreRequestPurchases(callback) call!! ')
+        return
+    end
+
+    -- @sgkim 2020.03.18
+    -- 원스토어 마켓으로 이동 테스트
+    if true then
+        MakeSimplePopup(POPUP_TYPE.OK, 'goToWeb으로 테스트')
+        --SDKManager:goToWeb(URL['DVM_ONESTORE_DOWNLOAD'])
+        -- 드빌M이 아직 출시 전이라서 드빌1으로 테스트 https://onesto.re/0000285367
+        local url = 'https://onesto.re/0000285367'
+        SDKManager:goToWeb(url)
+        return
+    end
+
+    -- @sgkim 2020.03.11
+    if true then
+        --MakeSimplePopup()
+        local sample_sku = nil
+        for sku, struct_market_product in pairs(g_shopDataNew.m_dicStructMarketProduct) do
+            cclog('### sku ' .. sku)
+            local currency_code = struct_market_product:getCurrencyCode()
+            cclog('@ currency code : ' .. tostring(currency_code), type(currency_code ))
+            local currency_price = struct_market_product:getCurrencyPrice()
+            cclog('@ currency price : ' .. tostring(currency_price), type(currency_price))
+            ccdump(struct_market_product.m_rowData)
+
+            sample_sku = sku
+        end
+        
+        local currency_code = 'KRW'
+        local currency_price = 999999
+
+        -- StructMarketProduct
+        local struct_market_product = g_shopDataNew:getStructMarketProduct(sample_sku)
+        if struct_market_product then
+            local _currency_code = struct_market_product:getCurrencyCode()
+            local _currency_price = struct_market_product:getCurrencyPrice()
+            
+            -- currency_code, currency_price의 변수 타입이나 적절치 않은 값일 경우 무시
+            if (type(_currency_code) ~= 'string') then
+            elseif (_currency_code == '') then
+            elseif (type(_currency_price) ~= 'number') then
+            elseif (_currency_price <= 0) then
+            else
+                -- 타입과 값이 온전할 경우에만 사용
+                currency_code = _currency_code
+                currency_price = _currency_price
+            end
+        end
+        cclog('##########!!')
+        cclog('# currency_code : ' .. tostring(currency_code))
+        cclog('# currency_price : ' .. tostring(currency_price))
+
+        return
+    end
+    
+    -- @sgkim 2019.09.24
+    if true then
+        self:testFunction_cafebazaarFontTest()
+        return
+    end
+
+    -- 20190819 sgkim adid (광고 식별자 얻어오는 테스트)
+    if true then
+        local function cb_func(ret, advertising_id)
+            ccdisplay('# ret : ' .. ret)
+            ccdisplay('# advertising_id : ' .. advertising_id)
+        end
+        SDKManager:getAdvertisingID(cb_func)
+        return
+    end
+
+    -- 20190703 sgkim UIC_ListExpansion 구현 확인용
+    if true then
+        UI_HelpDragonGuidePopup()
+        return
+    end
+
+    if true then
+        self:unityAdsTest01()
+        return
+    end
+
+
+	ccdisplay('adMob interstitial ad test')
+    if (CppFunctions:isAndroid() == true) then
+
+        local loading = nil
+
+        -- 광고를 재생하는 동안 로딩창으로 블럭 처리
+        local loading = UI_Loading()
+        loading:setLoadingMsg(Str('네트워크 통신 중...'))
+
+        -- 일정 시간 후 닫기
+        local node = loading.root
+        local duration = 5
+        local function func()
+            loading:close()
+            loading = nil
+        end
+        cca.reserveFunc(node, duration, func)
+
+        -- 콜백에서 로딩창 닫기
+        local function one_time_callback(ret, info)
+            ccdisplay(tostring(ret) .. tostring(info))
+
+            if loading then
+                loading:close()
+                loading = nil
+            end
+        end
+
+        -- 광고 재생
+        AdMobManager:getInterstitialAd():setOneTimeCallback(one_time_callback)
+	    AdMobManager:getInterstitialAd():show()
+
+    -- 윈도우 테스트 코드
+    elseif (CppFunctions:isWin32() == true) then
+        local loading = UI_Loading()
+        loading:setLoadingMsg(Str('네트워크 통신 중...'))
+
+        -- 일정 시간 후 닫기
+        local node = loading.root
+        local duration = 3
+        local function func()
+            loading:close()
+            loading = nil
+        end
+        cca.reserveFunc(node, duration, func)
+    end
+end
+
+-------------------------------------
+-- function unityAdsTest00
+-- @brief Unity Ads 광고 테스트 00
+-------------------------------------
+function UI_SettingTestCode:unityAdsTest00()
+    -- UnityAds 초기화
+    cclog('##UnityAds## unityads_init')
+    SDKManager:sendEvent('unityads_initialize', 'debug')
+end
+
+-------------------------------------
+-- function unityAdsTest01
+-- @brief Unity Ads 광고 테스트 01
+-------------------------------------
+function UI_SettingTestCode:unityAdsTest01()    
+    -- 리스너
+    local function unityads_listener(ret, info)
+        cclog('##UnityAds## unityads_listener') 
+        cclog('##UnityAds## ret : ' .. tostring(ret))
+        cclog('##UnityAds## info : ' .. tostring(info))
+
+        if ret == 'ready' then
+
+        elseif ret == 'start' then
+
+        elseif ret == 'finish' then
+
+        elseif ret == 'error' then
+
+            if info == 'NOT_READY' then
+
+            elseif info == 'NOT_INITIALIZED' then
+
+            end
+        end
+    end
+
+    -- UnityAds start
+    cclog('##UnityAds## unityads_start')
+    local mode = 'test' -- 'test' or ''
+    local meta_data = ''
+    PerpleSDK:unityAdsStart(mode, meta_data, unityads_listener)
+end
+
+-------------------------------------
+-- function unityAdsTest02
+-- @brief Unity Ads 광고 테스트 02
+-------------------------------------
+function UI_SettingTestCode:unityAdsTest02()
+    -- @metaData : json format string,  '{"serverId":"@serverId", "ordinalId":"@ordinalId"}'
+    local placement_id = 'lobbyGiftBox'
+    local meda_data = ''
+    cclog('##UnityAds## unityAdsShow ' .. placement_id) 
+    PerpleSDK:unityAdsShow(placement_id, meda_data)
+end
+
+-------------------------------------
+-- function click_testCodeBtn2
+-- @brief 테스트 코드
+-------------------------------------
+function UI_SettingTestCode:click_testCodeBtn2()
+    
+    -- @sgkim 2020.03.18
+    -- 원스토어 마켓으로 이동 테스트
+    if true then
+        MakeSimplePopup(POPUP_TYPE.OK, 'sendEvent, app_gotoStore로 테스트')
+        -- 드빌M이 아직 출시 전이라서 드빌1으로 테스트 https://onesto.re/0000285367
+        local pid = '0000285367'
+        SDKManager:sendEvent('app_gotoStore', pid)
+        return
+    end
+
+    -- @sgkim 2019.10.08
+    if true then
+        self:testFunction_AdmobMediation()
+        return
+    end
+
+    -- @sgkim 2019.09.24
+    if true then
+        self:testFunction_cafebazaarFontTest_TTF()
+        return
+    end
+
+    if true then
+        self:unityAdsTest02()
+        return
+    end
+
+	local function success_cb()
+		ccdisplay('success success success') 
+	end
+	local function fail_cb()
+		ccdisplay('failure failure failure')
+	end
+	local function cancel_cb()
+		ccdisplay('cancel cancel cancel ##')
+	end
+	PerpleSdkManager:twitterComposeTweet(success_cb, fail_cb, cancel_cb)
+end
+
+-------------------------------------
+-- @brief Admob Test Code
+-------------------------------------
+function UI_SettingTestCode:admob_init()
+    AdMobManager:initRewardedVideoAd()
+    ccdisplay('admob_init')
+end
+function UI_SettingTestCode:admob_preload()
+    AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE.RANDOM_BOX_LOBBY)
+    ccdisplay('admob_preload')
+end
+function UI_SettingTestCode:admob_showAd()
+    AdMobManager:getRewardedVideoAd():showByAdType(AD_TYPE.RANDOM_BOX_LOBBY)
+    ccdisplay('admob_showAd')
+end
