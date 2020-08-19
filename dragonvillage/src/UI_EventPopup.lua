@@ -297,6 +297,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
 	elseif (string.find(tab, 'event_thanks_anniversary')) then
 		ui = UI_EventThankAnniversaryNoChoice()--UI_EventThankAnniversary()
 
+    -- 3주년 이벤트 : 이미지 퀴즈 이벤트
+    elseif (tab == 'event_image_quiz') then
+        local inner_ui = UI_EventImageQuiz()
+        ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
+
     -- 신규 유저 환영 이벤트
 	elseif (tab == 'event_welcome_newbie') then
 		ui = UI_EventWelcomeNewbie()

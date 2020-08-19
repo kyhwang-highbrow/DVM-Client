@@ -1311,12 +1311,6 @@ local t_module = {
 	'UI_UserInfoDetailPopup_SetLeader',
     'UI_UserInfoDetailPopup_SetTitle',
 
-	-- UI : 출석 이벤트
-    'UI_AttendanceBasicListItem',
-    'UI_AttendanceSpecialListItem',
-    'UI_AttendanceSpecialListItem_1st',
-
-
     -- UI : 탐험(exploration)
     'UI_Exploration',
     'UI_ExplorationIng',
@@ -1370,6 +1364,15 @@ local t_module = {
     'UI_IllusionShop',-- 환상 던전 교환소
     'UI_IllusionRewardPopup', -- 환상 던전 보상 팝업
 	'UI_ItemPickPopup',
+
+	-- UI : 출석 이벤트
+    'UI_AttendanceBasicListItem',
+    'UI_AttendanceSpecialListItem',
+    'UI_AttendanceSpecialListItem_1st',
+
+    -- UI : 이미지 퀴즈 이벤트 (3주년 기념)
+    'UI_EventImageQuiz',
+    'UI_EventImageQuizIngame',
 
 	-- UI : 연출
 	'DirectingCharacter',

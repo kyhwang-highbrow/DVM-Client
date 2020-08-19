@@ -110,8 +110,7 @@ function UI_AdventureSceneNew:initButton()
 
         -- 클랜 던전 테스트
         vars['clanraidStageBtn']:setVisible(true)
-        require('UI_EventImageQuiz')
-        vars['clanraidStageBtn']:registerScriptTapHandler(function() UI_EventImageQuiz() end)
+        -- vars['clanraidStageBtn']:registerScriptTapHandler(function() end)
     else
         vars['devStageBtn']:setVisible(false)
         vars['clanraidStageBtn']:setVisible(false)

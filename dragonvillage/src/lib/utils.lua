@@ -400,6 +400,39 @@ function datetime.makeTimeDesc_timer(milliseconds, day_special)
     return str
 end
 
+function datetime.makeTimeDesc_millsec(milliseconds)
+    local day = math.floor(milliseconds / 86400000)
+    milliseconds = milliseconds - (day * 86400000)
+
+    local hour = math.floor(milliseconds / 3600000)
+    milliseconds = milliseconds - (hour * 3600000)
+
+    local min = math.floor(milliseconds / 60000)
+    milliseconds = milliseconds - (min * 60000)
+
+    local sec = math.floor(milliseconds / 1000)
+    milliseconds = milliseconds - (sec * 1000)
+
+    local millisec = milliseconds
+
+    local str = ''
+    if (0 < day) then
+        str = string.format('%.2d:%.2d:%.2d:%.2d:%.3d', day, hour, min, sec, millisec)
+
+    elseif (0 < hour) then
+        str = string.format('%.2d:%.2d:%.2d:%.3d',  hour, min, sec, millisec)
+
+    elseif (0 < min) then
+        str = string.format('%.2d:%.2d:%.3d',  min, sec, millisec)
+
+    else
+        str = string.format('%.2d:%.3d', sec, millisec)
+
+    end
+
+    return str
+end
+
 function datetime.makeTimeDesc_timer_filledByZero(milliseconds, from_day)
     local day = math.floor(milliseconds / 86400000)
     milliseconds = milliseconds - (day * 86400000)
