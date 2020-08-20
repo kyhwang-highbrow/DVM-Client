@@ -10,14 +10,15 @@ SceneLogo = class(PerpleScene, {
         m_startTimeMillisec = 'sec',
     })
 
-local LOGO_TIME = 0.5
+local LOGO_TIME = 1
 
 -------------------------------------
 -- function init
 -------------------------------------
 function SceneLogo:init(class_ui)
     self.m_bShowTopUserInfo = false
-    self.m_tLogoList = {'res/logo/logo_highbrow.png', 'res/logo/perplelab.png'}
+    --self.m_tLogoList = {'res/logo/logo_highbrow.png', 'res/logo/perplelab.png'}
+    self.m_tLogoList = {'res/logo/logo_highbrow.png'}
     self.m_currLogoIdx = 0
     self.m_finishCB = nil
     self.m_bCallStartCB = false
