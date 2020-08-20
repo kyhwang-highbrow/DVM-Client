@@ -4,10 +4,13 @@ local PARENT = UI
 -- class UI_Forest
 -------------------------------------
 UI_EventImageQuizIngame = class(PARENT,{
+        m_coroutineHelper = 'CoroutinHelepr',
+
         m_dragonAnimator = 'animator',
         m_currQuizIdx = 'number', -- 문제 1번부터 시작
 
-        m_dragonInfoList = 'list',
+        m_tDragonInfo = 'list',
+        m_tDragonInfoCnt = 'number',
         m_problemList = 'list',
         
         -- 현재 정답 인덱스
@@ -31,6 +34,8 @@ UI_EventImageQuizIngame = class(PARENT,{
 
 -- LOCAL CONST
 local TIME_LIMIT_SEC = 90
+local P100 = TIME_LIMIT_SEC * 1000 / 100
+
 local MAX_QUIZ = 45
 local CHOICE_CNT = 3
 local ANSWER_POINT = 100
@@ -54,7 +59,8 @@ function UI_EventImageQuizIngame:init()
     self.m_difficulty= 1
     self.m_score = 0
 
-    self.m_dragonInfoList = TableDragon().m_orgTable
+    self.m_tDragonInfo = TableDragon():filterTable('test', 2)
+    self.m_tDragonInfoCnt = table.count(self.m_tDragonInfo)
 
     self.m_blindTileTable = {}
 
@@ -93,9 +99,9 @@ end
 function UI_EventImageQuizIngame:initButton()
     local vars = self.vars
 
-    vars['answerBtn1']:registerScriptTapHandler(function() self:AnswerResult(1) end)
-    vars['answerBtn2']:registerScriptTapHandler(function() self:AnswerResult(2) end)
-    vars['answerBtn3']:registerScriptTapHandler(function() self:AnswerResult(3) end)
+    vars['answerBtn1']:registerScriptTapHandler(function() self:answerResult(1) end)
+    vars['answerBtn2']:registerScriptTapHandler(function() self:answerResult(2) end)
+    vars['answerBtn3']:registerScriptTapHandler(function() self:answerResult(3) end)
 end
 
 -------------------------------------
@@ -107,7 +113,6 @@ function UI_EventImageQuizIngame:refresh()
     self:setQuizProgress()
 end
 
-local bunmo = TIME_LIMIT_SEC * 1000 / 100
 -------------------------------------
 -- function update
 -- @brief 남은 시간 표시
@@ -123,14 +128,13 @@ function UI_EventImageQuizIngame:update()
     -- 게임 진행 중 (게임 종료까지 남은 시간 표시)
     if (milliseconds > 0) then
         self.vars['timeLabel']:setString(datetime.makeTimeDesc_millsec(milliseconds, false))
-        cclog(milliseconds / bunmo)
-        self.vars['timeGauge']:setPercentage(milliseconds / bunmo)
+        self.vars['timeGauge']:setPercentage(milliseconds / P100)
 
     -- 시간 초과
     elseif (milliseconds <= 0 and not self.m_isTimeOut) then
         self.m_isTimeOut = true
         local msg = Str('게임 끝')
-        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:close() end)
         self.vars['timeLabel']:setString('')
     end
 end
@@ -195,16 +199,13 @@ end
 -- @brief 퀴즈를 만든다!
 -------------------------------------
 function UI_EventImageQuizIngame:makeQuiz()
-    local dragon_cnt = table.count(self.m_dragonInfoList)
-
-    local l_idx = self:getCombination(dragon_cnt, CHOICE_CNT)
+    local l_did = self:getCombination(self.m_tDragonInfoCnt, CHOICE_CNT)
     self.m_currentAnswer = math_random(CHOICE_CNT)
 
-    cclog(dragon_cnt)
-    cclog(l_idx[self.m_currentAnswer])
-    local t_dragon = self.m_dragonInfoList[l_idx[self.m_currentAnswer]]
+    local t_dragon = self.m_tDragonInfo[l_did[self.m_currentAnswer]]
+
     self:setDragon(t_dragon)
-    self:setAnswerBtns(l_idx)
+    self:setAnswerBtns(l_did)
 end
 
 -------------------------------------
@@ -213,7 +214,27 @@ end
 -- @param choice_cnt : Number
 -------------------------------------
 function UI_EventImageQuizIngame:getCombination(dragon_cnt, choice_cnt)
-    return { 120011, 120405, 120612 }
+    local l_rand = {}
+    
+    local idx = 0
+    while idx < choice_cnt do
+        local rand_num = math_random(1, dragon_cnt)
+        if (not isContainValue(rand_num, l_rand)) then
+            table.insert(l_rand, rand_num)
+            idx = idx + 1
+        end
+    end
+    
+    local l_did = {}
+    idx = 1
+    for k,v in pairs(self.m_tDragonInfo) do
+        if (isContainValue(idx, l_rand)) then
+            table.insert(l_did, v['did'])
+        end
+        idx = idx + 1
+    end
+
+    return l_did
 end
 
 -------------------------------------
@@ -236,7 +257,7 @@ function UI_EventImageQuizIngame:setAnswerBtns(l_idx)
     local vars = self.vars
     
     for i = 1, CHOICE_CNT do
-        local t_dragon = self.m_dragonInfoList[l_idx[i]]
+        local t_dragon = self.m_tDragonInfo[l_idx[i]]
         local dragon_name = t_dragon['c_name']
         local dragon_id = t_dragon['did']
 
@@ -253,11 +274,11 @@ function UI_EventImageQuizIngame:click_closeBtn()
 end
 
 -------------------------------------
--- function AnswerResult
+-- function answerResult
 -- @brief 정답 확인
 -- @return 없음. 함수 내에서 처리하는게 더 깔끔함.
 -------------------------------------
-function UI_EventImageQuizIngame:AnswerResult(answer)
+function UI_EventImageQuizIngame:answerResult(answer)
     local vars = self.vars
 
     if (self.m_currentAnswer == answer) then
@@ -267,6 +288,7 @@ function UI_EventImageQuizIngame:AnswerResult(answer)
     else
         UIManager:toastNotificationRed('오답 연출!')
         vars['answerBtn' .. answer]:setVisible(false)
+        self:directing_wrongAnswer()
     end
 end
 
@@ -318,6 +340,49 @@ end
 -- Directing
 --------------------------------------------------------------------------
 
+function UI_EventImageQuizIngame:directing_wrongAnswer()
+    local vars = self.vars
+    
+    -- 연출을 코루틴으로 해봅니다.
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        self.m_coroutineHelper = co
+
+        -- 코루틴 종료 콜백
+        local function close_cb()
+            self.m_coroutineHelper = nil
+            -- 백키 블럭 해제
+            UIManager:blockBackKey(false)
+        end
+        co:setCloseCB(close_cb)
+
+        -- 백키 블럭
+        UIManager:blockBackKey(true)
+
+        -- 사운드 재생
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
+
+        cclog('disable')
+        -- 버튼 비활성화
+        vars['answerBtn1']:setEnabled(false)
+        vars['answerBtn2']:setEnabled(false)
+        vars['answerBtn3']:setEnabled(false)
+
+        -- 2초 대기
+        co:waitTime(2)
+
+        cclog('enable')
+        -- 버튼 활성화
+        vars['answerBtn1']:setEnabled(true)
+        vars['answerBtn2']:setEnabled(true)
+        vars['answerBtn3']:setEnabled(true)
+
+        -- 끝
+        co:close()
+    end
+
+    Coroutine(coroutine_function, 'DiceEvent Directing')
+end
 -------------------------------------
 -- function spotlightScan
 -- @brief 스포트라이트 움직이다 커지는 효과
