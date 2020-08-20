@@ -66,6 +66,16 @@ function UI_TitleScene:initUI()
     vars['downloadLabel']:setVisible(false)
 	vars['downloadGauge']:setVisible(false)
 
+    do -- copyright
+        local date = os.date('*t')
+        local year = 2020
+        if (date and date.year) then
+            year = date.year
+        end        
+        local str = Str('ⓒhighbrow, Inc. 2017~{1} All Rights Reserved', year)
+        vars['copylightImage']:setString(str)
+    end
+
     -- 앱버전과 패치 정보, 게임 서버를 출력
     self:refresh_appVersionString()
 
