@@ -156,8 +156,11 @@ local TableInfo_fromServer = {
 		-- 레벨업 패키지 레벨별 보상 리스트
         ['table_package_levelup'] = {'table_package_levelup', 'level'}, 
         ['table_package_levelup_02'] = {'table_package_levelup_02', 'level'}, 
+        ['table_package_levelup_03'] = {'table_package_levelup_03', 'level'}, 
+        -- 모험 돌파 패키지 보상 리스트
         ['table_package_stage'] = {'table_package_stage', 'stage'}, 
         ['table_package_stage_02'] = {'table_package_stage_02', 'stage'}, 
+        ['table_package_stage_03'] = {'table_package_stage_03', 'stage'}, 
 
 		-- 드래곤 강화
 		['table_dragon_reinforce'] = {'table_dragon_reinforce', 'id'},

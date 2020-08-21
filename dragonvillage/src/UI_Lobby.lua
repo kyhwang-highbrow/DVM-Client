@@ -682,11 +682,15 @@ function UI_Lobby:initButton()
     vars['matchCardBtn']:registerScriptTapHandler(function() self:click_matchCardBtn() end) -- 카드 짝 맞추기 이벤트
     vars['mandragoraBtn']:registerScriptTapHandler(function() self:click_mandragoraBtn() end) -- 만드라고라의 모험 이벤트
     vars['adventBtn']:registerScriptTapHandler(function() self:click_adventBtn() end) -- 깜짝 출현 이벤트
+
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
-    vars['levelupBtn2']:registerScriptTapHandler(function() self:click_lvUpPackBtn2() end) -- 레벨업 패키지
+    vars['levelupBtn2']:registerScriptTapHandler(function() self:click_lvUpPackBtn2() end) -- 레벨업 패키지 2
+    vars['levelupBtn3']:registerScriptTapHandler(function() self:click_lvUpPackBtn3() end) -- 레벨업 패키지 3
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
-    vars['adventureClearBtn02']:registerScriptTapHandler(function() self:click_adventureClearBtn02() end) -- 모험돌파 패키지
-	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
+    vars['adventureClearBtn02']:registerScriptTapHandler(function() self:click_adventureClearBtn02() end) -- 모험돌파 패키지 2
+    vars['adventureClearBtn03']:registerScriptTapHandler(function() self:click_adventureClearBtn03() end) -- 모험돌파 패키지 3 -- 2020.08.24
+    
+    vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
     vars['dailyShopBtn']:registerScriptTapHandler(function() self:click_dailyShopBtn() end) -- 일일 상점
     vars['randomShopBtn']:registerScriptTapHandler(function() self:click_randomShopBtn() end) -- 랜덤 상점
@@ -1450,6 +1454,14 @@ function UI_Lobby:click_lvUpPackBtn2()
 end
 
 -------------------------------------
+-- function click_lvUpPackBtn3
+-- @brief 레벨업 패키지2 버튼
+-------------------------------------
+function UI_Lobby:click_lvUpPackBtn3()
+    UI_Package_LevelUp_03(nil, true) -- param : struct_product, is_popup
+end
+
+-------------------------------------
 -- function click_adventureClearBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
@@ -1464,6 +1476,15 @@ end
 function UI_Lobby:click_adventureClearBtn02()
     require('UI_Package_AdventureClear02')
     UI_Package_AdventureClear02(nil, true) -- param : struct_product, is_popup
+end
+
+-------------------------------------
+-- function click_adventureClearBtn03
+-- @brief 레벨업 패키지 버튼
+-------------------------------------
+function UI_Lobby:click_adventureClearBtn03()
+    require('UI_Package_AdventureClear03')
+    UI_Package_AdventureClear03(nil, true) -- param : struct_product, is_popup
 end
 
 -------------------------------------
@@ -1941,6 +1962,13 @@ function UI_Lobby:update_rightButtons()
             vars['levelupBtn2']:setVisible(false)
         end
 
+        -- 레벨업 패키지3 버튼
+        if g_levelUpPackageData:isVisible_lvUpPack(LEVELUP_PACKAGE_3_PRODUCT_ID) then
+            vars['levelupBtn3']:setVisible(true)
+        else
+            vars['levelupBtn3']:setVisible(false)
+        end
+
         -- 레벨업 패키지 노티
         local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_PRODUCT_ID)
         vars['levelupNotiSprite']:setVisible(is_noti)
@@ -1948,6 +1976,11 @@ function UI_Lobby:update_rightButtons()
         -- 레벨업 패키지2 노티
         local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(LEVELUP_PACKAGE_2_PRODUCT_ID)
         vars['levelupNotiSprite2']:setVisible(is_noti)
+
+        -- 레벨업 패키지3 노티
+        local is_noti = g_levelUpPackageData:isVisible_levelUpPackNoti(
+                            LEVELUP_PACKAGE_3_PRODUCT_ID)
+        vars['levelupNotiSprite3']:setVisible(is_noti)
     end
 
     -- 일일상점 버튼
@@ -1967,7 +2000,7 @@ function UI_Lobby:update_rightButtons()
         vars['adventureClearNotiSprite']:setVisible(is_noti)
     end
 
-    -- 모험돌파 버튼
+    -- 모험돌파 버튼 2
     do
         -- 모험돌파 버튼
         if g_adventureClearPackageData02:isVisible_adventureClearPack() then
@@ -1979,6 +2012,17 @@ function UI_Lobby:update_rightButtons()
         -- 모험돌파 패키지 노티
         local is_noti = g_adventureClearPackageData02:isVisible_adventureClearPackNoti()
         vars['adventureClearNotiSprite02']:setVisible(is_noti)
+    end
+
+    -- 모험돌파 버튼 3 2020.08.24
+    do
+        -- 모험돌파 버튼
+        local is_visible = g_adventureClearPackageData03:isVisible_adventureClearPack()
+        vars['adventureClearBtn03']:setVisible(is_visible)
+
+        -- 모험돌파 패키지 노티
+        local is_noti = g_adventureClearPackageData03:isVisible_adventureClearPackNoti()
+        vars['adventureClearNotiSprite03']:setVisible(is_noti)
     end
 
     -- 마녀의 상점
@@ -2015,11 +2059,13 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'adventBtn')
     
     -- 패키지
-    table.insert(t_btn_name, 'levelupBtn2')
     table.insert(t_btn_name, 'levelupBtn')
+    table.insert(t_btn_name, 'levelupBtn2')
+    table.insert(t_btn_name, 'levelupBtn3')
     table.insert(t_btn_name, 'adventureClearBtn')
     table.insert(t_btn_name, 'adventureClearBtn02')
-    
+    table.insert(t_btn_name, 'adventureClearBtn03')
+
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')
     table.insert(t_btn_name, 'dailyShopBtn')

@@ -5,6 +5,8 @@
 
 LEVELUP_PACKAGE_PRODUCT_ID = 90037
 LEVELUP_PACKAGE_2_PRODUCT_ID = 110271
+-- 2020.08.24 신규 추가
+LEVELUP_PACKAGE_3_PRODUCT_ID = 110272
 
 -------------------------------------
 -- class ServerData_LevelUpPackage
@@ -69,6 +71,10 @@ function ServerData_LevelUpPackage:getBuyLevelUpPackageDirty()
         return true
     end
 
+    if (self:isDirty(LEVELUP_PACKAGE_3_PRODUCT_ID)) then
+        return true
+    end
+
     return false
 end
 
@@ -79,6 +85,7 @@ end
 function ServerData_LevelUpPackage:resetBuyLevelUpPackageDirty()
     self:setDirty(LEVELUP_PACKAGE_PRODUCT_ID, false)
     self:setDirty(LEVELUP_PACKAGE_2_PRODUCT_ID, false)
+    self:setDirty(LEVELUP_PACKAGE_3_PRODUCT_ID, false)
 end
 
 -------------------------------------
@@ -184,7 +191,7 @@ end
 -- function isVisible_levelUpPackNoti
 -------------------------------------
 function ServerData_LevelUpPackage:isVisible_levelUpPackNoti(product_id)
-local table_package_levelup = self:getLevelUpPackageTable(product_id)
+    local table_package_levelup = self:getLevelUpPackageTable(product_id)
     local list = table.MapToList(table_package_levelup)
 
     local function sort_func(a, b)
@@ -286,8 +293,10 @@ function ServerData_LevelUpPackage:getLevelUpPackageTable(product_id)
     local table_package_levelup
     if (product_id == LEVELUP_PACKAGE_PRODUCT_ID) then
         table_package_levelup = TABLE:get('table_package_levelup')
-    else
+    elseif (product_id == LEVELUP_PACKAGE_2_PRODUCT_ID) then
         table_package_levelup = TABLE:get('table_package_levelup_02')
-    end 
+    elseif (product_id == LEVELUP_PACKAGE_3_PRODUCT_ID) then
+        table_package_levelup = TABLE:get('table_package_levelup_03')
+    end
     return table_package_levelup
 end

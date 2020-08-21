@@ -14,7 +14,9 @@ UI_Package = class(PARENT, {
 -------------------------------------
 function UI_Package:init(struct_product, is_popup)
     local ui_name = struct_product and struct_product['package_res']
-    if (not ui_name) then return end
+    if (not ui_name) then 
+        return 
+    end
 
     self.m_isPopup = is_popup or false
 	self.m_uiName = 'UI_Package'

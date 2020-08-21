@@ -255,6 +255,12 @@ function ServerData_Event:getEventFullPopupList()
                     visible = false
                 end
 
+            -- 레벨업 패키지3인 경우 구매했을 경우 노출시키지 않음.
+            elseif (event_type == 'package_levelup_03') then
+                if (g_levelUpPackageData:isActive(LEVELUP_PACKAGE_3_PRODUCT_ID)) then
+                    visible = false
+                end
+
             -- 모험돌파 패키지인 경우 구매했을 경우 노출시키지 않음.
             elseif (event_type == 'package_adventure_clear') then
                 if (g_adventureClearPackageData:isActive()) then
@@ -264,6 +270,12 @@ function ServerData_Event:getEventFullPopupList()
             -- 모험돌파 패키지인 경우 구매했을 경우 노출시키지 않음.
             elseif (event_type == 'package_adventure_clear_02') then
                 if (g_adventureClearPackageData02:isActive()) then
+                    visible = false
+                end
+
+            -- 모험돌파 패키지인 경우 구매했을 경우 노출시키지 않음.
+            elseif (event_type == 'package_adventure_clear_03') then
+                if (g_adventureClearPackageData03:isActive()) then
                     visible = false
                 end
                 

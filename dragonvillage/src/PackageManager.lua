@@ -32,6 +32,11 @@ function PackageManager:getTargetUI(package_name, is_popup)
         local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_2_PRODUCT_ID)
         target_ui = UI_Package_LevelUp_02(_struct_product, is_popup)
 
+    -- 레벨업 패키지3 UI
+    elseif (_package_name == 'package_levelup_03') then
+        local _struct_product = g_shopDataNew:getTargetProduct(LEVELUP_PACKAGE_3_PRODUCT_ID)
+        target_ui = UI_Package_LevelUp_03(_struct_product, is_popup)
+
     -- 모험돌파 패키지 UI
     elseif (_package_name == 'package_adventure_clear') then
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
@@ -42,6 +47,12 @@ function PackageManager:getTargetUI(package_name, is_popup)
         local _struct_product = g_shopDataNew:getAdventureClearProduct02()
         require('UI_Package_AdventureClear02')
         target_ui = UI_Package_AdventureClear02(_struct_product, is_popup)
+
+    -- 모험돌파 패키지3 UI
+    elseif (_package_name == 'package_adventure_clear_03') then
+        local _struct_product = g_shopDataNew:getAdventureClearProduct03()
+        require('UI_Package_AdventureClear03')
+        target_ui = UI_Package_AdventureClear03(_struct_product, is_popup)
 
     -- 기간제 단계별 패키지 UI
     elseif (_package_name ==  'package_step_period') then
@@ -130,6 +141,11 @@ function PackageManager:isExist(package_name)
         return g_levelUpPackageData:isVisibleAtPackageShop(LEVELUP_PACKAGE_2_PRODUCT_ID)
     end
 
+    -- 레벨업 패키지3는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) mskim 2020.08.24
+    if (package_name == 'package_levelup_03') then
+        return g_levelUpPackageData:isVisibleAtPackageShop(LEVELUP_PACKAGE_3_PRODUCT_ID)
+    end
+
     -- 모험돌파 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-12-18
     if (package_name == 'package_adventure_clear') then
         local is_active = g_adventureClearPackageData:isActive()
@@ -145,6 +161,21 @@ function PackageManager:isExist(package_name)
     if (package_name == 'package_adventure_clear_02') then
         local is_active = g_adventureClearPackageData02:isActive()
         local is_visible = g_adventureClearPackageData02:isVisible_adventureClearPack()
+        if (is_active and (is_visible == false)) then
+            return false
+        else
+            return true
+        end
+    end
+
+    -- 모험돌파 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) .. 2020.08.24
+    if (package_name == 'package_adventure_clear_03') then
+        local is_active = g_adventureClearPackageData03:isActive()
+        local is_visible = g_adventureClearPackageData03:isVisible_adventureClearPack()
+        
+        cclog(is_active)
+        cclog(is_visible)
+
         if (is_active and (is_visible == false)) then
             return false
         else

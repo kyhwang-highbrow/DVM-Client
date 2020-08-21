@@ -1219,14 +1219,22 @@ function UI_TitleScene:workGetServerInfo()
                     g_levelUpPackageData:response_lvuppackInfoByTitle(ret['lvuppack_info'])
                 end
 
+                -- 모험 돌파 패키지 1
                 if (ret['stagepack_info'] and ret['stagepack_info']['90057']) then
                     cclog('# 모험 패키지 정보')
                     g_adventureClearPackageData:response_adventureClearInfo(ret['stagepack_info']['90057'])
                 end
 
+                -- 모험 돌파 패키지 2
                 if (ret['stagepack_info'] and ret['stagepack_info']['110281']) then
                     cclog('# 모험 패키지 정보')
                     g_adventureClearPackageData02:response_adventureClearInfo(ret['stagepack_info']['110281'])
+                end
+
+                -- 모험 돌파 패키지 3 2020.08.24
+                if (ret['stagepack_info'] and ret['stagepack_info']['110282']) then
+                    cclog('# 모험 패키지 정보')
+                    g_adventureClearPackageData03:response_adventureClearInfo(ret['stagepack_info']['110282'])
                 end
 
                 if (ret['capsulebox_info']) then

@@ -845,6 +845,15 @@ function ServerData_Shop:getAdventureClearProduct02()
 end
 
 -------------------------------------
+-- function getAdventureClearProduct03
+-- @brief 모험돌파 패키지 상품 정보
+-------------------------------------
+function ServerData_Shop:getAdventureClearProduct03()
+    local product_id = 110282
+    return self:getTargetProduct(product_id)
+end
+
+-------------------------------------
 -- function getDailyCapsulePackage
 -- @brief 일일 캡슐코인 패키지 (5 + 1) 상품 정보
 -------------------------------------

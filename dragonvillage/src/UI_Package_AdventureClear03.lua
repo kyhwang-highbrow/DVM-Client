@@ -1,59 +1,51 @@
 local PARENT = UI_Package
 
 -------------------------------------
--- class UI_Package_LevelUp
+-- class UI_Package_AdventureClear03
 -------------------------------------
-UI_Package_LevelUp = class(PARENT,{
-        m_productId = 'number'
+UI_Package_AdventureClear03 = class(PARENT,{
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_LevelUp:init(struct_product, is_popup)
-    -- 매개변수 초기화
-    self.m_isPopup = is_popup or false
+function UI_Package_AdventureClear03:init(struct_product, is_popup)
+    -- 모험돌파 패키지 구매 전, 기능 설정하지않고 return UI만 출력
+    if (struct_product) then
+        self.vars['closeBtn']:setVisible(false)
+        self.vars['closeBtn']:setEnabled(false)
+        return
+    end
 
-    -- UI 세팅
-    self:initUISetting()
-	
+    local vars = self:load('package_adventure_clear_03.ui')
+    
+    self.m_isPopup = is_popup or false
+    if (is_popup) then
+        UIManager:open(self, UIManager.POPUP)
+        -- 백키 지정
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AdventureClear03')
+    end
+
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
 
     self:initUI()
-	self:initButton(self.m_isPopup)
+	self:initButton()
     self:refresh()
 end
 
--------------------------------------
--- function initUISetting
--------------------------------------
-function UI_Package_LevelUp:initUISetting()
-    local vars = self:load('package_levelup.ui')
-    if (self.m_isPopup) then
-        UIManager:open(self, UIManager.POPUP)
-        -- 백키 지정
-        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_LevelUp')
-    end
-
-    self.m_productId = LEVELUP_PACKAGE_PRODUCT_ID
-end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_Package_LevelUp:refresh()
-    if (self.m_productId == nil) then
-        return
-    end
-    
+function UI_Package_AdventureClear03:refresh()
     PARENT.refresh(self)
 
     self:init_tableView()
 
     local vars = self.vars
-    if g_levelUpPackageData:isActive(self.m_productId) then
+    if g_adventureClearPackageData03:isActive() then
         vars['completeNode']:setVisible(true)
         vars['contractBtn']:setVisible(false)
         vars['buyBtn']:setVisible(false)
@@ -64,15 +56,26 @@ function UI_Package_LevelUp:refresh()
 end
 
 -------------------------------------
+-- function initButton
+-------------------------------------
+function UI_Package_AdventureClear03:initButton()
+    local vars = self.vars
+
+    vars['closeBtn']:setVisible(true)
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+end
+
+-------------------------------------
 -- function init_tableView
 -------------------------------------
-function UI_Package_LevelUp:init_tableView()
+function UI_Package_AdventureClear03:init_tableView()
     local vars = self.vars
     vars['productNode']:removeAllChildren()
     vars['productNodeLong']:removeAllChildren()
 
     local node = vars['productNode']
-    if g_levelUpPackageData:isActive(self.m_productId) then
+    if g_adventureClearPackageData03:isActive() then
         node = vars['productNodeLong']
         vars['productNode']:setVisible(false)
         vars['productNodeLong']:setVisible(true)
@@ -82,14 +85,16 @@ function UI_Package_LevelUp:init_tableView()
     end
 
     -- 리스트 아이템 생성 콜백
-    local function create_func(data)
-        return UI_Package_LevelUpListItem.createItem(data, self.m_productId)
+    local function create_func(ui, data)
+        --ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
+        --ccdump(data)
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(440, 80+5)
-    table_view:setCellUIClass(create_func)
+    table_view.m_defaultCellSize = cc.size(490, 80+5)
+    require('UI_Package_AdventureClearListItem03')
+    table_view:setCellUIClass(UI_Package_AdventureClearListItem03, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
 
@@ -97,13 +102,13 @@ function UI_Package_LevelUp:init_tableView()
     table_view:makeDefaultEmptyDescLabel('')
 
     -- 재료로 사용 가능한 리스트를 얻어옴
-    local l_item_list = g_levelUpPackageData:getLevelUpPackageTable(self.m_productId)
+    local l_item_list = TABLE:get('table_package_stage_03')
     table_view:setItemList(l_item_list)
 
     do -- 정렬
         local function sort_func(a, b)
-            local a_value = a['data']['level']
-            local b_value = b['data']['level']
+            local a_value = a['data']['stage']
+            local b_value = b['data']['stage']
             return a_value < b_value
         end
 
@@ -111,8 +116,8 @@ function UI_Package_LevelUp:init_tableView()
     end
 
     -- 보상 받기 가능한 idx로 이동
-    local lv, idx = g_levelUpPackageData:getFocusRewardLevel(self.m_productId)
-    if lv then
+    local stage_id, idx = g_adventureClearPackageData03:getFocusRewardStage()
+    if stage_id then
         table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
         table_view:relocateContainerFromIndex(idx, false)
     end
@@ -121,7 +126,7 @@ end
 -------------------------------------
 -- function click_buyBtn
 -------------------------------------
-function UI_Package_LevelUp:click_buyBtn()
+function UI_Package_AdventureClear03:click_buyBtn()
 	local struct_product = self.m_structProduct
 
     if (not struct_product) then
@@ -136,13 +141,8 @@ function UI_Package_LevelUp:click_buyBtn()
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
 
-
-        local finish_func = function()
-            -- 구매하면 바로 로비에서 노출되도록 dirty 처리
-            g_levelUpPackageData:setDirty(self.m_productId, true)
-        end
         -- 갱신
-        self:request_serverInfo(finish_func)
+        self:request_serverInfo()
 	end
 
 	struct_product:buy(cb_func)
@@ -151,13 +151,10 @@ end
 -------------------------------------
 -- function request_serverInfo
 -------------------------------------
-function UI_Package_LevelUp:request_serverInfo(finish_func)
+function UI_Package_AdventureClear03:request_serverInfo()
     local function cb_func()
         self:refresh()
-        if (finish_func) then
-            finish_func()
-        end
     end
 
-    g_levelUpPackageData:request_lvuppackInfo(cb_func, nil, self.m_productId)
+    g_adventureClearPackageData03:request_adventureClearInfo(cb_func)
 end

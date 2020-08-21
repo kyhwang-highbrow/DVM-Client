@@ -192,7 +192,8 @@ local t_module = {
     'ServerData_LevelUpPackage',
     'ServerData_AdventureClearPackage',
     'ServerData_AdventureClearPackage02',
-	'ServerData_DailyMission',
+    'ServerData_AdventureClearPackage03',
+    'ServerData_DailyMission',
 	'ServerData_CapsuleBox',
 	'ServerData_AttrTower',
     'ServerData_DragonDiary',
@@ -1011,6 +1012,7 @@ local t_module = {
     'UI_Package_Bundle',
     'UI_Package_LevelUp',
     'UI_Package_LevelUp_02',
+    'UI_Package_LevelUp_03',
     'UI_Package_LevelUpListItem',
     'UI_Package_AdventureClear',
     'UI_Package_AdventureClearListItem',
@@ -1528,22 +1530,29 @@ function reloadModule()
     print('## reloadModule() start    ##')
 
     -- 서버에서 받아서 저장 중인 테이블 백업
-    local t_backup_server_table = TABLE:backupServerTable()
+    -- local t_backup_server_table = TABLE:backupServerTable()
 
-    for i,v in ipairs(t_module) do
-        if not (t_except_reload[v]) then
+    local t_reload_modules = 
+    {
+        'UI_EventImageQuizIngame',
+        'UI_Package_LevelUp',
+        'UI_Package_LevelUp_02',
+        'UI_Package_LevelUp_03',
+    }
+    for i,v in ipairs(t_reload_modules) do
+        -- if not (t_except_reload[v]) then
             package.loaded[v] = nil
             require(v)
-        end
+        -- end
     end
 
-    TABLE:init()    
-	g_constant:readDataFile()
+    -- TABLE:init()    
+	-- g_constant:readDataFile()
 
-    -- 서버에서 받아서 저장 중인 테이블 적용
-    for i,v in pairs(t_backup_server_table) do
-        TABLE[i] = v
-    end
+    -- -- 서버에서 받아서 저장 중인 테이블 적용
+    -- for i,v in pairs(t_backup_server_table) do
+    --     TABLE[i] = v
+    -- end
     print('## reloadModule() end      ##')
     print('#############################')
 end
