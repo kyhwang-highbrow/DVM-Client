@@ -97,23 +97,30 @@ function UI_EventFullPopup:initUI()
 		local key = l_str[2] -- category
         local category = l_str[2]
         local atd_id = l_str[3]
+        
         -- 기본출석 
 		if (key == 'normal') then
 			ui = UI_EventPopupTab_Attendance()
+        
         -- 이벤트 출석 (오픈, 신규, 복귀)
 		elseif (key == 'open_event' or key == 'newbie' or key == 'comeback') then
 			ui = UI_EventPopupTab_EventAttendance(key)
-        -- 1주년 스페셜 7일 출석
+        
+        -- 1주년 스페셜 7일 출석, 축하 메세지 전광판
+        -- 2주년 스페셜 7일 출석, 축하 메세지 전광판
         elseif (key == '1st_event') or (key == '2nd_event') or (key == 'newbie_welcome') or (key == 'global_2nd_event') then
             ui = UI_EventPopupTab_EventAttendance1st(key)
+        
         -- 구글 피처드. 이미지 바꿔야 해서 따로 처리
         elseif (atd_id == '50010') then
             require('UI_EventPopupTab_EventAttendanceGoogleFeatured')
             ui = UI_EventPopupTab_EventAttendanceGoogleFeatured(atd_id)
+
         -- 이벤트 공통 UI
+        -- 3주년 스페셜 7일 출석, 축하 메세지 전광판
         elseif (category == 'event') then
-            require('UI_EventPopupTab_EventAttendanceCommon')
-            ui = UI_EventPopupTab_EventAttendanceCommon(atd_id)
+            require('UI_EventPopupTab_EventAttendanceSpecial')
+            ui = UI_EventPopupTab_EventAttendanceSpecial(atd_id)
         end
 
     -- 패키지 상품 

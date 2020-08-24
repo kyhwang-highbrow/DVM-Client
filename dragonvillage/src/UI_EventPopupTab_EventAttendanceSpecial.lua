@@ -1,21 +1,22 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_EventPopupTab_EventAttendanceCommon
+-- class UI_EventPopupTab_EventAttendanceSpecial
+-- @brief 특수한 출석 이벤트를 위한 UI
+-- @created mskim 2020.08.22
 -------------------------------------
-UI_EventPopupTab_EventAttendanceCommon = class(PARENT,{
+UI_EventPopupTab_EventAttendanceSpecial = class(PARENT,{
         m_structAttendanceData = 'StructAttendanceData',
-        m_eventID = 'string',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_EventAttendanceCommon:init(atd_id)
-    -- 비어있는 껍데이 UI
+function UI_EventPopupTab_EventAttendanceSpecial:init(atd_id)
     local vars = self:load('event_attendance_special.ui')
+
     self.m_structAttendanceData = g_attendanceData:getAttendanceDataByAtdId(atd_id)
-    self.m_eventID = self.m_structAttendanceData.category
+
     self:initUI()
 
     -- 오늘 보상을 보여주는 팝업
@@ -29,13 +30,19 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_EventPopupTab_EventAttendanceCommon:initUI()
+function UI_EventPopupTab_EventAttendanceSpecial:initUI()
     local node = self.vars['listNode']
     local struct_attendance_data = self.m_structAttendanceData -- StructAttendanceData
-    
-    require('UI_AttendanceSpecialListItem_Common')
-    local list_ui = UI_AttendanceSpecialListItem_Common(struct_attendance_data)
+    local atd_id = struct_attendance_data['atd_id']
 
+    local list_ui
+    if (atd_id == 50011) then
+        require('UI_AttendanceSpecialListItem_3rdAnniv')
+        list_ui = UI_AttendanceSpecialListItem_3rdAnniv(struct_attendance_data, atd_id)
+    else
+        require('UI_AttendanceSpecialListItem_Common')
+        list_ui = UI_AttendanceSpecialListItem_Common(struct_attendance_data)
+    end
     node:addChild(list_ui.root)
 end
 
@@ -43,7 +50,7 @@ end
 -- function checkTodayRewardPopup
 -- @brief 오늘 획득한 보상 팝업
 -------------------------------------
-function UI_EventPopupTab_EventAttendanceCommon:checkTodayRewardPopup()
+function UI_EventPopupTab_EventAttendanceSpecial:checkTodayRewardPopup()
     local vars = self.vars
 
     local struct_attendance_data = self.m_structAttendanceData
@@ -74,6 +81,6 @@ end
 -- function onEnterTab
 -- @brief
 -------------------------------------
-function UI_EventPopupTab_EventAttendanceCommon:onEnterTab()
+function UI_EventPopupTab_EventAttendanceSpecial:onEnterTab()
     local vars = self.vars
 end

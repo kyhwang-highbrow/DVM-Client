@@ -2,6 +2,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_AttendanceSpecialListItem_1st
+-- @brief 전광판, 1주년, 2주년, 3주년, 출석 이벤트
 -------------------------------------
 UI_AttendanceSpecialListItem_1st = class(PARENT, {
         m_tItemData = 'table',
@@ -18,39 +19,37 @@ UI_AttendanceSpecialListItem_1st = class(PARENT, {
 function UI_AttendanceSpecialListItem_1st:init(t_item_data, event_id)
     self.m_tItemData = t_item_data
 
+    if (event_id == '1st_event' or event_id == '2nd_event' 
+        or event_id == 'newbie_welcome' or event_id == 'global_2nd_event') then
+        self:initForOldEvent(event_id)
+    else
+        -- subclass에서 처리
+    end
+end
+
+-------------------------------------
+-- function initForOldEvent
+-- @brief 3주년 출석 이벤트/전광판 부터는 subclass 사용함. super class를 분리해야하지만 귀찮아서 안만듬. 다 뜯어고칠수는 없다. 만들때 잘만들자..ㅠㅠ
+-------------------------------------
+function UI_AttendanceSpecialListItem_1st:initForOldEvent(event_id)
     local vars = self:load('event_attendance_1st_anniversary.ui')
 
     self:initUI(event_id)
     self:initButton()
     self:refresh()
 
-    if (event_id == '1st_event' or event_id == '2nd_event' or event_id == 'newbie_welcome' or event_id == 'global_2nd_event') then
-        -- 성공 콜백
-        local function success_cb(ret)
-            self.m_lMessage = {}
-            self.m_messageIdx = 0
-            self.m_messageTimer = 0 
-            self.m_lMessagePosY = {}
-            self.m_effectTimer = 0
-            --[[
-            table.insert(self.m_lMessage, {msg='Congrats guys and gals!', nickname='69mort69'})
-            table.insert(self.m_lMessage, {msg='一周年おめでとう~~', nickname='汪太'})
-            table.insert(self.m_lMessage, {msg='Well done guys on the great game', nickname='Isilwyn'})
-            table.insert(self.m_lMessage, {msg='1주년 축하해요 다른 이벤트 잘 준비해서 유저들 많이 늘어나길', nickname='레오플'})
-            table.insert(self.m_lMessage, {msg='Congratz! Enjoying playing this game!', nickname='Agnus'})
-            table.insert(self.m_lMessage, {msg='이제 착한 드린이가 될게요', nickname='남작'})
-            table.insert(self.m_lMessage, {msg='Great design and content. Keep it up devs!', nickname='Sazon'})
-            table.insert(self.m_lMessage, {msg="Congratulations guys. You've earned it by giving such a good game. Keep it up.", nickname='Launna'})
-            table.insert(self.m_lMessage, {msg='Felicidades que todo siga prosperando ', nickname='Soulflayer'})
-            table.insert(self.m_lMessage, {msg='시작한지 얼마안됫지만 굿굿!!재밌어요', nickname='해미메'})
-            --]]
+    -- 성공 콜백
+    local function success_cb(ret)
+        self.m_lMessage = {}
+        self.m_messageIdx = 0
+        self.m_messageTimer = 0 
+        self.m_lMessagePosY = {}
+        self.m_effectTimer = 0
+        self.m_lMessage = ret['messages'] or {}
 
-            self.m_lMessage = ret['messages'] or {}
-
-            self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-        end
-        self:request_getCelebrateMsg(success_cb, event_id)
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
+    self:request_getCelebrateMsg(success_cb, event_id)
 end
 
 -------------------------------------
