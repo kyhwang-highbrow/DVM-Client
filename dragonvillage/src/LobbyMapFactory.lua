@@ -21,6 +21,8 @@ local DECO_TYPE = {
     ['ANNIVERSARY_1ST_GLOBAL'] = '1st_anniversary_global',
     ['ANNIVERSARY_2ST'] = '2st_anniversary',
     ['ANNIVERSARY_2ST_GLOBAL'] = '2st_anniversary_global',
+
+    ['ANNIVERSARY_3RD'] = '3rd_anniversary',
 }
 
 -- ## 장식 추가 스텝 ##
@@ -47,7 +49,7 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 	lobby_map:addLayer_lobbyGround(lobby_ground) -- 바닥
     lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경
 
-    self:setDeco(lobby_map)
+    self:setDeco(lobby_map, ui_lobby)
 
     return lobby_map
 end
@@ -55,7 +57,7 @@ end
 -------------------------------------
 -- function setDeco
 -------------------------------------
-function LobbyMapFactory:setDeco(lobby_map)
+function LobbyMapFactory:setDeco(lobby_map, ui_lobby)
 
     local lobby_ground = lobby_map.m_groudNode
     local lobby_map = lobby_map
@@ -81,6 +83,7 @@ function LobbyMapFactory:setDeco(lobby_map)
     -- 기념(케이크)
     elseif (string.find(deco_type, 'anniversary')) then
         self:makeLobbyDeco_onLayer(lobby_ground, deco_type)
+        self:makeLobbyParticleConfetti(ui_lobby) -- 종이 조각 파티클
     end
 
     return lobby_map
@@ -263,6 +266,14 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 			end
 		end
 
+    -- 3주년 기념 케이크 2020.08.27
+	elseif (deco_type == DECO_TYPE.ANNIVERSARY_3RD) then
+		animator = MakeAnimator('res/lobby/lobby_layer_03_center_cake/lobby_layer_03_center_cake.vrp')
+		if (animator.m_node) then
+			animator:setPosition(0, 0)
+			animator:changeAni(USE_NIGHT and 'idle_02' or 'idle_01', true)
+			node:addChild(animator.m_node, 1)
+		end
 	end
 end
 
@@ -279,21 +290,46 @@ function LobbyMapFactory:makeLobbyParticle(ui_lobby, deco_type)
 
     -- 눈은 밤에만 내린다
     if (deco_type == DECO_TYPE.X_MAS) and (USE_NIGHT) then 
-        particle_res = 'res/ui/particle/dv_snow.plist'
+        particle_res = 'dv_snow'
 
     -- 벚꽃
     elseif (deco_type == DECO_TYPE.BLOSSOM) then
-        particle_res = 'res/ui/particle/particle_cherry.plist'
+        particle_res = 'particle_cherry'
 
     -- 정의되지 않은 타입은 파티클 생성안함
     else
         return
     end
 
+    self:makeParticle(ui_lobby, particle_res)
+end
+
+-------------------------------------
+-- function makeLobbyParticleConfetti
+-- @brief lobby에 confetti 파티클을 생성한다.
+-------------------------------------
+function LobbyMapFactory:makeLobbyParticleConfetti(ui_lobby)
+    if (not ui_lobby) then
+        return
+    end
+
+    self:makeParticle(ui_lobby, 'confetti/particle_confetti_0301')
+    self:makeParticle(ui_lobby, 'confetti/particle_confetti_0302')
+    self:makeParticle(ui_lobby, 'confetti/particle_confetti_0303')
+    self:makeParticle(ui_lobby, 'confetti/particle_confetti_0401')
+    self:makeParticle(ui_lobby, 'confetti/particle_confetti_0402')
+end
+
+-------------------------------------
+-- function makeParticle
+-- @brief 파티클을 생성한다.
+-------------------------------------
+function LobbyMapFactory:makeParticle(node, name)
+    local particle_res = string.format('res/ui/particle/%s.plist', name)
 	local particle = cc.ParticleSystemQuad:create(particle_res)
 	particle:setAnchorPoint(CENTER_POINT)
 	particle:setDockPoint(CENTER_POINT)
-	ui_lobby.root:addChild(particle)
+	node.root:addChild(particle)
 end
 
 -------------------------------------
