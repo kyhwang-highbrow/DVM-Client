@@ -185,6 +185,15 @@ function ServerData_User:getTransformMaterialCount(material_id)
 end
 
 -------------------------------------
+-- function getAttrMasteryMaterialCount
+-- @brief 속성별 특성 재료 갯수
+-------------------------------------
+function ServerData_User:getAttrMasteryMaterialCount(material_id)
+    local material_id = tostring(material_id)
+    return self:get('conversion_item_list', material_id) or 0
+end
+
+-------------------------------------
 -- function makeEmptyData
 -- @brief 보유하지 않은 아이템도 count 0으로 생성 (진화재료, 열매, 외형변환)
 -------------------------------------

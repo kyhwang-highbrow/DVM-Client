@@ -544,6 +544,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['dragon_food'] then
             self:applyServerData(ret['dragon_food'], 'user', 'dragon_food')
         end
+
+		-- 속성 특성 재료
+        if ret['conversion_item_list'] then
+            self:applyServerData(ret['conversion_item_list'], 'user', 'conversion_item_list')
+        end
     end
 
 	-- 퀘스트 갱신

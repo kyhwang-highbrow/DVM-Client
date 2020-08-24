@@ -262,6 +262,11 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 
         sprite = card.root
 
+    -- 특성 재료 (icon res와 full_type이 일치하지 않아 따로 처리
+    elseif (item_type == 'mastery_material') then
+        local res_name = t_item['icon']
+        sprite = self:getIcon(res_name)
+
     -- 기타 아이템 아이콘 생성
     else
         local type_str = t_item['full_type']

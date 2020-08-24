@@ -824,6 +824,41 @@ function ServerData_Dragons:possibleGoodbye(doid)
 end
 
 -------------------------------------
+-- function possibleConversion
+-- @brief 변환 가능한지 체크
+-------------------------------------
+function ServerData_Dragons:possibleConversion(doid)
+	local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+	if (not possible) then
+		return possible, msg
+	end
+
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+	local did = t_dragon_data['did']
+
+	-- 슬라임 체크
+	if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 선택할 수 없습니다.')
+    end
+
+	-- 자코 체크
+	if (TableDragon:isUnderling(did)) then
+		return false, Str('몬스터는 변환할 수 없습니다.') 
+	end
+
+	local dragon_name = TableDragon:getDragonName(did)
+
+	-- 3성 번고/땅스마트 작별 못하게 막음
+	local birth = t_dragon_data:getBirthGrade()
+	local grade = t_dragon_data:getGrade()
+	if (birth > grade) then
+		return false, Str('변환할 수 없습니다.') 
+	end
+
+    return true
+end
+
+-------------------------------------
 -- function possibleMaterialDragon
 -- @brief 재료 드래곤으로 사용 가능한지 여부 : 리더나 잠금 상태를 제외한다
 -------------------------------------
@@ -1504,6 +1539,39 @@ function ServerData_Dragons:request_dragonSell(doids, soids, cb_func)
     ui_network:setParam('uid', uid)
     ui_network:setParam('doids', doids)
 	ui_network:setParam('soids', soids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_dragonConversion
+-------------------------------------
+function ServerData_Dragons:request_dragonConversion(doids, cb_func)
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+		-- 판매 드래곤 삭제
+		if ret['deleted_dragons_oid'] then
+			for _, doid in pairs(ret['deleted_dragons_oid']) do
+				g_dragonsData:delDragonData(doid)
+			end
+		end
+
+		-- 골드 갱신
+		self.m_serverData:networkCommonRespone(ret)
+
+		-- 콜백
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/conversion')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('src_doids', doids)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()

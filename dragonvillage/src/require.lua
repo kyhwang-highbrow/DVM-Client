@@ -1,6 +1,9 @@
 -- 패치 시점에서도 반드시 필요한 루아 모듈은 
 -- 하단의 loadModuleForPatchScene에도 추가 해주세요
 
+-- @mskim 2020.08.22
+-- 특정 위치, 시기에 제한적으로 사용되는 특히 이벤트와 같은 것들은 사용직전에 require 하도록 한다.
+
 local t_module = {
     'Cocos2d',
     'Cocos2dConstants',

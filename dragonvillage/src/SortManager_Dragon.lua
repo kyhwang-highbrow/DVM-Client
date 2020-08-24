@@ -501,16 +501,16 @@ function SortManager_Dragon:sort_with_material(a, b, ascending)
         return nil
     end
 
-    -- 값이 특성 재료라면 값을 0으로 두고 비교 (특성 재료를 맨 앞으로)
+    -- 특성 재료라면 속성 특성 재료가 앞으로 오도록 id를 사용한다.
     if (a_value == 'mastery_material') then
-        a_value = 0
+        a_value = a_data['item_id']
     end
 
     if (b_value == 'mastery_material') then
-        b_value = 0
+        b_value = b_data['item_id']
     end
 
-    return a_value < b_value
+    return a_value > b_value
 end
 
 -------------------------------------

@@ -167,6 +167,9 @@ function UI_DragonManageInfo:initButton()
 
         -- 팀보너스
 		vars['teamBonusBtn']:registerScriptTapHandler(function() self:click_teamBonusBtn() end)
+
+        -- 변환 (특성재료)
+		vars['conversionBtn']:registerScriptTapHandler(function() self:click_conversionBtn() end)
     end
 
     do -- 기타 버튼
@@ -1014,6 +1017,28 @@ function UI_DragonManageInfo:click_teamBonusBtn()
 	UI_TeamBonus(TEAM_BONUS_MODE.DRAGON, nil, sel_did)
 end
 
+-------------------------------------
+-- function click_conversionBtn
+-- @brief 변환 (특정 재료로 변환하는 기능)
+-------------------------------------
+function UI_DragonManageInfo:click_conversionBtn()
+    require('UI_DragonConversion')
+	local ui = UI_DragonConversion()
+
+	local function close_cb()
+	    if ui.m_bChangeDragonList then
+			-- 테이블 아이템갱신
+			self:init_dragonTableView()
+
+			-- 기존에 선택되어 있던 드래곤 교체
+			self:setDefaultSelectDragon()
+
+			-- 정렬
+			self:apply_dragonSort_saveData()
+		end
+	end
+	ui:setCloseCB(close_cb)
+end
 -------------------------------------
 -- function checkDragonListRefresh
 -- @brief 드래곤 리스트에 변경이 있는지 확인 후 갱신

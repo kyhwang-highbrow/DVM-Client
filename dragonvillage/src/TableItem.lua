@@ -64,9 +64,32 @@ ITEM_ID_MAP['gold_booster'] = 700403
 ITEM_ID_MAP['max_fixed_ticket'] = 704901
 ITEM_ID_MAP['opt_keep_ticket'] = 704902
 
+-- 특성 재료
 ITEM_ID_MAP['mastery_material_02'] = 741021
 ITEM_ID_MAP['mastery_material_03'] = 741031
 ITEM_ID_MAP['mastery_material_04'] = 741041
+
+ITEM_ID_MAP['mastery_material_rare_earth'] = 741121
+ITEM_ID_MAP['mastery_material_hero_earth'] = 741131
+ITEM_ID_MAP['mastery_material_legend_earth'] = 741141
+
+ITEM_ID_MAP['mastery_material_rare_water'] = 741122
+ITEM_ID_MAP['mastery_material_hero_water'] = 741132
+ITEM_ID_MAP['mastery_material_legend_water'] = 741142
+
+ITEM_ID_MAP['mastery_material_rare_fire'] = 741123
+ITEM_ID_MAP['mastery_material_hero_fire'] = 741133
+ITEM_ID_MAP['mastery_material_legend_fire'] = 741143
+
+ITEM_ID_MAP['mastery_material_rare_light'] = 741124
+ITEM_ID_MAP['mastery_material_hero_light'] = 741134
+ITEM_ID_MAP['mastery_material_legend_light'] = 741144
+
+ITEM_ID_MAP['mastery_material_rare_dark'] = 741125
+ITEM_ID_MAP['mastery_material_hero_dark'] = 741135
+ITEM_ID_MAP['mastery_material_legend_dark'] = 741145
+
+
 
 local ITEM_TYPE_MAP = {}
 for i,v in pairs(ITEM_ID_MAP) do

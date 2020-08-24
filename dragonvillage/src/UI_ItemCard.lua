@@ -42,16 +42,19 @@ function UI_ItemCard:setItemData()
         end
     end
 
-    if (t_item['type'] == 'dragon') then
+    local item_type = t_item['type']
+    if (item_type == 'dragon') then
         self:init_dragonItem(t_item)
-    elseif (t_item['type'] == 'slime') then
+    elseif (item_type == 'slime') then
         self:init_slimeItem(t_item)
-    elseif (t_item['type'] == 'rune') then
+    elseif (item_type == 'rune') then
         self:init_runeItem(t_item, self.m_tSubData)
-    elseif (t_item['type'] == 'relation_point') then
+    elseif (item_type == 'relation_point') then
         self:init_relationItem(t_item)
-    elseif (t_item['type'] == 'reinforce_point') then
+    elseif (item_type == 'reinforce_point') then
         self:init_reinforcePoint(t_item, self.m_itemCount)
+    elseif (item_type == 'mastery_material') then
+        self:init_masteryMaterial(t_item, self.m_itemCount)
     else
         self:init_commonItem(t_item)
     end
@@ -209,6 +212,44 @@ function UI_ItemCard:init_clanExp(count)
 end
 
 -------------------------------------
+-- function init_masteryMaterial
+-------------------------------------
+function UI_ItemCard:init_masteryMaterial(t_item, count)
+    local item_id = self.m_itemID
+
+    local temp_ui = UI()
+    local vars = temp_ui:load('icon_item_item.ui')
+    self.root = temp_ui.root
+    self.vars = vars
+
+    local icon = IconHelper:getItemIcon(item_id)
+    vars['stoneNode']:addChild(icon)
+
+    if (not count) or (count == 0) then
+        vars['numberLabel']:setString('')
+    else
+        vars['numberLabel']:setString(Str('{1}', comma_value(count)))
+    end
+
+    -- 속성 아이콘 별도로 처리
+    local attr = t_item['attr']
+    if (attr ~= '' and attr ~= nil) then
+        -- plist 사용 .. itemCard도 plist 사용하여 생성하도록 바꾸는 것이 좋다. card_item은 왜 안쓰게 된거지?
+        cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/card/card.plist')
+
+        local res = 'card_cha_attr_' .. attr .. '.png'
+        local sprite = IconHelper:createWithSpriteFrameName(res)
+        
+        vars['attrNode']:removeAllChildren()
+        vars['attrNode']:addChild(sprite)
+        vars['attrNode']:setVisible(true)
+    end
+end
+
+
+
+
+-------------------------------------
 -- function setNumberLabel
 -------------------------------------
 function UI_ItemCard:setNumberLabel(str)
@@ -319,6 +360,13 @@ end
 function UI_ItemCard:setSwallowTouch()
     self.root:setSwallowTouch(false)
 end
+
+
+
+
+
+
+
 
 ------------------------------------
 -- function UI_ClanExpCard
