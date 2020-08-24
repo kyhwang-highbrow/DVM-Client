@@ -74,11 +74,16 @@ function UI_Package_LevelUpListItem:refresh()
             vars['receiveSprite']:setVisible(false)
             vars['rewardBtn']:setVisible(true)
 
-            local user_lv = g_userData:get('lv')
-            if (user_lv < level) then
-                vars['rewardBtn']:setEnabled(false)
-            else
+            -- 2020.08.24 3번째 패키지 추가하며 1,2번째 패키지는 모두 수령가능 상태로 처리함
+            if (self.m_productId == LEVELUP_PACKAGE_PRODUCT_ID or self.m_productId == LEVELUP_PACKAGE_2_PRODUCT_ID) then
                 vars['rewardBtn']:setEnabled(true)
+            else
+                local user_lv = g_userData:get('lv')
+                if (user_lv < level) then
+                    vars['rewardBtn']:setEnabled(false)
+                else
+                    vars['rewardBtn']:setEnabled(true)
+                end
             end
         end
     else
@@ -101,12 +106,6 @@ end
 function UI_Package_LevelUpListItem:click_rewardBtn()
     local data = self.m_data
     local lv = data['level']
-
-    local user_lv = g_userData:get('lv')
-    if (user_lv < lv) then
-        UIManager:toastNotificationRed(Str('레벨이 부족합니다.'))
-        return
-    end
 
     local function cb_func(ret)
         self:refresh()

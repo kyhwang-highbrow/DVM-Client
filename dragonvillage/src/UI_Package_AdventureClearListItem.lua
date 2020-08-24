@@ -73,22 +73,13 @@ function UI_Package_AdventureClearListItem:refresh()
             vars['receiveSprite']:setVisible(true)
             vars['rewardBtn']:setVisible(false)
             vars['linkBtn']:setVisible(false)
+        
+        -- 2020.08.24 3번째 패키지 추가하며 1,2번째 패키지는 모두 수령가능 상태로 처리함
         else
             vars['receiveSprite']:setVisible(false)
             vars['rewardBtn']:setVisible(true)
-
-            local stage_info = g_adventureData:getStageInfo(stage_id)
-            local star = stage_info:getNumberOfStars()
-
-            if (star < 3) then
-                vars['rewardBtn']:setVisible(false)
-                vars['rewardBtn']:setEnabled(true)
-                vars['linkBtn']:setVisible(true)
-            else
-                vars['rewardBtn']:setVisible(true)
-                vars['rewardBtn']:setEnabled(true)
-                vars['linkBtn']:setVisible(false)
-            end
+            vars['rewardBtn']:setEnabled(true)
+            vars['linkBtn']:setVisible(false)
         end
     else
         vars['receiveSprite']:setVisible(false)
@@ -110,14 +101,6 @@ end
 function UI_Package_AdventureClearListItem:click_rewardBtn()
     local data = self.m_data
     local stage_id = data['stage']
-
-    local stage_info = g_adventureData:getStageInfo(stage_id)
-    local star = stage_info:getNumberOfStars()
-
-    if (star < 3) then
-        UIManager:toastNotificationRed(Str('별 3개로 클리어 시 보상을 획득할 수 있습니다.'))
-        return
-    end
 
     local function cb_func(ret)
         self:refresh()
