@@ -268,15 +268,9 @@ function UI_DragonConversion:click_conversionBtn()
 
 		-- 외부에 변화 여부 전달
 		self.m_bChangeDragonList = true
-        local l_item = {}
-        for i, v in pairs(ret['conversion_item_list']) do
-            table.insert(l_item, {
-                ['item_id'] = tonumber(i),
-                ['count'] = v
-            })
-        end
-        ccdump(l_item)
-        UI_ObtainPopup(l_item, nil, nil, true)
+
+        -- 결과 출력
+        UI_ObtainPopup(ret['items_list'], nil, nil, true)
 	end
 
 	g_dragonsData:request_dragonConversion(doids, cb_func)

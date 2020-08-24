@@ -190,7 +190,7 @@ end
 -------------------------------------
 function ServerData_User:getAttrMasteryMaterialCount(material_id)
     local material_id = tostring(material_id)
-    return self:get('conversion_item_list', material_id) or 0
+    return self:get('mastery_materials', material_id) or 0
 end
 
 -------------------------------------

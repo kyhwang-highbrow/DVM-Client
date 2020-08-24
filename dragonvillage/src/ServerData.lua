@@ -520,21 +520,6 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['rune_bless'], 'user', 'rune_bless')
         end
 
-        -- 희귀 특성 재료
-        if ret['mastery_material_02'] then
-            self:applyServerData(ret['mastery_material_02'], 'user', 'mastery_material_02')
-        end
-
-        -- 영웅 특성 재료
-        if ret['mastery_material_03'] then
-            self:applyServerData(ret['mastery_material_03'], 'user', 'mastery_material_03')
-        end
-
-        -- 전설 특성재료
-        if ret['mastery_material_04'] then
-            self:applyServerData(ret['mastery_material_04'], 'user', 'mastery_material_04')
-        end
-
         -- 환상 던전 토큰
         if ret['illusion_token_01'] then
             self:applyServerData(ret['illusion_token_01'], 'user', 'event_illusion')
@@ -545,9 +530,9 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['dragon_food'], 'user', 'dragon_food')
         end
 
-		-- 속성 특성 재료
-        if ret['conversion_item_list'] then
-            self:applyServerData(ret['conversion_item_list'], 'user', 'conversion_item_list')
+		-- 모든 특성 재료 (구 공통 특성 재료 포함)
+        if ret['mastery_materials'] then
+            self:applyServerData(ret['mastery_materials'], 'user', 'mastery_materials')
         end
     end
 
@@ -689,19 +674,12 @@ function ServerData:networkCommonRespone_addedItems(ret)
     
     -- 룬 축복서
     RefreshGoods(t_added_items, 'rune_bless')
-   
-    -- 희귀 특성 재료
-    RefreshGoods(t_added_items, 'mastery_material_02')
-
-    -- 영웅 특성 재료
-    RefreshGoods(t_added_items, 'mastery_material_03')
-   
-    -- 전설 특성재료
-    RefreshGoods(t_added_items, 'mastery_material_04')
 
     -- 드래곤의 먹이
     RefreshGoods(t_added_items, 'dragon_food')
    
+   -- 특성 재료
+    RefreshGoods(t_added_items, 'mastery_materials')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then
