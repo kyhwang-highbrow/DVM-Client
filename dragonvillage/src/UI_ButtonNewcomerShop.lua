@@ -57,11 +57,11 @@ end
 -- function isActive
 -------------------------------------
 function UI_ButtonNewcomerShop:isActive()
-    --return true -- 무조건 노출일 경우
+    return true -- 무조건 노출일 경우
 
     -- 첫 충전 선물이 활성화일 경우 숨김
-    local ret = g_firstPurchaseEventData:isActiveAnnyFirstPurchaseEvent()
-    return (not ret)
+    --local ret = g_firstPurchaseEventData:isActiveAnnyFirstPurchaseEvent()
+    --return (not ret)
 end
 
 -------------------------------------
