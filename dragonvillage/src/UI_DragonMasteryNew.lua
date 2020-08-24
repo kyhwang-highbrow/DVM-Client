@@ -422,8 +422,8 @@ function UI_DragonMasteryNew:getDragonMaterialList(doid)
     -- 전속성 특성 재료
     do
         local material_type = 'mastery_material_0' .. (dragon_obj:getBirthGrade() - 1)
-        local material_cnt = g_userData:get(material_type) or 0
         local material_id = TableItem:getItemIDFromItemType(material_type)
+        local material_cnt = g_userData:getAttrMasteryMaterialCount(material_id) or 0
 
        for i = 1, material_cnt do
             local t_data = {}

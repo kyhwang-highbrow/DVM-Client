@@ -531,6 +531,7 @@ function ServerData:networkCommonRespone(ret)
         end
 
 		-- 모든 특성 재료 (구 공통 특성 재료 포함)
+        -- @mskim 기존 mastery_materials_02~04를 mastery_materials 컨테이너로 통합하여 수령함
         if ret['mastery_materials'] then
             self:applyServerData(ret['mastery_materials'], 'user', 'mastery_materials')
         end
