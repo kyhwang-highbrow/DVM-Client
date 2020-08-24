@@ -206,9 +206,6 @@ function UI_EventPopup:makeEventPopupTab(tab)
         elseif (event_id == '1st_event') or (event_id == '2nd_event') or (event_id == 'newbie_welcome') or (event_id == 'global_2nd_event')then
             ui = UI_EventPopupTab_EventAttendance1st(event_id)
 
-        elseif (event_type == 'attendance_event_3rd_anniv') then
-            ui = UI_EventPopupTab_EventAttendance1st(event_id)
-
         -- 구글 피쳐드 이벤트
         elseif (tab == 'attendance_event50010') then
             require('UI_EventPopupTab_EventAttendanceGoogleFeatured')
