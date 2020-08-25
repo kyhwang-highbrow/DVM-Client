@@ -501,6 +501,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Adventure.lua" />
     <None Include="..\src\ServerData_AdventureClearPackage.lua" />
     <None Include="..\src\ServerData_AdventureClearPackage02.lua" />
+    <None Include="..\src\ServerData_AdventureClearPackage03.lua" />
     <None Include="..\src\ServerData_AdventureFirstReward.lua" />
     <None Include="..\src\ServerData_Advertising.lua" />
     <None Include="..\src\ServerData_AncientRuin.lua" />
@@ -530,6 +531,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_EventBingo.lua" />
     <None Include="..\src\ServerData_EventDice.lua" />
     <None Include="..\src\ServerData_EventGoldDungeon.lua" />
+    <None Include="..\src\ServerData_EventImageQuiz.lua" />
     <None Include="..\src\ServerData_EventMandragoraQuest.lua" />
     <None Include="..\src\ServerData_EventMatchCard.lua" />
     <None Include="..\src\ServerData_EvolutionStone.lua" />
@@ -668,7 +670,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SortManager_TeamBonus.lua" />
     <None Include="..\src\SortManager_Transform.lua" />
     <None Include="..\src\SpineCacheManager.lua" />
-    <None Include="..\src\sss.lua" />
     <None Include="..\src\StageMissionMgr.lua" />
     <None Include="..\src\ICharacterStatusEffect.lua" />
     <None Include="..\src\StatusEffectEdgeDirector.lua" />
@@ -1241,6 +1242,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonChanceUp.lua" />
     <None Include="..\src\UI_DragonChanceUpListItem.lua" />
     <None Include="..\src\UI_DragonChangeResult.lua" />
+    <None Include="..\src\UI_DragonConversion.lua" />
     <None Include="..\src\UI_DragonDiaryPopup.lua" />
     <None Include="..\src\UI_DragonGuideListItem.lua" />
     <None Include="..\src\UI_DragonGuidePopup.lua" />
@@ -1289,8 +1291,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventMatchCardTimeListItem.lua" />
     <None Include="..\src\UI_EventPopupTabButton.lua" />
     <None Include="..\src\UI_EventPopupTab_EventAttendance1st.lua" />
-    <None Include="..\src\UI_EventPopupTab_EventAttendanceCommon.lua" />
+    <None Include="..\src\UI_EventPopupTab_EventAttendanceSpecial.lua" />
     <None Include="..\src\UI_EventPopupTab_EventAttendanceGoogleFeatured.lua" />
+    <None Include="..\src\UI_AttendanceSpecialListItem_3rdAnniv.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
     <None Include="..\src\UI_EventPopupTab_Package.lua" />
@@ -1392,9 +1395,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IranEmailLoginPopup.lua" />
     <None Include="..\src\UI_IranEmailRegistrationPopup.lua" />
     <None Include="..\src\UI_IranLoginPopup.lua" />
-    <None Include="..\src\UI_ItemBulkSalePopup.lua" />
     <None Include="..\src\UI_ItemPickPopup.lua" />
-    <None Include="..\src\UI_ItemUnit.lua" />
     <None Include="..\src\UI_LinkAccountPopup.lua" />
     <None Include="..\src\UI_ListItem_ClanWarGroupStage.lua" />
     <None Include="..\src\UI_Loading.lua" />
@@ -1433,13 +1434,16 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_PackageTabButton.lua" />
     <None Include="..\src\UI_Package_AdventureClear.lua" />
     <None Include="..\src\UI_Package_AdventureClear02.lua" />
+    <None Include="..\src\UI_Package_AdventureClear03.lua" />
     <None Include="..\src\UI_Package_AdventureClearListItem.lua" />
     <None Include="..\src\UI_Package_AdventureClearListItem02.lua" />
+    <None Include="..\src\UI_Package_AdventureClearListItem03.lua" />
     <None Include="..\src\UI_Package_Bundle.lua" />
     <None Include="..\src\UI_Package_DragonChoiceHero.lua" />
     <None Include="..\src\UI_Package_LevelUp.lua" />
     <None Include="..\src\UI_Package_LevelUpListItem.lua" />
     <None Include="..\src\UI_Package_LevelUp_02.lua" />
+    <None Include="..\src\UI_Package_LevelUp_03.lua" />
     <None Include="..\src\UI_Package_New_Dragon.lua" />
     <None Include="..\src\UI_Package_New_DragonBg.lua" />
     <None Include="..\src\UI_Package_Select_Radio.lua" />
@@ -1591,7 +1595,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RuneDevApiPopup.lua" />
     <None Include="..\src\UI_RuneGuardianDungeonScene.lua" />
     <None Include="..\src\UI_RuneSetFilter.lua" />
-    <None Include="..\src\UI_RuneUnit.lua" />
     <None Include="..\src\UI_ScenarioPlayer_util.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Narrate.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Talk.lua" />

@@ -148,11 +148,38 @@ function UI_QuestListItem:setRewardCard()
     local l_reward_info = self.m_questData:getRewardInfoList()
     local l_rewardCardUI = self.m_lRewardCardUI
 
+    -- @mskim UI에 출력할 순서에 따라 아래 보상 추가 로직의 순서를 변경한다.
+
     local reward_idx = 1
+
+    -- 이벤트 보상 (3주년 신비의 알 100개 부화 이벤트, event_daily_quest)
+    -- @mskim 이벤트 보상은 이벤트 스프라이트를 표시한다.
+    if (self.m_questData:isDailyType()) then
+        local l_event_reward_list = self.m_questData:getEventRewardInfoList()
+        if (l_event_reward_list) then
+            for i, v in ipairs(l_event_reward_list) do
+                local reward_card = UI_ItemCard(v['item_id'], v['count'])
+                reward_card.root:setSwallowTouch(false)
+                local reward_node = vars['rewardNode' .. reward_idx]
+                if (reward_node) then
+                    if (reward_card) then
+                        reward_node:removeAllChildren()
+                        reward_node:addChild(reward_card.root)
+                        reward_idx = reward_idx + 1
+                        table.insert(l_rewardCardUI, reward_card)
+                    end
+                end
+                -- 아이템카드의 이벤트 스프라이트
+                reward_card.vars['eventSprite']:setVisible(true)
+            end
+        end
+    end
+
+    -- 기본 퀘스트 보상
     for i, v in ipairs(l_reward_info) do
         local reward_card = UI_ItemCard(v['item_id'], v['count'])
         reward_card.root:setSwallowTouch(false)
-        local reward_node = vars['rewardNode' .. i]
+        local reward_node = vars['rewardNode' .. reward_idx]
         if (reward_node) then
             if (reward_card) then
                 reward_node:removeAllChildren()
@@ -350,6 +377,14 @@ function UI_QuestListItem:makeRewardList()
             t_data['count'] = clan_exp
             table.insert(l_total_reward, t_data)
 		end
+    end
+
+    -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트, event_daily_quest)
+    local l_event_reward_list = self.m_questData:getEventRewardInfoList()
+    if (l_event_reward_list) then
+        for i, v in ipairs(l_event_reward_list) do
+            table.insert(l_total_reward, v)
+        end
     end
 
     l_total_reward = table.reverse(l_total_reward)

@@ -7,9 +7,12 @@ ServerData_Quest = class({
 
 		m_tQuestInfo = 'table',
 
+
         m_dailyClearQuest = 'StructQuestData',
         m_dailyQuestSubscription = 'table',
         m_lDailyQuest = 'table',
+
+        
         --"daily_quest_subscription":{
         --    "max_day":14,
         --    "active":true,
@@ -23,6 +26,17 @@ ServerData_Quest = class({
         --      "gold":0
         --    }
         --  }
+
+        -- @mskim 일일퀘스트 이벤트 정보를 저장한다.
+        -- 이벤트 기간 중에는 계속 전달받는다.
+        -- 이벤트 기간 외에는 nil로 처리됨
+        --[[
+            {
+                "progress":50,
+                "max":100
+            }
+        --]]
+        m_tDailyQuestEventInfo = 'table',
     })
 
 -------------------------------------
@@ -263,6 +277,9 @@ function ServerData_Quest:requestQuestInfo(cb_func)
         -- 일일 퀘스트 보상 2배
         self.m_dailyQuestSubscription = ret['daily_quest_subscription']
 
+        -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트)
+        self.m_tDailyQuestEventInfo = ret['event_daily_quest']
+
         if cb_func then
             cb_func()
         end
@@ -300,6 +317,9 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
 		    self:applyQuestInfo(ret['quest_info'])
         end
         
+        -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트)
+        self.m_tDailyQuestEventInfo = ret['event_daily_quest']
+
 		-- 클랜 경험치 획득하여 레벨업 시 클랜 정보가 오므로 갱신해줌
 		if (ret['clan']) then
 			g_clanData:setClanStruct(ret['clan'])
@@ -396,8 +416,19 @@ function ServerData_Quest:setDailyQuestList(l_daily_quest)
         local _data = data['table']
         if (_data) then
             _data['t_reward'] = TableQuest.arrangeDataByStr(_data['reward'])
+            -- 일일 퀘스트 이벤트 보상 정보 (3주년 신비의 알 부화 이벤트)
+            _data['t_event_reward'] = TableQuest.arrangeDataByStr(_data['event_reward'])
             table.insert(self.m_lDailyQuest, _data)
         end
     end
 end
 
+
+
+
+-------------------------------------
+-- function getEventDailyQuestInfo
+-------------------------------------
+function ServerData_Quest:getEventDailyQuestInfo()
+    return self.m_tDailyQuestEventInfo or {}
+end

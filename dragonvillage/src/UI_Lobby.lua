@@ -175,6 +175,13 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('event_image_quiz')) then
+            require('ServerData_EventImageQuiz')
+            co:work('# 드래곤 이미지 퀴즈 이벤트 정보 받는 중')
+            g_eventImageQuizData:request_eventImageQuizInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
         if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
         	co:work('# 그랜드 콜로세움 정보 받는 중')
@@ -995,6 +1002,10 @@ function UI_Lobby:update_highlight()
 
         do -- 핫타임
             vars['fevertimeNotiSprite']:setVisible(g_fevertimeData:isNotUsedFevertimeExist())
+        end
+
+        do -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트)
+            vars['questEventSprite']:setVisible(g_hotTimeData:isActiveEvent('event_daily_quest'))
         end
 
         self.m_bUpdatingHighlights = false

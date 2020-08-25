@@ -115,6 +115,9 @@ function UI_QuestPopup:refresh(t_quest_data)
 
     -- 일일 퀘스트 보상 2배 구독 정보 갱신
     self:refreshSubscriptionUI()
+
+    -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트) 갱신
+    self:refreshEventDailyQuest()
 end
 
 -------------------------------------
@@ -266,6 +269,24 @@ function UI_QuestPopup:refreshAllClearQuest()
 
     local t_quest = g_questData:getAllClearDailyQuestTable()
     self.m_allClearQuestCell:refresh(t_quest)
+end
+
+
+-------------------------------------
+-- function refreshEventDailyQuest
+-- @brief 일일 퀘스트 이벤트 갱신
+-------------------------------------
+function UI_QuestPopup:refreshEventDailyQuest()
+    local vars = self.vars
+
+    local t_event_info = g_questData:getEventDailyQuestInfo()
+    if (t_event_info == nil) then
+        vars['eventDailyQuestMenu']:setVisible(false)
+        return
+    end
+
+    vars['eventDailyQuestMenu']:setVisible(true)
+    vars['evenDailyQuestCountLabel']:setString(string.format('%d / %d', t_event_info['progress'], t_event_info['max']))
 end
 
 -------------------------------------

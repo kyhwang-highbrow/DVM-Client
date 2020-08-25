@@ -124,6 +124,15 @@ function StructQuestData:getRewardInfoList()
 end
 
 -------------------------------------
+-- function getEventRewardInfoList
+-- @breif 퀘스트의 이벤트 보상 정보 .. 이벤트 기간 중에만 데이터가 존재한다.
+-------------------------------------
+function StructQuestData:getEventRewardInfoList()
+    local t_quest = self['t_quest']
+    return t_quest['t_event_reward']
+end
+
+-------------------------------------
 -- function getProgressInfo
 -- @breif
 -------------------------------------
