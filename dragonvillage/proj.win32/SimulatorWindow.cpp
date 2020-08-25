@@ -212,23 +212,24 @@ void shutDownApp()
 
 void reStart()
 {
+	PROCESS_INFORMATION info;
+	STARTUPINFO startup;
+	TCHAR szPath[128] = { 0 };
+	TCHAR *szCmdLine = NULL;
+	GetModuleFileName(NULL, szPath, sizeof(szPath));
+	szCmdLine = GetCommandLine();
+	GetStartupInfo(&startup);
+	BOOL bSucc = CreateProcess(szPath, szCmdLine, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &startup, &info);
+	if (bSucc)
+	{
+	ExitProcess(-1);
+	}
+}
+
+void reStartLua()
+{
     auto scene = new ReloadLuaHelper(ReloadLuaHelper::ENTRY_TITLE);
     Director::getInstance()->replaceScene(scene);
-
-    /*
-    PROCESS_INFORMATION info;
-    STARTUPINFO startup;
-    TCHAR szPath[128] = { 0 };
-    TCHAR *szCmdLine = NULL;
-    GetModuleFileName(NULL, szPath, sizeof(szPath));
-    szCmdLine = GetCommandLine();
-    GetStartupInfo(&startup);
-    BOOL bSucc = CreateProcess(szPath, szCmdLine, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS, NULL, NULL, &startup, &info);
-    if (bSucc)
-    {
-        ExitProcess(-1);
-    }
-    */
 }
 
 void reloadLuaModule()
@@ -244,9 +245,14 @@ LRESULT CALLBACK SNewWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
     switch (message)
     {
     case WM_KEYDOWN:
+		if (wParam == VK_F4)
+		{
+			reStart();
+			break;
+		}
         if (wParam == VK_F5)
         {
-            reStart();
+			reStartLua();
             break;
         }
         if (wParam == VK_F6)
