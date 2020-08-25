@@ -205,20 +205,18 @@ function UI_EventImageQuizIngame:directing_badAnswer()
         sprite:setScale(0)
         self.m_directingNode:addChild(sprite)
         
-        -- Action BAD
+        -- Action BAD 2초
         co:work('1')
         local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.4, 1.0), 2)
         local delay = cc.DelayTime:create(1.6)
---        local fadeOut = cc.FadeOut:create(0.4)
+        local remove = cc.RemoveSelf:create()
         local next = cc.CallFunc:create(co.NEXT)
-        local action = cc.Sequence:create(scaleIn, delay, next)
+        local action = cc.Sequence:create(scaleIn, delay, remove, next)
         sprite:runAction(action)
-
         sprite:runAction(cca.getBrrrAction(10))
 
         -- Wait
         if co:waitWork() then return end
-        sprite:removeFromParent()
 
         -- 버튼 활성화
         vars['answerBtn1']:setEnabled(true)
@@ -231,6 +229,44 @@ function UI_EventImageQuizIngame:directing_badAnswer()
 
     Coroutine(coroutine_function, 'DiceEvent directing_badAnswer')
 end
+
+-------------------------------------
+-- function directing_levelUp
+-- @brief 시작 연출
+-------------------------------------
+function UI_EventImageQuizIngame:directing_levelUp()
+    local vars = self.vars
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        self.m_coroutineHelper = co
+        
+        -- 사운드 재생
+        SoundMgr:playEffect('SFX', 'sfx_buff_get_1')
+
+        -- LEVEL UP
+        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_levelup_0101.png')
+        sprite:setAnchorPoint(CENTER_POINT)
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setPosition(cc.p(0, 500))
+        sprite:setScale(1)
+        self.m_directingNode:addChild(sprite)
+        
+        -- Action BAD
+        co:work('1')
+        cca.actGetObject(sprite, 300, cc.p(0, 1000), co.NEXT)
+
+        -- Wait
+        if co:waitWork() then return end
+
+        -- 끝
+        co:close()
+    end
+
+    Coroutine(coroutine_function, 'DiceEvent directing_levelUp')
+end
+
+
 -------------------------------------
 -- function spotlightScan
 -- @brief 스포트라이트 움직이다 커지는 효과

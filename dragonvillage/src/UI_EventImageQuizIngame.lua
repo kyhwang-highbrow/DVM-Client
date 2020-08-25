@@ -314,6 +314,8 @@ end
 function UI_EventImageQuizIngame:setDifficulty()
     local score = self.m_score
 
+    local pre_difficulty = self.m_difficulty
+
     if (score < L_DIFFICULTY[2]) then
         self.m_difficulty = 1
     elseif (score < L_DIFFICULTY[3]) then
@@ -327,6 +329,11 @@ function UI_EventImageQuizIngame:setDifficulty()
     end
 
     self.vars['levelLabel']:setString('LEVEL ' .. self.m_difficulty)
+
+    -- 난이도 증가 시 연출
+    if (self.m_difficulty > pre_difficulty) then
+        self:directing_levelUp()
+    end
 end
 
 -------------------------------------
