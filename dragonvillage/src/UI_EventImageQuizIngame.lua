@@ -30,6 +30,8 @@ UI_EventImageQuizIngame = class(PARENT,{
 
         m_todayEndTime = 'timer',
         m_isTimeOut = 'boolean',
+
+        m_directingNode = 'cc.Node',
     })
 
 -- LOCAL CONST
@@ -64,6 +66,8 @@ function UI_EventImageQuizIngame:init()
 
     self.m_blindTileTable = {}
 
+    self.m_directingNode = vars['directorNode']
+
     -- 게임 타이머
     self.m_todayEndTime = Timer:getServerTime_Milliseconds() + TIME_LIMIT_SEC * 1000 
     self.m_isTimeOut = false
@@ -75,10 +79,10 @@ function UI_EventImageQuizIngame:init()
     require('UI_EventImageQuizIngame_directing')
 
     -- 시작 연출
-    do
+    self:directing_startGame(function()
         self:nextQuiz()
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-    end
+    end)
 end
 
 -------------------------------------

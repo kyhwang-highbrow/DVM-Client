@@ -1,24 +1,103 @@
 --------------------------------------------------------------------------
 -- Directing
 --------------------------------------------------------------------------
-function UI_EventImageQuizIngame:directing_wrongAnswer()
+
+
+-------------------------------------
+-- function directing_startGame
+-- @brief 시작 연출
+-------------------------------------
+function UI_EventImageQuizIngame:directing_startGame(directing_cb)
     local vars = self.vars
-    
-    -- 연출을 코루틴으로 해봅니다.
+
     local function coroutine_function(dt)
         local co = CoroutineHelper()
         self.m_coroutineHelper = co
 
         -- 코루틴 종료 콜백
-        local function close_cb()
-            self.m_coroutineHelper = nil
-            -- 백키 블럭 해제
-            UIManager:blockBackKey(false)
-        end
-        co:setCloseCB(close_cb)
+        co:setCloseCB(function() self.m_coroutineHelper = nil end)
 
-        -- 백키 블럭
-        UIManager:blockBackKey(true)
+        -- 버튼은 숨겨놓는다.
+        local button_pos_y = 400
+        vars['bottomNode']:setPositionY(-button_pos_y)
+
+        -- READY
+        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_ready_0101.png')
+        sprite:setAnchorPoint(CENTER_POINT)
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setPosition(ZERO_POINT)
+        sprite:setScale(0)
+        self.m_directingNode:addChild(sprite)
+
+        -- Action READY
+        local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.3, 1), 2)
+        local delay = cc.DelayTime:create(0.5)
+        local fadeOut = cc.FadeOut:create(0.5)
+        local next = cc.CallFunc:create(co.NEXT)
+        local action = cc.Sequence:create(scaleIn, delay, fadeOut, next)
+        co:work('1')
+        sprite:runAction(action)
+
+        -- Wait
+        if co:waitWork() then return end
+        sprite:removeFromParent()
+
+        -- START
+        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_start_0101.png')
+        sprite:setAnchorPoint(CENTER_POINT)
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setPosition(ZERO_POINT)
+        sprite:setScale(1.5)
+        self.m_directingNode:addChild(sprite)
+        
+        -- Action START
+        co:work('2')
+--        local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.01, 1.3), 2)
+        local delay = cc.DelayTime:create(0.2)
+        local fadeOut = cc.FadeOut:create(0.4)
+        local next = cc.CallFunc:create(co.NEXT)
+        local action = cc.Sequence:create(delay, fadeOut, next)
+        sprite:runAction(action)
+        
+        -- 게임은 START 연출과 함께 시작
+        directing_cb()
+
+        -- 하단 버튼 등장!
+        vars['bottomNode']:runAction(cc.EaseOut:create(cc.MoveBy:create(0.3, cc.p(0, button_pos_y)), 4))
+
+        -- Wait
+        if co:waitWork() then return end
+        sprite:removeFromParent()
+
+        -- 끝
+        co:close()
+    end
+
+    Coroutine(coroutine_function, 'directing_startGame')
+end
+
+-------------------------------------
+-- function directing_finishGame
+-- @brief 시작 연출
+-------------------------------------
+function UI_EventImageQuizIngame:directing_finishGame()
+    
+end
+
+
+-------------------------------------
+-- function directing_wrongAnswer
+-- @brief 시작 연출
+-------------------------------------
+function UI_EventImageQuizIngame:directing_wrongAnswer()
+    local vars = self.vars
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        self.m_coroutineHelper = co
+
+        -- 코루틴 종료 콜백
+        co:setCloseCB(function() self.m_coroutineHelper = nil end)
 
         -- 사운드 재생
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
