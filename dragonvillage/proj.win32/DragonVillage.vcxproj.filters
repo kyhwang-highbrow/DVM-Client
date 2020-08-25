@@ -4576,6 +4576,9 @@
     <None Include="..\src\ServerData_EventImageQuiz.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_EventImageQuizListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

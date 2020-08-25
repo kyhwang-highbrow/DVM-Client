@@ -4,13 +4,21 @@
 -- @brief 드래곤 이미지 퀴즈 이벤트
 -------------------------------------
 ServerData_EventImageQuiz = class({
-    m_stamina = 'number', -- 입장권
+    m_ticket = 'number', -- 입장권
 
     m_playCount = 'number', -- 누적 플레이 횟수
+    m_score = 'number',
 
-    m_productInfo = 'list', -- 교환 상품 정보
-    m_rewardInfo = 'map', -- 보상 정보
-    m_staminaDropInfo = 'map', -- 각 모드별 입장권 획득 정보
+    -- 누적 플레이 보상 리스트 / 수령 여부
+    m_lProductInfoPlay = 'list',
+    m_mRewardInfoPlay = 'map',
+
+    -- 누적 점수 보상 리스트 / 수령 여부
+    m_lProductInfoScore = 'list', 
+    m_mRewardInfoScore = 'map',
+
+
+    m_ticketDropInfo = 'map', -- 각 모드별 입장권 획득 정보
 
     m_endTime = 'time',
 })
@@ -35,10 +43,10 @@ function ServerData_EventImageQuiz:getInstance()
 end
 
 -------------------------------------
--- function getStaminaCount
+-- function getTicketCount
 -------------------------------------
-function ServerData_EventImageQuiz:getStaminaCount()
-    return self.m_stamina or 0
+function ServerData_EventImageQuiz:getTicketCount()
+    return self.m_ticket or 0
 end
 
 -------------------------------------
@@ -49,24 +57,39 @@ function ServerData_EventImageQuiz:getPlayCount()
 end
 
 -------------------------------------
+-- function getScore
+-------------------------------------
+function ServerData_EventImageQuiz:getScore()
+    return self.m_score
+end
+
+-------------------------------------
 -- function getProductInfo
 -------------------------------------
-function ServerData_EventImageQuiz:getProductInfo()
-    return self.m_productInfo
+function ServerData_EventImageQuiz:getProductInfo(info_type)
+    if (info_type == 'play') then
+        return self.m_lProductInfoPlay
+    elseif (info_type == 'score') then
+        return self.m_lProductInfoScore
+    end
 end
 
 -------------------------------------
 -- function getRewardInfo
 -------------------------------------
-function ServerData_EventImageQuiz:getRewardInfo()
-    return self.m_rewardInfo
+function ServerData_EventImageQuiz:getRewardInfo(info_type)
+    if (info_type == 'play') then
+        return self.m_mRewardInfoPlay
+    elseif (info_type == 'score') then
+        return self.m_mRewardInfoScore
+    end
 end
 
 -------------------------------------
--- function getStaminaInfo
+-- function getTicketInfo
 -------------------------------------
-function ServerData_EventImageQuiz:getStaminaInfo()
-    return self.m_staminaDropInfo or {}
+function ServerData_EventImageQuiz:getTicketInfo()
+    return self.m_ticketDropInfo or {}
 end
 
 -------------------------------------
@@ -101,24 +124,28 @@ end
 -- function parseProductInfo
 -------------------------------------
 function ServerData_EventImageQuiz:parseProductInfo(product_info)
-    self.m_productInfo = {}
+    local l_ret = {}
     if (product_info) then
-        local info = self.m_productInfo
         local step = product_info['step']
-
         for i = 1, step do
             local data = { step = i,
                            price = product_info['price_'..i], 
                            reward = product_info['mail_content_'..i] }
-            table.insert(info, data)
+            table.insert(l_ret, data)
         end
     end
+    
+    table.sort(l_ret, function(a, b)
+        return tonumber(a['step']) < tonumber(b['step'])
+    end)
+
+    return l_ret
 end
 
 -------------------------------------
--- function getStatusText
+-- function getEndTimeText
 -------------------------------------
-function ServerData_EventImageQuiz:getStatusText()
+function ServerData_EventImageQuiz:getEndTimeText()
     local curr_time = Timer:getServerTime()
     local end_time = (self.m_endTime / 1000)
 
@@ -146,9 +173,9 @@ end
 -- function isGetReward
 -- @brief 받은 보상인지 검사
 -------------------------------------
-function ServerData_EventImageQuiz:isGetReward(step)
+function ServerData_EventImageQuiz:isGetReward(step, reward_type)
     local step = tostring(step) 
-    local reward_info = self.m_rewardInfo
+    local reward_info = reward_type == 'play' and self.m_mRewardInfoPlay or self.m_mRewardInfoScore
 
     return (reward_info[step] == 1) and true or false
 end
@@ -158,11 +185,20 @@ end
 -------------------------------------
 function ServerData_EventImageQuiz:networkCommonRespone(ret)
     g_serverData:networkCommonRespone(ret)
-    self.m_stamina = g_staminasData:getStaminaCount('event_st')
+
+    -- 입장권
+    if (ret['ticket']) then
+        self.m_ticket = ret['ticket']
+    end
 
     -- 누적 플레이 횟수
     if (ret['play_cnt']) then
         self.m_playCount = ret['play_cnt']
+    end
+
+    -- 누적 점수
+    if (ret['score']) then
+        self.m_score = ret['score']
     end
 
     -- 이벤트 종료 시간
@@ -170,14 +206,28 @@ function ServerData_EventImageQuiz:networkCommonRespone(ret)
         self.m_endTime = ret['end']
     end
 
-    -- 보상 획득 정보
-    if (ret['event_dungeon_reward']) then
-        self.m_rewardInfo = ret['event_dungeon_reward']
+    -- 누적 점수
+    if (ret['score_info']) then
+        -- 누적 점수 보상 리스트
+        self.m_lProductInfoScore = self:parseProductInfo(ret['score_info']['product'])
+        
+        -- 누적 점수 보상 획득 정보
+        self.m_mRewardInfoScore = ret['score_info']['reward']
+
+    end
+
+    if (ret['play_info']) then
+        -- 누적 플레이 보상 리스트
+        self.m_lProductInfoPlay = self:parseProductInfo(ret['play_info']['product'])
+
+        -- 누적 플레이 보상 획득 정보
+        self.m_mRewardInfoPlay = ret['play_info']['reward']
     end
 
     -- 입장권 획득 정보
-    if (ret['stamina_info']) then
-        self.m_staminaDropInfo = ret['stamina_info']
+    if (ret['ticket_info']) then
+        self.m_ticketDropInfo = ret['ticket_info']
+        self.m_ticketDropInfo['day'] = nil
     end
 end
 
@@ -190,7 +240,7 @@ function ServerData_EventImageQuiz:request_eventImageQuizInfo(finish_cb, fail_cb
 
     -- 콜백
     local function success_cb(ret)
-        self:networkCommonRespone(ret)
+        self:networkCommonRespone(ret['event_imagequiz_info'])
 
         if finish_cb then
             finish_cb(ret)
@@ -215,7 +265,7 @@ end
 -- function request_clearReward
 -- @brief 황금던전 클리어 누적보상
 -------------------------------------
-function ServerData_EventImageQuiz:request_clearReward(step, finish_cb, fail_cb)
+function ServerData_EventImageQuiz:request_clearReward(step, reward_type, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -233,6 +283,7 @@ function ServerData_EventImageQuiz:request_clearReward(step, finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/event_dungeon/reward')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('type', reward_type)
     ui_network:setParam('step', step)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -241,69 +292,4 @@ function ServerData_EventImageQuiz:request_clearReward(step, finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
-end
-
--------------------------------------
--- function isHighlightRed_gd
--- @brief 빨간 느낌표 아이콘 출력 여부
--------------------------------------
-function ServerData_EventImageQuiz:isHighlightRed_gd()
-    -- 황금 날개(입장권)가 있을 경우 (1개 이상)
-    if (self:getStaminaCount() > 0) then
-        return true
-    end
-
-    -- 획득 가능한 누적 보상이 있을 경우
-    if (self:hasReward() == true) then
-        return true
-    end
-
-    return false
-end
-
--------------------------------------
--- function isHighlightYellow_gd
--- @brief 노란 느낌표 아이콘 출력 여부
--------------------------------------
-function ServerData_EventImageQuiz:isHighlightYellow_gd()
-    -- 획득 가능한 입장권이 있을 경우
-
-    local t_stamina_info = self:getStaminaInfo()
-
-    -- 데이터 구조
-    -- ['dungeon']={
-    --         ['ticket']=0;
-    --         ['play']=0;
-    --         ['max_ticket']=1;
-    --         ['max_play']=10;
-    -- };
-    -- ['ancient']={
-    --         ['ticket']=0;
-    --         ['play']=0;
-    --         ['max_ticket']=1;
-    --         ['max_play']=5;
-    -- };
-    -- ['adv']={
-    --         ['ticket']=0;
-    --         ['play']=0;
-    --         ['max_ticket']=1;
-    --         ['max_play']=15;
-    -- };
-    -- ['pvp']={
-    --         ['ticket']=0;
-    --         ['play']=0;
-    --         ['max_ticket']=1;
-    --         ['max_play']=10;
-    -- };
-
-    for i,v in pairs(t_stamina_info) do
-        local ticket = (v['ticket'] or 0)
-        local max_ticket = (v['max_ticket'] or 0)
-
-        if (ticket < max_ticket) then
-            return true
-        end
-    end
-
-    return false
 end

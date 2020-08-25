@@ -685,6 +685,7 @@ function UI_Lobby:initButton()
     vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['alphabetBtn']:registerScriptTapHandler(function() self:click_alphabetBtn() end) -- 알파벳 이벤트
+    vars['quizEventBtn']:registerScriptTapHandler(function() self:click_quizEventBtn() end) -- 드래곤 이미지 퀴즈 이벤트
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
     vars['matchCardBtn']:registerScriptTapHandler(function() self:click_matchCardBtn() end) -- 카드 짝 맞추기 이벤트
     vars['mandragoraBtn']:registerScriptTapHandler(function() self:click_mandragoraBtn() end) -- 만드라고라의 모험 이벤트
@@ -1006,6 +1007,17 @@ function UI_Lobby:update_highlight()
 
         do -- 일일 퀘스트 이벤트 (3주년 신비의 알 100개 부화 이벤트)
             vars['questEventSprite']:setVisible(g_hotTimeData:isActiveEvent('event_daily_quest'))
+        end
+
+        do -- 드래곤 이미지 퀴즈 이벤트
+            vars['quizEventNotiSprite']:setVisible(false)
+            vars['quizEventNotiYellow']:setVisible(false)
+
+            if g_eventAlphabetData:isHighlightRed_alphabet() then
+                vars['quizEventNotiSprite']:setVisible(true)
+            elseif g_eventAlphabetData:isHighlightYellow_alphabet() then
+                vars['quizEventNotiYellow']:setVisible(true)
+            end
         end
 
         self.m_bUpdatingHighlights = false
@@ -1402,6 +1414,17 @@ function UI_Lobby:click_alphabetBtn()
         return
     end
     g_eventData:openEventPopup('event_alphabet')
+end
+
+-------------------------------------
+-- function click_quizEventBtn
+-- @brief 드래곤 이미지 퀴즈 이벤트
+-------------------------------------
+function UI_Lobby:click_quizEventBtn()
+    if (not g_hotTimeData:isActiveEvent('event_image_quiz')) then
+        return
+    end
+    g_eventData:openEventPopup('event_image_quiz')
 end
 
 -------------------------------------
@@ -1901,9 +1924,12 @@ function UI_Lobby:update_rightButtons()
         vars['bingoBtn']:setVisible(false)
     end
 
-    -- 주사위 버튼
+    -- 알파벳 이벤트
     local visible = g_hotTimeData:isActiveEvent('event_alphabet')
     vars['alphabetBtn']:setVisible(visible)
+
+    -- 드래곤 이미지 퀴즈 이벤트
+    vars['quizEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_image_quiz'))
 
     -- 황금던전 버튼
     if g_hotTimeData:isActiveEvent('event_gold_dungeon') then
@@ -2068,6 +2094,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'alphabetBtn')
     table.insert(t_btn_name, 'exchangeBtn')
     table.insert(t_btn_name, 'adventBtn')
+    table.insert(t_btn_name, 'quizEventBtn')
     
     -- 패키지
     table.insert(t_btn_name, 'levelupBtn')
