@@ -188,6 +188,10 @@ end
 function ServerData_EventImageQuiz:networkCommonRespone(ret)
     g_serverData:networkCommonRespone(ret)
 
+    if (not ret) then 
+        return
+    end
+
     -- 입장권
     if (ret['ticket']) then
         self.m_ticket = ret['ticket']
@@ -215,9 +219,9 @@ function ServerData_EventImageQuiz:networkCommonRespone(ret)
         
         -- 누적 점수 보상 획득 정보
         self.m_mRewardInfoScore = ret['score_info']['reward']
-
     end
 
+    -- 누적 플레이
     if (ret['play_info']) then
         -- 누적 플레이 보상 리스트
         self.m_lProductInfoPlay = self:parseProductInfo(ret['play_info']['product'])
@@ -273,7 +277,7 @@ function ServerData_EventImageQuiz:request_clearReward(step, reward_type, finish
 
     -- 콜백
     local function success_cb(ret)                    
-        self:networkCommonRespone(ret)
+        self:networkCommonRespone(ret['event_imagequiz_info'])
         self:confirm_reward(ret)
     
         if finish_cb then
@@ -283,7 +287,7 @@ function ServerData_EventImageQuiz:request_clearReward(step, reward_type, finish
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/event_dungeon/reward')
+    ui_network:setUrl('/game/event_imagequiz/reward')
     ui_network:setParam('uid', uid)
     ui_network:setParam('type', reward_type)
     ui_network:setParam('step', step)

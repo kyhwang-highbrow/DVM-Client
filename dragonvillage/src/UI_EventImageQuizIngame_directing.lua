@@ -32,15 +32,15 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
         -- Action READY
         local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.3, 1), 2)
         local delay = cc.DelayTime:create(0.5)
-        local fadeOut = cc.FadeOut:create(0.5)
+        local fadeOut = cc.FadeOut:create(0.4)
+        local remove = cc.RemoveSelf:create()
         local next = cc.CallFunc:create(co.NEXT)
-        local action = cc.Sequence:create(scaleIn, delay, fadeOut, next)
+        local action = cc.Sequence:create(scaleIn, delay, fadeOut, remove, next)
         co:work('1')
         sprite:runAction(action)
 
         -- Wait
         if co:waitWork() then return end
-        sprite:removeFromParent()
 
         -- START
         local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_start_0101.png')
@@ -55,8 +55,9 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
 --        local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.01, 1.3), 2)
         local delay = cc.DelayTime:create(0.2)
         local fadeOut = cc.FadeOut:create(0.4)
+        local remove = cc.RemoveSelf:create()
         local next = cc.CallFunc:create(co.NEXT)
-        local action = cc.Sequence:create(delay, fadeOut, next)
+        local action = cc.Sequence:create(delay, fadeOut, remove, next)
         sprite:runAction(action)
         
         -- 게임은 START 연출과 함께 시작
@@ -65,9 +66,11 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
         -- 하단 버튼 등장!
         vars['bottomNode']:runAction(cc.EaseOut:create(cc.MoveBy:create(0.3, cc.p(0, button_pos_y)), 4))
 
+        -- 사운드 재생
+        SoundMgr:playEffect('effect', 'fever')
+
         -- Wait
         if co:waitWork() then return end
-        sprite:removeFromParent()
 
         -- 끝
         co:close()
@@ -80,16 +83,7 @@ end
 -- function directing_finishGame
 -- @brief 시작 연출
 -------------------------------------
-function UI_EventImageQuizIngame:directing_finishGame()
-    
-end
-
-
--------------------------------------
--- function directing_wrongAnswer
--- @brief 시작 연출
--------------------------------------
-function UI_EventImageQuizIngame:directing_wrongAnswer()
+function UI_EventImageQuizIngame:directing_finishGame(is_time_up, directing_cb)
     local vars = self.vars
 
     local function coroutine_function(dt)
@@ -98,20 +92,134 @@ function UI_EventImageQuizIngame:directing_wrongAnswer()
 
         -- 코루틴 종료 콜백
         co:setCloseCB(function() self.m_coroutineHelper = nil end)
+        
+        -- 사운드 재생
+--        SoundMgr:playEffect('BGM', 'bgm_dungeon_victory')
 
+        -- 하단 버튼 숨기기
+        local button_pos_y = 400
+        vars['bottomNode']:runAction(cc.EaseOut:create(cc.MoveBy:create(0.3, cc.p(0, -button_pos_y)), 4))
+
+        -- FINISH
+        local sprite = cc.Sprite:create(is_time_up and 'res/font/image_quiz/image_quiz_timeup_0101.png' or 'res/font/image_quiz/image_quiz_gameover_0101.png')
+        sprite:setAnchorPoint(CENTER_POINT)
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setPosition(ZERO_POINT)
+        sprite:setScale(0)
+        self.m_directingNode:addChild(sprite)
+        
+        -- Action START
+        co:work('1')
+        local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.3, 1.0), 2)
+        local delay = cc.DelayTime:create(0.5)
+        local fadeOut = cc.FadeOut:create(0.3)
+        local remove = cc.RemoveSelf:create()
+        local next = cc.CallFunc:create(co.NEXT)
+        local action = cc.Sequence:create(scaleIn, delay, fadeOut, remove, next)
+        sprite:runAction(action)
+
+        -- Wait
+        if co:waitWork() then return end
+
+        -- 연출 완료 후 후속 처리 (확인 팝업)
+        directing_cb()
+
+        -- 끝
+        co:close()
+    end
+
+    Coroutine(coroutine_function, 'directing_finishGame')
+end
+
+-------------------------------------
+-- function directing_goodAnswer
+-- @brief 시작 연출
+-------------------------------------
+function UI_EventImageQuizIngame:directing_goodAnswer()
+    local vars = self.vars
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        self.m_coroutineHelper = co
+
+        -- 코루틴 종료 콜백
+        co:setCloseCB(function() self.m_coroutineHelper = nil end)
+        
+        -- 사운드 재생
+--        SoundMgr:playEffect('EFFECT', 'dragon_levelup')
+
+        -- GOOD
+        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_good_0101.png')
+        sprite:setAnchorPoint(CENTER_POINT)
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setPosition(cc.p(math_random(-300, 300), math_random(0, 200)))
+        sprite:setScale(0.5)
+        self.m_directingNode:addChild(sprite)
+        
+        -- Action GOOD
+        co:work('1')
+        local time = 0.5
+        local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(time, 1.0), 2)
+        local fadeOut = cc.FadeOut:create(time)
+        local action1 = cc.Spawn:create(scaleIn, fadeOut)
+        
+        local remove = cc.RemoveSelf:create()
+        local next = cc.CallFunc:create(co.NEXT)
+        local action2 = cc.Sequence:create(action1, remove, next)
+        sprite:runAction(action2)
+
+        -- Wait
+        if co:waitWork() then return end
+
+        -- 끝
+        co:close()
+    end
+
+    Coroutine(coroutine_function, 'directing_goodAnswer')
+end
+
+-------------------------------------
+-- function directing_badAnswer
+-- @brief 시작 연출
+-------------------------------------
+function UI_EventImageQuizIngame:directing_badAnswer()
+    local vars = self.vars
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        self.m_coroutineHelper = co
+        
         -- 사운드 재생
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
 
-        cclog('disable')
         -- 버튼 비활성화
         vars['answerBtn1']:setEnabled(false)
         vars['answerBtn2']:setEnabled(false)
         vars['answerBtn3']:setEnabled(false)
 
-        -- 2초 대기
-        co:waitTime(2)
+        -- BAD
+        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_bad_0101.png')
+        sprite:setAnchorPoint(CENTER_POINT)
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setPosition(cc.p(0, 200))
+        sprite:setScale(0)
+        self.m_directingNode:addChild(sprite)
+        
+        -- Action BAD
+        co:work('1')
+        local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.4, 1.0), 2)
+        local delay = cc.DelayTime:create(1.6)
+--        local fadeOut = cc.FadeOut:create(0.4)
+        local next = cc.CallFunc:create(co.NEXT)
+        local action = cc.Sequence:create(scaleIn, delay, next)
+        sprite:runAction(action)
 
-        cclog('enable')
+        sprite:runAction(cca.getBrrrAction(10))
+
+        -- Wait
+        if co:waitWork() then return end
+        sprite:removeFromParent()
+
         -- 버튼 활성화
         vars['answerBtn1']:setEnabled(true)
         vars['answerBtn2']:setEnabled(true)
@@ -121,7 +229,7 @@ function UI_EventImageQuizIngame:directing_wrongAnswer()
         co:close()
     end
 
-    Coroutine(coroutine_function, 'DiceEvent Directing')
+    Coroutine(coroutine_function, 'DiceEvent directing_badAnswer')
 end
 -------------------------------------
 -- function spotlightScan

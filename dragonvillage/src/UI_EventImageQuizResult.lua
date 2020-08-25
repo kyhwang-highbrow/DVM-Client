@@ -26,7 +26,7 @@ function UI_EventImageQuizResult:init(score, left_time_str)
     cc.Director:getInstance():getScheduler():setTimeScale(1)
 
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_againBtn() end, 'UI_EventImageQuizResult')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventImageQuizResult')
 
     self:initUI()
     self:initButton()

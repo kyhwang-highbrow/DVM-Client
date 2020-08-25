@@ -51,13 +51,24 @@ function UI_EventImageQuiz:initUI()
         vars['totalTicketLabel']:setString(Str('(일일 최대 {1}/{2}개 획득 가능)', total_ticket, max_total_ticket))
     end
 
-    -- 누적 플레이 보상 정보는 UI에 있다.
-    -- 다음에는 바꾸자
+    -- 누적 플레이 보상과 누적 점수 보상 아이템
+    require('UI_EventImageQuizListItem')
+    self.m_eventDataUI = {}
+
+    -- 누적 플레이 보상 정보
+    local product_info_play = event_data:getProductInfo('play')
+    for i, v in ipairs(product_info_play) do
+        local ui = UI_EventImageQuizListItem_play(v)
+        local node = vars['costumeNode'..i]
+        if node then
+            node:removeAllChildren()
+            node:addChild(ui.root)
+            table.insert(self.m_eventDataUI, ui)
+        end
+    end
 
     -- 누적 점수 보상 정보
-    require('UI_EventImageQuizListItem')
     local product_info = event_data:getProductInfo('score')
-    self.m_eventDataUI = {}
     for i, v in ipairs(product_info) do
         local ui = UI_EventImageQuizListItem(v)
         local node = vars['itemNode'..i]
@@ -110,7 +121,7 @@ function UI_EventImageQuiz:refresh()
         if (play_cnt < need_cnt) then
             local pre_need = (i == 1) and 0 or reward_info[(i - 1)]['price']
             local need_cnt = need_cnt - pre_need
-            local event_cnt = play_cnt - pre_need
+            local event_cnt = score - pre_need
             local div = 100 / reward_line
             local per = div * (i - 1) + (div * (event_cnt/need_cnt))
             

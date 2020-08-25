@@ -290,13 +290,12 @@ function UI_EventImageQuizIngame:answerResult(answer)
     local vars = self.vars
 
     if (self.m_currentAnswer == answer) then
-        UIManager:toastNotificationGreen('정답 연출')
         self.m_score = self.m_score + 1
         self:nextQuiz()
+        self:directing_goodAnswer()
     else
-        UIManager:toastNotificationRed('오답 연출!')
         vars['answerBtn' .. answer]:setVisible(false)
-        self:directing_wrongAnswer()
+        self:directing_badAnswer()
     end
 end
 
@@ -347,17 +346,17 @@ function UI_EventImageQuizIngame:finishGame()
     self.root:unscheduleUpdate()
 
     -- 종료 연출
-
-    -- 종료 통신
-    g_eventImageQuizData:request_eventImageQuizFinish(
-        self.m_score, 
-        function()
+    local function directing_finish()
+        self:directing_finishGame(self.m_isTimeOut, function()
             -- 결과 화면
             require('UI_EventImageQuizResult')
             UI_EventImageQuizResult(
                 self.vars['scoreLabel']:getString(),
                 self.vars['timeLabel']:getString()
             ):setCloseCB(function() self:close() end)
-        end
-    )
+        end)
+    end   
+    
+    -- 종료 통신
+    g_eventImageQuizData:request_eventImageQuizFinish(self.m_score, directing_finish)
 end
