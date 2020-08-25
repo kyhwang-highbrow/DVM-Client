@@ -111,7 +111,7 @@ function UI_EventImageQuizIngame:directing_finishGame(is_time_up, directing_cb)
         -- Action START
         co:work('1')
         local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.3, 1.0), 2)
-        local delay = cc.DelayTime:create(0.5)
+        local delay = cc.DelayTime:create(0.8)
         local fadeOut = cc.FadeOut:create(0.3)
         local remove = cc.RemoveSelf:create()
         local next = cc.CallFunc:create(co.NEXT)
@@ -153,13 +153,13 @@ function UI_EventImageQuizIngame:directing_goodAnswer()
         sprite:setAnchorPoint(CENTER_POINT)
         sprite:setDockPoint(CENTER_POINT)
         sprite:setPosition(cc.p(math_random(-300, 300), math_random(0, 200)))
-        sprite:setScale(0.5)
+        sprite:setScale(1)
         self.m_directingNode:addChild(sprite)
         
         -- Action GOOD
         co:work('1')
         local time = 0.5
-        local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(time, 1.0), 2)
+        local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(time, 1.2), 2)
         local fadeOut = cc.FadeOut:create(time)
         local action1 = cc.Spawn:create(scaleIn, fadeOut)
         
@@ -265,6 +265,12 @@ function UI_EventImageQuizIngame:directing_levelUp()
 
     Coroutine(coroutine_function, 'DiceEvent directing_levelUp')
 end
+
+
+
+
+
+
 
 
 -------------------------------------

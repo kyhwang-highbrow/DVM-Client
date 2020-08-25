@@ -214,6 +214,9 @@ function UI_EventImageQuizIngame:makeQuiz()
 
     self:setDragon(t_dragon)
     self:setAnswerBtns(l_did)
+
+    -- 난도 영역
+    self:dragonScaleUp()
 end
 
 -------------------------------------
