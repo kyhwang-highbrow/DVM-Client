@@ -4579,6 +4579,15 @@
     <None Include="..\src\UI_EventImageQuizListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventImageQuizIngame.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventImageQuizResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventImageQuizIngame_directing.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

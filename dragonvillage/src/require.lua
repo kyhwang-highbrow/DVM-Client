@@ -1375,10 +1375,6 @@ local t_module = {
     'UI_AttendanceSpecialListItem',
     'UI_AttendanceSpecialListItem_1st',
 
-    -- UI : 이미지 퀴즈 이벤트 (3주년 기념)
-    'UI_EventImageQuiz',
-    'UI_EventImageQuizIngame',
-
 	-- UI : 연출
 	'DirectingCharacter',
 
@@ -1537,10 +1533,9 @@ function reloadModule()
 
     local t_reload_modules = 
     {
+        'UI_EventImageQuiz',
         'UI_EventImageQuizIngame',
-        'UI_Package_LevelUp',
-        'UI_Package_LevelUp_02',
-        'UI_Package_LevelUp_03',
+        'UI_EventImageQuizIngame_directing',
     }
     for i,v in ipairs(t_reload_modules) do
         -- if not (t_except_reload[v]) then

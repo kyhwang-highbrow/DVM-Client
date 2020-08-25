@@ -28,12 +28,6 @@ function UI_EventImageQuiz:initUI()
     -- 이벤트 종료 시간
     vars['timeLabel']:setString(event_data:getEndTimeText())
 
-    -- 현재 입장권 개수
-    local ticket_cnt = event_data:getTicketCount()
-    vars['numberLabel1']:setString(Str('{1}개', comma_value(ticket_cnt)))
-    -- 입장 버튼 활성화/비활성화 처리
-    vars['startBtn']:setEnabled(ticket_cnt > 0)
-
     -- 모드별 입장권 획득 개수
     local ticket_info = event_data:getTicketInfo()
     if (ticket_info) then
@@ -57,16 +51,8 @@ function UI_EventImageQuiz:initUI()
         vars['totalTicketLabel']:setString(Str('(일일 최대 {1}/{2}개 획득 가능)', total_ticket, max_total_ticket))
     end
 
-    -- 누적 플레이 횟수
-    local play_cnt = event_data:getPlayCount()
-    vars['numberLabel2']:setString(Str('{1}회', comma_value(play_cnt)))
-    
     -- 누적 플레이 보상 정보는 UI에 있다.
     -- 다음에는 바꾸자
-
-    -- 누적 점수
-    local score = event_data:getScore()
-    vars['numberLabel3']:setString(comma_value(score))
 
     -- 누적 점수 보상 정보
     require('UI_EventImageQuizListItem')
@@ -100,6 +86,19 @@ function UI_EventImageQuiz:refresh()
     local vars = self.vars
 
     local event_data = g_eventImageQuizData
+
+    -- 현재 입장권 개수
+    local ticket_cnt = event_data:getTicketCount()
+    vars['numberLabel1']:setString(Str('{1}개', comma_value(ticket_cnt)))
+    -- 입장 버튼 활성화/비활성화 처리
+    vars['startBtn']:setEnabled(ticket_cnt > 0)
+
+    -- 누적 플레이 횟수
+    local play_cnt = event_data:getPlayCount()
+    vars['numberLabel2']:setString(Str('{1}회', comma_value(play_cnt)))
+    -- 누적 점수
+    local score = event_data:getScore()
+    vars['numberLabel3']:setString(comma_value(score))
 
     -- 누적 점수 보상 갱신
     local play_cnt = event_data:getPlayCount()
@@ -154,5 +153,9 @@ end
 -- function click_startBtn
 -------------------------------------
 function UI_EventImageQuiz:click_startBtn()
-    UI_EventImageQuizIngame()
+    g_eventImageQuizData:request_eventImageQuizStart(function()
+        require('UI_EventImageQuizIngame')
+        local ui = UI_EventImageQuizIngame()
+        ui:setCloseCB(function() self:refresh() end)
+    end)
 end

@@ -449,7 +449,7 @@ function ServerData:networkCommonRespone(ret)
         if ret['alphabet'] then
             self:applyServerData(ret['alphabet'], 'user', 'alphabet')
         end
-
+        
         -- 외형 변환 재료 갱신
         if ret['transform_materials'] then
             self:applyServerData(ret['transform_materials'], 'user', 'transform_materials')

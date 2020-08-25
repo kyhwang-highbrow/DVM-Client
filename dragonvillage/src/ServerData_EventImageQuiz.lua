@@ -4,6 +4,8 @@
 -- @brief 드래곤 이미지 퀴즈 이벤트
 -------------------------------------
 ServerData_EventImageQuiz = class({
+    m_gameKey = 'number',
+
     m_ticket = 'number', -- 입장권
 
     m_playCount = 'number', -- 누적 플레이 횟수
@@ -289,6 +291,70 @@ function ServerData_EventImageQuiz:request_clearReward(step, reward_type, finish
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_eventImageQuizStart
+-------------------------------------
+function ServerData_EventImageQuiz:request_eventImageQuizStart(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        self.m_gameKey = ret['gamekey']
+
+        if finish_cb then
+            finish_cb()
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/event_imagequiz/start')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_eventImageQuizFinish
+-------------------------------------
+function ServerData_EventImageQuiz:request_eventImageQuizFinish(clear_cnt, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        self:networkCommonRespone(ret['event_imagequiz_info'])
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/event_imagequiz/finish')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setParam('clear_cnt', clear_cnt)
+    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+    ui_network:setParam('access_time', g_accessTimeData:getTime())
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
     ui_network:request()
 
     return ui_network

@@ -304,6 +304,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     -- 3주년 이벤트 : 이미지 퀴즈 이벤트
     elseif (tab == 'event_image_quiz') then
+        require('UI_EventImageQuiz')
         local inner_ui = UI_EventImageQuiz()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
