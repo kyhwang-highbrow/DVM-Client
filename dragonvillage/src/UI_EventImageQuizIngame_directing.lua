@@ -16,8 +16,6 @@ local DEALY_DETACH_TILE = 0.07
 -------------------------------------
 -- SPOTLIGHT_SCAN
 -------------------------------------
--- 스포트라이트 이동 횟수 (마지막 중앙으로 이동하는 것을 제외, 즉 총 SCAN_COUNT + 1번 움직인다)
-local SCAN_COUNT = 3
 -- 스포트라이트 이동 범위 +-
 local SCAN_RANGE_X = 150
 local SCAN_RANGE_Y = 150
@@ -27,7 +25,7 @@ local SCAN_MOVE_TIME = 0.5
 -- 스포트라이트 스케일업 시간
 local SCAN_SCALE_TIME = 1
 -- 스포르라이트 시작 스케일
-local SCAN_START_SCALE = 1
+local SCAN_START_SCALE = 0.6
 -- 스포르라이트 최종 스케일
 local SCAN_END_SCALE = 10
 
@@ -351,6 +349,7 @@ function UI_EventImageQuizIngame:spotlightScan()
         stencil_sprite:setAnchorPoint(CENTER_POINT)
         stencil_sprite:setPosition(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2)
         stencil_sprite:setScale(SCAN_START_SCALE)
+        stencil_sprite:setPosition(0, 0)
         stencil:addChild(stencil_sprite)
     end
 
@@ -359,7 +358,8 @@ function UI_EventImageQuizIngame:spotlightScan()
     for i = 1, 3 do
         table.insert(l_action, 
             cc.MoveTo:create(
-                SCAN_MOVE_TIME, cc.p(
+                i == 1 and 1 or SCAN_MOVE_TIME, 
+                cc.p(
                     math_random(MAIN_NODE_WIDTH/2 - SCAN_RANGE_X, MAIN_NODE_WIDTH/2 + SCAN_RANGE_X), 
                     math_random(MAIN_NODE_HEIGHT/2 - SCAN_RANGE_Y, MAIN_NODE_HEIGHT/2 + SCAN_RANGE_Y)
                 )
@@ -371,7 +371,7 @@ function UI_EventImageQuizIngame:spotlightScan()
     local last_move = cc.MoveTo:create(SCAN_MOVE_TIME, cc.p(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2))
 
     -- 액션 : 스케일업
-    local action_scale = cc.ScaleTo:create(SCAN_SCALE_TIME, SCAN_END_SCALE)
+    local action_scale = cc.EaseIn:create(cc.ScaleTo:create(SCAN_SCALE_TIME, SCAN_END_SCALE), 3)
     local sequence = cc.Sequence:create(l_action[1], l_action[2], l_action[3], last_move, action_scale)
     stencil_sprite:runAction(sequence)
 end
@@ -382,7 +382,7 @@ end
 -------------------------------------
 function UI_EventImageQuizIngame:spotlightScaleUp()
     local vars = self.vars
-    local duration = 4
+    local duration = 3
     
     -- stencil 비우기
     local stencil = vars['clippingNode'].m_node:getStencil()
@@ -402,7 +402,7 @@ function UI_EventImageQuizIngame:spotlightScaleUp()
     end
 
     -- 스텐실 키우기
-    local action_scale = cc.ScaleTo:create(duration, 10)
+    local action_scale = cc.EaseIn:create(cc.ScaleTo:create(duration, 10), 2)
     stencil_sprite:runAction(action_scale)
 end
 
@@ -465,14 +465,12 @@ end
 -- function dragonScaleUp
 -- @brief 드래곤 확대
 -------------------------------------
-function UI_EventImageQuizIngame:dragonScaleUp(from)
+function UI_EventImageQuizIngame:dragonScaleUp()
     local vars = self.vars
-    local from = from or 0.1
-    vars['dragonNode']:setScale(from)
+    vars['dragonNode']:setScale(0)
 
-    local scale = 1
-    local duration = 2
-    local zoom_action = cc.ScaleTo:create(duration, scale)
+    local duration = 3
+    local zoom_action = cc.ScaleTo:create(duration, DRAGON_SCALE)
     local ease_action = cc.EaseIn:create(zoom_action, 2)
 
     vars['dragonNode']:stopAllActions()
@@ -487,7 +485,8 @@ function UI_EventImageQuizIngame:dragonSlide()
     local vars = self.vars
     local from = math_random(4)
     local dragon_node = vars['dragonNode']
-    local interval = 500
+    local interval_x = 800
+    local interval_y = 500
     
     local dragon_node_x = dragon_node:getPositionX()
     local dragon_node_y = dragon_node:getPositionY()
@@ -497,60 +496,22 @@ function UI_EventImageQuizIngame:dragonSlide()
     local pos_y = 0
     if (from == 1) then
         pos_x = dragon_node_x
-        pos_y = dragon_node_y + interval
+        pos_y = dragon_node_y + interval_y
     elseif (from == 2) then
         pos_x = dragon_node_x
-        pos_y = dragon_node_y - interval
+        pos_y = dragon_node_y - interval_y
     elseif (from == 3) then
-        pos_x = dragon_node_x - interval
+        pos_x = dragon_node_x - interval_x
         pos_y = dragon_node_y
     else
-        pos_x = dragon_node_x + interval
+        pos_x = dragon_node_x + interval_x
         pos_y = dragon_node_y
     end
     
     dragon_node:setPositionX(pos_x)
     dragon_node:setPositionY(pos_y)
-    local action = cc.Sequence:create(cc.MoveTo:create(duration, cc.p(dragon_node_x, dragon_node_y)))
+    local action = cc.MoveTo:create(duration, cc.p(dragon_node_x, dragon_node_y))
 
     vars['dragonNode']:stopAllActions()
     vars['dragonNode']:runAction(action)
-end
-
--------------------------------------
--- function blindImage
--- @brief 커튼 이미지에 가려 있다가 커튼이 좌/우로 랜덤하게 이동하며 등장
--------------------------------------
-function UI_EventImageQuizIngame:blindImage()
-    -- LEFT blind
-    do
-        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_timeup_0101.png')
-        sprite:setAnchorPoint(cc.p(1, 0.5))
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setPosition(ZERO_POINT)
-        sprite:setScale(10)
-        self.m_directingNode:addChild(sprite)
-        
-        -- Action
-        local moveOut = cc.EaseOut:create(cc.MoveBy:create(2, cc.p(-100, 0)), 2)
-        local remove = cc.RemoveSelf:create()
-        local action = cc.Sequence:create(moveOut, remove)
-        sprite:runAction(action)
-    end
-
-    -- RIGHT blind
-    do
-        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_timeup_0101.png')
-        sprite:setAnchorPoint(cc.p(1, 0.5))
-        sprite:setDockPoint(CENTER_POINT)
-        sprite:setPosition(ZERO_POINT)
-        sprite:setScale(10)
-        self.m_directingNode:addChild(sprite)
-        
-        -- Action
-        local moveOut = cc.EaseOut:create(cc.MoveBy:create(2, cc.p(100, 0)), 2)
-        local remove = cc.RemoveSelf:create()
-        local action = cc.Sequence:create(moveOut, remove)
-        sprite:runAction(action)
-    end
 end
