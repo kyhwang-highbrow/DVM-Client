@@ -78,6 +78,10 @@ function UI_EventImageQuiz:initUI()
             table.insert(self.m_eventDataUI, ui)
         end
     end
+
+    -- 버튼 스크롤 처리
+    vars['infoBtn']:getParent():setSwallowTouch(false)
+    vars['startBtn']:getParent():setSwallowTouch(false)
 end
 
 -------------------------------------
