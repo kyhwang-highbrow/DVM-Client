@@ -846,6 +846,11 @@ function ServerData_Dragons:possibleConversion(doid)
 		return false, Str('몬스터는 변환할 수 없습니다.') 
 	end
 
+    -- 희귀 미만 (2성 드래곤)은 선택 불가
+    if (TableDragon:getBirthGrade(did) < 3) then
+        return false, Str('변환할 수 없습니다.') 
+    end
+
 	local dragon_name = TableDragon:getDragonName(did)
 
 	-- 3성 번고/땅스마트 작별 못하게 막음
