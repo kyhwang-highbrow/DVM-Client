@@ -1435,6 +1435,26 @@ function ServerData_Dragons:isSameDid(doid_a, doid_b)
 end
 
 -------------------------------------
+-- function have6Grade60LvLegendDragon
+-- @brief 전설 6성 60레벨 드래곤이 한마리 이상 있는지 체크
+-------------------------------------
+function ServerData_Dragons:have6Grade60LvLegendDragon()
+    local dragon_dictionary = self:getDragonsListRef()
+    
+    for key, dragon in pairs(dragon_dictionary) do
+        local did = dragon['did']
+        if (TableDragon:getBirthGrade(did) >= 5) then
+            -- 60레벨은 6성만 찍을 수 있으니 6성을 검사할 필요가 없다.
+            if (dragon:getLv() >= 60) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function request_dragonLock
 -------------------------------------
 function ServerData_Dragons:request_dragonLock(doids, soids, lock, cb_func)

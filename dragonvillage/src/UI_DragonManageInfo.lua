@@ -214,13 +214,18 @@ function UI_DragonManageInfo:refresh()
 	-- 조합 드래곤
 	self:refresh_combination()
 
+    local vars = self.vars
+
 	-- 잠금 표시
-	self.vars['lockSprite']:setVisible(t_dragon_data:getLock())
+	vars['lockSprite']:setVisible(t_dragon_data:getLock())
 
     -- 외형 변환 표시
     local b_transform_change = t_dragon_data:isPossibleTransformChange()
-    self.vars['transformBtn']:setVisible(b_transform_change)
-    self.vars['evolutionBtn']:setVisible(not b_transform_change)
+    vars['transformBtn']:setVisible(b_transform_change)
+    vars['evolutionBtn']:setVisible(not b_transform_change)
+
+    local is_able_to_conversion = g_dragonsData:have6Grade60LvLegendDragon()
+    vars['conversionBtn']:setVisible(is_able_to_conversion)
 
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
