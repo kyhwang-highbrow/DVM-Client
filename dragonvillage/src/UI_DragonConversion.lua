@@ -196,7 +196,7 @@ function UI_DragonConversion:click_dragonMaterial(t_dragon_data)
     else
         -- 재료 경고
         local oid = t_dragon_data['id']
-        g_dragonsData:dragonMaterialWarning(oid, next_func, nil, '변환하시겠습니까?') -- param : oid, next_func, t_warning, warning_msg
+        g_dragonsData:dragonMaterialWarning(oid, next_func, nil, '선택한 드래곤을 특성 재료로 변환하시겠습니까?') -- param : oid, next_func, t_warning, warning_msg
     end
 end
 
