@@ -6,6 +6,32 @@
 local MAIN_NODE_WIDTH
 local MAIN_NODE_HEIGHT
 local DRAGON_SCALE
+
+-------------------------------------
+-- BLIND TILE
+-------------------------------------
+-- 다음 타일을 제거할 때까지의 시간
+local DEALY_DETACH_TILE = 0.07
+
+-------------------------------------
+-- SPOTLIGHT_SCAN
+-------------------------------------
+-- 스포트라이트 이동 횟수 (마지막 중앙으로 이동하는 것을 제외, 즉 총 SCAN_COUNT + 1번 움직인다)
+local SCAN_COUNT = 3
+-- 스포트라이트 이동 범위 +-
+local SCAN_RANGE_X = 150
+local SCAN_RANGE_Y = 150
+-- 스포르라이트 이동 시간
+local SCAN_MOVE_TIME = 0.5
+
+-- 스포트라이트 스케일업 시간
+local SCAN_SCALE_TIME = 1
+-- 스포르라이트 시작 스케일
+local SCAN_START_SCALE = 1
+-- 스포르라이트 최종 스케일
+local SCAN_END_SCALE = 10
+
+
 -------------------------------------
 -- function initDirectingInfo
 -- @brief 기본 정보 설정
@@ -324,7 +350,7 @@ function UI_EventImageQuizIngame:spotlightScan()
     if stencil_sprite then
         stencil_sprite:setAnchorPoint(CENTER_POINT)
         stencil_sprite:setPosition(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2)
-        stencil_sprite:setScale(1)
+        stencil_sprite:setScale(SCAN_START_SCALE)
         stencil:addChild(stencil_sprite)
     end
 
@@ -333,17 +359,19 @@ function UI_EventImageQuizIngame:spotlightScan()
     for i = 1, 3 do
         table.insert(l_action, 
             cc.MoveTo:create(
-                0.5, cc.p(
-                    math_random(MAIN_NODE_WIDTH/2 - 150, MAIN_NODE_WIDTH/2 + 150), 
-                    math_random(MAIN_NODE_HEIGHT/2 - 150, MAIN_NODE_HEIGHT/2 + 150)
+                SCAN_MOVE_TIME, cc.p(
+                    math_random(MAIN_NODE_WIDTH/2 - SCAN_RANGE_X, MAIN_NODE_WIDTH/2 + SCAN_RANGE_X), 
+                    math_random(MAIN_NODE_HEIGHT/2 - SCAN_RANGE_Y, MAIN_NODE_HEIGHT/2 + SCAN_RANGE_Y)
                 )
             )
         )
     end
+    
     -- 액션 : 마지막 이동
-    local last_move = cc.MoveTo:create(0.5, cc.p(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2))
+    local last_move = cc.MoveTo:create(SCAN_MOVE_TIME, cc.p(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2))
+
     -- 액션 : 스케일업
-    local action_scale = cc.ScaleTo:create(1, 10)
+    local action_scale = cc.ScaleTo:create(SCAN_SCALE_TIME, SCAN_END_SCALE)
     local sequence = cc.Sequence:create(l_action[1], l_action[2], l_action[3], last_move, action_scale)
     stencil_sprite:runAction(sequence)
 end
@@ -384,8 +412,8 @@ end
 -------------------------------------
 function UI_EventImageQuizIngame:blindTile()
     local vars = self.vars
-    local x_interval = MAIN_NODE_WIDTH/20
-    local y_interval = MAIN_NODE_HEIGHT/10
+    local x_interval = MAIN_NODE_WIDTH / 20
+    local y_interval = MAIN_NODE_HEIGHT / 10
     vars['actionNode']:stopAllActions()
     vars['blindTileNode']:removeAllChildren()
     self.m_blindTileTable = {}
@@ -395,9 +423,13 @@ function UI_EventImageQuizIngame:blindTile()
             local layer = cc.LayerColor:create()
             layer:setAnchorPoint(cc.p(0, 0))
             layer:setDockPoint(cc.p(0, 0))
+            
             layer:setContentSize(x_interval, y_interval)
+            layer:setPosition(x_interval * 4 + x_interval * (i-1), y_interval * (j-1))
+            
             layer:setColor(COLOR['black'])
-            layer:setPosition(x_interval*4 + x_interval * (i-1), y_interval * (j-1))
+            layer:setOpacity(255)
+            
             table.insert(self.m_blindTileTable, layer)
             vars['blindTileNode']:addChild(layer, 99999)
         end
@@ -424,7 +456,7 @@ function UI_EventImageQuizIngame:removeBlindTileUnit()
         local function removeBlindTileUnit()
             self:removeBlindTileUnit()
         end
-        local blind_tile_action = cc.Sequence:create(cc.DelayTime:create(0.02), cc.CallFunc:create(removeBlindTileUnit))
+        local blind_tile_action = cc.Sequence:create(cc.DelayTime:create(DEALY_DETACH_TILE), cc.CallFunc:create(removeBlindTileUnit))
         node:runAction(blind_tile_action)
     end
 end
