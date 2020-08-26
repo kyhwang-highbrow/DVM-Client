@@ -359,6 +359,13 @@ function UI_EventImageQuizIngame:answerResult(answer)
         self.m_score = self.m_score + 1
         self:nextQuiz()
         self:directing_goodAnswer()
+
+        -- 시간 출력
+        if (IS_TEST_MODE()) then
+            local cur_time = Timer:getServerTime_Milliseconds()
+            local milliseconds = (self.m_todayEndTime - cur_time)
+            cclog('Answer : ' .. TIME_LIMIT_SEC - milliseconds/1000)
+        end
     else
         vars['answerBtn' .. answer]:setVisible(false)
         self:directing_badAnswer()
