@@ -78,8 +78,7 @@ function UI_EventImageQuizIngame:init()
     self.m_directingNode = vars['directorNode']
     self.m_preVFXType = ''
 
-    -- 게임 타이머
-    self.m_todayEndTime = Timer:getServerTime_Milliseconds() + TIME_LIMIT_SEC * 1000 
+    
     self.m_isTimeOut = false
 
     self:initUI()
@@ -95,6 +94,9 @@ function UI_EventImageQuizIngame:init()
         vars['answerBtn1']:setEnabled(true)
         vars['answerBtn2']:setEnabled(true)
         vars['answerBtn3']:setEnabled(true)
+        
+        -- 게임 타이머
+        self.m_todayEndTime = Timer:getServerTime_Milliseconds() + TIME_LIMIT_SEC * 1000 
 
         self:nextQuiz()
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)

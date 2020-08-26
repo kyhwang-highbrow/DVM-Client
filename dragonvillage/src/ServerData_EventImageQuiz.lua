@@ -19,8 +19,8 @@ ServerData_EventImageQuiz = class({
     m_lProductInfoScore = 'list', 
     m_mRewardInfoScore = 'map',
 
-
-    m_ticketDropInfo = 'map', -- 각 모드별 입장권 획득 정보
+    -- 각 모드별 입장권 획득 정보
+    m_ticketDropInfo = 'map',
 
     m_endTime = 'time',
 })
@@ -351,6 +351,10 @@ end
 -- @brief 받아야 할 보상이 있는지 (누적 점수 & 누적 플레이)
 -------------------------------------
 function ServerData_EventImageQuiz:hasReward(reward_type)
+    if (self.m_lProductInfoPlay == nil or self.m_lProductInfoScore == nil) then
+        return false
+    end
+
     local event_info
     local reward_info
     local curr_cnt
@@ -391,5 +395,8 @@ end
 --        주요 상품의 교환 가능 횟수가 남아있을 경우
 -------------------------------------
 function ServerData_EventImageQuiz:isHighlightYellow_imageQuiz()
+    if (self.m_ticket == nil) then
+        return false
+    end
     return self.m_ticket > 0
 end
