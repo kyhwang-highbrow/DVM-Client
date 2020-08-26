@@ -392,14 +392,12 @@ function UI_EventImageQuizIngame:blindTile()
 
     for i = 1, 12 do
         for j = 1, 10 do
-            local layer = cc.Sprite:create('res/ui/frames/base_frame_0203.png')
+            local layer = cc.LayerColor:create()
             layer:setAnchorPoint(cc.p(0, 0))
             layer:setDockPoint(cc.p(0, 0))
---            layer:setContentSize(x_interval, y_interval)
-            layer:setScaleX(x_interval/40)
-            layer:setScaleY(y_interval/40)
+            layer:setContentSize(x_interval, y_interval)
+            layer:setColor(COLOR['black'])
             layer:setPosition(x_interval*4 + x_interval * (i-1), y_interval * (j-1))
-            layer:setOpacity(255)
             table.insert(self.m_blindTileTable, layer)
             vars['blindTileNode']:addChild(layer, 99999)
         end

@@ -46,7 +46,7 @@ local L_DIFFICULTY = {
     0, 10, 20, 30, 40
 }
 local L_VFX_QUIZ = {
-    { 'blind_tile' },
+    { 'none' },
     { 'none', 'blind_tile' },
     { 'none', 'blind_tile', 'spotlight_scale', 'slide' },
     { 'none', 'blind_tile', 'spotlight_scale', 'slide', 'spotlight_scan' },
