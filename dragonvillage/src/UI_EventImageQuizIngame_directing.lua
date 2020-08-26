@@ -40,6 +40,9 @@ function UI_EventImageQuizIngame:initDirectingInfo()
     MAIN_NODE_HEIGHT = size['height']
 
     DRAGON_SCALE = self.vars['dragonNode']:getScale()
+
+    -- 사운드 재생
+    SoundMgr:playBGM('bgm_everyday', true)
 end
 
 -------------------------------------
@@ -99,7 +102,7 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
         directing_cb()
 
         -- 사운드 재생
-        SoundMgr:playEffect('SFX', 'fever')
+        SoundMgr:playEffect('EFFECT', 'fever')
 
         -- Wait
         if co:waitWork() then return end
@@ -126,7 +129,7 @@ function UI_EventImageQuizIngame:directing_finishGame(is_time_up, directing_cb)
         co:setCloseCB(function() self.m_coroutineHelper = nil end)
         
         -- 사운드 재생
---        SoundMgr:playEffect('BGM', 'bgm_dungeon_victory')
+        SoundMgr:playBGM('bgm_dungeon_victory', false)
 
         -- FINISH
         local sprite = cc.Sprite:create(is_time_up and 'res/font/image_quiz/image_quiz_timeup_0101.png' or 'res/font/image_quiz/image_quiz_gameover_0101.png')
@@ -174,7 +177,7 @@ function UI_EventImageQuizIngame:directing_goodAnswer()
         co:setCloseCB(function() self.m_coroutineHelper = nil end)
         
         -- 사운드 재생
---        SoundMgr:playEffect('EFFECT', 'dragon_levelup')
+        SoundMgr:playEffect('EFFECT', 'dragon_levelup')
 
         -- GOOD
         local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_good_0101.png')
@@ -218,7 +221,7 @@ function UI_EventImageQuizIngame:directing_badAnswer()
         self.m_coroutineHelper = co
         
         -- 사운드 재생
-        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
+        SoundMgr:playEffect('SFX', 'sfx_debuff')
 
         -- 버튼 비활성화
         vars['answerBtn1']:setEnabled(false)
@@ -270,7 +273,7 @@ function UI_EventImageQuizIngame:directing_levelUp()
         self.m_coroutineHelper = co
         
         -- 사운드 재생
-        SoundMgr:playEffect('SFX', 'sfx_buff_get_1')
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
 
         -- LEVEL UP
         local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_levelup_0101.png')

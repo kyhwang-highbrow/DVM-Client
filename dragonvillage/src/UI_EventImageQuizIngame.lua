@@ -49,10 +49,10 @@ local L_DIFFICULTY = {
 }
 local L_VFX_QUIZ = {
     { 'none' },
-    { 'none', 'blind_tile' },
-    { 'none', 'blind_tile', 'spotlight_scale', 'slide' },
-    { 'none', 'blind_tile', 'spotlight_scale', 'slide', 'spotlight_scan' },
-    { 'none', 'blind_tile', 'spotlight_scale', 'slide', 'spotlight_scan', 'scale' },
+    { 'slide', },
+    { 'scale', 'spotlight_scale' },
+    { 'spotlight_scan' },
+    { 'blind_tile'}
 }
 
 -------------------------------------
