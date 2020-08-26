@@ -91,5 +91,9 @@ function UI_EventPopupTab_Scroll:onEnterTab()
     -- 알파벳 이벤트
     elseif (event_type == 'event_alphabet') then
         repos_func(false)
+
+    -- 별도로 처리하지 않으면 최상위로 스크롤 하도록 처리 
+    else
+        repos_func(false)
     end
 end

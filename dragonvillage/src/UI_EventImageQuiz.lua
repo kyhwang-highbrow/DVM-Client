@@ -112,13 +112,12 @@ function UI_EventImageQuiz:refresh()
     vars['numberLabel3']:setString(comma_value(score))
 
     -- 누적 점수 보상 갱신
-    local play_cnt = event_data:getPlayCount()
     local reward_info = event_data:getProductInfo('score')
-    local reward_line = 6 -- 한줄에 표시되는 보상 갯수
+    local reward_line = 5 -- 한줄에 표시되는 보상 갯수
 
     for i, info in ipairs(reward_info) do
         local need_cnt = info['price']
-        if (play_cnt < need_cnt) then
+        if (score < need_cnt) then
             local pre_need = (i == 1) and 0 or reward_info[(i - 1)]['price']
             local need_cnt = need_cnt - pre_need
             local event_cnt = score - pre_need

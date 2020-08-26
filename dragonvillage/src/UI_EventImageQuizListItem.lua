@@ -29,7 +29,7 @@ function UI_EventImageQuizListItem:initUI()
     local price = data_info['price']
 
     -- 교환 갯수
-    vars['numberLabel']:setString(Str('{1}회', comma_value(price)))
+    vars['numberLabel']:setString(comma_value(price))
 
     -- 보상 정보
     local l_reward = g_itemData:parsePackageItemStr(data_info['reward'])

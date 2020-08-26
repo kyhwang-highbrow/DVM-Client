@@ -425,12 +425,14 @@ function ServerData_Quest:setDailyQuestList(l_daily_quest)
     end
 end
 
-
-
-
 -------------------------------------
 -- function getEventDailyQuestInfo
+-- @return table이고 구성요소가 0개 이상인 경우에만 리턴
 -------------------------------------
 function ServerData_Quest:getEventDailyQuestInfo()
-    return self.m_tDailyQuestEventInfo or {}
+    if (type(self.m_tDailyQuestEventInfo) == 'table') then
+        if (table.count(self.m_tDailyQuestEventInfo) > 0) then
+            return self.m_tDailyQuestEventInfo
+        end
+    end
 end
