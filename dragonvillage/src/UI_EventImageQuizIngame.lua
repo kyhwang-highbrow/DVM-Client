@@ -1,7 +1,8 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_Forest
+-- class UI_EventImageQuizIngame
+-- @brief 드래곤 이미지 퀴즈 이벤트
 -------------------------------------
 UI_EventImageQuizIngame = class(PARENT,{
         m_coroutineHelper = 'CoroutinHelepr',
@@ -45,7 +46,7 @@ local L_DIFFICULTY = {
     0, 10, 20, 30, 40
 }
 local L_VFX_QUIZ = {
-    { 'none' },
+    { 'blind_tile' },
     { 'none', 'blind_tile' },
     { 'none', 'blind_tile', 'spotlight_scale', 'slide' },
     { 'none', 'blind_tile', 'spotlight_scale', 'slide', 'spotlight_scan' },

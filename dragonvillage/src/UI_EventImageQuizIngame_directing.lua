@@ -1,6 +1,8 @@
 --------------------------------------------------------------------------
--- Directing
+-- UI_EventImageQuizIngame Directing partial class
+-- @brief 드래곤 이미지 퀴즈 이벤트
 --------------------------------------------------------------------------
+
 local MAIN_NODE_WIDTH
 local MAIN_NODE_HEIGHT
 local DRAGON_SCALE

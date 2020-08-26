@@ -2,6 +2,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_EventImageQuizListItem
+-- @brief 드래곤 이미지 퀴즈 이벤트
 -------------------------------------
 UI_EventImageQuizListItem = class(PARENT, {
         m_dataInfo = '',
@@ -95,6 +96,7 @@ end
 
 -------------------------------------
 -- class UI_EventImageQuizListItem_play
+-- @brief 드래곤 이미지 퀴즈 이벤트
 -------------------------------------
 UI_EventImageQuizListItem_play = class(PARENT, {
         m_dataInfo = '',

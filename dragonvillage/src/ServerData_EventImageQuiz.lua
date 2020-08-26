@@ -290,6 +290,9 @@ function ServerData_EventImageQuiz:request_eventImageQuizStart(finish_cb, fail_c
     local function success_cb(ret)
         self.m_gameKey = ret['gamekey']
 
+        -- 스피드핵 방지 실제 플레이 시간 기록
+        g_accessTimeData:startCheckTimer()
+
         if finish_cb then
             finish_cb()
         end
