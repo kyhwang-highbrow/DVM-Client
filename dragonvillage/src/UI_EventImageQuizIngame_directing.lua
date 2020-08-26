@@ -180,7 +180,7 @@ function UI_EventImageQuizIngame:directing_goodAnswer()
         local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_good_0101.png')
         sprite:setAnchorPoint(CENTER_POINT)
         sprite:setDockPoint(CENTER_POINT)
-        sprite:setPosition(cc.p(math_random(-300, 300), math_random(0, 200)))
+        sprite:setPosition(cc.p(0, 200))
         sprite:setScale(1)
         self.m_directingNode:addChild(sprite)
         
@@ -417,18 +417,18 @@ function UI_EventImageQuizIngame:blindTile()
     vars['actionNode']:stopAllActions()
     vars['blindTileNode']:removeAllChildren()
     self.m_blindTileTable = {}
+    self.m_tileIdx = 1
 
     for i = 1, 12 do
         for j = 1, 10 do
-            local layer = cc.LayerColor:create()
+            local layer = cc.Sprite:create('res/ui/frames/blind_tile.png')
             layer:setAnchorPoint(cc.p(0, 0))
             layer:setDockPoint(cc.p(0, 0))
             
-            layer:setContentSize(x_interval, y_interval)
+            --layer:setContentSize(x_interval, y_interval)
             layer:setPosition(x_interval * 4 + x_interval * (i-1), y_interval * (j-1))
-            
-            layer:setColor(COLOR['black'])
-            layer:setOpacity(255)
+            layer:setScaleX(x_interval / 40)
+            layer:setScaleY(y_interval / 40)
             
             table.insert(self.m_blindTileTable, layer)
             vars['blindTileNode']:addChild(layer, 99999)
@@ -437,26 +437,48 @@ function UI_EventImageQuizIngame:blindTile()
     self:removeBlindTileUnit()
 end
 
+local T_TILE_OUTLINE = {
+            1, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111,
+            112, 113, 114, 115, 116, 117, 118, 119, 120,
+            110, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10,
+            9, 8, 7, 6, 5, 4, 3, 2,
+        }
+local TILE_OUTLINE_COUNT = table.count(T_TILE_OUTLINE) + 1
 -------------------------------------
 -- function removeBlindTileUnit
 -- @brief 타일 하나씩 지우기
 -------------------------------------
 function UI_EventImageQuizIngame:removeBlindTileUnit()
     local vars = self.vars
-    local remained_tile_number = table.count(self.m_blindTileTable)
-    local target_tile_number = math_random(remained_tile_number)
-    local target_tile = self.m_blindTileTable[target_tile_number]
+
+    local tile_idx
+    local delay
+
+    -- 정해진 테두리 인덱스
+    if (TILE_OUTLINE_COUNT > self.m_tileIdx) then
+        tile_idx = T_TILE_OUTLINE[self.m_tileIdx]
+        delay = 1 / TILE_OUTLINE_COUNT
+    -- 랜덤 인덱스
+    else
+        tile_idx = math_random(table.count(self.m_blindTileTable))
+        delay = DEALY_DETACH_TILE
+    end
+
+    -- 삭제
+    local target_tile = self.m_blindTileTable[tile_idx]
     if target_tile then
         target_tile:removeFromParent(true)
+        self.m_tileIdx = self.m_tileIdx + 1
     end
-    table.remove(self.m_blindTileTable, target_tile_number)
-
+    self.m_blindTileTable[tile_idx] = nil
+    
+    -- 진행
     if (table.count(self.m_blindTileTable) > 0) then
         local node = vars['actionNode']
         local function removeBlindTileUnit()
             self:removeBlindTileUnit()
         end
-        local blind_tile_action = cc.Sequence:create(cc.DelayTime:create(DEALY_DETACH_TILE), cc.CallFunc:create(removeBlindTileUnit))
+        local blind_tile_action = cc.Sequence:create(cc.DelayTime:create(delay), cc.CallFunc:create(removeBlindTileUnit))
         node:runAction(blind_tile_action)
     end
 end

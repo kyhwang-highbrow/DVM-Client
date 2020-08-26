@@ -34,6 +34,8 @@ UI_EventImageQuizIngame = class(PARENT,{
 
         m_directingNode = 'cc.Node',
         m_preVFXType = 'string',
+
+        m_tileIdx = 'number',
     })
 
 -- LOCAL CONST
