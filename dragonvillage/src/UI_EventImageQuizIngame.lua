@@ -32,18 +32,26 @@ UI_EventImageQuizIngame = class(PARENT,{
         m_isTimeOut = 'boolean',
 
         m_directingNode = 'cc.Node',
+        m_preVFXType = 'string',
     })
 
 -- LOCAL CONST
 local TIME_LIMIT_SEC = 90
 local P100 = TIME_LIMIT_SEC * 1000 / 100
-
 local MAX_QUIZ = 45
 local CHOICE_CNT = 3
 local ANSWER_POINT = 100
 local L_DIFFICULTY = {
     0, 10, 20, 30, 40
 }
+local L_VFX_QUIZ = {
+    { 'none' },
+    { 'none', 'blind_tile' },
+    { 'none', 'blind_tile', 'spotlight_scale', 'slide' },
+    { 'none', 'blind_tile', 'spotlight_scale', 'slide', 'spotlight_scan' },
+    { 'none', 'blind_tile', 'spotlight_scale', 'slide', 'spotlight_scan', 'scale' },
+}
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -57,8 +65,8 @@ function UI_EventImageQuizIngame:init()
     self:sceneFadeInAction()
 
     -- 변수 초기화
-    self.m_currQuizIdx= 1
-    self.m_difficulty= 1
+    self.m_currQuizIdx = 0
+    self.m_difficulty = 1
     self.m_score = 0
 
     self.m_tDragonInfo = TableDragon():filterTable('test', 2)
@@ -67,6 +75,7 @@ function UI_EventImageQuizIngame:init()
     self.m_blindTileTable = {}
 
     self.m_directingNode = vars['directorNode']
+    self.m_preVFXType = ''
 
     -- 게임 타이머
     self.m_todayEndTime = Timer:getServerTime_Milliseconds() + TIME_LIMIT_SEC * 1000 
@@ -99,7 +108,7 @@ function UI_EventImageQuizIngame:initUI()
     end
 
     self.m_dragonNodeOriginalPositionX = vars['dragonNode']:getPositionX()
-    self.m_dragonNodeOriginalPositionY = vars['dragonNode']:getPositionY()    
+    self.m_dragonNodeOriginalPositionY = vars['dragonNode']:getPositionY()
 end
 
 -------------------------------------
@@ -158,7 +167,7 @@ function UI_EventImageQuizIngame:nextQuiz()
     self:refresh()
 
     -- 모든 퀴즈 클리어
-    if (self.m_currQuizIdx >= MAX_QUIZ or self.m_isTimeOut) then
+    if (self.m_currQuizIdx > MAX_QUIZ or self.m_isTimeOut) then
         self:finishGame()
 
     -- 다음 퀴즈
@@ -183,16 +192,9 @@ end
 -------------------------------------
 function UI_EventImageQuizIngame:resetGameSetting()
     local vars = self.vars
-    vars['dragonNode']:setScale(1)
     vars['dragonNode']:setPositionX(self.m_dragonNodeOriginalPositionX)
     vars['dragonNode']:setPositionY(self.m_dragonNodeOriginalPositionY)
-    -- vars['curtain']:setPositionX(0)
-    -- vars['curtain']:setPositionY(0)
-    -- vars['curtain']:setVisible(false)
-    -- vars['spotlight']:setVisible(false)
-    -- vars['blockLayer1']:setVisible(false)
-    -- vars['blockLayer2']:setVisible(false)
-    -- vars['blockLayer3']:setVisible(false)
+
     vars['answerBtn1']:stopAllActions()
     vars['answerBtn2']:stopAllActions()
     vars['answerBtn3']:stopAllActions()
@@ -216,7 +218,25 @@ function UI_EventImageQuizIngame:makeQuiz()
     self:setAnswerBtns(l_did)
 
     -- 난도 영역
-    self:dragonScaleUp()
+    local l_vfx = L_VFX_QUIZ[self.m_difficulty]
+    local vfx = table.getRandom(l_vfx)
+    
+    self:cleanImageQuizEffect(self.m_preVFXType, vfx)
+    
+    self.m_preVFXType = vfx
+    
+    if (vfx == 'spotlight_scale') then
+        self:spotlightScaleUp()
+    elseif (vfx == 'spotlight_scan') then
+        self:spotlightScan()
+
+    elseif (vfx == 'blind_tile') then
+        self:blindTile()
+    elseif (vfx == 'slide') then
+        self:dragonSlide()
+    elseif (vfx == 'scale') then
+        self:dragonScaleUp()
+    end
 end
 
 -------------------------------------
@@ -344,7 +364,7 @@ end
 -- @brief 진행 상황 표시
 -------------------------------------
 function UI_EventImageQuizIngame:setQuizProgress()
-    self.vars['numberLabel']:setString(self.m_currQuizIdx .. '/' .. MAX_QUIZ)
+    self.vars['numberLabel']:setString((self.m_currQuizIdx + 1) .. '/' .. MAX_QUIZ)
 end
 
 -------------------------------------

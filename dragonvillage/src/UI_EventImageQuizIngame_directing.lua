@@ -67,7 +67,7 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
         vars['bottomNode']:runAction(cc.EaseOut:create(cc.MoveBy:create(0.3, cc.p(0, button_pos_y)), 4))
 
         -- 사운드 재생
-        SoundMgr:playEffect('effect', 'fever')
+        SoundMgr:playEffect('SFX', 'fever')
 
         -- Wait
         if co:waitWork() then return end
@@ -270,8 +270,39 @@ end
 
 
 
+local MAIN_NODE_WIDTH = 1020
+local MAIN_NODE_HEIGHT = 420
 
+-------------------------------------
+-- function cleanImageQuizEffect
+-- @brief 이미지 퀴즈 효과 정리
+-------------------------------------
+function UI_EventImageQuizIngame:cleanImageQuizEffect(pre_vfx, next_vfx)
+    local vars = self.vars
 
+    vars['actionNode']:stopAllActions()
+    vars['blindTileNode']:removeAllChildren()
+    vars['dragonNode']:stopAllActions()
+    vars['dragonNode']:setPosition(0, 0)
+
+    -- 이전 vfx는 stencil을 조작하는 효과였으나 다음 vfx는 stencil을 조작하지 않는 경우 정상화
+    cclog('ImageQuizEvent : VFX', pre_vfx, next_vfx)
+    if (startsWith(pre_vfx, 'spotlight') and not startsWith(next_vfx, 'spotlight')) then
+		local stencil = vars['clippingNode'].m_node:getStencil()
+        stencil:removeAllChildren()
+
+        -- @mskim drawpolygon 사용하고 싶었으나 안됨. 
+        -- 원인 찾을 시간이 없어 스프라이트 기반의 사각형 스텐실 생성
+        local stencil_sprite = cc.Sprite:create('res/ui/event/bd_challenge_mode_0102.png')
+        if stencil_sprite then
+            stencil_sprite:setAnchorPoint(CENTER_POINT)
+            stencil_sprite:setPosition(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2)
+            stencil_sprite:setScaleX(MAIN_NODE_WIDTH/930)
+            stencil_sprite:setScaleY(MAIN_NODE_HEIGHT/640)
+            stencil:addChild(stencil_sprite)
+        end
+    end
+end
 
 -------------------------------------
 -- function spotlightScan
@@ -279,23 +310,41 @@ end
 -------------------------------------
 function UI_EventImageQuizIngame:spotlightScan()
     local vars = self.vars
-    local duration = 0.5
-    local scale = 5
-    
-    vars['spotlight']:stopAllActions()
-    vars['spotlight']:setScale(1)
-    vars['spotlight']:setVisible(true)
-    local l_location = {}
-    for i = 1, 6 do
-        table.insert(l_location, math_random(-150, 150))
+
+    -- stencil 비우기
+    local stencil = vars['clippingNode'].m_node:getStencil()
+    stencil:removeAllChildren()
+    stencil:clear()
+
+    vars['clippingNode'].m_node:setAlphaThreshold(0.5)
+
+    -- 원형 스텐실 추가
+    local stencil_sprite = cc.Sprite:create('res/ui/icons/friendship/friendship_level_0101.png')
+    if stencil_sprite then
+        stencil_sprite:setAnchorPoint(CENTER_POINT)
+        stencil_sprite:setPosition(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2)
+        stencil_sprite:setScale(1)
+        stencil:addChild(stencil_sprite)
     end
+
+    -- 액션 : 무작위 이동, 리스트 생성
     local l_action = {}
     for i = 1, 3 do
-        table.insert(l_action, cc.Sequence:create(cc.MoveTo:create(duration, cc.p(l_location[i * 2 - 1], l_location[i * 2]))))
+        table.insert(l_action, 
+            cc.MoveTo:create(
+                0.5, cc.p(
+                    math_random(MAIN_NODE_WIDTH/2 - 150, MAIN_NODE_WIDTH/2 + 150), 
+                    math_random(MAIN_NODE_HEIGHT/2 - 150, MAIN_NODE_HEIGHT/2 + 150)
+                )
+            )
+        )
     end
-    local action_scale = cc.ScaleTo:create(duration, scale)
-    local sequence = cc.Sequence:create(l_action[1], l_action[2], l_action[3], action_scale)
-    vars['spotlight']:runAction(sequence)
+    -- 액션 : 마지막 이동
+    local last_move = cc.MoveTo:create(0.5, cc.p(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2))
+    -- 액션 : 스케일업
+    local action_scale = cc.ScaleTo:create(1, 10)
+    local sequence = cc.Sequence:create(l_action[1], l_action[2], l_action[3], last_move, action_scale)
+    stencil_sprite:runAction(sequence)
 end
 
 -------------------------------------
@@ -304,15 +353,28 @@ end
 -------------------------------------
 function UI_EventImageQuizIngame:spotlightScaleUp()
     local vars = self.vars
-    local duration = 2
+    local duration = 4
     
-    vars['spotlight']:stopAllActions()
-    vars['spotlight']:setScale(1)
-    vars['spotlight']:setVisible(true)
-    vars['spotlight']:setPosition(0, 0)
-    local action_scale = cc.ScaleTo:create(duration, 5)
+    -- stencil 비우기
+    local stencil = vars['clippingNode'].m_node:getStencil()
+    stencil:removeAllChildren()
+    stencil:clear()
 
-    vars['spotlight']:runAction(action_scale)
+    vars['clippingNode'].m_node:setAlphaThreshold(0.5)
+
+    -- 원형 스텐실 추가
+    local stencil_sprite = cc.Sprite:create('res/ui/icons/friendship/friendship_level_0101.png')
+    if stencil_sprite then
+        stencil_sprite:setAnchorPoint(CENTER_POINT)
+        stencil_sprite:setDockPoint(CENTER_POINT)
+        stencil_sprite:setPosition(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2)
+        stencil_sprite:setScale(0)
+        stencil:addChild(stencil_sprite)
+    end
+
+    -- 스텐실 키우기
+    local action_scale = cc.ScaleTo:create(duration, 10)
+    stencil_sprite:runAction(action_scale)
 end
 
 -------------------------------------
@@ -321,27 +383,29 @@ end
 -------------------------------------
 function UI_EventImageQuizIngame:blindTile()
     local vars = self.vars
-    local x_interval = 90
-    local y_interval = 50
-    vars['tempNodeForBlindTile']:stopAllActions()
+    local x_interval = MAIN_NODE_WIDTH/20
+    local y_interval = MAIN_NODE_HEIGHT/10
+    vars['actionNode']:stopAllActions()
     vars['blindTileNode']:removeAllChildren()
     self.m_blindTileTable = {}
 
-    for i = 1, 10 do
+    for i = 1, 12 do
         for j = 1, 10 do
-            local layer = cc.LayerColor:create()
+            local layer = cc.Sprite:create('res/ui/frames/base_frame_0203.png')
             layer:setAnchorPoint(cc.p(0, 0))
             layer:setDockPoint(cc.p(0, 0))
-            layer:setColor(cc.c3b(255,0,0))
-            layer:setContentSize(90, 50)
-            layer:setPosition(x_interval * (i-1), y_interval * (j-1))
-            layer:setOpacity(254)
+--            layer:setContentSize(x_interval, y_interval)
+            layer:setScaleX(x_interval/40)
+            layer:setScaleY(y_interval/40)
+            layer:setPosition(x_interval*4 + x_interval * (i-1), y_interval * (j-1))
+            layer:setOpacity(255)
             table.insert(self.m_blindTileTable, layer)
             vars['blindTileNode']:addChild(layer, 99999)
         end
     end
     self:removeBlindTileUnit()
 end
+
 -------------------------------------
 -- function removeBlindTileUnit
 -- @brief 타일 하나씩 지우기
@@ -357,11 +421,11 @@ function UI_EventImageQuizIngame:removeBlindTileUnit()
     table.remove(self.m_blindTileTable, target_tile_number)
 
     if (table.count(self.m_blindTileTable) > 0) then
-        local node = vars['tempNodeForBlindTile']
+        local node = vars['actionNode']
         local function removeBlindTileUnit()
             self:removeBlindTileUnit()
         end
-        local blind_tile_action = cc.Sequence:create(cc.DelayTime:create(0.015), cc.CallFunc:create(removeBlindTileUnit))
+        local blind_tile_action = cc.Sequence:create(cc.DelayTime:create(0.02), cc.CallFunc:create(removeBlindTileUnit))
         node:runAction(blind_tile_action)
     end
 end
@@ -427,21 +491,35 @@ end
 -- @brief 커튼 이미지에 가려 있다가 커튼이 좌/우로 랜덤하게 이동하며 등장
 -------------------------------------
 function UI_EventImageQuizIngame:blindImage()
-    local vars = self.vars
-    local to = math_random(2)
-    local curtain = vars['curtain']
-    curtain:setVisible(true)
-    local duration = 2
-
-    local pos_x = 0
-    local pos_y = curtain:getPositionY()
-    if (to == 1) then
-        pos_x = -1000
-    else
-        pos_x = 1000
+    -- LEFT blind
+    do
+        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_timeup_0101.png')
+        sprite:setAnchorPoint(cc.p(1, 0.5))
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setPosition(ZERO_POINT)
+        sprite:setScale(10)
+        self.m_directingNode:addChild(sprite)
+        
+        -- Action
+        local moveOut = cc.EaseOut:create(cc.MoveBy:create(2, cc.p(-100, 0)), 2)
+        local remove = cc.RemoveSelf:create()
+        local action = cc.Sequence:create(moveOut, remove)
+        sprite:runAction(action)
     end
-    local action = cc.Sequence:create(cc.MoveTo:create(duration, cc.p(pos_x, pos_y)))
 
-    curtain:stopAllActions()
-    curtain:runAction(action)
+    -- RIGHT blind
+    do
+        local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_timeup_0101.png')
+        sprite:setAnchorPoint(cc.p(1, 0.5))
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setPosition(ZERO_POINT)
+        sprite:setScale(10)
+        self.m_directingNode:addChild(sprite)
+        
+        -- Action
+        local moveOut = cc.EaseOut:create(cc.MoveBy:create(2, cc.p(100, 0)), 2)
+        local remove = cc.RemoveSelf:create()
+        local action = cc.Sequence:create(moveOut, remove)
+        sprite:runAction(action)
+    end
 end
