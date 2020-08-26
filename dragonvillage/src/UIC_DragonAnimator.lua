@@ -219,6 +219,14 @@ function UIC_DragonAnimator:setTalkEnable(enable)
 end
 
 -------------------------------------
+-- function setChangeAniEnable
+-------------------------------------
+function UIC_DragonAnimator:setChangeAniEnable(enable)
+    local vars = self.vars 
+    vars['dragonButton']:setEnabled(enable)
+end
+
+-------------------------------------
 -- function setIdle
 -- @brief 드래곤 애니메이션 Idle만 출력
 -------------------------------------

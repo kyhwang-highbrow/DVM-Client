@@ -275,6 +275,9 @@ function ServerData:getInstance()
     -- 초보자 선물(신규 유저 전용 상점)
     g_newcomerShop = ServerData_NewcomerShop()
 
+    -- 드래곤 이미지 퀴즈 이벤트
+    g_eventImageQuizData = ServerData_EventImageQuiz()
+
     return g_serverData
 end
 
@@ -545,6 +548,11 @@ function ServerData:networkCommonRespone(ret)
     -- 자동 재화 줍기 갱신
     if (ret['auto_item_pick']) then
         g_autoItemPickData:applyAutoItemPickData(ret['auto_item_pick'])
+    end
+
+    -- 코스튬 획득 정보 갱신
+    if (ret['tamers_costume']) then
+        g_tamerCostumeData:applyTamersCostume(ret['tamers_costume'])
     end
 
     -- UI 하일라이트 정보 갱신

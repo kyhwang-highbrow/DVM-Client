@@ -272,6 +272,7 @@ end
 
 local MAIN_NODE_WIDTH = 1020
 local MAIN_NODE_HEIGHT = 420
+local DRAGON_SCALE = 0.8
 
 -------------------------------------
 -- function cleanImageQuizEffect
@@ -284,6 +285,7 @@ function UI_EventImageQuizIngame:cleanImageQuizEffect(pre_vfx, next_vfx)
     vars['blindTileNode']:removeAllChildren()
     vars['dragonNode']:stopAllActions()
     vars['dragonNode']:setPosition(0, 0)
+    vars['dragonNode']:setScale(DRAGON_SCALE)
 
     -- 이전 vfx는 stencil을 조작하는 효과였으나 다음 vfx는 stencil을 조작하지 않는 경우 정상화
     cclog('ImageQuizEvent : VFX', pre_vfx, next_vfx)

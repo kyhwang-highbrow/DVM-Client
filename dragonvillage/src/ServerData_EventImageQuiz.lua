@@ -25,8 +25,6 @@ ServerData_EventImageQuiz = class({
     m_endTime = 'time',
 })
 
-g_eventImageQuizData = ServerData_EventImageQuiz()
-
 -------------------------------------
 -- function init
 -------------------------------------

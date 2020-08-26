@@ -89,6 +89,11 @@ function UI_EventImageQuizIngame:init()
 
     -- 시작 연출
     self:directing_startGame(function()
+        -- 버튼 활성화
+        vars['answerBtn1']:setEnabled(true)
+        vars['answerBtn2']:setEnabled(true)
+        vars['answerBtn3']:setEnabled(true)
+
         self:nextQuiz()
         self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end)
@@ -104,11 +109,17 @@ function UI_EventImageQuizIngame:initUI()
     if vars['dragonNode'] then
         self.m_dragonAnimator = UIC_DragonAnimator()
         self.m_dragonAnimator:setTalkEnable(false)
+        self.m_dragonAnimator:setChangeAniEnable(false)
         vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
     end
 
     self.m_dragonNodeOriginalPositionX = vars['dragonNode']:getPositionX()
     self.m_dragonNodeOriginalPositionY = vars['dragonNode']:getPositionY()
+
+    -- 버튼블럭
+    vars['answerBtn1']:setEnabled(false)
+    vars['answerBtn2']:setEnabled(false)
+    vars['answerBtn3']:setEnabled(false)
 end
 
 -------------------------------------
@@ -167,7 +178,7 @@ function UI_EventImageQuizIngame:nextQuiz()
     self:refresh()
 
     -- 모든 퀴즈 클리어
-    if (self.m_currQuizIdx > MAX_QUIZ or self.m_isTimeOut) then
+    if (self.m_currQuizIdx >= MAX_QUIZ or self.m_isTimeOut) then
         self:finishGame()
 
     -- 다음 퀴즈
@@ -301,7 +312,11 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_EventImageQuizIngame:click_closeBtn()
-    self:close()
+    if (IS_TEST_MODE()) then
+        self:close()
+    else
+        UIManager:toastNotificationGreen(Str('지금은 사용 할 수 없습니다.'))
+    end
 end
 
 -------------------------------------
@@ -364,7 +379,12 @@ end
 -- @brief 진행 상황 표시
 -------------------------------------
 function UI_EventImageQuizIngame:setQuizProgress()
-    self.vars['numberLabel']:setString((self.m_currQuizIdx + 1) .. '/' .. MAX_QUIZ)
+    local display_idx = (self.m_currQuizIdx + 1)
+    if (display_idx > MAX_QUIZ) then
+        display_idx = MAX_QUIZ
+    end
+
+    self.vars['numberLabel']:setString(display_idx .. '/' .. MAX_QUIZ)
 end
 
 -------------------------------------
@@ -374,6 +394,12 @@ end
 function UI_EventImageQuizIngame:finishGame()
     -- update 종료
     self.root:unscheduleUpdate()
+
+    -- 버튼 블럭
+    local vars = self.vars
+    vars['answerBtn1']:setEnabled(false)
+    vars['answerBtn2']:setEnabled(false)
+    vars['answerBtn3']:setEnabled(false)
 
     -- 종료 연출
     local function directing_finish()

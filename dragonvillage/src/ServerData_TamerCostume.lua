@@ -128,6 +128,14 @@ function ServerData_TamerCostume:getShopInfo(costume_id)
 end
 
 -------------------------------------
+-- function applyTamersCostume
+-------------------------------------
+function ServerData_TamerCostume:applyTamersCostume(l_tamers_costume_id_list)
+    assert(l_tamers_costume_id_list, 'tamer costume id list is nil')
+    self.m_openList = l_tamers_costume_id_list
+end
+
+-------------------------------------
 -- function request_costumeInfo
 -------------------------------------
 function ServerData_TamerCostume:request_costumeInfo(cb_func, check_shop_info, fail_cb)
