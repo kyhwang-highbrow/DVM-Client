@@ -1,7 +1,20 @@
 --------------------------------------------------------------------------
 -- Directing
 --------------------------------------------------------------------------
+local MAIN_NODE_WIDTH
+local MAIN_NODE_HEIGHT
+local DRAGON_SCALE
+-------------------------------------
+-- function initDirectingInfo
+-- @brief 기본 정보 설정
+-------------------------------------
+function UI_EventImageQuizIngame:initDirectingInfo()
+    local size = self.vars['clippingNode']:getContentSize()
+    MAIN_NODE_WIDTH = size['width']
+    MAIN_NODE_HEIGHT = size['height']
 
+    DRAGON_SCALE = self.vars['dragonNode']:getScale()
+end
 
 -------------------------------------
 -- function directing_startGame
@@ -16,10 +29,6 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
 
         -- 코루틴 종료 콜백
         co:setCloseCB(function() self.m_coroutineHelper = nil end)
-
-        -- 버튼은 숨겨놓는다.
-        local button_pos_y = 400
-        vars['bottomNode']:setPositionY(-button_pos_y)
 
         -- READY
         local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_ready_0101.png')
@@ -63,9 +72,6 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
         -- 게임은 START 연출과 함께 시작
         directing_cb()
 
-        -- 하단 버튼 등장!
-        vars['bottomNode']:runAction(cc.EaseOut:create(cc.MoveBy:create(0.3, cc.p(0, button_pos_y)), 4))
-
         -- 사운드 재생
         SoundMgr:playEffect('SFX', 'fever')
 
@@ -95,10 +101,6 @@ function UI_EventImageQuizIngame:directing_finishGame(is_time_up, directing_cb)
         
         -- 사운드 재생
 --        SoundMgr:playEffect('BGM', 'bgm_dungeon_victory')
-
-        -- 하단 버튼 숨기기
-        local button_pos_y = 400
-        vars['bottomNode']:runAction(cc.EaseOut:create(cc.MoveBy:create(0.3, cc.p(0, -button_pos_y)), 4))
 
         -- FINISH
         local sprite = cc.Sprite:create(is_time_up and 'res/font/image_quiz/image_quiz_timeup_0101.png' or 'res/font/image_quiz/image_quiz_gameover_0101.png')
@@ -268,11 +270,6 @@ end
 
 
 
-
-
-local MAIN_NODE_WIDTH = 1020
-local MAIN_NODE_HEIGHT = 420
-local DRAGON_SCALE = 0.8
 
 -------------------------------------
 -- function cleanImageQuizEffect

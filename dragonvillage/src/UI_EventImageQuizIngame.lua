@@ -86,6 +86,7 @@ function UI_EventImageQuizIngame:init()
     self:refresh()
     
     require('UI_EventImageQuizIngame_directing')
+    self:initDirectingInfo()
 
     -- 시작 연출
     self:directing_startGame(function()
@@ -116,10 +117,12 @@ function UI_EventImageQuizIngame:initUI()
     self.m_dragonNodeOriginalPositionX = vars['dragonNode']:getPositionX()
     self.m_dragonNodeOriginalPositionY = vars['dragonNode']:getPositionY()
 
-    -- 버튼블럭
-    vars['answerBtn1']:setEnabled(false)
-    vars['answerBtn2']:setEnabled(false)
-    vars['answerBtn3']:setEnabled(false)
+    -- 버튼 블럭
+    for i = 1, 3 do
+        vars['answerLabel' .. i]:setString('')
+        vars['answerLabel' .. i]:setLocalZOrder(10)
+        vars['answerBtn' .. i]:setEnabled(false)
+    end
 end
 
 -------------------------------------
@@ -304,7 +307,29 @@ function UI_EventImageQuizIngame:setAnswerBtns(l_idx)
         local dragon_id = t_dragon['did']
 
         vars['answerLabel' .. i]:setString(Str(dragon_name))
-        vars['answerLayer' .. i]:setColor(COLOR[t_dragon['attr']])
+        local attr = t_dragon['attr']
+        
+        -- 캐릭터 속성에 따라 버튼 리소스를 교체한다.
+        local normal_sprite
+        local selected_sprite
+        if (attr == 'earth') then
+            normal_sprite = 'res/ui/buttons/image_quiz_btn_earth_0101.png'
+            selected_sprite = 'res/ui/buttons/image_quiz_btn_earth_0102.png'
+        elseif (attr == 'water') then
+            normal_sprite = 'res/ui/buttons/image_quiz_btn_water_0101.png'
+            selected_sprite = 'res/ui/buttons/image_quiz_btn_water_0102.png'
+        elseif (attr == 'fire') then
+            normal_sprite = 'res/ui/buttons/image_quiz_btn_fire_0101.png'
+            selected_sprite = 'res/ui/buttons/image_quiz_btn_fire_0102.png'
+        elseif (attr == 'light') then
+            normal_sprite = 'res/ui/buttons/image_quiz_btn_light_0101.png'
+            selected_sprite = 'res/ui/buttons/image_quiz_btn_light_0102.png'
+        elseif (attr == 'dark') then
+            normal_sprite = 'res/ui/buttons/image_quiz_btn_dark_0101.png'
+            selected_sprite = 'res/ui/buttons/image_quiz_btn_dark_0102.png'
+        end
+        vars['answerBtn' .. i]:setNormalImage(cc.Sprite:create(normal_sprite))
+        vars['answerBtn' .. i]:setSelectedImage(cc.Sprite:create(selected_sprite))
     end
 end
 
