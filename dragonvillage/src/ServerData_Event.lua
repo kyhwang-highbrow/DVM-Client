@@ -635,6 +635,11 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('event_image_quiz')) then
+            co:work('# 드래곤 이미지 퀴즈 이벤트 정보 받는 중')
+            g_eventImageQuizData:request_eventImageQuizInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
         
         co:work('# 핫타임(fevertime) 정보 요청 여부 확인')
         if (g_fevertimeData:needToUpdateFevertimeInfo() == true) then

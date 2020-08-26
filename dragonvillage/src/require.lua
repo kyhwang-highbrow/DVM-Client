@@ -219,6 +219,7 @@ local t_module = {
 	'ServerData_ClanWar_Date',
     'ServerData_Supply',
     'ServerData_NewcomerShop',
+    'ServerData_EventImageQuiz',
 
 
     -- Interface
