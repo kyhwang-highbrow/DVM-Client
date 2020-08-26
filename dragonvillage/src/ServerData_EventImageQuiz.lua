@@ -158,14 +158,24 @@ end
 -- @brief 보상 정보
 -------------------------------------
 function ServerData_EventImageQuiz:confirm_reward(ret)
-    local item_info = ret['item_info'] or nil
-    if (item_info) then
-        UI_MailRewardPopup(item_info)
-    else
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+    -- 테이머 코스튬 수령 처리
+    -- @mskim 코스튬도 우편으로 받을 수 있도록 처리하는 것이 좋지 않을까?
+    if (ret['tamers_costume']) then
+        g_tamerCostumeData.m_bDirtyCostumeInfo = true
+        local toast_msg = Str('테이머 관리에서 코스튬을 선택할 수 있습니다.')
         UI_ToastPopup(toast_msg)
+        
+    else
+        local item_info = ret['item_info'] or nil
+        if (item_info) then
+            UI_MailRewardPopup(item_info)
+        else
+            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+            UI_ToastPopup(toast_msg)
 
-        g_highlightData:setHighlightMail()
+            g_highlightData:setHighlightMail()
+        end
+
     end
 end
 
@@ -183,9 +193,7 @@ end
 -------------------------------------
 -- function networkCommonRespone
 -------------------------------------
-function ServerData_EventImageQuiz:networkCommonRespone(ret)
-    g_serverData:networkCommonRespone(ret)
-
+function ServerData_EventImageQuiz:responseCommonData(ret)
     if (not ret) then 
         return
     end
@@ -244,8 +252,7 @@ function ServerData_EventImageQuiz:request_eventImageQuizInfo(finish_cb, fail_cb
 
     -- 콜백
     local function success_cb(ret)
-        self:networkCommonRespone(ret['event_imagequiz_info'])
-
+        self:responseCommonData(ret['event_imagequiz_info'])
         if finish_cb then
             finish_cb(ret)
         end
@@ -275,9 +282,11 @@ function ServerData_EventImageQuiz:request_clearReward(step, reward_type, finish
 
     -- 콜백
     local function success_cb(ret)                    
-        self:networkCommonRespone(ret['event_imagequiz_info'])
+        g_serverData:networkCommonRespone(ret)
+        
+        self:responseCommonData(ret['event_imagequiz_info'])
         self:confirm_reward(ret)
-    
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -337,7 +346,7 @@ function ServerData_EventImageQuiz:request_eventImageQuizFinish(clear_cnt, finis
 
     -- 콜백
     local function success_cb(ret)
-        self:networkCommonRespone(ret['event_imagequiz_info'])
+        self:responseCommonData(ret['event_imagequiz_info'])
 
         if finish_cb then
             finish_cb(ret)
