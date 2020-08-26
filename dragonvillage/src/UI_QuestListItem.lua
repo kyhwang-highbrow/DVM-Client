@@ -95,7 +95,6 @@ end
 -- function refresh
 -------------------------------------
 function UI_QuestListItem:refresh(t_data)
-    ccdump(t_data)
     if (t_data) then
 	    self:setQuestData(t_data)
 	    self:setRewardCard() -- 보상 카드 만들기
