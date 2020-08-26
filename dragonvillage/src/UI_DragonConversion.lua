@@ -11,10 +11,10 @@ UI_DragonConversion = class(PARENT,{
 
 -------------------------------------
 -- function initParentVariable
--- @brief ÀÚ½Ä Å¬·¡½º¿¡¼­ ¹İµå½Ã ±¸ÇöÇÒ °Í
+-- @brief ìì‹ í´ë˜ìŠ¤ì—ì„œ ë°˜ë“œì‹œ êµ¬í˜„í•  ê²ƒ
 -------------------------------------
 function UI_DragonConversion:initParentVariable()
-    -- ITopUserInfo_EventListenerÀÇ ¸É¹ö º¯¼öµé ¼³Á¤
+    -- ITopUserInfo_EventListenerì˜ ë§´ë²„ ë³€ìˆ˜ë“¤ ì„¤ì •
     self.m_uiName = 'UI_DragonConversion'
     self.m_bVisible = true
     self.m_titleStr = Str('')
@@ -29,7 +29,7 @@ function UI_DragonConversion:init(doid)
     local vars = self:load('dragon_conversion.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    -- backkey ÁöÁ¤
+    -- backkey ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonConversion')
 
     self:sceneFadeInAction()
@@ -41,7 +41,7 @@ function UI_DragonConversion:init(doid)
     self:initButton()
     self:refresh()
 
-    -- Á¤·Ä µµ¿ì¹Ì
+    -- ì •ë ¬ ë„ìš°ë¯¸
 	self:init_mtrDragonSortMgr(false) -- slime_first
 end
 
@@ -56,7 +56,7 @@ end
 
 -------------------------------------
 -- function initButton
--- @brief ¹öÆ° UI ÃÊ±âÈ­
+-- @brief ë²„íŠ¼ UI ì´ˆê¸°í™”
 -------------------------------------
 function UI_DragonConversion:initButton()
     local vars = self.vars
@@ -73,35 +73,35 @@ end
 
 -------------------------------------
 -- function init_bg
--- @brief µå·¡°ï Á¤º¸
+-- @brief ë“œë˜ê³¤ ì •ë³´
 -------------------------------------
 function UI_DragonConversion:init_bg()
     local vars = self.vars
 
-    -- ¹è°æ
+    -- ë°°ê²½
     local animator = ResHelper:getUIDragonBG('earth', 'idle')
     vars['bgNode']:addChild(animator.m_node)
 end
 
 -------------------------------------
 -- function refresh_dragonMaterialTableView
--- @brief Àç·á Å×ÀÌºí ºä °»½Å
+-- @brief ì¬ë£Œ í…Œì´ë¸” ë·° ê°±ì‹ 
 -- @override
 -------------------------------------
 function UI_DragonConversion:refresh_dragonMaterialTableView()   
     local list_table_node = self.vars['materialTableViewNode']
     list_table_node:removeAllChildren()
 
-    -- ¸®½ºÆ® ¾ÆÀÌÅÛ »ı¼º Äİ¹é
+    -- ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œ ìƒì„± ì½œë°±
     local function create_func(ui, data)
         ui.root:setScale(0.80)
-        -- Å¬¸¯ ¹öÆ° ¼³Á¤
+        -- í´ë¦­ ë²„íŠ¼ ì„¤ì •
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
 
 		self:createMtrlDragonCardCB(ui, data)
     end
 
-    -- Å×ÀÌºíºä »ı¼º
+    -- í…Œì´ë¸”ë·° ìƒì„±
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size(128.8, 128.8)
     table_view_td.m_nItemPerCell = 9
@@ -111,10 +111,10 @@ function UI_DragonConversion:refresh_dragonMaterialTableView()
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     self.m_mtrlTableViewTD = table_view_td
 
-    -- ¸®½ºÆ®°¡ ºñ¾úÀ» ¶§
-    table_view_td:makeDefaultEmptyDescLabel(Str('ÆÇ¸ÅÇÒ µå·¡°ïÀÌ ¾ø¾î¿ä ¤Ğ¤Ğ'))
+    -- ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì—ˆì„ ë•Œ
+    table_view_td:makeDefaultEmptyDescLabel(Str('íŒë§¤í•  ë“œë˜ê³¤ì´ ì—†ì–´ìš” ã… ã… '))
 
-    -- Àç·á·Î »ç¿ë °¡´ÉÇÑ ¸®½ºÆ®¸¦ ¾ò¾î¿È
+    -- ì¬ë£Œë¡œ ì‚¬ìš© ê°€ëŠ¥í•œ ë¦¬ìŠ¤íŠ¸ë¥¼ ì–»ì–´ì˜´
     local l_dragon_list = self:getDragonMaterialList(self.m_selectDragonOID)
     self.m_mtrlTableViewTD:setItemList(l_dragon_list)
 	
@@ -123,18 +123,18 @@ end
 
 -------------------------------------
 -- function getDragonMaterialList
--- @brief Àç·á¸®½ºÆ® : ÆÇ¸Å - Àá±İ/ ¸®´õ Á¦¿ÜÇÑ ¸ğµÎ
+-- @brief ì¬ë£Œë¦¬ìŠ¤íŠ¸ : íŒë§¤ - ì ê¸ˆ/ ë¦¬ë” ì œì™¸í•œ ëª¨ë‘
 -- @override
 -------------------------------------
 function UI_DragonConversion:getDragonMaterialList(doid)
     local dragon_dic = g_dragonsData:getDragonsList()
 
-    -- ÀÚ±â ÀÚ½Å µå·¡°ï Á¦¿Ü
+    -- ìê¸° ìì‹  ë“œë˜ê³¤ ì œì™¸
     if doid then
         dragon_dic[doid] = nil
     end
 
-    -- Àç·á·Î »ç¿ë ºÒ°¡´ÉÇÑ µå·¡°ï Á¦¿Ü
+    -- ì¬ë£Œë¡œ ì‚¬ìš© ë¶ˆê°€ëŠ¥í•œ ë“œë˜ê³¤ ì œì™¸
     for oid,v in pairs(dragon_dic) do
         if (not g_dragonsData:possibleConversion(oid)) then
             dragon_dic[oid] = nil
@@ -146,7 +146,7 @@ end
 
 -------------------------------------
 -- function createMtrlDragonCardCB
--- @brief Àç·á Ä«µå ¸¸µç ÈÄ..
+-- @brief ì¬ë£Œ ì¹´ë“œ ë§Œë“  í›„..
 -- @override
 -------------------------------------
 function UI_DragonConversion:createMtrlDragonCardCB(ui, data)
@@ -161,21 +161,21 @@ function UI_DragonConversion:click_dragonMaterial(t_dragon_data)
     local function next_func()
         local doid = t_dragon_data['id']
 
-	    -- °¡°İ Ã³¸® ¹× Å×ÀÌºí¸®½ºÆ® °»½Å
+	    -- ê°€ê²© ì²˜ë¦¬ ë° í…Œì´ë¸”ë¦¬ìŠ¤íŠ¸ ê°±ì‹ 
 	    do
 		    local price = TableDragonExp():getDragonSellGold(t_dragon_data['grade'], t_dragon_data['lv'])
 
-		    -- Á¦¿Ü
+		    -- ì œì™¸
 		    if (self.m_tConversionTable[doid]) then
 			    self.m_tConversionTable[doid] = nil
 			    self.m_price = self.m_price - price
 		
-		    -- Ãß°¡
+		    -- ì¶”ê°€
 		    else
-			    -- °¹¼ö Ã¼Å©
+			    -- ê°¯ìˆ˜ ì²´í¬
 			    local sell_cnt = table.count(self.m_tConversionTable)
 			    if (sell_cnt >= MAX_SELL_CNT) then
-				    UIManager:toastNotificationRed(Str('ÇÑ ¹ø¿¡ ÃÖ´ë {1}¸¶¸®±îÁö °¡´ÉÇÕ´Ï´Ù.', MAX_SELL_CNT))
+				    UIManager:toastNotificationRed(Str('í•œ ë²ˆì— ìµœëŒ€ {1}ë§ˆë¦¬ê¹Œì§€ ê°€ëŠ¥í•©ë‹ˆë‹¤.', MAX_SELL_CNT))
 				    return
 			    end
 
@@ -184,25 +184,25 @@ function UI_DragonConversion:click_dragonMaterial(t_dragon_data)
 		    end
 	    end
 
-	    -- °»½Å
+	    -- ê°±ì‹ 
         self:refresh_materialDragonIndivisual(doid)
         self:refresh_selectedMaterial()
     end
 
     local doid = t_dragon_data['id']
     if self.m_tConversionTable[doid] then
-        -- ÇØÁ¦ÇÒ °æ¿ì
+        -- í•´ì œí•  ê²½ìš°
         next_func()
     else
-        -- Àç·á °æ°í
+        -- ì¬ë£Œ ê²½ê³ 
         local oid = t_dragon_data['id']
-        g_dragonsData:dragonMaterialWarning(oid, next_func, nil, 'º¯È¯ÇÏ½Ã°Ú½À´Ï±î?') -- param : oid, next_func, t_warning, warning_msg
+        g_dragonsData:dragonMaterialWarning(oid, next_func, nil, 'ë³€í™˜í•˜ì‹œê² ìŠµë‹ˆê¹Œ?') -- param : oid, next_func, t_warning, warning_msg
     end
 end
 
 -------------------------------------
 -- function refresh_materialDragonIndivisual
--- @brief µå·¡°ï Àç·á ¸®½ºÆ®¿¡¼­ ¼±ÅÃµÈ µå·¡°ï Ç¥½Ã
+-- @brief ë“œë˜ê³¤ ì¬ë£Œ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì„ íƒëœ ë“œë˜ê³¤ í‘œì‹œ
 -------------------------------------
 function UI_DragonConversion:refresh_materialDragonIndivisual(doid)
     if (not self.m_mtrlTableViewTD) then
@@ -225,12 +225,12 @@ end
 
 -------------------------------------
 -- function refresh_selectedMaterial
--- @brief ¼±ÅÃµÈ Àç·áÀÇ ±¸¼ºÀÌ º¯°æµÇ¾úÀ»¶§
+-- @brief ì„ íƒëœ ì¬ë£Œì˜ êµ¬ì„±ì´ ë³€ê²½ë˜ì—ˆì„ë•Œ
 -------------------------------------
 function UI_DragonConversion:refresh_selectedMaterial()
 	local vars = self.vars
 
-	-- ÆÇ¸Å °¹¼ö
+	-- íŒë§¤ ê°¯ìˆ˜
 	local sell_cnt = table.count(self.m_tConversionTable)
 	vars['selectLabel']:setString(string.format('%d / %d', sell_cnt, MAX_SELL_CNT))
 end
@@ -240,10 +240,10 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonConversion:click_conversionBtn()
-	-- °¹¼ö Ã¼Å©
+	-- ê°¯ìˆ˜ ì²´í¬
 	local sell_cnt = table.count(self.m_tConversionTable)
 	if (sell_cnt <= 0) then
-		UIManager:toastNotificationGreen(Str('Àç·á µå·¡°ïÀ» ¼±ÅÃÇØÁÖ¼¼¿ä!'))
+		UIManager:toastNotificationGreen(Str('ì¬ë£Œ ë“œë˜ê³¤ì„ ì„ íƒí•´ì£¼ì„¸ìš”!'))
 		return
 	end
 
@@ -260,16 +260,16 @@ function UI_DragonConversion:click_conversionBtn()
 	end
 
 	local function cb_func(ret)
-		-- ´Ù½Ã ÃÊ±âÈ­
+		-- ë‹¤ì‹œ ì´ˆê¸°í™”
 		self.m_price = 0
 		self.m_tConversionTable = {}
 		self:refresh_dragonMaterialTableView()
         self:refresh_selectedMaterial()
 
-		-- ¿ÜºÎ¿¡ º¯È­ ¿©ºÎ Àü´Ş
+		-- ì™¸ë¶€ì— ë³€í™” ì—¬ë¶€ ì „ë‹¬
 		self.m_bChangeDragonList = true
 
-        -- °á°ú Ãâ·Â
+        -- ê²°ê³¼ ì¶œë ¥
         UI_ObtainPopup(ret['items_list'], nil, nil, true)
 	end
 

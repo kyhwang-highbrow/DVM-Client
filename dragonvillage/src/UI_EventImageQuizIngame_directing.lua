@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------
 -- UI_EventImageQuizIngame Directing partial class
--- @brief µå·¡°ï ÀÌ¹ÌÁö ÄûÁî ÀÌº¥Æ®
+-- @brief ë“œë˜ê³¤ ì´ë¯¸ì§€ í€´ì¦ˆ ì´ë²¤íŠ¸
 --------------------------------------------------------------------------
 
 local MAIN_NODE_WIDTH
@@ -8,7 +8,7 @@ local MAIN_NODE_HEIGHT
 local DRAGON_SCALE
 -------------------------------------
 -- function initDirectingInfo
--- @brief ±âº» Á¤º¸ ¼³Á¤
+-- @brief ê¸°ë³¸ ì •ë³´ ì„¤ì •
 -------------------------------------
 function UI_EventImageQuizIngame:initDirectingInfo()
     local size = self.vars['clippingNode']:getContentSize()
@@ -20,7 +20,7 @@ end
 
 -------------------------------------
 -- function directing_startGame
--- @brief ½ÃÀÛ ¿¬Ãâ
+-- @brief ì‹œì‘ ì—°ì¶œ
 -------------------------------------
 function UI_EventImageQuizIngame:directing_startGame(directing_cb)
     local vars = self.vars
@@ -29,7 +29,7 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
         local co = CoroutineHelper()
         self.m_coroutineHelper = co
 
-        -- ÄÚ·çÆ¾ Á¾·á Äİ¹é
+        -- ì½”ë£¨í‹´ ì¢…ë£Œ ì½œë°±
         co:setCloseCB(function() self.m_coroutineHelper = nil end)
 
         -- READY
@@ -71,16 +71,16 @@ function UI_EventImageQuizIngame:directing_startGame(directing_cb)
         local action = cc.Sequence:create(delay, fadeOut, remove, next)
         sprite:runAction(action)
         
-        -- °ÔÀÓÀº START ¿¬Ãâ°ú ÇÔ²² ½ÃÀÛ
+        -- ê²Œì„ì€ START ì—°ì¶œê³¼ í•¨ê»˜ ì‹œì‘
         directing_cb()
 
-        -- »ç¿îµå Àç»ı
+        -- ì‚¬ìš´ë“œ ì¬ìƒ
         SoundMgr:playEffect('SFX', 'fever')
 
         -- Wait
         if co:waitWork() then return end
 
-        -- ³¡
+        -- ë
         co:close()
     end
 
@@ -89,7 +89,7 @@ end
 
 -------------------------------------
 -- function directing_finishGame
--- @brief ½ÃÀÛ ¿¬Ãâ
+-- @brief ì‹œì‘ ì—°ì¶œ
 -------------------------------------
 function UI_EventImageQuizIngame:directing_finishGame(is_time_up, directing_cb)
     local vars = self.vars
@@ -98,10 +98,10 @@ function UI_EventImageQuizIngame:directing_finishGame(is_time_up, directing_cb)
         local co = CoroutineHelper()
         self.m_coroutineHelper = co
 
-        -- ÄÚ·çÆ¾ Á¾·á Äİ¹é
+        -- ì½”ë£¨í‹´ ì¢…ë£Œ ì½œë°±
         co:setCloseCB(function() self.m_coroutineHelper = nil end)
         
-        -- »ç¿îµå Àç»ı
+        -- ì‚¬ìš´ë“œ ì¬ìƒ
 --        SoundMgr:playEffect('BGM', 'bgm_dungeon_victory')
 
         -- FINISH
@@ -125,10 +125,10 @@ function UI_EventImageQuizIngame:directing_finishGame(is_time_up, directing_cb)
         -- Wait
         if co:waitWork() then return end
 
-        -- ¿¬Ãâ ¿Ï·á ÈÄ ÈÄ¼Ó Ã³¸® (È®ÀÎ ÆË¾÷)
+        -- ì—°ì¶œ ì™„ë£Œ í›„ í›„ì† ì²˜ë¦¬ (í™•ì¸ íŒì—…)
         directing_cb()
 
-        -- ³¡
+        -- ë
         co:close()
     end
 
@@ -137,7 +137,7 @@ end
 
 -------------------------------------
 -- function directing_goodAnswer
--- @brief ½ÃÀÛ ¿¬Ãâ
+-- @brief ì‹œì‘ ì—°ì¶œ
 -------------------------------------
 function UI_EventImageQuizIngame:directing_goodAnswer()
     local vars = self.vars
@@ -146,10 +146,10 @@ function UI_EventImageQuizIngame:directing_goodAnswer()
         local co = CoroutineHelper()
         self.m_coroutineHelper = co
 
-        -- ÄÚ·çÆ¾ Á¾·á Äİ¹é
+        -- ì½”ë£¨í‹´ ì¢…ë£Œ ì½œë°±
         co:setCloseCB(function() self.m_coroutineHelper = nil end)
         
-        -- »ç¿îµå Àç»ı
+        -- ì‚¬ìš´ë“œ ì¬ìƒ
 --        SoundMgr:playEffect('EFFECT', 'dragon_levelup')
 
         -- GOOD
@@ -175,7 +175,7 @@ function UI_EventImageQuizIngame:directing_goodAnswer()
         -- Wait
         if co:waitWork() then return end
 
-        -- ³¡
+        -- ë
         co:close()
     end
 
@@ -184,7 +184,7 @@ end
 
 -------------------------------------
 -- function directing_badAnswer
--- @brief ½ÃÀÛ ¿¬Ãâ
+-- @brief ì‹œì‘ ì—°ì¶œ
 -------------------------------------
 function UI_EventImageQuizIngame:directing_badAnswer()
     local vars = self.vars
@@ -193,10 +193,10 @@ function UI_EventImageQuizIngame:directing_badAnswer()
         local co = CoroutineHelper()
         self.m_coroutineHelper = co
         
-        -- »ç¿îµå Àç»ı
+        -- ì‚¬ìš´ë“œ ì¬ìƒ
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
 
-        -- ¹öÆ° ºñÈ°¼ºÈ­
+        -- ë²„íŠ¼ ë¹„í™œì„±í™”
         vars['answerBtn1']:setEnabled(false)
         vars['answerBtn2']:setEnabled(false)
         vars['answerBtn3']:setEnabled(false)
@@ -209,7 +209,7 @@ function UI_EventImageQuizIngame:directing_badAnswer()
         sprite:setScale(0)
         self.m_directingNode:addChild(sprite)
         
-        -- Action BAD 2ÃÊ
+        -- Action BAD 2ì´ˆ
         co:work('1')
         local scaleIn = cc.EaseInOut:create(cc.ScaleTo:create(0.4, 1.0), 2)
         local delay = cc.DelayTime:create(1.6)
@@ -222,12 +222,12 @@ function UI_EventImageQuizIngame:directing_badAnswer()
         -- Wait
         if co:waitWork() then return end
 
-        -- ¹öÆ° È°¼ºÈ­
+        -- ë²„íŠ¼ í™œì„±í™”
         vars['answerBtn1']:setEnabled(true)
         vars['answerBtn2']:setEnabled(true)
         vars['answerBtn3']:setEnabled(true)
 
-        -- ³¡
+        -- ë
         co:close()
     end
 
@@ -236,7 +236,7 @@ end
 
 -------------------------------------
 -- function directing_levelUp
--- @brief ½ÃÀÛ ¿¬Ãâ
+-- @brief ì‹œì‘ ì—°ì¶œ
 -------------------------------------
 function UI_EventImageQuizIngame:directing_levelUp()
     local vars = self.vars
@@ -245,7 +245,7 @@ function UI_EventImageQuizIngame:directing_levelUp()
         local co = CoroutineHelper()
         self.m_coroutineHelper = co
         
-        -- »ç¿îµå Àç»ı
+        -- ì‚¬ìš´ë“œ ì¬ìƒ
         SoundMgr:playEffect('SFX', 'sfx_buff_get_1')
 
         -- LEVEL UP
@@ -263,7 +263,7 @@ function UI_EventImageQuizIngame:directing_levelUp()
         -- Wait
         if co:waitWork() then return end
 
-        -- ³¡
+        -- ë
         co:close()
     end
 
@@ -275,7 +275,7 @@ end
 
 -------------------------------------
 -- function cleanImageQuizEffect
--- @brief ÀÌ¹ÌÁö ÄûÁî È¿°ú Á¤¸®
+-- @brief ì´ë¯¸ì§€ í€´ì¦ˆ íš¨ê³¼ ì •ë¦¬
 -------------------------------------
 function UI_EventImageQuizIngame:cleanImageQuizEffect(pre_vfx, next_vfx)
     local vars = self.vars
@@ -286,14 +286,14 @@ function UI_EventImageQuizIngame:cleanImageQuizEffect(pre_vfx, next_vfx)
     vars['dragonNode']:setPosition(0, 0)
     vars['dragonNode']:setScale(DRAGON_SCALE)
 
-    -- ÀÌÀü vfx´Â stencilÀ» Á¶ÀÛÇÏ´Â È¿°ú¿´À¸³ª ´ÙÀ½ vfx´Â stencilÀ» Á¶ÀÛÇÏÁö ¾Ê´Â °æ¿ì Á¤»óÈ­
+    -- ì´ì „ vfxëŠ” stencilì„ ì¡°ì‘í•˜ëŠ” íš¨ê³¼ì˜€ìœ¼ë‚˜ ë‹¤ìŒ vfxëŠ” stencilì„ ì¡°ì‘í•˜ì§€ ì•ŠëŠ” ê²½ìš° ì •ìƒí™”
     cclog('ImageQuizEvent : VFX', pre_vfx, next_vfx)
     if (startsWith(pre_vfx, 'spotlight') and not startsWith(next_vfx, 'spotlight')) then
 		local stencil = vars['clippingNode'].m_node:getStencil()
         stencil:removeAllChildren()
 
-        -- @mskim drawpolygon »ç¿ëÇÏ°í ½Í¾úÀ¸³ª ¾ÈµÊ. 
-        -- ¿øÀÎ Ã£À» ½Ã°£ÀÌ ¾ø¾î ½ºÇÁ¶óÀÌÆ® ±â¹İÀÇ »ç°¢Çü ½ºÅÙ½Ç »ı¼º
+        -- @mskim drawpolygon ì‚¬ìš©í•˜ê³  ì‹¶ì—ˆìœ¼ë‚˜ ì•ˆë¨. 
+        -- ì›ì¸ ì°¾ì„ ì‹œê°„ì´ ì—†ì–´ ìŠ¤í”„ë¼ì´íŠ¸ ê¸°ë°˜ì˜ ì‚¬ê°í˜• ìŠ¤í…ì‹¤ ìƒì„±
         local stencil_sprite = cc.Sprite:create('res/ui/event/bd_challenge_mode_0102.png')
         if stencil_sprite then
             stencil_sprite:setAnchorPoint(CENTER_POINT)
@@ -307,19 +307,19 @@ end
 
 -------------------------------------
 -- function spotlightScan
--- @brief ½ºÆ÷Æ®¶óÀÌÆ® ¿òÁ÷ÀÌ´Ù Ä¿Áö´Â È¿°ú
+-- @brief ìŠ¤í¬íŠ¸ë¼ì´íŠ¸ ì›€ì§ì´ë‹¤ ì»¤ì§€ëŠ” íš¨ê³¼
 -------------------------------------
 function UI_EventImageQuizIngame:spotlightScan()
     local vars = self.vars
 
-    -- stencil ºñ¿ì±â
+    -- stencil ë¹„ìš°ê¸°
     local stencil = vars['clippingNode'].m_node:getStencil()
     stencil:removeAllChildren()
     stencil:clear()
 
     vars['clippingNode'].m_node:setAlphaThreshold(0.5)
 
-    -- ¿øÇü ½ºÅÙ½Ç Ãß°¡
+    -- ì›í˜• ìŠ¤í…ì‹¤ ì¶”ê°€
     local stencil_sprite = cc.Sprite:create('res/ui/icons/friendship/friendship_level_0101.png')
     if stencil_sprite then
         stencil_sprite:setAnchorPoint(CENTER_POINT)
@@ -328,7 +328,7 @@ function UI_EventImageQuizIngame:spotlightScan()
         stencil:addChild(stencil_sprite)
     end
 
-    -- ¾×¼Ç : ¹«ÀÛÀ§ ÀÌµ¿, ¸®½ºÆ® »ı¼º
+    -- ì•¡ì…˜ : ë¬´ì‘ìœ„ ì´ë™, ë¦¬ìŠ¤íŠ¸ ìƒì„±
     local l_action = {}
     for i = 1, 3 do
         table.insert(l_action, 
@@ -340,9 +340,9 @@ function UI_EventImageQuizIngame:spotlightScan()
             )
         )
     end
-    -- ¾×¼Ç : ¸¶Áö¸· ÀÌµ¿
+    -- ì•¡ì…˜ : ë§ˆì§€ë§‰ ì´ë™
     local last_move = cc.MoveTo:create(0.5, cc.p(MAIN_NODE_WIDTH/2, MAIN_NODE_HEIGHT/2))
-    -- ¾×¼Ç : ½ºÄÉÀÏ¾÷
+    -- ì•¡ì…˜ : ìŠ¤ì¼€ì¼ì—…
     local action_scale = cc.ScaleTo:create(1, 10)
     local sequence = cc.Sequence:create(l_action[1], l_action[2], l_action[3], last_move, action_scale)
     stencil_sprite:runAction(sequence)
@@ -350,20 +350,20 @@ end
 
 -------------------------------------
 -- function spotlightScaleUp
--- @brief ½ºÆ÷Æ®¶óÀÌÆ® scale up È¿°ú. Áß¾Ó¿¡¼­ Ä¿Áö±â¸¸ÇÔ
+-- @brief ìŠ¤í¬íŠ¸ë¼ì´íŠ¸ scale up íš¨ê³¼. ì¤‘ì•™ì—ì„œ ì»¤ì§€ê¸°ë§Œí•¨
 -------------------------------------
 function UI_EventImageQuizIngame:spotlightScaleUp()
     local vars = self.vars
     local duration = 4
     
-    -- stencil ºñ¿ì±â
+    -- stencil ë¹„ìš°ê¸°
     local stencil = vars['clippingNode'].m_node:getStencil()
     stencil:removeAllChildren()
     stencil:clear()
 
     vars['clippingNode'].m_node:setAlphaThreshold(0.5)
 
-    -- ¿øÇü ½ºÅÙ½Ç Ãß°¡
+    -- ì›í˜• ìŠ¤í…ì‹¤ ì¶”ê°€
     local stencil_sprite = cc.Sprite:create('res/ui/icons/friendship/friendship_level_0101.png')
     if stencil_sprite then
         stencil_sprite:setAnchorPoint(CENTER_POINT)
@@ -373,14 +373,14 @@ function UI_EventImageQuizIngame:spotlightScaleUp()
         stencil:addChild(stencil_sprite)
     end
 
-    -- ½ºÅÙ½Ç Å°¿ì±â
+    -- ìŠ¤í…ì‹¤ í‚¤ìš°ê¸°
     local action_scale = cc.ScaleTo:create(duration, 10)
     stencil_sprite:runAction(action_scale)
 end
 
 -------------------------------------
 -- function blindTile
--- @brief Å¸ÀÏ ºí¶óÀÎµå È¿°ú
+-- @brief íƒ€ì¼ ë¸”ë¼ì¸ë“œ íš¨ê³¼
 -------------------------------------
 function UI_EventImageQuizIngame:blindTile()
     local vars = self.vars
@@ -409,7 +409,7 @@ end
 
 -------------------------------------
 -- function removeBlindTileUnit
--- @brief Å¸ÀÏ ÇÏ³ª¾¿ Áö¿ì±â
+-- @brief íƒ€ì¼ í•˜ë‚˜ì”© ì§€ìš°ê¸°
 -------------------------------------
 function UI_EventImageQuizIngame:removeBlindTileUnit()
     local vars = self.vars
@@ -433,7 +433,7 @@ end
 
 -------------------------------------
 -- function dragonScaleUp
--- @brief µå·¡°ï È®´ë
+-- @brief ë“œë˜ê³¤ í™•ëŒ€
 -------------------------------------
 function UI_EventImageQuizIngame:dragonScaleUp(from)
     local vars = self.vars
@@ -451,7 +451,7 @@ end
 
 -------------------------------------
 -- function dragonSlide
--- @brief È­¸éÀÇ »ó/ÇÏ/ÁÂ/¿ì¿¡¼­ ·£´ıÇÏ°Ô ³ªÅ¸³²
+-- @brief í™”ë©´ì˜ ìƒ/í•˜/ì¢Œ/ìš°ì—ì„œ ëœë¤í•˜ê²Œ ë‚˜íƒ€ë‚¨
 -------------------------------------
 function UI_EventImageQuizIngame:dragonSlide()
     local vars = self.vars
@@ -489,7 +489,7 @@ end
 
 -------------------------------------
 -- function blindImage
--- @brief Ä¿Æ° ÀÌ¹ÌÁö¿¡ °¡·Á ÀÖ´Ù°¡ Ä¿Æ°ÀÌ ÁÂ/¿ì·Î ·£´ıÇÏ°Ô ÀÌµ¿ÇÏ¸ç µîÀå
+-- @brief ì»¤íŠ¼ ì´ë¯¸ì§€ì— ê°€ë ¤ ìˆë‹¤ê°€ ì»¤íŠ¼ì´ ì¢Œ/ìš°ë¡œ ëœë¤í•˜ê²Œ ì´ë™í•˜ë©° ë“±ì¥
 -------------------------------------
 function UI_EventImageQuizIngame:blindImage()
     -- LEFT blind

@@ -2,7 +2,7 @@ local PARENT = UI_AttendanceSpecialListItem_1st
 
 -------------------------------------
 -- class UI_AttendanceSpecialListItem_3rdAnniv
--- @brief 3ÁÖ³â Ãâ¼® ÀÌº¥Æ®
+-- @brief 3ì£¼ë…„ ì¶œì„ ì´ë²¤íŠ¸
 -------------------------------------
 UI_AttendanceSpecialListItem_3rdAnniv = class(PARENT, {
     })
@@ -17,7 +17,7 @@ function UI_AttendanceSpecialListItem_3rdAnniv:init(t_item_data, event_id)
     self:initButton()
     self:refresh()
 
-    -- ¼º°ø Äİ¹é
+    -- ì„±ê³µ ì½œë°±
     local function success_cb(ret)
         self.m_lMessage = {}
         self.m_messageIdx = 0
@@ -27,15 +27,15 @@ function UI_AttendanceSpecialListItem_3rdAnniv:init(t_item_data, event_id)
         
         --[[
         table.insert(self.m_lMessage, {table = {msg='Congrats guys and gals!', nickname='69mort69'}})
-        table.insert(self.m_lMessage, {table = {msg='ìéñ²Ò´ªªªáªÇªÈª¦~~', nickname='èÜ÷¼'}})
+        table.insert(self.m_lMessage, {table = {msg='ä¸€å‘¨å¹´ãŠã‚ã§ã¨ã†~~', nickname='æ±ªå¤ª'}})
         table.insert(self.m_lMessage, {table = {msg='Well done guys on the great game', nickname='Isilwyn'}})
-        table.insert(self.m_lMessage, {table = {msg='1ÁÖ³â ÃàÇÏÇØ¿ä ´Ù¸¥ ÀÌº¥Æ® Àß ÁØºñÇØ¼­ À¯Àúµé ¸¹ÀÌ ´Ã¾î³ª±æ', nickname='·¹¿ÀÇÃ'}})
+        table.insert(self.m_lMessage, {table = {msg='1ì£¼ë…„ ì¶•í•˜í•´ìš” ë‹¤ë¥¸ ì´ë²¤íŠ¸ ì˜ ì¤€ë¹„í•´ì„œ ìœ ì €ë“¤ ë§ì´ ëŠ˜ì–´ë‚˜ê¸¸', nickname='ë ˆì˜¤í”Œ'}})
         table.insert(self.m_lMessage, {table = {msg='Congratz! Enjoying playing this game!', nickname='Agnus'}})
-        table.insert(self.m_lMessage, {table = {msg='ÀÌÁ¦ ÂøÇÑ µå¸°ÀÌ°¡ µÉ°Ô¿ä', nickname='³²ÀÛ'}})
+        table.insert(self.m_lMessage, {table = {msg='ì´ì œ ì°©í•œ ë“œë¦°ì´ê°€ ë ê²Œìš”', nickname='ë‚¨ì‘'}})
         table.insert(self.m_lMessage, {table = {msg='Great design and content. Keep it up devs!', nickname='Sazon'}})
         table.insert(self.m_lMessage, {table = {msg="Congratulations guys. You've earned it by giving such a good game. Keep it up.", nickname='Launna'}})
         table.insert(self.m_lMessage, {table = {msg='Felicidades que todo siga prosperando ', nickname='Soulflayer'}})
-        table.insert(self.m_lMessage, {table = {msg='½ÃÀÛÇÑÁö ¾ó¸¶¾ÈµÌÁö¸¸ ±Â±Â!!Àç¹Õ¾î¿ä', nickname='ÇØ¹Ì¸Ş'}})
+        table.insert(self.m_lMessage, {table = {msg='ì‹œì‘í•œì§€ ì–¼ë§ˆì•ˆë«ì§€ë§Œ êµ¿êµ¿!!ì¬ë°Œì–´ìš”', nickname='í•´ë¯¸ë©”'}})
         --]]
 
         self.m_lMessage = ret['messages'] or {}
@@ -44,7 +44,7 @@ function UI_AttendanceSpecialListItem_3rdAnniv:init(t_item_data, event_id)
     end
 
     -- @mskim 2020.08.24
-    -- attendance_eventÀÇ ±¸ºĞÀÚ·Î ÀÌÁ¦ number id¸¦ »ç¿ëÇÏ´Âµ¥ ÃàÇÏ¸Ş¼¼Áö ¿¡¼­´Â ¼ıÀÚÅ°¸¦ »ç¿ëÇÒ ¼ö ¾ø´Ù.
-    -- Å¬·¡½ºµµ ºĞ¸®ÇßÀ¸´Ï ÇÏµåÄÚµùÇØµµ ±¦ÂúÀ» °ÍÀ¸·Î »ı°¢
+    -- attendance_eventì˜ êµ¬ë¶„ìë¡œ ì´ì œ number idë¥¼ ì‚¬ìš©í•˜ëŠ”ë° ì¶•í•˜ë©”ì„¸ì§€ ì—ì„œëŠ” ìˆ«ìí‚¤ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ë‹¤.
+    -- í´ë˜ìŠ¤ë„ ë¶„ë¦¬í–ˆìœ¼ë‹ˆ í•˜ë“œì½”ë”©í•´ë„ ê´œì°®ì„ ê²ƒìœ¼ë¡œ ìƒê°
     self:request_getCelebrateMsg(success_cb, '3rd_anniversary')
 end

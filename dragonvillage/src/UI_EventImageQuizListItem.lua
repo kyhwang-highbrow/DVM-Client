@@ -2,7 +2,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
 -- class UI_EventImageQuizListItem
--- @brief µå·¡°ï ÀÌ¹ÌÁö ÄûÁî ÀÌº¥Æ®
+-- @brief ë“œëž˜ê³¤ ì´ë¯¸ì§€ í€´ì¦ˆ ì´ë²¤íŠ¸
 -------------------------------------
 UI_EventImageQuizListItem = class(PARENT, {
         m_dataInfo = '',
@@ -29,10 +29,10 @@ function UI_EventImageQuizListItem:initUI()
     local step = data_info['step']
     local price = data_info['price']
 
-    -- ±³È¯ °¹¼ö
+    -- êµí™˜ ê°¯ìˆ˜
     vars['numberLabel']:setString(comma_value(price))
 
-    -- º¸»ó Á¤º¸
+    -- ë³´ìƒ ì •ë³´
     local l_reward = g_itemData:parsePackageItemStr(data_info['reward'])
     for i, v in ipairs(l_reward) do
         local id = v['item_id']
@@ -43,7 +43,7 @@ function UI_EventImageQuizListItem:initUI()
         item_card.root:setSwallowTouch(false)
     end
 
-    -- º¸»ó¹öÆ°
+    -- ë³´ìƒë²„íŠ¼
     vars['receiveBtn']:registerScriptTapHandler(function() 
         g_eventImageQuizData:request_clearReward(step, 'score', function() self:refresh() end)
     end)
@@ -68,11 +68,11 @@ function UI_EventImageQuizListItem:refresh()
     local need_cnt = data_info['price']
     local curr_score = g_eventImageQuizData:getScore()
     
-    -- ¹ÞÀº º¸»óÀÎÁö
+    -- ë°›ì€ ë³´ìƒì¸ì§€
     local is_get = g_eventImageQuizData:isGetReward(step, 'score')
     vars['checkSprite']:setVisible(is_get)
     
-    -- ¹öÆ° È°¼ºÈ­
+    -- ë²„íŠ¼ í™œì„±í™”
     local condition = (curr_score >= need_cnt) and (not is_get) 
     vars['receiveBtn']:setEnabled(condition)
     vars['readySprite']:setVisible(not condition)
@@ -96,7 +96,7 @@ end
 
 -------------------------------------
 -- class UI_EventImageQuizListItem_play
--- @brief µå·¡°ï ÀÌ¹ÌÁö ÄûÁî ÀÌº¥Æ®
+-- @brief ë“œëž˜ê³¤ ì´ë¯¸ì§€ í€´ì¦ˆ ì´ë²¤íŠ¸
 -------------------------------------
 UI_EventImageQuizListItem_play = class(PARENT, {
         m_dataInfo = '',
@@ -123,10 +123,10 @@ function UI_EventImageQuizListItem_play:initUI()
     local step = data_info['step']
     local price = data_info['price']
 
-    -- ±³È¯ °¹¼ö
-    vars['numberLabel']:setString(Str('{1}È¸', comma_value(price)))
+    -- êµí™˜ ê°¯ìˆ˜
+    vars['numberLabel']:setString(Str('{1}íšŒ', comma_value(price)))
 
-    -- º¸»ó Á¤º¸
+    -- ë³´ìƒ ì •ë³´
 --    local l_reward = g_itemData:parsePackageItemStr(data_info['reward'])
 --    for i, v in ipairs(l_reward) do
 --        local id = v['item_id']
@@ -137,7 +137,7 @@ function UI_EventImageQuizListItem_play:initUI()
 --        item_card.root:setSwallowTouch(false)
 --    end
 
-    -- º¸»ó¹öÆ°
+    -- ë³´ìƒë²„íŠ¼
     vars['receiveBtn']:registerScriptTapHandler(function() 
         g_eventImageQuizData:request_clearReward(step, 'play', function() self:refresh() end)
     end)
@@ -162,11 +162,11 @@ function UI_EventImageQuizListItem_play:refresh()
     local need_cnt = data_info['price']
     local curr_score = g_eventImageQuizData:getPlayCount()
     
-    -- ¹ÞÀº º¸»óÀÎÁö
+    -- ë°›ì€ ë³´ìƒì¸ì§€
     local is_get = g_eventImageQuizData:isGetReward(step, 'play')
     vars['checkSprite']:setVisible(is_get)
     
-    -- ¹öÆ° È°¼ºÈ­
+    -- ë²„íŠ¼ í™œì„±í™”
     local condition = (curr_score >= need_cnt) and (not is_get) 
     vars['receiveBtn']:setEnabled(condition)
     vars['readySprite']:setVisible(not condition)

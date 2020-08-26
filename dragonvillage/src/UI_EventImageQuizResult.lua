@@ -25,7 +25,7 @@ function UI_EventImageQuizResult:init(score, left_time_str)
     -- TimeScale
     cc.Director:getInstance():getScheduler():setTimeScale(1)
 
-    -- ¹éÅ° ÁöÁ¤
+    -- ë°±í‚¤ ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventImageQuizResult')
 
     self:initUI()
