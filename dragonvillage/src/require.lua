@@ -1539,6 +1539,7 @@ function reloadModule()
         'UI_EventImageQuizIngame_directing',
         'UI_EventImageQuizListItem',
         'UI_QuestPopup',
+        'UI_QuestListItem',
     }
     for i,v in ipairs(t_reload_modules) do
         -- if not (t_except_reload[v]) then

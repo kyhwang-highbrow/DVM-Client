@@ -419,10 +419,28 @@ function ServerData_Quest:setDailyQuestList(l_daily_quest)
             -- 일일 퀘스트 이벤트 보상 정보 (3주년 신비의 알 부화 이벤트)
             if (_data['event_reward']) then
                 _data['t_event_reward'] = TableQuest.arrangeDataByStr(_data['event_reward'])
+            else
+                _data['t_event_reward'] = nil
             end
             table.insert(self.m_lDailyQuest, _data)
         end
     end
+end
+
+
+
+
+
+-------------------------------------
+-- function isActiveEventDailyQuest
+-- @return table이고 구성요소가 0개 이상인 경우에만 리턴
+-------------------------------------
+function ServerData_Quest:isActiveEventDailyQuest()
+    local t_info = self:getEventDailyQuestInfo()
+    if (t_info == nil) then
+        return false
+    end
+    return t_info['progress'] < t_info['max']
 end
 
 -------------------------------------

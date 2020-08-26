@@ -95,6 +95,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_QuestListItem:refresh(t_data)
+    ccdump(t_data)
     if (t_data) then
 	    self:setQuestData(t_data)
 	    self:setRewardCard() -- 보상 카드 만들기
@@ -147,6 +148,13 @@ function UI_QuestListItem:setRewardCard()
 
     local l_reward_info = self.m_questData:getRewardInfoList()
     local l_rewardCardUI = self.m_lRewardCardUI
+
+    -- 이전 상품 UI 제거
+    for i = 1, 5 do
+        if (vars['rewardNode' .. i] ~= nil) then
+            vars['rewardNode' .. i]:removeAllChildren()
+        end
+    end
 
     -- @mskim UI에 출력할 순서에 따라 아래 보상 추가 로직의 순서를 변경한다.
 

@@ -7,6 +7,8 @@ UI_QuestPopup = class(PARENT, {
         m_tableView = 'UIC_TableView',
         m_allClearQuestCell = 'UI_QuestListItem',
 		m_blockUI = 'UI_BlockPopup',
+
+        m_isActiveEventDailyQuest = 'bool'
     })
 
 -------------------------------------
@@ -51,7 +53,7 @@ function UI_QuestPopup:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_QuestPopup'
     self.m_bUseExitBtn = true
-    self.m_titleStr = Str('퀘스트')
+    self.m_titleStr = Str('퀘스트') 
 end
 
 -------------------------------------
@@ -62,6 +64,12 @@ function UI_QuestPopup:initUI()
 	self.m_blockUI = UI_BlockPopup()
 	self.m_blockUI:setVisible(false)
 	g_currScene:removeBackKeyListener(self.m_blockUI)
+
+    -- 일일 퀘스트 이벤트 활성화 여부, nil, true, false 3가지 상태를 사용한다.
+    -- nil : 정의되지 않음. 어떤 상태로든 변화 가능
+    -- true : 이벤트 활성화 상태, refresh 할때마다 이벤트의 상태를 체크한다.
+    -- false : 이벤트 비활성화 상태, 더이상 이벤트 상태를 체크하지 않는다.
+    self.m_isActiveEventDailyQuest = nil
 end
 
 -------------------------------------
@@ -142,6 +150,35 @@ end
 -------------------------------------
 -- function makeQuestTableView
 -------------------------------------
+function UI_QuestPopup.sortQuestList(a, b)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    -- "일일 퀘스트 10개 클리어하기" 항목은 최상단으로 고정
+    if (a_data:getQuestClearType() ~= b_data:getQuestClearType()) then
+        if (a_data:getQuestClearType() == 'dq_clear') then
+            return true
+        elseif (b_data:getQuestClearType() == 'dq_clear') then
+            return false
+        end
+    end
+
+    if (a_data:isEnd() and not b_data:isEnd()) then
+        return false
+    elseif (not a_data:isEnd() and b_data:isEnd()) then
+        return true
+    elseif (a_data:hasReward() and not b_data:hasReward()) then
+        return true
+    elseif (not a_data:hasReward() and b_data:hasReward()) then
+        return false
+    else
+        return (a_data:getQid() < b_data:getQid())
+    end
+end
+
+-------------------------------------
+-- function makeQuestTableView
+-------------------------------------
 function UI_QuestPopup:makeQuestTableView(tab, node)
     local vars = self.vars
 
@@ -159,31 +196,7 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
             self:cellCreateCB(ui, data)
 		end
          
-    local function sort_func(a, b)
-            local a_data = a['data']
-            local b_data = b['data']
 
-            -- "일일 퀘스트 10개 클리어하기" 항목은 최상단으로 고정
-            if (a_data:getQuestClearType() ~= b_data:getQuestClearType()) then
-                if (a_data:getQuestClearType() == 'dq_clear') then
-                    return true
-                elseif (b_data:getQuestClearType() == 'dq_clear') then
-                    return false
-                end
-            end
-
-            if (a_data:isEnd() and not b_data:isEnd()) then
-                return false
-            elseif (not a_data:isEnd() and b_data:isEnd()) then
-                return true
-            elseif (a_data:hasReward() and not b_data:hasReward()) then
-                return true
-            elseif (not a_data:hasReward() and b_data:hasReward()) then
-                return false
-            else
-                return (a_data:getQid() < b_data:getQid())
-            end
-        end
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
@@ -191,7 +204,7 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
         table_view:setCellUIClass(UI_QuestListItem, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_quest)
-        table_view:insertSortInfo('sort', sort_func)
+        table_view:insertSortInfo('sort', self.sortQuestList)
         self.m_tableView = table_view
     end
 end
@@ -279,14 +292,40 @@ end
 function UI_QuestPopup:refreshEventDailyQuest()
     local vars = self.vars
 
-    local t_event_info = g_questData:getEventDailyQuestInfo()
-    if (t_event_info == nil) then
-        vars['eventDailyQuestMenu']:setVisible(false)
-        return
-    end
+    -- 일일 퀘스트 이벤트 활성화 상태
+    if (g_questData:isActiveEventDailyQuest()) then
+        local t_event_info = g_questData:getEventDailyQuestInfo()
+    
+        -- 이벤트 활성화
+        vars['eventDailyQuestMenu']:setVisible(true)
+        vars['evenDailyQuestCountLabel']:setString(string.format('%d / %d', t_event_info['progress'], t_event_info['max']))
 
-    vars['eventDailyQuestMenu']:setVisible(true)
-    vars['evenDailyQuestCountLabel']:setString(string.format('%d / %d', t_event_info['progress'], t_event_info['max']))
+        self.m_isActiveEventDailyQuest = true
+
+    -- 이벤트 비활성화 상태
+    else
+        vars['eventDailyQuestMenu']:setVisible(false)
+
+        -- true 였다가 false가 되는 경우에만 통신 후 전체 리스트 갱신
+        if (self.m_isActiveEventDailyQuest == true) then
+            local idx = 1
+            local l_daily_quest_data_list = g_questData:getDailyQuestList()
+
+            for i,v in ipairs(self.m_tableView.m_itemList) do
+                local ui = v['ui']
+                local t_data = v['data']
+                if (t_data) then
+                    t_data['t_quest'] = l_daily_quest_data_list[idx]
+                    idx = idx + 1
+                end
+                if ui then
+                    ui:refresh(t_data)
+                end
+            end
+        end
+
+        self.m_isActiveEventDailyQuest = false
+    end
 end
 
 -------------------------------------
