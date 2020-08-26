@@ -1,7 +1,8 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_DragonChanceUp
+-- class UI_EventDragonLaunchLegend
+-- @brief 신규 전설 드래곤 출시, 신규 드래곤
 -------------------------------------
 UI_EventDragonLaunchLegend = class(PARENT,{
         m_newDragonList = 'table',
@@ -62,7 +63,7 @@ function UI_EventDragonLaunchLegend:initUI()
         elseif (self.m_newDragonAttrList[1] == 2) then
             attr = 'water'
         elseif (self.m_newDragonAttrList[1] == 3) then
-            selattr = 'fire'
+            attr = 'fire'
         elseif (self.m_newDragonAttrList[1] == 4) then
             attr = 'light'
         else
