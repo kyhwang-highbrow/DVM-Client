@@ -417,7 +417,9 @@ function ServerData_Quest:setDailyQuestList(l_daily_quest)
         if (_data) then
             _data['t_reward'] = TableQuest.arrangeDataByStr(_data['reward'])
             -- 일일 퀘스트 이벤트 보상 정보 (3주년 신비의 알 부화 이벤트)
-            _data['t_event_reward'] = TableQuest.arrangeDataByStr(_data['event_reward'])
+            if (_data['event_reward']) then
+                _data['t_event_reward'] = TableQuest.arrangeDataByStr(_data['event_reward'])
+            end
             table.insert(self.m_lDailyQuest, _data)
         end
     end
