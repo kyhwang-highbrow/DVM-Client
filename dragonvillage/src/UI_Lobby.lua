@@ -1009,13 +1009,9 @@ function UI_Lobby:update_highlight()
         end
 
         do -- 드래곤 이미지 퀴즈 이벤트
-            vars['quizEventNotiSprite']:setVisible(false)
-            vars['quizEventNotiYellow']:setVisible(false)
-
-            if g_eventAlphabetData:isHighlightRed_alphabet() then
-                vars['quizEventNotiSprite']:setVisible(true)
-            elseif g_eventAlphabetData:isHighlightYellow_alphabet() then
-                vars['quizEventNotiYellow']:setVisible(true)
+            if (g_eventImageQuizData) then
+                vars['quizEventNotiSprite']:setVisible(g_eventImageQuizData:isHighlightRed_imageQuiz())
+                vars['quizEventNotiYellow']:setVisible(g_eventImageQuizData:isHighlightYellow_imageQuiz())
             end
         end
 

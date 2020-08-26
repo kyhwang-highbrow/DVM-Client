@@ -93,34 +93,6 @@ function ServerData_EventImageQuiz:getTicketInfo()
 end
 
 -------------------------------------
--- function hasReward
--- @brief 받아야 할 보상이 있는지 (누적 보상)
--------------------------------------
-function ServerData_EventImageQuiz:hasReward()
-    if (not self.m_productInfo) then
-        return false
-    end
-
-    if (not self.m_rewardInfo) then
-        return false
-    end
-
-    local event_info = self.m_productInfo
-    local reward_info = self.m_rewardInfo
-
-    local curr_cnt = self.m_playCount
-    for i, v in ipairs(event_info) do
-        local step = tostring(v['step'])
-        local need_cnt = v['price']
-        if (reward_info[step] == 0) and (curr_cnt >= need_cnt) then
-            return true
-        end
-    end
-
-    return false
-end
-
--------------------------------------
 -- function parseProductInfo
 -------------------------------------
 function ServerData_EventImageQuiz:parseProductInfo(product_info)
@@ -369,4 +341,52 @@ function ServerData_EventImageQuiz:request_eventImageQuizFinish(clear_cnt, finis
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function hasReward
+-- @brief 받아야 할 보상이 있는지 (누적 점수 & 누적 플레이)
+-------------------------------------
+function ServerData_EventImageQuiz:hasReward(reward_type)
+    local event_info
+    local reward_info
+    local curr_cnt
+
+    if (reward_type == 'play') then
+        event_info = self.m_lProductInfoPlay
+        reward_info = self.m_mRewardInfoPlay
+        curr_cnt = self.m_playCount
+    elseif (reward_type == 'score') then
+        event_info = self.m_lProductInfoScore
+        reward_info = self.m_mRewardInfoScore
+        curr_cnt = self.m_score
+    end
+
+    for i, v in ipairs(event_info) do
+        local step = tostring(v['step'])
+        local need_cnt = v['price']
+        if (reward_info[step] == 0) and (curr_cnt >= need_cnt) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isHighlightRed_imageQuiz
+-- @brief 빨간 느낌표 아이콘 출력 여부
+--        획득 가능한 보상이 있을 경우
+-------------------------------------
+function ServerData_EventImageQuiz:isHighlightRed_imageQuiz()
+    return self:hasReward('play') or self:hasReward('score')
+end
+
+-------------------------------------
+-- function isHighlightYellow_imageQuiz
+-- @brief 노란 느낌표 아이콘 출력 여부
+--        주요 상품의 교환 가능 횟수가 남아있을 경우
+-------------------------------------
+function ServerData_EventImageQuiz:isHighlightYellow_imageQuiz()
+    return self.m_ticket > 0
 end

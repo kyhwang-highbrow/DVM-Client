@@ -122,6 +122,9 @@ function UI_EventImageQuizIngame:initUI()
         vars['answerLabel' .. i]:setString('')
         vars['answerLabel' .. i]:setLocalZOrder(10)
         vars['answerBtn' .. i]:setEnabled(false)
+        
+        -- 버튼 리소스를 교체하기 때문에 버튼 하위에 있는 라벨은 zOrder를 올려두어야 한다.
+        -- 내부적으로는 버튼의 버튼 리소소는 하위 자식이다.
     end
 end
 
