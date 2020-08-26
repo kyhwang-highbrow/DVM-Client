@@ -42,7 +42,7 @@ function UI_EventImageQuizIngame:initDirectingInfo()
     DRAGON_SCALE = self.vars['dragonNode']:getScale()
 
     -- 사운드 재생
-    SoundMgr:playBGM('bgm_everyday', true)
+    SoundMgr:playBGM('bgm_everyday')
 end
 
 -------------------------------------

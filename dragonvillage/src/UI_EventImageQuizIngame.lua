@@ -45,7 +45,7 @@ local P100 = TIME_LIMIT_SEC * 1000 / 100
 local MAX_QUIZ = 45
 local CHOICE_CNT = 3
 local ANSWER_POINT = 100
-local BTN_DELAY = 0.3
+local BTN_DELAY = 0.5
 local L_DIFFICULTY = {
     0, 10, 20, 30, 40
 }
