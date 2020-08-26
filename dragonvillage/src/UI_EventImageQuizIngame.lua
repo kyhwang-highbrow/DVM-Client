@@ -31,6 +31,7 @@ UI_EventImageQuizIngame = class(PARENT,{
 
         m_todayEndTime = 'timer',
         m_isTimeOut = 'boolean',
+        m_isFinish = 'boolean',
 
         m_directingNode = 'cc.Node',
         m_preVFXType = 'string',
@@ -44,6 +45,7 @@ local P100 = TIME_LIMIT_SEC * 1000 / 100
 local MAX_QUIZ = 45
 local CHOICE_CNT = 3
 local ANSWER_POINT = 100
+local BTN_DELAY = 0.3
 local L_DIFFICULTY = {
     0, 10, 20, 30, 40
 }
@@ -82,6 +84,7 @@ function UI_EventImageQuizIngame:init()
 
     
     self.m_isTimeOut = false
+    self.m_isFinish = false
 
     self:initUI()
     self:initButton()
@@ -93,9 +96,7 @@ function UI_EventImageQuizIngame:init()
     -- 시작 연출
     self:directing_startGame(function()
         -- 버튼 활성화
-        vars['answerBtn1']:setEnabled(true)
-        vars['answerBtn2']:setEnabled(true)
-        vars['answerBtn3']:setEnabled(true)
+        self:setAllAnswerBtnEnable(true)
         
         -- 게임 타이머
         self.m_todayEndTime = Timer:getServerTime_Milliseconds() + TIME_LIMIT_SEC * 1000 
@@ -195,15 +196,6 @@ function UI_EventImageQuizIngame:nextQuiz()
     -- 다음 퀴즈
     else
         self:makeQuiz()
-        
-        -- 주석 해제시 게임 모드 실행됨
-        --self:blindImage()
-        --self:blindTile()
-        --self:spotlightScaleUp()
-        --self:spotlightScan()
-        --self:dragonSlide()
-        --self:dragonScaleUp()
-
         self.m_currQuizIdx = self.m_currQuizIdx + 1
     end
 end
@@ -309,6 +301,9 @@ end
 function UI_EventImageQuizIngame:setAnswerBtns(l_idx)
     local vars = self.vars
     
+    -- 버튼 블럭
+    self:setAllAnswerBtnEnable(false)
+
     for i = 1, CHOICE_CNT do
         local t_dragon = self.m_tDragonInfo[l_idx[i]]
         vars['answerLabel' .. i]:setString(TableDragon:getDragonNameWithAttr(t_dragon['did']))
@@ -336,6 +331,9 @@ function UI_EventImageQuizIngame:setAnswerBtns(l_idx)
         vars['answerBtn' .. i]:setNormalImage(cc.Sprite:create(normal_sprite))
         vars['answerBtn' .. i]:setSelectedImage(cc.Sprite:create(selected_sprite))
     end
+
+    local btn_enable_action = cc.Sequence:create(cc.DelayTime:create(BTN_DELAY), cc.CallFunc:create(function() self:setAllAnswerBtnEnable(true) end))
+    self.root:runAction(btn_enable_action)
 end
 
 -------------------------------------
@@ -416,7 +414,7 @@ end
 -- @brief 진행 상황 표시
 -------------------------------------
 function UI_EventImageQuizIngame:setQuizProgress()
-    local display_idx = (self.m_currQuizIdx + 1)
+    local display_idx = self.m_currQuizIdx
     if (display_idx > MAX_QUIZ) then
         display_idx = MAX_QUIZ
     end
@@ -425,18 +423,32 @@ function UI_EventImageQuizIngame:setQuizProgress()
 end
 
 -------------------------------------
+-- function setQuizProgress
+-- @brief 진행 상황 표시
+-------------------------------------
+function UI_EventImageQuizIngame:setAllAnswerBtnEnable(b)
+    -- 버튼 블럭
+    for i = 1, CHOICE_CNT do
+        self.vars['answerBtn' .. i]:setEnabled(b)
+    end
+end
+
+-------------------------------------
 -- function finishGame
 -- @brief 게임 종료 처리
 -------------------------------------
 function UI_EventImageQuizIngame:finishGame()
+    if (self.m_isFinish) then
+        return
+    end
+
+    self.m_isFinish = true
+
     -- update 종료
     self.root:unscheduleUpdate()
 
     -- 버튼 블럭
-    local vars = self.vars
-    vars['answerBtn1']:setEnabled(false)
-    vars['answerBtn2']:setEnabled(false)
-    vars['answerBtn3']:setEnabled(false)
+    self:setAllAnswerBtnEnable(false)
 
     -- 종료 연출
     local function directing_finish()

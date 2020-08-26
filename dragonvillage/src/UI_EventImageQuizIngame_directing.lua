@@ -279,7 +279,7 @@ function UI_EventImageQuizIngame:directing_levelUp()
         local sprite = cc.Sprite:create('res/font/image_quiz/image_quiz_levelup_0101.png')
         sprite:setAnchorPoint(CENTER_POINT)
         sprite:setDockPoint(CENTER_POINT)
-        sprite:setPosition(cc.p(0, 500))
+        sprite:setPosition(cc.p(-500, 450))
         sprite:setScale(1)
         self.m_directingNode:addChild(sprite)
         
