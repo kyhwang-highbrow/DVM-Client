@@ -309,10 +309,7 @@ function UI_EventImageQuizIngame:setAnswerBtns(l_idx)
     
     for i = 1, CHOICE_CNT do
         local t_dragon = self.m_tDragonInfo[l_idx[i]]
-        local dragon_name = t_dragon['c_name']
-        local dragon_id = t_dragon['did']
-
-        vars['answerLabel' .. i]:setString(Str(dragon_name))
+        vars['answerLabel' .. i]:setString(TableDragon:getDragonNameWithAttr(t_dragon['did']))
         local attr = t_dragon['attr']
         
         -- 캐릭터 속성에 따라 버튼 리소스를 교체한다.
