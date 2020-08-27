@@ -292,20 +292,26 @@ end
 function UI_QuestPopup:refreshEventDailyQuest()
     local vars = self.vars
 
-    -- 일일 퀘스트 이벤트 활성화 상태
-    if (g_questData:isActiveEventDailyQuest()) then
-        local t_event_info = g_questData:getEventDailyQuestInfo()
-    
-        -- 이벤트 활성화
+
+    -- 이벤트 활성화
+    if (g_hotTimeData:isActiveEvent('event_daily_quest')) then
         vars['eventDailyQuestMenu']:setVisible(true)
-        vars['evenDailyQuestCountLabel']:setString(string.format('%d / %d', t_event_info['progress'], t_event_info['max']))
-
-        self.m_isActiveEventDailyQuest = true
-
-    -- 이벤트 비활성화 상태
+        
+        local t_event_info = g_questData:getEventDailyQuestInfo()
+        local max = t_event_info['max']
+        local progress = t_event_info['progress']
+        progress = math_min(progress, max)
+        vars['evenDailyQuestCountLabel']:setString(string.format('%d / %d', progress, max))
     else
         vars['eventDailyQuestMenu']:setVisible(false)
+    end
 
+    -- 일일 퀘스트 이벤트 보상 수령 가능 상태
+    if (g_questData:isActiveEventDailyQuest()) then
+        self.m_isActiveEventDailyQuest = true
+        
+    -- 이벤트 보상 수령 완료 상태
+    else
         -- true 였다가 false가 되는 경우에만 통신 후 전체 리스트 갱신
         if (self.m_isActiveEventDailyQuest == true) then
             local idx = 1

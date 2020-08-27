@@ -423,13 +423,21 @@ function UI_EventImageQuizIngame:setQuizProgress()
 end
 
 -------------------------------------
--- function setQuizProgress
--- @brief 진행 상황 표시
+-- function setAllAnswerBtnEnable
+-- @brief 버튼 일괄 변경
 -------------------------------------
 function UI_EventImageQuizIngame:setAllAnswerBtnEnable(b)
+    local enable = b
+    -- finish 호출된 이후에는 무조건 비활성화 처리 한다.
+    if (self.m_isFinish) then
+        enable = false
+    else
+        enable = b
+    end
+
     -- 버튼 블럭
     for i = 1, CHOICE_CNT do
-        self.vars['answerBtn' .. i]:setEnabled(b)
+        self.vars['answerBtn' .. i]:setEnabled(enable)
     end
 end
 
