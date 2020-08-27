@@ -451,9 +451,8 @@ function UI_DragonMasteryNew:click_dragonMaterial(data)
     -- 3.(사용 전)재료 확인 팝업 (드래곤 정보 팝업/특성 재료 정보 팝업)
     -- 4.체크 or 체크x
 
-
     -- 1.재료로 사용할 수 있는지 확인
-    if (data['did'] == nil and not self:checkMaterialDragonCondition(data['id'])) then
+    if (data['did'] ~= 'mastery_material' and not self:checkMaterialDragonCondition(material_id)) then
         return    
     end
 
@@ -635,7 +634,8 @@ function UI_DragonMasteryNew:createMtrlDragonCardCB(ui, data)
         local doid = data['id']
         if doid and (doid ~= '') then
             local ui = UI_SimpleDragonInfoPopup(data)
-			local is_selected = (self.m_selectedMtrl['id'] == doid)
+            local selected_id = self.m_selectedMtrl and self.m_selectedMtrl['id']
+			local is_selected = (selected_id == doid)
             ui:setLockPossible(true, is_selected)
             ui:setRefreshFunc(function()
                 self:refresh_dragonIndivisual(doid)          -- 하단의 드래곤 tableview
