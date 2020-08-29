@@ -205,7 +205,15 @@ function UI_CapsuleBox:refresh_firstDrawBtn()
     local capsule_coin = g_userData:get('capsule_coin')
 	vars['firstCoinBtn']:setVisible(capsule_coin == 0)
 	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
-    vars['firstDrawBtn2']:setVisible(capsule_coin ~= 0)
+
+    -- 절대적인 전설의 알 이벤트 시에는 10뽑기 제공 x
+    local is_korea_server = g_localData:isKoreaServer() -- 한국서버 여부(dev, qa 서버도 포함될 수 있음)
+    local is_noti_global_anniversary = StructCapsuleBoxSchedule.isNoti_globalAnniversary() -- 절대적인 전설의 알 이벤트 여부
+    if (is_korea_server and is_noti_global_anniversary) then
+        vars['firstDrawBtn2']:setVisible(false)
+    else
+        vars['firstDrawBtn2']:setVisible(capsule_coin ~= 0)
+    end
 end
 
 -------------------------------------
