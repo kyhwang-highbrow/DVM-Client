@@ -353,6 +353,10 @@ end
 -- @return 없음. 함수 내에서 처리하는게 더 깔끔함.
 -------------------------------------
 function UI_EventImageQuizIngame:answerResult(answer)
+    if (self.m_isFinish) then
+        return
+    end
+
     local vars = self.vars
 
     if (self.m_currentAnswer == answer) then
