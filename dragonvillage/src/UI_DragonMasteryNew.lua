@@ -270,7 +270,7 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
     vars['lockSprite']:setVisible(is_max_level)
     vars['masteryLvUpBtn']:setEnabled(not is_max_level)
 
-    -- 마스터리 할인 피버타임 적용
+    -- 마스터리 할인 피버타임(핫타임) 적용
     if (g_fevertimeData:isActiveFevertime_masteryDc()) then
         vars['masteryEventSprite1']:setVisible(true)
         vars['masteryEventSprite2']:setVisible(true)
@@ -665,6 +665,12 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
     local rarity_str = dragon_obj:getRarity()
     local mastery_level = dragon_obj:getMasteryLevel()
     local req_amor, req_gold = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
+
+    -- 마스터리 할인 피버타임(핫타임) 적용
+    if (g_fevertimeData:isActiveFevertime_masteryDc()) then
+        local _, value = g_fevertimeData:isActiveFevertimeByType('mastery_dc')
+        req_gold = (req_gold * value) -- 50% 할인일 경우 value는 0.5의 값으로 넘어온다.
+    end
 
     -- 최대 특성 레벨 달성
     if (dragon_obj:getMasteryLevel() >= 10) then
