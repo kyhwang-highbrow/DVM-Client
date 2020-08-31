@@ -525,17 +525,16 @@ end
 function slack_api(msg)
     -- 파라미터 셋팅
     local t_data = {}
-    t_data['token'] = 'xoxp-4049551466-58528144482-409940306166-79d561e763e94b36a6ca49a54bb9cd7d'
-    t_data['channel'] = 'C1RUT070B'
     t_data['text'] = msg
-    t_data['username'] = 'DVM ERROR BOT'
-    t_data['icon_emoji'] = ':fix:'
+
+    local t_payload = {}
+    t_payload['payload'] = dkjson.encode(t_data)
 
     -- 요청 정보 설정
     local t_request = {}
-    t_request['full_url'] = 'https://slack.com/api/chat.postMessage'
-    t_request['method'] = 'GET'
-    t_request['data'] = t_data
+    t_request['full_url'] = 'https://hooks.slack.com/services/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'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_payload
 
     -- 성공 시 콜백 함수
     t_request['success'] = function(ret)
