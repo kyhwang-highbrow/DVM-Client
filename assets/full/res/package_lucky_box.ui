@@ -121,7 +121,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = '';
 				stencil_type = 0;
 				stencil_img = '';
@@ -186,8 +186,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -14.000000;
-					y = -2.000000;
+					x = 0.000000;
+					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -335,7 +335,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 89.000000;
+				x = 108.000000;
 				y = -250.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -399,7 +399,7 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 91.000000;
+				x = 110.000000;
 				y = -250.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -450,7 +450,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 214.000000;
+				y = 194.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -464,7 +464,7 @@
 				visible = true;
 				lua_name = 'timeLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 21;
+				font_size = 20;
 				text = '판매 종료까지 23일 7시간 남음';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -555,7 +555,7 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -128.000000;
+				x = -108.000000;
 				y = -250.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -806,7 +806,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 1.000000;
-				y = -120.000000;
+				y = -90.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -817,14 +817,14 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 70;
-				text = '랜덤박스';
+				font_size = 40;
+				text = '랜덤 박스';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 198; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 745;
 				dimension_height = 101;
@@ -839,7 +839,7 @@
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
-				shadow_distance = 3.000000;
+				shadow_distance = 1.000000;
 			};
 			[18] =
 			{
@@ -912,48 +912,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 1.000000;
-					y = 18.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 143;
-					height = 45;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '초월의 알';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 143;
-					dimension_height = 45;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				[2] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
 					x = 0.000000;
-					y = -47.000000;
+					y = -40.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -968,7 +928,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '7%';
+					text = '10%';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -988,17 +948,17 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[3] =
+				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -3.000000;
-					y = -25.000000;
+					x = 0.000000;
+					y = -2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 239;
-					height = 35;
+					width = 230;
+					height = 79;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1007,59 +967,19 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 17;
-					text = '(한정 드래곤 포함)';
+					font_size = 22;
+					text = '다이아\n20,000개';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 127; 255; 212; };
+					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 239;
-					dimension_height = 35;
+					dimension_width = 230;
+					dimension_height = 79;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
 					stroke_detail_level = 0;
-					is_sharp_text = false;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				[4] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = -4.000000;
-					y = -4.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 89;
-					height = 32;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
-					text = '★4-5';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 127; 255; 212; };
-					opacity = 255;
-					dimension_width = 89;
-					dimension_height = 32;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = false;
+					is_sharp_text = true;
 					stroke_tickness = 2.000000;
 					stroke_color = { 0; 0; 0; };
 					has_shadow = false;
@@ -1069,9 +989,9 @@
 					shadow_distance = 5.000000;
 				};
 				type = 'Menu';
-				ui_name = '초월의 알';
+				ui_name = '다이아 20,000개';
 				x = -368.000000;
-				y = -48.000000;
+				y = -65.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1091,7 +1011,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -1.000000;
+					x = -2.000000;
 					y = 19.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1147,7 +1067,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '1%';
+					text = '2%';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -1250,7 +1170,7 @@
 				type = 'Menu';
 				ui_name = '신화의 알';
 				x = -190.000000;
-				y = 28.000000;
+				y = 33.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1270,7 +1190,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -17.000000;
+					x = -20.000000;
 					y = 21.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1310,7 +1230,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -16.000000;
+					x = -18.000000;
 					y = -28.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1326,7 +1246,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '5%';
+					text = '8%';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -1350,7 +1270,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -18.000000;
+					x = -20.000000;
 					y = -3.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1389,7 +1309,7 @@
 				type = 'Menu';
 				ui_name = '전설의 알';
 				x = 217.000000;
-				y = 13.000000;
+				y = 18.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1425,7 +1345,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '다이아\n10,000개';
+					text = '다이아\n15,000개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -1449,7 +1369,7 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -4.000000;
+					x = -5.000000;
 					y = -15.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1465,7 +1385,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '8%';
+					text = '10%';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
@@ -1488,7 +1408,7 @@
 				type = 'Menu';
 				ui_name = '다이아';
 				x = 371.000000;
-				y = -72.000000;
+				y = -89.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1506,8 +1426,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 265.000000;
-				y = 115.000000;
+				x = 283.000000;
+				y = 119.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1546,8 +1466,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 266.000000;
-				y = -162.000000;
+				x = 284.000000;
+				y = -151.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1561,8 +1481,8 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
-				text = '특별 세일';
+				font_size = 23;
+				text = '3주년 기념\n특별 세일';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 0; };
@@ -1612,8 +1532,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 266.000000;
-				y = -223.000000;
+				x = 284.000000;
+				y = -220.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1639,20 +1559,20 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 267.000000;
+				y = 279.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 553;
 				height = 83;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 0.800000;
+				scale_y = 0.800000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/package_lucky_box_0101.png';
+				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

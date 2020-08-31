@@ -137,7 +137,7 @@
 				visible = false;
 				lua_name = 'lastRewardSprite';
 				file_name = 'ui/frames/dia_0103.png';
-				color = { 255; 255; 255; };
+				color = { 152; 251; 152; };
 				opacity = 255;
 				flip_x = false;
 				flip_y = false;

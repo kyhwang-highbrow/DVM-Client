@@ -1,0 +1,251 @@
+
+popomo_all_03.png
+size: 1622,422
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_popomo_all_03_atk_01
+  rotate: true
+  xy: 850, 3
+  size: 89, 102
+  orig: 89, 102
+  offset: 0, 0
+  index: -1
+effect_popomo_all_03_atk_02
+  rotate: true
+  xy: 1327, 92
+  size: 47, 134
+  orig: 47, 134
+  offset: 0, 0
+  index: -1
+effect_popomo_all_03_atk_03
+  rotate: true
+  xy: 1470, 144
+  size: 160, 77
+  orig: 160, 77
+  offset: 0, 0
+  index: -1
+effect_popomo_all_03_atk_04
+  rotate: false
+  xy: 1539, 22
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+effect_popomo_all_03_b_01
+  rotate: false
+  xy: 2, 7
+  size: 404, 413
+  orig: 404, 413
+  offset: 0, 0
+  index: -1
+effect_popomo_all_03_b_02
+  rotate: false
+  xy: 408, 109
+  size: 306, 311
+  orig: 306, 311
+  offset: 0, 0
+  index: -1
+effect_popomo_all_03_petal_03
+  rotate: false
+  xy: 1003, 122
+  size: 192, 171
+  orig: 192, 171
+  offset: 0, 0
+  index: -1
+popomo_all_03_b_arm
+  rotate: true
+  xy: 1549, 190
+  size: 119, 71
+  orig: 119, 71
+  offset: 0, 0
+  index: -1
+popomo_all_03_b_leg
+  rotate: true
+  xy: 738, 6
+  size: 86, 110
+  orig: 86, 110
+  offset: 0, 0
+  index: -1
+popomo_all_03_b_ring_01
+  rotate: true
+  xy: 1470, 102
+  size: 40, 70
+  orig: 40, 70
+  offset: 0, 0
+  index: -1
+popomo_all_03_b_ring_02
+  rotate: false
+  xy: 1589, 354
+  size: 31, 66
+  orig: 31, 66
+  offset: 0, 0
+  index: -1
+popomo_all_03_b_wing
+  rotate: true
+  xy: 1003, 295
+  size: 125, 279
+  orig: 125, 279
+  offset: 0, 0
+  index: -1
+popomo_all_03_body
+  rotate: true
+  xy: 1197, 106
+  size: 187, 128
+  orig: 187, 128
+  offset: 0, 0
+  index: -1
+popomo_all_03_ear
+  rotate: true
+  xy: 657, 2
+  size: 88, 79
+  orig: 88, 79
+  offset: 0, 0
+  index: -1
+popomo_all_03_ear_petal
+  rotate: true
+  xy: 1469, 2
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+popomo_all_03_eye
+  rotate: false
+  xy: 1319, 43
+  size: 78, 47
+  orig: 78, 47
+  offset: 0, 0
+  index: -1
+popomo_all_03_eye_c
+  rotate: false
+  xy: 1178, 7
+  size: 73, 28
+  orig: 73, 28
+  offset: 0, 0
+  index: -1
+popomo_all_03_eyebrow
+  rotate: false
+  xy: 1116, 2
+  size: 60, 33
+  orig: 60, 33
+  offset: 0, 0
+  index: -1
+popomo_all_03_f_arm
+  rotate: false
+  xy: 1495, 311
+  size: 92, 109
+  orig: 92, 109
+  offset: 0, 0
+  index: -1
+popomo_all_03_f_ring_01
+  rotate: false
+  xy: 1549, 119
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+popomo_all_03_f_ring_02
+  rotate: false
+  xy: 1255, 40
+  size: 62, 64
+  orig: 62, 64
+  offset: 0, 0
+  index: -1
+popomo_all_03_f_wing
+  rotate: false
+  xy: 716, 161
+  size: 285, 259
+  orig: 285, 259
+  offset: 0, 0
+  index: -1
+popomo_all_03_fur_01
+  rotate: false
+  xy: 1020, 21
+  size: 94, 99
+  orig: 94, 99
+  offset: 0, 0
+  index: -1
+popomo_all_03_fur_02
+  rotate: false
+  xy: 954, 6
+  size: 64, 86
+  orig: 64, 86
+  offset: 0, 0
+  index: -1
+popomo_all_03_head
+  rotate: false
+  xy: 1327, 141
+  size: 141, 163
+  orig: 141, 163
+  offset: 0, 0
+  index: -1
+popomo_all_03_mouth_01
+  rotate: false
+  xy: 1542, 74
+  size: 53, 43
+  orig: 53, 43
+  offset: 0, 0
+  index: -1
+popomo_all_03_mouth_02
+  rotate: true
+  xy: 1589, 315
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+popomo_all_03_mouth_03
+  rotate: false
+  xy: 1255, 2
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+popomo_all_03_ribbon_01
+  rotate: true
+  xy: 1116, 37
+  size: 83, 72
+  orig: 83, 72
+  offset: 0, 0
+  index: -1
+popomo_all_03_ribbon_02
+  rotate: false
+  xy: 408, 2
+  size: 247, 105
+  orig: 247, 105
+  offset: 0, 0
+  index: -1
+popomo_all_03_ribbon_03
+  rotate: true
+  xy: 1469, 55
+  size: 45, 68
+  orig: 45, 68
+  offset: 0, 0
+  index: -1
+popomo_all_03_tail
+  rotate: false
+  xy: 1284, 306
+  size: 209, 114
+  orig: 209, 114
+  offset: 0, 0
+  index: -1
+popomo_all_03_tail_juwel
+  rotate: false
+  xy: 1190, 37
+  size: 63, 67
+  orig: 63, 67
+  offset: 0, 0
+  index: -1
+popomo_all_03_tape_01
+  rotate: false
+  xy: 1399, 40
+  size: 68, 50
+  orig: 68, 50
+  offset: 0, 0
+  index: -1
+popomo_all_03_tape_02
+  rotate: false
+  xy: 716, 94
+  size: 256, 65
+  orig: 256, 65
+  offset: 0, 0
+  index: -1

@@ -1965,6 +1965,32 @@
 							shadow_direction = 0;
 							shadow_distance = 5.000000;
 						};
+						[4] =
+						{
+							type = 'Sprite';
+							ui_name = '';
+							x = -91.000000;
+							y = 15.000000;
+							dock_point = { 1.000000; 1.000000; };
+							anchor_point = { 1.000000; 1.000000; };
+							relative_size_type = 0;
+							width = 96;
+							height = 83;
+							scale_x = 0.800000;
+							scale_y = 0.800000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = false;
+							lua_name = 'runeDungeonHotSprite';
+							file_name = 'ui/icons/hot_time/hot_time_noti.png';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							flip_x = false;
+							flip_y = false;
+							src_blend = 770;
+							dest_blend = 771;
+						};
 						type = 'Button';
 						ui_name = '';
 						x = 228.000000;

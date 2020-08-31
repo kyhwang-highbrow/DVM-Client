@@ -39,8 +39,8 @@
 					{
 						type = 'Visual';
 						ui_name = '';
-						x = -50.000000;
-						y = -58.000000;
+						x = -61.000000;
+						y = 13.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -57,20 +57,20 @@
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;idle';
-						color = { 245; 95; 241; };
+						color = { 175; 238; 238; };
 						opacity = 200;
 					};
 					type = 'Node';
 					ui_name = '애니메이션';
-					x = 139.000000;
-					y = 83.000000;
+					x = 49.000000;
+					y = 16.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 100;
 					height = 100;
-					scale_x = 0.900000;
-					scale_y = 0.900000;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -84,7 +84,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 1030;
+				width = 930;
 				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -131,14 +131,14 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1030;
+			width = 930;
 			height = 640;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = false;
+			visible = true;
 			lua_name = '';
 		};
 		[2] =
@@ -146,7 +146,7 @@
 			[1] =
 			{
 				type = 'Sprite';
-				ui_name = '토파즈드래곤';
+				ui_name = '한정드래곤';
 				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -253,7 +253,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 1030;
+				width = 930;
 				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -276,7 +276,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 1030;
+				width = 930;
 				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -285,7 +285,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/event_dragon_launch_02.png';
+				file_name = 'ui/typo/ko/event_dragon_launch.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -300,14 +300,14 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1030;
+			width = 930;
 			height = 640;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
-			visible = true;
+			visible = false;
 			lua_name = '';
 		};
 		type = 'Menu';
