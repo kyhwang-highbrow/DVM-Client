@@ -4,6 +4,13 @@
 -- @mskim 2020.08.22
 -- 특정 위치, 시기에 제한적으로 사용되는 특히 이벤트와 같은 것들은 사용직전에 require 하도록 한다.
 
+-- @mskim 2020.08.31
+-- reload module를 수정하기 편하도록 상단으로 테이블 위치 이동
+local t_reload_modules = 
+{
+    'UI_DragonReinforcement'
+}
+
 local t_module = {
     'Cocos2d',
     'Cocos2dConstants',
@@ -1531,17 +1538,6 @@ function reloadModule()
 
     -- 서버에서 받아서 저장 중인 테이블 백업
     -- local t_backup_server_table = TABLE:backupServerTable()
-
-    local t_reload_modules = 
-    {
-        'UI_EventImageQuiz',
-        'UI_EventImageQuizIngame',
-        'UI_EventImageQuizIngame_directing',
-        'UI_EventImageQuizListItem',
-        'UI_QuestPopup',
-        'UI_QuestListItem',
-        'UI_DragonConversion',
-    }
     for i,v in ipairs(t_reload_modules) do
         -- if not (t_except_reload[v]) then
             package.loaded[v] = nil

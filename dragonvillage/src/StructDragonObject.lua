@@ -948,3 +948,43 @@ function StructDragonObject:getMasterySkilLevel(mastery_skill_id)
 
     return 0
 end
+
+-------------------------------------
+-- function getReinforceGoldCost
+-- @brief 드래곤 강화 비용 계산
+-- @return number, bool
+-------------------------------------
+function StructDragonObject:getReinforceGoldCost()
+    local did = self:getDid()
+	local rlv = self:getRlv()
+
+    local req_gold = TableDragonReinforce:getCurrCost(did, rlv)
+
+    -- 할인 핫타임
+	local active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.REINFORCE_DC)
+    if (active) then
+		req_gold = req_gold * (1 - dc_value)
+	end
+
+    return req_gold, active
+end
+
+-------------------------------------
+-- function getMasteryLvUpAmorAndGoldCost
+-- @brief 드래곤 특성 레벨업 비용 계산
+-- @return number, number, bool
+-------------------------------------
+function StructDragonObject:getMasteryLvUpAmorAndGoldCost()
+    local rarity_str = self:getRarity()
+    local mastery_level = self:getMasteryLevel()
+
+    local req_amor, req_gold = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
+
+    -- 할인 핫타임
+	local active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.MASTERY_DC)
+    if (active) then
+		req_gold = req_gold * (1 - dc_value)
+	end
+
+    return req_amor, req_gold, active
+end

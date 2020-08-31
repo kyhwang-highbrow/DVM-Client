@@ -16,6 +16,7 @@ ServerData_Fevertime = class({
 -- 할인 이벤트
 FEVERTIME_SALE_EVENT = {
     MASTERY_DC = 'mastery_dc', -- 룬 해제 할인
+    REINFORCE_DC = 'reinforce_dc', -- 드래곤 강화 할인
 }
 
 -------------------------------------

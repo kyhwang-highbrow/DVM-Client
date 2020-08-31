@@ -245,12 +245,7 @@ function UI_DragonReinforcement:refresh_reinforceInfo()
 	vars['expGauge']:runAction(cc.ProgressTo:create(0.2, (rexp / max_rexp * 100)))
 
 	-- 강화 비용
-	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
-    -- 룬 할인 이벤트
-	local dc_value = g_hotTimeData:getDiscountEventValue(HOTTIME_SALE_EVENT.DRAGON_REINFORCE) -- 'reinforce'
-    if (dc_value) then
-		curr_cost = curr_cost * (1 - (dc_value / 100))
-	end
+	local curr_cost = t_dragon_data:getReinforceGoldCost()
 	vars['priceLabel']:setString(comma_value(curr_cost))
 end
 
@@ -423,7 +418,7 @@ function UI_DragonReinforcement:getMaxReinforceCount(rid)
 	end
 
 	-- 3. 골드 비교
-	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
+	local curr_cost = t_dragon_data:getReinforceGoldCost()
 	local gold = g_userData:get('gold')
 	if ((gold/curr_cost) < relation) then
 		relation = math_floor(gold/curr_cost)
@@ -467,7 +462,7 @@ function UI_DragonReinforcement:exceptionReinforce(rid, is_dragon)
 	end
 
 	-- 골드 비교
-	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
+	local curr_cost = t_dragon_data:getReinforceGoldCost()
 	local gold = g_userData:get('gold')
 	if (curr_cost > gold) then
 		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
@@ -614,9 +609,9 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn, is_dragon)
 		else
 			before_relation_point = g_userData:getReinforcePoint(rid)
 		end
-		local did = t_dragon_data:getDid()
-		local rlv = t_dragon_data:getRlv()
-		local cost = TableDragonReinforce:getCurrCost(did, rlv)
+--		local did = t_dragon_data:getDid()
+--		local rlv = t_dragon_data:getRlv()
+		local cost = t_dragon_data:getReinforceGoldCost()
 		local curr_gold = g_userData:get('gold')
 
 		-- 변수

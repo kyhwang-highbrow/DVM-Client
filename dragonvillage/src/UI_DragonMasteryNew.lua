@@ -251,11 +251,10 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
     vars['mstrLvUp_spLabel']:setString(Str('스킬 포인트: {1}', mastery_point))
 
     -- 아모르의 서
-    local rarity_str = dragon_obj:getRarity()
-    local req_count, req_gold = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
-    local own_count = g_userData:get('amor') or 0
-    local str = Str('{1} / {2}', comma_value(own_count), comma_value(req_count))
-    if (req_count <= own_count) then
+    local req_amor, req_gold, discounted = dragon_obj:getMasteryLvUpAmorAndGoldCost()
+    local own_amor = g_userData:get('amor') or 0
+    local str = Str('{1} / {2}', comma_value(own_amor), comma_value(req_amor))
+    if (req_amor <= own_amor) then
         str = '{@possible}' .. str
     else
         str = '{@impossible}' .. str
@@ -271,13 +270,12 @@ function UI_DragonMasteryNew:refresh_masteryInfo()
     vars['masteryLvUpBtn']:setEnabled(not is_max_level)
 
     -- 마스터리 할인 피버타임(핫타임) 적용
-    if (g_fevertimeData:isActiveFevertime_masteryDc()) then
+    if (discounted) then
         vars['masteryEventSprite1']:setVisible(true)
         vars['masteryEventSprite2']:setVisible(true)
-        local _, value = g_fevertimeData:isActiveFevertimeByType('mastery_dc')
+        local _, value = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.MASTERY_DC)
         local str = Str('{1}% 할인', value * 100)
         vars['masteryEventLabel']:setString(str)
-        vars['masteryLvUp_priceLabel']:setString(comma_value(req_gold * value))
     end
 end
 
@@ -661,16 +659,13 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
     end
 
     local vars = self.vars
+    local req_amor, req_gold = dragon_obj:getMasteryLvUpAmorAndGoldCost()
 
-    local rarity_str = dragon_obj:getRarity()
-    local mastery_level = dragon_obj:getMasteryLevel()
-    local req_amor, req_gold = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_level + 1)
-
-    -- 마스터리 할인 피버타임(핫타임) 적용
-    if (g_fevertimeData:isActiveFevertime_masteryDc()) then
-        local _, value = g_fevertimeData:isActiveFevertimeByType('mastery_dc')
-        req_gold = (req_gold * value) -- 50% 할인일 경우 value는 0.5의 값으로 넘어온다.
-    end
+    -- 골드 충족 여부
+    if (not ConfirmPrice('gold', req_gold)) then
+        cca.uiImpossibleAction(self.vars['masteryLvUpBtn'])
+        return
+	end
 
     -- 최대 특성 레벨 달성
     if (dragon_obj:getMasteryLevel() >= 10) then
@@ -696,12 +691,6 @@ function UI_DragonMasteryNew:click_masteryLvUpBtn()
         return
     end
     
-
-    -- 골드 충족 여부
-    if (not ConfirmPrice('gold', req_gold)) then
-        cca.uiImpossibleAction(self.vars['masteryLvUpBtn'])
-        return
-	end
 
     local doid = dragon_obj['id']
     local src_doid
