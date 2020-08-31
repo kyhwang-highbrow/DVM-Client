@@ -17,6 +17,13 @@ ServerData_Fevertime = class({
 FEVERTIME_SALE_EVENT = {
     MASTERY_DC = 'mastery_dc', -- 룬 해제 할인
     REINFORCE_DC = 'reinforce_dc', -- 드래곤 강화 할인
+
+    ADVENTURE_ST_DC = 'ad_st_dc',
+    GDRAGON_ST_DC = 'dg_gd_st_dc',
+    NIGHTMARE_ST_DC = 'dg_nm_st_dc',
+    TREE_ST_DC = 'dg_gt_st_dc',
+    ANCIENT_RUIN_ST_DC = 'dg_ar_st_dc',
+    RUNE_GUARDIAN_ST_DC = 'dg_rg_st_dc',
 }
 
 -------------------------------------
@@ -350,7 +357,7 @@ end
 function ServerData_Fevertime:isActiveFevertime_adventure()
     local is_active_exp_up = self:isActiveFevertimeByType('exp_up') -- 모험 드래곤 경험치 증가
     local is_active_gold_up = self:isActiveFevertimeByType('gold_up') -- 모험 골드 증가
-    local is_active_ad_st_dc = self:isActiveFevertimeByType('ad_st_dc') -- 모험 날개 할인
+    local is_active_ad_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.ADVENTURE_ST_DC) -- 모험 날개 할인
 
     return is_active_exp_up or is_active_gold_up or is_active_ad_st_dc
 end
@@ -426,7 +433,7 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_masteryDc()
-    local is_active_mastery_dc = self:isActiveFevertimeByType('mastery_dc')
+    local is_active_mastery_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.MASTERY_DC)
 
     return is_active_mastery_dc
 end
@@ -437,7 +444,7 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonGtStDc()
-    local is_active_dg_gt_st_dc = self:isActiveFevertimeByType('dg_gt_st_dc')
+    local is_active_dg_gt_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.TREE_ST_DC)
 
     return is_active_dg_gt_st_dc
 end
@@ -448,7 +455,7 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonGdStDc()
-    local is_active_dg_gd_st_dc = self:isActiveFevertimeByType('dg_gd_st_dc')
+    local is_active_dg_gd_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.GDRAGON_ST_DC)
 
     return is_active_dg_gd_st_dc
 end
@@ -459,7 +466,7 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonNmStDc()
-    local is_active_dg_nm_st_dc = self:isActiveFevertimeByType('dg_nm_st_dc')
+    local is_active_dg_nm_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.NIGHTMARE_ST_DC)
 
     return is_active_dg_nm_st_dc
 end
@@ -470,7 +477,7 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonArStDc()
-    local is_active_dg_ar_st_dc = self:isActiveFevertimeByType('dg_ar_st_dc')
+    local is_active_dg_ar_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.ANCIENT_RUIN_ST_DC)
 
     return is_active_dg_ar_st_dc
 end
@@ -481,7 +488,7 @@ end
 -- @return boolean
 -------------------------------------
 function ServerData_Fevertime:isActiveFevertime_dungeonRgStDc()
-    local is_active_dg_rg_st_dc = self:isActiveFevertimeByType('dg_rg_st_dc')
+    local is_active_dg_rg_st_dc = self:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.RUNE_GUARDIAN_ST_DC)
 
     return is_active_dg_rg_st_dc
 end
@@ -546,7 +553,7 @@ function ServerData_Fevertime:convertType_hottimeToFevertime(hottime_type)
 
     -- 모험 날개 할인
     elseif (hottime_type == 'stamina') then
-        return 'ad_st_dc'
+        return FEVERTIME_SALE_EVENT.ADVENTURE_ST_DC
 
     -- 룬 해제 비용 할인
     elseif (hottime_type == 'rune') then
@@ -562,7 +569,7 @@ function ServerData_Fevertime:convertType_hottimeToFevertime(hottime_type)
 
     -- 드래곤 강화
     elseif (hottime_type == 'reinforce') then
-        return 'reinforce_dc'
+        return FEVERTIME_SALE_EVENT.REINFORCE_DC
     end
 
     return hottime_type

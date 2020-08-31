@@ -232,21 +232,61 @@ end
 -- @brief stage_id에 해당하는 stamina가 있는지 확인
 -------------------------------------
 function ServerData_Staminas:checkStageStamina(stage_id)
+    local stamina_type, req_count = self:getStageStaminaCost(stage_id)
+    local is_enough, insufficient_num = self:hasStaminaCount(stamina_type, req_count)
+    return is_enough
+end
+
+-------------------------------------
+-- function getStageStaminaCost
+-- @brief 해당 스테이지의 활동력 사용량 반환
+-------------------------------------
+function ServerData_Staminas:getStageStaminaCost(stage_id)
     local stamina_type, req_count = TableDrop:getStageStaminaType(stage_id)
 
-    -- 핫타임 확인 (모험모드만 적용됨)
+    -- 핫타임 확인
     local game_mode = g_stageData:getGameMode(stage_id)
-    if (game_mode == GAME_MODE_ADVENTURE) and g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
-        req_count = math_floor(req_count / 2)
-    end
-    
-    local is_enough, insufficient_num = self:hasStaminaCount(stamina_type, req_count)
+    local active = false
+    local dc_value = 0.0
 
-    if is_enough then
-        return true
+    -- 모험
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.ADVENTURE_ST_DC)
+
+    -- 네스트 던전
+    elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(stage_id)
+        local dungeon_mode = t_dungeon['dungeon_mode']
+
+        -- 거대룡 던전
+        if (dungeon_mode == NEST_DUNGEON_EVO_STONE) then
+            active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.GDRAGON_ST_DC)
+
+        -- 악몽 던전
+		elseif (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
+            active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.NIGHTMARE_ST_DC)
+
+        -- 거목 던전
+        elseif (dungeon_mode == NEST_DUNGEON_TREE) then
+            active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.TREE_ST_DC)
+        end
+
+    -- 고대 유적
+    elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
+        active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.ANCIENT_RUIN_ST_DC)
+
+    -- 룬 수호자
+    elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
+        active, dc_value, _ = g_fevertimeData:isActiveFevertimeByType(FEVERTIME_SALE_EVENT.RUNE_GUARDIAN_ST_DC)
+
     end
 
-    return false
+    -- 스태미나 계산 및 반환
+    if (active) then
+        return stamina_type, req_count * (1 - dc_value)
+    else
+        return stamina_type, req_count
+    end
 end
 
 -------------------------------------

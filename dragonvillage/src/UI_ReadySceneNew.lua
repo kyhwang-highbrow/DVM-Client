@@ -751,10 +751,8 @@ function UI_ReadySceneNew:refresh()
 
     -- 거목 던전 활동력 핫타임 관련
     if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-        print(self.m_gameMode)
         local t_dungeon = g_nestDungeonData:parseNestDungeonID(stage_id)
         local dungeonMode = t_dungeon['dungeon_mode']
-        print(dungeonMode)
         if (dungeonMode == NEST_DUNGEON_TREE) then
             local type = 'dg_gt_st_dc'
             self:initStaminaFevertimeUI(vars, stage_id, type)
@@ -1317,6 +1315,7 @@ function UI_ReadySceneNew:click_startBtn()
         return
     end
 
+    -- 시작 가능한지 확인 (스태미나 등등)
     if (not self:check_startCondition(stage_id)) then    
 		return
     end
