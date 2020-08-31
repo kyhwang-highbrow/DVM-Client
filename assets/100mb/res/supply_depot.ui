@@ -222,7 +222,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 258.000000;
-				y = 163.000000;
+				y = 169.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -248,7 +248,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = -12.000000;
-				y = 163.000000;
+				y = 168.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;

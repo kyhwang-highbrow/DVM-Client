@@ -1,0 +1,216 @@
+
+poseidon_all_01.png
+size: 690,537
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_poseidon_01_atk_01
+  rotate: true
+  xy: 2, 249
+  size: 286, 112
+  orig: 286, 112
+  offset: 0, 0
+  index: -1
+effect_poseidon_01_atk_02
+  rotate: false
+  xy: 336, 253
+  size: 131, 117
+  orig: 131, 117
+  offset: 0, 0
+  index: -1
+effect_poseidon_all_01_light
+  rotate: false
+  xy: 258, 256
+  size: 76, 79
+  orig: 76, 79
+  offset: 0, 0
+  index: -1
+poseidon_all_01_b_arm
+  rotate: false
+  xy: 363, 3
+  size: 78, 59
+  orig: 78, 59
+  offset: 0, 0
+  index: -1
+poseidon_all_01_b_eye
+  rotate: false
+  xy: 655, 171
+  size: 27, 39
+  orig: 27, 39
+  offset: 0, 0
+  index: -1
+poseidon_all_01_b_eyebrow
+  rotate: false
+  xy: 655, 212
+  size: 31, 58
+  orig: 31, 58
+  offset: 0, 0
+  index: -1
+poseidon_all_01_b_horn
+  rotate: false
+  xy: 655, 398
+  size: 33, 48
+  orig: 33, 48
+  offset: 0, 0
+  index: -1
+poseidon_all_01_b_leg
+  rotate: false
+  xy: 195, 253
+  size: 61, 82
+  orig: 61, 82
+  offset: 0, 0
+  index: -1
+poseidon_all_01_b_neck
+  rotate: true
+  xy: 242, 2
+  size: 60, 64
+  orig: 60, 64
+  offset: 0, 0
+  index: -1
+poseidon_all_01_b_wing
+  rotate: true
+  xy: 597, 448
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+poseidon_all_01_bubble
+  rotate: false
+  xy: 631, 66
+  size: 53, 53
+  orig: 53, 53
+  offset: 0, 0
+  index: -1
+poseidon_all_01_ear
+  rotate: true
+  xy: 308, 2
+  size: 60, 53
+  orig: 60, 53
+  offset: 0, 0
+  index: -1
+poseidon_all_01_eye
+  rotate: false
+  xy: 631, 24
+  size: 44, 40
+  orig: 44, 40
+  offset: 0, 0
+  index: -1
+poseidon_all_01_f_arm
+  rotate: false
+  xy: 473, 383
+  size: 66, 75
+  orig: 66, 75
+  offset: 0, 0
+  index: -1
+poseidon_all_01_f_eyebrow
+  rotate: true
+  xy: 597, 381
+  size: 65, 55
+  orig: 65, 55
+  offset: 0, 0
+  index: -1
+poseidon_all_01_f_leg
+  rotate: false
+  xy: 469, 255
+  size: 126, 115
+  orig: 126, 115
+  offset: 0, 0
+  index: -1
+poseidon_all_01_f_neck
+  rotate: false
+  xy: 473, 460
+  size: 95, 75
+  orig: 95, 75
+  offset: 0, 0
+  index: -1
+poseidon_all_01_f_wing
+  rotate: true
+  xy: 424, 116
+  size: 135, 96
+  orig: 135, 96
+  offset: 0, 0
+  index: -1
+poseidon_all_01_head_01
+  rotate: true
+  xy: 654, 327
+  size: 69, 34
+  orig: 69, 34
+  offset: 0, 0
+  index: -1
+poseidon_all_01_head_02
+  rotate: false
+  xy: 443, 3
+  size: 122, 111
+  orig: 122, 111
+  offset: 0, 0
+  index: -1
+poseidon_all_01_hit
+  rotate: false
+  xy: 116, 253
+  size: 77, 82
+  orig: 77, 82
+  offset: 0, 0
+  index: -1
+poseidon_all_01_horn
+  rotate: true
+  xy: 597, 334
+  size: 45, 55
+  orig: 45, 55
+  offset: 0, 0
+  index: -1
+poseidon_all_01_howl_01
+  rotate: false
+  xy: 116, 337
+  size: 198, 198
+  orig: 198, 198
+  offset: 0, 0
+  index: -1
+poseidon_all_01_howl_02
+  rotate: true
+  xy: 2, 8
+  size: 239, 238
+  orig: 239, 238
+  offset: 0, 0
+  index: -1
+poseidon_all_01_howl_03
+  rotate: false
+  xy: 242, 64
+  size: 180, 187
+  orig: 180, 187
+  offset: 0, 0
+  index: -1
+poseidon_all_01_ice
+  rotate: true
+  xy: 567, 10
+  size: 109, 62
+  orig: 109, 62
+  offset: 0, 0
+  index: -1
+poseidon_all_01_jaw
+  rotate: true
+  xy: 652, 272
+  size: 53, 35
+  orig: 53, 35
+  offset: 0, 0
+  index: -1
+poseidon_all_01_jewel
+  rotate: false
+  xy: 597, 257
+  size: 53, 75
+  orig: 53, 75
+  offset: 0, 0
+  index: -1
+poseidon_all_01_swing
+  rotate: true
+  xy: 316, 372
+  size: 163, 155
+  orig: 163, 155
+  offset: 0, 0
+  index: -1
+poseidon_all_01_tail
+  rotate: true
+  xy: 522, 121
+  size: 132, 131
+  orig: 132, 131
+  offset: 0, 0
+  index: -1

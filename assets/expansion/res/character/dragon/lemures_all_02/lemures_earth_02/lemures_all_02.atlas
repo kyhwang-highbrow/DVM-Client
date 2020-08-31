@@ -48,23 +48,23 @@ lemures_all_02_b_arm_02
   index: -1
 lemures_all_02_b_belt
   rotate: false
-  xy: 1865, 547
+  xy: 1865, 549
   size: 56, 42
   orig: 56, 42
   offset: 0, 0
   index: -1
 lemures_all_02_b_finger_01
   rotate: false
-  xy: 1865, 591
-  size: 53, 103
-  orig: 53, 103
+  xy: 1865, 593
+  size: 53, 101
+  orig: 53, 101
   offset: 0, 0
   index: -1
 lemures_all_02_b_horn
   rotate: false
-  xy: 1508, 371
-  size: 74, 107
-  orig: 74, 107
+  xy: 1508, 369
+  size: 78, 109
+  orig: 78, 109
   offset: 0, 0
   index: -1
 lemures_all_02_b_leg
@@ -83,7 +83,7 @@ lemures_all_02_back
   index: -1
 lemures_all_02_belt_01
   rotate: true
-  xy: 1747, 318
+  xy: 1751, 318
   size: 106, 152
   orig: 106, 152
   offset: 0, 0
@@ -188,7 +188,7 @@ lemures_all_02_effect_s_l
   index: -1
 lemures_all_02_eye
   rotate: false
-  xy: 1508, 341
+  xy: 1020, 661
   size: 34, 28
   orig: 34, 28
   offset: 0, 0
@@ -314,7 +314,7 @@ lemures_all_02_suit_01
   index: -1
 lemures_all_02_suit_02
   rotate: true
-  xy: 1584, 341
+  xy: 1588, 341
   size: 87, 161
   orig: 87, 161
   offset: 0, 0
