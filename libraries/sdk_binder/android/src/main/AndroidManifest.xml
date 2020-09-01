@@ -1,0 +1,108 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.perplelab">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- @naver-cafe-sdk -->
+    <uses-permission
+        android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.CAMERA"/> <!-- 라이브 셀프 카메라 -->
+    <uses-permission
+        android:name="android.permission.MODIFY_AUDIO_SETTINGS"/> <!-- 오디오 음소거 -->
+
+    <!-- @billing -->
+    <uses-permission
+        android:name="com.android.vending.BILLING" />
+
+    <!-- @tapjoy permission remove -->
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"
+        tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
+        tools:node="remove"/>
+
+    <application>
+        <!-- @facebook -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <!-- @tapjoy -->
+        <activity
+            android:name="com.tapjoy.TJAdUnitActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+            android:hardwareAccelerated="true" />
+        <activity
+            android:name="com.tapjoy.mraid.view.ActionHandler"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.tapjoy.mraid.view.Browser"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name="com.tapjoy.TJContentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- @adcolony -->
+        <activity
+            android:name="com.adcolony.sdk.AdColonyInterstitialActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:hardwareAccelerated="true" />
+        <activity
+            android:name="com.adcolony.sdk.AdColonyAdViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:hardwareAccelerated="true" />
+
+        <!-- @naver global plug -->
+        <activity
+            android:name="com.naver.glink.android.sdk.login.neoid.NeoIdInAppBrowserActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="NeoId In-app"
+            android:screenOrientation="sensor"/>
+
+        <activity android:name="com.naver.glink.android.sdk.login.neoid.PlugSchemeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="naverplug"/>
+            </intent-filter>
+        </activity>
+
+        <!-- @admob -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9497777061019569~9623723983"/>
+
+        <!-- @crashlytics -->
+        <!-- stop automatic initializing -->
+        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+
+        <!-- @Onestore IAP -->
+        <meta-data
+            android:name="iap:api_version"
+            android:value="5" />
+    </application>
+</manifest>

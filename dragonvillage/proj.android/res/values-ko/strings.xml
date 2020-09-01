@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name" translatable="true">드래곤빌리지M</string>
-    <string name="wifi_warning_title" translatable="true">알림</string>
-    <string name="wifi_warning_message" translatable="true">WiFi에 연결되어 있지 않습니다.\n현재 연결 상태에서 계속 다운로드하시겠습니까?\n(사용 중인 데이터 요금 상품에 따라 추가 비용이 발생할 수도 있습니다.)</string>
-    <string name="wifi_warning_positive_button" translatable="true">계속 진행</string>
-    <string name="wifi_warning_negative_button" translatable="true">WiFi 설정</string>
-    <string name="link_cafe" translatable="true">카페 연결</string>
-</resources>

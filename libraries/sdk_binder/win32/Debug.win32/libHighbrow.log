@@ -1,0 +1,19 @@
+﻿Build started 2020-08-13 오후 3:06:17.
+     1>Project "C:\project\DVM\src\frameworks\libraries\sdk_binder\win32\libHighbrow.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(381,5): warning MSB8028: The intermediate directory (Debug.win32\) contains files shared from another project (libHighbrow.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"..\..\..\cocos2d-x\cocos\scripting\lua-bindings\manual" /I"..\..\..\cocos2d-x\external\lua\tolua" /I"..\..\..\cocos2d-x\external\lua\lua" /ZI /nologo /W3 /WX- /MP /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _LIB /D COCOS2DXWIN32_EXPORTS /D GL_GLEXT_PROTOTYPES /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D CC_STATIC /D _USING_V110_SDK71_ /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\src\lua_perplesdk.cpp ..\src\PerpleCore.cpp
+         lua_perplesdk.cpp
+         PerpleCore.cpp
+     1>c:\project\dvm\src\frameworks\libraries\sdk_binder\src\lua_perplesdk_macro.h : warning C4819: The file contains a character that cannot be represented in the current code page (949). Save the file in Unicode format to prevent data loss (..\src\lua_perplesdk.cpp)
+     1>c:\project\dvm\src\frameworks\libraries\sdk_binder\src\lua_perplesdk.cpp(210): warning C4244: 'initializing' : conversion from 'lua_Number' to 'int', possible loss of data
+     1>c:\project\dvm\src\frameworks\libraries\sdk_binder\src\lua_perplesdk.cpp(211): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\project\DVM\src\frameworks\dragonvillage\proj.win32\Debug.win32\libSdkBinder.lib" /NOLOGO Debug.win32\lua_perplesdk.obj
+         Debug.win32\PerpleCore.obj
+         libHighbrow.vcxproj -> C:\project\DVM\src\frameworks\dragonvillage\proj.win32\Debug.win32\libSdkBinder.lib
+     1>Done Building Project "C:\project\DVM\src\frameworks\libraries\sdk_binder\win32\libHighbrow.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.96

@@ -34,32 +34,9 @@
     <uses-permission
         android:name="android.permission.VIBRATE" />
 
-    <!-- @naver-cafe-sdk -->
-    <uses-permission
-        android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission
-        android:name="android.permission.CAMERA"/> <!-- 라이브 셀프 카메라 -->
-    <uses-permission
-        android:name="android.permission.MODIFY_AUDIO_SETTINGS"/> <!-- 오디오 음소거 -->
-
     <!-- @obb, APK expansion file downloading (+ INTERNET, WAKE_LOCK, ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, WRITE_EXTERNAL_STORAGE) -->
     <uses-permission
         android:name="com.android.vending.CHECK_LICENSE" />
-
-    <!-- @billing -->
-    <uses-permission
-        android:name="com.android.vending.BILLING" />
-    
-    <!-- @tapjoy permission remove -->
-    <uses-permission 
-        android:name="android.permission.ACCESS_FINE_LOCATION" 
-        tools:node="remove"/>
-    <uses-permission 
-        android:name="android.permission.READ_PHONE_STATE" 
-        tools:node="remove"/>
-    <uses-permission 
-        android:name="android.permission.ACCESS_COARSE_LOCATION" 
-        tools:node="remove"/>
 
     <application
         android:name="androidx.multidex.MultiDexApplication"
@@ -83,19 +60,6 @@
                 <category
                     android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <!-- @adbrix -->
-            <intent-filter>
-                <action
-                    android:name="android.intent.action.VIEW" />
-                <category
-                    android:name="android.intent.category.DEFAULT" />
-                <category
-                    android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="adbrix547246367" />
-            </intent-filter>
-
         </activity>
 
         <!-- Tell Cocos2dxActivity the name of our .so -->
@@ -103,16 +67,27 @@
             android:name="android.app.lib_name"
             android:value="cocos2dlua" />
 
-        <!-- @Onestore IAP -->
+        <!-- @obb, APK expansion file downloading -->
+        <service
+            android:name="org.cocos2dx.lua.APKExpansionDownloaderService" />
+        <receiver
+            android:name="org.cocos2dx.lua.APKExpansionAlarmReceiver" />
+
+        <!-- @google -->
         <meta-data
-            android:name="iap:api_version"
-            android:value="5" />
+            android:name="com.google.android.gms.games.APP_ID"
+            android:value="@string/app_id" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <!-- PerpleIntentService -->
         <service
             android:name="org.cocos2dx.lua.PerpleIntentService" />
 
-        <!-- @firebase, @adbrix, @tapjoy -->
+
+        <!--@mskim 20.08.18 installreferrer와 firebase_messaging관련 내용. 추후에 sdk_binder로 옮길 수 있는 지 검토 예정-->
+        <!-- @firebase, @tapjoy -->
         <receiver
             android:name="org.cocos2dx.lua.MultipleInstallReceiver"
             android:exported="true" >
@@ -161,99 +136,5 @@
             android:name="com.google.firebase.messaging.default_notification_channel"
             android:value="@string/push_channel_id"/>
 
-        <!-- @adbrix -->
-        <meta-data
-            android:name="igaworks_app_key"
-            android:value="@string/igaworks_app_key" />
-        <meta-data
-            android:name="igaworks_hash_key"
-            android:value="@string/igaworks_hash_key" />
-
-        <!-- @google -->
-        <meta-data
-            android:name="com.google.android.gms.games.APP_ID"
-            android:value="@string/app_id" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-        <!-- @facebook -->
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
-        <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/fb_login_protocol_scheme" />
-            </intent-filter>
-        </activity>
-
-        <!-- @tapjoy -->
-        <activity
-            android:name="com.tapjoy.TJAdUnitActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:hardwareAccelerated="true" />
-        <activity
-            android:name="com.tapjoy.mraid.view.ActionHandler"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name="com.tapjoy.mraid.view.Browser"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name="com.tapjoy.TJContentActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <!-- @adcolony -->
-        <activity
-            android:name="com.adcolony.sdk.AdColonyInterstitialActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:hardwareAccelerated="true" />
-        <activity
-            android:name="com.adcolony.sdk.AdColonyAdViewActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:hardwareAccelerated="true" />
-
-        <!-- @obb, APK expansion file downloading -->
-        <service
-            android:name="org.cocos2dx.lua.APKExpansionDownloaderService" />
-        <receiver
-            android:name="org.cocos2dx.lua.APKExpansionAlarmReceiver" />
-
-        <!-- @naver global plug -->
-        <activity
-            android:name="com.naver.glink.android.sdk.login.neoid.NeoIdInAppBrowserActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="NeoId In-app"
-            android:screenOrientation="sensor"/>
-
-        <activity android:name="com.naver.glink.android.sdk.login.neoid.PlugSchemeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="naverplug"/>
-            </intent-filter>
-        </activity>
-
-        <!-- @admob -->
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9497777061019569~9623723983"/>
-
-        <!-- @crashlytics -->
-        <!-- stop automatic initializing -->
-        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
-
     </application>
-
 </manifest>

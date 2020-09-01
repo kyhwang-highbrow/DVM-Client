@@ -3,10 +3,7 @@
     <string name="app_name" translatable="true">드빌M LIVEQA</string>
     <string name="app_id" translatable="false">983890984134</string>
     <string name="push_channel_id" translatable="false">dvm_push_channel</string>
-    <string name="igaworks_app_key" translatable="false">547246367</string>
-    <string name="igaworks_hash_key" translatable="false">7193c7e787b34fd9</string>
-    <string name="facebook_app_id" translatable="false">1959320877684820</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb1959320877684820</string>
+
     <string name="wifi_warning_title" translatable="true">Notice</string>
     <string name="wifi_warning_message" translatable="true">You are not connected to WiFi.\nDo you want to continue downloading from this connection?\n(Additional charges may be occurred depending on the rate items you currently have.)</string>
     <string name="wifi_warning_positive_button" translatable="true">Continue</string>

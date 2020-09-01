@@ -1,3 +1,5 @@
+include ':sdk_binder'
+project(':sdk_binder').projectDir = new File(settingsDir, '../../libraries/sdk_binder/android')
 include ':market_licensing'
 project(':market_licensing').projectDir = new File(settingsDir, '../../libraries/apk_expansion/market_licensing')
 include ':downloader_library'

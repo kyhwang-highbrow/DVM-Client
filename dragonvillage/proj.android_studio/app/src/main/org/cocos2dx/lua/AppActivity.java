@@ -46,9 +46,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-//import android.support.v4.app.ActivityCompat;
 import androidx.core.app.ActivityCompat;
-//import android.support.v4.content.ContextCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -58,6 +56,7 @@ import com.perplelab.PerpleConfig;
 
 //@perplesdk
 import com.perplelab.PerpleSDK;
+
 
 import java.util.Locale;
 

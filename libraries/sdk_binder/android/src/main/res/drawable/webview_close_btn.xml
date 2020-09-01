@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed="true">
+        <shape>
+            <gradient
+                android:angle="270"
+                android:endColor="@color/dark_purple"
+                android:startColor="@color/color_perplelab"
+                />
+            <size
+                android:width="64dp"
+                android:height="64dp"
+                />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+    <item android:state_pressed="false">
+        <shape>
+            <corners android:radius="16dp" />
+            <solid android:color="@color/color_perplelab" />
+            <size
+                android:width="64dp"
+                android:height="64dp"
+                />
+        </shape>
+    </item>
+</selector>

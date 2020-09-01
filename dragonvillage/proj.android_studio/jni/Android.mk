@@ -2,6 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+# DragonVillageM
 LOCAL_MODULE := cocos2dlua_shared
 
 LOCAL_MODULE_FILENAME := libcocos2dlua
@@ -23,9 +24,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../../cocos2d-x/cocos/network \
                     $(LOCAL_PATH)/../../../cocos2d-x/cocos/editor-support/spine \
                     $(LOCAL_PATH)/../../../cocos2d-x/external/json \
-					$(LOCAL_PATH)/../../../libraries/perplesdk/include
+					$(LOCAL_PATH)/../../../libraries/sdk_binder/src
 
-LOCAL_STATIC_LIBRARIES := perplesdklua_static
 LOCAL_SHARED_LIBRARIES := perplesdk_shared
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos_lua_static
@@ -34,6 +34,6 @@ LOCAL_SHORT_COMMANDS := true
 
 include $(BUILD_SHARED_LIBRARY)
 
-include $(LOCAL_PATH)/../../../libraries/perplesdk/prebuilt/android/Android.mk
+include $(LOCAL_PATH)/../../../libraries/sdk_binder/android/jni/Android.mk
 
 $(call import-module,scripting/lua-bindings)

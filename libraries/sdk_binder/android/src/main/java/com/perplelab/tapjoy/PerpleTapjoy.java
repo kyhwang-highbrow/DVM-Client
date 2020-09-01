@@ -1,0 +1,470 @@
+package com.perplelab.tapjoy;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.perplelab.PerpleSDK;
+import com.perplelab.PerpleSDKCallback;
+import com.perplelab.PerpleLog;
+
+import com.tapjoy.TJActionRequest;
+import com.tapjoy.TJAwardCurrencyListener;
+import com.tapjoy.TJEarnedCurrencyListener;
+import com.tapjoy.TJError;
+import com.tapjoy.TJGetCurrencyBalanceListener;
+import com.tapjoy.TJPlacement;
+import com.tapjoy.TJPlacementListener;
+import com.tapjoy.TJSpendCurrencyListener;
+import com.tapjoy.Tapjoy;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.RemoteException;
+
+public class PerpleTapjoy implements TJPlacementListener {
+    private static final String LOG_TAG = "PerpleSDK Tapjoy";
+
+    private boolean mIsInit;
+    private boolean mIsTrackPurchase;
+    private Handler mAppHandler;
+    private HashMap<String, TJPlacement> mPlacement;
+    private HashMap<String, PerpleTapjoyPlacementCallback> mSetPlacementCallback;
+    private HashMap<String, PerpleTapjoyPlacementCallback> mShowPlacementCallback;
+
+    public PerpleTapjoy() {}
+
+    public void init(String appKey, String senderId, boolean isDebug) {
+        PerpleLog.d(LOG_TAG, "Initializing Tapjoy.");
+
+        try {
+            Tapjoy.connect(PerpleSDK.getInstance().getMainActivity(), appKey);
+        } catch (Exception e) {
+            // IllegalArgumentException
+            // NullPointerException
+            e.printStackTrace();
+            PerpleLog.e(LOG_TAG, "Tapjoy connect error - " + e.toString());
+            return;
+        }
+
+        if (isDebug) {
+            Tapjoy.setDebugEnabled(true);
+        }
+
+        if (!senderId.isEmpty()) {
+            Tapjoy.setGcmSender(senderId);
+        }
+
+        mPlacement = new HashMap<String, TJPlacement>();
+        mSetPlacementCallback = new HashMap<String, PerpleTapjoyPlacementCallback>();
+        mShowPlacementCallback = new HashMap<String, PerpleTapjoyPlacementCallback>();
+
+        mAppHandler = new Handler();
+        mIsInit = true;
+    }
+
+    public void onStart() {
+        if (mIsInit) {
+            Tapjoy.onActivityStart(PerpleSDK.getInstance().getMainActivity());
+        }
+    }
+
+    public void onStop() {
+        if (mIsInit) {
+            Tapjoy.onActivityStop(PerpleSDK.getInstance().getMainActivity());
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            return;
+        }
+
+        if (mIsTrackPurchase && PerpleSDK.getBillingService() != null) {
+            if (requestCode == PerpleSDK.RC_GOOGLE_PURCHASE_REQUEST ||
+                requestCode == PerpleSDK.RC_GOOGLE_SUBSCRIPTION_REQUEST) {
+                if (resultCode == Activity.RESULT_OK) {
+                    trackPurchase(data);
+                }
+            }
+        }
+    }
+
+    public void setTrackPurchase(boolean isTrackPurchase) {
+        mIsTrackPurchase = isTrackPurchase;
+    }
+
+    private void trackPurchase(Intent data) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            return;
+        }
+
+        String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
+        String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+
+        try {
+            // get reciept here.
+            JSONObject purchaseDataJson = new JSONObject(purchaseData);
+            String productId = purchaseDataJson.getString("productId");
+
+            // get sku details.
+            ArrayList<String> skuList = new ArrayList<String> ();
+            skuList.add(productId);
+            Bundle querySkus = new Bundle();
+            querySkus.putStringArrayList("ITEM_ID_LIST", skuList);
+            Bundle skuDetails = PerpleSDK.getBillingService().getSkuDetails(3, PerpleSDK.getInstance().getMainActivity().getPackageName(), "inapp", querySkus);
+            ArrayList<String> responseList = skuDetails.getStringArrayList("DETAILS_LIST");
+
+            // track purchase
+            Tapjoy.trackPurchase(responseList.get(0), purchaseData, dataSignature, null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setPlacement(final String placementName, final PerpleTapjoyPlacementCallback callback) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            callback.onError(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_NOTINITIALIZED, "Tapjoy is not initialized."));
+            return;
+        }
+
+        TJPlacement p = mPlacement.get(placementName);
+        if (p == null) {
+            p = Tapjoy.getPlacement(placementName, this);
+            mPlacement.put(placementName, p);
+        }
+        mSetPlacementCallback.put(p.getName(), callback);
+
+        p.requestContent();
+    }
+
+    public void showPlacement(final String placementName, final PerpleTapjoyPlacementCallback callback) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            callback.onError(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_NOTINITIALIZED, "Tapjoy is not initialized."));
+            return;
+        }
+
+        TJPlacement p = mPlacement.get(placementName);
+        if (p != null) {
+            if (p.isContentReady()) {
+                mShowPlacementCallback.put(p.getName(), callback);
+                p.showContent();
+            } else {
+                // Handle situation where there is no content to show, or it has not yet downloaded.
+                callback.onWait();
+            }
+        } else {
+            PerpleLog.e(LOG_TAG, "Tapjoy placement is not set - name:" + placementName);
+            callback.onError(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_NOTSETPLACEMENT, "Tapjoy placement is not set."));
+        }
+    }
+
+    public void getCurrency(final PerpleSDKCallback callback) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_NOTINITIALIZED, "Tapjoy is not initialized."));
+            return;
+        }
+
+        mAppHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Tapjoy.getCurrencyBalance(new TJGetCurrencyBalanceListener() {
+                    @Override
+                    public void onGetCurrencyBalanceResponse(String currencyName, int balance) {
+                        try {
+                            JSONObject obj = new JSONObject();
+                            obj.put("currencyName", currencyName);
+                            obj.put("balance", String.valueOf(balance));
+                            callback.onSuccess(obj.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_GETCURRENCY, PerpleSDK.ERROR_JSONEXCEPTION, e.toString()));
+                        }
+                    }
+                    @Override
+                    public void onGetCurrencyBalanceResponseFailure(String error) {
+                        callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_GETCURRENCY, error));
+                    }
+                });
+            }
+        });
+    }
+
+    public void setEarnedCurrencyCallback(final PerpleSDKCallback callback) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_NOTINITIALIZED, "Tapjoy is not initialized."));
+            return;
+        }
+
+        mAppHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Tapjoy.setEarnedCurrencyListener(new TJEarnedCurrencyListener() {
+                    @Override
+                    public void onEarnedCurrency(String currencyName, int amount) {
+                        try {
+                            JSONObject obj = new JSONObject();
+                            obj.put("currencyName", currencyName);
+                            obj.put("amount", String.valueOf(amount));
+                            callback.onSuccess(obj.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_ONEARNEDCURRENCY,PerpleSDK.ERROR_JSONEXCEPTION, e.toString()));
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    public void spendCurrency(final int amount, final PerpleSDKCallback callback) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_NOTINITIALIZED, "Tapjoy is not initialized."));
+            return;
+        }
+
+        mAppHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Tapjoy.spendCurrency(amount, new TJSpendCurrencyListener() {
+                    @Override
+                    public void onSpendCurrencyResponse(String currencyName, int balance) {
+                        try {
+                            JSONObject obj = new JSONObject();
+                            obj.put("currencyName", currencyName);
+                            obj.put("balance", String.valueOf(balance));
+                            callback.onSuccess(obj.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_SPENDCURRENCY, PerpleSDK.ERROR_JSONEXCEPTION, e.toString()));
+                        }
+                    }
+                    @Override
+                    public void onSpendCurrencyResponseFailure(String error) {
+                        callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_SPENDCURRENCY, error));
+                    }
+                });
+            }
+        });
+    }
+
+    public void awardCurrency(final int amount, final PerpleSDKCallback callback) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_NOTINITIALIZED, "Tapjoy is not initialized."));
+            return;
+        }
+
+        mAppHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Tapjoy.awardCurrency(amount, new TJAwardCurrencyListener() {
+                    @Override
+                    public void onAwardCurrencyResponse(String currencyName, int balance) {
+                        try {
+                            JSONObject obj = new JSONObject();
+                            obj.put("currencyName", currencyName);
+                            obj.put("balance", String.valueOf(balance));
+                            callback.onSuccess(obj.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_AWARDCURRENCY, PerpleSDK.ERROR_JSONEXCEPTION, e.toString()));
+                        }
+                    }
+                    @Override
+                    public void onAwardCurrencyResponseFailure(String error) {
+                        callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_AWARDCURRENCY, error));
+                    }
+                });
+            }
+        });
+    }
+
+    public void setEvent(final String id, final String arg0, final String arg1) {
+        if (!mIsInit) {
+            PerpleLog.e(LOG_TAG, "Tapjoy is not initialized.");
+            return;
+        }
+
+        mAppHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (id.equals("userID")) {
+                    Tapjoy.setUserID(arg0);
+                } else if (id.equals("userLevel")) {
+                    Tapjoy.setUserLevel(Integer.parseInt(arg0));
+                } else if (id.equals("userFriendCount")) {
+                    Tapjoy.setUserFriendCount(Integer.parseInt(arg0));
+                } else if (id.equals("appDataVersion")) {
+                    Tapjoy.setAppDataVersion(arg0);
+                } else if (id.equals("userCohortVariable")) {
+                    // arg0 : cohort variable index(ex, 1, 2, 3, ...)
+                    // arg1 : cohort value(ex, user activity)
+                    Tapjoy.setUserCohortVariable(Integer.parseInt(arg0), arg1);
+                } else if (id.equals("trackEvent")) {
+                    if (!arg0.equals("")) {
+                        String[] array = arg0.split(";");
+                        if (array.length == 4) {
+                            // category;name;parameter1;parameter2
+                            Tapjoy.trackEvent(array[0], array[1], array[2], array[3]);
+                        } else if (array.length == 5) {
+                            // category;name;parameter1;parameter2;value
+                            Tapjoy.trackEvent(array[0], array[1], array[2], array[3], Long.parseLong(array[4]));
+                        } else if (array.length == 6) {
+                            // category;name;parameter1;parameter2;valueName;value
+                            Tapjoy.trackEvent(array[0], array[1], array[2], array[3], array[4], Long.parseLong(array[5]));
+                        } else if (array.length == 8) {
+                            // category;name;parameter1;parameter2;value1Name;value1;value2Name;value2
+                            Tapjoy.trackEvent(array[0], array[1], array[2], array[3], array[4], Long.parseLong(array[5]), array[6], Long.parseLong(array[7]));
+                        } else if (array.length == 10) {
+                            // category;name;parameter1;parameter2;value1Name;value1;value2Name;value2;value3Name;value3
+                            Tapjoy.trackEvent(array[0], array[1], array[2], array[3], array[4], Long.parseLong(array[5]), array[6], Long.parseLong(array[7]), array[8], Long.parseLong(array[9]));
+                        }
+                    }
+                } else if (id.equals("trackPurchase")) {
+                    if (!arg0.equals("")) {
+                        String[] array = arg0.split(";");
+                        if (array.length == 3) {
+                            // productId;currencyCode;price
+                            Tapjoy.trackPurchase(array[0], array[1], Double.parseDouble(array[2]), null);
+                        } else if (array.length == 4) {
+                            // productId;currencyCode;price;campaignId
+                            Tapjoy.trackPurchase(array[0], array[1], Double.parseDouble(array[2]), array[3]);
+                        }
+                    } else if (!arg1.equals("")) {
+                        try {
+                            JSONObject obj = new JSONObject(arg1);
+                            String skuDetails = obj.getString("skuDetails");
+                            String purchaseData = obj.getString("purchaseData");
+                            String dataSignature = obj.getString("dataSignature");
+                            String campaignId = obj.getString("campaignId");
+                            // skuDetails,purchaseData,dataSignature,campaignId
+                            Tapjoy.trackPurchase(skuDetails, purchaseData, dataSignature, campaignId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestSuccess(TJPlacement p) {
+        // Called when the SDK has made contact with Tapjoy's servers. It does not necessarily mean that any content is available.
+        PerpleLog.d(LOG_TAG, "Tapjoy, onRequestSuccess - placement:" + p.getName());
+
+        PerpleTapjoyPlacementCallback callback = mSetPlacementCallback.get(p.getName());
+        if (callback != null) {
+            callback.onRequestSuccess();
+        }
+    }
+
+    @Override
+    public void onRequestFailure(TJPlacement p, TJError error) {
+        // Called when there was a problem during connecting Tapjoy servers.
+        PerpleLog.d(LOG_TAG, "Tapjoy, onRequestFailure - placement:" + p.getName() +
+                ", code:" + String.valueOf(error.code) +
+                ", message:" + error.message);
+
+        PerpleTapjoyPlacementCallback callback = mSetPlacementCallback.get(p.getName());
+        if (callback != null) {
+            callback.onRequestFailure(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_SETPLACEMENT, String.valueOf(error.code), error.message));
+        }
+    }
+
+    @Override
+    public void onContentReady(TJPlacement p) {
+        // Called when the content is actually available to display.
+        PerpleLog.d(LOG_TAG, "Tapjoy, onContentReady - placement:" + p.getName());
+
+        PerpleTapjoyPlacementCallback callback = mSetPlacementCallback.get(p.getName());
+        if (callback != null) {
+            callback.onContentReady();
+        }
+    }
+
+    @Override
+    public void onPurchaseRequest(TJPlacement p, TJActionRequest request, String productId) {
+        PerpleLog.d(LOG_TAG, "Tapjoy, onPurchaseRequest - placement:" + p.getName() +
+                ", request:" + request.toString() +
+                ", productId:" + productId);
+
+        PerpleTapjoyPlacementCallback callback = mSetPlacementCallback.get(p.getName());
+        if (callback != null) {
+            try {
+                JSONObject obj = new JSONObject();
+                obj.put("request", request.toString());
+                obj.put("productId", productId);
+                callback.onPurchaseRequest(obj.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+                callback.onError(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_SETPLACEMENT, PerpleSDK.ERROR_JSONEXCEPTION, e.toString()));
+            }
+        }
+    }
+
+    @Override
+    public void onRewardRequest(TJPlacement p, TJActionRequest request, String itemId, int quantity) {
+        PerpleLog.d(LOG_TAG, "Tapjoy, onRewardRequest - placement:" + p.getName() +
+                ", request:" + request.toString() +
+                ", itemId:" + itemId +
+                ", quantity:" + String.valueOf(quantity));
+
+        PerpleTapjoyPlacementCallback callback = mSetPlacementCallback.get(p.getName());
+        if (callback != null) {
+            try {
+                JSONObject obj = new JSONObject();
+                obj.put("request", request.toString());
+                obj.put("itemId", itemId);
+                obj.put("quantity", quantity);
+                callback.onRewardRequest(obj.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+                callback.onError(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_TAPJOY_SETPLACEMENT, PerpleSDK.ERROR_JSONEXCEPTION, e.toString()));
+            }
+        }
+    }
+
+    @Override
+    public void onClick(TJPlacement tjPlacement) {
+        // Called when a click event has occurred
+        // https://dev.tapjoy.com/ko/sdk-integration/
+        PerpleLog.d(LOG_TAG, "Tapjoy, onClick - placement:" + tjPlacement.getName());
+    }
+
+    @Override
+    public void onContentShow(TJPlacement p) {
+        // Called when the content is showed.
+        PerpleLog.d(LOG_TAG, "Tapjoy, onContentShow - placement:" + p.getName());
+        PerpleTapjoyPlacementCallback callback = mShowPlacementCallback.get(p.getName());
+        if (callback != null) {
+            callback.onShow();
+        }
+    }
+
+    @Override
+    public void onContentDismiss(TJPlacement p) {
+        // Called when the content is dismissed.
+        PerpleLog.d(LOG_TAG, "Tapjoy, onContentDismiss - placement:" + p.getName());
+        PerpleTapjoyPlacementCallback callback = mShowPlacementCallback.get(p.getName());
+        if (callback != null) {
+            callback.onDismiss();
+        }
+    }
+}

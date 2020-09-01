@@ -9,10 +9,13 @@
 #include "ConfigParser.h"
 #include "tolua_fix.h"
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-// @perplesdk
-#include "PerpleSDKLua.h"
-#endif
+// 구 PerpleSDK
+#include "PerpleCore.h"
+
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+//// @perplesdk
+//#include "PerpleSDKLua.h"
+//#endif
 
 /*
 정리하기가 애매한 부분이 있어 AppDelegate.cpp의 라인을 줄이고,
@@ -415,6 +418,12 @@ void AppDelegate::initLuaEngine()
 	auto engine = LuaEngine::getInstance();
 	ScriptEngineManager::getInstance()->setScriptEngine(engine);
 
+	// LuaState
+	lua_State* L = engine->getLuaStack()->getLuaState();
+
+	// Lua Load : decrypt
+	engine->getLuaStack()->addLuaLoader(SupportLua::luaLoader);
+
 	// lua에서 사용할 전역 cpp함수 등록
 	const luaL_reg global_functions[] = {
 			{ "restart", l_restart },
@@ -443,19 +452,17 @@ void AppDelegate::initLuaEngine()
 			{ "getIPAddress", l_getIPAddress },
 			{ NULL, NULL }
 	};
-
-	lua_State* L = engine->getLuaStack()->getLuaState();
-
     luaL_register(L, "_G", global_functions);
-	engine->getLuaStack()->addLuaLoader(SupportLua::luaLoader);
 
+	// PerpLua : Register
     tolua_PerpLua_open(L);
 
+	// PerpSocial : Register
 	PerpSocial::getInstance()->RegisterToLuaFunc(L);
 
+	// PerpleSDK : Register
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-    // @perplesdk
-    luaopen_perplesdk(L);
+	PerpleCore::LuaOpenPerpleSDK(L);
 #endif
 }
 
