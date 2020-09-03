@@ -54,7 +54,7 @@ if __name__ == '__main__':
     ## iOS
     print('############### iOS')
     ResizeImage(image, 20, 'ios', 'icon_20')
-    ResizeImage(image, 24, 'ios', 'icon_20@2x')
+    ResizeImage(image, 40, 'ios', 'icon_20@2x')
     ResizeImage(image, 60, 'ios', 'icon_20@3x')
     ResizeImage(image, 29, 'ios', 'icon_29')
     ResizeImage(image, 58, 'ios', 'icon_29@2x')
