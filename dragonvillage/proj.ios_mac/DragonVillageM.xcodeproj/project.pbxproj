@@ -165,6 +165,7 @@
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
 		37FED7B921F06238009C0BD0 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37FED7B821F06237009C0BD0 /* ps */; };
 		3DDF99F529FE7C1D91E638F4 /* libPods-DragonVillageM iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9524F2133E1432A0AAD41BA5 /* libPods-DragonVillageM iOS.a */; };
+		3E4EFEFB2500F108009BFADB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4EFEFA2500F108009BFADB /* WebKit.framework */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812517EBBCAC00990C9B /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023811717EBBCAC00990C9B /* RootViewController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -539,6 +540,8 @@
 		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		37FED7B821F06237009C0BD0 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		3E4EFEFA2500F108009BFADB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.6.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		3E5664CC24FE472F00FCEB14 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.6.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5023811417EBBCAC00990C9B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -603,6 +606,7 @@
 				375E097A1F4498B10085A2FE /* UnityAds.framework in Frameworks */,
 				37E128DE1B45398400200C23 /* AdSupport.framework in Frameworks */,
 				37E128C01B4538AE00200C23 /* AssetsLibrary.framework in Frameworks */,
+				3E4EFEFB2500F108009BFADB /* WebKit.framework in Frameworks */,
 				F293B3D315EB7BE500256477 /* AudioToolbox.framework in Frameworks */,
 				37E128BE1B4538A000200C23 /* AddressBook.framework in Frameworks */,
 				F293B3D515EB7BE500256477 /* AVFoundation.framework in Frameworks */,
@@ -903,6 +907,8 @@
 		F293B3CB15EB7BE500256477 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E4EFEFA2500F108009BFADB /* WebKit.framework */,
+				3E5664CC24FE472F00FCEB14 /* SwiftUI.framework */,
 				37AC8D51208B3F9200258021 /* libPerpleSDK.a */,
 				37F9997520B07B7E00048AC7 /* libPerpleSDK_simulator.a */,
 				37F4537620A733FD0088399C /* libboringssl.tbd */,
@@ -1052,9 +1058,12 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
+					5023812617EBBCE400990C9B = {
+						DevelopmentTeam = 9877K3K9X8;
+					};
 					F293B3C715EB7BE500256477 = {
 						DevelopmentTeam = 84797V8WN5;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1383,8 +1392,8 @@
 				"${PODS_ROOT}/Target Support Files/Pods-DragonVillageM iOS/Pods-DragonVillageM iOS-resources.sh",
 				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.4.2/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.4.2/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.6.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.6.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1591,7 +1600,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../runtime_mac";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9877K3K9X8;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1606,6 +1615,7 @@
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-image_base",
@@ -1634,6 +1644,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 9877K3K9X8;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;
@@ -1645,6 +1656,7 @@
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-image_base",
@@ -1669,7 +1681,9 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "";
+				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1708,6 +1722,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "";
+				COMPRESS_PNG_FILES = NO;
+				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
@@ -1750,8 +1766,7 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMPRESS_PNG_FILES = NO;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
@@ -1772,12 +1787,14 @@
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				KEEP_PRIVATE_EXTERNS = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"",
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/NaverLogin-thirdPartyModule\"",
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0\"",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
 				MARKETING_VERSION = 1.2.4;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1785,7 +1802,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";
@@ -1802,9 +1819,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMPRESS_PNG_FILES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
@@ -1824,12 +1840,14 @@
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				KEEP_PRIVATE_EXTERNS = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../../libraries/perplesdk/prebuilt/ios\"",
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/NaverLogin-thirdPartyModule\"",
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0\"",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
 				MARKETING_VERSION = 1.2.4;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1840,7 +1858,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM Dist";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";

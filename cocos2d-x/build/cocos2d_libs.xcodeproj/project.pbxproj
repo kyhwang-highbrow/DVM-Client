@@ -1105,6 +1105,8 @@
 		37F453B220A86CEE0088399C /* azvisual.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 377033F9198F7B020091C231 /* azvisual.pb.cc */; };
 		37F453B320A86CEE0088399C /* CCActionInterval3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033FC198F7B020091C231 /* CCActionInterval3D.cpp */; };
 		37F453B420A86CEE0088399C /* CCazVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033FE198F7B020091C231 /* CCazVisual.cpp */; };
+		3E544D6624FDCCB10035BED8 /* CCConsole.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ABBDCD1925AB6E00A911A9 /* CCConsole.h */; };
+		3E544D6724FDCCB90035BED8 /* CCRef.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ABBDFF1925AB6E00A911A9 /* CCRef.h */; };
 		3EA0FB6B191C841D00B170C8 /* UIVideoPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EA0FB69191C841D00B170C8 /* UIVideoPlayer.h */; };
 		3EA0FB6C191C841D00B170C8 /* UIVideoPlayerIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0FB6A191C841D00B170C8 /* UIVideoPlayerIOS.mm */; };
 		460E468118080832000CDD6D /* cocos-ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A167D21807AF4D005B8026 /* cocos-ext.h */; };
@@ -5601,6 +5603,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E544D6724FDCCB90035BED8 /* CCRef.h in Headers */,
+				3E544D6624FDCCB10035BED8 /* CCConsole.h in Headers */,
 				460E478318080902000CDD6D /* CCControlExtensions.h in Headers */,
 				460E477E18080902000CDD6D /* CCControl.h in Headers */,
 				460E47B11808090B000CDD6D /* CCEditBoxImpl.h in Headers */,
@@ -6343,6 +6347,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 1551A334158F2AB200E66CFE;
@@ -7367,6 +7372,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -7405,6 +7411,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
@@ -7596,6 +7603,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_TARGET_OS_MAC,
@@ -7612,6 +7620,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_TARGET_OS_MAC,
@@ -7725,7 +7734,7 @@
 					CC_TARGET_OS_IPHONE,
 				);
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
@@ -7745,8 +7754,9 @@
 					CC_TARGET_OS_IPHONE,
 				);
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../cocos/platform/ios $(SRCROOT)/../external/curl/include/ios";
