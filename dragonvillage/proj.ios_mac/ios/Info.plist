@@ -2,6 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SKAdNetworkItems</key>
+	<array>
+		<dict>
+			<key>Comment</key>
+			<string>Tapjoy</string>
+			<key>SKAdNetworkIdentifier</key>
+			<string>ECPZ2SRF59.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>AdMob</string>
+			<key>SKAdNetworkIdentifier</key>
+			<string>cstr6suwn9.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>Comment</key>
+			<string>Liftoff</string>
+			<key>SKAdNetworkIdentifier</key>
+			<string>7UG5ZH24HU.skadnetwork</string>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -118,6 +139,8 @@
 	<string>Some ad content may require access to accelerometer for interactive ad experience.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Your photo library will be used to deliver more personalized advertising experiences for you.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string> </string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

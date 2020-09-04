@@ -10,12 +10,12 @@
 #include "tolua_fix.h"
 
 // 구 PerpleSDK
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "PerpleCore.h"
-
-//#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-//// @perplesdk
-//#include "PerpleSDKLua.h"
-//#endif
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+// @perplesdk
+#include "PerpleSDKLua.h"
+#endif
 
 /*
 정리하기가 애매한 부분이 있어 AppDelegate.cpp의 라인을 줄이고,
@@ -461,7 +461,9 @@ void AppDelegate::initLuaEngine()
 	PerpSocial::getInstance()->RegisterToLuaFunc(L);
 
 	// PerpleSDK : Register
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    luaopen_perplesdk(L);
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 	PerpleCore::LuaOpenPerpleSDK(L);
 #endif
 }

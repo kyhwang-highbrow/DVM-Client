@@ -163,8 +163,11 @@
 		37F9995920ADBCEA00048AC7 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 37F9995420ADBCE900048AC7 /* sound */; };
 		37F9995F20ADFAA800048AC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9995D20ADF7E800048AC7 /* main.m */; };
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
-		37FED7B921F06238009C0BD0 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37FED7B821F06237009C0BD0 /* ps */; };
 		3DDF99F529FE7C1D91E638F4 /* libPods-DragonVillageM iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9524F2133E1432A0AAD41BA5 /* libPods-DragonVillageM iOS.a */; };
+		3E1EB0B225014FE700B5FE82 /* libswiftCoreMIDI.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1EB0AF25014F4C00B5FE82 /* libswiftCoreMIDI.tbd */; };
+		3E1EB0B42501519E00B5FE82 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1EB0B32501519D00B5FE82 /* AppTrackingTransparency.framework */; };
+		3E1EB0B725019ABF00B5FE82 /* HBAppTrackingTransparency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */; };
+		3E1EB0B92502265600B5FE82 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 3E1EB0B82502265500B5FE82 /* src */; };
 		3E4EFEFB2500F108009BFADB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4EFEFA2500F108009BFADB /* WebKit.framework */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -539,7 +542,11 @@
 		37F9997520B07B7E00048AC7 /* libPerpleSDK_simulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK_simulator.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK_simulator.a; sourceTree = "<group>"; };
 		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		37FED7B821F06237009C0BD0 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		3E1EB0AF25014F4C00B5FE82 /* libswiftCoreMIDI.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCoreMIDI.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/usr/lib/swift/libswiftCoreMIDI.tbd; sourceTree = DEVELOPER_DIR; };
+		3E1EB0B32501519D00B5FE82 /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = DEVELOPER_DIR; };
+		3E1EB0B525019ABF00B5FE82 /* DragonVillageM iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DragonVillageM iOS-Bridging-Header.h"; sourceTree = "<group>"; };
+		3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBAppTrackingTransparency.swift; sourceTree = "<group>"; };
+		3E1EB0B82502265500B5FE82 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../src; sourceTree = "<group>"; };
 		3E4EFEFA2500F108009BFADB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.6.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		3E5664CC24FE472F00FCEB14 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.6.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -602,6 +609,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				373AE52F211889800033B453 /* libPerpleSDK.a in Frameworks */,
+				3E1EB0B42501519E00B5FE82 /* AppTrackingTransparency.framework in Frameworks */,
 				3706F1781F680EAC00777433 /* NaverCafeSDK.framework in Frameworks */,
 				375E097A1F4498B10085A2FE /* UnityAds.framework in Frameworks */,
 				37E128DE1B45398400200C23 /* AdSupport.framework in Frameworks */,
@@ -631,6 +639,7 @@
 				37E128D61B45393100200C23 /* Security.framework in Frameworks */,
 				37E128CC1B4538E800200C23 /* Social.framework in Frameworks */,
 				37E128C81B4538D600200C23 /* StoreKit.framework in Frameworks */,
+				3E1EB0B225014FE700B5FE82 /* libswiftCoreMIDI.tbd in Frameworks */,
 				37E128E01B45399A00200C23 /* SystemConfiguration.framework in Frameworks */,
 				37E128D41B45392400200C23 /* UIKit.framework in Frameworks */,
 				37E128B61B45385800200C23 /* libc++.dylib in Frameworks */,
@@ -685,7 +694,7 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				37FED7B821F06237009C0BD0 /* ps */,
+				3E1EB0B82502265500B5FE82 /* src */,
 				3773CD1B21E88B1900B22F35 /* data_dat */,
 				3773CD1D21E88B1900B22F35 /* res */,
 				37F9995420ADBCE900048AC7 /* sound */,
@@ -830,6 +839,8 @@
 				373AE55B2126AA790033B453 /* Info.plist */,
 				37EF84281B268F3B00EFA299 /* InfoPlist.strings */,
 				373EDE6D21F10D870073FC8A /* Launch Screen.storyboard */,
+				3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */,
+				3E1EB0B525019ABF00B5FE82 /* DragonVillageM iOS-Bridging-Header.h */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -907,6 +918,8 @@
 		F293B3CB15EB7BE500256477 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E1EB0B32501519D00B5FE82 /* AppTrackingTransparency.framework */,
+				3E1EB0AF25014F4C00B5FE82 /* libswiftCoreMIDI.tbd */,
 				3E4EFEFA2500F108009BFADB /* WebKit.framework */,
 				3E5664CC24FE472F00FCEB14 /* SwiftUI.framework */,
 				37AC8D51208B3F9200258021 /* libPerpleSDK.a */,
@@ -1063,6 +1076,7 @@
 					};
 					F293B3C715EB7BE500256477 = {
 						DevelopmentTeam = 84797V8WN5;
+						LastSwiftMigration = 1200;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1300,13 +1314,13 @@
 				370B47721F7CB6290072CA71 /* DeprecatedClass.lua in Resources */,
 				3772F3D61FF4EC8000A9EF7A /* include in Resources */,
 				370B47731F7CB6290072CA71 /* DeprecatedEnum.lua in Resources */,
-				37FED7B921F06238009C0BD0 /* ps in Resources */,
 				370B47741F7CB6290072CA71 /* DeprecatedOpenglEnum.lua in Resources */,
 				370B47751F7CB6290072CA71 /* DrawPrimitives.lua in Resources */,
 				370B47761F7CB6290072CA71 /* entry_main.lua in Resources */,
 				370B47771F7CB6290072CA71 /* entry_patch.lua in Resources */,
 				370B47781F7CB6290072CA71 /* extern.lua in Resources */,
 				370B47791F7CB6290072CA71 /* fixed_constant.lua in Resources */,
+				3E1EB0B92502265600B5FE82 /* src in Resources */,
 				370B477A1F7CB6290072CA71 /* GuiConstants.lua in Resources */,
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
@@ -1463,6 +1477,7 @@
 			files = (
 				5023812417EBBCAC00990C9B /* main.m in Sources */,
 				377033AB198F60A50091C231 /* Runtime_ios-mac.mm in Sources */,
+				3E1EB0B725019ABF00B5FE82 /* HBAppTrackingTransparency.swift in Sources */,
 				3772F3BE1FF4EC4400A9EF7A /* NLoginThirdPartyOAuth20InAppBrowserViewController.m in Sources */,
 				5023811817EBBCAC00990C9B /* AppController.mm in Sources */,
 				3772F3D11FF4EC6700A9EF7A /* AFURLResponseSerialization.m in Sources */,
@@ -1762,12 +1777,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1795,8 +1812,9 @@
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0\"",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.2.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -1804,6 +1822,9 @@
 				PRODUCT_NAME = DragonVillage;
 				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM Dev";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "ios/DragonVillageM iOS-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";
 				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
@@ -1816,12 +1837,14 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 84797V8WN5;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1848,8 +1871,9 @@
 					"\"$(SRCROOT)/../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0\"",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.2.5;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -1860,6 +1884,8 @@
 				PRODUCT_NAME = DragonVillage;
 				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM Dist";
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "ios/DragonVillageM iOS-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";
 				VALID_ARCHS = "armv7 armv7s arm64 x86_64";

@@ -228,7 +228,7 @@ function SDKManager:requestTrackingAuthorization(cb_func)
         cb_func()
     end
 
-    self:sendEvent('request_tracking_authorization', cb_func)
+    self:sendEvent('request_tracking_authorization', '', '', cb_func)
 end
 
 -------------------------------------
@@ -236,7 +236,7 @@ end
 -- @brief 2020.09.04 iOS14 대응으로 추가 / Android는 사용하지 않음
 -------------------------------------
 function SDKManager:isTrackingAuthorized(cb_func)
-    self:sendEvent('tracking_authorized', cb_func)
+    self:sendEvent('tracking_authorized', '', '', cb_func)
 
     -- function cb_func(result)
     --     if (result   == 'success') then
@@ -250,7 +250,7 @@ end
 -- @brief 2020.09.04 iOS14 대응으로 추가 / Android는 사용하지 않음
 -------------------------------------
 function SDKManager:isTrackingNotDetermined(cb_func)
-    self:sendEvent('tracking_not_determined', cb_func)
+    self:sendEvent('tracking_not_determined', '', '', cb_func)
 
     -- function cb_func(result)
     --     if (result   == 'success') then

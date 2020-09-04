@@ -14,6 +14,7 @@
 #import "RootViewController.h"
 #import "DeviceDetector.h"
 #import <AdSupport/ASIdentifierManager.h>
+#import "DragonVillage-Swift.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #import "SimulatorApp.h"
 #endif
@@ -209,7 +210,48 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
             advertising_id = [IDFA UUIDString];
         }
         sdkEventResult(id, "success", [advertising_id UTF8String]);
+        
+    // iOS 14 개인 정보 보호
+    } else if (strcmp(id, "request_tracking_authorization") == 0) {
+        if (@available(iOS 14, *)) {
+            [HBAppTrackingTransparency requestTrackingAuthorizationWithHandler:^(NSUInteger status) {
+                NSLog(@"[HB] Tracking Authorization Status : %lu", (unsigned long)status);
+                switch(status)
+                {
+                    // notDetermined
+                    case 0:
+                        sdkEventResult(id, "fail", "notDetermined");
+                        break;
+                        
+                    // restricted
+                    case 1:
+                        sdkEventResult(id, "fail", "restricted");
+                        break;
+                        
+                    // denied
+                    case 2:
+                        sdkEventResult(id, "fail", "denied");
+                        break;
+                        
+                    // authorized
+                    case 3:
+                        sdkEventResult(id, "success", "authorized");
+                        break;
+                }
+            }];
+        } else {
+            sdkEventResult(id, "success", "under iOS 14");
+        }
+    } else if (strcmp(id, "tracking_authorized") == 0) {
+        bool b = [HBAppTrackingTransparency isAuthorized];
+        sdkEventResult(id, b ? "success" : "fail", "");
+        
+    } else if (strcmp(id, "tracking_not_determined") == 0) {
+        bool b = [HBAppTrackingTransparency isNotDetermined];
+        sdkEventResult(id, b ? "success" : "fail", "");
+        
     }
+    
 #endif
 }
 

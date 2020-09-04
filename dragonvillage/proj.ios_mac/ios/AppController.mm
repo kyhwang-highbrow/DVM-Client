@@ -59,10 +59,13 @@
 
 // @idfa
 #import <AdSupport/ASIdentifierManager.h>
+#import "DragonVillage-Swift.h"
 
 extern void sdkEventResult(const char *id, const char *result, const char *info);
 
 @implementation AppController
+
+@class HBAppTrackingTransparency;
 
 #pragma mark - Application lifecycle
 
@@ -136,7 +139,7 @@ static AppDelegate s_sharedApplication;
     // sgkim 20190821
     BOOL isDebugAdjust;
 #ifdef TARGET_SERVER
-    if (TARGET_SERVER == SERVER_LIVE)
+    if (strcmp(TARGET_SERVER, SERVER_LIVE) == 0)
         isDebugAdjust = false;
     else
         isDebugAdjust = isDebug;
