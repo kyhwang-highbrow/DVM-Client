@@ -167,7 +167,7 @@
 		3E1EB0B225014FE700B5FE82 /* libswiftCoreMIDI.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1EB0AF25014F4C00B5FE82 /* libswiftCoreMIDI.tbd */; };
 		3E1EB0B42501519E00B5FE82 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E1EB0B32501519D00B5FE82 /* AppTrackingTransparency.framework */; };
 		3E1EB0B725019ABF00B5FE82 /* HBAppTrackingTransparency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */; };
-		3E1EB0B92502265600B5FE82 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 3E1EB0B82502265500B5FE82 /* src */; };
+		3E1EB0BF2502681800B5FE82 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 3E1EB0BE2502681500B5FE82 /* ps */; };
 		3E4EFEFB2500F108009BFADB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4EFEFA2500F108009BFADB /* WebKit.framework */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -546,7 +546,7 @@
 		3E1EB0B32501519D00B5FE82 /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = DEVELOPER_DIR; };
 		3E1EB0B525019ABF00B5FE82 /* DragonVillageM iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DragonVillageM iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBAppTrackingTransparency.swift; sourceTree = "<group>"; };
-		3E1EB0B82502265500B5FE82 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../src; sourceTree = "<group>"; };
+		3E1EB0BE2502681500B5FE82 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
 		3E4EFEFA2500F108009BFADB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.6.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		3E5664CC24FE472F00FCEB14 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.6.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
@@ -694,7 +694,7 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E1EB0B82502265500B5FE82 /* src */,
+				3E1EB0BE2502681500B5FE82 /* ps */,
 				3773CD1B21E88B1900B22F35 /* data_dat */,
 				3773CD1D21E88B1900B22F35 /* res */,
 				37F9995420ADBCE900048AC7 /* sound */,
@@ -1298,6 +1298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3773CD1E21E88B1900B22F35 /* data_dat in Resources */,
+				3E1EB0BF2502681800B5FE82 /* ps in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				373EDE6E21F10D870073FC8A /* Launch Screen.storyboard in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
@@ -1320,7 +1321,6 @@
 				370B47771F7CB6290072CA71 /* entry_patch.lua in Resources */,
 				370B47781F7CB6290072CA71 /* extern.lua in Resources */,
 				370B47791F7CB6290072CA71 /* fixed_constant.lua in Resources */,
-				3E1EB0B92502265600B5FE82 /* src in Resources */,
 				370B477A1F7CB6290072CA71 /* GuiConstants.lua in Resources */,
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
