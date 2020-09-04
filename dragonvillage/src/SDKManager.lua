@@ -156,7 +156,7 @@ function SDKManager:goToAppStore()
     -- google, apple
     else
         local appId = 'com.perplelab.dragonvillagem.kr'
-        if isIos() then
+        if (not CppFunctions:isIos()) then
             -- AppStore App ID
             appId = '1281873988'
         end
@@ -202,6 +202,59 @@ function SDKManager:app_requestPermission(permission_name, cb_func)
     -- function cb_func(result)
     --     if (result   == 'denied') then
     --     elseif (result   == 'granted') then
+    --     end
+    -- end
+end
+
+-------------------------------------
+-- function requestTrackingAuthorization
+-- @brief 2020.09.04 iOS14 대응으로 추가 / Android는 사용하지 않음
+--[[
+     function cb_func(result, status)
+         if (result   == 'success') then
+         elseif (result   == 'fail') then
+         end
+     end
+
+     // status
+     authorized
+     denied
+     notDetermined
+     restricted
+]]
+-------------------------------------
+function SDKManager:requestTrackingAuthorization(cb_func)
+    if (not CppFunctions:isIos()) then
+        cb_func()
+    end
+
+    self:sendEvent('request_tracking_authorization', cb_func)
+end
+
+-------------------------------------
+-- function isTrackingAuthorized
+-- @brief 2020.09.04 iOS14 대응으로 추가 / Android는 사용하지 않음
+-------------------------------------
+function SDKManager:isTrackingAuthorized(cb_func)
+    self:sendEvent('tracking_authorized', cb_func)
+
+    -- function cb_func(result)
+    --     if (result   == 'success') then
+    --     elseif (result   == 'fail') then
+    --     end
+    -- end
+end
+
+-------------------------------------
+-- function isTrackingNotDetermined
+-- @brief 2020.09.04 iOS14 대응으로 추가 / Android는 사용하지 않음
+-------------------------------------
+function SDKManager:isTrackingNotDetermined(cb_func)
+    self:sendEvent('tracking_not_determined', cb_func)
+
+    -- function cb_func(result)
+    --     if (result   == 'success') then
+    --     elseif (result   == 'fail') then
     --     end
     -- end
 end
