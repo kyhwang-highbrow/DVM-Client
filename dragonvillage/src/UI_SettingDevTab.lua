@@ -34,7 +34,11 @@ function UI_Setting:init_devTab()
     vars['translationViewerBtn']:registerScriptTapHandler(function() self:click_translationViewerBtn() end)
     
     vars['testCodeBtn']:registerScriptTapHandler(function() UI_SettingTestCode() end)
-    -- vars['testCodeBtn2']:registerScriptTapHandler(function() self:click_testCodeBtn2() end)
+    
+    vars['videoMakerBtn']:registerScriptTapHandler(function() 
+        require('UI_VideoMaker')
+        UI_VideoMaker()
+    end)
 
     self:refresh_devTap()
 end

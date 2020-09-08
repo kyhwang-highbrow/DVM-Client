@@ -54,6 +54,8 @@ UIManager = {
     m_topUserInfo = nil,
 
     m_cbUIOpen = nil,
+
+    m_keyListenerList = 'list',
 }
 
 -------------------------------------
@@ -97,6 +99,8 @@ function UIManager:init(perple_scene)
     if self.m_topUserInfo then
         self.m_topUserInfo:clearOwnerUI()
     end
+
+    self.m_keyListenerList = {}
 
     -- toast popup 중복 제어용
     --self.m_toastPopup = nil
@@ -600,4 +604,26 @@ function UIManager:onKeyReleased(keyCode, event)
 		TutorialManager.getInstance():forcedClose()
 
 	end
+
+    -- 개발용 키 리스너 유연성 제고
+    for i, v in ipairs(self.m_keyListenerList) do
+        v(keyCode, event)
+    end
+end
+
+-------------------------------------
+-- function registerKeyListener
+-------------------------------------
+function UIManager:registerKeyListener(listener)
+    table.insert(self.m_keyListenerList, listener)
+
+    cclog('registered listeners.. ' .. #self.m_keyListenerList)
+end
+
+
+-------------------------------------
+-- function removeKeyListener
+-------------------------------------
+function UIManager:removeKeyListener(listener)
+    table.remove(self.m_keyListenerList, listener)
 end

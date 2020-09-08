@@ -8,7 +8,9 @@
 -- reload module를 수정하기 편하도록 상단으로 테이블 위치 이동
 local t_reload_modules = 
 {
-    'UI_DragonReinforcement'
+    'UI_VideoMaker',
+    'UI_GachaResult_Dragon',
+    'UIC_DragonAnimatorDirector_Summon'
 }
 
 local t_module = {

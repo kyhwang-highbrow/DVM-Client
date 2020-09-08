@@ -4435,9 +4435,6 @@
     <None Include="..\src\UI_LobbyNoticePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_EventPopupTab_EventAttendanceCommon.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_AttendanceSpecialListItem_Common.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4534,10 +4531,6 @@
     <None Include="..\src\UI_FevertimeInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\sss.lua" />
-    <None Include="..\src\UI_ItemBulkSalePopup.lua" />
-    <None Include="..\src\UI_ItemUnit.lua" />
-    <None Include="..\src\UI_RuneUnit.lua" />
     <None Include="..\src\UI_FevertimeConfirmPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4557,6 +4550,45 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_EventImageQuiz.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_AdventureClearPackage03.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventImageQuiz.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\UI_AttendanceSpecialListItem_3rdAnniv.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonConversion.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventImageQuizIngame.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventImageQuizIngame_directing.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventImageQuizListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventImageQuizResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_EventAttendanceSpecial.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_AdventureClear03.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_AdventureClearListItem03.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_LevelUp_03.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_VideoMaker.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
@@ -4623,6 +4655,9 @@
     </Filter>
     <Filter Include="lua\forest">
       <UniqueIdentifier>{d9db5865-5dd4-49d9-b396-582ff63ae977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\server_data">
+      <UniqueIdentifier>{42debaef-8d99-4b49-85c7-01efaf7d8715}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
