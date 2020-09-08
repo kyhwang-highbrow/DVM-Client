@@ -4,12 +4,12 @@ local THIS
 
 
 
-local DRAGON_ID = 120801
-local BG_NAME = 'map_forest'
-local BG_SCALE = 0.5
+local DRAGON_ID = 121122
+local BG_NAME = 'map_ocean'
+local BG_SCALE = 0.8
 
 
-local DRAGON_POS_Y_BY_EVOL = { 0, -30, -50 }
+local DRAGON_POS_Y_BY_EVOL = { 0, 0, 0 }
 
 
 
@@ -36,6 +36,19 @@ local function onKeyReleaseListener(key_code, event)
     -- 중지 (초기화 함)
     elseif (key_code == KEY_S) then
         THIS:stop()
+
+    -- 16:9 가이드라인
+    elseif (key_code == KEY_Q) then
+        THIS.vars['guideline169']:setVisible(not THIS.vars['guideline169']:isVisible())
+
+    -- 1:1 가이드라인
+    elseif (key_code == KEY_W) then
+        THIS.vars['guideline11']:setVisible(not THIS.vars['guideline11']:isVisible())
+
+    -- 4:5 가이드라인
+    elseif (key_code == KEY_E) then
+        THIS.vars['guideline45']:setVisible(not THIS.vars['guideline45']:isVisible())
+
     end
 end
 
@@ -120,8 +133,11 @@ end
 -- 초기화 기능으로 사용함
 -------------------------------------
 function UI_VideoMaker:refresh()
-    self:setDragon(1)
+    self:setDragon(3)
     self:changeBG()
+
+    -- 애니메이션 리스트 출력
+    ccdump(self.m_dragonAnimator.m_animator:getVisualList())
 end
 
 -------------------------------------
@@ -157,13 +173,6 @@ end
 
 
 
-
--------------------------------------
--------------------------------------
--- functional method
--------------------------------------
--------------------------------------
-
 -------------------------------------
 -- function setDragon
 -------------------------------------
@@ -172,8 +181,6 @@ function UI_VideoMaker:setDragon(evolution)
     self.m_dragonAnimator.m_animator:changeAni('idle', true)
 
     self.vars['dragonNode']:setPositionY(DRAGON_POS_Y_BY_EVOL[evolution])
-
-    ccdump(self.m_dragonAnimator.m_animator:getVisualList())
 end
 
 -------------------------------------
@@ -197,10 +204,25 @@ function UI_VideoMaker:showSettingPanel()
 end
 
 -------------------------------------
+-- function getStandardShake
+-- @brief 표준 쉐이크를 반환
 -------------------------------------
--- main method
--------------------------------------
--------------------------------------
+local function getStandardShake(x, y, duration, interval)
+	-- 1. 변수 설정
+    local timeScale = cc.Director:getInstance():getScheduler():getTimeScale()
+    local duration = (duration or g_constant:get('INGAME', 'SHAKE_DURATION')) * timeScale
+	local is_repeat = is_repeat or false
+    local interval =  interval or 0.2
+
+	-- 2. 액션 설정 
+    local start_action = cc.MoveTo:create(0, cc.p(x, y))
+    local end_action = cc.EaseElasticOut:create(cc.MoveTo:create(duration, cc.p(0, 0)), interval)
+	local sequence_action = cc.Sequence:create(start_action, end_action)
+
+    return cc.RepeatForever:create(sequence_action)
+end
+
+
 
 -------------------------------------
 -- function play
@@ -220,6 +242,9 @@ function UI_VideoMaker:play()
 		end
 		co:setCloseCB(close_cb)
 
+        -- 1초 대기
+        co:waitTime(1)
+
         -- 해치 -> 해츨링 진화
         cclog('-------------------------------- EVOLVE 1')
         co:work()
@@ -230,54 +255,73 @@ function UI_VideoMaker:play()
         evolve_visual:addAniHandler(function()
             evolve_visual:setVisible(false)
             self:setDragon(2)
+            self.vars['dragonNode']:setScale(1)
             co.NEXT()
         end)
 
         -- 꿀렁
-        local delay = cc.DelayTime:create(0.25)
-        local scaleUp = cc.EaseInOut:create(cc.ScaleTo:create(1.2, 0.3), 2)
-        local scaleDown = cc.EaseInOut:create(cc.ScaleTo:create(0, 0.3), 2)
+        local delay = cc.DelayTime:create(1.7)
+        local scaleUp = cc.EaseInOut:create(cc.ScaleTo:create(0.5, 1.4), 2)
+        local scaleDown = cc.EaseInOut:create(cc.ScaleTo:create(0.3, 1), 2)
         local action = cc.Sequence:create(delay, scaleUp, scaleDown)
         self.vars['dragonNode']:runAction(action)
 
         if co:waitWork() then return end
 
-        -- 1초 대기
-        cclog('-------------------------------- WAIT : 1')
+        -- 대기
         co:waitTime(1)
 
         -- 해츨링 -> 성룡 진화
         cclog('-------------------------------- EVOLVE 2')
         co:work()
 
+        -- 이펙트
         evolve_visual:setVisible(true)
         evolve_visual:changeAni('top_appear', false, false)
         evolve_visual:addAniHandler(function()
             evolve_visual:setVisible(false)
             self:setDragon(3)
+            self.vars['dragonNode']:setScale(1)
             co.NEXT()
         end)
+
+        -- 꿀렁
+        local delay = cc.DelayTime:create(1.7)
+        local scaleUp = cc.EaseInOut:create(cc.ScaleTo:create(0.5, 1.4), 2)
+        local scaleDown = cc.EaseInOut:create(cc.ScaleTo:create(0.3, 1), 2)
+        local action = cc.Sequence:create(delay, scaleUp, scaleDown)
+        self.vars['dragonNode']:runAction(action)
+
         if co:waitWork() then return end
         
-        -- 0.5초 대기
-        co:waitTime(0.5)
+        -- 0대기
+        co:waitTime(1)
 
         -- 드래곤 pose (화려한 동작) 연출
         cclog('-------------------------------- POSE')
         co:work()
+        
+        -- 드래곤
+        self.m_dragonAnimator.m_animator:setTimeScale(0.8)
         self.m_dragonAnimator.m_animator:changeAni('pose_1', false)
         self.m_dragonAnimator.m_animator:addAniHandler(function()
+            self.m_dragonAnimator.m_animator:setTimeScale(1)
             self.m_dragonAnimator.m_animator:changeAni('idle', true)
             co.NEXT()
         end)
+        
+        -- Shake
+        self.vars['bgNode']:runAction(getStandardShake(15, 3, 0.1, 0.1))
+
         if co:waitWork() then return end
 
-        -- 1초 대기
-        cclog('-------------------------------- WAIT 1')
-        co:waitTime(1)
+        cclog('-------------------------------- WAIT')
+
+        self.vars['bgNode']:stopAllActions()
+        -- 대기
+        co:waitTime(5)
 
         cclog('-------------------------------- FINISH')
-
         -- 끝
         co:close()
     end
