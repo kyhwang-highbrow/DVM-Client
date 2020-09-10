@@ -269,6 +269,16 @@ function UnlinkBrokenPlatform(info, platform_id)
                 end)
             end
 
+            -- @apple
+            if providerId == 'apple.com' then
+                PerpleSDK:unlinkWithApple(function(ret, info)
+                    if ret == 'success' then
+                        cclog('Firebase unlink from Apple was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from Apple failed.')
+                    end
+                end)
+            end
         end
     end
 
