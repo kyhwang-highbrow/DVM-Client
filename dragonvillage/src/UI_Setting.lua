@@ -85,6 +85,7 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_Setting:click_closeBtn()
+    LoginHelper:release()
     self:close()
 end
 

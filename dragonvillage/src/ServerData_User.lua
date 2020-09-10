@@ -553,3 +553,41 @@ function ServerData_User:getDeviceInfoByKey(key)
 
     return t_data[key]
 end
+
+-------------------------------------
+-- function getiOSMajorVersion
+--[[ @breif
+    Android : SDK_INT, api level .. like 27, 30
+    iOS : Major version .. like 13, 14
+]]
+-------------------------------------
+function ServerData_User:getOSVersion()
+    local t_data = self:getDeviceInfoTable()
+
+    -- iOS
+    if (CppFunctions:isIos()) then
+        -- systemVersion
+        local system_version = g_userData:getDeviceInfoByKey('systemVersion')
+        if (type(system_version) ~= 'string') then
+            return 0
+        end
+
+        -- major버전을 얻어옴
+        local l_version = pl.stringx.split(system_version, '.')
+        local major_version = tonumber(l_version[1])
+        if (major_version == nil) then
+            return 0
+        end
+
+        return major_version
+
+    -- Android
+    elseif (CppFunctions:isAndroid()) then
+        return t_data['VERSION_SDK_INT']
+
+    end
+
+    return 0    
+end
+
+    

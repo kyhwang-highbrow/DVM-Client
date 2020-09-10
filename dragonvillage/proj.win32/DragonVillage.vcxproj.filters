@@ -4591,6 +4591,9 @@
     <None Include="..\src\UI_VideoMaker.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LoginHelper.lua">
+      <Filter>lua\helper</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -4658,6 +4661,9 @@
     </Filter>
     <Filter Include="lua\server_data">
       <UniqueIdentifier>{42debaef-8d99-4b49-85c7-01efaf7d8715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\helper">
+      <UniqueIdentifier>{3fe9c297-10cb-472e-b504-872e865138d5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

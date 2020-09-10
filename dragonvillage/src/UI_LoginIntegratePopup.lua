@@ -2,6 +2,7 @@ local PARENT = UI
 
 -------------------------------------
 -- class UI_LoginIntegratePopup
+-- @brief 타이틀 화면의 신규 유저 대상 내부 UI, 로그인, 게스트 플레이 (드래곤 만나러 가기), 서버 기능 지원
 -------------------------------------
 UI_LoginIntegratePopup = class(PARENT,{
         m_loadingUI = 'UI_TitleSceneLoading',

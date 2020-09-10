@@ -410,6 +410,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\LobbyWorldAdapter.lua" />
     <None Include="..\src\LocalData.lua" />
     <None Include="..\src\LocalPushMgr.lua" />
+    <None Include="..\src\LoginHelper.lua" />
     <None Include="..\src\LogRecorder.lua" />
     <None Include="..\src\LogRecorderChar.lua" />
     <None Include="..\src\LogRecorderWorld.lua" />

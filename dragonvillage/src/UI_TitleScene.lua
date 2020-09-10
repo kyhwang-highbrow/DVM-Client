@@ -551,6 +551,13 @@ function UI_TitleScene:workCheckUserID()
 
     SoundMgr.m_bStopPreload = false
 
+    -- user 기기 정보 확인
+    local function cb(ret, info)
+        local device_info_json = json_decode(info) or {}
+        g_userData:setDeviceInfoTable(device_info_json)
+    end
+    SDKManager:deviceInfo(cb)
+
     -- Firebase Authentication으로 로그인 처리가 불가능지 여부
     local not_available_firebase = false
 
