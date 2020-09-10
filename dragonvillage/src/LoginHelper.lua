@@ -158,7 +158,6 @@ function LoginHelper:loginWithGoogle()
         if ret == 'success' then
             cclog('Firebase Google login was successful.')
             self:loginSuccess(info)
-            self:close()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
@@ -179,7 +178,6 @@ function LoginHelper:loginWithFacebook()
         if ret == 'success' then
             cclog('Firebase Facebook login was successful.')
             self:loginSuccess(info)
-            self:close()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
@@ -200,7 +198,6 @@ function LoginHelper:loginWithTwitter()
         if ret == 'success' then
             cclog('Firebase Twitter login was successful.')
             self:loginSuccess(info)
-            self:close()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
@@ -216,12 +213,12 @@ function LoginHelper:loginWithApple()
     self.m_loadingUI:showLoading(Str('로그인 중...'))
 
     PerpleSDK:loginWithApple(function(ret, info)
+        ccdump(info)
         self.m_loadingUI:hideLoading()
 
         if ret == 'success' then
             cclog('Firebase Apple login was successful.')
             self:loginSuccess(info)
-            self:close()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
@@ -248,7 +245,6 @@ function LoginHelper:loginWithGameCenter()
         if ret == 'success' then
             cclog('Firebase GameCenter login was successful.')
             self:loginSuccess(info)
-            self:close()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
@@ -270,7 +266,6 @@ function LoginHelper:loginAsGuest()
             if ret == 'success' then
                 cclog('Firebase Guest login was successful.')
                 self:loginSuccess(info)
-                self:close()
             elseif ret == 'fail' then
                 self:loginFail(info)
             end

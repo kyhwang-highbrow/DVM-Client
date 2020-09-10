@@ -92,6 +92,8 @@ function UI_LoginPopup2:loginSuccess(info)
 
     -- dirty -> lobby btn state
     GoogleHelper.setDirty(true)
+
+    self:click_closeBtn() 
 end
 
 --@CHECK

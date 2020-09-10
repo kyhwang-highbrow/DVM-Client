@@ -139,6 +139,8 @@ function UI_LoginPopup:loginSuccess(info)
 
     -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
     UnlinkBrokenPlatform(t_info, platform_id)
+
+    self:close()
 end
 
 --@CHECK
