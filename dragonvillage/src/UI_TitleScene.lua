@@ -667,6 +667,7 @@ function UI_TitleScene:workCheckUserID()
         PerpleSDK:googleLogout()
         PerpleSDK:facebookLogout()
 		PerpleSDK:twitterLogout()
+        PerpleSDK:appleLogout()
 
         fail_cb()
         return

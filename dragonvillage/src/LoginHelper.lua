@@ -302,40 +302,10 @@ function LoginHelper:linkWithGoogle()
             self:loginSuccess(info)
 
             MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
-                -- 기존 페이스북 연결은 끊는다.
-                if old_platform_id == 'facebook.com' then
-                    PerpleSDK:unlinkWithFacebook(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from Facebook was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from Facebook failed.')
-                        end
-                    end)
-				
-				-- 기존 트위터 연결은 끊는다.
-                elseif old_platform_id == 'twitter.com' then
-                    PerpleSDK:unlinkWithTwitter(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from Twitter was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from Twitter failed.')
-                        end
-                    end)
-
-                -- 기존 게임센터 연결은 끊는다.
-                elseif old_platform_id == 'gamecenter' then
-                    PerpleSDK:unlinkWithGameCenter(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from GameCenter was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from GameCenter failed.')
-                        end
-                    end)
-                end
+                self:unlink(old_platform_id)
 
                 -- 구글 계정을 사용하지 않다가 최초 연동 시 업적을 한번 체크하여 클리어 하도록 한다.
                 GoogleHelper.allAchievementCheck()
-
             end)
 
         elseif ret == 'already_in_use' then
@@ -598,7 +568,69 @@ end
 -- function linkWithApple
 -------------------------------------
 function LoginHelper:linkWithApple()
+    if isWin32() then
+        UIManager:toastNotificationRed(Str('Windows에서는 동작하지 않습니다.'))
+        return
+    end
 
+    self.m_loadingUI:showLoading(Str('계정 연동 중...'))
+
+    local old_platform_id = g_localData:get('local', 'platform_id')
+
+    PerpleSDK:linkWithApple(function(ret, info)
+
+        if ret == 'success' then
+
+            cclog('Firebase Apple link was successful.')
+            self.m_loadingUI:hideLoading()
+
+            self:loginSuccess(info)
+
+            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
+                self:unlink(old_platform_id)
+            end)
+
+
+        elseif ret == 'already_in_use' then
+
+            local ok_btn_cb = function()
+                self.m_loadingUI:showLoading(Str('계정 전환 중...'))
+                PerpleSDK:logout()
+                PerpleSDK:loginWithApple(function(ret, info)
+                    self.m_loadingUI:hideLoading()
+                    if ret == 'success' then
+                        cclog('Firebase Apple link was successful.(already_in_use)')
+
+                        self:loginSuccess(info)
+
+                        -- 앱 재시작
+                        CppFunctions:restart()
+
+                    elseif ret == 'fail' then
+                        self:loginFail(info)
+                    elseif ret == 'cancel' then
+						self:loginCancel()
+                    end
+                end)
+            end
+
+            local cancel_btn_cb = nil
+
+            self.m_loadingUI:hideLoading()
+            local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
+            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
+            MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
+
+        elseif ret == 'fail' then
+			self:loginFail(info)
+            self.m_loadingUI:hideLoading()
+
+        elseif ret == 'cancel' then
+			self:loginCancel()
+            self.m_loadingUI:hideLoading()
+
+        end
+    end)
 end
 
 -------------------------------------
@@ -774,6 +806,64 @@ function LoginHelper:linkWithGameCenter()
 
     -- 함수 시작
     func_gamecenter_login()
+end
+
+-------------------------------------
+-- function unlink
+-- @brief 로그아웃
+-------------------------------------
+function LoginHelper:unlink(old_platform_id)
+    -- google
+    if old_platform_id == 'google.com' then
+        PerpleSDK:googleLogout()
+        PerpleSDK:unlinkWithGoogle(function(ret, info)
+            if ret == 'success' then
+                cclog('Firebase unlink from Google was successful.')
+            elseif ret == 'fail' then
+                cclog('Firebase unlink from Google failed.')
+            end
+        end)
+				
+    -- facebook
+    elseif old_platform_id == 'facebook.com' then
+        PerpleSDK:unlinkWithFacebook(function(ret, info)
+            if ret == 'success' then
+                cclog('Firebase unlink from Facebook was successful.')
+            elseif ret == 'fail' then
+                cclog('Firebase unlink from Facebook failed.')
+            end
+        end)
+
+    -- twitter
+    elseif old_platform_id == 'twitter.com' then
+        PerpleSDK:unlinkWithTwitter(function(ret, info)
+            if ret == 'success' then
+                cclog('Firebase unlink from Twitter was successful.')
+            elseif ret == 'fail' then
+                cclog('Firebase unlink from Twitter failed.')
+            end
+        end)
+
+    -- apple
+    elseif old_platform_id == 'apple.com' then
+        PerpleSDK:unlinkWithApple(function(ret, info)
+            if ret == 'success' then
+                cclog('Firebase unlink from Apple was successful.')
+            elseif ret == 'fail' then
+                cclog('Firebase unlink from Apple failed.')
+            end
+        end)
+
+    -- gamecenter
+    elseif old_platform_id == 'gamecenter' then
+        PerpleSDK:unlinkWithGameCenter(function(ret, info)
+            if ret == 'success' then
+                cclog('Firebase unlink from GameCenter was successful.')
+            elseif ret == 'fail' then
+                cclog('Firebase unlink from GameCenter failed.')
+            end
+        end)
+    end
 end
 
 -------------------------------------
