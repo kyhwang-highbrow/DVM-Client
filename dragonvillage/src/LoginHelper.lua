@@ -38,16 +38,38 @@ function LoginHelper:availableSignInWithApple()
 end
 
 -------------------------------------
--- function alignLoginButton
+-- function visibleButtons
+-- @breif visible on/off
 -------------------------------------
-function LoginHelper:alignLoginButtons(vars, use_guest)
-	-- visible on/off
+function LoginHelper:visibleButtons(vars, use_guest, use_gamecenter)
+    -- gamecenter .. off all
+    if (use_gamecenter) then
+        vars['googleBtn']:setVisible(false)
+	    vars['facebookBtn']:setVisible(false)
+	    vars['twitterBtn']:setVisible(false)
+	    vars['gamecenterBtn']:setVisible(false)
+        vars['appleBtn']:setVisible(false)
+        return
+    end
+
+    -- 일반적인 케이스
 	vars['googleBtn']:setVisible(true)
 	vars['facebookBtn']:setVisible(true)
 	vars['twitterBtn']:setVisible(true)
-    vars['guestBtn']:setVisible(use_guest)
 	vars['gamecenterBtn']:setVisible(CppFunctions:isIos())
     vars['appleBtn']:setVisible(self:availableSignInWithApple())
+
+    if (vars['guestBtn'] ~= nil) then
+        vars['guestBtn']:setVisible(use_guest)
+    end
+end
+
+-------------------------------------
+-- function alignLoginButton
+-------------------------------------
+function LoginHelper:alignLoginButtons(vars, use_guest)
+	-- visible on/off, login 시에는 gamecenter가 설정되는 경우는 없다.
+	self.visibleButtons(vars, use_guest, false)
 
 	-- visible로 구분하여 활성화된 버튼을 찾아 정렬
 	local l_prefix_list = {'google', 'facebook', 'twitter', 'apple', 'guest', 'gamecenter'}
@@ -82,7 +104,10 @@ end
 -------------------------------------
 -- function alignButtons
 -------------------------------------
-function LoginHelper:alignLinkButtons(vars)
+function LoginHelper:alignLinkButtons(vars, use_gamecenter)
+    -- visible on/off, link 시에는 게스트 계정 버튼이 사용될 일이 없다.
+	self:visibleButtons(vars, false, use_gamecenter)
+
     local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
 
     -- 버튼 위치 정렬 및 비활성화 처리

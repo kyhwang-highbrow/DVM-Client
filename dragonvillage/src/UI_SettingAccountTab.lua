@@ -28,7 +28,6 @@ function UI_Setting:init_accountTab()
     LoginHelper:setup(self.m_loadingUI, function(info) self:loginSuccess(info) end)
 
     self:updateInfo()
-    LoginHelper:alignLinkButtons(self.vars)
 end
 
 -------------------------------------
@@ -130,12 +129,10 @@ function UI_Setting:updateInfo()
         end
 	end
 
-    -- 버튼 visible on/off
-	vars['codeMenu']:setVisible(is_guest)
-    vars['gamecenterBtn']:setVisible(is_guest and CppFunctions:isIos())
-    vars['googleBtn']:setVisible(not is_gamecenter)
-    vars['facebookBtn']:setVisible(not is_gamecenter)
-	vars['twitterBtn']:setVisible(not is_gamecenter)
+    -- visible on/off
+    LoginHelper:alignLinkButtons(vars, is_gamecenter)
+    
+    vars['codeMenu']:setVisible(is_guest)
 
 	-- setString info
 	vars['descLabel']:setString(desc)
