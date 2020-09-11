@@ -69,7 +69,7 @@ end
 -------------------------------------
 function LoginHelper:alignLoginButtons(vars, use_guest)
 	-- visible on/off, login 시에는 gamecenter가 설정되는 경우는 없다.
-	self.visibleButtons(vars, use_guest, false)
+	self:visibleButtons(vars, use_guest, false)
 
 	-- visible로 구분하여 활성화된 버튼을 찾아 정렬
 	local l_prefix_list = {'google', 'facebook', 'twitter', 'apple', 'guest', 'gamecenter'}
