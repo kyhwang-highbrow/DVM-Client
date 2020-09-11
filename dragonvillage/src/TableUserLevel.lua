@@ -23,7 +23,9 @@ function TableUserLevel:getUserLevelExpPercentage(lv, exp)
 
     local req_exp = t_user_level['req_exp']
     local percentage = (exp / req_exp)
-    percentage = percentage * 100
+
+    -- @mskim 경험치 자릿수가 크기 때문에 formating 시 정확도가 떨어지는 경우가 있어 수정함
+    percentage = math_floor(percentage * 10000) / 100
 
     return percentage
 end
