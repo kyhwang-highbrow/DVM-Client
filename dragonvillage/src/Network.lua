@@ -160,7 +160,7 @@ end
 -- @breif   연동 플랫폼 아이디 업데이트
 -- @param
 --          fuid : uid
---          platform_id : google.com, facebook.com, twitter.com, gamecenter, firebase
+--          platform_id : google.com, facebook.com, twitter.com, gamecenter, firebase, apple.com
 --          account_info : id
 -------------------------------------
 function Network_platform_updateId(fuid, platform_id, account_info, success_cb, fail_cb)
@@ -178,6 +178,8 @@ function Network_platform_updateId(fuid, platform_id, account_info, success_cb, 
         t_data['twitter_id'] = account_info
     elseif platform_id == 'gamecenter' then
         t_data['apple_id'] = account_info
+    elseif platform_id == 'apple.com' then
+        t_data['apple_login_id'] = account_info
     else
         return
     end
@@ -296,7 +298,7 @@ end
 
 -------------------------------------
 -- function Network_platform_getUidByApple
--- @breif   플랫폼 서버에 apple id를 통해서 uid를 받아옴
+-- @breif   플랫폼 서버에 apple id(GameCenter)를 통해서 uid를 받아옴
 -- @param
 --          account_info : t_info.name
 -------------------------------------
