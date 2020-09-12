@@ -4,14 +4,14 @@ import os
 #os.system('gradlew tasks')
 
 # clean
-#os.system('gradlew clean')
+# os.system('gradlew clean')
 
 # build
 
 ######################################################################################
 ## flavor
 ######################################################################################
-## platform : google, googledev, googleqa, googleliveqa, xsolla, cafebazaar, onestore
+## platform : google, xsolla, cafebazaar, onestore
 ## server : dev, qa, liveqa, live
 ## asset : market, full
 ######################################################################################
@@ -24,15 +24,15 @@ import os
 #os.system('gradlew assembleDevFullGoogleDebug assembleQaFullGoogleDebug assembleLiveqaFullGoogleDebug assembleLiveFullGoogleDebug assembleLiveMarketGoogleRelease')
 
 #### google
-os.system('gradlew assembleGoogleLiveMarketRelease') # for upload
-#os.system('gradlew assembleGoogleLiveFullRelease')
-#os.system('gradlew assembleGoogledevDevFullDebug') # for dev
-#os.system('gradlew assembleGoogleqaQaFullDebug') # for qa
-#os.system('gradlew assembleGoogleLiveqaFullDebug') # for live qa
+# os.system('gradlew assembleGoogleLiveMarketRelease') # for upload
+# os.system('gradlew assembleGoogleLiveFullRelease')
+# os.system('gradlew assembleGoogleDevFullDebug') # for dev
+# os.system('gradlew assembleGoogleQaFullDebug') # for qa
+# os.system('gradlew assembleGoogleLiveqaFullDebug') # for live qa
 
-##Onestore
-os.system('gradlew assembleOnestoreLiveFullRelease') # for upload
-#os.system('gradlew assembleOnestoreDevFullDebug') # for dev
+# ##Onestore
+# os.system('gradlew assembleOnestoreLiveFullRelease') # for upload
+os.system('gradlew assembleOnestoreDevFullDebug') # for dev
 #os.system('gradlew assembleOnestoreQaFullDebug') # for qa
 #os.system('gradlew assembleOnestoreLiveqaFullDebug') # for live qa
 
