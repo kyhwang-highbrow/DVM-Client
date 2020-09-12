@@ -401,39 +401,8 @@ function LoginHelper:linkWithFacebook()
             self:loginSuccess(info)
 
             MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
-                -- 기존 구글 연결은 끊는다.
-                if old_platform_id == 'google.com' then
-                    PerpleSDK:googleLogout()
-                    PerpleSDK:unlinkWithGoogle(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from Google was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from Google failed.')
-                        end
-                    end)
-				
-				-- 기존 트위터 연결은 끊는다.
-                elseif old_platform_id == 'twitter.com' then
-                    PerpleSDK:unlinkWithTwitter(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from Twitter was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from Twitter failed.')
-                        end
-                    end)
-
-                -- 기존 게임센터 연결은 끊는다.
-                elseif old_platform_id == 'gamecenter' then
-                    PerpleSDK:unlinkWithGameCenter(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from GameCenter was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from GameCenter failed.')
-                        end
-                    end)
-                end
+                self:unlink(old_platform_id)
             end)
-
 
         elseif ret == 'already_in_use' then
 
@@ -506,39 +475,8 @@ function LoginHelper:linkWithTwitter()
             self:loginSuccess(info)
 
             MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
-                -- 기존 구글 연결은 끊는다.
-                if old_platform_id == 'google.com' then
-                    PerpleSDK:googleLogout()
-                    PerpleSDK:unlinkWithGoogle(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from Google was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from Google failed.')
-                        end
-                    end)
-				
-				-- 기존 페이스북 연결은 끊는다.
-                elseif old_platform_id == 'facebook.com' then
-                    PerpleSDK:unlinkWithFacebook(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from Facebook was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from Facebook failed.')
-                        end
-                    end)
-
-                -- 기존 게임센터 연결은 끊는다.
-                elseif old_platform_id == 'gamecenter' then
-                    PerpleSDK:unlinkWithGameCenter(function(ret, info)
-                        if ret == 'success' then
-                            cclog('Firebase unlink from GameCenter was successful.')
-                        elseif ret == 'fail' then
-                            cclog('Firebase unlink from GameCenter failed.')
-                        end
-                    end)
-                end
+                self:unlink(old_platform_id)
             end)
-
 
         elseif ret == 'already_in_use' then
 
@@ -614,7 +552,6 @@ function LoginHelper:linkWithApple()
             MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
                 self:unlink(old_platform_id)
             end)
-
 
         elseif ret == 'already_in_use' then
 
