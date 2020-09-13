@@ -8,7 +8,6 @@ StructCapsuleBox = class(PARENT, {
 		contents = 'table',
 		curr = 'number',
 		box_total = 'number',
-        firstRewardMaxCountTable = 'table',
 		price = 'table',
         title = 'string',
     })

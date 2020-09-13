@@ -534,8 +534,8 @@ end
 -- @return is_refill, is_refill_completed
 -------------------------------------
 function ServerData_CapsuleBox:isRefillAndCompleted(is_lobby)
-    cclog('refill state : ' .. tostring(self.m_refillState))
-    cclog('refill time : ' .. tostring(self.m_refillTime))
+--    cclog('refill state : ' .. tostring(self.m_refillState))
+--    cclog('refill time : ' .. tostring(self.m_refillTime))
 
     -- 1차 캡슐 소진 전
     if (self.m_refillState == 0) then
@@ -547,8 +547,11 @@ function ServerData_CapsuleBox:isRefillAndCompleted(is_lobby)
 
     -- 2차 캡슐 충전
     elseif (self.m_refillState == 2) then
-        return true, true
-
+        if (self.m_tStrurctCapsuleBox[L_BOX_KEY[1]]:isDone()) then
+            return false, false
+        else
+            return true, true
+        end
     end
 
     return false, false

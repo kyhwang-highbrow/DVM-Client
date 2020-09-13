@@ -202,6 +202,15 @@ function UI_Lobby:entryCoroutine()
         ui_network:setLoadingMsg(Str('네트워크 통신 중...'))
         if co:waitWork() then return end
         
+        -- 캡슐 코인 상세 정보 (status)
+        -- @mskim 캡슐 코인 남은 수량이 필요해서 임시로 추가
+        -- api 정리가 필요 완전 개판임
+        if (g_capsuleBoxData.m_refillState == 2) then
+            co:work('# 캡슐 코인 상세 정보 받는 중')
+            g_capsuleBoxData:request_capsuleBoxStatus(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
         -- hard refresh
         cclog('# UI 갱신')
         self:refresh(true)
