@@ -1,5 +1,11 @@
 -------------------------------------
 -- class ServerData_CapsuleBox
+--[[ @brief
+데이터의 흐름에서 유의할 부분과 개선할 부분이 있음
+우선 /info api는 자정에 갱신하는 경우에만 사용한다. 주로 title에서 정보를 받아옴
+/status api는 schedule 정보를 제거하고 다른 곳으로 옮겨야 한다.
+자주 호출하는 용도로 만든 것이므로 적절하지 않다.
+]]
 -------------------------------------
 ServerData_CapsuleBox = class({
         m_serverData = 'ServerData',
@@ -8,6 +14,9 @@ ServerData_CapsuleBox = class({
 		m_endTime = 'timestamp',
         m_day = 'number', -- 20180827 <- 이런 형태로 스케쥴 상의 날짜를 리턴
 		
+        m_refillState = 'number',
+        m_refillTime = 'timestamp',
+
 		m_open = 'bool',
 
         -- 캡슐 뽑기 일정 테이블
@@ -140,9 +149,26 @@ function ServerData_CapsuleBox:response_capsuleBoxInfo(ret)
 	self.m_startTime = ret['start_time']/1000
 	self.m_endTime = ret['end_time']/1000
 
+    self:setRefillData(ret)
+
     -- 스케쥴 날짜 갱신
     if ret['day'] then
         self.m_day = ret['day']
+    end
+end
+
+-------------------------------------
+-- function setRefillData
+-------------------------------------
+function ServerData_CapsuleBox:setRefillData(ret)
+    -- 캡슐 충전 정보 .. 조건부
+    self.m_refillState = ret['capsule_box_refill_status']
+    
+    -- 충전 시간 .. 특정 시간 남았을 경우에 받아온다.
+    if (ret['capsule_box_refill_date']) then
+        self.m_refillTime = ret['capsule_box_refill_date']/1000
+    else
+        self.m_refillTime = nil
     end
 end
 
@@ -205,7 +231,9 @@ function ServerData_CapsuleBox:request_capsuleBoxStatus(finish_cb, fail_cb)
     -- 콜백 함수
     local function success_cb(ret)
 		self:applyCapsuleStatus(ret)
-
+        
+        self:setRefillData(ret)
+        
         -- 스케쥴 날짜 갱신
         if (ret['day']) then
             self.m_day = ret['day']
@@ -371,7 +399,8 @@ end
 -------------------------------------
 function ServerData_CapsuleBox:checkReopen()
 	local curr_time = Timer:getServerTime()
-	return (curr_time > self.m_endTime)
+    local end_time = self.m_refillTime and self.m_refillTime or self.m_endTime
+	return (curr_time > end_time)
 end
 
 -------------------------------------
@@ -417,7 +446,8 @@ end
 -------------------------------------
 function ServerData_CapsuleBox:getRemainTimeText()
 	local curr_time = Timer:getServerTime()
-	local remain_time = self.m_endTime - curr_time
+    local end_time = self.m_refillTime and self.m_refillTime or self.m_endTime
+	local remain_time = end_time - curr_time
 	if (remain_time < 0) then
 		remain_time = 0
 	end
@@ -496,4 +526,46 @@ function ServerData_CapsuleBox:makeBadge(schedule_info_per_day, reward_name)
         badge_ui.vars['badgeSprite']:setVisible(false)
     end
     return badge_ui
+end
+
+-------------------------------------
+-- function isRefillAndCompleted
+-- @brief lobby 혹은 capsule ui 에서 refill 관련 정보를 보여줄지의 여부
+-- @return is_refill, is_refill_completed
+-------------------------------------
+function ServerData_CapsuleBox:isRefillAndCompleted(is_lobby)
+    cclog('refill state : ' .. tostring(self.m_refillState))
+    cclog('refill time : ' .. tostring(self.m_refillTime))
+
+    -- 1차 캡슐 소진 전
+    if (self.m_refillState == 0) then
+        return false, false
+
+    -- 1차 캡슐 소진 후 충전 전
+    elseif (self.m_refillState == 1) then
+        return true, false
+
+    -- 2차 캡슐 충전
+    elseif (self.m_refillState == 2) then
+        return true, true
+
+    end
+
+    return false, false
+end
+
+-------------------------------------
+-- function getRefillime
+-- @brief lobby 혹은 capsule ui 에서 refill 관련 정보를 보여줄지의 여부
+-------------------------------------
+function ServerData_CapsuleBox:getRefillime()
+    return self.m_refillTime
+end
+
+-------------------------------------
+-- function getRefillime
+-- @brief lobby 혹은 capsule ui 에서 refill 관련 정보를 보여줄지의 여부
+-------------------------------------
+function ServerData_CapsuleBox:isNoticeRefillTimeNotRemainTime()
+    return (self.m_refillState == 1) and (self.m_refillTime == nil)
 end

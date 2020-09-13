@@ -10,7 +10,8 @@ local t_reload_modules =
 {
     'UI_VideoMaker',
     'UI_GachaResult_Dragon',
-    'UIC_DragonAnimatorDirector_Summon'
+    'UIC_DragonAnimatorDirector_Summon',
+    'UI_CapsuleBox',
 }
 
 local t_module = {

@@ -51,6 +51,10 @@ function UI_CapsuleBox:init()
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_CapsuleBox')
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
 	self:initUI()
 	self:initButton()
 	self:refresh()
@@ -133,6 +137,8 @@ function UI_CapsuleBox:initButton()
     -- 캡슐 뽑기 일정
     vars['rotationBtn']:registerScriptTapHandler(function() self:click_rotaionBtn() end)
     
+    -- refill 정보
+    vars['refillInfoBtn']:registerScriptTapHandler(function() self:click_refillInfoBtn() end)
 end
 
 -------------------------------------
@@ -192,6 +198,14 @@ function UI_CapsuleBox:setCapsuleBoxNoti()
     else
         vars['1stEventMenu']:setVisible(false)
     end
+
+    -- capsule ui 에서 refill 정보 표시 여부
+    local is_refill, is_refill_completed = g_capsuleBoxData:isRefillAndCompleted(--[[is_lobby: ]]false)
+    vars['refillMenu']:setVisible(is_refill)
+    if (is_refill) then
+        vars['refillReservedSprite']:setVisible(not is_refill_completed)
+        vars['refillCompletedSprite']:setVisible(is_refill_completed)
+    end
 end
 
 -------------------------------------
@@ -242,8 +256,12 @@ end
 -------------------------------------
 function UI_CapsuleBox:update(dt)
 	-- 남은 시간
-	local remain_text = g_capsuleBoxData:getRemainTimeText()
-	self.vars['remainTimeLabel']:setString(Str('{1} 남음', remain_text))
+    if (g_capsuleBoxData:isNoticeRefillTimeNotRemainTime()) then
+        self.vars['remainTimeLabel']:setString(Str('12시 충전 예정'))
+    else
+	    local remain_text = g_capsuleBoxData:getRemainTimeText()
+	    self.vars['remainTimeLabel']:setString(Str('{1} 남음', remain_text))
+    end
 
 	-- 중복 호출 방지 처리
 	if (self.m_isBusy) then
@@ -307,7 +325,11 @@ function UI_CapsuleBox:executeDraw(box_key, idx, count, price_type)
         
         -- 10연뽑이면 애니 바꾸어 연출
         if (count == 10) then
-            ani:changeAni('special_idle_10', false)
+            if (box_key == BOX_KEY_1) then
+                ani:changeAni('special_idle_10', false)
+            else
+                ani:changeAni('normal_idle_10', false)
+            end
         end
 	    ani:setAnimationPause(false)
 
@@ -468,6 +490,19 @@ function UI_CapsuleBox:click_rotaionBtn()
 end
 
 -------------------------------------
+-- function click_refillInfoBtn
+-------------------------------------
+function UI_CapsuleBox:click_refillInfoBtn()
+    local ui = UI()
+    ui:load('capsule_box_chage_info.ui')
+    ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+    UIManager:open(ui, UIManager.POPUP)
+
+    -- backkey 지정
+	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
+end
+
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_CapsuleBox:click_exitBtn()
@@ -490,7 +525,8 @@ end
 -------------------------------------
 function UI_CapsuleBox.makeRewardCell(box_key, struct_reward, idx, is_package_item)
 	local ui = UI()
-	local ui_res = 'capsule_box_item_02.ui'
+	local ui_res
+
 	if (box_key == BOX_KEY_1) then
 		ui_res = 'capsule_box_item_02.ui'
 	elseif (box_key == BOX_KEY_2) then
@@ -513,10 +549,19 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward, idx, is_package_it
 	local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
 	vars['rewardLabel']:setString(name)
 
-	-- 획득 확률
+	-- 남은 개수
 	local count = struct_reward:getCount()
-	vars['chanceLabel']:setString(Str('{@apricot}남은 수량 {@blue_green}{1}개',count))
+    if is_package_item then
+        vars['chanceLabel']:setString(Str('{@apricot}남은 수량 {@blue_green}{1}개',count))
+    else
+        -- 1등급 개별 상품 30개로 고정
+        local max_count = struct_reward['total']
+        vars['chanceLabel']:setString(string.format('%d/%d', count, max_count))
+        vars['chanceGg']:setPercentage(0)
+        vars['chanceGg']:runAction(cc.ProgressTo:create(0.5, count/max_count * 100))
+    end
 
+    -- 아이템 카드
 	local item_card = UI_ItemCard(item_id, item_cnt)
 	vars['rewardNode']:addChild(item_card.root)
     

@@ -232,12 +232,12 @@ function UIC_DragonAnimatorDirector_Summon:show_textAnimation()
         local ani_appear = string.format('text_appear_%02d', ani_num)
         local ani_idle = string.format('text_idle_%02d', ani_num)
 
---        local text_effect = self.m_rarityEffect
---        text_effect:setVisible(true)
---        text_effect:changeAni(ani_appear, false)
---        text_effect:addAniHandler(function()
---		    text_effect:changeAni(ani_idle, true)
---	    end)
+        local text_effect = self.m_rarityEffect
+        text_effect:setVisible(true)
+        text_effect:changeAni(ani_appear, false)
+        text_effect:addAniHandler(function()
+		    text_effect:changeAni(ani_idle, true)
+	    end)
     end
 end
 

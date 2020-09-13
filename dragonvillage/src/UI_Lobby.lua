@@ -1975,6 +1975,13 @@ function UI_Lobby:update_rightButtons()
 	-- 캡슐 신전 버튼
 	if (not g_contentLockData:isContentLock('capsule')) then
 		vars['capsuleBoxBtn']:setVisible(true)
+        -- lobby ui 에서 capsule refill 정보 표시 여부
+        local is_refill, is_refill_completed = g_capsuleBoxData:isRefillAndCompleted(--[[is_lobby: ]]false)
+        vars['refillMenu']:setVisible(is_refill)
+        if (is_refill) then
+            vars['refillReservedMenu']:setVisible(not is_refill_completed)
+            vars['refillCompletedMenu']:setVisible(is_refill_completed)
+        end
 	else
 		vars['capsuleBoxBtn']:setVisible(false)
 	end
