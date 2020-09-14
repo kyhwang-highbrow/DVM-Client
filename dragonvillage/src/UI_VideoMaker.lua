@@ -9,11 +9,11 @@ local BG_SCALE = 0.8
 local DRAGON_POS_Y = { 0, 0, 0 }
 local DRAGON_SCALE = { 1, 0.9, 0.8 }
 
-local WAIT_TIME = { 1, 1, 1 }
+local WAIT_TIME = { 1.3, 2.5, 2.5 }
 
 local DEFAULT_EVOLUTION = 3
 
-local VFX_TIME_SCALE = 1.3
+local VFX_TIME_SCALE = { 1.3, 1.8 }
 
 --[[
 * 드래곤
@@ -277,7 +277,7 @@ function UI_VideoMaker:play()
     end
 
     local evolve_visual = self.vars['evolveVisual']
-    evolve_visual:setTimeScale(VFX_TIME_SCALE)
+    
 
     -- 안내 문구 숨김
     self:showInfoLabel(false)
@@ -293,9 +293,11 @@ function UI_VideoMaker:play()
 			self:reset()
             -- 안내 문구 출력
             self:showInfoLabel(true)
+            SoundMgr:stopBGM()
 		end
 		co:setCloseCB(close_cb)
 
+        SoundMgr:playBGM("evolution_adv")
 
         -- PHASE 1. 해치 .. pose
         do
@@ -317,7 +319,8 @@ function UI_VideoMaker:play()
         
             local phase = 2
         
-            -- 이펙트 (2.16초)
+            -- 이펙트
+            evolve_visual:setTimeScale(VFX_TIME_SCALE[1])
             evolve_visual:setVisible(true)
             evolve_visual:changeAni('top_appear', false, false)
             cclog(evolve_visual:getDuration())
@@ -329,7 +332,7 @@ function UI_VideoMaker:play()
 
             -- 꿀렁
             local scale = DRAGON_SCALE[phase]
-            local delay = cc.DelayTime:create(1.9/VFX_TIME_SCALE)
+            local delay = cc.DelayTime:create(1.9/VFX_TIME_SCALE[1])
             local setDragon = cc.CallFunc:create(function() self:setDragon(phase) end)
             local scaleUp = cc.EaseInOut:create(cc.ScaleTo:create(0.3, scale * 1.2), 2)
             local scaleDown = cc.EaseInOut:create(cc.ScaleTo:create(0.3, scale), 2)
@@ -349,7 +352,8 @@ function UI_VideoMaker:play()
 
             local phase = 3
 
-            -- 이펙트 (2.16초)
+            -- 이펙트
+            evolve_visual:setTimeScale(VFX_TIME_SCALE[2])
             evolve_visual:setVisible(true)
             evolve_visual:changeAni('top_appear', false, false)
             evolve_visual:addAniHandler(function()
@@ -360,7 +364,7 @@ function UI_VideoMaker:play()
 
             -- 꿀렁
             local scale = DRAGON_SCALE[phase]
-            local delay = cc.DelayTime:create(1.9/VFX_TIME_SCALE)
+            local delay = cc.DelayTime:create(1.9/VFX_TIME_SCALE[2])
             local setDragon = cc.CallFunc:create(function() self:setDragon(phase) end)
             local scaleUp = cc.EaseInOut:create(cc.ScaleTo:create(0.3, scale * 1.2), 2)
             local scaleDown = cc.EaseInOut:create(cc.ScaleTo:create(0.3, scale), 2)
