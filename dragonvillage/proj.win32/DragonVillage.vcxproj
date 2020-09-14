@@ -434,6 +434,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\NumberLabelWithSpriteFrame.lua" />
     <None Include="..\src\NumberLabel_Pumping.lua" />
     <None Include="..\src\NumberLoop.lua" />
+    <None Include="..\src\PackageAutoDisplayHelper.lua" />
     <None Include="..\src\PackageManager.lua" />
     <None Include="..\src\packet\chat.proto" />
     <None Include="..\src\packet\session.proto" />

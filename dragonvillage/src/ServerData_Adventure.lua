@@ -4,6 +4,7 @@ MAX_ADVENTURE_DIFFICULTY = 4
 
 -------------------------------------
 -- class ServerData_Adventure
+-- g_adventureData
 -------------------------------------
 ServerData_Adventure = class({
         m_serverData = 'ServerData',

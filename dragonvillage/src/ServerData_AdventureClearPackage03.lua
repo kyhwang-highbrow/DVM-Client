@@ -96,10 +96,31 @@ end
 
 -------------------------------------
 -- function isVisible_adventureClearPack
+-- @breif 구매 전에는 출력하지 않고 구매 후에는 보상이 남은 경우 출력
 -------------------------------------
 function ServerData_AdventureClearPackage03:isVisible_adventureClearPack()
     if (not self:isActive()) then 
         return false 
+    end
+
+    local l_item_list = TABLE:get('table_package_stage_03')
+    for i, v in pairs(l_item_list) do
+        local stage_id = v['stage']
+        if (self:isReceived(stage_id) == false) then 
+            return true 
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isVisible_adventureClearPack
+-- @breif 구매 전에는 출력하고 구매 후에는 보상이 남은 경우 출력
+-------------------------------------
+function ServerData_AdventureClearPackage03:isVisible_adventureClearPackOnAdventureMap()
+    if (not self:isActive()) then 
+        return true 
     end
 
     local l_item_list = TABLE:get('table_package_stage_03')

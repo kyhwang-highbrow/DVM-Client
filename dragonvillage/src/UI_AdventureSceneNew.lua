@@ -34,6 +34,9 @@ UI_AdventureSceneNew = class(UI, ITopUserInfo_EventListener:getCloneTable(), {
         m_rewindStageId = 'number', -- advent chpater로 진입 시 되돌아올 stage 임시 저장
         m_particle = 'cc.Particle',
         m_adventDragonAniList = 'table<Animator>',
+
+        -- @mskim 20.09.14 UI 정리하면서 추가함, 전역적으로 쓰는 것은 아님
+        m_stageId = 'number',
      })
 
 -------------------------------------
@@ -55,6 +58,7 @@ function UI_AdventureSceneNew:init(stage_id)
     SpineCacheManager:getInstance():purgeSpineCacheData()
 
     self.m_lAchieveRewardButtons = {}
+    self.m_stageId = stage_id
 
     local vars = self:load('adventure_scene.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -62,25 +66,15 @@ function UI_AdventureSceneNew:init(stage_id)
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AdventureSceneNew')
 
-    self:initButton()
-
     vars['bgSprite']:setLocalZOrder(-2)
     vars['chapterNode']:setLocalZOrder(-1)
     
     self:doActionReset()
     self:doAction()
 
-    -- 비공정 오브젝트 생성
-    self:makeShipObject()
-    self:makeUICSortList()
-
-    -- 마지막에 진입한 챕터로 진입
-    local last_stage = (stage_id or g_settingData:get('adventure_focus_stage'))
-    local difficulty, chapter, stage = parseAdventureID(last_stage)
-    self:refreshChapter(chapter, difficulty, stage)
-
-    -- @TODO 임시 처리 mskim
-    self.m_uicSortList:setSelectSortType(self.m_currDifficulty)
+    self:initUI()
+    self:initButton()
+    self:refresh()
 end
 
 
@@ -91,6 +85,25 @@ end
 function UI_AdventureSceneNew:focusByStageID(stage_id)
     local difficulty, chapter, stage = parseAdventureID(stage_id)
     self:refreshChapter(chapter, difficulty, stage)
+end
+
+-------------------------------------
+-- function initUI
+-- @brief
+-------------------------------------
+function UI_AdventureSceneNew:initUI()
+    -- 비공정 오브젝트 생성
+    self:makeShipObject()
+    self:makeUICSortList()
+
+    -- 마지막에 진입한 챕터로 진입
+    local last_stage = (self.m_stageId or g_settingData:get('adventure_focus_stage'))
+    local difficulty, chapter, stage = parseAdventureID(last_stage)
+    self:refreshChapter(chapter, difficulty, stage)
+    self.m_stageId = last_stage
+
+    -- @TODO 임시 처리 mskim
+    self.m_uicSortList:setSelectSortType(self.m_currDifficulty)
 end
 
 -------------------------------------
@@ -121,6 +134,28 @@ function UI_AdventureSceneNew:initButton()
 
     vars['adventChapterBtn']:registerScriptTapHandler(function() self:click_adventChapterBtn(true) --[[isToAdvent]] end)
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventChapterBtn(false) --[[isToAdvent]] end)
+
+    vars['adventureClearBtn03']:registerScriptTapHandler(function() self:click_adventureClearBtn03() end) -- 모험돌파 패키지 3 -- 2020.09.14 -- 특정 조건에 노출
+end
+
+-------------------------------------
+-- function refresh
+-- @brief
+-------------------------------------
+function UI_AdventureSceneNew:refresh()
+    local vars = self.vars
+
+    -- 모험돌파 버튼 3 2020.08.24
+    do
+        -- 모험돌파 버튼 .. 지정 스테이지 클리어한 후에는 구매 후 보상 전부 수령할 때까지 노출
+        local is_visible = (g_adventureData:getStageClearCnt(PackageAutoDisplayHelper:getStartSid()) > 0) 
+                            and g_adventureClearPackageData03:isVisible_adventureClearPackOnAdventureMap()
+        vars['adventureClearBtn03']:setVisible(is_visible)
+
+        -- 모험돌파 패키지 노티
+        local is_noti = g_adventureClearPackageData03:isVisible_adventureClearPackNoti()
+        vars['adventureClearNotiSprite03']:setVisible(is_noti)
+    end
 end
 
 -------------------------------------
@@ -356,6 +391,16 @@ function UI_AdventureSceneNew:click_starBoxBtn(star)
     end
     ui:setCloseCB(close_cb)
 end
+
+-------------------------------------
+-- function click_adventureClearBtn03
+-- @brief 레벨업 패키지 버튼
+-------------------------------------
+function UI_AdventureSceneNew:click_adventureClearBtn03()
+    local ui = UI_EventFullPopup(PACK_ADVENTURE)
+    ui:openEventFullPopup()
+end
+
 
 -------------------------------------
 -- function refreshChapter

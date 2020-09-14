@@ -4594,6 +4594,9 @@
     <None Include="..\src\LoginHelper.lua">
       <Filter>lua\helper</Filter>
     </None>
+    <None Include="..\src\PackageAutoDisplayHelper.lua">
+      <Filter>lua\helper</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
