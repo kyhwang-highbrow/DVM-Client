@@ -152,6 +152,11 @@ function UI_AdventureSceneNew:refresh()
                             and g_adventureClearPackageData03:isVisible_adventureClearPackOnAdventureMap()
         vars['adventureClearBtn03']:setVisible(is_visible)
 
+        -- 모험돌파 버튼 연출 추가
+        if (is_visible) then
+            cca.pickMePickMe(vars['adventureClearBtn03'], 10)
+        end
+
         -- 모험돌파 패키지 노티
         local is_noti = g_adventureClearPackageData03:isVisible_adventureClearPackNoti()
         vars['adventureClearNotiSprite03']:setVisible(is_noti)

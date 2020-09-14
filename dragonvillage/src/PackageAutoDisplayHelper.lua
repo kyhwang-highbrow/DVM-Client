@@ -68,7 +68,7 @@ function PackageAutoDisplayHelper:checkPackage(package_type, ...)
                 return
             end
 
-            for i = kLvStart, USER_MAX_LV, kLvTerm do
+            for i = kLvStart, 99, kLvTerm do
                 if (i == lv) then
                     b = true
                     break
