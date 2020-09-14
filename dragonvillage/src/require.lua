@@ -60,6 +60,7 @@ local t_module = {
     'AdWithoutPlayManager',
     'XorCipher',
     'PackageManager',
+    'PackageAutoDisplayHelper',
     'FullPopupManager',
     'ServerListData',
 

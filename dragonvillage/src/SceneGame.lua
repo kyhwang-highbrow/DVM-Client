@@ -864,6 +864,9 @@ function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
     if (user_levelup_data['prev_lv'] ~= user_levelup_data['curr_lv']) then
         -- @analytics (Tapjoy)
         Analytics:userInfo()
+
+        -- @mskim 20.09.14 레벨업 패키지 출력에도 사용함
+        PackageAutoDisplayHelper:checkPackage(PACK_LV_UP, user_levelup_data['curr_lv'])
     end
 end
 
@@ -1064,6 +1067,9 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
         if (stage_clear_info) then
             local stage_info = g_adventureData:getStageInfo(stage_id)
             stage_info:applyTableData(stage_clear_info)
+
+             -- @mskim 20.09.14 챕터 클리어 시 모험돌파 패키지 출력
+            PackageAutoDisplayHelper:checkPackage(PACK_ADVENTURE, stage_clear_info, stage_id)
         end
 
         -- 스테이지 클리어 통계

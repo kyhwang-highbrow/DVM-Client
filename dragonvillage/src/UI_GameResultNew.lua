@@ -202,6 +202,7 @@ function UI_GameResultNew:setWorkList()
     table.insert(self.m_lWorkList, 'direction_showButton')
     table.insert(self.m_lWorkList, 'direction_moveMenu')
     table.insert(self.m_lWorkList, 'direction_dragonGuide')
+    table.insert(self.m_lWorkList, 'direction_autoDisplayPackage')
     table.insert(self.m_lWorkList, 'direction_masterRoad')
 end
 
@@ -840,6 +841,18 @@ end
 -- function direction_dragonGuide_click
 -------------------------------------
 function UI_GameResultNew:direction_dragonGuide_click()
+end
+
+-------------------------------------
+-- function direction_autoDisplayPackage
+-------------------------------------
+function UI_GameResultNew:direction_autoDisplayPackage()
+    PackageAutoDisplayHelper:pushPackageUI(function() self:doNextWork() end)
+end
+-------------------------------------
+-- function direction_autoDisplayPackage_click
+-------------------------------------
+function UI_GameResultNew:direction_autoDisplayPackage_click()
 end
 
 -------------------------------------

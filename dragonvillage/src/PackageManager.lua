@@ -172,10 +172,6 @@ function PackageManager:isExist(package_name)
     if (package_name == 'package_adventure_clear_03') then
         local is_active = g_adventureClearPackageData03:isActive()
         local is_visible = g_adventureClearPackageData03:isVisible_adventureClearPack()
-        
-        cclog(is_active)
-        cclog(is_visible)
-
         if (is_active and (is_visible == false)) then
             return false
         else
