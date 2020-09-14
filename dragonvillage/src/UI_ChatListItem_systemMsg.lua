@@ -30,7 +30,7 @@ function UI_ChatListItem_systemMsg:init(chat_content)
         -- 방통위 권고 사항으로 한국 서버에 앱 내 채팅 기능에 이용자 보호를 위한 주의, 제재 안내 문구 추가하도록 함
         -- https://highbrow.atlassian.net/wiki/spaces/dvm/pages/613286549/ONE+store
         if (g_localData:isKoreaServer()) then
-            message = message .. '\n\n' .. '비방/욕설/음란/광고 등 불건전 행위는 운영 정책에 의거 제재 대상이 되며,\n피해가 발생 할 수 있으므로 결제정보 및 개인정보는\n절대 타인에게 공개하지 마시기 바랍니다.'
+            message = message .. '\n\n' .. '{@gray}비방/욕설/음란/광고 등 불건전 행위는 운영 정책에 의거 제재 대상이 되며,\n피해가 발생 할 수 있으므로 결제정보 및 개인정보는\n절대 타인에게 공개하지 마시기 바랍니다.'
         end
     else
         message = chat_content:getMessage()
