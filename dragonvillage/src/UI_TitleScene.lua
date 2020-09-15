@@ -667,7 +667,10 @@ function UI_TitleScene:workCheckUserID()
         PerpleSDK:googleLogout()
         PerpleSDK:facebookLogout()
 		PerpleSDK:twitterLogout()
-        PerpleSDK:appleLogout()
+
+        if (getAppVerNum() >= 1002005) then
+            PerpleSDK:appleLogout()
+        end
 
         fail_cb()
         return

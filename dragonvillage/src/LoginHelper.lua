@@ -34,6 +34,10 @@ function LoginHelper:availableSignInWithApple()
         return false
     end
 
+    if (getAppVerNum() < 1002005) then
+        return false
+    end
+
     return g_userData:getOSVersion() >= 13
 end
 
