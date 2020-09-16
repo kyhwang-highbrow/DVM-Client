@@ -32,7 +32,7 @@ function GoogleHelper.loginPlayServices()
 		elseif ret == 'fail' then
 			PerpleSdkManager:makeErrorPopup(info)
         elseif ret == 'cancel' then
-			UI_LoginPopup:loginCancel()
+			LoginHelper:loginCancel()
 		end
 	end)
 end
