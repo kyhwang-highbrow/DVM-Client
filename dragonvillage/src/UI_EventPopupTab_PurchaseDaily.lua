@@ -5,8 +5,10 @@ local PARENT = UI
 -------------------------------------
 UI_EventPopupTab_PurchaseDaily = class(PARENT,{
         m_eventVersion = '',
-        m_rewardUIList = '',
+        
         m_rewardBoxUIList = '',
+
+        m_todayRewardUI = 'UI',
     })
 
 -------------------------------------
@@ -30,52 +32,44 @@ end
 -------------------------------------
 function UI_EventPopupTab_PurchaseDaily:initUI()
     local vars = self.vars
-    --[[
-    local version = self.m_eventVersion
-    local step_count = g_purchasePointData:getPurchasePoint_stepCount(version)
 
-    self.m_rewardUIList = {}
+    local version = self.m_eventVersion
+    local step_count = g_purchaseDailyData:getTotalStep(version)
+
     self.m_rewardBoxUIList = {}
     
     -- 보상 아이템 카드
-    for step=1, step_count do
-        local last_step_point = g_purchasePointData:getPurchasePoint_lastStepPoint(version)
+    for step = 1, step_count do
         local item_node = vars['itemNode'..step]
         if item_node then
             item_node:setVisible(true)
-            -- 아이템 프레임
+            
+            -- 선물 박스 프레임
             local ui_frame = UI()
-            ui_frame:load('event_purchase_point_item_new_01.ui')
+            ui_frame:load('event_purchase_daily_item_01.ui')
             ui_frame.vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn(step) end)
+            ui_frame.vars['dayLabel']:setString(g_purchaseDailyData.LocalizedOrdinalDay(step))
             item_node:addChild(ui_frame.root)
             
-            local item_id, count = self:getRewardInfoByStep(version, step)
-
-            -- 아이템 카드
-            local ui_card = UI_ItemCard(item_id, count)
-            ui_frame.vars['iconNode']:addChild(ui_card.root)
-            ui_frame.root:setScale(1.2)
-            ui_card.root:setScale(0.7)
-
-            -- 보상 점수
-            local point = g_purchasePointData:getPurchasePoint_step(version, step-1)
-            vars['scoreLabel' .. step]:setString(comma_value(point))
-
             table.insert(self.m_rewardBoxUIList, ui_frame)
         end
     end
 
-    vars['purchaseGg']:setPercentage(0)
+    -- 보상 점수
+    local point = g_purchaseDailyData:getPurchasePoint()
+    vars['scoreLabel']:setString(comma_value(point))
 
-    
-    -- 타입에 따른 누적 결제 배경UI
-    local last_reward_type = g_purchasePointData:getLastRewardType(version)
-    local last_reward_item_id, count = self:getRewardInfoByStep(version, step_count)
-    local ui_bg = UI_PurchasePointBg(last_reward_type, last_reward_item_id, count, version)
-    if (ui_bg) then
-        vars['productNode']:addChild(ui_bg.root)
+    -- 현재 스텝의 보상 초기화
+    local curr_reward_node = vars['listNode']
+    if (curr_reward_node) then
+        local ui_today_reward = UI()
+        ui_today_reward:load('event_purchase_daily_item_02.ui')
+        ui_today_reward.vars['shopBtn']:registerScriptTapHandler(function() UINavigator:goTo('package_shop') end)
+        
+        self.m_todayRewardUI = ui_today_reward
+        
+        curr_reward_node:addChild(ui_today_reward.root)
     end
-    --]]
 end
 
 -------------------------------------
@@ -83,24 +77,7 @@ end
 -------------------------------------
 function UI_EventPopupTab_PurchaseDaily:initButton()
     local vars = self.vars
-    vars['infoBtn']:registerScriptTapHandler(function() UI_GuidePopup_PurchasePoint('event_purchase_daily_popup.ui') end)
-    vars['shopBtn']:registerScriptTapHandler(function() UINavigator:goTo('package_shop') end)
-end
-
--------------------------------------
--- function getRewardInfoByStep
--------------------------------------
-function UI_EventPopupTab_PurchaseDaily:getRewardInfoByStep(version, step)
-    local t_step, reward_state = g_purchasePointData:getPurchasePoint_rewardStepInfo(version, step)
-    local package_item_str = t_step['item']
-    local l_reward = ServerData_Item:parsePackageItemStr(package_item_str)
-    
-    -- 구조상 다중 보상 지급이 가능하나, 현재로선 하나만 처리 중 sgkim 2018.10.17
-    local first_item = l_reward[1]
-    local item_id = first_item['item_id']
-    local count = first_item['count']
-
-    return item_id, count
+    vars['infoBtn']:registerScriptTapHandler(function() UI_GuidePopup_PurchasePoint('event_purchase_daily_popup.ui') end) 
 end
 
 -------------------------------------
@@ -115,79 +92,39 @@ end
 -------------------------------------
 function UI_EventPopupTab_PurchaseDaily:refresh()
     local vars = self.vars
-    if true then
-        return
-    end
     local version = self.m_eventVersion
 
-    -- 이벤트 종료까지 남은 시간
-    local str = g_purchasePointData:getPurchasePointEventRemainTimeText(version)
-    vars['timeLabel']:setString(str)
-    vars['timeLabel']:setVisible(true)
-
     -- 누적 결제 점수
-    local purchase_point = g_purchasePointData:getPurchasePoint(version)
+    local purchase_point = g_purchaseDailyData:getPurchasePoint(version)
     local str = Str('누적 결제 점수: {1}점', comma_value(purchase_point))
     vars['scoreLabel']:setString(str)
 
-	--[[
-    -- 누적 결제 시간 안내
-    local time_str = g_purchasePointData:getPurchasePointTime(version)
+    -- 누적 결제 남은 시간 안내
+    local time_str = g_purchaseDailyData:getPurchasePointEventRemainTimeText(version)
     vars['timeLabel']:setString(time_str)
-	--]]
 
-
-    -- 보상 수령 상태 안내 메세지
-    local last_step = g_purchasePointData:getPurchasePoint_stepCount(version)
-    local curr_step = g_purchasePointData:getPurchaseRewardStep(version)
-    local str = ''
-    if (last_step <= curr_step) then
-        str = Str('보상 수령 완료')
-    else
-        local next_purchase_point = g_purchasePointData:getPurchasePoint_step(version, (curr_step + 1))
-        local value = (next_purchase_point - purchase_point)
-        if (value < 0) then
-            str = Str('보상 수령 가능')
-        else
-            str = Str('다음 보상까지 {1}점 남았습니다.', comma_value(value))
-        end
-    end
-    vars['nextStepLabel']:setString(str)
-
-    -- 결제 포인트 게이지
-    local _purchase_point = purchase_point
-    local percentage = 0
-    local prev_point = 0
-    for i=1, last_step do
-        local _point = g_purchasePointData:getPurchasePoint_step(version, i)
-        local temp = prev_point
-        prev_point = _point
-        _point = (_point - temp)
-
-        if (_point <= _purchase_point) then
-            percentage = (percentage + (1/last_step))
-        else
-            percentage = (percentage + (_purchase_point/_point/last_step))
-            break
-        end
-        _purchase_point = (_purchase_point - _point)
-    end
-    percentage = math_clamp((percentage * 100), 0, 100)
-    vars['purchaseGg']:runAction(cc.ProgressTo:create(0.2, percentage)) 
-
+    self:refreshCurrentStepReward()
     self:refresh_rewardBoxUIList()
 end
 
 -------------------------------------
--- function refresh_rewardUIList
+-- function refreshCurrentStepReward
+-- @breif 현재 스텝의 상세 보상 정보 출력
 -------------------------------------
-function UI_EventPopupTab_PurchaseDaily:refresh_rewardUIList()
-    if (not self.m_rewardUIList) then
+function UI_EventPopupTab_PurchaseDaily:refreshCurrentStepReward()
+    if (not self.m_todayRewardUI) then
         return
     end
 
-    for _,ui in pairs(self.m_rewardUIList) do
-        ui:refresh()
+    -- 현재 스텝의 상세 보상 정보
+    local curr_step = g_purchaseDailyData:getCurrentStep(self.m_eventVersion)
+    local reward_list = g_purchaseDailyData:getRewardList(self.m_eventVersion, curr_step)
+    for i, t_item in ipairs(reward_list) do
+        -- 아이템 카드
+        local ui_card = UI_ItemCard(t_item['item_id'], t_item['count'])
+        ui_card.root:setScale(0.7)
+        self.m_todayRewardUI.vars['rewardNode' .. i]:removeAllChildren(true)
+        self.m_todayRewardUI.vars['rewardNode' .. i]:addChild(ui_card.root)
     end
 end
 
@@ -199,39 +136,36 @@ function UI_EventPopupTab_PurchaseDaily:refresh_rewardBoxUIList()
         return
     end
 
-    local version = self.m_eventVersion
+    local curr_step = g_purchaseDailyData:getCurrentStep(self.m_eventVersion)
+    local clear_step = g_purchaseDailyData:getClearStep(self.m_eventVersion)
 
-    for step,ui in pairs(self.m_rewardBoxUIList) do
+    for step, ui in pairs(self.m_rewardBoxUIList) do
         local vars = ui.vars
-        local t_step, reward_state = g_purchasePointData:getPurchasePoint_rewardStepInfo(version, step)
-        vars['checkSprite']:setVisible(false)
-        vars['receiveBtn']:setVisible(false)
 
         -- 획득 완료
-        if (reward_state == 1) then
+        if (g_purchaseDailyData:isRewardReceived(self.m_eventVersion, step)) then
             vars['checkSprite']:setVisible(true)
             vars['receiveBtn']:setVisible(false)
-        -- 획득 가능
-        elseif (reward_state == 0) then
-            vars['checkSprite']:setVisible(false)
-            vars['receiveBtn']:setVisible(true)
+            vars['todaySprite']:setVisible(false)
+            vars['boxVisual']:changeAni('box_0' .. step .. '_reward_after', true)
 
-        -- 획득 불가
-        --elseif (reward_state == -1) then
+        -- 획득 가능한 상태
         else
-            --vars['closeSprite']:setVisible(true)
+            vars['checkSprite']:setVisible(false)
+            vars['todaySprite']:setVisible(step == curr_step)
+
+            -- 클리어 하여 보상 수령 가능
+            if (clear_step >= step) then
+                vars['boxVisual']:changeAni('box_0' .. step .. '_move', true)
+                vars['receiveBtn']:setVisible(true)
+
+            -- 클리어 하지 못함
+            else
+                vars['boxVisual']:changeAni('box_0' .. step, true)
+                vars['receiveBtn']:setVisible(false)
+            end
         end
-
     end
-end
-
-
--------------------------------------
--- function click_helpBtn
--- @brief 도움말
--------------------------------------
-function UI_EventPopupTab_PurchaseDaily:click_helpBtn()
-    UI_GuidePopup_PurchasePoint()
 end
 
 -------------------------------------
@@ -248,7 +182,7 @@ function UI_EventPopupTab_PurchaseDaily:click_receiveBtn(reward_step)
         self:refresh()
     end
 
-    g_purchasePointData:request_purchasePointReward(version, reward_step, cb_func)
+    g_purchaseDailyData:request_purchasePointReward(version, reward_step, cb_func)
 end
 
 --@CHECK
