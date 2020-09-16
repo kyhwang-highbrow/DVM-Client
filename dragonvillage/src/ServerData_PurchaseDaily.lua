@@ -57,9 +57,8 @@ end
 -- @brief
 -------------------------------------
 function ServerData_PurchaseDaily:getCurrentStep(version)
-    local purchase_point_reward = self.m_purchaseDailyInfo[tostring(version)] or {}
-    ccdump(purchase_point_reward)
-    return purchase_point_reward['current_step']
+    local purchase_daily_table = self.m_purchaseDailyInfo[tostring(version)] or {}
+    return purchase_daily_table['current_step']
 end
 
 -------------------------------------
@@ -76,8 +75,8 @@ end
 -- @brief
 -------------------------------------
 function ServerData_PurchaseDaily:getClearStep(version)
-    local purchase_point_reward = self.m_purchaseDailyInfo[tostring(version)] or {}
-    return purchase_point_reward['clear_step']
+    local purchase_daily_table = self.m_purchaseDailyInfo[tostring(version)] or {}
+    return purchase_daily_table['clear_step']
 end
 
 -------------------------------------

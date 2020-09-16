@@ -142,6 +142,9 @@ function UI_EventPopupTab_PurchaseDaily:refresh_rewardBoxUIList()
     for step, ui in pairs(self.m_rewardBoxUIList) do
         local vars = ui.vars
 
+        -- 현재 스텝 표시
+        vars['todaySprite']:setVisible(step == curr_step)
+
         -- 획득 완료
         if (g_purchaseDailyData:isRewardReceived(self.m_eventVersion, step)) then
             vars['checkSprite']:setVisible(true)
@@ -152,8 +155,7 @@ function UI_EventPopupTab_PurchaseDaily:refresh_rewardBoxUIList()
         -- 획득 가능한 상태
         else
             vars['checkSprite']:setVisible(false)
-            vars['todaySprite']:setVisible(step == curr_step)
-
+            
             -- 클리어 하여 보상 수령 가능
             if (clear_step >= step) then
                 vars['boxVisual']:changeAni('box_0' .. step .. '_move', true)
@@ -179,7 +181,10 @@ function UI_EventPopupTab_PurchaseDaily:click_receiveBtn(reward_step)
         -- 보상 획득
         ItemObtainResult(ret)
 
-        self:refresh()
+        -- 보상 수령 연출
+        local ui = self.m_rewardBoxUIList[reward_step]
+        ui.vars['boxVisual']:changeAni('box_0' .. reward_step .. '_reward')
+        ui.vars['boxVisual']:addAniHandler(function() self:refresh() end)
     end
 
     g_purchaseDailyData:request_purchasePointReward(version, reward_step, cb_func)
