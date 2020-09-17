@@ -243,7 +243,7 @@ end
 
 -------------------------------------
 -- function addSameTypeDragon
--- @brief 같은 타입 드래곤 리스트
+-- @brief 동종 드래곤 카드 생성
 -------------------------------------
 function UI_SkillDetailPopup:addSameTypeDragon()
     local vars = self.vars
@@ -274,13 +274,13 @@ function UI_SkillDetailPopup:addSameTypeDragon()
         vars['dragonCardNode_'..attr]:removeAllChildren()
     end
 
-    -- 더미 드래곤 생성
+    -- 동종의 더미 드래곤 리스트 생성
     local table_dragon = TableDragon()
     local t_dragon = table_dragon:get(did)
     local type = t_dragon['type']
     local target_list = table_dragon:filterList('type', type)
 
-    -- test 값 확인
+    -- 드래곤 출시 여부 검증
     if target_list then
         local _target_list = target_list
         target_list = {}
@@ -295,18 +295,18 @@ function UI_SkillDetailPopup:addSameTypeDragon()
         return 
     end
 
-    for _, v in pairs(target_list) do
-        
-        local t_data = v
+    -- 출시한 속성별 동종 드래곤 카드 생성
+    for _, t_data in pairs(target_list) do
         local attr = t_data['attr']
         
-        -- 더미 카드 생성
         if (t_data) then
             local node = vars['dragonCardNode_'..attr]
             local dummy_struct
+
+            -- 선택한 드래곤과 같은 속성
             if (did == t_data['did']) then
                 dummy_struct = struct_dragon_object
-                dummy_struct.lv = nil
+            -- 다른 속성
             else
                 dummy_struct = self:makeDragonData(t_data)
             end
@@ -335,7 +335,7 @@ function UI_SkillDetailPopup:makeDragonData(data)
 
     local t_dragon_data = {}
     t_dragon_data['did'] = t_dragon['did']
-    t_dragon_data['lv'] = nil
+    t_dragon_data['lv'] = 1
     t_dragon_data['evolution'] = struct_dragon_object:getEvolution()
     t_dragon_data['grade'] = struct_dragon_object:getGrade()
     t_dragon_data['exp'] = 0
