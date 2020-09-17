@@ -38,6 +38,7 @@ import org.json.JSONObject;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -426,7 +427,11 @@ public class AppActivity extends Cocos2dxActivity{
 
     private static void appGotoWeb(String url) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        sActivity.startActivity(browserIntent);
+        try {
+            sActivity.startActivity(browserIntent);
+        } catch (ActivityNotFoundException e) {
+            sActivity.startActivity(Intent.createChooser(browserIntent, "Choose Web Browser Client"));
+        }
     }
 
     private static void appGotoStore(String appId) {
