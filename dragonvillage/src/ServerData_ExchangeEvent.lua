@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_ExchangeEvent = class({
         m_serverData = 'ServerData',
+        m_ready = 'bool', -- 수집 이벤트 정보 사용 가능 여부
 
         m_nMaterialCnt = 'number', -- 재화 보유량
         m_nMaterialGet = 'number', -- 재화 획득량 (일일)
@@ -19,6 +20,7 @@ ServerData_ExchangeEvent = class({
 -------------------------------------
 function ServerData_ExchangeEvent:init(server_data)
     self.m_serverData = server_data
+    self.m_ready = false
 end
 
 -------------------------------------
@@ -27,7 +29,7 @@ end
 function ServerData_ExchangeEvent:parseProductInfo(product_info)
     self.m_productInfo = {}
     if (product_info) then
-        local info = self.m_productInfo
+        local info = self.m_productInfo1
         local step = product_info['step']
     
         for i = 1, step do
@@ -119,7 +121,9 @@ function ServerData_ExchangeEvent:request_eventInfo(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 콜백
-    local function success_cb(ret)    
+    local function success_cb(ret)
+        self.m_ready = true
+
         self:networkCommonRespone(ret)
         self:parseProductInfo(ret['table_event_product'][1])
         
@@ -212,6 +216,10 @@ end
 -- @brief 빨간 느낌표 아이콘 출력 여부
 -------------------------------------
 function ServerData_ExchangeEvent:isHighlightRed_ex()
+    -- 수집 이벤트 정보를 요청한 적이 없는 경우
+    if (not self.m_ready) then
+        return false
+    end
 
     -- 받아야 할 누적 획득 보상이 있는 경우
     if (self:hasReward() == true) then
@@ -231,6 +239,11 @@ end
 -- @brief 노란 느낌표 아이콘 출력 여부
 -------------------------------------
 function ServerData_ExchangeEvent:isHighlightYellow_ex()
+    -- 수집 이벤트 정보를 요청한 적이 없는 경우
+    if (not self.m_ready) then
+        return false
+    end
+
     -- 일일 최대 획득량이 남았을 경우
     if (self.m_nMaterialGet < 2000) then
         return true
