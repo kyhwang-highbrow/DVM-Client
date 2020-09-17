@@ -29,7 +29,7 @@ end
 function ServerData_ExchangeEvent:parseProductInfo(product_info)
     self.m_productInfo = {}
     if (product_info) then
-        local info = self.m_productInfo1
+        local info = self.m_productInfo
         local step = product_info['step']
     
         for i = 1, step do
