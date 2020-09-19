@@ -14,7 +14,10 @@ UI_DiceEvent = class(PARENT,{
         m_selectAnimator = 'Animator',
         m_rollAnimator = 'Animator',
         m_maskingUI = 'UI',
+        
         m_coroutineHelper = 'CoroutineHelper',
+        m_directingState = 'number',
+        m_destCell = 'number',
     })
 
 -------------------------------------
@@ -32,6 +35,10 @@ function UI_DiceEvent:init()
     self.m_selectAnimator = nil
     self.m_rollAnimator = nil
     self.m_maskingUI = nil
+
+    self.m_coroutineHelper = nil
+    self.m_directingState = 0
+    self.m_destCell = 0
 
     self:initUI()
     self:initButton()
@@ -116,6 +123,8 @@ function UI_DiceEvent:initUI()
 			-- 연출 중일 때만 동작
 			if (self.m_coroutineHelper) then
 				event:stopPropagation()
+                -- 연출 스킵
+                self:skipDirectingDice()                
 			end
 		end
 		UIManager:makeSkipAndMaskingLayer(masking_ui, touch_func)
@@ -186,20 +195,26 @@ end
 -------------------------------------
 -- function selectCell
 -------------------------------------
-function UI_DiceEvent:selectCell(cell, cb_func)
+function UI_DiceEvent:selectCell(cell, cb_func, immediately)
     local pos_x, pos_y = self.vars['node' .. cell]:getPosition()
-    local duration = 0.15
-    local move = cca.makeBasicEaseMove(duration, pos_x, pos_y)
-    local cb = cc.CallFunc:create(function()
-        if (cb_func) then
-            cb_func()
-        end
-    end)
-    local sequence = cc.Sequence:create(move, cb)
-    self.m_selectAnimator:runAction(sequence)
+    if (immediately) then
+        self.m_selectAnimator:stopAllActions()
+        self.m_selectAnimator:setPosition(pos_x, pos_y)
+    else
+        local duration = 0.15
+        local move = cca.makeBasicEaseMove(duration, pos_x, pos_y)
+        local cb = cc.CallFunc:create(function()
+            if (cb_func) then
+                cb_func()
+            end
+        end)
+        local sequence = cc.Sequence:create(move, cb)
+        self.m_selectAnimator:runAction(sequence)
+    end
 
-    -- 컨테이너 이동 시킨다
-    self:moveContainer(pos_y)
+    -- 컨테이너 이동 시킨다 
+    -- @mskim 주사위 이벤트 개편으로 제외
+    -- self:moveContainer(pos_y)
 end
 
 -------------------------------------
@@ -255,9 +270,6 @@ end
 -- function click_diceBtn
 -------------------------------------
 function UI_DiceEvent:click_diceBtn()
-    -- 정중앙으로 이동 시킨다
-    self:moveContainer(0)
-
     -- 추가 주사위 또는 주사위가 있을 때만 동작하도록 한다.
     local dice_info = g_eventDiceData:getDiceInfo()
     local curr_dice = dice_info:getCurrDice()
@@ -276,7 +288,22 @@ function UI_DiceEvent:click_diceBtn()
 		end
 	end
 
-    -- 연출을 코루틴으로 해봅니다.
+    -- 이미 연출 중
+    if (self.m_coroutineHelper) then
+        return
+    end
+
+    self:directingDice()
+end
+
+-------------------------------------
+-- function directingDice
+-------------------------------------
+function UI_DiceEvent:directingDice()
+     -- 정중앙으로 이동 시킨다
+    self:moveContainer(0)
+
+    -- 연출은 코루틴이 좋다.
     local function coroutine_function(dt)
         local co = CoroutineHelper()
         self.m_coroutineHelper = co
@@ -302,6 +329,9 @@ function UI_DiceEvent:click_diceBtn()
         g_eventDiceData:request_diceRoll(request_finish)
         if co:waitWork() then return end
 
+        -- Directing State 1
+        self.m_directingState = 1
+
         -- 굴리기 연출 ON
         self.m_rollAnimator:setTimeScale(2)
         self.m_rollAnimator:setVisible(true)
@@ -316,6 +346,11 @@ function UI_DiceEvent:click_diceBtn()
         -- ani list 재생
         local ani_list = {'appear', 'idle', 'disappear', tostring(dt_cell)}
         while (#ani_list > 0) do
+            -- skip 시 강제 탈출 하도록 함
+            if (self.m_directingState == 2) then
+                break
+            end
+
             co:work()
 
             local ani_name = ani_list[1]
@@ -327,6 +362,10 @@ function UI_DiceEvent:click_diceBtn()
 
             if co:waitWork() then return end
         end
+        
+        -- Directing State 2
+        ::state2::
+        self.m_directingState = 2
 
         -- 굴리기 연출 OFF
         self.m_rollAnimator:setVisible(false)
@@ -336,7 +375,13 @@ function UI_DiceEvent:click_diceBtn()
         local old_cell = ret_cache['old_pos']
         local new_cell = ret_cache['new_pos']
         local move_cell = old_cell
+        self.m_destCell = new_cell
         repeat
+            -- skip 시 강제 탈출 하도록 함
+            if (self.m_directingState == 3) then
+                break
+            end
+
             co:work()
 
             move_cell = move_cell + 1
@@ -348,8 +393,12 @@ function UI_DiceEvent:click_diceBtn()
             if co:waitWork() then return end
         until(new_cell == move_cell)
         
+        -- Directing State 3
+        ::state3::
+        self.m_directingState = 3
+        
         -- 도착 연출
-        do            
+        do  
             local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
             UI_ToastPopup(toast_msg)
 
@@ -367,6 +416,29 @@ function UI_DiceEvent:click_diceBtn()
     end
 
     Coroutine(coroutine_function, 'DiceEvent Directing')
+end
+
+-------------------------------------
+-- function skipDirectingDice
+-------------------------------------
+function UI_DiceEvent:skipDirectingDice()
+    self.m_coroutineHelper.NEXT()
+
+    -- 주사위 연출 중 스킵
+    -- 주사위 연출을 숨기고 애니메이션 정지
+    if (self.m_directingState == 1) then
+        self.m_directingState = 2
+        self.m_rollAnimator:setAnimationPause(true)
+        self.m_rollAnimator:setVisible(false)
+        self.m_maskingUI.root:setVisible(false)
+
+    -- cell 이동 중 스킵
+    -- 도착지로 즉시 이동함
+    elseif (self.m_directingState  == 2) then
+        self.m_directingState = 3
+        self:selectCell(self.m_destCell, nil, true)
+
+    end
 end
 
 

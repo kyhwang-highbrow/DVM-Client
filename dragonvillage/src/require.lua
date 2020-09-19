@@ -12,7 +12,7 @@ local t_reload_modules =
     'UI_GachaResult_Dragon',
     'UIC_DragonAnimatorDirector_Summon',
     'UI_CapsuleBox',
-    'UI_AdventureSceneNew',
+    'UI_DiceEvent',
 }
 
 local t_module = {
