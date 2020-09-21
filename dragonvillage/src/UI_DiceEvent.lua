@@ -108,13 +108,6 @@ function UI_DiceEvent:initUI()
     vars['boardNode']:addChild(select_ani.m_node)
     self.m_selectAnimator = select_ani
 
-    -- roll a dice ani
-    local res = 'res/ui/spine/dice/dice.json'
-    local roll_ani = MakeAnimator(res)
-    self.root:addChild(roll_ani.m_node, 99)
-    roll_ani:setVisible(false)
-    self.m_rollAnimator = roll_ani
-
     -- 주사위를 부각시키기 위한 음영 효과 용 UI, skip도 처리한다.
 	do
 		local masking_ui = UI()
@@ -130,7 +123,15 @@ function UI_DiceEvent:initUI()
 		UIManager:makeSkipAndMaskingLayer(masking_ui, touch_func)
 		self.root:addChild(masking_ui.root)
 		masking_ui.root:setVisible(false)
+        masking_ui.root:setPosition(cc.p(0, -280))
 		self.m_maskingUI = masking_ui
+
+        -- roll a dice ani
+        local res = 'res/ui/spine/dice/dice.json'
+        local roll_ani = MakeAnimator(res)
+        masking_ui.root:addChild(roll_ani.m_node, 99)
+        roll_ani:setVisible(false)
+        self.m_rollAnimator = roll_ani
 	end
 
     -- touch 먹히도록 함
@@ -166,7 +167,7 @@ function UI_DiceEvent:refresh()
     vars['lapLabel']:setString(Str('{1}회 완주', lap_cnt))
 
     -- 셀렉트 처리
-    self:selectCell(curr_cell)
+    self:moveCell(curr_cell)
 
     -- 최초 출발 처리
     local is_first = ((curr_cell == 1) and (lap_cnt == 0))
@@ -193,23 +194,24 @@ function UI_DiceEvent:refresh()
 end
 
 -------------------------------------
--- function selectCell
+-- function:moveCell
 -------------------------------------
-function UI_DiceEvent:selectCell(cell, cb_func, immediately)
+function UI_DiceEvent:moveCell(cell, cb_func, immediately)
     local pos_x, pos_y = self.vars['node' .. cell]:getPosition()
+    
+    -- 셀 이동
     if (immediately) then
         self.m_selectAnimator:stopAllActions()
         self.m_selectAnimator:setPosition(pos_x, pos_y)
     else
         local duration = 0.15
         local move = cca.makeBasicEaseMove(duration, pos_x, pos_y)
-        local cb = cc.CallFunc:create(function()
-            if (cb_func) then
-                cb_func()
-            end
-        end)
-        local sequence = cc.Sequence:create(move, cb)
-        self.m_selectAnimator:runAction(sequence)
+        self.m_selectAnimator:runAction(move)
+    end
+
+    -- 콜백
+    if (cb_func) then
+        cb_func()
     end
 
     -- 컨테이너 이동 시킨다 
@@ -260,10 +262,16 @@ end
 
 -------------------------------------
 -- function setContainerAndPosY
+-- @breif 외부에서 컨테이너 추가해준다.
 -------------------------------------
 function UI_DiceEvent:setContainerAndPosY(container, pos_y)
     self.m_container = container
     self.m_containerTopPosY = pos_y
+
+    -- 주사위가 있다면 판 위치로 이동
+    if g_eventDiceData:getDiceInfo():getCurrDice() > 0 then
+        self:moveContainer(-280, true)
+    end
 end
 
 -------------------------------------
@@ -300,9 +308,6 @@ end
 -- function directingDice
 -------------------------------------
 function UI_DiceEvent:directingDice()
-     -- 정중앙으로 이동 시킨다
-    self:moveContainer(0)
-
     -- 연출은 코루틴이 좋다.
     local function coroutine_function(dt)
         local co = CoroutineHelper()
@@ -348,6 +353,10 @@ function UI_DiceEvent:directingDice()
         while (#ani_list > 0) do
             -- skip 시 강제 탈출 하도록 함
             if (self.m_directingState == 2) then
+                -- 주사위 연출을 숨기고 애니메이션 정지
+                self.m_rollAnimator:setAnimationPause(true)
+                self.m_rollAnimator:setVisible(false)
+                self.m_maskingUI.root:setVisible(false)
                 break
             end
 
@@ -364,7 +373,6 @@ function UI_DiceEvent:directingDice()
         end
         
         -- Directing State 2
-        ::state2::
         self.m_directingState = 2
 
         -- 굴리기 연출 OFF
@@ -374,27 +382,35 @@ function UI_DiceEvent:directingDice()
         -- 이동 연출
         local old_cell = ret_cache['old_pos']
         local new_cell = ret_cache['new_pos']
+        
+        -- 개발 모드에서 도착 위치 출력
+        if (IS_TEST_MODE()) then
+            ccdisplay('destination : ' .. new_cell)
+        end
+
         local move_cell = old_cell
         self.m_destCell = new_cell
         repeat
-            -- skip 시 강제 탈출 하도록 함
-            if (self.m_directingState == 3) then
-                break
-            end
-
             co:work()
 
             move_cell = move_cell + 1
             if (move_cell > 32) then
                 move_cell = 1
             end
-            self:selectCell(move_cell, co.NEXT)
+            self:moveCell(move_cell, co.NEXT)
+            co:waitTime(0.15)
 
             if co:waitWork() then return end
+
+            -- skip 시 강제 탈출 하도록 함
+            if (self.m_directingState == 3) then
+                -- 도착지로 즉시 이동함
+                self:moveCell(self.m_destCell, nil, true)
+                break
+            end
         until(new_cell == move_cell)
         
         -- Directing State 3
-        ::state3::
         self.m_directingState = 3
         
         -- 도착 연출
@@ -425,18 +441,12 @@ function UI_DiceEvent:skipDirectingDice()
     self.m_coroutineHelper.NEXT()
 
     -- 주사위 연출 중 스킵
-    -- 주사위 연출을 숨기고 애니메이션 정지
     if (self.m_directingState == 1) then
         self.m_directingState = 2
-        self.m_rollAnimator:setAnimationPause(true)
-        self.m_rollAnimator:setVisible(false)
-        self.m_maskingUI.root:setVisible(false)
 
     -- cell 이동 중 스킵
-    -- 도착지로 즉시 이동함
     elseif (self.m_directingState  == 2) then
         self.m_directingState = 3
-        self:selectCell(self.m_destCell, nil, true)
 
     end
 end
