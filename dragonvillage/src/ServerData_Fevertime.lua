@@ -709,15 +709,18 @@ function ServerData_Fevertime:getNotUsedDailyFevertime(l_type)
     for i, struct_fevertime in pairs(today_fevertime_list) do
         local type = struct_fevertime['type']
 
-        local exist = false
-        for _, _type in pairs(l_type) do
-            if (type == _type) then
-                exist = true
-            end 
-        end
+        -- 같은 타입의 것이 이미 활성화 되어 있는 핫타임은 어차피 사용하지 못하므로 추가 하지 않는다.
+        if (not self:isActiveFevertimeByType(type)) then
+            local exist = false
+            for _, _type in pairs(l_type) do
+                if (type == _type) then
+                    exist = true
+                end 
+            end
         
-        if (exist == true) then
-            table.insert(usable_fevertime_list, struct_fevertime)
+            if (exist == true) then
+                table.insert(usable_fevertime_list, struct_fevertime)
+            end
         end
     end
 
