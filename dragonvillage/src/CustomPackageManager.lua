@@ -55,7 +55,7 @@ function CustomPackageManager:push(package_type, ...)
     -- 레벨업 패키지
     -- 5레벨마다 게임 종료 화면에서 출력한다.
     if (package_type == PACK_LV_UP) then
-        checkPackage_lvup(args[1])
+        self:checkPackage_lvup(args[1])
 
     -- 모험돌파 패키지
     -- 매 챕터 마지막 스테이지 첫클리어 시 출력
