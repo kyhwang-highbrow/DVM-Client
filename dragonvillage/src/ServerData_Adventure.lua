@@ -141,6 +141,20 @@ function ServerData_Adventure:getStageClearCnt(stage_id)
 end
 
 -------------------------------------
+-- function getLastClearedStage
+-- @breif 클리어한 마지막 스테이지
+-------------------------------------
+function ServerData_Adventure:getLastClearedStage()
+    local ret_id = 0
+	for stage_id, t_stage_info in pairs(self.m_stageList) do
+        if (ret_id < stage_id) then
+            ret_id = stage_id
+        end
+    end
+    return ret_id
+end
+
+-------------------------------------
 -- function organizeChapterAchieveDataTable
 -------------------------------------
 function ServerData_Adventure:organizeChapterAchieveDataTable(chapter_archievement)

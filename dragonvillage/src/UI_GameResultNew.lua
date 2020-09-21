@@ -847,7 +847,7 @@ end
 -- function direction_autoDisplayPackage
 -------------------------------------
 function UI_GameResultNew:direction_autoDisplayPackage()
-    PackageAutoDisplayHelper:pushPackageUI(function() self:doNextWork() end)
+    CustomPackageManager:pull(function() self:doNextWork() end)
 end
 -------------------------------------
 -- function direction_autoDisplayPackage_click

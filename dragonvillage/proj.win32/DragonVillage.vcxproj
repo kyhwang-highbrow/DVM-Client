@@ -300,6 +300,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ConstantUrl.lua" />
     <None Include="..\src\Coroutine.lua" />
     <None Include="..\src\CppFunctions.lua" />
+    <None Include="..\src\CustomPackageManager.lua" />
     <None Include="..\src\DirectingCharacter.lua" />
     <None Include="..\src\DragonAutoSetHelperNew.lua" />
     <None Include="..\src\DragonGuideNavigator.lua" />
@@ -434,7 +435,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\NumberLabelWithSpriteFrame.lua" />
     <None Include="..\src\NumberLabel_Pumping.lua" />
     <None Include="..\src\NumberLoop.lua" />
-    <None Include="..\src\PackageAutoDisplayHelper.lua" />
     <None Include="..\src\PackageManager.lua" />
     <None Include="..\src\packet\chat.proto" />
     <None Include="..\src\packet\session.proto" />
@@ -1733,6 +1733,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_VideoMaker.lua" />
     <None Include="..\src\UI_WebView.lua" />
     <None Include="..\src\UnityAdsManager.lua" />
+    <None Include="..\src\UserStatusAnalyser.lua" />
     <None Include="..\src\ValidationAssistant.lua" />
     <None Include="..\src\ValidationDragon.lua" />
     <None Include="..\src\WaveMgr.lua" />

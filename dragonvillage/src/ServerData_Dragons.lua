@@ -1174,7 +1174,7 @@ function ServerData_Dragons:possibleDragonMasteryLevelUp(doid)
     end
 
     local mastery_level = dragon_obj:getMasteryLevel()
-    if (10 <= mastery_level) then
+    if (MAX_DRAGON_MASTERY <= mastery_level) then
         local msg = Str('최대 특성 레벨의 드래곤입니다.')
         return false, msg
     end

@@ -908,20 +908,68 @@ end
 -- @return boolean
 -------------------------------------
 function StructDragonObject:isMaxGradeAndLv()
-    local max_grade = MAX_DRAGON_GRADE
-
     -- 최대 등급보다 현재 등급이 낮을 경우 false
-    if (self:getGrade() < max_grade) then
+    if (self:getGrade() < MAX_DRAGON_GRADE) then
         return false
     end
 
-    local max_lv = dragonMaxLevel(max_grade)
     -- 최대 레벨보다 현재 레벨이 낮을 경우 false
-    if (self:getLv() < max_lv) then
+    if (self:getLv() < dragonMaxLevel(MAX_DRAGON_GRADE)) then
         return false
     end
 
     return true
+end
+
+-------------------------------------
+-- function isMaxAll
+-- @brief 레벨, 등급, 스킬, 강화, 특성 모두 최대치
+-- @return boolean
+-------------------------------------
+function StructDragonObject:isMaxAll()
+    -- 달성하기 어려운 것 부터 확인
+
+    -- 특성
+    if (self:getMasteryLevel() < MAX_DRAGON_MASTERY) then
+        return false
+    end
+
+    -- 강화
+    if (self:getRlv() < MAX_DRAGON_REINFORCE) then
+        return false
+    end
+
+    -- 모든 스킬 강화 완료
+    if (self['skill_0'] < 5) then
+        return false
+    end
+    if (self['skill_1'] < 5) then
+        return false
+    end
+    if (self['skill_2'] < 5) then
+        return false
+    end
+
+    -- 최대 등급보다 현재 등급이 낮을 경우 false
+    if (self:getGrade() < MAX_DRAGON_GRADE) then
+        return false
+    end
+
+    -- 최대 레벨보다 현재 레벨이 낮을 경우 false
+    if (self:getLv() < dragonMaxLevel(MAX_DRAGON_GRADE)) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function isLimited
+-- @brief 한정 드래곤 여부
+-- @return boolean
+-------------------------------------
+function StructDragonObject:isLimited()
+    return TableDragon:getValue(self['did'], 'category') == 'limited'
 end
 
 -------------------------------------

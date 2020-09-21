@@ -4594,8 +4594,11 @@
     <None Include="..\src\LoginHelper.lua">
       <Filter>lua\helper</Filter>
     </None>
-    <None Include="..\src\PackageAutoDisplayHelper.lua">
-      <Filter>lua\helper</Filter>
+    <None Include="..\src\CustomPackageManager.lua">
+      <Filter>lua\manager</Filter>
+    </None>
+    <None Include="..\src\UserStatusAnalyser.lua">
+      <Filter>lua\manager</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -4667,6 +4670,9 @@
     </Filter>
     <Filter Include="lua\helper">
       <UniqueIdentifier>{3fe9c297-10cb-472e-b504-872e865138d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\manager">
+      <UniqueIdentifier>{f47cc738-a36f-4365-b2ad-73b0f4da1019}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

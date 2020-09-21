@@ -591,6 +591,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
         cclog('# 보급소(정액제)(supply_list config)')
         g_supply:applySupplyList_fromRet(ret)
 
+        cclog('# 유저 정보 분석')
+        UserStatusAnalyser:analyzeUserStat(ret['ustat'])
+        UserStatusAnalyser:analyzeDragon()
+        UserStatusAnalyser:analyzeRune()
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)
