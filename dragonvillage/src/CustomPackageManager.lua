@@ -94,10 +94,15 @@ function CustomPackageManager:pull(close_cb)
         co:close()
     end
 
-    -- push 된 package가 있는 경우에 실행
-    if (table.count(mPackageList) > 0) then
-        Coroutine(coroutine_function, 'pull')
+    -- push 된 package가 없는 경우 실행
+    if (table.count(mPackageList) == 0) then
+        if (close_cb) then
+            close_cb()
+        end
+        return
     end
+
+    Coroutine(coroutine_function, 'pull')
 end
 
 
