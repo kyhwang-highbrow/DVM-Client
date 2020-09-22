@@ -97,6 +97,16 @@ function ServerData_PurchaseDaily:getRewardList(version, step)
 end
 
 -------------------------------------
+-- function getTargetPoint
+-- @brief
+-------------------------------------
+function ServerData_PurchaseDaily:getTargetPoint(version, step)
+    local reward_list = self.m_purchaseDailyInfo[tostring(version)]['step_list']
+    return reward_list[tostring(step)]['purchase_point']
+end
+
+
+-------------------------------------
 -- function request_purchasePointReward
 -------------------------------------
 function ServerData_PurchaseDaily:request_purchasePointReward(version, reward_step, finish_cb, fail_cb)

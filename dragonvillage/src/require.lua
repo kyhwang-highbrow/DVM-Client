@@ -13,6 +13,7 @@ local t_reload_modules =
     'UIC_DragonAnimatorDirector_Summon',
     'UI_CapsuleBox',
     'UI_DiceEvent',
+    'UI_EventPopupTab_PurchaseDaily',
 }
 
 local t_module = {
