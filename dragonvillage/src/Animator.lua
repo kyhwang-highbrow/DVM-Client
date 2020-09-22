@@ -307,6 +307,32 @@ function Animator:getAniAddName(ani)
 	end
 end
 
+-------------------------------------
+-- function FitToBottom
+-------------------------------------
+function Animator:FitToBottom()
+    if not self.m_node then
+        return
+    end
+
+    self.m_node:setAnchorPoint(BOT_CENTER)
+    self.m_node:setDockPoint(BOT_CENTER)
+    self.m_node:setPosition(ZERO_POINT)
+end
+
+-------------------------------------
+-- function FitToTop
+-------------------------------------
+function Animator:FitToTop()
+    if not self.m_node then
+        return
+    end
+
+    self.m_node:setAnchorPoint(TOP_CENTER)
+    self.m_node:setDockPoint(TOP_CENTER)
+    self.m_node:setPosition(ZERO_POINT)
+end
+
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
 -------------------------------------
