@@ -69,6 +69,28 @@ function UI_EventPopupTab_Banner:init_customUI()
                 end)
         end
 
+    -- 드래곤빌리지(드빌1) 크로스 프로모션 2020.09.28
+    elseif (banner == 'event_dv1_promotion.ui') then
+
+        -- 공지로 이동
+        if vars['noticeLinkBtn'] then
+
+            -- 공지 게시글이 없으면 visible off (네이버 sdk 링크)
+            NaverCafeManager:setPluginInfoBtn(vars['noticeLinkBtn'], 'event_dv1_promotion')
+
+            vars['noticeLinkBtn']:registerScriptTapHandler(function()
+                    local article_key = 'event_dv1_promotion'
+                    NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
+                end)
+        end
+        
+        -- 게임으로 이동 (구글 플레이 or 앱스토어)
+        if vars['gameLinkBtn'] then
+            vars['gameLinkBtn']:registerScriptTapHandler(function()
+                    SDKManager:goToWeb('https://app.adjust.com/aie6c8f?campaign=DragonVillageM_20200928')
+                end)
+        end
+
     elseif (banner == 'event_balance.ui') then
         local item_id = 770743
         local table_item = TableItem()
