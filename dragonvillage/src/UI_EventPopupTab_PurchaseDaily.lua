@@ -119,7 +119,7 @@ function UI_EventPopupTab_PurchaseDaily:refresh()
     local info_text
     local size
     if (target_point > purchase_point) then
-        info_text = Str('오늘 {@green}{1}{@default}점을 달성했습니다. {@green}{2}{@default}점을 더 달성하고 추가 보상을 받으세요!', purchase_point, target_point - purchase_point)
+        info_text = Str('오늘 {@yellow}{1}{@default}점을 달성했습니다. {@yellow}{2}{@default}점을 더 달성하고 추가 보상을 받으세요!', purchase_point, target_point - purchase_point)
         size = 850
         pos_x = 0
     else
@@ -131,7 +131,7 @@ function UI_EventPopupTab_PurchaseDaily:refresh()
     vars['infoSprite']:setPositionX(pos_x)
     
     -- 현재 점수 안내 문구 2
-    vars['boxInfoLabel']:setString(Str('매일 결제 점수 {@green}{1}{@default}점 달성 시 선물상자 추가 증정!', target_point))
+    vars['boxInfoLabel']:setString(Str('매일 결제 점수 {@yellow}{1}{@default}점 달성 시 선물상자 추가 증정!', target_point))
 
     self:refreshCurrentStepReward()
     self:refresh_rewardBoxUIList()
