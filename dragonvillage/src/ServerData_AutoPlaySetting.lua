@@ -56,6 +56,8 @@ function ServerData_AutoPlaySetting:setDefaultSetting(mode, t_auto_play_setting)
 		
 		-- 쫄작시 6성 드래곤만 스킬 사용
         ['dragon_farming_mode'] = false,
+        -- 모험 자동 진행
+        ['adv_next_stage'] = false,
 
 	    -- 자동 모드 사용
         ['auto_mode'] = false,

@@ -104,9 +104,10 @@ end
 function UI_AutoPlaySettingPopup:initUI()
     local vars = self.vars
 
-    -- 룬 자동 판매
+    -- visible off
     vars['runAutoSellMenu']:setVisible(false)
     vars['autoMenu6']:setVisible(false)
+    vars['advNextStageMenu']:setVisible(false)
 
 	-- 고대의탑 분기처리
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
@@ -149,8 +150,11 @@ function UI_AutoPlaySettingPopup:initUI()
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(true)
 
+        local is_adv = self.m_gameMode == GAME_MODE_ADVENTURE
 		-- 쫄작(farming) 기능
-		vars['autoMenu3']:setVisible(self.m_gameMode == GAME_MODE_ADVENTURE)
+		vars['autoMenu3']:setVisible(is_adv)
+        -- 모험 자동 진행
+        vars['advNextStageMenu']:setVisible(is_adv)
 
         -- 룬 자동 판매 (모험, 악몽, 고대 유적)
         if isExistValue(self.m_gameMode, GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON, GAME_MODE_ANCIENT_RUIN, GAME_MODE_RUNE_GUARDIAN) then
@@ -161,6 +165,7 @@ function UI_AutoPlaySettingPopup:initUI()
     do -- 활성화된 버튼 정렬
         local l_luaname = {}
         -- 가장 위쪽에 보여질 node
+        table.insert(l_luaname, 'advNextStageMenu') -- 승리시 다음 스테이지 도전 (모험)
         table.insert(l_luaname, 'autoMenu1') -- 패배시 연속 전투 종료
         table.insert(l_luaname, 'autoMenu5') -- 인연 던전 발견 시 연속 전투 종료
         table.insert(l_luaname, 'autoMenu2') -- 드래곤 최대 레벨 달성 시 연속 전투 종료
@@ -211,7 +216,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_AutoPlaySettingPopup:initButton(t_user_info)
+function UI_AutoPlaySettingPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 
@@ -249,7 +254,11 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
 	-- farming
 	vars['autoStartBtn3']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 	vars['autoStartBtn3'] = UIC_CheckBox(vars['autoStartBtn3'].m_node, vars['autoStartSprite3'], false)
-
+    
+    -- 모험 자동 진행
+    vars['advNextStageBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+    vars['advNextStageBtn'] = UIC_CheckBox(vars['advNextStageBtn'].m_node, vars['advNextStageSprite'], false)
+    
     do-- rune quto sell
         -- 자동 판매 여부 체크박스
 	    vars['autoStartBtn6']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
@@ -292,6 +301,7 @@ function UI_AutoPlaySettingPopup:refresh()
 	vars['autoLoadBtn']:setChecked(g_autoPlaySetting:get('load_best_deck'))	
 	-- farming
 	vars['autoStartBtn3']:setChecked(g_autoPlaySetting:get('dragon_farming_mode'))
+    vars['advNextStageBtn']:setChecked(g_autoPlaySetting:get('adv_next_stage'))
 	 
     -- rune quto sell
     vars['autoStartBtn6']:setChecked(g_autoPlaySetting:get('rune_auto_sell'))
@@ -324,6 +334,7 @@ function UI_AutoPlaySettingPopup:close()
     g_autoPlaySetting:set('load_best_deck', vars['autoLoadBtn']:isChecked())
 	-- farming
 	g_autoPlaySetting:set('dragon_farming_mode', vars['autoStartBtn3']:isChecked())
+    g_autoPlaySetting:set('adv_next_stage', vars['advNextStageBtn']:isChecked())
     
     -- rune auto sell
 	g_autoPlaySetting:set('rune_auto_sell', vars['autoStartBtn6']:isChecked())

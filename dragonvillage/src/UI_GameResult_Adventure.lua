@@ -67,3 +67,47 @@ function UI_GameResult_Adventure:checkIsTutorial()
 
     return true
 end
+
+-------------------------------------
+-- function checkAutoPlayCondition
+-- @override
+-------------------------------------
+function UI_GameResult_Adventure:checkAutoPlayCondition()
+	local auto_play_stop, msg = PARENT.checkAutoPlayCondition(self)
+
+    -- 승리 시 다음층으로 이동
+	if (g_autoPlaySetting:get('adv_next_stage')) then  
+        -- 패배했다면 더이상 조건체크 안함
+        if (not self.m_bSuccess) then
+            auto_play_stop = true
+            msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
+        else
+            local next_stage_id = g_adventureData:getNextStageID(self.m_stageID)
+
+            -- 다음 스테이지 없음
+            if (next_stage_id == nil) then
+                auto_play_stop = true
+                msg = Str('연속 전투가 종료되었습니다.')
+            end
+        end        
+	end
+
+	return auto_play_stop, msg
+end
+
+-------------------------------------
+-- function startGame
+-- @override
+-------------------------------------
+function UI_GameResult_Adventure:startGame()
+    -- 연속 전투 : 승리시 다음 스테이지 진행 설정 시 스테이지 ID 증가
+	if (g_autoPlaySetting:isAutoPlay()) then
+	    if (g_autoPlaySetting:get('adv_next_stage')) then
+	    	if (self.m_bSuccess) then
+                self.m_stageID = g_stageData:getNextStage(self.m_stageID)
+            end
+        end
+    end
+
+    PARENT.startGame(self)
+end
