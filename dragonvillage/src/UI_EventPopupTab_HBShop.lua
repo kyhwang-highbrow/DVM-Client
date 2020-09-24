@@ -105,6 +105,10 @@ function UI_EventPopupTab_HBShop:init_bannerWebView()
 
     -- 배너 웹뷰 생성
     local node = vars['bannerNode']
+
+    --[[
+    -- @sgkim 2020.09.24 당분간 드빌 전용관에서 배너를 띄우지 않기로 함
+    -- [DVM] 드빌 전용관 이슈 처리 2020.09.24(목) https://highbrow.atlassian.net/wiki/spaces/dvm/pages/645562422
     -- 웹뷰 생성
     local webview = CreateWebview(url, node)
     if (webview) then
@@ -119,6 +123,7 @@ function UI_EventPopupTab_HBShop:init_bannerWebView()
     end)
 
     self.m_webView = webview
+    --]]
 end
 
 -------------------------------------
