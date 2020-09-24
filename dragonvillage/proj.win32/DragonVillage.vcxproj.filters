@@ -4594,11 +4594,20 @@
     <None Include="..\src\LoginHelper.lua">
       <Filter>lua\helper</Filter>
     </None>
-    <None Include="..\src\CustomPackageManager.lua">
-      <Filter>lua\manager</Filter>
-    </None>
     <None Include="..\src\UserStatusAnalyser.lua">
       <Filter>lua\manager</Filter>
+    </None>
+    <None Include="..\src\ServerData_Personalpack.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\TablePersonalpack.lua">
+      <Filter>lua\table</Filter>
+    </None>
+    <None Include="..\src\UI_Package_Personalpack.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ButtonPersonalpack.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -4673,6 +4682,9 @@
     </Filter>
     <Filter Include="lua\manager">
       <UniqueIdentifier>{f47cc738-a36f-4365-b2ad-73b0f4da1019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\table">
+      <UniqueIdentifier>{41e0e488-b16e-4b5d-99b0-5a640ea0005d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

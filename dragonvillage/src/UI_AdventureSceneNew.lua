@@ -148,7 +148,7 @@ function UI_AdventureSceneNew:refresh()
     -- 모험돌파 버튼 3 2020.08.24
     do
         -- 모험돌파 버튼 .. 지정 스테이지 클리어한 후에는 구매 후 보상 전부 수령할 때까지 노출
-        local is_visible = (g_adventureData:getStageClearCnt(CustomPackageManager:getStartSid()) > 0) 
+        local is_visible = (g_adventureData:getStageClearCnt(g_personalpackData:getStartSid()) > 0) 
                             and g_adventureClearPackageData03:isVisible_adventureClearPackOnAdventureMap()
         vars['adventureClearBtn03']:setVisible(is_visible)
 

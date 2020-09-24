@@ -433,6 +433,7 @@ function datetime.makeTimeDesc_millsec(milliseconds)
     return str
 end
 
+-- 01:09:09 (dd:hh:mm)
 function datetime.makeTimeDesc_timer_filledByZero(milliseconds, from_day)
     local day = math.floor(milliseconds / 86400000)
     milliseconds = milliseconds - (day * 86400000)

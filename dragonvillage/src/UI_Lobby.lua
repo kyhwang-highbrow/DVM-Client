@@ -411,10 +411,32 @@ function UI_Lobby:entryCoroutine_linkAccount(co)
 end
 
 -------------------------------------
+-- function entryCoroutine_personalpack
+-- @brief 깜짝 할인 상품 코루틴 
+-------------------------------------
+function UI_Lobby:entryCoroutine_personalpack(co)
+	-- PERSONALPACK push == 조건 체크
+    g_personalpackData:push(PERSONALPACK)
+    -- 충족한 패키지가 없다면 skip
+    if (g_personalpackData:isEmpty()) then
+        return
+    end
+        
+    -- coroutine body
+	co:work()
+    g_personalpackData:pull(co.NEXT)
+	if co:waitWork() then return end
+
+    -- 활성화된 패키지가 있는 것이므로 갱신한다.
+    self:refresh()
+end
+
+-------------------------------------
 -- function entryCoroutine_Escapable
 -- @brief 코루틴 탈출되어도 상관없는 코루틴 함수
 -------------------------------------
 function UI_Lobby:entryCoroutine_Escapable(co)
+    self:entryCoroutine_personalpack(co)
     self:entryCoroutine_spotSale(co)
     self:entryCoroutine_linkAccount(co)
     --self:entryCoroutine_challengeModePopup(co)
@@ -558,13 +580,6 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
             g_illusionDungeonData:setRewardPossible(false)
         end
 
-		cclog('# 총 결제 금액 정보 받는 중')
-        if (ret['sum_money']) then
-			g_shopDataNew:setSumMoney(ret['sum_money'])
-        else
-			g_shopDataNew:setSumMoney(0)
-		end
-
         cclog('# 컨텐츠 오픈 정보 받는 중')
         if (ret['content_unlock_list']) then
 			g_contentLockData:applyContentLockByStage(ret['content_unlock_list'])
@@ -591,10 +606,16 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
         cclog('# 보급소(정액제)(supply_list config)')
         g_supply:applySupplyList_fromRet(ret)
 
-        cclog('# 유저 정보 분석')
-        UserStatusAnalyser:analyzeUserStat(ret['ustat'])
-        UserStatusAnalyser:analyzeDragon()
-        UserStatusAnalyser:analyzeRune()
+        cclog('# 유저 상태 정보')
+        if (ret['ustats']) then
+            UserStatusAnalyser:analyzeUserStat(ret['ustats'])
+            --UserStatusAnalyser:analyzeDragon()
+        end
+
+        cclog('# 개인화 패키지 정보')
+        if (ret['personalpack_info']) then
+            g_personalpackData:response_personalpackInfo(ret['personalpack_info'])
+        end
 
 		co.NEXT()
 	end)

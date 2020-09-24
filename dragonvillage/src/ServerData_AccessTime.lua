@@ -7,6 +7,7 @@ ServerData_AccessTime = class({
         m_oriTime = 'number', -- 서버에 저장된 최종 접속시간
         m_addTime = 'number', -- 서버와 통신후 증가된 접속시간
         m_timer = 'number',
+        m_timeSinceStartup = 'number', -- 구동 후 흐른 실제 시간 (초), lua number는 double 이므로 1.5억년은 버틸 수 있다.
 
         m_bRecord = 'boolean', -- 접속시간 기록 여부
         m_bEvent = 'boolean', -- 이벤트 진행중인지 (현재는 상시 이벤트)
@@ -31,6 +32,7 @@ function ServerData_AccessTime:init(server_data)
     self.m_addTime = 0
     self.m_timer = 0
     self.m_checkTime = 0
+    self.m_timeSinceStartup = 0
 
     self.m_bRecord = true
     self.m_bEvent = false
@@ -191,6 +193,7 @@ function ServerData_AccessTime:recordTime(scene)
             self.m_timer = (self.m_timer - tick)
             self.m_addTime = self.m_addTime + TIMER_TICK
             self.m_checkTime = self.m_checkTime + TIMER_TICK
+            self.m_timeSinceStartup = self.m_timeSinceStartup + TIMER_TICK
         end
     end
 
@@ -219,6 +222,13 @@ function ServerData_AccessTime:getSaveTime()
     else
         return nil
     end
+end
+
+-------------------------------------
+-- function getTimeSinceStartup
+-------------------------------------
+function ServerData_AccessTime:getTimeSinceStartup()
+    return self.m_timeSinceStartup
 end
 
 -------------------------------------

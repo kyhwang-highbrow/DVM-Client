@@ -62,7 +62,6 @@ local t_module = {
     'AdWithoutPlayManager',
     'XorCipher',
     'PackageManager',
-    'CustomPackageManager',
     'UserStatusAnalyser',
     'FullPopupManager',
     'ServerListData',
@@ -234,6 +233,7 @@ local t_module = {
     'ServerData_Supply',
     'ServerData_NewcomerShop',
     'ServerData_EventImageQuiz',
+    'ServerData_Personalpack',
 
 
     -- Interface
@@ -438,6 +438,7 @@ local t_module = {
     'TableSpotSale',
     'TableSupply',
     'TableFevertime', -- 핫타임
+    'TablePersonalpack',
 
     -- Scene
     'SceneCommon',
@@ -817,6 +818,7 @@ local t_module = {
     'UI_ButtonPaymentShop',
     'UI_ButtonFirstPurchaseReward',
     'UI_ButtonSpotSale',
+    'UI_ButtonPersonalpack',
     'UI_ButtonSpecialOfferProduct',
     'UI_ButtonSupplyDepot',
     'UI_ButtonNewcomerShop',

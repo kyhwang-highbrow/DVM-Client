@@ -847,7 +847,13 @@ end
 -- function direction_autoDisplayPackage
 -------------------------------------
 function UI_GameResultNew:direction_autoDisplayPackage()
-    CustomPackageManager:pull(function() self:doNextWork() end)
+    -- 연속 전투 중에는 출력하지 않는다.
+    if (g_autoPlaySetting:isAutoPlay()) then
+        self:doNextWork()
+        return
+    end
+
+    g_personalpackData:pull(function() self:doNextWork() end)
 end
 -------------------------------------
 -- function direction_autoDisplayPackage_click

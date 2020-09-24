@@ -825,7 +825,7 @@ function UI_DragonRunesEnhance:showGrindPackagePopup()
 
 	-- 2.누적 금액 50,000원 이상
 	do
-		local sum_money = g_shopDataNew:getSumMoney()
+		local sum_money = UserStatusAnalyser.userStatus.sum_money
 		if (sum_money < 50000) then
 			return
 		end

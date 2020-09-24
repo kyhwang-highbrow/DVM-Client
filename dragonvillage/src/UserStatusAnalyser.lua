@@ -83,7 +83,7 @@ end
 -------------------------------------
 StructUserStatus = class({
 	sum_money = 'number',
-	login_days = 'number',
+	days_after_join = 'number',
 	last_cleared_stage = 'number',
 })
 
@@ -91,8 +91,8 @@ StructUserStatus = class({
 -- function init
 -------------------------------------
 function StructUserStatus:init()
-	self.sum_money = 0
-	self.login_days = 0
+	self.sum_money = 330000
+	self.days_after_join = 15
 end
 
 -------------------------------------
@@ -102,12 +102,18 @@ function StructUserStatus:apply(ret)
 	if (ret) then
 		-- 직접 서버에서 받는 정보
 		self.sum_money = ret['sum_money']
-		self.login_days = ret['login_days']
+		self.days_after_join = ret['days_after_join']
 	end
 
 	-- 간접 정보
 	self.last_cleared_stage = g_adventureData:getLastClearedStage()
 end
+
+
+
+
+
+
 
 -------------------------------------
 -- class StructDragonStatus

@@ -52,7 +52,6 @@ end
 
 -------------------------------------
 -- function update
--- @brief UI_Lobby에서 매 프레임 호출됨
 -------------------------------------
 function UI_ButtonSpotSale:update(dt)
     local vars = self.vars

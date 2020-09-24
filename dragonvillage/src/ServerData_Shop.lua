@@ -10,8 +10,6 @@ ServerData_Shop = class({
         m_dicMarketPrice = '', -- 마켓에서 받은 가격 (통화까지 표시)
         m_dicStructMarketProduct = '[sku][StructMarketProduct]', -- 마켓에서 받은 상품 정보
         m_bDirty = 'boolean',
-
-		m_sumMoney = 'number', -- 유저가 결제한 총 금액
     })
 
 -------------------------------------
@@ -575,15 +573,18 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
             local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
             local usd_price = struct_product['price_dollar']
             local first_buy = ret['first_buy']  --첫번째 결제인지
-            local sum_money = ret['sum_money'] or 0   --누적 결제 금액
 
             Analytics:purchase(product_id, sku, krw_price, usd_price, first_buy)
             Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
-            --adjust 누적 금액
-            Adjust:trackEventSumPrice(sum_money)
 
-			-- 누적 금액을 클라에 저장
-			self:setSumMoney(sum_money)
+            if (ret['ustats']) then
+                -- 누적 결제 금액 증가로 갱신
+                UserStatusAnalyser:analyzeUserStat(ret['ustats'])
+
+                local sum_money = ret['ustats']['sum_money']
+                --adjust 누적 금액
+                Adjust:trackEventSumPrice(sum_money)
+            end
         end
         
         g_serverData:networkCommonRespone(ret)
@@ -1111,20 +1112,6 @@ function ServerData_Shop:checkDiaSale()
     end
 
     return false
-end
-
--------------------------------------
--- function setSumMoney
--------------------------------------
-function ServerData_Shop:setSumMoney(sum_money)
-	self.m_sumMoney = sum_money
-end
-
--------------------------------------
--- function getSumMoney
--------------------------------------
-function ServerData_Shop:getSumMoney()
-	return self.m_sumMoney or 0
 end
 
 -------------------------------------

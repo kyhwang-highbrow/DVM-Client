@@ -260,6 +260,9 @@ function ServerData:getInstance()
     -- 깜짝 할인 상품
     g_spotSaleData = ServerData_SpotSale(g_serverData)
 
+    -- 특별제안 패키지
+    g_personalpackData = ServerData_Personalpack()
+
     -- 환상 던전 이벤
     g_illusionDungeonData = Serverdata_IllusionDungeon()
 
