@@ -22,8 +22,16 @@ function ServerData_Highbrow:applyHBItemList(item_list)
 
     for game_key, v in pairs(item_list) do 
         for _, t_item in pairs(v) do
-            t_item['game_key'] = game_key
-            table.insert(l_ret, StructHighbrowProduct(t_item))
+
+            -- 게임 서버, 어카운트 서버(하이브로)를 통해서 받은 리스트에서 클라이언트 테이블에 정보가 있는지 확인
+            -- 클라이언트 테이블에서 해당 항목이 없으면 리스트뷰에 추가하지 않음
+            local code = t_item['code']
+            local t_highbrow = TableHighbrow:find(game_key, code)
+
+            if (t_highbrow ~= nil) then
+                t_item['game_key'] = game_key
+                table.insert(l_ret, StructHighbrowProduct(t_item))
+            end
         end
     end
     
