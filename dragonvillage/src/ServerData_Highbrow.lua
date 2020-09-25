@@ -159,6 +159,8 @@ function ServerData_Highbrow:request_buyHBProductTutorial(code, game_key, finish
 
     -- 콜백
     local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
         g_highlightData:applyHighlightInfo(ret)
 
         if finish_cb then
