@@ -299,6 +299,31 @@ function StructProduct:needRenewAfterBuy()
     --]]
 end
 
+-------------------------------------
+-- function getFirstItemNameWithCount
+-------------------------------------
+function StructProduct:getFirstItemNameWithCount()
+    local l_item_list = ServerData_Item:parsePackageItemStr(self['product_content'])
+	if (not l_item_list) or (not l_item_list[1]) then
+		l_item_list = ServerData_Item:parsePackageItemStr(self['mail_content'])
+	end
+
+    if (not l_item_list) then
+        return ''
+    end
+
+	local first_item = l_item_list[1]
+	if (not first_item) or (not first_item['item_id']) then
+		return ''
+	end
+
+	-- 첫 번째 아이템의 설명을 사용
+	local table_item = TableItem()
+	local item_id = first_item['item_id']
+    local t_name = table_item:getValue(item_id, 't_name')
+    local count = first_item['count']
+	return Str('{1} {2}개', t_name, count)
+end
 
 -------------------------------------
 -- function getDesc
@@ -313,10 +338,13 @@ function StructProduct:getDesc()
     -- 테이블에 blank라고 입력되면 내용을 출력하지 않음
     if (self['t_desc'] == 'blank') then
         return ''
-    end
-
+    
+    -- 테이블에 blank라고 입력되면 내용을 출력하지 않음
+    elseif (self['t_desc'] == 'name') then
+        return self:getFirstItemNameWithCount()
+    
 	-- t_desc가 있다면 출력
-    if self['t_desc'] and (self['t_desc'] ~= '') and (self['t_desc'] ~= ' ') then
+    elseif self['t_desc'] and (self['t_desc'] ~= '') and (self['t_desc'] ~= ' ') then
         return Str(self['t_desc'])
     end
 
