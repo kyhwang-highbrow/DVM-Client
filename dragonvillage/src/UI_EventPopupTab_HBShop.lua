@@ -42,10 +42,13 @@ function UI_EventPopupTab_HBShop:initButton()
     vars['couponBtn']:registerScriptTapHandler(function() self:click_couponBtn() end)
     vars['codeBtn']:registerScriptTapHandler(function() self:click_codeBtn() end)
 
-    -- ios 정책 강화로 ios에선 무조건 보이지 않게 설정
-    if CppFunctions:isIos() then
+    -- [쿠폰 입력] - ios 정책 강화로 ios에선 쿠폰 입력 버튼을 숨겨야 하는 경우가 있다.
+    if (g_remoteConfig:hideCouponBtn() == true) then
         vars['couponBtn']:setVisible(false)
         vars['codeBtn']:setVisible(false)
+    else
+        vars['couponBtn']:setVisible(true)
+        vars['codeBtn']:setVisible(true)
     end
 end
 
