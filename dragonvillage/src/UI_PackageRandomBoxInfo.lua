@@ -5,13 +5,22 @@ local PARENT = UI
 -------------------------------------
 UI_PackageRandomBoxInfo = class(PARENT,{
         m_item_list = 'table',
+        m_packageName = 'string',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PackageRandomBoxInfo:init(l_item)
-    local vars = self:load('package_lucky_box_popup.ui')
+function UI_PackageRandomBoxInfo:init(l_item, package_name)
+    -- ui 파일이 다르다. package에 따라 하드코딩함
+    local ui_name
+    if (package_name == 'package_lucky_box_9.9k') then
+        ui_name = 'package_lucky_box_9.9k_popup.ui'
+    else
+        ui_name = 'package_lucky_box_popup.ui'
+    end
+
+    local vars = self:load(ui_name)
     UIManager:open(self, UIManager.POPUP)
 
     -- 확률 순으로 정렬
@@ -19,6 +28,7 @@ function UI_PackageRandomBoxInfo:init(l_item)
         return a['pick_weight'] < b['pick_weight']
     end)
 
+    self.m_packageName = package_name
     self.m_item_list = l_item
 
     -- backkey 지정
@@ -68,7 +78,16 @@ end
 -------------------------------------
 function UI_PackageRandomBoxInfo.makeCellUI(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
-	local vars = ui:load('package_lucky_box_popup_item.ui')
+
+    -- ui 파일이 다르다. package에 따라 하드코딩함
+    local ui_name
+    if (package_name == 'package_lucky_box_9.9k') then
+        ui_name = 'package_lucky_box_9.9k_popup_item.ui'
+    else
+        ui_name = 'package_lucky_box_popup_item.ui'
+    end
+
+	local vars = ui:load(ui_name)
 
     local item_id = t_data['item_id']
     local count = t_data['count']

@@ -287,7 +287,7 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
 
         -- 만원의 행복은 구입 즉시 지급되므로 기본재화들도 결과 보여줌
         local show_all = false
-        if (self.m_package_name == 'package_lucky_box') then
+        if (string.find(self.m_package_name, 'package_lucky_box')) then
             show_all = true
         end
 
@@ -317,12 +317,13 @@ end
 -- @brief 보상 안내 = 상품 안내 팝업을 출력한다 
 -------------------------------------
 function UI_Package_Bundle:click_rewardBtn()
-    local package_name = self.m_package_name
     local category 
 
     -- 만원의 행복
-    if (package_name == 'package_lucky_box') then
+    if (self.m_package_name == 'package_lucky_box') then
         category = 'lucky'
+    elseif (self.m_package_name == 'package_lucky_box_9.9k') then
+        category = 'lucky_9.9k'
     end
 
     -- 아이템 리스트 출력
@@ -330,7 +331,7 @@ function UI_Package_Bundle:click_rewardBtn()
         local finish_cb = function(ret)
             local l_item = ret[category]
             if (l_item) then
-                UI_PackageRandomBoxInfo(l_item)
+                UI_PackageRandomBoxInfo(l_item, self.m_package_name)
             end
         end
         g_shopDataNew:request_randomBoxInfo(finish_cb)
