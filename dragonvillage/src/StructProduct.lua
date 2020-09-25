@@ -776,7 +776,7 @@ end
 -- function getMaxBuyTermStr
 -- @brief 구매 제한 설명 텍스트
 -------------------------------------
-function StructProduct:getMaxBuyTermStr()
+function StructProduct:getMaxBuyTermStr(use_rich)
     -- 구매 제한이 있지만 대체상품이 있는 경우 출력하지 않음
     -- 구매 제한이 있다면 대체상품이 있더라도 출력으로 변경
 --    if (self:getDependency()) then
@@ -812,6 +812,13 @@ function StructProduct:getMaxBuyTermStr()
     elseif (max_buy_term == 'daily') then
         str = Str('일일 구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
+    end
+
+    -- 구매 가능/불가능 텍스트 컬러 변경
+    if (use_rich) then
+        local is_buy_all = buy_cnt >= max_buy_cnt
+        local color_key = is_buy_all and '{@impossible}' or '{@available}'
+        str = color_key .. str
     end
 
     return str

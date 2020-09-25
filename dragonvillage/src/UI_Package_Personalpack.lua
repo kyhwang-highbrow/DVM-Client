@@ -54,7 +54,7 @@ function UI_Package_Personalpack:initUI()
         vars['priceLabel' .. idx]:setString(struct_product:getPriceStr())
 
         -- 구매 제한
-        vars['buyLabel' .. idx]:setString(struct_product:getBuyCountDesc())
+        vars['buyLabel' .. idx]:setString(struct_product:getMaxBuyTermStr(true))
     end
 
     -- 상품 정보 입력
