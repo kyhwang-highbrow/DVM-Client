@@ -188,8 +188,8 @@ function ServerData_PurchaseDaily:getEventPopupTabList()
     for version, v in pairs(self.m_purchaseDailyInfo) do
         if self:isActivePurchaseDailyEvent(version) then
             local event_data = {}
-            event_data['t_name'] = Str('일일 결제 이벤트')
-            event_data['icon'] = 'ui/event/list_purchase_point.png'
+            event_data['t_name'] = Str('일일 충전 선물')
+            event_data['icon'] = 'ui/event/list_purchase_daily.png'
             event_data['version'] = version
 
             local struct_event_popup_tab = StructEventPopupTab(event_data)
