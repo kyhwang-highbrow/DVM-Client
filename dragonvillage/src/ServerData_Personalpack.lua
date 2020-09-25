@@ -91,7 +91,7 @@ function ServerData_Personalpack:push(package_type, ...)
             local ppid = t_data['ppid']
             local b = self:checkPersonalpack(ppid)
             if b then
-                table.insert(mPackageList, ppid)
+                self:addPersonalpack(ppid)
             end
         end
 
@@ -153,6 +153,15 @@ function ServerData_Personalpack:pull(close_cb)
     Coroutine(coroutine_function, 'pull')
 end
 
+-------------------------------------
+-- function addPersonalpack
+-------------------------------------
+function ServerData_Personalpack:addPersonalpack(ppid)
+    if (table.contain(mPackageList, ppid)) then
+        return
+    end
+    table.insert(mPackageList, ppid)
+end
 
 
 -------------------------------------
@@ -180,7 +189,7 @@ function ServerData_Personalpack:checkPackage_lvup(lv)
     end
 
     if b then
-        table.insert(mPackageList, PACK_LV_UP)
+        self:addPersonalpack(PACK_LV_UP)
     end
 end
 
@@ -220,7 +229,7 @@ function ServerData_Personalpack:checkPackage_adv(stage_clear_info, stage_id)
     end
 
     if (b) and (stage_clear_info['cl_cnt'] == 1) then
-        table.insert(mPackageList, PACK_ADVENTURE)
+        self:addPersonalpack(PACK_ADVENTURE)
     end
 end
 

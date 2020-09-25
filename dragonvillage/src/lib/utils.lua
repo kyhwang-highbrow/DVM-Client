@@ -283,6 +283,21 @@ function table.apply(t_org, t_data)
 	end
 end
 
+-------------------------------------
+-- function contain
+-- @breif isContainValue과 같다
+-------------------------------------
+function table.contain(t, value)
+    for i, v in pairs(t) do
+        if (value == v) then
+            return true
+        end
+    end
+
+    return false
+end
+
+
 --###############################################
 -- utility funciton : datetime
 --###############################################
