@@ -687,7 +687,6 @@ function ServerData_Fevertime:getDiscountEventList()
     for k, v in pairs(FEVERTIME_SALE_EVENT) do
         local dc_target = v
         local is_active, dc_value = self:isActiveFevertimeByType(dc_target)
-        cclog(dc_target, is_active, dc_value)
         if (dc_value > 0) then
             table.insert(l_dc_event, dc_target)
         end
