@@ -193,6 +193,7 @@ function ServerData_EventDice:request_diceRoll(finish_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+    ui_network:hideBGLayerColor()
 
     return ui_network
 end

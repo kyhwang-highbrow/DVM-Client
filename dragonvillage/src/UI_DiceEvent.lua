@@ -341,7 +341,9 @@ function UI_DiceEvent:directingDice()
         self.m_rollAnimator:setTimeScale(2)
         self.m_rollAnimator:setVisible(true)
         self.m_maskingUI.root:setVisible(true)
-        
+        self.m_maskingUI.root:setOpacity(0)
+        self.m_maskingUI.root:runAction(cc.FadeIn:create(0.2))
+
         -- 사운드 재생
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
 
