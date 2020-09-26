@@ -149,3 +149,29 @@ function ConfirmPrice(price_type, price_value)
 
     return ConfirmPrice_original(price_type, price_value)
 end
+
+-------------------------------------
+-- function MakePopup
+-- @brief 도움말 팝업과 같이 ui load만 필요한 팝업 만들 때 사용한다
+-------------------------------------
+function MakePopup(ui_path, close_cb)
+    local ui = UI()
+    
+    ui:load(ui_path)
+    UIManager:open(ui, UIManager.POPUP)
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(ui, function() ui:close() end, ui_path)
+
+    if (ui.vars['closeBtn'] ~= nil) then
+        ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+    end
+    if (ui.vars['okBtn'] ~= nil) then
+        ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
+    end
+    if (close_cb) then
+        ui:setCloseCb(close_cb)
+    end
+
+    return ui
+end

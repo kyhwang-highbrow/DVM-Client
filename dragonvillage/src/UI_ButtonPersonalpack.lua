@@ -31,7 +31,11 @@ end
 -- function isActive
 -------------------------------------
 function UI_ButtonPersonalpack:isActive()
-    return g_personalpackData:isGroupActive(kGruop) and not g_personalpackData:isBuyAll(self.m_ppid)
+    if (self.m_ppid == nil) then
+        return false
+    else
+        return g_personalpackData:isGroupActive(kGruop) and not g_personalpackData:isBuyAll(self.m_ppid)
+    end
 end
 
 -------------------------------------

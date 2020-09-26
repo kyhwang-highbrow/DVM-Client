@@ -1,7 +1,7 @@
 local PARENT = TableClass
 
 -------------------------------------
--- class TableAlphabetEvent
+-- class TableAlphabetEvent 
 -------------------------------------
 TableAlphabetEvent = class(PARENT, {
     })

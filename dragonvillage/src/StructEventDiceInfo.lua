@@ -3,7 +3,7 @@ local PARENT = Structure
 -------------------------------------
 -- class StructEventDiceInfo
 -- @brief 이벤트 팝업에 등록된 탭
--------------------------------------
+------------------------------------- 
 StructEventDiceInfo = class(PARENT, {
         pvp = 'number',
         pvp_max = 'number',

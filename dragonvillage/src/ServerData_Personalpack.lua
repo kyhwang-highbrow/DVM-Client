@@ -351,7 +351,6 @@ function ServerData_Personalpack:isBuyAll(ppid)
 
     local count = 0
     for _, pid in ipairs(l_pid) do
-        cclog(g_shopDataNew:getTargetProduct(tonumber(pid)):isItBuyable())
         if (not g_shopDataNew:getTargetProduct(tonumber(pid)):isItBuyable()) then
             count = count + 1
         end

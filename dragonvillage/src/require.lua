@@ -14,6 +14,7 @@ local t_reload_modules =
     'UI_CapsuleBox',
     'UI_DiceEvent',
     'UI_EventPopupTab_PurchaseDaily',
+    'UI_EventLFBag',
 }
 
 local t_module = {
@@ -145,6 +146,7 @@ local t_module = {
     'StructClanWarMatchItem',
     'StructClanWarMatch',
     'StructPackageState',
+    'StructEventLFBag',
 
 	-- ServerData
     'ServerData',
@@ -234,6 +236,7 @@ local t_module = {
     'ServerData_NewcomerShop',
     'ServerData_EventImageQuiz',
     'ServerData_Personalpack',
+    'ServerData_EventLFBag',
 
 
     -- Interface

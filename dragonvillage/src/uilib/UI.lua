@@ -631,3 +631,22 @@ function UI:autoDelayedVerifier(_delay)
     end
     node:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end
+
+-------------------------------------
+-- function setSwallowTouch
+-- @breif 자동으로 n초 후 라벨 영역 검사를 한다
+-------------------------------------
+function UI:setSwallowTouch()
+    self.root:setSwallowTouch(false)
+end
+
+-------------------------------------
+-- function startUpdate
+-- @breif 
+-------------------------------------
+function UI:startUpdate(func, priority)
+    if (func == nil) then
+        error('메소드가 없네요..')
+    end
+    self.root:scheduleUpdateWithPriorityLua(func, priority or 0)
+end

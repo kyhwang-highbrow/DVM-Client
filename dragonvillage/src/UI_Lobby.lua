@@ -181,6 +181,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('event_lucky_fortune_bag')) then
+            co:work('# 복주머니 이벤트 정보 받는 중')
+            g_eventLFBagData:request_eventLFBagInfo(false, co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
         if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
         	co:work('# 그랜드 콜로세움 정보 받는 중')
@@ -718,6 +724,7 @@ function UI_Lobby:initButton()
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
+    vars['luckyfortunebagEventBtn']:registerScriptTapHandler(function() self:click_lfbagBtn() end) -- 복주머니 이벤트
     vars['alphabetBtn']:registerScriptTapHandler(function() self:click_alphabetBtn() end) -- 알파벳 이벤트
     vars['quizEventBtn']:registerScriptTapHandler(function() self:click_quizEventBtn() end) -- 드래곤 이미지 퀴즈 이벤트
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
@@ -1436,6 +1443,17 @@ function UI_Lobby:click_diceBtn()
 end
 
 -------------------------------------
+-- function click_lfbagBtn
+-- @brief 주사위 이벤트
+-------------------------------------
+function UI_Lobby:click_lfbagBtn()
+    if (not g_hotTimeData:isActiveEvent('event_lucky_fortune_bag')) then
+        return
+    end
+    g_eventData:openEventPopup('event_lucky_fortune_bag')
+end
+
+-------------------------------------
 -- function click_alphabetBtn
 -- @brief 알파벳 이벤트
 -------------------------------------
@@ -1891,6 +1909,7 @@ function UI_Lobby:refresh_hottime()
 	
 	-- 할인 이벤트
 	local l_dc_event = g_fevertimeData:getDiscountEventList()
+    ccdump(l_dc_event)
     for i, dc_target in ipairs(l_dc_event) do
         g_fevertimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
     end
@@ -1934,33 +1953,23 @@ function UI_Lobby:update_rightButtons()
     vars['capsuleBtn']:setVisible(false)
 
     -- 교환소 버튼 (수집 이벤트)
-    if g_hotTimeData:isActiveEvent('event_exchange') then
-        vars['exchangeBtn']:setVisible(true)
-    else
-        vars['exchangeBtn']:setVisible(false)
-    end
+    vars['exchangeBtn']:setVisible(g_hotTimeData:isActiveEvent('event_exchange'))
 
     -- 주사위 버튼
-    if g_hotTimeData:isActiveEvent('event_dice') then
-        vars['diceBtn']:setVisible(true)
-    else
-        vars['diceBtn']:setVisible(false)
-    end
+    vars['diceBtn']:setVisible(g_hotTimeData:isActiveEvent('event_dice'))
 
     -- 빙고 이벤트 버튼
-    if g_hotTimeData:isActiveEvent('event_bingo') then
-        vars['bingoBtn']:setVisible(true)
-    else
-        vars['bingoBtn']:setVisible(false)
-    end
+    vars['bingoBtn']:setVisible(g_hotTimeData:isActiveEvent('event_bingo'))
 
     -- 알파벳 이벤트
-    local visible = g_hotTimeData:isActiveEvent('event_alphabet')
-    vars['alphabetBtn']:setVisible(visible)
+    vars['alphabetBtn']:setVisible(g_hotTimeData:isActiveEvent('event_alphabet'))
 
     -- 드래곤 이미지 퀴즈 이벤트
     vars['quizEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_image_quiz'))
-
+    
+    -- 복주머니 이벤트
+    vars['luckyfortunebagEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_lucky_fortune_bag'))
+    
     -- 황금던전 버튼
     if g_hotTimeData:isActiveEvent('event_gold_dungeon') then
         vars['goldDungeonBtn']:setVisible(true)
@@ -2132,6 +2141,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'exchangeBtn')
     table.insert(t_btn_name, 'adventBtn')
     table.insert(t_btn_name, 'quizEventBtn')
+    table.insert(t_btn_name, 'luckyfortunebagEventBtn')
     
     -- 패키지
     table.insert(t_btn_name, 'levelupBtn')

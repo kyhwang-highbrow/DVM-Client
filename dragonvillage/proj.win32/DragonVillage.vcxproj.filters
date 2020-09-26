@@ -4609,6 +4609,18 @@
     <None Include="..\src\UI_ButtonPersonalpack.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_EventLFBag.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\UI_EventLFBag.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructEventLFBag.lua">
+      <Filter>lua\struct</Filter>
+    </None>
+    <None Include="..\src\UI_EventLFBagRankingPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -4685,6 +4697,9 @@
     </Filter>
     <Filter Include="lua\table">
       <UniqueIdentifier>{41e0e488-b16e-4b5d-99b0-5a640ea0005d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\struct">
+      <UniqueIdentifier>{b57ded2d-0229-4bbe-bf3b-a02e5a1f2a82}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

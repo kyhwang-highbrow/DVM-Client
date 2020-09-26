@@ -281,6 +281,9 @@ function ServerData:getInstance()
     -- 드래곤 이미지 퀴즈 이벤트
     g_eventImageQuizData = ServerData_EventImageQuiz()
 
+    -- 복주머니 이벤트
+    g_eventLFBagData = ServerData_EventLFBag()
+
     return g_serverData
 end
 
