@@ -110,6 +110,9 @@ local TableInfo = {
         table_clanwar_group = {'table_clanwar_group', 'idx', true}, -- 클랜전 조별리그 매치 방식
         anc_floor_reward = {'table_ancient_reward', 'stage', false}, -- 고대의 탑(시험의 탑)
         table_fevertime = {'table_fevertime', 'type', false}, -- 핫타임
+
+        -- 복주머니 이벤트
+        table_lucky_fortune_bag = {'table_lucky_fortune_bag', 'id', false}
     }
 
 -------------------------------------

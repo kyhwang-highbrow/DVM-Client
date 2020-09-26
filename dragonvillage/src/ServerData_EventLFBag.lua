@@ -59,7 +59,6 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
 
     -- 콜백
     local function success_cb(ret)
-        ccdump(ret)
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
 
         if finish_cb then
@@ -95,15 +94,17 @@ function ServerData_EventLFBag:response_eventLFBagInfo(event_lfbag_info)
 end
 
 -------------------------------------
--- function request_eventLFBagNext
+-- function request_eventLFBagOpen
 -- @brief 이벤트 재화 사용
 -------------------------------------
-function ServerData_EventLFBag:request_eventLFBagNext(finish_cb, fail_cb)
+function ServerData_EventLFBag:request_eventLFBagOpen(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 	
     -- 콜백
     local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+        self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
         if finish_cb then
             finish_cb(ret)
         end
@@ -111,7 +112,7 @@ function ServerData_EventLFBag:request_eventLFBagNext(finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/lucky_fortune_bag/next')
+    ui_network:setUrl('/shop/lucky_fortune_bag/open')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -123,16 +124,17 @@ function ServerData_EventLFBag:request_eventLFBagNext(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_eventLFBagStop
+-- function request_eventLFBagReward
 -- @brief 이벤트 재화 누적 보상
 -------------------------------------
-function ServerData_EventLFBag:request_eventLFBagStop(finish_cb, fail_cb)
+function ServerData_EventLFBag:request_eventLFBagReward(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
-    local function success_cb(ret)                    
-
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+        self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
         if finish_cb then
             finish_cb(ret)
         end
@@ -140,7 +142,7 @@ function ServerData_EventLFBag:request_eventLFBagStop(finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/lucky_fortune_bag/stop')
+    ui_network:setUrl('/shop/lucky_fortune_bag/reward')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

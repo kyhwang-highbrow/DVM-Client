@@ -4621,6 +4621,9 @@
     <None Include="..\src\UI_EventLFBagRankingPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableEventLFBag.lua">
+      <Filter>lua\table</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

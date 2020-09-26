@@ -610,6 +610,11 @@ function UIC_TableView:__indexFromOffset(offset)
         local index = math_floor(low + (high - low) / 2)
         local cellStart = self._vCellsPositions[index];
         local cellEnd = self._vCellsPositions[index + 1];
+        
+        -- @mskim tableview 에러를 잡기 위한 우회처리
+        if (not cellStart or not cellEnd) then
+            break
+        end
 
         if (search >= cellStart and search <= cellEnd) then
             return index
@@ -1529,7 +1534,7 @@ end
 -- @brief 갯수 부족시 가운데 정렬
 -------------------------------------
 function UIC_TableView:destroy()
-    for i, v in self.m_itemList do
+    for i, v in pairs(self.m_itemList) do
         self:delItem(i)
     end
     self.m_itemList = nil
