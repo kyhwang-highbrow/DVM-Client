@@ -33,9 +33,8 @@ function UI_EventLFBagRankingRewardPopup:initUI(user_info, reward_info)
     -- 지난 시즌 랭킹 정보
     vars['rankNode']:addChild(rank_ui.root)
 
-    local dungeon_name = Str('복주머니 이벤트')
-    vars['descLabel']:setString(Str('{1}가 종료되었습니다.', dungeon_name))
-    vars['rankLabel']:setString(Str('{1} 랭킹', dungeon_name))
+    vars['descLabel']:setString(Str('이벤트가 종료되었습니다.'))
+    vars['rankLabel']:setString(Str('랭킹'))
 
     -- 보상 카드
     local interval = 95
