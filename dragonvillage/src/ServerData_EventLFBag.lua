@@ -189,7 +189,7 @@ end
 -------------------------------------
 -- function request_eventLFBagRank
 -------------------------------------
-function ServerData_EventLFBag:request_eventLFBagRank(type, offset, finish_cb, fail_cb)
+function ServerData_EventLFBag:request_eventLFBagRank(rank_type, offset, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
     local offset = offset or 0
@@ -221,6 +221,7 @@ function ServerData_EventLFBag:request_eventLFBagRank(type, offset, finish_cb, f
     ui_network:setParam('uid', uid)
     ui_network:setParam('offset', offset)
     ui_network:setParam('limit', rank_cnt)
+    ui_network:setParam('type', rank_type)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
