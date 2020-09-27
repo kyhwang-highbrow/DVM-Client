@@ -108,7 +108,7 @@ function UI_EventLFBag:refresh()
         lfbag_ani_lv = 4
     elseif (lv >= 8) then
         lfbag_ani_lv = 3
-    elseif (lv >= 5) then
+    elseif (lv >= 4) then
         lfbag_ani_lv = 2
     else
         lfbag_ani_lv = 1
