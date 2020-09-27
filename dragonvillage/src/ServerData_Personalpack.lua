@@ -356,7 +356,8 @@ function ServerData_Personalpack:isBuyAll(ppid)
         end
     end
 
-    return count > table.count(l_pid)
+    -- 상품의 숫자보다 count(구매 완료) 숫자가 크거나 같으면 true를 리턴
+    return count >= table.count(l_pid)
 end
 
 -------------------------------------
