@@ -134,7 +134,11 @@ function ServerData_Event:getEventPopupTabList()
             
         -- 한정 이벤트 체크
         elseif (event_id == 'limited') then
-            visible = g_hotTimeData:isActiveEvent(event_type)
+            if (event_type == 'event_lucky_fortune_bag') then
+                visible = g_eventLFBagData:canOpenUI()
+            else
+				visible = g_hotTimeData:isActiveEvent(event_type)
+            end
             
         elseif (event_type == 'event_1st_comeback') then
 		    visible = self:isComebackUser_1st()
@@ -181,7 +185,7 @@ function ServerData_Event:getEventPopupTabList()
             self:setEventTabNoti(event_popup_tab)
         end
     end
-
+    
     return item_list
 end
 

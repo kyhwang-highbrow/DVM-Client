@@ -18,13 +18,18 @@ UI_EventLFBagRankingPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventLFBagRankingPopup:init()
+function UI_EventLFBagRankingPopup:init(use_for_inner_ui)
     self.m_rankOffset = 1
     local vars = self:load('event_lucky_fortune_bag_ranking_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
 
-	-- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventLFBagRankingPopup')
+    if (use_for_inner_ui) then
+        -- nothing to do
+    else
+        UIManager:open(self, UIManager.POPUP)
+	    -- backkey 지정
+	    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventLFBagRankingPopup')
+    end
+
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -275,6 +280,7 @@ end
 function UI_EventLFBagRankingPopup:makeRankRewardTableView()
     local node = self.vars['userRewardNode']
 
+    require('TableEventLFBag')
     local l_item_list = TableEventLFBagRank().m_orgTable
 
     -- 테이블 뷰 인스턴스 생성
@@ -387,15 +393,13 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -------------------------------------
 UI_EventLFBagRankingListItem = class(PARENT, {
         m_rankInfo = '',
-        m_lastData= '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventLFBagRankingListItem:init(t_rank_info, t_last_data) -- t_rank_info, t_last_data(보상 출력해줄 때만 값이 들어옴)
+function UI_EventLFBagRankingListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
-    self.m_lastData = t_last_data
     local vars = self:load('event_lucky_fortune_bag_ranking_popup_item_02.ui')
 
     self:initUI()
@@ -409,7 +413,6 @@ end
 function UI_EventLFBagRankingListItem:initUI()
     local vars = self.vars
     local struct_rank = self.m_rankInfo
-    local t_last_info = self.m_lastData
     local rank = struct_rank.m_rank
 
     local tag = struct_rank.m_tag
@@ -428,27 +431,15 @@ function UI_EventLFBagRankingListItem:initUI()
         return
     end
 
-    -- 보상 출력하는 경우 self.m_lastData의 데이터를 사용
-    if (self.m_lastData) then
-        -- 점수 표시
-        vars['scoreLabel']:setString(Str('{1}점', t_last_info['point']))
-        -- 순위 표시
-        vars['rankingLabel']:setString(Str('{1}위', t_last_info['rank']))
-
-    -- 랭킹 출력하는 경우 self.m_rankInfo의 데이터를 사용
-    else
-        -- 점수 표시
-        local score_str = struct_rank:getScoreStr()
-        vars['scoreLabel']:setString(score_str)
-        -- 순위 표시
-        local rank_str = struct_rank:getRankStr()
-        vars['rankingLabel']:setString(rank_str)
-    end
+    -- 점수 표시
+    local score_str = struct_rank:getScoreStr()
+    vars['scoreLabel']:setString(score_str)
+    -- 순위 표시
+    local rank_str = struct_rank:getRankStr()
+    vars['rankingLabel']:setString(rank_str)
 
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['userLabel']:setString(struct_rank:getUserText())
-
-
 
     do -- 리더 드래곤 아이콘
         local ui = struct_rank:getLeaderDragonCard()

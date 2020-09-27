@@ -148,6 +148,7 @@ local t_module = {
     'StructClanWarMatch',
     'StructPackageState',
     'StructEventLFBag',
+    'StructEventLFBagRanking',
 
 	-- ServerData
     'ServerData',

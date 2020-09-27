@@ -6,6 +6,10 @@ ServerData_EventLFBag = class({
         m_structLFBag = 'StructEventLFBag',
 
         m_myRanking = 'StructEventLFBagRanking',
+        
+        -- 시즌 보상 수령 시 사용
+        m_lastInfo = '',
+        m_rewardInfo = '',
 
         -- 랭킹 정보에 사용
         m_nGlobalOffset = 'number', -- 랭킹
@@ -60,6 +64,19 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
     -- 콜백
     local function success_cb(ret)
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
+
+        -- 보상이 들어왔을 경우 정보 저장, nil 여부로 보상 확인
+        if (ret['lastinfo']) then
+            self.m_lastInfo = StructEventLFBagRanking():apply(ret['lastinfo'])
+        else
+            self.m_lastInfo = nil
+        end
+
+        if (ret['reward_info']) then
+            self.m_rewardInfo = ret['reward_info']
+        else
+            self.m_rewardInfo = nil
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -202,4 +219,17 @@ end
 -------------------------------------
 function ServerData_EventLFBag:refreshMyRanking(t_my_info)
     self.m_myRanking:apply(t_my_info)
+end
+
+-------------------------------------
+-- function showRewardPopupIfNeed
+-------------------------------------
+function ServerData_EventLFBag:showRewardPopupIfNeed()
+    local last_info = self.m_lastInfo
+    local reward_info = self.m_rewardInfo
+
+    if (last_info and reward_info) then
+        require('UI_EventLFBagRankingRewardPopup')
+        UI_EventLFBagRankingRewardPopup(last_info, reward_info)
+    end
 end

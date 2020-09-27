@@ -33,6 +33,9 @@ end
 function UI_EventLFBag:initUI()
     local vars = self.vars
     self:makeRewardTableView()
+
+    -- 이벤트 UI 진입 시 시즌이 끝났다면 보상 팝업을 출력한다
+    g_eventLFBagData:showRewardPopupIfNeed()
 end
 
 -------------------------------------
