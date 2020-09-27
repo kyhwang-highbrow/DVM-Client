@@ -62,7 +62,7 @@ function UI_EventLFBag:refresh()
     
     -- 보유 수
     local count_str = self.m_structLFBag:getCount()
-    vars['numberLabel']:setString(count_str)
+    vars['numberLabel']:setString(comma_value(count_str))
 
     -- 레벨
     local lv = self.m_structLFBag:getLv()
@@ -249,6 +249,9 @@ function UI_EventLFBag:click_openBtn()
         return
     end
 
+     -- 레벨
+    local lv = self.m_structLFBag:getLv()
+
     -- 복주머니 열기
     local function do_open()
         local function finish_cb(ret)
@@ -265,8 +268,15 @@ function UI_EventLFBag:click_openBtn()
             else
                 SoundMgr:playEffect('UI', 'ui_eat')
                 
+                
+
                 local msg = Str('열기 실패')
-                local submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n복주머니의 단계가 초기화됩니다.')
+                local submsg = ''
+                if (lv <= 7) then
+                    submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n복주머니의 단계가 초기화됩니다.')
+                else
+                    submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n복주머니의 단계가 초기화됩니다.')
+                end
                 MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg)
                 
                 -- 보상 수령
@@ -274,6 +284,8 @@ function UI_EventLFBag:click_openBtn()
                     self:reset()
                 end
             end
+
+            g_serverData:receiveReward(ret)
 
             self:refresh()
         end    
@@ -283,7 +295,7 @@ function UI_EventLFBag:click_openBtn()
     -- 누적보상 받지 못할 리스크가 있는 경우
     if (self.m_structLFBag:hasRisk()) then
         local msg = Str('복주머니를 여시겠습니까?')
-        local submsg = Str('단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!')
+        local submsg = Str('{1} 단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!', 8)
         MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, do_open)
     else
         do_open()

@@ -148,7 +148,7 @@ function ServerData_EventLFBag:request_eventLFBagOpen(finish_cb, fail_cb)
 	
     -- 콜백
     local function success_cb(ret)
-        g_serverData:receiveReward(ret)
+        --g_serverData:receiveReward(ret)
 
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
 
