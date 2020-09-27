@@ -25,7 +25,7 @@ function UI_EventLFBagRankingPopup:init(use_for_inner_ui)
     if (use_for_inner_ui) then
         -- nothing to do
     else
-        UIManager:open(self, UIManager.POPUP)
+        UIManager:open(self, UIManager.SCENE)
 	    -- backkey 지정
 	    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventLFBagRankingPopup')
     end

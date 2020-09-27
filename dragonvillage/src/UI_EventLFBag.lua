@@ -9,6 +9,7 @@ UI_EventLFBag = class(PARENT,{
         m_cellUIList = 'table',
 
         m_toastUI = 'cc.Node',
+        m_scrollView = 'cc.ScrollView',
     })
 
 -------------------------------------
@@ -67,6 +68,8 @@ function UI_EventLFBag:refresh()
     -- 레벨
     local lv = self.m_structLFBag:getLv()
     vars['levelLabel']:setString(Str('복주머니 {1}단계', lv))
+    vars['levelLabel']:stopAllActions()
+    cca.uiReactionSlow(vars['levelLabel'], 1, 1, 1.2)
 
     -- 최대 레벨 처리 .. 열기 버튼으로 보상을 수령한다.
     if self.m_structLFBag:isMax() then
@@ -75,6 +78,8 @@ function UI_EventLFBag:refresh()
     else
         vars['openLabel']:setString(Str('{1}단계 열기', lv))
         vars['percentageLabel']:setString(Str('성공 확률 {1}%', self.m_structLFBag:getSuccessProb()))
+        vars['percentageLabel']:stopAllActions()
+        cca.uiReactionSlow(vars['percentageLabel'], 1, 1, 1.2)
     end
     
     -- 현재 레벨의 보상 목록
@@ -82,6 +87,7 @@ function UI_EventLFBag:refresh()
 
     -- 누적 보상 목록
     local l_cum_reward_list = self.m_structLFBag:getCumulativeRewardList()
+    local last_node = nil
     for i = 1, 10 do
         vars['itemNode' .. i]:removeAllChildren()
 
@@ -89,7 +95,11 @@ function UI_EventLFBag:refresh()
         if (t_item) then
             local card_ui = MakeItemCard(t_item)
             vars['itemNode' .. i]:addChild(card_ui.root)
+            last_node = card_ui.root
         end
+    end
+    if last_node then
+        cca.uiReactionSlow(last_node,1, 1, 1.5)
     end
     
     -- 복주머니 애니메이션 4,3,2,1
@@ -172,6 +182,7 @@ end
 -------------------------------------
 function UI_EventLFBag:makeScrollView()
     local scroll_view = cc.ScrollView:create()
+    self.m_scrollView = scroll_view
 
     -- 스크롤뷰에서 사용할 사이즈
     local interval = 53
