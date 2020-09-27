@@ -6,8 +6,7 @@ local PARENT = UI
 UI_EventLFBag = class(PARENT,{
         m_structLFBag = 'structEventLFBag',
 
-        m_tableViewCumReward = 'UIC_TableView',
-        m_tableViewReward = 'UIC_TableView',
+        m_cellUIList = 'table',
 
         m_toastUI = 'cc.Node',
     })
@@ -20,6 +19,7 @@ function UI_EventLFBag:init()
 
     self.m_structLFBag = g_eventLFBagData:getLFBag()
     self.m_toastUI = self:makeToast()
+    self.m_cellUIList = {}
 
     self:initUI()
     self:initButton()
@@ -37,7 +37,7 @@ end
 function UI_EventLFBag:initUI()
     local vars = self.vars
 
-    self:makeRewardTableView()
+    self:makeScrollView()
 end
 
 -------------------------------------
@@ -78,7 +78,7 @@ function UI_EventLFBag:refresh()
     end
     
     -- 현재 레벨의 보상 목록
-    self.m_tableViewReward:setItemList(self.m_structLFBag:getRewardList())
+    self:updateScrollView()
 
     -- 누적 보상 목록
     local l_cum_reward_list = self.m_structLFBag:getCumulativeRewardList()
@@ -130,19 +130,6 @@ function UI_EventLFBag:update(dt)
 end
 
 -------------------------------------
--- function makeTableView
--------------------------------------
-function UI_EventLFBag:makeTableView(node)
-    -- 테이블 뷰 인스턴스 생성
-    local tableView = UIC_TableView(node)
-    tableView.m_defaultCellSize = cc.size(200, 50 + 3)
-    tableView:setCellUIClass(self.makeCellUI)
-    tableView:setCellCreateDirecting(99--[[연출 제외]])
-    tableView:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    return tableView
-end
-
--------------------------------------
 -- function onEnterTab
 -- @brief
 -------------------------------------
@@ -154,7 +141,7 @@ end
 -- function reset
 -------------------------------------
 function UI_EventLFBag:reset()
-    self:makeRewardTableView()
+
 end
 
 -------------------------------------
@@ -163,6 +150,7 @@ end
 function UI_EventLFBag:showCurrntReward(item_str)
     local vars = self.m_toastUI.vars
 
+    -- 현재 보상 정보 파싱
     local l_item_list = g_itemData:parsePackageItemStr(item_str)
     local t_item = l_item_list[1]
 
@@ -172,21 +160,60 @@ function UI_EventLFBag:showCurrntReward(item_str)
     local item_count_str = string.format('%s x%s', TableItem:getItemName(item_id), comma_value(t_item['count']))
     vars['itemLabel']:setString(item_count_str)
 
+    self.m_toastUI:setOpacityChildren(true)
+
+    -- 등장 연출
 	cca.fadeInDelayOut(self.m_toastUI.root, 0.1, 0.5, 0.3)
 end
 
 -------------------------------------
--- function makeRewardTableView
+-- function makeScrollView
+-- @brief 안정성을 위해 스크롤뷰를 직접 생성하여 사용함
 -------------------------------------
-function UI_EventLFBag:makeRewardTableView()
-    local vars = self.vars
-    
-    -- 현재 보상 테이블 새로 생성
-    if (self.m_tableViewReward) then
-        self.m_tableViewReward:destroy()
+function UI_EventLFBag:makeScrollView()
+    local scroll_view = cc.ScrollView:create()
+
+    -- 스크롤뷰에서 사용할 사이즈
+    local interval = 53
+    local cell_count = 10
+    local normal_size = self.vars['rewardListNode']:getContentSize()
+    local content_size = cc.size(200, interval * cell_count)
+
+    -- 스크롤뷰 설정
+    scroll_view:setDockPoint(ZERO_POINT)
+    scroll_view:setAnchorPoint(ZERO_POINT)
+    scroll_view:setPosition(ZERO_POINT)
+    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    scroll_view:setNormalSize(normal_size)
+    scroll_view:setContentSize(content_size)
+    scroll_view:setTouchEnabled(true)
+
+    self.vars['rewardListNode']:addChild(scroll_view)
+
+    local height_half = content_size['height'] / 2
+
+    -- 컨테이너 상단 이동
+    local container_node = scroll_view:getContainer()
+    container_node:setPositionY(-height_half - interval/2)
+
+    -- 셀 미리 생성
+    for i = 1, cell_count do
+        local cell_ui = self.makeCellUI()
+        scroll_view:getContainer():addChild(cell_ui.root)
+        cell_ui.root:setPositionY(height_half + interval/2 + -interval * i)
+        table.insert(self.m_cellUIList, cell_ui)
     end
-    vars['rewardListNode']:removeAllChildren()
-    self.m_tableViewReward = self:makeTableView(vars['rewardListNode'])
+end
+
+-------------------------------------
+-- function updateScrollView
+-- @brief 획득 가능 보상 업데이트
+-------------------------------------
+function UI_EventLFBag:updateScrollView()
+    local l_reward_list = self.m_structLFBag:getRewardList()
+    for i, cell_ui in ipairs(self.m_cellUIList) do
+        self.updateCellUI(cell_ui, l_reward_list[i])
+    end
 end
 
 -------------------------------------
@@ -195,9 +222,11 @@ end
 function UI_EventLFBag:makeToast()
     local ui = UI()   
     ui:load('popup_toast_with_icon.ui')
-    ui:setOpacityChildren(true)
-    ui.root:setOpacity(0)
     self.root:addChild(ui.root)
+    
+    ui.root:setOpacity(0)
+    ui.root:setPositionY(100)
+
     return ui
 end
 
@@ -352,13 +381,30 @@ end
 -------------------------------------
 -- function makeCellUI
 -------------------------------------
-function UI_EventLFBag.makeCellUI(t_data)
+function UI_EventLFBag.makeCellUI()
     local cell_ui = class(UI, ITableViewCell:getCloneTable())()
-    local vars = cell_ui:load('event_lucky_fortune_bag_item.ui')
+    cell_ui:load('event_lucky_fortune_bag_item.ui')
+    cell_ui.vars['countLabel']:setString(math_random(1, 100))
+    cell_ui.root:setDockPoint(TOP_CENTER)
+    cell_ui.root:setAnchorPoint(TOP_CENTER)
 
+    return cell_ui
+end
+
+-------------------------------------
+-- function updateCellUI
+-------------------------------------
+function UI_EventLFBag.updateCellUI(cell_ui, t_data)
+    -- 데이터가 없는 경우 숨김 처리
+    if (t_data == nil) then
+        cell_ui.root:setVisible(false)
+        return
+    end
+
+    -- update cell
+    cell_ui.root:setVisible(true)
+    local vars = cell_ui.vars
     vars['itemNode']:addChild(IconHelper:getItemIcon(t_data['item_id']))
     vars['probLabel']:setString(string.format('%d%%', t_data['pick_weight']))
     vars['countLabel']:setString(comma_value(t_data['val']))
-
-    return cell_ui
 end
