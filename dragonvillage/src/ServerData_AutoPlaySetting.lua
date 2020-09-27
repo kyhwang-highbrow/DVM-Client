@@ -48,9 +48,9 @@ function ServerData_AutoPlaySetting:setDefaultSetting(mode, t_auto_play_setting)
         -- 패배시 연속 모험 종료
         ['stop_condition_lose'] = true,
         -- 드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료
-        ['stop_condition_dragon_lv_max'] = true,
+        ['stop_condition_dragon_lv_max'] = false, -- @sgkim 2020.09.27 기본값을 ture에서 false로 변경
 		-- 인연던전 발견 시 연속 모험 종료
-        ['stop_condition_find_rel_dungeon'] = true,
+        ['stop_condition_find_rel_dungeon'] = false, -- @sgkim 2020.09.27 기본값을 ture에서 false로 변경
 		-- 고대의탑 / 시험의탑 다음 층 도전
 		['tower_next_floor'] = false,
 		
