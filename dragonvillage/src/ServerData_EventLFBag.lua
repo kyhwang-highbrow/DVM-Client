@@ -5,8 +5,6 @@
 ServerData_EventLFBag = class({
         m_structLFBag = 'StructEventLFBag',
 
-        m_myRanking = 'StructEventLFBagRanking',
-        
         -- 시즌 보상 수령 시 사용
         m_lastInfo = '',
         m_rewardInfo = '',
@@ -14,6 +12,7 @@ ServerData_EventLFBag = class({
         -- 랭킹 정보에 사용
         m_nGlobalOffset = 'number', -- 랭킹
         m_lGlobalRank = 'list',
+        m_myRanking = 'StructEventLFBagRanking',
     })
 
 -------------------------------------
@@ -27,6 +26,20 @@ end
 -------------------------------------
 function ServerData_EventLFBag:getLFBag()
     return self.m_structLFBag
+end
+
+-------------------------------------
+-- function addLFBag
+-------------------------------------
+function ServerData_EventLFBag:addLFBag(lfbag_count)
+    if (not self:canPlay()) then
+        return
+    end
+    if (not self.m_structLFBag) then
+        return
+    end
+
+    self.m_structLFBag:addCount(lfbag_count)
 end
 
 -------------------------------------
@@ -67,6 +80,7 @@ function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb,
         require('UI_EventLFBagRankingRewardPopup')
         require('StructEventLFBag')
         require('StructEventLFBagRanking')
+        require('TableEventLFBag')
 
         self.m_structLFBag = StructEventLFBag()
         self.m_myRanking = StructEventLFBagRanking()
@@ -137,6 +151,7 @@ function ServerData_EventLFBag:request_eventLFBagOpen(finish_cb, fail_cb)
         g_serverData:receiveReward(ret)
 
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
+
         if finish_cb then
             finish_cb(ret)
         end

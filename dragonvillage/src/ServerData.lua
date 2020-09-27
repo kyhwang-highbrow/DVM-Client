@@ -720,6 +720,13 @@ function ServerData:networkCommonRespone_addedItems(ret)
         t_added_items['relation'] = nil
     end
 
+    -- [이벤트 재화]
+    -- 복주머니
+    if (t_added_items['lucky_fortune']) then
+        g_eventLFBagData:addLFBag(t_added_items['lucky_fortune'])
+        t_added_items['lucky_fortune'] = nil
+    end
+
     -- 이외에도 아이템 테이블에 존재하는 재화 정보는 갱신
     for k, v in pairs(t_added_items) do
         if (v) then

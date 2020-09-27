@@ -60,12 +60,20 @@ end
 -- function getRankStr
 -------------------------------------
 function StructEventLFBagRanking:getRankStr()
-    return Str('{1}위', comma_value(self.m_rank))
+    if (self.m_rank == 0) then
+        return '-'
+    else
+        return Str('{1}위', comma_value(self.m_rank))
+    end
 end
 
 -------------------------------------
 -- function getScoreStr
 -------------------------------------
 function StructEventLFBagRanking:getScoreStr()
-    return Str('{1}점', comma_value(self.m_rp))
+    local rp = self.m_rp
+    if (rp <= 0) then
+        rp = 0
+    end
+    return Str('{1}점', comma_value(rp))
 end

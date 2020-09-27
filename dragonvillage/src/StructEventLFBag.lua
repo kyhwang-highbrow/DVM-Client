@@ -77,6 +77,13 @@ function StructEventLFBag:getCount()
 end
 
 -------------------------------------
+-- function addCount
+-------------------------------------
+function StructEventLFBag:addCount(lfbag)
+    self['lucky_fortune'] = self['lucky_fortune'] + lfbag
+end
+
+-------------------------------------
 -- function getLv
 -------------------------------------
 function StructEventLFBag:getLv()
