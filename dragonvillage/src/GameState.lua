@@ -545,7 +545,7 @@ function GameState.update_enemy_appear(self, dt)
                 end)
             ))
 
-            self:setWave(world.m_waveMgr.m_currWave)
+            self:setWave(world.m_waveMgr.m_currWave, world.m_waveMgr.m_maxWave)
             
 			-- 웨이브 시작 이벤트 전달
             world:dispatch('wave_start')
@@ -1262,8 +1262,22 @@ end
 
 -------------------------------------
 -- function setWave
+-- @brief
+-- @param wave number 현재 웨이브
+-- @param max_wave number 현재 스테이지의 최대 웨이브
 -------------------------------------
-function GameState:setWave(wave)
+function GameState:setWave(wave, max_wave)
+
+    -- @sgkim 2020.09.27
+    -- 기존에는 3웨이브, 10웨이브(인연던전)만 사용이 되었다.
+    -- 2웨이브, 5웨이브 등이 추가될 수 있는 구조를 추가했다.
+    if (max_wave ~= nil) and (max_wave ~= 3) then
+        local visual_name = string.format('%02dwave_%02d', max_wave, wave)
+        self.m_world.m_inGameUI.vars['waveVisual']:setVisual('wave', visual_name)
+        return
+    end
+
+    -- 기존 3웨이브 코드는 유지
     self.m_world.m_inGameUI.vars['waveVisual']:setVisual('wave', string.format('%02d', wave))
 end
 
