@@ -1252,6 +1252,14 @@ function UI_ReadySceneNew:checkFevertimePopupCondition()
         return false
     end
 
+    -- 하루에 한 번만 팝업을 띄움
+    local save_key = 'ready_scene_fevertime_popup'
+    local is_view = g_settingData:get('event_full_popup', save_key) or false
+    if (is_view == true) then
+        return false
+    end
+    g_settingData:applySettingData(true, 'event_full_popup', save_key)
+
     return true, usable_fevertime_count
 end
 
