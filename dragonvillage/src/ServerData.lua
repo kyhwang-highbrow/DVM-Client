@@ -801,6 +801,31 @@ function ServerData:confirm_reward(ret)
     end
 end
 
+-------------------------------------
+-- function receiveReward
+-- @brief 보상 정보
+-------------------------------------
+function ServerData:receiveReward(ret)
+    -- 우편, 토스트 알림
+    if (ret['new_mail']) then
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+
+        g_highlightData:setHighlightMail()
+
+    -- 우편, 보상 리스트 팝업
+    elseif (ret['mail_item_info']) then
+        UI_MailRewardPopup(ret['mail_item_info'])
+
+    -- 즉시 수령, 보상 리스트 팝업
+    elseif (ret['added_items']) then
+        g_serverData:networkCommonRespone_addedItems(ret)
+        local l_item = ret['added_items']['items_list']
+        UI_ObtainPopup(l_item)
+
+    end
+end
+
 --[[
 
 	-- 통신 형식 예시

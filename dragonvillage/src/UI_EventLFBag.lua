@@ -95,6 +95,7 @@ function UI_EventLFBag:update(dt)
         time_label:setString('')
     end
     
+    -- 남은 시간
     local time_label = self.vars['timeLabel']
     if time_label then
         local curr_time = Timer:getServerTime()
@@ -175,14 +176,12 @@ function UI_EventLFBag:click_openBtn()
             if (ret['is_success']) then
                 UIManager:toastNotificationGreen(Str('성공') .. '!')
                 UIManager:toastNotificationGreen(Str('레벨이 증가했습니다.'))
-
+                SoundMgr:playEffect('UI', 'ui_out_item_get')
             -- 실패
             else
                 UIManager:toastNotificationRed(Str('실패') .. '!')
                 UIManager:toastNotificationRed(Str('복주머니가 초기화됩니다.'))
-                if (ret['added_items']) then
-                    local l_item = ret['added_items']['items_list']
-                    UI_ObtainPopup(l_item)
+                if (ret['new_mail']) then
                     self:makeRewardTableView()
                 end
                 SoundMgr:playEffect('UI', 'ui_in_item_get')
@@ -224,8 +223,7 @@ function UI_EventLFBag:click_stopBtn(is_max)
 
     local function ok_btn_cb()
         local function finish_cb(ret)
-            if (ret['added_items']) then
-                UIManager:toastNotificationGreen(Str('보상이 지급되었습니다'))
+            if (ret['new_mail']) then
                 self:makeRewardTableView()
             end
 

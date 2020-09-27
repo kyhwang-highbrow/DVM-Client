@@ -1057,6 +1057,13 @@ function UI_Lobby:update_highlight()
             end
         end
 
+        do -- 복주머니 이벤트
+            if (g_eventLFBagData) then
+                vars['luckyfortunebagNotiSprite']:setVisible(g_eventLFBagData:isHighlightRed())
+                --vars['quizEventNotiYellow']:setVisible(g_eventLFBagData:isHighlightYellow())
+            end
+        end
+
         self.m_bUpdatingHighlights = false
     end
 
@@ -1818,6 +1825,7 @@ function UI_Lobby:update(dt)
         map_check_event['event_alphabet'] = 'alphabetLabel' -- 알파벳 이벤트
         map_check_event['event_exchange'] = 'exchangeLabel' -- 수집 이벤트
         map_check_event['event_bingo'] = 'bingoLabel' -- 빙고 이벤트
+        map_check_event['event_lucky_fortune_bag'] = 'luckyfortunebagLabel' -- 복주머니 이벤트
         
         for event_name, label_name in pairs(map_check_event) do
             local remain_text = g_hotTimeData:getEventRemainTimeText(event_name)
@@ -1835,7 +1843,6 @@ function UI_Lobby:update(dt)
         self:update_leftButtons()
     end
 
-    
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 end

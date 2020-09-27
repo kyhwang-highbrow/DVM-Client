@@ -84,6 +84,13 @@ function StructEventLFBag:getLv()
 end
 
 -------------------------------------
+-- function isEmpty
+-------------------------------------
+function StructEventLFBag:isEmpty()
+    return self['lucky_fortune'] == 0
+end
+
+-------------------------------------
 -- function isMax
 -- @brief 최대 레벨
 -------------------------------------
@@ -97,6 +104,14 @@ end
 -------------------------------------
 function StructEventLFBag:hasRisk()
     return self['level'] + 1 >= RISK_LV
+end
+
+-------------------------------------
+-- function hasReward
+-- @brief 누적 보상 있음
+-------------------------------------
+function StructEventLFBag:hasReward()
+    return table.count(self:getRewardList()) > 0
 end
 
 -------------------------------------

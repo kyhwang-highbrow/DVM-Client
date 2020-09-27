@@ -120,7 +120,8 @@ function ServerData_EventLFBag:request_eventLFBagOpen(finish_cb, fail_cb)
 	
     -- 콜백
     local function success_cb(ret)
-        g_serverData:networkCommonRespone_addedItems(ret)
+        g_serverData:receiveReward(ret)
+
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
         if finish_cb then
             finish_cb(ret)
@@ -150,7 +151,8 @@ function ServerData_EventLFBag:request_eventLFBagReward(finish_cb, fail_cb)
 
     -- 콜백
     local function success_cb(ret)
-        g_serverData:networkCommonRespone_addedItems(ret)
+        g_serverData:receiveReward(ret)
+
         self:response_eventLFBagInfo(ret['lucky_fortune_bag_info'])
         if finish_cb then
             finish_cb(ret)
@@ -232,4 +234,21 @@ function ServerData_EventLFBag:showRewardPopupIfNeed()
         require('UI_EventLFBagRankingRewardPopup')
         UI_EventLFBagRankingRewardPopup(last_info, reward_info)
     end
+end
+
+-------------------------------------
+-- function isHighlightRed
+-- @brief 빨간 느낌표 아이콘 출력 여부
+-------------------------------------
+function ServerData_EventLFBag:isHighlightRed()
+    if (self.m_structLFBag == nil) then
+        return false
+    end
+    
+    -- 복주머니 없음
+    if (self.m_structLFBag:isEmpty()) then
+        return false
+    end
+
+    return true
 end

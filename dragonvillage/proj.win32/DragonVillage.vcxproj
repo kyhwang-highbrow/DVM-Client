@@ -889,6 +889,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructEventDiceInfo.lua" />
     <None Include="..\src\StructEventIllusion.lua" />
     <None Include="..\src\StructEventLFBag.lua" />
+    <None Include="..\src\StructEventLFBagRanking.lua" />
     <None Include="..\src\StructEventMandragoraQuest.lua" />
     <None Include="..\src\StructEventMatchCard.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
@@ -1298,6 +1299,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventImageQuizResult.lua" />
     <None Include="..\src\UI_EventLFBag.lua" />
     <None Include="..\src\UI_EventLFBagRankingPopup.lua" />
+    <None Include="..\src\UI_EventLFBagRankingRewardPopup.lua" />
     <None Include="..\src\UI_EventMandragoraQuest.lua" />
     <None Include="..\src\UI_EventMandragoraQuestListItem.lua" />
     <None Include="..\src\UI_EventMatchCard.lua" />

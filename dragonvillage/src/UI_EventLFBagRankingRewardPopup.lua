@@ -40,7 +40,7 @@ function UI_EventLFBagRankingRewardPopup:initUI(user_info, reward_info)
 
     -- 보상 카드
     local interval = 95
-    local count = #reward_info
+    local count = table.count(reward_info)
     local l_pos = getSortPosList(interval, count)
 
     for i, data in ipairs(reward_info) do
