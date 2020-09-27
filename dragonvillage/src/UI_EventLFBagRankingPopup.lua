@@ -443,7 +443,6 @@ function UI_EventLFBagRankingListItem:initUI()
     do -- 리더 드래곤 아이콘
         local ui = struct_rank:getLeaderDragonCard()
         if ui then
-            ui.root:setSwallowTouch(false)
             vars['profileNode']:addChild(ui.root)
             
 			ui.vars['clickBtn']:registerScriptTapHandler(function() 
@@ -508,9 +507,7 @@ function UI_EventLFBagRankingPopup.makeCellUIRankReward(t_reward_info)
     -- 보상 정보
     local l_item_list = g_itemData:parsePackageItemStr(t_reward_info['reward'])
     for i, t_item in pairs(l_item_list) do
-        local item_id = t_item['item_id']
-        local count = t_item['count']
-        local card_ui = UI_ItemCard(item_id, count)
+        local card_ui = MakeItemCard(t_item)
         card_ui.root:setScale(100/150)
         vars['itemNode' .. i]:addChild(card_ui.root)
     end

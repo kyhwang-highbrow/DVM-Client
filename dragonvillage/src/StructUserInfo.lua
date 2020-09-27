@@ -79,6 +79,7 @@ function StructUserInfo:getLeaderDragonCard()
     end
 
     local card = UI_DragonCard(dragon_obj)
+    card.root:setSwallowTouch(false)
     return card
 end
 

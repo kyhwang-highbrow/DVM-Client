@@ -122,17 +122,19 @@ function UI_EventPopupTab_PurchaseDaily:refresh()
     -- 현재 점수 안내 문구 1
     local info_text
     local size
+    local info_pos_x
     if (target_point > purchase_point) then
         info_text = Str('오늘 {@yellow}{1}{@default}점을 달성했습니다. {@yellow}{2}{@default}점을 더 달성하고 추가 보상을 받으세요!', purchase_point, target_point - purchase_point)
         size = 850
-        pos_x = 0
+        info_pos_x = 0
     else
         info_text = Str('완료')
         size = 100
+        info_pos_x = pos_x
     end
     vars['infoLabel']:setString(info_text)
     vars['infoSprite']:setContentSize(size, 40)
-    vars['infoSprite']:setPositionX(pos_x)
+    vars['infoSprite']:setPositionX(info_pos_x)
     
     -- 현재 점수 안내 문구 2
     vars['boxInfoLabel']:setString(Str('매일 결제 점수 {@yellow}{1}{@default}점 달성 시 선물상자 추가 증정!', comma_value(target_point)))
@@ -242,12 +244,20 @@ function UI_EventPopupTab_PurchaseDaily:click_receiveBtn(reward_step)
     g_purchaseDailyData:request_purchasePointReward(version, reward_step, cb_func)
 end
 
+local mRewardDirecting = false
 -------------------------------------
 -- function click_rewardInfoBtn
 -- @brief
 -------------------------------------
 function UI_EventPopupTab_PurchaseDaily:click_rewardInfoBtn(tar_step)
     local vars = self.vars
+
+    -- 연출 중 다시 버튼이 눌리는 경우
+    if (mRewardDirecting) then
+        return
+    end
+
+    mRewardDirecting = true
 
     -- 화면 터치 시 개별 상자 보상 UI 숨김 처리를 위한 터치 레이어
     local visible_off_layer = UI()
@@ -256,6 +266,7 @@ function UI_EventPopupTab_PurchaseDaily:click_rewardInfoBtn(tar_step)
         -- 숨기고 터치 레이어는 삭제
 		vars['rewardInfoNode']:setVisible(false)
         visible_off_layer.root:removeFromParent(true)
+        mRewardDirecting = false
 	end
 	UIManager:makeSkipLayer(visible_off_layer, touch_func)
     self.root:addChild(visible_off_layer.root)

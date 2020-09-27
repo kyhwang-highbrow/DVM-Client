@@ -48,13 +48,8 @@ function TableEventLFBag:makeRewardList()
         -- 같은 레벨의 아이템을 하나의 테이블로 모음
         local l_ret = {}
         for _, t_data in ipairs(l_lv) do
-            local t_item = 
-            {
-                item_id = t_data['item_id'],
-                count = t_data['val']
-            }
             -- 인덱스 정렬
-            l_ret[t_data['idx']] = t_item
+            l_ret[t_data['idx']] = t_data
         end
 
         table.insert(self.m_rewardList, l_ret)

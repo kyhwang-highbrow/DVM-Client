@@ -426,3 +426,15 @@ function UI_ItemCard:showZeroCount()
         self.vars['numberLabel']:setString(0)
     end
 end
+
+
+
+-------------------------------------
+-- function MakeItemCard
+-- @brief t_item의 키를 입력하는 수고를 덜고자 함
+-------------------------------------
+function MakeItemCard(t_item)
+    local card_ui = UI_ItemCard(t_item['item_id'], t_item['count'], nil)
+    card_ui.root:setSwallowTouch(false)
+    return card_ui
+end
