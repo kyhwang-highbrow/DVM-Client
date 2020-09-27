@@ -88,6 +88,19 @@ function ServerData_PurchaseDaily:getTotalStep(version)
 end
 
 -------------------------------------
+-- function canCollectPoint
+-- @brief
+-------------------------------------
+function ServerData_PurchaseDaily:canCollectPoint(version)
+    local curr_step = self:getCurrentStep(version)
+    local clear_step = self:getClearStep(version)
+    local purchase_point = self:getPurchasePoint(version)
+    local target_point = self:getTargetPoint(version, curr_step)
+
+    return (target_point > purchase_point) and (curr_step > clear_step)
+end
+
+-------------------------------------
 -- function getRewardList
 -- @brief
 -------------------------------------

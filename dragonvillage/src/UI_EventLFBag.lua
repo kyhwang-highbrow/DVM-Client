@@ -166,6 +166,7 @@ function UI_EventLFBag:showCurrntReward(item_str)
 
     -- 정보 입력
     local item_id = t_item['item_id']
+    vars['itemNode']:removeAllChildren(true)
     vars['itemNode']:addChild(IconHelper:getItemIcon(item_id))
     local item_count_str = string.format('%s x%s', TableItem:getItemName(item_id), comma_value(t_item['count']))
     vars['itemLabel']:setString(item_count_str)
@@ -427,6 +428,7 @@ function UI_EventLFBag.updateCellUI(cell_ui, t_data)
     -- update cell
     cell_ui.root:setVisible(true)
     local vars = cell_ui.vars
+    vars['itemNode']:removeAllChildren(true)
     vars['itemNode']:addChild(IconHelper:getItemIcon(t_data['item_id']))
     vars['probLabel']:setString(string.format('%d%%', t_data['pick_weight']))
     vars['countLabel']:setString(comma_value(t_data['val']))
