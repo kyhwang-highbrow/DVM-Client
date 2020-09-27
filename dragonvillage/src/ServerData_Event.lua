@@ -347,6 +347,26 @@ function ServerData_Event:getEventFullPopupList()
                     event_type = event_type .. ';' .. event_id
                 end
 
+            -- 일일 충전 선물 이벤트
+            elseif (event_type == 'purchase_daily') then
+                local version = event_id
+
+                -- 누적 결제 판매 중이 아닐 때에는 visible 끔, 판매 중일 때에는 위의 조건에 따름
+                local is_active = g_purchaseDailyData:isActivePurchaseDailyEvent(version)
+                if (not is_active) then
+                    visible = false
+                end
+
+                -- 마지막 보상 받았다면 띄워주지 않음
+                local is_get_last_reward = g_purchaseDailyData:isGetLastReward(version)
+                if (is_get_last_reward) then
+                    visible = false
+                end
+
+                if visible then
+                    event_type = event_type .. ';' .. event_id
+                end
+
             -- 코스튬
             elseif (event_type == 'costume_event') then
                 visible = UI_CostumeEventPopup:isActiveCostumeEventPopup()

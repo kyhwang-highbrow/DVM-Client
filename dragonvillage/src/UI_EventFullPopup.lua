@@ -213,6 +213,13 @@ function UI_EventFullPopup:initUI()
         else
             ui = UI_EventPopupTab_PurchasePoint(event_version)
         end
+
+    -- 일일 충전 선물 이벤트
+    elseif pl.stringx.startswith(popup_key, 'purchase_daily') then
+        local l_str = plSplit(popup_key, ';')
+        local event_version = l_str[2]
+        ui = UI_EventPopupTab_PurchaseDaily(event_version)
+
     elseif (self.m_targetUI) then
         ui = self.m_targetUI
     end

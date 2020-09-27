@@ -254,3 +254,22 @@ function ServerData_PurchaseDaily.LocalizedOrdinalDay(step)
         return Str('다섯째 날')
     end
 end
+
+-------------------------------------
+-- function isGetLastReward
+-- @breif 최종 보상 받았는지 확인
+-------------------------------------
+function ServerData_PurchaseDaily:isGetLastReward(version)
+    local last_step = self:getTotalStep(version) -- number
+
+    for step=1, last_step do
+        -- isRewardReceived에서 step은 number
+        -- 한 단계라도 보상을 수령하지 않았으면 false
+        if (self:isRewardReceived(version, step) == false) then
+            return false
+        end
+    end
+
+
+    return true
+end
