@@ -135,7 +135,7 @@ function UI_EventPopupTab_PurchaseDaily:refresh()
     vars['infoSprite']:setPositionX(pos_x)
     
     -- 현재 점수 안내 문구 2
-    vars['boxInfoLabel']:setString(Str('매일 결제 점수 {@yellow}{1}{@default}점 달성 시 선물상자 추가 증정!', target_point))
+    vars['boxInfoLabel']:setString(Str('매일 결제 점수 {@yellow}{1}{@default}점 달성 시 선물상자 추가 증정!', comma_value(target_point)))
 
     self:refreshCurrentStepReward()
     self:refresh_rewardBoxUIList()
