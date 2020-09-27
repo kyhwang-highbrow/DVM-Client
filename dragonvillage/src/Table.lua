@@ -112,7 +112,8 @@ local TableInfo = {
         table_fevertime = {'table_fevertime', 'type', false}, -- 핫타임
 
         -- 복주머니 이벤트
-        table_lucky_fortune_bag = {'table_lucky_fortune_bag', 'id', false}
+        table_lucky_fortune_bag = {'table_lucky_fortune_bag', 'id', false},
+        table_lucky_fortune_bag_rank = {'table_lucky_fortune_bag_rank', 'rank_id', false}
     }
 
 -------------------------------------

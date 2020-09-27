@@ -641,7 +641,7 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
         
-        if (g_hotTimeData:isActiveEvent('event_lucky_fortune_bag')) then
+        if (g_eventLFBagData:canOpenUI()) then
             co:work('# 복주머니 이벤트 정보 받는 중')
             g_eventLFBagData:request_eventLFBagInfo(true, co.NEXT, co.ESCAPE)
             if co:waitWork() then return end

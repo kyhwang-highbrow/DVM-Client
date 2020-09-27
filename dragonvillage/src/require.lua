@@ -15,6 +15,7 @@ local t_reload_modules =
     'UI_DiceEvent',
     'UI_EventPopupTab_PurchaseDaily',
     'UI_EventLFBag',
+    'UI_EventLFBagRankingPopup',
 }
 
 local t_module = {

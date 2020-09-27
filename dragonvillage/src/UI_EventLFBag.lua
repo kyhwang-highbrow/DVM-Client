@@ -151,8 +151,12 @@ end
 -- function click_openBtn
 -------------------------------------
 function UI_EventLFBag:click_openBtn()
-    -- 복주머니 체크
-    if (self.m_structLFBag:isMax()) then
+    -- 조건 체크
+    if (not g_eventLFBagData:canPlay()) then
+        UIManager:toastNotificationRed(Str('이벤트가 종료되었습니다.'))
+        return
+
+    elseif (self.m_structLFBag:isMax()) then
         UIManager:toastNotificationRed(Str('복주머니의 최대 레벨입니다.'))
         return
 
@@ -198,7 +202,12 @@ end
 -- function click_stopBtn
 -------------------------------------
 function UI_EventLFBag:click_stopBtn(is_max)
-    if (self.m_structLFBag:getLv() == 1) then
+    -- 조건 체크
+    if (not g_eventLFBagData:canPlay()) then
+        UIManager:toastNotificationRed(Str('이벤트가 종료되었습니다.'))
+        return
+
+    elseif (self.m_structLFBag:getLv() == 1) then
         UIManager:toastNotificationRed(Str('수령할 누적 보상이 없습니다.'))
         return
     end

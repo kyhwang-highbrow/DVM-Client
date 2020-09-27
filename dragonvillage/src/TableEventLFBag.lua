@@ -60,3 +60,30 @@ function TableEventLFBag:makeRewardList()
         table.insert(self.m_rewardList, l_ret)
     end
 end
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- class TableEventLFBagRank 
+-------------------------------------
+TableEventLFBagRank = class(PARENT, {
+        m_rewardList = 'table'
+    })
+
+local THIS = TableEventLFBagRank
+
+-------------------------------------
+-- function init
+-------------------------------------
+function TableEventLFBagRank:init()
+    self.m_tableName = 'table_lucky_fortune_bag_rank'
+    self.m_orgTable = TABLE:get(self.m_tableName)
+end

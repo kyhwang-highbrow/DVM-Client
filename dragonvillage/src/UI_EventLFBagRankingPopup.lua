@@ -10,6 +10,7 @@ UI_EventLFBagRankingPopup = class(PARENT,{
         m_rankType = 'string',
         m_rankFullType = 'string',
         m_rankOffset = 'number',
+
         m_rewardTableView = '',
         m_selectedUI = '',
     })
@@ -41,7 +42,10 @@ end
 function UI_EventLFBagRankingPopup:initUI()
     local vars = self.vars
 
+    -- 보상 테이블뷰
     self:makeRankRewardTableView()
+
+    -- 랭킹 테이블뷰 생성됨
     self:make_UIC_SortList()
 end
 
@@ -59,7 +63,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_EventLFBagRankingPopup:refresh()
-    --self:refresh_playerUserInfo()
+    self:refresh_playerUserInfo()
 end
 
 -------------------------------------
@@ -69,12 +73,11 @@ function UI_EventLFBagRankingPopup:refresh_playerUserInfo()
     local vars = self.vars
 
     -- 플레이어 정보 받아옴
-    local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
-    local ui = UI_ChallengeModeRankingListItem(struct_user_info)
-    vars['rankingMeNode']:removeAllChildren()
-    vars['rankingMeNode']:addChild(ui.root)
-    
-    local struct_user_info = g_challengeMode:getPlayerArenaUserInfo()
+    local struct_user_info = g_eventLFBagData.m_myRanking
+    local ui = UI_EventLFBagRankingListItem(struct_user_info)
+    vars['userMeNode']:removeAllChildren()
+    vars['userMeNode']:addChild(ui.root)
+
     local rank_str = ui.vars['rankingLabel']:getString()
     local rank_percentage =  math.floor((struct_user_info.m_rankPercent or 0) * 100)
 
@@ -83,14 +86,11 @@ function UI_EventLFBagRankingPopup:refresh_playerUserInfo()
     if (rank_str == '-') then
         ui.vars['rankingLabel']:setString(rank_str)
     end
-    
-
 
     if self.m_selectedUI then
         self.m_selectedUI.vars['meSprite']:setVisible(false)
         self.m_selectedUI = nil
     end
-
 
     local rank = struct_user_info.m_rank
     if (not rank) or (rank <= 0) then
@@ -99,6 +99,7 @@ function UI_EventLFBagRankingPopup:refresh_playerUserInfo()
     
     local ratio = (struct_user_info.m_rankPercent or 1) * 100
 
+    -- 보상 정보 ?
     local l_item_list = self.m_rewardTableView.m_itemList
     local idx = nil
     local ui = nil
@@ -153,13 +154,13 @@ end
 -------------------------------------
 function UI_EventLFBagRankingPopup:request_rank()
     local function finish_cb()
-        self.m_rankOffset = g_challengeMode.m_nGlobalOffset
+        self.m_rankOffset = g_eventLFBagData.m_nGlobalOffset
         self:makeRankTableView()
         self:refresh_playerUserInfo()
     end
     local rank_type = self.m_rankType
     local offset = self.m_rankOffset
-    g_challengeMode:request_challengeModeRanking(rank_type, offset, finish_cb)
+    g_eventLFBagData:request_eventLFBagRank(rank_type, offset, finish_cb)
 end
 
 -------------------------------------
@@ -167,10 +168,10 @@ end
 -------------------------------------
 function UI_EventLFBagRankingPopup:makeRankTableView()
     local vars = self.vars
-    local node = vars['rankingListNode']
+    local node = vars['userListNode']
     node:removeAllChildren()
 
-    local l_item_list = g_challengeMode.m_lGlobalRank
+    local l_item_list = g_eventLFBagData.m_lGlobalRank
 
     -- 이전, 다음 버튼은 전체 랭킹에서만 사용
     if (self.m_rankType == 'world') then
@@ -192,7 +193,7 @@ function UI_EventLFBagRankingPopup:makeRankTableView()
 
     -- 다음 랭킹 보기
     local function click_nextBtn()
-        local add_offset = #g_challengeMode.m_lGlobalRank
+        local add_offset = #g_eventLFBagData.m_lGlobalRank
         if (add_offset < OFFSET_GAP) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
             return
@@ -209,8 +210,8 @@ function UI_EventLFBagRankingPopup:makeRankTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(550, 55 + 5)
-    table_view:setCellUIClass(UI_ChallengeModeRankingListItem, create_func)
+    table_view.m_defaultCellSize = cc.size(640, 55 + 5)
+    table_view:setCellUIClass(UI_EventLFBagRankingListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
 
@@ -272,18 +273,16 @@ end
 -- @brief 보상 정보 테이블 뷰 생성
 -------------------------------------
 function UI_EventLFBagRankingPopup:makeRankRewardTableView()
-    local node = self.vars['rankRewardNode']
+    local node = self.vars['userRewardNode']
 
-    local l_item_list = g_challengeMode.m_challengeRewardTable or {}
+    local l_item_list = TableEventLFBagRank().m_orgTable
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(550, 55 + 5)
-    table_view:setCellUIClass(UI_ChallengeModeRewardListItem, create_func)
+    table_view.m_defaultCellSize = cc.size(500, 65 + 5)
+    table_view:setCellUIClass(self.makeCellUIRankReward)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, true)
-    --self.m_rewardTableView = table_view
-
     table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))
     self.m_rewardTableView = table_view
 end
@@ -360,3 +359,171 @@ end
 
 --@CHECK
 UI:checkCompileError(UI_EventLFBagRankingPopup)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local PARENT = class(UI, IRankListItem:getCloneTable())
+
+-------------------------------------
+-- class UI_EventLFBagRankingListItem
+-------------------------------------
+UI_EventLFBagRankingListItem = class(PARENT, {
+        m_rankInfo = '',
+        m_lastData= '',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_EventLFBagRankingListItem:init(t_rank_info, t_last_data) -- t_rank_info, t_last_data(보상 출력해줄 때만 값이 들어옴)
+    self.m_rankInfo = t_rank_info
+    self.m_lastData = t_last_data
+    local vars = self:load('event_lucky_fortune_bag_ranking_popup_item_02.ui')
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_EventLFBagRankingListItem:initUI()
+    local vars = self.vars
+    local struct_rank = self.m_rankInfo
+    local t_last_info = self.m_lastData
+    local rank = struct_rank.m_rank
+
+    local tag = struct_rank.m_tag
+
+    -- 다음 랭킹 보기 
+    if (tag == 'next') then
+        vars['nextBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
+        return
+    end
+
+    -- 이전 랭킹 보기 
+    if (tag == 'prev') then
+        vars['prevBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
+        return
+    end
+
+    -- 보상 출력하는 경우 self.m_lastData의 데이터를 사용
+    if (self.m_lastData) then
+        -- 점수 표시
+        vars['scoreLabel']:setString(Str('{1}점', t_last_info['point']))
+        -- 순위 표시
+        vars['rankingLabel']:setString(Str('{1}위', t_last_info['rank']))
+
+    -- 랭킹 출력하는 경우 self.m_rankInfo의 데이터를 사용
+    else
+        -- 점수 표시
+        local score_str = struct_rank:getScoreStr()
+        vars['scoreLabel']:setString(score_str)
+        -- 순위 표시
+        local rank_str = struct_rank:getRankStr()
+        vars['rankingLabel']:setString(rank_str)
+    end
+
+    -- 유저 정보 표시 (레벨, 닉네임)
+    vars['userLabel']:setString(struct_rank:getUserText())
+
+
+
+    do -- 리더 드래곤 아이콘
+        local ui = struct_rank:getLeaderDragonCard()
+        if ui then
+            ui.root:setSwallowTouch(false)
+            vars['profileNode']:addChild(ui.root)
+            
+			ui.vars['clickBtn']:registerScriptTapHandler(function() 
+				local is_visit = true
+				UI_UserInfoDetailPopup:open(struct_rank, is_visit, nil)
+			end)
+        end
+    end
+
+    do -- 내 순위 UI일 경우
+        local uid = g_userData:get('uid')
+        local is_my_rank = (uid == struct_rank.m_uid)
+        vars['meSprite']:setVisible(is_my_rank)
+    end
+
+    -- 공통의 정보
+    self:initRankInfo(vars, struct_rank)
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_EventLFBagRankingListItem:initButton()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_EventLFBagRankingListItem:refresh()
+end
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function makeCellUIRankReward
+-------------------------------------
+function UI_EventLFBagRankingPopup.makeCellUIRankReward(t_reward_info)
+    local ui = class(UI, ITableViewCell:getCloneTable())()
+    local vars = ui:load('event_lucky_fortune_bag_ranking_popup_item_01.ui')
+    
+    -- 순위
+    local rank_str
+    if (t_reward_info['rank_min'] ~= t_reward_info['rank_max']) then
+        rank_str = Str('{1}~{2}위 ', t_reward_info['rank_min'], t_reward_info['rank_max'])
+    else
+        if(t_reward_info['ratio_max'] ~= '') then
+            rank_str = Str('상위 {1}%', t_reward_info['ratio_max'])
+        else
+            rank_str = Str('{1}위', t_reward_info['rank_min'])
+        end
+    end
+    vars['rankLabel']:setString(rank_str) 
+
+    -- 보상 정보
+    local l_item_list = g_itemData:parsePackageItemStr(t_reward_info['reward'])
+    for i, t_item in pairs(l_item_list) do
+        local item_id = t_item['item_id']
+        local count = t_item['count']
+        local card_ui = UI_ItemCard(item_id, count)
+        card_ui.root:setScale(100/150)
+        vars['itemNode' .. i]:addChild(card_ui.root)
+    end
+
+    return ui
+end
