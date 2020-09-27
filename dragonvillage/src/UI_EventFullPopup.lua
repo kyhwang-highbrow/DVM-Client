@@ -218,7 +218,7 @@ function UI_EventFullPopup:initUI()
     elseif pl.stringx.startswith(popup_key, 'purchase_daily') then
         local l_str = plSplit(popup_key, ';')
         local event_version = l_str[2]
-        ui = UI_EventPopupTab_PurchaseDaily(event_version)
+        ui = UI_EventPopupTab_PurchaseDaily(event_version, true) -- params : event_version, is_full_popup
 
     elseif (self.m_targetUI) then
         ui = self.m_targetUI

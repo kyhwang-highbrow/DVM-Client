@@ -14,14 +14,14 @@ UI_EventPopupTab_PurchaseDaily = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_PurchaseDaily:init(event_version)
+function UI_EventPopupTab_PurchaseDaily:init(event_version, is_full_popup)
     self.m_eventVersion = event_version
     self:load('event_purchase_daily.ui')
 
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
+    self:initUI(is_full_popup)
     self:initButton()
     self:refresh()
 
@@ -32,7 +32,7 @@ end
 -- function initUI
 -- @breif
 -------------------------------------
-function UI_EventPopupTab_PurchaseDaily:initUI()
+function UI_EventPopupTab_PurchaseDaily:initUI(is_full_popup)
     local vars = self.vars
 
     local version = self.m_eventVersion
@@ -67,6 +67,10 @@ function UI_EventPopupTab_PurchaseDaily:initUI()
         ui_today_reward.vars['shopBtn']:registerScriptTapHandler(function()
             g_shopDataNew:openShopPopup(nil, function() self:refresh() end)
         end)
+
+        if (is_full_popup == true) then
+            ui_today_reward.vars['shopBtn']:setVisible(false)
+        end
         
         self.m_todayRewardUI = ui_today_reward
         
