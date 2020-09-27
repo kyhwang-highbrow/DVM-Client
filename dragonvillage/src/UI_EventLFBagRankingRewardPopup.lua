@@ -28,7 +28,6 @@ function UI_EventLFBagRankingRewardPopup:initUI(user_info, reward_info)
     local vars = self.vars
     
     -- 플레이어 정보 받아옴
-    require('UI_EventLFBagRankingPopup')
     local rank_ui = UI_EventLFBagRankingListItem(user_info, reward_info)
     
     -- 지난 시즌 랭킹 정보

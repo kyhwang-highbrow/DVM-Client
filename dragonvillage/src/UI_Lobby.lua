@@ -181,7 +181,7 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        if (g_eventLFBagData:canOpenUI()) then
+        if (g_eventLFBagData:canPlay()) then
             co:work('# 복주머니 이벤트 정보 받는 중')
             g_eventLFBagData:request_eventLFBagInfo(false, co.NEXT, required_fail_cb)
             if co:waitWork() then return end
@@ -1454,10 +1454,13 @@ end
 -- @brief 주사위 이벤트
 -------------------------------------
 function UI_Lobby:click_lfbagBtn()
-    if (not g_eventLFBagData:canOpenUI()) then
-        return
+    if (g_eventLFBagData:canPlay()) then
+        g_eventData:openEventPopup('event_lucky_fortune_bag')
+    
+    elseif (g_eventLFBagData:canReward()) then
+        g_eventLFBagData:openRankingPopupForLobby()
+
     end
-    g_eventData:openEventPopup('event_lucky_fortune_bag')
 end
 
 -------------------------------------
@@ -1974,7 +1977,7 @@ function UI_Lobby:update_rightButtons()
     vars['quizEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_image_quiz'))
     
     -- 복주머니 이벤트
-    vars['luckyfortunebagEventBtn']:setVisible(g_eventLFBagData:canOpenUI())
+    vars['luckyfortunebagEventBtn']:setVisible(g_eventLFBagData:isActive())
     
     -- 황금던전 버튼
     if g_hotTimeData:isActiveEvent('event_gold_dungeon') then

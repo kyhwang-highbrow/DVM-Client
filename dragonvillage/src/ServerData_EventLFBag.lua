@@ -20,8 +20,6 @@ ServerData_EventLFBag = class({
 -- function init
 -------------------------------------
 function ServerData_EventLFBag:init()
-    self.m_structLFBag = StructEventLFBag()
-    self.m_myRanking = StructEventLFBagRanking()
 end
 
 -------------------------------------
@@ -32,14 +30,15 @@ function ServerData_EventLFBag:getLFBag()
 end
 
 -------------------------------------
--- function canOpenUI
+-- function isActive
 -------------------------------------
-function ServerData_EventLFBag:canOpenUI()
+function ServerData_EventLFBag:isActive()
     return self:canPlay() or self:canReward()
 end
 
 -------------------------------------
 -- function canPlay
+-- @brief canReawrd와 배타적임
 -------------------------------------
 function ServerData_EventLFBag:canPlay()
     return g_hotTimeData:isActiveEvent('event_lucky_fortune_bag')
@@ -47,17 +46,32 @@ end
 
 -------------------------------------
 -- function canReward
+-- @brief canPlay와 배타적임
 -------------------------------------
 function ServerData_EventLFBag:canReward()
     return g_hotTimeData:isActiveEvent('event_lucky_fortune_bag_reward')
 end
 
--------------------------------------
+local mInit = false
 -------------------------------------
 -- function request_eventLFBagInfo
 -- @brief 이벤트 정보
 -------------------------------------
 function ServerData_EventLFBag:request_eventLFBagInfo(include_reward, finish_cb, fail_cb)
+    
+    -- @mskim require 컨텐츠 별로 모아서 할 필요가 있다. 구조는 고민중
+    if (not mInit) then
+        mInit = true
+        require('UI_EventLFBag')
+        require('UI_EventLFBagRankingPopup')
+        require('UI_EventLFBagRankingRewardPopup')
+        require('StructEventLFBag')
+        require('StructEventLFBagRanking')
+
+        self.m_structLFBag = StructEventLFBag()
+        self.m_myRanking = StructEventLFBagRanking()
+    end
+
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -224,16 +238,23 @@ function ServerData_EventLFBag:refreshMyRanking(t_my_info)
 end
 
 -------------------------------------
--- function showRewardPopupIfNeed
+-- function openRankingPopupForLobby
+-- @brief 로비에서 랭킹 팝업 바로 여는 경우 사용, 랭킹 보상이 있는지도 체크하여 출력한다.
 -------------------------------------
-function ServerData_EventLFBag:showRewardPopupIfNeed()
-    local last_info = self.m_lastInfo
-    local reward_info = self.m_rewardInfo
+function ServerData_EventLFBag:openRankingPopupForLobby()
+    local function finish_cb()
+        -- 랭킹 팝업
+        UI_EventLFBagRankingPopup()
 
-    if (last_info and reward_info) then
-        require('UI_EventLFBagRankingRewardPopup')
-        UI_EventLFBagRankingRewardPopup(last_info, reward_info)
+        local last_info = self.m_lastInfo
+        local reward_info = self.m_rewardInfo
+
+        if (last_info and reward_info) then
+            -- 랭킹 보상 팝업
+            UI_EventLFBagRankingRewardPopup(last_info, reward_info)
+        end
     end
+    self:request_eventLFBagInfo(true, finish_cb, nil)
 end
 
 -------------------------------------

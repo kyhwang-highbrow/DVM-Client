@@ -134,11 +134,7 @@ function ServerData_Event:getEventPopupTabList()
             
         -- 한정 이벤트 체크
         elseif (event_id == 'limited') then
-            if (event_type == 'event_lucky_fortune_bag') then
-                visible = g_eventLFBagData:canOpenUI()
-            else
-				visible = g_hotTimeData:isActiveEvent(event_type)
-            end
+			visible = g_hotTimeData:isActiveEvent(event_type)
             
         elseif (event_type == 'event_1st_comeback') then
 		    visible = self:isComebackUser_1st()
@@ -665,9 +661,9 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
         
-        if (g_eventLFBagData:canOpenUI()) then
+        if (g_eventLFBagData:canPlay()) then
             co:work('# 복주머니 이벤트 정보 받는 중')
-            g_eventLFBagData:request_eventLFBagInfo(true, co.NEXT, co.ESCAPE)
+            g_eventLFBagData:request_eventLFBagInfo(false, co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 

@@ -309,8 +309,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
     -- 복주머니 이벤트
-    elseif string.find(tab, 'event_lucky_fortune_bag') then
-        require('UI_EventLFBag')
+    elseif (tab == 'event_lucky_fortune_bag') then
         ui = UI_EventLFBag()
 
     -- 신규 유저 환영 이벤트

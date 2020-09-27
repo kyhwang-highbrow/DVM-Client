@@ -33,9 +33,6 @@ end
 function UI_EventLFBag:initUI()
     local vars = self.vars
     self:makeRewardTableView()
-
-    -- 이벤트 UI 진입 시 시즌이 끝났다면 보상 팝업을 출력한다
-    g_eventLFBagData:showRewardPopupIfNeed()
 end
 
 -------------------------------------
@@ -65,7 +62,8 @@ function UI_EventLFBag:refresh()
     vars['numberLabel']:setString(count_str)
 
     -- 레벨
-    local lv_str = Str('복주머니') .. ' ' .. string.format('Lv.%d', self.m_structLFBag:getLv())
+    local lv = self.m_structLFBag:getLv()
+    local lv_str = Str('복주머니') .. ' ' .. string.format('Lv.%d', lv)
     vars['levelLabel']:setString(lv_str)
 
     -- 최고레벨 여부
@@ -85,6 +83,10 @@ function UI_EventLFBag:refresh()
     -- 누적 보상 목록
     self.m_tableViewCumReward:clearItemList()
     self.m_tableViewCumReward:setItemList(self.m_structLFBag:getCumulativeRewardList())
+
+    -- 복주머니 애니메이션
+    local lfbag_ani_lv = math_ceil(lv / 3) 
+    vars['luckyFortuneBagVisual']:changeAni(string.format('bag_%.2d', lfbag_ani_lv), true)
 end
 
 -------------------------------------
@@ -253,7 +255,6 @@ end
 -- function click_rankBtn
 -------------------------------------
 function UI_EventLFBag:click_rankBtn()
-    require('UI_EventLFBagRankingPopup')
     UI_EventLFBagRankingPopup()
 end
 
