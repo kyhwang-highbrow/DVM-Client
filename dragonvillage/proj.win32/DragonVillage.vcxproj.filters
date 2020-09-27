@@ -4630,6 +4630,9 @@
     <None Include="..\src\UI_EventLFBagRankingRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_SettingTestCode.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

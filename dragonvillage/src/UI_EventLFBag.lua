@@ -227,9 +227,6 @@ function UI_EventLFBag:click_openBtn()
             if (ret['is_success']) then
                 SoundMgr:playEffect('UI', 'ui_in_item_get')
                 
-                UIManager:toastNotificationGreen(Str('성공') .. '!')
-                UIManager:toastNotificationGreen(Str('레벨이 증가했습니다.'))
-
                 -- 이번 성공으로 획득한 보상
                 if (ret['item_info']) then
                     self:showCurrntReward(ret['item_info'])
@@ -239,8 +236,9 @@ function UI_EventLFBag:click_openBtn()
             else
                 SoundMgr:playEffect('UI', 'ui_eat')
                 
-                UIManager:toastNotificationRed(Str('실패') .. '!')
-                UIManager:toastNotificationRed(Str('복주머니가 초기화됩니다.'))
+                local msg = Str('열기 실패')
+                local submsg = Str('이전 단계까지 누적된 보상을 받지 못했습니다.\n복주머니의 단계가 초기화됩니다.')
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg)
                 
                 -- 보상 수령
                 if (ret['new_mail']) then
@@ -255,8 +253,9 @@ function UI_EventLFBag:click_openBtn()
 
     -- 누적보상 받지 못할 리스크가 있는 경우
     if (self.m_structLFBag:hasRisk()) then
-        local msg = Str('이번에 실패할 경우, 누적 보상을 수령할 수 없습니다. 복주머니를 여시겠습니까?')
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, do_open)
+        local msg = Str('복주머니를 여시겠습니까?')
+        local submsg = Str('단계 이상에서 열기에 실패하면,\n이전 단계까지 누적된 보상을 받을 수 없으니 신중하세요!')
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, do_open)
     else
         do_open()
     end
@@ -264,22 +263,18 @@ end
 
 -------------------------------------
 -- function receiveMaxReward
+-- @brief 별다른 처리는 없고 분기 처리용
 -------------------------------------
 function UI_EventLFBag:receiveMaxReward()
-    local msg = Str('축하합니다! 누적 보상을 수령하시겠습니까?')
-    local function ok_btn_cb()
-        local function finish_cb(ret)
-            -- 보상 수령
-            if (ret['new_mail']) then
-                self:reset()
-            end
-
-            self:refresh()
+    local function finish_cb(ret)
+        -- 보상 수령
+        if (ret['new_mail']) then
+            self:reset()
         end
-        g_eventLFBagData:request_eventLFBagReward(finish_cb)
-    end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb)
+        self:refresh()
+    end
+    g_eventLFBagData:request_eventLFBagReward(finish_cb)
 end
 
 -------------------------------------
@@ -301,7 +296,8 @@ function UI_EventLFBag:click_stopBtn()
         return
     end
 
-    local msg = Str('복주머니를 포기하고 현재까지의 누적 보상을 수령하시겠습니까?')
+    local msg = Str('열기를 중단하시겠습니까?')
+    local submsg = Str('이전 단계까지 누적된 보상을 획득합니다.\n복주머니의 단계가 초기화됩니다.')
     local function ok_btn_cb()
         local function finish_cb(ret)
             -- 보상 수령
@@ -314,7 +310,7 @@ function UI_EventLFBag:click_stopBtn()
         g_eventLFBagData:request_eventLFBagReward(finish_cb)
     end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb)
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 end
 
 -------------------------------------
