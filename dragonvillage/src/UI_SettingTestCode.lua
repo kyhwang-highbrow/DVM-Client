@@ -71,6 +71,8 @@ function UI_SettingTestCode:initButton()
     self:makeButtonAutomatic('admob init', self.admob_init)
     self:makeButtonAutomatic('admob preload', self.admob_preload)
     self:makeButtonAutomatic('admob showAd', self.admob_showAd)
+
+    self:makeButtonAutomatic('show Personalpack', self.showPersonalpack)
 end
 
 -------------------------------------
@@ -400,4 +402,14 @@ end
 function UI_SettingTestCode:admob_showAd()
     AdMobManager:getRewardedVideoAd():showByAdType(AD_TYPE.RANDOM_BOX_LOBBY)
     ccdisplay('admob_showAd')
+end
+
+
+-------------------------------------
+-- @brief 특별 제안 패키지
+-------------------------------------
+function UI_SettingTestCode:showPersonalpack()
+    require('UI_Package_Personalpack')
+    -- @mskim editbox 넣어서 ppid 바꿀 수 있도록 하자
+    UI_Package_Personalpack(101001)
 end
