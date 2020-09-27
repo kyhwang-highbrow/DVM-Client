@@ -320,7 +320,7 @@ function StructProduct:getFirstItemNameWithCount()
 	-- 첫 번째 아이템의 설명을 사용
 	local table_item = TableItem()
 	local item_id = first_item['item_id']
-    local t_name = table_item:getValue(item_id, 't_name')
+    local t_name = table_item:getItemName(item_id)
     local count = first_item['count']
 	return Str('{1} {2}개', t_name, count)
 end

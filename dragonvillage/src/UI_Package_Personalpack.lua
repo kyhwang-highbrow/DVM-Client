@@ -120,7 +120,13 @@ function UI_Package_Personalpack:update(dt)
     local vars = self.vars
 
     local ppid = self.m_ppid
-    local end_time = g_personalpackData:getEndOfSaleTime(ppid) / 1000
+    
+    local end_time = g_personalpackData:getEndOfSaleTime(ppid)
+    if (end_time == nil) then
+        return
+    end
+    end_time = end_time / 1000
+
     local curr_time = Timer:getServerTime()
     local remain_time = math_max(end_time - curr_time, 0)
     local str = ''
