@@ -51,7 +51,7 @@ function UI_PackageRandomBoxInfo:initUI()
     for i, v in ipairs(l_item) do
         local tar_node = vars['itemNode'..i]
         if (tar_node) then
-            local ui = self.makeCellUI(v)
+            local ui = self.makeCellUI(v, self.m_packageName)
             tar_node:addChild(ui.root)
         end
     end
@@ -76,7 +76,7 @@ end
 -- @static
 -- @brief 테이블 셀 생성
 -------------------------------------
-function UI_PackageRandomBoxInfo.makeCellUI(t_data)
+function UI_PackageRandomBoxInfo.makeCellUI(t_data, package_name)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 
     -- ui 파일이 다르다. package에 따라 하드코딩함
