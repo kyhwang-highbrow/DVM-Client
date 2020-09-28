@@ -79,16 +79,24 @@ TableEventLFBagRank = class(PARENT, {
         m_rewardList = 'table'
     })
 
-local THIS = TableEventLFBagRank
-
 -------------------------------------
 -- function init
 -------------------------------------
 function TableEventLFBagRank:init()
     self.m_tableName = 'table_lucky_fortune_bag_rank'
     self.m_orgTable = TABLE:get(self.m_tableName)
+end
 
-    table.sort(self.m_orgTable, function(a, b) 
-        return a['rank_id'] < b ['rank_id']
+-------------------------------------
+-- function getRankRewardList
+-------------------------------------
+function TableEventLFBagRank:getRankRewardList()
+    local l_ret = {}
+    for _, v in pairs(self.m_orgTable) do
+        table.insert(l_ret, v)
+    end
+    table.sort(l_ret, function(a, b) 
+        return a['rank_id'] < b['rank_id']
     end)
+    return l_ret
 end
