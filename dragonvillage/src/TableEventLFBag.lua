@@ -56,7 +56,7 @@ function TableEventLFBag:makeRewardList()
 
         -- pick_weight sum 반영하여 rate 계산
         for _, t_data in ipairs(l_ret) do
-            t_data['pick_percent'] = tostring(t_data['pick_weight'] * 100 / sum_pw)
+            t_data['pick_percent'] = UIHelper:makeFormatedFloatStr(t_data['pick_weight'] / sum_pw) --tostring(math_floor( * 1000 ) / 10)
         end
         table.insert(self.m_rewardList, l_ret)
     end

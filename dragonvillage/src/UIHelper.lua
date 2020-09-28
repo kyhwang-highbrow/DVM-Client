@@ -432,3 +432,11 @@ function UIHelper:makeHighlightFrame(node)
 	highlight_sprite:runAction(cca.flash())
 	node:addChild(highlight_sprite)
 end
+
+-------------------------------------
+-- function makeFormatedFloatStr
+-- @brief 소수점 있으면 1자리, 없으면 정수만 표현
+-------------------------------------
+function UIHelper:makeFormatedFloatStr(float_num)
+	return tostring(math_floor(float_num * 1000 ) / 10)
+end
