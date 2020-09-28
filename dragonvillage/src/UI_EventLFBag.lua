@@ -257,6 +257,7 @@ function UI_EventLFBag:click_openBtn()
         return
 
     elseif (not self.m_structLFBag:canStart()) then
+        self:click_packageBtn()
         UIManager:toastNotificationRed(Str('복주머니가 부족합니다.'))
         return
     end
@@ -345,6 +346,7 @@ function UI_EventLFBag:click_stopBtn()
         return
     
     elseif (self.m_structLFBag:getLv() == 1) then
+        self:click_packageBtn()
         UIManager:toastNotificationRed(Str('수령할 누적 보상이 없습니다.'))
         return
     end
