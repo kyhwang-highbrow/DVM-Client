@@ -154,7 +154,7 @@ function UI_AutoPlaySettingPopup:initUI()
 		-- 쫄작(farming) 기능
 		vars['autoMenu3']:setVisible(is_adv)
         -- 모험 자동 진행 .. 튜토리얼 1-7 뿁기 까지 완료해야 사용 가능
-        vars['advNextStageMenu']:setVisible(is_adv and g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_07_END))
+        vars['advNextStageMenu']:setVisible(is_adv and g_adventureData:isClearStage(1110107))
 
         -- 룬 자동 판매 (모험, 악몽, 고대 유적)
         if isExistValue(self.m_gameMode, GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON, GAME_MODE_ANCIENT_RUIN, GAME_MODE_RUNE_GUARDIAN) then

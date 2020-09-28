@@ -87,4 +87,8 @@ local THIS = TableEventLFBagRank
 function TableEventLFBagRank:init()
     self.m_tableName = 'table_lucky_fortune_bag_rank'
     self.m_orgTable = TABLE:get(self.m_tableName)
+
+    table.sort(self.m_orgTable, function(a, b) 
+        return a['rank_id'] < b ['rank_id']
+    end)
 end
