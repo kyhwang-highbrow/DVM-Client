@@ -507,7 +507,13 @@ function UI_EventLFBagRankingPopup.makeCellUIRankReward(t_reward_info)
     -- 보상 정보
     local l_item_list = g_itemData:parsePackageItemStr(t_reward_info['reward'])
     for i, t_item in pairs(l_item_list) do
+
+        -- 라벨 크기 확대 (아이템 숫자가 잘 안보여서 확대)
         local card_ui = MakeItemCard(t_item)
+        if (card_ui['vars'] and card_ui['vars']['numberLabel']) then
+            card_ui['vars']['numberLabel']:setScale(1.15)
+        end
+
         card_ui.root:setScale(100/150)
         vars['itemNode' .. i]:addChild(card_ui.root)
     end

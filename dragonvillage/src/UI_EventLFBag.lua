@@ -429,7 +429,9 @@ function UI_EventLFBag.updateCellUI(cell_ui, t_data)
     cell_ui.root:setVisible(true)
     local vars = cell_ui.vars
     vars['itemNode']:removeAllChildren(true)
-    vars['itemNode']:addChild(IconHelper:getItemIcon(t_data['item_id']))
+    local icon = IconHelper:getItemIcon(t_data['item_id'])
+    icon:setScale(1.13) -- 아이콘 크기 확대
+    vars['itemNode']:addChild(icon)
     vars['probLabel']:setString(string.format('%s%%', t_data['pick_percent']))
     vars['countLabel']:setString(comma_value(t_data['val']))
 end
