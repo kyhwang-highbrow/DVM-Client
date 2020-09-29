@@ -39,7 +39,6 @@
 		370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B475D1F7CB5290072CA71 /* Opengl.lua */; };
 		370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B47601F7CB5290072CA71 /* OpenglConstants.lua */; };
 		370B47801F7CB6290072CA71 /* StudioConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B475F1F7CB5290072CA71 /* StudioConstants.lua */; };
-		373AE52F211889800033B453 /* libPerpleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC8D51208B3F9200258021 /* libPerpleSDK.a */; };
 		373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		373E2D851A038712004EF0DB /* PerpSupportLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D801A038712004EF0DB /* PerpSupportLua.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -84,8 +83,6 @@
 		3772F40A1FF4ECC300A9EF7A /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F61FF4ECC000A9EF7A /* SDWebImageDownloaderOperation.m */; };
 		3772F40B1FF4ECC300A9EF7A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F81FF4ECC100A9EF7A /* SDImageCache.m */; };
 		3772F40C1FF4ECC300A9EF7A /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3FA1FF4ECC100A9EF7A /* SDWebImageDownloader.m */; };
-		3773CD1E21E88B1900B22F35 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 3773CD1B21E88B1900B22F35 /* data_dat */; };
-		3773CD2021E88B1900B22F35 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3773CD1D21E88B1900B22F35 /* res */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128AF1B45380F00200C23 /* EventKit.framework */; };
 		37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128B31B45384000200C23 /* EventKitUI.framework */; };
@@ -123,7 +120,6 @@
 		37F4536E20A7126D0088399C /* Runtime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A1198F5FF00091C231 /* Runtime.cpp */; };
 		37F4536F20A7126D0088399C /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A3198F5FF00091C231 /* VisibleRect.cpp */; };
 		37F4537020A7126D0088399C /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; };
-		37F4537820A773D70088399C /* Runtime_ios-mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 377033AA198F60A50091C231 /* Runtime_ios-mac.mm */; };
 		37F4537920A776A10088399C /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; };
 		37F4537F20A8047E0088399C /* libbox2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A41D1834BDA200142BE0 /* libbox2d Mac.a */; };
 		37F4538020A838200088399C /* libluabindings Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C03781B418BF654500FE4F13 /* libluabindings Mac.a */; };
@@ -165,9 +161,12 @@
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
 		3DDF99F529FE7C1D91E638F4 /* libPods-DragonVillageM iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9524F2133E1432A0AAD41BA5 /* libPods-DragonVillageM iOS.a */; };
 		3E1EB0B725019ABF00B5FE82 /* HBAppTrackingTransparency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */; };
-		3E1EB0BF2502681800B5FE82 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 3E1EB0BE2502681500B5FE82 /* ps */; };
 		3E4EFEFB2500F108009BFADB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4EFEFA2500F108009BFADB /* WebKit.framework */; };
+		3E80241025230F83000C95A1 /* libPerpleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E80237C252305CD000C95A1 /* libPerpleSDK.a */; };
 		3E8FC358250655B700785D38 /* libswiftCoreMIDI.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E8FC3572506557400785D38 /* libswiftCoreMIDI.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
+		3ED8AC9225105E6700745077 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8AC8F25105E6600745077 /* ps */; };
+		3ED8AC9325105E6700745077 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8AC9025105E6600745077 /* data_dat */; };
+		3ED8AC9425105E6700745077 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3ED8AC9125105E6700745077 /* res */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812517EBBCAC00990C9B /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023811717EBBCAC00990C9B /* RootViewController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -263,6 +262,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = A07A4FB4178387730073F6A7;
 			remoteInfo = "CocosDenshion iOS";
+		};
+		3E80237B252305CD000C95A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3E802377252305CC000C95A1 /* PerpleSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CCD9EDA1D35C5F0004AAF73;
+			remoteInfo = PerpleSDK;
 		};
 		C03781B318BF654500FE4F13 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -481,10 +487,6 @@
 		3772F3FB1FF4ECC200A9EF7A /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageCompat.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageCompat.h"; sourceTree = "<group>"; };
 		3772F3FC1FF4ECC200A9EF7A /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		3772F3FD1FF4ECC200A9EF7A /* SDWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageManager.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageManager.h"; sourceTree = "<group>"; };
-		3773CD1B21E88B1900B22F35 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
-		3773CD1D21E88B1900B22F35 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
-		37A056BF2089ED97007B20F5 /* PerpleSDK.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; name = PerpleSDK.xcworkspace; path = ../../../perplesdk/sdk/proj.ios/PerpleSDK.xcworkspace; sourceTree = "<group>"; };
-		37AC8D51208B3F9200258021 /* libPerpleSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK.a; sourceTree = "<group>"; };
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -538,15 +540,18 @@
 		37F9995320ADBCE900048AC7 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
 		37F9995420ADBCE900048AC7 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
 		37F9995D20ADF7E800048AC7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		37F9997520B07B7E00048AC7 /* libPerpleSDK_simulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK_simulator.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK_simulator.a; sourceTree = "<group>"; };
 		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E1EB0B525019ABF00B5FE82 /* DragonVillageM iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DragonVillageM iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBAppTrackingTransparency.swift; sourceTree = "<group>"; };
-		3E1EB0BE2502681500B5FE82 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
 		3E4EFEFA2500F108009BFADB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.6.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		3E5664CC24FE472F00FCEB14 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.6.sdk/System/Library/Frameworks/SwiftUI.framework; sourceTree = DEVELOPER_DIR; };
+		3E802377252305CC000C95A1 /* PerpleSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PerpleSDK.xcodeproj; path = ../../../PerpleSDK/sdk/proj.ios/PerpleSDK.xcodeproj; sourceTree = "<group>"; };
 		3E8FC3572506557400785D38 /* libswiftCoreMIDI.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftCoreMIDI.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.7.sdk/usr/lib/swift/libswiftCoreMIDI.tbd; sourceTree = DEVELOPER_DIR; };
+		3E8FC37925076CC800785D38 /* DragonVillageDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillageDebug.entitlements; sourceTree = "<group>"; };
+		3ED8AC8F25105E6600745077 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		3ED8AC9025105E6600745077 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
+		3ED8AC9125105E6700745077 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5023811417EBBCAC00990C9B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -606,7 +611,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				373AE52F211889800033B453 /* libPerpleSDK.a in Frameworks */,
+				3E80241025230F83000C95A1 /* libPerpleSDK.a in Frameworks */,
 				3706F1781F680EAC00777433 /* NaverCafeSDK.framework in Frameworks */,
 				375E097A1F4498B10085A2FE /* UnityAds.framework in Frameworks */,
 				37E128DE1B45398400200C23 /* AdSupport.framework in Frameworks */,
@@ -691,9 +696,9 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3E1EB0BE2502681500B5FE82 /* ps */,
-				3773CD1B21E88B1900B22F35 /* data_dat */,
-				3773CD1D21E88B1900B22F35 /* res */,
+				3ED8AC9025105E6600745077 /* data_dat */,
+				3ED8AC8F25105E6600745077 /* ps */,
+				3ED8AC9125105E6700745077 /* res */,
 				37F9995420ADBCE900048AC7 /* sound */,
 				37F9995320ADBCE900048AC7 /* translate */,
 				370B474D1F7CB5260072CA71 /* config.json */,
@@ -822,9 +827,18 @@
 			name = SDWebImage;
 			sourceTree = "<group>";
 		};
+		3E802378252305CC000C95A1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3E80237C252305CD000C95A1 /* libPerpleSDK.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5023810617EBBCAC00990C9B /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				377033AA198F60A50091C231 /* Runtime_ios-mac.mm */,
 				5023811517EBBCAC00990C9B /* Prefix.pch */,
 				5023811417EBBCAC00990C9B /* main.m */,
 				5023810717EBBCAC00990C9B /* AppController.h */,
@@ -887,11 +901,12 @@
 		F293B3BD15EB7BE500256477 = {
 			isa = PBXGroup;
 			children = (
+				3E8FC37925076CC800785D38 /* DragonVillageDebug.entitlements */,
+				37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */,
+				3E802377252305CC000C95A1 /* PerpleSDK.xcodeproj */,
 				C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */,
 				15A8A4031834BDA200142BE0 /* cocos2d_libs.xcodeproj */,
-				37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */,
 				37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */,
-				377033AA198F60A50091C231 /* Runtime_ios-mac.mm */,
 				3706F1DA1F691EDF00777433 /* naver */,
 				5023810617EBBCAC00990C9B /* ios */,
 				5023817117EBBE3400990C9B /* mac */,
@@ -918,8 +933,6 @@
 				3E8FC3572506557400785D38 /* libswiftCoreMIDI.tbd */,
 				3E4EFEFA2500F108009BFADB /* WebKit.framework */,
 				3E5664CC24FE472F00FCEB14 /* SwiftUI.framework */,
-				37AC8D51208B3F9200258021 /* libPerpleSDK.a */,
-				37F9997520B07B7E00048AC7 /* libPerpleSDK_simulator.a */,
 				37F4537620A733FD0088399C /* libboringssl.tbd */,
 				37F4537420A713B30088399C /* libsqlite3.0.tbd */,
 				37F4536020A6FF340088399C /* libxml2.tbd */,
@@ -932,7 +945,6 @@
 				1AF4C402178663F200122817 /* libz.dylib */,
 				3706F1D21F691E0900777433 /* libApiGateway-MAC.a */,
 				3706F18C1F680EF000777433 /* libNaverLogin.a */,
-				37A056BF2089ED97007B20F5 /* PerpleSDK.xcworkspace */,
 				3706F1771F680EAC00777433 /* NaverCafeSDK.framework */,
 				375E09791F4498B10085A2FE /* UnityAds.framework */,
 				37E128DD1B45398400200C23 /* AdSupport.framework */,
@@ -1102,10 +1114,9 @@
 			};
 			buildConfigurationList = F293B3C215EB7BE500256477 /* Build configuration list for PBXProject "DragonVillageM" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				Base,
 				ko,
 				ja,
@@ -1157,6 +1168,10 @@
 				{
 					ProductGroup = C03781AF18BF654500FE4F13 /* Products */;
 					ProjectRef = C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */;
+				},
+				{
+					ProductGroup = 3E802378252305CC000C95A1 /* Products */;
+					ProjectRef = 3E802377252305CC000C95A1 /* PerpleSDK.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1238,6 +1253,13 @@
 			remoteRef = 15A8A42C1834BDA200142BE0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		3E80237C252305CD000C95A1 /* libPerpleSDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPerpleSDK.a;
+			remoteRef = 3E80237B252305CD000C95A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		C03781B418BF654500FE4F13 /* libluabindings Mac.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1293,12 +1315,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3773CD1E21E88B1900B22F35 /* data_dat in Resources */,
-				3E1EB0BF2502681800B5FE82 /* ps in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				373EDE6E21F10D870073FC8A /* Launch Screen.storyboard in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
 				3706F1761F680E9200777433 /* NaverCafeSDK.bundle in Resources */,
+				3ED8AC9325105E6700745077 /* data_dat in Resources */,
 				370B476B1F7CB6290072CA71 /* config.json in Resources */,
 				37F9995920ADBCEA00048AC7 /* sound in Resources */,
 				370B476C1F7CB6290072CA71 /* AudioEngine.lua in Resources */,
@@ -1307,7 +1328,6 @@
 				370B47701F7CB6290072CA71 /* CocoStudio.lua in Resources */,
 				37F64FA42084AD09005DF234 /* Cocos2dConstants.lua in Resources */,
 				370B47711F7CB6290072CA71 /* Deprecated.lua in Resources */,
-				3773CD2021E88B1900B22F35 /* res in Resources */,
 				370B47721F7CB6290072CA71 /* DeprecatedClass.lua in Resources */,
 				3772F3D61FF4EC8000A9EF7A /* include in Resources */,
 				370B47731F7CB6290072CA71 /* DeprecatedEnum.lua in Resources */,
@@ -1321,12 +1341,14 @@
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
 				370B477C1F7CB6290072CA71 /* luaj.lua in Resources */,
+				3ED8AC9225105E6700745077 /* ps in Resources */,
 				370B477D1F7CB6290072CA71 /* luaoc.lua in Resources */,
 				370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */,
 				370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */,
 				370B47801F7CB6290072CA71 /* StudioConstants.lua in Resources */,
 				3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */,
 				37F9995820ADBCEA00048AC7 /* translate in Resources */,
+				3ED8AC9425105E6700745077 /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1349,7 +1371,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/upload-symbols\" -gsp \"${PROJECT_DIR}/GoogleService-Info.plist\" -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\nexit 0\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\nexit 0\n";
 		};
 		38B8460A8FF45DEBFFAB4906 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1402,8 +1424,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-DragonVillageM iOS/Pods-DragonVillageM iOS-resources.sh",
 				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.6.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
-				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.6.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v12.7.0/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1448,7 +1469,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				37F9995F20ADFAA800048AC7 /* main.m in Sources */,
-				37F4537820A773D70088399C /* Runtime_ios-mac.mm in Sources */,
 				37F9993E20AA88C900048AC7 /* NSAppSheetAdditions.m in Sources */,
 				37F4536920A7126D0088399C /* PerpUtils.cpp in Sources */,
 				37F4536A20A7126D0088399C /* PerpLua.cpp in Sources */,
@@ -1692,7 +1712,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "";
-				COMPRESS_PNG_FILES = NO;
+				COMPRESS_PNG_FILES = Yes;
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1717,7 +1737,6 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1733,7 +1752,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "";
-				COMPRESS_PNG_FILES = NO;
+				COMPRESS_PNG_FILES = Yes;
 				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1757,7 +1776,6 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1771,12 +1789,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FDAA88CB6244E887E203A8D0 /* Pods-DragonVillageM iOS.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
+				CODE_SIGN_ENTITLEMENTS = DragonVillageDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 3;
@@ -1798,7 +1817,6 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1815,15 +1833,17 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit/FBSDKLoginKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit/FBSDKShareKit.modulemap\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
 				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM Dev";
 				SDKROOT = iphoneos;
+				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/PerpleSDK\"";
 				SWIFT_OBJC_BRIDGING_HEADER = "ios/DragonVillageM iOS-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../libraries/perplesdk/include/ios $(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include";
 				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Debug;
@@ -1832,6 +1852,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B625BDC3EA735C585E70E2F /* Pods-DragonVillageM iOS.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1858,7 +1879,6 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -1878,14 +1898,16 @@
 					"-DNS_BLOCK_ASSERTIONS=1",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit/FBSDKLoginKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit/FBSDKShareKit.modulemap\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
 				PROVISIONING_PROFILE_SPECIFIER = "DragonVillageM Dist";
 				SDKROOT = iphoneos;
+				SWIFT_INCLUDE_PATHS = "$(inherited) \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit\" \"${PODS_CONFIGURATION_BUILD_DIR}/PerpleSDK\"";
 				SWIFT_OBJC_BRIDGING_HEADER = "ios/DragonVillageM iOS-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../libraries/perplesdk/include/ios $(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include";
 				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Release;

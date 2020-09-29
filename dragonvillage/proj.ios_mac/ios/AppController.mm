@@ -160,6 +160,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID secret:adjustSecretKey debug:isDebugAdjust];
     [[PerpleSDK sharedInstance] initAdMobWithAppId:ADMOB_APP_ID];
+    [[PerpleSDK sharedInstance] initAppleWithWindow:_window];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     cocos2d::Application::getInstance()->run();
 
