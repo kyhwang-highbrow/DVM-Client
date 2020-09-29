@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C445F231D7B9ACA00714F62 /* PerpleGameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C445F221D7B9ACA00714F62 /* PerpleGameCenter.m */; };
+		1C445F261D7B9D6400714F62 /* PerpleBilling.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C445F251D7B9D6400714F62 /* PerpleBilling.m */; };
+		3706B2411D75232E006D1143 /* PerpleGoogle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3706B2401D75232E006D1143 /* PerpleGoogle.m */; };
+		37311F271D76706A0085C073 /* PerpleFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 37311F261D76706A0085C073 /* PerpleFacebook.m */; };
+		37450C7C2047D26000960316 /* PerpleTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 37450C7B2047D26000960316 /* PerpleTwitter.m */; };
+		3759CDEB1D7950C200D0945A /* PerpleTapjoy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFA7AE21D538B7F00C4F983 /* PerpleTapjoy.m */; };
+		375E09721F4488A30085A2FE /* PerpleUnityAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 375E09711F4488A30085A2FE /* PerpleUnityAds.m */; };
+		3773CD1521E7763D00B22F35 /* PerpleCrashlytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3773CD1421E7763D00B22F35 /* PerpleCrashlytics.m */; };
+		3773CD2721EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3773CD2621EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m */; };
+		3773CD2B21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3773CD2A21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m */; };
+		37993C981D74121C005AC547 /* PerpleNaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 37993C971D74121C005AC547 /* PerpleNaver.m */; };
+		37993CCD1D743076005AC547 /* runtime_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37993CCC1D743076005AC547 /* runtime_ios.mm */; };
+		37AA47E01D4903F6008C7214 /* PerpleCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37AA47DE1D4903F6008C7214 /* PerpleCore.cpp */; };
+		37AA47E31D49040C008C7214 /* PerpleSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AA47E21D49040C008C7214 /* PerpleSDK.m */; };
+		37AA47E61D4906CB008C7214 /* PerpleFirebase.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AA47E51D4906CB008C7214 /* PerpleFirebase.m */; };
+		37AC8D7A2096289400258021 /* PerpleAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AC8D792096289400258021 /* PerpleAdMob.m */; };
+		37B4B815201B2A8C008B58E6 /* PerpleAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B4B814201B2A8C008B58E6 /* PerpleAdjust.m */; };
+		37BA05AC1F73B3900048FF81 /* PerpleAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */; };
+		3E8FC35C250733E000785D38 /* HbApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FC35B250733E000785D38 /* HbApple.swift */; };
+		8FFDBE7050D79AAF5F6B294F /* libPods-sdk_binder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74833296CF9DCE92B94C90DA /* libPods-sdk_binder.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1CCD9ED81D35C5F0004AAF73 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1C445F211D7B9ACA00714F62 /* PerpleGameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleGameCenter.h; sourceTree = "<group>"; };
+		1C445F221D7B9ACA00714F62 /* PerpleGameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleGameCenter.m; sourceTree = "<group>"; };
+		1C445F241D7B9D6400714F62 /* PerpleBilling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleBilling.h; sourceTree = "<group>"; };
+		1C445F251D7B9D6400714F62 /* PerpleBilling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleBilling.m; sourceTree = "<group>"; };
+		1CB7275B1D45435500994916 /* PerpleSDKLua.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PerpleSDKLua.cpp; sourceTree = "<group>"; };
+		1CB7275C1D45435500994916 /* PerpleSDKLua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleSDKLua.h; sourceTree = "<group>"; };
+		1CFA7AE11D538B7F00C4F983 /* PerpleTapjoy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleTapjoy.h; sourceTree = "<group>"; };
+		1CFA7AE21D538B7F00C4F983 /* PerpleTapjoy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleTapjoy.m; sourceTree = "<group>"; };
+		3706B23F1D75232E006D1143 /* PerpleGoogle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleGoogle.h; sourceTree = "<group>"; };
+		3706B2401D75232E006D1143 /* PerpleGoogle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleGoogle.m; sourceTree = "<group>"; };
+		37311F251D76706A0085C073 /* PerpleFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleFacebook.h; sourceTree = "<group>"; };
+		37311F261D76706A0085C073 /* PerpleFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleFacebook.m; sourceTree = "<group>"; };
+		37450C7A2047D19800960316 /* PerpleTwitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleTwitter.h; sourceTree = "<group>"; };
+		37450C7B2047D26000960316 /* PerpleTwitter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleTwitter.m; sourceTree = "<group>"; };
+		375E09701F4488A30085A2FE /* PerpleUnityAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleUnityAds.h; sourceTree = "<group>"; };
+		375E09711F4488A30085A2FE /* PerpleUnityAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleUnityAds.m; sourceTree = "<group>"; };
+		3773CD1321E774E000B22F35 /* PerpleCrashlytics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleCrashlytics.h; sourceTree = "<group>"; };
+		3773CD1421E7763D00B22F35 /* PerpleCrashlytics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleCrashlytics.m; sourceTree = "<group>"; };
+		3773CD2421EE18E900B22F35 /* PerpleAdMobInterstitialAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleAdMobInterstitialAd.h; sourceTree = "<group>"; };
+		3773CD2521EE190000B22F35 /* PerpleAdMobRewardedVideoAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleAdMobRewardedVideoAd.h; sourceTree = "<group>"; };
+		3773CD2621EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleAdMobRewardedVideoAd.m; sourceTree = "<group>"; };
+		3773CD2A21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleAdMobInterstitialAd.m; sourceTree = "<group>"; };
+		37993C961D74121C005AC547 /* PerpleNaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleNaver.h; sourceTree = "<group>"; };
+		37993C971D74121C005AC547 /* PerpleNaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleNaver.m; sourceTree = "<group>"; };
+		37993CCC1D743076005AC547 /* runtime_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = runtime_ios.mm; sourceTree = "<group>"; };
+		37AA47DE1D4903F6008C7214 /* PerpleCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerpleCore.cpp; sourceTree = "<group>"; };
+		37AA47DF1D4903F6008C7214 /* PerpleCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleCore.h; sourceTree = "<group>"; };
+		37AA47E11D49040C008C7214 /* PerpleSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleSDK.h; sourceTree = "<group>"; };
+		37AA47E21D49040C008C7214 /* PerpleSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleSDK.m; sourceTree = "<group>"; };
+		37AA47E41D4906CB008C7214 /* PerpleFirebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleFirebase.h; sourceTree = "<group>"; };
+		37AA47E51D4906CB008C7214 /* PerpleFirebase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleFirebase.m; sourceTree = "<group>"; };
+		37AC8D782096289300258021 /* PerpleAdMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleAdMob.h; sourceTree = "<group>"; };
+		37AC8D792096289400258021 /* PerpleAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleAdMob.m; sourceTree = "<group>"; };
+		37B4B813201B2A8B008B58E6 /* PerpleAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleAdjust.h; sourceTree = "<group>"; };
+		37B4B814201B2A8C008B58E6 /* PerpleAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleAdjust.m; sourceTree = "<group>"; };
+		37B4B816201B33FC008B58E6 /* NaverCafeSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = NaverCafeSDK.bundle; path = "../external/naver-cafe-sdk/cafe-sdk-ios-master/lib/NaverCafeSDK.bundle"; sourceTree = "<group>"; };
+		37BA05AA1F73B3900048FF81 /* PerpleAdColony.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleAdColony.h; sourceTree = "<group>"; };
+		37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleAdColony.m; sourceTree = "<group>"; };
+		3E201B6D2522C02800684A5A /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsdk_binder.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E201B772522C4CB00684A5A /* sdk_binder-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Swift.h"; sourceTree = "<group>"; };
+		3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Bridging-Header.h"; sourceTree = "<group>"; };
+		3E8FC35B250733E000785D38 /* HbApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbApple.swift; sourceTree = "<group>"; };
+		74833296CF9DCE92B94C90DA /* libPods-sdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk_binder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5D7E9B92364FFA31F073BFE /* Pods-sdk_binder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.debug.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.debug.xcconfig"; sourceTree = "<group>"; };
+		D39C93A85C233FAA1B397DC6 /* Pods-sdk_binder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.release.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1CCD9ED71D35C5F0004AAF73 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8FFDBE7050D79AAF5F6B294F /* libPods-sdk_binder.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1CB727551D45435500994916 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				37AA47DE1D4903F6008C7214 /* PerpleCore.cpp */,
+				37AA47DF1D4903F6008C7214 /* PerpleCore.h */,
+				1CB7275B1D45435500994916 /* PerpleSDKLua.cpp */,
+				1CB7275C1D45435500994916 /* PerpleSDKLua.h */,
+			);
+			name = src;
+			path = ../src;
+			sourceTree = "<group>";
+		};
+		1CB7275D1D45449000994916 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				37993CCC1D743076005AC547 /* runtime_ios.mm */,
+				3E201B782522C4D700684A5A /* Swift */,
+				3773CD2221EE187E00B22F35 /* AdMob */,
+				37AA47E11D49040C008C7214 /* PerpleSDK.h */,
+				37AA47E21D49040C008C7214 /* PerpleSDK.m */,
+				37B4B813201B2A8B008B58E6 /* PerpleAdjust.h */,
+				37B4B814201B2A8C008B58E6 /* PerpleAdjust.m */,
+				37AA47E41D4906CB008C7214 /* PerpleFirebase.h */,
+				37AA47E51D4906CB008C7214 /* PerpleFirebase.m */,
+				1CFA7AE11D538B7F00C4F983 /* PerpleTapjoy.h */,
+				1CFA7AE21D538B7F00C4F983 /* PerpleTapjoy.m */,
+				37993C961D74121C005AC547 /* PerpleNaver.h */,
+				37993C971D74121C005AC547 /* PerpleNaver.m */,
+				3706B23F1D75232E006D1143 /* PerpleGoogle.h */,
+				3706B2401D75232E006D1143 /* PerpleGoogle.m */,
+				37311F251D76706A0085C073 /* PerpleFacebook.h */,
+				37311F261D76706A0085C073 /* PerpleFacebook.m */,
+				1C445F211D7B9ACA00714F62 /* PerpleGameCenter.h */,
+				1C445F221D7B9ACA00714F62 /* PerpleGameCenter.m */,
+				1C445F241D7B9D6400714F62 /* PerpleBilling.h */,
+				1C445F251D7B9D6400714F62 /* PerpleBilling.m */,
+				375E09701F4488A30085A2FE /* PerpleUnityAds.h */,
+				375E09711F4488A30085A2FE /* PerpleUnityAds.m */,
+				37BA05AA1F73B3900048FF81 /* PerpleAdColony.h */,
+				37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */,
+				37450C7A2047D19800960316 /* PerpleTwitter.h */,
+				37450C7B2047D26000960316 /* PerpleTwitter.m */,
+				3773CD1321E774E000B22F35 /* PerpleCrashlytics.h */,
+				3773CD1421E7763D00B22F35 /* PerpleCrashlytics.m */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		1CCD9ED11D35C5F0004AAF73 = {
+			isa = PBXGroup;
+			children = (
+				3E201B6D2522C02800684A5A /* libsdk_binder.a */,
+				1CB727551D45435500994916 /* src */,
+				1CB7275D1D45449000994916 /* ios */,
+				37993C9E1D74152B005AC547 /* Resources */,
+				3E201B6B2522BE7B00684A5A /* Products */,
+				4830D4ED0E601DB59A418766 /* Pods */,
+				DD3DD1BB258A9BF5274465A2 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3773CD2221EE187E00B22F35 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				37AC8D782096289300258021 /* PerpleAdMob.h */,
+				37AC8D792096289400258021 /* PerpleAdMob.m */,
+				3773CD2421EE18E900B22F35 /* PerpleAdMobInterstitialAd.h */,
+				3773CD2A21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m */,
+				3773CD2521EE190000B22F35 /* PerpleAdMobRewardedVideoAd.h */,
+				3773CD2621EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m */,
+			);
+			name = AdMob;
+			sourceTree = "<group>";
+		};
+		37993C9E1D74152B005AC547 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				37B4B816201B33FC008B58E6 /* NaverCafeSDK.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		3E201B6B2522BE7B00684A5A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3E201B782522C4D700684A5A /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */,
+				3E201B772522C4CB00684A5A /* sdk_binder-Swift.h */,
+				3E8FC35B250733E000785D38 /* HbApple.swift */,
+			);
+			name = Swift;
+			sourceTree = "<group>";
+		};
+		4830D4ED0E601DB59A418766 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B5D7E9B92364FFA31F073BFE /* Pods-sdk_binder.debug.xcconfig */,
+				D39C93A85C233FAA1B397DC6 /* Pods-sdk_binder.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DD3DD1BB258A9BF5274465A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				74833296CF9DCE92B94C90DA /* libPods-sdk_binder.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1CCD9ED91D35C5F0004AAF73 /* sdk_binder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CCD9EE31D35C5F0004AAF73 /* Build configuration list for PBXNativeTarget "sdk_binder" */;
+			buildPhases = (
+				82CCE0CC1EDE86272A14AF12 /* [CP] Check Pods Manifest.lock */,
+				1CCD9ED61D35C5F0004AAF73 /* Sources */,
+				1CCD9ED71D35C5F0004AAF73 /* Frameworks */,
+				1CCD9ED81D35C5F0004AAF73 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sdk_binder;
+			productName = PerpleSDK;
+			productReference = 3E201B6D2522C02800684A5A /* libsdk_binder.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1CCD9ED21D35C5F0004AAF73 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1170;
+				ORGANIZATIONNAME = PerpleLab;
+				TargetAttributes = {
+					1CCD9ED91D35C5F0004AAF73 = {
+						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 1170;
+					};
+				};
+			};
+			buildConfigurationList = 1CCD9ED51D35C5F0004AAF73 /* Build configuration list for PBXProject "sdk_binder" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 1CCD9ED11D35C5F0004AAF73;
+			productRefGroup = 1CCD9ED11D35C5F0004AAF73;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1CCD9ED91D35C5F0004AAF73 /* sdk_binder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		82CCE0CC1EDE86272A14AF12 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-sdk_binder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1CCD9ED61D35C5F0004AAF73 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3706B2411D75232E006D1143 /* PerpleGoogle.m in Sources */,
+				37311F271D76706A0085C073 /* PerpleFacebook.m in Sources */,
+				3773CD2721EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m in Sources */,
+				37993CCD1D743076005AC547 /* runtime_ios.mm in Sources */,
+				375E09721F4488A30085A2FE /* PerpleUnityAds.m in Sources */,
+				3759CDEB1D7950C200D0945A /* PerpleTapjoy.m in Sources */,
+				37B4B815201B2A8C008B58E6 /* PerpleAdjust.m in Sources */,
+				3773CD2B21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m in Sources */,
+				37450C7C2047D26000960316 /* PerpleTwitter.m in Sources */,
+				37AA47E31D49040C008C7214 /* PerpleSDK.m in Sources */,
+				37BA05AC1F73B3900048FF81 /* PerpleAdColony.m in Sources */,
+				37AA47E61D4906CB008C7214 /* PerpleFirebase.m in Sources */,
+				37993C981D74121C005AC547 /* PerpleNaver.m in Sources */,
+				1C445F261D7B9D6400714F62 /* PerpleBilling.m in Sources */,
+				3773CD1521E7763D00B22F35 /* PerpleCrashlytics.m in Sources */,
+				1C445F231D7B9ACA00714F62 /* PerpleGameCenter.m in Sources */,
+				37AC8D7A2096289400258021 /* PerpleAdMob.m in Sources */,
+				37AA47E01D4903F6008C7214 /* PerpleCore.cpp in Sources */,
+				3E8FC35C250733E000785D38 /* HbApple.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1CCD9EE11D35C5F0004AAF73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
+			};
+			name = Debug;
+		};
+		1CCD9EE21D35C5F0004AAF73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
+			};
+			name = Release;
+		};
+		1CCD9EE41D35C5F0004AAF73 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5D7E9B92364FFA31F073BFE /* Pods-sdk_binder.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/external/cafe-sdk-ios-master/lib\"",
+					"\"$(SRCROOT)/external/cafe-sdk-ios-master/lib/external-lib\"",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"GTM_OAUTH2_USE_FRAMEWORK_IMPORTS=1",
+					"$(inherited)",
+					"GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1",
+					"$(inherited)",
+					"PB_FIELD_32BIT=1",
+					"PB_NO_PACKED_STRUCTS=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../src\"",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/lib/swift,
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lapp",
+					"-lanalytics",
+					"-lauth",
+					"-lmessaging",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit/FBSDKLoginKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit/FBSDKShareKit.modulemap\"";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ios/sdk_binder-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
+			};
+			name = Debug;
+		};
+		1CCD9EE51D35C5F0004AAF73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D39C93A85C233FAA1B397DC6 /* Pods-sdk_binder.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/external/cafe-sdk-ios-master/lib\"",
+					"\"$(SRCROOT)/external/cafe-sdk-ios-master/lib/external-lib\"",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"$(inherited)",
+					"GTM_OAUTH2_USE_FRAMEWORK_IMPORTS=1",
+					"$(inherited)",
+					"GPB_USE_PROTOBUF_FRAMEWORK_IMPORTS=1",
+					"$(inherited)",
+					"PB_FIELD_32BIT=1",
+					"PB_NO_PACKED_STRUCTS=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../src\"",
+				);
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/lib/swift,
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lapp",
+					"-lanalytics",
+					"-lauth",
+					"-lmessaging",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FBSDKCoreKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKLoginKit/FBSDKLoginKit.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/FBSDKShareKit/FBSDKShareKit.modulemap\"";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ios/sdk_binder-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1CCD9ED51D35C5F0004AAF73 /* Build configuration list for PBXProject "sdk_binder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CCD9EE11D35C5F0004AAF73 /* Debug */,
+				1CCD9EE21D35C5F0004AAF73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1CCD9EE31D35C5F0004AAF73 /* Build configuration list for PBXNativeTarget "sdk_binder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CCD9EE41D35C5F0004AAF73 /* Debug */,
+				1CCD9EE51D35C5F0004AAF73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1CCD9ED21D35C5F0004AAF73 /* Project object */;
+}
