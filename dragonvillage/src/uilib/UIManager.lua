@@ -112,6 +112,18 @@ end
 -- function makeTopUserInfo
 -------------------------------------
 function UIManager:makeTopUserInfo()
+    --cclog('## UIManager:makeTopUserInfo() - 함수 시작')
+    -- @sgkim 2020.09.29 탑바가 터치가 안되는 현상이 있어서 추측으로 수정 중
+    if (self.m_topUserInfo ~= nil) then
+        if self.m_topUserInfo.root then
+            if self.m_topUserInfo.root:isExist() then
+                --cclog('## UIManager:makeTopUserInfo() - 기존 탑바 삭제')
+                self.m_topUserInfo.root:release()
+            end
+        end
+        self.m_topUserInfo = nil
+    end
+
     if (not self.m_topUserInfo) then
         self.m_topUserInfo = UI_TopUserInfo()
         self.m_topUserInfo.root:retain()
