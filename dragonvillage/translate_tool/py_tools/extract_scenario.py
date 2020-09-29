@@ -19,9 +19,10 @@ locale_list = [
         'zhtw',
         'th',
         'es',
+        'fa'
     ] # 번역이 필요한 언어                                                    
 
-spreadsheet_key = '1zdD2E4SGh0myHuOd0MXBIlFjAinqha2Zn1yF4n9h6ic' # 스프레드시트 키
+spreadsheet_key = '1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA' # 스프레드시트 키
 
 sheet_name = 'only_scenario' # 생성할 스프레드시트 이름
 
@@ -42,6 +43,7 @@ from functools import cmp_to_key
 search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 all_data_list = [] # 스프레드시트를 만들 리스트 변수
 date_str = ''
+
 
 def add_data(datas):
     global locale_list, all_data_list, count, date_str
@@ -100,3 +102,4 @@ def extract():
 
 if __name__ == '__main__':
     extract()
+    os.system('pause')

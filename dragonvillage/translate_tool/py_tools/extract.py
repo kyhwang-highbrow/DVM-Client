@@ -17,10 +17,11 @@ locale_list = [
         'jp',
         'zhtw',
         'th',
-        'es'
+        'es',
+        'fa'
     ] # 번역이 필요한 언어                                                    
 
-spreadsheet_key = '1zdD2E4SGh0myHuOd0MXBIlFjAinqha2Zn1yF4n9h6ic' # 스프레드시트 키
+spreadsheet_key = '1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA' # 스프레드시트 키
 
 sheet_name = 'only_ingame' # 생성할 스프레드시트 이름
 
@@ -125,3 +126,4 @@ def extract():
 
 if __name__ == '__main__':
     extract()
+    os.system('pause')

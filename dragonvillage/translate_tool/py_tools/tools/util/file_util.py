@@ -49,7 +49,7 @@ def remove_dir(path):
 
 
 def write_file(path, data):
-    with open(path, 'w', encoding='utf-8') as f:
+    with open(path, 'w', encoding='utf-8', newline='\n') as f: # crlf가 아닌 lf로 파일을 작성하기 위해서
         f.write(data)
 
 
