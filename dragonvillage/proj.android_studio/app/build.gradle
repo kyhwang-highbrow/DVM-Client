@@ -1,8 +1,7 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 apply plugin: 'com.android.application'
-// @crashlytics
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.crashlytics'
 
 // task preBuild excuted before android build 
 preBuild {
@@ -237,7 +236,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
                     cppFlags.add("-DMINOR_VER=NUM_2")
-                    cppFlags.add("-DBUILD_VER=NUM_5")
+                    cppFlags.add("-DBUILD_VER=NUM_6")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -252,7 +251,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
                     cppFlags.add("-DMINOR_VER=NUM_2")
-                    cppFlags.add("-DBUILD_VER=NUM_5")
+                    cppFlags.add("-DBUILD_VER=NUM_6")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
                     cppFlags.add("-DLUA_DEBUG=1")
@@ -294,6 +293,9 @@ android {
                     arguments 'NDK_DEBUG=0'
                     cppFlags.add("-DNDEBUG")
                 }
+            }
+            firebaseCrashlytics {
+                nativeSymbolUploadEnabled true
             }
         }
         debug {
