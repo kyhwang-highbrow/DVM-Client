@@ -1,45 +1,27 @@
 #############################################################################
 ## 프로젝트에서 번역해야 하는 일반 텍스트 한글을 추출하는 코드입니다.
-
 #############################################################################
-### 하이퍼 파라미터 ##########################################################
-ignore_files = [                                                             
-        'table_ban_word_chat.csv',                                          
-        'table_ban_word_naming.csv'                                         
-    ] # 파일 탐색 시 무시할 파일 명                                           
-                                                                            
-ignore_folders = [                                                           
-        r'\scenario' # 시나리오 관련 폴더를 무시합니다.                                                 
-    ] # 파일 탐색 시 무시할 폴더 명                                           
-                                                                            
-locale_list = [                                                             
-        'en',                                                               
-        'jp',
-        'zhtw',
-        'th',
-        'es',
-        'fa'
-    ] # 번역이 필요한 언어                                                    
-
-spreadsheet_key = '1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA' # 스프레드시트 키
-
-sheet_name = 'only_ingame' # 생성할 스프레드시트 이름
-
-#############################################################################
-#############################################################################
-
 
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 import datetime
+import json
 from tools.extract.extract_from_lua import extract_from_lua
 from tools.extract.extract_from_UI import extract_from_UI
 from tools.extract.extract_from_csv import extract_from_csv
 from tools.upload.upload_sheet import upload
 
 search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+with open('config.json', 'r') as f: # config.json으로부터 데이터 읽기
+    config_json = json.load(f)
+    locale_list = config_json['locale_list']
+    spreadsheet_id = config_json['spreadsheet_id']
+    sheet_name_list = config_json['sheet_name_list']
+    plain_text_ignore_files = config_json['plain_text_ignore_files']
+    plain_text_ignore_folders = config_json['plain_text_ignore_folders']
+
 all_data_dic = {} # 각 파일로부터 나온 데이터를 저장하는 딕셔너리 변수
 all_data_list = [] # 스프레드시트를 만들 리스트 변수
 date_str = ''
@@ -75,9 +57,9 @@ def add_data(datas):
 
 
 def start_upload():
-    global sheet_name, spreadsheet_id, all_data_list, locale_list
+    global sheet_name_list, spreadsheet_id, all_data_list, locale_list
 
-    print('Upload start :', spreadsheet_key)
+    print('Upload start :', spreadsheet_id)
     print('Locale list :', ', '.join(locale_list))
 
     # 새로 만들 시트의 헤더입니다.
@@ -87,21 +69,22 @@ def start_upload():
     header.append('hints')
     header.append('date')
 
-    upload(sheet_name, spreadsheet_key, all_data_list, header, locale_list)
+    for sheet_name in sheet_name_list:
+        upload(sheet_name, spreadsheet_id, all_data_list, header, locale_list)
 
 
 def extract():
-    global search_root, ignore_files, ignore_folders, all_data_dic, all_data_list, date_str, count, sheet_name, spreadsheet_id
+    global search_root, plain_text_ignore_files, plain_text_ignore_folders, all_data_dic, all_data_list, date_str, count, sheet_name, spreadsheet_id
     
     date = datetime.datetime.now()
     date_str = date.strftime(r'%Y.%m.%d %H:%M:%S')
     
     # 1. 각 파일로부터 데이터를 추출합니다
-    from_lua = extract_from_lua(search_root + r'\..\src', ignore_files, ignore_folders)
-    from_UI = extract_from_UI(search_root + r'\..\res', ignore_files, ignore_folders)
-    from_sv_data = extract_from_csv(search_root + r'\..\..\sv_tables', ignore_files, ignore_folders)
-    from_sv_patch_data = extract_from_csv(search_root + r'\..\..\sv_tables_patch', ignore_files, ignore_folders)
-    from_data = extract_from_csv(search_root + r'\..\data', ignore_files, ignore_folders)
+    from_lua = extract_from_lua(search_root + r'\..\src', plain_text_ignore_files, plain_text_ignore_folders)
+    from_UI = extract_from_UI(search_root + r'\..\res', plain_text_ignore_files, plain_text_ignore_folders)
+    from_sv_data = extract_from_csv(search_root + r'\..\..\sv_tables', plain_text_ignore_files, plain_text_ignore_folders)
+    from_sv_patch_data = extract_from_csv(search_root + r'\..\..\sv_tables_patch', plain_text_ignore_files, plain_text_ignore_folders)
+    from_data = extract_from_csv(search_root + r'\..\data', plain_text_ignore_files, plain_text_ignore_folders)
 
     # 2. 파일로부터 추출한 데이터를 하나로 모으고 오름차순으로 정렬합니다
     add_data(from_lua)
@@ -121,9 +104,20 @@ def extract():
     print('\t CSV -', from_data['length'])
     
     # 3. 하나로 모은 데이터를 구글 스프레드 시트에 작성합니다
-    start_upload()
+    start_upload() 
 
 
 if __name__ == '__main__':
-    extract()
+    print('*** JOB : Extract plain texts from project. DO THIS NOW? (y/n)')
+    key = input()
+
+    if key == 'y' or key == 'Y':
+        print('*** START JOB')
+        
+        extract()
+        
+        print('*** FINISH JOB')
+    else:
+        print('*** CANCEL JOB')
+
     os.system('pause')

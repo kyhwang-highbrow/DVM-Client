@@ -84,7 +84,8 @@ def upload(sheet_name, spreadsheet_key, data_list, header, locale_list, is_scena
         backup_sheet = sheet.get_work_sheet(sheet_name + '_backup')
         if backup_sheet is not None: # 백업 시트가 존재한다면 백업 시트와의 중복 검사 실시
             data_list = removeStr(backup_sheet, data_list, header, locale_list, is_scenario)
-    
+
+
     # 시트를 만들 때 사용될 칼럼 사이즈입니다.
     col_count = len(header)
 

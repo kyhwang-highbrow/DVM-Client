@@ -1,45 +1,31 @@
 #############################################################################
 ## 번역이 끝난 시트들을 통합하는 코드입니다.
-
-#############################################################################
-### 하이퍼 파라미터 ##########################################################
-locale_list = [                                                             
-        'en',                                                               
-        'jp',
-        'zhtw',
-        'th',
-        'es',
-        'fa',
-    ] # 번역 언어                                               
-
-spreadsheet_key = '1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA' # 스프레드시트 키
-
-sheet_name = 'only_ingame' # 병합할 스프레드시트 이름, sheet_name과 sheet_name_backup 두 시트를 병합합니다.
-
-is_scenario = False # 통합할 워크 시트가 시나리오 판단하는 변수
-
-#############################################################################
 #############################################################################
 
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
+import json
 import tools.G_sheet.spread_sheet as spread_sheet
 from tools.upload.upload_sheet import upload
 from tools.util.sort_util import cmp_scenario
 from functools import cmp_to_key
 
 
-sheet = None
-work_sheets = []
+with open('config.json', 'r') as f: # config.json으로부터 데이터 읽기
+    config_json = json.load(f)
+    locale_list = config_json['locale_list']
+    spreadsheet_id = config_json['spreadsheet_id']
+    sheet_name_list = config_json['sheet_name_list']
+    plain_text_ignore_files = config_json['plain_text_ignore_files']
+    plain_text_ignore_folders = config_json['plain_text_ignore_folders']
 
-all_data_list = []
-header = []
 
-def make_header():
-    global is_scenario, locale_list, header
+def make_header(is_scenario):
+    global locale_list
 
+    header = []
     if is_scenario:
         header.extend(['fileName', 'page', 'speaker_kr'])
         for locale in locale_list:
@@ -50,12 +36,11 @@ def make_header():
     if not is_scenario:
         header.append('hints')
     header.append('date')
+
+    return header
     
 
-def merge_data(data_dic):
-    global all_data_list, header, is_scenario
-    
-
+def merge_data(all_data_list, data_dic, header, is_scenario):
     if is_scenario:
         speaker_index = header.index('speaker_kr')
         text_index = header.index('kr')
@@ -85,28 +70,44 @@ def merge_data(data_dic):
                 if all_data_list[index][i] == '':
                     all_data_list[index][i] = dic[header_value] if header_value in dic else ''
 
+    return all_data_list
 
 
 def merge_backup():
-    global sheet, work_sheets, spreadsheet_key, sheet_name, all_data_list, header, is_scenario
+    global spreadsheet_id, sheet_name_list
 
-    sheet = spread_sheet.get_spread_sheet(spreadsheet_key)
-    work_sheets.append(sheet.get_work_sheet(sheet_name))
+    sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
 
-    # 시나리오 시트인지 아닌지에 따라 헤더를 만듭니다.
-    make_header()
+    for sheet_name in sheet_name_list:
+        all_data_list = []
+        work_sheet = sheet.get_work_sheet(sheet_name)
+        is_scenario = True if 'scenario' in sheet_name else False
 
-    # 워크시트에 들어있는 데이터를 통합합니다.
-    for work_sheet in work_sheets:
+        # 시나리오 시트인지 아닌지에 따라 헤더를 만듭니다.
+        header = make_header(is_scenario)
+
+        # 워크시트에 들어있는 데이터를 통합합니다.
         print('Merge data :', work_sheet.title)
-        merge_data(spread_sheet.make_rows_to_dic(work_sheet.get_all_values()))
+        all_data_list = merge_data(all_data_list, spread_sheet.make_rows_to_dic(work_sheet.get_all_values()), header, is_scenario)
+        print('length of data list :', len(all_data_list))
 
-    # 모은 데이터를 워크시트에 작성합니다.
-    print('Total strings (no dup) :', len(all_data_list))
-    upload(sheet_name + '_backup', spreadsheet_key, all_data_list, header, locale_list, is_scenario=is_scenario)
-    print('Merging sheets is done.')
+        # 모은 데이터를 워크시트에 작성합니다.
+        print('Total strings (no dup) :', len(all_data_list))
+        upload(sheet_name + '_backup', spreadsheet_id, all_data_list, header, locale_list, is_scenario=is_scenario)
+        print('Merging sheets at',sheet_name,'is done.')
 
 
 if __name__ == '__main__':
-    merge_backup()
+    print('*** JOB : Merge backup sheet and new sheet. DO THIS NOW? (y/n)')
+    key = input()
+
+    if key == 'y' or key == 'Y':
+        print('*** START JOB')
+
+        merge_backup()
+        
+        print('*** FINISH JOB')
+    else:
+        print('*** CANCEL JOB')
+        
     os.system('pause')

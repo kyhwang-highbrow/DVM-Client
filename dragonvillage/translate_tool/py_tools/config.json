@@ -1,0 +1,36 @@
+{
+    "locale_list" : [                                                             
+        "en",                                                               
+        "jp",
+        "zhtw",
+        "th",
+        "es",
+        "fa"
+    ],
+
+    "spreadsheet_id" : "1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA",
+
+    "sheet_name_list" : [
+        "only_ingame",
+        "only_scenario"
+    ],
+
+    "plain_text_ignore_files" : [
+        "table_ban_word_chat.csv",
+        "table_ban_word_naming.csv"
+    ],
+
+    "plain_text_ignore_folders" : [
+        "\\scenario"
+    ],
+
+    "scenario_text_ignore_files" : [
+        "table_ban_word_chat.csv",
+        "table_ban_word_naming.csv",
+        "scenario_resource.csv",
+        "scenario_sample.csv"
+    ],
+
+    "scenario_text_ignore_folders" : [
+    ]
+}
