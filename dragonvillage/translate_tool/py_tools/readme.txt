@@ -15,9 +15,9 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 # 실행을 위해 필요한 것
 1. 파이썬 버전은 3.8.5 버전을 사용합니다.
 2. 파이썬 관련 라이브러리를 설치하기 위해 콘솔창에서 아래와 같이 입력합니다.
-    1. pip install --upgrade oauth2client
-    2. pip install gspread    
-    3. pip install PyOpenSSL
+    2-1. pip install --upgrade oauth2client
+    2-2. pip install gspread    
+    2-3. pip install PyOpenSSL
 3. 번역 툴이 스프레드시트에 접근하기 위해 사용하는 이메일 값을 스프레드시트 접근 권한에 추가해야 합니다.
 
 
@@ -31,21 +31,22 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 # config.json 구성요소
 1. locale_list - 번역할 언어를 배열로 담습니다.
 2. spreadsheet_id - 구글 스프레드시트의 아이디 값을 담습니다.
-3. sheet_name_list - 적용할 스프레드시트 내의 워크시트 이름을 배열로 담습니다. 백업시트 이름을 같이 적을 필요 없습니다.
-4. plain_text 관련
-    4-1. plain_text_ignore_files - 일반 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
-    4-2. plain_text_ignore_folders - 일반 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
-    4-3. plain_text_ignore_kr - 일반 텍스트를 추출할 때 무시할 텍스트를 배열로 담습니다.
-5. scenario 관련
-    5-1. scenario_text_ignore_files - 시나리오 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
-    5-2. scenario_text_ignore_folders - 시나리오 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
-    5-3. scenario_text_ignore_kr - 시나리오 텍스트를 추출할 때 무시할 대사 텍스트를 배열로 담습니다.
+3. plain_text 관련
+    3-1. plain_text_sheet_name - 일반 텍스트를 작업할 워크시트 이름 값을 담습니다. 백업시트 이름을 같이 적을 필요 없습니다.
+    3-2. plain_text_ignore_files - 일반 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
+    3-3. plain_text_ignore_folders - 일반 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
+    3-4. plain_text_ignore_kr - 일반 텍스트를 추출할 때 무시할 텍스트를 배열로 담습니다.
+4. scenario 관련
+    4-1. scenario_sheet_name - 시나리오 텍스트를 작업할 워크시트 이름 값을 담습니다. 백업시트 이름을 같이 적을 필요 없습니다.
+    4-2. scenario_text_ignore_files - 시나리오 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
+    4-3. scenario_text_ignore_folders - 시나리오 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
+    4-4. scenario_text_ignore_kr - 시나리오 텍스트를 추출할 때 무시할 대사 텍스트를 배열로 담습니다.
 
 
 # 각 코드별 참고 사항
-1. extract, extract_scenario
+1. extract_plain, extract_scenario
 - 새로운 텍스트 추출은 백업시트와의 중복 검사를 통해 걸러집니다. 추가로 이미 뉴시트가 존재하는 경우 뉴시트와 중복 검사 또한 진행합니다. 
-- 만약 원하는 대로 잘 추출이 안되는 경우에는 기존 뉴시트를 삭제하고 코드를 실행해보세요. 뉴시트를 새로 만들어 내용을 채웁니다.
+- 만약 원하는 대로 잘 추출이 안되는 경우에는 기존 뉴시트를 삭제하고 코드를 실행해보세요. 뉴시트를 새로 만들어 내용을 채울 것입니다.
 
 2. make_lua
 - 뉴시트와 백업시트의 내용을 합쳐서 루아 테이블을 만들어냅니다. 기존 루아 테이블을 덮어씌우지 않도록 translation/newLuaTable 폴더 내부에 생성되도록 했습니다.

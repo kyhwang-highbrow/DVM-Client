@@ -21,7 +21,7 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
-    sheet_name_list = config_json['sheet_name_list']
+    sheet_name_list = [config_json['plain_text_sheet_name'], config_json['scenario_sheet_name']]
     plain_text_ignore_files = config_json['plain_text_ignore_files']
     plain_text_ignore_folders = config_json['plain_text_ignore_folders']
     scenario_text_ignore_files = config_json['scenario_text_ignore_files']
@@ -83,8 +83,6 @@ def search_kr():
 
 
 def merge_all_data(work_sheets):
-    global locale_list
-
     # 워크시트들의 정보를 병합하여 하나의 리스트에 담습니다.
     all_data_list = {}
     for locale in locale_list:
@@ -144,14 +142,11 @@ def make_lua(locale, all_data_list):
 
 
 def save_file(file_name, data):
-    global make_root
     file_path = os.path.join(make_root, file_name)
     file_util.write_file(file_path, data)
 
 
 def make_all():
-    global locale_list, sheet_name_list, spreadsheet_id, sheet, work_sheets, make_root
-
     sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
     for sheet_name in sheet_name_list:
         work_sheets.append(sheet.get_work_sheet(sheet_name))
@@ -170,8 +165,9 @@ def make_all():
 
     print('Making lua table is done.')
 
+
 if __name__ == '__main__':
-    print('*** JOB : Make lua tables from spreadsheets [', ','.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
+    print('*** JOB : Make lua tables from spreadsheets [', ', '.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

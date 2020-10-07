@@ -6,36 +6,36 @@
         "th",
         "es",
         "fa"
-    ],
+    ]
 
-    "spreadsheet_id" : "1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA",
+    ,"spreadsheet_id" : "1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA"
 
-    "sheet_name_list" : [
-        "only_scenario"
-    ],
+    ,"plain_text_sheet_name" : "only_ingame"
 
-    "plain_text_ignore_files" : [
+    ,"plain_text_ignore_files" : [
         "table_ban_word_chat.csv",
         "table_ban_word_naming.csv"
-    ],
+    ]
 
-    "plain_text_ignore_folders" : [
+    ,"plain_text_ignore_folders" : [
         "\\scenario"
-    ],
+    ]
 
-    "plain_text_ignore_kr" : [
-    ],
+    ,"plain_text_ignore_krs" : [
+    ]
 
-    "scenario_text_ignore_files" : [
+    ,"scenario_sheet_name" : "only_scenario"
+
+    ,"scenario_text_ignore_files" : [
         "table_ban_word_chat.csv",
         "table_ban_word_naming.csv",
         "scenario_resource.csv",
         "scenario_sample.csv"
-    ],
+    ]
 
-    "scenario_text_ignore_folders" : [
-    ],
+    ,"scenario_text_ignore_folders" : [
+    ]
 
-    "scenario_text_ignore_kr" : [
+    ,"scenario_text_ignore_krs" : [
     ]
 }

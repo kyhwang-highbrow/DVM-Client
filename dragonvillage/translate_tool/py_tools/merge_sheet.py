@@ -2,6 +2,7 @@
 ## 번역이 끝난 시트들을 통합하는 코드입니다.
 #############################################################################
 
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -17,7 +18,7 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
-    sheet_name_list = config_json['sheet_name_list']
+    sheet_name_list = [config_json['plain_text_sheet_name'], config_json['scenario_sheet_name']]
     plain_text_ignore_files = config_json['plain_text_ignore_files']
     plain_text_ignore_folders = config_json['plain_text_ignore_folders']
 
@@ -74,8 +75,6 @@ def merge_data(all_data_list, data_dic, header, is_scenario):
 
 
 def merge_backup():
-    global spreadsheet_id, sheet_name_list
-
     sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
 
     for sheet_name in sheet_name_list:
@@ -92,13 +91,12 @@ def merge_backup():
         print('length of data list :', len(all_data_list))
 
         # 모은 데이터를 워크시트에 작성합니다.
-        print('Total strings (no dup) :', len(all_data_list))
         upload(sheet_name + '_backup', spreadsheet_id, all_data_list, header, locale_list, is_scenario=is_scenario)
         print('Merging sheets at',sheet_name,'is done.')
 
 
 if __name__ == '__main__':
-    print('*** JOB : Merge backup sheet and new sheet [', ','.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
+    print('*** JOB : Merge backup sheet and new sheet [', ', '.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

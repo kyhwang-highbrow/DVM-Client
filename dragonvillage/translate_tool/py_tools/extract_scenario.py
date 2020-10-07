@@ -2,6 +2,7 @@
 ## 프로젝트에서 번역해야 하는 시나리오 한글을 추출하는 코드입니다.
 #############################################################################
 
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -18,17 +19,17 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
-    sheet_name_list = config_json['sheet_name_list']
+    sheet_name = config_json['scenario_sheet_name']
     scenario_text_ignore_files = config_json['scenario_text_ignore_files']
     scenario_text_ignore_folders = config_json['scenario_text_ignore_folders']
-    scenario_text_ignore_kr = config_json['scenario_text_ignore_kr']
+    scenario_text_ignore_krs = config_json['scenario_text_ignore_krs']
 
 all_data_list = [] # 스프레드시트를 만들 리스트 변수
 
 
 def add_data(datas, date_str):
     for data in datas:
-        if scenario_text_ignore_kr.count(data[3]) > 0:
+        if scenario_text_ignore_krs.count(data[3]) > 0:
             continue
         temp_data = [data[0], data[1], data[2]] # [file_name, page, speaker_kr]
         temp_data.extend(['' for _ in range(len(locale_list))])
@@ -51,8 +52,7 @@ def start_upload():
         header.append(locale)
     header.append('date')
 
-    for sheet_name in sheet_name_list:
-        upload(sheet_name, spreadsheet_id, all_data_list, header, locale_list, is_scenario=True)
+    upload(sheet_name, spreadsheet_id, all_data_list, header, locale_list, is_scenario=True)
 
 
 def extract():
@@ -70,7 +70,7 @@ def extract():
 
     # print(from_scenario)
 
-    print('Total strings (no dup) :', len(all_data_list))
+    print('Total unique texts from projects :', len(all_data_list))
     print('Found :')
     print('\t Scenario -', len(from_scenario))
 
@@ -79,7 +79,7 @@ def extract():
 
 
 if __name__ == '__main__':
-    print('*** JOB : Extract scenario texts from project at sheet [', ','.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
+    print('*** JOB : Extract scenario texts from project at sheet [', sheet_name, ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

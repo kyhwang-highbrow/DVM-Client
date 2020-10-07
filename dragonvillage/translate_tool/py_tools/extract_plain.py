@@ -2,6 +2,7 @@
 ## 프로젝트에서 번역해야 하는 일반 텍스트 한글을 추출하는 코드입니다.
 #############################################################################
 
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -18,10 +19,10 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
-    sheet_name_list = config_json['sheet_name_list']
+    sheet_name = config_json['plain_text_sheet_name']
     plain_text_ignore_files = config_json['plain_text_ignore_files']
     plain_text_ignore_folders = config_json['plain_text_ignore_folders']
-    plain_text_ignore_kr = config_json['plain_text_ignore_kr']
+    plain_text_ignore_krs = config_json['plain_text_ignore_krs']
 
 all_data_dic = {} # 각 파일로부터 나온 데이터를 저장하는 딕셔너리 변수
 all_data_list = [] # 스프레드시트를 만들 리스트 변수
@@ -31,7 +32,7 @@ def add_data(datas, date_str):
     for data_key in datas:
         if data_key == 'length':
             continue
-        if plain_text_ignore_kr.count(data_key) > 0:
+        if plain_text_ignore_krs.count(data_key) > 0:
             continue
 
         if data_key not in all_data_dic.keys():
@@ -66,8 +67,7 @@ def start_upload():
     header.append('hints')
     header.append('date')
 
-    for sheet_name in sheet_name_list:
-        upload(sheet_name, spreadsheet_id, all_data_list, header, locale_list)
+    upload(sheet_name, spreadsheet_id, all_data_list, header, locale_list)
 
 
 def extract():
@@ -103,7 +103,7 @@ def extract():
 
 
 if __name__ == '__main__':
-    print('*** JOB : Extract plain texts from project at sheet [', ','.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
+    print('*** JOB : Extract plain texts from project at sheet [', sheet_name, ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':
