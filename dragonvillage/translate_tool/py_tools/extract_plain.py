@@ -14,26 +14,26 @@ from tools.extract.extract_from_csv import extract_from_csv
 from tools.upload.upload_sheet import upload
 
 search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
-with open('config.json', 'r') as f: # config.json으로부터 데이터 읽기
+with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
     sheet_name_list = config_json['sheet_name_list']
     plain_text_ignore_files = config_json['plain_text_ignore_files']
     plain_text_ignore_folders = config_json['plain_text_ignore_folders']
+    plain_text_ignore_kr = config_json['plain_text_ignore_kr']
 
 all_data_dic = {} # 각 파일로부터 나온 데이터를 저장하는 딕셔너리 변수
 all_data_list = [] # 스프레드시트를 만들 리스트 변수
-date_str = ''
-count = 0
 
-def add_data(datas):
-    global locale_list, all_data_dic, all_data_list, count, date_str
 
+def add_data(datas, date_str):
     for data_key in datas:
         if data_key == 'length':
             continue
-        
+        if plain_text_ignore_kr.count(data_key) > 0:
+            continue
+
         if data_key not in all_data_dic.keys():
             all_data_dic[data_key] = {}
             all_data_dic[data_key]['hints'] = datas[data_key]['hints']
@@ -44,7 +44,6 @@ def add_data(datas):
             temp_data.append(','.join(datas[data_key]['hints']))
             temp_data.append(date_str)
             all_data_list.append(temp_data)
-            count += 1
 
         hints = datas[data_key]['hints']
         for hint in hints:
@@ -57,8 +56,6 @@ def add_data(datas):
 
 
 def start_upload():
-    global sheet_name_list, spreadsheet_id, all_data_list, locale_list
-
     print('Upload start :', spreadsheet_id)
     print('Locale list :', ', '.join(locale_list))
 
@@ -74,8 +71,6 @@ def start_upload():
 
 
 def extract():
-    global search_root, plain_text_ignore_files, plain_text_ignore_folders, all_data_dic, all_data_list, date_str, count, sheet_name, spreadsheet_id
-    
     date = datetime.datetime.now()
     date_str = date.strftime(r'%Y.%m.%d %H:%M:%S')
     
@@ -86,16 +81,16 @@ def extract():
     from_sv_patch_data = extract_from_csv(search_root + r'\..\..\sv_tables_patch', plain_text_ignore_files, plain_text_ignore_folders)
     from_data = extract_from_csv(search_root + r'\..\data', plain_text_ignore_files, plain_text_ignore_folders)
 
-    # 2. 파일로부터 추출한 데이터를 하나로 모으고 오름차순으로 정렬합니다
-    add_data(from_lua)
-    add_data(from_UI)
-    add_data(from_sv_data)
-    add_data(from_sv_patch_data)
-    add_data(from_data)
+    # 2. 파일로부터 추출한 데이터를 하나로 모으고 kr을 기준으로 오름차순으로 정렬합니다
+    add_data(from_lua, date_str)
+    add_data(from_UI, date_str)
+    add_data(from_sv_data, date_str)
+    add_data(from_sv_patch_data, date_str)
+    add_data(from_data, date_str)
 
     all_data_list.sort(key=lambda line: line[0]) 
 
-    print('Total strings (no dup) :', count)
+    print('Total unique texts from projects :', len(all_data_list))
     print('Found :')
     print('\t Lua -', from_lua['length'])
     print('\t UI -', from_UI['length'])
@@ -108,7 +103,7 @@ def extract():
 
 
 if __name__ == '__main__':
-    print('*** JOB : Extract plain texts from project. DO THIS NOW? (y/n)')
+    print('*** JOB : Extract plain texts from project at sheet [', ','.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

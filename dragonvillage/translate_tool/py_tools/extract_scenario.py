@@ -14,22 +14,22 @@ from tools.util.sort_util import cmp_scenario
 from functools import cmp_to_key
 
 search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
-with open('config.json', 'r') as f: # config.json으로부터 데이터 읽기
+with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
     sheet_name_list = config_json['sheet_name_list']
     scenario_text_ignore_files = config_json['scenario_text_ignore_files']
     scenario_text_ignore_folders = config_json['scenario_text_ignore_folders']
+    scenario_text_ignore_kr = config_json['scenario_text_ignore_kr']
 
 all_data_list = [] # 스프레드시트를 만들 리스트 변수
-date_str = ''
 
 
-def add_data(datas):
-    global locale_list, all_data_list, count, date_str
-
+def add_data(datas, date_str):
     for data in datas:
+        if scenario_text_ignore_kr.count(data[3]) > 0:
+            continue
         temp_data = [data[0], data[1], data[2]] # [file_name, page, speaker_kr]
         temp_data.extend(['' for _ in range(len(locale_list))])
         temp_data.append(data[3]) # text_kr
@@ -39,8 +39,6 @@ def add_data(datas):
 
 
 def start_upload():
-    global sheet_name_list, spreadsheet_id, all_data_list, locale_list
-
     print('Upload start :', spreadsheet_id)
     print('Locale list :', ', '.join(locale_list))
 
@@ -58,8 +56,6 @@ def start_upload():
 
 
 def extract():
-    global search_root, scenario_text_ignore_files, scenario_text_ignore_folders, all_data_list, date_str, count, sheet_name, spreadsheet_id
-    
     date = datetime.datetime.now()
     date_str = date.strftime(r'%Y.%m.%d %H:%M:%S')
     
@@ -67,7 +63,7 @@ def extract():
     from_scenario = extract_from_scenario(search_root + r'\..\data\scenario', scenario_text_ignore_files, scenario_text_ignore_folders)
 
     # 2. 파일로부터 추출한 데이터를 하나로 모으고 오름차순으로 정렬합니다
-    add_data(from_scenario)
+    add_data(from_scenario, date_str)
 
     # 데이터를 정렬합니다.
     all_data_list.sort(key=cmp_to_key(cmp_scenario)) 
@@ -83,7 +79,7 @@ def extract():
 
 
 if __name__ == '__main__':
-    print('*** JOB : Extract scenario texts from project. DO THIS NOW? (y/n)')
+    print('*** JOB : Extract scenario texts from project at sheet [', ','.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

@@ -11,7 +11,6 @@
     "spreadsheet_id" : "1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA",
 
     "sheet_name_list" : [
-        "only_ingame",
         "only_scenario"
     ],
 
@@ -24,6 +23,9 @@
         "\\scenario"
     ],
 
+    "plain_text_ignore_kr" : [
+    ],
+
     "scenario_text_ignore_files" : [
         "table_ban_word_chat.csv",
         "table_ban_word_naming.csv",
@@ -32,5 +34,8 @@
     ],
 
     "scenario_text_ignore_folders" : [
+    ],
+
+    "scenario_text_ignore_kr" : [
     ]
 }

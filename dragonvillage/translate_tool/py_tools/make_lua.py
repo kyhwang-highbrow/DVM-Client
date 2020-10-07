@@ -17,7 +17,7 @@ from tools.extract.extract_from_csv import extract_from_csv_only_kr
 from tools.extract.extract_from_scenario import extract_from_scenario_only_kr
 
 
-with open('config.json', 'r') as f: # config.json으로부터 데이터 읽기
+with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
@@ -171,7 +171,7 @@ def make_all():
     print('Making lua table is done.')
 
 if __name__ == '__main__':
-    print('*** JOB : Make lua tables from spreadsheets. DO THIS NOW? (y/n)')
+    print('*** JOB : Make lua tables from spreadsheets [', ','.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

@@ -13,7 +13,7 @@ from tools.util.sort_util import cmp_scenario
 from functools import cmp_to_key
 
 
-with open('config.json', 'r') as f: # config.json으로부터 데이터 읽기
+with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
@@ -98,7 +98,7 @@ def merge_backup():
 
 
 if __name__ == '__main__':
-    print('*** JOB : Merge backup sheet and new sheet. DO THIS NOW? (y/n)')
+    print('*** JOB : Merge backup sheet and new sheet [', ','.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

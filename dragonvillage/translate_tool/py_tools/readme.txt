@@ -5,19 +5,18 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 
 
 # 사용할 코드에 대한 간략한 설명입니다.
-1. extract.py - 일반 텍스트 추출을 합니다. 기존의 백업 시트와 비교하여 중복되지 않는 텍스트만 시트로 작성합니다. 
+1. extract_plain.py - 일반 텍스트 추출을 합니다. 기존의 백업 시트와 비교하여 중복되지 않는 텍스트만 시트로 작성합니다. 
 2. extract_scenario.py - 시나리오 텍스트 추출을 합니다. 기존의 백업 시트와 비교하여 중복되지 않는 텍스트만 시트로 작성합니다.
 3. make_lua.py - 기존의 백업 시트와 새로운 시트를 합쳐 루아 테이블 파일을 만듭니다.
 4. merge_sheet.py - 기존의 백업 시트 하단부에 새로운 시트의 내용을 붙입니다.
-
-위 코드들은 공통적으로 config.json 파일에 적혀진 설정을 따릅니다.
+* 위 코드들은 공통적으로 config.json 파일에 적혀진 설정을 따릅니다.
 
 
 # 실행을 위해 필요한 것
 1. 파이썬 버전은 3.8.5 버전을 사용합니다.
 2. 파이썬 관련 라이브러리를 설치하기 위해 콘솔창에서 아래와 같이 입력합니다.
     1. pip install --upgrade oauth2client
-    2. pip install gspread
+    2. pip install gspread    
     3. pip install PyOpenSSL
 3. 번역 툴이 스프레드시트에 접근하기 위해 사용하는 이메일 값을 스프레드시트 접근 권한에 추가해야 합니다.
 
@@ -33,10 +32,14 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 1. locale_list - 번역할 언어를 배열로 담습니다.
 2. spreadsheet_id - 구글 스프레드시트의 아이디 값을 담습니다.
 3. sheet_name_list - 적용할 스프레드시트 내의 워크시트 이름을 배열로 담습니다. 백업시트 이름을 같이 적을 필요 없습니다.
-4. plain_text_ignore_files - 일반 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
-5. plain_text_ignore_folders - 일반 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
-6. scenario_text_ignore_files - 시나리오 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
-7. scenario_text_ignore_folders - 시나리오 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
+4. plain_text 관련
+    4-1. plain_text_ignore_files - 일반 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
+    4-2. plain_text_ignore_folders - 일반 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
+    4-3. plain_text_ignore_kr - 일반 텍스트를 추출할 때 무시할 텍스트를 배열로 담습니다.
+5. scenario 관련
+    5-1. scenario_text_ignore_files - 시나리오 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
+    5-2. scenario_text_ignore_folders - 시나리오 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
+    5-3. scenario_text_ignore_kr - 시나리오 텍스트를 추출할 때 무시할 대사 텍스트를 배열로 담습니다.
 
 
 # 각 코드별 참고 사항
