@@ -10,7 +10,59 @@
 
     ,"spreadsheet_id" : "1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA"
 
+    ,"lua_table_config" : 
+    {
+        "table_file_name_list" : ["lang_kr.lua"
+                            ,"lang_en.lua"
+                            ,"lang_jp.lua"
+                            ,"lang_zhtw.lua"
+                            ,"lang_th.lua"
+                            ,"lang_es.lua"
+                            ,"lang_fa.lua"],
+        "key_value_list" : 
+        [
+            {
+                "key" : "kr"
+                ,"value_list" : ["kr", "en", "jp", "zhtw", "th", "es", "fa"]
+                ,"replace_list" : ["en"]
+            }
+            ,{
+                "key" : "speaker_kr"
+                ,"value_list" : ["speaker_kr", "speaker_en", "speaker_jp", "speaker_zhtw", "speaker_th", "speaker_es", "speaker_fa"]
+                ,"replace_list" : ["speaker_en"]
+            }
+        ]
+    }
+
     ,"plain_text_sheet_name" : "only_ingame"
+
+    ,"plain_text_extract": [
+        {
+            "name": "LUA"
+            ,"src" : "\\..\\src"
+            ,"func" : "extract_lua"
+        }
+        ,{
+            "name": "UI"
+            ,"src" : "\\..\\res"
+            ,"func" : "extract_ui"
+        }
+        ,{
+            "name": "SV DATA"
+            ,"src" : "\\..\\..\\sv_tables"
+            ,"func" : "extract_csv"
+        }
+        ,{
+            "name": "SV DATA PATCH"
+            ,"src" : "\\..\\..\\sv_tables_patch"
+            ,"func" : "extract_csv"
+        }
+        ,{
+            "name": "DATAS"
+            ,"src" : "\\..\\data"
+            ,"func" : "extract_csv"
+        }
+    ]
 
     ,"plain_text_ignore_files" : [
         "table_ban_word_chat.csv",
@@ -25,6 +77,14 @@
     ]
 
     ,"scenario_sheet_name" : "only_scenario"
+
+    ,"scenario_extract": [
+        {
+            "name": "SCENARIO"
+            ,"src" : "\\..\\data\\scenario"
+            ,"func" : "extract_scenario"
+        }
+    ]
 
     ,"scenario_text_ignore_files" : [
         "table_ban_word_chat.csv",

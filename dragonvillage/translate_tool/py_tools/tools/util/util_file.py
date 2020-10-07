@@ -1,4 +1,10 @@
+#############################################################################
+## 파일과 관련된 유틸을 담은 코드입니다.
+#############################################################################
+
+
 import os
+
 
 def get_file(file_list, path, option):
     for file in os.listdir(path):
@@ -51,7 +57,3 @@ def remove_dir(path):
 def write_file(path, data):
     with open(path, 'w', encoding='utf-8', newline='\n') as f: # crlf가 아닌 lf로 파일을 작성하기 위해서
         f.write(data)
-
-
-def copy(src, dest):
-    pass

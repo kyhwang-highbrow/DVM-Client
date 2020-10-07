@@ -1,6 +1,12 @@
+#############################################################################
+## 구글 스프레드시트와 관련된 유틸 및 클래스 코드입니다.
+#############################################################################
+
+
 from oauth2client.service_account import ServiceAccountCredentials
 import gspread
 import os
+
 
 class spreadSheet:
     def __init__(self, doc):

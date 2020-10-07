@@ -1,5 +1,5 @@
 #############################################################################
-## 프로젝트에서 번역해야 하는 시나리오 한글을 추출하는 코드입니다.
+## 프로젝트에서 시나리오 텍스트 한글을 추출하는 코드입니다.
 #############################################################################
 
 
@@ -9,10 +9,12 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 import datetime
 import json
-from tools.extract.extract_from_scenario import extract_from_scenario
-from tools.upload.upload_sheet import upload
-from tools.util.sort_util import cmp_scenario
+
+from tools.extract.extract import extract
+from tools.G_sheet.upload_sheet import upload
+from tools.util.util_sort import cmp_scenario
 from functools import cmp_to_key
+
 
 search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
@@ -20,6 +22,7 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
     sheet_name = config_json['scenario_sheet_name']
+    sheet_extract_list = config_json['scenario_extract']
     scenario_text_ignore_files = config_json['scenario_text_ignore_files']
     scenario_text_ignore_folders = config_json['scenario_text_ignore_folders']
     scenario_text_ignore_krs = config_json['scenario_text_ignore_krs']
@@ -55,24 +58,27 @@ def start_upload():
     upload(sheet_name, spreadsheet_id, all_data_list, header, locale_list, is_scenario=True)
 
 
-def extract():
+def extract_scenario():
     date = datetime.datetime.now()
     date_str = date.strftime(r'%Y.%m.%d %H:%M:%S')
     
-    # 1. 시나리오 폴더 안 파일들로부터 데이터를 추출합니다
-    from_scenario = extract_from_scenario(search_root + r'\..\data\scenario', scenario_text_ignore_files, scenario_text_ignore_folders)
-
-    # 2. 파일로부터 추출한 데이터를 하나로 모으고 오름차순으로 정렬합니다
-    add_data(from_scenario, date_str)
-
-    # 데이터를 정렬합니다.
-    all_data_list.sort(key=cmp_to_key(cmp_scenario)) 
-
-    # print(from_scenario)
+    # 1. 시나리오 폴더 안 파일들로부터 데이터를 추출하고 모읍니다.
+    from_src_list = []
+    for sheet_extract in sheet_extract_list:
+        data_name = sheet_extract['name']
+        source_dir = search_root + sheet_extract['src']
+        extract_func = sheet_extract['func']
+        from_data = extract(source_dir, extract_func, scenario_text_ignore_files, scenario_text_ignore_folders)
+        add_data(from_data, date_str)
+        from_src_list.append({'name' : data_name, 'data' : from_data})
 
     print('Total unique texts from projects :', len(all_data_list))
     print('Found :')
-    print('\t Scenario -', len(from_scenario))
+    for from_src in from_src_list:
+        print('\t', from_src['name'], '-', len(from_src['data']))
+
+    # 2. 데이터를 파일 명과 페이지를 기준으로 오름차순으로 정렬합니다
+    all_data_list.sort(key=cmp_to_key(cmp_scenario)) 
 
     # 3. 하나로 모은 데이터를 구글 스프레드 시트에 작성합니다
     start_upload()
@@ -85,7 +91,7 @@ if __name__ == '__main__':
     if key == 'y' or key == 'Y':
         print('*** START JOB')
         
-        extract()
+        extract_scenario()
         
         print('*** FINISH JOB')
     else:

@@ -1,3 +1,8 @@
+#############################################################################
+## 구글 스프레드시트에 업로드하는 코드입니다.
+#############################################################################
+
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -193,5 +198,7 @@ def upload(sheet_name, spreadsheet_key, data_list, header, locale_list, is_scena
     sheet_id = work_sheet._properties['sheetId']
     sheet_option = getSheetOption(sheet_id, is_scenario, col_size)
     sheet.batch_update(sheet_option)
+
+    print('Added text at [', sheet_name, '] :', len(data_list))
 
     

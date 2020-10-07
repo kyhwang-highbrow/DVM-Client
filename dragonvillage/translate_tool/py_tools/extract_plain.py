@@ -1,5 +1,5 @@
 #############################################################################
-## 프로젝트에서 번역해야 하는 일반 텍스트 한글을 추출하는 코드입니다.
+## 프로젝트에서 일반 텍스트 한글을 추출하는 코드입니다.
 #############################################################################
 
 
@@ -9,10 +9,10 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 import datetime
 import json
-from tools.extract.extract_from_lua import extract_from_lua
-from tools.extract.extract_from_UI import extract_from_UI
-from tools.extract.extract_from_csv import extract_from_csv
-from tools.upload.upload_sheet import upload
+
+from tools.extract.extract import extract
+from tools.G_sheet.upload_sheet import upload
+
 
 search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
@@ -20,6 +20,7 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
     sheet_name = config_json['plain_text_sheet_name']
+    sheet_extract_list = config_json['plain_text_extract']
     plain_text_ignore_files = config_json['plain_text_ignore_files']
     plain_text_ignore_folders = config_json['plain_text_ignore_folders']
     plain_text_ignore_krs = config_json['plain_text_ignore_krs']
@@ -70,34 +71,28 @@ def start_upload():
     upload(sheet_name, spreadsheet_id, all_data_list, header, locale_list)
 
 
-def extract():
+def extract_plain():
     date = datetime.datetime.now()
     date_str = date.strftime(r'%Y.%m.%d %H:%M:%S')
     
-    # 1. 각 파일로부터 데이터를 추출합니다
-    from_lua = extract_from_lua(search_root + r'\..\src', plain_text_ignore_files, plain_text_ignore_folders)
-    from_UI = extract_from_UI(search_root + r'\..\res', plain_text_ignore_files, plain_text_ignore_folders)
-    from_sv_data = extract_from_csv(search_root + r'\..\..\sv_tables', plain_text_ignore_files, plain_text_ignore_folders)
-    from_sv_patch_data = extract_from_csv(search_root + r'\..\..\sv_tables_patch', plain_text_ignore_files, plain_text_ignore_folders)
-    from_data = extract_from_csv(search_root + r'\..\data', plain_text_ignore_files, plain_text_ignore_folders)
-
-    # 2. 파일로부터 추출한 데이터를 하나로 모으고 kr을 기준으로 오름차순으로 정렬합니다
-    add_data(from_lua, date_str)
-    add_data(from_UI, date_str)
-    add_data(from_sv_data, date_str)
-    add_data(from_sv_patch_data, date_str)
-    add_data(from_data, date_str)
-
-    all_data_list.sort(key=lambda line: line[0]) 
+    # 1. 각 파일로부터 데이터를 추출하고 모읍니다.
+    from_src_list = []
+    for sheet_extract in sheet_extract_list:
+        data_name = sheet_extract['name']
+        source_dir = search_root + sheet_extract['src']
+        extract_func = sheet_extract['func']
+        from_data = extract(source_dir, extract_func, plain_text_ignore_files, plain_text_ignore_folders)
+        add_data(from_data, date_str)
+        from_src_list.append({'name' : data_name, 'data' : from_data})
 
     print('Total unique texts from projects :', len(all_data_list))
     print('Found :')
-    print('\t Lua -', from_lua['length'])
-    print('\t UI -', from_UI['length'])
-    print('\t SvData -', from_sv_data['length'])
-    print('\t SvPatchData -', from_sv_patch_data['length'])
-    print('\t CSV -', from_data['length'])
-    
+    for from_src in from_src_list:
+        print('\t', from_src['name'], '-', len(from_src['data']))
+
+    # 2. 데이터를 kr을 기준으로 오름차순으로 정렬합니다
+    all_data_list.sort(key=lambda line: line[0]) 
+ 
     # 3. 하나로 모은 데이터를 구글 스프레드 시트에 작성합니다
     start_upload() 
 
@@ -109,7 +104,7 @@ if __name__ == '__main__':
     if key == 'y' or key == 'Y':
         print('*** START JOB')
         
-        extract()
+        extract_plain()
         
         print('*** FINISH JOB')
     else:

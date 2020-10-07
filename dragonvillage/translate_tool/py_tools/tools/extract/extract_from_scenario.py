@@ -1,12 +1,13 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-import util.file_util as file_util
+#############################################################################
+## 시나리오 csv 파일로부터 텍스트를 추출하는 코드입니다.
+#############################################################################
 
-import re
 import os
+import tools.util.util_file as util_file
+import re
 import csv
 import copy
+
 
 def parse(result_data, file_path, header_datas, important_header_index, body_datas):
     reg_check = re.compile(r'[가-힣]')
@@ -67,7 +68,7 @@ def extract_from_scenario(path, ignoreFiles, ignoreFolders):
     option['ignoreFolders'] = ignoreFolders
     option['searchExtensions'] = ['.csv', '.CSV']
 
-    files = file_util.get_all_files(path, option)
+    files = util_file.get_all_files(path, option)
 
     for file in files:
         # print(file)
@@ -95,38 +96,3 @@ def parse_only_kr(result_data, file_path, header_datas, important_header_index, 
                 result_data.append(t_char_name) 
             if result_data.count(invert_text) == 0:
                 result_data.append(invert_text) 
-
-
-def get_only_kr(result_data, file_path):
-    with open(file_path, 'r', encoding='utf-8') as f:
-        csv_file = csv.reader(f)
-        csv_data = []
-        for line in csv_file:
-            csv_data.append(line)
-        header_data, body_data = csv_data[0], csv_data[1:]
-        important_header_index = {}
-        for i, header in enumerate(header_data):
-            if header != 't_char_name' and header != 'page' and header != 'char' and header != 't_text' and header.find('effect_') < 0:
-                continue
-            important_header_index[header] = i
-        # print(important_header_index)
-        parse_only_kr(result_data, file_path, header_data, important_header_index, body_data)
-
-
-def extract_from_scenario_only_kr(path, ignoreFiles, ignoreFolders):
-    result_data = []
-    
-    option = {}
-    option['ignoreFiles'] = ignoreFiles
-    option['ignoreFolders'] = ignoreFolders
-    option['searchExtensions'] = ['.csv', '.CSV']
-
-    files = file_util.get_all_files(path, option)
-
-    for file in files:
-        # print(file)
-        get_only_kr(result_data, file)
-
-    # print(result_data)
-
-    return result_data

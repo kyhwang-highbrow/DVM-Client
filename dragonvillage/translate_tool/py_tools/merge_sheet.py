@@ -8,9 +8,10 @@ import os
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 import json
+
 import tools.G_sheet.spread_sheet as spread_sheet
-from tools.upload.upload_sheet import upload
-from tools.util.sort_util import cmp_scenario
+from tools.G_sheet.upload_sheet import upload
+from tools.util.util_sort import cmp_scenario
 from functools import cmp_to_key
 
 

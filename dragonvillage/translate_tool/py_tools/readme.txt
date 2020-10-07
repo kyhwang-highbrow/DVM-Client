@@ -31,26 +31,29 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 # config.json 구성요소
 1. locale_list - 번역할 언어를 배열로 담습니다.
 2. spreadsheet_id - 구글 스프레드시트의 아이디 값을 담습니다.
-3. plain_text 관련
-    3-1. plain_text_sheet_name - 일반 텍스트를 작업할 워크시트 이름 값을 담습니다. 백업시트 이름을 같이 적을 필요 없습니다.
-    3-2. plain_text_ignore_files - 일반 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
-    3-3. plain_text_ignore_folders - 일반 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
-    3-4. plain_text_ignore_kr - 일반 텍스트를 추출할 때 무시할 텍스트를 배열로 담습니다.
-4. scenario 관련
-    4-1. scenario_sheet_name - 시나리오 텍스트를 작업할 워크시트 이름 값을 담습니다. 백업시트 이름을 같이 적을 필요 없습니다.
-    4-2. scenario_text_ignore_files - 시나리오 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
-    4-3. scenario_text_ignore_folders - 시나리오 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
-    4-4. scenario_text_ignore_kr - 시나리오 텍스트를 추출할 때 무시할 대사 텍스트를 배열로 담습니다.
+3. lua_table_config - 루아 테이블 생성 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
+4. plain_text 관련
+    4-1. plain_text_sheet_name - 일반 텍스트를 작업할 워크시트 이름 값을 담습니다. 백업시트 이름을 같이 적을 필요 없습니다.
+    4-2. plain_text_extract - 일반 텍스트를 추출할 경로와 추출 방식, 로그에 표현될 이름값을 가진 객체를 배열로 담습니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
+    4-3. plain_text_ignore_files - 일반 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
+    4-4. plain_text_ignore_folders - 일반 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
+    4-5. plain_text_ignore_kr - 일반 텍스트를 추출할 때 무시할 텍스트를 배열로 담습니다.
+5. scenario 관련
+    5-1. scenario_sheet_name - 시나리오 텍스트를 작업할 워크시트 이름 값을 담습니다. 백업시트 이름을 같이 적을 필요 없습니다.
+    5-2. scenario_extract - 시나리오 텍스트를 추출할 경로와 추출 방식, 로그에 표현될 이름값을 가진 객체를 배열로 담습니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
+    5-3. scenario_text_ignore_files - 시나리오 텍스트를 추출할 때 무시할 파일 이름을 배열로 담습니다.
+    5-4. scenario_text_ignore_folders - 시나리오 텍스트를 추출할 때 무시할 폴더 이름을 배열로 담습니다.
+    5-5. scenario_text_ignore_kr - 시나리오 텍스트를 추출할 때 무시할 대사 텍스트를 배열로 담습니다.
 
 
 # 각 코드별 참고 사항
-1. extract_plain, extract_scenario
+1. extract_plain.py, extract_scenario.py
 - 새로운 텍스트 추출은 백업시트와의 중복 검사를 통해 걸러집니다. 추가로 이미 뉴시트가 존재하는 경우 뉴시트와 중복 검사 또한 진행합니다. 
 - 만약 원하는 대로 잘 추출이 안되는 경우에는 기존 뉴시트를 삭제하고 코드를 실행해보세요. 뉴시트를 새로 만들어 내용을 채울 것입니다.
 
-2. make_lua
+2. make_lua.py
 - 뉴시트와 백업시트의 내용을 합쳐서 루아 테이블을 만들어냅니다. 기존 루아 테이블을 덮어씌우지 않도록 translation/newLuaTable 폴더 내부에 생성되도록 했습니다.
 
-3. merge_sheet 
+3. merge_sheet.py 
 - 뉴시트의 내용을 백업시트 맨 하단에 추가합니다. 이 과정에서는 따로 중복검사를 하지 않고 추가합니다. 따라서 두 번 실행될 경우 중복된 내용이 백업시트에 존재할 수 있으니 주의하세요.
 
