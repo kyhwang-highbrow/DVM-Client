@@ -20,6 +20,7 @@
 @synthesize mCheckReceiptServerUrl;
 @synthesize mProduct;
 @synthesize mGetItem;
+@synthesize mPayload;
 
 #pragma mark - Initialization
 
@@ -179,7 +180,7 @@
                 SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:p];
                 [self.mProduct setObject:p forKey:payment.productIdentifier];
                 NSDictionary *dict = [mPurchases objectForKey:payment.productIdentifier];
-                payment.applicationUsername = dict[@"payload"];
+                self.mPayload = dict[@"payload"];
                 [[SKPaymentQueue defaultQueue] addPayment:payment];
                 break;
             }
@@ -321,9 +322,8 @@
 
     NSString *transactionId = transaction.transactionIdentifier;
     NSString *sku = transaction.payment.productIdentifier;
-    NSString *applicationName = transaction.payment.applicationUsername;
-    NSString *payload = applicationName ? applicationName : @"";
-
+    NSString *payload = self.mPayload;
+    
     NSData *receiptData;
     NSBundle *bundle = [NSBundle mainBundle];
     if ([bundle respondsToSelector:@selector(appStoreReceiptURL)]) {
@@ -375,6 +375,9 @@
             callback(@"success", [PerpleSDK getJSONStringFromNSDictionary:purchse]);
         }
 
+        // 초기화 시키는 시점이 고민
+        self.mPayload = nil;
+        
         return;
     }
 

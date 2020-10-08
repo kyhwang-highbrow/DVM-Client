@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSMutableDictionary *mProduct;
 @property (nonatomic, retain) NSMutableDictionary *mGetItem;
 @property PerpleSDKCallback mFailCallback;
+@property (nonatomic, copy) NSString *mPayload;
 
 #pragma mark - APIs
 
