@@ -32,12 +32,6 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>dvmNaverLogin</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
 				<string>com.googleusercontent.apps.983890984134-krrfuti1qgk3k09j87gobkq96322v48v</string>
 			</array>
 		</dict>
@@ -76,7 +70,6 @@
 		<string>instagram</string>
 		<string>tumblr</string>
 		<string>twitter</string>
-		<string>navercafe</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

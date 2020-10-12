@@ -1,8 +1,8 @@
 PODS:
   - AdColony (4.4.0)
-  - Adjust (4.23.2):
-    - Adjust/Core (= 4.23.2)
-  - Adjust/Core (4.23.2)
+  - Adjust (4.23.1):
+    - Adjust/Core (= 4.23.1)
+  - Adjust/Core (4.23.1)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -11,20 +11,20 @@ PODS:
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Fabric (1.10.2)
-  - FBSDKCoreKit (8.0.0):
-    - FBSDKCoreKit/Basics (= 8.0.0)
-    - FBSDKCoreKit/Core (= 8.0.0)
-  - FBSDKCoreKit/Basics (8.0.0)
-  - FBSDKCoreKit/Core (8.0.0):
+  - FBSDKCoreKit (7.1.1):
+    - FBSDKCoreKit/Basics (= 7.1.1)
+    - FBSDKCoreKit/Core (= 7.1.1)
+  - FBSDKCoreKit/Basics (7.1.1)
+  - FBSDKCoreKit/Core (7.1.1):
     - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (8.0.0):
-    - FBSDKLoginKit/Login (= 8.0.0)
-  - FBSDKLoginKit/Login (8.0.0):
-    - FBSDKCoreKit (~> 8.0.0)
-  - FBSDKShareKit (8.0.0):
-    - FBSDKShareKit/Share (= 8.0.0)
-  - FBSDKShareKit/Share (8.0.0):
-    - FBSDKCoreKit (~> 8.0.0)
+  - FBSDKLoginKit (7.1.1):
+    - FBSDKLoginKit/Login (= 7.1.1)
+  - FBSDKLoginKit/Login (7.1.1):
+    - FBSDKCoreKit (~> 7.1.1)
+  - FBSDKShareKit (7.1.1):
+    - FBSDKShareKit/Share (= 7.1.1)
+  - FBSDKShareKit/Share (7.1.1):
+    - FBSDKCoreKit (~> 7.1.1)
   - Firebase/Auth (6.33.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.9.2)
@@ -77,7 +77,7 @@ PODS:
     - GoogleUtilities/Reachability (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - Protobuf (>= 3.9.2, ~> 3.9)
-  - Google-Mobile-Ads-SDK (7.66.0):
+  - Google-Mobile-Ads-SDK (7.65.0):
     - GoogleAppMeasurement (~> 6.0)
     - GoogleUserMessagingPlatform (~> 1.1)
   - GoogleAppMeasurement (6.8.3):
@@ -196,13 +196,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AdColony: 03c713bc6fedcaf3fc92f21f89276bc8a332e9c6
-  Adjust: 2faf94752c2069c0bc68bc41c03d00175de4555f
+  Adjust: 0dc7b2815625e391897a31ab9e1e41dcc4cd99a2
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   Crashlytics: 9220f5bc89e7a618df411b4f639389dbfb0e03d2
   Fabric: ea977e3cd9c20425516d3dafd3bf8c941c51223f
-  FBSDKCoreKit: 9d27fe97a2fa2abe5eeefea8240e837623ab88e0
-  FBSDKLoginKit: 2cbaf5405379731b22f2ebc224f7c30f62378171
-  FBSDKShareKit: bf3705fc42b660c3da9f15223db791b3c9c2acde
+  FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
+  FBSDKLoginKit: 1a61d79e2b25e2fc0d03dccab1e34b38bbdf2546
+  FBSDKShareKit: 00a055c1999b099596e00212dd1c0600c6697019
   Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
   FirebaseAnalytics: 5dd088bd2e67bb9d13dbf792d1164ceaf3052193
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
@@ -211,7 +211,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebaseInstanceID: ac5a82fcd21f804dbfc8f318eff9e1d7a9916e49
   FirebaseMessaging: fc1f98b4592f8f2ea538169b1c317c6e76f81300
-  Google-Mobile-Ads-SDK: 7d7074359c040f5add4e0963bf860e14690060d0
+  Google-Mobile-Ads-SDK: af735e001ee534d9dd2ce0a87cd8c355b19844b5
   GoogleAppMeasurement: 966e88df9d19c15715137bb2ddaf52373f111436
   GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
   GoogleMobileAdsMediationTapjoy: 6655028cef4bb710feefbadd986fbc44fd95152e
@@ -224,7 +224,7 @@ SPEC CHECKSUMS:
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
-  TapjoySDK: a725a16b640fa50923982813b8b0a727500138cc
+  TapjoySDK: e863ea0d0f5d3ab3f8f12d9a9af737789d9dab6d
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3

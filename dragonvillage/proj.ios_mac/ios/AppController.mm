@@ -45,11 +45,6 @@
 #define TAPJOY_SDK_KEY              @"Ws1LafcqRzuuBd763wqDOAEBFg9MYTtlr04omXYpDVNJIVl4ivGW9cK37TA2"
 #define UNITY_ADS_GAME_ID           @"1515685"
 #define ADCOLONY_APP_ID             @"appe9879f49a31a47448b"
-#define NAVER_CAFE_CLIENT_ID        @"nQGxfwLZ1Rf4Lwhozq4G"
-#define NAVER_CAFE_CLIENT_SECRET    @"1yzbWtj_Cu"
-#define NAVER_CAFE_ID               29168475
-#define NAVER_NEO_ID_CONSUMER_KEY   @"_hBggTZAp2IPapvAxwQl"
-#define NAVER_COMMUNITY_ID          0
 #define ADJUST_TOKKEN_ID            @"esjmkti8vim8"
 #define TWITTER_CUSTOMER_KEY        @"VCJ9gb6EjeIQO74rAbUl9B6aj"
 #define TWITTER_CUSTOMER_SECRET     @"D0kt613Jye142Efej1DxtvJguItaK5PtgvYyJfY34Pvqs1HCBH"
@@ -156,7 +151,6 @@ static AppDelegate s_sharedApplication;
     }
     //[[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
-    [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID neoIdConsumerKey:NAVER_NEO_ID_CONSUMER_KEY communityId:NAVER_COMMUNITY_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID secret:adjustSecretKey debug:isDebugAdjust];
     [[PerpleSDK sharedInstance] initAdMobWithAppId:ADMOB_APP_ID];

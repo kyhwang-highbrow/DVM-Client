@@ -17,7 +17,6 @@
 		3773CD1521E7763D00B22F35 /* PerpleCrashlytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 3773CD1421E7763D00B22F35 /* PerpleCrashlytics.m */; };
 		3773CD2721EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3773CD2621EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m */; };
 		3773CD2B21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 3773CD2A21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m */; };
-		37993C981D74121C005AC547 /* PerpleNaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 37993C971D74121C005AC547 /* PerpleNaver.m */; };
 		37993CCD1D743076005AC547 /* runtime_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37993CCC1D743076005AC547 /* runtime_ios.mm */; };
 		37AA47E01D4903F6008C7214 /* PerpleCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37AA47DE1D4903F6008C7214 /* PerpleCore.cpp */; };
 		37AA47E31D49040C008C7214 /* PerpleSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 37AA47E21D49040C008C7214 /* PerpleSDK.m */; };
@@ -26,7 +25,7 @@
 		37B4B815201B2A8C008B58E6 /* PerpleAdjust.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B4B814201B2A8C008B58E6 /* PerpleAdjust.m */; };
 		37BA05AC1F73B3900048FF81 /* PerpleAdColony.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */; };
 		3E8FC35C250733E000785D38 /* HbApple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8FC35B250733E000785D38 /* HbApple.swift */; };
-		8FFDBE7050D79AAF5F6B294F /* libPods-sdk_binder.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74833296CF9DCE92B94C90DA /* libPods-sdk_binder.a */; };
+		9C38D33D2533F95B004C2A62 /* lua_perplesdk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -42,12 +41,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		17AFB2C78AE88A5133D306DB /* Pods-sdk_binder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.release.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.release.xcconfig"; sourceTree = "<group>"; };
 		1C445F211D7B9ACA00714F62 /* PerpleGameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleGameCenter.h; sourceTree = "<group>"; };
 		1C445F221D7B9ACA00714F62 /* PerpleGameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleGameCenter.m; sourceTree = "<group>"; };
 		1C445F241D7B9D6400714F62 /* PerpleBilling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleBilling.h; sourceTree = "<group>"; };
 		1C445F251D7B9D6400714F62 /* PerpleBilling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleBilling.m; sourceTree = "<group>"; };
-		1CB7275B1D45435500994916 /* PerpleSDKLua.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PerpleSDKLua.cpp; sourceTree = "<group>"; };
-		1CB7275C1D45435500994916 /* PerpleSDKLua.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleSDKLua.h; sourceTree = "<group>"; };
 		1CFA7AE11D538B7F00C4F983 /* PerpleTapjoy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleTapjoy.h; sourceTree = "<group>"; };
 		1CFA7AE21D538B7F00C4F983 /* PerpleTapjoy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleTapjoy.m; sourceTree = "<group>"; };
 		3706B23F1D75232E006D1143 /* PerpleGoogle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleGoogle.h; sourceTree = "<group>"; };
@@ -64,8 +62,6 @@
 		3773CD2521EE190000B22F35 /* PerpleAdMobRewardedVideoAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleAdMobRewardedVideoAd.h; sourceTree = "<group>"; };
 		3773CD2621EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleAdMobRewardedVideoAd.m; sourceTree = "<group>"; };
 		3773CD2A21EE26AA00B22F35 /* PerpleAdMobInterstitialAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleAdMobInterstitialAd.m; sourceTree = "<group>"; };
-		37993C961D74121C005AC547 /* PerpleNaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleNaver.h; sourceTree = "<group>"; };
-		37993C971D74121C005AC547 /* PerpleNaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleNaver.m; sourceTree = "<group>"; };
 		37993CCC1D743076005AC547 /* runtime_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = runtime_ios.mm; sourceTree = "<group>"; };
 		37AA47DE1D4903F6008C7214 /* PerpleCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerpleCore.cpp; sourceTree = "<group>"; };
 		37AA47DF1D4903F6008C7214 /* PerpleCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleCore.h; sourceTree = "<group>"; };
@@ -77,16 +73,15 @@
 		37AC8D792096289400258021 /* PerpleAdMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleAdMob.m; sourceTree = "<group>"; };
 		37B4B813201B2A8B008B58E6 /* PerpleAdjust.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerpleAdjust.h; sourceTree = "<group>"; };
 		37B4B814201B2A8C008B58E6 /* PerpleAdjust.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PerpleAdjust.m; sourceTree = "<group>"; };
-		37B4B816201B33FC008B58E6 /* NaverCafeSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = NaverCafeSDK.bundle; path = "../external/naver-cafe-sdk/cafe-sdk-ios-master/lib/NaverCafeSDK.bundle"; sourceTree = "<group>"; };
 		37BA05AA1F73B3900048FF81 /* PerpleAdColony.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PerpleAdColony.h; sourceTree = "<group>"; };
 		37BA05AB1F73B3900048FF81 /* PerpleAdColony.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerpleAdColony.m; sourceTree = "<group>"; };
-		3E201B6D2522C02800684A5A /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsdk_binder.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E201B772522C4CB00684A5A /* sdk_binder-Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Swift.h"; sourceTree = "<group>"; };
 		3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sdk_binder-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E8FC35B250733E000785D38 /* HbApple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HbApple.swift; sourceTree = "<group>"; };
-		74833296CF9DCE92B94C90DA /* libPods-sdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk_binder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5D7E9B92364FFA31F073BFE /* Pods-sdk_binder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.debug.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.debug.xcconfig"; sourceTree = "<group>"; };
-		D39C93A85C233FAA1B397DC6 /* Pods-sdk_binder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.release.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.release.xcconfig"; sourceTree = "<group>"; };
+		6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sdk_binder.debug.xcconfig"; path = "Target Support Files/Pods-sdk_binder/Pods-sdk_binder.debug.xcconfig"; sourceTree = "<group>"; };
+		9C38D19A252EEA0E004C2A62 /* libsdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsdk_binder.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C38D2F1252F0B80004C2A62 /* lua_perplesdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk.h; sourceTree = "<group>"; };
+		9C38D2F2252F0B80004C2A62 /* lua_perplesdk_macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk_macro.h; sourceTree = "<group>"; };
+		9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_perplesdk.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +89,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FFDBE7050D79AAF5F6B294F /* libPods-sdk_binder.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,10 +98,11 @@
 		1CB727551D45435500994916 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */,
+				9C38D2F2252F0B80004C2A62 /* lua_perplesdk_macro.h */,
+				9C38D2F1252F0B80004C2A62 /* lua_perplesdk.h */,
 				37AA47DE1D4903F6008C7214 /* PerpleCore.cpp */,
 				37AA47DF1D4903F6008C7214 /* PerpleCore.h */,
-				1CB7275B1D45435500994916 /* PerpleSDKLua.cpp */,
-				1CB7275C1D45435500994916 /* PerpleSDKLua.h */,
 			);
 			name = src;
 			path = ../src;
@@ -127,8 +122,6 @@
 				37AA47E51D4906CB008C7214 /* PerpleFirebase.m */,
 				1CFA7AE11D538B7F00C4F983 /* PerpleTapjoy.h */,
 				1CFA7AE21D538B7F00C4F983 /* PerpleTapjoy.m */,
-				37993C961D74121C005AC547 /* PerpleNaver.h */,
-				37993C971D74121C005AC547 /* PerpleNaver.m */,
 				3706B23F1D75232E006D1143 /* PerpleGoogle.h */,
 				3706B2401D75232E006D1143 /* PerpleGoogle.m */,
 				37311F251D76706A0085C073 /* PerpleFacebook.h */,
@@ -152,13 +145,12 @@
 		1CCD9ED11D35C5F0004AAF73 = {
 			isa = PBXGroup;
 			children = (
-				3E201B6D2522C02800684A5A /* libsdk_binder.a */,
+				9C38D19A252EEA0E004C2A62 /* libsdk_binder.a */,
 				1CB727551D45435500994916 /* src */,
 				1CB7275D1D45449000994916 /* ios */,
-				37993C9E1D74152B005AC547 /* Resources */,
 				3E201B6B2522BE7B00684A5A /* Products */,
-				4830D4ED0E601DB59A418766 /* Pods */,
-				DD3DD1BB258A9BF5274465A2 /* Frameworks */,
+				9C38D140252EDC7D004C2A62 /* Frameworks */,
+				975FD22E784D4AB5336D943D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,14 +167,6 @@
 			name = AdMob;
 			sourceTree = "<group>";
 		};
-		37993C9E1D74152B005AC547 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				37B4B816201B33FC008B58E6 /* NaverCafeSDK.bundle */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		3E201B6B2522BE7B00684A5A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,25 +178,23 @@
 			isa = PBXGroup;
 			children = (
 				3E8FC35A250733DF00785D38 /* sdk_binder-Bridging-Header.h */,
-				3E201B772522C4CB00684A5A /* sdk_binder-Swift.h */,
 				3E8FC35B250733E000785D38 /* HbApple.swift */,
 			);
 			name = Swift;
 			sourceTree = "<group>";
 		};
-		4830D4ED0E601DB59A418766 /* Pods */ = {
+		975FD22E784D4AB5336D943D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B5D7E9B92364FFA31F073BFE /* Pods-sdk_binder.debug.xcconfig */,
-				D39C93A85C233FAA1B397DC6 /* Pods-sdk_binder.release.xcconfig */,
+				6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */,
+				17AFB2C78AE88A5133D306DB /* Pods-sdk_binder.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		DD3DD1BB258A9BF5274465A2 /* Frameworks */ = {
+		9C38D140252EDC7D004C2A62 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				74833296CF9DCE92B94C90DA /* libPods-sdk_binder.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -224,7 +206,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CCD9EE31D35C5F0004AAF73 /* Build configuration list for PBXNativeTarget "sdk_binder" */;
 			buildPhases = (
-				82CCE0CC1EDE86272A14AF12 /* [CP] Check Pods Manifest.lock */,
+				975C68EE731F0A34C464FF0A /* [CP] Check Pods Manifest.lock */,
 				1CCD9ED61D35C5F0004AAF73 /* Sources */,
 				1CCD9ED71D35C5F0004AAF73 /* Frameworks */,
 				1CCD9ED81D35C5F0004AAF73 /* CopyFiles */,
@@ -235,7 +217,7 @@
 			);
 			name = sdk_binder;
 			productName = PerpleSDK;
-			productReference = 3E201B6D2522C02800684A5A /* libsdk_binder.a */;
+			productReference = 9C38D19A252EEA0E004C2A62 /* libsdk_binder.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -272,7 +254,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		82CCE0CC1EDE86272A14AF12 /* [CP] Check Pods Manifest.lock */ = {
+		975C68EE731F0A34C464FF0A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -301,6 +283,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C38D33D2533F95B004C2A62 /* lua_perplesdk.cpp in Sources */,
+				37AA47E01D4903F6008C7214 /* PerpleCore.cpp in Sources */,
 				3706B2411D75232E006D1143 /* PerpleGoogle.m in Sources */,
 				37311F271D76706A0085C073 /* PerpleFacebook.m in Sources */,
 				3773CD2721EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m in Sources */,
@@ -313,12 +297,10 @@
 				37AA47E31D49040C008C7214 /* PerpleSDK.m in Sources */,
 				37BA05AC1F73B3900048FF81 /* PerpleAdColony.m in Sources */,
 				37AA47E61D4906CB008C7214 /* PerpleFirebase.m in Sources */,
-				37993C981D74121C005AC547 /* PerpleNaver.m in Sources */,
 				1C445F261D7B9D6400714F62 /* PerpleBilling.m in Sources */,
 				3773CD1521E7763D00B22F35 /* PerpleCrashlytics.m in Sources */,
 				1C445F231D7B9ACA00714F62 /* PerpleGameCenter.m in Sources */,
 				37AC8D7A2096289400258021 /* PerpleAdMob.m in Sources */,
-				37AA47E01D4903F6008C7214 /* PerpleCore.cpp in Sources */,
 				3E8FC35C250733E000785D38 /* HbApple.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +360,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../cocos2d-x/cocos/scripting/lua-bindings/manual $(SRCROOT)/../../../cocos2d-x/external/lua/tolua $(SRCROOT)/../../../cocos2d-x/external/lua/luajit/include";
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
 			name = Debug;
@@ -428,6 +411,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../../../cocos2d-x/cocos/scripting/lua-bindings/manual $(SRCROOT)/../../../cocos2d-x/external/lua/tolua $(SRCROOT)/../../../cocos2d-x/external/lua/luajit/include";
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};
@@ -435,14 +419,10 @@
 		};
 		1CCD9EE41D35C5F0004AAF73 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5D7E9B92364FFA31F073BFE /* Pods-sdk_binder.debug.xcconfig */;
+			baseConfigurationReference = 6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/external/cafe-sdk-ios-master/lib\"",
-					"\"$(SRCROOT)/external/cafe-sdk-ios-master/lib/external-lib\"",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -478,7 +458,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "ios/sdk_binder-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ios/sdk_binder-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
@@ -487,14 +467,10 @@
 		};
 		1CCD9EE51D35C5F0004AAF73 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D39C93A85C233FAA1B397DC6 /* Pods-sdk_binder.release.xcconfig */;
+			baseConfigurationReference = 17AFB2C78AE88A5133D306DB /* Pods-sdk_binder.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/external/cafe-sdk-ios-master/lib\"",
-					"\"$(SRCROOT)/external/cafe-sdk-ios-master/lib/external-lib\"",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"COCOAPODS=1",
@@ -530,7 +506,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "ios/sdk_binder-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/ios/sdk_binder-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64";
 			};

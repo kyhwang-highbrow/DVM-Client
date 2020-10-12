@@ -11,7 +11,7 @@
 #import <StoreKit/StoreKit.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import <AuthenticationServices/AuthenticationServices.h>
-#import "sdk_binder-Swift.h"
+
 
 #pragma mark -
 
@@ -57,11 +57,6 @@
 #define PERPLESDK_ERROR_FACEBOOK_GRAPHAPI                   "-1308"
 #define PERPLESDK_ERROR_FACEBOOK_REQUEST                    "-1309"
 #define PERPLESDK_ERROR_FACEBOOK_SHARE                      "-1310"
-
-#define PERPLESDK_ERROR_NAVER_NOTINITIALIZED                "-1400"
-#define PERPLESDK_ERROR_NAVER_CAFENOTINITIALIZED            "-1401"
-#define PERPLESDK_ERROR_NAVER_LOGIN                         "-1402"
-#define PERPLESDK_ERROR_NAVER_ONPOSTEDARTICLE               "-1403"
 
 #define PERPLESDK_ERROR_BILLING_NOTINITIALIZED              "-1500"
 #define PERPLESDK_ERROR_BILLING_SETUP                       "-1501"
@@ -109,7 +104,6 @@
 @class PerpleFacebook;
 @class PerpleTwitter;
 @class PerpleTapjoy;
-@class PerpleNaver;
 @class PerpleGameCenter;
 @class PerpleUnityAds;
 @class PerpleAdColony;
@@ -131,7 +125,6 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleFacebook *mFacebook;
 @property (nonatomic, retain) PerpleTwitter *mTwitter;
 @property (nonatomic, retain) PerpleTapjoy *mTapjoy;
-@property (nonatomic, retain) PerpleNaver *mNaver;
 @property (nonatomic, retain) PerpleGameCenter *mGameCenter;
 @property (nonatomic, retain) PerpleUnityAds *mUnityAds;
 @property (nonatomic, retain) PerpleAdColony *mAdColony;
@@ -209,27 +202,6 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) tapjoySpendCurrency:(int)amount completion:(PerpleSDKCallback)callback;
 - (void) tapjoyAwardCurrency:(int)amount completion:(PerpleSDKCallback)callback;
 
-// @naver
-- (BOOL) naverCafeIsShowGlink;
-- (void) naverCafeShowWidgetWhenUnloadSdk:(BOOL)isShowWidget;
-- (void) naverCafeSetWidgetStartPosition:(NSString *)arg0 andY:(NSString *)arg1;
-- (void) naverCafeStartWidget;
-- (void) naverCafeStopWidget;
-- (void) naverCafeStart:(NSUInteger)tapIndex;
-- (void) naverCafeStop;
-- (void) naverCafeStartWrite;
-- (void) naverCafeStartImageWrite:(NSString *)filePath;
-- (void) naverCafeStartVideoWrite:(NSString *)filePath;
-- (void) naverCafeSyncGameUserId:(NSString *)gameUserId;
-- (void) naverCafeSetUseVideoRecord:(BOOL)isSetUseVideoRecord;
-- (void) naverCafeSetUseScreenshot:(BOOL)isSetUseScreenshot;
-- (void) naverCafeScreenshot;
-- (void) naverCafeSetCallback:(PerpleSDKCallback)callback;
-- (void) naverCafeInitGlobalPlug:(NSString *)neoIdConsumerKey communityId:(NSInteger)communityId channelID:(NSInteger)channelID;
-- (void) naverCafeSetChannelCode:(NSString *)channelCode;
-- (NSString *) naverCafeGetChannelCode;
-- (void) naverCafeStartWithArticle:(int)articleId;
-
 // @google
 - (void) googleLogin:(PerpleSDKCallback)callback;
 - (void) googleSilentLogin:(PerpleSDKCallback)callback;
@@ -299,7 +271,6 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initFacebookWithParentView:(UIViewController *)parentView;
 - (BOOL) initTwitterWithCustomerKey:(NSString *)customerKey secret:(NSString *)customerSecret;
 - (BOOL) initTapjoyWithAppKey:(NSString *)appKey usePush:(BOOL)isUsePush debug:(BOOL)isDebug;
-- (BOOL) initNaverWithParentView:(UIViewController *)parentView isLandspape:(BOOL)isLandscape clientId:(NSString *)clientId clientSecret:(NSString *)clientSecret cafeId:(NSInteger)cafeId neoIdConsumerKey:(NSString *)neoIdConsumerKey communityId:(NSInteger)communityId urlScheme:(NSString *)urlScheme;
 - (BOOL) initGameCenterWithParentView:(UIViewController *)parentView;
 - (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView gameId:(NSString *)gameId debug:(BOOL)isDebug;
 - (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;

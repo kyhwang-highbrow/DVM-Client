@@ -9,12 +9,9 @@
 #include "ConfigParser.h"
 #include "tolua_fix.h"
 
-// 구 PerpleSDK
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "PerpleCore.h"
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 // @perplesdk
-#include "PerpleSDKLua.h"
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include "PerpleCore.h"
 #endif
 
 /*
@@ -461,10 +458,8 @@ void AppDelegate::initLuaEngine()
 	PerpSocial::getInstance()->RegisterToLuaFunc(L);
 
 	// PerpleSDK : Register
-#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    luaopen_perplesdk(L);
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
-	PerpleCore::LuaOpenPerpleSDK(L);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    PerpleCore::LuaOpenPerpleSDK(L);
 #endif
 }
 

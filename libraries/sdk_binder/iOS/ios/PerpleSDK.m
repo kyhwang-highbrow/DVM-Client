@@ -12,7 +12,6 @@
 #import "PerpleFacebook.h"
 #import "PerpleTwitter.h"
 #import "PerpleTapjoy.h"
-#import "PerpleNaver.h"
 #import "PerpleGameCenter.h"
 #import "PerpleUnityAds.h"
 #import "PerpleAdColony.h"
@@ -20,6 +19,8 @@
 #import "PerpleAdjust.h"
 #import "PerpleAdMob.h"
 #import "PerpleCrashlytics.h"
+
+#import "sdk_binder-Swift.h"
 
 static int sProcessId;
 static BOOL sIsDebug;
@@ -37,7 +38,6 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
 @synthesize mFacebook;
 @synthesize mTwitter;
 @synthesize mTapjoy;
-@synthesize mNaver;
 @synthesize mGameCenter;
 @synthesize mUnityAds;
 @synthesize mAdColony;
@@ -789,137 +789,6 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
                                completion:callback];
 }
 
-- (BOOL) naverCafeIsShowGlink {
-    BOOL ret = NO;
-    if (self.mNaver != nil) {
-        ret = [self.mNaver cafeIsShowGlink];
-    }
-    return ret;
-}
-
-- (void) naverCafeShowWidgetWhenUnloadSdk:(BOOL)isShowWidget {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeShowWidgetWhenUnloadSdk:isShowWidget];
-    }
-}
-
-- (void) naverCafeSetWidgetStartPosition:(NSString *)arg0
-                                    andY:(NSString *)arg1 {
-    if (self.mNaver != nil) {
-
-        BOOL isLeft = NO;
-        if ([arg0 isEqualToString:@"left"]) {
-            isLeft = YES;
-        }
-        int height = [arg1 intValue];
-
-        [self.mNaver cafeSetWidgetStartPosition:isLeft heightPercentage:height];
-    }
-}
-
-- (void) naverCafeStartWidget {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeStartWidget];
-    }
-}
-
-- (void) naverCafeStopWidget {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeStopWidget];
-    }
-}
-
-- (void) naverCafeStart:(NSUInteger)tapIndex {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeStartWithTapIndex:tapIndex];
-    }
-}
-
-- (void) naverCafeStop {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeStop];
-    }
-}
-
-- (void) naverCafeStartWrite {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeStartWrite];
-    }
-}
-
-- (void) naverCafeStartImageWrite:(NSString *)filePath {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeStartWriteWithType:kGLArticlePostTypeImage
-                                   filePath:filePath];
-    }
-}
-
-- (void) naverCafeStartVideoWrite:(NSString *)filePath {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeStartWriteWithType:kGLArticlePostTypeVideo
-                                   filePath:filePath];
-    }
-}
-
-- (void) naverCafeSyncGameUserId:(NSString *)gameUserId {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeSyncGameUserId:gameUserId];
-    }
-}
-
-- (void) naverCafeSetUseVideoRecord:(BOOL)isSetUseVideoRecord {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeSetUseVideoRecord:isSetUseVideoRecord];
-    }
-}
-
-- (void) naverCafeSetUseScreenshot:(BOOL)isSetUseScreenshot {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeSetUseScreenshot:isSetUseScreenshot];
-    }
-}
-
-- (void) naverCafeScreenshot {
-    if (self.mNaver != nil) {
-        [self.mNaver cafeScreenshot];
-    }
-}
-
-- (void) naverCafeSetCallback:(PerpleSDKCallback)callback {
-    if (self.mNaver == nil) {
-        callback(@"fail", [PerpleSDK getErrorInfo:@PERPLESDK_ERROR_NAVER_NOTINITIALIZED
-                                              msg:@"Naver is not initialized."]);
-        return;
-    }
-
-    [self.mNaver cafeSetCallback:callback];
-}
-
-- (void) naverCafeInitGlobalPlug:(NSString *)neoIdConsumerKey communityId:(NSInteger)communityId channelID:(NSInteger)channelID {
-    if( self.mNaver != nil ) {
-        [self.mNaver cafeInitGlobalPlug:neoIdConsumerKey communityId:communityId channelID:channelID];
-    }
-}
-
-- (void) naverCafeSetChannelCode:(NSString *)channelCode {
-    if( self.mNaver != nil ) {
-        [self.mNaver cafeSetChannelCode:channelCode];
-    }
-}
-
-- (NSString *) naverCafeGetChannelCode {
-    if( self.mNaver != nil ) {
-        return [self.mNaver cafeGetChannelCode];
-    }
-    return @"";
-}
-
-- (void) naverCafeStartWithArticle:(int)articleId {
-    if( self.mNaver != nil ) {
-        [self.mNaver cafeStartWithArticle:articleId];
-    }
-}
-
 - (void) googleLogin:(PerpleSDKCallback)callback {
     if (self.mGoogle == nil) {
         callback(@"fail", [PerpleSDK getErrorInfo:@PERPLESDK_ERROR_GOOGLE_NOTINITIALIZED
@@ -1291,28 +1160,6 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     return YES;
 }
 
-- (BOOL) initNaverWithParentView:(UIViewController *)parentView
-                     isLandspape:(BOOL)isLandscape
-                        clientId:(NSString *)clientId
-                    clientSecret:(NSString *)clientSecret
-                          cafeId:(NSInteger)cafeId
-                neoIdConsumerKey:(NSString *)neoIdConsumerKey
-                     communityId:(NSInteger)communityId
-                       urlScheme:(NSString *)urlScheme {
-    self.mNaver = [[PerpleNaver alloc] initWithParentView:parentView
-                                              isLandspape:isLandscape
-                                                 clientId:clientId
-                                             clientSecret:clientSecret
-                                                   cafeId:cafeId
-                                         neoIdConsumerKey:neoIdConsumerKey
-                                              communityId:communityId
-                                                urlScheme:urlScheme];
-    if (self.mNaver == nil) {
-        return NO;
-    }
-    return YES;
-}
-
 - (BOOL) initGameCenterWithParentView:(UIViewController *)parentView {
     self.mGameCenter = [[PerpleGameCenter alloc] initWithParentView:parentView];
     if (self.mGameCenter == nil) {
@@ -1385,7 +1232,6 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     self.mFacebook = nil;
     self.mTwitter = nil;
     self.mTapjoy = nil;
-    self.mNaver = nil;
     self.mGameCenter = nil;
     self.mUnityAds = nil;
     self.mAdColony = nil;
@@ -1754,10 +1600,6 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
 
     if (self.mTwitter != nil) {
         [self.mTwitter application:application openURL:url options:options];
-    }
-
-    if (self.mNaver != nil) {
-        [self.mNaver application:application openURL:url options:options];
     }
 
     if (self.mAdjust != nil ) {
