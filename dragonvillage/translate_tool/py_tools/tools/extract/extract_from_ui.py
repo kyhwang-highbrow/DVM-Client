@@ -7,7 +7,7 @@ import tools.util.util_file as util_file
 import re
 
 
-def get_str(result_data, file_path): # 사용된 한글, 힌트 파일 등 상세하게 뽑아내는 함수
+def get_str(result_data, file_path, ignore_krs): # 사용된 한글, 힌트 파일 등 상세하게 뽑아내는 함수
     with open(file_path, 'r', encoding='utf-8') as f:
         all_data = f.read()
         reg_find_case1 = re.compile(r"text = '(.+?)'")
@@ -21,6 +21,10 @@ def get_str(result_data, file_path): # 사용된 한글, 힌트 파일 등 상�
             if not reg_check.match(find_data):
                 continue
             
+            # 무시해야하는 텍스트라면 무시
+            if ignore_krs.count(find_data) > 0:
+                continue
+
             # 지금까지 모은 data 딕셔너리에 현재 찾은 텍스트 키값이 존재하는지 검사하고 없다면 추가
             if find_data not in result_data.keys():
                 result_data[find_data] = {'hints' : []}
@@ -34,12 +38,10 @@ def get_str(result_data, file_path): # 사용된 한글, 힌트 파일 등 상�
                     break
             if not hint_exist:
                 result_data[find_data]['hints'].append(file_name)
-                result_data['length'] += 1
 
 
-def extract_from_ui(path, ignoreFiles, ignoreFolders):
+def extract_from_DVM_ui(path, ignoreFiles, ignoreFolders, ignore_krs): # 딕셔너리 반환
     result_data = {}
-    result_data['length'] = 0
 
     option = {}
     option['ignoreFiles'] = ignoreFiles
@@ -49,7 +51,7 @@ def extract_from_ui(path, ignoreFiles, ignoreFolders):
     files = util_file.get_all_files(path, option)
 
     for file in files:
-        get_str(result_data, file)
+        get_str(result_data, file, ignore_krs)
 
     # print(result_data)
 

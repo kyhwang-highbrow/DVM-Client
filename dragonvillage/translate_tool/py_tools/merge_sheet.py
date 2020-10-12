@@ -9,95 +9,28 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 import json
 
-import tools.G_sheet.spread_sheet as spread_sheet
-from tools.G_sheet.upload_sheet import upload
-from tools.util.util_sort import cmp_scenario
-from functools import cmp_to_key
+from tools.merge.merge import merge
 
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
-    sheet_name_list = [config_json['plain_text_sheet_name'], config_json['scenario_sheet_name']]
-    plain_text_ignore_files = config_json['plain_text_ignore_files']
-    plain_text_ignore_folders = config_json['plain_text_ignore_folders']
-
-
-def make_header(is_scenario):
-    global locale_list
-
-    header = []
-    if is_scenario:
-        header.extend(['fileName', 'page', 'speaker_kr'])
-        for locale in locale_list:
-            header.append('speaker_' + locale)
-    header.append('kr')
-    for locale in locale_list:
-        header.append(locale)
-    if not is_scenario:
-        header.append('hints')
-    header.append('date')
-
-    return header
-    
-
-def merge_data(all_data_list, data_dic, header, is_scenario):
-    if is_scenario:
-        speaker_index = header.index('speaker_kr')
-        text_index = header.index('kr')
-        for dic in data_dic:
-            index = len(all_data_list)
-            temp_list = ['' for _ in range(len(header))]
-            temp_list[speaker_index] = dic['speaker_kr']
-            temp_list[text_index] = dic['kr']
-            all_data_list.append(temp_list)
-
-            for i, header_value in enumerate(header):
-                if header_value == 'kr' or header_value == 'speaker_kr':
-                    continue
-                if all_data_list[index][i] == '':
-                    all_data_list[index][i] = dic[header_value] if header_value in dic else ''
-    else:
-        key_index = header.index('kr')
-        for dic in data_dic:
-            index = len(all_data_list)
-            temp_list = ['' for _ in range(len(header))]
-            temp_list[key_index] = dic['kr']
-            all_data_list.append(temp_list)
-
-            for i, header_value in enumerate(header):
-                if header_value == 'kr':
-                    continue
-                if all_data_list[index][i] == '':
-                    all_data_list[index][i] = dic[header_value] if header_value in dic else ''
-
-    return all_data_list
+    merge_config_list = config_json['merge_config_list']
 
 
 def merge_backup():
-    sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
+    for merge_config in merge_config_list:
+        delta_sheet_name = merge_config['delta_sheet_name']
+        backup_sheet_name = merge_config['backup_sheet_name']
+        merge_method = merge_config['merge_method']
 
-    for sheet_name in sheet_name_list:
-        all_data_list = []
-        work_sheet = sheet.get_work_sheet(sheet_name)
-        is_scenario = True if 'scenario' in sheet_name else False
-
-        # 시나리오 시트인지 아닌지에 따라 헤더를 만듭니다.
-        header = make_header(is_scenario)
-
-        # 워크시트에 들어있는 데이터를 통합합니다.
-        print('Merge data :', work_sheet.title)
-        all_data_list = merge_data(all_data_list, spread_sheet.make_rows_to_dic(work_sheet.get_all_values()), header, is_scenario)
-        print('length of data list :', len(all_data_list))
-
-        # 모은 데이터를 워크시트에 작성합니다.
-        upload(sheet_name + '_backup', spreadsheet_id, all_data_list, header, locale_list, is_scenario=is_scenario)
-        print('Merging sheets at',sheet_name,'is done.')
+        merge(merge_method, spreadsheet_id, delta_sheet_name, backup_sheet_name, locale_list)
 
 
 if __name__ == '__main__':
-    print('*** JOB : Merge backup sheet and new sheet [', ', '.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
+    print('*** JOB : Merge delta sheets [', ', '.join([merge_config['delta_sheet_name'] for merge_config in merge_config_list]), 
+    '] and backup sheets [', ', '.join([merge_config['backup_sheet_name'] for merge_config in merge_config_list]), ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

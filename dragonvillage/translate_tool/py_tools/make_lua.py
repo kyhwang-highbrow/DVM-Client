@@ -17,11 +17,10 @@ import tools.util.util_file as util_file
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     lua_table_config = config_json['lua_table_config']
+    make_root = lua_table_config['src']
     spreadsheet_id = config_json['spreadsheet_id']
-    sheet_name_list = [config_json['plain_text_sheet_name'], config_json['scenario_sheet_name']]
+    sheet_name_list = lua_table_config['sheet_name_list']
 
-search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
-make_root = search_root +  r'\..\translate\newLuaTable'
 print ("make directory :", make_root)
 sheet = None
 work_sheets = []
@@ -108,7 +107,6 @@ def make_all():
     sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
     for sheet_name in sheet_name_list:
         work_sheets.append(sheet.get_work_sheet(sheet_name))
-        work_sheets.append(sheet.get_work_sheet(sheet_name + '_backup'))
 
     util_file.make_dir(make_root)
     

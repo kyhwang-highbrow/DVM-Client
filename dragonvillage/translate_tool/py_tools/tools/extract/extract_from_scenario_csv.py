@@ -9,7 +9,7 @@ import csv
 import copy
 
 
-def parse(result_data, file_path, header_datas, important_header_index, body_datas):
+def parse(result_data, file_path, header_datas, important_header_index, body_datas, ignore_krs):
     reg_check = re.compile(r'[가-힣]')
 
     for body in body_datas:
@@ -23,6 +23,8 @@ def parse(result_data, file_path, header_datas, important_header_index, body_dat
             t_char_name = char
         
         t_text = body[important_header_index['t_text']]
+        if ignore_krs.count(t_text) > 0:
+            continue
         if len(t_text) > 0 and reg_check.match(t_text):
             invert_text = t_text.replace('\r\n', r'\n').replace('\n', r'\n')
             result_data.append([file_name, page, t_char_name, invert_text] ) # [파일이름, 페이지, 캐릭터이름, 대사]
@@ -44,7 +46,7 @@ def parse(result_data, file_path, header_datas, important_header_index, body_dat
         #     effect_header = 'effect_' + str(effect_index)
         
 
-def get_str(result_data, file_path):
+def get_str(result_data, file_path, ignore_krs):
     with open(file_path, 'r', encoding='utf-8') as f:
         csv_file = csv.reader(f)
         csv_data = []
@@ -57,10 +59,10 @@ def get_str(result_data, file_path):
                 continue
             important_header_index[header] = i
         # print(important_header_index)
-        parse(result_data, file_path, header_data, important_header_index, body_data)
+        parse(result_data, file_path, header_data, important_header_index, body_data, ignore_krs)
 
 
-def extract_from_scenario(path, ignoreFiles, ignoreFolders):
+def extract_from_DVM_scenario_csv(path, ignoreFiles, ignoreFolders, ignore_krs): # 리스트 반환
     result_data = []
     
     option = {}
@@ -72,27 +74,9 @@ def extract_from_scenario(path, ignoreFiles, ignoreFolders):
 
     for file in files:
         # print(file)
-        get_str(result_data, file)
+        get_str(result_data, file, ignore_krs)
 
     # print(result_data)
 
     return result_data
-
-
-def parse_only_kr(result_data, file_path, header_datas, important_header_index, body_datas):
-    reg_check = re.compile(r'[가-힣]')
-
-    for body in body_datas:
-        # 1. 캐릭터이름 / 대사 부분 한글 데이터 추출하기 
-        char = body[important_header_index['char']]
-        t_char_name = body[important_header_index['t_char_name']]
-        if len(t_char_name) <= 0 and len(char) > 0:
-            t_char_name = char
-        
-        t_text = body[important_header_index['t_text']]
-        if len(t_text) > 0 and reg_check.match(t_text):
-            invert_text = t_text.replace('\r\n', r'\n').replace('\n', r'\n')
-            if len(t_char_name) > 0 and result_data.count(t_char_name) == 0:
-                result_data.append(t_char_name) 
-            if result_data.count(invert_text) == 0:
-                result_data.append(invert_text) 
+    

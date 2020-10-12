@@ -1,5 +1,6 @@
 {
-    "locale_list" : [                                                             
+    "locale_list" : 
+    [                                                             
         "en",                                                               
         "jp",
         "zhtw",
@@ -10,92 +11,179 @@
 
     ,"spreadsheet_id" : "1DYREmJ5dnwOsB4vAoynR4zuIPmWlsAD1jKBa80xNyWA"
 
-    ,"lua_table_config" : 
+    ,"extract_config" : 
     {
-        "table_file_name_list" : ["lang_kr.lua"
-                            ,"lang_en.lua"
-                            ,"lang_jp.lua"
-                            ,"lang_zhtw.lua"
-                            ,"lang_th.lua"
-                            ,"lang_es.lua"
-                            ,"lang_fa.lua"],
-        "key_value_list" : 
+        "delta_sheet_name" : "only_ingame"
+
+        ,"backup_sheet_name" : "only_ingame_backup"
+
+        ,"upload_method" : "upload_DVM_plain_text"
+        
+        ,"sum_data_method" : "sum_DVM_plain_text"
+
+        ,"extract_method_list": 
         [
             {
-                "key" : "kr"
-                ,"value_list" : ["kr", "en", "jp", "zhtw", "th", "es", "fa"]
-                ,"replace_list" : ["en"]
+                "name": "LUA"
+                ,"src" : "C:\\project\\dragonvillage\\res\\emulator\\src"
+                ,"func" : "extract_DVM_lua"
+                ,"ignore_files" : 
+                [
+                ]
+                ,"ignore_folders" :
+                [
+                ]
+                ,"ignore_krs" :
+                [
+                ]
             }
             ,{
-                "key" : "speaker_kr"
-                ,"value_list" : ["speaker_kr", "speaker_en", "speaker_jp", "speaker_zhtw", "speaker_th", "speaker_es", "speaker_fa"]
-                ,"replace_list" : ["speaker_en"]
+                "name": "UI"
+                ,"src" : "C:\\project\\dragonvillage\\res\\emulator\\res"
+                ,"func" : "extract_DVM_ui"
+                ,"ignore_files" : 
+                [
+                ]
+                ,"ignore_folders" :
+                [
+                ]
+                ,"ignore_krs" :
+                [
+                ]
+            }
+            ,{
+                "name": "SV DATA"
+                ,"src" : "C:\\project\\dragonvillage\\res\\sv_tables"
+                ,"func" : "extract_DVM_csv"
+                ,"ignore_files" : 
+                [
+                ]
+                ,"ignore_folders" :
+                [
+                ]
+                ,"ignore_krs" :
+                [
+                ]
+            }
+            ,{
+                "name": "SV DATA PATCH"
+                ,"src" : "C:\\project\\dragonvillage\\res\\sv_tables_patch"
+                ,"func" : "extract_DVM_csv"
+                ,"ignore_files" : 
+                [
+                ]
+                ,"ignore_folders" :
+                [
+                ]
+                ,"ignore_krs" :
+                [
+                ]
+            }
+            ,{
+                "name": "DATAS"
+                ,"src" : "C:\\project\\dragonvillage\\res\\emulator\\data"
+                ,"func" : "extract_DVM_csv"
+                ,"ignore_files" : 
+                [
+                    "table_ban_word_chat.csv"
+                ]
+                ,"ignore_folders" :
+                [
+                    "\\scenario"
+                ]
+                ,"ignore_krs" :
+                [
+                ]
             }
         ]
     }
 
-    ,"plain_text_sheet_name" : "only_ingame"
+    ,"extract_config_scenario_example" :
+    {
+        "delta_sheet_name" : "only_scenario"
 
-    ,"plain_text_extract": [
+        ,"backup_sheet_name" : "only_scenario_backup"
+
+        ,"upload_method" : "upload_DVM_scenario_text"
+
+        ,"sum_data_method" : "sum_DVM_scenario_text"
+
+        ,"extract_method_list": 
+        [
+            {
+                "name": "SCENARIO"
+                ,"src" : "C:\\project\\dragonvillage\\res\\emulator\\data\\scenario"
+                ,"func" : "extract_DVM_scenario_csv"
+                ,"ignore_files" : 
+                [
+                    "scenario_resource.csv"
+                    ,"scenario_sample.csv"
+                ]
+                ,"ignore_folders" :
+                [
+                ]
+                ,"ignore_krs" :
+                [
+                ]
+            }
+        ]
+    }
+
+    ,"lua_table_config" : 
+    {
+        "src": "C:\\project\\dragonvillage\\res\\emulator\\translate\\newLuaTable"
+     
+        ,"sheet_name_list" : 
+        [
+            "only_ingame"
+            ,"only_ingame_backup"
+            ,"only_scenario"
+            ,"only_scenario_backup"
+        ]
+
+        ,"table_file_name_list" : 
+        [
+            "lang_kr.lua"
+            ,"lang_en.lua"
+            ,"lang_jp.lua"
+            ,"lang_zhtw.lua"
+            ,"lang_th.lua"
+            ,"lang_es.lua"
+            ,"lang_fa.lua"
+        ]
+        
+        ,"key_value_list" : 
+        [
+            {
+                "key" : "kr"
+                ,"value_list" : ["kr", "en", "jp", "zhtw", "th", "es", "fa"]
+                ,"replace_list" : ["jp"]
+            }
+            ,{
+                "key" : "speaker_kr"
+                ,"value_list" : ["speaker_kr", "speaker_en", "speaker_jp", "speaker_zhtw", "speaker_th", "speaker_es", "speaker_fa"]
+                ,"replace_list" : ["speaker_jp"]
+            }
+        ]
+    }
+
+    ,"merge_config_list" :
+    [
         {
-            "name": "LUA"
-            ,"src" : "\\..\\src"
-            ,"func" : "extract_lua"
+            "delta_sheet_name" : "only_ingame"
+
+            ,"backup_sheet_name" : "only_ingame_backup"
+    
+            ,"merge_method" : "merge_DVM_plain_text"
         }
+
         ,{
-            "name": "UI"
-            ,"src" : "\\..\\res"
-            ,"func" : "extract_ui"
-        }
-        ,{
-            "name": "SV DATA"
-            ,"src" : "\\..\\..\\sv_tables"
-            ,"func" : "extract_csv"
-        }
-        ,{
-            "name": "SV DATA PATCH"
-            ,"src" : "\\..\\..\\sv_tables_patch"
-            ,"func" : "extract_csv"
-        }
-        ,{
-            "name": "DATAS"
-            ,"src" : "\\..\\data"
-            ,"func" : "extract_csv"
+            "delta_sheet_name" : "only_scenario"
+
+            ,"backup_sheet_name" : "only_scenario_backup"
+    
+            ,"merge_method" : "merge_DVM_scenario_text"
         }
     ]
-
-    ,"plain_text_ignore_files" : [
-        "table_ban_word_chat.csv",
-        "table_ban_word_naming.csv"
-    ]
-
-    ,"plain_text_ignore_folders" : [
-        "\\scenario"
-    ]
-
-    ,"plain_text_ignore_krs" : [
-    ]
-
-    ,"scenario_sheet_name" : "only_scenario"
-
-    ,"scenario_extract": [
-        {
-            "name": "SCENARIO"
-            ,"src" : "\\..\\data\\scenario"
-            ,"func" : "extract_scenario"
-        }
-    ]
-
-    ,"scenario_text_ignore_files" : [
-        "table_ban_word_chat.csv",
-        "table_ban_word_naming.csv",
-        "scenario_resource.csv",
-        "scenario_sample.csv"
-    ]
-
-    ,"scenario_text_ignore_folders" : [
-    ]
-
-    ,"scenario_text_ignore_krs" : [
-    ]
+        
 }

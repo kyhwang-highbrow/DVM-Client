@@ -9,13 +9,12 @@ import re
 
 
 # TODO : CPP 상황에 맞게 구현 필요
-def get_str(result_data, file_path): # 사용된 한글, 힌트 파일 등 상세하게 뽑아내는 함수
+def get_str(result_data, file_path, ignore_krs): # 사용된 한글, 힌트 파일 등 상세하게 뽑아내는 함수
     pass
 
 
-def extract_from_cpp(path, ignoreFiles, ignoreFolders):
+def extract_from_cpp(path, ignoreFiles, ignoreFolders, ignore_krs):
     result_data = {}
-    result_data['length'] = 0
 
     option = {}
     option['ignoreFiles'] = ignoreFiles
@@ -25,7 +24,7 @@ def extract_from_cpp(path, ignoreFiles, ignoreFolders):
     files = util_file.get_all_files(path, option)
 
     for file in files:
-        get_str(result_data, file)
+        get_str(result_data, file, ignore_krs)
 
     # print(result_data)
 

@@ -10,7 +10,7 @@ import csv
 import copy
 
 
-def parse(result_data, file_path, header_datas, body_datas):
+def parse(result_data, file_path, header_datas, body_datas, ignore_krs):
     reg_check = re.compile(r'[가-힣]')
     
     for i, header in enumerate(header_datas):
@@ -19,6 +19,9 @@ def parse(result_data, file_path, header_datas, body_datas):
             for body in body_datas:
                 find_data = body[i]
                 
+                if ignore_krs.count(find_data) > 0:
+                    continue
+
                 if reg_check.match(find_data): # 한글이 포함되어 있는 데이터라면
                     reform_data = find_data.replace('\r\n', r'\n') # csv 파일 내에서 개행문자로 저장되어 있었다면 \n으로 변경
                     reform_data = reform_data.replace('\n', r'\n') 
@@ -36,22 +39,20 @@ def parse(result_data, file_path, header_datas, body_datas):
                             break
                     if not hint_exist:
                         result_data[reform_data]['hints'].append(file_name)
-                        result_data['length'] += 1
             
 
-def get_str(result_data, file_path):
+def get_str(result_data, file_path, ignore_krs):
     with open(file_path, 'r', encoding='utf-8') as f:
         csv_file = csv.reader(f)
         csv_data = []
         for line in csv_file:
             csv_data.append(line)
         header_data, body_data = csv_data[0], csv_data[1:]
-        parse(result_data, file_path, header_data, body_data)
+        parse(result_data, file_path, header_data, body_data, ignore_krs)
 
 
-def extract_from_csv(path, ignoreFiles, ignoreFolders):
+def extract_from_DVM_csv(path, ignoreFiles, ignoreFolders, ignore_krs): # 딕셔너리 반환
     result_data = {}
-    result_data['length'] = 0
     
     option = {}
     option['ignoreFiles'] = ignoreFiles
@@ -61,7 +62,7 @@ def extract_from_csv(path, ignoreFiles, ignoreFolders):
     files = util_file.get_all_files(path, option)
 
     for file in files:
-        get_str(result_data, file)
+        get_str(result_data, file, ignore_krs)
 
     # print(result_data)
 

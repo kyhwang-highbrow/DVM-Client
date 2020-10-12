@@ -4,20 +4,17 @@
 
 
 from tools.extract.extract_from_cpp import extract_from_cpp
-from tools.extract.extract_from_lua import extract_from_lua
-from tools.extract.extract_from_ui import extract_from_ui
-from tools.extract.extract_from_csv import extract_from_csv
-from tools.extract.extract_from_scenario import extract_from_scenario
+from tools.extract.extract_from_lua import extract_from_DVM_lua
+from tools.extract.extract_from_ui import extract_from_DVM_ui
+from tools.extract.extract_from_csv import extract_from_DVM_csv
+from tools.extract.extract_from_scenario_csv import extract_from_DVM_scenario_csv
+
+extract_func = {}
+extract_func['extract_DVM_lua'] = extract_from_DVM_lua
+extract_func['extract_DVM_ui'] = extract_from_DVM_ui
+extract_func['extract_DVM_csv'] = extract_from_DVM_csv
+extract_func['extract_DVM_scenario_csv'] = extract_from_DVM_scenario_csv
 
 
-def extract(src, func_name, ignore_files, ignore_folders):
-    if func_name == 'extract_cpp':
-        return extract_from_cpp(src, ignore_files, ignore_folders)
-    elif func_name == 'extract_lua':
-        return extract_from_lua(src, ignore_files, ignore_folders)
-    elif func_name == 'extract_ui':
-        return extract_from_ui(src, ignore_files, ignore_folders)
-    elif func_name == 'extract_csv':
-        return extract_from_csv(src, ignore_files, ignore_folders)
-    elif func_name == 'extract_scenario':
-        return extract_from_scenario(src, ignore_files, ignore_folders)
+def extract(func_name, src, ignore_files, ignore_folders, ignore_krs):
+    return extract_func[func_name](src, ignore_files, ignore_folders, ignore_krs)
