@@ -23,7 +23,7 @@ function ServerData_PurchaseDaily:applyPurchaseDailyInfo(t_data)
     if (not t_data) then
         return
     end
-    -- t_dat : ret에 purchase_daily_info라는 key 값으로 아래와 같은 형태로 전달됨
+    -- t_data : ret에 purchase_daily_info라는 key 값으로 아래와 같은 형태로 전달됨
     --[[
         "purchase_daily_info" : {
             "version1" : {
@@ -37,11 +37,19 @@ function ServerData_PurchaseDaily:applyPurchaseDailyInfo(t_data)
 end
 
 -------------------------------------
--- function getPurchasePointInfo
--- @brief 해당 버전에 대한 정보 리턴 (row data)
+-- function isActive
+-- @brief
 -------------------------------------
-function ServerData_PurchaseDaily:getPurchasePointInfo(version)
-    return self.m_purchaseDailyInfo[tostring(version)] or {}
+function ServerData_PurchaseDaily:isActive(version)
+    return self.m_purchaseDailyInfo[tostring(version)] ~= nil
+end
+
+-------------------------------------
+-- function getPurchaseDailyInfo
+-- @brief 해당 버전에 대한 정보 리턴 (raw data)
+-------------------------------------
+function ServerData_PurchaseDaily:getPurchaseDailyInfo(version)
+    return self.m_purchaseDailyInfo[tostring(version)]
 end
 
 -------------------------------------
@@ -57,8 +65,10 @@ end
 -- @brief
 -------------------------------------
 function ServerData_PurchaseDaily:getCurrentStep(version)
-    local purchase_daily_table = self.m_purchaseDailyInfo[tostring(version)] or {}
-    return purchase_daily_table['current_step']
+    assert(self:isActive(version), 'ServerData_PurchaseDaily invalid access')
+
+    local purchase_daily_info = self:getPurchaseDailyInfo(version)
+    return purchase_daily_info['current_step']
 end
 
 -------------------------------------
@@ -66,6 +76,8 @@ end
 -- @brief 많은 step 중 이곳의 step 은 number 인 것에 주의
 -------------------------------------
 function ServerData_PurchaseDaily:isRewardReceived(version, step)
+    assert(self:isActive(version), 'ServerData_PurchaseDaily invalid access')
+
     local received_list = self.m_purchaseDailyInfo[tostring(version)]['received_list'] or {}
     return isContainValue(step, received_list)
 end
@@ -75,8 +87,10 @@ end
 -- @brief
 -------------------------------------
 function ServerData_PurchaseDaily:getClearStep(version)
-    local purchase_daily_table = self.m_purchaseDailyInfo[tostring(version)] or {}
-    return purchase_daily_table['clear_step']
+    assert(self:isActive(version), 'ServerData_PurchaseDaily invalid access')
+
+    local purchase_daily_info = self:getPurchaseDailyInfo(version)
+    return purchase_daily_info['clear_step']
 end
 
 -------------------------------------
@@ -84,6 +98,8 @@ end
 -- @brief
 -------------------------------------
 function ServerData_PurchaseDaily:getTotalStep(version)
+    assert(self:isActive(version), 'ServerData_PurchaseDaily invalid access')
+
     return table.count(self.m_purchaseDailyInfo[tostring(version)]['step_list'])
 end
 
@@ -105,6 +121,8 @@ end
 -- @brief
 -------------------------------------
 function ServerData_PurchaseDaily:getRewardList(version, step)
+    assert(self:isActive(version), 'ServerData_PurchaseDaily invalid access')
+    
     local reward_list = self.m_purchaseDailyInfo[tostring(version)]['step_list']
     return ServerData_Item:parsePackageItemStr(reward_list[tostring(step)]['item'])
 end
@@ -114,6 +132,8 @@ end
 -- @brief
 -------------------------------------
 function ServerData_PurchaseDaily:getTargetPoint(version, step)
+    assert(self:isActive(version), 'ServerData_PurchaseDaily invalid access')
+
     local reward_list = self.m_purchaseDailyInfo[tostring(version)]['step_list']
     return reward_list[tostring(step)]['purchase_point']
 end
@@ -158,13 +178,12 @@ end
 -- @return sec
 -------------------------------------
 function ServerData_PurchaseDaily:getPurchasePointEventRemainTime(version)
-    local purchase_point_info = self:getPurchasePointInfo(version)
-
-    if (not purchase_point_info) then
+    if (not self:isActive(version)) then
         return 0
     end
 
-    local end_time = purchase_point_info['end']
+    local purchase_daily_info = self:getPurchaseDailyInfo(version)
+    local end_time = purchase_daily_info['end']
     if (not end_time) or (end_time == 0) then
         return 0
     end
@@ -222,17 +241,21 @@ end
 -- @brief 해당 버전이 활성화 상태인지 여부
 -------------------------------------
 function ServerData_PurchaseDaily:isActivePurchaseDailyEvent(version)
+    if (version == 'purchase_point') then
+        return false
+    end    
+    
     -- 핫타임에  event_purchase_daily 가 설정되어 있어야 함
     if (not g_hotTimeData) or (not g_hotTimeData:isActiveEvent('event_purchase_daily')) then
         return false
     end
 
     -- 해당 버전 정보가 없는 경우
-    local purchase_daily_info = self:getPurchasePointInfo(version)
-    if (not purchase_daily_info) or (type(purchase_daily_info) ~= 'table') then
+    if (not self:isActive(version)) then
         return false
     end
 
+    local purchase_daily_info = self:getPurchaseDailyInfo(version)
     local curr_time = Timer:getServerTime()
     local start_time = purchase_daily_info['start'] / 1000
     local end_time = purchase_daily_info['end'] / 1000
@@ -273,16 +296,19 @@ end
 -- @breif 최종 보상 받았는지 확인
 -------------------------------------
 function ServerData_PurchaseDaily:isGetLastReward(version)
+    if (not self:isActive(version)) then
+        return false
+    end
+
     local last_step = self:getTotalStep(version) -- number
 
-    for step=1, last_step do
+    for step = 1, last_step do
         -- isRewardReceived에서 step은 number
         -- 한 단계라도 보상을 수령하지 않았으면 false
         if (self:isRewardReceived(version, step) == false) then
             return false
         end
     end
-
 
     return true
 end
