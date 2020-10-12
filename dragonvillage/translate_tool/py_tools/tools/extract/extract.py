@@ -4,10 +4,10 @@
 
 
 from tools.extract.extract_from_cpp import extract_from_cpp
-from tools.extract.extract_from_lua import extract_from_DVM_lua
-from tools.extract.extract_from_ui import extract_from_DVM_ui
-from tools.extract.extract_from_csv import extract_from_DVM_csv
-from tools.extract.extract_from_scenario_csv import extract_from_DVM_scenario_csv
+from tools.extract.extract_from_DVM_lua import extract_from_DVM_lua
+from tools.extract.extract_from_DVM_ui import extract_from_DVM_ui
+from tools.extract.extract_from_DVM_csv import extract_from_DVM_csv
+from tools.extract.extract_from_DVM_scenario_csv import extract_from_DVM_scenario_csv
 
 extract_func = {}
 extract_func['extract_DVM_lua'] = extract_from_DVM_lua
