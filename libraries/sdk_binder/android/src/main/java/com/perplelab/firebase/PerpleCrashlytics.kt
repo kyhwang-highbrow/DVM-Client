@@ -1,9 +1,7 @@
 package com.perplelab.firebase
 
 import android.content.Context
-import io.fabric.sdk.android.Fabric
-import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.ndk.CrashlyticsNdk
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 
 
 /**
@@ -15,44 +13,38 @@ import com.crashlytics.android.ndk.CrashlyticsNdk
 class PerpleCrashlytics() {
     companion object {
         fun init(activity: Context) {
-            Fabric.Builder(activity)
-                .kits(Crashlytics(), CrashlyticsNdk())
-                .build()
-                .let { fabric ->
-                    Fabric.with(fabric)
-                }
         }
 
         fun setUid(uid : String) {
-            Crashlytics.setUserIdentifier(uid)
+            FirebaseCrashlytics.getInstance().setUserId(uid)
         }
 
         fun forceCrash() {
-            Crashlytics.getInstance().crash()
+            // firebase로 이전하면서 없는 것 같아 일단 제외
         }
 
         fun setLog(message : String) {
-            Crashlytics.log(message)
+            FirebaseCrashlytics.getInstance().log(message)
         }
 
         fun setKeyString(key : String, value : String) {
-            Crashlytics.setString(key, value)
+            FirebaseCrashlytics.getInstance().setCustomKey(key, value)
         }
 
         fun setKeyInt(key : String, value : Int) {
-            Crashlytics.setInt(key, value)
+            FirebaseCrashlytics.getInstance().setCustomKey(key, value)
         }
 
         fun setKeyBool(key : String, value : Boolean) {
-            Crashlytics.setBool(key, value)
+            FirebaseCrashlytics.getInstance().setCustomKey(key, value)
         }
 
         fun setKeyFloat(key : String, value : Float) {
-            Crashlytics.setFloat(key, value)
+            FirebaseCrashlytics.getInstance().setCustomKey(key, value)
         }
 
         fun setKeyDouble(key : String, value : Double) {
-            Crashlytics.setDouble(key, value)
+            FirebaseCrashlytics.getInstance().setCustomKey(key, value)
         }
     }
 }
