@@ -43,10 +43,6 @@ function UI_TitleScene:init()
 
     -- 풀팝업 매니저 인스턴스 생성
     FullPopupManager:initInstance()
-
-    --네이버 카페 글로벌 세팅(서버 선택이 필요해서 이쪽으로 옮깁니다.)
-    self:initNaverPlug()
-
 end
 
 -------------------------------------
@@ -914,25 +910,11 @@ function UI_TitleScene:workGameLogin()
 
     self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
     
-    local naver_cafe_sync_uid   -- 네이버 카페(PLUG) uid 동기화
     local get_device_info       -- 기기 정보
     local get_advertising_id    -- 광고 식별자 ADID, IDFA
     local login                 -- 로그인
     local login_new_user        -- 로그인 신규 유저
     local login_existing_user   -- 로그인 기존 유저
-
-    -- 네이버 카페(PLUG) uid 동기화
-    naver_cafe_sync_uid = function()
-        -- @analytics
-        Analytics:firstTimeExperience('Title_GameLogin_naverSyncUid')
-
-        -- 네이버 카페에 uid 연동
-        local uid = g_localData:get('local', 'uid')
-        NaverCafeManager:naverCafeSyncGameUserId(uid)
-
-        -- next
-        get_device_info()
-    end
 
     -- 기기 정보
     get_device_info = function()
@@ -1047,7 +1029,7 @@ function UI_TitleScene:workGameLogin()
         self:doNextWork()
     end
 
-    naver_cafe_sync_uid()
+    get_device_info()
 end
 -------------------------------------
 -- function workGameLogin_click
@@ -1210,11 +1192,6 @@ function UI_TitleScene:workGetServerInfo()
                 if (ret['season_info']) then
                     cclog('# 시즌 정보')
                     g_seasonData:applyInfo(ret['season_info'])
-                end
-
-                if (ret['naver_info']) then
-                    cclog('# 네이버 카페 이벤트 정보')
-                    g_naverEventData:response_naverEventInfo(ret['naver_info'])
                 end
 
                 if (ret['adv_info']) then
@@ -1709,22 +1686,6 @@ function UI_TitleScene:makeFailPopup(msg, ret)
 
     self.m_loadingUI:hideLoading()
     MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb)
-end
-
--------------------------------------
--- function initNaverPlug
--- @brief
--------------------------------------
-function UI_TitleScene:initNaverPlug()
-    --글로벌 플러그 초기화
-    NaverCafeManager:naverInitGlobalPlug(g_localData:getServerName(), g_localData:getLang(), g_localData:getSavedNaverChannel())
-
-    -- 카페 위젯 노출 시작
-    NaverCafeManager:naverCafeStartWidget()
-    NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1) -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
-
-	--네이버 카페 콜백 연동
-    NaverCafeManager:naverCafeSetCallback()
 end
 
 -------------------------------------

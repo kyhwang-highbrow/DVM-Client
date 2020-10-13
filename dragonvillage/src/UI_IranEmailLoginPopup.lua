@@ -165,10 +165,6 @@ function UI_IranEmailLoginPopup:loginSuccess(info)
         g_localData:setGooglePlayConnected(false)
     end
 
-    --이쪽이면 os 로그인과 서버선택하며 들어가는것으로 naver channel을 추천으로 선택다시해준다.    
-    NaverCafeManager:naverInitGlobalPlug(g_localData:getServerName(), g_localData:getLang())
-    g_localData:setSavedNaverChannel(1)
-
     -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
     -- @sgkim 2019-05-29 firebase에서 사용하는 기능이므로 호출하지 않는다
     -- UnlinkBrokenPlatform(t_info, platform_id)

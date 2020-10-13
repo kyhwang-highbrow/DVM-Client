@@ -123,15 +123,6 @@ function ServerData_Event:getEventPopupTabList()
                 visible = false
             end
 
-        -- Cafe Plug Event
-        elseif (event_type == 'event_cafe') then
-            -- 활성 카페 플러그 이벤트 중 참여하지 않은것 체크
-            if (not g_naverEventData:isActiveEvent(event_id)) then
-                visible = false
-            elseif (g_naverEventData:isAlreadyDone(event_id)) then
-                visible = false
-            end
-            
         -- 한정 이벤트 체크
         elseif (event_id == 'limited') then
 			visible = g_hotTimeData:isActiveEvent(event_type)
@@ -304,18 +295,6 @@ function ServerData_Event:getEventFullPopupList()
 				else
 					event_type = event_type .. ';' .. event_id
 				end
-
-            -- 카페 플러그 이벤트
-            elseif (event_type == 'event_cafe') then
-                -- 활성 카페 플러그 이벤트 중 참여하지 않은것 체크
-                if (not g_naverEventData:isActiveEvent(event_id)) then
-                    visible = false
-                elseif (g_naverEventData:isAlreadyDone(event_id)) then
-                    visible = false
-                end
-                if (visible) then
-                    event_type = event_type .. ':' .. v['banner'] .. ':' .. v['url']
-                end
 
 			elseif (event_type == 'event_1st_comeback') then
 				visible = self:isComebackUser_1st()

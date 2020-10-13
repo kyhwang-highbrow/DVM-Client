@@ -175,9 +175,6 @@ local TableInfo_fromServer = {
         -- 패키지
         ['table_package_bundle'] = {'table_package_bundle', 'bid'},
 
-        -- 네이버 카페 플러그 이벤트 관리
-        ['table_naver_event'] = {'table_naver_event', 'id'},
-
         -- 가방
         ['table_inventory'] = {'table_inventory', 'lv'},
 

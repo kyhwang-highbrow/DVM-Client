@@ -217,7 +217,6 @@ local t_module = {
     'ServerData_DragonDiary',
     'ServerData_EventGoldDungeon',
     'ServerData_Season',
-    'ServerData_NaverEvent',
     'ServerData_AncientRuin',
     'ServerData_RandomShop',
     'ServerData_Arena',
@@ -433,7 +432,6 @@ local t_module = {
     'TableTeamBonus',
     'TableDragonTransform',
     'TableMasterySkill',
-    'TableNaverEvent',
     'TableArenaWinReward',
     'TableCollectionReward',
     'TableMastery', -- 특성 테이블

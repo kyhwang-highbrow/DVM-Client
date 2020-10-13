@@ -367,19 +367,3 @@ function LocalData:isAmericaServer()
         return false
     end
 end
-
--------------------------------------
--- function setSavedNaverChannel
--- @breif 최초에 서버골라서 들어갈때(로컬에 세이브된 서버가없을때)만 서버와 언어에 맞춰 채널을 선택해주기 위해서.( 0 or 1 )
--------------------------------------
-function LocalData:setSavedNaverChannel( val )
-    self:applyLocalData(val, 'local', 'savedNaverChannel')
-end
-
--------------------------------------
--- function getSavedNaverChannel
--- @breif 
--------------------------------------
-function LocalData:getSavedNaverChannel()
-    return self:get('local', 'savedNaverChannel')
-end

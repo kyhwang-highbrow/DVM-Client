@@ -466,11 +466,8 @@ function StructMail:getNoticeArticleID()
     if (not self['custom']) then
         return
     end
-    local channel_code = NaverCafeManager:naverCafeGetChannelCode()
-    if (channel_code == 'zh_TW') then
-        channel_code = 'zh'
-    end
-    return self['custom']['article_id_' .. channel_code]
+    local lang = g_localData:getLang()
+    return self['custom']['article_id_' .. lang]
 end
 
 -------------------------------------
