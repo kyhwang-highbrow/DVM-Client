@@ -3382,9 +3382,6 @@
     <None Include="..\src\SkillHealLine.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ServerData_NaverEvent.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_ScenarioReplayListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -3474,9 +3471,6 @@
     </None>
     <None Include="..\src\UI_ChatMacroListItem.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\TableNaverEvent.lua">
-      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\StructUserInfoArena.lua">
       <Filter>lua\src</Filter>

@@ -562,7 +562,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_LobbyNotice.lua" />
     <None Include="..\src\ServerData_Mail.lua" />
     <None Include="..\src\ServerData_MasterRoad.lua" />
-    <None Include="..\src\ServerData_NaverEvent.lua" />
     <None Include="..\src\ServerData_NestDungeon.lua" />
     <None Include="..\src\ServerData_NewcomerShop.lua" />
     <None Include="..\src\ServerData_Personalpack.lua" />
@@ -970,7 +969,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableMasterRoad.lua" />
     <None Include="..\src\TableMastery.lua" />
     <None Include="..\src\TableMasterySkill.lua" />
-    <None Include="..\src\TableNaverEvent.lua" />
     <None Include="..\src\TableNewcomerShop.lua" />
     <None Include="..\src\TablePackageBundle.lua" />
     <None Include="..\src\TablePersonalpack.lua" />
