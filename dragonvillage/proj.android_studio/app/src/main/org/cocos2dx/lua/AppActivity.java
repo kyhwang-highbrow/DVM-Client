@@ -137,9 +137,6 @@ public class AppActivity extends Cocos2dxActivity{
         // @tapjoy
         perpleSdkInstance.initTapjoy(PerpleConfig.TAPJOY_SDK_KEY, "", isDebug);
 
-        // @naver-cafe
-        perpleSdkInstance.initNaverCafe(PerpleConfig.NAVER_CAFE_CLIENT_ID, PerpleConfig.NAVER_CAFE_CLIENT_SECRET, PerpleConfig.NAVER_CAFE_ID, PerpleConfig.NAVER_NEO_ID_CONSUMER_KEY, PerpleConfig.NAVER_COMMUNITY_ID);
-
         // @adjust
         perpleSdkInstance.initAdjust(PerpleConfig.ADJUST_TOKKEN_ID, PerpleConfig.ADJUST_SECRET_KEY, isDebug);
 

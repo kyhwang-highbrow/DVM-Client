@@ -22,7 +22,6 @@ import com.perplelab.facebook.PerpleFacebook;
 import com.perplelab.firebase.PerpleCrashlytics;
 import com.perplelab.firebase.PerpleFirebase;
 import com.perplelab.google.PerpleGoogle;
-import com.perplelab.naver.PerpleNaver;
 import com.perplelab.onestore.PerpleOnestore;
 import com.perplelab.tapjoy.PerpleTapjoy;
 import com.perplelab.twitter.PerpleTwitter;
@@ -81,11 +80,6 @@ public class PerpleSDK {
     public static final String ERROR_FACEBOOK_GRAPHAPI                  = "-1308";
     public static final String ERROR_FACEBOOK_REQUEST                   = "-1309";
     public static final String ERROR_FACEBOOK_SHARE                     = "-1310";
-
-    public static final String ERROR_NAVER_NOTINITIALIZED               = "-1400";
-    public static final String ERROR_NAVER_CAFENOTINITIALIZED           = "-1401";
-    public static final String ERROR_NAVER_LOGIN                        = "-1402";
-    public static final String ERROR_NAVER_ONPOSTEDARTICLE              = "-1403";
 
     public static final String ERROR_BILLING_NOTINITIALIZED             = "-1500";
     public static final String ERROR_BILLING_SETUP                      = "-1501";
@@ -151,7 +145,6 @@ public class PerpleSDK {
     private PerpleGoogle mGoogle;
     private PerpleFacebook mFacebook;
     private PerpleTwitter mTwitter;
-    private PerpleNaver mNaver;
     private PerpleTapjoy mTapjoy;
     private PerpleUnityAds mUnityAds;
     private PerpleAdColony mAdColony;
@@ -284,14 +277,6 @@ public class PerpleSDK {
     public void initTwitter(String consumerKey, String consumerSecret) {
         mTwitter = new PerpleTwitter();
         mTwitter.init(consumerKey, consumerSecret);
-    }
-
-    // @naver cafe
-    public void initNaverCafe(String clientId, String clientSecret, int cafeId, String neoIdConsumerKey, int communityId) {
-        if (mNaver == null) {
-            mNaver = new PerpleNaver();
-        }
-        mNaver.initCafe(clientId, clientSecret, cafeId, neoIdConsumerKey, communityId);
     }
 
     // @tapjoy
@@ -496,11 +481,6 @@ public class PerpleSDK {
     // @tapjoy
     public static PerpleTapjoy getTapjoy() {
         return getInstance().mTapjoy;
-    }
-
-    // @naver
-    public static PerpleNaver getNaver() {
-        return getInstance().mNaver;
     }
 
     // @unity-ads

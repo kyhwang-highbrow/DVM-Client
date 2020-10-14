@@ -7,7 +7,6 @@ import com.perplelab.adcolony.PerpleAdColonyCallback;
 import com.perplelab.admob.PerpleAdMobCallback;
 import com.perplelab.firebase.PerpleCrashlytics;
 import com.perplelab.firebase.PerpleFirebase;
-import com.perplelab.naver.PerpleNaverCafeCallback;
 import com.perplelab.tapjoy.PerpleTapjoyPlacementCallback;
 import com.perplelab.unityads.PerpleUnityAdsCallback;
 import com.perplelab.util.PerpleUtil;
@@ -275,6 +274,9 @@ public class PerpleSDKLua {
         // do nothing
     }
 
+    // @firebase, @apple
+    public static void loginWithApple(final int funcID) { }
+
     // @firebase
     public static void loginWithEmail(final int funcID, String email, String password) {
         final int pID = PerpleSDK.ProcessId;
@@ -475,6 +477,9 @@ public class PerpleSDKLua {
         });
     }
 
+    // @firebase, @apple
+    public static void linkWithApple(final int funcID) { }
+
     // @firebase
     public static void linkWithEmail(final int funcID, String email, String password) {
         final int pID = PerpleSDK.ProcessId;
@@ -499,7 +504,7 @@ public class PerpleSDKLua {
                 });
     }
 
-    // @firebase, @google`
+    // @firebase, @google
     public static void unlinkWithGoogle(final int funcID) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getFirebase() == null) {
@@ -561,6 +566,9 @@ public class PerpleSDKLua {
             }
         });
     }
+
+    // @firebase, @apple
+    public static void unlinkWithApple(final int funcID) { }
 
     // @firebase
     public static void unlinkWithEmail(final int funcID) {
@@ -1095,193 +1103,6 @@ public class PerpleSDKLua {
         });
     }
 
-    // @naver
-    public static boolean naverCafeIsShowGlink(final int funcID) {
-        boolean ret = false;
-        if (PerpleSDK.getNaver() != null) {
-            ret = PerpleSDK.getNaver().cafeIsShowGlink();
-        }
-        return ret;
-    }
-
-    // @naver
-    public static void naverCafeShowWidgetWhenUnloadSdk(final int funcID, int isShowWidget) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeShowWidgetWhenUnloadSdk(isShowWidget != 0);
-        }
-    }
-
-    // @naver
-    public static void naverCafeSetWidgetStartPosition(final int funcID, String arg0, String arg1) {
-        if (PerpleSDK.getNaver() != null) {
-            boolean isLeft = false;
-            if (arg0.equals("left")) {
-                isLeft = true;
-            }
-            int heightPercentage = Integer.parseInt(arg1);
-            PerpleSDK.getNaver().cafeSetWidgetStartPosition(isLeft, heightPercentage);
-        }
-    }
-
-    // @naver
-    public static void naverCafeStartWidget(final int funcID) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeStartWidget();
-        }
-    }
-
-    // @naver
-    public static void naverCafeStopWidget(final int funcID) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeStopWidget();
-        }
-    }
-
-    // @naver
-    public static void naverCafeStart(final int funcID, int tapIndex) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeStart(tapIndex);
-        }
-    }
-
-    // @naver
-    public static void naverCafeStop(final int funcID) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeStop();
-        }
-    }
-
-    // @naver
-    public static void naverCafeStartWrite(final int funcID) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeStartWrite();
-        }
-    }
-
-    // @naver
-    public static void naverCafeStartImageWrite(final int funcID, String imageUrl) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeStartImageWrite(imageUrl);
-        }
-    }
-
-    // @naver
-    public static void naverCafeStartVideoWrite(final int funcID, String videoUrl) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeStartVideoWrite(videoUrl);
-        }
-    }
-
-    // @naver
-    public static void naverCafeSyncGameUserId(final int funcID, String gameUserId) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeSyncGameUserId(gameUserId);
-        }
-    }
-
-    // @naver
-    public static void naverCafeSetUseVideoRecord(final int funcID, int isSetUseVideoRacord) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeSetUseVideoRecord(isSetUseVideoRacord != 0);
-        }
-    }
-
-    // @naver
-    public static void naverCafeSetUseScreenshot(final int funcID, int isSetUseScreenshot) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeSetUseScreenshot(isSetUseScreenshot != 0);
-        }
-    }
-
-    public static void naverCafeScreenshot(final int funcID) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().cafeScreenshot();
-        }
-    }
-
-    // @naver
-    public static void naverCafeSetCallback(final int funcID) {
-        final int pID = PerpleSDK.ProcessId;
-        if (PerpleSDK.getNaver() == null) {
-            PerpleSDK.callSDKResult(pID, funcID, "error",
-                    PerpleSDK.getErrorInfo(PerpleSDK.ERROR_NAVER_NOTINITIALIZED, "Naver is not initialized."));
-            return;
-        }
-
-        PerpleSDK.getNaver().cafeSetCallback(new PerpleNaverCafeCallback() {
-            @Override
-            public void onSdkStarted() {
-                PerpleSDK.callSDKResult(pID, funcID, "start", "");
-            }
-            @Override
-            public void onSdkStopped() {
-                PerpleSDK.callSDKResult(pID, funcID, "stop", "");
-            }
-            @Override
-            public void onClickAppSchemeBanner(String appScheme) {
-                PerpleSDK.callSDKResult(pID, funcID, "banner", appScheme);
-            }
-            @Override
-            public void onJoined() {
-                PerpleSDK.callSDKResult(pID, funcID, "join", "");
-            }
-            @Override
-            public void onPostedArticle(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "article", info);
-            }
-            @Override
-            public void onPostedComment(int articleId) {
-                PerpleSDK.callSDKResult(pID, funcID, "comment", String.valueOf(articleId));
-            }
-            @Override
-            public void onVoted(int articleId) {
-                PerpleSDK.callSDKResult(pID, funcID, "vote", String.valueOf(articleId));
-            }
-            @Override
-            public void onScreenshotClick() {
-                PerpleSDK.callSDKResult(pID, funcID, "screenshot", "");
-            }
-            @Override
-            public void onRecordFinished(String uri) {
-                PerpleSDK.callSDKResult(pID, funcID, "record", uri);
-            }
-            @Override
-            public void onError(String info) {
-                PerpleSDK.callSDKResult(pID, funcID, "error", info);
-            }
-        });
-    }
-
-    // @naver
-    public static void naverCafeInitGlobalPlug(final int funcID, String neoIdConsumerKey, int communityId, int channelID ) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().naverCafeInitGlobalPlug( neoIdConsumerKey, communityId, channelID);
-        }
-    }
-
-    // @naver
-    public static void naverCafeSetChannelCode(final int funcID, String channelCde) {
-        if (PerpleSDK.getNaver() != null) {
-            PerpleSDK.getNaver().naverCafeSetChannelCode(channelCde);
-        }
-    }
-
-    // @naver
-    public static String naverCafeGetChannelCode(final int funcID) {
-        if (PerpleSDK.getNaver() != null) {
-            String channelCode = PerpleSDK.getNaver().naverCafeGetChannelCode();
-            return channelCode;
-        }
-        return "";
-    }
-
-    // @naver
-    public static void naverCafeStartWithArticle(final int funcID, int articleID ) {
-        if( PerpleSDK.getNaver() != null ) {
-            PerpleSDK.getNaver().naverCafeStartWithArticle(articleID);
-        }
-    }
-
     // @google - not assigned
     public static void googleLogin(final int funcID) {
         final int pID = PerpleSDK.ProcessId;
@@ -1455,6 +1276,10 @@ public class PerpleSDKLua {
     public static void gameCenterLogin(final int funcID) {
         // do nothing
     }
+
+    // @apple
+    public static void appleLogin(final int funcID) { }
+    public static void appleLogout(final int funcID) { }
 
     // @unity-ads
     public static void unityAdsStart(final int funcID, String mode, String metaData) {

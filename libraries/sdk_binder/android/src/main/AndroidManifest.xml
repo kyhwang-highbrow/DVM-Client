@@ -5,14 +5,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <!-- @naver-cafe-sdk -->
-    <uses-permission
-        android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission
-        android:name="android.permission.CAMERA"/> <!-- 라이브 셀프 카메라 -->
-    <uses-permission
-        android:name="android.permission.MODIFY_AUDIO_SETTINGS"/> <!-- 오디오 음소거 -->
-
     <!-- @billing -->
     <uses-permission
         android:name="com.android.vending.BILLING" />
@@ -74,22 +66,6 @@
             android:name="com.adcolony.sdk.AdColonyAdViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true" />
-
-        <!-- @naver global plug -->
-        <activity
-            android:name="com.naver.glink.android.sdk.login.neoid.NeoIdInAppBrowserActivity"
-            android:configChanges="keyboardHidden|screenSize|orientation"
-            android:label="NeoId In-app"
-            android:screenOrientation="sensor"/>
-
-        <activity android:name="com.naver.glink.android.sdk.login.neoid.PlugSchemeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="naverplug"/>
-            </intent-filter>
-        </activity>
 
         <!-- @admob -->
         <meta-data
