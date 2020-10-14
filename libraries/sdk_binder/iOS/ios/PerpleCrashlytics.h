@@ -6,12 +6,10 @@
 //  Copyright © 2019 PerpleLab. All rights reserved.
 //
 
-#ifndef PerpleCrashlytics_h
-#define PerpleCrashlytics_h
-
 #import <Foundation/Foundation.h>
-#import <Crashlytics/Crashlytics.h>
 #import "PerpleSDK.h"
+#import <FirebaseCrashlytics.h>
+#import <FirebaseCrashlytics/FIRCrashlytics.h>
 
 @interface PerpleCrashlytics : NSObject
 
@@ -24,5 +22,3 @@
 + (void) setBoolValue:(BOOL)value forKey:(NSString *)key;
 
 @end
-
-#endif /* PerpleCrashlytics_h */

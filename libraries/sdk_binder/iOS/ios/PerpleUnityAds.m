@@ -62,7 +62,8 @@
         [mediationMetaData commit];
     }
 
-    [UnityAds initialize:self.mGameId delegate:self testMode:isTestMode];
+    [UnityAds initialize:self.mGameId testMode:isTestMode];
+    [UnityAds addDelegate:self];
     [UnityAds setDebugMode:self.mIsDebug];
 }
 

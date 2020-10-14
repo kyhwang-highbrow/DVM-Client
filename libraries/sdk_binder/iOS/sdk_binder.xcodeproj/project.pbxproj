@@ -421,7 +421,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6755498CE97091FE539A6E2F /* Pods-sdk_binder.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -469,7 +468,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 17AFB2C78AE88A5133D306DB /* Pods-sdk_binder.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
