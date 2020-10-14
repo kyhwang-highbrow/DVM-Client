@@ -49,13 +49,13 @@ dependencies {
     implementation 'com.google.android.gms:play-services-analytics:17.0.0'
 
     // @firebase
-    implementation 'com.google.firebase:firebase-analytics:17.5.0'
+    implementation 'com.google.firebase:firebase-analytics:17.6.0'
     implementation 'com.google.firebase:firebase-auth:19.4.0'
-    implementation 'com.google.firebase:firebase-messaging:20.2.4'
+    implementation 'com.google.firebase:firebase-messaging:20.3.0'
 
     // @crashlytics
-    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:17.2.1'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:17.2.2'
 
     // @facebook
     implementation 'com.facebook.android:facebook-android-sdk:6.1.0'
@@ -74,12 +74,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:19.4.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.ads.mediation:adcolony:3.3.11.0'
-    implementation 'com.google.ads.mediation:unity:3.2.0.1'
+    implementation 'com.google.ads.mediation:unity:3.4.8.0'
     implementation 'com.google.ads.mediation:tapjoy:12.4.2.0'
     // @adcolony
     implementation 'com.adcolony:sdk:3.3.11'
     // @unity-ads
-    implementation 'com.unity3d.ads:unity-ads:3.2.0'
+    implementation 'com.unity3d.ads:unity-ads:3.4.8'
 
     // @onestore IAP
     implementation files('libs/iap_plugin_v17.02.00_20181012.jar')

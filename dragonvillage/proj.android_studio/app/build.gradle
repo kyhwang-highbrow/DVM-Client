@@ -363,7 +363,7 @@ allprojects {
         // perplesdk dependencies
         implementation project(':sdk_binder')
 
-        implementation 'com.google.android.gms:play-services-measurement-api:17.5.0'
+        implementation 'com.google.android.gms:play-services-measurement-api:17.6.0'
         implementation 'androidx.fragment:fragment:1.2.5'
         implementation 'com.android.installreferrer:installreferrer:2.1'
         implementation 'com.tapjoy:tapjoy-android-sdk:12.4.2'
