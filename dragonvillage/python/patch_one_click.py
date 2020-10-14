@@ -35,8 +35,6 @@ def install_and_import(package):
         pip.main(['install', package])
     finally:
         globals()[package] = importlib.import_module(package)
-        
-install_and_import('libarchive')
        
 #마지막 폴더명만 얻어오는 함수
 def getDirName(path):
@@ -270,13 +268,13 @@ def main():
         'md5' : zip_md5,
         'size' : zip_size
     }
-    print data
+    print(data)
     r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
-    print r.text
+    print(r.text)
 
-    print "###################################"
-    print "done"
-    print "###################################"
+    print('----------------------------------------')
+    print('DONE')
+    print('----------------------------------------')
 
 if __name__ == '__main__':
     print('----------------------------------------')

@@ -11,7 +11,7 @@ def is_hidden(filepath):
 # 숨김 파일 속성 체크
 def has_hidden_attribute(filepath):
     try:
-        attrs = ctypes.windll.kernel32.GetFileAttributesW(unicode(filepath))
+        attrs = ctypes.windll.kernel32.GetFileAttributesW(filepath)
         assert attrs != -1
         result = bool(attrs & 2)
     except (AttributeError, AssertionError):
