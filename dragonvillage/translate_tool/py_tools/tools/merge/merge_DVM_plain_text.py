@@ -54,6 +54,10 @@ def merge_DVM_plain_text(spreadsheet_id, delta_sheet_name, backup_sheet_name, lo
     sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
     delta_sheet = sheet.get_work_sheet(delta_sheet_name)
 
+    if delta_sheet is None:
+        print("NO EXIST DELTA SHEET :", delta_sheet_name)
+        return
+
     # 헤더 생성
     header = ['kr']
     for locale in locale_list:

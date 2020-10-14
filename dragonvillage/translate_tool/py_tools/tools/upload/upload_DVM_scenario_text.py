@@ -74,17 +74,24 @@ def upload_DVM_scenario_text(delta_sheet_name, backup_sheet_name, spreadsheet_id
         header.append(locale)
     header.append('date')
     
+    # 시트를 만들 때 사용될 칼럼 사이즈입니다.
+    col_size = len(header)
+
     # 스프레드시트의 아이디값을 이용하여 연결합니다.
     sheet = spread_sheet.get_spread_sheet(spreadsheet_id)
 
-    # 병합과정이 아니라 추출 과정이라면 backup 시트를 가져와서 데이터가 겹치는 것을 제거합니다.
     backup_sheet = sheet.get_work_sheet(backup_sheet_name)
-    if backup_sheet is not None: # 백업 시트가 존재한다면 백업 시트와의 중복 검사 실시
+    if backup_sheet is None:
+        backup_option = {}
+        backup_option['rows'] = 1
+        backup_option['cols'] = col_size
+        backup_sheet = sheet.add_work_sheet(backup_sheet_name, backup_option)
+        backup_sheet.insert_row(header, 1, value_input_option='RAW')
+        sheet_id = backup_sheet._properties['sheetId']
+        sheet_option = get_sheet_option('DVM_scenario_text', sheet_id, col_size)
+        sheet.batch_update(sheet_option)
+    else: # 백업 시트가 존재한다면 백업 시트와의 중복 검사 실시
         data_list = removeStr(backup_sheet, data_list, header, locale_list)
-
-
-    # 시트를 만들 때 사용될 칼럼 사이즈입니다.
-    col_size = len(header)
 
     # 데이터 리스트 사이즈를 바탕으로 시트를 작성합니다.
     delta_sheet = sheet.get_work_sheet(delta_sheet_name)

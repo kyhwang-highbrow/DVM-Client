@@ -29,7 +29,7 @@ def merge_backup():
 
 
 if __name__ == '__main__':
-    print('*** JOB : Merge delta sheets [', ', '.join([merge_config['delta_sheet_name'] for merge_config in merge_config_list]), 
+    print('\n*** JOB : Merge delta sheets [', ', '.join([merge_config['delta_sheet_name'] for merge_config in merge_config_list]), 
     '] and backup sheets [', ', '.join([merge_config['backup_sheet_name'] for merge_config in merge_config_list]), ']. DO THIS NOW? (y/n)')
     key = input()
 

@@ -50,7 +50,7 @@ def extract_plain():
     from_src_list = []
     for extract_method in extract_method_list:
         data_name = extract_method['name']
-        source_dir = extract_method['src']
+        source_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), extract_method['src'])
         extract_func = extract_method['func']
         ignore_files = extract_method['ignore_files']
         ignore_folders = extract_method['ignore_folders']
@@ -63,19 +63,19 @@ def extract_plain():
         sum_data(sum_data_method, all_data_list, all_data_dic, from_data, locale_list, date_str)
         
         # 로그 띄우기 위한 정보
-        from_src_list.append({'name' : data_name, 'data' : from_data})
+        from_src_list.append({'name' : data_name, 'data_length' : len(from_data)})
 
     print('Total unique texts from projects :', len(all_data_list))
     print('Found :')
     for from_src in from_src_list:
-        print('\t', from_src['name'], '-', len(from_src['data']))
+        print('\t', from_src['name'], '-', from_src['data_length'])
  
     # 하나로 모은 데이터를 구글 스프레드 시트에 작성합니다
     start_upload() 
 
 
 if __name__ == '__main__':
-    print('*** JOB : Extract plain texts from project at sheet [', delta_sheet_name, ']. DO THIS NOW? (y/n)')
+    print('\n*** JOB : Extract plain texts from project at sheet [', delta_sheet_name, ']. DO THIS NOW? (y/n)')
     key = input()
 
     if key == 'y' or key == 'Y':

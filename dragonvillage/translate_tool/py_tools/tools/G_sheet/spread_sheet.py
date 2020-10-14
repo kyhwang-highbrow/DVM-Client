@@ -2,15 +2,21 @@
 ## 구글 스프레드시트와 관련된 유틸 및 클래스 코드입니다.
 #############################################################################
 
+from tools.util.util_import import install_and_import, install_if_no_exist
+
+install_if_no_exist('gspread')
+install_if_no_exist('oauth2client')
+install_if_no_exist('PyOpenSSL')
 
 from oauth2client.service_account import ServiceAccountCredentials
-import gspread
 import os
+import gspread
 
 
 class spreadSheet:
     def __init__(self, doc):
         self.doc = doc
+
 
     def get_work_sheet(self, title):
         worksheets = self.doc.worksheets()
@@ -19,12 +25,15 @@ class spreadSheet:
                 return worksheet
         return None
 
+
     def add_work_sheet(self, title, option):
         self.doc.add_worksheet(title, option['rows'], option['cols'], 0)
         return self.doc.worksheet(title)
 
+
     def batch_update(self, body):
         self.doc.batch_update(body)
+
 
 def get_spread_sheet(sheet_key):
     # 인증 받아 시트 열기

@@ -17,4 +17,10 @@ extract_func['extract_DVM_scenario_csv'] = extract_from_DVM_scenario_csv
 
 
 def extract(func_name, src, ignore_files, ignore_folders, ignore_krs):
-    return extract_func[func_name](src, ignore_files, ignore_folders, ignore_krs)
+    try:
+        result = extract_func[func_name](src, ignore_files, ignore_folders, ignore_krs)
+    except FileNotFoundError:
+        import os
+        print('EXTRACT PATH NOT FOUND :', src)
+        os.system('pause')
+    return result
