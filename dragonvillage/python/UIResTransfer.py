@@ -81,7 +81,7 @@ def moveResFile(file_path):
     src_path = UI_PATH + file_path
     org_path = REG_EXP.sub(REG_SUB_PATTERN, src_path)
     shutil.move(src_path, org_path)
-    print '## move to :' + org_path
+    print('## move to :' + org_path)
 
 
 ## define doTransfer
@@ -92,7 +92,7 @@ def doTransfer(old_path, transfer_path):
 
     # UI 변경
     for file_path in T_TARGET_UI.keys():
-        print '##' + file_path
+        print('##' + file_path)
         changeDotUI(file_path)
     
     # 리소스 이동할 곳의 폴더 생성
@@ -101,7 +101,7 @@ def doTransfer(old_path, transfer_path):
 
     # 리소스 이동
     for file_name in T_TARGET_RES.keys():
-        print '##' + file_name
+        print('##' + file_name)
         moveResFile(file_name)
 
 ###################################
@@ -111,5 +111,5 @@ if __name__ == '__main__':
     doTransfer('frame/', 'frames/temp/')
 
 else:
-    print '## I am being imported from another module'
+    print('## I am being imported from another module')
     

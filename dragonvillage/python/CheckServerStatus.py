@@ -6,22 +6,12 @@ import time
 import json
 import hmac
 import hashlib
+import module.utility as utils
 # import requests
 # import schedule
 
-# 모듈 import(설치되어있지 않은 경우 install 후 import)
-def importOrInstall(package):
-    import importlib
-    try:
-        importlib.import_module(package)
-    except ImportError:
-        import pip
-        pip.main(['install', package])
-    finally:
-        globals()[package] = importlib.import_module(package)
-
-importOrInstall('requests')
-importOrInstall('schedule')
+utils.install_and_import('requests', globals())
+utils.install_and_import('schedule', globals())
 
 ######################################################################
 
@@ -42,10 +32,10 @@ PROBLEM_COUNT = {}
 
 class CheckServerStatusJob():
     # def __init__(self):
-    #     print '## def __init__'
+    #     print('## def __init__')
 
     # def __del__(self):
-    #     print '## def __del__'
+    #     print('## def __del__')
     
     ## return platform auth key 
     def getPlatformServerAuth(self, data):
@@ -64,7 +54,7 @@ class CheckServerStatusJob():
     def printCurrentTimeStr(self):
         now = time.localtime()
         now_str = "%04d-%02d-%02d %02d:%02d:%02d" % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
-        print "# Current time : ", now_str
+        print("# Current time : ", now_str)
 
     ## send slack
     def sendSlackMsg(self, server_name, is_red_card):
@@ -83,7 +73,7 @@ class CheckServerStatusJob():
             'icon_emoji' : ':no_entry:'
         }
         r = requests.get(fullUrl, params = params)
-        print "# send slack msg"
+        print("# send slack msg")
 
     # set problem count by server name and send slack msg if have to do
     def addProblemCount(self, serverName):
@@ -105,16 +95,16 @@ class CheckServerStatusJob():
         r = requests.get(fullUrl)
 
         if (r.status_code == 200):
-            print "%s server is OK." % path
-            print r.json()
+            print("%s server is OK." % path)
+            print(r.json())
             PROBLEM_COUNT[serverName] = 0
 
         else:
-            print "%s return status code %d." % (path, r.status_code)
+            print("%s return status code %d." % (path, r.status_code))
             isRedCard = self.addProblemCount(serverName)
             self.sendSlackMsg(serverName, isRedCard)
         
-        print '----------------------------------'
+        print('----------------------------------')
 
     ## try to login so check server is alive
     def checkServerByTryToLogin(self, path, serverName):
@@ -134,41 +124,41 @@ class CheckServerStatusJob():
         r = requests.post(fullUrl, headers=headers, data=data)
 
         if (r.status_code == 200):
-            print "%s server is OK." % serverName
-            print r.json()
+            print("%s server is OK." % serverName)
+            print(r.json())
             PROBLEM_COUNT[serverName] = 0
         else:
-            print "### %s server return status code %d." % (serverName, r.status_code)
+            print("### %s server return status code %d." % (serverName, r.status_code))
             isRedCard = self.addProblemCount(serverName)
             self.sendSlackMsg(serverName, isRedCard)
         
-        print '----------------------------------'
+        print('----------------------------------')
 
 ######################################################################
 
 def doJob():
-    print '## JOB START ##'
+    print('## JOB START ##')
     checkJob = CheckServerStatusJob()
     checkJob.printCurrentTimeStr()
     checkJob.checkServerByTryToLogin(SERVER_PATH['KOREA'], "KOREA")
     checkJob.checkServerByTryToLogin(SERVER_PATH['JAPAN'], "JAPAN")
     checkJob.checkServerByTryToLogin(SERVER_PATH['ASIA'], "ASIA")
     checkJob.checkServerByTryToLogin(SERVER_PATH['AMERICA'], "AMERICA")
-    print '## JOB DONE ##\n'
+    print('## JOB DONE ##\n')
 
 def main():
-    print '### SCHEDULER START ###'
+    print('### SCHEDULER START ###')
 
     schedule.every(3).minutes.do(doJob)
     while 1:
         schedule.run_pending()
         time.sleep(1)
 
-    print '### SCHEDULER DONE ###'
+    print('### SCHEDULER DONE ###')
 
     
 ###################################
 if __name__ == '__main__':
     main()
 else:
-    print '## I am being imported from another module'
+    print('## I am being imported from another module')

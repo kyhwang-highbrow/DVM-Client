@@ -12,7 +12,7 @@ def main():
     destext = options.destext
     
     if (srcext == None) | (destext == None):
-        print parser.usage
+        print(parser.usage)
         exit(0)
         
     for base, dirs, names in os.walk("./"):

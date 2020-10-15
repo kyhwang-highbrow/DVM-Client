@@ -2,27 +2,19 @@
 
 import os
 import sys
+import module.utility as utils
 #import chardet
 #import codecs
 
+# Global
 count_encoding = 0
 count_bom = 0
 count_endline = 0
 count_files = 0
 
-def install_and_import(package):
-    import importlib
-    try:
-        importlib.import_module(package)
-    except ImportError:
-        import pip
-        pip.main(['install', package])
-    finally:
-        globals()[package] = importlib.import_module(package)
-
 #import
-install_and_import('chardet')
-install_and_import('codecs')
+utils.install_and_import('chardet', globals())
+utils.install_and_import('codecs', globals())
 
 def convert(rootdir, subdir, subdir2, endline = False):
     path = os.path.join(rootdir, subdir)
@@ -33,24 +25,16 @@ def convert(rootdir, subdir, subdir2, endline = False):
         subdir3 = subdir2 + '/' + item
 
         if item.endswith('.lua'):
-            utf8_converter(fullpath, subdir3, endline)
+            if utils.isPython3():
+                utf8_converter_py3(fullpath, subdir3, endline)
+            else:
+                utf8_converter_py2(fullpath, subdir3, endline)
 
         if os.path.isdir(fullpath):
             convert(path, item, subdir3)
 
-
-def utf8_converter(file_path, file, universal_endline = False):
-    '''
-    Convert any type of file to UTF-8 without BOM
-    and using universal endline by default.
-
-    Parameters
-    ----------
-    file_path : string, file path.
-    universal_endline : boolean (True),
-                        by default convert endlines to universal format.
-    '''
-
+# Python2
+def utf8_converter_py2(file_path, file, universal_endline = False):
     global count_encoding
     global count_bom
     global count_endline
@@ -106,6 +90,69 @@ def utf8_converter(file_path, file, universal_endline = False):
         file_open.write(raw)
         file_open.close()
 
+# Python3
+def utf8_converter_py3(file_path, file, universal_endline = False):
+    '''
+    Convert any type of file to UTF-8 without BOM
+    and using universal endline by default.
+
+    Parameters
+    ----------
+    file_path : string, file path.
+    universal_endline : boolean (True),
+                        by default convert endlines to universal format.
+    '''
+
+    global count_encoding
+    global count_bom
+    global count_endline
+    global count_files
+
+    # Fix file path
+    file_path = os.path.realpath(os.path.expanduser(file_path))
+
+    msg = file
+    check = False
+    changed = False
+
+    # file open .. Python3는 기본적으로 utf-8
+    try:
+        file_open = codecs.open(file_path, 'r', 'utf-8')
+        raw = file_open.read()
+    except UnicodeDecodeError:
+        file_open.close()
+        file_open = codecs.open(file_path)
+        raw = file_open.read()
+        check = True
+    finally:
+        file_open.close()
+
+    # Remove windows end line
+    if universal_endline:
+        msg = msg + ',[Endline]'
+        changed = True
+        count_endline = count_endline + 1
+        raw = raw.replace('\r\n', '\n')
+
+    # Encode to UTF-8
+    if check:
+        msg = msg + ',[not utf-8]'
+        changed = True
+        count_encoding = count_encoding + 1
+
+    # Remove BOM
+    if raw.startswith(codecs.BOM_UTF8.decode()):
+        msg = msg + ',[BOM]'
+        changed = True
+        count_bom = count_bom + 1
+        raw = raw.replace(codecs.BOM_UTF8, '', 1)
+
+    # Write to file
+    if changed:
+        print(msg)
+        count_files = count_files + 1
+        with open(file_path, 'w', encoding='utf-8') as file_open:
+            file_open.write(raw)
 
 print('------------------------------------------------------------')
 

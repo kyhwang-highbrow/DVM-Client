@@ -49,7 +49,11 @@ def file2sha1(filename):
     
 # base64
 def base64encode(input):
-    output = base64.b64encode(input)
+    # byte-stream으로 변환
+    if utility.isPython3():
+        output = base64.b64encode(input.encode())
+    else:
+        output = base64.b64encode(input)
     return output
 
 # 파일의 md5를 추출, base64로 인코딩
@@ -91,8 +95,10 @@ def savePatchLog(root_dir, hash_dic):
     path = os.path.join(root_dir, 'patch_0.plg')
     f = open(path, 'w')
     for key in sorted(hash_dic):
-        f.writelines(key + '\t' + hash_dic[key] + '\n')
-        #print key + '\t' + hash_dic[key]
+        if utility.isPython3():
+            f.writelines(key + '\t' + hash_dic[key].decode() + '\n')
+        else:
+            f.writelines(key + '\t' + hash_dic[key] + '\n')
     f.close()
     
         

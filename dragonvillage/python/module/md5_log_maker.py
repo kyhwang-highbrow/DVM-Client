@@ -2,7 +2,7 @@
 import os
 import hashlib
 import base64
-import utility
+import module.utility as utils
 
 # 파일을 읽어 MD5를 생성
 def file2md5(filename):
@@ -19,7 +19,10 @@ def file2md5(filename):
 # input: String
 def base64encode(input):
     # byte-stream으로 변환
-    output = base64.b64encode(input.encode())
+    if utils.isPython3():
+        output = base64.b64encode(input.encode())
+    else:
+        output = base64.b64encode(input)
     return output
 
 # 파일의 md5를 추출, base64로 인코딩
@@ -39,7 +42,7 @@ def iterfunc(workd_path, rootdir, subdir, hash_dic):
         print('\t"' + subdir + '" directory not found!')
         return
     
-    if (utility.is_hidden(path)):
+    if (utils.is_hidden(path)):
         print('\t hidden folder : ' + path)
         return
 
@@ -76,7 +79,10 @@ def makePatchLog(source_path, plg_path):
     # # 파일에 세이브
     f = open(plg_path, 'w')
     for key in sorted(hash_dic):
-        f.writelines(key + '\t' + hash_dic[key].decode() + '\n')
+        if utils.isPython3():
+            f.writelines(key + '\t' + hash_dic[key].decode() + '\n')
+        else:
+            f.writelines(key + '\t' + hash_dic[key] + '\n')
     f.close()
     
     print('\t' + plg_path)

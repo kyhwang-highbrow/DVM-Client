@@ -47,7 +47,7 @@ def checkData(file_path_list):
     for file_path in file_path_list:
         if file_path.endswith('.txt'):
             if not validateJson(file_path):
-                print "#### Check this!! " + file_path
+                print("#### Check this!! " + file_path)
                 break
 
 ###################################
@@ -60,12 +60,12 @@ def validateJson(file_path):
             return True
 
         except UnicodeDecodeError:
-            print "### UnicodeDecodeError " + file_path
+            print("### UnicodeDecodeError " + file_path)
             # UTF converter 실행
             return True
 
         except ValueError:
-            print "### ValueError " + file_path
+            print("### ValueError " + file_path)
             makeValidJson(file_path)
             return True
 
@@ -101,9 +101,9 @@ def makeValidJson(file_path):
 # def main
 ###################################
 def main():
-    print "## JSON FORMATTER START"
+    print("## JSON FORMATTER START")
     checkData(getAllFilePath(DATA_ROOT))
-    print "## JSON FORMATTER END"
+    print("## JSON FORMATTER END")
 
 ###################################
 # MAIN
@@ -111,5 +111,5 @@ def main():
 # if __name__ == '__main__':
 #     main()
 # else:
-#     print '## I am being imported from another module'
+#     print('## I am being imported from another module')
     

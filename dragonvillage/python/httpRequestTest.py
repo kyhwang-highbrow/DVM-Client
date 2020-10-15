@@ -9,14 +9,14 @@ def base64encode(input):
     return output
 
 def testRequestXsolla():
-    print '###################################\n[request xsolla token]\n###################################'
+    print('###################################\n[request xsolla token]\n###################################')
 
     merchantId = 60608
     apiKey = "tP3xsMG3ZXasBD52"
     projectId = 35264
 
     url = "https://api.xsolla.com/merchant/v3/merchants/%d/token" % merchantId
-    print url
+    print(url)
 
     base64Key = base64encode(str(merchantId) + ":" + apiKey)
     headers = {
@@ -24,7 +24,7 @@ def testRequestXsolla():
         "Content-Type" : "application/json",
         "Accept" : "application/json"
     }
-    print headers
+    print(headers)
     data = {
         "user" : {
             "id" : {
@@ -57,10 +57,10 @@ def testRequestXsolla():
             "price" : 55000
         }
     }
-    print data
+    print(data)
     r = requests.post(url, headers = headers, data = json.dumps(data))
-    print r.json()
-    print "https://sandbox-secure.xsolla.com/paystation3/?access_token=%s" % r.json()['token']
+    print(r.json())
+    print("https://sandbox-secure.xsolla.com/paystation3/?access_token=%s" % r.json()['token'])
 
     return r
 
@@ -88,9 +88,9 @@ def testRequestUpdatePatch():
 def main():
     r = testRequestUpdatePatch()
     
-    print '\n###################################\n[response]\n###################################'
-    print "status_code : %s" % r.status_code
-    # print "text : %s" % r.text
+    print('\n###################################\n[response]\n###################################')
+    print("status_code : %s" % r.status_code)
+    # print("text : %s" % r.text)
 
 ###################################
 # MAIN
@@ -98,4 +98,4 @@ def main():
 if __name__ == '__main__':
     main()
 else:
-    print '## I am being imported from another module'
+    print('## I am being imported from another module')

@@ -27,13 +27,13 @@ def loopAllFile():
 def readUIFile(filename):
     fr = None
     try:
-        print '\n### '+filename
+        print('\n### '+filename)
         file_path = os.path.join(ROOT_PATH, filename)
         fr = open(file_path, 'r')
         extractionRes(fr)
     except:
         READ_FAIL_LIST.append(filename)
-        print '\n### '+filename+'\n'+'read fail!!!'
+        print('\n### '+filename+'\n'+'read fail!!!')
         pass
 
 ## define extractionRes
@@ -59,7 +59,7 @@ def extractionRes(fr):
             res_list.append(_res)
 
     for var in res_list:
-        try: print var
+        try: print(var)
         except: pass
 
 ## define retryReadFile
@@ -78,24 +78,23 @@ def retryReadFile():
 ## read fail한 파일들 있으면 출력
 def finishReadFile():
     if len(READ_FAIL_LIST) > 0:
-        print '\n\n##READ_FAIL_LIST'
+        print('\n\n##READ_FAIL_LIST')
         for var in READ_FAIL_LIST:
-            try: print var
+            try: print(var)
             except: pass
     else:
-        print '\n\n##SUCCESS'
+        print('\n\n##SUCCESS')
 
 ###################################
 # MAIN
 ###################################
 if __name__ == '__main__':
-    print 'UIResExtraction'
-    print
-    print 'Type the name you want to extract in ui file!\n(ex:file_name, lua_name, ui_name)'
+    print('UIResExtraction')
+    print('Type the name you want to extract in ui file!\n(ex:file_name, lua_name, ui_name)')
     TARGET_NAME = raw_input()
     loopAllFile()
     retryReadFile()
     finishReadFile()
 else:
-    print '## I am being imported from another module'
+    print('## I am being imported from another module')
     

@@ -4,11 +4,8 @@ import os
 import sys
 import shutil
 import zipfile
-
-#모듈을 사용하기 위해 시스템 경로 추가
-file_path = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(os.path.join(file_path, 'module'))
-import md5_log_maker
+import module.md5_log_maker as md5
+import module.utility as utils
 
 # 전역변수
 tar_server = ''
@@ -17,6 +14,10 @@ patch_work_path = ''
 dest_path = ''
 app_ver = ''
 latest_patch_ver = ''
+TARGET_SERVER = ''
+LOCAL_MACHINE_ID = ''
+LOCAL_MACHINE_PASSWD = ''
+LOCAL_MACHINE_DOMAIN = ''
 
 # 게임 서버
 SERVER_PATH = ''
@@ -25,17 +26,6 @@ TOOL_SERVER_PATH = ''
 # 플랫폼 서버
 PLATFORM_SERVER_PATH = ''
 
-# 모듈 import(설치되어있지 않은 경우 install 후 import)
-def install_and_import(package):
-    import importlib
-    try:
-        importlib.import_module(package)
-    except ImportError:
-        import pip
-        pip.main(['install', package])
-    finally:
-        globals()[package] = importlib.import_module(package)
-       
 #마지막 폴더명만 얻어오는 함수
 def getDirName(path):
     # file의 경우 dirname을 먼저 얻어옴
@@ -46,6 +36,7 @@ def getDirName(path):
     basename = os.path.basename(normpath)
     return basename
 
+# 압축
 def zipdirectory(path):
     os.chdir(path)
     
@@ -125,7 +116,7 @@ def init_global_var():
 def get_patch_info(app_ver):
     print('# get_patch_info ...')
     # import requests
-    install_and_import('requests')
+    utils.install_and_import('requests', globals())
     
     params = {'app_ver': app_ver}
     r = requests.get(SERVER_PATH + '/get_patch_info', params=params)
@@ -158,7 +149,7 @@ def find_patch_log(patch_work_path, app_ver, latest_patch_ver):
 # 다음 버전의 plg 파일 생성
 def make_next_plg(source_path, plg_path):
     print('# make_next_plg ...')
-    return md5_log_maker.makePatchLog(source_path, plg_path)
+    return md5.makePatchLog(source_path, plg_path)
     
 # 패치파일 리스트 추출
 def get_patch_list(latest_plg_hash, next_plg_hash):
@@ -226,11 +217,11 @@ def main():
     latest_plg_hash = {}
     next_plg_hash = {}
     if exist_plg_file == False:
-        md5_log_maker.makePatchLog(source_path, latest_plg_path)
+        md5.makePatchLog(source_path, latest_plg_path)
         print('ERROR: The latest "plg file" does not exist. : ' + latest_plg_path)
         exit(-1)
     else:
-        latest_plg_hash = md5_log_maker.loadPatchLog(latest_plg_path)
+        latest_plg_hash = md5.loadPatchLog(latest_plg_path)
         next_plg_hash = make_next_plg(source_path, next_plg_path)
 
     # 3. 패치파일 리스트 추출(변경된 파일만 추출)
@@ -259,7 +250,7 @@ def main():
     # 플랫폼 서버에 패치 정보 전달
     print('# [platform] add patch info')
     zip_path = '%s/patch_%d.zip' % (dst_forder, new_patch_ver)
-    zip_md5 = md5_log_maker.file2md5(zip_file)
+    zip_md5 = md5.file2md5(zip_file)
     zip_size = os.path.getsize(zip_file)
     data = {
         'app_ver': app_ver,

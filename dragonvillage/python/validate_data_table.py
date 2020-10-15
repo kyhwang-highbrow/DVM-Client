@@ -5,6 +5,7 @@ import sys
 import csv
 import json
 import json_formatter
+import module.utility as utils
 
 # 전역 변수
 DATA_ROOT = '../data/'
@@ -12,22 +13,8 @@ INVALID_DATA_TABLE = []
 DRAGON_TABLE = None
 MONSTER_TABLE = None
 
-###################################
-# def install_and_import
-# @brief 특정 폴더의 전체 파일 절대경로 리스트 반환
-###################################
-def install_and_import(package):
-    import importlib
-    try:
-        importlib.import_module(package)
-    except ImportError:
-        import pip
-        pip.main(['install', package])
-    finally:
-        globals()[package] = importlib.import_module(package)
-
 #import
-install_and_import('slacker')
+utils.install_and_import('slacker', globals())
 
 ###################################
 # def initGlobalVar
@@ -100,7 +87,7 @@ def makeDictAllData(file_path_list):
 # @brief csv를 리스트로 변환
 ###################################
 def makeListCSV(file_path):
-    reader = csv.reader(open(file_path, "rt"))
+    reader = csv.reader(open(file_path, "rt", encoding='utf-8'))
     l_csv = []
     l_header = []
     is_first = True
@@ -280,7 +267,7 @@ def sendInvalidTableListBySlack():
     attachments_dict['title_link'] = 'https://drive.google.com/open?id=0Bzybp2XzPNq0flpmdEstcDJYOTdPbXFWcFpkWktZY0NxdnpyUHF1VENFX29jbnJLSGRvcFE'
     attachments_dict['fallback'] = "[DV_BOT] 테이블 오류 발견 !!"
     attachments_dict['text'] = makeInvalidStr()
-    print makeInvalidStr()
+    print(makeInvalidStr())
     
     #attachments_dict['pretext'] = "pretext - python slack api TEST"
     #attachments_dict['mrkdwn_in'] = ["text", "pretext"]  # 마크다운을 적용시킬 인자들을 선택합니다.
@@ -302,7 +289,7 @@ def sendInvalidTableListBySlack():
 # def main
 ###################################
 def main():
-    print "## TABLE VALIDATION START"
+    print("## TABLE VALIDATION START")
 
     sys_error_code = 0
 
@@ -317,7 +304,7 @@ def main():
         sendInvalidTableListBySlack()
         sys_error_code = 105
 
-    print "## TABLE VALIDATION END"
+    print("## TABLE VALIDATION END")
 
     sys.exit(sys_error_code)
 
@@ -326,5 +313,5 @@ def main():
 if __name__ == '__main__':
     main()
 else:
-    print '## I am being imported from another module'
+    print('## I am being imported from another module')
     
