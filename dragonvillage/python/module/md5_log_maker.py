@@ -17,10 +17,11 @@ def file2md5(filename):
     
 # base64
 # input: String
+# output : Binary
 def base64encode(input):
     # byte-stream으로 변환
     if utils.isPython3():
-        output = base64.b64encode(input.encode())
+        output = base64.b64encode(input.encode()) # string to binary
     else:
         output = base64.b64encode(input)
     return output
@@ -29,6 +30,8 @@ def base64encode(input):
 def getPatchHash(filename):
     md5 = file2md5(filename)
     base64 = base64encode(md5)
+    if utils.isPython3():
+        return base64.decode() # binary to string
     return base64
 
 def iterstart(workd_path, rootdir, subdir, hash_dic):
@@ -79,10 +82,7 @@ def makePatchLog(source_path, plg_path):
     # # 파일에 세이브
     f = open(plg_path, 'w')
     for key in sorted(hash_dic):
-        if utils.isPython3():
-            f.writelines(key + '\t' + hash_dic[key].decode() + '\n')
-        else:
-            f.writelines(key + '\t' + hash_dic[key] + '\n')
+        f.writelines(key + '\t' + hash_dic[key] + '\n')
     f.close()
     
     print('\t' + plg_path)
