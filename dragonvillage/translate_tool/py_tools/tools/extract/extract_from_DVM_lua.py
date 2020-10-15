@@ -12,13 +12,13 @@ def get_str(result_data, file_path, ignore_krs): # 사용된 한글, 힌트 파�
         all_data = f.read()
         reg_find_case_1 = re.compile(r'Str\s*\(\s*\'(.*?)\'')
         reg_find_case_2 = re.compile(r'Str\s*\(\s*\"(.*?)\"')
-        reg_check = re.compile(r'[가-힣]')
+        reg_check = re.compile(r'[가-힣]+')
         find_datas = reg_find_case_1.findall(all_data)
         find_datas.extend(reg_find_case_2.findall(all_data))
         
         for find_data in find_datas:
             # 한글이 존재하는지 검사
-            if not reg_check.match(find_data):
+            if not reg_check.search(find_data):
                 continue
             
             # 무시해야하는 텍스트라면 무시

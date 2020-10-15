@@ -11,7 +11,7 @@ import copy
 
 
 def parse(result_data, file_path, header_datas, body_datas, ignore_krs):
-    reg_check = re.compile(r'[가-힣]')
+    reg_check = re.compile(r'[가-힣]+')
     
     for i, header in enumerate(header_datas):
         if header.find('t_') == 0: # 번역해야 되는 칼럼 판단합니다.
@@ -22,7 +22,7 @@ def parse(result_data, file_path, header_datas, body_datas, ignore_krs):
                 if ignore_krs.count(find_data) > 0:
                     continue
 
-                if reg_check.match(find_data): # 한글이 포함되어 있는 데이터라면
+                if reg_check.search(find_data): # 한글이 포함되어 있는 데이터라면
                     reform_data = find_data.replace('\r\n', r'\n') # csv 파일 내에서 개행문자로 저장되어 있었다면 \n으로 변경
                     reform_data = reform_data.replace('\n', r'\n') 
                     

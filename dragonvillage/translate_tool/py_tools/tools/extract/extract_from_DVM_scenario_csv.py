@@ -10,7 +10,7 @@ import copy
 
 
 def parse(result_data, file_path, header_datas, important_header_index, body_datas, ignore_krs):
-    reg_check = re.compile(r'[가-힣]')
+    reg_check = re.compile(r'[가-힣]+')
 
     for body in body_datas:
         page = body[important_header_index['page']]
@@ -25,7 +25,7 @@ def parse(result_data, file_path, header_datas, important_header_index, body_dat
         t_text = body[important_header_index['t_text']]
         if ignore_krs.count(t_text) > 0:
             continue
-        if len(t_text) > 0 and reg_check.match(t_text):
+        if len(t_text) > 0 and reg_check.search(t_text):
             invert_text = t_text.replace('\r\n', r'\n').replace('\n', r'\n')
             result_data.append([file_name, page, t_char_name, invert_text] ) # [파일이름, 페이지, 캐릭터이름, 대사]
 
