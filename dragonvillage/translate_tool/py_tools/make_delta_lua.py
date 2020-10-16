@@ -103,10 +103,12 @@ def compare_data(data_list, data_dic):
     for data in data_list:
         k, v = data[0], data[1]
         if k in data_dic.keys():
-            # if v == data_dic[k]:
-            #     continue
-            continue
+            if v == data_dic[k]:
+                continue
         result.append([k, v])
+        print('sheet key :', k)
+        print('sheet val :', v)
+        print('origin val :', data_dic[k])
 
     return result
 
@@ -117,8 +119,10 @@ def get_lua_to_dic(path):
     try:
         with open(path, 'r', encoding='utf-8') as origin_lua_file:
             data = origin_lua_file.read()
-            kv_pattern = re.compile(r'\[\'(.*?)\'\]=\'(.*?)\'')
-            find_kv_list = kv_pattern.findall(data)
+            kv_pattern_1 = re.compile(r'\[\'(.*?)\'\]=\'(.*?)\',\n')
+            kv_pattern_2 = re.compile(r'\[\'(.*?)\'\]=\'(.*?)\'}')
+            find_kv_list = kv_pattern_1.findall(data)
+            find_kv_list.extend(kv_pattern_2.findall(data))
             for k, v in find_kv_list:
                 result[k] = v
     except FileNotFoundError:
