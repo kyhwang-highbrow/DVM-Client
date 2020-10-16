@@ -14,6 +14,29 @@ UI_ClanGuestTabJoin = class(PARENT,{
 function UI_ClanGuestTabJoin:init(owner_ui)
     self.root = owner_ui.vars['joinMenu']
     self.vars = owner_ui.vars
+
+    do-- 자동 가입 체크박스 (필터)
+        local vars = self.vars
+        vars['joinBtn'] = UIC_CheckBox(vars['joinBtn'].m_node, vars['joinSprite'], true)
+
+        local change_cb = nil
+        local finish_cb = nil
+        local fail_cb = nil
+        
+        -- 체크박스 설정 변경 시 호출
+        change_cb = function(checked)
+            local auto_join = checked
+            g_clanData:update_clanInfo(finish_cb, fail_cb, auto_join) -- 서버에 추천 클랜 리스트 갱신 요청
+        end
+
+        -- 추천 클랜 갱신 리스트 콜백
+        finish_cb = function(ret)
+            -- 테이블 뷰 다시 생성
+            self:init_TableView()
+        end
+
+        vars['joinBtn']:setChangeCB(change_cb)
+    end
 end
 
 -------------------------------------

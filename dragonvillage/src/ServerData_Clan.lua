@@ -79,9 +79,10 @@ end
 -------------------------------------
 -- function update_clanInfo
 -- @brief
+-- @param auto_join boolean 추천 클랜 리스트에서 자동가입 여부 nil일 경우 서버에서 true로 처리
 -------------------------------------
-function ServerData_Clan:update_clanInfo(finish_cb, fail_cb)
-    return self:request_clanInfo(finish_cb, fail_cb)
+function ServerData_Clan:update_clanInfo(finish_cb, fail_cb, auto_join)
+    return self:request_clanInfo(finish_cb, fail_cb, auto_join)
 end
 
 -------------------------------------
@@ -148,8 +149,9 @@ end
 -------------------------------------
 -- function request_clanInfo
 -- @brief
+-- @param auto_join boolean 추천 클랜 리스트에서 자동가입 여부 nil일 경우 서버에서 true로 처리
 -------------------------------------
-function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
+function ServerData_Clan:request_clanInfo(finish_cb, fail_cb, auto_join)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -263,6 +265,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/info')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('auto_join', auto_join) -- nil일 경우 true로 처리
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
