@@ -1915,7 +1915,10 @@ function UI_Lobby:refresh_hottime()
 	-- 할인 이벤트
 	local l_dc_event = g_fevertimeData:getDiscountEventList()
     for i, dc_target in ipairs(l_dc_event) do
-        g_fevertimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
+        -- @sgkim 2020.10.19 핫타임(구버전)과 피버타임(신버전)의 꼬임 문제로 추가
+        if (dc_target == 'rune' or dc_target == 'runelvup' or dc_target == 'skillmove' or dc_target == 'reinforce') then
+            g_fevertimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
+        end
     end
 	
     -- 할인 이벤트에 따라 마스터로드, 성장일지 올려줌
