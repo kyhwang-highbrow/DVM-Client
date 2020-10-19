@@ -184,12 +184,12 @@
 
         ,"make_file_name_list" : 
         [
-            "lang_en_delta.lua"
-            ,"lang_jp_delta.lua"
-            ,"lang_zhtw_delta.lua"
-            ,"lang_th_delta.lua"
-            ,"lang_es_delta.lua"
-            ,"lang_fa_delta.lua"
+            "lang_en_delta_16.lua"
+            ,"lang_jp_delta_16.lua"
+            ,"lang_zhtw_delta_16.lua"
+            ,"lang_th_delta_16.lua"
+            ,"lang_es_delta_16.lua"
+            ,"lang_fa_delta_16.lua"
         ]
 
         ,"compare_file_name_list" : 

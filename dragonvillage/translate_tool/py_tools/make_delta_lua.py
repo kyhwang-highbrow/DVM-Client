@@ -106,9 +106,11 @@ def compare_data(data_list, data_dic):
             if v == data_dic[k]:
                 continue
         result.append([k, v])
+        print('find delta! ==============')
         print('sheet key :', k)
         print('sheet val :', v)
         print('origin val :', data_dic[k])
+        print('==============')
 
     return result
 
@@ -119,8 +121,8 @@ def get_lua_to_dic(path):
     try:
         with open(path, 'r', encoding='utf-8') as origin_lua_file:
             data = origin_lua_file.read()
-            kv_pattern_1 = re.compile(r'\[\'(.*?)\'\]=\'(.*?)\',\n')
-            kv_pattern_2 = re.compile(r'\[\'(.*?)\'\]=\'(.*?)\'}')
+            kv_pattern_1 = re.compile(r"\['(.*?)'\]='(.*?)',\n") # [1, N - 1] lines
+            kv_pattern_2 = re.compile(r"\['(.*?)'\]='(.*?)'}") # N line
             find_kv_list = kv_pattern_1.findall(data)
             find_kv_list.extend(kv_pattern_2.findall(data))
             for k, v in find_kv_list:
