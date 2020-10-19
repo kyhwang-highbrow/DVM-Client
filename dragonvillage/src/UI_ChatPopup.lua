@@ -455,6 +455,12 @@ function UI_ChatPopup:click_changeChannelBtn()
     local function close_cb()
         if (edit_box.m_retType == 'ok') then
             local channel_name = edit_box.m_str
+
+            -- 채팅 채널에서 소수점을 지원하지 않음
+            local channel_name_num = tonumber(edit_box.m_str)
+            if (channel_name_num ~= nil) then
+                channel_name = math_floor(channel_name_num)
+            end
         
             if (not self:confirmChannelName(channel_name)) then
                 return
