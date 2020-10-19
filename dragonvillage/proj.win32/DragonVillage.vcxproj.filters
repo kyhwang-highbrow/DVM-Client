@@ -4627,6 +4627,9 @@
     <None Include="..\src\UI_SettingTestCode.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ButtonSpecialOfferProductGold.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
