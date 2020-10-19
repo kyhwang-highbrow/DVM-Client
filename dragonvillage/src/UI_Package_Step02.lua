@@ -24,6 +24,14 @@ function UI_Package_Step02:init(package_name, is_popup)
     self.m_pacakgeName = package_name
     self.m_lStepPids = g_shopDataNew:getPakcageStepPidList(self.m_pacakgeName)
     self:initStep(package_name)
+
+    -- 판매종료시간 있는 경우 표시
+    local last_step_struct_product = self:getLastStepStructProduct()
+    if last_step_struct_product then
+        self:setLimit(last_step_struct_product)
+    end
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -88,6 +96,26 @@ function UI_Package_Step02:setCurrentStep()
 end
 
 -------------------------------------
+-- function getLastStepStructProduct
+-------------------------------------
+function UI_Package_Step02:getLastStepStructProduct()
+    local l_item_list = g_shopDataNew:getProductList('package')
+    local last_step = #self.m_lStepPids
+    local target_pid = tonumber(self.m_lStepPids[last_step])
+
+    if (target_pid == nil) then
+        return nil
+    end
+
+    local struct_product = l_item_list[target_pid]
+    if (struct_product == nil) then
+        return nil
+    end
+
+    return struct_product
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Package_Step02:refresh(step)
@@ -106,10 +134,10 @@ function UI_Package_Step02:refresh(step)
     for idx = 1, #self.m_lStepPids do
         vars['stepNode'..idx]:setVisible(idx == step)
 
+        local target_pid = tonumber(self.m_lStepPids[idx])
+        local struct_product = l_item_list[target_pid]
+
         if (idx == step) then
-            local target_pid = tonumber(self.m_lStepPids[idx])
-            local struct_product = l_item_list[target_pid]
-            
             -- 샵 정보가 없다면 구매 완료인 상태
             local is_buy = struct_product == nil
             vars['buyLabel']:setVisible(not is_buy)
@@ -131,13 +159,14 @@ function UI_Package_Step02:refresh(step)
 
                 -- 현재 단계보다 높으면 구매 불가
                 vars['buyBtn']:setEnabled(self.m_curr_step >= idx)
+            end
+        end
 
-
-                -- 상품은 여러개인데 마지막 상품 기준으로 남은 시간 출력
-                local end_date = struct_product:getEndDateStr()
-                if (vars['timeLabel']) then
-                    vars['timeLabel']:setString(end_date)
-                end
+        -- 상품은 여러개인데 마지막 상품 기준으로 남은 시간 출력
+        if struct_product then
+            local end_date = struct_product:getEndDateStr()
+            if (vars['timeLabel']) then
+                vars['timeLabel']:setString(end_date)
             end
         end
     end
@@ -159,6 +188,55 @@ function UI_Package_Step02:refresh(step)
 
     -- 버튼 상태 갱신
     self:setBuutonState(step) -- 클릭한 스텝
+end
+
+-------------------------------------
+-- function setLimit
+-------------------------------------
+function UI_Package_Step02:setLimit(struct_product)
+    local vars = self.vars
+
+    if (vars['limitNode'] == nil) then
+        return
+    elseif (vars['limitMenu'] == nil) then
+        return
+    elseif (vars['timeNode'] == nil) then
+        return
+    end
+    
+    local is_limit
+    local remain_time
+
+    if (vars['limitNode']) then
+        remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변겨 
+        local day = math.floor(remain_time / 86400000)
+        if (day < 2) then
+            is_limit = true
+        else
+            is_limit = false
+        end
+    end
+
+    if (is_limit) then
+        -- 한정 표시
+        vars['limitNode']:setVisible(true)
+        vars['limitMenu']:setVisible(true)
+        vars['limitNode']:runAction(cca.buttonShakeAction(3, 1)) 
+        
+        local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day
+        
+        -- 남은 시간 이미지 텍스트로 보여줌
+        local remain_time_label = cc.Label:createWithBMFont('res/font/tower_score.fnt', desc_time)
+        remain_time_label:setAnchorPoint(cc.p(0.5, 0.5))
+        remain_time_label:setDockPoint(cc.p(0.5, 0.5))
+        remain_time_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        remain_time_label:setAdditionalKerning(0)
+        vars['remainLabel'] = remain_time_label
+        vars['timeNode']:addChild(remain_time_label)
+    else
+        vars['limitMenu']:setVisible(false)
+        vars['limitNode']:setVisible(false)    
+    end
 end
 
 -------------------------------------
@@ -308,4 +386,24 @@ function UI_Package_Step02:click_buyBtn()
 
 	    struct_product:buy(cb_func)
     end
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_Package_Step02:update(dt)
+    local vars = self.vars
+    if (not vars['remainLabel']) then
+        return
+    end
+
+    local struct_product = self:getLastStepStructProduct()
+    if (struct_product == nil) then
+        return
+    end
+
+    local remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변겨 
+    local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day
+
+    vars['remainLabel']:setString(desc_time)
 end
