@@ -1,7 +1,11 @@
 ﻿::UTF-8로 실행
 chcp 65001
 
-cd "../src_tool"
-call "../../../../res/tools/lua/bin/lua.exe" "RemoveUnreleasedRes.lua" run
+if exist %LUA% (
+    cd ../src_tool
+    call lua RemoveUnreleasedRes.lua run
+) else (
+    ECHO You have to set "LUA" as system environment variable and "PATH"
+)
 
 PAUSE

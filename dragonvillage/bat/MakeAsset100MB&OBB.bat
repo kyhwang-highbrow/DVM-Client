@@ -1,7 +1,12 @@
 ﻿::UTF-8로 실행
 chcp 65001
 
-cd "../src_tool"
-call "../../../../res/tools/lua/bin/lua.exe" "AssetMaker.lua" run
-call "../../../../res/tools/lua/bin/lua.exe" "AssetMaker_ApkExpansion.lua" run
+if exist %LUA% (
+    cd ../src_tool
+    call lua AssetMaker.lua run
+    call lua AssetMaker_ApkExpansion.lua run
+) else (
+    ECHO You have to set "LUA" as system environment variable and "PATH"
+)
+
 PAUSE
