@@ -742,8 +742,11 @@ end
 -------------------------------------
 function ServerData_Dragons:getDragonsCnt()
     -- 드래곤 카운트에 슬라임 추가됨
-    local slime_cnt = g_slimesData.m_slimesCnt or 0
-    return self.m_dragonsCnt + slime_cnt
+    --local slime_cnt = g_slimesData.m_slimesCnt or 0
+    --return self.m_dragonsCnt + slime_cnt
+
+    -- @sgkim 2020.10.16 드래곤 인벤토리에서 슬라임 수 제거
+    return self.m_dragonsCnt
 end
 
 -------------------------------------
