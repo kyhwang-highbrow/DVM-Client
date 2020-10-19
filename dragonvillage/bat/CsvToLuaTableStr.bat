@@ -1,11 +1,7 @@
-::UTF-8로 실행
+::UTF-8�� ����
 chcp 65001
 
-if exist %LUA% (
-    cd ../src_tool
-    call lua CsvToLuaTableStr.lua run
-) else (
-    ECHO You have to set "LUA" as system environment variable and "PATH"
-)
+cd "../src_tool"
+call "../../../../res/tools/lua/bin/lua.exe" "CsvToLuaTableStr.lua" run
 
 PAUSE
