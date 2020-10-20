@@ -1,5 +1,6 @@
 import tools.G_sheet.spread_sheet as spread_sheet
 from tools.G_sheet.sheet_option import get_sheet_option
+from tools.util.util_quote import quote
 
 
 def merge_upload(backup_sheet_name, spreadsheet_id, data_list, header, locale_list):
@@ -18,14 +19,37 @@ def merge_upload(backup_sheet_name, spreadsheet_id, data_list, header, locale_li
         work_sheet = sheet.add_work_sheet(backup_sheet_name, option)
         work_sheet.insert_row(header, 1, value_input_option='RAW')
     
-    # 시트에 데이터를 삽입합니다 
-    # 시트의 빈 칸이 시작되는 행을 파악해서 넣습니다.
-    exist_datas = work_sheet.get_all_values()
-    row_size = len(exist_datas) + 1
-    work_sheet.resize(rows=row_size)
-    if len(data_list) > 0:
-        work_sheet.insert_rows(data_list, row_size, value_input_option='RAW')
+     # 백업 시트의 내용을 가져옵니다.
+    backup_datas = work_sheet.get_all_values()[1:]
 
+    # 백업 시트에 델타 시트의 내용을 덮어씌웁니다.
+    is_dup_list = [False for _ in range(len(data_list))]
+    speaker_index = header.index('speaker_kr')
+    text_index = header.index('kr')
+    for backup_index, backup_data in enumerate(backup_datas):
+        for delta_index, delta_data in enumerate(data_list):
+            if backup_data[speaker_index] == delta_data[speaker_index] and quote(backup_data[text_index]) == quote(delta_data[text_index]):
+                for i in range(len(header)):
+                    if i == text_index:
+                        continue
+                    if delta_data[i] != '':
+                        backup_datas[backup_index][i] = delta_data[i]
+                is_dup_list[delta_index] = True
+
+    # 백업 시트의 내용을 적습니다.
+    work_sheet.resize(rows=2)
+    work_sheet.insert_rows(backup_datas, 2, value_input_option='RAW')
+
+    # 중복되지 않은 델타 시트의 내용을 아래에 추가합니다.
+    no_dup_data_list = [delta_data for delta_index, delta_data in enumerate(data_list) if not is_dup_list[delta_index]]
+    
+    # 시트에 데이터를 삽입합니다 
+    row_size = len(backup_datas) + 2
+    work_sheet.resize(rows=row_size)
+    if len(no_dup_data_list) > 0:
+        work_sheet.insert_rows(no_dup_data_list, row_size, value_input_option='RAW')
+    work_sheet.resize(rows=len(work_sheet.get_all_values()) - 1)
+    
     # 시트의 크기를 보기 좋게 조정합니다.
     sheet_id = work_sheet._properties['sheetId']
     sheet_option = get_sheet_option('DVM_scenario_text', sheet_id, col_size)

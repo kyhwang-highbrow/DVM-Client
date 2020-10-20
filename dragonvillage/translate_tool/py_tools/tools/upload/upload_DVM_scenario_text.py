@@ -56,7 +56,6 @@ def removeStr(sheet, data_list, header, locale_list): # sheet과 datalist의 값
         elif '' not in data:
             remove_index.append(index)
         
-
     data_list = [data for index, data in enumerate(data_list) if index not in remove_index] 
     return data_list
 

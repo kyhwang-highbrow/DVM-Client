@@ -14,7 +14,7 @@ import re
 
 import tools.G_sheet.spread_sheet as spread_sheet
 import tools.util.util_file as util_file
-
+from tools.util.util_quote import quote_row_dics
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
@@ -29,13 +29,6 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
 print ("make directory :", make_root)
 sheet = None
 work_sheets = []
-
-
-# 각종 특수문자들을 올바르게 처리합니다.
-def quote(text):
-    value = text.replace("\'", "\\'").replace('\"', '\\"').replace('\\\\n', '\\n')
-    return value
-
 
 # 루아 테이블 코드를 생성합니다.
 def convert(data_list):
@@ -55,7 +48,8 @@ def merge_all_data(work_sheets):
     all_data_list = [[] for _ in range(len(lua_table_config['make_file_name_list']))]
     
     for work_sheet in work_sheets:
-        row_dics = spread_sheet.make_rows_to_dic(work_sheet.get_all_values())
+        row_dics = quote_row_dics(spread_sheet.make_rows_to_dic(work_sheet.get_all_values()))
+        
         for row_dic in row_dics:
             # 이미 담은 단어인지 판단합니다.
             for key_value_config in lua_table_config['key_value_list']:
@@ -90,8 +84,7 @@ def merge_all_data(work_sheets):
                     if tr_str == '':
                         tr_str = row_dic[key]
 
-                    all_data_list[index].append([quote(row_dic[key]), quote(tr_str)])
-
+                    all_data_list[index].append([row_dic[key], tr_str])
 
     return all_data_list
 
@@ -109,7 +102,7 @@ def compare_data(data_list, data_dic):
         print('find delta! ==============')
         print('sheet key :', k)
         print('sheet val :', v)
-        print('origin val :', data_dic[k])
+        print('lua   val :', data_dic[k])
         print('==============')
 
     return result

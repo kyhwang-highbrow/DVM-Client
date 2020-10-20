@@ -11,7 +11,7 @@ def get_DVM_plain_text_option(sheet_id, col_size):
                         "endIndex": col_size # col_count - 1까지 
                     },
                     "properties": { # 해당 속성을 부여합니다.
-                        "pixelSize": 500
+                        "pixelSize": 700
                     },
                     "fields": "pixelSize"
                 }

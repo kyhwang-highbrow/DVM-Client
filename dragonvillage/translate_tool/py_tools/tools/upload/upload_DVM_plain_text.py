@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 import tools.G_sheet.spread_sheet as spread_sheet
 from tools.G_sheet.sheet_option import get_sheet_option
-
+from tools.util.util_quote import quote
 
 def removeStr(sheet, data_list, header, locale_list): # sheet과 datalist의 값 비교를 통해 중복을 제거한 data_list 반환합니다.
     remove_index = []
