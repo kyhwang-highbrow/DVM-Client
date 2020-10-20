@@ -99,11 +99,11 @@ def compare_data(data_list, data_dic):
             if v == data_dic[k]:
                 continue
         result.append([k, v])
-        print('find delta! ==============')
-        print('sheet key :', k)
-        print('sheet val :', v)
-        print('lua   val :', data_dic[k])
-        print('==============')
+        print('== Find delta ==')
+        print('Sheet key :', k)
+        print('Sheet val :', v)
+        print('Lua   val :', data_dic[k] if k in data_dic.keys() else 'NO VALUE IN LUA')
+        print('================')
 
     return result
 
