@@ -18,7 +18,7 @@ from tools.util.util_quote import quote_row_dics
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
-    lua_table_config = config_json['origin_lua_table_config']
+    lua_table_config = config_json['base_lua_table_config']
     make_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), lua_table_config['make_dir'])
     make_file_name_list = lua_table_config['make_file_name_list']
     backup_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), lua_table_config['backup_dir'])

@@ -5,10 +5,10 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 
 
 # 사용할 코드에 대한 간략한 설명입니다.
-1. extract_text.py - 텍스트를 추출하고 델타시트에 내용을 추가합니다.
-2. make_origin_lua.py - 스프레드시트를 이용하여 원본 번역 파일을 만듭니다.
-3. make_delta_lua.py -  스프레드시트와 원본 번역 파일을 비교하여 델타 번역 파일을 만듭니다.
-4. merge_sheet.py - 백업시트 하단부에 델타시트의 내용을 붙입니다. 키 값이 중복되는 경우 값을 덮어씌웁니다.
+1. extract_text.py - 텍스트를 추출하고 패치시트에 내용을 추가합니다.
+2. make_base_lua.py - 스프레드시트를 이용하여 원본 번역 파일을 만듭니다.
+3. make_patch_lua.py -  스프레드시트와 원본 번역 파일을 비교하여 패치 번역 파일을 만듭니다.
+4. merge_sheet.py - 백업시트 하단부에 패치시트의 내용을 붙입니다. 키 값이 중복되는 경우 값을 덮어씌웁니다.
 * 위 코드들은 공통적으로 config.json 파일에 적혀진 설정을 따릅니다.
 
 
@@ -24,8 +24,8 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 2. 윈도우 파워쉘을 킵니다. py-tool 폴더에서 파일-Window PowerShell 열기 를 클릭합니다.
 3. 아래 중 원하는 기능에 따라 입력 후 엔터를 칩니다.
    python extract_text.py
-   python make_origin_lua.py
-   python make_delta_lua.py
+   python make_base_lua.py
+   python make_patch_lua.py
    python merge_sheet.py
 
 
@@ -35,7 +35,7 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 2. spreadsheet_id - 구글 스프레드시트의 아이디 값을 담습니다.
 
 3. extract_config - 텍스트 추출 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
-    3-1. delta_sheet_name : 델타시트의 이름 값입니다.
+    3-1. patch_sheet_name : 패치시트의 이름 값입니다.
     3-2. backup_sheet_name : 백업시트의 이름 값입니다.
     3-3. upload_method : 사용할 업로드 방식 값입니다.
     3-4. sum_data_method : 각 추출 데이터를 전체 데이터에 합칠 때 사용되는 데이터 병합 방식 값입니다.
@@ -47,7 +47,7 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
         3-5-5. ignore_folders : 추출에서 제외할 폴더 이름 배열입니다.
         3-5-6. ignore_krs : 추출에서 제외할 텍스트입니다.
 
-4. origin_lua_table_config - 원본 번역 파일 생성 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
+4. base_lua_table_config - 원본 번역 파일 생성 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
     4-1. make_dir : 원본 번역 파일이 생성될 경로입니다.
     4-2. backup_dir : make_dir에 존재하던 번역 파일을 백업할 경로입니다.
     4-2. sheet_name_list : 원본 번역 파일을 생성하기 위해 참조할 워크시트 이름 배열입니다. 배열 순서대로 KYE에 대한 VALUE의 우선 순위가 결정됩니다.
@@ -57,11 +57,11 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
         4-4-2. value_list : 각 파일마다 VALUE로 사용될 컬럼 이름 값의 배열입니다. 위의 make_file_name_list 순서와 맞춰주세요.
         4-4-3. replace_list : 만약 각 파일마다 value_list에 해당하는 컬럼에 대한 값이 비어있을 때 값을 찾을 때까지 해당 배열의 값을 차례로 이용하여 VALUE를 채웁니다. 
 
-5. delta_lua_table_config - 델타 번역 파일 생성 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
-    5-1. make_dir : 델타 번역 파일이 생성될 경로입니다.
+5. patch_lua_table_config - 패치 번역 파일 생성 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
+    5-1. make_dir : 패치 번역 파일이 생성될 경로입니다.
     5-2. compare_dir : 원본 번역 파일을 찾을 경로입니다.
-    5-2. sheet_name_list : 델타 번역 파일을 생성하기 위해 참조할 워크시트 이름 배열입니다. 배열 순서대로 KYE에 대한 VALUE의 우선 순위가 결정됩니다.
-    5-3. make_file_name_list : 생성할 델타 번역 파일의 이름 배열입니다. 이 배열의 크기와 동일하게 델타 번역 파일이 생성됩니다.
+    5-2. sheet_name_list : 패치 번역 파일을 생성하기 위해 참조할 워크시트 이름 배열입니다. 배열 순서대로 KYE에 대한 VALUE의 우선 순위가 결정됩니다.
+    5-3. make_file_name_list : 생성할 패치 번역 파일의 이름 배열입니다. 이 배열의 크기와 동일하게 패치 번역 파일이 생성됩니다.
     5-4. compare_file_name_list : 비교할 원본 번역 파일의 이름 배열입니다. 위의 make_file_name_list 순서와 맞춰주세요.
     5-5. key_value_list : 번역 파일을 생성할 때 사용할 KEY/VALUE 관련 정보를 담은 객체 배열입니다.
         5-5-1. key : KEY로 사용될 컬럼 이름 값입니다.
@@ -69,28 +69,28 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
         5-5-3. replace_list : 만약 각 파일마다 value_list에 해당하는 컬럼에 대한 값이 비어있을 때 값을 찾을 때까지 해당 배열의 값을 차례로 이용하여 VALUE를 채웁니다. 
 
 6. merge_config_list - 워크시트 병합 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
-    6-1. delta_sheet_name : 델타시트의 이름 값입니다.
+    6-1. patch_sheet_name : 패치시트의 이름 값입니다.
     6-2. backup_sheet_name : 백업시트의 이름 값입니다.
-    6-3. merge_method : 백업시트에 델타시트의 데이터를 추가할 때 방법 값입니다.
+    6-3. merge_method : 백업시트에 패치시트의 데이터를 추가할 때 방법 값입니다.
 
 
 # 각 코드별 참고 사항
 1. extract_text.py
-- 새로운 텍스트 추출은 백업시트와의 중복 검사를 통해 걸러집니다. 이미 델타시트가 존재하는 경우 델타시트와 중복 검사 또한 진행합니다. 
-- 만약 원하는 대로 잘 추출이 안되는 경우에는 기존 델타시트를 삭제하고 코드를 실행해보세요. 델타시트를 새로 만들어 내용을 채울 것입니다.
+- 새로운 텍스트 추출은 백업시트와의 중복 검사를 통해 걸러집니다. 이미 패치시트가 존재하는 경우 패치시트와 중복 검사 또한 진행합니다. 
+- 만약 원하는 대로 잘 추출이 안되는 경우에는 기존 패치시트를 삭제하고 코드를 실행해보세요. 패치시트를 새로 만들어 내용을 채울 것입니다.
 - DVM 기준 일반 텍스트를 추출할 때와 시나리오 텍스트를 추출할 때 config.json 값을 다르게 해야 합니다. 
   이는 화자까지 포함해서 만들어야 하는 시나리오 텍스트는 스프레드시트 양식이 다르기 때문입니다.
   시나리오 추출 설정값은 config.json 의 extract_config_scenario_example 로 저장되어있습니다.
   추출을 원하시면 해당 값을 extract_config 로 사용하시면 됩니다.
 
-2. make_origin_lua.py
+2. make_base_lua.py
 - 스프레드시트의 내용을 합쳐서 원본 번역 파일을 만들어냅니다.
 
-3. make_delta_lua.py
-- 스프레드시트와 원본 번역 파일의 내용을 비교하여 델타 번역 파일을 만들어냅니다. 
+3. make_patch_lua.py
+- 스프레드시트와 원본 번역 파일의 내용을 비교하여 패치 번역 파일을 만들어냅니다. 
 
 4. merge_sheet.py 
-- 델타시트의 내용을 백업시트 맨 하단에 추가합니다. 이 과정에서는 만약 kr이 중복이라면 백업시트의 해당 데이터를 델타시트의 내용으로 덮어씌웁니다.
+- 패치시트의 내용을 백업시트 맨 하단에 추가합니다. 이 과정에서는 만약 kr이 중복이라면 백업시트의 해당 데이터를 패치시트의 내용으로 덮어씌웁니다.
 
 
 # 사용 예시
@@ -99,7 +99,7 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 
 2. 다음 패치를 위한 패치 프로세스
     2-1. extract_text.py 실행하여 새로운 텍스트를 추출합니다.
-    2-2. 번역을 요청하여 번역 내용을 델타시트에 담습니다.
-    2-3. merge_sheet.py 실행하여 델타시트의 내용을 백업시트에 병합합니다.
-    2-4. make_delta_lua.py 실행하여 원본 번역 파일과 스프레드시트와의 차이점으로 델타 번역 파일을생성합니다.
-    [2-5] 앱 업데이트 시에는 make_origin_lua.py 실행하여 델타 번역 파일이 아닌 원본 번역 파일을 생성합니다. 
+    2-2. 번역을 요청하여 번역 내용을 패치시트에 담습니다.
+    2-3. merge_sheet.py 실행하여 패치시트의 내용을 백업시트에 병합합니다.
+    2-4. make_patch_lua.py 실행하여 원본 번역 파일과 스프레드시트와의 차이점으로 패치 번역 파일을생성합니다.
+    [2-5] 앱 업데이트 시에는 make_base_lua.py 실행하여 패치 번역 파일이 아닌 원본 번역 파일을 생성합니다. 

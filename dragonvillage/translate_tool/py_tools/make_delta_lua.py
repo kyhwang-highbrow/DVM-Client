@@ -18,7 +18,7 @@ from tools.util.util_quote import quote_row_dics
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
-    lua_table_config = config_json['delta_lua_table_config']
+    lua_table_config = config_json['patch_lua_table_config']
     make_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), lua_table_config['make_dir'])
     make_file_name_list = lua_table_config['make_file_name_list']
     compare_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), lua_table_config['compare_dir'])
@@ -168,7 +168,7 @@ def make_delta_lua_table():
 if __name__ == '__main__':
     import tools.G_sheet.setup
 
-    print('\n*** 작업      : 델타 번역 파일을 생성합니다.' 
+    print('\n*** 작업      : 패치 번역 파일을 생성합니다.' 
     +     '\n*** 작업 시트 : [', ', '.join(sheet_name_list), '].')
 
     make_delta_lua_table()

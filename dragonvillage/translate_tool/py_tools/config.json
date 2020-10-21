@@ -11,125 +11,126 @@
 
     ,"spreadsheet_id" : "1_6v0bfFI5OB_QgK4JVkfqjS8R-B6eJiPTkt6NV-fKrU"
 
-    ,"extract_config" : 
-    {
-        "delta_sheet_name" : "only_ingame"
+    ,"extract_config_list" :
+    [
+        {
+            "patch_sheet_name" : "only_ingame"
+    
+            ,"backup_sheet_name" : "only_ingame_backup"
+    
+            ,"upload_method" : "upload_DVM_plain_text"
+            
+            ,"sum_data_method" : "sum_DVM_plain_text"
+    
+            ,"extract_method_list": 
+            [
+                {
+                    "name": "LUA"
+                    ,"src" : "..\\..\\src"
+                    ,"func" : "extract_DVM_lua"
+                    ,"ignore_files" : 
+                    [
+                    ]
+                    ,"ignore_folders" :
+                    [
+                    ]
+                    ,"ignore_krs" :
+                    [
+                    ]
+                }
+                ,{
+                    "name": "UI"
+                    ,"src" : "..\\..\\res"
+                    ,"func" : "extract_DVM_ui"
+                    ,"ignore_files" : 
+                    [
+                    ]
+                    ,"ignore_folders" :
+                    [
+                    ]
+                    ,"ignore_krs" :
+                    [
+                    ]
+                }
+                ,{
+                    "name": "SV DATA"
+                    ,"src" : "..\\..\\..\\sv_tables"
+                    ,"func" : "extract_DVM_csv"
+                    ,"ignore_files" : 
+                    [
+                    ]
+                    ,"ignore_folders" :
+                    [
+                    ]
+                    ,"ignore_krs" :
+                    [
+                    ]
+                }
+                ,{
+                    "name": "SV DATA PATCH"
+                    ,"src" : "..\\..\\..\\sv_tables_patch"
+                    ,"func" : "extract_DVM_csv"
+                    ,"ignore_files" : 
+                    [
+                    ]
+                    ,"ignore_folders" :
+                    [
+                    ]
+                    ,"ignore_krs" :
+                    [
+                    ]
+                }
+                ,{
+                    "name": "DATAS"
+                    ,"src" : "..\\..\\data"
+                    ,"func" : "extract_DVM_csv"
+                    ,"ignore_files" : 
+                    [
+                        "table_ban_word_chat.csv"
+                    ]
+                    ,"ignore_folders" :
+                    [
+                        "\\scenario"
+                    ]
+                    ,"ignore_krs" :
+                    [
+                    ]
+                }
+            ]
+        }
 
-        ,"backup_sheet_name" : "only_ingame_backup"
+        ,{
+            "patch_sheet_name" : "only_scenario"
+    
+            ,"backup_sheet_name" : "only_scenario_backup"
+    
+            ,"upload_method" : "upload_DVM_scenario_text"
+    
+            ,"sum_data_method" : "sum_DVM_scenario_text"
+    
+            ,"extract_method_list": 
+            [
+                {
+                    "name": "SCENARIO"
+                    ,"src" : "..\\..\\data\\scenario"
+                    ,"func" : "extract_DVM_scenario_csv"
+                    ,"ignore_files" : 
+                    [
+                        "scenario_resource.csv"
+                        ,"scenario_sample.csv"
+                    ]
+                    ,"ignore_folders" :
+                    [
+                    ]
+                    ,"ignore_krs" :
+                    [
+                    ]
+                }
+            ]
+        }
+    ] 
 
-        ,"upload_method" : "upload_DVM_plain_text"
-        
-        ,"sum_data_method" : "sum_DVM_plain_text"
-
-        ,"extract_method_list": 
-        [
-            {
-                "name": "LUA"
-                ,"src" : "..\\..\\src"
-                ,"func" : "extract_DVM_lua"
-                ,"ignore_files" : 
-                [
-                ]
-                ,"ignore_folders" :
-                [
-                ]
-                ,"ignore_krs" :
-                [
-                ]
-            }
-            ,{
-                "name": "UI"
-                ,"src" : "..\\..\\res"
-                ,"func" : "extract_DVM_ui"
-                ,"ignore_files" : 
-                [
-                ]
-                ,"ignore_folders" :
-                [
-                ]
-                ,"ignore_krs" :
-                [
-                ]
-            }
-            ,{
-                "name": "SV DATA"
-                ,"src" : "..\\..\\..\\sv_tables"
-                ,"func" : "extract_DVM_csv"
-                ,"ignore_files" : 
-                [
-                ]
-                ,"ignore_folders" :
-                [
-                ]
-                ,"ignore_krs" :
-                [
-                ]
-            }
-            ,{
-                "name": "SV DATA PATCH"
-                ,"src" : "..\\..\\..\\sv_tables_patch"
-                ,"func" : "extract_DVM_csv"
-                ,"ignore_files" : 
-                [
-                ]
-                ,"ignore_folders" :
-                [
-                ]
-                ,"ignore_krs" :
-                [
-                ]
-            }
-            ,{
-                "name": "DATAS"
-                ,"src" : "..\\..\\data"
-                ,"func" : "extract_DVM_csv"
-                ,"ignore_files" : 
-                [
-                    "table_ban_word_chat.csv"
-                ]
-                ,"ignore_folders" :
-                [
-                    "\\scenario"
-                ]
-                ,"ignore_krs" :
-                [
-                ]
-            }
-        ]
-    }
-
-    ,"extract_config_scenario_example" :
-    {
-        "delta_sheet_name" : "only_scenario"
-
-        ,"backup_sheet_name" : "only_scenario_backup"
-
-        ,"upload_method" : "upload_DVM_scenario_text"
-
-        ,"sum_data_method" : "sum_DVM_scenario_text"
-
-        ,"extract_method_list": 
-        [
-            {
-                "name": "SCENARIO"
-                ,"src" : "..\\..\\data\\scenario"
-                ,"func" : "extract_DVM_scenario_csv"
-                ,"ignore_files" : 
-                [
-                    "scenario_resource.csv"
-                    ,"scenario_sample.csv"
-                ]
-                ,"ignore_folders" :
-                [
-                ]
-                ,"ignore_krs" :
-                [
-                ]
-            }
-        ]
-    }
-
-    ,"origin_lua_table_config" : 
+    ,"base_lua_table_config" : 
     {
         "make_dir": "..\\..\\translate"
 
@@ -168,7 +169,7 @@
         ]
     }
 
-    ,"delta_lua_table_config" : 
+    ,"patch_lua_table_config" : 
     {
         "make_dir": "..\\..\\translate"
 
@@ -184,12 +185,12 @@
 
         ,"make_file_name_list" : 
         [
-            "lang_en_delta.lua"
-            ,"lang_jp_delta.lua"
-            ,"lang_zhtw_delta.lua"
-            ,"lang_th_delta.lua"
-            ,"lang_es_delta.lua"
-            ,"lang_fa_delta.lua"
+            "lang_en_patch.lua"
+            ,"lang_jp_patch.lua"
+            ,"lang_zhtw_patch.lua"
+            ,"lang_th_patch.lua"
+            ,"lang_es_patch.lua"
+            ,"lang_fa_patch.lua"
         ]
 
         ,"compare_file_name_list" : 
@@ -220,7 +221,7 @@
     ,"merge_config_list" :
     [
         {
-            "delta_sheet_name" : "only_ingame"
+            "patch_sheet_name" : "only_ingame"
 
             ,"backup_sheet_name" : "only_ingame_backup"
     
@@ -228,7 +229,7 @@
         }
 
         ,{
-            "delta_sheet_name" : "only_scenario"
+            "patch_sheet_name" : "only_scenario"
 
             ,"backup_sheet_name" : "only_scenario_backup"
     

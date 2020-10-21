@@ -20,32 +20,32 @@ with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 
     config_json = json.load(f)
     locale_list = config_json['locale_list']
     spreadsheet_id = config_json['spreadsheet_id']
-    extract_config = config_json['extract_config']
-    
-    delta_sheet_name = extract_config['delta_sheet_name']
-    backup_sheet_name = extract_config['backup_sheet_name']
-    extract_method_list = extract_config['extract_method_list']
-    sum_data_method = extract_config['sum_data_method']
-    upload_method = extract_config['upload_method']
-
-all_data_dic = {} # 각 파일로부터 나온 데이터를 저장하는 딕셔너리 변수
-all_data_list = [] # 스프레드시트를 만들 리스트 변수
+    extract_config_list = config_json['extract_config_list']
 
 
-def start_upload():
+def start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list):
     print('Upload start :', spreadsheet_id)
     print('Locale list :', ', '.join(locale_list))
     print('Upload method :', upload_method)
 
     # 새로 만들 시트의 헤더입니다.
     
-    upload(upload_method, delta_sheet_name, backup_sheet_name, spreadsheet_id, all_data_list, locale_list)
+    upload(upload_method, patch_sheet_name, backup_sheet_name, spreadsheet_id, all_data_list, locale_list)
 
 
-def extract_plain():
+def extract_text(extract_config):
     date = datetime.datetime.now()
     date_str = date.strftime(r'%Y.%m.%d %H:%M:%S')
-    
+
+    all_data_dic = {} # 각 파일로부터 나온 데이터를 저장하는 딕셔너리 변수
+    all_data_list = [] # 스프레드시트를 만들 리스트 변수
+
+    patch_sheet_name = extract_config['patch_sheet_name']
+    backup_sheet_name = extract_config['backup_sheet_name']
+    extract_method_list = extract_config['extract_method_list']
+    sum_data_method = extract_config['sum_data_method']
+    upload_method = extract_config['upload_method']
+
     # 각 파일로부터 데이터를 추출하고 모읍니다.
     from_src_list = []
     for extract_method in extract_method_list:
@@ -71,7 +71,13 @@ def extract_plain():
         print('\t', from_src['name'], '-', from_src['data_length'])
  
     # 하나로 모은 데이터를 구글 스프레드 시트에 작성합니다
-    start_upload() 
+    start_upload(upload_method, patch_sheet_name, backup_sheet_name, all_data_list) 
+
+
+def extract_text_from_config_lists():
+    
+    for extract_config in extract_config_list:
+        extract_text(extract_config)
 
     print('\n*** 작업이 종료되었습니다.')
 
@@ -79,9 +85,8 @@ def extract_plain():
 if __name__ == '__main__':
     import tools.G_sheet.setup
 
-    print('\n*** 작업      : 프로젝트에서 텍스트를 추출합니다.' 
-    +     '\n*** 작업 시트 : [', delta_sheet_name, '].')
+    print('\n*** 작업      : 프로젝트에서 텍스트를 추출합니다.')
     
-    extract_plain()
+    extract_text_from_config_lists()
     
     os.system('pause')
