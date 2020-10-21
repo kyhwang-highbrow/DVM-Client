@@ -73,15 +73,15 @@ def extract_plain():
     # 하나로 모은 데이터를 구글 스프레드 시트에 작성합니다
     start_upload() 
 
+    print('\n*** 작업이 종료되었습니다.')
+
 
 if __name__ == '__main__':
     import tools.G_sheet.setup
 
     print('\n*** 작업      : 프로젝트에서 텍스트를 추출합니다.' 
-    +     '\n*** 작업 시트 :  [', delta_sheet_name, '].')
+    +     '\n*** 작업 시트 : [', delta_sheet_name, '].')
     
     extract_plain()
-
-    print('\n*** 작업이 종료되었습니다.')
     
     os.system('pause')

@@ -26,17 +26,17 @@ def merge_backup():
         merge_method = merge_config['merge_method']
 
         merge(merge_method, spreadsheet_id, delta_sheet_name, backup_sheet_name, locale_list)
+    
+    print('\n*** 작업이 종료되었습니다.')
 
 
 if __name__ == '__main__':
     import tools.G_sheet.setup
 
     print('\n*** 작업      : 델타 시트를 백업 시트와 병합합니다.' 
-    ,     '\n*** 델타 시트 :  [', ', '.join([merge_config['delta_sheet_name'] for merge_config in merge_config_list]), '].' 
-    ,     '\n*** 백업 시트 :  [', ', '.join([merge_config['backup_sheet_name'] for merge_config in merge_config_list]), '].')
+    ,     '\n*** 델타 시트 : [', ', '.join([merge_config['delta_sheet_name'] for merge_config in merge_config_list]), '].' 
+    ,     '\n*** 백업 시트 : [', ', '.join([merge_config['backup_sheet_name'] for merge_config in merge_config_list]), '].')
  
     merge_backup()
         
-    print('\n*** 작업이 종료되었습니다.')
-    
     os.system('pause')

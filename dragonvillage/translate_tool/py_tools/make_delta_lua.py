@@ -161,17 +161,16 @@ def make_delta_lua_table():
 
         save_file(lua_table_name, lua_table)
 
-    print('Making lua table is done.')
+    print('\n*** 작업이 종료되었습니다.')
+
 
 
 if __name__ == '__main__':
     import tools.G_sheet.setup
 
     print('\n*** 작업      : 델타 번역 파일을 생성합니다.' 
-    +     '\n*** 작업 시트 :  [', ', '.join(sheet_name_list), '].')
+    +     '\n*** 작업 시트 : [', ', '.join(sheet_name_list), '].')
 
     make_delta_lua_table()
     
-    print('\n*** 작업이 종료되었습니다.')
-        
     os.system('pause')
