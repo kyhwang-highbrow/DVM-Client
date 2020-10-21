@@ -137,16 +137,13 @@ def make_origin_lua_table():
 
 
 if __name__ == '__main__':
-    print('\n*** JOB : Make origin lua tables from spreadsheets [', ', '.join(sheet_name_list), ']. DO THIS NOW? (y/n)')
-    key = input()
+    import tools.G_sheet.setup
+    
+    print('\n*** 작업      : 원본 번역 파일을 생성합니다.' 
+    +     '\n*** 작업 시트 :  [', ', '.join(sheet_name_list), '].')
+    
+    make_origin_lua_table()
 
-    if key == 'y' or key == 'Y':
-        print('*** START JOB')
+    print('\n*** 작업이 종료되었습니다.')
 
-        make_origin_lua_table()
-        
-        print('*** FINISH JOB')
-    else:
-        print('*** CANCEL JOB')
-        
     os.system('pause')

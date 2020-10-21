@@ -29,17 +29,14 @@ def merge_backup():
 
 
 if __name__ == '__main__':
-    print('\n*** JOB : Merge delta sheets [', ', '.join([merge_config['delta_sheet_name'] for merge_config in merge_config_list]), 
-    '] and backup sheets [', ', '.join([merge_config['backup_sheet_name'] for merge_config in merge_config_list]), ']. DO THIS NOW? (y/n)')
-    key = input()
+    import tools.G_sheet.setup
 
-    if key == 'y' or key == 'Y':
-        print('*** START JOB')
-
-        merge_backup()
+    print('\n*** 작업      : 델타 시트를 백업 시트와 병합합니다.' 
+    ,     '\n*** 델타 시트 :  [', ', '.join([merge_config['delta_sheet_name'] for merge_config in merge_config_list]), '].' 
+    ,     '\n*** 백업 시트 :  [', ', '.join([merge_config['backup_sheet_name'] for merge_config in merge_config_list]), '].')
+ 
+    merge_backup()
         
-        print('*** FINISH JOB')
-    else:
-        print('*** CANCEL JOB')
-        
+    print('\n*** 작업이 종료되었습니다.')
+    
     os.system('pause')

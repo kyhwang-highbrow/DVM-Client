@@ -75,16 +75,13 @@ def extract_plain():
 
 
 if __name__ == '__main__':
-    print('\n*** JOB : Extract plain texts from project at sheet [', delta_sheet_name, ']. DO THIS NOW? (y/n)')
-    key = input()
+    import tools.G_sheet.setup
 
-    if key == 'y' or key == 'Y':
-        print('*** START JOB')
-        
-        extract_plain()
-        
-        print('*** FINISH JOB')
-    else:
-        print('*** CANCEL JOB')
+    print('\n*** 작업      : 프로젝트에서 텍스트를 추출합니다.' 
+    +     '\n*** 작업 시트 :  [', delta_sheet_name, '].')
+    
+    extract_plain()
 
+    print('\n*** 작업이 종료되었습니다.')
+    
     os.system('pause')

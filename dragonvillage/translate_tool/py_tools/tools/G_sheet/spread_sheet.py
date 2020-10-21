@@ -5,10 +5,7 @@
 from tools.util.util_import import install_and_import, install_if_no_exist
 
 install_if_no_exist('gspread')
-install_if_no_exist('oauth2client')
-install_if_no_exist('PyOpenSSL')
 
-from oauth2client.service_account import ServiceAccountCredentials
 import os
 import gspread
 
@@ -37,12 +34,14 @@ class spreadSheet:
 
 def get_spread_sheet(sheet_key):
     # 인증 받아 시트 열기
-    scope = ['https://spreadsheets.google.com/feeds',
-            'https://www.googleapis.com/auth/drive']
-    cred = ServiceAccountCredentials.from_json_keyfile_name(
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cred.json'), scope)
-    gc = gspread.authorize(cred)
+    # scope = ['https://spreadsheets.google.com/feeds',
+    #         'https://www.googleapis.com/auth/drive']
+    # cred = ServiceAccountCredentials.from_json_keyfile_name(
+    #     os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cred.json'), scope)
+    # gc = gspread.authorize(cred)
     
+    gc = gspread.oauth()
+
     doc = gc.open_by_key(sheet_key)
 
     sheet = spreadSheet(doc)

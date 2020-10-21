@@ -165,17 +165,13 @@ def make_delta_lua_table():
 
 
 if __name__ == '__main__':
-    print('\n*** JOB : Make delta lua tables from spreadsheets [', ', '.join(sheet_name_list), '] and lua table in [',
-     lua_table_config['compare_dir'], ']. DO THIS NOW? (y/n)')
-    key = input()
+    import tools.G_sheet.setup
 
-    if key == 'y' or key == 'Y':
-        print('*** START JOB')
+    print('\n*** 작업      : 델타 번역 파일을 생성합니다.' 
+    +     '\n*** 작업 시트 :  [', ', '.join(sheet_name_list), '].')
 
-        make_delta_lua_table()
-        
-        print('*** FINISH JOB')
-    else:
-        print('*** CANCEL JOB')
+    make_delta_lua_table()
+    
+    print('\n*** 작업이 종료되었습니다.')
         
     os.system('pause')
