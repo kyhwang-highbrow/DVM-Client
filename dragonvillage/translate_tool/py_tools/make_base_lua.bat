@@ -1,3 +1,3 @@
 chcp 65001
 
-python tools/make_base_lua.py
+py -3 tools/make_base_lua.py

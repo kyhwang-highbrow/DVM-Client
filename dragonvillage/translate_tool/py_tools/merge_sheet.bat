@@ -1,3 +1,3 @@
 chcp 65001
 
-python tools/merge_sheet.py
+py -3 tools/merge_sheet.py

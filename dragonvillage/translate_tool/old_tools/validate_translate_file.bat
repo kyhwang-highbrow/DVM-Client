@@ -2,6 +2,6 @@
 chcp 65001
 
 cd "python"
-call python validate_translate_file.py
+py -3 validate_translate_file.py
 
 PAUSE
