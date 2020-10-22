@@ -11,13 +11,13 @@ import time
 try:
     import progressbar
 except ImportError:
-    print "\nTrying to Install required module: progressbar"
-    print "\nType 'python -m pip install progressbar'"
+    print ("\nTrying to Install required module: progressbar")
+    print ("\nType 'python -m pip install progressbar'")
     sys.exit()
 
 ## globals ############################
-ROOT_PATH = '../../translate'
-MAKE_PATH = '../'
+ROOT_PATH = '../../../translate'
+MAKE_PATH = '../../'
 INVALID_NUM_LIST = []
 INVALID_NEWLINE_LIST = []
 INVALID_COLOR_LIST = []
@@ -30,14 +30,14 @@ IGNORE_NEWLINE_DIC = {}
 ## 등록된 ignore list 딕셔너리로 만들어줌
 def makeIgnoreList():
     file_path = os.path.join(os.getcwd(), 'ignore_list_num.txt')
-    fr = open(file_path, 'r')
+    fr = open(file_path, 'r', encoding='utf-8')
     lines = fr.readlines()
     for line in lines:
         IGNORE_NUM_DIC[line] = True
     fr.close()
 
     file_path = os.path.join(os.getcwd(), 'ignore_list_newline.txt')
-    fr = open(file_path, 'r')
+    fr = open(file_path, 'r', encoding='utf-8')
     lines = fr.readlines()
     for line in lines:
         IGNORE_NEWLINE_DIC[line] = True
@@ -47,14 +47,14 @@ def makeIgnoreList():
 ## 번역 파일 읽음
 def checkTranslateFile(filename):
     file_path = os.path.join(ROOT_PATH, filename)
-    fr = open(file_path, 'r')
+    fr = open(file_path, 'r', encoding='utf-8')
     lines = fr.readlines()
     line_num = 0
     INVALID_NUM_LIST.append('\n## {0}\n'.format(filename))
     INVALID_NEWLINE_LIST.append('\n## {0}\n'.format(filename))
     INVALID_COLOR_LIST.append('\n## {0}\n'.format(filename))
 
-    print '## {0}'.format(filename)
+    print('## {0}'.format(filename))
     line_max = len(lines)
     progress = progressbar.ProgressBar()
 
@@ -86,8 +86,8 @@ def validateNum(line, line_num):
     # if (target_len % 2 == 1):
         # res_list.append(idx)
     if (target_len > 0 and target_len % 2 == 0):
-        new_list_1 = target[0:target_len/2]
-        new_list_2 = target[target_len/2:target_len]
+        new_list_1 = target[0:target_len//2]
+        new_list_2 = target[target_len//2:target_len]
         new_list_1.sort()
         new_list_2.sort()
         for i in range(len(new_list_1)):
@@ -131,7 +131,7 @@ def vaildateColorTag(line, line_num):
 ## txt 파일 생성
 def makeTxtFile():
     file_path = os.path.join(MAKE_PATH, "validate_translate_file.txt")
-    fw = open(file_path, "w")
+    fw = open(file_path, "w", encoding='utf-8')
 
     fw.write('\n\n1.CHECK NUMBER \n')
     for item in INVALID_NUM_LIST:
@@ -151,7 +151,7 @@ def makeTxtFile():
 # MAIN
 ###################################
 if __name__ == '__main__':
-    print '## validate_translate_file'
+    print('## validate_translate_file')
     makeIgnoreList()
     checkTranslateFile('lang_en.lua')
     checkTranslateFile('lang_es.lua')
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     checkTranslateFile('lang_th.lua')
     checkTranslateFile('lang_zhtw.lua')
     makeTxtFile()
-    print '## success'
+    print('## success')
 else:
-    print '## I am being imported from another module'
+    print('## I am being imported from another module')
     
