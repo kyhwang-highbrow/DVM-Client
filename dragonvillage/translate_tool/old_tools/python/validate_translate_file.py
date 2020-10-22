@@ -8,12 +8,25 @@ import sys
 import re
 import shutil
 import time
-try:
-    import progressbar
-except ImportError:
-    print ("\nTrying to Install required module: progressbar")
-    print ("\nType 'python -m pip install progressbar'")
-    sys.exit()
+
+import importlib
+
+def install_and_import(package):
+    try:
+        importlib.import_module(package)
+    except ImportError:
+        print('INSTALL DEPENDENCY MODULE :', package)
+        try:
+            from pip import main as pipmain
+        except:
+            from pip._internal.main import main as pipmain
+        pipmain(['install', package])
+    finally:
+        globals()[package] = importlib.import_module(package)
+
+
+install_and_import('progressbar')
+
 
 ## globals ############################
 ROOT_PATH = '../../../translate'
