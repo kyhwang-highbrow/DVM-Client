@@ -21,12 +21,11 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 
 # 사용 방법
 1. config.json 파일을 알맞게 수정합니다. 모든 기능은 config.json 파일로부터 읽은 설정 값을 기반으로 동작합니다.
-2. 윈도우 파워쉘을 킵니다. py-tool 폴더에서 파일-Window PowerShell 열기 를 클릭합니다.
-3. 아래 중 원하는 기능에 따라 입력 후 엔터를 칩니다.
-   python extract_text.py
-   python make_base_lua.py
-   python make_patch_lua.py
-   python merge_sheet.py
+3. 아래 중 원하는 기능에 따라 배치파일을 실행합니다.
+   python extract_text.bat
+   python make_base_lua.bat
+   python make_patch_lua.bat
+   python merge_sheet.bat
 
 
 # config.json 구성요소
@@ -75,7 +74,7 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 
 
 # 각 코드별 참고 사항
-1. extract_text.py
+1. extract_text.bat
 - 새로운 텍스트 추출은 백업시트와의 중복 검사를 통해 걸러집니다. 이미 패치시트가 존재하는 경우 패치시트와 중복 검사 또한 진행합니다. 
 - 만약 원하는 대로 잘 추출이 안되는 경우에는 기존 패치시트를 삭제하고 코드를 실행해보세요. 패치시트를 새로 만들어 내용을 채울 것입니다.
 - DVM 기준 일반 텍스트를 추출할 때와 시나리오 텍스트를 추출할 때 config.json 값을 다르게 해야 합니다. 
@@ -83,23 +82,23 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
   시나리오 추출 설정값은 config.json 의 extract_config_scenario_example 로 저장되어있습니다.
   추출을 원하시면 해당 값을 extract_config 로 사용하시면 됩니다.
 
-2. make_base_lua.py
+2. make_base_lua.bat
 - 스프레드시트의 내용을 합쳐서 원본 번역 파일을 만들어냅니다.
 
-3. make_patch_lua.py
+3. make_patch_lua.bat
 - 스프레드시트와 원본 번역 파일의 내용을 비교하여 패치 번역 파일을 만들어냅니다. 
 
-4. merge_sheet.py 
+4. merge_sheet.bat
 - 패치시트의 내용을 백업시트 맨 하단에 추가합니다. 이 과정에서는 만약 kr이 중복이라면 백업시트의 해당 데이터를 패치시트의 내용으로 덮어씌웁니다.
 
 
 # 사용 예시
 1. 코드나 데이터가 업데이트되어 새로운 번역 텍스트를 추출하고 싶을 때
-    1-1. extract_text.py 실행
+    1-1. extract_text.bat 실행
 
 2. 다음 패치를 위한 패치 프로세스
-    2-1. extract_text.py 실행하여 새로운 텍스트를 추출합니다.
+    2-1. extract_text.bat 실행하여 새로운 텍스트를 추출합니다.
     2-2. 번역을 요청하여 번역 내용을 패치시트에 담습니다.
-    2-3. merge_sheet.py 실행하여 패치시트의 내용을 백업시트에 병합합니다.
-    2-4. make_patch_lua.py 실행하여 원본 번역 파일과 스프레드시트와의 차이점으로 패치 번역 파일을생성합니다.
-    [2-5] 앱 업데이트 시에는 make_base_lua.py 실행하여 패치 번역 파일이 아닌 원본 번역 파일을 생성합니다. 
+    2-3. merge_sheet.bat 실행하여 패치시트의 내용을 백업시트에 병합합니다.
+    2-4. make_patch_lua.bat 실행하여 원본 번역 파일과 스프레드시트와의 차이점으로 패치 번역 파일을 생성합니다.
+    [2-5] 앱 업데이트 시에는 make_base_lua.bat 실행하여 패치 번역 파일이 아닌 원본 번역 파일을 생성합니다. 

@@ -9,7 +9,7 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 import json
 
-from tools.merge.merge import merge
+from merge.merge import merge
 
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기

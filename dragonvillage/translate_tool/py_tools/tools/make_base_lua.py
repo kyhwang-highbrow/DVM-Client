@@ -11,17 +11,17 @@ import datetime
 import json
 import shutil
 
-import tools.G_sheet.spread_sheet as spread_sheet
-import tools.util.util_file as util_file
-from tools.util.util_quote import quote_row_dics
+import G_sheet.spread_sheet as spread_sheet
+import util.util_file as util_file
+from util.util_quote import quote_row_dics
 
 
 with open('config.json', 'r', encoding='utf-8') as f: # config.json으로부터 데이터 읽기
     config_json = json.load(f)
     lua_table_config = config_json['base_lua_table_config']
-    make_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), lua_table_config['make_dir'])
+    make_root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), lua_table_config['make_dir'])
     make_file_name_list = lua_table_config['make_file_name_list']
-    backup_root = os.path.join(os.path.dirname(os.path.abspath(__file__)), lua_table_config['backup_dir'])
+    backup_root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), lua_table_config['backup_dir'])
     spreadsheet_id = config_json['spreadsheet_id']
     sheet_name_list = lua_table_config['sheet_name_list']
 

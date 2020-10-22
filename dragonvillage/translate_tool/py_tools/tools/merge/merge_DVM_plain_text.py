@@ -54,7 +54,7 @@ def merge_upload(backup_sheet_name, spreadsheet_id, data_list, header, locale_li
     sheet_option = get_sheet_option('DVM_plain_text', sheet_id, col_size)
     sheet.batch_update(sheet_option)
 
-    print('Add text in [', backup_sheet_name, '] :', len(data_list))
+    print('Add text in [', backup_sheet_name, ']')
 
 
 def merge_data(all_data_list, data_dic, header):

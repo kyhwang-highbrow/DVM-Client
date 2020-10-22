@@ -10,9 +10,9 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 import datetime
 import json
 
-from tools.extract.extract import extract
-from tools.sum_data.sum_data import sum_data
-from tools.upload.upload import upload
+from extract.extract import extract
+from sum_data.sum_data import sum_data
+from upload.upload import upload
 
 
 # search_root = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
@@ -50,7 +50,7 @@ def extract_text(extract_config):
     from_src_list = []
     for extract_method in extract_method_list:
         data_name = extract_method['name']
-        source_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), extract_method['src'])
+        source_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), extract_method['src'])
         extract_func = extract_method['func']
         ignore_files = extract_method['ignore_files']
         ignore_folders = extract_method['ignore_folders']
