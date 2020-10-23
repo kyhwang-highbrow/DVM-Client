@@ -37,15 +37,43 @@ end
 -- @brief lua파일로 변환된 번역 파일 읽기
 -------------------------------------
 function StructLanguage:loadLanguageMap()
-    local language_map = nil
+    local stop_watch = Stopwatch()
+	local language_map = nil
 
-    if self.m_translateFile then
-        language_map = require(self.m_translateFile) -- require 'translate/lang_en' 
-    end
+    language_map = self:patchLanguageMap() -- require 'translate/lang_en' 
 
     return language_map
 end
 
+-------------------------------------
+-- function patchLanguageMap
+-- @brief 델타 번역파일까지 반영한 번역파일을 반환
+-------------------------------------
+function StructLanguage:patchLanguageMap()
+    local function getPatchTable(patch_path)
+        return require(patch_path)
+    end
+    
+    local language_map = nil
+
+    if self.m_translateFile then
+        language_map = require(self.m_translateFile) -- require 'translate/lang_en' 
+        
+        local patch_name = self.m_translateFile .. '_patch' -- require 'translate/lang_en_patch'
+        local b_result, patch_language_map = pcall(getPatchTable, patch_name)
+        
+        if b_result then
+            for k, v in pairs(patch_language_map) do
+                if language_map[k] ~= v then
+                    language_map[k] = v
+                end
+            end
+        end
+    
+    end
+
+    return language_map
+end
 
 
 
