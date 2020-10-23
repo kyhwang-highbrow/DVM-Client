@@ -39,6 +39,9 @@ function AssetMaker:run(target_path)
     -- mirroring
     self:mirroring()
 
+    -- 패치 번역 파일 제거
+    self:deletePatchTranslation()
+
     -- 암호화 파일을 지운다.
     self:deleteEncrypt()
 
@@ -83,6 +86,23 @@ end
 function AssetMaker:mirror(dir)
     cclog('## AssetMaker:mirror - ' .. dir)
     util.mirrorDirectory(dir, string.format('%s\\%s', self.targetPath, dir))
+end
+
+-------------------------------------
+-- function deletePatchTranslation
+-- @brief 패치 번역파일이 존재하는 경우 삭제함
+-------------------------------------
+function AssetMaker:deletePatchTranslation()
+    cclog('## AssetMaker:deletePatchTranslation')
+    
+    local function removeIfPatchTranslation(path, file)
+        if string.find(file, 'lang_') and string.find(file, '_patch') then
+            cclog('## AssetMaker:deletePatchTranslation - ' .. string.format('%s\\%s', path, file))
+            os.remove(string.format('%s\\%s', path, file))
+        end
+    end
+
+    util.iterateDirectory(string.format('%s\\%s', self.targetPath, 'translate'), removeIfPatchTranslation)
 end
 
 -------------------------------------
