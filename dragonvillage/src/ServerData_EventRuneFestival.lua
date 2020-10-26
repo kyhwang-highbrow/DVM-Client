@@ -71,3 +71,11 @@ function ServerData_EventRuneFestival:applyRuneFestivalInfo(t_rune_festival_info
     self.m_dailyMaxSt = t_rune_festival_info['st_max'] or 0 -- 일일 최대 입장권(날개)
     self.m_dailyUsedSt = t_rune_festival_info['st_use'] or 0 -- 일일 사용 입장권(날개)
 end
+
+-------------------------------------
+-- function getAdventStageCount
+-- @brief 스테이지 수
+-------------------------------------
+function ServerData_EventRuneFestival:getAdventStageCount()
+    return 1
+end

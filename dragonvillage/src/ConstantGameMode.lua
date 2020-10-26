@@ -20,6 +20,7 @@ GAME_MODE_CLAN_WAR = 24
 
 -- 모험 모드 챕터 상수값
 SPECIAL_CHAPTER = {
+    ['RUNE_FESTIVAL'] = 98,
     ['ADVENT'] = 99
 }
 

@@ -1422,7 +1422,7 @@ function UI_ReadySceneNew:check_startCondition(stage_id)
     end
     
     local difficulty, chapter, stage = parseAdventureID(stage_id)
-    local is_advent = (chapter == SPECIAL_CHAPTER.ADVENT)
+    local is_advent = (chapter == SPECIAL_CHAPTER.ADVENT) or (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL)
 
     -- 모드 상관없이 공통으로 체크
     if (self:getDragonCount() <= 0) then

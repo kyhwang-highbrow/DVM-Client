@@ -232,6 +232,9 @@ function UI_AdventureStageInfo:refresh()
         if (chapter == SPECIAL_CHAPTER.ADVENT) then
             vars['starButton']:setVisible(false)
 			vars['speechSprite']:setVisible(true)
+        -- 룬 축제 이벤트
+        elseif (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
+            vars['starButton']:setVisible(false)
         else
             local stage_info = g_adventureData:getStageInfo(stage_id)
             local num_of_stars = stage_info:getNumberOfStars()
@@ -261,6 +264,7 @@ function UI_AdventureStageInfo:refresh()
         local is_boss_stage, monster_id = g_stageData:isBossStage(stage_id)
         vars['bossSprite']:setVisible(is_boss_stage)
         vars['bossNode']:setVisible(true)
+        vars['bossNameLabel']:setString('')
 
         vars['bossNode']:removeAllChildren()
 

@@ -285,8 +285,15 @@ end
 -- @brief 해당 스테이지 클리어 여부
 -------------------------------------
 function ServerData_Adventure:isClearStage(stage_id)
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+
     -- 깜짝 출현 스테이지는 항상 클리어
     if (isAdventStageID(stage_id)) then
+        return true
+    end
+
+	-- 룬 축제 이벤트는 항상 클리어
+    if (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
         return true
     end
 
@@ -345,6 +352,8 @@ function ServerData_Adventure:getNextStageID(stage_id)
         local first_chapter
         if (chapter == SPECIAL_CHAPTER.ADVENT) then
             first_chapter = SPECIAL_CHAPTER.ADVENT
+        elseif (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then -- 룬 축제 이벤트
+            first_chapter = SPECIAL_CHAPTER.RUNE_FESTIVAL
         else
             first_chapter = 1
         end
@@ -378,6 +387,8 @@ end
 function ServerData_Adventure:getMaxStage(chapter)
     if (chapter == SPECIAL_CHAPTER.ADVENT) then
         return g_eventAdventData:getAdventStageCount()
+    elseif (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then -- 룬 축제 이벤트
+        return g_eventRuneFestival:getAdventStageCount()
     else
         return MAX_ADVENTURE_STAGE
     end
@@ -487,6 +498,11 @@ function getPrevStageID(stage_id)
         return getPrevStageID_advent(difficulty, chapter, stage)
     end
 
+    -- 룬 축제 이벤트
+    if (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
+        return false
+    end
+
     if (difficulty==1) and (chapter==1) and (stage==1) then
         return false
     end
@@ -534,8 +550,17 @@ function ServerData_Adventure:setFocusStage(stage_id)
 
     -- 모험모드만 저장
     if (game_mode == GAME_MODE_ADVENTURE) then
+
+        local skip_focus_stage = false
+        local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+        -- 룬 축제 이벤트는 스테이지 저장 X
+        if (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
+            skip_focus_stage = true
+        end
+
         -- 마지막에 진입한 스테이지 저장
-        if self:isOpenStage(stage_id) then
+        if (skip_focus_stage == false) and self:isOpenStage(stage_id) then
             g_settingData:applySettingData(stage_id, 'adventure_focus_stage')
         end
     end

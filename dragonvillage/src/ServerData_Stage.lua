@@ -52,7 +52,11 @@ function ServerData_Stage:getStageName(stage_id)
         local difficulty, chapter, stage = parseAdventureID(stage_id)
         if (chapter == SPECIAL_CHAPTER.ADVENT) then
             local chapter_name = g_eventAdventData:getAdventTitle()
-            name = string.format('%s - %d', chapter_name, stage)
+            name = string.format('%s - %d', chapter_name, stage)  
+        --룬 축제 이벤트
+        elseif (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
+            local chapter_name = chapterName(chapter)
+            name = string.format('%s %d', chapter_name, difficulty) -- 난이도 4개로 구성 (보통, 어려움, 지옥, 불지옥)
         else
             local chapter_name = chapterName(chapter)
             name = string.format('%s %d-%d', chapter_name, chapter, stage)

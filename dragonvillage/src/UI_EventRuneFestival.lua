@@ -33,10 +33,10 @@ function UI_EventRuneFestival:initButton()
     local vars = self.vars
     
     -- 스테이지 진입 버튼 (난이도별)
-    vars['normalStartBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('구현 중')) end)
-    vars['hardlStartBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('구현 중')) end)
-    vars['helllStartBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('구현 중')) end)
-    vars['hellfireStartBtn']:registerScriptTapHandler(function() UIManager:toastNotificationRed(Str('구현 중')) end)
+    vars['normalStartBtn']:registerScriptTapHandler(function() self:click_stageStartBtn(1119801) end)
+    vars['hardlStartBtn']:registerScriptTapHandler(function() self:click_stageStartBtn(1129801) end)
+    vars['helllStartBtn']:registerScriptTapHandler(function() self:click_stageStartBtn(1139801) end)
+    vars['hellfireStartBtn']:registerScriptTapHandler(function() self:click_stageStartBtn(1149801) end)
 end
 
 -------------------------------------
@@ -56,4 +56,19 @@ function UI_EventRuneFestival:refresh()
         local str = g_eventRuneFestival:getRuneFestivalStaminaText()
         vars['obtainLabel']:setString(str)
     end 
+end
+
+-------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_EventRuneFestival:onEnterTab()
+    self:refresh()
+end
+
+-------------------------------------
+-- function click_stageStartBtn
+-------------------------------------
+function UI_EventRuneFestival:click_stageStartBtn(stage_id)
+    UI_AdventureStageInfo(stage_id)
 end
