@@ -723,6 +723,7 @@ function UI_Lobby:initButton()
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['bingoBtn']:registerScriptTapHandler(function() self:click_bingoBtn() end) -- 빙고 이벤트
+    vars['halloweenEventBtn']:registerScriptTapHandler(function() self:click_halloweenEventBtn() end) -- 빙고 이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['luckyfortunebagEventBtn']:registerScriptTapHandler(function() self:click_lfbagBtn() end) -- 복주머니 이벤트
     vars['alphabetBtn']:registerScriptTapHandler(function() self:click_alphabetBtn() end) -- 알파벳 이벤트
@@ -1027,6 +1028,17 @@ function UI_Lobby:update_highlight()
                     elseif struct_bingo:isHighlightYellow_ex() then
                         vars['bingoNotiYellow']:setVisible(true)
                     end
+                end
+            end
+        end
+
+        do -- 빙고 이벤트
+            vars['halloweenNotiSprite']:setVisible(false)
+            vars['halloweenNotiYellow']:setVisible(false)
+
+            if g_hotTimeData:isActiveEvent('event_rune_festival') then
+                if (g_eventRuneFestival:isDailyStLimit() == false) then
+                    vars['halloweenNotiYellow']:setVisible(true)
                 end
             end
         end
@@ -1437,6 +1449,19 @@ function UI_Lobby:click_bingoBtn()
     end
     g_eventData:openEventPopup('event_bingo')
 end
+
+-------------------------------------
+-- function click_halloweenEventBtn
+-- @brief 할로윈 룬 축제(할로윈 이벤트)
+-------------------------------------
+function UI_Lobby:click_halloweenEventBtn()
+    if (not g_hotTimeData:isActiveEvent('event_rune_festival')) then
+        return
+    end
+    g_eventData:openEventPopup('event_rune_festival')
+end
+
+
 
 -------------------------------------
 -- function click_diceBtn
@@ -1973,6 +1998,9 @@ function UI_Lobby:update_rightButtons()
     -- 빙고 이벤트 버튼
     vars['bingoBtn']:setVisible(g_hotTimeData:isActiveEvent('event_bingo'))
 
+    -- 할로윈 룬 축제(할로윈 이벤트)
+    vars['halloweenEventBtn']:setVisible(g_hotTimeData:isActiveEvent('event_rune_festival'))
+
     -- 알파벳 이벤트
     vars['alphabetBtn']:setVisible(g_hotTimeData:isActiveEvent('event_alphabet'))
 
@@ -2148,6 +2176,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'matchCardBtn')
     table.insert(t_btn_name, 'mandragoraBtn')
     table.insert(t_btn_name, 'bingoBtn')
+    table.insert(t_btn_name, 'halloweenEventBtn')
     table.insert(t_btn_name, 'diceBtn')
     table.insert(t_btn_name, 'alphabetBtn')
     table.insert(t_btn_name, 'exchangeBtn')

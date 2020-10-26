@@ -36,6 +36,23 @@ function ServerData_EventRuneFestival:getRuneFestivalStaminaText()
 end
 
 -------------------------------------
+-- function isDailyStLimit
+-- @brief 일일 입장권(날개) 제한
+-- @return boolean
+-------------------------------------
+function ServerData_EventRuneFestival:isDailyStLimit(add_st)
+    local add_st = (add_st or 0)
+    local daily_user_st = (self.m_dailyUsedSt or 0)
+    local daily_max_st = (self.m_dailyMaxSt  or 0)
+
+    if (daily_max_st <= (daily_user_st + add_st)) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
 -- function applyRuneFestivalInfo
 -- @brief /users/lobby, /game/stage/finish에서 rune_festival_info값으로 전달
 -- @param t_rune_festival_info table
