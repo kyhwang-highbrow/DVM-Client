@@ -203,6 +203,9 @@ function ServerData:getInstance()
     -- 빙고 이벤트 
     g_eventBingoData = ServerData_EventBingo()
 
+    -- 할로윈 룬 축제(할로윈 이벤트)
+    g_eventRuneFestival = ServerData_EventRuneFestival()
+
     -- 레벨업 패키지
     g_levelUpPackageData = ServerData_LevelUpPackage(g_serverData)
 

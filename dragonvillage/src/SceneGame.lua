@@ -792,6 +792,11 @@ function SceneGame:networkGameFinish_response(ret, t_result_ref, is_success)
         g_eventAdventData:responseDailyAdventEggInfo(ret['xmas_daily_egg_info'])
     end
 
+    -- 할로윈 룬 축제(할로윈 이벤트)
+	if (ret['rune_festival_info']) then
+        g_eventRuneFestival:applyRuneFestivalInfo(ret['rune_festival_info'])
+    end
+
     -- 자동 줍기으로 획득한 누적 아이템 수량 갱신
     g_subscriptionData:response_ingameDropInfo(ret)
 end

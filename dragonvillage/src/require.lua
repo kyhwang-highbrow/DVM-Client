@@ -179,6 +179,7 @@ local t_module = {
     'ServerData_PurchaseDaily',
     'ServerData_Exchange',
     'ServerData_EventBingo',
+    'ServerData_EventRuneFestival',
     'ServerData_Exploration',
     'ServerData_HotTime',
     'ServerData_Fevertime',

@@ -4633,6 +4633,12 @@
     <None Include="..\src\UI_Package_Step03.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventRuneFestival.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventRuneFestival.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

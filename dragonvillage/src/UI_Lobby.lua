@@ -618,6 +618,11 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
             g_personalpackData:response_personalpackInfo(ret['personalpack_info'])
         end
 
+        cclog('# 할로윈 룬 축제(할로윈 이벤트)')
+        if (ret['rune_festival_info']) then
+            g_eventRuneFestival:applyRuneFestivalInfo(ret['rune_festival_info'])
+        end
+
 		co.NEXT()
 	end)
 	ui_network:setFailCB(required_fail_cb)

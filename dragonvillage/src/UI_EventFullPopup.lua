@@ -174,6 +174,11 @@ function UI_EventFullPopup:initUI()
         local temp_struct_data = StructEventPopupTab({event_type = 'event_exchange'})
         ui = UI_EventPopupTab_Scroll(self, temp_struct_data, inner_ui)
 
+    -- 할로윈 룬 축제(할로윈 이벤트)
+    elseif string.find(popup_key, 'event_rune_festival') then
+        require('UI_EventRuneFestival')
+        ui = UI_EventRuneFestival()
+
     -- 만드라고라의 모험 이벤트 
     --elseif string.find(popup_key, 'event_mandraquest') then
         --local inner_ui = UI_EventMandragoraQuest()
