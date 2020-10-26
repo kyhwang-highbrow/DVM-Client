@@ -2454,6 +2454,25 @@ function UI_Lobby:refresh_rightBanner()
         end
     end
 
+    -- 룬 축제 이벤트 배너
+    if (g_hotTimeData:isActiveEvent('event_rune_festival') == true) then
+        if (not vars['banner_rune_festival']) then
+            require('UI_BannerRuneFestival')
+            local banner = UI_BannerRuneFestival()
+            vars['bannerMenu']:addChild(banner.root)
+            banner.root:setDockPoint(cc.p(1, 1))
+            banner.root:setAnchorPoint(cc.p(1, 1))
+            vars['banner_rune_festival'] = banner
+        else
+            vars['banner_rune_festival']:refresh()
+        end
+    else
+        if vars['banner_rune_festival'] then
+            vars['banner_rune_festival'].root:removeFromParent()
+            vars['banner_rune_festival'] = nil
+        end
+    end
+
     self:onRefresh_banner()
 end
 
@@ -2498,6 +2517,11 @@ function UI_Lobby:onRefresh_banner()
     -- 클랜전 공격 중
     if vars['banner_clanwar_attack'] then
         table.insert(l_node, vars['banner_clanwar_attack'].root)
+    end
+
+    -- 룬 축제 이벤트 배너
+    if vars['banner_rune_festival'] then
+        table.insert(l_node, vars['banner_rune_festival'].root)
     end
 
     local pos_y = 0
