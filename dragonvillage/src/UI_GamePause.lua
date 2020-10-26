@@ -79,6 +79,10 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         if (isAdventStageID(stage_id)) then
             vars['btnMenu']:setPositionY(0)
             vars['starMenu']:setVisible(false)
+        -- 룬 축제 이벤트 예외처리
+        elseif (g_stageData:isRuneFestivalStage(stage_id) == true) then
+            vars['btnMenu']:setPositionY(0)
+            vars['starMenu']:setVisible(false)
         else
             local stage_info = g_adventureData:getStageInfo(stage_id)
             local num_of_stars = stage_info:getNumberOfStars()

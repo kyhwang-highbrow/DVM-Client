@@ -37,6 +37,13 @@ function UI_GameResult_Adventure:setSuccessVisual()
                 vars['successVisual']:changeAni('success_idle', true)
             end)
 
+        -- 룬 축제 이벤트 예외처리
+        elseif (g_stageData:isRuneFestivalStage(stage_id) == true) then
+            vars['successVisual']:changeAni('success', false)
+            vars['successVisual']:addAniHandler(function()
+                vars['successVisual']:changeAni('success_idle', true)
+            end)
+
         else
             local stage_info = g_adventureData:getStageInfo(stage_id)
             local num_of_stars = stage_info:getNumberOfStars()

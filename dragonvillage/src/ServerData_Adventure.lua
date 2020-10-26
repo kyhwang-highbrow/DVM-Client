@@ -293,7 +293,7 @@ function ServerData_Adventure:isClearStage(stage_id)
     end
 
 	-- 룬 축제 이벤트는 항상 클리어
-    if (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
+    if (g_stageData:isRuneFestivalStage(stage_id) == true) then
         return true
     end
 
