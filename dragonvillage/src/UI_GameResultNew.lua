@@ -1173,6 +1173,7 @@ function UI_GameResultNew:click_quickBtn(skip_check_auto_play_release)
 
     local stage_id = self.m_stageID
 	local check_stamina
+    local check_mode
     local check_dragon_inven
     local check_item_inven
     local start_game
@@ -1180,7 +1181,7 @@ function UI_GameResultNew:click_quickBtn(skip_check_auto_play_release)
 	-- 활동력도 체크 (준비화면에 가는게 아니므로)
 	check_stamina = function()
 		if (g_staminasData:checkStageStamina(stage_id)) then
-			check_dragon_inven()
+			check_mode()
 		else
 			fail_cb()
 
@@ -1191,6 +1192,25 @@ function UI_GameResultNew:click_quickBtn(skip_check_auto_play_release)
 			g_staminasData:staminaCharge(stage_id, finish_cb)
 		end
 	end
+
+    -- 룬 축제 이벤트 (일일 제한 확인)
+	check_mode = function()
+        if (g_stageData:isRuneFestivalStage(stage_id) == true) then
+            local stamina_type, req_count = g_staminasData:getStageStaminaCost(stage_id)
+            if (g_eventRuneFestival:isDailyStLimit(req_count) == true) then
+                local function ok_cb()
+                    quick_btn:setEnabled(true)
+                end
+                local msg = Str('하루 날개 사용 제한을 초과했습니다.')
+                local submsg = g_eventRuneFestival:getRuneFestivalStaminaText()
+                MakeSimplePopup(POPUP_TYPE.OK, msg, submsg, ok_cb)
+            else
+                check_dragon_inven()
+            end
+        else
+            check_dragon_inven()
+        end
+    end
 
     -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
     check_dragon_inven = function()

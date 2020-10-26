@@ -1441,6 +1441,16 @@ function UI_ReadySceneNew:check_startCondition(stage_id)
     elseif (stamina_charge) and (not g_staminasData:checkStageStamina(stage_id)) then
         g_staminasData:staminaCharge(stage_id)
         return false
+    -- 룬 축제 이벤트 (일일 제한 확인)
+    elseif (g_stageData:isRuneFestivalStage(stage_id) == true) then
+            local stamina_type, req_count = g_staminasData:getStageStaminaCost(stage_id)
+            if (g_eventRuneFestival:isDailyStLimit(req_count) == true) then
+                local msg = Str('하루 날개 사용 제한을 초과했습니다.')
+                local submsg = g_eventRuneFestival:getRuneFestivalStaminaText()
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg)
+                return false
+            end
+        else
     end
         
     return true
