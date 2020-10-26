@@ -1555,6 +1555,32 @@ function UINavigatorDefinition:goTo_event_match_card(...)
 end
 
 -------------------------------------
+-- function goTo_event_rune_festival
+-- @brief 룬 축제 이벤트 탭으로 이동
+-- @usage UINavigatorDefinition:goTo('event_rune_festival')
+-------------------------------------
+function UINavigatorDefinition:goTo_event_rune_festival(...)
+    local args = {...}
+    local sub_menu = args[1]
+    local tar_dragon = args[2]
+
+    -- 이벤트 팝업이 열려있는 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        g_eventData:openEventPopup('event_rune_festival', close_cb)
+    end
+end
+
+-------------------------------------
 -- function goTo_event_mandragora_quest
 -- @brief 만드라고라 이벤트 탭으로 이동
 -- @usage UINavigatorDefinition:goTo('event_mandragora_quest')

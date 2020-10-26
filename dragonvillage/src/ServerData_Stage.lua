@@ -40,6 +40,19 @@ function ServerData_Stage:getGameMode(stage_id)
 end
 
 -------------------------------------
+-- function isRuneFestivalStage
+-------------------------------------
+function ServerData_Stage:isRuneFestivalStage(stage_id)
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+    
+    if (chapter == SPECIAL_CHAPTER.RUNE_FESTIVAL) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
 -- function getStageName
 -------------------------------------
 function ServerData_Stage:getStageName(stage_id)

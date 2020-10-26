@@ -757,6 +757,15 @@ function UI_GameResultNew:set_modeButton()
     elseif (game_mode == GAME_MODE_RUNE_GUARDIAN) then
         moveToCenterBtn()
 
+    -- 룬 페스티벌 (모험 모드로 간주)
+    elseif (g_stageData:isRuneFestivalStage(stage_id) == true) then
+        moveToCenterBtn()
+        vars['mapBtn']:setVisible(false)
+        --vars['statsBtn']:setVisible(false)
+        --vars['homeBtn']:setVisible(false)
+        self:adjustMenuButtonPos()
+
+
     -- 모험 
     else
         vars['mapBtn']:setVisible(true)
@@ -775,6 +784,33 @@ function UI_GameResultNew:set_modeButton()
                 end
             end
         end
+    end
+end
+
+-------------------------------------
+-- function adjustMenuButtonPos
+-------------------------------------
+function UI_GameResultNew:adjustMenuButtonPos()
+    local vars = self.vars
+
+    -- 먼저 추가되는 항목이 왼쪽에 표시
+    local l_luaname = {}
+    table.insert(l_luaname, 'homeBtn')
+    table.insert(l_luaname, 'mapBtn')
+    table.insert(l_luaname, 'statsBtn')
+
+    -- 존재하는 버튼, visible이 켜진 버튼만 추가
+    local l_node = {}
+    for i,v in ipairs(l_luaname) do
+        if (vars[v] and vars[v]:isVisible()) then
+            table.insert(l_node, vars[v])
+        end
+    end
+
+    -- 버튼 가운데 정렬
+    local l_pos = getSortPosList(150, #l_node) -- params : interval, count
+    for i,v in ipairs(l_node) do
+        v:setPositionX(l_pos[i])
     end
 end
 
@@ -1275,6 +1311,12 @@ function UI_GameResultNew:click_againBtn()
 
     local stage_id = self.m_stageID
     local function close_cb()
+        -- 룬 축제 이벤트
+        if (g_stageData:isRuneFestivalStage(stage_id) == true) then
+            UINavigatorDefinition:goTo('event_rune_festival')
+            return
+        end
+
         UINavigator:goTo('adventure', stage_id)
     end
 
