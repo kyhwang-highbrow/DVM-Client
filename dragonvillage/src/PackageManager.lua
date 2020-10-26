@@ -70,6 +70,11 @@ function PackageManager:getTargetUI(package_name, is_popup)
     elseif (_package_name == 'package_step_02') then
         target_ui = UI_Package_Step02(_package_name, is_popup)
 
+    -- 단계별 패키지 3 UI
+    elseif (_package_name == 'package_step_03') then
+        require('UI_Package_Step03')
+        target_ui = UI_Package_Step03(_package_name, is_popup)
+
     -- 스타터 지원 패키지 UI - 구조가 다른 패키지와 비슷한듯 하면서 상이하다
     elseif (_package_name == 'package_starter_2') then
         target_ui = UI_Package_Bundle(_package_name, is_popup)
