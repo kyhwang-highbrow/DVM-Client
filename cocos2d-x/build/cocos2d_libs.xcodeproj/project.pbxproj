@@ -7566,7 +7566,6 @@
 					"$(inherited)",
 					"/Applications/Xcode\\ 2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 				);
-				ONLY_ACTIVE_ARCH = YES;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -7578,7 +7577,6 @@
 					"$(inherited)",
 					"/Applications/Xcode\\ 2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 				);
-				ONLY_ACTIVE_ARCH = YES;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;

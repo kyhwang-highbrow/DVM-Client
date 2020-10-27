@@ -82,6 +82,7 @@
 		9C38D2F1252F0B80004C2A62 /* lua_perplesdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk.h; sourceTree = "<group>"; };
 		9C38D2F2252F0B80004C2A62 /* lua_perplesdk_macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lua_perplesdk_macro.h; sourceTree = "<group>"; };
 		9C38D2F4252F0B8D004C2A62 /* lua_perplesdk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lua_perplesdk.cpp; sourceTree = "<group>"; };
+		B330A35C9FD40C0E108B0075 /* libPods-sdk_binder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sdk_binder.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,9 +149,8 @@
 				9C38D19A252EEA0E004C2A62 /* libsdk_binder.a */,
 				1CB727551D45435500994916 /* src */,
 				1CB7275D1D45449000994916 /* ios */,
-				3E201B6B2522BE7B00684A5A /* Products */,
-				9C38D140252EDC7D004C2A62 /* Frameworks */,
 				975FD22E784D4AB5336D943D /* Pods */,
+				B46B37E319A24343E1E59F3F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -165,13 +165,6 @@
 				3773CD2621EE1A8F00B22F35 /* PerpleAdMobRewardedVideoAd.m */,
 			);
 			name = AdMob;
-			sourceTree = "<group>";
-		};
-		3E201B6B2522BE7B00684A5A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		3E201B782522C4D700684A5A /* Swift */ = {
@@ -192,9 +185,10 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		9C38D140252EDC7D004C2A62 /* Frameworks */ = {
+		B46B37E319A24343E1E59F3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B330A35C9FD40C0E108B0075 /* libPods-sdk_binder.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
