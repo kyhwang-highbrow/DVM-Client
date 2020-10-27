@@ -1127,6 +1127,13 @@ function UI_GameResultNew:click_backBtn()
         return
     end
 
+    -- 룬 페스티벌 (모험 모드로 간주되어 모험 맵으로 이동하는 것 방지)
+    local stage_id = self.m_stageID
+    if (g_stageData:isRuneFestivalStage(stage_id) == true) then
+        UINavigatorDefinition:goTo('event_rune_festival')
+        return
+    end
+
     local game_mode = g_gameScene.m_gameMode
     local dungeon_mode = g_gameScene.m_dungeonMode
     local condition = self.m_stageID
