@@ -1209,8 +1209,8 @@ function UI_GameResultNew:click_quickBtn(skip_check_auto_play_release)
                     quick_btn:setEnabled(true)
                 end
                 local msg = Str('하루 날개 사용 제한을 초과했습니다.')
-                local submsg = g_eventRuneFestival:getRuneFestivalStaminaText()
-                MakeSimplePopup(POPUP_TYPE.OK, msg, submsg, ok_cb)
+                local submsg = g_eventRuneFestival:getRuneFestivalStaminaText() -- '일일 최대 {1}/{2}개 사용 가능'
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
             else
                 check_dragon_inven()
             end
