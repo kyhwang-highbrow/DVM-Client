@@ -37,6 +37,7 @@ public class PerpleBilling {
     private IabHelper mHelper;
     private String mUri;
     private PerpleSDKCallback mSetupCallback;
+    private PerpleSDKCallback mIncompletePurchaseCallback;
     private PerpleSDKCallback mPurchaseCallback;
     private PerpleSDKCallback mItemListCallback;
     private IabHelper.QueryInventoryFinishedListener mGotInventoryListener;
@@ -45,8 +46,8 @@ public class PerpleBilling {
 
     private boolean mIsSetupCompleted;
 
-    private int mIncompletedPurchasesCount;
-    private Map<Purchase, Boolean> mIncompletedPurchases;
+    private int mIncompletePurchasesCount;
+    private Map<Purchase, Boolean> mIncompletePurchases;
 
     private Map<String, Purchase> mPurchases;
 
@@ -70,7 +71,7 @@ public class PerpleBilling {
 
         mAppHandler = new Handler(Looper.getMainLooper());
 
-        mIncompletedPurchases = new HashMap<Purchase, Boolean>();
+        mIncompletePurchases = new HashMap<Purchase, Boolean>();
         mPurchases = new HashMap<String, Purchase>();
 
         // Create the helper, passing it our context and the public key to verify signatures with
@@ -97,7 +98,6 @@ public class PerpleBilling {
         mAppHandler.post(new Runnable() {
             @Override
             public void run() {
-
                 // Start setup. This is asynchronous and the specified listener
                 // will be called once setup completes.
                 PerpleLog.d(LOG_TAG, "Starting in-app billing setup.");
@@ -105,26 +105,17 @@ public class PerpleBilling {
                     public void onIabSetupFinished(IabResult result) {
                         PerpleLog.d(LOG_TAG, "In-app billing setup finished - result:" + result);
 
-                        if (!result.isSuccess()) {
+                        if (result.isSuccess()) {
+                            setPurchaseFinishedListener();
+                            setQueryInventoryFinishedListener();
+                            mIsSetupCompleted = true;
+                            mSetupCallback.onSuccess("");
+                        } else {
                             // Oh no, there was a problem.
                             mSetupCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_SETUP, String.valueOf(result.getResponse()), result.getMessage()));
-                            return;
                         }
-
-                        setQueryInventoryFinishedListener();
-                        setPurchaseFinishedListener();
-
-                        mIsSetupCompleted = true;
-
-                        // Have we been disposed of in the meantime? If so, quit.
-                        if (mHelper == null) return;
-
-                        // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                        PerpleLog.d(LOG_TAG, "Querying inventory.");
-                        mHelper.queryInventoryAsync(mGotInventoryListener);
                     }
                 });
-
             }
         });
     }
@@ -231,7 +222,7 @@ public class PerpleBilling {
     public void getItemList(final String skuList, PerpleSDKCallback callback ) {
         mItemListCallback = callback;
 
-        if (mIsSetupCompleted == false) {
+        if (!mIsSetupCompleted) {
             PerpleLog.d(LOG_TAG, "In-app billing setup is not completed.");
             mItemListCallback.onFail("");
             return;
@@ -278,6 +269,24 @@ public class PerpleBilling {
                 }
 
                 mHelper.queryInventoryAsync(true, retSkuList,  mGetItemListInventoryListener);
+            }
+        });
+    }
+
+    public void getIncompletePurchaseList(final PerpleSDKCallback callback) {
+        if (mHelper == null || !mIsSetupCompleted) {
+            callback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_NOTINITIALIZED, "In-app billing module is not initialized."));
+            return;
+        }
+
+        mIncompletePurchaseCallback = callback;
+
+        mAppHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                // IAB is fully set up. Now, let's get an inventory of stuff we own.
+                PerpleLog.d(LOG_TAG, "Querying inventory.");
+                mHelper.queryInventoryAsync(mGotInventoryListener);
             }
         });
     }
@@ -382,34 +391,34 @@ public class PerpleBilling {
 
                 // Is it a failure?
                 if (result.isFailure()) {
-                    mSetupCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_QUARYINVECTORY, String.valueOf(result.getResponse()), result.getMessage()));
+                    mIncompletePurchaseCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_QUARYINVECTORY, String.valueOf(result.getResponse()), result.getMessage()));
                     return;
                 }
 
                 List<Purchase> purchases = inventory.getAllPurchases();
 
-                mIncompletedPurchases.clear();
-                mIncompletedPurchasesCount = purchases.size();
+                mIncompletePurchases.clear();
+                mIncompletePurchasesCount = purchases.size();
 
-                PerpleLog.d(LOG_TAG, "inventory item count : " + mIncompletedPurchasesCount);
+                PerpleLog.d(LOG_TAG, "inventory item count : " + mIncompletePurchasesCount);
 
-                if (mIncompletedPurchasesCount > 0) {
+                if (mIncompletePurchasesCount > 0) {
                     for (final Purchase p : purchases) {
                         PerpleLog.d(LOG_TAG, "inventory item  : " + p.toString());
 
                         checkReceipt(p, new PerpleSDKCallback() {
                             @Override
                             public void onSuccess(String info) {
-                                processCheckReceiptResultImcompletedPurchases(p, info, true);
+                                processCheckReceiptResultIncompletePurchases(p, info, true);
                             }
                             @Override
                             public void onFail(String info) {
-                                processCheckReceiptResultImcompletedPurchases(p, info, false);
+                                processCheckReceiptResultIncompletePurchases(p, info, false);
                             }
                         });
                     }
                 } else {
-                    mSetupCallback.onSuccess("");
+                    mIncompletePurchaseCallback.onSuccess("");
                 }
             }
         };
@@ -518,35 +527,39 @@ public class PerpleBilling {
         }
     }
 
-    private void processCheckReceiptResultImcompletedPurchases(Purchase p, String info, boolean isCheckReceiptSuccess) {
+    private void processCheckReceiptResultIncompletePurchases(Purchase p, String info, boolean isCheckReceiptSuccess) {
+        // 영수증 검증된 미지급 결제 상품 처리
         if (isCheckReceiptSuccess) {
             if (getRetcode(info) == 0) {
                 mPurchases.put(p.getOrderId(), p);
-                mIncompletedPurchases.put(p, true);
+                mIncompletePurchases.put(p, true);
             } else {
-                mIncompletedPurchases.put(p, false);
+                mIncompletePurchases.put(p, false);
             }
         }
 
-        mIncompletedPurchasesCount--;
-        if (mIncompletedPurchasesCount == 0) {
+        // 미완료 purchase가 전부 검증되었는지 체크
+        mIncompletePurchasesCount--;
+        if (mIncompletePurchasesCount > 0) {
+            return;
+        }
 
-            //mSetupCallback.onSuccess(getPurchaseResultArray(getPurchasesList(mIncompletedPurchases, true)));
-            List<Purchase> validList = getPurchasesList(mIncompletedPurchases, true);
-            for (int i = 0; i < validList.size(); i++) {
-                mSetupCallback.onSuccess(getPurchaseResult(validList.get(i)).toString());
-            }
-            mSetupCallback.onSuccess("");
+        // 상품 리스트 json 전달
+        List<Purchase> validList = getPurchasesList(mIncompletePurchases, true);
+        for (int i = 0; i < validList.size(); i++) {
+            mIncompletePurchaseCallback.onSuccess(getPurchaseResult(validList.get(i)).toString());
+        }
+        mIncompletePurchaseCallback.onSuccess("");
 
-            List<Purchase> invalidList = getPurchasesList(mIncompletedPurchases, false);
-            if (invalidList.size() > 0) {
-                mHelper.consumeAsync(invalidList, new OnConsumeMultiFinishedListener() {
-                    @Override
-                    public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
-                        // Do nothing
-                    }
-                });
-            }
+        // 검증 실패한 purchase consume
+        List<Purchase> invalidList = getPurchasesList(mIncompletePurchases, false);
+        if (invalidList.size() > 0) {
+            mHelper.consumeAsync(invalidList, new OnConsumeMultiFinishedListener() {
+                @Override
+                public void onConsumeMultiFinished(List<Purchase> purchases, List<IabResult> results) {
+                    // Do nothing
+                }
+            });
         }
     }
 

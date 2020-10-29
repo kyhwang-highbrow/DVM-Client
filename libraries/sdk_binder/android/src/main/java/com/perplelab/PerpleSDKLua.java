@@ -1438,6 +1438,27 @@ public class PerpleSDKLua {
     }
 
     // @billing
+    public static void billingGetIncompletePurchaseList(final int funcID) {
+        final int pID = PerpleSDK.ProcessId;
+        if (PerpleSDK.getBilling() == null) {
+            PerpleSDK.callSDKResult(pID, funcID, "fail",
+                    PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_NOTINITIALIZED, "Billing is not initialized."));
+            return;
+        }
+
+        PerpleSDK.getBilling().getIncompletePurchaseList(new PerpleSDKCallback() {
+            @Override
+            public void onSuccess(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "success", info);
+            }
+            @Override
+            public void onFail(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "fail", info);
+            }
+        });
+    }
+
+    // @billing
     public static void billingSubscription(final int funcID, String sku, String payload) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getBilling() == null) {

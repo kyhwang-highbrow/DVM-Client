@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.android.installreferrer:installreferrer:2.1'
 
     // @admob
-    implementation 'com.google.firebase:firebase-ads:19.4.0'
+    implementation 'com.google.firebase:firebase-ads:19.5.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.ads.mediation:adcolony:3.3.11.0'
     implementation 'com.google.ads.mediation:unity:3.4.8.0'

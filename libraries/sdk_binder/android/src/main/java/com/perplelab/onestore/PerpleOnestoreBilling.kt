@@ -52,7 +52,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
         // @return 연결 여부
         // @return 연결되어 있지 않다면 연결 시도(로그인 or 앱 설치)한 후 연결 성공 여부
-        var checkConnectConditionListener: PurchaseClient.BillingSupportedListener = object : PurchaseClient.BillingSupportedListener {
+        val checkConnectConditionListener: PurchaseClient.BillingSupportedListener = object : PurchaseClient.BillingSupportedListener {
             override fun onSuccess() {isReadyForBuyCallBack?.invoke(true)}
             override fun onErrorRemoteException() {onPerpleErrorRemoteException(null); PerpleSDK.getOnestore().mPerpleOnestoreConnect.updateOrInstallOneStoreService(isReadyForBuyCallBack)}
             override fun onErrorSecurityException() {onPerpleErrorSecurityException(null);isReadyForBuyCallBack?.invoke(false)}
@@ -87,7 +87,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
     // @Do '관리형 상품' 구매
     fun buyProduct(sku: String, devPayload: String, callback : PerpleSDKCallback) {
-        var productType = IapEnum.ProductType.IN_APP
+        val productType = IapEnum.ProductType.IN_APP
         mPurchaseCallBack = callback
 
         // 원스토어 결제 통신에 보낼 devPayLoad를 가공
@@ -107,7 +107,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
     // @Do '구독형 상품' 구매
     fun buySubscriptionProduct(sku: String, devPayload: String, callback : PerpleSDKCallback) {
-        var productType = IapEnum.ProductType.AUTO
+        val productType = IapEnum.ProductType.AUTO
         mPurchaseCallBack = callback
 
         // 원스토어 결제 통신에 보낼 devPayLoad를 가공
@@ -130,13 +130,13 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
     private fun makeDevPayLoad(payload: String, isSubscription: Boolean){
 
         // payload 예시 : {"validation_key":"2f6c1cee-e342-4111-922e-cba414b61ac9","price":3300,"uid":"vYajsn96lsMa8PxvFP4VQBlexWi2","product_id":82001,"sku":"dvm_cash2_3k"}
-        var payLoad = JSONObject(payload)
+        val payLoad = JSONObject(payload)
         mUid = payLoad.get("uid")?.toString() ?: ""
 
         // 100byte의 제한때문에 필수로 필요한 validation_key, product_id만 사용한다.
         val payloadDev = JSONObject()
-        var validation_key = payLoad.get("validation_key")
-        var product_id = payLoad.get("product_id")
+        val validation_key = payLoad.get("validation_key")
+        val product_id = payLoad.get("product_id")
         payloadDev.put("validation_key", validation_key)
         payloadDev.put("product_id", product_id)
         mDeveloperPayload = payloadDev
@@ -279,7 +279,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
         // skuList = 'diamond300;cash300...'
         val tempList = StringTokenizer(skuList, ";")
-        var inappList  = ArrayList<String>()
+        val inappList  = ArrayList<String>()
         while (tempList.hasMoreTokens()) {
             inappList.add(tempList.nextToken())
         }
@@ -300,7 +300,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
    // @ PurchaseClient의 queryProductsAsync API (상품정보조회) 콜백 리스너
    private var mQueryProductsListener: PurchaseClient.QueryProductsListener = object : PurchaseClient.QueryProductsListener {
         override fun onSuccess(productDetails: List<ProductDetail>) {
-            var itemMap = HashMap<String, String>()
+            val itemMap = HashMap<String, String>()
             for (data in productDetails) {
                 itemMap.put(data.productId, data.price)
             }
@@ -315,7 +315,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
     // @요청한 상품 구독 취소
     fun cancelSubscriptPurchaseForOnestore(sku: String, callBack: PerpleSDKCallback) {
-        var tempList  = ArrayList<String>()
+        val tempList  = ArrayList<String>()
         tempList.add(sku)
         mCancelSubscriptionCallBack = callBack
 
@@ -325,7 +325,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
     // @Do 구매내역 조회 후 구독취소
     private fun loadSubscriptionProductsForCancel(sku: String){
         // @PurchaseClient의 queryPurchasesAsync API (구매내역조회) 콜백 리스너
-        var cancelScription: PurchaseClient.QueryPurchaseListener = object : PurchaseClient.QueryPurchaseListener {
+        val cancelScription: PurchaseClient.QueryPurchaseListener = object : PurchaseClient.QueryPurchaseListener {
             override fun onSuccess(purchaseDataList: List<PurchaseData>, productType: String) {
                 for (purchase in purchaseDataList) {
                     if (purchase.productId == sku) {
@@ -357,20 +357,21 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
     //@Do 구독 시작/구독 취소 요청
     private fun setSubscriptPurchaseForOnestore(data: PurchaseData, active: Boolean) {
-        var action: String?
-        if (active){
-            action = IapEnum.RecurringAction.REACTIVATE.type
-        }else{
-            action = IapEnum.RecurringAction.CANCEL.type
+        val action = if (active){
+            IapEnum.RecurringAction.REACTIVATE.type
+        } else {
+            IapEnum.RecurringAction.CANCEL.type
         }
 
         // 구독 시작/취소 콜백
-        var callback: PerpleSDKCallback?
-        if (active){ callback = mPurchaseCallBack}
-        else {callback = mCancelSubscriptionCallBack}
+        val callback = if (active){
+            mPurchaseCallBack
+        } else {
+            mCancelSubscriptionCallBack
+        }
 
         //@ PurchaseClient의 manageRecurringProductAsync API (월정액상품 상태변경) 콜백 리스너
-        var mManageRecurringProductListener: PurchaseClient.ManageRecurringProductListener = object : PurchaseClient.ManageRecurringProductListener {
+        val mManageRecurringProductListener: PurchaseClient.ManageRecurringProductListener = object : PurchaseClient.ManageRecurringProductListener {
             override fun onSuccess(purchaseData: PurchaseData, manageAction: String) {callback?.onSuccess("")}
             override fun onErrorRemoteException() = onPerpleErrorRemoteException(callback)
             override fun onErrorSecurityException() = onPerpleErrorSecurityException(callback)
@@ -388,7 +389,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
     // @Do 구매내역조회 후 소비되지 않은 상품이 있다면 소비 // @When 게임 입장
     fun checkPurchaseState(){
-        var billingSupportedListener: PurchaseClient.BillingSupportedListener = object : PurchaseClient.BillingSupportedListener {
+        val billingSupportedListener: PurchaseClient.BillingSupportedListener = object : PurchaseClient.BillingSupportedListener {
             override fun onSuccess() = loadPurchaseAll()
             override fun onErrorRemoteException() = onPerpleErrorRemoteException(null)
             override fun onErrorSecurityException() = onPerpleErrorSecurityException(null)
@@ -422,7 +423,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
         PerpleSDK.getInstance().getMainActivity().runOnUiThread(object : Runnable {
             @Override
             override fun run() {
-                var queryPurchaseListener: PurchaseClient.QueryPurchaseListener = object: PurchaseClient.QueryPurchaseListener {
+                val queryPurchaseListener: PurchaseClient.QueryPurchaseListener = object: PurchaseClient.QueryPurchaseListener {
                     override fun onSuccess(purchaseDataList: List<PurchaseData>, productType: String) {
 
                         PerpleLog.i(LOG_TAG, "requestPurchases - onSuccess - count : " +  purchaseDataList.count().toString())
@@ -434,18 +435,18 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
                         // 결제건이 하나도 없을 경우 즉시 종료
                         if (purchase_count <= 0)
                         {
-                            var info : String = getPurchases(null)
+                            val info : String = getPurchases(null)
                             PerpleLog.i(LOG_TAG, "requestPurchases - onSuccess - return : " +  info)
                             callBack?.onSuccess(info)
                             return
                         }
 
-                        var finish_callback :PerpleSDKCallback = object : PerpleSDKCallback
+                        val finish_callback :PerpleSDKCallback = object : PerpleSDKCallback
                         {
                             override fun onSuccess(info: String?) {
                                 purchase_count -= 1
                                 if (purchase_count <=0) {
-                                    var info : String = getPurchases(null)
+                                    val info : String = getPurchases(null)
                                     PerpleLog.i(LOG_TAG, "requestPurchases - onSuccess - return : " +  info)
                                     callBack?.onSuccess(info)
                                 }
@@ -492,9 +493,9 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
 
     // @Do
     fun getPurchases(callBack: PerpleSDKCallback?): String {
-        var retobj = JSONObject()
+        val retobj = JSONObject()
         for (data in mPurchases) {
-            var purchaseData : PurchaseData = data.value
+            val purchaseData : PurchaseData = data.value
             val obj = JSONObject()
             obj.put("orderId", purchaseData.orderId)
             obj.put("payload", purchaseData.developerPayload)
@@ -506,7 +507,7 @@ class PerpleOnestoreBilling(purchaseClient: PurchaseClient) {
             retobj.put(purchaseData.orderId, obj)
         }
 
-        var info : String = retobj.toString()
+        val info : String = retobj.toString()
         callBack?.onSuccess(info)
         return info
     }
