@@ -539,6 +539,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['dragon_food'], 'user', 'dragon_food')
         end
 
+        -- 드래곤 경험치
+        if ret['dragon_exp'] then
+            self:applyServerData(ret['dragon_exp'], 'user', 'dragon_exp')
+        end
+
 		-- 모든 특성 재료 (구 공통 특성 재료 포함)
         -- @mskim 기존 mastery_materials_02~04를 mastery_materials 컨테이너로 통합하여 수령함
         if ret['mastery_materials'] then
@@ -692,6 +697,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 드래곤의 먹이
     RefreshGoods(t_added_items, 'dragon_food')
+
+    -- 드래곤의 경험치
+    RefreshGoods(t_added_items, 'dragon_exp')
    
    -- 특성 재료
     RefreshGoods(t_added_items, 'mastery_materials')
