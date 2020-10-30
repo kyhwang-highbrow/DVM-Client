@@ -5,10 +5,10 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 
 
 # 사용할 코드에 대한 간략한 설명입니다.
-1. extract_text.py - 텍스트를 추출하고 패치시트에 내용을 추가합니다.
-2. make_base_lua.py - 스프레드시트를 이용하여 원본 번역 파일을 만듭니다.
-3. make_patch_lua.py -  스프레드시트와 원본 번역 파일을 비교하여 패치 번역 파일을 만듭니다.
-4. merge_sheet.py - 백업시트 하단부에 패치시트의 내용을 붙입니다. 키 값이 중복되는 경우 값을 덮어씌웁니다.
+1. extract_text.bat - 텍스트를 추출하고 패치시트에 내용을 추가합니다.
+2. make_base_lua.bat - 스프레드시트를 이용하여 원본 번역 파일을 만듭니다.
+3. make_patch_lua.bat -  스프레드시트와 원본 번역 파일을 비교하여 패치 번역 파일을 만듭니다.
+4. merge_sheet.bat - 백업시트 하단부에 패치시트의 내용을 붙입니다. 키 값이 중복되는 경우 값을 덮어씌웁니다.
 * 위 코드들은 공통적으로 config.json 파일에 적혀진 설정을 따릅니다.
 
 
@@ -21,11 +21,11 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 
 # 사용 방법
 1. config.json 파일을 알맞게 수정합니다. 모든 기능은 config.json 파일로부터 읽은 설정 값을 기반으로 동작합니다.
-3. 아래 중 원하는 기능에 따라 배치파일을 실행합니다.
-   python extract_text.bat
-   python make_base_lua.bat
-   python make_patch_lua.bat
-   python merge_sheet.bat
+2. 아래 중 원하는 기능에 따라 배치파일을 실행합니다.
+   extract_text.bat
+   make_base_lua.bat
+   make_patch_lua.bat
+   merge_sheet.bat
 
 
 # config.json 구성요소
@@ -49,23 +49,23 @@ https://highbrow.atlassian.net/wiki/spaces/dvm/pages/642613279
 4. base_lua_table_config - 원본 번역 파일 생성 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
     4-1. make_dir : 원본 번역 파일이 생성될 경로입니다.
     4-2. backup_dir : make_dir에 존재하던 번역 파일을 백업할 경로입니다.
-    4-2. sheet_name_list : 원본 번역 파일을 생성하기 위해 참조할 워크시트 이름 배열입니다. 배열 순서대로 KYE에 대한 VALUE의 우선 순위가 결정됩니다.
-    4-3. make_file_name_list : 생성할 원본 번역 파일의 이름 배열입니다. 이 배열의 크기와 동일하게 원본 번역 파일이 생성됩니다.
-    4-4. key_value_list : 번역 파일을 생성할 때 사용할 KEY/VALUE 관련 정보를 담은 객체 배열입니다.
-        4-4-1. key : KEY로 사용될 컬럼 이름 값입니다.
-        4-4-2. value_list : 각 파일마다 VALUE로 사용될 컬럼 이름 값의 배열입니다. 위의 make_file_name_list 순서와 맞춰주세요.
-        4-4-3. replace_list : 만약 각 파일마다 value_list에 해당하는 컬럼에 대한 값이 비어있을 때 값을 찾을 때까지 해당 배열의 값을 차례로 이용하여 VALUE를 채웁니다. 
+    4-3. sheet_name_list : 원본 번역 파일을 생성하기 위해 참조할 워크시트 이름 배열입니다. 배열 순서대로 KYE에 대한 VALUE의 우선 순위가 결정됩니다.
+    4-4. make_file_name_list : 생성할 원본 번역 파일의 이름 배열입니다. 이 배열의 크기와 동일하게 원본 번역 파일이 생성됩니다.
+    4-5. key_value_list : 번역 파일을 생성할 때 사용할 KEY/VALUE 관련 정보를 담은 객체 배열입니다.
+        4-5-1. key : KEY로 사용될 컬럼 이름 값입니다.
+        4-5-2. value_list : 각 파일마다 VALUE로 사용될 컬럼 이름 값의 배열입니다. 위의 make_file_name_list 순서와 맞춰주세요.
+        4-5-3. replace_list : 만약 각 파일마다 value_list에 해당하는 컬럼에 대한 값이 비어있을 때 값을 찾을 때까지 해당 배열의 값을 차례로 이용하여 VALUE를 채웁니다. 
 
 5. patch_lua_table_config - 패치 번역 파일 생성 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
     5-1. make_dir : 패치 번역 파일이 생성될 경로입니다.
     5-2. compare_dir : 원본 번역 파일을 찾을 경로입니다.
-    5-2. sheet_name_list : 패치 번역 파일을 생성하기 위해 참조할 워크시트 이름 배열입니다. 배열 순서대로 KYE에 대한 VALUE의 우선 순위가 결정됩니다.
-    5-3. make_file_name_list : 생성할 패치 번역 파일의 이름 배열입니다. 이 배열의 크기와 동일하게 패치 번역 파일이 생성됩니다.
-    5-4. compare_file_name_list : 비교할 원본 번역 파일의 이름 배열입니다. 위의 make_file_name_list 순서와 맞춰주세요.
-    5-5. key_value_list : 번역 파일을 생성할 때 사용할 KEY/VALUE 관련 정보를 담은 객체 배열입니다.
-        5-5-1. key : KEY로 사용될 컬럼 이름 값입니다.
-        5-5-2. value_list : 각 파일마다 VALUE로 사용될 컬럼 이름 값의 배열입니다. 위의 make_file_name_list 순서와 맞춰주세요.
-        5-5-3. replace_list : 만약 각 파일마다 value_list에 해당하는 컬럼에 대한 값이 비어있을 때 값을 찾을 때까지 해당 배열의 값을 차례로 이용하여 VALUE를 채웁니다. 
+    5-3. sheet_name_list : 패치 번역 파일을 생성하기 위해 참조할 워크시트 이름 배열입니다. 배열 순서대로 KYE에 대한 VALUE의 우선 순위가 결정됩니다.
+    5-4. make_file_name_list : 생성할 패치 번역 파일의 이름 배열입니다. 이 배열의 크기와 동일하게 패치 번역 파일이 생성됩니다.
+    5-5. compare_file_name_list : 비교할 원본 번역 파일의 이름 배열입니다. 위의 make_file_name_list 순서와 맞춰주세요.
+    5-6. key_value_list : 번역 파일을 생성할 때 사용할 KEY/VALUE 관련 정보를 담은 객체 배열입니다.
+        5-6-1. key : KEY로 사용될 컬럼 이름 값입니다.
+        5-6-2. value_list : 각 파일마다 VALUE로 사용될 컬럼 이름 값의 배열입니다. 위의 make_file_name_list 순서와 맞춰주세요.
+        5-6-3. replace_list : 만약 각 파일마다 value_list에 해당하는 컬럼에 대한 값이 비어있을 때 값을 찾을 때까지 해당 배열의 값을 차례로 이용하여 VALUE를 채웁니다. 
 
 6. merge_config_list - 워크시트 병합 관련 설정 값입니다. 자세한 사항은 컨플루언스 문서를 참고하세요.
     6-1. patch_sheet_name : 패치시트의 이름 값입니다.
