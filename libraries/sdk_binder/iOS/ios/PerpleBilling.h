@@ -16,21 +16,24 @@
 
 @property BOOL mCanMakePayments;
 @property BOOL mIsRequestPay;
+
+@property (nonatomic, copy) NSString *mCheckReceiptServerUrl;
+@property (nonatomic, copy) NSString *mSaveTransactionUrl;
+@property (nonatomic, copy) NSString *mPayload;
+@property PerpleSDKCallback mFailCallback;
+
 @property (nonatomic, retain) NSMutableDictionary *mPurchases;
 @property (nonatomic, retain) NSMutableDictionary *mTransactions;
-@property (nonatomic, retain) NSMutableArray *mIncompletePurchases;
-@property (nonatomic, copy) NSString *mCheckReceiptServerUrl;
 @property (nonatomic, retain) NSMutableDictionary *mProduct;
 @property (nonatomic, retain) NSMutableDictionary *mGetItem;
-@property PerpleSDKCallback mFailCallback;
-@property (nonatomic, copy) NSString *mPayload;
 
 #pragma mark - APIs
 
-- (void) startSetupWithCheckReceiptServerUrl:(NSString *)checkReceiptServerUrl completion:(PerpleSDKCallback)callback;
+- (void) startSetupWithCheckReceiptServerUrl:(NSString *)checkReceiptServerUrl saveTransactionUrl:(NSString *)saveTransactionUrl completion:(PerpleSDKCallback)callback;
 - (void) purchaseWithSku:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) subscriptionWithSku:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) finishPurchaseTransaction:(NSString *)orderId;
-- (void) billingGetItemList:(NSString *)skuList completion:(PerpleSDKCallback)callback;
+- (void) getItemList:(NSString *)skuList completion:(PerpleSDKCallback)callback;
+- (void) getIncompletePurchaseList:(PerpleSDKCallback)callback;
 
 @end

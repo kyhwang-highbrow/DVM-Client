@@ -652,10 +652,12 @@ void adColonyShow(int funcID, const char* zoneId) {
 
 #pragma mark - Billing
 
-void billingSetup(int funcID, const char* checkReceiptServerUrl) {
+void billingSetup(int funcID, const char* checkReceiptServerUrl, const char* saveTransactionUrl) {
     // purchase / error
     const int processId = [PerpleSDK getProcessId];
-    [[PerpleSDK sharedInstance] billingSetup:[NSString stringWithUTF8String:checkReceiptServerUrl] completion:^(NSString *result, NSString *info) {
+    [[PerpleSDK sharedInstance] billingSetup:[NSString stringWithUTF8String:checkReceiptServerUrl]
+                          saveTransactionUrl:[NSString stringWithUTF8String:saveTransactionUrl]
+                                  completion:^(NSString *result, NSString *info) {
         if ([PerpleSDK isCurrentProcessId:processId]) {
             PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
         }
@@ -690,7 +692,7 @@ void billingSubscription(int funcID, const char* sku, const char* payload) {
                                          }];
 }
 
-void billingGetItemList(int funcID, const char* skuList ) {
+void billingGetItemList(int funcID, const char* skuList) {
     // success / fail
     const int processId = [PerpleSDK getProcessId];
     [[PerpleSDK sharedInstance] billingGetItemList:[NSString stringWithUTF8String:skuList]
@@ -707,8 +709,20 @@ void billingGetItemList(int funcID, const char* skuList ) {
                                                 });
                                             }
                                         }];
-
 }
+
+void billingGetIncompletePurchaseList(int funcID) {
+    // success / fail
+    const int processId = [PerpleSDK getProcessId];
+    [[PerpleSDK sharedInstance] billingGetIncompletePurchaseList:^(NSString *result, NSString *info) {
+                                            if ([PerpleSDK isCurrentProcessId:processId]) {
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    PerpleCore::OnSDKResult(funcID, [result UTF8String], [info UTF8String]);
+                                                });
+                                            }
+                                        }];
+}
+
 
 #pragma mark    --adjust
 void adjustTrackEvent( int funcID, const char* eventKey ) {

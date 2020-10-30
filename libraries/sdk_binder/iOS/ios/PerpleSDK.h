@@ -226,11 +226,12 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) adColonyShow:(NSString *)zoneId;
 
 // @billing
-- (void) billingSetup:(NSString *)checkReceiptServerUrl completion:(PerpleSDKCallback)callback;
+- (void) billingSetup:(NSString *)checkReceiptServerUrl saveTransactionUrl:saveTransactionUrl completion:(PerpleSDKCallback)callback;
 - (void) billingConfirm:(NSString *)orderId;
 - (void) billingPurchase:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) billingSubscription:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) billingGetItemList:(NSString *)skuList completion:(PerpleSDKCallback)callback;
+- (void) billingGetIncompletePurchaseList:(PerpleSDKCallback)callback;
 
 // @adjust
 - (void) adjustTrackEvent:(NSString *)eventKey;

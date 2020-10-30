@@ -926,14 +926,18 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
     }
 }
 
-- (void) billingSetup:(NSString *)checkReceiptServerUrl completion:(PerpleSDKCallback)callback {
+- (void) billingSetup:(NSString *)checkReceiptServerUrl
+   saveTransactionUrl:saveTransactionUrl
+           completion:(PerpleSDKCallback)callback {
     if (self.mBilling == nil) {
         callback(@"fail", [PerpleSDK getErrorInfo:@PERPLESDK_ERROR_BILLING_NOTINITIALIZED
                                               msg:@"Billing is not initialized."]);
         return;
     }
 
-    [self.mBilling startSetupWithCheckReceiptServerUrl:checkReceiptServerUrl completion:callback];
+    [self.mBilling startSetupWithCheckReceiptServerUrl:checkReceiptServerUrl
+                                        saveTransactionUrl:saveTransactionUrl
+                                            completion:callback];
 }
 
 - (void) billingConfirm:(NSString *)orderId {
@@ -981,8 +985,18 @@ static PerpleSDKCallback sFCMTokenRefreshCallback;
         return;
     }
 
-    [self.mBilling billingGetItemList:skuList
-                            completion:callback];
+    [self.mBilling getItemList:skuList completion:callback];
+}
+
+- (void) billingGetIncompletePurchaseList:(PerpleSDKCallback)callback
+{
+    if (self.mBilling == nil) {
+        callback(@"fail", [PerpleSDK getErrorInfo:@PERPLESDK_ERROR_BILLING_NOTINITIALIZED
+                                              msg:@"Billing is not initialized."]);
+        return;
+    }
+
+    [self.mBilling getIncompletePurchaseList:callback];
 }
 
 - (void) adjustTrackEvent:(NSString *)eventKey {

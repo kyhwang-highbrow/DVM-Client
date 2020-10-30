@@ -14,13 +14,14 @@
 
 @synthesize mCanMakePayments;
 @synthesize mIsRequestPay;
+@synthesize mCheckReceiptServerUrl;
+@synthesize mSaveTransactionUrl;
+@synthesize mPayload;
+
 @synthesize mPurchases;
 @synthesize mTransactions;
-@synthesize mIncompletePurchases;
-@synthesize mCheckReceiptServerUrl;
 @synthesize mProduct;
 @synthesize mGetItem;
-@synthesize mPayload;
 
 #pragma mark - Initialization
 
@@ -31,7 +32,6 @@
 
         self.mPurchases = [NSMutableDictionary dictionary];
         self.mTransactions = [NSMutableDictionary dictionary];
-        self.mIncompletePurchases = [NSMutableArray array];
         self.mGetItem = [NSMutableDictionary dictionary];
 
         if ([SKPaymentQueue canMakePayments] == NO) {
@@ -52,7 +52,6 @@
 - (void) dealloc {
     self.mPurchases = nil;
     self.mTransactions = nil;
-    self.mIncompletePurchases = nil;
     self.mProduct = nil;
     self.mCheckReceiptServerUrl = nil;
     self.mGetItem = nil;
@@ -66,10 +65,13 @@
 #pragma mark - APIs
 
 - (void) startSetupWithCheckReceiptServerUrl:(NSString *)checkReceiptServerUrl
+                          saveTransactionUrl:(NSString *)saveTransactionUrl
                                   completion:(PerpleSDKCallback)callback {
     self.mCheckReceiptServerUrl = checkReceiptServerUrl;
+    self.mSaveTransactionUrl = saveTransactionUrl;
+    
     if (self.mCanMakePayments) {
-        callback(@"purchase", [self getIncomplePurchases]);
+        callback(@"success", @"");
     } else {
         callback(@"fail", [PerpleSDK getErrorInfo:@PERPLESDK_ERROR_BILLING_SETUP
                                                msg:@"Billing is not set."]);
@@ -119,32 +121,47 @@
     }
 }
 
-- (void) billingGetItemList:(NSString *)skuList
-                 completion:(PerpleSDKCallback)callback
-{
-    if (self.mCanMakePayments) {
-        self.mIsRequestPay = NO;
-        [self.mGetItem setObject:@{@"callback":callback}
-                          forKey:@"callback"];
-
-        self.mFailCallback = callback;
-
-        NSArray* retSkuList = [skuList componentsSeparatedByString:@";"];
-
-        NSSet *productIdentifiers = [NSSet setWithArray:retSkuList];
-
-        if( [PerpleSDK isDebug] )
-        {
-            NSLog(@"billingGetItemList : %@", [productIdentifiers allObjects] );
-        }
-
-        SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
-        [request setDelegate:self];
-        [request start];
-
-    } else {
+- (void) getItemList:(NSString *)skuList
+                 completion:(PerpleSDKCallback)callback {
+    if (!self.mCanMakePayments) {
         callback(@"fail", [PerpleSDK getErrorInfo:@PERPLESDK_ERROR_BILLING_SETUP
                                               msg:@"Billing is not set."]);
+        return;
+    }
+    
+    self.mIsRequestPay = NO;
+    [self.mGetItem setObject:@{@"callback":callback}
+                      forKey:@"callback"];
+
+    self.mFailCallback = callback;
+
+    NSArray* retSkuList = [skuList componentsSeparatedByString:@";"];
+
+    NSSet *productIdentifiers = [NSSet setWithArray:retSkuList];
+
+    if ([PerpleSDK isDebug]) {
+        NSLog(@"getItemList : %@", [productIdentifiers allObjects] );
+    }
+
+    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
+    [request setDelegate:self];
+    [request start];
+}
+
+- (void) getIncompletePurchaseList:(PerpleSDKCallback)callback {
+    if (!self.mCanMakePayments) {
+        callback(@"fail", [PerpleSDK getErrorInfo:@PERPLESDK_ERROR_BILLING_SETUP
+                                              msg:@"Billing is not set."]);
+        return;
+    }
+    
+    if ([PerpleSDK isDebug]) {
+        NSLog(@"getIncompletePurchaseList");
+    }
+    
+    NSString* incompletePurchaseListJson = [self getIncomplePurchasesAsJson];
+    if (callback != nil) {
+        callback(@"success", incompletePurchaseListJson);
     }
 }
 
@@ -240,14 +257,23 @@
 
 // SKPaymentTransactionObserver
 - (void) paymentQueue:(SKPaymentQueue *)queue
- updatedTransactions:(NSArray *)transactions
-{
+  updatedTransactions:(NSArray *)transactions {
     for (SKPaymentTransaction *t in transactions) {
         // 트랜잭션을 종료하는 것은
         // SKPaymentTransactionStatePurchased
         // SKPaymentTransactionStateFailed
         // SKPaymentTransactionStateRestored
         // 에서만 하면 된다.
+        
+        // @mskim 20.10.30
+        // 이전에 payload를 저장하기 위해 사용한 ApplicationUserName이 정상동작하지 않는 빈도가 잦아져
+        // 서버에 TransactionId와 payload를 저장하도록 함, 이후 검증하는 시점에서 transactionId를 사용하여 payload에 접근하도록 한다.
+        // TransactionId는 SKPaymentTransactionStatePurchased, SKPaymentTransactionStateRestored 시점에 존재한다.
+        if (self.mPayload != nil && t.transactionIdentifier != nil)
+        {
+            [self saveTransactionIdToServer:t];
+        }
+        
         switch (t.transactionState) {
             case SKPaymentTransactionStatePurchasing:
                 [self showTransactionAsInProgress:t deferred:NO];
@@ -320,41 +346,33 @@
         NSLog(@"PerpleBilling, transaction id:%@, data:%@", transaction.transactionIdentifier, transaction.transactionDate);
     }
 
-    NSString *transactionId = transaction.transactionIdentifier;
-    NSString *sku = transaction.payment.productIdentifier;
-    NSString *payload = self.mPayload;
-    
-    NSData *receiptData;
-    NSBundle *bundle = [NSBundle mainBundle];
-    if ([bundle respondsToSelector:@selector(appStoreReceiptURL)]) {
-        NSURL *receiptURL = [bundle performSelector:@selector(appStoreReceiptURL)];
-        receiptData= [NSData dataWithContentsOfURL:receiptURL];
-    }
-    else {
-        receiptData = transaction.transactionReceipt;
-    }
-
     if (self.mCheckReceiptServerUrl == nil) {
-        NSDictionary *purchse = @{@"orderId":transactionId,
-                                  @"payload":payload,
-                                  @"receipt":receiptData,
-                                  @"transaction":transaction};
-
-        [self.mIncompletePurchases addObject:purchse];
+        NSLog(@"PerpleBilling, Server url is nil");
         return;
     }
+    
+    // transaction info
+    NSString *transactionId = transaction.transactionIdentifier;
+    NSString *sku = transaction.payment.productIdentifier;
 
+    // get receipt data
+    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+    NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
+
+    // validation receipt
     NSDictionary *checkReceiptResult = [PerpleSDK getNSDictionaryFromJSONString:[self checkReceiptWithUrl:self.mCheckReceiptServerUrl
                                                                                                   receipt:receiptData
-                                                                                                  payload:payload]];
+                                                                                                  transactionId:transactionId]];
 
     if ([PerpleSDK isDebug]) {
         NSLog(@"PerpleBilling, checkReceiptResult - %@", checkReceiptResult);
     }
 
-    NSNumber *retcode = checkReceiptResult[@"retcode"];
-    NSString *subcode = checkReceiptResult[@"subcode"];
+    NSDictionary *status = checkReceiptResult[@"status"];
+    NSNumber *retcode = status[@"retcode"];
+    NSString *subcode = status[@"subcode"];
     NSString *msg = checkReceiptResult[@"message"];
+    NSString *payload = checkReceiptResult[@"payload"];
 
     NSDictionary *purchase = [self.mPurchases objectForKey:sku];
     PerpleSDKCallback callback = purchase[@"callback"];
@@ -374,10 +392,6 @@
                                       @"payload":payload};
             callback(@"success", [PerpleSDK getJSONStringFromNSDictionary:purchse]);
         }
-
-        // 초기화 시키는 시점이 고민
-        self.mPayload = nil;
-        
         return;
     }
 
@@ -411,73 +425,27 @@
 
 //----------------------------------------------------------------------------------------------------
 
-- (NSString *) getIncomplePurchases {
-
-    NSMutableArray *array = [NSMutableArray array];
-
-    for (NSDictionary *purchase in self.mIncompletePurchases) {
-
-        NSString *transactionId = purchase[@"orderId"];
-        NSString *payload = purchase[@"payload"];
-        NSData *receiptData = purchase[@"receipt"];
-        SKPaymentTransaction *transaction = purchase[@"transaction"];
-
-        NSDictionary *checkReceiptResult = [PerpleSDK getNSDictionaryFromJSONString:[self checkReceiptWithUrl:self.mCheckReceiptServerUrl
-                                                                                                      receipt:receiptData
-                                                                                                      payload:payload]];
-        NSNumber *retcode = checkReceiptResult[@"retcode"];
-
-        if ([retcode isEqualToNumber:@0]) {
-
-            // 영수증 검증에 성공한 경우,
-            // 성공 처리하여 게임 서버를 통해 아이템을 지급한 후 트랙잭션을 닫는다.
-            // 성공 콜백(PerpleSDK) -> 게임 서버에 아이템 지급 요청(클라이언트) -> 아이템 지급 후 결과 리턴(게임 서버) ->
-            // 결과가 성공일 경우 PerpleSDK 의 billingConfirm 호출(클라이언트) -> 트랙잭션 종료 처리(PerplesdK, finishPurchaseTransaction)
-            [self.mTransactions setObject:transaction forKey:transactionId];
-            [array addObject:@{@"orderId":transactionId,
-                               @"payload":payload}];
-
-        } else if (![retcode isEqualToNumber:@1]) {
-
-            // 영수증 검증에 실패(영수증 서버에서 검증하였으나 무효한 영수증이라고 리턴하는 경우)한 경우,
-            // 트랜잭션을 닫아준다.
-            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-        }
-    }
-
-    [self.mIncompletePurchases removeAllObjects];
-
-    return [PerpleSDK getJSONStringFromNSArray:array];
-}
-
-// 불완전 처리된 구매에 대한 처리 로직이 지나치게 복잡하여 새로 작성,
-// 테스트 후 이상 없다면 기존 처리(getIncomplePurchases, mIncompletePurchases) 제거하고,
-// getIncomplePurchases 를 본 함수로 교체할 것
-/*
-- (NSString *) getIncomplePurchases {
+- (NSString *) getIncomplePurchasesAsJson {
 
     NSMutableArray *array = [NSMutableArray array];
 
     for (SKPaymentTransaction *transaction in [SKPaymentQueue defaultQueue].transactions) {
         if (transaction.transactionState == SKPaymentTransactionStatePurchased) {
 
+            // transaction info
             NSString *transactionId = transaction.transactionIdentifier;
-            NSString *payload = transaction.payment.applicationUsername ? transaction.payment.applicationUsername : @"";
 
-            NSData *receiptData;
-            NSBundle *bundle = [NSBundle mainBundle];
-            if ([bundle respondsToSelector:@selector(appStoreReceiptURL)]) {
-                NSURL *receiptURL = [bundle performSelector:@selector(appStoreReceiptURL)];
-                receiptData= [NSData dataWithContentsOfURL:receiptURL];
-            }
-            else {
-                receiptData = transaction.transactionReceipt;
-            }
+            // get receipt data
+            NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+            NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
 
-            NSDictionary *checkReceiptResult = [PerpleSDK getNSDictionaryFromJSONString:[self checkReceiptWithUrl:self.mCheckReceiptServerUrl
-                                                                                                          receipt:receiptData
-                                                                                                          payload:payload]];
-            NSNumber *retcode = checkReceiptResult[@"retcode"];
+            // validation receipt
+            NSString *validationResultJson = [self checkReceiptWithUrl:self.mCheckReceiptServerUrl receipt:receiptData transactionId:transactionId];
+            NSDictionary *checkReceiptResult = [PerpleSDK getNSDictionaryFromJSONString:validationResultJson];
+            
+            NSNumber *retcode = checkReceiptResult[@"status"][@"retcode"];
+            NSString *payload = checkReceiptResult[@"payload"];
+            
             if ([retcode isEqualToNumber:@0]) {
 
                 // 영수증 검증에 성공한 경우,
@@ -485,8 +453,7 @@
                 // 성공 콜백(PerpleSDK) -> 게임 서버에 아이템 지급 요청(클라이언트) -> 아이템 지급 후 결과 리턴(게임 서버) ->
                 // 결과가 성공일 경우 PerpleSDK 의 billingConfirm 호출(클라이언트) -> 트랙잭션 종료 처리(PerplesdK, finishPurchaseTransaction)
                 [self.mTransactions setObject:transaction forKey:transactionId];
-                [array addObject:@{@"orderId":transactionId,
-                                   @"payload":payload}];
+                [array addObject:@{@"orderId":transactionId, @"payload":payload}];
 
             } else if (![retcode isEqualToNumber:@1]) {
 
@@ -499,9 +466,8 @@
 
     return [PerpleSDK getJSONStringFromNSArray:array];
 }
-*/
 
-- (NSString *) checkReceiptWithUrl:(NSString *)url receipt:(NSData *)receipt payload:(NSString*)payload {
+- (NSString *) checkReceiptWithUrl:(NSString *)url receipt:(NSData *)receipt transactionId:(NSString*)transactionId {
 
     if (receipt == nil) {
         return [PerpleSDK getJSONStringFromNSDictionary:@{@"retcode":@1,
@@ -515,8 +481,9 @@
     NSString *jsonObjectString = [receipt base64EncodedStringWithOptions:0];
     NSDictionary *contentBody = @{@"platform":@"apple",
                                   @"receipt":jsonObjectString,
-                                  @"payload":payload};
+                                  @"transaction_id":transactionId};
 
+    // dump request
     if ([PerpleSDK isDebug]) {
         NSLog(@"PerpleBilling, checkReceipt request - %@", contentBody);
     }
@@ -526,15 +493,20 @@
                                result:&result
                                 error:&error];
 
-
+    // error
     if (error != nil) {
         return [PerpleSDK getJSONStringFromNSDictionary:@{@"retcode":@1,
                                                           @"subcode":[@(error.code) stringValue],
                                                           @"message":error.localizedDescription}];
     }
 
-    NSDictionary *dict = [PerpleSDK getNSDictionaryFromJSONString:result];
-    NSDictionary *status = dict[@"status"];
+    NSDictionary *resultDict = [PerpleSDK getNSDictionaryFromJSONString:result];
+    NSDictionary *status = resultDict[@"status"];
+    
+    // dump request
+    if ([PerpleSDK isDebug]) {
+        NSLog(@"PerpleBilling, checkReceipt response - %@", resultDict);
+    }
 
     if (status == nil) {
         return [PerpleSDK getJSONStringFromNSDictionary:@{@"retcode":@1,
@@ -542,9 +514,48 @@
                                                           @"message":@"No status key in response data."}];
     }
 
-    return [PerpleSDK getJSONStringFromNSDictionary:status];
+    return [PerpleSDK getJSONStringFromNSDictionary:resultDict];
 }
 
+- (void) saveTransactionIdToServer:(SKPaymentTransaction*)transaction {
+    if ([PerpleSDK isDebug]) {
+        NSLog(@"PerpleBilling, saveTransactionIdToServer request - %@, %@", transaction.transactionIdentifier, self.mPayload);
+    }
+    
+    if (self.mSaveTransactionUrl == nil) {
+        return;
+    }
+
+    NSString *result = nil;
+    NSError *error = nil;
+    NSDictionary *contentBody = @{@"platform":@"apple",
+                                  @"transaction_id":transaction.transactionIdentifier,
+                                  @"payload":self.mPayload};
+    
+    // dump request
+    if ([PerpleSDK isDebug]) {
+        NSLog(@"PerpleBilling, saveTransactionIdrequest - %@", contentBody);
+    }
+    
+    // Request
+    [PerpleSDK requestHttpPostWithUrl:self.mSaveTransactionUrl
+                          contentBody:contentBody
+                               result:&result
+                                error:&error];
+    
+    NSDictionary *resultDict = [PerpleSDK getNSDictionaryFromJSONString:result];
+    NSNumber *retcode = resultDict[@"retcode"];
+    
+    // dump response
+    if ([PerpleSDK isDebug]) {
+        NSLog(@"PerpleBilling, saveTransactionId response - %@", resultDict);
+    }
+    
+    // transactionId 저장 완료 .. payload는 더이상 들고 있지 않도록 함
+    if ([retcode isEqualToNumber:@0]) {
+        self.mPayload = nil;
+    }
+}
 //----------------------------------------------------------------------------------------------------
 
 @end
