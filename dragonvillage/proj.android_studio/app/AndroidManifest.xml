@@ -77,40 +77,12 @@
         <meta-data
             android:name="com.google.android.gms.games.APP_ID"
             android:value="@string/app_id" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
         <!-- PerpleIntentService -->
         <service
             android:name="org.cocos2dx.lua.PerpleIntentService" />
 
-
-        <!--@mskim 20.08.18 installreferrer와 firebase_messaging관련 내용. 추후에 sdk_binder로 옮길 수 있는 지 검토 예정-->
-        <!-- @firebase, @tapjoy -->
-        <receiver
-            android:name="org.cocos2dx.lua.MultipleInstallReceiver"
-            android:exported="true" >
-            <intent-filter>
-                <action
-                    android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
-            tools:node="remove" />
-
         <!-- @firebase -->
-        <service
-            android:name="com.perplelab.firebase.PerpleFirebaseMessagingService">
-            <intent-filter>
-                <action
-                    android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name = "com.google.firebase.messaging.FirebaseMessagingService"
-            tools:node="remove" />
         <service
             android:name="com.perplelab.firebase.PerpleFirebaseInstanceIdService">
             <intent-filter>
@@ -118,9 +90,6 @@
                     android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name = "com.google.firebase.iid.FirebaseInstanceIdService"
-            tools:node="remove" />
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more. -->

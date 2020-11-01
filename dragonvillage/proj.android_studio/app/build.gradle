@@ -205,7 +205,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
                     cppFlags.add("-DMINOR_VER=NUM_7")
-                    cppFlags.add("-DBUILD_VER=NUM_5")
+                    cppFlags.add("-DBUILD_VER=NUM_7")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -221,7 +221,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_0")
                     cppFlags.add("-DMINOR_VER=NUM_7")
-                    cppFlags.add("-DBUILD_VER=NUM_6")
+                    cppFlags.add("-DBUILD_VER=NUM_8")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -236,7 +236,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
                     cppFlags.add("-DMINOR_VER=NUM_2")
-                    cppFlags.add("-DBUILD_VER=NUM_6")
+                    cppFlags.add("-DBUILD_VER=NUM_7")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -251,7 +251,7 @@ android {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
                     cppFlags.add("-DMAJOR_VER=NUM_1")
                     cppFlags.add("-DMINOR_VER=NUM_2")
-                    cppFlags.add("-DBUILD_VER=NUM_6")
+                    cppFlags.add("-DBUILD_VER=NUM_7")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
                     cppFlags.add("-DLUA_DEBUG=1")
@@ -363,10 +363,7 @@ allprojects {
         // perplesdk dependencies
         implementation project(':sdk_binder')
 
-        implementation 'com.google.android.gms:play-services-measurement-api:17.6.0'
         implementation 'androidx.fragment:fragment:1.2.5'
-        implementation 'com.android.installreferrer:installreferrer:2.1'
-        implementation 'com.tapjoy:tapjoy-android-sdk:12.4.2'
     }
 }
 // @firebase
