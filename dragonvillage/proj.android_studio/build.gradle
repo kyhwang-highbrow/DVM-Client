@@ -2,15 +2,15 @@
 buildscript {
     ext {
         kotlin_version = '1.4.10'
-        gradle_version = '3.4.2'
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:${gradle_version}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // @mskim 현재 3.4.x 만 사용 가능함
+        classpath "com.android.tools.build:gradle:3.4.3"
         // @firebase
         classpath "com.google.gms:google-services:4.3.4"
         // @crashlytics
