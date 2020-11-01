@@ -9,17 +9,6 @@
     <uses-permission
         android:name="com.android.vending.BILLING" />
 
-    <!-- @tapjoy permission remove -->
-    <uses-permission
-        android:name="android.permission.ACCESS_FINE_LOCATION"
-        tools:node="remove"/>
-    <uses-permission
-        android:name="android.permission.READ_PHONE_STATE"
-        tools:node="remove"/>
-    <uses-permission
-        android:name="android.permission.ACCESS_COARSE_LOCATION"
-        tools:node="remove"/>
-
     <application>
         <!-- @facebook -->
         <meta-data
@@ -44,18 +33,16 @@
         <activity
             android:name="com.tapjoy.TJAdUnitActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-            android:hardwareAccelerated="true" />
-        <activity
-            android:name="com.tapjoy.mraid.view.ActionHandler"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name="com.tapjoy.mraid.view.Browser"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:hardwareAccelerated="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
         <activity
             android:name="com.tapjoy.TJContentActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:hardwareAccelerated="true" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <!-- @adcolony -->
         <activity
@@ -80,5 +67,17 @@
         <meta-data
             android:name="iap:api_version"
             android:value="5" />
+
+        <!--@mskim 20.11.01 main app에서 sdk_binder로 이동-->
+        <!-- @firebase, @tapjoy -->
+        <receiver
+            android:name="com.perplelab.MultipleInstallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action
+                    android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+
     </application>
 </manifest>

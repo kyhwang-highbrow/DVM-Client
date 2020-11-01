@@ -82,7 +82,7 @@ public class PerpleBilling {
         mHelper.enableDebugLogging(isDebug);
     }
 
-    public void startSetup(String url, PerpleSDKCallback callback) {
+    public void startSetup(String url, String unusedUrl, PerpleSDKCallback callback) {
         // 영수증 검증 플랫폼 서버 API 주소
         // ex) http://platform.perplelab.com/@gameId/payment/receiptValidation
         mUri = url;
@@ -293,7 +293,7 @@ public class PerpleBilling {
 
     /** Verifies the developer payload of a purchase.
      * @throws IOException, JSONException */
-    private String verifyDeveloperPayload(Purchase p) throws IOException, JSONException {
+    private JSONObject verifyDeveloperPayload(Purchase p) throws IOException, JSONException {
         /*
          * TODO: verify that the developer payload of the purchase is correct. It will be
          * the same one that you sent when initiating the purchase.
@@ -324,15 +324,20 @@ public class PerpleBilling {
 
         String responseString = PerpleSDK.httpRequest(mUri, data.toString());
 
+        if (PerpleSDK.IsDebug)
+        {
+            PerpleLog.d(LOG_TAG, "request : " + data.toString());
+            PerpleLog.d(LOG_TAG, "response : " + responseString);
+        }
+
         // Parse the JSON string and return it.
-        JSONObject response = new JSONObject(responseString);
-        return response.get("status").toString();
+        return new JSONObject(responseString);
     }
 
     private class CheckReceiptTask extends AsyncTask<Purchase, Void, Integer> {
         private Purchase mPurchase;
         private String mMsg;
-        private PerpleSDKCallback mCallback;
+        private final PerpleSDKCallback mCallback;
 
         public CheckReceiptTask(PerpleSDKCallback callback) {
             mCallback = callback;
@@ -340,11 +345,15 @@ public class PerpleBilling {
 
         @Override
         protected Integer doInBackground(Purchase... params) {
-            int ret = -1;
+            int ret;
             try {
                 mPurchase = params[0];
-                ret = 0;
-                mMsg = verifyDeveloperPayload(mPurchase);
+                JSONObject response = verifyDeveloperPayload(mPurchase);
+                // ret
+                // 0 : success
+                // -100 : invalid receipt
+                ret = new JSONObject(response.getString("status")).getInt("retcode");
+                mMsg = response.getString("status");
             } catch (IOException e) {
                 e.printStackTrace();
                 ret = Integer.parseInt(PerpleSDK.ERROR_IOEXCEPTION);
@@ -363,12 +372,11 @@ public class PerpleBilling {
                     ", message:" + mMsg +
                     ", purchase:" + mPurchase);
 
-
             if (mCallback != null) {
-                if (ret != 0) {
-                    mCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_CHECKRECEIPT, String.valueOf(ret), mMsg));
-                } else {
+                if (ret == 0) {
                     mCallback.onSuccess(mMsg);
+                } else {
+                    mCallback.onFail(PerpleSDK.getErrorInfo(PerpleSDK.ERROR_BILLING_CHECKRECEIPT, String.valueOf(ret), mMsg));
                 }
             } else {
                 PerpleLog.e(LOG_TAG, "CheckReceiptTask error, callback isn't set.");

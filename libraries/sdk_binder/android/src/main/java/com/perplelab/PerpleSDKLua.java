@@ -1368,7 +1368,7 @@ public class PerpleSDKLua {
     }
 
     // @billing
-    public static void billingSetup(final int funcID, String checkReceiptServerUrl) {
+    public static void billingSetup(final int funcID, String checkReceiptServerUrl, String saveTransactionIdUrl) {
         final int pID = PerpleSDK.ProcessId;
         if (PerpleSDK.getBilling() == null) {
             PerpleSDK.callSDKResult(pID, funcID, "error",
@@ -1376,7 +1376,7 @@ public class PerpleSDKLua {
             return;
         }
 
-        PerpleSDK.getBilling().startSetup(checkReceiptServerUrl, new PerpleSDKCallback() {
+        PerpleSDK.getBilling().startSetup(checkReceiptServerUrl, saveTransactionIdUrl, new PerpleSDKCallback() {
             @Override
             public void onSuccess(String info) {
                 PerpleSDK.callSDKResult(pID, funcID, "purchase", info);
