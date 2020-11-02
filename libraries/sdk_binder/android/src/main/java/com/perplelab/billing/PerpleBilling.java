@@ -553,9 +553,11 @@ public class PerpleBilling {
 
         // 상품 리스트 json 전달
         List<Purchase> validList = getPurchasesList(mIncompletePurchases, true);
+        JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < validList.size(); i++) {
-            mIncompletePurchaseCallback.onSuccess(getPurchaseResult(validList.get(i)).toString());
+            jsonArray.put(getPurchaseResult(validList.get(i)));
         }
+        mIncompletePurchaseCallback.onSuccess(jsonArray.toString());
 
         // 검증 실패한 purchase consume
         List<Purchase> invalidList = getPurchasesList(mIncompletePurchases, false);
