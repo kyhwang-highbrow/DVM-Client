@@ -538,12 +538,11 @@ public class PerpleBilling {
     private void processCheckReceiptResultIncompletePurchases(Purchase p, String info, boolean isCheckReceiptSuccess) {
         // 영수증 검증된 미지급 결제 상품 처리
         if (isCheckReceiptSuccess) {
-            if (getRetcode(info) == 0) {
-                mPurchases.put(p.getOrderId(), p);
-                mIncompletePurchases.put(p, true);
-            } else {
-                mIncompletePurchases.put(p, false);
-            }
+            // getRetcode(info) == 0
+            mPurchases.put(p.getOrderId(), p);
+            mIncompletePurchases.put(p, true);
+        } else {
+            mIncompletePurchases.put(p, false);
         }
 
         // 미완료 purchase가 전부 검증되었는지 체크
@@ -557,7 +556,6 @@ public class PerpleBilling {
         for (int i = 0; i < validList.size(); i++) {
             mIncompletePurchaseCallback.onSuccess(getPurchaseResult(validList.get(i)).toString());
         }
-        mIncompletePurchaseCallback.onSuccess("");
 
         // 검증 실패한 purchase consume
         List<Purchase> invalidList = getPurchasesList(mIncompletePurchases, false);
