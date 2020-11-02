@@ -544,7 +544,7 @@
                                 error:&error];
     
     NSDictionary *resultDict = [PerpleSDK getNSDictionaryFromJSONString:result];
-    NSNumber *retcode = resultDict[@"retcode"];
+    NSNumber *retcode = resultDict[@"status"] != nil ? resultDict[@"status"][@"retcode"] : @-100;
     
     // dump response
     if ([PerpleSDK isDebug]) {
@@ -554,6 +554,17 @@
     // transactionId 저장 완료 .. payload는 더이상 들고 있지 않도록 함
     if ([retcode isEqualToNumber:@0]) {
         self.mPayload = nil;
+    }
+    // transactionId duplicate
+    else if ([retcode isEqualToNumber:@-100]) {
+        self.mPayload = nil;
+        // saveTransactionId는 프로세스 흐름을 제어하지 않는다.
+        // 추가적인 처리는 하지 않으며 receiptValidation 호출 시 에러처리 되도록 한다.
+    }
+    // time-out etc.. retry
+    // TODO : retry count
+    else {
+        [self saveTransactionIdToServer:transaction];
     }
 }
 //----------------------------------------------------------------------------------------------------
