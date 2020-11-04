@@ -79,7 +79,7 @@
 					text = '청약 철회는 구매일로부터 7일 이내에 가능합니다. (단 사용했을 경우 청약철회 불가)\n법정 대리인의 동의를 받지않은 미성년자의 거래는 취소할 수 있습니다. 자세히보기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 109; 97; 22; };
+					color = { 198; 154; 99; };
 					opacity = 255;
 					dimension_width = 700;
 					dimension_height = 50;
@@ -138,10 +138,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 45;
-				text = '여름맞이 패키지';
+				text = '가을맞이 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 239; 255; 151; };
+				color = { 255; 253; 111; };
 				opacity = 255;
 				dimension_width = 728;
 				dimension_height = 76;
@@ -151,9 +151,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 96; 77; };
+				stroke_color = { 100; 60; 19; };
 				has_shadow = true;
-				shadow_color = { 0; 96; 77; };
+				shadow_color = { 100; 60; 19; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
@@ -906,9 +906,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 139; };
+				stroke_color = { 66; 61; 0; };
 				has_shadow = false;
-				shadow_color = { 0; 0; 139; };
+				shadow_color = { 66; 61; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
@@ -946,9 +946,9 @@
 				stroke_detail_level = 0;
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
-				stroke_color = { 75; 0; 130; };
+				stroke_color = { 0; 85; 0; };
 				has_shadow = false;
-				shadow_color = { 75; 0; 130; };
+				shadow_color = { 0; 85; 0; };
 				shadow_opacity = 255;
 				shadow_direction = 0;
 				shadow_distance = 5.000000;

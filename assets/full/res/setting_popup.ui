@@ -376,13 +376,13 @@
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
-						text = 'empty';
+						text = '영상 제작';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 299;
-						dimension_height = 42;
+						dimension_width = 59;
+						dimension_height = 25;
 						letter_spacing = 0.000000;
 						has_stroke = false;
 						stroke_type = 0;
@@ -396,10 +396,36 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.500000;
+						scale_y = 0.500000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/quiz_play.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Button';
 					ui_name = '';
 					x = -405.000000;
-					y = -35.000000;
+					y = -245.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -411,7 +437,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'emptyBtn';
+					lua_name = 'videoMakerBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
 					selected = 'ui/buttons/base_btn_0102.png';
@@ -527,7 +553,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = -405.000000;
-					y = -175.000000;
+					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2066,7 +2092,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'colosseumOldBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -2170,7 +2196,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'colosseumTestBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
@@ -2223,7 +2249,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = -135.000000;
-					y = -245.000000;
+					y = -105.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2286,8 +2312,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -405.000000;
-					y = -245.000000;
+					x = -135.000000;
+					y = -175.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -2862,7 +2888,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'infoMenu';
 			};
 			[5] =
@@ -2896,7 +2922,7 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -40.000000;
+					y = -10.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3106,7 +3132,7 @@
 					type = 'Menu';
 					ui_name = '';
 					x = 0.000000;
-					y = 180.000000;
+					y = 220.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3250,7 +3276,7 @@
 					type = 'Menu';
 					ui_name = '';
 					x = 0.000000;
-					y = 120.000000;
+					y = 160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3439,7 +3465,7 @@
 					type = 'Menu';
 					ui_name = 'server';
 					x = 0.000000;
-					y = 60.000000;
+					y = 100.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3498,7 +3524,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = -480.000000;
-					y = 180.000000;
+					y = 220.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3562,7 +3588,7 @@
 					type = 'Button';
 					ui_name = '';
 					x = -480.000000;
-					y = 120.000000;
+					y = 160.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3611,8 +3637,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 420.000000;
-					y = -180.000000;
+					x = 270.000000;
+					y = -150.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3661,8 +3687,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 140.000000;
-					y = -180.000000;
+					x = -270.000000;
+					y = -220.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3711,8 +3737,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -420.000000;
-					y = -180.000000;
+					x = 0.000000;
+					y = -150.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3761,8 +3787,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -140.000000;
-					y = -180.000000;
+					x = -270.000000;
+					y = -150.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -3783,10 +3809,60 @@
 				};
 				[12] =
 				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 374;
+						height = 86;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = 'appleDisableSprite';
+						file_name = 'ui/buttons/login_google.png';
+						color = { 0; 0; 0; };
+						opacity = 150;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = 0.000000;
+					y = -220.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 374;
+					height = 86;
+					scale_x = 0.700000;
+					scale_y = 0.700000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'appleBtn';
+					enable = true;
+					normal = 'ui/buttons/login_apple.png';
+					selected = '';
+					disable = '';
+					image_type = 0;
+				};
+				[13] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -384.000000;
+					y = -350.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;

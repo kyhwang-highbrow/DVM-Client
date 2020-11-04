@@ -35,8 +35,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 132.000000;
-				y = 232.000000;
+				x = 139.000000;
+				y = 255.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -54,12 +54,12 @@
 				text = '할로윈 기념 코스튬 판매';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 162; 0; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 665;
 				dimension_height = 128;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -75,7 +75,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 121.000000;
+				x = 130.000000;
 				y = 11.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -94,12 +94,12 @@
 				text = 'timeLabel';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 0; 255; 0; };
 				opacity = 255;
 				dimension_width = 600;
 				dimension_height = 35;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;

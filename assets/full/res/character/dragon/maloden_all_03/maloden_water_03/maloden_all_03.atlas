@@ -1,0 +1,279 @@
+
+maloden_all_03.png
+size: 1696,798
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_maloden_all_03_attack_01
+  rotate: false
+  xy: 1056, 156
+  size: 227, 227
+  orig: 227, 227
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_circle_01
+  rotate: false
+  xy: 1498, 600
+  size: 196, 196
+  orig: 196, 196
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_circle_02
+  rotate: false
+  xy: 942, 385
+  size: 158, 159
+  orig: 158, 159
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_effect_01
+  rotate: false
+  xy: 1282, 576
+  size: 214, 220
+  orig: 214, 220
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_effect_02
+  rotate: true
+  xy: 1285, 268
+  size: 123, 209
+  orig: 123, 209
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_effect_03
+  rotate: true
+  xy: 1102, 393
+  size: 175, 204
+  orig: 175, 204
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_effect_04
+  rotate: true
+  xy: 1148, 4
+  size: 150, 141
+  orig: 150, 141
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_effect_05
+  rotate: true
+  xy: 2, 6
+  size: 61, 56
+  orig: 61, 56
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_feather_01
+  rotate: false
+  xy: 422, 105
+  size: 150, 259
+  orig: 150, 259
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_feather_01-1
+  rotate: true
+  xy: 446, 4
+  size: 99, 175
+  orig: 99, 175
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_feather_01-2
+  rotate: false
+  xy: 928, 546
+  size: 169, 250
+  orig: 169, 250
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_feather_01-3
+  rotate: false
+  xy: 972, 152
+  size: 82, 231
+  orig: 82, 231
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_feather_02
+  rotate: false
+  xy: 1496, 268
+  size: 194, 175
+  orig: 194, 175
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_feather_03
+  rotate: true
+  xy: 761, 540
+  size: 256, 165
+  orig: 256, 165
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_feather_04
+  rotate: false
+  xy: 189, 99
+  size: 231, 264
+  orig: 231, 264
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_sprite_01
+  rotate: false
+  xy: 761, 384
+  size: 179, 154
+  orig: 179, 154
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_sprite_02
+  rotate: false
+  xy: 1308, 404
+  size: 186, 170
+  orig: 186, 170
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_sprite_03
+  rotate: true
+  xy: 1099, 570
+  size: 226, 181
+  orig: 226, 181
+  offset: 0, 0
+  index: -1
+effect_maloden_all_03_wing_02-2
+  rotate: true
+  xy: 2, 365
+  size: 431, 259
+  orig: 431, 259
+  offset: 0, 0
+  index: -1
+maloden_all_03_arm_01
+  rotate: false
+  xy: 308, 7
+  size: 136, 90
+  orig: 136, 90
+  offset: 0, 0
+  index: -1
+maloden_all_03_arm_02
+  rotate: true
+  xy: 1498, 445
+  size: 153, 195
+  orig: 153, 195
+  offset: 0, 0
+  index: -1
+maloden_all_03_arm_03
+  rotate: false
+  xy: 829, 141
+  size: 141, 241
+  orig: 141, 241
+  offset: 0, 0
+  index: -1
+maloden_all_03_body_01
+  rotate: false
+  xy: 1499, 160
+  size: 88, 106
+  orig: 88, 106
+  offset: 0, 0
+  index: -1
+maloden_all_03_body_02
+  rotate: false
+  xy: 1291, 16
+  size: 125, 140
+  orig: 125, 140
+  offset: 0, 0
+  index: -1
+maloden_all_03_body_03
+  rotate: true
+  xy: 263, 366
+  size: 430, 247
+  orig: 430, 247
+  offset: 0, 0
+  index: -1
+maloden_all_03_finger_01
+  rotate: true
+  xy: 150, 16
+  size: 51, 83
+  orig: 51, 83
+  offset: 0, 0
+  index: -1
+maloden_all_03_finger_02
+  rotate: true
+  xy: 60, 13
+  size: 54, 88
+  orig: 54, 88
+  offset: 0, 0
+  index: -1
+maloden_all_03_finger_03
+  rotate: false
+  xy: 1285, 158
+  size: 113, 108
+  orig: 113, 108
+  offset: 0, 0
+  index: -1
+maloden_all_03_head_01
+  rotate: true
+  xy: 1418, 28
+  size: 128, 169
+  orig: 128, 169
+  offset: 0, 0
+  index: -1
+maloden_all_03_head_01-1
+  rotate: false
+  xy: 1400, 158
+  size: 97, 108
+  orig: 97, 108
+  offset: 0, 0
+  index: -1
+maloden_all_03_head_01-2
+  rotate: false
+  xy: 574, 332
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: -1
+maloden_all_03_head_02
+  rotate: true
+  xy: 1589, 23
+  size: 76, 68
+  orig: 76, 68
+  offset: 0, 0
+  index: -1
+maloden_all_03_head_03
+  rotate: false
+  xy: 1040, 2
+  size: 106, 148
+  orig: 106, 148
+  offset: 0, 0
+  index: -1
+maloden_all_03_leg_01
+  rotate: true
+  xy: 829, 4
+  size: 135, 209
+  orig: 135, 209
+  offset: 0, 0
+  index: -1
+maloden_all_03_leg_02
+  rotate: false
+  xy: 1589, 101
+  size: 103, 165
+  orig: 103, 165
+  offset: 0, 0
+  index: -1
+maloden_all_03_wing_01
+  rotate: false
+  xy: 235, 6
+  size: 71, 91
+  orig: 71, 91
+  offset: 0, 0
+  index: -1
+maloden_all_03_wing_02
+  rotate: true
+  xy: 512, 381
+  size: 415, 247
+  orig: 415, 247
+  offset: 0, 0
+  index: -1
+maloden_all_03_wing_02-1
+  rotate: true
+  xy: 2, 69
+  size: 294, 185
+  orig: 294, 185
+  offset: 0, 0
+  index: -1
+maloden_all_03_wing_03
+  rotate: true
+  xy: 623, 5
+  size: 374, 204
+  orig: 374, 204
+  offset: 0, 0
+  index: -1

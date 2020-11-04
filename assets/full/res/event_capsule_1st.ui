@@ -343,7 +343,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 159.000000;
+				y = 207.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -463,7 +463,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -71.000000;
+				y = -18.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
@@ -477,7 +477,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 45;
+				font_size = 50;
 				text = '캡슐 뽑기 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -503,7 +503,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 127.000000;
+				y = 175.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -518,7 +518,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '기간 : 8/29 00:00 ~ 8/30 23:59';
+				text = '9/30 00:00 ~ 10/1 23:59';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 255; 0; };
@@ -547,16 +547,16 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 553;
-				height = 83;
+				width = 430;
+				height = 74;
 				scale_x = 0.900000;
 				scale_y = 0.900000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
-				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
+				file_name = 'ui/typo/ko/ribbon_chuseok_title_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

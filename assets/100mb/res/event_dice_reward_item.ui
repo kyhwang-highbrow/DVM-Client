@@ -134,10 +134,10 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'lastRewardSprite';
 				file_name = 'ui/frames/dia_0103.png';
-				color = { 152; 251; 152; };
+				color = { 0; 0; 0; };
 				opacity = 255;
 				flip_x = false;
 				flip_y = false;

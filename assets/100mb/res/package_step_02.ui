@@ -422,7 +422,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
-					y = 177.000000;
+					y = 155.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -433,7 +433,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
+					visible = true;
 					lua_name = '';
 					file_name = 'ui/a2d/package_step/package_step.vrp';
 					auto_play = true;
@@ -723,7 +723,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
-					y = 177.000000;
+					y = 156.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -748,7 +748,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 154.000000;
-					y = 177.000000;
+					y = 156.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1049,7 +1049,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
-					y = 177.000000;
+					y = 155.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1074,7 +1074,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 154.000000;
-					y = 177.000000;
+					y = 155.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1099,7 +1099,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 314.000000;
-					y = 177.000000;
+					y = 155.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1319,8 +1319,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 141.000000;
-					y = -51.000000;
+					x = 140.000000;
+					y = -50.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1360,7 +1360,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
-					y = 177.000000;
+					y = 156.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1385,7 +1385,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 154.000000;
-					y = 177.000000;
+					y = 156.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1410,7 +1410,7 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 314.000000;
-					y = 177.000000;
+					y = 156.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1761,7 +1761,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -88.000000;
-				y = -140.000000;
+				y = -161.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1810,7 +1810,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 72.000000;
-				y = -140.000000;
+				y = -161.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1859,7 +1859,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 231.000000;
-				y = -140.000000;
+				y = -161.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1908,7 +1908,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 390.000000;
-				y = -140.000000;
+				y = -161.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1962,7 +1962,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 155.000000;
-				y = 120.000000;
+				y = 95.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -2029,51 +2029,6 @@
 			};
 			[16] =
 			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 110;
-					height = 110;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/typo/ko/package_limit_finish.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				type = 'Node';
-				ui_name = '';
-				x = -400.000000;
-				y = 254.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 100;
-				height = 100;
-				scale_x = 1.200000;
-				scale_y = 1.200000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'limitNode';
-			};
-			[17] =
-			{
 				type = 'Visual';
 				ui_name = '';
 				x = 0.000000;
@@ -2097,47 +2052,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[18] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = -99.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 830;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'timeLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
-				text = 'timeLabel';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 255; 0; };
-				opacity = 255;
-				dimension_width = 830;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 150;
-				shadow_direction = 0;
-				shadow_distance = 2.000000;
-			};
-			[19] =
+			[17] =
 			{
 				[1] =
 				{
@@ -2182,7 +2097,7 @@
 				visible = false;
 				lua_name = 'completeNoti1';
 			};
-			[20] =
+			[18] =
 			{
 				[1] =
 				{
@@ -2227,7 +2142,7 @@
 				visible = false;
 				lua_name = 'completeNoti2';
 			};
-			[21] =
+			[19] =
 			{
 				[1] =
 				{
@@ -2272,7 +2187,7 @@
 				visible = false;
 				lua_name = 'completeNoti3';
 			};
-			[22] =
+			[20] =
 			{
 				[1] =
 				{
@@ -2316,6 +2231,154 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'completeNoti4';
+			};
+			[21] =
+			{
+				[1] =
+				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 110;
+						height = 110;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/typo/ko/package_limit_finish.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Node';
+					ui_name = '';
+					x = -97.000000;
+					y = 38.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'limitNode';
+				};
+				[2] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = -32.000000;
+					y = 15.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 0.320000;
+					scale_y = 0.320000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/a2d/package_clock/package_clock.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;idle_clock_02';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				[3] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 64.000000;
+					y = 18.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 200;
+					height = 80;
+					scale_x = 0.700000;
+					scale_y = 0.700000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'timeNode';
+				};
+				type = 'Menu';
+				ui_name = '';
+				x = -301.000000;
+				y = 214.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 306;
+				height = 127;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'limitMenu';
+			};
+			[22] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 150.000000;
+				y = -105.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 830;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'timeLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 22;
+				text = 'timeLabel';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 0; 210; 0; };
+				opacity = 255;
+				dimension_width = 830;
+				dimension_height = 50;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 150;
+				shadow_direction = 0;
+				shadow_distance = 2.000000;
 			};
 			type = 'Menu';
 			ui_name = '';

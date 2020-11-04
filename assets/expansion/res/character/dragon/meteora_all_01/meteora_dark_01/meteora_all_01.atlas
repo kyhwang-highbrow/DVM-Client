@@ -1,0 +1,251 @@
+
+meteora_all_01.png
+size: 1244,535
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_meteora_all_01_01
+  rotate: false
+  xy: 922, 42
+  size: 100, 98
+  orig: 100, 98
+  offset: 0, 0
+  index: -1
+meteora_all_01_acc_01
+  rotate: false
+  xy: 989, 361
+  size: 253, 172
+  orig: 253, 172
+  offset: 0, 0
+  index: -1
+meteora_all_01_arm_01
+  rotate: false
+  xy: 1186, 59
+  size: 47, 90
+  orig: 47, 90
+  offset: 0, 0
+  index: -1
+meteora_all_01_arm_02
+  rotate: false
+  xy: 550, 2
+  size: 85, 38
+  orig: 85, 38
+  offset: 0, 0
+  index: -1
+meteora_all_01_body_01
+  rotate: true
+  xy: 2, 27
+  size: 128, 203
+  orig: 128, 203
+  offset: 0, 0
+  index: -1
+meteora_all_01_effect_08_light
+  rotate: false
+  xy: 728, 13
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+meteora_all_01_eye_01
+  rotate: true
+  xy: 1149, 38
+  size: 45, 31
+  orig: 45, 31
+  offset: 0, 0
+  index: -1
+meteora_all_01_eye_02
+  rotate: true
+  xy: 637, 7
+  size: 42, 36
+  orig: 42, 36
+  offset: 0, 0
+  index: -1
+meteora_all_01_feather_01
+  rotate: true
+  xy: 918, 2
+  size: 38, 56
+  orig: 38, 56
+  offset: 0, 0
+  index: -1
+meteora_all_01_feather_02
+  rotate: true
+  xy: 681, 77
+  size: 34, 45
+  orig: 34, 45
+  offset: 0, 0
+  index: -1
+meteora_all_01_feather_03
+  rotate: false
+  xy: 576, 42
+  size: 39, 39
+  orig: 39, 39
+  offset: 0, 0
+  index: -1
+meteora_all_01_feather_04
+  rotate: true
+  xy: 976, 4
+  size: 36, 43
+  orig: 36, 43
+  offset: 0, 0
+  index: -1
+meteora_all_01_feather_05
+  rotate: false
+  xy: 1182, 27
+  size: 43, 30
+  orig: 43, 30
+  offset: 0, 0
+  index: -1
+meteora_all_01_feather_06
+  rotate: true
+  xy: 617, 51
+  size: 30, 52
+  orig: 30, 52
+  offset: 0, 0
+  index: -1
+meteora_all_01_head_01
+  rotate: false
+  xy: 1111, 151
+  size: 112, 96
+  orig: 112, 96
+  offset: 0, 0
+  index: -1
+meteora_all_01_horn_01
+  rotate: true
+  xy: 1025, 80
+  size: 72, 83
+  orig: 72, 83
+  offset: 0, 0
+  index: -1
+meteora_all_01_marble_01
+  rotate: false
+  xy: 1085, 15
+  size: 62, 63
+  orig: 62, 63
+  offset: 0, 0
+  index: -1
+meteora_all_01_marble_02
+  rotate: false
+  xy: 466, 73
+  size: 108, 108
+  orig: 108, 108
+  offset: 0, 0
+  index: -1
+meteora_all_01_neck_01
+  rotate: false
+  xy: 379, 114
+  size: 78, 67
+  orig: 78, 67
+  offset: 0, 0
+  index: -1
+meteora_all_01_neck_02
+  rotate: true
+  xy: 369, 2
+  size: 110, 95
+  orig: 110, 95
+  offset: 0, 0
+  index: -1
+meteora_all_01_reg_01
+  rotate: true
+  xy: 466, 13
+  size: 58, 82
+  orig: 58, 82
+  offset: 0, 0
+  index: -1
+meteora_all_01_reg_02
+  rotate: false
+  xy: 1110, 85
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+meteora_all_01_reg_03
+  rotate: true
+  xy: 1024, 2
+  size: 76, 59
+  orig: 76, 59
+  offset: 0, 0
+  index: -1
+meteora_all_01_skill_01
+  rotate: false
+  xy: 829, 25
+  size: 87, 87
+  orig: 87, 87
+  offset: 0, 0
+  index: -1
+meteora_all_01_skill_02
+  rotate: false
+  xy: 922, 142
+  size: 101, 116
+  orig: 101, 116
+  offset: 0, 0
+  index: -1
+meteora_all_01_skill_03
+  rotate: true
+  xy: 728, 114
+  size: 160, 192
+  orig: 160, 192
+  offset: 0, 0
+  index: -1
+meteora_all_01_skill_04
+  rotate: false
+  xy: 728, 276
+  size: 259, 257
+  orig: 259, 257
+  offset: 0, 0
+  index: -1
+meteora_all_01_skill_05
+  rotate: false
+  xy: 576, 83
+  size: 103, 98
+  orig: 103, 98
+  offset: 0, 0
+  index: -1
+meteora_all_01_skill_06
+  rotate: false
+  xy: 379, 183
+  size: 347, 350
+  orig: 347, 350
+  offset: 0, 0
+  index: -1
+meteora_all_01_skill_07
+  rotate: false
+  xy: 2, 157
+  size: 375, 376
+  orig: 375, 376
+  offset: 0, 0
+  index: -1
+meteora_all_01_skill_lightdust
+  rotate: false
+  xy: 989, 260
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+meteora_all_01_tail
+  rotate: true
+  xy: 681, 113
+  size: 68, 45
+  orig: 68, 45
+  offset: 0, 0
+  index: -1
+meteora_all_01_wing_01
+  rotate: true
+  xy: 207, 39
+  size: 116, 160
+  orig: 116, 160
+  offset: 0, 0
+  index: -1
+meteora_all_01_wing_02
+  rotate: true
+  xy: 1025, 154
+  size: 104, 84
+  orig: 104, 84
+  offset: 0, 0
+  index: -1
+meteora_all_01_wing_03
+  rotate: false
+  xy: 1118, 249
+  size: 118, 110
+  orig: 118, 110
+  offset: 0, 0
+  index: -1

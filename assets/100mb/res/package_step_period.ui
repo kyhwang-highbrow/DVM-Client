@@ -172,14 +172,14 @@
 					type = 'Visual';
 					ui_name = '';
 					x = 0.000000;
-					y = -58.000000;
+					y = -71.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 0;
 					height = 0;
-					scale_x = 0.330000;
-					scale_y = 0.330000;
+					scale_x = 0.250000;
+					scale_y = 0.250000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
@@ -188,11 +188,36 @@
 					file_name = 'ui/a2d/package_effect/package_effect.vrp';
 					auto_play = true;
 					is_repeat = true;
-					visual_id = 'group;pack_idle_04';
+					visual_id = 'group;pack_idle_05';
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};
 				[6] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = -70.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 0.350000;
+					scale_y = 0.350000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'item/egg/egg_high_legend_ud/egg_high_legend_ud.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;egg';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				[7] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -218,7 +243,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[7] =
+				[8] =
 				{
 					type = 'Visual';
 					ui_name = '';
@@ -243,7 +268,7 @@
 					color = { 255; 255; 255; };
 					opacity = 255;
 				};
-				[8] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -266,7 +291,7 @@
 					text = '단계별 패키지 1단계';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 111; 147; 223; };
+					color = { 210; 153; 44; };
 					opacity = 255;
 					dimension_width = 658;
 					dimension_height = 75;
@@ -283,7 +308,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[9] =
+				[10] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -323,7 +348,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[10] =
+				[11] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -363,12 +388,12 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[11] =
+				[12] =
 				{
 					type = 'Visual';
 					ui_name = '';
 					x = -88.000000;
-					y = 118.000000;
+					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -385,10 +410,10 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;arrow_4';
-					color = { 145; 145; 255; };
+					color = { 255; 173; 91; };
 					opacity = 255;
 				};
-				[12] =
+				[13] =
 				{
 					type = 'Visual';
 					ui_name = '';
@@ -413,7 +438,7 @@
 					color = { 255; 210; 218; };
 					opacity = 255;
 				};
-				[13] =
+				[14] =
 				{
 					type = 'Visual';
 					ui_name = '';
@@ -435,45 +460,20 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;arrow_4';
-					color = { 255; 225; 231; };
-					opacity = 255;
-				};
-				[14] =
-				{
-					type = 'Visual';
-					ui_name = '';
-					x = 0.000000;
-					y = -126.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 0;
-					height = 0;
-					scale_x = 0.380000;
-					scale_y = 0.380000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'item/egg/egg_super_absolute/egg_super_absolute.vrp';
-					auto_play = true;
-					is_repeat = true;
-					visual_id = 'group;egg_move';
-					color = { 255; 255; 255; };
+					color = { 219; 238; 255; };
 					opacity = 255;
 				};
 				[15] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
-					y = -495.000000;
+					x = -215.000000;
+					y = -470.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 600;
-					height = 44;
+					width = 180;
+					height = 140;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -483,13 +483,13 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '다이아 10,000개';
+					text = '전설 스킬 슬라임\n8개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 600;
-					dimension_height = 44;
+					dimension_width = 180;
+					dimension_height = 140;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -508,12 +508,12 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -465.000000;
+					y = -470.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 600;
-					height = 44;
+					width = 180;
+					height = 140;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -523,13 +523,13 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '절대적인 전설의 알 1개';
+					text = '미중복 전설의 알\n1개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 600;
-					dimension_height = 44;
+					dimension_width = 180;
+					dimension_height = 140;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -547,13 +547,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 222.000000;
-					y = -409.000000;
+					x = 215.000000;
+					y = -470.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 170;
-					height = 75;
+					width = 180;
+					height = 140;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -563,13 +563,13 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '토파즈\n30개';
+					text = '토파즈\n15개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 170;
-					dimension_height = 75;
+					dimension_width = 180;
+					dimension_height = 140;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -636,71 +636,6 @@
 				};
 				[2] =
 				{
-					type = 'Visual';
-					ui_name = '';
-					x = 137.000000;
-					y = -128.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 0;
-					height = 0;
-					scale_x = 0.380000;
-					scale_y = 0.380000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = '';
-					file_name = 'item/egg/egg_super_absolute/egg_super_absolute.vrp';
-					auto_play = true;
-					is_repeat = true;
-					visual_id = 'group;egg_move';
-					color = { 255; 255; 255; };
-					opacity = 255;
-				};
-				[3] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = -200.000000;
-					y = -488.000000;
-					dock_point = { 0.500000; 1.000000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 170;
-					height = 75;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '다이아\n10,000개';
-					h_alignment = 1;
-					v_alignment = 0;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 170;
-					dimension_height = 75;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				[4] =
-				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
@@ -722,7 +657,7 @@
 					text = '단계별 패키지 2단계';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 234; 91; 159; };
+					color = { 102; 127; 208; };
 					opacity = 255;
 					dimension_width = 658;
 					dimension_height = 75;
@@ -739,7 +674,7 @@
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
 				};
-				[5] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -779,12 +714,12 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[6] =
+				[4] =
 				{
 					type = 'Visual';
 					ui_name = '';
-					x = 97.000000;
-					y = 119.000000;
+					x = 96.000000;
+					y = 120.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -801,45 +736,194 @@
 					auto_play = true;
 					is_repeat = true;
 					visual_id = 'group;arrow_4';
-					color = { 255; 145; 164; };
+					color = { 115; 196; 255; };
 					opacity = 255;
+				};
+				[5] =
+				{
+					type = 'Visual';
+					ui_name = '';
+					x = 0.000000;
+					y = -131.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 0;
+					height = 0;
+					scale_x = 0.350000;
+					scale_y = 0.350000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = '';
+					file_name = 'item/egg/egg_high_legend_ud/egg_high_legend_ud.vrp';
+					auto_play = true;
+					is_repeat = true;
+					visual_id = 'group;egg_move';
+					color = { 255; 255; 255; };
+					opacity = 255;
+				};
+				[6] =
+				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 28.461548;
+						y = 58.230804;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.650000;
+						scale_y = 0.650000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/mastery_material_04.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -31.538513;
+						y = 58.230804;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.650000;
+						scale_y = 0.650000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/mastery_material_04.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 63.750000;
+						y = 6.499985;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.800000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/mastery_material_04.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[4] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -66.250061;
+						y = 6.499985;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.800000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/mastery_material_04.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[5] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -1.000000;
+						y = -16.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.880000;
+						scale_y = 0.880000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/mastery_material_04.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Menu';
+					ui_name = '';
+					x = 1.000000;
+					y = -76.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 100;
+					scale_x = 0.900000;
+					scale_y = 0.900000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
 				};
 				[7] =
 				{
-					type = 'Visual';
-					ui_name = '';
-					x = -84.000000;
-					y = 119.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 0;
-					height = 0;
-					scale_x = 0.900000;
-					scale_y = 0.900000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/a2d/package_step/package_step.vrp';
-					auto_play = true;
-					is_repeat = true;
-					visual_id = 'group;arrow_4';
-					color = { 210; 223; 255; };
-					opacity = 255;
-				};
-				[8] =
-				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 222.000000;
-					y = -409.000000;
+					x = 215.000000;
+					y = -470.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 170;
-					height = 75;
+					width = 180;
+					height = 140;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -854,8 +938,48 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 170;
-					dimension_height = 75;
+					dimension_width = 180;
+					dimension_height = 140;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				[8] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -215.000000;
+					y = -470.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 180;
+					height = 140;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 22;
+					text = '전설 강화 포인트\n480개';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 180;
+					dimension_height = 140;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -874,12 +998,12 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -465.000000;
+					y = -470.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 600;
-					height = 54;
+					width = 180;
+					height = 140;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -889,183 +1013,13 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '전설 특성 재료 10개';
+					text = '전설 특성 재료\n8개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 600;
-					dimension_height = 54;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				[10] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 26.000000;
-					y = -30.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.650000;
-					scale_y = 0.650000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/icons/item/mastery_material_04.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[11] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = -31.000000;
-					y = -30.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.650000;
-					scale_y = 0.650000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/icons/item/mastery_material_04.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[12] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = -68.000000;
-					y = -71.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.700000;
-					scale_y = 0.700000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/icons/item/mastery_material_04.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[13] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 62.000000;
-					y = -68.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.700000;
-					scale_y = 0.700000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/icons/item/mastery_material_04.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[14] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = -1.000000;
-					y = -85.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 150;
-					height = 150;
-					scale_x = 0.820000;
-					scale_y = 0.820000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/icons/item/mastery_material_04.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[15] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = -495.000000;
-					dock_point = { 0.500000; 1.000000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 600;
-					height = 44;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '다이아 10,000개';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 600;
-					dimension_height = 44;
+					dimension_width = 180;
+					dimension_height = 140;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -1137,23 +1091,23 @@
 						type = 'Visual';
 						ui_name = '';
 						x = 0.000000;
-						y = -122.000000;
+						y = -133.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 0;
 						height = 0;
-						scale_x = 0.400000;
-						scale_y = 0.400000;
+						scale_x = 0.350000;
+						scale_y = 0.350000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'item/egg/egg_super_absolute_ud/egg_super_absolute_ud.vrp';
+						file_name = 'item/egg/egg_high_legend/egg_high_legend.vrp';
 						auto_play = true;
 						is_repeat = true;
-						visual_id = 'group;egg_move';
+						visual_id = 'group;egg_02_move';
 						color = { 255; 255; 255; };
 						opacity = 255;
 					};
@@ -1202,46 +1156,6 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -484.000000;
-						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 278;
-						height = 142;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
-						text = '미중복 절대적인 전설의 알\n1개';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 255; 255; 255; };
-						opacity = 255;
-						dimension_width = 278;
-						dimension_height = 142;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = false;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 255;
-						shadow_direction = 0;
-						shadow_distance = 3.000000;
-					};
-					[5] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
 						y = -104.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -1256,11 +1170,11 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 45;
+						font_size = 40;
 						text = '단계별 패키지 3단계';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 208; 157; 2; };
+						color = { 215; 87; 125; };
 						opacity = 255;
 						dimension_width = 658;
 						dimension_height = 75;
@@ -1277,7 +1191,7 @@
 						shadow_direction = 0;
 						shadow_distance = 3.000000;
 					};
-					[6] =
+					[5] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -1317,12 +1231,37 @@
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
 					};
-					[7] =
+					[6] =
 					{
 						type = 'Visual';
 						ui_name = '';
 						x = 166.000000;
 						y = 116.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 0;
+						height = 0;
+						scale_x = 0.900000;
+						scale_y = 0.900000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/a2d/package_step/package_step.vrp';
+						auto_play = true;
+						is_repeat = true;
+						visual_id = 'group;arrow_4';
+						color = { 255; 153; 153; };
+						opacity = 255;
+					};
+					[7] =
+					{
+						type = 'Visual';
+						ui_name = '';
+						x = 96.000000;
+						y = 119.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -1339,70 +1278,100 @@
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;arrow_4';
-						color = { 255; 153; 153; };
+						color = { 255; 185; 198; };
 						opacity = 255;
 					};
 					[8] =
 					{
-						type = 'Visual';
+						type = 'LabelTTF';
 						ui_name = '';
-						x = 96.000000;
-						y = 119.000000;
-						dock_point = { 0.500000; 0.500000; };
+						x = 0.000000;
+						y = -470.000000;
+						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
+						width = 180;
+						height = 140;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/a2d/package_step/package_step.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;arrow_4';
-						color = { 255; 185; 198; };
+						font_name = 'font/common_font_01.ttf';
+						font_size = 22;
+						text = '전설 드래곤 선택권\n1개';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
 						opacity = 255;
+						dimension_width = 180;
+						dimension_height = 140;
+						letter_spacing = 0.000000;
+						has_stroke = true;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 3.000000;
 					};
 					[9] =
 					{
-						type = 'Visual';
+						type = 'LabelTTF';
 						ui_name = '';
-						x = -87.000000;
-						y = 119.000000;
-						dock_point = { 0.500000; 0.500000; };
+						x = -215.000000;
+						y = -470.000000;
+						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
+						width = 180;
+						height = 140;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/a2d/package_step/package_step.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;arrow_4';
-						color = { 200; 215; 255; };
+						font_name = 'font/common_font_01.ttf';
+						font_size = 22;
+						text = '전설 강화 포인트\n480개';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
 						opacity = 255;
+						dimension_width = 180;
+						dimension_height = 140;
+						letter_spacing = 0.000000;
+						has_stroke = true;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 0; 0; 0; };
+						has_shadow = false;
+						shadow_color = { 0; 0; 0; };
+						shadow_opacity = 255;
+						shadow_direction = 0;
+						shadow_distance = 3.000000;
 					};
 					[10] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 222.000000;
-						y = -409.000000;
+						x = 215.000000;
+						y = -470.000000;
 						dock_point = { 0.500000; 1.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 170;
-						height = 75;
+						width = 180;
+						height = 140;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -1417,8 +1386,8 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 170;
-						dimension_height = 75;
+						dimension_width = 180;
+						dimension_height = 140;
 						letter_spacing = 0.000000;
 						has_stroke = true;
 						stroke_type = 0;
@@ -1472,7 +1441,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = 'infoBtn';
 					enable = true;
 					normal = 'ui/buttons/info_btn_0101.png';
@@ -1498,451 +1467,6 @@
 				lua_name = 'stepNode3';
 			};
 			[4] =
-			{
-				[1] =
-				{
-					[1] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = 1.000000;
-						y = -59.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.300000;
-						scale_y = 0.300000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/a2d/package_effect/package_effect.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;pack_idle_05';
-						color = { 255; 255; 255; };
-						opacity = 255;
-					};
-					[2] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = 0.000000;
-						y = -124.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.330000;
-						scale_y = 0.330000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'item/egg/egg_super_absolute_ud/egg_super_absolute_ud.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;egg_move';
-						color = { 255; 255; 255; };
-						opacity = 255;
-					};
-					[3] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = -208.000000;
-						y = -487.000000;
-						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 170;
-						height = 75;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
-						text = '다이아\n10,000개';
-						h_alignment = 1;
-						v_alignment = 0;
-						color = { 255; 255; 255; };
-						opacity = 255;
-						dimension_width = 170;
-						dimension_height = 75;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = false;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 255;
-						shadow_direction = 0;
-						shadow_distance = 3.000000;
-					};
-					[4] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 7.000000;
-						y = -485.000000;
-						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 278;
-						height = 142;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
-						text = '미중복 절대적인 전설의 알\n1개';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 255; 255; 255; };
-						opacity = 255;
-						dimension_width = 278;
-						dimension_height = 142;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = false;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 255;
-						shadow_direction = 0;
-						shadow_distance = 3.000000;
-					};
-					[5] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 215.000000;
-						y = -487.000000;
-						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 170;
-						height = 75;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
-						text = '토파즈\n30개';
-						h_alignment = 1;
-						v_alignment = 0;
-						color = { 255; 255; 255; };
-						opacity = 255;
-						dimension_width = 170;
-						dimension_height = 75;
-						letter_spacing = 0.000000;
-						has_stroke = true;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = false;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 255;
-						shadow_direction = 0;
-						shadow_distance = 3.000000;
-					};
-					[6] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = -98.000000;
-						y = 169.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = '';
-						file_name = 'ui/a2d/package_step/package_step.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;arrow_3';
-						color = { 60; 111; 196; };
-						opacity = 255;
-					};
-					[7] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = -96.000000;
-						y = 169.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = '';
-						file_name = 'ui/a2d/package_step/package_step.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;arrow_3';
-						color = { 0; 255; 0; };
-						opacity = 255;
-					};
-					[8] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = 93.000000;
-						y = 169.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = '';
-						file_name = 'ui/a2d/package_step/package_step.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;arrow_4';
-						color = { 255; 140; 160; };
-						opacity = 255;
-					};
-					[9] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 0.000000;
-						y = -106.000000;
-						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 658;
-						height = 75;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 45;
-						text = '단계별 패키지 4단계';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 171; 5; 175; };
-						opacity = 255;
-						dimension_width = 658;
-						dimension_height = 75;
-						letter_spacing = 0.000000;
-						has_stroke = false;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = false;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 100;
-						shadow_direction = 0;
-						shadow_distance = 3.000000;
-					};
-					[10] =
-					{
-						type = 'LabelTTF';
-						ui_name = '';
-						x = 14.000000;
-						y = -68.000000;
-						dock_point = { 0.500000; 1.000000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 711;
-						height = 50;
-						scale_x = 1.000000;
-						scale_y = 1.000000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = false;
-						lua_name = '';
-						font_name = 'font/common_font_01.ttf';
-						font_size = 19;
-						text = '3단계 상품 구매 시 4단계 상품 구매가 가능합니다.';
-						h_alignment = 1;
-						v_alignment = 1;
-						color = { 85; 85; 85; };
-						opacity = 255;
-						dimension_width = 711;
-						dimension_height = 50;
-						letter_spacing = 0.000000;
-						has_stroke = false;
-						stroke_type = 0;
-						stroke_detail_level = 0;
-						is_sharp_text = true;
-						stroke_tickness = 2.000000;
-						stroke_color = { 0; 0; 0; };
-						has_shadow = false;
-						shadow_color = { 0; 0; 0; };
-						shadow_opacity = 150;
-						shadow_direction = 0;
-						shadow_distance = 2.000000;
-					};
-					[11] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = 0.000000;
-						y = 116.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/a2d/package_step/package_step.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;arrow_4';
-						color = { 255; 237; 136; };
-						opacity = 255;
-					};
-					[12] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = -170.000000;
-						y = 116.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/a2d/package_step/package_step.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;arrow_4';
-						color = { 200; 215; 255; };
-						opacity = 255;
-					};
-					[13] =
-					{
-						type = 'Visual';
-						ui_name = '';
-						x = 164.000000;
-						y = 116.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 0;
-						height = 0;
-						scale_x = 0.900000;
-						scale_y = 0.900000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/a2d/package_step/package_step.vrp';
-						auto_play = true;
-						is_repeat = true;
-						visual_id = 'group;arrow_4';
-						color = { 255; 213; 220; };
-						opacity = 255;
-					};
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 930;
-					height = 640;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/package/bg_step_period_04.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				type = 'Menu';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 930;
-				height = 640;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'stepNode4';
-			};
-			[5] =
 			{
 				[1] =
 				{
@@ -1990,7 +1514,7 @@
 				alpha_threshold = 1.000000;
 				is_invert = false;
 			};
-			[6] =
+			[5] =
 			{
 				[1] =
 				{
@@ -2054,7 +1578,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[7] =
+			[6] =
 			{
 				[1] =
 				{
@@ -2134,7 +1658,7 @@
 					visible = true;
 					lua_name = 'buyLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 20;
 					text = '1회 구매 가능 ({1}/1)';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -2158,12 +1682,12 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -245.000000;
+				y = -240.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 230;
-				height = 55;
+				height = 65;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2177,7 +1701,7 @@
 				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
-			[8] =
+			[7] =
 			{
 				[1] =
 				{
@@ -2222,12 +1746,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -245.000000;
+				y = -240.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 230;
-				height = 55;
+				height = 65;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -2243,7 +1767,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[9] =
+			[8] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -2267,7 +1791,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[10] =
+			[9] =
 			{
 				[1] =
 				{
@@ -2316,7 +1840,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[11] =
+			[10] =
 			{
 				[1] =
 				{
@@ -2365,7 +1889,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[12] =
+			[11] =
 			{
 				[1] =
 				{
@@ -2414,7 +1938,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[13] =
+			[12] =
 			{
 				[1] =
 				{
@@ -2463,7 +1987,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[14] =
+			[13] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
@@ -2493,7 +2017,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[15] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -2533,7 +2057,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[16] =
+			[15] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -2563,7 +2087,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[17] =
+			[16] =
 			{
 				[1] =
 				{
@@ -2608,7 +2132,7 @@
 				visible = false;
 				lua_name = 'limitNode';
 			};
-			[18] =
+			[17] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -2633,7 +2157,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[19] =
+			[18] =
 			{
 				[1] =
 				{
@@ -2678,7 +2202,7 @@
 				visible = false;
 				lua_name = 'completeNoti1';
 			};
-			[20] =
+			[19] =
 			{
 				[1] =
 				{
@@ -2723,7 +2247,7 @@
 				visible = false;
 				lua_name = 'completeNoti2';
 			};
-			[21] =
+			[20] =
 			{
 				[1] =
 				{
@@ -2768,7 +2292,7 @@
 				visible = false;
 				lua_name = 'completeNoti3';
 			};
-			[22] =
+			[21] =
 			{
 				[1] =
 				{
@@ -2813,7 +2337,7 @@
 				visible = false;
 				lua_name = 'completeNoti4';
 			};
-			[23] =
+			[22] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -2892,7 +2416,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
 				color = { 255; 255; 255; };
@@ -2920,7 +2444,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/package_step_frame_0101.png';
+				file_name = 'ui/frames/package_step_frame_hollween.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

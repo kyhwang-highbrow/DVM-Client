@@ -57,7 +57,7 @@
 						auto_play = true;
 						is_repeat = true;
 						visual_id = 'group;idle';
-						color = { 175; 238; 238; };
+						color = { 255; 173; 91; };
 						opacity = 200;
 					};
 					type = 'Node';

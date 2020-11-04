@@ -1,0 +1,111 @@
+
+pumpkin.png
+size: 620,66
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_pumpkin_atk
+  rotate: false
+  xy: 2, 2
+  size: 124, 62
+  orig: 124, 62
+  offset: 0, 0
+  index: -1
+effect_pumpkin_light
+  rotate: false
+  xy: 348, 15
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+pumpkin__ribbon_02
+  rotate: false
+  xy: 594, 42
+  size: 24, 22
+  orig: 24, 22
+  offset: 0, 0
+  index: -1
+pumpkin_arm_01
+  rotate: false
+  xy: 515, 40
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+pumpkin_b_arm_01
+  rotate: false
+  xy: 486, 4
+  size: 30, 31
+  orig: 30, 31
+  offset: 0, 0
+  index: -1
+pumpkin_b_arm_02
+  rotate: true
+  xy: 518, 16
+  size: 22, 25
+  orig: 22, 25
+  offset: 0, 0
+  index: -1
+pumpkin_bloom_01
+  rotate: false
+  xy: 399, 36
+  size: 80, 28
+  orig: 80, 28
+  offset: 0, 0
+  index: -1
+pumpkin_bloom_02
+  rotate: true
+  xy: 549, 13
+  size: 51, 43
+  orig: 51, 43
+  offset: 0, 0
+  index: -1
+pumpkin_body_01
+  rotate: true
+  xy: 288, 5
+  size: 59, 58
+  orig: 59, 58
+  offset: 0, 0
+  index: -1
+pumpkin_body_02
+  rotate: false
+  xy: 481, 37
+  size: 32, 27
+  orig: 32, 27
+  offset: 0, 0
+  index: -1
+pumpkin_fire
+  rotate: true
+  xy: 399, 3
+  size: 31, 41
+  orig: 31, 41
+  offset: 0, 0
+  index: -1
+pumpkin_hat_01
+  rotate: false
+  xy: 128, 3
+  size: 89, 61
+  orig: 89, 61
+  offset: 0, 0
+  index: -1
+pumpkin_hat_02
+  rotate: false
+  xy: 442, 6
+  size: 42, 28
+  orig: 42, 28
+  offset: 0, 0
+  index: -1
+pumpkin_head
+  rotate: false
+  xy: 219, 12
+  size: 67, 52
+  orig: 67, 52
+  offset: 0, 0
+  index: -1
+pumpkin_ribbon_01
+  rotate: true
+  xy: 594, 19
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1

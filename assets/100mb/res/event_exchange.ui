@@ -50,11 +50,11 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 48;
-				text = '어린이날 풍선 수집 이벤트';
+				font_size = 50;
+				text = '수집 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 107; 70; 2; };
 				opacity = 255;
 				dimension_width = 900;
 				dimension_height = 90;
@@ -76,7 +76,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -1.000000;
-				y = -195.000000;
+				y = -183.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -134,7 +134,7 @@
 				text = '게임을 플레이하고 아이템을 모아보세요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 168; 71; 0; };
 				opacity = 255;
 				dimension_width = 860;
 				dimension_height = 58;
@@ -196,7 +196,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 40.000000;
-				y = -245.000000;
+				y = -232.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -236,7 +236,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -146.000000;
-				y = 675.000000;
+				y = 688.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -251,7 +251,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '획득한 풍선';
+				text = '획득 수량';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 232; 96; };
@@ -276,7 +276,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 0.000000;
-				y = 606.000000;
+				y = 614.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -294,7 +294,7 @@
 				text = '일일 최대 {0}/2,000개 획득 가능';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 0; 0; 94; };
+				color = { 102; 60; 0; };
 				opacity = 255;
 				dimension_width = 689;
 				dimension_height = 56;
@@ -356,7 +356,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
-				y = -367.000000;
+				y = -359.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -386,8 +386,8 @@
 				relative_size_type = 0;
 				width = 150;
 				height = 150;
-				scale_x = 0.550000;
-				scale_y = 0.550000;
+				scale_x = 0.450000;
+				scale_y = 0.450000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -406,14 +406,14 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = -185.000000;
-				y = 680.000000;
+				y = 688.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 150;
 				height = 150;
-				scale_x = 0.550000;
-				scale_y = 0.550000;
+				scale_x = 0.450000;
+				scale_y = 0.450000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -762,8 +762,8 @@
 						relative_size_type = 0;
 						width = 150;
 						height = 150;
-						scale_x = 0.550000;
-						scale_y = 0.550000;
+						scale_x = 0.450000;
+						scale_y = 0.450000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
@@ -943,7 +943,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '누적 풍선';
+				text = '누적 수량';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 232; 96; };
@@ -1336,10 +1336,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '획득한 풍선을 사용해 선물상자와 교환할 수 있어요.';
+				text = '획득한 수집 아이템을 사용해 선물상자와 교환할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 137; 180; 255; };
+				color = { 120; 73; 4; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1379,7 +1379,7 @@
 				text = '아래의 보상중 하나를 획득할 수 있습니다.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 89; 147; 248; };
+				color = { 255; 211; 38; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1416,7 +1416,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 48;
-				text = '누적 풍선 보상';
+				text = '누적 수집 보상';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1456,10 +1456,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '지금까지 수집한 풍선의 개수에 따라 보상을 획득할 수 있어요.';
+				text = '지금까지 수집한 아이템의 개수에 따라 보상을 획득할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 247; 132; 0; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;
@@ -1481,7 +1481,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -1004.000000;
+				y = -1008.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1499,7 +1499,7 @@
 				text = '누적 보상은 최초 1회만 획득 가능합니다.';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 255; 255; 0; };
+				color = { 255; 204; 0; };
 				opacity = 255;
 				dimension_width = 820;
 				dimension_height = 50;

@@ -1,0 +1,265 @@
+
+ordo_all_03.png
+size: 1812,539
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_ordo_all_03_effect_00
+  rotate: false
+  xy: 1398, 327
+  size: 210, 210
+  orig: 210, 210
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_01
+  rotate: true
+  xy: 2, 117
+  size: 420, 188
+  orig: 420, 188
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_01_1
+  rotate: false
+  xy: 1031, 22
+  size: 212, 162
+  orig: 212, 162
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_01_3
+  rotate: true
+  xy: 891, 19
+  size: 165, 138
+  orig: 165, 138
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_02
+  rotate: true
+  xy: 559, 2
+  size: 179, 180
+  orig: 179, 180
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_03
+  rotate: true
+  xy: 1610, 341
+  size: 196, 200
+  orig: 196, 200
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_04
+  rotate: true
+  xy: 1507, 5
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_05
+  rotate: false
+  xy: 555, 183
+  size: 299, 354
+  orig: 299, 354
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_05_1
+  rotate: true
+  xy: 1239, 188
+  size: 117, 209
+  orig: 117, 209
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_effect_06
+  rotate: false
+  xy: 1245, 3
+  size: 131, 133
+  orig: 131, 133
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_wing_01
+  rotate: false
+  xy: 1378, 4
+  size: 65, 132
+  orig: 65, 132
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_wing_02
+  rotate: true
+  xy: 353, 7
+  size: 166, 204
+  orig: 166, 204
+  offset: 0, 0
+  index: -1
+effect_ordo_all_03_wing_03
+  rotate: false
+  xy: 856, 186
+  size: 202, 96
+  orig: 202, 96
+  offset: 0, 0
+  index: -1
+ordo_all_03_acc_01
+  rotate: true
+  xy: 1704, 43
+  size: 143, 105
+  orig: 143, 105
+  offset: 0, 0
+  index: -1
+ordo_all_03_arm_01
+  rotate: false
+  xy: 856, 284
+  size: 159, 253
+  orig: 159, 253
+  offset: 0, 0
+  index: -1
+ordo_all_03_arm_02
+  rotate: false
+  xy: 2, 4
+  size: 133, 111
+  orig: 133, 111
+  offset: 0, 0
+  index: -1
+ordo_all_03_arm_03
+  rotate: false
+  xy: 1017, 286
+  size: 165, 251
+  orig: 165, 251
+  offset: 0, 0
+  index: -1
+ordo_all_03_arm_04
+  rotate: false
+  xy: 278, 2
+  size: 71, 115
+  orig: 71, 115
+  offset: 0, 0
+  index: -1
+ordo_all_03_body_01
+  rotate: true
+  xy: 192, 175
+  size: 362, 361
+  orig: 362, 361
+  offset: 0, 0
+  index: -1
+ordo_all_03_body_02
+  rotate: false
+  xy: 1184, 307
+  size: 212, 230
+  orig: 212, 230
+  offset: 0, 0
+  index: -1
+ordo_all_03_eye_01
+  rotate: false
+  xy: 1764, 6
+  size: 40, 35
+  orig: 40, 35
+  offset: 0, 0
+  index: -1
+ordo_all_03_finger_01
+  rotate: false
+  xy: 1445, 47
+  size: 60, 89
+  orig: 60, 89
+  offset: 0, 0
+  index: -1
+ordo_all_03_finger_02
+  rotate: true
+  xy: 1704, 2
+  size: 39, 58
+  orig: 39, 58
+  offset: 0, 0
+  index: -1
+ordo_all_03_finger_03
+  rotate: true
+  xy: 1363, 139
+  size: 47, 69
+  orig: 47, 69
+  offset: 0, 0
+  index: -1
+ordo_all_03_finger_04
+  rotate: true
+  xy: 192, 118
+  size: 55, 66
+  orig: 55, 66
+  offset: 0, 0
+  index: -1
+ordo_all_03_head_01
+  rotate: true
+  xy: 1060, 190
+  size: 94, 69
+  orig: 94, 69
+  offset: 0, 0
+  index: -1
+ordo_all_03_head_02
+  rotate: true
+  xy: 741, 7
+  size: 174, 148
+  orig: 174, 148
+  offset: 0, 0
+  index: -1
+ordo_all_03_head_03
+  rotate: false
+  xy: 1507, 65
+  size: 73, 71
+  orig: 73, 71
+  offset: 0, 0
+  index: -1
+ordo_all_03_horn_01
+  rotate: true
+  xy: 198, 2
+  size: 114, 78
+  orig: 114, 78
+  offset: 0, 0
+  index: -1
+ordo_all_03_horn_02
+  rotate: true
+  xy: 260, 119
+  size: 54, 91
+  orig: 54, 91
+  offset: 0, 0
+  index: -1
+ordo_all_03_leg_01
+  rotate: false
+  xy: 1602, 24
+  size: 100, 162
+  orig: 100, 162
+  offset: 0, 0
+  index: -1
+ordo_all_03_wing_01
+  rotate: true
+  xy: 1245, 138
+  size: 48, 116
+  orig: 48, 116
+  offset: 0, 0
+  index: -1
+ordo_all_03_wing_02
+  rotate: false
+  xy: 1450, 138
+  size: 150, 187
+  orig: 150, 187
+  offset: 0, 0
+  index: -1
+ordo_all_03_wing_03
+  rotate: false
+  xy: 1602, 188
+  size: 187, 79
+  orig: 187, 79
+  offset: 0, 0
+  index: -1
+ordo_all_03_wing_04
+  rotate: false
+  xy: 137, 4
+  size: 59, 111
+  orig: 59, 111
+  offset: 0, 0
+  index: -1
+ordo_all_03_wing_05
+  rotate: true
+  xy: 1610, 269
+  size: 70, 193
+  orig: 70, 193
+  offset: 0, 0
+  index: -1
+ordo_all_03_wing_06
+  rotate: true
+  xy: 1131, 195
+  size: 89, 106
+  orig: 89, 106
+  offset: 0, 0
+  index: -1

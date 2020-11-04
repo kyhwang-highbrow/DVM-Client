@@ -111,7 +111,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
-					height = 66;
+					height = 82;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -127,7 +127,7 @@
 					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 150;
-					dimension_height = 66;
+					dimension_height = 82;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
