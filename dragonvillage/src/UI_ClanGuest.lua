@@ -26,6 +26,8 @@ end
 -------------------------------------
 function UI_ClanGuest:init()
     local res = 'clan_01.ui'
+	-- 2019년 12월 2일 이후부터는 true 
+	-- 따라서 항상 clan_01_new.ui 사용한다고 볼 수 있음
     if (g_arenaData:isStartClanWarContents()) then
         res = 'clan_01_new.ui'
     end

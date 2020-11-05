@@ -146,6 +146,7 @@ end
 
 -------------------------------------
 -- function updateRealTimer
+-- @brief 클랜 던전 타이머 업데이트
 -------------------------------------
 function SceneGameClanRaid:updateRealTimer(dt)
     local world = self.m_gameWorld
@@ -154,10 +155,15 @@ function SceneGameClanRaid:updateRealTimer(dt)
     -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
     local bUpdateRealLiveTimer = false
 
-    if (not world:isPause() or self.m_bPause) then
+    -- 클랜던전에서는 일시정지에도 시간이 흘러야 하나, 스킬 연출 시에는 시간이 흐르지 않게 한다.
+    -- world:isPause()이 true를 리턴하는 경우는 게임이 진행중이나 싸움이 멈춰 있는 경우이다. 
+    -- 예를 들면 스킬 사용 시 연출, 튜토리얼 진행 중 대사, 일반 모드에서의 인디케이터 사용 등...
+    -- self.m_bPause는 일시정지일 때 true이다.
+    if (((not world:isPause()) and game_state:isFight()) or self.m_bPause) then
         bUpdateRealLiveTimer = true
     end
 
+    -- 진행 시간을 업데이트
     if (bUpdateRealLiveTimer) then
         self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
     end

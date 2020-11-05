@@ -730,6 +730,7 @@ end
 
 -------------------------------------
 -- function isStartClanWarContents
+-- @brief 2019년 12월 2일 이후에는 true를 리턴
 -------------------------------------
 function ServerData_Arena:isStartClanWarContents()
     local date = pl.Date()
