@@ -62,3 +62,13 @@ function TableDragonExp:getDragonSellGold(grade, lv)
     local max_exp = self:getValue(eid, 'sell_gold')
     return max_exp or 0
 end
+
+-------------------------------------
+-- function getGoldPerLevelUp
+-- @brief 드래곤 레벨업에 드는 골드
+-------------------------------------
+function TableDragonExp:getGoldPerLevelUp(grade, lv)
+	local eid = self:makeExpID(grade, lv)
+	local gold = self:getValue(eid, 'req_gold_per_lvup')
+	return gold
+end

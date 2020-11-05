@@ -512,7 +512,7 @@ function UI_DragonManageInfo:click_levelupBtn()
         end
     end
 
-    self:openSubManageUI(UI_DragonLevelUp)
+    self:openSubManageUI(UI_DragonLevelUpNew)
 end
 
 -------------------------------------
@@ -1044,6 +1044,7 @@ function UI_DragonManageInfo:click_conversionBtn()
 	end
 	ui:setCloseCB(close_cb)
 end
+
 -------------------------------------
 -- function checkDragonListRefresh
 -- @brief 드래곤 리스트에 변경이 있는지 확인 후 갱신
