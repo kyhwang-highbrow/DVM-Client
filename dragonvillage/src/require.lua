@@ -1281,9 +1281,9 @@ local t_module = {
     -- UI : 드래곤 관리 관련
     'UI_DragonManage_Base',
     'UI_DragonManageInfo',
-    'UI_DragonLevelUpNew',
     'UI_DragonLevelUp',
     'UI_DragonLevelUpHelper',
+    'UI_DragonLevelUpNew', -- 2020-11-10 드래곤 레벨업 시스템 업데이트로 인한 추가
     'UI_DragonMasteryNew', -- 특성
     'UI_DragonMasteryBoardNew', -- 특성 보드
     'UI_DragonMasterySkillLevelUpPopup',

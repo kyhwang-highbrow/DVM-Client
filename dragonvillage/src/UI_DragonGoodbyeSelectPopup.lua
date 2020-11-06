@@ -1,7 +1,7 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_ConfirmPopup
+-- class UI_DragonGoodbyeSelectPopup
 -------------------------------------
 UI_DragonGoodbyeSelectPopup = class(PARENT,{
 		m_lItemList = 'table',
@@ -96,4 +96,4 @@ function UI_DragonGoodbyeSelectPopup:click_okBtn()
 end
 
 --@CHECK
-UI:checkCompileError(UI_ConfirmPopup)
+UI:checkCompileError(UI_DragonGoodbyeSelectPopup)

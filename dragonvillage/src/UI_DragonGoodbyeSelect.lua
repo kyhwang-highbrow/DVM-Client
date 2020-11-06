@@ -1,7 +1,7 @@
 local PARENT = UI_DragonManage_Base
 
 -------------------------------------
--- class UI_DragonGoodbyeBatch
+-- class UI_DragonGoodbyeSelect
 -------------------------------------
 
 PRESENT_TYPE = {}

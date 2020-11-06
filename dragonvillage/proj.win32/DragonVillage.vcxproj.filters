@@ -4642,6 +4642,15 @@
     <None Include="..\src\UI_BannerRuneFestival.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonLevelUpNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonGoodbyeSelect.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonGoodbyeSelectPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
