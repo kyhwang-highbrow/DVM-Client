@@ -124,8 +124,10 @@ function UI_DragonLevelUpNew:refresh()
 	self.m_oriExp = g_userData:get('dragon_exp')
 
 	self:refresh_dragonInfo()
+	self:refresh_dragonCard(self.m_currDragonLevel)
 	self:refresh_dragonStat(self.m_currDragonLevel)
 end
+
 
 -------------------------------------
 -- function refresh_dragonInfo
@@ -171,13 +173,7 @@ function UI_DragonLevelUpNew:refresh_dragonInfo()
         DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['typeNode'], vars['typeLabel'])
     end
     
-    do -- 드래곤 현재 정보 카드
-        vars['dragonIconNode']:removeAllChildren()
-        local dragon_card = UI_DragonCard(t_dragon_data)
-        vars['dragonIconNode']:addChild(dragon_card.root)
-    end
-
-    do -- 드래곤 리소스
+	do -- 드래곤 리소스
         local evolution = t_dragon_data['evolution']
         vars['dragonNode']:removeAllChildren()
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
@@ -198,6 +194,22 @@ function UI_DragonLevelUpNew:refresh_dragonInfo()
 end
 
 -------------------------------------
+-- function refresh_dragonCard
+-- @brief 드래곤 정보
+-------------------------------------
+function UI_DragonLevelUpNew:refresh_dragonCard(dragon_level)
+    local vars = self.vars
+	local t_dragon_data = self.m_selectDragonData
+	t_dragon_data['lv'] = dragon_level -- press의 경우 데이터와 보여줘야 하는 레벨이 다를 수 있음
+    
+	do -- 드래곤 현재 정보 카드
+        vars['dragonIconNode']:removeAllChildren()
+        local dragon_card = UI_DragonCard(t_dragon_data)
+        vars['dragonIconNode']:addChild(dragon_card.root)
+    end
+end
+
+-------------------------------------
 -- function refresh_dragonStat
 -- @brief 드래곤 레벨업에 따른 스탯
 -------------------------------------
@@ -209,8 +221,8 @@ function UI_DragonLevelUpNew:refresh_dragonStat(dragon_level)
 	local grade = t_dragon_data['grade']
     local curr_level = dragon_level
     local curr_exp = t_dragon_data['exp']
-	local next_level = curr_level + 1
 	local max_level = TableGradeInfo():getValue(grade, 'max_lv')
+	local next_level = math_min(curr_level + 1, max_level)
 
 
 	local exp_percentage
@@ -227,7 +239,7 @@ function UI_DragonLevelUpNew:refresh_dragonStat(dragon_level)
 		exp_percentage = (curr_exp / max_exp) * 100
 
 		-- 이번 레벨업에 소비되는 돈과 경험치 정보
-		self.m_needGoldNext = table_dragon_exp:getGoldPerLevelUp(grade, curr_level)  -- TODO : 진화에 필요한 골드 금액 테이블 생성되면 반영 필요
+		self.m_needGoldNext = table_dragon_exp:getGoldPerLevelUp(grade, curr_level)
 		self.m_needExpNext = max_exp - curr_exp
 
 		local curr_gold = g_userData:get('gold')
@@ -244,7 +256,46 @@ function UI_DragonLevelUpNew:refresh_dragonStat(dragon_level)
     vars['levelLabel']:setString(Str('레벨{1}/{2}', curr_level, max_level))
 
     -- 능력치 정보 갱신
-    self:refresh_stats(t_dragon_data, curr_level)
+    self:refresh_stats(t_dragon_data, curr_level, next_level)
+end
+
+-------------------------------------
+-- function refresh_stats
+-- @brief 능력치 전, 후 보여줌
+-------------------------------------
+function UI_DragonLevelUpNew:refresh_stats(t_dragon_data, curr_level, next_level)
+    local vars = self.vars
+    local doid = t_dragon_data['id']
+    
+	-- 현재 레벨의 능력치 계산기
+	local curr_dragon_data = {}
+	curr_dragon_data['lv'] = curr_level
+    local status_calc = MakeOwnDragonStatusCalculator(doid, curr_dragon_data)
+
+    -- 현재 레벨의 능력치
+    local curr_atk = status_calc:getFinalStat('atk')
+    local curr_def = status_calc:getFinalStat('def')
+    local curr_hp = status_calc:getFinalStat('hp')
+    -- local curr_cp = status_calc:getCombatPower()
+
+    vars['atkStats']:setBeforeStats(curr_atk)
+    vars['defStats']:setBeforeStats(curr_def)
+    vars['hpStats']:setBeforeStats(curr_hp)
+
+    -- 변경된 레벨의 능력치 계산기
+    local chaged_dragon_data = {}
+    chaged_dragon_data['lv'] = next_level
+    local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
+
+    -- 변경된 레벨의 능력치
+    local changed_atk = changed_status_calc:getFinalStat('atk')
+    local changed_def = changed_status_calc:getFinalStat('def')
+    local changed_hp = changed_status_calc:getFinalStat('hp')
+    -- local changed_cp = changed_status_calc:getCombatPower()
+
+    vars['atkStats']:setAfterStats(changed_atk)
+    vars['defStats']:setAfterStats(changed_def)
+    vars['hpStats']:setAfterStats(changed_hp)
 end
 
 -------------------------------------
@@ -294,47 +345,6 @@ function UI_DragonLevelUpNew:getDragonList()
 
     return dragon_dic
 end
-
--------------------------------------
--- function refresh_stats
--- @brief 능력치 전, 후 보여줌
--------------------------------------
-function UI_DragonLevelUpNew:refresh_stats(t_dragon_data, lv)
-    local vars = self.vars
-    local doid = t_dragon_data['id']
-    
-	-- 현재 레벨의 능력치 계산기
-	local curr_dragon_data = {}
-	local curr_level = t_dragon_data['lv']
-	curr_dragon_data['lv'] = curr_level
-    local status_calc = MakeOwnDragonStatusCalculator(doid, curr_dragon_data)
-
-    -- 현재 레벨의 능력치
-    local curr_atk = status_calc:getFinalStat('atk')
-    local curr_def = status_calc:getFinalStat('def')
-    local curr_hp = status_calc:getFinalStat('hp')
-    -- local curr_cp = status_calc:getCombatPower()
-
-    vars['atkStats']:setBeforeStats(curr_atk)
-    vars['defStats']:setBeforeStats(curr_def)
-    vars['hpStats']:setBeforeStats(curr_hp)
-
-    -- 변경된 레벨의 능력치 계산기
-    local chaged_dragon_data = {}
-    chaged_dragon_data['lv'] = lv
-    local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
-
-    -- 변경된 레벨의 능력치
-    local changed_atk = changed_status_calc:getFinalStat('atk')
-    local changed_def = changed_status_calc:getFinalStat('def')
-    local changed_hp = changed_status_calc:getFinalStat('hp')
-    -- local changed_cp = changed_status_calc:getCombatPower()
-
-    vars['atkStats']:setAfterStats(changed_atk)
-    vars['defStats']:setAfterStats(changed_def)
-    vars['hpStats']:setAfterStats(changed_hp)
-end
-
 -------------------------------------
 -- function confirmExp
 -- @brief 드래곤 경험치가 충분한지 체크
@@ -505,8 +515,9 @@ function UI_DragonLevelUpNew:press_levelupBtn(btn)
 				g_userData:applyServerData(self.m_oriGold - self.m_needGoldSum, 'gold')
 				-- 드래곤 경험치 수정
 				g_userData:applyServerData(self.m_oriExp - self.m_needExpSum, 'dragon_exp')
-				-- 드래곤 스탯 표시
+				-- 드래곤 스탯과 카드 변경
 				self:refresh_dragonStat(curr_level)
+				self:refresh_dragonCard(curr_level)
 			end
 
 			-- 연출
@@ -520,8 +531,9 @@ function UI_DragonLevelUpNew:press_levelupBtn(btn)
         self:request_levelUp()
         if co:waitWork() then return end
 
-        -- 필요한것들 갱신
-		self:refresh()
+        -- 드래곤 스탯과 카드 변경
+		self:refresh_dragonStat(curr_level)
+		self:refresh_dragonCard(curr_level)
 
 		-- 연출 종료
 		--self.m_reinforceEffect:addAniHandler(function()

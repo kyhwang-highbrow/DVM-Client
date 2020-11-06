@@ -4,11 +4,6 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonGoodbyeSelect
 -------------------------------------
 
-PRESENT_TYPE = {}
-PRESENT_TYPE.EXP = 1
-PRESENT_TYPE.RELATION = 2
-PRESENT_TYPE.MASTERY = 3
-
 UI_DragonGoodbyeSelect = class(PARENT,{
 		m_tableView = 'UIC_TableViewTD', -- 드래곤 정렬 리스트뷰
 		m_sortManagerDragon = "SortManager_Dragon", -- 드래곤 정렬 매니저
@@ -18,6 +13,11 @@ UI_DragonGoodbyeSelect = class(PARENT,{
 
 		m_bChangeDragonList = 'boolean' -- 드래곤 변동사항이 있는지
 	})
+
+PRESENT_TYPE = {}
+PRESENT_TYPE.EXP = 1
+PRESENT_TYPE.RELATION = 2
+PRESENT_TYPE.MASTERY = 3
 
 -------------------------------------
 -- function initParentVariable
@@ -199,8 +199,10 @@ function UI_DragonGoodbyeSelect:changePresentType(type)
 	-- 변경하는 경우
 	if self.m_selectPresentType ~= nil then
 		self:getTypeBtn(self.m_selectPresentType):setEnabled(true) -- 이전에 눌려있던 버튼 끄기
+		self:getTypeLabel(self.m_selectPresentType):setColor(COLOR['white'])
 	end
 	self:getTypeBtn(type):setEnabled(false) -- 버튼 누르기
+	self:getTypeLabel(type):setColor(COLOR['black'])
 	
 	self.m_selectPresentType = type
 
@@ -208,6 +210,9 @@ function UI_DragonGoodbyeSelect:changePresentType(type)
 	self:refresh()
 end
 
+-------------------------------------
+-- function getTypeBtn
+-------------------------------------
 function UI_DragonGoodbyeSelect:getTypeBtn(type)
 	local vars = self.vars
 	if type == PRESENT_TYPE.EXP then
@@ -216,6 +221,20 @@ function UI_DragonGoodbyeSelect:getTypeBtn(type)
 		return vars['relationshipBtn']
 	elseif type == PRESENT_TYPE.MASTERY then
 		return vars['masteryBtn']
+	end
+end
+
+-------------------------------------
+-- function getTypeLabel
+-------------------------------------
+function UI_DragonGoodbyeSelect:getTypeLabel(type)
+	local vars = self.vars
+	if type == PRESENT_TYPE.EXP then
+		return vars['expLabel']
+	elseif type == PRESENT_TYPE.RELATION then
+		return vars['relationshipLabel']
+	elseif type == PRESENT_TYPE.MASTERY then
+		return vars['masteryLabel']
 	end
 end
 
@@ -357,6 +376,10 @@ function UI_DragonGoodbyeSelect:click_goodbyeBtn()
 	local ui = UI_DragonGoodbyeSelectPopup(item_list, msg, ok_btn_cb)
 end
 
+-------------------------------------
+-- function getGoodbyeMsg
+-- @brief 드래곤 작별시키기
+-------------------------------------
 function UI_DragonGoodbyeSelect:getGoodbyeMsg()
 	if (self.m_selectPresentType == PRESENT_TYPE.EXP) then
 		return '{1} 마리의 드래곤이 드래곤 경험치로 변경됩니다.'
@@ -458,10 +481,11 @@ function UI_DragonGoodbyeSelect:request_goodbye()
 	end
 
 	local function success_cb(ret)
-        -- @analytics TODO
-        -- Analytics:trackUseGoodsWithRet(ret, '드래곤 작별?')
+        local dragon_data = self.m_tFilterDragonList
+        local info_data = ret
+        local ui = UI_DragonGoodbyeResult(dragon_data, info_data)
 
-		self:response_goodbye(ret)
+		self:response_goodbye(ret, finish_cb)
     end
 	
     local ui_network = UI_Network()
@@ -478,7 +502,7 @@ end
 -------------------------------------
 -- function response_goodbye
 -------------------------------------
-function UI_DragonGoodbyeSelect:response_goodbye(ret)
+function UI_DragonGoodbyeSelect:response_goodbye(ret, finish_cb)
 	-- 인연포인트 (전체 갱신)
 	if (ret['relation']) then
 		g_bookData:applyRelationPoints(ret['relation'])
@@ -493,16 +517,17 @@ function UI_DragonGoodbyeSelect:response_goodbye(ret)
 
     g_serverData:networkCommonRespone(ret)
 
-	-- 획득 팝업
-	UI_ObtainPopup(ret['items_list'], nil, nil, true)
-
 	self.m_bChangeDragonList = true
-
+	
 	self:refresh()
+
+	if (finish_cb) then
+		finish_cb(ret)
+	end
 end
 
 -------------------------------------
--- function click_checkBox
+-- function getTypeStr
 -- @brief 현재 선택된 타입을 문자열로 바꿈
 -------------------------------------
 function UI_DragonGoodbyeSelect:getTypeStr()

@@ -153,7 +153,8 @@ function UI_DragonManageInfo:initButton()
         vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn() end)
 
         -- 작별
-        vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end)
+        --vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end)
+        vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtnNew() end) -- 2020-11-10 드래곤 레벨업 개편으로 변경
 		
 		-- 일괄 작별
 		vars['goodbyeSelectBtn']:registerScriptTapHandler(function() self:click_goodbyeSelectBtn() end)
@@ -515,6 +516,7 @@ function UI_DragonManageInfo:click_levelupBtn()
         end
     end
 
+    -- self:openSubManageUI(UI_DragonLevelUp) 2020-11-10 드래곤 레벨업 시스템 개편으로 인한 변경
     self:openSubManageUI(UI_DragonLevelUpNew)
 end
 
@@ -925,6 +927,54 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 
 	-- start
 	material_warning_popup()
+end
+
+-------------------------------------
+-- function click_goodbyeBtnNew
+-- @brief 드래곤 레벨업 시스템 개편으로 
+-- 새로 만든 개별 작별
+-------------------------------------
+function UI_DragonManageInfo:click_goodbyeBtnNew()
+	require('UI_DragonGoodbyePopup')
+
+    if (not self.m_selectDragonOID) then
+        return
+    end
+
+	local oid = self.m_selectDragonOID
+    
+	-- 작별 가능한지 체크
+	local possible, msg = g_dragonsData:possibleMaterialDragon(oid)
+	if (not possible) then
+		UIManager:toastNotificationRed(msg)
+        return false
+	end
+	
+	local dragon_data = self.m_selectDragonData
+	local msg = g_dragonsData:dragonStateStr(oid, nil)
+
+	-- 작별 연출
+    local function show_effect(ret)
+        
+        local finish_cb = function()
+		    -- 테이블 아이템갱신
+		    self:init_dragonTableView()
+
+		    -- 기존에 선택되어 있던 드래곤 교체
+		    self:setDefaultSelectDragon()
+
+		    -- 정렬
+		    self:apply_dragonSort_saveData()
+	    end
+
+        local dragon_data = self.m_selectDragonData
+        local info_data = ret
+        local ui = UI_DragonGoodbyeResult(dragon_data, info_data)
+        
+		ui:setCloseCB(finish_cb)
+    end
+
+    local ui = UI_DragonGoodbyePopup(oid, dragon_data, msg, show_effect)
 end
 
 -------------------------------------

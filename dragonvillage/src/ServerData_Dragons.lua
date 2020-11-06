@@ -1760,6 +1760,70 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning, war
     end
 end
 
+
+-------------------------------------
+-- function dragonStateStr
+-- 드래곤의 현재 상태(레벨이나 룬 등)와 관련하여 
+-- 문자열로 반환. dragonMaterialWarning 과 코드 중복 있음
+-- @param oid : object_id, t_warning : 무시해도 되는 조건들 
+-- @return '원더드래곤 : 성룡, 6성, 60레벨, 친밀도 10단계, 룬 6개 장착'
+-------------------------------------
+function ServerData_Dragons:dragonStateStr(oid, t_warning)
+	local t_warning = t_warning or {}
+	local object = self:getDragonObject(oid)
+	local msg = ''
+
+	local function add_msg(str)
+        if (msg == '') then
+            msg = str
+        else
+            msg = msg .. ', ' .. str
+        end
+    end
+
+	-- 진화
+    local warning_evolution = t_warning['evolution'] or 2
+    if (warning_evolution <= object:getEvolution()) then
+        local evolution = object:getEvolution()
+        local evolution_str = evolutionName(evolution)
+        add_msg(evolution_str)
+    end
+
+    -- 등급
+    local warning_grade = t_warning['grade'] or 4
+    if (warning_grade <= object:getGrade()) then
+        add_msg(Str('{1}성', object:getGrade()))
+    end
+
+    -- 레벨
+    local warning_lv = t_warning['lv'] or 10
+    if (warning_lv <= object:getLv()) then
+        add_msg(Str('{1} 레벨', object:getLv()))
+    end
+
+    -- 친밀도
+    local warning_flv = t_warning['flv'] or 2
+    local flv = (object:getFlv() + 1) -- 데이터는 0부터 유저에게는 1부터 노출됨
+    if (warning_flv <= flv) then
+        add_msg(Str('친밀도 {1} 단계', flv))
+    end
+
+    -- 룬
+    local l_rune_obj = object:getRuneObjectList()
+    local rune_cnt = table.count(l_rune_obj)
+    if (1 <= rune_cnt) then
+        add_msg(Str('룬 {1}개 장착', rune_cnt))
+    end
+
+    local name = object:getDragonNameWithEclv()
+	local result = name
+	if (not (msg == '')) then
+		result = result .. ' : ' .. msg
+	end
+
+	return result
+end
+
 -------------------------------------
 -- function request_skillMove
 -------------------------------------

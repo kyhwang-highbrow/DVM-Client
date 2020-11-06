@@ -96,16 +96,19 @@ function UI_DragonGoodbyeResult:showResult()
     local info_data = self.m_infoData
     local l_item_list = info_data['items_list']
 	if (l_item_list) then
-        local did = dragon_data['did']
-        local name = TableDragon():getDragonName(did)
+        --local did = dragon_data['did']
+        --local name = TableDragon():getDragonName(did)
+		
+		---- 얻은 인연포인트 텍스트를 만든다.
+		--local t_item = l_item_list[1]
+		--local goodbye_str_3 = UIHelper:makeGoodbyeStr(t_item, name)
 
-		-- 얻은 인연포인트 텍스트를 만든다.
-		local t_item = l_item_list[1]
-		local goodbye_str_3 = UIHelper:makeGoodbyeStr(t_item, name)
+		---- 획득 팝업 출력
+		--local ui = UI_ObtainPopup(l_item_list, goodbye_str_3)
 
-		-- 획득 팝업 출력
-		local ui = UI_ObtainPopup(l_item_list, goodbye_str_3)
-        ui:setCloseCB(function() self:fadeOutClose() end)
+		-- 20-11-10 드래곤 레벨업 개편으로 경험치, 인연포인트, 특성재료 중 나옴
+		local ui = UI_ObtainPopup(l_item_list, nil, nil, true)
+		ui:setCloseCB(function() self:fadeOutClose() end)
 	end
 
     -- 블럭 해제
