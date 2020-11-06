@@ -599,7 +599,6 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonLevelUpNew:response_levelup(ret)
-	ccdump(ret)
     -- 드래곤 정보 갱신
     g_dragonsData:applyDragonData(ret['modified_dragon'])
 

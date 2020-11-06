@@ -132,7 +132,7 @@ function UI_DragonManageInfo:initButton()
         vars['skillEnhanceBtn']:registerScriptTapHandler(function() self:click_skillEnhanceBtn() end)
 
 		-- 판매
-        vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
+        --vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
 
 		-- 강화
         vars['reinforceBtn']:registerScriptTapHandler(function() self:click_reinforceBtn() end)
@@ -154,7 +154,10 @@ function UI_DragonManageInfo:initButton()
 
         -- 작별
         vars['goodbyeBtn']:registerScriptTapHandler(function() self:click_goodbyeBtn() end)
-
+		
+		-- 일괄 작별
+		vars['goodbyeSelectBtn']:registerScriptTapHandler(function() self:click_goodbyeSelectBtn() end)
+		
 		-- 평가
 		vars['assessBtn']:registerScriptTapHandler(function() self:click_assessBtn() end)
 
@@ -256,7 +259,7 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['skillEnhanceBtn']:setEnabled(not is_slime_object)
 
         -- 판매
-        vars['sellBtn']:setEnabled(true)
+        --vars['sellBtn']:setEnabled(true)
 
 		-- 드래곤 강화
         vars['reinforceBtn']:setEnabled(not is_slime_object)
@@ -923,6 +926,30 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 	-- start
 	material_warning_popup()
 end
+
+-------------------------------------
+-- function click_goodbyeSelectBtn
+-- @brief 일괄 작별
+-------------------------------------
+function UI_DragonManageInfo:click_goodbyeSelectBtn()
+    require('UI_DragonGoodbyeSelect')
+	local ui = UI_DragonGoodbyeSelect()
+
+	local function close_cb()
+	    if ui.m_bChangeDragonList then
+			-- 테이블 아이템갱신
+			self:init_dragonTableView()
+
+			-- 기존에 선택되어 있던 드래곤 교체
+			self:setDefaultSelectDragon()
+
+			-- 정렬
+			self:apply_dragonSort_saveData()
+		end
+	end
+	ui:setCloseCB(close_cb)
+end
+
 
 -------------------------------------
 -- function click_sellBtn
