@@ -1,13 +1,14 @@
 local PARENT = UI_DragonManage_Base
 
--- 속성별 승급 패키지 product_id (table_shop_cash)
-local T_UPGRADE_PACKAGE_ID_TABLE = {
-		['earth'] = 110111,
-		['water'] = 110112,
-		['fire'] = 110113,
-		['light'] = 110114,
-		['dark'] = 110115,
-}
+-- 20-11-10 드래곤 레벨업 개편으로 사용 안함
+-- 속성별 승급 패키지 product_id (table_shop_cash) 
+--local T_UPGRADE_PACKAGE_ID_TABLE = {
+		--['earth'] = 110111,
+		--['water'] = 110112,
+		--['fire'] = 110113,
+		--['light'] = 110114,
+		--['dark'] = 110115,
+--}
 
 -------------------------------------
 -- class UI_DragonUpgrade
@@ -708,7 +709,8 @@ function UI_DragonUpgrade:isPackageBuyable()
 
 	-- pid 찾아서 StructProduct 찾아서 구매 가능 여부 확인
 	local attr = struct_dragon_object:getAttr()
-    local pid = T_UPGRADE_PACKAGE_ID_TABLE[attr]
+    --local pid = T_UPGRADE_PACKAGE_ID_TABLE[attr]
+    local pid = 110116 -- 20-11-10 드래곤 레벨업 개편에 따른 승급 패키지 통일화
 	local struct_product = g_shopDataNew:getProduct('package', pid)
 
 	-- 구매할때 쓰기 위해서 따로 저장
