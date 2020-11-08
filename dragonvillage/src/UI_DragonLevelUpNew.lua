@@ -59,7 +59,6 @@ end
 -------------------------------------
 function UI_DragonLevelUpNew:initUI()
     local vars = self.vars
-	vars['expGauge']:setPercentage(0)
     self:init_dragonTableView() -- 하단 드래곤 리스트 생성
     self:initStatusUI() -- 드래곤 스탯 관련 UI 생성
 	self:initLevelUpEffect() -- TODO : 레벨업 이펙트 
@@ -183,14 +182,6 @@ function UI_DragonLevelUpNew:refresh_dragonInfo()
 
         vars['dragonNode']:addChild(animator.m_node)
     end
-
-    -- 레벨업 가능 여부 처리
-	local possible = g_dragonsData:possibleDragonLevelUp(self.m_selectDragonOID)
-	vars['lockSprite']:setVisible(not possible)
-    if (not possible) then
-        local next_grade = t_dragon_data['grade'] + 1
-        vars['infoLabel2']:setString(Str('{1}성 승급시 레벨업 할 수 있어요', next_grade))
-    end
 end
 
 -------------------------------------
@@ -224,9 +215,6 @@ function UI_DragonLevelUpNew:refresh_dragonStat(dragon_level)
 	local max_level = TableGradeInfo():getValue(grade, 'max_lv')
 	local next_level = math_min(curr_level + 1, max_level)
 
-
-	local exp_percentage
-
 	if (curr_level < max_level) then -- 만렙이 아닐 때
 		local table_dragon_exp = TableDragonExp()
 		local max_level_table = {}
@@ -236,8 +224,6 @@ function UI_DragonLevelUpNew:refresh_dragonStat(dragon_level)
 		end
 		local max_exp = max_level_table[curr_level] 
 
-		exp_percentage = (curr_exp / max_exp) * 100
-
 		-- 이번 레벨업에 소비되는 돈과 경험치 정보
 		self.m_needGoldNext = table_dragon_exp:getGoldPerLevelUp(grade, curr_level)
 		self.m_needExpNext = max_exp - curr_exp
@@ -245,19 +231,82 @@ function UI_DragonLevelUpNew:refresh_dragonStat(dragon_level)
 		local curr_gold = g_userData:get('gold')
 		local curr_exp = g_userData:get('dragon_exp')
 
-		vars['goldLabel']:setString(Str('{1}/{2}', comma_value(curr_gold), comma_value(self.m_needGoldNext)))
-		vars['dragonExpLabel']:setString(Str('{1}/{2}', comma_value(curr_exp), comma_value(self.m_needExpNext)))
+        vars['priceLabel']:setString(comma_value(self.m_needGoldNext))
+        do -- 드래곤 경험치
+            local str = Str('{1} / {2}', comma_value(curr_exp), comma_value(self.m_needExpNext))
+            if (self.m_needExpNext <= curr_exp) then
+                str = '{@possible}' .. str
+            else
+                str = '{@impossible}' .. str
+            end
+		    vars['dragonExpLabel']:setString(str)
+        end
+        self:alignDragonExpLabel()
 
-	else -- 만렙
-		exp_percentage = 100
-	end
+        vars['dragonExpNode']:setVisible(true)
+        vars['levelupBtn']:setVisible(true)
+        vars['lockSprite']:setVisible(false)
+	else
+        vars['dragonExpNode']:setVisible(false)
+        vars['levelupBtn']:setVisible(false)
 
-	vars['expGauge']:runAction(cc.ProgressTo:create(0.2, exp_percentage))
-    vars['levelLabel']:setString(Str('레벨{1}/{2}', curr_level, max_level))
+        -- 레벨업 가능 여부 처리
+	    local possible = g_dragonsData:possibleDragonLevelUp(self.m_selectDragonOID)
+	    vars['lockSprite']:setVisible(not possible)
+        if (not possible) then
+            local next_grade = t_dragon_data['grade'] + 1
+            vars['infoLabel2']:setString(Str('{1}성 승급시 레벨업 할 수 있어요', next_grade))
+        end
+    end
+
+    --vars['levelLabel']:setString(Str('레벨{1}/{2}', curr_level, max_level))
 
     -- 능력치 정보 갱신
     self:refresh_stats(t_dragon_data, curr_level, next_level)
 end
+
+-------------------------------------
+-- function alignDragonExpLabel
+-- @brief 드래곤 경험치 아이템아이콘, 필요 수량 라벨 정렬
+-------------------------------------
+function UI_DragonLevelUpNew:alignDragonExpLabel()
+    local vars = self.vars
+
+    if (vars['dragonExpIcon'] == nil) then
+        return
+    end
+
+    if (vars['dragonExpLabel'] == nil) then
+        return
+    end
+
+    local interval_x = 0
+    
+    -- 드래곤 경험치 아이콘 넓이 계산
+    local dragon_exp_icon_width = 0
+    do
+        local content_size = vars['dragonExpIcon']:getContentSize()
+        local scale_x = vars['dragonExpIcon']:getScaleX()
+        dragon_exp_icon_width = (content_size['width'] * scale_x)
+    end
+
+    -- 드래곤 경험치 라벨 넓이 계산
+    local dragon_exp_label_width = 0
+    do
+        local string_width = vars['dragonExpLabel']:getStringWidth()
+        local scale_x = vars['dragonExpLabel']:getScaleX()
+        dragon_exp_label_width = (string_width * scale_x)
+    end
+
+    -- 총 넓이, 시작 x위치 계산
+    local total_width = dragon_exp_icon_width + interval_x + dragon_exp_label_width
+    local left_x = -(total_width / 2)
+
+    -- node 위치 조정
+    vars['dragonExpIcon']:setPositionX(left_x + (dragon_exp_icon_width/2))
+    vars['dragonExpLabel']:setPositionX(left_x + dragon_exp_icon_width + interval_x + (dragon_exp_label_width/2))
+end
+
 
 -------------------------------------
 -- function refresh_stats
@@ -600,7 +649,7 @@ function UI_DragonLevelUpNew:request_levelUp()
 	ui_network:setParam('target_lv', target_level)
 	ui_network:setParam('target_dragon_exp', target_dragon_exp)
 	ui_network:setParam('target_gold', target_gold)
-	ui_network:hideLoading()
+	--ui_network:hideLoading()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
 	ui_network:request()
