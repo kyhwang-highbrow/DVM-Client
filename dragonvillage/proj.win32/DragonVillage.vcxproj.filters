@@ -4654,6 +4654,9 @@
     <None Include="..\src\UI_DragonGoodbyePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\lib\FormatSIPrefix.lua">
+      <Filter>lua\lib</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

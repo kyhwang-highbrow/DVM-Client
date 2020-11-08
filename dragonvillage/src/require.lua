@@ -24,6 +24,7 @@ local t_module = {
     'lib/net',
     'lib/class',
     'lib/utils',
+    'lib/FormatSIPrefix',
     'StructLanguage',
     'lib/Translate',
     'lib/scheduler',
