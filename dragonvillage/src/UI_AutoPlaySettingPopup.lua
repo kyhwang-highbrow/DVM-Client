@@ -108,6 +108,7 @@ function UI_AutoPlaySettingPopup:initUI()
     vars['runAutoSellMenu']:setVisible(false)
     vars['autoMenu6']:setVisible(false)
     vars['advNextStageMenu']:setVisible(false)
+    vars['autoMenu2']:setVisible(false) -- 20-11-10 업데이트로 어떠한 경우에든지 '드래곤 최대 레벨 달성 시 연속 전투 종료' 옵션 안보이도록 함
 
 	-- 고대의탑 분기처리
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
@@ -123,7 +124,6 @@ function UI_AutoPlaySettingPopup:initUI()
 
     -- 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_ARENA) then
-        vars['autoMenu2']:setVisible(false)
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(false)
         vars['autoMenu6']:setVisible(true)
@@ -131,7 +131,6 @@ function UI_AutoPlaySettingPopup:initUI()
 
     -- 그랜드 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
-        vars['autoMenu2']:setVisible(false)
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(false)
         vars['autoMenu6']:setVisible(true)
@@ -141,7 +140,6 @@ function UI_AutoPlaySettingPopup:initUI()
     -- 환상 던전 분기처리
 	elseif (self.m_gameMode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
         vars['autoMenu5']:setVisible(false)
-        vars['autoMenu2']:setVisible(false)
         vars['autoMenu3']:setVisible(false)
         vars['autoMenu4']:setVisible(false)
         vars['autoMenu6']:setVisible(false)
@@ -326,7 +324,8 @@ function UI_AutoPlaySettingPopup:close()
 
 	-- common
     g_autoPlaySetting:set('stop_condition_lose', vars['autoStartBtn1']:isChecked())
-    g_autoPlaySetting:set('stop_condition_dragon_lv_max', vars['autoStartBtn2']:isChecked())
+    --g_autoPlaySetting:set('stop_condition_dragon_lv_max', vars['autoStartBtn2']:isChecked())
+    g_autoPlaySetting:set('stop_condition_dragon_lv_max', false) -- 20-11-10 드래곤 레벨업 개편으로 인해 항상 해당 옵션은 false로 저장하도록 함
     
 	-- tower
     g_autoPlaySetting:set('tower_next_floor', vars['autoStartBtn4']:isChecked())
