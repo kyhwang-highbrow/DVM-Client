@@ -104,8 +104,9 @@ function UI_GameResultNew:initUI()
         self:initTamer()
     end
 
+	-- 20-11-10 드래곤 레벨업 개편으로 인해 드래곤을 띄우지 않음
     -- 드래곤 리스트
-    self:initDragonList(t_tamer_levelup_data, l_dragon_list)    
+    -- self:initDragonList(t_tamer_levelup_data, l_dragon_list)    
 
     self:doActionReset()
     self:doAction()
@@ -413,8 +414,10 @@ function UI_GameResultNew:direction_start()
     vars['skipLabel']:setVisible(false)
     vars['againBtn']:setVisible(false)
 
+	-- 20-11-10 드래곤 레벨업 개편으로 인해 사용 안함
     -- 드래곤 레벨업 연출 node
-    vars['dragonResultNode']:setVisible(true)
+    --vars['dragonResultNode']:setVisible(true)
+    vars['dragonResultNode']:setVisible(false)
 
     -- 플레이 시간, 획득 골드
     self.m_lNumberLabel['time']:setNumber(self.m_time)

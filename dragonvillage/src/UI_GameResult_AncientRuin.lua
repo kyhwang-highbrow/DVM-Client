@@ -18,12 +18,12 @@ function UI_GameResult_AncientRuin:init(stage_id, is_success, time, gold, t_tame
     local btn_menu = vars['btnMenu']
     local reward_menu = vars['dropRewardMenu']
     local no_reward_menu = vars['noRewardMenu']
-    local reward_visual = vars['boxVisual']
+    -- local reward_visual = vars['boxVisual'] 
    
     btn_menu:setPositionY( btn_menu:getPositionY() + 260 )
     reward_menu:setPositionY( reward_menu:getPositionY() + 245 )
     no_reward_menu:setPositionY( no_reward_menu:getPositionY() + 245 )
-    reward_visual:setPositionY( reward_visual:getPositionY() + 245 )
+    -- reward_visual:setPositionY( reward_visual:getPositionY() + 245 ) -- 20-11-10 드래곤 레벨업 개편으로 드래곤들이 안보이면서 필요 없게 됨 
 end
 
 -------------------------------------
@@ -89,8 +89,10 @@ function UI_GameResult_AncientRuin:direction_start()
     vars['skipLabel']:setVisible(false)
     vars['againBtn']:setVisible(false)
 
+    -- 20-11-10 드래곤 레벨업 개편으로 인해 사용 안함
     -- 드래곤 레벨업 연출 node
-    vars['dragonResultNode']:setVisible(true)
+    --vars['dragonResultNode']:setVisible(true)
+    vars['dragonResultNode']:setVisible(false)
 
     -- 플레이 시간, 획득 골드
     self.m_lNumberLabel['time']:setNumber(self.m_time)
