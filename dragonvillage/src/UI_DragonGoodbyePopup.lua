@@ -23,7 +23,7 @@ function UI_DragonGoodbyePopup:init(dragon_oid, dragon_data, msg, okBtn_cb)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_backKey() end, 'UI_DragonGoodbyePopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbyePopup')
 
     self:initUI()
     self:initButton()
