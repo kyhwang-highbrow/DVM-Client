@@ -80,4 +80,7 @@ return {['다음에 또 드릴게요.']='من دفعه بعد بتو بیشتر 
 ['{1} 마리의 드래곤이 드래곤 경험치로 변경됩니다.']='{1} Dragons will be changed to Dragon EXP.',
 ['{1} 마리의 드래곤이 특성 재료로 변경됩니다.']='{1} Dragons will be changed to Mastery Material',
 ['{1}의 탑 정복 선물']='{1} Tower',
+['인연 포인트']='Relationship Point',
+['특성 재료']='Mastery Material',
+['선택된 드래곤']='Selected Dragon',
 ['다이아\n20,000개']='ا 20000/n الماس'}
