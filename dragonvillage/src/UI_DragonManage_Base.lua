@@ -214,6 +214,26 @@ function UI_DragonManage_Base:checkSelectedDragonIsSlime()
 end
 
 -------------------------------------
+-- function getDragonListItem
+-- @brief 하단에 드래곤 리스트 아이템 UI 리턴
+-- @return UI_CharacterCard
+-------------------------------------
+function UI_DragonManage_Base:getDragonListItem(dragon_object_id)
+    local dragon_object_id = (dragon_object_id or self.m_selectDragonOID)
+    local item = self.m_tableViewExt.m_itemMap[dragon_object_id]
+    if (not item) then
+        return nil
+    end
+
+    -- UI card 버튼이 있을 경우 데이터 갱신
+    if item and item['ui'] then
+        return item['ui']
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function refresh_dragonIndivisual
 -- @brief 특정 드래곤의 object_id로 갱신
 -------------------------------------

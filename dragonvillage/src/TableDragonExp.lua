@@ -72,3 +72,23 @@ function TableDragonExp:getGoldPerLevelUp(grade, lv)
 	local gold = self:getValue(eid, 'req_gold_per_lvup')
 	return gold
 end
+
+
+-------------------------------------
+-- function getGoldAndDragonEXPForDragonLevelUp
+-- @brief 드래곤 레벨업에 드는 골드, 드래곤 경험치
+-- @return total_gold
+-- @return total_dragon_exp
+-------------------------------------
+function TableDragonExp:getGoldAndDragonEXPForDragonLevelUp(grade, lv, target_lv)
+    local total_gold = 0
+    local total_dragon_exp = 0
+
+    -- 시작 레벨부터 목표 레벨까지 필요 골드, 드래곤 경험치 계산
+    for _lv=lv, target_lv-1 do
+        total_gold = (total_gold + self:getGoldPerLevelUp(grade, _lv))
+        total_dragon_exp = (total_dragon_exp + self:getDragonMaxExp(grade, _lv))
+    end
+
+    return total_gold, total_dragon_exp
+end
