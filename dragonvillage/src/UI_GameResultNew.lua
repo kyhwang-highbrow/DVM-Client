@@ -117,6 +117,15 @@ function UI_GameResultNew:initUI()
         vars['itemAutoBtn']:setVisible(false)
         vars['itemAutoLabel']:setVisible(false)
     end
+
+	-- 메뉴 포지션 변경 (드래곤 레벨업 연출 생략)
+    local btn_menu = vars['btnMenu']
+    local reward_menu = vars['dropRewardMenu']
+    local no_reward_menu = vars['noRewardMenu']
+   
+    btn_menu:setPositionY( btn_menu:getPositionY() + 260 )
+    reward_menu:setPositionY( reward_menu:getPositionY() + 245 )
+    no_reward_menu:setPositionY( no_reward_menu:getPositionY() + 245 )
 end
 
 -------------------------------------
@@ -449,10 +458,11 @@ function UI_GameResultNew:direction_start()
     end
 
     -- 레벨업 연출 시작
-    self:startLevelUpDirector()
+	local levelup_duration = 0.4
+    self:startLevelUpDirector(levelup_duration)
 
     self.root:stopAllActions()
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function() self:doNextWork() end)))
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(levelup_duration), cc.CallFunc:create(function() self:doNextWork() end)))
 end
 
 -------------------------------------
@@ -827,13 +837,16 @@ end
 -- function direction_moveMenu
 -------------------------------------
 function UI_GameResultNew:direction_moveMenu()
-    local vars = self.vars
-    local switch_btn = vars['switchBtn']
-    self:action_switchBtn(function() 
-        switch_btn:setVisible(true)
-        self:doNextWork()
-    end)
-    self:show_staminaInfo()
+    --local vars = self.vars
+    --local switch_btn = vars['switchBtn']
+    --self:action_switchBtn(function() 
+        --switch_btn:setVisible(true)
+        --self:doNextWork()
+    --end)
+
+	-- 고대 유적 던전처럼 한 화면에 나오도록 변경
+	self:show_staminaInfo()
+    self:doNextWork()
 end
 
 -------------------------------------
@@ -950,9 +963,9 @@ end
 -- function startLevelUpDirector
 -- @brief 레벨업 연출 클래스 시작
 -------------------------------------
-function UI_GameResultNew:startLevelUpDirector()
+function UI_GameResultNew:startLevelUpDirector(duration)
     for i,v in ipairs(self.m_lLevelupDirector) do
-        v:start()
+        v:start(duration)
     end
 end
 
