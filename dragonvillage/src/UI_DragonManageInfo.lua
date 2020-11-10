@@ -131,9 +131,6 @@ function UI_DragonManageInfo:initButton()
 		-- 스킬 강화
         vars['skillEnhanceBtn']:registerScriptTapHandler(function() self:click_skillEnhanceBtn() end)
 
-		-- 판매
-        --vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
-
 		-- 강화
         vars['reinforceBtn']:registerScriptTapHandler(function() self:click_reinforceBtn() end)
     end
@@ -252,9 +249,6 @@ function UI_DragonManageInfo:refresh_buttonState()
 
 		-- 스킬 강화
         vars['skillEnhanceBtn']:setEnabled(not is_slime_object)
-
-        -- 판매
-        --vars['sellBtn']:setEnabled(true)
 
 		-- 드래곤 강화
         vars['reinforceBtn']:setEnabled(not is_slime_object)
@@ -978,49 +972,6 @@ end
 function UI_DragonManageInfo:click_goodbyeSelectBtn()
     require('UI_DragonGoodbyeSelect')
 	local ui = UI_DragonGoodbyeSelect()
-
-	local function close_cb()
-	    if ui.m_bChangeDragonList then
-			-- 테이블 아이템갱신
-			self:init_dragonTableView()
-
-			-- 기존에 선택되어 있던 드래곤 교체
-			self:setDefaultSelectDragon()
-
-			-- 정렬
-			self:apply_dragonSort_saveData()
-		end
-	end
-	ui:setCloseCB(close_cb)
-end
-
-
--------------------------------------
--- function click_sellBtn
--- @brief 드래곤 판매
--------------------------------------
-function UI_DragonManageInfo:click_sellBtn()
-    -- 작별 가능한지 체크
-    if self.m_selectDragonOID then
-
-		-- 슬라임은 판매 가능
-        local object = g_dragonsData:getDragonObject(self.m_selectDragonOID)
-        if (object.m_objectType ~= 'slime') then
-	        local possible, msg = g_dragonsData:possibleMaterialDragon(self.m_selectDragonOID)
-	        if (not possible) then
-		        UIManager:toastNotificationRed(msg)
-                return
-	        end
-        -- 슬라임이라도 잠금상태면 판매목록에서 제외
-        elseif (object.m_objectType == 'slime') then
-            if (object.lock == true) then
-                UIManager:toastNotificationRed(Str('잠금 상태입니다.'))
-                return
-            end
-        end
-    end
-
-	local ui = UI_DragonSell()
 
 	local function close_cb()
 	    if ui.m_bChangeDragonList then

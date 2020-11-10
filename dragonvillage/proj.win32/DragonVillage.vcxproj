@@ -1525,7 +1525,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonBoardPopup.lua" />
     <None Include="..\src\UI_DragonBoardPopup_Evaluate.lua" />
     <None Include="..\src\UI_DragonBoardPopup_Write.lua" />
-    <None Include="..\src\UI_DragonSell.lua" />
     <None Include="..\src\UI_DragonSkillEnhance.lua" />
     <None Include="..\src\UI_DragonSkillEnhance_Result.lua" />
     <None Include="..\src\UI_BlockPopup.lua" />
