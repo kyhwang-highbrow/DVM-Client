@@ -4555,9 +4555,6 @@
     <None Include="..\src\UI_AttendanceSpecialListItem_3rdAnniv.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonConversion.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_EventImageQuizIngame.lua">
       <Filter>lua\UI</Filter>
     </None>

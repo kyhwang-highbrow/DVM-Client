@@ -1438,26 +1438,6 @@ function ServerData_Dragons:isSameDid(doid_a, doid_b)
 end
 
 -------------------------------------
--- function have6Grade60LvLegendDragon
--- @brief 전설 6성 60레벨 드래곤이 한마리 이상 있는지 체크
--------------------------------------
-function ServerData_Dragons:have6Grade60LvLegendDragon()
-    local dragon_dictionary = self:getDragonsListRef()
-    
-    for key, dragon in pairs(dragon_dictionary) do
-        local did = dragon['did']
-        if (TableDragon:getBirthGrade(did) >= 5) then
-            -- 60레벨은 6성만 찍을 수 있으니 6성을 검사할 필요가 없다.
-            if (dragon:getLv() >= 60) then
-                return true
-            end
-        end
-    end
-
-    return false
-end
-
--------------------------------------
 -- function request_dragonLock
 -------------------------------------
 function ServerData_Dragons:request_dragonLock(doids, soids, lock, cb_func)
@@ -1567,39 +1547,6 @@ function ServerData_Dragons:request_dragonSell(doids, soids, cb_func)
     ui_network:setParam('uid', uid)
     ui_network:setParam('doids', doids)
 	ui_network:setParam('soids', soids)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:request()
-end
-
--------------------------------------
--- function request_dragonConversion
--------------------------------------
-function ServerData_Dragons:request_dragonConversion(doids, cb_func)
-	-- 유저 ID
-    local uid = g_userData:get('uid')
-
-    local function success_cb(ret)
-		-- 판매 드래곤 삭제
-		if ret['deleted_dragons_oid'] then
-			for _, doid in pairs(ret['deleted_dragons_oid']) do
-				g_dragonsData:delDragonData(doid)
-			end
-		end
-
-		-- 골드 갱신
-		self.m_serverData:networkCommonRespone(ret)
-
-		-- 콜백
-		if (cb_func) then
-			cb_func(ret)
-		end
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/conversion')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('src_doids', doids)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
