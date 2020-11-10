@@ -176,7 +176,14 @@ end
 function UI_DragonLevelUpBtnPress:finishPressDragonLevelUpBtn(msg)
     self:log('DONE!!!!!!! ' .. msg)
 
-    -- 서버와 통신 필요
+    -- 서버와 통신
+    if (self.m_beforeLv < self.m_afterLv) then
+        local dragon_levelup_ui = self.m_dragonLevelUpUI
+        local target_lv = self.m_afterLv
+        local need_gold = (self.m_beforeGold - self.m_afterGold)
+        local need_dragon_exp = (self.m_beforeDragonExp - self.m_afterDragonExp)
+        dragon_levelup_ui:request_levelUp(target_lv, need_gold, need_dragon_exp)
+    end
 
     -- 초기화
     self:resetDragonLevelUpBtnPress()
