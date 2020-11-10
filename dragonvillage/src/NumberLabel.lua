@@ -68,6 +68,9 @@ function NumberLabel:setNumber(number, immediately)
     else
         local tween = cc.ActionTweenForLua:create(self.m_actionDuration, prev_number, curr_number, self:getTweenCallback())
         self.m_label:runAction(tween)
+        
+        -- tween연출 후 숫자가 정확히 지정되지 않는 경우가 있다. 0.03초 후 정확한 숫자를 설정하기 위해 추가한다.
+        cca.reserveFunc(self.m_label, self.m_actionDuration + 0.03, function() self:getTweenCallback()(curr_number, self.m_label) end)
     end
 
     -- 색상 변화
