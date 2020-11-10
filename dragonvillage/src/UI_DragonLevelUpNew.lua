@@ -5,6 +5,7 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonLevelUpNew = class(PARENT,{
         m_dragonLevelUpBtnPress = 'UI_DragonLevelUpBtnPress', -- 드래곤 레벨업 버튼을 꾹 눌러 연속으로 레벨업을 처리하는 핼퍼 클래스
+        m_dragonAnimator = 'animator',
     })
 
 -------------------------------------
@@ -55,6 +56,10 @@ function UI_DragonLevelUpNew:initUI()
     local vars = self.vars
     self:init_dragonTableView() -- 하단 드래곤 리스트 생성
     self:initStatusUI() -- 드래곤 스탯 관련 UI 생성
+
+	-- 레벨업 이펙트
+	 vars['levelupVisual']:setVisible(false) -- 일단 꺼놓고, 나중에 이펙트 그릴 때 킴
+	 vars['levelupVisual']:setIgnoreLowEndMode(true) -- 저사양 모드에서도 표현되어야 함
 end
 
 -------------------------------------
@@ -165,6 +170,9 @@ function UI_DragonLevelUpNew:refresh_dragonInfo()
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         animator:changeAni('idle', true)
+		animator:setMix('idle', 'pose_1', 0) -- 레벨업 모션이 좀 더 눈에 띄도록 
+		animator:setMix('pose_1', 'idle', 0)
+		self.m_dragonAnimator = animator
 
         vars['dragonNode']:addChild(animator.m_node)
     end
@@ -498,7 +506,10 @@ function UI_DragonLevelUpNew:response_levelup(ret)
     self.m_bChangeDragonList = true
     self:setSelectDragonDataRefresh() -- 선택된 드래곤의 데이터를 최신으로 갱신
 
-    self:refresh_dragonStat()
+    -- 이펙트 재생
+	self:playLevelUpEffect()
+
+	self:refresh_dragonStat()
     self:refresh_levelUpBtnState()
 
     -- @ MASTER ROAD
@@ -510,6 +521,106 @@ function UI_DragonLevelUpNew:response_levelup(ret)
     local t_data = {clear_key = 'd_lvup', ret = ret}
     g_dragonDiaryData:updateDragonDiary(t_data)
     --]]
+end
+
+-------------------------------------
+-- function playLevelUpEffect
+-- @brief 레벨업 이펙트 및 사운드 재생
+-- @param dragon_level number nill일 경우 선택된 드래곤의 레벨을 사용
+-------------------------------------
+function UI_DragonLevelUpNew:playLevelUpEffect(dragon_level)
+	local vars = self.vars
+
+    local t_dragon_data = self.m_selectDragonData
+	local doid = t_dragon_data['id']
+    local grade = t_dragon_data['grade']
+	local dragon_level = (dragon_level or t_dragon_data['lv']) -- 파라미터 사용 (nil일 경우 선택된 드래곤의 레벨을 사용)
+    local max_level = TableGradeInfo():getValue(grade, 'max_lv')
+	local next_level = math_min(dragon_level, max_level)
+
+	-- 현재 레벨의 능력치 계산기
+	local curr_dragon_data = {}
+	curr_dragon_data['lv'] = dragon_level - 1
+    local status_calc = MakeOwnDragonStatusCalculator(doid, curr_dragon_data)
+
+    -- 현재 레벨의 능력치 (모든 능력치는 유저에게 소수점 내림 상태로 보임)
+    local curr_atk = math_floor(status_calc:getFinalStat('atk'))
+    local curr_def = math_floor(status_calc:getFinalStat('def'))
+    local curr_hp = math_floor(status_calc:getFinalStat('hp'))
+
+    -- 변경된 레벨의 능력치 계산기
+    local chaged_dragon_data = {}
+    chaged_dragon_data['lv'] = next_level
+    local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
+
+    -- 변경된 레벨의 능력치
+    local changed_atk = math_floor(changed_status_calc:getFinalStat('atk'))
+    local changed_def = math_floor(changed_status_calc:getFinalStat('def'))
+    local changed_hp = math_floor(changed_status_calc:getFinalStat('hp'))
+
+	local hp_changed = changed_hp - curr_hp
+	local def_changed = changed_def - curr_def
+	local atk_changed = changed_atk - curr_atk
+
+	-- 실질적인 이펙트 호출
+	self:playLevelUpEffect_(hp_changed, def_changed, atk_changed)
+end
+
+-------------------------------------
+-- function playLevelUpEffect_
+-- @brief 실질적으로 레벨업 이펙트 및 사운드 재생
+-------------------------------------
+function UI_DragonLevelUpNew:playLevelUpEffect_(hp_changed, def_changed, atk_changed)
+	local vars = self.vars
+
+	do -- 1. 드래곤 모션 재생
+		local dragon_animator = self.m_dragonAnimator
+		local visual_list = dragon_animator:getVisualList()
+		local exist_pose_1 = table.find(visual_list, 'pose_1')
+		local ani = 'pose_1'
+		-- pose_1이 없으면 attack을 사용 (드래곤이 아닌 몬스터의 경우 pose_q이 없을 수 있다)
+		if (exist_pose_1 == false) then
+			ani = 'attack'
+		end
+		dragon_animator:changeAni(ani, false)
+
+		 -- 모션 변화 느낌을 좀 더 주기 위해 배속
+		local animation_time_scale = 1.6
+		dragon_animator:setTimeScale(animation_time_scale)
+
+		-- 애니메이션 끝나면 다시 속도 원상태로
+		local function anihandler()
+			dragon_animator:changeAni('idle', true) 
+			dragon_animator:setTimeScale(1)
+		end
+		dragon_animator:addAniHandler(anihandler)
+	end
+
+	do -- 2. 레벨업 이펙트 연출
+		local levelup_effect = vars['levelupVisual']
+		levelup_effect:setVisible(true)
+		levelup_effect:changeAni('levelup', false)
+		levelup_effect:addAniHandler(function() levelup_effect:setVisible(false) end)
+	end
+
+	do -- 3. 레벨업에 따른 능력치 상승 텍스트 이펙트 연출 
+		-- ex: 생명력 + 5
+		local text_ui = UI()
+		text_ui:load('dragon_levelup_stats.ui')
+		text_ui.vars['statsLabel1']:setString(Str('생명력') .. '+' .. comma_value(hp_changed))
+		text_ui.vars['statsLabel2']:setString(Str('방어력') .. '+' .. comma_value(def_changed))
+		text_ui.vars['statsLabel3']:setString(Str('공격력') .. '+' .. comma_value(atk_changed))
+		-- local delay = cc.DelayTime:create(0.05)
+		local duration = 1
+		local spawn = cc.EaseIn:create(cc.Spawn:create(cc.MoveBy:create(duration, cc.p(0, 150)), cc.FadeTo:create(duration, 0)), 1)
+		local action = cc.Sequence:create(spawn, cc.RemoveSelf:create())
+		text_ui.root:runAction(action)
+		vars['textEffectNode']:addChild(text_ui.root)
+	end
+
+	do -- 4. 레벨업 사운드
+		SoundMgr:playEffect('UI', 'ui_dragon_level_up')
+	end
 end
 
 --@CHECK

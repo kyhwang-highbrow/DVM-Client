@@ -158,6 +158,9 @@ function UI_DragonLevelUpBtnPress:update(dt)
             self.m_afterGold = (self.m_afterGold - need_gold)
             self.m_afterDragonExp = (self.m_afterDragonExp - need_dragon_exp)
 
+            -- 이펙트 재생
+			dragon_levelup_ui:playLevelUpEffect(self.m_afterLv) -- params : dragon_level
+
             -- UI_DragonLevelUpNew 갱신
             dragon_levelup_ui:refresh_dragonStat(self.m_afterLv) -- params : dragon_level
             dragon_levelup_ui:refresh_levelUpBtnState(self.m_afterLv, 0, self.m_afterDragonExp) -- params : curr_lv, curr_exp, dragon_exp
@@ -166,7 +169,7 @@ function UI_DragonLevelUpBtnPress:update(dt)
         end
         self:log('lv:' .. self.m_afterLv .. ', gold:' .. self.m_afterGold .. ', dragon_exp: ' .. self.m_afterDragonExp)
         
-        self.m_timer = (self.m_timer + 0.1)
+        self.m_timer = (self.m_timer + 0.15)
     end
 end
 
