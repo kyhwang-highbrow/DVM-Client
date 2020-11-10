@@ -60,7 +60,7 @@ function UI_DragonGoodbyePopup:initUI()
 		dragon_exp_item['count'] = exp 	
 		
 		local ui = UI_ItemCard(dragon_exp_item['item_id'], dragon_exp_item['count'])
-		ui.root:setScale(1.3)
+        ui:setEnabledClickBtn(false)
 		vars['itemNode1']:addChild(ui.root)
 	end		
 	
@@ -75,7 +75,7 @@ function UI_DragonGoodbyePopup:initUI()
 		material_item['count'] = count 		
 	
 		local ui = UI_ItemCard(material_item['item_id'], material_item['count'])
-		ui.root:setScale(1.3)
+        ui:setEnabledClickBtn(false)
 		vars['itemNode2']:addChild(ui.root)
 	else
 		vars['checkBtn2']:setVisible(false)
@@ -92,7 +92,7 @@ function UI_DragonGoodbyePopup:initUI()
 		relation_item['count'] = count 		
 
 		local ui = UI_ItemCard(relation_item['item_id'], relation_item['count'])
-		ui.root:setScale(1.3)
+        ui:setEnabledClickBtn(false)
 		vars['itemNode3']:addChild(ui.root)
 	else
 		vars['checkBtn3']:setVisible(false)
@@ -119,7 +119,7 @@ function UI_DragonGoodbyePopup:initButton()
 	-- 켜져 있는 버튼들에 대해 정렬하기
 	-- 경험치 버튼은 어떤 드래곤이든 존재하지만
 	-- 인연 포인트랑 특성 재료는 없을 수 있음
-	local l_pos = getSortPosList(170, enable_button_count)
+	local l_pos = getSortPosList(210, enable_button_count)
 	local l_pos_count = 1
 	for idx = 1, 3 do
 		if (vars['checkBtn'..idx]:isEnabled()) then
