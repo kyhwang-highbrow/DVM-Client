@@ -4,6 +4,7 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonLevelUpNew
 -------------------------------------
 UI_DragonLevelUpNew = class(PARENT,{
+        m_dragonLevelUpBtnPress = 'UI_DragonLevelUpBtnPress', -- 드래곤 레벨업 버튼을 꾹 눌러 연속으로 레벨업을 처리하는 핼퍼 클래스
     })
 
 -------------------------------------
@@ -32,6 +33,10 @@ function UI_DragonLevelUpNew:init(doid)
 
     self:initUI()
     self:initButton()
+
+    -- 드래곤 레벨업 버튼을 꾹 눌러 연속으로 레벨업을 처리하는 핼퍼 클래스 
+    require('UI_DragonLevelUpBtnPress')
+    self.m_dragonLevelUpBtnPress = UI_DragonLevelUpBtnPress(self)
 
     -- 첫 선택 드래곤 지정 & refresh
     self:setDefaultSelectDragon(doid)
@@ -89,6 +94,7 @@ end
 function UI_DragonLevelUpNew:initButton()
     local vars = self.vars
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
+    vars['levelupBtn']:registerScriptPressHandler(function() self.m_dragonLevelUpBtnPress:dragonLevelUpBtnPressHandler(vars['levelupBtn']) end)
 end
 
 -------------------------------------
@@ -399,7 +405,6 @@ function UI_DragonLevelUpNew:click_levelupBtn()
     local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
     if (not possible) then
         UIManager:toastNotificationRed(msg)
-		initField()
         return
     end
 
@@ -413,7 +418,7 @@ function UI_DragonLevelUpNew:click_levelupBtn()
 
     -- 골드가 충분히 있는지 확인
     local need_gold = total_gold
-    if (not ConfirmPrice('gold', need_gold)) then
+    if (not ConfirmPrice('gold', need_gold)) then -- 골드가 부족한경우 상점이동 유도 팝업이 뜬다. (ConfirmPrice함수 안에서)
 		--UIManager:toastNotificationRed(Str('골드가 부족합니다'))
 	    return
     end
@@ -443,7 +448,6 @@ function UI_DragonLevelUpNew:request_levelUp(target_lv, need_gold, need_dragon_e
     local lv = t_dragon_data['lv']
     local target_dragon_exp = (dragon_exp - need_dragon_exp)
     local target_gold = (gold - need_gold)
-
 
     local ui_network = UI_Network()
     ui_network:setUrl('/dragons/levelup_new')
@@ -492,7 +496,7 @@ function UI_DragonLevelUpNew:response_levelup(ret)
     -- 드래곤 정보 갱신
     g_dragonsData:applyDragonData(ret['modified_dragon'])
     self.m_bChangeDragonList = true
-    self:setSelectDragonDataRefresh()
+    self:setSelectDragonDataRefresh() -- 선택된 드래곤의 데이터를 최신으로 갱신
 
     self:refresh_dragonStat()
     self:refresh_levelUpBtnState()

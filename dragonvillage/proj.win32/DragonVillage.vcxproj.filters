@@ -4657,6 +4657,9 @@
     <None Include="..\src\lib\FormatSIPrefix.lua">
       <Filter>lua\lib</Filter>
     </None>
+    <None Include="..\src\UI_DragonLevelUpBtnPress.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
