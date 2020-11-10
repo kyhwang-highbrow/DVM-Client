@@ -124,8 +124,7 @@ end
 -------------------------------------
 function StructLobbyNotice:openLobbyNoticePopup(finish_cb)
     local type = self:getType()
-
-    if (type == 'push_newbie') then
+    if (type == 'push_newbie') or (type == 'change_exp') then
         -- 보상이 존재하고 아직 수령하지 않은 경우에만 팝업 생성
         if self:hasReward() and (self['receive_reward'] == false) then
             require('UI_LobbyNoticePopup')
@@ -153,6 +152,7 @@ function StructLobbyNotice:makeSampleData()
     --t_data['id'] = '5e9d604be8919356f20346b0'
     t_data['type'] = 'push_newbie'
     t_data['expired_at']  = 1587976907873
+	t_data['receive_reward'] = false
     
     return t_data
 end

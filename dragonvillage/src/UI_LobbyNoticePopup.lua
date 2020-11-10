@@ -34,12 +34,14 @@ end
 
 -------------------------------------
 -- function getUIRes
+-- @virtual
 -------------------------------------
 function UI_LobbyNoticePopup:getUIRes()
-    local ui_res = 'lobby_notice_push_newbie.ui'
+    local type = self.m_structLobbyNotice:getType()
+    local ui_res = 'lobby_notice_' .. type .. '.ui'
 
     -- 타입별로 처리가 필요한 경우 사용
-    if self.m_structLobbyNotice then
+    if (self.m_structLobbyNotice ~= nil) then
         --ui_res = self.m_structLobbyNotice:getUIRes()
     end
 

@@ -17,6 +17,7 @@ end
 
 -------------------------------------
 -- function applyLobbyNoticeListData
+-- @brief /users/lobby에서 lobby_notice_list로 받음
 -- @param t_data 리스트 형태
 -------------------------------------
 function ServerData_LobbyNotice:applyLobbyNoticeListData(l_lobby_notice_data)
