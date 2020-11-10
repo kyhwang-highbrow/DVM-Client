@@ -104,9 +104,8 @@ function UI_GameResultNew:initUI()
         self:initTamer()
     end
 
-	-- 20-11-10 드래곤 레벨업 개편으로 인해 드래곤을 띄우지 않음
     -- 드래곤 리스트
-    -- self:initDragonList(t_tamer_levelup_data, l_dragon_list)    
+    self:initDragonList(t_tamer_levelup_data, l_dragon_list)    
 
     self:doActionReset()
     self:doAction()
@@ -117,15 +116,6 @@ function UI_GameResultNew:initUI()
         vars['itemAutoBtn']:setVisible(false)
         vars['itemAutoLabel']:setVisible(false)
     end
-
-	-- 메뉴 포지션 변경 (드래곤 레벨업 연출 생략)
-    local btn_menu = vars['btnMenu']
-    local reward_menu = vars['dropRewardMenu']
-    local no_reward_menu = vars['noRewardMenu']
-   
-    btn_menu:setPositionY( btn_menu:getPositionY() + 260 )
-    reward_menu:setPositionY( reward_menu:getPositionY() + 245 )
-    no_reward_menu:setPositionY( no_reward_menu:getPositionY() + 245 )
 end
 
 -------------------------------------
@@ -423,10 +413,8 @@ function UI_GameResultNew:direction_start()
     vars['skipLabel']:setVisible(false)
     vars['againBtn']:setVisible(false)
 
-	-- 20-11-10 드래곤 레벨업 개편으로 인해 사용 안함
     -- 드래곤 레벨업 연출 node
-    --vars['dragonResultNode']:setVisible(true)
-    vars['dragonResultNode']:setVisible(false)
+    vars['dragonResultNode']:setVisible(true)
 
     -- 플레이 시간, 획득 골드
     self.m_lNumberLabel['time']:setNumber(self.m_time)
@@ -458,11 +446,10 @@ function UI_GameResultNew:direction_start()
     end
 
     -- 레벨업 연출 시작
-	local levelup_duration = 0.4
-    self:startLevelUpDirector(levelup_duration)
+    self:startLevelUpDirector()
 
     self.root:stopAllActions()
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(levelup_duration), cc.CallFunc:create(function() self:doNextWork() end)))
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function() self:doNextWork() end)))
 end
 
 -------------------------------------
@@ -837,16 +824,13 @@ end
 -- function direction_moveMenu
 -------------------------------------
 function UI_GameResultNew:direction_moveMenu()
-    --local vars = self.vars
-    --local switch_btn = vars['switchBtn']
-    --self:action_switchBtn(function() 
-        --switch_btn:setVisible(true)
-        --self:doNextWork()
-    --end)
-
-	-- 고대 유적 던전처럼 한 화면에 나오도록 변경
-	self:show_staminaInfo()
-    self:doNextWork()
+    local vars = self.vars
+    local switch_btn = vars['switchBtn']
+    self:action_switchBtn(function() 
+        switch_btn:setVisible(true)
+        self:doNextWork()
+    end)
+    self:show_staminaInfo()
 end
 
 -------------------------------------
@@ -963,9 +947,9 @@ end
 -- function startLevelUpDirector
 -- @brief 레벨업 연출 클래스 시작
 -------------------------------------
-function UI_GameResultNew:startLevelUpDirector(duration)
+function UI_GameResultNew:startLevelUpDirector()
     for i,v in ipairs(self.m_lLevelupDirector) do
-        v:start(duration)
+        v:start()
     end
 end
 

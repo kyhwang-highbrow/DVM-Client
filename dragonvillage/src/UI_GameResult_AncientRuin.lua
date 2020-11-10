@@ -14,17 +14,16 @@ UI_GameResult_AncientRuin = class(PARENT, {
 function UI_GameResult_AncientRuin:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
     local vars = self.vars
 
-	-- 하단 코드가 UI_GameResultNew의 InitUI에 포함되도록 변경
     -- 메뉴 포지션 변경 (드래곤 레벨업 연출 생략)
-    --local btn_menu = vars['btnMenu']
-    --local reward_menu = vars['dropRewardMenu']
-    --local no_reward_menu = vars['noRewardMenu']
-    -- local reward_visual = vars['boxVisual'] 
+    local btn_menu = vars['btnMenu']
+    local reward_menu = vars['dropRewardMenu']
+    local no_reward_menu = vars['noRewardMenu']
+    local reward_visual = vars['boxVisual']
    
-    --btn_menu:setPositionY( btn_menu:getPositionY() + 260 )
-    --reward_menu:setPositionY( reward_menu:getPositionY() + 245 )
-    --no_reward_menu:setPositionY( no_reward_menu:getPositionY() + 245 )
-    -- reward_visual:setPositionY( reward_visual:getPositionY() + 245 ) -- 20-11-10 드래곤 레벨업 개편으로 드래곤들이 안보이면서 필요 없게 됨 
+    btn_menu:setPositionY( btn_menu:getPositionY() + 260 )
+    reward_menu:setPositionY( reward_menu:getPositionY() + 245 )
+    no_reward_menu:setPositionY( no_reward_menu:getPositionY() + 245 )
+    reward_visual:setPositionY( reward_visual:getPositionY() + 245 )
 end
 
 -------------------------------------
@@ -90,10 +89,8 @@ function UI_GameResult_AncientRuin:direction_start()
     vars['skipLabel']:setVisible(false)
     vars['againBtn']:setVisible(false)
 
-    -- 20-11-10 드래곤 레벨업 개편으로 인해 사용 안함
     -- 드래곤 레벨업 연출 node
-    --vars['dragonResultNode']:setVisible(true)
-    vars['dragonResultNode']:setVisible(false)
+    vars['dragonResultNode']:setVisible(true)
 
     -- 플레이 시간, 획득 골드
     self.m_lNumberLabel['time']:setNumber(self.m_time)
@@ -109,8 +106,7 @@ function UI_GameResult_AncientRuin:direction_start()
     self:doNextWork()
 
     -- 테이머 경험치 연출
-	local levelup_duration = 0.4
-    self:startLevelUpDirector(levelup_duration)
+    self:startLevelUpDirector()
 end
 -------------------------------------
 -- function direction_moveMenu
