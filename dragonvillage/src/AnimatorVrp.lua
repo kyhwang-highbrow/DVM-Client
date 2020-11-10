@@ -136,6 +136,12 @@ function AnimatorVrp:getVisualList()
 end
 
 -------------------------------------
+-- function setMix
+-------------------------------------
+function AnimatorVrp:setMix(from, to, mix_ratio)
+end
+
+-------------------------------------
 -- function getDuration
 -------------------------------------
 function AnimatorVrp:getDuration()

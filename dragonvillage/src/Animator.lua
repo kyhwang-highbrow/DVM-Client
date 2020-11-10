@@ -695,6 +695,12 @@ function Animator:setOpacity(opacity)
 end
 
 -------------------------------------
+-- function setMix
+-------------------------------------
+function Animator:setMix(from, to, mix_ratio)
+end
+
+-------------------------------------
 -- function printAnimatorError
 -------------------------------------
 function Animator:printAnimatorError()

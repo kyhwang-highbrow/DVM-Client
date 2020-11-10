@@ -43,3 +43,9 @@ end
 function AnimatorPng:getVisualList()
     return {}
 end
+
+-------------------------------------
+-- function setMix
+-------------------------------------
+function AnimatorPng:setMix(from, to, mix_ratio)
+end

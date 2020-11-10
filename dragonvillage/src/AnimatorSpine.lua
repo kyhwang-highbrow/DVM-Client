@@ -282,3 +282,10 @@ function AnimatorSpine:setAnimationPause(pause)
         self.m_node:setTimeScale(self.m_timeScale)
     end
 end
+
+-------------------------------------
+-- function setMix
+-------------------------------------
+function AnimatorSpine:setMix(from, to, mix_ratio)
+	self.m_node:setMix(from, to, mix_ratio)
+end
