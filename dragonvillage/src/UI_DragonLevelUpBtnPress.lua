@@ -193,7 +193,7 @@ end
 -- function log
 -------------------------------------
 function UI_DragonLevelUpBtnPress:log(msg)
-    local active = true
+    local active = false
     if (not active) then
         return
     end

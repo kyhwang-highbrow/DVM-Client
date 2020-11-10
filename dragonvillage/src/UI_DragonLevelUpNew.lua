@@ -460,7 +460,7 @@ function UI_DragonLevelUpNew:request_levelUp(target_lv, need_gold, need_dragon_e
 	ui_network:setParam('target_dragon_exp', target_dragon_exp)
 	ui_network:setParam('target_gold', target_gold)
 	--ui_network:hideLoading()
-    ui_network:setRevocable(true)
+    ui_network:setRevocable(false) -- 데이터가 꼬이는 것을 방지하기 위해 다시 통신
     ui_network:setSuccessCB(function(ret) self:response_levelup(ret) end)
 	ui_network:request()
 end
@@ -473,7 +473,7 @@ function UI_DragonLevelUpNew:response_levelup(ret)
     -- @analytics
     Analytics:trackUseGoodsWithRet(ret, '드래곤 레벨업')
 
-    --[[
+    ---[[
     do -- 드래곤 성장일지
         local prev_lv = lv
 		local curr_lv = ret['modified_dragon']['lv']
@@ -505,7 +505,7 @@ function UI_DragonLevelUpNew:response_levelup(ret)
     local t_data = {clear_key = 'd_lvup'}
     g_masterRoadData:updateMasterRoad(t_data)
 
-    --[[
+    ---[[
     -- @ DRAGON DIARY
     local t_data = {clear_key = 'd_lvup', ret = ret}
     g_dragonDiaryData:updateDragonDiary(t_data)
