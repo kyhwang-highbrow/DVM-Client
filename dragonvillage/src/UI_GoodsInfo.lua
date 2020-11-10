@@ -6,6 +6,7 @@ local PARENT = UI
 UI_GoodsInfo = class(PARENT, {
         m_goodsType = 'string',
         m_numberLabel = 'NumberLabel',
+        m_realNumber = 'number',
      })
 
 local THIS = UI_GoodsInfo
@@ -52,7 +53,12 @@ function UI_GoodsInfo:refresh()
     -- 재화 수량 갱신
     local goods_type = self.m_goodsType
     local value = g_userData:get(goods_type)
-    self.m_numberLabel:setNumber(value)
+
+    -- 캐시 중인 숫자가 다를 경우만 호출 (임의로 탑바의 숫자를 변경하는 경우에 동작하는 것을 방지하기 위함)
+    if (self.m_realNumber ~= value) then
+        self.m_realNumber = value
+        self.m_numberLabel:setNumber(value)
+    end
 end
 
 -------------------------------------
@@ -83,4 +89,26 @@ function UI_GoodsInfo:makeGoodsIcon(goods_name)
     end
 
     return icon
+end
+
+-------------------------------------
+-- function setGoodsNumber
+-- @brief 재화 숫자 설정
+--        (유저 데이터가 아닌 임의로 사용하고자 할 때 사용)
+-- @param num number
+-------------------------------------
+function UI_GoodsInfo:setGoodsNumber(num)
+    if (self.m_numberLabel == nil) then
+        return
+    end
+
+    self.m_numberLabel:setNumber(num)
+end
+
+-------------------------------------
+-- function clearRealNumber
+-- @brief 캐싱된 실제 (유저)데이터를 초기화 하여 UI가 갱신되도록 함
+-------------------------------------
+function UI_GoodsInfo:clearRealNumber()
+    self.m_realNumber = nil
 end

@@ -74,10 +74,15 @@ end
 
 -------------------------------------
 -- function refreshData
+-- @brief 탑바의 정보를 갱신 (재화, 날개, 가방)
+-- @param clear_real_number boolean 재화 숫자의 갱신을 하려면 true를 전달
 -------------------------------------
-function UI_TopUserInfo:refreshData()
+function UI_TopUserInfo:refreshData(clear_real_number)
 
     for _,ui in pairs(self.m_mGoodsInfo) do
+        if (clear_real_number == true) then
+            ui:clearRealNumber()
+        end
         ui:refresh()
     end
 
@@ -220,7 +225,7 @@ function UI_TopUserInfo:changeOwnerUI(ui, is_push)
     end
     ui:onFocus(is_push)
 
-    self:refreshData()
+    self:refreshData(true) -- params : clear_real_number
     self:doAction()
 end
 
@@ -240,13 +245,6 @@ function UI_TopUserInfo:setTitleRichString(str)
     self.vars['titleLabel']:setVisible(false)
     self.vars['titleRichLabel']:setVisible(true)
     self.vars['titleRichLabel']:setString(str)
-end
-
--------------------------------------
--- function setGoldNumber
--------------------------------------
-function UI_TopUserInfo:setGoldNumber(gold)
-    self.m_lNumberLabel['gold']:setNumber(gold)
 end
 
 -------------------------------------
@@ -373,6 +371,22 @@ function UI_TopUserInfo:deleteGoodsUI(goods_type)
         self.m_mGoodsInfo[goods_type] = nil
     end
 end
+
+-------------------------------------
+-- function setGoodsNumber
+-- @brief 재화별 숫자 설정
+-- @param goods_type string e.g. gold
+-- @param num number
+-------------------------------------
+function UI_TopUserInfo:setGoodsNumber(goods_type, num)
+    local ui = self.m_mGoodsInfo[goods_type]
+    if (ui == nil) then
+        return
+    end
+
+    ui:setGoodsNumber(num)
+end
+
 
 -------------------------------------
 -- function update
