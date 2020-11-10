@@ -188,6 +188,17 @@ function UI_Card:setNumberText(num, use_plus)
 		str = tostring(num)
 	end
 
+    -- 다섯자리 수 까지의 스프라이트를 지운다.
+    -- (10의 자리 수를 찍은 후에 1의 자리를 설정하면 지워지지 않는 경우가 있었다)
+    for idx=1, 5 do
+        local lua_name = 'numberSprite' .. idx
+        if vars[lua_name] then
+            vars[lua_name]:removeFromParent()
+            vars[lua_name] = nil
+        end
+    end
+
+
 	-- 모든 글자와 매치되는 반복자
     local font_size = 20
 	local idx = 0
