@@ -175,9 +175,22 @@ end
 
 -------------------------------------
 -- function finishPressDragonLevelUpBtn
+-- @msg string 'press_up', 'max_lv', 'lack_of_gold', 'lack_of_dragon_exp'
 -------------------------------------
 function UI_DragonLevelUpBtnPress:finishPressDragonLevelUpBtn(msg)
     self:log('DONE!!!!!!! ' .. msg)
+
+    local function finish_cb()
+        if (msg == 'lack_of_gold') then
+            ConfirmPrice('gold', g_userData:get('gold') + 1) -- 골드가 부족한 상태로 호출(깜짝 할인 상품 or 상점 이동 유도)
+
+        elseif (msg == 'lack_of_dragon_exp') then
+            UIManager:toastNotificationRed(Str('드래곤 경험치가 부족합니다'))
+
+        elseif (msg == 'max_lv') then
+            UIManager:toastNotificationGreen(Str('{1}등급 최대레벨 {2}에 달성하였습니다.', self.m_grade, self.m_afterLv))
+        end
+    end
 
     -- 서버와 통신
     if (self.m_beforeLv < self.m_afterLv) then
@@ -185,7 +198,9 @@ function UI_DragonLevelUpBtnPress:finishPressDragonLevelUpBtn(msg)
         local target_lv = self.m_afterLv
         local need_gold = (self.m_beforeGold - self.m_afterGold)
         local need_dragon_exp = (self.m_beforeDragonExp - self.m_afterDragonExp)
-        dragon_levelup_ui:request_levelUp(target_lv, need_gold, need_dragon_exp)
+        dragon_levelup_ui:request_levelUp(target_lv, need_gold, need_dragon_exp, finish_cb)
+    else
+        finish_cb()
     end
 
     -- 초기화

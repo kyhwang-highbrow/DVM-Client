@@ -447,7 +447,7 @@ end
 -- function request_levelUp
 -- @brief 레벨업을 서버에 요청
 -------------------------------------
-function UI_DragonLevelUpNew:request_levelUp(target_lv, need_gold, need_dragon_exp)
+function UI_DragonLevelUpNew:request_levelUp(target_lv, need_gold, need_dragon_exp, finish_cb)
 	local uid = g_userData:get('uid')
 	local doid = self.m_selectDragonData['id']
 	local gold = g_userData:get('gold')
@@ -469,7 +469,7 @@ function UI_DragonLevelUpNew:request_levelUp(target_lv, need_gold, need_dragon_e
 	ui_network:setParam('target_gold', target_gold)
 	--ui_network:hideLoading()
     ui_network:setRevocable(false) -- 데이터가 꼬이는 것을 방지하기 위해 다시 통신
-    ui_network:setSuccessCB(function(ret) self:response_levelup(ret) end)
+    ui_network:setSuccessCB(function(ret) self:response_levelup(ret, finish_cb) end)
 	ui_network:request()
 end
 
@@ -477,7 +477,7 @@ end
 -- function response_levelup
 -- @brief
 -------------------------------------
-function UI_DragonLevelUpNew:response_levelup(ret)
+function UI_DragonLevelUpNew:response_levelup(ret, finish_cb)
     -- @analytics
     Analytics:trackUseGoodsWithRet(ret, '드래곤 레벨업')
 
@@ -521,6 +521,10 @@ function UI_DragonLevelUpNew:response_levelup(ret)
     local t_data = {clear_key = 'd_lvup', ret = ret}
     g_dragonDiaryData:updateDragonDiary(t_data)
     --]]
+
+    if finish_cb then
+        finish_cb()
+    end
 end
 
 -------------------------------------
