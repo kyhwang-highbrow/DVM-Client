@@ -51,54 +51,55 @@ function UI_DragonGoodbyePopup:initUI()
 	local attr = dragon_table:getValue(did, 'attr')
 	local rarity = dragon_table:getValue(did, 'rarity')
 
+	-- 인연 포인트
+	do
+        if (g_dragonsData:possibleGoodbye(oid)) then -- 인연포인트로 변경 가능할 때
+		    local item_id = 760000 + (did % 10000) -- 인연포인트 코드
+		    local count = dragon_table:getRelationPoint(did)
+	
+		    local relation_item = {}
+		    relation_item['item_id'] = item_id
+		    relation_item['count'] = count 		
+
+		    local ui = UI_ItemCard(relation_item['item_id'], relation_item['count'])
+            ui:setEnabledClickBtn(false)
+		    vars['itemNode1']:addChild(ui.root)
+	    else
+		    vars['checkBtn1']:setVisible(false)
+		    vars['checkBtn1']:setEnabled(false)
+	    end
+    end
+	-- 특성 재료
+    do
+	    if (g_dragonsData:possibleConversion(oid)) then -- 특성 재료로 변경 가능할 때
+		    local material_name = 'mastery_material_' .. rarity  .. '_' .. attr
+		    local item_id = item_table:getItemIDFromItemType(material_name) -- 특성 재료 아이디
+		    local count = 1
+
+		    local material_item = {}
+		    material_item['item_id'] = item_id
+		    material_item['count'] = count 		
+	
+		    local ui = UI_ItemCard(material_item['item_id'], material_item['count'])
+            ui:setEnabledClickBtn(false)
+		    vars['itemNode2']:addChild(ui.root)
+	    else
+		    vars['checkBtn2']:setVisible(false)
+		    vars['checkBtn2']:setEnabled(false)
+	    end
+    end
 	-- 경험치 아이템
 	do
 		local exp = dragon_exp_table:getDragonGivingExp(grade, lv)	
 
 		local dragon_exp_item = {}
-		dragon_exp_item['item_id'] = 700017 -- 경험치 아이템 코드
+		dragon_exp_item['item_id'] = 700017 -- 드래곤 경험치 아이템 코드
 		dragon_exp_item['count'] = exp 	
 		
 		local ui = UI_ItemCard(dragon_exp_item['item_id'], dragon_exp_item['count'])
         ui:setEnabledClickBtn(false)
-		vars['itemNode1']:addChild(ui.root)
+        vars['itemNode3']:addChild(ui.root)
 	end		
-	
-	-- 특성 재료
-	if (g_dragonsData:possibleConversion(oid)) then -- 특성 재료로 변경 가능할 때
-		local material_name = 'mastery_material_' .. rarity  .. '_' .. attr
-		local item_id = item_table:getItemIDFromItemType(material_name) -- 특성 재료 아이디
-		local count = 1
-
-		local material_item = {}
-		material_item['item_id'] = item_id
-		material_item['count'] = count 		
-	
-		local ui = UI_ItemCard(material_item['item_id'], material_item['count'])
-        ui:setEnabledClickBtn(false)
-		vars['itemNode2']:addChild(ui.root)
-	else
-		vars['checkBtn2']:setVisible(false)
-		vars['checkBtn2']:setEnabled(false)
-	end
-
-	-- 인연 포인트
-	if (g_dragonsData:possibleGoodbye(oid)) then -- 인연포인트로 변경 가능할 때
-		local item_id = 760000 + (did % 10000) -- 인연포인트 코드
-		local count = dragon_table:getRelationPoint(did)
-	
-		local relation_item = {}
-		relation_item['item_id'] = item_id
-		relation_item['count'] = count 		
-
-		local ui = UI_ItemCard(relation_item['item_id'], relation_item['count'])
-        ui:setEnabledClickBtn(false)
-		vars['itemNode3']:addChild(ui.root)
-	else
-		vars['checkBtn3']:setVisible(false)
-		vars['checkBtn3']:setEnabled(false)
-	end
-
 end
 
 -------------------------------------
@@ -136,8 +137,8 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonGoodbyePopup:refresh()
+    self:refresh_info()
 end
-
 
 -------------------------------------
 -- function click_checkBox
@@ -145,17 +146,59 @@ end
 function UI_DragonGoodbyePopup:click_checkBox(idx)
 	local vars = self.vars
 
-	if (not vars['checkBtn' .. idx]:isChecked()) then -- 켜져있던 걸 끈 경우
-		return
-	end
+    if (vars['checkBtn' .. idx]:isChecked()) then
+        for i = 1, 3 do -- 무언가 선택하면 나머지는 꺼짐
+		    if (i == idx) then
+			    vars['checkBtn' .. idx]:setChecked(true)
+		    else
+			    vars['checkBtn' .. i]:setChecked(false)
+		    end
+	    end
+    end
 
-	for i = 1, 3 do -- 무언가 선택하면 나머지는 꺼짐
-		if (i == idx) then
-			vars['checkBtn' .. idx]:setChecked(true)
-		else
-			vars['checkBtn' .. i]:setChecked(false)
-		end
-	end
+    self:refresh_info()
+end
+
+-------------------------------------
+-- function refresh_info
+-------------------------------------
+function UI_DragonGoodbyePopup:refresh_info()
+    local vars = self.vars
+
+    local item_id = nil
+    local item_name = ''
+    local item_desc = ''
+
+    local dragon_table = TableDragon()
+    local item_table = TableItem()
+    local dragon_data = self.m_tDragonData
+	local did = dragon_data['did']
+	local attr = dragon_table:getValue(did, 'attr')
+	local rarity = dragon_table:getValue(did, 'rarity') 
+
+	if (vars['checkBtn1']:isChecked()) then
+	    item_id = 760000 + (did % 10000) -- 인연포인트 코드
+    elseif (vars['checkBtn2']:isChecked()) then
+        local material_name = 'mastery_material_' .. rarity  .. '_' .. attr
+		item_id = item_table:getItemIDFromItemType(material_name) -- 특성 재료 아이디
+	elseif (vars['checkBtn3']:isChecked()) then
+        item_id = 700017 -- 드래곤 경험치 아이템 코드
+    end
+    
+    vars['itemNameLabel']:setVisible(false)
+    vars['itemInfoLabel']:setVisible(false)
+    vars['selectInfoLabel']:setVisible(false)
+    
+    if (item_id ~= nil) then
+        item_name = item_table:getItemName(item_id)
+        item_desc = item_table:getValue(item_id, 't_desc')
+        vars['itemNameLabel']:setString(Str(item_name))
+        vars['itemInfoLabel']:setString(Str(item_desc))
+        vars['itemNameLabel']:setVisible(true)
+        vars['itemInfoLabel']:setVisible(true)
+    else
+        vars['selectInfoLabel']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -166,11 +209,11 @@ function UI_DragonGoodbyePopup:click_goodbyeBtn()
 	local target = nil
 	
 	if (vars['checkBtn1']:isChecked()) then
-		target = 'exp'		
+		target = 'relation'		
 	elseif (vars['checkBtn2']:isChecked()) then
 		target = 'mastery'
 	elseif (vars['checkBtn3']:isChecked()) then
-		target = 'relation'  
+		target = 'exp'  
 	end
 
 	if (target == nil) then
@@ -188,8 +231,6 @@ function UI_DragonGoodbyePopup:request_goodbye(target)
 	local uid = g_userData:get('uid')
 	local oid = self.m_dragonOid
 	local doids = tostring(oid)
-
-	cclog(doids)
 
 	local function success_cb(ret)
 		self:response_goodbye(ret)
