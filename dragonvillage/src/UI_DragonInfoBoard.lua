@@ -108,29 +108,23 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         vars['lvLabel']:setString(lv_str)
     end
 
-    do -- 경혐치 exp
+    do -- 레벨 게이지
         local grade = (t_dragon_data:getGrade() or 1)
-        local eclv = (t_dragon_data:getEclv() or 0)
         local lv = (t_dragon_data['lv'] or 1)
-        local exp = (t_dragon_data['exp'] or 0)
-        local table_exp = TableDragonExp()
-        local max_exp = table_exp:getDragonMaxExp(grade, lv)
-        local is_max_lv = TableGradeInfo:isMaxLevel(grade, lv)
+        local max_lv = TableGradeInfo():getValue(grade, 'max_lv')
 
-        if (not is_max_lv) then
-            local percentage = (exp / max_exp) * 100
-            if (max_exp == 0) then
-                percentage = 0
-            end
-            vars['expLabel']:setString(string.format('%.2f%%', percentage))
-
+        if (lv == max_lv) then
+            vars['expLabel']:setString(Str('최대레벨'))
+                        
+            vars['maxGauge']:setVisible(true)
+        else
+            local percentage = (lv / max_lv) * 100
+            vars['expLabel']:setString(string.format('%d / %d', lv, max_lv))
+            
             vars['expGauge']:stopAllActions()
             vars['expGauge']:setPercentage(0)
             vars['expGauge']:runAction(cc.ProgressTo:create(0.2, percentage)) 
-        else
-            vars['expLabel']:setString(Str('최대레벨'))
-            vars['expGauge']:stopAllActions()
-            vars['expGauge']:setPercentage(100)
+            vars['maxGauge']:setVisible(false)
         end
         
     end
