@@ -109,6 +109,7 @@ function UI_AutoPlaySettingPopup:initUI()
     vars['autoMenu6']:setVisible(false)
     vars['advNextStageMenu']:setVisible(false)
     vars['autoMenu2']:setVisible(false) -- 20-11-10 업데이트로 어떠한 경우에든지 '드래곤 최대 레벨 달성 시 연속 전투 종료' 옵션 안보이도록 함
+	vars['autoMenu3']:setVisible(false) -- 20-11-10 업데이트로 어떠한 경우에든지 '6성 드래곤만 스킬 사용' 옵션 안보이도록 함
 
 	-- 고대의탑 분기처리
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
@@ -120,27 +121,23 @@ function UI_AutoPlaySettingPopup:initUI()
         end
         vars['autoMenu4']:setVisible(true)
 		vars['autoMenu5']:setVisible(false)
-		vars['autoMenu3']:setVisible(false)
 
     -- 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_ARENA) then
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(false)
         vars['autoMenu6']:setVisible(true)
-		vars['autoMenu3']:setVisible(false)
 
     -- 그랜드 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_EVENT_ARENA) then
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(false)
         vars['autoMenu6']:setVisible(true)
-		vars['autoMenu3']:setVisible(false)
         vars['autoStartInfoLabel']:setString(Str('연속 전투시 상대 팀이 자동으로 선택됩니다.'))
 
     -- 환상 던전 분기처리
 	elseif (self.m_gameMode == GAME_MODE_EVENT_ILLUSION_DUNSEON) then
         vars['autoMenu5']:setVisible(false)
-        vars['autoMenu3']:setVisible(false)
         vars['autoMenu4']:setVisible(false)
         vars['autoMenu6']:setVisible(false)
         vars['autoEventDungeon']:setVisible(true)
@@ -149,8 +146,6 @@ function UI_AutoPlaySettingPopup:initUI()
 		vars['autoMenu5']:setVisible(true)
 
         local is_adv = self.m_gameMode == GAME_MODE_ADVENTURE
-		-- 쫄작(farming) 기능
-		vars['autoMenu3']:setVisible(is_adv)
         -- 모험 자동 진행 .. 튜토리얼 1-7 뿁기 까지 완료해야 사용 가능
         vars['advNextStageMenu']:setVisible(is_adv and g_adventureData:isClearStage(1110107))
 
@@ -332,7 +327,8 @@ function UI_AutoPlaySettingPopup:close()
     g_autoPlaySetting:set('stop_condition_find_rel_dungeon', vars['autoStartBtn5']:isChecked())
     g_autoPlaySetting:set('load_best_deck', vars['autoLoadBtn']:isChecked())
 	-- farming
-	g_autoPlaySetting:set('dragon_farming_mode', vars['autoStartBtn3']:isChecked())
+	-- g_autoPlaySetting:set('dragon_farming_mode', vars['autoStartBtn3']:isChecked())
+	g_autoPlaySetting:set('dragon_farming_mode', false) -- 20-11-10 드래곤 레벨업 개편으로 인해 항상 해당 옵션은 false로 저장하도록 함
     g_autoPlaySetting:set('adv_next_stage', vars['advNextStageBtn']:isChecked())
     
     -- rune auto sell

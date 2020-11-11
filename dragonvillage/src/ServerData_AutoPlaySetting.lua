@@ -190,9 +190,11 @@ end
 -- function isFarmingOptionOn
 -- @brief 6성 드래곤만 스킬 사용
 --        연속 전투 시에만 활성화
+-- @kwkang 2020-11-12 업데이트로 인해 항상 false 반환
 -------------------------------------
 function ServerData_AutoPlaySetting:isFarmingOptionOn()
-    return (self.m_bAutoPlay and self:get('dragon_farming_mode'))
+    --return (self.m_bAutoPlay and self:get('dragon_farming_mode'))
+    return false
 end
 
 -------------------------------------
