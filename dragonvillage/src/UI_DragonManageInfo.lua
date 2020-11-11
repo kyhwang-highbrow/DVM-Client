@@ -970,8 +970,10 @@ end
 -- @brief 일괄 작별
 -------------------------------------
 function UI_DragonManageInfo:click_goodbyeSelectBtn()
-    require('UI_DragonGoodbyeSelect')
-	local ui = UI_DragonGoodbyeSelect()
+    --require('UI_DragonGoodbyeSelect')
+	--local ui = UI_DragonGoodbyeSelect()
+    require('UI_DragonGoodbyeSelectNew')
+    local ui = UI_DragonGoodbyeSelectNew()
 
 	local function close_cb()
 	    if ui.m_bChangeDragonList then

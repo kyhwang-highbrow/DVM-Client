@@ -4654,6 +4654,9 @@
     <None Include="..\src\UI_DragonLevelUpBtnPress.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonGoodbyeSelectNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

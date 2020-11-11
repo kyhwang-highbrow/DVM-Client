@@ -1758,3 +1758,48 @@ function ServerData_Dragons:request_skillMove(src_doid, dst_doid, cb_func)
 
     return ui_network
 end
+
+-------------------------------------
+-- function request_goodbye
+-- @brief 드래곤 작별
+-- @param target string 'exp', 'relation', 'mastery'
+-- @param doids string 드래곤 오브젝트 ID를 ','로 연결한 문자열
+-- @param cb_func function(ret)
+-------------------------------------
+function ServerData_Dragons:request_goodbye(target, doids, cb_func)
+	local uid = g_userData:get('uid')
+	
+    local function success_cb(ret)
+        -- 인연포인트 (전체 갱신)
+	    if (ret['relation']) then
+		    g_bookData:applyRelationPoints(ret['relation'])
+	    end
+
+	    -- 작별한 드래곤 삭제
+	    if ret['deleted_dragons_oid'] then
+		    for _, doid in pairs(ret['deleted_dragons_oid']) do
+			    g_dragonsData:delDragonData(doid)
+		    end
+	    end
+
+        -- 재화 갱신 (dragon_exp, mastery)
+        g_serverData:networkCommonRespone(ret)
+
+		-- 콜백
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/goodbye_new')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doids', doids)
+	ui_network:setParam('target', target)
+	--ui_network:hideLoading()
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:request()
+
+    return ui_network
+end
