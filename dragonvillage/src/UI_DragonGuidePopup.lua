@@ -46,11 +46,20 @@ function UI_DragonGuidePopup:initUI()
         end
     end
 
+    local function create_func(ui, data)
+        -- 성장 관련 UI에 다녀오면 데이터를 갱신
+        ui.m_refreshCB = function()
+            self:dragonDataRefresh()
+            self:initUI()
+        end
+    end
+
     local node = vars['listNode']
+    node:removeAllChildren()
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(185, 480)
     table_view:setAlignCenter(true) 
-    table_view:setCellUIClass(UI_DragonGuideListItem)
+    table_view:setCellUIClass(UI_DragonGuideListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(analysis_map, true)
     
@@ -69,6 +78,18 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonGuidePopup:refresh()
+end
+
+-------------------------------------
+-- function dragonDataRefresh
+-- @brief 드래곤의 object id로 최신 데이터로 갱신
+-------------------------------------
+function UI_DragonGuidePopup:dragonDataRefresh()
+    for i,v in ipairs(self.m_dragon_list) do
+        local object_id = v['user_data']['id']
+        local dragon_data = g_dragonsData:getDragonDataFromUid(object_id)
+        v['user_data'] = dragon_data
+    end
 end
 
 -------------------------------------
