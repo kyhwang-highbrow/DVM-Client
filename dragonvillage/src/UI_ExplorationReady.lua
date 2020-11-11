@@ -178,7 +178,8 @@ function UI_ExplorationReady:refresh()
     local reward_items_list = g_itemData:parsePackageItemStr(reward_items_str)
 
     -- UI 자수정 표시 추가
-    table.insert(reward_items_list, {item_id = ITEM_ID_AMET, count = 0})
+    -- @kwkang 20-11-11 하드코딩 자수정을 지우고, 서버 테이블을 이용하도록 변경
+    -- table.insert(reward_items_list, {item_id = ITEM_ID_AMET, count = 0})
     vars['rewardNode']:removeAllChildren()
 
     local scale = 0.53
