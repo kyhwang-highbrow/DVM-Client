@@ -275,7 +275,9 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonGoodbyeSelectNew:click_sellBtn()
-	-- 갯수 체크
+	require('UI_DragonGoodbyeSelectPopup')
+
+    -- 갯수 체크
 	local sell_cnt = table.count(self.m_tSellTable)
 	if (sell_cnt <= 0) then
 		UIManager:toastNotificationGreen(Str('재료 드래곤을 선택해주세요.'))
@@ -320,7 +322,9 @@ function UI_DragonGoodbyeSelectNew:click_sellBtn()
         end
 	end
 
-	g_dragonsData:request_goodbye('exp', doids, cb_func) -- params : target, doids, cb_func
+    local exp_sum = self.m_price
+    local ui = UI_DragonGoodbyeSelectPopup(doids, exp_sum, cb_func) -- 확인 팝업을 띄우는 것으로 변경
+	-- g_dragonsData:request_goodbye('exp', doids, cb_func) -- params : target, doids, cb_func
 end
 
 --@CHECK
