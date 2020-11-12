@@ -23,6 +23,10 @@ function UI_DragonGoodbyeSelectPopup:init(doids, exp_sum, cb_func)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbyeSelectPopup')
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self:initUI()
     self:initButton()
     -- self:refresh()
