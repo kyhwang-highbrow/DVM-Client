@@ -201,9 +201,52 @@ function UI_DragonGoodbyePopup:refresh_info()
         vars['itemInfoLabel']:setString(Str(item_desc))
         vars['itemNameLabel']:setVisible(true)
         vars['itemInfoLabel']:setVisible(true)
+        
+        self:alignInfoText()
+
     else
         vars['selectInfoLabel']:setVisible(true)
     end
+end
+
+-------------------------------------
+-- function refresh_info
+-- @brief 아이템 설명이 몇 줄인지에 따라
+-- 적절한 아이템 제목 위치 설정
+-------------------------------------
+function UI_DragonGoodbyePopup:alignInfoText()
+    local vars = self.vars
+
+    if (vars['itemNameLabel'] == nil) then
+        return
+    end
+
+    if (vars['itemInfoLabel'] == nil) then
+        return
+    end
+
+    local interval_y = 7
+    
+    -- 아이템 제목 높이 계산
+    local item_name_height = 0
+    do
+        local string_height = vars['itemNameLabel']:getStringHeight()
+        local scale_y = vars['itemNameLabel']:getScaleY()
+        item_name_height = (string_height * scale_y)
+    end
+
+    -- 아이템 설명 높이 계산
+    local item_info_height = 0
+    local item_info_y = 0
+    do
+        local string_height = vars['itemInfoLabel']:getStringHeight()
+        local scale_y = vars['itemInfoLabel']:getScaleY()
+        item_info_height = (string_height * scale_y)
+        item_info_y = vars['itemInfoLabel']:getPositionY()
+    end
+
+    -- node 위치 조정
+    vars['itemNameLabel']:setPositionY(item_info_y + interval_y + (item_info_height/2) + (item_name_height / 2))
 end
 
 -------------------------------------
