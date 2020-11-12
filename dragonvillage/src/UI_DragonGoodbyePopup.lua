@@ -25,6 +25,10 @@ function UI_DragonGoodbyePopup:init(dragon_oid, dragon_data, msg, okBtn_cb)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbyePopup')
 
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
+
     self:initUI()
     self:initButton()
     self:refresh()
@@ -120,7 +124,8 @@ function UI_DragonGoodbyePopup:initButton()
 	-- 켜져 있는 버튼들에 대해 정렬하기
 	-- 경험치 버튼은 어떤 드래곤이든 존재하지만
 	-- 인연 포인트랑 특성 재료는 없을 수 있음
-	local l_pos = getSortPosList(210, enable_button_count)
+    local interval = vars['checkBtn1']:getParent():getPositionX() - vars['checkBtn2']:getParent():getPositionX() -- 각 버튼의 간격은 ui 설정에 따름
+	local l_pos = getSortPosList(interval, enable_button_count)
 	local l_pos_count = 1
 	for idx = 1, 3 do
 		if (vars['checkBtn'..idx]:isEnabled()) then
