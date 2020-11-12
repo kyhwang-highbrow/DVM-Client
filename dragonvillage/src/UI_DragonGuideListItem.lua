@@ -47,7 +47,7 @@ function UI_DragonGuideListItem:initUI()
 
         -- 아이콘
         vars['rarityIconNode']:removeAllChildren()
-        local icon = IconHelper:getRarityIconButton(rarity, dragon_data)
+        local icon = IconHelper:getRarityIconButton(rarity)
         vars['rarityIconNode']:addChild(icon)
 
         -- 라벨
