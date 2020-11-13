@@ -280,7 +280,7 @@ function UI_DragonGoodbyeSelectNew:click_sellBtn()
     -- 갯수 체크
 	local sell_cnt = table.count(self.m_tSellTable)
 	if (sell_cnt <= 0) then
-		UIManager:toastNotificationGreen(Str('재료 드래곤을 선택해주세요.'))
+		UIManager:toastNotificationGreen(Str('재료 드래곤을 선택해주세요!'))
 		return
 	end
 
