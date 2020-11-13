@@ -941,6 +941,10 @@ function UI_DragonManageInfo:click_goodbyeBtnNew()
 	local dragon_data = self.m_selectDragonData
 	local msg = g_dragonsData:dragonStateStr(oid, nil)
 
+    local idx = self.m_tableViewExt.m_itemMap[oid]['idx']
+    local next_idx = math_min(idx + 1, self.m_tableViewExt:getItemCount() - 1)
+    local next_doid = self.m_tableViewExt.m_itemList[next_idx]['unique_id']
+
 	-- 작별 연출
     local function show_effect(ret)
         
@@ -949,7 +953,7 @@ function UI_DragonManageInfo:click_goodbyeBtnNew()
 		    self:init_dragonTableView()
 
 		    -- 기존에 선택되어 있던 드래곤 교체
-		    self:setDefaultSelectDragon()
+		    self:setDefaultSelectDragon(next_doid)
 
 		    -- 정렬
 		    self:apply_dragonSort_saveData()
