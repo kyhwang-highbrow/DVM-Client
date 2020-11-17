@@ -1258,8 +1258,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonDiaryPopup.lua" />
     <None Include="..\src\UI_DragonGoodbyePopup.lua" />
     <None Include="..\src\UI_DragonGoodbyeSelect.lua" />
+    <None Include="..\src\UI_DragonGoodbyeSelectInfoPopup.lua" />
     <None Include="..\src\UI_DragonGoodbyeSelectNew.lua" />
+    <None Include="..\src\UI_DragonGoodbyeSelectNew2.lua" />
     <None Include="..\src\UI_DragonGoodbyeSelectPopup.lua" />
+    <None Include="..\src\UI_DragonGoodbyeSelectConfirmPopup.lua" />
     <None Include="..\src\UI_DragonGuideListItem.lua" />
     <None Include="..\src\UI_DragonGuidePopup.lua" />
     <None Include="..\src\UI_DragonInfoListItem.lua" />

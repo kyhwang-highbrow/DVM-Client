@@ -4657,6 +4657,15 @@
     <None Include="..\src\UI_DragonGoodbyeSelectNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonGoodbyeSelectNew2.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonGoodbyeSelectInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonGoodbyeSelectConfirmPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

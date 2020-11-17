@@ -976,10 +976,12 @@ end
 function UI_DragonManageInfo:click_goodbyeSelectBtn()
     --require('UI_DragonGoodbyeSelect')
 	--local ui = UI_DragonGoodbyeSelect()
-    require('UI_DragonGoodbyeSelectNew')
-    local ui = UI_DragonGoodbyeSelectNew()
-
-	local function close_cb()
+    --require('UI_DragonGoodbyeSelectNew')
+    --local ui = UI_DragonGoodbyeSelectNew()
+    require('UI_DragonGoodbyeSelectNew2')
+    local ui = UI_DragonGoodbyeSelectNew2()
+	
+    local function close_cb()
 	    if ui.m_bChangeDragonList then
 			-- 테이블 아이템갱신
 			self:init_dragonTableView()
