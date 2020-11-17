@@ -73,6 +73,7 @@ function UI_SimpleDragonInfoPopup:initButton()
     --vars['nextBtn']:registerScriptTapHandler(function() self:setIdx(self.m_idx + 1) end)
 
     vars['lockBtn']:registerScriptTapHandler(function() self:click_lock() end)
+    vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_manage() end)
 end
 
 -------------------------------------
@@ -83,7 +84,7 @@ function UI_SimpleDragonInfoPopup:refresh()
 
     local t_dragon_data = self:getDragonData()
 
-    self.m_dragonInfoBoardUI:refresh(t_dragon_data)self.m_dragonInfoBoardUI:refresh(t_dragon_data)
+    self.m_dragonInfoBoardUI:refresh(t_dragon_data)
 
     local did = t_dragon_data['did']
 
@@ -212,6 +213,25 @@ function UI_SimpleDragonInfoPopup:setLockPossible(is_possible, is_selected)
 end
 
 -------------------------------------
+-- function setManagePossible
+-------------------------------------
+function UI_SimpleDragonInfoPopup:setManagePossible(is_possible)
+	-- 관리 기능 제공하지 않는다면 버튼은 아예 보이지 않음
+    if (not is_possible) then
+        self.vars['dragonManageBtn']:setVisible(false)
+        return
+    end
+
+    local t_dragon_data = self:getDragonData()
+    if (not t_dragon_data) then
+        return
+    end
+
+    self.vars['dragonManageBtn']:setVisible(true)
+end
+
+
+-------------------------------------
 -- function setRefreshFunc
 -------------------------------------
 function UI_SimpleDragonInfoPopup:setRefreshFunc(refresh_cb)
@@ -302,4 +322,33 @@ function UI_SimpleDragonInfoPopup:click_lock()
     end
 
 	g_dragonsData:request_dragonLock(doids, soids, lock, cb_func)
+end
+
+-------------------------------------
+-- function click_manage
+-------------------------------------
+function UI_SimpleDragonInfoPopup:click_manage()
+    local struct_dragon_data
+	
+    local t_dragon_data = self:getDragonData()
+    local is_slim = (t_dragon_data.m_objectType == 'slime')
+    local doid = self.m_dragonObjectID
+
+    if (is_slim) then
+		struct_dragon_data = g_slimesData:getSlimeObject(self.m_dragonObjectID)
+	else
+		struct_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_dragonObjectID)
+	end
+
+	local ui = UI_DragonManageInfo(doid)
+    
+    local function close_cb()
+        if (self.m_refreshCb) then
+            self.m_refreshCb()
+        end
+    end
+
+    ui:setCloseCB(function() close_cb() end)
+
+    self:close()
 end

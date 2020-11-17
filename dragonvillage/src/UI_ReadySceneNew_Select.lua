@@ -79,7 +79,27 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
             self:click_dragonCard(t_dragon_data)
         end
 
+        -- 드래곤 정보 팝업 콜백 함수
+        local function popup_close_cb()
+            self.m_uiReadyScene:refresh()
+            self:init_dragonTableView()
+            self.m_uiReadyScene.m_readySceneDeck:init_deck()
+            self.m_uiReadyScene:apply_dragonSort()
+        end
+
+         -- 드래곤 프레스 콜백 함수
+        local function press_card_cb()
+            local doid = data['id']
+            if doid and (doid ~= '') then
+                local popup = UI_SimpleDragonInfoPopup(data)
+                local manage_avail = not self.m_bFriend
+                popup:setManagePossible(manage_avail)
+                popup:setRefreshFunc(function() popup_close_cb() end)
+            end
+        end
+
         ui.vars['clickBtn']:registerScriptTapHandler(function() click_dragon_item() end)
+        ui.vars['clickBtn']:registerScriptPressHandler(function() press_card_cb() end)
 
         -- 상성
         local dragon_attr = TableDragon():getValue(data['did'], 'attr')
