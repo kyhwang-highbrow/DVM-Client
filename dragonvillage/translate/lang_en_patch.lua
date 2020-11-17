@@ -1,4 +1,6 @@
-return {['다음에 또 드릴게요.']='I\'ll give you more next time.',
+return {['다이아 3,300개\n드래곤 경험치 3,000,000개\n날개 2,000개']='Diamond x3,300\nDragon EXP x3,000,000\nWing x2,000',
+['재료 드래곤을 선택해주세요.']='Select dragon to use as material.',
+['다음에 또 드릴게요.']='I\'ll give you more next time.',
 ['모두를 지켜드릴게요.']='I will protect everyone.',
 ['저의 마력을 나누어 드릴게요.']='Let me share my Mana with you.',
 ['저의 모든 것을 드릴게요.']='I\'m yours to have if you want.',
