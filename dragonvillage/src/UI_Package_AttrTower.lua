@@ -19,7 +19,13 @@ function UI_Package_AttrTower:init(bundle_ui, product_id)
         --return
     --end
 
-    local vars = self:load('package_attr_tower_fire.ui')
+    self.m_bundleUI = bundle_ui
+    self.m_productInfo = g_attrTowerPackageData:getProductInfo(product_id)
+
+    local attr = self.m_productInfo['attr']
+    local ui_name = 'package_attr_tower_' .. attr .. '.ui'
+
+    local vars = self:load(ui_name)
     
     UIManager:open(self, UIManager.POPUP)
     -- 백키 지정
@@ -29,8 +35,7 @@ function UI_Package_AttrTower:init(bundle_ui, product_id)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self.m_bundleUI = bundle_ui
-    self.m_productInfo = g_attrTowerPackageData:getProductInfo(product_id)
+    
 
     --self:initUI()
 	self:initButton()
@@ -57,9 +62,10 @@ function UI_Package_AttrTower:init_tableView()
 
     local vars = self.vars
     local product_info = self.m_productInfo
+    local product_id = product_info['product_id']
     
     local node = vars['productNode']
-    if (g_attrTowerPackageData:isActive(product_info['product_id'])) then
+    if (g_attrTowerPackageData:isActive(product_id)) then
        node = vars['productNodeLong']
        vars['productNode']:setVisible(false) 
        vars['productNodeLong']:setVisible(true) 
@@ -129,18 +135,18 @@ end
 -- function refresh
 -------------------------------------
 function UI_Package_AttrTower:refresh()
-    PARENT.refresh(self)
-
     self:init_tableView()
 
     local vars = self.vars
-    if g_adventureClearPackageData03:isActive() then
-        vars['completeNode']:setVisible(true)
-        vars['contractBtn']:setVisible(false)
-        vars['buyBtn']:setVisible(false)
+    local product_data = self.m_productInfo
+    local product_id = product_data['product_id']
+    if (g_attrTowerPackageData:isActive(product_id)) then
+        --vars['completeNode']:setVisible(true)
+        --vars['contractBtn']:setVisible(false)
+        --vars['buyBtn']:setVisible(false)
     else
-        vars['completeNode']:setVisible(false)
-        vars['buyBtn']:setVisible(true)
+        --vars['completeNode']:setVisible(false)
+        --vars['buyBtn']:setVisible(true)
     end
 end
 
@@ -204,5 +210,8 @@ function UI_Package_AttrTower:request_serverInfo()
         self:refresh()
     end
 
-    g_adventureClearPackageData03:request_adventureClearInfo(cb_func)
+    local product_data = self.m_productInfo
+    local product_id = product_data['product_id']
+
+    g_adventureClearPackageData03:request_adventureClearInfo(product_id)
 end

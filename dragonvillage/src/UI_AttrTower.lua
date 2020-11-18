@@ -267,16 +267,16 @@ end
 -------------------------------------
 function UI_AttrTower:click_packageBtn()
     local attr = g_attrTowerData:getSelAttr()
-    local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
     local huddle = g_attrTowerPackageData:getHuddleFloor(attr)
     local high_floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID) - 1
     -- 허들 이상 클리어한 경우
     if (high_floor >= huddle) then
         require('UI_Package_AttrTowerBundle')
-        UI_Package_AttrTowerBundle(product_id_list, true)
+        UI_Package_AttrTowerBundle(attr)
 
     else 
         require('UI_Package_AttrTower')
+        local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
         local first_product_id = product_id_list[1]
         UI_Package_AttrTower(nil, first_product_id)
     end

@@ -12,7 +12,7 @@ UI_Package_AttrTowerListItem = class(PARENT, {
 -------------------------------------
 function UI_Package_AttrTowerListItem:init(data)
     self.m_data = data
-    local vars = self:load('package_attr_tower_fire_item.ui')
+    local vars = self:load('package_attr_tower_item.ui')
 
     self:initUI()
     --self:initButton()

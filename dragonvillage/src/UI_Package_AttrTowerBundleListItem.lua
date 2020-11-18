@@ -12,7 +12,7 @@ UI_Package_AttrTowerBundleListItem = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Package_AttrTowerBundleListItem:init(bundle_ui, product_id)
-    local vars = self:load('package_attr_tower_fire_total_item.ui')
+    local vars = self:load('package_attr_tower_total_item.ui')
 
 	-- @UI_ACTION
     self:doActionReset()

@@ -11,8 +11,9 @@ UI_Package_AttrTowerBundle = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_AttrTowerBundle:init(product_id_list)
-    local vars = self:load('package_attr_tower_fire_total.ui')
+function UI_Package_AttrTowerBundle:init(attr)
+    local ui_name = 'package_attr_tower_' .. attr .. '_total.ui'
+    local vars = self:load(ui_name)
     
     UIManager:open(self, UIManager.POPUP)
     -- 백키 지정
@@ -22,7 +23,7 @@ function UI_Package_AttrTowerBundle:init(product_id_list)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self.m_lProductIdList = product_id_list
+    self.m_lProductIdList = g_attrTowerPackageData:getProductIdList(attr)
     self.m_lItemUI= {}
 
     self:initUI()
