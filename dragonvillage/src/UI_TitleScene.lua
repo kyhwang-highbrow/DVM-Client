@@ -360,15 +360,20 @@ function UI_TitleScene:setWorkList()
     -- @perpelsdk
     if (isAndroid() or isIos()) then
         table.insert(self.m_lWorkList, 'workInitAdSDKSelector') -- 광고 sdk 초기화    
-        table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
         
         -- market : Onestore or Google
         if (PerpleSdkManager:onestoreIsAvailable()) then
             table.insert(self.m_lWorkList, 'workBillingSetupForOnestore') -- perple sdk
             table.insert(self.m_lWorkList, 'workGetMarketInfoForOnestore') -- perple sdk
         else
+            table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
             table.insert(self.m_lWorkList, 'workGetMarketInfo') -- perple sdk
             table.insert(self.m_lWorkList, 'workGetMarketInfo_Monthly') -- perple sdk
+
+            -- @mskim 2020.11.18, 1.2.7 앱 업데이트 분기 처리
+            if (IS_LIVE_SERVER() and getAppVerNum() >= 1002007) then
+                table.insert(self.m_lWorkList, 'workBillingRestorePurchase') -- perple sdk
+            end
         end
         
         table.insert(self.m_lWorkList, 'workNetworkUserInfo') -- crash log에 정보 저장
@@ -1316,84 +1321,176 @@ end
 -- @brief Billing 초기화
 -------------------------------------
 function UI_TitleScene:workBillingSetup()
-    self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
+    -- @mskim 2020.11.18, 1.2.7 앱 업데이트 분기 처리
+    if (IS_LIVE_SERVER() and getAppVerNum() < 1002007) then
+        self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
 
-    local l_payload = {}
-    local function call_back(ret, info)
-        cclog('# UI_TitleScene:workBillingSetup() result : ' .. tostring(ret))
-        if (ret == 'purchase') then
-            cclog('#### billingSetup success - info : ')
-            ccdump(info)
-
-            --[[
-            -- info : [{"orderId":"@orderId","payload":"@payload"},...]
-            local info_json = dkjson.decode(info)
-            if (info_json and type(info_json) == 'table' and 0 < #info_json) then
-                local l_payload = info_json
-
+        local l_payload = {}
+        local function call_back(ret, info)
+            cclog('# UI_TitleScene:workBillingSetup() result : ' .. tostring(ret))
+            if (ret == 'purchase') then
+                cclog('#### billingSetup success - info : ')
+                ccdump(info)
+    
+                --[[
+                -- info : [{"orderId":"@orderId","payload":"@payload"},...]
+                local info_json = dkjson.decode(info)
+                if (info_json and type(info_json) == 'table' and 0 < #info_json) then
+                    local l_payload = info_json
+    
+                    local function finish_cb()
+                        self:doNextWork()
+                    end
+    
+                    StructProduct:handlingMissingPayments(l_payload, nil, finish_cb)
+                else
+                    self:doNextWork()
+                end
+                --]]
+    
                 local function finish_cb()
                     self:doNextWork()
                 end
-
-                StructProduct:handlingMissingPayments(l_payload, nil, finish_cb)
+    
+                local info_json = dkjson.decode(info)
+                if info == '' or info_json == nil then
+                    StructProduct:handlingMissingPayments(l_payload, nil, finish_cb)
+                else
+                    if #info_json == table.count(info_json) then
+                        -- info : [{"orderId":"@orderId","payload":"@payload"},...]
+                        StructProduct:handlingMissingPayments(info_json, nil, finish_cb)
+                    else
+                        -- info : {"orderId":"@orderId"}
+                        table.insert(l_payload, info_json)
+                    end
+                end
+                
+            elseif (ret == 'fail') then
+                cclog('#### billingSetup failed - info : ')
+                ccdump(info)
+                --local info_json = dkjson.decode(info)
+    
+                -- 결제 시스템 초기화에 실패하더라도 게임 진입을 허용
+                local function finish_cb()
+                    self:doNextWork()
+                end
+    
+                -- 인포에서 넘어온 msg는 무시
+                -- local desc = Str(info_json.msg)
+                local msg = Str('결제 시스템 초기화에 실패하였습니다.')
+                local submsg = Str('(결제 시도 시 결제에 실패할 경우 재접속 후 다시 시도해주세요)')
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, finish_cb)
             else
                 self:doNextWork()
             end
-            --]]
-
-            local function finish_cb()
+        end
+    
+        -- 영수증 검증 API 주소
+        local url = GetPlatformApiUrl() .. '/payment/receiptValidation/'
+        
+        -- 카페 바자르 빌드에서만 동작
+        if (CppFunctions:isCafeBazaarBuild() == true) then
+            url = GetPlatformApiUrl() .. '/payment/receiptValidationForCafeBazaar/'
+        end
+    
+        PerpleSDK:billingSetup(url, call_back)
+    
+        -- Xsolla 데이터 검증용 API 주소
+        if (PerpleSdkManager:xsollaIsAvailable()) then
+            PerpleSDK:xsollaSetPaymentInfoUrl(url)
+        end
+    else
+        self.m_loadingUI:showLoading(Str('결제 정보 초기화...'))
+    
+        local l_payload = {}
+        local function call_back(ret, info)
+            cclog('# UI_TitleScene:workBillingSetup() result : ' .. tostring(ret))
+            if (ret == 'success') then
+                cclog('#### billingSetup success - info : ')
+                ccdump(info)
+                self:doNextWork()
+    
+            elseif (ret == 'fail') then
+                cclog('#### billingSetup failed - info : ')
+                ccdump(info)
+                --local info_json = dkjson.decode(info)
+    
+                -- 결제 시스템 초기화에 실패하더라도 게임 진입을 허용
+                local function finish_cb()
+                    self:doNextWork()
+                end
+    
+                -- 인포에서 넘어온 msg는 무시
+                -- local desc = Str(info_json.msg)
+                local msg = Str('결제 시스템 초기화에 실패하였습니다.')
+                local submsg = Str('(결제 시도 시 결제에 실패할 경우 재접속 후 다시 시도해주세요)')
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, finish_cb)
+            else
                 self:doNextWork()
             end
+        end
+    
+        -- 영수증 검증 API 주소
+        local url_receipt_validation = GetPlatformApiUrl() .. '/payment/receiptValidation/'
+        local url_save_transaction = GetPlatformApiUrl() .. '/payment/saveTransaction'
+        
+        -- 카페 바자르 빌드에서만 동작
+        if (CppFunctions:isCafeBazaarBuild() == true) then
+            url_receipt_validation = GetPlatformApiUrl() .. '/payment/receiptValidationForCafeBazaar/'
+        end
+    
+        PerpleSDK:billingSetup(url_receipt_validation, url_save_transaction, call_back)
+    
+        -- Xsolla 데이터 검증용 API 주소
+        if (PerpleSdkManager:xsollaIsAvailable()) then
+            PerpleSDK:xsollaSetPaymentInfoUrl(url_receipt_validation)
+        end
+    end
+end
+function UI_TitleScene:workBillingSetup_click()
+end
+
+-------------------------------------
+-- function workBillingRestorePurchase
+-- @brief Billing 구매 복원
+-------------------------------------
+function UI_TitleScene:workBillingRestorePurchase()
+    local function finish_cb()
+        self:doNextWork()
+    end
+
+    local function call_back(ret, info)
+        cclog('# UI_TitleScene:workBillingRestorePurchase() result : ' .. tostring(ret))
+        if (ret == 'success') then
+            cclog('#### billingRestorePurchase success - info : ')
+            ccdump(info)
 
             local info_json = dkjson.decode(info)
             if info == '' or info_json == nil then
-                StructProduct:handlingMissingPayments(l_payload, nil, finish_cb)
+                self:doNextWork()
             else
+                -- jsonArray 인지 판별
                 if #info_json == table.count(info_json) then
                     -- info : [{"orderId":"@orderId","payload":"@payload"},...]
                     StructProduct:handlingMissingPayments(info_json, nil, finish_cb)
-                else
-                    -- info : {"orderId":"@orderId"}
-                    table.insert(l_payload, info_json)
                 end
             end
             
         elseif (ret == 'fail') then
-            cclog('#### billingSetup failed - info : ')
+            cclog('#### getIncompletePurchaseList failed - info : ')
             ccdump(info)
-            --local info_json = dkjson.decode(info)
 
-            -- 결제 시스템 초기화에 실패하더라도 게임 진입을 허용
-            local function finish_cb()
-                self:doNextWork()
-            end
-
-            -- 인포에서 넘어온 msg는 무시
-            -- local desc = Str(info_json.msg)
-            local msg = Str('결제 시스템 초기화에 실패하였습니다.')
-            local submsg = Str('(결제 시도 시 결제에 실패할 경우 재접속 후 다시 시도해주세요)')
-            MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, finish_cb)
+            local info_json = dkjson.decode(info)
+            local msg = Str(info_json.msg)
+            MakeSimplePopup(POPUP_TYPE.OK, msg, finish_cb)
         else
             self:doNextWork()
         end
     end
 
-    -- 영수증 검증 API 주소
-    local url = GetPlatformApiUrl() .. '/payment/receiptValidation/'
-    
-    -- 카페 바자르 빌드에서만 동작
-    if (CppFunctions:isCafeBazaarBuild() == true) then
-        url = GetPlatformApiUrl() .. '/payment/receiptValidationForCafeBazaar/'
-    end
-
-    PerpleSDK:billingSetup(url, call_back)
-
-	-- Xsolla 데이터 검증용 API 주소
-	if (PerpleSdkManager:xsollaIsAvailable()) then
-		PerpleSDK:xsollaSetPaymentInfoUrl(url)
-	end
+    PerpleSDK:billingGetIncompletePurchaseList(call_back)
 end
-function UI_TitleScene:workBillingSetup_click()
+function UI_TitleScene:workBillingRestorePurchase_click()
 end
 
 -------------------------------------

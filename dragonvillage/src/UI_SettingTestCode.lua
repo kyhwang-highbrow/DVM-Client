@@ -73,6 +73,9 @@ function UI_SettingTestCode:initButton()
     self:makeButtonAutomatic('admob showAd', self.admob_showAd)
 
     self:makeButtonAutomatic('show Personalpack', self.showPersonalpack)
+
+    self:makeButtonAutomatic('Make Incomplete Purchase', self.makeIncompletePurchase)
+    self:makeButtonAutomatic('Resotre Purchase', self.restorePurchase)
 end
 
 -------------------------------------
@@ -412,4 +415,144 @@ function UI_SettingTestCode:showPersonalpack()
     require('UI_Package_Personalpack')
     -- @mskim editbox 넣어서 ppid 바꿀 수 있도록 하자
     UI_Package_Personalpack(101001)
+end
+
+-------------------------------------
+-- function makeIncompletePurchase
+-------------------------------------
+function UI_SettingTestCode:makeIncompletePurchase()
+    local struct_product = g_shopDataNew.m_dicProduct['cash'][1]
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+
+        -- 중간에 에러가 발생했을 경우 처리 (코루틴이 종료되는 시점에 무조건 호출되는 함수)
+        local error_msg, error_info = nil
+        local function coroutine_finidh_cb()
+			-- error msg가 있으면 단순 팝업 출력
+            if error_msg then
+                MakeSimplePopup(POPUP_TYPE.OK, error_msg)
+			-- error info가 있으면 공용 오류처리 팝업 출력
+			elseif (error_info) then
+				PerpleSdkManager:makeErrorPopup(error_info)
+            end
+        end
+        co:setCloseCB(coroutine_finidh_cb)
+
+        local sku = struct_product['sku']
+        local product_id = struct_product['product_id']
+        local price = struct_product['price'] -- struct_product:getPrice()
+        local validation_key = nil
+        local orderId = nil
+
+        --------------------------------------------------------
+        cclog('#1. validation_key 발행')
+        do -- purchase token(validation_key) 발행
+            co:work()
+            local function cb_func(ret)
+                validation_key = ret['validation_key']
+                co.NEXT()
+            end
+            local function fail_cb(ret)
+                error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
+                co.ESCAPE()
+            end
+            g_shopDataNew:request_purchaseToken(cb_func, fail_cb)
+            if co:waitWork() then return end
+        end
+        --------------------------------------------------------
+
+        --------------------------------------------------------
+        cclog('#2. 결제 실행')
+        do -- 일반형 상품 구매
+            co:work()
+
+            -- 페이로드 생성
+            local payload_table = {}
+            payload_table['uid'] = g_userData:get('uid')
+            payload_table['validation_key'] = validation_key
+            payload_table['product_id'] = product_id
+            payload_table['price'] = price
+            payload_table['sku'] = sku
+            local payload = dkjson.encode(payload_table)
+
+            cclog('## sku : ' .. sku)
+            cclog('## payload : ' .. payload)
+
+            -- @sku : 상품 아이디
+            -- @payload : 영수증 검증에 필요한 부가 정보
+            local function result_func(ret, info)
+                cclog('#### ret : ')
+                ccdump(ret)
+
+                -- {"orderId":"GPA.3373-5309-9610-83371","payload":"{\"validation_key\":\"22e088cd-53df-435e-a263-0540ae5c3870\",\"price\":55000,\"uid\":\"8ZxuT9Mt9OebL6gQ22gzjVu8d1g2\",\"product_id\":81005}"}
+                cclog('#### info : ')
+                ccdump(info)
+
+                if (ret == 'success') then
+                    cclog('## 결제 성공')                    
+					local info_json = dkjson.decode(info)
+                    orderId = info_json and info_json['orderId']
+                    co.NEXT()
+
+                elseif (ret == 'fail') then
+                    cclog('## 결제 실패')
+                    error_info = info
+                    co.ESCAPE()
+
+                elseif (ret == 'cancel') then
+                    cclog('## 결제 취소')
+                    error_msg = Str('결제를 취소하였습니다.')
+                    co.ESCAPE()
+
+                else
+                    cclog('## 결제 결과 (예외) : ' .. ret)
+                    error_info = info
+                    co.ESCAPE()
+                end
+            end
+
+            PerpleSDK:billingPurchase(sku, payload, result_func)
+            if co:waitWork() then return end
+        end
+        --------------------------------------------------------
+        co:close()
+    end
+
+
+    Coroutine(coroutine_function, '#PAYMENT 코루틴')
+end
+
+-------------------------------------
+-- function restorePurchase
+-------------------------------------
+function UI_SettingTestCode:restorePurchase()
+    local function show_handle_result_cb(ret)
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+    end
+
+    local function call_back(ret, info)
+        cclog('# restorePurchase() result : ' .. tostring(ret))
+        if (ret == 'success') then
+            -- info : [{"orderId":"@orderId","payload":"@payload"},...]
+            cclog('#### restorePurchase success - info : ')
+            cclog(info)
+
+            local info_json = dkjson.decode(info)
+            if info_json ~= nil then
+                StructProduct:handlingMissingPayments(info_json, show_handle_result_cb)
+            end
+            
+        elseif (ret == 'fail') then
+            cclog('#### getIncompletePurchaseList failed - info : ')
+            ccdump(info)
+
+            local info_json = dkjson.decode(info)
+            local msg = Str(info_json.msg)
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+        end
+    end
+
+    PerpleSDK:billingGetIncompletePurchaseList(call_back)
 end

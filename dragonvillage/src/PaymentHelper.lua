@@ -548,9 +548,12 @@ end
 -- function handlingMissingPayments
 -- @brief 누락된 결제 상품 처리
 -------------------------------------
-function PaymentHelper.handlingMissingPayments(l_payload, cb_func, finish_cb)
-    if (l_payload == nil or #l_payload == 0) then
-        finish_cb()
+function PaymentHelper.handlingMissingPayments(l_payload, result_cb, error_cb)
+    if (l_payload == nil or table.count(l_payload) == 0) then
+        -- @mskim 2020.11.18, 1.2.7 앱 업데이트 후에는 error_cb를 전달하지 않는 케이스가 있음
+        if (error_cb) then
+            error_cb()
+        end
         return
     end
 
@@ -564,7 +567,10 @@ function PaymentHelper.handlingMissingPayments(l_payload, cb_func, finish_cb)
             if error_msg then
                 MakeSimplePopup(POPUP_TYPE.OK, error_msg)
             end
-            finish_cb()
+            -- @mskim 2020.11.18, 1.2.7 앱 업데이트 후에는 error_cb를 전달하지 않는 케이스가 있음
+            if (error_cb) then
+                error_cb()
+            end
         end
         co:setCloseCB(coroutine_finidh_cb)
 
@@ -590,11 +596,13 @@ function PaymentHelper.handlingMissingPayments(l_payload, cb_func, finish_cb)
                 cclog('#1. 영수증 확인 & 상품 지급')
                 do -- 영수증 확인, 상품 지급
                     co:work()
+
+                    -- ret : added_item .. 일반 상품 수령 response
                     local function finish_cb(ret)
-                        cclog('#### ret : ')
+                        cclog('#### handlingMissingPayments ret : ')
                     
-                        if cb_func then
-                            cb_func(ret)
+                        if result_cb then
+                            result_cb(ret)
                         end
 
                         ccdump(ret)
@@ -613,8 +621,8 @@ function PaymentHelper.handlingMissingPayments(l_payload, cb_func, finish_cb)
                         if (ret['status'] == -3161) or (ret['status'] == -1161) then
                             cclog('#### ret : ')
                     
-                            if cb_func then
-                                cb_func(ret)
+                            if result_cb then
+                                result_cb(ret)
                             end
 
                             ccdump(ret)
