@@ -4,13 +4,14 @@ local PARENT = UI
 -- class UI_Package_AttrTower
 -------------------------------------
 UI_Package_AttrTower = class(PARENT,{
+        m_bundleUI = 'UI_Package_AttrTowerBundle',
         m_productInfo = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_AttrTower:init(product_id)
+function UI_Package_AttrTower:init(bundle_ui, product_id)
     -- 모험돌파 패키지 구매 전, 기능 설정하지않고 return UI만 출력
     --if (struct_product) then
         --self.vars['closeBtn']:setVisible(false)
@@ -22,16 +23,17 @@ function UI_Package_AttrTower:init(product_id)
     
     UIManager:open(self, UIManager.POPUP)
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Package_AttrTower')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AttrTower')
 
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
 
+    self.m_bundleUI = bundle_ui
     self.m_productInfo = g_attrTowerPackageData:getProductInfo(product_id)
 
     --self:initUI()
-	--self:initButton()
+	self:initButton()
     self:init_tableView()
     --self:refresh()
 end
@@ -42,9 +44,9 @@ end
 function UI_Package_AttrTower:initUI()
     local vars = self.vars
 
-    vars['closeBtn']:setVisible(true)
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    --vars['closeBtn']:setVisible(true)
+    --vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    --vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
 -------------------------------------
@@ -116,9 +118,11 @@ end
 function UI_Package_AttrTower:initButton()
     local vars = self.vars
 
-    vars['closeBtn']:setVisible(true)
-    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    -- vars['closeBtn']:setVisible(true)
+    -- vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+    -- vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+     vars['totalBtn']:registerScriptTapHandler(function() self:click_bundleBtn() end)
+     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -163,6 +167,33 @@ function UI_Package_AttrTower:click_buyBtn()
 	end
 
 	struct_product:buy(cb_func)
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_Package_AttrTower:click_closeBtn()
+    local bundle_ui = self.m_bundleUI
+    if (bundle_ui ~= nil) then
+        bundle_ui:close()
+    end
+
+    self:close()
+end
+
+-------------------------------------
+-- function click_bundleBtn
+-------------------------------------
+function UI_Package_AttrTower:click_bundleBtn()
+    local bundle_ui = self.m_bundleUI
+    if (bundle_ui == nil) then
+        require('UI_Package_AttrTowerBundle')
+        local attr = g_attrTowerData:getSelAttr()
+        local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
+        UI_Package_AttrTowerBundle(product_id_list, true)
+    end
+
+    self:close()
 end
 
 -------------------------------------

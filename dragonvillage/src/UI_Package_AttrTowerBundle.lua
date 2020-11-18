@@ -42,7 +42,7 @@ function UI_Package_AttrTowerBundle:initUI()
     for idx, product_id in ipairs(product_id_list) do
         local node = vars['itemNode' .. idx]
         if (node ~= nil) then
-            local item_ui = UI_Package_AttrTowerBundleListItem(product_id)
+            local item_ui = UI_Package_AttrTowerBundleListItem(self, product_id)
             node:addChild(item_ui.root)
             table.insert(self.m_lItemUI, item_ui)    
         end
@@ -54,6 +54,8 @@ end
 -------------------------------------
 function UI_Package_AttrTowerBundle:initButton()
     local vars = self.vars
+
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------

@@ -4,19 +4,21 @@ local PARENT = UI
 -- class UI_Package_AttrTowerBundleListItem
 -------------------------------------
 UI_Package_AttrTowerBundleListItem = class(PARENT,{
-        m_productInfo = 'table'
+        m_bundleUI = 'UI_Package_AttrTowerBundle',
+        m_productInfo = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_AttrTowerBundleListItem:init(product_id)
+function UI_Package_AttrTowerBundleListItem:init(bundle_ui, product_id)
     local vars = self:load('package_attr_tower_fire_total_item.ui')
 
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
 
+    self.m_bundleUI = bundle_ui
     self.m_productInfo = g_attrTowerPackageData:getProductInfo(product_id)
 
     self:initUI()
@@ -97,8 +99,9 @@ end
 -------------------------------------
 function UI_Package_AttrTowerBundleListItem:click_readyBtn()
     require('UI_Package_AttrTower')
+    local bundle_ui = self.m_bundleUI
 	local product_info = self.m_productInfo
     local product_id = product_info['product_id']
 
-    local ui = UI_Package_AttrTower(product_id)
+    local ui = UI_Package_AttrTower(bundle_ui, product_id)
 end

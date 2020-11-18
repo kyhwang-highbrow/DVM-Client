@@ -278,7 +278,7 @@ function UI_AttrTower:click_packageBtn()
     else 
         require('UI_Package_AttrTower')
         local first_product_id = product_id_list[1]
-        UI_Package_AttrTower(first_product_id)
+        UI_Package_AttrTower(nil, first_product_id)
     end
 end
 
