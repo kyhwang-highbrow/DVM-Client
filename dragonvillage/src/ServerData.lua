@@ -218,6 +218,9 @@ function ServerData:getInstance()
     -- 모험돌파 패키지 (2020.08.24)
     g_adventureClearPackageData03 = ServerData_AdventureClearPackage03(g_serverData)
 
+    -- 시험의 탑 정복 선물 패키지 (2020.11.25)
+    g_attrTowerPackageData = ServerData_AttrTowerPackage(g_serverData)
+
     -- 클랜
     g_clanData = ServerData_Clan(g_serverData)
     

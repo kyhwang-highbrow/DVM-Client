@@ -1228,6 +1228,12 @@ function UI_TitleScene:workGetServerInfo()
                     g_adventureClearPackageData03:response_adventureClearInfo(ret['stagepack_info']['110282'])
                 end
 
+                -- 시험의 탑 정복 선물 패키지 2020.11.25
+                if (ret['attr_tower_pack_info']) then
+                    cclog('# 시험의 탑 정복 선물 패키지 정보')
+                    g_attrTowerPackageData:response_attrTowerPackInfo(ret['attr_tower_pack_info'])
+                end
+
                 if (ret['capsulebox_info']) then
                     cclog('# 캡슐 뽑기 정보')
                     g_capsuleBoxData:response_capsuleBoxInfo(ret['capsulebox_info'])

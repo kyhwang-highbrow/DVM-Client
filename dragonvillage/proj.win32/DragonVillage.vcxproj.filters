@@ -4666,6 +4666,21 @@
     <None Include="..\src\UI_DragonGoodbyeSelectConfirmPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Package_AttrTower.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_AttrTowerBundle.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_AttrTowerListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_AttrTowerPackage.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_Package_AttrTowerBundleListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

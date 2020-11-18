@@ -238,6 +238,7 @@ local t_module = {
     'ServerData_EventImageQuiz',
     'ServerData_Personalpack',
     'ServerData_EventLFBag',
+    'ServerData_AttrTowerPackage',
 
 
     -- Interface

@@ -83,6 +83,16 @@ function UI_AttrTower:initUI()
     local visual_id = 'icon_' .. attr
     vars['iconVisual']:changeAni(visual_id, true)
 
+    do -- 시험의 탑 정복 선물 패키지 버튼
+        -- local high_floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID) - 1
+        -- vars['attrTowerLabel']:setString(high_floor)
+
+        local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
+        if (g_attrTowerPackageData:isVisible_attrTowerPackNoti(product_id_list)) then
+            vars['attrTowerPackSprite']:setVisible(true)
+        end
+    end
+
 	do -- 테이블 뷰 생성
         local node = vars['floorNode']
         node:removeAllChildren()
@@ -173,6 +183,7 @@ end
 function UI_AttrTower:initButton()
     local vars = self.vars
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+    vars['attrTowerPackBtn']:registerScriptTapHandler(function() self:click_packageBtn() end)
 end
 
 -------------------------------------
@@ -249,6 +260,26 @@ end
 -------------------------------------
 function UI_AttrTower:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_packageBtn
+-------------------------------------
+function UI_AttrTower:click_packageBtn()
+    local attr = g_attrTowerData:getSelAttr()
+    local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
+    local huddle = g_attrTowerPackageData:getHuddleFloor(attr)
+    local high_floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID) - 1
+    -- 허들 이상 클리어한 경우
+    if (high_floor >= huddle) then
+        require('UI_Package_AttrTowerBundle')
+        UI_Package_AttrTowerBundle(product_id_list, true)
+
+    else 
+        require('UI_Package_AttrTower')
+        local first_product_id = product_id_list[1]
+        UI_Package_AttrTower(first_product_id)
+    end
 end
 
 -------------------------------------
