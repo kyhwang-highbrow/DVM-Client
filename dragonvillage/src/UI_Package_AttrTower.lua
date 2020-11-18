@@ -12,13 +12,6 @@ UI_Package_AttrTower = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Package_AttrTower:init(bundle_ui, product_id)
-    -- 모험돌파 패키지 구매 전, 기능 설정하지않고 return UI만 출력
-    --if (struct_product) then
-        --self.vars['closeBtn']:setVisible(false)
-        --self.vars['closeBtn']:setEnabled(false)
-        --return
-    --end
-
     self.m_bundleUI = bundle_ui
     self.m_productInfo = g_attrTowerPackageData:getProductInfo(product_id)
 
@@ -35,12 +28,10 @@ function UI_Package_AttrTower:init(bundle_ui, product_id)
     self:doActionReset()
     self:doAction(nil, false)
 
-    
-
-    --self:initUI()
+    self:initUI()
 	self:initButton()
     self:init_tableView()
-    --self:refresh()
+    self:refresh()
 end
 
 -------------------------------------
@@ -48,10 +39,14 @@ end
 -------------------------------------
 function UI_Package_AttrTower:initUI()
     local vars = self.vars
-
-    --vars['closeBtn']:setVisible(true)
-    --vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    --vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    
+    vars['productNode']:setVisible(false) 
+    vars['productNodeLong']:setVisible(false) 
+    if (g_attrTowerPackageData:isActive(product_id)) then
+        vars['productNodeLong']:setVisible(true) 
+    else
+        vars['productNode']:setVisible(true) 
+    end
 end
 
 -------------------------------------
@@ -66,12 +61,12 @@ function UI_Package_AttrTower:init_tableView()
     
     local node = vars['productNode']
     if (g_attrTowerPackageData:isActive(product_id)) then
-       node = vars['productNodeLong']
-       vars['productNode']:setVisible(false) 
-       vars['productNodeLong']:setVisible(true) 
+        node = vars['productNodeLong']
+        vars['productNode']:setVisible(false)
+        vars['productNodeLong']:setVisible(true)
     else
-        vars['productNode']:setVisible(true) 
-        vars['productNodeLong']:setVisible(false) 
+        vars['productNode']:setVisible(true)
+        vars['productNodeLong']:setVisible(false)
     end
 
     local table_view = UIC_TableView(node)
@@ -103,15 +98,16 @@ function UI_Package_AttrTower:init_tableView()
 end
 
 -------------------------------------
--- function initTableView
+-- function getItemList
 -------------------------------------
 function UI_Package_AttrTower:getItemList()
     local product_info = self.m_productInfo
+    local product_id = product_info['product_id']
     local reward_info_table = product_info['reward_info']
-    
+
     local item_list = {}    
     for floor, reward_info in pairs(reward_info_table) do
-        local item_info = {['floor'] = floor, ['reward_info'] = reward_info,}
+        local item_info = {['product_id'] = product_id, ['floor'] = floor, ['reward_info'] = reward_info, }
         table.insert(item_list, item_info)
     end
     
@@ -124,11 +120,11 @@ end
 function UI_Package_AttrTower:initButton()
     local vars = self.vars
 
-    -- vars['closeBtn']:setVisible(true)
-    -- vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
-    -- vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
-     vars['totalBtn']:registerScriptTapHandler(function() self:click_bundleBtn() end)
-     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    vars['allRecieveBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
+    vars['totalBtn']:registerScriptTapHandler(function() self:click_totalBtn() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    
 end
 
 -------------------------------------
@@ -140,13 +136,36 @@ function UI_Package_AttrTower:refresh()
     local vars = self.vars
     local product_data = self.m_productInfo
     local product_id = product_data['product_id']
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
+
     if (g_attrTowerPackageData:isActive(product_id)) then
-        --vars['completeNode']:setVisible(true)
-        --vars['contractBtn']:setVisible(false)
-        --vars['buyBtn']:setVisible(false)
+        vars['completeNode']:setVisible(true)
+        vars['contractBtn']:setVisible(false)
+        vars['buyBtn']:setVisible(false)
     else
-        --vars['completeNode']:setVisible(false)
-        --vars['buyBtn']:setVisible(true)
+        vars['completeNode']:setVisible(false)
+        vars['buyBtn']:setVisible(true)
+    end
+
+    -- 구매 제한
+    if vars['buyLabel'] then
+        local str = struct_product:getMaxBuyTermStr()
+        -- 구매 가능/불가능 텍스트 컬러 변경
+        local is_buy_all = struct_product:isBuyAll()
+        local color_key = is_buy_all and '{@impossible}' or '{@available}'
+        local rich_str = color_key .. str
+        vars['buyLabel']:setString(rich_str)
+        
+        -- 구매 불가능할 경우 '구매완료' 출력
+        if (vars['completeNode']) then
+            vars['completeNode']:setVisible(is_buy_all)
+        end
+    end
+	
+    -- 가격
+    if vars['priceLabel'] then
+	    local price = struct_product:getPriceStr()
+        vars['priceLabel']:setString(price)
     end
 end
 
@@ -154,17 +173,15 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package_AttrTower:click_buyBtn()
-	local struct_product = self.m_structProduct
+	local product_info = self.m_productInfo
+    local product_id = product_info['product_id']
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
     if (not struct_product) then
         return
     end
 
 	local function cb_func(ret)
-        if (self.m_cbBuy) then
-            self.m_cbBuy(ret)
-        end
-
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
 
@@ -173,6 +190,30 @@ function UI_Package_AttrTower:click_buyBtn()
 	end
 
 	struct_product:buy(cb_func)
+end
+
+-------------------------------------
+-- function click_allReceiveBtn
+-------------------------------------
+function UI_Package_AttrTower:click_allReceiveBtn()
+    local product_info = self.m_productInfo
+    local product_id = product_info['product_id']
+
+    -- 받을 게 없다면
+    local b_avail_get = g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})
+    if (not b_avail_get) then
+        UIManager:toastNotificationRed(Str('이미 받을 수 있는 보상을 모두 수령했습니다.')) 
+        return
+    end
+
+    local function cb_func(ret)
+        self:refresh()
+
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+    end
+
+    g_attrTowerPackageData:request_attrTowerPackRewardAll(product_id, cb_func)
 end
 
 -------------------------------------
@@ -188,9 +229,9 @@ function UI_Package_AttrTower:click_closeBtn()
 end
 
 -------------------------------------
--- function click_bundleBtn
+-- function click_totalBtn
 -------------------------------------
-function UI_Package_AttrTower:click_bundleBtn()
+function UI_Package_AttrTower:click_totalBtn()
     local bundle_ui = self.m_bundleUI
     if (bundle_ui == nil) then
         require('UI_Package_AttrTowerBundle')
@@ -213,5 +254,5 @@ function UI_Package_AttrTower:request_serverInfo()
     local product_data = self.m_productInfo
     local product_id = product_data['product_id']
 
-    g_adventureClearPackageData03:request_adventureClearInfo(product_id)
+    g_attrTowerPackageData:request_attrTowerPackInfo(product_id, cb_func)
 end

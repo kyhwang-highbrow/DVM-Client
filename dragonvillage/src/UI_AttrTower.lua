@@ -268,9 +268,9 @@ end
 function UI_AttrTower:click_packageBtn()
     local attr = g_attrTowerData:getSelAttr()
     local huddle = g_attrTowerPackageData:getHuddleFloor(attr)
-    local high_floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID) - 1
+    local challenge_floor = g_attrTowerData:getChallengingFloor()
     -- 허들 이상 클리어한 경우
-    if (high_floor >= huddle) then
+    if (challenge_floor >= huddle) then
         require('UI_Package_AttrTowerBundle')
         UI_Package_AttrTowerBundle(attr)
 

@@ -11,12 +11,13 @@ UI_Package_AttrTowerListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_Package_AttrTowerListItem:init(data)
-    self.m_data = data
     local vars = self:load('package_attr_tower_item.ui')
+    
+    self.m_data = data
 
     self:initUI()
-    --self:initButton()
-    --self:refresh()
+    self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -25,7 +26,7 @@ end
 function UI_Package_AttrTowerListItem:initUI()
     local vars = self.vars
     local t_data = self.m_data
-
+    
     -- 층
     local floor = t_data['floor']
     vars['attrLabel']:setString(Str('{1}층', floor))
@@ -61,7 +62,7 @@ end
 function UI_Package_AttrTowerListItem:initButton()
     local vars = self.vars
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
-    vars['linkBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
+    --vars['linkBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
 end
 
 -------------------------------------
@@ -69,47 +70,22 @@ end
 -------------------------------------
 function UI_Package_AttrTowerListItem:refresh()
     local vars = self.vars
-    local data = self.m_data
+    local t_data = self.m_data
+    local product_id = t_data['product_id']
+    local floor = t_data['floor']
 
-    if g_adventureClearPackageData03:isActive() then
-        local stage_id = data['stage']
-        if g_adventureClearPackageData03:isReceived(stage_id) then
-            vars['receiveSprite']:setVisible(true)
-            vars['rewardBtn']:setVisible(false)
-            vars['linkBtn']:setVisible(false)
-        else
-            vars['receiveSprite']:setVisible(false)
-            vars['rewardBtn']:setVisible(true)
-
-            local stage_info = g_adventureData:getStageInfo(stage_id)
-            local star = stage_info:getNumberOfStars()
-
-            if (star < 3) then
-                vars['rewardBtn']:setVisible(false)
-                vars['rewardBtn']:setEnabled(true)
-                vars['linkBtn']:setVisible(true)
-            else
-                vars['rewardBtn']:setVisible(true)
-                vars['rewardBtn']:setEnabled(true)
-                vars['linkBtn']:setVisible(false)
-            end
-        end
-    else
-        vars['receiveSprite']:setVisible(false)
-        vars['rewardBtn']:setVisible(true)
-        vars['rewardBtn']:setEnabled(false)
-    end
-
-    do -- 획득한 별 표시
-        local stage_id = data['stage']
-        local stage_info = g_adventureData:getStageInfo(stage_id)
-        local star = stage_info:getNumberOfStars()
-        for i=1, 3 do
-            local node = vars['starSprite' .. i]
-            if node then
-                node:setVisible(i <= star)
-            end
-        end
+    -- 수령 가능한지
+    local challenge_floor = g_attrTowerData:getChallengingFloor()
+    local high_floor = challenge_floor - 1
+    
+    -- 이미 수령한 경우
+    if (g_attrTowerPackageData:isReceived(product_id, floor)) then
+        vars['receiveSprite']:setVisible(true)
+        vars['rewardBtn']:setVisible(false)
+    
+    -- 수령이 가능한 경우
+    elseif (high_floor >= floor) then
+        vars['rewardBtn']:setEnabled(true)
     end
 
     if vars['rewardBtn']:isEnabled() then
@@ -117,7 +93,6 @@ function UI_Package_AttrTowerListItem:refresh()
     else
         vars['infoLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
     end
-    
 end
 
 -------------------------------------
@@ -125,14 +100,16 @@ end
 -------------------------------------
 function UI_Package_AttrTowerListItem:click_rewardBtn()
     local data = self.m_data
-    local stage_id = data['stage']
+    local product_id = data['product_id']
+    local floor = data['floor']
 
-    local stage_info = g_adventureData:getStageInfo(stage_id)
-    local star = stage_info:getNumberOfStars()
+    local challenge_floor = g_attrTowerData:getChallengingFloor()
+    local high_floor = challenge_floor - 1
 
-    if (star < 3) then
-        UIManager:toastNotificationRed(Str('별 3개로 클리어 시 보상을 획득할 수 있습니다.'))
-        return
+    -- 이전 보상을 받지 않았다면
+    if (not g_attrTowerPackageData:availReceive(product_id, floor)) then
+        UIManager:toastNotificationRed(Str('이전 단계의 보상을 수령하지 않았습니다.')) 
+        return 
     end
 
     local function cb_func(ret)
@@ -142,7 +119,7 @@ function UI_Package_AttrTowerListItem:click_rewardBtn()
         ItemObtainResult_Shop(ret)
     end
 
-    g_adventureClearPackageData03:request_adventureClearReward(stage_id, cb_func)
+    g_attrTowerPackageData:request_attrTowerPackReward(product_id, floor, cb_func)
 end
 
 -------------------------------------
@@ -151,6 +128,4 @@ end
 -------------------------------------
 function UI_Package_AttrTowerListItem:click_linkBtn()
     local data = self.m_data
-    local stage_id = data['stage']
-    UINavigator:goTo('adventure', stage_id)
 end

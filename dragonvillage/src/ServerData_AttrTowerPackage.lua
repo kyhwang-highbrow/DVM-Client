@@ -18,18 +18,21 @@ ServerData_AttrTowerPackage = class({
 -------------------------------------
 function ServerData_AttrTowerPackage:init(server_data)
     self.m_serverData = server_data
+    self.m_tProductInfo= {}
 end
 
 -------------------------------------
 -- function request_attrTowerPackInfo
 -------------------------------------
-function ServerData_AttrTowerPackage:request_attrTowerPackInfo(cb_func, fail_cb)
+function ServerData_AttrTowerPackage:request_attrTowerPackInfo(product_id, cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
-        self:response_attrTowerPackInfo(ret)
+        if (ret['attr_tower_pack_info']) then
+            self:response_attrTowerPackInfo(ret['attr_tower_pack_info'])
+        end
 
         if (cb_func) then 
             cb_func(ret) 
@@ -40,6 +43,7 @@ function ServerData_AttrTowerPackage:request_attrTowerPackInfo(cb_func, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/attr_tower_pack/info')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('product_id', product_id)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -53,22 +57,25 @@ end
 -- function response_attrTowerPackInfo
 -------------------------------------
 function ServerData_AttrTowerPackage:response_attrTowerPackInfo(ret)
-    self.m_tProductInfo = ret['attr_tower_pack_info']
+    for k, v in pairs(ret) do
+        local k_num = tonumber(k)
+        self.m_tProductInfo[k_num] = v
+    end
 end
 
 -------------------------------------
 -- function isActive
 -------------------------------------
-function ServerData_AttrTowerPackage:isActive(product_id_list) 
+function ServerData_AttrTowerPackage:isActive(product_id) 
     local is_active = false
 
-    if product_id == nil then
+    if (product_id == nil) then
 
-    elseif (table.count(product_id) == 1) then
+    elseif (type(product_id) == 'number') then
         is_active = (self.m_tProductInfo[product_id] >= 0)
     
-    else
-        for i, v in ipairs(product_id_list) do
+    elseif (type(product_id) == 'table') then
+        for i, v in ipairs(product_id) do
             if (self.m_tProductInfo[v] >= 0) then
                 is_active = true
                 break
@@ -84,33 +91,24 @@ end
 -- @brief 보상받을 수 있는 항목 있을 때에만 노티
 -------------------------------------
 function ServerData_AttrTowerPackage:isVisible_attrTowerPackNoti(product_id_list)
-    if (not self:isActive(product_id_list)) then 
-        return false 
-    end
-
     local product_info_table = TABLE:get('table_package_attr_tower')
     local reward_info_table = TABLE:get('table_package_attr_tower_reward')
     
-    local reward_floor_list = {} -- 보상을 받을 수 있는 층
-    for k, _ in pairs(reward_info_table) do
-        table.insert(reward_floor_list, k)
-    end
-
     for _, product_id in ipairs(product_id_list) do
-        if (self:isActive(product_id)) then
+        if (not self:isActive(product_id)) then
             -- continue
         else
-
             local product_info = product_info_table[product_id]
             local start_floor = product_info['start_floor']
             local end_floor = product_info['end_floor']
+            local challenge_floor = g_attrTowerData:getChallengingFloor()
+            local high_floor = challenge_floor - 1
+            local receive_floor = self.m_tProductInfo[product_id]
         
-            -- 보상 안 받은 항목들 중에서
-            for i, reward_floor in pairs(reward_floor_list) do
+            for reward_floor, _ in pairs(reward_info_table) do
                 if ((start_floor <= reward_floor) and (reward_floor <= end_floor)) then -- 해당 상품의 층 범위 안에서
-                
-                    --if (유저가 최대로 깬 층 >= floor) and (유저가 보상을 마지막으로 수령한 층 < floor) then
-                    if (true) then
+                    -- 보상을 안받은 층이 있다면                
+                    if ((high_floor >= reward_floor) and (receive_floor < reward_floor)) then
                         return true
                     end
                 end
@@ -130,6 +128,10 @@ function ServerData_AttrTowerPackage:request_attrTowerPackReward(product_id, flo
 
     -- 콜백 함수
     local function success_cb(ret)
+        if (ret['attr_tower_pack_info']) then
+            self:response_attrTowerPackInfo(ret['attr_tower_pack_info'])
+        end
+        
         if (cb_func) then 
             cb_func(ret) 
         end
@@ -159,6 +161,10 @@ function ServerData_AttrTowerPackage:request_attrTowerPackRewardAll(product_id, 
 
     -- 콜백 함수
     local function success_cb(ret)
+        if (ret['attr_tower_pack_info']) then
+            self:response_attrTowerPackInfo(ret['attr_tower_pack_info'])
+        end
+        
         if (cb_func) then 
             cb_func(ret) 
         end
@@ -292,4 +298,34 @@ function ServerData_AttrTowerPackage:getProductInfo(product_id)
     product_info['reward_info'] = reward_info
 
     return product_info
+end
+
+-------------------------------------
+-- function isReceived
+-------------------------------------
+function ServerData_AttrTowerPackage:isReceived(product_id, floor)
+    local product_received_floor = self.m_tProductInfo[product_id]
+
+    local b_is_received = (floor <= product_received_floor)
+
+    return b_is_received
+end
+
+-------------------------------------
+-- function availReceive
+-------------------------------------
+function ServerData_AttrTowerPackage:availReceive(product_id, floor)
+    local product_received_floor = self.m_tProductInfo[product_id]
+
+    local reward_info_table = TABLE:get('table_package_attr_tower_reward')
+    
+    local b_avail_receive = true
+    for reward_floor, _ in pairs(reward_info_table) do
+        if ((product_received_floor < reward_floor) and (reward_floor < floor)) then
+            b_avail_receive = false
+            break
+        end  
+    end
+
+    return b_avail_receive
 end

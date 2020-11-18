@@ -34,9 +34,8 @@ function UI_Package_AttrTowerBundleListItem:initUI()
     local product_info = self.m_productInfo
 
     local challenge_floor = g_attrTowerData:getChallengingFloor()
-    local high_floor = challenge_floor - 1
     local start_floor = product_info['start_floor']
-    if (start_floor <= high_floor) then
+    if (start_floor <= challenge_floor) then
         vars['readyBtn']:setVisible(true)
     end
 
