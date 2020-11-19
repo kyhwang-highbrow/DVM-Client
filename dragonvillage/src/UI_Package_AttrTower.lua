@@ -80,6 +80,12 @@ function UI_Package_AttrTower:initItemText()
 
     local total_item_text = ''
     
+    local function sort_func(a, b)
+        return a['item_id'] > b['item_id']
+    end
+
+    table.sort(total_item_list, sort_func)
+
     for idx, item_info in ipairs(total_item_list) do
         local item_id = item_info['item_id']
         local item_count = item_info['count']

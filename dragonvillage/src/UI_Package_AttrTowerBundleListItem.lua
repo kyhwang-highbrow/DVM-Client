@@ -63,6 +63,12 @@ function UI_Package_AttrTowerBundleListItem:initItemCard()
 
     local total_item_list = table.MapToList(total_item_table)
 
+    local function sort_func(a, b)
+        return a['item_id'] > b['item_id']
+    end
+
+    table.sort(total_item_list, sort_func)
+
     for idx, item_info in ipairs(total_item_list) do
         local node = vars['itemNode' .. idx]
         if (node ~= nil) then
