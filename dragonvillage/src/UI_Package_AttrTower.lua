@@ -122,10 +122,17 @@ function UI_Package_AttrTower:init_tableView()
         vars['productNodeLong']:setVisible(false)
     end
 
+    local bundle_ui = self.m_bundleUI
+
+    local function make_func(data)
+        local ui = UI_Package_AttrTowerListItem(bundle_ui, product_id, data)
+        return ui
+    end
+
     node:removeAllChildren()
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(440, 80+5)
-    table_view:setCellUIClass(UI_Package_AttrTowerListItem)
+    table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     table_view:makeDefaultEmptyDescLabel('')
@@ -303,7 +310,7 @@ function UI_Package_AttrTower:click_totalBtn()
         require('UI_Package_AttrTowerBundle')
         local attr = g_attrTowerData:getSelAttr()
         local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
-        UI_Package_AttrTowerBundle(product_id_list, true)
+        UI_Package_AttrTowerBundle(attr)
     end
 
     self:close()

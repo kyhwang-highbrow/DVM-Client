@@ -87,6 +87,7 @@ function UI_Package_AttrTowerBundleListItem:initButton()
     local vars = self.vars
 
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+    vars['completeBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
 end
 
 -------------------------------------
@@ -97,14 +98,28 @@ function UI_Package_AttrTowerBundleListItem:refresh()
     local product_info = self.m_productInfo
     local product_id = product_info['product_id']
 
+    vars['notiSprite']:setVisible(false)
+    vars['completeSprite']:setVisible(false)
+    vars['lockSprite']:setVisible(false)
+    vars['readyBtn']:setVisible(false)
+    vars['completeBtn']:setVisible(false)
+
     do -- 상태에 따른 버튼 변화
         -- 구입한 상태
         if (g_attrTowerPackageData:isActive(product_id)) then
-            vars['readyBtn']:setVisible(true)
+            vars['completeSprite']:setVisible(true)
+            
+            -- 모든 상품을 수령한 상태
+            if (g_attrTowerPackageData:availReceive(product_id)) then
+                vars['completeBtn']:setVisible(true)
 
-            -- 수령할 아이템이 존재하는 상태
-            if (g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})) then
-                
+            else
+                vars['readyBtn']:setVisible(true)
+
+                -- 수령할 아이템이 존재하는 상태
+                if (g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})) then
+                    vars['notiSprite']:setVisible(true)
+                end
             end
  
         -- 구입 안한 상태
@@ -116,9 +131,9 @@ function UI_Package_AttrTowerBundleListItem:refresh()
             -- 패키지 확인 가능한 상태
             if (start_floor <= challenge_floor) then
                 vars['readyBtn']:setVisible(true)
-        
+                        
             else
-            
+                vars['lockSprite']:setVisible(true)
             end
         end
     end

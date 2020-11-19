@@ -323,7 +323,8 @@ function ServerData_AttrTowerPackage:availReceive(product_id, floor)
     local product_info = product_info_table[product_id]
     local start_floor = product_info['start_floor']
     local end_floor = product_info['end_floor']
-    
+    local floor = floor or (end_floor + 1)
+
     local b_avail_receive = true
     for reward_floor, _ in pairs(reward_info_table) do
         if ((start_floor <= reward_floor) and (reward_floor <= end_floor)) then

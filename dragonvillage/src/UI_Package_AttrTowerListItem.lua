@@ -4,15 +4,19 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_Package_AttrTowerListItem
 -------------------------------------
 UI_Package_AttrTowerListItem = class(PARENT, {
+        m_bundleUI = 'UI_Package_AttrTowerBundle',
+        m_productId = 'number',
         m_data = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_AttrTowerListItem:init(data)
+function UI_Package_AttrTowerListItem:init(bundle_ui, product_id, data)
     local vars = self:load('package_attr_tower_item.ui')
     
+    self.m_bundleUI = bundle_ui
+    self.m_productId = product_id
     self.m_data = data
 
     self:initUI()
@@ -69,9 +73,13 @@ end
 -- function refresh
 -------------------------------------
 function UI_Package_AttrTowerListItem:refresh()
+    if (self.m_bundleUI) then
+        self.m_bundleUI:refresh()
+    end
+
     local vars = self.vars
     local t_data = self.m_data
-    local product_id = t_data['product_id']
+    local product_id = self.m_productId
     local floor = t_data['floor']
 
     if (g_attrTowerPackageData:isActive(product_id)) then
@@ -108,7 +116,7 @@ end
 -------------------------------------
 function UI_Package_AttrTowerListItem:click_rewardBtn()
     local data = self.m_data
-    local product_id = data['product_id']
+    local product_id = self.m_productId
     local floor = data['floor']
 
     local challenge_floor = g_attrTowerData:getChallengingFloor()

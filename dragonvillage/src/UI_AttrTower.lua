@@ -83,14 +83,6 @@ function UI_AttrTower:initUI()
     local visual_id = 'icon_' .. attr
     vars['iconVisual']:changeAni(visual_id, true)
 
-    do -- 시험의 탑 정복 선물 패키지 버튼
-
-        local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
-        if (g_attrTowerPackageData:isVisible_attrTowerPackNoti(product_id_list)) then
-            vars['attrTowerPackSprite']:setVisible(true)
-        end
-    end
-
 	do -- 테이블 뷰 생성
         local node = vars['floorNode']
         node:removeAllChildren()
@@ -234,8 +226,25 @@ function UI_AttrTower:refresh(floor_info)
     vars['readyBtn']:setEnabled(is_open)
     vars['lockSprite']:setVisible(not is_open)
 
+    self:refresh_packageNoti()
+
     -- 시험의 탑 정복 선물 패키지 연출 효과 추가
     cca.pickMePickMe(vars['attrTowerPackBtn'], 10)
+end
+
+-------------------------------------
+-- function refresh_packageNoti
+-------------------------------------
+function UI_AttrTower:refresh_packageNoti()
+    local vars = self.vars
+
+    local attr = g_attrTowerData:getSelAttr()
+    local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
+    if (g_attrTowerPackageData:isVisible_attrTowerPackNoti(product_id_list)) then
+        vars['attrTowerPackSprite']:setVisible(true)
+    else
+        vars['attrTowerPackSprite']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -271,16 +280,19 @@ function UI_AttrTower:click_packageBtn()
     local huddle = g_attrTowerPackageData:getHuddleFloor(attr)
     local challenge_floor = g_attrTowerData:getChallengingFloor()
     -- 허들 이상 클리어한 경우
+    local ui
     if (challenge_floor >= huddle) then
         require('UI_Package_AttrTowerBundle')
-        UI_Package_AttrTowerBundle(attr)
+        ui = UI_Package_AttrTowerBundle(attr)
 
     else 
         require('UI_Package_AttrTower')
         local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
         local first_product_id = product_id_list[1]
-        UI_Package_AttrTower(nil, first_product_id)
+        ui = UI_Package_AttrTower(nil, first_product_id)
     end
+
+    ui:setCloseCB(function() self:refresh_packageNoti() end)
 end
 
 -------------------------------------
