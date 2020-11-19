@@ -37,11 +37,6 @@ function UI_EventMandragoraQuestListItem:initUI()
     local day_text = struct_quest:getQuestDayText()
     vars['dayLabel']:setString(day_text)
 
-    -- 보상 목록
-    local card = struct_quest:getRewardItemCard()
-    if (card) then
-        vars['rewardNode']:addChild(card.root)
-    end
 end
 
 -------------------------------------
@@ -79,7 +74,15 @@ function UI_EventMandragoraQuestListItem:refresh()
     -- 보상 받기
     local is_reward = (struct_quest['clear'] == 1 and struct_quest['reward'] == 0)
     vars['readySprite']:setVisible(not is_reward)
+    vars['rewardBtn']:setVisible(is_reward)
     vars['rewardBtn']:setEnabled(is_reward)
+    
+    -- 보상 목록
+    local card = struct_quest:getRewardItemCard()
+    if (card) then
+        vars['rewardNode']:addChild(card.root)
+        card:setEnabledClickBtn(not is_reward)
+    end
 end
 
 -------------------------------------
