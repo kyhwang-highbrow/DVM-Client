@@ -9,7 +9,7 @@ UI_EventMandragoraQuest = class(PARENT,{
         m_container = '',
         m_containerTopPosY = '',
 
-        m_goalUi = '',
+        --m_goalUi = '',
     })
 
 -------------------------------------
@@ -32,11 +32,11 @@ function UI_EventMandragoraQuest:initUI()
     vars['timeLabel']:setString(end_text)
 
     -- 시작 UI
-    do
-        local ui = UI_EventMandragoraQuestListItem()
-        ui.vars['startNode']:setVisible(true)
-        vars['node1']:addChild(ui.root)
-    end
+    --do
+        --local ui = UI_EventMandragoraQuestListItem()
+        --ui.vars['startNode']:setVisible(true)
+        --vars['node1']:addChild(ui.root)
+    --end
 
     -- 퀘스트 UI
     self.m_itemUiList = {}
@@ -47,7 +47,7 @@ function UI_EventMandragoraQuest:initUI()
             self:refresh()
         end
 
-        local node = vars['node'.. (i + 1)]
+        local node = vars['node'.. i]
         if (node) then
             node:addChild(ui.root)
             table.insert(self.m_itemUiList, ui)
@@ -55,18 +55,36 @@ function UI_EventMandragoraQuest:initUI()
     end
 
     -- 종료 UI
-    local total_cnt = #quest_info 
-    local node = vars['node'..total_cnt + 2]
-    if (node) then
-        local ui = UI_EventMandragoraQuestListItem()
-        ui.vars['goalNode']:setVisible(true)
-        node:addChild(ui.root)
+    --local total_cnt = #quest_info 
+    --local node = vars['node'..total_cnt + 2]
+    --if (node) then
+        --local ui = UI_EventMandragoraQuestListItem()
+        --ui.vars['goalNode']:setVisible(true)
+        --node:addChild(ui.root)
+--
+        --self.m_goalUi = ui
+    --end
 
-        self.m_goalUi = ui
+    -- 최종 보상 UI
+    do
+        local last_reward_info = g_mandragoraQuest:getLastRewardInfo()
+
+        for idx, v in ipairs(last_reward_info) do
+            local node_name = 'itemNode' .. idx
+
+            if (vars[node_name] == nil) then
+                if (idx == 1) then
+                    node_name = 'itemNode'
+                else
+                    break
+                end
+            end
+            ccdump(v)
+            local item_card_ui = UI_ItemCard(v['item_id'], v['count'])
+            vars[node_name]:addChild(item_card_ui.root)
+        end
     end
 
-
-    vars['plugBtn']:setVisible(false)
     --[[
     -- 캐릭터 페어 보상은 한국서버만 노출
     if (g_localData:isKoreaServer()) then
@@ -97,10 +115,29 @@ function UI_EventMandragoraQuest:refresh()
     g_mandragoraQuest.m_bDirty = false
 
     local vars = self.vars
-    -- 모두 클리어시 골인 UI 변경
-    local is_all_clear = g_mandragoraQuest:isAllClear()
-    if (is_all_clear and self.m_goalUi) then
-        self.m_goalUi.vars['selectSprite']:setVisible(true)
+    
+    -- 모두 클리어시 최종 보상
+    vars['completeSprite']:setVisible(false)
+    vars['receiveSprite']:setVisible(false)
+    vars['receiveBtn']:setVisible(false)
+    vars['receiveBtn']:setEnabled(false)
+
+    local avail_get_last_reward = g_mandragoraQuest:availGetLastReward()
+    if (avail_get_last_reward) then
+    
+        local already_get_last_reward = g_mandragoraQuest:alreadyGetLastReward()
+
+        if (already_get_last_reward) then
+            vars['completeSprite']:setVisible(true)
+
+        else
+            vars['receiveSprite']:setVisible(true)
+            vars['receiveBtn']:setVisible(true)
+            vars['receiveBtn']:setEnabled(true)
+        end
+
+    else
+        vars['receiveBtn']:setVisible(true)
     end
 
     --[[

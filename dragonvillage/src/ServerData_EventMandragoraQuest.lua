@@ -7,6 +7,7 @@ ServerData_EventMandragoraQuest = class({
 
         m_productInfo = 'list', -- 교환 상품 정보
         m_rewardInfo = 'map', -- 보상 정보
+        m_lastRewardInfo = 'table', -- 최종 보상 정보 
 
         m_endTime = 'time',
         m_bDirty = 'boolean',
@@ -102,6 +103,34 @@ function ServerData_EventMandragoraQuest:isAllClear()
 end
 
 -------------------------------------
+-- function availGetLastReward
+-- @breif 최종 보상을 받을 수 있는 조건이 되는지
+-------------------------------------
+function ServerData_EventMandragoraQuest:availGetLastReward()
+    local avail_get_last_reward = ((self.m_currentQuestInfo) and (self.m_currentQuestInfo['qid'] >= 10))
+    return avail_get_last_reward
+end
+
+-------------------------------------
+-- function alreadyGetLastReward
+-- @breif 최종 보상을 이미 받았는지
+-------------------------------------
+function ServerData_EventMandragoraQuest:alreadyGetLastReward()
+    local avail_get_last_reward = (self.m_lastRewardInfo['reward'] == 1)
+    return avail_get_last_reward
+end
+
+-------------------------------------
+-- function getLastRewardInfo
+-------------------------------------
+function ServerData_EventMandragoraQuest:getLastRewardInfo()
+    local item_str = self.m_lastRewardInfo['itemlist']
+    local last_reward_info = g_itemData:parsePackageItemStr(item_str)
+    return last_reward_info
+end
+
+
+-------------------------------------
 -- function confirm_reward
 -- @brief 보상 정보
 -------------------------------------
@@ -133,6 +162,12 @@ function ServerData_EventMandragoraQuest:networkCommonRespone(ret)
     if (ret['quests']) then
         self.m_bDirty = true
         self:parseQuestInfo(ret['quests'])
+    end
+
+    -- 퀘스트 최종 보상 정보
+    if (ret['mission_event_last_info']) then
+        self.m_bDirty = true
+        self.m_lastRewardInfo = ret['mission_event_last_info']
     end
 
     -- 이벤트 종료 시간
