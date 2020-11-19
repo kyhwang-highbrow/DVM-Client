@@ -77,7 +77,7 @@ function UI_Package_AttrTowerListItem:refresh()
     if (g_attrTowerPackageData:isActive(product_id)) then
         -- 수령 가능한지
         local challenge_floor = g_attrTowerData:getChallengingFloor()
-        local high_floor = challenge_floor - 1
+        local clear_floor = challenge_floor - 1
     
         -- 이미 수령한 경우
         if (g_attrTowerPackageData:isReceived(product_id, floor)) then
@@ -85,7 +85,7 @@ function UI_Package_AttrTowerListItem:refresh()
             vars['rewardBtn']:setVisible(false)
     
         -- 수령이 가능한 경우
-        elseif (high_floor >= floor) then
+        elseif (clear_floor >= floor) then
             vars['receiveSprite']:setVisible(false)
             vars['rewardBtn']:setVisible(true)
             vars['rewardBtn']:setEnabled(true)
@@ -112,7 +112,7 @@ function UI_Package_AttrTowerListItem:click_rewardBtn()
     local floor = data['floor']
 
     local challenge_floor = g_attrTowerData:getChallengingFloor()
-    local high_floor = challenge_floor - 1
+    local clear_floor = challenge_floor - 1
 
     -- 이전 보상을 받지 않았다면
     if (not g_attrTowerPackageData:availReceive(product_id, floor)) then

@@ -32,14 +32,9 @@ end
 function UI_Package_AttrTowerBundleListItem:initUI()
     local vars = self.vars
     local product_info = self.m_productInfo
-
-    local challenge_floor = g_attrTowerData:getChallengingFloor()
     local start_floor = product_info['start_floor']
     local end_floor = product_info['end_floor']
-    if (start_floor <= challenge_floor) then
-        vars['readyBtn']:setVisible(true)
-    end
-
+    
     vars['attrLabel']:setString(Str('{1}~{2}층 정복', start_floor, end_floor))
 
     self:initItemCard()
@@ -92,7 +87,35 @@ end
 -- function refresh
 -------------------------------------
 function UI_Package_AttrTowerBundleListItem:refresh()
-    
+    local vars = self.vars
+    local product_info = self.m_productInfo
+    local product_id = product_info['product_id']
+
+    do -- 상태에 따른 버튼 변화
+        -- 구입한 상태
+        if (g_attrTowerPackageData:isActive(product_id)) then
+            vars['readyBtn']:setVisible(true)
+
+            -- 수령할 아이템이 존재하는 상태
+            if (g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})) then
+                
+            end
+ 
+        -- 구입 안한 상태
+        else
+            local challenge_floor = g_attrTowerData:getChallengingFloor()
+            local start_floor = product_info['start_floor']
+            local end_floor = product_info['end_floor']
+        
+            -- 패키지 확인 가능한 상태
+            if (start_floor <= challenge_floor) then
+                vars['readyBtn']:setVisible(true)
+        
+            else
+            
+            end
+        end
+    end
 end
 
 

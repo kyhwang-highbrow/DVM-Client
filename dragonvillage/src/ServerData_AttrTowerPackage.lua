@@ -102,13 +102,13 @@ function ServerData_AttrTowerPackage:isVisible_attrTowerPackNoti(product_id_list
             local start_floor = product_info['start_floor']
             local end_floor = product_info['end_floor']
             local challenge_floor = g_attrTowerData:getChallengingFloor()
-            local high_floor = challenge_floor - 1
+            local clear_floor = challenge_floor - 1
             local receive_floor = self.m_tProductInfo[product_id]
         
             for reward_floor, _ in pairs(reward_info_table) do
                 if ((start_floor <= reward_floor) and (reward_floor <= end_floor)) then -- 해당 상품의 층 범위 안에서
                     -- 보상을 안받은 층이 있다면                
-                    if ((high_floor >= reward_floor) and (receive_floor < reward_floor)) then
+                    if ((clear_floor >= reward_floor) and (receive_floor < reward_floor)) then
                         return true
                     end
                 end

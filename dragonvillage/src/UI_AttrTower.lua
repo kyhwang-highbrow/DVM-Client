@@ -84,8 +84,6 @@ function UI_AttrTower:initUI()
     vars['iconVisual']:changeAni(visual_id, true)
 
     do -- 시험의 탑 정복 선물 패키지 버튼
-        -- local high_floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID) - 1
-        -- vars['attrTowerLabel']:setString(high_floor)
 
         local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
         if (g_attrTowerPackageData:isVisible_attrTowerPackNoti(product_id_list)) then
@@ -235,6 +233,9 @@ function UI_AttrTower:refresh(floor_info)
     local is_open = g_attrTowerData:isOpenStage(select_floor)
     vars['readyBtn']:setEnabled(is_open)
     vars['lockSprite']:setVisible(not is_open)
+
+    -- 시험의 탑 정복 선물 패키지 연출 효과 추가
+    cca.pickMePickMe(vars['attrTowerPackBtn'], 10)
 end
 
 -------------------------------------

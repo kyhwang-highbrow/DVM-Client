@@ -41,10 +41,15 @@ function UI_Package_AttrTower:initUI()
     local vars = self.vars
     
     local product_info = self.m_productInfo
+    local product_id = product_info['product_id']
     local start_floor = product_info['start_floor']
     local end_floor = product_info['end_floor']
 
     vars['attrLabel']:setString(Str('{1}~{2}층 정복', start_floor, end_floor))
+
+    -- 상품 스프라이트 켜기
+    local sprite_idx = product_id % 10 -- product_id의 1의 자리에 따라 층 수 구분
+    -- vars['' .. sprite_idx]:setVisible(true)
 
     -- 상품 합산 계산해서 텍스트 출력하기
     self:initItemText()
@@ -73,15 +78,22 @@ function UI_Package_AttrTower:initItemText()
 
     local total_item_list = table.MapToList(total_item_table)
 
-    local item_text = ''
-
+    local total_item_text = ''
+    
     for idx, item_info in ipairs(total_item_list) do
         local item_id = item_info['item_id']
         local item_count = item_info['count']
         local item_name = TableItem:getItemName(item_id)
+        local item_text = item_name .. ' ' .. Str('{1}개', comma_value(item_count))
+        
+        if (total_item_text ~= '') then
+            total_item_text = total_item_text .. '\n'
+        end
+        
+        total_item_text = total_item_text .. item_text
     end
 
-    -- vars['']:setString(item_text)
+     vars['itemLabel']:setString(total_item_text)
 end
 
 -------------------------------------
@@ -166,6 +178,10 @@ end
 -- function refresh
 -------------------------------------
 function UI_Package_AttrTower:refresh()
+    if (self.m_bundleUI) then
+        self.m_bundleUI:refresh()
+    end
+    
     self:init_tableView()
 
     local vars = self.vars
