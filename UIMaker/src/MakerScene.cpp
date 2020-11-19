@@ -92,6 +92,8 @@ bool CMakerScene::init()
 
 	SendOpenViewer();
 
+	FileUtils::getInstance()->addSearchPath("../run/res");
+
 	if (Scene::init())
     {
 //		schedule(schedule_selector(CMakerScene::updateSceneInfo), 1.0f);
