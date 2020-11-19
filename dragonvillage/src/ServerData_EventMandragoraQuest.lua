@@ -103,11 +103,20 @@ function ServerData_EventMandragoraQuest:isAllClear()
 end
 
 -------------------------------------
+-- function getLastRewardCondition
+-- @breif 최종 보상을 받을 수 있는 갯수
+-------------------------------------
+function ServerData_EventMandragoraQuest:getLastRewardCondition()
+    local last_reward_condition = self.m_lastRewardInfo['reward_step']
+    return last_reward_condition
+end
+
+-------------------------------------
 -- function availGetLastReward
 -- @breif 최종 보상을 받을 수 있는 조건이 되는지
 -------------------------------------
 function ServerData_EventMandragoraQuest:availGetLastReward()
-    local avail_get_last_reward = ((self.m_currentQuestInfo) and (self.m_currentQuestInfo['qid'] >= 10))
+    local avail_get_last_reward = ((self.m_currentQuestInfo) and (self.m_lastRewardInfo) and (self.m_currentQuestInfo['qid'] > tonumber(self:getLastRewardCondition())))
     return avail_get_last_reward
 end
 
@@ -231,6 +240,37 @@ function ServerData_EventMandragoraQuest:request_clearReward(qid, finish_cb, fai
     ui_network:setUrl('/shop/mission_event/reward')
     ui_network:setParam('uid', uid)
     ui_network:setParam('qid', qid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_clearReward
+-- @brief 만드라고라의 퀘스트 보상
+-------------------------------------
+function ServerData_EventMandragoraQuest:request_clearLastReward(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)                    
+        self:networkCommonRespone(ret)
+        self:confirm_reward(ret)
+        
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/mission_event/lastreward')
+    ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

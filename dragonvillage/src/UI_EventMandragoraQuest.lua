@@ -31,6 +31,10 @@ function UI_EventMandragoraQuest:initUI()
     local end_text = g_mandragoraQuest:getStatusText()
     vars['timeLabel']:setString(end_text)
 
+    -- 최종 보상을 받기 위한 퀘스트 수
+    local last_reward_condition = g_mandragoraQuest:getLastRewardCondition()
+    vars['infoLabel']:setString(Str('{1}일차 퀘스트를 모두 클리어하면 보상을 받을 수 있습니다.', last_reward_condition))
+
     -- 시작 UI
     --do
         --local ui = UI_EventMandragoraQuestListItem()
@@ -101,6 +105,10 @@ end
 -------------------------------------
 function UI_EventMandragoraQuest:initButton()
     local vars = self.vars
+
+    -- 최종 보상
+    vars['receiveBtn']:registerScriptTapHandler(function() self:click_receiveBtn() end)
+
     -- 캐릭터 페어
     -- vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end)
 end
@@ -138,6 +146,13 @@ function UI_EventMandragoraQuest:refresh()
 
     else
         vars['receiveBtn']:setVisible(true)
+    end
+
+    if (vars['receiveBtn']:isEnabled()) then
+        vars['receiveLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
+   
+    else
+        vars['receiveLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
     end
 
     --[[
@@ -236,4 +251,17 @@ function UI_EventMandragoraQuest:click_eventBtn()
     end
 
     confirm_popup_func_1()
+end
+
+-------------------------------------
+-- function click_receiveBtn
+-------------------------------------
+function UI_EventMandragoraQuest:click_receiveBtn()
+    local function refresh_cb()
+        if (self.m_refreshFunc) then
+            self.m_refreshFunc()
+        end
+    end
+    
+    g_mandragoraQuest:request_clearLastReward(refresh_cb)
 end

@@ -70,7 +70,9 @@ function UI_EventMandragoraQuestListItem:refresh()
     -- 진행 단계
     local is_current = struct_quest:getCurrentQuestID()
     vars['selectSprite']:setVisible(is_current)
-
+    if (is_current) then
+        vars['selectSprite']:runAction(cca.flash())
+    end
     -- 보상 받기
     local is_reward = (struct_quest['clear'] == 1 and struct_quest['reward'] == 0)
     vars['readySprite']:setVisible(not is_reward)
