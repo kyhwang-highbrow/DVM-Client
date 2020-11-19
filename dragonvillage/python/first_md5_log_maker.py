@@ -109,8 +109,12 @@ def main():
     # 1. 타겟 경로들의 모든 파일들의 md5를 생성
     dirr_list = ['ps', 'data_dat', 'res', 'sound', 'translate']
     
+    # @mskim, 2020.11.20
+    # python 위치 및 로그 생성 대상 파일을 고려하여 상대 경로 수정할 것
+    relative_asset_path = '../../assets/full'
+
     root_dir = os.path.dirname(os.path.realpath(__file__))
-    root_dir = os.path.join(root_dir, '../')
+    root_dir = os.path.join(root_dir, relative_asset_path)
     root_dir = os.path.abspath(root_dir)
     
     hash_dic = {}
