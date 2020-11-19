@@ -268,6 +268,12 @@ function ServerData_AttrTowerPackage:getProductIdList(attr)
         table.insert(product_id_list, product_id)
     end
 
+    local function sort_func(a, b)
+        return a < b
+    end
+
+    table.sort(product_id_list, sort_func)
+
     return product_id_list    
 end
 

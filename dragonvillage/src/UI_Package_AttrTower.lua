@@ -47,10 +47,6 @@ function UI_Package_AttrTower:initUI()
 
     vars['attrLabel']:setString(Str('{1}~{2}층 정복', start_floor, end_floor))
 
-    -- 상품 스프라이트 켜기
-    local sprite_idx = product_id % 10 -- product_id의 1의 자리에 따라 층 수 구분
-    -- vars['' .. sprite_idx]:setVisible(true)
-
     -- 상품 합산 계산해서 텍스트 출력하기
     self:initItemText()
 end
@@ -183,8 +179,15 @@ function UI_Package_AttrTower:initButton()
 
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     vars['allReceiveBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
-    vars['totalBtn']:registerScriptTapHandler(function() self:click_totalBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+
+    local attr = g_attrTowerData:getSelAttr()
+    local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
+    if (table.count(product_id_list) > 1) then
+        vars['totalBtn']:registerScriptTapHandler(function() self:click_totalBtn() end)
+    else
+        vars['totalBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -206,18 +209,11 @@ function UI_Package_AttrTower:refresh()
         vars['completeNode']:setVisible(true)
         vars['contractBtn']:setVisible(false)
         vars['buyBtn']:setVisible(false)
+        vars['allReceiveBtn']:setVisible(true)
     else
         vars['completeNode']:setVisible(false)
         vars['buyBtn']:setVisible(true)
-    end
-
-    -- 모두 수령
-    if (g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})) then
-        vars['allReceiveBtn']:setEnabled(true)
-        --vars['allReceiveBtn']:setTextColor(cc.c4b(0, 0, 0, 255))
-    else
-        vars['allReceiveBtn']:setEnabled(false)
-        --vars['allReceiveBtn']:setTextColor(cc.c4b(240, 215, 159, 255))
+        vars['allReceiveBtn']:setVisible(false)
     end
 
     -- 구매 제한
@@ -275,7 +271,7 @@ function UI_Package_AttrTower:click_allReceiveBtn()
     -- 받을 게 없다면
     local b_avail_get = g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})
     if (not b_avail_get) then
-        UIManager:toastNotificationRed(Str('이미 받을 수 있는 보상을 모두 수령했습니다.')) 
+        UIManager:toastNotificationRed(Str('수령할 수 있는 아이템이 없습니다.')) 
         return
     end
 

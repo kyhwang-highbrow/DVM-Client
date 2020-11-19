@@ -125,7 +125,7 @@ function UI_Package_AttrTowerListItem:click_rewardBtn()
 
     -- 이전 보상을 받지 않았다면
     if (not g_attrTowerPackageData:availReceive(product_id, floor)) then
-        UIManager:toastNotificationRed(Str('이전 단계의 보상을 수령하지 않았습니다.')) 
+        UIManager:toastNotificationRed(Str('이전 보상을 받고 다시 시도해 주세요.')) 
         return 
     end
 
