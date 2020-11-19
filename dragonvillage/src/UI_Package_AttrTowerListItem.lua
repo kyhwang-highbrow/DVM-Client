@@ -74,18 +74,26 @@ function UI_Package_AttrTowerListItem:refresh()
     local product_id = t_data['product_id']
     local floor = t_data['floor']
 
-    -- 수령 가능한지
-    local challenge_floor = g_attrTowerData:getChallengingFloor()
-    local high_floor = challenge_floor - 1
+    if (g_attrTowerPackageData:isActive(product_id)) then
+        -- 수령 가능한지
+        local challenge_floor = g_attrTowerData:getChallengingFloor()
+        local high_floor = challenge_floor - 1
     
-    -- 이미 수령한 경우
-    if (g_attrTowerPackageData:isReceived(product_id, floor)) then
-        vars['receiveSprite']:setVisible(true)
-        vars['rewardBtn']:setVisible(false)
+        -- 이미 수령한 경우
+        if (g_attrTowerPackageData:isReceived(product_id, floor)) then
+            vars['receiveSprite']:setVisible(true)
+            vars['rewardBtn']:setVisible(false)
     
-    -- 수령이 가능한 경우
-    elseif (high_floor >= floor) then
-        vars['rewardBtn']:setEnabled(true)
+        -- 수령이 가능한 경우
+        elseif (high_floor >= floor) then
+            vars['receiveSprite']:setVisible(false)
+            vars['rewardBtn']:setVisible(true)
+            vars['rewardBtn']:setEnabled(true)
+        end
+    else
+        vars['receiveSprite']:setVisible(false)
+        vars['rewardBtn']:setVisible(true)
+        vars['rewardBtn']:setEnabled(false)
     end
 
     if vars['rewardBtn']:isEnabled() then

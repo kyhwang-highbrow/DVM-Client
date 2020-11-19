@@ -40,13 +40,48 @@ end
 function UI_Package_AttrTower:initUI()
     local vars = self.vars
     
-    vars['productNode']:setVisible(false) 
-    vars['productNodeLong']:setVisible(false) 
-    if (g_attrTowerPackageData:isActive(product_id)) then
-        vars['productNodeLong']:setVisible(true) 
-    else
-        vars['productNode']:setVisible(true) 
+    local product_info = self.m_productInfo
+    local start_floor = product_info['start_floor']
+    local end_floor = product_info['end_floor']
+
+    vars['attrLabel']:setString(Str('{1}~{2}층 정복', start_floor, end_floor))
+
+    -- 상품 합산 계산해서 텍스트 출력하기
+    self:initItemText()
+end
+
+-------------------------------------
+-- function initItemText
+-------------------------------------
+function UI_Package_AttrTower:initItemText()
+    local vars = self.vars
+
+    local total_item_table = {}
+    local product_info = self.m_productInfo
+
+    for floor, items_str in pairs(product_info['reward_info']) do
+        reward_items_list = g_itemData:parsePackageItemStr(items_str)
+        for _, v in ipairs(reward_items_list) do
+            local item_id = v['item_id']
+            local item_count = v['count']
+            if (total_item_table[item_id] == nil) then
+                total_item_table[item_id] = {['item_id'] = item_id, ['count'] = 0,}
+            end
+            total_item_table[item_id]['count'] = total_item_table[item_id]['count'] + item_count
+        end
     end
+
+    local total_item_list = table.MapToList(total_item_table)
+
+    local item_text = ''
+
+    for idx, item_info in ipairs(total_item_list) do
+        local item_id = item_info['item_id']
+        local item_count = item_info['count']
+        local item_name = TableItem:getItemName(item_id)
+    end
+
+    -- vars['']:setString(item_text)
 end
 
 -------------------------------------
@@ -69,6 +104,7 @@ function UI_Package_AttrTower:init_tableView()
         vars['productNodeLong']:setVisible(false)
     end
 
+    node:removeAllChildren()
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(440, 80+5)
     table_view:setCellUIClass(UI_Package_AttrTowerListItem)
@@ -121,10 +157,9 @@ function UI_Package_AttrTower:initButton()
     local vars = self.vars
 
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
-    vars['allRecieveBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
+    vars['allReceiveBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
     vars['totalBtn']:registerScriptTapHandler(function() self:click_totalBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    
 end
 
 -------------------------------------
@@ -145,6 +180,15 @@ function UI_Package_AttrTower:refresh()
     else
         vars['completeNode']:setVisible(false)
         vars['buyBtn']:setVisible(true)
+    end
+
+    -- 모두 수령
+    if (g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})) then
+        vars['allReceiveBtn']:setEnabled(true)
+        --vars['allReceiveBtn']:setTextColor(cc.c4b(0, 0, 0, 255))
+    else
+        vars['allReceiveBtn']:setEnabled(false)
+        --vars['allReceiveBtn']:setTextColor(cc.c4b(240, 215, 159, 255))
     end
 
     -- 구매 제한

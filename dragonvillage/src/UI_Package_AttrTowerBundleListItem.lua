@@ -35,9 +35,12 @@ function UI_Package_AttrTowerBundleListItem:initUI()
 
     local challenge_floor = g_attrTowerData:getChallengingFloor()
     local start_floor = product_info['start_floor']
+    local end_floor = product_info['end_floor']
     if (start_floor <= challenge_floor) then
         vars['readyBtn']:setVisible(true)
     end
+
+    vars['attrLabel']:setString(Str('{1}~{2}층 정복', start_floor, end_floor))
 
     self:initItemCard()
 end
