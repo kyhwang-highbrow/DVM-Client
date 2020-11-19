@@ -382,7 +382,8 @@ end
 -------------------------------------
 function UI_DragonGoodbyeSelectNew2:click_infoBtn()
     require('UI_DragonGoodbyeSelectInfoPopup')
-	local ui = UI_DragonGoodbyeSelectInfoPopup()
+    local type = self.m_selectType
+	local ui = UI_DragonGoodbyeSelectInfoPopup(type)
 end
 
 -------------------------------------

@@ -76,7 +76,7 @@ function UI_DragonGoodbyeSelectConfirmPopup:initTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(128, 135)
+    table_view.m_defaultCellSize = cc.size(124, 139)
     table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
 	table_view.m_bAlignCenterInInsufficient = true
