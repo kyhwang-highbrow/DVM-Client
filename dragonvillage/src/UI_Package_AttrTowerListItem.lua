@@ -55,6 +55,7 @@ function UI_Package_AttrTowerListItem:initItemCard()
             local item_id = item_info['item_id']
             local item_count = item_info['count']
             local item_ui = UI_ItemCard(item_id, item_count)
+            item_ui.root:setSwallowTouch(false)
             node:addChild(item_ui.root)
         end
     end
