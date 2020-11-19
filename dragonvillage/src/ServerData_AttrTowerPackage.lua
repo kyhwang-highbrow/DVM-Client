@@ -317,14 +317,21 @@ end
 function ServerData_AttrTowerPackage:availReceive(product_id, floor)
     local product_received_floor = self.m_tProductInfo[product_id]
 
+    local product_info_table = TABLE:get('table_package_attr_tower')
     local reward_info_table = TABLE:get('table_package_attr_tower_reward')
+    
+    local product_info = product_info_table[product_id]
+    local start_floor = product_info['start_floor']
+    local end_floor = product_info['end_floor']
     
     local b_avail_receive = true
     for reward_floor, _ in pairs(reward_info_table) do
-        if ((product_received_floor < reward_floor) and (reward_floor < floor)) then
-            b_avail_receive = false
-            break
-        end  
+        if ((start_floor <= reward_floor) and (reward_floor <= end_floor)) then
+            if ((product_received_floor < reward_floor) and (reward_floor < floor)) then
+                b_avail_receive = false
+                break
+            end  
+        end
     end
 
     return b_avail_receive
