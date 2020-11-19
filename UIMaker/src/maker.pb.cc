@@ -129,6 +129,7 @@ const ::google::protobuf::EnumDescriptor* EDITBOX_INPUT_MODE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* EDITBOX_INPUT_FLAG_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* EDITBOX_RETURN_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* NODE_ACTION_TYPE_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* NODE_SCREEN_UI_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* ROTATE_PLATE_ORIGIN_DIR_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* RELATIVE_SIZE_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* STENCIL_TYPE_descriptor_ = NULL;
@@ -299,7 +300,7 @@ void protobuf_AssignDesc_maker_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(NAME_VISUAL));
   Node_descriptor_ = file->message_type(10);
-  static const int Node_offsets_[21] = {
+  static const int Node_offsets_[22] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, ui_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, x_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, y_),
@@ -320,6 +321,7 @@ void protobuf_AssignDesc_maker_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, action_delay_1_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, action_delay_2_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, action_duration_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, screen_ui_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, lua_name_),
   };
   Node_reflection_ =
@@ -805,13 +807,14 @@ void protobuf_AssignDesc_maker_2eproto() {
   EDITBOX_INPUT_FLAG_descriptor_ = file->enum_type(13);
   EDITBOX_RETURN_TYPE_descriptor_ = file->enum_type(14);
   NODE_ACTION_TYPE_descriptor_ = file->enum_type(15);
-  ROTATE_PLATE_ORIGIN_DIR_descriptor_ = file->enum_type(16);
-  RELATIVE_SIZE_TYPE_descriptor_ = file->enum_type(17);
-  STENCIL_TYPE_descriptor_ = file->enum_type(18);
-  ENTITY_TYPE_descriptor_ = file->enum_type(19);
-  CMD_TYPE_descriptor_ = file->enum_type(20);
-  EVENT_TO_TOOL_descriptor_ = file->enum_type(21);
-  EVENT_TO_VIEWER_descriptor_ = file->enum_type(22);
+  NODE_SCREEN_UI_TYPE_descriptor_ = file->enum_type(16);
+  ROTATE_PLATE_ORIGIN_DIR_descriptor_ = file->enum_type(17);
+  RELATIVE_SIZE_TYPE_descriptor_ = file->enum_type(18);
+  STENCIL_TYPE_descriptor_ = file->enum_type(19);
+  ENTITY_TYPE_descriptor_ = file->enum_type(20);
+  CMD_TYPE_descriptor_ = file->enum_type(21);
+  EVENT_TO_TOOL_descriptor_ = file->enum_type(22);
+  EVENT_TO_VIEWER_descriptor_ = file->enum_type(23);
 }
 
 namespace {
@@ -978,7 +981,7 @@ void protobuf_AddDesc_maker_2eproto() {
     "_TTF\022\016\n\004path\030\001 \002(\t:\000\"\035\n\013FILE_VISUAL\022\016\n\004p"
     "ath\030\001 \002(\t:\000\"\034\n\nFILE_PLIST\022\016\n\004path\030\001 \002(\t:"
     "\000\"#\n\021NAME_VISUAL_GROUP\022\016\n\004name\030\001 \002(\t:\000\"\035"
-    "\n\013NAME_VISUAL\022\016\n\004name\030\001 \002(\t:\000\"\200\005\n\004Node\022\021"
+    "\n\013NAME_VISUAL\022\016\n\004name\030\001 \002(\t:\000\"\312\005\n\004Node\022\021"
     "\n\007ui_name\030\001 \001(\t:\000\022\014\n\001x\030\002 \001(\002:\0010\022\014\n\001y\030\003 \001"
     "(\002:\0010\022:\n\ndock_point\030\004 \001(\0162\021.maker.DOCK_P"
     "OINT:\023DOCK__MIDDLE_CENTER\022@\n\014anchor_poin"
@@ -994,293 +997,298 @@ void protobuf_AddDesc_maker_2eproto() {
     "\0162\027.maker.NODE_ACTION_TYPE:\026NODE_ACTION_"
     "TYPE__NONE\022\031\n\016action_delay_1\030\022 \001(\002:\0010\022\031\n"
     "\016action_delay_2\030\023 \001(\002:\0010\022\032\n\017action_durat"
-    "ion\030\024 \001(\002:\0010\022\022\n\010lua_name\030\025 \001(\t:\000\"\237\001\n\014Cli"
-    "ppingNode\0221\n\014stencil_type\030\001 \001(\0162\023.maker."
-    "STENCIL_TYPE:\006SQUARE\022&\n\013stencil_img\030\002 \001("
-    "\0132\021.maker.FILE_IMAGE\022\032\n\017alpha_threshold\030"
-    "\003 \001(\002:\0011\022\030\n\tis_invert\030\004 \001(\010:\005false\"\310\001\n\nL"
-    "ayerColor\022\033\n\005color\030\001 \001(\0132\014.maker.COLOR\022\024"
+    "ion\030\024 \001(\002:\0010\022H\n\tscreen_ui\030\025 \001(\0162\032.maker."
+    "NODE_SCREEN_UI_TYPE:\031NODE_SCREEN_UI_TYPE"
+    "__NONE\022\022\n\010lua_name\030\026 \001(\t:\000\"\237\001\n\014ClippingN"
+    "ode\0221\n\014stencil_type\030\001 \001(\0162\023.maker.STENCI"
+    "L_TYPE:\006SQUARE\022&\n\013stencil_img\030\002 \001(\0132\021.ma"
+    "ker.FILE_IMAGE\022\032\n\017alpha_threshold\030\003 \001(\002:"
+    "\0011\022\030\n\tis_invert\030\004 \001(\010:\005false\"\310\001\n\nLayerCo"
+    "lor\022\033\n\005color\030\001 \001(\0132\014.maker.COLOR\022\024\n\007opac"
+    "ity\030\002 \001(\005:\003255\022=\n\tsrc_blend\030\003 \001(\0162\025.make"
+    "r.BLEND_FUNCTION:\023BLEND__GL_SRC_ALPHA\022H\n"
+    "\ndest_blend\030\004 \001(\0162\025.maker.BLEND_FUNCTION"
+    ":\035BLEND__GL_ONE_MINUS_SRC_ALPHA\"\327\002\n\rLaye"
+    "rGradient\022\033\n\005color\030\001 \001(\0132\014.maker.COLOR\022\024"
     "\n\007opacity\030\002 \001(\005:\003255\022=\n\tsrc_blend\030\003 \001(\0162"
     "\025.maker.BLEND_FUNCTION:\023BLEND__GL_SRC_AL"
     "PHA\022H\n\ndest_blend\030\004 \001(\0162\025.maker.BLEND_FU"
-    "NCTION:\035BLEND__GL_ONE_MINUS_SRC_ALPHA\"\327\002"
-    "\n\rLayerGradient\022\033\n\005color\030\001 \001(\0132\014.maker.C"
-    "OLOR\022\024\n\007opacity\030\002 \001(\005:\003255\022=\n\tsrc_blend\030"
-    "\003 \001(\0162\025.maker.BLEND_FUNCTION:\023BLEND__GL_"
-    "SRC_ALPHA\022H\n\ndest_blend\030\004 \001(\0162\025.maker.BL"
-    "END_FUNCTION:\035BLEND__GL_ONE_MINUS_SRC_AL"
-    "PHA\022!\n\013start_color\030\005 \001(\0132\014.maker.COLOR\022\037"
-    "\n\tend_color\030\006 \001(\0132\014.maker.COLOR\022\032\n\rstart"
-    "_opacity\030\007 \001(\005:\003255\022\030\n\013end_opacity\030\010 \001(\005"
-    ":\003255\022\020\n\005angle\030\t \001(\002:\0010\"\337\002\n\017LabelSystemF"
-    "ont\022\034\n\tfont_name\030\001 \001(\t:\tHelvetica\022\025\n\tfon"
-    "t_size\030\002 \001(\005:\00210\022#\n\004text\030\003 \001(\t:\025New Labe"
-    "l System Font\022B\n\013h_alignment\030\004 \001(\0162\027.mak"
+    "NCTION:\035BLEND__GL_ONE_MINUS_SRC_ALPHA\022!\n"
+    "\013start_color\030\005 \001(\0132\014.maker.COLOR\022\037\n\tend_"
+    "color\030\006 \001(\0132\014.maker.COLOR\022\032\n\rstart_opaci"
+    "ty\030\007 \001(\005:\003255\022\030\n\013end_opacity\030\010 \001(\005:\003255\022"
+    "\020\n\005angle\030\t \001(\002:\0010\"\337\002\n\017LabelSystemFont\022\034\n"
+    "\tfont_name\030\001 \001(\t:\tHelvetica\022\025\n\tfont_size"
+    "\030\002 \001(\005:\00210\022#\n\004text\030\003 \001(\t:\025New Label Syst"
+    "em Font\022B\n\013h_alignment\030\004 \001(\0162\027.maker.TEX"
+    "T_ALIGNMENT_H:\024TEXT_ALIGN_H__CENTER\022B\n\013v"
+    "_alignment\030\005 \001(\0162\027.maker.TEXT_ALIGNMENT_"
+    "V:\024TEXT_ALIGN_V__CENTER\022\033\n\005color\030\006 \001(\0132\014"
+    ".maker.COLOR\022\024\n\007opacity\030\007 \001(\005:\003255\022\032\n\017di"
+    "mension_width\030\010 \001(\005:\0010\022\033\n\020dimension_heig"
+    "ht\030\t \001(\005:\0010\"\201\006\n\010LabelTTF\022\"\n\tfont_name\030\001 "
+    "\001(\0132\017.maker.FILE_TTF\022\025\n\tfont_size\030\002 \001(\005:"
+    "\00210\022\033\n\004text\030\003 \001(\t:\rNew Label TTF\022B\n\013h_al"
+    "ignment\030\004 \001(\0162\027.maker.TEXT_ALIGNMENT_H:\024"
+    "TEXT_ALIGN_H__CENTER\022B\n\013v_alignment\030\005 \001("
+    "\0162\027.maker.TEXT_ALIGNMENT_V:\024TEXT_ALIGN_V"
+    "__CENTER\022\033\n\005color\030\006 \001(\0132\014.maker.COLOR\022\024\n"
+    "\007opacity\030\007 \001(\005:\003255\022\032\n\017dimension_width\030\010"
+    " \001(\005:\0010\022\033\n\020dimension_height\030\t \001(\005:\0010\022\031\n\016"
+    "letter_spacing\030\n \001(\002:\0010\022\031\n\nhas_stroke\030\025 "
+    "\001(\010:\005false\022<\n\013stroke_type\030\026 \001(\0162\022.maker."
+    "STROKE_TYPE:\023STROKE_TYPE__NORMAL\022\036\n\023stro"
+    "ke_detail_level\030\027 \001(\005:\0010\022\033\n\ris_sharp_tex"
+    "t\030\030 \001(\010:\004true\022\032\n\017stroke_tickness\030\031 \001(\002:\001"
+    "1\022\"\n\014stroke_color\030\032 \001(\0132\014.maker.COLOR\022\031\n"
+    "\nhas_shadow\030\037 \001(\010:\005false\022\"\n\014shadow_color"
+    "\030  \001(\0132\014.maker.COLOR\022\033\n\016shadow_opacity\030!"
+    " \001(\005:\003255\022@\n\020shadow_direction\030\" \001(\0162\027.ma"
+    "ker.SHADOW_DIRECTION:\rSHADOW_DIR_90\022\032\n\017s"
+    "hadow_distance\030# \001(\002:\0015\"\337\002\n\013LabelBMFont\022"
+    "%\n\tfont_name\030\001 \001(\0132\022.maker.FILE_BMFONT\022\025"
+    "\n\tfont_size\030\002 \001(\005:\00210\022\036\n\004text\030\003 \001(\t:\020New"
+    " Label BMFont\022B\n\013h_alignment\030\004 \001(\0162\027.mak"
     "er.TEXT_ALIGNMENT_H:\024TEXT_ALIGN_H__CENTE"
     "R\022B\n\013v_alignment\030\005 \001(\0162\027.maker.TEXT_ALIG"
     "NMENT_V:\024TEXT_ALIGN_V__CENTER\022\033\n\005color\030\006"
     " \001(\0132\014.maker.COLOR\022\024\n\007opacity\030\007 \001(\005:\003255"
     "\022\032\n\017dimension_width\030\010 \001(\005:\0010\022\033\n\020dimensio"
-    "n_height\030\t \001(\005:\0010\"\201\006\n\010LabelTTF\022\"\n\tfont_n"
-    "ame\030\001 \001(\0132\017.maker.FILE_TTF\022\025\n\tfont_size\030"
-    "\002 \001(\005:\00210\022\033\n\004text\030\003 \001(\t:\rNew Label TTF\022B"
-    "\n\013h_alignment\030\004 \001(\0162\027.maker.TEXT_ALIGNME"
-    "NT_H:\024TEXT_ALIGN_H__CENTER\022B\n\013v_alignmen"
-    "t\030\005 \001(\0162\027.maker.TEXT_ALIGNMENT_V:\024TEXT_A"
-    "LIGN_V__CENTER\022\033\n\005color\030\006 \001(\0132\014.maker.CO"
-    "LOR\022\024\n\007opacity\030\007 \001(\005:\003255\022\032\n\017dimension_w"
-    "idth\030\010 \001(\005:\0010\022\033\n\020dimension_height\030\t \001(\005:"
-    "\0010\022\031\n\016letter_spacing\030\n \001(\002:\0010\022\031\n\nhas_str"
-    "oke\030\025 \001(\010:\005false\022<\n\013stroke_type\030\026 \001(\0162\022."
-    "maker.STROKE_TYPE:\023STROKE_TYPE__NORMAL\022\036"
-    "\n\023stroke_detail_level\030\027 \001(\005:\0010\022\033\n\ris_sha"
-    "rp_text\030\030 \001(\010:\004true\022\032\n\017stroke_tickness\030\031"
-    " \001(\002:\0011\022\"\n\014stroke_color\030\032 \001(\0132\014.maker.CO"
-    "LOR\022\031\n\nhas_shadow\030\037 \001(\010:\005false\022\"\n\014shadow"
-    "_color\030  \001(\0132\014.maker.COLOR\022\033\n\016shadow_opa"
-    "city\030! \001(\005:\003255\022@\n\020shadow_direction\030\" \001("
-    "\0162\027.maker.SHADOW_DIRECTION:\rSHADOW_DIR_9"
-    "0\022\032\n\017shadow_distance\030# \001(\002:\0015\"\337\002\n\013LabelB"
-    "MFont\022%\n\tfont_name\030\001 \001(\0132\022.maker.FILE_BM"
-    "FONT\022\025\n\tfont_size\030\002 \001(\005:\00210\022\036\n\004text\030\003 \001("
-    "\t:\020New Label BMFont\022B\n\013h_alignment\030\004 \001(\016"
-    "2\027.maker.TEXT_ALIGNMENT_H:\024TEXT_ALIGN_H_"
-    "_CENTER\022B\n\013v_alignment\030\005 \001(\0162\027.maker.TEX"
-    "T_ALIGNMENT_V:\024TEXT_ALIGN_V__CENTER\022\033\n\005c"
-    "olor\030\006 \001(\0132\014.maker.COLOR\022\024\n\007opacity\030\007 \001("
-    "\005:\003255\022\032\n\017dimension_width\030\010 \001(\005:\0010\022\033\n\020di"
-    "mension_height\030\t \001(\005:\0010\"\265\003\n\014TextFieldTTF"
-    "\022\"\n\tfont_name\030\001 \001(\0132\017.maker.FILE_TTF\022\025\n\t"
-    "font_size\030\002 \001(\005:\00210\022\033\n\004text\030\003 \001(\t:\rNew T"
-    "extField\022B\n\013h_alignment\030\004 \001(\0162\027.maker.TE"
-    "XT_ALIGNMENT_H:\024TEXT_ALIGN_H__CENTER\022B\n\013"
-    "v_alignment\030\005 \001(\0162\027.maker.TEXT_ALIGNMENT"
-    "_V:\024TEXT_ALIGN_V__CENTER\022\033\n\005color\030\006 \001(\0132"
-    "\014.maker.COLOR\022\024\n\007opacity\030\007 \001(\005:\003255\022\032\n\017d"
-    "imension_width\030\010 \001(\005:\0010\022\033\n\020dimension_hei"
-    "ght\030\t \001(\005:\0010\022\031\n\nhas_stroke\030\n \001(\010:\005false\022"
-    "\032\n\017stroke_tickness\030\013 \001(\002:\0011\022\"\n\014stroke_co"
-    "lor\030\014 \001(\0132\014.maker.COLOR\"\275\005\n\007EditBox\022\025\n\006e"
-    "nable\030\001 \001(\010:\005false\022N\n\ninput_mode\030\002 \001(\0162\031"
-    ".maker.EDITBOX_INPUT_MODE:\037EDITBOX_INPUT"
-    "_MODE__SINGLE_LINE\022]\n\ninput_flag\030\003 \001(\0162\031"
-    ".maker.EDITBOX_INPUT_FLAG:.EDITBOX_INPUT"
-    "_FLAG__INTIAL_CAPS_ALL_CHARACTERS\022J\n\013ret"
-    "urn_type\030\004 \001(\0162\032.maker.EDITBOX_RETURN_TY"
-    "PE:\031EDITBOX_RETURN_TYPE__DONE\022\025\n\nmax_len"
-    "gth\030\005 \001(\005:\0010\022\016\n\004text\030\006 \001(\t:\000\022\034\n\tfont_nam"
-    "e\030\007 \001(\t:\tHelvetica\022\025\n\tfont_size\030\010 \001(\005:\0022"
-    "0\022 \n\nfont_color\030\t \001(\0132\014.maker.COLOR\0222\n\013p"
-    "laceholder\030\n \001(\t:\035\355\205\215\354\212\244\355\212\270\353\245\274 \354\236\205\353\240\245\355\225\230"
-    "\354\204\270\354\232\224.\022(\n\025placeholder_font_name\030\013 \001(\t:\t"
-    "Helvetica\022!\n\025placeholder_font_size\030\014 \001(\005"
-    ":\00220\022,\n\026placeholder_font_color\030\r \001(\0132\014.m"
-    "aker.COLOR\022$\n\tnormal_bg\030\016 \001(\0132\021.maker.FI"
-    "LE_IMAGE\022%\n\npressed_bg\030\017 \001(\0132\021.maker.FIL"
-    "E_IMAGE\022&\n\013disabled_bg\030\020 \001(\0132\021.maker.FIL"
-    "E_IMAGE\"\323\001\n\006Button\022\024\n\006enable\030\001 \001(\010:\004true"
-    "\022!\n\006normal\030\002 \001(\0132\021.maker.FILE_IMAGE\022#\n\010s"
-    "elected\030\003 \001(\0132\021.maker.FILE_IMAGE\022\"\n\007disa"
-    "ble\030\004 \001(\0132\021.maker.FILE_IMAGE\022G\n\nimage_ty"
-    "pe\030\005 \001(\0162\030.maker.BUTTON_IMAGE_TYPE:\031BUTT"
-    "ON_IMAGE_TYPE__SPRITE\"\230\002\n\006Sprite\022$\n\tfile"
-    "_name\030\001 \001(\0132\021.maker.FILE_IMAGE\022\033\n\005color\030"
-    "\002 \001(\0132\014.maker.COLOR\022\024\n\007opacity\030\003 \001(\005:\00325"
-    "5\022\025\n\006flip_x\030\004 \001(\010:\005false\022\025\n\006flip_y\030\005 \001(\010"
-    ":\005false\022=\n\tsrc_blend\030\006 \001(\0162\025.maker.BLEND"
-    "_FUNCTION:\023BLEND__GL_SRC_ALPHA\022H\n\ndest_b"
-    "lend\030\007 \001(\0162\025.maker.BLEND_FUNCTION:\035BLEND"
-    "__GL_ONE_MINUS_SRC_ALPHA\"\330\001\n\014Scale9Sprit"
-    "e\022$\n\tfile_name\030\001 \001(\0132\021.maker.FILE_IMAGE\022"
+    "n_height\030\t \001(\005:\0010\"\265\003\n\014TextFieldTTF\022\"\n\tfo"
+    "nt_name\030\001 \001(\0132\017.maker.FILE_TTF\022\025\n\tfont_s"
+    "ize\030\002 \001(\005:\00210\022\033\n\004text\030\003 \001(\t:\rNew TextFie"
+    "ld\022B\n\013h_alignment\030\004 \001(\0162\027.maker.TEXT_ALI"
+    "GNMENT_H:\024TEXT_ALIGN_H__CENTER\022B\n\013v_alig"
+    "nment\030\005 \001(\0162\027.maker.TEXT_ALIGNMENT_V:\024TE"
+    "XT_ALIGN_V__CENTER\022\033\n\005color\030\006 \001(\0132\014.make"
+    "r.COLOR\022\024\n\007opacity\030\007 \001(\005:\003255\022\032\n\017dimensi"
+    "on_width\030\010 \001(\005:\0010\022\033\n\020dimension_height\030\t "
+    "\001(\005:\0010\022\031\n\nhas_stroke\030\n \001(\010:\005false\022\032\n\017str"
+    "oke_tickness\030\013 \001(\002:\0011\022\"\n\014stroke_color\030\014 "
+    "\001(\0132\014.maker.COLOR\"\275\005\n\007EditBox\022\025\n\006enable\030"
+    "\001 \001(\010:\005false\022N\n\ninput_mode\030\002 \001(\0162\031.maker"
+    ".EDITBOX_INPUT_MODE:\037EDITBOX_INPUT_MODE_"
+    "_SINGLE_LINE\022]\n\ninput_flag\030\003 \001(\0162\031.maker"
+    ".EDITBOX_INPUT_FLAG:.EDITBOX_INPUT_FLAG_"
+    "_INTIAL_CAPS_ALL_CHARACTERS\022J\n\013return_ty"
+    "pe\030\004 \001(\0162\032.maker.EDITBOX_RETURN_TYPE:\031ED"
+    "ITBOX_RETURN_TYPE__DONE\022\025\n\nmax_length\030\005 "
+    "\001(\005:\0010\022\016\n\004text\030\006 \001(\t:\000\022\034\n\tfont_name\030\007 \001("
+    "\t:\tHelvetica\022\025\n\tfont_size\030\010 \001(\005:\00220\022 \n\nf"
+    "ont_color\030\t \001(\0132\014.maker.COLOR\0222\n\013placeho"
+    "lder\030\n \001(\t:\035\355\205\215\354\212\244\355\212\270\353\245\274 \354\236\205\353\240\245\355\225\230\354\204\270\354\232\224"
+    ".\022(\n\025placeholder_font_name\030\013 \001(\t:\tHelvet"
+    "ica\022!\n\025placeholder_font_size\030\014 \001(\005:\00220\022,"
+    "\n\026placeholder_font_color\030\r \001(\0132\014.maker.C"
+    "OLOR\022$\n\tnormal_bg\030\016 \001(\0132\021.maker.FILE_IMA"
+    "GE\022%\n\npressed_bg\030\017 \001(\0132\021.maker.FILE_IMAG"
+    "E\022&\n\013disabled_bg\030\020 \001(\0132\021.maker.FILE_IMAG"
+    "E\"\323\001\n\006Button\022\024\n\006enable\030\001 \001(\010:\004true\022!\n\006no"
+    "rmal\030\002 \001(\0132\021.maker.FILE_IMAGE\022#\n\010selecte"
+    "d\030\003 \001(\0132\021.maker.FILE_IMAGE\022\"\n\007disable\030\004 "
+    "\001(\0132\021.maker.FILE_IMAGE\022G\n\nimage_type\030\005 \001"
+    "(\0162\030.maker.BUTTON_IMAGE_TYPE:\031BUTTON_IMA"
+    "GE_TYPE__SPRITE\"\230\002\n\006Sprite\022$\n\tfile_name\030"
+    "\001 \001(\0132\021.maker.FILE_IMAGE\022\033\n\005color\030\002 \001(\0132"
+    "\014.maker.COLOR\022\024\n\007opacity\030\003 \001(\005:\003255\022\025\n\006f"
+    "lip_x\030\004 \001(\010:\005false\022\025\n\006flip_y\030\005 \001(\010:\005fals"
+    "e\022=\n\tsrc_blend\030\006 \001(\0162\025.maker.BLEND_FUNCT"
+    "ION:\023BLEND__GL_SRC_ALPHA\022H\n\ndest_blend\030\007"
+    " \001(\0162\025.maker.BLEND_FUNCTION:\035BLEND__GL_O"
+    "NE_MINUS_SRC_ALPHA\"\330\001\n\014Scale9Sprite\022$\n\tf"
+    "ile_name\030\001 \001(\0132\021.maker.FILE_IMAGE\022\033\n\005col"
+    "or\030\002 \001(\0132\014.maker.COLOR\022\024\n\007opacity\030\003 \001(\005:"
+    "\003255\022\030\n\rcenter_rect_x\030\004 \001(\005:\0010\022\030\n\rcenter"
+    "_rect_y\030\005 \001(\005:\0010\022\034\n\021center_rect_width\030\006 "
+    "\001(\005:\0010\022\035\n\022center_rect_height\030\007 \001(\005:\0010\"\267\001"
+    "\n\tTableView\0220\n\006scroll\030\001 \001(\0162\022.maker.SCRO"
+    "LL_TYPE:\014SCROLL__BOTH\022\024\n\006bounce\030\002 \001(\010:\004t"
+    "rue\022\027\n\nview_width\030\003 \001(\005:\003200\022\030\n\013view_hei"
+    "ght\030\004 \001(\005:\003200\022\026\n\ncell_width\030\005 \001(\005:\00260\022\027"
+    "\n\013cell_height\030\006 \001(\005:\00260\"\255\003\n\rProgressTime"
+    "r\022$\n\tfile_name\030\001 \001(\0132\021.maker.FILE_IMAGE\022"
     "\033\n\005color\030\002 \001(\0132\014.maker.COLOR\022\024\n\007opacity\030"
-    "\003 \001(\005:\003255\022\030\n\rcenter_rect_x\030\004 \001(\005:\0010\022\030\n\r"
-    "center_rect_y\030\005 \001(\005:\0010\022\034\n\021center_rect_wi"
-    "dth\030\006 \001(\005:\0010\022\035\n\022center_rect_height\030\007 \001(\005"
-    ":\0010\"\267\001\n\tTableView\0220\n\006scroll\030\001 \001(\0162\022.make"
-    "r.SCROLL_TYPE:\014SCROLL__BOTH\022\024\n\006bounce\030\002 "
-    "\001(\010:\004true\022\027\n\nview_width\030\003 \001(\005:\003200\022\030\n\013vi"
-    "ew_height\030\004 \001(\005:\003200\022\026\n\ncell_width\030\005 \001(\005"
-    ":\00260\022\027\n\013cell_height\030\006 \001(\005:\00260\"\255\003\n\rProgre"
-    "ssTimer\022$\n\tfile_name\030\001 \001(\0132\021.maker.FILE_"
-    "IMAGE\022\033\n\005color\030\002 \001(\0132\014.maker.COLOR\022\024\n\007op"
-    "acity\030\003 \001(\005:\003255\022\025\n\006flip_x\030\004 \001(\010:\005false\022"
-    "\025\n\006flip_y\030\005 \001(\010:\005false\022=\n\tsrc_blend\030\006 \001("
-    "\0162\025.maker.BLEND_FUNCTION:\023BLEND__GL_SRC_"
-    "ALPHA\022H\n\ndest_blend\030\007 \001(\0162\025.maker.BLEND_"
-    "FUNCTION:\035BLEND__GL_ONE_MINUS_SRC_ALPHA\022"
-    "@\n\rprogress_type\030\010 \001(\0162\024.maker.PROGRESS_"
-    "TYPE:\023PROGRESS__RADIAL_CW\022\030\n\013mid_point_x"
-    "\030\t \001(\002:\0030.5\022\030\n\013mid_point_y\030\n \001(\002:\0030.5\022\026\n"
-    "\npercentage\030\013 \001(\005:\00275\"\273\001\n\006Visual\022%\n\tfile"
-    "_name\030\001 \001(\0132\022.maker.FILE_VISUAL\022\027\n\tauto_"
-    "play\030\002 \001(\010:\004true\022\027\n\tis_repeat\030\003 \001(\010:\004tru"
-    "e\022%\n\tvisual_id\030\004 \001(\0132\022.maker.NAME_VISUAL"
-    "\022\033\n\005color\030\006 \001(\0132\014.maker.COLOR\022\024\n\007opacity"
-    "\030\007 \001(\005:\003255\"!\n\nSocketNode\022\023\n\013socket_name"
-    "\030\001 \001(\t\"0\n\010Particle\022$\n\tfile_name\030\001 \001(\0132\021."
-    "maker.FILE_PLIST\"\273\001\n\013RotatePlate\022\025\n\010radi"
-    "us_x\030\001 \001(\002:\003100\022\024\n\010radius_y\030\002 \001(\002:\00250\022\026\n"
-    "\tmin_scale\030\003 \001(\002:\0030.5\022\024\n\tmax_scale\030\004 \001(\002"
-    ":\0011\022Q\n\norigin_dir\030\005 \001(\0162\036.maker.ROTATE_P"
-    "LATE_ORIGIN_DIR:\035ROTATE_PLATE_ORIGIN_DIR"
-    "__DOWN\"\322\005\n\nProperties\022.\n\004type\030\001 \002(\0162\022.ma"
-    "ker.ENTITY_TYPE:\014ENTITY__Node\022\031\n\004node\030\n "
-    "\001(\0132\013.maker.Node\022&\n\013layer_color\030\013 \001(\0132\021."
-    "maker.LayerColor\022,\n\016layer_gradient\030\014 \001(\013"
-    "2\024.maker.LayerGradient\0221\n\021label_syatem_f"
-    "ont\030\r \001(\0132\026.maker.LabelSystemFont\022\"\n\tlab"
-    "el_ttf\030\016 \001(\0132\017.maker.LabelTTF\022+\n\016text_fi"
-    "eld_ttf\030\017 \001(\0132\023.maker.TextFieldTTF\022 \n\010ed"
-    "it_box\030\020 \001(\0132\016.maker.EditBox\022$\n\ntable_vi"
-    "ew\030\021 \001(\0132\020.maker.TableView\022(\n\014rotate_pla"
-    "te\030\022 \001(\0132\022.maker.RotatePlate\022\035\n\006button\030\023"
-    " \001(\0132\r.maker.Button\022\035\n\006sprite\030\024 \001(\0132\r.ma"
-    "ker.Sprite\022+\n\016scale_9_sprite\030\025 \001(\0132\023.mak"
-    "er.Scale9Sprite\022,\n\016progress_timer\030\026 \001(\0132"
-    "\024.maker.ProgressTimer\022\035\n\006visual\030\027 \001(\0132\r."
-    "maker.Visual\022!\n\010particle\030\030 \001(\0132\017.maker.P"
-    "article\022*\n\rclipping_node\030\031 \001(\0132\023.maker.C"
-    "lippingNode\022&\n\013socket_node\030d \001(\0132\021.maker"
-    ".SocketNode\"\253\002\n\006Entity\022\r\n\002id\030\001 \002(\004:\0010\022\024\n"
-    "\006expand\030\002 \002(\010:\004true\022\027\n\010selected\030\003 \001(\010:\005f"
-    "alse\022\036\n\017parent_selected\030\004 \001(\010:\005false\022\024\n\t"
-    "parent_id\030\006 \001(\004:\0010\022\022\n\007prev_id\030\007 \002(\004:\0010\022\022"
-    "\n\007dest_id\030\010 \001(\004:\0010\022\031\n\016dest_parent_id\030\t \001"
-    "(\004:\0010\022\"\n\023lua_name_duplicated\030\n \001(\010:\005fals"
-    "e\022%\n\nproperties\030\024 \001(\0132\021.maker.Properties"
-    "\022\037\n\010children\030\036 \003(\0132\r.maker.Entity\"\325\003\n\003CM"
-    "D\022\r\n\002id\030\001 \002(\004:\0010\022*\n\004type\030\002 \002(\0162\017.maker.C"
-    "MD_TYPE:\013CMD__Create\022\023\n\010window_x\030\n \001(\005:\001"
-    "0\022\023\n\010window_y\030\013 \001(\005:\0010\0223\n\010event_id\030\016 \001(\016"
-    "2\024.maker.EVENT_TO_TOOL:\013EVENT__None\022C\n\017v"
-    "iewer_event_id\030\017 \001(\0162\026.maker.EVENT_TO_VI"
-    "EWER:\022VIEWER_EVENT__None\022\025\n\013description\030"
-    "\020 \001(\t:\000\022\033\n\020update_to_cmd_id\030\021 \001(\004:\0010\022\"\n\023"
-    "dont_append_history\030\022 \001(\010:\005false\022!\n\022can_"
-    "merge_prev_cmd\030\023 \001(\010:\005false\022\037\n\010entities\030"
-    "\024 \003(\0132\r.maker.Entity\022&\n\017backup_entities\030"
-    "\025 \003(\0132\r.maker.Entity\022\021\n\tenum_list\030\036 \003(\t\022"
-    "\030\n\020socket_node_list\030\037 \003(\t*\333\001\n\nDOCK_POINT"
-    "\022\025\n\021DOCK__BOTTOM_LEFT\020\000\022\027\n\023DOCK__BOTTOM_"
-    "CENTER\020\001\022\026\n\022DOCK__BOTTOM_RIGHT\020\002\022\025\n\021DOCK"
-    "__MIDDLE_LEFT\020\003\022\027\n\023DOCK__MIDDLE_CENTER\020\004"
-    "\022\026\n\022DOCK__MIDDLE_RIGHT\020\005\022\022\n\016DOCK__TOP_LE"
-    "FT\020\006\022\024\n\020DOCK__TOP_CENTER\020\007\022\023\n\017DOCK__TOP_"
-    "RIGHT\020\010*\357\001\n\014ANCHOR_POINT\022\027\n\023ANCHOR__BOTT"
-    "OM_LEFT\020\000\022\031\n\025ANCHOR__BOTTOM_CENTER\020\001\022\030\n\024"
-    "ANCHOR__BOTTOM_RIGHT\020\002\022\027\n\023ANCHOR__MIDDLE"
-    "_LEFT\020\003\022\031\n\025ANCHOR__MIDDLE_CENTER\020\004\022\030\n\024AN"
-    "CHOR__MIDDLE_RIGHT\020\005\022\024\n\020ANCHOR__TOP_LEFT"
-    "\020\006\022\026\n\022ANCHOR__TOP_CENTER\020\007\022\025\n\021ANCHOR__TO"
-    "P_RIGHT\020\010*\322\002\n\016BLEND_FUNCTION\022\022\n\016BLEND__G"
-    "L_ZERO\020\000\022\021\n\rBLEND__GL_ONE\020\001\022\030\n\023BLEND__GL"
-    "_SRC_COLOR\020\200\006\022\030\n\023BLEND__GL_DST_COLOR\020\206\006\022"
-    "\"\n\035BLEND__GL_ONE_MINUS_SRC_COLOR\020\201\006\022\"\n\035B"
-    "LEND__GL_ONE_MINUS_DST_COLOR\020\207\006\022\030\n\023BLEND"
-    "__GL_SRC_ALPHA\020\202\006\022\030\n\023BLEND__GL_DST_ALPHA"
-    "\020\204\006\022\"\n\035BLEND__GL_ONE_MINUS_SRC_ALPHA\020\203\006\022"
-    "\"\n\035BLEND__GL_ONE_MINUS_DST_ALPHA\020\205\006\022!\n\034B"
-    "LEND__GL_SRC_ALPHA_SATURATE\020\210\006*]\n\020TEXT_A"
-    "LIGNMENT_H\022\026\n\022TEXT_ALIGN_H__LEFT\020\000\022\030\n\024TE"
-    "XT_ALIGN_H__CENTER\020\001\022\027\n\023TEXT_ALIGN_H__RI"
-    "GHT\020\002*]\n\020TEXT_ALIGNMENT_V\022\025\n\021TEXT_ALIGN_"
-    "V__TOP\020\000\022\030\n\024TEXT_ALIGN_V__CENTER\020\001\022\030\n\024TE"
-    "XT_ALIGN_V__BOTTOM\020\002*0\n\tFILL_TYPE\022\021\n\rFIL"
-    "L__STRETCH\020\000\022\020\n\014FILL__REPEAT\020\001*\266\001\n\rPROGR"
-    "ESS_TYPE\022\027\n\023PROGRESS__RADIAL_CW\020\000\022\030\n\024PRO"
-    "GRESS__RADIAL_CCW\020\001\022\033\n\027PROGRESS__TOP_TO_"
-    "BOTTOM\020\002\022\033\n\027PROGRESS__BOTTOM_TO_TOP\020\003\022\033\n"
-    "\027PROGRESS__LEFT_TO_RIGHT\020\004\022\033\n\027PROGRESS__"
-    "RIGHT_TO_LEFT\020\005*_\n\013SCROLL_TYPE\022\020\n\014SCROLL"
-    "__NONE\020\000\022\024\n\020SCROLL__VERTICAL\020\001\022\026\n\022SCROLL"
-    "__HORIZONTAL\020\002\022\020\n\014SCROLL__BOTH\020\003*\253\002\n\tPIC"
-    "K_PART\022\023\n\017PICK_PART__NONE\020\000\022\025\n\021PICK_PART"
-    "__CENTER\020\001\022\022\n\016PICK_PART__TOP\020\002\022\025\n\021PICK_P"
-    "ART__BOTTOM\020\003\022\023\n\017PICK_PART__LEFT\020\004\022\024\n\020PI"
-    "CK_PART__RIGHT\020\005\022\032\n\026PICK_PART__LEFT_BOTT"
-    "OM\020\006\022\027\n\023PICK_PART__LEFT_TOP\020\007\022\033\n\027PICK_PA"
-    "RT__RIGHT_BOTTOM\020\010\022\030\n\024PICK_PART__RIGHT_T"
-    "OP\020\t\022\031\n\025PICK_PART__SELECT_BOX\020\n\022\025\n\021PICK_"
-    "PART__SCROLL\020\013*\?\n\013STROKE_TYPE\022\027\n\023STROKE_"
-    "TYPE__NORMAL\020\000\022\027\n\023STROKE_TYPE__CUSTOM\020\001*"
-    "L\n\020SHADOW_DIRECTION\022\021\n\rSHADOW_DIR_90\020\000\022\022"
-    "\n\016SHADOW_DIR_135\020\001\022\021\n\rSHADOW_DIR_45\020\002*W\n"
-    "\021BUTTON_IMAGE_TYPE\022\035\n\031BUTTON_IMAGE_TYPE_"
-    "_SPRITE\020\000\022#\n\037BUTTON_IMAGE_TYPE__SCALE9SP"
-    "RITE\020\001*\202\002\n\022EDITBOX_INPUT_MODE\022\033\n\027EDITBOX"
-    "_INPUT_MODE__ANY\020\000\022%\n!EDITBOX_INPUT_MODE"
-    "__EMAIL_ADDRESS\020\001\022\037\n\033EDITBOX_INPUT_MODE_"
-    "_NUMERIC\020\002\022$\n EDITBOX_INPUT_MODE__PHONE_"
-    "NUMBER\020\003\022\033\n\027EDITBOX_INPUT_MODE__URL\020\004\022\037\n"
-    "\033EDITBOX_INPUT_MODE__DECIMAL\020\005\022#\n\037EDITBO"
-    "X_INPUT_MODE__SINGLE_LINE\020\006*\347\001\n\022EDITBOX_"
-    "INPUT_FLAG\022 \n\034EDITBOX_INPUT_FLAG__PASSWO"
-    "RD\020\000\022!\n\035EDITBOX_INPUT_FLAG__SENSITIVE\020\001\022"
-    ")\n%EDITBOX_INPUT_FLAG__INITIAL_CAPS_WORD"
-    "\020\002\022-\n)EDITBOX_INPUT_FLAG__INITIAL_CAPS_S"
-    "ENTENCE\020\003\0222\n.EDITBOX_INPUT_FLAG__INTIAL_"
-    "CAPS_ALL_CHARACTERS\020\004*\263\001\n\023EDITBOX_RETURN"
-    "_TYPE\022 \n\034EDITBOX_RETURN_TYPE__DEFAULT\020\000\022"
-    "\035\n\031EDITBOX_RETURN_TYPE__DONE\020\001\022\035\n\031EDITBO"
-    "X_RETURN_TYPE__SEND\020\002\022\037\n\033EDITBOX_RETURN_"
-    "TYPE__SEARCH\020\003\022\033\n\027EDITBOX_RETURN_TYPE__G"
-    "O\020\004*\335\002\n\020NODE_ACTION_TYPE\022\032\n\026NODE_ACTION_"
-    "TYPE__NONE\020\000\022\032\n\026NODE_ACTION_TYPE__LEFT\020\001"
-    "\022\033\n\027NODE_ACTION_TYPE__RIGHT\020\002\022\031\n\025NODE_AC"
-    "TION_TYPE__TOP\020\003\022\034\n\030NODE_ACTION_TYPE__BO"
-    "TTOM\020\004\022\033\n\027NODE_ACTION_TYPE__SCALE\020\005\022\035\n\031N"
-    "ODE_ACTION_TYPE__OPACITY\020\006\022\037\n\033NODE_ACTIO"
-    "N_TYPE__OPACITY_R\020\007\022\036\n\032NODE_ACTION_TYPE_"
-    "_CUSTOM_1\020\010\022\036\n\032NODE_ACTION_TYPE__CUSTOM_"
-    "2\020\t\022\036\n\032NODE_ACTION_TYPE__CUSTOM_3\020\n*\244\001\n\027"
-    "ROTATE_PLATE_ORIGIN_DIR\022!\n\035ROTATE_PLATE_"
-    "ORIGIN_DIR__DOWN\020\000\022\037\n\033ROTATE_PLATE_ORIGI"
-    "N_DIR__UP\020\001\022!\n\035ROTATE_PLATE_ORIGIN_DIR__"
-    "LEFT\020\002\022\"\n\036ROTATE_PLATE_ORIGIN_DIR__RIGHT"
-    "\020\003*\264\001\n\022RELATIVE_SIZE_TYPE\022\034\n\030RELATIVE_SI"
-    "ZE_TYPE__NONE\020\000\022 \n\034RELATIVE_SIZE_TYPE__V"
-    "ERTICAL\020\001\022\"\n\036RELATIVE_SIZE_TYPE__HORIZON"
-    "TAL\020\002\022\034\n\030RELATIVE_SIZE_TYPE__BOTH\020\003\022\034\n\030R"
-    "ELATIVE_SIZE_TYPE__ROOT\020\004*&\n\014STENCIL_TYP"
-    "E\022\n\n\006SQUARE\020\000\022\n\n\006CUSTOM\020\001*\311\003\n\013ENTITY_TYP"
-    "E\022\020\n\014ENTITY__Node\020\n\022\030\n\024ENTITY__ClippingN"
-    "ode\020\013\022\026\n\022ENTITY__LayerColor\020\r\022\031\n\025ENTITY_"
-    "_LayerGradient\020\016\022\033\n\027ENTITY__LabelSystemF"
-    "ont\020\020\022\024\n\020ENTITY__LabelTTF\020\021\022\030\n\024ENTITY__T"
-    "extFieldTTF\020\022\022\023\n\017ENTITY__EditBox\020\024\022\025\n\021EN"
-    "TITY__TableView\020\025\022\027\n\023ENTITY__RotatePlate"
-    "\020\026\022\020\n\014ENTITY__Menu\020\030\022\022\n\016ENTITY__Button\020\031"
-    "\022\022\n\016ENTITY__Sprite\020\033\022\030\n\024ENTITY__Scale9Sp"
-    "rite\020\034\022\031\n\025ENTITY__ProgressTimer\020\035\022\022\n\016ENT"
-    "ITY__Visual\020\037\022\024\n\020ENTITY__Particle\020 \022\027\n\022E"
-    "NTITY__NoNeedNode\020\310\001\022\027\n\022ENTITY__SocketNo"
-    "de\020\311\001*\240\003\n\010CMD_TYPE\022\017\n\013CMD__Create\020\001\022\017\n\013C"
-    "MD__Remove\020\002\022\017\n\013CMD__Modify\020\003\022\r\n\tCMD__Mo"
-    "ve\020\004\022\r\n\tCMD__Copy\020\005\022\014\n\010CMD__Cut\020\006\022\016\n\nCMD"
-    "__Paste\020\007\022\022\n\016CMD__SelectOne\020\n\022\025\n\021CMD__Se"
-    "lectAppend\020\013\022\030\n\024CMD__SelectBoxAppend\020\014\022\026"
-    "\n\022CMD__SizeToContent\020\r\022\r\n\tCMD__Undo\020\024\022\r\n"
-    "\tCMD__Redo\020\025\022\020\n\014CMD__History\020\026\022\021\n\rCMD__L"
-    "uaNames\020\027\022\026\n\022CMD__ApplyToViewer\020\036\022\024\n\020CMD"
-    "__ClearViewer\020\037\022\026\n\022CMD__EventToViewer\020 \022"
-    "\024\n\020CMD__ApplyToTool\020(\022\024\n\020CMD__EventToToo"
-    "l\020)\022\023\n\017CMD__MoveViewer\0202*\351\002\n\rEVENT_TO_TO"
-    "OL\022\017\n\013EVENT__None\020\001\022\017\n\013EVENT__Save\020\013\022\021\n\r"
-    "EVENT__SaveAs\020\014\022\017\n\013EVENT__Open\020\r\022\020\n\014EVEN"
-    "T__Close\020\016\022\017\n\013EVENT__Copy\020\025\022\016\n\nEVENT__Cu"
-    "t\020\026\022\020\n\014EVENT__Paste\020\027\022\021\n\rEVENT__Remove\020\030"
-    "\022\035\n\031EVENT__ToggleDisplayStats\020\036\022\025\n\021EVENT"
-    "__ReopenView\020(\022\031\n\025EVENT__NextResolution\020"
-    ")\022\031\n\025EVENT__PrevResolution\020*\022\031\n\025EVENT__S"
-    "pecResolution\020+\022\031\n\025EVENT__ConfResolution"
-    "\020,\022\030\n\024EVENT__ToggleVisible\0202*\235\002\n\017EVENT_T"
-    "O_VIEWER\022\026\n\022VIEWER_EVENT__None\020\001\022\035\n\031VIEW"
-    "ER_EVENT__StrokeSize1\020\013\022\035\n\031VIEWER_EVENT_"
-    "_StrokeSize2\020\014\022\035\n\031VIEWER_EVENT__StrokeSi"
-    "ze3\020\r\022\035\n\031VIEWER_EVENT__StrokeSize4\020\016\022\033\n\027"
-    "VIEWER_EVENT__GridOnOff\020\024\022\035\n\031VIEWER_EVEN"
-    "T__GridOpacity\020\025\022\033\n\027VIEWER_EVENT__ResetZ"
-    "oom\020\026\022\035\n\031VIEWER_EVENT__ResetScroll\020\027", 12436);
+    "\003 \001(\005:\003255\022\025\n\006flip_x\030\004 \001(\010:\005false\022\025\n\006fli"
+    "p_y\030\005 \001(\010:\005false\022=\n\tsrc_blend\030\006 \001(\0162\025.ma"
+    "ker.BLEND_FUNCTION:\023BLEND__GL_SRC_ALPHA\022"
+    "H\n\ndest_blend\030\007 \001(\0162\025.maker.BLEND_FUNCTI"
+    "ON:\035BLEND__GL_ONE_MINUS_SRC_ALPHA\022@\n\rpro"
+    "gress_type\030\010 \001(\0162\024.maker.PROGRESS_TYPE:\023"
+    "PROGRESS__RADIAL_CW\022\030\n\013mid_point_x\030\t \001(\002"
+    ":\0030.5\022\030\n\013mid_point_y\030\n \001(\002:\0030.5\022\026\n\nperce"
+    "ntage\030\013 \001(\005:\00275\"\273\001\n\006Visual\022%\n\tfile_name\030"
+    "\001 \001(\0132\022.maker.FILE_VISUAL\022\027\n\tauto_play\030\002"
+    " \001(\010:\004true\022\027\n\tis_repeat\030\003 \001(\010:\004true\022%\n\tv"
+    "isual_id\030\004 \001(\0132\022.maker.NAME_VISUAL\022\033\n\005co"
+    "lor\030\006 \001(\0132\014.maker.COLOR\022\024\n\007opacity\030\007 \001(\005"
+    ":\003255\"!\n\nSocketNode\022\023\n\013socket_name\030\001 \001(\t"
+    "\"0\n\010Particle\022$\n\tfile_name\030\001 \001(\0132\021.maker."
+    "FILE_PLIST\"\273\001\n\013RotatePlate\022\025\n\010radius_x\030\001"
+    " \001(\002:\003100\022\024\n\010radius_y\030\002 \001(\002:\00250\022\026\n\tmin_s"
+    "cale\030\003 \001(\002:\0030.5\022\024\n\tmax_scale\030\004 \001(\002:\0011\022Q\n"
+    "\norigin_dir\030\005 \001(\0162\036.maker.ROTATE_PLATE_O"
+    "RIGIN_DIR:\035ROTATE_PLATE_ORIGIN_DIR__DOWN"
+    "\"\322\005\n\nProperties\022.\n\004type\030\001 \002(\0162\022.maker.EN"
+    "TITY_TYPE:\014ENTITY__Node\022\031\n\004node\030\n \001(\0132\013."
+    "maker.Node\022&\n\013layer_color\030\013 \001(\0132\021.maker."
+    "LayerColor\022,\n\016layer_gradient\030\014 \001(\0132\024.mak"
+    "er.LayerGradient\0221\n\021label_syatem_font\030\r "
+    "\001(\0132\026.maker.LabelSystemFont\022\"\n\tlabel_ttf"
+    "\030\016 \001(\0132\017.maker.LabelTTF\022+\n\016text_field_tt"
+    "f\030\017 \001(\0132\023.maker.TextFieldTTF\022 \n\010edit_box"
+    "\030\020 \001(\0132\016.maker.EditBox\022$\n\ntable_view\030\021 \001"
+    "(\0132\020.maker.TableView\022(\n\014rotate_plate\030\022 \001"
+    "(\0132\022.maker.RotatePlate\022\035\n\006button\030\023 \001(\0132\r"
+    ".maker.Button\022\035\n\006sprite\030\024 \001(\0132\r.maker.Sp"
+    "rite\022+\n\016scale_9_sprite\030\025 \001(\0132\023.maker.Sca"
+    "le9Sprite\022,\n\016progress_timer\030\026 \001(\0132\024.make"
+    "r.ProgressTimer\022\035\n\006visual\030\027 \001(\0132\r.maker."
+    "Visual\022!\n\010particle\030\030 \001(\0132\017.maker.Particl"
+    "e\022*\n\rclipping_node\030\031 \001(\0132\023.maker.Clippin"
+    "gNode\022&\n\013socket_node\030d \001(\0132\021.maker.Socke"
+    "tNode\"\253\002\n\006Entity\022\r\n\002id\030\001 \002(\004:\0010\022\024\n\006expan"
+    "d\030\002 \002(\010:\004true\022\027\n\010selected\030\003 \001(\010:\005false\022\036"
+    "\n\017parent_selected\030\004 \001(\010:\005false\022\024\n\tparent"
+    "_id\030\006 \001(\004:\0010\022\022\n\007prev_id\030\007 \002(\004:\0010\022\022\n\007dest"
+    "_id\030\010 \001(\004:\0010\022\031\n\016dest_parent_id\030\t \001(\004:\0010\022"
+    "\"\n\023lua_name_duplicated\030\n \001(\010:\005false\022%\n\np"
+    "roperties\030\024 \001(\0132\021.maker.Properties\022\037\n\010ch"
+    "ildren\030\036 \003(\0132\r.maker.Entity\"\325\003\n\003CMD\022\r\n\002i"
+    "d\030\001 \002(\004:\0010\022*\n\004type\030\002 \002(\0162\017.maker.CMD_TYP"
+    "E:\013CMD__Create\022\023\n\010window_x\030\n \001(\005:\0010\022\023\n\010w"
+    "indow_y\030\013 \001(\005:\0010\0223\n\010event_id\030\016 \001(\0162\024.mak"
+    "er.EVENT_TO_TOOL:\013EVENT__None\022C\n\017viewer_"
+    "event_id\030\017 \001(\0162\026.maker.EVENT_TO_VIEWER:\022"
+    "VIEWER_EVENT__None\022\025\n\013description\030\020 \001(\t:"
+    "\000\022\033\n\020update_to_cmd_id\030\021 \001(\004:\0010\022\"\n\023dont_a"
+    "ppend_history\030\022 \001(\010:\005false\022!\n\022can_merge_"
+    "prev_cmd\030\023 \001(\010:\005false\022\037\n\010entities\030\024 \003(\0132"
+    "\r.maker.Entity\022&\n\017backup_entities\030\025 \003(\0132"
+    "\r.maker.Entity\022\021\n\tenum_list\030\036 \003(\t\022\030\n\020soc"
+    "ket_node_list\030\037 \003(\t*\333\001\n\nDOCK_POINT\022\025\n\021DO"
+    "CK__BOTTOM_LEFT\020\000\022\027\n\023DOCK__BOTTOM_CENTER"
+    "\020\001\022\026\n\022DOCK__BOTTOM_RIGHT\020\002\022\025\n\021DOCK__MIDD"
+    "LE_LEFT\020\003\022\027\n\023DOCK__MIDDLE_CENTER\020\004\022\026\n\022DO"
+    "CK__MIDDLE_RIGHT\020\005\022\022\n\016DOCK__TOP_LEFT\020\006\022\024"
+    "\n\020DOCK__TOP_CENTER\020\007\022\023\n\017DOCK__TOP_RIGHT\020"
+    "\010*\357\001\n\014ANCHOR_POINT\022\027\n\023ANCHOR__BOTTOM_LEF"
+    "T\020\000\022\031\n\025ANCHOR__BOTTOM_CENTER\020\001\022\030\n\024ANCHOR"
+    "__BOTTOM_RIGHT\020\002\022\027\n\023ANCHOR__MIDDLE_LEFT\020"
+    "\003\022\031\n\025ANCHOR__MIDDLE_CENTER\020\004\022\030\n\024ANCHOR__"
+    "MIDDLE_RIGHT\020\005\022\024\n\020ANCHOR__TOP_LEFT\020\006\022\026\n\022"
+    "ANCHOR__TOP_CENTER\020\007\022\025\n\021ANCHOR__TOP_RIGH"
+    "T\020\010*\322\002\n\016BLEND_FUNCTION\022\022\n\016BLEND__GL_ZERO"
+    "\020\000\022\021\n\rBLEND__GL_ONE\020\001\022\030\n\023BLEND__GL_SRC_C"
+    "OLOR\020\200\006\022\030\n\023BLEND__GL_DST_COLOR\020\206\006\022\"\n\035BLE"
+    "ND__GL_ONE_MINUS_SRC_COLOR\020\201\006\022\"\n\035BLEND__"
+    "GL_ONE_MINUS_DST_COLOR\020\207\006\022\030\n\023BLEND__GL_S"
+    "RC_ALPHA\020\202\006\022\030\n\023BLEND__GL_DST_ALPHA\020\204\006\022\"\n"
+    "\035BLEND__GL_ONE_MINUS_SRC_ALPHA\020\203\006\022\"\n\035BLE"
+    "ND__GL_ONE_MINUS_DST_ALPHA\020\205\006\022!\n\034BLEND__"
+    "GL_SRC_ALPHA_SATURATE\020\210\006*]\n\020TEXT_ALIGNME"
+    "NT_H\022\026\n\022TEXT_ALIGN_H__LEFT\020\000\022\030\n\024TEXT_ALI"
+    "GN_H__CENTER\020\001\022\027\n\023TEXT_ALIGN_H__RIGHT\020\002*"
+    "]\n\020TEXT_ALIGNMENT_V\022\025\n\021TEXT_ALIGN_V__TOP"
+    "\020\000\022\030\n\024TEXT_ALIGN_V__CENTER\020\001\022\030\n\024TEXT_ALI"
+    "GN_V__BOTTOM\020\002*0\n\tFILL_TYPE\022\021\n\rFILL__STR"
+    "ETCH\020\000\022\020\n\014FILL__REPEAT\020\001*\266\001\n\rPROGRESS_TY"
+    "PE\022\027\n\023PROGRESS__RADIAL_CW\020\000\022\030\n\024PROGRESS_"
+    "_RADIAL_CCW\020\001\022\033\n\027PROGRESS__TOP_TO_BOTTOM"
+    "\020\002\022\033\n\027PROGRESS__BOTTOM_TO_TOP\020\003\022\033\n\027PROGR"
+    "ESS__LEFT_TO_RIGHT\020\004\022\033\n\027PROGRESS__RIGHT_"
+    "TO_LEFT\020\005*_\n\013SCROLL_TYPE\022\020\n\014SCROLL__NONE"
+    "\020\000\022\024\n\020SCROLL__VERTICAL\020\001\022\026\n\022SCROLL__HORI"
+    "ZONTAL\020\002\022\020\n\014SCROLL__BOTH\020\003*\253\002\n\tPICK_PART"
+    "\022\023\n\017PICK_PART__NONE\020\000\022\025\n\021PICK_PART__CENT"
+    "ER\020\001\022\022\n\016PICK_PART__TOP\020\002\022\025\n\021PICK_PART__B"
+    "OTTOM\020\003\022\023\n\017PICK_PART__LEFT\020\004\022\024\n\020PICK_PAR"
+    "T__RIGHT\020\005\022\032\n\026PICK_PART__LEFT_BOTTOM\020\006\022\027"
+    "\n\023PICK_PART__LEFT_TOP\020\007\022\033\n\027PICK_PART__RI"
+    "GHT_BOTTOM\020\010\022\030\n\024PICK_PART__RIGHT_TOP\020\t\022\031"
+    "\n\025PICK_PART__SELECT_BOX\020\n\022\025\n\021PICK_PART__"
+    "SCROLL\020\013*\?\n\013STROKE_TYPE\022\027\n\023STROKE_TYPE__"
+    "NORMAL\020\000\022\027\n\023STROKE_TYPE__CUSTOM\020\001*L\n\020SHA"
+    "DOW_DIRECTION\022\021\n\rSHADOW_DIR_90\020\000\022\022\n\016SHAD"
+    "OW_DIR_135\020\001\022\021\n\rSHADOW_DIR_45\020\002*W\n\021BUTTO"
+    "N_IMAGE_TYPE\022\035\n\031BUTTON_IMAGE_TYPE__SPRIT"
+    "E\020\000\022#\n\037BUTTON_IMAGE_TYPE__SCALE9SPRITE\020\001"
+    "*\202\002\n\022EDITBOX_INPUT_MODE\022\033\n\027EDITBOX_INPUT"
+    "_MODE__ANY\020\000\022%\n!EDITBOX_INPUT_MODE__EMAI"
+    "L_ADDRESS\020\001\022\037\n\033EDITBOX_INPUT_MODE__NUMER"
+    "IC\020\002\022$\n EDITBOX_INPUT_MODE__PHONE_NUMBER"
+    "\020\003\022\033\n\027EDITBOX_INPUT_MODE__URL\020\004\022\037\n\033EDITB"
+    "OX_INPUT_MODE__DECIMAL\020\005\022#\n\037EDITBOX_INPU"
+    "T_MODE__SINGLE_LINE\020\006*\347\001\n\022EDITBOX_INPUT_"
+    "FLAG\022 \n\034EDITBOX_INPUT_FLAG__PASSWORD\020\000\022!"
+    "\n\035EDITBOX_INPUT_FLAG__SENSITIVE\020\001\022)\n%EDI"
+    "TBOX_INPUT_FLAG__INITIAL_CAPS_WORD\020\002\022-\n)"
+    "EDITBOX_INPUT_FLAG__INITIAL_CAPS_SENTENC"
+    "E\020\003\0222\n.EDITBOX_INPUT_FLAG__INTIAL_CAPS_A"
+    "LL_CHARACTERS\020\004*\263\001\n\023EDITBOX_RETURN_TYPE\022"
+    " \n\034EDITBOX_RETURN_TYPE__DEFAULT\020\000\022\035\n\031EDI"
+    "TBOX_RETURN_TYPE__DONE\020\001\022\035\n\031EDITBOX_RETU"
+    "RN_TYPE__SEND\020\002\022\037\n\033EDITBOX_RETURN_TYPE__"
+    "SEARCH\020\003\022\033\n\027EDITBOX_RETURN_TYPE__GO\020\004*\335\002"
+    "\n\020NODE_ACTION_TYPE\022\032\n\026NODE_ACTION_TYPE__"
+    "NONE\020\000\022\032\n\026NODE_ACTION_TYPE__LEFT\020\001\022\033\n\027NO"
+    "DE_ACTION_TYPE__RIGHT\020\002\022\031\n\025NODE_ACTION_T"
+    "YPE__TOP\020\003\022\034\n\030NODE_ACTION_TYPE__BOTTOM\020\004"
+    "\022\033\n\027NODE_ACTION_TYPE__SCALE\020\005\022\035\n\031NODE_AC"
+    "TION_TYPE__OPACITY\020\006\022\037\n\033NODE_ACTION_TYPE"
+    "__OPACITY_R\020\007\022\036\n\032NODE_ACTION_TYPE__CUSTO"
+    "M_1\020\010\022\036\n\032NODE_ACTION_TYPE__CUSTOM_2\020\t\022\036\n"
+    "\032NODE_ACTION_TYPE__CUSTOM_3\020\n*s\n\023NODE_SC"
+    "REEN_UI_TYPE\022\035\n\031NODE_SCREEN_UI_TYPE__NON"
+    "E\020\000\022\037\n\033NODE_SCREEN_UI_TYPE__BOTTOM\020\001\022\034\n\030"
+    "NODE_SCREEN_UI_TYPE__TOP\020\002*\244\001\n\027ROTATE_PL"
+    "ATE_ORIGIN_DIR\022!\n\035ROTATE_PLATE_ORIGIN_DI"
+    "R__DOWN\020\000\022\037\n\033ROTATE_PLATE_ORIGIN_DIR__UP"
+    "\020\001\022!\n\035ROTATE_PLATE_ORIGIN_DIR__LEFT\020\002\022\"\n"
+    "\036ROTATE_PLATE_ORIGIN_DIR__RIGHT\020\003*\264\001\n\022RE"
+    "LATIVE_SIZE_TYPE\022\034\n\030RELATIVE_SIZE_TYPE__"
+    "NONE\020\000\022 \n\034RELATIVE_SIZE_TYPE__VERTICAL\020\001"
+    "\022\"\n\036RELATIVE_SIZE_TYPE__HORIZONTAL\020\002\022\034\n\030"
+    "RELATIVE_SIZE_TYPE__BOTH\020\003\022\034\n\030RELATIVE_S"
+    "IZE_TYPE__ROOT\020\004*&\n\014STENCIL_TYPE\022\n\n\006SQUA"
+    "RE\020\000\022\n\n\006CUSTOM\020\001*\311\003\n\013ENTITY_TYPE\022\020\n\014ENTI"
+    "TY__Node\020\n\022\030\n\024ENTITY__ClippingNode\020\013\022\026\n\022"
+    "ENTITY__LayerColor\020\r\022\031\n\025ENTITY__LayerGra"
+    "dient\020\016\022\033\n\027ENTITY__LabelSystemFont\020\020\022\024\n\020"
+    "ENTITY__LabelTTF\020\021\022\030\n\024ENTITY__TextFieldT"
+    "TF\020\022\022\023\n\017ENTITY__EditBox\020\024\022\025\n\021ENTITY__Tab"
+    "leView\020\025\022\027\n\023ENTITY__RotatePlate\020\026\022\020\n\014ENT"
+    "ITY__Menu\020\030\022\022\n\016ENTITY__Button\020\031\022\022\n\016ENTIT"
+    "Y__Sprite\020\033\022\030\n\024ENTITY__Scale9Sprite\020\034\022\031\n"
+    "\025ENTITY__ProgressTimer\020\035\022\022\n\016ENTITY__Visu"
+    "al\020\037\022\024\n\020ENTITY__Particle\020 \022\027\n\022ENTITY__No"
+    "NeedNode\020\310\001\022\027\n\022ENTITY__SocketNode\020\311\001*\240\003\n"
+    "\010CMD_TYPE\022\017\n\013CMD__Create\020\001\022\017\n\013CMD__Remov"
+    "e\020\002\022\017\n\013CMD__Modify\020\003\022\r\n\tCMD__Move\020\004\022\r\n\tC"
+    "MD__Copy\020\005\022\014\n\010CMD__Cut\020\006\022\016\n\nCMD__Paste\020\007"
+    "\022\022\n\016CMD__SelectOne\020\n\022\025\n\021CMD__SelectAppen"
+    "d\020\013\022\030\n\024CMD__SelectBoxAppend\020\014\022\026\n\022CMD__Si"
+    "zeToContent\020\r\022\r\n\tCMD__Undo\020\024\022\r\n\tCMD__Red"
+    "o\020\025\022\020\n\014CMD__History\020\026\022\021\n\rCMD__LuaNames\020\027"
+    "\022\026\n\022CMD__ApplyToViewer\020\036\022\024\n\020CMD__ClearVi"
+    "ewer\020\037\022\026\n\022CMD__EventToViewer\020 \022\024\n\020CMD__A"
+    "pplyToTool\020(\022\024\n\020CMD__EventToTool\020)\022\023\n\017CM"
+    "D__MoveViewer\0202*\351\002\n\rEVENT_TO_TOOL\022\017\n\013EVE"
+    "NT__None\020\001\022\017\n\013EVENT__Save\020\013\022\021\n\rEVENT__Sa"
+    "veAs\020\014\022\017\n\013EVENT__Open\020\r\022\020\n\014EVENT__Close\020"
+    "\016\022\017\n\013EVENT__Copy\020\025\022\016\n\nEVENT__Cut\020\026\022\020\n\014EV"
+    "ENT__Paste\020\027\022\021\n\rEVENT__Remove\020\030\022\035\n\031EVENT"
+    "__ToggleDisplayStats\020\036\022\025\n\021EVENT__ReopenV"
+    "iew\020(\022\031\n\025EVENT__NextResolution\020)\022\031\n\025EVEN"
+    "T__PrevResolution\020*\022\031\n\025EVENT__SpecResolu"
+    "tion\020+\022\031\n\025EVENT__ConfResolution\020,\022\030\n\024EVE"
+    "NT__ToggleVisible\0202*\235\002\n\017EVENT_TO_VIEWER\022"
+    "\026\n\022VIEWER_EVENT__None\020\001\022\035\n\031VIEWER_EVENT_"
+    "_StrokeSize1\020\013\022\035\n\031VIEWER_EVENT__StrokeSi"
+    "ze2\020\014\022\035\n\031VIEWER_EVENT__StrokeSize3\020\r\022\035\n\031"
+    "VIEWER_EVENT__StrokeSize4\020\016\022\033\n\027VIEWER_EV"
+    "ENT__GridOnOff\020\024\022\035\n\031VIEWER_EVENT__GridOp"
+    "acity\020\025\022\033\n\027VIEWER_EVENT__ResetZoom\020\026\022\035\n\031"
+    "VIEWER_EVENT__ResetScroll\020\027", 12627);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "maker.proto", &protobuf_RegisterTypes);
   COLOR::default_instance_ = new COLOR();
@@ -1650,6 +1658,21 @@ bool NODE_ACTION_TYPE_IsValid(int value) {
     case 8:
     case 9:
     case 10:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* NODE_SCREEN_UI_TYPE_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return NODE_SCREEN_UI_TYPE_descriptor_;
+}
+bool NODE_SCREEN_UI_TYPE_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -4163,6 +4186,7 @@ const int Node::kActionTypeFieldNumber;
 const int Node::kActionDelay1FieldNumber;
 const int Node::kActionDelay2FieldNumber;
 const int Node::kActionDurationFieldNumber;
+const int Node::kScreenUiFieldNumber;
 const int Node::kLuaNameFieldNumber;
 #endif  // !_MSC_VER
 
@@ -4202,6 +4226,7 @@ void Node::SharedCtor() {
   action_delay_1_ = 0;
   action_delay_2_ = 0;
   action_duration_ = 0;
+  screen_ui_ = 0;
   lua_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -4272,6 +4297,7 @@ void Node::Clear() {
     action_delay_1_ = 0;
     action_delay_2_ = 0;
     action_duration_ = 0;
+    screen_ui_ = 0;
     if (has_lua_name()) {
       if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
         lua_name_->clear();
@@ -4624,12 +4650,33 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(170)) goto parse_lua_name;
+        if (input->ExpectTag(168)) goto parse_screen_ui;
         break;
       }
 
-      // optional string lua_name = 21 [default = ""];
+      // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
       case 21: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_screen_ui:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::maker::NODE_SCREEN_UI_TYPE_IsValid(value)) {
+            set_screen_ui(static_cast< ::maker::NODE_SCREEN_UI_TYPE >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(21, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(178)) goto parse_lua_name;
+        break;
+      }
+
+      // optional string lua_name = 22 [default = ""];
+      case 22: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_lua_name:
@@ -4771,13 +4818,19 @@ void Node::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(20, this->action_duration(), output);
   }
 
-  // optional string lua_name = 21 [default = ""];
+  // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+  if (has_screen_ui()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      21, this->screen_ui(), output);
+  }
+
+  // optional string lua_name = 22 [default = ""];
   if (has_lua_name()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->lua_name().data(), this->lua_name().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      21, this->lua_name(), output);
+      22, this->lua_name(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -4897,14 +4950,20 @@ void Node::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(20, this->action_duration(), target);
   }
 
-  // optional string lua_name = 21 [default = ""];
+  // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+  if (has_screen_ui()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      21, this->screen_ui(), target);
+  }
+
+  // optional string lua_name = 22 [default = ""];
   if (has_lua_name()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->lua_name().data(), this->lua_name().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        21, this->lua_name(), target);
+        22, this->lua_name(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -5036,7 +5095,13 @@ int Node::ByteSize() const {
       total_size += 2 + 4;
     }
 
-    // optional string lua_name = 21 [default = ""];
+    // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+    if (has_screen_ui()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->screen_ui());
+    }
+
+    // optional string lua_name = 22 [default = ""];
     if (has_lua_name()) {
       total_size += 2 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -5134,6 +5199,9 @@ void Node::MergeFrom(const Node& from) {
     if (from.has_action_duration()) {
       set_action_duration(from.action_duration());
     }
+    if (from.has_screen_ui()) {
+      set_screen_ui(from.screen_ui());
+    }
     if (from.has_lua_name()) {
       set_lua_name(from.lua_name());
     }
@@ -5180,6 +5248,7 @@ void Node::Swap(Node* other) {
     std::swap(action_delay_1_, other->action_delay_1_);
     std::swap(action_delay_2_, other->action_delay_2_);
     std::swap(action_duration_, other->action_duration_);
+    std::swap(screen_ui_, other->screen_ui_);
     std::swap(lua_name_, other->lua_name_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

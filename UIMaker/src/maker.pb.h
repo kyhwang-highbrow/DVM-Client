@@ -432,6 +432,26 @@ inline bool NODE_ACTION_TYPE_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<NODE_ACTION_TYPE>(
     NODE_ACTION_TYPE_descriptor(), name, value);
 }
+enum NODE_SCREEN_UI_TYPE {
+  NODE_SCREEN_UI_TYPE__NONE = 0,
+  NODE_SCREEN_UI_TYPE__BOTTOM = 1,
+  NODE_SCREEN_UI_TYPE__TOP = 2
+};
+bool NODE_SCREEN_UI_TYPE_IsValid(int value);
+const NODE_SCREEN_UI_TYPE NODE_SCREEN_UI_TYPE_MIN = NODE_SCREEN_UI_TYPE__NONE;
+const NODE_SCREEN_UI_TYPE NODE_SCREEN_UI_TYPE_MAX = NODE_SCREEN_UI_TYPE__TOP;
+const int NODE_SCREEN_UI_TYPE_ARRAYSIZE = NODE_SCREEN_UI_TYPE_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* NODE_SCREEN_UI_TYPE_descriptor();
+inline const ::std::string& NODE_SCREEN_UI_TYPE_Name(NODE_SCREEN_UI_TYPE value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    NODE_SCREEN_UI_TYPE_descriptor(), value);
+}
+inline bool NODE_SCREEN_UI_TYPE_Parse(
+    const ::std::string& name, NODE_SCREEN_UI_TYPE* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<NODE_SCREEN_UI_TYPE>(
+    NODE_SCREEN_UI_TYPE_descriptor(), name, value);
+}
 enum ROTATE_PLATE_ORIGIN_DIR {
   ROTATE_PLATE_ORIGIN_DIR__DOWN = 0,
   ROTATE_PLATE_ORIGIN_DIR__UP = 1,
@@ -1713,10 +1733,17 @@ class Node : public ::google::protobuf::Message {
   inline float action_duration() const;
   inline void set_action_duration(float value);
 
-  // optional string lua_name = 21 [default = ""];
+  // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+  inline bool has_screen_ui() const;
+  inline void clear_screen_ui();
+  static const int kScreenUiFieldNumber = 21;
+  inline ::maker::NODE_SCREEN_UI_TYPE screen_ui() const;
+  inline void set_screen_ui(::maker::NODE_SCREEN_UI_TYPE value);
+
+  // optional string lua_name = 22 [default = ""];
   inline bool has_lua_name() const;
   inline void clear_lua_name();
-  static const int kLuaNameFieldNumber = 21;
+  static const int kLuaNameFieldNumber = 22;
   inline const ::std::string& lua_name() const;
   inline void set_lua_name(const ::std::string& value);
   inline void set_lua_name(const char* value);
@@ -1767,6 +1794,8 @@ class Node : public ::google::protobuf::Message {
   inline void clear_has_action_delay_2();
   inline void set_has_action_duration();
   inline void clear_has_action_duration();
+  inline void set_has_screen_ui();
+  inline void clear_has_screen_ui();
   inline void set_has_lua_name();
   inline void clear_has_lua_name();
 
@@ -1791,11 +1820,12 @@ class Node : public ::google::protobuf::Message {
   int action_type_;
   float action_delay_1_;
   float action_delay_2_;
-  ::std::string* lua_name_;
   float action_duration_;
+  int screen_ui_;
+  ::std::string* lua_name_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(21 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(22 + 31) / 32];
 
   friend void  protobuf_AddDesc_maker_2eproto();
   friend void protobuf_AssignDesc_maker_2eproto();
@@ -6427,15 +6457,38 @@ inline void Node::set_action_duration(float value) {
   action_duration_ = value;
 }
 
-// optional string lua_name = 21 [default = ""];
-inline bool Node::has_lua_name() const {
+// optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+inline bool Node::has_screen_ui() const {
   return (_has_bits_[0] & 0x00100000u) != 0;
 }
-inline void Node::set_has_lua_name() {
+inline void Node::set_has_screen_ui() {
   _has_bits_[0] |= 0x00100000u;
 }
-inline void Node::clear_has_lua_name() {
+inline void Node::clear_has_screen_ui() {
   _has_bits_[0] &= ~0x00100000u;
+}
+inline void Node::clear_screen_ui() {
+  screen_ui_ = 0;
+  clear_has_screen_ui();
+}
+inline ::maker::NODE_SCREEN_UI_TYPE Node::screen_ui() const {
+  return static_cast< ::maker::NODE_SCREEN_UI_TYPE >(screen_ui_);
+}
+inline void Node::set_screen_ui(::maker::NODE_SCREEN_UI_TYPE value) {
+  assert(::maker::NODE_SCREEN_UI_TYPE_IsValid(value));
+  set_has_screen_ui();
+  screen_ui_ = value;
+}
+
+// optional string lua_name = 22 [default = ""];
+inline bool Node::has_lua_name() const {
+  return (_has_bits_[0] & 0x00200000u) != 0;
+}
+inline void Node::set_has_lua_name() {
+  _has_bits_[0] |= 0x00200000u;
+}
+inline void Node::clear_has_lua_name() {
+  _has_bits_[0] &= ~0x00200000u;
 }
 inline void Node::clear_lua_name() {
   if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
@@ -11948,6 +12001,10 @@ inline const EnumDescriptor* GetEnumDescriptor< ::maker::EDITBOX_RETURN_TYPE>() 
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::maker::NODE_ACTION_TYPE>() {
   return ::maker::NODE_ACTION_TYPE_descriptor();
+}
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::maker::NODE_SCREEN_UI_TYPE>() {
+  return ::maker::NODE_SCREEN_UI_TYPE_descriptor();
 }
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::maker::ROTATE_PLATE_ORIGIN_DIR>() {

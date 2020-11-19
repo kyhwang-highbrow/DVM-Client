@@ -17,10 +17,9 @@ USING_NS_CC_EXT;
 const std::string VISUAL_GROUP__VISUAL(";");
 
 
-
 std::string g_prevLabelSystemFont_name("Helvetica");
 int g_prevLabelSystemFont_size = 20;
-std::string g_prevLabelTTF_name = "./res/fonts/GodoM.ttf";
+std::string g_prevLabelTTF_name = "font/common_font_01.ttf";
 int g_prevLabelTTF_size = 20;
 
 bool g_onAlt = false;
@@ -2087,7 +2086,7 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
         else if (field_name == "relative_size_type")
         {
             int type = reflect->GetEnum(msg, field)->number();
-            node->setRelativeSizeType(type);
+            node->setRelativeSizeType(type, true);
         }
 		else if (field_name == "rel_width")
 		{
@@ -2106,7 +2105,6 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
 
 				Size size = node->getNormalSize();
                 updateContentSizeWidthInTool(entity_id, node, size.width);
-
 				updateStencil(dynamic_cast<ClippingNode*>(node)); 
 			}
 		}
@@ -2134,7 +2132,8 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
         else if (field_name == "width")
         {
             if (node->getRelativeSizeType() == kRelativeSizeNone || 
-				node->getRelativeSizeType() == kRelativeSizeVertical)
+				node->getRelativeSizeType() == kRelativeSizeVertical || 
+				node->getRelativeSizeType() == kRelativeSizeHorizontal)
             {
                 Size size = node->getNormalSize();
                 size.width = static_cast<float>(reflect->GetInt32(msg, field));
@@ -2164,6 +2163,7 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
         else if (field_name == "height")
         {
             if (node->getRelativeSizeType() == kRelativeSizeNone ||
+				node->getRelativeSizeType() == kRelativeSizeVertical ||
                 node->getRelativeSizeType() == kRelativeSizeHorizontal)
             {
                 Size size = node->getNormalSize();
@@ -2197,6 +2197,11 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
 		else if (field_name == "skew_y") node->setSkewY(reflect->GetFloat(msg, field));
 		else if (field_name == "rotation") node->setRotation(reflect->GetFloat(msg, field));
 		else if (field_name == "visible") node->setVisible(reflect->GetBool(msg, field));
+		else if (field_name == "screen_ui")
+		{
+			int type = reflect->GetEnum(msg, field)->number();
+			
+		}
 		else
 		{
 			CCLOG("%s - unknown field [%s]", __FUNCTION__, field_name.c_str());
@@ -3626,8 +3631,15 @@ void CMakerScene::applyButtonImage(CEntityMgr::ID entity_id, MenuItemImage* menu
 
     (menu_item_image->*pfSetImage)(sprite);
 
-    if (!isSizeToContent)
-        menu_item_image->setNormalSize(oldSize);
+	if (sprite)
+	{
+		sprite->setPosition((oldSize - sprite->getContentSize()) * 0.5f);
+	}
+
+	if (!isSizeToContent)
+	{
+		menu_item_image->setNormalSize(oldSize);
+	}
 
     applyToTool_ContentSize(entity_id, menu_item_image);
 }
@@ -3755,6 +3767,29 @@ void CMakerScene::applyToTool_ContentSize(CEntityMgr::ID entity_id, cocos2d::Nod
 	applyToTool_SocketNodeList(cmd, dynamic_cast<cocos2d::AzVRP*>(node));
 
 	CCMDPipe::getInstance()->send(cmd);
+
+	applyToTool_ContentSizeToChild(node);
+}
+void CMakerScene::applyToTool_ContentSizeToChild(cocos2d::Node* parent)
+{
+	if (!parent) return;
+
+	for (auto child : parent->getChildren())
+	{
+		if (kRelativeSizeNone == child->getRelativeSizeType())
+		{
+			continue;
+		}
+
+		auto find_it = find_if(m_node_bind.begin(), m_node_bind.end(), [=](const std::pair<CEntityMgr::ID, Node*>& pair){
+			return pair.second == child;
+		});
+
+		if (find_it != m_node_bind.end())
+		{
+			applyToTool_ContentSize(find_it->first, child, 0);
+		}
+	}
 }
 void CMakerScene::applyToTool_RelativeSize(CEntityMgr::ID entity_id, cocos2d::Node* node, int flag)
 {	
@@ -3781,6 +3816,8 @@ void CMakerScene::applyToTool_RelativeSize(CEntityMgr::ID entity_id, cocos2d::No
     applyToTool_SocketNodeList(cmd, dynamic_cast<cocos2d::AzVRP*>(node));
 
     CCMDPipe::getInstance()->send(cmd);
+
+	applyToTool_ContentSizeToChild(node);
 }
 void CMakerScene::applyToTool_ViewSize(CEntityMgr::ID entity_id, cocos2d::extension::TableView* table_view)
 {

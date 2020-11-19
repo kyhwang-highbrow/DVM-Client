@@ -165,6 +165,7 @@ protected:
 
 	void applyToTool_Position(CEntityMgr::ID entity_id, cocos2d::Node* node);
 	void applyToTool_ContentSize(CEntityMgr::ID entity_id, cocos2d::Node* node, int flag = 0);
+	void applyToTool_ContentSizeToChild(cocos2d::Node* parent);
     void applyToTool_RelativeSize(CEntityMgr::ID entity_id, cocos2d::Node* node, int flag = 0);
     void applyToTool_ViewSize(CEntityMgr::ID entity_id, cocos2d::extension::TableView* table_view);
     void applyToTool(CEntityMgr::ID entity_id, cocos2d::AzVRP* visual);
