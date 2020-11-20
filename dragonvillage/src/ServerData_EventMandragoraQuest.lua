@@ -95,6 +95,21 @@ function ServerData_EventMandragoraQuest:getStatusText()
 end
 
 -------------------------------------
+-- function isVisible_Noti
+-------------------------------------
+function ServerData_EventMandragoraQuest:isVisible_Noti()
+    local quest_info = self.m_questInfo
+    local curr_quest_id = self.m_currentQuestInfo['qid']
+    local curr_quest_info = quest_info[curr_quest_id]
+    local b_curr_quest_reward = (curr_quest_info and (curr_quest_info['reward'] == 0) and (curr_quest_info['clear'] == 1))
+    
+    local b_last_reward = self:availGetLastReward()
+    
+    local b_is_noti = (b_curr_quest_reward or b_last_reward)
+    return b_is_noti
+end
+
+-------------------------------------
 -- function isAllClear
 -------------------------------------
 function ServerData_EventMandragoraQuest:isAllClear()
@@ -116,7 +131,12 @@ end
 -- @breif 최종 보상을 받을 수 있는 조건이 되는지
 -------------------------------------
 function ServerData_EventMandragoraQuest:availGetLastReward()
-    local avail_get_last_reward = ((self.m_currentQuestInfo) and (self.m_lastRewardInfo) and (self.m_currentQuestInfo['qid'] > tonumber(self:getLastRewardCondition())))
+    if ((self.m_currentQuestInfo == nil) or (self.m_lastRewardInfo == nil)) then
+        return false
+    end
+
+    -- if ((다 깼거나) or (최종 보상을 받기 위한 퀘스트 갯수보다 많이 깬 경우))
+    local avail_get_last_reward = ((self.m_currentQuestInfo['qid'] == nil) or (self.m_currentQuestInfo['qid'] > tonumber(self:getLastRewardCondition())))
     return avail_get_last_reward
 end
 

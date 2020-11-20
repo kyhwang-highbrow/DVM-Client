@@ -2045,6 +2045,10 @@ function UI_Lobby:update_rightButtons()
     -- 만드라고라의 모험 버튼
     if g_hotTimeData:isActiveEvent('event_mandraquest') then
         vars['mandragoraBtn']:setVisible(true)
+
+        -- 만드라고라의 모험 노티
+        local is_noti = g_mandragoraQuest:isVisible_Noti()
+        vars['mandragoraNotiSprite']:setVisible(is_noti)
     else
         vars['mandragoraBtn']:setVisible(false)
     end
