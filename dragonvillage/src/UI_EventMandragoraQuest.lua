@@ -125,6 +125,7 @@ function UI_EventMandragoraQuest:refresh()
     local vars = self.vars
     
     -- 모두 클리어시 최종 보상
+    vars['RewardVisual']:setVisible(false)
     vars['completeSprite']:setVisible(false)
     vars['receiveSprite']:setVisible(false)
     vars['receiveBtn']:setVisible(false)
@@ -137,15 +138,18 @@ function UI_EventMandragoraQuest:refresh()
 
         if (already_get_last_reward) then
             vars['completeSprite']:setVisible(true)
+            vars['RewardVisual']:setVisible(false)
 
         else
             vars['receiveSprite']:setVisible(true)
             vars['receiveBtn']:setVisible(true)
             vars['receiveBtn']:setEnabled(true)
+            vars['RewardVisual']:setVisible(true)
         end
 
     else
         vars['receiveBtn']:setVisible(true)
+        vars['RewardVisual']:setVisible(true)
     end
 
     if (vars['receiveBtn']:isEnabled()) then
