@@ -1032,7 +1032,7 @@ function UI_Lobby:update_highlight()
             end
         end
 
-        do -- 빙고 이벤트
+        do -- 할로윈 이벤트
             vars['halloweenNotiSprite']:setVisible(false)
             vars['halloweenNotiYellow']:setVisible(false)
 
@@ -2045,10 +2045,6 @@ function UI_Lobby:update_rightButtons()
     -- 만드라고라의 모험 버튼
     if g_hotTimeData:isActiveEvent('event_mandraquest') then
         vars['mandragoraBtn']:setVisible(true)
-
-        -- 만드라고라의 모험 노티
-        local is_noti = g_mandragoraQuest:isVisible_Noti()
-        vars['mandragoraNotiSprite']:setVisible(is_noti)
     else
         vars['mandragoraBtn']:setVisible(false)
     end

@@ -95,21 +95,6 @@ function ServerData_EventMandragoraQuest:getStatusText()
 end
 
 -------------------------------------
--- function isVisible_Noti
--------------------------------------
-function ServerData_EventMandragoraQuest:isVisible_Noti()
-    local quest_info = self.m_questInfo
-    local curr_quest_id = self.m_currentQuestInfo['qid']
-    local curr_quest_info = quest_info[curr_quest_id]
-    local b_curr_quest_reward = (curr_quest_info and (curr_quest_info['reward'] == 0) and (curr_quest_info['clear'] == 1))
-    
-    local b_last_reward = self:availGetLastReward()
-    
-    local b_is_noti = (b_curr_quest_reward or b_last_reward)
-    return b_is_noti
-end
-
--------------------------------------
 -- function isAllClear
 -------------------------------------
 function ServerData_EventMandragoraQuest:isAllClear()

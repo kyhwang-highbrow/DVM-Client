@@ -33,7 +33,7 @@ function UI_EventMandragoraQuest:initUI()
 
     -- 최종 보상을 받기 위한 퀘스트 수
     local last_reward_condition = g_mandragoraQuest:getLastRewardCondition()
-    vars['infoLabel']:setString(Str('{1}일차 퀘스트를 모두 클리어하면 보상을 받을 수 있습니다.', last_reward_condition))
+    vars['infoLabel']:setString(Str('{1}일차 클리어 시 스페셜 보상 획득!', last_reward_condition))
 
     -- 시작 UI
     --do
@@ -181,11 +181,11 @@ function UI_EventMandragoraQuest:refresh_containerPos()
         return
     end
 
-    if (curr_qid < 5) then
-        container_node:setPositionY(self.m_containerTopPosY)
+    if (curr_qid < 6) then
+        container_node:setPositionY((self.m_containerTopPosY/2) - 200)
 
     elseif (curr_qid < 10) then
-        container_node:setPositionY(self.m_containerTopPosY/2)
+        container_node:setPositionY((self.m_containerTopPosY/2) + 100)
 
     else
         container_node:setPositionY(0)
@@ -258,9 +258,7 @@ end
 -------------------------------------
 function UI_EventMandragoraQuest:click_receiveBtn()
     local function refresh_cb()
-        if (self.m_refreshFunc) then
-            self.m_refreshFunc()
-        end
+        self:refresh()
     end
     
     g_mandragoraQuest:request_clearLastReward(refresh_cb)

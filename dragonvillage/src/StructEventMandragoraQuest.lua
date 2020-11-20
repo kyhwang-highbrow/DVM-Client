@@ -96,9 +96,9 @@ function StructEventMandragoraQuest:getQuestStateText()
     local main_str = Str(t_desc, clear_cnt) 
 
     -- 고대의 탑은 퀘스트 텍스트 표시 하드코딩
-    -- curr_cnt가 플레이한 층 합계, 플레이한 층 수의 합이 10 이상일 때 (1/1) 표시되도록 함
+    -- curr_cnt가 플레이한 층 합계, 플레이한 층 수의 합이 클리어 층 수 이상일 때 (1/1) 표시되도록 함
     if (t_info['key'] == 'clr_tower') then
-        if (tonumber(curr_cnt) >= 10) then
+        if (tonumber(curr_cnt) >= tonumber(clear_cnt)) then
             curr_cnt = 1
             clear_cnt = 1
         else
