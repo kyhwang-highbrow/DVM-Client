@@ -308,6 +308,8 @@ local S_ERROR_STATUS_SHOP = {
 -- 재시작
 local S_ERROR_STATUS_RESTART = {
     [-100] = Str('서버 점검 중입니다.\n잠시 후 다시 시도해 주세요.'), -- 점검 server text
+    [-1111] = Str('클라이언트와 서버가 동기화 되지 않았습니다.\n앱을 재시작합니다.'), -- 서버와 동기화 에러 (골드)
+    [-1125] = Str('클라이언트와 서버가 동기화 되지 않았습니다.\n앱을 재시작합니다.'), -- 서버와 동기화 에러 (드래곤 경험치)
 }
 
 -- 종료 
@@ -359,7 +361,7 @@ function UI_Network:statusHandler(ret)
     if (error_str) then
         local notice = ret['notice']
         error_str = notice or error_str
-        MakeNetworkPopup(POPUP_TYPE.OK, error_str, function() closeApplication() end)
+        MakeNetworkPopup(POPUP_TYPE.OK, error_str, function() CppFunctions:restart() end)
         self:close()
         return true
     end
