@@ -176,7 +176,8 @@ function UI_EventMandragoraQuest:refresh_containerPos()
     end
 
     local is_all_clear = g_mandragoraQuest:isAllClear()
-    if (is_all_clear) then
+    local avail_get_last_reward = g_mandragoraQuest:availGetLastReward()
+    if (is_all_clear or avail_get_last_reward) then
         container_node:setPositionY(self.m_containerTopPosY)
         return
     end
