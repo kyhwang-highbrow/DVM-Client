@@ -141,10 +141,10 @@ function TutorialManager:isCanTutorial(tutorial_key)
 	end
 
 	-- 임시방편 : 모험 튜토리얼은 렙 10이 넘어가는 경우 시작하지 않도록 함
-	local tutorial_key = tutorial_key or 'adv'
-	if (g_userData:get('lv') >= 10) and (string.find(tutorial_key, 'adv')) then
-		return false
-	end
+	--local tutorial_key = tutorial_key or 'adv'
+	--if (g_userData:get('lv') >= 10) and (string.find(tutorial_key, 'adv')) then
+		--return false
+	--end
 
 	return true
 end
@@ -387,7 +387,8 @@ function TutorialManager:checkStartFreeSummon11(stage_id)
 
 	-- 1-7 clear_cnt 가 1이어야 함 (최초 클리어)
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
-	if (clear_cnt > 1) then
+    -- if (clear_cnt > 1) then @kwkang 2020-11-21 패배 상태에서도 튜토리얼이 진행되는 것 막음
+    if (clear_cnt ~= 1) then
 		return false
 	end
 
