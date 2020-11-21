@@ -28,10 +28,11 @@ end
 -------------------------------------
 -- function initLevelupDirector
 -------------------------------------
-function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade, rlv)
+function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade, rlv, mlv)
     local l_max_exp = nil
     local max_lv = nil
 	local rlv = rlv or 0
+	local mlv = mlv or 0
 
     -- LevelupDirector 생성
     self.m_levelupDirector = LevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade)
@@ -39,7 +40,9 @@ function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv
     -- Update 콜백 등록
     self.m_levelupDirector.m_cbUpdate = function(lv, exp, percentage)
         local lv_str
-		if (rlv > 0) then
+        if (mlv > 0) then
+            lv_str = string.format('{@white}Lv.%d {@light_green}+%d{@light_blue}+%d', lv, rlv, mlv)
+		elseif (rlv > 0) then
 			lv_str = string.format('{@white}Lv.%d {@light_green}+%d', lv, rlv)
 		else
 			lv_str = string.format('Lv.%d', lv)

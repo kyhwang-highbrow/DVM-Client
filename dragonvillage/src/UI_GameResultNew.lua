@@ -42,7 +42,8 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_time = time
     self.m_gold = gold or 0
     self.m_tTamerLevelupData = t_tamer_levelup_data
-    self.m_lDragonList = l_dragon_list
+    --self.m_lDragonList = l_dragon_list @2020-11-25 이제 서버에서 드래곤 정보 받을 필요 없이 클라 내부에서 해결하도록 변경
+    self.m_lDragonList = self:getDragonList()
     self.m_lDropItemList = l_drop_item_list
     self.m_secretDungeon = secret_dungeon
     self.m_staminaType = 'st'
@@ -1050,14 +1051,22 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
                 animaotr:addAniHandler(function() animaotr:changeAni('idle', true) end)
             end
 
-            local t_levelup_data = v['levelup_data']
-            local src_lv        = t_levelup_data['prev_lv']
-            local src_exp       = t_levelup_data['prev_exp']
-            local dest_lv       = t_levelup_data['curr_lv']
-            local dest_exp      = t_levelup_data['curr_exp']
+            -- @kwkang 2020-11-12부로 경험치를 아이템으로 획득하게 변경되어 레벨업 연출 필요 없음
+            --local t_levelup_data = v['levelup_data']
+            --local src_lv        = t_levelup_data['prev_lv']
+            --local src_exp       = t_levelup_data['prev_exp']
+            --local dest_lv       = t_levelup_data['curr_lv']
+            --local dest_exp      = t_levelup_data['curr_exp']
+            --local type          = 'dragon'
+			--local rlv			= user_data['reinforce']['lv']
+            local src_lv        = user_data['lv']
+            local src_exp       = 0
+            local dest_lv       = user_data['lv']
+            local dest_exp      = 0
             local type          = 'dragon'
 			local rlv			= user_data['reinforce']['lv']
-            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade, rlv)
+            local mlv           = user_data['mastery_lv']
+            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade, rlv, mlv)
             self:addLevelUpDirector(levelup_director)
 
             do -- 등급
@@ -1650,4 +1659,32 @@ end
 -------------------------------------
 function UI_GameResultNew:checkIsTutorial()
     return false
+end
+
+-------------------------------------
+-- function getDragonList
+-- @brief 전투에서 사용된 드래곤 정보
+-------------------------------------
+function UI_GameResultNew:getDragonList()
+    local l_dragon_list = {}
+    
+    local game_mode = g_stageData:getGameMode(self.m_stageID)
+
+    -- 드래곤 그릴 필요 없는 게임 모드
+    if (isExistValue(game_mode, GAME_MODE_ANCIENT_RUIN, GAME_MODE_CLAN_RAID, GAME_MODE_COLOSSEUM, GAME_MODE_ARENA, GAME_MODE_EVENT_ARENA, GAME_MODE_CLAN_WAR)) then
+        
+    else
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck()
+
+        for i, doid in pairs(l_deck) do
+            local user_data = g_dragonsData:getDragonDataFromUid(doid)
+            local did = user_data['did']
+            local table_data = TableDragon():get(did)
+            ccdump(user_data)
+            local t_dragon_data = {['user_data'] = user_data, ['table_data'] = table_data}
+            table.insert(l_dragon_list, t_dragon_data)
+        end
+    end
+
+    return l_dragon_list
 end

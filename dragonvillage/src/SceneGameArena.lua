@@ -176,6 +176,13 @@ function SceneGameArena:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('clear_mission_3', t_param['clear_mission_3'])
     ui_network:setParam('gold', t_param['gold'])
     ui_network:setParam('gamekey', self.m_gameKey)
+
+    -- 연속 전투의 경우 네트워크 에러 시 3번까지 5초 대기후 재요청보냄
+    if (g_autoPlaySetting:isAutoPlay()) then
+        local fail_cb = g_autoPlaySetting:getNetworkFailCB(ui_network)
+        ui_network:setFailCB(fail_cb)
+    end
+
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end

@@ -250,7 +250,11 @@ function UI_Network.fail(self, ret)
     else
         self:makeNetworkFailPopup(ret)
     end
-    self:close()
+
+    -- @kwkang 실패할 경우에도 재사용할 여지가 많다. 기존에 success_CB에만 쓰이던 조건 추가
+    if (self.m_bReuse == false) then
+        self:close()
+    end
 end
 
 local S_ERROR_STATUS = {

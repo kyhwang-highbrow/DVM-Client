@@ -241,6 +241,13 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('is_mydragon', my_dragon)
     ui_network:setParam('deck_name', 'illusion')
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+
+    -- 연속 전투의 경우 네트워크 에러 시 3번까지 5초 대기후 재요청보냄
+    if (g_autoPlaySetting:isAutoPlay()) then
+        local fail_cb = g_autoPlaySetting:getNetworkFailCB(ui_network)
+        ui_network:setFailCB(fail_cb)
+    end
+
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
