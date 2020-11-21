@@ -54,6 +54,11 @@ function PackageManager:getTargetUI(package_name, is_popup)
         require('UI_Package_AdventureClear03')
         target_ui = UI_Package_AdventureClear03(_struct_product, is_popup)
 
+    -- 시험의 탑 정복선물 패키지
+    elseif (_package_name == 'package_attr_tower') then
+        require('UI_Package_AttrTowerPopup')
+        target_ui = UI_Package_AttrTowerPopup(is_popup)
+
     -- 기간제 단계별 패키지 UI
     elseif (_package_name ==  'package_step_period') then
         target_ui = UI_Package_Step02(_package_name, is_popup)

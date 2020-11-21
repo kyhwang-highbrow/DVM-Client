@@ -12,23 +12,36 @@ UI_Package_AttrTowerBundle = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_Package_AttrTowerBundle:init(attr)
-    local ui_name = 'package_attr_tower_' .. attr .. '_total.ui'
-    local vars = self:load(ui_name)
     
-    UIManager:open(self, UIManager.POPUP)
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Package_AttrTowerBundle')
+    -- 패키지 탭에서 누르는 경우 시험의 탑 정보가 저장되어 있지 않을 수 있기 때문에
+    -- 정보를 받아오고 UI를 설정해야 함
+    local function finish_cb()
+        local ui_name = 'package_attr_tower_' .. attr .. '_total.ui'
+        local vars = self:load(ui_name)
+    
+        UIManager:open(self, UIManager.POPUP)
+        -- 백키 지정
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Package_AttrTowerBundle')
 
-	-- @UI_ACTION
-    self:doActionReset()
-    self:doAction(nil, false)
+	    -- @UI_ACTION
+        self:doActionReset()
+        self:doAction(nil, false)
 
-    self.m_lProductIdList = g_attrTowerPackageData:getProductIdList(attr)
-    self.m_lItemUI= {}
+        self.m_lProductIdList = g_attrTowerPackageData:getProductIdList(attr)
+        self.m_lItemUI= {}
 
-    self:initUI()
-	self:initButton()
-    self:refresh()
+        self:initUI()
+	    self:initButton()
+        self:refresh()
+    end
+
+    if (attr ~= g_attrTowerData:getSelAttr()) then
+        g_attrTowerData:request_attrTowerInfo(attr, nil, finish_cb)
+    
+    else
+        finish_cb()
+    end
+    
 end
 
 

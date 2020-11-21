@@ -16,22 +16,34 @@ function UI_Package_AttrTower:init(bundle_ui, product_id)
     self.m_productInfo = g_attrTowerPackageData:getProductInfo(product_id)
 
     local attr = self.m_productInfo['attr']
-    local ui_name = 'package_attr_tower_' .. attr .. '.ui'
 
-    local vars = self:load(ui_name)
+    -- 패키지 탭에서 누르는 경우 시험의 탑 정보가 저장되어 있지 않을 수 있기 때문에
+    -- 정보를 받아오고 UI를 설정해야 함
+    local function finish_cb()
+        local ui_name = 'package_attr_tower_' .. attr .. '.ui'
+
+        local vars = self:load(ui_name)
     
-    UIManager:open(self, UIManager.POPUP)
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AttrTower')
+        UIManager:open(self, UIManager.POPUP)
+        -- 백키 지정
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AttrTower')
 
-	-- @UI_ACTION
-    self:doActionReset()
-    self:doAction(nil, false)
+	    -- @UI_ACTION
+        self:doActionReset()
+        self:doAction(nil, false)
 
-    self:initUI()
-	self:initButton()
-    self:init_tableView()
-    self:refresh()
+        self:initUI()
+	    self:initButton()
+        self:init_tableView()
+        self:refresh()
+    end
+
+    if (attr ~= g_attrTowerData:getSelAttr()) then
+        g_attrTowerData:request_attrTowerInfo(attr, nil, finish_cb)
+    
+    else
+        finish_cb()
+    end
 end
 
 -------------------------------------
@@ -181,7 +193,7 @@ function UI_Package_AttrTower:initButton()
     vars['allReceiveBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
-    local attr = g_attrTowerData:getSelAttr()
+    local attr = self.m_productInfo['attr']
     local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
     if (table.count(product_id_list) > 1) then
         vars['totalBtn']:registerScriptTapHandler(function() self:click_totalBtn() end)
@@ -304,7 +316,7 @@ function UI_Package_AttrTower:click_totalBtn()
     local bundle_ui = self.m_bundleUI
     if (bundle_ui == nil) then
         require('UI_Package_AttrTowerBundle')
-        local attr = g_attrTowerData:getSelAttr()
+        local attr = self.m_productInfo['attr']
         local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
         UI_Package_AttrTowerBundle(attr)
     end
