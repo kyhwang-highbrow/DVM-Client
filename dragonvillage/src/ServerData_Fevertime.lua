@@ -243,7 +243,13 @@ function ServerData_Fevertime:setExpirationTimestamp()
         end
     end
 
-    self.m_expirationTimestamp = math_min(midnight, _time)
+    -- 핫타임 존재하지 않는 경우 에러 방지
+    if (_time == nil) then
+        self.m_expirationTimestamp = midnight
+
+    else
+        self.m_expirationTimestamp = math_min(midnight, _time)
+    end
 end
 
 -------------------------------------
