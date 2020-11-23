@@ -7,6 +7,12 @@ UI_DragonGoodbyeSelectInfoPopup = class(PARENT,{
         m_selectType = 'string',
     })
 
+
+local TYPE_TEXT = {}
+TYPE_TEXT['relation'] = Str('인연포인트')
+TYPE_TEXT['mastery'] = Str('특성 재료')
+TYPE_TEXT['exp'] = Str('드래곤 경험치')
+
 local INFO_TEXT = {}
 INFO_TEXT['relation'] = {
                         Str('인연포인트는 드래곤의 강화 레벨을 올릴 때 사용합니다.'),
@@ -48,15 +54,23 @@ function UI_DragonGoodbyeSelectInfoPopup:initUI()
 	local vars = self.vars
     local type = self.m_selectType
 
-    local text_list = INFO_TEXT[type]
-
-    if (text_list == nil) then
-        return
+    local type_str = TYPE_TEXT[type]
+    local type_text = Str('도움말')
+    if (type_str ~= nil) then
+        type_text = type_str .. ' ' .. type_text
     end
 
-    for idx, text in ipairs(text_list) do
-        vars['infoNode' .. idx]:setVisible(true)
-        vars['infoLabel' .. idx]:setString(text)
+    vars['infoLabel']:setString(type_text)
+
+    local info_list = INFO_TEXT[type]
+
+    if (info_list == nil) then
+
+    else
+        for idx, info in ipairs(info_list) do
+            vars['infoNode' .. idx]:setVisible(true)
+            vars['infoLabel' .. idx]:setString(info)
+        end
     end
 end
 
