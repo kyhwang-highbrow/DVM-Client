@@ -324,6 +324,8 @@ function UI_Package_Bundle:click_rewardBtn()
         category = 'lucky'
     elseif (self.m_package_name == 'package_lucky_box_9.9k') then
         category = 'lucky_9.9k'
+     elseif (self.m_package_name == 'package_lucky_box_9.9k_02') then
+        category = 'lucky_9.9k_02'
     end
 
     -- 아이템 리스트 출력
