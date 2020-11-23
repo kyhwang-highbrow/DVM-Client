@@ -129,9 +129,9 @@
 		37F9995F20ADFAA800048AC7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9995D20ADF7E800048AC7 /* main.m */; };
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
 		3E1EB0B725019ABF00B5FE82 /* HBAppTrackingTransparency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */; };
-		3EDC0D382536BF3B009CFAE8 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EDC0D352536BF39009CFAE8 /* res */; };
-		3EDC0D392536BF3B009CFAE8 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 3EDC0D362536BF3A009CFAE8 /* data */; };
-		3EDC0D3A2536BF3B009CFAE8 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 3EDC0D372536BF3A009CFAE8 /* src */; };
+		3E548A3E256B8C9200BE04D2 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 3E548A3B256B8C9000BE04D2 /* ps */; };
+		3E548A3F256B8C9200BE04D2 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3E548A3C256B8C9000BE04D2 /* res */; };
+		3E548A40256B8C9200BE04D2 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 3E548A3D256B8C9100BE04D2 /* data_dat */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812517EBBCAC00990C9B /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023811717EBBCAC00990C9B /* RootViewController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -460,10 +460,10 @@
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3E1EB0B525019ABF00B5FE82 /* DragonVillageM iOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DragonVillageM iOS-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E1EB0B625019ABF00B5FE82 /* HBAppTrackingTransparency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBAppTrackingTransparency.swift; sourceTree = "<group>"; };
+		3E548A3B256B8C9000BE04D2 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		3E548A3C256B8C9000BE04D2 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
+		3E548A3D256B8C9100BE04D2 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
 		3E8FC37925076CC800785D38 /* DragonVillageDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillageDebug.entitlements; sourceTree = "<group>"; };
-		3EDC0D352536BF39009CFAE8 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../res; sourceTree = "<group>"; };
-		3EDC0D362536BF3A009CFAE8 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../data; sourceTree = "<group>"; };
-		3EDC0D372536BF3A009CFAE8 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../src; sourceTree = "<group>"; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5023811417EBBCAC00990C9B /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -593,9 +593,9 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3EDC0D362536BF3A009CFAE8 /* data */,
-				3EDC0D352536BF39009CFAE8 /* res */,
-				3EDC0D372536BF3A009CFAE8 /* src */,
+				3E548A3D256B8C9100BE04D2 /* data_dat */,
+				3E548A3B256B8C9000BE04D2 /* ps */,
+				3E548A3C256B8C9000BE04D2 /* res */,
 				37F9995420ADBCE900048AC7 /* sound */,
 				37F9995320ADBCE900048AC7 /* translate */,
 				370B474D1F7CB5260072CA71 /* config.json */,
@@ -1118,11 +1118,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E548A40256B8C9200BE04D2 /* data_dat in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				373EDE6E21F10D870073FC8A /* Launch Screen.storyboard in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
+				3E548A3F256B8C9200BE04D2 /* res in Resources */,
+				3E548A3E256B8C9200BE04D2 /* ps in Resources */,
 				370B476B1F7CB6290072CA71 /* config.json in Resources */,
-				3EDC0D392536BF3B009CFAE8 /* data in Resources */,
 				37F9995920ADBCEA00048AC7 /* sound in Resources */,
 				370B476C1F7CB6290072CA71 /* AudioEngine.lua in Resources */,
 				370B476D1F7CB6290072CA71 /* CCBReaderLoad.lua in Resources */,
@@ -1142,11 +1144,9 @@
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				370B477C1F7CB6290072CA71 /* luaj.lua in Resources */,
 				370B477D1F7CB6290072CA71 /* luaoc.lua in Resources */,
-				3EDC0D382536BF3B009CFAE8 /* res in Resources */,
 				370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */,
 				370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */,
 				370B47801F7CB6290072CA71 /* StudioConstants.lua in Resources */,
-				3EDC0D3A2536BF3B009CFAE8 /* src in Resources */,
 				3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */,
 				37F9995820ADBCEA00048AC7 /* translate in Resources */,
 			);
