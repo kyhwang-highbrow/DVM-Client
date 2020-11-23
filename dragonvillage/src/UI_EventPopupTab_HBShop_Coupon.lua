@@ -123,7 +123,7 @@ function UI_EventPopupTab_HBShop_Coupon.makeCellUI(t_data)
     -- 여기서 name은 하이브로 api를 통해 넘어온 값
     local name = t_data['name']
     if (name == '아쿠아리움의 알') then
-        name = '아쿠아리움C의 알'
+        name = '아쿠아리움 C의 알'
     end
 
     -- 보상 이름

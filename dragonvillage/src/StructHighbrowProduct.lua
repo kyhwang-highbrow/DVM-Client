@@ -20,6 +20,8 @@ StructHighbrowProduct = class(PARENT, {
         res = '',  
         price_type = '',
         price_value = '',
+        start_date = '',
+        end_date = '',
     })
 
 local THIS = StructHighbrowProduct
@@ -55,6 +57,8 @@ function StructHighbrowProduct:mergeTable()
     self.res = t_item['res']
     self.price_type = t_item['price_type']
     self.price_value = t_item['price_value']
+    self.start_date = t_item['start_date']
+    self.end_date = t_item['end_date']
 end
 
 -------------------------------------
