@@ -34,7 +34,6 @@ function UI_Package_AttrTower:init(bundle_ui, product_id)
 
         self:initUI()
 	    self:initButton()
-        self:init_tableView()
         self:refresh()
     end
 
@@ -58,6 +57,8 @@ function UI_Package_AttrTower:initUI()
     local end_floor = product_info['end_floor']
 
     vars['attrLabel']:setString(Str('{1}~{2}층 정복', start_floor, end_floor))
+
+    cca.pickMePickMe(vars['arrowSprite'], 20)
 
     -- 상품 합산 계산해서 텍스트 출력하기
     self:initItemText()
@@ -120,6 +121,14 @@ function UI_Package_AttrTower:init_tableView()
     local product_info = self.m_productInfo
     local product_id = product_info['product_id']
     
+    vars['allReceiveBtn']:setVisible(false)
+    vars['readyBtn']:setVisible(false)
+    if (g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})) then
+        vars['allReceiveBtn']:setVisible(true)
+    else
+        vars['readyBtn']:setVisible(true)
+    end
+
     local node = vars['productNode']
     if (g_attrTowerPackageData:isActive(product_id)) then
         node = vars['productNodeLong']
@@ -191,6 +200,7 @@ function UI_Package_AttrTower:initButton()
 
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     vars['allReceiveBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
+    vars['readyBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
     local attr = self.m_productInfo['attr']
@@ -221,11 +231,11 @@ function UI_Package_AttrTower:refresh()
         vars['completeNode']:setVisible(true)
         vars['contractBtn']:setVisible(false)
         vars['buyBtn']:setVisible(false)
-        vars['allReceiveBtn']:setVisible(true)
     else
         vars['completeNode']:setVisible(false)
         vars['buyBtn']:setVisible(true)
         vars['allReceiveBtn']:setVisible(false)
+        vars['readyBtn']:setVisible(false)
     end
 
     -- 구매 제한

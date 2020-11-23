@@ -49,8 +49,9 @@ function UI_Package_AttrTowerListItem:initItemCard()
     local reward_info = t_data['reward_info'] 
     local reward_items_list = g_itemData:parsePackageItemStr(reward_info)
 
+    local item_length = table.count(reward_items_list) 
     for idx, item_info in ipairs(reward_items_list) do
-        local node = vars['itemNode' .. idx]
+        local node = vars['itemNode' .. tostring(item_length - idx + 1)]
         if (node ~= nil) then
             local item_id = item_info['item_id']
             local item_count = item_info['count']
