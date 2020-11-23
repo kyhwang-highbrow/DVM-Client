@@ -63,6 +63,17 @@ function TablePackageBundle:getTableViewMap()
                     end
                 end
 
+                -- 컨텐츠 해금 제한
+                if (v['buyable_unlock_content'] ~= '') then
+                    local content_name = v['buyable_unlock_content']
+                    local is_lock = g_contentLockData:isContentLock(content_name)
+
+                    if (is_lock) then
+                        map[tostring(target_pid)] = nil
+                    end
+
+                end
+
                 break
             end
         end
