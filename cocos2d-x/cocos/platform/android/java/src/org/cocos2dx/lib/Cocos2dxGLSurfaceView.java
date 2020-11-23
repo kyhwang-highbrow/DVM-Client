@@ -329,8 +329,14 @@ public class Cocos2dxGLSurfaceView extends GLSurfaceView {
 
             float ratio = longLength / shortLength;
 
+            // @sgkim 지원하지 않는 해상도의 surfaceView는 액정 크기에 맞게 생성한다.
+            // glView의 사이즈는 1280*960으로 고정 (AppDelegate.cpp)
+			if (ratio < 1.333) {
+                longLength = 1280;
+                shortLength = longLength / ratio;
+            }
             // 4:3 1.333
-            if (ratio <= 1.41) {
+            else if (ratio <= 1.41) {
                 longLength = 1280;
                 shortLength = 960;
             }

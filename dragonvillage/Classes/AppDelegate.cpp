@@ -171,8 +171,14 @@ bool AppDelegate::applicationDidFinishLaunching()
     float shortLength = 0;
     ResolutionPolicy resolutionPolicy = ResolutionPolicy::EXACT_FIT;
 
+    if (ratio < 1.333)
+    {
+        longLength = 1280;
+        shortLength = 960;
+        resolutionPolicy = ResolutionPolicy::SHOW_ALL; // for Notch Design
+    }
     // 4:3 1.333
-    if (ratio <= 1.41)
+    else if (ratio <= 1.41)
     {
         longLength = 1280;
         shortLength = 960;
