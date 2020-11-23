@@ -45,9 +45,40 @@ end
 -- function getPackageItemFullStr
 -- @brief 구성품 전체 문자열 반환 
 -------------------------------------
-function ServerData_Item:getPackageItemFullStr(package_item_str)
+function ServerData_Item:getPackageItemFullStr(package_item_str, is_merge)
     local full_str = ''
+    local is_merge = is_merge or false
+
     local l_item_list = self:parsePackageItemStr(package_item_str)
+
+    if (is_merge) then
+        -- 아이템 합산
+        local t_item_table = {}
+        for idx, data in ipairs(l_item_list) do
+            local item_id = data['item_id']
+            local cnt = data['count']
+            
+            if (t_item_table[item_id] == nil) then
+                t_item_table[item_id] = {['item_id'] = item_id, ['count'] = 0}
+            end
+
+            t_item_table[item_id]['count'] = t_item_table[item_id]['count'] + cnt
+        end
+        
+        -- 기존 순서대로 정렬
+        local temp_item_list = {}
+        local already_insert = {}
+        for idx, data in ipairs(l_item_list) do
+            local item_id = data['item_id']
+            if (already_insert[item_id] == nil) then
+                already_insert[item_id] = true                
+                table.insert(temp_item_list, t_item_table[item_id])
+            end
+        end
+
+        l_item_list = temp_item_list
+    end
+
     for idx, data in ipairs(l_item_list) do
         local name = TableItem:getItemName(data['item_id'])
         local cnt = data['count']

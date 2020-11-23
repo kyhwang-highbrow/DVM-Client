@@ -209,7 +209,7 @@ function UI_Package_Bundle:refresh()
 
             -- 구성품 mail_content 표시
             else
-                local full_str = ServerData_Item:getPackageItemFullStr(struct_product['mail_content'])
+                local full_str = ServerData_Item:getPackageItemFullStr(struct_product['mail_content'], true)
                 setLabelString('itemLabel', idx, full_str)
             end
 
