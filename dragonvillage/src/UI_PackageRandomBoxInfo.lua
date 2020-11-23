@@ -16,6 +16,8 @@ function UI_PackageRandomBoxInfo:init(l_item, package_name)
     local ui_name
     if (package_name == 'package_lucky_box_9.9k') then
         ui_name = 'package_lucky_box_9.9k_popup.ui'
+    elseif (package_name == 'package_lucky_box_9.9k_02') then
+        ui_name = 'package_lucky_box_9.9k_popup_02.ui'
     else
         ui_name = 'package_lucky_box_popup.ui'
     end
@@ -83,6 +85,8 @@ function UI_PackageRandomBoxInfo.makeCellUI(t_data, package_name)
     local ui_name
     if (package_name == 'package_lucky_box_9.9k') then
         ui_name = 'package_lucky_box_9.9k_popup_item.ui'
+    if (package_name == 'package_lucky_box_9.9k_02') then
+        ui_name = 'package_lucky_box_9.9k_popup_item_02.ui'
     else
         ui_name = 'package_lucky_box_popup_item.ui'
     end
