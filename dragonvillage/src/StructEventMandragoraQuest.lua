@@ -73,9 +73,15 @@ end
 
 -------------------------------------
 -- function getQuestDayText
+-- @brief 해당 코드는 항상 퀘스트가 
+-- 하루에 하나씩 열린다고 가정함
 -------------------------------------
 function StructEventMandragoraQuest:getQuestDayText()
-    return Str('{1}일차', tonumber(self['qid']))
+    local event_start_time = g_hotTimeData:getEventBeginTime('event_mandraquest')
+    local idx = self['qid']
+    local time = event_start_time + (60 * 60 * 24 * (idx - 1))
+    local date_format = os.date('%m.%d', time)
+    return date_format
 end
 
 -------------------------------------

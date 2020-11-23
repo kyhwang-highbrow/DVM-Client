@@ -83,8 +83,14 @@ function UI_EventMandragoraQuest:initUI()
                     break
                 end
             end
-            ccdump(v)
+
             local item_card_ui = UI_ItemCard(v['item_id'], v['count'])
+            local item_id = v['item_id']
+            local did = tonumber(TableItem:getDidByItemId(item_id))
+            if did and (0 < did) then
+                item_card_ui.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 1, 0.8, true) end)
+            end
+
             vars[node_name]:addChild(item_card_ui.root)
         end
     end
@@ -186,15 +192,15 @@ function UI_EventMandragoraQuest:refresh_containerPos()
         return
     end
 
-    if (curr_qid < 6) then
-        container_node:setPositionY((self.m_containerTopPosY/2) - 200)
-
-    elseif (curr_qid < 10) then
-        container_node:setPositionY((self.m_containerTopPosY/2) + 100)
-
-    else
-        container_node:setPositionY(0)
-    end
+    --if (curr_qid < 6) then
+        --container_node:setPositionY((self.m_containerTopPosY/2) - 200)
+--
+    --elseif (curr_qid < 10) then
+        --container_node:setPositionY((self.m_containerTopPosY/2) + 100)
+--
+    --else
+        --container_node:setPositionY(0)
+    --end
 end
 
 -------------------------------------
