@@ -199,8 +199,8 @@ function UI_Package_AttrTower:initButton()
     local vars = self.vars
 
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
-    vars['allReceiveBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
-    vars['readyBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
+    -- vars['allReceiveBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
+    -- vars['readyBtn']:registerScriptTapHandler(function() self:click_allReceiveBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
     local attr = self.m_productInfo['attr']
@@ -231,6 +231,8 @@ function UI_Package_AttrTower:refresh()
         vars['completeNode']:setVisible(true)
         vars['contractBtn']:setVisible(false)
         vars['buyBtn']:setVisible(false)
+        vars['allReceiveBtn']:setVisible(false)
+        vars['readyBtn']:setVisible(false)
     else
         vars['completeNode']:setVisible(false)
         vars['buyBtn']:setVisible(true)
