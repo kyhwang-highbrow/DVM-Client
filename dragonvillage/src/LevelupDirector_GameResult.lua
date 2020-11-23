@@ -41,7 +41,7 @@ function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv
     self.m_levelupDirector.m_cbUpdate = function(lv, exp, percentage)
         local lv_str
         if (mlv > 0) then
-            lv_str = string.format('{@white}Lv.%d {@light_green}+%d{@light_blue}+%d', lv, rlv, mlv)
+            lv_str = string.format('{@white}Lv.%d {@light_green}+%d{@yellow}+%d', lv, rlv, mlv)
 		elseif (rlv > 0) then
 			lv_str = string.format('{@white}Lv.%d {@light_green}+%d', lv, rlv)
 		else
