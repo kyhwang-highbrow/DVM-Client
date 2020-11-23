@@ -132,6 +132,7 @@ public:
 		_720_1280,
 		_960_1280,
 		_853_1280,
+        _720_1440,
 		_CONFIG,
 		MAX_PORTRATE,
 
@@ -152,7 +153,7 @@ protected:
 	static bool m_portat;
 	static RES m_display_mode;
 
-	static void updateResolution(bool portat, RES display_mode);
+	static void updateResolution(bool portat, RES display_mode, float scale = -1.0f);
 	static int getResolutionWidth(bool portat, RES display_mode);
 	static int getResolutionHeight(bool portat, RES display_mode);
 
@@ -163,7 +164,7 @@ public:
 	static void onPrevResolution();
 
 	static void onSpecificResolution();
-	static void onConfigResolution(bool isNext);
+    static void onConfigResolution(bool isNext, float scale = -1.0f);
 
 	static void onUndo();
 	static void onRedo();
@@ -219,4 +220,13 @@ protected:
 	afx_msg void OnOpenCocos2dViewer_1280_960();
 	afx_msg void OnOpenCocos2dViewer_853_1280();
 	afx_msg void OnOpenCocos2dViewer_1280_853();
+
+public:
+    afx_msg void OnOpenCocos2dViewer_Scale_50();
+    afx_msg void OnOpenCocos2dViewer_Scale_60();
+    afx_msg void OnOpenCocos2dViewer_Scale_70();
+    afx_msg void OnOpenCocos2dViewer_Scale_80();
+    afx_msg void OnOpenCocos2dViewer_Scale_90();
+    afx_msg void OnOpenCocos2dViewer_Scale_100();
+    afx_msg void OnOpenCocos2dViewer_720_1440();
 };

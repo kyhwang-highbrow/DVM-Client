@@ -129,10 +129,10 @@ const ::google::protobuf::EnumDescriptor* EDITBOX_INPUT_MODE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* EDITBOX_INPUT_FLAG_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* EDITBOX_RETURN_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* NODE_ACTION_TYPE_descriptor_ = NULL;
-const ::google::protobuf::EnumDescriptor* NODE_SCREEN_UI_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* ROTATE_PLATE_ORIGIN_DIR_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* RELATIVE_SIZE_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* STENCIL_TYPE_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* SCREEN_UI_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* ENTITY_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* CMD_TYPE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* EVENT_TO_TOOL_descriptor_ = NULL;
@@ -300,7 +300,7 @@ void protobuf_AssignDesc_maker_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(NAME_VISUAL));
   Node_descriptor_ = file->message_type(10);
-  static const int Node_offsets_[22] = {
+  static const int Node_offsets_[23] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, ui_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, x_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, y_),
@@ -323,6 +323,7 @@ void protobuf_AssignDesc_maker_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, action_duration_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, screen_ui_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, lua_name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, flag_),
   };
   Node_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -395,7 +396,7 @@ void protobuf_AssignDesc_maker_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LayerGradient));
   LabelSystemFont_descriptor_ = file->message_type(14);
-  static const int LabelSystemFont_offsets_[9] = {
+  static const int LabelSystemFont_offsets_[14] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, font_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, font_size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, text_),
@@ -405,6 +406,11 @@ void protobuf_AssignDesc_maker_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, opacity_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, dimension_width_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, dimension_height_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, has_shadow_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, shadow_color_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, shadow_opacity_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, shadow_direction_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelSystemFont, shadow_distance_),
   };
   LabelSystemFont_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -418,7 +424,7 @@ void protobuf_AssignDesc_maker_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LabelSystemFont));
   LabelTTF_descriptor_ = file->message_type(15);
-  static const int LabelTTF_offsets_[21] = {
+  static const int LabelTTF_offsets_[22] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelTTF, font_name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelTTF, font_size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelTTF, text_),
@@ -440,6 +446,7 @@ void protobuf_AssignDesc_maker_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelTTF, shadow_opacity_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelTTF, shadow_direction_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelTTF, shadow_distance_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LabelTTF, use_auto_fontsize_),
   };
   LabelTTF_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -807,10 +814,10 @@ void protobuf_AssignDesc_maker_2eproto() {
   EDITBOX_INPUT_FLAG_descriptor_ = file->enum_type(13);
   EDITBOX_RETURN_TYPE_descriptor_ = file->enum_type(14);
   NODE_ACTION_TYPE_descriptor_ = file->enum_type(15);
-  NODE_SCREEN_UI_TYPE_descriptor_ = file->enum_type(16);
-  ROTATE_PLATE_ORIGIN_DIR_descriptor_ = file->enum_type(17);
-  RELATIVE_SIZE_TYPE_descriptor_ = file->enum_type(18);
-  STENCIL_TYPE_descriptor_ = file->enum_type(19);
+  ROTATE_PLATE_ORIGIN_DIR_descriptor_ = file->enum_type(16);
+  RELATIVE_SIZE_TYPE_descriptor_ = file->enum_type(17);
+  STENCIL_TYPE_descriptor_ = file->enum_type(18);
+  SCREEN_UI_TYPE_descriptor_ = file->enum_type(19);
   ENTITY_TYPE_descriptor_ = file->enum_type(20);
   CMD_TYPE_descriptor_ = file->enum_type(21);
   EVENT_TO_TOOL_descriptor_ = file->enum_type(22);
@@ -981,7 +988,7 @@ void protobuf_AddDesc_maker_2eproto() {
     "_TTF\022\016\n\004path\030\001 \002(\t:\000\"\035\n\013FILE_VISUAL\022\016\n\004p"
     "ath\030\001 \002(\t:\000\"\034\n\nFILE_PLIST\022\016\n\004path\030\001 \002(\t:"
     "\000\"#\n\021NAME_VISUAL_GROUP\022\016\n\004name\030\001 \002(\t:\000\"\035"
-    "\n\013NAME_VISUAL\022\016\n\004name\030\001 \002(\t:\000\"\312\005\n\004Node\022\021"
+    "\n\013NAME_VISUAL\022\016\n\004name\030\001 \002(\t:\000\"\320\005\n\004Node\022\021"
     "\n\007ui_name\030\001 \001(\t:\000\022\014\n\001x\030\002 \001(\002:\0010\022\014\n\001y\030\003 \001"
     "(\002:\0010\022:\n\ndock_point\030\004 \001(\0162\021.maker.DOCK_P"
     "OINT:\023DOCK__MIDDLE_CENTER\022@\n\014anchor_poin"
@@ -997,298 +1004,304 @@ void protobuf_AddDesc_maker_2eproto() {
     "\0162\027.maker.NODE_ACTION_TYPE:\026NODE_ACTION_"
     "TYPE__NONE\022\031\n\016action_delay_1\030\022 \001(\002:\0010\022\031\n"
     "\016action_delay_2\030\023 \001(\002:\0010\022\032\n\017action_durat"
-    "ion\030\024 \001(\002:\0010\022H\n\tscreen_ui\030\025 \001(\0162\032.maker."
-    "NODE_SCREEN_UI_TYPE:\031NODE_SCREEN_UI_TYPE"
-    "__NONE\022\022\n\010lua_name\030\026 \001(\t:\000\"\237\001\n\014ClippingN"
-    "ode\0221\n\014stencil_type\030\001 \001(\0162\023.maker.STENCI"
-    "L_TYPE:\006SQUARE\022&\n\013stencil_img\030\002 \001(\0132\021.ma"
-    "ker.FILE_IMAGE\022\032\n\017alpha_threshold\030\003 \001(\002:"
-    "\0011\022\030\n\tis_invert\030\004 \001(\010:\005false\"\310\001\n\nLayerCo"
-    "lor\022\033\n\005color\030\001 \001(\0132\014.maker.COLOR\022\024\n\007opac"
-    "ity\030\002 \001(\005:\003255\022=\n\tsrc_blend\030\003 \001(\0162\025.make"
-    "r.BLEND_FUNCTION:\023BLEND__GL_SRC_ALPHA\022H\n"
-    "\ndest_blend\030\004 \001(\0162\025.maker.BLEND_FUNCTION"
-    ":\035BLEND__GL_ONE_MINUS_SRC_ALPHA\"\327\002\n\rLaye"
-    "rGradient\022\033\n\005color\030\001 \001(\0132\014.maker.COLOR\022\024"
+    "ion\030\024 \001(\002:\0010\022>\n\tscreen_ui\030\025 \001(\0162\025.maker."
+    "SCREEN_UI_TYPE:\024SCREEN_UI_TYPE__NONE\022\022\n\010"
+    "lua_name\030\026 \001(\t:\000\022\016\n\004flag\030\027 \001(\t:\000\"\237\001\n\014Cli"
+    "ppingNode\0221\n\014stencil_type\030\001 \001(\0162\023.maker."
+    "STENCIL_TYPE:\006SQUARE\022&\n\013stencil_img\030\002 \001("
+    "\0132\021.maker.FILE_IMAGE\022\032\n\017alpha_threshold\030"
+    "\003 \001(\002:\0011\022\030\n\tis_invert\030\004 \001(\010:\005false\"\310\001\n\nL"
+    "ayerColor\022\033\n\005color\030\001 \001(\0132\014.maker.COLOR\022\024"
     "\n\007opacity\030\002 \001(\005:\003255\022=\n\tsrc_blend\030\003 \001(\0162"
     "\025.maker.BLEND_FUNCTION:\023BLEND__GL_SRC_AL"
     "PHA\022H\n\ndest_blend\030\004 \001(\0162\025.maker.BLEND_FU"
-    "NCTION:\035BLEND__GL_ONE_MINUS_SRC_ALPHA\022!\n"
-    "\013start_color\030\005 \001(\0132\014.maker.COLOR\022\037\n\tend_"
-    "color\030\006 \001(\0132\014.maker.COLOR\022\032\n\rstart_opaci"
-    "ty\030\007 \001(\005:\003255\022\030\n\013end_opacity\030\010 \001(\005:\003255\022"
-    "\020\n\005angle\030\t \001(\002:\0010\"\337\002\n\017LabelSystemFont\022\034\n"
-    "\tfont_name\030\001 \001(\t:\tHelvetica\022\025\n\tfont_size"
-    "\030\002 \001(\005:\00210\022#\n\004text\030\003 \001(\t:\025New Label Syst"
-    "em Font\022B\n\013h_alignment\030\004 \001(\0162\027.maker.TEX"
-    "T_ALIGNMENT_H:\024TEXT_ALIGN_H__CENTER\022B\n\013v"
-    "_alignment\030\005 \001(\0162\027.maker.TEXT_ALIGNMENT_"
-    "V:\024TEXT_ALIGN_V__CENTER\022\033\n\005color\030\006 \001(\0132\014"
-    ".maker.COLOR\022\024\n\007opacity\030\007 \001(\005:\003255\022\032\n\017di"
-    "mension_width\030\010 \001(\005:\0010\022\033\n\020dimension_heig"
-    "ht\030\t \001(\005:\0010\"\201\006\n\010LabelTTF\022\"\n\tfont_name\030\001 "
-    "\001(\0132\017.maker.FILE_TTF\022\025\n\tfont_size\030\002 \001(\005:"
-    "\00210\022\033\n\004text\030\003 \001(\t:\rNew Label TTF\022B\n\013h_al"
-    "ignment\030\004 \001(\0162\027.maker.TEXT_ALIGNMENT_H:\024"
-    "TEXT_ALIGN_H__CENTER\022B\n\013v_alignment\030\005 \001("
-    "\0162\027.maker.TEXT_ALIGNMENT_V:\024TEXT_ALIGN_V"
-    "__CENTER\022\033\n\005color\030\006 \001(\0132\014.maker.COLOR\022\024\n"
-    "\007opacity\030\007 \001(\005:\003255\022\032\n\017dimension_width\030\010"
-    " \001(\005:\0010\022\033\n\020dimension_height\030\t \001(\005:\0010\022\031\n\016"
-    "letter_spacing\030\n \001(\002:\0010\022\031\n\nhas_stroke\030\025 "
-    "\001(\010:\005false\022<\n\013stroke_type\030\026 \001(\0162\022.maker."
-    "STROKE_TYPE:\023STROKE_TYPE__NORMAL\022\036\n\023stro"
-    "ke_detail_level\030\027 \001(\005:\0010\022\033\n\ris_sharp_tex"
-    "t\030\030 \001(\010:\004true\022\032\n\017stroke_tickness\030\031 \001(\002:\001"
-    "1\022\"\n\014stroke_color\030\032 \001(\0132\014.maker.COLOR\022\031\n"
-    "\nhas_shadow\030\037 \001(\010:\005false\022\"\n\014shadow_color"
-    "\030  \001(\0132\014.maker.COLOR\022\033\n\016shadow_opacity\030!"
-    " \001(\005:\003255\022@\n\020shadow_direction\030\" \001(\0162\027.ma"
-    "ker.SHADOW_DIRECTION:\rSHADOW_DIR_90\022\032\n\017s"
-    "hadow_distance\030# \001(\002:\0015\"\337\002\n\013LabelBMFont\022"
-    "%\n\tfont_name\030\001 \001(\0132\022.maker.FILE_BMFONT\022\025"
-    "\n\tfont_size\030\002 \001(\005:\00210\022\036\n\004text\030\003 \001(\t:\020New"
-    " Label BMFont\022B\n\013h_alignment\030\004 \001(\0162\027.mak"
+    "NCTION:\035BLEND__GL_ONE_MINUS_SRC_ALPHA\"\327\002"
+    "\n\rLayerGradient\022\033\n\005color\030\001 \001(\0132\014.maker.C"
+    "OLOR\022\024\n\007opacity\030\002 \001(\005:\003255\022=\n\tsrc_blend\030"
+    "\003 \001(\0162\025.maker.BLEND_FUNCTION:\023BLEND__GL_"
+    "SRC_ALPHA\022H\n\ndest_blend\030\004 \001(\0162\025.maker.BL"
+    "END_FUNCTION:\035BLEND__GL_ONE_MINUS_SRC_AL"
+    "PHA\022!\n\013start_color\030\005 \001(\0132\014.maker.COLOR\022\037"
+    "\n\tend_color\030\006 \001(\0132\014.maker.COLOR\022\032\n\rstart"
+    "_opacity\030\007 \001(\005:\003255\022\030\n\013end_opacity\030\010 \001(\005"
+    ":\003255\022\020\n\005angle\030\t \001(\002:\0010\"\231\004\n\017LabelSystemF"
+    "ont\022\034\n\tfont_name\030\001 \001(\t:\tHelvetica\022\025\n\tfon"
+    "t_size\030\002 \001(\005:\00210\022#\n\004text\030\003 \001(\t:\025New Labe"
+    "l System Font\022B\n\013h_alignment\030\004 \001(\0162\027.mak"
     "er.TEXT_ALIGNMENT_H:\024TEXT_ALIGN_H__CENTE"
     "R\022B\n\013v_alignment\030\005 \001(\0162\027.maker.TEXT_ALIG"
     "NMENT_V:\024TEXT_ALIGN_V__CENTER\022\033\n\005color\030\006"
     " \001(\0132\014.maker.COLOR\022\024\n\007opacity\030\007 \001(\005:\003255"
     "\022\032\n\017dimension_width\030\010 \001(\005:\0010\022\033\n\020dimensio"
-    "n_height\030\t \001(\005:\0010\"\265\003\n\014TextFieldTTF\022\"\n\tfo"
-    "nt_name\030\001 \001(\0132\017.maker.FILE_TTF\022\025\n\tfont_s"
-    "ize\030\002 \001(\005:\00210\022\033\n\004text\030\003 \001(\t:\rNew TextFie"
-    "ld\022B\n\013h_alignment\030\004 \001(\0162\027.maker.TEXT_ALI"
-    "GNMENT_H:\024TEXT_ALIGN_H__CENTER\022B\n\013v_alig"
-    "nment\030\005 \001(\0162\027.maker.TEXT_ALIGNMENT_V:\024TE"
-    "XT_ALIGN_V__CENTER\022\033\n\005color\030\006 \001(\0132\014.make"
-    "r.COLOR\022\024\n\007opacity\030\007 \001(\005:\003255\022\032\n\017dimensi"
-    "on_width\030\010 \001(\005:\0010\022\033\n\020dimension_height\030\t "
-    "\001(\005:\0010\022\031\n\nhas_stroke\030\n \001(\010:\005false\022\032\n\017str"
-    "oke_tickness\030\013 \001(\002:\0011\022\"\n\014stroke_color\030\014 "
-    "\001(\0132\014.maker.COLOR\"\275\005\n\007EditBox\022\025\n\006enable\030"
-    "\001 \001(\010:\005false\022N\n\ninput_mode\030\002 \001(\0162\031.maker"
-    ".EDITBOX_INPUT_MODE:\037EDITBOX_INPUT_MODE_"
-    "_SINGLE_LINE\022]\n\ninput_flag\030\003 \001(\0162\031.maker"
-    ".EDITBOX_INPUT_FLAG:.EDITBOX_INPUT_FLAG_"
-    "_INTIAL_CAPS_ALL_CHARACTERS\022J\n\013return_ty"
-    "pe\030\004 \001(\0162\032.maker.EDITBOX_RETURN_TYPE:\031ED"
-    "ITBOX_RETURN_TYPE__DONE\022\025\n\nmax_length\030\005 "
-    "\001(\005:\0010\022\016\n\004text\030\006 \001(\t:\000\022\034\n\tfont_name\030\007 \001("
-    "\t:\tHelvetica\022\025\n\tfont_size\030\010 \001(\005:\00220\022 \n\nf"
-    "ont_color\030\t \001(\0132\014.maker.COLOR\0222\n\013placeho"
-    "lder\030\n \001(\t:\035\355\205\215\354\212\244\355\212\270\353\245\274 \354\236\205\353\240\245\355\225\230\354\204\270\354\232\224"
-    ".\022(\n\025placeholder_font_name\030\013 \001(\t:\tHelvet"
-    "ica\022!\n\025placeholder_font_size\030\014 \001(\005:\00220\022,"
-    "\n\026placeholder_font_color\030\r \001(\0132\014.maker.C"
-    "OLOR\022$\n\tnormal_bg\030\016 \001(\0132\021.maker.FILE_IMA"
-    "GE\022%\n\npressed_bg\030\017 \001(\0132\021.maker.FILE_IMAG"
-    "E\022&\n\013disabled_bg\030\020 \001(\0132\021.maker.FILE_IMAG"
-    "E\"\323\001\n\006Button\022\024\n\006enable\030\001 \001(\010:\004true\022!\n\006no"
-    "rmal\030\002 \001(\0132\021.maker.FILE_IMAGE\022#\n\010selecte"
-    "d\030\003 \001(\0132\021.maker.FILE_IMAGE\022\"\n\007disable\030\004 "
-    "\001(\0132\021.maker.FILE_IMAGE\022G\n\nimage_type\030\005 \001"
-    "(\0162\030.maker.BUTTON_IMAGE_TYPE:\031BUTTON_IMA"
-    "GE_TYPE__SPRITE\"\230\002\n\006Sprite\022$\n\tfile_name\030"
-    "\001 \001(\0132\021.maker.FILE_IMAGE\022\033\n\005color\030\002 \001(\0132"
-    "\014.maker.COLOR\022\024\n\007opacity\030\003 \001(\005:\003255\022\025\n\006f"
-    "lip_x\030\004 \001(\010:\005false\022\025\n\006flip_y\030\005 \001(\010:\005fals"
-    "e\022=\n\tsrc_blend\030\006 \001(\0162\025.maker.BLEND_FUNCT"
-    "ION:\023BLEND__GL_SRC_ALPHA\022H\n\ndest_blend\030\007"
-    " \001(\0162\025.maker.BLEND_FUNCTION:\035BLEND__GL_O"
-    "NE_MINUS_SRC_ALPHA\"\330\001\n\014Scale9Sprite\022$\n\tf"
-    "ile_name\030\001 \001(\0132\021.maker.FILE_IMAGE\022\033\n\005col"
-    "or\030\002 \001(\0132\014.maker.COLOR\022\024\n\007opacity\030\003 \001(\005:"
-    "\003255\022\030\n\rcenter_rect_x\030\004 \001(\005:\0010\022\030\n\rcenter"
-    "_rect_y\030\005 \001(\005:\0010\022\034\n\021center_rect_width\030\006 "
-    "\001(\005:\0010\022\035\n\022center_rect_height\030\007 \001(\005:\0010\"\267\001"
-    "\n\tTableView\0220\n\006scroll\030\001 \001(\0162\022.maker.SCRO"
-    "LL_TYPE:\014SCROLL__BOTH\022\024\n\006bounce\030\002 \001(\010:\004t"
-    "rue\022\027\n\nview_width\030\003 \001(\005:\003200\022\030\n\013view_hei"
-    "ght\030\004 \001(\005:\003200\022\026\n\ncell_width\030\005 \001(\005:\00260\022\027"
-    "\n\013cell_height\030\006 \001(\005:\00260\"\255\003\n\rProgressTime"
-    "r\022$\n\tfile_name\030\001 \001(\0132\021.maker.FILE_IMAGE\022"
-    "\033\n\005color\030\002 \001(\0132\014.maker.COLOR\022\024\n\007opacity\030"
-    "\003 \001(\005:\003255\022\025\n\006flip_x\030\004 \001(\010:\005false\022\025\n\006fli"
-    "p_y\030\005 \001(\010:\005false\022=\n\tsrc_blend\030\006 \001(\0162\025.ma"
-    "ker.BLEND_FUNCTION:\023BLEND__GL_SRC_ALPHA\022"
-    "H\n\ndest_blend\030\007 \001(\0162\025.maker.BLEND_FUNCTI"
-    "ON:\035BLEND__GL_ONE_MINUS_SRC_ALPHA\022@\n\rpro"
-    "gress_type\030\010 \001(\0162\024.maker.PROGRESS_TYPE:\023"
-    "PROGRESS__RADIAL_CW\022\030\n\013mid_point_x\030\t \001(\002"
-    ":\0030.5\022\030\n\013mid_point_y\030\n \001(\002:\0030.5\022\026\n\nperce"
-    "ntage\030\013 \001(\005:\00275\"\273\001\n\006Visual\022%\n\tfile_name\030"
-    "\001 \001(\0132\022.maker.FILE_VISUAL\022\027\n\tauto_play\030\002"
-    " \001(\010:\004true\022\027\n\tis_repeat\030\003 \001(\010:\004true\022%\n\tv"
-    "isual_id\030\004 \001(\0132\022.maker.NAME_VISUAL\022\033\n\005co"
-    "lor\030\006 \001(\0132\014.maker.COLOR\022\024\n\007opacity\030\007 \001(\005"
-    ":\003255\"!\n\nSocketNode\022\023\n\013socket_name\030\001 \001(\t"
-    "\"0\n\010Particle\022$\n\tfile_name\030\001 \001(\0132\021.maker."
-    "FILE_PLIST\"\273\001\n\013RotatePlate\022\025\n\010radius_x\030\001"
-    " \001(\002:\003100\022\024\n\010radius_y\030\002 \001(\002:\00250\022\026\n\tmin_s"
-    "cale\030\003 \001(\002:\0030.5\022\024\n\tmax_scale\030\004 \001(\002:\0011\022Q\n"
-    "\norigin_dir\030\005 \001(\0162\036.maker.ROTATE_PLATE_O"
-    "RIGIN_DIR:\035ROTATE_PLATE_ORIGIN_DIR__DOWN"
-    "\"\322\005\n\nProperties\022.\n\004type\030\001 \002(\0162\022.maker.EN"
-    "TITY_TYPE:\014ENTITY__Node\022\031\n\004node\030\n \001(\0132\013."
-    "maker.Node\022&\n\013layer_color\030\013 \001(\0132\021.maker."
-    "LayerColor\022,\n\016layer_gradient\030\014 \001(\0132\024.mak"
-    "er.LayerGradient\0221\n\021label_syatem_font\030\r "
-    "\001(\0132\026.maker.LabelSystemFont\022\"\n\tlabel_ttf"
-    "\030\016 \001(\0132\017.maker.LabelTTF\022+\n\016text_field_tt"
-    "f\030\017 \001(\0132\023.maker.TextFieldTTF\022 \n\010edit_box"
-    "\030\020 \001(\0132\016.maker.EditBox\022$\n\ntable_view\030\021 \001"
-    "(\0132\020.maker.TableView\022(\n\014rotate_plate\030\022 \001"
-    "(\0132\022.maker.RotatePlate\022\035\n\006button\030\023 \001(\0132\r"
-    ".maker.Button\022\035\n\006sprite\030\024 \001(\0132\r.maker.Sp"
-    "rite\022+\n\016scale_9_sprite\030\025 \001(\0132\023.maker.Sca"
-    "le9Sprite\022,\n\016progress_timer\030\026 \001(\0132\024.make"
-    "r.ProgressTimer\022\035\n\006visual\030\027 \001(\0132\r.maker."
-    "Visual\022!\n\010particle\030\030 \001(\0132\017.maker.Particl"
-    "e\022*\n\rclipping_node\030\031 \001(\0132\023.maker.Clippin"
-    "gNode\022&\n\013socket_node\030d \001(\0132\021.maker.Socke"
-    "tNode\"\253\002\n\006Entity\022\r\n\002id\030\001 \002(\004:\0010\022\024\n\006expan"
-    "d\030\002 \002(\010:\004true\022\027\n\010selected\030\003 \001(\010:\005false\022\036"
-    "\n\017parent_selected\030\004 \001(\010:\005false\022\024\n\tparent"
-    "_id\030\006 \001(\004:\0010\022\022\n\007prev_id\030\007 \002(\004:\0010\022\022\n\007dest"
-    "_id\030\010 \001(\004:\0010\022\031\n\016dest_parent_id\030\t \001(\004:\0010\022"
-    "\"\n\023lua_name_duplicated\030\n \001(\010:\005false\022%\n\np"
-    "roperties\030\024 \001(\0132\021.maker.Properties\022\037\n\010ch"
-    "ildren\030\036 \003(\0132\r.maker.Entity\"\325\003\n\003CMD\022\r\n\002i"
-    "d\030\001 \002(\004:\0010\022*\n\004type\030\002 \002(\0162\017.maker.CMD_TYP"
-    "E:\013CMD__Create\022\023\n\010window_x\030\n \001(\005:\0010\022\023\n\010w"
-    "indow_y\030\013 \001(\005:\0010\0223\n\010event_id\030\016 \001(\0162\024.mak"
-    "er.EVENT_TO_TOOL:\013EVENT__None\022C\n\017viewer_"
-    "event_id\030\017 \001(\0162\026.maker.EVENT_TO_VIEWER:\022"
-    "VIEWER_EVENT__None\022\025\n\013description\030\020 \001(\t:"
-    "\000\022\033\n\020update_to_cmd_id\030\021 \001(\004:\0010\022\"\n\023dont_a"
-    "ppend_history\030\022 \001(\010:\005false\022!\n\022can_merge_"
-    "prev_cmd\030\023 \001(\010:\005false\022\037\n\010entities\030\024 \003(\0132"
-    "\r.maker.Entity\022&\n\017backup_entities\030\025 \003(\0132"
-    "\r.maker.Entity\022\021\n\tenum_list\030\036 \003(\t\022\030\n\020soc"
-    "ket_node_list\030\037 \003(\t*\333\001\n\nDOCK_POINT\022\025\n\021DO"
-    "CK__BOTTOM_LEFT\020\000\022\027\n\023DOCK__BOTTOM_CENTER"
-    "\020\001\022\026\n\022DOCK__BOTTOM_RIGHT\020\002\022\025\n\021DOCK__MIDD"
-    "LE_LEFT\020\003\022\027\n\023DOCK__MIDDLE_CENTER\020\004\022\026\n\022DO"
-    "CK__MIDDLE_RIGHT\020\005\022\022\n\016DOCK__TOP_LEFT\020\006\022\024"
-    "\n\020DOCK__TOP_CENTER\020\007\022\023\n\017DOCK__TOP_RIGHT\020"
-    "\010*\357\001\n\014ANCHOR_POINT\022\027\n\023ANCHOR__BOTTOM_LEF"
-    "T\020\000\022\031\n\025ANCHOR__BOTTOM_CENTER\020\001\022\030\n\024ANCHOR"
-    "__BOTTOM_RIGHT\020\002\022\027\n\023ANCHOR__MIDDLE_LEFT\020"
-    "\003\022\031\n\025ANCHOR__MIDDLE_CENTER\020\004\022\030\n\024ANCHOR__"
-    "MIDDLE_RIGHT\020\005\022\024\n\020ANCHOR__TOP_LEFT\020\006\022\026\n\022"
-    "ANCHOR__TOP_CENTER\020\007\022\025\n\021ANCHOR__TOP_RIGH"
-    "T\020\010*\322\002\n\016BLEND_FUNCTION\022\022\n\016BLEND__GL_ZERO"
-    "\020\000\022\021\n\rBLEND__GL_ONE\020\001\022\030\n\023BLEND__GL_SRC_C"
-    "OLOR\020\200\006\022\030\n\023BLEND__GL_DST_COLOR\020\206\006\022\"\n\035BLE"
-    "ND__GL_ONE_MINUS_SRC_COLOR\020\201\006\022\"\n\035BLEND__"
-    "GL_ONE_MINUS_DST_COLOR\020\207\006\022\030\n\023BLEND__GL_S"
-    "RC_ALPHA\020\202\006\022\030\n\023BLEND__GL_DST_ALPHA\020\204\006\022\"\n"
-    "\035BLEND__GL_ONE_MINUS_SRC_ALPHA\020\203\006\022\"\n\035BLE"
-    "ND__GL_ONE_MINUS_DST_ALPHA\020\205\006\022!\n\034BLEND__"
-    "GL_SRC_ALPHA_SATURATE\020\210\006*]\n\020TEXT_ALIGNME"
-    "NT_H\022\026\n\022TEXT_ALIGN_H__LEFT\020\000\022\030\n\024TEXT_ALI"
-    "GN_H__CENTER\020\001\022\027\n\023TEXT_ALIGN_H__RIGHT\020\002*"
-    "]\n\020TEXT_ALIGNMENT_V\022\025\n\021TEXT_ALIGN_V__TOP"
-    "\020\000\022\030\n\024TEXT_ALIGN_V__CENTER\020\001\022\030\n\024TEXT_ALI"
-    "GN_V__BOTTOM\020\002*0\n\tFILL_TYPE\022\021\n\rFILL__STR"
-    "ETCH\020\000\022\020\n\014FILL__REPEAT\020\001*\266\001\n\rPROGRESS_TY"
-    "PE\022\027\n\023PROGRESS__RADIAL_CW\020\000\022\030\n\024PROGRESS_"
-    "_RADIAL_CCW\020\001\022\033\n\027PROGRESS__TOP_TO_BOTTOM"
-    "\020\002\022\033\n\027PROGRESS__BOTTOM_TO_TOP\020\003\022\033\n\027PROGR"
-    "ESS__LEFT_TO_RIGHT\020\004\022\033\n\027PROGRESS__RIGHT_"
-    "TO_LEFT\020\005*_\n\013SCROLL_TYPE\022\020\n\014SCROLL__NONE"
-    "\020\000\022\024\n\020SCROLL__VERTICAL\020\001\022\026\n\022SCROLL__HORI"
-    "ZONTAL\020\002\022\020\n\014SCROLL__BOTH\020\003*\253\002\n\tPICK_PART"
-    "\022\023\n\017PICK_PART__NONE\020\000\022\025\n\021PICK_PART__CENT"
-    "ER\020\001\022\022\n\016PICK_PART__TOP\020\002\022\025\n\021PICK_PART__B"
-    "OTTOM\020\003\022\023\n\017PICK_PART__LEFT\020\004\022\024\n\020PICK_PAR"
-    "T__RIGHT\020\005\022\032\n\026PICK_PART__LEFT_BOTTOM\020\006\022\027"
-    "\n\023PICK_PART__LEFT_TOP\020\007\022\033\n\027PICK_PART__RI"
-    "GHT_BOTTOM\020\010\022\030\n\024PICK_PART__RIGHT_TOP\020\t\022\031"
-    "\n\025PICK_PART__SELECT_BOX\020\n\022\025\n\021PICK_PART__"
-    "SCROLL\020\013*\?\n\013STROKE_TYPE\022\027\n\023STROKE_TYPE__"
-    "NORMAL\020\000\022\027\n\023STROKE_TYPE__CUSTOM\020\001*L\n\020SHA"
-    "DOW_DIRECTION\022\021\n\rSHADOW_DIR_90\020\000\022\022\n\016SHAD"
-    "OW_DIR_135\020\001\022\021\n\rSHADOW_DIR_45\020\002*W\n\021BUTTO"
-    "N_IMAGE_TYPE\022\035\n\031BUTTON_IMAGE_TYPE__SPRIT"
-    "E\020\000\022#\n\037BUTTON_IMAGE_TYPE__SCALE9SPRITE\020\001"
-    "*\202\002\n\022EDITBOX_INPUT_MODE\022\033\n\027EDITBOX_INPUT"
-    "_MODE__ANY\020\000\022%\n!EDITBOX_INPUT_MODE__EMAI"
-    "L_ADDRESS\020\001\022\037\n\033EDITBOX_INPUT_MODE__NUMER"
-    "IC\020\002\022$\n EDITBOX_INPUT_MODE__PHONE_NUMBER"
-    "\020\003\022\033\n\027EDITBOX_INPUT_MODE__URL\020\004\022\037\n\033EDITB"
-    "OX_INPUT_MODE__DECIMAL\020\005\022#\n\037EDITBOX_INPU"
-    "T_MODE__SINGLE_LINE\020\006*\347\001\n\022EDITBOX_INPUT_"
-    "FLAG\022 \n\034EDITBOX_INPUT_FLAG__PASSWORD\020\000\022!"
-    "\n\035EDITBOX_INPUT_FLAG__SENSITIVE\020\001\022)\n%EDI"
-    "TBOX_INPUT_FLAG__INITIAL_CAPS_WORD\020\002\022-\n)"
-    "EDITBOX_INPUT_FLAG__INITIAL_CAPS_SENTENC"
-    "E\020\003\0222\n.EDITBOX_INPUT_FLAG__INTIAL_CAPS_A"
-    "LL_CHARACTERS\020\004*\263\001\n\023EDITBOX_RETURN_TYPE\022"
-    " \n\034EDITBOX_RETURN_TYPE__DEFAULT\020\000\022\035\n\031EDI"
-    "TBOX_RETURN_TYPE__DONE\020\001\022\035\n\031EDITBOX_RETU"
-    "RN_TYPE__SEND\020\002\022\037\n\033EDITBOX_RETURN_TYPE__"
-    "SEARCH\020\003\022\033\n\027EDITBOX_RETURN_TYPE__GO\020\004*\335\002"
-    "\n\020NODE_ACTION_TYPE\022\032\n\026NODE_ACTION_TYPE__"
-    "NONE\020\000\022\032\n\026NODE_ACTION_TYPE__LEFT\020\001\022\033\n\027NO"
-    "DE_ACTION_TYPE__RIGHT\020\002\022\031\n\025NODE_ACTION_T"
-    "YPE__TOP\020\003\022\034\n\030NODE_ACTION_TYPE__BOTTOM\020\004"
-    "\022\033\n\027NODE_ACTION_TYPE__SCALE\020\005\022\035\n\031NODE_AC"
-    "TION_TYPE__OPACITY\020\006\022\037\n\033NODE_ACTION_TYPE"
-    "__OPACITY_R\020\007\022\036\n\032NODE_ACTION_TYPE__CUSTO"
-    "M_1\020\010\022\036\n\032NODE_ACTION_TYPE__CUSTOM_2\020\t\022\036\n"
-    "\032NODE_ACTION_TYPE__CUSTOM_3\020\n*s\n\023NODE_SC"
-    "REEN_UI_TYPE\022\035\n\031NODE_SCREEN_UI_TYPE__NON"
-    "E\020\000\022\037\n\033NODE_SCREEN_UI_TYPE__BOTTOM\020\001\022\034\n\030"
-    "NODE_SCREEN_UI_TYPE__TOP\020\002*\244\001\n\027ROTATE_PL"
-    "ATE_ORIGIN_DIR\022!\n\035ROTATE_PLATE_ORIGIN_DI"
-    "R__DOWN\020\000\022\037\n\033ROTATE_PLATE_ORIGIN_DIR__UP"
-    "\020\001\022!\n\035ROTATE_PLATE_ORIGIN_DIR__LEFT\020\002\022\"\n"
-    "\036ROTATE_PLATE_ORIGIN_DIR__RIGHT\020\003*\264\001\n\022RE"
-    "LATIVE_SIZE_TYPE\022\034\n\030RELATIVE_SIZE_TYPE__"
-    "NONE\020\000\022 \n\034RELATIVE_SIZE_TYPE__VERTICAL\020\001"
-    "\022\"\n\036RELATIVE_SIZE_TYPE__HORIZONTAL\020\002\022\034\n\030"
-    "RELATIVE_SIZE_TYPE__BOTH\020\003\022\034\n\030RELATIVE_S"
-    "IZE_TYPE__ROOT\020\004*&\n\014STENCIL_TYPE\022\n\n\006SQUA"
-    "RE\020\000\022\n\n\006CUSTOM\020\001*\311\003\n\013ENTITY_TYPE\022\020\n\014ENTI"
-    "TY__Node\020\n\022\030\n\024ENTITY__ClippingNode\020\013\022\026\n\022"
-    "ENTITY__LayerColor\020\r\022\031\n\025ENTITY__LayerGra"
-    "dient\020\016\022\033\n\027ENTITY__LabelSystemFont\020\020\022\024\n\020"
-    "ENTITY__LabelTTF\020\021\022\030\n\024ENTITY__TextFieldT"
-    "TF\020\022\022\023\n\017ENTITY__EditBox\020\024\022\025\n\021ENTITY__Tab"
-    "leView\020\025\022\027\n\023ENTITY__RotatePlate\020\026\022\020\n\014ENT"
-    "ITY__Menu\020\030\022\022\n\016ENTITY__Button\020\031\022\022\n\016ENTIT"
-    "Y__Sprite\020\033\022\030\n\024ENTITY__Scale9Sprite\020\034\022\031\n"
-    "\025ENTITY__ProgressTimer\020\035\022\022\n\016ENTITY__Visu"
-    "al\020\037\022\024\n\020ENTITY__Particle\020 \022\027\n\022ENTITY__No"
-    "NeedNode\020\310\001\022\027\n\022ENTITY__SocketNode\020\311\001*\240\003\n"
-    "\010CMD_TYPE\022\017\n\013CMD__Create\020\001\022\017\n\013CMD__Remov"
-    "e\020\002\022\017\n\013CMD__Modify\020\003\022\r\n\tCMD__Move\020\004\022\r\n\tC"
-    "MD__Copy\020\005\022\014\n\010CMD__Cut\020\006\022\016\n\nCMD__Paste\020\007"
-    "\022\022\n\016CMD__SelectOne\020\n\022\025\n\021CMD__SelectAppen"
-    "d\020\013\022\030\n\024CMD__SelectBoxAppend\020\014\022\026\n\022CMD__Si"
-    "zeToContent\020\r\022\r\n\tCMD__Undo\020\024\022\r\n\tCMD__Red"
-    "o\020\025\022\020\n\014CMD__History\020\026\022\021\n\rCMD__LuaNames\020\027"
-    "\022\026\n\022CMD__ApplyToViewer\020\036\022\024\n\020CMD__ClearVi"
-    "ewer\020\037\022\026\n\022CMD__EventToViewer\020 \022\024\n\020CMD__A"
-    "pplyToTool\020(\022\024\n\020CMD__EventToTool\020)\022\023\n\017CM"
-    "D__MoveViewer\0202*\351\002\n\rEVENT_TO_TOOL\022\017\n\013EVE"
-    "NT__None\020\001\022\017\n\013EVENT__Save\020\013\022\021\n\rEVENT__Sa"
-    "veAs\020\014\022\017\n\013EVENT__Open\020\r\022\020\n\014EVENT__Close\020"
-    "\016\022\017\n\013EVENT__Copy\020\025\022\016\n\nEVENT__Cut\020\026\022\020\n\014EV"
-    "ENT__Paste\020\027\022\021\n\rEVENT__Remove\020\030\022\035\n\031EVENT"
-    "__ToggleDisplayStats\020\036\022\025\n\021EVENT__ReopenV"
-    "iew\020(\022\031\n\025EVENT__NextResolution\020)\022\031\n\025EVEN"
-    "T__PrevResolution\020*\022\031\n\025EVENT__SpecResolu"
-    "tion\020+\022\031\n\025EVENT__ConfResolution\020,\022\030\n\024EVE"
-    "NT__ToggleVisible\0202*\235\002\n\017EVENT_TO_VIEWER\022"
-    "\026\n\022VIEWER_EVENT__None\020\001\022\035\n\031VIEWER_EVENT_"
-    "_StrokeSize1\020\013\022\035\n\031VIEWER_EVENT__StrokeSi"
-    "ze2\020\014\022\035\n\031VIEWER_EVENT__StrokeSize3\020\r\022\035\n\031"
-    "VIEWER_EVENT__StrokeSize4\020\016\022\033\n\027VIEWER_EV"
-    "ENT__GridOnOff\020\024\022\035\n\031VIEWER_EVENT__GridOp"
-    "acity\020\025\022\033\n\027VIEWER_EVENT__ResetZoom\020\026\022\035\n\031"
-    "VIEWER_EVENT__ResetScroll\020\027", 12627);
+    "n_height\030\t \001(\005:\0010\022\031\n\nhas_shadow\030\037 \001(\010:\005f"
+    "alse\022\"\n\014shadow_color\030  \001(\0132\014.maker.COLOR"
+    "\022\033\n\016shadow_opacity\030! \001(\005:\003255\022@\n\020shadow_"
+    "direction\030\" \001(\0162\027.maker.SHADOW_DIRECTION"
+    ":\rSHADOW_DIR_90\022\032\n\017shadow_distance\030# \001(\002"
+    ":\0015\"\243\006\n\010LabelTTF\022\"\n\tfont_name\030\001 \001(\0132\017.ma"
+    "ker.FILE_TTF\022\025\n\tfont_size\030\002 \001(\005:\00210\022\033\n\004t"
+    "ext\030\003 \001(\t:\rNew Label TTF\022B\n\013h_alignment\030"
+    "\004 \001(\0162\027.maker.TEXT_ALIGNMENT_H:\024TEXT_ALI"
+    "GN_H__CENTER\022B\n\013v_alignment\030\005 \001(\0162\027.make"
+    "r.TEXT_ALIGNMENT_V:\024TEXT_ALIGN_V__CENTER"
+    "\022\033\n\005color\030\006 \001(\0132\014.maker.COLOR\022\024\n\007opacity"
+    "\030\007 \001(\005:\003255\022\032\n\017dimension_width\030\010 \001(\005:\0010\022"
+    "\033\n\020dimension_height\030\t \001(\005:\0010\022\031\n\016letter_s"
+    "pacing\030\n \001(\002:\0010\022\031\n\nhas_stroke\030\025 \001(\010:\005fal"
+    "se\022<\n\013stroke_type\030\026 \001(\0162\022.maker.STROKE_T"
+    "YPE:\023STROKE_TYPE__NORMAL\022\036\n\023stroke_detai"
+    "l_level\030\027 \001(\005:\0010\022\033\n\ris_sharp_text\030\030 \001(\010:"
+    "\004true\022\032\n\017stroke_tickness\030\031 \001(\002:\0011\022\"\n\014str"
+    "oke_color\030\032 \001(\0132\014.maker.COLOR\022\031\n\nhas_sha"
+    "dow\030\037 \001(\010:\005false\022\"\n\014shadow_color\030  \001(\0132\014"
+    ".maker.COLOR\022\033\n\016shadow_opacity\030! \001(\005:\00325"
+    "5\022@\n\020shadow_direction\030\" \001(\0162\027.maker.SHAD"
+    "OW_DIRECTION:\rSHADOW_DIR_90\022\032\n\017shadow_di"
+    "stance\030# \001(\002:\0015\022 \n\021use_auto_fontsize\030) \001"
+    "(\010:\005false\"\337\002\n\013LabelBMFont\022%\n\tfont_name\030\001"
+    " \001(\0132\022.maker.FILE_BMFONT\022\025\n\tfont_size\030\002 "
+    "\001(\005:\00210\022\036\n\004text\030\003 \001(\t:\020New Label BMFont\022"
+    "B\n\013h_alignment\030\004 \001(\0162\027.maker.TEXT_ALIGNM"
+    "ENT_H:\024TEXT_ALIGN_H__CENTER\022B\n\013v_alignme"
+    "nt\030\005 \001(\0162\027.maker.TEXT_ALIGNMENT_V:\024TEXT_"
+    "ALIGN_V__CENTER\022\033\n\005color\030\006 \001(\0132\014.maker.C"
+    "OLOR\022\024\n\007opacity\030\007 \001(\005:\003255\022\032\n\017dimension_"
+    "width\030\010 \001(\005:\0010\022\033\n\020dimension_height\030\t \001(\005"
+    ":\0010\"\265\003\n\014TextFieldTTF\022\"\n\tfont_name\030\001 \001(\0132"
+    "\017.maker.FILE_TTF\022\025\n\tfont_size\030\002 \001(\005:\00210\022"
+    "\033\n\004text\030\003 \001(\t:\rNew TextField\022B\n\013h_alignm"
+    "ent\030\004 \001(\0162\027.maker.TEXT_ALIGNMENT_H:\024TEXT"
+    "_ALIGN_H__CENTER\022B\n\013v_alignment\030\005 \001(\0162\027."
+    "maker.TEXT_ALIGNMENT_V:\024TEXT_ALIGN_V__CE"
+    "NTER\022\033\n\005color\030\006 \001(\0132\014.maker.COLOR\022\024\n\007opa"
+    "city\030\007 \001(\005:\003255\022\032\n\017dimension_width\030\010 \001(\005"
+    ":\0010\022\033\n\020dimension_height\030\t \001(\005:\0010\022\031\n\nhas_"
+    "stroke\030\n \001(\010:\005false\022\032\n\017stroke_tickness\030\013"
+    " \001(\002:\0011\022\"\n\014stroke_color\030\014 \001(\0132\014.maker.CO"
+    "LOR\"\275\005\n\007EditBox\022\025\n\006enable\030\001 \001(\010:\005false\022N"
+    "\n\ninput_mode\030\002 \001(\0162\031.maker.EDITBOX_INPUT"
+    "_MODE:\037EDITBOX_INPUT_MODE__SINGLE_LINE\022]"
+    "\n\ninput_flag\030\003 \001(\0162\031.maker.EDITBOX_INPUT"
+    "_FLAG:.EDITBOX_INPUT_FLAG__INTIAL_CAPS_A"
+    "LL_CHARACTERS\022J\n\013return_type\030\004 \001(\0162\032.mak"
+    "er.EDITBOX_RETURN_TYPE:\031EDITBOX_RETURN_T"
+    "YPE__DONE\022\025\n\nmax_length\030\005 \001(\005:\0010\022\016\n\004text"
+    "\030\006 \001(\t:\000\022\034\n\tfont_name\030\007 \001(\t:\tHelvetica\022\025"
+    "\n\tfont_size\030\010 \001(\005:\00220\022 \n\nfont_color\030\t \001("
+    "\0132\014.maker.COLOR\0222\n\013placeholder\030\n \001(\t:\035\355\205"
+    "\215\354\212\244\355\212\270\353\245\274 \354\236\205\353\240\245\355\225\230\354\204\270\354\232\224.\022(\n\025placehold"
+    "er_font_name\030\013 \001(\t:\tHelvetica\022!\n\025placeho"
+    "lder_font_size\030\014 \001(\005:\00220\022,\n\026placeholder_"
+    "font_color\030\r \001(\0132\014.maker.COLOR\022$\n\tnormal"
+    "_bg\030\016 \001(\0132\021.maker.FILE_IMAGE\022%\n\npressed_"
+    "bg\030\017 \001(\0132\021.maker.FILE_IMAGE\022&\n\013disabled_"
+    "bg\030\020 \001(\0132\021.maker.FILE_IMAGE\"\323\001\n\006Button\022\024"
+    "\n\006enable\030\001 \001(\010:\004true\022!\n\006normal\030\002 \001(\0132\021.m"
+    "aker.FILE_IMAGE\022#\n\010selected\030\003 \001(\0132\021.make"
+    "r.FILE_IMAGE\022\"\n\007disable\030\004 \001(\0132\021.maker.FI"
+    "LE_IMAGE\022G\n\nimage_type\030\005 \001(\0162\030.maker.BUT"
+    "TON_IMAGE_TYPE:\031BUTTON_IMAGE_TYPE__SPRIT"
+    "E\"\230\002\n\006Sprite\022$\n\tfile_name\030\001 \001(\0132\021.maker."
+    "FILE_IMAGE\022\033\n\005color\030\002 \001(\0132\014.maker.COLOR\022"
+    "\024\n\007opacity\030\003 \001(\005:\003255\022\025\n\006flip_x\030\004 \001(\010:\005f"
+    "alse\022\025\n\006flip_y\030\005 \001(\010:\005false\022=\n\tsrc_blend"
+    "\030\006 \001(\0162\025.maker.BLEND_FUNCTION:\023BLEND__GL"
+    "_SRC_ALPHA\022H\n\ndest_blend\030\007 \001(\0162\025.maker.B"
+    "LEND_FUNCTION:\035BLEND__GL_ONE_MINUS_SRC_A"
+    "LPHA\"\330\001\n\014Scale9Sprite\022$\n\tfile_name\030\001 \001(\013"
+    "2\021.maker.FILE_IMAGE\022\033\n\005color\030\002 \001(\0132\014.mak"
+    "er.COLOR\022\024\n\007opacity\030\003 \001(\005:\003255\022\030\n\rcenter"
+    "_rect_x\030\004 \001(\005:\0010\022\030\n\rcenter_rect_y\030\005 \001(\005:"
+    "\0010\022\034\n\021center_rect_width\030\006 \001(\005:\0010\022\035\n\022cent"
+    "er_rect_height\030\007 \001(\005:\0010\"\267\001\n\tTableView\0220\n"
+    "\006scroll\030\001 \001(\0162\022.maker.SCROLL_TYPE:\014SCROL"
+    "L__BOTH\022\024\n\006bounce\030\002 \001(\010:\004true\022\027\n\nview_wi"
+    "dth\030\003 \001(\005:\003200\022\030\n\013view_height\030\004 \001(\005:\003200"
+    "\022\026\n\ncell_width\030\005 \001(\005:\00260\022\027\n\013cell_height\030"
+    "\006 \001(\005:\00260\"\255\003\n\rProgressTimer\022$\n\tfile_name"
+    "\030\001 \001(\0132\021.maker.FILE_IMAGE\022\033\n\005color\030\002 \001(\013"
+    "2\014.maker.COLOR\022\024\n\007opacity\030\003 \001(\005:\003255\022\025\n\006"
+    "flip_x\030\004 \001(\010:\005false\022\025\n\006flip_y\030\005 \001(\010:\005fal"
+    "se\022=\n\tsrc_blend\030\006 \001(\0162\025.maker.BLEND_FUNC"
+    "TION:\023BLEND__GL_SRC_ALPHA\022H\n\ndest_blend\030"
+    "\007 \001(\0162\025.maker.BLEND_FUNCTION:\035BLEND__GL_"
+    "ONE_MINUS_SRC_ALPHA\022@\n\rprogress_type\030\010 \001"
+    "(\0162\024.maker.PROGRESS_TYPE:\023PROGRESS__RADI"
+    "AL_CW\022\030\n\013mid_point_x\030\t \001(\002:\0030.5\022\030\n\013mid_p"
+    "oint_y\030\n \001(\002:\0030.5\022\026\n\npercentage\030\013 \001(\005:\0027"
+    "5\"\273\001\n\006Visual\022%\n\tfile_name\030\001 \001(\0132\022.maker."
+    "FILE_VISUAL\022\027\n\tauto_play\030\002 \001(\010:\004true\022\027\n\t"
+    "is_repeat\030\003 \001(\010:\004true\022%\n\tvisual_id\030\004 \001(\013"
+    "2\022.maker.NAME_VISUAL\022\033\n\005color\030\006 \001(\0132\014.ma"
+    "ker.COLOR\022\024\n\007opacity\030\007 \001(\005:\003255\"!\n\nSocke"
+    "tNode\022\023\n\013socket_name\030\001 \001(\t\"0\n\010Particle\022$"
+    "\n\tfile_name\030\001 \001(\0132\021.maker.FILE_PLIST\"\273\001\n"
+    "\013RotatePlate\022\025\n\010radius_x\030\001 \001(\002:\003100\022\024\n\010r"
+    "adius_y\030\002 \001(\002:\00250\022\026\n\tmin_scale\030\003 \001(\002:\0030."
+    "5\022\024\n\tmax_scale\030\004 \001(\002:\0011\022Q\n\norigin_dir\030\005 "
+    "\001(\0162\036.maker.ROTATE_PLATE_ORIGIN_DIR:\035ROT"
+    "ATE_PLATE_ORIGIN_DIR__DOWN\"\322\005\n\nPropertie"
+    "s\022.\n\004type\030\001 \002(\0162\022.maker.ENTITY_TYPE:\014ENT"
+    "ITY__Node\022\031\n\004node\030\n \001(\0132\013.maker.Node\022&\n\013"
+    "layer_color\030\013 \001(\0132\021.maker.LayerColor\022,\n\016"
+    "layer_gradient\030\014 \001(\0132\024.maker.LayerGradie"
+    "nt\0221\n\021label_syatem_font\030\r \001(\0132\026.maker.La"
+    "belSystemFont\022\"\n\tlabel_ttf\030\016 \001(\0132\017.maker"
+    ".LabelTTF\022+\n\016text_field_ttf\030\017 \001(\0132\023.make"
+    "r.TextFieldTTF\022 \n\010edit_box\030\020 \001(\0132\016.maker"
+    ".EditBox\022$\n\ntable_view\030\021 \001(\0132\020.maker.Tab"
+    "leView\022(\n\014rotate_plate\030\022 \001(\0132\022.maker.Rot"
+    "atePlate\022\035\n\006button\030\023 \001(\0132\r.maker.Button\022"
+    "\035\n\006sprite\030\024 \001(\0132\r.maker.Sprite\022+\n\016scale_"
+    "9_sprite\030\025 \001(\0132\023.maker.Scale9Sprite\022,\n\016p"
+    "rogress_timer\030\026 \001(\0132\024.maker.ProgressTime"
+    "r\022\035\n\006visual\030\027 \001(\0132\r.maker.Visual\022!\n\010part"
+    "icle\030\030 \001(\0132\017.maker.Particle\022*\n\rclipping_"
+    "node\030\031 \001(\0132\023.maker.ClippingNode\022&\n\013socke"
+    "t_node\030d \001(\0132\021.maker.SocketNode\"\253\002\n\006Enti"
+    "ty\022\r\n\002id\030\001 \002(\004:\0010\022\024\n\006expand\030\002 \002(\010:\004true\022"
+    "\027\n\010selected\030\003 \001(\010:\005false\022\036\n\017parent_selec"
+    "ted\030\004 \001(\010:\005false\022\024\n\tparent_id\030\006 \001(\004:\0010\022\022"
+    "\n\007prev_id\030\007 \002(\004:\0010\022\022\n\007dest_id\030\010 \001(\004:\0010\022\031"
+    "\n\016dest_parent_id\030\t \001(\004:\0010\022\"\n\023lua_name_du"
+    "plicated\030\n \001(\010:\005false\022%\n\nproperties\030\024 \001("
+    "\0132\021.maker.Properties\022\037\n\010children\030\036 \003(\0132\r"
+    ".maker.Entity\"\325\003\n\003CMD\022\r\n\002id\030\001 \002(\004:\0010\022*\n\004"
+    "type\030\002 \002(\0162\017.maker.CMD_TYPE:\013CMD__Create"
+    "\022\023\n\010window_x\030\n \001(\005:\0010\022\023\n\010window_y\030\013 \001(\005:"
+    "\0010\0223\n\010event_id\030\016 \001(\0162\024.maker.EVENT_TO_TO"
+    "OL:\013EVENT__None\022C\n\017viewer_event_id\030\017 \001(\016"
+    "2\026.maker.EVENT_TO_VIEWER:\022VIEWER_EVENT__"
+    "None\022\025\n\013description\030\020 \001(\t:\000\022\033\n\020update_to"
+    "_cmd_id\030\021 \001(\004:\0010\022\"\n\023dont_append_history\030"
+    "\022 \001(\010:\005false\022!\n\022can_merge_prev_cmd\030\023 \001(\010"
+    ":\005false\022\037\n\010entities\030\024 \003(\0132\r.maker.Entity"
+    "\022&\n\017backup_entities\030\025 \003(\0132\r.maker.Entity"
+    "\022\021\n\tenum_list\030\036 \003(\t\022\030\n\020socket_node_list\030"
+    "\037 \003(\t*\333\001\n\nDOCK_POINT\022\025\n\021DOCK__BOTTOM_LEF"
+    "T\020\000\022\027\n\023DOCK__BOTTOM_CENTER\020\001\022\026\n\022DOCK__BO"
+    "TTOM_RIGHT\020\002\022\025\n\021DOCK__MIDDLE_LEFT\020\003\022\027\n\023D"
+    "OCK__MIDDLE_CENTER\020\004\022\026\n\022DOCK__MIDDLE_RIG"
+    "HT\020\005\022\022\n\016DOCK__TOP_LEFT\020\006\022\024\n\020DOCK__TOP_CE"
+    "NTER\020\007\022\023\n\017DOCK__TOP_RIGHT\020\010*\357\001\n\014ANCHOR_P"
+    "OINT\022\027\n\023ANCHOR__BOTTOM_LEFT\020\000\022\031\n\025ANCHOR_"
+    "_BOTTOM_CENTER\020\001\022\030\n\024ANCHOR__BOTTOM_RIGHT"
+    "\020\002\022\027\n\023ANCHOR__MIDDLE_LEFT\020\003\022\031\n\025ANCHOR__M"
+    "IDDLE_CENTER\020\004\022\030\n\024ANCHOR__MIDDLE_RIGHT\020\005"
+    "\022\024\n\020ANCHOR__TOP_LEFT\020\006\022\026\n\022ANCHOR__TOP_CE"
+    "NTER\020\007\022\025\n\021ANCHOR__TOP_RIGHT\020\010*\322\002\n\016BLEND_"
+    "FUNCTION\022\022\n\016BLEND__GL_ZERO\020\000\022\021\n\rBLEND__G"
+    "L_ONE\020\001\022\030\n\023BLEND__GL_SRC_COLOR\020\200\006\022\030\n\023BLE"
+    "ND__GL_DST_COLOR\020\206\006\022\"\n\035BLEND__GL_ONE_MIN"
+    "US_SRC_COLOR\020\201\006\022\"\n\035BLEND__GL_ONE_MINUS_D"
+    "ST_COLOR\020\207\006\022\030\n\023BLEND__GL_SRC_ALPHA\020\202\006\022\030\n"
+    "\023BLEND__GL_DST_ALPHA\020\204\006\022\"\n\035BLEND__GL_ONE"
+    "_MINUS_SRC_ALPHA\020\203\006\022\"\n\035BLEND__GL_ONE_MIN"
+    "US_DST_ALPHA\020\205\006\022!\n\034BLEND__GL_SRC_ALPHA_S"
+    "ATURATE\020\210\006*]\n\020TEXT_ALIGNMENT_H\022\026\n\022TEXT_A"
+    "LIGN_H__LEFT\020\000\022\030\n\024TEXT_ALIGN_H__CENTER\020\001"
+    "\022\027\n\023TEXT_ALIGN_H__RIGHT\020\002*]\n\020TEXT_ALIGNM"
+    "ENT_V\022\025\n\021TEXT_ALIGN_V__TOP\020\000\022\030\n\024TEXT_ALI"
+    "GN_V__CENTER\020\001\022\030\n\024TEXT_ALIGN_V__BOTTOM\020\002"
+    "*0\n\tFILL_TYPE\022\021\n\rFILL__STRETCH\020\000\022\020\n\014FILL"
+    "__REPEAT\020\001*\266\001\n\rPROGRESS_TYPE\022\027\n\023PROGRESS"
+    "__RADIAL_CW\020\000\022\030\n\024PROGRESS__RADIAL_CCW\020\001\022"
+    "\033\n\027PROGRESS__TOP_TO_BOTTOM\020\002\022\033\n\027PROGRESS"
+    "__BOTTOM_TO_TOP\020\003\022\033\n\027PROGRESS__LEFT_TO_R"
+    "IGHT\020\004\022\033\n\027PROGRESS__RIGHT_TO_LEFT\020\005*_\n\013S"
+    "CROLL_TYPE\022\020\n\014SCROLL__NONE\020\000\022\024\n\020SCROLL__"
+    "VERTICAL\020\001\022\026\n\022SCROLL__HORIZONTAL\020\002\022\020\n\014SC"
+    "ROLL__BOTH\020\003*\253\002\n\tPICK_PART\022\023\n\017PICK_PART_"
+    "_NONE\020\000\022\025\n\021PICK_PART__CENTER\020\001\022\022\n\016PICK_P"
+    "ART__TOP\020\002\022\025\n\021PICK_PART__BOTTOM\020\003\022\023\n\017PIC"
+    "K_PART__LEFT\020\004\022\024\n\020PICK_PART__RIGHT\020\005\022\032\n\026"
+    "PICK_PART__LEFT_BOTTOM\020\006\022\027\n\023PICK_PART__L"
+    "EFT_TOP\020\007\022\033\n\027PICK_PART__RIGHT_BOTTOM\020\010\022\030"
+    "\n\024PICK_PART__RIGHT_TOP\020\t\022\031\n\025PICK_PART__S"
+    "ELECT_BOX\020\n\022\025\n\021PICK_PART__SCROLL\020\013*\?\n\013ST"
+    "ROKE_TYPE\022\027\n\023STROKE_TYPE__NORMAL\020\000\022\027\n\023ST"
+    "ROKE_TYPE__CUSTOM\020\001*e\n\020SHADOW_DIRECTION\022"
+    "\021\n\rSHADOW_DIR_90\020\000\022\022\n\016SHADOW_DIR_135\020\001\022\021"
+    "\n\rSHADOW_DIR_45\020\002\022\027\n\023SHADOW_DIR_MINUS_90"
+    "\020\003*W\n\021BUTTON_IMAGE_TYPE\022\035\n\031BUTTON_IMAGE_"
+    "TYPE__SPRITE\020\000\022#\n\037BUTTON_IMAGE_TYPE__SCA"
+    "LE9SPRITE\020\001*\202\002\n\022EDITBOX_INPUT_MODE\022\033\n\027ED"
+    "ITBOX_INPUT_MODE__ANY\020\000\022%\n!EDITBOX_INPUT"
+    "_MODE__EMAIL_ADDRESS\020\001\022\037\n\033EDITBOX_INPUT_"
+    "MODE__NUMERIC\020\002\022$\n EDITBOX_INPUT_MODE__P"
+    "HONE_NUMBER\020\003\022\033\n\027EDITBOX_INPUT_MODE__URL"
+    "\020\004\022\037\n\033EDITBOX_INPUT_MODE__DECIMAL\020\005\022#\n\037E"
+    "DITBOX_INPUT_MODE__SINGLE_LINE\020\006*\347\001\n\022EDI"
+    "TBOX_INPUT_FLAG\022 \n\034EDITBOX_INPUT_FLAG__P"
+    "ASSWORD\020\000\022!\n\035EDITBOX_INPUT_FLAG__SENSITI"
+    "VE\020\001\022)\n%EDITBOX_INPUT_FLAG__INITIAL_CAPS"
+    "_WORD\020\002\022-\n)EDITBOX_INPUT_FLAG__INITIAL_C"
+    "APS_SENTENCE\020\003\0222\n.EDITBOX_INPUT_FLAG__IN"
+    "TIAL_CAPS_ALL_CHARACTERS\020\004*\263\001\n\023EDITBOX_R"
+    "ETURN_TYPE\022 \n\034EDITBOX_RETURN_TYPE__DEFAU"
+    "LT\020\000\022\035\n\031EDITBOX_RETURN_TYPE__DONE\020\001\022\035\n\031E"
+    "DITBOX_RETURN_TYPE__SEND\020\002\022\037\n\033EDITBOX_RE"
+    "TURN_TYPE__SEARCH\020\003\022\033\n\027EDITBOX_RETURN_TY"
+    "PE__GO\020\004*\335\002\n\020NODE_ACTION_TYPE\022\032\n\026NODE_AC"
+    "TION_TYPE__NONE\020\000\022\032\n\026NODE_ACTION_TYPE__L"
+    "EFT\020\001\022\033\n\027NODE_ACTION_TYPE__RIGHT\020\002\022\031\n\025NO"
+    "DE_ACTION_TYPE__TOP\020\003\022\034\n\030NODE_ACTION_TYP"
+    "E__BOTTOM\020\004\022\033\n\027NODE_ACTION_TYPE__SCALE\020\005"
+    "\022\035\n\031NODE_ACTION_TYPE__OPACITY\020\006\022\037\n\033NODE_"
+    "ACTION_TYPE__OPACITY_R\020\007\022\036\n\032NODE_ACTION_"
+    "TYPE__CUSTOM_1\020\010\022\036\n\032NODE_ACTION_TYPE__CU"
+    "STOM_2\020\t\022\036\n\032NODE_ACTION_TYPE__CUSTOM_3\020\n"
+    "*\244\001\n\027ROTATE_PLATE_ORIGIN_DIR\022!\n\035ROTATE_P"
+    "LATE_ORIGIN_DIR__DOWN\020\000\022\037\n\033ROTATE_PLATE_"
+    "ORIGIN_DIR__UP\020\001\022!\n\035ROTATE_PLATE_ORIGIN_"
+    "DIR__LEFT\020\002\022\"\n\036ROTATE_PLATE_ORIGIN_DIR__"
+    "RIGHT\020\003*\264\001\n\022RELATIVE_SIZE_TYPE\022\034\n\030RELATI"
+    "VE_SIZE_TYPE__NONE\020\000\022 \n\034RELATIVE_SIZE_TY"
+    "PE__VERTICAL\020\001\022\"\n\036RELATIVE_SIZE_TYPE__HO"
+    "RIZONTAL\020\002\022\034\n\030RELATIVE_SIZE_TYPE__BOTH\020\003"
+    "\022\034\n\030RELATIVE_SIZE_TYPE__ROOT\020\004*&\n\014STENCI"
+    "L_TYPE\022\n\n\006SQUARE\020\000\022\n\n\006CUSTOM\020\001*_\n\016SCREEN"
+    "_UI_TYPE\022\030\n\024SCREEN_UI_TYPE__NONE\020\000\022\032\n\026SC"
+    "REEN_UI_TYPE__BOTTOM\020\001\022\027\n\023SCREEN_UI_TYPE"
+    "__TOP\020\002*\311\003\n\013ENTITY_TYPE\022\020\n\014ENTITY__Node\020"
+    "\n\022\030\n\024ENTITY__ClippingNode\020\013\022\026\n\022ENTITY__L"
+    "ayerColor\020\r\022\031\n\025ENTITY__LayerGradient\020\016\022\033"
+    "\n\027ENTITY__LabelSystemFont\020\020\022\024\n\020ENTITY__L"
+    "abelTTF\020\021\022\030\n\024ENTITY__TextFieldTTF\020\022\022\023\n\017E"
+    "NTITY__EditBox\020\024\022\025\n\021ENTITY__TableView\020\025\022"
+    "\027\n\023ENTITY__RotatePlate\020\026\022\020\n\014ENTITY__Menu"
+    "\020\030\022\022\n\016ENTITY__Button\020\031\022\022\n\016ENTITY__Sprite"
+    "\020\033\022\030\n\024ENTITY__Scale9Sprite\020\034\022\031\n\025ENTITY__"
+    "ProgressTimer\020\035\022\022\n\016ENTITY__Visual\020\037\022\024\n\020E"
+    "NTITY__Particle\020 \022\027\n\022ENTITY__NoNeedNode\020"
+    "\310\001\022\027\n\022ENTITY__SocketNode\020\311\001*\240\003\n\010CMD_TYPE"
+    "\022\017\n\013CMD__Create\020\001\022\017\n\013CMD__Remove\020\002\022\017\n\013CM"
+    "D__Modify\020\003\022\r\n\tCMD__Move\020\004\022\r\n\tCMD__Copy\020"
+    "\005\022\014\n\010CMD__Cut\020\006\022\016\n\nCMD__Paste\020\007\022\022\n\016CMD__"
+    "SelectOne\020\n\022\025\n\021CMD__SelectAppend\020\013\022\030\n\024CM"
+    "D__SelectBoxAppend\020\014\022\026\n\022CMD__SizeToConte"
+    "nt\020\r\022\r\n\tCMD__Undo\020\024\022\r\n\tCMD__Redo\020\025\022\020\n\014CM"
+    "D__History\020\026\022\021\n\rCMD__LuaNames\020\027\022\026\n\022CMD__"
+    "ApplyToViewer\020\036\022\024\n\020CMD__ClearViewer\020\037\022\026\n"
+    "\022CMD__EventToViewer\020 \022\024\n\020CMD__ApplyToToo"
+    "l\020(\022\024\n\020CMD__EventToTool\020)\022\023\n\017CMD__MoveVi"
+    "ewer\0202*\351\002\n\rEVENT_TO_TOOL\022\017\n\013EVENT__None\020"
+    "\001\022\017\n\013EVENT__Save\020\013\022\021\n\rEVENT__SaveAs\020\014\022\017\n"
+    "\013EVENT__Open\020\r\022\020\n\014EVENT__Close\020\016\022\017\n\013EVEN"
+    "T__Copy\020\025\022\016\n\nEVENT__Cut\020\026\022\020\n\014EVENT__Past"
+    "e\020\027\022\021\n\rEVENT__Remove\020\030\022\035\n\031EVENT__ToggleD"
+    "isplayStats\020\036\022\025\n\021EVENT__ReopenView\020(\022\031\n\025"
+    "EVENT__NextResolution\020)\022\031\n\025EVENT__PrevRe"
+    "solution\020*\022\031\n\025EVENT__SpecResolution\020+\022\031\n"
+    "\025EVENT__ConfResolution\020,\022\030\n\024EVENT__Toggl"
+    "eVisible\0202*\235\002\n\017EVENT_TO_VIEWER\022\026\n\022VIEWER"
+    "_EVENT__None\020\001\022\035\n\031VIEWER_EVENT__StrokeSi"
+    "ze1\020\013\022\035\n\031VIEWER_EVENT__StrokeSize2\020\014\022\035\n\031"
+    "VIEWER_EVENT__StrokeSize3\020\r\022\035\n\031VIEWER_EV"
+    "ENT__StrokeSize4\020\016\022\033\n\027VIEWER_EVENT__Grid"
+    "OnOff\020\024\022\035\n\031VIEWER_EVENT__GridOpacity\020\025\022\033"
+    "\n\027VIEWER_EVENT__ResetZoom\020\026\022\035\n\031VIEWER_EV"
+    "ENT__ResetScroll\020\027", 12858);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "maker.proto", &protobuf_RegisterTypes);
   COLOR::default_instance_ = new COLOR();
@@ -1568,6 +1581,7 @@ bool SHADOW_DIRECTION_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -1664,21 +1678,6 @@ bool NODE_ACTION_TYPE_IsValid(int value) {
   }
 }
 
-const ::google::protobuf::EnumDescriptor* NODE_SCREEN_UI_TYPE_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return NODE_SCREEN_UI_TYPE_descriptor_;
-}
-bool NODE_SCREEN_UI_TYPE_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
-}
-
 const ::google::protobuf::EnumDescriptor* ROTATE_PLATE_ORIGIN_DIR_descriptor() {
   protobuf_AssignDescriptorsOnce();
   return ROTATE_PLATE_ORIGIN_DIR_descriptor_;
@@ -1720,6 +1719,21 @@ bool STENCIL_TYPE_IsValid(int value) {
   switch(value) {
     case 0:
     case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* SCREEN_UI_TYPE_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return SCREEN_UI_TYPE_descriptor_;
+}
+bool SCREEN_UI_TYPE_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -4188,6 +4202,7 @@ const int Node::kActionDelay2FieldNumber;
 const int Node::kActionDurationFieldNumber;
 const int Node::kScreenUiFieldNumber;
 const int Node::kLuaNameFieldNumber;
+const int Node::kFlagFieldNumber;
 #endif  // !_MSC_VER
 
 Node::Node()
@@ -4228,6 +4243,7 @@ void Node::SharedCtor() {
   action_duration_ = 0;
   screen_ui_ = 0;
   lua_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  flag_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -4241,6 +4257,9 @@ void Node::SharedDtor() {
   }
   if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
     delete lua_name_;
+  }
+  if (flag_ != &::google::protobuf::internal::kEmptyString) {
+    delete flag_;
   }
   if (this != default_instance_) {
   }
@@ -4301,6 +4320,11 @@ void Node::Clear() {
     if (has_lua_name()) {
       if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
         lua_name_->clear();
+      }
+    }
+    if (has_flag()) {
+      if (flag_ != &::google::protobuf::internal::kEmptyString) {
+        flag_->clear();
       }
     }
   }
@@ -4654,7 +4678,7 @@ bool Node::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+      // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
       case 21: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
@@ -4663,8 +4687,8 @@ bool Node::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::maker::NODE_SCREEN_UI_TYPE_IsValid(value)) {
-            set_screen_ui(static_cast< ::maker::NODE_SCREEN_UI_TYPE >(value));
+          if (::maker::SCREEN_UI_TYPE_IsValid(value)) {
+            set_screen_ui(static_cast< ::maker::SCREEN_UI_TYPE >(value));
           } else {
             mutable_unknown_fields()->AddVarint(21, value);
           }
@@ -4684,6 +4708,23 @@ bool Node::MergePartialFromCodedStream(
                 input, this->mutable_lua_name()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8String(
             this->lua_name().data(), this->lua_name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(186)) goto parse_flag;
+        break;
+      }
+
+      // optional string flag = 23 [default = ""];
+      case 23: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_flag:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_flag()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->flag().data(), this->flag().length(),
             ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
@@ -4818,7 +4859,7 @@ void Node::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(20, this->action_duration(), output);
   }
 
-  // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+  // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
   if (has_screen_ui()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       21, this->screen_ui(), output);
@@ -4831,6 +4872,15 @@ void Node::SerializeWithCachedSizes(
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
       22, this->lua_name(), output);
+  }
+
+  // optional string flag = 23 [default = ""];
+  if (has_flag()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->flag().data(), this->flag().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      23, this->flag(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -4950,7 +5000,7 @@ void Node::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(20, this->action_duration(), target);
   }
 
-  // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+  // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
   if (has_screen_ui()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       21, this->screen_ui(), target);
@@ -4964,6 +5014,16 @@ void Node::SerializeWithCachedSizes(
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         22, this->lua_name(), target);
+  }
+
+  // optional string flag = 23 [default = ""];
+  if (has_flag()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->flag().data(), this->flag().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        23, this->flag(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -5095,7 +5155,7 @@ int Node::ByteSize() const {
       total_size += 2 + 4;
     }
 
-    // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+    // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
     if (has_screen_ui()) {
       total_size += 2 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->screen_ui());
@@ -5106,6 +5166,13 @@ int Node::ByteSize() const {
       total_size += 2 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->lua_name());
+    }
+
+    // optional string flag = 23 [default = ""];
+    if (has_flag()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->flag());
     }
 
   }
@@ -5205,6 +5272,9 @@ void Node::MergeFrom(const Node& from) {
     if (from.has_lua_name()) {
       set_lua_name(from.lua_name());
     }
+    if (from.has_flag()) {
+      set_flag(from.flag());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -5250,6 +5320,7 @@ void Node::Swap(Node* other) {
     std::swap(action_duration_, other->action_duration_);
     std::swap(screen_ui_, other->screen_ui_);
     std::swap(lua_name_, other->lua_name_);
+    std::swap(flag_, other->flag_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -6533,6 +6604,11 @@ const int LabelSystemFont::kColorFieldNumber;
 const int LabelSystemFont::kOpacityFieldNumber;
 const int LabelSystemFont::kDimensionWidthFieldNumber;
 const int LabelSystemFont::kDimensionHeightFieldNumber;
+const int LabelSystemFont::kHasShadowFieldNumber;
+const int LabelSystemFont::kShadowColorFieldNumber;
+const int LabelSystemFont::kShadowOpacityFieldNumber;
+const int LabelSystemFont::kShadowDirectionFieldNumber;
+const int LabelSystemFont::kShadowDistanceFieldNumber;
 #endif  // !_MSC_VER
 
 LabelSystemFont::LabelSystemFont()
@@ -6542,6 +6618,7 @@ LabelSystemFont::LabelSystemFont()
 
 void LabelSystemFont::InitAsDefaultInstance() {
   color_ = const_cast< ::maker::COLOR*>(&::maker::COLOR::default_instance());
+  shadow_color_ = const_cast< ::maker::COLOR*>(&::maker::COLOR::default_instance());
 }
 
 LabelSystemFont::LabelSystemFont(const LabelSystemFont& from)
@@ -6561,6 +6638,11 @@ void LabelSystemFont::SharedCtor() {
   opacity_ = 255;
   dimension_width_ = 0;
   dimension_height_ = 0;
+  has_shadow_ = false;
+  shadow_color_ = NULL;
+  shadow_opacity_ = 255;
+  shadow_direction_ = 0;
+  shadow_distance_ = 5;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -6577,6 +6659,7 @@ void LabelSystemFont::SharedDtor() {
   }
   if (this != default_instance_) {
     delete color_;
+    delete shadow_color_;
   }
 }
 
@@ -6624,6 +6707,13 @@ void LabelSystemFont::Clear() {
   }
   if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     dimension_height_ = 0;
+    has_shadow_ = false;
+    if (has_shadow_color()) {
+      if (shadow_color_ != NULL) shadow_color_->::maker::COLOR::Clear();
+    }
+    shadow_opacity_ = 255;
+    shadow_direction_ = 0;
+    shadow_distance_ = 5;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -6784,6 +6874,89 @@ bool LabelSystemFont::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(248)) goto parse_has_shadow;
+        break;
+      }
+
+      // optional bool has_shadow = 31 [default = false];
+      case 31: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_has_shadow:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &has_shadow_)));
+          set_has_has_shadow();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(258)) goto parse_shadow_color;
+        break;
+      }
+
+      // optional .maker.COLOR shadow_color = 32;
+      case 32: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_shadow_color:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_shadow_color()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(264)) goto parse_shadow_opacity;
+        break;
+      }
+
+      // optional int32 shadow_opacity = 33 [default = 255];
+      case 33: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_shadow_opacity:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &shadow_opacity_)));
+          set_has_shadow_opacity();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(272)) goto parse_shadow_direction;
+        break;
+      }
+
+      // optional .maker.SHADOW_DIRECTION shadow_direction = 34 [default = SHADOW_DIR_90];
+      case 34: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_shadow_direction:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::maker::SHADOW_DIRECTION_IsValid(value)) {
+            set_shadow_direction(static_cast< ::maker::SHADOW_DIRECTION >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(34, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(285)) goto parse_shadow_distance;
+        break;
+      }
+
+      // optional float shadow_distance = 35 [default = 5];
+      case 35: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
+         parse_shadow_distance:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &shadow_distance_)));
+          set_has_shadow_distance();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -6862,6 +7035,33 @@ void LabelSystemFont::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(9, this->dimension_height(), output);
   }
 
+  // optional bool has_shadow = 31 [default = false];
+  if (has_has_shadow()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(31, this->has_shadow(), output);
+  }
+
+  // optional .maker.COLOR shadow_color = 32;
+  if (has_shadow_color()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      32, this->shadow_color(), output);
+  }
+
+  // optional int32 shadow_opacity = 33 [default = 255];
+  if (has_shadow_opacity()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(33, this->shadow_opacity(), output);
+  }
+
+  // optional .maker.SHADOW_DIRECTION shadow_direction = 34 [default = SHADOW_DIR_90];
+  if (has_shadow_direction()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      34, this->shadow_direction(), output);
+  }
+
+  // optional float shadow_distance = 35 [default = 5];
+  if (has_shadow_distance()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(35, this->shadow_distance(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -6927,6 +7127,34 @@ void LabelSystemFont::SerializeWithCachedSizes(
   // optional int32 dimension_height = 9 [default = 0];
   if (has_dimension_height()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(9, this->dimension_height(), target);
+  }
+
+  // optional bool has_shadow = 31 [default = false];
+  if (has_has_shadow()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(31, this->has_shadow(), target);
+  }
+
+  // optional .maker.COLOR shadow_color = 32;
+  if (has_shadow_color()) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        32, this->shadow_color(), target);
+  }
+
+  // optional int32 shadow_opacity = 33 [default = 255];
+  if (has_shadow_opacity()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(33, this->shadow_opacity(), target);
+  }
+
+  // optional .maker.SHADOW_DIRECTION shadow_direction = 34 [default = SHADOW_DIR_90];
+  if (has_shadow_direction()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      34, this->shadow_direction(), target);
+  }
+
+  // optional float shadow_distance = 35 [default = 5];
+  if (has_shadow_distance()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(35, this->shadow_distance(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -7003,6 +7231,36 @@ int LabelSystemFont::ByteSize() const {
           this->dimension_height());
     }
 
+    // optional bool has_shadow = 31 [default = false];
+    if (has_has_shadow()) {
+      total_size += 2 + 1;
+    }
+
+    // optional .maker.COLOR shadow_color = 32;
+    if (has_shadow_color()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->shadow_color());
+    }
+
+    // optional int32 shadow_opacity = 33 [default = 255];
+    if (has_shadow_opacity()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->shadow_opacity());
+    }
+
+    // optional .maker.SHADOW_DIRECTION shadow_direction = 34 [default = SHADOW_DIR_90];
+    if (has_shadow_direction()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->shadow_direction());
+    }
+
+    // optional float shadow_distance = 35 [default = 5];
+    if (has_shadow_distance()) {
+      total_size += 2 + 4;
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -7059,6 +7317,21 @@ void LabelSystemFont::MergeFrom(const LabelSystemFont& from) {
     if (from.has_dimension_height()) {
       set_dimension_height(from.dimension_height());
     }
+    if (from.has_has_shadow()) {
+      set_has_shadow(from.has_shadow());
+    }
+    if (from.has_shadow_color()) {
+      mutable_shadow_color()->::maker::COLOR::MergeFrom(from.shadow_color());
+    }
+    if (from.has_shadow_opacity()) {
+      set_shadow_opacity(from.shadow_opacity());
+    }
+    if (from.has_shadow_direction()) {
+      set_shadow_direction(from.shadow_direction());
+    }
+    if (from.has_shadow_distance()) {
+      set_shadow_distance(from.shadow_distance());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -7080,6 +7353,9 @@ bool LabelSystemFont::IsInitialized() const {
   if (has_color()) {
     if (!this->color().IsInitialized()) return false;
   }
+  if (has_shadow_color()) {
+    if (!this->shadow_color().IsInitialized()) return false;
+  }
   return true;
 }
 
@@ -7094,6 +7370,11 @@ void LabelSystemFont::Swap(LabelSystemFont* other) {
     std::swap(opacity_, other->opacity_);
     std::swap(dimension_width_, other->dimension_width_);
     std::swap(dimension_height_, other->dimension_height_);
+    std::swap(has_shadow_, other->has_shadow_);
+    std::swap(shadow_color_, other->shadow_color_);
+    std::swap(shadow_opacity_, other->shadow_opacity_);
+    std::swap(shadow_direction_, other->shadow_direction_);
+    std::swap(shadow_distance_, other->shadow_distance_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -7134,6 +7415,7 @@ const int LabelTTF::kShadowColorFieldNumber;
 const int LabelTTF::kShadowOpacityFieldNumber;
 const int LabelTTF::kShadowDirectionFieldNumber;
 const int LabelTTF::kShadowDistanceFieldNumber;
+const int LabelTTF::kUseAutoFontsizeFieldNumber;
 #endif  // !_MSC_VER
 
 LabelTTF::LabelTTF()
@@ -7177,6 +7459,7 @@ void LabelTTF::SharedCtor() {
   shadow_opacity_ = 255;
   shadow_direction_ = 0;
   shadow_distance_ = 5;
+  use_auto_fontsize_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -7256,6 +7539,7 @@ void LabelTTF::Clear() {
     shadow_opacity_ = 255;
     shadow_direction_ = 0;
     shadow_distance_ = 5;
+    use_auto_fontsize_ = false;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -7611,6 +7895,22 @@ bool LabelTTF::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(328)) goto parse_use_auto_fontsize;
+        break;
+      }
+
+      // optional bool use_auto_fontsize = 41 [default = false];
+      case 41: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_use_auto_fontsize:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &use_auto_fontsize_)));
+          set_has_use_auto_fontsize();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -7750,6 +8050,11 @@ void LabelTTF::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteFloat(35, this->shadow_distance(), output);
   }
 
+  // optional bool use_auto_fontsize = 41 [default = false];
+  if (has_use_auto_fontsize()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(41, this->use_auto_fontsize(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -7878,6 +8183,11 @@ void LabelTTF::SerializeWithCachedSizes(
   // optional float shadow_distance = 35 [default = 5];
   if (has_shadow_distance()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(35, this->shadow_distance(), target);
+  }
+
+  // optional bool use_auto_fontsize = 41 [default = false];
+  if (has_use_auto_fontsize()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(41, this->use_auto_fontsize(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -8026,6 +8336,11 @@ int LabelTTF::ByteSize() const {
       total_size += 2 + 4;
     }
 
+    // optional bool use_auto_fontsize = 41 [default = false];
+    if (has_use_auto_fontsize()) {
+      total_size += 2 + 1;
+    }
+
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -8120,6 +8435,9 @@ void LabelTTF::MergeFrom(const LabelTTF& from) {
     if (from.has_shadow_distance()) {
       set_shadow_distance(from.shadow_distance());
     }
+    if (from.has_use_auto_fontsize()) {
+      set_use_auto_fontsize(from.use_auto_fontsize());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -8176,6 +8494,7 @@ void LabelTTF::Swap(LabelTTF* other) {
     std::swap(shadow_opacity_, other->shadow_opacity_);
     std::swap(shadow_direction_, other->shadow_direction_);
     std::swap(shadow_distance_, other->shadow_distance_);
+    std::swap(use_auto_fontsize_, other->use_auto_fontsize_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

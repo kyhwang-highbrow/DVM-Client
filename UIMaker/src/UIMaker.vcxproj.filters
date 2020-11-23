@@ -164,5 +164,8 @@
     <Image Include="D:\project\UIMaker\src\res\Squidward.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\Squidward.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

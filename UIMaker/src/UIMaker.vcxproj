@@ -179,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="D:\project\UIMaker\src\res\Squidward.ico" />
+    <Image Include="res\Squidward.ico" />
     <Image Include="res\UIMaker.ico" />
   </ItemGroup>
   <ItemGroup>

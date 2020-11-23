@@ -9,8 +9,11 @@
 
 struct ViewerInfo
 {
+    int xpos;
+    int ypos;
     int width;
     int height;
+    float scale;
     int sibling;
 };
 
@@ -41,7 +44,7 @@ public:
     CCocos2dXViewer();
     ~CCocos2dXViewer();
 
-    void open(int width = -1, int height = -1, int sibling = 0);
+    void open(int width = -1, int height = -1, float scale = 1.0f, int sibling = 0);
     void close();
     void toggleDisplayStats();
     void setForeground(int arg);
@@ -50,6 +53,7 @@ public:
 
     inline int getWidth() const { return m_info.width; }
     inline int getHeight() const { return m_info.height; }
+    inline float getScale() const { return m_info.scale; }
 
 private:
     static bool ms_crashed;

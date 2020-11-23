@@ -53,10 +53,13 @@ void windowCloseCallback(GLFWwindow* window)
     glfwSetWindowShouldClose(window, GL_FALSE);
 }
 
-AppDelegate::AppDelegate(int width, int height, int sibling)
+AppDelegate::AppDelegate(int xpos, int ypos, int width, int height, float scale, int sibling)
 {
+    _xpos = xpos;
+    _ypos = ypos;
     _width = width;
     _height = height;
+    _scale = scale;
     _isReopen = true;
 
     if (sibling != NULL)
@@ -81,8 +84,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     if (!glview)
     {
         char szbuf[256];
-        sprintf_s(szbuf, "UI.Maker Viewer - %d x %d", _width, _height);
-        glview = GLView::createWithRect(szbuf, Rect(0, 0, _width, _height));
+        sprintf_s(szbuf, "UI.Maker Viewer - %d x %d (%d%%)", _width, _height, INT(_scale * 100));
+               
+        glview = GLView::createWithRect(szbuf, Rect(_xpos, _ypos, _width * _scale, _height * _scale));
         director->setOpenGLView(glview);
 
         if (!_isReopen)
@@ -95,7 +99,13 @@ bool AppDelegate::applicationDidFinishLaunching()
             int y = rect1.top;
             SetWindowPos(hWnd, NULL, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
         }
+        else
+        {
+            director->purgeCachedData();
 
+            glfwSetWindowPos(glview->getWindow(), _xpos, _ypos);
+        }
+        
         moveConsoleWindow(glview->getWindow());
     }
 
@@ -108,7 +118,7 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     director->setDisplayStats(false);
     director->setAnimationInterval(1.0 / 60);
-    director->runWithScene(CMakerScene::create());
+    director->runWithScene(CMakerScene::create(_scale));
 
     return true;
 }

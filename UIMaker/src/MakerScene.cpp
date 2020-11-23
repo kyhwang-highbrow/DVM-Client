@@ -55,7 +55,7 @@ static std::string ReplaceString(std::string subject, const std::string& search,
     return subject;
 }
 
-CMakerScene::CMakerScene()
+CMakerScene::CMakerScene(float scale)
 	: m_root(nullptr)
 	, m_pick_part(maker::PICK_PART__NONE)
 	, m_pick_node(nullptr)
@@ -63,14 +63,15 @@ CMakerScene::CMakerScene()
 	, _select_box(nullptr)
 	, _edit_root(nullptr)
 	, _grid(nullptr)
+    , _view_scale(scale)
 {
 }
 CMakerScene::~CMakerScene()
 {
 }
-CMakerScene * CMakerScene::create()
+CMakerScene * CMakerScene::create(float scale)
 {
-	CMakerScene * ret = new CMakerScene();
+    CMakerScene * ret = new CMakerScene(scale);
     if (ret && ret->init())
     {
         ret->autorelease();
@@ -335,6 +336,10 @@ void CMakerScene::onMouseDown(Event* event)
 	auto mouse_event = dynamic_cast<EventMouse*>(event);
 	if (!mouse_event) return;
 
+    EventMouse mouse_event_new(EventMouse::MouseEventType::MOUSE_DOWN);
+    mouse_event_new.setCursorPosition(mouse_event->getCursorX() / _view_scale, mouse_event->getCursorY() / _view_scale);
+    mouse_event_new.setScrollData(mouse_event->getScrollX(), mouse_event->getScrollY());
+
 	auto on_shift = m_key_map.find(EventKeyboard::KeyCode::KEY_SHIFT) != m_key_map.end() && m_key_map[EventKeyboard::KeyCode::KEY_SHIFT].m_pressing;
 	auto on_ctrl = m_key_map.find(EventKeyboard::KeyCode::KEY_CTRL) != m_key_map.end() && m_key_map[EventKeyboard::KeyCode::KEY_CTRL].m_pressing;
 
@@ -343,20 +348,20 @@ void CMakerScene::onMouseDown(Event* event)
 	case MOUSE_BUTTON_LEFT: {
 		if (on_shift)
 		{
-			onMouseDown_selectBox(mouse_event);
+            onMouseDown_selectBox(&mouse_event_new);
 		}
 		else
 		{
-			onMouseDown_editEntity(mouse_event, on_ctrl);
+            onMouseDown_editEntity(&mouse_event_new, on_ctrl);
 		}
 	} break;
 	case MOUSE_BUTTON_RIGHT: {
 		maker::CMD pick_cmd;
-		pickAllNode(_edit_root, Point(mouse_event->getCursorX(), mouse_event->getCursorY()), pick_cmd);
+        pickAllNode(_edit_root, Point(mouse_event_new.getCursorX(), mouse_event_new.getCursorY()), pick_cmd);
 		SendOpenPopupNotifycation(pick_cmd);
 	} break;
 	case MOUSE_BUTTON_MIDDLE: {
-		onMouseDown_scroll(mouse_event);
+        onMouseDown_scroll(&mouse_event_new);
 	} break;
 	}
 }
@@ -365,22 +370,26 @@ void CMakerScene::onMouseUp(cocos2d::Event* event)
 	auto mouse_event = dynamic_cast<EventMouse*>(event);
 	if (!mouse_event) return;
 
+    EventMouse mouse_event_new(EventMouse::MouseEventType::MOUSE_DOWN);
+    mouse_event_new.setCursorPosition(mouse_event->getCursorX() / _view_scale, mouse_event->getCursorY() / _view_scale);
+    mouse_event_new.setScrollData(mouse_event->getScrollX(), mouse_event->getScrollY());
+
 	switch (mouse_event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT: {
 		if (m_pick_part == maker::PICK_PART__SELECT_BOX)
 		{
-			onMouseUp_selectBox(mouse_event);
+            onMouseUp_selectBox(&mouse_event_new);
 		}
 		else
 		{
-			onMouseUp_editEntity(mouse_event);
+            onMouseUp_editEntity(&mouse_event_new);
 		}
 	} break;
 	case MOUSE_BUTTON_RIGHT: {
 	} break;
 	case MOUSE_BUTTON_MIDDLE: {
-		onMouseUp_scroll(mouse_event);
+        onMouseUp_scroll(&mouse_event_new);
 	} break;
 	}
 
@@ -391,20 +400,24 @@ void CMakerScene::onMouseMove(Event* event)
 	auto mouse_event = dynamic_cast<EventMouse*>(event);
 	if (!mouse_event) return;
 
+    EventMouse mouse_event_new(EventMouse::MouseEventType::MOUSE_DOWN);
+    mouse_event_new.setCursorPosition(mouse_event->getCursorX() / _view_scale, mouse_event->getCursorY() / _view_scale);
+    mouse_event_new.setScrollData(mouse_event->getScrollX(), mouse_event->getScrollY());
+
 	auto on_shift = m_key_map.find(EventKeyboard::KeyCode::KEY_SHIFT) != m_key_map.end() && m_key_map[EventKeyboard::KeyCode::KEY_SHIFT].m_pressing;
     g_onAlt = m_key_map.find(EventKeyboard::KeyCode::KEY_ALT) != m_key_map.end() && m_key_map[EventKeyboard::KeyCode::KEY_ALT].m_pressing;
 
 	if (m_pick_part == maker::PICK_PART__SCROLL)
 	{
-		onMouseMove_scroll(mouse_event);
+        onMouseMove_scroll(&mouse_event_new);
 	}
 	else if (m_pick_part == maker::PICK_PART__SELECT_BOX)
 	{
-		onMouseMove_selectBox(mouse_event);
+        onMouseMove_selectBox(&mouse_event_new);
 	}
 	else
 	{
-		onMouseMove_editEntity(mouse_event);
+        onMouseMove_editEntity(&mouse_event_new);
 	}
 }
 void CMakerScene::onMouseScroll(cocos2d::Event* event)
@@ -1390,9 +1403,10 @@ void CMakerScene::updateKeyEvent(cocos2d::EventKeyboard::KeyCode keyCode, const 
 			CCMDPipe::initEventToTool(event_cmd, maker::EVENT__ReopenView);
 			break;
 		case EventKeyboard::KeyCode::KEY_TAB:
-			if (on_shift) CCMDPipe::initEventToTool(event_cmd, maker::EVENT__PrevResolution);
-			else CCMDPipe::initEventToTool(event_cmd, maker::EVENT__NextResolution);
-			break;
+			//tab키 해상도 변경 사용 안함
+            //if (on_shift) CCMDPipe::initEventToTool(event_cmd, maker::EVENT__PrevResolution);
+			//else CCMDPipe::initEventToTool(event_cmd, maker::EVENT__NextResolution);
+            break;
 		case EventKeyboard::KeyCode::KEY_GRAVE:
 			CCMDPipe::initEventToTool(event_cmd, maker::EVENT__ConfResolution);
 			break;
@@ -1463,6 +1477,30 @@ cocos2d::Node* CMakerScene::onCmd_Create(cocos2d::Node* parent, CEntityMgr::ID e
 
     bool isSizeToContent = false;
 
+    // 파일 이름을 가져옴
+    bool isA2D = false;
+    auto reflect = properties.GetReflection();
+    auto desc = properties.GetDescriptor();
+
+    if (desc && reflect)
+    {
+        for (int i = 0; i < desc->field_count(); ++i)
+        {
+            auto* field = desc->field(i);
+
+            if (!field) continue;
+            if (field->is_repeated()) continue;
+
+            const std::string& field_name = field->name();
+            if (field_name == "file_name")
+            {
+                std::string path;
+                if (GetFile(path, reflect->GetMessage(properties, field)))
+                    if (path.find(".a2d")) isA2D = true;
+            }
+        }
+    }
+
 	Node* node = nullptr;
 	switch (properties.type())
 	{
@@ -1520,7 +1558,17 @@ cocos2d::Node* CMakerScene::onCmd_Create(cocos2d::Node* parent, CEntityMgr::ID e
     case maker::ENTITY__Sprite: node = Sprite::create(); break;
     case maker::ENTITY__Scale9Sprite: node = Scale9Sprite::create(); break;
     case maker::ENTITY__ProgressTimer: node = ProgressTimer::create(Sprite::create()); break;
-    case maker::ENTITY__Visual: node = AzVRP::create(); break;
+    case maker::ENTITY__Visual: 
+        if (isA2D)
+        {
+            node = AzVRP::create();
+        }
+        else
+        {
+            node = AzVisual::create();
+        }
+        break;
+    //case maker::ENTITY__Visual: node = AzVisual::create(); break;
     case maker::ENTITY__Particle: node = ParticleSystemQuad::create(); break;
 	}
 
@@ -2088,7 +2136,9 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
         else if (field_name == "relative_size_type")
         {
             int type = reflect->GetEnum(msg, field)->number();
+			// @jslors 20.11.23 타입 변경시 수치도 갱신
             node->setRelativeSizeType(type, true);
+			applyToTool_ContentSize(entity_id, node);
         }
 		else if (field_name == "rel_width")
 		{
@@ -2134,7 +2184,7 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
         else if (field_name == "width")
         {
             if (node->getRelativeSizeType() == kRelativeSizeNone || 
-				node->getRelativeSizeType() == kRelativeSizeVertical || 
+				node->getRelativeSizeType() == kRelativeSizeVertical ||
 				node->getRelativeSizeType() == kRelativeSizeHorizontal)
             {
                 Size size = node->getNormalSize();
@@ -2147,9 +2197,13 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
                     updateViewSizeInTool(entity_id, node);
                     updateDimensionSizeInTool(entity_id, node);
                     updateRadiusSizeInTool(entity_id, node);
+					// @jslors 20.11.23 버튼 크기 변경시, 버튼 이미지 위치 갱신
+					updateButtonImagePos(node);
                 }
 
                 updateRelativeSizeWidthInTool(entity_id, node, size.width);
+				// @jslors 20.11.23 .ui 파일 로드 했을때 내 크기 표기 안 되는 현상 수정
+				updateContentSizeWidthInTool(entity_id, node, size.width);
 				updateStencil(dynamic_cast<ClippingNode*>(node));
             }
 			else if ((node->getRelativeSizeType() == kRelativeSizeBoth) && !is_only_apply)
@@ -2178,9 +2232,13 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
                     updateViewSizeInTool(entity_id, node);
                     updateDimensionSizeInTool(entity_id, node);
                     updateRadiusSizeInTool(entity_id, node);
+					// @jslors 20.11.23 버튼 크기 변경시, 버튼 이미지 위치 갱신
+					updateButtonImagePos(node);
                 }
 
                 updateRelativeSizeHeightInTool(entity_id, node, size.height);
+				// @jslors 20.11.23 .ui 파일 로드 했을때 내 크기 표기 안 되는 현상 수정
+				updateContentSizeHeightInTool(entity_id, node, size.height);
 				updateStencil(dynamic_cast<ClippingNode*>(node));
             }
 			else if ((node->getRelativeSizeType() == kRelativeSizeBoth) & !is_only_apply)
@@ -2199,11 +2257,6 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Node* node, const ::google::pr
 		else if (field_name == "skew_y") node->setSkewY(reflect->GetFloat(msg, field));
 		else if (field_name == "rotation") node->setRotation(reflect->GetFloat(msg, field));
 		else if (field_name == "visible") node->setVisible(reflect->GetBool(msg, field));
-		else if (field_name == "screen_ui")
-		{
-			int type = reflect->GetEnum(msg, field)->number();
-			
-		}
 		else
 		{
 			CCLOG("%s - unknown field [%s]", __FUNCTION__, field_name.c_str());
@@ -2523,25 +2576,37 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, Label* label, const ::google::
 		}
 		else if (field_name == "dimension_width")
 		{
-			Size size = label->getDimensions();
-			size.width = static_cast<float>(reflect->GetInt32(msg, field));
-			label->setDimensions(static_cast<unsigned int>(size.width), static_cast<unsigned int>(size.height));
+			// @jslors 20.11.23 상대 크기가 지정 되어있다면
+			// 텍스트로 만들어진 크기를 사용하지 않는다.
+			if (kRelativeSizeNone == label->getRelativeSizeType() ||
+				kRelativeSizeVertical == label->getRelativeSizeType())
+			{
+				Size size = label->getDimensions();
+				size.width = static_cast<float>(reflect->GetInt32(msg, field));
+				label->setDimensions(static_cast<unsigned int>(size.width), static_cast<unsigned int>(size.height));
 
-            if (!is_only_apply)
-            {
-                updateContentSizeInTool(entity_id, label, size);
-            }
+				if (!is_only_apply)
+				{
+					updateContentSizeInTool(entity_id, label, size);
+				}
+			}
         }
 		else if (field_name == "dimension_height")
 		{
-			Size size = label->getDimensions();
-			size.height = static_cast<float>(reflect->GetInt32(msg, field));
-			label->setDimensions(static_cast<unsigned int>(size.width), static_cast<unsigned int>(size.height));
+			// @jslors 20.11.23 상대 크기가 지정 되어있다면
+			// 텍스트로 만들어진 크기를 사용하지 않는다.
+			if (kRelativeSizeNone == label->getRelativeSizeType() ||
+				kRelativeSizeHorizontal == label->getRelativeSizeType())
+			{
+				Size size = label->getDimensions();
+				size.height = static_cast<float>(reflect->GetInt32(msg, field));
+				label->setDimensions(static_cast<unsigned int>(size.width), static_cast<unsigned int>(size.height));
 
-            if (!is_only_apply)
-            {
-                updateContentSizeInTool(entity_id, label, size);
-            }
+				if (!is_only_apply)
+				{
+					updateContentSizeInTool(entity_id, label, size);
+				}
+			}
         }
 		else if (field_name == "letter_spacing")
 		{
@@ -2718,6 +2783,10 @@ cocos2d::Size CMakerScene::_setLabelShadow(float distance, int direction)
 	{
 		shadow_size = cocos2d::Size(-distance, -distance);
 	}
+    else if (direction == 3)
+    {
+        shadow_size = cocos2d::Size(0, distance);
+    }
 
 	return shadow_size;
 }
@@ -3040,6 +3109,8 @@ void CMakerScene::apply(CEntityMgr::ID entity_id, MenuItemImage* menu_item_image
         {
             int imageType = reflect->GetEnum(msg, field)->number();
             menu_item_image->setImageType(imageType);
+			// @jslors 20.11.23 이미지 타입 변경했을때 위치 갱신
+			updateButtonImagePos(menu_item_image);
         }
 		else
 		{
@@ -3633,15 +3704,14 @@ void CMakerScene::applyButtonImage(CEntityMgr::ID entity_id, MenuItemImage* menu
 
     (menu_item_image->*pfSetImage)(sprite);
 
+	// @jslors 20.11.23 버튼에 이미지 추가하면 가운데 정렬
 	if (sprite)
 	{
 		sprite->setPosition((oldSize - sprite->getContentSize()) * 0.5f);
 	}
 
-	if (!isSizeToContent)
-	{
-		menu_item_image->setNormalSize(oldSize);
-	}
+    if (!isSizeToContent)
+        menu_item_image->setNormalSize(oldSize);
 
     applyToTool_ContentSize(entity_id, menu_item_image);
 }
@@ -4157,6 +4227,34 @@ void CMakerScene::updateRelativeSizeHeightInTool(CEntityMgr::ID entity_id, Node 
 
         applyToTool_RelativeSize(entity_id, node, 2);
     }
+}
+
+void CMakerScene::updateButtonImagePos(Node *node)
+{
+	// @jslors 20.11.23
+	// 해당 설정 값은 툴에서 가운데 정렬로 보이도록 하는 값
+	// cocos2d-x 3.17.2에서는 버튼에 이미지 설정시 가운데 정렬되도록 되어있음
+	auto menuItemImage = dynamic_cast<MenuItemImage*>(node);
+	if (menuItemImage)
+	{
+		auto image = dynamic_cast<Sprite*>(menuItemImage->getNormalImage());
+		if (image)
+		{
+			image->setPosition((menuItemImage->getContentSize() - image->getTexture()->getContentSize()) * 0.5f);
+		}
+
+		image = dynamic_cast<Sprite*>(menuItemImage->getSelectedImage());
+		if (image)
+		{
+			image->setPosition((menuItemImage->getContentSize() - image->getTexture()->getContentSize()) * 0.5f);
+		}
+
+		image = dynamic_cast<Sprite*>(menuItemImage->getDisabledImage());
+		if (image)
+		{
+			image->setPosition((menuItemImage->getContentSize() - image->getTexture()->getContentSize()) * 0.5f);
+		}
+	}
 }
 
 cocos2d::Node* CMakerScene::getNode(const CEntityMgr::ID& id) const

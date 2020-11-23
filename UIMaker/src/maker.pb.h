@@ -300,11 +300,12 @@ inline bool STROKE_TYPE_Parse(
 enum SHADOW_DIRECTION {
   SHADOW_DIR_90 = 0,
   SHADOW_DIR_135 = 1,
-  SHADOW_DIR_45 = 2
+  SHADOW_DIR_45 = 2,
+  SHADOW_DIR_MINUS_90 = 3
 };
 bool SHADOW_DIRECTION_IsValid(int value);
 const SHADOW_DIRECTION SHADOW_DIRECTION_MIN = SHADOW_DIR_90;
-const SHADOW_DIRECTION SHADOW_DIRECTION_MAX = SHADOW_DIR_45;
+const SHADOW_DIRECTION SHADOW_DIRECTION_MAX = SHADOW_DIR_MINUS_90;
 const int SHADOW_DIRECTION_ARRAYSIZE = SHADOW_DIRECTION_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* SHADOW_DIRECTION_descriptor();
@@ -432,26 +433,6 @@ inline bool NODE_ACTION_TYPE_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<NODE_ACTION_TYPE>(
     NODE_ACTION_TYPE_descriptor(), name, value);
 }
-enum NODE_SCREEN_UI_TYPE {
-  NODE_SCREEN_UI_TYPE__NONE = 0,
-  NODE_SCREEN_UI_TYPE__BOTTOM = 1,
-  NODE_SCREEN_UI_TYPE__TOP = 2
-};
-bool NODE_SCREEN_UI_TYPE_IsValid(int value);
-const NODE_SCREEN_UI_TYPE NODE_SCREEN_UI_TYPE_MIN = NODE_SCREEN_UI_TYPE__NONE;
-const NODE_SCREEN_UI_TYPE NODE_SCREEN_UI_TYPE_MAX = NODE_SCREEN_UI_TYPE__TOP;
-const int NODE_SCREEN_UI_TYPE_ARRAYSIZE = NODE_SCREEN_UI_TYPE_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* NODE_SCREEN_UI_TYPE_descriptor();
-inline const ::std::string& NODE_SCREEN_UI_TYPE_Name(NODE_SCREEN_UI_TYPE value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    NODE_SCREEN_UI_TYPE_descriptor(), value);
-}
-inline bool NODE_SCREEN_UI_TYPE_Parse(
-    const ::std::string& name, NODE_SCREEN_UI_TYPE* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<NODE_SCREEN_UI_TYPE>(
-    NODE_SCREEN_UI_TYPE_descriptor(), name, value);
-}
 enum ROTATE_PLATE_ORIGIN_DIR {
   ROTATE_PLATE_ORIGIN_DIR__DOWN = 0,
   ROTATE_PLATE_ORIGIN_DIR__UP = 1,
@@ -513,6 +494,26 @@ inline bool STENCIL_TYPE_Parse(
     const ::std::string& name, STENCIL_TYPE* value) {
   return ::google::protobuf::internal::ParseNamedEnum<STENCIL_TYPE>(
     STENCIL_TYPE_descriptor(), name, value);
+}
+enum SCREEN_UI_TYPE {
+  SCREEN_UI_TYPE__NONE = 0,
+  SCREEN_UI_TYPE__BOTTOM = 1,
+  SCREEN_UI_TYPE__TOP = 2
+};
+bool SCREEN_UI_TYPE_IsValid(int value);
+const SCREEN_UI_TYPE SCREEN_UI_TYPE_MIN = SCREEN_UI_TYPE__NONE;
+const SCREEN_UI_TYPE SCREEN_UI_TYPE_MAX = SCREEN_UI_TYPE__TOP;
+const int SCREEN_UI_TYPE_ARRAYSIZE = SCREEN_UI_TYPE_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* SCREEN_UI_TYPE_descriptor();
+inline const ::std::string& SCREEN_UI_TYPE_Name(SCREEN_UI_TYPE value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    SCREEN_UI_TYPE_descriptor(), value);
+}
+inline bool SCREEN_UI_TYPE_Parse(
+    const ::std::string& name, SCREEN_UI_TYPE* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<SCREEN_UI_TYPE>(
+    SCREEN_UI_TYPE_descriptor(), name, value);
 }
 enum ENTITY_TYPE {
   ENTITY__Node = 10,
@@ -1733,12 +1734,12 @@ class Node : public ::google::protobuf::Message {
   inline float action_duration() const;
   inline void set_action_duration(float value);
 
-  // optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+  // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
   inline bool has_screen_ui() const;
   inline void clear_screen_ui();
   static const int kScreenUiFieldNumber = 21;
-  inline ::maker::NODE_SCREEN_UI_TYPE screen_ui() const;
-  inline void set_screen_ui(::maker::NODE_SCREEN_UI_TYPE value);
+  inline ::maker::SCREEN_UI_TYPE screen_ui() const;
+  inline void set_screen_ui(::maker::SCREEN_UI_TYPE value);
 
   // optional string lua_name = 22 [default = ""];
   inline bool has_lua_name() const;
@@ -1751,6 +1752,18 @@ class Node : public ::google::protobuf::Message {
   inline ::std::string* mutable_lua_name();
   inline ::std::string* release_lua_name();
   inline void set_allocated_lua_name(::std::string* lua_name);
+
+  // optional string flag = 23 [default = ""];
+  inline bool has_flag() const;
+  inline void clear_flag();
+  static const int kFlagFieldNumber = 23;
+  inline const ::std::string& flag() const;
+  inline void set_flag(const ::std::string& value);
+  inline void set_flag(const char* value);
+  inline void set_flag(const char* value, size_t size);
+  inline ::std::string* mutable_flag();
+  inline ::std::string* release_flag();
+  inline void set_allocated_flag(::std::string* flag);
 
   // @@protoc_insertion_point(class_scope:maker.Node)
  private:
@@ -1798,6 +1811,8 @@ class Node : public ::google::protobuf::Message {
   inline void clear_has_screen_ui();
   inline void set_has_lua_name();
   inline void clear_has_lua_name();
+  inline void set_has_flag();
+  inline void clear_has_flag();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -1823,9 +1838,10 @@ class Node : public ::google::protobuf::Message {
   float action_duration_;
   int screen_ui_;
   ::std::string* lua_name_;
+  ::std::string* flag_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(22 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(23 + 31) / 32];
 
   friend void  protobuf_AddDesc_maker_2eproto();
   friend void protobuf_AssignDesc_maker_2eproto();
@@ -2361,6 +2377,43 @@ class LabelSystemFont : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 dimension_height() const;
   inline void set_dimension_height(::google::protobuf::int32 value);
 
+  // optional bool has_shadow = 31 [default = false];
+  inline bool has_has_shadow() const;
+  inline void clear_has_shadow();
+  static const int kHasShadowFieldNumber = 31;
+  inline bool has_shadow() const;
+  inline void set_has_shadow(bool value);
+
+  // optional .maker.COLOR shadow_color = 32;
+  inline bool has_shadow_color() const;
+  inline void clear_shadow_color();
+  static const int kShadowColorFieldNumber = 32;
+  inline const ::maker::COLOR& shadow_color() const;
+  inline ::maker::COLOR* mutable_shadow_color();
+  inline ::maker::COLOR* release_shadow_color();
+  inline void set_allocated_shadow_color(::maker::COLOR* shadow_color);
+
+  // optional int32 shadow_opacity = 33 [default = 255];
+  inline bool has_shadow_opacity() const;
+  inline void clear_shadow_opacity();
+  static const int kShadowOpacityFieldNumber = 33;
+  inline ::google::protobuf::int32 shadow_opacity() const;
+  inline void set_shadow_opacity(::google::protobuf::int32 value);
+
+  // optional .maker.SHADOW_DIRECTION shadow_direction = 34 [default = SHADOW_DIR_90];
+  inline bool has_shadow_direction() const;
+  inline void clear_shadow_direction();
+  static const int kShadowDirectionFieldNumber = 34;
+  inline ::maker::SHADOW_DIRECTION shadow_direction() const;
+  inline void set_shadow_direction(::maker::SHADOW_DIRECTION value);
+
+  // optional float shadow_distance = 35 [default = 5];
+  inline bool has_shadow_distance() const;
+  inline void clear_shadow_distance();
+  static const int kShadowDistanceFieldNumber = 35;
+  inline float shadow_distance() const;
+  inline void set_shadow_distance(float value);
+
   // @@protoc_insertion_point(class_scope:maker.LabelSystemFont)
  private:
   inline void set_has_font_name();
@@ -2381,6 +2434,16 @@ class LabelSystemFont : public ::google::protobuf::Message {
   inline void clear_has_dimension_width();
   inline void set_has_dimension_height();
   inline void clear_has_dimension_height();
+  inline void set_has_has_shadow();
+  inline void clear_has_has_shadow();
+  inline void set_has_shadow_color();
+  inline void clear_has_shadow_color();
+  inline void set_has_shadow_opacity();
+  inline void clear_has_shadow_opacity();
+  inline void set_has_shadow_direction();
+  inline void clear_has_shadow_direction();
+  inline void set_has_shadow_distance();
+  inline void clear_has_shadow_distance();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -2395,9 +2458,14 @@ class LabelSystemFont : public ::google::protobuf::Message {
   ::google::protobuf::int32 opacity_;
   ::google::protobuf::int32 dimension_width_;
   ::google::protobuf::int32 dimension_height_;
+  ::maker::COLOR* shadow_color_;
+  bool has_shadow_;
+  ::google::protobuf::int32 shadow_opacity_;
+  int shadow_direction_;
+  float shadow_distance_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(9 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(14 + 31) / 32];
 
   friend void  protobuf_AddDesc_maker_2eproto();
   friend void protobuf_AssignDesc_maker_2eproto();
@@ -2622,6 +2690,13 @@ class LabelTTF : public ::google::protobuf::Message {
   inline float shadow_distance() const;
   inline void set_shadow_distance(float value);
 
+  // optional bool use_auto_fontsize = 41 [default = false];
+  inline bool has_use_auto_fontsize() const;
+  inline void clear_use_auto_fontsize();
+  static const int kUseAutoFontsizeFieldNumber = 41;
+  inline bool use_auto_fontsize() const;
+  inline void set_use_auto_fontsize(bool value);
+
   // @@protoc_insertion_point(class_scope:maker.LabelTTF)
  private:
   inline void set_has_font_name();
@@ -2666,6 +2741,8 @@ class LabelTTF : public ::google::protobuf::Message {
   inline void clear_has_shadow_direction();
   inline void set_has_shadow_distance();
   inline void clear_has_shadow_distance();
+  inline void set_has_use_auto_fontsize();
+  inline void clear_has_use_auto_fontsize();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -2682,18 +2759,19 @@ class LabelTTF : public ::google::protobuf::Message {
   float letter_spacing_;
   int stroke_type_;
   ::google::protobuf::int32 stroke_detail_level_;
+  float stroke_tickness_;
+  ::maker::COLOR* stroke_color_;
   bool has_stroke_;
   bool is_sharp_text_;
   bool has_shadow_;
-  ::maker::COLOR* stroke_color_;
-  float stroke_tickness_;
+  bool use_auto_fontsize_;
   ::google::protobuf::int32 shadow_opacity_;
   ::maker::COLOR* shadow_color_;
   int shadow_direction_;
   float shadow_distance_;
 
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(21 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(22 + 31) / 32];
 
   friend void  protobuf_AddDesc_maker_2eproto();
   friend void protobuf_AssignDesc_maker_2eproto();
@@ -6457,7 +6535,7 @@ inline void Node::set_action_duration(float value) {
   action_duration_ = value;
 }
 
-// optional .maker.NODE_SCREEN_UI_TYPE screen_ui = 21 [default = NODE_SCREEN_UI_TYPE__NONE];
+// optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
 inline bool Node::has_screen_ui() const {
   return (_has_bits_[0] & 0x00100000u) != 0;
 }
@@ -6471,11 +6549,11 @@ inline void Node::clear_screen_ui() {
   screen_ui_ = 0;
   clear_has_screen_ui();
 }
-inline ::maker::NODE_SCREEN_UI_TYPE Node::screen_ui() const {
-  return static_cast< ::maker::NODE_SCREEN_UI_TYPE >(screen_ui_);
+inline ::maker::SCREEN_UI_TYPE Node::screen_ui() const {
+  return static_cast< ::maker::SCREEN_UI_TYPE >(screen_ui_);
 }
-inline void Node::set_screen_ui(::maker::NODE_SCREEN_UI_TYPE value) {
-  assert(::maker::NODE_SCREEN_UI_TYPE_IsValid(value));
+inline void Node::set_screen_ui(::maker::SCREEN_UI_TYPE value) {
+  assert(::maker::SCREEN_UI_TYPE_IsValid(value));
   set_has_screen_ui();
   screen_ui_ = value;
 }
@@ -6547,6 +6625,76 @@ inline void Node::set_allocated_lua_name(::std::string* lua_name) {
   } else {
     clear_has_lua_name();
     lua_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional string flag = 23 [default = ""];
+inline bool Node::has_flag() const {
+  return (_has_bits_[0] & 0x00400000u) != 0;
+}
+inline void Node::set_has_flag() {
+  _has_bits_[0] |= 0x00400000u;
+}
+inline void Node::clear_has_flag() {
+  _has_bits_[0] &= ~0x00400000u;
+}
+inline void Node::clear_flag() {
+  if (flag_ != &::google::protobuf::internal::kEmptyString) {
+    flag_->clear();
+  }
+  clear_has_flag();
+}
+inline const ::std::string& Node::flag() const {
+  return *flag_;
+}
+inline void Node::set_flag(const ::std::string& value) {
+  set_has_flag();
+  if (flag_ == &::google::protobuf::internal::kEmptyString) {
+    flag_ = new ::std::string;
+  }
+  flag_->assign(value);
+}
+inline void Node::set_flag(const char* value) {
+  set_has_flag();
+  if (flag_ == &::google::protobuf::internal::kEmptyString) {
+    flag_ = new ::std::string;
+  }
+  flag_->assign(value);
+}
+inline void Node::set_flag(const char* value, size_t size) {
+  set_has_flag();
+  if (flag_ == &::google::protobuf::internal::kEmptyString) {
+    flag_ = new ::std::string;
+  }
+  flag_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* Node::mutable_flag() {
+  set_has_flag();
+  if (flag_ == &::google::protobuf::internal::kEmptyString) {
+    flag_ = new ::std::string;
+  }
+  return flag_;
+}
+inline ::std::string* Node::release_flag() {
+  clear_has_flag();
+  if (flag_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = flag_;
+    flag_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void Node::set_allocated_flag(::std::string* flag) {
+  if (flag_ != &::google::protobuf::internal::kEmptyString) {
+    delete flag_;
+  }
+  if (flag) {
+    set_has_flag();
+    flag_ = flag;
+  } else {
+    clear_has_flag();
+    flag_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 
@@ -7337,6 +7485,133 @@ inline void LabelSystemFont::set_dimension_height(::google::protobuf::int32 valu
   dimension_height_ = value;
 }
 
+// optional bool has_shadow = 31 [default = false];
+inline bool LabelSystemFont::has_has_shadow() const {
+  return (_has_bits_[0] & 0x00000200u) != 0;
+}
+inline void LabelSystemFont::set_has_has_shadow() {
+  _has_bits_[0] |= 0x00000200u;
+}
+inline void LabelSystemFont::clear_has_has_shadow() {
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline void LabelSystemFont::clear_has_shadow() {
+  has_shadow_ = false;
+  clear_has_has_shadow();
+}
+inline bool LabelSystemFont::has_shadow() const {
+  return has_shadow_;
+}
+inline void LabelSystemFont::set_has_shadow(bool value) {
+  set_has_has_shadow();
+  has_shadow_ = value;
+}
+
+// optional .maker.COLOR shadow_color = 32;
+inline bool LabelSystemFont::has_shadow_color() const {
+  return (_has_bits_[0] & 0x00000400u) != 0;
+}
+inline void LabelSystemFont::set_has_shadow_color() {
+  _has_bits_[0] |= 0x00000400u;
+}
+inline void LabelSystemFont::clear_has_shadow_color() {
+  _has_bits_[0] &= ~0x00000400u;
+}
+inline void LabelSystemFont::clear_shadow_color() {
+  if (shadow_color_ != NULL) shadow_color_->::maker::COLOR::Clear();
+  clear_has_shadow_color();
+}
+inline const ::maker::COLOR& LabelSystemFont::shadow_color() const {
+  return shadow_color_ != NULL ? *shadow_color_ : *default_instance_->shadow_color_;
+}
+inline ::maker::COLOR* LabelSystemFont::mutable_shadow_color() {
+  set_has_shadow_color();
+  if (shadow_color_ == NULL) shadow_color_ = new ::maker::COLOR;
+  return shadow_color_;
+}
+inline ::maker::COLOR* LabelSystemFont::release_shadow_color() {
+  clear_has_shadow_color();
+  ::maker::COLOR* temp = shadow_color_;
+  shadow_color_ = NULL;
+  return temp;
+}
+inline void LabelSystemFont::set_allocated_shadow_color(::maker::COLOR* shadow_color) {
+  delete shadow_color_;
+  shadow_color_ = shadow_color;
+  if (shadow_color) {
+    set_has_shadow_color();
+  } else {
+    clear_has_shadow_color();
+  }
+}
+
+// optional int32 shadow_opacity = 33 [default = 255];
+inline bool LabelSystemFont::has_shadow_opacity() const {
+  return (_has_bits_[0] & 0x00000800u) != 0;
+}
+inline void LabelSystemFont::set_has_shadow_opacity() {
+  _has_bits_[0] |= 0x00000800u;
+}
+inline void LabelSystemFont::clear_has_shadow_opacity() {
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline void LabelSystemFont::clear_shadow_opacity() {
+  shadow_opacity_ = 255;
+  clear_has_shadow_opacity();
+}
+inline ::google::protobuf::int32 LabelSystemFont::shadow_opacity() const {
+  return shadow_opacity_;
+}
+inline void LabelSystemFont::set_shadow_opacity(::google::protobuf::int32 value) {
+  set_has_shadow_opacity();
+  shadow_opacity_ = value;
+}
+
+// optional .maker.SHADOW_DIRECTION shadow_direction = 34 [default = SHADOW_DIR_90];
+inline bool LabelSystemFont::has_shadow_direction() const {
+  return (_has_bits_[0] & 0x00001000u) != 0;
+}
+inline void LabelSystemFont::set_has_shadow_direction() {
+  _has_bits_[0] |= 0x00001000u;
+}
+inline void LabelSystemFont::clear_has_shadow_direction() {
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline void LabelSystemFont::clear_shadow_direction() {
+  shadow_direction_ = 0;
+  clear_has_shadow_direction();
+}
+inline ::maker::SHADOW_DIRECTION LabelSystemFont::shadow_direction() const {
+  return static_cast< ::maker::SHADOW_DIRECTION >(shadow_direction_);
+}
+inline void LabelSystemFont::set_shadow_direction(::maker::SHADOW_DIRECTION value) {
+  assert(::maker::SHADOW_DIRECTION_IsValid(value));
+  set_has_shadow_direction();
+  shadow_direction_ = value;
+}
+
+// optional float shadow_distance = 35 [default = 5];
+inline bool LabelSystemFont::has_shadow_distance() const {
+  return (_has_bits_[0] & 0x00002000u) != 0;
+}
+inline void LabelSystemFont::set_has_shadow_distance() {
+  _has_bits_[0] |= 0x00002000u;
+}
+inline void LabelSystemFont::clear_has_shadow_distance() {
+  _has_bits_[0] &= ~0x00002000u;
+}
+inline void LabelSystemFont::clear_shadow_distance() {
+  shadow_distance_ = 5;
+  clear_has_shadow_distance();
+}
+inline float LabelSystemFont::shadow_distance() const {
+  return shadow_distance_;
+}
+inline void LabelSystemFont::set_shadow_distance(float value) {
+  set_has_shadow_distance();
+  shadow_distance_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // LabelTTF
@@ -7917,6 +8192,28 @@ inline float LabelTTF::shadow_distance() const {
 inline void LabelTTF::set_shadow_distance(float value) {
   set_has_shadow_distance();
   shadow_distance_ = value;
+}
+
+// optional bool use_auto_fontsize = 41 [default = false];
+inline bool LabelTTF::has_use_auto_fontsize() const {
+  return (_has_bits_[0] & 0x00200000u) != 0;
+}
+inline void LabelTTF::set_has_use_auto_fontsize() {
+  _has_bits_[0] |= 0x00200000u;
+}
+inline void LabelTTF::clear_has_use_auto_fontsize() {
+  _has_bits_[0] &= ~0x00200000u;
+}
+inline void LabelTTF::clear_use_auto_fontsize() {
+  use_auto_fontsize_ = false;
+  clear_has_use_auto_fontsize();
+}
+inline bool LabelTTF::use_auto_fontsize() const {
+  return use_auto_fontsize_;
+}
+inline void LabelTTF::set_use_auto_fontsize(bool value) {
+  set_has_use_auto_fontsize();
+  use_auto_fontsize_ = value;
 }
 
 // -------------------------------------------------------------------
@@ -12003,10 +12300,6 @@ inline const EnumDescriptor* GetEnumDescriptor< ::maker::NODE_ACTION_TYPE>() {
   return ::maker::NODE_ACTION_TYPE_descriptor();
 }
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::maker::NODE_SCREEN_UI_TYPE>() {
-  return ::maker::NODE_SCREEN_UI_TYPE_descriptor();
-}
-template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::maker::ROTATE_PLATE_ORIGIN_DIR>() {
   return ::maker::ROTATE_PLATE_ORIGIN_DIR_descriptor();
 }
@@ -12017,6 +12310,10 @@ inline const EnumDescriptor* GetEnumDescriptor< ::maker::RELATIVE_SIZE_TYPE>() {
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::maker::STENCIL_TYPE>() {
   return ::maker::STENCIL_TYPE_descriptor();
+}
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::maker::SCREEN_UI_TYPE>() {
+  return ::maker::SCREEN_UI_TYPE_descriptor();
 }
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::maker::ENTITY_TYPE>() {

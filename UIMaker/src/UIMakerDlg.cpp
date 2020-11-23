@@ -234,6 +234,13 @@ BEGIN_MESSAGE_MAP(CUIMakerDlg, CDialogEx)
 	ON_COMMAND(ID_RES_853_1280, &CUIMakerDlg::OnOpenCocos2dViewer_853_1280)
 
     ON_COMMAND(ID_TOOLS_FILECONVERT, &CUIMakerDlg::onFileConvert)
+    ON_COMMAND(ID_RES_SCALE_50, &CUIMakerDlg::OnOpenCocos2dViewer_Scale_50)
+    ON_COMMAND(ID_RES_SCALE_60, &CUIMakerDlg::OnOpenCocos2dViewer_Scale_60)
+    ON_COMMAND(ID_RES_SCALE_70, &CUIMakerDlg::OnOpenCocos2dViewer_Scale_70)
+    ON_COMMAND(ID_RES_SCALE_80, &CUIMakerDlg::OnOpenCocos2dViewer_Scale_80)
+    ON_COMMAND(ID_RES_SCALE_90, &CUIMakerDlg::OnOpenCocos2dViewer_Scale_90)
+    ON_COMMAND(ID_RES_SCALE_100, &CUIMakerDlg::OnOpenCocos2dViewer_Scale_100)
+    ON_COMMAND(ID_RES_720_1440, &CUIMakerDlg::OnOpenCocos2dViewer_720_1440)
 END_MESSAGE_MAP()
 
 #pragma endregion
@@ -283,6 +290,7 @@ BOOL CUIMakerDlg::OnInitDialog()
 
 	int version = 0;
 	int portat = m_portat ? 1 : 0, viewer_w = -1, viewer_h = -1;
+    float viewer_scale = 1.0f;
 	int tool_x = 0, tool_y = 0, tool_w = 600, tool_h = 800;
 	
 	// 내문서 경로 가져온다.
@@ -304,7 +312,7 @@ BOOL CUIMakerDlg::OnInitDialog()
 	if (pf)
 	{
 		fscanf(pf, "version %d", &version);
-		fscanf(pf, " viewer %d, %d, %d", &portat, &viewer_w, &viewer_h);
+        fscanf(pf, " viewer %d, %d, %d, %f", &portat, &viewer_w, &viewer_h, &viewer_scale);
 		fscanf(pf, " tool %d, %d, %d, %d, %d, %d, %d, %d", &tool_x, &tool_y, &tool_w, &tool_h, &m_propertiesWidth, &m_historyHeight, &m_historyWidth, &m_luanameWidth);
 		fclose(pf);
 	}
@@ -357,7 +365,7 @@ BOOL CUIMakerDlg::OnInitDialog()
 		tool_h = screen_h*2/3;
 	}
 	MoveWindow(tool_x, tool_y, tool_w, tool_h);
-    sm_viewer.open(viewer_w, viewer_h, (int)m_hWnd);
+    sm_viewer.open(viewer_w, viewer_h, viewer_scale, (int)m_hWnd);
 
 	if (!m_ui_file_path_name.IsEmpty() && !m_ui_file_name.IsEmpty())
 	{	
@@ -2065,6 +2073,7 @@ void CUIMakerDlg::OnClose()
 
 	int version = 0;
 	int viewer_w = sm_viewer.getWidth(), viewer_h = sm_viewer.getHeight();
+    float viewer_scale = sm_viewer.getScale();
 	CRect rcwindow;
 	GetWindowRect(&rcwindow);
 	
@@ -2091,7 +2100,7 @@ void CUIMakerDlg::OnClose()
 	if (pf)
 	{
 		fprintf(pf, "version %d", &version);
-		fprintf(pf, " viewer %d, %d, %d", m_portat ? 1 : 0, viewer_w, viewer_h);
+        fprintf(pf, " viewer %d, %d, %d, %.2f", m_portat ? 1 : 0, viewer_w, viewer_h, viewer_scale);
 		fprintf(pf, " tool %d, %d, %d, %d, %d, %d, %d, %d", rcwindow.left, rcwindow.top, rcwindow.Width(), rcwindow.Height(), m_propertiesWidth, m_historyHeight, m_historyWidth, m_luanameWidth);
 		fclose(pf);
 	}
@@ -2117,7 +2126,7 @@ void CUIMakerDlg::onReopenView()
 {
 	updateResolution(m_portat, m_display_mode);
 }
-void CUIMakerDlg::updateResolution(bool portat, RES display_mode)
+void CUIMakerDlg::updateResolution(bool portat, RES display_mode, float scale)
 {
 	m_portat = portat;
 	m_display_mode = display_mode;
@@ -2125,34 +2134,35 @@ void CUIMakerDlg::updateResolution(bool portat, RES display_mode)
 	{
 		switch (m_display_mode)
 		{
-		case RES::_480_800:  sm_viewer.open(480, 800); break;
-		case RES::_640_852:  sm_viewer.open(640, 852); break;
-		case RES::_640_960:  sm_viewer.open(640, 960); break;
-		case RES::_640_1138: sm_viewer.open(640, 1138); break;
-		case RES::_720_960:  sm_viewer.open(720, 960); break;
-		case RES::_720_1080: sm_viewer.open(720, 1080); break;
-		case RES::_720_1280: sm_viewer.open(720, 1280); break;
-		case RES::_960_1280: sm_viewer.open(960, 1280); break;
-		case RES::_853_1280: sm_viewer.open(853, 1280); break;
+        case RES::_480_800:  sm_viewer.open(480, 800, scale); break;
+        case RES::_640_852:  sm_viewer.open(640, 852, scale); break;
+        case RES::_640_960:  sm_viewer.open(640, 960, scale); break;
+        case RES::_640_1138: sm_viewer.open(640, 1138, scale); break;
+        case RES::_720_960:  sm_viewer.open(720, 960, scale); break;
+        case RES::_720_1080: sm_viewer.open(720, 1080, scale); break;
+        case RES::_720_1280: sm_viewer.open(720, 1280, scale); break;
+        case RES::_960_1280: sm_viewer.open(960, 1280, scale); break;
+        case RES::_853_1280: sm_viewer.open(853, 1280, scale); break;
+        case RES::_720_1440: sm_viewer.open(720, 1440, scale); break;
 
-		case RES::_CONFIG:   onConfigResolution(false); break;
+		case RES::_CONFIG:   onConfigResolution(false, scale); break;
 		}
 	}
 	else
 	{
 		switch (m_display_mode)
 		{
-		case RES::_800_480:  sm_viewer.open(800, 480); break;
-		case RES::_852_640:  sm_viewer.open(852, 640); break;
-		case RES::_960_640:  sm_viewer.open(960, 640); break;
-		case RES::_1138_640: sm_viewer.open(1138, 640); break;
-		case RES::_960_720:  sm_viewer.open(960, 720); break;
-		case RES::_1080_720: sm_viewer.open(1080, 720); break;
-		case RES::_1280_720: sm_viewer.open(1280, 720); break;
-		case RES::_1280_960: sm_viewer.open(1280, 960); break;
-		case RES::_1280_853: sm_viewer.open(1280, 853); break;
+        case RES::_800_480:  sm_viewer.open(800, 480, scale); break;
+        case RES::_852_640:  sm_viewer.open(852, 640, scale); break;
+        case RES::_960_640:  sm_viewer.open(960, 640, scale); break;
+        case RES::_1138_640: sm_viewer.open(1138, 640, scale); break;
+        case RES::_960_720:  sm_viewer.open(960, 720, scale); break;
+        case RES::_1080_720: sm_viewer.open(1080, 720, scale); break;
+        case RES::_1280_720: sm_viewer.open(1280, 720, scale); break;
+        case RES::_1280_960: sm_viewer.open(1280, 960, scale); break;
+        case RES::_1280_853: sm_viewer.open(1280, 853, scale); break;
 
-		case RES::_CONFIG:   onConfigResolution(false); break;
+        case RES::_CONFIG:   onConfigResolution(false, scale); break;
 		}
 	}
 }
@@ -2171,9 +2181,10 @@ void CUIMakerDlg::onNextResolution()
 		case RES::_640_1138: display_mode = RES::_720_1280; break;
 		case RES::_853_1280: display_mode = RES::_960_1280; break;
 		case RES::_960_1280: display_mode = RES::_720_1280; break;
-		case RES::_720_1280: display_mode = RES::_853_1280; break;
+		case RES::_720_1280: display_mode = RES::_720_1440; break;
+        case RES::_720_1440: display_mode = RES::_960_1280; break;
 #endif
-		default: display_mode = RES::_640_1138;
+        default: display_mode = RES::_720_1280;
 		}
 	}
 	else
@@ -2206,9 +2217,10 @@ void CUIMakerDlg::onPrevResolution()
 		case RES::_640_1138: display_mode = RES::_720_1280; break;
 		case RES::_853_1280: display_mode = RES::_720_1280; break;
 		case RES::_960_1280: display_mode = RES::_853_1280; break;
-		case RES::_720_1280: display_mode = RES::_960_1280; break;
+        case RES::_720_1280: display_mode = RES::_720_1440; break;
+        case RES::_720_1440: display_mode = RES::_960_1280; break;
 #endif
-		default: display_mode = RES::_640_1138;
+        default: display_mode = RES::_720_1280;
 		}
 	}
 	else
@@ -2244,7 +2256,7 @@ void CUIMakerDlg::onSpecificResolution()
 	updateResolution(m_portat, display_mode);
 }
 
-void CUIMakerDlg::onConfigResolution(bool isNext)
+void CUIMakerDlg::onConfigResolution(bool isNext, float scale)
 {	
 	if (!ConfigParser::getInstance()->isInit())
 	{
@@ -2266,7 +2278,7 @@ void CUIMakerDlg::onConfigResolution(bool isNext)
 		height = simulatorScrSize.height;
 	}
 	
-	sm_viewer.open(width, height);
+    sm_viewer.open(width, height, scale);
 }
 
 void CUIMakerDlg::OnOpenCocos2dViewer_480_800()  { updateResolution(true, RES::_480_800); }
@@ -2278,6 +2290,7 @@ void CUIMakerDlg::OnOpenCocos2dViewer_720_1080() { updateResolution(true, RES::_
 void CUIMakerDlg::OnOpenCocos2dViewer_720_960()	 { updateResolution(true, RES::_720_960); }
 void CUIMakerDlg::OnOpenCocos2dViewer_960_1280() { updateResolution(true, RES::_960_1280); }
 void CUIMakerDlg::OnOpenCocos2dViewer_853_1280() { updateResolution(true, RES::_853_1280); }
+void CUIMakerDlg::OnOpenCocos2dViewer_720_1440() { updateResolution(true, RES::_720_1440); }
 
 void CUIMakerDlg::OnOpenCocos2dViewer_800_480()  { updateResolution(false, RES::_800_480); }
 void CUIMakerDlg::OnOpenCocos2dViewer_1138_640() { updateResolution(false, RES::_1138_640); }
@@ -2288,6 +2301,13 @@ void CUIMakerDlg::OnOpenCocos2dViewer_1080_720() { updateResolution(false, RES::
 void CUIMakerDlg::OnOpenCocos2dViewer_960_720()	 { updateResolution(false, RES::_960_720); }
 void CUIMakerDlg::OnOpenCocos2dViewer_1280_960() { updateResolution(false, RES::_1280_960); }
 void CUIMakerDlg::OnOpenCocos2dViewer_1280_853() { updateResolution(false, RES::_1280_853); }
+
+void CUIMakerDlg::OnOpenCocos2dViewer_Scale_50() { updateResolution(m_portat, m_display_mode, 0.5f); }
+void CUIMakerDlg::OnOpenCocos2dViewer_Scale_60() { updateResolution(m_portat, m_display_mode, 0.6f); }
+void CUIMakerDlg::OnOpenCocos2dViewer_Scale_70() { updateResolution(m_portat, m_display_mode, 0.7f); }
+void CUIMakerDlg::OnOpenCocos2dViewer_Scale_80() { updateResolution(m_portat, m_display_mode, 0.8f); }
+void CUIMakerDlg::OnOpenCocos2dViewer_Scale_90() { updateResolution(m_portat, m_display_mode, 0.9f); }
+void CUIMakerDlg::OnOpenCocos2dViewer_Scale_100() { updateResolution(m_portat, m_display_mode, 1.0f); }
 
 BOOL CUIMakerDlg::SetFileName(CString file_name)
 {
@@ -2509,13 +2529,16 @@ bool CUIMakerDlg::UpdateKeyState(MSG* pMsg)
 		}
 
 		// 전역적으로 체크하는 키 입력
+        /*
 		if (GetAsyncKeyState(VK_TAB) & 0x8000)
 		{
 			if (GetAsyncKeyState(VK_SHIFT) & 0x8001) onPrevResolution();
 			else									 onNextResolution();
 			return true;
 		}
-		else if (GetAsyncKeyState(VK_F2) & 0x8000) { onSpecificResolution(); return true; }
+        else
+        */
+		if (GetAsyncKeyState(VK_F2) & 0x8000) { onSpecificResolution(); return true; }
 		else if (GetAsyncKeyState(VK_F3) & 0x8000) { onToggleDisplayStats(); return true; }
 		else if (GetAsyncKeyState(VK_F5) & 0x8000) { onReopenView(); return true; }
 		else if (GetAsyncKeyState(VK_OEM_3) & 0x8000) { onConfigResolution(true); return true; }

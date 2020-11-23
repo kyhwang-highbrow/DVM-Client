@@ -58,10 +58,10 @@ void THREAD::setForeground(int arg)
     SetWindowPos(hWnd, hWndInsertAfter, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 }
 
-static int runCosos2dx(int width, int hegiht, int sibling)
+static int runCosos2dx(int xpos, int ypos, int width, int hegiht, float scale, int sibling)
 {
     // create the application instance
-    AppDelegate app(width, hegiht, sibling);
+    AppDelegate app(xpos, ypos, width, hegiht, scale, sibling);
     return Application::getInstance()->run();
 }
 
@@ -88,7 +88,7 @@ void THREAD::run(ViewerInfo* T)
     __try
     {
 #endif
-        int ret = runCosos2dx(T->width, T->height, T->sibling);
+        int ret = runCosos2dx(T->xpos, T->ypos, T->width, T->height, T->scale, T->sibling);
 #if defined(STEAL_EXCEPTION)
     }
     __except (EXCEPTION_EXECUTE_HANDLER)
@@ -110,18 +110,28 @@ CCocos2dXViewer::CCocos2dXViewer()
 
 	m_info.width = 640;
 	m_info.height = 1138;
+    m_info.scale = 1.0f;
+    m_info.xpos = 0;
+    m_info.ypos = 0;
 }
 
 CCocos2dXViewer::~CCocos2dXViewer()
 {
 }
 
-void CCocos2dXViewer::open(int width, int height, int sibling)
+void CCocos2dXViewer::open(int width, int height, float scale, int sibling)
 {
-    if (m_open) close();
+    if (m_open)
+    {
+        GLFWwindow* window = Director::getInstance()->getOpenGLView()->getWindow();
+        if (window) glfwGetWindowPos(window, &m_info.xpos, &m_info.ypos);
+        
+        close();
+    }
 
     if (width > 0) m_info.width = width;
     if (height > 0) m_info.height = height;
+    if (scale > 0.0f) m_info.scale = scale;
 
     m_info.sibling = sibling;
 

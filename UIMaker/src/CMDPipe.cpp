@@ -609,7 +609,7 @@ bool CCMDPipe::initModify(maker::Properties* properties, const std::string& prop
 	}
 	if (!field) return false;
 
-	char szvalue[1024] = "";
+	char szvalue[10240] = "";
 
 	const ::google::protobuf::EnumDescriptor* edesc = nullptr;
 	const ::google::protobuf::EnumValueDescriptor* evdesc = nullptr;

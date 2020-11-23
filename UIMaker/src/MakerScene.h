@@ -20,10 +20,10 @@ public:
 	typedef std::map< CEntityMgr::ID, Node* > TYPE_NODE_BIND_MAP;
 
 
-	CMakerScene(void);
+    CMakerScene(float scale);
 	virtual ~CMakerScene(void);
 
-	static CMakerScene * create(void);
+    static CMakerScene * create(float scale);
 
 	std::string getDescription() const override;
 
@@ -95,6 +95,7 @@ private:
 
 	cocos2d::Point m_pick_offset;
 	int _zoom_step;
+    float _view_scale;
 
 	void updateZoom(float zoom);
 
@@ -187,6 +188,8 @@ protected:
     void updateRelativeSizeInTool(CEntityMgr::ID entity_id, Node *node, Size size);
     void updateRelativeSizeWidthInTool(CEntityMgr::ID entity_id, Node *node, float width);
 	void updateRelativeSizeHeightInTool(CEntityMgr::ID entity_id, Node *node, float height);
+
+	void updateButtonImagePos(Node *node);
 
 	void clearScene();
 	

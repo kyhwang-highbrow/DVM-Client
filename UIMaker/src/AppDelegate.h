@@ -11,7 +11,7 @@ The reason for implement as private inheritance is to hide some interface call b
 class  AppDelegate : private cocos2d::Application
 {
 public:
-    AppDelegate(int width, int height, int sibling);
+    AppDelegate(int xpos, int ypos, int width, int height, float scale, int sibling);
     virtual ~AppDelegate();
 
     /**
@@ -34,8 +34,11 @@ public:
     virtual void applicationWillEnterForeground();
 
 protected:
+    int _xpos;
+    int _ypos;
 	int _width;
 	int _height;
+    float _scale;
     bool _isReopen;
 };
 
