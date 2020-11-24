@@ -56,6 +56,13 @@ function UI_EventPopupTab_PurchasePointNew:initUI()
 
             -- 아이템 카드
             local ui_card = UI_ItemCard(item_id, count)
+             
+            -- 만약 드래곤 카드라면 드래곤 정보 팝업
+            local did = tonumber(TableItem:getDidByItemId(item_id))
+            if did and (0 < did) then
+                ui_card.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
+            end
+
             ui_frame.vars['iconNode']:addChild(ui_card.root)
             ui_frame.root:setScale(1.2)
             ui_card.root:setScale(0.7)
@@ -338,6 +345,13 @@ function UI_EventPopupTab_PurchasePointNew:click_lastRewardIdx(reward_idx)
 
         -- 아이템 카드
         local ui_card = UI_ItemCard(item_id, count)
+         
+        -- 만약 드래곤 카드라면 드래곤 정보 팝업
+        local did = tonumber(TableItem:getDidByItemId(item_id))
+        if did and (0 < did) then
+            ui_card.vars['clickBtn']:registerScriptTapHandler(function() UI_BookDetailPopup.openWithFrame(did, nil, 3, 0.8, true) end)
+        end
+
         ui_frame.vars['iconNode']:addChild(ui_card.root)
         ui_frame.root:setScale(1.2)
         ui_card.root:setScale(0.7)
