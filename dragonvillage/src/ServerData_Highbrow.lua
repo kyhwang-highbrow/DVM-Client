@@ -70,7 +70,6 @@ function ServerData_Highbrow:getHBItemList()
     local l_item_list = {}
 
     for i, v in ipairs(self.m_hbItemList) do
-        ccdump(v)
         local b_is_active = false
         local start_date = v['start_date']
         local end_date = v['end_date']

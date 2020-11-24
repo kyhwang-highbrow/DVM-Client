@@ -185,55 +185,6 @@ function ServerData_AttrTowerPackage:request_attrTowerPackRewardAll(product_id, 
 end
 
 -------------------------------------
--- function getFocusRewardStage
--- @brief 보상 받기 가능한 idx로 이동
--------------------------------------
-function ServerData_AttrTowerPackage:getFocusRewardFloor(product_id)
-    local product_info_table = TABLE:get('table_package_attr_tower')
-    local reward_info_table = TABLE:get('table_package_attr_tower_reward')
-
-    for k, v in pairs(reward_info_table) do
-        reward_info_table['floor'] = k
-    end
-
-    local reward_info_list = table.MapToList(reward_info_table)
-
-    local function sort_func(a, b) -- 내림차순으로 정렬
-        return a['floor'] > b['floor'] 
-    end
-
-    table.sort(reward_info_list, sort_func)
-
-    local product_info = product_info_table[product_id]
-    local start_floor = product_info['start_floor']
-    local end_floor = product_info['end_floor']
-
-    local package_floor_length = 0
-    local result_index = 0
-    local result_floor = 0
-
-    for i, v in ipairs(reward_info_list) do
-        local floor = v['stage']
-        
-        if (floor < start_floor) then
-            break
-        end
-        
-        if (floor <= end_floor) then
-            package_floor_length = package_floor_length + 1
-        end
-
-        --if (유저가 최대로 깬 층 >= floor) and (유저가 보상을 마지막으로 수령한 층 < floor) then
-        if (true) and (true) then
-            result_floor = floor
-
-        end
-    end
-
-    return result_floor, result_index
-end
-
--------------------------------------
 -- function getHuddleFloor
 -- @brief 가장 첫번째 패키지의 end_floor
 -------------------------------------
@@ -267,12 +218,6 @@ function ServerData_AttrTowerPackage:getProductIdList(attr)
         end
         table.insert(product_id_list, product_id)
     end
-
-    local function sort_func(a, b)
-        return a < b
-    end
-
-    table.sort(product_id_list, sort_func)
 
     return product_id_list    
 end

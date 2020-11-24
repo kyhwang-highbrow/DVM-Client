@@ -1680,7 +1680,6 @@ function UI_GameResultNew:getDragonList()
             local user_data = g_dragonsData:getDragonDataFromUid(doid)
             local did = user_data['did']
             local table_data = TableDragon():get(did)
-            ccdump(user_data)
             local t_dragon_data = {['user_data'] = user_data, ['table_data'] = table_data}
             table.insert(l_dragon_list, t_dragon_data)
         end
