@@ -19,6 +19,9 @@ UI_Network = class(PARENT,{
         m_successCB = 'function',
         m_failCB = 'function',
         m_responseStatusCB = 'function',
+
+        m_retryCount = 'number', -- 통신 실패시 최대 재시도 횟수
+        m_currRetryCount = 'number', -- 현재 재시도 횟수
     })
 
 -------------------------------------
@@ -57,6 +60,9 @@ function UI_Network:init_MemberVariable()
 
     self.m_successCB = nil
     self.m_failCB = nil
+
+    self.m_retryCount = 0
+    self.m_currRetryCount = 0
 end
 
 -------------------------------------
@@ -78,6 +84,23 @@ end
 -------------------------------------
 function UI_Network:setReuse(reuse)
     self.m_bReuse = reuse
+end
+
+-------------------------------------
+-- function setRetryCount
+-------------------------------------
+function UI_Network:setRetryCount(retry_count)
+    self.m_retryCount = retry_count
+    self.m_currRetryCount = 0
+end
+
+-------------------------------------
+-- function setRetryCount_forGameFinish
+-- @brief 모든 종류의 연속 전투에서 
+-- 통신 실패 시 사용하는 재시도 카운트 설정 함수
+-------------------------------------
+function UI_Network:setRetryCount_forGameFinish()
+    self:setRetryCount(15)
 end
 
 -------------------------------------
@@ -245,6 +268,17 @@ end
 --			대부분 타임아웃으로 판단되나 잘못된 주소인 경우는 판별할 수 없다.
 -------------------------------------
 function UI_Network.fail(self, ret)
+    if (self.m_currRetryCount < self.m_retryCount) then
+        self.m_currRetryCount = (self.m_currRetryCount + 1)
+        local duration = 1
+        cca.reserveFunc(self.root, duration, function()
+            --ccdisplay('통신 재시도 ' .. tostring(self.m_currRetryCount))
+            self:request()
+        end)
+        return
+    end
+
+
     if self.m_failCB then
         self.m_failCB(ret)
     else
@@ -573,5 +607,6 @@ function UI_NetworkTest()
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(false) -- 통신 실패 시 취소 가능 여부
     ui_network:setReuse(false) -- 재사용 여부
+    ui_network:setRetryCount(5) -- 통신 실패시 1초 간격으로 재통신
     ui_network:request()
 end
