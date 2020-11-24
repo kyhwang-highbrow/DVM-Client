@@ -266,9 +266,6 @@ function ServerData_AutoPlaySetting:getNetworkFailCB(ui_network)
         
         -- 약 15초간 3번의 통신 재시도
         if (AUTO_PLAY_NETWORK_FAIL_COUNT <= 3) then
-            local msg = Str('네트워크 통신 중...') .. ' (' .. tostring(AUTO_PLAY_NETWORK_FAIL_COUNT) .. '/3)' 
-		    UIManager:toastNotificationRed(msg)
-            
             local duration = 5
             ui_network:setReuse(true)
             
