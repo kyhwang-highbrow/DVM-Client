@@ -265,7 +265,7 @@ function UI_DragonGoodbyePopup:click_goodbyeBtn()
 	end
 
 	if (target == nil) then
-		UIManager:toastNotificationRed('선택된 아이템이 없습니다.')	
+		UIManager:toastNotificationRed(Str('선택된 아이템이 없습니다.'))	
 		return
 	end
 
