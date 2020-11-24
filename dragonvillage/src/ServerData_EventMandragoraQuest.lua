@@ -116,7 +116,7 @@ function ServerData_EventMandragoraQuest:isVisible_YellowNoti()
     local quest_info = self.m_questInfo
     local curr_quest_id = self.m_currentQuestInfo['qid']
     local curr_quest_info = quest_info[curr_quest_id]
-    local b_curr_quest_open = (curr_quest_info and (curr_quest_info['clear'] == 0))
+    local b_curr_quest_open = (curr_quest_info and (curr_quest_info['clear'] == 0) and (curr_quest_info['open'] == 1))
     
     local b_is_noti = b_curr_quest_open
     return b_curr_quest_open
