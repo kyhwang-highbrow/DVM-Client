@@ -1034,6 +1034,7 @@ function UI_Lobby:update_highlight()
 
         do
             vars['mandragoraNotiSprite']:setVisible(false)
+            vars['mandragoraNotiYellow']:setVisible(false)
     
             if (g_hotTimeData:isActiveEvent('event_mandraquest')) then
                 -- 만드라고라의 모험 노티
