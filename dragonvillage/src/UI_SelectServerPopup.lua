@@ -53,6 +53,38 @@ function UI_SelectServerPopup:initUI()
             menu:setVisible( isExistServer(name) )
         end
     end
+
+    do -- 크기조정, 정렬
+        local width, height = vars['mainMenu']:getNormalSize()
+        local interval = 70
+        
+        -- 서버리스트 중 유효한 서버의 menu를 수집
+        local l_info = {}
+        local count = 0
+        for i, name in pairs(SERVER_NAME) do
+            local menu = vars[name .. 'Menu']
+            if isExistServer(name) then
+                count = (count + 1)
+                table.insert(l_info, {menu=menu, pos_y=menu:getPositionY()})
+            end
+        end
+
+        -- UI생성 시 4개를 기준으로 함. 차이가 있을 경우 UI 크기 조정
+        local difference = (count - 4)
+        vars['mainMenu']:setNormalSize(width, height + (difference * interval))
+
+        -- UI 생성 시 y값으로 순서 지정 (위쪽이 먼저)
+        table.sort(l_info, function(a, b)
+            return a['pos_y'] > b['pos_y']
+        end)
+
+        -- 가운데 정렬
+        local l_pos_y = getSortPosList(interval, count)
+        local offset = -10
+        for i,v in ipairs(l_info) do
+            v['menu']:setPosition(0, l_pos_y[i] + offset)
+        end
+    end
 end
 
 -------------------------------------

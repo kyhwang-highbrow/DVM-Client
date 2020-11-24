@@ -228,6 +228,7 @@ SERVER_NAME = {
     AMERICA = 'America',
     ASIA = 'Asia',
     JAPAN = 'Japan',
+    EUROPE = 'Europe',
 
     DEV = 'DEV',
     QA = 'QA', 

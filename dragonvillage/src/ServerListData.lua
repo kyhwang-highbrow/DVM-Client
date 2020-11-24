@@ -33,13 +33,17 @@ function ServerListData:initWithData(tdata)
     --서버변경 테스트때문에 개발이랑 qa랑 보이게
     if targetServer == SERVER_NAME.DEV or targetServer == SERVER_NAME.QA then
         for i, server in pairs(tserverList) do
-            if server['server_name'] ~= SERVER_NAME.DEV and server['server_name'] ~= SERVER_NAME.QA then
+            if (server['server_name'] == SERVER_NAME.DEV) then
+            elseif (server['server_name'] == SERVER_NAME.QA) then
+            --elseif (server['server_name'] == SERVER_NAME.EUROPE) then -- @sgkim 2020.11.24 유럽 서버 추가 준비를 위해 임의로 추가
+            else -- 위에서 허용되지 않은 서버 항목은 삭제
                 table.insert(tremove, 1, i)
             end
         end
         recommandServerName = targetServer
     else
         for i, server in pairs(tserverList) do
+            -- 라이브 서버에서는 DEV, QA서버를 제외한다
             if server['server_name'] == SERVER_NAME.DEV or server['server_name'] == SERVER_NAME.QA then
                 table.insert(tremove, 1, i)
             else
