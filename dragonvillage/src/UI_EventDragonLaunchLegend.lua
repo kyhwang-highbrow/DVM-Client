@@ -208,9 +208,24 @@ end
 function UI_EventDragonLaunchLegend:checkEvent(did)
     local is_event_dragon = (did == 121612)
     if (is_event_dragon == true) then
-        self.vars['eventLabel']:setVisible(true)
+        self.vars['eventMenu']:setVisible(true)
+
+        -- 매번 하는 게 비효율적이지만 하드코딩된 코드 관리 편하게 하기 위해 여기 작성
+        local title_height = self.vars['eventLabel1']:getTotalHeight() * 1.1
+        local content_height = self.vars['eventLabel2']:getTotalHeight() * 1.1
+        local offset = 10 
+        local total_height = title_height + content_height + offset
+
+        local title_position_y = (total_height * 0.5)
+        local content_position_y = title_position_y - title_height - offset
+
+        self.vars['eventLabel1']:setPositionY(title_position_y)
+        self.vars['eventLabel2']:setPositionY(content_position_y)
+
+        self.vars['eventMenu']:stopAllActions()
+        cca.pickMePickMe(self.vars['eventMenu'], 20)
     else
-        self.vars['eventLabel']:setVisible(false)
+        self.vars['eventMenu']:setVisible(false)
     end
 end
     
