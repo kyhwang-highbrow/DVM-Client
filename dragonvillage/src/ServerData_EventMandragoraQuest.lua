@@ -103,7 +103,7 @@ function ServerData_EventMandragoraQuest:isVisible_RedNoti()
     local curr_quest_info = quest_info[curr_quest_id]
     local b_curr_quest_reward = (curr_quest_info and (curr_quest_info['reward'] == 0) and (curr_quest_info['clear'] == 1))
     
-    local b_last_reward = self:availGetLastReward()
+    local b_last_reward = ((self:availGetLastReward()) and (not self:alreadyGetLastReward()))
     
     local b_is_noti = (b_curr_quest_reward or b_last_reward)
     return b_is_noti
