@@ -565,7 +565,13 @@ function ServerData_Arena:request_arenaFinish(is_win, play_time, finish_cb, fail
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setFailCB(fail_cb)
+    
+    -- 연속 전투의 경우 네트워크 에러 시 5초 대기후 재요청보냄
+    if (g_autoPlaySetting:isAutoPlay()) then
+        local fail_cb = g_autoPlaySetting:getNetworkFailCB(ui_network)
+        ui_network:setFailCB(fail_cb)
+    end
+
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
