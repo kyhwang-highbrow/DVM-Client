@@ -1032,6 +1032,24 @@ function UI_Lobby:update_highlight()
             end
         end
 
+        do
+            vars['mandragoraNotiSprite']:setVisible(false)
+    
+            if (g_hotTimeData:isActiveEvent('event_mandraquest')) then
+                -- 만드라고라의 모험 노티
+                local function setNoti(ret)
+                    local b_show_red_noti = g_mandragoraQuest:isVisible_RedNoti()
+                    vars['mandragoraNotiSprite']:setVisible(b_show_red_noti)
+                    local b_show_yellow_noti = g_mandragoraQuest:isVisible_YellowNoti()
+                    vars['mandragoraNotiYellow']:setVisible(b_show_yellow_noti)
+                end
+				-- 정확한 퀘스트 상태 확인을 위해 다시 요청(드래곤 소환 등의 퀘스트)
+                g_mandragoraQuest:request_questInfo(setNoti)
+            end
+        end
+
+        
+
         do -- 할로윈 이벤트
             vars['halloweenNotiSprite']:setVisible(false)
             vars['halloweenNotiYellow']:setVisible(false)
