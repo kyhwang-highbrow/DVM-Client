@@ -30,7 +30,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonGoodbyeSelectNew2:init(doid)
+function UI_DragonGoodbyeSelectNew2:init()
     local vars = self:load('dragon_goodbye_select_popup_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
