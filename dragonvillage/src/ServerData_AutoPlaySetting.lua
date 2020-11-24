@@ -245,36 +245,3 @@ function ServerData_AutoPlaySetting:getRuneAutoSellValue(t_setting)
     sell_value = tonumber(sell_value, 2) -- 2진법으로 변환 (서버에서 요구하는 형태)
     return sell_value
 end
-
--------------------------------------
--- function getNetworkFailCB
--- @brief 연속 전투시 네트워크 통신 실패해도
--- 3초의 시간 뒤 재통신하도록 하는 콜백함수 반환
--------------------------------------
-AUTO_PLAY_NETWORK_FAIL_COUNT = 0
-
-function ServerData_AutoPlaySetting:getNetworkFailCB(ui_network)
-    AUTO_PLAY_NETWORK_FAIL_COUNT = 0
-
-    local function request_()
-        ui_network:setReuse(false)
-        ui_network:request()
-    end
-
-    local function network_fail_cb(ret)
-        AUTO_PLAY_NETWORK_FAIL_COUNT = AUTO_PLAY_NETWORK_FAIL_COUNT + 1
-        
-        -- 약 15초간 3번의 통신 재시도
-        if (AUTO_PLAY_NETWORK_FAIL_COUNT <= 3) then
-            local duration = 5
-            ui_network:setReuse(true)
-            
-            cca.reserveFunc(ui_network.root, duration, function() request_() end)
-        
-        else
-            ui_network:makeNetworkFailPopup(ret) -- 기본 에러 팝업
-        end
-    end
-
-    return network_fail_cb
-end

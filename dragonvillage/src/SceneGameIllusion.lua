@@ -242,12 +242,12 @@ function SceneGameIllusion:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('deck_name', 'illusion')
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
 
-    -- 연속 전투의 경우 네트워크 에러 시 3번까지 5초 대기후 재요청보냄
+    -- 연속 전투의 경우 네트워크 에러 시 잠시 대기후 재요청보냄
     if (g_autoPlaySetting:isAutoPlay()) then
-        local fail_cb = g_autoPlaySetting:getNetworkFailCB(ui_network)
-        ui_network:setFailCB(fail_cb)
+        ui_network:setRetryCount_forGameFinish()
     end
 
+    ui_network:setRevocable(false) -- 게임 종료 통신은 취소를 하지 못함
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()

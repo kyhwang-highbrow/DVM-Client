@@ -736,17 +736,17 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         ui_network:setParam('score', t_param['score'])
     end
 
-    -- 연속 전투의 경우 네트워크 에러 시 5초 대기후 재요청보냄
-    if (g_autoPlaySetting:isAutoPlay()) then
-        local fail_cb = g_autoPlaySetting:getNetworkFailCB(ui_network)
-        ui_network:setFailCB(fail_cb)
-    end
-
     -- 온전한 연속 전투 로그를 위해 보냄
     if (auto ~= nil) then
         ui_network:setParam('auto', auto)
     end
 
+    -- 연속 전투의 경우 네트워크 에러 시 잠시 대기후 재요청보냄
+    if (g_autoPlaySetting:isAutoPlay()) then
+        ui_network:setRetryCount_forGameFinish()
+    end
+
+    ui_network:setRevocable(false) -- 게임 종료 통신은 취소를 하지 못함
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
