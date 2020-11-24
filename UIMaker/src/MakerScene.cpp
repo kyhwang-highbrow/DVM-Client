@@ -1477,30 +1477,6 @@ cocos2d::Node* CMakerScene::onCmd_Create(cocos2d::Node* parent, CEntityMgr::ID e
 
     bool isSizeToContent = false;
 
-    // 파일 이름을 가져옴
-    bool isA2D = false;
-    auto reflect = properties.GetReflection();
-    auto desc = properties.GetDescriptor();
-
-    if (desc && reflect)
-    {
-        for (int i = 0; i < desc->field_count(); ++i)
-        {
-            auto* field = desc->field(i);
-
-            if (!field) continue;
-            if (field->is_repeated()) continue;
-
-            const std::string& field_name = field->name();
-            if (field_name == "file_name")
-            {
-                std::string path;
-                if (GetFile(path, reflect->GetMessage(properties, field)))
-                    if (path.find(".a2d")) isA2D = true;
-            }
-        }
-    }
-
 	Node* node = nullptr;
 	switch (properties.type())
 	{
@@ -1558,17 +1534,7 @@ cocos2d::Node* CMakerScene::onCmd_Create(cocos2d::Node* parent, CEntityMgr::ID e
     case maker::ENTITY__Sprite: node = Sprite::create(); break;
     case maker::ENTITY__Scale9Sprite: node = Scale9Sprite::create(); break;
     case maker::ENTITY__ProgressTimer: node = ProgressTimer::create(Sprite::create()); break;
-    case maker::ENTITY__Visual: 
-        if (isA2D)
-        {
-            node = AzVRP::create();
-        }
-        else
-        {
-            node = AzVisual::create();
-        }
-        break;
-    //case maker::ENTITY__Visual: node = AzVisual::create(); break;
+	case maker::ENTITY__Visual: node = AzVRP::create(); break;
     case maker::ENTITY__Particle: node = ParticleSystemQuad::create(); break;
 	}
 
