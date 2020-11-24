@@ -13,6 +13,7 @@ source_path = ''
 patch_work_path = ''
 dest_path = ''
 app_ver = ''
+is_force_update = 0
 latest_patch_ver = ''
 TARGET_SERVER = ''
 LOCAL_MACHINE_ID = ''
@@ -63,6 +64,7 @@ def init_global_var():
     global patch_work_path
     global dest_path
     global app_ver
+    global is_force_update
     global SERVER_PATH
     global TOOL_SERVER_PATH
     global PLATFORM_SERVER_PATH
@@ -105,6 +107,8 @@ def init_global_var():
 
     # 패치를 진행할 앱 버전
     app_ver = sys.argv[2]
+    # 강제 업데이트를 적용할지 여부
+    is_force_update = 1 if ((len(sys.argv) >= 4) and (sys.argv[3] == 'FORCE_UPDATE')) else 0
 
     print('\t' + source_path)
     print('\t' + patch_work_path)
@@ -257,7 +261,8 @@ def main():
         'version' : new_patch_ver,
         'name' : zip_path,
         'md5' : zip_md5,
-        'size' : zip_size
+        'size' : zip_size,
+        'force_update' : is_force_update,
     }
     print(data)
     r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
