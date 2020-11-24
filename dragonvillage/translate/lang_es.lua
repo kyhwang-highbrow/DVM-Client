@@ -39,7 +39,7 @@ return {['다이아 3,300개\n드래곤 경험치 3,000,000개\n날개 2,000개'
 ['아스티(땅) 인연 포인트']='Asti (Tierra) Relación Point',
 ['아스티(물)']='Asti (Agua)',
 ['아스티(물) 인연 포인트']='Asti (Agua) Relación Point',
-['일정 시간마다 후방 아군의 공격력을 {1}초간 증가시킵니다.\n대상이 공격력 감소 상태인 경우, 공격력 감소 효과를 모두 해제합니다.']='aumenta periódicamente ATK aliados traseros de {1} segundos.\ntambién elimina los efectos de reducción de ATK emitidos en los objetivos.',
+['일정 시간마다 후방 아군의 공격력을 {1}초간 증가시킵니다.\n또한 대상에게 걸려 있는 공격력 감소 효과를 모두 해제합니다.']='aumenta periódicamente ATK aliados traseros de {1} segundos.\ntambién elimina los efectos de reducción de ATK emitidos en los objetivos.',
 ['일정 시간마다 후방 아군의 공격력을 {1}초간 증가시킵니다.\n또한 대상에게 걸려 있는 해로운 효과를 {2}개 해제합니다.']='aumenta periódicamente ATK aliados traseros de {1} segundos.\nTambién quita {2} efectos nocivos emitidos en los objetivos.',
 ['{1}~{2}층 정복']='Conquista de suelo {1} - {2}',
 ['아스티 출시 기념']='Asti lanzamiento Evento',
