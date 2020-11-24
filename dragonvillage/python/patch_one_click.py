@@ -13,8 +13,8 @@ source_path = ''
 patch_work_path = ''
 dest_path = ''
 app_ver = ''
-is_force_update = 0
 latest_patch_ver = ''
+is_force_patch = 1
 TARGET_SERVER = ''
 LOCAL_MACHINE_ID = ''
 LOCAL_MACHINE_PASSWD = ''
@@ -64,7 +64,7 @@ def init_global_var():
     global patch_work_path
     global dest_path
     global app_ver
-    global is_force_update
+    global is_force_patch
     global SERVER_PATH
     global TOOL_SERVER_PATH
     global PLATFORM_SERVER_PATH
@@ -72,7 +72,7 @@ def init_global_var():
     global LOCAL_MACHINE_PASSWD
     global LOCAL_MACHINE_ID
     global LOCAL_MACHINE_DOMAIN
-	
+
     # TODO 경로들은 추후에 파라미터로 받을 것!
     # 소스 경로 (개발 폴더 혹은 에뮬레이터 경로)
     source_path = os.path.dirname(os.path.realpath(__file__))
@@ -107,8 +107,9 @@ def init_global_var():
 
     # 패치를 진행할 앱 버전
     app_ver = sys.argv[2]
-    # 강제 업데이트를 적용할지 여부
-    is_force_update = 1 if ((len(sys.argv) >= 4) and (sys.argv[3] == 'FORCE_UPDATE')) else 0
+    # 유저 강제 재접속 여부 결정, 1이면 강제 재접속시킴
+    is_force_patch = 0 if ((len(sys.argv) >= 4) and (sys.argv[3] == '0')) else 1
+    print('\t' + 'is_force_patch : ' + str(is_force_patch))
 
     print('\t' + source_path)
     print('\t' + patch_work_path)
@@ -247,7 +248,11 @@ def main():
     
     # 운영툴 패치 정보 업데이트
     print('# [tool] update_patch_dv')
-    r = requests.get(TOOL_SERVER_PATH + '/update_patch_dv')
+    data = {
+        'is_force_patch' : is_force_patch
+    }
+    r = requests.post(TOOL_SERVER_PATH + '/update_patch_dv', data = data)
+
     print('# [tool] upload_patch_dv')
     r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
     
@@ -261,8 +266,7 @@ def main():
         'version' : new_patch_ver,
         'name' : zip_path,
         'md5' : zip_md5,
-        'size' : zip_size,
-        'force_update' : is_force_update,
+        'size' : zip_size
     }
     print(data)
     r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
