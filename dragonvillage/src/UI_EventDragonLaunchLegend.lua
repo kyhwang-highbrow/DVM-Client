@@ -121,6 +121,7 @@ function UI_EventDragonLaunchLegend:click_earthBtn()
     local did = self:getDidFromAttr(1)
     self:setDragon(did)
     self:summonUp(did)
+    self:checkEvent(did)
 end
 
 -------------------------------------
@@ -130,6 +131,7 @@ function UI_EventDragonLaunchLegend:click_waterBtn()
     local did = self:getDidFromAttr(2)
     self:setDragon(did)
     self:summonUp(did)
+    self:checkEvent(did)
 end
 
 -------------------------------------
@@ -139,6 +141,7 @@ function UI_EventDragonLaunchLegend:click_fireBtn()
     local did = self:getDidFromAttr(3)
     self:setDragon(did)
     self:summonUp(did)
+    self:checkEvent(did)
 end
 
 -------------------------------------
@@ -148,6 +151,7 @@ function UI_EventDragonLaunchLegend:click_lightBtn()
     local did = self:getDidFromAttr(4)
     self:setDragon(did)
     self:summonUp(did)
+    self:checkEvent(did)
 end
 
 -------------------------------------
@@ -157,6 +161,7 @@ function UI_EventDragonLaunchLegend:click_darkBtn()
     local did = self:getDidFromAttr(5)
     self:setDragon(did)
     self:summonUp(did)
+    self:checkEvent(did)
 end
 
 -------------------------------------
@@ -192,6 +197,20 @@ function UI_EventDragonLaunchLegend:summonUp(did)
         self.vars['summonLabel']:setVisible(true)
     else
         self.vars['summonLabel']:setVisible(false)
+    end
+end
+    
+-------------------------------------
+-- function checkEvent
+-- @brief 이벤트에서 주는 드래곤인 경우
+-- 라벨 표시.. 시간 없어서 일단 하드코딩
+-------------------------------------
+function UI_EventDragonLaunchLegend:checkEvent(did)
+    local is_event_dragon = (did == 121612)
+    if (is_event_dragon == true) then
+        self.vars['eventLabel']:setVisible(true)
+    else
+        self.vars['eventLabel']:setVisible(false)
     end
 end
     
