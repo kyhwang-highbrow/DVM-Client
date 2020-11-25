@@ -361,17 +361,28 @@ function UI_TitleScene:setWorkList()
     if (isAndroid() or isIos()) then
         table.insert(self.m_lWorkList, 'workInitAdSDKSelector') -- 광고 sdk 초기화    
         
+        local is_new_billing_setup_process = false
+
+        -- @mskim 2020.11.18, 1.2.7 앱 업데이트 분기 처리
+        -- LIVE 1.2.7, QA 0.7.8, DEV 0.7.7 이상은 새로운 미지급 결제 처리 로직을 사용하도록 한다.
+        if (IS_LIVE_SERVER() and getAppVerNum() >= 1002007) 
+            or (IS_QA_SERVER() and getAppVerNum() >= 7008)
+            or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() >= 7007) then
+
+            is_new_billing_setup_process = true
+        end
+
         -- market : Onestore or Google
         if (PerpleSdkManager:onestoreIsAvailable()) then
-            table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
+            if (is_new_billing_setup_process == true) then
+                table.insert(self.m_lWorkList, 'workBillingSetupWithoutRestore') -- perple sdk                    
+            else
+                table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
+            end
             table.insert(self.m_lWorkList, 'workBillingSetupForOnestore') -- perple sdk
             table.insert(self.m_lWorkList, 'workGetMarketInfoForOnestore') -- perple sdk
         else
-            -- @mskim 2020.11.18, 1.2.7 앱 업데이트 분기 처리
-            -- LIVE 1.2.7, QA 0.7.8, DEV 0.7.7 이상은 새로운 미지급 결제 처리 로직을 사용하도록 한다.
-            if (IS_LIVE_SERVER() and getAppVerNum() >= 1002007) 
-            or (IS_QA_SERVER() and getAppVerNum() >= 7008)
-            or (CppFunctions:getTargetServer() == 'DEV' and getAppVerNum() >= 7007) then
+            if (is_new_billing_setup_process == true) then
                 table.insert(self.m_lWorkList, 'workBillingSetupWithoutRestore') -- perple sdk                    
                 table.insert(self.m_lWorkList, 'workBillingRestorePurchase') -- perple sdk
             else
