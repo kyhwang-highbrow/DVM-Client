@@ -86,8 +86,7 @@ function UI_Package_AttrTowerListItem:refresh()
 
     if (g_attrTowerPackageData:isActive(product_id)) then
         -- 수령 가능한지
-        local challenge_floor = g_attrTowerData:getChallengingFloor()
-        local clear_floor = challenge_floor - 1
+        local clear_floor = g_attrTowerData:getClearFloor()
     
         -- 이미 수령한 경우
         if (g_attrTowerPackageData:isReceived(product_id, floor)) then
@@ -120,9 +119,6 @@ function UI_Package_AttrTowerListItem:click_rewardBtn()
     local data = self.m_data
     local product_id = self.m_productId
     local floor = data['floor']
-
-    local challenge_floor = g_attrTowerData:getChallengingFloor()
-    local clear_floor = challenge_floor - 1
 
     -- 이전 보상을 받지 않았다면
     if (not g_attrTowerPackageData:availReceive(product_id, floor)) then

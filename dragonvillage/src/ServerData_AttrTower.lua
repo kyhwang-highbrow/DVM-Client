@@ -393,6 +393,14 @@ function ServerData_AttrTower:getChallengingFloor()
 end
 
 -------------------------------------
+-- function getClearFloor
+-- @brief 최종적으로 클리어한 층
+-------------------------------------
+function ServerData_AttrTower:getClearFloor()
+    return self.m_clearFloor
+end
+
+-------------------------------------
 -- function isOpenStage
 -- @brief stage_id에 해당하는 스테이지가 입장 가능한지를 리턴
 -------------------------------------

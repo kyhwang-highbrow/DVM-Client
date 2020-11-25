@@ -101,8 +101,7 @@ function ServerData_AttrTowerPackage:isVisible_attrTowerPackNoti(product_id_list
             local product_info = product_info_table[product_id]
             local start_floor = product_info['start_floor']
             local end_floor = product_info['end_floor']
-            local challenge_floor = g_attrTowerData:getChallengingFloor()
-            local clear_floor = challenge_floor - 1
+            local clear_floor = g_attrTowerData:getClearFloor()
             local receive_floor = self.m_tProductInfo[product_id]
         
             for reward_floor, _ in pairs(reward_info_table) do

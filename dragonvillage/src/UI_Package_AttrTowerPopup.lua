@@ -67,12 +67,12 @@ end
 -------------------------------------
 function UI_Package_AttrTowerPopup:click_buyBtn(attr)
     local huddle = g_attrTowerPackageData:getHuddleFloor(attr)
-    local challenge_floor = g_attrTowerData:getChallengingFloor()
+    local clear_floor = g_attrTowerData:getClearFloor()
     local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
 
     -- 허들 이상 클리어한 경우
     local ui
-    if ((table.count(product_id_list) > 1) and (challenge_floor >= huddle)) then
+    if ((table.count(product_id_list) > 1) and (clear_floor >= huddle)) then
         require('UI_Package_AttrTowerBundle')
         ui = UI_Package_AttrTowerBundle(attr)
 
