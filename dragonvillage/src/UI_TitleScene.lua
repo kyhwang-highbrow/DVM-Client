@@ -363,6 +363,7 @@ function UI_TitleScene:setWorkList()
         
         -- market : Onestore or Google
         if (PerpleSdkManager:onestoreIsAvailable()) then
+            table.insert(self.m_lWorkList, 'workBillingSetup') -- perple sdk
             table.insert(self.m_lWorkList, 'workBillingSetupForOnestore') -- perple sdk
             table.insert(self.m_lWorkList, 'workGetMarketInfoForOnestore') -- perple sdk
         else
