@@ -107,8 +107,11 @@ function UI_DragonManageFriendshipResult:refresh(pre_dragon_object, cur_dragon_o
         vars['defLabel2']:setString(Str('{1}', comma_value(cur_def - pre_def)))
         vars['hpLabel2']:setString(Str('{1}', comma_value(cur_hp - pre_hp)))
 
-        local function gauge_act_func(node, pre_per, cur_per)
-            node:setPercentage(pre_per * 100)
+        vars['atkGauge']:setPercentage((pre_atk/max_atk) * 100)
+        vars['defGauge']:setPercentage((pre_def/max_def) * 100)
+        vars['hpGauge']:setPercentage((pre_hp/max_hp) * 100)
+
+        local function gauge_act_func(node, cur_per)
             node:runAction(cc.EaseElasticOut:create(cc.ProgressTo:create(2, cur_per * 100), 1.5))
         end
 
@@ -117,9 +120,9 @@ function UI_DragonManageFriendshipResult:refresh(pre_dragon_object, cur_dragon_o
         visual:setVisible(true)
         visual:changeAni('bar', false)
         visual:addAniHandler(function()
-            gauge_act_func(vars['atkGauge'], pre_atk/max_atk, cur_atk/max_atk)
-            gauge_act_func(vars['defGauge'], pre_def/max_def, cur_def/max_def)
-            gauge_act_func(vars['hpGauge'], pre_hp/max_hp, cur_hp/max_hp)
+            gauge_act_func(vars['atkGauge'], cur_atk/max_atk)
+            gauge_act_func(vars['defGauge'], cur_def/max_def)
+            gauge_act_func(vars['hpGauge'], cur_hp/max_hp)
         end) 
     end
 end
