@@ -1601,162 +1601,10 @@ class Node : public ::google::protobuf::Message {
   inline ::std::string* release_ui_name();
   inline void set_allocated_ui_name(::std::string* ui_name);
 
-  // optional float x = 2 [default = 0];
-  inline bool has_x() const;
-  inline void clear_x();
-  static const int kXFieldNumber = 2;
-  inline float x() const;
-  inline void set_x(float value);
-
-  // optional float y = 3 [default = 0];
-  inline bool has_y() const;
-  inline void clear_y();
-  static const int kYFieldNumber = 3;
-  inline float y() const;
-  inline void set_y(float value);
-
-  // optional .maker.DOCK_POINT dock_point = 4 [default = DOCK__MIDDLE_CENTER];
-  inline bool has_dock_point() const;
-  inline void clear_dock_point();
-  static const int kDockPointFieldNumber = 4;
-  inline ::maker::DOCK_POINT dock_point() const;
-  inline void set_dock_point(::maker::DOCK_POINT value);
-
-  // optional .maker.ANCHOR_POINT anchor_point = 5 [default = ANCHOR__MIDDLE_CENTER];
-  inline bool has_anchor_point() const;
-  inline void clear_anchor_point();
-  static const int kAnchorPointFieldNumber = 5;
-  inline ::maker::ANCHOR_POINT anchor_point() const;
-  inline void set_anchor_point(::maker::ANCHOR_POINT value);
-
-  // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 6 [default = RELATIVE_SIZE_TYPE__NONE];
-  inline bool has_relative_size_type() const;
-  inline void clear_relative_size_type();
-  static const int kRelativeSizeTypeFieldNumber = 6;
-  inline ::maker::RELATIVE_SIZE_TYPE relative_size_type() const;
-  inline void set_relative_size_type(::maker::RELATIVE_SIZE_TYPE value);
-
-  // optional int32 rel_width = 7 [default = 0];
-  inline bool has_rel_width() const;
-  inline void clear_rel_width();
-  static const int kRelWidthFieldNumber = 7;
-  inline ::google::protobuf::int32 rel_width() const;
-  inline void set_rel_width(::google::protobuf::int32 value);
-
-  // optional int32 rel_height = 8 [default = 0];
-  inline bool has_rel_height() const;
-  inline void clear_rel_height();
-  static const int kRelHeightFieldNumber = 8;
-  inline ::google::protobuf::int32 rel_height() const;
-  inline void set_rel_height(::google::protobuf::int32 value);
-
-  // optional int32 width = 9 [default = 100];
-  inline bool has_width() const;
-  inline void clear_width();
-  static const int kWidthFieldNumber = 9;
-  inline ::google::protobuf::int32 width() const;
-  inline void set_width(::google::protobuf::int32 value);
-
-  // optional int32 height = 10 [default = 100];
-  inline bool has_height() const;
-  inline void clear_height();
-  static const int kHeightFieldNumber = 10;
-  inline ::google::protobuf::int32 height() const;
-  inline void set_height(::google::protobuf::int32 value);
-
-  // optional float scale_x = 11 [default = 1];
-  inline bool has_scale_x() const;
-  inline void clear_scale_x();
-  static const int kScaleXFieldNumber = 11;
-  inline float scale_x() const;
-  inline void set_scale_x(float value);
-
-  // optional float scale_y = 12 [default = 1];
-  inline bool has_scale_y() const;
-  inline void clear_scale_y();
-  static const int kScaleYFieldNumber = 12;
-  inline float scale_y() const;
-  inline void set_scale_y(float value);
-
-  // optional float skew_x = 13 [default = 0];
-  inline bool has_skew_x() const;
-  inline void clear_skew_x();
-  static const int kSkewXFieldNumber = 13;
-  inline float skew_x() const;
-  inline void set_skew_x(float value);
-
-  // optional float skew_y = 14 [default = 0];
-  inline bool has_skew_y() const;
-  inline void clear_skew_y();
-  static const int kSkewYFieldNumber = 14;
-  inline float skew_y() const;
-  inline void set_skew_y(float value);
-
-  // optional float rotation = 15 [default = 0];
-  inline bool has_rotation() const;
-  inline void clear_rotation();
-  static const int kRotationFieldNumber = 15;
-  inline float rotation() const;
-  inline void set_rotation(float value);
-
-  // optional bool visible = 16 [default = true];
-  inline bool has_visible() const;
-  inline void clear_visible();
-  static const int kVisibleFieldNumber = 16;
-  inline bool visible() const;
-  inline void set_visible(bool value);
-
-  // optional .maker.NODE_ACTION_TYPE action_type = 17 [default = NODE_ACTION_TYPE__NONE];
-  inline bool has_action_type() const;
-  inline void clear_action_type();
-  static const int kActionTypeFieldNumber = 17;
-  inline ::maker::NODE_ACTION_TYPE action_type() const;
-  inline void set_action_type(::maker::NODE_ACTION_TYPE value);
-
-  // optional float action_delay_1 = 18 [default = 0];
-  inline bool has_action_delay_1() const;
-  inline void clear_action_delay_1();
-  static const int kActionDelay1FieldNumber = 18;
-  inline float action_delay_1() const;
-  inline void set_action_delay_1(float value);
-
-  // optional float action_delay_2 = 19 [default = 0];
-  inline bool has_action_delay_2() const;
-  inline void clear_action_delay_2();
-  static const int kActionDelay2FieldNumber = 19;
-  inline float action_delay_2() const;
-  inline void set_action_delay_2(float value);
-
-  // optional float action_duration = 20 [default = 0];
-  inline bool has_action_duration() const;
-  inline void clear_action_duration();
-  static const int kActionDurationFieldNumber = 20;
-  inline float action_duration() const;
-  inline void set_action_duration(float value);
-
-  // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
-  inline bool has_screen_ui() const;
-  inline void clear_screen_ui();
-  static const int kScreenUiFieldNumber = 21;
-  inline ::maker::SCREEN_UI_TYPE screen_ui() const;
-  inline void set_screen_ui(::maker::SCREEN_UI_TYPE value);
-
-  // optional string lua_name = 22 [default = ""];
-  inline bool has_lua_name() const;
-  inline void clear_lua_name();
-  static const int kLuaNameFieldNumber = 22;
-  inline const ::std::string& lua_name() const;
-  inline void set_lua_name(const ::std::string& value);
-  inline void set_lua_name(const char* value);
-  inline void set_lua_name(const char* value, size_t size);
-  inline ::std::string* mutable_lua_name();
-  inline ::std::string* release_lua_name();
-  inline void set_allocated_lua_name(::std::string* lua_name);
-
-  // optional string flag = 23 [default = ""];
+  // optional string flag = 2 [default = ""];
   inline bool has_flag() const;
   inline void clear_flag();
-  static const int kFlagFieldNumber = 23;
+  static const int kFlagFieldNumber = 2;
   inline const ::std::string& flag() const;
   inline void set_flag(const ::std::string& value);
   inline void set_flag(const char* value);
@@ -1765,10 +1613,164 @@ class Node : public ::google::protobuf::Message {
   inline ::std::string* release_flag();
   inline void set_allocated_flag(::std::string* flag);
 
+  // optional float x = 3 [default = 0];
+  inline bool has_x() const;
+  inline void clear_x();
+  static const int kXFieldNumber = 3;
+  inline float x() const;
+  inline void set_x(float value);
+
+  // optional float y = 4 [default = 0];
+  inline bool has_y() const;
+  inline void clear_y();
+  static const int kYFieldNumber = 4;
+  inline float y() const;
+  inline void set_y(float value);
+
+  // optional .maker.DOCK_POINT dock_point = 5 [default = DOCK__MIDDLE_CENTER];
+  inline bool has_dock_point() const;
+  inline void clear_dock_point();
+  static const int kDockPointFieldNumber = 5;
+  inline ::maker::DOCK_POINT dock_point() const;
+  inline void set_dock_point(::maker::DOCK_POINT value);
+
+  // optional .maker.ANCHOR_POINT anchor_point = 6 [default = ANCHOR__MIDDLE_CENTER];
+  inline bool has_anchor_point() const;
+  inline void clear_anchor_point();
+  static const int kAnchorPointFieldNumber = 6;
+  inline ::maker::ANCHOR_POINT anchor_point() const;
+  inline void set_anchor_point(::maker::ANCHOR_POINT value);
+
+  // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 7 [default = RELATIVE_SIZE_TYPE__NONE];
+  inline bool has_relative_size_type() const;
+  inline void clear_relative_size_type();
+  static const int kRelativeSizeTypeFieldNumber = 7;
+  inline ::maker::RELATIVE_SIZE_TYPE relative_size_type() const;
+  inline void set_relative_size_type(::maker::RELATIVE_SIZE_TYPE value);
+
+  // optional int32 rel_width = 8 [default = 0];
+  inline bool has_rel_width() const;
+  inline void clear_rel_width();
+  static const int kRelWidthFieldNumber = 8;
+  inline ::google::protobuf::int32 rel_width() const;
+  inline void set_rel_width(::google::protobuf::int32 value);
+
+  // optional int32 rel_height = 9 [default = 0];
+  inline bool has_rel_height() const;
+  inline void clear_rel_height();
+  static const int kRelHeightFieldNumber = 9;
+  inline ::google::protobuf::int32 rel_height() const;
+  inline void set_rel_height(::google::protobuf::int32 value);
+
+  // optional int32 width = 10 [default = 100];
+  inline bool has_width() const;
+  inline void clear_width();
+  static const int kWidthFieldNumber = 10;
+  inline ::google::protobuf::int32 width() const;
+  inline void set_width(::google::protobuf::int32 value);
+
+  // optional int32 height = 11 [default = 100];
+  inline bool has_height() const;
+  inline void clear_height();
+  static const int kHeightFieldNumber = 11;
+  inline ::google::protobuf::int32 height() const;
+  inline void set_height(::google::protobuf::int32 value);
+
+  // optional float scale_x = 12 [default = 1];
+  inline bool has_scale_x() const;
+  inline void clear_scale_x();
+  static const int kScaleXFieldNumber = 12;
+  inline float scale_x() const;
+  inline void set_scale_x(float value);
+
+  // optional float scale_y = 13 [default = 1];
+  inline bool has_scale_y() const;
+  inline void clear_scale_y();
+  static const int kScaleYFieldNumber = 13;
+  inline float scale_y() const;
+  inline void set_scale_y(float value);
+
+  // optional float skew_x = 14 [default = 0];
+  inline bool has_skew_x() const;
+  inline void clear_skew_x();
+  static const int kSkewXFieldNumber = 14;
+  inline float skew_x() const;
+  inline void set_skew_x(float value);
+
+  // optional float skew_y = 15 [default = 0];
+  inline bool has_skew_y() const;
+  inline void clear_skew_y();
+  static const int kSkewYFieldNumber = 15;
+  inline float skew_y() const;
+  inline void set_skew_y(float value);
+
+  // optional float rotation = 16 [default = 0];
+  inline bool has_rotation() const;
+  inline void clear_rotation();
+  static const int kRotationFieldNumber = 16;
+  inline float rotation() const;
+  inline void set_rotation(float value);
+
+  // optional bool visible = 17 [default = true];
+  inline bool has_visible() const;
+  inline void clear_visible();
+  static const int kVisibleFieldNumber = 17;
+  inline bool visible() const;
+  inline void set_visible(bool value);
+
+  // optional .maker.NODE_ACTION_TYPE action_type = 18 [default = NODE_ACTION_TYPE__NONE];
+  inline bool has_action_type() const;
+  inline void clear_action_type();
+  static const int kActionTypeFieldNumber = 18;
+  inline ::maker::NODE_ACTION_TYPE action_type() const;
+  inline void set_action_type(::maker::NODE_ACTION_TYPE value);
+
+  // optional float action_delay_1 = 19 [default = 0];
+  inline bool has_action_delay_1() const;
+  inline void clear_action_delay_1();
+  static const int kActionDelay1FieldNumber = 19;
+  inline float action_delay_1() const;
+  inline void set_action_delay_1(float value);
+
+  // optional float action_delay_2 = 20 [default = 0];
+  inline bool has_action_delay_2() const;
+  inline void clear_action_delay_2();
+  static const int kActionDelay2FieldNumber = 20;
+  inline float action_delay_2() const;
+  inline void set_action_delay_2(float value);
+
+  // optional float action_duration = 21 [default = 0];
+  inline bool has_action_duration() const;
+  inline void clear_action_duration();
+  static const int kActionDurationFieldNumber = 21;
+  inline float action_duration() const;
+  inline void set_action_duration(float value);
+
+  // optional .maker.SCREEN_UI_TYPE screen_ui = 22 [default = SCREEN_UI_TYPE__NONE];
+  inline bool has_screen_ui() const;
+  inline void clear_screen_ui();
+  static const int kScreenUiFieldNumber = 22;
+  inline ::maker::SCREEN_UI_TYPE screen_ui() const;
+  inline void set_screen_ui(::maker::SCREEN_UI_TYPE value);
+
+  // optional string lua_name = 23 [default = ""];
+  inline bool has_lua_name() const;
+  inline void clear_lua_name();
+  static const int kLuaNameFieldNumber = 23;
+  inline const ::std::string& lua_name() const;
+  inline void set_lua_name(const ::std::string& value);
+  inline void set_lua_name(const char* value);
+  inline void set_lua_name(const char* value, size_t size);
+  inline ::std::string* mutable_lua_name();
+  inline ::std::string* release_lua_name();
+  inline void set_allocated_lua_name(::std::string* lua_name);
+
   // @@protoc_insertion_point(class_scope:maker.Node)
  private:
   inline void set_has_ui_name();
   inline void clear_has_ui_name();
+  inline void set_has_flag();
+  inline void clear_has_flag();
   inline void set_has_x();
   inline void clear_has_x();
   inline void set_has_y();
@@ -1811,12 +1813,11 @@ class Node : public ::google::protobuf::Message {
   inline void clear_has_screen_ui();
   inline void set_has_lua_name();
   inline void clear_has_lua_name();
-  inline void set_has_flag();
-  inline void clear_has_flag();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::std::string* ui_name_;
+  ::std::string* flag_;
   float x_;
   float y_;
   int dock_point_;
@@ -1838,7 +1839,6 @@ class Node : public ::google::protobuf::Message {
   float action_duration_;
   int screen_ui_;
   ::std::string* lua_name_;
-  ::std::string* flag_;
 
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(23 + 31) / 32];
@@ -6113,530 +6113,15 @@ inline void Node::set_allocated_ui_name(::std::string* ui_name) {
   }
 }
 
-// optional float x = 2 [default = 0];
-inline bool Node::has_x() const {
+// optional string flag = 2 [default = ""];
+inline bool Node::has_flag() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Node::set_has_x() {
+inline void Node::set_has_flag() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void Node::clear_has_x() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void Node::clear_x() {
-  x_ = 0;
-  clear_has_x();
-}
-inline float Node::x() const {
-  return x_;
-}
-inline void Node::set_x(float value) {
-  set_has_x();
-  x_ = value;
-}
-
-// optional float y = 3 [default = 0];
-inline bool Node::has_y() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void Node::set_has_y() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void Node::clear_has_y() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void Node::clear_y() {
-  y_ = 0;
-  clear_has_y();
-}
-inline float Node::y() const {
-  return y_;
-}
-inline void Node::set_y(float value) {
-  set_has_y();
-  y_ = value;
-}
-
-// optional .maker.DOCK_POINT dock_point = 4 [default = DOCK__MIDDLE_CENTER];
-inline bool Node::has_dock_point() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void Node::set_has_dock_point() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void Node::clear_has_dock_point() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void Node::clear_dock_point() {
-  dock_point_ = 4;
-  clear_has_dock_point();
-}
-inline ::maker::DOCK_POINT Node::dock_point() const {
-  return static_cast< ::maker::DOCK_POINT >(dock_point_);
-}
-inline void Node::set_dock_point(::maker::DOCK_POINT value) {
-  assert(::maker::DOCK_POINT_IsValid(value));
-  set_has_dock_point();
-  dock_point_ = value;
-}
-
-// optional .maker.ANCHOR_POINT anchor_point = 5 [default = ANCHOR__MIDDLE_CENTER];
-inline bool Node::has_anchor_point() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void Node::set_has_anchor_point() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void Node::clear_has_anchor_point() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void Node::clear_anchor_point() {
-  anchor_point_ = 4;
-  clear_has_anchor_point();
-}
-inline ::maker::ANCHOR_POINT Node::anchor_point() const {
-  return static_cast< ::maker::ANCHOR_POINT >(anchor_point_);
-}
-inline void Node::set_anchor_point(::maker::ANCHOR_POINT value) {
-  assert(::maker::ANCHOR_POINT_IsValid(value));
-  set_has_anchor_point();
-  anchor_point_ = value;
-}
-
-// optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 6 [default = RELATIVE_SIZE_TYPE__NONE];
-inline bool Node::has_relative_size_type() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void Node::set_has_relative_size_type() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void Node::clear_has_relative_size_type() {
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline void Node::clear_relative_size_type() {
-  relative_size_type_ = 0;
-  clear_has_relative_size_type();
-}
-inline ::maker::RELATIVE_SIZE_TYPE Node::relative_size_type() const {
-  return static_cast< ::maker::RELATIVE_SIZE_TYPE >(relative_size_type_);
-}
-inline void Node::set_relative_size_type(::maker::RELATIVE_SIZE_TYPE value) {
-  assert(::maker::RELATIVE_SIZE_TYPE_IsValid(value));
-  set_has_relative_size_type();
-  relative_size_type_ = value;
-}
-
-// optional int32 rel_width = 7 [default = 0];
-inline bool Node::has_rel_width() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
-}
-inline void Node::set_has_rel_width() {
-  _has_bits_[0] |= 0x00000040u;
-}
-inline void Node::clear_has_rel_width() {
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline void Node::clear_rel_width() {
-  rel_width_ = 0;
-  clear_has_rel_width();
-}
-inline ::google::protobuf::int32 Node::rel_width() const {
-  return rel_width_;
-}
-inline void Node::set_rel_width(::google::protobuf::int32 value) {
-  set_has_rel_width();
-  rel_width_ = value;
-}
-
-// optional int32 rel_height = 8 [default = 0];
-inline bool Node::has_rel_height() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
-}
-inline void Node::set_has_rel_height() {
-  _has_bits_[0] |= 0x00000080u;
-}
-inline void Node::clear_has_rel_height() {
-  _has_bits_[0] &= ~0x00000080u;
-}
-inline void Node::clear_rel_height() {
-  rel_height_ = 0;
-  clear_has_rel_height();
-}
-inline ::google::protobuf::int32 Node::rel_height() const {
-  return rel_height_;
-}
-inline void Node::set_rel_height(::google::protobuf::int32 value) {
-  set_has_rel_height();
-  rel_height_ = value;
-}
-
-// optional int32 width = 9 [default = 100];
-inline bool Node::has_width() const {
-  return (_has_bits_[0] & 0x00000100u) != 0;
-}
-inline void Node::set_has_width() {
-  _has_bits_[0] |= 0x00000100u;
-}
-inline void Node::clear_has_width() {
-  _has_bits_[0] &= ~0x00000100u;
-}
-inline void Node::clear_width() {
-  width_ = 100;
-  clear_has_width();
-}
-inline ::google::protobuf::int32 Node::width() const {
-  return width_;
-}
-inline void Node::set_width(::google::protobuf::int32 value) {
-  set_has_width();
-  width_ = value;
-}
-
-// optional int32 height = 10 [default = 100];
-inline bool Node::has_height() const {
-  return (_has_bits_[0] & 0x00000200u) != 0;
-}
-inline void Node::set_has_height() {
-  _has_bits_[0] |= 0x00000200u;
-}
-inline void Node::clear_has_height() {
-  _has_bits_[0] &= ~0x00000200u;
-}
-inline void Node::clear_height() {
-  height_ = 100;
-  clear_has_height();
-}
-inline ::google::protobuf::int32 Node::height() const {
-  return height_;
-}
-inline void Node::set_height(::google::protobuf::int32 value) {
-  set_has_height();
-  height_ = value;
-}
-
-// optional float scale_x = 11 [default = 1];
-inline bool Node::has_scale_x() const {
-  return (_has_bits_[0] & 0x00000400u) != 0;
-}
-inline void Node::set_has_scale_x() {
-  _has_bits_[0] |= 0x00000400u;
-}
-inline void Node::clear_has_scale_x() {
-  _has_bits_[0] &= ~0x00000400u;
-}
-inline void Node::clear_scale_x() {
-  scale_x_ = 1;
-  clear_has_scale_x();
-}
-inline float Node::scale_x() const {
-  return scale_x_;
-}
-inline void Node::set_scale_x(float value) {
-  set_has_scale_x();
-  scale_x_ = value;
-}
-
-// optional float scale_y = 12 [default = 1];
-inline bool Node::has_scale_y() const {
-  return (_has_bits_[0] & 0x00000800u) != 0;
-}
-inline void Node::set_has_scale_y() {
-  _has_bits_[0] |= 0x00000800u;
-}
-inline void Node::clear_has_scale_y() {
-  _has_bits_[0] &= ~0x00000800u;
-}
-inline void Node::clear_scale_y() {
-  scale_y_ = 1;
-  clear_has_scale_y();
-}
-inline float Node::scale_y() const {
-  return scale_y_;
-}
-inline void Node::set_scale_y(float value) {
-  set_has_scale_y();
-  scale_y_ = value;
-}
-
-// optional float skew_x = 13 [default = 0];
-inline bool Node::has_skew_x() const {
-  return (_has_bits_[0] & 0x00001000u) != 0;
-}
-inline void Node::set_has_skew_x() {
-  _has_bits_[0] |= 0x00001000u;
-}
-inline void Node::clear_has_skew_x() {
-  _has_bits_[0] &= ~0x00001000u;
-}
-inline void Node::clear_skew_x() {
-  skew_x_ = 0;
-  clear_has_skew_x();
-}
-inline float Node::skew_x() const {
-  return skew_x_;
-}
-inline void Node::set_skew_x(float value) {
-  set_has_skew_x();
-  skew_x_ = value;
-}
-
-// optional float skew_y = 14 [default = 0];
-inline bool Node::has_skew_y() const {
-  return (_has_bits_[0] & 0x00002000u) != 0;
-}
-inline void Node::set_has_skew_y() {
-  _has_bits_[0] |= 0x00002000u;
-}
-inline void Node::clear_has_skew_y() {
-  _has_bits_[0] &= ~0x00002000u;
-}
-inline void Node::clear_skew_y() {
-  skew_y_ = 0;
-  clear_has_skew_y();
-}
-inline float Node::skew_y() const {
-  return skew_y_;
-}
-inline void Node::set_skew_y(float value) {
-  set_has_skew_y();
-  skew_y_ = value;
-}
-
-// optional float rotation = 15 [default = 0];
-inline bool Node::has_rotation() const {
-  return (_has_bits_[0] & 0x00004000u) != 0;
-}
-inline void Node::set_has_rotation() {
-  _has_bits_[0] |= 0x00004000u;
-}
-inline void Node::clear_has_rotation() {
-  _has_bits_[0] &= ~0x00004000u;
-}
-inline void Node::clear_rotation() {
-  rotation_ = 0;
-  clear_has_rotation();
-}
-inline float Node::rotation() const {
-  return rotation_;
-}
-inline void Node::set_rotation(float value) {
-  set_has_rotation();
-  rotation_ = value;
-}
-
-// optional bool visible = 16 [default = true];
-inline bool Node::has_visible() const {
-  return (_has_bits_[0] & 0x00008000u) != 0;
-}
-inline void Node::set_has_visible() {
-  _has_bits_[0] |= 0x00008000u;
-}
-inline void Node::clear_has_visible() {
-  _has_bits_[0] &= ~0x00008000u;
-}
-inline void Node::clear_visible() {
-  visible_ = true;
-  clear_has_visible();
-}
-inline bool Node::visible() const {
-  return visible_;
-}
-inline void Node::set_visible(bool value) {
-  set_has_visible();
-  visible_ = value;
-}
-
-// optional .maker.NODE_ACTION_TYPE action_type = 17 [default = NODE_ACTION_TYPE__NONE];
-inline bool Node::has_action_type() const {
-  return (_has_bits_[0] & 0x00010000u) != 0;
-}
-inline void Node::set_has_action_type() {
-  _has_bits_[0] |= 0x00010000u;
-}
-inline void Node::clear_has_action_type() {
-  _has_bits_[0] &= ~0x00010000u;
-}
-inline void Node::clear_action_type() {
-  action_type_ = 0;
-  clear_has_action_type();
-}
-inline ::maker::NODE_ACTION_TYPE Node::action_type() const {
-  return static_cast< ::maker::NODE_ACTION_TYPE >(action_type_);
-}
-inline void Node::set_action_type(::maker::NODE_ACTION_TYPE value) {
-  assert(::maker::NODE_ACTION_TYPE_IsValid(value));
-  set_has_action_type();
-  action_type_ = value;
-}
-
-// optional float action_delay_1 = 18 [default = 0];
-inline bool Node::has_action_delay_1() const {
-  return (_has_bits_[0] & 0x00020000u) != 0;
-}
-inline void Node::set_has_action_delay_1() {
-  _has_bits_[0] |= 0x00020000u;
-}
-inline void Node::clear_has_action_delay_1() {
-  _has_bits_[0] &= ~0x00020000u;
-}
-inline void Node::clear_action_delay_1() {
-  action_delay_1_ = 0;
-  clear_has_action_delay_1();
-}
-inline float Node::action_delay_1() const {
-  return action_delay_1_;
-}
-inline void Node::set_action_delay_1(float value) {
-  set_has_action_delay_1();
-  action_delay_1_ = value;
-}
-
-// optional float action_delay_2 = 19 [default = 0];
-inline bool Node::has_action_delay_2() const {
-  return (_has_bits_[0] & 0x00040000u) != 0;
-}
-inline void Node::set_has_action_delay_2() {
-  _has_bits_[0] |= 0x00040000u;
-}
-inline void Node::clear_has_action_delay_2() {
-  _has_bits_[0] &= ~0x00040000u;
-}
-inline void Node::clear_action_delay_2() {
-  action_delay_2_ = 0;
-  clear_has_action_delay_2();
-}
-inline float Node::action_delay_2() const {
-  return action_delay_2_;
-}
-inline void Node::set_action_delay_2(float value) {
-  set_has_action_delay_2();
-  action_delay_2_ = value;
-}
-
-// optional float action_duration = 20 [default = 0];
-inline bool Node::has_action_duration() const {
-  return (_has_bits_[0] & 0x00080000u) != 0;
-}
-inline void Node::set_has_action_duration() {
-  _has_bits_[0] |= 0x00080000u;
-}
-inline void Node::clear_has_action_duration() {
-  _has_bits_[0] &= ~0x00080000u;
-}
-inline void Node::clear_action_duration() {
-  action_duration_ = 0;
-  clear_has_action_duration();
-}
-inline float Node::action_duration() const {
-  return action_duration_;
-}
-inline void Node::set_action_duration(float value) {
-  set_has_action_duration();
-  action_duration_ = value;
-}
-
-// optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
-inline bool Node::has_screen_ui() const {
-  return (_has_bits_[0] & 0x00100000u) != 0;
-}
-inline void Node::set_has_screen_ui() {
-  _has_bits_[0] |= 0x00100000u;
-}
-inline void Node::clear_has_screen_ui() {
-  _has_bits_[0] &= ~0x00100000u;
-}
-inline void Node::clear_screen_ui() {
-  screen_ui_ = 0;
-  clear_has_screen_ui();
-}
-inline ::maker::SCREEN_UI_TYPE Node::screen_ui() const {
-  return static_cast< ::maker::SCREEN_UI_TYPE >(screen_ui_);
-}
-inline void Node::set_screen_ui(::maker::SCREEN_UI_TYPE value) {
-  assert(::maker::SCREEN_UI_TYPE_IsValid(value));
-  set_has_screen_ui();
-  screen_ui_ = value;
-}
-
-// optional string lua_name = 22 [default = ""];
-inline bool Node::has_lua_name() const {
-  return (_has_bits_[0] & 0x00200000u) != 0;
-}
-inline void Node::set_has_lua_name() {
-  _has_bits_[0] |= 0x00200000u;
-}
-inline void Node::clear_has_lua_name() {
-  _has_bits_[0] &= ~0x00200000u;
-}
-inline void Node::clear_lua_name() {
-  if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
-    lua_name_->clear();
-  }
-  clear_has_lua_name();
-}
-inline const ::std::string& Node::lua_name() const {
-  return *lua_name_;
-}
-inline void Node::set_lua_name(const ::std::string& value) {
-  set_has_lua_name();
-  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
-    lua_name_ = new ::std::string;
-  }
-  lua_name_->assign(value);
-}
-inline void Node::set_lua_name(const char* value) {
-  set_has_lua_name();
-  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
-    lua_name_ = new ::std::string;
-  }
-  lua_name_->assign(value);
-}
-inline void Node::set_lua_name(const char* value, size_t size) {
-  set_has_lua_name();
-  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
-    lua_name_ = new ::std::string;
-  }
-  lua_name_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* Node::mutable_lua_name() {
-  set_has_lua_name();
-  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
-    lua_name_ = new ::std::string;
-  }
-  return lua_name_;
-}
-inline ::std::string* Node::release_lua_name() {
-  clear_has_lua_name();
-  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = lua_name_;
-    lua_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-inline void Node::set_allocated_lua_name(::std::string* lua_name) {
-  if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
-    delete lua_name_;
-  }
-  if (lua_name) {
-    set_has_lua_name();
-    lua_name_ = lua_name;
-  } else {
-    clear_has_lua_name();
-    lua_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  }
-}
-
-// optional string flag = 23 [default = ""];
-inline bool Node::has_flag() const {
-  return (_has_bits_[0] & 0x00400000u) != 0;
-}
-inline void Node::set_has_flag() {
-  _has_bits_[0] |= 0x00400000u;
-}
 inline void Node::clear_has_flag() {
-  _has_bits_[0] &= ~0x00400000u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void Node::clear_flag() {
   if (flag_ != &::google::protobuf::internal::kEmptyString) {
@@ -6695,6 +6180,521 @@ inline void Node::set_allocated_flag(::std::string* flag) {
   } else {
     clear_has_flag();
     flag_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  }
+}
+
+// optional float x = 3 [default = 0];
+inline bool Node::has_x() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void Node::set_has_x() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void Node::clear_has_x() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void Node::clear_x() {
+  x_ = 0;
+  clear_has_x();
+}
+inline float Node::x() const {
+  return x_;
+}
+inline void Node::set_x(float value) {
+  set_has_x();
+  x_ = value;
+}
+
+// optional float y = 4 [default = 0];
+inline bool Node::has_y() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void Node::set_has_y() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void Node::clear_has_y() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void Node::clear_y() {
+  y_ = 0;
+  clear_has_y();
+}
+inline float Node::y() const {
+  return y_;
+}
+inline void Node::set_y(float value) {
+  set_has_y();
+  y_ = value;
+}
+
+// optional .maker.DOCK_POINT dock_point = 5 [default = DOCK__MIDDLE_CENTER];
+inline bool Node::has_dock_point() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void Node::set_has_dock_point() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void Node::clear_has_dock_point() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void Node::clear_dock_point() {
+  dock_point_ = 4;
+  clear_has_dock_point();
+}
+inline ::maker::DOCK_POINT Node::dock_point() const {
+  return static_cast< ::maker::DOCK_POINT >(dock_point_);
+}
+inline void Node::set_dock_point(::maker::DOCK_POINT value) {
+  assert(::maker::DOCK_POINT_IsValid(value));
+  set_has_dock_point();
+  dock_point_ = value;
+}
+
+// optional .maker.ANCHOR_POINT anchor_point = 6 [default = ANCHOR__MIDDLE_CENTER];
+inline bool Node::has_anchor_point() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void Node::set_has_anchor_point() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void Node::clear_has_anchor_point() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void Node::clear_anchor_point() {
+  anchor_point_ = 4;
+  clear_has_anchor_point();
+}
+inline ::maker::ANCHOR_POINT Node::anchor_point() const {
+  return static_cast< ::maker::ANCHOR_POINT >(anchor_point_);
+}
+inline void Node::set_anchor_point(::maker::ANCHOR_POINT value) {
+  assert(::maker::ANCHOR_POINT_IsValid(value));
+  set_has_anchor_point();
+  anchor_point_ = value;
+}
+
+// optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 7 [default = RELATIVE_SIZE_TYPE__NONE];
+inline bool Node::has_relative_size_type() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void Node::set_has_relative_size_type() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void Node::clear_has_relative_size_type() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void Node::clear_relative_size_type() {
+  relative_size_type_ = 0;
+  clear_has_relative_size_type();
+}
+inline ::maker::RELATIVE_SIZE_TYPE Node::relative_size_type() const {
+  return static_cast< ::maker::RELATIVE_SIZE_TYPE >(relative_size_type_);
+}
+inline void Node::set_relative_size_type(::maker::RELATIVE_SIZE_TYPE value) {
+  assert(::maker::RELATIVE_SIZE_TYPE_IsValid(value));
+  set_has_relative_size_type();
+  relative_size_type_ = value;
+}
+
+// optional int32 rel_width = 8 [default = 0];
+inline bool Node::has_rel_width() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void Node::set_has_rel_width() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void Node::clear_has_rel_width() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void Node::clear_rel_width() {
+  rel_width_ = 0;
+  clear_has_rel_width();
+}
+inline ::google::protobuf::int32 Node::rel_width() const {
+  return rel_width_;
+}
+inline void Node::set_rel_width(::google::protobuf::int32 value) {
+  set_has_rel_width();
+  rel_width_ = value;
+}
+
+// optional int32 rel_height = 9 [default = 0];
+inline bool Node::has_rel_height() const {
+  return (_has_bits_[0] & 0x00000100u) != 0;
+}
+inline void Node::set_has_rel_height() {
+  _has_bits_[0] |= 0x00000100u;
+}
+inline void Node::clear_has_rel_height() {
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline void Node::clear_rel_height() {
+  rel_height_ = 0;
+  clear_has_rel_height();
+}
+inline ::google::protobuf::int32 Node::rel_height() const {
+  return rel_height_;
+}
+inline void Node::set_rel_height(::google::protobuf::int32 value) {
+  set_has_rel_height();
+  rel_height_ = value;
+}
+
+// optional int32 width = 10 [default = 100];
+inline bool Node::has_width() const {
+  return (_has_bits_[0] & 0x00000200u) != 0;
+}
+inline void Node::set_has_width() {
+  _has_bits_[0] |= 0x00000200u;
+}
+inline void Node::clear_has_width() {
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline void Node::clear_width() {
+  width_ = 100;
+  clear_has_width();
+}
+inline ::google::protobuf::int32 Node::width() const {
+  return width_;
+}
+inline void Node::set_width(::google::protobuf::int32 value) {
+  set_has_width();
+  width_ = value;
+}
+
+// optional int32 height = 11 [default = 100];
+inline bool Node::has_height() const {
+  return (_has_bits_[0] & 0x00000400u) != 0;
+}
+inline void Node::set_has_height() {
+  _has_bits_[0] |= 0x00000400u;
+}
+inline void Node::clear_has_height() {
+  _has_bits_[0] &= ~0x00000400u;
+}
+inline void Node::clear_height() {
+  height_ = 100;
+  clear_has_height();
+}
+inline ::google::protobuf::int32 Node::height() const {
+  return height_;
+}
+inline void Node::set_height(::google::protobuf::int32 value) {
+  set_has_height();
+  height_ = value;
+}
+
+// optional float scale_x = 12 [default = 1];
+inline bool Node::has_scale_x() const {
+  return (_has_bits_[0] & 0x00000800u) != 0;
+}
+inline void Node::set_has_scale_x() {
+  _has_bits_[0] |= 0x00000800u;
+}
+inline void Node::clear_has_scale_x() {
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline void Node::clear_scale_x() {
+  scale_x_ = 1;
+  clear_has_scale_x();
+}
+inline float Node::scale_x() const {
+  return scale_x_;
+}
+inline void Node::set_scale_x(float value) {
+  set_has_scale_x();
+  scale_x_ = value;
+}
+
+// optional float scale_y = 13 [default = 1];
+inline bool Node::has_scale_y() const {
+  return (_has_bits_[0] & 0x00001000u) != 0;
+}
+inline void Node::set_has_scale_y() {
+  _has_bits_[0] |= 0x00001000u;
+}
+inline void Node::clear_has_scale_y() {
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline void Node::clear_scale_y() {
+  scale_y_ = 1;
+  clear_has_scale_y();
+}
+inline float Node::scale_y() const {
+  return scale_y_;
+}
+inline void Node::set_scale_y(float value) {
+  set_has_scale_y();
+  scale_y_ = value;
+}
+
+// optional float skew_x = 14 [default = 0];
+inline bool Node::has_skew_x() const {
+  return (_has_bits_[0] & 0x00002000u) != 0;
+}
+inline void Node::set_has_skew_x() {
+  _has_bits_[0] |= 0x00002000u;
+}
+inline void Node::clear_has_skew_x() {
+  _has_bits_[0] &= ~0x00002000u;
+}
+inline void Node::clear_skew_x() {
+  skew_x_ = 0;
+  clear_has_skew_x();
+}
+inline float Node::skew_x() const {
+  return skew_x_;
+}
+inline void Node::set_skew_x(float value) {
+  set_has_skew_x();
+  skew_x_ = value;
+}
+
+// optional float skew_y = 15 [default = 0];
+inline bool Node::has_skew_y() const {
+  return (_has_bits_[0] & 0x00004000u) != 0;
+}
+inline void Node::set_has_skew_y() {
+  _has_bits_[0] |= 0x00004000u;
+}
+inline void Node::clear_has_skew_y() {
+  _has_bits_[0] &= ~0x00004000u;
+}
+inline void Node::clear_skew_y() {
+  skew_y_ = 0;
+  clear_has_skew_y();
+}
+inline float Node::skew_y() const {
+  return skew_y_;
+}
+inline void Node::set_skew_y(float value) {
+  set_has_skew_y();
+  skew_y_ = value;
+}
+
+// optional float rotation = 16 [default = 0];
+inline bool Node::has_rotation() const {
+  return (_has_bits_[0] & 0x00008000u) != 0;
+}
+inline void Node::set_has_rotation() {
+  _has_bits_[0] |= 0x00008000u;
+}
+inline void Node::clear_has_rotation() {
+  _has_bits_[0] &= ~0x00008000u;
+}
+inline void Node::clear_rotation() {
+  rotation_ = 0;
+  clear_has_rotation();
+}
+inline float Node::rotation() const {
+  return rotation_;
+}
+inline void Node::set_rotation(float value) {
+  set_has_rotation();
+  rotation_ = value;
+}
+
+// optional bool visible = 17 [default = true];
+inline bool Node::has_visible() const {
+  return (_has_bits_[0] & 0x00010000u) != 0;
+}
+inline void Node::set_has_visible() {
+  _has_bits_[0] |= 0x00010000u;
+}
+inline void Node::clear_has_visible() {
+  _has_bits_[0] &= ~0x00010000u;
+}
+inline void Node::clear_visible() {
+  visible_ = true;
+  clear_has_visible();
+}
+inline bool Node::visible() const {
+  return visible_;
+}
+inline void Node::set_visible(bool value) {
+  set_has_visible();
+  visible_ = value;
+}
+
+// optional .maker.NODE_ACTION_TYPE action_type = 18 [default = NODE_ACTION_TYPE__NONE];
+inline bool Node::has_action_type() const {
+  return (_has_bits_[0] & 0x00020000u) != 0;
+}
+inline void Node::set_has_action_type() {
+  _has_bits_[0] |= 0x00020000u;
+}
+inline void Node::clear_has_action_type() {
+  _has_bits_[0] &= ~0x00020000u;
+}
+inline void Node::clear_action_type() {
+  action_type_ = 0;
+  clear_has_action_type();
+}
+inline ::maker::NODE_ACTION_TYPE Node::action_type() const {
+  return static_cast< ::maker::NODE_ACTION_TYPE >(action_type_);
+}
+inline void Node::set_action_type(::maker::NODE_ACTION_TYPE value) {
+  assert(::maker::NODE_ACTION_TYPE_IsValid(value));
+  set_has_action_type();
+  action_type_ = value;
+}
+
+// optional float action_delay_1 = 19 [default = 0];
+inline bool Node::has_action_delay_1() const {
+  return (_has_bits_[0] & 0x00040000u) != 0;
+}
+inline void Node::set_has_action_delay_1() {
+  _has_bits_[0] |= 0x00040000u;
+}
+inline void Node::clear_has_action_delay_1() {
+  _has_bits_[0] &= ~0x00040000u;
+}
+inline void Node::clear_action_delay_1() {
+  action_delay_1_ = 0;
+  clear_has_action_delay_1();
+}
+inline float Node::action_delay_1() const {
+  return action_delay_1_;
+}
+inline void Node::set_action_delay_1(float value) {
+  set_has_action_delay_1();
+  action_delay_1_ = value;
+}
+
+// optional float action_delay_2 = 20 [default = 0];
+inline bool Node::has_action_delay_2() const {
+  return (_has_bits_[0] & 0x00080000u) != 0;
+}
+inline void Node::set_has_action_delay_2() {
+  _has_bits_[0] |= 0x00080000u;
+}
+inline void Node::clear_has_action_delay_2() {
+  _has_bits_[0] &= ~0x00080000u;
+}
+inline void Node::clear_action_delay_2() {
+  action_delay_2_ = 0;
+  clear_has_action_delay_2();
+}
+inline float Node::action_delay_2() const {
+  return action_delay_2_;
+}
+inline void Node::set_action_delay_2(float value) {
+  set_has_action_delay_2();
+  action_delay_2_ = value;
+}
+
+// optional float action_duration = 21 [default = 0];
+inline bool Node::has_action_duration() const {
+  return (_has_bits_[0] & 0x00100000u) != 0;
+}
+inline void Node::set_has_action_duration() {
+  _has_bits_[0] |= 0x00100000u;
+}
+inline void Node::clear_has_action_duration() {
+  _has_bits_[0] &= ~0x00100000u;
+}
+inline void Node::clear_action_duration() {
+  action_duration_ = 0;
+  clear_has_action_duration();
+}
+inline float Node::action_duration() const {
+  return action_duration_;
+}
+inline void Node::set_action_duration(float value) {
+  set_has_action_duration();
+  action_duration_ = value;
+}
+
+// optional .maker.SCREEN_UI_TYPE screen_ui = 22 [default = SCREEN_UI_TYPE__NONE];
+inline bool Node::has_screen_ui() const {
+  return (_has_bits_[0] & 0x00200000u) != 0;
+}
+inline void Node::set_has_screen_ui() {
+  _has_bits_[0] |= 0x00200000u;
+}
+inline void Node::clear_has_screen_ui() {
+  _has_bits_[0] &= ~0x00200000u;
+}
+inline void Node::clear_screen_ui() {
+  screen_ui_ = 0;
+  clear_has_screen_ui();
+}
+inline ::maker::SCREEN_UI_TYPE Node::screen_ui() const {
+  return static_cast< ::maker::SCREEN_UI_TYPE >(screen_ui_);
+}
+inline void Node::set_screen_ui(::maker::SCREEN_UI_TYPE value) {
+  assert(::maker::SCREEN_UI_TYPE_IsValid(value));
+  set_has_screen_ui();
+  screen_ui_ = value;
+}
+
+// optional string lua_name = 23 [default = ""];
+inline bool Node::has_lua_name() const {
+  return (_has_bits_[0] & 0x00400000u) != 0;
+}
+inline void Node::set_has_lua_name() {
+  _has_bits_[0] |= 0x00400000u;
+}
+inline void Node::clear_has_lua_name() {
+  _has_bits_[0] &= ~0x00400000u;
+}
+inline void Node::clear_lua_name() {
+  if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
+    lua_name_->clear();
+  }
+  clear_has_lua_name();
+}
+inline const ::std::string& Node::lua_name() const {
+  return *lua_name_;
+}
+inline void Node::set_lua_name(const ::std::string& value) {
+  set_has_lua_name();
+  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
+    lua_name_ = new ::std::string;
+  }
+  lua_name_->assign(value);
+}
+inline void Node::set_lua_name(const char* value) {
+  set_has_lua_name();
+  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
+    lua_name_ = new ::std::string;
+  }
+  lua_name_->assign(value);
+}
+inline void Node::set_lua_name(const char* value, size_t size) {
+  set_has_lua_name();
+  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
+    lua_name_ = new ::std::string;
+  }
+  lua_name_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* Node::mutable_lua_name() {
+  set_has_lua_name();
+  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
+    lua_name_ = new ::std::string;
+  }
+  return lua_name_;
+}
+inline ::std::string* Node::release_lua_name() {
+  clear_has_lua_name();
+  if (lua_name_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = lua_name_;
+    lua_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+inline void Node::set_allocated_lua_name(::std::string* lua_name) {
+  if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
+    delete lua_name_;
+  }
+  if (lua_name) {
+    set_has_lua_name();
+    lua_name_ = lua_name;
+  } else {
+    clear_has_lua_name();
+    lua_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   }
 }
 

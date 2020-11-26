@@ -214,38 +214,38 @@ message NAME_VISUAL {
 
 message Node {
 	optional string ui_name = 1 [default = ""];
+	optional string flag = 2 [default = ""];
 
-	optional float x = 2 [default = 0.0];
-	optional float y = 3 [default = 0.0];
+	optional float x = 3 [default = 0.0];
+	optional float y = 4 [default = 0.0];
 
-	optional DOCK_POINT dock_point = 4 [default = DOCK__MIDDLE_CENTER];
-	optional ANCHOR_POINT anchor_point = 5 [default = ANCHOR__MIDDLE_CENTER];
+	optional DOCK_POINT dock_point = 5 [default = DOCK__MIDDLE_CENTER];
+	optional ANCHOR_POINT anchor_point = 6 [default = ANCHOR__MIDDLE_CENTER];
 
-    optional RELATIVE_SIZE_TYPE relative_size_type = 6 [default = RELATIVE_SIZE_TYPE__NONE];
+    optional RELATIVE_SIZE_TYPE relative_size_type = 7 [default = RELATIVE_SIZE_TYPE__NONE];
 
-    optional int32 rel_width = 7 [default = 0];
-    optional int32 rel_height = 8 [default = 0];
+    optional int32 rel_width = 8 [default = 0];
+    optional int32 rel_height = 9 [default = 0];
 
-	optional int32 width = 9 [default = 100];
-	optional int32 height = 10 [default = 100];
+	optional int32 width = 10 [default = 100];
+	optional int32 height = 11 [default = 100];
 
-	optional float scale_x = 11 [default = 1.0];
-	optional float scale_y = 12 [default = 1.0];
-	optional float skew_x = 13 [default = 0.0];
-	optional float skew_y = 14 [default = 0.0];
-	optional float rotation = 15 [default = 0.0];
+	optional float scale_x = 12 [default = 1.0];
+	optional float scale_y = 13 [default = 1.0];
+	optional float skew_x = 14 [default = 0.0];
+	optional float skew_y = 15 [default = 0.0];
+	optional float rotation = 16 [default = 0.0];
 
-	optional bool visible = 16 [default = true];
+	optional bool visible = 17 [default = true];
 
-    optional NODE_ACTION_TYPE action_type = 17 [default = NODE_ACTION_TYPE__NONE];
-    optional float action_delay_1 = 18 [default = 0];
-    optional float action_delay_2 = 19 [default = 0];
-    optional float action_duration = 20 [default = 0];
+    optional NODE_ACTION_TYPE action_type = 18 [default = NODE_ACTION_TYPE__NONE];
+    optional float action_delay_1 = 19 [default = 0];
+    optional float action_delay_2 = 20 [default = 0];
+    optional float action_duration = 21 [default = 0];
 	
-	optional SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
+	optional SCREEN_UI_TYPE screen_ui = 22 [default = SCREEN_UI_TYPE__NONE];
 
-    optional string lua_name = 22 [default = ""];
-	optional string flag = 23 [default = ""];
+    optional string lua_name = 23 [default = ""];
 }
 
 message ClippingNode {

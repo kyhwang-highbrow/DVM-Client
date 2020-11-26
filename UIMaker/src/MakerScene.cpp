@@ -3671,7 +3671,7 @@ void CMakerScene::applyButtonImage(CEntityMgr::ID entity_id, MenuItemImage* menu
     (menu_item_image->*pfSetImage)(sprite);
 
 	// @jslors 20.11.23 버튼에 이미지 추가하면 가운데 정렬
-	if (sprite)
+	if (sprite && MenuItemImageType::SCALE9SPRITE != menu_item_image->getImageType())
 	{
 		sprite->setPosition((oldSize - sprite->getContentSize()) * 0.5f);
 	}
@@ -4201,7 +4201,7 @@ void CMakerScene::updateButtonImagePos(Node *node)
 	// 해당 설정 값은 툴에서 가운데 정렬로 보이도록 하는 값
 	// cocos2d-x 3.17.2에서는 버튼에 이미지 설정시 가운데 정렬되도록 되어있음
 	auto menuItemImage = dynamic_cast<MenuItemImage*>(node);
-	if (menuItemImage)
+	if (menuItemImage && MenuItemImageType::SCALE9SPRITE != menuItemImage->getImageType())
 	{
 		auto image = dynamic_cast<Sprite*>(menuItemImage->getNormalImage());
 		if (image)

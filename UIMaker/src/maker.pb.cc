@@ -302,6 +302,7 @@ void protobuf_AssignDesc_maker_2eproto() {
   Node_descriptor_ = file->message_type(10);
   static const int Node_offsets_[23] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, ui_name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, flag_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, x_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, y_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, dock_point_),
@@ -323,7 +324,6 @@ void protobuf_AssignDesc_maker_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, action_duration_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, screen_ui_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, lua_name_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Node, flag_),
   };
   Node_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -989,24 +989,24 @@ void protobuf_AddDesc_maker_2eproto() {
     "ath\030\001 \002(\t:\000\"\034\n\nFILE_PLIST\022\016\n\004path\030\001 \002(\t:"
     "\000\"#\n\021NAME_VISUAL_GROUP\022\016\n\004name\030\001 \002(\t:\000\"\035"
     "\n\013NAME_VISUAL\022\016\n\004name\030\001 \002(\t:\000\"\320\005\n\004Node\022\021"
-    "\n\007ui_name\030\001 \001(\t:\000\022\014\n\001x\030\002 \001(\002:\0010\022\014\n\001y\030\003 \001"
-    "(\002:\0010\022:\n\ndock_point\030\004 \001(\0162\021.maker.DOCK_P"
-    "OINT:\023DOCK__MIDDLE_CENTER\022@\n\014anchor_poin"
-    "t\030\005 \001(\0162\023.maker.ANCHOR_POINT:\025ANCHOR__MI"
-    "DDLE_CENTER\022O\n\022relative_size_type\030\006 \001(\0162"
-    "\031.maker.RELATIVE_SIZE_TYPE:\030RELATIVE_SIZ"
-    "E_TYPE__NONE\022\024\n\trel_width\030\007 \001(\005:\0010\022\025\n\nre"
-    "l_height\030\010 \001(\005:\0010\022\022\n\005width\030\t \001(\005:\003100\022\023\n"
-    "\006height\030\n \001(\005:\003100\022\022\n\007scale_x\030\013 \001(\002:\0011\022\022"
-    "\n\007scale_y\030\014 \001(\002:\0011\022\021\n\006skew_x\030\r \001(\002:\0010\022\021\n"
-    "\006skew_y\030\016 \001(\002:\0010\022\023\n\010rotation\030\017 \001(\002:\0010\022\025\n"
-    "\007visible\030\020 \001(\010:\004true\022D\n\013action_type\030\021 \001("
-    "\0162\027.maker.NODE_ACTION_TYPE:\026NODE_ACTION_"
-    "TYPE__NONE\022\031\n\016action_delay_1\030\022 \001(\002:\0010\022\031\n"
-    "\016action_delay_2\030\023 \001(\002:\0010\022\032\n\017action_durat"
-    "ion\030\024 \001(\002:\0010\022>\n\tscreen_ui\030\025 \001(\0162\025.maker."
-    "SCREEN_UI_TYPE:\024SCREEN_UI_TYPE__NONE\022\022\n\010"
-    "lua_name\030\026 \001(\t:\000\022\016\n\004flag\030\027 \001(\t:\000\"\237\001\n\014Cli"
+    "\n\007ui_name\030\001 \001(\t:\000\022\016\n\004flag\030\002 \001(\t:\000\022\014\n\001x\030\003"
+    " \001(\002:\0010\022\014\n\001y\030\004 \001(\002:\0010\022:\n\ndock_point\030\005 \001("
+    "\0162\021.maker.DOCK_POINT:\023DOCK__MIDDLE_CENTE"
+    "R\022@\n\014anchor_point\030\006 \001(\0162\023.maker.ANCHOR_P"
+    "OINT:\025ANCHOR__MIDDLE_CENTER\022O\n\022relative_"
+    "size_type\030\007 \001(\0162\031.maker.RELATIVE_SIZE_TY"
+    "PE:\030RELATIVE_SIZE_TYPE__NONE\022\024\n\trel_widt"
+    "h\030\010 \001(\005:\0010\022\025\n\nrel_height\030\t \001(\005:\0010\022\022\n\005wid"
+    "th\030\n \001(\005:\003100\022\023\n\006height\030\013 \001(\005:\003100\022\022\n\007sc"
+    "ale_x\030\014 \001(\002:\0011\022\022\n\007scale_y\030\r \001(\002:\0011\022\021\n\006sk"
+    "ew_x\030\016 \001(\002:\0010\022\021\n\006skew_y\030\017 \001(\002:\0010\022\023\n\010rota"
+    "tion\030\020 \001(\002:\0010\022\025\n\007visible\030\021 \001(\010:\004true\022D\n\013"
+    "action_type\030\022 \001(\0162\027.maker.NODE_ACTION_TY"
+    "PE:\026NODE_ACTION_TYPE__NONE\022\031\n\016action_del"
+    "ay_1\030\023 \001(\002:\0010\022\031\n\016action_delay_2\030\024 \001(\002:\0010"
+    "\022\032\n\017action_duration\030\025 \001(\002:\0010\022>\n\tscreen_u"
+    "i\030\026 \001(\0162\025.maker.SCREEN_UI_TYPE:\024SCREEN_U"
+    "I_TYPE__NONE\022\022\n\010lua_name\030\027 \001(\t:\000\"\237\001\n\014Cli"
     "ppingNode\0221\n\014stencil_type\030\001 \001(\0162\023.maker."
     "STENCIL_TYPE:\006SQUARE\022&\n\013stencil_img\030\002 \001("
     "\0132\021.maker.FILE_IMAGE\022\032\n\017alpha_threshold\030"
@@ -4181,6 +4181,7 @@ void NAME_VISUAL::Swap(NAME_VISUAL* other) {
 
 #ifndef _MSC_VER
 const int Node::kUiNameFieldNumber;
+const int Node::kFlagFieldNumber;
 const int Node::kXFieldNumber;
 const int Node::kYFieldNumber;
 const int Node::kDockPointFieldNumber;
@@ -4202,7 +4203,6 @@ const int Node::kActionDelay2FieldNumber;
 const int Node::kActionDurationFieldNumber;
 const int Node::kScreenUiFieldNumber;
 const int Node::kLuaNameFieldNumber;
-const int Node::kFlagFieldNumber;
 #endif  // !_MSC_VER
 
 Node::Node()
@@ -4222,6 +4222,7 @@ Node::Node(const Node& from)
 void Node::SharedCtor() {
   _cached_size_ = 0;
   ui_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  flag_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   x_ = 0;
   y_ = 0;
   dock_point_ = 4;
@@ -4243,7 +4244,6 @@ void Node::SharedCtor() {
   action_duration_ = 0;
   screen_ui_ = 0;
   lua_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  flag_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -4255,11 +4255,11 @@ void Node::SharedDtor() {
   if (ui_name_ != &::google::protobuf::internal::kEmptyString) {
     delete ui_name_;
   }
-  if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
-    delete lua_name_;
-  }
   if (flag_ != &::google::protobuf::internal::kEmptyString) {
     delete flag_;
+  }
+  if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
+    delete lua_name_;
   }
   if (this != default_instance_) {
   }
@@ -4293,15 +4293,20 @@ void Node::Clear() {
         ui_name_->clear();
       }
     }
+    if (has_flag()) {
+      if (flag_ != &::google::protobuf::internal::kEmptyString) {
+        flag_->clear();
+      }
+    }
     x_ = 0;
     y_ = 0;
     dock_point_ = 4;
     anchor_point_ = 4;
     relative_size_type_ = 0;
     rel_width_ = 0;
-    rel_height_ = 0;
   }
   if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    rel_height_ = 0;
     width_ = 100;
     height_ = 100;
     scale_x_ = 1;
@@ -4309,9 +4314,9 @@ void Node::Clear() {
     skew_x_ = 0;
     skew_y_ = 0;
     rotation_ = 0;
-    visible_ = true;
   }
   if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
+    visible_ = true;
     action_type_ = 0;
     action_delay_1_ = 0;
     action_delay_2_ = 0;
@@ -4320,11 +4325,6 @@ void Node::Clear() {
     if (has_lua_name()) {
       if (lua_name_ != &::google::protobuf::internal::kEmptyString) {
         lua_name_->clear();
-      }
-    }
-    if (has_flag()) {
-      if (flag_ != &::google::protobuf::internal::kEmptyString) {
-        flag_->clear();
       }
     }
   }
@@ -4350,12 +4350,29 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(21)) goto parse_x;
+        if (input->ExpectTag(18)) goto parse_flag;
         break;
       }
 
-      // optional float x = 2 [default = 0];
+      // optional string flag = 2 [default = ""];
       case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_flag:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_flag()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->flag().data(), this->flag().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(29)) goto parse_x;
+        break;
+      }
+
+      // optional float x = 3 [default = 0];
+      case 3: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_x:
@@ -4366,12 +4383,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(29)) goto parse_y;
+        if (input->ExpectTag(37)) goto parse_y;
         break;
       }
 
-      // optional float y = 3 [default = 0];
-      case 3: {
+      // optional float y = 4 [default = 0];
+      case 4: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_y:
@@ -4382,12 +4399,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(32)) goto parse_dock_point;
+        if (input->ExpectTag(40)) goto parse_dock_point;
         break;
       }
 
-      // optional .maker.DOCK_POINT dock_point = 4 [default = DOCK__MIDDLE_CENTER];
-      case 4: {
+      // optional .maker.DOCK_POINT dock_point = 5 [default = DOCK__MIDDLE_CENTER];
+      case 5: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_dock_point:
@@ -4398,17 +4415,17 @@ bool Node::MergePartialFromCodedStream(
           if (::maker::DOCK_POINT_IsValid(value)) {
             set_dock_point(static_cast< ::maker::DOCK_POINT >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(4, value);
+            mutable_unknown_fields()->AddVarint(5, value);
           }
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(40)) goto parse_anchor_point;
+        if (input->ExpectTag(48)) goto parse_anchor_point;
         break;
       }
 
-      // optional .maker.ANCHOR_POINT anchor_point = 5 [default = ANCHOR__MIDDLE_CENTER];
-      case 5: {
+      // optional .maker.ANCHOR_POINT anchor_point = 6 [default = ANCHOR__MIDDLE_CENTER];
+      case 6: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_anchor_point:
@@ -4419,17 +4436,17 @@ bool Node::MergePartialFromCodedStream(
           if (::maker::ANCHOR_POINT_IsValid(value)) {
             set_anchor_point(static_cast< ::maker::ANCHOR_POINT >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(5, value);
+            mutable_unknown_fields()->AddVarint(6, value);
           }
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(48)) goto parse_relative_size_type;
+        if (input->ExpectTag(56)) goto parse_relative_size_type;
         break;
       }
 
-      // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 6 [default = RELATIVE_SIZE_TYPE__NONE];
-      case 6: {
+      // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 7 [default = RELATIVE_SIZE_TYPE__NONE];
+      case 7: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_relative_size_type:
@@ -4440,17 +4457,17 @@ bool Node::MergePartialFromCodedStream(
           if (::maker::RELATIVE_SIZE_TYPE_IsValid(value)) {
             set_relative_size_type(static_cast< ::maker::RELATIVE_SIZE_TYPE >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(6, value);
+            mutable_unknown_fields()->AddVarint(7, value);
           }
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(56)) goto parse_rel_width;
+        if (input->ExpectTag(64)) goto parse_rel_width;
         break;
       }
 
-      // optional int32 rel_width = 7 [default = 0];
-      case 7: {
+      // optional int32 rel_width = 8 [default = 0];
+      case 8: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_rel_width:
@@ -4461,12 +4478,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(64)) goto parse_rel_height;
+        if (input->ExpectTag(72)) goto parse_rel_height;
         break;
       }
 
-      // optional int32 rel_height = 8 [default = 0];
-      case 8: {
+      // optional int32 rel_height = 9 [default = 0];
+      case 9: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_rel_height:
@@ -4477,12 +4494,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(72)) goto parse_width;
+        if (input->ExpectTag(80)) goto parse_width;
         break;
       }
 
-      // optional int32 width = 9 [default = 100];
-      case 9: {
+      // optional int32 width = 10 [default = 100];
+      case 10: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_width:
@@ -4493,12 +4510,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(80)) goto parse_height;
+        if (input->ExpectTag(88)) goto parse_height;
         break;
       }
 
-      // optional int32 height = 10 [default = 100];
-      case 10: {
+      // optional int32 height = 11 [default = 100];
+      case 11: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_height:
@@ -4509,12 +4526,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(93)) goto parse_scale_x;
+        if (input->ExpectTag(101)) goto parse_scale_x;
         break;
       }
 
-      // optional float scale_x = 11 [default = 1];
-      case 11: {
+      // optional float scale_x = 12 [default = 1];
+      case 12: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_scale_x:
@@ -4525,12 +4542,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(101)) goto parse_scale_y;
+        if (input->ExpectTag(109)) goto parse_scale_y;
         break;
       }
 
-      // optional float scale_y = 12 [default = 1];
-      case 12: {
+      // optional float scale_y = 13 [default = 1];
+      case 13: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_scale_y:
@@ -4541,12 +4558,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(109)) goto parse_skew_x;
+        if (input->ExpectTag(117)) goto parse_skew_x;
         break;
       }
 
-      // optional float skew_x = 13 [default = 0];
-      case 13: {
+      // optional float skew_x = 14 [default = 0];
+      case 14: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_skew_x:
@@ -4557,12 +4574,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(117)) goto parse_skew_y;
+        if (input->ExpectTag(125)) goto parse_skew_y;
         break;
       }
 
-      // optional float skew_y = 14 [default = 0];
-      case 14: {
+      // optional float skew_y = 15 [default = 0];
+      case 15: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_skew_y:
@@ -4573,12 +4590,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(125)) goto parse_rotation;
+        if (input->ExpectTag(133)) goto parse_rotation;
         break;
       }
 
-      // optional float rotation = 15 [default = 0];
-      case 15: {
+      // optional float rotation = 16 [default = 0];
+      case 16: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_rotation:
@@ -4589,12 +4606,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(128)) goto parse_visible;
+        if (input->ExpectTag(136)) goto parse_visible;
         break;
       }
 
-      // optional bool visible = 16 [default = true];
-      case 16: {
+      // optional bool visible = 17 [default = true];
+      case 17: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_visible:
@@ -4605,12 +4622,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(136)) goto parse_action_type;
+        if (input->ExpectTag(144)) goto parse_action_type;
         break;
       }
 
-      // optional .maker.NODE_ACTION_TYPE action_type = 17 [default = NODE_ACTION_TYPE__NONE];
-      case 17: {
+      // optional .maker.NODE_ACTION_TYPE action_type = 18 [default = NODE_ACTION_TYPE__NONE];
+      case 18: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_action_type:
@@ -4621,17 +4638,17 @@ bool Node::MergePartialFromCodedStream(
           if (::maker::NODE_ACTION_TYPE_IsValid(value)) {
             set_action_type(static_cast< ::maker::NODE_ACTION_TYPE >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(17, value);
+            mutable_unknown_fields()->AddVarint(18, value);
           }
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(149)) goto parse_action_delay_1;
+        if (input->ExpectTag(157)) goto parse_action_delay_1;
         break;
       }
 
-      // optional float action_delay_1 = 18 [default = 0];
-      case 18: {
+      // optional float action_delay_1 = 19 [default = 0];
+      case 19: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_action_delay_1:
@@ -4642,12 +4659,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(157)) goto parse_action_delay_2;
+        if (input->ExpectTag(165)) goto parse_action_delay_2;
         break;
       }
 
-      // optional float action_delay_2 = 19 [default = 0];
-      case 19: {
+      // optional float action_delay_2 = 20 [default = 0];
+      case 20: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_action_delay_2:
@@ -4658,12 +4675,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(165)) goto parse_action_duration;
+        if (input->ExpectTag(173)) goto parse_action_duration;
         break;
       }
 
-      // optional float action_duration = 20 [default = 0];
-      case 20: {
+      // optional float action_duration = 21 [default = 0];
+      case 21: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED32) {
          parse_action_duration:
@@ -4674,12 +4691,12 @@ bool Node::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(168)) goto parse_screen_ui;
+        if (input->ExpectTag(176)) goto parse_screen_ui;
         break;
       }
 
-      // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
-      case 21: {
+      // optional .maker.SCREEN_UI_TYPE screen_ui = 22 [default = SCREEN_UI_TYPE__NONE];
+      case 22: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_screen_ui:
@@ -4690,17 +4707,17 @@ bool Node::MergePartialFromCodedStream(
           if (::maker::SCREEN_UI_TYPE_IsValid(value)) {
             set_screen_ui(static_cast< ::maker::SCREEN_UI_TYPE >(value));
           } else {
-            mutable_unknown_fields()->AddVarint(21, value);
+            mutable_unknown_fields()->AddVarint(22, value);
           }
         } else {
           goto handle_uninterpreted;
         }
-        if (input->ExpectTag(178)) goto parse_lua_name;
+        if (input->ExpectTag(186)) goto parse_lua_name;
         break;
       }
 
-      // optional string lua_name = 22 [default = ""];
-      case 22: {
+      // optional string lua_name = 23 [default = ""];
+      case 23: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
          parse_lua_name:
@@ -4708,23 +4725,6 @@ bool Node::MergePartialFromCodedStream(
                 input, this->mutable_lua_name()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8String(
             this->lua_name().data(), this->lua_name().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(186)) goto parse_flag;
-        break;
-      }
-
-      // optional string flag = 23 [default = ""];
-      case 23: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_flag:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_flag()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->flag().data(), this->flag().length(),
             ::google::protobuf::internal::WireFormat::PARSE);
         } else {
           goto handle_uninterpreted;
@@ -4760,127 +4760,127 @@ void Node::SerializeWithCachedSizes(
       1, this->ui_name(), output);
   }
 
-  // optional float x = 2 [default = 0];
-  if (has_x()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->x(), output);
-  }
-
-  // optional float y = 3 [default = 0];
-  if (has_y()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->y(), output);
-  }
-
-  // optional .maker.DOCK_POINT dock_point = 4 [default = DOCK__MIDDLE_CENTER];
-  if (has_dock_point()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      4, this->dock_point(), output);
-  }
-
-  // optional .maker.ANCHOR_POINT anchor_point = 5 [default = ANCHOR__MIDDLE_CENTER];
-  if (has_anchor_point()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      5, this->anchor_point(), output);
-  }
-
-  // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 6 [default = RELATIVE_SIZE_TYPE__NONE];
-  if (has_relative_size_type()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      6, this->relative_size_type(), output);
-  }
-
-  // optional int32 rel_width = 7 [default = 0];
-  if (has_rel_width()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->rel_width(), output);
-  }
-
-  // optional int32 rel_height = 8 [default = 0];
-  if (has_rel_height()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->rel_height(), output);
-  }
-
-  // optional int32 width = 9 [default = 100];
-  if (has_width()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(9, this->width(), output);
-  }
-
-  // optional int32 height = 10 [default = 100];
-  if (has_height()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(10, this->height(), output);
-  }
-
-  // optional float scale_x = 11 [default = 1];
-  if (has_scale_x()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(11, this->scale_x(), output);
-  }
-
-  // optional float scale_y = 12 [default = 1];
-  if (has_scale_y()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(12, this->scale_y(), output);
-  }
-
-  // optional float skew_x = 13 [default = 0];
-  if (has_skew_x()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(13, this->skew_x(), output);
-  }
-
-  // optional float skew_y = 14 [default = 0];
-  if (has_skew_y()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(14, this->skew_y(), output);
-  }
-
-  // optional float rotation = 15 [default = 0];
-  if (has_rotation()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(15, this->rotation(), output);
-  }
-
-  // optional bool visible = 16 [default = true];
-  if (has_visible()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(16, this->visible(), output);
-  }
-
-  // optional .maker.NODE_ACTION_TYPE action_type = 17 [default = NODE_ACTION_TYPE__NONE];
-  if (has_action_type()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      17, this->action_type(), output);
-  }
-
-  // optional float action_delay_1 = 18 [default = 0];
-  if (has_action_delay_1()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(18, this->action_delay_1(), output);
-  }
-
-  // optional float action_delay_2 = 19 [default = 0];
-  if (has_action_delay_2()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(19, this->action_delay_2(), output);
-  }
-
-  // optional float action_duration = 20 [default = 0];
-  if (has_action_duration()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(20, this->action_duration(), output);
-  }
-
-  // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
-  if (has_screen_ui()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      21, this->screen_ui(), output);
-  }
-
-  // optional string lua_name = 22 [default = ""];
-  if (has_lua_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->lua_name().data(), this->lua_name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      22, this->lua_name(), output);
-  }
-
-  // optional string flag = 23 [default = ""];
+  // optional string flag = 2 [default = ""];
   if (has_flag()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->flag().data(), this->flag().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     ::google::protobuf::internal::WireFormatLite::WriteString(
-      23, this->flag(), output);
+      2, this->flag(), output);
+  }
+
+  // optional float x = 3 [default = 0];
+  if (has_x()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->x(), output);
+  }
+
+  // optional float y = 4 [default = 0];
+  if (has_y()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->y(), output);
+  }
+
+  // optional .maker.DOCK_POINT dock_point = 5 [default = DOCK__MIDDLE_CENTER];
+  if (has_dock_point()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      5, this->dock_point(), output);
+  }
+
+  // optional .maker.ANCHOR_POINT anchor_point = 6 [default = ANCHOR__MIDDLE_CENTER];
+  if (has_anchor_point()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      6, this->anchor_point(), output);
+  }
+
+  // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 7 [default = RELATIVE_SIZE_TYPE__NONE];
+  if (has_relative_size_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      7, this->relative_size_type(), output);
+  }
+
+  // optional int32 rel_width = 8 [default = 0];
+  if (has_rel_width()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->rel_width(), output);
+  }
+
+  // optional int32 rel_height = 9 [default = 0];
+  if (has_rel_height()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(9, this->rel_height(), output);
+  }
+
+  // optional int32 width = 10 [default = 100];
+  if (has_width()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(10, this->width(), output);
+  }
+
+  // optional int32 height = 11 [default = 100];
+  if (has_height()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(11, this->height(), output);
+  }
+
+  // optional float scale_x = 12 [default = 1];
+  if (has_scale_x()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(12, this->scale_x(), output);
+  }
+
+  // optional float scale_y = 13 [default = 1];
+  if (has_scale_y()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(13, this->scale_y(), output);
+  }
+
+  // optional float skew_x = 14 [default = 0];
+  if (has_skew_x()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(14, this->skew_x(), output);
+  }
+
+  // optional float skew_y = 15 [default = 0];
+  if (has_skew_y()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(15, this->skew_y(), output);
+  }
+
+  // optional float rotation = 16 [default = 0];
+  if (has_rotation()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(16, this->rotation(), output);
+  }
+
+  // optional bool visible = 17 [default = true];
+  if (has_visible()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(17, this->visible(), output);
+  }
+
+  // optional .maker.NODE_ACTION_TYPE action_type = 18 [default = NODE_ACTION_TYPE__NONE];
+  if (has_action_type()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      18, this->action_type(), output);
+  }
+
+  // optional float action_delay_1 = 19 [default = 0];
+  if (has_action_delay_1()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(19, this->action_delay_1(), output);
+  }
+
+  // optional float action_delay_2 = 20 [default = 0];
+  if (has_action_delay_2()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(20, this->action_delay_2(), output);
+  }
+
+  // optional float action_duration = 21 [default = 0];
+  if (has_action_duration()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(21, this->action_duration(), output);
+  }
+
+  // optional .maker.SCREEN_UI_TYPE screen_ui = 22 [default = SCREEN_UI_TYPE__NONE];
+  if (has_screen_ui()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      22, this->screen_ui(), output);
+  }
+
+  // optional string lua_name = 23 [default = ""];
+  if (has_lua_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->lua_name().data(), this->lua_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      23, this->lua_name(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -4901,129 +4901,129 @@ void Node::SerializeWithCachedSizes(
         1, this->ui_name(), target);
   }
 
-  // optional float x = 2 [default = 0];
-  if (has_x()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->x(), target);
-  }
-
-  // optional float y = 3 [default = 0];
-  if (has_y()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->y(), target);
-  }
-
-  // optional .maker.DOCK_POINT dock_point = 4 [default = DOCK__MIDDLE_CENTER];
-  if (has_dock_point()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      4, this->dock_point(), target);
-  }
-
-  // optional .maker.ANCHOR_POINT anchor_point = 5 [default = ANCHOR__MIDDLE_CENTER];
-  if (has_anchor_point()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      5, this->anchor_point(), target);
-  }
-
-  // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 6 [default = RELATIVE_SIZE_TYPE__NONE];
-  if (has_relative_size_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      6, this->relative_size_type(), target);
-  }
-
-  // optional int32 rel_width = 7 [default = 0];
-  if (has_rel_width()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->rel_width(), target);
-  }
-
-  // optional int32 rel_height = 8 [default = 0];
-  if (has_rel_height()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->rel_height(), target);
-  }
-
-  // optional int32 width = 9 [default = 100];
-  if (has_width()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(9, this->width(), target);
-  }
-
-  // optional int32 height = 10 [default = 100];
-  if (has_height()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(10, this->height(), target);
-  }
-
-  // optional float scale_x = 11 [default = 1];
-  if (has_scale_x()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(11, this->scale_x(), target);
-  }
-
-  // optional float scale_y = 12 [default = 1];
-  if (has_scale_y()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(12, this->scale_y(), target);
-  }
-
-  // optional float skew_x = 13 [default = 0];
-  if (has_skew_x()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(13, this->skew_x(), target);
-  }
-
-  // optional float skew_y = 14 [default = 0];
-  if (has_skew_y()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(14, this->skew_y(), target);
-  }
-
-  // optional float rotation = 15 [default = 0];
-  if (has_rotation()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(15, this->rotation(), target);
-  }
-
-  // optional bool visible = 16 [default = true];
-  if (has_visible()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(16, this->visible(), target);
-  }
-
-  // optional .maker.NODE_ACTION_TYPE action_type = 17 [default = NODE_ACTION_TYPE__NONE];
-  if (has_action_type()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      17, this->action_type(), target);
-  }
-
-  // optional float action_delay_1 = 18 [default = 0];
-  if (has_action_delay_1()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(18, this->action_delay_1(), target);
-  }
-
-  // optional float action_delay_2 = 19 [default = 0];
-  if (has_action_delay_2()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(19, this->action_delay_2(), target);
-  }
-
-  // optional float action_duration = 20 [default = 0];
-  if (has_action_duration()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(20, this->action_duration(), target);
-  }
-
-  // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
-  if (has_screen_ui()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      21, this->screen_ui(), target);
-  }
-
-  // optional string lua_name = 22 [default = ""];
-  if (has_lua_name()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->lua_name().data(), this->lua_name().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        22, this->lua_name(), target);
-  }
-
-  // optional string flag = 23 [default = ""];
+  // optional string flag = 2 [default = ""];
   if (has_flag()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8String(
       this->flag().data(), this->flag().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE);
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        23, this->flag(), target);
+        2, this->flag(), target);
+  }
+
+  // optional float x = 3 [default = 0];
+  if (has_x()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->x(), target);
+  }
+
+  // optional float y = 4 [default = 0];
+  if (has_y()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->y(), target);
+  }
+
+  // optional .maker.DOCK_POINT dock_point = 5 [default = DOCK__MIDDLE_CENTER];
+  if (has_dock_point()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      5, this->dock_point(), target);
+  }
+
+  // optional .maker.ANCHOR_POINT anchor_point = 6 [default = ANCHOR__MIDDLE_CENTER];
+  if (has_anchor_point()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      6, this->anchor_point(), target);
+  }
+
+  // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 7 [default = RELATIVE_SIZE_TYPE__NONE];
+  if (has_relative_size_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      7, this->relative_size_type(), target);
+  }
+
+  // optional int32 rel_width = 8 [default = 0];
+  if (has_rel_width()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->rel_width(), target);
+  }
+
+  // optional int32 rel_height = 9 [default = 0];
+  if (has_rel_height()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(9, this->rel_height(), target);
+  }
+
+  // optional int32 width = 10 [default = 100];
+  if (has_width()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(10, this->width(), target);
+  }
+
+  // optional int32 height = 11 [default = 100];
+  if (has_height()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(11, this->height(), target);
+  }
+
+  // optional float scale_x = 12 [default = 1];
+  if (has_scale_x()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(12, this->scale_x(), target);
+  }
+
+  // optional float scale_y = 13 [default = 1];
+  if (has_scale_y()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(13, this->scale_y(), target);
+  }
+
+  // optional float skew_x = 14 [default = 0];
+  if (has_skew_x()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(14, this->skew_x(), target);
+  }
+
+  // optional float skew_y = 15 [default = 0];
+  if (has_skew_y()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(15, this->skew_y(), target);
+  }
+
+  // optional float rotation = 16 [default = 0];
+  if (has_rotation()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(16, this->rotation(), target);
+  }
+
+  // optional bool visible = 17 [default = true];
+  if (has_visible()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(17, this->visible(), target);
+  }
+
+  // optional .maker.NODE_ACTION_TYPE action_type = 18 [default = NODE_ACTION_TYPE__NONE];
+  if (has_action_type()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      18, this->action_type(), target);
+  }
+
+  // optional float action_delay_1 = 19 [default = 0];
+  if (has_action_delay_1()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(19, this->action_delay_1(), target);
+  }
+
+  // optional float action_delay_2 = 20 [default = 0];
+  if (has_action_delay_2()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(20, this->action_delay_2(), target);
+  }
+
+  // optional float action_duration = 21 [default = 0];
+  if (has_action_duration()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(21, this->action_duration(), target);
+  }
+
+  // optional .maker.SCREEN_UI_TYPE screen_ui = 22 [default = SCREEN_UI_TYPE__NONE];
+  if (has_screen_ui()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      22, this->screen_ui(), target);
+  }
+
+  // optional string lua_name = 23 [default = ""];
+  if (has_lua_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->lua_name().data(), this->lua_name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        23, this->lua_name(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -5044,135 +5044,135 @@ int Node::ByteSize() const {
           this->ui_name());
     }
 
-    // optional float x = 2 [default = 0];
+    // optional string flag = 2 [default = ""];
+    if (has_flag()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->flag());
+    }
+
+    // optional float x = 3 [default = 0];
     if (has_x()) {
       total_size += 1 + 4;
     }
 
-    // optional float y = 3 [default = 0];
+    // optional float y = 4 [default = 0];
     if (has_y()) {
       total_size += 1 + 4;
     }
 
-    // optional .maker.DOCK_POINT dock_point = 4 [default = DOCK__MIDDLE_CENTER];
+    // optional .maker.DOCK_POINT dock_point = 5 [default = DOCK__MIDDLE_CENTER];
     if (has_dock_point()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->dock_point());
     }
 
-    // optional .maker.ANCHOR_POINT anchor_point = 5 [default = ANCHOR__MIDDLE_CENTER];
+    // optional .maker.ANCHOR_POINT anchor_point = 6 [default = ANCHOR__MIDDLE_CENTER];
     if (has_anchor_point()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->anchor_point());
     }
 
-    // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 6 [default = RELATIVE_SIZE_TYPE__NONE];
+    // optional .maker.RELATIVE_SIZE_TYPE relative_size_type = 7 [default = RELATIVE_SIZE_TYPE__NONE];
     if (has_relative_size_type()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->relative_size_type());
     }
 
-    // optional int32 rel_width = 7 [default = 0];
+    // optional int32 rel_width = 8 [default = 0];
     if (has_rel_width()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->rel_width());
     }
 
-    // optional int32 rel_height = 8 [default = 0];
+  }
+  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
+    // optional int32 rel_height = 9 [default = 0];
     if (has_rel_height()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->rel_height());
     }
 
-  }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    // optional int32 width = 9 [default = 100];
+    // optional int32 width = 10 [default = 100];
     if (has_width()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->width());
     }
 
-    // optional int32 height = 10 [default = 100];
+    // optional int32 height = 11 [default = 100];
     if (has_height()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->height());
     }
 
-    // optional float scale_x = 11 [default = 1];
+    // optional float scale_x = 12 [default = 1];
     if (has_scale_x()) {
       total_size += 1 + 4;
     }
 
-    // optional float scale_y = 12 [default = 1];
+    // optional float scale_y = 13 [default = 1];
     if (has_scale_y()) {
       total_size += 1 + 4;
     }
 
-    // optional float skew_x = 13 [default = 0];
+    // optional float skew_x = 14 [default = 0];
     if (has_skew_x()) {
       total_size += 1 + 4;
     }
 
-    // optional float skew_y = 14 [default = 0];
+    // optional float skew_y = 15 [default = 0];
     if (has_skew_y()) {
       total_size += 1 + 4;
     }
 
-    // optional float rotation = 15 [default = 0];
+    // optional float rotation = 16 [default = 0];
     if (has_rotation()) {
-      total_size += 1 + 4;
-    }
-
-    // optional bool visible = 16 [default = true];
-    if (has_visible()) {
-      total_size += 2 + 1;
+      total_size += 2 + 4;
     }
 
   }
   if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-    // optional .maker.NODE_ACTION_TYPE action_type = 17 [default = NODE_ACTION_TYPE__NONE];
+    // optional bool visible = 17 [default = true];
+    if (has_visible()) {
+      total_size += 2 + 1;
+    }
+
+    // optional .maker.NODE_ACTION_TYPE action_type = 18 [default = NODE_ACTION_TYPE__NONE];
     if (has_action_type()) {
       total_size += 2 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->action_type());
     }
 
-    // optional float action_delay_1 = 18 [default = 0];
+    // optional float action_delay_1 = 19 [default = 0];
     if (has_action_delay_1()) {
       total_size += 2 + 4;
     }
 
-    // optional float action_delay_2 = 19 [default = 0];
+    // optional float action_delay_2 = 20 [default = 0];
     if (has_action_delay_2()) {
       total_size += 2 + 4;
     }
 
-    // optional float action_duration = 20 [default = 0];
+    // optional float action_duration = 21 [default = 0];
     if (has_action_duration()) {
       total_size += 2 + 4;
     }
 
-    // optional .maker.SCREEN_UI_TYPE screen_ui = 21 [default = SCREEN_UI_TYPE__NONE];
+    // optional .maker.SCREEN_UI_TYPE screen_ui = 22 [default = SCREEN_UI_TYPE__NONE];
     if (has_screen_ui()) {
       total_size += 2 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->screen_ui());
     }
 
-    // optional string lua_name = 22 [default = ""];
+    // optional string lua_name = 23 [default = ""];
     if (has_lua_name()) {
       total_size += 2 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->lua_name());
-    }
-
-    // optional string flag = 23 [default = ""];
-    if (has_flag()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->flag());
     }
 
   }
@@ -5205,6 +5205,9 @@ void Node::MergeFrom(const Node& from) {
     if (from.has_ui_name()) {
       set_ui_name(from.ui_name());
     }
+    if (from.has_flag()) {
+      set_flag(from.flag());
+    }
     if (from.has_x()) {
       set_x(from.x());
     }
@@ -5223,11 +5226,11 @@ void Node::MergeFrom(const Node& from) {
     if (from.has_rel_width()) {
       set_rel_width(from.rel_width());
     }
+  }
+  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     if (from.has_rel_height()) {
       set_rel_height(from.rel_height());
     }
-  }
-  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
     if (from.has_width()) {
       set_width(from.width());
     }
@@ -5249,11 +5252,11 @@ void Node::MergeFrom(const Node& from) {
     if (from.has_rotation()) {
       set_rotation(from.rotation());
     }
+  }
+  if (from._has_bits_[16 / 32] & (0xffu << (16 % 32))) {
     if (from.has_visible()) {
       set_visible(from.visible());
     }
-  }
-  if (from._has_bits_[16 / 32] & (0xffu << (16 % 32))) {
     if (from.has_action_type()) {
       set_action_type(from.action_type());
     }
@@ -5271,9 +5274,6 @@ void Node::MergeFrom(const Node& from) {
     }
     if (from.has_lua_name()) {
       set_lua_name(from.lua_name());
-    }
-    if (from.has_flag()) {
-      set_flag(from.flag());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -5299,6 +5299,7 @@ bool Node::IsInitialized() const {
 void Node::Swap(Node* other) {
   if (other != this) {
     std::swap(ui_name_, other->ui_name_);
+    std::swap(flag_, other->flag_);
     std::swap(x_, other->x_);
     std::swap(y_, other->y_);
     std::swap(dock_point_, other->dock_point_);
@@ -5320,7 +5321,6 @@ void Node::Swap(Node* other) {
     std::swap(action_duration_, other->action_duration_);
     std::swap(screen_ui_, other->screen_ui_);
     std::swap(lua_name_, other->lua_name_);
-    std::swap(flag_, other->flag_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
