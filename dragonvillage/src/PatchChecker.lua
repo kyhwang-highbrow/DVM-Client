@@ -33,12 +33,18 @@ end
 
 ----------------------------------------
 -- function addPatchInfo
--- @brief 버전과 패치정보를 삽입
+-- @brief 버전과 패치 관련 정보를 삽입
 ----------------------------------------
 function PatchChecker:addPatchInfo(t_param)
     if t_param and g_patchData then
 		t_param['app_ver'] = self.m_app_version
 		t_param['patch_ver'] = g_patchData:get('patch_ver')
+        
+        -- @kwkang 2020-11-27 버전 체크 정보에 마켓, os 추가
+        local market, os = GetMarketAndOS()
+
+        t_param['os'] = os
+	    t_param['market'] = market
 
         if (LIVE_SERVER_CONNECT) then
             t_param['app_ver'] = LIVE_SERVER_APP_VER
