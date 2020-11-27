@@ -284,15 +284,7 @@ function UI_DragonGoodbyePopup:request_goodbye(target)
 		self:response_goodbye(ret)
     end
 	
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/goodbye_new')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('doids', doids)
-	ui_network:setParam('target', target)
-	ui_network:hideLoading()
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-	ui_network:request()
+    g_dragonsData:request_goodbye(target, doids, success_cb)
 
     self:close()
 end
