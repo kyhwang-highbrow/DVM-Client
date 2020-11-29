@@ -23,6 +23,7 @@ function PaymentHelper.payment(struct_product, cb_func)
         end
         co:setCloseCB(coroutine_finidh_cb)
 
+        local market, os = GetMarketAndOS()
         local sku = struct_product['sku']
         local product_id = struct_product['product_id']
         local price = struct_product['price'] -- struct_product:getPrice()
@@ -41,7 +42,7 @@ function PaymentHelper.payment(struct_product, cb_func)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(cb_func, fail_cb)
+            g_shopDataNew:request_purchaseToken(market, product_id, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -181,6 +182,7 @@ function PaymentHelper.payment_onestore(struct_product, cb_func)
         end
         co:setCloseCB(coroutine_finidh_cb)
 
+        local market, os = GetMarketAndOS()
         local sku = struct_product['sku']
         local product_id = struct_product['product_id']
         local price = struct_product['price'] -- struct_product:getPrice()
@@ -199,7 +201,7 @@ function PaymentHelper.payment_onestore(struct_product, cb_func)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(cb_func, fail_cb)
+            g_shopDataNew:request_purchaseToken(market, product_id, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -345,6 +347,7 @@ local function coroutine_function(dt)
         end
         co:setCloseCB(coroutine_finidh_cb)
 
+        local market, os = GetMarketAndOS()
         local sku = struct_product['sku']
         local product_id = struct_product['product_id']
         local price = struct_product['xsolla_price_dollar']
@@ -363,7 +366,7 @@ local function coroutine_function(dt)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(cb_func, fail_cb)
+            g_shopDataNew:request_purchaseToken(market, product_id, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -489,6 +492,7 @@ function PaymentHelper.payment_win(struct_product, cb_func)
         end
         co:setCloseCB(coroutine_finidh_cb)
 
+        local market, os = GetMarketAndOS()
         local sku = struct_product['sku']
         local product_id = struct_product['product_id']
         local price = struct_product['price'] -- struct_product:getPrice()
@@ -507,7 +511,7 @@ function PaymentHelper.payment_win(struct_product, cb_func)
                 error_msg = Str('결제를 준비하는 과정에서 알수없는 오류가 발생하였습니다.')
                 co.ESCAPE()
             end
-            g_shopDataNew:request_purchaseToken(cb_func, fail_cb)
+            g_shopDataNew:request_purchaseToken(market, product_id, cb_func, fail_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
