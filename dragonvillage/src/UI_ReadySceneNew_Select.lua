@@ -87,8 +87,7 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
             self.m_uiReadyScene:apply_dragonSort()
         end
 
-         -- 드래곤 프레스 콜백 함수
-        local function press_card_cb()
+        local function open_simple_popup()
             local doid = data['id']
             if doid and (doid ~= '') then
                 local popup = UI_SimpleDragonInfoPopup(data)
@@ -97,6 +96,11 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
                 popup:setRefreshFunc(function() popup_close_cb() end)
             end
         end
+
+          -- 드래곤 프레스 콜백 함수
+        local function press_card_cb()
+            self.m_uiReadyScene:checkChangeDeck(open_simple_popup)
+        end 
 
         ui.vars['clickBtn']:registerScriptTapHandler(function() click_dragon_item() end)
         ui.vars['clickBtn']:registerScriptPressHandler(function() press_card_cb() end)
