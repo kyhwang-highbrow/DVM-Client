@@ -530,13 +530,15 @@ end
 -------------------------------------
 -- function request_purchaseToken
 -------------------------------------
-function ServerData_Shop:request_purchaseToken(market, product_id, cb_func, fail_cb)
+function ServerData_Shop:request_purchaseToken(market, sku, product_id, price, cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
     -- @kwkang 20-11-30 기존에 IOS 유저의 결제 후 상품 수령 실패한 경우 
     -- 어떠한 상품을 구매했는지 파악하기 어려웠기에 파라미터로 추가
     local market = market
+    local sku = sku
     local product_id = product_id
+    local price = price
 
     -- 콜백 함수
     local function success_cb(ret)
@@ -550,7 +552,9 @@ function ServerData_Shop:request_purchaseToken(market, product_id, cb_func, fail
     ui_network:setUrl('/shop/purchase_token')
     ui_network:setParam('uid', uid)
     ui_network:setParam('market', market)
+    ui_network:setParam('sku', sku)
     ui_network:setParam('product_id', product_id)
+    ui_network:setParam('price', price)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
