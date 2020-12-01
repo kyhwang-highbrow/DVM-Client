@@ -354,6 +354,25 @@ function UIC_TableView:scrollViewDidScroll()
     -- 뷰사이즈를 얻어옴
     local viewSize = self.m_scrollView:getViewSize()
 
+    -- 리스트 아이템 갯수가 부족할 때 가운데 정렬을 하는 경우
+    -- 가운데로 맞추기 위해 offset을 조정하는 부분이 있다.
+    -- 이를 역으로 다시 계산하여 정상적으로 startIdx가 구해지도록 함
+    if (self.m_bAlignCenterInInsufficient) then
+        
+        local container_size = self._vCellsPositions[#self._vCellsPositions]
+
+        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+            if (container_size < viewSize['width']) then
+                offset['x'] = offset['x'] - ((viewSize['width'] - container_size) / 2)
+            end
+
+        else
+            if (container_size < viewSize['height']) then
+                offset['y'] = offset['y'] + ((viewSize['height'] - container_size) / 2)
+            end
+        end
+    end
+    
     -- 시작 idx 얻어옴
     if (self._vordering == cc.TABLEVIEW_FILL_TOPDOWN) then
         offset['y'] = offset['y'] + viewSize['height']
@@ -688,15 +707,16 @@ function UIC_TableView:_offsetFromIndex(index)
         local viewSize = self.m_scrollView:getViewSize()
         local container_size = self._vCellsPositions[#self._vCellsPositions]
 
+        -- 비어 있는 공간의 절반만큼 더하여 가운데로 정렬되도록 함
         -- 가로
         if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
             if (container_size < viewSize['width']) then
-                offset['x'] = offset['x'] + (viewSize['width'] - container_size) / 2
+                offset['x'] = offset['x'] + ((viewSize['width'] - container_size) / 2)
             end
         -- 세로
         else
             if (container_size < viewSize['height']) then
-                offset['y'] = offset['y'] + (viewSize['height'] - container_size) / 2
+                offset['y'] = offset['y'] - ((viewSize['height'] - container_size) / 2)
             end
         end
     end
@@ -1538,4 +1558,48 @@ function UIC_TableView:destroy()
         self:delItem(i)
     end
     self.m_itemList = nil
+end
+
+-------------------------------------
+-- function getIndexFromId
+-- @param unique_id
+-- @return idx number, nil을 리턴할 수 있다.
+-------------------------------------
+function UIC_TableView:getIndexFromId(unique_id)
+    local idx = nil
+
+    if (self.m_itemMap[unique_id]) then
+        idx = self.m_itemMap[unique_id]['idx']
+    end
+
+    -- nil이 리턴될 수 있음
+    return idx
+end
+
+-------------------------------------
+-- function getIdFromIndex
+-- @param idx number
+-- @return unique_id, nil을 리턴할 수 있다.
+-------------------------------------
+function UIC_TableView:getIdFromIndex(idx)
+    local unique_id = nil
+
+    if (self.m_itemList[idx]) then
+        unique_id = self.m_itemList[idx]['unique_id']
+    end
+
+    -- nil이 리턴될 수 있음
+    return unique_id
+end
+
+-------------------------------------
+-- function getItemFromIndex
+-- @param idx number
+-- @return 해당 idx번째 아이템, nil을 리턴할 수 있다.
+-------------------------------------
+function UIC_TableView:getItemFromIndex(idx)
+    local item = self.m_itemList[idx]
+
+    -- nil이 리턴될 수 있음
+    return item
 end
