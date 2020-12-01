@@ -202,7 +202,10 @@ function UI_DragonGoodbyePopup:refresh_info()
         vars['itemNameLabel']:setVisible(true)
         vars['itemInfoLabel']:setVisible(true)
         
-        self:alignInfoText()
+
+        local l_ui_list = {vars['itemNameLabel'], vars['itemInfoLabel']}
+        AlignUIPos(l_ui_list, 'VERTICAL', 'CENTER', 10) -- ui list, direction, align, offset
+        -- self:alignInfoText()
 
     else
         vars['selectInfoLabel']:setVisible(true)

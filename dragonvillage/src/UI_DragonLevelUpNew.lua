@@ -219,7 +219,10 @@ function UI_DragonLevelUpNew:refresh_levelUpBtnState(curr_lv, curr_exp, dragon_e
             str = Str('{@impossible}{1}{@}/{2}', comma_value(dragon_exp), comma_value(need_dragon_exp))
         end
 		vars['dragonExpLabel']:setString(str)
-        self:alignDragonExpLabel() -- 드래곤 경험치 아이콘과 라벨 정렬
+        
+        local l_ui_list = {vars['dragonExpIcon'], vars['dragonExpLabel']}
+        AlignUIPos(l_ui_list, 'HORIZONTAL', 'CENTER', 0) -- ui list, direction, align, offset
+        --self:alignDragonExpLabel() -- 드래곤 경험치 아이콘과 라벨 정렬
         
 
     -- 최대레벨이고 승급이 가능할 경우
