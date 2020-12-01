@@ -4684,6 +4684,9 @@
     <None Include="..\src\UI_Package_AttrTowerPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_BundlePopupBtnPress.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

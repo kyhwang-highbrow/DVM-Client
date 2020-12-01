@@ -1157,6 +1157,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_BookEgg.lua" />
     <None Include="..\src\UI_BookEggListItem.lua" />
     <None Include="..\src\UI_BundlePopup.lua" />
+    <None Include="..\src\UI_BundlePopupBtnPress.lua" />
     <None Include="..\src\UI_BundlePopupNew.lua" />
     <None Include="..\src\UI_ButtonFirstPurchaseReward.lua" />
     <None Include="..\src\UI_ButtonNewcomerShop.lua" />

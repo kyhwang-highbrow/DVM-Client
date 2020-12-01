@@ -8,18 +8,21 @@ UI_BundlePopup = class(PARENT,{
         m_cbFunc = 'function',
 		m_count = 'number',
 		m_unitCnt = 'number',
+
+        m_quantityBtnPress = 'UI_BundlePopupBtnPress',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_BundlePopup:init(struct_product, cb_func)
-	self.m_structProduct = struct_product
-	self.m_cbFunc = cb_func
-	self.m_count = 1
-
     local vars = self:load('shop_purchase.ui')
     UIManager:open(self, UIManager.POPUP)
+
+    self.m_structProduct = struct_product
+	self.m_cbFunc = cb_func
+	self.m_count = 1
+    self.m_quantityBtnPress = UI_BundlePopupBtnPress(self)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BundlePopup')
@@ -84,8 +87,8 @@ function UI_BundlePopup:initButton()
 	vars['quantityBtn1']:registerScriptTapHandler(function() self:click_quantityBtn(false) end)
 	vars['quantityBtn2']:registerScriptTapHandler(function() self:click_quantityBtn(true) end)
 
-    vars['quantityBtn1']:setPressedCB(function() self:click_quantityBtn(false) end)
-	vars['quantityBtn2']:setPressedCB(function() self:click_quantityBtn(true) end)
+    vars['quantityBtn1']:registerScriptPressHandler(function() self:press_quantityBtn(false) end)
+	vars['quantityBtn2']:registerScriptPressHandler(function() self:press_quantityBtn(true) end)
 
     vars['purchaseBtn']:registerScriptTapHandler(function() self:click_purchaseBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
@@ -152,6 +155,23 @@ function UI_BundlePopup:click_quantityBtn(is_add)
 
 	self.m_count = count
 	self:refresh()
+end
+
+-------------------------------------
+-- function press_quantityBtn
+-- @param is_add 수량에 더할지 뺄지 결정
+-------------------------------------
+function UI_BundlePopup:press_quantityBtn(is_add)
+	local vars = self.vars
+
+    local quantity_btn
+    if (is_add) then
+        quantity_btn = vars['quantityBtn2']
+    else
+        quantity_btn = vars['quantityBtn1']
+    end
+
+    self.m_quantityBtnPress:quantityBtnPressHandler(quantity_btn, is_add)
 end
 
 -------------------------------------

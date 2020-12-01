@@ -855,6 +855,7 @@ local t_module = {
 	'UI_EggPopup',
 	'UI_BundlePopup',
     'UI_BundlePopupNew',
+    'UI_BundlePopupBtnPress',
 	'UI_ErrorPopup',
     'UI_ErrorPopup_Live',
     'UI_SimpleDragonInfoPopup',
