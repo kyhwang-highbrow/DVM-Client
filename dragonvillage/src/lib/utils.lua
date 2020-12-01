@@ -1385,3 +1385,97 @@ function descTimeByTimeStemp(timestemp)
 	local text_time = date_format:tostring(date)
     return text_time
 end
+
+-------------------------------------
+-- function AlignUIPos
+-- @brief 같은 계층의 자식들을 정렬시킴
+-- @param l_ui_list : ui 리스트, 리스트 순서대로 정렬, {vars['XXXIcon'], vars['XXXLabel']}
+-- @param direction : ui 나열 방향 ('HORIZONTAL', 'VERTICAL'), 기본값 : HORIZONTAL
+-- @param align : 정렬 기준 ('HEAD', 'CENTER', 'TAIL'), 기본값 : CENTER
+-- @param offset : ui 사이 띄우는 길이, 기본값 : 0
+-------------------------------------
+function AlignUIPos(l_ui_list, direction, align, offset)
+    local ui_count = table.count(l_ui_list)
+    
+    if (ui_count == 0) then
+        return
+    end
+
+    local direction = direction or 'HORIZONTAL'
+    local align = align or 'CENTER'
+    local offset = offset or 0
+    
+    local size_crit = 'width'
+    local add_sign = 1 -- 다음 위치 계산할 때 더해야하는지 빼야하는지 결정
+    if (direction == 'VERTICAL') then
+        size_crit = 'height'
+        add_sign = -1
+    end
+    
+    local total_content_size = 0
+    local l_content_size = {}
+    local l_anchor_value = {}
+     
+    for idx, v in ipairs(l_ui_list) do
+        local content_size = 0 
+        local anchor_value
+        if ((isInstanceOf(v, UIC_LabelTTF)) or (isInstanceOf(v, UIC_RichLabel))) then
+            content_size = v:getStringWidth()
+            if (direction == 'VERTICAL') then 
+                content_size = v:getTotalHeight()
+            end
+        
+        else
+            content_size = v:getContentSize()[size_crit]
+        end
+       
+        local anchor_point = v:getAnchorPoint()
+        local anchor_value = anchor_point.x
+        
+        if (direction == 'VERTICAL') then
+            anchor_value = (1 - anchor_point.y)
+        end
+        
+        table.insert(l_content_size, content_size)
+        table.insert(l_anchor_value, anchor_value)
+        total_content_size = total_content_size + content_size
+    end 
+
+    total_content_size = total_content_size + (offset * (ui_count - 1))
+
+    local curr_position = -(total_content_size / 2)
+    if (align == 'HEAD') then
+        local parent_ui = l_ui_list[1]:getParent()
+        local parent_size = parent_ui:getContentSize()[size_crit]
+        
+        curr_position = -(parent_size / 2)
+    
+    elseif (align == 'TAIL') then
+        local parent_ui = l_ui_list[1]:getParent()
+        local parent_size = parent_ui:getContentSize()[size_crit]
+        
+        curr_position = (parent_size / 2) - (total_content_size)
+    end
+
+    -- 수직과 수평은 부호가 반대로 처리됨
+    curr_position = add_sign * curr_position
+
+    for idx, v in ipairs(l_ui_list) do
+        cclog(l_anchor_value[idx])
+        local position = curr_position + (add_sign * (l_content_size[idx] * l_anchor_value[idx]))
+
+        if (idx > 1) then
+            local before_rest_size = (l_content_size[idx - 1] * (1 - l_anchor_value[idx - 1]))
+            position = position + (add_sign * (offset + before_rest_size))
+        end
+
+        if (direction == 'VERTICAL') then
+            v:setPositionY(position)
+
+        else
+            v:setPositionX(position)
+        end
+
+        curr_position = position
+    end
+end
