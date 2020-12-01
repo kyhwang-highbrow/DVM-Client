@@ -184,7 +184,7 @@ function UI_DragonManage_Base:setDefaultSelectDragon(doid)
         return
     end
 
-    local item = self.m_tableViewExt.m_itemList[1]
+    local item = self.m_tableViewExt:getItemFromIndex(1)
 
     if (item) then
         local dragon_object_id = item['data']['id']
