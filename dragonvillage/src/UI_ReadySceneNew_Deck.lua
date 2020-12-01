@@ -730,6 +730,16 @@ function UI_ReadySceneNew_Deck:checkSameDid(idx, doid)
         end
     end
 
+    -- @kwkang 2020-12-01 출전해있는 친구 드래곤과 겹치는지 검사
+    local friend_doid = g_friendData.m_selectedSharedFriendDragon
+    if (friend_doid) then 
+        local f_idx = g_friendData:getFriendDragonSlotIdx()
+        -- 같은 did이면서 idx가 다른 경우
+        if (g_dragonsData:isSameDid(friend_doid, doid)) and (idx ~= f_idx)then
+            return true
+        end
+    end
+
     return false
 end
 
