@@ -14,6 +14,7 @@ function UI_Setting:init_devTab()
     vars['allFruitBtn']:registerScriptTapHandler(function() self:click_allFruitBtn() end)
     vars['allMaterialBtn']:registerScriptTapHandler(function() self:click_allMaterialBtn() end)
     vars['allRuneBtn']:registerScriptTapHandler(function() self:click_allRuneBtn() end)
+    vars['selectRuneBtn']:registerScriptTapHandler(function() self:click_selectRuneBtn() end)
     vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
     vars['allCostumeBtn']:registerScriptTapHandler(function() self:click_allCostumeBtn() end)
     vars['allEggBtn']:registerScriptTapHandler(function() self:click_allEggBtn() end)
@@ -390,6 +391,15 @@ function UI_Setting:click_allRuneBtn()
     end
     ui_network:setSuccessCB(do_work)
     do_work()
+end
+
+-------------------------------------
+-- function click_selectRuneBtn
+-- @brief 선택하여 룬 추가
+-------------------------------------
+function UI_Setting:click_selectRuneBtn()
+    require('UI_RuneSelectDevApiPopup')
+    UI_RuneSelectDevApiPopup()
 end
 
 -------------------------------------
