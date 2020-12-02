@@ -250,7 +250,12 @@ function UI_RuneDevApiPopup:refresh()
     local vars = self.vars
 
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
-        self.m_mUiLabel[v]:setString(self.m_mOpt[v])
+        if (self.m_mOpt[v]) then
+            local str = self.opt_str(self.m_mOpt[v])
+            self.m_mUiLabel[v]:setString(str)
+        else
+            self.m_mUiLabel[v]:setString('')
+        end
 
         if (self.m_mUiEditBox[v]) then
             self.m_mUiEditBox[v]:setText(self.m_mVal[v])
@@ -319,6 +324,37 @@ function UI_RuneDevApiPopup:setLv(lv)
 
     self.m_lv = lv
     self.m_mVal['mopt'] = value
+end
+
+-------------------------------------
+-- function opt_str
+-------------------------------------
+function UI_RuneDevApiPopup.opt_str(type)
+    if (type == '랜덤') then return '랜덤' end
+
+    local t_opt_str = {
+        ['atk'] = '공격력',
+        ['aspd'] = '공격속도',
+        ['cri_chance'] = '치명확률',
+        ['cri_dmg'] = '치명피해',
+        ['cri_avoid'] = '치명회피',
+        ['def'] = '방어력',
+        ['hp'] = '생명력',
+        ['hit_rate'] = '적중',
+        ['avoid'] = '회피',
+        ['accuracy'] = '효과적중',
+        ['resistance'] = '효과저항'
+    }
+
+    local t_calc_str = {
+        ['add'] = '깡',
+        ['multi'] = '퍼',
+    }
+
+    local table_option = TableOption()
+    local opt, calc = table_option:parseOptionKey(type)
+
+    return t_opt_str[opt] .. ' ' .. t_calc_str[calc]
 end
 
 -------------------------------------
@@ -429,7 +465,8 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
     parent:addChild(uic.m_node)
 
     for i, type in ipairs(list) do
-        uic:addSortType(type, type)
+        local str = self.opt_str(type)
+        uic:addSortType(type, str)
     end
 
 	uic:setSortChangeCB(function(type)

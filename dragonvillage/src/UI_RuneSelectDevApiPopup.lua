@@ -285,9 +285,10 @@ function UI_RuneSelectDevApiPopup:refresh()
     vars['slotLabel']:setString(slot_str)
 
     -- 메인 옵션 값
-    local mopt_str = self.m_mVal['mopt'] or ''
+    local mopt_value_str = self.m_mVal['mopt'] or ''
     vars['moptValueLabel']:setString(mopt_str)
-    vars['moptLabel']:setString(self.m_mOpt['mopt'])
+    local mopt_label_str = self.opt_str(self.m_mOpt['mopt'])
+    vars['moptLabel']:setString(mopt_label_str)
 
     self:setRuneObject()
 end
@@ -347,10 +348,32 @@ end
 -------------------------------------
 -- function opt_str
 -------------------------------------
-function UI_RuneSelectDevApiPopup:opt_str(type)
-    local str = '랜덤'
+function UI_RuneSelectDevApiPopup.opt_str(type)
+    if (type == '랜덤') then return '랜덤' end
 
-    return str
+    local t_opt_str = {
+        ['atk'] = '공격력',
+        ['aspd'] = '공격속도',
+        ['cri_chance'] = '치명확률',
+        ['cri_dmg'] = '치명피해',
+        ['cri_avoid'] = '치명회피',
+        ['def'] = '방어력',
+        ['hp'] = '생명력',
+        ['hit_rate'] = '적중',
+        ['avoid'] = '회피',
+        ['accuracy'] = '효과적중',
+        ['resistance'] = '효과저항'
+    }
+
+    local t_calc_str = {
+        ['add'] = '깡',
+        ['multi'] = '퍼',
+    }
+
+    local table_option = TableOption()
+    local opt, calc = table_option:parseOptionKey(type)
+
+    return t_opt_str[opt] .. ' ' .. t_calc_str[calc]
 end
 
 -------------------------------------
@@ -488,9 +511,9 @@ function UI_RuneSelectDevApiPopup:makeComboBox(key, list)
     end)
     
     
-
     for i, type in ipairs(list) do
-        uic:addSortType(type, type)
+        local str = self.opt_str(type)
+        uic:addSortType(type, str)
     end
 
     self.m_mOpt[key] = '랜덤'
