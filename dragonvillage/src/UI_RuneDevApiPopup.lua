@@ -5,8 +5,12 @@ local PARENT = UI
 -------------------------------------
 UI_RuneDevApiPopup = class(PARENT, {
         m_runeObjectID = 'string',
+        m_optionLabel = 'ui',
 
         m_mUiBtn = 'table',
+        m_mUiUpBtn = 'table',
+        m_mUiDownBtn = 'table',
+        m_mUiMaxBtn = 'table',
         m_mUiDeleteBtn = 'table',
         m_mUiLabel = 'table',
         m_mUiEditBox = 'table',
@@ -27,6 +31,9 @@ function UI_RuneDevApiPopup:init(rune_object_id)
     local t_rune_data = g_runesData:getRuneObject(self.m_runeObjectID)
 
     self.m_mUiBtn = {}
+    self.m_mUiUpBtn = {}
+    self.m_mUiDownBtn = {}
+    self.m_mUiMaxBtn = {}
     self.m_mUiDeleteBtn = {}
     self.m_mUiLabel = {}
     self.m_mUiEditBox = {}
@@ -68,19 +75,25 @@ function UI_RuneDevApiPopup:initUI()
     self.m_mUiLabel['mopt'] = vars['moptLabel']
 
     self.m_mUiBtn['uopt'] = vars['uoptBtn']
+    self.m_mUiUpBtn['uopt'] = vars['uoptUpBtn']
+    self.m_mUiDownBtn['uopt'] = vars['uoptDownBtn']
+    self.m_mUiMaxBtn['uopt'] = vars['uoptMaxBtn']
     self.m_mUiDeleteBtn['uopt'] = vars['uoptDeleteBtn']
     self.m_mUiLabel['uopt'] = vars['uoptLabel']
     self.m_mUiEditBox['uopt'] = vars['uoptEditBox']
 
     for i = 1, 4 do
         self.m_mUiBtn['sopt_' .. i] = vars['soptBtn' .. i]
+        self.m_mUiUpBtn['sopt_' .. i] = vars['soptUpBtn' .. i]
+        self.m_mUiDownBtn['sopt_' .. i] = vars['soptDownBtn' .. i]
+        self.m_mUiMaxBtn['sopt_' .. i] = vars['soptMaxBtn' .. i]
         self.m_mUiDeleteBtn['sopt_' .. i] = vars['soptDeleteBtn' .. i]
         self.m_mUiLabel['sopt_' .. i] = vars['soptLabel' .. i]
         self.m_mUiEditBox['sopt_' .. i] = vars['soptEditBox' .. i]
     end
 
     -- 룬 이름 지정
-    vars['nameLabel']:setString(Str(t_rune_data['name']))
+    -- vars['nameLabel']:setString(Str(t_rune_data['name']))
 end
 
 -------------------------------------
@@ -116,7 +129,44 @@ function UI_RuneDevApiPopup:initButton()
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
         initComboBox(v)
 
-        if (self.m_mUiDeleteBtn[v]) then
+        if (self.m_mUiUpBtn[v]) then
+            self.m_mUiUpBtn[v]:registerScriptTapHandler(function()
+                -- 옵션 + 1
+                if (self.m_mVal[v]) then
+                    local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                    local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                    self.m_mVal[v] = math_min(max_value, self.m_mVal[v] + 1)
+
+                    self:refresh()
+                end
+            end)
+        end
+
+         if (self.m_mUiDownBtn[v]) then
+            self.m_mUiDownBtn[v]:registerScriptTapHandler(function()
+                -- 옵션 - 1
+                if (self.m_mVal[v]) then
+                    self.m_mVal[v] = math_max(0, self.m_mVal[v] - 1)
+
+                    self:refresh()
+                end
+            end)
+        end
+
+         if (self.m_mUiMaxBtn[v]) then
+            self.m_mUiMaxBtn[v]:registerScriptTapHandler(function()
+                -- 옵션 최대값
+                if (self.m_mVal[v]) then
+                    local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                    local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                    self.m_mVal[v] = max_value
+
+                    self:refresh()
+                end
+            end)
+        end
+
+         if (self.m_mUiDeleteBtn[v]) then
             self.m_mUiDeleteBtn[v]:registerScriptTapHandler(function()
                 -- 옵션 삭제
                 self.m_mOpt[v] = nil
@@ -132,6 +182,12 @@ function UI_RuneDevApiPopup:initButton()
         -- 최대 강화
         vars['maxEhchantBtn']:registerScriptTapHandler(function()
             self:setLv(RUNE_LV_MAX)
+            self:refresh()
+        end)
+
+        -- 강화 제거
+        vars['enchantDeleteBtn']:registerScriptTapHandler(function()
+            self:setLv(0)
             self:refresh()
         end)
 
@@ -205,44 +261,48 @@ function UI_RuneDevApiPopup:refresh()
 
     -- 강화 단계
     vars['enchantLabel']:setString(string.format('+%d', self.m_lv))
+
+    self:setRuneObject()
 end
 
 -------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_RuneDevApiPopup:click_closeBtn()
-    local t_rune_data = g_runesData:getRuneObject(self.m_runeObjectID)
-
-    local m_update = {}
-    local m_delete = {}
-
-    for _, v in ipairs(StructRuneObject.OPTION_LIST) do
-        -- 원본 룬 정보와 비교하여 변경되거나 삭제된 옵션들을 골라냄
-        local opt, opt_val = t_rune_data:parseRuneOptionStr(t_rune_data[v])
-
-        -- 메인 옵션 타입이 변경된 경우는 삭제도 되어야 한다(서버 저장 방식의 이슈로 인함)
-        if (v == 'mopt' and opt ~= self.m_mOpt[v]) then
-            m_delete[v] = true
-        end
-
-        if (opt ~= self.m_mOpt[v] or opt_val ~= self.m_mVal[v]) then
-            if (self.m_mOpt[v] == nil or self.m_mOpt[v] == '' or self.m_mVal[v] == nil or self.m_mVal[v] == 0) then
-                m_delete[v] = true
-            else
-                m_update[v] = true
-            end
-        end
-    end
-
-    if ((table.count(m_update) == 0) and (table.count(m_delete) == 0)) then
-        self:setCloseCB(nil)
-    end
-
-    self:request('delete', m_delete, function()
-        self:request('update', m_update, function()
-            self:close()
-        end)
-    end)
+    self:setCloseCB(nil)
+    self:close()
+    --local t_rune_data = g_runesData:getRuneObject(self.m_runeObjectID)
+--
+    --local m_update = {}
+    --local m_delete = {}
+--
+    --for _, v in ipairs(StructRuneObject.OPTION_LIST) do
+        ---- 원본 룬 정보와 비교하여 변경되거나 삭제된 옵션들을 골라냄
+        --local opt, opt_val = t_rune_data:parseRuneOptionStr(t_rune_data[v])
+--
+        ---- 메인 옵션 타입이 변경된 경우는 삭제도 되어야 한다(서버 저장 방식의 이슈로 인함)
+        --if (v == 'mopt' and opt ~= self.m_mOpt[v]) then
+            --m_delete[v] = true
+        --end
+--
+        --if (opt ~= self.m_mOpt[v] or opt_val ~= self.m_mVal[v]) then
+            --if (self.m_mOpt[v] == nil or self.m_mOpt[v] == '' or self.m_mVal[v] == nil or self.m_mVal[v] == 0) then
+                --m_delete[v] = true
+            --else
+                --m_update[v] = true
+            --end
+        --end
+    --end
+--
+    --if ((table.count(m_update) == 0) and (table.count(m_delete) == 0)) then
+        --self:setCloseCB(nil)
+    --end
+--
+    --self:request('delete', m_delete, function()
+        --self:request('update', m_update, function()
+            --self:close()
+        --end)
+    --end)
 end
 
 
@@ -377,10 +437,59 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
         -- 메인 옵션 타입이 변경된 경우면 강화 단계에 따른 현재 옵션값을 재계산해야함
         if (key == 'mopt') then
             self:setLv(self.m_lv)
+        else
+            self.m_mVal[key] = 0
         end
 
         self:refresh()
     end)
 
     return uic
+end
+
+
+-------------------------------------
+-- function setRuneObject
+-- @brief
+-------------------------------------
+function UI_RuneDevApiPopup:setRuneObject()
+    local vars = self.vars
+
+    local rune_obj = g_runesData:getRuneObject(self.m_runeObjectID)
+
+    -- 현재 룬 옵션 임시 저장
+    rune_obj['lv'] = self.m_lv
+    for i, v in ipairs(StructRuneObject.OPTION_LIST) do
+        if ((self.m_mOpt[v] ~= nil) and (self.m_mVal[v] ~= nil)) then
+            rune_obj[v] = string.format('%s;%s', self.m_mOpt[v], self.m_mVal[v])
+        else
+            rune_obj[v] = ''
+        end
+    end
+
+    -- 룬 명칭
+    vars['useRuneNameLabel']:setString(rune_obj['name'])
+
+    -- 룬 아이콘
+    local rune_icon = UI_RuneCard(rune_obj)
+    vars['useRuneNode']:addChild(rune_icon.root)
+
+    -- 세트 옵션
+    vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
+
+    do -- 레어도
+        local color = rune_obj:getRarityColor()
+        vars['useRuneNameLabel']:setColor(color)
+        vars['useRarityNode']:setColor(color)
+
+        local name = rune_obj:getRarityName()
+        vars['useRarityLabel']:setString(name)
+    end
+
+    if (self.m_optionLabel == nil) then
+        self.m_optionLabel = rune_obj:getOptionLabel()
+        self.vars['useRuneDscNode']:addChild(self.m_optionLabel.root)
+    end
+    
+    rune_obj:setOptionLabel(self.m_optionLabel, 'use') -- param : ui, label_format, show_change
 end
