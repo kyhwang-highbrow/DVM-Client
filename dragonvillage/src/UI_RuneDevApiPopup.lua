@@ -230,8 +230,10 @@ function UI_RuneDevApiPopup:initEditBox()
                     local editbox = pSender
                     local str = editbox:getText()
 
-                    if (isValidText(str)) then
-                        self.m_mVal[v] = tonumber(str)                    
+                    if ((isValidText(str)) and (self.m_mOpt[v])) then
+                        local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                        self.m_mVal[v] = math_min(tonumber(str), max_value)                    
                     end
 
                     self:refresh()
@@ -411,6 +413,8 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
 
     --uic:setExtendButton(button)
     button:registerScriptTapHandler(function()
+        uic:toggleVisibility()
+
         if (uic.m_bShow) then
             if (self.m_openedComboBox and self.m_openedComboBox.m_bShow) then
                 self.m_openedComboBox:hide()
@@ -420,7 +424,6 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
             self.m_openedComboBox = nil
         end
 
-        uic:toggleVisibility()
     end)
     
     parent:addChild(uic.m_node)

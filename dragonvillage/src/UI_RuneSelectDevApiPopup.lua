@@ -23,7 +23,8 @@ UI_RuneSelectDevApiPopup = class(PARENT, {
         m_mOpt = 'table',
         m_mVal = 'table',
 
-        m_openedComboBox = '',
+        m_optionLabel = 'ui',
+        m_openedComboBox = 'ui',
      })
 
 -------------------------------------
@@ -45,6 +46,12 @@ function UI_RuneSelectDevApiPopup:init()
     self.m_rarity = 0
     self.m_lv = 0
     self.m_mOpt = {}
+    self.m_mOpt['mopt'] = '랜덤'
+    self.m_mOpt['uopt'] = '랜덤'
+    self.m_mOpt['sopt_1'] = '랜덤'
+    self.m_mOpt['sopt_2'] = '랜덤'
+    self.m_mOpt['sopt_3'] = '랜덤'
+    self.m_mOpt['sopt_4'] = '랜덤'
     self.m_mVal = {}
 
 
@@ -150,10 +157,16 @@ function UI_RuneSelectDevApiPopup:refreshOptionButton()
                 
         -- 선택 가능한 옵션들로 콤보박스 생성
         local t_rune_opt = table_rune_opt[slot_id]
+        local l_str = {'랜덤'}
         if (t_rune_opt) then
-            local l_str = pl.stringx.split(t_rune_opt['slot_opt'], ',')
-            self:makeComboBox(opt, l_str)
+            local l_opt = pl.stringx.split(t_rune_opt['slot_opt'], ',')
+
+            for i, v in ipairs(l_opt) do
+                table.insert(l_str, v)
+            end
         end
+
+        self:makeComboBox(opt, l_str)
     end
 
 
@@ -201,7 +214,7 @@ function UI_RuneSelectDevApiPopup:refreshOptionButton()
          if (self.m_mUiDeleteBtn[v]) then
             self.m_mUiDeleteBtn[v]:registerScriptTapHandler(function()
                 -- 옵션 삭제
-                self.m_mOpt[v] = nil
+                self.m_mOpt[v] = '랜덤'
                 self.m_mVal[v] = nil
 
                 self:refresh()
@@ -209,35 +222,7 @@ function UI_RuneSelectDevApiPopup:refreshOptionButton()
         end
     end
 
-    do -- 강화 관련 버튼
-        
-        -- 최대 강화
-        vars['maxEhchantBtn']:registerScriptTapHandler(function()
-            self:setLv(RUNE_LV_MAX)
-            self:refresh()
-        end)
-
-        -- 강화 제거
-        vars['enchantDeleteBtn']:registerScriptTapHandler(function()
-            self:setLv(0)
-            self:refresh()
-        end)
-
-        -- 강화 단계 낮춤
-        vars['enchantDownBtn']:registerScriptTapHandler(function()
-            self:setLv(self.m_lv - 1)
-            self:refresh()
-        end)
-
-        -- 강화 단계 높임
-        vars['enchantUpBtn']:registerScriptTapHandler(function()
-            self:setLv(self.m_lv + 1)
-            self:refresh()
-        end)
-    end
-
 end
-
 -------------------------------------
 -- function initEditBox
 -------------------------------------
@@ -259,8 +244,10 @@ function UI_RuneSelectDevApiPopup:initEditBox()
                     local editbox = pSender
                     local str = editbox:getText()
 
-                    if (isValidText(str)) then
-                        self.m_mVal[v] = tonumber(str)                    
+                    if ((isValidText(str)) and (self.m_mVal[v])) then
+                        local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                        self.m_mVal[v] = math_min(tonumber(str), max_value)                    
                     end
 
                     self:refresh()
@@ -298,10 +285,11 @@ function UI_RuneSelectDevApiPopup:refresh()
     vars['slotLabel']:setString(slot_str)
 
     -- 메인 옵션 값
-    vars['moptValueLabel']:setString(self.m_mVal['mopt'])
+    local mopt_str = self.m_mVal['mopt'] or ''
+    vars['moptValueLabel']:setString(mopt_str)
+    vars['moptLabel']:setString(self.m_mOpt['mopt'])
 
-    -- 강화 단계
-    vars['enchantLabel']:setString(string.format('+%d', self.m_lv))
+    self:setRuneObject()
 end
 
 -------------------------------------
@@ -392,10 +380,6 @@ function UI_RuneSelectDevApiPopup:request()
     local rid = self:getRid()
     local rarity = (self.m_rarity > 0) and self.m_rarity or nil
     
-    cclog(uid)
-    cclog(rid)
-    cclog(rarity)
-
     local ui_network = UI_Network()
     ui_network:setUrl('/runes/add')
     ui_network:setRevocable(true)
@@ -404,11 +388,8 @@ function UI_RuneSelectDevApiPopup:request()
     ui_network:setParam('rarity', rarity)
       
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
-        if (self.m_mOpt[v]) then
+        if (self.m_mOpt[v]) and (self.m_mVal[v]) then
             ui_network:setParam(v, self.m_mOpt[v])
-        end
-
-        if (self.m_mVal[v]) then
             ui_network:setParam(v .. '_val', self.m_mVal[v])
         end
     end  
@@ -436,10 +417,10 @@ end
 -------------------------------------
 -- function getRid
 -------------------------------------
-function UI_RuneSelectDevApiPopup:getRid()
-    local grade = self.m_grade
-    local slot = self.m_slot
-    local set = self.m_set
+function UI_RuneSelectDevApiPopup:getRid(grade, slot, set)
+    local grade = grade or self.m_grade
+    local slot = slot or self.m_slot
+    local set = set or self.m_set
 
     if (slot == 0) then
         slot = math.random(1, 6)
@@ -463,10 +444,6 @@ function UI_RuneSelectDevApiPopup:getRid()
 
     local rid = 710000 + (set * 100) + (slot * 10) + (grade)
 
-    cclog(grade)
-    cclog(slot)
-    cclog(set)
-
     return rid
 end
 
@@ -488,8 +465,7 @@ function UI_RuneSelectDevApiPopup:makeComboBox(key, list)
     self.m_mUiComboBtn[key] = UIC_SortList()
     self.m_mUiComboBtn[key].m_direction = UIC_SORT_LIST_TOP_TO_BOT
     self.m_mUiComboBtn[key]:setNormalSize(width, height)
-    --uic:setPosition(x, y)
-    self.m_mUiComboBtn[key]:setPosition(x + 300, 300)
+    self.m_mUiComboBtn[key]:setPosition(x + 150, 300)
     self.m_mUiComboBtn[key]:setDockPoint(button:getDockPoint())
     self.m_mUiComboBtn[key]:setAnchorPoint(button:getAnchorPoint())
     self.m_mUiComboBtn[key]:init_container()
@@ -499,6 +475,8 @@ function UI_RuneSelectDevApiPopup:makeComboBox(key, list)
 
     --uic:setExtendButton(button)
     button:registerScriptTapHandler(function()
+        uic:toggleVisibility()
+
         if (uic.m_bShow) then
             if (self.m_openedComboBox and self.m_openedComboBox.m_bShow) then
                 self.m_openedComboBox:hide()
@@ -507,8 +485,6 @@ function UI_RuneSelectDevApiPopup:makeComboBox(key, list)
         else
             self.m_openedComboBox = nil
         end
-
-        uic:toggleVisibility()
     end)
     
     
@@ -517,17 +493,25 @@ function UI_RuneSelectDevApiPopup:makeComboBox(key, list)
         uic:addSortType(type, type)
     end
 
+    self.m_mOpt[key] = '랜덤'
+    self.m_mVal[key] = nil
+
 	uic:setSortChangeCB(function(type)
         self.m_mOpt[key] = type
 
         self.m_openedComboBox = nil
 
         -- 메인 옵션 타입이 변경된 경우면 강화 단계에 따른 현재 옵션값을 재계산해야함
-        if (key == 'mopt') then
-            self:setLv(self.m_lv)
+        if (type == '랜덤') then
+            self.m_mVal[key] = nil
         else
-            self.m_mVal[key] = 0
+            if (key == 'mopt') then
+                self:setLv(self.m_lv)
+            else
+                self.m_mVal[key] = 0
+            end
         end
+        
 
         self:refresh()
     end)
@@ -553,20 +537,18 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
         self.m_mUiComboBtn[key] = UIC_SortList()
         self.m_mUiComboBtn[key].m_direction = UIC_SORT_LIST_TOP_TO_BOT
         self.m_mUiComboBtn[key]:setNormalSize(width, height)
-        --uic:setPosition(x, y)
-        self.m_mUiComboBtn[key]:setPosition(x + 300, 300)
+        self.m_mUiComboBtn[key]:setPosition(x + 150, 300)
         self.m_mUiComboBtn[key]:setDockPoint(button:getDockPoint())
         self.m_mUiComboBtn[key]:setAnchorPoint(button:getAnchorPoint())
         self.m_mUiComboBtn[key]:init_container()
-    else
-        -- uic:clearSortTypes()
-        
     end
 
     local uic = self.m_mUiComboBtn[key]
 
     --uic:setExtendButton(button)
     button:registerScriptTapHandler(function()
+        uic:toggleVisibility()
+
         if (uic.m_bShow) then
             if (self.m_openedComboBox and self.m_openedComboBox.m_bShow) then
                 self.m_openedComboBox:hide()
@@ -576,7 +558,6 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
             self.m_openedComboBox = nil
         end
 
-        uic:toggleVisibility()
     end)
     
     parent:addChild(uic.m_node, 99)
@@ -592,7 +573,6 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
 	uic:setSortChangeCB(function(type)
 
         local key_name = 'm_' .. key        
-        local type = (type > 0) and type or nil
     
         self[key_name] = type
 
@@ -602,16 +582,140 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
         if (key == 'slot') then
             -- 주옵션 변경
             local table_rune_opt = TABLE:get('table_rune_opt')
+            local type = (type > 0) and type or nil
+
             local t_rune_opt = table_rune_opt['slot_' .. type]
-            local l_str = {}
+            local l_str = {'랜덤'}
             if (t_rune_opt) then
-                l_str = pl.stringx.split(t_rune_opt['slot_opt'], ',')
+                local l_opt = pl.stringx.split(t_rune_opt['slot_opt'], ',')
+                for i, v in ipairs(l_opt) do
+                    table.insert(l_str, v)
+                end
             end
             self:makeComboBox('mopt', l_str)
+        
+        elseif (key == 'set') then
+            if (not isExistValue(self.m_set, 1,2,4,6,7,8)) then
+                self.m_grade = math_min(self.m_grade, 6)
+            end
+        
+        elseif (key == 'grade') then
+            if (not isExistValue(self.m_set, 1,2,4,6,7,8)) then
+                self.m_grade = math_min(self.m_grade, 6)
+            end
         end
 
         self:refresh()
     end)
 
     return uic
+end
+
+-------------------------------------
+-- function setRuneObject
+-- @brief
+-------------------------------------
+function UI_RuneSelectDevApiPopup:setRuneObject()
+    local vars = self.vars
+
+    -- 룬 명칭
+    if ((self.m_set > 0) and (self.m_slot > 0)) then
+        local rid = self:getRid(1, nil, nil)
+        local name = TableItem:getItemName(rid)
+        
+        if ((self.m_mVal['uopt'] ~= nil)) then
+            local option = self.m_mOpt['uopt']
+            local prefix = TableOption:getRunePrefix(option)
+
+            if (prefix ~= '') then
+                name = prefix .. ' ' .. name
+            end
+        end
+
+        vars['useRuneNameLabel']:setString(name)
+    else
+        vars['useRuneNameLabel']:setString('샘플 룬')
+    end
+
+    ---- 룬 아이콘
+    if ((self.m_grade > 0) and (self.m_slot > 0) and (self.m_set > 0)) then
+        local rid = self:getRid()
+        local rune_icon = UI_ItemCard(rid, 1)
+        vars['useRuneNode']:addChild(rune_icon.root)
+    else
+        vars['useRuneNode']:removeAllChildren()
+    end
+
+    ---- 세트 옵션
+    local set_desc_rich_text
+    if (self.m_set > 0) then
+        set_desc_rich_text = TableRuneSet:makeRuneSetDescRichText(self.m_set)
+    else
+        set_desc_rich_text = '{@gray}랜덤 세트'
+    end
+
+    vars['useRuneSetLabel']:setString(set_desc_rich_text)
+
+
+    do -- 레어도
+        local color
+        
+        -- 희귀 (rare)
+        if (self.m_rarity == 2) then
+            color = cc.c3b(62, 139, 255)
+
+        -- 영웅 (hero)
+        elseif (self.m_rarity == 3) then
+            color = cc.c3b(213, 57, 246)
+
+        -- 전설 (legend)
+        elseif (self.m_rarity == 4) then
+            color = cc.c3b(255, 210, 0)
+        else
+            color = cc.c3b(174, 172, 162)
+        end
+
+        vars['useRuneNameLabel']:setColor(color)
+        vars['useRarityNode']:setColor(color)
+
+        local name = self.rarity_str(self.m_rarity)
+        vars['useRarityLabel']:setString(name)
+    end
+
+    if (self.m_optionLabel == nil) then
+        local option_label = UI()
+        option_label:load('rune_info_board.ui')
+        option_label.vars['runeInfo']:setVisible(true)
+        option_label.vars['useMenu']:setVisible(false)
+        vars['useRuneDscNode']:addChild(option_label.root)
+
+        self.m_optionLabel = option_label
+    end
+
+    -- 룬 옵션 세팅
+    for i, v in ipairs(StructRuneObject.OPTION_LIST) do
+        local option_label = string.format("%s_useLabel", v)
+        local option_label_node = string.format("%s_useNode", v)
+
+        local option = self.m_mOpt[v]        
+        local value = self.m_mVal[v]
+        if (value) then        
+            local desc_str = TableOption:getOptionDesc(option, value)
+        
+            local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+            local max_value = t_rune_opt_max[option]['status_max']
+            local is_max = (value == max_value)
+
+            -- 추가옵션은 max, 연마 표시
+            if (i > 2) and (is_max) then
+                desc_str = desc_str .. '{@yellow} [MAX]'
+            end
+
+            self.m_optionLabel.vars[option_label_node]:setVisible(true)
+            self.m_optionLabel.vars[option_label]:setString(desc_str)
+        
+        else
+            self.m_optionLabel.vars[option_label_node]:setVisible(false)
+        end
+    end
 end
