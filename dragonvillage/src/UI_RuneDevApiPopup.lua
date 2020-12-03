@@ -146,7 +146,7 @@ function UI_RuneDevApiPopup:initButton()
             self.m_mUiDownBtn[v]:registerScriptTapHandler(function()
                 -- 옵션 - 1
                 if (self.m_mVal[v]) then
-                    self.m_mVal[v] = math_max(0, self.m_mVal[v] - 1)
+                    self.m_mVal[v] = math_max(1, self.m_mVal[v] - 1)
 
                     self:refresh()
                 end
@@ -233,7 +233,8 @@ function UI_RuneDevApiPopup:initEditBox()
                     if ((isValidText(str)) and (self.m_mOpt[v])) then
                         local t_rune_opt_max = TABLE:get('table_rune_opt_status')
                         local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
-                        self.m_mVal[v] = math_min(tonumber(str), max_value)                    
+                        max_value = math_min(tonumber(str), max_value)           
+                        self.m_mVal[v] = math_max(1, max_value)            
                     end
 
                     self:refresh()
@@ -479,7 +480,7 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
         if (key == 'mopt') then
             self:setLv(self.m_lv)
         else
-            self.m_mVal[key] = 0
+            self.m_mVal[key] = 1
         end
 
         self:refresh()
