@@ -179,15 +179,18 @@ function UI_RuneSelectDevApiPopup:refreshOptionButton()
                 -- 옵션 + 1
                 if (self.m_mVal[v]) then
                     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                    local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
-                    self.m_mVal[v] = math_min(max_value, self.m_mVal[v] + 1)
+                    self.m_mVal[v] = self.m_mVal[v] + 1
+                    if (self.m_grade <= 6) then
+                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                        self.m_mVal[v] = math_min(max_value, self.m_mVal[v])
+                    end
 
                     self:refresh()
                 end
             end)
         end
 
-         if (self.m_mUiDownBtn[v]) then
+        if (self.m_mUiDownBtn[v]) then
             self.m_mUiDownBtn[v]:registerScriptTapHandler(function()
                 -- 옵션 - 1
                 if (self.m_mVal[v]) then
@@ -198,20 +201,7 @@ function UI_RuneSelectDevApiPopup:refreshOptionButton()
             end)
         end
 
-         if (self.m_mUiMaxBtn[v]) then
-            self.m_mUiMaxBtn[v]:registerScriptTapHandler(function()
-                -- 옵션 최대값
-                if (self.m_mVal[v]) then
-                    local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                    local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
-                    self.m_mVal[v] = max_value
-
-                    self:refresh()
-                end
-            end)
-        end
-
-         if (self.m_mUiDeleteBtn[v]) then
+        if (self.m_mUiDeleteBtn[v]) then
             self.m_mUiDeleteBtn[v]:registerScriptTapHandler(function()
                 -- 옵션 삭제
                 self.m_mOpt[v] = '랜덤'
@@ -245,10 +235,14 @@ function UI_RuneSelectDevApiPopup:initEditBox()
                     local str = editbox:getText()
 
                     if ((isValidText(str)) and (self.m_mVal[v])) then
-                        local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
-                        max_value = math_min(tonumber(str), max_value)                    
-                        self.m_mVal[v] = math_max(1, max_value)                    
+                        self.m_mVal[v] = tonumber(str)
+
+                        if (self.m_grade <= 6) then
+                            local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                            local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                            self.m_mVal[v] = math_min(self.m_mVal[v], max_value)                    
+
+                        end
                     end
 
                     self:refresh()
@@ -602,13 +596,12 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
     end
 
 	uic:setSortChangeCB(function(type)
-
+        
         local key_name = 'm_' .. key        
-    
+        local old_type = self[key_name]
         self[key_name] = type
-
         self.m_openedComboBox = nil
-
+        
         -- 각자 영향 미치는 것들 재배치
         if (key == 'slot') then
             -- 주옵션 변경
@@ -633,6 +626,21 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
         elseif (key == 'grade') then
             if (not isExistValue(self.m_set, 1,2,4,6,7,8)) then
                 self.m_grade = math_min(self.m_grade, 6)
+            end
+
+            if ((old_type == 7) and (type <= 6)) then
+                -- 룬 옵션 세팅
+                for i, v in ipairs(StructRuneObject.OPTION_LIST) do
+                    local option = self.m_mOpt[v]       
+                    local value = self.m_mVal[v]
+        
+                    if (value) then
+                        local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                        local max_value = t_rune_opt_max[option]['status_max']
+                        self.m_mVal[v] = math_min(self.m_mVal[v], max_value)
+                    end
+                    
+                end
             end
         end
 
@@ -735,7 +743,7 @@ function UI_RuneSelectDevApiPopup:setRuneObject()
         
             local t_rune_opt_max = TABLE:get('table_rune_opt_status')
             local max_value = t_rune_opt_max[option]['status_max']
-            local is_max = (value == max_value)
+            local is_max = ((value == max_value) and (self.m_grade <= 6))
 
             -- 추가옵션은 max, 연마 표시
             if (i > 2) and (is_max) then

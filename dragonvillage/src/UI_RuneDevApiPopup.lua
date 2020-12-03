@@ -102,6 +102,7 @@ end
 function UI_RuneDevApiPopup:initButton()
     local vars = self.vars
     local t_rune_data = g_runesData:getRuneObject(self.m_runeObjectID)
+    local grade = t_rune_data['grade']
     local table_rune_opt = TABLE:get('table_rune_opt')
 
     local function initComboBox(opt)
@@ -134,8 +135,12 @@ function UI_RuneDevApiPopup:initButton()
                 -- 옵션 + 1
                 if (self.m_mVal[v]) then
                     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                    local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
-                    self.m_mVal[v] = math_min(max_value, self.m_mVal[v] + 1)
+                    self.m_mVal[v] = self.m_mVal[v] + 1
+
+                    if (grade <= 6) then
+                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                        self.m_mVal[v] = math_min(max_value, self.m_mVal[v])
+                    end
 
                     self:refresh()
                 end
@@ -157,11 +162,13 @@ function UI_RuneDevApiPopup:initButton()
             self.m_mUiMaxBtn[v]:registerScriptTapHandler(function()
                 -- 옵션 최대값
                 if (self.m_mVal[v]) then
-                    local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                    local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
-                    self.m_mVal[v] = max_value
+                    if (grade <= 6) then
+                        local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                        self.m_mVal[v] = max_value
 
-                    self:refresh()
+                        self:refresh()
+                    end
                 end
             end)
         end
@@ -213,6 +220,9 @@ end
 -- function initEditBox
 -------------------------------------
 function UI_RuneDevApiPopup:initEditBox()
+    local t_rune_data = g_runesData:getRuneObject(self.m_runeObjectID)
+    local grade = t_rune_data['grade']
+
     local function isValidText(str)
         if (str ~= string.match(str, '[0-9]*')) then
             local msg = Str('숫자만 입력 가능합니다.')
@@ -231,10 +241,13 @@ function UI_RuneDevApiPopup:initEditBox()
                     local str = editbox:getText()
 
                     if ((isValidText(str)) and (self.m_mOpt[v])) then
-                        local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
-                        max_value = math_min(tonumber(str), max_value)           
-                        self.m_mVal[v] = math_max(1, max_value)            
+                        self.m_mVal[v] = tonumber(str)
+                          
+                        if (grade <= 6) then
+                            local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                            local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                            self.m_mVal[v] = math_min(self.m_mVal[v], max_value)      
+                        end    
                     end
 
                     self:refresh()
@@ -495,7 +508,7 @@ end
 function UI_RuneDevApiPopup:setRuneObject()
     local vars = self.vars
 
-    local rune_obj = g_runesData:getRuneObject(self.m_runeObjectID)
+    local rune_obj = clone(g_runesData:getRuneObject(self.m_runeObjectID))
 
     -- 현재 룬 옵션 임시 저장
     rune_obj['lv'] = self.m_lv
