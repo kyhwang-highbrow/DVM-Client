@@ -67,6 +67,10 @@ function UI_RuneBulkSalePopup:initButton()
     end)
 
     do -- 등급
+        local active = g_settingData:get('option_rune_bulk_sell', 'grade_7')
+        vars['starBtn7'] = UIC_CheckBox(vars['starBtn7'].m_node, vars['starSprite7'], active)
+        vars['starBtn7']:registerScriptTapHandler(function() self:click_checkBox() end)
+
         local active = g_settingData:get('option_rune_bulk_sell', 'grade_6')
         vars['starBtn6'] = UIC_CheckBox(vars['starBtn6'].m_node, vars['starSprite6'], active)
         vars['starBtn6']:registerScriptTapHandler(function() self:click_checkBox() end)
@@ -226,7 +230,7 @@ function UI_RuneBulkSalePopup:getRuneList()
 
     local l_stars = {}
     local is_all_stars = true
-    for i = 1, 6 do
+    for i = 1, 7 do
         l_stars[i] = vars['starBtn'..i]:isChecked()
         if (vars['starBtn'..i]:isChecked()) then
             is_all_stars = false
@@ -387,6 +391,7 @@ function UI_RuneBulkSalePopup:click_resetBtn()
     local vars = self.vars
     local is_reset = vars['resetBtn']:isChecked()
 
+    vars['starBtn7']:setChecked(is_reset)
     vars['starBtn6']:setChecked(is_reset)
     vars['starBtn5']:setChecked(is_reset)
     vars['starBtn4']:setChecked(is_reset)
@@ -483,6 +488,7 @@ function UI_RuneBulkSalePopup:onClose()
 
         g_settingData:lockSaveData()
 
+        g_settingData:applySettingData(vars['starBtn7']:isChecked(), 'option_rune_bulk_sell', 'grade_7')
         g_settingData:applySettingData(vars['starBtn6']:isChecked(), 'option_rune_bulk_sell', 'grade_6')
         g_settingData:applySettingData(vars['starBtn5']:isChecked(), 'option_rune_bulk_sell', 'grade_5')
         g_settingData:applySettingData(vars['starBtn4']:isChecked(), 'option_rune_bulk_sell', 'grade_4')
