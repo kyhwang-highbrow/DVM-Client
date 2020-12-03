@@ -291,6 +291,15 @@ function UI_RuneSelectDevApiPopup:refresh()
     local mopt_label_str = self.opt_str(self.m_mOpt['mopt'])
     vars['moptLabel']:setString(mopt_label_str)
 
+    -- 서브 옵션 값
+    local uopt_label_str = self.opt_str(self.m_mOpt['uopt'])
+    vars['uoptLabel']:setString(uopt_label_str)
+
+    for i = 1, 4 do
+        local sopt_label_str = self.opt_str(self.m_mOpt['sopt_' .. i])
+        vars['soptLabel' .. i]:setString(sopt_label_str)
+    end
+
     self:setRuneObject()
 end
 
