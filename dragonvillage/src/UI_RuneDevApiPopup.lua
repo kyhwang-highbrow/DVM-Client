@@ -440,9 +440,10 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
 
     local uic = UIC_SortList()
     uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic.m_buttonHeight = 34
     uic:setNormalSize(width, height)
     --uic:setPosition(x, y)
-    uic:setPosition(x + 300, 300)
+    uic:setPosition(x + 300, 330)
     uic:setDockPoint(button:getDockPoint())
     uic:setAnchorPoint(button:getAnchorPoint())
     uic:init_container()

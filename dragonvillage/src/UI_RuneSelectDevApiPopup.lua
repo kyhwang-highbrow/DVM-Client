@@ -487,8 +487,9 @@ function UI_RuneSelectDevApiPopup:makeComboBox(key, list)
 
     self.m_mUiComboBtn[key] = UIC_SortList()
     self.m_mUiComboBtn[key].m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    self.m_mUiComboBtn[key].m_buttonHeight = 34
     self.m_mUiComboBtn[key]:setNormalSize(width, height)
-    self.m_mUiComboBtn[key]:setPosition(x + 150, 300)
+    self.m_mUiComboBtn[key]:setPosition(x + 150, 330)
     self.m_mUiComboBtn[key]:setDockPoint(button:getDockPoint())
     self.m_mUiComboBtn[key]:setAnchorPoint(button:getAnchorPoint())
     self.m_mUiComboBtn[key]:init_container()
@@ -559,8 +560,9 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
     if (self.m_mUiComboBtn[key] == nil) then
         self.m_mUiComboBtn[key] = UIC_SortList()
         self.m_mUiComboBtn[key].m_direction = UIC_SORT_LIST_TOP_TO_BOT
+        self.m_mUiComboBtn[key].m_buttonHeight = 34
         self.m_mUiComboBtn[key]:setNormalSize(width, height)
-        self.m_mUiComboBtn[key]:setPosition(x + 150, 300)
+        self.m_mUiComboBtn[key]:setPosition(x + 150, 330)
         self.m_mUiComboBtn[key]:setDockPoint(button:getDockPoint())
         self.m_mUiComboBtn[key]:setAnchorPoint(button:getAnchorPoint())
         self.m_mUiComboBtn[key]:init_container()
