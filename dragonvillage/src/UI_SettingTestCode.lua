@@ -76,6 +76,9 @@ function UI_SettingTestCode:initButton()
 
     self:makeButtonAutomatic('Make Incomplete Purchase', self.makeIncompletePurchase)
     self:makeButtonAutomatic('Resotre Purchase', self.restorePurchase)
+
+    self:makeButtonAutomatic('Rune Gacha', self.runeGacha)
+    self:makeButtonAutomatic('Rune Gacha-11', self.runeGacha11)
 end
 
 -------------------------------------
@@ -556,4 +559,51 @@ function UI_SettingTestCode:restorePurchase()
     end
 
     PerpleSDK:billingGetIncompletePurchaseList(call_back)
+end
+
+-------------------------------------
+-- function runeGacha
+-------------------------------------
+function UI_SettingTestCode:runeGacha()
+    UIManager:toastNotificationRed('룬 가챠 1회')
+    UI_SettingTestCode.click_runeGacha(false)
+end
+
+-------------------------------------
+-- function runeGacha11
+-------------------------------------
+function UI_SettingTestCode:runeGacha11()
+    UIManager:toastNotificationRed('룬 가챠 10 + 1회')
+    UI_SettingTestCode.click_runeGacha(true)
+end
+
+-------------------------------------
+-- function click_eventSummonBtn
+-- @brief 확률업
+-------------------------------------
+function UI_SettingTestCode.click_runeGacha(is_bundle)
+    -- 룬 최대치 보유가 넘었는지 체크
+    --local summon_cnt = 1
+    --if (is_bundle == true) then
+        --summon_cnt = 11
+    --end
+--
+    --if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
+        --return
+    --end
+    require('UI_GachaResult_Rune')
+
+    local function finish_cb(ret)
+		local gacha_type = 'cash'
+        local l_rune_list = ret['runes']
+
+        local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
+
+        ui:setCloseCB(close_cb)
+    end
+
+    local function fail_cb()
+    end
+
+    g_runesData:request_runeGacha(is_bundle, finish_cb, fail_cb)
 end

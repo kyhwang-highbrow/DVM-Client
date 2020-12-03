@@ -228,6 +228,55 @@ function ServerData_Runes:request_runeSell(roid, finish_cb)
     g_inventoryData:request_itemSell(rune_oids, items, finish_cb)
 end
 
+-------------------------------------
+-- function request_runeGacha
+-- @brief
+-------------------------------------
+function ServerData_Runes:request_runeGacha(is_bundle, finish_cb, fail_cb)
+    -- parameters
+    local uid = g_userData:get('uid')
+    local item_id = 704009
+    local is_bundle = is_bundle or false
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        --if (is_bundle) then
+            ---- @analytics
+            --Analytics:trackUseGoodsWithRet(ret, '11회 소환')
+            --Analytics:firstTimeExperience('DragonSummonEvent_11')
+        --else
+            --Analytics:trackUseGoodsWithRet(ret, '1회 소환')
+        --end
+            
+        -- cash(캐시) 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        -- 룬들 추가
+        g_runesData:applyRuneData_list(ret['runes'])
+
+        -- 신규 룬 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/gacha_rune')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('item_id', item_id)
+    ui_network:setParam('bundle', is_bundle)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+    
+end
+
 
 -------------------------------------
 -- function applyRuneData
