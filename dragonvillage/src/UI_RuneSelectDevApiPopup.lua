@@ -375,15 +375,15 @@ function UI_RuneSelectDevApiPopup.opt_str(type)
         ['resistance'] = '효과저항'
     }
 
-    local t_calc_str = {
-        ['add'] = '깡',
-        ['multi'] = '퍼',
-    }
-
     local table_option = TableOption()
     local opt, calc = table_option:parseOptionKey(type)
+    local str = t_opt_str[opt]
+    
+    if (not isExistValue(type, 'atk_add', 'def_add', 'hp_add')) then
+        str = str .. ' %'
+    end
 
-    return t_opt_str[opt] .. ' ' .. t_calc_str[calc]
+    return str
 end
 
 -------------------------------------
@@ -512,12 +512,10 @@ function UI_RuneSelectDevApiPopup:makeComboBox(key, list)
         uic:toggleVisibility()
 
         if (uic.m_bShow) then
-            if (self.m_openedComboBox and self.m_openedComboBox.m_bShow) then
+            if ((self.m_openedComboBox) and (self.m_openedComboBox.m_bShow) and (self.m_openedComboBox ~= uic)) then
                 self.m_openedComboBox:hide()
             end
             self.m_openedComboBox = uic
-        else
-            self.m_openedComboBox = nil
         end
     end)
     
@@ -585,12 +583,10 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
         uic:toggleVisibility()
 
         if (uic.m_bShow) then
-            if (self.m_openedComboBox and self.m_openedComboBox.m_bShow) then
+            if ((self.m_openedComboBox) and (self.m_openedComboBox.m_bShow) and (self.m_openedComboBox ~= uic)) then
                 self.m_openedComboBox:hide()
             end
             self.m_openedComboBox = uic
-        else
-            self.m_openedComboBox = nil
         end
 
     end)

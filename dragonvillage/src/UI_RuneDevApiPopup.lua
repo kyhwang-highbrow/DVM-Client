@@ -347,15 +347,15 @@ function UI_RuneDevApiPopup.opt_str(type)
         ['resistance'] = '효과저항'
     }
 
-    local t_calc_str = {
-        ['add'] = '깡',
-        ['multi'] = '퍼',
-    }
-
     local table_option = TableOption()
     local opt, calc = table_option:parseOptionKey(type)
+    local str = t_opt_str[opt]
+    
+    if (not isExistValue(type, 'atk_add', 'def_add', 'hp_add')) then
+        str = str .. ' %'
+    end
 
-    return t_opt_str[opt] .. ' ' .. t_calc_str[calc]
+    return str
 end
 
 -------------------------------------
@@ -454,12 +454,10 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
         uic:toggleVisibility()
 
         if (uic.m_bShow) then
-            if (self.m_openedComboBox and self.m_openedComboBox.m_bShow) then
+            if ((self.m_openedComboBox) and (self.m_openedComboBox.m_bShow) and (self.m_openedComboBox ~= uic)) then
                 self.m_openedComboBox:hide()
             end
             self.m_openedComboBox = uic
-        else
-            self.m_openedComboBox = nil
         end
 
     end)
@@ -510,7 +508,16 @@ function UI_RuneDevApiPopup:setRuneObject()
     end
 
     -- 룬 명칭
-    vars['useRuneNameLabel']:setString(rune_obj['name'])
+    local name = rune_obj['name']
+    if ((self.m_mVal['uopt'] ~= nil)) then
+        local option = self.m_mOpt['uopt']
+        local prefix = TableOption:getRunePrefix(option)
+
+        if (prefix ~= '') then
+            name = prefix .. ' ' .. name
+        end
+    end
+    vars['useRuneNameLabel']:setString(name)
 
     -- 룬 아이콘
     local rune_icon = UI_RuneCard(rune_obj)
