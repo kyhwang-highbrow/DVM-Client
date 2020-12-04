@@ -409,8 +409,9 @@ end
 -------------------------------------
 -- function ItemObtainResult_ShowMailBox
 -- @brief 받은 아이템을 우편함 형식으로 보여줌
+-- @param close_cb은 우편함 팝업 띄울때만 사용
 -------------------------------------
-function ItemObtainResult_ShowMailBox(t_ret, select_type)
+function ItemObtainResult_ShowMailBox(t_ret, select_type, close_cb)
     if (not t_ret) then
         return
     end
@@ -423,7 +424,7 @@ function ItemObtainResult_ShowMailBox(t_ret, select_type)
 
     -- 우편함으로 전송
     if (t_ret['new_mail'] == true) then
-        UINavigator:goTo('mail_select', select_type, nil)
+        UINavigator:goTo('mail_select', select_type, close_cb)
     end
 end
 
