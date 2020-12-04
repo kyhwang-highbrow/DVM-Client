@@ -694,7 +694,7 @@ function UI_Lobby:initButton()
         self:setShopNoti()
     end
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
-    vars['runeforgeBtn']:registerScriptTapHandler(function() self:click_runeForgeBtn() end) -- 룬 세공소
+    vars['runeForgeBtn']:registerScriptTapHandler(function() self:click_runeForgeBtn() end) -- 룬 세공소
     vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
 
     -- 상단
@@ -2253,7 +2253,7 @@ end
 function UI_Lobby:update_bottomLeftButtons()
     local vars = self.vars
     local t_btn_name = {}
-    local l_content = {'forest', 'tamer', 'dragonManage'}
+    local l_content = {'quest', 'forest', 'tamer', 'dragonManage', 'runeForge'}
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
@@ -2274,8 +2274,11 @@ function UI_Lobby:update_bottomLeftButtons()
         end
     end
 
-    local pos_x = -260
+    local pos_x = -140
     local interval = -119
+    if (table.count(l_btn_list) >= 5) then -- 세공소의 추가로 임시방편 위치 설정
+        interval = -110
+    end
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
