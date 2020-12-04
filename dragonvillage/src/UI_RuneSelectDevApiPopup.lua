@@ -456,13 +456,14 @@ function UI_RuneSelectDevApiPopup:getRid(grade, slot, set)
     if (set == 0) then
         set = math.random(1, 14)
         
-        while (isExistValue(set, 3, 5)) do
+        -- 등급값이 7등급인데 7등급 없는 세트이거나, 사용되고 있지 않는 세트의 경우
+        while ((isExistValue(set, 3, 5)) or ((not isExistValue(set, 0, 1, 2, 4, 6, 7, 8)) and (grade == 7))) do
             set = math.random(1, 14)
         end
     end
 
     if (grade == 0) then
-        if (isExistValue(grade, 1,2,4,6,7,8)) then
+        if (isExistValue(set, 0, 1, 2, 4, 6, 7, 8)) then
             grade = math.random(1, 7)
         else
             grade = math.random(1, 6)
@@ -619,12 +620,12 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
             self:makeComboBox('mopt', l_str)
         
         elseif (key == 'set') then
-            if (not isExistValue(self.m_set, 1,2,4,6,7,8)) then
+            if (not isExistValue(self.m_set, 0, 1, 2, 4, 6, 7, 8)) then
                 self.m_grade = math_min(self.m_grade, 6)
             end
         
         elseif (key == 'grade') then
-            if (not isExistValue(self.m_set, 1,2,4,6,7,8)) then
+            if (not isExistValue(self.m_set, 0, 1, 2, 4, 6, 7, 8)) then
                 self.m_grade = math_min(self.m_grade, 6)
             end
 
