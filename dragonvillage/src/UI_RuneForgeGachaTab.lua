@@ -71,7 +71,7 @@ function UI_RuneForgeGachaTab:click_buyBtn(product_id)
 
 	local function cb_func(ret)
         -- 아이템 획득 우편함
-        ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_STONE)
+        ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_STONE, close_cb)
 	end
 
 	struct_product:buy(cb_func)
