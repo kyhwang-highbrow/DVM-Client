@@ -547,6 +547,12 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['dragon_exp'], 'user', 'dragon_exp')
         end
 
+        -- 룬 원석
+        if ret['rune_stone'] then
+            self:applyServerData(ret['rune_stone'], 'user', 'rune_stone')
+        end
+
+
 		-- 모든 특성 재료 (구 공통 특성 재료 포함)
         -- @mskim 기존 mastery_materials_02~04를 mastery_materials 컨테이너로 통합하여 수령함
         if ret['mastery_materials'] then
@@ -677,7 +683,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
     -- 클랜 코인 동기화 (전체 갱신)
     RefreshGoods(t_added_items, 'clancoin')
 	
-	-- 클랜 코인 동기화 (전체 갱신)
+	-- 캡슐 코인 동기화 (전체 갱신)
     RefreshGoods(t_added_items, 'capsule_coin')
 
     -- 아모르의 서
@@ -703,6 +709,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 드래곤의 경험치
     RefreshGoods(t_added_items, 'dragon_exp')
+
+    -- 룬 원석
+    RefreshGoods(t_added_items, 'rune_stone')
    
    -- 특성 재료
     RefreshGoods(t_added_items, 'mastery_materials')
