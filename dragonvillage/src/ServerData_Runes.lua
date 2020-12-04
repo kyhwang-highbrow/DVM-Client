@@ -235,7 +235,7 @@ end
 function ServerData_Runes:request_runeGacha(is_bundle, finish_cb, fail_cb)
     -- parameters
     local uid = g_userData:get('uid')
-    local item_id = 704009
+    local item_id = 700651
     local is_bundle = is_bundle or false
 
     -- 성공 콜백

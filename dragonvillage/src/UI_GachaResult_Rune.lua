@@ -16,11 +16,6 @@ UI_GachaResult_Rune = class(PARENT, {
         m_hideUIList = '',
         m_bSkip = 'bool',
 
-		-- 소환 정보
-		--m_tSummonData = 'table',
-
-        -- 마일리지
-        --m_added_mileage = 'number',
      })
 
 -------------------------------------
@@ -108,6 +103,8 @@ end
 -------------------------------------
 function UI_GachaResult_Rune:initEverything()
 	local vars = self.vars
+
+    vars['againBtn']:setVisible(true)
 
 	-- 선택권, 뽑기권 등..
 	--if (self.m_type == 'mail') or (self.m_type == 'immediately') or (self.m_type == 'summon_ticket') then
@@ -200,6 +197,7 @@ function UI_GachaResult_Rune:initButton()
 	vars['okBtn']:registerScriptTapHandler(function() self:refresh() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
 	vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
+	vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
 end
 
 -------------------------------------
@@ -516,6 +514,17 @@ function UI_GachaResult_Rune:click_inventoryBtn()
     g_inventoryData:extendInventory(item_type, finish_cb)
 end
 
+-------------------------------------
+-- function click_againBtn
+-- @brief 다시 뽑기
+-------------------------------------
+function UI_GachaResult_Rune:click_againBtn()
+    local item_type = 'rune'
+    local function finish_cb()
+        self:refresh_inventoryLabel()
+		self:refresh_wealth()
+    end
+end
 -------------------------------------
 -- function click_skipBtn
 -------------------------------------
