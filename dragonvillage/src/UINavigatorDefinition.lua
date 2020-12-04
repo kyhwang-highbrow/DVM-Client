@@ -1140,6 +1140,54 @@ function UINavigatorDefinition:goTo_hatchery(...)
 end
 
 -------------------------------------
+-- function goTo_rune_forge
+-- @brief 룬 세공소로 이동
+-- @usage UINavigatorDefinition:goTo('rune_forge', tab)
+-------------------------------------
+function UINavigatorDefinition:goTo_rune_forge(...)
+    local args = {...}
+    local tab = args[1]
+    local focus_id = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_RuneForge')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    local function finish_cb()
+        -- 퀵메뉴 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_QuickPopupNew')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            UI_RuneForge(tab, focus_id)
+            return
+        end
+        
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            UI_RuneForge(tab, focus_id)
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+            local scene = SceneCommon(UI_RuneForge, close_cb, tab, focus_id)
+            scene:runScene()
+        end
+    end
+
+    finish_cb()
+--
+    --g_hatcheryData:update_hatcheryInfo(finish_cb)
+end
+
+-------------------------------------
 -- function goTo_friend
 -- @brief 친구UI로 이동
 -- @usage UINavigatorDefinition:goTo('friend')

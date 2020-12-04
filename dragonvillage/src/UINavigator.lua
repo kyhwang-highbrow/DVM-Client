@@ -100,6 +100,10 @@ if false then
     -- @param optional tab  (summon, combine, incubate, relation)
     UINavigator:goTo('hatchery', tab)
 
+    -- @brief 룬 세공소로 이동
+    -- @param optional tab  (info, manage, combine, gacha, reinforce, grind)
+    UINavigator:goTo('rune_forge', tab)
+
     -- @brief 친구 관리로 이동
     UINavigator:goTo('friend')
 

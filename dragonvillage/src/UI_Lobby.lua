@@ -694,6 +694,7 @@ function UI_Lobby:initButton()
         self:setShopNoti()
     end
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
+    vars['runeforgeBtn']:registerScriptTapHandler(function() self:click_runeForgeBtn() end) -- 룬 세공소
     vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
 
     -- 상단
@@ -1352,6 +1353,14 @@ end
 -------------------------------------
 function UI_Lobby:click_drawBtn()
     UINavigator:goTo('hatchery', nil)
+end
+
+-------------------------------------
+-- function click_runeForgeBtn
+-- @brief 룬 세공소
+-------------------------------------
+function UI_Lobby:click_runeForgeBtn()
+    UINavigator:goTo('rune_forge', nil)
 end
 
 -------------------------------------
