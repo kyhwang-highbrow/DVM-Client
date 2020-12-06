@@ -343,17 +343,25 @@ end
 -- function getUnequippedRuneList
 -- @brief 장착되지 않은 룬 리스트
 -------------------------------------
-function ServerData_Runes:getUnequippedRuneList(slot_idx)
+function ServerData_Runes:getUnequippedRuneList(slot_idx, grade)
     if (not slot_idx) then
         -- 전체
         slot_idx = 0
     end
 
+    if (not grade) then
+        -- 전체
+        grade = 0
+    end
+
     local l_ret = {}
 
     for i,v in pairs(self.m_mRuneObjects) do
+        ccdump(v)
         -- 슬롯 확인
         if (slot_idx ~= 0) and (v['slot'] ~= slot_idx) then
+        -- 등급 확인
+        elseif (grade ~= 0) and (v['grade'] ~= grade) then
         -- 장착 여부 확인
         elseif v:isEquippedRune() then
         else
