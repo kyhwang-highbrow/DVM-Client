@@ -1632,6 +1632,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RuneAutoSellAgreePopup.lua" />
     <None Include="..\src\UI_RuneDevApiPopup.lua" />
     <None Include="..\src\UI_RuneForge.lua" />
+    <None Include="..\src\UI_RuneForgeCombineItem.lua" />
     <None Include="..\src\UI_RuneForgeCombineTab.lua" />
     <None Include="..\src\UI_RuneForgeGachaTab.lua" />
     <None Include="..\src\UI_RuneForgeGrindTab.lua" />
