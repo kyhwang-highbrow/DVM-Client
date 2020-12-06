@@ -623,6 +623,38 @@ function MakeUICSortList_runeManageFilter(button, label)
     return uic
 end
 
+function MakeUICSortList_runeCombine(button, label)
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+
+    local uic = UIC_SortList()
+
+    uic.m_direction = UIC_SORT_LIST_TOP_TO_BOT
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    parent:addChild(uic.m_node)
+
+    uic:addSortType(0, Str('전체'))
+    uic:addSortType(1, Str('1등급'))
+    uic:addSortType(2, Str('2등급'))
+    uic:addSortType(3, Str('3등급'))
+    uic:addSortType(4, Str('4등급'))
+	uic:addSortType(5, Str('5등급'))
+    uic:addSortType(6, Str('6등급'))
+    uic:addSortType(7, Str('7등급'))
+
+    return uic
+end
+
 function MakeUICSortList_teamList(button, label, type)
 
     local width, height = button:getNormalSize()
