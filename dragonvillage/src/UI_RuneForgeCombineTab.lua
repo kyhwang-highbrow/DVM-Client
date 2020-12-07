@@ -258,16 +258,14 @@ function UI_RuneForgeCombineTab:click_rune(data)
     local roid = t_rune_data['roid']
     local grade = t_rune_data['grade']
     
-    local rune_card = self.m_tableView:getCellUI(roid)
+    
    
     local select_roid_map = self.m_mSelectRuneMap[grade]
 
     if (select_roid_map[roid] == nil) then
-        rune_card:setCheckSpriteVisible(true)
         self:selectRune(t_rune_data)
 
     else 
-        rune_card:setCheckSpriteVisible(false)
         self:deselectRune(t_rune_data)
     end
 
@@ -316,6 +314,9 @@ function UI_RuneForgeCombineTab:selectRune(t_rune_data)
     data['data'] = t_rune_data
     select_roid_map[roid] = data
 
+    local rune_card = self.m_tableView:getCellUI(roid)
+    rune_card:setCheckSpriteVisible(true)
+
 end
 
 -------------------------------------
@@ -337,6 +338,9 @@ function UI_RuneForgeCombineTab:deselectRune(t_rune_data)
     end
     
     select_roid_map[roid] = nil
+    
+    local rune_card = self.m_tableView:getCellUI(roid)
+    rune_card:setCheckSpriteVisible(false)
 end
 
 -------------------------------------
