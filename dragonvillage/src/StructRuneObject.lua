@@ -749,7 +749,7 @@ function StructRuneObject:isMaxOption(opt_name)
     opt_str = pl.stringx.split(opt_str, ';')
     
     if (#opt_str>0) then
-        max_value = t_rune_opt_max[opt_str[1]]['status_max']
+        max_value = t_rune_opt_max[opt_str[1] .. '_1']['status_max']
     
     end
 
@@ -774,6 +774,7 @@ end
 function StructRuneObject:getOptionMinValue(opt_name) -- ex) atk_multi
     local min_value = 0
     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+    local opt_name = (self.grade <= 6) and (opt_name .. '_1') or (opt_name .. '_2')
 
     if (t_rune_opt_max[opt_name]) then
         min_value = t_rune_opt_max[opt_name]['single_min']   
@@ -792,7 +793,7 @@ end
 function StructRuneObject:getOptionMaxValue(opt_name) -- ex) atk_multi
     local max_value = 0
     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-
+    local opt_name = (self.grade <= 6) and (opt_name .. '_1') or (opt_name .. '_2')
     if (t_rune_opt_max[opt_name]) then
         max_value = t_rune_opt_max[opt_name]['status_max']   
     end

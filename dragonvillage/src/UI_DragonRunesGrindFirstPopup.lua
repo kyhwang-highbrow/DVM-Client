@@ -111,24 +111,31 @@ function UI_DragonRunesGrindFirstPopup:getExpectedOptionStr()
     -- 3. 현재 선택한 옵션은 연마로 다시 나올 수 있음
     -- 4. 치명회피와, 속도 %는 제외
     local t_rune_opt = TABLE:get('table_rune_opt_status')
+    local stat_dup = {} -- 테이블 변경으로 인해 스탯이 여러번 나올 수 있음(6등급 이하와 7등급을 구분하기 위해)
 
-    for opt_type, _ in pairs(t_rune_opt) do
-        local is_expected = true
-        for _, opt_str in ipairs(StructRuneObject.OPTION_LIST) do
-            local l_str = plSplit(rune_obj[opt_str], ';')
-            -- 1, 3번 조건 처리
-            if (l_str[1] == opt_type) and (opt_type ~= selected_option) then
-                is_expected = false
+    for id, v in pairs(t_rune_opt) do
+        local opt_type = v['key'] 
+        if (stat_dup[opt_type] == nil) then
+            stat_dup[opt_type] = {}        
+            local is_expected = true
+            for _, opt_str in ipairs(StructRuneObject.OPTION_LIST) do
+                local l_str = plSplit(rune_obj[opt_str], ';')
+                -- 1, 3번 조건 처리
+                if (l_str[1] == opt_type) and (opt_type ~= selected_option) then
+                    is_expected = false
+                end
             end
-        end
 
-        local min_value = rune_obj:getOptionMinValue(opt_type)
-        local max_value = rune_obj:getOptionMaxValue(opt_type)
-        local min_max_str = string.format('%d~%d', min_value, max_value)
-        -- 2, 4번 조건 처리
-        if (is_expected) and (opt_type ~= 'none') and (opt_type ~= 'aspd_multi') and (opt_type ~= 'cri_avoid_add') then
-            expected_option_str = expected_option_str ..Str(table_opt:getValue(opt_type, 't_desc'), min_max_str) .. '\n'
+            local min_value = rune_obj:getOptionMinValue(opt_type)
+            local max_value = rune_obj:getOptionMaxValue(opt_type)
+
+            local min_max_str = string.format('%d~%d', min_value, max_value)
+            -- 2, 4번 조건 처리
+            if (is_expected) and (opt_type ~= 'none') and (opt_type ~= 'aspd_multi') and (opt_type ~= 'cri_avoid_add') then
+                expected_option_str = expected_option_str ..Str(table_opt:getValue(opt_type, 't_desc'), min_max_str) .. '\n'
+            end    
         end
+        
     end
 
     return expected_option_str
@@ -150,22 +157,28 @@ function UI_DragonRunesGrindFirstPopup:getExpectedOptionStr_MaxOptItem()
     -- 3. 현재 선택한 옵션은 연마로 다시 나올 수 있음
     -- 4. 치명회피와, 속도 %는 제외
     local t_rune_opt = TABLE:get('table_rune_opt_status')
+    local stat_dup = {} -- 테이블 변경으로 인해 스탯이 여러번 나올 수 있음(6등급 이하와 7등급을 구분하기 위해)
 
-    for opt_type, _ in pairs(t_rune_opt) do
-        local is_expected = true
-        for _, opt_str in ipairs(StructRuneObject.OPTION_LIST) do
-            local l_str = plSplit(rune_obj[opt_str], ';')
-            -- 1, 3번 조건 처리
-            if (l_str[1] == opt_type) and (opt_type ~= selected_option) then
-                is_expected = false
+    for id, v in pairs(t_rune_opt) do
+        local opt_type = v['key']
+        if (stat_dup[opt_type] == nil) then
+            stat_dup[opt_type] = {}        
+            local is_expected = true
+            for _, opt_str in ipairs(StructRuneObject.OPTION_LIST) do
+                local l_str = plSplit(rune_obj[opt_str], ';')
+                -- 1, 3번 조건 처리
+                if (l_str[1] == opt_type) and (opt_type ~= selected_option) then
+                    is_expected = false
+                end
+            end
+
+            local max_value = rune_obj:getOptionMaxValue(opt_type)
+            -- 2, 4번 조건 처리
+            if (is_expected) and (opt_type ~= 'none') and (opt_type ~= 'aspd_multi') and (opt_type ~= 'cri_avoid_add') then
+                expected_option_str = expected_option_str ..Str(table_opt:getValue(opt_type, 't_desc'), max_value) .. '\n'
             end
         end
-
-        local max_value = rune_obj:getOptionMaxValue(opt_type)
-        -- 2, 4번 조건 처리
-        if (is_expected) and (opt_type ~= 'none') and (opt_type ~= 'aspd_multi') and (opt_type ~= 'cri_avoid_add') then
-            expected_option_str = expected_option_str ..Str(table_opt:getValue(opt_type, 't_desc'), max_value) .. '\n'
-        end
+        
     end
 
     return expected_option_str
