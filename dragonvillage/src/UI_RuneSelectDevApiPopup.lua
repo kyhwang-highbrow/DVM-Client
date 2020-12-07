@@ -129,7 +129,8 @@ function UI_RuneSelectDevApiPopup:initButton()
     self:refreshOptionButton()
 
     
-    vars['applyBtn']:registerScriptTapHandler(function() self:request() end)
+    vars['applyBtn']:registerScriptTapHandler(function() self:request(false) end)
+    vars['applyBundleBtn']:registerScriptTapHandler(function() self:request(true) end)
     
     vars['closeBtn']:registerScriptTapHandler(function() self:setCloseCB(nil) self:close() end)
 end
@@ -402,7 +403,7 @@ end
 -------------------------------------
 -- function request
 -------------------------------------
-function UI_RuneSelectDevApiPopup:request()
+function UI_RuneSelectDevApiPopup:request(is_bundle)
     local uid = g_userData:get('uid')
     local rid = self:getRid()
     local rarity = (self.m_rarity > 0) and self.m_rarity or nil
@@ -411,6 +412,7 @@ function UI_RuneSelectDevApiPopup:request()
     ui_network:setUrl('/runes/add')
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)
+    ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('rid', rid)
     ui_network:setParam('rarity', rarity)
       
@@ -423,18 +425,34 @@ function UI_RuneSelectDevApiPopup:request()
       
 
     ui_network:setSuccessCB(function(ret)
-        if ret and ret['runes'] then
-            local t_rune_data = ret['runes'][1]
-            local item_id = t_rune_data['rid']
-            local count = 1
-            local item_type = TableItem:getItemType(item_id)
-            local t_item_data = StructRuneObject(t_rune_data)
+        if (is_bundle) then
+            local function close_cb()
+                g_runesData:applyRuneData_list(ret['runes'])            
+            end
 
-            -- 아이템 정보창 띄움
-            local ui = UI_ItemInfoPopup(item_id, count, t_item_data)
-            ui:showItemInfoPopupOkBtn() -- "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
+            require('UI_GachaResult_Rune')
+        
+		    local gacha_type = 'dev'
+            local l_rune_list = ret['runes']
 
-            g_runesData:applyRuneData(ret['runes'][1])
+            local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
+        
+            ui:setCloseCB(close_cb)
+
+        else
+            if ret and ret['runes'] then
+                local t_rune_data = ret['runes'][1]
+                local item_id = t_rune_data['rid']
+                local count = 1
+                local item_type = TableItem:getItemType(item_id)
+                local t_item_data = StructRuneObject(t_rune_data)
+
+                -- 아이템 정보창 띄움
+                local ui = UI_ItemInfoPopup(item_id, count, t_item_data)
+                ui:showItemInfoPopupOkBtn() -- "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
+
+                g_runesData:applyRuneData(ret['runes'][1])
+            end
         end
     end)
 
