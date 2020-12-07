@@ -231,7 +231,7 @@ function UI_RuneForgeCombineTab:addCombineItem(grade, t_first_rune_data)
     self.m_mCombineDataMap[unique_key] = t_rune_combine_data
 
     self.m_combineTableView:addItem(unique_key, t_rune_combine_data)
-    self.m_combineTableView:makeAllItemUINoAction()
+    self.m_combineTableView:getCellUI(unique_key)
 
     self.m_currUniqueKey = self.m_currUniqueKey + 1
 end
