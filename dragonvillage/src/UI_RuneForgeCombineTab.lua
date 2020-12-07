@@ -70,6 +70,7 @@ function UI_RuneForgeCombineTab:initUI()
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
 
     local uic_sort_list = MakeUICSortList_runeCombine(vars['sortBtn'], vars['sortLabel'])
+    uic_sort_list:setSelectSortType(0) -- 필터 '전체' 선택
     self.m_uicSortList = uic_sort_list
     
     -- 버튼을 통해 정렬이 변경되었을 경우
@@ -134,6 +135,25 @@ function UI_RuneForgeCombineTab:initTableView()
     end
 
     self.m_sortManager:sortExecution(self.m_tableView.m_itemList)
+
+     do -- 오름차순/내림차순 버튼
+        local function click()
+            local sort_manager = self.m_sortManager
+            local ascending = (not sort_manager.m_defaultSortAscending)
+            sort_manager:setAllAscending(ascending)
+            self.m_sortManager:sortExecution(self.m_tableView.m_itemList)
+            self.m_tableView:setDirtyItemList()
+
+            vars['sortOrderSprite']:stopAllActions()
+            if ascending then
+                vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                vars['sortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end
+
+        vars['sortOrderBtn']:registerScriptTapHandler(click)
+    end
 end
 
 -------------------------------------
@@ -211,6 +231,7 @@ function UI_RuneForgeCombineTab:addCombineItem(grade, t_first_rune_data)
     self.m_mCombineDataMap[unique_key] = t_rune_combine_data
 
     self.m_combineTableView:addItem(unique_key, t_rune_combine_data)
+    self.m_combineTableView:makeAllItemUINoAction()
 
     self.m_currUniqueKey = self.m_currUniqueKey + 1
 end
