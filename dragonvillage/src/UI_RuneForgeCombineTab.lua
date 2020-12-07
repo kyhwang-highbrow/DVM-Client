@@ -213,8 +213,6 @@ function UI_RuneForgeCombineTab:addCombineItem(grade, t_first_rune_data)
     self.m_combineTableView:addItem(unique_key, t_rune_combine_data)
 
     self.m_currUniqueKey = self.m_currUniqueKey + 1
-
-    return t_rune_combine_data
 end
 
 -------------------------------------
@@ -309,6 +307,7 @@ function UI_RuneForgeCombineTab:deselectRune(t_rune_data)
     local combine_data_id = select_roid_map[roid]['combine_id']
     local combine_data = self.m_mCombineDataMap[combine_data_id]
     combine_data:removeRuneObject(t_rune_data)
+    
     if (combine_data:isEmpty()) then
         self:removeCombineItem(combine_data_id)
     end
@@ -395,7 +394,9 @@ function UI_RuneForgeCombineTab:click_autoBtn()
 
                 -- 등록 가능할 때
                 if (require_count == 0) then
-                    local combine_data = self:addCombineItem(grade, nil)
+                    local combine_data_id = self.m_currUniqueKey
+                    self:addCombineItem(grade, nil)
+                    local combine_data = self.m_mCombineDataMap[combine_data_id]
 
                     for i, v in ipairs(t_rune_data_list) do
                         local t_rune_data = v['data']
@@ -420,12 +421,14 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                         break
                     end
                 
+                -- 현재 등급에서 등록 불가능할 때
                 else
                     b_next_grade = true
                 end
 
             end
 
+            -- 최대 조합 가능 개수를 넘었을 때
             if (blank_combine_count == 0) then
                 break
             end
