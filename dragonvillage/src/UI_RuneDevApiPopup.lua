@@ -138,7 +138,7 @@ function UI_RuneDevApiPopup:initButton()
                     self.m_mVal[v] = self.m_mVal[v] + 1
 
                     if (grade <= 6) then
-                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                        local max_value = t_rune_opt_max[self.m_mOpt[v] .. '_1']['status_max']
                         self.m_mVal[v] = math_min(max_value, self.m_mVal[v])
                     end
 
@@ -164,7 +164,7 @@ function UI_RuneDevApiPopup:initButton()
                 if (self.m_mVal[v]) then
                     if (grade <= 6) then
                         local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                        local max_value = t_rune_opt_max[self.m_mOpt[v] .. '_1']['status_max']
                         self.m_mVal[v] = max_value
 
                         self:refresh()
@@ -211,7 +211,7 @@ function UI_RuneDevApiPopup:initButton()
         end)
     end
 
-    vars['applyBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn() end)
     
     vars['closeBtn']:registerScriptTapHandler(function() self:setCloseCB(nil) self:close() end)
 end
@@ -245,7 +245,7 @@ function UI_RuneDevApiPopup:initEditBox()
                           
                         if (grade <= 6) then
                             local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                            local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                            local max_value = t_rune_opt_max[self.m_mOpt[v] .. '_1']['status_max']
                             self.m_mVal[v] = math_min(self.m_mVal[v], max_value)      
                         end    
                     end
@@ -292,39 +292,45 @@ end
 function UI_RuneDevApiPopup:click_closeBtn()
     self:setCloseCB(nil)
     self:close()
-    --local t_rune_data = g_runesData:getRuneObject(self.m_runeObjectID)
---
-    --local m_update = {}
-    --local m_delete = {}
---
-    --for _, v in ipairs(StructRuneObject.OPTION_LIST) do
-        ---- 원본 룬 정보와 비교하여 변경되거나 삭제된 옵션들을 골라냄
-        --local opt, opt_val = t_rune_data:parseRuneOptionStr(t_rune_data[v])
---
-        ---- 메인 옵션 타입이 변경된 경우는 삭제도 되어야 한다(서버 저장 방식의 이슈로 인함)
-        --if (v == 'mopt' and opt ~= self.m_mOpt[v]) then
-            --m_delete[v] = true
-        --end
---
-        --if (opt ~= self.m_mOpt[v] or opt_val ~= self.m_mVal[v]) then
-            --if (self.m_mOpt[v] == nil or self.m_mOpt[v] == '' or self.m_mVal[v] == nil or self.m_mVal[v] == 0) then
-                --m_delete[v] = true
-            --else
-                --m_update[v] = true
-            --end
-        --end
-    --end
---
-    --if ((table.count(m_update) == 0) and (table.count(m_delete) == 0)) then
-        --self:setCloseCB(nil)
-    --end
---
-    --self:request('delete', m_delete, function()
-        --self:request('update', m_update, function()
-            --self:close()
-        --end)
-    --end)
 end
+
+-------------------------------------
+-- function click_applyBtn
+-------------------------------------
+function UI_RuneDevApiPopup:click_applyBtn()
+    local t_rune_data = g_runesData:getRuneObject(self.m_runeObjectID)
+
+    local m_update = {}
+    local m_delete = {}
+
+    for _, v in ipairs(StructRuneObject.OPTION_LIST) do
+        -- 원본 룬 정보와 비교하여 변경되거나 삭제된 옵션들을 골라냄
+        local opt, opt_val = t_rune_data:parseRuneOptionStr(t_rune_data[v])
+
+        -- 메인 옵션 타입이 변경된 경우는 삭제도 되어야 한다(서버 저장 방식의 이슈로 인함)
+        if (v == 'mopt' and opt ~= self.m_mOpt[v]) then
+            m_delete[v] = true
+        end
+
+        if (opt ~= self.m_mOpt[v] or opt_val ~= self.m_mVal[v]) then
+            if (self.m_mOpt[v] == nil or self.m_mOpt[v] == '' or self.m_mVal[v] == nil or self.m_mVal[v] == 0) then
+                m_delete[v] = true
+            else
+                m_update[v] = true
+            end
+        end
+    end
+
+    if ((table.count(m_update) == 0) and (table.count(m_delete) == 0)) then
+        self:setCloseCB(nil)
+    end
+
+    self:request('delete', m_delete, function()
+        self:request('update', m_update, function()
+            self:close()
+        end)
+    end)
+end 
 
 
 -------------------------------------
@@ -403,8 +409,8 @@ function UI_RuneDevApiPopup:request(act, map, next_cb)
 
         for i = 1, 4 do
             if (map['sopt_' .. i]) then
-                ui_network:setParam('sopt', string.format('%d,%s', i, self.m_mOpt['sopt_' .. i]))
-                ui_network:setParam('sopt_val', string.format('%d,%d', i, self.m_mVal['sopt_' .. i]))
+                ui_network:setParam('sopt_' .. i, string.format('%d,%s', i, self.m_mOpt['sopt_' .. i]))
+                ui_network:setParam('sopt_val_' .. i, string.format('%d,%d', i, self.m_mVal['sopt_' .. i]))
             end
         end
 

@@ -181,7 +181,7 @@ function UI_RuneSelectDevApiPopup:refreshOptionButton()
                     local t_rune_opt_max = TABLE:get('table_rune_opt_status')
                     self.m_mVal[v] = self.m_mVal[v] + 1
                     if (self.m_grade <= 6) then
-                        local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                        local max_value = t_rune_opt_max[self.m_mOpt[v] .. '_1']['status_max']
                         self.m_mVal[v] = math_min(max_value, self.m_mVal[v])
                     end
 
@@ -239,7 +239,7 @@ function UI_RuneSelectDevApiPopup:initEditBox()
 
                         if (self.m_grade <= 6) then
                             local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                            local max_value = t_rune_opt_max[self.m_mOpt[v]]['status_max']
+                            local max_value = t_rune_opt_max[self.m_mOpt[v] .. '_1']['status_max']
                             self.m_mVal[v] = math_min(self.m_mVal[v], max_value)                    
 
                         end
@@ -637,7 +637,7 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
         
                     if (value) then
                         local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                        local max_value = t_rune_opt_max[option]['status_max']
+                        local max_value = t_rune_opt_max[option .. '_1']['status_max']
                         self.m_mVal[v] = math_min(self.m_mVal[v], max_value)
                     end
                     
@@ -743,7 +743,7 @@ function UI_RuneSelectDevApiPopup:setRuneObject()
             local desc_str = TableOption:getOptionDesc(option, value)
         
             local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-            local max_value = t_rune_opt_max[option]['status_max']
+            local max_value = t_rune_opt_max[option .. '_1']['status_max']
             local is_max = ((value == max_value) and (self.m_grade <= 6))
 
             -- 추가옵션은 max, 연마 표시
