@@ -277,6 +277,49 @@ function ServerData_Runes:request_runeGacha(is_bundle, finish_cb, fail_cb)
     
 end
 
+-------------------------------------
+-- function request_runeCombine
+-- @brief
+-------------------------------------
+function ServerData_Runes:request_runeCombine(src_roids, finish_cb, fail_cb)
+    -- parameters
+    local uid = g_userData:get('uid')
+    local src_roids = src_roids or ''
+
+    -- 성공 콜백
+    local function success_cb(ret)
+            
+        -- cash(캐시) 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        -- 룬들 추가
+        g_runesData:applyRuneData_list(ret['runes'])
+
+        -- 조합 재료 룬 제거
+        if ret['deleted_rune_oids'] then
+            self:deleteRuneData_list(ret['deleted_rune_oids'])
+        end
+
+        -- 신규 룬 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/combine')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('src_roids', src_roids)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
 
 -------------------------------------
 -- function applyRuneData
@@ -343,15 +386,19 @@ end
 -- function getUnequippedRuneList
 -- @brief 장착되지 않은 룬 리스트
 -------------------------------------
-function ServerData_Runes:getUnequippedRuneList(slot_idx, grade)
-    if (not slot_idx) then
+function ServerData_Runes:getUnequippedRuneList(slot_idx, grade, lock_include)
+    if (slot_idx == nil) then
         -- 전체
         slot_idx = 0
     end
 
-    if (not grade) then
+    if (grade == nil) then
         -- 전체
         grade = 0
+    end
+
+    if (lock_include == nil) then
+        lock_include = true
     end
 
     local l_ret = {}
@@ -361,6 +408,8 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade)
         if (slot_idx ~= 0) and (v['slot'] ~= slot_idx) then
         -- 등급 확인
         elseif (grade ~= 0) and (v['grade'] ~= grade) then
+        -- 잠금 여부 확인
+        elseif (not lock_include) and (v['lock']) then
         -- 장착 여부 확인
         elseif v:isEquippedRune() then
         else
@@ -371,6 +420,7 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade)
 
     return l_ret
 end
+
 
 -------------------------------------
 -- function getFilteredRuneList

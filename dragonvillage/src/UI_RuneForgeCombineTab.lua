@@ -68,6 +68,7 @@ function UI_RuneForgeCombineTab:initUI()
     local vars = self.vars
 
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
+    vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
 
     local uic_sort_list = MakeUICSortList_runeCombine(vars['sortBtn'], vars['sortLabel'])
     uic_sort_list:setSelectSortType(0) -- 필터 '전체' 선택
@@ -126,7 +127,9 @@ function UI_RuneForgeCombineTab:initTableView()
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local grade = self.m_sortGrade
-    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade) -- param : set_id, grade
+    local lock_include = false
+    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include) -- param : set_id, grade
+
     self.m_tableView:setItemList(l_rune_list)
 
     if (self.m_sortManager == nil) then
@@ -457,4 +460,64 @@ function UI_RuneForgeCombineTab:click_autoBtn()
     end
 
     self:refresh()
+end
+
+-------------------------------------
+-- function click_combineBtn
+-- @brief 합성 요청
+-------------------------------------
+function UI_RuneForgeCombineTab:click_combineBtn()
+    
+    local uid = g_userData:get('uid')
+    local src_roids = ''
+    local full_combine_data_id_list = {}
+
+    for combine_data_id, combine_data in pairs(self.m_mCombineDataMap) do
+        if (combine_data:isFull()) then -- 재료가 전부 등록된 것만 합성
+            local roids = combine_data:getRoids()
+            if (src_roids == '') then
+                src_roids = roids
+            else
+                src_roids = src_roids .. ',' .. roids
+            end
+        
+            table.insert(full_combine_data_id_list, combine_data_id)
+        end
+    end
+
+    local function close_cb()
+        -- 왼쪽 룬 창 정리
+        self:initTableView()
+
+        -- 합성한 룬 정보들은 제거
+        for i, combine_data_id in ipairs(full_combine_data_id_list) do
+            self:removeCombineItem(combine_data_id)
+        end
+
+        local remove_roid_list = pl.stringx.split(src_roids, ',')
+        for i, roid in ipairs(remove_roid_list) do
+            for grade = 1, 7 do
+                self.m_mSelectRuneMap[grade][roid] = nil
+            end
+        end
+
+        self:refresh()
+    end
+
+    local function finish_cb(ret)
+        require('UI_GachaResult_Rune')
+        
+		local gacha_type = 'combine'
+        local l_rune_list = ret['runes']
+
+        local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
+        
+        ui:setCloseCB(close_cb)
+    end
+
+    function fail_cb(ret)
+    end
+
+    g_runesData:request_runeCombine(src_roids, finish_cb, fail_cb)
+
 end

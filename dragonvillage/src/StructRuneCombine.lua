@@ -105,6 +105,24 @@ function StructRuneCombine:isBlankIndex(idx)
 end
 
 -------------------------------------
+-- function getRoids
+-- @brief 현재 저장하고 있는 룬들의 roid를 문자열로 반환
+-------------------------------------
+function StructRuneCombine:getRoids()
+    local roids = ''
+
+    for idx, rune_data in pairs(self.m_mRuneMappingIndex) do
+        if (roids == '') then
+            roids = rune_data['roid']
+        else
+            roids = roids .. ',' .. rune_data['roid']
+        end
+    end
+
+    return roids
+end
+
+-------------------------------------
 -- function getNextIndex
 -- @brief 비어있는 가장 낮은 인덱스를 반환
 -------------------------------------
