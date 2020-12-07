@@ -381,10 +381,15 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                 local grade = t_rune_data['grade']
                 
                 -- 같은 등급에 아직 선택되지 않은 룬이라면
-                if ((grade == combine_grade) and (select_roid_map[roid] == nil)) then
+                if ((combine_grade == nil) or ((grade == combine_grade) and (select_roid_map[roid] == nil))) then
                     -- 조합 정보에 룬 정보 등록
                     combine_data:addRuneObject(t_rune_data)
                     
+                    if(combine_grade == nil) then
+                        combine_grade = combine_data.m_grade
+                        select_roid_map = self.m_mSelectRuneMap[combine_grade]
+                    end
+
                     -- self에 룬 정보 등록
                     local data = {}
                     data['combine_id'] = combine_data_id
