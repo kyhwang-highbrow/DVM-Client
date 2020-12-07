@@ -189,10 +189,7 @@ end
 -- @brief 조합 정보 UI 갱신
 -------------------------------------
 function UI_RuneForgeCombineTab:refreshCombineItems()
-    --local l_item_list = self.m_mCombineDataMap
-    --local table_view = self.m_combineTableView
     self.m_combineTableView:refreshAllItemUI()
-    --self.m_combineTableView:makeAllItemUI()
 end
 
 -------------------------------------
@@ -206,12 +203,18 @@ function UI_RuneForgeCombineTab:addCombineItem(grade, t_first_rune_data)
     
     local unique_key = self.m_currUniqueKey
     local t_rune_combine_data = StructRuneCombine(grade)
-    t_rune_combine_data:addRuneObject(t_first_rune_data)
+
+    if (t_first_rune_data ~= nil) then
+        t_rune_combine_data:addRuneObject(t_first_rune_data)
+    end
+
     self.m_mCombineDataMap[unique_key] = t_rune_combine_data
 
     self.m_combineTableView:addItem(unique_key, t_rune_combine_data)
 
     self.m_currUniqueKey = self.m_currUniqueKey + 1
+
+    return t_rune_combine_data
 end
 
 -------------------------------------
@@ -233,7 +236,7 @@ function UI_RuneForgeCombineTab:click_rune(data)
     local roid = t_rune_data['roid']
     local grade = t_rune_data['grade']
     
-    local rune_card = self.m_tableView:getItem(roid)['ui']
+    local rune_card = self.m_tableView:getCellUI(roid)
    
     local select_roid_map = self.m_mSelectRuneMap[grade]
 
@@ -320,18 +323,114 @@ end
 function UI_RuneForgeCombineTab:click_autoBtn()
     
     -- 기존에 이미 등록된 조합 정보에서 남은 칸부터 채울 수 있으면 채운다.
-    for k, combine_data in pairs(self.m_mCombineDataMap) do
+    local clone_table_item_list = clone(self.m_tableView.m_itemList)
+    local sort_manager = SortManager_Rune()
+    sort_manager:pushSortOrder('rarity')
+    sort_manager:setAllAscending(true)
+    sort_manager:sortExecution(clone_table_item_list)
+    
+    for combine_data_id, combine_data in pairs(self.m_mCombineDataMap) do
         if (not combine_data:isFull()) then
+            local combine_grade = combine_data.m_grade
             local blank_slot_count = combine_data:getBlankSlotCount()
+            local select_roid_map = self.m_mSelectRuneMap[combine_grade]
 
+            -- 왼쪽 창에서 선택되지 않은 것 중 희귀도가 낮은 것부터 고른다
+            for i, v in pairs(clone_table_item_list) do
+                local t_rune_data = v['data']
+                local roid = t_rune_data['roid']
+                local grade = t_rune_data['grade']
+                
+                -- 같은 등급에 아직 선택되지 않은 룬이라면
+                if ((grade == combine_grade) and (select_roid_map[roid] == nil)) then
+                    -- 조합 정보에 룬 정보 등록
+                    combine_data:addRuneObject(t_rune_data)
+                    
+                    -- self에 룬 정보 등록
+                    local data = {}
+                    data['combine_id'] = combine_data_id
+                    data['data'] = t_rune_data
+                    select_roid_map[roid] = data
+                    
+                    -- 룬 카드에 체크 표시 추가
+                    local rune_card = self.m_tableView:getCellUI(roid)
+                    rune_card:setCheckSpriteVisible(true)
+
+                    -- 현재 조합 정보 빈 칸 다 채웠는지 확인
+                    blank_slot_count = blank_slot_count - 1
+                    if (blank_slot_count == 0) then
+                        break
+                    end
+                end
+            end
         end
     end
 
     -- 추가로 낮은 등급부터 차례로 채운다
+    local blank_combine_count = 10 - table.count(self.m_mCombineDataMap)
     for grade = 1, 7 do
         if ((self.m_sortGrade == 0) or (self.m_sortGrade == grade)) then
-            
+            local b_next_grade = false
+            local select_roid_map = self.m_mSelectRuneMap[grade]
 
+            while(not b_next_grade) do
+                local require_count = RUNE_COMBINE_REQUIRE
+                local t_rune_data_list = {}
+                -- 왼쪽 창에서 선택되지 않은 것 중 희귀도가 낮은 것부터 고른다
+                for i, v in pairs(clone_table_item_list) do
+                    local t_rune_data = v['data']
+                    local roid = t_rune_data['roid']
+                    local rune_grade = t_rune_data['grade']
+
+                    -- 같은 등급에 아직 선택되지 않은 룬이라면
+                    if ((grade == rune_grade) and (select_roid_map[roid] == nil)) then
+                        table.insert(t_rune_data_list, v)
+                        
+                        require_count = require_count - 1
+                        if (require_count == 0) then
+                            break
+                        end
+                    end
+                end
+
+                -- 등록 가능할 때
+                if (require_count == 0) then
+                    local combine_data = self:addCombineItem(grade, nil)
+
+                    for i, v in ipairs(t_rune_data_list) do
+                        local t_rune_data = v['data']
+                        local roid = t_rune_data['roid']
+
+                        -- 조합 정보에 룬 정보 등록
+                        combine_data:addRuneObject(t_rune_data)
+                    
+                        -- self에 룬 정보 등록
+                        local data = {}
+                        data['combine_id'] = combine_data_id
+                        data['data'] = t_rune_data
+                        select_roid_map[roid] = data
+                    
+                        -- 룬 카드에 체크 표시 추가
+                        local rune_card = self.m_tableView:getCellUI(roid)
+                        rune_card:setCheckSpriteVisible(true)
+                    end
+                    
+                    blank_combine_count = blank_combine_count - 1
+                    if (blank_combine_count == 0) then
+                        break
+                    end
+                
+                else
+                    b_next_grade = true
+                end
+
+            end
+
+            if (blank_combine_count == 0) then
+                break
+            end
         end
     end
+
+    self:refresh()
 end
