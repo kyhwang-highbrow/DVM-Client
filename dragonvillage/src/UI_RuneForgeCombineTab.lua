@@ -35,9 +35,10 @@ function UI_RuneForgeCombineTab:initSelectRunes()
     for grade = 1, 7 do
         self.m_mSelectRuneMap[grade] = {}
     end
+    self.m_currUniqueKey = 1
 
     self.m_mCombineDataMap = {}
-    self.m_currUniqueKey = 1
+    
 end
 
 -------------------------------------
@@ -179,12 +180,18 @@ function UI_RuneForgeCombineTab:initCombineTableView()
 
     -- 테이블뷰 생성
     local l_item_list = self.m_mCombineDataMap
+   
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(530, 180)
     table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
     self.m_combineTableView = table_view
+    
+    -- 비어있는거보단 하나 채워놓는게 이쁘다.
+    if(table.count(self.m_mCombineDataMap) == 0) then
+        self:addCombineItem(nil)
+    end
 end
 
 -------------------------------------
@@ -287,7 +294,7 @@ function UI_RuneForgeCombineTab:selectRune(t_rune_data)
     local combine_data_id 
     local b_add_rune = false
     for unique_key, combine_data in pairs(self.m_mCombineDataMap) do
-        if (grade == combine_data.m_grade) then
+        if (grade == combine_data.m_grade) or (combine_data.m_grade == nil) then
             b_is_full = combine_data:isFull() -- 추가적인 룬 등록이 가능한 상태인가
             if not b_is_full then
                 b_add_rune = true
@@ -334,7 +341,12 @@ function UI_RuneForgeCombineTab:deselectRune(t_rune_data)
     combine_data:removeRuneObject(t_rune_data)
     
     if (combine_data:isEmpty()) then
-        self:removeCombineItem(combine_data_id)
+        -- 하나는 미관상 남겨둔다
+        if (table.count(self.m_mCombineDataMap) == 1) then
+            combine_data.m_grade = nil
+        else
+            self:removeCombineItem(combine_data_id)
+        end
     end
     
     select_roid_map[roid] = nil

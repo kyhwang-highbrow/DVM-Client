@@ -30,6 +30,12 @@ end
 function StructRuneCombine:addRuneObject(t_rune_data)
     local t_rune_data = t_rune_data
     local roid = t_rune_data['roid']
+
+    if (self.m_grade == nil) then
+        local grade = t_rune_data['grade']
+        self.m_grade = grade
+    end
+
     local lowest_index = self:getNextIndex() -- 빈 칸 중 가장 낮은 인덱스
 
     self.m_mRuneIndexMap[roid] = lowest_index -- 몇번에 등록될지
@@ -48,6 +54,10 @@ function StructRuneCombine:removeRuneObject(t_rune_data)
     self.m_mRuneMappingIndex[index] = nil
     self.m_mRuneObjectMap[roid] = nil
     self.m_mRuneIndexMap[roid] = nil
+
+    if(self:isEmpty()) then
+        self.m_grade = nil
+    end
 end
 
 
