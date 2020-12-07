@@ -915,6 +915,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructRandomShopItem.lua" />
     <None Include="..\src\StructRankReward.lua" />
     <None Include="..\src\StructReinforcement.lua" />
+    <None Include="..\src\StructRuneCombine.lua" />
     <None Include="..\src\StructRuneObject.lua" />
     <None Include="..\src\StructRuneSetObject.lua" />
     <None Include="..\src\StructSlimeObject.lua" />

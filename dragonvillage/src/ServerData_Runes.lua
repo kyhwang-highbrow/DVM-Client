@@ -357,7 +357,6 @@ function ServerData_Runes:getUnequippedRuneList(slot_idx, grade)
     local l_ret = {}
 
     for i,v in pairs(self.m_mRuneObjects) do
-        ccdump(v)
         -- 슬롯 확인
         if (slot_idx ~= 0) and (v['slot'] ~= slot_idx) then
         -- 등급 확인

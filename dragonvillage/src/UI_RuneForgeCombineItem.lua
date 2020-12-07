@@ -5,24 +5,20 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_RuneForgeCombineItem = class(PARENT,{
         m_ownerUI = 'UI_RuneForgeCombineTab',
-        m_grade = 'number',
-        m_idx = 'number',
         ---------------------------------
-        m_mSelectRuneMap = 'map', -- 현재 선택되어있는 룬 저장하는 map
-        m_lRuneCardList = 'list', -- 현재 선택되어있는 룬 카드 UI의 list
+        m_runeCombineData = 'StructRuneCombine',
+        m_mRuneCardUI = 'map', -- 현재 생성되어있는 룬 카드 UI, map[index] = UI_RuneCard
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_RuneForgeCombineItem:init(owner_ui, struct_combine_rune)
+function UI_RuneForgeCombineItem:init(owner_ui, struct_rune_combine)
     local vars = self:load('rune_forge_combine_item.ui')
     
-    --self.m_grade = grade
-    --self.m_idx = idx
-    --
-    --local first_roid = t_first_rune_data['roid']
-    --self.m_mSelectRuneMap[first_roid] = t_first_rune_data
+    self.m_ownerUI = owner_ui
+    self.m_runeCombineData = struct_rune_combine
+    self.m_mRuneCardUI = {}
 
     self:initUI()
     self:initButton()
@@ -34,7 +30,7 @@ end
 -------------------------------------
 function UI_RuneForgeCombineItem:initUI()
     local vars = self.vars
-
+   
 end
 
 -------------------------------------
@@ -42,7 +38,7 @@ end
 -------------------------------------
 function UI_RuneForgeCombineItem:initButton()
     local vars = self.vars
-        
+
 end
 
 -------------------------------------
@@ -51,38 +47,33 @@ end
 function UI_RuneForgeCombineItem:refresh()
     local vars = self.vars
 
+    local t_rune_combine_data = self.m_runeCombineData
+
+    for idx = 1, RUNE_COMBINE_REQUIRE do
+        local is_blank_index = t_rune_combine_data:isBlankIndex(idx)
+        
+        if (is_blank_index) then
+           vars['itemNode' .. idx]:removeAllChildren() -- 제거
+           self.m_mRuneCardUI[idx] = nil
+
+        else
+            if (self.m_mRuneCardUI[idx] == nil) then -- 룬 정보가 있는데 UI 카드가 없던 경우생성
+                local t_rune_data = t_rune_combine_data:getRuneDataFromIndex(idx)
+                local rune_card_ui = UI_RuneCard(t_rune_data)
+                rune_card_ui.root:setSwallowTouch(false)
+                rune_card_ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_rune(t_rune_data) end)
+                vars['itemNode' .. idx]:addChild(rune_card_ui.root)
+                self.m_mRuneCardUI[idx] = rune_card_ui
+            end
+        end
+    end
 end
 
 -------------------------------------
 -- function click_rune
 -- @brief 룬 선택
 -------------------------------------
-function UI_RuneForgeCombineItem:click_rune(ui, data)
-    local rune_card = ui
-    local t_rune_data = data
-
-    local roid = t_rune_data['roid']
-    local grade = t_rune_data['grade']
-    local select_roid_map = self.m_mSelectRoidMap[grade]
-    local select_roid_list = self.m_mSelectRoidList[grade]
-
-    if (select_roid_map[roid] == nil) then
-        select_roid_map[roid] = data
-        table.insert(select_roid_list, data)
-
-        if (table.count(select_roid_list) % UI_RuneForgeCombineTab.RUNE_COMBINE_REQUIRE == 1) then
-            local idx = math_floor(table.count(select_roid_list) / UI_RuneForgeCombineTab.RUNE_COMBINE_REQUIRE)
-            self:add_combineItem(grade, idx)
-        end
-    else 
-        select_roid_map[roid] = nil
-        for idx, data in ipairs(select_roid_list) do
-            if (data['roid'] == roid) then
-                table.remove(select_roid_list, idx)
-                break
-            end
-        end
-    end
-
-    self:refresh()
+function UI_RuneForgeCombineItem:click_rune(data)
+    local owner_ui = self.m_ownerUI
+    owner_ui:click_rune(data)
 end

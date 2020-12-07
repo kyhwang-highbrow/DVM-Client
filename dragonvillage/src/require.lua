@@ -92,6 +92,7 @@ local t_module = {
     'StructExchangeProductData',
     'StructRuneObject',
     'StructRuneSetObject',
+    'StructRuneCombine',
     'StructDragonObject',
     'StructSlimeObject',
     'StructFriendshipObject',

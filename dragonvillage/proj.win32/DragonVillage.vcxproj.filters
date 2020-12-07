@@ -4717,6 +4717,9 @@
     <None Include="..\src\UI_RuneForgeCombineItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructRuneCombine.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
