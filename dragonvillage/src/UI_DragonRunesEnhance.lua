@@ -28,6 +28,7 @@ UI_DragonRunesEnhance = class(PARENT,{
 UI_DragonRunesEnhance.ENHANCE = 'enhance' -- 특성 레벨업
 UI_DragonRunesEnhance.GRIND = 'grind' -- 특성 스킬
 UI_DragonRunesEnhance.GRIND_ABLE_LV = 12
+UI_DragonRunesEnhance.GRIND_ABLE_GRADE = 6
 
 -------------------------------------
 -- function initParentVariable
@@ -115,8 +116,17 @@ function UI_DragonRunesEnhance:onChangeTab(tab, first)
         self:setSeqEnhanceVisible(true)
         self:refresh_enhance()
     else
-        -- 12강화 이상이 아니면, 다시 강화탭으로 보냄
+        -- 연마가 불가능한 룬이면 다시 강화탭으로 보냄
         local rune_obj = self.m_runeObject
+        
+        local grade = rune_obj['grade']
+        if (grade > UI_DragonRunesEnhance.GRIND_ABLE_GRADE) then
+            self:setTab('enhance')
+            UIManager:toastNotificationRed(Str('6등급 이하의 룬만 연마 할 수 있습니다.'))
+            return
+        end
+
+        
         local cur_lv = rune_obj['lv']
         if (cur_lv<UI_DragonRunesEnhance.GRIND_ABLE_LV) then
             self:setTab('enhance')
