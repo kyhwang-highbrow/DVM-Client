@@ -67,6 +67,12 @@ function UI_RuneForgeCombineItem:refresh()
             end
         end
     end
+
+    if (t_rune_combine_data:isFull()) then
+        vars['allSelectMenu']:setVisible(true)
+    else
+        vars['allSelectMenu']:setVisible(false)
+    end
 end
 
 -------------------------------------

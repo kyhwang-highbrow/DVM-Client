@@ -368,11 +368,24 @@ function UI_RuneForgeCombineTab:click_autoBtn()
     sort_manager:setAllAscending(true)
     sort_manager:sortExecution(clone_table_item_list)
     
+    local combine_data_count = 0
+    local combine_data_empty_id = nil
+    local combine_data_empty = nil
+
     for combine_data_id, combine_data in pairs(self.m_mCombineDataMap) do
         if (not combine_data:isFull()) then
             local combine_grade = combine_data.m_grade
             local blank_slot_count = combine_data:getBlankSlotCount()
             local select_roid_map = self.m_mSelectRuneMap[combine_grade]
+
+            -- 텅 비어있는 경우
+            if (combine_grade == nil) then
+                combine_data_empty_id = combine_data_id
+                combine_data_empty = combine_data
+                break
+            end
+
+            combine_data_count = combine_data_count + 1
 
             -- 왼쪽 창에서 선택되지 않은 것 중 희귀도가 낮은 것부터 고른다
             for i, v in pairs(clone_table_item_list) do
@@ -381,14 +394,9 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                 local grade = t_rune_data['grade']
                 
                 -- 같은 등급에 아직 선택되지 않은 룬이라면
-                if ((combine_grade == nil) or ((grade == combine_grade) and (select_roid_map[roid] == nil))) then
+                if ((grade == combine_grade) and (select_roid_map[roid] == nil)) then
                     -- 조합 정보에 룬 정보 등록
                     combine_data:addRuneObject(t_rune_data)
-                    
-                    if(combine_grade == nil) then
-                        combine_grade = combine_data.m_grade
-                        select_roid_map = self.m_mSelectRuneMap[combine_grade]
-                    end
 
                     -- self에 룬 정보 등록
                     local data = {}
@@ -410,8 +418,8 @@ function UI_RuneForgeCombineTab:click_autoBtn()
         end
     end
 
-    -- 추가로 낮은 등급부터 차례로 채운다
-    local blank_combine_count = 10 - table.count(self.m_mCombineDataMap)
+    -- 비어 있는 칸 중 낮은 등급부터 차례로 채운다
+    local blank_combine_count = 10 - combine_data_count
     for grade = 1, 7 do
         if ((self.m_sortGrade == 0) or (self.m_sortGrade == grade)) then
             local b_next_grade = false
@@ -439,9 +447,17 @@ function UI_RuneForgeCombineTab:click_autoBtn()
 
                 -- 등록 가능할 때
                 if (require_count == 0) then
-                    local combine_data_id = self.m_currUniqueKey
-                    self:addCombineItem(grade, nil)
-                    local combine_data = self.m_mCombineDataMap[combine_data_id]
+                    local combine_data_id
+                    local combine_data 
+
+                    if (combine_data_empty ~= nil and combine_data_empty.m_grade == nil) then
+                        combine_data_id = combine_data_empty_id
+                        combine_data = combine_data_empty
+                    else
+                        combine_data_id = self.m_currUniqueKey
+                        self:addCombineItem(grade, nil)
+                        combine_data = self.m_mCombineDataMap[combine_data_id]
+                    end
 
                     for i, v in ipairs(t_rune_data_list) do
                         local t_rune_data = v['data']
@@ -513,6 +529,11 @@ function UI_RuneForgeCombineTab:click_combineBtn()
         -- 합성한 룬 정보들은 제거
         for i, combine_data_id in ipairs(full_combine_data_id_list) do
             self:removeCombineItem(combine_data_id)
+        end
+
+        -- 하나는 미관상 남긴다
+        if (table.count(self.m_mCombineDataMap) == 0) then
+            self:addCombineItem(nil)
         end
 
         local remove_roid_list = pl.stringx.split(src_roids, ',')
