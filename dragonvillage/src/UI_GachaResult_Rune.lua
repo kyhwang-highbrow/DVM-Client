@@ -427,9 +427,9 @@ function UI_GachaResult_Rune:setRuneCardList()
 		card_node:addChild(card.root, 2)
 		
 		-- 등급에 따른 연출
-		if (t_data['rarity'] > 1) then
+		if (t_data['grade'] >= 6) then
 			local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
-			if (t_data['rarity'] == 4) then
+			if (t_data['grade'] == 7) then
 				rarity_effect:changeAni('summon_regend', true)
 			else
 				rarity_effect:changeAni('summon_hero', true)
