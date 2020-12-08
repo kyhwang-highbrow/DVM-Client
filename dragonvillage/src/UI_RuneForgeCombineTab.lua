@@ -50,9 +50,13 @@ function UI_RuneForgeCombineTab:onEnterTab(first)
     if (first == true) then
         self:initSelectRunes()
         self:initUI()
+        self:refresh()
+    else
+        -- 초기화
+        self.m_uicSortList:setSelectSortType(0) -- 필터 '전체' 선택
+        self:initTableView()
+        self:initCombineTableView()
     end
-    
-    self:refresh()
 end
 
 -------------------------------------
