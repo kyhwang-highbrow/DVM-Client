@@ -4,7 +4,7 @@ RUNE_COMBINE_REQUIRE = 10
 -- class StructRuneCombine
 -------------------------------------
 StructRuneCombine = class({
-    m_grade = 'number', -- 어떠한 등급의 룬을 조합할지
+    m_grade = 'number', -- 어떠한 등급의 룬을 합성할지
     m_mRuneObjectMap = 'map', -- 현재 등록된 룬들의 정보를 저장, key = roid, map[roid] = StructRuneObject
     m_mRuneIndexMap = 'map', -- 현재 등록된 룬들의 인덱스를 저장, key = roid, map[roid] = index
     m_mRuneMappingIndex = 'map', -- 현재 인덱스별로 등록된 룬 roid, map[index] = StructRuneObject

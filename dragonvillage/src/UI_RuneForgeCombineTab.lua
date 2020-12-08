@@ -11,12 +11,13 @@ UI_RuneForgeCombineTab = class(PARENT,{
         m_sortGrade = 'number',
         ---------------------------------
         m_mSelectRuneMap = 'map', -- grade마다 현재 선택되어있는 룬 저장하는 map, map[grade][roid]
-        m_mCombineDataMap = 'map', -- 조합 정보 저장, map[unique_key] = StructRuneCombine
+        m_mCombineDataMap = 'map', -- 합성 정보 저장, map[unique_key] = StructRuneCombine
         m_currUniqueKey = 'number', -- StructRuneCombine의 유니크 키를 생성하기 애매한 부분이 있어서 숫자로 관리
     })
 
-UI_RuneForgeCombineTab.CARD_SCALE = 0.6
-UI_RuneForgeCombineTab.CARD_CELL_SIZE = cc.size(94, 94)
+UI_RuneForgeCombineTab.CARD_SCALE = 0.5
+UI_RuneForgeCombineTab.CARD_CELL_SIZE = cc.size(78, 78)
+UI_RuneForgeCombineTab.MAX_COMBINE_COUNT = 10 -- 한번에 합성 가능한 최대 갯수
 
 -------------------------------------
 -- function init
@@ -102,6 +103,7 @@ function UI_RuneForgeCombineTab:initTableView()
     local vars = self.vars
     local node = vars['listNode']
     
+    -- 기존 테이블뷰 삭제
     node:removeAllChildren()
     
     -- 리스트 아이템 생성 콜백
@@ -123,7 +125,7 @@ function UI_RuneForgeCombineTab:initTableView()
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = UI_RuneForgeCombineTab.CARD_CELL_SIZE
-    table_view_td.m_nItemPerCell = 5
+    table_view_td.m_nItemPerCell = 6
     table_view_td:setCellUIClass(make_func, create_func)
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
@@ -149,6 +151,7 @@ function UI_RuneForgeCombineTab:initTableView()
             local sort_manager = self.m_sortManager
             local ascending = (not sort_manager.m_defaultSortAscending)
             sort_manager:setAllAscending(ascending)
+            
             self.m_sortManager:sortExecution(self.m_tableView.m_itemList)
             self.m_tableView:setDirtyItemList()
 
@@ -166,12 +169,13 @@ end
 
 -------------------------------------
 -- function initCombineTableView
--- @brief 오른쪽 조합 테이블뷰 생성
+-- @brief 오른쪽 합성 테이블뷰 생성
 -------------------------------------
 function UI_RuneForgeCombineTab:initCombineTableView()
     local vars = self.vars
     local node = vars['runeCombineTableViewNode']
     
+    -- 기존 테이블뷰 삭제
     node:removeAllChildren()
     
     -- 리스트 아이템 생성 콜백
@@ -204,6 +208,7 @@ end
 function UI_RuneForgeCombineTab:refresh()
     local vars = self.vars
     
+    -- 현재 선택된 룬 개수 표기
     local all_count = table.count(self.m_tableView.m_itemList)
     local select_count = 0
     for grade = 1, 7 do
@@ -211,7 +216,8 @@ function UI_RuneForgeCombineTab:refresh()
     end
     vars['countLabel']:setString(Str('{1}/{2}', select_count, all_count))
 
-    local combine_max_count = 10
+    -- 현재 합성 개수 표기
+    local combine_max_count = UI_RuneForgeCombineTab.MAX_COMBINE_COUNT
     local combine_count = table.count(self.m_mCombineDataMap)
     vars['selectLabel']:setString(Str('{1}/{2}', combine_count, combine_max_count))
 
@@ -220,7 +226,7 @@ end
 
 -------------------------------------
 -- function refreshCombineItems
--- @brief 조합 정보 UI 갱신
+-- @brief 합성 정보 UI 갱신
 -------------------------------------
 function UI_RuneForgeCombineTab:refreshCombineItems()
     self.m_combineTableView:refreshAllItemUI()
@@ -228,13 +234,11 @@ end
 
 -------------------------------------
 -- function addCombineItem
--- @brief 조합 UI 추가
+-- @brief 합성 UI 추가
 -- @param grade : 만들려는 combine ui의 룬 grade
 -- @param t_first_rune_data : 처음 생성될 때 첫 칸을 차지할 룬 데이터
 -------------------------------------
 function UI_RuneForgeCombineTab:addCombineItem(grade, t_first_rune_data)
-    
-    
     local unique_key = self.m_currUniqueKey
     local t_rune_combine_data = StructRuneCombine(grade)
 
@@ -248,8 +252,9 @@ function UI_RuneForgeCombineTab:addCombineItem(grade, t_first_rune_data)
     
     if (table.count(self.m_mCombineDataMap) > 1) then
         self.m_combineTableView:getCellUI(unique_key)
+    
     else
-        self.m_combineTableView:makeAllItemUI()
+        self.m_combineTableView:makeAllItemUINoAction()
     end
 
     self.m_currUniqueKey = self.m_currUniqueKey + 1
@@ -257,7 +262,7 @@ end
 
 -------------------------------------
 -- function removeCombineItem
--- @brief 조합 UI 제거
+-- @brief 합성 UI 제거
 -- @param unique_key : 제거하려는 combine data의 unique_key
 -------------------------------------
 function UI_RuneForgeCombineTab:removeCombineItem(unique_key)
@@ -316,8 +321,8 @@ function UI_RuneForgeCombineTab:selectRune(t_rune_data)
 
     -- 룬이 추가되지 못한 경우, 적절한 combine_data가 없는 것이므로 추가
     if (not b_add_rune) then
-        -- 이미 조합 갯수가 가득찬 경우
-        if (table.count(self.m_mCombineDataMap) >= 10) then
+        -- 이미 합성 갯수가 가득찬 경우
+        if (table.count(self.m_mCombineDataMap) >= UI_RuneForgeCombineTab.MAX_COMBINE_COUNT) then
             return
         end 
 
@@ -370,7 +375,7 @@ end
 -------------------------------------
 function UI_RuneForgeCombineTab:click_autoBtn()
     
-    -- 기존에 이미 등록된 조합 정보에서 남은 칸부터 채울 수 있으면 채운다.
+    -- 기존에 이미 등록된 합성 정보에서 남은 칸부터 채울 수 있으면 채운다.
     local clone_table_item_list = clone(self.m_tableView.m_itemList)
     local sort_manager = SortManager_Rune()
     sort_manager:pushSortOrder('rarity')
@@ -401,7 +406,7 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                 
                 -- 같은 등급에 아직 선택되지 않은 룬이라면
                 if ((grade == combine_grade) and (select_roid_map[roid] == nil)) then
-                    -- 조합 정보에 룬 정보 등록
+                    -- 합성 정보에 룬 정보 등록
                     combine_data:addRuneObject(t_rune_data)
 
                     -- self에 룬 정보 등록
@@ -414,7 +419,7 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                     local rune_card = self.m_tableView:getCellUI(roid)
                     rune_card:setCheckSpriteVisible(true)
 
-                    -- 현재 조합 정보 빈 칸 다 채웠는지 확인
+                    -- 현재 합성 정보 빈 칸 다 채웠는지 확인
                     blank_slot_count = blank_slot_count - 1
                     if (blank_slot_count == 0) then
                         break
@@ -425,7 +430,7 @@ function UI_RuneForgeCombineTab:click_autoBtn()
     end
 
     -- 비어 있는 칸 중 낮은 등급부터 차례로 채운다
-    local blank_combine_count = 10 - table.count(self.m_mCombineDataMap)
+    local blank_combine_count = UI_RuneForgeCombineTab.MAX_COMBINE_COUNT - table.count(self.m_mCombineDataMap)
     if (combine_data_empty ~= nil) then
         blank_combine_count = blank_combine_count + 1
     end
@@ -472,7 +477,7 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                         local t_rune_data = v['data']
                         local roid = t_rune_data['roid']
 
-                        -- 조합 정보에 룬 정보 등록
+                        -- 합성 정보에 룬 정보 등록
                         combine_data:addRuneObject(t_rune_data)
                     
                         -- self에 룬 정보 등록
@@ -498,7 +503,7 @@ function UI_RuneForgeCombineTab:click_autoBtn()
 
             end
 
-            -- 최대 조합 가능 개수를 넘었을 때
+            -- 최대 합성 가능 개수를 넘었을 때
             if (blank_combine_count == 0) then
                 break
             end
@@ -519,7 +524,7 @@ function UI_RuneForgeCombineTab:click_combineBtn()
     local full_combine_data_id_list = {}
 
     for combine_data_id, combine_data in pairs(self.m_mCombineDataMap) do
-        if (combine_data:isFull()) then -- 재료가 전부 등록된 것만 합성
+        if (combine_data:isFull()) then -- 재료가 전부 등록된 것만 합성되어 이후 화면에서 제거됨
             local roids = combine_data:getRoids()
             if (src_roids == '') then
                 src_roids = roids
