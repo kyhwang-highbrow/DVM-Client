@@ -670,7 +670,7 @@ function StructRuneObject:setOptionLabel(ui, label_format, show_change)
         end
         
         local desc_str = self:makeEachRuneDescRichText(v, show_change)
-        local is_max = (self:isMaxOption(v, desc_str)) and (self.grade <= 6)
+        local is_max = self:isMaxOption(v, desc_str)
 
         -- 추가옵션은 max, 연마 표시
         if (i > 2) then
@@ -749,8 +749,9 @@ function StructRuneObject:isMaxOption(opt_name)
     opt_str = pl.stringx.split(opt_str, ';')
     
     if (#opt_str>0) then
-        max_value = t_rune_opt_max[opt_str[1] .. '_1']['status_max']
-    
+        local option_name = opt_str[1]
+        max_value = (self.grade <= 6) and (t_rune_opt_max[option_name .. '_1']['status_max']) or (t_rune_opt_max[option_name .. '_2']['status_max'])
+        cclog(max_value)
     end
 
     if (not opt_value) then
