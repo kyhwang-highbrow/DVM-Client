@@ -463,28 +463,28 @@ end
 -------------------------------------
 -- function stampShakeActionLabel
 -------------------------------------
-function cca.stampShakeActionLabel(node, appear_sacle, appear_duration, updown_scale, angle, target_scale )
-    local appear_sacle = appear_sacle or 5
+function cca.stampShakeActionLabel(node, appear_scale, appear_duration, updown_scale, angle, target_scale)
+    local appear_scale = appear_scale or 5
     local appear_duration = appear_duration or 0.3
     local updown_scaleX = updown_scale or 0.05
     local updown_scaleY = updown_scale or 0.05
     local angle = angle or 360 * 2
     local target_scaleX = target_scale or 1
     local target_scaleY = target_scale or 1
-    local scaleRateX, scaleRateY = Translate:getFontScaleRate()
-    updown_scaleX = updown_scaleX * scaleRateX
-    updown_scaleY = updown_scaleY * scaleRateY
-    target_scaleX = target_scaleX * scaleRateX
-    target_scaleY = target_scaleY * scaleRateY
+    --local scaleRateX, scaleRateY = Translate:getFontScaleRate()
+    --updown_scaleX = updown_scaleX * scaleRateX
+    --updown_scaleY = updown_scaleY * scaleRateY
+    --target_scaleX = target_scaleX * scaleRateX
+    --target_scaleY = target_scaleY * scaleRateY
 
-    node:setScale(appear_sacle)
+    node:setScale(appear_scale)
     node:setOpacity(0)
 
     local act1 = cc.FadeIn:create(appear_duration)
-    local act2 = cc.ScaleTo:create(appear_duration, 1 - updown_scale)
+    local act2 = cc.ScaleTo:create(appear_duration, (1 - updown_scaleX), (1 - updown_scaleY))
     local rotate = cc.RotateTo:create(appear_duration, angle)
     local act3 = cc.Spawn:create(act1, act2, rotate)
-    local act4 = cc.ScaleTo:create(0.1, (target_scaleX + updown_scaleX), (target_scaleY + updown_scaleY) )
+    local act4 = cc.ScaleTo:create(0.1, (target_scaleX + updown_scaleX), (target_scaleY + updown_scaleY))
     local act5 = cc.ScaleTo:create(0.1, target_scaleX, target_scaleY)
     local action = cc.Sequence:create(act3, act4, act5)
     
@@ -573,28 +573,28 @@ end
 -------------------------------------
 -- function stampShakeActionLabel_action
 -------------------------------------
-function cca.stampShakeActionLabel_action(node, appear_sacle, appear_duration, updown_scale, angle, target_scale )
-    local appear_sacle = appear_sacle or 5
+function cca.stampShakeActionLabel_action(node, appear_scale, appear_duration, updown_scale, angle, target_scale )
+    local appear_scale = appear_scale or 5
     local appear_duration = appear_duration or 0.3
     local updown_scaleX = updown_scale or 0.05
     local updown_scaleY = updown_scale or 0.05
     local angle = angle or 360 * 2
     local target_scaleX = target_scale or 1
     local target_scaleY = target_scale or 1
-    local scaleRateX, scaleRateY = Translate:getFontScaleRate()
-    updown_scaleX = updown_scaleX * scaleRateX
-    updown_scaleY = updown_scaleY * scaleRateY
-    target_scaleX = target_scaleX * scaleRateX
-    target_scaleY = target_scaleY * scaleRateY
+    --local scaleRateX, scaleRateY = Translate:getFontScaleRate()
+    --updown_scaleX = updown_scaleX * scaleRateX
+    --updown_scaleY = updown_scaleY * scaleRateY
+    --target_scaleX = target_scaleX * scaleRateX
+    --target_scaleY = target_scaleY * scaleRateY
 
-    node:setScale(appear_sacle)
+    node:setScale(appear_scale)
     node:setOpacity(0)
 
     local act1 = cc.FadeIn:create(appear_duration)
-    local act2 = cc.ScaleTo:create(appear_duration, 1 - updown_scale)
+    local act2 = cc.ScaleTo:create(appear_duration, (1 - updown_scaleX), (1 - updown_scaleY))
     local rotate = cc.RotateTo:create(appear_duration, angle)
     local act3 = cc.Spawn:create(act1, act2, rotate)
-    local act4 = cc.ScaleTo:create(0.1, (target_scaleX + updown_scaleX), (target_scaleY + updown_scaleY) )
+    local act4 = cc.ScaleTo:create(0.1, (target_scaleX + updown_scaleX), (target_scaleY + updown_scaleY))
     local act5 = cc.ScaleTo:create(0.1, target_scaleX, target_scaleY)
     local action = cc.Sequence:create(act3, act4, act5)
     
