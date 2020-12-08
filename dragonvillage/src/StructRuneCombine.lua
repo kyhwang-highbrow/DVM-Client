@@ -1,4 +1,5 @@
-RUNE_COMBINE_REQUIRE = 10
+-- 룬 합성에 필요한 룬 갯수
+RUNE_COMBINE_REQUIRE = 5
 
 -------------------------------------
 -- class StructRuneCombine
