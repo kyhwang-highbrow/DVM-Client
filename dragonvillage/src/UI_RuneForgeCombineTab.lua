@@ -536,6 +536,11 @@ function UI_RuneForgeCombineTab:click_combineBtn()
         end
     end
 
+    if (src_roids == '') then
+        UIManager:toastNotificationRed(Str('합성에 필요한 룬이 부족합니다.'))
+        return
+    end
+
     local function close_cb()
         -- 왼쪽 룬 창 정리
         self:initTableView()

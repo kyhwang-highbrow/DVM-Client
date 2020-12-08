@@ -29,9 +29,10 @@ end
 
 -------------------------------------
 -- function init
+-- @param type : 룬을 얻게된 방법
 -------------------------------------
-function UI_GachaResult_Rune:init(gacha_type, l_gacha_rune_list)
-	self.m_type = gacha_type
+function UI_GachaResult_Rune:init(type, l_gacha_rune_list)
+	self.m_type = type
     self.m_bSkip = false
 
 	-- 연출없이 즉시 단일 결과 보여주는 타입..
