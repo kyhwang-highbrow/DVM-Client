@@ -129,8 +129,9 @@ function UI_RuneSelectDevApiPopup:initButton()
     self:refreshOptionButton()
 
     
-    vars['applyBtn']:registerScriptTapHandler(function() self:request(false) end)
-    vars['applyBundleBtn']:registerScriptTapHandler(function() self:request(true) end)
+    vars['applyBtn']:registerScriptTapHandler(function() self:request(1) end)
+    vars['applyBundleBtn']:registerScriptTapHandler(function() self:request(10) end)
+    vars['applyBundle100Btn']:registerScriptTapHandler(function() self:request(100) end)
     
     vars['closeBtn']:registerScriptTapHandler(function() self:setCloseCB(nil) self:close() end)
 end
@@ -403,7 +404,7 @@ end
 -------------------------------------
 -- function request
 -------------------------------------
-function UI_RuneSelectDevApiPopup:request(is_bundle)
+function UI_RuneSelectDevApiPopup:request(rune_count)
     local uid = g_userData:get('uid')
     local set = (self.m_set > 0) and self.m_set or nil
     local grade = (self.m_grade > 0) and self.m_grade or nil
@@ -414,7 +415,7 @@ function UI_RuneSelectDevApiPopup:request(is_bundle)
     ui_network:setUrl('/runes/add')
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)
-    ui_network:setParam('bundle', is_bundle)
+    ui_network:setParam('count', rune_count)
     ui_network:setParam('rid', rid)
     ui_network:setParam('set', set)
     ui_network:setParam('grade', grade)
@@ -430,34 +431,20 @@ function UI_RuneSelectDevApiPopup:request(is_bundle)
       
 
     ui_network:setSuccessCB(function(ret)
-        if (is_bundle) then
-            local function close_cb()
-                g_runesData:applyRuneData_list(ret['runes'])            
-            end
+        if ret and ret['runes'] then
+            local t_rune_data = ret['runes'][1]
+            local item_id = t_rune_data['rid']
+            local count = 1
+            local item_type = TableItem:getItemType(item_id)
+            local t_item_data = StructRuneObject(t_rune_data)
 
-            require('UI_GachaResult_Rune')
-        
-		    local gacha_type = 'dev'
-            local l_rune_list = ret['runes']
+            -- 아이템 정보창 띄움
+            local ui = UI_ItemInfoPopup(item_id, count, t_item_data)
+            ui:showItemInfoPopupOkBtn() -- "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
 
-            local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
-        
-            ui:setCloseCB(close_cb)
+            g_runesData:applyRuneData_list(ret['runes'])
 
-        else
-            if ret and ret['runes'] then
-                local t_rune_data = ret['runes'][1]
-                local item_id = t_rune_data['rid']
-                local count = 1
-                local item_type = TableItem:getItemType(item_id)
-                local t_item_data = StructRuneObject(t_rune_data)
-
-                -- 아이템 정보창 띄움
-                local ui = UI_ItemInfoPopup(item_id, count, t_item_data)
-                ui:showItemInfoPopupOkBtn() -- "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
-
-                g_runesData:applyRuneData(ret['runes'][1])
-            end
+            UIManager:toastNotificationRed(tostring(rune_count) .. '개의 룬을 획득했습니다.')
         end
     end)
 
