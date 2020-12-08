@@ -405,7 +405,9 @@ end
 -------------------------------------
 function UI_RuneSelectDevApiPopup:request(is_bundle)
     local uid = g_userData:get('uid')
-    local rid = self:getRid()
+    local set = (self.m_set > 0) and self.m_set or nil
+    local grade = (self.m_grade > 0) and self.m_grade or nil
+    local slot = (self.m_slot > 0) and self.m_slot or nil
     local rarity = (self.m_rarity > 0) and self.m_rarity or nil
     
     local ui_network = UI_Network()
@@ -414,6 +416,9 @@ function UI_RuneSelectDevApiPopup:request(is_bundle)
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('rid', rid)
+    ui_network:setParam('set', set)
+    ui_network:setParam('grade', grade)
+    ui_network:setParam('slot', slot)
     ui_network:setParam('rarity', rarity)
       
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
