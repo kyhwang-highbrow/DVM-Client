@@ -63,6 +63,8 @@ function UI_RuneForgeCombineItem:refresh()
                 rune_card_ui.root:setSwallowTouch(false)
                 rune_card_ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_rune(t_rune_data) end)
                 vars['itemNode' .. idx]:addChild(rune_card_ui.root)
+                
+                cca.uiReactionSlow(rune_card_ui.root, 1, 1, 1.3)
                 self.m_mRuneCardUI[idx] = rune_card_ui
             end
         end

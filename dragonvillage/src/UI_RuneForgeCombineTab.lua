@@ -241,7 +241,12 @@ function UI_RuneForgeCombineTab:addCombineItem(grade, t_first_rune_data)
     self.m_mCombineDataMap[unique_key] = t_rune_combine_data
 
     self.m_combineTableView:addItem(unique_key, t_rune_combine_data)
-    self.m_combineTableView:getCellUI(unique_key)
+    
+    if (table.count(self.m_mCombineDataMap) > 1) then
+        self.m_combineTableView:getCellUI(unique_key)
+    else
+        self.m_combineTableView:makeAllItemUI()
+    end
 
     self.m_currUniqueKey = self.m_currUniqueKey + 1
 end
