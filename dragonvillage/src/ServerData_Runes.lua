@@ -264,7 +264,7 @@ function ServerData_Runes:request_runeGacha(is_bundle, finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/gacha_rune')
+    ui_network:setUrl('/shop/rune_gacha')
     ui_network:setParam('uid', uid)
     ui_network:setParam('item_id', item_id)
     ui_network:setParam('bundle', is_bundle)
