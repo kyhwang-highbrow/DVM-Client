@@ -373,7 +373,6 @@ function UI_RuneForgeCombineTab:click_autoBtn()
     sort_manager:setAllAscending(true)
     sort_manager:sortExecution(clone_table_item_list)
     
-    local combine_data_count = 0
     local combine_data_empty_id = nil
     local combine_data_empty = nil
 
@@ -389,8 +388,6 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                 combine_data_empty = combine_data
                 break
             end
-
-            combine_data_count = combine_data_count + 1
 
             -- 왼쪽 창에서 선택되지 않은 것 중 희귀도가 낮은 것부터 고른다
             for i, v in pairs(clone_table_item_list) do
@@ -424,7 +421,10 @@ function UI_RuneForgeCombineTab:click_autoBtn()
     end
 
     -- 비어 있는 칸 중 낮은 등급부터 차례로 채운다
-    local blank_combine_count = 10 - combine_data_count
+    local blank_combine_count = 10 - table.count(self.m_mCombineDataMap)
+    if (combine_data_empty ~= nil) then
+        blank_combine_count = blank_combine_count + 1
+    end
     for grade = 1, 7 do
         if ((self.m_sortGrade == 0) or (self.m_sortGrade == grade)) then
             local b_next_grade = false
