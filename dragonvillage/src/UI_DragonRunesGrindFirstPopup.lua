@@ -111,12 +111,10 @@ function UI_DragonRunesGrindFirstPopup:getExpectedOptionStr()
     -- 3. 현재 선택한 옵션은 연마로 다시 나올 수 있음
     -- 4. 치명회피와, 속도 %는 제외
     local t_rune_opt = TABLE:get('table_rune_opt_status')
-    local stat_dup = {} -- 테이블 변경으로 인해 스탯이 여러번 나올 수 있음(6등급 이하와 7등급을 구분하기 위해)
 
     for id, v in pairs(t_rune_opt) do
-        local opt_type = v['key'] 
-        if (stat_dup[opt_type] == nil) then
-            stat_dup[opt_type] = {}        
+        if (pl.stringx.endswith(id, '_1')) then
+            local opt_type = v['key']
             local is_expected = true
             for _, opt_str in ipairs(StructRuneObject.OPTION_LIST) do
                 local l_str = plSplit(rune_obj[opt_str], ';')
@@ -135,7 +133,6 @@ function UI_DragonRunesGrindFirstPopup:getExpectedOptionStr()
                 expected_option_str = expected_option_str ..Str(table_opt:getValue(opt_type, 't_desc'), min_max_str) .. '\n'
             end    
         end
-        
     end
 
     return expected_option_str
@@ -157,12 +154,10 @@ function UI_DragonRunesGrindFirstPopup:getExpectedOptionStr_MaxOptItem()
     -- 3. 현재 선택한 옵션은 연마로 다시 나올 수 있음
     -- 4. 치명회피와, 속도 %는 제외
     local t_rune_opt = TABLE:get('table_rune_opt_status')
-    local stat_dup = {} -- 테이블 변경으로 인해 스탯이 여러번 나올 수 있음(6등급 이하와 7등급을 구분하기 위해)
 
     for id, v in pairs(t_rune_opt) do
-        local opt_type = v['key']
-        if (stat_dup[opt_type] == nil) then
-            stat_dup[opt_type] = {}        
+        if (pl.stringx.endswith(id, '_1')) then
+            local opt_type = v['key']
             local is_expected = true
             for _, opt_str in ipairs(StructRuneObject.OPTION_LIST) do
                 local l_str = plSplit(rune_obj[opt_str], ';')
@@ -178,7 +173,6 @@ function UI_DragonRunesGrindFirstPopup:getExpectedOptionStr_MaxOptItem()
                 expected_option_str = expected_option_str ..Str(table_opt:getValue(opt_type, 't_desc'), max_value) .. '\n'
             end
         end
-        
     end
 
     return expected_option_str
