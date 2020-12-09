@@ -93,6 +93,10 @@ function UI_RuneSelectDevApiPopup:initUI()
 
     self.m_mUiLabel['mopt'] = vars['moptLabel']
 
+    self.m_mUiUpBtn['lv'] = vars['lvUpBtn']
+    self.m_mUiDownBtn['lv'] = vars['lvDownBtn']
+    self.m_mUiEditBox['lv'] = vars['lvEditBox']
+
     self.m_mUiBtn['uopt'] = vars['uoptBtn']
     self.m_mUiUpBtn['uopt'] = vars['uoptUpBtn']
     self.m_mUiDownBtn['uopt'] = vars['uoptDownBtn']
@@ -214,6 +218,18 @@ function UI_RuneSelectDevApiPopup:refreshOptionButton()
         end
     end
 
+    -- 강화 관련 버튼
+    self.m_mUiUpBtn['lv']:registerScriptTapHandler(function()
+        -- 강화 + 1
+        self.m_lv = math_min(self.m_lv + 1, RUNE_LV_MAX)
+        self:refresh()
+    end)
+
+    self.m_mUiDownBtn['lv']:registerScriptTapHandler(function()
+        -- 강화 - 1
+        self.m_lv = math_max(self.m_lv - 1, 0)
+        self:refresh()
+    end)
 end
 -------------------------------------
 -- function initEditBox
@@ -252,6 +268,23 @@ function UI_RuneSelectDevApiPopup:initEditBox()
             end)
         end
     end
+
+    self.m_mUiEditBox['lv']:registerScriptEditBoxHandler(function(strEventName, pSender)
+        if (strEventName == "return") then
+            local editbox = pSender
+            local str = editbox:getText()
+
+            if isValidText(str) then
+                local lv = tonumber(str)
+
+                lv = math_max(0, lv)
+                lv = math_min(lv, RUNE_LV_MAX)
+                self:setLv(lv)
+            end
+
+            self:refresh()
+        end
+    end)
 end
 
 -------------------------------------
@@ -268,6 +301,8 @@ function UI_RuneSelectDevApiPopup:refresh()
             self.m_mUiEditBox[v]:setEnabled(self.m_mOpt[v] ~= '')
         end
     end
+
+    self.m_mUiEditBox['lv']:setText(self.m_lv)
 
     local set_str = self.set_str(self.m_set)
     vars['setLabel']:setString(set_str)
@@ -286,6 +321,9 @@ function UI_RuneSelectDevApiPopup:refresh()
     vars['moptValueLabel']:setString(mopt_str)
     local mopt_label_str = self.opt_str(self.m_mOpt['mopt'])
     vars['moptLabel']:setString(mopt_label_str)
+
+    -- 강화 
+    self:setLv(self.m_lv)
 
     -- 서브 옵션 값
     local uopt_label_str = self.opt_str(self.m_mOpt['uopt'])
@@ -394,11 +432,16 @@ end
 -------------------------------------
 function UI_RuneSelectDevApiPopup:setLv(lv)
     local lv = math_clamp(lv, 0, RUNE_LV_MAX)
-    local vid = self.m_mOpt['mopt'] .. '_' .. self.m_grade
-    local value = TableRuneMoptStatus:getStatusValue(vid, lv)
-
     self.m_lv = lv
-    self.m_mVal['mopt'] = value
+
+    -- 주옵션이 정해져있고, 등급도 정해져있다면 주옵션 표기
+    if ((self.m_mOpt['mopt'] ~= '랜덤') and (self.m_grade > 0)) then
+        local vid = self.m_mOpt['mopt'] .. '_' .. self.m_grade
+        local value = TableRuneMoptStatus:getStatusValue(vid, lv)
+
+        self.m_mVal['mopt'] = value
+        self.vars['moptValueLabel']:setString(value)
+    end
 end
 
 -------------------------------------
@@ -410,6 +453,7 @@ function UI_RuneSelectDevApiPopup:request(rune_count)
     local grade = (self.m_grade > 0) and self.m_grade or nil
     local slot = (self.m_slot > 0) and self.m_slot or nil
     local rarity = (self.m_rarity > 0) and self.m_rarity or nil
+    local lv = (self.m_lv > 0) and self.m_lv or nil
     
     local ui_network = UI_Network()
     ui_network:setUrl('/runes/add')
@@ -421,6 +465,7 @@ function UI_RuneSelectDevApiPopup:request(rune_count)
     ui_network:setParam('grade', grade)
     ui_network:setParam('slot', slot)
     ui_network:setParam('rarity', rarity)
+    ui_network:setParam('lv', lv)
       
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
         if (self.m_mOpt[v]) and (self.m_mVal[v]) then
@@ -428,7 +473,6 @@ function UI_RuneSelectDevApiPopup:request(rune_count)
             ui_network:setParam(v .. '_val', self.m_mVal[v])
         end
     end  
-      
 
     ui_network:setSuccessCB(function(ret)
         if ret and ret['runes'] then
@@ -728,6 +772,12 @@ function UI_RuneSelectDevApiPopup:setRuneObject()
         if (self.m_set < 9) then
 	        local res = string.format('res/ui/icons/rune/rune_number_%.2d.png', self.m_slot)
             rune_ui:makeSprite('runeNumberNode', res, true) -- (lua_name, res, no_use_frames)
+        end
+
+        -- 강화 단계 표시
+        local lv = self.m_lv
+        if (lv > 0) then
+            rune_ui:setNumberText(lv, true) -- (use_plus)
         end
 
         vars['useRuneNode']:addChild(rune_ui.root)
