@@ -2275,10 +2275,18 @@ function UI_Lobby:update_bottomLeftButtons()
     end
 
     -- @kwkang 20-12-09 룬 관리 추가로 버튼들 위치 값 변경
-    -- local pos_x = -140
-    -- local interval = -119
-    local pos_x = -120
-    local interval = -108
+    local pos_x
+    local interval
+    -- 아직 드래곤의 숲이 열리지 않은 경우
+    if (table.count(l_btn_list) <= 4) then
+        pos_x = -140
+        interval = -119
+    
+    -- 왼쪽 하단에 속해있는 모든 컨텐츠가 열려있는 경우
+    else
+        pos_x = -120
+        interval = -108
+    end
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
