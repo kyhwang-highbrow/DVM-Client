@@ -252,6 +252,7 @@ function UI_DragonRunesGrind:refresh_grind()
 
     -- 라디오 버튼 디폴트 값 설정
     if (rune_obj:existOptionType(select_grind_opt)) then
+        grind_radio_button.m_selectedButton = nil -- 라벨 선택 효과를 주기 위해
         grind_radio_button:setSelectedButton(select_grind_opt)
     end
 
