@@ -91,9 +91,18 @@ function UI_RuneForgeCombineItem:refresh()
 
     -- 룬 등록칸에 룬이 전부 등록된 경우
     if (t_rune_combine_data:isFull()) then
+        cclog('is full')
         vars['allSelectMenu']:setVisible(true)
+        
+        if (self.m_resultCard ~= nil) then
+            self.m_resultCard.vars['disableSprite']:setVisible(false)
+        end
     else
         vars['allSelectMenu']:setVisible(false)
+        
+        if (self.m_resultCard ~= nil) then
+            self.m_resultCard.vars['disableSprite']:setVisible(true)
+        end
     end
 end
 
@@ -155,13 +164,17 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
     result_card_ui.vars['runeNode']:setPositionY(20) -- 하드코딩
     
     -- 높은 등급을 획득할 수 있는 경우 효과 나타내기
-	if (success_grade >= 6) then
+	if (success_grade >= 7) then
 		local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
 		rarity_effect:changeAni('summon_hero', true)
 		rarity_effect:setScale(1.7)
 		result_card_ui.root:addChild(rarity_effect.m_node)
 	end
-        
+    
+    -- 일단 검은 레이어 씌우고 모든 합성 재료 칸이 등록되면 벗겨주기
+    local disable_res = 'card_cha_frame_disable.png'
+    result_card_ui:setSpriteVisible('disableSprite', disable_res, true)
+
     self.vars['runeResultNode']:addChild(result_card_ui.root)
     self.m_resultCard = result_card_ui
 end
