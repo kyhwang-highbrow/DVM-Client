@@ -751,7 +751,6 @@ function StructRuneObject:isMaxOption(opt_name)
     if (#opt_str>0) then
         local option_name = opt_str[1]
         max_value = (self.grade <= 6) and (t_rune_opt_max[option_name .. '_1']['status_max']) or (t_rune_opt_max[option_name .. '_2']['status_max'])
-        cclog(max_value)
     end
 
     if (not opt_value) then
