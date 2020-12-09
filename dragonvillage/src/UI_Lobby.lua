@@ -2253,7 +2253,7 @@ end
 function UI_Lobby:update_bottomLeftButtons()
     local vars = self.vars
     local t_btn_name = {}
-    local l_content = {'quest', 'forest', 'tamer', 'dragonManage', 'runeForge'}
+    local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
@@ -2274,11 +2274,11 @@ function UI_Lobby:update_bottomLeftButtons()
         end
     end
 
-    local pos_x = -140
-    local interval = -119
-    if (table.count(l_btn_list) >= 5) then -- 세공소의 추가로 임시방편 위치 설정
-        interval = -110
-    end
+    -- @kwkang 20-12-09 룬 관리 추가로 버튼들 위치 값 변경
+    -- local pos_x = -140
+    -- local interval = -119
+    local pos_x = -120
+    local interval = -108
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
