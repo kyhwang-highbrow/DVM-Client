@@ -9,6 +9,7 @@ UI_RuneForgeCombineItem = class(PARENT,{
         m_runeCombineData = 'StructRuneCombine',
         m_mRuneCardUI = 'map', -- 현재 생성되어있는 룬 카드 UI, map[index] = UI_RuneCard
         m_resultCard = 'UI_ItemCard',
+        m_resultEffect = 'visual',
     })
 
 -------------------------------------
@@ -91,17 +92,22 @@ function UI_RuneForgeCombineItem:refresh()
 
     -- 룬 등록칸에 룬이 전부 등록된 경우
     if (t_rune_combine_data:isFull()) then
-        cclog('is full')
         vars['allSelectMenu']:setVisible(true)
         
         if (self.m_resultCard ~= nil) then
             self.m_resultCard.vars['disableSprite']:setVisible(false)
+        end
+        if (self.m_resultEffect ~= nil) then
+            self.m_resultEffect:setVisible(true)
         end
     else
         vars['allSelectMenu']:setVisible(false)
         
         if (self.m_resultCard ~= nil) then
             self.m_resultCard.vars['disableSprite']:setVisible(true)
+        end
+        if (self.m_resultEffect ~= nil) then
+            self.m_resultEffect:setVisible(false)
         end
     end
 end
@@ -169,6 +175,9 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
 		rarity_effect:changeAni('summon_hero', true)
 		rarity_effect:setScale(1.7)
 		result_card_ui.root:addChild(rarity_effect.m_node)
+        self.m_resultEffect = rarity_effect
+    else
+        self.m_resultEffect = nil
 	end
     
     -- 일단 검은 레이어 씌우고 모든 합성 재료 칸이 등록되면 벗겨주기

@@ -191,6 +191,7 @@ function UI_RuneForgeCombineTab:initCombineTableView()
     table_view.m_defaultCellSize = cc.size(530, 180)
     table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+	table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view:setItemList(l_item_list)
     self.m_combineTableView = table_view
     
@@ -249,7 +250,7 @@ function UI_RuneForgeCombineTab:addCombineItem(grade, t_first_rune_data)
     self.m_combineTableView:addItem(unique_key, t_rune_combine_data)
     
     if (table.count(self.m_mCombineDataMap) > 1) then
-        self.m_combineTableView:getCellUI(unique_key)
+        -- self.m_combineTableView:makeAllItemUI()
     
     else
         self.m_combineTableView:makeAllItemUINoAction()
