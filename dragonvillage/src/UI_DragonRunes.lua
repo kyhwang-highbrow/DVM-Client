@@ -80,6 +80,8 @@ function UI_DragonRunes:initUI()
         self.vars['selectDevBtn']:registerScriptTapHandler(function() self:click_selectDevBtn() end)
         self.vars['useDevBtn']:setVisible(true)
         self.vars['useDevBtn']:registerScriptTapHandler(function() self:click_useDevBtn() end)
+        self.vars['addDevBtn']:registerScriptTapHandler(function() self:click_addDevBtn() end)
+
     else
         self.vars['selectDevBtn']:setVisible(false)
         self.vars['useDevBtn']:setVisible(false)
@@ -752,6 +754,22 @@ function UI_DragonRunes:click_useDevBtn()
             self:refreshTableViewList()
             self.m_bChangeDragonList = true
         end
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+------------------------------------
+-- function click_addDevBtn
+-- @brief 개발용 룬 획득 API 팝업 호출
+-------------------------------------
+function UI_DragonRunes:click_addDevBtn()
+    require('UI_RuneSelectDevApiPopup')
+    local ui = UI_RuneSelectDevApiPopup()
+
+    local function close_cb()
+        self:refreshTableViewList()
+        self:refreshRunesCount()
     end
 
     ui:setCloseCB(close_cb)
