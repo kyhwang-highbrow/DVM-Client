@@ -686,17 +686,57 @@ function UI_RuneSelectDevApiPopup:setRuneObject()
     else
         vars['useRuneNameLabel']:setString('샘플 룬')
     end
-
-    ---- 룬 아이콘
+   
+    -- 룬 아이콘
     if ((self.m_grade > 0) and (self.m_slot > 0) and (self.m_set > 0)) then
         local rid = self:getRid()
-        local rune_icon = UI_ItemCard(rid, 1)
-        vars['useRuneNode']:addChild(rune_icon.root)
+        local frame_res = StructRuneObject.getRarityFrameRes({['rarity'] = self.m_rarity})
+        local star_res = string.format('card_star_yellow_01%02d.png', self.m_grade)
+        local set_color = TableRuneSet:getRuneSetColor(self.m_set)
+        local icon_res = string.format('res/ui/icons/rune/%.2d_%s_%.2d.png', self.m_slot, set_color, self.m_grade)
+
+        -- 카드 생성
+        local rune_ui = UI_Card()
+        rune_ui.ui_res = 'card_rune.ui'
+        rune_ui:getUIInfo()
+
+        local btn = rune_ui.vars['clickBtn']
+
+        if (not btn) then
+            btn = cc.MenuItemImage:create()
+            btn:setDockPoint(CENTER_POINT)
+            btn:setAnchorPoint(CENTER_POINT)
+            btn:setContentSize(150, 150)
+    
+            rune_ui.vars['clickBtn'] = UIC_Button(btn)
+            rune_ui.root:addChild(btn, -1)
+
+	        -- btn:registerScriptTapHandler(function()  end)
+        end
+
+        -- 프레임 생성
+        rune_ui:makeSprite('frameNode', frame_res)
+    
+        -- 획득 가능한 범주의 등급 표시
+        rune_ui:makeSprite('starNode', star_res) -- (lua_name, res, no_use_frames)
+    
+        -- 룬 이미지 표시
+        rune_ui:makeSprite('runeNode', icon_res, true) -- (lua_name, res, no_use_frames)
+
+        -- 룬 숫자 표시
+        local slot = self.m_slot
+        if (self.m_set < 9) then
+	        local res = string.format('res/ui/icons/rune/rune_number_%.2d.png', self.m_slot)
+            rune_ui:makeSprite('runeNumberNode', res, true) -- (lua_name, res, no_use_frames)
+        end
+
+        vars['useRuneNode']:addChild(rune_ui.root)
+    
     else
         vars['useRuneNode']:removeAllChildren()
     end
 
-    ---- 세트 옵션
+    -- 세트 옵션
     local set_desc_rich_text
     if (self.m_set > 0) then
         set_desc_rich_text = TableRuneSet:makeRuneSetDescRichText(self.m_set)
