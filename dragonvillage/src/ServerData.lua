@@ -548,8 +548,8 @@ function ServerData:networkCommonRespone(ret)
         end
 
         -- 룬 원석
-        if ret['rune_stone'] then
-            self:applyServerData(ret['rune_stone'], 'user', 'rune_stone')
+        if ret['rune_box'] then
+            self:applyServerData(ret['rune_box'], 'user', 'rune_box')
         end
 
 
@@ -711,7 +711,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
     RefreshGoods(t_added_items, 'dragon_exp')
 
     -- 룬 원석
-    RefreshGoods(t_added_items, 'rune_stone')
+    RefreshGoods(t_added_items, 'rune_box')
    
    -- 특성 재료
     RefreshGoods(t_added_items, 'mastery_materials')

@@ -24,7 +24,7 @@ MAIL_SELECT_TYPE = {
     UPDATE_PACK = 8,    -- 승급 패키지 구매 시
     ITEM_GOOD = 9,      -- 패키지 상품 구성이 아이템+재화 일 때
     GOODS_WITH_CLOSE_CB = 10,
-    RUNE_STONE = 11,    -- 룬 원석
+    RUNE_BOX = 11,    -- 룬 박스
 }
 
 -------------------------------------
@@ -87,9 +87,9 @@ function UI_MailSelectPopup:initUI()
         local item_id = TableItem():getItemIDFromItemType('capsule_coin')
         self:setItemByID(item_id)
 
-    elseif (type == MAIL_SELECT_TYPE.RUNE_STONE) then
+    elseif (type == MAIL_SELECT_TYPE.RUNE_BOX) then
         title = Str('우편함')
-        local item_id = TableItem():getItemIDFromItemType('rune_stone')
+        local item_id = TableItem():getItemIDFromItemType('rune_box')
         self:setItemByID(item_id)
 
 	elseif (type == MAIL_SELECT_TYPE.ITEM) then

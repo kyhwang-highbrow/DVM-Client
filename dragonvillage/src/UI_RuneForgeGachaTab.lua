@@ -71,7 +71,7 @@ function UI_RuneForgeGachaTab:click_buyBtn(product_id)
 
 	local function cb_func(ret)
         -- 아이템 획득 우편함
-        ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_STONE, close_cb)
+        ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX, close_cb)
 	end
 
 	struct_product:buy(cb_func)
@@ -89,8 +89,8 @@ end
 -------------------------------------
 function UI_RuneForgeGachaTab:request_runeGacha()
     -- 조건 체크
-    local rune_stone_count = g_userData:get('rune_stone') or 0
-    if (rune_stone_count <= 0) then
+    local rune_box_count = g_userData:get('rune_box') or 0
+    if (rune_box_count <= 0) then
         UIManager:toastNotificationRed(Str('룬 원석이 부족합니다.'))
         return
     end
@@ -131,7 +131,7 @@ end
 function UI_RuneForgeGachaTab:refresh()
     local vars = self.vars
 
-    local rune_stone_count = g_userData:get('rune_stone') or 0
-    vars['itemLabel']:setString(rune_stone_count)
+    local rune_box_count = g_userData:get('rune_box') or 0
+    vars['itemLabel']:setString(rune_box_count)
 end
 
