@@ -127,11 +127,11 @@ function UI_QuickPopupNew:init_underBtn()
     local vars = self.vars
 
      -- 하단 메뉴 잠금 처리 - 아예 안나옴 처리
-    local l_under = {'dragonManage', 'tamer', 'forest', 'quest', 'clan', 'shop', 'draw', 'inventory', 'book', 'setting'}
-    local l_content = {}
+    local l_under = {'dragonManage', 'runeForge', 'tamer', 'forest', 'quest', 'clan', 'shop', 'draw', 'inventory', 'book', 'setting'}
+    local l_align_ui_list = {}
     for i, under_name in ipairs(l_under) do
         if (not g_contentLockData:isContentLock(under_name)) then
-            table.insert(l_content, vars[under_name .. 'Btn'])
+            table.insert(l_align_ui_list, vars[under_name .. 'Btn'])
             vars[under_name .. 'Btn']:setVisible(true)
         else
             vars[under_name .. 'Btn']:setVisible(false)
@@ -140,6 +140,7 @@ function UI_QuickPopupNew:init_underBtn()
 
     -- 드래곤 관리
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) 
+    vars['runeForgeBtn']:registerScriptTapHandler(function() self:click_runeForgeBtn() end) 
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
     vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
@@ -150,20 +151,7 @@ function UI_QuickPopupNew:init_underBtn()
     vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end) -- 설정
 
-    -- 전체 몇 컨텐츠 중에 - 현재 활성화 된 컨텐츠
-    -- 기준 x위치에서 그 차이만큼 옆으로 이동한 다음 정렬시켜줌 
-    local max_cnt = 10
-    local cnt = #l_content
-    local start_pos_x = -495
-    local interval = 110
-    local dis_cnt = max_cnt - cnt
-    local pos_x = start_pos_x + dis_cnt * interval/2
-
-    -- 버튼들의 위치 지정
-    for i,v in ipairs(l_content) do
-        local _pos_x = pos_x + ((i-1) * interval)
-        v:setPositionX(_pos_x)
-    end
+    AlignUIPos(l_align_ui_list, 'HORIZONTAL', 'CENTER', 8) -- param : 정렬할 UI list, 방향, 정렬속성, offset
 end
 
 -------------------------------------
@@ -273,6 +261,14 @@ end
 -------------------------------------
 function UI_QuickPopupNew:click_dragonManageBtn()
     self:goTo('dragon')
+end
+
+-------------------------------------
+-- function click_runeForgeBtn
+-- @brief 룬 관리 버튼
+-------------------------------------
+function UI_QuickPopupNew:click_runeForgeBtn()
+    self:goTo('rune_forge')
 end
 
 -------------------------------------
