@@ -130,6 +130,8 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
 
     -- 룬 연마 옵션 정보 버튼 활성화
     vars['runeGrindBtn']:setVisible(true)
+    vars['grindNotiLabel2']:setVisible(false)
+    vars['grindNotiLabel']:setVisible(true)
 
     -- 연마 아이템(Max확정권, 옵션 유지권) radio button 선언
     local grind_item_radio_button = UIC_RadioButton()
@@ -141,28 +143,64 @@ function UI_DragonRunesGrind:initOptionRadioBtn()
         local is_maxFixed = (option_item_type == 'max_fixed_ticket')
         vars['optKeepDescLabel']:setVisible(is_optKepp)
         vars['maxFixedDescLabel']:setVisible(is_maxFixed)
-        vars['grindNotiLabel2']:setVisible((is_optKepp or is_maxFixed))
-        vars['grindNotiLabel']:setVisible(not (is_optKepp or is_maxFixed))
+        
+        -- @kwkang 20-12-09 아이템이 없는 경우 이제 버튼을 띄우지 않기 때문에 헷갈릴 수 있는 설명은 제외한다.
+        -- grindNotiLabel2 = 'MAX 확정권과 옵션 유지권은 중복으로 사용할 수 없습니다.' 
+        --vars['grindNotiLabel2']:setVisible((is_optKepp or is_maxFixed))
+        --vars['grindNotiLabel']:setVisible(not (is_optKepp or is_maxFixed))
+        
         self:refresh_grindItemRadioBtn()
     end)
 
     self.m_grindItemRadioBtn = grind_item_radio_button
-
+    
     -- 연마 아이템 라디오 버튼 등록
-     for item_name, ui_name in pairs(GRIND_ITEM_RADIO_LIST) do
+    for item_name, ui_name in pairs(GRIND_ITEM_RADIO_LIST) do
         local option_item_btn = string.format('%sBtn', ui_name)
         local option_item_sprite = string.format('%sSprite', ui_name)
         local option_item_node = string.format('%sNode', ui_name)
         local option_item_label = string.format('%sNameLabel', ui_name)
         
-        if (not grind_item_radio_button:existButton(opt_type)) then -- 없는 버튼이면 등록
-            grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
+        if (not grind_item_radio_button:existButton(opt_type)) then -- 없는 버튼이라면 등록
+            if (item_name ~= 'none_select') then 
+                local option_item_id = TableItem:getItemIDFromItemType(item_name)
+                local option_item_cnt = g_userData:get(item_name)
+                
+                -- 아이템을 가지고 있지 않다면 등록 안하고 visible : false로
+                if (option_item_cnt > 0) then
+                    grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
+                else
+                    vars[option_item_btn]:setVisible(false)
+                end
+                
+            else
+                grind_item_radio_button:addButton(item_name, vars[option_item_btn], vars[option_item_sprite])
+            end 
         end
     end
+
+    -- 정렬하기
+    local l_ui_list = {vars['notSelectBtn'], vars['maxFixedBtn'], vars['optKeepBtn']}
+    local l_align_ui_list = {}
     
+    -- 아이템이 존재하지 않아서 안보이게 설정한 UI는 정렬 리스트에서 제거
+    for idx, ui in ipairs(l_ui_list) do
+        if (ui:isVisible()) then
+            table.insert(l_align_ui_list, ui)
+        end
+    end
+
+    -- 만약 선택지가 있다면 정렬해서 보여주고
+    if (table.count(l_align_ui_list) > 1) then
+        AlignUIPos(l_align_ui_list, 'HORIZONTAL', 'CENTER', 10) -- 가로 방향으로 가운데 정렬, offset = 10
+    
+    -- 선택지가 없으면 일반 연마 버튼도 보여주지 않음
+    else
+        vars['notSelectBtn']:setVisible(false)
+    end
+
     -- 연마 보조 아이템 디폴트 값 설정
     grind_item_radio_button:setSelectedButton('none_select')
-
 end
 
 
@@ -270,9 +308,10 @@ function UI_DragonRunesGrind:refresh_grindItemRadioBtn()
         local option_item_sprite = string.format('%sSprite', ui_name)
         local option_item_node = string.format('%sNode', ui_name)
         local option_item_not_sprite = string.format('%sNotSprite', ui_name)
-           
+
         -- max 확정권, 옵션 유지권은 보유 갯수 갱신
-        if (item_name ~= 'none_select') then
+        -- visible 옵션을 통해 해당 아이템 버튼이 initOptionRadioBtn을 통해 등록되었는지 파악
+        if ((vars[option_item_btn]:isVisible()) and (item_name ~= 'none_select')) then
             local option_item_id = TableItem:getItemIDFromItemType(item_name)
             local option_item_cnt = g_userData:get(item_name)
             local option_item_card = UI_ItemCard(option_item_id, option_item_cnt)
