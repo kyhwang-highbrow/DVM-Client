@@ -466,9 +466,10 @@ function UI_RuneSelectDevApiPopup:request(rune_count)
     ui_network:setParam('slot', slot)
     ui_network:setParam('rarity', rarity)
     ui_network:setParam('lv', lv)
-      
+    
+
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
-        if (self.m_mOpt[v]) and (self.m_mVal[v]) then
+        if (self.m_mOpt[v]) and ((self.m_mVal[v]) or (v == 'mopt')) then
             ui_network:setParam(v, self.m_mOpt[v])
             ui_network:setParam(v .. '_val', self.m_mVal[v])
         end
