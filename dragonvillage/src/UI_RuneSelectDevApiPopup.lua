@@ -469,11 +469,15 @@ function UI_RuneSelectDevApiPopup:request(rune_count)
     
 
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
-        if (self.m_mOpt[v]) and ((self.m_mVal[v]) or (v == 'mopt')) then
+        if (self.m_mOpt[v]) and (self.m_mVal[v]) then
             ui_network:setParam(v, self.m_mOpt[v])
             ui_network:setParam(v .. '_val', self.m_mVal[v])
         end
     end  
+
+    if (self.m_mOpt['mopt'] ~= '랜덤') then
+        ui_network:setParam('mopt', self.m_mOpt['mopt'])
+    end 
 
     ui_network:setSuccessCB(function(ret)
         if ret and ret['runes'] then
