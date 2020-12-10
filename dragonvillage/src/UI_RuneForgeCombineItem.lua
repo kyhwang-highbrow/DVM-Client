@@ -168,6 +168,11 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
     result_card_ui:makeSprite('frameNode', frame_res)
     
     -- 획득 가능한 범주의 등급 표시
+    -- 위
+    result_card_ui:makeSprite('runeNumberNode', star_res, true) -- (lua_name, res, no_use_frames)
+    result_card_ui.vars['runeNumberNode']:setPositionY(50) -- 하드코딩
+    result_card_ui.vars['runeNumberNode']:setScale(0.9) -- 하드코딩
+    -- 아래
     result_card_ui:makeSprite('starNode', star_res, true) -- (lua_name, res, no_use_frames)
     result_card_ui.vars['starNode']:setPositionY(-40) -- 하드코딩
     result_card_ui.vars['starNode']:setScale(0.9) -- 하드코딩
