@@ -95,6 +95,11 @@ function UI_RuneForgeGachaTab:request_runeGacha()
         return
     end
     
+    -- 룬 최대 보유 수량 체크
+    if (not g_runesData:checkRuneGachaMaximum(10)) then
+        return
+    end
+
     local function close_cb()
         self:refresh()
     end

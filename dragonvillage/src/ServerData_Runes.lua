@@ -630,3 +630,22 @@ function ServerData_Runes:request_runeBless(owner_doid, roid, finish_cb, fail_cb
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function checkRuneGachaMaximum
+-- @brief 룬 뽑기 최대치 확인
+-- @return bool true : 뽑기 가능
+--              false : 뽑기 불가능 (안내 팝업 띄움)
+-------------------------------------
+function ServerData_Runes:checkRuneGachaMaximum(gacha_rune_cnt)
+    local gacha_rune_cnt = (gacha_rune_cnt or 0)
+    local unequipped_rune_cnt = self:getUnequippedRuneCount()
+    local MAXIMUM = 800
+    if (MAXIMUM < (unequipped_rune_cnt + gacha_rune_cnt)) then
+        local msg = Str('더는 룬을 획득 할 수 없습니다.\n룬 보유 공간을 확보해 주세요.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return false
+    end
+
+    return true
+end
