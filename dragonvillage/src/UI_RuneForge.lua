@@ -22,7 +22,7 @@ function UI_RuneForge:init(tab, focus_id)
     self:doAction(nil, false)
 
     self:initUI()
-    self:initTab(focus_id)
+    self:initTab(tab, focus_id)
     self:initButton()
     self:refresh()
 
@@ -40,9 +40,10 @@ end
 function UI_RuneForge:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_RuneForge'
-    self.m_titleStr = Str('룬')
     self.m_bUseExitBtn = true
-    -- self.m_subCurrency = 'fp' -- 우정포인트
+    self.m_titleStr = nil
+    self.m_invenType = 'rune'
+    self.m_bShowInvenBtn = true 
 end
 
 -------------------------------------
@@ -83,9 +84,11 @@ end
 
 -------------------------------------
 -- function initTab
+-- @param type : info, manage, combine, gacha, reinforce, grind
 -------------------------------------
-function UI_RuneForge:initTab(focus_id)
+function UI_RuneForge:initTab(type, focus_id)
     local vars = self.vars
+    local type = type or 'info'
 
     local info_tab = UI_RuneForgeInfoTab(self)
     local manage_tab = UI_RuneForgeManageTab(self)
@@ -107,7 +110,7 @@ function UI_RuneForge:initTab(focus_id)
     self:addTabWithTabUIAndLabel('reinforce', vars['reinforceTabBtn'], vars['reinforceTabLabel'], reinforce_tab) -- 강화
     self:addTabWithTabUIAndLabel('grind', vars['grindTabBtn'], vars['grindTabLabel'], grind_tab) -- 연마
 
-    self:setTab('info')
+    self:setTab(type)
 
     -- 탭 바뀔 때 호출하는 함수 세팅
     self.m_cbChangeTab = function(tab, first)
