@@ -17,7 +17,7 @@ UI_RuneForgeCombineTab = class(PARENT,{
         m_bDoingAutoBtn = 'boolean', -- 자동 등록 버튼 로직이 돌고 있다면 true (연속해서 빠르게 누를 때 렉 걸리는거 방지)
     })
 
-UI_RuneForgeCombineTab.CARD_SCALE = 0.5
+UI_RuneForgeCombineTab.CARD_SCALE = 0.51
 UI_RuneForgeCombineTab.CARD_CELL_SIZE = cc.size(78, 78)
 UI_RuneForgeCombineTab.MAX_COMBINE_COUNT = 10 -- 한번에 합성 가능한 최대 갯수
 
