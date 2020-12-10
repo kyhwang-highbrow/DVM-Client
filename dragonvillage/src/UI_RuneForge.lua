@@ -40,7 +40,7 @@ end
 function UI_RuneForge:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_RuneForge'
-    self.m_titleStr = Str('세공소')
+    self.m_titleStr = Str('룬')
     self.m_bUseExitBtn = true
     -- self.m_subCurrency = 'fp' -- 우정포인트
 end
