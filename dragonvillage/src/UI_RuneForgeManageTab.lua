@@ -13,7 +13,7 @@ UI_RuneForgeManageTab = class(PARENT,{
         m_optionLabel = 'ui',
 
         m_bSelectSellActive = 'boolean', -- 현재 선택 판매중인지
-        m_mSelectedRuneMap = '', -- 현재 판매를 위해 선택된 아이템
+        m_mSelectedRuneUIMap = 'map', -- 현재 판매를 위해 선택된 아이템 UI, map[roid] = ui
     })
 
 
@@ -27,7 +27,7 @@ function UI_RuneForgeManageTab:init(owner_ui)
     local vars = self:load('rune_forge_manage.ui')
    
    self.m_bSelectSellActive = false
-   self.m_mSelectedRuneMap = {}
+   self.m_mSelectedRuneUIMap = {}
 end
 
 -------------------------------------
@@ -38,6 +38,7 @@ function UI_RuneForgeManageTab:onEnterTab(first)
 
     if (first == true) then
         self:initUI()
+        self:initButton()
         self:setTab(1)
         self:clearRuneInfo()
     end
@@ -47,7 +48,7 @@ end
 -- function onExitTab
 -------------------------------------
 function UI_RuneForgeManageTab:onExitTab()
-
+    
 end
 
 -------------------------------------
@@ -65,6 +66,36 @@ function UI_RuneForgeManageTab:initUI()
     for i = 1, 6 do
         self:addTabWithLabel(i, vars['runeTabBtn' .. i], vars['runeTabLabel' .. i], vars['runeTableViewNode' .. i])
     end
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_RuneForgeManageTab:initButton()
+    local vars = self.vars
+
+    -- "선택 판매" 버튼
+    vars['selectSellStartBtn']:registerScriptTapHandler(function()
+        self:setActiveSelectSell(true)
+    end)
+
+    -- "판매" 버튼
+    vars['selectSellBtn']:registerScriptTapHandler(function() 
+        self:click_selectSellBtn() 
+    end)
+
+    -- "취소" 버튼
+    vars['selectSellStopBtn']:registerScriptTapHandler(function()
+        self:setActiveSelectSell(false)
+    end)
+
+    vars['bulkSellBtn']:registerScriptTapHandler(function() 
+        self:click_bulkSellBtn() 
+    end)
+
+    vars['runeInfoBtn']:registerScriptTapHandler(function() 
+        self:click_runeInfoBtn() 
+    end)
 end
 
 -------------------------------------
@@ -139,8 +170,19 @@ function UI_RuneForgeManageTab:setSelectedRune(ui, data)
 
     -- 선택 판매 시 사용
     if (self.m_bSelectSellActive) then
-        -- TODO
-        -- self.m_selectSellItemsUI:setSelectedItem(ui, data)
+        if (data['lock']) then
+            UIManager:toastNotificationRed(Str('잠금 상태입니다.'))
+            return
+        end
+        local roid = data['roid']
+
+        if self.m_mSelectedRuneUIMap[roid] then
+            ui:setCheckSpriteVisible(false)
+            self.m_mSelectedRuneUIMap[roid] = nil
+        else
+            ui:setCheckSpriteVisible(true)
+            self.m_mSelectedRuneUIMap[roid] = {['ui'] = ui, ['data'] = data}
+        end
     end
 end
 
@@ -165,7 +207,7 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
 		-- 만약 선택 판매 중이었다면 체크 표시
         if (self.m_bSelectSellActive) then
             local roid = data['roid']
-            if (self.m_mSelectedRuneMap[roid]) then
+            if (self.m_mSelectedRuneUIMap[roid]) then
                 if (not data['lock']) then
                     ui:setCheckSpriteVisible(true)
                 end
@@ -304,7 +346,7 @@ function UI_RuneForgeManageTab:sellBtn(t_rune_data)
 
         -- 선택된 룬이 판매되었으니 선택 해제
         local function cb(ret)
-            --self.m_inventoryUI:response_itemSell(ret)
+            self:refresh_tableView(ret['deleted_rune_oids'])
             self:clearSelectedRune()
 			self:refresh_noti()
         end
@@ -343,8 +385,8 @@ function UI_RuneForgeManageTab:runeLockBtn(t_rune_data)
         
 		-- 잠금했던 룬이라면 잠금여부에 따라 roid 삭제
         if (new_data['lock'] == true) and (self.m_bSelectSellActive) then
-            if (self.m_mSelectedRuneMap and roid) then
-                self.m_mSelectedRuneMap[roid] = nil
+            if (self.m_mSelectedRuneUIMap and roid) then
+                self.m_mSelectedRuneUIMap[roid] = nil
             end
         end
 
@@ -430,7 +472,7 @@ function UI_RuneForgeManageTab:click_bulkSellBtn()
     local ui = UI_RuneBulkSalePopup()
 
     local function cb(ret)
-        --self.m_inventoryUI:response_itemSell(ret)
+        self:refresh_tableView(ret['deleted_rune_oids'])
         self:clearSelectedRune()
 		self:refresh_noti()
     end
@@ -438,13 +480,100 @@ function UI_RuneForgeManageTab:click_bulkSellBtn()
     ui:setSellCallback(cb)
 end
 
+-------------------------------------
+-- function click_selectSellBtn
+-------------------------------------
+function UI_RuneForgeManageTab:click_selectSellBtn()
+    local count = table.count(self.m_mSelectedRuneUIMap)
+
+    if (count <= 0) then
+        UIManager:toastNotificationRed(Str('선택된 아이템이 없습니다.'))
+        return
+    end
+
+    local rune_oids
+    local items
+
+    local total_price = 0
+
+    local table_item = TableItem()
+    for i,v in pairs(self.m_mSelectedRuneUIMap) do
+        local ui = v['ui']
+        local data = v['data']
+        local item_id = ui.m_itemID
+
+        local price = table_item:getValue(item_id, 'sale_price')
+        local item_count = 1
+
+        -- 룬 판매
+        local roid = i
+        if (not rune_oids) then
+            rune_oids = roid
+        else
+            rune_oids = rune_oids .. ',' .. roid
+        end
+
+        total_price = total_price + (price * item_count)
+    end
+
+    -- 선택된 룬이 판매되었으니 선택 해제
+    local function cb(ret)
+        self:refresh_tableView(ret['deleted_rune_oids'])
+        self:clearSelectedRune()
+
+        self.m_mSelectedRuneUIMap = {}
+        self.m_bSelectSellActive = false
+    end
+
+    local function request_item_sell()
+        g_inventoryData:request_itemSell(rune_oids, items, cb)
+    end
+
+    local msg = Str('{1}개의 아이템을 {2}골드에 판매하시겠습니까?', count, comma_value(total_price))
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
+end
 
 -------------------------------------
--- function clearTabFirstInfo
--- @brief
+-- function setActive
 -------------------------------------
-function UI_RuneForgeManageTab:clearTabFirstInfo()
-    for i,v in pairs(self.m_mTabData) do
-        v['first'] = true
+function UI_RuneForgeManageTab:setActiveSelectSell(active)
+    local vars = self.vars
+
+    self.m_bSelectSellActive = active
+
+    if (not active) then
+        for i,v in pairs(self.m_mSelectedRuneUIMap) do
+            local ui = v['ui']
+            ui:setCheckSpriteVisible(false)
+        end
+        self.m_mSelectedRuneUIMap = {}
     end
+
+    if active then
+        vars['selectSellStartBtn']:setVisible(false)
+        vars['selectSellBtn']:setVisible(true)
+        vars['selectSellStopBtn']:setVisible(true)
+
+        vars['bulkSellBtn']:setVisible(false)
+        vars['sellBtn']:setVisible(false)
+    else
+        vars['selectSellStartBtn']:setVisible(true)
+        vars['selectSellBtn']:setVisible(false)
+        vars['selectSellStopBtn']:setVisible(false)
+
+        vars['bulkSellBtn']:setVisible(true)
+
+        -- 선택된 아이템이 있을 경우
+        if (self.m_selectedRuneUI) then
+            vars['sellBtn']:setVisible(true)
+        end
+    end
+end
+
+-------------------------------------
+-- function click_runeInfoBtn
+-- @brief 룬 도움말
+-------------------------------------
+function UI_RuneForgeManageTab:click_runeInfoBtn()
+    UI_HelpRune()
 end
