@@ -191,7 +191,7 @@ function UI_RuneForgeCombineTab:initCombineTableView()
     local l_item_list = self.m_mCombineDataMap
    
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(530, 180)
+    table_view.m_defaultCellSize = cc.size(530, 100)
     table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 	table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
