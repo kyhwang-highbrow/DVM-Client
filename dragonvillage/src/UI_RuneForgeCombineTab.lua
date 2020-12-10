@@ -429,13 +429,13 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                     local rune_card = self.m_tableView:getCellUI(roid)
                     rune_card:setCheckSpriteVisible(true)
 
+                    b_is_changed = true
+
                     -- 현재 합성 정보 빈 칸 다 채웠는지 확인
                     blank_slot_count = blank_slot_count - 1
                     if (blank_slot_count == 0) then
                         break
                     end
-
-                    b_is_changed = true
                 end
             end
         end
