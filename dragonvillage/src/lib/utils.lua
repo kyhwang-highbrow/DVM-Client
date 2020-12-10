@@ -1461,7 +1461,6 @@ function AlignUIPos(l_ui_list, direction, align, offset)
     curr_position = add_sign * curr_position
 
     for idx, v in ipairs(l_ui_list) do
-        cclog(l_anchor_value[idx])
         local position = curr_position + (add_sign * (l_content_size[idx] * l_anchor_value[idx]))
 
         if (idx > 1) then
