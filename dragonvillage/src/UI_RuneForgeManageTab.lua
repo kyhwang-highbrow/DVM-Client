@@ -11,6 +11,9 @@ UI_RuneForgeManageTab = class(PARENT,{
 
 		m_tNotiSprite = 'table',
         m_optionLabel = 'ui',
+
+        m_bSelectSellActive = 'boolean', -- 현재 선택 판매중인지
+        m_mSelectedRuneMap = '', -- 현재 판매를 위해 선택된 아이템
     })
 
 
@@ -22,7 +25,9 @@ UI_RuneForgeManageTab.CARD_CELL_SIZE = cc.size(80, 80)
 -------------------------------------
 function UI_RuneForgeManageTab:init(owner_ui)
     local vars = self:load('rune_forge_manage.ui')
-    
+   
+   self.m_bSelectSellActive = false
+   self.m_mSelectedRuneMap = {}
 end
 
 -------------------------------------
@@ -133,7 +138,10 @@ function UI_RuneForgeManageTab:setSelectedRune(ui, data)
     ui:setHighlightSpriteVisible(true)
 
     -- 선택 판매 시 사용
-    -- self.m_selectSellItemsUI:setSelectedItem(ui, data)
+    if (self.m_bSelectSellActive) then
+        -- TODO
+        -- self.m_selectSellItemsUI:setSelectedItem(ui, data)
+    end
 end
 
 -------------------------------------
@@ -145,7 +153,6 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
     node:removeAllChildren()
 
     local l_item_list = g_runesData:getUnequippedRuneList(slot_idx)
-	--local select_sell_item_ui = self.m_inventoryUI.m_selectSellItemsUI
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -156,13 +163,11 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
         ui:setNewSpriteVisible(is_new)
 
 		-- 만약 선택 판매 중이었다면 체크 표시
-        if (select_sell_item_ui) then
+        if (self.m_bSelectSellActive) then
             local roid = data['roid']
-            if select_sell_item_ui.m_bActive then
-                if (select_sell_item_ui.m_selectedItemUIMap[roid]) then
-                   if (not data['lock']) then
-                        ui:setCheckSpriteVisible(true)
-                   end
+            if (self.m_mSelectedRuneMap[roid]) then
+                if (not data['lock']) then
+                    ui:setCheckSpriteVisible(true)
                 end
             end
         end
@@ -230,7 +235,7 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
 
     -- 획득 지역 안내
     vars['locationBtn']:setVisible(true)
-    vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(t_rune_data['rid']) end)
+    vars['locationBtn']:registerScriptTapHandler(function() UI_AcquisitionRegionInformation:create(t_rune_data['rid']) end)
 
     -- 강화 
     vars['enhanceBtn']:setVisible(true)
@@ -249,9 +254,9 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
     end
     
     -- 판매 버튼
-    --if self.m_inventoryUI.m_selectSellItemsUI and (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) then
-        --vars['sellBtn']:setVisible(true)
-    --end
+    if (not self.m_bSelectSellActive) then
+        vars['sellBtn']:setVisible(true)
+    end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(t_rune_data) end)
 
     -- 룬 세트 효과
@@ -337,12 +342,9 @@ function UI_RuneForgeManageTab:runeLockBtn(t_rune_data)
         local new_data = g_runesData:getRuneObject(roid)
         
 		-- 잠금했던 룬이라면 잠금여부에 따라 roid 삭제
-        -- local select_sell_item_ui = self.m_inventoryUI.m_selectSellItemsUI
-        if (new_data['lock'] == true) and (select_sell_item_ui) then
-            if select_sell_item_ui.m_bActive then
-                if (select_sell_item_ui.m_selectedItemUIMap and roid) then
-                    select_sell_item_ui.m_selectedItemUIMap[roid] = nil
-                end
+        if (new_data['lock'] == true) and (self.m_bSelectSellActive) then
+            if (self.m_mSelectedRuneMap and roid) then
+                self.m_mSelectedRuneMap[roid] = nil
             end
         end
 
