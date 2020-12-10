@@ -5,6 +5,7 @@ local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 -------------------------------------
 UI_RuneForgeManageTab = class(PARENT,{
         m_selectedRuneObject = 'StructRuneObject',
+        m_selectedRuneUI = '',
         m_mTableViewListMap = 'map',
         m_mSortManagerMap = 'map',
 
@@ -33,6 +34,7 @@ function UI_RuneForgeManageTab:onEnterTab(first)
     if (first == true) then
         self:initUI()
         self:setTab(1)
+        self:clearRuneInfo()
     end
 end
 
@@ -55,7 +57,6 @@ function UI_RuneForgeManageTab:initUI()
     self.m_optionLabel = nil
     local vars = self.vars
 
-    -- 'inventory.ui'를 사용
     for i = 1, 6 do
         self:addTabWithLabel(i, vars['runeTabBtn' .. i], vars['runeTabLabel' .. i], vars['runeTableViewNode' .. i])
     end
@@ -69,11 +70,70 @@ function UI_RuneForgeManageTab:onChangeTab(tab, first)
 
     self:init_runeTableView(slot_idx)
 
-    -- 테이블 뷰에서 선택된 셀의 변수를 초기화
-    --local skip_clear_info = true
-    --self.m_inventoryUI:clearSelectedItem(skip_clear_info)
+    -- 선택된 룬 정보 초기화
+    local skip_clear_info = true
+    self:clearSelectedRune(skip_clear_info)
 
 	self:refresh_noti()
+end
+
+-------------------------------------
+-- function clearSelectedRune
+-- @brief
+-------------------------------------
+function UI_RuneForgeManageTab:clearSelectedRune(skip_clear_info)
+    self.m_selectedRuneUI = nil
+    self.m_selectedRuneObject = nil
+
+    if (not skip_clear_info) then
+        self:clearRuneInfo()
+    end
+end
+
+-------------------------------------
+-- function clearRuneInfo
+-- @brief
+-------------------------------------
+function UI_RuneForgeManageTab:clearRuneInfo()
+    local vars = self.vars
+
+    vars['lockSprite']:setVisible(false)
+    vars['lockBtn']:setVisible(false)
+    vars['itemDscLabel']:setVisible(false)
+    vars['itemNameLabel']:setVisible(false)
+    vars['sellBtn']:setVisible(false)
+    vars['enhanceBtn']:setVisible(false)
+    vars['locationBtn']:setVisible(false)
+    vars['itemDscNode2']:setVisible(false)
+    vars['runeDscNode']:setVisible(false)
+    vars['itemNode']:removeAllChildren()
+    vars['itemNode']:setVisible(false)
+end
+
+-------------------------------------
+-- function setSelectedRune
+-- @brief
+-------------------------------------
+function UI_RuneForgeManageTab:setSelectedRune(ui, data)
+    if (ui == nil) then
+        return
+    end
+    
+    if self.m_selectedRuneUI then
+        self.m_selectedRuneUI:setHighlightSpriteVisible(false)
+    end
+
+    self.m_selectedRuneUI = ui
+    self.m_selectedRuneObject = data
+
+    self:clearRuneInfo()
+    self:onChangeSelectedItem(ui, data)
+    cca.uiReactionSlow(ui.root, UI_RuneForgeManageTab.CARD_SCALE, UI_RuneForgeManageTab.CARD_SCALE)
+
+    ui:setHighlightSpriteVisible(true)
+
+    -- 선택 판매 시 사용
+    -- self.m_selectSellItemsUI:setSelectedItem(ui, data)
 end
 
 -------------------------------------
@@ -109,7 +169,7 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
             
 		-- 클릭 콜백
         local function click_func()
-            -- self.m_inventoryUI:setSelectedItem(ui, data)
+            self:setSelectedRune(ui, data)
 			
 			-- 신규 룬 표시 삭제
 			local roid = data['roid']
@@ -169,7 +229,6 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
     end
 
     -- 획득 지역 안내
-    vars['hatcheryBtn']:setVisible(false)
     vars['locationBtn']:setVisible(true)
     vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(t_rune_data['rid']) end)
 
@@ -241,7 +300,7 @@ function UI_RuneForgeManageTab:sellBtn(t_rune_data)
         -- 선택된 룬이 판매되었으니 선택 해제
         local function cb(ret)
             --self.m_inventoryUI:response_itemSell(ret)
-            --self.m_inventoryUI:clearSelectedItem()
+            self:clearSelectedRune()
 			self:refresh_noti()
         end
 
@@ -328,9 +387,9 @@ function UI_RuneForgeManageTab:refresh_selectedRune(new_data)
             if (new_data['roid'] == roid) then
                 table_view:replaceItemUI(roid, new_data)
 
-                --self.m_inventoryUI:clearSelectedItem()
+                self:clearSelectedRune()
                 local new_item = table_view:getItem(roid)
-                --self.m_inventoryUI:setSelectedItem(new_item['ui'], new_item['data'])
+                self:setSelectedRune(new_item['ui'], new_item['data'])
             end
         end
     end
@@ -370,9 +429,10 @@ function UI_RuneForgeManageTab:click_bulkSellBtn()
 
     local function cb(ret)
         --self.m_inventoryUI:response_itemSell(ret)
-        --self.m_inventoryUI:clearSelectedItem()
+        self:clearSelectedRune()
 		self:refresh_noti()
     end
+
     ui:setSellCallback(cb)
 end
 
