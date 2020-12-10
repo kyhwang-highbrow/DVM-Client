@@ -69,6 +69,8 @@ function UI_RuneForgeCombineItem:refresh()
         if (self.m_resultCard ~= nil) then
             self.m_resultCard = nil
             vars['runeResultNode']:removeAllChildren()
+            self.vars['noneSelectSprite']:setVisible(true)
+
         end
 
     -- 결과 룬 카드를 생성하지 않은 경우
@@ -161,7 +163,7 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
     end
 
     local frame_res = 'card_rune_frame_none.png'
-    local result_res = string.format('res/ui/icons/rune/set_all_%02d.png', success_grade)
+    local result_res = string.format('res/ui/icons/item/rune_forge_combine_select_0101.png')
     local star_res
     if (curr_grade == success_grade) then
         star_res = string.format('res/ui/icons/rune/star_%d.png', curr_grade)
@@ -174,11 +176,11 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
     
     -- 획득 가능한 범주의 등급 표시
     result_card_ui:makeSprite('starNode', star_res, true) -- (lua_name, res, no_use_frames)
-    result_card_ui.vars['starNode']:setPositionY(-45) -- 하드코딩
+    result_card_ui.vars['starNode']:setPositionY(-40) -- 하드코딩
+    result_card_ui.vars['starNode']:setScale(0.9) -- 하드코딩
     
     -- 얻을 수 있는 등급 중 좋은 등급의 룬 아이콘
     result_card_ui:makeSprite('runeNode', result_res, true) -- (lua_name, res, no_use_frames)
-    result_card_ui.vars['runeNode']:setPositionY(20) -- 하드코딩
     
     -- 높은 등급을 획득할 수 있는 경우 효과 나타내기
 	if (success_grade >= 7) then
@@ -196,6 +198,7 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
     result_card_ui:setSpriteVisible('disableSprite', disable_res, true)
 
     self.vars['runeResultNode']:addChild(result_card_ui.root)
+    self.vars['noneSelectSprite']:setVisible(false)
     self.m_resultCard = result_card_ui
 end
 
