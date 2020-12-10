@@ -13,6 +13,8 @@ UI_RuneForgeCombineTab = class(PARENT,{
         m_mSelectRuneMap = 'map', -- grade마다 현재 선택되어있는 룬 저장하는 map, map[grade][roid]
         m_mCombineDataMap = 'map', -- 합성 정보 저장, map[unique_key] = StructRuneCombine
         m_currUniqueKey = 'number', -- StructRuneCombine의 유니크 키를 생성하기 애매한 부분이 있어서 숫자로 관리
+        ---------------------------------
+        m_bDoingAutoBtn = 'boolean', -- 자동 등록 버튼 로직이 돌고 있다면 true (연속해서 빠르게 누를 때 렉 걸리는거 방지)
     })
 
 UI_RuneForgeCombineTab.CARD_SCALE = 0.5
@@ -40,6 +42,7 @@ function UI_RuneForgeCombineTab:initSelectRunes()
 
     self.m_mCombineDataMap = {}
     
+    self.m_bDoingAutoBtn = false
 end
 
 -------------------------------------
@@ -322,6 +325,7 @@ function UI_RuneForgeCombineTab:selectRune(t_rune_data)
     if (not b_add_rune) then
         -- 이미 합성 갯수가 가득찬 경우
         if (table.count(self.m_mCombineDataMap) >= UI_RuneForgeCombineTab.MAX_COMBINE_COUNT) then
+            UIManager:toastNotificationRed(Str('한번에 합성 가능한 룬 개수를 초과했습니다.'))
             return
         end 
 
@@ -373,7 +377,12 @@ end
 -- @brief 자동 등록
 -------------------------------------
 function UI_RuneForgeCombineTab:click_autoBtn()
-    
+    -- 로직 돌고 있는 동안 또 돌지 않게 
+    if (self.m_bDoingAutoBtn == true) then
+        return
+    end
+    self.m_bDoingAutoBtn = true
+
     -- 기존에 이미 등록된 합성 정보에서 남은 칸부터 채울 수 있으면 채운다.
     local clone_table_item_list = clone(self.m_tableView.m_itemList)
     local sort_manager = SortManager_Rune()
@@ -510,6 +519,14 @@ function UI_RuneForgeCombineTab:click_autoBtn()
     end
 
     self:refresh()
+    UIManager:toastNotificationGreen(Str('합성 재료를 자동으로 등록했습니다.'))
+    
+    local function reserve_func()
+        self.m_bDoingAutoBtn = false
+    end
+
+    local node = self.root
+    cca.reserveFunc(node, 0.3, reserve_func)
 end
 
 -------------------------------------
@@ -540,7 +557,16 @@ function UI_RuneForgeCombineTab:click_combineBtn()
         return
     end
 
-    local function close_cb()
+    local ok_btn_cb
+    local close_cb
+    local success_cb
+    local fail_cb
+
+    ok_btn_cb = function()
+        g_runesData:request_runeCombine(src_roids, finish_cb, fail_cb)
+    end
+
+    close_cb = function()
         -- 왼쪽 룬 창 정리
         self:initTableView()
 
@@ -564,7 +590,7 @@ function UI_RuneForgeCombineTab:click_combineBtn()
         self:refresh()
     end
 
-    local function finish_cb(ret)
+    finish_cb = function(ret)
         require('UI_GachaResult_Rune')
         
 		local gacha_type = 'combine'
@@ -575,9 +601,11 @@ function UI_RuneForgeCombineTab:click_combineBtn()
         ui:setCloseCB(close_cb)
     end
 
-    function fail_cb(ret)
+    fail_cb = function(ret)
     end
 
-    g_runesData:request_runeCombine(src_roids, finish_cb, fail_cb)
-
+    local combine_result_rune_count = table.count(full_combine_data_id_list) 
+    local combine_material_rune_count = combine_result_rune_count * RUNE_COMBINE_REQUIRE
+    local combine_str = Str('{@MUSTARD}{1}개{@DESC} 룬을 재료로 사용하여 {@MUSTARD}{2}개{@DESC} 룬을 합성합니다.\n합성하시겠습니까?', combine_material_rune_count, combine_result_rune_count)
+	MakeSimplePopup(POPUP_TYPE.YES_NO, combine_str, ok_btn_cb)
 end

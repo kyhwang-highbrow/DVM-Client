@@ -12,6 +12,17 @@ UI_RuneForgeCombineItem = class(PARENT,{
         m_resultEffect = 'visual',
     })
 
+-- 가능한 등급이 1~2라면 key : 12
+UI_RuneForgeCombineItem.result_info_text = {
+    ['12'] = Str('{@SKILL_NAME}1등급 룬 합성\n{@DEFAULT}1~2등급 룬을 얻을 수 있습니다.'),
+    ['23'] = Str('{@SKILL_NAME}2등급 룬 합성\n{@DEFAULT}2~3등급 룬을 얻을 수 있습니다.'),
+    ['34'] = Str('{@SKILL_NAME}3등급 룬 합성\n{@DEFAULT}3~4등급 룬을 얻을 수 있습니다.'),
+    ['45'] = Str('{@SKILL_NAME}4등급 룬 합성\n{@DEFAULT}4~5등급 룬을 얻을 수 있습니다.'),
+    ['56'] = Str('{@SKILL_NAME}5등급 룬 합성\n{@DEFAULT}5~6등급 룬을 얻을 수 있습니다.'),
+    ['67'] = Str('{@SKILL_NAME}6등급 룬 합성\n{@DEFAULT}6~7등급 룬을 얻을 수 있습니다.'),
+    ['77'] = Str('{@SKILL_NAME}7등급 룬 합성\n{@DEFAULT}7등급 룬을 얻을 수 있습니다.'),
+}
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -193,14 +204,8 @@ end
 -- @brief 합성 결과 카드 클릭할 때 
 -------------------------------------
 function UI_RuneForgeCombineItem:press_resultRuneBtn(curr_grade, success_grade)
-    local str
-    
-    if (curr_grade == success_grade) then
-        str = Str('{1}등급 룬을 합성합니다.', curr_grade, success_grade)
-    else
-        str = Str('{1}~{2}등급 룬을 합성합니다.', curr_grade, success_grade)
-    end
-
+    local str_key = tostring(curr_grade) .. tostring(success_grade)
+    local str = UI_RuneForgeCombineItem.result_info_text[str_key]
     local tool_tip = UI_Tooltip_Skill(70, -145, str)
 
     -- 자동 위치 지정
