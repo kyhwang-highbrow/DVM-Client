@@ -383,6 +383,8 @@ function UI_RuneForgeCombineTab:click_autoBtn()
     end
     self.m_bDoingAutoBtn = true
 
+    local b_is_changed = false
+
     -- 기존에 이미 등록된 합성 정보에서 남은 칸부터 채울 수 있으면 채운다.
     local clone_table_item_list = clone(self.m_tableView.m_itemList)
     local sort_manager = SortManager_Rune()
@@ -432,6 +434,8 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                     if (blank_slot_count == 0) then
                         break
                     end
+
+                    b_is_changed = true
                 end
             end
         end
@@ -504,6 +508,8 @@ function UI_RuneForgeCombineTab:click_autoBtn()
                         break
                     end
                 
+                    b_is_changed = true
+
                 -- 현재 등급에서 등록 불가능할 때
                 else
                     b_next_grade = true
@@ -519,7 +525,9 @@ function UI_RuneForgeCombineTab:click_autoBtn()
     end
 
     self:refresh()
-    UIManager:toastNotificationGreen(Str('합성 재료를 자동으로 등록했습니다.'))
+    if (b_is_changed == false) then
+        UIManager:toastNotificationRed(Str('한번에 합성 가능한 룬 개수를 초과했습니다.'))
+    end
     
     local function reserve_func()
         self.m_bDoingAutoBtn = false
