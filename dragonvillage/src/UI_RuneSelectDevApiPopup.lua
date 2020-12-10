@@ -668,12 +668,14 @@ function UI_RuneSelectDevApiPopup:makeComboBox2(key, list)
             local table_rune_opt = TABLE:get('table_rune_opt')
             local type = (type > 0) and type or nil
 
-            local t_rune_opt = table_rune_opt['slot_' .. type]
             local l_str = {'랜덤'}
-            if (t_rune_opt) then
-                local l_opt = pl.stringx.split(t_rune_opt['slot_opt'], ',')
-                for i, v in ipairs(l_opt) do
-                    table.insert(l_str, v)
+            if (type ~= nil) then
+                local t_rune_opt = table_rune_opt['slot_' .. type]
+                if (t_rune_opt) then
+                    local l_opt = pl.stringx.split(t_rune_opt['slot_opt'], ',')
+                    for i, v in ipairs(l_opt) do
+                        table.insert(l_str, v)
+                    end
                 end
             end
             self:makeComboBox('mopt', l_str)
