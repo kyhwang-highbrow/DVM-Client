@@ -157,24 +157,20 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
 
     local frame_res = 'card_rune_frame_none.png'
     local result_res = string.format('res/ui/icons/item/rune_forge_combine_select_0101.png')
-    local star_res
-    if (curr_grade == success_grade) then
-        star_res = string.format('res/ui/icons/rune/star_%d.png', curr_grade)
-    else
-        star_res = string.format('res/ui/icons/rune/star_%d%d.png', curr_grade, success_grade)
-    end
+    local star_top_res = string.format('res/ui/icons/rune/star_%d.png', success_grade)
+    local star_bottom_res = string.format('res/ui/icons/rune/star_%d.png', curr_grade)
 
     -- 프레임 생성
     result_card_ui:makeSprite('frameNode', frame_res)
     
     -- 획득 가능한 범주의 등급 표시
     -- 위
-    result_card_ui:makeSprite('runeNumberNode', star_res, true) -- (lua_name, res, no_use_frames)
-    result_card_ui.vars['runeNumberNode']:setPositionY(50) -- 하드코딩
+    result_card_ui:makeSprite('runeNumberNode', star_top_res, true) -- (lua_name, res, no_use_frames)
+    result_card_ui.vars['runeNumberNode']:setPositionY(45) -- 하드코딩
     result_card_ui.vars['runeNumberNode']:setScale(0.9) -- 하드코딩
     -- 아래
-    result_card_ui:makeSprite('starNode', star_res, true) -- (lua_name, res, no_use_frames)
-    result_card_ui.vars['starNode']:setPositionY(-40) -- 하드코딩
+    result_card_ui:makeSprite('starNode', star_bottom_res, true) -- (lua_name, res, no_use_frames)
+    result_card_ui.vars['starNode']:setPositionY(-35) -- 하드코딩
     result_card_ui.vars['starNode']:setScale(0.9) -- 하드코딩
     
     -- 얻을 수 있는 등급 중 좋은 등급의 룬 아이콘
