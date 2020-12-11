@@ -104,7 +104,7 @@ function UI_RuneForge:initTab(type, focus_id)
     vars['indivisualTabMenu']:addChild(grind_tab.root)
     
     self:addTabWithTabUIAndLabel('info', vars['infoTabBtn'], vars['infoTabLabel'], info_tab)       -- 정보
-    self:addTabWithTabUIAndLabel('manage', vars['manageTabBtn'], vars['manageTabLabel'], manage_tab) -- 관린
+    self:addTabWithTabUIAndLabel('manage', vars['manageTabBtn'], vars['manageTabLabel'], manage_tab) -- 관리
     self:addTabWithTabUIAndLabel('combine', vars['combineTabBtn'], vars['combineTabLabel'], combine_tab)    -- 조합
     self:addTabWithTabUIAndLabel('gacha', vars['gachaTabBtn'], vars['gachaTabLabel'], gacha_tab) -- 가챠
     self:addTabWithTabUIAndLabel('reinforce', vars['reinforceTabBtn'], vars['reinforceTabLabel'], reinforce_tab) -- 강화

@@ -214,10 +214,40 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
     -- 룬 연마석
 	elseif (item_type == 'grindstone') then
         table.insert(l_region, 'challenge_mode')
+
 	-- 룬, 과일, 진화재료 및 기타 다른것들
 	else
 		l_region = TableItem:getRegionList(item_id)
 	end
+
+    -- 룬 합성과 가챠 체크
+    -- 리스트 상단, 하단에 배치할 것인지
+    -- 리스트에 아무것도 없을 때만 노출시킬 것인지
+    -- Make your choise
+    if (item_type == 'rune') then
+
+        -- 1성룬 합성 불가
+        -- 뽑기 획등 가능한 룬은 6성 이상
+        local grade = getDigit(item_id, 1, 1)
+
+        -- 고대룬은 획득 불가
+        local is_ancient = (getDigit(item_id, 100, 2) > 8) and true or false
+
+        -- 고대룬이 아니면
+        -- 이야기를 계속해보지.
+        if not is_ancient then
+
+            -- 뽑기에서는 6성 이상만 획득 가능하네.
+            if (grade >= 6) then
+                table.insert(l_region, 'rune_gacha')
+            end
+
+            -- 합성은 2성 이상 가능하네
+            if (grade >= 2) then
+                table.insert(l_region, 'rune_combine')
+            end
+        end
+    end
 
 	return l_region
 end

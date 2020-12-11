@@ -28,10 +28,11 @@ end
 function UI_AcquisitionRegionListItem:initUI()
     local vars = self.vars
     
-    local stage_id = tonumber(self.m_region)
+    local stage_id = tonumber(self.m_region)    
 
 	-- 넘어온 값이 숫자라면 룬 획득방법으로 간주
 	if (stage_id) then
+
 		do -- 스테이지 카테고리
 			local category = g_stageData:getStageCategoryStr(stage_id)
 			vars['locationLabel1']:setString(category)
@@ -81,6 +82,14 @@ function UI_AcquisitionRegionListItem:initUI()
         elseif (get_type == 'cardpack') then
 			title_str = Str('토파즈 드래곤')
 			content_str = Str('토파즈 상점에서 구매')
+
+        -- 룬
+        elseif (get_type == 'rune_gacha') then
+            title_str = Str('룬 뽑기')
+            content_str = Str('룬 뽑기에서 획득')
+        elseif (get_type == 'rune_combine') then
+            title_str = Str('룬 합성')
+            content_str = Str('룬 합성하여 획득')
 
 		elseif (get_type == 'empty') then
 			title_str = Str('[획득 불가]')
@@ -160,9 +169,18 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
                 return
             end
 			UINavigator:goTo('challenge_mode')
+        elseif (get_type == 'rune_gacha') then
+            --룬 가챠로 보내기
+            UINavigator:goTo('rune_forge', 'gacha')
+
+        elseif (get_type == 'rune_combine') then
+            -- 룬 합성으로 보내기
+            UINavigator:goTo('rune_forge', 'combine')
 
         elseif string.find(get_type, 'coupon') then
             ccdisplay('쿠폰 등록 팝업으로 이동!')
+
+        
 
 		end
 	end

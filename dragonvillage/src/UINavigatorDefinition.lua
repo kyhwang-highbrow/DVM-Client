@@ -1153,6 +1153,9 @@ function UINavigatorDefinition:goTo_rune_forge(...)
     local is_opend, idx, ui = self:findOpendUI('UI_RuneForge')
     if (is_opend == true) then
         self:closeUIList(idx, false) -- param : idx, include_idx
+
+        -- 기존 팝업에서 탭 이동만 시켜주자
+        ui:setTab(tab)
         return
     end
 
