@@ -123,17 +123,19 @@ function UI_RuneForgeCombineTab:initTableView()
 
     self.m_tableView:setItemList(l_rune_list)
 
+
     if (self.m_sortManager == nil) then
         local sort_manager = SortManager_Rune()
         self.m_sortManager = sort_manager
+    else
+        vars['sortOrderSprite']:setRotation(180)
     end
 
-    local ascending = true -- 오름차순으로 정렬이 기본
     -- 정렬 우선순위 : 등급 - 희귀도 - 세트 - 슬롯
-    self.m_sortManager:pushSortOrder('slot', ascending)
-	self.m_sortManager:pushSortOrder('set_id', ascending)
-	self.m_sortManager:pushSortOrder('rarity', ascending)
-    self.m_sortManager:pushSortOrder('grade', ascending)
+    self.m_sortManager:pushSortOrder('slot', true)
+	self.m_sortManager:pushSortOrder('set_id', true)
+	self.m_sortManager:pushSortOrder('rarity', true)
+    self.m_sortManager:pushSortOrder('grade', true)
     self.m_sortManager:sortExecution(self.m_tableView.m_itemList)
 
      do -- 오름차순/내림차순 버튼
