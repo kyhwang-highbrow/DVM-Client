@@ -122,7 +122,7 @@ function UI_DragonRunesEnhance:onChangeTab(tab, first)
         local grade = rune_obj['grade']
         if (grade > UI_DragonRunesEnhance.GRIND_ABLE_GRADE) then
             self:setTab('enhance')
-            UIManager:toastNotificationRed(Str('6등급 이하의 룬만 연마 할 수 있습니다.'))
+            UIManager:toastNotificationRed(Str('7등급 룬은 연마가 불가능합니다.'))
             return
         end
 
