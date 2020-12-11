@@ -170,7 +170,7 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
     result_card_ui.vars['runeNumberNode']:setScale(0.9) -- 하드코딩
     -- 아래
     result_card_ui:makeSprite('starNode', star_bottom_res, true) -- (lua_name, res, no_use_frames)
-    result_card_ui.vars['starNode']:setPositionY(-35) -- 하드코딩
+    result_card_ui.vars['starNode']:setPositionY(-37) -- 하드코딩
     result_card_ui.vars['starNode']:setScale(0.9) -- 하드코딩
     
     -- 얻을 수 있는 등급 중 좋은 등급의 룬 아이콘
