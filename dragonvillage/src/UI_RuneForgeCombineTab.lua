@@ -359,7 +359,7 @@ function UI_RuneForgeCombineTab:deselectRune(t_rune_data)
     
     local combine_data_id = select_roid_map[roid]['combine_id']
     local combine_data = self.m_mCombineDataMap[combine_data_id]
-    combine_data:removeRuneObject(t_rune_data)
+    combine_data:removeRuneObject(roid)
     
     if (combine_data:isEmpty()) then
         combine_data.m_grade = nil
@@ -534,20 +534,14 @@ function UI_RuneForgeCombineTab:click_combineBtn()
         -- 왼쪽 룬 창 정리
         self:initTableView()
 
-        -- 합성한 룬 정보들은 제거
-        for i, combine_data_id in ipairs(full_combine_data_id_list) do
-            self:removeCombineItem(combine_data_id)
-        end
-
-        -- 하나는 미관상 남긴다
-        if (table.count(self.m_mCombineDataMap) == 0) then
-            self:addCombineItem(nil)
-        end
-
         local remove_roid_list = pl.stringx.split(src_roids, ',')
         for i, roid in ipairs(remove_roid_list) do
             for grade = 1, 7 do
                 self.m_mSelectRuneMap[grade][roid] = nil
+            end
+
+            for unique_id, combine_data in pairs(self.m_mCombineDataMap) do
+                combine_data:removeRuneObject(roid)
             end
         end
 

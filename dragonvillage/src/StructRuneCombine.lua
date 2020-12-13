@@ -48,9 +48,12 @@ end
 -- function removeRuneObject
 -- @brief 등록된 재료 룬을 제거함 
 -------------------------------------
-function StructRuneCombine:removeRuneObject(t_rune_data)
-    local roid = t_rune_data['roid']
+function StructRuneCombine:removeRuneObject(roid)
     local index = self.m_mRuneIndexMap[roid]
+
+    if (index == nil) then 
+        return 
+    end
 
     self.m_mRuneMappingIndex[index] = nil
     self.m_mRuneObjectMap[roid] = nil
