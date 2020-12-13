@@ -137,7 +137,7 @@ function UI_RuneSelectDevApiPopup:initButton()
     vars['applyBundleBtn']:registerScriptTapHandler(function() self:request(10) end)
     vars['applyBundle100Btn']:registerScriptTapHandler(function() self:request(100) end)
     
-    vars['closeBtn']:registerScriptTapHandler(function() self:setCloseCB(nil) self:close() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
