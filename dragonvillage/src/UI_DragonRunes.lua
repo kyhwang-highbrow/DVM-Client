@@ -80,11 +80,13 @@ function UI_DragonRunes:initUI()
         self.vars['selectDevBtn']:registerScriptTapHandler(function() self:click_selectDevBtn() end)
         self.vars['useDevBtn']:setVisible(true)
         self.vars['useDevBtn']:registerScriptTapHandler(function() self:click_useDevBtn() end)
+        self.vars['addDevBtn']:setVisible(true)
         self.vars['addDevBtn']:registerScriptTapHandler(function() self:click_addDevBtn() end)
 
     else
         self.vars['selectDevBtn']:setVisible(false)
         self.vars['useDevBtn']:setVisible(false)
+        self.vars['addDevBtn']:setVisible(false)
     end
 
     self:setEquipedRuneObject(nil)
