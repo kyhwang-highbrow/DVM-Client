@@ -113,7 +113,7 @@ function UI_RuneForgeGachaTab:request_runeGacha()
     local function finish_cb(ret)
         require('UI_GachaResult_Rune')
         
-		local gacha_type = 'ticket'
+		local gacha_type = 'rune_box'
         local l_rune_list = ret['runes']
 
         local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
