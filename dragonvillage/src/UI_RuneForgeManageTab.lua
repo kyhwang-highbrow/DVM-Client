@@ -66,6 +66,17 @@ function UI_RuneForgeManageTab:initUI()
     for i = 1, 6 do
         self:addTabWithLabel(i, vars['runeTabBtn' .. i], vars['runeTabLabel' .. i], vars['runeTableViewNode' .. i])
     end
+
+     if (IS_TEST_MODE()) then
+        self.vars['manageDevBtn']:setVisible(true)
+        self.vars['manageDevBtn']:registerScriptTapHandler(function() self:click_manageDevBtn() end)
+        self.vars['addDevBtn']:setVisible(true)
+        self.vars['addDevBtn']:registerScriptTapHandler(function() self:click_addDevBtn() end)
+
+    else
+        self.vars['manageDevBtn']:setVisible(false)
+        self.vars['addDevBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -576,4 +587,51 @@ end
 -------------------------------------
 function UI_RuneForgeManageTab:click_runeInfoBtn()
     UI_HelpRune()
+end
+
+-------------------------------------
+-- function click_useDevBtn
+-- @brief (임시로 룬 개발 API 팝업 호출)
+-------------------------------------
+function UI_RuneForgeManageTab:click_manageDevBtn()
+    if (not self.m_selectedRuneObject) then
+        return
+    end
+
+    local roid = self.m_selectedRuneObject.roid
+    local ui = UI_RuneDevApiPopup(roid)
+
+    local function close_cb()
+        local t_rune_data = g_runesData:getRuneObject(roid)
+
+        if (self.m_selectedRuneObject['updated_at'] ~= t_rune_data['updated_at']) then
+            -- 룬 카드 및 정보 갱신
+            local slot_idx = self.m_currTab
+            self.m_mTableViewListMap[slot_idx]:replaceItemUI(roid, t_rune_data)
+            
+            self.m_selectedRuneUI = nil
+            local new_ui = self.m_mTableViewListMap[slot_idx]:getItem(roid)['ui']
+            self:setSelectedRune(new_ui, t_rune_data)
+        end
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+------------------------------------
+-- function click_addDevBtn
+-- @brief 개발용 룬 획득 API 팝업 호출
+-------------------------------------
+function UI_RuneForgeManageTab:click_addDevBtn()
+    require('UI_RuneSelectDevApiPopup')
+    local ui = UI_RuneSelectDevApiPopup()
+
+    local function close_cb()
+        local slot_idx = self.m_currTab
+        self:init_runeTableView(slot_idx)
+        self:clearSelectedRune(true)
+        self:refresh_noti()
+    end
+
+    ui:setCloseCB(close_cb)
 end
