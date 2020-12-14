@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_EventIncarnationOfSinsRankingAttributeTab
@@ -9,11 +9,19 @@ UI_EventIncarnationOfSinsRankingAttributeTab = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventIncarnationOfSinsRankingAttributeTab:init()
+function UI_EventIncarnationOfSinsRankingAttributeTab:init(owner_ui)
     local vars = self:load('event_incarnation_of_sins_rank_popup_attr.ui')
-    
-    self:initUI()
-    self:initButton()
+end
+
+-------------------------------------
+-- function onEnterTab
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingTotalTab:onEnterTab(first)
+    if (first == true) then
+        self:initUI()
+        self:initButton()
+    end
+
     self:refresh()
 end
 
