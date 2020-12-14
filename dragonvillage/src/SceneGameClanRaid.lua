@@ -326,9 +326,9 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
         -- 보상 등급 지정
         t_result_ref['dmg_rank'] = ret['dmg_rank'] or 1
 
-        -- 연습 모드 아닌 경우, 클랜 던전 정보 갱신
+        -- 연습 모드나 이벤트 모드가 아닌 경우, 클랜 던전 정보 갱신
         local struct_raid = g_clanRaidData:getClanRaidStruct()
-        if (not struct_raid:isTrainingMode()) then
+        if (not (struct_raid:isTrainingMode() or struct_raid:isEventIncarnationOfSinsMode())) then
             if (ret['dungeon']) then
                 g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
             end
@@ -379,9 +379,10 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
         return false
     end
 
-    -- 클랜던전 연습모드일 경우
     if (g_clanRaidData:isClanRaidStageID(self.m_stageID)) then
         local struct_raid = g_clanRaidData:getClanRaidStruct()
+
+        -- 클랜던전 연습모드일 경우
         if (struct_raid:isTrainingMode()) then
             local api_url = '/clans/dungeon_training_finish'
             
@@ -417,7 +418,45 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
             ui_network:setSuccessCB(success_cb)
             ui_network:request()
             return
-         end
+        
+        -- 죄악의 화신 토벌작전 이벤트 모드 
+        -- TODO : 죄악의 화신 토벌작전 이벤트 모드 전용 API로 변경
+        elseif (struct_raid:isEventIncarnationOfSinsMode()) then
+            local api_url = '/clans/dungeon_training_finish'
+            
+            local ui_network = UI_Network()
+            ui_network:setUrl(api_url)
+            ui_network:setParam('uid', uid)
+            ui_network:setParam('stage', self.m_stageID)
+            local attr = TableStageData():getStageAttr(self.m_stageID)
+            local g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, attr)
+            local l_deck_up = g_deckData:getDeck(g_data:getDeckName('up'))
+
+            -- 현재 사용한 덱 정보(드래곤 아이디만) 를 120008;120882.. 형태로 서버에 보냄
+            local up_dragon_id_str = ''
+            for i, doid in pairs(l_deck_up) do
+                local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+                local doid = t_dragon_data['did']
+                up_dragon_id_str = string.format("%s;%s", up_dragon_id_str, doid)
+            end
+            local l_deck_down = g_deckData:getDeck(g_data:getDeckName('down'))
+            local down_dragon_id_str = ''
+            for i, doid in pairs(l_deck_down) do
+                local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+                local doid = t_dragon_data['did']
+                down_dragon_id_str = string.format("%s;%s", down_dragon_id_str, doid)
+            end
+
+            -- 데미지 임의 
+            ui_network:setParam('attr', attr)
+            ui_network:setParam('score', t_param['damage'])
+            ui_network:setParam('deck1_dids', up_dragon_id_str)
+            ui_network:setParam('deck2_dids', down_dragon_id_str)
+            ui_network:setResponseStatusCB(response_status_cb)
+            ui_network:setSuccessCB(success_cb)
+            ui_network:request()
+            return
+        end
     end
 
     local api_url = '/clans/dungeon_finish'

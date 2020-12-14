@@ -137,10 +137,21 @@ end
 -- @breif 던전 오픈 여부
 -------------------------------------
 function ServerData_ClanRaid:isOpenClanRaid()
-    local curr_time = Timer:getServerTime()
-    local start_time = (self.m_startTime / 1000)
-    local end_time = (self.m_endTime / 1000)
-	return (self.m_bOpen) and (start_time <= curr_time) and (curr_time <= end_time)
+    -- 죄악의 화신 토벌작전의 경우 다르게 검사
+    if ((self.m_structClanRaid) and (self.m_structClanRaid:isEventIncarnationOfSinsMode())) then
+        if (g_eventIncarnationOfSinsData) then
+            -- TODO : 해당 속성 요일 검사
+            local attr = self.m_structClanRaid.attr
+            return true
+        else
+            return false
+        end
+    else
+        local curr_time = Timer:getServerTime()
+        local start_time = (self.m_startTime / 1000)
+        local end_time = (self.m_endTime / 1000)
+	    return (self.m_bOpen) and (start_time <= curr_time) and (curr_time <= end_time)
+    end
 end
 
 -------------------------------------

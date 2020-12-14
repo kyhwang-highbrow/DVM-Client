@@ -123,6 +123,10 @@ function UI_ReadySceneNew:initParentVariable()
 
     if (self:isClanRaidTrainingMode(self.m_stageID)) then
         self.m_staminaType = 'cldg_tr'
+        
+    -- 죄악의 화신 토벌작전 이벤트의 경우 소모 재화가 없으므로 기본 값인 날개를 표시
+    elseif (self:isClanRaidEventIncarnationOfSinsMode(self.m_stageID)) then
+        self.m_staminaType = 'st'
     end
 
 	-- 들어온 경로에 따라 sound가 다름
@@ -625,6 +629,16 @@ function UI_ReadySceneNew:initButton()
         vars['trainingLabel']:setString(Str('{1}/{2}', g_clanRaidData.m_triningTicketCnt, g_clanRaidData.m_triningTicketMaxCnt))
         vars['trainingSetBtn']:setVisible(true)
         vars['trainingSetBtn']:registerScriptTapHandler(function() self:click_showTrainingBtn() end)
+    end
+
+    -- 클랜던전 죄악의 화신 토벌작전 이벤트 모드
+    if (self:isClanRaidEventIncarnationOfSinsMode(self.m_stageID)) then
+        vars['startBtn']:setVisible(false)
+        vars['startRequireNoPowerBtn']:setVisible(true)
+        vars['startRequireNoPowerBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+        vars['startRequireNoPowerBtn']:setClickSoundName('ui_game_start')
+        vars['incarnationOfSinsSetBtn']:setVisible(true)
+        vars['incarnationOfSinsSetBtn']:registerScriptTapHandler(function() self:click_incarnationOfSinsSetBtn() end)
     end
     
     -- 고대의 탑
@@ -1339,6 +1353,12 @@ function UI_ReadySceneNew:click_startBtn()
         self:startGame_clanRaidTraining()
         return
     end
+
+    -- 클랜던전 죄악의 화신 토벌작전 이벤트의 경우
+    if (self:isClanRaidEventIncarnationOfSinsMode(self.m_stageID)) then           
+        self:startGame_eventIncarnationOfSins()
+        return
+    end
 	
     self:startGame(stage_id)
 end
@@ -1620,6 +1640,17 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_showTrainingBtn()
 	UI_ClanRaidTrainingPopup()
+end
+
+-------------------------------------
+-- function click_incarnationOfSinsSetBtn
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:click_incarnationOfSinsSetBtn()
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local attr = struct_raid.attr
+    local stage_lv = struct_raid:getLv()
+    UI_EventIncarnationOfSinsEntryPopup(attr, stage_lv)
 end
 
 -------------------------------------
@@ -1968,6 +1999,39 @@ function UI_ReadySceneNew:isClanRaidTrainingMode(stage_id)
         if (g_clanRaidData:isClanRaidStageID(stage_id)) then
             local struct_raid = g_clanRaidData:getClanRaidStruct()
             if (struct_raid:isTrainingMode()) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+-------------------------------------
+-- function startGame_eventIncarnationOfSins
+-- @comment TODO : 죄악의 화신 토벌작전 이벤트 전용 호출로 변경하기
+-------------------------------------
+function UI_ReadySceneNew:startGame_eventIncarnationOfSins()
+    local function finish_cb()
+        self:replaceGameScene()
+    end
+
+    local func_start = function()
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        g_stageData:requestGameStart_training(struct_raid:getStageID(), struct_raid.attr, finish_cb, nil)
+    end
+
+    self:checkChangeDeck(func_start)
+end
+
+
+-------------------------------------
+-- function isClanRaidEventIncarnationOfSinsMode
+-------------------------------------
+function UI_ReadySceneNew:isClanRaidEventIncarnationOfSinsMode(stage_id)
+    if (g_clanRaidData) then
+        if (g_clanRaidData:isClanRaidStageID(stage_id)) then
+            local struct_raid = g_clanRaidData:getClanRaidStruct()
+            if (struct_raid:isEventIncarnationOfSinsMode()) then
                 return true
             end
         end

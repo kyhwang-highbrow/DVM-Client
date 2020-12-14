@@ -12,16 +12,17 @@ local STAGE_MAX = 100
 
 -------------------------------------
 -- function init
--- @param selected_attr ¼±ÅÃÇÑ ¼Ó¼º
+-- @param selected_attr ì„ íƒí•œ ì†ì„±
+-- @param stage_lv ì´ˆê¸° ë ˆë²¨ê°’, nilì´ë©´ 1
 -------------------------------------
-function UI_EventIncarnationOfSinsEntryPopup:init(selected_attr)
+function UI_EventIncarnationOfSinsEntryPopup:init(selected_attr, stage_lv)
     local vars = self:load('event_incarnation_of_sins_ready.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self.m_selectedAttr = selected_attr
-    self.m_selectStageLv = 1
+    self.m_selectStageLv = stage_lv or 1
     
-    -- backkey ÁöÁ¤
+    -- backkey ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_EventIncarnationOfSinsEntryPopup')
 
     -- @UI_ACTION
@@ -49,11 +50,11 @@ end
 function UI_EventIncarnationOfSinsEntryPopup:initUI()
     local vars = self.vars
 
-    -- ½ÃÀÛ À§Ä¡ ÃÊ±âÈ­
+    -- ì‹œì‘ ìœ„ì¹˜ ì´ˆê¸°í™”
     vars['quantityGuage']:setPercentage(0)
     vars['quantityBtn2']:setPositionX(0)
 
-    -- ¼Ó¼º
+    -- ì†ì„±
     local attr = self.m_selectedAttr
     local icon = IconHelper:getAttributeIconButton(attr)
     vars['attrNode']:addChild(icon)
@@ -82,17 +83,17 @@ function UI_EventIncarnationOfSinsEntryPopup:initUI()
 
     local struct_clan_raid = self:getCostumedStructClanRaid()
     
-    -- º¸³Ê½º ¼Ó¼º
+    -- ë³´ë„ˆìŠ¤ ì†ì„±
     local str, map_attr = struct_clan_raid:getBonusSynastryInfo()
     for k, v in pairs(map_attr) do
-        -- ¼Ó¼º ¾ÆÀÌÄÜ
+        -- ì†ì„± ì•„ì´ì½˜
         local icon = IconHelper:getAttributeIconButton(k)
         local target_node = vars['bonusTipsNode']
         target_node:removeAllChildren()
         target_node:addChild(icon)
     end
 
-    -- ÆĞ³ÎÆ¼ ¼Ó¼º  
+    -- íŒ¨ë„í‹° ì†ì„±  
     local str, map_attr = struct_clan_raid:getPenaltySynastryInfo()
     local cnt = table.count(map_attr)
     local idx = 0
@@ -103,7 +104,7 @@ function UI_EventIncarnationOfSinsEntryPopup:initUI()
     end
     for k, v in pairs(map_attr) do
         idx = idx + 1
-        -- ¼Ó¼º ¾ÆÀÌÄÜ
+        -- ì†ì„± ì•„ì´ì½˜
         local icon = IconHelper:getAttributeIconButton(k)
         local target_node = (cnt == 1) and 
                             vars['panaltyTipsNode'] or 
@@ -118,7 +119,7 @@ end
 function UI_EventIncarnationOfSinsEntryPopup:initButton()
     local vars = self.vars
 
-    --vars['okBtn']:registerScriptTapHandler(function() self:click_applyBtn() end)
+    vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
     --vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['quantityBtn1']:registerScriptTapHandler(function() self:click_minusBtn() end)
     vars['quantityBtn3']:registerScriptTapHandler(function() self:click_plusBtn() end)
@@ -129,7 +130,7 @@ end
 
 -------------------------------------
 -- function initSlideBar
--- @brief ÅÍÄ¡ ·¹ÀÌ¾î »ı¼º
+-- @brief í„°ì¹˜ ë ˆì´ì–´ ìƒì„±
 -------------------------------------
 function UI_EventIncarnationOfSinsEntryPopup:initSlideBar()
     local node = self.vars['sliderBar']
@@ -142,6 +143,8 @@ function UI_EventIncarnationOfSinsEntryPopup:initSlideBar()
                 
     local eventDispatcher = node:getEventDispatcher()
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, node)
+
+
 end
 
 -------------------------------------
@@ -152,7 +155,7 @@ function UI_EventIncarnationOfSinsEntryPopup:onTouchBegan(touch, event)
 
     local location = touch:getLocation()
 
-    -- ÁøÇüÀ» ¼³Á¤ÇÏ´Â ¿µ¿ªÀ» ¹ş¾î³µ´ÂÁö Ã¼Å©
+    -- ì§„í˜•ì„ ì„¤ì •í•˜ëŠ” ì˜ì—­ì„ ë²—ì–´ë‚¬ëŠ”ì§€ ì²´í¬
     local bounding_box = vars['quantityBtn2']:getBoundingBox()
     local local_location = vars['quantityBtn2']:getParent():convertToNodeSpace(location)
     local is_contain = cc.rectContainsPoint(bounding_box, local_location)
@@ -168,7 +171,7 @@ function UI_EventIncarnationOfSinsEntryPopup:onTouchMoved(touch, event)
 
     local location = touch:getLocation()
 
-    -- ÁøÇüÀ» ¼³Á¤ÇÏ´Â ¿µ¿ªÀ» ¹ş¾î³µ´ÂÁö Ã¼Å©
+    -- ì§„í˜•ì„ ì„¤ì •í•˜ëŠ” ì˜ì—­ì„ ë²—ì–´ë‚¬ëŠ”ì§€ ì²´í¬
     local bounding_box = vars['quantityBtn2']:getBoundingBox()
     local local_location = vars['quantityBtn2']:getParent():convertToNodeSpace(location)
 
@@ -195,13 +198,9 @@ function UI_EventIncarnationOfSinsEntryPopup:setCurrCount(count, ignore_slider_b
     local vars = self.vars
     local count = math_clamp(count, 1, STAGE_MAX)
     
-    if (self.m_selectStageLv == count) then
-        return
-    end
-
     self.m_selectStageLv = count
 
-    -- ÆÛ¼¾Æ® ÁöÁ¤
+    -- í¼ì„¼íŠ¸ ì§€ì •
     if (not ignore_slider_bar) then
         local percentage = (self.m_selectStageLv / STAGE_MAX) * 100
         vars['quantityGuage']:stopAllActions()
@@ -212,7 +211,7 @@ function UI_EventIncarnationOfSinsEntryPopup:setCurrCount(count, ignore_slider_b
         vars['quantityBtn2']:runAction(cc.MoveTo:create(0.2, cc.p(pos_x, 0)))
     end
 
-    -- Áö¿ø ·¹º§
+    -- ì§€ì› ë ˆë²¨
     vars['quantityLabel']:setString(comma_value(self.m_selectStageLv))
 end
 
@@ -254,11 +253,11 @@ function UI_EventIncarnationOfSinsEntryPopup:refreshInfo()
 
     local struct_clan_raid = self:getCostumedStructClanRaid()
     
-    -- º¸³Ê½º ¼Ó¼º    
+    -- ë³´ë„ˆìŠ¤ ì†ì„±    
     local str, map_attr = struct_clan_raid:getBonusSynastryInfo()
     vars['bonusTipsDscLabel']:setString(str)
     
-    -- ÆĞ³ÎÆ¼ ¼Ó¼º  
+    -- íŒ¨ë„í‹° ì†ì„±  
     local str, map_attr = struct_clan_raid:getPenaltySynastryInfo()
     vars['panaltyTipsDscLabel']:setString(str)
 
@@ -283,8 +282,8 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsEntryPopup:getCostumedStructClanRaid()
     local struct_clan_raid = StructClanRaid()
-    struct_clan_raid['clan_raid_type'] = 'training'                        -- Å¸ÀÔ ÁöÁ¤ (¿¬½À ¸ğµåÀÎÁö ±¸ºĞ ¿ëµµ)
-    struct_clan_raid['attr'] = self.m_selectedAttr                         -- ¿¬½À ¸ğµå¿¡¼­ Ä¿½ºÅÒÇÑ ¼Ó¼º
+    struct_clan_raid['clan_raid_type'] = 'training'                        -- íƒ€ì… ì§€ì • (ì—°ìŠµ ëª¨ë“œì¸ì§€ êµ¬ë¶„ ìš©ë„)
+    struct_clan_raid['attr'] = self.m_selectedAttr                         -- ì—°ìŠµ ëª¨ë“œì—ì„œ ì»¤ìŠ¤í…€í•œ ì†ì„±
     
     local selected_stage_id = self.m_selectStageLv + 1500000
     struct_clan_raid['stage'] = selected_stage_id
@@ -340,7 +339,7 @@ function UI_EventIncarnationOfSinsEntryPopup:click_resetBtn()
     self:refreshInfo(self.m_curStageLv, self.m_curHp)
     self:setCurrCount(self.m_curStageLv, false)
     
-    --  ¶óµğ¿À ¹öÆ° ¸®¼Â
+    --  ë¼ë””ì˜¤ ë²„íŠ¼ ë¦¬ì…‹
     self.m_hpRadioBtn:inactivate('maxHp')
     self.m_hpRadioBtn:inactivate('finalBlow')
     self.m_hpRadioBtn.m_selectedButton = '' 
@@ -349,21 +348,25 @@ end
 -------------------------------------
 -- function click_applyBtn
 -------------------------------------
-function UI_EventIncarnationOfSinsEntryPopup:click_applyBtn()
-
-    -- ¼­¹ö µ¥ÀÌÅÍ°¡ µé°í ÀÖ´Â StructClanRaid Á¤º¸¿¡ Ä¿½ºÅÒÇÑ Á¤º¸¸¦ µ¤¾î¾º¿ò
-    local training_info = g_clanRaidData.m_structClanRaid    
-    training_info['clan_raid_type'] = 'training'                        -- Å¸ÀÔ ÁöÁ¤ (¿¬½À ¸ğµåÀÎÁö ±¸ºĞ ¿ëµµ)
-    training_info['attr'] = self.m_selectedAttr                         -- ¿¬½À ¸ğµå¿¡¼­ Ä¿½ºÅÒÇÑ ¼Ó¼º
-    training_info['hp'] = SecurityNumberClass(self.m_selectedHp)        -- ¿¬½À ¸ğµå¿¡¼­ Ä¿½ºÅÒÇÑ Ã¼·Â
-    training_info['max_hp'] = SecurityNumberClass(self:getMaxHp(self.m_selectStageLv))
+function UI_EventIncarnationOfSinsEntryPopup:click_readyBtn()
     
+    -- ìŠ¤í…Œì´ì§€ ì •ë³´ ì„¸íŒ…
+    local struct_clan_raid = g_clanRaidData.m_structClanRaid or StructClanRaid()
+    local max_hp = self:getMaxHp(self.m_selectStageLv)
     local selected_stage_id = self.m_selectStageLv + 1500000
-    training_info['stage'] = selected_stage_id                          -- ¿¬½À ¸ğµå¿¡¼­ Ä¿½ºÅÒÇÑ ½ºÅ×ÀÌÁö
     
-    g_clanRaidData.m_structClanRaid = training_info
+    struct_clan_raid['clan_raid_type'] = 'incarnation_of_sins'       
+    struct_clan_raid['attr'] = self.m_selectedAttr              -- í˜„ì¬ ì„ íƒëœ ì†ì„±
+    struct_clan_raid['stage'] = selected_stage_id               -- ì„ íƒí•œ ë ˆë²¨
+    struct_clan_raid['hp'] = SecurityNumberClass(max_hp)        -- ì„ íƒí•œ ë ˆë²¨ì˜ ì²´ë ¥
+    struct_clan_raid['max_hp'] = SecurityNumberClass(max_hp)
+    
+    g_clanRaidData.m_structClanRaid = struct_clan_raid
 
-    -- UI_ReadySceneNew UI°¡ ¿­·ÁÀÖÀ» °æ¿ì, ´İ°í ´Ù½Ã ¿¬´Ù
+    -- ìŠ¤í…Œì´ì§€ ì‹œê°„ ì„¸íŒ…
+
+
+    -- UI_ReadySceneNew UIê°€ ì—´ë ¤ìˆì„ ê²½ìš°, ë‹«ê³  ë‹¤ì‹œ ì—°ë‹¤
     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_ReadySceneNew')
     if (is_opend == true) then
         ui:close()

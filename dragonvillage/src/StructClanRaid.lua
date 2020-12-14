@@ -324,7 +324,7 @@ end
 function StructClanRaid:getClanAttrBuffList()
     local stage_id = self:getStageID()
     local cur_clan_raid_attr 
-    if (self:isTrainingMode()) then
+    if ((self:isTrainingMode()) or (self:isEventIncarnationOfSinsMode())) then
         cur_clan_raid_attr = self['attr']      
     else
         cur_clan_raid_attr = g_clanData:getCurSeasonBossAttr()
@@ -467,3 +467,10 @@ function StructClanRaid:isTrainingMode()
     return self.clan_raid_type == 'training'
 end
 
+-------------------------------------
+-- function isEventIncarnationOfSinsMode
+-- @brief 죄악의 화신 토벌작전 이벤트 모드인지 판단
+-------------------------------------
+function StructClanRaid:isEventIncarnationOfSinsMode()   
+    return (self.clan_raid_type == 'incarnation_of_sins')
+end

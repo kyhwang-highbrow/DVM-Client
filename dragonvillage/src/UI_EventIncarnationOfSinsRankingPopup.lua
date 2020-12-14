@@ -14,7 +14,7 @@ function UI_EventIncarnationOfSinsRankingPopup:init()
     local vars = self:load('event_incarnation_of_sins_rank_popup.ui')
     UIManager:open(self, UIManager.POPUP)
     
-    -- backkey ÁöÁ¤
+    -- backkey ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventIncarnationOfSinsRankingPopup')
 
     self:initUI()
@@ -41,8 +41,8 @@ function UI_EventIncarnationOfSinsRankingPopup:initTab()
     vars['indivisualTabMenu']:addChild(all_rank_tab.root)
     vars['indivisualTabMenu']:addChild(attr_rank_tab.root)
     
-    self:addTabWithTabUIAndLabel('allRank', vars['allRankTabBtn'], vars['allRankTabLabel'], all_rank_tab) -- Á¾ÇÕ ·©Å·
-    self:addTabWithTabUIAndLabel('attrRank', vars['attrRankTabBtn'], vars['attrRankTabLabel'], attr_rank_tab) -- ¼Ó¼ºº° ·©Å·
+    self:addTabWithTabUIAndLabel('allRank', vars['allRankTabBtn'], vars['allRankTabLabel'], all_rank_tab) -- ì¢…í•© ë­í‚¹
+    self:addTabWithTabUIAndLabel('attrRank', vars['attrRankTabBtn'], vars['attrRankTabLabel'], attr_rank_tab) -- ì†ì„±ë³„ ë­í‚¹
 
     self:setTab('allRank')
 end

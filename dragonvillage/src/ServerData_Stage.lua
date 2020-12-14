@@ -103,6 +103,8 @@ function ServerData_Stage:getStageName(stage_id)
         local struct_raid = g_clanRaidData:getClanRaidStruct()
         if (struct_raid:isTrainingMode()) then
             name = Str('클랜 던전 연습 전투')
+        elseif (struct_raid:isEventIncarnationOfSinsMode()) then
+            name = Str('죄악의 화신 토벌작전')
         else
             name = Str('클랜 던전')
         end

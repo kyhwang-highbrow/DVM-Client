@@ -75,8 +75,8 @@ end
 
 -------------------------------------
 -- function click_attrBtn
--- @brief °¢ ¼Ó¼ºÀÇ È­½Å ¹öÆ° Å¬¸¯¿¡ ´ëÇÑ Äİ¹é ÇÔ¼ö
--- @param attr : ¼Ó¼º (string)
+-- @brief ê° ì†ì„±ì˜ í™”ì‹  ë²„íŠ¼ í´ë¦­ì— ëŒ€í•œ ì½œë°± í•¨ìˆ˜
+-- @param attr : ì†ì„± (string)
 -------------------------------------
 function UI_EventIncarnationOfSins:click_attrBtn(attr)
     local vars = self.vars
