@@ -142,7 +142,7 @@ function ServerData_ClanRaid:isOpenClanRaid()
         if (g_eventIncarnationOfSinsData) then
             -- TODO : 해당 속성 요일 검사
             local attr = self.m_structClanRaid.attr
-            return true
+            return g_eventIncarnationOfSinsData:isOpenAttr(attr)
         else
             return false
         end

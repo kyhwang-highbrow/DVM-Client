@@ -48,6 +48,15 @@ function ServerData_EventIncarnationOfSins:getRemainTimeString()
     return g_hotTimeData:getEventRemainTimeTextDetail('event_incarnation_of_sins') or ''
 end
 
+-------------------------------------
+-- function isOpenAttr
+-- @brief 해당 속성이 현재 열려있는지 판단
+-------------------------------------
+function ServerData_EventIncarnationOfSins:isOpenAttr(attr)
+    -- TODO : 구현을 해야한다.
+    
+    return true
+end
 
 local mInit = false
 -------------------------------------
