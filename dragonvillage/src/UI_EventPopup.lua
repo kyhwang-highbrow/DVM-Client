@@ -312,6 +312,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'event_lucky_fortune_bag') then
         ui = UI_EventLFBag()
 
+    -- 죄악의 화신 토벌작전 이벤트
+    elseif (tab == 'event_incarnation_of_sins') then
+        ui = UI_EventIncarnationOfSins()
+
     -- 신규 유저 환영 이벤트
 	elseif (tab == 'event_welcome_newbie') then
 		ui = UI_EventWelcomeNewbie()
