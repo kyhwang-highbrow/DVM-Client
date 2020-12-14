@@ -35,6 +35,10 @@ function UI_Package_AttrTower:init(bundle_ui, product_id)
         self:initUI()
 	    self:initButton()
         self:refresh()
+
+        -- 상품 판매 남은 시간에 따라 시간 표시
+        self:setLimit()
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
     end
 
     if (attr ~= g_attrTowerData:getSelAttr()) then
@@ -62,6 +66,60 @@ function UI_Package_AttrTower:initUI()
 
     -- 상품 합산 계산해서 텍스트 출력하기
     self:initItemText()
+
+    
+end
+
+-------------------------------------
+-- function setLimit
+-------------------------------------
+function UI_Package_AttrTower:setLimit()
+    local vars = self.vars
+    local product_data = self.m_productInfo
+    local product_id = product_data['product_id']
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
+
+    if (vars['limitNode'] == nil) then
+        return
+    elseif (vars['limitMenu'] == nil) then
+        return
+    elseif (vars['timeNode'] == nil) then
+        return
+    end
+    
+    local is_limit
+    local remain_time
+
+    if (vars['limitNode']) then
+        remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변겨 
+        local day = math.floor(remain_time / 86400000)
+        if (day < 2) then
+            is_limit = true
+        else
+            is_limit = false
+        end
+    end
+
+    if (is_limit) then
+        -- 한정 표시
+        vars['limitNode']:setVisible(true)
+        vars['limitMenu']:setVisible(true)
+        vars['limitNode']:runAction(cca.buttonShakeAction(3, 1)) 
+        
+        local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day
+        
+        -- 남은 시간 이미지 텍스트로 보여줌
+        local remain_time_label = cc.Label:createWithBMFont('res/font/tower_score.fnt', desc_time)
+        remain_time_label:setAnchorPoint(cc.p(0.5, 0.5))
+        remain_time_label:setDockPoint(cc.p(0.5, 0.5))
+        remain_time_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        remain_time_label:setAdditionalKerning(0)
+        vars['remainLabel'] = remain_time_label
+        vars['timeNode']:addChild(remain_time_label)
+    else
+        vars['limitMenu']:setVisible(false)
+        vars['limitNode']:setVisible(false)    
+    end
 end
 
 -------------------------------------
@@ -348,4 +406,23 @@ function UI_Package_AttrTower:request_serverInfo()
     local product_id = product_data['product_id']
 
     g_attrTowerPackageData:request_attrTowerPackInfo(product_id, cb_func)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_Package_AttrTower:update(dt)
+    local vars = self.vars
+    if (not vars['remainLabel']) then
+        return
+    end
+    
+    local product_data = self.m_productInfo
+    local product_id = product_data['product_id']
+    local struct_product = g_shopDataNew:getTargetProduct(product_id)
+
+    local remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경
+    local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day
+
+    vars['remainLabel']:setString(desc_time)
 end
