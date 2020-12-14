@@ -1,0 +1,67 @@
+-------------------------------------
+-- class ServerData_EventIncarnationOfSins
+-- g_eventIncarnationOfSinsData
+-------------------------------------
+ServerData_EventIncarnationOfSins = class({
+    })
+
+-------------------------------------
+-- function canPlay
+-- @brief canReawrd와 배타적임
+-------------------------------------
+function ServerData_EventIncarnationOfSins:canPlay()
+    return g_hotTimeData:isActiveEvent('event_incarnation_of_sins')
+end
+
+-------------------------------------
+-- function canReward
+-- @brief canPlay와 배타적임
+-------------------------------------
+function ServerData_EventIncarnationOfSins:canReward()
+    return g_hotTimeData:isActiveEvent('event_incarnation_of_sins_reward')
+end
+
+
+local mInit = false
+-------------------------------------
+-- function request_eventLFBagInfo
+-- @brief 이벤트 정보
+-------------------------------------
+function ServerData_EventIncarnationOfSins:request_eventLFBagInfo(include_reward, finish_cb, fail_cb)
+    
+    if (not mInit) then
+        mInit = true
+        require('UI_EventIncarnationOfSins')
+        require('UI_EventIncarnationOfSinsFullPopup')
+        require('UI_EventIncarnationOfSinsEntryPopup')
+        require('UI_EventIncarnationOfSinsRankingPopup')
+        require('UI_EventIncarnationOfSinsRankingTotalTab')
+        require('UI_EventIncarnationOfSinsRankingAttributeTab')
+    end
+
+     -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        -- TODO
+            
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/event_incarnation_of_sins/info')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('reward', include_reward or false) -- 랭킹 보상 지급 여부
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+	ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
+end

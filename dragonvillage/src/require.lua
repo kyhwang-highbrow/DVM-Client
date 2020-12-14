@@ -240,6 +240,7 @@ local t_module = {
     'ServerData_Personalpack',
     'ServerData_EventLFBag',
     'ServerData_AttrTowerPackage',
+    'ServerData_EventIncarnationOfSins', -- 죄악의 화신 토벌작전
 
 
     -- Interface

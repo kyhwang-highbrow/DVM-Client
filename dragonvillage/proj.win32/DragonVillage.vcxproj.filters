@@ -4720,6 +4720,27 @@
     <None Include="..\src\StructRuneCombine.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_EventIncarnationOfSins.lua">
+      <Filter>lua\server_data</Filter>
+    </None>
+    <None Include="..\src\UI_EventIncarnationOfSins.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventIncarnationOfSinsEntryPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventIncarnationOfSinsFullPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventIncarnationOfSinsRankingAttributeTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventIncarnationOfSinsRankingPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventIncarnationOfSinsRankingTotalTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

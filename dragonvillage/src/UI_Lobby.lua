@@ -187,6 +187,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_eventIncarnationOfSinsData:canPlay()) then
+            co:work('# 죄악의 화신 토벌작전 이벤트 정보 받는 중')
+            g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsInfo(false, co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         -- 그랜드 콜로세움 (이벤트 PvP 10대10)
         if (g_hotTimeData:isActiveEvent('event_grand_arena') or g_hotTimeData:isActiveEvent('event_grand_arena_reward')) then
         	co:work('# 그랜드 콜로세움 정보 받는 중')
