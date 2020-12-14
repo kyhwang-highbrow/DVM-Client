@@ -51,9 +51,8 @@ end
 -------------------------------------
 function UI_RuneForge:initUI()
     do -- NPC
-        local res = 'res/character/npc/arahan/arahan.spine'
+        local res = 'res/character/npc/deet/deet.spine'
         local animator = MakeAnimator(res)
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))
         animator:changeAni('idle', true)
         self.vars['npcNode']:addChild(animator.m_node)
