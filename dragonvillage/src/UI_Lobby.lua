@@ -2259,7 +2259,9 @@ end
 function UI_Lobby:update_bottomLeftButtons()
     local vars = self.vars
     local t_btn_name = {}
-    local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
+    -- @sgkim 2020.12.14 퀘스트 버튼은 좌상단의 우편함 옆으로 이동
+    --local l_content = {'quest', 'forest', 'tamer', 'runeForge', 'dragonManage'}
+    local l_content = {'forest', 'tamer', 'runeForge', 'dragonManage'}
     for _, content_name in ipairs(l_content) do
         local is_content_lock = g_contentLockData:isContentLock(content_name)
         local btn_label = content_name .. 'Btn'
@@ -2369,6 +2371,7 @@ function UI_Lobby:update_leftButtons()
     end
 
     local pos_x = 135
+    pos_x = 219 -- @sgkim 2020.12.14 퀘스트 버튼이 우편함 옆으로 오면서 위치 조정
     local interval = 73
 
     -- 버튼들의 위치 지정
