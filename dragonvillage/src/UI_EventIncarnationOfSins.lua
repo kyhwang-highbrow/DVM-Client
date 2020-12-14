@@ -32,6 +32,12 @@ function UI_EventIncarnationOfSins:initButton()
 
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
+
+    vars['buyBtn1']:registerScriptTapHandler(function() self:click_attrBtn('light') end)
+    vars['buyBtn2']:registerScriptTapHandler(function() self:click_attrBtn('fire') end)
+    vars['buyBtn3']:registerScriptTapHandler(function() self:click_attrBtn('water') end)
+    vars['buyBtn4']:registerScriptTapHandler(function() self:click_attrBtn('earth') end)
+    vars['buyBtn5']:registerScriptTapHandler(function() self:click_attrBtn('dark') end)
 end
 
 -------------------------------------
@@ -65,4 +71,15 @@ function UI_EventIncarnationOfSins:click_rankBtn()
     local vars = self.vars
 
     local ui = UI_EventIncarnationOfSinsRankingPopup()
+end
+
+-------------------------------------
+-- function click_attrBtn
+-- @brief 각 속성의 화신 버튼 클릭에 대한 콜백 함수
+-- @param attr : 속성 (string)
+-------------------------------------
+function UI_EventIncarnationOfSins:click_attrBtn(attr)
+    local vars = self.vars
+
+    local ui = UI_EventIncarnationOfSinsEntryPopup(attr)
 end
