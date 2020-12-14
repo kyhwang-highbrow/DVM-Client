@@ -48,6 +48,13 @@ function UI_EventIncarnationOfSinsRankingPopup:initTab()
 end
 
 -------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingPopup:click_exitBtn()
+    self:close()
+end
+
+-------------------------------------
 -- function onChangeTab
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingPopup:onChangeTab(tab, first)
@@ -59,6 +66,7 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingPopup:initButton()
     local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 end
 
 -------------------------------------
