@@ -37,3 +37,10 @@ end
 function UI_EventIncarnationOfSins:refresh()
     local vars = self.vars
 end
+
+-------------------------------------
+-- function onEnterTab
+-------------------------------------
+function UI_EventIncarnationOfSins:onEnterTab()
+    local vars = self.vars
+end
