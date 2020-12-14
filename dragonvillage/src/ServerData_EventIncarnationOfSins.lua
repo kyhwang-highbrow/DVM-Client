@@ -21,6 +21,33 @@ function ServerData_EventIncarnationOfSins:canReward()
     return g_hotTimeData:isActiveEvent('event_incarnation_of_sins_reward')
 end
 
+-------------------------------------
+-- function getMyRank
+-- @brief 내 랭킹 받아오기
+-------------------------------------
+function ServerData_EventIncarnationOfSins:getMyRank()
+    -- TODO : 구현을 해야한다.
+    return -1
+end
+
+-------------------------------------
+-- function getMyScore
+-- @brief 내 랭킹점수 받아오기
+-------------------------------------
+function ServerData_EventIncarnationOfSins:getMyScore()
+    -- TODO : 구현을 해야한다.
+    return -1
+end
+
+-------------------------------------
+-- function getRemainTimeString
+-- @brief 이벤트 남은시간 받아오기
+-------------------------------------
+function ServerData_EventIncarnationOfSins:getRemainTimeString()
+    -- TODO : 구현을 해야한다.
+    return g_hotTimeData:getEventRemainTimeTextDetail('event_incarnation_of_sins') or ''
+end
+
 
 local mInit = false
 -------------------------------------
