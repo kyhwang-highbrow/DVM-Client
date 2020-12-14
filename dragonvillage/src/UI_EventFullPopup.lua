@@ -179,6 +179,10 @@ function UI_EventFullPopup:initUI()
         require('UI_EventRuneFestival')
         ui = UI_EventRuneFestival()
 
+    -- 죄악의 화신 토벌 작전 이벤트
+    elseif string.find(popup_key, 'event_incarnation_of_sins') then
+        ui = UI_EventIncarnationOfSinsFullPopup()
+
     -- 만드라고라의 모험 이벤트 
     --elseif string.find(popup_key, 'event_mandraquest') then
         --local inner_ui = UI_EventMandragoraQuest()
