@@ -48,7 +48,8 @@ function UI_EventPopupTab_Package:setAfter(ui)
     end
 
     if (package_name == 'package_absolute') then
-        self:changeTitleSprite(ui.vars)
+        -- @kwkang 20-12-14 새해맞이로 패키지 재판매하여 하단 주석처리        
+        -- self:changeTitleSprite(ui.vars)
     end
 end
 

@@ -143,7 +143,8 @@ function UI_EventFullPopup:initUI()
 
             -- 절전알 패키지 구글 피처드 수정
             if (popup_key == 'package_absolute') then
-                self:changeTitleSprite(ui.vars)
+                -- @kwkang 20-12-14 새해맞이로 패키지 재판매하여 하단 주석처리
+                -- self:changeTitleSprite(ui.vars)
             end
         end
 
