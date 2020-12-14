@@ -2587,6 +2587,11 @@ function UI_Lobby:onRefresh_banner()
         table.insert(l_node, vars['banner_rune_festival'].root)
     end
 
+    -- 죄악의 화신 토벌작전 이벤트 배너
+    if vars['banner_incarnation_of_sins'] then
+        table.insert(l_node, vars['banner_incarnation_of_sins'].root)
+    end
+
     local pos_y = 0
     local interval = -90
 
