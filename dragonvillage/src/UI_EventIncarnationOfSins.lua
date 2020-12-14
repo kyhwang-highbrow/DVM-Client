@@ -10,7 +10,7 @@ UI_EventIncarnationOfSins = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventIncarnationOfSins:init()
-    -- local vars = self:load('rune_forge_grind.ui')
+    local vars = self:load('event_incarnation_of_sins.ui')
     
     self:initUI()
     self:initButton()

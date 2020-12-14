@@ -10,7 +10,7 @@ UI_EventIncarnationOfSinsRankingTotalTab = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingTotalTab:init()
-    -- local vars = self:load('rune_forge_grind.ui')
+    local vars = self:load('event_incarnation_of_sins_rank_popup_all.ui')
     
     self:initUI()
     self:initButton()
