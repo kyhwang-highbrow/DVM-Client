@@ -49,13 +49,26 @@ end
 -- function update
 -------------------------------------
 function UI_BannerIncarnationOfSins:update()
-	local vars = self.vars
+    local vars = self.vars
 
-    ---- 남은 시간 표시
-    --if vars['timeLabel'] then
-        --local str = g_hotTimeData:getEventRemainTimeTextDetail('event_rune_festival') or ''
-        --vars['timeLabel']:setString(str)
-    --end
+    -- TODO : 구현을 해야한다.
+    -- 내 랭킹 표시
+    if (vars['rankLabel']) then
+        -- 내 랭킹이 0보다 작으면 {-위} 로 노출
+        -- 0보다 큰 의미있는 값이면 그대로 노출
+        local my_rank = ServerData_EventIncarnationOfSins:getMyRank()
+
+        if (my_rank < 0) then
+            vars['rankLabel']:setString(Str('{1}위', '-'))
+        else
+            vars['rankLabel']:setString(Str('{1}위', my_rank))
+        end
+    end
+
+    -- 남은 이벤트 시간 표시
+    if (vars['timeLabel']) then
+        vars['timeLabel']:setString(ServerData_EventIncarnationOfSins:getRemainTimeString())
+    end
 end
 
 -------------------------------------
