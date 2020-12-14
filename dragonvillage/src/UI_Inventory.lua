@@ -41,7 +41,6 @@ function UI_Inventory:initParentVariable()
     self.m_uiName = 'UI_Inventory'
     self.m_bUseExitBtn = true
     self.m_titleStr = nil -- 인벤 확장 버튼 있으므로 타이틀 삭제
-    self.m_invenType = 'rune'
     self.m_bShowInvenBtn = true 
 end
 
@@ -53,7 +52,6 @@ function UI_Inventory:initUI()
 
     do
         self.m_tTabClass = {}
-        self.m_tTabClass['rune'] = UI_InventoryTabRune(self)
         self.m_tTabClass['material'] = UI_InventoryTabEvolutionStone(self)
         self.m_tTabClass['fruit'] = UI_InventoryTabFruit(self)
         self.m_tTabClass['transform'] = UI_InventoryTabTransform(self)
@@ -63,7 +61,6 @@ function UI_Inventory:initUI()
 
     do
         self.m_mainTabMgr = UIC_TabManager()
-        self.m_mainTabMgr:addTabAuto('rune', vars, vars['runeNode'])
         self.m_mainTabMgr:addTabAuto('material', vars, vars['materialNode'])
         self.m_mainTabMgr:addTabAuto('fruit', vars, vars['fruitNode'])
         self.m_mainTabMgr:addTabAuto('transform', vars, vars['transformNode'])
@@ -72,7 +69,7 @@ function UI_Inventory:initUI()
 		
         self.m_mainTabMgr:setChangeTabCB(function(tab, first) self:onChangeMainTab(tab, first) end)
 
-        self.m_mainTabMgr:setTab('rune')
+        self.m_mainTabMgr:setTab('material')
     end
 end
 
@@ -82,7 +79,6 @@ end
 function UI_Inventory:initButton()
     local vars = self.vars
     vars['sortBtn']:registerScriptTapHandler(function() self:click_sortBtn() end)
-    vars['runeInfoBtn']:registerScriptTapHandler(function() self:click_runeInfoBtn() end)
 end
 
 -------------------------------------
@@ -99,14 +95,6 @@ end
 function UI_Inventory:click_exitBtn()
 	g_highlightData:saveNewDoidMap()
     self:close()
-end
-
--------------------------------------
--- function click_runeInfoBtn
--- @brief 룬 도움말
--------------------------------------
-function UI_Inventory:click_runeInfoBtn()
-    UI_HelpRune()
 end
 
 -------------------------------------
@@ -229,6 +217,11 @@ end
 -- @brief
 -------------------------------------
 function UI_Inventory:response_ticketUse(ret)
-    self.m_mainTabMgr.m_mTabData['rune']['first'] = true
-    self.m_tTabClass['rune']:clearTabFirstInfo()
+    if self.m_mainTabMgr.m_mTabData['rune'] then
+        self.m_mainTabMgr.m_mTabData['rune']['first'] = true
+    end
+
+    if self.m_tTabClass['rune'] then
+        self.m_tTabClass['rune']:clearTabFirstInfo()
+    end
 end
