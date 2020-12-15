@@ -6,8 +6,6 @@ ServerData_EventIncarnationOfSins = class({
         m_tMyRankInfo = 'table', -- 속성별 자신의 순위 정보가 들어있음 (light, dark, fire, water, earth, total(전체순위))
         m_rewardStatus = 'number', -- 보상 받았는지 상태 저장
 
-
-        ------------------------------
         m_lCloseRankers = 'list', -- 랭크 앞, 자신, 뒤 등수의 유저 정보
 
         m_tRewardInfo = 'table', -- 랭킹 보상 정보
@@ -15,21 +13,83 @@ ServerData_EventIncarnationOfSins = class({
         m_todayDow = 'number', -- 오늘 요일 (1 = 일요일, 2, 3, 4, 5, 6, 7 = 토요일)
     })
 
+ServerData_EventIncarnationOfSins.STATE = {
+    ['INACTIVE'] = 1,	-- 이벤트 비활성화
+    ['PRESEASON'] = 2,	-- 프리시즌
+	['OPEN'] = 3,		-- 이벤트 던전 입장 가능
+	['REWARD'] = 4,		-- 보상 수령 가능
+	['DONE'] = 5,		-- 보상 수령 후 
+}
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ServerData_EventIncarnationOfSins:init()
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function ServerData_EventIncarnationOfSins:getEventState()
+    -- 예외처리
+	if (not g_hotTimeData) then
+		return ServerData_EventIncarnationOfSins.STATE['INACTIVE']
+
+    -- 연습전
+    elseif (g_hotTimeData:isActiveEvent('event_incarnation_of_sins_preseason')) then
+        return ServerData_EventIncarnationOfSins.STATE['PRESEASON']
+	
+    -- 이벤트 기간
+	elseif (g_hotTimeData:isActiveEvent('event_incarnation_of_sins')) then
+		return ServerData_EventIncarnationOfSins.STATE['OPEN']
+	
+    -- 보상 수령 기간
+	elseif (g_hotTimeData:isActiveEvent('event_incarnation_of_sins_reward')) then
+		if (self.m_rewardStatus == 0) then
+			return ServerData_EventIncarnationOfSins.STATE['REWARD']
+
+		-- 보상 수령 후 (1 -> 이번 시즌 보상 받음, 2 -> 이번 시즌 보상 받을게 없음)
+		elseif (self.m_rewardStatus == 1) or (self.m_rewardStatus == 2) then
+			return ServerData_EventIncarnationOfSins.STATE['DONE']
+        end
+	end
+
+	-- 해당 없으면 비활성화
+	return ServerData_EventIncarnationOfSins.STATE['INACTIVE']
+end
+
 -------------------------------------
 -- function canPlay
--- @brief canReawrd와 배타적임
+-- @brief 게임 플레이가 가능한가
 -------------------------------------
 function ServerData_EventIncarnationOfSins:canPlay()
-    return g_hotTimeData:isActiveEvent('event_incarnation_of_sins')
+    return (isExistValue(self:getEventState(), ServerData_EventIncarnationOfSins.STATE['PRESEASON'], ServerData_EventIncarnationOfSins.STATE['OPEN']))
 end
 
 -------------------------------------
 -- function canReward
--- @brief canPlay와 배타적임
+-- @brief 보상을 받을 수 있는가
 -------------------------------------
 function ServerData_EventIncarnationOfSins:canReward()
-    return g_hotTimeData:isActiveEvent('event_incarnation_of_sins_reward')
+    return (self:getEventState() == ServerData_EventIncarnationOfSins.STATE['REWARD'])
 end
+
+-------------------------------------
+-- function isActive
+-- @brief 활성화되어있는가
+-------------------------------------
+function ServerData_EventIncarnationOfSins:isActive()
+    return (self:getEventState() ~= ServerData_EventIncarnationOfSins.STATE['INACTIVE'])
+end
+
+-------------------------------------
+-- function isPreseason
+-- @brief 연습기간인가
+-------------------------------------
+function ServerData_EventIncarnationOfSins:isPreseason()
+    return (self:getEventState() == ServerData_EventIncarnationOfSins.STATE['PRESEASON'])
+end
+
 
 -------------------------------------
 -- function getMyRank
@@ -77,12 +137,17 @@ end
 -- @brief 해당 속성이 현재 열려있는지 판단
 -------------------------------------
 function ServerData_EventIncarnationOfSins:isOpenAttr(attr)
+    -- 프리시즌인 경우 그냥 항상 열려있다
+    if (self:isPreseason()) then
+        return true
+    end
+    
     if (self.m_tAttrInfo == nil) then
         return false
     end
 
     local today_dow = self.m_todayDow
-    return self.m_tAttrInfo[today_dow]
+    return self.m_tAttrInfo[attr][today_dow]
 end
 
 -------------------------------------
@@ -158,6 +223,29 @@ end
 function ServerData_EventIncarnationOfSins:getCloseRankers()
     return self.m_lCloseRankers['upper_ranker'], self.m_lCloseRankers['me_ranker'], self.m_lCloseRankers['lower_rank']
 end
+
+-------------------------------------
+-- function openRankingPopupForLobby
+-- @brief 로비에서 랭킹 팝업 바로 여는 경우 사용, 랭킹 보상이 있는지도 체크하여 출력한다.
+-------------------------------------
+function ServerData_EventIncarnationOfSins:openRankingPopupForLobby()
+    local function finish_cb()
+        -- 랭킹 팝업
+        UI_EventIncarnationOfSinsRankingPopup()
+
+        -- TODO : 보상 팝업
+        --local last_info = self.m_lastInfo
+        --local reward_info = self.m_rewardInfo
+--
+        --if (last_info and reward_info) then
+            ---- 랭킹 보상 팝업
+            --UI_EventLFBagRankingRewardPopup(last_info, reward_info)
+        --end
+    end
+
+    self:request_eventIncarnationOfSinsInfo(true, finish_cb, nil)
+end
+
 
 local mInit = false
 -------------------------------------

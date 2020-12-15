@@ -187,7 +187,7 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        if (g_eventIncarnationOfSinsData:canPlay()) then
+        if (g_eventIncarnationOfSinsData:isActive()) then
             co:work('# 죄악의 화신 토벌작전 이벤트 정보 받는 중')
             g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsInfo(false, co.NEXT, required_fail_cb)
             if co:waitWork() then return end
@@ -2522,7 +2522,7 @@ function UI_Lobby:refresh_rightBanner()
     end
 
     -- 죄악의 화신 토벌작전 이벤트 배너
-    if (g_hotTimeData:isActiveEvent('event_incarnation_of_sins') == true) then
+    if (g_eventIncarnationOfSinsData:isActive()) then
         if (not vars['banner_incarnation_of_sins']) then
             local banner = UI_BannerIncarnationOfSins()
             vars['bannerMenu']:addChild(banner.root)

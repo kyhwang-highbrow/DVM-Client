@@ -75,10 +75,18 @@ end
 -- function click_bannerBtn
 -------------------------------------
 function UI_BannerIncarnationOfSins:click_bannerBtn()
-    if (not g_hotTimeData:isActiveEvent('event_incarnation_of_sins')) then
+    -- 이벤트 활성화중 아님
+    if (not g_eventIncarnationOfSinsData:isActive()) then
         return
+    
+    -- 본 이벤트 기간
+    elseif (g_eventIncarnationOfSinsData:canPlay()) then
+        g_eventData:openEventPopup('event_incarnation_of_sins')
+    
+    -- 보상 수령 기간
+    else 
+        g_eventIncarnationOfSinsData:openRankingPopupForLobby()
     end
-    g_eventData:openEventPopup('event_incarnation_of_sins')
 end
 
 --@CHECK
