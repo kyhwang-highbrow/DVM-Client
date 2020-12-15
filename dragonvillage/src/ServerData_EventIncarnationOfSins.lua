@@ -9,6 +9,8 @@ ServerData_EventIncarnationOfSins = class({
 
         ------------------------------
         m_lCloseRankers = 'list', -- 랭크 앞, 자신, 뒤 등수의 유저 정보
+
+        m_tRewardInfo = 'table', -- 랭킹 보상 정보
     })
 
 -------------------------------------
@@ -179,6 +181,10 @@ function ServerData_EventIncarnationOfSins:response_eventIncarnationOfSinsInfo(r
     if (ret['reward']) then
         self.m_rewardStatus = ret['reward']
     end 
+
+    if (ret['table_incarnation_of_sins_rank']) then
+        self.m_tRewardInfo = ret['table_incarnation_of_sins_rank']
+    end
 end
 
 -------------------------------------
