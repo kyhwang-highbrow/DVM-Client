@@ -132,7 +132,7 @@ end
 function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
     local vars = self.vars
     local node = vars['reawardNode']
-    local rankingInfo = g_eventIncarnationOfSinsData.m_tRewardInfo
+    local myRankInfo = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
 
     -- 최조 한 번만 생성
     if (self.m_rewardTableView) then
@@ -148,7 +148,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
 
     local table_arena = TABLE:get('table_arena')
 	local create_func = function(ui, data)
-		self:createRewardFunc(ui, data, rankingInfo)
+		self:createRewardFunc(ui, data, myRankInfo)
 	end
 
     -- 테이블 뷰 인스턴스 생성
