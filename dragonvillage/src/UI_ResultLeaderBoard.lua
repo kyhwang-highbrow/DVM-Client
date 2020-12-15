@@ -31,7 +31,13 @@ local DEFAULT_GAP = 1000000
 -- function init
 -------------------------------------
 function UI_ResultLeaderBoard:init(type, is_popup, is_move)
-    local vars = self:load('rank_ladder.ui')
+    local vars
+    if (type == 'clan_raid') then
+        vars = self:load('rank_ladder.ui')
+    elseif (type == 'incarnation_of_sins') then
+        vars = self:load('rank_ladder_item_reward.ui')
+    end
+    
     self.m_isPopup = is_popup
     if (is_popup) then -- is_popup 이 false인 경우 : UI_EventFullPopup에 노드 매달아서 사용하는 형태
         UIManager:open(self, UIManager.POPUP)
@@ -91,14 +97,33 @@ function UI_ResultLeaderBoard:setCurrentInfo()
     vars['rankLabel']:setString(Str('{1}위', comma_value(self.m_cur_rank)))       -- 랭킹
     vars['rankDifferLabel']:setString('')
 
-    local cur_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_cur_rank, self.m_cur_ratio)
-    local cur_reward_1_cnt, cur_reward_2_cnt  = self:getClanRaidRewardCnt(cur_reward_data)
+    if (type == 'clan_raid') then
+        local cur_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_cur_rank, self.m_cur_ratio)
+        local cur_reward_1_cnt, cur_reward_2_cnt  = self:getClanRaidRewardCnt(cur_reward_data)
    
-    -- 현재 보상1
-    vars['rewardLabel1']:setString(comma_value(cur_reward_1_cnt))  -- 보상1 갯수
-    vars['rewardLabel2']:setString('')  -- 보상1 차이
-    vars['rewardLabel3']:setString(comma_value(cur_reward_2_cnt))  -- 보상2 갯수
-    vars['rewardLabel4']:setString('')  -- 보상2 차이
+        -- 현재 보상1
+        vars['rewardLabel1']:setString(comma_value(cur_reward_1_cnt))  -- 보상1 갯수
+        vars['rewardLabel2']:setString('')  -- 보상1 차이
+        vars['rewardLabel3']:setString(comma_value(cur_reward_2_cnt))  -- 보상2 갯수
+        vars['rewardLabel4']:setString('')  -- 보상2 차이
+
+    elseif (type == 'incarnation_of_sins') then
+        
+        local cur_reward_data = g_eventIncarnationOfSinsData:getPossibleReward_IncarnationsOfSins(self.m_cur_rank, self.m_cur_ratio)
+        local l_reward_data = g_itemData:parsePackageItemStr(cur_reward_data['reward'])
+        local reward_size = table.count(l_reward_data)
+        local l_ui_pos_list = getSortPosList(115, reward_size)
+
+        for idx, item_info in ipairs(l_reward_data) do
+            local item_id = item_info['item_id']
+            local count = item_info['count']
+            local ui = UI_ItemCard(item_id, count)
+            
+            local node_name = 'rewardNode' .. idx
+            vars[node_name]:addChild(ui.root)
+            vars[node_name]:setPositionX(l_ui_pos_list[idx])
+        end
+    end
 
     if (self.m_tUpperRank) then
         -- 앞 순위 유저
@@ -137,6 +162,7 @@ end
 -------------------------------------
 function UI_ResultLeaderBoard:setChangeInfo()
     local vars = self.vars
+    local type = self.m_type
 
     vars['scoreDifferNode']:setVisible(true)
     vars['rankDifferNode']:setVisible(true)
@@ -214,51 +240,57 @@ function UI_ResultLeaderBoard:setChangeInfo()
         vars['rankDifferNode']:setVisible(false)
     end
 
-    -- 현재 보상 갯수
-    local cur_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_cur_rank, self.m_cur_ratio)
-    local cur_reward_1_cnt, cur_reward_2_cnt  = self:getClanRaidRewardCnt(cur_reward_data)
+    if (type == 'clan_raid') then
+         -- 현재 보상 갯수
+        local cur_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_cur_rank, self.m_cur_ratio)
+        local cur_reward_1_cnt, cur_reward_2_cnt  = self:getClanRaidRewardCnt(cur_reward_data)
     
-    local score_diff_label = NumberLabel(vars['rewardLabel1'], 0, 2)
-    score_diff_label:setNumber(cur_reward_1_cnt, false)
+        local score_diff_label = NumberLabel(vars['rewardLabel1'], 0, 2)
+        score_diff_label:setNumber(cur_reward_1_cnt, false)
     
-    local score_diff_label = NumberLabel(vars['rewardLabel3'], 0, 2)
-    score_diff_label:setNumber(cur_reward_2_cnt, false)
+        local score_diff_label = NumberLabel(vars['rewardLabel3'], 0, 2)
+        score_diff_label:setNumber(cur_reward_2_cnt, false)
 
-    -- 이전 보상 갯수
-    local before_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_before_rank, self.m_before_ratio)
-    local before_reward_1_cnt, before_reward_2_cnt  = self:getClanRaidRewardCnt(before_reward_data)
+        -- 이전 보상 갯수
+        local before_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_before_rank, self.m_before_ratio)
+        local before_reward_1_cnt, before_reward_2_cnt  = self:getClanRaidRewardCnt(before_reward_data)
     
-    -- 차이
-    local reward_1_gap = cur_reward_1_cnt - before_reward_1_cnt
-    local reward_2_gap = cur_reward_2_cnt - before_reward_2_cnt
+        -- 차이
+        local reward_1_gap = cur_reward_1_cnt - before_reward_1_cnt
+        local reward_2_gap = cur_reward_2_cnt - before_reward_2_cnt
     
-    if (reward_1_gap ~= 0) then
-        -- 현재 보상1 차이
-        local score_diff_label = NumberLabel(vars['rewardLabel2'], 0, 2)
-        score_diff_label:setTweenCallback(diff_tween_cb)
-        score_diff_label:setNumber(reward_1_gap, false)
+        if (reward_1_gap ~= 0) then
+            -- 현재 보상1 차이
+            local score_diff_label = NumberLabel(vars['rewardLabel2'], 0, 2)
+            score_diff_label:setTweenCallback(diff_tween_cb)
+            score_diff_label:setNumber(reward_1_gap, false)
         
-        -- 순위 양수/음수에 따라 화살표 방향 바꿈
-        if (reward_1_gap < 0) then
-            vars['arrowVisual2']:setScaleX(-1)
+            -- 순위 양수/음수에 따라 화살표 방향 바꿈
+            if (reward_1_gap < 0) then
+                vars['arrowVisual2']:setScaleX(-1)
+            end
+        else
+            vars['rewardNode1']:setVisible(false)
         end
-    else
-        vars['rewardNode1']:setVisible(false)
-    end
 
-    if (reward_2_gap ~= 0) then
-        -- 현재 보상2 차이
-        local score_diff_label = NumberLabel(vars['rewardLabel4'], 0, 2)
-        score_diff_label:setTweenCallback(diff_tween_cb)
-        score_diff_label:setNumber(reward_2_gap, false)
+        if (reward_2_gap ~= 0) then
+            -- 현재 보상2 차이
+            local score_diff_label = NumberLabel(vars['rewardLabel4'], 0, 2)
+            score_diff_label:setTweenCallback(diff_tween_cb)
+            score_diff_label:setNumber(reward_2_gap, false)
         
-        -- 순위 양수/음수에 따라 화살표 방향 바꿈
-        if (reward_2_gap < 0) then
-            vars['arrowVisual1']:setScaleX(-1)
+            -- 순위 양수/음수에 따라 화살표 방향 바꿈
+            if (reward_2_gap < 0) then
+                vars['arrowVisual1']:setScaleX(-1)
+            end
+        else
+            vars['rewardNode2']:setVisible(false)
         end
-    else
-        vars['rewardNode2']:setVisible(false)
+    elseif (type == 'incarnation_of_sins') then
+        
+        -- 죄악의 화신 토벌작전 모드의 경우 setCurrentInfo에서 현재 획득 가능한 보상을 아이템 카드로 그린다.
     end
+   
 
 end
 
