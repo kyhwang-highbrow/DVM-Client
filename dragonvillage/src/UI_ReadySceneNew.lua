@@ -2015,11 +2015,20 @@ function UI_ReadySceneNew:startGame_eventIncarnationOfSins()
         self:replaceGameScene()
     end
 
-    -- 필요하게 될 경우 네트워크 통신
-    --local func_start = function()
-        --local struct_raid = g_clanRaidData:getClanRaidStruct()
-        --g_stageData:requestGameStart_training(struct_raid:getStageID(), struct_raid.attr, finish_cb, nil)
-    --end
+    local func_start = function()
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        local stage = struct_raid.stage
+        local attr = struct_raid.attr
+
+        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, attr)
+        local deck_name1 = multi_deck_mgr:getDeckName('up')
+        local deck_name2 = multi_deck_mgr:getDeckName('down')
+
+        local token1 = g_stageData:makeDragonToken(deck_name1)
+        local token2 = g_stageData:makeDragonToken(deck_name2)
+
+        g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsStart(stage, attr, deck_name1, deck_name1, token1, token2, finish_cb, nil)
+    end
 
     self:checkChangeDeck(finish_cb)
 end

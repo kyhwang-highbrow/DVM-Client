@@ -449,19 +449,12 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
             else
                 main_deck = 2
             end
-            local ui_network = UI_Network()
-            local api_url = '/event/incarnation_of_sins/finish'
-            ui_network:setUrl(api_url)
-            ui_network:setParam('uid', uid)
-            ui_network:setParam('stage', self.m_stageID)
-            ui_network:setParam('attr', attr)
-            ui_network:setParam('damage', t_param['damage'])
-            ui_network:setParam('choice_deck', main_deck)
-            ui_network:setParam('clear_time', t_param['clear_time'])
-            ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
-            ui_network:setResponseStatusCB(response_status_cb)
-            ui_network:setSuccessCB(success_cb)
-            ui_network:request()
+            local stage = self.m_stageID
+            local damage = t_param['damage']
+            local clear_time = t_param['clear_time']
+            local check_time = g_accessTimeData:getCheckTime()
+
+            g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsFinish(stage, attr, damage, main_deck, clear_time, check_time, success_cb, nil)
             return
         end
     end
