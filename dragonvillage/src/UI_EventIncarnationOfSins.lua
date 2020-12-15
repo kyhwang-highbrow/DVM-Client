@@ -45,6 +45,30 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSins:refresh()
     local vars = self.vars
+
+    -- 현재 서버 데이터를 이용하여 순위 정보 표기
+    self:refreshScore('total', vars['rankLabel'], vars['scoreLabel'])
+    self:refreshScore('light', vars['rankLabel1'], vars['scoreLabel1'])
+    self:refreshScore('fire', vars['rankLabel2'], vars['scoreLabel2'])
+    self:refreshScore('water', vars['rankLabel3'], vars['scoreLabel3'])
+    self:refreshScore('earth', vars['rankLabel4'], vars['scoreLabel4'])
+    self:refreshScore('dark', vars['rankLabel5'], vars['scoreLabel5'])
+end
+
+-------------------------------------
+-- function refreshScore
+-- @param attr : 속성값으로 해당 값으로 점수와 랭크 받음
+-- @param rank_label : UI 파일에서 랭크를 적을 라벨
+-- @param score_label : UI 파일에서 점수를 적을 라벨
+-------------------------------------
+function UI_EventIncarnationOfSins:refreshScore(attr, rank_label, score_label)
+    local vars = self.vars
+
+    -- 현재 서버 데이터를 이용하여 순위 정보 표기
+    local rank = g_eventIncarnationOfSinsData:getMyRank(attr)
+    local score = g_eventIncarnationOfSinsData:getMyScore(attr)
+    rank_label:setString(Str('{1}위', rank))
+    score_label:setString(Str('{1}점', score))
 end
 
 -------------------------------------

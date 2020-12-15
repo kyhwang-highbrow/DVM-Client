@@ -56,7 +56,7 @@ function UI_BannerIncarnationOfSins:update()
     if (vars['rankLabel']) then
         -- 내 랭킹이 0보다 작으면 {-위} 로 노출
         -- 0보다 큰 의미있는 값이면 그대로 노출
-        local my_rank = ServerData_EventIncarnationOfSins:getMyRank()
+        local my_rank = g_eventIncarnationOfSinsData:getMyRank()
 
         if (my_rank < 0) then
             vars['rankLabel']:setString(Str('{1}위', '-'))

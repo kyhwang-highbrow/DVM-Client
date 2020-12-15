@@ -32,8 +32,8 @@ function ServerData_EventIncarnationOfSins:getMyRank(type)
     
     local result = -1
 
-    if (m_tMyRankInfo) then
-        result = m_tMyRankInfo[type]['rank']
+    if (self.m_tMyRankInfo) then
+        result = self.m_tMyRankInfo[type]['rank']
     end
 
     return result
@@ -48,8 +48,8 @@ function ServerData_EventIncarnationOfSins:getMyScore(type)
 
     local result = -1
 
-    if (m_tMyRankInfo) then
-        result = m_tMyRankInfo[type]['score']
+    if (self.m_tMyRankInfo) then
+        result = self.m_tMyRankInfo[type]['score']
     end
 
     return result
