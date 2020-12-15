@@ -59,6 +59,24 @@ function UI_EventIncarnationOfSinsEntryPopup:initUI()
     local icon = IconHelper:getAttributeIconButton(attr)
     vars['attrNode']:addChild(icon)
 
+    -- 랭크
+    local rank = g_eventIncarnationOfSinsData:getMyRank(attr)
+    if (rank < 0) then 
+        rank = '-'
+    else
+        rank = comma_value(rank)
+    end
+    vars['rankLabel']:setString(Str('{1}위', rank))
+    
+    -- 점수
+    local score = g_eventIncarnationOfSinsData:getMyScore(attr)
+    if (score < 0) then 
+        score = '-'
+    else
+        score = comma_value(score)
+    end
+    vars['scoreLabel']:setString(Str('{1}점', score))
+
     local l_monster = TableStageDesc():getMonsterIDList_ClanMonster(attr)
     for _, mid in ipairs(l_monster) do
         local res, attr, evolution = TableMonster:getMonsterRes(mid)
