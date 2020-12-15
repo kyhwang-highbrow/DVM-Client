@@ -115,7 +115,7 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/incarnation_of_sins/info')
+    ui_network:setUrl('/event/incarnation_of_sins/info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('include_tables', include_tables) -- 정보 관련 테이블 내려받을지 여부 
     ui_network:setParam('reward', include_reward) -- 랭킹 보상 지급 여부
@@ -175,7 +175,7 @@ function ServerData_EventIncarnationOfSins:request_EventIncarnationOfSinsAttrRan
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/incarnation_of_sins/ranking')
+    ui_network:setUrl('/event/incarnation_of_sins/ranking')
     ui_network:setParam('uid', uid)
     ui_network:setParam('attr', attr) 
     ui_network:setParam('type', type)
