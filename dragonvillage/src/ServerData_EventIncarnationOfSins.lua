@@ -5,6 +5,10 @@
 ServerData_EventIncarnationOfSins = class({
         m_tMyRankInfo = 'table', -- 속성별 자신의 순위 정보가 들어있음 (light, dark, fire, water, earth, total(전체순위))
         m_rewardStatus = 'number', -- 보상 받았는지 상태 저장
+
+
+        ------------------------------
+        m_lCloseRankers = 'list', -- 랭크 앞, 자신, 뒤 등수의 유저 정보
     })
 
 -------------------------------------
@@ -49,7 +53,7 @@ function ServerData_EventIncarnationOfSins:getMyScore(type)
     local result = -1
 
     if (self.m_tMyRankInfo) then
-        result = self.m_tMyRankInfo[type]['score']
+        result = self.m_tMyRankInfo[type]['rp']
     end
 
     return result
@@ -72,6 +76,43 @@ function ServerData_EventIncarnationOfSins:isOpenAttr(attr)
     -- TODO : 구현을 해야한다.
     
     return true
+end
+
+-------------------------------------
+-- function setCloseRankers
+-- @brief 앞뒤 등수 유저 정보 저장
+-------------------------------------
+function ServerData_EventIncarnationOfSins:setCloseRankers(l_rankers)
+    local my_rank = self:getMyRank()
+    local upper_rank = my_rank - 1
+    local lower_rank = my_rank + 1
+
+    self.m_lCloseRankers = {}
+    self.m_lCloseRankers['me_ranker'] = nil
+    self.m_lCloseRankers['upper_ranker'] = nil
+    self.m_lCloseRankers['lower_rank'] = nil
+
+    for _,data in ipairs(l_rankers) do
+        if (tonumber(data['rank']) == tonumber(my_rank)) then
+            self.m_lCloseRankers['me_ranker'] = data
+        end
+
+        if (tonumber(data['rank']) == tonumber(upper_rank)) then
+            self.m_lCloseRankers['upper_ranker'] = data
+        end
+
+        if (tonumber(data['rank']) == tonumber(lower_rank)) then
+            self.m_lCloseRankers['lower_rank'] = data
+        end
+    end
+end
+
+-------------------------------------
+-- function getCloseRankers
+-- @brief 앞뒤 등수 유저 정보 반환 
+-------------------------------------
+function ServerData_EventIncarnationOfSins:getCloseRankers()
+    return self.m_lCloseRankers['upper_ranker'], self.m_lCloseRankers['me_ranker'], self.m_lCloseRankers['lower_rank']
 end
 
 local mInit = false
