@@ -135,6 +135,9 @@ end
 -------------------------------------
 function UI_SecretDungeonScene:initButton()
     local vars = self.vars
+
+    -- 던전 드랍 정보 설명 버튼
+    vars['infoBtn']:setVisible(false)
 end
 
 -------------------------------------
