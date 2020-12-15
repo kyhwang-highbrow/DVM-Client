@@ -22,6 +22,12 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSins:initUI()
     local vars = self.vars
+
+    vars['dayLabel1']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('light'))
+    vars['dayLabel2']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('fire'))
+    vars['dayLabel3']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('water'))
+    vars['dayLabel4']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('earth'))
+    vars['dayLabel5']:setString(g_eventIncarnationOfSinsData:getOpenAttrStr('dark'))
 end
 
 -------------------------------------

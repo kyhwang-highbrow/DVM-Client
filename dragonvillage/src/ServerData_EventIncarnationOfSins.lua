@@ -11,6 +11,8 @@ ServerData_EventIncarnationOfSins = class({
         m_lCloseRankers = 'list', -- 랭크 앞, 자신, 뒤 등수의 유저 정보
 
         m_tRewardInfo = 'table', -- 랭킹 보상 정보
+        m_tAttrInfo = 'table', -- 요일별 입장 가능한 속성 정보
+        m_todayDow = 'number', -- 오늘 요일 (1 = 일요일, 2, 3, 4, 5, 6, 7 = 토요일)
     })
 
 -------------------------------------
@@ -75,9 +77,49 @@ end
 -- @brief 해당 속성이 현재 열려있는지 판단
 -------------------------------------
 function ServerData_EventIncarnationOfSins:isOpenAttr(attr)
-    -- TODO : 구현을 해야한다.
-    
-    return true
+    if (self.m_tAttrInfo == nil) then
+        return false
+    end
+
+    local today_dow = self.m_todayDow
+    return self.m_tAttrInfo[today_dow]
+end
+
+-------------------------------------
+-- function getOpenAttrStr
+-- @brief 해당 속성이 열리는 요일을 문자열로 반환
+-------------------------------------
+function ServerData_EventIncarnationOfSins:getOpenAttrStr(attr)
+    if (self.m_tAttrInfo == nil) then
+        return ''
+    end
+
+    local l_weekday_name_list = {Str('일'), Str('월'), Str('화'), Str('수'), Str('목'), Str('금'), Str('토')}
+    local str = nil
+    local t_attr_info = self.m_tAttrInfo[attr]
+    -- 월 ~ 토요일
+    for dow = 2, 7 do
+        if (t_attr_info[dow] == true) then
+            if (str == nil) then
+                str = l_weekday_name_list[dow]
+            else
+                str = str .. ',' .. l_weekday_name_list[dow]
+            end        
+        end
+    end
+
+    -- 일요일
+    if (t_attr_info[1] == true) then
+        if (str == nil) then
+            str = l_weekday_name_list[1]
+            
+        else
+            str = str .. ',' .. l_weekday_name_list[1]
+        end        
+    end
+
+
+    return str
 end
 
 -------------------------------------
@@ -182,8 +224,42 @@ function ServerData_EventIncarnationOfSins:response_eventIncarnationOfSinsInfo(r
         self.m_rewardStatus = ret['reward']
     end 
 
+    if (ret['dow']) then
+        self.m_todayDow = ret['dow']
+    end 
+
     if (ret['table_incarnation_of_sins_rank']) then
         self.m_tRewardInfo = ret['table_incarnation_of_sins_rank']
+    end
+
+    if (ret['table_incarnation_of_sins_attr']) then
+        local l_dow_info = ret['table_incarnation_of_sins_attr']
+        local t_attr_info = {}
+        t_attr_info['fire'] = {}
+        t_attr_info['water'] = {}
+        t_attr_info['earth'] = {}
+        t_attr_info['light'] = {}
+        t_attr_info['dark'] = {}
+
+        for i, dow_info in ipairs(l_dow_info) do
+            local dow = dow_info['dow']  -- 요일
+            local dow_attr = dow_info['attr'] -- 속성
+            if (dow_attr == 'all') then
+                for attr, attr_info in pairs(t_attr_info) do
+                    attr_info[dow] = true
+                end
+            else
+                for attr, attr_info in pairs(t_attr_info) do
+                    if (dow_attr == attr) then
+                        attr_info[dow] = true
+                    else
+                        attr_info[dow] = false
+                    end
+                end
+            end         
+        end
+        
+        self.m_tAttrInfo = t_attr_info -- table[attr(string)][dow(number)] = true(boolean) 이면 attr 속성이 dow 요일일때 열려있다.
     end
 end
 
