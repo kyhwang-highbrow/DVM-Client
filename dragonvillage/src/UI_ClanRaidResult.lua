@@ -408,9 +408,16 @@ function UI_ClanRaidResult:direction_end()
 
     local func_show_leader = function()
         local struct_raid = g_clanRaidData:getClanRaidStruct()
-        -- 연습모드가 아니고, 죄악의 화신 토벌작전 이벤트 모드가 아닐 때 리더보드 보여줌
-        if (not (struct_raid:isTrainingMode() or struct_raid:isEventIncarnationOfSinsMode())) then
-          self:showLeaderBoard()
+        -- 연습모드에선 리더보드 안보여줌
+        if (not struct_raid:isTrainingMode()) then
+            
+            -- 죄악의 화신 토벌작전 이벤트에선 최고기록을 세웠을 때에만 보여줌
+            if (struct_raid:isEventIncarnationOfSinsMode()) then
+                self:showLeaderBoard_IncarnationOfSins()
+
+            else
+                self:showLeaderBoard()
+            end
         end
     end
 
@@ -452,6 +459,36 @@ function UI_ClanRaidResult:showLeaderBoard()
 
     local ui_leader_board = UI_ResultLeaderBoard('clan_raid', true, true) -- type, is_move, is_popup
     ui_leader_board:setScore(self.m_damage, t_me['score']) -- param : add_score, current_score (전투 후)데미지 값(=점수), (전투 후)최종 종합 점수
+    ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
+    ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
+    ui_leader_board:setRanker(t_upper, t_me, t_lower)
+    ui_leader_board:setCurrentInfo()
+    ui_leader_board:startMoving()
+end
+
+-------------------------------------
+-- function showLeaderBoard_IncarnationOfSins
+-- @brief 죄악의 화신 토벌작전 전용 리더보드 생성
+-------------------------------------
+function UI_ClanRaidResult:showLeaderBoard_IncarnationOfSins()
+    local vars = self.vars
+    
+    -- 게임 후, 앞/뒤 랭커 정보
+    local t_upper, t_me, t_lower = g_eventIncarnationOfSinsData:getCloseRankers()
+    if (not t_me) then
+        self:doNextWork()
+        return
+    end
+
+    -- 게임 전 내 정보
+    local t_ex_me = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
+    if (not t_ex_me) then
+        self:doNextWork()
+        return
+    end
+
+    local ui_leader_board = UI_ResultLeaderBoard('incarnation_of_sins', true, true) -- type, is_move, is_popup
+    ui_leader_board:setScore(t_me['rp'] - t_ex_me['rp'], t_me['rp']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
     ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
     ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
     ui_leader_board:setRanker(t_upper, t_me, t_lower)

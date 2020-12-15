@@ -314,6 +314,8 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        
         self:networkGameFinish_response(ret, t_result_ref)
 
         -- 메일 갱신
@@ -329,14 +331,24 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
 
         -- 앞/뒤 순위 정보
         if (ret['rank_list']) then
-            g_clanRaidData:applyCloseRankerData(ret['rank_list'])
+            -- 죄악의 화신 토벌작전의 경우 점수가 높아진 경우에만 근접한 랭킹 순위 저장하여 리더보드 표시
+            if (struct_raid:isEventIncarnationOfSinsMode()) then
+                if (ret['new_score'] == true) then
+                    g_eventIncarnationOfSinsData:setCloseRankers(ret['rank_list'])
+                else
+                    g_eventIncarnationOfSinsData:setCloseRankers({})
+                end
+            
+            -- 클랜던전의 경우 항상 근접 랭킹 순위 저장하여 리더보드 표시
+            else
+                g_clanRaidData:applyCloseRankerData(ret['rank_list'])
+            end
         end
 
         -- 보상 등급 지정
         t_result_ref['dmg_rank'] = ret['dmg_rank'] or 1
 
         -- 연습 모드나 이벤트 모드가 아닌 경우, 클랜 던전 정보 갱신
-        local struct_raid = g_clanRaidData:getClanRaidStruct()
         if (not (struct_raid:isTrainingMode() or struct_raid:isEventIncarnationOfSinsMode())) then
             if (ret['dungeon']) then
                 g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
@@ -359,7 +371,6 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
                 t_result_ref['dmg_rank'] = 1
             end
             g_clanRaidData.m_structClanRaid['hp']:set(cur_hp)
-
         end
 
         self.m_bWaitingNet = false
@@ -438,25 +449,8 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
             else
                 main_deck = 2
             end
-            local l_deck_up = g_deckData:getDeck(g_data:getDeckName('up'))
-
-            -- 현재 사용한 덱 정보(드래곤 아이디만) 를 120008;120882.. 형태로 서버에 보냄
-            local up_dragon_id_str = ''
-            for i, doid in pairs(l_deck_up) do
-                local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-                local doid = t_dragon_data['did']
-                up_dragon_id_str = string.format("%s;%s", up_dragon_id_str, doid)
-            end
-            local l_deck_down = g_deckData:getDeck(g_data:getDeckName('down'))
-            local down_dragon_id_str = ''
-            for i, doid in pairs(l_deck_down) do
-                local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-                local doid = t_dragon_data['did']
-                down_dragon_id_str = string.format("%s;%s", down_dragon_id_str, doid)
-            end
-            
             local ui_network = UI_Network()
-            local api_url = '/shop/incarnation_of_sins/record'
+            local api_url = '/event/incarnation_of_sins/finish'
             ui_network:setUrl(api_url)
             ui_network:setParam('uid', uid)
             ui_network:setParam('stage', self.m_stageID)
@@ -465,8 +459,6 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
             ui_network:setParam('choice_deck', main_deck)
             ui_network:setParam('clear_time', t_param['clear_time'])
             ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
-            --ui_network:setParam('deck1_dids', up_dragon_id_str)
-            --ui_network:setParam('deck2_dids', down_dragon_id_str)
             ui_network:setResponseStatusCB(response_status_cb)
             ui_network:setSuccessCB(success_cb)
             ui_network:request()

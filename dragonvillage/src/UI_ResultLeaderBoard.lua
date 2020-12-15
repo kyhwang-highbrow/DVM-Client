@@ -6,6 +6,8 @@ local structLeaderBoard
 -- class UI_ResultLeaderBoard
 -------------------------------------
 UI_ResultLeaderBoard = class(PARENT, {
+        m_type = 'string', -- clan_raid, incarnation_of_sins
+
         m_before_rank = 'number',
         m_cur_rank = 'number',
         
@@ -42,6 +44,8 @@ function UI_ResultLeaderBoard:init(type, is_popup, is_move)
     self:doActionReset()
     self:doAction(nil, false)
 
+    self.m_type = type
+
     self:initUI()
     self:initButton()
     self:refresh()
@@ -74,6 +78,7 @@ end
 -------------------------------------
 function UI_ResultLeaderBoard:setCurrentInfo()
     local vars = self.vars
+    local type = self.m_type
 
     vars['gaugeSprite']:setVisible(self.m_isPopup)
 
@@ -377,7 +382,6 @@ function UI_ResultLeaderBoard:setScore(add_score, current_score)
         self.m_cur_score = 0
         return
     end
-    
     self.m_before_score = tonumber(current_score) - tonumber(add_score)
     self.m_cur_score = tonumber(current_score)
 end
