@@ -132,29 +132,15 @@ function UI_EventIncarnationOfSinsRankingPopup:onChangeRankingType(type)
         end
     end
 
-    -- 내 랭킹, 탑랭킹, 칰구랭킹, 클랜랭킹
-    -- TODO 필요한 정보 세팅하여 넘기기
-    if (type == 'my') then
-        --self.m_rankType = 'world'
-        --self.m_rankOffset = -1
-    elseif (type == 'top') then
-        --self.m_rankType = 'world'
-        --self.m_rankOffset = 1
-    elseif (type == 'friend') then
-        --self.m_rankType = 'friend'
-        --self.m_rankOffset = 1
-    elseif (type == 'clan') then
-        --self.m_rankType = 'clan'
-        --self.m_rankOffset = 1
-    end
+    -- 그냥 타입을 써도 되지만 혹시 모르니 세팅은 해주자.
+    self.m_rankType = type
 
-    -- 현재 세팅 된 탭 기준으로 requestRank를 호출해준다.
-    -- 각 탭들은 자신을 세팅하기 위해 모두 requestRank 함수를 가진다.
+    -- 현재 세팅 된 탭 기준으로 refreshRank를 호출해준다.
+    -- 각 탭들은 자신을 세팅하기 위해 모두 refreshRank 함수를 가진다.
     if (self.m_currTab and self.m_mTabData) then
         if (self.m_mTabData[self.m_currTab]) then
             -- TODO : 필터링 타입으로 리퀘스트 넘기는것을 구현할것
-            --self.m_mTabData[self.m_currTab]['ui']:requestRank(self.m_rankOffset)
+            self.m_mTabData[self.m_currTab]['ui']:refreshRank(self.m_rankType)
         end
     end
-
 end
