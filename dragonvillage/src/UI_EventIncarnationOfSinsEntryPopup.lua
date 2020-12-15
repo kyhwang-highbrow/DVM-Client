@@ -120,7 +120,7 @@ function UI_EventIncarnationOfSinsEntryPopup:initButton()
     local vars = self.vars
 
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
-    --vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['quantityBtn1']:registerScriptTapHandler(function() self:click_minusBtn() end)
     vars['quantityBtn3']:registerScriptTapHandler(function() self:click_plusBtn() end)
     vars['quantityBtn4']:registerScriptTapHandler(function() self:click_maxBtn() end)
