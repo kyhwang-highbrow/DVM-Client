@@ -67,8 +67,23 @@ function UI_EventIncarnationOfSins:refreshScore(attr, rank_label, score_label)
     -- 현재 서버 데이터를 이용하여 순위 정보 표기
     local rank = g_eventIncarnationOfSinsData:getMyRank(attr)
     local score = g_eventIncarnationOfSinsData:getMyScore(attr)
-    rank_label:setString(Str('{1}위', rank))
-    score_label:setString(Str('{1}점', score))
+	
+	-- 내 랭킹이 0보다 작으면 {-위} 로 노출
+    -- 0보다 큰 의미있는 값이면 그대로 노출
+    if (rank < 0) then
+        rank_label:setString(Str('{1}위', '-'))
+    else
+        rank_label:setString(Str('{1}위', rank))
+    end
+	
+	-- 내 스코어가 0보다 작으면 {-위} 로 노출
+    -- 0보다 큰 의미있는 값이면 그대로 노출
+    if (score < 0) then
+        score_label:setString(Str('{1}위', '-'))
+    else
+        score_label:setString(Str('{1}점', score))
+    end
+
 end
 
 -------------------------------------
