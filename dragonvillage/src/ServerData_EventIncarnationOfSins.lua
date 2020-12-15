@@ -3,6 +3,8 @@
 -- g_eventIncarnationOfSinsData
 -------------------------------------
 ServerData_EventIncarnationOfSins = class({
+        m_tRankInfo = 'table', -- 속성별 자신의 순위 정보가 들어있음 (light, dark, fire, water, earth, total(전체순위))
+        m_rewardStatus = 'number', -- 보상 받았는지 상태 저장
     })
 
 -------------------------------------
@@ -68,10 +70,16 @@ end
 local mInit = false
 -------------------------------------
 -- function request_eventIncarnationOfSinsInfo
--- @brief 이벤트 정보
+-- @brief 이벤트 정보를 요청
+-- @param include_reward : 이벤트 랭킹 보상을 받을지 여부
 -------------------------------------
 function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(include_reward, finish_cb, fail_cb)
     
+    local uid = g_userData:get('uid')
+    local include_tables = false
+    local include_reward = include_reward or false
+
+    -- 맨 처음 한번만 require
     if (not mInit) then
         mInit = true
         require('UI_EventIncarnationOfSins')
@@ -81,35 +89,46 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
         require('UI_EventIncarnationOfSinsRankingTotalTab')
         require('UI_EventIncarnationOfSinsRankingAttributeTab')
         require('UI_BannerIncarnationOfSins')
-
+        include_tables = true
     end
-
-     -- 유저 ID
-    local uid = g_userData:get('uid')
 
     -- 콜백
     local function success_cb(ret)
-        -- TODO
-            
+        g_serverData:networkCommonRespone(ret)
+
+        self:response_eventIncarnationOfSinsInfo(ret)
+
         if finish_cb then
             finish_cb(ret)
         end
     end
 
+    local function fail_cb(ret)
+    end
+
     -- 네트워크 통신
-    -- local ui_network = UI_Network()
-    -- ui_network:setUrl('/shop/event_incarnation_of_sins/info')
-    -- ui_network:setParam('uid', uid)
-    -- ui_network:setParam('reward', include_reward or false) -- 랭킹 보상 지급 여부
-    -- ui_network:setSuccessCB(success_cb)
-	-- ui_network:setFailCB(fail_cb)
-    -- ui_network:setRevocable(true)
-    -- ui_network:setReuse(false)
-	-- ui_network:hideBGLayerColor()
-    -- ui_network:request()
+     local ui_network = UI_Network()
+     ui_network:setUrl('/shop/incarnation_of_sins/info')
+     ui_network:setParam('uid', uid)
+     ui_network:setParam('include_tables', include_tables) -- 정보 관련 테이블 내려받을지 여부 
+     ui_network:setParam('reward', include_reward) -- 랭킹 보상 지급 여부
+     ui_network:setSuccessCB(success_cb)
+	 ui_network:setFailCB(fail_cb)
+     ui_network:setRevocable(true)
+     ui_network:setReuse(false)
+	 ui_network:hideBGLayerColor()
+     ui_network:request()
+end
 
-    -- 서버 통신 구현될때까지 임시
-    success_cb()
-
-    return ui_network
+-------------------------------------
+-- function response_eventIncarnationOfSinsInfo
+-------------------------------------
+function ServerData_EventIncarnationOfSins:response_eventIncarnationOfSinsInfo(ret)
+    if (ret['rankinfo']) then
+        self.m_tRankInfo = ret['rankinfo']
+    end
+    
+    if (ret['reward']) then
+        self.m_rewardStatus = ret['reward']
+    end 
 end
