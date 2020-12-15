@@ -129,37 +129,26 @@ end
 -------------------------------------
 -- function makeRewardTableView
 -------------------------------------
-function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView(my_info)
+function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
     local vars = self.vars
-    local node = vars['userRewardNode']
-    
+    local node = vars['reawardNode']
+    local rankingInfo = g_eventIncarnationOfSinsData.m_tRewardInfo
+
     -- 최조 한 번만 생성
     if (self.m_rewardTableView) then
         return
     end
 
-    -- 랭킹 보상 테이블
-    -- 서버로부터 랭킹 보상 테이블을 받아야 함
-    local table_rank = ''
-    local l_rank = struct_rank_reward:getRankRewardList()
-    local struct_rank_reward = StructRankReward(table_rank)
+    -- 콜로세움 랭킹 보상 테이블
+    local table_arena_rank = TABLE:get('table_arena_rank')
+    local struct_rank_reward = StructRankReward(table_arena_rank)
+    local l_arena_rank = struct_rank_reward:getRankRewardList()
     self.m_structRankReward = struct_rank_reward
 
-    -- 보상테이블 가져온다.
-    local table_rank = ''
+
+    local table_arena = TABLE:get('table_arena')
 	local create_func = function(ui, data)
-        -- 티어 아이콘/ 티어 이름
-		local tier_id = data['tier_id']
-        if (tier_id) then
-            local tier = table_rank[tier_id]['tier']
-            local tier_icon = StructUserInfoArena:makeTierIcon(tier)
-            local tier_name = StructUserInfoArena:getTierName(tier) or ''
-            ui.vars['tierLabel']:setString(tier_name)
-            if (tier_icon) then
-                ui.vars['tierNode']:addChild(tier_icon)
-            end
-        end
-		self:createRewardFunc(ui, data, my_info)
+		self:createRewardFunc(ui, data, rankingInfo)
 	end
 
     -- 테이블 뷰 인스턴스 생성
@@ -172,7 +161,23 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView(my_info)
     self.m_rewardTableView = table_view
 end
 
+-------------------------------------
+-- function createRewardFunc
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingTotalTab:createRewardFunc(ui, data, my_info)
+    local vars = ui.vars
+    local my_data = my_info or {}
 
+    local my_rank = my_data['rank'] or 0
+    local my_ratio = my_data['rate'] or 0
+
+    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
+    if (reward_data) then
+        if (data['rank_id'] == reward_data['rank_id']) then
+            vars['meSprite']:setVisible(true)
+        end
+    end
+end
 
 
 
@@ -185,7 +190,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSins
     local function success_cb(ret)
         -- 랭킹 테이블 다시 만듬
         self:makeRankTableView(ret)
-        --self:makeRewardTableView(ret['my_info'])
+        self:makeRewardTableView()
 
         -- TODO 리스트에 그려주기
     end  
@@ -253,7 +258,15 @@ function UI_EventIncarnationOfSinsRankingTotalTabRankingListItem:initUI()
     local t_rank_info = StructUserInfoArena:create_forRanking(self.m_rankInfo)
 
     -- 점수 표시
-    vars['scoreLabel']:setString(self.m_rankInfo['rp'])
+    local score = tonumber(self.m_rankInfo['rp'])
+
+    if (score < 0) then
+        score = '-'
+    else
+        score = comma_value(score)
+    end
+
+    vars['scoreLabel']:setString(score)
 
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['userLabel']:setString(self.m_rankInfo['nick'])
@@ -330,10 +343,10 @@ UI_EventIncarnationOfSinsRankingTotalTabRewardListItem = class(CELL_PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventIncarnationOfSinsRankingTotalTabRewardListItem:init(t_data)
+function UI_EventIncarnationOfSinsRankingTotalTabRewardListItem:init(t_reward_info)
+    self.m_rewardInfo = t_reward_info
     local vars = self:load('event_incarnation_of_sins_rank_popup_all_item_01.ui')
-    self.m_rewardInfo = t_data
-
+    
     self:initUI()
 end
 
@@ -345,12 +358,12 @@ end
 function UI_EventIncarnationOfSinsRankingTotalTabRewardListItem:initUI()
     local vars = self.vars
     local t_data = self.m_rewardInfo
-    local l_reward = TableClass:seperate(t_data['reward'], ',', true)
+    local l_reward = TableClass:seperate(self.m_rewardInfo['reward'], ',', true)
 
     for i = 1, #l_reward do
         local l_str = seperate(l_reward[i], ';')
         local item_id = TableItem:getItemIDFromItemType(l_str[1]) -- 아이템 아이콘
-        local icon = IconHelper:getItemIcon(item_id) 
+        local icon = IconHelper:getItemIcon(item_id)
 
         local cnt = l_str[2] -- 아이콘 수량
         
