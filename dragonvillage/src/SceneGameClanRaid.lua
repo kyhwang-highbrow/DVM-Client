@@ -207,6 +207,15 @@ end
 -- @breif 게임 플레이 시작 시 요청
 -------------------------------------
 function SceneGameClanRaid:networkGamePlayStart(next_func)
+    -- 죄악의 화신 출몰작전 이벤트의 경우 시작 콜을 보내지 않는다.
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    if (struct_raid:isEventIncarnationOfSinsMode()) then
+        if (next_func) then
+            next_func()
+        end
+        return
+    end
+
     -- 백그라운드로 한번만 요청하면서 다음 스텝으로 진행시킴
     local function success_cb(ret)
         if (ret['status'] ~= 0) then return end
@@ -332,7 +341,7 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
             if (ret['dungeon']) then
                 g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
             end
-        -- 연습 모드일 경우, @jhakim 190325  training 모드는 finish통신에서 hp/등급을 받지 않기 때문에 클라에서 계산
+        -- 연습 모드나 이벤트 모드일 경우, @jhakim 190325  training 모드는 finish통신에서 hp/등급을 받지 않기 때문에 클라에서 계산
         else
             -- 하드코딩
             local ex_hp = g_clanRaidData.m_structClanRaid['hp']:get()
@@ -420,16 +429,15 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
             return
         
         -- 죄악의 화신 토벌작전 이벤트 모드 
-        -- TODO : 죄악의 화신 토벌작전 이벤트 모드 전용 API로 변경
         elseif (struct_raid:isEventIncarnationOfSinsMode()) then
-            local api_url = '/clans/dungeon_training_finish'
-            
-            local ui_network = UI_Network()
-            ui_network:setUrl(api_url)
-            ui_network:setParam('uid', uid)
-            ui_network:setParam('stage', self.m_stageID)
             local attr = TableStageData():getStageAttr(self.m_stageID)
             local g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, attr)
+            local main_deck = g_data:getMainDeck()
+            if (main_deck == 'up') then
+                main_deck = 1
+            else
+                main_deck = 2
+            end
             local l_deck_up = g_deckData:getDeck(g_data:getDeckName('up'))
 
             -- 현재 사용한 덱 정보(드래곤 아이디만) 를 120008;120882.. 형태로 서버에 보냄
@@ -446,12 +454,19 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
                 local doid = t_dragon_data['did']
                 down_dragon_id_str = string.format("%s;%s", down_dragon_id_str, doid)
             end
-
-            -- 데미지 임의 
+            
+            local ui_network = UI_Network()
+            local api_url = '/shop/incarnation_of_sins/record'
+            ui_network:setUrl(api_url)
+            ui_network:setParam('uid', uid)
+            ui_network:setParam('stage', self.m_stageID)
             ui_network:setParam('attr', attr)
-            ui_network:setParam('score', t_param['damage'])
-            ui_network:setParam('deck1_dids', up_dragon_id_str)
-            ui_network:setParam('deck2_dids', down_dragon_id_str)
+            ui_network:setParam('damage', t_param['damage'])
+            ui_network:setParam('choice_deck', main_deck)
+            ui_network:setParam('clear_time', t_param['clear_time'])
+            ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+            --ui_network:setParam('deck1_dids', up_dragon_id_str)
+            --ui_network:setParam('deck2_dids', down_dragon_id_str)
             ui_network:setResponseStatusCB(response_status_cb)
             ui_network:setSuccessCB(success_cb)
             ui_network:request()

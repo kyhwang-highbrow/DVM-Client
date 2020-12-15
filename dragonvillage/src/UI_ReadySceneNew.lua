@@ -2008,19 +2008,19 @@ end
 
 -------------------------------------
 -- function startGame_eventIncarnationOfSins
--- @comment TODO : 죄악의 화신 토벌작전 이벤트 전용 호출로 변경하기
 -------------------------------------
 function UI_ReadySceneNew:startGame_eventIncarnationOfSins()
     local function finish_cb()
         self:replaceGameScene()
     end
 
-    local func_start = function()
-        local struct_raid = g_clanRaidData:getClanRaidStruct()
-        g_stageData:requestGameStart_training(struct_raid:getStageID(), struct_raid.attr, finish_cb, nil)
-    end
+    -- 필요하게 될 경우 네트워크 통신
+    --local func_start = function()
+        --local struct_raid = g_clanRaidData:getClanRaidStruct()
+        --g_stageData:requestGameStart_training(struct_raid:getStageID(), struct_raid.attr, finish_cb, nil)
+    --end
 
-    self:checkChangeDeck(func_start)
+    self:checkChangeDeck(finish_cb)
 end
 
 
