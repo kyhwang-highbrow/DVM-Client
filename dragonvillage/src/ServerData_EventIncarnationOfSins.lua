@@ -229,3 +229,127 @@ function ServerData_EventIncarnationOfSins:request_EventIncarnationOfSinsAttrRan
 	ui_network:hideBGLayerColor()
     ui_network:request()
 end
+
+-------------------------------------
+-- function request_eventIncarnationOfSinsStart
+-- @brief 죄악의 화신과 전투 시작 요청
+-- @param stage : 전투한 스테이지 ID
+-- @param attr : 전투한 보스 속성 (earth, water, fire, light, dark)
+-- @param deck_name1 : 1번 덱 이름
+-- @param deck_name2 : 2번 덱 이름
+-- @param token1 : 1번 덱 검증 토큰
+-- @param token2 : 2번 덱 검증 토큰
+-- @param finish_cb : 통신 성공 처리할 콜백 함수
+-- @param fail_cb : 통신 실패 처리할 콜백 함수
+-------------------------------------
+function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsStart(stage, attr, deck_name1, deck_name2, token1, token2, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    local stage = stage
+    local attr = attr
+    local deck_name1 = deck_name1
+    local deck_name2 = deck_name2
+    local token1 = token1
+    local token2 = token2
+        
+    local function success_cb(ret)
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    local function fail_cb(ret)
+        if (fail_cb) then
+            fail_cb(ret)
+        end
+    end
+
+    local function response_status_cb(ret)
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+
+        return false
+    end
+
+    local ui_network = UI_Network()
+    local api_url = '/event/incarnation_of_sins/start'
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage)
+    ui_network:setParam('attr', attr)
+    ui_network:setParam('deck_name1', deck_name1)
+    ui_network:setParam('deck_name2', deck_name2)
+    ui_network:setParam('token1', token1)
+    ui_network:setParam('token2', token2)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_eventIncarnationOfSinsFinish
+-- @brief 죄악의 화신과 전투 종료하고 점수 저장
+-- @param stage : 전투한 스테이지 ID
+-- @param attr : 전투한 보스 속성 (earth, water, fire, light, dark)
+-- @param damage : 보스에게 입힌 대미지
+-- @param choice_deck : 수동 조작한 덱 번호 (up : 1, down : 2)
+-- @param clear_time : 인게임에서 소요된 시간
+-- @param check_time : 타임스탬프
+-- @param finish_cb : 통신 성공 처리할 콜백 함수
+-- @param fail_cb : 통신 실패 처리할 콜백 함수
+-------------------------------------
+function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsFinish(stage, attr, damage, choice_deck, clear_time, check_time, finish_cb, fail_cb)
+    local uid = g_userData:get('uid')
+    local stage = stage
+    local attr = attr
+    local damage = damage
+    local choice_deck = choice_deck
+    local clear_time = clear_time
+    local check_time = check_time
+        
+    local function success_cb(ret)
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    local function fail_cb(ret)
+        if (fail_cb) then
+            fail_cb(ret)
+        end
+    end
+
+    local function response_status_cb(ret)
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+
+        return false
+    end
+
+    local ui_network = UI_Network()
+    local api_url = '/event/incarnation_of_sins/finish'
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage)
+    ui_network:setParam('attr', attr)
+    ui_network:setParam('damage', damage)
+    ui_network:setParam('choice_deck', choice_deck)
+    ui_network:setParam('clear_time', clear_time)
+    ui_network:setParam('check_time', check_time)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
