@@ -3,7 +3,7 @@
 -- g_eventIncarnationOfSinsData
 -------------------------------------
 ServerData_EventIncarnationOfSins = class({
-        m_tRankInfo = 'table', -- 속성별 자신의 순위 정보가 들어있음 (light, dark, fire, water, earth, total(전체순위))
+        m_tMyRankInfo = 'table', -- 속성별 자신의 순위 정보가 들어있음 (light, dark, fire, water, earth, total(전체순위))
         m_rewardStatus = 'number', -- 보상 받았는지 상태 저장
     })
 
@@ -28,12 +28,12 @@ end
 -- @brief 내 랭킹 받아오기
 -------------------------------------
 function ServerData_EventIncarnationOfSins:getMyRank(type)
-    type = (type or 'all')
+    type = (type or 'total')
     
     local result = -1
 
-    if (g_eventIncarnationOfSinsData) then
-        -- TODO : type 를 이용해 구현을 해야한다.
+    if (m_tMyRankInfo) then
+        result = m_tMyRankInfo[type]['rank']
     end
 
     return result
@@ -43,9 +43,16 @@ end
 -- function getMyScore
 -- @brief 내 랭킹점수 받아오기
 -------------------------------------
-function ServerData_EventIncarnationOfSins:getMyScore()
-    -- TODO : 구현을 해야한다.
-    return -1
+function ServerData_EventIncarnationOfSins:getMyScore(type)
+    type = (type or 'total')    
+
+    local result = -1
+
+    if (m_tMyRankInfo) then
+        result = m_tMyRankInfo[type]['score']
+    end
+
+    return result
 end
 
 -------------------------------------
@@ -125,7 +132,7 @@ end
 -------------------------------------
 function ServerData_EventIncarnationOfSins:response_eventIncarnationOfSinsInfo(ret)
     if (ret['rankinfo']) then
-        self.m_tRankInfo = ret['rankinfo']
+        self.m_tMyRankInfo = ret['rankinfo']
     end
     
     if (ret['reward']) then
