@@ -353,7 +353,7 @@ function UI_EventIncarnationOfSinsRankingAttributeTabListItem:initUI()
     vars['clanLabel']:setString(Str(t_data['nick']))
     
     -- 점수 출력
-    local score_str = comma_value(tonumber(t_data['score']))
+    local score_str = comma_value(tonumber(t_data['rp']))
     vars['scoreLabel']:setString(Str('{1}점', score_str))
     
     -- 유저 랭크
