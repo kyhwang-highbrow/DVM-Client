@@ -51,7 +51,7 @@ end
 -------------------------------------
 -- function makeRewardTableView
 -------------------------------------
-function UI_ArenaRankPopup:makeRewardTableView(my_info)
+function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView(my_info)
     local vars = self.vars
     local node = vars['rewardNode']
     
@@ -97,7 +97,7 @@ end
 -------------------------------------
 -- function makeArenaRankTableView
 -------------------------------------
-function UI_ArenaRankPopup:makeArenaRankTableView(data)
+function UI_EventIncarnationOfSinsRankingTotalTab:makeArenaRankTableView(data)
     local vars = self.vars
     local rank_node = vars['rankListNode']
     local rank_data = data
@@ -157,7 +157,7 @@ end
 -------------------------------------
 -- function makeRewardTableView
 -------------------------------------
-function UI_ArenaRankPopup:makeRewardTableView(my_info)
+function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView(my_info)
     local vars = self.vars
     local node = vars['reawardNode']
     
@@ -202,8 +202,10 @@ end
 -------------------------------------
 -- function requestRank
 -------------------------------------
-function UI_EventIncarnationOfSinsRankingPopup:requestRank(_offset) -- 다음/이전 버튼 눌렀을 경우 offset계산되어서 param으로 줌
+function UI_EventIncarnationOfSinsRankingTotalTab:requestRank(_offset) -- 다음/이전 버튼 눌렀을 경우 offset계산되어서 param으로 줌
     local function finish_cb(ret)
+        cclog('oktt')
+        
         -- 랭킹 테이블 다시 만듬
         self:makeArenaRankTableView(ret)
 		self:makeRewardTableView(ret['my_info'])
@@ -215,14 +217,15 @@ function UI_EventIncarnationOfSinsRankingPopup:requestRank(_offset) -- 다음/�
     end
 
     -- 랭킹 데이터 요청
-    local rank_type = self.m_rankType
-    self.m_rankOffset = _offset
-	local rank_cnt = 20
+
+    local offset = _offset
+    local limit = 20
+	local attr = 'all'
 
     -- attr = earth, water, fire, light, dark 
     -- all : 모든 속성 리스트 
     -- null : 전체 순위 20개씩 보여줌
     -- offset : 1 , 21 , 41 ...
     -- limit : 몇개를 보여줄지, 생략시 default 20개
-    --g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsRank(self.m_rankOffset, rank_type, finish_cb, fail_cb, rank_cnt)
+    -- g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsRanking(offset, limit, attr, finish_cb, nil)
 end
