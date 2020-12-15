@@ -73,7 +73,7 @@ function UI_EventIncarnationOfSins:refreshScore(attr, rank_label, score_label)
     if (rank < 0) then
         rank_label:setString(Str('{1}위', '-'))
     else
-        rank_label:setString(Str('{1}위', rank))
+        rank_label:setString(Str('{1}위', comma_value(rank)))
     end
 	
 	-- 내 스코어가 0보다 작으면 {-위} 로 노출
@@ -81,7 +81,7 @@ function UI_EventIncarnationOfSins:refreshScore(attr, rank_label, score_label)
     if (score < 0) then
         score_label:setString(Str('{1}위', '-'))
     else
-        score_label:setString(Str('{1}점', score))
+        score_label:setString(Str('{1}점', comma_value(score)))
     end
 
 end

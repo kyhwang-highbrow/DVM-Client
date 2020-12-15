@@ -61,7 +61,7 @@ function UI_BannerIncarnationOfSins:update()
         if (my_rank < 0) then
             vars['rankLabel']:setString(Str('{1}위', '-'))
         else
-            vars['rankLabel']:setString(Str('{1}위', my_rank))
+            vars['rankLabel']:setString(Str('{1}위', comma_value(my_rank)))
         end
     end
 
