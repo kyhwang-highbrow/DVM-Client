@@ -42,7 +42,8 @@ function UI_NotificationFullInventoryPopup:initUI(noti_type, curr_cnt, max_cnt)
     elseif (noti_type == 'inventory') then
         vars['dscLabel']:setString(Str('룬이 가득 차면 콘텐츠를 이용할 수 없습니다.\n룬 가방 공간을 확보해 주세요.'))
         vars['titleLabel']:setString(Str('보유 룬'))
-        vars['inventoryLabel']:setString(Str('가방'))
+        --vars['inventoryLabel']:setString(Str('가방')) @kwkang 룬 업데이트로 룬 관리쪽으로 이동하게 변경 
+        vars['inventoryLabel']:setString(Str('룬 관리'))
 
     else
         error('# noti_type : ' .. noti_type)

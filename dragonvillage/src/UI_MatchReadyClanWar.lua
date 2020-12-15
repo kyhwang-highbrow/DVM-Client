@@ -165,7 +165,8 @@ function UI_MatchReadyClanWar:click_startBtn()
     -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
     check_item_inven = function()
         local function manage_func()
-            UI_Inventory()
+            -- UI_Inventory() @kwkang 룬 업데이트로 룬 관리쪽으로 이동하게 변경 
+            UI_RuneForge('manage')
         end
         g_inventoryData:checkMaximumItems(start_game, manage_func)
     end
