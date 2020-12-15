@@ -173,7 +173,29 @@ end
 function UI_AttrTower:initButton()
     local vars = self.vars
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
-    vars['attrTowerPackBtn']:registerScriptTapHandler(function() self:click_packageBtn() end)
+
+    local b_is_show_package = false
+    local attr = g_attrTowerData:getSelAttr()
+    local product_id_list = g_attrTowerPackageData:getProductIdList(attr)
+    for idx, product_id in ipairs(product_id_list) do
+        local struct_product = g_shopDataNew:getTargetProduct(product_id)
+        local b_is_sale = (struct_product ~= nil)
+        local b_is_active_and_remain_rewards = g_attrTowerPackageData:isRemainReward(product_id)
+        -- 판매중이거나, 판매가 끝났지만 이미 구매하였고 아직 받을 보상이 있는 경우 경우
+        if (b_is_sale or b_is_active_and_remain_rewards)then
+            b_is_show_package = true
+            break
+        end
+    end
+    
+    -- 시험의 탑 정복선물 버튼을 판매중이거나 판매가 끝났지만 이미 구매하였고 아직 받을 보상이 있는 경우에만 보여준다.
+    if (b_is_show_package == true) then
+        vars['attrTowerPackBtn']:setVisible(true)
+        vars['attrTowerPackBtn']:registerScriptTapHandler(function() self:click_packageBtn() end)
+        
+    else
+        vars['attrTowerPackBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -226,10 +248,13 @@ function UI_AttrTower:refresh(floor_info)
     vars['readyBtn']:setEnabled(is_open)
     vars['lockSprite']:setVisible(not is_open)
 
-    self:refresh_packageNoti()
+    -- 시험의 탑 정복 선물 버튼이 보이는 경우에만
+    if (vars['attrTowerPackBtn']:isVisible()) then
+        self:refresh_packageNoti()
 
-    -- 시험의 탑 정복 선물 패키지 연출 효과 추가
-    cca.pickMePickMe(vars['attrTowerPackBtn'], 10)
+        -- 시험의 탑 정복 선물 패키지 연출 효과 추가
+        cca.pickMePickMe(vars['attrTowerPackBtn'], 10)
+    end
 end
 
 -------------------------------------

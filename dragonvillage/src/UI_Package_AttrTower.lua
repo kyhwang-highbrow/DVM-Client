@@ -90,7 +90,8 @@ function UI_Package_AttrTower:setLimit()
     local is_limit
     local remain_time
 
-    if (vars['limitNode']) then
+    -- 현재 판매중인 경우에만 time limit 보여주기
+    if (vars['limitNode']) and (struct_product ~= nil) then
         remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변겨 
         local day = math.floor(remain_time / 86400000)
         if (day < 2) then
@@ -300,21 +301,29 @@ function UI_Package_AttrTower:refresh()
 
     -- 구매 제한
     if vars['buyLabel'] then
-        local str = struct_product:getMaxBuyTermStr()
-        -- 구매 가능/불가능 텍스트 컬러 변경
-        local is_buy_all = struct_product:isBuyAll()
-        local color_key = is_buy_all and '{@impossible}' or '{@available}'
-        local rich_str = color_key .. str
-        vars['buyLabel']:setString(rich_str)
+        -- 판매중인 경우
+        if (struct_product ~= nil) then
+            local str = struct_product:getMaxBuyTermStr()
+            -- 구매 가능/불가능 텍스트 컬러 변경
+            local is_buy_all = struct_product:isBuyAll()
+            local color_key = is_buy_all and '{@impossible}' or '{@available}'
+            local rich_str = color_key .. str
+            vars['buyLabel']:setString(rich_str)
+
+            -- 구매 불가능할 경우 '구매완료' 출력
+            if (vars['completeNode']) then
+                vars['completeNode']:setVisible(is_buy_all)
+            end
         
-        -- 구매 불가능할 경우 '구매완료' 출력
-        if (vars['completeNode']) then
-            vars['completeNode']:setVisible(is_buy_all)
+        -- 판매 종료된 경우
+        else
+            vars['buyLabel']:setString('')
+            vars['buyBtn']:setVisible(false)
         end
     end
 	
     -- 가격
-    if vars['priceLabel'] then
+    if (vars['priceLabel']) and (struct_product ~= nil)then
 	    local price = struct_product:getPriceStr()
         vars['priceLabel']:setString(price)
     end
@@ -421,8 +430,10 @@ function UI_Package_AttrTower:update(dt)
     local product_id = product_data['product_id']
     local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
-    local remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경
-    local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day
+    if (struct_product ~= nil) then
+        local remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경
+        local desc_time = datetime.makeTimeDesc_timer_filledByZero(remain_time, false) -- param : milliseconds, from_day
 
-    vars['remainLabel']:setString(desc_time)
+        vars['remainLabel']:setString(desc_time)
+    end
 end

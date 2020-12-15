@@ -65,6 +65,7 @@ end
 
 -------------------------------------
 -- function isActive
+-- @brief 구매한 경우를 판별, 0 이상이면 구매한 것이고 -1이면 구매 안한 것
 -------------------------------------
 function ServerData_AttrTowerPackage:isActive(product_id) 
     local is_active = false
@@ -84,6 +85,32 @@ function ServerData_AttrTowerPackage:isActive(product_id)
     end
  
     return is_active
+end
+
+-------------------------------------
+-- function isRemainReward
+-- @brief 해당 패키지 아이디에서 추가로 받을 보상(아직 잠겨있던 아니던)이 있는지 판단
+-------------------------------------
+function ServerData_AttrTowerPackage:isRemainReward(product_id) 
+    if (not self:isActive(product_id)) then
+        return false
+    end
+    
+    local product_info_table = TABLE:get('table_package_attr_tower')
+    local reward_info_table = TABLE:get('table_package_attr_tower_reward')
+    local product_info = product_info_table[product_id]
+    local start_floor = product_info['start_floor']
+    local end_floor = product_info['end_floor']
+    local receive_floor = self.m_tProductInfo[product_id]
+    
+    for reward_floor, _ in pairs(reward_info_table) do
+        if ((start_floor <= reward_floor) and (reward_floor <= end_floor)) then -- 해당 상품의 층 범위 안에서
+            -- 보상을 안받은 층이 있다면                
+            if (receive_floor < reward_floor) then
+                return true
+            end
+        end
+    end
 end
 
 -------------------------------------
