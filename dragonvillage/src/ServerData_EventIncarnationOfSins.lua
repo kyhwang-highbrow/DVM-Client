@@ -25,9 +25,16 @@ end
 -- function getMyRank
 -- @brief 내 랭킹 받아오기
 -------------------------------------
-function ServerData_EventIncarnationOfSins:getMyRank()
-    -- TODO : 구현을 해야한다.
-    return -1
+function ServerData_EventIncarnationOfSins:getMyRank(type)
+    type = (type or 'all')
+    
+    local result = -1
+
+    if (g_eventIncarnationOfSinsData) then
+        -- TODO : type 를 이용해 구현을 해야한다.
+    end
+
+    return result
 end
 
 -------------------------------------
