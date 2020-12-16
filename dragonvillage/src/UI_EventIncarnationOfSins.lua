@@ -130,7 +130,7 @@ end
 function UI_EventIncarnationOfSins:click_eventBtn()
     local vars = self.vars
 
-    local event_type = 'event_incarnation_of_sins'
+    local event_type = 'event_incarnation_of_sins_popup'
     g_fullPopupManager:showFullPopup(event_type)
 end
 
