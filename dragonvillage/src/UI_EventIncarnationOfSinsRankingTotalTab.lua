@@ -192,7 +192,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSins
         self:makeRankTableView(ret)
         self:makeRewardTableView()
 
-        -- TODO 리스트에 그려주기
+        self.m_rankOffset = tonumber(ret['total_offset'])
     end  
     
     local function fail_cb(ret)
