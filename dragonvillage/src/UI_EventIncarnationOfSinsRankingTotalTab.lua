@@ -37,7 +37,8 @@ function UI_EventIncarnationOfSinsRankingTotalTab:onEnterTab(first)
         self:initUI()
         self:initButton()
         self.m_searchType = self.m_ownerUI.m_rankType
-        self:request_EventIncarnationOfSinsAttrRanking()
+
+        self:refreshRank(self.m_searchType)
     end
 
     self:refresh()
@@ -227,7 +228,6 @@ function UI_EventIncarnationOfSinsRankingTotalTab:refreshRank(type) -- 다음/�
 
     self:request_EventIncarnationOfSinsAttrRanking()
 end
-
 
 
 
