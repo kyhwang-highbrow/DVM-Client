@@ -5,6 +5,7 @@
 ServerData_EventIncarnationOfSins = class({
         m_tMyRankInfo = 'table', -- 속성별 자신의 순위 정보가 들어있음 (light, dark, fire, water, earth, total(전체순위))
         m_rewardStatus = 'number', -- 보상 받았는지 상태 저장
+        m_tReceiveReward = 'table', -- 획득하는 보상 정보 
 
         m_lCloseRankers = 'list', -- 랭크 앞, 자신, 뒤 등수의 유저 정보
 
@@ -235,14 +236,13 @@ function ServerData_EventIncarnationOfSins:openRankingPopupForLobby()
         -- 랭킹 팝업
         UI_EventIncarnationOfSinsRankingPopup()
 
-        -- TODO : 보상 팝업
-        --local last_info = self.m_lastInfo
-        --local reward_info = self.m_rewardInfo
---
-        --if (last_info and reward_info) then
-            ---- 랭킹 보상 팝업
-            --UI_EventLFBagRankingRewardPopup(last_info, reward_info)
-        --end
+        local last_info = self.m_tMyRankInfo['total']
+        local reward_info = self.m_tReceiveReward
+
+        if (last_info and reward_info) then
+            -- 랭킹 보상 팝업
+            UI_EventIncarnationOfSinsRewardPopup(last_info, reward_info)
+        end
     end
 
     self:request_eventIncarnationOfSinsInfo(true, finish_cb, nil)
@@ -271,6 +271,7 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
         require('UI_EventIncarnationOfSinsRankingTotalTab')
         require('UI_EventIncarnationOfSinsRankingAttributeTab')
         require('UI_BannerIncarnationOfSins')
+        require('UI_EventIncarnationOfSinsRewardPopup')
         include_tables = true
     end
 
@@ -313,6 +314,10 @@ function ServerData_EventIncarnationOfSins:response_eventIncarnationOfSinsInfo(r
     if (ret['reward']) then
         self.m_rewardStatus = ret['reward']
     end 
+
+    if (ret['reward_info']) then
+        self.m_tReceiveReward = ret['reward_info']
+    end
 
     if (ret['dow']) then
         self.m_todayDow = ret['dow']

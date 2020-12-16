@@ -4744,6 +4744,9 @@
     <None Include="..\src\UI_BannerIncarnationOfSins.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventIncarnationOfSinsRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
