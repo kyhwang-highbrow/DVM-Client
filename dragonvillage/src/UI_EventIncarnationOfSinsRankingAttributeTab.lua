@@ -278,13 +278,13 @@ end
 -- @brief 랭크 범위가 바뀐 경우 UI_EventIncarnationOfSinsRankingPopup에서 호출함
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingAttributeTab:refreshRank(type)
+    local offset = (type == 'top') and 0 or -1
     local type = (type == 'top' or type == 'my') and 'world' or type
-    local offset = (type == 'top') and 1 or -1
 
     self.m_searchType = type
 
     for attr, attr_offset in pairs(self.m_tRankOffset) do
-        attr_offset = offset
+        self.m_tRankOffset[attr] =  offset
     end
 
     self:request_EventIncarnationOfSinsAttrRanking('all')
