@@ -25,6 +25,7 @@ ServerData_EventIncarnationOfSins.STATE = {
 -- function init
 -------------------------------------
 function ServerData_EventIncarnationOfSins:init()
+    self.m_rewardStatus = 0
 end
 
 -------------------------------------
