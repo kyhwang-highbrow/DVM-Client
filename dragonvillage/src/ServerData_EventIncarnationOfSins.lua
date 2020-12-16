@@ -250,6 +250,7 @@ function ServerData_EventIncarnationOfSins:openRankingPopupForLobby()
         if (last_info and reward_info) then
             -- 랭킹 보상 팝업
             UI_EventIncarnationOfSinsRewardPopup(last_info, reward_info)
+            g_highlightData:setHighlightMail()
         end
     end
 
