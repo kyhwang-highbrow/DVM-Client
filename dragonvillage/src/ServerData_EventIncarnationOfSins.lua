@@ -186,11 +186,10 @@ end
 -------------------------------------
 -- function setCloseRankers
 -- @brief 앞뒤 등수 유저 정보 저장
+-- @param l_rankers : 앞, 자신, 뒤 최대 3명의 랭크 정보 리스트
 -------------------------------------
 function ServerData_EventIncarnationOfSins:setCloseRankers(l_rankers)
-    local my_rank = self:getMyRank()
-    local upper_rank = my_rank - 1
-    local lower_rank = my_rank + 1
+    local uid = g_userData:get('uid')
 
     self.m_lCloseRankers = {}
     self.m_lCloseRankers['me_ranker'] = nil
@@ -198,10 +197,16 @@ function ServerData_EventIncarnationOfSins:setCloseRankers(l_rankers)
     self.m_lCloseRankers['lower_rank'] = nil
 
     for _,data in ipairs(l_rankers) do
-        if (tonumber(data['rank']) == tonumber(my_rank)) then
+        if (data['uid'] == uid) then
             self.m_lCloseRankers['me_ranker'] = data
         end
+    end
 
+    local my_rank = self.m_lCloseRankers['me_ranker']['rank']
+    local upper_rank = my_rank - 1
+    local lower_rank = my_rank + 1
+
+    for _,data in ipairs(l_rankers) do
         if (tonumber(data['rank']) == tonumber(upper_rank)) then
             self.m_lCloseRankers['upper_ranker'] = data
         end
@@ -250,7 +255,6 @@ local mInit = false
 -- @param include_reward : 이벤트 랭킹 보상을 받을지 여부
 -------------------------------------
 function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(include_reward, finish_cb, fail_cb)
-    
     local uid = g_userData:get('uid')
     local include_tables = false
     local include_reward = include_reward or false
@@ -266,6 +270,8 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
         require('UI_EventIncarnationOfSinsRankingAttributeTab')
         require('UI_BannerIncarnationOfSins')
         require('UI_EventIncarnationOfSinsRewardPopup')
+        require('UI_ResultLeaderBoard_IncarnationOfSins')
+        require('UI_ResultLeaderBoard_IncarnationOfSinsListItem')
         include_tables = true
     end
 

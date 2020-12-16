@@ -1,9 +1,9 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_ResultLeaderBoardListItem
+-- class UI_ResultLeaderBoard_IncarnationOfSinsListItem
 -------------------------------------
-UI_ResultLeaderBoardListItem = class(PARENT, {
+UI_ResultLeaderBoard_IncarnationOfSinsListItem = class(PARENT, {
         m_type = 'string', -- clan_raid, incarnation_of_sins
         m_userName = 'string',
         m_rank = 'number',
@@ -15,14 +15,16 @@ UI_ResultLeaderBoardListItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ResultLeaderBoardListItem:init(type, t_data, is_me)
+function UI_ResultLeaderBoard_IncarnationOfSinsListItem:init(type, t_data, is_me)
     local vars = self:load('rank_ladder_item.ui')
 
     self.m_type = type
     self.m_rank = t_data['rank']
-    self.m_userName = t_data['name']
-    self.m_score = t_data['score']
-    self.m_mark = StructClanMark:create(t_data['mark'])
+    self.m_userName = t_data['nick']
+    self.m_score = t_data['rp']
+    if (t_data['clan_info']) then
+        self.m_mark = StructClanMark:create(t_data['clan_info']['mark'])
+    end
 
     self.m_isMe = is_me
 
@@ -34,7 +36,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ResultLeaderBoardListItem:initUI()
+function UI_ResultLeaderBoard_IncarnationOfSinsListItem:initUI()
     local vars = self.vars
     local user_name = self.m_userName
     local rank = self.m_rank

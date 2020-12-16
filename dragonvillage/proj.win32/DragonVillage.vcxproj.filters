@@ -4747,6 +4747,12 @@
     <None Include="..\src\UI_EventIncarnationOfSinsRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ResultLeaderBoard_IncarnationOfSins.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ResultLeaderBoard_IncarnationOfSinsListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

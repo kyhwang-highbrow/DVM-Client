@@ -482,12 +482,13 @@ function UI_ClanRaidResult:showLeaderBoard_IncarnationOfSins()
 
     -- 게임 전 내 정보
     local t_ex_me = g_eventIncarnationOfSinsData.m_tMyRankInfo['total']
-    if (not t_ex_me) then
-        self:doNextWork()
-        return
+    local t_ex_me = nil
+    if (not t_ex_me) then -- 처음 때린 사람
+        t_ex_me = {['rp'] = 0, ['rank'] = t_me['rank'] + 1000, ['rate'] = 1}
     end
 
-    local ui_leader_board = UI_ResultLeaderBoard('incarnation_of_sins', true, true) -- type, is_move, is_popup
+    
+    local ui_leader_board = UI_ResultLeaderBoard_IncarnationOfSins('incarnation_of_sins', true, true) -- type, is_move, is_popup
     ui_leader_board:setScore(t_me['rp'] - t_ex_me['rp'], t_me['rp']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
     ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
     ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])

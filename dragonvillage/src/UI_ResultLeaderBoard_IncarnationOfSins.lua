@@ -3,9 +3,9 @@ local PARENT = UI
 local structLeaderBoard
 
 -------------------------------------
--- class UI_ResultLeaderBoard
+-- class UI_ResultLeaderBoard_IncarnationOfSins
 -------------------------------------
-UI_ResultLeaderBoard = class(PARENT, {
+UI_ResultLeaderBoard_IncarnationOfSins = class(PARENT, {
         m_type = 'string', -- clan_raid, incarnation_of_sins
 
         m_before_rank = 'number',
@@ -30,14 +30,14 @@ local DEFAULT_GAP = 1000000
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ResultLeaderBoard:init(type, is_popup, is_move)
-    local vars = self:load('rank_ladder.ui')
+function UI_ResultLeaderBoard_IncarnationOfSins:init(type, is_popup, is_move)
+    local vars = self:load('rank_ladder_item_reward.ui')
     
     self.m_isPopup = is_popup
     if (is_popup) then -- is_popup 이 false인 경우 : UI_EventFullPopup에 노드 매달아서 사용하는 형태
         UIManager:open(self, UIManager.POPUP)
         -- backkey 지정
-        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ResultLeaderBoard') 
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ResultLeaderBoard_IncarnationOfSins') 
     end
 
     -- @UI_ACTION
@@ -55,7 +55,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ResultLeaderBoard:initUI()
+function UI_ResultLeaderBoard_IncarnationOfSins:initUI()
     local vars = self.vars 
 
 end
@@ -63,7 +63,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_ResultLeaderBoard:initButton()
+function UI_ResultLeaderBoard_IncarnationOfSins:initButton()
     self.vars['closeBtn']:setVisible(self.m_isPopup)
     self.vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
@@ -71,13 +71,13 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_ResultLeaderBoard:refresh()
+function UI_ResultLeaderBoard_IncarnationOfSins:refresh()
 end
 
 -------------------------------------
 -- function setCurrentInfo
 -------------------------------------
-function UI_ResultLeaderBoard:setCurrentInfo()
+function UI_ResultLeaderBoard_IncarnationOfSins:setCurrentInfo()
     local vars = self.vars
     local type = self.m_type
 
@@ -85,25 +85,37 @@ function UI_ResultLeaderBoard:setCurrentInfo()
 
     -- 현재 점수
     vars['scoreLabel']:setString(Str('{1}점', comma_value(self.m_cur_score)))     -- 점수
-    vars['scoreDifferLabel']:setString('')
     
-     
     -- 현재 랭킹
     vars['rankLabel']:setString(Str('{1}위', comma_value(self.m_cur_rank)))       -- 랭킹
-    vars['rankDifferLabel']:setString('')
 
-    local cur_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_cur_rank, self.m_cur_ratio)
-    local cur_reward_1_cnt, cur_reward_2_cnt  = self:getClanRaidRewardCnt(cur_reward_data)
-   
-    -- 현재 보상1
-    vars['rewardLabel1']:setString(comma_value(cur_reward_1_cnt))  -- 보상1 갯수
-    vars['rewardLabel2']:setString('')  -- 보상1 차이
-    vars['rewardLabel3']:setString(comma_value(cur_reward_2_cnt))  -- 보상2 갯수
-    vars['rewardLabel4']:setString('')  -- 보상2 차이
+    -- 보상 아이템
+    if g_eventIncarnationOfSinsData then
+        vars['rewardMenu']:removeAllChildren()
+
+        local cur_reward_data = g_eventIncarnationOfSinsData:getPossibleReward_IncarnationsOfSins(self.m_cur_rank, self.m_cur_ratio)
+        local l_reward_data = g_itemData:parsePackageItemStr(cur_reward_data['reward'])
+        local reward_size = table.count(l_reward_data)
+        local icon_size = 150
+        local icon_scale = 0.666
+        local icon_interval = 5
+        local l_ui_pos_list = getSortPosList((icon_size * icon_scale) + icon_interval, reward_size)
+
+        for idx, item_info in ipairs(l_reward_data) do
+            local item_id = item_info['item_id']
+            local count = item_info['count']
+            local ui = UI_ItemCard(item_id, count)
+            ui.root:setScale(icon_scale)
+
+            local node_name = 'rewardNode' .. idx
+            vars['rewardMenu']:addChild(ui.root)
+            ui.root:setPositionX(l_ui_pos_list[idx])
+        end
+    end
 
     if (self.m_tUpperRank) then
         -- 앞 순위 유저
-        local ui_upper = UI_ResultLeaderBoardListItem(type, self.m_tUpperRank, false)
+        local ui_upper = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tUpperRank, false)
         if (ui_upper) then
             cclog('upper')
             vars['upperNode']:addChild(ui_upper.root)
@@ -112,7 +124,7 @@ function UI_ResultLeaderBoard:setCurrentInfo()
 
     if (self.m_tLowerRank) then
         -- 뒤 순위 유저
-        local ui_lower = UI_ResultLeaderBoardListItem(type, self.m_tLowerRank, false) -- type, t_data, is_me,
+        local ui_lower = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tLowerRank, false) -- type, t_data, is_me,
         if (ui_lower) then
             cclog('lower')
             vars['lowerNode']:addChild(ui_lower.root)
@@ -121,7 +133,7 @@ function UI_ResultLeaderBoard:setCurrentInfo()
 
     if (self.m_tMeRank) then
         -- 자기 자신
-        local ui_me = UI_ResultLeaderBoardListItem(type, self.m_tMeRank, true)
+        local ui_me = UI_ResultLeaderBoard_IncarnationOfSinsListItem(type, self.m_tMeRank, true)
         if (ui_me) then
             cclog('me')
             vars['meNode']:addChild(ui_me.root)
@@ -129,23 +141,14 @@ function UI_ResultLeaderBoard:setCurrentInfo()
     end
 
     vars['meNode']:setLocalZOrder(1)
-
-    vars['scoreDifferNode']:setVisible(false)
-    vars['rankDifferNode']:setVisible(false)
-    vars['rewardNode1']:setVisible(false)
-    vars['rewardNode2']:setVisible(false)
 end
 
 -------------------------------------
 -- function setChangeInfo
 -------------------------------------
-function UI_ResultLeaderBoard:setChangeInfo()
+function UI_ResultLeaderBoard_IncarnationOfSins:setChangeInfo()
     local vars = self.vars
-
-    vars['scoreDifferNode']:setVisible(true)
-    vars['rankDifferNode']:setVisible(true)
-    vars['rewardNode1']:setVisible(true)
-    vars['rewardNode2']:setVisible(true)
+    local type = self.m_type
 
     vars['gaugeSprite']:setVisible(self.m_isPopup)
 
@@ -158,6 +161,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
     -- 현재 점수
     local score_label = NumberLabel(vars['scoreLabel'], 0, 2)
     score_label:setTweenCallback(score_tween_cb)
+    score_label:setNumber(self.m_before_score, true)
     score_label:setNumber(self.m_cur_score, false)
 
 
@@ -169,6 +173,7 @@ function UI_ResultLeaderBoard:setChangeInfo()
     -- 현재 랭킹
     local rank_label = NumberLabel(vars['rankLabel'], 0, 2)
     rank_label:setTweenCallback(rank_tween_cb)
+    rank_label:setNumber(self.m_before_rank, true)
     rank_label:setNumber(self.m_cur_rank, false)
 
      -- + 콤마 라벨
@@ -185,90 +190,18 @@ function UI_ResultLeaderBoard:setChangeInfo()
     if (self.m_before_score == -1) then
         self.m_before_score = 0    
     end
-    
-    -- 현재 점수 차이
-    local score_diff_label = NumberLabel(vars['scoreDifferLabel'], 0, 2)
-    score_diff_label:setTweenCallback(diff_tween_cb)
-    local score_diff = self.m_cur_score - self.m_before_score
-    score_diff_label:setNumber(score_diff, false)
-    
-    -- 순위 양수/음수에 따라 화살표 방향 바꿈
-    if (score_diff < 0) then
-        vars['arrowVisual4']:setScaleX(-1)
-    end
 
 
     -- 랭킹 없을 때
     if (self.m_before_rank == -1) then
         self.m_before_rank = self.m_cur_rank
     end
-    
-    if (self.m_before_rank ~= self.m_cur_rank) then
-        -- 현재 랭킹 차이
-        local rank_diff_label = NumberLabel(vars['rankDifferLabel'], 0, 2)
-        rank_diff_label:setTweenCallback(diff_tween_cb)
-        local rank_diff = self.m_before_rank - self.m_cur_rank
-        rank_diff_label:setNumber(rank_diff, false)
-        
-        -- 순위 양수/음수에 따라 화살표 방향 바꿈
-        if (rank_diff < 0) then
-            vars['arrowVisual3']:setScaleX(-1)
-        end
-    else
-        vars['rankDifferNode']:setVisible(false)
-    end
-
-        -- 현재 보상 갯수
-    local cur_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_cur_rank, self.m_cur_ratio)
-    local cur_reward_1_cnt, cur_reward_2_cnt  = self:getClanRaidRewardCnt(cur_reward_data)
-    
-    local score_diff_label = NumberLabel(vars['rewardLabel1'], 0, 2)
-    score_diff_label:setNumber(cur_reward_1_cnt, false)
-    
-    local score_diff_label = NumberLabel(vars['rewardLabel3'], 0, 2)
-    score_diff_label:setNumber(cur_reward_2_cnt, false)
-
-    -- 이전 보상 갯수
-    local before_reward_data = g_clanRaidData:possibleReward_ClanRaid(self.m_before_rank, self.m_before_ratio)
-    local before_reward_1_cnt, before_reward_2_cnt  = self:getClanRaidRewardCnt(before_reward_data)
-    
-    -- 차이
-    local reward_1_gap = cur_reward_1_cnt - before_reward_1_cnt
-    local reward_2_gap = cur_reward_2_cnt - before_reward_2_cnt
-    
-    if (reward_1_gap ~= 0) then
-        -- 현재 보상1 차이
-        local score_diff_label = NumberLabel(vars['rewardLabel2'], 0, 2)
-        score_diff_label:setTweenCallback(diff_tween_cb)
-        score_diff_label:setNumber(reward_1_gap, false)
-        
-        -- 순위 양수/음수에 따라 화살표 방향 바꿈
-        if (reward_1_gap < 0) then
-            vars['arrowVisual2']:setScaleX(-1)
-        end
-    else
-        vars['rewardNode1']:setVisible(false)
-    end
-
-    if (reward_2_gap ~= 0) then
-        -- 현재 보상2 차이
-        local score_diff_label = NumberLabel(vars['rewardLabel4'], 0, 2)
-        score_diff_label:setTweenCallback(diff_tween_cb)
-        score_diff_label:setNumber(reward_2_gap, false)
-        
-        -- 순위 양수/음수에 따라 화살표 방향 바꿈
-        if (reward_2_gap < 0) then
-            vars['arrowVisual1']:setScaleX(-1)
-        end
-    else
-        vars['rewardNode2']:setVisible(false)
-    end
 end
 
 -------------------------------------
 -- function startMoving
 -------------------------------------
-function UI_ResultLeaderBoard:startMoving()
+function UI_ResultLeaderBoard_IncarnationOfSins:startMoving()
     local vars = self.vars
 
     local cur_posX, cur_gap_per = self:getScorePosX(self.m_cur_score)
@@ -278,12 +211,12 @@ function UI_ResultLeaderBoard:startMoving()
     if (self.m_tLowerRank) then
         lower_score = self.m_tLowerRank['score']
     end
-    
+   
     -- 뒤 순위를 초월한 경우, 시작 위치 100으로 고정
     if (self.m_before_score < lower_score) then
         ex_posX = 100
     end
-
+    
     -- 내 노드 움직임
     local action = cc.EaseOut:create(cc.MoveTo:create(2, cc.p(cur_posX, 0)), 2)
     vars['meNode']:setPositionX(ex_posX)
@@ -304,24 +237,24 @@ end
 -------------------------------------
 -- function getScorePosX
 -------------------------------------
-function UI_ResultLeaderBoard:getScorePosX(score)
+function UI_ResultLeaderBoard_IncarnationOfSins:getScorePosX(score)
     local vars = self.vars   
     local posX_upper = vars['upperNode']:getPositionX() 
     local posX_lower = vars['lowerNode']:getPositionX()
-    
+
     -- 앞/뒤 순위 노드 간 간격
     local pos_gap = math.abs(posX_upper - posX_lower)
      
     local upper_score = self.m_cur_score + DEFAULT_GAP
     -- 최고 랭킹 디폴트
     if (self.m_tUpperRank) then
-        upper_score = self.m_tUpperRank['score']
+        upper_score = self.m_tUpperRank['rp']
     end
 
     local lower_score = self.m_cur_score - DEFAULT_GAP
     -- 최저 랭킹 디폴트
     if (self.m_tLowerRank) then
-        lower_score = self.m_tLowerRank['score']
+        lower_score = self.m_tLowerRank['rp']
     end
 
     -- 앞/뒤 순위 랭크 간격
@@ -340,7 +273,7 @@ end
 -------------------------------------
 -- function getClanRaidRewardCnt
 -------------------------------------
-function UI_ResultLeaderBoard:getClanRaidRewardCnt(reward_data)
+function UI_ResultLeaderBoard_IncarnationOfSins:getClanRaidRewardCnt(reward_data)
     if (not reward_data) then
         return 0, 0
     end
@@ -379,7 +312,7 @@ end
 -------------------------------------
 -- function setScore
 -------------------------------------
-function UI_ResultLeaderBoard:setScore(add_score, current_score)
+function UI_ResultLeaderBoard_IncarnationOfSins:setScore(add_score, current_score)
     if (not add_score) or (not current_score) then
         self.m_before_score = 0
         self.m_cur_score = 0
@@ -392,7 +325,7 @@ end
 -------------------------------------
 -- function setRank
 -------------------------------------
-function UI_ResultLeaderBoard:setRank(before, current)
+function UI_ResultLeaderBoard_IncarnationOfSins:setRank(before, current)
     self.m_before_rank = tonumber(before)
     self.m_cur_rank = tonumber(current)
 end
@@ -400,7 +333,7 @@ end
 -------------------------------------
 -- function setRatio
 -------------------------------------
-function UI_ResultLeaderBoard:setRatio(before, current)
+function UI_ResultLeaderBoard_IncarnationOfSins:setRatio(before, current)
     self.m_before_ratio = tonumber(before)
     self.m_cur_ratio = tonumber(current)
 end
@@ -408,12 +341,64 @@ end
 -------------------------------------
 -- function setRanker
 -------------------------------------
-function UI_ResultLeaderBoard:setRanker(upper, me, lower)
+function UI_ResultLeaderBoard_IncarnationOfSins:setRanker(upper, me, lower)
     self.m_tUpperRank = upper
     self.m_tMeRank = me
     self.m_tLowerRank = lower
 
 end
 
+
+-------------------------------------
+-- function testFunction
+-- @brief 개발을 위해 임의로 결과 화면을 호출할 때 사용
+-------------------------------------
+function UI_ResultLeaderBoard_IncarnationOfSins:testFunction()
+    local ret_json, success_load = TABLE:loadJsonTable('incarnation_of_sinsfinish_finish', '.txt')
+        
+    local uid = 'DVM_CLIENT_TEST'
+
+    local m_lCloseRankers = {}
+    m_lCloseRankers['me_ranker'] = nil
+    m_lCloseRankers['upper_ranker'] = nil
+    m_lCloseRankers['lower_rank'] = nil
+
+    for _,data in ipairs(ret_json['rank_list']) do
+        if (data['uid'] == uid) then
+            m_lCloseRankers['me_ranker'] = data
+        end
+    end
+
+    local my_rank = m_lCloseRankers['me_ranker']['rank']
+    local upper_rank = my_rank - 1
+    local lower_rank = my_rank + 1
+
+    for _,data in ipairs(ret_json['rank_list']) do
+        if (tonumber(data['rank']) == tonumber(upper_rank)) then
+            m_lCloseRankers['upper_ranker'] = data
+        end
+
+        if (tonumber(data['rank']) == tonumber(lower_rank)) then
+            m_lCloseRankers['lower_rank'] = data
+        end
+    end
+
+    -- 게임 후, 앞/뒤 랭커 정보
+    local t_upper, t_me, t_lower = m_lCloseRankers['upper_ranker'], m_lCloseRankers['me_ranker'], m_lCloseRankers['lower_rank']
+
+    local t_ex_me = nil
+    if (not t_ex_me) then -- 처음 때린 사람
+        t_ex_me = {['rp'] = 0, ['rank'] = t_me['rank'] + 1000, ['rate'] = 1}
+    end
+
+    local ui_leader_board = UI_ResultLeaderBoard_IncarnationOfSins('incarnation_of_sins', true, true) -- type, is_move, is_popup
+    ui_leader_board:setScore(t_me['rp'] - t_ex_me['rp'], t_me['rp']) -- param : 더해진 점수, 더해진 점수가 반영된 최종 점수
+    ui_leader_board:setRatio(t_ex_me['rate'], t_me['rate'])
+    ui_leader_board:setRank(t_ex_me['rank'], t_me['rank'])
+    ui_leader_board:setRanker(t_upper, t_me, t_lower)
+    ui_leader_board:setCurrentInfo()
+    ui_leader_board:startMoving()
+end
+
 --@CHECK
-UI:checkCompileError(UI_ResultLeaderBoard)
+UI:checkCompileError(UI_ResultLeaderBoard_IncarnationOfSins)
