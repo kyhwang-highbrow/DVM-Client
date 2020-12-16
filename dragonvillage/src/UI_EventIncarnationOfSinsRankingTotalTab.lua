@@ -154,7 +154,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 55 + 5)
+    table_view.m_defaultCellSize = cc.size(640, 60 + 5)
     table_view:setCellUIClass(UI_EventIncarnationOfSinsRankingTotalTabRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_event_rank)
