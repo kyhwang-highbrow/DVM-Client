@@ -209,28 +209,7 @@ function UI_EventIncarnationOfSinsRankingAttributeTab:makeAttrTableView(attr)
                 ui.vars['meSprite']:setVisible(true)
             end
             
-            local last_lv = '-'
-            if (data['cldg_last_info']) then
-                last_lv = (data['cldg_last_info'][attr]['cldg_last_lv']) % 1000
-                ui.vars['bossLabel']:setString('Lv.' .. last_lv)
-            else
-                ui.vars['bossLabel']:setString('-')
-            end
-            
-            -- @jhakim 190409 개발은 해놓았지만 데이터가 모이지 않아 표시하지 않음
-            -- 클리어한 보스 레벨          
             ui.vars['bossLabel']:setVisible(false)
-            ui.vars['rankDifferentLabel']:setVisible(true)
-            ui.vars['rankDifferentLabel']:setString('')
-
-            if (data['cldg_last_info']) then
-                if (data['cldg_last_info'][attr]['change_rank']) then
-                    local rank_dis = tonumber(data['cldg_last_info'][attr]['change_rank'])
-                    local rank_dis_str = descChangedValue(rank_dis)
-
-                    ui.vars['rankDifferentLabel']:setString(rank_dis_str)
-                end   
-            end
         end
        
         -- 테이블 뷰 인스턴스 생성
@@ -349,20 +328,44 @@ function UI_EventIncarnationOfSinsRankingAttributeTabListItem:initUI()
         return ui
     end
 
-    -- 유저 닉네임
-    vars['clanLabel']:setString(Str(t_data['nick']))
-    
-    -- 점수 출력
-    local score_str = comma_value(tonumber(t_data['rp']))
-    vars['scoreLabel']:setString(Str('{1}점', score_str))
-    
-    -- 유저 랭크
+    local t_rank_info = StructUserInfoArena:create_forRanking(t_data)
+
+    -- 점수 표시
+    vars['scoreLabel']:setString(t_rank_info:getRPText())
+
+    -- 유저 정보 표시 (레벨, 닉네임)
+    vars['userLabel']:setString(t_rank_info:getUserText())
+
+    -- 순위 표시
     vars['rankLabel']:setString(tostring(t_data['rank']))
 
-    -- 마크 정보
-    if ((t_data['clan_info']) and (t_data['clan_info']['mark'])) then
-        local struct_mark = StructClanMark:create(t_data['clan_info']['mark'])
-        local mark_icon = struct_mark:makeClanMarkIcon()
-        vars['markNode']:addChild(mark_icon)
+    do -- 리더 드래곤 아이콘
+        local ui = t_rank_info:getLeaderDragonCard()
+        if ui then
+            ui.root:setSwallowTouch(false)
+            vars['profileNode']:addChild(ui.root)
+            
+			ui.vars['clickBtn']:registerScriptTapHandler(function() 
+				local is_visit = true
+				UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil)
+			end)
+        end
     end
+
+    local struct_clan = t_rank_info:getStructClan()
+    if (struct_clan) then
+        -- 클랜 이름
+        local clan_name = struct_clan:getClanName()
+        vars['clanLabel']:setString(clan_name)
+        
+        -- 클랜 마크
+        local icon = struct_clan:makeClanMarkIcon()
+        if (icon) then
+            vars['markNode']:addChild(icon)
+        end
+    else
+        vars['clanLabel']:setVisible(false)
+    end
+
+    vars['itemMenu']:setSwallowTouch(false)
 end
