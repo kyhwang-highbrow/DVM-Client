@@ -1013,6 +1013,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableStatusEffect.lua" />
     <None Include="..\src\TableSummonGacha.lua" />
     <None Include="..\src\TableSupply.lua" />
+    <None Include="..\src\TableTalkDeet.lua" />
     <None Include="..\src\TableTamer.lua" />
     <None Include="..\src\TableTamerCostume.lua" />
     <None Include="..\src\TableTamerSkill.lua" />

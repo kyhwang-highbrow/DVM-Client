@@ -24,6 +24,9 @@ ITEM_ID_EXP_BOOSTER = 700402
 ITEM_ID_GOLD_BOOSTER = 700403
 ITEM_ID_ALPHABET_WILD = 700299 -- 와일드 알파벳 (알파벳 이벤트에서 사용되는 만능 알파벳)
 
+ITEM_ID_GRINDSTONE = 704900 -- 룬 연마석
+ITEM_ID_RUNE_BLESS = 704903 -- 룬 축복서
+
 -------------------------------------
 -- function init
 -------------------------------------

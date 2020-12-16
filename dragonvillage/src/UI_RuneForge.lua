@@ -50,12 +50,16 @@ end
 -- function initUI
 -------------------------------------
 function UI_RuneForge:initUI()
+    local vars = self.vars
+
     do -- NPC
         local res = 'res/character/npc/deet/deet.spine'
         local animator = MakeAnimator(res)
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator:setDockPoint(0.5, 0.5)
+        animator:setAnchorPoint(0.5, 0.5)
         animator:changeAni('idle', true)
-        self.vars['npcNode']:addChild(animator.m_node)
+        vars['npcNode']:removeAllChildren()
+        vars['npcNode']:addChild(animator.m_node)
         self.m_npcAnimator = animator
     end
 end
@@ -135,6 +139,7 @@ end
 -- function showNpc
 -------------------------------------
 function UI_RuneForge:showNpc()
+    self.vars['npcNode']:setVisible(true)
     self.m_npcAnimator:setVisible(true)
 end
 
@@ -142,6 +147,7 @@ end
 -- function hideNpc
 -------------------------------------
 function UI_RuneForge:hideNpc()
+    self.vars['npcNode']:setVisible(false)
     self.m_npcAnimator:setVisible(false)
 end
 

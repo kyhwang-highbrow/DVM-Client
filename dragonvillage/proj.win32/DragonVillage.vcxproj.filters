@@ -4747,6 +4747,9 @@
     <None Include="..\src\UI_EventIncarnationOfSinsRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableTalkDeet.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_ResultLeaderBoard_IncarnationOfSins.lua">
       <Filter>lua\UI</Filter>
     </None>

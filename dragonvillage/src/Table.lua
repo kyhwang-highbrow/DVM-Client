@@ -113,7 +113,9 @@ local TableInfo = {
 
         -- 복주머니 이벤트
         table_lucky_fortune_bag = {'table_lucky_fortune_bag', 'id', false},
-        table_lucky_fortune_bag_rank = {'table_lucky_fortune_bag_rank', 'rank_id', false}
+        table_lucky_fortune_bag_rank = {'table_lucky_fortune_bag_rank', 'rank_id', false},
+
+        table_talk_deet = {'table_talk_deet', 'text_id', false},
     }
 
 -------------------------------------
