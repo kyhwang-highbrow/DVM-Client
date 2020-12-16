@@ -53,12 +53,12 @@ function UI_EventIncarnationOfSins:refresh()
     local vars = self.vars
 
     -- 현재 서버 데이터를 이용하여 버튼 설정
-    self:refreshButton('total', vars['rankLabel'], vars['scoreLabel'], nil, nil)
-    self:refreshButton('light', vars['rankLabel1'], vars['scoreLabel1'], vars['lockSprite1'], vars['lockLayer1'])
-    self:refreshButton('fire', vars['rankLabel2'], vars['scoreLabel2'], vars['lockSprite2'], vars['lockLayer2'])
-    self:refreshButton('water', vars['rankLabel3'], vars['scoreLabel3'], vars['lockSprite3'], vars['lockLayer3'])
-    self:refreshButton('earth', vars['rankLabel4'], vars['scoreLabel4'], vars['lockSprite4'], vars['lockLayer4'])
-    self:refreshButton('dark', vars['rankLabel5'], vars['scoreLabel5'], vars['lockSprite5'], vars['lockLayer5'])
+    self:refreshButton('total', vars['rankLabel'], vars['scoreLabel'], nil)
+    self:refreshButton('light', vars['rankLabel1'], vars['scoreLabel1'], vars['lockMenu1'])
+    self:refreshButton('fire', vars['rankLabel2'], vars['scoreLabel2'], vars['lockMenu2'])
+    self:refreshButton('water', vars['rankLabel3'], vars['scoreLabel3'], vars['lockMenu3'])
+    self:refreshButton('earth', vars['rankLabel4'], vars['scoreLabel4'], vars['lockMenu4'])
+    self:refreshButton('dark', vars['rankLabel5'], vars['scoreLabel5'], vars['lockMenu5'])
 
     AlignUIPos({vars['infoLabel'], vars['rankLabel'], vars['scoreLabel']}, 'HORIZONTAL', 'CENTER', 60)
 end
@@ -68,10 +68,9 @@ end
 -- @param attr : 속성값으로 해당 값으로 점수와 랭크 받음
 -- @param rank_label : UI 파일에서 랭크를 적을 라벨
 -- @param score_label : UI 파일에서 점수를 적을 라벨
--- @param lock_sprite : 해당 속성 잠금 자물쇠 스프라이트, 없는 경우(total) nil로 설정
--- @param lock_layer : 해당 속성 잠금 어두운 레이어, 없는 경우(total) nil로 설정
+-- @param lock_menu : 해당 속성 잠금 자물쇠 스프라이트, 없는 경우(total) nil로 설정
 -------------------------------------
-function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, lock_sprite, lock_layer)
+function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, lock_menu)
     local vars = self.vars
 
     -- 현재 서버 데이터를 이용하여 순위 정보 표기
@@ -98,18 +97,12 @@ function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, 
     -- 버튼 설정
     if (attr ~= 'total') then
         if (g_eventIncarnationOfSinsData:isOpenAttr(attr)) then
-            if (lock_sprite ~= nil) then
-                lock_sprite:setVisible(false)
-            end
-            if (lock_layer ~= nil) then
-                lock_layer:setVisible(false)
+            if (lock_menu ~= nil) then
+                lock_menu:setVisible(false)
             end
         else
-            if (lock_sprite ~= nil) then
-                lock_sprite:setVisible(true)
-            end
-            if (lock_layer ~= nil) then
-                lock_layer:setVisible(true)
+            if (lock_menu ~= nil) then
+                lock_menu:setVisible(true)
             end
         end
     end
