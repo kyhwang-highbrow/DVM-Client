@@ -59,6 +59,8 @@ function UI_EventIncarnationOfSins:refresh()
     self:refreshButton('water', vars['rankLabel3'], vars['scoreLabel3'], vars['buyBtn3'], vars['lockSprite3'])
     self:refreshButton('earth', vars['rankLabel4'], vars['scoreLabel4'], vars['buyBtn4'], vars['lockSprite4'])
     self:refreshButton('dark', vars['rankLabel5'], vars['scoreLabel5'], vars['buyBtn5'], vars['lockSprite5'])
+
+    AlignUIPos({vars['rankLabel'], vars['scoreLabel']}, 'HORIZONTAL', 'HEAD', 30)
 end
 
 -------------------------------------
