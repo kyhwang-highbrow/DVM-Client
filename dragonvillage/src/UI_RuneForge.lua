@@ -87,7 +87,7 @@ end
 
 -------------------------------------
 -- function initTab
--- @param type : info, manage, combine, gacha, reinforce, grind
+-- @param type : info, manage, combine, gacha
 -------------------------------------
 function UI_RuneForge:initTab(type, focus_id)
     local vars = self.vars
@@ -97,29 +97,20 @@ function UI_RuneForge:initTab(type, focus_id)
     local manage_tab = UI_RuneForgeManageTab(self)
     local combine_tab = UI_RuneForgeCombineTab(self)
     local gacha_tab = UI_RuneForgeGachaTab(self)
-    local reinforce_tab = UI_RuneForgeReinforceTab(self)
-    local grind_tab = UI_RuneForgeGrindTab(self)
     vars['indivisualTabMenu']:addChild(info_tab.root)
     vars['indivisualTabMenu']:addChild(manage_tab.root)
     vars['indivisualTabMenu']:addChild(combine_tab.root)
     vars['indivisualTabMenu']:addChild(gacha_tab.root)
-    vars['indivisualTabMenu']:addChild(reinforce_tab.root)
-    vars['indivisualTabMenu']:addChild(grind_tab.root)
     
     self:addTabWithTabUIAndLabel('info', vars['infoTabBtn'], vars['infoTabLabel'], info_tab)       -- 정보
     self:addTabWithTabUIAndLabel('manage', vars['manageTabBtn'], vars['manageTabLabel'], manage_tab) -- 관리
     self:addTabWithTabUIAndLabel('combine', vars['combineTabBtn'], vars['combineTabLabel'], combine_tab)    -- 조합
     self:addTabWithTabUIAndLabel('gacha', vars['gachaTabBtn'], vars['gachaTabLabel'], gacha_tab) -- 가챠
-    self:addTabWithTabUIAndLabel('reinforce', vars['reinforceTabBtn'], vars['reinforceTabLabel'], reinforce_tab) -- 강화
-    self:addTabWithTabUIAndLabel('grind', vars['grindTabBtn'], vars['grindTabLabel'], grind_tab) -- 연마
 
     self:setTab(type)
 
     -- 탭 바뀔 때 호출하는 함수 세팅
-    self.m_cbChangeTab = function(tab, first)
-        
-    end
-
+    self.m_cbChangeTab = function(tab, first) end
 end
 
 -------------------------------------

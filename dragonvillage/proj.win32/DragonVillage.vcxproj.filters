@@ -4702,16 +4702,10 @@
     <None Include="..\src\UI_RuneForgeGachaTab.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_RuneForgeGrindTab.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_RuneForgeInfoTab.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_RuneForgeManageTab.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_RuneForgeReinforceTab.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_RuneForgeCombineItem.lua">
