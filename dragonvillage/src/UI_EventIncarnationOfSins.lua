@@ -83,7 +83,7 @@ function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, 
     else
         local ratio = g_eventIncarnationOfSinsData:getMyRate(attr)
         local percent_text = string.format('%.2f', ratio * 100)
-        rank_label:setString(Str('{1}위 ({2}%)', comma_value(score), percent_text))
+        rank_label:setString(Str('{1}위 ({2}%)', comma_value(rank), percent_text))
     end
 	
     -- 점수

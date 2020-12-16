@@ -431,13 +431,20 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsStart(s
     end
 
     local function response_status_cb(ret)
-        -- invalid season
-        if (ret['status'] == -1364) then
+        -- 요일에 맞지 않는 속성
+        if (ret['status'] == -2150) then
+
+            -- 요일 새로고침
+            if (ret['dow']) then
+                self.m_todayDow = ret['dow']
+            end
+
             -- 로비로 이동
             local function ok_cb()
                 UINavigator:goTo('lobby')
             end 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+
+            MakeSimplePopup(POPUP_TYPE.OK, Str('이미 종료된 던전입니다.'), ok_cb)
             return true
         end
 

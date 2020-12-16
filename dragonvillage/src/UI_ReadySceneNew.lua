@@ -2027,10 +2027,10 @@ function UI_ReadySceneNew:startGame_eventIncarnationOfSins()
         local token1 = g_stageData:makeDragonToken(deck_name1)
         local token2 = g_stageData:makeDragonToken(deck_name2)
 
-        g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsStart(stage, attr, deck_name1, deck_name1, token1, token2, finish_cb, nil)
+        g_eventIncarnationOfSinsData:request_eventIncarnationOfSinsStart(stage, attr, deck_name1, deck_name2, token1, token2, finish_cb, nil)
     end
 
-    self:checkChangeDeck(finish_cb)
+    self:checkChangeDeck(func_start)
 end
 
 
