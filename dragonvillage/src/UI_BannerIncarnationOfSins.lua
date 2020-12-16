@@ -59,9 +59,11 @@ function UI_BannerIncarnationOfSins:update()
         local my_rank = g_eventIncarnationOfSinsData:getMyRank()
 
         if (my_rank < 0) then
-            vars['rankLabel']:setString(Str('{1}위', '-'))
+            vars['rankLabel']:setString(Str('순위 없음'))
         else
-            vars['rankLabel']:setString(Str('{1}위', comma_value(my_rank)))
+            local ratio = g_eventIncarnationOfSinsData:getMyRate()
+            local percent_text = string.format('%.2f', ratio * 100)
+            vars['rankLabel']:setString(Str('{1}위 ({2}%)', comma_value(my_rank), percent_text))
         end
     end
 

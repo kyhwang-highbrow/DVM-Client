@@ -52,22 +52,24 @@ end
 function UI_EventIncarnationOfSins:refresh()
     local vars = self.vars
 
-    -- 현재 서버 데이터를 이용하여 순위 정보 표기
-    self:refreshScore('total', vars['rankLabel'], vars['scoreLabel'])
-    self:refreshScore('light', vars['rankLabel1'], vars['scoreLabel1'])
-    self:refreshScore('fire', vars['rankLabel2'], vars['scoreLabel2'])
-    self:refreshScore('water', vars['rankLabel3'], vars['scoreLabel3'])
-    self:refreshScore('earth', vars['rankLabel4'], vars['scoreLabel4'])
-    self:refreshScore('dark', vars['rankLabel5'], vars['scoreLabel5'])
+    -- 현재 서버 데이터를 이용하여 버튼 설정
+    self:refreshButton('total', vars['rankLabel'], vars['scoreLabel'], nil, nil)
+    self:refreshButton('light', vars['rankLabel1'], vars['scoreLabel1'], vars['buyBtn1'], vars['lockSprite1'])
+    self:refreshButton('fire', vars['rankLabel2'], vars['scoreLabel2'], vars['buyBtn2'], vars['lockSprite2'])
+    self:refreshButton('water', vars['rankLabel3'], vars['scoreLabel3'], vars['buyBtn3'], vars['lockSprite3'])
+    self:refreshButton('earth', vars['rankLabel4'], vars['scoreLabel4'], vars['buyBtn4'], vars['lockSprite4'])
+    self:refreshButton('dark', vars['rankLabel5'], vars['scoreLabel5'], vars['buyBtn5'], vars['lockSprite5'])
 end
 
 -------------------------------------
--- function refreshScore
+-- function refreshButton
 -- @param attr : 속성값으로 해당 값으로 점수와 랭크 받음
 -- @param rank_label : UI 파일에서 랭크를 적을 라벨
 -- @param score_label : UI 파일에서 점수를 적을 라벨
+-- @param attr_btn : 해당 속성 버튼, 없는 경우(total) nil로 설정
+-- @param lock_sprite : 해당 속성 잠금 스프라이트, 없는 경우(total) nil로 설정
 -------------------------------------
-function UI_EventIncarnationOfSins:refreshScore(attr, rank_label, score_label)
+function UI_EventIncarnationOfSins:refreshButton(attr, rank_label, score_label, attr_btn, lock_sprite)
     local vars = self.vars
 
     -- 현재 서버 데이터를 이용하여 순위 정보 표기
@@ -77,17 +79,40 @@ function UI_EventIncarnationOfSins:refreshScore(attr, rank_label, score_label)
 	-- 내 랭킹이 0보다 작으면 {-위} 로 노출
     -- 0보다 큰 의미있는 값이면 그대로 노출
     if (rank < 0) then
-        rank_label:setString(Str('{1}위', '-'))
+        rank_label:setString(Str('순위 없음'))
     else
-        rank_label:setString(Str('{1}위', comma_value(rank)))
+        local ratio = g_eventIncarnationOfSinsData:getMyRate(attr)
+        local percent_text = string.format('%.2f', ratio * 100)
+        rank_label:setString(Str('{1}위 ({2}%)', comma_value(score), percent_text))
     end
 	
-	-- 내 스코어가 0보다 작으면 {-위} 로 노출
-    -- 0보다 큰 의미있는 값이면 그대로 노출
+    -- 점수
     if (score < 0) then
-        score_label:setString(Str('{1}위', '-'))
+        score_label:setString(Str('{1}점', 0))
     else
         score_label:setString(Str('{1}점', comma_value(score)))
+    end
+
+    -- 버튼 설정
+    if (attr ~= 'total') then
+        if (g_eventIncarnationOfSinsData:isOpenAttr(attr)) then
+            if (lock_sprite ~= nil) then
+                lock_sprite:setVisible(false)
+            end
+
+            if (attr_btn ~= nil) then
+                attr_btn:setEnabled(true)
+            end
+        
+        else
+            if (lock_sprite ~= nil) then
+                lock_sprite:setVisible(true)
+            end
+
+            if (attr_btn ~= nil) then
+                attr_btn:setEnabled(false)
+            end
+        end
     end
 
 end
@@ -127,4 +152,10 @@ function UI_EventIncarnationOfSins:click_attrBtn(attr)
     local vars = self.vars
 
     local ui = UI_EventIncarnationOfSinsEntryPopup(attr)
+    
+    local function close_cb()
+        self:refresh()
+    end
+    
+    ui:setCloseCB()
 end

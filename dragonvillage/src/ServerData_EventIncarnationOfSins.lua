@@ -110,6 +110,22 @@ function ServerData_EventIncarnationOfSins:getMyScore(type)
 end
 
 -------------------------------------
+-- function getMyRate
+-- @brief 내 랭킹 퍼센트 받아오기
+-------------------------------------
+function ServerData_EventIncarnationOfSins:getMyRate(type)
+    type = (type or 'total')    
+
+    local result = -1
+
+    if (self.m_tMyRankInfo) then
+        result = self.m_tMyRankInfo[type]['rate']
+    end
+
+    return result
+end
+
+-------------------------------------
 -- function getRemainTimeString
 -- @brief 이벤트 남은시간 받아오기
 -------------------------------------
