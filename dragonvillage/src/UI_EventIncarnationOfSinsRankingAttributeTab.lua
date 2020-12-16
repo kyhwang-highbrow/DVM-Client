@@ -340,7 +340,7 @@ function UI_EventIncarnationOfSinsRankingAttributeTabListItem:initUI()
     vars['scoreLabel']:setString(tostring(comma_value(t_data['score'])))
 
     -- 유저 정보 표시 (레벨, 닉네임)
-    vars['userLabel']:setString(t_rank_info:getUserText())
+    vars['userLabel']:setString(t_data['nick'])
 
     -- 순위 표시
     vars['rankLabel']:setString(tostring(comma_value(t_data['rank'])))
