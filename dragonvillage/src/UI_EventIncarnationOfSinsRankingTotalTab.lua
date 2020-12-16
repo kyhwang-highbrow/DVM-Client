@@ -282,7 +282,7 @@ function UI_EventIncarnationOfSinsRankingTotalTabRankingListItem:initUI()
     vars['userLabel']:setString(self.m_rankInfo['nick'])
 
     -- 순위 표시
-    local rankStr = self.m_rankInfo['rank']
+    local rankStr = tostring(comma_value(self.m_rankInfo['rank']))
     if (self.m_rankInfo['rank'] < 0) then
         rankStr = '-'
     end
