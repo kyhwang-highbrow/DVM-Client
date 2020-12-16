@@ -322,6 +322,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     -- 죄악의 화신 토벌작전 이벤트
     elseif (tab == 'event_incarnation_of_sins') then
+        require('UI_EventIncarnationOfSins')
         ui = UI_EventIncarnationOfSins()
 
     -- 신규 유저 환영 이벤트
