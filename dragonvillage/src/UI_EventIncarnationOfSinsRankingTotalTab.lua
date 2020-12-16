@@ -37,7 +37,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:onEnterTab(first)
         self:initUI()
         self:initButton()
         self.m_searchType = self.m_ownerUI.m_rankType
-        self:request_EventIncarnationOfSinsAttrRanking('all')
+        self:request_EventIncarnationOfSinsAttrRanking()
     end
 
     self:refresh()
@@ -83,12 +83,14 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRankTableView(data)
     
     -- 이전 랭킹 버튼 누른 후 콜백
     local function func_prev_cb(offset)
-        self:refreshRank(offset)
+        self.m_rankOffset = offset
+        self:request_EventIncarnationOfSinsAttrRanking()
     end
 
     -- 다음 랭킹 버튼 누른 후 콜백
     local function func_next_cb(offset)
-        self:refreshRank(offset)
+    self.m_rankOffset = offset
+        self:request_EventIncarnationOfSinsAttrRanking()
     end
 
     local uid = g_userData:get('uid')
@@ -185,8 +187,7 @@ end
 -------------------------------------
 -- function request_EventIncarnationOfSinsAttrRanking
 -------------------------------------
-function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSinsAttrRanking(attr_type)
-    local attr_type = 'total'
+function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSinsAttrRanking()
     
     local function success_cb(ret)
         -- 랭킹 테이블 다시 만듬
@@ -199,24 +200,32 @@ function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSins
     local function fail_cb(ret)
     end
 
-    local offset = self.m_rankOffset
-
-    local search_type = self.m_searchType
-    local limit = SCORE_OFFSET_GAP
-
-    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking(attr_type, search_type, offset, limit, success_cb, fail_cb)
+    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking('total', self.m_searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, fail_cb)
 end
 
 -------------------------------------
 -- function refreshRank
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingTotalTab:refreshRank(type) -- 다음/이전 버튼 눌렀을 경우 offset계산되어서 param으로 줌
-    local type = (type == 'top' or type == 'my') and 'world' or type
-    local offset = (type == 'top') and 1 or -1
+    
+    if (type == 'my') then
+        self.m_searchType = 'world'
+        self.m_rankOffset = -1
 
-    self.m_searchType = type
+    elseif (type == 'top') then
+        self.m_searchType = 'world'
+        self.m_rankOffset = 1
 
-    self:request_EventIncarnationOfSinsAttrRanking('all')
+    elseif (type == 'friend') then
+        self.m_searchType = 'friend'
+        self.m_rankOffset = 1
+
+    elseif (type == 'clan') then
+        self.m_searchType = 'clan'
+        self.m_rankOffset = 1
+    end
+
+    self:request_EventIncarnationOfSinsAttrRanking()
 end
 
 
