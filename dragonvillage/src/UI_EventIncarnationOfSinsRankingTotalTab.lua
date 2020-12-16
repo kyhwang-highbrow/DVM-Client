@@ -117,7 +117,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRankTableView(data)
              idx = i
              break
          end
-     end
+    end
 
    -- 최상위 랭킹일 경우에는 포커싱을 1위에 함
    if (self.m_searchType == 'world') and (self.m_rankOffset == 1) then
@@ -181,6 +181,12 @@ function UI_EventIncarnationOfSinsRankingTotalTab:createRewardFunc(ui, data, my_
             vars['meSprite']:setVisible(true)
         end
     end
+
+    if self.m_rewardTableView then
+        --self.m_rewardTableView.update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        self.m_rewardTableView:relocateContainerFromIndex(ind)
+    end
+   
 end
 
 
