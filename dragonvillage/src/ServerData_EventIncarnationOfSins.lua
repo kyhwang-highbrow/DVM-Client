@@ -15,10 +15,9 @@ ServerData_EventIncarnationOfSins = class({
 
 ServerData_EventIncarnationOfSins.STATE = {
     ['INACTIVE'] = 1,	-- 이벤트 비활성화
-    ['PRESEASON'] = 2,	-- 프리시즌
-	['OPEN'] = 3,		-- 이벤트 던전 입장 가능
-	['REWARD'] = 4,		-- 보상 수령 가능
-	['DONE'] = 5,		-- 보상 수령 후 
+	['OPEN'] = 2,		-- 이벤트 던전 입장 가능
+	['REWARD'] = 3,		-- 보상 수령 가능
+	['DONE'] = 4,		-- 보상 수령 후 
 }
 
 -------------------------------------
@@ -35,10 +34,6 @@ function ServerData_EventIncarnationOfSins:getEventState()
 	if (not g_hotTimeData) then
 		return ServerData_EventIncarnationOfSins.STATE['INACTIVE']
 
-    -- 연습전
-    elseif (g_hotTimeData:isActiveEvent('event_incarnation_of_sins_preseason')) then
-        return ServerData_EventIncarnationOfSins.STATE['PRESEASON']
-	
     -- 이벤트 기간
 	elseif (g_hotTimeData:isActiveEvent('event_incarnation_of_sins')) then
 		return ServerData_EventIncarnationOfSins.STATE['OPEN']
@@ -63,7 +58,7 @@ end
 -- @brief 게임 플레이가 가능한가
 -------------------------------------
 function ServerData_EventIncarnationOfSins:canPlay()
-    return (isExistValue(self:getEventState(), ServerData_EventIncarnationOfSins.STATE['PRESEASON'], ServerData_EventIncarnationOfSins.STATE['OPEN']))
+    return (self:getEventState() == ServerData_EventIncarnationOfSins.STATE['OPEN'])
 end
 
 -------------------------------------
@@ -81,15 +76,6 @@ end
 function ServerData_EventIncarnationOfSins:isActive()
     return (self:getEventState() ~= ServerData_EventIncarnationOfSins.STATE['INACTIVE'])
 end
-
--------------------------------------
--- function isPreseason
--- @brief 연습기간인가
--------------------------------------
-function ServerData_EventIncarnationOfSins:isPreseason()
-    return (self:getEventState() == ServerData_EventIncarnationOfSins.STATE['PRESEASON'])
-end
-
 
 -------------------------------------
 -- function getMyRank
@@ -136,12 +122,7 @@ end
 -- function isOpenAttr
 -- @brief 해당 속성이 현재 열려있는지 판단
 -------------------------------------
-function ServerData_EventIncarnationOfSins:isOpenAttr(attr)
-    -- 프리시즌인 경우 그냥 항상 열려있다
-    if (self:isPreseason()) then
-        return true
-    end
-    
+function ServerData_EventIncarnationOfSins:isOpenAttr(attr)    
     if (self.m_tAttrInfo == nil) then
         return false
     end
