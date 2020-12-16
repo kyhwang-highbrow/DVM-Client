@@ -51,7 +51,6 @@ end
 function UI_BannerIncarnationOfSins:update()
     local vars = self.vars
 
-    -- TODO : 구현을 해야한다.
     -- 내 랭킹 표시
     if (vars['rankLabel']) then
         -- 내 랭킹이 0보다 작으면 {-위} 로 노출

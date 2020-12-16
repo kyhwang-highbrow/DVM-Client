@@ -240,7 +240,8 @@ function ServerData_EventIncarnationOfSins:openRankingPopupForLobby()
         local last_info = self.m_tMyRankInfo['total']
         local reward_info = self.m_tReceiveReward
 
-        if (last_info and reward_info) then
+        -- 보상을 받을 수 있는 상태라면
+        if (last_info and reward_info) and (self:canReward()) then
             -- 랭킹 보상 팝업
             UI_EventIncarnationOfSinsRewardPopup(last_info, reward_info)
         end
