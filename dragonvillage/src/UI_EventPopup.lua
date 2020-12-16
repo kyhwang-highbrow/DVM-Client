@@ -253,14 +253,22 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab =='event_exchange') then
         local inner_ui = UI_ExchangeEvent()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
+
     -- 빙고 이벤트
     elseif (tab =='event_bingo') then
         local inner_ui = UI_EventBingo()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
+
     -- 할로윈 룬 축제(할로윈 이벤트)
     elseif (tab =='event_rune_festival') then
         require('UI_EventRuneFestival')
         ui = UI_EventRuneFestival()
+
+    -- 죄악의 화신 토벌작전 이벤트
+    elseif (tab == 'event_incarnation_of_sins_popup') then
+        require('UI_EventIncarnationOfSinsFullPopup')
+        ui = UI_EventIncarnationOfSinsFullPopup()
+
     -- 주사위 이벤트
     elseif (tab =='event_dice') then
         local inner_ui = UI_DiceEvent()
