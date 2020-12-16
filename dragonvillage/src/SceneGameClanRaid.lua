@@ -151,6 +151,7 @@ end
 function SceneGameClanRaid:updateRealTimer(dt)
     local world = self.m_gameWorld
     local game_state = self.m_gameWorld.m_gameState
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
     
     -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
     local bUpdateRealLiveTimer = false
@@ -161,6 +162,11 @@ function SceneGameClanRaid:updateRealTimer(dt)
     -- self.m_bPause는 일시정지일 때 true이다.
     if (((not world:isPause()) and game_state:isFight()) or self.m_bPause) then
         bUpdateRealLiveTimer = true
+    end
+
+    -- 죄악의 화신 토벌작전 이벤트에서는 일시정지를 할 때 시간이 흐르지 않도록 한다.
+    if ((self.m_bPause) and (struct_raid:isEventIncarnationOfSinsMode())) then
+        bUpdateRealLiveTimer = false
     end
 
     -- 진행 시간을 업데이트

@@ -202,6 +202,7 @@ function ServerData_EventIncarnationOfSins:setCloseRankers(l_rankers)
         end
     end
 
+    if (self.m_lCloseRankers['me_ranker'] == nil) then return end
     local my_rank = self.m_lCloseRankers['me_ranker']['rank']
     local upper_rank = my_rank - 1
     local lower_rank = my_rank + 1
