@@ -142,8 +142,10 @@ function UI_EventIncarnationOfSinsEntryPopup:initButton()
     vars['quantityBtn1']:registerScriptTapHandler(function() self:click_minusBtn() end)
     vars['quantityBtn3']:registerScriptTapHandler(function() self:click_plusBtn() end)
     vars['quantityBtn4']:registerScriptTapHandler(function() self:click_maxBtn() end)
+    vars['prevBtn']:registerScriptTapHandler(function() self:click_minusBtn() end)
+    vars['nextBtn']:registerScriptTapHandler(function() self:click_plusBtn() end)
+    vars['synastryInfoBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_dungeon','clan_dungeon_summary', 'cldg_attr_bonus') end)
     --vars['resetBtn']:registerScriptTapHandler(function() self:click_resetBtn() end)
-    --vars['synastryInfoBtn']:registerScriptTapHandler(function() UI_HelpClan('clan_dungeon','clan_dungeon_summary', 'cldg_attr_bonus') end)
 end
 
 -------------------------------------
