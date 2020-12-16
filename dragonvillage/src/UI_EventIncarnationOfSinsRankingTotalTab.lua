@@ -139,10 +139,11 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
         return
     end
 
-    -- 콜로세움 랭킹 보상 테이블
-    local table_arena_rank = TABLE:get('table_arena_rank')
-    local struct_rank_reward = StructRankReward(table_arena_rank)
-    local l_arena_rank = struct_rank_reward:getRankRewardList()
+    -- 랭킹 보상 테이블
+    table_event_rank = g_eventIncarnationOfSinsData.m_tRewardInfo
+
+    local struct_rank_reward = StructRankReward(table_event_rank, true)
+    local l_event_rank = struct_rank_reward:getRankRewardList()
     self.m_structRankReward = struct_rank_reward
 
 
@@ -156,7 +157,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
     table_view.m_defaultCellSize = cc.size(640, 55 + 5)
     table_view:setCellUIClass(UI_EventIncarnationOfSinsRankingTotalTabRewardListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_arena_rank)
+    table_view:setItemList(l_event_rank)
 
     self.m_rewardTableView = table_view
 end
@@ -358,19 +359,27 @@ end
 function UI_EventIncarnationOfSinsRankingTotalTabRewardListItem:initUI()
     local vars = self.vars
     local t_data = self.m_rewardInfo
-    local l_reward = TableClass:seperate(self.m_rewardInfo['reward'], ',', true)
+    local l_reward = g_itemData:parsePackageItemStr(self.m_rewardInfo['reward'])
 
     for i = 1, #l_reward do
-        local l_str = seperate(l_reward[i], ';')
-        local item_id = TableItem:getItemIDFromItemType(l_str[1]) -- 아이템 아이콘
-        local icon = IconHelper:getItemIcon(item_id)
-
-        local cnt = l_str[2] -- 아이콘 수량
+        local item_id = l_reward[i]['item_id']
+        local cnt = l_reward[i]['count']
         
-        if (icon and cnt) then
-			icon:setScale(0.4)
-		    vars['rewardLabel' .. i]:setString(comma_value(cnt))
-            vars['rewardNode' .. i]:addChild(icon)
+        local item_card = UI_ItemCard(item_id, cnt)
+        item_card.root:setScale(0.62)
+
+        -- itemNode 는 좌 -> 우 1,2,3,4,5 총 5개를 갖는다
+        -- 리워드가 5개 미만일 때 총 슬롯과 리워드 차이만큼
+        -- 앞칸을 비워서 우측정렬을 실현
+        local insert_idx = i + ( 5 - #l_reward )
+
+        -- 혹시라도 인덱스 벗어나는 일이 있으면 멈추자.
+        if (insert_idx < 1 or insert_idx > 5) then
+            break
+        end
+
+        if vars['itemNode' .. insert_idx] then 
+            vars['itemNode' .. insert_idx]:addChild(item_card.root)
         end
     end
 
