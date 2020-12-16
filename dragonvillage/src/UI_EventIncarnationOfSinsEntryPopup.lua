@@ -61,17 +61,18 @@ function UI_EventIncarnationOfSinsEntryPopup:initUI()
 
     -- 랭크
     local rank = g_eventIncarnationOfSinsData:getMyRank(attr)
-    if (rank < 0) then 
-        rank = '-'
+    if (rank < 0) then
+        vars['rankLabel']:setString(Str('순위 없음'))
     else
-        rank = comma_value(rank)
+        local ratio = g_eventIncarnationOfSinsData:getMyRate(attr)
+        local percent_text = string.format('%.2f', ratio * 100)
+        vars['rankLabel']:setString(Str('{1}위 ({2}%)', comma_value(rank), percent_text))
     end
-    vars['rankLabel']:setString(Str('{1}위', rank))
     
     -- 점수
     local score = g_eventIncarnationOfSinsData:getMyScore(attr)
     if (score < 0) then 
-        score = '-'
+        score = 0
     else
         score = comma_value(score)
     end
