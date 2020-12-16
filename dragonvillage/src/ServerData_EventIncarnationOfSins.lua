@@ -64,14 +64,6 @@ function ServerData_EventIncarnationOfSins:canPlay()
 end
 
 -------------------------------------
--- function canReward
--- @brief 보상을 받을 수 있는가
--------------------------------------
-function ServerData_EventIncarnationOfSins:canReward()
-    return (self:getEventState() == ServerData_EventIncarnationOfSins.STATE['REWARD'])
-end
-
--------------------------------------
 -- function isActive
 -- @brief 활성화되어있는가
 -------------------------------------
@@ -241,7 +233,7 @@ function ServerData_EventIncarnationOfSins:openRankingPopupForLobby()
         local reward_info = self.m_tReceiveReward
 
         -- 보상을 받을 수 있는 상태라면
-        if (last_info and reward_info) and (self:canReward()) then
+        if (last_info and reward_info) then
             -- 랭킹 보상 팝업
             UI_EventIncarnationOfSinsRewardPopup(last_info, reward_info)
         end
@@ -319,6 +311,8 @@ function ServerData_EventIncarnationOfSins:response_eventIncarnationOfSinsInfo(r
 
     if (ret['reward_info']) then
         self.m_tReceiveReward = ret['reward_info']
+    else
+        self.m_tReceiveReward = nil
     end
 
     if (ret['dow']) then

@@ -27,12 +27,11 @@ end
 function UI_EventIncarnationOfSinsRewardPopup:initUI(user_info, reward_info)
     local vars = self.vars
     
-    -- TODO 보상 그리기
     -- 플레이어 정보 받아 그림
-    -- local rank_ui = UI_EventLFBagRankingListItem(user_info, reward_info)
+    local rank_ui = UI_EventIncarnationOfSinsRankingTotalTabRankingListItem(user_info)
     
     -- 랭킹 정보
-    -- vars['rankNode']:addChild(rank_ui.root)
+    vars['rankNode']:addChild(rank_ui.root)
 
     vars['descLabel']:setString(Str('이벤트가 종료되었습니다.'))
     vars['rankLabel']:setString(Str('랭킹'))
