@@ -64,15 +64,22 @@ end
 function UI_EventIncarnationOfSinsFullPopup:playEventScenario()
     local vars = self.vars
 
+    local ui = UI_ScenarioPlayer(UI_EventIncarnationOfSinsFullPopup.SCENARIO_NAME)
+    if (ui == nil) then
+        return
+    end
+
+    -- 시나리오 재생 전 bgm을 기록
+    local bgm = SoundMgr.m_currBgm
     local function finish_cb()
+        -- 시나리오 재생 전 bgm이 있엇다면 다시 재생
+        if bgm then
+            SoundMgr:playBGM(bgm)
+        end
         self:refresh()
     end
 
-    local ui = UI_ScenarioPlayer(UI_EventIncarnationOfSinsFullPopup.SCENARIO_NAME)
-    if ui then
-        g_scenarioViewingHistory:addViewed(UI_EventIncarnationOfSinsFullPopup.SCENARIO_NAME)
-        ui:setCloseCB(finish_cb)
-        ui:next()
-        return 
-    end
+    g_scenarioViewingHistory:addViewed(UI_EventIncarnationOfSinsFullPopup.SCENARIO_NAME)
+    ui:setCloseCB(finish_cb)
+    ui:next()
 end
