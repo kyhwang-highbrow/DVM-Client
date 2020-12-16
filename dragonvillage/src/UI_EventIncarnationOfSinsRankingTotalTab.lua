@@ -376,7 +376,7 @@ function UI_EventIncarnationOfSinsRankingTotalTabRewardListItem:initUI()
         
         local item_card = UI_ItemCard(item_id, cnt)
         item_card.root:setScale(0.62)
-
+        item_card.root:setSwallowTouch(false)
         -- itemNode 는 좌 -> 우 1,2,3,4,5 총 5개를 갖는다
         -- 리워드가 5개 미만일 때 총 슬롯과 리워드 차이만큼
         -- 앞칸을 비워서 우측정렬을 실현
