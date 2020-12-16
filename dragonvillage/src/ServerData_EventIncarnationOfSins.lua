@@ -64,6 +64,14 @@ function ServerData_EventIncarnationOfSins:canPlay()
 end
 
 -------------------------------------
+-- function canReward
+-- @brief 보상을 받을 수 있는가
+-------------------------------------
+function ServerData_EventIncarnationOfSins:canReward()
+    return (self:getEventState() == ServerData_EventIncarnationOfSins.STATE['REWARD'])
+end
+
+-------------------------------------
 -- function isActive
 -- @brief 활성화되어있는가
 -------------------------------------
