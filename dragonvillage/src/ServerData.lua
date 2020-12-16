@@ -550,7 +550,7 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['dragon_exp'], 'user', 'dragon_exp')
         end
 
-        -- 룬 원석
+        -- 룬 10개 뽑기 상자
         if ret['rune_box'] then
             self:applyServerData(ret['rune_box'], 'user', 'rune_box')
         end
@@ -713,7 +713,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
     -- 드래곤의 경험치
     RefreshGoods(t_added_items, 'dragon_exp')
 
-    -- 룬 원석
+    -- 룬 10개 뽑기 상자
     RefreshGoods(t_added_items, 'rune_box')
    
    -- 특성 재료

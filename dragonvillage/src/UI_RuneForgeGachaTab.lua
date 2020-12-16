@@ -97,7 +97,7 @@ function UI_RuneForgeGachaTab:request_runeGacha()
     -- 조건 체크
     local rune_box_count = g_userData:get('rune_box') or 0
     if (rune_box_count <= 0) then
-        UIManager:toastNotificationRed(Str('룬 원석이 부족합니다.'))
+        UIManager:toastNotificationRed(Str('룬 상자가 부족합니다.'))
         return
     end
     
