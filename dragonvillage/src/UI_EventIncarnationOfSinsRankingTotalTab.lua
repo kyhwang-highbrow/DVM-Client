@@ -268,7 +268,7 @@ function UI_EventIncarnationOfSinsRankingTotalTabRankingListItem:initUI()
     local t_rank_info = StructUserInfoArena:create_forRanking(self.m_rankInfo)
 
     -- 점수 표시
-    local score = tonumber(self.m_rankInfo['rp'])
+    local score = tonumber(self.m_rankInfo['score'])
 
     if (score < 0) then
         score = '-'

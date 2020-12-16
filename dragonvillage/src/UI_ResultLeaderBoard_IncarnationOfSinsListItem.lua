@@ -21,7 +21,7 @@ function UI_ResultLeaderBoard_IncarnationOfSinsListItem:init(type, t_data, is_me
     self.m_type = type
     self.m_rank = t_data['rank']
     self.m_userName = t_data['nick']
-    self.m_score = t_data['rp']
+    self.m_score = t_data['score']
     if (t_data['clan_info']) then
         self.m_mark = StructClanMark:create(t_data['clan_info']['mark'])
     end

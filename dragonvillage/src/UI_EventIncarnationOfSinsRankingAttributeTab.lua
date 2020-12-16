@@ -337,13 +337,13 @@ function UI_EventIncarnationOfSinsRankingAttributeTabListItem:initUI()
     local t_rank_info = StructUserInfoArena:create_forRanking(t_data)
 
     -- 점수 표시
-    vars['scoreLabel']:setString(t_rank_info:getRPText())
+    vars['scoreLabel']:setString(tostring(comma_value(t_data['score'])))
 
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['userLabel']:setString(t_rank_info:getUserText())
 
     -- 순위 표시
-    vars['rankLabel']:setString(tostring(t_data['rank']))
+    vars['rankLabel']:setString(tostring(comma_value(t_data['rank'])))
 
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()

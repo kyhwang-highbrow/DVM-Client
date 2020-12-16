@@ -97,7 +97,7 @@ function ServerData_EventIncarnationOfSins:getMyScore(type)
     local result = -1
 
     if (self.m_tMyRankInfo) then
-        result = self.m_tMyRankInfo[type]['rp']
+        result = self.m_tMyRankInfo[type]['score']
     end
 
     return result
@@ -513,13 +513,13 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsFinish(
     end
 
     local function response_status_cb(ret)
-        -- invalid season
+        -- 현재 시간에 잠겨 있는 속성
         if (ret['status'] == -1364) then
             -- 로비로 이동
             local function ok_cb()
                 UINavigator:goTo('lobby')
             end 
-            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'), ok_cb)
             return true
         end
 
