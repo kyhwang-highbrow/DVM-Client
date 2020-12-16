@@ -195,8 +195,14 @@ function UI_EventIncarnationOfSinsRankingAttributeTab:makeAttrTableView(attr)
                 return
             end
            
-            local next_idx = self.m_tRankData[attr][cnt]['rank']
-            self.m_tRankOffset[attr] = next_idx + 1
+            -- local next_idx = self.m_tRankData[attr][cnt - 1]['rank']
+            -- 위에서 직접 아이템 조회로 계산 할 때 2페이지부터 인덱스가 꼬이는 현상이 발생.
+            -- 서버 리스폰스의 offset도 믿을만 한 정보니 서버 offset정보에 offset gap을 더해서 인덱싱하자.
+            -- 인덱싱이 이미 1부터 시작하기 때문에 +1을 할 필요가 없다.
+            local next_idx = self.m_tRankOffset[attr] + SCORE_OFFSET_GAP
+
+            -- 여긴 대입만
+            self.m_tRankOffset[attr] = next_idx
             self:request_EventIncarnationOfSinsAttrRanking(attr)
         end
 
