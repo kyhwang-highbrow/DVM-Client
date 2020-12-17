@@ -379,8 +379,12 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_GachaResult_Rune:click_closeBtn()
-    SoundMgr:playPrevBGM()
-    self:close()
+    if(self:isAllCardOpen()) then
+        SoundMgr:playPrevBGM()
+        self:close()
+    else
+        self:click_skipBtn()
+    end
 end
 
 -------------------------------------
