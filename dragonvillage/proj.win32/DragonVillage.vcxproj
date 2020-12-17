@@ -1643,6 +1643,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ResultLeaderBoard_IncarnationOfSins.lua" />
     <None Include="..\src\UI_ResultLeaderBoard_IncarnationOfSinsListItem.lua" />
     <None Include="..\src\UI_RuneAutoSellAgreePopup.lua" />
+    <None Include="..\src\UI_RuneCard_Gacha.lua" />
     <None Include="..\src\UI_RuneDevApiPopup.lua" />
     <None Include="..\src\UI_RuneForge.lua" />
     <None Include="..\src\UI_RuneForgeCombineItem.lua" />

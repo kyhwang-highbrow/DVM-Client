@@ -4750,6 +4750,9 @@
     <None Include="..\src\UI_ResultLeaderBoard_IncarnationOfSinsListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_RuneCard_Gacha.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

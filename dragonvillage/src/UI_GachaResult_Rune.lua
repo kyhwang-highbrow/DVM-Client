@@ -8,9 +8,6 @@ UI_GachaResult_Rune = class(PARENT, {
 
         m_lGachaRuneList = 'list', -- 룬 데이터
 		m_tRuneCardTable = 'table', -- 룬 카드 UI
-        m_tRuneCardAnimator = 'table', -- 룬 카드 애니메이터
-        m_tRuneCardOpen = 'table', -- 룬 카드가 오픈되었는지 저장
-		m_tRuneCardEffectTable = 'table', -- 카드가 오픈된 이후 이펙트
 
 		-- 연출 관련
         m_hideUIList = '',
@@ -33,15 +30,14 @@ end
 function UI_GachaResult_Rune:init(type, l_gacha_rune_list)
 	self.m_type = type
 
-    -- 연출 관련 애니메이션 프레임캐시에 등록
-    -- Translate:a2dTranslate('ui/a2d/summon/summon_cut.plist')
+    require('UI_RuneCard_Gacha')
 
     self.m_uiName = 'UI_GachaResult_Rune'
     local vars = self:load('rune_gacha_result.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- @UI_ACTION
-    self:doActionReset()
+    -- self:doActionReset()
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GachaResult_Rune')
@@ -49,9 +45,6 @@ function UI_GachaResult_Rune:init(type, l_gacha_rune_list)
 	-- 멤버 변수
     self.m_lGachaRuneList = l_gacha_rune_list
     self.m_tRuneCardTable = {}
-    self.m_tRuneCardAnimator = {}
-    self.m_tRuneCardOpen = {}
-    self.m_tRuneCardEffectTable = {}
 
     self.m_hideUIList = {}
 
@@ -68,12 +61,16 @@ end
 function UI_GachaResult_Rune:initUI()
 	local vars = self.vars
     
-    vars['againBtn']:setVisible(false)
-    vars['okBtn']:setVisible(false)
-
     self:registerOpenNode('againBtn')
     self:registerOpenNode('okBtn')
 
+    -- 사용 재화 표기
+	self:refresh_wealth()
+
+	-- 룬 수량 표시
+	self:refresh_inventoryLabel()
+
+    -- 룬 카드들 생성
 	self:initRuneCardList()
 end
 
@@ -93,17 +90,10 @@ end
 function UI_GachaResult_Rune:refresh()
     local vars = self.vars
 
-    -- 사용 재화 표기
-	self:refresh_wealth()
-
-	-- 룬 수량 표시
-	self:refresh_inventoryLabel()
-
-    if (self:isAllCardOpen()) then
-        -- 마지막에만 보여야 하는 UI들을 관리
-        for i,v in pairs(self.m_hideUIList) do
-            v:setVisible(true)
-        end
+    local b_is_all_card_open = self:isAllCardOpen()
+    -- 마지막에만 보여야 하는 UI들을 관리
+    for i,v in pairs(self.m_hideUIList) do
+        v:setVisible(b_is_all_card_open)
     end
 end
 
@@ -113,8 +103,8 @@ end
 function UI_GachaResult_Rune:isAllCardOpen()
     local b_is_all_card_open = true
 
-    for roid, v in pairs(self.m_tRuneCardOpen) do
-        if (v == false)  then
+    for roid, rune_card_gacha in pairs(self.m_tRuneCardTable) do
+        if (not rune_card_gacha:isOpen())  then
             b_is_all_card_open = false
             break
         end
@@ -169,41 +159,12 @@ function UI_GachaResult_Rune:initRuneCardList()
         t_rune_data = StructRuneObject(t_rune_data) -- raw data를 StructRuneObject 형태로 변경
         local roid = t_rune_data['roid']
         local card_node = l_use_node[idx]
-		local card = UI_RuneCard(t_rune_data)
+		local card = UI_RuneCard_Gacha(t_rune_data, function() self:openRuneCB() end, function() end)
 		
-		-- 카드 숨기기 (애니메이션 종료 후 오픈)
-		card.root:setVisible(true)
-		--card.root:setVisible(false)
+        -- 카드 숨기기 (애니메이션 종료 후 오픈)
 		card_node:addChild(card.root, 2)
 		
-		-- 리스트에 저장 (연출을 위해)
 		self.m_tRuneCardTable[roid] = card
-
-        -- 카드 오픈 관련 변수 설정
-        --self.m_tRuneCardOpen[roid] = false
-        self.m_tRuneCardOpen[roid] = true
-
-        -- 카드 오픈 관련 애니메이션 설정
-        --local res_name = 'res/ui/a2d/summon/summon.vrp'
-        --local animator = MakeAnimator(res_name)
-        --animator:setIgnoreLowEndMode(true)
-        --animator:changeAni('appear_01', true)
-        --animator:setScale(0.4)
-        --card_node:addChild(animator.m_node, 3)
---
-        --local node = cc.MenuItemImage:create()
-        --node:setDockPoint(CENTER_POINT)
-        --node:setAnchorPoint(CENTER_POINT)
-        --node:setPosition(0, 0)
-        --node:setContentSize(300, 300)
-        --local btn = UIC_Button(animator.m_node)
-        --btn:registerScriptTapHandler(function() self:click_openRune(roid) end)
-        --card_node:addChild(node, 4)
---
-        --self.m_tRuneCardAnimator[roid] = animator
-
-        -- TODO : 카드 희귀도에 따른 이펙트 저장
-        
 	end
 
     -- 카드 위치 정렬
@@ -224,6 +185,7 @@ function UI_GachaResult_Rune:refresh_wealth()
     if (type == 'rune_box') then
         local rune_box_count = g_userData:get('rune_box')
         vars['countLabel']:setString(comma_value(rune_box_count))
+        
         vars['againBtn']:setVisible(true)
     end
 end
@@ -255,47 +217,20 @@ function UI_GachaResult_Rune:click_inventoryBtn()
 end
 
 -------------------------------------
+-- function openRuneCB
+-- @brief 룬카드 오픈할 때 호출할 CB
+-------------------------------------
+function UI_GachaResult_Rune:openRuneCB()
+    self:refresh()
+end
+
+-------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_GachaResult_Rune:click_closeBtn()
     SoundMgr:playPrevBGM()
     self:close()
 end
-
--------------------------------------
--- function click_openRune
--- @brief 뒤집어져있는 룬 카드를 클릭했을 때
--------------------------------------
-function UI_GachaResult_Rune:click_openRune(roid)
-    cclog('click open rune')
-    -- 이미 열린 경우 패스
-    if (self.m_tRuneCardOpen[roid] == true) then
-        cclog('pass 1')
-
-        return
-    end
-
-    -- 열리고 있는 도중인 경우 패스
-    local animator = self.m_tRuneCardAnimator[roid]
-    if (animator.m_currAnimation == 'crack_high_01') then
-        cclog('pass 2')
-        
-        return
-    end
-
-    -- 카드를 뒤집는 애니메이션이 끝나면 룬 카드를 오픈 
-    local function finish_cb()
-        animator:setVisible(false)
-        self.m_tRuneCardOpen[roid] = true
-        local rune_card = self.m_tRuneCardTable[roid]
-        rune_card:setVisible(true)
-        cclog('finish cb')
-    end
-
-    animator:changeAni('crack_high_01')
-    animator:addAniHandler(function() finish_cb() end)
-end
-
 
 -------------------------------------
 -- function onFocus

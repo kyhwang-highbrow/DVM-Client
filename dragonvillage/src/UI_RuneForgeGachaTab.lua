@@ -63,7 +63,7 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_RuneForgeGachaTab:click_buyBtn(product_id)
-    local product_id = product_id -- 테스트용이니까 일단 하드코딩
+    local product_id = product_id 
     local struct_product = g_shopDataNew:getTargetProduct(product_id)
 
     if (not struct_product) then
