@@ -89,6 +89,15 @@ function UI_RuneCard_Gacha:isOpen()
 end
 
 -------------------------------------
+-- function setCheckSpriteVisible
+-- @brief 카드 체크 표시
+-- @external call
+-------------------------------------
+function UI_RuneCard_Gacha:setCheckSpriteVisible(visible)
+    self.m_runeCard:setCheckSpriteVisible(visible)
+end
+
+-------------------------------------
 -- function click_clickBtn
 -------------------------------------
 function UI_RuneCard_Gacha:click_clickBtn()
@@ -113,7 +122,7 @@ function UI_RuneCard_Gacha:click_clickBtn()
         self.m_bIsOpen = true
 
         local duration = 0.2
-        local fade_out = cc.EaseInOut:create(cc.FadeOut:create(duration), 2)
+        local fade_out = cc.EaseInOut:create(cc.FadeOut:create(duration), 1)
         animator.m_node:runAction(fade_out)
         animator:setAnimationPause(true)
 

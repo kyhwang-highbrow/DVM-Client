@@ -63,8 +63,11 @@ end
 function UI_GachaResult_Rune:initUI()
 	local vars = self.vars
     
-    self:registerOpenNode('againBtn')
-    self:registerOpenNode('okBtn')
+    if (self.m_type == 'rune_box') then
+        self:registerOpenNode('againBtn')
+    else
+        vars['againBtn']:setVisible(false)
+    end
 
     -- SUCCESS 이펙트
     -- self:initTitleEffect()
@@ -108,6 +111,7 @@ function UI_GachaResult_Rune:initButton()
 	local vars = self.vars
 
 	vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['allOkBtn']:registerScriptTapHandler(function() self:click_allOkBtn() end)
 	vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
@@ -126,7 +130,13 @@ function UI_GachaResult_Rune:refresh()
     if (b_is_all_card_open) then
         self:doActionReset()
         self:doAction(nil, false)
-    end
+
+        vars['allOkBtn']:setVisible(false)
+        vars['okBtn']:setVisible(true)
+    else
+        vars['allOkBtn']:setVisible(true)
+        vars['okBtn']:setVisible(false)
+    end 
 end
 
 -------------------------------------
@@ -170,11 +180,18 @@ function UI_GachaResult_Rune:initRuneCardList()
             self:refreshRuneInfo(struct_rune_object)
         end
 
+        local b_is_first_open = true
+
         -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
         local function open_rune_cb()
-            cclog('refresh from ' .. idx)
             self:refresh()
             click_rune_cb()
+    
+            -- 룬 옵션 창을 ACTION!
+            if (b_is_first_open == true) then
+                b_is_first_open = false
+                
+            end
         end
         
         card:setOpenCB(open_rune_cb)
@@ -195,7 +212,7 @@ function UI_GachaResult_Rune:initRuneCardList()
         local duration = 0.2
         local move = cc.MoveTo:create(duration, cc.p(x, y))
         local fade_in = cc.FadeIn:create(duration)
-        local action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 2)
+        local action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 1.3)
         
         rune_card.root:setPositionY(y + move_distance)
         rune_card.root:runAction(action)
@@ -216,6 +233,11 @@ function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
     local rune_card = UI_RuneCard(struct_rune_object)
     rune_card_node:addChild(rune_card.root)
 
+    -- 룬 이름 세팅
+    vars['nameLabel']:setVisible(true)
+    local name = struct_rune_object['name']
+    vars['nameLabel']:setString(name)
+
     -- 룬 옵션 세팅
     vars['runeDscNode']:setVisible(true)
     if (not self.m_optionLabel) then
@@ -229,6 +251,9 @@ function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
     vars['itemDscNode2']:setVisible(true)
     local str = struct_rune_object:makeRuneSetDescRichText() or ''
     vars['itemDscLabel2']:setString(str)
+
+
+
 end
 
 -------------------------------------
@@ -243,8 +268,6 @@ function UI_GachaResult_Rune:refresh_wealth()
     if (type == 'rune_box') then
         local rune_box_count = g_userData:get('rune_box')
         vars['countLabel']:setString(comma_value(rune_box_count))
-        
-        vars['againBtn']:setVisible(true)
     end
 end
 
@@ -273,6 +296,19 @@ function UI_GachaResult_Rune:click_inventoryBtn()
 
     g_inventoryData:extendInventory(item_type, finish_cb)
 end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_GachaResult_Rune:click_allOkBtn()
+    
+    for roid, rune_card in pairs(self.m_tRuneCardTable) do
+        if(not rune_card:isOpen()) then
+            rune_card:click_clickBtn()
+        end
+    end
+end
+
 
 -------------------------------------
 -- function click_closeBtn
