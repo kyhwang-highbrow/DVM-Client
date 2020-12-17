@@ -8,6 +8,7 @@ UI_RuneCard_Gacha = class(PARENT, {
         m_tRuneData = 'StructRuneObject',
         m_runeCard = 'UI_RuneCard',
         m_animator = 'Animator', -- 룬 카드 오픈 관련 애니메이터
+        m_effectAnimator = 'Animator', -- 7등급 이상의 룬인 경우 오픈한 뒤에 반짝반짝 이펙트
         m_bIsOpen = 'boolean', -- 현재 룬 카드가 오픈되었는지        
         
         -----------------------------------------------------
@@ -92,6 +93,19 @@ function UI_RuneCard_Gacha:makeRuneOpenAnimator()
     animator:setMix('hold', 'flip_2', 0.2)
     self.m_animator = animator
     vars['skipBtn']:addChild(animator.m_node)
+
+    local struct_rune = self.m_tRuneData
+    local grade = struct_rune['grade']
+    if (grade == 7) then
+        local effect_res_name = 'res/ui/a2d/card_summon/card_summon.vrp'
+        local effect_animator = MakeAnimator(effect_res_name)
+
+        effect_animator:setIgnoreLowEndMode(true)
+        effect_animator:changeAni('summon_hero', true)
+        effect_animator.m_node:setScale(1.7)
+        self.m_effectAnimator = effect_animator
+        vars['runeNode']:addChild(effect_animator.m_node, 3)
+    end
 end
 
 -------------------------------------
@@ -146,7 +160,6 @@ function UI_RuneCard_Gacha:openCard(b_do_open_cb)
         animator:setAnimationPause(true)
 
         vars['runeNode']:setVisible(true)
-
         if (self.m_openCB) and (b_do_open_cb == true) then
             self.m_openCB() 
         end
