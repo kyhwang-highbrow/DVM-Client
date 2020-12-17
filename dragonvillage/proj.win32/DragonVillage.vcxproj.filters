@@ -4753,6 +4753,9 @@
     <None Include="..\src\UI_RuneCard_Gacha.lua">
       <Filter>lua\UI_Card</Filter>
     </None>
+    <None Include="..\src\UI_RuneForgeGachaTabInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

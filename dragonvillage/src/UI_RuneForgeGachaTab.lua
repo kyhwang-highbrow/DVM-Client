@@ -57,6 +57,7 @@ function UI_RuneForgeGachaTab:initUI()
     end
 
     vars['gachaBtn']:registerScriptTapHandler(function() self:click_gachaBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -88,6 +89,13 @@ end
 -------------------------------------
 function UI_RuneForgeGachaTab:click_gachaBtn()
     self:request_runeGacha()
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_RuneForgeGachaTab:click_infoBtn()
+    local ui = UI_RuneForgeGachaTabInfoPopup()
 end
 
 -------------------------------------
