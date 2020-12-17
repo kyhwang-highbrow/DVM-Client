@@ -78,17 +78,39 @@ function SettingData:makeDefaultSettingData()
 
     do -- 룬 일괄 판매 옵션
         local t_data = {}
+        -- 등급
         t_data['grade_1'] = true
         t_data['grade_2'] = true
         t_data['grade_3'] = false
         t_data['grade_4'] = false
         t_data['grade_5'] = false
         t_data['grade_6'] = false
+        t_data['grade_7'] = false
+
+        -- 희귀도
         t_data['rarity_4'] = false
         t_data['rarity_3'] = false
         t_data['rarity_2'] = true
         t_data['rarity_1'] = true
+
+        -- 강화 여부
         t_data['enhance'] = false
+
+        -- 룬 번호 : 홀수
+        t_data['odd'] = true
+        -- 룬 번호 : 짝수
+        t_data['even'] = true
+
+        -- 주옵션
+        t_data['mopt1'] = true
+        t_data['mopt2'] = true
+        t_data['mopt3'] = true
+        t_data['mopt4'] = true
+        t_data['mopt5'] = true
+        t_data['mopt6'] = true
+        t_data['mopt7'] = true
+        t_data['mopt8'] = true
+
         root_table['option_rune_bulk_sell'] = t_data
     end
 

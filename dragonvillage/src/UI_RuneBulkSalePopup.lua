@@ -232,7 +232,7 @@ function UI_RuneBulkSalePopup:getRuneList()
     local is_all_stars = true
     for i = 1, 7 do
         l_stars[i] = vars['starBtn'..i]:isChecked()
-        if (vars['starBtn'..i]:isChecked()) then
+        if (vars['starBtn'..i]:isChecked() == false) then
             is_all_stars = false
         end
     end
@@ -242,7 +242,7 @@ function UI_RuneBulkSalePopup:getRuneList()
     local is_all_rarity = true
     for i = 1, 4 do
         l_rarity[i] = vars['rarityBtn'..i]:isChecked()
-        if (vars['rarityBtn'..i]:isChecked()) then
+        if (vars['rarityBtn'..i]:isChecked() == false) then
             is_all_rarity = false
         end
     end
@@ -252,12 +252,12 @@ function UI_RuneBulkSalePopup:getRuneList()
     for i = 1, 6 do
         if (i%2 == 1) then
             l_rune_num[i] = vars['evenBtn']:isChecked()
-            if (vars['evenBtn']:isChecked()) then
+            if (vars['evenBtn']:isChecked() == false) then
                 is_all_rune_num = false
             end
         else
             l_rune_num[i] = vars['oddBtn']:isChecked()
-            if (vars['oddBtn']:isChecked()) then
+            if (vars['oddBtn']:isChecked() == false) then
                 is_all_rune_num = false
             end
         end
@@ -267,7 +267,7 @@ function UI_RuneBulkSalePopup:getRuneList()
     local is_all_mopt = true
     for i = 1, 8 do
         l_mopt[i] = vars['moptBtn'..i]:isChecked()
-        if (vars['moptBtn'..i]:isChecked()) then
+        if (vars['moptBtn'..i]:isChecked() == false) then
             is_all_mopt = false
         end
     end
@@ -315,6 +315,8 @@ function UI_RuneBulkSalePopup:parseMopt(mopt_str)
     if (not mopt_str) then
         return 1
     end
+
+    -- mopt_str 예시 'atk_multi;46', 'atk_add;440'
     local l_mopt = pl.stringx.split(mopt_str, ';')
     if (#l_mopt < 2) then
         return 1

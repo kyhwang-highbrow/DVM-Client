@@ -6,14 +6,17 @@ local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 UI_RuneForgeManageTab = class(PARENT,{
         m_selectedRuneObject = 'StructRuneObject',
         m_selectedRuneUI = '',
-        m_mTableViewListMap = 'map',
-        m_mSortManagerMap = 'map',
 
 		m_tNotiSprite = 'table',
         m_optionLabel = 'ui',
 
         m_bSelectSellActive = 'boolean', -- 현재 선택 판매중인지
         m_mSelectedRuneUIMap = 'map', -- 현재 판매를 위해 선택된 아이템 UI, map[roid] = ui
+        m_mSelectedRuneRoidMap = 'map',
+
+        m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
+        m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
+        m_tableViewTD = '',
     })
 
 
@@ -28,6 +31,9 @@ function UI_RuneForgeManageTab:init(owner_ui)
    
    self.m_bSelectSellActive = false
    self.m_mSelectedRuneUIMap = {}
+   self.m_mSelectedRuneRoidMap = {}
+
+   self.m_listFilterSetID = 0
 end
 
 -------------------------------------
@@ -57,14 +63,13 @@ end
 function UI_RuneForgeManageTab:initUI()
     local vars = self.vars
 
-    self.m_mTableViewListMap = {}
-    self.m_mSortManagerMap = {}
 	self.m_tNotiSprite = {}
     self.m_optionLabel = nil
     local vars = self.vars
 
+    -- 룬 번호 1~6
     for i = 1, 6 do
-        self:addTabWithLabel(i, vars['runeTabBtn' .. i], vars['runeTabLabel' .. i], vars['runeTableViewNode' .. i])
+        self:addTabWithLabel(i, vars['runeTabBtn' .. i], vars['runeTabLabel' .. i]) -- params : tab, button, label, ...
     end
 
      if (IS_TEST_MODE()) then
@@ -77,6 +82,9 @@ function UI_RuneForgeManageTab:initUI()
         self.vars['manageDevBtn']:setVisible(false)
         self.vars['addDevBtn']:setVisible(false)
     end
+
+    -- 룬 정렬 최초 전체 선택
+    vars['setSortLabel']:setString(Str('전체'))
 end
 
 -------------------------------------
@@ -85,28 +93,12 @@ end
 function UI_RuneForgeManageTab:initButton()
     local vars = self.vars
 
-    -- "선택 판매" 버튼
-    vars['selectSellStartBtn']:registerScriptTapHandler(function()
-        self:setActiveSelectSell(true)
-    end)
-
-    -- "판매" 버튼
-    vars['selectSellBtn']:registerScriptTapHandler(function() 
-        self:click_selectSellBtn() 
-    end)
-
-    -- "취소" 버튼
-    vars['selectSellStopBtn']:registerScriptTapHandler(function()
-        self:setActiveSelectSell(false)
-    end)
-
-    vars['bulkSellBtn']:registerScriptTapHandler(function() 
-        self:click_bulkSellBtn() 
-    end)
-
-    vars['runeInfoBtn']:registerScriptTapHandler(function() 
-        self:click_runeInfoBtn() 
-    end)
+    vars['selectSellStartBtn']:registerScriptTapHandler(function() self:setActiveSelectSell(true) end) -- 선택 판매 버튼
+    vars['selectSellBtn']:registerScriptTapHandler(function() self:click_selectSellBtn() end) -- 판매 버튼
+    vars['selectSellStopBtn']:registerScriptTapHandler(function() self:setActiveSelectSell(false) end) -- 취소 버튼
+    vars['bulkSellBtn']:registerScriptTapHandler(function() self:click_bulkSellBtn() end)
+    vars['runeInfoBtn']:registerScriptTapHandler(function() self:click_runeInfoBtn() end)
+    vars['setSortBtn']:registerScriptTapHandler(function() self:click_setSortBtn() end) -- 룬 정렬
 end
 
 -------------------------------------
@@ -114,14 +106,16 @@ end
 -------------------------------------
 function UI_RuneForgeManageTab:onChangeTab(tab, first)
     local slot_idx = tab
-
+    self.m_mSelectedRuneUIMap = {}
+    --self.m_mSelectedRuneRoidMap = {}
     self:init_runeTableView(slot_idx)
 
     -- 선택된 룬 정보 초기화
     local skip_clear_info = true
     self:clearSelectedRune(skip_clear_info)
 
-	self:refresh_noti()
+	self:refreshRunesCount() -- 룬 개수 갱신
+    self:refresh_noti() -- 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
 end
 
 -------------------------------------
@@ -189,23 +183,39 @@ function UI_RuneForgeManageTab:setSelectedRune(ui, data)
 
         if self.m_mSelectedRuneUIMap[roid] then
             ui:setCheckSpriteVisible(false)
+            self.m_mSelectedRuneRoidMap[roid] = nil
             self.m_mSelectedRuneUIMap[roid] = nil
         else
             ui:setCheckSpriteVisible(true)
+            self.m_mSelectedRuneRoidMap[roid] = data
             self.m_mSelectedRuneUIMap[roid] = {['ui'] = ui, ['data'] = data}
         end
     end
 end
 
+
 -------------------------------------
 -- function init_runeTableView
 -------------------------------------
 function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
+    local vars = self.vars
 
-    local node = self.vars['runeTableViewNode' .. slot_idx]
+    -- 선택된 룬이 있을 경우 제거
+    self:clearSelectedRune() -- params : skip_clear_info
+
+    local slot_idx = (slot_idx or self.m_currTab)
+    local node = self.vars['runeTableViewNode']
     node:removeAllChildren()
 
-    local l_item_list = g_runesData:getUnequippedRuneList(slot_idx)
+    local l_item_list = self:getFilteredRuneList(slot_idx)
+    --local unequipped = true
+    --local slot = slot_idx
+    --local set_id = self.m_listFilterSetID
+
+    --local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+
+    --local l_item_list = g_runesData:getUnequippedRuneList(slot_idx)
+    --local l_item_list = g_runesData:getFilteredRuneList(false, slot_idx) -- unequipped, slot, set_id
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -218,9 +228,10 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
 		-- 만약 선택 판매 중이었다면 체크 표시
         if (self.m_bSelectSellActive) then
             local roid = data['roid']
-            if (self.m_mSelectedRuneUIMap[roid]) then
+            if (self.m_mSelectedRuneRoidMap[roid]) then
                 if (not data['lock']) then
                     ui:setCheckSpriteVisible(true)
+                    self.m_mSelectedRuneUIMap[roid] = {['ui'] = ui, ['data'] = data}
                 end
             end
         end
@@ -249,24 +260,41 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
 
     -- 정렬
     local sort_manager = SortManager_Rune()
+    self.m_sortManagerRune = sort_manager
     sort_manager:sortExecution(table_view_td.m_itemList)
     
-    self.m_mSortManagerMap[slot_idx] = sort_manager
-    self.m_mTableViewListMap[slot_idx] = table_view_td
-end
+    self.m_tableViewTD = table_view_td
 
--------------------------------------
--- function onChangeSortAscending
--- @brief 오름차순, 내림차순이 변경되었을 때
--------------------------------------
-function UI_RuneForgeManageTab:onChangeSortAscending(ascending)
-    -- 내부 슬롯별 탭 정렬
-    for slot_idx,table_view_td in pairs(self.m_mTableViewListMap) do
-        local sort_manager = self.m_mSortManagerMap[slot_idx]
+    do -- 정렬 UI 생성
+        local uic_sort_list = MakeUICSortList_runeManage(vars['runeSortBtn'], vars['runeSortLabel'])
+
+        -- 버튼을 통해 정렬이 변경되었을 경우
+        local function sort_change_cb(sort_type)
+            sort_manager:pushSortOrder(sort_type)
+            self:apply_runesSort()
         
-        sort_manager:setAllAscending(ascending)
-        sort_manager:sortExecution(table_view_td.m_itemList)
-        table_view_td:setDirtyItemList()
+        end
+        uic_sort_list:setSortChangeCB(sort_change_cb)
+
+        -- 최초 정렬 설정
+        uic_sort_list:setSelectSortType('set_id')
+    end
+
+    do -- 오름차순/내림차순 버튼
+        local function click()
+            local ascending = (not sort_manager.m_defaultSortAscending)
+            sort_manager:setAllAscending(ascending)
+            self:apply_runesSort()
+
+            vars['runeSortOrderSprite']:stopAllActions()
+            if ascending then
+                vars['runeSortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                vars['runeSortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end
+
+        vars['runeSortOrderBtn']:registerScriptTapHandler(click)
     end
 end
 
@@ -359,7 +387,8 @@ function UI_RuneForgeManageTab:sellBtn(t_rune_data)
         local function cb(ret)
             self:refresh_tableView(ret['deleted_rune_oids'])
             self:clearSelectedRune()
-			self:refresh_noti()
+            self:refreshRunesCount() -- 룬 개수 갱신
+            self:refresh_noti() -- 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
         end
 
         g_inventoryData:request_itemSell(rune_oids, items, cb)
@@ -396,7 +425,8 @@ function UI_RuneForgeManageTab:runeLockBtn(t_rune_data)
         
 		-- 잠금했던 룬이라면 잠금여부에 따라 roid 삭제
         if (new_data['lock'] == true) and (self.m_bSelectSellActive) then
-            if (self.m_mSelectedRuneUIMap and roid) then
+            if (self.m_mSelectedRuneRoidMap and roid) then
+                self.m_mSelectedRuneRoidMap[roid] = nil
                 self.m_mSelectedRuneUIMap[roid] = nil
             end
         end
@@ -412,12 +442,13 @@ end
 
 -------------------------------------
 -- function refresh_noti
+-- @brief 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
 -------------------------------------
 function UI_RuneForgeManageTab:refresh_noti()
 	local vars = self.vars
 
 	-- 룬 슬롯 탭
-	local t_new_slot = g_highlightData:getNewRuneSlotTable()
+    local t_new_slot = self:getNewRuneSlotTable()
 	if (t_new_slot) then
 		local t_noti = {}
 		for slot, b in pairs(t_new_slot) do
@@ -431,21 +462,15 @@ end
 -- function refresh_selectedRune
 -------------------------------------
 function UI_RuneForgeManageTab:refresh_selectedRune(new_data)
+    -- 새로운 데이터로 갱신
+    local table_view = self.m_tableViewTD
+    for roid, item in pairs(table_view.m_itemMap) do
+        if (new_data['roid'] == roid) then
+            table_view:replaceItemUI(roid, new_data)
 
-    -- 룬 슬롯 타입 세개 순회
-    for i,v in pairs(self.m_mTableViewListMap) do
-        local rune_slot_type = i
-        local table_view = v
-        
-        -- 새로운 데이터로 갱신
-        for roid, item in pairs(table_view.m_itemMap) do
-            if (new_data['roid'] == roid) then
-                table_view:replaceItemUI(roid, new_data)
-
-                self:clearSelectedRune()
-                local new_item = table_view:getItem(roid)
-                self:setSelectedRune(new_item['ui'], new_item['data'])
-            end
+            self:clearSelectedRune()
+            local new_item = table_view:getItem(roid)
+            self:setSelectedRune(new_item['ui'], new_item['data'])
         end
     end
 end
@@ -454,23 +479,17 @@ end
 -- function refresh_tableView
 -------------------------------------
 function UI_RuneForgeManageTab:refresh_tableView(l_deleted_rune_oids)
-
     -- roid로 바로 찾기위해 map형태로 변환
     local l_deleted_rune_oids_map = {}
     for i,v in pairs(l_deleted_rune_oids) do
         l_deleted_rune_oids_map[v] = true
     end
 
-    -- 룬 슬롯 타입 세개 순회
-    for i,v in pairs(self.m_mTableViewListMap) do
-        local rune_slot_type = i
-        local table_view = v
-        
-        -- 테이블뷰 아이템들 중 없어진 아이템 삭제
-        for roid,_ in pairs(table_view.m_itemMap) do
-            if (l_deleted_rune_oids_map[roid] == true) then
-                table_view:delItem(roid)
-            end
+    -- 테이블뷰 아이템들 중 없어진 아이템 삭제
+    local table_view = self.m_tableViewTD
+    for roid,_ in pairs(table_view.m_itemMap) do
+        if (l_deleted_rune_oids_map[roid] == true) then
+            table_view:delItem(roid)
         end
     end
 end
@@ -485,7 +504,8 @@ function UI_RuneForgeManageTab:click_bulkSellBtn()
     local function cb(ret)
         self:refresh_tableView(ret['deleted_rune_oids'])
         self:clearSelectedRune()
-		self:refresh_noti()
+        self:refreshRunesCount() -- 룬 개수 갱신
+        self:refresh_noti() -- 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
     end
 
     ui:setSellCallback(cb)
@@ -495,7 +515,7 @@ end
 -- function click_selectSellBtn
 -------------------------------------
 function UI_RuneForgeManageTab:click_selectSellBtn()
-    local count = table.count(self.m_mSelectedRuneUIMap)
+    local count = table.count(self.m_mSelectedRuneRoidMap)
 
     if (count <= 0) then
         UIManager:toastNotificationRed(Str('선택된 아이템이 없습니다.'))
@@ -508,10 +528,8 @@ function UI_RuneForgeManageTab:click_selectSellBtn()
     local total_price = 0
 
     local table_item = TableItem()
-    for i,v in pairs(self.m_mSelectedRuneUIMap) do
-        local ui = v['ui']
-        local data = v['data']
-        local item_id = ui.m_itemID
+    for i,data in pairs(self.m_mSelectedRuneRoidMap) do
+        local item_id = data['item_id']
 
         local price = table_item:getValue(item_id, 'sale_price')
         local item_count = 1
@@ -531,9 +549,12 @@ function UI_RuneForgeManageTab:click_selectSellBtn()
     local function cb(ret)
         self:refresh_tableView(ret['deleted_rune_oids'])
         self:clearSelectedRune()
+        self:refreshRunesCount() -- 룬 개수 갱신
+        self:refresh_noti() -- 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
 
         self.m_mSelectedRuneUIMap = {}
-        self.m_bSelectSellActive = false
+        self.m_mSelectedRuneRoidMap = {}
+        self:setActiveSelectSell(false) -- '선택 판매' 상태인지 설정
     end
 
     local function request_item_sell()
@@ -545,7 +566,8 @@ function UI_RuneForgeManageTab:click_selectSellBtn()
 end
 
 -------------------------------------
--- function setActive
+-- function setActiveSelectSell
+-- @brief '선택 판매' 상태인지 설정
 -------------------------------------
 function UI_RuneForgeManageTab:setActiveSelectSell(active)
     local vars = self.vars
@@ -557,6 +579,7 @@ function UI_RuneForgeManageTab:setActiveSelectSell(active)
             local ui = v['ui']
             ui:setCheckSpriteVisible(false)
         end
+        self.m_mSelectedRuneRoidMap = {}
         self.m_mSelectedRuneUIMap = {}
     end
 
@@ -607,10 +630,10 @@ function UI_RuneForgeManageTab:click_manageDevBtn()
         if (self.m_selectedRuneObject['updated_at'] ~= t_rune_data['updated_at']) then
             -- 룬 카드 및 정보 갱신
             local slot_idx = self.m_currTab
-            self.m_mTableViewListMap[slot_idx]:replaceItemUI(roid, t_rune_data)
+            self.m_tableViewTD:replaceItemUI(roid, t_rune_data)
             
             self.m_selectedRuneUI = nil
-            local new_ui = self.m_mTableViewListMap[slot_idx]:getItem(roid)['ui']
+            local new_ui = self.m_tableViewTD:getItem(roid)['ui']
             self:setSelectedRune(new_ui, t_rune_data)
         end
     end
@@ -630,8 +653,92 @@ function UI_RuneForgeManageTab:click_addDevBtn()
         local slot_idx = self.m_currTab
         self:init_runeTableView(slot_idx)
         self:clearSelectedRune(true)
-        self:refresh_noti()
+        self:refreshRunesCount() -- 룬 개수 갱신
+        self:refresh_noti() -- 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
     end
 
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function refresh_runeSetFilter
+-------------------------------------
+function UI_RuneForgeManageTab:refresh_runeSetFilter(set_id)
+    local vars = self.vars
+    local table_rune_set = TableRuneSet()
+    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichText(set_id)
+    vars['setSortLabel']:setString(text)
+
+    self.m_listFilterSetID = set_id
+    self:init_runeTableView()
+
+    self:refreshRunesCount() -- 룬 개수 갱신
+    self:refresh_noti() -- 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
+end
+
+-------------------------------------
+-- function click_setSortBtn
+-- @brief 룬 정렬 버튼
+-------------------------------------
+function UI_RuneForgeManageTab:click_setSortBtn()
+    local ui = UI_RuneSetFilter()
+    ui:setCloseCB(function(set_id)
+        self:refresh_runeSetFilter(set_id)
+    end)
+end
+
+-------------------------------------
+-- function apply_runesSort
+-- @brief 테이블 뷰에 정렬 적용
+-------------------------------------
+function UI_RuneForgeManageTab:apply_runesSort()
+    self.m_sortManagerRune:sortExecution(self.m_tableViewTD.m_itemList)
+    self.m_tableViewTD:setDirtyItemList()
+end
+
+-------------------------------------
+-- function refreshRunesCount
+-- @brief 룬 개수 갱신
+-------------------------------------
+function UI_RuneForgeManageTab:refreshRunesCount()
+    local vars = self.vars
+
+    for slot= 1, 6 do
+        local l_item_list = self:getFilteredRuneList(slot)
+        local count = table.count(l_item_list)
+        vars['runeNumLabel'..slot]:setString(Str('{1}개', comma_value(count)))
+    end
+end
+
+-------------------------------------
+-- function getNewRuneSlotTable
+-- @brief 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신 정보
+-------------------------------------
+function UI_RuneForgeManageTab:getNewRuneSlotTable()
+	local t_ret = {}
+
+    for slot=1, 6 do
+        local l_rune_obj = self:getFilteredRuneList(slot)
+        for _, struct_rune in pairs(l_rune_obj) do
+            if (struct_rune:isNewRune() == true) then
+			    t_ret[slot] = true
+            end
+        end
+    end
+
+	return t_ret
+end
+
+-------------------------------------
+-- function getFilteredRuneList
+-- @brief UI상에서 설정된 필터에 해당하는 StructRuneObject 리스트 (리스트가 아닌 map의 형태임을 주의하자)
+-------------------------------------
+function UI_RuneForgeManageTab:getFilteredRuneList(slot_idx)
+    local unequipped = true
+    local slot = slot_idx
+    local set_id = self.m_listFilterSetID
+
+    -- 리스트가 아닌 map의 형태임을 주의하자
+    local l_rune_obj = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+    return l_rune_obj
 end
