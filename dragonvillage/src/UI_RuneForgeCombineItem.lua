@@ -127,6 +127,7 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
     
     -- 룬 카드 생성
     local result_card_ui = UI_Card()
+    result_card_ui.root:setSwallowTouch(false)
     result_card_ui.ui_res = 'card_rune.ui'
     result_card_ui:getUIInfo()
     
@@ -145,25 +146,27 @@ function UI_RuneForgeCombineItem:makeResultRuneCard()
     end
 
     local frame_res = 'card_rune_frame_none.png'
-    local result_res = string.format('res/ui/icons/item/rune_forge_combine_select_0101.png')
-    local star_top_res = string.format('res/ui/icons/rune/star_%d.png', success_grade)
-    local star_bottom_res = string.format('res/ui/icons/rune/star_%d.png', curr_grade)
+    local result_res = string.format('res/ui/icons/item/rune_gacha_result_card.png')
+    local star_top_res = string.format('card_star_yellow_01%02d.png', success_grade)
+    local star_bottom_res = string.format('card_star_yellow_01%02d.png', curr_grade)
 
     -- 프레임 생성
     result_card_ui:makeSprite('frameNode', frame_res)
     
     -- 획득 가능한 범주의 등급 표시
     -- 위
-    result_card_ui:makeSprite('runeNumberNode', star_top_res, true) -- (lua_name, res, no_use_frames)
-    result_card_ui.vars['runeNumberNode']:setPositionY(45) -- 하드코딩
-    result_card_ui.vars['runeNumberNode']:setScale(0.9) -- 하드코딩
-    -- 아래
-    result_card_ui:makeSprite('starNode', star_bottom_res, true) -- (lua_name, res, no_use_frames)
-    result_card_ui.vars['starNode']:setPositionY(-37) -- 하드코딩
-    result_card_ui.vars['starNode']:setScale(0.9) -- 하드코딩
+    result_card_ui:makeSprite('runeNumberNode', star_top_res) -- (lua_name, res, no_use_frames)
+    result_card_ui.vars['runeNumberNode']:setPositionY(52) -- 하드코딩
+    --result_card_ui.vars['runeNumberNode']:setScale(0.9) -- 하드코딩
     
-    -- 얻을 수 있는 등급 중 좋은 등급의 룬 아이콘
+    -- 아래
+    result_card_ui:makeSprite('starNode', star_bottom_res) -- (lua_name, res, no_use_frames)
+    --result_card_ui.vars['starNode']:setPositionY(-37) -- 하드코딩
+    --result_card_ui.vars['starNode']:setScale(0.9) -- 하드코딩
+    
+    -- 룬 아이콘
     result_card_ui:makeSprite('runeNode', result_res, true) -- (lua_name, res, no_use_frames)
+    result_card_ui.vars['runeNode']:setPositionY(0) -- 하드코딩
     
     -- 일단 검은 레이어 씌우고 모든 합성 재료 칸이 등록되면 벗겨주기
     local disable_res = 'card_cha_frame_disable.png'
