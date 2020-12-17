@@ -281,7 +281,7 @@ end
 -- function request_runeCombine
 -- @brief
 -------------------------------------
-function ServerData_Runes:request_runeCombine(src_roids, finish_cb, fail_cb)
+function ServerData_Runes:request_runeCombine(src_roids, finish_cb)
     -- parameters
     local uid = g_userData:get('uid')
     local src_roids = src_roids or ''
@@ -315,7 +315,6 @@ function ServerData_Runes:request_runeCombine(src_roids, finish_cb, fail_cb)
     ui_network:setParam('src_roids', src_roids)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
