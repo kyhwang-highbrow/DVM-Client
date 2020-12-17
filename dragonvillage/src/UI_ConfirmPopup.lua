@@ -15,6 +15,7 @@ UI_ConfirmPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ConfirmPopup:init(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
+    self.m_uiName = 'UI_ConfirmPopup'
 	self.m_itemKey = item_key
 	self.m_itemValue = item_value
     self.m_msg = msg
@@ -36,6 +37,19 @@ end
 -- function initUI
 -------------------------------------
 function UI_ConfirmPopup:initUI()
+    local vars = self.vars
+
+    do -- 청약 철회 관련 안내문
+        -- @sgkim 2020.12.17 UILoader에서 luaname이 contractBtn인 경우 한국어로 설정된 경우만 노출되도록 되어있음을 확인함. 아래는 관련 주석
+        --     2018-03-21 klee 청약철회 문구가 국내법이라 국내 유저에게만 노출되어야함 (노출여부는 언어선택으로)
+        --     모든 UI 파일 네이밍 검사한 결과 contractBtn은 상품쪽에서만 쓰이고 있고 앞으로도 상품쪽에서만 쓰기로 결정
+        local is_money_product = (self.m_itemKey == 'money')
+        vars['contractBtn']:setVisible(is_money_product)
+        if (is_money_product == true) then
+            vars['contractBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+            vars['contractBtn']:registerScriptTapHandler(function() GoToAgreeMentUrl() end)        
+        end
+    end
 end
 
 -------------------------------------
