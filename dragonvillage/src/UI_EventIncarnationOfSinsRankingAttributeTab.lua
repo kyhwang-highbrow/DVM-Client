@@ -72,16 +72,18 @@ function UI_EventIncarnationOfSinsRankingAttributeTab:request_EventIncarnationOf
         -- 전체리스트 요청한것이 아니라면
         -- 요청한 속성에 저장된 오프셋이 1보다 큰 값을 가질 때, 
         -- 내 랭킹 조회 혹은 페이징을 통한 행위가 있었다고 판단
-        if (attr_type ~= 'all' and self.m_tRankOffset[attr] > 1) then
-            
-            -- 랭킹 리스트가 비어있는지 확인한다
-            local l_rank_list = ret[attr_type .. '_list'] or {}
+        if (attr_type ~= 'all') then
+            if (self.m_tRankOffset[attr_type] and self.m_tRankOffset[attr_type] > 1) then
+                -- 랭킹 리스트가 비어있는지 확인한다
+                local l_rank_list = ret[attr_type .. '_list'] or {}
 
-            -- 비어있으면 리스트 업뎃을 안하고 팝업만 띄워주자
-            if (l_rank_list and #l_rank_list <= 0) then
-                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
-                return
-            end        
+                -- 비어있으면 리스트 업뎃을 안하고 팝업만 띄워주자
+                if (l_rank_list and #l_rank_list <= 0) then
+                    MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+                    return
+                end   
+            end
+                 
         end
 
         self:applyAttrRankData(ret)
