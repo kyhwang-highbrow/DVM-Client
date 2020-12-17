@@ -152,13 +152,8 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
     local my_rank = myRankInfo['rank'] or 0
     local my_ratio = myRankInfo['rate'] or 0
 
-    local reward_data, idx = struct_rank_reward:getPossibleReward(my_rank, my_ratio)
-    local rank_id = reward_data['rank_id']
-
     local create_func = function(ui, data)
-		if (data['rank_id'] == rank_id) then
-            ui.vars['meSprite']:setVisible(true)
-        end
+        self:createRewardFunc(ui, data, myRankInfo)
 	end
 
     -- 테이블 뷰 인스턴스 생성
