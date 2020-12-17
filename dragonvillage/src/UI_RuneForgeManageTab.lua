@@ -45,9 +45,13 @@ function UI_RuneForgeManageTab:onEnterTab(first)
     if (first == true) then
         self:initUI()
         self:initButton()
-        self:setTab(1)
-        self:clearRuneInfo()
     end
+
+    self.m_mSelectedRuneUIMap = {}
+    self.m_mSelectedRuneRoidMap = {}
+    self.m_listFilterSetID = 0
+    self:clearRuneInfo()
+    self:setTab(1, true)
 end
 
 -------------------------------------
