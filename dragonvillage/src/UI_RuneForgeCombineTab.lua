@@ -530,26 +530,14 @@ function UI_RuneForgeCombineTab:click_combineBtn()
     local ok_btn_cb
     local close_cb
     local success_cb
-    local fail_cb
 
     ok_btn_cb = function()
-        g_runesData:request_runeCombine(src_roids, finish_cb, fail_cb)
+        g_runesData:request_runeCombine(src_roids, finish_cb)
     end
 
     close_cb = function()
-        local remove_roid_list = pl.stringx.split(src_roids, ',')
-        for i, roid in ipairs(remove_roid_list) do
-            for grade = 1, 7 do
-                self.m_mSelectRuneMap[grade][roid] = nil
-            end
-
-            local rune_card = self.m_tableView:getCellUI(roid)
-            rune_card:setCheckSpriteVisible(false)
-
-            for unique_id, combine_data in pairs(self.m_mCombineDataMap) do
-                combine_data:removeRuneObject(roid)
-            end
-        end
+        self:initTableView()
+        self:initCombineTableView()
 
         self:refresh()
     end
@@ -563,9 +551,6 @@ function UI_RuneForgeCombineTab:click_combineBtn()
         local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
         
         ui:setCloseCB(close_cb)
-    end
-
-    fail_cb = function(ret)
     end
 
     local combine_result_rune_count = table.count(full_combine_data_id_list) 
