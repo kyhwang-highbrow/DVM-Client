@@ -12,6 +12,7 @@ UI_RuneCard_Gacha = class(PARENT, {
         
         -----------------------------------------------------
         m_openCB = 'function', -- 룬 카드 오픈한 뒤 콜백될 함수
+        m_clickCB = 'function', -- 룬 카드 오픈한 뒤 콜백될 함수
 
     })
 
@@ -25,9 +26,9 @@ function UI_RuneCard_Gacha:init(t_rune_data)
     self.m_bIsOpen = false
     self.m_tRuneData = t_rune_data
     self.m_openCB = nil
+    self.m_clickCB = nil
 
     self:initUI()
-    self:initButton()
 
     -- 스파인 애니메이터 생성
     self:makeRuneOpenAnimator()
@@ -43,10 +44,10 @@ end
 
 -------------------------------------
 -- function setClickCB
--- @param m_clickCB : 오픈된 카드 클릭할 때 호출되는 콜백
+-- @param click_cb : 오픈된 카드 클릭할 때 호출되는 콜백
 -------------------------------------
 function UI_RuneCard_Gacha:setClickCB(click_cb)
-    self.m_runeCard.vars['clickBtn']:registerScriptTapHandler(function() click_cb() end)
+    self.m_clickCB = click_cb
 end
 
 -------------------------------------
@@ -58,25 +59,17 @@ function UI_RuneCard_Gacha:initUI()
     -- 룬 카드 생성
     local t_rune_data = self.m_tRuneData
     local rune_card = UI_RuneCard(t_rune_data)
-    rune_card.root:setVisible(false) -- 카드가 오픈되면 visible -> true
+    rune_card.root:setVisible(true) -- 카드가 오픈되면 visible -> true
     self.m_runeCard = rune_card
-    vars['runeNode']:addChild(rune_card.root)
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function UI_RuneCard_Gacha:initButton()
-    local btn = self.vars['skipBtn']
-    btn:setVisible(true)
-    btn:registerScriptTapHandler(function() self:click_skipBtn() end)
+    rune_card.vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+    vars['runeNode']:addChild(rune_card.root, 2)
 end
 
 -------------------------------------
 -- function makeRuneOpenAnimator
 -------------------------------------
 function UI_RuneCard_Gacha:makeRuneOpenAnimator()
-    -- 연출 관련 애니메이션 프레임캐시에 등록
+    local vars = self.vars
 
     -- 카드 오픈 관련 애니메이션 설정
     local res_name = 'res/ui/spine/rune_gacha/rune_gacha.json'
@@ -85,7 +78,7 @@ function UI_RuneCard_Gacha:makeRuneOpenAnimator()
     animator:changeAni('idle', true)
 
     self.m_animator = animator
-    self.root:addChild(animator.m_node, 3)
+    vars['runeNode']:addChild(animator.m_node, 3)
 end
 
 -------------------------------------
@@ -98,14 +91,19 @@ end
 -------------------------------------
 -- function click_clickBtn
 -------------------------------------
-function UI_RuneCard_Gacha:click_skipBtn()
+function UI_RuneCard_Gacha:click_clickBtn()
     -- 이미 열린 경우 패스
     if (self.m_bIsOpen == true) then
+        if (self.m_clickCB) then
+            self.m_clickCB()
+        end
+
         return
     end
+    
+    local animator = self.m_animator
 
     ---- 열리고 있는 도중인 경우 패스
-    local animator = self.m_animator
     if (string.find(animator.m_currAnimation, 'flip')) then
         return
     end
@@ -113,9 +111,11 @@ function UI_RuneCard_Gacha:click_skipBtn()
     -- 카드를 뒤집는 애니메이션이 끝나면 룬 카드를 오픈 
     local function finish_cb()
         self.m_bIsOpen = true
-        animator:setVisible(false)
-        self.vars['skipBtn']:setVisible(false)
-        self.m_runeCard.root:setVisible(true)
+
+        local duration = 0.2
+        local fade_out = cc.EaseInOut:create(cc.FadeOut:create(duration), 2)
+        animator.m_node:runAction(fade_out)
+        animator:setAnimationPause(true)
 
         if (self.m_openCB) then
             self.m_openCB() 
@@ -123,6 +123,6 @@ function UI_RuneCard_Gacha:click_skipBtn()
     end
     
     local grade = self.m_tRuneData['grade'] - 5
-    animator:changeAni(string.format('flip_%02d', grade))
+    animator:changeAni(string.format('flip_%02d', grade), false)
     animator:addAniHandler(function() finish_cb() end)
 end

@@ -38,7 +38,8 @@ function UI_GachaResult_Rune:init(type, l_gacha_rune_list)
     UIManager:open(self, UIManager.SCENE)
 
     -- @UI_ACTION
-    -- self:doActionReset()
+    self:doActionReset()
+    --self:doAction(nil, false)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_GachaResult_Rune')
@@ -121,6 +122,11 @@ function UI_GachaResult_Rune:refresh()
     for i,v in pairs(self.m_hideUIList) do
         v:setVisible(b_is_all_card_open)
     end
+
+    if (b_is_all_card_open) then
+        self:doActionReset()
+        self:doAction(nil, false)
+    end
 end
 
 -------------------------------------
@@ -159,14 +165,16 @@ function UI_GachaResult_Rune:initRuneCardList()
 		
         local card = UI_RuneCard_Gacha(struct_rune_object)
 
-        -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
-        local function open_rune_cb()
-            self:refresh()
-        end
-
         -- 이미 열린 카드를 클릭할 때 호출되는 콜백함수
         local function click_rune_cb()
             self:refreshRuneInfo(struct_rune_object)
+        end
+
+        -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
+        local function open_rune_cb()
+            cclog('refresh from ' .. idx)
+            self:refresh()
+            click_rune_cb()
         end
         
         card:setOpenCB(open_rune_cb)
@@ -175,10 +183,23 @@ function UI_GachaResult_Rune:initRuneCardList()
 		node:addChild(card.root)
 		self.m_tRuneCardTable[roid] = card
 
-
         -- 카드 위치 정렬
         node:setPositionX(l_pos_list[idx])        
 	end
+
+    for roid, rune_card in pairs(self.m_tRuneCardTable) do
+        rune_card.root:setOpacity(0)
+        local x, y = rune_card.root:getPosition()
+         -- 등장할 때 미끄러지면서 생성되기
+        local move_distance = 50
+        local duration = 0.2
+        local move = cc.MoveTo:create(duration, cc.p(x, y))
+        local fade_in = cc.FadeIn:create(duration)
+        local action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 2)
+        
+        rune_card.root:setPositionY(y + move_distance)
+        rune_card.root:runAction(action)
+    end
 end
 
 -------------------------------------
