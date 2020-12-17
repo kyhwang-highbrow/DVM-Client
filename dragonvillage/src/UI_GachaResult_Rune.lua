@@ -164,6 +164,7 @@ function UI_GachaResult_Rune:refresh()
         self:doAction(nil, false)
 
         vars['skipBtn']:setVisible(false)
+        SoundMgr:playEffect('UI', 'ui_grow_result')
     else
 
     end 
