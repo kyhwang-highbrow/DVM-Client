@@ -232,7 +232,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSins
     local function fail_cb(ret)
     end
 
-    local searchType = (searchType == 'my' or searchType == 'top') and 'world' or self.m_searchType
+    local searchType = (self.m_searchType == 'my' or self.m_searchType == 'top') and 'world' or self.m_searchType
 
     g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking('total', searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, fail_cb)
 end

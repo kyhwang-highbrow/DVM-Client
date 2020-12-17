@@ -6,6 +6,8 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_EventIncarnationOfSinsRankingPopup = class(PARENT,{
     m_rankOffset = 'number',
     m_rankType = 'string',
+
+    m_sortList = 'UIC_SortList',
     })
 
 -------------------------------------
@@ -62,11 +64,21 @@ end
 function UI_EventIncarnationOfSinsRankingPopup:onChangeTab(tab, first)
     self.m_currTab = tab
 
-    if (tab == 'allRank') and (first) then
-	    -- 전체랭킹
+    -- 초기화 다 된 탭들이면
+    if not first then
+        -- 현재 세팅 된 탭 기준으로 refreshRank를 호출해준다.
+        -- 각 탭들은 자신을 세팅하기 위해 모두 refreshRank 함수를 가진다.
+        if (self.m_currTab and self.m_mTabData) then
+            if (self.m_mTabData[self.m_currTab]) then
+                -- 현재 팝업에서의 탭상태 vs 탭 UI의 상태
+                -- 다르면 리프레시 해주자.
+                local tabViewSearchType = self.m_mTabData[self.m_currTab]['ui'].m_searchType
 
-	elseif (tab == 'attrRank') and (first) then
-        -- 속성별 랭킹
+                if (self.m_rankType ~= tabViewSearchType) then
+                    self.m_mTabData[self.m_currTab]['ui']:refreshRank(self.m_rankType)
+                end
+            end
+        end
 
     end
 end
@@ -114,6 +126,8 @@ function UI_EventIncarnationOfSinsRankingPopup:make_UIC_SortList()
     uic:addSortType('clan', Str('클랜원 랭킹'))
     uic:setSortChangeCB(function(sort_type) self:onChangeRankingType(sort_type) end)
     uic:setSelectSortType('my')
+
+    self.m_sortList = uic;
 end
 
 -------------------------------------
@@ -121,13 +135,19 @@ end
 -- @brief
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingPopup:onChangeRankingType(type)
+    
     -- 랭킹 타입 바뀔 때마다 호출
     -- 소팅도 포함
-
     if (g_clanData) then
         if (type == 'clan' and g_clanData:isClanGuest()) then
             local msg = Str('소속된 클랜이 없습니다.')
             UIManager:toastNotificationRed(msg)
+
+            -- 이전 탭으로 돌려보낸다
+            if self.m_sortList then
+                self.m_sortList:setSelectSortType(self.m_rankType)
+            end
+
             return
         end
     end
@@ -139,7 +159,6 @@ function UI_EventIncarnationOfSinsRankingPopup:onChangeRankingType(type)
     -- 각 탭들은 자신을 세팅하기 위해 모두 refreshRank 함수를 가진다.
     if (self.m_currTab and self.m_mTabData) then
         if (self.m_mTabData[self.m_currTab]) then
-            -- TODO : 필터링 타입으로 리퀘스트 넘기는것을 구현할것
             self.m_mTabData[self.m_currTab]['ui']:refreshRank(self.m_rankType)
         end
     end

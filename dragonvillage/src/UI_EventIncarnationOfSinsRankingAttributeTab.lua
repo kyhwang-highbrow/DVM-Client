@@ -40,7 +40,7 @@ function UI_EventIncarnationOfSinsRankingAttributeTab:onEnterTab(first)
         self:initUI()
         self:initButton()
         self.m_searchType = self.m_ownerUI.m_rankType
-        self:request_EventIncarnationOfSinsAttrRanking('all')
+        self:refreshRank(self.m_searchType)
         self:refresh()
     end
 end
@@ -110,7 +110,9 @@ function UI_EventIncarnationOfSinsRankingAttributeTab:request_EventIncarnationOf
         offset = self.m_tRankOffset[attr_type]
     end
 
-    local search_type = self.m_searchType
+    --local search_type = self.m_searchType
+    -- my 와 top 은 모두 world 로 요청한다.
+    local search_type = (self.m_searchType == 'top' or self.m_searchType == 'my') and 'world' or self.m_searchType
     local limit = SCORE_OFFSET_GAP
 
     g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking(attr_type, search_type, offset, limit, success_cb, fail_cb)
@@ -315,7 +317,8 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingAttributeTab:refreshRank(type)
     local offset = (type == 'top') and 0 or -1
-    local type = (type == 'top' or type == 'my') and 'world' or type
+    -- self.m_searchType 은 메인 팝업과 비교하기 위해 똑같이 세팅해야 한다.
+    --local type = (type == 'top' or type == 'my') and 'world' or type
 
     self.m_searchType = type
 
