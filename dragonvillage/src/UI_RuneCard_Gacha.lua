@@ -29,6 +29,7 @@ function UI_RuneCard_Gacha:init(t_rune_data)
     self.m_clickCB = nil
 
     self:initUI()
+    self:initButton()
 
     -- 스파인 애니메이터 생성
     self:makeRuneOpenAnimator()
@@ -48,6 +49,7 @@ end
 -------------------------------------
 function UI_RuneCard_Gacha:setClickCB(click_cb)
     self.m_clickCB = click_cb
+    self.m_runeCard.vars['clickBtn']:registerScriptTapHandler(function() click_cb() end)
 end
 
 -------------------------------------
@@ -59,10 +61,20 @@ function UI_RuneCard_Gacha:initUI()
     -- 룬 카드 생성
     local t_rune_data = self.m_tRuneData
     local rune_card = UI_RuneCard(t_rune_data)
-    rune_card.root:setVisible(true) -- 카드가 오픈되면 visible -> true
     self.m_runeCard = rune_card
-    rune_card.vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
+    rune_card.root:setSwallowTouch(false)
     vars['runeNode']:addChild(rune_card.root, 2)
+    vars['runeNode']:setVisible(false) -- 카드가 오픈되면 visible -> true
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_RuneCard_Gacha:initButton()
+    local vars = self.vars
+    
+	vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
+	vars['skipBtn']:registerScriptPressHandler(function() self:press_skipBtn() end)
 end
 
 -------------------------------------
@@ -76,9 +88,10 @@ function UI_RuneCard_Gacha:makeRuneOpenAnimator()
     local animator = MakeAnimator(res_name)
     animator:setIgnoreLowEndMode(true)
     animator:changeAni('idle', true)
-
+    animator:setMix('hold', 'flip_1', 0.2)
+    animator:setMix('hold', 'flip_2', 0.2)
     self.m_animator = animator
-    vars['runeNode']:addChild(animator.m_node, 3)
+    vars['skipBtn']:addChild(animator.m_node)
 end
 
 -------------------------------------
@@ -89,24 +102,13 @@ function UI_RuneCard_Gacha:isOpen()
 end
 
 -------------------------------------
--- function setCheckSpriteVisible
--- @brief 카드 체크 표시
--- @external call
+-- function click_skipBtn
 -------------------------------------
-function UI_RuneCard_Gacha:setCheckSpriteVisible(visible)
-    self.m_runeCard:setCheckSpriteVisible(visible)
-end
+function UI_RuneCard_Gacha:click_skipBtn()
+    local vars = self.vars
 
--------------------------------------
--- function click_clickBtn
--------------------------------------
-function UI_RuneCard_Gacha:click_clickBtn()
     -- 이미 열린 경우 패스
     if (self.m_bIsOpen == true) then
-        if (self.m_clickCB) then
-            self.m_clickCB()
-        end
-
         return
     end
     
@@ -126,12 +128,51 @@ function UI_RuneCard_Gacha:click_clickBtn()
         animator.m_node:runAction(fade_out)
         animator:setAnimationPause(true)
 
+        vars['runeNode']:setVisible(true)
+
         if (self.m_openCB) then
             self.m_openCB() 
         end
     end
     
     local grade = self.m_tRuneData['grade'] - 5
-    animator:changeAni(string.format('flip_%02d', grade), false)
+    animator:changeAni(string.format('flip_%d', grade), false)
     animator:addAniHandler(function() finish_cb() end)
 end
+
+-------------------------------------
+-- function click_skipBtn
+-------------------------------------
+function UI_RuneCard_Gacha:press_skipBtn()
+    local vars = self.vars
+
+    -- 이미 열린 경우 패스
+    if (self.m_bIsOpen == true) then
+        return
+    end
+    
+    local animator = self.m_animator
+
+    ---- 열리고 있는 도중인 경우 패스
+    if (string.find(animator.m_currAnimation, 'flip')) then
+        return
+    end
+
+    animator:changeAni(string.format('hold'), true)
+    vars['runeNode']:scheduleUpdateWithPriorityLua(function(dt) return self:updatePress(dt) end, 0)
+end
+
+-------------------------------------
+-- function click_skipBtn
+-------------------------------------
+function UI_RuneCard_Gacha:updatePress(dt)
+    local vars = self.vars
+    
+    if (not vars['skipBtn']:isSelected()) then
+        self:click_skipBtn()
+        vars['runeNode']:unscheduleUpdate()
+        return
+    end
+end
+
+
