@@ -27,8 +27,9 @@ function UI_Package_AttrTowerPopup:init(is_popup)
     self:refresh()
 
     -- 남은 시간 이미지 텍스트로 보여줌
-    self:setLimit()
-    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    --self:setLimit()
+    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    vars['limitMenu']:setVisible(false)
 end
 
 -------------------------------------

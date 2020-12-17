@@ -37,8 +37,10 @@ function UI_Package_AttrTower:init(bundle_ui, product_id)
         self:refresh()
 
         -- 상품 판매 남은 시간에 따라 시간 표시
-        self:setLimit()
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+        --self:setLimit()
+        --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+        vars['limitMenu']:setVisible(false)
+
     end
 
     if (attr ~= g_attrTowerData:getSelAttr()) then
