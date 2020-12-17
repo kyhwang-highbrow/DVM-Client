@@ -122,55 +122,22 @@ function UI_GachaResult_Rune:initRuneCardList()
 
     self.m_tRuneCardTable = {}
 	local total_card_count = table.count(self.m_lGachaRuneList)	-- 총 룬 카드 수
-	local horizontal_offset = 10	-- 룬 카드 가로 오프셋
-	local vertical_offset = 10		-- 룬 카드 세로 오프셋
+	local card_interval = 110	-- 룬 카드 가로 오프셋
 
-    local l_use_node = {}
-    local l_vertical_node_list = {vars['itemMenu1']}
-    local l_top_ui_list = {}
-    local l_bottom_ui_list = {}
-
-    -- 5개 이하일 땐 한 줄로 배치
-    if (total_card_count <= 5) then
-        for idx = 1, total_card_count do
-            table.insert(l_use_node, vars['itemNode' .. idx])
-            table.insert(l_top_ui_list, vars['itemNode' .. idx])
-        end
-        
-    else
-         -- 짝수일땐 위아래 똑같은 수 배치, 홀수일땐 위에 하나 더 배치
-        local bottom_card_count = math_floor(total_card_count / 2)
-        for idx = 6, (6 + bottom_card_count - 1) do
-            table.insert(l_use_node, vars['itemNode' .. idx])
-            table.insert(l_top_ui_list, vars['itemNode' .. idx])
-        end
-
-        local top_card_count = total_card_count - bottom_card_count
-        for idx = 1, (top_card_count) do
-            table.insert(l_use_node, vars['itemNode' .. idx])
-            table.insert(l_bottom_ui_list, vars['itemNode' .. idx])
-        end
-        
-        table.insert(l_vertical_node_list, vars['itemMenu2'])
-    end
+    local l_pos_list = getSortPosList(card_interval, total_card_count)
 
 	for idx, t_rune_data in ipairs(self.m_lGachaRuneList) do
 		-- 룬 카드 생성
         t_rune_data = StructRuneObject(t_rune_data) -- raw data를 StructRuneObject 형태로 변경
+        local node = vars['runeNode' .. idx]
         local roid = t_rune_data['roid']
-        local card_node = l_use_node[idx]
 		local card = UI_RuneCard_Gacha(t_rune_data, function() self:openRuneCB() end, function() end)
-		
-        -- 카드 숨기기 (애니메이션 종료 후 오픈)
-		card_node:addChild(card.root, 2)
-		
 		self.m_tRuneCardTable[roid] = card
-	end
+		node:addChild(card.root)
 
-    -- 카드 위치 정렬
-    AlignUIPos(l_vertical_node_list, 'VERTICAL', 'CENTER', vertical_offset)
-    AlignUIPos(l_top_ui_list, 'HORIZONTAL', 'CENTER', horizontal_offset)
-    AlignUIPos(l_bottom_ui_list, 'HORIZONTAL', 'CENTER', horizontal_offset)
+        -- 카드 위치 정렬
+        node:setPositionX(l_pos_list[idx])        
+	end
 end
 
 -------------------------------------

@@ -96,7 +96,7 @@ function UI_RuneCard_Gacha:click_skipBtn()
 
     ---- 열리고 있는 도중인 경우 패스
     local animator = self.m_animator
-    if (animator.m_currAnimation == 'crack_high_01') then
+    if (isExistValue(animator.m_currAnimation, 'crack_high_01', 'crack_high_02')) then
         return
     end
 
@@ -112,6 +112,8 @@ function UI_RuneCard_Gacha:click_skipBtn()
         end
     end
     
-    animator:changeAni('crack_high_01')
+    local grade = self.m_tRuneData['grade'] - 5
+    cclog(string.format('crack_high_%02d', grade))
+    animator:changeAni(string.format('crack_high_%02d', grade))
     animator:addAniHandler(function() finish_cb() end)
 end
