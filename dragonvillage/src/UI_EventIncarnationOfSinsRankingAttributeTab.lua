@@ -180,17 +180,33 @@ function UI_EventIncarnationOfSinsRankingAttributeTab:makeAttrTableView(attr)
 
         -- 이전 랭킹 보기
         local click_prevBtn = function()
-            -- 랭킹 리스트 중 가장 첫 번째 랭킹 - SCORE_OFFSET_GAP 부터 랭킹 데이터 가져옴
-            self.m_tRankOffset[attr] = self.m_tRankData[attr][1]['rank'] - SCORE_OFFSET_GAP
+            -- 내가 밑바닥 랭커에 해당 될 때 다음 페이지에 아무도 없을 수 있다.
+            -- 리스트가 존재하고 리스트 요소가 1개 이상일 때에는 1인덱스 랭커기준으로 오프셋 세팅
+            if (self.m_tRankData[attr] and #self.m_tRankData[attr] > 0) then
+                -- 랭킹 리스트 중 가장 첫 번째 랭킹 - SCORE_OFFSET_GAP 부터 랭킹 데이터 가져옴
+                self.m_tRankOffset[attr] = self.m_tRankData[attr][1]['rank'] - SCORE_OFFSET_GAP
+            else
+                -- 참조할 랭킹이 없기 때문에 offset 정보에서 덜어내서 계산한다.
+                self.m_tRankOffset[attr] = self.m_tRankOffset[attr] - SCORE_OFFSET_GAP
+            end
+
+            -- offset이 마이너스값을 가지는것을 방지한다
+            -- -1값을 가지게 되면 내 랭킹을 불러온다.
             self.m_tRankOffset[attr] = math_max(self.m_tRankOffset[attr], 0)
             self:request_EventIncarnationOfSinsAttrRanking(attr)
         end
-
+        
         -- 다음 랭킹 보기
         local click_nextBtn = function()
             -- 랭킹 리스트 중 가장 마지막 랭킹 + 1 부터 랭킹 데이터 가져옴
-            local cnt = table.count(self.m_tRankData[attr])
-            if (cnt < SCORE_OFFSET_GAP - 1) then
+            --local cnt = table.count(self.m_tRankData[attr])
+
+            -- 테이블에 20개가 들어가 있는데 cnt가 이전, 다음 버튼을 포함한 22, 21이라는 값을 가진다.
+            -- 정확히 테이블, 리스트에 값을 받을려면 #을 쓰는게 안전해 보임.
+            --if (cnt < SCORE_OFFSET_GAP - 1) then
+
+            -- 랭킹데이터가 20개와 다른 값을 가지면 끝자락에 닿았다고 판단.
+            if (#self.m_tRankData[attr] ~= SCORE_OFFSET_GAP) then
                 MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
                 return
             end
