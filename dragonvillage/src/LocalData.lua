@@ -340,6 +340,26 @@ function LocalData:isShowHighbrowShop()
 end
 
 -------------------------------------
+-- function isShowContractBtn
+-- @breif 청약 철회 버튼, 문구 노출 여부
+-------------------------------------
+function LocalData:isShowContractBtn()
+    -- 한국 서버
+    if (self:isKoreaServer() == false) then
+        return false
+    end
+
+    -- 한국어(게임 언어)
+    if (g_localData:getLang() ~= 'ko') then
+        return false
+    end
+
+    return true
+end
+
+
+
+-------------------------------------
 -- function isKoreaServer
 -- @breif 한국 서버 (QA, DEV 포함)
 -------------------------------------
