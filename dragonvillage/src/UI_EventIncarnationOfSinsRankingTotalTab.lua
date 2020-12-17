@@ -6,6 +6,7 @@ local SCORE_OFFSET_GAP = 20
 -------------------------------------
 UI_EventIncarnationOfSinsRankingTotalTab = class(PARENT,{
     m_rewardTableView = 'UIC_TableView',
+    m_structRankReward = 'StructRankReward',
 
     m_ownerUI = 'UI_EventIncarnationOfSinsRankingPopup', -- 현재 검색 타입에 대해 받아올 때 필요
     m_searchType = 'string', -- 검색 타입 (world, clan, friend)
@@ -89,7 +90,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRankTableView(data)
 
     -- 다음 랭킹 버튼 누른 후 콜백
     local function func_next_cb(offset)
-    self.m_rankOffset = offset
+        self.m_rankOffset = offset
         self:request_EventIncarnationOfSinsAttrRanking()
     end
 
@@ -146,6 +147,7 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
 
     local struct_rank_reward = StructRankReward(table_event_rank, true)
     local l_event_rank = struct_rank_reward:getRankRewardList()
+    self.m_structRankReward = struct_rank_reward
 
     local my_rank = myRankInfo['rank'] or 0
     local my_ratio = myRankInfo['rate'] or 0
@@ -170,7 +172,33 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
     table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱
 
     self.m_rewardTableView = table_view
+
+
+    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
+
+    self.m_rewardTableView:update(0) -- 인덱스 포커싱을 위해 한번의 계산이 필요하다고 한다.
+    self.m_rewardTableView:relocateContainerFromIndex(ind)
 end
+
+-------------------------------------
+-- function createRewardFunc
+-------------------------------------
+function UI_EventIncarnationOfSinsRankingTotalTab:createRewardFunc(ui, data, my_info)
+    local vars = ui.vars
+    local my_data = my_info or {}
+
+    local my_rank = my_data['rank'] or 0
+    local my_ratio = my_data['rate'] or 0
+
+    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
+    if (reward_data) then
+        if (data['rank_id'] == reward_data['rank_id']) then
+            vars['meSprite']:setVisible(true)
+        end
+    end
+end
+
+
 
 -------------------------------------
 -- function request_EventIncarnationOfSinsAttrRanking
@@ -178,6 +206,22 @@ end
 function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSinsAttrRanking()
     
     local function success_cb(ret)
+        -- 밑바닥 유저를 위한 예외처리
+        -- 마침 현재 페이지에 20명이 차있어서 다음 페이지 버튼 클릭이 가능한 상태
+        -- 이전에 저장된 오프셋이 1보다 큰 값을 가질 때
+        -- 내 랭킹 조회 혹은 페이징을 통한 행위가 있었다고 판단
+        if (self.m_rankOffset > 1) then
+
+            -- 랭킹 리스트가 비어있는지 확인한다
+            local l_rank_list = ret['total_list'] or {}
+
+            -- 비어있으면 리스트 업뎃을 안하고 팝업만 띄워주자
+            if (l_rank_list and #l_rank_list <= 0) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+                return
+            end        
+        end
+
         -- 랭킹 테이블 다시 만듬
         self:makeRankTableView(ret)
         self:makeRewardTableView()
@@ -188,7 +232,9 @@ function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSins
     local function fail_cb(ret)
     end
 
-    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking('total', self.m_searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, fail_cb)
+    local searchType = (searchType == 'my' or searchType == 'top') and 'world' or self.m_searchType
+
+    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking('total', searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, fail_cb)
 end
 
 -------------------------------------
@@ -196,22 +242,8 @@ end
 -------------------------------------
 function UI_EventIncarnationOfSinsRankingTotalTab:refreshRank(type) -- 다음/이전 버튼 눌렀을 경우 offset계산되어서 param으로 줌
     
-    if (type == 'my') then
-        self.m_searchType = 'world'
-        self.m_rankOffset = -1
-
-    elseif (type == 'top') then
-        self.m_searchType = 'world'
-        self.m_rankOffset = 1
-
-    elseif (type == 'friend') then
-        self.m_searchType = 'friend'
-        self.m_rankOffset = 1
-
-    elseif (type == 'clan') then
-        self.m_searchType = 'clan'
-        self.m_rankOffset = 1
-    end
+    self.m_searchType = type
+    self.m_rankOffset = (type == 'my') and -1 or 1
 
     self:request_EventIncarnationOfSinsAttrRanking()
 end
