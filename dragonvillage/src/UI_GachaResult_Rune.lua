@@ -8,6 +8,7 @@ UI_GachaResult_Rune = class(PARENT, {
 
         m_lGachaRuneList = 'list', -- 룬 데이터
 		m_tRuneCardTable = 'table', -- 룬 카드 UI
+        m_optionLabel = 'UI', -- 룬 옵션 라벨
 
 		-- 연출 관련
         m_hideUIList = '',
@@ -64,6 +65,9 @@ function UI_GachaResult_Rune:initUI()
     self:registerOpenNode('againBtn')
     self:registerOpenNode('okBtn')
 
+    -- SUCCESS 이펙트
+    -- self:initTitleEffect()
+
     -- 사용 재화 표기
 	self:refresh_wealth()
 
@@ -72,6 +76,28 @@ function UI_GachaResult_Rune:initUI()
 
     -- 룬 카드들 생성
 	self:initRuneCardList()
+end
+
+-------------------------------------
+-- function initTitleEffect
+-- @brief 타이틀 이펙트 보여주기
+-------------------------------------
+function UI_GachaResult_Rune:initTitleEffect()
+	local vars = self.vars
+
+    -- 타이틀 이펙트 애니메이션 설정
+    local res_name = 'res/ui/spine/rune_gacha/rune_gacha_result.json'
+    local animator = MakeAnimator(res_name)
+    animator:setIgnoreLowEndMode(true)
+    animator:changeAni('Appear', false)
+
+    local function finish_cb()
+        animator:changeAni('idle', true)
+    end
+
+    animator:addAniHandler(finish_cb)
+
+    vars['titleMenu']:addChild(animator.m_node)
 end
 
 -------------------------------------
@@ -113,7 +139,6 @@ function UI_GachaResult_Rune:isAllCardOpen()
     return b_is_all_card_open
 end
 
-
 -------------------------------------
 -- function initRuneCardList
 -------------------------------------
@@ -128,16 +153,61 @@ function UI_GachaResult_Rune:initRuneCardList()
 
 	for idx, t_rune_data in ipairs(self.m_lGachaRuneList) do
 		-- 룬 카드 생성
-        t_rune_data = StructRuneObject(t_rune_data) -- raw data를 StructRuneObject 형태로 변경
+        local struct_rune_object = StructRuneObject(t_rune_data) -- raw data를 StructRuneObject 형태로 변경
         local node = vars['runeNode' .. idx]
-        local roid = t_rune_data['roid']
-		local card = UI_RuneCard_Gacha(t_rune_data, function() self:openRuneCB() end, function() end)
-		self.m_tRuneCardTable[roid] = card
+        local roid = struct_rune_object['roid']
+		
+        local card = UI_RuneCard_Gacha(struct_rune_object)
+
+        -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
+        local function open_rune_cb()
+            self:refresh()
+        end
+
+        -- 이미 열린 카드를 클릭할 때 호출되는 콜백함수
+        local function click_rune_cb()
+            self:refreshRuneInfo(struct_rune_object)
+        end
+        
+        card:setOpenCB(open_rune_cb)
+        card:setClickCB(click_rune_cb)
+
 		node:addChild(card.root)
+		self.m_tRuneCardTable[roid] = card
+
 
         -- 카드 위치 정렬
         node:setPositionX(l_pos_list[idx])        
 	end
+end
+
+-------------------------------------
+-- function refreshRuneInfo
+-------------------------------------
+function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
+    local vars = self.vars
+
+    local roid = struct_rune_object['roid']
+    local rune_card_node = vars['runeSelectNode']
+    rune_card_node:removeAllChildren()
+
+    -- 룬 카드 세팅
+    local rune_card = UI_RuneCard(struct_rune_object)
+    rune_card_node:addChild(rune_card.root)
+
+    -- 룬 옵션 세팅
+    vars['runeDscNode']:setVisible(true)
+    if (not self.m_optionLabel) then
+        self.m_optionLabel = struct_rune_object:getOptionLabel()
+        self.vars['runeDscNode']:addChild(self.m_optionLabel.root)
+    end
+
+    struct_rune_object:setOptionLabel(self.m_optionLabel, 'use', false)
+
+    -- 룬 세트 효과
+    vars['itemDscNode2']:setVisible(true)
+    local str = struct_rune_object:makeRuneSetDescRichText() or ''
+    vars['itemDscLabel2']:setString(str)
 end
 
 -------------------------------------
@@ -181,14 +251,6 @@ function UI_GachaResult_Rune:click_inventoryBtn()
     end
 
     g_inventoryData:extendInventory(item_type, finish_cb)
-end
-
--------------------------------------
--- function openRuneCB
--- @brief 룬카드 오픈할 때 호출할 CB
--------------------------------------
-function UI_GachaResult_Rune:openRuneCB()
-    self:refresh()
 end
 
 -------------------------------------

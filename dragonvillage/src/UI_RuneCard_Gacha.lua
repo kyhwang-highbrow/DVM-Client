@@ -12,29 +12,41 @@ UI_RuneCard_Gacha = class(PARENT, {
         
         -----------------------------------------------------
         m_openCB = 'function', -- 룬 카드 오픈한 뒤 콜백될 함수
-        m_clickCB = 'function', -- 룬 카드 오픈한 뒤 콜백될 함수
 
     })
 
 -------------------------------------
 -- function init
 -- @param t_rune_data : StructRuneObject
--- @param open_cb : 룬 카드 오픈한 뒤 콜백될 함수
--- @param click_cb : 오픈된 룬 카드를 클릭할 때 콜백될 함수
 -------------------------------------
-function UI_RuneCard_Gacha:init(t_rune_data, open_cb, click_cb)
+function UI_RuneCard_Gacha:init(t_rune_data)
     self:load('rune_gacha_animator.ui')
     
     self.m_bIsOpen = false
     self.m_tRuneData = t_rune_data
-    self.m_openCB = open_cb
-    self.m_clickCB = click_cb
+    self.m_openCB = nil
 
     self:initUI()
     self:initButton()
 
     -- 스파인 애니메이터 생성
     self:makeRuneOpenAnimator()
+end
+
+-------------------------------------
+-- function setOpenCB
+-- @param open_cb : 카드 오픈할 때 호출되는 콜백
+-------------------------------------
+function UI_RuneCard_Gacha:setOpenCB(open_cb)
+    self.m_openCB = open_cb
+end
+
+-------------------------------------
+-- function setClickCB
+-- @param m_clickCB : 오픈된 카드 클릭할 때 호출되는 콜백
+-------------------------------------
+function UI_RuneCard_Gacha:setClickCB(click_cb)
+    self.m_runeCard.vars['clickBtn']:registerScriptTapHandler(function() click_cb() end)
 end
 
 -------------------------------------
@@ -65,14 +77,12 @@ end
 -------------------------------------
 function UI_RuneCard_Gacha:makeRuneOpenAnimator()
     -- 연출 관련 애니메이션 프레임캐시에 등록
-    Translate:a2dTranslate('ui/a2d/summon/summon_cut.plist')
 
     -- 카드 오픈 관련 애니메이션 설정
-    local res_name = 'res/ui/a2d/summon/summon.vrp'
+    local res_name = 'res/ui/spine/rune_gacha/rune_gacha.json'
     local animator = MakeAnimator(res_name)
     animator:setIgnoreLowEndMode(true)
-    animator:setScale(0.4)
-    animator:changeAni('appear_01', true)
+    animator:changeAni('idle', true)
 
     self.m_animator = animator
     self.root:addChild(animator.m_node, 3)
@@ -96,7 +106,7 @@ function UI_RuneCard_Gacha:click_skipBtn()
 
     ---- 열리고 있는 도중인 경우 패스
     local animator = self.m_animator
-    if (isExistValue(animator.m_currAnimation, 'crack_high_01', 'crack_high_02')) then
+    if (string.find(animator.m_currAnimation, 'flip')) then
         return
     end
 
@@ -113,7 +123,6 @@ function UI_RuneCard_Gacha:click_skipBtn()
     end
     
     local grade = self.m_tRuneData['grade'] - 5
-    cclog(string.format('crack_high_%02d', grade))
-    animator:changeAni(string.format('crack_high_%02d', grade))
+    animator:changeAni(string.format('flip_%02d', grade))
     animator:addAniHandler(function() finish_cb() end)
 end
