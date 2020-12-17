@@ -16,7 +16,14 @@ UI_GachaResult_Rune = class(PARENT, {
         m_titleEffector = 'animator',
         m_selectRuneCard = 'UI_RuneCard',
         m_selectRuneEffector = 'animator',
+
+        -- 스킵 연출 관련
+        m_bIsSkipping = 'boolean', -- 현재 스킵 액션이 진행중인지
+        m_skipUpdateNode = 'cc.Node', -- 업데이트 노드
+        m_timer = 'number', -- 스킵 관련 타이머
      })
+
+UI_GachaResult_Rune.UPDATE_OFFSET = 0.1
 
 -------------------------------------
 -- function initParentVariable
@@ -53,6 +60,8 @@ function UI_GachaResult_Rune:init(type, l_gacha_rune_list)
 
     self.m_hideUIList = {}
     self.m_tUIOriginPos = {}
+    
+    self.m_bIsSkipping= false
 
 	self:initUI()  
 	self:initButton()
@@ -73,8 +82,10 @@ function UI_GachaResult_Rune:initUI()
         vars['againBtn']:setVisible(false)
     end
 
-    -- SUCCESS 이펙트
-    self:initTitleEffect()
+    vars['allOkBtn']:setVisible(false)
+
+    -- 처음 진입 이펙트
+    self:initEnterEffect()
 
     -- 사용 재화 표기
 	self:refresh_wealth()
@@ -91,7 +102,6 @@ function UI_GachaResult_Rune:initUI()
 
     -- 액션으로 움직일 UI 노드들 위치 저장
     self.m_tUIOriginPos['runeInfo'] = vars['runeInfo']:getPosition()
-    self.m_tUIOriginPos['allOkBtn'] = vars['allOkBtn']:getPosition()
     
     local visibleSize = cc.Director:getInstance():getVisibleSize()
     
@@ -100,18 +110,14 @@ function UI_GachaResult_Rune:initUI()
         self.m_tUIOriginPos['runeInfo'] = {}
         self.m_tUIOriginPos['runeInfo']['x'], self.m_tUIOriginPos['runeInfo']['y'] = vars['runeInfo']:getPosition()
         vars['runeInfo']:setPositionX(self.m_tUIOriginPos['runeInfo']['x'] + visibleSize['width'])
-        
-        self.m_tUIOriginPos['allOkBtn'] = {}
-        self.m_tUIOriginPos['allOkBtn']['x'], self.m_tUIOriginPos['allOkBtn']['y'] = vars['allOkBtn']:getPosition()
-        vars['allOkBtn']:setPositionX(self.m_tUIOriginPos['allOkBtn']['x'] + visibleSize['width'])
     end
 end
 
 -------------------------------------
--- function initTitleEffect
--- @brief 타이틀 이펙트 보여주기
+-- function initEnterEffect
+-- @brief 처음 진입할 때 이펙트 보여주기
 -------------------------------------
-function UI_GachaResult_Rune:initTitleEffect()
+function UI_GachaResult_Rune:initEnterEffect()
 	local vars = self.vars
 
     -- 타이틀 이펙트 애니메이션 설정
@@ -123,9 +129,7 @@ function UI_GachaResult_Rune:initTitleEffect()
     local function finish_cb()
         -- 룬 카드들 생성
 	    self:initRuneCardList()
-
-        self:actionRuneInfoUI('allOkBtn') -- 한번에 열기 움직이기
-
+        
         animator:changeAni('idle', true)
     end
 
@@ -141,7 +145,7 @@ function UI_GachaResult_Rune:initButton()
 	local vars = self.vars
 
 	vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['allOkBtn']:registerScriptTapHandler(function() self:click_allOkBtn() end)
+    vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
 	vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
@@ -161,10 +165,9 @@ function UI_GachaResult_Rune:refresh()
         self:doActionReset()
         self:doAction(nil, false)
 
-        vars['allOkBtn']:setVisible(false)
         vars['okBtn']:setVisible(true)
+        vars['skipBtn']:setVisible(false)
     else
-        vars['allOkBtn']:setVisible(true)
         vars['okBtn']:setVisible(false)
     end 
 end
@@ -250,6 +253,8 @@ function UI_GachaResult_Rune:initRuneCardList()
         rune_card.root:setPositionY(y + move_distance)
         rune_card.root:runAction(action)
     end
+
+    vars['skipBtn']:setVisible(true)
 end
 
 -------------------------------------
@@ -355,17 +360,47 @@ function UI_GachaResult_Rune:click_inventoryBtn()
 end
 
 -------------------------------------
--- function click_closeBtn
+-- function click_skipBtn
 -------------------------------------
-function UI_GachaResult_Rune:click_allOkBtn()
+function UI_GachaResult_Rune:click_skipBtn()
+    if (self.m_bIsSkipping == true) then
+        return
+    end
     
-    for roid, rune_card in pairs(self.m_tRuneCardTable) do
-        if(not rune_card:isOpen()) then
-            rune_card:click_skipBtn()
+    self.m_bIsSkipping = true
+    self.m_timer = UI_GachaResult_Rune.UPDATE_OFFSET
+
+    self.m_skipUpdateNode = cc.Node:create()
+    self.root:addChild(self.m_skipUpdateNode)
+    
+    self.m_skipUpdateNode:scheduleUpdateWithPriorityLua(function(dt) return self:update_skip(dt) end, 0)
+end
+
+-------------------------------------
+-- function update_skip
+-------------------------------------
+function UI_GachaResult_Rune:update_skip(dt)
+    self.m_timer = self.m_timer - dt
+    
+    if (self.m_timer <= 0) then
+        for idx, t_rune_data in pairs(self.m_lGachaRuneList) do
+            local roid = t_rune_data['id']
+            local rune_card = self.m_tRuneCardTable[roid]
+
+            if (rune_card:isClose()) then
+                rune_card:openCard(false)
+                self.m_timer = self.m_timer + UI_GachaResult_Rune.UPDATE_OFFSET
+                return
+            end
+        end
+
+        -- 모든 카드를 오픈한 이후
+        if (self:isAllCardOpen()) then
+            self:refresh()
+            self.m_skipUpdateNode:unscheduleUpdate()
         end
     end
 end
-
 
 -------------------------------------
 -- function click_closeBtn

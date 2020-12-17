@@ -98,7 +98,65 @@ end
 -- function isOpen
 -------------------------------------
 function UI_RuneCard_Gacha:isOpen()
-   return self.m_bIsOpen
+    return self.m_bIsOpen
+end
+
+-------------------------------------
+-- function isClose
+-- @brief 닫힌 경우, 
+-- @return 열리고 있거나 열린 상태는 False 반환
+-------------------------------------
+function UI_RuneCard_Gacha:isClose()
+    if (self.m_bIsOpen) then
+        return false
+    end
+
+    if (string.find(self.m_animator.m_currAnimation, 'flip')) then
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function openCard
+-- @param b_do_open_cb : open CB를 동작시킬것인지
+-------------------------------------
+function UI_RuneCard_Gacha:openCard(b_do_open_cb)
+    local vars = self.vars
+    
+    if (self.m_bIsOpen == true) then
+        return
+    end
+   
+    local animator = self.m_animator
+
+    ---- 열리고 있는 도중인 경우 패스
+    if (string.find(animator.m_currAnimation, 'flip')) then
+        return
+    end
+
+     -- 카드를 뒤집는 애니메이션이 끝나면 룬 카드를 오픈 
+    local function finish_cb()
+        self.m_bIsOpen = true
+
+        local duration = 0.2
+        local fade_out = cc.EaseInOut:create(cc.FadeOut:create(duration), 1)
+        animator.m_node:runAction(fade_out)
+        animator:setAnimationPause(true)
+
+        vars['runeNode']:setVisible(true)
+
+        if (self.m_openCB) and (b_do_open_cb == true) then
+            self.m_openCB() 
+        end
+    end
+    
+    local grade = self.m_tRuneData['grade'] - 5
+    animator:changeAni(string.format('flip_%d', grade), false)
+    animator:addAniHandler(function() finish_cb() end)
+
+    return self.m_bIsOpen
 end
 
 -------------------------------------
