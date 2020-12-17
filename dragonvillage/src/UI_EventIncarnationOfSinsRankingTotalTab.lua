@@ -6,7 +6,6 @@ local SCORE_OFFSET_GAP = 20
 -------------------------------------
 UI_EventIncarnationOfSinsRankingTotalTab = class(PARENT,{
     m_rewardTableView = 'UIC_TableView',
-    m_structRankReward = 'StructRankReward',
 
     m_ownerUI = 'UI_EventIncarnationOfSinsRankingPopup', -- 현재 검색 타입에 대해 받아올 때 필요
     m_searchType = 'string', -- 검색 타입 (world, clan, friend)
@@ -147,12 +146,17 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
 
     local struct_rank_reward = StructRankReward(table_event_rank, true)
     local l_event_rank = struct_rank_reward:getRankRewardList()
-    self.m_structRankReward = struct_rank_reward
 
+    local my_rank = myRankInfo['rank'] or 0
+    local my_ratio = myRankInfo['rate'] or 0
 
-    local table_arena = TABLE:get('table_arena')
-	local create_func = function(ui, data)
-		self:createRewardFunc(ui, data, myRankInfo)
+    local reward_data, idx = struct_rank_reward:getPossibleReward(my_rank, my_ratio)
+    local rank_id = reward_data['rank_id']
+
+    local create_func = function(ui, data)
+		if (data['rank_id'] == rank_id) then
+            ui.vars['meSprite']:setVisible(true)
+        end
 	end
 
     -- 테이블 뷰 인스턴스 생성
@@ -162,34 +166,11 @@ function UI_EventIncarnationOfSinsRankingTotalTab:makeRewardTableView()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_event_rank)
 
+    table_view:update(0) -- 맨 처음 각 아이템별 위치값을 계산해줌
+    table_view:relocateContainerFromIndex(idx) -- 해당하는 보상에 포커싱
+
     self.m_rewardTableView = table_view
 end
-
--------------------------------------
--- function createRewardFunc
--------------------------------------
-function UI_EventIncarnationOfSinsRankingTotalTab:createRewardFunc(ui, data, my_info)
-    local vars = ui.vars
-    local my_data = my_info or {}
-
-    local my_rank = my_data['rank'] or 0
-    local my_ratio = my_data['rate'] or 0
-
-    local reward_data, ind = self.m_structRankReward:getPossibleReward(my_rank, my_ratio)
-    if (reward_data) then
-        if (data['rank_id'] == reward_data['rank_id']) then
-            vars['meSprite']:setVisible(true)
-        end
-    end
-
-    if self.m_rewardTableView then
-        --self.m_rewardTableView.update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-        self.m_rewardTableView:relocateContainerFromIndex(ind)
-    end
-   
-end
-
-
 
 -------------------------------------
 -- function request_EventIncarnationOfSinsAttrRanking
