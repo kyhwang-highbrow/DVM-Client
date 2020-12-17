@@ -14,6 +14,7 @@ UI_GachaResult_Rune = class(PARENT, {
         m_hideUIList = '',
         m_tUIOriginPos = 'table', -- 액션시킬 UI들의 원래 위치 저장
         m_titleEffector = 'animator',
+        m_selectRuneCard = 'UI_RuneCard',
         m_selectRuneEffector = 'animator',
      })
 
@@ -81,15 +82,12 @@ function UI_GachaResult_Rune:initUI()
 	-- 룬 수량 표시
 	self:refresh_inventoryLabel()
 
-    -- 룬 카드들 생성
-	--self:initRuneCardList()
-
     -- 포커싱된 룬 이펙트 애니메이터
     local res_name = 'res/ui/a2d/summon/summon.vrp'
     local animator = MakeAnimator(res_name)
     animator:setIgnoreLowEndMode(true)
     self.m_selectRuneEffector = animator
-    vars['runeSelectNode']:addChild(animator.m_node, -1)
+    vars['effectSelectNode']:addChild(animator.m_node)
 
     -- 액션으로 움직일 UI 노드들 위치 저장
     self.m_tUIOriginPos['runeInfo'] = vars['runeInfo']:getPosition()
@@ -107,9 +105,6 @@ function UI_GachaResult_Rune:initUI()
         self.m_tUIOriginPos['allOkBtn']['x'], self.m_tUIOriginPos['allOkBtn']['y'] = vars['allOkBtn']:getPosition()
         vars['allOkBtn']:setPositionX(self.m_tUIOriginPos['allOkBtn']['x'] + visibleSize['width'])
     end
-    
-    -- self:actionRuneInfoUI('allOkBtn') -- 한번에 열기 움직이기
-
 end
 
 -------------------------------------
@@ -182,7 +177,6 @@ function UI_GachaResult_Rune:isAllCardOpen()
         return false
     end
     
-
     for roid, rune_card_gacha in pairs(self.m_tRuneCardTable) do
         if (not rune_card_gacha:isOpen())  then
             return false
@@ -223,7 +217,6 @@ function UI_GachaResult_Rune:initRuneCardList()
         local function open_rune_cb()
              -- 룬 옵션 창을 ACTION!
             if (b_is_first_open == true) then
-                cclog('first open')
                 b_is_first_open = false
                 
                 self:actionRuneInfoUI('runeInfo') -- 룬 정보창 움직이기
@@ -283,11 +276,16 @@ function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
     local roid = struct_rune_object['roid']
     local rarity = struct_rune_object['rarity']
     local rune_card_node = vars['runeSelectNode']
-    rune_card_node:removeAllChildren()
+    
+    if (self.m_selectRuneCard ~= nil) then
+        self.m_selectRuneCard.root:removeFromParent()
+    end
 
     -- 룬 카드 세팅
     local rune_card = UI_RuneCard(struct_rune_object)
+    self.m_selectRuneCard = rune_card
     rune_card_node:addChild(rune_card.root)
+    cca.uiReactionSlow(rune_card.root, 1, 1, 1.3)
 
     -- 룬 이름 세팅
     vars['nameLabel']:setVisible(true)
@@ -309,9 +307,10 @@ function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
     vars['itemDscLabel2']:setString(str)
 
     -- 룬 뒷배경 이펙트
-    --local effect_animator = self.m_selectRuneEffector
-    --local effect_name = string.format('bottom_idle_%02d', rarity)
-    --effect_animator:changeAni(effect_name, true)
+    local effect_animator = self.m_selectRuneEffector
+    local effect_name = string.format('bottom_idle_%02d', rarity)
+    effect_animator:setVisible(true)
+    effect_animator:changeAni(effect_name, true)
 end
 
 -------------------------------------
