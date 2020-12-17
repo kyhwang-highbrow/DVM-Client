@@ -119,10 +119,16 @@ function UI_RuneForgeCombineTab:initTableView()
     -- 재료로 사용 가능한 리스트를 얻어옴
     local grade = self.m_sortGrade
     local lock_include = false
-    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include) -- param : set_id, grade
+    local l_rune_list = g_runesData:getUnequippedRuneList(nil, grade, lock_include) -- param : set_id, grade, lock_include
+    local l_rune_no_ancient_list = {}
 
-    self.m_tableView:setItemList(l_rune_list)
+    for roid, t_rune_data in pairs(l_rune_list) do
+        if (not t_rune_data:isAncientRune()) then
+            l_rune_no_ancient_list[roid] = t_rune_data
+        end
+    end
 
+    self.m_tableView:setItemList(l_rune_no_ancient_list)
 
     if (self.m_sortManager == nil) then
         local sort_manager = SortManager_Rune()
@@ -531,14 +537,14 @@ function UI_RuneForgeCombineTab:click_combineBtn()
     end
 
     close_cb = function()
-        -- 왼쪽 룬 창 정리
-        self:initTableView()
-
         local remove_roid_list = pl.stringx.split(src_roids, ',')
         for i, roid in ipairs(remove_roid_list) do
             for grade = 1, 7 do
                 self.m_mSelectRuneMap[grade][roid] = nil
             end
+
+            local rune_card = self.m_tableView:getCellUI(roid)
+            rune_card:setCheckSpriteVisible(false)
 
             for unique_id, combine_data in pairs(self.m_mCombineDataMap) do
                 combine_data:removeRuneObject(roid)
