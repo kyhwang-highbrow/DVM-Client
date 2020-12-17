@@ -81,7 +81,7 @@ function UI_RuneForgeInfoTab:nextNpcTalk()
     end
 
     local talk = self.m_talkList[self.m_talkIdx] or ''
-    self:setNpcTalk(talk)
+    self:setNpcTalk(Str(talk))
 
     -- 자동 넘김
     local vars = self.vars

@@ -236,7 +236,7 @@ function UI_RuneForgeCombineTab:refresh()
     for grade = 1, 7 do
         select_count = select_count + table.count(self.m_mSelectRuneMap[grade])
     end
-    vars['countLabel']:setString(Str('{1}/{2}', select_count, all_count))
+    vars['countLabel']:setString(Str('선택된 룬') .. Str(' {@white}{1}/{2}', select_count, all_count))
 
     -- 현재 합성 개수 표기
     local combine_max_count = UI_RuneForgeCombineTab.MAX_COMBINE_COUNT
