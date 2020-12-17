@@ -296,9 +296,6 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
         end
     end
 
-    local function fail_cb(ret)
-    end
-
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/event/incarnation_of_sins/info')
@@ -306,7 +303,11 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
     ui_network:setParam('include_tables', include_tables) -- 정보 관련 테이블 내려받을지 여부 
     ui_network:setParam('reward', include_reward) -- 랭킹 보상 지급 여부
     ui_network:setSuccessCB(success_cb)
-	ui_network:setFailCB(fail_cb)
+	
+    if fail_cb then
+        ui_network:setFailCB(fail_cb)
+    end
+
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
 	ui_network:hideBGLayerColor()
@@ -397,12 +398,6 @@ function ServerData_EventIncarnationOfSins:request_EventIncarnationOfSinsAttrRan
         end
     end
 
-    local function fail_cb(ret)
-        if param_fail_cb then
-            param_fail_cb(ret)
-        end
-    end
-
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/event/incarnation_of_sins/ranking')
@@ -412,7 +407,11 @@ function ServerData_EventIncarnationOfSins:request_EventIncarnationOfSinsAttrRan
     ui_network:setParam('offset', offset)
     ui_network:setParam('limit', limit)
     ui_network:setSuccessCB(success_cb)
-	ui_network:setFailCB(fail_cb)
+	
+    if param_fail_cb then
+        ui_network:setFailCB(param_fail_cb)
+    end
+
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
 	ui_network:hideBGLayerColor()
@@ -443,12 +442,6 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsStart(s
     local function success_cb(ret)
         if (finish_cb) then
             finish_cb(ret)
-        end
-    end
-
-    local function fail_cb(ret)
-        if (fail_cb) then
-            fail_cb(ret)
         end
     end
 
@@ -485,6 +478,11 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsStart(s
     ui_network:setParam('token2', token2)
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
+    	
+    if fail_cb then
+        ui_network:setFailCB(fail_cb)
+    end
+
     ui_network:request()
 end
 
@@ -515,12 +513,6 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsFinish(
         end
     end
 
-    local function fail_cb(ret)
-        if (fail_cb) then
-            fail_cb(ret)
-        end
-    end
-
     local function response_status_cb(ret)
         -- 현재 시간에 잠겨 있는 속성
         if (ret['status'] == -1364) then
@@ -547,6 +539,11 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsFinish(
     ui_network:setParam('check_time', check_time)
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
+    
+    if fail_cb then
+        ui_network:setFailCB(fail_cb)
+    end
+    
     ui_network:request()
 end
 

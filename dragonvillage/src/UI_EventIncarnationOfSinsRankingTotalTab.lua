@@ -223,13 +223,10 @@ function UI_EventIncarnationOfSinsRankingTotalTab:request_EventIncarnationOfSins
 
         self.m_rankOffset = tonumber(ret['total_offset'])
     end  
-    
-    local function fail_cb(ret)
-    end
 
     local searchType = (self.m_searchType == 'my' or self.m_searchType == 'top') and 'world' or self.m_searchType
 
-    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking('total', searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, fail_cb)
+    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking('total', searchType, self.m_rankOffset, SCORE_OFFSET_GAP, success_cb, nil)
 end
 
 -------------------------------------

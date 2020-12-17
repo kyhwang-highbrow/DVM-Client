@@ -100,9 +100,6 @@ function UI_EventIncarnationOfSinsRankingAttributeTab:request_EventIncarnationOf
         end
     end  
     
-    local function fail_cb(ret)
-    end
-
     local offset
     if (attr_type == 'all') then
         offset = self.m_tRankOffset['earth']
@@ -115,7 +112,7 @@ function UI_EventIncarnationOfSinsRankingAttributeTab:request_EventIncarnationOf
     local search_type = (self.m_searchType == 'top' or self.m_searchType == 'my') and 'world' or self.m_searchType
     local limit = SCORE_OFFSET_GAP
 
-    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking(attr_type, search_type, offset, limit, success_cb, fail_cb)
+    g_eventIncarnationOfSinsData:request_EventIncarnationOfSinsAttrRanking(attr_type, search_type, offset, limit, success_cb, nil)
 end
 
 -------------------------------------
