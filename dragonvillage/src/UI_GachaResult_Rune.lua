@@ -76,22 +76,12 @@ end
 function UI_GachaResult_Rune:initUI()
 	local vars = self.vars
     
-    if (self.m_type == 'rune_box') then
-        self:registerOpenNode('againBtn')
-    else
-        vars['againBtn']:setVisible(false)
-    end
+    self:registerOpenNode('okBtn')
 
-    vars['allOkBtn']:setVisible(false)
+    vars['nameSprite']:setVisible(false)
 
     -- 처음 진입 이펙트
     self:initEnterEffect()
-
-    -- 사용 재화 표기
-	self:refresh_wealth()
-
-	-- 룬 수량 표시
-	self:refresh_inventoryLabel()
 
     -- 포커싱된 룬 이펙트 애니메이터
     local res_name = 'res/ui/a2d/summon/summon.vrp'
@@ -131,11 +121,17 @@ function UI_GachaResult_Rune:initEnterEffect()
 	    self:initRuneCardList()
         
         animator:changeAni('idle', true)
+
+        vars['nameSprite']:setVisible(true)
+        vars['nameLabel']:setString(Str('카드를 터치해주세요.'))
     end
 
-    animator:addAniHandler(finish_cb)
+    -- 타이틀 애니메이션을 사용하지 않음으로써 주석처리
+    --animator:addAniHandler(finish_cb)
     vars['titleNode']:addChild(animator.m_node)
     self.m_titleEffector = animator
+
+    finish_cb()
 end
 
 -------------------------------------
@@ -146,7 +142,6 @@ function UI_GachaResult_Rune:initButton()
 
 	vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
-	vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
@@ -165,10 +160,9 @@ function UI_GachaResult_Rune:refresh()
         self:doActionReset()
         self:doAction(nil, false)
 
-        vars['okBtn']:setVisible(true)
         vars['skipBtn']:setVisible(false)
     else
-        vars['okBtn']:setVisible(false)
+
     end 
 end
 
@@ -319,47 +313,6 @@ function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
 end
 
 -------------------------------------
--- function refresh_wealth
--------------------------------------
-function UI_GachaResult_Rune:refresh_wealth()
-	local vars = self.vars
-
-    local type = self.m_type
-    
-    -- 룬 상자 
-    if (type == 'rune_box') then
-        local rune_box_count = g_userData:get('rune_box')
-        vars['countLabel']:setString(comma_value(rune_box_count))
-    end
-end
-
--------------------------------------
--- function refresh_inventoryLabel
--- @brief
--------------------------------------
-function UI_GachaResult_Rune:refresh_inventoryLabel()
-    local vars = self.vars
-    local inven_type = 'rune'
-    local rune_count = table.count(g_runesData:getUnequippedRuneList())
-    local max_count = g_inventoryData:getMaxCount(inven_type)
-    self.vars['inventoryLabel']:setString(string.format('%d/%d', rune_count, max_count))
-end
-
--------------------------------------
--- function click_inventoryBtn
--- @brief 인벤 확장
--------------------------------------
-function UI_GachaResult_Rune:click_inventoryBtn()
-    local item_type = 'rune'
-    local function finish_cb()
-        self:refresh_inventoryLabel()
-		self:refresh_wealth()
-    end
-
-    g_inventoryData:extendInventory(item_type, finish_cb)
-end
-
--------------------------------------
 -- function click_skipBtn
 -------------------------------------
 function UI_GachaResult_Rune:click_skipBtn()
@@ -415,7 +368,6 @@ end
 -- @brief 탑바가 Lobby UI에 포커싱 되었을 때
 -------------------------------------
 function UI_GachaResult_Rune:onFocus()
-    self:refresh_wealth()
 end
 
 -------------------------------------

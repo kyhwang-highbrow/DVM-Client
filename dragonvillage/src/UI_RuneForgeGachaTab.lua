@@ -126,12 +126,6 @@ function UI_RuneForgeGachaTab:request_runeGacha()
 
         local ui = UI_GachaResult_Rune(gacha_type, l_rune_list)
         
-        -- 다시하기 버튼 등록
-        ui.vars['againBtn']:registerScriptTapHandler(function()
-            self:request_runeGacha() -- is_again
-            ui:close()
-        end)
-        
         ui:setCloseCB(close_cb)
     end
 
