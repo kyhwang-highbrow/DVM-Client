@@ -13,6 +13,7 @@ UI_GachaResult_Rune = class(PARENT, {
 		-- 연출 관련
         m_hideUIList = '',
         m_tUIOriginPos = 'table', -- 액션시킬 UI들의 원래 위치 저장
+        m_tUIIsMoved = 'table', -- UI들이 움직였는가 체크
         m_titleEffector = 'animator',
         m_selectRuneCard = 'UI_RuneCard',
         m_selectRuneEffector = 'animator',
@@ -60,6 +61,7 @@ function UI_GachaResult_Rune:init(type, l_gacha_rune_list)
 
     self.m_hideUIList = {}
     self.m_tUIOriginPos = {}
+    self.m_tUIIsMoved = {}
     
     self.m_bIsSkipping= false
 
@@ -92,6 +94,7 @@ function UI_GachaResult_Rune:initUI()
 
     -- 액션으로 움직일 UI 노드들 위치 저장
     self.m_tUIOriginPos['runeInfo'] = vars['runeInfo']:getPosition()
+    self.m_tUIIsMoved['runeInfo'] = false
     
     local visibleSize = cc.Director:getInstance():getVisibleSize()
     
@@ -213,8 +216,8 @@ function UI_GachaResult_Rune:initRuneCardList()
         -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
         local function open_rune_cb()
              -- 룬 옵션 창을 ACTION!
-            if (b_is_first_open == true) then
-                b_is_first_open = false
+            if (self.m_tUIIsMoved['runeInfo'] == false) then
+                self.m_tUIIsMoved['runeInfo'] = true
                 
                 self:actionRuneInfoUI('runeInfo') -- 룬 정보창 움직이기
             end
@@ -336,6 +339,7 @@ function UI_GachaResult_Rune:update_skip(dt)
     self.m_timer = self.m_timer - dt
     
     if (self.m_timer <= 0) then
+        local best_t_rune_data = {['rid'] = 0, ['rarity'] = 0}
         for idx, t_rune_data in pairs(self.m_lGachaRuneList) do
             local roid = t_rune_data['id']
             local rune_card = self.m_tRuneCardTable[roid]
@@ -345,10 +349,26 @@ function UI_GachaResult_Rune:update_skip(dt)
                 self.m_timer = self.m_timer + UI_GachaResult_Rune.UPDATE_OFFSET
                 return
             end
+
+            -- 등급, 희귀도, 순서(뒤에 나온 것일수록)
+            if ((best_t_rune_data['rid'] % 10) < (t_rune_data['rid'] % 10)) then
+                best_t_rune_data = t_rune_data
+
+            elseif ((best_t_rune_data['rid'] % 10) == (t_rune_data['rid'] % 10)) then
+                if (best_t_rune_data['rarity'] <= t_rune_data['rarity']) then
+                    best_t_rune_data = t_rune_data
+                end
+            end
         end
 
         -- 모든 카드를 오픈한 이후
         if (self:isAllCardOpen()) then
+            if (self.m_tUIIsMoved['runeInfo'] == false) then
+                self.m_tUIIsMoved['runeInfo'] = true
+                self:actionRuneInfoUI('runeInfo') -- 룬 정보창 움직이기
+            end
+
+            self:refreshRuneInfo(StructRuneObject(best_t_rune_data))
             self:refresh()
             self.m_skipUpdateNode:unscheduleUpdate()
         end
