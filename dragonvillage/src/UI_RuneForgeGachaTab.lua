@@ -128,14 +128,9 @@ function UI_RuneForgeGachaTab:request_runeGacha()
         
         ui:setCloseCB(close_cb)
     end
-
-    local function fail_cb()
-        UIManager:toastNotificationRed(Str('통신 에러'))
-        self:refresh()
-    end
-
+    
     local is_bundle = true
-    g_runesData:request_runeGacha(is_bundle, finish_cb, fail_cb) -- param: is_bundle, finish_cb, fail_cb
+    g_runesData:request_runeGacha(is_bundle, finish_cb, nil) -- param: is_bundle, finish_cb, fail_cb
 end
 
 -------------------------------------

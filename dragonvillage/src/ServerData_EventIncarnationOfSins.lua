@@ -303,11 +303,7 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsInfo(in
     ui_network:setParam('include_tables', include_tables) -- 정보 관련 테이블 내려받을지 여부 
     ui_network:setParam('reward', include_reward) -- 랭킹 보상 지급 여부
     ui_network:setSuccessCB(success_cb)
-	
-    if fail_cb then
-        ui_network:setFailCB(fail_cb)
-    end
-
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
 	ui_network:hideBGLayerColor()
@@ -407,11 +403,7 @@ function ServerData_EventIncarnationOfSins:request_EventIncarnationOfSinsAttrRan
     ui_network:setParam('offset', offset)
     ui_network:setParam('limit', limit)
     ui_network:setSuccessCB(success_cb)
-	
-    if param_fail_cb then
-        ui_network:setFailCB(param_fail_cb)
-    end
-
+    ui_network:setFailCB(param_fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
 	ui_network:hideBGLayerColor()
@@ -478,11 +470,7 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsStart(s
     ui_network:setParam('token2', token2)
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
-    	
-    if fail_cb then
-        ui_network:setFailCB(fail_cb)
-    end
-
+    ui_network:setFailCB(fail_cb)
     ui_network:request()
 end
 
@@ -539,11 +527,7 @@ function ServerData_EventIncarnationOfSins:request_eventIncarnationOfSinsFinish(
     ui_network:setParam('check_time', check_time)
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
-    
-    if fail_cb then
-        ui_network:setFailCB(fail_cb)
-    end
-    
+    ui_network:setFailCB(fail_cb)
     ui_network:request()
 end
 
