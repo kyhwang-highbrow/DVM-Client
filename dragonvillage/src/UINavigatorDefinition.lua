@@ -1155,7 +1155,10 @@ function UINavigatorDefinition:goTo_rune_forge(...)
         self:closeUIList(idx, false) -- param : idx, include_idx
 
         -- 기존 팝업에서 탭 이동만 시켜주자
-        ui:setTab(tab)
+        if tab then
+            ui:setTab(tab)
+        end
+        
         return
     end
 
