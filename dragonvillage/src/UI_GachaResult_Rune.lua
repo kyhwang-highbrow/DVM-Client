@@ -86,6 +86,7 @@ function UI_GachaResult_Rune:initUI()
     self:initEnterEffect()
 
     -- 포커싱된 룬 이펙트 애니메이터
+    Translate:a2dTranslate('ui/a2d/summon/summon_cut.plist')
     local res_name = 'res/ui/a2d/summon/summon.vrp'
     local animator = MakeAnimator(res_name)
     animator:setIgnoreLowEndMode(true)
