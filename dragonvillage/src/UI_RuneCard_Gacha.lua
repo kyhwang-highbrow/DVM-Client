@@ -165,7 +165,7 @@ function UI_RuneCard_Gacha:openCard(b_do_open_cb)
         end
     end
     
-    local grade = self.m_tRuneData['grade'] - 5
+    local grade = math_max(self.m_tRuneData['grade'] - 5, 1)
     animator:changeAni(string.format('flip_%d', grade), false)
     animator:addAniHandler(function() finish_cb() end)
 
@@ -206,7 +206,7 @@ function UI_RuneCard_Gacha:click_skipBtn()
         end
     end
     
-    local grade = self.m_tRuneData['grade'] - 5
+    local grade = math_max(self.m_tRuneData['grade'] - 5, 1)
     animator:changeAni(string.format('flip_%d', grade), false)
     animator:addAniHandler(function() finish_cb() end)
 end
