@@ -984,8 +984,8 @@ function UI_Lobby:update_highlight()
 		-- 도감
 		etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
 
-		-- 가방
-		etc_vars['inventoryNotiSprite']:setVisible(g_highlightData:isHighlightRune())
+		-- 룬
+		vars['runeForgeNotiSprite']:setVisible(g_highlightData:isHighlightRune())
 
 		-- 기타 (친구 or 도감 or 가방)
 		local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible() or etc_vars['inventoryNotiSprite']:isVisible())
