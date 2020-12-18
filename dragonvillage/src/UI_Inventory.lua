@@ -199,9 +199,9 @@ end
 -- @brief
 -------------------------------------
 function UI_Inventory:response_itemSell(ret)
-    if ret['deleted_rune_oids'] then
-        self.m_tTabClass['rune']:refresh_tableView(ret['deleted_rune_oids'])
-    end
+    --if ret['deleted_rune_oids'] then
+        --self.m_tTabClass['rune']:refresh_tableView(ret['deleted_rune_oids'])
+    --end
 
     -- 테이블 뷰의 아이템 리스트 갱신
     for i,v in pairs(self.m_tTabClass) do
