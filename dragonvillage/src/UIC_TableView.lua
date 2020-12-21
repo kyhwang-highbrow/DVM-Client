@@ -358,17 +358,18 @@ function UIC_TableView:scrollViewDidScroll()
     -- 가운데로 맞추기 위해 offset을 조정하는 부분이 있다.
     -- 이를 역으로 다시 계산하여 정상적으로 startIdx가 구해지도록 함
     if (self.m_bAlignCenterInInsufficient) then
-        
-        local container_size = self._vCellsPositions[#self._vCellsPositions]
+        if (self._vCellsPositions) then
+            local container_size = self._vCellsPositions[#self._vCellsPositions]
 
-        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
-            if (container_size < viewSize['width']) then
-                offset['x'] = offset['x'] - ((viewSize['width'] - container_size) / 2)
-            end
+            if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+                if (container_size < viewSize['width']) then
+                    offset['x'] = offset['x'] - ((viewSize['width'] - container_size) / 2)
+                end
 
-        else
-            if (container_size < viewSize['height']) then
-                offset['y'] = offset['y'] + ((viewSize['height'] - container_size) / 2)
+            else
+                if (container_size < viewSize['height']) then
+                    offset['y'] = offset['y'] + ((viewSize['height'] - container_size) / 2)
+                end
             end
         end
     end
