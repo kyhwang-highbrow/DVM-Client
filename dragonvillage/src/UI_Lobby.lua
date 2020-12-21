@@ -2524,6 +2524,7 @@ function UI_Lobby:refresh_rightBanner()
     -- 죄악의 화신 토벌작전 이벤트 배너
     if (g_eventIncarnationOfSinsData:isActive()) then
         if (not vars['banner_incarnation_of_sins']) then
+            require('UI_BannerIncarnationOfSins')
             local banner = UI_BannerIncarnationOfSins()
             vars['bannerMenu']:addChild(banner.root)
             banner.root:setDockPoint(cc.p(1, 1))
