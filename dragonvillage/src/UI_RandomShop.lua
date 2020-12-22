@@ -185,7 +185,7 @@ function UI_RandomShop:refresh_itemInfo()
                 self.m_selectRuneOptionLabel = struct_rune:getOptionLabel()
                 vars['runeDscNode']:addChild(self.m_selectRuneOptionLabel.root)                   
             end
-            struct_rune:setOptionLabel(self.m_selectRuneOptionLabel, 'use', false) 
+            struct_rune:setOptionLabel(self.m_selectRuneOptionLabel, 'use', nil) 
 
             -- 임시 룬 오브젝트를 생성 (룬 세트 설명 함수를 사용하기 위해)
             local _data = {}

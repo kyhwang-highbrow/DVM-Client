@@ -184,6 +184,9 @@ function UI_DragonRunesEnhance:initOptionRadioBtn()
         -- 일반/축복 강화 여부 저장
         self.m_isBlessEnhance = (option_type ~= 'normalOpt')
         self:setEnhancePriceLabel()
+        
+        -- 선택에 따른 주 옵션 수치 변화값 설정
+        self:refresh_runeStat()
 
         -- 축복서일 경우, 연속강화 버튼리스트 숨김(못 누르게)&& 아이템 설명라벨 출력
         if (option_type ~= 'normalOpt') then
@@ -269,6 +272,22 @@ function UI_DragonRunesEnhance:initButton()
 end
 
 -------------------------------------
+-- function refresh_runeStat
+-- @brief 룬 옵션 세팅
+-------------------------------------
+function UI_DragonRunesEnhance:refresh_runeStat()
+    local vars = self.vars  
+    local rune_obj = self.m_runeObject
+
+    if (not self.m_optionLabel) then
+        self.m_optionLabel = rune_obj:getOptionLabel()
+        vars['runeDscNode']:addChild(self.m_optionLabel.root)
+    end
+    local target_level = (self.m_isBlessEnhance == true) and RUNE_LV_MAX or (rune_obj['lv'] + 1) 
+    rune_obj:setOptionLabel(self.m_optionLabel, 'use', target_level) -- param : ui, label_format, target_level
+end
+
+-------------------------------------
 -- function refresh_enhance
 -------------------------------------
 function UI_DragonRunesEnhance:refresh_enhance()
@@ -279,11 +298,7 @@ function UI_DragonRunesEnhance:refresh_enhance()
     self:refresh_common(self)
 
     -- 룬 옵션 세팅
-    if (not self.m_optionLabel) then
-        self.m_optionLabel = rune_obj:getOptionLabel()
-        vars['runeDscNode']:addChild(self.m_optionLabel.root)
-    end
-    rune_obj:setOptionLabel(self.m_optionLabel, 'use', true) -- param : ui, label_format, show_change
+    self:refresh_runeStat()
 
     -- 바뀐 룬 옵션이 있을 경우 라벨 애니메이션 동작
     self:showChangeLabelEffect(self.m_changeOptionList)

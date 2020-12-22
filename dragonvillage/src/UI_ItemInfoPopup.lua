@@ -80,7 +80,7 @@ function UI_ItemInfoPopup:initUI()
         self.vars['runeDscNode']:setVisible(true)
         
         -- 해당 UI를 옵션정보로 채운다 
-        t_rune_data:setOptionLabel(opt_label, 'use', false) -- param : ui, label_format, show_change
+        t_rune_data:setOptionLabel(opt_label, 'use', nil) -- param : ui, label_format, target_level
     else
         desc = TableItem():getValue(self.m_itemID, 't_desc')
     end

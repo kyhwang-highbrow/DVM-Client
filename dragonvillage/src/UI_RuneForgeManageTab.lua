@@ -357,7 +357,7 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
         self.m_optionLabel = self.m_selectedRuneObject:getOptionLabel()
         self.vars['runeDscNode']:addChild(self.m_optionLabel.root)
     end
-    self.m_selectedRuneObject:setOptionLabel(self.m_optionLabel, 'use', false)
+    self.m_selectedRuneObject:setOptionLabel(self.m_optionLabel, 'use', nil)
 
 end
 

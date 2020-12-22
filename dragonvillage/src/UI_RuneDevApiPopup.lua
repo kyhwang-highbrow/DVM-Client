@@ -559,5 +559,5 @@ function UI_RuneDevApiPopup:setRuneObject()
         self.vars['useRuneDscNode']:addChild(self.m_optionLabel.root)
     end
     
-    rune_obj:setOptionLabel(self.m_optionLabel, 'use') -- param : ui, label_format, show_change
+    rune_obj:setOptionLabel(self.m_optionLabel, 'use', nil) -- param : ui, label_format, target_level
 end

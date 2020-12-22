@@ -559,7 +559,7 @@ function UI_DragonRunesGrind:makeRuneDesc_grind(opt_type, color_str)
     end
 
     local rune_obj = self.m_runeEnhanceClass:getRuneObject()    
-    local rune_desc_str = rune_obj:makeEachRuneDescRichText(opt_type, false)
+    local rune_desc_str = rune_obj:makeEachRuneDescRichText(opt_type, nil)
 
     --  Max 표시
     local is_max = rune_obj:isMaxOption(opt_type, rune_desc_str)

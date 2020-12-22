@@ -44,7 +44,7 @@ function UI_DragonRunesGrindFirstPopup:initUI()
     local vars = self.vars
     local rune_obj = self.m_structRune
 
-    local rune_desc_str = rune_obj:makeEachRuneDescRichText(self.m_selectedopt, false)
+    local rune_desc_str = rune_obj:makeEachRuneDescRichText(self.m_selectedopt, nil)
     --  Max 표시
     local is_max = rune_obj:isMaxOption(self.m_selectedopt, rune_desc_str)
     if (is_max) then

@@ -303,7 +303,7 @@ function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
         self.vars['runeDscNode']:addChild(self.m_optionLabel.root)
     end
 
-    struct_rune_object:setOptionLabel(self.m_optionLabel, 'use', false)
+    struct_rune_object:setOptionLabel(self.m_optionLabel, 'use', nil)
 
     -- 룬 세트 효과
     vars['itemDscNode2']:setVisible(true)

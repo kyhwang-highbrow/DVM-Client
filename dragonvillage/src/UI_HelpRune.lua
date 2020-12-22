@@ -49,7 +49,7 @@ local set_after = function(ui_name, ui)
          local rune_icon = UI_RuneCard(rune_obj)
          vars['runeNode']:addChild(rune_icon.root)
 
-         rune_obj:setOptionLabel(sub_ui, 'use', false)
+         rune_obj:setOptionLabel(sub_ui, 'use', nil)
 
          -- 세트 옵션
          vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())

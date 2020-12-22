@@ -158,7 +158,7 @@ end
 -------------------------------------
 -- function getNextLevelMopt
 -------------------------------------
-function StructRuneObject:getNextLevelMopt()
+function StructRuneObject:getNextLevelMopt(target_level)
     local lv = self['lv']
     local grade = self['grade']
     if (RUNE_LV_MAX <= lv) then
@@ -169,9 +169,8 @@ function StructRuneObject:getNextLevelMopt()
     local option, value = self:parseRuneOptionStr(option_str)
 
     local vid = option .. '_' .. grade
-    local lv = lv + 1
 
-    local status = TableRuneMoptStatus:getStatusValue(vid, lv)
+    local status = TableRuneMoptStatus:getStatusValue(vid, target_level)
     local new_option_str = option .. ';' .. status
 
     return new_option_str
@@ -180,7 +179,7 @@ end
 -------------------------------------
 -- function makeRuneDescRichText
 -------------------------------------
-function StructRuneObject:makeRuneDescRichText(for_enhance)
+function StructRuneObject:makeRuneDescRichText(target_level)
     local text = ''
 
     -- 주 옵션
@@ -188,8 +187,8 @@ function StructRuneObject:makeRuneDescRichText(for_enhance)
     if text_ then
         text = '{@&w;mopt}' .. text_
 
-        if for_enhance then
-            local new_option_str = self:getNextLevelMopt()
+        if target_level then
+            local new_option_str = self:getNextLevelMopt(target_level)
             if new_option_str then
                 text = text .. ' {@&O;mopt}▶ {@&G;mopt}' .. self:getRuneOptionDesc(new_option_str)
             end
@@ -233,16 +232,17 @@ end
 
 -------------------------------------
 -- function makeEachRuneDescRichText
+-- @param target_level : 다음 강화 레벨
 -------------------------------------
-function StructRuneObject:makeEachRuneDescRichText(opt_type, for_enhance)
+function StructRuneObject:makeEachRuneDescRichText(opt_type, target_level)
     local text = ''
     local text_ = self:getRuneOptionDesc(self[opt_type])
 
     if text_ then
         text = string.format('%s', text_)
 
-        if for_enhance then
-            local new_option_str = self:getNextLevelMopt()
+        if (target_level ~= nil) then
+            local new_option_str = self:getNextLevelMopt(target_level)
             if new_option_str then
                 text = text .. ' {@&O;mopt}▶ {@&G;mopt}' .. self:getRuneOptionDesc(new_option_str)
             end
@@ -651,8 +651,9 @@ end
 -- function setOptionLabel
 -- @brief 옵션 라벨 mopt~sopt4까지 자동으로 셋팅
 -- @brief mopt_XXXLabel, mopt_XXXNode 와 같이 일정한 형식에서만 작동
+-- @param target_level : number, 값이 있을 경우 주 옵션 강화 시 변하는 수치 보여줌
 -------------------------------------
-function StructRuneObject:setOptionLabel(ui, label_format, show_change)
+function StructRuneObject:setOptionLabel(ui, label_format, target_level)
     if (not ui) then
         return
     end
@@ -664,12 +665,14 @@ function StructRuneObject:setOptionLabel(ui, label_format, show_change)
         local option_label = string.format("%s_%sLabel", v, label_format)
         local option_label_node = string.format("%s_%sNode", v, label_format)
         
-        -- show_change가 true 라면 주옵션만 ex) 공격력 +4% -> 공격력 +5% 표시
-        if (show_change) then
-            show_change = (i == 1)
+        -- target_level가 입력되었다면 주옵션만 ex) 공격력 +4% -> 공격력 +5% 표시
+        local desc_str
+        if (i == 1) then
+            desc_str = self:makeEachRuneDescRichText(v, target_level)
+        else
+            desc_str = self:makeEachRuneDescRichText(v, nil)
         end
         
-        local desc_str = self:makeEachRuneDescRichText(v, show_change)
         local is_max = self:isMaxOption(v, desc_str) and (self.grade <= 6)
 
         -- 추가옵션은 max, 연마 표시
