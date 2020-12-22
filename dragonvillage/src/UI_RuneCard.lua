@@ -109,6 +109,14 @@ function UI_RuneCard:makeIcon()
     if (self.m_runeData:getGrindedOption()) then
         self:makeSprite('grindRuneIconNode', 'res/ui/icons/rune/grind_rune_icon.png', true) -- (lua_name, res, no_use_frames)
     end
+
+    -- 장착 드래곤 아이콘 표시
+    if (self.m_runeData['owner_doid']) then
+        local doid = self.m_runeData['owner_doid']
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        local dragon_image_res = t_dragon_data:getIconRes()
+        self:makeSprite('dragonSprite', dragon_image_res, true)
+    end
 end
 
 -------------------------------------

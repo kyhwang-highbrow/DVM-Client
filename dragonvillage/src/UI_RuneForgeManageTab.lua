@@ -738,7 +738,7 @@ end
 -- @brief UI상에서 설정된 필터에 해당하는 StructRuneObject 리스트 (리스트가 아닌 map의 형태임을 주의하자)
 -------------------------------------
 function UI_RuneForgeManageTab:getFilteredRuneList(slot_idx)
-    local unequipped = true
+    local unequipped = false
     local slot = slot_idx
     local set_id = self.m_listFilterSetID
 
