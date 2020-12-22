@@ -315,6 +315,35 @@ function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
     local effect_name = string.format('bottom_idle_%02d', rarity)
     effect_animator:setVisible(true)
     effect_animator:changeAni(effect_name, true)
+   
+    -- 잠금 버튼
+    vars['lockBtn']:registerScriptTapHandler(function() self:click_lockBtn(struct_rune_object) end)
+    vars['lockSprite']:setVisible(struct_rune_object['lock'])
+end
+
+-------------------------------------
+-- function click_lockBtn
+-------------------------------------
+function UI_GachaResult_Rune:click_lockBtn(struct_rune_object)
+    local vars = self.vars
+    local roid = struct_rune_object['roid']
+
+     local function finish_cb()
+        local new_data = g_runesData:getRuneObject(roid)
+        local b_is_lock = new_data['lock']
+
+        -- 잠금 버튼 갱신
+        vars['lockSprite']:setVisible(b_is_lock)
+
+        -- 하단 룬 카드 갱신
+        local rune_card_gacha = self.m_tRuneCardTable[roid]
+        rune_card_gacha.m_runeCard:setLockSpriteVisible(b_is_lock)
+
+		-- 포커스 룬 카드 잠금 갱신 
+        self.m_selectRuneCard:setLockSpriteVisible(b_is_lock)
+    end
+
+    g_runesData:request_runesLock_toggle(roid, nil, finish_cb)
 end
 
 -------------------------------------
