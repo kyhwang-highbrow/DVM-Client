@@ -722,6 +722,20 @@ function UIC_RichLabel:click_word(t_content, label, underline, color)
     end
     --]]
 
+    -- 하이퍼링크!!!
+    -- type 이 url일 때는 id 가 웹주소로 들어온다
+    if t_content then
+        if t_content['type'] and t_content['type'] == 'url' then
+        
+            local webUrl = t_content['id']
+
+            if webUrl and webUrl ~= '' then
+                SDKManager:goToWeb(webUrl)
+            end
+
+        end
+    end
+
     --ccdump(t_content)
 
     self:makeClickReaction(label, color)
