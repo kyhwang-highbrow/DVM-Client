@@ -29,6 +29,8 @@ UIC_RichLabel = class(UIC_Node, {
         m_contentWidth = 'number',
         m_widthList = 'list',
 
+        m_lineHeight = 'number',
+
         -- 정렬
         m_hAlignment = '',
         --cc.TEXT_ALIGNMENT_CENTER    = 0x1
@@ -59,6 +61,8 @@ function UIC_RichLabel:init()
     self.m_outlineSize = 0
     self.m_outlineColor = cc.c4b(0,0,0,255)
     self.m_bDirty = true
+
+    self.m_lineHeight = 1.1
 
     self.m_hAlignment = cc.TEXT_ALIGNMENT_LEFT
     self.m_vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_TOP
@@ -175,7 +179,7 @@ function UIC_RichLabel:updateAlignmnet()
         end
     end
 
-    local line_height = self.m_fontSize * 1.1
+    local line_height = self.m_fontSize * self.m_lineHeight
     local content_height = (self.m_lineCount * line_height)
 
     for i,v in ipairs(self.m_nodeList) do
@@ -216,7 +220,7 @@ end
 -- function updateAlignmnet_forRtl
 -------------------------------------
 function UIC_RichLabel:updateAlignmnet_forRtl()
-    local line_height = self.m_fontSize * 1.1
+    local line_height = self.m_fontSize * self.m_lineHeight
     local content_height = (self.m_lineCount * line_height)
 
     for i,v in ipairs(self.m_nodeList) do
@@ -271,7 +275,7 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
 
     -- 임시
 
-    local line_height = self.m_fontSize * 1.1
+    local line_height = self.m_fontSize * self.m_lineHeight
 
     for i,text in ipairs(l_line) do
         -- l_line에서 두번째 항목부터는 \n로 개행했을 경우임
@@ -370,6 +374,7 @@ end
 -------------------------------------
 function UIC_RichLabel:makeTextButton(t_content, label, color)
     local str_width = label:getStringWidth()
+    -- 언더라인은 바로 텍스트 아래에 생겨야 한다.
     local line_height = self.m_fontSize * 1.1
 
     local button = cc.MenuItemImage:create(EMPTY_PNG, nil, nil, 0)
@@ -673,7 +678,7 @@ function UIC_RichLabel:getStringHeight()
         self:update(0)
     end
 
-    local line_height = self.m_fontSize * 1.1
+    local line_height = self.m_fontSize * self.m_lineHeight
     local content_height = (self.m_lineCount * line_height)
     return content_height
 end
