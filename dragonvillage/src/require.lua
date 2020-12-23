@@ -1432,6 +1432,7 @@ local t_module = {
     'UI_SettingGameTab',
     'UI_SettingInfoTab',
     'UI_SettingTestCode',
+    'UI_CommunityPopup',
     'UI_DragonDevApiPopup',
     'UI_RuneDevApiPopup',
     'UI_InvenDevApiPopup',

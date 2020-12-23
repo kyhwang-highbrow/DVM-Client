@@ -141,5 +141,7 @@ end
 -------------------------------------
 function UI_Setting:click_communityBtn()
     -- 2017-09-13 sgkim 네이버 카페를 연동하면서 네이버 카페로 연결함
-    NaverCafeManager:naverCafeStart(0) -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
+    --NaverCafeManager:naverCafeStart(0) -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
+    -- 2020-12-23 커뮤니티 팝업으로 안내한다.
+    UI_CommunityPopup()
 end

@@ -1252,6 +1252,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ColosseumClanRankRewardItem.lua" />
     <None Include="..\src\UI_ColosseumReadyForDev.lua" />
     <None Include="..\src\UI_ColosseumTabRank.lua" />
+    <None Include="..\src\UI_CommunityPopup.lua" />
     <None Include="..\src\UI_ContentOpenPopup.lua" />
     <None Include="..\src\UI_CostumeEventPopup.lua" />
     <None Include="..\src\UI_CouponPopup.lua" />

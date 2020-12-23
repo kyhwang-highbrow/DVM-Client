@@ -4760,7 +4760,10 @@
       <Filter>lua\UIC</Filter>
     </None>
     <None Include="..\src\UI_IngameNoticeFullPopup.lua">
-      <Filter>lua\src</Filter>
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CommunityPopup.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
