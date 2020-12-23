@@ -463,3 +463,59 @@ function ServerData_Mail:request_summonDrawTicket(mail_id_list, finish_cb)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+
+-------------------------------------
+-- function hasNewNotice
+-- @brief 최신 공지를 띄원는지 알려주는 함수
+-------------------------------------
+function ServerData_Mail:hasNewNotice()
+    local t_notice = self:getNewNoticeData()
+    local lastWatchedNoticeDate = -1
+
+    -- 아예 공지가 없으면 노출 안하도록 하고 리턴
+    if not t_notice then return false end
+
+    -- 찾아온 공지가 있으면?
+    -- 일단 본적 있는지 판단
+    if t_notice and t_notice ~= '' then
+        lastWatchedNoticeDate = g_settingData:get('lobby_ingame_notice') or -1
+    end
+
+    cclog(lastWatchedNoticeDate)
+
+    --날짜값이 의미없는 값이면 공지 확인!
+    if tonumber(lastWatchedNoticeDate) < 0 then return true end
+
+    cclog(t_notice.custom['start_date'])
+
+    -- 더 작은 날짜로 저장되어 있으니 새 공지가 있음
+    return tonumber(lastWatchedNoticeDate) < tonumber(t_notice.custom['start_date'])
+end
+
+-------------------------------------
+-- function getNewNoticeData
+-- @brief 최신 공지의 정보를 반환하는 함수
+-------------------------------------
+function ServerData_Mail:getNewNoticeData()
+    local noticeMailList = self:getMailList('notice')
+    local recentNoticeStartDate = -1
+    local item = ''
+
+    -- 메일리스트에 공지가 하나라도 있다.
+    if noticeMailList and table.count(noticeMailList) > 0 then
+        -- 가장 최근 공지를 찾아낸다.
+        -- 최신 공지를 찾아낸다
+        for i, noticeMail in pairs(noticeMailList) do
+            local startDate = noticeMail.custom['start_date'] or -1
+
+            if  startDate > recentNoticeStartDate then
+                item = noticeMail
+                recentNoticeStartDate = startDate
+            end
+        end
+    end
+        
+    return item        
+end
+

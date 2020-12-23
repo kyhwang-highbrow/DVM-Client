@@ -475,11 +475,13 @@ end
 -- @brief 공지 읽기
 -------------------------------------
 function StructMail:readNotice(cb_func)
+    
+    local ui = UI_IngameNoticeFullPopup(self)
     -- 공지 띄우기
-    local article_id = self:getNoticeArticleID()
-    if (article_id) then
-        NaverCafeManager:naverCafeStartWithArticle(article_id)
-    end
+    --local article_id = self:getNoticeArticleID()
+    --if (article_id) then
+    --    NaverCafeManager:naverCafeStartWithArticle(article_id)
+    --end
 
     -- 공지 읽기
     if (not self:isNoticeRead()) then

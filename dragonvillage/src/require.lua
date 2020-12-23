@@ -969,6 +969,7 @@ local t_module = {
     'UI_CouponPopupPreOccupancyNick',
     'UI_AdvertisingPopup',
     'UI_FormationDetailPopup',
+    'UI_IngameNoticeFullPopup',
     'UI_EventFullPopup',
     'UI_EventDungeon',
 	'UI_EventThankAnniversary_rewardPopup',

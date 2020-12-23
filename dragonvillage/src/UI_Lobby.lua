@@ -229,6 +229,55 @@ function UI_Lobby:entryCoroutine()
 
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
+            -- 20201223
+            -- https://highbrow.atlassian.net/wiki/spaces/dvm/pages/875233281
+            -- 우선순위: 신규 유저 D+1 푸시 > 게임 내 공지 > 누적 결제 이벤트 > 풀팝업
+			-- =============================================
+			-- 풀팝업 출력 조건 예외처리(레벨 5 미만에도 띄워야 할 경우) (신규 유저 대상일 경우)
+			-- =============================================
+            do 
+			    -- 1.출석 보상 정보 (보상 존재할 경우 출력)
+                if (g_attendanceData:hasAttendanceReward()) then
+                    cclog('# 출석 show')
+                    g_fullPopupManager:show(FULL_POPUP_TYPE.ATTENDANCE, show_func)
+			    end
+
+                -- 2.신규 유저 환영 이벤트
+                if (g_eventData:isPossibleToGetWelcomeNewbieReward()) then
+                    cclog('# 신규 유저 환영 이벤트 show')
+                    g_fullPopupManager:show(FULL_POPUP_TYPE.EVENT_WELCOME_NEWBIE, show_func)
+			    end
+            end
+
+            
+			-- =============================================
+			-- 풀팝업 출력 조건 최근 공지 팝업을 보고 확인을 누르는 액션을 안했을 경우
+			-- =============================================
+            do 
+                -- 풀팝업 출력 함수
+                local function show_notice_callback() 
+                    co:work()
+                    local t_notice = g_mailData:getNewNoticeData()
+                    local ui = UI_IngameNoticeFullPopup(t_notice)
+                    ui:setCloseCB(co.NEXT)
+                    if co:waitWork() then return end
+                end
+                
+			    -- 공지알림 팝업
+                if (g_mailData:hasNewNotice()) then
+                    cclog('# 인게임 공지팝업')
+                    g_fullPopupManager:show(FULL_POPUP_TYPE.INGAME_NOTICE, show_notice_callback)
+			    end
+            end
+            
+            -- 풀팝업 출력 함수
+            local function show_func(pid) 
+                co:work()
+                local ui = UI_EventFullPopup(pid)
+                ui:setCloseCB(co.NEXT)
+                ui:openEventFullPopup()
+                if co:waitWork() then return end
+            end
 
             -- =============================================
             -- 로비 알림(lobby_notice)
@@ -240,15 +289,6 @@ function UI_Lobby:entryCoroutine()
             end
             -- =============================================
 
-
-            -- 풀팝업 출력 함수
-            local function show_func(pid) 
-                co:work()
-                local ui = UI_EventFullPopup(pid)
-                ui:setCloseCB(co.NEXT)
-                ui:openEventFullPopup()
-                if co:waitWork() then return end
-            end
 
             -- =============================================
 			-- 풀팝업 출력 조건 
@@ -280,23 +320,8 @@ function UI_Lobby:entryCoroutine()
                 g_fullPopupManager:setTitleToLobby(false)
             end
             
-
-			-- =============================================
-			-- 풀팝업 출력 조건 예외처리(레벨 5 미만에도 띄워야 할 경우) (신규 유저 대상일 경우)
-			-- =============================================
-            do 
-			    -- 1.출석 보상 정보 (보상 존재할 경우 출력)
-                if (g_attendanceData:hasAttendanceReward()) then
-                    cclog('# 출석 show')
-                    g_fullPopupManager:show(FULL_POPUP_TYPE.ATTENDANCE, show_func)
-			    end
-
-                -- 2.신규 유저 환영 이벤트
-                if (g_eventData:isPossibleToGetWelcomeNewbieReward()) then
-                    cclog('# 신규 유저 환영 이벤트 show')
-                    g_fullPopupManager:show(FULL_POPUP_TYPE.EVENT_WELCOME_NEWBIE, show_func)
-			    end
-            end
+            
+            
 
             -- @ MASTER ROAD
             cclog('# 마스터의 길 확인 중')
