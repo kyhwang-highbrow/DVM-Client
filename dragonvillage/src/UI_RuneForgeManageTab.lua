@@ -161,8 +161,9 @@ function UI_RuneForgeManageTab:clearRuneInfo()
     vars['locationBtn']:setVisible(false)
     vars['itemDscNode2']:setVisible(false)
     vars['runeDscNode']:setVisible(false)
-    vars['itemNode']:removeAllChildren()
     vars['itemNode']:setVisible(false)
+    vars['itemNode']:removeAllChildren()
+    vars['dragonNode']:removeAllChildren()
 end
 
 -------------------------------------
