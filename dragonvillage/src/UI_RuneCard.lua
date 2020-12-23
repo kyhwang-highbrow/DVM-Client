@@ -87,6 +87,12 @@ function UI_RuneCard:refreshInfo()
 
     -- 잠금 표시
     self:refresh_Lock()
+
+    -- 연마 표시
+    self:refresh_grind()
+
+    -- 장착 표시
+    self:refresh_equip()
 end
 
 -------------------------------------
@@ -106,17 +112,17 @@ function UI_RuneCard:makeIcon()
 		self.vars['runeNode']:setPositionY(1)
 	end
     
-    if (self.m_runeData:getGrindedOption()) then
-        self:makeSprite('grindRuneIconNode', 'res/ui/icons/rune/grind_rune_icon.png', true) -- (lua_name, res, no_use_frames)
-    end
+    --if (self.m_runeData:getGrindedOption()) then
+        --self:makeSprite('grindRuneIconNode', 'res/ui/icons/rune/grind_rune_icon.png', true) -- (lua_name, res, no_use_frames)
+    --end
 
     -- 장착 드래곤 아이콘 표시
-    if (self.m_runeData['owner_doid']) then
-        local doid = self.m_runeData['owner_doid']
-        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-        local dragon_image_res = t_dragon_data:getIconRes()
-        self:makeSprite('dragonSprite', dragon_image_res, true)
-    end
+    --if (self.m_runeData['owner_doid']) then
+        --local doid = self.m_runeData['owner_doid']
+        --local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        --local dragon_image_res = t_dragon_data:getIconRes()
+        --self:makeSprite('dragonSprite', dragon_image_res, true)
+    --end
 end
 
 -------------------------------------
@@ -193,6 +199,45 @@ end
 function UI_RuneCard:setLockSpriteVisible(visible)
     local res = 'card_cha_icon_lock.png'
     local lua_name = 'lockSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+-- function refresh_grind
+-- @brief 연마 갱신
+-------------------------------------
+function UI_RuneCard:refresh_grind()
+	local is_grind = (self.m_runeData:getGrindedOption() ~= nil)
+    cclog(is_grind)
+	self:setGrindSpriteVisible(is_grind)
+end
+
+-------------------------------------
+-- function setGrindSpriteVisible
+-- @brief 연마 표시
+-------------------------------------
+function UI_RuneCard:setGrindSpriteVisible(visible)
+    local res = 'card_rune_grind.png'
+    local lua_name = 'grindSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+-- function refresh_equip
+-- @brief 장착 갱신
+-------------------------------------
+function UI_RuneCard:refresh_equip()
+	local is_equip = (self.m_runeData['owner_doid'] ~= nil)
+	self:setEquipSpriteVisible(is_equip)
+end
+
+-------------------------------------
+-- function setEquipSpriteVisible
+-- @brief 장착 표시
+-------------------------------------
+function UI_RuneCard:setEquipSpriteVisible(visible)
+    local res = 'card_rune_equipment.png'
+    local lua_name = 'equipmentSprite'
     self:setSpriteVisible(lua_name, res, visible)
 end
 
