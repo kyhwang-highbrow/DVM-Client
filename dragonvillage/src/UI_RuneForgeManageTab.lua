@@ -355,11 +355,11 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
     vars['lockSprite']:setVisible(t_rune_data['lock'])
 
 
-    do -- 아이템 이름
-        vars['itemNameLabel']:setVisible(true)
-        local name = t_rune_data['name']
-        vars['itemNameLabel']:setString(name)
-    end
+    -- 아이템 이름
+    vars['itemNameLabel']:setVisible(true)
+    local name = t_rune_data['name']
+    vars['itemNameLabel']:setString(name)
+    
     
     -- 판매 버튼
     if (not self.m_bSelectSellActive) then
@@ -382,6 +382,18 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
     end
     self.m_selectedRuneObject:setOptionLabel(self.m_optionLabel, 'use', nil)
 
+    -- 장착 드래곤 표시
+    vars['dragonNode']:removeAllChildren()
+    if (t_rune_data['owner_doid'] ~= nil) then
+        local doid = t_rune_data['owner_doid']
+        local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
+        local dragon_card = UI_DragonCard(t_dragon_data)
+        
+        -- UI 반응 액션
+        cca.uiReactionSlow(dragon_card.root)
+
+        vars['dragonNode']:addChild(dragon_card.root)        
+    end
 end
 
 -------------------------------------
