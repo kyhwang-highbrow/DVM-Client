@@ -1430,6 +1430,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IllusionStageListItem.lua" />
     <None Include="..\src\UI_EventImageQuiz.lua" />
     <None Include="..\src\UI_IngameBossHp.lua" />
+    <None Include="..\src\UI_IngameNoticeFullPopup.lua" />
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UIC_LobbyGuide.lua" />
     <None Include="..\src\UI_InventoryBtn.lua" />
@@ -1454,7 +1455,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_LobbyGuideAttrTower.lua" />
     <None Include="..\src\UI_LobbyGuideColosseum.lua" />
     <None Include="..\src\UI_LobbyGuideWeeklyShop.lua" />
-    <None Include="..\src\UI_LobbyIngameNoticeFullPopup.lua" />
     <None Include="..\src\UI_LobbyLeftTopBtnManager.lua" />
     <None Include="..\src\UI_LobbyNoticePopup.lua" />
     <None Include="..\src\UI_LoginIntegratePopup.lua" />

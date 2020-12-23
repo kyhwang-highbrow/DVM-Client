@@ -4759,7 +4759,7 @@
     <None Include="..\src\UIC_SortListTD.lua">
       <Filter>lua\UIC</Filter>
     </None>
-    <None Include="..\src\UI_LobbyIngameNoticeFullPopup.lua">
+    <None Include="..\src\UI_IngameNoticeFullPopup.lua">
       <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
