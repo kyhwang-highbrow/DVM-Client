@@ -242,12 +242,13 @@ function UI_RuneDevApiPopup:initEditBox()
 
                     if ((isValidText(str)) and (self.m_mOpt[v])) then
                         self.m_mVal[v] = tonumber(str)
-                          
-                        if (grade <= 6) then
-                            local t_rune_opt_max = TABLE:get('table_rune_opt_status')
-                            local max_value = t_rune_opt_max[self.m_mOpt[v] .. '_1']['status_max']
-                            self.m_mVal[v] = math_min(self.m_mVal[v], max_value)      
-                        end    
+                         
+                        --@kwkang 20-12-23 테스트 편의성을 위해 직접 텍스트 입력 시에는 제한을 해제
+                        --if (grade <= 6) then
+                            --local t_rune_opt_max = TABLE:get('table_rune_opt_status')
+                            --local max_value = t_rune_opt_max[self.m_mOpt[v] .. '_1']['status_max']
+                            --self.m_mVal[v] = math_min(self.m_mVal[v], max_value)      
+                        --end    
                     end
 
                     self:refresh()
