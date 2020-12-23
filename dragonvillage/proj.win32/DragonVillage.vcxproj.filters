@@ -4759,6 +4759,9 @@
     <None Include="..\src\UIC_SortListTD.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_LobbyIngameNoticeFullPopup.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

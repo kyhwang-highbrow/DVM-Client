@@ -1454,6 +1454,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_LobbyGuideAttrTower.lua" />
     <None Include="..\src\UI_LobbyGuideColosseum.lua" />
     <None Include="..\src\UI_LobbyGuideWeeklyShop.lua" />
+    <None Include="..\src\UI_LobbyIngameNoticeFullPopup.lua" />
     <None Include="..\src\UI_LobbyLeftTopBtnManager.lua" />
     <None Include="..\src\UI_LobbyNoticePopup.lua" />
     <None Include="..\src\UI_LoginIntegratePopup.lua" />
