@@ -14,7 +14,11 @@ UI_RuneForgeManageTab = class(PARENT,{
         m_mSelectedRuneUIMap = 'map', -- 현재 판매를 위해 선택된 아이템 UI, map[roid] = ui
         m_mSelectedRuneRoidMap = 'map',
 
-        m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
+        m_openedComboBox = 'UIC_SortList', -- 현재 열려있는 선택창
+        m_setID = 'number', -- 0번은 전체 1~8은 해당 세트만
+        m_mopt = 'string', -- 주옵션 필터
+        m_sopt1 = 'string', -- 보조옵션 필터 1
+        m_sopt2 = 'string', -- 보조옵션 필터 2
         m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
         m_tableViewTD = '',
     })
@@ -33,7 +37,10 @@ function UI_RuneForgeManageTab:init(owner_ui)
    self.m_mSelectedRuneUIMap = {}
    self.m_mSelectedRuneRoidMap = {}
 
-   self.m_listFilterSetID = 0
+   self.m_setID = 0
+   self.m_mopt = 'all'
+   self.m_sopt1 = 'all'
+   self.m_sopt2 = 'all'
 end
 
 -------------------------------------
@@ -49,7 +56,6 @@ function UI_RuneForgeManageTab:onEnterTab(first)
 
     self.m_mSelectedRuneUIMap = {}
     self.m_mSelectedRuneRoidMap = {}
-    self.m_listFilterSetID = 0
     self:clearRuneInfo()
     self:setTab(1, true)
 end
@@ -89,6 +95,10 @@ function UI_RuneForgeManageTab:initUI()
 
     -- 룬 정렬 최초 전체 선택
     vars['setSortLabel']:setString(Str('전체'))
+
+    self:makeComboBox('mopt')
+    self:makeComboBox('sopt1')
+    self:makeComboBox('sopt2')
 end
 
 -------------------------------------
@@ -278,6 +288,19 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
             self:apply_runesSort()
         
         end
+        
+        -- 단 하나의 콤보박스만 켜지도록
+        vars['runeSortBtn']:registerScriptTapHandler(function()
+            uic_sort_list:toggleVisibility()
+
+            if (uic_sort_list.m_bShow) then
+                if ((self.m_openedComboBox) and (self.m_openedComboBox.m_bShow) and (self.m_openedComboBox ~= uic_sort_list)) then
+                    self.m_openedComboBox:hide()
+                end
+                self.m_openedComboBox = uic_sort_list
+            end
+        end)
+
         uic_sort_list:setSortChangeCB(sort_change_cb)
 
         -- 최초 정렬 설정
@@ -673,7 +696,19 @@ function UI_RuneForgeManageTab:refresh_runeSetFilter(set_id)
     local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichText(set_id)
     vars['setSortLabel']:setString(text)
 
-    self.m_listFilterSetID = set_id
+    self.m_setID = set_id
+    self:init_runeTableView()
+
+    self:refreshRunesCount() -- 룬 개수 갱신
+    self:refresh_noti() -- 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
+end
+
+-------------------------------------
+-- function refresh_sortFilter
+-------------------------------------
+function UI_RuneForgeManageTab:refresh_runeOptionFilter()
+    local vars = self.vars
+
     self:init_runeTableView()
 
     self:refreshRunesCount() -- 룬 개수 갱신
@@ -740,9 +775,47 @@ end
 function UI_RuneForgeManageTab:getFilteredRuneList(slot_idx)
     local unequipped = false
     local slot = slot_idx
-    local set_id = self.m_listFilterSetID
+
+    local set_id = self.m_setID
+    local mopt = self.m_mopt
+    local sopt1 = self.m_sopt1
+    local sopt2 = self.m_sopt2
 
     -- 리스트가 아닌 map의 형태임을 주의하자
-    local l_rune_obj = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+    local l_rune_obj = g_runesData:getFilteredRuneList(unequipped, slot, set_id, mopt, sopt1, sopt2)
     return l_rune_obj
+end
+
+-------------------------------------
+-- function makeComboBox
+-------------------------------------
+function UI_RuneForgeManageTab:makeComboBox(key)
+    local vars = self.vars
+    local button = vars[key .. 'SortBtn']
+    local label = vars[key .. 'SortLabel']
+    local uic_sort_list = MakeUICSortListTD_runeOption(button, label)
+
+    button:registerScriptTapHandler(function()
+        uic_sort_list:toggleVisibility()
+
+        if (uic_sort_list.m_bShow) then
+            if ((self.m_openedComboBox) and (self.m_openedComboBox.m_bShow) and (self.m_openedComboBox ~= uic_sort_list)) then
+                self.m_openedComboBox:hide()
+            end
+            self.m_openedComboBox = uic_sort_list
+        end
+    end)
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        self['m_' .. key] = sort_type
+        self:refresh_runeOptionFilter()        
+    end
+
+	uic_sort_list:setSortChangeCB(sort_change_cb)
+
+
+    -- 최초 정렬 설정
+    uic_sort_list:setSelectSortType('all', true)
+
 end
