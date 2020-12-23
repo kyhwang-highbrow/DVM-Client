@@ -294,6 +294,11 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
         -- 캡슐 코인 패키지 상품 구매시 우편함 팝업 출력
         if (self.m_package_name == 'package_capsule_coin') then
             ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.GOODS)
+        
+        -- 룬 상자 패키지 상품 구매시 우편함 팝업 출력
+        elseif (self.m_package_name == 'package_rune_box') then
+            ItemObtainResult_ShowMailBox(ret, MAIL_SELECT_TYPE.RUNE_BOX)
+            
         else
             -- 아이템 획득 결과창
             ItemObtainResult_Shop(ret, show_all)
