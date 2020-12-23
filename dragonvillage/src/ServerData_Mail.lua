@@ -483,7 +483,7 @@ function ServerData_Mail:hasNewNotice()
     end
 
     --날짜값이 의미없는 값이면 공지 확인!
-    if tonumber(lastWatchedNoticeDate) < 0 then return true
+    if tonumber(lastWatchedNoticeDate) < 0 then return true end
 
     -- 더 작은 날짜로 저장되어 있으니 새 공지가 있음
     return tonumber(lastWatchedNoticeDate) < tonumber(t_notice.custom['start_date'])
