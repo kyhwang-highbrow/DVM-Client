@@ -774,6 +774,7 @@ local t_module = {
     'UIC_RichLabelCore',
     'UIC_TabManager',
     'UIC_SortList',
+    'UIC_SortListTD',
     'UIC_Factory',
     'UIC_IndivisualStats',
     'UIC_DragonAnimator',
