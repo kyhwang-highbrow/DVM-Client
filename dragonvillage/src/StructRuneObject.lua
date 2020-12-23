@@ -809,6 +809,35 @@ function StructRuneObject:getOptionMaxValue(opt_name) -- ex) atk_multi
 end
 
 -------------------------------------
+-- function hasMainOption
+-- @return true이면 해당 옵션을 주옵션으로 가지고 있음
+-------------------------------------
+function StructRuneObject:hasMainOption(opt_name) -- ex) atk_multi
+    local main_opt_name, main_opt_value = self:parseRuneOptionStr(self['mopt'])
+    return (main_opt_name == opt_name)
+end
+
+-------------------------------------
+-- function hasAuxiliaryOption
+-- @return true이면 해당 옵션을 보조옵션(부옵션 + 추가옵션)으로 가지고 있음
+-------------------------------------
+function StructRuneObject:hasAuxiliaryOption(opt_name) -- ex) atk_multi
+    local l_check_option_key = {'uopt', 'sopt_1', 'sopt_2', 'sopt_3', 'sopt_4'}
+    
+    for i, key in ipairs(l_check_option_key) do
+        if (self[key]) then
+            local sub_opt_name, sub_opt_value = self:parseRuneOptionStr(self[key]) 
+            if (sub_opt_name == opt_name) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+
+
+-------------------------------------
 -- function isGrindedOption
 -------------------------------------
 function StructRuneObject:isGrindedOption(opt_name)
