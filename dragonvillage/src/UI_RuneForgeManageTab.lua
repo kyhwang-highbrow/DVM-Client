@@ -495,6 +495,8 @@ function UI_RuneForgeManageTab:refresh_noti()
 		end
 		UIHelper:autoNoti(t_noti, self.m_tNotiSprite, '', vars)
 	end
+
+    self.m_ownerUI:refresh_highlight()
 end
 
 -------------------------------------

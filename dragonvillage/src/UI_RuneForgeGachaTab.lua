@@ -115,6 +115,7 @@ function UI_RuneForgeGachaTab:request_runeGacha()
     end
 
     local function close_cb()
+        self.m_ownerUI:refresh_highlight()
         self:refresh()
     end
 

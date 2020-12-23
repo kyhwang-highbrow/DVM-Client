@@ -119,11 +119,18 @@ end
 function UI_RuneForge:refresh_highlight()
     local vars = self.vars
 
-    -- local highlight, t_highlight = g_hatcheryData:checkHighlight()
-    -- vars['summonNotiSprite']:setVisible(t_highlight['summon'])
-    -- vars['incubateNotiSprite']:setVisible(t_highlight['incubate'])
-    -- vars['relationNotiSprite']:setVisible(t_highlight['relation'])
-    -- vars['combineNotiSprite']:setVisible(t_highlight['combine'])
+    -- vars['infoNotiSprite']:setVisible(false)
+    
+    -- 새로운 룬이 존재하는 경우
+    local b_manage_highlight = (g_highlightData:isHighlightRune())
+    vars['manageNotiSprite']:setVisible(b_manage_highlight)
+    
+    -- vars['combineNotiSprite']:setVisible(false)
+
+    -- 룬 상자를 소유하고 있는 경우
+    local rune_box_count = g_userData:get('rune_box') or 0
+    local b_gacha_highlight = (rune_box_count > 0)
+    vars['gachaNotiSprite']:setVisible(b_gacha_highlight)
 end
 
 -------------------------------------
