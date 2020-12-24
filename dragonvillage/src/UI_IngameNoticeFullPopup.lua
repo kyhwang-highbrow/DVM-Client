@@ -121,9 +121,11 @@ function UI_IngameNoticeFullPopup:initButton()
     local vars = self.vars
 
     local btnOk = vars['okBtn']
+    local labelOk = vars['okLabel']
     local btnReceive = vars['receiveBtn']
     local btnCommunity = vars['communityBtn']
     local rewardReceieved = self.m_data:isNoticeHasReward() or true -- 오류가 나도 보상수령 버튼은 노출 안함
+
 
     if btnClose then
         btnClose:registerScriptTapHandler(function() self:click_closeBtn() end)
@@ -131,6 +133,16 @@ function UI_IngameNoticeFullPopup:initButton()
 
     btnOk:setVisible(rewardReceieved)
     btnReceive:setVisible(not rewardReceieved)
+
+    local hasItem = self.m_data:hasItem() or false
+
+    if labelOk then
+        if hasItem then
+            labelOk:setString(Str('닫기'))
+        else
+            labelOk:setString(Str('확인'))
+        end
+    end
 
     if self.m_data then
         btnCommunity:registerScriptTapHandler(function() self:click_communityButton() end)
