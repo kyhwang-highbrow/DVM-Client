@@ -19,13 +19,14 @@ function UI_IngameNoticeFullPopup:init(t_notice)
     local vars = self:load('ingame_notice_popup.ui')
     local t_custom = t_notice.custom
     local noticeStartDate = t_custom['start_date']
+    --t_custom['items_list'] = '703038;1'
 
     self.m_data = t_notice
 
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_IngameNoticeFullPopup')
+    --g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_IngameNoticeFullPopup')
 
     self:initUI()
     self:initButton()
@@ -45,7 +46,7 @@ function UI_IngameNoticeFullPopup:initUI()
 
     -- data
     local title = Str('공지사항')
-    local text = '{@WHITE}follow us on : \n{@#sky_blue;url;https://www.facebook.com/DragonVillageM}[facebook]{@WHITE} \n {@WHITE}or {@#PINK;url;https://www.instagram.com/dragonvillage_m/}Instagram'
+    local text = '{@WHITE}follow us on : \n{@#sky_blue;url;https://www.facebook.com/DragonVillageM}[facebook]{@WHITE} \n {@WHITE}or \n{@#pink;url;https://www.instagram.com/dragonvillage_m/}Instagram'
     local t_custom = self.m_data.custom
 
 
@@ -89,9 +90,6 @@ function UI_IngameNoticeFullPopup:initUI()
     if self.m_noticeLabel then
         self.m_noticeLabel:setString(text)
     end
-
-    -- TODO 구현되면 주석하고 진짜 데이터 넣을것
-    t_custom['items_list'] = '703038;1'
 
     local rewardItemNode = vars['itemNode']
 
