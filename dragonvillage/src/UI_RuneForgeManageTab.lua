@@ -390,6 +390,37 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
         local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
         local dragon_card = UI_DragonCard(t_dragon_data)
         
+        -- 룬 UI 바뀐 것들 다시 그리기
+        local function popup_close_cb()
+            -- 다른 룬을 판매했을수도 있기 때문에 테이블뷰는 아예 다시 생성
+            self:init_runeTableView(slot_idx)
+
+             -- 선택된 룬 정보 refresh
+            local roid = t_rune_data['roid']
+            local t_new_rune_data = g_runesData:getRuneObject(roid)
+
+            -- 판매 등의 이유로 사라진 경우
+            if (t_new_rune_data == nil) then
+                local skip_clear_info = true
+                self:clearSelectedRune(skip_clear_info)
+            
+            -- 장착이나 강화 등 정보가 바뀌었을 수 있기 때문에 다시 그림
+            else
+                self:onChangeSelectedItem(ui, t_new_rune_data)
+            end
+
+	        self:refreshRunesCount() -- 룬 개수 갱신
+            self:refresh_noti() -- 룬 번호(슬롯) 별 new가 붙은 룬 수량 갱신
+        end
+
+        local function press_card_cb()
+            local popup = UI_SimpleDragonInfoPopup(t_dragon_data)
+            popup:setManagePossible(true)
+            popup:setRefreshFunc(function() popup_close_cb() end)
+        end
+
+        dragon_card.vars['clickBtn']:registerScriptPressHandler(function() press_card_cb() end)
+
         -- UI 반응 액션
         cca.uiReactionSlow(dragon_card.root)
 
