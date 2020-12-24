@@ -248,12 +248,12 @@ function StructRuneObject:makeEachRuneDescRichText(opt_type, target_level)
                 if new_option_str then
                     local curr_option, curr_stat = self:parseRuneOptionStr(self['mopt'])
                     local new_option, new_stat = self:parseRuneOptionStr(new_option_str)
-                    local new_stat_str = string.format('%d', (new_stat - curr_stat))
+                    local new_stat_str = string.format('+%d', new_stat)
                     if (not isExistValue(curr_option, 'atk_add', 'def_add', 'hp_add')) then
                         new_stat_str = new_stat_str .. '%'
                     end
 
-                    text = text .. ' {@&G}▲ {@&G;mopt}' .. new_stat_str
+                    text = text .. ' {@&G}▶ {@&G;mopt}' .. new_stat_str
                 end
             
             -- 보조 옵션이면서 오를 수도 있는 경우
@@ -328,22 +328,22 @@ function StructRuneObject:getAvailOptionValueStr(opt_type, target_level)
     local min_add_value = (self.grade <= 6) and (t_rune_opt[option .. '_1']['single_min']) or (t_rune_opt[option .. '_2']['single_min'])
     local max_add_value = (self.grade <= 6) and (t_rune_opt[option .. '_1']['single_max']) or (t_rune_opt[option .. '_2']['single_max'])
 
-    local min_value = 0
+    local min_value = value
     -- 더해질 수 있는 옵션이 1개라면 해당 옵션에만 add_option_count만큼 옵션이 더해진다고 가정할 때 가능한 최소 ~ 최대값
     if (option_count == 1) then
-        min_value = (min_add_value * add_option_count)
+        min_value = min_value + (min_add_value * add_option_count)
     end
 
     local stat_max_value = (self.grade <= 6) and (t_rune_opt[option .. '_1']['status_max']) or (t_rune_opt[option .. '_2']['status_max'])
-    local max_value = math_min((add_option_count * max_add_value), stat_max_value - value)
-    local min_max_str = string.format('%d~%d', min_value, max_value)
+    local max_value = math_min(value + (add_option_count * max_add_value), stat_max_value)
+    local min_max_str = string.format('+%d~%d', min_value, max_value)
     
     -- % 표기 추가
     if (not isExistValue(option, 'atk_add', 'def_add', 'hp_add')) then
         min_max_str = min_max_str .. '%'
     end
 
-    return ' {@&O;change}▲ '.. min_max_str
+    return ' {@&O;change}▶ '.. min_max_str
 end
 
 -------------------------------------
