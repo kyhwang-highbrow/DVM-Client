@@ -52,14 +52,14 @@ function UI_IngameNoticeFullPopup:initUI()
 
     -- 데이터를 받자.
     if self.m_data and t_custom then
-        local titleData = self:getStringByLanguage('popup_title')
+        --local titleData = self:getStringByLanguage('popup_title')
         local textData = self:getStringByLanguage('popup_msg')
 
         local haldang = t_custom['nodata']
 
-        if titleData and titleData ~= '' then
-            title = titleData
-        end
+        --if titleData and titleData ~= '' then
+        --    title = titleData
+        --end
 
         if textData and textData ~= '' then
             text = textData
