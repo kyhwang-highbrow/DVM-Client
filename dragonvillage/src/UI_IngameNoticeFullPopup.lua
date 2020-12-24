@@ -45,7 +45,7 @@ function UI_IngameNoticeFullPopup:initUI()
 
     -- data
     local title = Str('공지사항')
-    local text = '{@#GREEN;url;http://www.naver.com}네이버{@#BLUE;url;http://www.google.com}[구글]{@#DEEPSKYBLUE;url;www.daum.net}다움'
+    local text = '{@WHITE}follow us on : \n{@#sky_blue;url;https://www.facebook.com/DragonVillageM}[facebook]{@WHITE} \n {@WHITE}or {@#PINK;url;https://www.instagram.com/dragonvillage_m/}Instagram'
     local t_custom = self.m_data.custom
 
 
