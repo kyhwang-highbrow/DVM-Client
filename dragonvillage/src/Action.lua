@@ -148,6 +148,19 @@ function cca.repeatTintToMoreDark(duration, tar_r, tar_g, tar_b)
 end
 
 -------------------------------------
+-- function repeatTintToRuneOpt
+-- @brief 룬 강화 시 가능한 옵션 수치 반짝거리는 액션
+-------------------------------------
+function cca.repeatTintToRuneOpt(duration, tar_r, tar_g, tar_b)
+	return cc.RepeatForever:create(
+		cc.Sequence:create(
+			cc.TintTo:create(duration / 2, 255, 165, 0),
+			cc.TintTo:create(duration / 2, tar_r, tar_g, tar_b)
+		)
+	)
+end
+
+-------------------------------------
 -- function makeBasicEaseMove
 -------------------------------------
 function cca.makeBasicEaseMove(duration, x, y)

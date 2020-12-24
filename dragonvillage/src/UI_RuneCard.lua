@@ -208,7 +208,6 @@ end
 -------------------------------------
 function UI_RuneCard:refresh_grind()
 	local is_grind = (self.m_runeData:getGrindedOption() ~= nil)
-    cclog(is_grind)
 	self:setGrindSpriteVisible(is_grind)
 end
 

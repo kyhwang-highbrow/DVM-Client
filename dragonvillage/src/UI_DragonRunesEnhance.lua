@@ -285,6 +285,20 @@ function UI_DragonRunesEnhance:refresh_runeStat()
     end
     local target_level = (self.m_isBlessEnhance == true) and RUNE_LV_MAX or (rune_obj['lv'] + 1) 
     rune_obj:setOptionLabel(self.m_optionLabel, 'use', target_level) -- param : ui, label_format, target_level
+
+    -- 다음 강화에 대한 설명 (옵션 추가  or 주옵션 크게 증가)
+    local max_lv = RUNE_LV_MAX
+    local curr_lv = rune_obj['lv']
+    local target_lv = (self.m_isBlessEnhance == true) and RUNE_LV_MAX or (rune_obj['lv'] + 1) 
+
+    vars['bonusEffectLabel']:setVisible(((target_lv ~= max_lv) and (target_lv % 3 == 0)) or ((target_lv == max_lv) and (curr_lv < 12)))
+    if (vars['bonusEffectLabel']:isVisible()) then
+        local duration = 1
+        local tint_action = cca.repeatTintToRuneOpt(duration, 255, 104, 32)
+        vars['bonusEffectLabel'].m_node:runAction(tint_action)
+    end
+
+    vars['maxLvEffectLabel']:setVisible((target_level == max_lv) and (curr_lv >= 12))
 end
 
 -------------------------------------
@@ -306,9 +320,6 @@ function UI_DragonRunesEnhance:refresh_enhance()
     -- 다음 강화에 대한 설명 (옵션 추가  or 주옵션 크게 증가)
     local max_lv = RUNE_LV_MAX
     local curr_lv = rune_obj['lv']
-
-    vars['bonusEffectLabel']:setVisible((curr_lv ~= max_lv - 1) and (curr_lv % 3 == 2))
-    vars['maxLvEffectLabel']:setVisible((curr_lv == max_lv - 1))
 
     -- 소모 골드
     self:setEnhancePriceLabel()

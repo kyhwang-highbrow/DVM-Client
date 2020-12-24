@@ -242,9 +242,40 @@ function StructRuneObject:makeEachRuneDescRichText(opt_type, target_level)
         text = string.format('%s', text_)
 
         if (target_level ~= nil) then
-            local new_option_str = self:getNextLevelMopt(target_level)
-            if new_option_str then
-                text = text .. ' {@&O;mopt}▶ {@&G;mopt}' .. self:getRuneOptionDesc(new_option_str)
+            -- 주 옵션의 경우 오르는 능력치 확실
+            if (opt_type == 'mopt') then
+                local new_option_str = self:getNextLevelMopt(target_level)
+                if new_option_str then
+                    local curr_option, curr_stat = self:parseRuneOptionStr(self['mopt'])
+                    local new_option, new_stat = self:parseRuneOptionStr(new_option_str)
+                    local new_stat_str = string.format('+%d', (new_stat - curr_stat))
+                    if (not isExistValue(curr_option, 'atk_add', 'def_add', 'hp_add')) then
+                        new_stat_str = new_stat_str .. '%'
+                    end
+
+                    text = text .. ' {@&G;mopt}' .. new_stat_str
+                end
+            
+            -- 보조 옵션이면서 오를 수도 있는 경우
+            elseif (target_level % 3 == 0) and (self.lv < 12) and (not self:isMaxOption(opt_type)) then
+                local create_opt_num = math_min(4, target_level / 3)
+                if ((target_level ~= 15) and (self['sopt_' .. tostring(create_opt_num)]) ~= '') or (target_level == 15) then
+                    local avail_option_value_str = self:getAvailOptionValueStr(opt_type, target_level)
+                    text = text .. avail_option_value_str
+                end
+            end
+        end
+    
+    -- 옵션이 없지만, 옵션이 생길수도 있는 경우
+    else
+        if (target_level ~= nil) and (target_level % 3 == 0) then
+            local create_opt_num = target_level / 3
+            
+            if (string.find(opt_type, 'sopt')) then
+                local opt_num = tonumber(plSplit(opt_type, '_')[2])
+                if (opt_num <= create_opt_num) then
+                    text = '{@&O;change}' .. Str('추가 옵션')
+                end
             end
         end
     end
@@ -252,6 +283,68 @@ function StructRuneObject:makeEachRuneDescRichText(opt_type, target_level)
     return text or ''
 end
 
+-------------------------------------
+-- function makeEachRuneDescRichText
+-- @brief 강화로 인해 획득할 수 있는 룬 스텟 범위 텍스트 반환
+-- @param target_level : 다음 강화 레벨, 3으로 나뉘어떨어지는 수가 들어옴
+-------------------------------------
+function StructRuneObject:getAvailOptionValueStr(opt_type, target_level)
+    local cur_lv = self['lv'] - (self['lv'] % 3)
+    
+    -- 옵션에 변화가 있는 최대값인 12
+    local target_level = math_min(12, target_level)
+    -- 체크 시작할 옵션 인덱스
+    local cur_opt_num = math_min(4, (cur_lv / 3) + 1)
+    -- 옵션이 생성될 수 있는 옵션 인덱스
+    local change_opt_num = math_min(4, (target_level / 3))
+    
+    -- 옵션 수치가 변화될 횟수
+    local add_option_count = 0
+    for i = cur_opt_num, change_opt_num do
+        -- 이미 해당 옵션이 존재한다면 옵션이 생길 필요 없이 기존 옵션에 수치가 더해지면 된다.
+        if (self['sopt_' .. i] ~= '') then
+            add_option_count = add_option_count + 1
+        end
+    end
+
+    -- 옵션 수치가 더해지는 경우가 없는 경우
+    if (add_option_count == 0) then
+        return ''
+    end
+
+    local table_opt = TableOption()
+    local t_rune_opt = TABLE:get('table_rune_opt_status')
+
+    -- 현재 변화가 생길 수 있는 옵션 갯수
+    local option_count = ((self['uopt'] ~= '') and (not self:isMaxOption('uopt'))) and 1 or 0
+    for i = 1, 4 do
+        if (self['sopt_' .. i] ~= '') and (not self:isMaxOption('sopt_' .. i)) then
+            option_count = option_count + 1
+        end
+    end
+    
+    local option, value = self:parseRuneOptionStr(self[opt_type])
+
+    local min_add_value = (self.grade <= 6) and (t_rune_opt[option .. '_1']['single_min']) or (t_rune_opt[option .. '_2']['single_min'])
+    local max_add_value = (self.grade <= 6) and (t_rune_opt[option .. '_1']['single_max']) or (t_rune_opt[option .. '_2']['single_max'])
+
+    local min_value = 0
+    -- 더해질 수 있는 옵션이 1개라면 해당 옵션에만 add_option_count만큼 옵션이 더해진다고 가정할 때 가능한 최소 ~ 최대값
+    if (option_count == 1) then
+        min_value = (min_add_value * add_option_count)
+    end
+
+    local stat_max_value = (self.grade <= 6) and (t_rune_opt[option .. '_1']['status_max']) or (t_rune_opt[option .. '_2']['status_max'])
+    local max_value = math_min((add_option_count * max_add_value), stat_max_value - value)
+    local min_max_str = string.format('+%d~%d', min_value, max_value)
+    
+    -- % 표기 추가
+    if (not isExistValue(option, 'atk_add', 'def_add', 'hp_add')) then
+        min_max_str = min_max_str .. '%'
+    end
+
+    return ' {@&O;change}'.. min_max_str
+end
 
 -------------------------------------
 -- function makeRuneSetDescRichText
@@ -666,14 +759,9 @@ function StructRuneObject:setOptionLabel(ui, label_format, target_level)
         local option_label_node = string.format("%s_%sNode", v, label_format)
         
         -- target_level가 입력되었다면 주옵션만 ex) 공격력 +4% -> 공격력 +5% 표시
-        local desc_str
-        if (i == 1) then
-            desc_str = self:makeEachRuneDescRichText(v, target_level)
-        else
-            desc_str = self:makeEachRuneDescRichText(v, nil)
-        end
+        local desc_str = self:makeEachRuneDescRichText(v, target_level)
         
-        local is_max = self:isMaxOption(v, desc_str) and (self.grade <= 6)
+        local is_max = self:isMaxOption(v) and (self.grade <= 6)
 
         -- 추가옵션은 max, 연마 표시
         if (i > 2) then
@@ -704,6 +792,14 @@ function StructRuneObject:setOptionLabel(ui, label_format, target_level)
         else
             vars[option_label_node]:setVisible(true)
             vars[option_label]:setString(desc_str)
+            
+            -- 다음 강화에 수치가 증가할 확률이 있는 옵션의 경우
+            local l_change_list = vars[option_label]:findContentNodeWithkey('change')
+            for _, v in ipairs(l_change_list) do
+                local duration = 1
+                local tint_action = cca.repeatTintToRuneOpt(duration, 255, 104, 32)
+                v:runAction(tint_action)
+            end
         end
     end
 end
