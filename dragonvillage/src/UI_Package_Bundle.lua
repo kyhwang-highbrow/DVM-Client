@@ -90,6 +90,21 @@ function UI_Package_Bundle:initButton()
 		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 	end
 
+    -- 바로 가기
+    if (vars['quickBtn']) then
+        
+        -- 팝업일 땐 숨긴다.
+        if (self.m_isPopup == true) then
+            vars['quickBtn']:setVisible(false)
+        
+        else
+            vars['quickBtn']:setVisible(true)
+            vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
+
+            cca.pickMePickMe(vars['quickBtn'], 10)
+        end
+    end
+
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -342,6 +357,16 @@ function UI_Package_Bundle:click_rewardBtn()
             end
         end
         g_shopDataNew:request_randomBoxInfo(finish_cb)
+    end
+end
+
+-------------------------------------
+-- function click_quickBtn
+-- @brief 바로 가기 버튼을 누른 경우 
+-------------------------------------
+function UI_Package_Bundle:click_quickBtn()
+    if (self.m_package_name == 'package_rune_box') then
+        UINavigator:goTo('rune_forge', 'gacha')
     end
 end
 

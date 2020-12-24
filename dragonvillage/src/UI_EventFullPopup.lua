@@ -139,12 +139,15 @@ function UI_EventFullPopup:initUI()
                 ui.vars['closeBtn']:setEnabled(true)
                 ui.vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
                 vars['closeBtn']:setVisible(false)
-            end
 
             -- 절전알 패키지 구글 피처드 수정
-            if (popup_key == 'package_absolute') then
+            elseif (popup_key == 'package_absolute') then
                 -- @kwkang 20-12-14 새해맞이로 패키지 재판매하여 하단 주석처리
                 -- self:changeTitleSprite(ui.vars)
+
+            -- 룬상자 패키지의 경우 풀팝업에서는 룬 뽑기 탭으로 바로 가는 버튼을 끔
+            elseif (popup_key == 'package_rune_box') and (ui.vars['quickBtn'] ~= nil) then
+                ui.vars['quickBtn']:setVisible(false)
             end
         end
 
