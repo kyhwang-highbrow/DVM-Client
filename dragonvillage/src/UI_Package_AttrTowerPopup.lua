@@ -27,9 +27,7 @@ function UI_Package_AttrTowerPopup:init(is_popup)
     self:refresh()
 
     -- 남은 시간 이미지 텍스트로 보여줌
-    --self:setLimit()
-    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-    vars['limitMenu']:setVisible(false)
+    self:setLimit()
 end
 
 -------------------------------------
@@ -48,7 +46,8 @@ end
 -------------------------------------
 function UI_Package_AttrTowerPopup:setLimit()
     local vars = self.vars
-    local product_id_list = g_attrTowerPackageData:getProductIdList('fire')
+    -- 아무 속성이나 하나 골라서 계산 (모든 속성이 동일하게 끝날 것이라는 가정)
+    local product_id_list = g_attrTowerPackageData:getProductIdList('earth')
     if (table.count(product_id_list) == 0) then 
         vars['limitMenu']:setVisible(false)
         vars['limitNode']:setVisible(false)    
@@ -64,17 +63,16 @@ function UI_Package_AttrTowerPopup:setLimit()
     elseif (vars['timeNode'] == nil) then
         return
     end
-    
-    local is_limit
+
+    local is_limit = false
     local remain_time
 
     if (vars['limitNode']) then
         remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경 
         local day = math.floor(remain_time / 86400000)
+        -- 판매 기간이 조금 남은 경우
         if (day < 2) then
             is_limit = true
-        else
-            is_limit = false
         end
     end
 
@@ -94,6 +92,8 @@ function UI_Package_AttrTowerPopup:setLimit()
         remain_time_label:setAdditionalKerning(0)
         vars['remainLabel'] = remain_time_label
         vars['timeNode']:addChild(remain_time_label)
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
     else
         vars['limitMenu']:setVisible(false)
         vars['limitNode']:setVisible(false)    
@@ -176,7 +176,7 @@ function UI_Package_AttrTowerPopup:update(dt)
         return
     end
 
-    local product_id_list = g_attrTowerPackageData:getProductIdList('fire')
+    local product_id_list = g_attrTowerPackageData:getProductIdList('earth')
     if (table.count(product_id_list) == 0) then 
         vars['limitMenu']:setVisible(false)
         vars['limitNode']:setVisible(false)    

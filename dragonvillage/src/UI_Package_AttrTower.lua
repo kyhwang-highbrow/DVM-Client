@@ -37,10 +37,7 @@ function UI_Package_AttrTower:init(bundle_ui, product_id)
         self:refresh()
 
         -- 상품 판매 남은 시간에 따라 시간 표시
-        --self:setLimit()
-        --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-        vars['limitMenu']:setVisible(false)
-
+        self:setLimit()
     end
 
     if (attr ~= g_attrTowerData:getSelAttr()) then
@@ -68,8 +65,6 @@ function UI_Package_AttrTower:initUI()
 
     -- 상품 합산 계산해서 텍스트 출력하기
     self:initItemText()
-
-    
 end
 
 -------------------------------------
@@ -89,17 +84,17 @@ function UI_Package_AttrTower:setLimit()
         return
     end
     
-    local is_limit
+    local is_limit = false
     local remain_time
 
     -- 현재 판매중인 경우에만 time limit 보여주기
     if (vars['limitNode']) and (struct_product ~= nil) then
-        remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변겨 
+        remain_time = struct_product:getTimeRemainingForEndOfSale() * 1000 -- milliseconds로 변경
         local day = math.floor(remain_time / 86400000)
-        if (day < 2) then
+        local can_buy = struct_product:isItBuyable()
+        -- 구매 횟수가 남아있고, 판매 기간이 조금 남은 경우
+        if (day < 2) and (can_buy) then
             is_limit = true
-        else
-            is_limit = false
         end
     end
 
@@ -119,6 +114,9 @@ function UI_Package_AttrTower:setLimit()
         remain_time_label:setAdditionalKerning(0)
         vars['remainLabel'] = remain_time_label
         vars['timeNode']:addChild(remain_time_label)
+
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+
     else
         vars['limitMenu']:setVisible(false)
         vars['limitNode']:setVisible(false)    
