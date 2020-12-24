@@ -74,7 +74,7 @@ function UI_IngameNoticeFullPopup:initUI()
 	rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
     rich_label:setDefualtColor(COLOR['white'])
     rich_label.m_root:setSwallowTouch(false)
-    rich_label.m_lineHeight = 2
+    rich_label.m_lineHeight = 1.8
 
 	-- scroll label  생성
 	self.m_noticeLabel = UIC_ScrollLabel:create(rich_label)
@@ -146,11 +146,9 @@ function UI_IngameNoticeFullPopup:initButton()
         end
     end
 
-    if self.m_data then
-        btnCommunity:registerScriptTapHandler(function() self:click_communityButton() end)
-        btnReceive:registerScriptTapHandler(function() self:click_receiveButton() end)
-        btnOk:registerScriptTapHandler(function() self:click_closeBtn() end)
-    end
+    btnCommunity:registerScriptTapHandler(function() self:click_communityButton() end)
+    btnReceive:registerScriptTapHandler(function() self:click_receiveButton() end)
+    btnOk:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -189,6 +187,8 @@ function UI_IngameNoticeFullPopup:click_closeBtn()
         end 
     end
     
+    self.m_data:readNotice(nil, false)
+
     self:close()
 end
 
