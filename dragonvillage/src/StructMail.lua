@@ -505,17 +505,22 @@ function StructMail:readNotice(cb_func, isShowPopup)
             local l_item = ret['added_items'] or {}
             l_item = l_item['items_list']
 
+            -- 보상 팝업이 떠야 할 때
+            -- 외부콜백을 받아서 보상팝업이 닫혀야
+            -- 그 다음으로 넘어가는게 필요할 떄가 있다.
+            -- ex. UI_IngameNoticeFullPopup
             local callback = nil
-
-            -- 외부콜백을 공지확인 창 닫힐 때 호출하기 위하여 위치 이동
             if (cb_func) then
-                callback = cb_func()
+                callback = cb_func
             end
 
             -- 보상 있으면 보상 팝업
-            -- 보상 팝업이 앞에 떠야한다.
             if (l_item) and (table.count(l_item) > 0) then
                 UI_ObtainPopup(l_item, Str('공지는 꼭 확인하라골!'), callback)
+            else
+                -- 그러면 안되겠지만
+                -- 보상이 없는데 들어왔을 때
+                if callback then callback() end
             end
         end
     
