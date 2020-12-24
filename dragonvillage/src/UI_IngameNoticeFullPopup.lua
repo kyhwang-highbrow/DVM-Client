@@ -91,25 +91,30 @@ function UI_IngameNoticeFullPopup:initUI()
         self.m_noticeLabel:setString(text)
     end
 
+    local hasReward = self.m_data:isNoticeHasReward()
+
+    -- 보상이 있으면 아예 아래 로직 실행하지 말자
+    if not hasReward then return end
+
     local rewardItemNode = vars['itemNode']
 
     -- 아이템 데이터가 담겨져 있으면 아이템 노드가 있는지 보고
-    if (t_custom['items_list'] and rewardItemNode) then
+    if (self.m_data:hasItem() and rewardItemNode) then
+        local l_item_list = self.m_data:getItemList()
+        ccdump(rewardData)
 
         -- 아이콘을 그려주는 작업을 하자.
-        local l_reward = g_itemData:parsePackageItemStr(t_custom['items_list'])
-        cclog(l_reward)
-        for i = 1, #l_reward do
-            local item_id = l_reward[i]['item_id']
-            local cnt = l_reward[i]['count']
+        for i,v in ipairs(l_item_list) do
+            local item_id = v['item_id']
+            local count = v['count']
         
-            local item_card = UI_ItemCard(item_id, cnt)
+            local item_card = UI_ItemCard(item_id, count)
             item_card.root:setScale(0.8)
 
             rewardItemNode:addChild(item_card.root)
         end
-        
     end
+
 end
 
 -------------------------------------
@@ -122,15 +127,15 @@ function UI_IngameNoticeFullPopup:initButton()
     local labelOk = vars['okLabel']
     local btnReceive = vars['receiveBtn']
     local btnCommunity = vars['communityBtn']
-    local rewardReceieved = self.m_data:isNoticeHasReward() or true -- 오류가 나도 보상수령 버튼은 노출 안함
+    local hasReward = self.m_data:isNoticeHasReward()
 
 
     if btnClose then
         btnClose:registerScriptTapHandler(function() self:click_closeBtn() end)
     end
 
-    btnOk:setVisible(rewardReceieved)
-    btnReceive:setVisible(not rewardReceieved)
+    btnOk:setVisible(not hasReward)
+    btnReceive:setVisible(hasReward)
 
     local hasItem = self.m_data:hasItem() or false
 
@@ -192,9 +197,8 @@ end
 -- function click_receiveButton
 -------------------------------------
 function UI_IngameNoticeFullPopup:click_receiveButton()
-    self.m_data:readNotice()
     
-    self:click_closeBtn()
+    self.m_data:readNotice(function() self:click_closeBtn() end, false)
 end
 
 -------------------------------------

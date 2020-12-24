@@ -286,7 +286,9 @@ function UI_MailPopup:check_readType(struct_mail, success_cb)
         
 	-- 공지
     elseif (struct_mail:isNotice()) then
-		struct_mail:readNotice(success_cb)
+        -- callback 뒤 flag는 공지 팝업을 띄울지 판단한다
+        -- 공동로직을 파괴 안하고 메일에서 보상형 공지를 보기 위함
+        struct_mail:readNotice(success_cb, true)
 		
     -- 나머지
     else

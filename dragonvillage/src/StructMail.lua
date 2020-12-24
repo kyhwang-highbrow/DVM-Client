@@ -474,9 +474,15 @@ end
 -- function readNotice
 -- @brief 공지 읽기
 -------------------------------------
-function StructMail:readNotice(cb_func)
+function StructMail:readNotice(cb_func, isShowPopup)
+    local isPopupShow = isShowPopup
+
+    -- 팝업만 띄우고 보상은 팝업에서.
+    if isPopupShow then
+        UI_IngameNoticeFullPopup(self)
+        return
+    end
     
-    local ui = UI_IngameNoticeFullPopup(self)
     -- 공지 띄우기
     --local article_id = self:getNoticeArticleID()
     --if (article_id) then

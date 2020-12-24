@@ -119,8 +119,10 @@ end
 function UI_MailListItem:setRewardNotice()
     self.vars['rewardBtn']:setVisible(false)
     self.vars['openBtn']:setVisible(true)
+    -- 무조건 공지팝업을 오픈
+    -- readNotice 함수의 두번쨰 파라미터가 팝업을 열지 보상요청을 할지 결정
     self.vars['openBtn']:registerScriptTapHandler(function()
-        self.m_mailData:readNotice(function() self:refreshNotice() end)
+        self.m_mailData:readNotice(function() self:refreshNotice() end, true)
     end)
 
     self:makeMailItemIcons(self.m_mailData)
@@ -132,8 +134,10 @@ end
 function UI_MailListItem:setReceivedNotice()
     self.vars['rewardBtn']:setVisible(false)
     self.vars['openBtn']:setVisible(true)
+    -- 무조건 공지팝업을 오픈
+    -- readNotice 함수의 두번쨰 파라미터가 팝업을 열지 보상요청을 할지 결정
     self.vars['openBtn']:registerScriptTapHandler(function()
-        self.m_mailData:readNotice(function() self:refreshNotice() end)
+        self.m_mailData:readNotice(function() self:refreshNotice() end, true)
     end)
 
     local icon = IconHelper:getIcon('res/ui/icons/item/dvm.png')
