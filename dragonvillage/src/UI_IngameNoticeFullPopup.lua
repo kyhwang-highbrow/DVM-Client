@@ -188,12 +188,13 @@ function UI_IngameNoticeFullPopup:click_receiveButton()
 end
 
 -------------------------------------
--- function click_community
+-- function click_communityButton
 -------------------------------------
 function UI_IngameNoticeFullPopup:click_communityButton()
     local lang = Translate:getGameLang() or 'ko'
     
-    -- 해당 값들을 당장은 
+    -- TODO
+    -- 링크를 저장할 곳을 찾아서 보금자리를 마련해주자
     if lang == 'ko' then
         SDKManager:goToWeb(NaverCafeManager:naverCafeStartWithArticle(nil))
     else
