@@ -74,7 +74,7 @@ function UI_IngameNoticeFullPopup:initUI()
 	rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
     rich_label:setDefualtColor(COLOR['white'])
     rich_label.m_root:setSwallowTouch(false)
-    rich_label.m_lineHeight = 1.8
+    rich_label.m_lineHeight = 1.4
 
 	-- scroll label  생성
 	self.m_noticeLabel = UIC_ScrollLabel:create(rich_label)
