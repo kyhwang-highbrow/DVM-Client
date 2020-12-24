@@ -504,12 +504,18 @@ function StructMail:readNotice(cb_func, isShowPopup)
         local function finish_cb(ret)
             local l_item = ret['added_items'] or {}
             l_item = l_item['items_list']
-            -- 보상 있으면 보상 팝업
-            if (l_item) and (table.count(l_item) > 0) then
-                UI_ObtainPopup(l_item, Str('공지는 꼭 확인하라골!'), nil)
-            end
+
+            local callback = nil
+
+            -- 외부콜백을 공지확인 창 닫힐 때 호출하기 위하여 위치 이동
             if (cb_func) then
-                cb_func()
+                callback = cb_func()
+            end
+
+            -- 보상 있으면 보상 팝업
+            -- 보상 팝업이 앞에 떠야한다.
+            if (l_item) and (table.count(l_item) > 0) then
+                UI_ObtainPopup(l_item, Str('공지는 꼭 확인하라골!'), callback)
             end
         end
     

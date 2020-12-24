@@ -101,7 +101,6 @@ function UI_IngameNoticeFullPopup:initUI()
     -- 아이템 데이터가 담겨져 있으면 아이템 노드가 있는지 보고
     if (self.m_data:hasItem() and rewardItemNode) then
         local l_item_list = self.m_data:getItemList()
-        ccdump(rewardData)
 
         -- 아이콘을 그려주는 작업을 하자.
         for i,v in ipairs(l_item_list) do
@@ -197,7 +196,6 @@ end
 -- function click_receiveButton
 -------------------------------------
 function UI_IngameNoticeFullPopup:click_receiveButton()
-    
     self.m_data:readNotice(function() self:click_closeBtn() end, false)
 end
 
