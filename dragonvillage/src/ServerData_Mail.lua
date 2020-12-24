@@ -196,12 +196,14 @@ function ServerData_Mail:makeMailMap(l_mail_list)
         elseif (mail_type == 'notice') then
             category = 'notice'
 
+            -- 2020-12-24 
+            -- 이제부터 게시글은 공지팝업에서 해결한다.
             -- 게시글이 연동되지 않은 공지는 올리지 않는다
-            if t_mail['custom'] then
-                if (StructMail.getNoticeArticleID(t_mail) == nil) then
-                    is_mail = false
+            if t_mail['custom'] == nil then
+                --if (StructMail.getNoticeArticleID(t_mail) == nil) then
+                --    is_mail = false
                     self.m_excludedNoticeCnt = (self.m_excludedNoticeCnt + 1)
-                end
+                --end
             end
 
 		-- 아이템에 따라 분류한다.
