@@ -4,6 +4,9 @@ local PARENT = UIC_Node
 -------------------------------------
 UIC_ScrollLabel = class(PARENT, {
         m_richLabel = 'UIC_RichLabel',
+
+        m_offsetMinY = 'number',
+        m_offsetMaxY = 'number',
     })
 
 -------------------------------------
@@ -38,7 +41,6 @@ function UIC_ScrollLabel:create(rich_label)
 
         -- 상-하 스크롤 사용
         scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-
         scroll_label.m_node = scroll_view
 
         do  -- 컨테이너 비주얼로 보이게
@@ -80,6 +82,54 @@ function UIC_ScrollLabel:setString(str)
 
     -- container위치 조정
     local min_container_offset = scroll_view:minContainerOffset()
+    local max_container_offset = scroll_view:maxContainerOffset()
+
     local animated = false
     scroll_view:setContentOffset(min_container_offset, animated)
+
+    -- 스크롤의 최상단인지 최하단인지 판단을 할 때 사용된다.
+    -- 가변적인 리스트는 이걸 무조건 믿는것보다 그떄그떄 get 하는 함수를 만들어야 한다.
+    self.m_offsetMinY = min_container_offset['y']
+    self.m_offsetMaxY = max_container_offset['y']
+
+end
+
+-------------------------------------
+-- function getScrollOffset
+-------------------------------------
+function UIC_ScrollLabel:getScrollOffset()
+    -- 스크롤 뷰의 정보를 얻어옴
+    local scroll_view = self.m_node
+
+    return scroll_view:getContentOffset()
+end
+
+-------------------------------------
+-- function isTopPosition
+-------------------------------------
+function UIC_ScrollLabel:isTopPosition()
+    -- 스크롤 뷰의 정보를 얻어옴
+    local scroll_view = self.m_node
+
+    -- 현 오프셋이 최소 오프셋보다 작으면 최상단으로 간것
+    local curOffset = scroll_view:getContentOffset()
+    local curPosY = curOffset['y']
+    local isTopPosition = curPosY <= self.m_offsetMinY
+
+    return isTopPosition
+end
+
+-------------------------------------
+-- function isBottomPosition
+-------------------------------------
+function UIC_ScrollLabel:isBottomPosition()
+    -- 스크롤 뷰의 정보를 얻어옴
+    local scroll_view = self.m_node
+
+    -- 현 오프셋이 0보다 크면 밑바닥을 간것
+    local curOffset = scroll_view:getContentOffset()
+    local curPosY = curOffset['y']
+    local isBottomPosition = curPosY >= self.m_offsetMaxY
+
+    return isBottomPosition
 end
