@@ -796,8 +796,9 @@ function StructRuneObject:setOptionLabel(ui, label_format, target_level)
             -- 다음 강화에 수치가 증가할 확률이 있는 옵션의 경우
             local l_change_list = vars[option_label]:findContentNodeWithkey('change')
             for _, v in ipairs(l_change_list) do
-                local duration = 1
-                local tint_action = cca.repeatTintToRuneOpt(duration, 255, 104, 32)
+                local duration = 1.5
+                -- local tint_action = cca.repeatTintToRuneOpt(duration, 255, 104, 32)
+                local tint_action = cca.repeatFadeInOutRuneOpt(duration)
                 v:runAction(tint_action)
             end
         end

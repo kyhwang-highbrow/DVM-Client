@@ -161,6 +161,21 @@ function cca.repeatTintToRuneOpt(duration, tar_r, tar_g, tar_b)
 end
 
 -------------------------------------
+-- function repeatFadeInOutRuneOpt
+-- @brief 룬 강화 시 가능한 옵션 수치 fade in fade out 액션
+-------------------------------------
+function cca.repeatFadeInOutRuneOpt(duration)
+	return cc.RepeatForever:create(
+		cc.EaseInOut:create(
+            cc.Sequence:create(
+			    cc.FadeOut:create(duration / 2),
+			    cc.FadeIn:create(duration / 2)
+		    )
+        , 1.4)
+	)
+end
+
+-------------------------------------
 -- function makeBasicEaseMove
 -------------------------------------
 function cca.makeBasicEaseMove(duration, x, y)

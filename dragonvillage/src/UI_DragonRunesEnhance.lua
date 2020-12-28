@@ -291,10 +291,12 @@ function UI_DragonRunesEnhance:refresh_runeStat()
     local curr_lv = rune_obj['lv']
     local target_lv = (self.m_isBlessEnhance == true) and RUNE_LV_MAX or (rune_obj['lv'] + 1) 
 
+    -- 보조 옵션에 변화가 생길 가능성이 있다면
     vars['bonusEffectLabel']:setVisible(((target_lv ~= max_lv) and (target_lv % 3 == 0)) or ((target_lv == max_lv) and (curr_lv < 12)))
     if (vars['bonusEffectLabel']:isVisible()) then
-        local duration = 1
-        local tint_action = cca.repeatTintToRuneOpt(duration, 255, 104, 32)
+        local duration = 1.5
+        --local tint_action = cca.repeatTintToRuneOpt(duration, 255, 104, 32)
+        local tint_action = cca.repeatFadeInOutRuneOpt(duration, 255, 104, 32)
         vars['bonusEffectLabel'].m_node:runAction(tint_action)
     end
 
