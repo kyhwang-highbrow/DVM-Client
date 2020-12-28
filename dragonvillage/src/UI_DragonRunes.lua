@@ -695,6 +695,10 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
         cca.uiReactionSlow(dragon_card.root)
 
         vars['selectDragonNode']:addChild(dragon_card.root)        
+        vars['sellBtn']:setVisible(false)
+    
+    else
+        vars['sellBtn']:setVisible(true)
     end
 end
 
