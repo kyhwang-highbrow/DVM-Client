@@ -248,7 +248,7 @@ function StructRuneObject:makeEachRuneDescRichText(opt_type, target_level)
                 if new_option_str then
                     local curr_option, curr_stat = self:parseRuneOptionStr(self['mopt'])
                     local new_option, new_stat = self:parseRuneOptionStr(new_option_str)
-                    local new_stat_str = string.format('+%d', new_stat)
+                    local new_stat_str = '+' .. comma_value(new_stat)
                     if (not isExistValue(curr_option, 'atk_add', 'def_add', 'hp_add')) then
                         new_stat_str = new_stat_str .. '%'
                     end
@@ -336,7 +336,7 @@ function StructRuneObject:getAvailOptionValueStr(opt_type, target_level)
 
     local stat_max_value = (self.grade <= 6) and (t_rune_opt[option .. '_1']['status_max']) or (t_rune_opt[option .. '_2']['status_max'])
     local max_value = math_min(value + (add_option_count * max_add_value), stat_max_value)
-    local min_max_str = string.format('+%d~%d', min_value, max_value)
+    local min_max_str = '+' .. comma_value(min_value) .. '~' .. comma_value(max_value)
     
     -- % 표기 추가
     if (not isExistValue(option, 'atk_add', 'def_add', 'hp_add')) then
@@ -796,7 +796,7 @@ function StructRuneObject:setOptionLabel(ui, label_format, target_level)
             -- 다음 강화에 수치가 증가할 확률이 있는 옵션의 경우
             local l_change_list = vars[option_label]:findContentNodeWithkey('change')
             for _, v in ipairs(l_change_list) do
-                local duration = 1.5
+                local duration = 1.8
                 -- local tint_action = cca.repeatTintToRuneOpt(duration, 255, 104, 32)
                 local tint_action = cca.repeatFadeInOutRuneOpt(duration)
                 v:runAction(tint_action)
