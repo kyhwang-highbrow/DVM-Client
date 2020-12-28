@@ -478,22 +478,22 @@ end
 -------------------------------------
 function ServerData_Mail:hasNewNotice()
     local t_notice = self:getNewNoticeData()
-    local lastWatchedNoticeDate = -1
+    local savedNoticeKey = -1
 
     -- 아예 공지가 없으면 노출 안하도록 하고 리턴
     if not t_notice then return false end
 
     -- 찾아온 공지가 있으면?
     -- 일단 본적 있는지 판단
-    if t_notice and t_notice ~= '' then
-        lastWatchedNoticeDate = g_settingData:get('lobby_ingame_notice') or -1
+    if t_notice ~= '' then
+        savedNoticeKey = g_settingData:get('lobby_ingame_notice', t_notice.custom['key']) or -1
     end
 
     --날짜값이 의미없는 값이면 공지 확인!
-    if tonumber(lastWatchedNoticeDate) < 0 then return true end
+    if tonumber(savedNoticeKey) < 0 then return true end
 
     -- 더 작은 날짜로 저장되어 있으니 새 공지가 있음
-    return tonumber(lastWatchedNoticeDate) < tonumber(t_notice.custom['start_date'])
+    return tonumber(savedNoticeKey) < tonumber(t_notice.custom['key'])
 end
 
 -------------------------------------
@@ -502,7 +502,7 @@ end
 -------------------------------------
 function ServerData_Mail:getNewNoticeData()
     local noticeMailList = self:getMailList('notice')
-    local recentNoticeStartDate = -1
+    local savedKey = -1
     local item = ''
 
     -- 메일리스트에 공지가 하나라도 있다.
@@ -510,11 +510,22 @@ function ServerData_Mail:getNewNoticeData()
         -- 가장 최근 공지를 찾아낸다.
         -- 최신 공지를 찾아낸다
         for i, noticeMail in pairs(noticeMailList) do
-            local startDate = noticeMail.custom['start_date'] or -1
+            -- 키값은 YYYYmmDDhhMMss 형태를 가지고 있음
+            -- 큰값이 가장 최근 등록된 팝업임
+            local key = noticeMail.custom['key'] or -1
+            local popupEndTime = noticeMail.custom['popup_at']
+            local currentTime = socket.gettime()
 
-            if  startDate > recentNoticeStartDate then
-                item = noticeMail
-                recentNoticeStartDate = startDate
+            -- 키값이 큰 숫자이고 
+            -- 팝업 종료시간이 현재 시간보다 크다면
+            if (tonumber(key) > tonumber(savedKey) and tonumber(popupEndTime) > tonumber(currentTime) )then
+                -- 만약에 저장이 안되어 있는 키라면?
+                -- 압봤다는 증거다
+                local localKey = g_settingData:get('lobby_ingame_notice', key) or -1
+                if (localKey == -1) then
+                    item = noticeMail
+                    savedKey = key
+                end
             end
         end
     end

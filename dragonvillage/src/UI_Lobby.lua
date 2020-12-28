@@ -258,6 +258,10 @@ function UI_Lobby:entryCoroutine()
                 local function show_notice_callback() 
                     co:work()
                     local t_notice = g_mailData:getNewNoticeData()
+
+                    -- 없으면 null이나 Empty string으로 들어온다
+                    if not t_notice or t_notice =='' then return end
+
                     local ui = UI_IngameNoticeFullPopup(t_notice)
                     ui:setCloseCB(co.NEXT)
                     if co:waitWork() then return end

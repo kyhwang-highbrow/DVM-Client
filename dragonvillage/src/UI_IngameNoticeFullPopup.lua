@@ -173,14 +173,18 @@ end
 function UI_IngameNoticeFullPopup:click_closeBtn()
     local t_custom = self.m_data.custom
     
-    if t_custom and t_custom['start_date'] then 
+    if t_custom and t_custom['key'] then 
+        local key = t_custom['key']
+        
         -- 매번 저장하면 안되니 저장된 데이터가 있는지 확인한다.
-        local lastWatchedNoticeDate = g_settingData:get('lobby_ingame_notice') or -1
-        local isNewer = t_custom['start_date'] > lastWatchedNoticeDate
+        -- 키는 최근 등록한것일 수록 더 큰 값을 가진다.
+        -- yyyyMMddHHmmSS
+        local savedKey = g_settingData:get('lobby_ingame_notice', key) or -1
+        local isNewer = tonumber(key) > tonumber(savedKey)
 
         -- 더 쌔거면 저장
         if isNewer then
-            g_settingData:applySettingData(t_custom['start_date'], 'lobby_ingame_notice')
+            g_settingData:applySettingData(t_custom['popup_at'], 'lobby_ingame_notice', t_custom['key'])
         end 
     end
     
