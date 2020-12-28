@@ -234,10 +234,17 @@ function UI_RuneForgeManageTab:setSelectedRune(ui, data)
 
     -- 선택 판매 시 사용
     if (self.m_bSelectSellActive) then
+
+        if (data['owner_doid']) then
+            UIManager:toastNotificationRed(Str('장착 중인 룬입니다.'))
+            return
+        end
+
         if (data['lock']) then
             UIManager:toastNotificationRed(Str('잠금 상태입니다.'))
             return
         end
+
         local roid = data['roid']
 
         if self.m_mSelectedRuneUIMap[roid] then
