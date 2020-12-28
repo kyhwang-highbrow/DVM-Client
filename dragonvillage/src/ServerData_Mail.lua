@@ -154,8 +154,8 @@ function ServerData_Mail:sortNoticeList(sort_target_list)
 	end)
 
     sort_manager:addSortType('date', nil, function(a, b)
-        local a_date = a['data']['custom']['start_date']
-        local b_date = b['data']['custom']['start_date']
+        local a_date = a['data']['custom']['key']
+        local b_date = b['data']['custom']['key']
         return a_date > b_date
     end)
 
