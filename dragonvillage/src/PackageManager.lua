@@ -10,15 +10,23 @@ function PackageManager:getTargetUI(package_name, is_popup)
     local target_ui = nil
     local _package_name = package_name
     
+    -- 패키지에 뜨는 UI와 풀팝업에 뜨는 UI를 구분하고 싶은 경우
+    -- 패키지 네임 뒤에 _popup 추가하고, 아래 조건문에서 분기로 구분하여 사용
+    if (string.find(package_name, '_popup')) then
+        local l_package_name_split = plSplit(package_name, '_popup')
+        package_name = l_package_name_split[1]
+    end
+
     -- struct product로 들어온 경우 package_name 으로 변환
     if (type(package_name) ~= 'string') then
         local struct_product = package_name
         local pid = struct_product['product_id']
-        _package_name = TablePackageBundle:getPackageNameWithPid(pid)   
+        package_name = TablePackageBundle:getPackageNameWithPid(pid)   
+        _package_name = package_name
     end
 
     -- 서버에서 받은 상품 정보가 없다면 nil 반환
-    if (self:isExist(_package_name) == false) then
+    if (self:isExist(package_name) == false) then
         return nil
     end
 

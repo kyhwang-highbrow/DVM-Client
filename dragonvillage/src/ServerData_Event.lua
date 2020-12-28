@@ -272,7 +272,16 @@ function ServerData_Event:getEventFullPopupList()
                 
             -- 패키지인 경우 구매 불가한 경우 노출시키지 않음.
             elseif (string.find(event_type, 'package')) then
-				if (not PackageManager:isBuyable(event_type)) then
+
+                local package_name = event_type
+
+                -- _popup 붙어있는 경우 원래 패키지명을 구함
+                if (string.find(package_name, '_popup')) then
+                    local l_package_name_split = plSplit(package_name, '_popup')
+                    package_name = l_package_name_split[1]
+                end
+
+				if (not PackageManager:isBuyable(package_name)) then
 					visible = false
 				end
 
