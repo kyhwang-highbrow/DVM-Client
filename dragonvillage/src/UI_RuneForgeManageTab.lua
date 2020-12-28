@@ -449,6 +449,7 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
     else
         vars['memoBtn']:setVisible(true)
         vars['memoMenu']:setVisible(false)
+        self:refresh_memoLabel(t_rune_data['roid'])
     end
 
     -- 장착 드래곤 표시
