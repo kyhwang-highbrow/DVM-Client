@@ -571,7 +571,7 @@ function UI_ClanRaidResult:click_okBtn()
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     
     -- 죄악의 화신 토벌작전 이벤트로 들어온 경우
-    if (struct_raid:isEventIncarnationOfSinsMode()) then
+    if (struct_raid ~= nil) and (struct_raid:isEventIncarnationOfSinsMode()) then
         UINavigator:goTo('event_incarnation_of_sins')
     else
 	    UINavigator:goTo('clan_raid')
