@@ -571,6 +571,7 @@ end
 -------------------------------------
 function UI_RuneForgeManageTab:runeLockBtn(t_rune_data)
     local roid = t_rune_data['roid']
+    local owner_doid = t_rune_data['owner_doid']
 
     local function finish_cb()
         local new_data = g_runesData:getRuneObject(roid)
@@ -589,7 +590,7 @@ function UI_RuneForgeManageTab:runeLockBtn(t_rune_data)
         end
     end
 
-    g_runesData:request_runesLock_toggle(roid, nil, finish_cb)
+    g_runesData:request_runesLock_toggle(roid, owner_doid, finish_cb)
 end
 
 -------------------------------------
