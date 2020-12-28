@@ -672,6 +672,30 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
 
     -- 잠금 정보 추가
     vars['selectLockSprite']:setVisible(self.m_selectedRuneObject['lock'])
+
+    -- 장착 드래곤 카드 추가
+    vars['selectDragonNode']:removeAllChildren()
+    if (rune_obj['owner_doid'] ~= nil) then
+        local doid = rune_obj['owner_doid']
+        local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
+        local dragon_card = UI_DragonCard(t_dragon_data)
+        
+        -- 해당 드래곤 포커싱
+        local function click_cb()
+            self:setSelectDragonData(doid)
+            local idx = self.m_tableViewExt:getIndexFromId(doid)
+            if (idx) then
+                self.m_tableViewExt:relocateContainerFromIndex(idx)
+            end
+        end
+
+        dragon_card.vars['clickBtn']:registerScriptTapHandler(function() click_cb() end)
+
+        -- UI 반응 액션
+        cca.uiReactionSlow(dragon_card.root)
+
+        vars['selectDragonNode']:addChild(dragon_card.root)        
+    end
 end
 
 -------------------------------------
