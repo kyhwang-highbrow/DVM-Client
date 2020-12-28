@@ -10,6 +10,8 @@ UI_IngameNoticeFullPopup = class(PARENT,{
         m_hasReward = 'boolean',
 
         m_data = 'StructMail',
+
+        m_labelHieght = 'number',
     })
 
 -------------------------------------
@@ -72,6 +74,9 @@ function UI_IngameNoticeFullPopup:initUI()
     rich_label:setDefualtColor(COLOR['white'])
     rich_label.m_root:setSwallowTouch(false)
     rich_label.m_lineHeight = 1.4
+
+    local width, height = rich_label:getNormalSize()
+    self.m_labelHieght = height
 
 	-- scroll label  생성
 	self.m_noticeLabel = UIC_ScrollLabel:create(rich_label)
@@ -209,7 +214,7 @@ function UI_IngameNoticeFullPopup:click_communityButton()
     -- TODO
     -- 링크를 저장할 곳을 찾아서 보금자리를 마련해주자
     if lang == 'ko' then
-        SDKManager:goToWeb(NaverCafeManager:naverCafeStartWithArticle(nil))
+        SDKManager:goToWeb('https://cafe.naver.com/dragonvillagemobile/')
     else
         SDKManager:goToWeb('https://www.facebook.com/DragonVillageM')
     end
