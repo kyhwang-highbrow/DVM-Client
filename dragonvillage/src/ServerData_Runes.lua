@@ -41,6 +41,9 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
         -- 보유 중인 룬 정보를 받아옴
         self:applyRuneData_list(ret['runes'])
 
+        -- 룬 메모 파일 로드
+        g_runeMemoData:loadRuneMemoMap()
+
         if finish_cb then
             finish_cb(ret)
         end

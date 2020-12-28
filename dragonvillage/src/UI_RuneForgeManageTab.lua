@@ -113,6 +113,48 @@ function UI_RuneForgeManageTab:initButton()
     vars['bulkSellBtn']:registerScriptTapHandler(function() self:click_bulkSellBtn() end)
     vars['runeInfoBtn']:registerScriptTapHandler(function() self:click_runeInfoBtn() end)
     vars['setSortBtn']:registerScriptTapHandler(function() self:click_setSortBtn() end) -- 룬 정렬
+    vars['setBtn']:registerScriptTapHandler(function() self:click_setBtn() end) -- 세트 효과 보기
+    vars['memoBtn']:registerScriptTapHandler(function() self:click_memoBtn() end) -- 메모 보기
+
+    vars['memoEditBtn']:registerScriptTapHandler(function() self:click_memoEditBtn() end)
+
+	-- editBox handler 등록
+	local function editBoxTextEventHandle(strEventName, pSender)
+        if (strEventName == "return") then
+            local t_rune_data = self.m_selectedRuneObject
+            if (t_rune_data == nil) then
+                return
+            end
+            
+            local roid = t_rune_data['roid']
+
+			-- 키보드 입력이 종료될 때 텍스트 검증을 한다.
+            local text = vars['memoEditBox']:getText()
+            local context, is_valid = g_runeMemoData:validateMemoText(text)
+            if (not is_valid) then
+                self:refresh_memoLabel(roid)
+                return
+            end
+
+			local function proceed_func()
+                local t_rune_data = self.m_selectedRuneObject
+                if (t_rune_data) then
+			        g_runeMemoData:modifyMemo(roid, context)
+			        g_runeMemoData:saveRuneMemoMap()
+                    self:refresh_memoLabel(roid)
+                end
+            end
+
+			local function cancel_func()
+                self:refresh_memoLabel(roid)
+			end
+			
+			-- 비속어 필터링
+            CheckBlockStr(context, proceed_func, cancel_func)
+        end
+    end
+    vars['memoEditBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+    vars['memoEditBox']:setMaxLength(RUNE_MEMO_MAX_LENGTH)
 end
 
 -------------------------------------
@@ -162,6 +204,8 @@ function UI_RuneForgeManageTab:clearRuneInfo()
     vars['itemDscNode2']:setVisible(false)
     vars['runeDscNode']:setVisible(false)
     vars['itemNode']:setVisible(false)
+    vars['memoBtn']:setVisible(false)
+    vars['memoMenu']:setVisible(false)
     vars['itemNode']:removeAllChildren()
     vars['dragonNode']:removeAllChildren()
 end
@@ -258,7 +302,18 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
 			-- 신규 룬 표시 삭제
 			local roid = data['roid']
 			g_highlightData:removeNewRoid(roid)
+
+            -- 메모가 있는 룬의 경우에만 메모 툴팁 ON
+            local memo = g_runeMemoData:getMemo(roid)
+            if (memo ~= nil) then
+                local str = '{@SKILL_NAME}' .. memo
+                local tool_tip = UI_Tooltip_Skill(70, -145, str)
+
+                -- 자동 위치 지정
+                tool_tip:autoPositioning(ui.vars['clickBtn'])
+            end
         end
+
         ui.vars['clickBtn']:registerScriptTapHandler(click_func)
     end
 
@@ -382,6 +437,21 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
         self.vars['runeDscNode']:addChild(self.m_optionLabel.root)
     end
     self.m_selectedRuneObject:setOptionLabel(self.m_optionLabel, 'use', nil)
+
+    -- 룬 메모
+    local rune_memo = g_runeMemoData:getMemo(t_rune_data['roid'])
+    -- 메모가 있는 경우 바로 메모 창을 보여주고
+    if (rune_memo ~= nil) then
+        vars['memoBtn']:setVisible(false)
+        vars['memoMenu']:setVisible(true)
+        vars['memoLabel']:setString(rune_memo)
+
+    -- 없는 경우에는 세트 효과창을 보여준다.
+    else
+        vars['memoBtn']:setVisible(true)
+        vars['memoMenu']:setVisible(false)
+        vars['memoLabel']:setString(Str('메모를 입력해주세요. (최대 20자)'))
+    end
 
     -- 장착 드래곤 표시
     vars['dragonNode']:removeAllChildren()
@@ -770,6 +840,66 @@ function UI_RuneForgeManageTab:click_setSortBtn()
     ui:setCloseCB(function(set_id)
         self:refresh_runeSetFilter(set_id)
     end)
+end
+
+-------------------------------------
+-- function click_setBtn
+-- @brief 세트 효과 보기 버튼
+-------------------------------------
+function UI_RuneForgeManageTab:click_setBtn()
+    local vars = self.vars
+
+    vars['memoMenu']:setVisible(false)
+    vars['memoBtn']:setVisible(true)
+end
+
+-------------------------------------
+-- function click_memoBtn
+-- @brief 메모 보기 버튼
+-------------------------------------
+function UI_RuneForgeManageTab:click_memoBtn()
+    local vars = self.vars
+
+    vars['memoMenu']:setVisible(true)
+    vars['memoBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function click_memoEditBtn
+-- @brief 메모 수정 버튼
+-------------------------------------
+function UI_RuneForgeManageTab:click_memoEditBtn()
+    local vars = self.vars
+
+    local t_rune_data = self.m_selectedRuneObject
+    if (t_rune_data == nil) then
+        return
+    end
+            
+    local roid = t_rune_data['roid']
+    local memo = g_runeMemoData:getMemo(roid) or ''
+    
+    cclog(memo)
+
+    vars['memoEditBox']:setText(memo)    
+    vars['memoEditBox']:openKeyboard()
+end
+
+-------------------------------------
+-- function refresh_memoLabel
+-- @brief 메모 라벨 텍스트 refresh
+-------------------------------------
+function UI_RuneForgeManageTab:refresh_memoLabel(roid)
+    local vars = self.vars
+    local str = g_runeMemoData:getMemo(roid)
+
+    if (str ~= nil) then
+        vars['memoLabel']:setString(str)
+        vars['memoEditBox']:setText('')
+    else
+        vars['memoLabel']:setString(Str('메모를 입력해주세요. (최대 20자)'))
+        vars['memoEditBox']:setText('')
+    end
 end
 
 -------------------------------------
