@@ -370,7 +370,7 @@ end
 function UI_DragonRunes:refreshTableViewList()
     local vars = self.vars
 
-    local unequipped = false
+    local unequipped = true
     local slot = self.m_currTab
     local set_id = self.m_listFilterSetID
 
@@ -417,7 +417,7 @@ function UI_DragonRunes:refreshTableViewList()
     self:refreshEquippedRunes()
 
     do -- 슬롯별 룬이 있는지 없는지 여부
-        local unequipped = false
+        local unequipped = true
         local set_id = 0
         for slot=1, 6 do
             local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
@@ -442,7 +442,7 @@ function UI_DragonRunes:refreshRunesCount()
     end
 
     local vars = self.vars
-    local unequipped = false
+    local unequipped = true
     local set_id = self.m_listFilterSetID
     for slot= 1, 6 do
         local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
