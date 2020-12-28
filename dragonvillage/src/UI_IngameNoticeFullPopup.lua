@@ -17,9 +17,6 @@ UI_IngameNoticeFullPopup = class(PARENT,{
 -------------------------------------
 function UI_IngameNoticeFullPopup:init(t_notice)
     local vars = self:load('ingame_notice_popup.ui')
-    local t_custom = t_notice.custom
-    local noticeStartDate = t_custom['start_date']
-    --t_custom['items_list'] = '703038;1'
 
     self.m_data = t_notice
 

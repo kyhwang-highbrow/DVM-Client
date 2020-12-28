@@ -471,6 +471,28 @@ function StructMail:getNoticeArticleID()
 end
 
 -------------------------------------
+-- function hasValidNoticeMessage
+-------------------------------------
+function StructMail:hasValidNoticeMessage(t_mail)
+    -- 게임내 공지 팝업 추가함에 따라
+    -- 현 언어로 설정된 저목과 내용이 존재하는지로 유효한 공지인지 판단
+    if (not t_mail['custom']) then
+        return false
+    end
+
+    local lang = g_localData:getLang()
+    local title = t_mail['custom']['title_' .. lang]
+    local msg = t_mail['custom']['popup_msg_' .. lang]
+
+    -- return false if title or msg string is numm or empty
+    if (title == nil or msg == nil) then return false end
+
+    if (title == '' or msg == '') then return false end
+
+    return true
+end
+
+-------------------------------------
 -- function readNotice
 -- @brief 공지 읽기
 -------------------------------------
