@@ -481,13 +481,11 @@ function ServerData_Mail:hasNewNotice()
     local savedNoticeKey = -1
 
     -- 아예 공지가 없으면 노출 안하도록 하고 리턴
-    if not t_notice then return false end
+    if not t_notice or t_notice == '' then return false end
 
     -- 찾아온 공지가 있으면?
     -- 일단 본적 있는지 판단
-    if t_notice ~= '' then
-        savedNoticeKey = g_settingData:get('lobby_ingame_notice', t_notice.custom['key']) or -1
-    end
+    savedNoticeKey = g_settingData:get('lobby_ingame_notice', t_notice.custom['key']) or -1
 
     --날짜값이 의미없는 값이면 공지 확인!
     if tonumber(savedNoticeKey) < 0 then return true end
