@@ -494,6 +494,11 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
         cca.uiReactionSlow(dragon_card.root)
 
         vars['dragonNode']:addChild(dragon_card.root)        
+        
+        vars['sellBtn']:setVisible(false)
+    else
+        
+        vars['sellBtn']:setVisible(true)
     end
 end
 
