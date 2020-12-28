@@ -127,6 +127,75 @@ function UI_DragonRunes:initButton()
 
     -- 룬 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'rune_help')
+
+    -- 세트 효과 보기
+    vars['useSetBtn']:registerScriptTapHandler(function() self:click_setBtn('use') end) 
+    vars['selectSetBtn']:registerScriptTapHandler(function() self:click_setBtn('select') end)
+    
+    -- 메모 보기
+    vars['useMemoBtn']:registerScriptTapHandler(function() self:click_memoBtn('use') end)
+    vars['selectMemoBtn']:registerScriptTapHandler(function() self:click_memoBtn('select') end)
+
+    vars['useMemoEditBtn']:registerScriptTapHandler(function() self:click_memoEditBtn('use') end)
+    vars['selectMemoEditBtn']:registerScriptTapHandler(function() self:click_memoEditBtn('select') end)
+
+	-- editBox handler 등록
+    local function checkMemoWithType(type) 
+        local t_rune_data
+        
+        if (type == 'select') then
+            t_rune_data = self.m_selectedRuneObject
+            
+        elseif (type == 'use') then
+            t_rune_data = self.m_equippedRuneObject
+        end
+
+        if (t_rune_data == nil) then
+            return
+        end
+
+        local roid = t_rune_data['roid']
+
+		-- 키보드 입력이 종료될 때 텍스트 검증을 한다.
+        local text = vars[type .. 'MemoEditBox']:getText()
+        local context, is_valid = g_runeMemoData:validateMemoText(text)
+        if (not is_valid) then
+            self:refresh_memoLabel(type)
+            return
+        end
+
+		local function proceed_func()
+            local t_rune_data = self.m_selectedRuneObject
+            if (t_rune_data) then
+			    g_runeMemoData:modifyMemo(roid, context)
+			    g_runeMemoData:saveRuneMemoMap()
+                self:refresh_memoLabel(type)
+            end
+        end
+
+		local function cancel_func()
+            self:refresh_memoLabel(type)
+		end
+			
+		-- 비속어 필터링
+        CheckBlockStr(context, proceed_func, cancel_func)
+    end
+
+	local function useEditBoxTextEventHandle(strEventName, pSender)
+        if (strEventName == "return") then
+            checkMemoWithType('use')       
+        end
+    end
+    vars['useMemoEditBox']:registerScriptEditBoxHandler(useEditBoxTextEventHandle)
+    vars['useMemoEditBox']:setMaxLength(RUNE_MEMO_MAX_LENGTH)
+
+    local function selectEditBoxTextEventHandle(strEventName, pSender)
+        if (strEventName == "return") then
+            checkMemoWithType('select')       
+        end
+    end
+    vars['selectMemoEditBox']:registerScriptEditBoxHandler(selectEditBoxTextEventHandle)
+    vars['selectMemoEditBox']:setMaxLength(RUNE_MEMO_MAX_LENGTH)
 end
 
 -------------------------------------
@@ -605,6 +674,21 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
         vars['useRarityLabel']:setString(name)
     end
 
+    -- 룬 메모
+    local roid = rune_obj['roid']
+    local rune_memo = g_runeMemoData:getMemo(roid)
+    -- 메모가 있는 경우 바로 메모 창을 보여주고
+    if (rune_memo ~= nil) then
+        vars['useMemoBtn']:setVisible(false)
+        vars['useMemoMenu']:setVisible(true)
+        self:refresh_memoLabel('use')
+    -- 없는 경우에는 세트 효과창을 보여준다.
+    else
+        vars['useMemoBtn']:setVisible(true)
+        vars['useMemoMenu']:setVisible(false)
+        self:refresh_memoLabel('use')
+    end
+
     -- 잠금 정보 추가
     vars['useLockSprite']:setVisible(self.m_equippedRuneObject['lock'])
 end
@@ -664,6 +748,20 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
         vars['selectRarityLabel']:setString(name)
     end
 
+    -- 룬 메모
+    local rune_memo = g_runeMemoData:getMemo(roid)
+    -- 메모가 있는 경우 바로 메모 창을 보여주고
+    if (rune_memo ~= nil) then
+        vars['selectMemoBtn']:setVisible(false)
+        vars['selectMemoMenu']:setVisible(true)
+        self:refresh_memoLabel('select')
+    -- 없는 경우에는 세트 효과창을 보여준다.
+    else
+        vars['selectMemoBtn']:setVisible(true)
+        vars['selectMemoMenu']:setVisible(false)
+        self:refresh_memoLabel('select')
+    end
+
     -- 하일라이트 추가
     if self.m_selectedRuneObject then
         local roid = self.m_selectedRuneObject['roid']
@@ -672,34 +770,6 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
 
     -- 잠금 정보 추가
     vars['selectLockSprite']:setVisible(self.m_selectedRuneObject['lock'])
-
-    -- 장착 드래곤 카드 추가
-    vars['selectDragonNode']:removeAllChildren()
-    if (rune_obj['owner_doid'] ~= nil) then
-        local doid = rune_obj['owner_doid']
-        local t_dragon_data = g_dragonsData:getDragonDataFromUidRef(doid)
-        local dragon_card = UI_DragonCard(t_dragon_data)
-        
-        -- 해당 드래곤 포커싱
-        local function click_cb()
-            self:setSelectDragonData(doid)
-            local idx = self.m_tableViewExt:getIndexFromId(doid)
-            if (idx) then
-                self.m_tableViewExt:relocateContainerFromIndex(idx)
-            end
-        end
-
-        dragon_card.vars['clickBtn']:registerScriptTapHandler(function() click_cb() end)
-
-        -- UI 반응 액션
-        cca.uiReactionSlow(dragon_card.root)
-
-        vars['selectDragonNode']:addChild(dragon_card.root)        
-        vars['sellBtn']:setVisible(false)
-    
-    else
-        vars['sellBtn']:setVisible(true)
-    end
 end
 
 -------------------------------------
@@ -1057,4 +1127,87 @@ function UI_DragonRunes:request_runeEquip(doid, roid)
     end
 
     g_runesData:request_runesEquip(doid, roid, finish_cb)
+end
+
+-------------------------------------
+-- function click_setBtn
+-- @brief 세트 효과 보기 버튼
+-------------------------------------
+function UI_DragonRunes:click_setBtn(type)
+    local vars = self.vars
+    local type = type or 'select'
+
+    vars[type .. 'MemoMenu']:setVisible(false)
+    vars[type .. 'MemoBtn']:setVisible(true)
+end
+
+-------------------------------------
+-- function click_memoBtn
+-- @brief 메모 보기 버튼
+-------------------------------------
+function UI_DragonRunes:click_memoBtn(type)
+    local vars = self.vars
+    local type = type or 'select'
+
+    vars[type .. 'MemoMenu']:setVisible(true)
+    vars[type .. 'MemoBtn']:setVisible(false)
+end
+
+-------------------------------------
+-- function click_memoEditBtn
+-- @brief 메모 수정 버튼
+-------------------------------------
+function UI_DragonRunes:click_memoEditBtn(type)
+    local vars = self.vars
+
+    local t_rune_data
+
+    if (type == 'select') then
+        t_rune_data = self.m_selectedRuneObject
+            
+    elseif (type == 'use') then
+        t_rune_data = self.m_equippedRuneObject
+    end
+
+    if (t_rune_data == nil) then
+        return
+    end
+            
+    local roid = t_rune_data['roid']
+    local memo = g_runeMemoData:getMemo(roid) or ''
+    
+    vars[type .. 'MemoEditBox']:setText(memo)    
+    vars[type .. 'MemoEditBox']:openKeyboard()
+end
+
+-------------------------------------
+-- function refresh_memoLabel
+-- @brief 메모 라벨 텍스트 refresh
+-------------------------------------
+function UI_DragonRunes:refresh_memoLabel(type)
+    local vars = self.vars
+
+     local t_rune_data
+
+    if (type == 'select') then
+        t_rune_data = self.m_selectedRuneObject
+            
+    elseif (type == 'use') then
+        t_rune_data = self.m_equippedRuneObject
+    end
+
+    if (t_rune_data == nil) then
+        return
+    end
+
+    local roid = t_rune_data['roid']
+    local str = g_runeMemoData:getMemo(roid)
+
+    if (str ~= nil) then
+        vars[type .. 'MemoLabel']:setString(str)
+        vars[type .. 'MemoEditBox']:setText('')
+    else
+        vars[type .. 'MemoLabel']:setString(Str('메모를 입력해주세요. (최대 40자)'))
+        vars[type .. 'MemoEditBox']:setText('')
+    end
 end

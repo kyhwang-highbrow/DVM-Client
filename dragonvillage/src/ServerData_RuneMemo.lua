@@ -11,7 +11,7 @@ ServerData_RuneMemo = class({
     })
 
 RUNE_MEMO_MIN_LENGTH = 2
-RUNE_MEMO_MAX_LENGTH = 20
+RUNE_MEMO_MAX_LENGTH = 40
 
 -------------------------------------
 -- function init
@@ -119,7 +119,7 @@ function ServerData_RuneMemo:validateMemoText(context)
 
 	-- 최대 글자는 경고 후 넘치는 부분 삭제
 	elseif (str_len > RUNE_MEMO_MAX_LENGTH) then
-		UIManager:toastNotificationGreen(Str('최대 글자수(20자)를 초과했어요!'))
+		UIManager:toastNotificationGreen(Str('최대 글자수(40자)를 초과했어요!'))
 		valid_text = utf8_sub(valid_text, RUNE_MEMO_MAX_LENGTH)
 	end
 

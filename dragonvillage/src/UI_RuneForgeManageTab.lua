@@ -897,7 +897,7 @@ function UI_RuneForgeManageTab:refresh_memoLabel(roid)
         vars['memoLabel']:setString(str)
         vars['memoEditBox']:setText('')
     else
-        vars['memoLabel']:setString(Str('메모를 입력해주세요. (최대 20자)'))
+        vars['memoLabel']:setString(Str('메모를 입력해주세요. (최대 40자)'))
         vars['memoEditBox']:setText('')
     end
 end
