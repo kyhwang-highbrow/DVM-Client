@@ -148,8 +148,7 @@ function FullPopupManager:show(type, show_func)
         end
     -- 인게임 공지 팝업
     elseif (type == FULL_POPUP_TYPE.INGAME_NOTICE) then
-        show_func()
-
+        if show_func then show_func() end
     end
 
     
