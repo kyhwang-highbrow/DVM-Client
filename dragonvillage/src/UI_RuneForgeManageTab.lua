@@ -444,13 +444,11 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
     if (rune_memo ~= nil) then
         vars['memoBtn']:setVisible(false)
         vars['memoMenu']:setVisible(true)
-        vars['memoLabel']:setString(rune_memo)
-
+        self:refresh_memoLabel(t_rune_data['roid'])
     -- 없는 경우에는 세트 효과창을 보여준다.
     else
         vars['memoBtn']:setVisible(true)
         vars['memoMenu']:setVisible(false)
-        vars['memoLabel']:setString(Str('메모를 입력해주세요. (최대 20자)'))
     end
 
     -- 장착 드래곤 표시
@@ -900,6 +898,10 @@ function UI_RuneForgeManageTab:refresh_memoLabel(roid)
         vars['memoLabel']:setString(Str('메모를 입력해주세요. (최대 20자)'))
         vars['memoEditBox']:setText('')
     end
+
+    -- 상하 가운데 정렬
+    local l_ui_list = {vars['memoInfoLabel'], vars['memoLabel']}
+    AlignUIPos(l_ui_list, 'VERTICAL', 'CENTER', 10)
 end
 
 -------------------------------------
