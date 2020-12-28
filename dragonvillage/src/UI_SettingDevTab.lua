@@ -788,6 +788,7 @@ end
 -------------------------------------
 function UI_Setting:click_popupCacheResetBtn()
     g_settingData:clearDataList('event_full_popup')
+    g_settingData:applySettingData(-1, 'lobby_ingame_notice')
     UIManager:toastNotificationGreen('팝업 캐시가 초기화되었습니다!')
 end
 
