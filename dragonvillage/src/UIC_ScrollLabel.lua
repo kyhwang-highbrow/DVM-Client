@@ -91,7 +91,6 @@ function UIC_ScrollLabel:setString(str)
     -- 가변적인 리스트는 이걸 무조건 믿는것보다 그떄그떄 get 하는 함수를 만들어야 한다.
     self.m_offsetMinY = min_container_offset['y']
     self.m_offsetMaxY = max_container_offset['y']
-
 end
 
 -------------------------------------
@@ -132,4 +131,12 @@ function UIC_ScrollLabel:isBottomPosition()
     local isBottomPosition = curPosY >= self.m_offsetMaxY
 
     return isBottomPosition
+end
+
+-------------------------------------
+-- function isShortText
+-------------------------------------
+function UIC_ScrollLabel:isShortText()
+    -- 오프셋 민 맥스 모드 0일 때 컨텐츠는 뷰보다 작은 사이즈를 가진다.
+    return self.m_offsetMinY == 0 and self.m_offsetMaxY == 0
 end
