@@ -11,33 +11,40 @@ UI_Package_AttrTower = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_AttrTower:init(bundle_ui, product_id)
+function UI_Package_AttrTower:init(bundle_ui, product_id, is_popup)
     self.m_bundleUI = bundle_ui
     self.m_productInfo = g_attrTowerPackageData:getProductInfo(product_id)
 
     local attr = self.m_productInfo['attr']
 
-    -- 패키지 탭에서 누르는 경우 시험의 탑 정보가 저장되어 있지 않을 수 있기 때문에
-    -- 정보를 받아오고 UI를 설정해야 함
-    local function finish_cb()
-        local ui_name = 'package_attr_tower_' .. attr .. '.ui'
+    local ui_name = 'package_attr_tower_' .. attr .. '.ui'
 
-        local vars = self:load(ui_name)
-    
+    local vars = self:load(ui_name)
+
+    -- 팝업인 경우에
+    if (is_popup == true) then
         UIManager:open(self, UIManager.POPUP)
         -- 백키 지정
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_AttrTower')
+    end
 
-	    -- @UI_ACTION
-        self:doActionReset()
-        self:doAction(nil, false)
+    vars['closeBtn']:setVisible(is_popup)
 
-        self:initUI()
-	    self:initButton()
-        self:refresh()
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
 
-        -- 상품 판매 남은 시간에 따라 시간 표시
-        self:setLimit()
+    self:initUI()
+	self:initButton()
+    self:refresh_productInfo()
+        
+    -- 상품 판매 남은 시간에 따라 시간 표시
+    self:setLimit()
+
+    -- 패키지 탭에서 누르는 경우 시험의 탑 정보가 저장되어 있지 않을 수 있기 때문에
+    -- 정보를 받아오고 UI를 설정해야 함
+    local function finish_cb()
+        self:init_tableView()
     end
 
     if (attr ~= g_attrTowerData:getSelAttr()) then
@@ -180,13 +187,13 @@ function UI_Package_AttrTower:init_tableView()
     local product_info = self.m_productInfo
     local product_id = product_info['product_id']
     
-    vars['allReceiveBtn']:setVisible(false)
-    vars['readyBtn']:setVisible(false)
-    if (g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})) then
-        vars['allReceiveBtn']:setVisible(true)
-    else
-        vars['readyBtn']:setVisible(true)
-    end
+    --vars['allReceiveBtn']:setVisible(false)
+    --vars['readyBtn']:setVisible(false)
+    --if (g_attrTowerPackageData:isVisible_attrTowerPackNoti({product_id})) then
+        --vars['allReceiveBtn']:setVisible(true)
+    --else
+        --vars['readyBtn']:setVisible(true)
+    --end
 
     local node = vars['productNode']
     if (g_attrTowerPackageData:isActive(product_id)) then
@@ -272,15 +279,9 @@ function UI_Package_AttrTower:initButton()
 end
 
 -------------------------------------
--- function refresh
+-- function refresh_productInfo
 -------------------------------------
-function UI_Package_AttrTower:refresh()
-    if (self.m_bundleUI) then
-        self.m_bundleUI:refresh()
-    end
-    
-    self:init_tableView()
-
+function UI_Package_AttrTower:refresh_productInfo()
     local vars = self.vars
     local product_data = self.m_productInfo
     local product_id = product_data['product_id']
@@ -290,13 +291,13 @@ function UI_Package_AttrTower:refresh()
         vars['completeNode']:setVisible(true)
         vars['contractBtn']:setVisible(false)
         vars['buyBtn']:setVisible(false)
-        vars['allReceiveBtn']:setVisible(false)
-        vars['readyBtn']:setVisible(false)
+        --vars['allReceiveBtn']:setVisible(false)
+        --vars['readyBtn']:setVisible(false)
     else
         vars['completeNode']:setVisible(false)
         vars['buyBtn']:setVisible(true)
-        vars['allReceiveBtn']:setVisible(false)
-        vars['readyBtn']:setVisible(false)
+        --vars['allReceiveBtn']:setVisible(false)
+        --vars['readyBtn']:setVisible(false)
     end
 
     -- 구매 제한
@@ -327,6 +328,19 @@ function UI_Package_AttrTower:refresh()
 	    local price = struct_product:getPriceStr()
         vars['priceLabel']:setString(price)
     end
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Package_AttrTower:refresh()
+    if (self.m_bundleUI) then
+        self.m_bundleUI:refresh()
+    end
+    
+    self:init_tableView()
+
+    self:refresh_productInfo()
 end
 
 -------------------------------------
@@ -367,7 +381,7 @@ function UI_Package_AttrTower:click_allReceiveBtn()
     end
 
     local function cb_func(ret)
-        self:refresh()
+        self:init_tableView()
 
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)

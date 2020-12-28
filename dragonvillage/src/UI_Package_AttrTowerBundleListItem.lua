@@ -149,5 +149,5 @@ function UI_Package_AttrTowerBundleListItem:click_readyBtn()
 	local product_info = self.m_productInfo
     local product_id = product_info['product_id']
 
-    local ui = UI_Package_AttrTower(bundle_ui, product_id)
+    local ui = UI_Package_AttrTower(bundle_ui, product_id, true)
 end

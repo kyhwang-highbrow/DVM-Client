@@ -315,7 +315,7 @@ function UI_AttrTower:click_packageBtn()
     else 
         require('UI_Package_AttrTower')
         local first_product_id = product_id_list[1]
-        ui = UI_Package_AttrTower(nil, first_product_id)
+        ui = UI_Package_AttrTower(nil, first_product_id, true)
     end
 
     ui:setCloseCB(function() self:refresh_packageNoti() end)

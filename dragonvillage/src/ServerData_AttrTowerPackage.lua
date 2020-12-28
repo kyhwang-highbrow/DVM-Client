@@ -4,6 +4,7 @@
 -------------------------------------
 -- class ServerData_AttrTowerPackage
 -- @breif 시험의 탑 정복 선물 패키지 관리
+-- g_attrTowerPackageData
 -------------------------------------
 ServerData_AttrTowerPackage = class({
         m_serverData = 'ServerData',

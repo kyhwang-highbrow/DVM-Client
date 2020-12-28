@@ -67,6 +67,31 @@ function PackageManager:getTargetUI(package_name, is_popup)
         require('UI_Package_AttrTowerPopup')
         target_ui = UI_Package_AttrTowerPopup(is_popup)
 
+    -- 시험의 탑 정복선물 패키지 풀팝업 (구입하지 않은 빛, 어둠, 땅, 물, 불 순서로 풀팝업 출력, 모두 구입한 경우 띄우지 않음)
+    elseif (_package_name == 'package_attr_tower_popup') then
+        local l_attr_list = {'light', 'dark', 'earth', 'water', 'fire'}
+        local attr_tower_package_id = nil   
+        for idx, attr in ipairs(l_attr_list) do
+            local l_product_list = g_attrTowerPackageData:getProductIdList(attr)
+            
+            for _, product_id in ipairs(l_product_list) do
+                local struct_product = g_shopDataNew:getTargetProduct(product_id)
+                if (struct_product:isItBuyable()) then
+                    attr_tower_package_id = product_id
+                    break
+                end
+            end
+
+            if (attr_tower_package_id ~= nil) then
+                break
+            end
+        end
+
+        if (attr_tower_package_id ~= nil) then
+            require('UI_Package_AttrTower')
+            target_ui = UI_Package_AttrTower(nil, attr_tower_package_id, is_popup)
+        end
+
     -- 기간제 단계별 패키지 UI
     elseif (_package_name ==  'package_step_period') then
         target_ui = UI_Package_Step02(_package_name, is_popup)
