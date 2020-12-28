@@ -309,16 +309,6 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
 			-- 신규 룬 표시 삭제
 			local roid = data['roid']
 			g_highlightData:removeNewRoid(roid)
-
-            -- 메모가 있는 룬의 경우에만 메모 툴팁 ON
-            local memo = g_runeMemoData:getMemo(roid)
-            if (memo ~= nil) then
-                local str = '{@SKILL_NAME}' .. memo
-                local tool_tip = UI_Tooltip_Skill(70, -145, str)
-
-                -- 자동 위치 지정
-                tool_tip:autoPositioning(ui.vars['clickBtn'])
-            end
         end
 
         ui.vars['clickBtn']:registerScriptTapHandler(click_func)
@@ -891,8 +881,6 @@ function UI_RuneForgeManageTab:click_memoEditBtn()
     local roid = t_rune_data['roid']
     local memo = g_runeMemoData:getMemo(roid) or ''
     
-    cclog(memo)
-
     vars['memoEditBox']:setText(memo)    
     vars['memoEditBox']:openKeyboard()
 end
@@ -912,10 +900,6 @@ function UI_RuneForgeManageTab:refresh_memoLabel(roid)
         vars['memoLabel']:setString(Str('메모를 입력해주세요. (최대 20자)'))
         vars['memoEditBox']:setText('')
     end
-
-    -- 상하 가운데 정렬
-    local l_ui_list = {vars['memoInfoLabel'], vars['memoLabel']}
-    AlignUIPos(l_ui_list, 'VERTICAL', 'CENTER', 10)
 end
 
 -------------------------------------
