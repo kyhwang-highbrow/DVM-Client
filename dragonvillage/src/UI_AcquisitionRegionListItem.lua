@@ -89,7 +89,7 @@ function UI_AcquisitionRegionListItem:initUI()
             content_str = Str('룬 뽑기에서 획득')
         elseif (get_type == 'rune_combine') then
             title_str = Str('룬 합성')
-            content_str = Str('룬 합성하여 획득')
+            content_str = Str('룬 합성에서 획득')
 
 		elseif (get_type == 'empty') then
 			title_str = Str('[획득 불가]')
