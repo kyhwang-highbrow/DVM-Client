@@ -69,9 +69,14 @@ function UI_RuneOptionFilter:init(l_mopt_list, l_sopt_list, b_include_equipped)
     
     self.m_bDirty = false
 
-    -- 매개변수 바로 활용하기 위해 여기서 체크박스 초기화함
-    vars['equipBtn'] = UIC_CheckBox(vars['equipBtn'].m_node, vars['equipSprite'], b_include_equipped)
-    vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
+    if (b_include_equipped ~= nil) then
+        -- 매개변수 바로 활용하기 위해 여기서 체크박스 초기화함
+        vars['equipBtn'] = UIC_CheckBox(vars['equipBtn'].m_node, vars['equipSprite'], b_include_equipped)
+        vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
+    
+    else
+        vars['equipBtn']:setVisible(false)
+    end
 
     self:initUI()
     self:initButton()
@@ -214,7 +219,10 @@ function UI_RuneOptionFilter:click_closeBtn()
 
         local l_mopt_list = self:getOptionList('mopt')
         local l_sopt_list = self:getOptionList('sopt')
-        local b_include_equipped = vars['equipBtn']:isChecked()
+        local b_include_equipped = nil
+        if (vars['equipBtn']:isVisible()) then
+            b_include_equipped = vars['equipBtn']:isChecked()
+        end
 
         self.m_closeCB(l_mopt_list, l_sopt_list, b_include_equipped)
     end

@@ -6,6 +6,9 @@ local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 -------------------------------------
 UI_DragonRunes = class(PARENT,{
         m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
+        m_lMoptList = 'list', -- 선택된 주옵션 필터
+        m_lSoptList = 'list', -- 선택된 보조옵션 필터 
+
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
         m_equippedRuneObject = 'StructRuneObject',
@@ -36,6 +39,8 @@ end
 function UI_DragonRunes:init(doid, slot_idx)
     self.m_selectDragonOID = doid
     self.m_listFilterSetID = 0
+    self.m_lMoptList = nil
+    self.m_lSoptList = nil
     self.m_mEquippedRuneObjects = {}
     self.m_selectOptionLabel = nil
     self.m_useOptionLabel = nil
@@ -115,8 +120,9 @@ function UI_DragonRunes:initButton()
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
     vars['selectEnhanceBtn']:registerScriptTapHandler(function() self:click_selectEnhance() end)
 
-    -- 룬 정렬
+    -- 룬 필터
     vars['setSortBtn']:registerScriptTapHandler(function() self:click_setSortBtn() end)
+    vars['optSortBtn']:registerScriptTapHandler(function() self:click_optSortBtn() end)
     
     -- 모험 떠나기
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
@@ -286,10 +292,25 @@ end
 function UI_DragonRunes:refresh_runeSetFilter(set_id)
     local vars = self.vars
     local table_rune_set = TableRuneSet()
-    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichText(set_id)
+    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichTextWithoutNeed(set_id)
     vars['setSortLabel']:setString(text)
 
     self.m_listFilterSetID = set_id
+    self:refreshTableViewList()
+
+    -- 룬 개수 갱신
+    self:refreshRunesCount()
+end
+
+-------------------------------------
+-- function refresh_runeOptionFilter
+-------------------------------------
+function UI_DragonRunes:refresh_runeOptionFilter(l_mopt_list, l_sopt_list)
+    local vars = self.vars
+
+    self.m_lMoptList = l_mopt_list
+    self.m_lSoptList = l_sopt_list
+
     self:refreshTableViewList()
 
     -- 룬 개수 갱신
@@ -440,10 +461,13 @@ function UI_DragonRunes:refreshTableViewList()
     local vars = self.vars
 
     local unequipped = true
+
     local slot = self.m_currTab
     local set_id = self.m_listFilterSetID
+    local l_mopt_list = self.m_lMoptList
+    local l_sopt_list = self.m_lSoptList
 
-    local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+    local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id, l_mopt_list, l_sopt_list)
 
     local function refresh_func(item, new_data)
         local old_data = item['data']
@@ -1057,7 +1081,7 @@ end
 
 -------------------------------------
 -- function click_setSortBtn
--- @brief 룬 정렬 버튼
+-- @brief 룬 세트 필터 버튼
 -------------------------------------
 function UI_DragonRunes:click_setSortBtn()
     local ui = UI_RuneSetFilter()
@@ -1066,6 +1090,20 @@ function UI_DragonRunes:click_setSortBtn()
     end)
 end
 
+-------------------------------------
+-- function click_optSortBtn
+-- @brief 룬 옵션 필터 버튼
+-------------------------------------
+function UI_DragonRunes:click_optSortBtn()
+    local l_mopt_list = self.m_lMoptList
+    local l_sopt_list = self.m_lSoptList
+    
+    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, nil)
+
+    ui:setCloseCB(function(l_mopt_list, l_sopt_list, include_equipped)
+        self:refresh_runeOptionFilter(l_mopt_list, l_sopt_list)
+    end)
+end
 -------------------------------------
 -- function click_adventureBtn
 -- @brief "모험 떠나기"
