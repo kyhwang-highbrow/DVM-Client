@@ -88,6 +88,31 @@ function TableRuneSet:makeRuneSetDescRichText(set_id)
 end
 
 -------------------------------------
+-- function makeRuneSetNameRichTextWithoutNeed
+-- @brief 세트 이름만 알고 싶을 때
+-------------------------------------
+function TableRuneSet:makeRuneSetNameRichTextWithoutNeed(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_table = self:get(set_id)
+
+    local name = Str(t_table['t_name'])
+
+    local tag = self:getRuneSetColorRichTag(set_id)
+    local text = ''
+
+    if (type(option) == 'number') then
+        text = Str('{1}{2}', tag, name)
+    else
+        text = Str('{1}{2}', tag, name)
+    end
+
+    return text
+end
+
+-------------------------------------
 -- function makeRuneSetNameRichText
 -------------------------------------
 function TableRuneSet:makeRuneSetNameRichText(set_id)
