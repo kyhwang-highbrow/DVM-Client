@@ -45,8 +45,8 @@ function UI_IngameNoticeFullPopup:initUI()
     local scrollTextNode = vars['textScrollViewNode']
     self.m_titleLabel = vars['titleLabel']
 
-    self.m_upArrowObj = vars['upArrow']
-    self.m_downArrowObj = vars['downArrow']
+    self.m_upArrowObj = vars['topVisual']
+    self.m_downArrowObj = vars['bottomVisual']
 
     if self.m_upArrowObj then self.m_upArrowObj:setVisible(false) end
     if self.m_downArrowObj then self.m_downArrowObj:setVisible(false) end
@@ -142,8 +142,17 @@ function UI_IngameNoticeFullPopup:update(dt)
     local isTop = self.m_noticeLabel:isTopPosition()
     local isBottom = self.m_noticeLabel:isBottomPosition()
 
-    if self.m_upArrowObj then self.m_upArrowObj:setVisible(not isTop) end
-    if self.m_downArrowObj then self.m_downArrowObj:setVisible(not isBottom) end
+    if self.m_upArrowObj then
+        if (self.m_upArrowObj:isVisible() ~= (not isTop)) then
+            self.m_upArrowObj:setVisible(not isTop)
+        end
+    end
+
+    if self.m_downArrowObj then 
+        if (self.m_downArrowObj:isVisible() ~= (not isBottom)) then
+            self.m_downArrowObj:setVisible(not isBottom) 
+        end
+    end
 end
 
 
