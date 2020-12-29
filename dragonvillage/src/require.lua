@@ -794,6 +794,7 @@ local t_module = {
 	'UIC_ExtendList',
 	'UIC_ExtendList_Image',
     'UIC_IconAndName',
+    'UIC_RuneOptionFilter',
 	
     -- UI : CARD
     'UI_Card',

@@ -429,10 +429,10 @@ end
 -------------------------------------
 -- function getFilteredRuneList
 -- @brief 필터링된 룬 리스트
--- @param mopt : 주옵션
--- @param sopt1, sopt2 : 보조옵션(부옵션 + 추가옵션)
+-- @param l_mopt_list : 주옵션
+-- @param l_sopt_list : 보조옵션(부옵션 + 추가옵션)
 -------------------------------------
-function ServerData_Runes:getFilteredRuneList(unequipped, slot, set_id, mopt, sopt1, sopt2)
+function ServerData_Runes:getFilteredRuneList(unequipped, slot, set_id, l_mopt_list, l_sopt_list)
     if (slot == 0) then
         slot = nil
     end
@@ -441,18 +441,6 @@ function ServerData_Runes:getFilteredRuneList(unequipped, slot, set_id, mopt, so
         set_id = nil
     end
 
-    if (mopt == 'all') then
-        mopt = nil
-    end
-
-    if (sopt1 == 'all') then
-        sopt1 = nil
-    end
-
-    if (sopt2 == 'all') then
-        sopt2 = nil
-    end
-    
     local l_ret = {}
     
     for i,v in pairs(self.m_mRuneObjects) do
@@ -463,12 +451,10 @@ function ServerData_Runes:getFilteredRuneList(unequipped, slot, set_id, mopt, so
         -- 장착 여부 필터
         elseif unequipped and (v:isEquippedRune()) then
         -- 주옵션 필터
-        elseif mopt and (not v:hasMainOption(mopt)) then
-        -- 보조옵션1 필터
-        elseif sopt1 and (not v:hasAuxiliaryOption(sopt1)) then
+        elseif l_mopt_list and (not v:hasMainOption(l_mopt_list)) then
+        -- 보조옵션 필터
+        elseif l_sopt_list and (not v:hasAuxiliaryOption(l_sopt_list)) then
         -- 보조옵션2 필터
-        elseif sopt2 and (not v:hasAuxiliaryOption(sopt2)) then
-        -- 리스트에 추가
         else
             l_ret[i] = v
         end

@@ -907,29 +907,43 @@ end
 
 -------------------------------------
 -- function hasMainOption
--- @return true이면 해당 옵션을 주옵션으로 가지고 있음
+-- @return true이면 해당 옵션들 중 하나를(or 연산) 주옵션으로 가지고 있음
 -------------------------------------
-function StructRuneObject:hasMainOption(opt_name) -- ex) atk_multi
+function StructRuneObject:hasMainOption(l_opt_list) -- ex) {atk_multi}
     local main_opt_name, main_opt_value = self:parseRuneOptionStr(self['mopt'])
-    return (main_opt_name == opt_name)
+    
+    for j, option_name in ipairs(l_opt_list) do
+        if (main_opt_name == option_name) then
+            return true
+        end
+    end
+
+    return false
 end
 
 -------------------------------------
 -- function hasAuxiliaryOption
--- @return true이면 해당 옵션을 보조옵션(부옵션 + 추가옵션)으로 가지고 있음
+-- @return true이면 해당 옵션들을 전부(and 연산) 보조옵션(부옵션 + 추가옵션)으로 가지고 있음
 -------------------------------------
-function StructRuneObject:hasAuxiliaryOption(opt_name) -- ex) atk_multi
+function StructRuneObject:hasAuxiliaryOption(l_opt_list) -- ex) {atk_multi}
     local l_check_option_key = {'uopt', 'sopt_1', 'sopt_2', 'sopt_3', 'sopt_4'}
     
+    local check_count = table.count(l_opt_list)
+
     for i, key in ipairs(l_check_option_key) do
         if (self[key]) then
             local sub_opt_name, sub_opt_value = self:parseRuneOptionStr(self[key]) 
-            if (sub_opt_name == opt_name) then
-                return true
+            
+            for j, option_name in ipairs(l_opt_list) do
+                if (sub_opt_name == option_name) then
+                    check_count = check_count - 1
+                    break
+                end
             end
         end
     end
-    return false
+
+    return (check_count == 0)
 end
 
 

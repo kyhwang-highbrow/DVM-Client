@@ -16,9 +16,8 @@ UI_RuneForgeManageTab = class(PARENT,{
 
         m_openedComboBox = 'UIC_SortList', -- 현재 열려있는 선택창
         m_setID = 'number', -- 0번은 전체 1~8은 해당 세트만
-        m_mopt = 'string', -- 주옵션 필터
-        m_sopt1 = 'string', -- 보조옵션 필터 1
-        m_sopt2 = 'string', -- 보조옵션 필터 2
+        m_mopt = 'list', -- 주옵션 필터 리스트
+        m_sopt = 'list', -- 보조옵션 필터 리스트
         m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
         m_tableViewTD = '',
     })
@@ -38,9 +37,8 @@ function UI_RuneForgeManageTab:init(owner_ui)
    self.m_mSelectedRuneRoidMap = {}
 
    self.m_setID = 0
-   self.m_mopt = 'all'
-   self.m_sopt1 = 'all'
-   self.m_sopt2 = 'all'
+   self.m_mopt = nil
+   self.m_sopt = nil
 end
 
 -------------------------------------
@@ -97,8 +95,7 @@ function UI_RuneForgeManageTab:initUI()
     vars['setSortLabel']:setString(Str('전체'))
 
     self:makeComboBox('mopt')
-    self:makeComboBox('sopt1')
-    self:makeComboBox('sopt2')
+    self:makeComboBox('sopt')
 end
 
 -------------------------------------
@@ -274,14 +271,6 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
     node:removeAllChildren()
 
     local l_item_list = self:getFilteredRuneList(slot_idx)
-    --local unequipped = true
-    --local slot = slot_idx
-    --local set_id = self.m_listFilterSetID
-
-    --local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
-
-    --local l_item_list = g_runesData:getUnequippedRuneList(slot_idx)
-    --local l_item_list = g_runesData:getFilteredRuneList(false, slot_idx) -- unequipped, slot, set_id
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -814,7 +803,6 @@ function UI_RuneForgeManageTab:refresh_runeSetFilter(set_id)
     local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichText(set_id)
     vars['setSortLabel']:setString(text)
 
-    self.m_setID = set_id
     self:init_runeTableView()
 
     self:refreshRunesCount() -- 룬 개수 갱신
@@ -840,11 +828,12 @@ end
 function UI_RuneForgeManageTab:click_setSortBtn()
     local ui = UI_RuneSetFilter()
     ui:setCloseCB(function(set_id)
+        self.m_setID = set_id
         self:refresh_runeSetFilter(set_id)
     end)
 end
 
--------------------------------------
+-----------------------------
 -- function click_setBtn
 -- @brief 세트 효과 보기 버튼
 -------------------------------------
@@ -953,12 +942,11 @@ function UI_RuneForgeManageTab:getFilteredRuneList(slot_idx)
     local slot = slot_idx
 
     local set_id = self.m_setID
-    local mopt = self.m_mopt
-    local sopt1 = self.m_sopt1
-    local sopt2 = self.m_sopt2
+    local l_mopt_list = self.m_mopt
+    local l_sopt_list = self.m_sopt
 
     -- 리스트가 아닌 map의 형태임을 주의하자
-    local l_rune_obj = g_runesData:getFilteredRuneList(unequipped, slot, set_id, mopt, sopt1, sopt2)
+    local l_rune_obj = g_runesData:getFilteredRuneList(unequipped, slot, set_id, l_mopt_list, l_sopt_list)
     return l_rune_obj
 end
 
@@ -969,7 +957,7 @@ function UI_RuneForgeManageTab:makeComboBox(key)
     local vars = self.vars
     local button = vars[key .. 'SortBtn']
     local label = vars[key .. 'SortLabel']
-    local uic_sort_list = MakeUICSortListTD_runeOption(button, label)
+    local uic_sort_list = MakeUIC_RuneOptionFilter(button, label, key)
 
     button:registerScriptTapHandler(function()
         uic_sort_list:toggleVisibility()
@@ -984,7 +972,8 @@ function UI_RuneForgeManageTab:makeComboBox(key)
 
     -- 버튼을 통해 정렬이 변경되었을 경우
     local function sort_change_cb(sort_type)
-        self['m_' .. key] = sort_type
+        local l_stat_list = uic_sort_list:getOptionList()
+        self['m_' .. key] = l_stat_list
         self:refresh_runeOptionFilter()        
     end
 

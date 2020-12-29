@@ -4768,6 +4768,9 @@
     <None Include="..\src\ServerData_RuneMemo.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UIC_RuneOptionFilter.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
