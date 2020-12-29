@@ -45,6 +45,8 @@ UIC_RichLabel = class(UIC_Node, {
         m_bDirtyAlignment = 'boolean',
 
         m_mContentNodeData = 'map',
+
+        m_wordSpacing = 'number'
     })
 
 -------------------------------------
@@ -63,6 +65,7 @@ function UIC_RichLabel:init()
     self.m_bDirty = true
 
     self.m_lineHeight = 1.1
+    self.m_wordSpacing = 0.4
 
     self.m_hAlignment = cc.TEXT_ALIGNMENT_LEFT
     self.m_vAlignment = cc.VERTICAL_TEXT_ALIGNMENT_TOP
@@ -307,7 +310,9 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
             label:setDockPoint(cc.p(0, 1))
             label:setAnchorPoint(cc.p(0, 1))
-            
+            label:setAdditionalKerning(self.m_wordSpacing)
+
+
             local pre_text = work_text
 
             -- 가로 길이 체크
