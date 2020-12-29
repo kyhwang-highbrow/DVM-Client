@@ -316,58 +316,61 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
     table_view_td:makeDefaultEmptyDescLabel(Str('룬 가방이 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))
 
     -- 정렬
-    local sort_manager = SortManager_Rune()
-    self.m_sortManagerRune = sort_manager
-    sort_manager:sortExecution(table_view_td.m_itemList)
-    
-    self.m_tableViewTD = table_view_td
+    if (self.m_sortManagerRune == nil) then
+        local sort_manager = SortManager_Rune()
 
-    do -- 정렬 UI 생성
-        local uic_sort_list = MakeUICSortList_runeManage(vars['runeSortBtn'], vars['runeSortLabel'])
+        do -- 정렬 UI 생성
+            local uic_sort_list = MakeUICSortList_runeManage(vars['runeSortBtn'], vars['runeSortLabel'])
         
-        -- 나중에 드래곤 룬 장착 쪽에서도 장착한 룬이 보이게 될 때 전역 함수에 추가하자 
-        uic_sort_list:addSortType('equipped', Str('장착'))
+            -- 나중에 드래곤 룬 장착 쪽에서도 장착한 룬이 보이게 될 때 전역 함수에 추가하자 
+            uic_sort_list:addSortType('equipped', Str('장착'))
 
-        -- 버튼을 통해 정렬이 변경되었을 경우
-        local function sort_change_cb(sort_type)
-            sort_manager:pushSortOrder(sort_type)
-            self:apply_runesSort()
-        end
+            -- 버튼을 통해 정렬이 변경되었을 경우
+            local function sort_change_cb(sort_type)
+                sort_manager:pushSortOrder(sort_type)
+                self:apply_runesSort()
+            end
         
-        -- 단 하나의 콤보박스만 켜지도록
-        vars['runeSortBtn']:registerScriptTapHandler(function()
-            uic_sort_list:toggleVisibility()
+            -- 단 하나의 콤보박스만 켜지도록
+            vars['runeSortBtn']:registerScriptTapHandler(function()
+                uic_sort_list:toggleVisibility()
 
-            if (uic_sort_list.m_bShow) then
-                if ((self.m_openedComboBox) and (self.m_openedComboBox.m_bShow) and (self.m_openedComboBox ~= uic_sort_list)) then
-                    self.m_openedComboBox:hide()
+                if (uic_sort_list.m_bShow) then
+                    if ((self.m_openedComboBox) and (self.m_openedComboBox.m_bShow) and (self.m_openedComboBox ~= uic_sort_list)) then
+                        self.m_openedComboBox:hide()
+                    end
+                    self.m_openedComboBox = uic_sort_list
                 end
-                self.m_openedComboBox = uic_sort_list
-            end
-        end)
+            end)
 
-        uic_sort_list:setSortChangeCB(sort_change_cb)
+            uic_sort_list:setSortChangeCB(sort_change_cb)
 
-        -- 최초 정렬 설정
-        uic_sort_list:setSelectSortType('set_id')
-    end
-
-    do -- 오름차순/내림차순 버튼
-        local function click()
-            local ascending = (not sort_manager.m_defaultSortAscending)
-            sort_manager:setAllAscending(ascending)
-            self:apply_runesSort()
-
-            vars['runeSortOrderSprite']:stopAllActions()
-            if ascending then
-                vars['runeSortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
-            else
-                vars['runeSortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
-            end
+            -- 최초 정렬 설정
+            uic_sort_list:setSelectSortType('set_id', true)
         end
 
-        vars['runeSortOrderBtn']:registerScriptTapHandler(click)
+        do -- 오름차순/내림차순 버튼
+            local function click()
+                local ascending = (not sort_manager.m_defaultSortAscending)
+                sort_manager:setAllAscending(ascending)
+                self:apply_runesSort()
+
+                vars['runeSortOrderSprite']:stopAllActions()
+                if ascending then
+                    vars['runeSortOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+                else
+                    vars['runeSortOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+                end
+            end
+
+            vars['runeSortOrderBtn']:registerScriptTapHandler(click)
+        end
+
+        self.m_sortManagerRune = sort_manager
     end
+
+    self.m_tableViewTD = table_view_td
+    self.m_sortManagerRune:sortExecution(table_view_td.m_itemList)
 end
 
 -------------------------------------
