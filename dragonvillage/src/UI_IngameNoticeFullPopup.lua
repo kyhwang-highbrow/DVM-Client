@@ -7,6 +7,9 @@ UI_IngameNoticeFullPopup = class(PARENT,{
         m_noticeLabel = 'UIC_ScrollLabel',
         m_titleLabel = 'cc.LabelTTF', 
 
+        m_upArrowObj = '',
+        m_downArrowObj = '',
+
         m_hasReward = 'boolean',
 
         m_data = 'StructMail',
@@ -30,7 +33,7 @@ function UI_IngameNoticeFullPopup:init(t_notice)
     self:refresh()
 
     -- update 함수를 쓰고 싶을 때
-    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -41,6 +44,12 @@ function UI_IngameNoticeFullPopup:initUI()
     local vars = self.vars
     local scrollTextNode = vars['textScrollViewNode']
     self.m_titleLabel = vars['titleLabel']
+
+    self.m_upArrowObj = vars['upArrow']
+    self.m_downArrowObj = vars['downArrow']
+
+    if self.m_upArrowObj then self.m_upArrowObj:setVisible(false) end
+    if self.m_downArrowObj then self.m_downArrowObj:setVisible(false) end
 
     if not scrollTextNode then return end
 
@@ -69,12 +78,13 @@ function UI_IngameNoticeFullPopup:initUI()
     -- rich_label 생성
 	local rich_label = UIC_RichLabel()
 	rich_label:setDimension(780, 410)
-	rich_label:setFontSize(20)
+	rich_label:setFontSize(22)
 	rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 	rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1)
     rich_label:setDefualtColor(COLOR['white'])
     rich_label.m_root:setSwallowTouch(false)
     rich_label.m_lineHeight = 1.4
+    rich_label.m_wordSpacing = 1.1
 
     local width, height = rich_label:getNormalSize()
 
@@ -82,6 +92,7 @@ function UI_IngameNoticeFullPopup:initUI()
 	self.m_noticeLabel = UIC_ScrollLabel:create(rich_label)
 	self.m_noticeLabel:setDockPoint(CENTER_POINT)
 	self.m_noticeLabel:setAnchorPoint(CENTER_POINT)
+
 	scrollTextNode:addChild(self.m_noticeLabel.m_node)
 
     
@@ -122,17 +133,18 @@ end
 -------------------------------------
 -- function update
 -------------------------------------
---[[
+
 function UI_IngameNoticeFullPopup:update(dt)
     if not self.m_noticeLabel then return end
 
-    // 텍스트 영역이 뷰 영역보다 작다.
-    cclog(tostring(self.m_noticeLabel:isShortText()))
+    if (self.m_noticeLabel:isShortText()) then return end
 
-    // 맨 위인지 맨 아래인지 확인 top bottom all false 가운데
-    cclog('istop and bottom ' .. tostring(self.m_noticeLabel:isTopPosition()) .. ' ' .. tostring(self.m_noticeLabel:isBottomPosition()))
+    local isTop = self.m_noticeLabel:isTopPosition()
+    local isBottom = self.m_noticeLabel:isBottomPosition()
+
+    if self.m_upArrowObj then self.m_upArrowObj:setVisible(not isTop) end
+    if self.m_downArrowObj then self.m_downArrowObj:setVisible(not isBottom) end
 end
-]]--
 
 
 -------------------------------------
