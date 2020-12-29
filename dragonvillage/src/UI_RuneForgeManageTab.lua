@@ -326,7 +326,7 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
         local uic_sort_list = MakeUICSortList_runeManage(vars['runeSortBtn'], vars['runeSortLabel'])
         
         -- 나중에 드래곤 룬 장착 쪽에서도 장착한 룬이 보이게 될 때 전역 함수에 추가하자 
-        uic_sort_list('equipped', Str('세트'))
+        uic_sort_list:addSortType('equipped', Str('세트'))
 
         -- 버튼을 통해 정렬이 변경되었을 경우
         local function sort_change_cb(sort_type)
@@ -805,7 +805,7 @@ function UI_RuneForgeManageTab:refresh_runeSetFilter()
 
     local set_id = self.m_setID
     local table_rune_set = TableRuneSet()
-    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichText(set_id)
+    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichTextWithoutNeed(set_id)
     vars['setSortLabel']:setString(text)
 
     self:init_runeTableView()
