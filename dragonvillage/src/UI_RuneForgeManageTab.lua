@@ -94,8 +94,12 @@ function UI_RuneForgeManageTab:initUI()
         self.vars['addDevBtn']:setVisible(false)
     end
 
-    -- 룬 정렬 최초 전체 선택
+    -- 룬 필터 초기화
     vars['setSortLabel']:setString(Str('전체'))
+
+    vars['optSortLabel']:setColor(cc.c4b(240, 215, 159))
+    vars['optSortSprite']:setVisible(true)
+    vars['selectSprite']:setVisible(false)
 end
 
 -------------------------------------
@@ -859,6 +863,12 @@ function UI_RuneForgeManageTab:click_optSortBtn()
         self.m_lMoptList = l_mopt_list
         self.m_lSoptList = l_sopt_list
         self.m_bIncludeEquipped = b_include_equipped
+
+        local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)
+
+        self.vars['optSortLabel']:setColor((b_is_using_filter == false) and cc.c4b(240, 215, 159) or cc.c4b(255, 215, 0))
+        self.vars['optSortSprite']:setVisible(not b_is_using_filter)
+        self.vars['selectSprite']:setVisible(b_is_using_filter)
 
         self:refresh_runeOptionFilter()
     end

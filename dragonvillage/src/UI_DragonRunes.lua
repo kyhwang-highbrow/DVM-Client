@@ -101,6 +101,10 @@ function UI_DragonRunes:initUI()
 
     -- 룬 정렬 최초 전체 선택
     self:refresh_runeSetFilter(0)
+    
+    self.vars['optSortLabel']:setColor(cc.c4b(240, 215, 159))
+    self.vars['optSortSprite']:setVisible(true)
+    self.vars['selectSprite']:setVisible(false)
 end
 
 -------------------------------------
@@ -1101,6 +1105,13 @@ function UI_DragonRunes:click_optSortBtn()
     local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, nil)
 
     ui:setCloseCB(function(l_mopt_list, l_sopt_list, include_equipped)
+
+        local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)
+
+        self.vars['optSortLabel']:setColor((b_is_using_filter == false) and cc.c4b(240, 215, 159) or cc.c4b(255, 215, 0))
+        self.vars['optSortSprite']:setVisible(not b_is_using_filter)
+        self.vars['selectSprite']:setVisible(b_is_using_filter)
+
         self:refresh_runeOptionFilter(l_mopt_list, l_sopt_list)
     end)
 end
