@@ -21,6 +21,7 @@ function SortManager_Rune:init()
     self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end, Str('희귀도'))
 	self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end, Str('획득순'))
     self:addSortType('mopt', false, function(a, b, ascending) return self:sort_mopt(a, b, ascending) end, Str('주옵션'))
+    self:addSortType('equipped', false, function(a, b, ascending) return self:sort_equipped(a, b, ascending) end, Str('장착'))
 
 	self:pushSortOrder('created_at')
 	self:pushSortOrder('rarity')
@@ -131,6 +132,16 @@ function SortManager_Rune:sort_mopt(a, b, ascending)
 end
 
 -------------------------------------
+-- function sort_equipped
+-- @brief 획득순
+-------------------------------------
+function SortManager_Rune:sort_equipped(a, b, ascending)
+    local key = 'equipped'
+    return self:equipped_sort(key, a, b, ascending)
+end
+
+
+-------------------------------------
 -- function mopt_sort
 -- @brief 주 옵션 정렬
 -------------------------------------
@@ -140,6 +151,26 @@ function SortManager:mopt_sort(key, a, b, ascending)
 
     a_value = self:getMoptPriority(a_value)
     b_value = self:getMoptPriority(b_value)
+
+    if (a_value == b_value) then
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then
+        return a_value < b_value
+    else
+        return a_value > b_value
+    end
+end
+
+-------------------------------------
+-- function equipped_sort
+-- @brief 장착 정렬
+-------------------------------------
+function SortManager:equipped_sort(key, a, b, ascending)
+    local a_value = (a['data'] and a['data']['owner_doid'] and 1) or 0
+    local b_value = (b['data'] and b['data']['owner_doid'] and 1) or 0
 
     if (a_value == b_value) then
         return nil
