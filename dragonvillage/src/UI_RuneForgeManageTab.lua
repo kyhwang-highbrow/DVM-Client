@@ -324,12 +324,14 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
 
     do -- 정렬 UI 생성
         local uic_sort_list = MakeUICSortList_runeManage(vars['runeSortBtn'], vars['runeSortLabel'])
+        
+        -- 나중에 드래곤 룬 장착 쪽에서도 장착한 룬이 보이게 될 때 전역 함수에 추가하자 
+        uic_sort_list('equipped', Str('세트'))
 
         -- 버튼을 통해 정렬이 변경되었을 경우
         local function sort_change_cb(sort_type)
             sort_manager:pushSortOrder(sort_type)
             self:apply_runesSort()
-        
         end
         
         -- 단 하나의 콤보박스만 켜지도록
