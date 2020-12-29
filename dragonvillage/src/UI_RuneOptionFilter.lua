@@ -104,11 +104,11 @@ function UI_RuneOptionFilter:initButton()
             local opt_type = opt_data[1]
             local opt_str = opt_data[2]
 
-            local btn_lua_name = opt_category .. tostring(idx) .. 'Btn'
-            vars[btn_lua_name]:registerScriptTapHandler(function() self:click_optionBtn(opt_category, opt_type) end)
+            vars[opt_category .. tostring(idx) .. 'Btn']:registerScriptTapHandler(function() self:click_optionBtn(opt_category, opt_type) end)
+            vars[opt_category .. tostring(idx) .. 'ActiveBtn']:registerScriptTapHandler(function() self:click_optionBtn(opt_category, opt_type) end)
             
-            local label_lua_name = opt_category .. tostring(idx) .. 'Label'
-            vars[label_lua_name]:setString(opt_str)
+            vars[opt_category .. tostring(idx) .. 'Label']:setString(opt_str)
+            vars[opt_category .. tostring(idx) .. 'ActiveLabel']:setString(opt_str)
         end
     end
 
@@ -121,16 +121,16 @@ end
 function UI_RuneOptionFilter:refresh()
     local vars = self.vars
 
-    local select_label_color = cc.c4b(255, 255, 0, 255)
-    local not_select_label_color = cc.c4b(255, 255, 255, 255)
+    local select_label_color = cc.c4b(0, 0, 0, 255)
+    local not_select_label_color = cc.c4b(240, 215, 159, 255)
 
     -- 선택되어 있는 옵션의 경우 표시
     for idx, opt_data in ipairs(self.m_lOptDataList) do
         local opt_type = opt_data[1]
         
-        -- (임시) 라벨 색 변화   
-        vars['mopt' .. tostring(idx) .. 'Label']:setTextColor((self.m_mMoptStatus[opt_type] == true) and select_label_color or not_select_label_color)
-        vars['sopt' .. tostring(idx) .. 'Label']:setTextColor((self.m_mSoptStatus[opt_type] == true) and select_label_color or not_select_label_color)
+        -- 라벨 색 변화   
+        vars['mopt' .. tostring(idx) .. 'ActiveBtn']:setVisible((self.m_mMoptStatus[opt_type] == true))
+        vars['sopt' .. tostring(idx) .. 'ActiveBtn']:setVisible((self.m_mSoptStatus[opt_type] == true))
     end
 end
 
