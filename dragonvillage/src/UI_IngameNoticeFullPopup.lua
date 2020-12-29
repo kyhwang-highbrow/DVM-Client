@@ -28,7 +28,7 @@ function UI_IngameNoticeFullPopup:init(t_notice, finish_cb)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    --g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_IngameNoticeFullPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_IngameNoticeFullPopup')
 
     self:initUI()
     self:initButton()
