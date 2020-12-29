@@ -212,7 +212,7 @@ function UI_GachaResult_Rune:initRuneCardList()
 
         -- 이미 열린 카드를 클릭할 때 호출되는 콜백함수
         local function click_rune_cb()
-            self:refreshRuneInfo(struct_rune_object)
+            self:refreshRuneInfo(roid)
         end
 
         -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
@@ -274,10 +274,10 @@ end
 -------------------------------------
 -- function refreshRuneInfo
 -------------------------------------
-function UI_GachaResult_Rune:refreshRuneInfo(struct_rune_object)
+function UI_GachaResult_Rune:refreshRuneInfo(roid)
     local vars = self.vars
 
-    local roid = struct_rune_object['roid']
+    local struct_rune_object = g_runesData:getRuneObject(roid)
     local rarity = struct_rune_object['rarity']
     local rune_card_node = vars['runeSelectNode']
     
@@ -399,7 +399,7 @@ function UI_GachaResult_Rune:update_skip(dt)
                 self:actionRuneInfoUI('runeInfo') -- 룬 정보창 움직이기
             end
 
-            self:refreshRuneInfo(StructRuneObject(best_t_rune_data))
+            self:refreshRuneInfo(best_t_rune_data['id'])
             self:refresh()
             self.m_skipUpdateNode:unscheduleUpdate()
         end
