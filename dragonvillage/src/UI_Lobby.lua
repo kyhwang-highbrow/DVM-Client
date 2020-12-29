@@ -229,6 +229,16 @@ function UI_Lobby:entryCoroutine()
 
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
+                        
+            -- 풀팝업 출력 함수
+            local function show_func(pid) 
+                co:work()
+                local ui = UI_EventFullPopup(pid)
+                ui:setCloseCB(co.NEXT)
+                ui:openEventFullPopup()
+                if co:waitWork() then return end
+            end
+
             -- 20201223
             -- https://highbrow.atlassian.net/wiki/spaces/dvm/pages/875233281
             -- 우선순위: 신규 유저 D+1 푸시 > 게임 내 공지 > 누적 결제 이벤트 > 풀팝업
@@ -272,15 +282,6 @@ function UI_Lobby:entryCoroutine()
                     cclog('# 인게임 공지팝업')
                     g_fullPopupManager:show(FULL_POPUP_TYPE.INGAME_NOTICE, show_notice_callback)
 			    end
-            end
-            
-            -- 풀팝업 출력 함수
-            local function show_func(pid) 
-                co:work()
-                local ui = UI_EventFullPopup(pid)
-                ui:setCloseCB(co.NEXT)
-                ui:openEventFullPopup()
-                if co:waitWork() then return end
             end
 
             -- =============================================
