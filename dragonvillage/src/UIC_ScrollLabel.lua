@@ -91,6 +91,9 @@ function UIC_ScrollLabel:setString(str)
     -- 가변적인 리스트는 이걸 무조건 믿는것보다 그떄그떄 get 하는 함수를 만들어야 한다.
     self.m_offsetMinY = min_container_offset['y']
     self.m_offsetMaxY = max_container_offset['y']
+
+    --스크롤 영역보다 작은 텍스트는 스크롤 안하게 하는 로직
+    --if self:isShortText() then scroll_view:setTouchEnabled(false) end
 end
 
 -------------------------------------
