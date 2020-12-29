@@ -38,8 +38,10 @@ function UI_InventoryBtn:initButton()
     end
 
     self.vars['moveBtn']:registerScriptTapHandler(function() 
-        ui_inven = UI_Inventory() 
-        ui_inven:setCloseCB(cb_refresh)
+        --ui_inven = UI_Inventory() 
+        --ui_inven:setCloseCB(cb_refresh)
+        -- 이제 룬 가방을 클릭하면 룬 관리창으로 보내준다
+        UINavigator:goTo('rune_forge', 'manage')
     end)
 end
 
