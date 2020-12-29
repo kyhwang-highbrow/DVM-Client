@@ -33,7 +33,6 @@ function UI_IngameNoticeFullPopup:init(t_notice, finish_cb)
     self:initUI()
     self:initButton()
     self:refresh()
-
     -- update 함수를 쓰고 싶을 때
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
@@ -218,6 +217,8 @@ end
 function UI_IngameNoticeFullPopup:click_closeBtn()
     local t_custom = self.m_data.custom
     
+    local t_popupKey = g_settingData:get('lobby_ingame_notice')
+    
     if t_custom and t_custom['key'] then 
         local key = t_custom['key']
         
@@ -230,6 +231,7 @@ function UI_IngameNoticeFullPopup:click_closeBtn()
         -- 더 쌔거면 저장
         if isNewer then
             g_settingData:applySettingData(t_custom['popup_at'], 'lobby_ingame_notice', t_custom['key'])
+            self:deleteOldData()
         end 
     end
     
@@ -237,6 +239,35 @@ function UI_IngameNoticeFullPopup:click_closeBtn()
 
     self:close()
 end
+
+
+-------------------------------------
+-- function applySettingData
+-------------------------------------
+function UI_IngameNoticeFullPopup:deleteOldData()
+    -- 왜서 때로 만들었냐?
+    -- 끝도 없이 쌓이기 떄문이다!
+    -- 시간 지난거는 예의상 지우는게 맞다.
+    local t_popupKey = g_settingData:get('lobby_ingame_notice')
+
+    -- 아예 없으면 암것도 안하기
+    if not t_popupKey then return end
+
+    local t_result = {}
+    local currentTime = tonumber(socket.gettime() * 1000)
+
+    -- key 등록일 / expired_at 팝업 자동노출 중지 시간
+    for key, expired_at in pairs(t_popupKey) do
+        if (currentTime <= tonumber(expired_at)) then
+            t_result[key] = expired_at
+        end
+    end
+
+    if not t_result or table.count(t_result) <= 0 then return end
+
+    g_settingData:applySettingData(t_result, 'lobby_ingame_notice')
+end
+
 
 
 -------------------------------------
