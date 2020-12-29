@@ -1,1 +1,9 @@
-return {}
+return {['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}~{3}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grado {1} de la runa de fusión\n{@DEFAULT}genera aleatoriamente grado {2} - {3} Runas.',
+['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grado {1} de la runa de fusión\n{@DEFAULT}genera aleatoriamente grado {2} Runas.',
+['드래곤빌리지M 공식 커뮤니티']='Comunidad',
+['메모를 입력해주세요. (최대 40자)']='Ingresa el nota. (Máx. 40 caracteres).',
+['인스타그램']='Instagram',
+['장착 중인 룬입니다.']='Esta runa está equipada',
+['최대 글자수(40자)를 초과했어요!']='¡Ha excedido el límite de caracteres (40)!',
+['{@SKILL_NAME}7등급 룬 합성\n{@DEFAULT}랜덤한 7등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grado 7 de la runa de fusión\n{@DEFAULT}genera aleatoriamente grado 7 Runas.',
+['7등급 룬 업데이트']='Actualización de runas de rango 7'}

@@ -1,1 +1,12 @@
-return {}
+return {['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}~{3}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grade {1} Rune Fusion\n{@DEFAULT}Randomly generates Grade {2} - {3} Runes.',
+['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grade {1} Rune Fusion\n{@DEFAULT}Randomly generates Grade {2} Runes.',
+['드래곤빌리지M 공식 커뮤니티']='Community',
+['메모를 입력해주세요. (최대 40자)']='Enter memo (up to 40 characters).',
+['인스타그램']='Instagram',
+['장착 중인 룬입니다.']='This rune is equipped.',
+['최대 글자수(40자)를 초과했어요!']='You\'ve exceeded the max character limit (40)!',
+['룬 강화']='طلسم را ارتقا دهید',
+['종합 랭킹']='رتبه بندی',
+['속성별 랭킹']='رتبه بندی بر اساس ویژگی',
+['7등급 룬']='طلسم مرحله 7',
+['7등급 룬 업데이트']='Grade 7 Rune Update'}
