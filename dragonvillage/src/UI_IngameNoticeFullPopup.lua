@@ -4,14 +4,12 @@ local PARENT = UI
 -- class UI_IngameNoticeFullPopup
 -------------------------------------
 UI_IngameNoticeFullPopup = class(PARENT,{
-        m_noticeLabel = 'cc.LabelTTF',
+        m_noticeLabel = 'UIC_ScrollLabel',
         m_titleLabel = 'cc.LabelTTF', 
 
         m_hasReward = 'boolean',
 
         m_data = 'StructMail',
-
-        m_labelHieght = 'number',
     })
 
 -------------------------------------
@@ -30,6 +28,9 @@ function UI_IngameNoticeFullPopup:init(t_notice)
     self:initUI()
     self:initButton()
     self:refresh()
+
+    -- update 함수를 쓰고 싶을 때
+    --self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -76,7 +77,6 @@ function UI_IngameNoticeFullPopup:initUI()
     rich_label.m_lineHeight = 1.4
 
     local width, height = rich_label:getNormalSize()
-    self.m_labelHieght = height
 
 	-- scroll label  생성
 	self.m_noticeLabel = UIC_ScrollLabel:create(rich_label)
@@ -117,6 +117,23 @@ function UI_IngameNoticeFullPopup:initUI()
     end
 
 end
+
+
+-------------------------------------
+-- function update
+-------------------------------------
+--[[
+function UI_IngameNoticeFullPopup:update(dt)
+    if not self.m_noticeLabel then return end
+
+    // 텍스트 영역이 뷰 영역보다 작다.
+    cclog(tostring(self.m_noticeLabel:isShortText()))
+
+    // 맨 위인지 맨 아래인지 확인 top bottom all false 가운데
+    cclog('istop and bottom ' .. tostring(self.m_noticeLabel:isTopPosition()) .. ' ' .. tostring(self.m_noticeLabel:isBottomPosition()))
+end
+]]--
+
 
 -------------------------------------
 -- function initButton
