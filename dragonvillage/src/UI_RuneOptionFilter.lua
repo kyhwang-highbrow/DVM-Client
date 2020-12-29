@@ -105,7 +105,7 @@ end
 function UI_RuneOptionFilter:refresh()
     local vars = self.vars
 
-    local select_label_color = cc.c4b(240, 215, 159, 255)
+    local select_label_color = cc.c4b(255, 255, 0, 255)
     local not_select_label_color = cc.c4b(255, 255, 255, 255)
 
     -- 선택되어 있는 옵션의 경우 표시
@@ -125,15 +125,103 @@ end
 -------------------------------------
 function UI_RuneOptionFilter:click_optionBtn(opt_category, opt_type)
     local vars = self.vars
-    
+    local m_option_status = (opt_category == 'mopt') and self.m_mMoptStatus or self.m_mSoptStatus
+
+    -- '전체' 옵션을 선택한 경우
+    if (opt_type == 'all') then
+        if (m_option_status['all'] == true) then
+            return
+        end
+        
+        -- 다른 개별 옵션들을 전부 끈다. 
+        for idx, option_data in ipairs(self.m_lOptDataList) do
+            local option = option_data[1]
+            local b_is_active = m_option_status[option]
+
+            if (option ~= 'all') and (b_is_active == true) then
+                m_option_status[option] = false
+            end
+        end
+        
+        m_option_status['all'] = true
+
+    -- 개별 옵션을 선택한 경우
+    else
+        -- '전체' 옵션이 켜져있던 경우 끈다.
+        if (m_option_status['all'] == true) then
+            m_option_status['all'] = false
+        end
+
+        m_option_status[opt_type] = not m_option_status[opt_type]
+        
+        -- 단일 옵션 체크인 경우 해당 옵션을 키게 될 때 다른 옵션 꺼준다
+        if ((m_option_status[opt_type] == true) and (opt_category == 'mopt')) then
+            for idx, option_data in ipairs(self.m_lOptDataList) do
+                local option = option_data[1]
+                local b_is_active = m_option_status[option]
+
+                if (option ~= opt_type) and (b_is_active == true) then
+                    m_option_status[option] = false
+                end
+            end
+        end
+        
+        -- 모든 옵션이 꺼진 경우 '전체' 옵션을 켜준다.
+        local b_is_all_inactive = true
+        for idx, option_data in ipairs(self.m_lOptDataList) do
+            local option = option_data[1]
+            local b_is_active = m_option_status[option]
+            
+            if (b_is_active == true) then
+                b_is_all_inactive = false
+                break
+            end
+        end
+
+        if (b_is_all_inactive == true) then
+            m_option_status['all'] = true
+        end
+    end
+
+    self:refresh()
 end
 
 -------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_RuneOptionFilter:click_closeBtn()
+    if (self.m_closeCB) then
+        local l_mopt_list = self:getOptionList('mopt')
+        local l_sopt_list = self:getOptionList('sopt')
+
+        self.m_closeCB(l_mopt_list, l_sopt_list)
+    end
+
+    self.m_closeCB = nil
     self:close()
 end
+
+-------------------------------------
+-- function getOptionList
+-- @return nil 반환하면 전체 옵션, list 반환하면 해당 옵션만
+-------------------------------------
+function UI_RuneOptionFilter:getOptionList(opt_category)
+    local l_option_list = {}
+    local m_option_status = (opt_category == 'mopt') and self.m_mMoptStatus or self.m_mSoptStatus
+
+    if (m_option_status['all'] == false) then
+        for option, b_is_active in pairs(m_option_status) do
+            if (b_is_active == true) then
+                table.insert(l_option_list, option)
+            end
+        end
+    else
+        l_option_list = nil
+    end
+
+    return l_option_list
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_RuneOptionFilter)
