@@ -498,7 +498,6 @@ end
 -------------------------------------
 function StructMail:readNotice(cb_func, isShowPopup)
     local isPopupShow = isShowPopup
-
     -- 팝업만 띄우고 보상은 팝업에서.
     if isPopupShow then
         UI_IngameNoticeFullPopup(self, cb_func)
@@ -523,6 +522,7 @@ function StructMail:readNotice(cb_func, isShowPopup)
         local mail_type_list = {
             self:getMailType()
         }
+
         local function finish_cb(ret)
             local l_item = ret['added_items'] or {}
             l_item = l_item['items_list']
@@ -540,7 +540,6 @@ function StructMail:readNotice(cb_func, isShowPopup)
             if (l_item) and (table.count(l_item) > 0) then
                 UI_ObtainPopup(l_item, Str('공지는 꼭 확인하라골!'), callback)
             else
-                -- 그러면 안되겠지만
                 -- 보상이 없는데 들어왔을 때
                 if callback then callback() end
             end

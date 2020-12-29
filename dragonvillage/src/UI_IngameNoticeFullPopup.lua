@@ -22,7 +22,6 @@ UI_IngameNoticeFullPopup = class(PARENT,{
 -------------------------------------
 function UI_IngameNoticeFullPopup:init(t_notice, finish_cb)
     local vars = self:load('ingame_notice_popup.ui')
-
     self.m_data = t_notice
     self.m_finishCallback = finish_cb
 
@@ -190,7 +189,7 @@ function UI_IngameNoticeFullPopup:initButton()
     end
 
     btnCommunity:registerScriptTapHandler(function() self:click_communityButton() end)
-    btnReceive:registerScriptTapHandler(function() self:click_receiveButton() end)
+    btnReceive:registerScriptTapHandler(function() self:click_closeBtn() end)
     btnOk:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -239,12 +238,6 @@ function UI_IngameNoticeFullPopup:click_closeBtn()
     self:close()
 end
 
--------------------------------------
--- function click_receiveButton
--------------------------------------
-function UI_IngameNoticeFullPopup:click_receiveButton()
-    self.m_data:readNotice(function() self:click_closeBtn() end, false)
-end
 
 -------------------------------------
 -- function click_communityButton
