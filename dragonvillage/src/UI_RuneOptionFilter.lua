@@ -95,8 +95,10 @@ end
 -------------------------------------
 function UI_RuneOptionFilter:initButton()
     local vars = self.vars
+
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    
+    vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+
     for _, opt_category in ipairs({'mopt', 'sopt'}) do
         for idx, opt_data in ipairs(self.m_lOptDataList) do
             local opt_type = opt_data[1]
@@ -208,6 +210,28 @@ function UI_RuneOptionFilter:click_equipBtn()
     local vars = self.vars
 
     self.m_bDirty = true
+end
+
+-------------------------------------
+-- function click_refreshBtn
+-------------------------------------
+function UI_RuneOptionFilter:click_refreshBtn()
+    local vars = self.vars
+
+    for idx, opt_data in ipairs(self.m_lOptDataList) do
+        local opt_type = opt_data[1]
+        self.m_mMoptStatus[opt_type] = false
+        self.m_mSoptStatus[opt_type] = false
+    end
+    self.m_mMoptStatus['all'] = true
+    self.m_mSoptStatus['all'] = true
+
+    if (vars['equipBtn']:isVisible()) then
+        b_include_equipped = vars['equipBtn']:setChecked(true)
+    end
+
+    self.m_bDirty = true
+    self:refresh()
 end
 
 -------------------------------------
