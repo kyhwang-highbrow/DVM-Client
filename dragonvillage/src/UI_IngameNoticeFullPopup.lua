@@ -13,15 +13,18 @@ UI_IngameNoticeFullPopup = class(PARENT,{
         m_hasReward = 'boolean',
 
         m_data = 'StructMail',
+
+        m_finishCallback = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_IngameNoticeFullPopup:init(t_notice)
+function UI_IngameNoticeFullPopup:init(t_notice, finish_cb)
     local vars = self:load('ingame_notice_popup.ui')
 
     self.m_data = t_notice
+    self.m_finishCallback = finish_cb
 
     UIManager:open(self, UIManager.POPUP)
 
@@ -231,7 +234,7 @@ function UI_IngameNoticeFullPopup:click_closeBtn()
         end 
     end
     
-    self.m_data:readNotice(nil, false)
+    self.m_data:readNotice(function() if (self.m_finishCallback) then self.m_finishCallback() end end, false)
 
     self:close()
 end

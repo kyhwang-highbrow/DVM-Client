@@ -501,7 +501,7 @@ function StructMail:readNotice(cb_func, isShowPopup)
 
     -- 팝업만 띄우고 보상은 팝업에서.
     if isPopupShow then
-        UI_IngameNoticeFullPopup(self)
+        UI_IngameNoticeFullPopup(self, cb_func)
         return
     end
     
@@ -545,7 +545,7 @@ function StructMail:readNotice(cb_func, isShowPopup)
                 if callback then callback() end
             end
         end
-    
+
         g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
     end
 end
