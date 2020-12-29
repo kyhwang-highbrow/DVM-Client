@@ -1658,6 +1658,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RuneForgeInfoTab.lua" />
     <None Include="..\src\UI_RuneForgeManageTab.lua" />
     <None Include="..\src\UI_RuneGuardianDungeonScene.lua" />
+    <None Include="..\src\UI_RuneOptionFilter.lua" />
     <None Include="..\src\UI_RuneSelectDevApiPopup.lua" />
     <None Include="..\src\UI_RuneSetFilter.lua" />
     <None Include="..\src\UI_ScenarioPlayer_util.lua" />

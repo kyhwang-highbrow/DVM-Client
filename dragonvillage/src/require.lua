@@ -794,7 +794,6 @@ local t_module = {
 	'UIC_ExtendList',
 	'UIC_ExtendList_Image',
     'UIC_IconAndName',
-    'UIC_RuneOptionFilter',
 	
     -- UI : CARD
     'UI_Card',
@@ -1266,6 +1265,7 @@ local t_module = {
     'UI_EvolutionStoneCombine',
     'UI_EvolutionStoneCombineListItem',
     'UI_RuneSetFilter',
+    'UI_RuneOptionFilter',
 
 	-- UI : 각종 랭킹
     'UI_RecommendedDragonInfoPopup',

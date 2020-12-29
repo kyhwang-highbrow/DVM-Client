@@ -4771,6 +4771,9 @@
     <None Include="..\src\UIC_RuneOptionFilter.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_RuneOptionFilter.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
