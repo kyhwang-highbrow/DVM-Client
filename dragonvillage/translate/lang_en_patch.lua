@@ -7,4 +7,5 @@ return {['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}~{3}등급 �
 ['최대 글자수(40자)를 초과했어요!']='You\'ve exceeded the max character limit (40)!',
 ['기간 : {1}']='Duration: {1}',
 ['장착 중인 룬 보기']='See equipped runes',
+['옵션']='Option',
 ['7등급 룬 업데이트']='Grade 7 Rune Update'}

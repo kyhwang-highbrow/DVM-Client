@@ -7,5 +7,6 @@ return {['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}~{3}등급 �
 ['최대 글자수(40자)를 초과했어요!']='¡Ha excedido el límite de caracteres (40)!',
 ['기간 : {1}']='Período: {1}',
 ['장착 중인 룬 보기']='Ver runas equipadas',
+['옵션']='Opción',
 ['{@SKILL_NAME}7등급 룬 합성\n{@DEFAULT}랜덤한 7등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grado 7 de la runa de fusión\n{@DEFAULT}genera aleatoriamente grado 7 Runas.',
 ['7등급 룬 업데이트']='Actualización de runas de rango 7'}
