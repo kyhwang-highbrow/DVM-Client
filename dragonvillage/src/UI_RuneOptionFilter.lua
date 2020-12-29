@@ -7,12 +7,14 @@ UI_RuneOptionFilter = class(PARENT,{
         m_lOptDataList = 'list', -- 옵션 정보(옵션 키, 옵션 텍스트) 가지고 있는 리스트
         m_mMoptStatus = 'map', -- 해당 옵션이 선택되어 있는지 map[opt_type] = true/false
         m_mSoptStatus = 'map', -- 해당 옵션이 선택되어 있는지 map[opt_type] = true/false
+
+        m_bDirty = 'boolean', -- 세팅 정보가 바뀌었는지
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_RuneOptionFilter:init(l_mopt_list, l_sopt_list)
+function UI_RuneOptionFilter:init(l_mopt_list, l_sopt_list, b_include_equipped)
     local vars = self:load('dragon_rune_sort_opt.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -38,7 +40,7 @@ function UI_RuneOptionFilter:init(l_mopt_list, l_sopt_list)
     table.insert(l_option_data_list, {'accuracy_add', Str('효과 적중') .. ' %'})
     table.insert(l_option_data_list, {'resistance_add', Str('효과 저항') .. ' %'})
     self.m_lOptDataList= l_option_data_list
-
+    
     self.m_mMoptStatus = {}
     self.m_mSoptStatus = {}
 
@@ -65,6 +67,11 @@ function UI_RuneOptionFilter:init(l_mopt_list, l_sopt_list)
         self.m_mSoptStatus['all'] = true
     end
     
+    self.m_bDirty = false
+
+    -- 매개변수 바로 활용하기 위해 여기서 체크박스 초기화함
+    vars['equipBtn'] = UIC_CheckBox(vars['equipBtn'].m_node, vars['equipSprite'], b_include_equipped)
+    vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
 
     self:initUI()
     self:initButton()
@@ -97,6 +104,8 @@ function UI_RuneOptionFilter:initButton()
             vars[label_lua_name]:setString(opt_str)
         end
     end
+
+
 end
 
 -------------------------------------
@@ -183,18 +192,31 @@ function UI_RuneOptionFilter:click_optionBtn(opt_category, opt_type)
         end
     end
 
+    self.m_bDirty = true
     self:refresh()
+end
+
+-------------------------------------
+-- function click_equipBtn
+-------------------------------------
+function UI_RuneOptionFilter:click_equipBtn()
+    local vars = self.vars
+
+    self.m_bDirty = true
 end
 
 -------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_RuneOptionFilter:click_closeBtn()
-    if (self.m_closeCB) then
+    if (self.m_closeCB) and (self.m_bDirty == true) then
+        local vars = self.vars
+
         local l_mopt_list = self:getOptionList('mopt')
         local l_sopt_list = self:getOptionList('sopt')
+        local b_include_equipped = vars['equipBtn']:isChecked()
 
-        self.m_closeCB(l_mopt_list, l_sopt_list)
+        self.m_closeCB(l_mopt_list, l_sopt_list, b_include_equipped)
     end
 
     self.m_closeCB = nil

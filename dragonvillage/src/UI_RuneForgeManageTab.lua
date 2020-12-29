@@ -18,6 +18,8 @@ UI_RuneForgeManageTab = class(PARENT,{
         m_setID = 'number', -- 0번은 전체 1~8은 해당 세트만
         m_lMoptList = 'list', -- 주옵션 필터 리스트
         m_lSoptList = 'list', -- 보조옵션 필터 리스트
+        m_bIncludeEquipped = 'boolean', -- 장착한 룬 필터
+
         m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
         m_tableViewTD = '',
     })
@@ -35,6 +37,7 @@ function UI_RuneForgeManageTab:init(owner_ui)
    self.m_bSelectSellActive = false
    self.m_mSelectedRuneUIMap = {}
    self.m_mSelectedRuneRoidMap = {}
+   self.m_bIncludeEquipped = true
 
    self.m_setID = 0
    self.m_lMoptList = nil
@@ -844,11 +847,13 @@ end
 function UI_RuneForgeManageTab:click_optSortBtn()
     local l_mopt_list = self.m_lMoptList
     local l_sopt_list = self.m_lSoptList
-    local ui = UI_RuneOptionFilter()
+    local b_include_equipped = self.m_bIncludeEquipped
+    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, b_include_equipped)
 
-    local function close_cb(l_mopt_list, l_sopt_list)
+    local function close_cb(l_mopt_list, l_sopt_list, b_include_equipped)
         self.m_lMoptList = l_mopt_list
         self.m_lSoptList = l_sopt_list
+        self.m_bIncludeEquipped = b_include_equipped
 
         self:refresh_runeOptionFilter()
     end
@@ -961,9 +966,8 @@ end
 -- @brief UI상에서 설정된 필터에 해당하는 StructRuneObject 리스트 (리스트가 아닌 map의 형태임을 주의하자)
 -------------------------------------
 function UI_RuneForgeManageTab:getFilteredRuneList(slot_idx)
-    local unequipped = false
+    local unequipped = not self.m_bIncludeEquipped
     local slot = slot_idx
-
     local set_id = self.m_setID
     local l_mopt_list = self.m_lMoptList
     local l_sopt_list = self.m_lSoptList
