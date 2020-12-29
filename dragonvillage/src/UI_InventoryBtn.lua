@@ -41,7 +41,8 @@ function UI_InventoryBtn:initButton()
         --ui_inven = UI_Inventory() 
         --ui_inven:setCloseCB(cb_refresh)
         -- 이제 룬 가방을 클릭하면 룬 관리창으로 보내준다
-        UINavigator:goTo('rune_forge', 'manage')
+        --UINavigator:goTo('rune_forge', 'manage')
+        UI_RuneForge('manage')
     end)
 end
 
@@ -52,6 +53,10 @@ function UI_InventoryBtn:refresh()
     -- 보유 룬 수량
     local inven_count = g_inventoryData:getCount('rune')
     local max_count = g_inventoryData:getMaxCount('rune')
+
+    cclog(inven_count)
+    cclog(max_count)
+
     self.vars['NumberLabel']:setString(Str('{1}/{2}', inven_count, max_count))
 end
 
