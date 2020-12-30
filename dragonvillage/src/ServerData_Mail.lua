@@ -508,25 +508,29 @@ function ServerData_Mail:getNewNoticeData()
         -- 가장 최근 공지를 찾아낸다.
         -- 최신 공지를 찾아낸다
         for i, noticeMail in pairs(noticeMailList) do
-            -- 키값은 YYYYmmDDhhMMss 형태를 가지고 있음
-            -- 큰값이 가장 최근 등록된 팝업임
-            local key = noticeMail.custom['key'] or -1
-            local popupEndTime = noticeMail.custom['popup_at']
-            local currentTime = socket.gettime() * 1000 -- 밀리세컨드로 계산
+            
+            if noticeMail.custom then
+                -- 키값은 YYYYmmDDhhMMss 형태를 가지고 있음
+                -- 큰값이 가장 최근 등록된 팝업임
+                local key = noticeMail.custom['key'] or -1
+                local popupEndTime = noticeMail.custom['popup_at']
+                local currentTime = socket.gettime() * 1000 -- 밀리세컨드로 계산
 
-            -- 일단 읽었던건지부터 보고
-            if not noticeMail:isNoticeRead() then
-                -- 키값이 큰 숫자이고 
-                -- 팝업 종료시간이 현재 시간보다 크다면
-                if (tonumber(key) > tonumber(savedKey) and tonumber(popupEndTime) >= tonumber(currentTime) )then
-                    -- 만약에 저장이 안되어 있는 키라면?
-                    -- 압봤다는 증거다
-                    local localKey = g_settingData:get('lobby_ingame_notice', key) or -1
-                    if (localKey == -1) then
-                        item = noticeMail
-                        savedKey = key
+                -- 일단 읽었던건지부터 보고
+                if not noticeMail:isNoticeRead() then
+                    -- 키값이 큰 숫자이고 
+                    -- 팝업 종료시간이 현재 시간보다 크다면
+                    if (tonumber(key) > tonumber(savedKey) and tonumber(popupEndTime) >= tonumber(currentTime) )then
+                        -- 만약에 저장이 안되어 있는 키라면?
+                        -- 압봤다는 증거다
+                        local localKey = g_settingData:get('lobby_ingame_notice', key) or -1
+                        if (localKey == -1) then
+                            item = noticeMail
+                            savedKey = key
+                        end
                     end
                 end
+
             end
         end
     end
