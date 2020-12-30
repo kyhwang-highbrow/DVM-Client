@@ -98,8 +98,6 @@ function UI_RuneForgeManageTab:initUI()
     vars['setSortLabel']:setString(Str('세트'))
 
     vars['optSortLabel']:setColor(cc.c4b(240, 215, 159))
-    vars['optSortSprite']:setVisible(true)
-    vars['selectSprite']:setVisible(false)
 end
 
 -------------------------------------
@@ -868,8 +866,6 @@ function UI_RuneForgeManageTab:click_optSortBtn()
         local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)
 
         self.vars['optSortLabel']:setColor((b_is_using_filter == false) and cc.c4b(240, 215, 159) or cc.c4b(255, 215, 0))
-        self.vars['optSortSprite']:setVisible(not b_is_using_filter)
-        self.vars['selectSprite']:setVisible(b_is_using_filter)
 
         self:refresh_runeOptionFilter()
     end

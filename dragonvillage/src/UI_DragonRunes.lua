@@ -104,8 +104,6 @@ function UI_DragonRunes:initUI()
     self.vars['setSortLabel']:setString(Str('세트'))
     
     self.vars['optSortLabel']:setColor(cc.c4b(240, 215, 159))
-    self.vars['optSortSprite']:setVisible(true)
-    self.vars['selectSprite']:setVisible(false)
 
     self.vars['runeSortLabel']:setString(Str('정렬'))
 end
@@ -1112,8 +1110,6 @@ function UI_DragonRunes:click_optSortBtn()
         local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)
 
         self.vars['optSortLabel']:setColor((b_is_using_filter == false) and cc.c4b(240, 215, 159) or cc.c4b(255, 215, 0))
-        self.vars['optSortSprite']:setVisible(not b_is_using_filter)
-        self.vars['selectSprite']:setVisible(b_is_using_filter)
 
         self:refresh_runeOptionFilter(l_mopt_list, l_sopt_list)
     end)
