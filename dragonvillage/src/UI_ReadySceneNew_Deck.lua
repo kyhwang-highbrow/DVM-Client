@@ -319,7 +319,7 @@ function UI_ReadySceneNew_Deck:refreshLeader()
 
 	-- 위치가 바뀌었는지 찾아본다
     for i, doid in pairs(self.m_lDeckList) do
-        if (doid == pre_leader_doid) then
+        if (doid == pre_leader_doid) and (g_dragonsData:haveLeaderSkill(doid)) then
             idx = i
         end
     end
