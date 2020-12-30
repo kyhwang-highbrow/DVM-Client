@@ -95,7 +95,7 @@ function UI_RuneForgeManageTab:initUI()
     end
 
     -- 룬 필터 초기화
-    vars['setSortLabel']:setString(Str('전체'))
+    vars['setSortLabel']:setString(Str('세트'))
 
     vars['optSortLabel']:setColor(cc.c4b(240, 215, 159))
     vars['optSortSprite']:setVisible(true)
@@ -351,6 +351,7 @@ function UI_RuneForgeManageTab:init_runeTableView(slot_idx)
 
             -- 최초 정렬 설정
             uic_sort_list:setSelectSortType('set_id', true)
+            self.vars['runeSortLabel']:setString(Str('정렬'))
         end
 
         do -- 오름차순/내림차순 버튼

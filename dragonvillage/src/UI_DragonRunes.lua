@@ -101,10 +101,13 @@ function UI_DragonRunes:initUI()
 
     -- 룬 정렬 최초 전체 선택
     self:refresh_runeSetFilter(0)
+    self.vars['setSortLabel']:setString(Str('세트'))
     
     self.vars['optSortLabel']:setColor(cc.c4b(240, 215, 159))
     self.vars['optSortSprite']:setVisible(true)
     self.vars['selectSprite']:setVisible(false)
+
+    self.vars['runeSortLabel']:setString(Str('정렬'))
 end
 
 -------------------------------------
