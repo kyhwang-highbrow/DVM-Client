@@ -37,7 +37,7 @@ function UI_RuneForgeManageTab:init(owner_ui)
    self.m_bSelectSellActive = false
    self.m_mSelectedRuneUIMap = {}
    self.m_mSelectedRuneRoidMap = {}
-   self.m_bIncludeEquipped = true
+   self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'include_equipped')
 
    self.m_setID = 0
    self.m_lMoptList = nil

@@ -114,6 +114,12 @@ function SettingData:makeDefaultSettingData()
         root_table['option_rune_bulk_sell'] = t_data
     end
 
+    do -- 룬 옵션 필터 옵션
+        local t_data = {}
+        t_data['include_equipped'] = false
+        root_table['option_rune_filter'] = t_data
+    end
+
     do -- 드래곤 선택 (바로가기)
         local t_data = {}
         t_data['grade_1'] = false
