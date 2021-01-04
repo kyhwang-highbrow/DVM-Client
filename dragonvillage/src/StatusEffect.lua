@@ -992,6 +992,12 @@ function StatusEffect:dispatchEvent_statChange()
         local t_event = clone(EVENT_STAT_CHANGED_CARRIER)
         if (self.m_bHasHpStatus) then
             t_event['hp'] = true
+
+            -- @kwkang 21-01-04 첫 웨이브가 아닌 웨이브에 나오는 적 드래곤의 경우 HP 패시브 버프가 올바르게 들어가지 않았던 현상 수정
+            if (self.m_owner:isBoss()) then
+                t_event['is_boss'] = true
+            end
+
         end
         if (self.m_bHasAspdStatus) then
             t_event['aspd'] = true

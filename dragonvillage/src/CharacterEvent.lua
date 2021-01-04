@@ -283,6 +283,9 @@ function Character:onEvent_updateStat(t_event)
             is_start_buff = true
         elseif (self.m_world.m_waveMgr:isFirstWave() and game_state:isEnemyAppear()) then
             is_start_buff = true
+        -- @kwkang 21-01-04 첫 웨이브가 아닌 웨이브에 나오는 적 드래곤의 경우 HP 패시브 버프가 올바르게 들어가지 않았던 현상 수정
+        elseif ((t_event['is_boss']) and game_state:isEnemyAppear()) then
+            is_start_buff = true
         end
 
         if (is_start_buff) then
