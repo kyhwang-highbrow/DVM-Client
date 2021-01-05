@@ -109,8 +109,15 @@ function UI_DragonRunesBulkEquipItem:refreshStat()
     local after_dragon_obj
     local after_status_calc
 
-    if (false) then
+    if (type == 'after') then
+        after_dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
 
+        for slot_idx = 1, 6 do
+            local after_roid = self.m_lRoidList[slot_idx]
+            after_dragon_obj['runes'][tostring(slot_idx)] = after_roid
+        end
+
+        after_status_calc = MakeDragonStatusCalculator_fromDragonDataTable(after_dragon_obj)    
     end
 
     -- 스탯 표기 정보 (스탯 key, 퍼센트 표기 여부)
@@ -132,12 +139,42 @@ function UI_DragonRunesBulkEquipItem:refreshStat()
         local stat_key = stat_data[1]
         local b_use_percent = stat_data[2]
 
-        local stat_str = before_status_calc:getFinalStatDisplay(stat_key, b_use_percent)
-        local before_stat = before_status_calc:getFinalStat(stat_key)
+        local before_stat_str = before_status_calc:getFinalStatDisplay(stat_key, b_use_percent)
+        local before_stat = math_floor(before_status_calc:getFinalStat(stat_key))
         
-        vars[stat_key .. '_label']:setString(stat_str)
+        local after_stat_str = ''
+        
+         if (after_status_calc ~= nil) then
+            local after_stat = math_floor(after_status_calc:getFinalStat(stat_key))
+            local differ_stat = after_stat - before_stat
+            
+            if (differ_stat ~= 0) then
+                after_stat_str = after_stat_str .. '('
+
+                if (differ_stat >= 0) then
+                    after_stat_str = after_stat_str .. '+'
+                end
+
+                after_stat_str = after_stat_str .. comma_value(differ_stat)
+
+                if (b_use_percent == true) then
+                    after_stat_str = after_stat_str .. '%'
+                end
+
+                after_stat_str = after_stat_str .. ')'
+            end
+        end
+
+        vars[stat_key .. '_label']:setString(before_stat_str)
+        vars[stat_key .. '_label2']:setString(after_stat_str)        
     end
 
+    if (after_dragon_obj == nil) then
+        vars['cp_label']:setString(comma_value(before_dragon_obj:getCombatPower()))
+    
+    else
+        vars['cp_label']:setString(comma_value(after_dragon_obj:getCombatPower()))
+    end
 end
 
 -------------------------------------
@@ -172,11 +209,8 @@ function UI_DragonRunesBulkEquipItem:simulateDragonRune(doid)
     for slot_idx = 1, 6 do
         local roid = dragon_obj['runes'][tostring(slot_idx)]
 
-        -- 해당 드래곤에 룬 장착되어있던 경우 
-        if (roid) then
-            self.m_lRoidList[slot_idx] = roid
-            self:refreshRuneCard(slot_idx)
-        end
+        self.m_lRoidList[slot_idx] = roid
+        self:refreshRuneCard(slot_idx)
     end
 
     self:refreshStat()

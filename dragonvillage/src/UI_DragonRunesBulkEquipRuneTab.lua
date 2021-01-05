@@ -103,7 +103,7 @@ function UI_DragonRunesBulkEquipRuneTab:initTableView(slot_idx)
         local roid = data['roid']
 
         -- 현재 장착하고 있는 룬의 경우 체크 스프라이트
-        if (dragon_obj['runes'][tostring(slot_idx)] == roid) then
+        if (self.m_ownerUI:isEquipRune(roid)) then
             self.m_selectRuneUI = ui
             ui:setCheckSpriteVisible(true)
         end
@@ -182,6 +182,8 @@ end
 -------------------------------------
 function UI_DragonRunesBulkEquipRuneTab:onChangeTab(tab, first)
     local slot_idx = tab
+
+    self.m_selectRuneUI = nil
 
     self:initTableView(slot_idx)
 

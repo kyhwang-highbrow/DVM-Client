@@ -96,8 +96,72 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonRunesBulkEquip:refresh()
-
+    local vars = self.vars
+    
+    vars['priceLabel']:setString(comma_value(self.m_price))    
 end
+
+-------------------------------------
+-- function refreshPrice
+-- @brief 가격 계산
+-------------------------------------
+function UI_DragonRunesBulkEquip:refreshPrice()
+    local l_before_rune_list = self.m_beforeUI.m_lRoidList
+    local l_after_rune_list = self.m_afterUI.m_lRoidList
+    local total_price = 0    
+
+    for slot_idx = 1, 6 do
+        local before_roid = l_before_rune_list[slot_idx]
+        local after_roid = l_after_rune_list[slot_idx]
+
+        -- 전에 장착하지 않움, 후에 장착하지 않음
+        if (before_roid == nil) and (after_roid == nil) then
+
+        -- 전에 장착하지 않음, 후에 장착
+        elseif (before_roid == nil) and (after_roid ~= nil) then
+            local after_rune_obj = g_runesData:getRuneObject(after_roid)
+            
+            -- 다른 드래곤이 장착한 룬인 경우            
+            if (after_rune_obj['owner_doid']) then
+                local after_rune_grade = after_rune_obj['grade']
+                local price = TableRuneGrade:getUnequipPrice(after_rune_grade)
+                total_price = total_price + price
+            end    
+
+        -- 전에 장착, 후에 장착하지 않음
+        elseif (before_roid ~= nil) and (after_roid == nil) then
+            local before_rune_obj = g_runesData:getRuneObject(before_roid)    
+            local before_rune_grade = before_rune_obj['grade']
+            local price = TableRuneGrade:getUnequipPrice(before_rune_grade)
+            total_price = total_price + price
+
+        -- 전에 장착, 후에 장착
+        else
+            -- 전과 후가 다른 경우
+            if (before_roid ~= after_roid) then
+                local before_rune_obj = g_runesData:getRuneObject(before_roid)    
+                local before_rune_grade = before_rune_obj['grade']
+                local before_price = TableRuneGrade:getUnequipPrice(before_rune_grade)
+                total_price = total_price + before_price
+
+                local after_rune_obj = g_runesData:getRuneObject(after_roid)    
+                -- 다른 드래곤이 장착한 룬인 경우            
+                if (after_rune_obj['owner_doid']) then
+                    local after_rune_grade = after_rune_obj['grade']
+                    local after_price = TableRuneGrade:getUnequipPrice(after_rune_grade)
+                    total_price = total_price + after_price
+                end    
+            end
+        end
+
+    end
+
+    if (self.m_price ~= total_price) then
+        self.m_price = total_price
+        self:refresh()
+    end
+end
+
 
 -------------------------------------
 -- function click_cancelBtn
@@ -124,6 +188,7 @@ end
 -------------------------------------
 function UI_DragonRunesBulkEquip:simulateRune(roid)
     self.m_afterUI:simulateRune(roid)
+    self:refreshPrice()
 end
 
 -------------------------------------
@@ -132,4 +197,21 @@ end
 -------------------------------------
 function UI_DragonRunesBulkEquip:simulateDragonRune(doid)
     self.m_afterUI:simulateDragonRune(doid)
+    self:refreshPrice()
+end
+
+-------------------------------------
+-- function isEquipRune
+-- @brief 현재 시뮬레이터상 장착된 룬인지
+-------------------------------------
+function UI_DragonRunesBulkEquip:isEquipRune(roid)
+    local l_simulate_rune_list = self.m_afterUI.m_lRoidList
+
+    for slot_idx = 1, 6 do
+        if (l_simulate_rune_list[slot_idx]) and (l_simulate_rune_list[slot_idx] == roid) then
+            return true
+        end
+    end
+
+    return false
 end
