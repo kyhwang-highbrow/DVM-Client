@@ -42,56 +42,7 @@ end
 -------------------------------------
 function UI_DragonRunesBulkEquipItem:initUI()
     local vars = self.vars
-    local doid = self.m_doid
-    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
-
-    -- 룬 카드 생성
-    do
-        for idx = 1, 6 do
-            local roid = self.m_lRoidList[idx]
-            
-            if (roid ~= nil) then
-                local rune_obj = g_runesData:getRuneObject(roid)
-                local card = UI_RuneCard(rune_obj)
-            
-                vars['runeSlot' .. idx]:addChild(card.root)        
-            end
-        end
-    end
-
-    -- 스탯 표기
-    do
-        -- 전투력 
-        local cp = comma_value(dragon_obj:getCombatPower())
-        vars['cp_label']:setString(cp)
-
-        -- 능력치 계산기
-        local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(dragon_obj)
-
-        local hp = status_calc:getFinalStatDisplay('hp')
-        local atk = status_calc:getFinalStatDisplay('atk')
-        local def = status_calc:getFinalStatDisplay('def')
-        local aspd = status_calc:getFinalStatDisplay('aspd', use_percent)
-        local cri_chance = status_calc:getFinalStatDisplay('cri_chance', use_percent)
-        local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg', use_percent)
-        local hit_rate = status_calc:getFinalStatDisplay('hit_rate')
-        local avoid = status_calc:getFinalStatDisplay('avoid')
-        local cri_avoid = status_calc:getFinalStatDisplay('cri_avoid')
-        local accuracy = status_calc:getFinalStatDisplay('accuracy')
-        local resistance = status_calc:getFinalStatDisplay('resistance')
-        
-        vars['hp_label']:setString(hp)
-        vars['atk_label']:setString(atk)
-        vars['def_label']:setString(def)
-        vars['aspd_label']:setString(aspd)
-        vars['cri_chance_label']:setString(cri_chance)
-        vars['cri_dmg_label']:setString(cri_dmg)
-        vars['hit_rate_label']:setString(hit_rate)
-        vars['avoid_label']:setString(avoid)
-        vars['cri_avoid_label']:setString(cri_avoid)
-        vars['accuracy_label']:setString(accuracy)
-        vars['resistance_label']:setString(resistance)
-    end
+    
 end
 
 -------------------------------------
@@ -104,11 +55,88 @@ end
 
 -------------------------------------
 -- function refresh
--- @brief 룬 카드 갱신, 스탯 갱신
 -------------------------------------
 function UI_DragonRunesBulkEquipItem:refresh()
     local vars = self.vars
 
+    for slot_idx = 1, 6 do
+        self:refreshRuneCard(slot_idx)
+    end
+
+    -- 스탯 표기
+    self:refreshStat()
+end
+
+-------------------------------------
+-- function refreshRuneCard
+-- @brief 해당 함수는 룬 카드 변경이 필요할 때만 호출
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:refreshRuneCard(slot_idx)
+    local vars = self.vars
+
+    vars['runeSlot' .. slot_idx]:removeAllChildren()
+
+    local roid = self.m_lRoidList[slot_idx]
+            
+    if (roid ~= nil) then
+        local rune_obj = g_runesData:getRuneObject(roid)
+        local card = UI_RuneCard(rune_obj)
+        
+        vars['runeSlot' .. slot_idx]:addChild(card.root)
+        
+        -- TODO : 시뮬레이션 전에 장착하고 있던 룬의 경우 까만 레이어 씌우기
+        if (false) then
+        
+        end           
+    end
+end
+
+-------------------------------------
+-- function refreshStat
+-- @brief type에 따라 스탯 표기 다름
+-- type : before 인 경우 단순 스탯 표기
+-- type : after 인 경우 스탯 + 변화 스탯 표기
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:refreshStat()
+    local vars = self.vars
+
+    local type = self.m_type
+
+    local doid = self.m_doid
+    local before_dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+    local before_status_calc = MakeDragonStatusCalculator_fromDragonDataTable(before_dragon_obj)    
+    
+    local after_dragon_obj
+    local after_status_calc
+
+    if (false) then
+
+    end
+
+    -- 스탯 표기 정보 (스탯 key, 퍼센트 표기 여부)
+    local l_stat_data_list = {
+                                {'hp', false}, 
+                                {'atk', false},
+                                {'def', false},
+                                {'aspd', true},
+                                {'cri_chance', true},
+                                {'cri_dmg', true},
+                                {'hit_rate', false},
+                                {'avoid', false},
+                                {'cri_avoid', false},
+                                {'accuracy', false},
+                                {'resistance', false},
+                            }
+
+    for _, stat_data in ipairs(l_stat_data_list) do
+        local stat_key = stat_data[1]
+        local b_use_percent = stat_data[2]
+
+        local stat_str = before_status_calc:getFinalStatDisplay(stat_key, b_use_percent)
+        local before_stat = before_status_calc:getFinalStat(stat_key)
+        
+        vars[stat_key .. '_label']:setString(stat_str)
+    end
 
 end
 
@@ -117,7 +145,21 @@ end
 -- @brief 룬 한개 장착
 -------------------------------------
 function UI_DragonRunesBulkEquipItem:simulateRune(roid)
+    local struct_rune = g_runesData:getRuneObject(roid)
     
+    local slot_idx = struct_rune['slot']
+    
+    -- 이미 장착 중인 경우 장착 해제
+    if (self.m_lRoidList[slot_idx] == roid) then
+        self.m_lRoidList[slot_idx] = nil
+    
+    -- 장착 안한 룬인 경우 장착
+    else
+        self.m_lRoidList[slot_idx] = roid
+    end
+
+    self:refreshRuneCard(slot_idx)
+    self:refreshStat()
 end
 
 -------------------------------------
@@ -125,5 +167,17 @@ end
 -- @brief 특정 드래곤의 룬 장착
 -------------------------------------
 function UI_DragonRunesBulkEquipItem:simulateDragonRune(doid)
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
 
+    for slot_idx = 1, 6 do
+        local roid = dragon_obj['runes'][tostring(slot_idx)]
+
+        -- 해당 드래곤에 룬 장착되어있던 경우 
+        if (roid) then
+            self.m_lRoidList[slot_idx] = roid
+            self:refreshRuneCard(slot_idx)
+        end
+    end
+
+    self:refreshStat()
 end

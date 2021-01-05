@@ -13,6 +13,8 @@ UI_DragonRunesBulkEquipRuneTab = class(PARENT,{
         m_lMoptList = 'list', -- 주옵션 필터 리스트
         m_lSoptList = 'list', -- 보조옵션 필터 리스트
         m_bIncludeEquipped = 'boolean', -- 장착한 룬 필터
+
+        m_selectRuneUI = 'UI_RuneCard',
     })
 
 
@@ -31,6 +33,8 @@ function UI_DragonRunesBulkEquipRuneTab:init(owner_ui)
     self.m_lMoptList = nil
     self.m_lSoptList = nil
     self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'include_equipped')
+
+    self.m_selectRuneUI = nil
 
     self:initUI()
 
@@ -89,20 +93,30 @@ function UI_DragonRunesBulkEquipRuneTab:initTableView(slot_idx)
 
     local l_item_list = self:getFilteredRuneList(slot_idx)
 
+    local doid = self.m_ownerUI.m_doid
+    local dragon_obj =  g_dragonsData:getDragonDataFromUid(doid)
+
     -- 생성 콜백
     local function create_func(ui, data)
         ui.root:setScale(UI_DragonRunesBulkEquipRuneTab.CARD_SCALE)
-        		
+        
+        local roid = data['roid']
+
+        -- 현재 장착하고 있는 룬의 경우 체크 스프라이트
+        if (dragon_obj['runes'][tostring(slot_idx)] == roid) then
+            self.m_selectRuneUI = ui
+            ui:setCheckSpriteVisible(true)
+        end
+         		
 		-- 새로 획득한 룬 뱃지
         local is_new = data:isNewRune()
         ui:setNewSpriteVisible(is_new)
 
 		-- 클릭 콜백
         local function click_func()
-            self:click_rune(ui, data)
+            self:click_runeCard(ui, data)
 			
 			-- 신규 룬 표시 삭제
-			local roid = data['roid']
 			g_highlightData:removeNewRoid(roid)
         end
 
@@ -133,21 +147,17 @@ function UI_DragonRunesBulkEquipRuneTab:initTableView(slot_idx)
             -- 버튼을 통해 정렬이 변경되었을 경우
             local function sort_change_cb(sort_type)
                 sort_manager:pushSortOrder(sort_type)
-                self:apply_runesSort()
+                self:applyRunesSort()
             end
 
             uic_sort_list:setSortChangeCB(sort_change_cb)
-
-            -- 최초 정렬 설정
-            uic_sort_list:setSelectSortType('set_id', true)
-            self.vars['runeSortLabel']:setString(Str('정렬'))
         end
 
         do -- 오름차순/내림차순 버튼
             local function click()
                 local ascending = (not sort_manager.m_defaultSortAscending)
                 sort_manager:setAllAscending(ascending)
-                self:apply_runesSort()
+                self:applyRunesSort()
 
                 vars['runeSortOrderSprite']:stopAllActions()
                 if ascending then
@@ -164,7 +174,7 @@ function UI_DragonRunesBulkEquipRuneTab:initTableView(slot_idx)
     end
 
     self.m_tableViewTD = table_view_td
-    self.m_sortManagerRune:sortExecution(table_view_td.m_itemList)
+    self:applyRunesSort()
 end
 
 -------------------------------------
@@ -261,20 +271,30 @@ function UI_DragonRunesBulkEquipRuneTab:click_optSortBtn()
 end
 
 -------------------------------------
--- function apply_runesSort
+-- function applyRunesSort
 -- @brief 테이블 뷰에 정렬 적용
 -------------------------------------
-function UI_DragonRunesBulkEquipRuneTab:apply_runesSort()
+function UI_DragonRunesBulkEquipRuneTab:applyRunesSort()
     self.m_sortManagerRune:sortExecution(self.m_tableViewTD.m_itemList)
     self.m_tableViewTD:setDirtyItemList()
 end
 
 -------------------------------------
--- function click_rune
+-- function click_runeCard
 -- @brief 룬 장착
 -------------------------------------
-function UI_DragonRunesBulkEquipRuneTab:click_rune(ui, data)
+function UI_DragonRunesBulkEquipRuneTab:click_runeCard(ui, data)
     local vars = self.vars
+
+    if (self.m_selectRuneUI ~= nil) then
+        self.m_selectRuneUI:setCheckSpriteVisible(false)
+    end
+
+    self.m_selectRuneUI = ui
+    ui:setCheckSpriteVisible(true)
+
+    local roid = data['roid']
+    self.m_ownerUI:simulateRune(roid)
 end
 
 -------------------------------------

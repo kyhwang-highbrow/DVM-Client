@@ -54,9 +54,11 @@ function UI_DragonRunesBulkEquip:initUI()
     
         local before_ui = UI_DragonRunesBulkEquipItem(doid, 'before')
         vars['itemNode1']:addChild(before_ui.root)
+        self.m_beforeUI = before_ui
     
         local after_ui = UI_DragonRunesBulkEquipItem(doid, 'after')
         vars['itemNode2']:addChild(after_ui.root)
+        self.m_afterUI = after_ui
     end
 end
 
@@ -114,4 +116,20 @@ end
 function UI_DragonRunesBulkEquip:click_equipBtn()
     
     self:close()
+end
+
+-------------------------------------
+-- function simulateRune
+-- @brief 룬 한개 장착
+-------------------------------------
+function UI_DragonRunesBulkEquip:simulateRune(roid)
+    self.m_afterUI:simulateRune(roid)
+end
+
+-------------------------------------
+-- function simulateDragonRune
+-- @brief 특정 드래곤의 룬 장착
+-------------------------------------
+function UI_DragonRunesBulkEquip:simulateDragonRune(doid)
+    self.m_afterUI:simulateDragonRune(doid)
 end
