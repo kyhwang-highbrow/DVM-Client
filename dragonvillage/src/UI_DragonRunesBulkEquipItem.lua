@@ -9,6 +9,8 @@ UI_DragonRunesBulkEquipItem = class(PARENT,{
         m_type = 'string', -- 시뮬레이션 전(before) or 시뮬레이션 후(after)
     
         m_lRoidList = 'list', -- 현재 장착된 룬 리스트
+
+        m_mNumberLabel = 'map',
     })
 
 -------------------------------------
@@ -29,6 +31,7 @@ function UI_DragonRunesBulkEquipItem:init(doid, type)
     end
 
     self.m_lRoidList = l_roid_list
+    self.m_mNumberLabel = {}
 
     self:initUI()
 
@@ -45,6 +48,25 @@ function UI_DragonRunesBulkEquipItem:initUI()
     
     local b_is_equipped = (self.m_type == 'before')
     vars['useRuneMenu']:setVisible(b_is_equipped)
+
+    local l_stat_list = {
+                            'cp',
+                            'hp', 
+                            'atk',
+                            'def',
+                            'aspd',
+                            'cri_chance',
+                            'cri_dmg',
+                            'hit_rate',
+                            'avoid',
+                            'cri_avoid',
+                            'accuracy',
+                            'resistance',
+                        }
+
+    for _, stat_key in ipairs(l_stat_list) do
+        self.m_mNumberLabel[stat_key] = NumberLabel(vars[stat_key .. '_label'], 0, 0.3)
+    end
 end
 
 -------------------------------------
@@ -147,41 +169,43 @@ function UI_DragonRunesBulkEquipItem:refreshStat()
         local stat_key = stat_data[1]
         local b_use_percent = stat_data[2]
 
-        local before_stat_str = before_status_calc:getFinalStatDisplay(stat_key, b_use_percent)
         local before_stat = math_floor(before_status_calc:getFinalStat(stat_key))
         
-        local after_stat_str = ''
+        local final_stat
+        local delta_stat_str = ''
         
          if (after_status_calc ~= nil) then
+            final_stat = after_status_calc:getFinalStat(stat_key)
             local after_stat = math_floor(after_status_calc:getFinalStat(stat_key))
-            local differ_stat = after_stat - before_stat
+            local delta_stat = after_stat - before_stat
             
-            if (differ_stat ~= 0) then
-                after_stat_str = after_stat_str .. '('
-
-                if (differ_stat >= 0) then
-                    after_stat_str = after_stat_str .. '+'
+            if (delta_stat ~= 0) then
+                if (delta_stat > 0) then
+                    delta_stat_str = '{@&G}▲'
+                else
+                    delta_stat_str = '{@&R}▼'
                 end
 
-                after_stat_str = after_stat_str .. comma_value(differ_stat)
+                delta_stat_str = delta_stat_str .. comma_value(math_abs(delta_stat))
 
                 if (b_use_percent == true) then
-                    after_stat_str = after_stat_str .. '%'
+                    delta_stat_str = delta_stat_str .. '%'
                 end
-
-                after_stat_str = after_stat_str .. ')'
             end
+        
+        else
+            final_stat = before_status_calc:getFinalStat(stat_key)
         end
 
-        vars[stat_key .. '_label']:setString(before_stat_str)
-        vars[stat_key .. '_label2']:setString(after_stat_str)        
+        self.m_mNumberLabel[stat_key]:setNumber(final_stat)
+        vars[stat_key .. '_label2']:setString(delta_stat_str)        
     end
 
     if (after_dragon_obj == nil) then
-        vars['cp_label']:setString(comma_value(before_dragon_obj:getCombatPower()))
+        self.m_mNumberLabel['cp']:setNumber(before_dragon_obj:getCombatPower())
     
     else
-        vars['cp_label']:setString(comma_value(after_dragon_obj:getCombatPower()))
+        self.m_mNumberLabel['cp']:setNumber(after_dragon_obj:getCombatPower())
     end
 end
 
