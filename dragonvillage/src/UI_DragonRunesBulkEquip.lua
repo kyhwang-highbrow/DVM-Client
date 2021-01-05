@@ -103,7 +103,7 @@ end
 
 -------------------------------------
 -- function refreshPrice
--- @brief 가격 계산
+-- @brief 골드 계산
 -------------------------------------
 function UI_DragonRunesBulkEquip:refreshPrice()
     local l_before_rune_list = self.m_beforeUI.m_lRoidList

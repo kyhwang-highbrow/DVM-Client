@@ -9,6 +9,7 @@ UI_DragonRunesBulkEquipDragonTab = class(PARENT,{
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManagerDragon = 'SortManager_Dragon',
 
+        m_selectDragonUI = 'UI_DragonCard',
     })
 
 
@@ -22,6 +23,7 @@ function UI_DragonRunesBulkEquipDragonTab:init(owner_ui)
     local vars = self:load('dragon_rune_popup_dragon.ui')
 
     self.m_ownerUI = owner_ui
+    self.m_selectDragonUI = nil
 
     self:initUI()
 
@@ -38,7 +40,6 @@ end
 function UI_DragonRunesBulkEquipDragonTab:initUI()
     local vars = self.vars
 
-   
 end
 
 -------------------------------------
@@ -175,4 +176,11 @@ function UI_DragonRunesBulkEquipDragonTab:click_DragonCard(ui, data)
 
     local doid = data['id']
     self.m_ownerUI:simulateDragonRune(doid)
+
+    if (self.m_selectDragonUI ~= nil) then
+        self.m_selectDragonUI:setHighlightSpriteVisible(false)
+    end
+
+    self.m_selectDragonUI = ui
+    self.m_selectDragonUI:setHighlightSpriteVisible(true)
 end
