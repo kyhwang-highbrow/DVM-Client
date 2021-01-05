@@ -1318,6 +1318,7 @@ local t_module = {
     'UI_DragonRunesBulkEquipRuneTab',
     'UI_DragonRunesBulkEquipDragonTab',
     'UI_DragonRunesBulkEquipItem',
+    'UI_DragonRunesBulkEquipPopup',
     'UI_DragonFriendship', 
 	'UI_DragonReinforcement',
 	'UI_DragonReinforceItem',

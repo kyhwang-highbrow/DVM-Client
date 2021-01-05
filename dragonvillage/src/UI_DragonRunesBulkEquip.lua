@@ -178,8 +178,13 @@ end
 -- function click_equipBtn
 -------------------------------------
 function UI_DragonRunesBulkEquip:click_equipBtn()
+    local ui = UI_DragonRunesBulkEquipPopup()
     
-    self:close()
+    function close_cb()
+        
+    end
+
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
@@ -199,7 +204,7 @@ function UI_DragonRunesBulkEquip:simulateDragonRune(doid)
     self.m_afterUI:simulateDragonRune(doid)
     self:refreshPrice()
 end
-
+   
 -------------------------------------
 -- function isEquipRune
 -- @brief 현재 시뮬레이터상 장착된 룬인지

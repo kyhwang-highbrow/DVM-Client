@@ -43,6 +43,8 @@ end
 function UI_DragonRunesBulkEquipItem:initUI()
     local vars = self.vars
     
+    local b_is_equipped = (self.m_type == 'before')
+    vars['useRuneMenu']:setVisible(b_is_equipped)
 end
 
 -------------------------------------
@@ -83,11 +85,17 @@ function UI_DragonRunesBulkEquipItem:refreshRuneCard(slot_idx)
         local card = UI_RuneCard(rune_obj)
         
         vars['runeSlot' .. slot_idx]:addChild(card.root)
+    end
+
+    if (self.m_type == 'after') then
+        local doid = self.m_doid
+        local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
         
-        -- TODO : 시뮬레이션 전에 장착하고 있던 룬의 경우 까만 레이어 씌우기
-        if (false) then
-        
-        end           
+        local before_roid = dragon_obj['runes'][tostring(slot_idx)] or ''
+        local after_roid = roid or ''
+
+        local b_is_same_rune = (before_roid == after_roid)
+        vars['deselectSprite' .. slot_idx]:setVisible(b_is_same_rune)
     end
 end
 
