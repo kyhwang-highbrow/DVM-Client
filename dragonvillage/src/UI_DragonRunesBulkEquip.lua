@@ -178,7 +178,10 @@ end
 -- function click_equipBtn
 -------------------------------------
 function UI_DragonRunesBulkEquip:click_equipBtn()
-    local ui = UI_DragonRunesBulkEquipPopup()
+    local doid = self.m_doid
+    local after_roid_list = self.m_afterUI.m_lRoidList
+    local price = self.m_price
+    local ui = UI_DragonRunesBulkEquipPopup(doid, after_roid_list, price)
     
     function close_cb()
         
