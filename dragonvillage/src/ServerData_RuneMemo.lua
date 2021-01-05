@@ -1,5 +1,6 @@
 -------------------------------------
 -- class ServerData_RuneMemo
+-- @comment 서버 데이터가 아닌 로컬 데이터를 사용함
 -- g_runeMemoData
 -------------------------------------
 ServerData_RuneMemo = class({
@@ -10,7 +11,7 @@ ServerData_RuneMemo = class({
         ----------------------------------------------
     })
 
-RUNE_MEMO_MIN_LENGTH = 2
+RUNE_MEMO_MIN_LENGTH = 0
 RUNE_MEMO_MAX_LENGTH = 40
 
 -------------------------------------
@@ -77,6 +78,10 @@ end
 -- function modifyMemo
 -------------------------------------
 function ServerData_RuneMemo:modifyMemo(roid, memo)
+    if (memo == '') then 
+        memo = nil
+    end
+
     self.m_mRuneMemoMap[roid] = memo
     self.m_bDirty = true
 end
@@ -112,13 +117,8 @@ function ServerData_RuneMemo:validateMemoText(context)
 
 	local str_len = uc_len(valid_text)
 
-	-- 최소 글자는 경고 후 invalid
-	if (str_len < RUNE_MEMO_MIN_LENGTH) then
-		UIManager:toastNotificationGreen(Str('최소 2글자 이상 입력해주세요!'))
-		is_valid = false
-
 	-- 최대 글자는 경고 후 넘치는 부분 삭제
-	elseif (str_len > RUNE_MEMO_MAX_LENGTH) then
+	if (str_len > RUNE_MEMO_MAX_LENGTH) then
 		UIManager:toastNotificationGreen(Str('최대 글자수(40자)를 초과했어요!'))
 		valid_text = utf8_sub(valid_text, RUNE_MEMO_MAX_LENGTH)
 	end
