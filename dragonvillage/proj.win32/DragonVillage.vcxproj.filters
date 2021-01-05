@@ -4774,6 +4774,18 @@
     <None Include="..\src\UI_RuneOptionFilter.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonRunesBulkEquip.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonRunesBulkEquipItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonRunesBulkEquipRuneTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonRunesBulkEquipDragonTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

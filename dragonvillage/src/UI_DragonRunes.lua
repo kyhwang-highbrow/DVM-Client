@@ -139,6 +139,9 @@ function UI_DragonRunes:initButton()
     -- 룬 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'rune_help')
 
+    -- 일괄 장착
+    vars['equipBtn1']:registerScriptTapHandler(function () self:click_bulkEquipBtn() end)
+
     -- 세트 효과 보기
     vars['useSetBtn']:registerScriptTapHandler(function() self:click_setBtn('use') end) 
     vars['selectSetBtn']:registerScriptTapHandler(function() self:click_setBtn('select') end)
@@ -1129,6 +1132,15 @@ end
 -------------------------------------
 function UI_DragonRunes:click_runeInfoBtn()
     UI_HelpRune()
+end
+
+-------------------------------------
+-- function click_bulkEquipBtn
+-- @brief 룬 일괄 장착
+-------------------------------------
+function UI_DragonRunes:click_bulkEquipBtn()
+    local select_doid = self.m_selectDragonOID
+    UI_DragonRunesBulkEquip(select_doid)
 end
 
 -------------------------------------
