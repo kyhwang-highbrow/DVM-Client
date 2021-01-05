@@ -6,6 +6,7 @@ local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 UI_RuneForgeManageTab = class(PARENT,{
         m_selectedRuneObject = 'StructRuneObject',
         m_selectedRuneUI = '',
+        m_focusRuneUI = '',
 
 		m_tNotiSprite = 'table',
         m_optionLabel = 'ui',
@@ -180,6 +181,7 @@ end
 -------------------------------------
 function UI_RuneForgeManageTab:clearSelectedRune(skip_clear_info)
     self.m_selectedRuneUI = nil
+    self.m_focusRuneUI = nil
     self.m_selectedRuneObject = nil
 
     if (not skip_clear_info) then
@@ -387,6 +389,8 @@ function UI_RuneForgeManageTab:onChangeSelectedItem(ui, data)
         vars['itemNode']:setVisible(true)
         local item = UI_RuneCard(t_rune_data)
         vars['itemNode']:addChild(item.root)
+
+        self.m_focusRuneUI = item
 
         -- UI 반응 액션
         cca.uiReactionSlow(item.root)
@@ -928,6 +932,17 @@ function UI_RuneForgeManageTab:refresh_memoLabel(roid)
     else
         vars['memoLabel']:setString(Str('메모를 입력해주세요. (최대 40자)'))
         vars['memoEditBox']:setText('')
+    end
+
+    -- 룬 카드에 메모 아이콘 리프레시
+    local select_card = self.m_selectedRuneUI
+    if (select_card) then
+        select_card:refresh_memo()
+    end
+
+    local focus_card = self.m_focusRuneUI
+    if (focus_card) then
+        focus_card:refresh_memo()
     end
 end
 

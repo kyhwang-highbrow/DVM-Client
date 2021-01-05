@@ -17,6 +17,10 @@ UI_DragonRunes = class(PARENT,{
         m_mEquippedRuneObjects = 'map',
         m_selectOptionLabel = 'ui',
         m_useOptionLabel = 'ui',
+
+        m_useRuneUI = '',
+        m_selectRuneUI = '',
+        m_lfocusEquippedRuneUIList = 'list',
     })
 
 -------------------------------------
@@ -44,6 +48,10 @@ function UI_DragonRunes:init(doid, slot_idx)
     self.m_mEquippedRuneObjects = {}
     self.m_selectOptionLabel = nil
     self.m_useOptionLabel = nil
+
+    self.m_useRuneUI = nil
+    self.m_selectRuneUI = nil
+    self.m_lfocusEquippedRuneUIList = {}
 
     local vars = self:load('dragon_rune.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -615,6 +623,7 @@ function UI_DragonRunes:refreshEquippedRunes()
         elseif (self.m_mEquippedRuneObjects[i] and (not equipeed_roid)) then
             rune_slot:removeAllChildren()
             self.m_mEquippedRuneObjects[i] = nil
+            self.m_lfocusEquippedRuneUIList[i] = nil
 
             if (slot_idx == i) then
                 self:setEquipedRuneObject(nil)
@@ -627,6 +636,7 @@ function UI_DragonRunes:refreshEquippedRunes()
             local card = UI_RuneCard(rune_obj)
 			card:setBtnEnabled(false)
             rune_slot:addChild(card.root)
+            self.m_lfocusEquippedRuneUIList[i] = card
 
             if (slot_idx == i) then
                 self:setEquipedRuneObject(rune_obj)
@@ -645,6 +655,7 @@ function UI_DragonRunes:refreshEquippedRunes()
                 local card = UI_RuneCard(rune_obj)
 				card:setBtnEnabled(false)
                 rune_slot:addChild(card.root)
+                self.m_lfocusEquippedRuneUIList[i] = card
 
                 if (slot_idx == i) then
                     self:setEquipedRuneObject(rune_obj)
@@ -693,6 +704,8 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     -- 룬 아이콘
     local rune_icon = UI_RuneCard(rune_obj)
     vars['useRuneNode']:addChild(rune_icon.root)
+
+    self.m_useRuneUI = rune_icon
 
     -- 세트 옵션
     vars['useRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
@@ -767,6 +780,8 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     -- 룬 아이콘
     local rune_icon = UI_RuneCard(rune_obj)
     vars['selectRuneNode']:addChild(rune_icon.root)
+
+    self.m_selectRuneUI = rune_icon
 
     -- 세트 옵션
     vars['selectRuneSetLabel']:setString(rune_obj:makeRuneSetDescRichText())
@@ -1269,5 +1284,23 @@ function UI_DragonRunes:refresh_memoLabel(type)
     else
         vars[type .. 'MemoLabel']:setString(Str('메모를 입력해주세요. (최대 40자)'))
         vars[type .. 'MemoEditBox']:setText('')
+    end
+
+     -- 룬 카드에 메모 아이콘 리프레시
+    local rune_card = self['m_' .. type .. 'RuneUI']
+    if (rune_card) then
+        rune_card:refresh_memo()
+    end
+
+    local focus_rune_item = self.m_tableViewTD:getItem(roid)
+    if (focus_rune_item) and (focus_rune_item['ui']) then
+        local focus_card = focus_rune_item['ui']
+        focus_card:refresh_memo()
+    end
+
+    local slot_idx = self.m_currTab
+    local focus_equipped_rune = self.m_lfocusEquippedRuneUIList[slot_idx]
+    if (focus_equipped_rune) then
+        focus_equipped_rune:refresh_memo()
     end
 end

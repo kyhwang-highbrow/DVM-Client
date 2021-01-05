@@ -93,6 +93,9 @@ function UI_RuneCard:refreshInfo()
 
     -- 장착 표시
     self:refresh_equip()
+
+    -- 메모 표시
+    self:refresh_memo()
 end
 
 -------------------------------------
@@ -111,18 +114,6 @@ function UI_RuneCard:makeIcon()
 	if (self.m_runeData['slot'] == 1) then
 		self.vars['runeNode']:setPositionY(1)
 	end
-    
-    --if (self.m_runeData:getGrindedOption()) then
-        --self:makeSprite('grindRuneIconNode', 'res/ui/icons/rune/grind_rune_icon.png', true) -- (lua_name, res, no_use_frames)
-    --end
-
-    -- 장착 드래곤 아이콘 표시
-    --if (self.m_runeData['owner_doid']) then
-        --local doid = self.m_runeData['owner_doid']
-        --local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-        --local dragon_image_res = t_dragon_data:getIconRes()
-        --self:makeSprite('dragonSprite', dragon_image_res, true)
-    --end
 end
 
 -------------------------------------
@@ -220,6 +211,26 @@ function UI_RuneCard:setGrindSpriteVisible(visible)
     local lua_name = 'grindSprite'
     self:setSpriteVisible(lua_name, res, visible)
 end
+
+-------------------------------------
+-- function refresh_memo
+-- @brief 메모 갱신
+-------------------------------------
+function UI_RuneCard:refresh_memo()
+	local is_memo = (g_runeMemoData:getMemo(self.m_runeData.roid) ~= nil)
+	self:setMemoSpriteVisible(is_memo)
+end
+
+-------------------------------------
+-- function setMemoSpriteVisible
+-- @brief 메모 표시
+-------------------------------------
+function UI_RuneCard:setMemoSpriteVisible(visible)
+    local res = 'card_rune_memo.png'
+    local lua_name = 'memoSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
 
 -------------------------------------
 -- function refresh_equip
