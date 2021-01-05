@@ -292,8 +292,12 @@ function UI_DragonRunesBulkEquipRuneTab:click_runeCard(ui, data)
         self.m_selectRuneUI:setCheckSpriteVisible(false)
     end
 
-    self.m_selectRuneUI = ui
-    ui:setCheckSpriteVisible(true)
+    if (self.m_selectRuneUI ~= ui) then
+        self.m_selectRuneUI = ui
+        ui:setCheckSpriteVisible(true)
+    else
+        self.m_selectRuneUI = nil
+    end
 
     local roid = data['roid']
     self.m_ownerUI:simulateRune(roid)
