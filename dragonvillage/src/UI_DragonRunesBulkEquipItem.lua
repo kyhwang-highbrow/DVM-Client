@@ -13,6 +13,7 @@ UI_DragonRunesBulkEquipItem = class(PARENT,{
         m_lRoidList = 'list', -- 현재 장착된 룬 리스트
 
         m_mNumberLabel = 'map',
+        m_mNumberDeltaLabel = 'map',
     })
 
 -------------------------------------
@@ -35,6 +36,7 @@ function UI_DragonRunesBulkEquipItem:init(owner_ui, doid, type)
 
     self.m_lRoidList = l_roid_list
     self.m_mNumberLabel = {}
+    self.m_mNumberDeltaLabel = {}
 
     self:initUI()
 
@@ -52,23 +54,90 @@ function UI_DragonRunesBulkEquipItem:initUI()
     local b_is_equipped = (self.m_type == 'before')
     vars['useRuneMenu']:setVisible(b_is_equipped)
 
-    local l_stat_list = {
-                            'cp',
-                            'hp', 
-                            'atk',
-                            'def',
-                            'aspd',
-                            'cri_chance',
-                            'cri_dmg',
-                            'hit_rate',
-                            'avoid',
-                            'cri_avoid',
-                            'accuracy',
-                            'resistance',
-                        }
+    -- 스탯 표기 정보 (스탯 key, 퍼센트 표기 여부)
+    local l_stat_data_list = {
+                                {'cp', false},
+                                {'hp', false}, 
+                                {'atk', false},
+                                {'def', false},
+                                {'aspd', true},
+                                {'cri_chance', true},
+                                {'cri_dmg', true},
+                                {'hit_rate', false},
+                                {'avoid', false},
+                                {'cri_avoid', false},
+                                {'accuracy', false},
+                                {'resistance', false},
+                            }
 
-    for _, stat_key in ipairs(l_stat_list) do
+    function tween_cb(number, label)
+        local str = comma_value(math_floor(number)) .. '%'
+        label:setString(str)
+    end
+
+    function delta_tween_cb_percent(number, label)
+        local real_number = math_floor(number)
+        
+        local str = comma_value(math_abs(real_number)) .. '%'
+
+        if (real_number > 0) then
+            str = '▲' .. str
+            label:setColor(cc.c4b(0, 255, 0))
+        else
+            str = '▼' .. str
+            label:setColor(cc.c4b(255, 0, 0))
+        end
+
+        label:setString(str)
+    end
+
+    function delta_tween_cb(number, label)
+        local real_number = math_floor(number)
+        
+        local str = comma_value(math_abs(real_number))
+        
+        if (real_number > 0) then
+            str = '▲' .. str
+            label:setColor(cc.c4b(0, 255, 0))
+        else
+            str = '▼' .. str
+            label:setColor(cc.c4b(255, 0, 0))
+        end
+
+        label:setString(str)
+    end
+
+    function delta_tween_finish_cb(number, label)
+        cclog(number)
+        local real_number = math_floor(number)
+
+        if (real_number == 0) then
+            label:setString('')
+        end        
+    end
+
+    -- 스탯 증감 표기를 위한 numberLabel 설정
+    for _, stat_data in ipairs(l_stat_data_list) do
+        local stat_key = stat_data[1]
+        local b_use_percent = stat_data[2]
+        
         self.m_mNumberLabel[stat_key] = NumberLabel(vars[stat_key .. '_label'], 0, 0.3)
+
+        if (b_use_percent) then
+            self.m_mNumberLabel[stat_key]:setTweenCallback(tween_cb)
+        end
+
+        if (stat_key ~= 'cp') then
+            self.m_mNumberDeltaLabel[stat_key] = NumberLabel(vars[stat_key .. '_label2'], 0, 0.3)
+
+            if (b_use_percent) then
+                self.m_mNumberDeltaLabel[stat_key]:setTweenCallback(delta_tween_cb_percent)
+                self.m_mNumberDeltaLabel[stat_key]:setTweenFinishCallback(delta_tween_finish_cb)
+            else
+                self.m_mNumberDeltaLabel[stat_key]:setTweenCallback(delta_tween_cb)
+                self.m_mNumberDeltaLabel[stat_key]:setTweenFinishCallback(delta_tween_finish_cb)
+            end
+        end
     end
 end
 
@@ -181,33 +250,19 @@ function UI_DragonRunesBulkEquipItem:refreshStat()
         local before_stat = math_floor(before_status_calc:getFinalStat(stat_key))
         
         local final_stat
-        local delta_stat_str = ''
+        local delta_stat
         
-         if (after_status_calc ~= nil) then
+        if (after_status_calc ~= nil) then
             final_stat = after_status_calc:getFinalStat(stat_key)
             local after_stat = math_floor(after_status_calc:getFinalStat(stat_key))
-            local delta_stat = after_stat - before_stat
-            
-            if (delta_stat ~= 0) then
-                if (delta_stat > 0) then
-                    delta_stat_str = '{@&G}▲'
-                else
-                    delta_stat_str = '{@&R}▼'
-                end
-
-                delta_stat_str = delta_stat_str .. comma_value(math_abs(delta_stat))
-
-                if (b_use_percent == true) then
-                    delta_stat_str = delta_stat_str .. '%'
-                end
-            end
-        
+            delta_stat = (after_stat - before_stat)
         else
-            final_stat = before_status_calc:getFinalStat(stat_key)
+            final_stat = before_stat
+            delta_stat = 0
         end
 
         self.m_mNumberLabel[stat_key]:setNumber(final_stat)
-        vars[stat_key .. '_label2']:setString(delta_stat_str)        
+        self.m_mNumberDeltaLabel[stat_key]:setNumber(delta_stat)
     end
 
     if (after_dragon_obj == nil) then
