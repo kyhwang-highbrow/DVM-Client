@@ -543,8 +543,6 @@ function UI_RuneForgeCombineTab:click_combineBtn()
     end
 
     finish_cb = function(ret)
-        require('UI_GachaResult_Rune')
-        
 		local gacha_type = 'combine'
         local l_rune_list = ret['runes']
 

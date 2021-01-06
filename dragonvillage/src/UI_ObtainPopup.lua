@@ -250,19 +250,23 @@ function ItemObtainResult_Shop(t_ret, show_all)
         return
     end
 
-    -- 상품이 하나이고 룬일 경우
-    if (#items_list == 1) then
-        local item_id, count, t_sub_data = ServerData_Item:parseAddedItems_firstItem(added_items)
-        local item_type = TableItem:getItemType(item_id)
+    local item_id, count, t_sub_data = ServerData_Item:parseAddedItems_firstItem(added_items)
+    local item_type = TableItem:getItemType(item_id)
 
+    -- 상품이 하나인 경우
+    if (#items_list == 1) then
         -- 기본 재화 구매는 결과를 보여주지 않음
         if (TableItem:getItemIDFromItemType(item_type) and not show_all) then
             return
         end
+    end
 
-        -- 아이템 정보창 띄움
-        local ui = UI_ItemInfoPopup(item_id, count, t_sub_data)
-        ui:showItemInfoPopupOkBtn() -- "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
+    -- 상품이 룬일 경우
+    cclog(item_type)
+    if (item_type == 'rune') then
+        -- 룬 뽑기 결과창으로 보여줌
+        local l_rune_list = added_items['runes']
+        UI_GachaResult_Rune('shop', l_rune_list)
         return
     end
 

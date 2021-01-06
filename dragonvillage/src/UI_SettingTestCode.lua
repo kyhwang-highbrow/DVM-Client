@@ -591,8 +591,6 @@ function UI_SettingTestCode.click_runeGacha(is_bundle)
     --if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
         --return
     --end
-    require('UI_GachaResult_Rune')
-
     local function finish_cb(ret)
 		local gacha_type = 'cash'
         local l_rune_list = ret['runes']
