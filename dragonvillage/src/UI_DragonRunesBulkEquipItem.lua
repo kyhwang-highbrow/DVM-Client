@@ -4,6 +4,8 @@ local PARENT = UI
 -- class UI_DragonRunesBulkEquipItem
 -------------------------------------
 UI_DragonRunesBulkEquipItem = class(PARENT,{
+        m_ownerUI = 'UI_DragonRunesBulkEquip',
+
         m_doid = 'string', 
 
         m_type = 'string', -- 시뮬레이션 전(before) or 시뮬레이션 후(after)
@@ -16,9 +18,10 @@ UI_DragonRunesBulkEquipItem = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonRunesBulkEquipItem:init(doid, type)
+function UI_DragonRunesBulkEquipItem:init(owner_ui, doid, type)
     local vars = self:load('dragon_rune_popup_item_01.ui')
 
+    self.m_ownerUI = owner_ui
     self.m_doid = doid
     self.m_type = type
 
@@ -106,6 +109,9 @@ function UI_DragonRunesBulkEquipItem:refreshRuneCard(slot_idx)
         local rune_obj = g_runesData:getRuneObject(roid)
         local card = UI_RuneCard(rune_obj)
         
+        card.vars['clickBtn']:registerScriptTapHandler(function() self:click_runeCard(roid) end)
+        cca.uiReactionSlow(card.root)
+
         vars['runeSlot' .. slot_idx]:addChild(card.root)
     end
 
@@ -213,20 +219,9 @@ end
 -- function simulateRune
 -- @brief 룬 한개 장착
 -------------------------------------
-function UI_DragonRunesBulkEquipItem:simulateRune(roid)
-    local struct_rune = g_runesData:getRuneObject(roid)
-    
-    local slot_idx = struct_rune['slot']
-    
-    -- 이미 장착 중인 경우 장착 해제
-    if (self.m_lRoidList[slot_idx] == roid) then
-        self.m_lRoidList[slot_idx] = nil
-    
-    -- 장착 안한 룬인 경우 장착
-    else
-        self.m_lRoidList[slot_idx] = roid
-    end
-
+function UI_DragonRunesBulkEquipItem:simulateRune(slot_idx, roid)
+    self.m_ownerUI:refreshRuneCheck(slot_idx, roid)
+    self.m_lRoidList[slot_idx] = roid
     self:refreshRuneCard(slot_idx)
     self:refreshStat()
 end
@@ -240,10 +235,30 @@ function UI_DragonRunesBulkEquipItem:simulateDragonRune(doid)
 
     for slot_idx = 1, 6 do
         local roid = dragon_obj['runes'][tostring(slot_idx)]
-
+        self.m_ownerUI:refreshRuneCheck(slot_idx, roid)
         self.m_lRoidList[slot_idx] = roid
         self:refreshRuneCard(slot_idx)
     end
 
     self:refreshStat()
+end
+
+-------------------------------------
+-- function simulateDragonRune
+-- @brief before인 경우 시뮬레이터에 해당 룬 장착
+-- @brief after인 경우 해당 룬 시뮬레이터 장착 해제 
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:click_runeCard(roid)
+    local type = self.m_type
+    local struct_rune = g_runesData:getRuneObject(roid)
+    local slot_idx = struct_rune['slot']
+
+    -- before인 경우 시뮬레이터에 기존 룬 장착
+    if (type == 'before') then
+        self.m_ownerUI:simulateRune(slot_idx, roid)
+
+    -- after인 경우 시뮬레이터에 해당 룬 장착 해제
+    else
+        self:simulateRune(slot_idx, nil)
+    end
 end

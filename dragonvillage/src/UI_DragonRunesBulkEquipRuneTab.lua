@@ -288,20 +288,48 @@ end
 function UI_DragonRunesBulkEquipRuneTab:click_runeCard(ui, data)
     local vars = self.vars
 
-    if (self.m_selectRuneUI ~= nil) then
-        self.m_selectRuneUI:setCheckSpriteVisible(false)
-    end
+    local roid = nil
 
     if (self.m_selectRuneUI ~= ui) then
         self.m_selectRuneUI = ui
-        ui:setCheckSpriteVisible(true)
+        roid = data['roid']
+    
+    -- 현재 장착된 룬을 해제할 때
     else
         self.m_selectRuneUI = nil
     end
 
-    local roid = data['roid']
-    self.m_ownerUI:simulateRune(roid)
+    local slot_idx = self.m_currTab
+    self.m_ownerUI:simulateRune(slot_idx, roid)
 end
+
+-------------------------------------
+-- function unequipRune
+-- @brief UI_DragonRunesBulkEquipItem에서 룬 장착/해제한 경우 호출
+-------------------------------------
+function UI_DragonRunesBulkEquipRuneTab:refreshRuneCheck(slot_idx, roid)
+    local vars = self.vars
+
+    -- 슬롯이 다른 경우 갱신 필요 없음
+    if (slot_idx ~= self.m_currTab) then return end
+
+    if (self.m_selectRuneUI ~= nil) then
+        self.m_selectRuneUI:setCheckSpriteVisible(false)
+    end
+
+    -- 룬 장착
+    if (roid ~= nil) then
+        local struct_rune = g_runesData:getRuneObject(roid)    
+        local slot_idx = struct_rune['slot']
+        
+        local ui = self.m_tableViewTD:getCellUI(roid)
+        if (ui ~= nil) then
+            ui:setCheckSpriteVisible(true)
+            self.m_selectRuneUI = ui        
+        end
+    end
+end
+
 
 -------------------------------------
 -- function getFilteredRuneList

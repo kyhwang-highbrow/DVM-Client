@@ -52,11 +52,11 @@ function UI_DragonRunesBulkEquip:initUI()
     do
         local doid = self.m_doid
     
-        local before_ui = UI_DragonRunesBulkEquipItem(doid, 'before')
+        local before_ui = UI_DragonRunesBulkEquipItem(self, doid, 'before')
         vars['itemNode1']:addChild(before_ui.root)
         self.m_beforeUI = before_ui
     
-        local after_ui = UI_DragonRunesBulkEquipItem(doid, 'after')
+        local after_ui = UI_DragonRunesBulkEquipItem(self, doid, 'after')
         vars['itemNode2']:addChild(after_ui.root)
         self.m_afterUI = after_ui
     end
@@ -194,8 +194,8 @@ end
 -- function simulateRune
 -- @brief 룬 한개 장착
 -------------------------------------
-function UI_DragonRunesBulkEquip:simulateRune(roid)
-    self.m_afterUI:simulateRune(roid)
+function UI_DragonRunesBulkEquip:simulateRune(slot_idx, roid)
+    self.m_afterUI:simulateRune(slot_idx, roid)
     self:refreshPrice()
 end
 
@@ -222,4 +222,13 @@ function UI_DragonRunesBulkEquip:isEquipRune(roid)
     end
 
     return false
+end
+
+-------------------------------------
+-- function refreshRuneCheck
+-- @brief UI_DragonRunesBulkEquipRuneTab의 테이블뷰 룬 카드 체크 표시 갱신
+-------------------------------------
+function UI_DragonRunesBulkEquip:refreshRuneCheck(slot_idx, roid)
+    local ui = self.m_mTabData['rune']['ui']
+    ui:refreshRuneCheck(slot_idx, roid)
 end
