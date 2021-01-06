@@ -174,7 +174,7 @@ end
 -------------------------------------
 -- function resetRoidList
 -------------------------------------
-function UI_DragonRunesBulkEquipItem:resetRoidList()
+function UI_DragonRunesBulkEquipItem:resetRoidList(b_no_tween)
     local doid = self.m_doid
     local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
     local type = self.m_type
@@ -192,7 +192,7 @@ function UI_DragonRunesBulkEquipItem:resetRoidList()
             self.m_ownerUI:refreshRuneCheck(slot_idx, self.m_lRoidList[slot_idx])
         end
     end
-    self:refreshStat(true)
+    self:refreshStat(b_no_tween)
 end
 
 -------------------------------------
@@ -235,7 +235,7 @@ end
 -- type : before 인 경우 단순 스탯 표기
 -- type : after 인 경우 스탯 + 변화 스탯 표기
 -------------------------------------
-function UI_DragonRunesBulkEquipItem:refreshStat(b_no_twin)
+function UI_DragonRunesBulkEquipItem:refreshStat(b_no_tween)
     local vars = self.vars
 
     local type = self.m_type
@@ -296,10 +296,10 @@ function UI_DragonRunesBulkEquipItem:refreshStat(b_no_twin)
     end
 
     if (after_dragon_obj == nil) then
-        self.m_mNumberLabel['cp']:setNumber(before_dragon_obj:getCombatPower(), b_no_twin)
+        self.m_mNumberLabel['cp']:setNumber(before_dragon_obj:getCombatPower(), b_no_tween)
     
     else
-        self.m_mNumberLabel['cp']:setNumber(after_dragon_obj:getCombatPower(), b_no_twin)
+        self.m_mNumberLabel['cp']:setNumber(after_dragon_obj:getCombatPower(), b_no_tween)
     end
 end
 
@@ -355,7 +355,8 @@ end
 -- function click_refreshBtn
 -------------------------------------
 function UI_DragonRunesBulkEquipItem:click_refreshBtn()
-    self:resetRoidList() 
+    local b_no_tween = false
+    self:resetRoidList(b_no_tween) 
     self.m_ownerUI:refreshPrice()
 end
 

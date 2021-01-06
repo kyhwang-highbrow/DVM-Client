@@ -248,6 +248,8 @@ function UI_DragonRunesBulkEquip:click_equipBtn()
 
         -- 돈 계산 
         self:refreshPrice()
+    
+        self.m_bDirty = true
     end
 
     local ui = UI_DragonRunesBulkEquipPopup(doid, after_roid_list, need_gold, finish_cb)

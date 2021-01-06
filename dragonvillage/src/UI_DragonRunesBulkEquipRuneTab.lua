@@ -315,6 +315,7 @@ end
 -------------------------------------
 function UI_DragonRunesBulkEquipRuneTab:refreshRuneCheck(slot_idx, roid)
     local vars = self.vars
+    local roid = roid or ''
 
     -- 슬롯이 다른 경우 갱신 필요 없음
     if (slot_idx ~= self.m_currTab) then return end
@@ -331,7 +332,7 @@ function UI_DragonRunesBulkEquipRuneTab:refreshRuneCheck(slot_idx, roid)
     end
 
     -- 룬 장착
-    if (roid ~= nil) then
+    if (roid ~= '') then
         local struct_rune = g_runesData:getRuneObject(roid)    
         local slot_idx = struct_rune['slot']
         
