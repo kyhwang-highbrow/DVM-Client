@@ -7,6 +7,8 @@ UI_DragonRunesBulkEquipPopup = class(PARENT, {
         m_lBeforeRoidList = 'list', -- 일괄장착 이전
         m_lAfterRoidList = 'list', -- 일괄장착 이후 
         m_price = 'number',
+
+        m_finishCB = 'function',
     })
 
 -------------------------------------
@@ -15,7 +17,7 @@ UI_DragonRunesBulkEquipPopup = class(PARENT, {
 -- @parma l_after_roid_list : 변경 후 룬 리스트
 -- @param price : 총 소모되는 골드
 -------------------------------------
-function UI_DragonRunesBulkEquipPopup:init(doid, l_after_roid_list, price)
+function UI_DragonRunesBulkEquipPopup:init(doid, l_after_roid_list, price, finish_cb)
     local vars = self:load('dragon_rune_popup_confirm.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -36,6 +38,7 @@ function UI_DragonRunesBulkEquipPopup:init(doid, l_after_roid_list, price)
     self.m_lBeforeRoidList = l_before_roid_list
     self.m_lAfterRoidList = l_after_roid_list
     self.m_price = price
+    self.m_finishCB = finish_cb
 
     self:initUI()
 
@@ -75,6 +78,7 @@ function UI_DragonRunesBulkEquipPopup:initUI()
         
                 vars['runeNode' .. slot_idx]:addChild(card.root)
                 vars['deselectSprite' .. slot_idx]:setVisible(false)
+                vars['arrowSprite' .. slot_idx]:setVisible(true)
 
                 -- 드래곤 카드 생성
                 local owner_doid = rune_obj['owner_doid']
@@ -82,10 +86,9 @@ function UI_DragonRunesBulkEquipPopup:initUI()
                     local dragon_obj = g_dragonsData:getDragonDataFromUid(owner_doid)
                     local dragon_card = UI_DragonCard(dragon_obj)
                     vars['dragonNode' .. slot_idx]:addChild(dragon_card.root)
-                    vars['arrowSprite' .. slot_idx]:setVisible(true)
 
                 else
-                    vars['arrowSprite' .. slot_idx]:setVisible(false)
+                    vars['inventorySprite' .. slot_idx]:setVisible(true)
                 end
             end
         end
@@ -120,11 +123,18 @@ end
 -------------------------------------
 -- function click_okBtn
 -------------------------------------
-function UI_DragonRunesBulkEquipPopup:click_cancelBtn()
+function UI_DragonRunesBulkEquipPopup:click_okBtn()
     
     -- 골드 검사
+    if (false) then
+        return
+    end
 
     local function success_cb(ret)
+        if (self.m_finishCB) then
+            self.m_finishCB()
+        end
+        
         self:close()
     end
 
