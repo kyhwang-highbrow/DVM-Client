@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITabUI:getCloneTable())
+local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_DragonRunesBulkEquip
@@ -15,6 +15,20 @@ UI_DragonRunesBulkEquip = class(PARENT,{
     })
 
 -------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_DragonRunesBulkEquip:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_DragonRunesBulkEquip'
+    self.m_titleStr = nil
+    self.m_invenType = 'rune'
+    self.m_bShowInvenBtn = true 
+    self.m_bVisible = true
+    self.m_bUseExitBtn = true
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_DragonRunesBulkEquip:init(doid)
@@ -24,7 +38,7 @@ function UI_DragonRunesBulkEquip:init(doid)
     self.m_bDirty = false
 
     local vars = self:load('dragon_rune_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_cancelBtn() end, 'UI_DragonRunesBulkEquip')
@@ -47,11 +61,17 @@ end
 -------------------------------------
 function UI_DragonRunesBulkEquip:initUI()
     local vars = self.vars
-    
+    local doid = self.m_doid
+
+    do -- 배경
+        local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+        local attr = dragon_obj:getAttr()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
+
     -- 시뮬레이션 전 후 UI 생성
     do
-        local doid = self.m_doid
-    
         local before_ui = UI_DragonRunesBulkEquipItem(self, doid, 'before')
         vars['itemNode1']:addChild(before_ui.root)
         self.m_beforeUI = before_ui
@@ -187,13 +207,12 @@ function UI_DragonRunesBulkEquip:click_equipBtn()
     local doid = self.m_doid
     local after_roid_list = self.m_afterUI.m_lRoidList
     local price = self.m_price
-    local ui = UI_DragonRunesBulkEquipPopup(doid, after_roid_list, price)
-    
-    function close_cb()
-        
+
+    function finish_cb()
+
     end
 
-    ui:setCloseCB(close_cb)
+    local ui = UI_DragonRunesBulkEquipPopup(doid, after_roid_list, price, finish_cb)
 end
 
 -------------------------------------
@@ -237,4 +256,13 @@ end
 function UI_DragonRunesBulkEquip:refreshRuneCheck(slot_idx, roid)
     local ui = self.m_mTabData['rune']['ui']
     ui:refreshRuneCheck(slot_idx, roid)
+end
+
+-------------------------------------
+-- function changeRuneSlot
+-- @brief UI_DragonRunesBulkEquipRuneTab 의 테이블뷰 룬 슬롯 변경
+-------------------------------------
+function UI_DragonRunesBulkEquip:changeRuneSlot(slot_idx)
+    local ui = self.m_mTabData['rune']['ui']
+    ui:setTab(slot_idx)
 end

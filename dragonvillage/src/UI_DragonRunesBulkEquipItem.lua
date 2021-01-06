@@ -78,6 +78,9 @@ end
 function UI_DragonRunesBulkEquipItem:initButton()
     local vars = self.vars
 
+    for slot_idx = 1, 6 do
+        vars['runeSlotBtn' .. slot_idx]:registerScriptTapHandler(function() self:click_emptyRuneCard(slot_idx) end)
+    end
 end
 
 -------------------------------------
@@ -244,7 +247,7 @@ function UI_DragonRunesBulkEquipItem:simulateDragonRune(doid)
 end
 
 -------------------------------------
--- function simulateDragonRune
+-- function click_runeCard
 -- @brief before인 경우 시뮬레이터에 해당 룬 장착
 -- @brief after인 경우 해당 룬 시뮬레이터 장착 해제 
 -------------------------------------
@@ -261,4 +264,12 @@ function UI_DragonRunesBulkEquipItem:click_runeCard(roid)
     else
         self:simulateRune(slot_idx, nil)
     end
+end
+
+-------------------------------------
+-- function click_emptyRuneCard
+-- @brief 비어있는 룬 칸을 누르면 룬 리스트를 해당 룬 번호로 옮겨주기
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:click_emptyRuneCard(slot_idx)
+    self.m_ownerUI:changeRuneSlot(slot_idx)
 end
