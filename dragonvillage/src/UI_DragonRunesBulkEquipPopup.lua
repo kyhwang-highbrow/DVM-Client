@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_DragonRunesBulkEquipPopup
 -------------------------------------
 UI_DragonRunesBulkEquipPopup = class(PARENT, {
+        m_doid = 'string',
         m_lBeforeRoidList = 'list', -- 일괄장착 이전
         m_lAfterRoidList = 'list', -- 일괄장착 이후 
         m_price = 'number',
@@ -35,6 +36,7 @@ function UI_DragonRunesBulkEquipPopup:init(doid, l_after_roid_list, price, finis
         table.insert(l_before_roid_list, dragon_obj['runes'][tostring(idx)])
     end
 
+    self.m_doid = doid
     self.m_lBeforeRoidList = l_before_roid_list
     self.m_lAfterRoidList = l_after_roid_list
     self.m_price = price
@@ -90,6 +92,10 @@ function UI_DragonRunesBulkEquipPopup:initUI()
                 else
                     vars['inventorySprite' .. slot_idx]:setVisible(true)
                 end
+            
+            -- 룬 해제의 경우
+            else
+                vars['arrowSprite' .. slot_idx]:setVisible(false)
             end
         end
     end
@@ -125,20 +131,13 @@ end
 -------------------------------------
 function UI_DragonRunesBulkEquipPopup:click_okBtn()
     
-    -- 골드 검사
-    if (false) then
-        return
+    -- 골드가 충분히 있는지 확인
+    local need_gold = self.m_price
+    if (not ConfirmPrice('gold', need_gold)) then -- 골드가 부족한경우 상점이동 유도 팝업이 뜬다. (ConfirmPrice함수 안에서)
+	    return
     end
 
-    local function success_cb(ret)
-        if (self.m_finishCB) then
-            self.m_finishCB()
-        end
-        
-        self:close()
-    end
-
-    success_cb()
+   
 end
 
 

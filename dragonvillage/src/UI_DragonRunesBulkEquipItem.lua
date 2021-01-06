@@ -316,7 +316,7 @@ function UI_DragonRunesBulkEquipItem:click_runeCard(roid)
 
     -- after인 경우 시뮬레이터에 해당 룬 장착 해제
     else
-        self:simulateRune(slot_idx, nil)
+        self.m_ownerUI:simulateRune(slot_idx, nil)
     end
 end
 
