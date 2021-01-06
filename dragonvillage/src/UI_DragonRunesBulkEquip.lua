@@ -156,6 +156,12 @@ function UI_DragonRunesBulkEquip:refreshPrice()
 
     end
 
+    -- 룬 할인 이벤트
+	local dc_value = g_hotTimeData:getDiscountEventValue('rune')
+	if (dc_value) then
+		total_price = total_price * (1 - (dc_value / 100))
+	end
+
     if (self.m_price ~= total_price) then
         self.m_price = total_price
         self:refresh()
