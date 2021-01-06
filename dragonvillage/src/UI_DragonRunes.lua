@@ -7,7 +7,8 @@ local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 UI_DragonRunes = class(PARENT,{
         m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
         m_lMoptList = 'list', -- 선택된 주옵션 필터
-        m_lSoptList = 'list', -- 선택된 보조옵션 필터 
+        m_lSoptList = 'list', -- 선택된 보조옵션 필터
+        m_bIncludeEquipped = 'boolean', -- 장착 룬 포함 여부 필터 
 
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
@@ -45,6 +46,7 @@ function UI_DragonRunes:init(doid, slot_idx)
     self.m_listFilterSetID = 0
     self.m_lMoptList = nil
     self.m_lSoptList = nil
+    self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'include_equipped')
     self.m_mEquippedRuneObjects = {}
     self.m_selectOptionLabel = nil
     self.m_useOptionLabel = nil
@@ -332,11 +334,12 @@ end
 -------------------------------------
 -- function refresh_runeOptionFilter
 -------------------------------------
-function UI_DragonRunes:refresh_runeOptionFilter(l_mopt_list, l_sopt_list)
+function UI_DragonRunes:refresh_runeOptionFilter(l_mopt_list, l_sopt_list, b_include_equipped)
     local vars = self.vars
 
     self.m_lMoptList = l_mopt_list
     self.m_lSoptList = l_sopt_list
+    self.m_bIncludeEquipped = b_include_equipped
 
     self:refreshTableViewList()
 
@@ -487,14 +490,8 @@ end
 function UI_DragonRunes:refreshTableViewList()
     local vars = self.vars
 
-    local unequipped = true
-
     local slot = self.m_currTab
-    local set_id = self.m_listFilterSetID
-    local l_mopt_list = self.m_lMoptList
-    local l_sopt_list = self.m_lSoptList
-
-    local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id, l_mopt_list, l_sopt_list)
+    local l_item_list = self:getFilteredRuneList(slot)
 
     local function refresh_func(item, new_data)
         local old_data = item['data']
@@ -537,10 +534,8 @@ function UI_DragonRunes:refreshTableViewList()
     self:refreshEquippedRunes()
 
     do -- 슬롯별 룬이 있는지 없는지 여부
-        local unequipped = true
-        local set_id = 0
         for slot=1, 6 do
-            local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+            local l_item_list = self:getFilteredRuneList(slot)
             local count = table.count(l_item_list)
 
             local is_empty = (count <= 0)
@@ -562,13 +557,35 @@ function UI_DragonRunes:refreshRunesCount()
     end
 
     local vars = self.vars
-    local unequipped = true
-    local set_id = self.m_listFilterSetID
+
     for slot= 1, 6 do
-        local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+        local l_item_list = self:getFilteredRuneList(slot)
         local count = table.count(l_item_list)
         vars['runeNumLabel'..slot]:setString(Str('{1}개', comma_value(count)))
     end
+end
+
+-------------------------------------
+-- function getFilteredRuneList
+-- @brief 룬 리스트 받기
+-------------------------------------
+function UI_DragonRunes:getFilteredRuneList(slot_idx)
+    local set_id = self.m_listFilterSetID
+    local l_mopt_list = self.m_lMoptList
+    local l_sopt_list = self.m_lSoptList
+    local unequipped = not self.m_bIncludeEquipped
+
+    local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot_idx, set_id, l_mopt_list, l_sopt_list)
+
+    -- TODO : 자신이 장착한 거 빼기
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+
+    local equip_roid = dragon_obj['runes'][tostring(slot_idx)]
+    if (equip_roid ~= nil) then
+        l_item_list[equip_roid] = nil
+    end
+    
+    return l_item_list
 end
 
 -------------------------------------
@@ -1131,17 +1148,19 @@ end
 function UI_DragonRunes:click_optSortBtn()
     local l_mopt_list = self.m_lMoptList
     local l_sopt_list = self.m_lSoptList
-    
-    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, nil)
+    local b_include_equipped = self.m_bIncludeEquipped
 
-    ui:setCloseCB(function(l_mopt_list, l_sopt_list, include_equipped)
+    local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, b_include_equipped)
 
+    function close_cb(l_mopt_list, l_sopt_list, b_include_equipped) 
         local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)
 
         self.vars['optSortLabel']:setColor((b_is_using_filter == false) and cc.c4b(240, 215, 159) or cc.c4b(255, 215, 0))
 
-        self:refresh_runeOptionFilter(l_mopt_list, l_sopt_list)
-    end)
+        self:refresh_runeOptionFilter(l_mopt_list, l_sopt_list, b_include_equipped)
+    end
+
+    ui:setCloseCB(close_cb)
 end
 -------------------------------------
 -- function click_adventureBtn

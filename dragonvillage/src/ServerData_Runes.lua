@@ -443,7 +443,7 @@ function ServerData_Runes:getFilteredRuneList(unequipped, slot, set_id, l_mopt_l
         set_id = {1, 2, 3, 4, 5, 6, 7, 8}
     elseif (set_id == 'ancient') then
         set_id = {9, 10, 11, 12, 13, 14}
-    else
+    elseif (set_id ~= nil) then
         set_id = {set_id}
     end
 
