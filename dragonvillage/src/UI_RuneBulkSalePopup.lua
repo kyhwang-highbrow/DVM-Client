@@ -161,7 +161,18 @@ end
 function UI_RuneBulkSalePopup:refresh_runeSetFilter(set_id)
     local vars = self.vars
     local table_rune_set = TableRuneSet()
-    local text = (set_id == 0) and string.format('%s (%s)', Str('세트'), Str('전체')) or table_rune_set:makeRuneSetNameRichText(set_id)
+    
+    local text 
+    if (set_id == 0) then
+        text = Str('전체')
+    elseif (set_id == 'normal') then
+        text = Str('일반 룬')
+    elseif (set_id == 'ancient') then
+        text = Str('고대 룬')
+    else
+        text = table_rune_set:makeRuneSetNameRichTextWithoutNeed(set_id)
+    end
+    
     vars['setRuneLabel']:setString(text)
     self.m_setId = set_id
 

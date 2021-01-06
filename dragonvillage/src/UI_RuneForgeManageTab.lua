@@ -815,7 +815,18 @@ function UI_RuneForgeManageTab:refresh_runeSetFilter()
 
     local set_id = self.m_setID
     local table_rune_set = TableRuneSet()
-    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichTextWithoutNeed(set_id)
+    
+    local text 
+    if (set_id == 0) then
+        text = Str('전체')
+    elseif (set_id == 'normal') then
+        text = Str('일반 룬')
+    elseif (set_id == 'ancient') then
+        text = Str('고대 룬')
+    else
+        text = table_rune_set:makeRuneSetNameRichTextWithoutNeed(set_id)
+    end
+    
     vars['setSortLabel']:setString(text)
 
     self:init_runeTableView()

@@ -439,6 +439,12 @@ function ServerData_Runes:getFilteredRuneList(unequipped, slot, set_id, l_mopt_l
 
     if (set_id == 0) then
         set_id = nil
+    elseif (set_id == 'normal') then
+        set_id = {1, 2, 3, 4, 5, 6, 7, 8}
+    elseif (set_id == 'ancient') then
+        set_id = {9, 10, 11, 12, 13, 14}
+    else
+        set_id = {set_id}
     end
 
     local l_ret = {}
@@ -447,7 +453,7 @@ function ServerData_Runes:getFilteredRuneList(unequipped, slot, set_id, l_mopt_l
         -- 슬롯 필터
         if slot and (slot ~= v['slot']) then
         -- 세트 필터
-        elseif set_id and (set_id ~= v['set_id']) then
+        elseif set_id and (table.find(set_id, v['set_id']) == nil) then
         -- 장착 여부 필터
         elseif unequipped and (v:isEquippedRune()) then
         -- 주옵션 필터

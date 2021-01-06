@@ -30,7 +30,6 @@ end
 -------------------------------------
 function UI_RuneSetFilter:initUI()
     local vars = self.vars
-
     local table_rune_set = TableRuneSet()
     for i,v in ipairs(table_rune_set.m_orgTable) do
         local set_id = i
@@ -40,6 +39,10 @@ function UI_RuneSetFilter:initUI()
             label:setString(text)
         end
     end
+
+    -- 일반, 고대 필터
+    vars['labelNormal']:setString(Str('일반 룬'))
+    vars['labelAncient']:setString(Str('고대 룬'))
 end
 
 -------------------------------------
@@ -61,6 +64,10 @@ function UI_RuneSetFilter:initButton()
             btn:registerScriptTapHandler(function() self:click_setFilter(set_id) end)
         end
     end
+
+    -- 일반, 고대필터
+    vars['btnNormal']:registerScriptTapHandler(function() self:click_setFilter('normal') end)
+    vars['btnAncient']:registerScriptTapHandler(function() self:click_setFilter('ancient') end)
 end
 
 -------------------------------------
