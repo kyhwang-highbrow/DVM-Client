@@ -132,7 +132,8 @@ function UI_DragonRunes:initButton()
     -- 선택된 룬 판매
     vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
     vars['selectLockBtn']:registerScriptTapHandler(function() self:click_selectLockBtn() end)
-    vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
+    --vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
+    vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtnNew() end)
     vars['selectEnhanceBtn']:registerScriptTapHandler(function() self:click_selectEnhance() end)
 
     -- 룬 필터
@@ -151,6 +152,7 @@ function UI_DragonRunes:initButton()
 
     -- 일괄 장착
     vars['equipBtn1']:registerScriptTapHandler(function () self:click_bulkEquipBtn() end)
+    vars['equipBtn2']:registerScriptTapHandler(function () self:click_bulkEquipBtn() end)
 
     -- 세트 효과 보기
     vars['useSetBtn']:registerScriptTapHandler(function() self:click_setBtn('use') end) 
@@ -385,7 +387,7 @@ function UI_DragonRunes:init_tableViewTD()
 
     -- 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(0.66)
+        ui.root:setScale(0.55)
 
         local rune_obj = data
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectedRuneObject(rune_obj) end)
@@ -402,8 +404,8 @@ function UI_DragonRunes:init_tableViewTD()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(100, 100)
-    table_view_td.m_nItemPerCell = 5
+    table_view_td.m_cellSize = cc.size(86, 86)
+    table_view_td.m_nItemPerCell = 6
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
@@ -1229,6 +1231,63 @@ function UI_DragonRunes:click_equipBtn()
 end
 
 -------------------------------------
+-- function click_equipBtnNew
+-- @brief 룬 장착 버튼
+-------------------------------------
+function UI_DragonRunes:click_equipBtnNew()
+    if (not self.m_selectedRuneObject) then
+        return
+    end
+
+    local rune_obj = self.m_selectedRuneObject
+    local roid = rune_obj['roid']
+    local doid = self.m_selectDragonOID
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+    local slot_idx = rune_obj['slot']
+
+    -- 장착한 룬이 있거나 다른 드래곤이 장착한 룬을 장착하려는 경우
+    if (self.m_mEquippedRuneObjects[slot_idx]) or (rune_obj['owner_doid']) then
+        local total_price = 0
+        local before_rune_obj = self.m_mEquippedRuneObjects[slot_idx]
+        
+        -- 해제 비용 계산
+        if (before_rune_obj) then
+            local before_rune_grade = before_rune_obj['grade']
+            local price = TableRuneGrade:getUnequipPrice(before_rune_grade)
+            total_price = total_price + price     
+        end        
+        
+        if (rune_obj['owner_doid']) then
+            local after_rune_grade = rune_obj['grade']
+            local price = TableRuneGrade:getUnequipPrice(after_rune_grade)
+            total_price = total_price + price
+        end
+
+        -- roid list 만들기
+        local l_roid_list = {}
+
+        for idx = 1, 6 do
+            local after_roid
+            if (idx == slot_idx) then
+                after_roid = roid or ''
+            else
+                after_roid = dragon_obj['runes'][tostring(idx)] or ''
+            end
+
+            if (after_roid ~= '') then
+                table.insert(l_roid_list, after_roid)
+            end
+        end 
+            
+        self:request_runeEquipNew(doid, l_roid_list, total_price)
+
+    -- 비어있는 슬롯에 다른 드래곤이 장착한 룬을 장착하지 않는 경우 바로 장착
+    else
+        self:request_runeEquip(doid, roid)
+    end
+end
+
+-------------------------------------
 -- function request_runeEquip
 -- @brief 룬 장착
 -------------------------------------
@@ -1240,6 +1299,20 @@ function UI_DragonRunes:request_runeEquip(doid, roid)
 
     g_runesData:request_runesEquip(doid, roid, finish_cb)
 end
+
+-------------------------------------
+-- function request_runeEquipNew
+-- @brief 21-01-14 룬 편의성 개선 룬 장착 
+-------------------------------------
+function UI_DragonRunes:request_runeEquipNew(doid, roids, need_gold)
+    local function finish_cb()
+        self:refreshTableViewList()
+        self.m_bChangeDragonList = true
+    end
+
+    local ui = UI_DragonRunesBulkEquipPopup(doid, roids, need_gold, finish_cb)
+end
+
 
 -------------------------------------
 -- function click_setBtn

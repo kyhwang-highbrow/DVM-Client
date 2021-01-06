@@ -64,7 +64,7 @@ function UI_DragonRunesBulkEquipPopup:initUI()
         local after_roid = self.m_lAfterRoidList[slot_idx] or ''
 
         -- 전 후 같은 경우 룬 카드만 생성 후 레이어 씌움
-        if (before_roid == after_roid) then
+        if (before_roid == after_roid) and (before_roid ~= '') then
             local rune_obj = g_runesData:getRuneObject(before_roid)
             local card = UI_RuneCard(rune_obj)
         
@@ -72,7 +72,7 @@ function UI_DragonRunesBulkEquipPopup:initUI()
             vars['deselectSprite' .. slot_idx]:setVisible(true)
             vars['arrowSprite' .. slot_idx]:setVisible(false)
 
-        -- 다른 경우 룬 카드 생성, 추가로 장착 중인 룬이었다면 드래곤 카드 생성
+        -- 다른 경우 룬 카드 생성 + 장착 중인 룬이었다면 드래곤 카드 생성
         else
             if (after_roid ~= '') then
                 local rune_obj = g_runesData:getRuneObject(after_roid)
@@ -108,6 +108,7 @@ function UI_DragonRunesBulkEquipPopup:initButton()
     local vars = self.vars
 
     vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
+    vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 end
 
 -------------------------------------
@@ -137,7 +138,30 @@ function UI_DragonRunesBulkEquipPopup:click_okBtn()
 	    return
     end
 
-   
+    local function finish_cb(ret)
+        if (self.m_finishCB) then
+            self.m_finishCB()
+        end
+        
+        self:close()
+    end
+
+    local doid = self.m_doid
+    
+    local roids = nil
+
+    for slot_idx = 1, 6 do
+        local after_roid = self.m_lAfterRoidList[slot_idx] or ''
+        if (after_roid ~= '') then
+            if (roids == nil) then
+                roids = after_roid
+            else
+                roids = roids .. ',' .. after_roid
+            end
+        end
+    end 
+
+    g_runesData:request_runesEquipNew(doid, roids, finish_cb, nil) -- @param : doid, roids, finish_cb, fail_cb
 end
 
 

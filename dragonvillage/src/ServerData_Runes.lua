@@ -131,6 +131,75 @@ function ServerData_Runes:request_runesEquip(doid, roid, finish_cb, fail_cb)
 end
 
 -------------------------------------
+-- function request_runesEquipNew
+-- @breif 21-01-14 룬 편의성 개선 업데이트
+-- @brief 한번에 여러 룬 장착 가능하고, 다른 드래곤이 장착하던 것도 장착 가능
+-- @param doid : 대상 드래곤
+-- @param roids : 장착되는 룬들의 roid 
+-------------------------------------
+function ServerData_Runes:request_runesEquipNew(doid, roids, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        if ret['modified_rune'] then
+            self:applyRuneData_list(ret['modified_rune'])
+
+            -- @adjust
+            for i, v in pairs(ret['modified_rune']) do
+                local rid = v['rid'] 
+                if (rid) then
+                    local grade = tonumber(rid) % 10
+                    if (grade == 6) then
+                        Adjust:trackEvent(Adjust.EVENT.RUNE_EQUIP)
+                    end
+                end
+            end
+        end
+        
+        -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
+        if ret['modified_dragon'] then
+            g_dragonsData:applyDragonData_list(ret['modified_dragon'])
+        end
+
+        -- @ MASTER ROAD
+        local t_data = {clear_key = 'r_eq'}
+        g_masterRoadData:updateMasterRoad(t_data)
+
+        -- 드래곤 성장일지 : 룬 장착 체크
+        local start_dragon_data = g_dragonDiaryData:getStartDragonDataWithList(ret['modified_dragon'])
+        if (start_dragon_data) then
+            -- @ DRAGON DIARY
+            local t_data = {clear_key = 'r_eq_s', sub_data = start_dragon_data}
+            g_dragonDiaryData:updateDragonDiary(t_data)
+        end
+
+        -- @ GOOGLE ACHIEVEMENT
+        GoogleHelper.updateAchievement(t_data)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/equip_new')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('roids', roids)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function request_runesUnequip
 -- @breif
 -------------------------------------

@@ -80,6 +80,8 @@ function UI_DragonRunesBulkEquip:initUI()
         vars['itemNode2']:addChild(after_ui.root)
         self.m_afterUI = after_ui
     end
+
+    vars['priceLabel'] = NumberLabel(vars['priceLabel'], 0, 0.3)
 end
 
 -------------------------------------
@@ -118,7 +120,7 @@ end
 function UI_DragonRunesBulkEquip:refresh()
     local vars = self.vars
     
-    vars['priceLabel']:setString(comma_value(self.m_price))    
+    vars['priceLabel']:setNumber(self.m_price)    
 end
 
 -------------------------------------
@@ -131,14 +133,14 @@ function UI_DragonRunesBulkEquip:refreshPrice()
     local total_price = 0    
 
     for slot_idx = 1, 6 do
-        local before_roid = l_before_rune_list[slot_idx]
-        local after_roid = l_after_rune_list[slot_idx]
+        local before_roid = l_before_rune_list[slot_idx] or ''
+        local after_roid = l_after_rune_list[slot_idx] or ''
 
         -- 전에 장착하지 않움, 후에 장착하지 않음
-        if (before_roid == nil) and (after_roid == nil) then
+        if (before_roid == '') and (after_roid == '') then
 
         -- 전에 장착하지 않음, 후에 장착
-        elseif (before_roid == nil) and (after_roid ~= nil) then
+        elseif (before_roid == '') and (after_roid ~= '') then
             local after_rune_obj = g_runesData:getRuneObject(after_roid)
             
             -- 다른 드래곤이 장착한 룬인 경우            
@@ -149,7 +151,7 @@ function UI_DragonRunesBulkEquip:refreshPrice()
             end    
 
         -- 전에 장착, 후에 장착하지 않음
-        elseif (before_roid ~= nil) and (after_roid == nil) then
+        elseif (before_roid ~= '') and (after_roid == '') then
             local before_rune_obj = g_runesData:getRuneObject(before_roid)    
             local before_rune_grade = before_rune_obj['grade']
             local price = TableRuneGrade:getUnequipPrice(before_rune_grade)
@@ -206,13 +208,49 @@ end
 function UI_DragonRunesBulkEquip:click_equipBtn()
     local doid = self.m_doid
     local after_roid_list = self.m_afterUI.m_lRoidList
-    local price = self.m_price
 
-    function finish_cb()
 
+    -- 룬 변화가 있는지 확인
+    local b_is_change = false
+    local l_before_rune_list = self.m_beforeUI.m_lRoidList
+    local l_after_rune_list = self.m_afterUI.m_lRoidList
+
+    for slot_idx = 1,6 do
+        local before_roid = l_before_rune_list[slot_idx] or ''
+        local after_roid = l_after_rune_list[slot_idx] or ''
+        if (before_roid ~= after_roid) then
+            b_is_change = true
+            break
+        end
     end
 
-    local ui = UI_DragonRunesBulkEquipPopup(doid, after_roid_list, price, finish_cb)
+    if (b_is_change == false) then
+        UIManager:toastNotificationRed(Str('변경된 룬이 없습니다.'))
+        return
+    end
+    
+    -- 골드가 충분히 있는지 확인
+    local need_gold = self.m_price
+    if (not ConfirmPrice('gold', need_gold)) then -- 골드가 부족한경우 상점이동 유도 팝업이 뜬다. (ConfirmPrice함수 안에서)
+	    return
+    end
+
+    function finish_cb()
+        -- 시뮬레이터 before, after 갱신
+        self.m_beforeUI:resetRoidList()
+        self.m_afterUI:resetRoidList()
+
+        -- rune, dragon tab 갱신
+        local rune_tab_ui = self.m_mTabData['rune']['ui']
+        rune_tab_ui:initTableView()
+        local dragon_tab_ui = self.m_mTabData['dragon']['ui']
+        dragon_tab_ui:initTableView()
+
+        -- 돈 계산 
+        self:refreshPrice()
+    end
+
+    local ui = UI_DragonRunesBulkEquipPopup(doid, after_roid_list, need_gold, finish_cb)
 end
 
 -------------------------------------

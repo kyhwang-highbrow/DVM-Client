@@ -149,6 +149,12 @@ function UI_DragonRunesBulkEquipItem:initButton()
     for slot_idx = 1, 6 do
         vars['runeSlotBtn' .. slot_idx]:registerScriptTapHandler(function() self:click_emptyRuneCard(slot_idx) end)
     end
+
+    local type = self.m_type
+    if (type == 'after') then
+        vars['refreshBtn']:setVisible(true)
+        vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    end
 end
 
 -------------------------------------
@@ -166,6 +172,30 @@ function UI_DragonRunesBulkEquipItem:refresh()
 end
 
 -------------------------------------
+-- function resetRoidList
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:resetRoidList()
+    local doid = self.m_doid
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+    local type = self.m_type
+
+    for idx = 1, 6 do
+        self.m_lRoidList[idx] = dragon_obj['runes'][tostring(idx)]
+    end
+
+
+    for slot_idx = 1, 6 do
+        self:refreshRuneCard(slot_idx)
+        
+        -- 기존에 만약 체크되어있을수도 있으니 체크 해제
+        if (type == 'after') then
+            self.m_ownerUI:refreshRuneCheck(slot_idx, self.m_lRoidList[slot_idx])
+        end
+    end
+    self:refreshStat(true)
+end
+
+-------------------------------------
 -- function refreshRuneCard
 -- @brief 해당 함수는 룬 카드 변경이 필요할 때만 호출
 -------------------------------------
@@ -174,15 +204,16 @@ function UI_DragonRunesBulkEquipItem:refreshRuneCard(slot_idx)
 
     vars['runeSlot' .. slot_idx]:removeAllChildren()
 
-    local roid = self.m_lRoidList[slot_idx]
+    local roid = self.m_lRoidList[slot_idx] or ''
             
-    if (roid ~= nil) then
+    if (roid ~= '') then
         local rune_obj = g_runesData:getRuneObject(roid)
         local card = UI_RuneCard(rune_obj)
         
         card.vars['clickBtn']:registerScriptTapHandler(function() self:click_runeCard(roid) end)
         cca.uiReactionSlow(card.root)
 
+        vars['runeSlot' .. slot_idx]:removeAllChildren()
         vars['runeSlot' .. slot_idx]:addChild(card.root)
     end
 
@@ -204,7 +235,7 @@ end
 -- type : before 인 경우 단순 스탯 표기
 -- type : after 인 경우 스탯 + 변화 스탯 표기
 -------------------------------------
-function UI_DragonRunesBulkEquipItem:refreshStat()
+function UI_DragonRunesBulkEquipItem:refreshStat(b_no_twin)
     local vars = self.vars
 
     local type = self.m_type
@@ -260,15 +291,15 @@ function UI_DragonRunesBulkEquipItem:refreshStat()
             delta_stat = 0
         end
 
-        self.m_mNumberLabel[stat_key]:setNumber(final_stat)
-        self.m_mNumberDeltaLabel[stat_key]:setNumber(delta_stat)
+        self.m_mNumberLabel[stat_key]:setNumber(final_stat, b_no_twin)
+        self.m_mNumberDeltaLabel[stat_key]:setNumber(delta_stat, b_no_twin)
     end
 
     if (after_dragon_obj == nil) then
-        self.m_mNumberLabel['cp']:setNumber(before_dragon_obj:getCombatPower())
+        self.m_mNumberLabel['cp']:setNumber(before_dragon_obj:getCombatPower(), b_no_twin)
     
     else
-        self.m_mNumberLabel['cp']:setNumber(after_dragon_obj:getCombatPower())
+        self.m_mNumberLabel['cp']:setNumber(after_dragon_obj:getCombatPower(), b_no_twin)
     end
 end
 
@@ -319,6 +350,15 @@ function UI_DragonRunesBulkEquipItem:click_runeCard(roid)
         self.m_ownerUI:simulateRune(slot_idx, nil)
     end
 end
+
+-------------------------------------
+-- function click_refreshBtn
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:click_refreshBtn()
+    self:resetRoidList() 
+    self.m_ownerUI:refreshPrice()
+end
+
 
 -------------------------------------
 -- function click_emptyRuneCard
