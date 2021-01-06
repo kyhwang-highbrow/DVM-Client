@@ -13,6 +13,8 @@ NumberLabel = class({
 		m_isTintAction = 'boolean',
 
         m_tweenCallback = 'function',
+
+        m_tweenFinishCallback = 'function',
     })
 
 -------------------------------------
@@ -62,15 +64,28 @@ function NumberLabel:setNumber(number, immediately)
     -- 숫자 변화
     if immediately then
         self:getTweenCallback()(curr_number, self.m_label)
+
+        if (self.m_tweenFinishCallback) then
+            self.m_tweenFinishCallback(curr_number, self.m_label)
+        end 
+
         return
     elseif (self.m_actionDuration <= 0) then
         self:getTweenCallback()(curr_number, self.m_label)
+
+        if (self.m_tweenFinishCallback) then
+            self.m_tweenFinishCallback(curr_number, self.m_label)
+        end 
     else
         local tween = cc.ActionTweenForLua:create(self.m_actionDuration, prev_number, curr_number, self:getTweenCallback())
         self.m_label:runAction(tween)
         
         -- tween연출 후 숫자가 정확히 지정되지 않는 경우가 있다. 0.03초 후 정확한 숫자를 설정하기 위해 추가한다.
         cca.reserveFunc(self.m_label, self.m_actionDuration + 0.03, function() self:getTweenCallback()(curr_number, self.m_label) end)
+
+        if (self.m_tweenFinishCallback) then
+            cca.reserveFunc(self.m_label, self.m_actionDuration + 0.03, function() self.m_tweenFinishCallback(curr_number, self.m_label) end)
+        end 
     end
 
     -- 색상 변화
@@ -130,6 +145,18 @@ function NumberLabel:setTweenCallback(tween_cb)
 
     if tween_cb then
         tween_cb(self.m_number, self.m_label)
+    end
+end
+
+-------------------------------------
+-- function setTweenFinishCallback
+-- @param function tween_finish_cb(number, label)
+-------------------------------------
+function NumberLabel:setTweenFinishCallback(tween_finish_cb)
+	self.m_tweenFinishCallback = tween_finish_cb
+
+    if tween_finish_cb then
+        tween_finish_cb(self.m_number, self.m_label)
     end
 end
 
