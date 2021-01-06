@@ -317,5 +317,6 @@ function UI_RuneCard:press_clickBtn()
     local count = 1
 	local t_rune_data = self.m_runeData
 
-    UI_ItemInfoPopup(item_id, count, t_rune_data)
+    local ui = UI_ItemInfoPopup(item_id, count, t_rune_data)
+    ui:setCloseCB(function() self:refresh_memo() end)
 end

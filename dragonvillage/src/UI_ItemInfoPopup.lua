@@ -7,6 +7,8 @@ UI_ItemInfoPopup = class(PARENT,{
         m_itemID = 'number',
         m_itemCount = 'number',
         m_tSubData = 'table',
+
+        m_tItemCard = 'UI_Card', -- 룬 카드 메모 갱신을 위해 추가
     })
 
 -------------------------------------
@@ -59,6 +61,7 @@ function UI_ItemInfoPopup:initUI()
 
 		elseif (type == 'rune') and self.m_tSubData then
             local item_card = UI_RuneCard(self.m_tSubData)
+            self.m_tItemCard = item_card
             vars['itemNode']:addChild(item_card.root)
 
             -- 만약 장착 중인 룬인 경우 장착한 드래곤 카드 추가
@@ -106,6 +109,11 @@ function UI_ItemInfoPopup:initUI()
         vars['itemDscNode2']:setVisible(true)
         local str = _struct_rune_obj:makeRuneSetDescRichText() or ''
         vars['itemDscLabel2']:setString(str)
+
+        local t_rune_data = self.m_tSubData
+        local roid = t_rune_data['roid']
+
+        self:refresh_memoLabel(roid)
     end
 
     -- 하위 UI가 모두 opacity값을 적용되도록
@@ -144,6 +152,69 @@ function UI_ItemInfoPopup:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['locationBtn']:registerScriptTapHandler(function() self:click_locationBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+
+    local type = TableItem:getItemType(self.m_itemID)
+    if (type == 'rune') then
+
+        -- 룬 메모
+        local t_rune_data = self.m_tSubData
+        local rune_memo = g_runeMemoData:getMemo(t_rune_data['roid'])
+        -- 메모가 있는 경우 바로 메모 창을 보여주고
+        if (rune_memo ~= nil) then
+            vars['useMemoBtn']:setVisible(false)
+            vars['useMemoMenu']:setVisible(true)
+            self:refresh_memoLabel(t_rune_data['roid'])
+        -- 없는 경우에는 세트 효과창을 보여준다.
+        else
+            vars['useMemoBtn']:setVisible(true)
+            vars['useMemoMenu']:setVisible(false)
+            self:refresh_memoLabel(t_rune_data['roid'])
+        end
+
+        -- 룬 관련
+        vars['useSetBtn']:registerScriptTapHandler(function() self:click_setBtn() end) -- 세트 효과 보기
+        vars['useMemoBtn']:registerScriptTapHandler(function() self:click_memoBtn() end) -- 메모 보기
+
+        vars['useMemoEditBtn']:registerScriptTapHandler(function() self:click_memoEditBtn() end)
+
+	    -- editBox handler 등록
+	    local function editBoxTextEventHandle(strEventName, pSender)
+            if (strEventName == "return") then
+                local t_rune_data = self.m_tSubData
+                if (t_rune_data == nil) then
+                    return
+                end
+            
+                local roid = t_rune_data['roid']
+
+			    -- 키보드 입력이 종료될 때 텍스트 검증을 한다.
+                local text = vars['useMemoEditBox']:getText()
+                local context, is_valid = g_runeMemoData:validateMemoText(text)
+                if (not is_valid) then
+                    self:refresh_memoLabel(roid)
+                    return
+                end
+
+			    local function proceed_func()
+                    local t_rune_data = self.m_tSubData
+                    if (t_rune_data) then
+			            g_runeMemoData:modifyMemo(roid, context)
+			            g_runeMemoData:saveRuneMemoMap()
+                        self:refresh_memoLabel(roid)
+                    end
+                end
+
+			    local function cancel_func()
+                    self:refresh_memoLabel(roid)
+			    end
+			
+			    -- 비속어 필터링
+                CheckBlockStr(context, proceed_func, cancel_func)
+            end
+        end
+        vars['useMemoEditBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+        vars['useMemoEditBox']:setMaxLength(RUNE_MEMO_MAX_LENGTH)
+    end
 end
 
 -------------------------------------
@@ -167,11 +238,69 @@ function UI_ItemInfoPopup:click_okBtn()
     self:close()
 end
 
+-----------------------------
+-- function click_setBtn
+-- @brief 세트 효과 보기 버튼
+-------------------------------------
+function UI_ItemInfoPopup:click_setBtn()
+    local vars = self.vars
 
+    vars['useMemoMenu']:setVisible(false)
+    vars['useMemoBtn']:setVisible(true)
+end
 
+-------------------------------------
+-- function click_memoBtn
+-- @brief 메모 보기 버튼
+-------------------------------------
+function UI_ItemInfoPopup:click_memoBtn()
+    local vars = self.vars
 
+    vars['useMemoMenu']:setVisible(true)
+    vars['useMemoBtn']:setVisible(false)
+end
 
+-------------------------------------
+-- function click_memoEditBtn
+-- @brief 메모 수정 버튼
+-------------------------------------
+function UI_ItemInfoPopup:click_memoEditBtn()
+    local vars = self.vars
 
+    local t_rune_data = self.m_tSubData
+    if (t_rune_data == nil) then
+        return
+    end
+            
+    local roid = t_rune_data['roid']
+    local memo = g_runeMemoData:getMemo(roid) or ''
+    
+    vars['useMemoEditBox']:setText(memo)    
+    vars['useMemoEditBox']:openKeyboard()
+end
+
+-------------------------------------
+-- function refresh_memoLabel
+-- @brief 메모 라벨 텍스트 refresh
+-------------------------------------
+function UI_ItemInfoPopup:refresh_memoLabel(roid)
+    local vars = self.vars
+    local str = g_runeMemoData:getMemo(roid)
+
+    if (str ~= nil) then
+        vars['useMemoLabel']:setString(str)
+        vars['useMemoEditBox']:setText('')
+    else
+        vars['useMemoLabel']:setString(Str('메모를 입력해주세요. (최대 40자)'))
+        vars['useMemoEditBox']:setText('')
+    end
+
+    -- 룬 카드에 메모 아이콘 리프레시
+    local select_card = self.m_tItemCard
+    if (select_card) then
+        select_card:refresh_memo()
+    end
+end
 
 function MakeSimpleRewarPopup(title_str, item_id, count, t_sub_data)
     local ui = UI_ItemInfoPopup(item_id, count, t_sub_data)
