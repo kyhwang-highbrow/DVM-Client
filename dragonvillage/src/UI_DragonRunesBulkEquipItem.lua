@@ -108,7 +108,6 @@ function UI_DragonRunesBulkEquipItem:initUI()
     end
 
     function delta_tween_finish_cb(number, label)
-        cclog(number)
         local real_number = math_floor(number)
 
         if (real_number == 0) then
