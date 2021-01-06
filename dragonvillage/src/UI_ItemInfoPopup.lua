@@ -61,6 +61,15 @@ function UI_ItemInfoPopup:initUI()
             local item_card = UI_RuneCard(self.m_tSubData)
             vars['itemNode']:addChild(item_card.root)
 
+            -- 만약 장착 중인 룬인 경우 장착한 드래곤 카드 추가
+            if (self.m_tSubData['owner_doid'] ~= nil) then
+                local doid = self.m_tSubData['owner_doid']
+                local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+                local dragon_card = UI_DragonCard(dragon_obj)
+                vars['dragonNode']:addChild(dragon_card.root)
+                vars['dragonNode']:setVisible(true)
+            end
+
         else
             local item_card = UI_ItemCard(self.m_itemID, self.m_itemCount, self.m_tSubData)
             vars['itemNode']:addChild(item_card.root)
