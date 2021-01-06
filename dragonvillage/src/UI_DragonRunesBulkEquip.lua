@@ -24,7 +24,7 @@ function UI_DragonRunesBulkEquip:init(doid)
     self.m_bDirty = false
 
     local vars = self:load('dragon_rune_popup.ui')
-    UIManager:open(self, UIManager.SCENE)
+    UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_cancelBtn() end, 'UI_DragonRunesBulkEquip')

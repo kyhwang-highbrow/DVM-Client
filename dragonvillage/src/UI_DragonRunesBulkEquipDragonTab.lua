@@ -90,6 +90,8 @@ function UI_DragonRunesBulkEquipDragonTab:initTableView()
             end
 
             uic_sort_list:setSortChangeCB(sort_change_cb)
+
+            uic_sort_list:setSelectSortType('combat_power', false)
         end
 
         do -- 오름차순/내림차순 버튼

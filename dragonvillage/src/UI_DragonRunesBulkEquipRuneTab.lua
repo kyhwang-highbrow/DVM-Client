@@ -291,12 +291,7 @@ function UI_DragonRunesBulkEquipRuneTab:click_runeCard(ui, data)
     local roid = nil
 
     if (self.m_selectRuneUI ~= ui) then
-        self.m_selectRuneUI = ui
         roid = data['roid']
-    
-    -- 현재 장착된 룬을 해제할 때
-    else
-        self.m_selectRuneUI = nil
     end
 
     local slot_idx = self.m_currTab
@@ -315,6 +310,7 @@ function UI_DragonRunesBulkEquipRuneTab:refreshRuneCheck(slot_idx, roid)
 
     if (self.m_selectRuneUI ~= nil) then
         self.m_selectRuneUI:setCheckSpriteVisible(false)
+        self.m_selectRuneUI = nil
     end
 
     -- 룬 장착
