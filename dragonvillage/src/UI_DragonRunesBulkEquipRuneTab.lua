@@ -14,7 +14,7 @@ UI_DragonRunesBulkEquipRuneTab = class(PARENT,{
         m_lSoptList = 'list', -- 보조옵션 필터 리스트
         m_bIncludeEquipped = 'boolean', -- 장착한 룬 필터
 
-        m_selectRuneUI = 'UI_RuneCard',
+        m_selectRoid = 'string',
     })
 
 
@@ -34,7 +34,7 @@ function UI_DragonRunesBulkEquipRuneTab:init(owner_ui)
     self.m_lSoptList = nil
     self.m_bIncludeEquipped = g_settingData:get('option_rune_filter', 'include_equipped')
 
-    self.m_selectRuneUI = nil
+    self.m_selectRoid = nil
 
     self:initUI()
 
@@ -104,7 +104,7 @@ function UI_DragonRunesBulkEquipRuneTab:initTableView(slot_idx)
 
         -- 현재 장착하고 있는 룬의 경우 체크 스프라이트
         if (self.m_ownerUI:isEquipRune(roid)) then
-            self.m_selectRuneUI = ui
+            self.m_selectRoid = roid
             ui:setCheckSpriteVisible(true)
         end
          		
@@ -183,7 +183,7 @@ end
 function UI_DragonRunesBulkEquipRuneTab:onChangeTab(tab, first)
     local slot_idx = tab
 
-    self.m_selectRuneUI = nil
+    self.m_selectRoid = nil
 
     self:initTableView(slot_idx)
 
@@ -299,10 +299,10 @@ end
 function UI_DragonRunesBulkEquipRuneTab:click_runeCard(ui, data)
     local vars = self.vars
 
-    local roid = nil
+    local roid = data['roid']
 
-    if (self.m_selectRuneUI ~= ui) then
-        roid = data['roid']
+    if (self.m_selectRoid) and (self.m_selectRoid == data['roid']) then
+        roid = nil
     end
 
     local slot_idx = self.m_currTab
@@ -319,9 +319,15 @@ function UI_DragonRunesBulkEquipRuneTab:refreshRuneCheck(slot_idx, roid)
     -- 슬롯이 다른 경우 갱신 필요 없음
     if (slot_idx ~= self.m_currTab) then return end
 
-    if (self.m_selectRuneUI ~= nil) then
-        self.m_selectRuneUI:setCheckSpriteVisible(false)
-        self.m_selectRuneUI = nil
+    if (self.m_selectRoid ~= nil) then
+        if (self.m_tableViewTD.m_itemMap[self.m_selectRoid]) then
+            local selected_ui = self.m_tableViewTD:getCellUI(self.m_selectRoid)
+            if (selected_ui ~= nil) then
+                selected_ui:setCheckSpriteVisible(false)
+            end
+        end
+
+        self.m_selectRoid = nil
     end
 
     -- 룬 장착
@@ -329,11 +335,14 @@ function UI_DragonRunesBulkEquipRuneTab:refreshRuneCheck(slot_idx, roid)
         local struct_rune = g_runesData:getRuneObject(roid)    
         local slot_idx = struct_rune['slot']
         
-        local ui = self.m_tableViewTD:getCellUI(roid)
-        if (ui ~= nil) then
-            ui:setCheckSpriteVisible(true)
-            self.m_selectRuneUI = ui        
+        if (self.m_tableViewTD.m_itemMap[roid]) then
+            local ui = self.m_tableViewTD:getCellUI(roid)
+            if (ui ~= nil) then
+                ui:setCheckSpriteVisible(true)
+            end
         end
+
+        self.m_selectRoid = roid
     end
 end
 
