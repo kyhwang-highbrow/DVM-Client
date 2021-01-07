@@ -68,8 +68,10 @@ function UI_DragonMasteryResetPopup:refresh()
     local str = Str('{1} / {2}', comma_value(own_count), req_count)
     if (req_count <= own_count) then
         str = '{@possible}' .. str
+        vars['resetLabel']:setString(Str('초기화'))
     else
         str = '{@impossible}' .. str
+        vars['resetLabel']:setString(Str('구매'))
     end
     vars['priceLabel']:setString(str)
 end
@@ -91,9 +93,18 @@ function UI_DragonMasteryResetPopup:click_enhanceBtn()
     local req_count = MasteryHelper:getMasteryResetPrice(dragon_obj)
     local own_count = g_userData:get('oblivion') or 0
     if (own_count < req_count) then
-        UIManager:toastNotificationRed(Str('망각의 서가 부족합니다.'))
-        local vars = self.vars
-        cca.uiImpossibleAction(vars['enhanceBtn'])
+        --UIManager:toastNotificationRed(Str('망각의 서가 부족합니다.'))
+        --local vars = self.vars
+        --cca.uiImpossibleAction(vars['enhanceBtn'])
+
+        -- 구매 팝업 띄우기
+        -- 망각의 서 product_struct
+        local product_struct = g_shopDataNew:getProduct('st', 210020)
+        product_struct:buy(function(ret)
+            ItemObtainResult_Shop(ret) 
+            self:refresh()
+        end)
+
         return
     end
 
