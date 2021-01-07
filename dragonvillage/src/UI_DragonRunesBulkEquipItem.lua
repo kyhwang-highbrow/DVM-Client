@@ -169,6 +169,9 @@ function UI_DragonRunesBulkEquipItem:refresh()
 
     -- 스탯 표기
     self:refreshStat()
+    -- 세트 표시
+    self:refreshRuneSet()
+
 end
 
 -------------------------------------
@@ -193,6 +196,7 @@ function UI_DragonRunesBulkEquipItem:resetRoidList(b_no_tween)
         end
     end
     self:refreshStat(b_no_tween)
+    self:refreshRuneSet()
 end
 
 -------------------------------------
@@ -304,6 +308,75 @@ function UI_DragonRunesBulkEquipItem:refreshStat(b_no_tween)
 end
 
 -------------------------------------
+-- function refreshRuneSet
+-- @brief 룬 세트 효과 리프레시
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:refreshRuneSet()
+    local vars = self.vars
+
+    local type = self.m_type
+    local doid = self.m_doid
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
+
+    if (type == 'after') then
+         for slot_idx = 1, 6 do
+            local after_roid = self.m_lRoidList[slot_idx]
+            dragon_obj['runes'][tostring(slot_idx)] = after_roid
+        end
+    end
+
+    local rune_set_obj = dragon_obj:getStructRuneSetObject()
+    local active_set_list = rune_set_obj:getActiveRuneSetList()
+
+    -- 애니 재생 가능한 룬 갯수 설정 (2세트 5개 착용시 처음 슬롯부터 4개까지만)
+    local function get_need_equip(set_id)
+        local need_equip = 0
+        for _, v in ipairs(active_set_list) do
+            if (v == set_id) then
+                need_equip = need_equip + TableRuneSet:getRuneSetNeedEquip(set_id)
+            end
+        end
+
+        return need_equip
+    end
+
+    -- 해당룬 세트 효과 활성화 되있다면 애니 재생
+    local t_equip = {}
+    local function show_set_effect(slot_id, set_id)
+        for _, v in ipairs(active_set_list) do
+            local visual = vars['runeVisual'..slot_id]
+            if (v == set_id) then
+                if (t_equip[set_id]) then
+                    t_equip[set_id] = t_equip[set_id] + 1
+                else
+                    t_equip[set_id] = 1
+                end
+
+                local need_equip = get_need_equip(set_id)
+                if (t_equip[set_id] <= need_equip) then
+                    local ani_name = TableRuneSet:getRuneSetVisualName(slot_id, set_id)
+                    visual:setVisible(true)
+                    visual:changeAni(ani_name, true)
+                end
+                break
+            end
+        end
+    end
+
+    for i = 1, 6 do
+        vars['runeVisual'..i]:setVisible(false)
+
+        local roid = dragon_obj['runes'][tostring(i)] or ''
+        
+        if (roid ~= '') then
+            local rune_obj = g_runesData:getRuneObject(roid)
+            local set_id = rune_obj['set_id']
+            show_set_effect(i, set_id)
+        end
+    end
+end
+
+-------------------------------------
 -- function simulateRune
 -- @brief 룬 한개 장착
 -------------------------------------
@@ -312,6 +385,7 @@ function UI_DragonRunesBulkEquipItem:simulateRune(slot_idx, roid)
     self.m_lRoidList[slot_idx] = roid
     self:refreshRuneCard(slot_idx)
     self:refreshStat()
+    self:refreshRuneSet()
 end
 
 -------------------------------------
@@ -329,6 +403,7 @@ function UI_DragonRunesBulkEquipItem:simulateDragonRune(doid)
     end
 
     self:refreshStat()
+    self:refreshRuneSet()
 end
 
 -------------------------------------
