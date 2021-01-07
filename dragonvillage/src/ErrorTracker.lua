@@ -183,15 +183,20 @@ end
 function ErrorTracker:getUIStackForPayRoute()
     local ui_str = ''
 
-    local max_count = 3
+    local max_count = 5
     local count = 1
-    for _, ui in pairs(UIManager.m_uiList) do
-        if (ui.m_uiName == 'UI_BlockPopup') or (ui.m_uiName == 'UI_Network') or (ui.m_uiName == 'untitled') then
+
+    for i = #UIManager.m_uiList, 1, -1 do
+        local ui = UIManager.m_uiList[i]
+        if (ui.m_uiName == 'UI_BlockPopup') 
+            or (ui.m_uiName == 'UI_Network') 
+            or (ui.m_uiName == 'UI_ObtainToastPopup') 
+            or (ui.m_uiName == 'untitled') then
         else
             if (count > max_count) then
                 break
             end
-            ui_str = ui_str .. ui.m_uiName .. '/'
+            ui_str = ui.m_uiName .. '/' .. ui_str
 			count = count + 1
         end
     end

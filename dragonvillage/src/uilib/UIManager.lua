@@ -39,7 +39,7 @@ UIManager = {
     TOP_POPUP = 6, -- 모든걸 뚫는 창
 
     m_uiLayer = 'cc.Node',
-    m_uiList = {},
+    m_uiList = {}, -- list -> 1부터 시작하는 index를 사용
     m_scene = 'cc.Scene',
     m_perpleScene = 'PerpleScene',
 
