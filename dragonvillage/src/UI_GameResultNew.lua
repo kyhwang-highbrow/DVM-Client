@@ -1185,6 +1185,9 @@ function UI_GameResultNew:click_quickBtn(skip_check_auto_play_release)
 	-- 게임 시작 실패시 동작
 	local function fail_cb()
 		quick_btn:setEnabled(true)
+
+        -- 만약 자동 전투 중이었다면 자동 전투 종료
+        g_autoPlaySetting:setAutoPlay(false)
 	end
 
     local stage_id = self.m_stageID
