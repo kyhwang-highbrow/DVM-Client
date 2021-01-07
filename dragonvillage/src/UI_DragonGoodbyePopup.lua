@@ -19,6 +19,7 @@ function UI_DragonGoodbyePopup:init(dragon_oid, dragon_data, msg, okBtn_cb)
 	self.m_msg = msg
 	self.m_okBtn_cb = okBtn_cb
 
+    self.m_uiName = 'UI_DragonGoodbyePopup'
     local vars = self:load('goodbye_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 

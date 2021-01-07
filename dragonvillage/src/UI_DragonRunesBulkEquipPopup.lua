@@ -19,6 +19,7 @@ UI_DragonRunesBulkEquipPopup = class(PARENT, {
 -- @param price : 총 소모되는 골드
 -------------------------------------
 function UI_DragonRunesBulkEquipPopup:init(doid, l_after_roid_list, price, finish_cb)
+    self.m_uiName = 'UI_DragonRunesBulkEquipPopup'
     local vars = self:load('dragon_rune_popup_confirm.ui')
     UIManager:open(self, UIManager.POPUP)
 

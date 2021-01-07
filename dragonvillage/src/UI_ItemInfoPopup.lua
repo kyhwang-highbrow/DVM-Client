@@ -19,6 +19,7 @@ function UI_ItemInfoPopup:init(item_id, count, t_sub_data)
     self.m_itemCount = count
     self.m_tSubData = t_sub_data
 
+    self.m_uiName = 'UI_ItemInfoPopup'
     local vars = self:load('item_info_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 

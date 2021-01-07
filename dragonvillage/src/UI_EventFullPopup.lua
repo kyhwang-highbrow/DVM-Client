@@ -27,6 +27,7 @@ end
 -- function openEventFullPopup
 -------------------------------------
 function UI_EventFullPopup:openEventFullPopup()
+    self.m_uiName = 'UI_EventFullPopup'
     local vars = self:load('event_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 

@@ -19,6 +19,7 @@ UI_BundlePopupNew = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_BundlePopupNew:init(item_id, item_cnt, max_item_cnt, price_type, price_cnt, cb_func, item_name)
+    self.m_uiName = 'UI_BundlePopupNew'
     local vars = self:load('shop_purchase.ui')
     UIManager:open(self, UIManager.POPUP)
 

@@ -14,6 +14,7 @@ UI_ChatPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ChatPopup:init()
+    self.m_uiName = 'UI_ChatPopup'
     local vars = self:load('chat.ui')
     --UIManager:open(self, UIManager.NORMAL)
 
