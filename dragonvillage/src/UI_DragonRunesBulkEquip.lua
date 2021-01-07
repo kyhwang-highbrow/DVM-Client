@@ -97,6 +97,11 @@ function UI_DragonRunesBulkEquip:initTab()
     
     vars['indivisualTabMenu']:addChild(rune_tab.root)
     vars['indivisualTabMenu']:addChild(dragon_tab.root)
+
+    -- 룬을 출력하는 TableView(runeTableViewNode)가 relative size의 영향을 받는다.
+    -- UI가 생성되고 부모 노드에 addChild가 된 후에 해당 노드의 크기가 결정되므로 외부에서 호출하도록 한다.
+    -- setTab -> onChangeTab -> initTableView 의 순서로 TableView가 생성됨.
+    rune_tab:setTab(1, true)
     
     self:addTabWithTabUIAndLabel('rune', vars['runeTabBtn'], vars['runeTabLabel'], rune_tab)            -- 룬
     self:addTabWithTabUIAndLabel('dragon', vars['dragonTabBtn'], vars['dragonTabLabel'], dragon_tab)    -- 드래곤
