@@ -26,7 +26,7 @@ function UI_ObtainToastPopup:init(l_item)
 
     -- 등장 액션 지정
     self.root:setOpacity(0)
-    self.root:runAction(cc.Sequence:create(cc.FadeTo:create(0.3, 255), cc.DelayTime:create(0.6), cc.FadeTo:create(0.5, 0)))
+    self.root:runAction(cc.Sequence:create(cc.FadeTo:create(0.3, 255), cc.DelayTime:create(0.6), cc.FadeTo:create(0.5, 0), cc.RemoveSelf:create()))
 
     self:setObtainList(l_item)
     self:initUI()
