@@ -927,6 +927,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructTamerCostume.lua" />
     <None Include="..\src\StructTeamBonus.lua" />
     <None Include="..\src\StructToast.lua" />
+    <None Include="..\src\StructUpgradeMaterialCombine.lua" />
     <None Include="..\src\Structure.lua" />
     <None Include="..\src\StructUserInfo.lua" />
     <None Include="..\src\StructUserInfoAncientTower.lua" />
@@ -1298,6 +1299,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonSkillMove.lua" />
     <None Include="..\src\UI_DragonTransformChange.lua" />
     <None Include="..\src\UI_DragonTransformChangeResult.lua" />
+    <None Include="..\src\UI_DragonUpgradeCombineMaterial.lua" />
+    <None Include="..\src\UI_DragonUpgradeCombineMaterialItem.lua" />
     <None Include="..\src\UI_EggPopup.lua" />
     <None Include="..\src\UI_EggSimulator.lua" />
     <None Include="..\src\UI_ErrorPopup_Live.lua" />

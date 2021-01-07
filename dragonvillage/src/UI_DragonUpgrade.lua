@@ -117,6 +117,8 @@ function UI_DragonUpgrade:initButton()
     vars['buyBtn']:setVisible(false)
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
     cca.pickMePickMe(vars['buyBtn'], 10)
+
+    vars['upgradeMaterialBtn']:registerScriptTapHandler(function() self:click_upgradeMaterialBtn() end)
 end
 
 -------------------------------------
@@ -668,6 +670,18 @@ function UI_DragonUpgrade:click_upgradeBtn()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function click_upgradeMaterialBtn
+-------------------------------------
+function UI_DragonUpgrade:click_upgradeMaterialBtn()
+    function close_cb()
+
+    end
+    
+    local ui = UI_DragonUpgradeCombineMaterial()
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
