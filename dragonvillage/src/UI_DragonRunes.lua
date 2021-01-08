@@ -1277,7 +1277,7 @@ function UI_DragonRunes:click_equipBtnNew()
             end
 
             if (after_roid ~= '') then
-                table.insert(l_roid_list, after_roid)
+                l_roid_list[idx] = after_roid
             end
         end 
             
