@@ -309,3 +309,10 @@ function UI_DragonRunesBulkEquip:changeRuneSlot(slot_idx)
     local ui = self.m_mTabData['rune']['ui']
     ui:setTab(slot_idx)
 end
+
+-------------------------------------
+-- function focusSlotIndex
+-------------------------------------
+function UI_DragonRunesBulkEquip:focusSlotIndex(slot_idx)
+    self.m_afterUI:focusSlotIndex(slot_idx)
+end

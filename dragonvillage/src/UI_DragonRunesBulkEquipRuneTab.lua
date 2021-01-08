@@ -201,6 +201,8 @@ function UI_DragonRunesBulkEquipRuneTab:onChangeTab(tab, first)
     self:initTableView(slot_idx)
 
 	self:refreshRunesCount() -- 룬 개수 갱신
+
+    self.m_ownerUI:focusSlotIndex(slot_idx)
 end
 
 -------------------------------------

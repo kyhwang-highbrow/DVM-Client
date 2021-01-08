@@ -389,6 +389,18 @@ function UI_DragonRunesBulkEquipItem:simulateRune(slot_idx, roid)
 end
 
 -------------------------------------
+-- function focusSlotIndex
+-- @brief 룬 슬롯 빛나게
+-------------------------------------
+function UI_DragonRunesBulkEquipItem:focusSlotIndex(focus_slot_idx)
+    local vars = self.vars
+
+    for slot_idx = 1, 6 do
+        vars['selectSprite' .. slot_idx]:setVisible((slot_idx == focus_slot_idx))
+    end
+end
+
+-------------------------------------
 -- function simulateDragonRune
 -- @brief 특정 드래곤의 룬 장착
 -------------------------------------
@@ -424,6 +436,8 @@ function UI_DragonRunesBulkEquipItem:click_runeCard(roid)
     else
         self.m_ownerUI:simulateRune(slot_idx, nil)
     end
+
+    self:click_emptyRuneCard(slot_idx)
 end
 
 -------------------------------------
