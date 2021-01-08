@@ -396,7 +396,12 @@ function UI_DragonRunesBulkEquipItem:focusSlotIndex(focus_slot_idx)
     local vars = self.vars
 
     for slot_idx = 1, 6 do
-        vars['selectSprite' .. slot_idx]:setVisible((slot_idx == focus_slot_idx))
+        local lua_name = 'selectSprite' .. slot_idx
+        vars[lua_name]:setVisible((slot_idx == focus_slot_idx))
+        
+        -- 깜빡임 액션
+        vars[lua_name]:stopAllActions()
+        vars[lua_name]:runAction(cca.flash())
     end
 end
 
