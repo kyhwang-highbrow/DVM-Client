@@ -36,16 +36,26 @@ function UI_DragonRunesBulkEquipRuneTab:init(owner_ui)
 
     self.m_selectRoid = nil
 
+end
+
+-------------------------------------
+-- function setParentAndInit
+-------------------------------------
+function UI_DragonRunesBulkEquipRuneTab:setParentAndInit(parent_node)
+    -- 룬을 출력하는 TableView(runeTableViewNode)가 relative size의 영향을 받는다.
+    -- UI가 생성되고 부모 노드에 addChild가 된 후에 해당 노드의 크기가 결정되므로 외부에서 호출하도록 한다.
+    -- setTab -> onChangeTab -> initTableView 의 순서로 TableView가 생성됨.
+    --self:setTab(1, true)
+    
+    parent_node:addChild(self.root)
+
     self:initUI()
 
     self:initButton()
 
     self:refresh()
 
-    -- 룬을 출력하는 TableView(runeTableViewNode)가 relative size의 영향을 받는다.
-    -- UI가 생성되고 부모 노드에 addChild가 된 후에 해당 노드의 크기가 결정되므로 외부에서 호출하도록 한다.
-    -- setTab -> onChangeTab -> initTableView 의 순서로 TableView가 생성됨.
-    --self:setTab(1, true)
+    self:setTab(1, true)
 end
 
 -------------------------------------
