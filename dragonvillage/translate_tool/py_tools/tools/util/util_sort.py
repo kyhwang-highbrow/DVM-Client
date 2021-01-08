@@ -4,7 +4,7 @@
 
 
 def cmp_scenario(x, y):
-    if 'scen_' in x[0] and 'scen_' in y[0]:
+    if ('scen_' in x[0] and 'event' not in x[0]) and ('scen_' in y[0] and 'event' not in y[0]):
         x_list = x[0].split('_')
         y_list = y[0].split('_')
 
