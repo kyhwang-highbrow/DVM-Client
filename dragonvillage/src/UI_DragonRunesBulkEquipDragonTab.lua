@@ -30,9 +30,9 @@ end
 -- function setParentAndInit
 -------------------------------------
 function UI_DragonRunesBulkEquipDragonTab:setParentAndInit(parent_node)
-    -- ·éÀ» Ãâ·ÂÇÏ´Â TableView(runeTableViewNode)°¡ relative sizeÀÇ ¿µÇâÀ» ¹Ş´Â´Ù.
-    -- UI°¡ »ı¼ºµÇ°í ºÎ¸ğ ³ëµå¿¡ addChild°¡ µÈ ÈÄ¿¡ ÇØ´ç ³ëµåÀÇ Å©±â°¡ °áÁ¤µÇ¹Ç·Î ¿ÜºÎ¿¡¼­ È£ÃâÇÏµµ·Ï ÇÑ´Ù.
-    -- setTab -> onChangeTab -> initTableView ÀÇ ¼ø¼­·Î TableView°¡ »ı¼ºµÊ.
+    -- ë£¬ì„ ì¶œë ¥í•˜ëŠ” TableView(runeTableViewNode)ê°€ relative sizeì˜ ì˜í–¥ì„ ë°›ëŠ”ë‹¤.
+    -- UIê°€ ìƒì„±ë˜ê³  ë¶€ëª¨ ë…¸ë“œì— addChildê°€ ëœ í›„ì— í•´ë‹¹ ë…¸ë“œì˜ í¬ê¸°ê°€ ê²°ì •ë˜ë¯€ë¡œ ì™¸ë¶€ì—ì„œ í˜¸ì¶œí•˜ë„ë¡ í•œë‹¤.
+    -- setTab -> onChangeTab -> initTableView ì˜ ìˆœì„œë¡œ TableViewê°€ ìƒì„±ë¨.
     --self:setTab(1, true)
     
     parent_node:addChild(self.root)
@@ -63,15 +63,15 @@ function UI_DragonRunesBulkEquipDragonTab:initTableView()
     local list_table_node = self.vars['dragonTableViewNode']
     list_table_node:removeAllChildren()
 
-    -- ¸®½ºÆ® ¾ÆÀÌÅÛ »ı¼º Äİ¹é
+    -- ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œ ìƒì„± ì½œë°±
     local function create_func(ui, data)
         ui.root:setScale(UI_DragonRunesBulkEquipDragonTab.CARD_SCALE)
         
-        -- Å¬¸¯ ¹öÆ° ¼³Á¤
+        -- í´ë¦­ ë²„íŠ¼ ì„¤ì •
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_DragonCard(ui, data) end)
     end
 
-    -- Å×ÀÌºíºä »ı¼º
+    -- í…Œì´ë¸”ë·° ìƒì„±
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = UI_DragonRunesBulkEquipDragonTab.CARD_CELL_SIZE
     table_view_td.m_nItemPerCell = 8
@@ -81,21 +81,21 @@ function UI_DragonRunesBulkEquipDragonTab:initTableView()
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     self.m_tableViewTD = table_view_td
 
-    -- ¸®½ºÆ®°¡ ºñ¾úÀ» ¶§
-    table_view_td:makeDefaultEmptyDescLabel(Str('·éÀÌ ÀåÂøµÈ µå·¡°ïÀÌ ¾ø½À´Ï´Ù.'))
+    -- ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì—ˆì„ ë•Œ
+    table_view_td:makeDefaultEmptyDescLabel(Str('ë£¬ì´ ì¥ì°©ëœ ë“œë˜ê³¤ì´ ì—†ìŠµë‹ˆë‹¤.'))
 
-    -- Àç·á·Î »ç¿ë °¡´ÉÇÑ ¸®½ºÆ®¸¦ ¾ò¾î¿È
+    -- ì¬ë£Œë¡œ ì‚¬ìš© ê°€ëŠ¥í•œ ë¦¬ìŠ¤íŠ¸ë¥¼ ì–»ì–´ì˜´
     local l_dragon_list = self:getDragonList()
     self.m_tableViewTD:setItemList(l_dragon_list)
 	
-    -- Á¤·Ä
+    -- ì •ë ¬
     if (self.m_sortManagerDragon == nil) then
         local sort_manager = SortManager_Dragon()
 
-        do -- Á¤·Ä UI »ı¼º
+        do -- ì •ë ¬ UI ìƒì„±
             local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_TOP_TO_BOT)
         
-            -- ¹öÆ°À» ÅëÇØ Á¤·ÄÀÌ º¯°æµÇ¾úÀ» °æ¿ì
+            -- ë²„íŠ¼ì„ í†µí•´ ì •ë ¬ì´ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°
             local function sort_change_cb(sort_type)
                 sort_manager:pushSortOrder(sort_type)
                 self:applyDragonSort()
@@ -106,7 +106,7 @@ function UI_DragonRunesBulkEquipDragonTab:initTableView()
             uic_sort_list:setSelectSortType('combat_power', false)
         end
 
-        do -- ¿À¸§Â÷¼ø/³»¸²Â÷¼ø ¹öÆ°
+        do -- ì˜¤ë¦„ì°¨ìˆœ/ë‚´ë¦¼ì°¨ìˆœ ë²„íŠ¼
             local function click()
                 local ascending = (not sort_manager.m_defaultSortAscending)
                 sort_manager:setAllAscending(ascending)
@@ -150,12 +150,12 @@ end
 
 -------------------------------------
 -- function getDragonList
--- @brief ·éÀÌ ÀåÂøµÇ¾îÀÖ´Â µå·¡°ï
+-- @brief ë£¬ì´ ì¥ì°©ë˜ì–´ìˆëŠ” ë“œë˜ê³¤
 -------------------------------------
 function UI_DragonRunesBulkEquipDragonTab:getDragonList()
     local dragon_dic = g_dragonsData:getDragonsList()
 
-    -- ·éÀÌ ¾Æ¹«°Íµµ ÀåÂøµÇÁö ¾ÊÀº µå·¡°ïÀº Á¦¿Ü
+    -- ë£¬ì´ ì•„ë¬´ê²ƒë„ ì¥ì°©ë˜ì§€ ì•Šì€ ë“œë˜ê³¤ì€ ì œì™¸
     for oid, v in pairs(dragon_dic) do
         if (table.count(v:getRuneObjectList()) == 0) then
             dragon_dic[oid] = nil
@@ -183,7 +183,7 @@ end
 
 -------------------------------------
 -- function click_DragonCard
--- @brief µå·¡°ïÀÇ ·é ÀåÂø
+-- @brief ë“œë˜ê³¤ì˜ ë£¬ ì¥ì°©
 -------------------------------------
 function UI_DragonRunesBulkEquipDragonTab:click_DragonCard(ui, data)
     local vars = self.vars
