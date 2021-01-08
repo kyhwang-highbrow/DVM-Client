@@ -31,7 +31,7 @@ function UI_DragonRunesBulkEquipItem:init(owner_ui, doid, type)
     local dragon_obj = g_dragonsData:getDragonDataFromUid(doid)
     
     for idx = 1, 6 do
-        table.insert(l_roid_list, dragon_obj['runes'][tostring(idx)])
+        l_roid_list[idx] = dragon_obj['runes'][tostring(idx)]
     end
 
     self.m_lRoidList = l_roid_list
