@@ -34,7 +34,7 @@ function UI_DragonRunesBulkEquipPopup:init(doid, l_after_roid_list, price, finis
     local l_before_roid_list = {}
     
     for idx = 1, 6 do
-        table.insert(l_before_roid_list, dragon_obj['runes'][tostring(idx)])
+        l_before_roid_list[idx] = dragon_obj['runes'][tostring(idx)]
     end
 
     self.m_doid = doid
@@ -65,11 +65,14 @@ function UI_DragonRunesBulkEquipPopup:initUI()
         local after_roid = self.m_lAfterRoidList[slot_idx] or ''
 
         -- 전 후 같은 경우 룬 카드만 생성 후 레이어 씌움
-        if (before_roid == after_roid) and (before_roid ~= '') then
-            local rune_obj = g_runesData:getRuneObject(before_roid)
-            local card = UI_RuneCard(rune_obj)
+        if (before_roid == after_roid) then
+            if (before_roid ~= '') then
+                local rune_obj = g_runesData:getRuneObject(before_roid)
+                local card = UI_RuneCard(rune_obj)
         
-            vars['runeNode' .. slot_idx]:addChild(card.root)
+                vars['runeNode' .. slot_idx]:addChild(card.root)
+            end
+           
             vars['deselectSprite' .. slot_idx]:setVisible(true)
             vars['arrowSprite' .. slot_idx]:setVisible(false)
 
