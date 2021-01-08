@@ -74,12 +74,19 @@ function UI_UserLevelUp:initUI()
         local bonus_label = vars['bonusLabel']
         bonus_label = NumberLabel(bonus_label, 0, numbering_time)
 
+        local reward_label = vars['rewardLabel']
+        reward_label = NumberLabel(reward_label, 0, numbering_time)
+
         local table_exp_tamer = TABLE:get('exp_tamer')
         local prev_stamina = table_exp_tamer[prev_lv]['max_stamina']
         local curr_stamina = table_exp_tamer[curr_lv]['max_stamina']
 
+        -- 스태미나 선물
+        local st_gift = TableUserLevel():getStaminaGift(prev_lv, curr_lv)
+
         before_label:setNumber(prev_stamina)
         after_label:setNumber(curr_stamina)
+        reward_label:setNumber(st_gift)
 
         -- 증가분인지 회복량인지 미정. 혹은 삭제 될 수 있음
         local add_stamina = curr_stamina - prev_stamina

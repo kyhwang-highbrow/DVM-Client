@@ -40,6 +40,20 @@ function TableUserLevel:getReqExp(lv)
 end
 
 -------------------------------------
+-- function getStaminaGift
+-- @breif before_lv 에서 after_lv 도달 시 스태미나 수량
+-------------------------------------
+function TableUserLevel:getStaminaGift(before_lv, after_lv)
+    local total_stamina = 0
+    for lv = before_lv + 1, after_lv do
+        t_user_level = self:get(lv)
+        total_stamina = total_stamina + t_user_level['get_stamina']
+    end
+
+    return total_stamina
+end
+
+-------------------------------------
 -- function getBetweenExp
 -- @breif 두 레벨과 경험치 사이의 경험치를 리턴
 -------------------------------------
