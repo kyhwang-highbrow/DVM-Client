@@ -67,10 +67,10 @@ end
 function UI_DragonUpgradeCombineMaterial:initUI()
     local vars = self.vars
 
-    --do -- 배경
-        --local animator = ResHelper:getUIDragonBG('earth', 'idle')
-        --vars['bgNode']:addChild(animator.m_node)
-    --end
+    do -- 배경
+        local animator = ResHelper:getUIDragonBG('earth', 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
 
     local uic_sort_list =  MakeUICSortList_DragonUpgradeMaterialCombine(vars['sortBtn'], vars['sortLabel'])
     uic_sort_list:setSelectSortType(3)
