@@ -251,6 +251,8 @@ function UI_DragonRunes:refresh()
         local only_value = true
         if (dc_target == HOTTIME_SALE_EVENT.RUNE_RELEASE) then
             g_hotTimeData:setDiscountEventNode(dc_target, vars, 'removeEventSprite', only_value)
+            g_hotTimeData:setDiscountEventNode(dc_target, vars, 'equipEventSprite1', only_value)
+            g_hotTimeData:setDiscountEventNode(dc_target, vars, 'equipEventSprite2', only_value)
 
         elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_ENHANCE) then
             g_hotTimeData:setDiscountEventNode(dc_target, vars, 'useEnhanceEventSprite', only_value)
