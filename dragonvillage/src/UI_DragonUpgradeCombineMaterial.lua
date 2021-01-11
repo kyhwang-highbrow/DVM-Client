@@ -659,7 +659,6 @@ function UI_DragonUpgradeCombineMaterial:click_combineBtn()
     function finish_cb()
         self:initTableView()
         self:initCombineTableView()
-
         self:refresh()     
     end
 

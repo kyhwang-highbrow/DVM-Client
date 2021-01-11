@@ -94,6 +94,15 @@ function UI_DragonUpgradeCombineMaterialConfirmPopup:initTableView()
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
 	table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view:setItemList(l_material_list)
+
+    local sort_manager = SortManager_Dragon()
+    sort_manager:addPreSortType('object_type', false, function(a, b, ascending) return sort_manager:sort_object_type(a, b, ascending) end)
+    sort_manager:pushSortOrder('underling')
+    sort_manager:pushSortOrder('lv')
+    sort_manager:pushSortOrder('evolution')
+
+    sort_manager:sortExecution(table_view.m_itemList)
+
 end
 
 -------------------------------------
@@ -126,11 +135,6 @@ end
 -- function click_okBtn
 -------------------------------------
 function UI_DragonUpgradeCombineMaterialConfirmPopup:click_okBtn()
-    
-    do -- 재화 확인
-    
-    end    
-
     local function finish_cb(ret)
         if (self.m_finishCB) then
             self.m_finishCB()
@@ -139,7 +143,31 @@ function UI_DragonUpgradeCombineMaterialConfirmPopup:click_okBtn()
         self:close()
     end
 
-    g_runesData:request_runesEquipNew(doid, roids, finish_cb, nil) -- @param : doid, roids, finish_cb, fail_cb
+    local total_doids = ''
+    local require_count = self.m_grade + 1
+
+    for _, combine_data in ipairs(self.m_lCombineDataList) do
+        local doids = ''
+        
+        for idx = 1, require_count do
+            local t_dragon_data = combine_data.m_mDragonMappingIndex[idx]
+            local doid = t_dragon_data['id']
+
+            if (doids == '') then
+                doids = doid
+            else
+                doids = doids .. ',' .. doid
+            end
+        end
+
+        if (total_doids == '') then
+            total_doids = doids
+        else
+            total_doids = total_doids .. '-' .. doids
+        end
+    end
+
+    g_dragonsData:request_dragonCombine(total_doids, finish_cb) -- @param : doids, finish_cb (doids ex : a,b,c,d-e,f,g,b-h,i,j,k)
 end
 
 
