@@ -1036,3 +1036,54 @@ function StructDragonObject:getMasteryLvUpAmorAndGoldCost()
 
     return req_amor, req_gold, active
 end
+
+-------------------------------------
+-- function isRaisedByUser
+-- @brief 드래곤이 성장되었는지 확인
+-- @brief 룬 장착 여부, 레벨, 경험치, 진화, 친밀도, 강화, 스킬 레벨업 여부 체크
+-------------------------------------
+function StructDragonObject:isRaisedByUser()
+    ccdump(self)
+
+    -- 레벨
+    if (self:getLv() > 1) then
+        return true
+    end
+
+    -- 경험치
+    if (self['exp'] > 0) then
+        return true
+    end
+
+    -- 진화
+    if (self['evolution'] > 1) then
+        return true
+    end
+
+    -- 친밀도
+    if (self['friendship']['flv'] > 0) or (self['friendship']['fexp'] > 0) then
+        return true
+    end
+
+    -- 강화
+    if (self['reinforce']['lv'] > 0) or (self['reinforce']['exp'] > 0) then
+        return true
+    end
+
+    -- 스킬 레벨업
+    for skill_idx = 0, 3 do
+        if (self['skill_' .. skill_idx] > 1) then
+            return true
+        end
+    end
+
+    -- 룬 장착 여부
+    for slot_idx = 1, 6 do
+        local roid = self['runes'][tostring(slot_idx)] or ''
+        if (roid ~= '') then
+            return true
+        end
+    end
+
+    return false
+end
