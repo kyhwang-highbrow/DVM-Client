@@ -1808,3 +1808,56 @@ function ServerData_Dragons:request_goodbye(target, doids, cb_func)
 
     return ui_network
 end
+
+-------------------------------------
+-- function request_dragonCombine
+-- @brief 슈퍼 슬라임 합성 요청
+-- @param doids 는 doid concat한 것
+-- doids : a,b,c,d-e,f,g,h-i,j,k,l (doid는 ','로 구분. 각 합성 정보는 '-'로 구분)
+-------------------------------------
+function ServerData_Dragons:request_dragonCombine(doids, cb_func)
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        -- 재화 갱신
+        self.m_serverData:networkCommonRespone(ret)
+
+        -- 재료로 사용된 드래곤에 장착된 룬 삭제
+        if ret['deleted_rune_oids'] then
+            g_runesData:deleteRuneData_list(ret['deleted_rune_oids'])
+        end
+
+		-- 재료로 사용된 드래곤 삭제
+		if ret['deleted_dragons_oid'] then
+			for _, doid in pairs(ret['deleted_dragons_oid']) do
+				g_dragonsData:delDragonData(doid)
+			end
+		end
+
+        -- 재료로 사용된 슬라임 삭제
+        if ret['deleted_slimes_oid'] then
+            for _, soid in pairs(ret['deleted_slimes_oid']) do
+                g_slimesData:delSlimeObject(soid)
+            end
+        end
+
+        -- 획득한 슬라임 추가
+        if ret['added_slimes'] then
+            g_slimesData:applySlimeData_list(ret['added_slimes'])
+        end
+
+		-- 콜백
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/combine')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doids', doids)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
