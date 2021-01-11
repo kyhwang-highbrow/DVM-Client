@@ -203,9 +203,11 @@ function UI_DragonUpgradeCombineMaterial:getMaterialList(grade)
             
             else
                 local doid = v['id']
+                local lv = v['lv']
+                local exp = v['exp']
 	            local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
                 
-                if (possible == true) then
+                if (possible == true) and (lv == 1) and (exp == 0) then
                     local data = {['data'] = v}
                     l_material_list[idx] = data
                     idx = idx + 1
@@ -443,92 +445,36 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
     end
     self.m_bDoingAutoBtn = true
 
-    -- 현재의 정렬 순서에 상관없이 기본 소트 매니저로 정렬해서 사용
-    local material_item_list = self:getMaterialList()
-    local default_sort_manager = self:getDefaultSortManager()
-    default_sort_manager:sortExecution(material_item_list)
-    local reverse_item_list = table.reverse(material_item_list)
+    local material_item_list = clone(self.m_tableView.m_itemList)
 
     -- 1. 유저가 등록한 드래곤이 존재하던 합성 재료부터 채운다.
     for combine_data_id, combine_data in ipairs(self.m_lCombineDataList) do
         -- 아직 등록되지 않은 재료 드래곤이 있는 경우에
         if (not combine_data:isFull()) and (not combine_data:isEmpty()) then
-
-            -- 최고 레벨 확인
-            local highest_lv = combine_data:getHighestLevel()
-
-            -- 최고 레벨이 1인 경우 현재 남은 재료 중 가장 높은 레벨 한 마리 투입
-            if (highest_lv == 1) then
-                for i, v in ipairs(reverse_item_list) do
-                    local t_dragon_data = v['data']
-                    local doid = t_dragon_data['id']
-                   
-                    if (self.m_mSelectDragonMap[doid] == nil) then
-                        
-                        local lv = t_dragon_data['lv']
-                        local exp = t_dragon_data['exp'] or 0    
-
-                        -- 남은 재료 중 가장 높은 레벨이 1인 경우(경험치도 제로인 경우) 해당 로직 스킵
-                        if (lv == 1) and (exp == 0) then
-                            break
-                        end
-                        
-                        -- 합성 정보에 드래곤 정보 등록
-                        combine_data:addDragonObject(t_dragon_data)
-
-                        -- self에 드래곤 정보 등록
-                        local data = {}
-                        data['combine_id'] = combine_data_id
-                        data['data'] = t_dragon_data
-                        self.m_mSelectDragonMap[doid] = data
-                    
-                        -- 드래곤 카드에 체크 표시 추가
-                        local dragon_card = self.m_tableView:getCellUI(doid)
-                    
-                        if (dragon_card) then
-                            dragon_card:setCheckSpriteVisible(true)
-                        end
-
-                        break
-                    end
-                end
-            end
-
-            if (not combine_data:isFull()) then
-                -- 채워지지 않은 재료 칸에 레벨 1, 경험치 0 재료들 전부 투입
-                for i, v in ipairs(material_item_list) do
-                    local t_dragon_data = v['data']
-                    local doid = t_dragon_data['id']
+            for i, v in ipairs(material_item_list) do
+                local t_dragon_data = v['data']
+                local doid = t_dragon_data['id']
                                 
-                    if (self.m_mSelectDragonMap[doid] == nil) then
+                if (self.m_mSelectDragonMap[doid] == nil) then
+                    -- 합성 정보에 드래곤 정보 등록
+                    combine_data:addDragonObject(t_dragon_data)
+
+                    -- self에 드래곤 정보 등록
+                    local data = {}
+                    data['combine_id'] = combine_data_id
+                    data['data'] = t_dragon_data
+                    self.m_mSelectDragonMap[doid] = data
                     
-                        local lv = t_dragon_data['lv']
-                        local exp = t_dragon_data['exp'] or 0
-
-                        if (lv > 1) or (exp > 0) then
-                            break
-                        end
-
-                        -- 합성 정보에 드래곤 정보 등록
-                        combine_data:addDragonObject(t_dragon_data)
-
-                        -- self에 드래곤 정보 등록
-                        local data = {}
-                        data['combine_id'] = combine_data_id
-                        data['data'] = t_dragon_data
-                        self.m_mSelectDragonMap[doid] = data
+                    -- 드래곤 카드에 체크 표시 추가
+                    local dragon_card = self.m_tableView:getCellUI(doid)
                     
-                        -- 드래곤 카드에 체크 표시 추가
-                        local dragon_card = self.m_tableView:getCellUI(doid)
-                    
-                        if (dragon_card) then
-                            dragon_card:setCheckSpriteVisible(true)
-                        end
+                    if (dragon_card) then
+                        dragon_card:setCheckSpriteVisible(true)
+                    end
 
-                        -- 현재 합성 정보 빈 칸 다 채웠는지 확인
-                        if (combine_data:isFull() == true) then
-                            break
-                        end
+                    -- 현재 합성 정보 빈 칸 다 채웠는지 확인
+                    if (combine_data:isFull() == true) then
+                        break
                     end
                 end
             end
@@ -537,71 +483,23 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
 
     -- 2. 유저가 아무것도 등록하지 않았던 합성 재료를 '전부' 채우는 게 가능할 때 채운다
     local check_item_idx = 0
-    local check_reverse_item_idx = #material_item_list + 1
 
     for combine_data_id, combine_data in ipairs(self.m_lCombineDataList) do
-        if (check_item_idx >= check_reverse_item_idx) then
-            break
-        end
-        
         -- 아직 아무것도 들어서지 않은 경우
         if (combine_data:isEmpty()) then
             local l_doid_list = {}
             local l_dragon_data_list = {}
 
-            -- 가장 높은 레벨 재료 하나를 넣는다.
-            for i, v in ipairs(reverse_item_list) do
-                local idx = #material_item_list - i + 1
-                
-                if (check_reverse_item_idx > idx) then
-                    check_reverse_item_idx = idx
-
-                    local check_dragon_data = v['data']
-                    local doid = check_dragon_data['id']
-
-                    -- 아직 선택되지 않은 드래곤이라면
-                    if (self.m_mSelectDragonMap[doid] == nil) then
-                        
-                        local lv = check_dragon_data['lv']
-                        local exp = check_dragon_data['exp'] or 0
-
-                        -- 남은 재료 중 가장 높은 레벨이 1인 경우(경험치도 제로인 경우) 해당 로직 스킵
-                        if (lv == 1) and (exp == 0) then
-                            check_reverse_item_idx = idx + 1
-                            break
-                        end
-
-                        table.insert(l_doid_list, doid)
-                        table.insert(l_dragon_data_list, check_dragon_data)
-                        break
-                    end
-                end
-            end
-
             -- 나머지 재료 칸에 선택되지 않은 레벨 1 재료만 차례로 넣는다
             for idx, v in ipairs(material_item_list) do
                 if (check_item_idx < idx ) then
                     check_item_idx = idx
-                    
-                    if (check_item_idx >= check_reverse_item_idx) then
-                        break
-                    end
 
                     local check_dragon_data = v['data']
                     local doid = check_dragon_data['id']
 
                     -- 아직 선택되지 않은 드래곤이라면
                     if (self.m_mSelectDragonMap[doid] == nil) then
-                        
-                        local lv = check_dragon_data['lv']
-                        local exp = check_dragon_data['exp'] or 0
-
-                        -- 레벨 1, 경험치 0 재료 없다면 종료
-                        if (lv > 1) or (exp > 0) then
-                            check_item_idx = check_reverse_item_idx
-                            break
-                        end
-
                         table.insert(l_doid_list, doid)
                         table.insert(l_dragon_data_list, check_dragon_data)
 
