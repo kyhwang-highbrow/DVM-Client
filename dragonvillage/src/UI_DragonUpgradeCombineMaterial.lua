@@ -713,13 +713,7 @@ function UI_DragonUpgradeCombineMaterial:refreshWithSplash(added_slimes)
     end
 
     -- 플래시 연출
-	do
-		vars['splashLayer']:setLocalZOrder(1)
-		vars['splashLayer']:setVisible(true)
-		vars['splashLayer']:stopAllActions()
-		vars['splashLayer']:setOpacity(255)
-		vars['splashLayer']:runAction(cc.Sequence:create(cc.FadeOut:create(0.5), cc.Hide:create(), cc.CallFunc:create(function() obtain_popup_cb() end)))
-	end   
+    local splash_ui = UI_BlockSplashPopup(obtain_popup_cb)
 
     -- refresh    
     self:initTableView()
