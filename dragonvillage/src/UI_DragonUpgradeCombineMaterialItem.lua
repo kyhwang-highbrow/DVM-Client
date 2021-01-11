@@ -107,6 +107,7 @@ function UI_DragonUpgradeCombineMaterialItem:click_dragonCard(t_dragon_data)
 
     local owner_ui = self.m_ownerUI
     owner_ui:click_dragonCard(t_dragon_data)
+    owner_ui:refreshPrice()
 end
 
 -------------------------------------

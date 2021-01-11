@@ -142,6 +142,11 @@ function StructUpgradeMaterialCombine:refreshPrice()
 
     local need_gold, need_exp = TableDragonExp():getGoldAndDragonEXPForDragonLevelUp(grade, lv, max_lv)
 
+    if (t_dragon_data['exp']) then
+        local dragon_exp = t_dragon_data['exp']
+        need_exp = need_exp - dragon_exp
+    end
+
     -- 골드는 현재 등급의 승급 비용 + 1번 재료 레벨업 비용
     need_gold = need_gold +  TableGradeInfo():getValue(grade, 'req_gold')
    
@@ -214,7 +219,7 @@ end
 
 -------------------------------------
 -- function getDoids
--- @brief 현재 저장하고 있는 룬들의 doid를 문자열로 반환
+-- @brief 현재 저장하고 있는 재료들의 doid를 문자열로 반환
 -------------------------------------
 function StructUpgradeMaterialCombine:getDoids()
     local doids = ''
@@ -256,6 +261,20 @@ function StructUpgradeMaterialCombine:getNextIndex(t_dragon_data)
     end
 
     return lowest_index
+end
+
+-------------------------------------
+-- function getHighestLevel
+-- @brief 재료 중 가장 높은 레벨 반환, 만약 재료가 아무것도 없다면 1 반환
+-------------------------------------
+function StructUpgradeMaterialCombine:getHighestLevel()
+    local lv = 1
+
+    if (self.m_mDragonMappingIndex[1] ~= nil) then
+        lv = self.m_mDragonMappingIndex[1]['lv']
+    end
+
+    return lv
 end
 
 -------------------------------------
