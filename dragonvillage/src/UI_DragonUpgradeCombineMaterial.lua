@@ -42,7 +42,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonUpgradeCombineMaterial:init(doid)
+function UI_DragonUpgradeCombineMaterial:init()
     local vars = self:load('dragon_upgrade_material.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -352,12 +352,6 @@ end
 -- function click_cancelBtn
 -------------------------------------
 function UI_DragonUpgradeCombineMaterial:click_cancelBtn()
-    local vars = self.vars
-
-    if (self.m_bDirty == false) then
-        self.m_closeCB = nil
-    end    
-
     self:close()
 end
 
@@ -731,4 +725,6 @@ function UI_DragonUpgradeCombineMaterial:refreshWithSplash(added_slimes)
     self:initTableView()
     self:initCombineTableView()
     self:refresh()
+
+    self.m_bDirty = true
 end

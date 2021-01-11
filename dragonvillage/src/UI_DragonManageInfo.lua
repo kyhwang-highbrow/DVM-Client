@@ -168,6 +168,9 @@ function UI_DragonManageInfo:initButton()
 
         -- 팀보너스
 		vars['teamBonusBtn']:registerScriptTapHandler(function() self:click_teamBonusBtn() end)
+
+        -- 슈퍼슬라임 합성
+        vars['slimeCombineBtn']:registerScriptTapHandler(function() self:click_slimeCombineBtn() end)
     end
 
     do -- 기타 버튼
@@ -1059,6 +1062,31 @@ end
 function UI_DragonManageInfo:click_teamBonusBtn()
     local sel_did = self.m_selectDragonData['did']
 	UI_TeamBonus(TEAM_BONUS_MODE.DRAGON, nil, sel_did)
+end
+
+-------------------------------------
+-- function click_slimeCombineBtn
+-- @brief 슈퍼 슬라임 합성
+-------------------------------------
+function UI_DragonManageInfo:click_slimeCombineBtn()
+    local ui = UI_DragonUpgradeCombineMaterial()
+
+    function close_cb()
+        -- 슬라임 합성을 한 경우 
+        if (ui.m_bDirty) then
+            -- 테이블 아이템 갱신
+			self:init_dragonTableView()
+
+            local dragon_object_id = self.m_selectDragonOID
+            local b_force = true
+            self:setSelectDragonData(dragon_object_id, b_force)
+
+            -- 정렬
+			self:apply_dragonSort_saveData()
+        end        
+    end
+
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

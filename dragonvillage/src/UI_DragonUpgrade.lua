@@ -676,11 +676,23 @@ end
 -- function click_upgradeMaterialBtn
 -------------------------------------
 function UI_DragonUpgrade:click_upgradeMaterialBtn()
-    function close_cb()
-
-    end
-    
     local ui = UI_DragonUpgradeCombineMaterial()
+
+    function close_cb()
+        -- 슬라임 합성을 한 경우 
+        if (ui.m_bDirty) then
+            -- 테이블 아이템 갱신
+            self:init_dragonTableView()
+
+            local dragon_object_id = self.m_selectDragonOID
+            local b_force = true
+            self:setSelectDragonData(dragon_object_id, b_force)
+
+            -- 정렬
+			self:apply_dragonSort_saveData()
+        end        
+    end
+
     ui:setCloseCB(close_cb)
 end
 
