@@ -78,22 +78,9 @@ function UI_DragonRunesEquipPopup:initUI()
         local card = UI_RuneCard(rune_obj)
         
         vars['runeAfterNode']:addChild(card.root)
-        vars['arrowSprite']:setVisible(true)
 
-        -- 드래곤 카드 생성
-        local owner_doid = rune_obj['owner_doid']
-        if (owner_doid ~= nil) then
-            local dragon_obj = g_dragonsData:getDragonDataFromUid(owner_doid)
-            local dragon_card = UI_DragonCard(dragon_obj)
-            vars['dragonNode']:addChild(dragon_card.root)
-
-        else
-            vars['inventorySprite']:setVisible(true)
-        end
-            
     -- 룬 해제의 경우
     else
-        vars['arrowSprite']:setVisible(false)
         vars['runeAfterSprite' .. slot_idx]:setVisible(true)
     end
 end
