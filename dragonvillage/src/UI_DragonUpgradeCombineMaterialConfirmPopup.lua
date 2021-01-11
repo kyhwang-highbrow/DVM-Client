@@ -137,7 +137,7 @@ end
 function UI_DragonUpgradeCombineMaterialConfirmPopup:click_okBtn()
     local function finish_cb(ret)
         if (self.m_finishCB) then
-            self.m_finishCB()
+            self.m_finishCB(ret['added_slimes'])
         end
         
         self:close()

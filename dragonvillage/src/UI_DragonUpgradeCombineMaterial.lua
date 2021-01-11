@@ -326,8 +326,10 @@ function UI_DragonUpgradeCombineMaterial:refreshPrice()
     local need_gold = 0
 
     for i, combine_data in ipairs(self.m_lCombineDataList) do
-        need_dragon_exp = need_dragon_exp + combine_data.m_needExp
-        need_gold = need_gold + combine_data.m_needGold
+        if (combine_data:isFull()) then
+            need_dragon_exp = need_dragon_exp + combine_data.m_needExp
+            need_gold = need_gold + combine_data.m_needGold
+        end
     end
 
     vars['dragonExpLabel']:setString(Str('{1}/{2}', comma_value(user_dragon_exp), comma_value(need_dragon_exp)))
@@ -466,12 +468,14 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                 for i, v in ipairs(reverse_item_list) do
                     local t_dragon_data = v['data']
                     local doid = t_dragon_data['id']
-                    local lv = t_dragon_data['lv']    
-
+                   
                     if (self.m_mSelectDragonMap[doid] == nil) then
                         
-                        -- 남은 재료 중 가장 높은 레벨이 1인 경우 해당 로직 스킵
-                        if (lv == 1) then
+                        local lv = t_dragon_data['lv']
+                        local exp = t_dragon_data['exp'] or 0    
+
+                        -- 남은 재료 중 가장 높은 레벨이 1인 경우(경험치도 제로인 경우) 해당 로직 스킵
+                        if (lv == 1) and (exp == 0) then
                             break
                         end
                         
@@ -497,7 +501,7 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
             end
 
             if (not combine_data:isFull()) then
-                -- 채워지지 않은 재료 칸에 레벨 1 재료들 전부 투입
+                -- 채워지지 않은 재료 칸에 레벨 1, 경험치 0 재료들 전부 투입
                 for i, v in ipairs(material_item_list) do
                     local t_dragon_data = v['data']
                     local doid = t_dragon_data['id']
@@ -505,8 +509,9 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                     if (self.m_mSelectDragonMap[doid] == nil) then
                     
                         local lv = t_dragon_data['lv']
-                    
-                        if (lv ~= 1) then
+                        local exp = t_dragon_data['exp'] or 0
+
+                        if (lv > 1) or (exp > 0) then
                             break
                         end
 
@@ -562,6 +567,16 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
 
                     -- 아직 선택되지 않은 드래곤이라면
                     if (self.m_mSelectDragonMap[doid] == nil) then
+                        
+                        local lv = check_dragon_data['lv']
+                        local exp = check_dragon_data['exp'] or 0
+
+                        -- 남은 재료 중 가장 높은 레벨이 1인 경우(경험치도 제로인 경우) 해당 로직 스킵
+                        if (lv == 1) and (exp == 0) then
+                            check_reverse_item_idx = idx + 1
+                            break
+                        end
+
                         table.insert(l_doid_list, doid)
                         table.insert(l_dragon_data_list, check_dragon_data)
                         break
@@ -585,8 +600,10 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                     if (self.m_mSelectDragonMap[doid] == nil) then
                         
                         local lv = check_dragon_data['lv']
-                        -- 레벨 1 재료 없다면 종료
-                        if (lv > 1) then
+                        local exp = check_dragon_data['exp'] or 0
+
+                        -- 레벨 1, 경험치 0 재료 없다면 종료
+                        if (lv > 1) or (exp > 0) then
                             check_item_idx = check_reverse_item_idx
                             break
                         end
@@ -670,12 +687,48 @@ function UI_DragonUpgradeCombineMaterial:click_combineBtn()
         return
     end
 
-    function finish_cb()
-        self:initTableView()
-        self:initCombineTableView()
-        self:refresh()     
+    function finish_cb(added_slimes)
+        -- 스플레시 터뜨리고 리프레시
+        self:refreshWithSplash(added_slimes)
     end
 
     -- 확인 팝업
     local ui = UI_DragonUpgradeCombineMaterialConfirmPopup(grade, l_combine_data_list, finish_cb)
+end
+
+-------------------------------------
+-- function click_combineBtn
+-- @brief 합성 후 이펙트 및 리프레시 
+-------------------------------------
+function UI_DragonUpgradeCombineMaterial:refreshWithSplash(added_slimes)
+    local vars = self.vars
+
+    -- 슈퍼 슬라임 획득 확인 팝업
+    local function obtain_popup_cb()
+        local l_item = {}
+        local slime_grade = self.m_sortGrade + 1
+        local slime_count = #added_slimes
+        local slime_item_id = 779104 + 10 * slime_grade 
+        table.insert(l_item, {['item_id'] = slime_item_id, ['count'] = slime_count})
+
+        local msg = nil
+        local ok_btn_cb = nil
+        local is_merge_all_item = false
+
+        UI_ObtainPopup(l_item, msg, ok_btn_cb, is_merge_all_item)
+    end
+
+    -- 플래시 연출
+	do
+		vars['splashLayer']:setLocalZOrder(1)
+		vars['splashLayer']:setVisible(true)
+		vars['splashLayer']:stopAllActions()
+		vars['splashLayer']:setOpacity(255)
+		vars['splashLayer']:runAction(cc.Sequence:create(cc.FadeOut:create(0.5), cc.Hide:create(), cc.CallFunc:create(function() obtain_popup_cb() end)))
+	end   
+
+    -- refresh    
+    self:initTableView()
+    self:initCombineTableView()
+    self:refresh()
 end

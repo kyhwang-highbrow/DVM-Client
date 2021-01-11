@@ -241,12 +241,22 @@ end
 -------------------------------------
 function StructUpgradeMaterialCombine:getNextIndex(t_dragon_data)
     local lv = t_dragon_data['lv']
+    local exp = t_dragon_data['exp'] or 0
     local b_is_highest = true
 
     for doid, data in pairs(self.m_mDragonObjectMap) do
-        if (data['lv'] >= lv) then
+        -- 레벨 우선 비교
+        if (data['lv'] > lv) then
             b_is_highest = false
             break
+
+        -- 레벨이 같은 경우엔 경험치 비교
+        elseif (data['lv'] == lv) then
+            local data_exp = data['exp'] or 0
+            if (data_exp >= exp) then
+                b_is_highest = false
+                break
+            end
         end
     end
 
