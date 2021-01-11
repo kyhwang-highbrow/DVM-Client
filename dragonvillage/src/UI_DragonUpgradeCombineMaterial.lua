@@ -168,8 +168,9 @@ function UI_DragonUpgradeCombineMaterial:getMaterialMap(grade)
             
             else
 	            local possible, msg = g_dragonsData:possibleMaterialDragon(k)
-                
-                if (possible == true) then
+                local b_is_raised = v:isRaisedByUser()
+
+                if (possible == true) and (b_is_raised == false) then
                     l_material_map[k] = v
                 end
             end
@@ -190,7 +191,7 @@ function UI_DragonUpgradeCombineMaterial:getMaterialList(grade)
     local l_material_list = {}
     local idx = 1
 
-    for _, v in pairs(l_dragon_list) do
+    for k, v in pairs(l_dragon_list) do
         if (v['grade'] == grade) and (v['lock'] == false) then
             if (v:getObjectType() == 'slime') then
                  -- 슬라임 타입이 upgrade가 아니면 제외
@@ -202,12 +203,10 @@ function UI_DragonUpgradeCombineMaterial:getMaterialList(grade)
                 end
             
             else
-                local doid = v['id']
-                local lv = v['lv']
-                local exp = v['exp']
-	            local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+	            local possible, msg = g_dragonsData:possibleMaterialDragon(k)
+                local b_is_raised = v:isRaisedByUser()
                 
-                if (possible == true) and (lv == 1) and (exp == 0) then
+                if (possible == true) and (b_is_raised == false) then
                     local data = {['data'] = v}
                     l_material_list[idx] = data
                     idx = idx + 1
