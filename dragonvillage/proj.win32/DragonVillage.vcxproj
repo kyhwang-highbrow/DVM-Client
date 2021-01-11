@@ -1292,6 +1292,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonRunesBulkEquipItem.lua" />
     <None Include="..\src\UI_DragonRunesBulkEquipPopup.lua" />
     <None Include="..\src\UI_DragonRunesBulkEquipRuneTab.lua" />
+    <None Include="..\src\UI_DragonRunesEquipPopup.lua" />
     <None Include="..\src\UI_DragonRunesGrind.lua" />
     <None Include="..\src\UI_DragonRunesGrindFirstPopup.lua" />
     <None Include="..\src\UI_DragonSelectPopup.lua" />
@@ -1300,6 +1301,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonTransformChange.lua" />
     <None Include="..\src\UI_DragonTransformChangeResult.lua" />
     <None Include="..\src\UI_DragonUpgradeCombineMaterial.lua" />
+    <None Include="..\src\UI_DragonUpgradeCombineMaterialConfirmPopup.lua" />
     <None Include="..\src\UI_DragonUpgradeCombineMaterialItem.lua" />
     <None Include="..\src\UI_EggPopup.lua" />
     <None Include="..\src\UI_EggSimulator.lua" />

@@ -4798,6 +4798,12 @@
     <None Include="..\src\StructUpgradeMaterialCombine.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_DragonUpgradeCombineMaterialConfirmPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonRunesEquipPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

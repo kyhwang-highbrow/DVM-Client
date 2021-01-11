@@ -1264,24 +1264,8 @@ function UI_DragonRunes:click_equipBtnNew()
             local price = TableRuneGrade:getUnequipPrice(after_rune_grade)
             total_price = total_price + price
         end
-
-        -- roid list 만들기
-        local l_roid_list = {}
-
-        for idx = 1, 6 do
-            local after_roid
-            if (idx == slot_idx) then
-                after_roid = roid or ''
-            else
-                after_roid = dragon_obj['runes'][tostring(idx)] or ''
-            end
-
-            if (after_roid ~= '') then
-                l_roid_list[idx] = after_roid
-            end
-        end 
             
-        self:request_runeEquipNew(doid, l_roid_list, total_price)
+        self:request_runeEquipNew(doid, slot_idx, roid, total_price)
 
     -- 비어있는 슬롯에 다른 드래곤이 장착한 룬을 장착하지 않는 경우 바로 장착
     else
@@ -1306,13 +1290,13 @@ end
 -- function request_runeEquipNew
 -- @brief 21-01-14 룬 편의성 개선 룬 장착 
 -------------------------------------
-function UI_DragonRunes:request_runeEquipNew(doid, roids, need_gold)
+function UI_DragonRunes:request_runeEquipNew(doid, rune_slot, after_roid, need_gold)
     local function finish_cb()
         self:refreshTableViewList()
         self.m_bChangeDragonList = true
     end
 
-    local ui = UI_DragonRunesBulkEquipPopup(doid, roids, need_gold, finish_cb)
+    local ui = UI_DragonRunesEquipPopup(doid, rune_slot, after_roid, need_gold, finish_cb)
 end
 
 
