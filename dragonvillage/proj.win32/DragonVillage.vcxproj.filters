@@ -4804,6 +4804,9 @@
     <None Include="..\src\UI_DragonRunesEquipPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_BlockSplashPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

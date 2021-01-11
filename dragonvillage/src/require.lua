@@ -812,6 +812,7 @@ local t_module = {
 
 	-- UI : 분류 없음
     'UI_BlockPopup',
+    'UI_BlockSplashPopup',
     'UI_Network',
     'UI_NetworkLoading',
     'UI_TitleScene',
