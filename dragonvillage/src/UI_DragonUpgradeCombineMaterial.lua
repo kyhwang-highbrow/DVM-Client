@@ -456,7 +456,7 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
     -- 1. 유저가 등록한 드래곤이 존재하던 합성 재료부터 채운다.
     for combine_data_id, combine_data in ipairs(self.m_lCombineDataList) do
         -- 아직 등록되지 않은 재료 드래곤이 있는 경우에
-        if (not combine_data:isFull()) then
+        if (not combine_data:isFull()) and (not combine_data:isEmpty()) then
 
             -- 최고 레벨 확인
             local highest_lv = combine_data:getHighestLevel()
@@ -466,8 +466,15 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                 for i, v in ipairs(reverse_item_list) do
                     local t_dragon_data = v['data']
                     local doid = t_dragon_data['id']
-                                
+                    local lv = t_dragon_data['lv']    
+
                     if (self.m_mSelectDragonMap[doid] == nil) then
+                        
+                        -- 남은 재료 중 가장 높은 레벨이 1인 경우 해당 로직 스킵
+                        if (lv == 1) then
+                            break
+                        end
+                        
                         -- 합성 정보에 드래곤 정보 등록
                         combine_data:addDragonObject(t_dragon_data)
 
@@ -531,7 +538,7 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
 
     -- 2. 유저가 아무것도 등록하지 않았던 합성 재료를 '전부' 채우는 게 가능할 때 채운다
     local check_item_idx = 0
-    local check_reverse_item_idx = #material_item_list
+    local check_reverse_item_idx = #material_item_list + 1
 
     for combine_data_id, combine_data in ipairs(self.m_lCombineDataList) do
         if (check_item_idx >= check_reverse_item_idx) then
@@ -544,7 +551,9 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
             local l_dragon_data_list = {}
 
             -- 가장 높은 레벨 재료 하나를 넣는다.
-            for idx, v in ipairs(reverse_item_list) do
+            for i, v in ipairs(reverse_item_list) do
+                local idx = #material_item_list - i + 1
+                
                 if (check_reverse_item_idx > idx) then
                     check_reverse_item_idx = idx
 
@@ -555,6 +564,7 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                     if (self.m_mSelectDragonMap[doid] == nil) then
                         table.insert(l_doid_list, doid)
                         table.insert(l_dragon_data_list, check_dragon_data)
+                        break
                     end
                 end
             end
@@ -564,6 +574,10 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                 if (check_item_idx < idx ) then
                     check_item_idx = idx
                     
+                    if (check_item_idx >= check_reverse_item_idx) then
+                        break
+                    end
+
                     local check_dragon_data = v['data']
                     local doid = check_dragon_data['id']
 
@@ -571,7 +585,8 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                     if (self.m_mSelectDragonMap[doid] == nil) then
                         
                         local lv = check_dragon_data['lv']
-                        if (lv ~= 1) then
+                        -- 레벨 1 재료 없다면 종료
+                        if (lv > 1) then
                             check_item_idx = check_reverse_item_idx
                             break
                         end
@@ -581,7 +596,6 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
 
                         -- 다 채우는 게 가능한 경우 합성 재료 등록
                         if (table.count(l_doid_list) == combine_data:getRequireCount()) then
-                            
                             for i, doid in ipairs(l_doid_list) do
                                 -- 합성 정보에 드래곤 정보 등록
                                 local t_dragon_data = l_dragon_data_list[i]
