@@ -32,6 +32,14 @@ end
 function UI_DragonUpgradeCombineMaterialItem:initUI()
     local vars = self.vars
     
+    -- 요구 재료 수에 맞게 재료 칸 정렬 및 visible 관리
+    local require_count = self.m_upgradeMaterialCombineData:getRequireCount()
+    
+    for idx = require_count + 1, 5 do
+        local node = vars['itemNode' .. idx]
+        node:setVisible(false)
+    end 
+
     self:makeResultSlimeCard()
 end
 
@@ -82,6 +90,9 @@ function UI_DragonUpgradeCombineMaterialItem:refresh()
     -- 필요 경험치
     vars['dragonExpLabel']:setString(comma_value(t_dragon_upgrade_material_combine_data.m_needExp))
 
+    -- 필요 골드
+    vars['priceLabel']:setString(comma_value(t_dragon_upgrade_material_combine_data.m_needGold))
+
 
     ---- 드래곤 재료 등록칸에 드래곤이 전부 등록된 경우
     --if (t_dragon_upgrade_material_combine_data:isFull()) then
@@ -121,6 +132,7 @@ function UI_DragonUpgradeCombineMaterialItem:makeResultSlimeCard()
     -- 슈퍼 슬라임 카드 생성
     local slime_id = 779104 + 10 * slime_grade
     local slime_card = UI_ItemCard(slime_id)
+    slime_card.root:setSwallowTouch(false)
 
     self.vars['resultNode']:addChild(slime_card.root)
     self.m_resultCard = slime_card
