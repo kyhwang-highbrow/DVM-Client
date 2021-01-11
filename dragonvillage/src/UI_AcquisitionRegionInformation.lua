@@ -26,6 +26,7 @@ end
 function UI_AcquisitionRegionInformation:init(item_id)
     self.m_itemID = item_id
 
+    self.m_uiName = 'UI_AcquisitionRegionInformation'
     local vars = self:load('location_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -203,6 +204,11 @@ function UI_AcquisitionRegionInformation:makeRegionList(item_id)
 				table.insert(l_region, 'mileage')
 			end
 		end
+
+        -- 슈퍼 슬라임 종류는 합성으로 획득 가능
+        if (t_slime['material_type'] == 'upgrade') then
+            table.insert(l_region, 'slime_combine')
+        end
 
 		-- 슬라임은 조합이나 인연이 없다.
 

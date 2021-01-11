@@ -2073,7 +2073,41 @@ function UINavigatorDefinition:goTo_clan_war(...)
     g_clanWarData:request_clanWarLeagueInfo(nil, finish_cb) -- param : team, success_cb
 end
 
+-------------------------------------
+-- function goTo_slime_combine
+-- @brief 슈퍼 슬라임 합성으로 이동
+-- @usage UINavigatorDefinition:goTo('slime_combine')
+-------------------------------------
+function UINavigatorDefinition:goTo_slime_combine(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_DragonUpgradeCombineMaterial')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
 
+    local is_opened, idx, owner_ui = self:findOpendUI('UI_DragonManageInfo')
+    local ui = UI_DragonUpgradeCombineMaterial()
+    if (is_opened == true) then
+        -- 갱신될 필요가 있다면 갱신
+        function close_cb()
+            -- 슬라임 합성을 한 경우 
+            if (ui.m_bDirty) then
+                -- 테이블 아이템 갱신
+                owner_ui:init_dragonTableView()
+
+                local dragon_object_id = owner_ui.m_selectDragonOID
+                local b_force = true
+                owner_ui:setSelectDragonData(dragon_object_id, b_force)
+
+                -- 정렬
+			    owner_ui:apply_dragonSort_saveData()
+            end        
+        end
+
+        ui:setCloseCB(close_cb)
+    end
+end
 
 
 

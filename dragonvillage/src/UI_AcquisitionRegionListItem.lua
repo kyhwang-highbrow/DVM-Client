@@ -83,6 +83,11 @@ function UI_AcquisitionRegionListItem:initUI()
 			title_str = Str('토파즈 드래곤')
 			content_str = Str('토파즈 상점에서 구매')
 
+        -- 슬라임
+        elseif (get_type == 'slime_combine') then
+            title_str = Str('슈퍼 슬라임 합성')
+            content_str = Str('슈퍼 슬라임 합성에서 획득')
+
         -- 룬
         elseif (get_type == 'rune_gacha') then
             title_str = Str('룬 뽑기')
@@ -139,7 +144,6 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 	if (stage_id) then
 		g_stageData:goToStage(stage_id)
 
-	-- 드래곤으로 간주
 	else
 		local get_type = self.m_region
 		if (get_type == 'combine') then
@@ -169,6 +173,11 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
                 return
             end
 			UINavigator:goTo('challenge_mode')
+
+        elseif (get_type == 'slime_combine') then
+            -- 슈퍼 슬라임 합성으로 보내기
+            UINavigator:goTo('slime_combine')
+
         elseif (get_type == 'rune_gacha') then
             --룬 가챠로 보내기
             UINavigator:goTo('rune_forge', 'gacha')
