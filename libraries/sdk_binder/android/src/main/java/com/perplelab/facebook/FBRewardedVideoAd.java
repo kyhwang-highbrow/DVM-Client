@@ -7,6 +7,7 @@ public class FBRewardedVideoAd {
     private static final String LOG_TAG = "FB_REWARDED_VIDEO_AD";
     private static final Integer MAX_TRY_COUNT = 10;
 
+    private boolean mIsAdProcessing;
     private boolean mHasReward;
     private Integer mTryLoadingCount;
     private String mCurPlacementID;
@@ -70,8 +71,11 @@ public class FBRewardedVideoAd {
                 logMeesage(LOG_TAG, "error code : " + error.getErrorCode());
                 onLoadFail(error.getErrorCode());
 
-                logMeesage(LOG_TAG, "Reward based video ad retry to load.");
-                loadRewardedVideoAd(mCurPlacementID);
+                // 미리 로드하지 않기
+                //logMeesage(LOG_TAG, "Reward based video ad retry to load.");
+                //loadRewardedVideoAd(mCurPlacementID);
+
+                mIsAdProcessing = false;
             }
 
             @Override
@@ -82,6 +86,8 @@ public class FBRewardedVideoAd {
                 if (mCallback != null) {
                     mCallback.onReceive("Reward based video ad is received.");
                 }
+
+                mIsAdProcessing = true;
             }
 
             @Override
@@ -105,6 +111,7 @@ public class FBRewardedVideoAd {
 
                 // Call method to give reward
                 mHasReward = true;
+                mIsAdProcessing = false;
             }
 
             @Override
@@ -123,6 +130,7 @@ public class FBRewardedVideoAd {
                 }
 
                 mHasReward = false;
+                mIsAdProcessing = false;
             }
         };
     }
@@ -141,7 +149,14 @@ public class FBRewardedVideoAd {
             logMeesage(LOG_TAG, "loadRewardedVideoAd :: placementID is null or empty.");
             return;
         }
-
+        
+        if (mIsAdProcessing)
+        {
+            // 로드된 광고가 있으면 차분히 기다리기
+            logMeesage(LOG_TAG, "loadRewardedVideoAd :: Already loaded.");
+            return;
+        }
+            
         curActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -151,6 +166,8 @@ public class FBRewardedVideoAd {
 
                 if (rewardedAd != null)
                 {
+                    mIsAdProcessing = true;
+
                     logMeesage(LOG_TAG, "Start loading rewarded ad...");
                     rewardedAd.loadAd(rewardedAd.buildLoadAdConfig().withAdListener(mRewardedVideoListener).build());
                 }
@@ -172,8 +189,12 @@ public class FBRewardedVideoAd {
         curActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                // 들어온 순간 성공이든 실패든 show들어오면 본걸로 처리.
+                // 불안정한 객체는 바로 버리고 새로 만드는것이 낫다.
+                mIsAdProcessing = false;
                 mCurPlacementID = placementID;
                 final RewardedVideoAd rewardedAd = mRewardedVideoAd;
+
 
                 if (rewardedAd == null) {
                     logMeesage(LOG_TAG, "show ad rewardedAd Detected");
@@ -182,6 +203,7 @@ public class FBRewardedVideoAd {
                                 PerpleFacebookAudienceNetwork.getErrorInfo(PerpleFacebookAudienceNetwork.ERROR_INVALIDPLACEMENTID,
                                         PerpleFacebookAudienceNetwork.ERROR_NONE,
                                         "Invalid placement ID... : " + placementID));
+
                     }
                     return;
                 }
@@ -192,7 +214,6 @@ public class FBRewardedVideoAd {
                 }
                 else {
                     logMeesage(LOG_TAG, "The rewarded ad wasn't loaded yet.");
-
                     if (mCallback != null) {
                         mCallback.onError(
                                 PerpleFacebookAudienceNetwork.getErrorInfo(PerpleFacebookAudienceNetwork.ERROR_NOTLOADEDAD,
