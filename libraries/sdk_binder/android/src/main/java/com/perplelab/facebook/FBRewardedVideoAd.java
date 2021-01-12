@@ -71,9 +71,8 @@ public class FBRewardedVideoAd {
                 logMeesage(LOG_TAG, "error code : " + error.getErrorCode());
                 onLoadFail(error.getErrorCode());
 
-                // 미리 로드하지 않기
-                //logMeesage(LOG_TAG, "Reward based video ad retry to load.");
-                //loadRewardedVideoAd(mCurPlacementID);
+                logMeesage(LOG_TAG, "Reward based video ad retry to load.");
+                loadRewardedVideoAd(mCurPlacementID);
 
                 mIsAdProcessing = false;
             }
