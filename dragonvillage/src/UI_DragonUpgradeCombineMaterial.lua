@@ -189,44 +189,6 @@ end
 -------------------------------------
 -- function getMaterialList
 -- @brief 왼쪽 재료 리스트
--- @return list[idx] = StructDragonObject or StructSlimeObject 
--------------------------------------
-function UI_DragonUpgradeCombineMaterial:getMaterialList(grade)
-    local grade = grade or self.m_sortGrade
-    local l_dragon_list = g_dragonsData:getDragonListWithSlime()
-    local l_material_list = {}
-    local idx = 1
-
-    for k, v in pairs(l_dragon_list) do
-        if (v['grade'] == grade) and (v['lock'] == false) then
-            if (v:getObjectType() == 'slime') then
-                 -- 슬라임 타입이 upgrade가 아니면 제외
-                local slime_type = v:getSlimeType()
-                if (slime_type == 'upgrade') then
-                    local data = {['data'] = v}
-                    l_material_list[idx] = data
-                    idx = idx + 1
-                end
-            
-            else
-	            local possible, msg = g_dragonsData:possibleMaterialDragon(k)
-                local b_is_raised = v:isRaisedByUser()
-                
-                if (possible == true) and (b_is_raised == false) then
-                    local data = {['data'] = v}
-                    l_material_list[idx] = data
-                    idx = idx + 1
-                end
-            end
-        end
-    end
-
-    return l_material_list
-end
-
--------------------------------------
--- function getMaterialList
--- @brief 왼쪽 재료 리스트
 -- @return map[oid] = StructDragonObject or StructSlimeObject 
 -------------------------------------
 function UI_DragonUpgradeCombineMaterial:getDefaultSortManager()
@@ -236,8 +198,6 @@ function UI_DragonUpgradeCombineMaterial:getDefaultSortManager()
     sort_manager:pushSortOrder('underling')
     sort_manager:pushSortOrder('lv')
     sort_manager.m_mSortType['lv']['ascending'] = true -- 레벨이 낮을수록 앞에 정렬되도록 변경
-    sort_manager:pushSortOrder('evolution')
-    sort_manager.m_mSortType['evolution']['ascending'] = true -- 진화를 안했을수록 앞에 정렬되도록 변경
 
     return sort_manager
 end
@@ -362,7 +322,14 @@ function UI_DragonUpgradeCombineMaterial:refreshPrice()
         end
     end
 
-    vars['dragonExpLabel']:setString(Str('{1}/{2}', comma_value(user_dragon_exp), comma_value(need_dragon_exp)))
+    local exp_str = ''
+    if (need_dragon_exp <= user_dragon_exp) then
+        exp_str = Str('{1}/{2}', comma_value(user_dragon_exp), comma_value(need_dragon_exp))
+    else
+        exp_str = Str('{@impossible}{1}{@}/{2}', comma_value(user_dragon_exp), comma_value(need_dragon_exp))
+    end
+
+    vars['dragonExpLabel']:setString(exp_str)
     vars['priceLabel']:setString(comma_value(need_gold))
 
     AlignUIPos({vars['dragonExpIcon'], vars['dragonExpLabel']}, 'HORIZONTAL', 'CENTER', 0)
