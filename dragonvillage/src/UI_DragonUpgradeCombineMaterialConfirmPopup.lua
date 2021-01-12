@@ -32,7 +32,7 @@ function UI_DragonUpgradeCombineMaterialConfirmPopup:init(grade, l_combine_data_
 
     self:initUI()
 
-    self:initTableView()
+    --self:initTableView()
 
     self:initButton()
 
@@ -67,8 +67,8 @@ function UI_DragonUpgradeCombineMaterialConfirmPopup:initUI()
         need_gold = need_gold + combine_data.m_needGold
     end
 
-    vars['dragonExpLabel']:setString(Str('{1}/{2}', comma_value(user_dragon_exp), comma_value(need_dragon_exp)))
-    vars['goldLabel']:setString(Str('{1}/{2}', comma_value(user_gold), comma_value(need_gold)))
+    vars['dragonExpLabel']:setString(Str('{1}', comma_value(need_dragon_exp)))
+    vars['goldLabel']:setString(Str('{1}', comma_value(need_gold)))
 
     AlignUIPos({vars['dragonExpIcon'], vars['dragonExpLabel']}, 'HORIZONTAL', 'CENTER', 0)
     AlignUIPos({vars['goldIcon'], vars['goldLabel']}, 'HORIZONTAL', 'CENTER', 0)
