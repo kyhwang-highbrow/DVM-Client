@@ -23,7 +23,7 @@ UI_DragonUpgradeCombineMaterial = class(PARENT,{
 
 UI_DragonUpgradeCombineMaterial.CARD_SCALE = 0.6 -- (63, 63)
 UI_DragonUpgradeCombineMaterial.CARD_CELL_SIZE = cc.size(93, 93)
-UI_DragonUpgradeCombineMaterial.MAX_COMBINE_COUNT = 10 -- 한번에 합성 가능한 최대 갯수
+UI_DragonUpgradeCombineMaterial.MAX_COMBINE_COUNT = 25 -- 한번에 합성 가능한 최대 갯수
 
 -------------------------------------
 -- function initParentVariable
@@ -121,7 +121,7 @@ function UI_DragonUpgradeCombineMaterial:initTableView()
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = UI_DragonUpgradeCombineMaterial.CARD_CELL_SIZE
-    table_view_td.m_nItemPerCell = 7
+    table_view_td.m_nItemPerCell = 6
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
