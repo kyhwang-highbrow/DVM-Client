@@ -26,7 +26,7 @@ public class FBRewardedVideoAd {
 
     // constructor
     public FBRewardedVideoAd(Activity activity)   {
-        logMeesage(LOG_TAG, "Initializing Rewarded Video Ad");
+        logMessage(LOG_TAG, "Initializing Rewarded Video Ad");
         curActivity = activity;
         mHasReward = false;
         mTryLoadingCount = 0;
@@ -45,7 +45,7 @@ public class FBRewardedVideoAd {
         this.onLogMessageListener = listener;
     }
 
-    private void logMeesage(String tag, String msg)
+    private void logMessage(String tag, String msg)
     {
         if (onLogMessageListener == null)
             return;
@@ -62,16 +62,16 @@ public class FBRewardedVideoAd {
             @Override
             public void onError(Ad ad, AdError error) {
                 // Rewarded video ad failed to load
-                logMeesage(LOG_TAG, "Rewarded video ad failed to load: " + error.getErrorMessage());
+                logMessage(LOG_TAG, "Rewarded video ad failed to load: " + error.getErrorMessage());
 
                 if (mCallback != null) {
                     mCallback.onFail("fail to load.");
                 }
 
-                logMeesage(LOG_TAG, "error code : " + error.getErrorCode());
+                logMessage(LOG_TAG, "error code : " + error.getErrorCode());
                 onLoadFail(error.getErrorCode());
 
-                logMeesage(LOG_TAG, "Reward based video ad retry to load.");
+                logMessage(LOG_TAG, "Reward based video ad retry to load.");
                 loadRewardedVideoAd(mCurPlacementID);
 
                 mIsAdProcessing = false;
@@ -80,7 +80,7 @@ public class FBRewardedVideoAd {
             @Override
             public void onAdLoaded(Ad ad) {
                 // Rewarded video ad is loaded and ready to be displayed
-                logMeesage(LOG_TAG, "Rewarded video ad is loaded and ready to be displayed!");
+                logMessage(LOG_TAG, "Rewarded video ad is loaded and ready to be displayed!");
 
                 if (mCallback != null) {
                     mCallback.onReceive("Reward based video ad is received.");
@@ -92,21 +92,21 @@ public class FBRewardedVideoAd {
             @Override
             public void onAdClicked(Ad ad) {
                 // Rewarded video ad clicked
-                logMeesage(LOG_TAG, "Rewarded video ad clicked!");
+                logMessage(LOG_TAG, "Rewarded video ad clicked!");
             }
 
             @Override
             public void onLoggingImpression(Ad ad) {
                 // Rewarded Video ad impression - the event will fire when the
                 // video starts playing
-                logMeesage(LOG_TAG, "Rewarded video ad impression logged!");
+                logMessage(LOG_TAG, "Rewarded video ad impression logged!");
             }
 
             @Override
             public void onRewardedVideoCompleted() {
                 // Rewarded Video View Complete - the video has been played to the end.
                 // You can use this event to initialize your reward
-                logMeesage(LOG_TAG, "Rewarded video completed!");
+                logMessage(LOG_TAG, "Rewarded video completed!");
 
                 // Call method to give reward
                 mHasReward = true;
@@ -117,7 +117,7 @@ public class FBRewardedVideoAd {
             public void onRewardedVideoClosed() {
                 // The Rewarded Video ad was closed - this can occur during the video
                 // by closing the app, or closing the end card.
-                logMeesage(LOG_TAG, "Rewarded video ad closed!");
+                logMessage(LOG_TAG, "Rewarded video ad closed!");
 
                 // work callback
                 if (mCallback != null) {
@@ -140,19 +140,19 @@ public class FBRewardedVideoAd {
         mTryLoadingCount++;
 
         if (mTryLoadingCount > MAX_TRY_COUNT) {
-            logMeesage(LOG_TAG, "loadRewardedVideoAd :: Repeated retries failed.");
+            logMessage(LOG_TAG, "loadRewardedVideoAd :: Repeated retries failed.");
             return;
         }
 
         if (placementID == null || placementID.isEmpty()) {
-            logMeesage(LOG_TAG, "loadRewardedVideoAd :: placementID is null or empty.");
+            logMessage(LOG_TAG, "loadRewardedVideoAd :: placementID is null or empty.");
             return;
         }
         
         if (mIsAdProcessing)
         {
             // 로드된 광고가 있으면 차분히 기다리기
-            logMeesage(LOG_TAG, "loadRewardedVideoAd :: Already loaded.");
+            logMessage(LOG_TAG, "loadRewardedVideoAd :: Already loaded.");
             return;
         }
             
@@ -167,7 +167,7 @@ public class FBRewardedVideoAd {
                 {
                     mIsAdProcessing = true;
 
-                    logMeesage(LOG_TAG, "Start loading rewarded ad...");
+                    logMessage(LOG_TAG, "Start loading rewarded ad...");
                     rewardedAd.loadAd(rewardedAd.buildLoadAdConfig().withAdListener(mRewardedVideoListener).build());
                 }
             }
@@ -196,7 +196,7 @@ public class FBRewardedVideoAd {
 
 
                 if (rewardedAd == null) {
-                    logMeesage(LOG_TAG, "show ad rewardedAd Detected");
+                    logMessage(LOG_TAG, "show ad rewardedAd Detected");
                     if (mCallback != null) {
                         mCallback.onError(
                                 PerpleFacebookAudienceNetwork.getErrorInfo(PerpleFacebookAudienceNetwork.ERROR_INVALIDPLACEMENTID,
@@ -208,11 +208,11 @@ public class FBRewardedVideoAd {
                 }
 
                 if (rewardedAd.isAdLoaded()) {
-                    logMeesage(LOG_TAG, "show : " + placementID);
+                    logMessage(LOG_TAG, "show : " + placementID);
                     rewardedAd.show();
                 }
                 else {
-                    logMeesage(LOG_TAG, "The rewarded ad wasn't loaded yet.");
+                    logMessage(LOG_TAG, "The rewarded ad wasn't loaded yet.");
                     if (mCallback != null) {
                         mCallback.onError(
                                 PerpleFacebookAudienceNetwork.getErrorInfo(PerpleFacebookAudienceNetwork.ERROR_NOTLOADEDAD,
@@ -240,7 +240,7 @@ public class FBRewardedVideoAd {
     }
 
     private void onLoadFail(int errorCode) {
-        logMeesage(LOG_TAG, "load error, code : " + errorCode);
+        logMessage(LOG_TAG, "load error, code : " + errorCode);
 
         switch (errorCode){
             case (PerpleFacebookAudienceNetwork.ERROR_CODE_SERVER_ERROR):
