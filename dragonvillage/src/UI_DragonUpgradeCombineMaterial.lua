@@ -78,20 +78,29 @@ function UI_DragonUpgradeCombineMaterial:initUI()
         vars['bgNode']:addChild(animator.m_node)
     end
 
-    local uic_sort_list =  MakeUICSortList_DragonUpgradeMaterialCombine(vars['sortBtn'], vars['sortLabel'])
-    uic_sort_list:setSelectSortType(3)
-    self.m_uicSortList = uic_sort_list
+    do -- 정렬
+        local uic_sort_list =  MakeUICSortList_DragonUpgradeMaterialCombine(vars['sortBtn'], vars['sortLabel'])
+        uic_sort_list:setSelectSortType(3)
+        self.m_uicSortList = uic_sort_list
 
-    -- 버튼을 통해 정렬이 변경되었을 경우
-    local function sort_change_cb(sort_type)
-        self.m_sortGrade = sort_type
-        self:initTableView()
-        self:initCombineTableView()
-        self:refresh()
+        -- 버튼을 통해 정렬이 변경되었을 경우
+        local function sort_change_cb(sort_type)
+            self.m_sortGrade = sort_type
+             
+            -- 선택된 드래곤 초기화
+            self.m_mSelectDragonMap = {}
+
+            self:initTableView()
+            self:initCombineTableView()
+            self:refresh()
+        end
+
+        uic_sort_list:setSortChangeCB(sort_change_cb)
     end
 
-    uic_sort_list:setSortChangeCB(sort_change_cb)
-
+    -- 선택된 드래곤 초기화
+    self.m_mSelectDragonMap = {}
+    
     self:initTableView()
     self:initCombineTableView()
 end
@@ -142,9 +151,6 @@ function UI_DragonUpgradeCombineMaterial:initTableView()
     end
 
     self.m_sortManager:sortExecution(self.m_tableView.m_itemList)
-
-    -- 선택된 드래곤 초기화
-    self.m_mSelectDragonMap = {}
 end
 
 -------------------------------------
@@ -286,6 +292,8 @@ function UI_DragonUpgradeCombineMaterial:initButton()
 
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
 -------------------------------------
@@ -294,24 +302,45 @@ end
 function UI_DragonUpgradeCombineMaterial:refresh()
     local vars = self.vars
 
-    -- 현재 선택된 드래곤 갯수 표기
-    local all_count = table.count(self.m_tableView.m_itemList)
-    local select_count = table.count(self.m_mSelectDragonMap)
-    vars['countLabel']:setString(Str('선택된 드래곤') .. ' ' .. Str('{@white}{1}/{2}', select_count, all_count))
-
-    -- 현재 합성 개수 표기
-    local combine_max_count = UI_DragonUpgradeCombineMaterial.MAX_COMBINE_COUNT
-    local combine_count = 0
-    for i, v in ipairs(self.m_lCombineDataList) do
-        if (v:isFull()) then
-            combine_count = combine_count + 1
-        end
+    do -- 현재 선택된 드래곤 갯수 표기
+        local all_count = table.count(self.m_tableView.m_itemList)
+        local select_count = table.count(self.m_mSelectDragonMap)
+        vars['countLabel']:setString(Str('선택된 드래곤') .. ' ' .. Str('{@white}{1}/{2}', select_count, all_count))
     end
-    vars['selectLabel']:setString(Str('{1}/{2}', combine_count, combine_max_count))
+
+    do -- 현재 합성 개수 표기
+        local combine_max_count = UI_DragonUpgradeCombineMaterial.MAX_COMBINE_COUNT
+        local combine_count = 0
+        for i, v in ipairs(self.m_lCombineDataList) do
+            if (v:isFull()) then
+                combine_count = combine_count + 1
+            end
+        end
+        vars['selectLabel']:setString(Str('{1}/{2}', combine_count, combine_max_count))
+    end
 
     self:refreshCombineItems()
     
     self:refreshPrice()
+
+    do -- 슈퍼 슬라임 군단 패키지 버튼
+        local product_id = 121411
+        local struct_product = g_shopDataNew:getTargetProduct(product_id)
+        local can_buy = false
+
+        -- 현재 판매중인 경우에만 time limit 보여주기
+        if (struct_product ~= nil) then
+            can_buy = struct_product:isItBuyable()
+        end
+
+        if (can_buy) then
+            local end_date = struct_product:getEndDateStr()
+            vars['timeLabel']:setString(end_date)
+
+        else
+            vars['buyBtn']:setVisible(false)
+        end
+    end
 end
 
 -------------------------------------
@@ -614,10 +643,52 @@ function UI_DragonUpgradeCombineMaterial:refreshWithSplash(added_slimes)
     -- 플래시 연출
     local splash_ui = UI_BlockSplashPopup(obtain_popup_cb)
 
-    -- refresh    
+    -- refresh
+    -- 선택된 드래곤 초기화
+    self.m_mSelectDragonMap = {}
+
     self:initTableView()
     self:initCombineTableView()
     self:refresh()
 
     self.m_bDirty = true
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief 도움말 클릭 
+-------------------------------------
+function UI_DragonUpgradeCombineMaterial:click_infoBtn()
+    local vars = self.vars
+    
+    local str = Str('승급에 필요한 드래곤 1마리를 최대 레벨로 만들기 위한 골드와 경험치가 자동으로 계산됩니다.')
+    local tool_tip = UI_Tooltip_Skill(70, -145, str)
+
+    -- 자동 위치 지정
+    tool_tip:autoPositioning(vars['infoBtn'])
+end
+
+-------------------------------------
+-- function click_buyBtn
+-- @brief 패키지 클릭 
+-------------------------------------
+function UI_DragonUpgradeCombineMaterial:click_buyBtn()
+    local vars = self.vars
+    
+    local package_name = 'package_super_slime_swarm'
+    local is_popup = true
+    local package_ui = UI_Package_Bundle(package_name, is_popup)
+    local before_slime_count = table.count(g_slimesData:getSlimeList())
+
+    local function close_cb()
+        -- 슬라임 갯수가 달라졌다면 refresh
+        local after_slime_count = table.count(g_slimesData:getSlimeList())
+        if (before_slime_count ~= after_slime_count) then
+            self:initTableView()
+        end
+
+        self:refresh()
+    end
+
+    package_ui:setCloseCB(close_cb)
 end
