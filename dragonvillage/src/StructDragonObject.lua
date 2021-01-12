@@ -1043,8 +1043,6 @@ end
 -- @brief 룬 장착 여부, 레벨, 경험치, 진화, 친밀도, 강화, 스킬 레벨업 여부 체크
 -------------------------------------
 function StructDragonObject:isRaisedByUser()
-    ccdump(self)
-
     -- 레벨
     if (self:getLv() > 1) then
         return true
