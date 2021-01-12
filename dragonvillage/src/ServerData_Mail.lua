@@ -40,6 +40,35 @@ function ServerData_Mail:getMailList(category)
 end
 
 -------------------------------------
+-- function getMailListWithItemID
+-- @brief 아이템 아이디를 가지고 있는 메일 리스트를 가져온다.
+-------------------------------------
+function ServerData_Mail:getMailListWithItemID(l_item_id_list)
+    if (not self.m_mMailMap) then
+        return {}
+    end
+
+    local m_mail_map = {}
+    for _, category in ipairs(self.m_lCategory) do
+        for mid, struct_mail in pairs(self.m_mMailMap[category]) do
+            local mail_item = struct_mail:getItemList()[1]
+            if (mail_item) then
+                local mail_item_id = mail_item['item_id']
+                for _, item_id in ipairs(l_item_id_list) do
+                    if (item_id == mail_item_id) then
+                        m_mail_map[mid] = struct_mail
+                        break
+                    end                
+                end
+            end
+        end
+    end
+
+    return m_mail_map
+end
+
+
+-------------------------------------
 -- function hasNewMail
 -- @brief 메일이 있는지 검사한다.
 -------------------------------------
@@ -95,6 +124,22 @@ end
 -------------------------------------
 function ServerData_Mail:canReadAll(mail_tab)
 	for mid, struct_mail in pairs(self.m_mMailMap[mail_tab]) do
+		-- 하나라도 모두 받기 가능한 메일이 있다면 탈출
+		if (struct_mail:isMailCanReadAll()) then
+			return true
+		end
+	end
+	return false
+end
+
+-------------------------------------
+-- function canReadAllWithItemID
+-- @brief 모두 받기 가능한 메일(해당 아이템 리스트에 속한)이 있는지 검사!
+-------------------------------------
+function ServerData_Mail:canReadAllWithItemID(l_item_id_list)
+    local m_mail_map = self:getMailListWithItemID(l_item_id_list)
+
+	for mid, struct_mail in pairs(m_mail_map) do
 		-- 하나라도 모두 받기 가능한 메일이 있다면 탈출
 		if (struct_mail:isMailCanReadAll()) then
 			return true
@@ -340,6 +385,37 @@ end
 function ServerData_Mail:request_mailReadAll(type, finish_cb)
     -- 적절한 우편 id list 추출
 	local mail_list = self:getMailList(type)
+	local mail_id_list = {}
+    local t_mail_type_reward = {}
+	for i, struct_mail in pairs(mail_list) do
+		-- 모두 받기 가능한 메일만 테이블에 추가
+		if (struct_mail:isMailCanReadAll()) then
+			-- id list
+			table.insert(mail_id_list, struct_mail:getMid())
+
+			-- item_list : 지표 축적을 위해서 가공
+			local mail_type = struct_mail:getMailType()
+			local item_list = struct_mail:getItemList()
+			if (not t_mail_type_reward[mail_type]) then
+				t_mail_type_reward[mail_type] = {}
+			end
+			for i, t_item in ipairs(item_list) do
+				table.insert(t_mail_type_reward[mail_type], t_item)
+			end
+		end
+	end
+
+	-- api로 보냄
+	self:request_mailRead(mail_id_list, t_mail_type_reward, finish_cb)
+end
+
+-------------------------------------
+-- function request_mailReadAllWithItemID
+-- @brief 아이템 아이디 리스트에 해당하는 우편 모두 읽기
+-------------------------------------
+function ServerData_Mail:request_mailReadAllWithItemID(l_item_id_list, finish_cb)
+    -- 적절한 우편 id list 추출
+	local mail_list = self:getMailListWithItemID(l_item_id_list)
 	local mail_id_list = {}
     local t_mail_type_reward = {}
 	for i, struct_mail in pairs(mail_list) do
