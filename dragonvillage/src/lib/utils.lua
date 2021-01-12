@@ -1389,10 +1389,12 @@ end
 -------------------------------------
 -- function AlignUIPos
 -- @brief 같은 계층의 자식들을 정렬시킴
+-- @comment 사이즈를 계산할 때 라벨은 content size 그대로 사용, 나머지는 스케일 값 곱해서 사용
 -- @param l_ui_list : ui 리스트, 리스트 순서대로 정렬, {vars['XXXIcon'], vars['XXXLabel']}
 -- @param direction : ui 나열 방향 ('HORIZONTAL', 'VERTICAL'), 기본값 : HORIZONTAL
 -- @param align : 정렬 기준 ('HEAD', 'CENTER', 'TAIL'), 기본값 : CENTER
 -- @param offset : ui 사이 띄우는 길이, 기본값 : 0
+-- TODO : 라벨의 경우 align 까지 계산되도록 구현 추가 필요(현재 코드는 가운데 정렬이라고 가정하고 짜여있음)
 -------------------------------------
 function AlignUIPos(l_ui_list, direction, align, offset)
     local ui_count = table.count(l_ui_list)
@@ -1419,6 +1421,8 @@ function AlignUIPos(l_ui_list, direction, align, offset)
     for idx, v in ipairs(l_ui_list) do
         local content_size = 0 
         local anchor_value
+        
+        -- 라벨의 경우 스케일 계산 X
         if ((isInstanceOf(v, UIC_LabelTTF)) or (isInstanceOf(v, UIC_RichLabel))) then
             content_size = v:getStringWidth()
             if (direction == 'VERTICAL') then 
@@ -1426,7 +1430,15 @@ function AlignUIPos(l_ui_list, direction, align, offset)
             end
         
         else
-            content_size = v:getContentSize()[size_crit]
+            local scale = 1
+            if (direction == 'VERTICAL') then
+                scale = v:getScaleY()
+            else
+                scale = v:getScaleX()
+            end
+
+            local normal_size = v:getContentSize()[size_crit]
+            content_size = normal_size * scale
         end
        
         local anchor_point = v:getAnchorPoint()
@@ -1464,7 +1476,9 @@ function AlignUIPos(l_ui_list, direction, align, offset)
         local position = curr_position + (add_sign * (l_content_size[idx] * l_anchor_value[idx]))
 
         if (idx > 1) then
+            -- 이전 UI의 앵커 값에 따른 추가적인 위치 값 조정
             local before_rest_size = (l_content_size[idx - 1] * (1 - l_anchor_value[idx - 1]))
+            
             position = position + (add_sign * (offset + before_rest_size))
         end
 
