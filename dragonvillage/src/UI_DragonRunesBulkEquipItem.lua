@@ -83,12 +83,13 @@ function UI_DragonRunesBulkEquipItem:initUI()
         if (real_number > 0) then
             str = '▲' .. str
             label:setColor(cc.c4b(0, 255, 0))
-        else
+            label:setString(str)
+
+        elseif (real_number < 0) then
             str = '▼' .. str
             label:setColor(cc.c4b(255, 0, 0))
+            label:setString(str)
         end
-
-        label:setString(str)
     end
 
     function delta_tween_cb(number, label)
@@ -99,12 +100,13 @@ function UI_DragonRunesBulkEquipItem:initUI()
         if (real_number > 0) then
             str = '▲' .. str
             label:setColor(cc.c4b(0, 255, 0))
-        else
+            label:setString(str)
+        
+        elseif (real_number < 0) then
             str = '▼' .. str
             label:setColor(cc.c4b(255, 0, 0))
+            label:setString(str)
         end
-
-        label:setString(str)
     end
 
     function delta_tween_finish_cb(number, label)
