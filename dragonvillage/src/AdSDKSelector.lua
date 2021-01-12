@@ -37,7 +37,8 @@ function AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later)
 
     else
         -- 기본 광고 sdk는 admob
-        self.m_sdkName = 'admob'
+        -- self.m_sdkName = 'admob'
+        self.m_sdkName = 'facebookAudienceNetwork'
 
         -- 안드로이드 7 이상에서 skip일 경우
         if (CppFunctionsClass:isAndroid() == true) then
@@ -76,7 +77,10 @@ function AdSDKSelector:initRewardedVideoAd()
 
     self.m_isInit = true
 
-    if (self.m_sdkName == 'admob') then
+    if (self.m_sdkName == 'facebookAudienceNetwork') then
+        return FacebookAudienceNetworkManager:initRewardedVideoAd()
+
+    elseif (self.m_sdkName == 'admob') then
         return AdMobManager:initRewardedVideoAd()
 
     elseif (self.m_sdkName == 'unityads') then
@@ -100,7 +104,10 @@ function AdSDKSelector:adPreload(ad_type)
         return
     end
 
-    if (self.m_sdkName == 'admob') then
+    if (self.m_sdkName == 'facebookAudienceNetwork') then
+        return FacebookAudienceNetworkManager:getRewardedVideoAd():adPreload(ad_type)
+
+    elseif (self.m_sdkName == 'admob') then
         return AdMobManager:getRewardedVideoAd():adPreload(ad_type)
 
     elseif (self.m_sdkName == 'unityads') then
@@ -124,7 +131,10 @@ function AdSDKSelector:showByAdType(ad_type, result_cb)
         return
     end
 
-    if (self.m_sdkName == 'admob') then
+    if (self.m_sdkName == 'facebookAudienceNetwork') then
+        return FacebookAudienceNetworkManager:getRewardedVideoAd():showByAdType(ad_type, result_cb)
+
+    elseif (self.m_sdkName == 'admob') then
         return AdMobManager:getRewardedVideoAd():showByAdType(ad_type, result_cb)
 
     elseif (self.m_sdkName == 'unityads') then
@@ -152,7 +162,10 @@ function AdSDKSelector:showDailyAd(ad_type, result_cb)
         return
     end
 
-    if (self.m_sdkName == 'admob') then
+    if (self.m_sdkName == 'facebookAudienceNetwork') then
+        return FacebookAudienceNetworkManager:getRewardedVideoAd():showDailyAd(ad_type, result_cb)
+
+    elseif (self.m_sdkName == 'admob') then
         return AdMobManager:getRewardedVideoAd():showDailyAd(ad_type, result_cb)
 
     elseif (self.m_sdkName == 'unityads') then

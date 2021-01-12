@@ -186,6 +186,11 @@ IMPL_LUABINDING_FUNC_V_V(itAdSetResultCallback)
 IMPL_LUABINDING_FUNC_V_V(itAdLoadRequest)
 IMPL_LUABINDING_FUNC_V_V(itAdShow)
 
+IMPL_LUABINDING_FUNC_V_V(facebookAudienceNetworkInitRewardedVideoAd)
+IMPL_LUABINDING_FUNC_V_V(rvFacebookAudienceNetworkSetResultCallback)
+IMPL_LUABINDING_FUNC_V_S(rvFacebookAudienceNetworkLoadWithId)
+IMPL_LUABINDING_FUNC_V_S(rvFacebookAudienceNetworkAdShow)
+
 IMPL_LUABINDING_FUNC_Z_V(xsollaIsAvailable)
 IMPL_LUABINDING_FUNC_V_S(xsollaSetPaymentInfoUrl)
 IMPL_LUABINDING_FUNC_V_S(xsollaOpenPaymentUI)
@@ -331,6 +336,11 @@ int registerAllPerpleSdk(lua_State* L)
             DECL_LUABINDING_FUNC(itAdSetAdUnitId)
             DECL_LUABINDING_FUNC(itAdLoadRequest)
             DECL_LUABINDING_FUNC(itAdShow)
+
+            DECL_LUABINDING_FUNC(facebookAudienceNetworkInitRewardedVideoAd)
+            DECL_LUABINDING_FUNC(rvFacebookAudienceNetworkSetResultCallback)
+            DECL_LUABINDING_FUNC(rvFacebookAudienceNetworkLoadWithId)
+            DECL_LUABINDING_FUNC(rvFacebookAudienceNetworkAdShow)
 
             DECL_LUABINDING_FUNC(xsollaIsAvailable)
             DECL_LUABINDING_FUNC(xsollaSetPaymentInfoUrl)

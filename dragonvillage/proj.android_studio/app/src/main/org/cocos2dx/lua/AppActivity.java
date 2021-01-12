@@ -57,6 +57,7 @@ import com.perplelab.PerpleConfig;
 
 //@perplesdk
 import com.perplelab.PerpleSDK;
+import com.perplelab.facebook.PerpleFacebookAudienceNetwork;
 
 
 import java.util.Locale;
@@ -142,6 +143,9 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @admob
         perpleSdkInstance.initAdMob(PerpleConfig.ADMOB_APP_ID);
+
+        // @facebook audience network
+        perpleSdkInstance.initFacebookAudienceNetwork();
 
         // @xsolla
         if (PerpleConfig.USE_XSOLLA) {

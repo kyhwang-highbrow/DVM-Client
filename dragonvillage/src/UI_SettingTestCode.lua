@@ -398,15 +398,15 @@ end
 -- @brief Admob Test Code
 -------------------------------------
 function UI_SettingTestCode:admob_init()
-    AdMobManager:initRewardedVideoAd()
+    FacebookAudienceNetworkManager:initRewardedVideoAd()
     ccdisplay('admob_init')
 end
 function UI_SettingTestCode:admob_preload()
-    AdMobManager:getRewardedVideoAd():adPreload(AD_TYPE.RANDOM_BOX_LOBBY)
+    FacebookAudienceNetworkManager:getRewardedVideoAd():adPreload(AD_TYPE.RANDOM_BOX_LOBBY)
     ccdisplay('admob_preload')
 end
 function UI_SettingTestCode:admob_showAd()
-    AdMobManager:getRewardedVideoAd():showByAdType(AD_TYPE.RANDOM_BOX_LOBBY)
+    FacebookAudienceNetworkManager:getRewardedVideoAd():showByAdType(AD_TYPE.RANDOM_BOX_LOBBY)
     ccdisplay('admob_showAd')
 end
 

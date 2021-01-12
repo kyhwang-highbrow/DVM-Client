@@ -1,3 +1,4 @@
+include ':FacebookAudienceNetwork'
 include ':sdk_binder'
 project(':sdk_binder').projectDir = new File(settingsDir, '../../libraries/sdk_binder/android')
 include ':market_licensing'

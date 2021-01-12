@@ -62,6 +62,7 @@ local t_module = {
     'AdMobInterstitialAd',
     'AdMobManager',
     'UnityAdsManager',
+    'FacebookAudienceNetworkManager',
     'AdWithoutPlayManager',
     'XorCipher',
     'PackageManager',

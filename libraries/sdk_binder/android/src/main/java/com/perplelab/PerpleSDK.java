@@ -19,6 +19,7 @@ import com.perplelab.adcolony.PerpleAdColony;
 import com.perplelab.admob.PerpleAdMob;
 import com.perplelab.billing.PerpleBilling;
 import com.perplelab.facebook.PerpleFacebook;
+import com.perplelab.facebook.PerpleFacebookAudienceNetwork;
 import com.perplelab.firebase.PerpleCrashlytics;
 import com.perplelab.firebase.PerpleFirebase;
 import com.perplelab.google.PerpleGoogle;
@@ -41,6 +42,7 @@ import java.util.Scanner;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -150,6 +152,7 @@ public class PerpleSDK {
     private PerpleAdColony mAdColony;
     private PerpleAdjust mAdjust;
     private PerpleAdMob mAdMob;
+    private PerpleFacebookAudienceNetwork mFacebookAudienceNetwork;
     private PerpleXsolla mXsolla;
     private PerpleOnestore mOnestore;
 
@@ -308,6 +311,19 @@ public class PerpleSDK {
         mAdMob = new PerpleAdMob(appId);
     }
 
+    // @facebook audience network
+    public void initFacebookAudienceNetwork() {
+        mFacebookAudienceNetwork = new PerpleFacebookAudienceNetwork()
+        {
+            @Override
+            public void showLog(@NotNull String logTag, @NotNull String msg) {
+                PerpleLog.d(logTag, msg);
+            }
+        };
+
+        mFacebookAudienceNetwork.initialize(getMainActivity());
+    }
+
     // @xsolla
     public void initXsolla(int merchantId, String apiKey, int projectId, String secretKey, boolean isSandbox) {
         mXsolla = new PerpleXsolla(merchantId, apiKey, projectId, secretKey, isSandbox);
@@ -364,6 +380,11 @@ public class PerpleSDK {
         if (mAdMob != null) {
             mAdMob.onResume();
         }
+
+        // @facebook audience network
+        if (mFacebookAudienceNetwork != null){
+            mFacebookAudienceNetwork.onResume();
+        }
     }
 
     public void onPause() {
@@ -381,6 +402,11 @@ public class PerpleSDK {
         if (mAdMob != null) {
             mAdMob.onPause();
         }
+
+        // @facebook audience network
+        if (mFacebookAudienceNetwork != null){
+            mFacebookAudienceNetwork.onPause();
+        }
     }
 
     public void onDestroy() {
@@ -392,6 +418,11 @@ public class PerpleSDK {
         // @adMob
         if (mAdMob != null) {
             mAdMob.onDestroy();
+        }
+
+        // @facebook audience network
+        if (mFacebookAudienceNetwork != null){
+            mFacebookAudienceNetwork.onDestroy();
         }
 
         // @onestore
@@ -501,6 +532,11 @@ public class PerpleSDK {
     // @AdMob
     public static PerpleAdMob getAdMob() {
         return getInstance().mAdMob;
+    }
+
+    // @facebook audience network
+    public static PerpleFacebookAudienceNetwork getFacebookAudienceNetwork() {
+        return getInstance().mFacebookAudienceNetwork;
     }
 
     // @Xsolla

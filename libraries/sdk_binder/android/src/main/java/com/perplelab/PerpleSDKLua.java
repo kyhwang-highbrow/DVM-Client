@@ -11,6 +11,11 @@ import com.perplelab.tapjoy.PerpleTapjoyPlacementCallback;
 import com.perplelab.unityads.PerpleUnityAdsCallback;
 import com.perplelab.util.PerpleUtil;
 
+import kotlin.Function;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
+import kotlin.reflect.KCallable;
+
 public class PerpleSDKLua {
 
     // 루아 스크립트 엔진 재시작시 프로세스 아이디를 변경시켜,
@@ -1644,6 +1649,85 @@ public class PerpleSDKLua {
 
         PerpleSDK.getAdMob().getPerpleInterstitialAd().show();
     }
+
+    // facebook audience network
+    public static void facebookAudienceNetworkInitRewardedVideoAd(int funcID) {
+        final int pID = PerpleSDK.ProcessId;
+        if (PerpleSDK.getFacebookAudienceNetwork() == null) {
+            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
+            return;
+        }
+
+        PerpleSDK.getFacebookAudienceNetwork().initRewardedVideoAd();
+    }
+
+
+    public static void rvFacebookAudienceNetworkLoadWithId(final int funcID, String placementID) {
+        final int pID = PerpleSDK.ProcessId;
+        if (PerpleSDK.getFacebookAudienceNetwork() == null) {
+            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
+            return;
+        }
+
+        PerpleSDK.getFacebookAudienceNetwork().getRewardedVideoAd().loadRewardedVideoAd(placementID);
+    }
+
+    public static void rvFacebookAudienceNetworkSetResultCallback(final int funcID) {
+        // finish / cancel / receive / error
+        final int pID = PerpleSDK.ProcessId;
+        PerpleSDK.getFacebookAudienceNetwork().getRewardedVideoAd().setResultCallBack(new com.perplelab.facebook.AdCallback() {
+            @Override
+            public void onReceive(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "receive", info);
+            }
+
+            @Override
+            public void onFail(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "fail", info);
+            }
+
+            @Override
+            public void onOpen(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "open", info);
+            }
+
+            @Override
+            public void onStart(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "start", info);
+            }
+
+            @Override
+            public void onFinish(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "finish", info);
+            }
+
+            @Override
+            public void onCancel(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "cancel", info);
+            }
+
+            @Override
+            public void onError(String info) {
+                PerpleSDK.callSDKResult(pID, funcID, "error", info);
+            }
+        });
+    }
+
+
+    public static void rvFacebookAudienceNetworkAdShow(int funcID, String placementID) {
+        final int pID = PerpleSDK.ProcessId;
+        if (PerpleSDK.getFacebookAudienceNetwork() == null) {
+            PerpleSDK.callSDKResult(pID, funcID, "error", PerpleSDK.getErrorInfo(PerpleSDK.ERROR_ADMOB_NOTINITIALIZED, "Admob is not initialized."));
+            return;
+        }
+
+        PerpleSDK.getFacebookAudienceNetwork().getRewardedVideoAd().show(placementID);
+    }
+
+
+
+
+
 
     // @xsolla
     public static boolean xsollaIsAvailable(final int funcID) {
