@@ -439,12 +439,17 @@ function UI_DragonRunesBulkEquipItem:click_runeCard(roid)
     if (type == 'before') then
         self.m_ownerUI:simulateRune(slot_idx, roid)
 
-    -- after인 경우 시뮬레이터에 해당 룬 장착 해제
+    -- after인 경우 
     else
-        self.m_ownerUI:simulateRune(slot_idx, nil)
+        -- 해당 룬 슬롯 인덱스에 포커싱되있던 경우 장착 해제
+        if (slot_idx == self.m_ownerUI:getRuneSlot()) then
+            self.m_ownerUI:simulateRune(slot_idx, nil)
+        
+        -- 해당 룬 슬롯 포커싱 안되있었다면 포커싱
+        else
+            self.m_ownerUI:changeRuneSlot(slot_idx)
+        end
     end
-
-    self:click_emptyRuneCard(slot_idx)
 end
 
 -------------------------------------

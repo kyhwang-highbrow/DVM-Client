@@ -313,6 +313,16 @@ end
 -------------------------------------
 -- function focusSlotIndex
 -------------------------------------
+function UI_DragonRunesBulkEquip:getRuneSlot()
+    local ui = self.m_mTabData['rune']['ui']
+    local slot_idx = ui.m_currTab
+    return slot_idx
+end
+
+-------------------------------------
+-- function focusSlotIndex
+-------------------------------------
 function UI_DragonRunesBulkEquip:focusSlotIndex(slot_idx)
+    self.m_beforeUI:focusSlotIndex(slot_idx)
     self.m_afterUI:focusSlotIndex(slot_idx)
 end
