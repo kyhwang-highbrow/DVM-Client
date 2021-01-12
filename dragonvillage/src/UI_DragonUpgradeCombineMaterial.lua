@@ -336,6 +336,8 @@ function UI_DragonUpgradeCombineMaterial:refreshPrice()
     vars['dragonExpLabel']:setString(Str('{1}/{2}', comma_value(user_dragon_exp), comma_value(need_dragon_exp)))
     vars['priceLabel']:setString(comma_value(need_gold))
 
+    AlignUIPos({vars['dragonExpIcon'], vars['dragonExpLabel']}, 'HORIZONTAL', 'CENTER', 0)
+
     self.m_needGold = need_gold
     self.m_needExp = need_dragon_exp
 end

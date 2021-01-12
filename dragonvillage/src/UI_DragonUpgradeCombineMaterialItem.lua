@@ -34,11 +34,24 @@ function UI_DragonUpgradeCombineMaterialItem:initUI()
     
     -- 요구 재료 수에 맞게 재료 칸 정렬 및 visible 관리
     local require_count = self.m_upgradeMaterialCombineData:getRequireCount()
-    
     for idx = require_count + 1, 5 do
         local node = vars['itemNode' .. idx]
         node:setVisible(false)
     end 
+    
+    --local l_align_ui_list = {}
+    --local l_offset_list = {0, 245, 85, 32 , 5}
+--
+     --for idx = 1, 5 do
+        --local node = vars['itemNode' .. idx]
+        --if (idx <= require_count) then
+            --table.insert(l_align_ui_list, node)
+        --else
+            --node:setVisible(false)
+        --end
+    --end 
+
+    --AlignUIPos(l_align_ui_list, 'HORIZONTAL', 'CENTER', 5)
 
     self:makeResultSlimeCard()
 end
@@ -93,20 +106,14 @@ function UI_DragonUpgradeCombineMaterialItem:refresh()
     vars['priceLabel']:setString(comma_value(t_dragon_upgrade_material_combine_data.m_needGold))
 
 
-    ---- 드래곤 재료 등록칸에 드래곤이 전부 등록된 경우
-    --if (t_dragon_upgrade_material_combine_data:isFull()) then
-        --vars['allSelectMenu']:setVisible(true)
-        --
-        --if (self.m_resultCard ~= nil) then
-            --self.m_resultCard.vars['disableSprite']:setVisible(false)
-        --end
-    --else
-        --vars['allSelectMenu']:setVisible(false)
-        --
-        --if (self.m_resultCard ~= nil) then
-            --self.m_resultCard.vars['disableSprite']:setVisible(true)
-        --end
-    --end
+    -- 드래곤 재료 등록칸에 드래곤이 전부 등록된 경우
+    if (t_dragon_upgrade_material_combine_data:isFull()) then
+        vars['selectSprite']:setVisible(true)
+        vars['deselectSprite']:setVisible(false)
+    else
+        vars['selectSprite']:setVisible(false)
+        vars['deselectSprite']:setVisible(true)
+    end
 end
 
 -------------------------------------
