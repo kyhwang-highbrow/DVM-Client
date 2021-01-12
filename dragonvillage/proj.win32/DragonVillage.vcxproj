@@ -317,6 +317,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\EquationHelper.lua" />
     <None Include="..\src\ErrorTracker.lua" />
     <None Include="..\src\EventCarrier.lua" />
+    <None Include="..\src\FacebookAudienceNetworkManager.lua" />
     <None Include="..\src\ForestCharacter.lua" />
     <None Include="..\src\ForestDragon.lua" />
     <None Include="..\src\ForestObject.lua" />
