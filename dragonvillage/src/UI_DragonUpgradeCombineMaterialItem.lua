@@ -67,9 +67,12 @@ function UI_DragonUpgradeCombineMaterialItem:refresh()
         if (is_dirty_index) then
             local t_dragon_data = t_dragon_upgrade_material_combine_data:getDragonDataFromIndex(idx)
 
-            if (t_dragon_data ~= nil) then 
-                vars['itemNode' .. idx]:removeAllChildren()
+            if (self.m_mDragonCardUI[idx] ~= nil) then
+                self.m_mDragonCardUI[idx].root:removeFromParent()                
+                self.m_mDragonCardUI[idx] = nil
+            end 
 
+            if (t_dragon_data ~= nil) then
                 local dragon_card_ui = UI_DragonCard(t_dragon_data)
                 dragon_card_ui.root:setSwallowTouch(false)
                 dragon_card_ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(t_dragon_data) end)
@@ -77,10 +80,6 @@ function UI_DragonUpgradeCombineMaterialItem:refresh()
                 
                 cca.uiReactionSlow(dragon_card_ui.root, 1, 1, 1.3)
                 self.m_mDragonCardUI[idx] = dragon_card_ui
-
-            else
-                self.m_mDragonCardUI[idx] = nil
-                vars['itemNode' .. idx]:removeAllChildren()
             end
 
             t_dragon_upgrade_material_combine_data:setDirtyIndex(idx, false)
