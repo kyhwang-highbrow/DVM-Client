@@ -24,7 +24,8 @@ MAIL_SELECT_TYPE = {
     UPDATE_PACK = 8,    -- 승급 패키지 구매 시
     ITEM_GOOD = 9,      -- 패키지 상품 구성이 아이템+재화 일 때
     GOODS_WITH_CLOSE_CB = 10,
-    RUNE_BOX = 11,    -- 룬 박스
+    RUNE_BOX = 11,      -- 룬 박스
+    SUPER_SLIME = 12,   -- 슈퍼 슬라임
 }
 
 -------------------------------------
@@ -109,6 +110,13 @@ function UI_MailSelectPopup:initUI()
         self:setItemByMailType('goods')
         self:setItemByMailType('item')
         self.m_dirty = true
+
+    elseif (type == MAIL_SELECT_TYPE.SUPER_SLIME) then
+        title = Str('슈퍼 슬라임')
+        self:setItemByID(779124)
+        self:setItemByID(779134)
+        self:setItemByID(779144)
+        self:setItemByID(779154)
     end
 
     -- 타이틀
@@ -132,6 +140,10 @@ function UI_MailSelectPopup:initButton()
     if (self.m_currTab) then
         vars['rewardAllBtn']:setVisible(true)
         vars['rewardAllBtn']:registerScriptTapHandler(function() self:click_rewardAllBtn() end)
+    
+    elseif (self.m_selectType == MAIL_SELECT_TYPE.SUPER_SLIME) then
+        vars['rewardAllBtn']:setVisible(true)
+        vars['rewardAllBtn']:registerScriptTapHandler(function() self:click_rewardAllBtnWithItemID({779124, 779134, 779144, 779154}) end)
     end
 end
 
@@ -346,6 +358,39 @@ function UI_MailSelectPopup:click_rewardAllBtn()
             self:refresh()
 		end
 		g_mailData:request_mailReadAll(self.m_currTab, finish_cb)
+	end
+
+	-- 시작
+	get_all_reward_cb()
+end
+
+-------------------------------------
+-- function click_rewardAllBtnWithItemID
+-- @brief 아이템 아이디에 해당하는 아이템 모두 수령
+-------------------------------------
+function UI_MailSelectPopup:click_rewardAllBtnWithItemID(l_item_list)    
+	-- 우편이 없다면 탈출
+	local possible = g_mailData:canReadAllWithItemID(l_item_list)
+	if (not possible) then 
+		UIManager:toastNotificationRed(Str('수령할 수 있는 메일이 없습니다.'))
+		return
+	end
+
+	-- 우편 모두 받기 콜백
+	local get_all_reward_cb = function() 
+		local function finish_cb(ret, mail_id_list)
+			
+			-- 모두 받기의 경우 리스트 팝업
+			UI_ObtainPopup(ret['added_items']['items_list'])
+
+			for _, mail_id in pairs(mail_id_list) do
+				self.m_tableView:delItem(mail_id)
+			end
+            
+            -- 우편함 갱신
+            self:refresh()
+		end
+		g_mailData:request_mailReadAllWithItemID(l_item_list, finish_cb)
 	end
 
 	-- 시작
