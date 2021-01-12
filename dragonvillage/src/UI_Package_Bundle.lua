@@ -63,6 +63,12 @@ function UI_Package_Bundle:initUI()
             end
         end
     end
+
+    -- 딸랑거리는 액션 추가
+    if (vars['percentSprite'] ~= nil) then
+        local action = cca.buttonShakeAction()
+        vars['percentSprite']:runAction(action)
+    end
 end
 
 -------------------------------------
