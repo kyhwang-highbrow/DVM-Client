@@ -944,7 +944,7 @@ function UI_DragonManageInfo:click_goodbyeBtnNew()
 	local dragon_data = self.m_selectDragonData
 	local msg = g_dragonsData:dragonStateStr(oid, nil)
 
-    local idx = self.m_tableViewExt:getIndexFromId(oid)
+    local idx = self.m_tableViewExt:getIndexFromId(oid) or 1
 
 	-- 작별 연출
     local function show_effect(ret)
@@ -986,7 +986,7 @@ function UI_DragonManageInfo:click_goodbyeSelectBtn()
     local ui = UI_DragonGoodbyeSelectNew2()
 	
     local oid = self.m_selectDragonOID
-    local idx = self.m_tableViewExt:getIndexFromId(oid)
+    local idx = self.m_tableViewExt:getIndexFromId(oid) or 1
 
     local function close_cb()
 	    if ui.m_bChangeDragonList then
