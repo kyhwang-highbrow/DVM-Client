@@ -377,6 +377,8 @@ end
 function UI_Package_Bundle:click_quickBtn()
     if (self.m_package_name == 'package_rune_box') then
         UINavigator:goTo('rune_forge', 'gacha')
+    elseif (self.m_package_name == 'package_super_slime_swarm') then
+        UINavigator:goTo('slime_combine')
     end
 end
 
