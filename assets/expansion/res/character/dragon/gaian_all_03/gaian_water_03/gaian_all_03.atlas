@@ -39,18 +39,102 @@ effect_116_groud6
   orig: 383, 180
   offset: 0, 0
   index: -1
-gaian_all_03_bit_01
+effect_gaian_all_03_bit_01
   rotate: true
   xy: 1487, 166
   size: 219, 218
   orig: 219, 218
   offset: 0, 0
   index: -1
-gaian_all_03_bit_02
+effect_gaian_all_03_bit_02
   rotate: false
   xy: 938, 837
   size: 388, 388
   orig: 388, 388
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_dust
+  rotate: true
+  xy: 1328, 769
+  size: 304, 373
+  orig: 304, 373
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_effect_01
+  rotate: false
+  xy: 1088, 376
+  size: 223, 277
+  orig: 223, 277
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_effect_02
+  rotate: false
+  xy: 577, 679
+  size: 359, 468
+  orig: 359, 468
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_effect_04
+  rotate: false
+  xy: 809, 378
+  size: 277, 275
+  orig: 277, 275
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_effect_05
+  rotate: false
+  xy: 1863, 49
+  size: 56, 57
+  orig: 56, 57
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_effect_06
+  rotate: true
+  xy: 1313, 387
+  size: 162, 246
+  orig: 162, 246
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_effect_07
+  rotate: true
+  xy: 1294, 29
+  size: 113, 137
+  orig: 113, 137
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_effect_attack
+  rotate: false
+  xy: 1703, 731
+  size: 255, 342
+  orig: 255, 342
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_light_01
+  rotate: true
+  xy: 884, 1167
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_magicwon_01
+  rotate: false
+  xy: 791, 1227
+  size: 582, 223
+  orig: 582, 223
+  offset: 0, 0
+  index: -1
+effect_gaian_all_03_steam
+  rotate: false
+  xy: 2, 637
+  size: 573, 510
+  orig: 573, 510
+  offset: 0, 0
+  index: -1
+effect_hit_effect_18
+  rotate: true
+  xy: 368, 186
+  size: 449, 439
+  orig: 449, 439
   offset: 0, 0
   index: -1
 gaian_all_03_body_01
@@ -67,13 +151,6 @@ gaian_all_03_chest_01
   orig: 60, 93
   offset: 0, 0
   index: -1
-gaian_all_03_dust
-  rotate: true
-  xy: 1328, 769
-  size: 304, 373
-  orig: 304, 373
-  offset: 0, 0
-  index: -1
 gaian_all_03_ear_01
   rotate: true
   xy: 1328, 1075
@@ -86,55 +163,6 @@ gaian_all_03_ear_02
   xy: 972, 10
   size: 122, 105
   orig: 122, 105
-  offset: 0, 0
-  index: -1
-gaian_all_03_effect_01
-  rotate: false
-  xy: 1088, 376
-  size: 223, 277
-  orig: 223, 277
-  offset: 0, 0
-  index: -1
-gaian_all_03_effect_02
-  rotate: false
-  xy: 577, 679
-  size: 359, 468
-  orig: 359, 468
-  offset: 0, 0
-  index: -1
-gaian_all_03_effect_04
-  rotate: false
-  xy: 809, 378
-  size: 277, 275
-  orig: 277, 275
-  offset: 0, 0
-  index: -1
-gaian_all_03_effect_05
-  rotate: false
-  xy: 1863, 49
-  size: 56, 57
-  orig: 56, 57
-  offset: 0, 0
-  index: -1
-gaian_all_03_effect_06
-  rotate: true
-  xy: 1313, 387
-  size: 162, 246
-  orig: 162, 246
-  offset: 0, 0
-  index: -1
-gaian_all_03_effect_07
-  rotate: true
-  xy: 1294, 29
-  size: 113, 137
-  orig: 113, 137
-  offset: 0, 0
-  index: -1
-gaian_all_03_effect_attack
-  rotate: false
-  xy: 1703, 731
-  size: 255, 342
-  orig: 255, 342
   offset: 0, 0
   index: -1
 gaian_all_03_face_01
@@ -200,20 +228,6 @@ gaian_all_03_leg_02
   orig: 117, 184
   offset: 0, 0
   index: -1
-gaian_all_03_light_01
-  rotate: true
-  xy: 884, 1167
-  size: 58, 51
-  orig: 58, 51
-  offset: 0, 0
-  index: -1
-gaian_all_03_magicwon_01
-  rotate: false
-  xy: 791, 1227
-  size: 582, 223
-  orig: 582, 223
-  offset: 0, 0
-  index: -1
 gaian_all_03_neck_01
   rotate: false
   xy: 1665, 3
@@ -240,13 +254,6 @@ gaian_all_03_shoulder_03
   xy: 1877, 1081
   size: 83, 91
   orig: 83, 91
-  offset: 0, 0
-  index: -1
-gaian_all_03_steam
-  rotate: false
-  xy: 2, 637
-  size: 573, 510
-  orig: 573, 510
   offset: 0, 0
   index: -1
 gaian_all_03_stone_01
@@ -289,12 +296,5 @@ gaian_all_03_wing_03
   xy: 1707, 227
   size: 205, 134
   orig: 205, 134
-  offset: 0, 0
-  index: -1
-hit_effect_18
-  rotate: true
-  xy: 368, 186
-  size: 449, 439
-  orig: 449, 439
   offset: 0, 0
   index: -1

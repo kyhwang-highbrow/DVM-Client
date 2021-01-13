@@ -136,7 +136,7 @@
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 800;
+					width = 908;
 					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -147,12 +147,12 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '전설 드래곤 5성 50레벨까지 레벨업 가능한 슬라임 제공!!';
+					text = '전설 드래곤 5성 50레벨까지 레벨업 가능한 드래곤 경험치 제공!!';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 800;
+					dimension_width = 908;
 					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -630,7 +630,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 183.000000;
-				y = -68.000000;
+				y = -70.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -656,7 +656,7 @@
 				type = 'Sprite';
 				ui_name = '';
 				x = 305.000000;
-				y = -53.000000;
+				y = -70.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -669,7 +669,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/icons/cha/exp_slime_water_02.png';
+				file_name = 'ui/icons/item/dragon_exp.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -678,32 +678,6 @@
 				dest_blend = 771;
 			};
 			[12] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 305.000000;
-				y = -94.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 128;
-				height = 22;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/icons/star/star_gray_0104.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -743,7 +717,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[14] =
+			[13] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -783,7 +757,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[15] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -823,7 +797,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[16] =
+			[15] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -863,7 +837,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[17] =
+			[16] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -903,7 +877,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[18] =
+			[17] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -912,7 +886,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 120;
+				width = 185;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -923,12 +897,12 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '16개';
+				text = '700,000개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 120;
+				dimension_width = 185;
 				dimension_height = 60;
 				letter_spacing = 0.000000;
 				has_stroke = true;

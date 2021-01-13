@@ -11,25 +11,60 @@ effect_10
   orig: 248, 204
   offset: 0, 0
   index: -1
-gaian_all_01_body_01
-  rotate: true
-  xy: 1734, 170
-  size: 180, 149
-  orig: 180, 149
-  offset: 0, 0
-  index: -1
-gaian_all_01_boom
+effect_gaian_all_01_boom
   rotate: false
   xy: 1206, 8
   size: 225, 136
   orig: 225, 136
   offset: 0, 0
   index: -1
-gaian_all_01_cycle
+effect_gaian_all_01_cycle
   rotate: false
   xy: 586, 65
   size: 339, 285
   orig: 339, 285
+  offset: 0, 0
+  index: -1
+effect_gaian_all_01_effect_03
+  rotate: false
+  xy: 1697, 20
+  size: 158, 148
+  orig: 158, 148
+  offset: 0, 0
+  index: -1
+effect_gaian_all_01_effect_04
+  rotate: false
+  xy: 927, 75
+  size: 277, 275
+  orig: 277, 275
+  offset: 0, 0
+  index: -1
+effect_gaian_all_01_light_01
+  rotate: true
+  xy: 531, 67
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_gaian_all_01_lightdust
+  rotate: false
+  xy: 2, 26
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+effect_gaian_all_01_magicwon_01
+  rotate: false
+  xy: 2, 127
+  size: 582, 223
+  orig: 582, 223
+  offset: 0, 0
+  index: -1
+gaian_all_01_body_01
+  rotate: true
+  xy: 1734, 170
+  size: 180, 149
+  orig: 180, 149
   offset: 0, 0
   index: -1
 gaian_all_01_ear_01
@@ -44,20 +79,6 @@ gaian_all_01_ear_02
   xy: 255, 2
   size: 57, 63
   orig: 57, 63
-  offset: 0, 0
-  index: -1
-gaian_all_01_effect_03
-  rotate: false
-  xy: 1697, 20
-  size: 158, 148
-  orig: 158, 148
-  offset: 0, 0
-  index: -1
-gaian_all_01_effect_04
-  rotate: false
-  xy: 927, 75
-  size: 277, 275
-  orig: 277, 275
   offset: 0, 0
   index: -1
 gaian_all_01_eye_01
@@ -128,27 +149,6 @@ gaian_all_01_leg_03
   xy: 255, 67
   size: 58, 106
   orig: 58, 106
-  offset: 0, 0
-  index: -1
-gaian_all_01_light_01
-  rotate: true
-  xy: 531, 67
-  size: 58, 51
-  orig: 58, 51
-  offset: 0, 0
-  index: -1
-gaian_all_01_lightdust
-  rotate: false
-  xy: 2, 26
-  size: 127, 99
-  orig: 127, 99
-  offset: 0, 0
-  index: -1
-gaian_all_01_magicwon_01
-  rotate: false
-  xy: 2, 127
-  size: 582, 223
-  orig: 582, 223
   offset: 0, 0
   index: -1
 gaian_all_01_shoulder_01

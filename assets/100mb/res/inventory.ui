@@ -685,7 +685,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'runeNode';
 			};
 			[7] =
@@ -1144,12 +1144,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 328.000000;
+				x = 300.000000;
 				y = -40.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 164;
+				width = 200;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1208,12 +1208,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 164.000000;
+				x = 100.000000;
 				y = -40.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 164;
+				width = 200;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1272,12 +1272,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
+				x = -100.000000;
 				y = -40.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 164;
+				width = 200;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1336,12 +1336,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -164.000000;
+				x = -300.000000;
 				y = -40.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 164;
+				width = 200;
 				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1438,7 +1438,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'runeTabBtn';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0101.png';

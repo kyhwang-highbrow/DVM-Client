@@ -202,7 +202,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '4성 속성 슬라임';
+				text = '드래곤 경험치';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -297,23 +297,101 @@
 				};
 				[2] =
 				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 39.000000;
+						y = -52.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -46.000000;
+						y = -24.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -10.000000;
+						y = -50.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Sprite';
 					ui_name = '';
-					x = 10.000000;
-					y = -30.000000;
+					x = 35.000000;
+					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
+					scale_x = 0.600000;
+					scale_y = 0.600000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icons/cha/exp_slime_fire_02.png';
+					file_name = 'ui/icons/item/dragon_exp.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -602,7 +680,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/icons/cha/exp_slime_water_02.png';
 					color = { 255; 255; 255; };
@@ -613,6 +691,110 @@
 					dest_blend = 771;
 				};
 				[3] =
+				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 39.000000;
+						y = -52.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -46.000000;
+						y = -24.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -10.000000;
+						y = -50.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Sprite';
+					ui_name = '';
+					x = 35.000000;
+					y = -35.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.600000;
+					scale_y = 0.600000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icons/item/dragon_exp.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[4] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -638,7 +820,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -664,7 +846,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -690,7 +872,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[6] =
+				[7] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -716,7 +898,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[7] =
+				[8] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -742,7 +924,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[8] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -879,23 +1061,101 @@
 				};
 				[2] =
 				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 39.000000;
+						y = -52.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -46.000000;
+						y = -24.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -10.000000;
+						y = -50.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Sprite';
 					ui_name = '';
-					x = 10.000000;
-					y = -30.000000;
+					x = 35.000000;
+					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
+					scale_x = 0.600000;
+					scale_y = 0.600000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icons/cha/exp_slime_earth_02.png';
+					file_name = 'ui/icons/item/dragon_exp.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1170,23 +1430,101 @@
 				};
 				[2] =
 				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 39.000000;
+						y = -52.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -46.000000;
+						y = -24.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -10.000000;
+						y = -50.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Sprite';
 					ui_name = '';
-					x = 10.000000;
-					y = -30.000000;
+					x = 35.000000;
+					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 150;
 					height = 150;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
+					scale_x = 0.600000;
+					scale_y = 0.600000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icons/cha/exp_slime_light_02.png';
+					file_name = 'ui/icons/item/dragon_exp.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -1463,8 +1801,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 10.000000;
-					y = -30.000000;
+					x = 35.000000;
+					y = -35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1475,7 +1813,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/icons/cha/exp_slime_dark_02.png';
 					color = { 255; 255; 255; };
@@ -1486,6 +1824,110 @@
 					dest_blend = 771;
 				};
 				[3] =
+				{
+					[1] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 39.000000;
+						y = -52.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -46.000000;
+						y = -24.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					[3] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = -10.000000;
+						y = -50.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 150;
+						height = 150;
+						scale_x = 0.600000;
+						scale_y = 0.600000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/icons/item/dragon_exp.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Sprite';
+					ui_name = '';
+					x = 35.000000;
+					y = -35.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 0.600000;
+					scale_y = 0.600000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/icons/item/dragon_exp.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[4] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -1511,7 +1953,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -1537,7 +1979,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[5] =
+				[6] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -1563,7 +2005,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[6] =
+				[7] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -1589,7 +2031,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[7] =
+				[8] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -1615,7 +2057,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[8] =
+				[9] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';

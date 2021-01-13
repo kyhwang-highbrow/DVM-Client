@@ -101,7 +101,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 32;
+				font_size = 26;
 				text = '수령';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -129,8 +129,8 @@
 			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 282;
-			height = 88;
+			width = 265;
+			height = 75;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -165,7 +165,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 32;
+				font_size = 26;
 				text = '닫기';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -193,8 +193,8 @@
 			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 282;
-			height = 88;
+			width = 265;
+			height = 75;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

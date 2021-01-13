@@ -730,7 +730,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '3주년 제복(두른)';
+					text = '크리마용(땅)';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -770,7 +770,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '3주년 연미복(고니)';
+					text = '크리마용(물)';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -810,7 +810,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '3주년 드레스(누리)';
+					text = '크리마용(불)';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
@@ -1290,8 +1290,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -1.000000;
-					y = -166.000000;
+					x = 0.000000;
+					y = -155.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1305,7 +1305,7 @@
 					visible = true;
 					lua_name = 'timeLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 20;
 					text = 'timeLabel';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -1330,48 +1330,8 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -1.000000;
-					y = -136.000000;
-					dock_point = { 0.500000; 1.000000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 900;
-					height = 58;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
-					text = '게임을 플레이하고 3주년 한정 코스튬을 획득하세요!';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 900;
-					dimension_height = 58;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = false;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				[7] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 4.000000;
-					y = -95.000000;
+					x = 0.000000;
+					y = -115.000000;
 					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1385,7 +1345,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 38;
+					font_size = 36;
 					text = '드래곤 이미지 퀴즈 이벤트';
 					h_alignment = 1;
 					v_alignment = 1;
@@ -1406,7 +1366,7 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[8] =
+				[7] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -1432,7 +1392,7 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[9] =
+				[8] =
 				{
 					[1] =
 					{
@@ -1763,7 +1723,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 141;
+						width = 182;
 						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1779,7 +1739,7 @@
 						v_alignment = 1;
 						color = { 107; 255; 243; };
 						opacity = 255;
-						dimension_width = 141;
+						dimension_width = 182;
 						dimension_height = 30;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -1803,7 +1763,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 141;
+						width = 182;
 						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1819,7 +1779,7 @@
 						v_alignment = 1;
 						color = { 107; 255; 243; };
 						opacity = 255;
-						dimension_width = 141;
+						dimension_width = 182;
 						dimension_height = 30;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -1843,7 +1803,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 141;
+						width = 182;
 						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1859,7 +1819,7 @@
 						v_alignment = 1;
 						color = { 107; 255; 243; };
 						opacity = 255;
-						dimension_width = 141;
+						dimension_width = 182;
 						dimension_height = 30;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -1883,7 +1843,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 141;
+						width = 182;
 						height = 30;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1899,7 +1859,7 @@
 						v_alignment = 1;
 						color = { 107; 255; 243; };
 						opacity = 255;
-						dimension_width = 141;
+						dimension_width = 182;
 						dimension_height = 30;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -1918,12 +1878,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = 'rich';
-						x = 110.000000;
+						x = 142.000000;
 						y = 60.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 360;
+						width = 320;
 						height = 34;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1939,7 +1899,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 360;
+						dimension_width = 320;
 						dimension_height = 34;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -1958,12 +1918,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = 'rich';
-						x = 110.000000;
+						x = 142.000000;
 						y = 30.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 360;
+						width = 320;
 						height = 34;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1979,7 +1939,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 360;
+						dimension_width = 320;
 						dimension_height = 34;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -1998,12 +1958,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = 'rich';
-						x = 110.000000;
+						x = 142.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 360;
+						width = 320;
 						height = 34;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -2019,7 +1979,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 360;
+						dimension_width = 320;
 						dimension_height = 34;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -2038,12 +1998,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = 'rich';
-						x = 110.000000;
+						x = 142.000000;
 						y = -30.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
-						width = 360;
+						width = 320;
 						height = 34;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -2059,7 +2019,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 360;
+						dimension_width = 320;
 						dimension_height = 34;
 						letter_spacing = 0.000000;
 						has_stroke = true;
@@ -2341,7 +2301,7 @@
 					visible = true;
 					lua_name = '';
 				};
-				[10] =
+				[9] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -2357,7 +2317,7 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
+					visible = false;
 					lua_name = '';
 					file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
 					color = { 255; 255; 255; };

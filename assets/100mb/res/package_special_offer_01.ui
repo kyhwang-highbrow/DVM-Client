@@ -561,8 +561,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 553;
-				height = 83;
+				width = 400;
+				height = 85;
 				scale_x = 0.800000;
 				scale_y = 0.800000;
 				skew_x = 0.000000;
@@ -570,7 +570,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/ko/1st_anniversary_title_0102.png';
+				file_name = 'ui/typo/ko/1st_anniversary_title.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

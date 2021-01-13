@@ -7,8 +7,8 @@
 		{
 			type = 'LayerColor';
 			ui_name = '';
-			x = 0.000061;
-			y = 0.000031;
+			x = 2.000000;
+			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 3;
@@ -27,6 +27,32 @@
 			dest_blend = 771;
 		};
 		[2] =
+		{
+			type = 'Scale9Sprite';
+			ui_name = '';
+			x = 0.000000;
+			y = -36.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 2;
+			width = 0;
+			height = 476;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'ui/frames/exploration_title_0101.png';
+			color = { 255; 255; 255; };
+			opacity = 255;
+			center_rect_x = 0;
+			center_rect_y = 0;
+			center_rect_width = 0;
+			center_rect_height = 0;
+		};
+		[3] =
 		{
 			[1] =
 			{
@@ -71,7 +97,7 @@
 			type = 'Button';
 			ui_name = '';
 			x = 0.000000;
-			y = -286.000000;
+			y = -316.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -94,19 +120,101 @@
 			disable = '';
 			image_type = 1;
 		};
-		[3] =
+		[4] =
 		{
 			[1] =
 			{
-				type = 'Scale9Sprite';
+				[1] =
+				{
+					type = 'LayerColor';
+					ui_name = 'hide';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 150;
+					height = 150;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 0.000000;
+				y = -24.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 3;
-				width = 0;
-				height = 0;
+				relative_size_type = 0;
+				width = 150;
+				height = 150;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'itemNode';
+			};
+			[2] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 8.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 256;
+					height = 46;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 22;
+					text = '레벨업 선물';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 256;
+					dimension_height = 46;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 61; 50; 27; };
+					has_shadow = false;
+					shadow_color = { 61; 50; 27; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Sprite';
+				ui_name = '';
+				x = -4.000000;
+				y = 34.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 260;
+				height = 54;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -114,15 +222,34 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/exploration_title_0101.png';
+				file_name = 'ui/frames/event_0201.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
-				center_rect_x = 0;
-				center_rect_y = 0;
-				center_rect_width = 0;
-				center_rect_height = 0;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
 			};
-			[2] =
+			type = 'Menu';
+			ui_name = '레벨 달성 보상';
+			x = 0.000000;
+			y = -182.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 1200;
+			height = 137;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+		};
+		[5] =
+		{
+			[1] =
 			{
 				[1] =
 				{
@@ -294,7 +421,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[3] =
+			[2] =
 			{
 				[1] =
 				{
@@ -386,7 +513,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[4] =
+			[3] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -427,9 +554,9 @@
 				shadow_distance = 3.000000;
 			};
 			type = 'Menu';
-			ui_name = '';
+			ui_name = '최대 날개';
 			x = 0.000000;
-			y = -54.000000;
+			y = 47.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -443,12 +570,12 @@
 			visible = true;
 			lua_name = '';
 		};
-		[4] =
+		[6] =
 		{
 			type = 'Visual';
 			ui_name = '';
-			x = -0.000015;
-			y = 88.999985;
+			x = 0.000000;
+			y = 143.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -468,7 +595,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[5] =
+		[7] =
 		{
 			[1] =
 			{
@@ -492,14 +619,14 @@
 			type = 'Sprite';
 			ui_name = '';
 			x = 0.000000;
-			y = 84.000000;
+			y = 157.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 370;
 			height = 370;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
+			scale_x = 0.950000;
+			scale_y = 0.950000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
