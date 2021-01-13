@@ -70,8 +70,8 @@ function UI_DragonUpgradeCombineMaterialConfirmPopup:initUI()
     vars['dragonExpLabel']:setString(Str('{1}', comma_value(need_dragon_exp)))
     vars['goldLabel']:setString(Str('{1}', comma_value(need_gold)))
 
-    AlignUIPos({vars['dragonExpIcon'], vars['dragonExpLabel']}, 'HORIZONTAL', 'CENTER', 0)
-    AlignUIPos({vars['goldIcon'], vars['goldLabel']}, 'HORIZONTAL', 'CENTER', 0)
+    --AlignUIPos({vars['dragonExpIcon'], vars['dragonExpLabel']}, 'HORIZONTAL', 'CENTER', 0)
+    --AlignUIPos({vars['goldIcon'], vars['goldLabel']}, 'HORIZONTAL', 'CENTER', 0)
 end
 
 -------------------------------------
