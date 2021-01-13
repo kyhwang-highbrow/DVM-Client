@@ -259,6 +259,7 @@ function UI_DragonUpgradeCombineMaterial:initButton()
     vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    cca.pickMePickMe(vars['buyBtn'], 10)
 end
 
 -------------------------------------
