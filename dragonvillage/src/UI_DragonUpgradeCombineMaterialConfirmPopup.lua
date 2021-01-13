@@ -54,7 +54,7 @@ function UI_DragonUpgradeCombineMaterialConfirmPopup:initUI()
     local slime_name = t_item['t_name']
     
     local slime_count = #self.m_lCombineDataList
-    vars['infoLabel']:setString(Str('{@default}다음과 같이 재료를 사용하여 {@yellow}{1} {2}마리{@default}를 합성합니다.\n합성하시겠습니까?', slime_name, slime_count))
+    vars['infoLabel']:setString(Str('{@default}다음과 같이 재료를 사용하여 {@yellow}{1} {2}마리{@default}를 합성합니다.\n합성하시겠습니까?', Str(slime_name), comma_value(slime_count)))
 
     -- price label    
     local user_dragon_exp = g_userData:get('dragon_exp')
