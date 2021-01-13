@@ -313,8 +313,7 @@ end
 function FacebookAudienceNetworkRewardedVideoAd:getAdUnitIdByAdType(ad_type)
     local adPlacementID = ''
 
-    -- @sgkim 2019.10.18 Admob의 모든 광고는 하나의 광고 단위로 재생한다.
-    --                   preload의 문제와 광고 크래시 안정화를 위해서이다.
+    -- 혹시 모를 상황 대비해서 로직 살려두기
     adPlacementID = AD_PLACEMENT_ID
 
     return adPlacementID
