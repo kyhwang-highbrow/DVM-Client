@@ -146,8 +146,8 @@ function UI_EventFullPopup:initUI()
                 -- @kwkang 20-12-14 새해맞이로 패키지 재판매하여 하단 주석처리
                 -- self:changeTitleSprite(ui.vars)
 
-            -- 룬상자 패키지의 경우 풀팝업에서는 룬 뽑기 탭으로 바로 가는 버튼을 끔
-            elseif (popup_key == 'package_rune_box') and (ui.vars['quickBtn'] ~= nil) then
+            -- 풀팝업에서는 퀵 버튼을 끔
+            elseif (ui.vars['quickBtn'] ~= nil) then
                 ui.vars['quickBtn']:setVisible(false)
             end
         end
