@@ -43,24 +43,24 @@ function StructUpgradeMaterialCombine:addDragonObject(t_dragon_data)
 
     local index = self:getNextIndex(t_dragon_data) -- 놓여질 인덱스 찾기
 
-    if (index == 1) then
-        -- 기존에 가장 높은 녀석이 있었던 경우 그 녀석의 위치 바꿔주기
-        if (self.m_mDragonMappingIndex[1] ~= nil) then
-            local curr_lowest_index = 2
-            
-            while(self.m_mDragonMappingIndex[curr_lowest_index] ~= nil) do
-                curr_lowest_index = curr_lowest_index + 1
-            end   
-
-            local before_highest_data = self.m_mDragonMappingIndex[1]
-            local before_highest_doid = before_highest_data['id']
-
-            self.m_mDragonIndexMap[before_highest_doid] = curr_lowest_index
-            self.m_mDragonObjectMap[before_highest_doid] = before_highest_data
-            self.m_mDragonMappingIndex[curr_lowest_index] = before_highest_data
-            self.m_lDirtyList[curr_lowest_index] = true
-        end        
-    end
+    --if (index == 1) then
+        ---- 기존에 가장 높은 녀석이 있었던 경우 그 녀석의 위치 바꿔주기
+        --if (self.m_mDragonMappingIndex[1] ~= nil) then
+            --local curr_lowest_index = 2
+            --
+            --while(self.m_mDragonMappingIndex[curr_lowest_index] ~= nil) do
+                --curr_lowest_index = curr_lowest_index + 1
+            --end   
+--
+            --local before_highest_data = self.m_mDragonMappingIndex[1]
+            --local before_highest_doid = before_highest_data['id']
+--
+            --self.m_mDragonIndexMap[before_highest_doid] = curr_lowest_index
+            --self.m_mDragonObjectMap[before_highest_doid] = before_highest_data
+            --self.m_mDragonMappingIndex[curr_lowest_index] = before_highest_data
+            --self.m_lDirtyList[curr_lowest_index] = true
+        --end        
+    --end
 
     self.m_mDragonIndexMap[doid] = index -- 몇번에 등록될지
     self.m_mDragonObjectMap[doid] = t_dragon_data
@@ -88,33 +88,33 @@ function StructUpgradeMaterialCombine:removeDragonObject(doid)
 
     -- 만약 제거된 재료 드래곤이 1번이었다면
     -- 남은 드래곤 중 가장 레벨이 높은 드래곤을 1번으로 옮긴다
-    if (index == 1) then
-        local max_index = nil
-        local max_lv = nil
-        local full_slot_count = self:getRequireCount()
-
-        for i = 2, full_slot_count do
-            local t_dragon_data = self.m_mDragonMappingIndex[i]
-            if (t_dragon_data ~= nil) then
-                local lv = t_dragon_data['lv']
-                if (max_lv == nil) or (max_lv < lv) then
-                    max_index = i
-                    max_lv = lv
-                end
-            end
-        end
-
-        if (max_index ~= nil) then
-            local highest_data = self.m_mDragonMappingIndex[max_index]
-            local highest_doid = highest_data['id']
-            
-            self.m_mDragonIndexMap[highest_doid] = 1
-            self.m_mDragonMappingIndex[max_index] = nil
-            self.m_mDragonMappingIndex[1] = highest_data
-
-            self.m_lDirtyList[max_index] = true
-        end
-    end
+    --if (index == 1) then
+        --local max_index = nil
+        --local max_lv = nil
+        --local full_slot_count = self:getRequireCount()
+--
+        --for i = 2, full_slot_count do
+            --local t_dragon_data = self.m_mDragonMappingIndex[i]
+            --if (t_dragon_data ~= nil) then
+                --local lv = t_dragon_data['lv']
+                --if (max_lv == nil) or (max_lv < lv) then
+                    --max_index = i
+                    --max_lv = lv
+                --end
+            --end
+        --end
+--
+        --if (max_index ~= nil) then
+            --local highest_data = self.m_mDragonMappingIndex[max_index]
+            --local highest_doid = highest_data['id']
+            --
+            --self.m_mDragonIndexMap[highest_doid] = 1
+            --self.m_mDragonMappingIndex[max_index] = nil
+            --self.m_mDragonMappingIndex[1] = highest_data
+--
+            --self.m_lDirtyList[max_index] = true
+        --end
+    --end
 
     self:refreshPrice()
 
@@ -133,9 +133,14 @@ function StructUpgradeMaterialCombine:refreshPrice()
         return
     end
 
-    -- 비어있지 않은 경우 1번 재료를 기준으로 추가로 필요한 경험치 계산
+    -- 비어있지 않은 경우 아무 재료를 기준으로 추가로 필요한 경험치 계산
     local grade = self.m_grade
-    local t_dragon_data = self.m_mDragonMappingIndex[1]
+    local t_dragon_data
+    local slot_idx = 1
+    while (self.m_mDragonMappingIndex[slot_idx] == nil) do
+        slot_idx = slot_idx + 1
+    end
+    local t_dragon_data = self.m_mDragonMappingIndex[slot_idx]
     local lv = t_dragon_data['lv']
     local max_lv = TableGradeInfo():getValue(grade, 'max_lv')
 
@@ -146,7 +151,7 @@ function StructUpgradeMaterialCombine:refreshPrice()
         need_exp = need_exp - dragon_exp
     end
 
-    -- 골드는 현재 등급의 승급 비용 + 1번 재료 레벨업 비용
+    -- 골드는 현재 등급의 승급 비용 + 재료 레벨업 비용
     need_gold = need_gold +  TableGradeInfo():getValue(grade, 'req_gold')
    
     self.m_needGold = need_gold
@@ -236,37 +241,43 @@ end
 
 -------------------------------------
 -- function getNextIndex
--- @brief 가장 레벨이 높은 재료가 1번 인덱스, 나머지는 순서대로
+-- @brief 가장 레벨이 높은 재료가 1번 인덱스, 나머지는 순서대로 <- 주석 처리
+-- @brief 빈 자리 중 낮은 번호 
 -------------------------------------
 function StructUpgradeMaterialCombine:getNextIndex(t_dragon_data)
-    local lv = t_dragon_data['lv']
-    local exp = t_dragon_data['exp'] or 0
-    local b_is_highest = true
-
-    for doid, data in pairs(self.m_mDragonObjectMap) do
-        -- 레벨 우선 비교
-        if (data['lv'] > lv) then
-            b_is_highest = false
-            break
-
-        -- 레벨이 같은 경우엔 경험치 비교
-        elseif (data['lv'] == lv) then
-            local data_exp = data['exp'] or 0
-            if (data_exp >= exp) then
-                b_is_highest = false
-                break
-            end
-        end
-    end
+    --local lv = t_dragon_data['lv']
+    --local exp = t_dragon_data['exp'] or 0
+    --local b_is_highest = true
+--
+    --for doid, data in pairs(self.m_mDragonObjectMap) do
+        ---- 레벨 우선 비교
+        --if (data['lv'] > lv) then
+            --b_is_highest = false
+            --break
+--
+        ---- 레벨이 같은 경우엔 경험치 비교
+        --elseif (data['lv'] == lv) then
+            --local data_exp = data['exp'] or 0
+            --if (data_exp >= exp) then
+                --b_is_highest = false
+                --break
+            --end
+        --end
+    --end
+--
+    --local lowest_index = 1
+--
+    --if (b_is_highest == false) then
+        --lowest_index = 2
+--
+        --while(self.m_mDragonMappingIndex[lowest_index] ~= nil) do
+            --lowest_index = lowest_index + 1
+        --end
+    --end
 
     local lowest_index = 1
-
-    if (b_is_highest == false) then
-        lowest_index = 2
-
-        while(self.m_mDragonMappingIndex[lowest_index] ~= nil) do
-            lowest_index = lowest_index + 1
-        end
+    while(self.m_mDragonMappingIndex[lowest_index] ~= nil) do
+        lowest_index = lowest_index + 1
     end
 
     return lowest_index
