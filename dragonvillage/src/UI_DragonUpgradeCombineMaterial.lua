@@ -459,6 +459,7 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
     local max_lv = TableGradeInfo():getValue(grade, 'max_lv')
 
     local need_gold, need_dragon_exp = TableDragonExp():getGoldAndDragonEXPForDragonLevelUp(grade, lv, max_lv)
+    need_gold = need_gold +  TableGradeInfo():getValue(grade, 'req_gold')
 
     local material_item_list = clone(self.m_tableView.m_itemList)
 
