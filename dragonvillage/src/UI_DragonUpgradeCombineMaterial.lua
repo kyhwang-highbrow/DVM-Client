@@ -462,6 +462,9 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
 
     local material_item_list = clone(self.m_tableView.m_itemList)
 
+    local b_is_change = false
+    local no_change_reason = 'material'
+
     -- 1. 유저가 등록한 드래곤이 존재하던 합성 재료부터 채운다.
     for combine_data_id, combine_data in ipairs(self.m_lCombineDataList) do
         -- 이미 다 등록된 경우
@@ -476,6 +479,8 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                 local doid = t_dragon_data['id']
                                 
                 if (self.m_mSelectDragonMap[doid] == nil) then
+                    b_is_change = true
+
                     -- 합성 정보에 드래곤 정보 등록
                     combine_data:addDragonObject(t_dragon_data)
 
@@ -527,6 +532,8 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
 
                         -- 다 채우는 게 가능한 경우 합성 재료 등록
                         if (table.count(l_doid_list) == combine_data:getRequireCount()) then
+                            b_is_change = true
+                            
                             total_need_dragon_exp = total_need_dragon_exp + need_dragon_exp
                             total_need_gold = total_need_gold + need_gold
 
@@ -553,11 +560,24 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
                     end
                 end
             end
+        
+        elseif ((user_gold - total_need_gold) - need_gold < 0) then
+            no_change_reason = 'gold'
+        elseif ((user_dragon_exp - total_need_dragon_exp) - need_dragon_exp < 0) then
+            no_change_reason = 'dragon_exp'
         end
     end
-
-    self:refresh()
     
+    if (b_is_change) then
+        self:refresh()
+    elseif (no_change_reason == 'gold') then
+        UIManager:toastNotificationRed(Str('골드가 부족합니다'))
+    elseif (no_change_reason == 'dragon_exp') then
+        UIManager:toastNotificationRed(Str('드래곤 경험치가 부족합니다'))
+    elseif (no_change_reason == 'material') then
+        UIManager:toastNotificationRed(Str('합성에 필요한 재료가 부족합니다.'))
+    end
+
     -- 마구잡이로 해당 버튼을 누르면 렉을 유발하니까 딜레이를 준다.
     local function reserve_func()
         self.m_bDoingAutoBtn = false
