@@ -11,4 +11,4 @@ OBB_FORMAT = '..\\main.%d.%s.obb' -- main.11.com.perplelab.dragonvillagem.kr.obb
 
 -- 100MB 기준 사이즈 : 바이너리 사이즈에 따라 달라질 수도 있다...
 MB_TO_BYTE = (1024 * 1024)
-UNDER_100MB = (100 * MB_TO_BYTE)
+UNDER_100MB = (150 * MB_TO_BYTE)
