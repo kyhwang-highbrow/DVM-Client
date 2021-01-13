@@ -135,6 +135,11 @@ function UI_DragonUpgradeCombineMaterial:initTableView()
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
+
+    -- 리스트가 비었을 때
+    local msg = Str('도와줄 드래곤이 없다고라') 
+    table_view_td:makeDefaultEmptyMandragora(msg)
+
     self.m_tableView = table_view_td
 
     -- 재료로 사용 가능한 리스트를 얻어옴
