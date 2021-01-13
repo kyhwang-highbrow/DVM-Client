@@ -12,7 +12,7 @@ local FacebookAudienceNetworkRewardedVideoAd = {
 }
 
 -- 광고 키
-local AD_PLACEMENT_ID = '1511246825747227_1511253029079940' -- app launching 시 사용
+local AD_PLACEMENT_ID = '1305794786440407_1311338499219369' -- app launching 시 사용
 
 -------------------------------------
 -- function initRewardedVideoAd
