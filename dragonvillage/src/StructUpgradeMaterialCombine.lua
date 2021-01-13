@@ -134,7 +134,6 @@ function StructUpgradeMaterialCombine:refreshPrice()
     end
 
     -- 비어있지 않은 경우 1번 재료를 기준으로 추가로 필요한 경험치 계산
-    local table_exp = TableDragonExp()
     local grade = self.m_grade
     local t_dragon_data = self.m_mDragonMappingIndex[1]
     local lv = t_dragon_data['lv']

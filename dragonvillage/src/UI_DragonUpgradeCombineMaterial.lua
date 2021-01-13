@@ -448,12 +448,29 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
     end
     self.m_bDoingAutoBtn = true
 
+    -- 유저가 가진 재화 계산해서 되는 만큼만 넣어줌
+    local user_dragon_exp = g_userData:get('dragon_exp')
+    local user_gold = g_userData:get('gold')
+    local total_need_dragon_exp = 0
+    local total_need_gold = 0
+    
+    local grade = self.m_sortGrade
+    local lv = 1
+    local max_lv = TableGradeInfo():getValue(grade, 'max_lv')
+
+    local need_gold, need_dragon_exp = TableDragonExp():getGoldAndDragonEXPForDragonLevelUp(grade, lv, max_lv)
+
     local material_item_list = clone(self.m_tableView.m_itemList)
 
     -- 1. 유저가 등록한 드래곤이 존재하던 합성 재료부터 채운다.
     for combine_data_id, combine_data in ipairs(self.m_lCombineDataList) do
+        -- 이미 다 등록된 경우
+        if (combine_data:isFull()) then
+            total_need_dragon_exp = total_need_dragon_exp + need_dragon_exp
+            total_need_gold = total_need_gold + need_gold
+
         -- 아직 등록되지 않은 재료 드래곤이 있는 경우에
-        if (not combine_data:isFull()) and (not combine_data:isEmpty()) then
+        elseif (not combine_data:isFull()) and (not combine_data:isEmpty()) then
             for i, v in ipairs(material_item_list) do
                 local t_dragon_data = v['data']
                 local doid = t_dragon_data['id']
@@ -477,6 +494,8 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
 
                     -- 현재 합성 정보 빈 칸 다 채웠는지 확인
                     if (combine_data:isFull() == true) then
+                        total_need_dragon_exp = total_need_dragon_exp + need_dragon_exp
+                        total_need_gold = total_need_gold + need_gold
                         break
                     end
                 end
@@ -488,14 +507,14 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
     local check_item_idx = 0
 
     for combine_data_id, combine_data in ipairs(self.m_lCombineDataList) do
-        -- 아직 아무것도 들어서지 않은 경우
-        if (combine_data:isEmpty()) then
+        -- 아직 아무것도 들어서지 않았고, 정보가 더 등록되어도 재화가 여유로운 경우
+        if (combine_data:isEmpty()) and ((user_dragon_exp - total_need_dragon_exp) - need_dragon_exp >= 0) and ((user_gold - total_need_gold) - need_gold >= 0) then
             local l_doid_list = {}
             local l_dragon_data_list = {}
 
             -- 나머지 재료 칸에 선택되지 않은 레벨 1 재료만 차례로 넣는다
             for idx, v in ipairs(material_item_list) do
-                if (check_item_idx < idx ) then
+                if (check_item_idx < idx) then
                     check_item_idx = idx
 
                     local check_dragon_data = v['data']
@@ -508,6 +527,9 @@ function UI_DragonUpgradeCombineMaterial:click_autoBtn()
 
                         -- 다 채우는 게 가능한 경우 합성 재료 등록
                         if (table.count(l_doid_list) == combine_data:getRequireCount()) then
+                            total_need_dragon_exp = total_need_dragon_exp + need_dragon_exp
+                            total_need_gold = total_need_gold + need_gold
+
                             for i, doid in ipairs(l_doid_list) do
                                 -- 합성 정보에 드래곤 정보 등록
                                 local t_dragon_data = l_dragon_data_list[i]
