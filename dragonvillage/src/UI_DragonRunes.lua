@@ -1190,7 +1190,7 @@ end
 function UI_DragonRunes:click_bulkEquipBtn()
     local select_doid = self.m_selectDragonOID
 
-    function close_cb()
+    local function close_cb()
         self:refreshTableViewList()
         self.m_bChangeDragonList = true
     end
