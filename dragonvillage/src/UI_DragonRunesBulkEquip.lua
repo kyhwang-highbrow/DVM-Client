@@ -238,7 +238,7 @@ function UI_DragonRunesBulkEquip:click_equipBtn()
 	    return
     end
 
-    function finish_cb()
+    local function finish_cb()
         -- 시뮬레이터 before, after 갱신
         self.m_beforeUI:resetRoidList()
         self.m_afterUI:resetRoidList()
