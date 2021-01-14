@@ -625,7 +625,7 @@ function UI_DragonUpgradeCombineMaterial:click_combineBtn()
         return
     end
 
-    function finish_cb(added_slimes)
+    local function finish_cb(added_slimes)
         -- 스플레시 터뜨리고 리프레시
         self:refreshWithSplash(added_slimes)
     end
