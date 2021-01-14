@@ -450,7 +450,8 @@ end
 -------------------------------------
 function StructMail:isNoticeRead()
     -- custom이 nil 데이터가 들어올 때도 있다?
-    if (not self['custom'] or not self['custom']['received']) then return true end
+    -- custom 자체가 없으면 리턴
+    if (not self['custom']) then return true end
 
     return (self:isNotice() and (self['custom']['received'] == true))
 end
