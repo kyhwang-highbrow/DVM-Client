@@ -6,6 +6,7 @@ import shutil
 import zipfile
 import module.md5_log_maker as md5
 import module.utility as utils
+from ui_resource_validator import check_ui_resource_validate
 
 # 전역변수
 tar_server = ''
@@ -211,6 +212,9 @@ def main():
     
     # 전역변수 초기화
     init_global_var()
+
+    # UI Resource 체크
+    check_ui_resource_validate()
     
     # 1. 패치정보 받아오기
     latest_patch_ver = get_patch_info(app_ver)

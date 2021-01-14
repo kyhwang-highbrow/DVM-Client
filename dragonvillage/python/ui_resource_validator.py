@@ -44,7 +44,7 @@ def search_ui_file(root):
                 validate_ui_resource(full_file_name)
 
 
-if __name__ == '__main__':
+def check_ui_resource_validate():
     print("# Validate UI resources path")
 
     search_ui_file(ROOT)
@@ -52,4 +52,8 @@ if __name__ == '__main__':
     if IS_WRONG_RESOURCE == True:
         print('# Check above resources')
         os.system('pause')
+
+
+if __name__ == '__main__':
+    check_ui_resource_validate()
          
