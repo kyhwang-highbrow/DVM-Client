@@ -39,7 +39,7 @@ function AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later)
     else
         
         -- 라이브 서버인가?
-        if IS_LIVE_SERVER() then
+        if IS_LIVE_SERVER() or IS_QA_SERVER() then
              -- 라이브 1.2.8 버전부터 안드로이드에서만 페북 광고를 쓴다.
              if (getAppVerNum() >= 1002008 and CppFunctionsClass:isAndroid() == true) then
                 self.m_sdkName = 'facebookAudienceNetwork'
