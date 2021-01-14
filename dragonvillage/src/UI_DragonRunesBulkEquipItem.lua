@@ -70,12 +70,12 @@ function UI_DragonRunesBulkEquipItem:initUI()
                                 {'resistance', false},
                             }
 
-    function tween_cb(number, label)
+    local function tween_cb(number, label)
         local str = comma_value(math_floor(number)) .. '%'
         label:setString(str)
     end
 
-    function delta_tween_cb_percent(number, label)
+    local function delta_tween_cb_percent(number, label)
         local real_number = math_floor(number)
         
         local str = comma_value(math_abs(real_number)) .. '%'
@@ -92,7 +92,7 @@ function UI_DragonRunesBulkEquipItem:initUI()
         end
     end
 
-    function delta_tween_cb(number, label)
+    local function delta_tween_cb(number, label)
         local real_number = math_floor(number)
         
         local str = comma_value(math_abs(real_number))
@@ -109,7 +109,7 @@ function UI_DragonRunesBulkEquipItem:initUI()
         end
     end
 
-    function delta_tween_finish_cb(number, label)
+    local function delta_tween_finish_cb(number, label)
         local real_number = math_floor(number)
 
         if (real_number == 0) then

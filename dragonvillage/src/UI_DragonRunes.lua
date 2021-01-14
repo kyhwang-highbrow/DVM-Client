@@ -1156,7 +1156,7 @@ function UI_DragonRunes:click_optSortBtn()
 
     local ui = UI_RuneOptionFilter(l_mopt_list, l_sopt_list, b_include_equipped)
 
-    function close_cb(l_mopt_list, l_sopt_list, b_include_equipped) 
+    local function close_cb(l_mopt_list, l_sopt_list, b_include_equipped) 
         local b_is_using_filter = (l_mopt_list ~= nil) or (l_sopt_list ~= nil)
 
         self.vars['optSortLabel']:setColor((b_is_using_filter == false) and cc.c4b(240, 215, 159) or cc.c4b(255, 215, 0))
