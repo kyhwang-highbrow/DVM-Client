@@ -67,6 +67,8 @@ return {['거대한 덩치를 자랑하는 신비성 드래곤. 팔에 새겨진
 ['레벨업 선물']='Level-up Gift',
 ['일괄 합성']='Fuse All',
 ['귀찮은 쫄작은 이 골드라고라가 처리했으니 안심하라골!']='Now you can Rank-up at once!',
+['★2 슈퍼 슬라임']='2★ Super Slime',
+['2성 드래곤의 등급 상승 재료로 사용할 수 있는 신비한 슬라임']='A mysterious slime that can be used as material for 2★ dragon\'s rank-up',
 ['7등급 룬 업데이트']='Grade 7 Rune Update',
 ['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}~{3}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grade {1} Rune Fusion\n{@DEFAULT}Randomly generates Grade {2} - {3} Runes.',
 ['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grade {1} Rune Fusion\n{@DEFAULT}Randomly generates Grade {2} Runes.',

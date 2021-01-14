@@ -67,6 +67,8 @@ return {['거대한 덩치를 자랑하는 신비성 드래곤. 팔에 새겨진
 ['레벨업 선물']='Regalo de nivel',
 ['일괄 합성']='fusionar todo',
 ['귀찮은 쫄작은 이 골드라고라가 처리했으니 안심하라골!']='¡Ahora puedes subir de rango a la vez!',
+['★2 슈퍼 슬라임']='Súper Limo de 2★',
+['2성 드래곤의 등급 상승 재료로 사용할 수 있는 신비한 슬라임']='Limo misterioso que se puede usar como material para subir de rango a dragones de 2 estrellas.',
 ['{@SKILL_NAME}7등급 룬 합성\n{@DEFAULT}랜덤한 7등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grado 7 de la runa de fusión\n{@DEFAULT}genera aleatoriamente grado 7 Runas.',
 ['7등급 룬 업데이트']='Actualización de runas de rango 7',
 ['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}~{3}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grado {1} de la runa de fusión\n{@DEFAULT}genera aleatoriamente grado {2} - {3} Runas.',
