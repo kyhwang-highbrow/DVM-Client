@@ -74,7 +74,7 @@ function UI_DragonRunesBulkEquipDragonTab:initTableView()
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = UI_DragonRunesBulkEquipDragonTab.CARD_CELL_SIZE
-    table_view_td.m_nItemPerCell = 8
+    table_view_td.m_nItemPerCell = 7
     table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
