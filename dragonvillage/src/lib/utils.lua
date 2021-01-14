@@ -815,7 +815,15 @@ function Str(id, ...)
 		cclog('## trying to translate NIL // check it')
 		return
 	end
-    return formatMessage(Translate:get(id), ...)
+
+    local str = formatMessage(Translate:get(id), ...)
+
+    -- 한글이라면 조사 선택 처리
+    if string.match(str, '[가-힣]') then
+        str = SetKrJosa(str)
+    end
+
+    return str
 end
 
 -------------------------------------
@@ -836,6 +844,150 @@ function formatMessage(str, ...)
     end
     return str
 end
+
+-------------------------------------
+-- function SetKrJosa
+-- @brief 앞 단어 받침에 따른 조사 선택
+-------------------------------------
+function SetKrJosa(str)
+    -- 구분되는 조사 리스트
+    -- idx 1 : 받침 있을 때, idx 2 : 받침 없을 때
+    -- ex : {'이', '가'} -> 받침 있을 때는 '이', 없을 때는 '가' 로 선택
+    local l_josa_set_list = {{'이', '가'}, {'은', '는'}, {'을', '를'}, {'과', '와'}}
+    
+    -- 텍스트에 해당 조사 키워드가 감싸지는 방법
+    -- idx 1 : prefix, idx 2 : middle, idx 3 : postfix
+    -- ex: 을(를), (을)를
+    local l_deco_list = {{'', '(', ')'}, {'(', ')', ''}}
+
+    local l_find_josa_list = {}
+
+    -- 해당 조사에 대해 찾고 값 변환
+    local function find_and_change(str, josa_set, deco)
+        local find_josa = deco[1] .. josa_set[1] .. deco[2] .. josa_set[2] .. deco[3]
+        local josa_byte = string.len(find_josa)
+        
+        -- 만약 해당 조사를 찾았는데 조사를 선택하기 애매한 경우 조사를 선택하지 않음
+        -- 그런데 그와 같은 조사가 뒷 문장에 더 있었고, 그 조사에 대해서는 선택이 가능할 때
+        -- replace 함수를 이용하면 왼 쪽의 조사부터 바뀜, 따라서 선택이 불가능했던 조사에 대해서는
+        -- ^josa1^ 등으로 변환해서 가지고 있다가 마지막에 다시 변환시킴 
+        table.insert(l_find_josa_list, find_josa)
+        local replace_nochoice_josa = '^josa'.. tostring(#l_find_josa_list) ..'^'
+
+        --cclog(find_josa)
+
+        -- josa_idx는 바이트 수로 계산이 됨 (한글 = 3byte)
+        local josa_idx = pl.stringx.lfind(str, find_josa)
+        local search_idx = 1
+
+        while (josa_idx ~= nil) do
+            --cclog('josa idx : ' .. josa_idx)
+            -- 찾은 인덱스 바로 이전의 문자 찾기
+            local find_char_idx = 0 -- start idx
+            local find_char_byte = 0 -- byte len
+            while (search_idx < josa_idx) do
+                --cclog('search idx : ' .. search_idx)
+
+                -- 현재 문자의 byte
+                local char_byte = 0
+                if (str:byte(search_idx) >= 0 and str:byte(search_idx) <= 127) then
+                    char_byte = 1
+                elseif (str:byte(search_idx) >= 194 and str:byte(search_idx) <= 223) then
+                    char_byte = 2
+                elseif (str:byte(search_idx) >= 224 and str:byte(search_idx) <= 239) then
+                    char_byte = 3
+                elseif (str:byte(search_idx) >= 240 and str:byte(search_idx) <= 244) then
+                    char_byte = 4
+                else
+                    break
+                end
+
+                -- 현재 문자의 마지막 byte index가 조사의 byte index을 넘어설 경우 stop
+                if (josa_idx <= search_idx + (char_byte - 1)) then
+                    break
+                end
+                
+                -- 만약 '{@' 이라면 리치 텍스트 관련된 부분 넘어가도록 하기
+                if (string.sub(str, search_idx, search_idx + 1) == '{@') then
+                    -- 가장 처음 나오는 } 찾아 search_idx 다음으로 넘기기
+                    local last_idx = pl.stringx.lfind(str, '}', search_idx)
+                    search_idx = last_idx + 1
+                else
+                    local char = string.sub(str, search_idx, search_idx + (char_byte - 1))
+                    -- 문자인 경우에만
+                    -- %s : space, %c : control character(\n, \t, ...), %z : character with representation 0, 
+                    -- 추가로 괄호들 무시 []{}()
+                    if (not string.match(char, '[%s%c%z%[%]{}%(%)]')) then
+                        find_char_idx = search_idx
+                        find_char_byte = char_byte
+                    end
+                    
+                    search_idx = search_idx + char_byte
+                end
+            end
+
+            --cclog('search idx : ' .. search_idx)
+
+
+            -- 가장 근처 문자
+            if (find_char_idx > 0) then
+                local last_char = string.sub(str, find_char_idx, find_char_idx + (find_char_byte - 1))
+         
+                --cclog('last char : ' .. last_char)
+         
+                -- 조사 선택 가능
+                if (string.match(last_char, '[가-힣]')) then
+                    -- 받침이 있는지
+                    local last_char_code =  ((str:byte(find_char_idx) - 224) * 64 * 64) + ((str:byte(find_char_idx + 1) - 128) * 64) + (str:byte(find_char_idx + 2) - 128)
+                    local b_has_bottom_word = (((last_char_code - 0xAC00) % 28) > 0)          
+                    
+                    if (b_has_bottom_word) then
+                        str = pl.stringx.replace(str, find_josa, josa_set[1], 1)
+                    else
+                        str = pl.stringx.replace(str, find_josa, josa_set[2], 1)
+                    end
+                    
+                    search_idx = josa_idx + 3
+
+                else
+                    str = pl.stringx.replace(str, find_josa, replace_nochoice_josa, 1)
+                    search_idx = josa_idx + string.len(replace_nochoice_josa)
+                end
+
+            -- 조사 앞에 문자가 없는 경우
+            else
+                -- 해당 조사를 데코가 없는 조사 버전으로 찾을 때 또 찾음 방지
+                str = pl.stringx.replace(str, find_josa, replace_nochoice_josa, 1)
+                search_idx = josa_idx + string.len(replace_nochoice_josa)
+            end
+
+            --cclog('find char idx : ' .. find_char_idx)
+            -- 다음 조사 인덱스 찾기
+            -- 만약 조사가 모종의 이유로 선택되지 않은 경우에 
+            josa_idx = pl.stringx.lfind(str, find_josa, search_idx)
+        end
+
+        return str    
+    end
+
+    -- 각 조사 선택지로 문장 검사
+    for _, josa_set in ipairs(l_josa_set_list) do
+        for _, deco in ipairs(l_deco_list) do
+            str = find_and_change(str, josa_set, deco)
+        end
+    end
+
+    -- 선택하지 못한 조사들 다시 치환
+    for idx, find_josa in ipairs(l_find_josa_list) do
+        local replace_nochoice_josa = '^josa'.. tostring(idx) ..'^'
+        str = pl.stringx.replace(str, replace_nochoice_josa, find_josa)
+    end
+
+    -- cclog('finish : ' .. str)
+
+    return str
+end
+
 
 -------------------------------------
 -- function stringSplit
