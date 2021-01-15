@@ -111,10 +111,12 @@ function UI_ItemInfoPopup:initUI()
         local str = _struct_rune_obj:makeRuneSetDescRichText() or ''
         vars['itemDscLabel2']:setString(str)
 
-        local t_rune_data = self.m_tSubData
-        local roid = t_rune_data['roid']
+        if (self.m_tSubData) then
+            local t_rune_data = self.m_tSubData
+            local roid = t_rune_data['roid']
 
-        self:refresh_memoLabel(roid)
+            self:refresh_memoLabel(roid)
+        end
     end
 
     -- 하위 UI가 모두 opacity값을 적용되도록
@@ -156,65 +158,66 @@ function UI_ItemInfoPopup:initButton()
 
     local type = TableItem:getItemType(self.m_itemID)
     if (type == 'rune') then
-
         -- 룬 메모
-        local t_rune_data = self.m_tSubData
-        local rune_memo = g_runeMemoData:getMemo(t_rune_data['roid'])
-        -- 메모가 있는 경우 바로 메모 창을 보여주고
-        if (rune_memo ~= nil) then
-            vars['useMemoBtn']:setVisible(false)
-            vars['useMemoMenu']:setVisible(true)
-            self:refresh_memoLabel(t_rune_data['roid'])
-        -- 없는 경우에는 세트 효과창을 보여준다.
-        else
-            vars['useMemoBtn']:setVisible(true)
-            vars['useMemoMenu']:setVisible(false)
-            self:refresh_memoLabel(t_rune_data['roid'])
-        end
-
-        -- 룬 관련
-        vars['useSetBtn']:registerScriptTapHandler(function() self:click_setBtn() end) -- 세트 효과 보기
-        vars['useMemoBtn']:registerScriptTapHandler(function() self:click_memoBtn() end) -- 메모 보기
-
-        vars['useMemoEditBtn']:registerScriptTapHandler(function() self:click_memoEditBtn() end)
-
-	    -- editBox handler 등록
-	    local function editBoxTextEventHandle(strEventName, pSender)
-            if (strEventName == "return") then
-                local t_rune_data = self.m_tSubData
-                if (t_rune_data == nil) then
-                    return
-                end
-            
-                local roid = t_rune_data['roid']
-
-			    -- 키보드 입력이 종료될 때 텍스트 검증을 한다.
-                local text = vars['useMemoEditBox']:getText()
-                local context, is_valid = g_runeMemoData:validateMemoText(text)
-                if (not is_valid) then
-                    self:refresh_memoLabel(roid)
-                    return
-                end
-
-			    local function proceed_func()
-                    local t_rune_data = self.m_tSubData
-                    if (t_rune_data) then
-			            g_runeMemoData:modifyMemo(roid, context)
-			            g_runeMemoData:saveRuneMemoMap()
-                        self:refresh_memoLabel(roid)
-                    end
-                end
-
-			    local function cancel_func()
-                    self:refresh_memoLabel(roid)
-			    end
-			
-			    -- 비속어 필터링
-                CheckBlockStr(context, proceed_func, cancel_func)
+        if (self.m_tSubData) then
+            local t_rune_data = self.m_tSubData
+            local rune_memo = g_runeMemoData:getMemo(t_rune_data['roid'])
+            -- 메모가 있는 경우 바로 메모 창을 보여주고
+            if (rune_memo ~= nil) then
+                vars['useMemoBtn']:setVisible(false)
+                vars['useMemoMenu']:setVisible(true)
+                self:refresh_memoLabel(t_rune_data['roid'])
+            -- 없는 경우에는 세트 효과창을 보여준다.
+            else
+                vars['useMemoBtn']:setVisible(true)
+                vars['useMemoMenu']:setVisible(false)
+                self:refresh_memoLabel(t_rune_data['roid'])
             end
+
+            -- 룬 관련
+            vars['useSetBtn']:registerScriptTapHandler(function() self:click_setBtn() end) -- 세트 효과 보기
+            vars['useMemoBtn']:registerScriptTapHandler(function() self:click_memoBtn() end) -- 메모 보기
+
+            vars['useMemoEditBtn']:registerScriptTapHandler(function() self:click_memoEditBtn() end)
+
+	        -- editBox handler 등록
+	        local function editBoxTextEventHandle(strEventName, pSender)
+                if (strEventName == "return") then
+                    local t_rune_data = self.m_tSubData
+                    if (t_rune_data == nil) then
+                        return
+                    end
+            
+                    local roid = t_rune_data['roid']
+
+			        -- 키보드 입력이 종료될 때 텍스트 검증을 한다.
+                    local text = vars['useMemoEditBox']:getText()
+                    local context, is_valid = g_runeMemoData:validateMemoText(text)
+                    if (not is_valid) then
+                        self:refresh_memoLabel(roid)
+                        return
+                    end
+
+			        local function proceed_func()
+                        local t_rune_data = self.m_tSubData
+                        if (t_rune_data) then
+			                g_runeMemoData:modifyMemo(roid, context)
+			                g_runeMemoData:saveRuneMemoMap()
+                            self:refresh_memoLabel(roid)
+                        end
+                    end
+
+			        local function cancel_func()
+                        self:refresh_memoLabel(roid)
+			        end
+			
+			        -- 비속어 필터링
+                    CheckBlockStr(context, proceed_func, cancel_func)
+                end
+            end
+            vars['useMemoEditBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+            vars['useMemoEditBox']:setMaxLength(RUNE_MEMO_MAX_LENGTH)
         end
-        vars['useMemoEditBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
-        vars['useMemoEditBox']:setMaxLength(RUNE_MEMO_MAX_LENGTH)
     end
 end
 
