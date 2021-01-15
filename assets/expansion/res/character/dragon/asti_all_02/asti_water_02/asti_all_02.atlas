@@ -1,0 +1,258 @@
+
+asti_all_02.png
+size: 1859,415
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+asti_all_02_arm_01
+  rotate: true
+  xy: 581, 4
+  size: 138, 151
+  orig: 138, 151
+  offset: 0, 0
+  index: -1
+asti_all_02_arm_02
+  rotate: false
+  xy: 1599, 299
+  size: 87, 114
+  orig: 87, 114
+  offset: 0, 0
+  index: -1
+asti_all_02_b_arm
+  rotate: true
+  xy: 930, 19
+  size: 143, 218
+  orig: 143, 218
+  offset: 0, 0
+  index: -1
+asti_all_02_b_eye
+  rotate: true
+  xy: 1620, 64
+  size: 31, 60
+  orig: 31, 60
+  offset: 0, 0
+  index: -1
+asti_all_02_b_hair
+  rotate: true
+  xy: 1476, 215
+  size: 198, 121
+  orig: 198, 121
+  offset: 0, 0
+  index: -1
+asti_all_02_b_horn
+  rotate: false
+  xy: 1211, 32
+  size: 73, 131
+  orig: 73, 131
+  offset: 0, 0
+  index: -1
+asti_all_02_b_leg_01
+  rotate: false
+  xy: 327, 4
+  size: 106, 109
+  orig: 106, 109
+  offset: 0, 0
+  index: -1
+asti_all_02_b_leg_02
+  rotate: false
+  xy: 1693, 17
+  size: 58, 108
+  orig: 58, 108
+  offset: 0, 0
+  index: -1
+asti_all_02_body_01
+  rotate: false
+  xy: 213, 115
+  size: 236, 298
+  orig: 236, 298
+  offset: 0, 0
+  index: -1
+asti_all_02_body_02
+  rotate: true
+  xy: 822, 164
+  size: 249, 182
+  orig: 249, 182
+  offset: 0, 0
+  index: -1
+asti_all_02_ear
+  rotate: true
+  xy: 1150, 27
+  size: 136, 59
+  orig: 136, 59
+  offset: 0, 0
+  index: -1
+asti_all_02_eye
+  rotate: false
+  xy: 1707, 234
+  size: 67, 64
+  orig: 67, 64
+  offset: 0, 0
+  index: -1
+asti_all_02_finger_01
+  rotate: false
+  xy: 1473, 16
+  size: 36, 38
+  orig: 36, 38
+  offset: 0, 0
+  index: -1
+asti_all_02_finger_02
+  rotate: false
+  xy: 1436, 15
+  size: 35, 39
+  orig: 35, 39
+  offset: 0, 0
+  index: -1
+asti_all_02_hair_01
+  rotate: false
+  xy: 1511, 3
+  size: 107, 92
+  orig: 107, 92
+  offset: 0, 0
+  index: -1
+asti_all_02_hair_02
+  rotate: false
+  xy: 1486, 97
+  size: 113, 116
+  orig: 113, 116
+  offset: 0, 0
+  index: -1
+asti_all_02_hair_03
+  rotate: true
+  xy: 435, 5
+  size: 108, 144
+  orig: 108, 144
+  offset: 0, 0
+  index: -1
+asti_all_02_head_01
+  rotate: false
+  xy: 1688, 300
+  size: 97, 113
+  orig: 97, 113
+  offset: 0, 0
+  index: -1
+asti_all_02_head_02
+  rotate: true
+  xy: 1787, 326
+  size: 87, 69
+  orig: 87, 69
+  offset: 0, 0
+  index: -1
+asti_all_02_head_03
+  rotate: false
+  xy: 1707, 127
+  size: 65, 105
+  orig: 65, 105
+  offset: 0, 0
+  index: -1
+asti_all_02_head_04
+  rotate: true
+  xy: 1787, 211
+  size: 113, 67
+  orig: 113, 67
+  offset: 0, 0
+  index: -1
+asti_all_02_horn
+  rotate: false
+  xy: 734, 8
+  size: 135, 150
+  orig: 135, 150
+  offset: 0, 0
+  index: -1
+asti_all_02_leg_01
+  rotate: false
+  xy: 1601, 97
+  size: 90, 112
+  orig: 90, 112
+  offset: 0, 0
+  index: -1
+asti_all_02_leg_h
+  rotate: true
+  xy: 1388, 6
+  size: 48, 46
+  orig: 48, 46
+  offset: 0, 0
+  index: -1
+asti_all_02_long_01
+  rotate: true
+  xy: 451, 144
+  size: 269, 236
+  orig: 269, 236
+  offset: 0, 0
+  index: -1
+asti_all_02_long_02
+  rotate: false
+  xy: 1264, 183
+  size: 210, 230
+  orig: 210, 230
+  offset: 0, 0
+  index: -1
+asti_all_02_tail
+  rotate: true
+  xy: 2, 11
+  size: 402, 209
+  orig: 402, 209
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_atk_01
+  rotate: false
+  xy: 871, 5
+  size: 57, 157
+  orig: 57, 157
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_atk_02
+  rotate: true
+  xy: 1753, 26
+  size: 99, 104
+  orig: 99, 104
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_atk_03
+  rotate: true
+  xy: 1388, 56
+  size: 125, 96
+  orig: 125, 96
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_atk_04
+  rotate: true
+  xy: 1286, 19
+  size: 162, 100
+  orig: 162, 100
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_ball
+  rotate: true
+  xy: 213, 2
+  size: 111, 112
+  orig: 111, 112
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_pose_01
+  rotate: false
+  xy: 1599, 220
+  size: 106, 77
+  orig: 106, 77
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_ring_01
+  rotate: true
+  xy: 689, 160
+  size: 253, 131
+  orig: 253, 131
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_ring_02
+  rotate: true
+  xy: 1134, 165
+  size: 248, 128
+  orig: 248, 128
+  offset: 0, 0
+  index: -1
+effect_asti_all_02_ring_03
+  rotate: true
+  xy: 1006, 164
+  size: 249, 126
+  orig: 249, 126
+  offset: 0, 0
+  index: -1

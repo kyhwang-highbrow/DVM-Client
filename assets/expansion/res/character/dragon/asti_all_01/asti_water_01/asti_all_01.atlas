@@ -1,0 +1,153 @@
+
+asti_all_01.png
+size: 194,1029
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+asti_all_01_arm
+  rotate: true
+  xy: 124, 294
+  size: 109, 66
+  orig: 109, 66
+  offset: 0, 0
+  index: -1
+asti_all_01_b_arm
+  rotate: true
+  xy: 118, 214
+  size: 78, 69
+  orig: 78, 69
+  offset: 0, 0
+  index: -1
+asti_all_01_b_hand
+  rotate: false
+  xy: 45, 7
+  size: 37, 39
+  orig: 37, 39
+  offset: 0, 0
+  index: -1
+asti_all_01_b_leg
+  rotate: true
+  xy: 106, 136
+  size: 76, 82
+  orig: 76, 82
+  offset: 0, 0
+  index: -1
+asti_all_01_body
+  rotate: true
+  xy: 2, 882
+  size: 145, 190
+  orig: 145, 190
+  offset: 0, 0
+  index: -1
+asti_all_01_eye_01
+  rotate: false
+  xy: 2, 2
+  size: 41, 44
+  orig: 41, 44
+  offset: 0, 0
+  index: -1
+asti_all_01_hair
+  rotate: false
+  xy: 128, 542
+  size: 64, 99
+  orig: 64, 99
+  offset: 0, 0
+  index: -1
+asti_all_01_head_01
+  rotate: true
+  xy: 2, 357
+  size: 118, 120
+  orig: 118, 120
+  offset: 0, 0
+  index: -1
+asti_all_01_head_02
+  rotate: true
+  xy: 2, 674
+  size: 115, 129
+  orig: 115, 129
+  offset: 0, 0
+  index: -1
+asti_all_01_horn
+  rotate: true
+  xy: 128, 474
+  size: 66, 49
+  orig: 66, 49
+  offset: 0, 0
+  index: -1
+asti_all_01_leg
+  rotate: false
+  xy: 2, 190
+  size: 102, 77
+  orig: 102, 77
+  offset: 0, 0
+  index: -1
+asti_all_01_long_01
+  rotate: false
+  xy: 2, 140
+  size: 101, 48
+  orig: 101, 48
+  offset: 0, 0
+  index: -1
+asti_all_01_long_02
+  rotate: true
+  xy: 133, 643
+  size: 78, 49
+  orig: 78, 49
+  offset: 0, 0
+  index: -1
+asti_all_01_shadow
+  rotate: true
+  xy: 147, 834
+  size: 46, 45
+  orig: 46, 45
+  offset: 0, 0
+  index: -1
+effect_asti_all_01_atk_01
+  rotate: false
+  xy: 147, 723
+  size: 44, 109
+  orig: 44, 109
+  offset: 0, 0
+  index: -1
+effect_asti_all_01_atk_02
+  rotate: true
+  xy: 2, 48
+  size: 90, 95
+  orig: 90, 95
+  offset: 0, 0
+  index: -1
+effect_asti_all_01_atk_03
+  rotate: false
+  xy: 2, 269
+  size: 114, 86
+  orig: 114, 86
+  offset: 0, 0
+  index: -1
+effect_asti_all_01_atk_04
+  rotate: false
+  xy: 2, 791
+  size: 143, 89
+  orig: 143, 89
+  offset: 0, 0
+  index: -1
+effect_asti_all_01_b_ball
+  rotate: false
+  xy: 124, 405
+  size: 67, 67
+  orig: 67, 67
+  offset: 0, 0
+  index: -1
+effect_asti_all_01_ball
+  rotate: false
+  xy: 99, 55
+  size: 79, 79
+  orig: 79, 79
+  offset: 0, 0
+  index: -1
+effect_asti_all_01_pose_l
+  rotate: true
+  xy: 2, 477
+  size: 195, 124
+  orig: 195, 124
+  offset: 0, 0
+  index: -1

@@ -329,7 +329,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '2+1개';
+				text = '3+1개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 0; };
