@@ -2090,7 +2090,7 @@ function UINavigatorDefinition:goTo_slime_combine(...)
     local ui = UI_DragonUpgradeCombineMaterial()
     if (is_opened == true) then
         -- 갱신될 필요가 있다면 갱신
-        function close_cb()
+        local function close_cb()
             -- 슬라임 합성을 한 경우 
             if (ui.m_bDirty) then
                 -- 테이블 아이템 갱신
