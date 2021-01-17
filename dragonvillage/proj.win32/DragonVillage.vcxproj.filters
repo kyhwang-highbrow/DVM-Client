@@ -4810,6 +4810,18 @@
     <None Include="..\src\FacebookAudienceNetworkManager.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SceneGameArenaNew.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_GameArenaNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\GameWorldArenaNew.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameState_ArenaNew.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
