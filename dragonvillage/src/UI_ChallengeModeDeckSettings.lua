@@ -144,7 +144,10 @@ function UI_ChallengeModeDeckSettings:click_startBtn()
         else
             local function finish_cb()
             end
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
+            local b_use_cash_label = true
+            local b_open_spot_sale = true
+            local st_charge_popup = UI_StaminaChargePopup(b_use_cash_label, b_open_spot_sale, finish_cb)
+            --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
         end
     end
 

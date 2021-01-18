@@ -382,7 +382,8 @@ function ServerData_SpotSale:checkSpotSale(item_type, item_value, finish_cb)
         -- 깜짝 상품이 없는 경우
         else
             if (item_type == 'st') then
-                MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
+                -- @ kwkang 날개 상품의 경우 날개 충전 팝업이 먼저 뜨는 것으로 변경
+                -- MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
             else
                 ConfirmPrice_original(item_type, item_value)
             end

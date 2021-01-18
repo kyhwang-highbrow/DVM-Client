@@ -11,12 +11,16 @@ UI_StaminaChargePopup = class(PARENT,{
 
         m_buyBtnPress = 'UI_CntBtnPress',
         m_useBtnPress = 'UI_CntBtnPress',
+
+        m_bChargeSt = 'boolean', -- 해당 팝업에서 날개가 충전되었는가
+        m_bOpenSpotSale = 'boolean', -- 스팟 세일 창 관련 로직을 실행할 것인가
+        m_finishCB = 'function', -- 종료될 때 실행될 함수
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_StaminaChargePopup:init(b_use_cash_label)
+function UI_StaminaChargePopup:init(b_use_cash_label, b_open_spot_sale, finish_cb)
     self.m_uiName = 'UI_StaminaChargePopup'
     local vars = self:load('staminas_charge_popup.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -28,13 +32,17 @@ function UI_StaminaChargePopup:init(b_use_cash_label)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI()
-    self:initButton()
-    self:refresh()
+    self.m_bChargeSt = false
+    self.m_bOpenSpotSale = b_open_spot_sale
+    self.m_finishCB = finish_cb
 
     if (b_use_cash_label) then
         vars['diaMenu']:setVisible(false)
     end
+
+    self:initUI()
+    self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -43,20 +51,45 @@ end
 function UI_StaminaChargePopup:initUI()
     local vars = self.vars
 
-    self.m_buyCnt = 0
-    self.m_useCnt = 0
-    self.m_needCash = 0
+    self:initTypeVariable('buy')
+    self:initTypeVariable('use')
 
-    do -- 찬란한 날개 생성
-        local item_id = 700711
-        local count = g_userData:get('st_100') or 0
-        local item_card = UI_ItemCard(item_id, count)
-        if (count == 0) then
-            item_card.vars['disableSprite']:setVisible(true)
+    -- NumberLabel 설정
+    vars['priceLabel'] = NumberLabel(vars['priceLabel'], 0, 0.3)
+
+    local function tween_cb(number, label)
+        local str = Str('{1}개', comma_value(math_floor(number)))
+        label:setString(str)
+    end
+    vars['quantityTotalLabel1'] = NumberLabel(vars['quantityTotalLabel1'], 0, 0.3)
+    vars['quantityTotalLabel1']:setTweenCallback(tween_cb)
+    vars['quantityTotalLabel2'] = NumberLabel(vars['quantityTotalLabel2'], 0, 0.3)
+    vars['quantityTotalLabel2']:setTweenCallback(tween_cb)
+end
+
+-------------------------------------
+-- function initTypeVariable
+-------------------------------------
+function UI_StaminaChargePopup:initTypeVariable(type)
+    local vars = self.vars
+
+    if (type == 'buy') then
+        self.m_buyCnt = 0
+        self.m_needCash = 0
+
+    elseif (type == 'use') then
+        self.m_useCnt = 0
+        do -- 찬란한 날개 생성
+            local item_id = 700711
+            local count = g_userData:get('st_100') or 0
+            local item_card = UI_ItemCard(item_id, count)
+            if (count == 0) then
+                item_card.vars['disableSprite']:setVisible(true)
+            end
+
+            vars['iconNode']:removeAllChildren()
+            vars['iconNode']:addChild(item_card.root)
         end
-
-        vars['iconNode']:removeAllChildren()
-        vars['iconNode']:addChild(item_card.root)
     end
 end
 
@@ -116,16 +149,16 @@ function UI_StaminaChargePopup:refresh()
 
     vars['quantityLabel1']:setString(comma_value(buy_cnt))
     vars['quantityLabel2']:setString(comma_value(use_cnt))
-    vars['priceLabel']:setString(comma_value(need_cash))
+    vars['priceLabel']:setNumber(need_cash)
 
     local buy_total_cnt = 140 * buy_cnt
     local use_total_cnt = 100 * use_cnt
-    vars['quantityTotalLabel1']:setString(Str('{1}개', comma_value(buy_total_cnt)))
-    vars['quantityTotalLabel2']:setString(Str('{1}개', comma_value(use_total_cnt)))
+    vars['quantityTotalLabel1']:setNumber(buy_total_cnt)
+    vars['quantityTotalLabel2']:setNumber(use_total_cnt)
 
     if (vars['diaMenu']:isVisible()) then
         local user_cash = g_userData:get('cash') or 0
-        vars['diaLabel']:setString(comma_value(user_cash))
+        vars['diaLabel']:setString(user_cash)
     end
 end
 
@@ -198,7 +231,9 @@ function UI_StaminaChargePopup:click_purchaseBtn()
 
     local function finish_cb(ret)
         UIManager:toastNotificationGreen(Str('날개가 충전되었습니다.'))
-        self:initUI()
+        
+        self.m_bChargeSt = true
+        self:initTypeVariable('buy')
         self:refresh()
     end
 
@@ -218,7 +253,9 @@ function UI_StaminaChargePopup:click_useBtn()
 
     local function finish_cb(ret)
         UIManager:toastNotificationGreen(Str('날개가 충전되었습니다.'))
-        self:initUI()
+        
+        self.m_bChargeSt = true
+        self:initTypeVariable('use')
         self:refresh() 
     end
 
@@ -229,6 +266,21 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_StaminaChargePopup:click_closeBtn()
+    -- 해당 팝업에서 스테미나 충전이 안된 경우
+    if ((self.m_bOpenSpotSale == true) and (self.m_bChargeSt == false)) then
+        local finish_cb = self.m_finishCB
+        local spot_sale = ServerData_SpotSale:checkSpotSale('st', nil, finish_cb)
+        
+        if (spot_sale) then
+            self:close()
+            return
+        end
+    end
+
+    if (self.m_finishCB) then
+        self.m_finishCB()
+    end
+
     self:close()
 end
 
