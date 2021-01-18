@@ -1324,7 +1324,9 @@ function UI_TitleScene:workInitAdSDKSelector()
     -- 광고 재생 생략 여부
     local skip_ad_play = g_remoteConfig:getRemoteConfig('skip_ad_play')
     local skip_ad_aos_7_later = g_remoteConfig:getRemoteConfig('skip_ad_aos_7_later')
-    AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later)
+    local skip_facebook_ad_play = g_remoteConfig:getRemoteConfig('skip_facebook_ad_play')
+
+    AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later, skip_facebook_ad_play)
     
     -- 다음 work로 이동
     self:doNextWork()
