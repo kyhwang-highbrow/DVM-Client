@@ -42,6 +42,8 @@ end
 -------------------------------------
 function UI_GoodsInfo:initButton()
     local vars = self.vars
+
+    vars['chargeBtn']:registerScriptTapHandler(function() self:click_chargeBtn() end)
 end
 
 -------------------------------------
@@ -111,4 +113,48 @@ end
 -------------------------------------
 function UI_GoodsInfo:clearRealNumber()
     self.m_realNumber = nil
+end
+
+-------------------------------------
+-- function click_chargeBtn
+-------------------------------------
+function UI_GoodsInfo:click_chargeBtn()
+    local vars = self.vars
+
+    local goods_type = self.m_goodsType
+
+    if (goods_type == nil) then
+        
+    elseif (goods_type == 'gold') then
+        UINavigatorDefinition:goTo('shop', 'gold')
+    elseif (goods_type == 'cash') then
+        UINavigatorDefinition:goTo('shop', 'cash')
+    elseif (goods_type == 'capsule_coin') then
+        local capsule_coin_package_popup = PackageManager:getTargetUI('package_capsule_coin', true)
+    elseif (goods_type == 'st') then
+        local b_use_cash_label = false
+        local ui_charge_popup = UI_StaminaChargePopup(b_use_cash_label)
+    else
+        self:showToolTip()
+    end
+end
+
+-------------------------------------
+-- function showToolTip
+-------------------------------------
+function UI_GoodsInfo:showToolTip()
+    local vars = self.vars
+    
+    local goods_type = self.m_goodsType
+
+    local goods_id = TableItem():getItemIDFromItemType(goods_type)
+    local t_item = TABLE:get('item')[goods_id]
+
+    local name = t_item['t_name']
+    local desc = t_item['t_desc']
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str(name), Str(desc))
+    local tool_tip = UI_Tooltip_Skill(70, -145, str)
+
+    -- 자동 위치 지정
+    tool_tip:autoPositioning(self.vars['chargeBtn'])
 end

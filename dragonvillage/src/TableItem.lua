@@ -55,6 +55,13 @@ ITEM_ID_MAP['amor'] = 700014
 --ITEM_ID_MAP['oblivion'] = 700015 -- @brief 망각의 서는 아이템으로 취급하기로 했
 ITEM_ID_MAP['valor'] = 700013
 
+-- TopUserInfo의 재화 네이밍과 맞춤
+ITEM_ID_MAP['tower'] = 700103
+ITEM_ID_MAP['cldg'] = 700104
+ITEM_ID_MAP['cldg_tr'] = 700108
+ITEM_ID_MAP['arena'] = 700106
+--
+
 ITEM_ID_MAP['stamina'] = 700101
 ITEM_ID_MAP['st'] = 700101
 ITEM_ID_MAP['staminas_st'] = 700101
