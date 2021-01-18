@@ -37,40 +37,43 @@ function AdSDKSelector:initAdSDKSelector(skip_ad_play, skip_ad_aos_7_later)
         self.m_sdkName = 'ad_without_play'
 
     else
-        
+        cclog('check is live server')
         -- 라이브 서버인가?
         if IS_LIVE_SERVER() or IS_QA_SERVER() then
+             cclog('is live or qa server')
              -- 라이브 1.2.8 버전부터 안드로이드에서만 페북 광고를 쓴다.
              if (getAppVerNum() >= 1002008 and CppFunctionsClass:isAndroid() == true) then
                 self.m_sdkName = 'facebookAudienceNetwork'
              else
                 self.m_sdkName = 'admob'
+             end
 
-                -- 안드로이드 7 이상에서 skip일 경우
-                if (CppFunctionsClass:isAndroid() == true) then
-                    if (skip_ad_aos_7_later == true) then
-                        -- Android 버전 체크
-                        local version_sdk_int = tonumber(g_userData:getDeviceInfoByKey('VERSION_SDK_INT'))
-                        -- https://developer.android.com/about/dashboards
-                        -- API      Version Codename
-                        -- 29       10.0    10
-                        -- 28       9.0     Pie
-                        -- 27       8.1     Oreo
-                        -- 26       8.0     Oreo
-                        -- 25       7.1     Nougat
-                        -- 24       7.0     Nougat      <-- 7.0이상부터 오류가 발생하고 있음
-                        -- 23       6.0     Marshmallow
-                        if (version_sdk_int and (24 <= version_sdk_int)) then
-                            self.m_sdkName = 'ad_without_play'
-                        end
+             -- 안드로이드 7 이상에서 skip일 경우
+             if (CppFunctionsClass:isAndroid() == true) then
+                if (skip_ad_aos_7_later == true) then
+                    -- Android 버전 체크
+                    local version_sdk_int = tonumber(g_userData:getDeviceInfoByKey('VERSION_SDK_INT'))
+                    -- https://developer.android.com/about/dashboards
+                    -- API      Version Codename
+                    -- 29       10.0    10
+                    -- 28       9.0     Pie
+                    -- 27       8.1     Oreo
+                    -- 26       8.0     Oreo
+                    -- 25       7.1     Nougat
+                    -- 24       7.0     Nougat      <-- 7.0이상부터 오류가 발생하고 있음
+                    -- 23       6.0     Marshmallow
+                    if (version_sdk_int and (24 <= version_sdk_int)) then
+                           self.m_sdkName = 'ad_without_play'
                     end
-                end
+                 end
              end
         else
             -- QA 0.7.9 부터 들어가는 기능
-            if (getAppVerNum() >= 7009 and CppFunctionsClass:isAndroid() == true) then
+            if (getAppVerNum() >= 7007 and CppFunctionsClass:isAndroid() == true) then
+                cclog('is number valid')
                 self.m_sdkName = 'facebookAudienceNetwork'
             else
+                cclog('is number invalid')
                 self.m_sdkName = 'admob'
 
                 -- 안드로이드 7 이상에서 skip일 경우
