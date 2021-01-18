@@ -24,6 +24,11 @@ public class FBRewardedVideoAd {
         void onLogMessage(String tag, String msg);
     }
 
+    public AdCallback getCallback()
+    {
+        return mCallback;
+    }
+
     // constructor
     public FBRewardedVideoAd(Activity activity)   {
         logMessage(LOG_TAG, "Initializing Rewarded Video Ad");
