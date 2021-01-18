@@ -558,6 +558,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['rune_box'], 'user', 'rune_box')
         end
 
+        -- 찬란한 날개
+        if ret['st_100'] then
+            self:applyServerData(ret['st_100'], 'user', 'st_100')
+        end
+
 
 		-- 모든 특성 재료 (구 공통 특성 재료 포함)
         -- @mskim 기존 mastery_materials_02~04를 mastery_materials 컨테이너로 통합하여 수령함
@@ -719,6 +724,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
     -- 룬 10개 뽑기 상자
     RefreshGoods(t_added_items, 'rune_box')
    
+    -- 찬란한 날개
+    RefreshGoods(t_added_items, 'st_100')
+
    -- 특성 재료
     RefreshGoods(t_added_items, 'mastery_materials')
 
