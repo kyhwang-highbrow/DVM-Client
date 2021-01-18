@@ -62,8 +62,7 @@ function FacebookAudienceNetworkManager:onResultCallback(ret, info)
 
     -- 광고 load 실패
     elseif (ret == 'fail') then
-        SoundMgr:playPrevBGM()
-        self:showErrorPopup(info)
+
 	-- 광고 open <-> finish
 	elseif (ret == 'open') then
         SoundMgr:stopBGM()
@@ -108,6 +107,9 @@ function FacebookAudienceNetworkManager:showErrorPopup(error_info)
     local msg = ''
 
     local t_error = dkjson.decode(error_info)
+
+    if (not t_error) then return end
+
     local code = t_error['code']
 
     -- not init
