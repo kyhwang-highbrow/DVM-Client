@@ -37,8 +37,9 @@ function FacebookAudienceNetworkManager:initRewardedVideoAd()
 
             self:onResultCallback(ret, info)
 
-            local callback_func = rewarded_video_ad:getCallback()
-            if (callback_func) then callback_func(ret, info) end
+            if (rewarded_video_ad.mCallback) then
+                rewarded_video_ad.mCallback(ret, info)
+            end
         end
 
         rewarded_video_ad:setResultCallback(ad_result_cb)
