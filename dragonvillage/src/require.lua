@@ -866,6 +866,7 @@ local t_module = {
 	'UI_BundlePopup',
     'UI_BundlePopupNew',
     'UI_BundlePopupBtnPress',
+    'UI_CntBtnPress',
 	'UI_ErrorPopup',
     'UI_ErrorPopup_Live',
     'UI_SimpleDragonInfoPopup',
@@ -892,6 +893,7 @@ local t_module = {
     'UI_TopUserInfo',
     'UI_GoodsInfo',
     'UI_StaminaInfo',
+    'UI_StaminaChargePopup',
     'UI_RuneAutoSellAgreePopup',
     'UI_ValorCostumeInfoPopup', -- 용맹 코스튬 안내(구매) 팝업
     'UI_BannerChallengeMode',

@@ -4822,6 +4822,12 @@
     <None Include="..\src\GameState_ArenaNew.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_StaminaChargePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_CntBtnPress.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

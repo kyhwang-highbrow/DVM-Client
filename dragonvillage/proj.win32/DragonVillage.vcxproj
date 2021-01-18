@@ -1256,6 +1256,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ClanWarTournamentTreeLeaf.lua" />
     <None Include="..\src\UI_ClanWar_GroupPaging.lua" />
     <None Include="..\src\UI_ClanWar_GroupStage.lua" />
+    <None Include="..\src\UI_CntBtnPress.lua" />
     <None Include="..\src\UI_ColosseumClanRankListItem.lua" />
     <None Include="..\src\UI_ColosseumClanRankRewardItem.lua" />
     <None Include="..\src\UI_ColosseumReadyForDev.lua" />
@@ -1704,6 +1705,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SimplePopup2.lua" />
     <None Include="..\src\UI_SimplePopup3.lua" />
     <None Include="..\src\UI_SkillEnhance.lua" />
+    <None Include="..\src\UI_StaminaChargePopup.lua" />
     <None Include="..\src\UI_StaminaInfo.lua" />
     <None Include="..\src\UI_StartingTamer.lua" />
     <None Include="..\src\UI_StatisticsListItem.lua" />

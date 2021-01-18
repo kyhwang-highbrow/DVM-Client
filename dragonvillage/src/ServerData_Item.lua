@@ -243,3 +243,39 @@ function ServerData_Item:getItemCountFromPackageItemString(package_item_str, ite
 
     return 0
 end
+
+-------------------------------------
+-- function request_useItem
+-- @param item_id : 사용하려는 아이템 아이디
+-- @param count : 아이템 사용 수량
+-------------------------------------
+function ServerData_Item:request_useItem(item_id, count, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local item_id = item_id
+    local count = count
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 기본 재화 갱신
+        g_serverData:networkCommonRespone(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        if (finish_cb) then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/users/item_use')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('item_id', item_id)
+	ui_network:setParam('count', count)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
