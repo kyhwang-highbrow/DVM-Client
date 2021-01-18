@@ -62,7 +62,8 @@ function FacebookAudienceNetworkManager:onResultCallback(ret, info)
 
     -- 광고 load 실패
     elseif (ret == 'fail') then
-
+        SoundMgr:playPrevBGM()
+        self:showErrorPopup(info)
 	-- 광고 open <-> finish
 	elseif (ret == 'open') then
         SoundMgr:stopBGM()
