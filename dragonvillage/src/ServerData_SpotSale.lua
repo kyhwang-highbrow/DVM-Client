@@ -399,7 +399,9 @@ function ServerData_SpotSale:checkSpotSale(item_type, item_value, finish_cb)
         elseif (item_type == 'gold') then
             msg = Str('골드가 부족합니다.')
         elseif (item_type == 'st') then
-            msg = Str('날개가 부족합니다.')
+            --msg = Str('날개가 부족합니다.')
+            func_spot_sale_popup()
+            return
         end
 
         MakeSimplePopup(POPUP_TYPE.OK, msg, func_spot_sale_popup)
