@@ -244,6 +244,8 @@ function ItemObtainResult_Shop(t_ret, show_all)
     if (t_ret['added_dragons']) then
         -- @kwkang 100개 뽑기 결과창으로 보여줌, 21-01-19 기준 바로 드래곤을 지급하는 상품은 100개 뽑기 상품밖에 없음. 추후에 생기면 그 때 분기 추가하도록..
         local l_dragon_list = t_ret['added_dragons']
+        g_dragonsData:applyDragonData_list(t_ret['added_dragons'])
+
         UI_GachaResult_Dragon100('shop', l_dragon_list)
         return
     end
