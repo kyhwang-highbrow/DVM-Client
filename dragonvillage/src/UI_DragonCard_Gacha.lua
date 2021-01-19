@@ -85,7 +85,7 @@ function UI_DragonCard_Gacha:makeDragonOpenAnimator()
     local vars = self.vars
 
     -- 카드 오픈 관련 애니메이션 설정
-    local res_name = 'res/ui/spine/rune_gacha/rune_gacha.json'
+    local res_name = 'res/ui/spine/dragon_gacha/dragon_gacha.json'
     local animator = MakeAnimator(res_name)
     animator:setIgnoreLowEndMode(true)
     animator:changeAni('idle', true)
