@@ -37,7 +37,7 @@ function UI_StaminaChargePopup:init(b_use_cash_label, b_open_spot_sale, finish_c
     self.m_finishCB = finish_cb
 
     if (b_use_cash_label) then
-        vars['diaMenu']:setVisible(false)
+        vars['diaMenu']:setVisible(true)
     end
 
     self:initUI()
@@ -56,6 +56,10 @@ function UI_StaminaChargePopup:initUI()
 
     -- NumberLabel 설정
     vars['priceLabel'] = NumberLabel(vars['priceLabel'], 0, 0.3)
+
+    if (vars['diaMenu']:isVisible()) then
+        vars['diaLabel'] = NumberLabel(vars['diaLabel'], 0, 0.3)
+    end
 
     local function tween_cb(number, label)
         local str = Str('{1}개', comma_value(math_floor(number)))
@@ -158,7 +162,7 @@ function UI_StaminaChargePopup:refresh()
 
     if (vars['diaMenu']:isVisible()) then
         local user_cash = g_userData:get('cash') or 0
-        vars['diaLabel']:setString(user_cash)
+        vars['diaLabel']:setNumber(user_cash)
     end
 end
 
@@ -237,7 +241,13 @@ function UI_StaminaChargePopup:click_purchaseBtn()
         self:refresh()
     end
 
-    g_shopDataNew:request_buy(struct_product, buy_cnt, finish_cb)
+    local function ok_cb()
+        g_shopDataNew:request_buy(struct_product, buy_cnt, finish_cb)
+    end
+
+    local buy_total_count = 140 * buy_cnt
+    local str = Str('{@item_name}"{1} x{2}"\n{@default}구매하시겠습니까?', Str('날개'), comma_value(buy_total_count))
+    MakeSimplePopup(POPUP_TYPE.YES_NO, str, ok_cb)
 end
 
 -------------------------------------
@@ -259,7 +269,12 @@ function UI_StaminaChargePopup:click_useBtn()
         self:refresh() 
     end
 
-    g_itemData:request_useItem(item_id, use_cnt, finish_cb)
+    local function ok_cb()
+        g_itemData:request_useItem(item_id, use_cnt, finish_cb)
+    end
+
+    local str = Str('{@item_name}"{1} x{2}"\n{@default}사용하시겠습니까?', Str('찬란한 날개'), comma_value(use_cnt))
+    MakeSimplePopup(POPUP_TYPE.YES_NO, str, ok_cb)
 end
 
 -------------------------------------
