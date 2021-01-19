@@ -1269,6 +1269,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_CouponPopup_Confirm.lua" />
     <None Include="..\src\UI_DailyMisson_Clan.lua" />
     <None Include="..\src\UI_DiceEvent.lua" />
+    <None Include="..\src\UI_DragonCard_Gacha.lua" />
     <None Include="..\src\UI_DragonChanceUp.lua" />
     <None Include="..\src\UI_DragonChanceUpListItem.lua" />
     <None Include="..\src\UI_DragonChangeResult.lua" />
@@ -1395,6 +1396,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_FriendMatchReadyArena.lua" />
     <None Include="..\src\UI_FriendMatchResult.lua" />
     <None Include="..\src\UI_FriendMatchResultArena.lua" />
+    <None Include="..\src\UI_GachaResult_Dragon100.lua" />
     <None Include="..\src\UI_GachaResult_Rune.lua" />
     <None Include="..\src\UI_GameArena.lua" />
     <None Include="..\src\UI_GameArenaNew.lua" />

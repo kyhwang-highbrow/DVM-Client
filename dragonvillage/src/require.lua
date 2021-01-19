@@ -902,6 +902,7 @@ local t_module = {
     'UI_BannerIllusion',
     'UI_BannerHallOfFame',
 
+    'UI_GachaResult_Dragon100',
     'UI_GachaResult_Dragon',
     'UI_GachaResult_Rune',
 	'UI_PickDragonWithRate',

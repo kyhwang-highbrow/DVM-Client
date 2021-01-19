@@ -4828,6 +4828,12 @@
     <None Include="..\src\UI_CntBtnPress.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_GachaResult_Dragon100.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonCard_Gacha.lua">
+      <Filter>lua\UI_Card</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

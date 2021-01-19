@@ -239,6 +239,15 @@ function ItemObtainResult_Shop(t_ret, show_all)
         UI_ToastPopup(toast_msg)
     end
 
+    -- 드래곤 뽑기를 구입 즉시 지급하는 특이한 경우에 대한 예외처리
+    -- 서버 구조상 뽑기가 연관되어 있는 경우 added_dragons로 주게 되어 여기서 처리
+    if (t_ret['added_dragons']) then
+        -- @kwkang 100개 뽑기 결과창으로 보여줌, 21-01-19 기준 바로 드래곤을 지급하는 상품은 100개 뽑기 상품밖에 없음. 추후에 생기면 그 때 분기 추가하도록..
+        local l_dragon_list = t_ret['added_dragons']
+        UI_GachaResult_Dragon100('shop', l_dragon_list)
+        return
+    end
+
     -- 예외처리
     local added_items = t_ret['added_items']
     if (not added_items) then
@@ -262,7 +271,6 @@ function ItemObtainResult_Shop(t_ret, show_all)
     end
 
     -- 상품이 룬일 경우
-    cclog(item_type)
     if (item_type == 'rune') then
         -- 룬 뽑기 결과창으로 보여줌
         local l_rune_list = added_items['runes']
