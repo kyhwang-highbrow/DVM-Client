@@ -78,8 +78,11 @@ function UI_StaminaChargePopup:initTypeVariable(type)
     local vars = self.vars
 
     if (type == 'buy') then
-        self.m_buyCnt = 0
-        self.m_needCash = 0
+        local product_id = 10013
+        local struct_product = g_shopDataNew:getTargetProduct(product_id)
+        local product_price = struct_product.price
+        self.m_buyCnt = 1
+        self.m_needCash = product_price
 
     elseif (type == 'use') then
         self.m_useCnt = 0
@@ -155,7 +158,7 @@ function UI_StaminaChargePopup:refresh()
     vars['quantityLabel2']:setString(comma_value(use_cnt))
     vars['priceLabel']:setNumber(need_cash)
 
-    local buy_total_cnt = 140 * buy_cnt
+    local buy_total_cnt = 180 * buy_cnt
     local use_total_cnt = 100 * use_cnt
     vars['quantityTotalLabel1']:setNumber(buy_total_cnt)
     vars['quantityTotalLabel2']:setNumber(use_total_cnt)
@@ -245,7 +248,7 @@ function UI_StaminaChargePopup:click_purchaseBtn()
         g_shopDataNew:request_buy(struct_product, buy_cnt, finish_cb)
     end
 
-    local buy_total_count = 140 * buy_cnt
+    local buy_total_count = 180 * buy_cnt
     local str = Str('{@item_name}"{1} x{2}"\n{@default}구매하시겠습니까?', Str('날개'), comma_value(buy_total_count))
     MakeSimplePopup(POPUP_TYPE.YES_NO, str, ok_cb)
 end
