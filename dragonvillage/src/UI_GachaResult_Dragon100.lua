@@ -194,8 +194,6 @@ function UI_GachaResult_Dragon100:initDragonCardList()
             y_idx = y_idx + 1
         end
 
-        cclog ('x_idx : ' .. tostring(x_idx) .. ' # y_idx : ' .. tostring(y_idx))
-
         local pox_x = (y_idx > 1) and l_horizontal_pos_list[x_idx] or l_first_horizontal_pos_list[x_idx]
         local pos_y = l_vertical_pos_list[y_idx]
 
