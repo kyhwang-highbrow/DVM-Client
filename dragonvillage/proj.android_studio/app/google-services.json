@@ -15,19 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "983890984134-si8rumar1lgk3ehb9rpl160lcv320b6p.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.perplelab.dragonvillagem.dev",
-            "certificate_hash": "0aa168b204a17a7b76506691844dedeec8bb7bf3"
-          }
-        },
-        {
           "client_id": "983890984134-ei8hqf2c7fu4abqe8q4v7qc7o4pteg7c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.perplelab.dragonvillagem.dev",
             "certificate_hash": "c6ca19226a4aa8a18adfe92089ca09dc77242130"
+          }
+        },
+        {
+          "client_id": "983890984134-si8rumar1lgk3ehb9rpl160lcv320b6p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perplelab.dragonvillagem.dev",
+            "certificate_hash": "0aa168b204a17a7b76506691844dedeec8bb7bf3"
           }
         },
         {
@@ -76,6 +76,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "983890984134-2t98rjqn8l6o3evq24oicv3bro6gghtk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perplelab.dragonvillagem.kr",
+            "certificate_hash": "0aa168b204a17a7b76506691844dedeec8bb7bf3"
+          }
+        },
+        {
           "client_id": "983890984134-bu6qcl70aldkj2tudkavoufae0sao0ot.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -89,14 +97,6 @@
           "android_info": {
             "package_name": "com.perplelab.dragonvillagem.kr",
             "certificate_hash": "c6ca19226a4aa8a18adfe92089ca09dc77242130"
-          }
-        },
-        {
-          "client_id": "983890984134-2t98rjqn8l6o3evq24oicv3bro6gghtk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.perplelab.dragonvillagem.kr",
-            "certificate_hash": "0aa168b204a17a7b76506691844dedeec8bb7bf3"
           }
         },
         {
@@ -146,19 +146,19 @@
           }
         },
         {
-          "client_id": "983890984134-oqavporkfutff2kt2gvmr5gkq84ip1qh.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.perplelab.dragonvillagem.onestore",
-            "certificate_hash": "0ff078a4b6689adb4ef6468f3be9323ce27d8db9"
-          }
-        },
-        {
           "client_id": "983890984134-ji6k14mckso0msm3575l2p4n1rqnul2g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.perplelab.dragonvillagem.onestore",
             "certificate_hash": "0aa168b204a17a7b76506691844dedeec8bb7bf3"
+          }
+        },
+        {
+          "client_id": "983890984134-oqavporkfutff2kt2gvmr5gkq84ip1qh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perplelab.dragonvillagem.onestore",
+            "certificate_hash": "0ff078a4b6689adb4ef6468f3be9323ce27d8db9"
           }
         },
         {

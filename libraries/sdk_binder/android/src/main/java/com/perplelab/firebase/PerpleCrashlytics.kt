@@ -13,6 +13,8 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 class PerpleCrashlytics() {
     companion object {
         fun init(activity: Context) {
+            // Enable crashlytics - disabled by default
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
         }
 
         fun setUid(uid : String) {
