@@ -55,20 +55,9 @@ function UI_StaminaChargePopup:initUI()
     self:initTypeVariable('use')
 
     -- NumberLabel 설정
-    vars['priceLabel'] = NumberLabel(vars['priceLabel'], 0, 0.3)
-
     if (vars['diaMenu']:isVisible()) then
         vars['diaLabel'] = NumberLabel(vars['diaLabel'], 0, 0.3)
     end
-
-    local function tween_cb(number, label)
-        local str = Str('{1}개', comma_value(math_floor(number)))
-        label:setString(str)
-    end
-    vars['quantityTotalLabel1'] = NumberLabel(vars['quantityTotalLabel1'], 0, 0.3)
-    vars['quantityTotalLabel1']:setTweenCallback(tween_cb)
-    vars['quantityTotalLabel2'] = NumberLabel(vars['quantityTotalLabel2'], 0, 0.3)
-    vars['quantityTotalLabel2']:setTweenCallback(tween_cb)
 end
 
 -------------------------------------
@@ -156,12 +145,12 @@ function UI_StaminaChargePopup:refresh()
 
     vars['quantityLabel1']:setString(comma_value(buy_cnt))
     vars['quantityLabel2']:setString(comma_value(use_cnt))
-    vars['priceLabel']:setNumber(need_cash)
+    vars['priceLabel']:setString(comma_value(need_cash))
 
     local buy_total_cnt = 180 * buy_cnt
     local use_total_cnt = 100 * use_cnt
-    vars['quantityTotalLabel1']:setNumber(buy_total_cnt)
-    vars['quantityTotalLabel2']:setNumber(use_total_cnt)
+    vars['quantityTotalLabel1']:setString(Str('{1}개', comma_value(buy_total_cnt)))
+    vars['quantityTotalLabel2']:setString(Str('{1}개', comma_value(use_total_cnt)))
 
     if (vars['diaMenu']:isVisible()) then
         local user_cash = g_userData:get('cash') or 0
