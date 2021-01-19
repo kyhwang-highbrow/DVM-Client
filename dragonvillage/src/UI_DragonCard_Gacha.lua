@@ -50,7 +50,7 @@ end
 -------------------------------------
 function UI_DragonCard_Gacha:setClickCB(click_cb)
     self.m_clickCB = click_cb
-    self.m_dragonCard.vars['clickBtn']:registerScriptTapHandler(function() click_cb() end)
+    self.m_dragonCard.vars['clickBtn']:registerScriptTapHandler(function() if (click_cb) then click_cb() end end)
 end
 
 -------------------------------------
