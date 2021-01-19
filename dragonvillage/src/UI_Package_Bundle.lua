@@ -354,8 +354,13 @@ function UI_Package_Bundle:click_rewardBtn()
         category = 'lucky'
     elseif (self.m_package_name == 'package_lucky_box_9.9k') then
         category = 'lucky_9.9k'
-     elseif (self.m_package_name == 'package_lucky_box_9.9k_02') then
+    elseif (self.m_package_name == 'package_lucky_box_9.9k_02') then
         category = 'lucky_9.9k_02'
+    
+    -- 드래곤 100개 뽑기 패키지 
+    elseif (self.m_package_name == 'package_dragon_summon_100') then
+        MakePopup('package_dragon_summon_100_info.ui', nil)
+        return
     end
 
     -- 아이템 리스트 출력
