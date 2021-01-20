@@ -175,7 +175,7 @@ function Crashlytics:setLog(msg)
 end
 
 -------------------------------------
--- function setLog
+-- function setExceptionLog
 -------------------------------------
 function Crashlytics:setExceptionLog(msg)
 	if (not self.isCrashlyticsAvailable) then
