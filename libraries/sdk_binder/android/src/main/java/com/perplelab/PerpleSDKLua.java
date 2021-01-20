@@ -1785,6 +1785,10 @@ public class PerpleSDKLua {
         PerpleCrashlytics.Companion.setLog(message);
     }
 
+    public static void crashlyticsSetExceptionLog(int funcID, String message) {
+        PerpleCrashlytics.Companion.setExceptionLog(message);
+    }
+
     public static void crashlyticsSetKeyString(int funcID, String key, String value) {
         PerpleCrashlytics.Companion.setKeyString(key, value);
     }
