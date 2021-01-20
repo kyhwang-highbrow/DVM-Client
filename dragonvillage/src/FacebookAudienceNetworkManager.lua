@@ -61,7 +61,9 @@ function FacebookAudienceNetworkManager:onResultCallback(ret, info)
     if (ret == 'receive') then
 
     -- 광고 load 실패
+    -- 광고 로드 실패했으면 다시 로드 요청을 할 수 있어야 한다.
     elseif (ret == 'fail') then
+        self:getRewardedVideoAd().mIsRequested = false
 
 	-- 광고 open <-> finish
 	elseif (ret == 'open') then
