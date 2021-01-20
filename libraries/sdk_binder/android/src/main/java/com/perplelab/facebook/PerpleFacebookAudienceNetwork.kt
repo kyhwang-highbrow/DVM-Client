@@ -17,9 +17,10 @@ open class PerpleFacebookAudienceNetwork() {
     companion object
     {
         const val ERROR_NONE : String = "0"
-        const val ERROR_INVALIDPLACEMENTID : String = "-2102."
+        const val ERROR_INVALIDPLACEMENTID : String = "-2102"
         const val ERROR_NOTLOADEDAD : String = "-2103"
         const val ERROR_FAILLOAD : String = "-2104"
+        const val ERROR_MAX_RETRY : String = "-2105"
 
         const val ERROR_CODE_NETWORK_ERROR : Int = 1000
         const val ERROR_CODE_NO_FILL : Int = 1001

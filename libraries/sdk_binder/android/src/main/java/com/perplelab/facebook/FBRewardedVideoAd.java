@@ -77,9 +77,8 @@ public class FBRewardedVideoAd {
                 onLoadFail(error.getErrorCode());
 
                 logMessage(LOG_TAG, "Reward based video ad retry to load.");
-                loadRewardedVideoAd(mCurPlacementID);
-
                 mIsAdProcessing = false;
+                loadRewardedVideoAd(mCurPlacementID);
             }
 
             @Override
@@ -146,6 +145,9 @@ public class FBRewardedVideoAd {
 
         if (mTryLoadingCount > MAX_TRY_COUNT) {
             logMessage(LOG_TAG, "loadRewardedVideoAd :: Repeated retries failed.");
+            mCallback.onFail(
+                    PerpleFacebookAudienceNetwork.getErrorInfo(PerpleFacebookAudienceNetwork.ERROR_MAX_RETRY,
+                            PerpleFacebookAudienceNetwork.ERROR_NONE, "loadRewardedVideoAd :: Repeated retries failed."));
             return;
         }
 
