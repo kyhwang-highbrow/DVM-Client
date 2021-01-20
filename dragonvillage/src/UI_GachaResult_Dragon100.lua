@@ -25,11 +25,14 @@ UI_GachaResult_Dragon100 = class(PARENT, {
         m_timer = 'number', -- 스킵 관련 타이머
      })
 
-UI_GachaResult_Dragon100.UPDATE_OFFSET = 0.05
+UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET = 0.3 -- 카드 줄마다 처음에 소환되는 간격
+UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET = 0.05 -- 스킵할 때 다음 카드 뒤집는 간격
 UI_GachaResult_Dragon100.DRAGON_CARD_PER_WIDTH = 15 -- 드래곤 카드가 가로줄 당 몇 개씩?
 UI_GachaResult_Dragon100.DRAGON_CARD_SCALE = 0.45 -- 드래곤 카드 스케일 조정
 UI_GachaResult_Dragon100.DRAGON_CARD_WIDTH_OFFSET = 72 -- 드래곤 카드 가로 오프셋
 UI_GachaResult_Dragon100.DRAGON_CARD_HEIGHT_OFFSET = 72 -- 드래곤 카드 세로 오프셋
+
+
 
 -------------------------------------
 -- function initParentVariable
@@ -87,6 +90,8 @@ function UI_GachaResult_Dragon100:initUI()
     self:registerOpenNode('okBtn')
 
     self:initDragonCardList()
+
+    vars['skipBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -215,23 +220,26 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 
         card.root:setPositionX(pox_x)     
         card.root:setPositionY(-pos_y)   
-	end
 
-    for doid, dragon_card in pairs(self.m_tDragonCardTable) do
-        dragon_card.root:setOpacity(0)
-        local x, y = dragon_card.root:getPosition()
-         -- 등장할 때 미끄러지면서 생성되기
+        -- 등장할 때 미끄러지면서 생성되기
+        card.root:setOpacity(0)
+        local x, y = card.root:getPosition()
         local move_distance = 20
         local duration = 0.2
         local move = cc.MoveTo:create(duration, cc.p(x, y))
         local fade_in = cc.FadeIn:create(duration)
-        local action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 1.3)
-        
-        dragon_card.root:setPositionY(y + move_distance)
-        dragon_card.root:runAction(action)
-    end
+        local move_action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 1.3)
+        local sequence = cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (y_idx - 1)), move_action)
 
-    vars['skipBtn']:setVisible(true)
+        card.root:setPositionY(y + move_distance)
+        card.root:runAction(sequence)
+	end
+
+    local function skip_btn_visible_true()
+        vars['skipBtn']:setVisible(true)
+    end
+    
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (vertical_count - 1) + 0.2), cc.CallFunc:create(skip_btn_visible_true)))
 end
 
 -------------------------------------
@@ -279,8 +287,12 @@ function UI_GachaResult_Dragon100:click_skipBtn()
         return
     end
     
+    if (self.vars['skipBtn']:isVisible() == false) then
+        return
+    end
+
     self.m_bIsSkipping = true
-    self.m_timer = UI_GachaResult_Dragon100.UPDATE_OFFSET
+    self.m_timer = UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET
 
     self.m_skipUpdateNode = cc.Node:create()
     self.root:addChild(self.m_skipUpdateNode)
@@ -311,7 +323,7 @@ function UI_GachaResult_Dragon100:update_skip(dt)
                     self.m_bDirectingLegend = true
                 end
 
-                self.m_timer = self.m_timer + UI_GachaResult_Dragon100.UPDATE_OFFSET
+                self.m_timer = self.m_timer + UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET
                 return
             end
         end
