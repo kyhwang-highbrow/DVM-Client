@@ -175,6 +175,16 @@ function Crashlytics:setLog(msg)
 end
 
 -------------------------------------
+-- function setLog
+-------------------------------------
+function Crashlytics:setExceptionLog(msg)
+	if (not self.isCrashlyticsAvailable) then
+		return
+	end
+    PerpleSDK:crashlyticsSetExceptionLog(msg)
+end
+
+-------------------------------------
 -- function setData
 -- @param key is have to string type
 -- @param value can be string, int(not float), boolean
