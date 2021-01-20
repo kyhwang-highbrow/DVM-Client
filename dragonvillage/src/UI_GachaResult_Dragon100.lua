@@ -103,20 +103,18 @@ function UI_GachaResult_Dragon100:refresh()
     local vars = self.vars
 
     local b_is_all_card_open = self:isAllCardOpen()
-    
-    -- 마지막에만 보여야 하는 UI들을 관리
-    for i,v in pairs(self.m_hideUIList) do
-        v:setVisible(b_is_all_card_open)
-    end
 
     if (b_is_all_card_open) then
+        -- 마지막에만 보여야 하는 UI들을 관리
+        for i,v in pairs(self.m_hideUIList) do
+            v:setVisible(true)
+        end
+
         self:doActionReset()
         self:doAction(nil, false)
 
         vars['skipBtn']:setVisible(false)
         SoundMgr:playEffect('UI', 'ui_grow_result')
-    else
-
     end 
 end
 
@@ -169,6 +167,12 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 
         -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
         local function open_dragon_cb()
+            local str_rarity = struct_dragon_object:getRarity()
+            -- 3성은 어둡게
+            if (str_rarity == 'rare') then
+                card.m_dragonCard:setShadowSpriteVisible(true)
+            end
+
             self:refresh()
         end
         
@@ -247,7 +251,7 @@ function UI_GachaResult_Dragon100:update_skip(dt)
             local dragon_card = self.m_tDragonCardTable[doid]
 
             if (dragon_card:isClose()) then
-                dragon_card:openCard(false)
+                dragon_card:openCard(true)
                 self.m_timer = self.m_timer + UI_GachaResult_Dragon100.UPDATE_OFFSET
                 return
             end
