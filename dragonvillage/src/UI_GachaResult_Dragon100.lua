@@ -16,22 +16,23 @@ UI_GachaResult_Dragon100 = class(PARENT, {
         m_titleEffector = 'animator',
         m_selectRuneCard = 'UI_RuneCard',
         m_selectRuneEffector = 'animator',
+        m_tUIOriginPos = 'table', -- 이동이 되어야하는 UI들의 원래 위치 기억
 
-        m_bDirectingLegend = 'boolean', -- 현재 5성 드래곤 연출 중인지 
-
-        -- 스킵 연출 관련
+        -- 상태 FSM 쓰려 했는데, 동시에 봐야하는 조건도 있어서 그냥 여러 개의 boolean 사용
+        m_bCanOpenCard = 'boolean', -- 현재 카드 오픈 가능한지 
         m_bIsSkipping = 'boolean', -- 현재 스킵 액션이 진행중인지
         m_skipUpdateNode = 'cc.Node', -- 업데이트 노드
+        m_cleanFunc = 'function', -- 드래곤 정보 창 끄기 위한 함수
         m_timer = 'number', -- 스킵 관련 타이머
+        m_currDoid = 'string', -- 현재 드래곤 정보 창으로 보고 있는 드래곤 doid
      })
 
-UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET = 0.3 -- 카드 줄마다 처음에 소환되는 간격
+UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET = 0.2 -- 카드 줄마다 처음에 소환되는 간격
 UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET = 0.05 -- 스킵할 때 다음 카드 뒤집는 간격
 UI_GachaResult_Dragon100.DRAGON_CARD_PER_WIDTH = 15 -- 드래곤 카드가 가로줄 당 몇 개씩?
 UI_GachaResult_Dragon100.DRAGON_CARD_SCALE = 0.45 -- 드래곤 카드 스케일 조정
 UI_GachaResult_Dragon100.DRAGON_CARD_WIDTH_OFFSET = 72 -- 드래곤 카드 가로 오프셋
 UI_GachaResult_Dragon100.DRAGON_CARD_HEIGHT_OFFSET = 72 -- 드래곤 카드 세로 오프셋
-
 
 
 -------------------------------------
@@ -72,7 +73,8 @@ function UI_GachaResult_Dragon100:init(type, l_gacha_dragon_list)
     self.m_tUIIsMoved = {}
     
     self.m_bIsSkipping = false
-    self.m_bDirectingLegend = false
+    self.m_bCanOpenCard = false
+    self.m_currDoid = nil
 
 	self:initUI()  
 	self:initButton()
@@ -87,10 +89,18 @@ end
 function UI_GachaResult_Dragon100:initUI()
 	local vars = self.vars
     
-    self:registerOpenNode('okBtn')
-
     self:initDragonCardList()
 
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+        
+    self.m_tUIOriginPos['dragonInfoMenu'] = {}
+    self.m_tUIOriginPos['dragonInfoMenu']['x'], self.m_tUIOriginPos['dragonInfoMenu']['y'] = vars['dragonInfoMenu']:getPosition()
+    vars['dragonInfoMenu']:setPositionY(self.m_tUIOriginPos['dragonInfoMenu']['y'] - visibleSize['height'])
+    
+    self.m_tUIOriginPos['nameSprite'] = {}
+    self.m_tUIOriginPos['nameSprite']['x'], self.m_tUIOriginPos['nameSprite']['y'] = vars['nameSprite']:getPosition()
+    vars['nameSprite']:setPositionY(self.m_tUIOriginPos['nameSprite']['x'] - visibleSize['height'])
+    
     vars['skipBtn']:setVisible(false)
 end
 
@@ -173,29 +183,6 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         card.root:setScale(UI_GachaResult_Dragon100.DRAGON_CARD_SCALE)
         vars['dragonMenu']:addChild(card.root)
 
-        local function open_condition_func()
-            return not self.m_bDirectingLegend
-        end
-
-        -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
-        local function open_dragon_cb()
-            local str_rarity = struct_dragon_object:getRarity()
-            -- 3성은 어둡게
-            if (str_rarity == 'rare') then
-                card.m_dragonCard:setShadowSpriteVisible(true)
-            
-            -- 5성 추가 연출
-            elseif (str_rarity == 'legend') then
-                self:directingLegend(struct_dragon_object)
-            end
-
-            self:refresh()
-        end
-        
-        card:setOpenCB(open_dragon_cb)
-        card:setOpenConditionFunc(open_condition_func)
-        card:setClickCB(nil)
-
 		self.m_tDragonCardTable[doid] = card
 
         -- 카드 위치 정렬
@@ -215,11 +202,55 @@ function UI_GachaResult_Dragon100:initDragonCardList()
             y_idx = y_idx + 1
         end
 
-        local pox_x = (y_idx > 1) and l_horizontal_pos_list[x_idx] or l_first_horizontal_pos_list[x_idx]
+        local pos_x = (y_idx > 1) and l_horizontal_pos_list[x_idx] or l_first_horizontal_pos_list[x_idx]
         local pos_y = l_vertical_pos_list[y_idx]
 
-        card.root:setPositionX(pox_x)     
+        card.root:setPositionX(pos_x)     
         card.root:setPositionY(-pos_y)   
+
+        local function open_condition_func()
+            return self.m_bCanOpenCard
+        end
+
+        -- 카드를 뒤집기 시작할 때 호출되는 콜백함수
+        local function open_start_cb()
+            local str_rarity = struct_dragon_object:getRarity()
+            
+            -- 5성은 카드가 1초간 가운데로 확대대며 이동
+            if (str_rarity == 'legend') then
+                -- 움직이는게 잘 보이도록 해당 카드의 z order 맨 위로
+                card.root:setLocalZOrder(200)
+
+                local move_action = cc.EaseElasticOut:create(cc.MoveTo:create(1, cc.p(0, 0)), 1.7)
+                local scale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1), 1.7)
+                local spawn = cc.Spawn:create(move_action, scale_action)
+                card.root:runAction(spawn)
+            end
+        end
+
+        -- 카드를 뒤집고 난 이후 호출되는 콜백함수
+        local function open_finish_cb()
+            local str_rarity = struct_dragon_object:getRarity()
+            -- 3성은 어둡게
+            if (str_rarity == 'rare') then
+                card.m_dragonCard:setShadowSpriteVisible(true)
+            
+            -- 5성 추가 연출
+            elseif (str_rarity == 'legend') then
+                self:directingLegend(struct_dragon_object, pos_x, -pos_y)
+            end
+
+            self:refresh()
+        end
+        
+        local function click_cb()
+            self:setDragonInfo(struct_dragon_object, pos_x, -pos_y)
+        end
+
+        card:setOpenStartCB(open_start_cb)
+        card:setOpenFinishCB(open_finish_cb)
+        card:setOpenConditionFunc(open_condition_func)
+        card:setClickCB(click_cb)
 
         -- 등장할 때 미끄러지면서 생성되기
         card.root:setOpacity(0)
@@ -237,6 +268,7 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 
     local function skip_btn_visible_true()
         vars['skipBtn']:setVisible(true)
+        self.m_bCanOpenCard = true
     end
     
     self.root:runAction(cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (vertical_count - 1) + 0.2), cc.CallFunc:create(skip_btn_visible_true)))
@@ -246,37 +278,231 @@ end
 -- function directingLegend
 -- @brief 5성 드래곤에 대한 연출, 드래곤 애니메이터 크게 화면에 띄우기
 -------------------------------------
-function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object)
+function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, pos_y)
     local vars = self.vars
     
-    self.m_bDirectingLegend = true
+    self.m_bCanOpenCard = false
     
     local did = struct_dragon_object.did
     local t_dragon = TableDragon():get(did)
     local res_name = t_dragon['res']
     local evolution = 3
     local attr = t_dragon['attr']
+    local grade = struct_dragon_object['grade']
 
     local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
     vars['dragonMenu']:addChild(animator.m_node)
 
-    local dragon_card = self.m_tDragonCardTable[struct_dragon_object.id]
-    local pos_x = dragon_card.root:getPositionX()
-    local pos_y = dragon_card.root:getPositionY()
-    animator.m_node:setPositionX(pos_x)
-    animator.m_node:setPositionY(pos_y)
-
+    animator.m_node:setLocalZOrder(201)
     animator.m_node:setScale(0.2)
     local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 1), 1.7)
     local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 0), 1.7)
 
-    local function finish_cb()
-        self.m_bDirectingLegend = false
+    local function open_info_func()
+        do -- 드래곤 별
+            vars['starVisual']:setVisible(true)
+            local ani_name = TableDragon:getStarAniName(did, 1)
+            ani_name = ani_name .. grade
+            vars['starVisual']:changeAni(ani_name)
+        end
+
+        self:openDragonInfo()
+    end
+
+    local start_action = cc.Spawn:create(scale_start_action, cc.CallFunc:create(open_info_func))
+    local finish_action = cc.Spawn:create(scale_finish_action, cc.CallFunc:create(function() self:closeDragonInfo() end))
+
+    local function card_relocate_finish_cb()
+        self.m_bCanOpenCard = true
+
+        -- 연출동안 오래 기다렸으니 바로 다음 카드 뒤집을 수 있도록 하자
+        self.m_timer = 0
+    end
+
+    local function card_relocate_func()
+        -- 0.7초간 원래 자리로 돌아가기
+        local relocate_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.7, cc.p(pos_x, pos_y)), 1.7)
+        local rescale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.7, UI_GachaResult_Dragon100.DRAGON_CARD_SCALE), 1.7)
+        local spawn_action = cc.Spawn:create(relocate_action, rescale_action)
+        local card_sequence = cc.Sequence:create(spawn_action, cc.CallFunc:create(card_relocate_finish_cb))
+        
+        local doid = struct_dragon_object.id
+        local card = self.m_tDragonCardTable[doid]
+        card.root:runAction(card_sequence)
+    end
+
+    local function dragon_animation_finish_cb()
+        card_relocate_func()
         animator.m_node:removeFromParent()
     end
 
-    local sequence = cc.Sequence:create(scale_start_action, cc.DelayTime:create(1), scale_finish_action, cc.CallFunc:create(finish_cb))
-    animator.m_node:runAction(sequence)
+    local ani_sequence = cc.Sequence:create(start_action, cc.DelayTime:create(1), cc.DelayTime:create(2), finish_action, cc.CallFunc:create(dragon_animation_finish_cb))
+    animator.m_node:runAction(ani_sequence)
+
+    -- 이름
+    local name = struct_dragon_object:getDragonNameWithEclv()
+    vars['nameLabel']:setString(name)
+
+    local role_type = struct_dragon_object:getRole()
+    local rarity_type = struct_dragon_object:getRarity()
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+
+    do -- 희귀도
+        vars['rarityNode']:removeAllChildren()
+        DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
+    end
+
+    do -- 드래곤 속성
+        vars['attrNode']:removeAllChildren()
+        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
+    end
+
+    do -- 드래곤 역할(role)
+        vars['roleNode']:removeAllChildren()
+        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['roleNode'], vars['roleLabel'], t_info)
+    end
+end
+
+-------------------------------------
+-- function setDragonInfo
+-- @brief 드래곤 애니메이션 가운데에 띄우고 드래곤 정보 보여주기
+-------------------------------------
+function UI_GachaResult_Dragon100:setDragonInfo(struct_dragon_object, pos_x, pos_y)
+    -- 모든 카드가 오픈된 경우에만 진행 가능
+    if (self:isAllCardOpen() == false) then
+        return
+    end
+
+    if (self.m_cleanFunc) then
+        self.m_cleanFunc()
+        self.m_cleanFunc = nil
+
+        if (self.m_currDoid == struct_dragon_object.id) then
+            self.m_currDoid = nil
+            self:closeDragonInfo()
+            return
+        else
+            self.m_currDoid = struct_dragon_object.id
+        end
+    end
+
+    local vars = self.vars
+
+    self.m_currDoid = struct_dragon_object.id
+    
+    local did = struct_dragon_object.did
+    local t_dragon = TableDragon():get(did)
+    local res_name = t_dragon['res']
+    local evolution = 3
+    local attr = t_dragon['attr']
+    local grade = struct_dragon_object['grade']
+
+    local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+    vars['dragonMenu']:addChild(animator.m_node)
+
+    animator.m_node:setLocalZOrder(201)
+    animator.m_node:setScale(0.2)
+    animator.m_node:setPositionX(pos_x)
+    animator.m_node:setPositionY(pos_y)
+
+    local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 1), 1.7)
+    local move_start_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(0, 0)), 1.7)
+    local start_spawn = cc.Spawn:create(scale_start_action, move_start_action)
+
+    animator.m_node:runAction(start_spawn)
+
+    local function clear_func()
+        local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 0), 1.7)
+        local move_finish_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(pos_x, pos_y)), 1.7)
+        local finish_spawn = cc.Spawn:create(scale_finish_action, move_finish_action)
+        local clean_sequence = cc.Sequence:create(finish_spawn, cc.RemoveSelf:create())
+        animator.m_node:stopAllActions()
+        animator.m_node:runAction(clean_sequence)
+    end
+
+    self.m_cleanFunc = clear_func
+
+    -- 이름
+    local name = struct_dragon_object:getDragonNameWithEclv()
+    vars['nameLabel']:setString(name)
+
+    local role_type = struct_dragon_object:getRole()
+    local rarity_type = struct_dragon_object:getRarity()
+    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
+
+    do -- 희귀도
+        vars['rarityNode']:removeAllChildren()
+        DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
+    end
+
+    do -- 드래곤 속성
+        vars['attrNode']:removeAllChildren()
+        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
+    end
+
+    do -- 드래곤 역할(role)
+        vars['roleNode']:removeAllChildren()
+        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['roleNode'], vars['roleLabel'], t_info)
+    end
+
+    do -- 드래곤 별
+        vars['starVisual']:setVisible(true)
+        local ani_name = TableDragon:getStarAniName(did, 1)
+        ani_name = ani_name .. grade
+        vars['starVisual']:changeAni(ani_name)
+    end
+
+    self:openDragonInfo()
+end
+
+-------------------------------------
+-- function openDragonInfo
+-- @brief 드래곤 정보창을 화면 안으로 끌고 옴
+-------------------------------------
+function UI_GachaResult_Dragon100:openDragonInfo()
+    local vars = self.vars
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local duration = 0.3
+
+    -- 드래곤 정보창
+    -- 아래 창에서 왼쪽으로 나와야함
+    local x, y = self.m_tUIOriginPos['dragonInfoMenu']['x'], self.m_tUIOriginPos['dragonInfoMenu']['y']
+    local moveToLeft = cc.MoveTo:create(duration, cc.p(x, y))
+    vars['dragonInfoMenu']:stopAllActions()
+    vars['dragonInfoMenu']:runAction(moveToLeft)
+
+    -- 드래곤 이름창
+    -- 아래 창에서 위로 나와야함
+    local x, y = self.m_tUIOriginPos['nameSprite']['x'], self.m_tUIOriginPos['nameSprite']['y']
+    local moveToTop = cc.MoveTo:create(duration, cc.p(x, y))
+    vars['nameSprite']:stopAllActions()
+    vars['nameSprite']:runAction(moveToTop)
+end
+
+-------------------------------------
+-- function closeDragonInfo
+-- @brief 드래곤 정보창을 화면 밖으로 내보냄
+-------------------------------------
+function UI_GachaResult_Dragon100:closeDragonInfo()
+    local vars = self.vars
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local duration = 0.3
+
+    vars['starVisual']:setVisible(false)
+
+    -- 드래곤 정보창
+    -- 오른쪽 창으로 나가야함
+    local x, y = self.m_tUIOriginPos['dragonInfoMenu']['x'], self.m_tUIOriginPos['dragonInfoMenu']['y'] - visibleSize['height']
+    local moveToRight = cc.MoveTo:create(duration, cc.p(x, y))
+    vars['dragonInfoMenu']:stopAllActions()
+    vars['dragonInfoMenu']:runAction(moveToRight)
+    
+    -- 드래곤 이름창
+    -- 아래 창으로 나가야함
+    local x, y = self.m_tUIOriginPos['nameSprite']['x'], self.m_tUIOriginPos['nameSprite']['y'] - visibleSize['height']
+    local moveToDown = cc.MoveTo:create(duration, cc.p(x, y))
+    vars['nameSprite']:stopAllActions()
+    vars['nameSprite']:runAction(moveToDown)
 end
 
 -------------------------------------
@@ -305,7 +531,7 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon100:update_skip(dt)
     -- 연출 중에는 타이머 X
-    if (self.m_bDirectingLegend) then
+    if (self.m_bCanOpenCard == false) then
         return
     end
     
@@ -320,7 +546,7 @@ function UI_GachaResult_Dragon100:update_skip(dt)
                 dragon_card:openCard(true)
 
                 if (dragon_card.m_tDragonData:getRarity() == 'legend') then
-                    self.m_bDirectingLegend = true
+                    self.m_bCanOpenCard = false
                 end
 
                 self.m_timer = self.m_timer + UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET
@@ -330,6 +556,7 @@ function UI_GachaResult_Dragon100:update_skip(dt)
 
         -- 모든 카드를 오픈한 이후
         if (self:isAllCardOpen()) then
+            self.m_bIsSkipping = false
             self:refresh()
             self.m_skipUpdateNode:unscheduleUpdate()
         end
@@ -353,14 +580,4 @@ end
 -- @brief 탑바가 포커싱 되었을 때
 -------------------------------------
 function UI_GachaResult_Dragon100:onFocus()
-end
-
--------------------------------------
--- function registerOpenNode
--------------------------------------
-function UI_GachaResult_Dragon100:registerOpenNode(lua_name)
-	local node = self.vars[lua_name]
-	if (node) then 
-		table.insert(self.m_hideUIList, node)
-	end
 end

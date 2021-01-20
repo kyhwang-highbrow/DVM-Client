@@ -13,7 +13,8 @@ UI_DragonCard_Gacha = class(PARENT, {
         
         -----------------------------------------------------
         m_openConditionFunc = 'function', -- 카드를 현재 오픈할 수 있는지 검사하는 함수
-        m_openCB = 'function', -- 드래곤 카드 오픈한 뒤 콜백될 함수
+        m_openStartCB = 'function', -- 드래곤 카드 오픈 시작할 때 콜백될 함수
+        m_openFinishCB = 'function', -- 드래곤 카드 오픈 끝날 때 콜백될 함수
         m_clickCB = 'function', -- 드래곤 카드 오픈한 뒤 콜백될 함수
 
     })
@@ -28,7 +29,8 @@ function UI_DragonCard_Gacha:init(t_dragon_data)
     self.m_bIsOpen = false
     self.m_tDragonData = t_dragon_data
     self.m_openConditionFunc = nil
-    self.m_openCB = nil
+    self.m_openStartCB = nil
+    self.m_openFinishCB = nil
     self.m_clickCB = nil
 
     self:initUI()
@@ -39,11 +41,20 @@ function UI_DragonCard_Gacha:init(t_dragon_data)
 end
 
 -------------------------------------
--- function setOpenCB
--- @param open_cb : 카드 오픈할 때 호출되는 콜백
+-- function setOpenStartCB
+-- @param open_start_cb : 카드 오픈 시작 때 호출되는 콜백
 -------------------------------------
-function UI_DragonCard_Gacha:setOpenCB(open_cb)
-    self.m_openCB = open_cb
+function UI_DragonCard_Gacha:setOpenStartCB(open_start_cb)
+    self.m_openStartCB = open_start_cb
+end
+
+
+-------------------------------------
+-- function setOpenFinishCB
+-- @param open_finish_cb : 카드 오픈 끝날 때 호출되는 콜백
+-------------------------------------
+function UI_DragonCard_Gacha:setOpenFinishCB(open_finish_cb)
+    self.m_openFinishCB = open_finish_cb
 end
 
 -------------------------------------
@@ -170,7 +181,7 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
         return
     end
 
-     -- 카드를 뒤집는 애니메이션이 끝나면 룬 카드를 오픈 
+     -- 카드를 뒤집는 애니메이션이 끝나면 드래곤 카드를 오픈 
     local function finish_cb()
         self.m_bIsOpen = true
 
@@ -180,15 +191,19 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
         animator:setAnimationPause(true)
 
         vars['runeNode']:setVisible(true)
-        if (self.m_openCB) and (b_do_open_cb == true) then
-            self.m_openCB() 
+        if (self.m_openFinishCB) and (b_do_open_cb == true) then
+            self.m_openFinishCB() 
         end
     end
     
     local rarity = self.m_tDragonData:getRarity()
     
+    if (self.m_openStartCB) and (b_do_open_cb == true) then
+        self.m_openStartCB() 
+    end
+
     if (rarity == 'legend') then
-        -- 1초간 흔들리다가 열기
+        -- 1초동안 떨리다가 열리기
         animator:changeAni('hold', true)
 
         local function change_open_ani()
