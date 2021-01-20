@@ -12,6 +12,7 @@ UI_DragonCard_Gacha = class(PARENT, {
         m_bIsOpen = 'boolean', -- 현재 드래곤 카드가 오픈되었는지        
         
         -----------------------------------------------------
+        m_openConditionFunc = 'function', -- 카드를 현재 오픈할 수 있는지 검사하는 함수
         m_openCB = 'function', -- 드래곤 카드 오픈한 뒤 콜백될 함수
         m_clickCB = 'function', -- 드래곤 카드 오픈한 뒤 콜백될 함수
 
@@ -26,6 +27,7 @@ function UI_DragonCard_Gacha:init(t_dragon_data)
     
     self.m_bIsOpen = false
     self.m_tDragonData = t_dragon_data
+    self.m_openConditionFunc = nil
     self.m_openCB = nil
     self.m_clickCB = nil
 
@@ -42,6 +44,14 @@ end
 -------------------------------------
 function UI_DragonCard_Gacha:setOpenCB(open_cb)
     self.m_openCB = open_cb
+end
+
+-------------------------------------
+-- function setOpenConditionFunc
+-- @param open_condition_func : 카드 오픈할 수 있는지 검사하는 함수, open_condition_func() = true면 카드 오픈 가능
+-------------------------------------
+function UI_DragonCard_Gacha:setOpenConditionFunc(open_condition_func)
+    self.m_openConditionFunc = open_condition_func
 end
 
 -------------------------------------
@@ -146,6 +156,12 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
     if (self.m_bIsOpen == true) then
         return
     end
+
+    if (self.m_openConditionFunc) then
+        if (self.m_openConditionFunc() == false) then
+            return
+        end
+    end
    
     local animator = self.m_animator
 
@@ -170,9 +186,23 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
     end
     
     local rarity = self.m_tDragonData:getRarity()
-    local ani_idx = (rarity == 'legend') and 2 or 1
-    animator:changeAni(string.format('flip_%d', ani_idx), false)
-    animator:addAniHandler(function() finish_cb() end)
+    
+    if (rarity == 'legend') then
+        -- 1초간 흔들리다가 열기
+        animator:changeAni('hold', true)
+
+        local function change_open_ani()
+            animator:changeAni('flip_2', false)
+            animator:addAniHandler(function() finish_cb() end)
+        end
+
+        local sequence = cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(change_open_ani))
+        animator.m_node:runAction(sequence)
+
+    else
+        animator:changeAni('flip_1', false)
+        animator:addAniHandler(function() finish_cb() end)
+    end
 
     return self.m_bIsOpen
 end
@@ -181,38 +211,5 @@ end
 -- function click_skipBtn
 -------------------------------------
 function UI_DragonCard_Gacha:click_skipBtn()
-    local vars = self.vars
-
-    -- 이미 열린 경우 패스
-    if (self.m_bIsOpen == true) then
-        return
-    end
-    
-    local animator = self.m_animator
-
-    ---- 열리고 있는 도중인 경우 패스
-    if (string.find(animator.m_currAnimation, 'flip')) then
-        return
-    end
-
-    -- 카드를 뒤집는 애니메이션이 끝나면 룬 카드를 오픈 
-    local function finish_cb()
-        self.m_bIsOpen = true
-
-        local duration = 0.2
-        local fade_out = cc.EaseInOut:create(cc.FadeOut:create(duration), 1)
-        animator.m_node:runAction(fade_out)
-        animator:setAnimationPause(true)
-
-        vars['runeNode']:setVisible(true)
-
-        if (self.m_openCB) then
-            self.m_openCB() 
-        end
-    end
-    
-    local rarity = self.m_tDragonData:getRarity()
-    local ani_idx = (rarity == 'legend') and 2 or 1
-    animator:changeAni(string.format('flip_%d', ani_idx), false)
-    animator:addAniHandler(function() finish_cb() end)
+    self:openCard(true)
 end

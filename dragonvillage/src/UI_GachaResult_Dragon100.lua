@@ -17,6 +17,8 @@ UI_GachaResult_Dragon100 = class(PARENT, {
         m_selectRuneCard = 'UI_RuneCard',
         m_selectRuneEffector = 'animator',
 
+        m_bDirectingLegend = 'boolean', -- 현재 5성 드래곤 연출 중인지 
+
         -- 스킵 연출 관련
         m_bIsSkipping = 'boolean', -- 현재 스킵 액션이 진행중인지
         m_skipUpdateNode = 'cc.Node', -- 업데이트 노드
@@ -24,7 +26,7 @@ UI_GachaResult_Dragon100 = class(PARENT, {
      })
 
 UI_GachaResult_Dragon100.UPDATE_OFFSET = 0.05
-UI_GachaResult_Dragon100.DRAGON_CARD_PER_WIDTH = 13 -- 드래곤 카드가 가로줄 당 몇 개씩?
+UI_GachaResult_Dragon100.DRAGON_CARD_PER_WIDTH = 15 -- 드래곤 카드가 가로줄 당 몇 개씩?
 UI_GachaResult_Dragon100.DRAGON_CARD_SCALE = 0.45 -- 드래곤 카드 스케일 조정
 UI_GachaResult_Dragon100.DRAGON_CARD_WIDTH_OFFSET = 72 -- 드래곤 카드 가로 오프셋
 UI_GachaResult_Dragon100.DRAGON_CARD_HEIGHT_OFFSET = 72 -- 드래곤 카드 세로 오프셋
@@ -67,6 +69,7 @@ function UI_GachaResult_Dragon100:init(type, l_gacha_dragon_list)
     self.m_tUIIsMoved = {}
     
     self.m_bIsSkipping = false
+    self.m_bDirectingLegend = false
 
 	self:initUI()  
 	self:initButton()
@@ -165,18 +168,27 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         card.root:setScale(UI_GachaResult_Dragon100.DRAGON_CARD_SCALE)
         vars['dragonMenu']:addChild(card.root)
 
+        local function open_condition_func()
+            return not self.m_bDirectingLegend
+        end
+
         -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
         local function open_dragon_cb()
             local str_rarity = struct_dragon_object:getRarity()
             -- 3성은 어둡게
             if (str_rarity == 'rare') then
                 card.m_dragonCard:setShadowSpriteVisible(true)
+            
+            -- 5성 추가 연출
+            elseif (str_rarity == 'legend') then
+                self:directingLegend(struct_dragon_object)
             end
 
             self:refresh()
         end
         
         card:setOpenCB(open_dragon_cb)
+        card:setOpenConditionFunc(open_condition_func)
         card:setClickCB(nil)
 
 		self.m_tDragonCardTable[doid] = card
@@ -223,6 +235,43 @@ function UI_GachaResult_Dragon100:initDragonCardList()
 end
 
 -------------------------------------
+-- function directingLegend
+-- @brief 5성 드래곤에 대한 연출, 드래곤 애니메이터 크게 화면에 띄우기
+-------------------------------------
+function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object)
+    local vars = self.vars
+    
+    self.m_bDirectingLegend = true
+    
+    local did = struct_dragon_object.did
+    local t_dragon = TableDragon():get(did)
+    local res_name = t_dragon['res']
+    local evolution = 3
+    local attr = t_dragon['attr']
+
+    local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+    vars['dragonMenu']:addChild(animator.m_node)
+
+    local dragon_card = self.m_tDragonCardTable[struct_dragon_object.id]
+    local pos_x = dragon_card.root:getPositionX()
+    local pos_y = dragon_card.root:getPositionY()
+    animator.m_node:setPositionX(pos_x)
+    animator.m_node:setPositionY(pos_y)
+
+    animator.m_node:setScale(0.2)
+    local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 1), 1.7)
+    local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 0), 1.7)
+
+    local function finish_cb()
+        self.m_bDirectingLegend = false
+        animator.m_node:removeFromParent()
+    end
+
+    local sequence = cc.Sequence:create(scale_start_action, cc.DelayTime:create(1), scale_finish_action, cc.CallFunc:create(finish_cb))
+    animator.m_node:runAction(sequence)
+end
+
+-------------------------------------
 -- function click_skipBtn
 -------------------------------------
 function UI_GachaResult_Dragon100:click_skipBtn()
@@ -243,6 +292,11 @@ end
 -- function update_skip
 -------------------------------------
 function UI_GachaResult_Dragon100:update_skip(dt)
+    -- 연출 중에는 타이머 X
+    if (self.m_bDirectingLegend) then
+        return
+    end
+    
     self.m_timer = self.m_timer - dt
     
     if (self.m_timer <= 0) then
@@ -252,6 +306,11 @@ function UI_GachaResult_Dragon100:update_skip(dt)
 
             if (dragon_card:isClose()) then
                 dragon_card:openCard(true)
+
+                if (dragon_card.m_tDragonData:getRarity() == 'legend') then
+                    self.m_bDirectingLegend = true
+                end
+
                 self.m_timer = self.m_timer + UI_GachaResult_Dragon100.UPDATE_OFFSET
                 return
             end
