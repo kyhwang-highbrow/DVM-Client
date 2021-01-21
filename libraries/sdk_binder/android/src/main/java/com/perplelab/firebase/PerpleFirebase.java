@@ -75,6 +75,9 @@ public class PerpleFirebase {
         };
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(PerpleSDK.getInstance().getMainActivity());
+
+        // Crashlytics 에 있는 collect_analytics 는 영향을 받지 아니함
+        mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
         mAuth = FirebaseAuth.getInstance();
 
         mIsInit = true;

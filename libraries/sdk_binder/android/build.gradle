@@ -39,15 +39,18 @@ dependencies {
     implementation 'com.google.android.gms:play-services-analytics:17.0.0'
     implementation 'com.android.installreferrer:installreferrer:2.1'
 
+    // Import the Firebase BoM
+    // BoM에서 알아서 호환되는 각각의 버전을 import 해준다.
+    implementation platform('com.google.firebase:firebase-bom:26.3.0')
+
     // @firebase
-    implementation 'com.google.firebase:firebase-analytics:18.0.0'
-    implementation 'com.google.firebase:firebase-auth:20.0.0'
-    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging'
 
     // @crashlytics
     // firebase-crashlytics, firebase-crashlytics-ndk 중 하나만 사용
-    //implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:17.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk'
 
     // @facebook
     implementation 'com.facebook.android:facebook-android-sdk:6.1.0'
@@ -63,7 +66,7 @@ dependencies {
     implementation 'com.android.installreferrer:installreferrer:2.1'
 
     // @admob
-    implementation 'com.google.firebase:firebase-ads:19.5.0'
+    implementation 'com.google.firebase:firebase-ads'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'com.google.ads.mediation:adcolony:3.3.11.0'
     implementation 'com.google.ads.mediation:unity:3.4.8.0'
@@ -72,7 +75,6 @@ dependencies {
     implementation 'com.adcolony:sdk:3.3.11'
     // @unity-ads
     implementation 'com.unity3d.ads:unity-ads:3.4.8'
-
     // @facebook Audience Network
     implementation 'com.facebook.android:audience-network-sdk:6.2.0'
     //implementation files('libs/AudienceNetwork-6.2.1.aar')
