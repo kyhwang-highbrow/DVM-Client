@@ -50,6 +50,7 @@ function UI_CntBtnPress:resetQuantityBtnPress()
     
     if (self.m_blockUI) then
         self.m_blockUI:close()
+        self.m_blockUI = nil
     end
 end
 
