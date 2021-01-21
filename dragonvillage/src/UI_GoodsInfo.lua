@@ -147,12 +147,20 @@ function UI_GoodsInfo:showToolTip()
     
     local goods_type = self.m_goodsType
 
-    local goods_id = TableItem():getItemIDFromItemType(goods_type)
-    local t_item = TABLE:get('item')[goods_id]
+    local name
+    local desc
 
-    local name = t_item['t_name']
-    local desc = t_item['t_desc']
-    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str(name), Str(desc))
+    if (goods_type == 'fpvp') then
+        name = Str('친선전 입장권')
+        desc = Str('친구가 된 테이머와 강함을 겨룰 수 있는 친선전 입장권.')
+    else
+        local goods_id = TableItem():getItemIDFromItemType(goods_type)
+        local t_item = TABLE:get('item')[goods_id]
+        name = Str(t_item['t_name'])
+        desc = Str(t_item['t_desc'])
+    end
+
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
     local tool_tip = UI_Tooltip_Skill(70, -145, str)
 
     -- 자동 위치 지정

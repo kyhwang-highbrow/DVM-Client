@@ -138,12 +138,20 @@ function UI_StaminaInfo:showToolTip()
     
     local stamina_type = self.m_staminaType
 
-    local stamina_id = TableItem():getItemIDFromItemType(stamina_type)
-    local t_item = TABLE:get('item')[stamina_id]
+    local name
+    local desc
 
-    local name = t_item['t_name']
-    local desc = t_item['t_desc']
-    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str(name), Str(desc))
+    if (stamina_type == 'fpvp') then
+        name = Str('친선전 입장권')
+        desc = Str('친구가 된 테이머와 강함을 겨룰 수 있는 친선전 입장권.')
+    else
+        local stamina_id = TableItem():getItemIDFromItemType(stamina_type)
+        local t_item = TABLE:get('item')[stamina_id]
+        name = Str(t_item['t_name'])
+        desc = Str(t_item['t_desc'])
+    end
+
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
     local tool_tip = UI_Tooltip_Skill(70, -145, str)
 
     -- 자동 위치 지정
