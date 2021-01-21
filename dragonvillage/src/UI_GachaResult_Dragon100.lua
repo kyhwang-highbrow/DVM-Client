@@ -266,7 +266,12 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         local move = cc.MoveTo:create(duration, cc.p(x, y))
         local fade_in = cc.FadeIn:create(duration)
         local move_action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 1.3)
-        local sequence = cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (y_idx - 1)), move_action)
+
+        local function card_sound_play()
+            SoundMgr:playEffect('UI', 'ui_touch')
+        end
+
+        local sequence = cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (y_idx - 1)), cc.CallFunc:create(card_sound_play), move_action)
 
         card.root:setPositionY(y + move_distance)
         card.root:runAction(sequence)
@@ -536,6 +541,8 @@ function UI_GachaResult_Dragon100:click_skipBtn()
     if (self.vars['skipBtn']:isVisible() == false) then
         return
     end
+
+    vars['skipBtn']:setVisible(false)
 
     self.m_bIsSkipping = true
     self.m_timer = UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET
