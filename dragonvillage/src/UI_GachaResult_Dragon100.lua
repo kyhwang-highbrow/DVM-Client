@@ -227,7 +227,7 @@ function UI_GachaResult_Dragon100:initDragonCardList()
                 -- 움직이는게 잘 보이도록 해당 카드의 z order 맨 위로
                 card.root:setLocalZOrder(200)
 
-                local move_action = cc.EaseElasticOut:create(cc.MoveTo:create(1, cc.p(0, 0)), 1.7)
+                local move_action = cc.EaseElasticOut:create(cc.MoveTo:create(1, cc.p(0, -40)), 1.7)
                 local scale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1), 1.7)
                 local spawn = cc.Spawn:create(move_action, scale_action)
                 card.root:runAction(spawn)
@@ -301,6 +301,7 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
 
     animator.m_node:setLocalZOrder(201)
     animator.m_node:setScale(0.2)
+    animator.m_node:setPositionY(-40)
     local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 1), 1.7)
     local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 0), 1.7)
 
@@ -414,7 +415,7 @@ function UI_GachaResult_Dragon100:setDragonInfo(struct_dragon_object, pos_x, pos
     animator.m_node:setPositionY(pos_y)
 
     local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 1), 1.7)
-    local move_start_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(0, 0)), 1.7)
+    local move_start_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(0, -40)), 1.7)
     local start_spawn = cc.Spawn:create(scale_start_action, move_start_action)
 
     animator.m_node:runAction(start_spawn)
