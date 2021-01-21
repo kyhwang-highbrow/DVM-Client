@@ -377,6 +377,7 @@ function UI_GachaResult_Rune:update_skip(dt)
 
             if (rune_card:isClose()) then
                 rune_card:openCard(false)
+                SoundMgr:playEffect('UI', 'ui_touch')
                 self.m_timer = self.m_timer + UI_GachaResult_Rune.UPDATE_OFFSET
                 return
             end
