@@ -326,6 +326,9 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
 	        end)
         end
 
+        -- 오픈 될 때 사운드 재생
+        SoundMgr:playEffect('UI', 'ui_star_up')
+
         self:openDragonInfo()
     end
 
@@ -560,6 +563,7 @@ function UI_GachaResult_Dragon100:update_skip(dt)
 
             if (dragon_card:isClose()) then
                 dragon_card:openCard(true)
+                SoundMgr:playEffect('UI', 'ui_touch')
 
                 if (dragon_card.m_tDragonData:getRarity() == 'legend') then
                     self.m_bCanOpenCard = false
