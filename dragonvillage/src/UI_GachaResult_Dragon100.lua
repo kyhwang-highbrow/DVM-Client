@@ -17,6 +17,7 @@ UI_GachaResult_Dragon100 = class(PARENT, {
         m_selectRuneCard = 'UI_RuneCard',
         m_selectRuneEffector = 'animator',
         m_tUIOriginPos = 'table', -- 이동이 되어야하는 UI들의 원래 위치 기억
+        m_rarityEffect = 'Animator', -- 상단 텍스트 이펙트
 
         -- 상태 FSM 쓰려 했는데, 동시에 봐야하는 조건도 있어서 그냥 여러 개의 boolean 사용
         m_bCanOpenCard = 'boolean', -- 현재 카드 오픈 가능한지 
@@ -46,7 +47,7 @@ end
 
 -------------------------------------
 -- function init
--- @param type : 룬을 얻게된 방법
+-- @param type : 드래곤을 얻게된 방법
 -------------------------------------
 function UI_GachaResult_Dragon100:init(type, l_gacha_dragon_list)
 	self.m_type = type
@@ -91,17 +92,21 @@ function UI_GachaResult_Dragon100:initUI()
     
     self:initDragonCardList()
 
+    Translate:a2dTranslate('ui/a2d/summon/summon_cut.plist')
+	local res_name = 'res/ui/a2d/summon/summon.vrp'
+    self.m_rarityEffect = MakeAnimator(res_name)
+    self.m_rarityEffect:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+    vars['rarityNode']:addChild(self.m_rarityEffect.m_node)
+
     local visibleSize = cc.Director:getInstance():getVisibleSize()
-        
-    self.m_tUIOriginPos['dragonInfoMenu'] = {}
-    self.m_tUIOriginPos['dragonInfoMenu']['x'], self.m_tUIOriginPos['dragonInfoMenu']['y'] = vars['dragonInfoMenu']:getPosition()
-    vars['dragonInfoMenu']:setPositionY(self.m_tUIOriginPos['dragonInfoMenu']['y'] - visibleSize['height'])
-    
+
     self.m_tUIOriginPos['nameSprite'] = {}
     self.m_tUIOriginPos['nameSprite']['x'], self.m_tUIOriginPos['nameSprite']['y'] = vars['nameSprite']:getPosition()
     vars['nameSprite']:setPositionY(self.m_tUIOriginPos['nameSprite']['x'] - visibleSize['height'])
     
     vars['skipBtn']:setVisible(false)
+
+    self:refresh_inventoryLabel()
 end
 
 -------------------------------------
@@ -112,6 +117,7 @@ function UI_GachaResult_Dragon100:initButton()
 
 	vars['okBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
@@ -306,6 +312,20 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
             vars['starVisual']:changeAni(ani_name)
         end
 
+        do -- 드래곤 텍스트 이펙트
+        vars['rarityNode']:setVisible(true)
+        
+            local ani_num = math_max((grade - 1), 1) -- 1 ~ 4
+            local ani_appear = string.format('text_appear_%02d', ani_num)
+            local ani_idle = string.format('text_idle_%02d', ani_num)
+        
+            self.m_rarityEffect:setVisible(true)
+            self.m_rarityEffect:changeAni(ani_appear, false)
+            self.m_rarityEffect:addAniHandler(function()
+		        self.m_rarityEffect:changeAni(ani_idle, true)
+	        end)
+        end
+
         self:openDragonInfo()
     end
 
@@ -346,21 +366,6 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
     local role_type = struct_dragon_object:getRole()
     local rarity_type = struct_dragon_object:getRarity()
     local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
-
-    do -- 희귀도
-        vars['rarityNode']:removeAllChildren()
-        DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
-    end
-
-    do -- 드래곤 속성
-        vars['attrNode']:removeAllChildren()
-        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
-    end
-
-    do -- 드래곤 역할(role)
-        vars['roleNode']:removeAllChildren()
-        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['roleNode'], vars['roleLabel'], t_info)
-    end
 end
 
 -------------------------------------
@@ -430,26 +435,25 @@ function UI_GachaResult_Dragon100:setDragonInfo(struct_dragon_object, pos_x, pos
     local rarity_type = struct_dragon_object:getRarity()
     local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
 
-    do -- 희귀도
-        vars['rarityNode']:removeAllChildren()
-        DragonInfoIconHelper.setDragonRarityBtn(rarity_type, vars['rarityNode'], vars['rarityLabel'], t_info)
-    end
-
-    do -- 드래곤 속성
-        vars['attrNode']:removeAllChildren()
-        DragonInfoIconHelper.setDragonAttrBtn(attr, vars['attrNode'], vars['attrLabel'], t_info)
-    end
-
-    do -- 드래곤 역할(role)
-        vars['roleNode']:removeAllChildren()
-        DragonInfoIconHelper.setDragonRoleBtn(role_type, vars['roleNode'], vars['roleLabel'], t_info)
-    end
-
     do -- 드래곤 별
         vars['starVisual']:setVisible(true)
         local ani_name = TableDragon:getStarAniName(did, 1)
         ani_name = ani_name .. grade
         vars['starVisual']:changeAni(ani_name)
+    end
+
+    do -- 드래곤 텍스트 이펙트
+        vars['rarityNode']:setVisible(true)
+        
+        local ani_num = math_max((grade - 1), 1) -- 1 ~ 4
+        local ani_appear = string.format('text_appear_%02d', ani_num)
+        local ani_idle = string.format('text_idle_%02d', ani_num)
+        
+        self.m_rarityEffect:setVisible(true)
+        self.m_rarityEffect:changeAni(ani_appear, false)
+        self.m_rarityEffect:addAniHandler(function()
+		    self.m_rarityEffect:changeAni(ani_idle, true)
+	    end)
     end
 
     self:openDragonInfo()
@@ -464,19 +468,37 @@ function UI_GachaResult_Dragon100:openDragonInfo()
     local visibleSize = cc.Director:getInstance():getVisibleSize()
     local duration = 0.3
 
-    -- 드래곤 정보창
-    -- 아래 창에서 왼쪽으로 나와야함
-    local x, y = self.m_tUIOriginPos['dragonInfoMenu']['x'], self.m_tUIOriginPos['dragonInfoMenu']['y']
-    local moveToLeft = cc.MoveTo:create(duration, cc.p(x, y))
-    vars['dragonInfoMenu']:stopAllActions()
-    vars['dragonInfoMenu']:runAction(moveToLeft)
-
     -- 드래곤 이름창
     -- 아래 창에서 위로 나와야함
     local x, y = self.m_tUIOriginPos['nameSprite']['x'], self.m_tUIOriginPos['nameSprite']['y']
     local moveToTop = cc.MoveTo:create(duration, cc.p(x, y))
     vars['nameSprite']:stopAllActions()
     vars['nameSprite']:runAction(moveToTop)
+end
+
+-------------------------------------
+-- function click_inventoryBtn
+-- @brief 인벤 확장
+-------------------------------------
+function UI_GachaResult_Dragon100:click_inventoryBtn()
+    local item_type = 'dragon'
+    local function finish_cb()
+        self:refresh_inventoryLabel()
+    end
+
+    g_inventoryData:extendInventory(item_type, finish_cb)
+end
+
+-------------------------------------
+-- function refresh_inventoryLabel
+-- @brief
+-------------------------------------
+function UI_GachaResult_Dragon100:refresh_inventoryLabel()
+    local vars = self.vars
+    local inven_type = 'dragon'
+    local dragon_count = g_dragonsData:getDragonsCnt()
+    local max_count = g_inventoryData:getMaxCount(inven_type)
+    self.vars['inventoryLabel']:setString(string.format('%d/%d', dragon_count, max_count))
 end
 
 -------------------------------------
@@ -489,14 +511,8 @@ function UI_GachaResult_Dragon100:closeDragonInfo()
     local duration = 0.3
 
     vars['starVisual']:setVisible(false)
+    vars['rarityNode']:setVisible(false)
 
-    -- 드래곤 정보창
-    -- 오른쪽 창으로 나가야함
-    local x, y = self.m_tUIOriginPos['dragonInfoMenu']['x'], self.m_tUIOriginPos['dragonInfoMenu']['y'] - visibleSize['height']
-    local moveToRight = cc.MoveTo:create(duration, cc.p(x, y))
-    vars['dragonInfoMenu']:stopAllActions()
-    vars['dragonInfoMenu']:runAction(moveToRight)
-    
     -- 드래곤 이름창
     -- 아래 창으로 나가야함
     local x, y = self.m_tUIOriginPos['nameSprite']['x'], self.m_tUIOriginPos['nameSprite']['y'] - visibleSize['height']
