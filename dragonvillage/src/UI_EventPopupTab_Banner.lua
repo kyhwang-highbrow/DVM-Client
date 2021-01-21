@@ -136,6 +136,15 @@ function UI_EventPopupTab_Banner:init_customUI()
     -- 콜로세움 명예 획득량 증가 핫타임
     elseif (banner == 'event_fevertime_notice_02.ui') then
         self:changeTitleSprite(vars)
+    
+    -- 인스타그램 관련 배너
+    elseif (banner == 'event_instagram.ui') then
+        -- 인스타그램 페이지로 이동
+        if vars['gameLinkBtn'] then
+            vars['gameLinkBtn']:registerScriptTapHandler(function()
+                    SDKManager:goToWeb('https://www.instagram.com/dragonvillage_m/')
+                end)
+        end
     end
 end
 
