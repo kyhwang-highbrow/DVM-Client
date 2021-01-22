@@ -225,6 +225,9 @@ function StructMail:readMe(cb_func)
         if (self:getItemFullType() == 'summon_dragon') then
             g_mailData:request_summonTicket(mail_id_list, finish_cb)
         
+        elseif (self:getItemFullType() == 'summon_100') then
+            g_mailData:request_summon100Ticket(mail_id_list, finish_cb)
+
         -- 토파즈 드래곤 뽑기
         elseif (self:getItemFullType() == 'summon_draw') then
             local draw_cb = function()
@@ -266,7 +269,7 @@ end
 -------------------------------------
 -- function isSummonType
 -- @brief 소환권 종류 확인
--- @brief 20190117 item_type == 'summon' : 10+1 고급소환권, 토파즈 드래곤 뽑기권 
+-- @brief 20210122 item_type == 'summon' : 10+1 고급소환권, 토파즈 드래곤 뽑기권, 100회 뽑기권(일반 or 한정)
 -------------------------------------
 function StructMail:isSummonType()
     if (not self:getItemList()[1]) then

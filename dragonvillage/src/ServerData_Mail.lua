@@ -499,6 +499,49 @@ function ServerData_Mail:request_summonTicket(mail_id_list, finish_cb)
 end
 
 -------------------------------------
+-- function request_summon100Ticket
+-- @brief 우편 읽기 (100회 뽑기권(일반 or 한정))
+-------------------------------------
+function ServerData_Mail:request_summon100Ticket(mail_id_list, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local mids = listToCsv(mail_id_list)
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        for i,v in ipairs(mail_id_list) do
+            self:deleteMailData(v)
+        end
+
+		-- 로비 노티 갱신
+		g_highlightData:setDirty(true)
+
+        -- 드래곤들 추가
+        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        if finish_cb then
+            finish_cb(ret, mail_id_list)
+        end
+
+		local gacha_type = 'tickect'
+        local l_dragon_list = ret['added_dragons']
+        local ui = UI_GachaResult_Dragon100(gacha_type, l_dragon_list)
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/summon/mail')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('mid', mids)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function request_summonDrawTicket
 -- @brief 우편 읽기 (토파즈 드래곤 뽑기권)
 -------------------------------------
