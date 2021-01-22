@@ -224,6 +224,8 @@ function UI_GachaResult_Dragon100:initDragonCardList()
             
             -- 5성은 카드가 1초간 가운데로 확대대며 이동
             if (str_rarity == 'legend') then
+                 self.m_bCanOpenCard = false
+
                 -- 움직이는게 잘 보이도록 해당 카드의 z order 맨 위로
                 card.root:setLocalZOrder(200)
 
@@ -291,8 +293,6 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, pos_y)
     local vars = self.vars
-    
-    self.m_bCanOpenCard = false
     
     local did = struct_dragon_object.did
     local t_dragon = TableDragon():get(did)
@@ -365,7 +365,7 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
         animator.m_node:removeFromParent()
     end
 
-    local ani_sequence = cc.Sequence:create(start_action, cc.DelayTime:create(1), cc.DelayTime:create(2), finish_action, cc.CallFunc:create(dragon_animation_finish_cb))
+    local ani_sequence = cc.Sequence:create(start_action, cc.DelayTime:create(1), cc.DelayTime:create(4), finish_action, cc.CallFunc:create(dragon_animation_finish_cb))
     animator.m_node:runAction(ani_sequence)
 
     -- 이름
@@ -542,7 +542,7 @@ function UI_GachaResult_Dragon100:click_skipBtn()
         return
     end
 
-    vars['skipBtn']:setVisible(false)
+    self.vars['skipBtn']:setVisible(false)
 
     self.m_bIsSkipping = true
     self.m_timer = UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET

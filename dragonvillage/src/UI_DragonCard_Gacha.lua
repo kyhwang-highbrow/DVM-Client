@@ -111,7 +111,8 @@ function UI_DragonCard_Gacha:makeDragonOpenAnimator()
     animator:setIgnoreLowEndMode(true)
     animator:changeAni('idle', true)
     animator:setMix('hold', 'flip_1', 0.2)
-    animator:setMix('hold', 'flip_2', 0.2)
+    animator:setMix('hold', 'flip_3', 0.2)
+    animator:setMix('hold', 'flip_4', 0.2)
     self.m_animator = animator
     vars['skipBtn']:addChild(animator.m_node)
 
@@ -207,7 +208,27 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
         animator:changeAni('hold', true)
 
         local function change_open_ani()
-            animator:changeAni('flip_2', false)
+            local function play_gauging_sound()
+                SoundMgr:playEffect('EFFECT', 'reward')
+            end
+
+            local function play_bomb_sound()
+                SoundMgr:playEffect('UI', 'ui_summon')
+            end
+
+            -- 한정 여부에 따른 애니메이션 및 사운드 분기 처리
+            if (self.m_tDragonData:isLimited()) then
+                animator:changeAni('flip_4', false)
+                local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound),
+                 cc.DelayTime:create(1.5), cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound))
+                self.root:runAction(sound_sequence)
+
+            else
+                animator:changeAni('flip_3', false)
+                local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound))
+                self.root:runAction(sound_sequence)
+            end
+            
             animator:addAniHandler(function() finish_cb() end)
         end
 
