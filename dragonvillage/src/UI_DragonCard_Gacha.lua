@@ -220,7 +220,7 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
             if (self.m_tDragonData:isLimited()) then
                 animator:changeAni('flip_4', false)
                 local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound),
-                 cc.DelayTime:create(1.5), cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound))
+                 cc.DelayTime:create(2.5), cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound))
                 self.root:runAction(sound_sequence)
 
             else
