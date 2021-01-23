@@ -1265,6 +1265,12 @@ function UI_DragonRunes:click_equipBtnNew()
             total_price = total_price + price
         end
             
+        -- 룬 할인 이벤트
+	    local dc_value = g_hotTimeData:getDiscountEventValue('rune')
+	    if (dc_value) then
+		    total_price = total_price * (1 - (dc_value / 100))
+	    end
+
         self:request_runeEquipNew(doid, slot_idx, roid, total_price)
 
     -- 비어있는 슬롯에 다른 드래곤이 장착한 룬을 장착하지 않는 경우 바로 장착
