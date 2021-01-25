@@ -236,7 +236,7 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
             else
                 animator:changeAni('flip_3', false)
                 local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound), 
-                cc.DelayTime:create(1.85), cc.CallFunc:create(card_open_finish_cb))
+                cc.DelayTime:create(1.9), cc.CallFunc:create(card_open_finish_cb))
                 self.root:runAction(sound_sequence)
             end
             
