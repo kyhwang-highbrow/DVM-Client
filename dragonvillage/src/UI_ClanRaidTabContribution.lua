@@ -128,7 +128,7 @@ function UI_ClanRaidTabContribution:visibleContributeRank(is_reward)
     local l_rank_list = g_clanRaidData:getRankList()
     for key, v in ipairs(l_rank_list) do
         local t_data = self.m_contribution_table_view:getItem(key)
-        if (t_data['ui']) then
+        if (t_data) and (t_data['ui']) then
             t_data['ui'].vars['rewardNode']:setVisible(is_reward)
             t_data['ui'].vars['damageLabel']:setVisible(not is_reward)
         end
