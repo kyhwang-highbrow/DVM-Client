@@ -233,6 +233,14 @@ function UI_GachaResult_Dragon100:initDragonCardList()
                 local scale_action = cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1), 1.7)
                 local spawn = cc.Spawn:create(move_action, scale_action)
                 card.root:runAction(spawn)
+
+                -- 미리 애니메이터 프리로드
+                local did = t_dragon_data['did']
+                local t_dragon = TableDragon():get(did)
+                local res_name = t_dragon['res']
+                local evolution = 3
+                local attr = t_dragon['attr']
+                local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
             end
         end
 
@@ -371,10 +379,6 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
     -- 이름
     local name = struct_dragon_object:getDragonNameWithEclv()
     vars['nameLabel']:setString(name)
-
-    local role_type = struct_dragon_object:getRole()
-    local rarity_type = struct_dragon_object:getRarity()
-    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
 end
 
 -------------------------------------
@@ -439,10 +443,6 @@ function UI_GachaResult_Dragon100:setDragonInfo(struct_dragon_object, pos_x, pos
     -- 이름
     local name = struct_dragon_object:getDragonNameWithEclv()
     vars['nameLabel']:setString(name)
-
-    local role_type = struct_dragon_object:getRole()
-    local rarity_type = struct_dragon_object:getRarity()
-    local t_info = DragonInfoIconHelper.makeInfoParamTable(attr, role_type, rarity_type)
 
     do -- 드래곤 별
         vars['starVisual']:setVisible(true)
@@ -575,6 +575,14 @@ function UI_GachaResult_Dragon100:update_skip(dt)
 
                 if (dragon_card.m_tDragonData:getRarity() == 'legend') then
                     self.m_bCanOpenCard = false
+                    
+                    -- 미리 애니메이터 프리로드
+                    local did = dragon_card.m_tDragonData['did']
+                    local t_dragon = TableDragon():get(did)
+                    local res_name = t_dragon['res']
+                    local evolution = 3
+                    local attr = t_dragon['attr']
+                    local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
                 end
 
                 self.m_timer = self.m_timer + UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET

@@ -224,22 +224,20 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
                 end
             end
 
-
             -- 한정 여부에 따른 애니메이션 및 사운드 분기 처리
+            local summon_sequence
             if (self.m_tDragonData:isLimited()) then
                 animator:changeAni('flip_4', false)
-                local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound),
+                summon_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound),
                  cc.DelayTime:create(2.5), cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound), 
                  cc.DelayTime:create(2.5), cc.CallFunc:create(card_open_finish_cb))
-                self.root:runAction(sound_sequence)
-
             else
                 animator:changeAni('flip_3', false)
-                local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound), 
+                summon_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound), 
                 cc.DelayTime:create(1.9), cc.CallFunc:create(card_open_finish_cb))
-                self.root:runAction(sound_sequence)
             end
-            
+
+            self.root:runAction(summon_sequence)
             animator:addAniHandler(function() finish_cb(false) end)
         end
 
