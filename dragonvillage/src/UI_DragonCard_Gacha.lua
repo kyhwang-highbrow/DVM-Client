@@ -182,8 +182,10 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
         return
     end
 
-     -- 카드를 뒤집는 애니메이션이 끝나면 드래곤 카드를 오픈 
-    local function finish_cb()
+    -- 카드를 뒤집는 애니메이션이 끝나면 드래곤 카드를 오픈 
+    -- 전설 등급 이상의 드래곤 카드가 오픈된 이후에도 애니메이션이 이펙트 등으로 남아 있어
+    -- 해당하는 경우에는 하드 코딩으로 self.m_openFinishCB을 실행한다.
+    local function finish_cb(b_do_finish_cb)
         self.m_bIsOpen = true
 
         local duration = 0.2
@@ -192,11 +194,11 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
         animator:setAnimationPause(true)
 
         vars['runeNode']:setVisible(true)
-        if (self.m_openFinishCB) and (b_do_open_cb == true) then
+        if (self.m_openFinishCB) and (b_do_open_cb == true) and (b_do_finish_cb == true) then
             self.m_openFinishCB() 
         end
     end
-    
+
     local rarity = self.m_tDragonData:getRarity()
     
     if (self.m_openStartCB) and (b_do_open_cb == true) then
@@ -216,20 +218,29 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
                 SoundMgr:playEffect('UI', 'ui_summon')
             end
 
+            local function card_open_finish_cb()
+                if (self.m_openFinishCB) and (b_do_open_cb == true) then
+                    self.m_openFinishCB() 
+                end
+            end
+
+
             -- 한정 여부에 따른 애니메이션 및 사운드 분기 처리
             if (self.m_tDragonData:isLimited()) then
                 animator:changeAni('flip_4', false)
                 local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound),
-                 cc.DelayTime:create(2.5), cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound))
+                 cc.DelayTime:create(2.5), cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound), 
+                 cc.DelayTime:create(2.55), cc.CallFunc:create(card_open_finish_cb))
                 self.root:runAction(sound_sequence)
 
             else
                 animator:changeAni('flip_3', false)
-                local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound))
+                local sound_sequence = cc.Sequence:create(cc.CallFunc:create(play_gauging_sound), cc.DelayTime:create(0.6), cc.CallFunc:create(play_bomb_sound), 
+                cc.DelayTime:create(1.9), cc.CallFunc:create(card_open_finish_cb))
                 self.root:runAction(sound_sequence)
             end
             
-            animator:addAniHandler(function() finish_cb() end)
+            animator:addAniHandler(function() finish_cb(false) end)
         end
 
         local sequence = cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(change_open_ani))
@@ -237,7 +248,7 @@ function UI_DragonCard_Gacha:openCard(b_do_open_cb)
 
     else
         animator:changeAni('flip_1', false)
-        animator:addAniHandler(function() finish_cb() end)
+        animator:addAniHandler(function() finish_cb(true) end)
     end
 
     return self.m_bIsOpen
