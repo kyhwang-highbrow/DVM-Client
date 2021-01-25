@@ -342,7 +342,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameState_AncientRuin.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
     <None Include="..\src\GameState_Arena.lua" />
-    <None Include="..\src\GameState_ArenaNew.lua" />
     <None Include="..\src\GameState_ChallengeMode.lua" />
     <None Include="..\src\GameState_ClanRaid.lua" />
     <None Include="..\src\GameState_ClanWar.lua" />
@@ -361,7 +360,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameState_SecretDungeon_Relation.lua" />
     <None Include="..\src\GameUnitGroup.lua" />
     <None Include="..\src\GameWorldArena.lua" />
-    <None Include="..\src\GameWorldArenaNew.lua" />
     <None Include="..\src\GameWorldColosseum.lua" />
     <None Include="..\src\GameWorldEventArena.lua" />
     <None Include="..\src\GameWorldForDoubleTeam.lua" />
@@ -491,7 +489,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ScenarioViewingHistory.lua" />
     <None Include="..\src\SceneForest.lua" />
     <None Include="..\src\SceneGameArena.lua" />
-    <None Include="..\src\SceneGameArenaNew.lua" />
     <None Include="..\src\SceneGameChallengeMode.lua" />
     <None Include="..\src\SceneGameClanWar.lua" />
     <None Include="..\src\SceneGameEventArena.lua" />
@@ -1399,7 +1396,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GachaResult_Dragon100.lua" />
     <None Include="..\src\UI_GachaResult_Rune.lua" />
     <None Include="..\src\UI_GameArena.lua" />
-    <None Include="..\src\UI_GameArenaNew.lua" />
     <None Include="..\src\UI_GameChallengeMode.lua" />
     <None Include="..\src\UI_GameClanRaid.lua" />
     <None Include="..\src\UI_GameDebug_InfoPopup.lua" />

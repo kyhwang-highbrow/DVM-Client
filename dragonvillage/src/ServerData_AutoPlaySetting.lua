@@ -63,9 +63,6 @@ function ServerData_AutoPlaySetting:setDefaultSetting(mode, t_auto_play_setting)
         ['auto_mode'] = false,
         -- 빠른 모드 사용
         ['quick_mode'] = false,
-        -- 빠른 모드 사용(4배속까지) {1, 1.5, 3}
-        ['quick_mode_time_scale'] = 1, -- ARENA_NEW test용
-
         -- DPS 패널 사용
         ['dps_panel'] = true,
         -- 연출 스킵 모드 사용
