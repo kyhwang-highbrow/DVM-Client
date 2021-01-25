@@ -307,8 +307,8 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
     animator.m_node:setLocalZOrder(201)
     animator.m_node:setScale(0.2)
     animator.m_node:setPositionY(-40)
-    local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 1), 1.7)
-    local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 0), 1.7)
+    local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 1), 1.7)
+    local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1.7)
 
     local function open_info_func()
         do -- 드래곤 별
@@ -419,15 +419,15 @@ function UI_GachaResult_Dragon100:setDragonInfo(struct_dragon_object, pos_x, pos
     animator.m_node:setPositionX(pos_x)
     animator.m_node:setPositionY(pos_y)
 
-    local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 1), 1.7)
-    local move_start_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(0, -40)), 1.7)
+    local scale_start_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 1), 1.7)
+    local move_start_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(0, -40)), 1.7)
     local start_spawn = cc.Spawn:create(scale_start_action, move_start_action)
 
     animator.m_node:runAction(start_spawn)
 
     local function clear_func()
-        local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.3, 0), 1.7)
-        local move_finish_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.3, cc.p(pos_x, pos_y)), 1.7)
+        local scale_finish_action = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0), 1.7)
+        local move_finish_action = cc.EaseElasticOut:create(cc.MoveTo:create(0.5, cc.p(pos_x, pos_y)), 1.7)
         local finish_spawn = cc.Spawn:create(scale_finish_action, move_finish_action)
         local clean_sequence = cc.Sequence:create(finish_spawn, cc.RemoveSelf:create())
         animator.m_node:stopAllActions()
