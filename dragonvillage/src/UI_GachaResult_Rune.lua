@@ -215,8 +215,12 @@ function UI_GachaResult_Rune:initRuneCardList()
             self:refreshRuneInfo(roid)
         end
 
+        local function open_start_cb()
+            SoundMgr:playEffect('UI', 'ui_card_flip')
+        end
+
         -- 카드를 뒤집고 나서 한번 호출되는 콜백함수
-        local function open_rune_cb()
+        local function open_finish_cb()
              -- 룬 옵션 창을 ACTION!
             if (self.m_tUIIsMoved['runeInfo'] == false) then
                 self.m_tUIIsMoved['runeInfo'] = true
@@ -229,7 +233,8 @@ function UI_GachaResult_Rune:initRuneCardList()
            
         end
         
-        card:setOpenCB(open_rune_cb)
+        card:setOpenStartCB(open_start_cb)
+        card:setOpenFinishCB(open_finish_cb)
         card:setClickCB(click_rune_cb)
 
 		node:addChild(card.root)
@@ -377,7 +382,7 @@ function UI_GachaResult_Rune:update_skip(dt)
 
             if (rune_card:isClose()) then
                 rune_card:openCard(false)
-                SoundMgr:playEffect('UI', 'ui_touch')
+                SoundMgr:playEffect('UI', 'ui_card_flip')
                 self.m_timer = self.m_timer + UI_GachaResult_Rune.UPDATE_OFFSET
                 return
             end

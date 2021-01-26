@@ -12,7 +12,8 @@ UI_RuneCard_Gacha = class(PARENT, {
         m_bIsOpen = 'boolean', -- 현재 룬 카드가 오픈되었는지        
         
         -----------------------------------------------------
-        m_openCB = 'function', -- 룬 카드 오픈한 뒤 콜백될 함수
+        m_openStartCB = 'function', -- 룬 카드 오픈할 뒤 콜백될 함수
+        m_openFinishCB = 'function', -- 룬 카드 오픈한 뒤 콜백될 함수
         m_clickCB = 'function', -- 룬 카드 오픈한 뒤 콜백될 함수
 
     })
@@ -26,7 +27,8 @@ function UI_RuneCard_Gacha:init(t_rune_data)
     
     self.m_bIsOpen = false
     self.m_tRuneData = t_rune_data
-    self.m_openCB = nil
+    self.m_openStartCB = nil
+    self.m_openFinishCB = nil
     self.m_clickCB = nil
 
     self:initUI()
@@ -37,11 +39,19 @@ function UI_RuneCard_Gacha:init(t_rune_data)
 end
 
 -------------------------------------
--- function setOpenCB
--- @param open_cb : 카드 오픈할 때 호출되는 콜백
+-- function setOpenStartCB
+-- @param open_cb : 카드 오픈 시작할 때 호출되는 콜백
 -------------------------------------
-function UI_RuneCard_Gacha:setOpenCB(open_cb)
-    self.m_openCB = open_cb
+function UI_RuneCard_Gacha:setOpenStartCB(open_start_cb)
+    self.m_openStartCB = open_start_cb
+end
+
+-------------------------------------
+-- function setOpenFinishCB
+-- @param open_cb : 카드 오픈 후 호출되는 콜백
+-------------------------------------
+function UI_RuneCard_Gacha:setOpenFinishCB(open_finish_cb)
+    self.m_openFinishCB = open_finish_cb
 end
 
 -------------------------------------
@@ -150,6 +160,10 @@ function UI_RuneCard_Gacha:openCard(b_do_open_cb)
         return
     end
 
+    if (self.m_openStartCB) and (b_do_open_cb == true) then
+        self.m_openStartCB() 
+    end
+
      -- 카드를 뒤집는 애니메이션이 끝나면 룬 카드를 오픈 
     local function finish_cb()
         self.m_bIsOpen = true
@@ -160,8 +174,8 @@ function UI_RuneCard_Gacha:openCard(b_do_open_cb)
         animator:setAnimationPause(true)
 
         vars['runeNode']:setVisible(true)
-        if (self.m_openCB) and (b_do_open_cb == true) then
-            self.m_openCB() 
+        if (self.m_openFinishCB) and (b_do_open_cb == true) then
+            self.m_openFinishCB() 
         end
     end
     
@@ -176,39 +190,7 @@ end
 -- function click_skipBtn
 -------------------------------------
 function UI_RuneCard_Gacha:click_skipBtn()
-    local vars = self.vars
-
-    -- 이미 열린 경우 패스
-    if (self.m_bIsOpen == true) then
-        return
-    end
-    
-    local animator = self.m_animator
-
-    ---- 열리고 있는 도중인 경우 패스
-    if (string.find(animator.m_currAnimation, 'flip')) then
-        return
-    end
-
-    -- 카드를 뒤집는 애니메이션이 끝나면 룬 카드를 오픈 
-    local function finish_cb()
-        self.m_bIsOpen = true
-
-        local duration = 0.2
-        local fade_out = cc.EaseInOut:create(cc.FadeOut:create(duration), 1)
-        animator.m_node:runAction(fade_out)
-        animator:setAnimationPause(true)
-
-        vars['runeNode']:setVisible(true)
-
-        if (self.m_openCB) then
-            self.m_openCB() 
-        end
-    end
-    
-    local grade = math_max(self.m_tRuneData['grade'] - 5, 1)
-    animator:changeAni(string.format('flip_%d', grade), false)
-    animator:addAniHandler(function() finish_cb() end)
+    self:openCard(true)
 end
 
 -------------------------------------
