@@ -241,6 +241,9 @@ function UI_GachaResult_Dragon100:initDragonCardList()
                 local evolution = 3
                 local attr = t_dragon['attr']
                 local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+            
+            else
+                SoundMgr:playEffect('UI', 'ui_card_flip')
             end
         end
 
@@ -277,11 +280,11 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         local fade_in = cc.FadeIn:create(duration)
         local move_action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 1.3)
 
-        local function card_sound_play()
-            SoundMgr:playEffect('UI', 'ui_touch')
+        local function card_set_sound_play()
+            SoundMgr:playEffect('UI', 'ui_card_set')
         end
 
-        local sequence = cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (y_idx - 1)), cc.CallFunc:create(card_sound_play), move_action)
+        local sequence = cc.Sequence:create(cc.DelayTime:create(UI_GachaResult_Dragon100.UPDATE_CARD_SUMMON_OFFSET * (y_idx - 1)), cc.CallFunc:create(card_set_sound_play), move_action)
 
         card.root:setPositionY(y + move_distance)
         card.root:runAction(sequence)
@@ -341,7 +344,11 @@ function UI_GachaResult_Dragon100:directingLegend(struct_dragon_object, pos_x, p
         end
 
         -- 오픈 될 때 사운드 재생
-        SoundMgr:playEffect('UI', 'ui_star_up')
+        if (struct_dragon_object:isLimited()) then
+            SoundMgr:playEffect('BG', 'bgm_dungeon_victory')
+        else
+            SoundMgr:playEffect('UI', 'ui_star_up')
+        end
 
         self:openDragonInfo()
     end
@@ -571,7 +578,6 @@ function UI_GachaResult_Dragon100:update_skip(dt)
 
             if (dragon_card:isClose()) then
                 dragon_card:openCard(true)
-                SoundMgr:playEffect('UI', 'ui_touch')
 
                 if (dragon_card.m_tDragonData:getRarity() == 'legend') then
                     self.m_bCanOpenCard = false
@@ -583,6 +589,9 @@ function UI_GachaResult_Dragon100:update_skip(dt)
                     local evolution = 3
                     local attr = t_dragon['attr']
                     local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+                
+                else
+                    SoundMgr:playEffect('UI', 'ui_card_flip')
                 end
 
                 self.m_timer = self.m_timer + UI_GachaResult_Dragon100.UPDATE_CARD_OPEN_OFFSET
