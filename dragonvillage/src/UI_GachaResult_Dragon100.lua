@@ -248,13 +248,14 @@ function UI_GachaResult_Dragon100:initDragonCardList()
                 local spawn = cc.Spawn:create(move_action, scale_action)
                 card.root:runAction(spawn)
 
-                -- 미리 애니메이터 프리로드
+                -- 연출 전 미리 애니메이터 스파인 캐시에 저장 (렉 제거)
                 local did = t_dragon_data['did']
                 local t_dragon = TableDragon():get(did)
                 local res_name = t_dragon['res']
                 local evolution = 3
                 local attr = t_dragon['attr']
                 local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+                animator:release()
             
             else
                 SoundMgr:playEffect('UI', 'ui_card_flip')
@@ -596,14 +597,14 @@ function UI_GachaResult_Dragon100:update_skip(dt)
                 if (dragon_card.m_tDragonData:getRarity() == 'legend') then
                     self.m_bCanOpenCard = false
                     
-                    -- 미리 애니메이터 프리로드
+                    -- 연출 전 미리 애니메이터 스파인 캐시에 저장 (렉 제거)
                     local did = dragon_card.m_tDragonData['did']
                     local t_dragon = TableDragon():get(did)
                     local res_name = t_dragon['res']
                     local evolution = 3
                     local attr = t_dragon['attr']
                     local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
-                
+                    animator:release()
                 else
                     SoundMgr:playEffect('UI', 'ui_card_flip')
                 end
