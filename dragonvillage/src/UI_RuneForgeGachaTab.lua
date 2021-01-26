@@ -95,7 +95,7 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_RuneForgeGachaTab:click_infoBtn()
-    local ui = UI_RuneForgeGachaTabInfoPopup()
+    MakePopup('rune_forge_gacha_info.ui', nil)
 end
 
 -------------------------------------
