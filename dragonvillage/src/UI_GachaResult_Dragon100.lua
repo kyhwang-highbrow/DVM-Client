@@ -187,6 +187,20 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         local card = UI_DragonCard_Gacha(struct_dragon_object)
         
         card.root:setScale(UI_GachaResult_Dragon100.DRAGON_CARD_SCALE)
+        
+        -- 프레스 함수 세팅
+        local press_card_cb = function()
+            local t_dragon_data_refresh = g_dragonsData:getDragonDataFromUid(doid)
+            local ui = UI_SimpleDragonInfoPopup(t_dragon_data_refresh)
+            ui:setLockPossible(true, false)
+            ui:setCloseCB(function()
+                local t_dragon_data_refresh = g_dragonsData:getDragonDataFromUid(doid)
+                local is_lock = t_dragon_data_refresh:getLock()
+	            card.m_dragonCard:setLockSpriteVisible(is_lock)
+            end)
+        end
+        card.m_dragonCard.vars['clickBtn']:registerScriptPressHandler(press_card_cb)
+        
         vars['dragonMenu']:addChild(card.root)
 
 		self.m_tDragonCardTable[doid] = card
