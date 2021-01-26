@@ -4216,9 +4216,6 @@
     <None Include="..\src\SceneGameClanWar.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\GameState_ClanWar.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_GameResult_ClanWar.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4282,9 +4279,6 @@
     <None Include="..\src\ServerData_ClanWar_Date.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_ClanWarRewardPopup.lua">
-      <Filter>lua\UIC</Filter>
-    </None>
     <None Include="..\src\UI_ClanWarMatchInfoDetailPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -4323,12 +4317,6 @@
     </None>
     <None Include="..\src\UI_ClanWarLastGroupStagePopup.lua">
       <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ClanWarTournamentTreeLeaf.lua">
-      <Filter>lua\UIC</Filter>
-    </None>
-    <None Include="..\src\UI_ClanWarTournamentTreeFinalItem.lua">
-      <Filter>lua\UIC</Filter>
     </None>
     <None Include="..\src\UI_ClanWarSelectSceneListItem.lua">
       <Filter>lua\UI</Filter>
@@ -4818,6 +4806,18 @@
     </None>
     <None Include="..\src\UI_DragonCard_Gacha.lua">
       <Filter>lua\UI_Card</Filter>
+    </None>
+    <None Include="..\src\GameState_ClanWar.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarTournamentTreeFinalItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanWarTournamentTreeLeaf.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
