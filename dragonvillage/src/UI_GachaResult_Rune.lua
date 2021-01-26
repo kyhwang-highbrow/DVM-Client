@@ -254,8 +254,14 @@ function UI_GachaResult_Rune:initRuneCardList()
         local fade_in = cc.FadeIn:create(duration)
         local action = cc.EaseInOut:create(cc.Spawn:create(fade_in, move), 1.3)
         
+        local function card_set_sound_play()
+            SoundMgr:playEffect('UI', 'ui_card_set')
+        end
+
+        local sequence = cc.Sequence:create( cc.CallFunc:create(card_set_sound_play), action)
+
         rune_card.root:setPositionY(y + move_distance)
-        rune_card.root:runAction(action)
+        rune_card.root:runAction(sequence)
     end
 
     vars['skipBtn']:setVisible(true)
