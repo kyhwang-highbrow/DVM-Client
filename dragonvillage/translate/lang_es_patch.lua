@@ -97,6 +97,7 @@ return {['10일차 클리어 시 아이템 수령 가능']='Limpiar durante 10 d
 ['드래곤\n100회\n뽑기']='Dragón\nDraw\nx100',
 ['전설 드래곤 확률\n2배 UP']='Tasa de dragón legendario \nx2',
 ['3주년 기념 코스튬 판매']='Venta de Traje de 3er Aniversario',
+['{1} {2}개를 사용하여\n{3}(을)를 구매하시겠습니까?']='¿Deseas comprar{3}\nusando {2} {1}?',
 ['{@SKILL_NAME}7등급 룬 합성\n{@DEFAULT}랜덤한 7등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grado 7 de la runa de fusión\n{@DEFAULT}genera aleatoriamente grado 7 Runas.',
 ['7등급 룬 업데이트']='Actualización de runas de rango 7',
 ['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}~{3}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grado {1} de la runa de fusión\n{@DEFAULT}genera aleatoriamente grado {2} - {3} Runas.',

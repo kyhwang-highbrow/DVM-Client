@@ -97,6 +97,7 @@ return {['10일차 클리어 시 아이템 수령 가능']='Clear for 10 days to
 ['드래곤\n100회\n뽑기']='Dragon\nDraw\nx100',
 ['전설 드래곤 확률\n2배 UP']='Legendary dragon rate\nx2 UP',
 ['3주년 기념 코스튬 판매']='3rd Anniversary Costume on Sale',
+['{1} {2}개를 사용하여\n{3}(을)를 구매하시겠습니까?']='Use {2} of {1}\nto purchase {3}?',
 ['7등급 룬 업데이트']='Grade 7 Rune Update',
 ['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}~{3}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grade {1} Rune Fusion\n{@DEFAULT}Randomly generates Grade {2} - {3} Runes.',
 ['{@SKILL_NAME}{1}등급 룬 합성\n{@DEFAULT}랜덤한 {2}등급 룬을 얻을 수 있습니다.']='{@SKILL_NAME}Grade {1} Rune Fusion\n{@DEFAULT}Randomly generates Grade {2} Runes.',
