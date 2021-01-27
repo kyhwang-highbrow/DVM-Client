@@ -81,6 +81,7 @@ function UI_StaminaChargePopup:initTypeVariable(type)
             local item_card = UI_ItemCard(item_id, count)
             if (count == 0) then
                 item_card.vars['disableSprite']:setVisible(true)
+                item_card.vars['numberLabel']:setString(tostring(count))
             end
 
             vars['iconNode']:removeAllChildren()
