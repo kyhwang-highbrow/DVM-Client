@@ -331,7 +331,7 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
         local b_use_cash_label = true
         local b_open_spot_sale = true
         local st_charge_popup = UI_StaminaChargePopup(b_use_cash_label, b_open_spot_sale, finish_cb)
-        
+        UIManager:toastNotificationRed(Str('날개가 부족합니다.'))
         --local spot_sale = ServerData_SpotSale:checkSpotSale('st', nil, finish_cb) -- price_type, price_value, finish_cb
         --
         --if (not spot_sale) then
