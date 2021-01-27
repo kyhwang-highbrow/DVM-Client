@@ -520,16 +520,7 @@ function UI_Lobby:entryCoroutine_requestUsersLobby(co)
 		co:work()
 		cclog('# 이벤트 정보 받는 중')
 
-		local cb_func = function()
-            -- 처음 로비 세팅할 때 장식 데이터를 받기 전이라 장식이 없음, 장식 데이터를 받고 추가로 로비 장식 해줌
-            if (ENTRY_LOBBY_CNT == 1) then
-                local lobby_map = self.m_lobbyWorldAdapter:getLobbymap()
-                LobbyMapFactory:setDeco(lobby_map, self)
-            end
-            co.NEXT()
-        end
-
-        g_eventData:response_eventList(ret, cb_func)
+        g_eventData:response_eventList(ret, co.NEXT)
 		if co:waitWork() then return end
 
 		co:work()
