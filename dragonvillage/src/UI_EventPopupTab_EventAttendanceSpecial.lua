@@ -36,7 +36,7 @@ function UI_EventPopupTab_EventAttendanceSpecial:initUI()
     local atd_id = struct_attendance_data['atd_id']
 
     local list_ui
-    if (atd_id == 50011) then
+    if (isExistValue(atd_id, 50011, 50015)) then
         require('UI_AttendanceSpecialListItem_3rdAnniv')
         list_ui = UI_AttendanceSpecialListItem_3rdAnniv(struct_attendance_data, atd_id)
     else
