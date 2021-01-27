@@ -190,11 +190,6 @@ function UI_GachaResult_Dragon100:initDragonCardList()
         
         -- 프레스 함수 세팅
         local press_card_cb = function()
-            -- 모든 카드가 열렸을 때만 작동되도록 하자
-             if (self:isAllCardOpen() == false) then
-                return
-            end
-
             local t_dragon_data_refresh = g_dragonsData:getDragonDataFromUid(doid)
             local ui = UI_SimpleDragonInfoPopup(t_dragon_data_refresh)
             ui:setLockPossible(true, false)
