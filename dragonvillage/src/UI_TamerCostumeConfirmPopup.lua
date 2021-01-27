@@ -63,7 +63,7 @@ function UI_TamerCostumeConfirmPopup:initUI()
 
     local str_price = price_type == 'cash' and Str('다이아몬드') or Str('골드')
     local costume_name = costume_data:getName()
-    local msg = Str('{1} {2}개를 사용하여\n{3}을 구매하시겠습니까?', str_price, comma_value(price), costume_name)
+    local msg = Str('{1} {2}개를 사용하여\n{3}(을)를 구매하시겠습니까?', str_price, comma_value(price), costume_name)
     vars['messageLabel']:setString(msg)
 end
 
