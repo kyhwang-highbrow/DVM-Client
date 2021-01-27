@@ -89,7 +89,7 @@ function UI_CntBtnPress:update(dt)
         -- 현재 개수 반환
         local curr_count = self.m_cntFunc()
 
-        local next_count = math_max(0, curr_count + self.m_sign)
+        local next_count = math_max(1, curr_count + self.m_sign)
 
         -- 해당 개수가 불가능할 때 false
         if (self.m_condFunc(next_count) == false) then

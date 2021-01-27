@@ -74,7 +74,7 @@ function UI_StaminaChargePopup:initTypeVariable(type)
         self.m_needCash = product_price
 
     elseif (type == 'use') then
-        self.m_useCnt = 0
+        self.m_useCnt = 1
         do -- 찬란한 날개 생성
             local item_id = 700711
             local count = g_userData:get('st_100') or 0
@@ -166,9 +166,9 @@ end
 function UI_StaminaChargePopup:click_quantityBtn(type, sign)
     local cnt = 0
     if (type == 'buy') then
-        cnt = math_max(0, self.m_buyCnt + sign)
+        cnt = math_max(1, self.m_buyCnt + sign)
     elseif (type == 'use') then
-        cnt = math_max(0, self.m_useCnt + sign)
+        cnt = math_max(1, self.m_useCnt + sign)
     end
 
     self:conditionFunc(type, cnt)
@@ -221,7 +221,13 @@ function UI_StaminaChargePopup:click_purchaseBtn()
     local struct_product = g_shopDataNew:getTargetProduct(product_id)
     local buy_cnt = self.m_buyCnt
 
-    if (buy_cnt == 0) then
+    local product_price = struct_product.price
+    local total_price = buy_cnt * product_price
+    local user_cash = g_userData:get('cash') or 0
+    
+    -- 구매 가능한지 검사    
+    if (total_price > user_cash) then
+        UIManager:toastNotificationRed(Str('다이아몬드가 부족합니다.'))
         return
     end
 
@@ -249,7 +255,10 @@ function UI_StaminaChargePopup:click_useBtn()
     local item_id = 700711
     local use_cnt = self.m_useCnt
 
-    if (use_cnt == 0) then
+    -- 사용 가능한지 검사
+    local user_st_100 = g_userData:get('st_100') or 0
+    if (user_st_100 < use_cnt) then
+        UIManager:toastNotificationRed(Str('찬란한 날개가 부족합니다.'))  
         return
     end
 
