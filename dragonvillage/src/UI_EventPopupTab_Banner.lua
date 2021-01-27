@@ -135,7 +135,8 @@ function UI_EventPopupTab_Banner:init_customUI()
 
     -- 콜로세움 명예 획득량 증가 핫타임
     elseif (banner == 'event_fevertime_notice_02.ui') then
-        self:changeTitleSprite(vars)
+        -- otherMarketSprite / googleSprite 제거에 따른 대응
+        --self:changeTitleSprite(vars)
     
     -- 인스타그램 관련 배너
     elseif (banner == 'event_instagram.ui') then
@@ -153,6 +154,7 @@ end
 -- @brief 구글 피쳐드 선정 기념. 구글 market -> '구글 피처드 선정 기념 ~', 아니면 '피처드 선정 기념 ~'
 -- @brief UI_GoogleFeaturedContentChange를 상속받아 함수의 중복을 없앤다. (쓸모 없는 코드지만 이미 작업을 완료 하였으니 피처드 끝난 이후 커밋하여 코드를 깔끔하게 한다.)
 -------------------------------------
+--[[
 function UI_EventPopupTab_Banner:changeTitleSprite(ui)
     if (ui['otherMarketSprite'] and ui['otherMarketSprite']) then
         local market, os = GetMarketAndOS()
@@ -165,6 +167,7 @@ function UI_EventPopupTab_Banner:changeTitleSprite(ui)
         end
     end
 end
+]]
 
 -------------------------------------
 -- function click_bannerBtn
