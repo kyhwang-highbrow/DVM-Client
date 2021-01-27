@@ -137,7 +137,12 @@ function UI_EventPopupTab_Banner:init_customUI()
     elseif (banner == 'event_fevertime_notice_02.ui') then
         -- otherMarketSprite / googleSprite 제거에 따른 대응
         --self:changeTitleSprite(vars)
-    
+        local label = vars['infoLabel']
+        if label then
+            local str = Str('콜로세움에서 획득하는 명예 획득량이 {@yellow}{1}% 증가{@default}합니다.', 100)
+            label:setString(str)
+        end
+
     -- 인스타그램 관련 배너
     elseif (banner == 'event_instagram.ui') then
         -- 인스타그램 페이지로 이동
