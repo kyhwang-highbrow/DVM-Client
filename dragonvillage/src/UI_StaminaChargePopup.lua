@@ -167,9 +167,9 @@ end
 function UI_StaminaChargePopup:click_quantityBtn(type, sign)
     local cnt = 0
     if (type == 'buy') then
-        cnt = math_max(1, self.m_buyCnt + sign)
+        cnt = self.m_buyCnt + sign
     elseif (type == 'use') then
-        cnt = math_max(1, self.m_useCnt + sign)
+        cnt = self.m_useCnt + sign
     end
 
     self:conditionFunc(type, cnt)
@@ -309,6 +309,10 @@ end
 -------------------------------------
 function UI_StaminaChargePopup:conditionFunc(type, cnt)
     -- 조건 검사
+    if (cnt <= 0) then
+        return false
+    end
+
     if (type == 'buy') then
         -- 날개 180개 묶음 아이템
         local product_id = 10013
