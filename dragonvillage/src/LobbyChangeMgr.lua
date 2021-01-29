@@ -136,8 +136,12 @@ end
 function LobbyChangeMgr:globalUpdatePlayerUserInfo()
     local type = self.m_curType
     local chat_client_socket = self:getChatClientSocket()
-    if chat_client_socket then
-        chat_client_socket:globalUpdatePlayerUserInfo()
+    if (g_chatClientSocket) then
+        g_chatClientSocket:globalUpdatePlayerUserInfo()
+    end
+
+    if (g_clanChatClientSocket) then
+        g_clanChatClientSocket:globalUpdatePlayerUserInfo()
     end
 end
 
